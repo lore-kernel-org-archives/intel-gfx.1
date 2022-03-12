@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C35CC433F5
-	for <intel-gfx@archiver.kernel.org>; Sat, 12 Mar 2022 00:11:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18524C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat, 12 Mar 2022 00:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 757DF10E039;
-	Sat, 12 Mar 2022 00:11:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6499B10E08C;
+	Sat, 12 Mar 2022 00:11:23 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB5AD10E039
- for <intel-gfx@lists.freedesktop.org>; Sat, 12 Mar 2022 00:11:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7168110E039
+ for <intel-gfx@lists.freedesktop.org>; Sat, 12 Mar 2022 00:11:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647043880; x=1678579880;
+ t=1647043881; x=1678579881;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7f3NRTPL96aNck7X5MHVKThMv4Dq5DXehSwZRwWHuEI=;
- b=mLuTHpytoxcw02EbXT24XPe5ALetQdhGl/+AlJqOxfA4ZcrelK787ZKZ
- o2TnN0aX7w+2a1HLWUJvirvjbB/HPcG+VZ8JhFcbmVzINbb4qtw75+xos
- +tVXNIItvEcyqAh3+kHFZeG1bmbGNskmG713rSZF9PXH0HIMnVXH+3FQZ
- V8Hb0Hns1sRqBt61E4RPf68EV/7vCSFziLcVBc/fSKtHIruv/RPfE1pkj
- L7Yag+D8izS8Ku06MWgV+fwvT3hqnczehB+75tXkGWGAru1x2j8SH9NXc
- l530ZCQEvnjroGVfEIXEodNmPsZAvMyDB1vjSWCQW1IdiYY6SkVP74bdO A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10283"; a="316399848"
-X-IronPort-AV: E=Sophos;i="5.90,175,1643702400"; d="scan'208";a="316399848"
+ bh=/MxC5DD5HSdqT7iFppSlyxwDT7qko9Otzzpxhb6n7V4=;
+ b=eBZTQbwMfX5NkjX/uKwjE2xupP8FsOMV5lgs6h/vSRAu013XWxWcA0xj
+ SMej0xhy+5CCY2jq5SIE/AT7YdS1G9P9lw1Kp2RiguDxN5Ev7TacdjOV1
+ K2QRfJ0dLjt30RZUiFmVr8HHLgh0vPSGEwjqtVEhlYLVc+G3AkbB7uOy3
+ 0KhtdP8DJOzKXhXaksldxodL0uqBg9ElGjqu0aT25m5e4h6Vb/Ia9EUHk
+ CcIBnN3+T9oT4PsLWfyLPyzwjLzM8lFG58I/wZqm3t37rrODvZBYOJlv6
+ 83no6Z3Rn6SrbyAvwXWK4wlkBKCKCUIVJNcSLxUWbjyrhqgd/tYIQt17E g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10283"; a="316399855"
+X-IronPort-AV: E=Sophos;i="5.90,175,1643702400"; d="scan'208";a="316399855"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2022 16:11:19 -0800
+ 11 Mar 2022 16:11:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,175,1643702400"; d="scan'208";a="514681547"
+X-IronPort-AV: E=Sophos;i="5.90,175,1643702400"; d="scan'208";a="514681575"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga006.jf.intel.com with ESMTP; 11 Mar 2022 16:11:19 -0800
+ by orsmga006.jf.intel.com with ESMTP; 11 Mar 2022 16:11:20 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Mar 2022 16:13:32 -0800
-Message-Id: <20220312001344.1314090-3-alan.previn.teres.alexis@intel.com>
+Date: Fri, 11 Mar 2022 16:13:38 -0800
+Message-Id: <20220312001344.1314090-9-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220312001344.1314090-1-alan.previn.teres.alexis@intel.com>
 References: <20220312001344.1314090-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 02/13] drm/i915/guc: Add XE_LP static
- registers for GuC error capture.
+Subject: [Intel-gfx] [PATCH v8 08/13] drm/i915/guc: Add capture region into
+ intel_guc_log
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,208 +60,209 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add device specific tables and register lists to cover different engines
-class types for GuC error state capture for XE_LP products.
+GuC log buffer regions for debug-log-events, crash-dumps and
+error-state-capture are all part of a single bo allocation that
+also includes the guc_log_buffer_state structures. Now that we
+support it, increase the size allocation for error-capture.
+
+Since the error-capture region is accessed at non-deterministic
+times (as part of GuC triggered context reset) while debug-log-
+events region is accessed as part of relay logging or during
+debugfs triggered dumps, move the mapping and unmapping of the
+shared buffer into intel_guc_log_create and intel_guc_log_destroy
+so that it's always mapped throughout life of GuC operation.
+
+Additionally, while here, update the guc log region layout
+diagram to follow the order according to the enum definition
+as per the GuC interface.
+
+NOTE: A future effort to visit (part of baseline code) is that
+buf_addr should be updated to be a io_sys_map and use the
+io_sys_map wrapper functions to access the various GuC log
+buffer regions.
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 116 ++++++++++++++----
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   4 +-
- 2 files changed, 97 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 58 +++++++++++++---------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.h |  3 +-
+ 2 files changed, 36 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index b8bbde01e5b1..a1a554efc642 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -19,43 +19,109 @@
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+index 0d63c411080f..a2da3f6f2ba0 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+@@ -26,7 +26,8 @@ static void guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log);
+ static int guc_action_flush_log_complete(struct intel_guc *guc)
+ {
+ 	u32 action[] = {
+-		INTEL_GUC_ACTION_LOG_BUFFER_FILE_FLUSH_COMPLETE
++		INTEL_GUC_ACTION_LOG_BUFFER_FILE_FLUSH_COMPLETE,
++		GUC_DEBUG_LOG_BUFFER
+ 	};
  
- /*
-  * Define all device tables of GuC error capture register lists
-- * NOTE: For engine-registers, GuC only needs the register offsets
-- *       from the engine-mmio-base
-+ * NOTE1: For engine-registers, GuC only needs the register offsets
-+ *        from the engine-mmio-base
-  */
-+#define COMMON_GEN12BASE_GLOBAL() \
-+	{GEN12_FAULT_TLB_DATA0,    0,      0, "GEN12_FAULT_TLB_DATA0"}, \
-+	{GEN12_FAULT_TLB_DATA1,    0,      0, "GEN12_FAULT_TLB_DATA1"}, \
-+	{FORCEWAKE_MT,             0,      0, "FORCEWAKE"}, \
-+	{GEN12_AUX_ERR_DBG,        0,      0, "AUX_ERR_DBG"}, \
-+	{GEN12_GAM_DONE,           0,      0, "GAM_DONE"}, \
-+	{GEN12_RING_FAULT_REG,     0,      0, "FAULT_REG"}
-+
-+#define COMMON_GEN12BASE_ENGINE_INSTANCE() \
-+	{RING_PSMI_CTL(0),         0,      0, "RC PSMI"}, \
-+	{RING_ESR(0),              0,      0, "ESR"}, \
-+	{RING_DMA_FADD(0),         0,      0, "RING_DMA_FADD_LDW"}, \
-+	{RING_DMA_FADD_UDW(0),     0,      0, "RING_DMA_FADD_UDW"}, \
-+	{RING_IPEIR(0),            0,      0, "IPEIR"}, \
-+	{RING_IPEHR(0),            0,      0, "IPEHR"}, \
-+	{RING_INSTPS(0),           0,      0, "INSTPS"}, \
-+	{RING_BBADDR(0),           0,      0, "RING_BBADDR_LOW32"}, \
-+	{RING_BBADDR_UDW(0),       0,      0, "RING_BBADDR_UP32"}, \
-+	{RING_BBSTATE(0),          0,      0, "BB_STATE"}, \
-+	{CCID(0),                  0,      0, "CCID"}, \
-+	{RING_ACTHD(0),            0,      0, "ACTHD_LDW"}, \
-+	{RING_ACTHD_UDW(0),        0,      0, "ACTHD_UDW"}, \
-+	{RING_INSTPM(0),           0,      0, "INSTPM"}, \
-+	{RING_INSTDONE(0),         0,      0, "INSTDONE"}, \
-+	{RING_NOPID(0),            0,      0, "RING_NOPID"}, \
-+	{RING_START(0),            0,      0, "START"}, \
-+	{RING_HEAD(0),             0,      0, "HEAD"}, \
-+	{RING_TAIL(0),             0,      0, "TAIL"}, \
-+	{RING_CTL(0),              0,      0, "CTL"}, \
-+	{RING_MI_MODE(0),          0,      0, "MODE"}, \
-+	{RING_CONTEXT_CONTROL(0),  0,      0, "RING_CONTEXT_CONTROL"}, \
-+	{RING_HWS_PGA(0),          0,      0, "HWS"}, \
-+	{RING_MODE_GEN7(0),        0,      0, "GFX_MODE"}, \
-+	{GEN8_RING_PDP_LDW(0, 0),  0,      0, "PDP0_LDW"}, \
-+	{GEN8_RING_PDP_UDW(0, 0),  0,      0, "PDP0_UDW"}, \
-+	{GEN8_RING_PDP_LDW(0, 1),  0,      0, "PDP1_LDW"}, \
-+	{GEN8_RING_PDP_UDW(0, 1),  0,      0, "PDP1_UDW"}, \
-+	{GEN8_RING_PDP_LDW(0, 2),  0,      0, "PDP2_LDW"}, \
-+	{GEN8_RING_PDP_UDW(0, 2),  0,      0, "PDP2_UDW"}, \
-+	{GEN8_RING_PDP_LDW(0, 3),  0,      0, "PDP3_LDW"}, \
-+	{GEN8_RING_PDP_UDW(0, 3),  0,      0, "PDP3_UDW"}
-+
-+#define COMMON_GEN12BASE_HAS_EU() \
-+	{EIR,                      0,      0, "EIR"}
-+
-+#define COMMON_GEN12BASE_RENDER() \
-+	{GEN7_SC_INSTDONE,         0,      0, "GEN7_SC_INSTDONE"}, \
-+	{GEN12_SC_INSTDONE_EXTRA,  0,      0, "GEN12_SC_INSTDONE_EXTRA"}, \
-+	{GEN12_SC_INSTDONE_EXTRA2, 0,      0, "GEN12_SC_INSTDONE_EXTRA2"}
-+
-+#define COMMON_GEN12BASE_VEC() \
-+	{GEN12_SFC_DONE(0),        0,      0, "SFC_DONE[0]"}, \
-+	{GEN12_SFC_DONE(1),        0,      0, "SFC_DONE[1]"}, \
-+	{GEN12_SFC_DONE(2),        0,      0, "SFC_DONE[2]"}, \
-+	{GEN12_SFC_DONE(3),        0,      0, "SFC_DONE[3]"}
-+
- /* XE_LPD - Global */
- static const struct __guc_mmio_reg_descr xe_lpd_global_regs[] = {
--	{GEN12_RING_FAULT_REG,     0,      0, "GEN12_RING_FAULT_REG"}
-+	COMMON_GEN12BASE_GLOBAL(),
- };
+ 	return intel_guc_send(guc, action, ARRAY_SIZE(action));
+@@ -137,7 +138,7 @@ static void guc_move_to_next_buf(struct intel_guc_log *log)
+ 	smp_wmb();
  
- /* XE_LPD - Render / Compute Per-Class */
- static const struct __guc_mmio_reg_descr xe_lpd_rc_class_regs[] = {
--	{EIR,                      0,      0, "EIR"}
-+	COMMON_GEN12BASE_HAS_EU(),
-+	COMMON_GEN12BASE_RENDER(),
- };
+ 	/* All data has been written, so now move the offset of sub buffer. */
+-	relay_reserve(log->relay.channel, log->vma->obj->base.size);
++	relay_reserve(log->relay.channel, log->vma->obj->base.size - CAPTURE_BUFFER_SIZE);
  
- /* XE_LPD - Render / Compute Per-Engine-Instance */
- static const struct __guc_mmio_reg_descr xe_lpd_rc_inst_regs[] = {
--	{RING_HEAD(0),             0,      0, "RING_HEAD"},
--	{RING_TAIL(0),             0,      0, "RING_TAIL"},
-+	COMMON_GEN12BASE_ENGINE_INSTANCE(),
- };
+ 	/* Switch to the next sub buffer */
+ 	relay_flush(log->relay.channel);
+@@ -213,7 +214,7 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
+ 		goto out_unlock;
  
- /* XE_LPD - Media Decode/Encode Per-Class */
- static const struct __guc_mmio_reg_descr xe_lpd_vd_class_regs[] = {
-+	COMMON_GEN12BASE_ENGINE_INSTANCE(),
- };
+ 	/* Get the pointer to shared GuC log buffer */
+-	log_buf_state = src_data = log->relay.buf_addr;
++	log_buf_state = src_data = log->buf_addr;
  
- /* XE_LPD - Media Decode/Encode Per-Engine-Instance */
- static const struct __guc_mmio_reg_descr xe_lpd_vd_inst_regs[] = {
--	{RING_HEAD(0),             0,      0, "RING_HEAD"},
--	{RING_TAIL(0),             0,      0, "RING_TAIL"},
-+	COMMON_GEN12BASE_ENGINE_INSTANCE(),
- };
+ 	/* Get the pointer to local buffer to store the logs */
+ 	log_buf_snapshot_state = dst_data = guc_get_write_buffer(log);
+@@ -233,7 +234,8 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
+ 	src_data += PAGE_SIZE;
+ 	dst_data += PAGE_SIZE;
  
- /* XE_LPD - Video Enhancement Per-Class */
- static const struct __guc_mmio_reg_descr xe_lpd_vec_class_regs[] = {
-+	COMMON_GEN12BASE_VEC(),
- };
+-	for (type = GUC_DEBUG_LOG_BUFFER; type < GUC_MAX_LOG_BUFFER; type++) {
++	/* For relay logging, we exclude error state capture */
++	for (type = GUC_DEBUG_LOG_BUFFER; type <= GUC_CRASH_DUMP_LOG_BUFFER; type++) {
+ 		/*
+ 		 * Make a copy of the state structure, inside GuC log buffer
+ 		 * (which is uncached mapped), on the stack to avoid reading
+@@ -311,23 +313,17 @@ static void copy_debug_logs_work(struct work_struct *work)
  
- /* XE_LPD - Video Enhancement Per-Engine-Instance */
- static const struct __guc_mmio_reg_descr xe_lpd_vec_inst_regs[] = {
--	{RING_HEAD(0),             0,      0, "RING_HEAD"},
--	{RING_TAIL(0),             0,      0, "RING_TAIL"},
-+	COMMON_GEN12BASE_ENGINE_INSTANCE(),
-+};
-+
-+/* XE_LPD - Blitter Per-Engine-Instance */
-+static const struct __guc_mmio_reg_descr xe_lpd_blt_inst_regs[] = {
-+	COMMON_GEN12BASE_ENGINE_INSTANCE(),
-+};
-+
-+/* XE_LPD - Blitter Per-Class */
-+/* XE_LPD - Media Decode/Encode Per-Class */
-+static const struct __guc_mmio_reg_descr empty_regs_list[] = {
- };
+ static int guc_log_relay_map(struct intel_guc_log *log)
+ {
+-	void *vaddr;
+-
+ 	lockdep_assert_held(&log->relay.lock);
  
- #define TO_GCAP_DEF_OWNER(x) (GUC_CAPTURE_LIST_INDEX_##x)
-@@ -74,10 +140,12 @@ static const struct __guc_mmio_reg_descr_group xe_lpd_lists[] = {
- 	MAKE_REGLIST(xe_lpd_global_regs, PF, GLOBAL, 0),
- 	MAKE_REGLIST(xe_lpd_rc_class_regs, PF, ENGINE_CLASS, GUC_RENDER_CLASS),
- 	MAKE_REGLIST(xe_lpd_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_RENDER_CLASS),
--	MAKE_REGLIST(xe_lpd_vd_class_regs, PF, ENGINE_CLASS, GUC_VIDEO_CLASS),
-+	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_VIDEO_CLASS),
- 	MAKE_REGLIST(xe_lpd_vd_inst_regs, PF, ENGINE_INSTANCE, GUC_VIDEO_CLASS),
- 	MAKE_REGLIST(xe_lpd_vec_class_regs, PF, ENGINE_CLASS, GUC_VIDEOENHANCE_CLASS),
- 	MAKE_REGLIST(xe_lpd_vec_inst_regs, PF, ENGINE_INSTANCE, GUC_VIDEOENHANCE_CLASS),
-+	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_BLITTER_CLASS),
-+	MAKE_REGLIST(xe_lpd_blt_inst_regs, PF, ENGINE_INSTANCE, GUC_BLITTER_CLASS),
- 	{}
- };
- 
-@@ -191,20 +259,24 @@ guc_capture_list_init(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
+-	if (!log->vma)
++	if (!log->vma || !log->buf_addr)
  		return -ENODEV;
  
- 	match = guc_capture_get_one_list(reglists, owner, type, classid);
--	if (match) {
--		for (i = 0; i < num_entries && i < match->num_regs; ++i) {
--			ptr[i].offset = match->list[i].reg.reg;
--			ptr[i].value = 0xDEADF00D;
--			ptr[i].flags = match->list[i].flags;
--			ptr[i].mask = match->list[i].mask;
--		}
--		return 0;
-+	if (!match) {
-+		guc_capture_warn_with_list_info(i915, "Missing register list init", owner, type,
-+						classid);
-+		return -ENODATA;
-+	}
-+
-+	for (i = 0; i < num_entries && i < match->num_regs; ++i) {
-+		ptr[i].offset = match->list[i].reg.reg;
-+		ptr[i].value = 0xDEADF00D;
-+		ptr[i].flags = match->list[i].flags;
-+		ptr[i].mask = match->list[i].mask;
- 	}
+ 	/*
+-	 * Create a WC (Uncached for read) vmalloc mapping of log
+-	 * buffer pages, so that we can directly get the data
+-	 * (up-to-date) from memory.
++	 * WC vmalloc mapping of log buffer pages was done at
++	 * GuC Log Init time, but lets keep a ref for book-keeping
+ 	 */
+-	vaddr = i915_gem_object_pin_map_unlocked(log->vma->obj, I915_MAP_WC);
+-	if (IS_ERR(vaddr))
+-		return PTR_ERR(vaddr);
+-
+-	log->relay.buf_addr = vaddr;
++	i915_gem_object_get(log->vma->obj);
++	log->relay.buf_in_use = true;
  
--	guc_capture_warn_with_list_info(i915, "Missing register list init", owner, type,
--					classid);
-+	if (i < num_entries)
-+		drm_dbg(&i915->drm, "GuC-capture: Init reglist short %d out %d.\n",
-+			(int)i, (int)num_entries);
+ 	return 0;
+ }
+@@ -336,8 +332,8 @@ static void guc_log_relay_unmap(struct intel_guc_log *log)
+ {
+ 	lockdep_assert_held(&log->relay.lock);
  
--	return -ENODATA;
-+	return 0;
+-	i915_gem_object_unpin_map(log->vma->obj);
+-	log->relay.buf_addr = NULL;
++	i915_gem_object_put(log->vma->obj);
++	log->relay.buf_in_use = false;
  }
  
- static int
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index 82a7757c112f..85cc6612106f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -285,10 +285,12 @@ struct guc_mmio_reg {
- 	u32 offset;
- 	u32 value;
- 	u32 flags;
--	u32 mask;
- #define GUC_REGSET_MASKED		BIT(0)
- #define GUC_REGSET_MASKED_WITH_VALUE	BIT(2)
- #define GUC_REGSET_RESTORE_ONLY		BIT(3)
-+#define GUC_REGSET_STEERING_GROUP       GENMASK(15, 12)
-+#define GUC_REGSET_STEERING_INSTANCE    GENMASK(23, 20)
-+	u32 mask;
- } __packed;
+ void intel_guc_log_init_early(struct intel_guc_log *log)
+@@ -443,6 +439,7 @@ int intel_guc_log_create(struct intel_guc_log *log)
+ {
+ 	struct intel_guc *guc = log_to_guc(log);
+ 	struct i915_vma *vma;
++	void *vaddr;
+ 	u32 guc_log_size;
+ 	int ret;
  
- /* GuC register sets */
+@@ -450,20 +447,21 @@ int intel_guc_log_create(struct intel_guc_log *log)
+ 
+ 	/*
+ 	 *  GuC Log buffer Layout
++	 * (this ordering must follow "enum guc_log_buffer_type" definition)
+ 	 *
+ 	 *  +===============================+ 00B
+-	 *  |    Crash dump state header    |
+-	 *  +-------------------------------+ 32B
+ 	 *  |      Debug state header       |
++	 *  +-------------------------------+ 32B
++	 *  |    Crash dump state header    |
+ 	 *  +-------------------------------+ 64B
+ 	 *  |     Capture state header      |
+ 	 *  +-------------------------------+ 96B
+ 	 *  |                               |
+ 	 *  +===============================+ PAGE_SIZE (4KB)
+-	 *  |        Crash Dump logs        |
+-	 *  +===============================+ + CRASH_SIZE
+ 	 *  |          Debug logs           |
+ 	 *  +===============================+ + DEBUG_SIZE
++	 *  |        Crash Dump logs        |
++	 *  +===============================+ + CRASH_SIZE
+ 	 *  |         Capture logs          |
+ 	 *  +===============================+ + CAPTURE_SIZE
+ 	 */
+@@ -477,6 +475,17 @@ int intel_guc_log_create(struct intel_guc_log *log)
+ 	}
+ 
+ 	log->vma = vma;
++	/*
++	 * Create a WC (Uncached for read) vmalloc mapping up front immediate access to
++	 * data from memory during  critical events such as error capture
++	 */
++	vaddr = i915_gem_object_pin_map_unlocked(log->vma->obj, I915_MAP_WC);
++	if (IS_ERR(vaddr)) {
++		ret = PTR_ERR(vaddr);
++		i915_vma_unpin_and_release(&log->vma, 0);
++		goto err;
++	}
++	log->buf_addr = vaddr;
+ 
+ 	log->level = __get_default_log_level(log);
+ 	DRM_DEBUG_DRIVER("guc_log_level=%d (%s, verbose:%s, verbosity:%d)\n",
+@@ -487,13 +496,14 @@ int intel_guc_log_create(struct intel_guc_log *log)
+ 	return 0;
+ 
+ err:
+-	DRM_ERROR("Failed to allocate GuC log buffer. %d\n", ret);
++	DRM_ERROR("Failed to allocate or map GuC log buffer. %d\n", ret);
+ 	return ret;
+ }
+ 
+ void intel_guc_log_destroy(struct intel_guc_log *log)
+ {
+-	i915_vma_unpin_and_release(&log->vma, 0);
++	log->buf_addr = NULL;
++	i915_vma_unpin_and_release(&log->vma, I915_VMA_RELEASE_MAP);
+ }
+ 
+ int intel_guc_log_set_level(struct intel_guc_log *log, u32 level)
+@@ -538,7 +548,7 @@ int intel_guc_log_set_level(struct intel_guc_log *log, u32 level)
+ 
+ bool intel_guc_log_relay_created(const struct intel_guc_log *log)
+ {
+-	return log->relay.buf_addr;
++	return log->buf_addr;
+ }
+ 
+ int intel_guc_log_relay_open(struct intel_guc_log *log)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
+index d7e1b6471fed..e1345fca7729 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
+@@ -49,8 +49,9 @@ struct intel_guc;
+ struct intel_guc_log {
+ 	u32 level;
+ 	struct i915_vma *vma;
++	void *buf_addr;
+ 	struct {
+-		void *buf_addr;
++		bool buf_in_use;
+ 		bool started;
+ 		struct work_struct flush_work;
+ 		struct rchan *channel;
 -- 
 2.25.1
 
