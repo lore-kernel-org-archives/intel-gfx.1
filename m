@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C98EC433FE
-	for <intel-gfx@archiver.kernel.org>; Sat, 12 Mar 2022 00:11:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8AD6C433EF
+	for <intel-gfx@archiver.kernel.org>; Sat, 12 Mar 2022 00:11:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5495210E059;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B61FD10E06A;
 	Sat, 12 Mar 2022 00:11:22 +0000 (UTC)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C7F110E039
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF7010E059
  for <intel-gfx@lists.freedesktop.org>; Sat, 12 Mar 2022 00:11:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1647043881; x=1678579881;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EtX65HogXQXeTdoi1R19a1UJ5ANJuBbZ1qbBOdg5Cjw=;
- b=NXgwvxnisxoftSU7+ZC33Lg8eJ2TFQbvamv0c4rNn4NK/Zyl9Pj6XBJZ
- tlutmakrchlZV248Q6R7BAA2fFmjDa4fBO5Ll/EINt2fbEwQwE1pBt0vw
- YeboHthuosb7S1RntdpN4LNxO3+BT0Hni6bZZQ3Vt9mi/5fG2qaKqEfTR
- QFDLLvsMIBa1+hMCBVWe6V93tln08O8Qwt5LbPhvGQE52M00YcWp6vVXs
- LgGwehNLgz2srk6nw6MZeR3WuJecvrX5xU+Mspbf9agbLd5L64eGCN8sv
- fJqAGsDyCMag62RGwX1XK6EFUzyg+U5YXszmzBowq0Z60IycOWwksMB2M Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10283"; a="316399850"
-X-IronPort-AV: E=Sophos;i="5.90,175,1643702400"; d="scan'208";a="316399850"
+ bh=xtGsIP2AVkeVC+UFlSeblIBntNN/RkvdMvgrW9vtVKw=;
+ b=K4M9CNN8u/2V9cqkb85rKQBgp9rqEqFmVwXg4KqreYmWmD1LIspCc2ji
+ GJs8IN3MK54qS5A5dUjv7lVBYaKzi5QVhUmlMEHx1dKmYoFb3/QbTkHGY
+ lcCXBEXOusWi7asIsdJNIsSqv2WZCqpZYwiHm0rNvD/NxCwfI6r7+Dg4W
+ P9CZDv969nNJGuJCitLfziCYUUr2mvPKsQhgb2YRKSdZfrX7M+888Cnr5
+ IGm7Ao8SFy5grKIKq41fkVWStFOJG8KNhX3UHPtDMdxJWEWJfdH2wy/fD
+ WYQEIbqHA7s+mFjEmoBZ5BQRchfvecJoLgYcIyETWd1kTCMuzhZvsbPh0 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10283"; a="316399853"
+X-IronPort-AV: E=Sophos;i="5.90,175,1643702400"; d="scan'208";a="316399853"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Mar 2022 16:11:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,175,1643702400"; d="scan'208";a="514681553"
+X-IronPort-AV: E=Sophos;i="5.90,175,1643702400"; d="scan'208";a="514681564"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
  by orsmga006.jf.intel.com with ESMTP; 11 Mar 2022 16:11:20 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Mar 2022 16:13:34 -0800
-Message-Id: <20220312001344.1314090-5-alan.previn.teres.alexis@intel.com>
+Date: Fri, 11 Mar 2022 16:13:36 -0800
+Message-Id: <20220312001344.1314090-7-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220312001344.1314090-1-alan.previn.teres.alexis@intel.com>
 References: <20220312001344.1314090-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 04/13] drm/i915/guc: Add DG2 registers for
- GuC error state capture.
+Subject: [Intel-gfx] [PATCH v8 06/13] drm/i915/guc: Add GuC's error state
+ capture output structures.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,116 +60,74 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add additional DG2 registers for GuC error state capture.
+Add GuC's error capture output structures and definitions as how
+they would appear in GuC log buffer's error capture subregion after
+an error state capture G2H event notification.
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 80 ++++++++++++++++++-
- 1 file changed, 77 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h | 47 +++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index e7eb8870841e..e641f34f14c4 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -285,20 +285,94 @@ guc_capture_alloc_steered_lists_xe_lpd(struct intel_guc *guc,
- 	guc->capture->extlists = extlists;
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
+index 6c199433945d..8824c5eba355 100644
+--- a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
+@@ -55,6 +55,53 @@ struct __guc_mmio_reg_descr_group {
+ 	struct __guc_mmio_reg_descr *extlist; /* only used for steered registers */
+ };
  
-+static const struct __ext_steer_reg xehpg_extregs[] = {
-+	{"XEHPG_INSTDONE_GEOM_SVG", XEHPG_INSTDONE_GEOM_SVG}
++/**
++ * struct guc_state_capture_header_t / struct guc_state_capture_t /
++ * guc_state_capture_group_header_t / guc_state_capture_group_t
++ *
++ * Prior to resetting engines that have hung or faulted, GuC microkernel
++ * reports the engine error-state (register values that was read) by
++ * logging them into the shared GuC log buffer using these hierarchy
++ * of structures.
++ */
++struct guc_state_capture_header_t {
++	u32 owner;
++#define CAP_HDR_CAPTURE_VFID GENMASK(7, 0)
++	u32 info;
++#define CAP_HDR_CAPTURE_TYPE GENMASK(3, 0) /* see enum guc_capture_type */
++#define CAP_HDR_ENGINE_CLASS GENMASK(7, 4) /* see GUC_MAX_ENGINE_CLASSES */
++#define CAP_HDR_ENGINE_INSTANCE GENMASK(11, 8)
++	u32 lrca; /* if type-instance, LRCA (address) that hung, else set to ~0 */
++	u32 guc_id; /* if type-instance, context index of hung context, else set to ~0 */
++	u32 num_mmios;
++#define CAP_HDR_NUM_MMIOS GENMASK(9, 0)
++} __packed;
++
++struct guc_state_capture_t {
++	struct guc_state_capture_header_t header;
++	struct guc_mmio_reg mmio_entries[0];
++} __packed;
++
++enum guc_capture_group_types {
++	GUC_STATE_CAPTURE_GROUP_TYPE_FULL,
++	GUC_STATE_CAPTURE_GROUP_TYPE_PARTIAL,
++	GUC_STATE_CAPTURE_GROUP_TYPE_MAX,
 +};
 +
-+static bool __has_xehpg_extregs(u32 ipver)
-+{
-+	return (ipver >= IP_VER(12, 55));
-+}
++struct guc_state_capture_group_header_t {
++	u32 owner;
++#define CAP_GRP_HDR_CAPTURE_VFID GENMASK(7, 0)
++	u32 info;
++#define CAP_GRP_HDR_NUM_CAPTURES GENMASK(7, 0)
++#define CAP_GRP_HDR_CAPTURE_TYPE GENMASK(15, 8) /* guc_capture_group_types */
++} __packed;
 +
-+static void
-+guc_capture_alloc_steered_lists_xe_hpg(struct intel_guc *guc,
-+				       const struct __guc_mmio_reg_descr_group *lists,
-+				       u32 ipver)
-+{
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
-+	struct sseu_dev_info *sseu;
-+	int slice, subslice, i, iter, num_steer_regs, num_tot_regs = 0;
-+	const struct __guc_mmio_reg_descr_group *list;
-+	struct __guc_mmio_reg_descr_group *extlists;
-+	struct __guc_mmio_reg_descr *extarray;
++/* this is the top level structure where an error-capture dump starts */
++struct guc_state_capture_group_t {
++	struct guc_state_capture_group_header_t grp_header;
++	struct guc_state_capture_t capture_entries[0];
++} __packed;
 +
-+	/* In XE_LP / HPG we only have render-class steering registers during error-capture */
-+	list = guc_capture_get_one_list(lists, GUC_CAPTURE_LIST_INDEX_PF,
-+					GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS, GUC_RENDER_CLASS);
-+	/* skip if extlists was previously allocated */
-+	if (!list || guc->capture->extlists)
-+		return;
-+
-+	num_steer_regs = ARRAY_SIZE(xe_extregs);
-+	if (__has_xehpg_extregs(ipver))
-+		num_steer_regs += ARRAY_SIZE(xehpg_extregs);
-+
-+	sseu = &gt->info.sseu;
-+	for_each_instdone_gslice_dss_xehp(i915, sseu, iter, slice, subslice) {
-+		num_tot_regs += num_steer_regs;
-+	}
-+
-+	if (!num_tot_regs)
-+		return;
-+
-+	/* allocate an extra for an end marker */
-+	extlists = kcalloc(2, sizeof(struct __guc_mmio_reg_descr_group), GFP_KERNEL);
-+	if (!extlists)
-+		return;
-+
-+	if (__alloc_ext_regs(&extlists[0], list, num_tot_regs)) {
-+		kfree(extlists);
-+		return;
-+	}
-+
-+	extarray = extlists[0].extlist;
-+	for_each_instdone_gslice_dss_xehp(i915, sseu, iter, slice, subslice) {
-+		for (i = 0; i < ARRAY_SIZE(xe_extregs); ++i) {
-+			__fill_ext_reg(extarray, &xe_extregs[i], slice, subslice);
-+			++extarray;
-+		}
-+		if (__has_xehpg_extregs(ipver)) {
-+			for (i = 0; i < ARRAY_SIZE(xehpg_extregs); ++i) {
-+				__fill_ext_reg(extarray, &xehpg_extregs[i], slice, subslice);
-+				++extarray;
-+			}
-+		}
-+	}
-+
-+	drm_dbg(&i915->drm, "GuC-capture found %d-ext-regs.\n", num_tot_regs);
-+	guc->capture->extlists = extlists;
-+}
-+
- static const struct __guc_mmio_reg_descr_group *
- guc_capture_get_device_reglist(struct intel_guc *guc)
- {
- 	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
- 
--	if (IS_TIGERLAKE(i915) || IS_ROCKETLAKE(i915) ||
--	    IS_ALDERLAKE_S(i915) || IS_ALDERLAKE_P(i915)) {
-+	if (GRAPHICS_VER(i915) > 11) {
- 		/*
- 		 * For certain engine classes, there are slice and subslice
- 		 * level registers requiring steering. We allocate and populate
- 		 * these at init time based on hw config add it as an extension
- 		 * list at the end of the pre-populated render list.
- 		 */
--		guc_capture_alloc_steered_lists_xe_lpd(guc, xe_lpd_lists);
-+		if (IS_DG2(i915))
-+			guc_capture_alloc_steered_lists_xe_hpg(guc, xe_lpd_lists, IP_VER(12, 55));
-+		else if (IS_XEHPSDV(i915))
-+			guc_capture_alloc_steered_lists_xe_hpg(guc, xe_lpd_lists, IP_VER(12, 50));
-+		else
-+			guc_capture_alloc_steered_lists_xe_lpd(guc, xe_lpd_lists);
-+
- 		return xe_lpd_lists;
- 	}
- 
+ /**
+  * struct __guc_capture_ads_cache
+  *
 -- 
 2.25.1
 
