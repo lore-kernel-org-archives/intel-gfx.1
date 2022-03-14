@@ -4,49 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82D3EC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 15:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5DAAC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 15:35:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D881D10EB07;
-	Mon, 14 Mar 2022 15:27:42 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2998310EB07
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Mar 2022 15:27:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14C4610E3EB;
+	Mon, 14 Mar 2022 15:35:25 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 949D510E3EB;
+ Mon, 14 Mar 2022 15:35:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647271661; x=1678807661;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=idj2IBkOj6U/5B36w1P8YfJxYwT76746Y0FZZ1byMSw=;
- b=QaP5g0tSOZYsjMdwtc/ubZOyzuQ7DKPYdzVltpyCIykOh9ZwuIKGtNqE
- KJlIVsOmZ5nPgiHEbxPm2TBYP+FSBZYGQe40M7/XIrHLhrWmZwGrj5aSr
- 6PWhvevLtTnnHQT+qrCIVjsyY7G2sibq/s95ICHzCnwcdLKsBLmq9Fjer
- VBecpvZpT2UcIWC/nCPdreeqTArnlXpKhhvgZYr9RJoJ597MoZfJQ8M/A
- DrcW99TgzRIT5twqNaWcFE51Azt8FMKCLkjy8ASo2rMrA8mP9qh2nHz0m
- S0C3jOwZEg5eJ6DRU9yoUd3FoeQ5w87iLnSGcBqhCl+ZSqgAqejbCYNS5 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10285"; a="319280627"
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="319280627"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2022 08:27:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="556468235"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga008.jf.intel.com with SMTP; 14 Mar 2022 08:27:38 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 14 Mar 2022 17:27:37 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Mar 2022 17:27:37 +0200
-Message-Id: <20220314152737.9125-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220311172428.14685-17-ville.syrjala@linux.intel.com>
-References: <20220311172428.14685-17-ville.syrjala@linux.intel.com>
+ t=1647272123; x=1678808123;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=+oVPCFfeN9QKNMkZmzw+FnGBntps6uyrwkbX+nZuRFY=;
+ b=ZF+hrh21uuEV2JcRFEpmJjC6vKu48/t9TIhm7K1GqjPXlO+RCOlFOr7M
+ WE3BMO/4FYkAPSMX23RqBtcLLsY5efgkNxOrUoj1jxznrTOuLcsI/y7t0
+ IfZKGo8UnAmYFEGHwNtMDf9UaVBmp/ExVJxIBKDCU/31ClQpkqL0+jVz/
+ Z3pC4tmjcjqmI7O2g6hhZGEC2o8vvShEYKQjicsd0ePR53Epcu9Yhajxr
+ XCGQJBL2eHVmh/KSC93ZmS2p9zXAvIeC9wmQdYhLagn13dSp8typO+Jlq
+ CCLjQ76fm/SMlFnZ15CCPP3Npn5QIQJiIKtzLT0gtlcW7y8sX3n1JEowk w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10285"; a="280823349"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="280823349"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2022 08:35:22 -0700
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="540016055"
+Received: from jakinsan-mobl1.ger.corp.intel.com (HELO [10.213.225.137])
+ ([10.213.225.137])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2022 08:35:20 -0700
+Message-ID: <025a284f-a1fc-3f7a-12eb-d5a4029e3393@linux.intel.com>
+Date: Mon, 14 Mar 2022 15:35:17 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 16/16] drm/i915: Convert
- fixed_mode/downclock_mode into a list
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Matt Atwood <matthew.s.atwood@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20220310051853.30440-1-matthew.s.atwood@intel.com>
+ <16c7053b-1773-f1d8-ae7d-904d418b869b@linux.intel.com>
+ <20220312041624.GA18367@msatwood-mobl>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20220312041624.GA18367@msatwood-mobl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/uapi: Add
+ DRM_I915_QUERY_GEOMETRY_SUBSLICES
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,224 +64,227 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Store the fixed_mode and downclock_mode as a real list,
-in preparation for exposing other supported modes as well.
+On 12/03/2022 04:16, Matt Atwood wrote:
+> On Thu, Mar 10, 2022 at 12:26:12PM +0000, Tvrtko Ursulin wrote:
+>>
+>> On 10/03/2022 05:18, Matt Atwood wrote:
+>>> Newer platforms have DSS that aren't necessarily available for both
+>>> geometry and compute, two queries will need to exist. This introduces
+>>> the first, when passing a valid engine class and engine instance in the
+>>> flags returns a topology describing geometry.
+>>>
+>>> v2: fix white space errors
+>>>
+>>> Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+>>> Cc: Matt Roper <matthew.d.roper@intel.com>
+>>> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>>> UMD (mesa): https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/14143
+>>> Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
+>>> ---
+>>>    drivers/gpu/drm/i915/i915_query.c | 68 ++++++++++++++++++++++---------
+>>>    include/uapi/drm/i915_drm.h       | 24 +++++++----
+>>>    2 files changed, 65 insertions(+), 27 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+>>> index 2dfbc22857a3..e4f35da28642 100644
+>>> --- a/drivers/gpu/drm/i915/i915_query.c
+>>> +++ b/drivers/gpu/drm/i915/i915_query.c
+>>> @@ -9,6 +9,7 @@
+>>>    #include "i915_drv.h"
+>>>    #include "i915_perf.h"
+>>>    #include "i915_query.h"
+>>> +#include "gt/intel_engine_user.h"
+>>>    #include <uapi/drm/i915_drm.h>
+>>>    static int copy_query_item(void *query_hdr, size_t query_sz,
+>>> @@ -28,36 +29,30 @@ static int copy_query_item(void *query_hdr, size_t query_sz,
+>>>    	return 0;
+>>>    }
+>>> -static int query_topology_info(struct drm_i915_private *dev_priv,
+>>> -			       struct drm_i915_query_item *query_item)
+>>> +static int fill_topology_info(const struct sseu_dev_info *sseu,
+>>> +			      struct drm_i915_query_item *query_item,
+>>> +			      const u8 *subslice_mask)
+>>>    {
+>>> -	const struct sseu_dev_info *sseu = &to_gt(dev_priv)->info.sseu;
+>>>    	struct drm_i915_query_topology_info topo;
+>>>    	u32 slice_length, subslice_length, eu_length, total_length;
+>>>    	int ret;
+>>> -	if (query_item->flags != 0)
+>>> -		return -EINVAL;
+>>> +	BUILD_BUG_ON(sizeof(u8) != sizeof(sseu->slice_mask));
+>>>    	if (sseu->max_slices == 0)
+>>>    		return -ENODEV;
+>>> -	BUILD_BUG_ON(sizeof(u8) != sizeof(sseu->slice_mask));
+>>> -
+>>>    	slice_length = sizeof(sseu->slice_mask);
+>>>    	subslice_length = sseu->max_slices * sseu->ss_stride;
+>>>    	eu_length = sseu->max_slices * sseu->max_subslices * sseu->eu_stride;
+>>>    	total_length = sizeof(topo) + slice_length + subslice_length +
+>>>    		       eu_length;
+>>> -	ret = copy_query_item(&topo, sizeof(topo), total_length,
+>>> -			      query_item);
+>>> +	ret = copy_query_item(&topo, sizeof(topo), total_length, query_item);
+>>> +
+>>>    	if (ret != 0)
+>>>    		return ret;
+>>> -	if (topo.flags != 0)
+>>> -		return -EINVAL;
+>>> -
+>>>    	memset(&topo, 0, sizeof(topo));
+>>>    	topo.max_slices = sseu->max_slices;
+>>>    	topo.max_subslices = sseu->max_subslices;
+>>> @@ -69,27 +64,61 @@ static int query_topology_info(struct drm_i915_private *dev_priv,
+>>>    	topo.eu_stride = sseu->eu_stride;
+>>>    	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr),
+>>> -			   &topo, sizeof(topo)))
+>>> +			 &topo, sizeof(topo)))
+>>>    		return -EFAULT;
+>>>    	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr + sizeof(topo)),
+>>> -			   &sseu->slice_mask, slice_length))
+>>> +			 &sseu->slice_mask, slice_length))
+>>>    		return -EFAULT;
+>>>    	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr +
+>>> -					   sizeof(topo) + slice_length),
+>>> -			   sseu->subslice_mask, subslice_length))
+>>> +					 sizeof(topo) + slice_length),
+>>> +			 subslice_mask, subslice_length))
+>>>    		return -EFAULT;
+>>>    	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr +
+>>> -					   sizeof(topo) +
+>>> -					   slice_length + subslice_length),
+>>> -			   sseu->eu_mask, eu_length))
+>>> +					 sizeof(topo) +
+>>> +					 slice_length + subslice_length),
+>>> +			 sseu->eu_mask, eu_length))
+>>>    		return -EFAULT;
+>>>    	return total_length;
+>>>    }
+>>> +static int query_topology_info(struct drm_i915_private *dev_priv,
+>>> +			       struct drm_i915_query_item *query_item)
+>>> +{
+>>> +	const struct sseu_dev_info *sseu = &to_gt(dev_priv)->info.sseu;
+>>> +
+>>> +	if (query_item->flags != 0)
+>>> +		return -EINVAL;
+>>> +
+>>> +	return fill_topology_info(sseu, query_item, sseu->subslice_mask);
+>>> +}
+>>> +
+>>> +static int query_geometry_subslices(struct drm_i915_private *i915,
+>>> +				    struct drm_i915_query_item *query_item)
+>>> +{
+>>> +	const struct sseu_dev_info *sseu;
+>>> +	struct intel_engine_cs *engine;
+>>> +	u8 engine_class, engine_instance;
+>>> +
+>>> +	if (GRAPHICS_VER_FULL(i915) < IP_VER(12, 50))
+>>> +		return -ENODEV;
+>>> +
+>>> +	engine_class = query_item->flags & 0xFF;
+>>> +	engine_instance = (query_item->flags >> 8) & 0xFF;
+>>> +
+>>> +	engine = intel_engine_lookup_user(i915, engine_class, engine_instance);
+>>> +
+>>> +	if (!engine)
+>>> +		return -EINVAL;
+>>> +
+>>> +	sseu = &engine->gt->info.sseu;
+>>> +
+>>> +	return fill_topology_info(sseu, query_item, sseu->geometry_subslice_mask);
+>>> +}
+>>> +
+>>>    static int
+>>>    query_engine_info(struct drm_i915_private *i915,
+>>>    		  struct drm_i915_query_item *query_item)
+>>> @@ -485,6 +514,7 @@ static int (* const i915_query_funcs[])(struct drm_i915_private *dev_priv,
+>>>    	query_engine_info,
+>>>    	query_perf_config,
+>>>    	query_memregion_info,
+>>> +	query_geometry_subslices,
+>>>    };
+>>>    int i915_query_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+>>> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+>>> index 05c3642aaece..1fa6022e1558 100644
+>>> --- a/include/uapi/drm/i915_drm.h
+>>> +++ b/include/uapi/drm/i915_drm.h
+>>> @@ -2687,10 +2687,11 @@ struct drm_i915_perf_oa_config {
+>>>    struct drm_i915_query_item {
+>>>    	/** @query_id: The id for this query */
+>>>    	__u64 query_id;
+>>> -#define DRM_I915_QUERY_TOPOLOGY_INFO    1
+>>> -#define DRM_I915_QUERY_ENGINE_INFO	2
+>>> -#define DRM_I915_QUERY_PERF_CONFIG      3
+>>> -#define DRM_I915_QUERY_MEMORY_REGIONS   4
+>>> +#define DRM_I915_QUERY_TOPOLOGY_INFO		1
+>>> +#define DRM_I915_QUERY_ENGINE_INFO		2
+>>> +#define DRM_I915_QUERY_PERF_CONFIG		3
+>>> +#define DRM_I915_QUERY_MEMORY_REGIONS		4
+>>> +#define DRM_I915_QUERY_GEOMETRY_SUBSLICES	5
+>>>    /* Must be kept compact -- no holes and well documented */
+>>>    	/**
+>>> @@ -2714,6 +2715,9 @@ struct drm_i915_query_item {
+>>>    	 *	- DRM_I915_QUERY_PERF_CONFIG_LIST
+>>>    	 *      - DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_UUID
+>>>    	 *      - DRM_I915_QUERY_PERF_CONFIG_FOR_UUID
+>>> +	 *
+>>> +	 * When query_id == DRM_I915_QUERY_GEOMETRY_SUBSLICES must have bits 0:7 set
+>>> +	 * as a valid engine class, and bits 8:15 must have a valid engine instance.
+>>
+>> Alternatively, all other uapi uses struct i915_engine_class_instance to
+>> address engines which uses u16:u16.
+>>
+>> How ugly it is to stuff a struct into u32 flags is the question... But you
+>> could at least use u16:u16 for consistency. Unless you wanted to leave some
+>> bits free for the future?
+> Originally when I wrote this I was wanting to leave space in case it was
+> ever needed. I'm not particularly for or against keeping the space now.
 
-v2: Init the list in intel_sdvo_connector_alloc() too
-v3: Use list_first_entry_or_null() (Jani)
+Yes, shrug... Neither I can't guess if we are ever likely to hit a 
+problem by having fewer bits for class:instance here compared to other 
+uapi, or if stuffing struct i915_engine_class_instance into flags would 
+just be too ugly. I mean there is option to define a new struct and not 
+use flags at all but that's probably to complicated for what it is.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- .../gpu/drm/i915/display/intel_connector.c    |  2 +
- .../drm/i915/display/intel_display_debugfs.c  |  9 ++-
- .../drm/i915/display/intel_display_types.h    |  3 +-
- drivers/gpu/drm/i915/display/intel_panel.c    | 78 +++++++++----------
- drivers/gpu/drm/i915/display/intel_sdvo.c     |  2 +
- 5 files changed, 49 insertions(+), 45 deletions(-)
+Anyone else with an opinion? Consistency or should be fine even like it is?
 
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-index c65f95a9a1ec..a5f5dd55b0cb 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.c
-+++ b/drivers/gpu/drm/i915/display/intel_connector.c
-@@ -54,6 +54,8 @@ int intel_connector_init(struct intel_connector *connector)
- 	__drm_atomic_helper_connector_reset(&connector->base,
- 					    &conn_state->base);
- 
-+	INIT_LIST_HEAD(&connector->panel.fixed_modes);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 35c27d67d584..b3d426cc3266 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -548,12 +548,15 @@ static void intel_encoder_info(struct seq_file *m,
- static void intel_panel_info(struct seq_file *m,
- 			     struct intel_connector *connector)
- {
--	const struct drm_display_mode *fixed_mode = connector->panel.fixed_mode;
-+	const struct drm_display_mode *fixed_mode;
- 
--	if (!fixed_mode)
-+	if (list_empty(&connector->panel.fixed_modes))
- 		return;
- 
--	seq_printf(m, "\tfixed mode: " DRM_MODE_FMT "\n", DRM_MODE_ARG(fixed_mode));
-+	seq_puts(m, "\tfixed modes:\n");
-+
-+	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head)
-+		intel_seq_print_mode(m, 2, fixed_mode);
- }
- 
- static void intel_hdcp_info(struct seq_file *m,
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index e34800ab6924..d84e82f3eab9 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -280,8 +280,7 @@ struct intel_panel_bl_funcs {
- };
- 
- struct intel_panel {
--	struct drm_display_mode *fixed_mode;
--	struct drm_display_mode *downclock_mode;
-+	struct list_head fixed_modes;
- 
- 	/* backlight */
- 	struct {
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 08a0612edd60..f428d0457c17 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -48,59 +48,55 @@ bool intel_panel_use_ssc(struct drm_i915_private *i915)
- const struct drm_display_mode *
- intel_panel_preferred_fixed_mode(struct intel_connector *connector)
- {
--	return connector->panel.fixed_mode;
-+	return list_first_entry_or_null(&connector->panel.fixed_modes,
-+					struct drm_display_mode, head);
- }
- 
- const struct drm_display_mode *
- intel_panel_fixed_mode(struct intel_connector *connector,
- 		       const struct drm_display_mode *mode)
- {
--	const struct drm_display_mode *fixed_mode = connector->panel.fixed_mode;
--	const struct drm_display_mode *downclock_mode = connector->panel.downclock_mode;
-+	const struct drm_display_mode *fixed_mode, *best_mode = NULL;
-+	int vrefresh = drm_mode_vrefresh(mode);
- 
--	/* pick the one that is closer in terms of vrefresh */
--	/* FIXME make this a a list of modes so we can have more than two */
--	if (fixed_mode && downclock_mode &&
--	    abs(drm_mode_vrefresh(downclock_mode) - drm_mode_vrefresh(mode)) <
--	    abs(drm_mode_vrefresh(fixed_mode) - drm_mode_vrefresh(mode)))
--		return downclock_mode;
--	else
--		return fixed_mode;
-+	/* pick the fixed_mode that is closest in terms of vrefresh */
-+	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
-+		if (!best_mode ||
-+		    abs(drm_mode_vrefresh(fixed_mode) - vrefresh) <
-+		    abs(drm_mode_vrefresh(best_mode) - vrefresh))
-+			best_mode = fixed_mode;
-+	}
-+
-+	return best_mode;
- }
- 
- const struct drm_display_mode *
- intel_panel_downclock_mode(struct intel_connector *connector,
- 			   const struct drm_display_mode *adjusted_mode)
- {
--	const struct drm_display_mode *downclock_mode = connector->panel.downclock_mode;
-+	const struct drm_display_mode *fixed_mode, *best_mode = NULL;
-+	int vrefresh = drm_mode_vrefresh(adjusted_mode);
- 
--	if (downclock_mode &&
--	    drm_mode_vrefresh(downclock_mode) < drm_mode_vrefresh(adjusted_mode))
--		return downclock_mode;
--	else
--		return NULL;
-+	/* pick the fixed_mode with the lowest refresh rate */
-+	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
-+		if (drm_mode_vrefresh(fixed_mode) < vrefresh) {
-+			vrefresh = drm_mode_vrefresh(fixed_mode);
-+			best_mode = fixed_mode;
-+		}
-+	}
-+
-+	return best_mode;
- }
- 
- int intel_panel_get_modes(struct intel_connector *connector)
- {
-+	const struct drm_display_mode *fixed_mode;
- 	int num_modes = 0;
- 
--	if (connector->panel.fixed_mode) {
-+	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
- 		struct drm_display_mode *mode;
- 
--		mode = drm_mode_duplicate(connector->base.dev,
--					  connector->panel.fixed_mode);
--		if (mode) {
--			drm_mode_probed_add(&connector->base, mode);
--			num_modes++;
--		}
--	}
--
--	if (connector->panel.downclock_mode) {
--		struct drm_display_mode *mode;
--
--		mode = drm_mode_duplicate(connector->base.dev,
--					  connector->panel.downclock_mode);
-+		mode = drm_mode_duplicate(connector->base.dev, fixed_mode);
- 		if (mode) {
- 			drm_mode_probed_add(&connector->base, mode);
- 			num_modes++;
-@@ -114,7 +110,8 @@ enum drrs_type intel_panel_drrs_type(struct intel_connector *connector)
- {
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 
--	if (!connector->panel.downclock_mode)
-+	if (list_empty(&connector->panel.fixed_modes) ||
-+	    list_is_singular(&connector->panel.fixed_modes))
- 		return DRRS_TYPE_NONE;
- 
- 	return i915->vbt.drrs_type;
-@@ -608,8 +605,10 @@ int intel_panel_init(struct intel_panel *panel,
- {
- 	intel_backlight_init_funcs(panel);
- 
--	panel->fixed_mode = fixed_mode;
--	panel->downclock_mode = downclock_mode;
-+	if (fixed_mode)
-+		list_add_tail(&fixed_mode->head, &panel->fixed_modes);
-+	if (downclock_mode)
-+		list_add_tail(&downclock_mode->head, &panel->fixed_modes);
- 
- 	return 0;
- }
-@@ -618,13 +617,12 @@ void intel_panel_fini(struct intel_panel *panel)
- {
- 	struct intel_connector *intel_connector =
- 		container_of(panel, struct intel_connector, panel);
-+	struct drm_display_mode *fixed_mode, *next;
- 
- 	intel_backlight_destroy(panel);
- 
--	if (panel->fixed_mode)
--		drm_mode_destroy(intel_connector->base.dev, panel->fixed_mode);
--
--	if (panel->downclock_mode)
--		drm_mode_destroy(intel_connector->base.dev,
--				panel->downclock_mode);
-+	list_for_each_entry_safe(fixed_mode, next, &panel->fixed_modes, head) {
-+		list_del(&fixed_mode->head);
-+		drm_mode_destroy(intel_connector->base.dev, fixed_mode);
-+	}
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 6e0a4f48d84d..158e750e5b4d 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2747,6 +2747,8 @@ static struct intel_sdvo_connector *intel_sdvo_connector_alloc(void)
- 	__drm_atomic_helper_connector_reset(&sdvo_connector->base.base,
- 					    &conn_state->base.base);
- 
-+	INIT_LIST_HEAD(&sdvo_connector->base.panel.fixed_modes);
-+
- 	return sdvo_connector;
- }
- 
--- 
-2.34.1
+Regards,
 
+Tvrtko
+
+> MattA
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>    	 */
+>>>    	__u32 flags;
+>>>    #define DRM_I915_QUERY_PERF_CONFIG_LIST          1
+>>> @@ -2772,16 +2776,20 @@ struct drm_i915_query {
+>>>    };
+>>>    /*
+>>> - * Data written by the kernel with query DRM_I915_QUERY_TOPOLOGY_INFO :
+>>> + * Data written by the kernel with query DRM_I915_QUERY_TOPOLOGY_INFO,
+>>> + * DRM_I915_QUERY_GEOMETRY_SUBSLICE:
+>>>     *
+>>>     * data: contains the 3 pieces of information :
+>>>     *
+>>> - * - the slice mask with one bit per slice telling whether a slice is
+>>> - *   available. The availability of slice X can be queried with the following
+>>> - *   formula :
+>>> + * - For DRM_I915_QUERY_TOPOLOGY_INFO the slice mask with one bit per slice
+>>> + *   telling whether a slice is available. The availability of slice X can be
+>>> + *   queried with the following formula :
+>>>     *
+>>>     *           (data[X / 8] >> (X % 8)) & 1
+>>>     *
+>>> + * - For DRM_I915_QUERY_GEOMETRY_SUBSLICES Slices are equal to 1 and this field
+>>> + *   is not used.
+>>> + *
+>>>     * - the subslice mask for each slice with one bit per subslice telling
+>>>     *   whether a subslice is available. Gen12 has dual-subslices, which are
+>>>     *   similar to two gen11 subslices. For gen12, this array represents dual-
