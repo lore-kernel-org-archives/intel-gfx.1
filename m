@@ -4,147 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B619C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 23:06:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4A22C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 23:42:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFFD910E1CC;
-	Mon, 14 Mar 2022 23:06:22 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9596510E1C8;
- Mon, 14 Mar 2022 23:06:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 368D789F41;
+	Mon, 14 Mar 2022 23:42:11 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8142789F8B;
+ Mon, 14 Mar 2022 23:42:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647299181; x=1678835181;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=196gczuuBXzGtDISHlfJVtwXK6P2QKI5BzrJio1qo4A=;
- b=aWTuvgwV7LqjT45RIsdO5QxXp+Rn0+rW64b4MYVSTnJDBARp9wLiMdoH
- gDHSzo4aX2sIQbub+fxDrVjpT9KHcG8u9xadDLmia4Q7CPyqc5Iq8YBrs
- GGi6saeBE9SpJQGJW6My5F9YMx9l0sL2bHp2AGzXUEWJs9SOkuXdNgI0o
- QojrSpJohLZFi5269OBVqgv2oGwv9jpbkjsy7T84Q4n/n2fLej5olA1iW
- 1cV7IsMOC2hf8I2e5QZcPB6j/3QFIRE1V/0d1oJ8jptgaKtXHMZgvoLwP
- bKqdt24lA5oB7cBJZfmiUFNoPMtPOjIN8iJjdD4pqgi2dJfjuFAKSCerT w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="255893570"
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="255893570"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2022 16:06:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="580298737"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by orsmga001.jf.intel.com with ESMTP; 14 Mar 2022 16:06:20 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Mon, 14 Mar 2022 16:06:20 -0700
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21 via Frontend Transport; Mon, 14 Mar 2022 16:06:20 -0700
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.57.46) by
- edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.21; Mon, 14 Mar 2022 16:06:19 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FBMQzGQjYC+y6EMDWZIt8sL5zI4QrG7lnqQdWnJpExVvNdrRtPPvQ5tZRxGIl0CwS53FQvRCj0OPCabHUrdKnLoXzs42EdY8Z3n1FzjtK7bCiRcwZDpGaY79k3DetW7lSJ9h+9xske+B5UwnkFHoEokfN2qjynxKCCd28SHQIwxG3T9vtjYdbZ/223vlReucICd5t98dV/dKUe+capSlXdjH4Y42aSPbeldpBLYTrFwDCFxbWeQlLz7htXNRa7n7LA/YLhHalF3MTOzUkineTS1RzKL6piICxdTVxdYMLPuTLzd0oLVDxnNXLXlF4X7eYO/kWb8IiOy4hLjl7ZP4hQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e7B3np51GZpojMRZJQGq1gJBzCS0dCbqxocBpAvzNfQ=;
- b=B2d+E9XA5oyTycPEieJwwJRqurK/D/GBAWvfX9RyJFrcciX1miQGBfnuiLxFMkWf1ZQOcd4i7OmdpDylEK1B6/cJzKZyK/CjkFRoNtNRkhwXUvItSmPzsLalqP9a8KD0aocYRadS+yb3b+ePgRUfjjAlveOLhzp2++JNgXpfvm5+k90FEWpmuxo4Tf85CAhZwQMQaCYHDYAjZF44o3l2SZrk9I7/PjeR4ppD47LCZmk2SjQ5fbUSsMiJILNNKgYNana/oeJl50DPYb38eiO0TQgN8NpY7S8qQoOg8z0pbw+xr/qK41doHqJfCwcgYNszLKUaehudKeKnXtluZ8kc0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MWHPR11MB1645.namprd11.prod.outlook.com (2603:10b6:301:b::12)
- by BL1PR11MB5980.namprd11.prod.outlook.com (2603:10b6:208:387::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.21; Mon, 14 Mar
- 2022 23:06:16 +0000
-Received: from MWHPR11MB1645.namprd11.prod.outlook.com
- ([fe80::3db4:813a:16:ba0]) by MWHPR11MB1645.namprd11.prod.outlook.com
- ([fe80::3db4:813a:16:ba0%7]) with mapi id 15.20.5061.028; Mon, 14 Mar 2022
- 23:06:16 +0000
-Message-ID: <109ec27b-3957-f13f-aec7-18fda2819ee0@intel.com>
-Date: Mon, 14 Mar 2022 16:06:12 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.5.0
-Content-Language: en-US
-To: Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-References: <20220222172649.331661-1-michael.cheng@intel.com>
- <20220222172649.331661-3-michael.cheng@intel.com>
- <40f820e6-6b28-fd8a-b058-13f0bbbf71fc@shipmail.org>
- <20220308175803.pszuli2ms3e7tah3@ldmartin-desk2>
-From: Michael Cheng <michael.cheng@intel.com>
-In-Reply-To: <20220308175803.pszuli2ms3e7tah3@ldmartin-desk2>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH0PR07CA0060.namprd07.prod.outlook.com
- (2603:10b6:510:e::35) To MWHPR11MB1645.namprd11.prod.outlook.com
- (2603:10b6:301:b::12)
+ t=1647301330; x=1678837330;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=OizfX+XKo6M/lAi36LbJP+jiDe/BkdnpLNiwldVZxEs=;
+ b=FEGQjle5o46PlnQ5l6HS4oSoAl3FBTYJB+zCC3susvI24NpVjTK0WtdN
+ zq1I9SL7/ybFHDcEzqBkU3UTzB6ZR4FBOssLeWf1Bjrx/PEqKwUHR36rT
+ MNaeCtN4oXqmistxCx+wZJBd3EomU5UGHiENoPurfTL5DBOxIreamFsgV
+ uyzxBzVtKP/7NPCdBM4jyvianzevWa5d9c9kzdMihfSQ5PdlEuCkC6pqM
+ ZGmFpccBLYJcR9XZ9kinyT2aBdfLjzTDURKJzRbDTPXad0V2HkZ6R1mbj
+ Cb1eCUJVRcazppJaDh1hFtv8u1sQMiRLpVD5XX0TJygT1ncsNP2qOCT9y w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="256359969"
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="256359969"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2022 16:42:09 -0700
+X-IronPort-AV: E=Sophos;i="5.90,181,1643702400"; d="scan'208";a="549403066"
+Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2022 16:42:09 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 14 Mar 2022 16:42:03 -0700
+Message-Id: <20220314234203.799268-4-matthew.d.roper@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220314234203.799268-1-matthew.d.roper@intel.com>
+References: <20220314234203.799268-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d6b1bf30-b914-4e7b-7a0f-08da060f3e4d
-X-MS-TrafficTypeDiagnostic: BL1PR11MB5980:EE_
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-Microsoft-Antispam-PRVS: <BL1PR11MB59806F64D989466402960C51E10F9@BL1PR11MB5980.namprd11.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Nu6nuL+7O1cQliMhliIyXYzsUosa6XHn7fzJUEIAMuZkviio22m87wxK55EpJaGu0dA3eNkqN3waQ49U45R9lInrN9t9qutpJbBP6LeA0zVleXm0gCyIArXEvLxhw1UFJrL8fxcX8ZKd4B8/XQ4EGXjASVOFvBhul6TbnIQqimcRaELl0HvZsEvnapHTFdCR89JyD/9he0Fant3Z0ju8NvNR67mHyJwjTAe0H0QHVrQzejW7imAv75xt7Jkt6FdHElOFONJar/IVi2nuYroM5t1v6ph2EspjXt4j8NI9fKfBurXHT9q6NVd4GkNXuNX8Lcrt5aZjLVcVPOsLyWeVfUcK8HDdBctRiJfNENInH662EUUbQERA521bgfU/F0MY0gkMQFkyVT76JfEkBj/2d+rFHif7oyzl/Cko34U5TXv39Tkk6jxEnBasm6dRy6/5Lrg+69GE5s8N17LE6T6X2jBBqE24kGXCBUfHutwgESf4Vpw0BRKXoy7J+F9EguAliSJaN02iW8woCfSazvDzEZOLPHlsO+YJAUIFtTY6TvOrGQ4s5tGjBmBN4eN+U938OC+T7ZsXJudPeMWuJys8TBbImYmpV+Aba1R5QfSUFUOoEYMv/iWWkYUP7NzXk+VdO5UdO65w3LMkCEfuFYetuBPQg5ihQz92T+RbLlogvmRAKe8sfVpeRopv1ig7ybwch0skVm5qZr107jvAf5dtX5bG9mCHq+VWY8pRtoXx5Cg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR11MB1645.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(82960400001)(38100700002)(316002)(66574015)(508600001)(66556008)(966005)(4326008)(66946007)(8676002)(66476007)(6486002)(2616005)(26005)(31686004)(53546011)(6506007)(36756003)(83380400001)(44832011)(2906002)(6512007)(5660300002)(110136005)(6666004)(86362001)(8936002)(31696002)(186003)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OTlFODFKU0JudUNvTTVoWlFhdTVTTWJIbmh4QWEwczVyS0xkeUdKNW0zdXpM?=
- =?utf-8?B?NCs0VnV5WHkySUJPSlMyVzJVVkZVUGlZbnBaZnhkZXovTUJZdkIvbFM4QzN6?=
- =?utf-8?B?MmVKQ1Y2T0VRaG1nMkJ5QnRXYmVKZWlna2c3QkNDNFZjaDhtQ0g3TjVWMW8y?=
- =?utf-8?B?NWR5Vkc5N3pWNGNTR0IzeUExNWl1NHhVeUowUXU1SWx3eUZOTWdKeE05Nm1r?=
- =?utf-8?B?RkZwTmFHb1F3L2crRWFVYUhxQ0RTbm5GekdBT1hic1FUVlYvSmEweFBubmRi?=
- =?utf-8?B?S2p1WE9IMWZ4MUZNOUFQV1hqNHZ3UXhTOHNWSHVNeStGYW0wZDNjYnNkSFlj?=
- =?utf-8?B?OGJxWUY1WlE1d2tCem9pUEd5bGtYdmdSRWIvdWcvMjB5dUE0bXFLUXZ5eWpE?=
- =?utf-8?B?dHJSbmtsTFNQeU5tMWx6bHZudTNCbjFCQnoyZHdVdUkzUzJBQUFDSVpHcE5w?=
- =?utf-8?B?WVRLcWY5Wk16Q2VxeWlqYkw0ejQraE8raUswTll4Ky9YeTR6bnRlVHVYTE1Q?=
- =?utf-8?B?bkRySkRCUElKcU82eFVhNGdNT2Zxa2orSWtWU2RzWUwyOGxQTXA3MXVmU0dB?=
- =?utf-8?B?WVo3eEpndVVIU2RFdTVid3RlR1BoOEZobklYWU5JR1FwYWcyeDFVTHVRV1Zo?=
- =?utf-8?B?QXhPZklBaTZDZ3JqRWFUUnFCZ3NiYm5YVVgzZjVKUGgvbUJwdWxicWZERC8v?=
- =?utf-8?B?NDVVYkZ2aW8raGtaS3V4c3FUd0hiOFpNbGYzZFNVckYxWG9jT1lXNnZnUHFG?=
- =?utf-8?B?TGhzbWxDL2Q3eXQyKzBKWkIxaDBUOUVHdUJsNHhWdHZQcFlEbTJ3bkFKL1U4?=
- =?utf-8?B?TGdPTU13d2FyN0JkV1lsTkNydWtybjV0UGl3ZjFta21qclhjQzFSelA0bGJw?=
- =?utf-8?B?VzRSejJwelc0Vkl6K2tSeW50SmxLV1kvWFRZbElOQU1FQk1ZVWtzOE9hdk96?=
- =?utf-8?B?ZldNU1pNby9kUTJqcDBMdUJ4VzgwelQ2NURJYlYxR01rWFJvcmNsQytTSHA2?=
- =?utf-8?B?eDlma2dOM1g1ZDVsU1FSVkdZOGwxK2pUaHhBZHF3UmhlNGdvWVZzWisrQVhX?=
- =?utf-8?B?cUI5RVNzdy9pTGVyMUl3NFBpVkpJSWxUQ3dGeVRYZ0o2NnlrV2o3N29ZU2lz?=
- =?utf-8?B?bVh2RjB1SU9sd2Z0OFRSSk10UWxMNzZGcG1tSHRzZEE2VjViajg1MjJscVpI?=
- =?utf-8?B?WVpZMmRJVTlOSWRzV2x3OFBPRVMyd3VreDBseW42ZElJbGt5cnRRUjFITmtG?=
- =?utf-8?B?MndXS29sVUFncTFoTlFtZTdBakJZYU5CUVZRRGxMUG1tZUU5WjhFNFRuTjNH?=
- =?utf-8?B?V1Q2RWJTWjh6N3FVUGxIbU1Hblg3K0g3MVJFbVQ4QzZHYzR0cEEzMklmOHAw?=
- =?utf-8?B?QjkyQ0Z5UHRBK1NVUjBrSUlWVHljYUhCRDNGUmVkU2JqL2JtS2JWUW11a2wr?=
- =?utf-8?B?OE5aSE85Y2V3YlozcW9UZ1ZjQ29xSUpsUm5IZGQvRTEwNmRsd3RpbXp0eUJm?=
- =?utf-8?B?UDJRNmZUcTgyd3BUMFlsNnZTQzlTd2QrdlhpWDNMNitpa3FXYU5wdlBaTk4v?=
- =?utf-8?B?TGFTdHVhSG9OSkhFYTRBdVZkQWtzMmozeHp5T25DazVrQnVkWEIwZ2k4azhQ?=
- =?utf-8?B?RXp6QWNuNzdGeXpVL3dPVUZmUG5GNitOckt5OGZSSm9MSENvSlJacHhnbVI1?=
- =?utf-8?B?ckZUQ0E1RzV4bm5zd1V4LzlZd0hOOEhjSlpaSHkxUm9SclFwWmI0MSthS2Ra?=
- =?utf-8?B?N3NIcVEzYlorY3RqWFpZTlN1Y3BZOFRCUWZNUnoyVlpKS0RzSkpGbGJVNFA2?=
- =?utf-8?B?d1M4ZmxLT01VbHVkRmhJT0hJaVBuQUdZRzF4TUp1RThJRkJwbjJxRDIraW0z?=
- =?utf-8?B?V0N2ODhWQjRINHl4TEkvNlIzZUVoV0hzdXRQODl4YXh6NnNPSlNOZm1xei9s?=
- =?utf-8?B?MTJIWjhvQ0NLVDNjdW9lWTY0Wk1YZS9RS2c4T1J6RFRFbTduK3FITlZvcHJL?=
- =?utf-8?B?QWdWZXM2SHNnPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6b1bf30-b914-4e7b-7a0f-08da060f3e4d
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1645.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2022 23:06:16.7606 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e72Zizcsuf5PdLG/sAXtiAo9LOuVCLq8HIHwNXwF74miq+AH3cE75LYwkB1YWzzTx6wvGDh5+DeX74SaBgk+vA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5980
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v3 2/3] drm/i915/gem: Remove logic for
- wbinvd_on_all_cpus
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Add support for steered register
+ writes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,88 +56,180 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2022-03-08 10:58 a.m., Lucas De Marchi wrote:
+Upcoming patches will need to steer writes to multicast registers as
+well as reading them.
 
-> On Tue, Feb 22, 2022 at 08:24:31PM +0100, Thomas Hellström (Intel) wrote:
->> Hi, Michael,
->>
->> On 2/22/22 18:26, Michael Cheng wrote:
->>> This patch removes logic for wbinvd_on_all_cpus and brings in
->>> drm_cache.h. This header has the logic that outputs a warning
->>> when wbinvd_on_all_cpus when its being used on a non-x86 platform.
->>>
->>> Signed-off-by: Michael Cheng <michael.cheng@intel.com>
->>
->> Linus has been pretty clear that he won't accept patches that add 
->> macros that works on one arch and warns on others anymore in i915 and 
->> I figure even less so in drm code.
->>
->> So we shouldn't try to move this out to drm. Instead we should 
->> restrict the wbinvd() inside our driver to integrated and X86 only. 
->> For discrete on all architectures we should be coherent and hence not 
->> be needing wbinvd().
->
-> the warn is there to guarantee we don't forget a code path. However
-> simply adding the warning is the real issue: we should rather guarantee
-> we can't take that code path. I.e., as you said refactor the code to
-> guarantee it works on discrete without that logic.
->
->     $ git grep wbinvd_on_all_cpus -- drivers/gpu/drm/
->     drivers/gpu/drm/drm_cache.c:    if (wbinvd_on_all_cpus())
->     drivers/gpu/drm/drm_cache.c:    if (wbinvd_on_all_cpus())
->     drivers/gpu/drm/drm_cache.c:    if (wbinvd_on_all_cpus())
->
->     drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c:      * Currently we 
-> just do a heavy handed wbinvd_on_all_cpus() here since
->     drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c: wbinvd_on_all_cpus();
->
-> It looks like we actually go through this on other discrete graphics. Is
-> this missing an update like s/IS_DG1/IS_DGFX/? Or should we be doing
-> something else?
->
->     drivers/gpu/drm/i915/gem/i915_gem_pm.c:#define wbinvd_on_all_cpus() \
->     drivers/gpu/drm/i915/gem/i915_gem_pm.c: wbinvd_on_all_cpus();
->
-> Those are for suspend. Revert ac05a22cd07a ("drm/i915/gem: Almagamate 
-> clflushes on suspend")
-> or extract that part to a helper function and implement it differently
-> for arches != x86?
->
->     drivers/gpu/drm/i915/gem/i915_gem_pm.c: wbinvd_on_all_cpus();
->
-> Probably take a similar approach to the suspend case?
->
->     drivers/gpu/drm/i915/gt/intel_ggtt.c: wbinvd_on_all_cpus();
+Although the setting of the 'multicast' bit should only really matter
+for write operations (reads always operate in a unicast manner and give
+us the result from one specific instance), Wa_22013088509 suggests that
+we leave the multicast bit enabled when performing read operations, so
+we follow suit here.
 
-For a helper function, I have a #define for all non x86 architecture 
-that gives a warn on [1] within drm_cache.h Or would it be better to 
-implement a helper function instead?
+Cc: Harish Chegondi <harish.chegondi@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h |  1 +
+ drivers/gpu/drm/i915/intel_uncore.c     | 75 ++++++++++++++++++++++---
+ drivers/gpu/drm/i915/intel_uncore.h     |  4 +-
+ 3 files changed, 70 insertions(+), 10 deletions(-)
 
-[1]. https://patchwork.freedesktop.org/patch/475750/?series=99991&rev=5
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 19cd34f24263..62e0f075b1de 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -46,6 +46,7 @@
+ #define   GEN8_MCR_SLICE_MASK			GEN8_MCR_SLICE(3)
+ #define   GEN8_MCR_SUBSLICE(subslice)		(((subslice) & 3) << 24)
+ #define   GEN8_MCR_SUBSLICE_MASK		GEN8_MCR_SUBSLICE(3)
++#define   GEN11_MCR_MULTICAST			REG_BIT(31)
+ #define   GEN11_MCR_SLICE(slice)		(((slice) & 0xf) << 27)
+ #define   GEN11_MCR_SLICE_MASK			GEN11_MCR_SLICE(0xf)
+ #define   GEN11_MCR_SUBSLICE(subslice)		(((subslice) & 0x7) << 24)
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index dd8fdd5863de..ef8ffc01ad19 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -2464,17 +2464,46 @@ intel_uncore_forcewake_for_reg(struct intel_uncore *uncore,
+ 	return fw_domains;
+ }
+ 
+-u32 intel_uncore_read_with_mcr_steering_fw(struct intel_uncore *uncore,
+-					   i915_reg_t reg,
+-					   int slice, int subslice)
++/**
++ * uncore_rw_with_mcr_steering_fw - Access a register after programming
++ *				    the MCR selector register.
++ * @uncore: pointer to struct intel_uncore
++ * @reg: register being accessed
++ * @rw_flag: FW_REG_READ for read access or FW_REG_WRITE for write access
++ * @slice: slice number (ignored for multi-cast write)
++ * @subslice: sub-slice number (ignored for multi-cast write)
++ * @value: register value to be written (ignored for read)
++ *
++ * Return: 0 for write access. register value for read access.
++ *
++ * Caller needs to make sure the relevant forcewake wells are up.
++ */
++static u32 uncore_rw_with_mcr_steering_fw(struct intel_uncore *uncore,
++					  i915_reg_t reg, u8 rw_flag,
++					  int slice, int subslice, u32 value)
+ {
+-	u32 mcr_mask, mcr_ss, mcr, old_mcr, val;
++	u32 mcr_mask, mcr_ss, mcr, old_mcr, val = 0;
+ 
+ 	lockdep_assert_held(&uncore->lock);
+ 
+ 	if (GRAPHICS_VER(uncore->i915) >= 11) {
+ 		mcr_mask = GEN11_MCR_SLICE_MASK | GEN11_MCR_SUBSLICE_MASK;
+ 		mcr_ss = GEN11_MCR_SLICE(slice) | GEN11_MCR_SUBSLICE(subslice);
++
++		/*
++		 * Wa_22013088509
++		 *
++		 * The setting of the multicast/unicast bit usually wouldn't
++		 * matter for read operations (which always return the value
++		 * from a single register instance regardless of how that bit
++		 * is set), but some platforms have a workaround requiring us
++		 * to remain in multicast mode for reads.  There's no real
++		 * downside to this, so we'll just go ahead and do so on all
++		 * platforms; we'll only clear the multicast bit from the mask
++		 * when exlicitly doing a write operation.
++		 */
++		if (rw_flag == FW_REG_WRITE)
++			mcr_mask |= GEN11_MCR_MULTICAST;
+ 	} else {
+ 		mcr_mask = GEN8_MCR_SLICE_MASK | GEN8_MCR_SUBSLICE_MASK;
+ 		mcr_ss = GEN8_MCR_SLICE(slice) | GEN8_MCR_SUBSLICE(subslice);
+@@ -2486,7 +2515,10 @@ u32 intel_uncore_read_with_mcr_steering_fw(struct intel_uncore *uncore,
+ 	mcr |= mcr_ss;
+ 	intel_uncore_write_fw(uncore, GEN8_MCR_SELECTOR, mcr);
+ 
+-	val = intel_uncore_read_fw(uncore, reg);
++	if (rw_flag == FW_REG_READ)
++		val = intel_uncore_read_fw(uncore, reg);
++	else
++		intel_uncore_write_fw(uncore, reg, value);
+ 
+ 	mcr &= ~mcr_mask;
+ 	mcr |= old_mcr & mcr_mask;
+@@ -2496,14 +2528,16 @@ u32 intel_uncore_read_with_mcr_steering_fw(struct intel_uncore *uncore,
+ 	return val;
+ }
+ 
+-u32 intel_uncore_read_with_mcr_steering(struct intel_uncore *uncore,
+-					i915_reg_t reg, int slice, int subslice)
++static u32 uncore_rw_with_mcr_steering(struct intel_uncore *uncore,
++				       i915_reg_t reg, u8 rw_flag,
++				       int slice, int subslice,
++				       u32 value)
+ {
+ 	enum forcewake_domains fw_domains;
+ 	u32 val;
+ 
+ 	fw_domains = intel_uncore_forcewake_for_reg(uncore, reg,
+-						    FW_REG_READ);
++						    rw_flag);
+ 	fw_domains |= intel_uncore_forcewake_for_reg(uncore,
+ 						     GEN8_MCR_SELECTOR,
+ 						     FW_REG_READ | FW_REG_WRITE);
+@@ -2511,7 +2545,8 @@ u32 intel_uncore_read_with_mcr_steering(struct intel_uncore *uncore,
+ 	spin_lock_irq(&uncore->lock);
+ 	intel_uncore_forcewake_get__locked(uncore, fw_domains);
+ 
+-	val = intel_uncore_read_with_mcr_steering_fw(uncore, reg, slice, subslice);
++	val = uncore_rw_with_mcr_steering_fw(uncore, reg, rw_flag,
++					     slice, subslice, value);
+ 
+ 	intel_uncore_forcewake_put__locked(uncore, fw_domains);
+ 	spin_unlock_irq(&uncore->lock);
+@@ -2519,6 +2554,28 @@ u32 intel_uncore_read_with_mcr_steering(struct intel_uncore *uncore,
+ 	return val;
+ }
+ 
++u32 intel_uncore_read_with_mcr_steering_fw(struct intel_uncore *uncore,
++					   i915_reg_t reg, int slice, int subslice)
++{
++	return uncore_rw_with_mcr_steering_fw(uncore, reg, FW_REG_READ,
++					      slice, subslice, 0);
++}
++
++u32 intel_uncore_read_with_mcr_steering(struct intel_uncore *uncore,
++					i915_reg_t reg, int slice, int subslice)
++{
++	return uncore_rw_with_mcr_steering(uncore, reg, FW_REG_READ,
++					   slice, subslice, 0);
++}
++
++void intel_uncore_write_with_mcr_steering(struct intel_uncore *uncore,
++					  i915_reg_t reg, u32 value,
++					  int slice, int subslice)
++{
++	uncore_rw_with_mcr_steering(uncore, reg, FW_REG_WRITE,
++				    slice, subslice, value);
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+ #include "selftests/mock_uncore.c"
+ #include "selftests/intel_uncore.c"
+diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
+index 6ff56d673e2b..9a760952d46a 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.h
++++ b/drivers/gpu/drm/i915/intel_uncore.h
+@@ -214,7 +214,9 @@ u32 intel_uncore_read_with_mcr_steering_fw(struct intel_uncore *uncore,
+ 					   int slice, int subslice);
+ u32 intel_uncore_read_with_mcr_steering(struct intel_uncore *uncore,
+ 					i915_reg_t reg,	int slice, int subslice);
+-
++void intel_uncore_write_with_mcr_steering(struct intel_uncore *uncore,
++					  i915_reg_t reg, u32 value,
++					  int slice, int subslice);
+ void
+ intel_uncore_mmio_debug_init_early(struct intel_uncore_mmio_debug *mmio_debug);
+ void intel_uncore_init_early(struct intel_uncore *uncore,
+-- 
+2.34.1
 
->
-> This one comes from 64b95df91f44 ("drm/i915: Assume exclusive access 
-> to objects inside resume")
-> Shouldn't that be doing the invalidate if the write domain is 
-> I915_GEM_DOMAIN_CPU
->
-> In the end I think the warning would be ok if it was the cherry on top,
-> to guarantee we don't take those paths. We should probably have a
-> warn_once() to avoid spamming the console. But we  also have to rework
-> the code to guarantee we are the only ones who may eventually get that
-> warning, and not the end user.
-Could we first add the helper function/#define for now, and rework the 
-code in a different patch series?
->
-> Lucas De Marchi
->
->>
->> Thanks,
->>
->> /Thomas
->>
->>
