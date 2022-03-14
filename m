@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54EFEC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 11:29:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA128C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Mar 2022 11:29:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAFC110E64B;
-	Mon, 14 Mar 2022 11:29:10 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C622410E5FC;
- Mon, 14 Mar 2022 11:29:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2DB10E62A;
+	Mon, 14 Mar 2022 11:29:11 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EC1F10E605;
+ Mon, 14 Mar 2022 11:29:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647257348; x=1678793348;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=yI2i3xzOMFFDc+RyRyerXPEEZVPhrMHjaBdIzAwM5AE=;
- b=jtDePbmawFoUhCGvGYoXS093BAat+r+ZZEVIIOaV+27nhLGD+wWYeU/N
- yknfys7aLGlctzE0xbd2eBmfnUsJIWrzCVZ6qc4yAkQkh6YmVuunpW4xB
- 6H11Ciskpn2dD4fGh+gv1vFnr6ArNYrxayDV3/0knHFyah4B6NQ92nxxU
- oz5dcxflJCAb4h7hkxR2nVT7WjdirhWN6eKs4kwDs3UQqAvA9CIrC0tjQ
- rzdu7QlY0TTOsBa4AaV+8dwYYQ4BZirZcybR2S7zQBA3Yv4rT89xh7Nxb
- +58Z1sTrv6wgBm1ZzHQdOdjazSKVCAXyNO3eJN90dok7kmOGPZO9joNeo w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10285"; a="243448266"
-X-IronPort-AV: E=Sophos;i="5.90,180,1643702400"; d="scan'208";a="243448266"
+ t=1647257350; x=1678793350;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Hw9rrVBRBy2MGrDy3eWdrktZfbCGzYIjyUmZnEFd9Cw=;
+ b=De7wnd9hKGRwEV7BV1EGH3HFrg1Zlqkq/KdEJtCCKnHpx/qDNo+i9PSP
+ TBX1wPVUPhUSS9SU5s95thtNZwW8JXg3tkVm9FtxFv28pDePxUcP0Gy58
+ cXb4OLdIJG5tpl4VV1OuXHUtdTIS0+lLAKRSDAlZZJ96cxe21hKmcTmrj
+ dbGuo5qdwgsHksCqhGB0ML0J1s2BfsIf2rcDqPYpKrcH9NYZ/IyQTlFTg
+ 2vQDeWFeLBQFjZ+geMr9FiEvF20dMDUDEeSCE1eWJEkGKurfk3gAszezu
+ 7R5KdAFoa+qQcXVVQ/tWBBaC1Ai6Nf1ir9fRwoOQd7sPKxFWWny+voNmS g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10285"; a="254830965"
+X-IronPort-AV: E=Sophos;i="5.90,180,1643702400"; d="scan'208";a="254830965"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2022 04:29:08 -0700
-X-IronPort-AV: E=Sophos;i="5.90,180,1643702400"; d="scan'208";a="556374368"
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2022 04:28:56 -0700
+X-IronPort-AV: E=Sophos;i="5.90,180,1643702400"; d="scan'208";a="556374301"
 Received: from znagyx-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.7.43])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2022 04:29:05 -0700
+ 14 Mar 2022 04:28:55 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Mar 2022 11:28:36 +0000
-Message-Id: <20220314112837.352931-7-matthew.auld@intel.com>
+Date: Mon, 14 Mar 2022 11:28:30 +0000
+Message-Id: <20220314112837.352931-1-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220314112837.352931-1-matthew.auld@intel.com>
-References: <20220314112837.352931-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 6/7] drm/i915/display: Check mappable
- aperture when pinning preallocated vma
+Subject: [Intel-gfx] [PATCH v3 0/7] Some more bits for small BAR enabling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,55 +55,16 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Ap Kamal <kamal.ap@intel.com>, Chris P Wilson <chris.p.wilson@intel.com>,
- CQ Tang <cq.tang@intel.com>, dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: CQ Tang <cq.tang@intel.com>
+The leftover bits around dealing with stolen-local memory + small BAR, plus
+some related fixes.
 
-When system does not have mappable aperture, ggtt->mappable_end=0. In
-this case if we pass PIN_MAPPABLE when pinning vma, the pinning code
-will return -ENOSPC. So conditionally set PIN_MAPPABLE if HAS_GMCH().
+v2: some tweaks based on feedback from Ville
+v3: directly probe the PTE to derive the physical offset within lmem
 
-Suggested-by: Chris P Wilson <chris.p.wilson@intel.com>
-Signed-off-by: CQ Tang <cq.tang@intel.com>
-Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Cc: Ap Kamal <kamal.ap@intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Acked-by: Nirmoy Das <nirmoy.das@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_plane_initial.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display/intel_plane_initial.c
-index 5227e5b35206..f797fcef18fc 100644
---- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
-+++ b/drivers/gpu/drm/i915/display/intel_plane_initial.c
-@@ -51,6 +51,7 @@ initial_plane_vma(struct drm_i915_private *i915,
- 	struct drm_i915_gem_object *obj;
- 	struct i915_vma *vma;
- 	u32 base, size;
-+	u64 pinctl;
- 
- 	if (!mem || plane_config->size == 0)
- 		return NULL;
-@@ -101,7 +102,10 @@ initial_plane_vma(struct drm_i915_private *i915,
- 	if (IS_ERR(vma))
- 		goto err_obj;
- 
--	if (i915_ggtt_pin(vma, NULL, 0, PIN_MAPPABLE | PIN_OFFSET_FIXED | base))
-+	pinctl = PIN_GLOBAL | PIN_OFFSET_FIXED | base;
-+	if (HAS_GMCH(i915))
-+		pinctl |= PIN_MAPPABLE;
-+	if (i915_vma_pin(vma, 0, 0, pinctl))
- 		goto err_obj;
- 
- 	if (i915_gem_object_is_tiled(obj) &&
 -- 
 2.34.1
 
