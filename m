@@ -4,67 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC424C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 15:40:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CEB4C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 15:40:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B29DC10E724;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A61A10E732;
 	Wed, 23 Mar 2022 15:40:21 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3C1610E5E1;
- Wed, 23 Mar 2022 07:37:15 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id pv16so1154123ejb.0;
- Wed, 23 Mar 2022 00:37:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=2ImceWYBoPiqBBOOEytUsJtPdDggUfyLvVXnD8LV884=;
- b=mP58g6OHXBHC/7jwsh6cIx+oywVTLlbeV2mQSwtosLUv/q+bx/WR6osPLJqipFM9Tf
- rG8QUXIv10MTz4Rb2O7JEyjRc7oswiZQFefb6MtvRtsDDGRybzPJHIsog4mCmGlpH74T
- d7GiM+Blt4Gpu6/mC9asEy5T9WhyMdsgJ8BPNx7HZ7oRXU7izskJTrOuSFKYjuWKajil
- 2sc74CdZa2DrX+YB3CkrCycNHcja1HUMPFiMQATwBYOZaEPjcuUUqOC4VwyCZQYqV2bZ
- YwKnIQUbWC4AdPdNfW2f/+MbzWx+skR16Aj6YzMYj/jI3rb5/w9PZkFxKCXsVIxyHlx1
- OGUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=2ImceWYBoPiqBBOOEytUsJtPdDggUfyLvVXnD8LV884=;
- b=HdIuoVgEbJ35PvKjf4IWOMlU31mD/oA5EaQAgk5g8IXxneDqNPMpWyHah/x/AIOwHP
- 89I6Hs0ngFEHwLDPErCMiFNMD4LgLstJo9vSZIjwsbDoMIQ8jSPCTapmzlk0ANHNd03k
- BikU/4gC/SgIsqtXGbqpcoRpPsHY8RDPUr8YVXtWXh7kNfapI5LScVI0t3cNaUGQkWH1
- Xn4C6wPmokNbNzNP84UGl0KuRaxkZo/7lY5nV/yF8aXr7X0MQVr9tWEb4g4CWQ969+sz
- 2ZPrm46ju6Xnqihw6H7xEY+TVYRABboabZGxzjyfspbfzhlWHKl7/tqLbGwLY34y0nQ4
- LeoA==
-X-Gm-Message-State: AOAM532opn0ro+h5jOnF5x56osAhAzY2ICxcPinaXNYi9ke6Zmu+3w7m
- a8MzSXWfyJvCBtXA3JzPtLo=
-X-Google-Smtp-Source: ABdhPJwlzZ7eGtrjCZN0di1fzv7jPQ4mO24Cf1hi9x4fsimyB7ZWFpZ3TQ7AW2/2pJeiXjgaUZvmzQ==
-X-Received: by 2002:a17:907:7fa2:b0:6d8:2397:42 with SMTP id
- qk34-20020a1709077fa200b006d823970042mr29943989ejc.218.1648021034168; 
- Wed, 23 Mar 2022 00:37:14 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
- by smtp.gmail.com with ESMTPSA id
- i22-20020a170906251600b006d6d9081f46sm9475570ejb.150.2022.03.23.00.37.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Mar 2022 00:37:13 -0700 (PDT)
-Message-ID: <c255f3ea-a269-1886-f79a-2d8a38b956b1@gmail.com>
-Date: Wed, 23 Mar 2022 08:37:11 +0100
+Received: from mx0b-00190b01.pphosted.com (mx0b-00190b01.pphosted.com
+ [IPv6:2620:100:9005:57f::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F10B10E35A;
+ Mon, 14 Mar 2022 21:30:29 +0000 (UTC)
+Received: from pps.filterd (m0122330.ppops.net [127.0.0.1])
+ by mx0b-00190b01.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22EHH282022438;
+ Mon, 14 Mar 2022 21:30:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=jan2016.eng;
+ bh=DnlH4WPaT9Z+jUCaFm11XFK9ptA8XNRWuJjN2W9g93A=;
+ b=EimbgGbh3rA5Z8b9amifP2VN4lAbGo/mvUvrIFsrq80SeQ2W+4OOxnb0XOCWhFq+GEpL
+ iVfZ7mUstOo1EAJmx80vdOEkyNu9hnD2HyXjFK7igxiHK7ciVTwuQBlVmTHQXquLXqJ7
+ wf1m29IwaKeTDHVxjXGqoh/4153MWB0/tmvSaHWzVlm+zMG9zXPqasQoxYnQT8gdb+5e
+ ATzvdVTMPlDqrKq/Z0uFfAODHKoRuhjIy6Nw2IdV3n+uqDrHkyAbZB1XKjM616gmu5tU
+ o9O37ydl8d2w3X//Hkwn4obprJkBTBi4buFIZQrc8QPHN5uZVIQ9K12qlJufxkVH792I 4A== 
+Received: from prod-mail-ppoint5 (prod-mail-ppoint5.akamai.com [184.51.33.60]
+ (may be forged))
+ by mx0b-00190b01.pphosted.com (PPS) with ESMTPS id 3et611jdts-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Mar 2022 21:30:25 +0000
+Received: from pps.filterd (prod-mail-ppoint5.akamai.com [127.0.0.1])
+ by prod-mail-ppoint5.akamai.com (8.16.1.2/8.16.1.2) with SMTP id
+ 22ELL2Gx031601; Mon, 14 Mar 2022 14:30:00 -0700
+Received: from prod-mail-relay10.akamai.com ([172.27.118.251])
+ by prod-mail-ppoint5.akamai.com with ESMTP id 3ertcekqsk-1;
+ Mon, 14 Mar 2022 14:30:00 -0700
+Received: from [0.0.0.0] (prod-ssh-gw01.bos01.corp.akamai.com [172.27.119.138])
+ by prod-mail-relay10.akamai.com (Postfix) with ESMTP id 1E2C94C6C6;
+ Mon, 14 Mar 2022 21:30:00 +0000 (GMT)
+Message-ID: <0d00c529-3bac-f09f-e07c-584194251a06@akamai.com>
+Date: Mon, 14 Mar 2022 17:29:59 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
 Content-Language: en-US
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20220323062552.228429-1-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220323062552.228429-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: jim.cromie@gmail.com
+References: <20220311044756.425777-1-jim.cromie@gmail.com>
+ <20220311044756.425777-3-jim.cromie@gmail.com>
+ <823e51e6-2af4-7854-9428-697a2af12488@akamai.com>
+ <CAJfuBxxVti_pa1YPmas=Ub28yWUFFGeR13wxveLvPCYS61NxuA@mail.gmail.com>
+From: Jason Baron <jbaron@akamai.com>
+In-Reply-To: <CAJfuBxxVti_pa1YPmas=Ub28yWUFFGeR13wxveLvPCYS61NxuA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.425, 18.0.850
+ definitions=2022-03-14_13:2022-03-14,
+ 2022-03-14 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ suspectscore=0
+ mlxlogscore=999 malwarescore=0 bulkscore=0 adultscore=0 phishscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2203140123
+X-Proofpoint-ORIG-GUID: B7Gi0uhxn_zgxI-N0lzstel1Fg851Rqd
+X-Proofpoint-GUID: B7Gi0uhxn_zgxI-N0lzstel1Fg851Rqd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.850,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-03-14_13,2022-03-14_02,2022-02-23_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
+ phishscore=0
+ clxscore=1015 mlxlogscore=999 spamscore=0 priorityscore=1501
+ malwarescore=0 adultscore=0 mlxscore=0 bulkscore=0 suspectscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2203140123
 X-Mailman-Approved-At: Wed, 23 Mar 2022 15:40:20 +0000
-Subject: Re: [Intel-gfx] [PATCH v11] drm/amdgpu: add drm buddy support to
- amdgpu
+Subject: Re: [Intel-gfx] [PATCH 2/5] dyndbg: add class_id field and query
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,278 +89,370 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, matthew.auld@intel.com, christian.koenig@amd.com
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <seanpaul@chromium.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Joe Perches <joe@perches.com>,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 23.03.22 um 07:25 schrieb Arunpravin Paneer Selvam:
-> [SNIP]
-> @@ -415,48 +409,86 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   		goto error_fini;
->   	}
->   
-> -	mode = DRM_MM_INSERT_BEST;
-> +	INIT_LIST_HEAD(&node->blocks);
-> +
->   	if (place->flags & TTM_PL_FLAG_TOPDOWN)
-> -		mode = DRM_MM_INSERT_HIGH;
-> +		node->flags |= DRM_BUDDY_TOPDOWN_ALLOCATION;
->   
-> -	pages_left = node->base.num_pages;
-> +	if (place->fpfn || lpfn != man->size >> PAGE_SHIFT)
-> +		/* Allocate blocks in desired range */
-> +		node->flags |= DRM_BUDDY_RANGE_ALLOCATION;
->   
-> -	/* Limit maximum size to 2GB due to SG table limitations */
-> -	pages = min(pages_left, 2UL << (30 - PAGE_SHIFT));
-> +	BUG_ON(!node->base.num_pages);
 
-Please drop this BUG_ON(). This is not something which prevents further 
-data corruption, so the BUG_ON() is not justified.
 
-> +	pages_left = node->base.num_pages;
->   
->   	i = 0;
-> -	spin_lock(&mgr->lock);
->   	while (pages_left) {
-> -		uint32_t alignment = tbo->page_alignment;
-> +		if (tbo->page_alignment)
-> +			min_page_size = tbo->page_alignment << PAGE_SHIFT;
-> +		else
-> +			min_page_size = mgr->default_page_size;
+On 3/11/22 20:06, jim.cromie@gmail.com wrote:
+> On Fri, Mar 11, 2022 at 12:06 PM Jason Baron <jbaron@akamai.com> wrote:
+>>
+>>
+>>
+>> On 3/10/22 23:47, Jim Cromie wrote:
+>>> DRM defines/uses 10 enum drm_debug_category's to create exclusive
+>>> classes of debug messages.  To support this directly in dynamic-debug,
+>>> add the following:
+>>>
+>>> - struct _ddebug.class_id:4 - 4 bits is enough
+>>> - define _DPRINTK_SITE_UNCLASSED 15 - see below
+>>>
+>>> and the query support:
+>>> - struct _ddebug_query.class_id
+>>> - ddebug_parse_query  - looks for "class" keyword, then calls..
+>>> - parse_class         - accepts uint: 0-15, sets query.class_id and marker
+>>> - vpr_info_dq         - displays new field
+>>> - ddebug_proc_show    - append column with "cls:%d" if !UNCLASSED
+>>>
+>>> With the patch, one can enable current/unclassed callsites by:
+>>>
+>>>   #> echo drm class 15 +p > /proc/dynamic_debug/control
+>>>
+>>
+>> To me, this is hard to read, what the heck is '15'? I have to go look it
+>> up in the control file and it's not descriptive. I think that using
+>> classes/categories makes sense but I'm wondering if it can be a bit more
+>> user friendly? Perhaps, we can pass an array of strings that is indexed
+>> by the class id to each pr_debug() site that wants to use class. So
+>> something like:
+>>
+> 
+> Im not at all averse to nice names, but as something added on.
+> 
+> 1st, the interface to make friendlier is DRM's
+> 
+> echo 0x04 > /sys/module/drm/parameters/debug   # which category ?
+> 
+> parm:           debug:Enable debug output, where each bit enables a
+> debug category.
+> Bit 0 (0x01)  will enable CORE messages (drm core code)
+> Bit 1 (0x02)  will enable DRIVER messages (drm controller code)
+> Bit 2 (0x04)  will enable KMS messages (modesetting code)
+> 
+> echo DRM_UT_DRIVER,DRM_UT_KMS > /sys/module/drm/parameters/debug   #
+> now its pretty clear
+> 
+> If that works, its cuz DEFINE_DYNAMIC_DEBUG_CLASSBITS()
+> plucks class symbols out of its __VA_ARGS__, and #stringifes them.
+> So that macro could then build the 1-per-module static constant string array
+> and (only) the callbacks would be able to use it.
+> 
+> from there, it shouldnt be hard to ref that from the module's ddebug_table,
+> so parse_query could validate class args against the module given (or
+> fail if none given)
+> 
+> Speaking strictly, theres a gap:
+>    echo module * class DRM_UT_KMS +p > control
+> is nonsense for * other than drm + drivers,
+> but its fair/safe to just disallow wildcards on modname for this purpose.
+> 
+> it does however imply that module foo must exist for FOO_CAT_1 to be usable.
+> thats not currently the case:
+> bash-5.1# echo module foo +p > /proc/dynamic_debug/control
+> [   15.403749] dyndbg: read 14 bytes from userspace
+> [   15.405413] dyndbg: query 0: "module foo +p" mod:*
+> [   15.406486] dyndbg: split into words: "module" "foo" "+p"
+> [   15.407070] dyndbg: op='+'
+> [   15.407388] dyndbg: flags=0x1
+> [   15.407809] dyndbg: *flagsp=0x1 *maskp=0xffffffff
+> [   15.408300] dyndbg: parsed: func="" file="" module="foo" format=""
+> lineno=0-0 class=15
+> [   15.409151] dyndbg: no matches for query
+> [   15.409591] dyndbg: no-match: func="" file="" module="foo"
+> format="" lineno=0-0 class=15
+> [   15.410524] dyndbg: processed 1 queries, with 0 matches, 0 errs
+> bash-5.1#
+> 
+> ISTM we can keep that "0 errs" response for that case, but still reject this:
+> 
+>    echo module foo class FOO_NOT_HERE +p > /proc/dynamic_debug/control
+> 
+> 
 
-The handling here looks extremely awkward to me.
+Ok, yeah so I guess I'm thinking about the 'class' more as global namespace,
+so that for example, it could span modules, or be specific to certain modules.
+I'm also thinking of it as a 'string' which is maybe hierarchical, so that it's
+clear what sub-system, or sub-sub-system it belongs to. So for DRM for example,
+it could be a string like "DRM:CORE". The index num I think is still helpful for
+implementation so we don't have to store a pointer size, but I don't think it's
+really exposed (except perhaps in module params b/c drm is doing that already?).
 
-min_page_size should be determined outside of the loop, based on 
-default_page_size, alignment and contiguous flag.
 
-Then why do you drop the lock and grab it again inside the loop? And 
-what is "i" actually good for?
+>> enum levels {
+>>         LOW,
+>>         MEDIUM,
+>>         HIGH
+>> };
+> 
+> I want to steer clear of "level" anything,
+> since 2>1 implies non independence of the categories
+> 
+> 
 
-> +
-> +		/* Limit maximum size to 2GB due to SG table limitations */
-> +		pages = min(pages_left, 2UL << (30 - PAGE_SHIFT));
->   
->   		if (pages >= pages_per_node)
-> -			alignment = pages_per_node;
-> -
-> -		r = drm_mm_insert_node_in_range(mm, &node->mm_nodes[i], pages,
-> -						alignment, 0, place->fpfn,
-> -						lpfn, mode);
-> -		if (unlikely(r)) {
-> -			if (pages > pages_per_node) {
-> -				if (is_power_of_2(pages))
-> -					pages = pages / 2;
-> -				else
-> -					pages = rounddown_pow_of_two(pages);
-> -				continue;
-> -			}
-> -			goto error_free;
-> +			min_page_size = pages_per_node << PAGE_SHIFT;
-> +
-> +		if (!is_contiguous && !IS_ALIGNED(pages, min_page_size >> PAGE_SHIFT))
-> +			is_contiguous = 1;
-> +
-> +		if (is_contiguous) {
-> +			pages = roundup_pow_of_two(pages);
-> +			min_page_size = pages << PAGE_SHIFT;
-> +
-> +			if (pages > lpfn)
-> +				lpfn = pages;
->   		}
->   
-> -		vis_usage += amdgpu_vram_mgr_vis_size(adev, &node->mm_nodes[i]);
-> -		amdgpu_vram_mgr_virt_start(&node->base, &node->mm_nodes[i]);
-> -		pages_left -= pages;
-> +		BUG_ON(min_page_size < mm->chunk_size);
-> +
-> +		mutex_lock(&mgr->lock);
-> +		r = drm_buddy_alloc_blocks(mm, (u64)place->fpfn << PAGE_SHIFT,
-> +					   (u64)lpfn << PAGE_SHIFT,
-> +					   (u64)pages << PAGE_SHIFT,
-> +					   min_page_size,
-> +					   &node->blocks,
-> +					   node->flags);
-> +		mutex_unlock(&mgr->lock);
-> +		if (unlikely(r))
-> +			goto error_free_blocks;
-> +
->   		++i;
->   
->   		if (pages > pages_left)
-> -			pages = pages_left;
-> +			pages_left = 0;
-> +		else
-> +			pages_left -= pages;
->   	}
-> -	spin_unlock(&mgr->lock);
->   
-> -	if (i == 1)
-> +	/* Free unused pages for contiguous allocation */
-> +	if (is_contiguous) {
+Agreed, that was a bad example on my part.
 
-Well that looks really odd, why is trimming not part of 
-drm_buddy_alloc_blocks() ?
+I've put together a rough patch on top of your series, to make my thinking
+hopefully clear. I also think that the module param callback thing could be
+implemented in this 'global' space with the 0-14 low numbers, by adding
+some sort of offset into the table. IE you would add the low number +
+the offset to get the 'string' to add to the ddebug query. I commented it
+out in my patch below b/c I didn't implement that part.
 
-> +		u64 actual_size = (u64)node->base.num_pages << PAGE_SHIFT;
-> +
-> +		mutex_lock(&mgr->lock);
-> +		drm_buddy_block_trim(mm,
-> +				     actual_size,
-> +				     &node->blocks);
+Thoughts?
 
-Why is the drm_buddy_block_trim() function given all the blocks and not 
-just the last one?
 
-Regards,
-Christian.
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 664bb83778d2..b0bc1b536d54 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -8,6 +8,14 @@
 
-> +		mutex_unlock(&mgr->lock);
-> +	}
-> +
-> +	list_for_each_entry(block, &node->blocks, link)
-> +		vis_usage += amdgpu_vram_mgr_vis_size(adev, block);
-> +
-> +	block = amdgpu_vram_mgr_first_block(&node->blocks);
-> +	if (!block) {
-> +		r = -EINVAL;
-> +		goto error_fini;
-> +	}
-> +
-> +	node->base.start = amdgpu_node_start(block) >> PAGE_SHIFT;
-> +
-> +	if (i == 1 && is_contiguous)
->   		node->base.placement |= TTM_PL_FLAG_CONTIGUOUS;
->   
->   	if (adev->gmc.xgmi.connected_to_cpu)
-> @@ -468,13 +500,13 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   	*res = &node->base;
->   	return 0;
->   
-> -error_free:
-> -	while (i--)
-> -		drm_mm_remove_node(&node->mm_nodes[i]);
-> -	spin_unlock(&mgr->lock);
-> +error_free_blocks:
-> +	mutex_lock(&mgr->lock);
-> +	drm_buddy_free_list(mm, &node->blocks);
-> +	mutex_unlock(&mgr->lock);
->   error_fini:
->   	ttm_resource_fini(man, &node->base);
-> -	kvfree(node);
-> +	kfree(node);
->   
->   	return r;
->   }
-> @@ -490,27 +522,26 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
->   static void amdgpu_vram_mgr_del(struct ttm_resource_manager *man,
->   				struct ttm_resource *res)
->   {
-> -	struct ttm_range_mgr_node *node = to_ttm_range_mgr_node(res);
-> +	struct amdgpu_vram_mgr_node *node = to_amdgpu_vram_mgr_node(res);
->   	struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
->   	struct amdgpu_device *adev = to_amdgpu_device(mgr);
-> +	struct drm_buddy *mm = &mgr->mm;
-> +	struct drm_buddy_block *block;
->   	uint64_t vis_usage = 0;
-> -	unsigned i, pages;
->   
-> -	spin_lock(&mgr->lock);
-> -	for (i = 0, pages = res->num_pages; pages;
-> -	     pages -= node->mm_nodes[i].size, ++i) {
-> -		struct drm_mm_node *mm = &node->mm_nodes[i];
-> +	mutex_lock(&mgr->lock);
-> +	list_for_each_entry(block, &node->blocks, link)
-> +		vis_usage += amdgpu_vram_mgr_vis_size(adev, block);
->   
-> -		drm_mm_remove_node(mm);
-> -		vis_usage += amdgpu_vram_mgr_vis_size(adev, mm);
-> -	}
->   	amdgpu_vram_mgr_do_reserve(man);
-> -	spin_unlock(&mgr->lock);
-> +
-> +	drm_buddy_free_list(mm, &node->blocks);
-> +	mutex_unlock(&mgr->lock);
->   
->   	atomic64_sub(vis_usage, &mgr->vis_usage);
->   
->   	ttm_resource_fini(man, res);
-> -	kvfree(node);
-> +	kfree(node);
->   }
->   
->   /**
-> @@ -648,13 +679,22 @@ static void amdgpu_vram_mgr_debug(struct ttm_resource_manager *man,
->   				  struct drm_printer *printer)
->   {
->   	struct amdgpu_vram_mgr *mgr = to_vram_mgr(man);
-> +	struct drm_buddy *mm = &mgr->mm;
-> +	struct drm_buddy_block *block;
->   
->   	drm_printf(printer, "  vis usage:%llu\n",
->   		   amdgpu_vram_mgr_vis_usage(mgr));
->   
-> -	spin_lock(&mgr->lock);
-> -	drm_mm_print(&mgr->mm, printer);
-> -	spin_unlock(&mgr->lock);
-> +	mutex_lock(&mgr->lock);
-> +	drm_printf(printer, "default_page_size: %lluKiB\n",
-> +		   mgr->default_page_size >> 10);
-> +
-> +	drm_buddy_print(mm, printer);
-> +
-> +	drm_printf(printer, "reserved:\n");
-> +	list_for_each_entry(block, &mgr->reserved_pages, link)
-> +		drm_buddy_block_print(mm, block, printer);
-> +	mutex_unlock(&mgr->lock);
->   }
->   
->   static const struct ttm_resource_manager_func amdgpu_vram_mgr_func = {
-> @@ -674,16 +714,21 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->   {
->   	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
->   	struct ttm_resource_manager *man = &mgr->manager;
-> +	int err;
->   
->   	ttm_resource_manager_init(man, &adev->mman.bdev,
->   				  adev->gmc.real_vram_size);
->   
->   	man->func = &amdgpu_vram_mgr_func;
->   
-> -	drm_mm_init(&mgr->mm, 0, man->size >> PAGE_SHIFT);
-> -	spin_lock_init(&mgr->lock);
-> +	err = drm_buddy_init(&mgr->mm, man->size, PAGE_SIZE);
-> +	if (err)
-> +		return err;
-> +
-> +	mutex_init(&mgr->lock);
->   	INIT_LIST_HEAD(&mgr->reservations_pending);
->   	INIT_LIST_HEAD(&mgr->reserved_pages);
-> +	mgr->default_page_size = PAGE_SIZE;
->   
->   	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
->   	ttm_resource_manager_set_used(man, true);
-> @@ -711,16 +756,16 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
->   	if (ret)
->   		return;
->   
-> -	spin_lock(&mgr->lock);
-> +	mutex_lock(&mgr->lock);
->   	list_for_each_entry_safe(rsv, temp, &mgr->reservations_pending, node)
->   		kfree(rsv);
->   
->   	list_for_each_entry_safe(rsv, temp, &mgr->reserved_pages, node) {
-> -		drm_mm_remove_node(&rsv->mm_node);
-> +		drm_buddy_free_list(&mgr->mm, &rsv->block);
->   		kfree(rsv);
->   	}
-> -	drm_mm_takedown(&mgr->mm);
-> -	spin_unlock(&mgr->lock);
-> +	drm_buddy_fini(&mgr->mm);
-> +	mutex_unlock(&mgr->lock);
->   
->   	ttm_resource_manager_cleanup(man);
->   	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, NULL);
->
-> base-commit: a678f97326454b60ffbbde6abf52d23997d71a27
+ #include <linux/build_bug.h>
 
++enum ddebug_categories {
++        FOO_BAR = 0,
++        DRM_A = 1,
++        DRM_B = 2,
++        DRM_C = 3,
++        //_DPRINTK_SITE_DEFAULT 63 is max
++};
++
+ /*
+  * An instance of this structure is created in a special
+  * ELF section at every dynamic debug callsite.  At runtime,
+@@ -23,9 +31,9 @@ struct _ddebug {
+ 	const char *filename;
+ 	const char *format;
+ 	unsigned int lineno:18;
+-#define CLS_BITS 4
++#define CLS_BITS 6
+ 	unsigned int class_id:CLS_BITS;
+-#define _DPRINTK_SITE_UNCLASSED		((1 << CLS_BITS) - 1)
++#define _DPRINTK_SITE_DEFAULT		((1 << CLS_BITS) - 1)
+ 	/*
+ 	 * The flags field controls the behaviour at the callsite.
+ 	 * The bits here are changed dynamically when the user
+@@ -101,11 +109,11 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 		.class_id = cls,				\
+ 		_DPRINTK_KEY_INIT				\
+ 	};							\
+-	BUILD_BUG_ON_MSG(cls > _DPRINTK_SITE_UNCLASSED,		\
++	BUILD_BUG_ON_MSG(cls > _DPRINTK_SITE_DEFAULT,		\
+ 			 "classid value overflow")
+
+ #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)		\
+-	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_SITE_UNCLASSED, fmt)
++	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_SITE_DEFAULT, fmt)
+
+ #ifdef CONFIG_JUMP_LABEL
+
+@@ -149,11 +157,11 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ } while (0)
+
+ #define __dynamic_func_call(id, fmt, func, ...)				\
+-	__dynamic_func_call_cls(id, _DPRINTK_SITE_UNCLASSED,		\
++	__dynamic_func_call_cls(id, _DPRINTK_SITE_DEFAULT,		\
+ 				fmt, func, ##__VA_ARGS__)
+
+ #define __dynamic_func_call_no_desc(id, fmt, func, ...)			\
+-	__dynamic_func_call_no_desc_cls(id, _DPRINTK_SITE_UNCLASSED,	\
++	__dynamic_func_call_no_desc_cls(id, _DPRINTK_SITE_DEFAULT,	\
+ 					fmt, func, ##__VA_ARGS__)
+
+ /*
+@@ -167,7 +175,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ #define _dynamic_func_call_cls(cls, fmt, func, ...)			\
+ 	__dynamic_func_call_cls(__UNIQUE_ID(ddebug), cls, fmt, func, ##__VA_ARGS__)
+ #define _dynamic_func_call(fmt, func, ...)				\
+-	_dynamic_func_call_cls(_DPRINTK_SITE_UNCLASSED, fmt, func, ##__VA_ARGS__)
++	_dynamic_func_call_cls(_DPRINTK_SITE_DEFAULT, fmt, func, ##__VA_ARGS__)
+
+ /*
+  * A variant that does the same, except that the descriptor is not
+@@ -180,7 +188,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+
+ #define _dynamic_func_call_no_desc(fmt, func, ...)			\
+ 	__dynamic_func_call_no_desc_cls(__UNIQUE_ID(ddebug),		\
+-					_DPRINTK_SITE_UNCLASSED,	\
++					_DPRINTK_SITE_DEFAULT,	\
+ 					fmt, func, ##__VA_ARGS__)
+
+ #define dynamic_pr_debug(fmt, ...)				\
+@@ -284,7 +292,7 @@ struct dyndbg_classbits_param {
+ 	static struct dyndbg_classbits_param ddcats_##_var = {		\
+ 		.bits = &(_var),					\
+ 		.flags = _flgs,						\
+-		.classes = { __VA_ARGS__, _DPRINTK_SITE_UNCLASSED }	\
++		.classes = { __VA_ARGS__, _DPRINTK_SITE_DEFAULT }	\
+ 	};								\
+ 	module_param_cb(fsname, &param_ops_dyndbg_classbits,		\
+ 			&ddcats_##_var, 0644)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 11c8d0771cd2..0f390638e46c 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -39,6 +39,14 @@
+
+ #include <rdma/ib_verbs.h>
+
++static const char * const cat_to_strings[] = {
++        [FOO_BAR] = "foo:bar",
++        [DRM_A] = "drm:A",
++        [DRM_B] = "drm:B",
++        [DRM_C] = "drm:C",
++	[_DPRINTK_SITE_DEFAULT] = "default",
++};
++
+ extern struct _ddebug __start___dyndbg[];
+ extern struct _ddebug __stop___dyndbg[];
+
+@@ -55,8 +63,7 @@ struct ddebug_query {
+ 	const char *function;
+ 	const char *format;
+ 	unsigned int first_lineno, last_lineno;
+-	unsigned int class_id;
+-	unsigned int class_marked:1;
++	const char *class_string;
+ };
+
+ struct ddebug_iter {
+@@ -136,13 +143,13 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+ 			fmtlen--;
+ 	}
+
+-	v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u class=%u\n",
++	v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u class=%s\n",
+ 		 msg,
+ 		 query->function ?: "",
+ 		 query->filename ?: "",
+ 		 query->module ?: "",
+ 		 fmtlen, query->format ?: "",
+-		 query->first_lineno, query->last_lineno, query->class_id);
++		 query->first_lineno, query->last_lineno, query->class_string);
+ }
+
+ /*
+@@ -158,7 +165,7 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	struct ddebug_table *dt;
+ 	unsigned int newflags;
+ 	unsigned int nfound = 0;
+-	struct flagsbuf fbuf;
++	struct flagsbuf fbuf, nbuf;
+
+ 	/* search for matching ddebugs */
+ 	mutex_lock(&ddebug_lock);
+@@ -172,8 +179,8 @@ static int ddebug_change(const struct ddebug_query *query,
+ 		for (i = 0; i < dt->num_ddebugs; i++) {
+ 			struct _ddebug *dp = &dt->ddebugs[i];
+
+-			/* match against the class_id, either given or default */
+-			if (query->class_id != dp->class_id)
++			/* if class is not set fall through, ot check if it matches */
++			if (query->class_string && strcmp(query->class_string, cat_to_strings[dp->class_id]))
+ 				continue;
+
+ 			/* match against the source filename */
+@@ -223,11 +230,12 @@ static int ddebug_change(const struct ddebug_query *query,
+ 				static_branch_enable(&dp->key.dd_key_true);
+ 			}
+ #endif
++			v4pr_info("changed %s:%d [%s]%s %s -> %s\n",
++				  trim_prefix(dp->filename), dp->lineno,
++				  dt->mod_name, dp->function,
++				  ddebug_describe_flags(dp->flags, &fbuf),
++				  ddebug_describe_flags(newflags, &nbuf));
+ 			dp->flags = newflags;
+-			v4pr_info("changed %s:%d [%s]%s =%s\n",
+-				 trim_prefix(dp->filename), dp->lineno,
+-				 dt->mod_name, dp->function,
+-				 ddebug_describe_flags(dp->flags, &fbuf));
+ 		}
+ 	}
+ 	mutex_unlock(&ddebug_lock);
+@@ -314,21 +322,6 @@ static inline int parse_lineno(const char *str, unsigned int *val)
+ 	return 0;
+ }
+
+-static inline int parse_class(struct ddebug_query *query, const char *str)
+-{
+-	int rc;
+-	unsigned int val;
+-
+-	rc = kstrtouint(str, 10, &val);
+-	if (rc < 0 || val > _DPRINTK_SITE_UNCLASSED) {
+-		pr_err("expecting class:[0-%d], not %s\n", _DPRINTK_SITE_UNCLASSED, str);
+-		return -EINVAL;
+-	}
+-	query->class_id = val;
+-	query->class_marked = 1;
+-	return 0;
+-}
+-
+ static int parse_linerange(struct ddebug_query *query, const char *first)
+ {
+ 	char *last = strchr(first, '-');
+@@ -443,8 +436,7 @@ static int ddebug_parse_query(char *words[], int nwords,
+ 			if (parse_linerange(query, arg))
+ 				return -EINVAL;
+ 		} else if (!strcmp(keyword, "class")) {
+-			if (parse_class(query, arg))
+-				return -EINVAL;
++			rc = check_set(&query->class_string, arg, "class");
+ 		} else {
+ 			pr_err("unknown keyword \"%s\"\n", keyword);
+ 			return -EINVAL;
+@@ -452,9 +444,6 @@ static int ddebug_parse_query(char *words[], int nwords,
+ 		if (rc)
+ 			return rc;
+ 	}
+-	/* post-validate the query, set default */
+-	if (!query->class_marked)
+-		query->class_id = _DPRINTK_SITE_UNCLASSED;
+
+ 	vpr_info_dq(query, "parsed");
+ 	return 0;
+@@ -616,6 +605,8 @@ int param_set_dyndbg_classbits(const char *instr, const struct kernel_param *kp)
+ 	}
+ 	vpr_info("set_dyndbg_classbits: new 0x%lx old 0x%lx\n", inbits, *dcp->bits);
+
++
++/*
+ 	for (i = 0; (i < _DPRINTK_SITE_UNCLASSED &&
+ 		     dcp->classes[i] < _DPRINTK_SITE_UNCLASSED); i++) {
+
+@@ -630,6 +621,7 @@ int param_set_dyndbg_classbits(const char *instr, const struct kernel_param *kp)
+ 			  matches, dcp->classes[i]);
+ 		totct += matches;
+ 	}
++*/
+ 	*dcp->bits = inbits;
+ 	vpr_info("total matches: %d\n", totct);
+ 	return 0;
+@@ -978,8 +970,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 	seq_escape(m, dp->format, "\t\r\n\"");
+ 	seq_puts(m, "\"");
+
+-	if (dp->class_id != _DPRINTK_SITE_UNCLASSED)
+-		seq_printf(m, " cls:%u", dp->class_id);
++	seq_printf(m, " cat:%s", cat_to_strings[dp->class_id]);
+ 	seq_puts(m, "\n");
+
+ 	return 0;
