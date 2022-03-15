@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A19D0C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 13:28:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3502C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 13:28:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36E0910E45E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B276A10E46D;
 	Tue, 15 Mar 2022 13:28:09 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AFD310E422
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 13:28:08 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D270610E45E
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 13:28:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647350888; x=1678886888;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=EP/BpLWdT0f2D2x7uV5qA8OcUA3CZRrIOyB2SFQweNA=;
- b=K2jgU5pFnGAgDEzbqunD/fzdm1R6vmHwmW3fNHPQ35Ccov7//CkzxHgV
- FtGurSVep5bukHysfmi/YD0s16jA/KovkhkCrOFPffNeqI2xzpQW6F+ug
- pOklKBtjGsH1otrM6KbJOhoGEOl+mg+ycDk66gZyKD50Xhho/loL9FwVv
- oisIYPxSX8PMM1Pma2TL1W46q6QMzvkrNt4g8xNeouuJ/YahDu5lRehZe
- ujTds4do0Gg9LrQmhES5Rx63mmvdVI27ynz2adVEwQc+Cweajr2dnP3wh
- MdBY4hW28kits7LNhbRNZWIpckon6a87U7Bq+AHoo5LHCiPaXISjlXr/d w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="319518803"
-X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="319518803"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2022 06:27:55 -0700
+ t=1647350887; x=1678886887;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=vg6V93DiZTiSL02Y7kmO2BIJXzBH8QDzXuUNN5bE8hk=;
+ b=JvK2A7ksEsurl+LOtRc81h81yJOVKlVQ4mDyS2erlchQt2l9fpAGO696
+ aAb9hmcRNRbCfhUl4KefNoWctVLlVl9JJfDoKszly6puloHn2RfrsvUei
+ +5EWhaCFOFw2kzCNCJKILNVsQkNjNGjZiZyoHipwFhsR2Zfi7f3gcrAzl
+ 6HoJUmcHbG44EIVYcjKdf938xAsA1Wu/tmzD9PIOKx8V46yoTXuOjnV2x
+ aNao6xM8JcqCW/C9g8FooRForD9iRkkkJdR2Gmxpc5XHJSxEp27/YJ1Lq
+ yn5/l+V9dWrTe8VWAomsWwfMycpScXleiV9HJyeCpDdH/lp1dqlcv5suy Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="236244433"
+X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="236244433"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2022 06:28:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="598307508"
+X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="556926889"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga008.fm.intel.com with SMTP; 15 Mar 2022 06:27:53 -0700
+ by orsmga008.jf.intel.com with SMTP; 15 Mar 2022 06:28:05 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 15 Mar 2022 15:27:52 +0200
+ Tue, 15 Mar 2022 15:28:04 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Mar 2022 15:27:43 +0200
-Message-Id: <20220315132752.11849-1-ville.syrjala@linux.intel.com>
+Date: Tue, 15 Mar 2022 15:27:47 +0200
+Message-Id: <20220315132752.11849-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220315132752.11849-1-ville.syrjala@linux.intel.com>
+References: <20220315132752.11849-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/9] drm/i915: More DRRS work
+Subject: [Intel-gfx] [PATCH 4/9] drm/i195: Determine DRRS frontbuffer_bits
+ ahead of time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,31 +64,71 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-A few more DRRS things:
-* fix an oops I accidentally introduced
-* avoid DRRS racing with regular atomic commits
-* deal with bigjoiner
-* other misc things
+Pre-determine the frontbuffer_bits for the each pipe during
+intel_drrs_enable(). Will become useful for bigjoiner use cases
+soon.
 
-Ville Syrjälä (9):
-  drm/i915: Put the downclock_mode check back into can_enable_drrs()
-  drm/i915: Add missing tab to DRRS debugfs
-  drm/i915: Fix DRRS frontbuffer_bits handling
-  drm/i195: Determine DRRS frontbuffer_bits ahead of time
-  drm/i915: Don't cancel/schedule drrs work if the pipe wasn't affected
-  drm/i915: Schedule DRRS work from intel_drrs_enable()
-  drm/i915: Do DRRS disable/enable during pre/post_plane_update()
-  drm/i915: Deal with bigjoiner vs. DRRS
-  drm/i915: s/enable/active/ for DRRS
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_types.h |  1 +
+ drivers/gpu/drm/i915/display/intel_drrs.c          | 11 ++++++++++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/i915/display/intel_ddi.c      |   4 -
- drivers/gpu/drm/i915/display/intel_display.c  |   8 +-
- .../drm/i915/display/intel_display_debugfs.c  |  17 ++-
- .../drm/i915/display/intel_display_types.h    |   1 +
- drivers/gpu/drm/i915/display/intel_drrs.c     | 118 +++++++++---------
- drivers/gpu/drm/i915/display/intel_drrs.h     |   9 +-
- 6 files changed, 78 insertions(+), 79 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index d84e82f3eab9..c94eb7d5191d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1302,6 +1302,7 @@ struct intel_crtc {
+ 		struct mutex mutex;
+ 		struct delayed_work work;
+ 		enum drrs_refresh_rate refresh_rate;
++		unsigned int frontbuffer_bits;
+ 		unsigned int busy_frontbuffer_bits;
+ 		enum transcoder cpu_transcoder;
+ 		struct intel_link_m_n m_n, m2_n2;
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
+index e9d622fe66b3..91aab77c495c 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.c
++++ b/drivers/gpu/drm/i915/display/intel_drrs.c
+@@ -168,6 +168,13 @@ static void intel_drrs_set_state(struct intel_crtc *crtc,
+ 	crtc->drrs.refresh_rate = refresh_rate;
+ }
+ 
++static unsigned int intel_drrs_frontbuffer_bits(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++
++	return INTEL_FRONTBUFFER_ALL_MASK(crtc->pipe);
++}
++
+ /**
+  * intel_drrs_enable - init drrs struct if supported
+  * @crtc_state: A pointer to the active crtc state.
+@@ -190,6 +197,7 @@ void intel_drrs_enable(const struct intel_crtc_state *crtc_state)
+ 	crtc->drrs.cpu_transcoder = crtc_state->cpu_transcoder;
+ 	crtc->drrs.m_n = crtc_state->dp_m_n;
+ 	crtc->drrs.m2_n2 = crtc_state->dp_m2_n2;
++	crtc->drrs.frontbuffer_bits = intel_drrs_frontbuffer_bits(crtc_state);
+ 	crtc->drrs.busy_frontbuffer_bits = 0;
+ 
+ 	mutex_unlock(&crtc->drrs.mutex);
+@@ -216,6 +224,7 @@ void intel_drrs_disable(const struct intel_crtc_state *old_crtc_state)
+ 		intel_drrs_set_state(crtc, DRRS_REFRESH_RATE_HIGH);
+ 
+ 	crtc->drrs.cpu_transcoder = INVALID_TRANSCODER;
++	crtc->drrs.frontbuffer_bits = 0;
+ 	crtc->drrs.busy_frontbuffer_bits = 0;
+ 
+ 	mutex_unlock(&crtc->drrs.mutex);
+@@ -278,7 +287,7 @@ static void intel_drrs_frontbuffer_update(struct drm_i915_private *dev_priv,
+ 			continue;
+ 		}
+ 
+-		frontbuffer_bits = all_frontbuffer_bits & INTEL_FRONTBUFFER_ALL_MASK(crtc->pipe);
++		frontbuffer_bits = all_frontbuffer_bits & crtc->drrs.frontbuffer_bits;
+ 		if (invalidate)
+ 			crtc->drrs.busy_frontbuffer_bits |= frontbuffer_bits;
+ 		else
 -- 
 2.34.1
 
