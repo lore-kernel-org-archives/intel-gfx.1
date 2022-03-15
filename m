@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C782EC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 18:15:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB586C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 18:15:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E324610E453;
-	Tue, 15 Mar 2022 18:15:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53A5010E46B;
+	Tue, 15 Mar 2022 18:15:15 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1D7E10E141
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 18:15:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E85D10E46B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 18:15:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647368106; x=1678904106;
+ t=1647368111; x=1678904111;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=+cjAF4bueyOu4R1M2lo6cn74L0Bmvv9HFHLxeTQtKKo=;
- b=BGF7xX0j3B9G+wuyLxmmHdBFOReBhQv7aRNFX2TncoMtYgz+w+3gYjr+
- FUeWI/eWq12TtkhtRnCh3ov/vDCjIttmiaP1ZVP9Ivi3eRqMuMjnoq5IK
- ETTVpyDFrm4u3hMFpwUHOtTkf7qgrKHQ6aHtofQfYCTv9Zbc2iqyzA9OQ
- DMbW798D6IANJB3GO/S34YacLP71GTJPbx9xyAcskJDX2biBME2X4+Eme
- J3dhAo//sh6XEdXwb5/iHY4TNf/4XzOATUbqDZnG6por8aUKQk+AYO+EK
- O7Xo6O5U/xgRU+xGZ2EJ3fTrw28sNSvF+P2kDIMZJBXHc45dyn6t464t7 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="255221144"
-X-IronPort-AV: E=Sophos;i="5.90,184,1643702400"; d="scan'208";a="255221144"
+ bh=LvUQDWVhuzjpUghftwlFmFrD7xLemOJHtZGalvS6JQ0=;
+ b=LoXK7mQVzzttMDgiT+Gzj/uDbrkXSsUzQNKG6ozFPUCGN6fXimGWvSKR
+ o17qzNSt+zssjctwBxVaCDCAfYYO8guX1vAz0M3nKjtnvw890ljnaqTiS
+ /Ea6t7u2NCuWHwSxG1RAqREvZgLMNLn3oekjM/7/ruqpl0H4jh5UGcAGg
+ 0vxf5ujssrLFTYfk6qeHI1JBh7WzOxfJ/kMGegcrk8WFr/GcSsBgSYA2j
+ TSMKznjAsa49uFwkRygUGmkgnLHAgj4VqtUYEHu64EiT8HGkRQjvfcNTS
+ WLsWmUC4sNN90dRQeNdH1DbwPNQxStQN1ART9DlYxki1ReqOQmivq30GM w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="255221164"
+X-IronPort-AV: E=Sophos;i="5.90,184,1643702400"; d="scan'208";a="255221164"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2022 11:15:06 -0700
-X-IronPort-AV: E=Sophos;i="5.90,184,1643702400"; d="scan'208";a="498133158"
+ 15 Mar 2022 11:15:10 -0700
+X-IronPort-AV: E=Sophos;i="5.90,184,1643702400"; d="scan'208";a="498133201"
 Received: from sobyrne-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.31.219])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2022 11:15:05 -0700
+ 15 Mar 2022 11:15:10 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Mar 2022 18:14:21 +0000
-Message-Id: <20220315181425.576828-3-matthew.auld@intel.com>
+Date: Tue, 15 Mar 2022 18:14:25 +0000
+Message-Id: <20220315181425.576828-7-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220315181425.576828-1-matthew.auld@intel.com>
 References: <20220315181425.576828-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 3/7] drm/i915/stolen: consider
- I915_BO_ALLOC_GPU_ONLY
+Subject: [Intel-gfx] [CI 7/7] drm/i915: fixup the initial fb base on DGFX
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,35 +60,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Keep the behaviour consistent with normal lmem, where we assume CPU
-access if by default required.
+On integrated it looks like the GGTT base should always 1:1 maps to
+somewhere within DSM. On discrete the base seems to be pre-programmed with
+a normal lmem address, and is not 1:1 mapped with the base address. On
+such devices probe the lmem address directly from the PTE.
+
+v2(Ville):
+  - The base is actually the pre-programmed GGTT address, which is then
+    meant to 1:1 map to somewhere inside dsm. In the case of dgpu the
+    base looks to just be some offset within lmem, but this also happens
+    to be the exact dsm start, on dg1. Therefore we should only need to
+    fudge the physical address, before allocating from stolen.
+  - Bail if it's not located in dsm.
+v3:
+  - Scratch that. There doesn't seem to be any relationship with the
+    base and PTE address, on at least DG1. Let's instead just grab the
+    lmem address from the PTE itself.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Nirmoy Das <nirmoy.das@linux.intel.com>
 Reviewed-by: Nirmoy Das <nirmoy.das@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../drm/i915/display/intel_plane_initial.c    | 50 ++++++++++++++++---
+ 1 file changed, 44 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-index b860ec954104..17f35892ab7e 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-@@ -695,6 +695,14 @@ static int _i915_gem_object_stolen_init(struct intel_memory_region *mem,
- 	if (size == 0)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+index f797fcef18fc..7979929bb632 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
++++ b/drivers/gpu/drm/i915/display/intel_plane_initial.c
+@@ -47,17 +47,55 @@ static struct i915_vma *
+ initial_plane_vma(struct drm_i915_private *i915,
+ 		  struct intel_initial_plane_config *plane_config)
+ {
+-	struct intel_memory_region *mem = i915->mm.stolen_region;
++	struct intel_memory_region *mem;
+ 	struct drm_i915_gem_object *obj;
+ 	struct i915_vma *vma;
++	resource_size_t phys_base;
+ 	u32 base, size;
+ 	u64 pinctl;
  
-+	/*
-+	 * With discrete devices, where we lack a mappable aperture there is no
-+	 * possible way to ever access this memory on the CPU side.
-+	 */
-+	if (mem->type == INTEL_MEMORY_STOLEN_LOCAL && !mem->io_size &&
-+	    !(flags & I915_BO_ALLOC_GPU_ONLY))
-+		return -ENOSPC;
+-	if (!mem || plane_config->size == 0)
++	if (plane_config->size == 0)
++		return NULL;
 +
- 	stolen = kzalloc(sizeof(*stolen), GFP_KERNEL);
- 	if (!stolen)
- 		return -ENOMEM;
++	base = round_down(plane_config->base, I915_GTT_MIN_ALIGNMENT);
++	if (IS_DGFX(i915)) {
++		gen8_pte_t __iomem *gte = to_gt(i915)->ggtt->gsm;
++		gen8_pte_t pte;
++
++		gte += base / I915_GTT_PAGE_SIZE;
++
++		pte = ioread64(gte);
++		if (!(pte & GEN12_GGTT_PTE_LM)) {
++			drm_err(&i915->drm,
++				"Initial plane programming missing PTE_LM bit\n");
++			return NULL;
++		}
++
++		phys_base = pte & I915_GTT_PAGE_MASK;
++		mem = i915->mm.regions[INTEL_REGION_LMEM];
++
++		/*
++		 * We don't currently expect this to ever be placed in the
++		 * stolen portion.
++		 */
++		if (phys_base >= resource_size(&mem->region)) {
++			drm_err(&i915->drm,
++				"Initial plane programming using invalid range, phys_base=%pa\n",
++				&phys_base);
++			return NULL;
++		}
++
++		drm_dbg(&i915->drm,
++			"Using phys_base=%pa, based on initial plane programming\n",
++			&phys_base);
++	} else {
++		phys_base = base;
++		mem = i915->mm.stolen_region;
++	}
++
++	if (!mem)
+ 		return NULL;
+ 
+-	base = round_down(plane_config->base,
+-			  I915_GTT_MIN_ALIGNMENT);
+ 	size = round_up(plane_config->base + plane_config->size,
+ 			mem->min_page_size);
+ 	size -= base;
+@@ -68,11 +106,11 @@ initial_plane_vma(struct drm_i915_private *i915,
+ 	 * features.
+ 	 */
+ 	if (IS_ENABLED(CONFIG_FRAMEBUFFER_CONSOLE) &&
++	    mem == i915->mm.stolen_region &&
+ 	    size * 2 > i915->stolen_usable_size)
+ 		return NULL;
+ 
+-	obj = i915_gem_object_create_region_at(i915->mm.stolen_region,
+-					       base, size, 0);
++	obj = i915_gem_object_create_region_at(mem, phys_base, size, 0);
+ 	if (IS_ERR(obj))
+ 		return NULL;
+ 
 -- 
 2.34.1
 
