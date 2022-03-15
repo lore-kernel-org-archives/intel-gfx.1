@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7307C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 14:02:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3705CC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 14:02:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566B510E496;
-	Tue, 15 Mar 2022 14:02:36 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79DC610E496
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 14:02:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE3A210E494;
+	Tue, 15 Mar 2022 14:02:41 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9824B10E494
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 14:02:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647352955; x=1678888955;
+ t=1647352960; x=1678888960;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=uPbDdx1EifCgxP6sQVjxGTG0yPy5PGMsnhXutMHLo2M=;
- b=mtWJvK8mleNiakO0KrjN4Mnh3RuOW/ht3bu6mrKLdjg9bEz7CmYQTQRV
- ienWsnwU4YQNDmpj1f6kHBOKZAS2YaoPg1q+ZtRT/WeRkovH707KG/DUe
- bfXIljDgt1BFq+nR1hoMYWs9DSaowUUbBXXnuy5joU4ef+qZIjq7OdlSy
- 1eTrZ5HFl9mXxeBNibcfj3eq1tscigk4n6aVjZDxk10htzRNQF1Tf8CTV
- 20NRo6S8w/rq5AOUnt6ZiaNPj5UaHVW9XB3ltQAj6Yprf1+zVYJpUk+Xb
- wT7Jl43KCskuWRVpyE/SVgnGRqorgFeUMIh5JImj8OK8toZ90Ubza4DVW w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="281078642"
-X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="281078642"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2022 07:00:13 -0700
+ bh=gPYqvAG2ztiBN4M+z3vE0WeB0BSaMc4IyprR4hqLmRM=;
+ b=gdxa4g5mTzTdeBawXW138nYtwbBtKAPNpahr8aYSWLv6/50AfkyjQ8Fw
+ YRj95DinlUI1IP0teB5BxFKQy2GUE0cgN316M8PLGrJ5N1fgxj57bSy4G
+ ojftum+5RGysVXxMveXLM2tYNbpFid1THk6D9hn307C+JuQtduMIVyBxu
+ a4yF1BDdvvsDUhhLn8d6FYf8iMLS+h0N5lAidiKJAA4X12SF/jNfqg/X2
+ BKKpvmNd8jFV3mihKnoO96aKooUTSMV69C5GpRbuU48jMYgJZJShXfbsb
+ aWj/BwMMpOclXYteTnJGau2t4HoxpeKL2vmQtWCVYxLEihuf5aDu7NxR3 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="236254403"
+X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="236254403"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2022 07:00:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="690204634"
+X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="515876398"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga001.fm.intel.com with SMTP; 15 Mar 2022 07:00:11 -0700
+ by orsmga006.jf.intel.com with SMTP; 15 Mar 2022 07:00:19 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 15 Mar 2022 16:00:10 +0200
+ Tue, 15 Mar 2022 16:00:19 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Mar 2022 15:59:57 +0200
-Message-Id: <20220315140001.1172-4-ville.syrjala@linux.intel.com>
+Date: Tue, 15 Mar 2022 16:00:00 +0200
+Message-Id: <20220315140001.1172-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220315140001.1172-1-ville.syrjala@linux.intel.com>
 References: <20220315140001.1172-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/7] drm/i915/fbc: Skip nuke when flip is pending
+Subject: [Intel-gfx] [PATCH 6/7] drm/i915/fbc: Introduce intel_fbc_sanitize()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,63 +63,92 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Don't issue a nuke from frontbuffer flush while a flip is pending.
-This avoids the DSPADDR/DSPSURF rmw abuse from the pre-snb nuke
-from racing with the DSPADDR/DSPSURF write being performed by
-the flip/plane update. The flip itself will already cause the nuke
-so a double nuke is redundant.
+Let's make sure FBC is always disabled when we start to take
+over the hardware state.
+
+I suspect this should never really happen, since the only time
+when we really should be taking over with the display already
+active is when the previous state was progammed by the BIOS,
+which likely shouldn't use FBC. This could be driver init,
+or S4 resume when the boot kernel doesn't load i915. But I
+suppose no harm in keeping this code around for exra safety
+since it's quite trivial.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbc.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c |  2 ++
+ drivers/gpu/drm/i915/display/intel_fbc.c     | 28 +++++++++++---------
+ drivers/gpu/drm/i915/display/intel_fbc.h     |  1 +
+ 3 files changed, 19 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 0b7f8461ea3b..a968635ef87e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -10446,6 +10446,8 @@ intel_modeset_setup_hw_state(struct drm_device *dev,
+ 			intel_crtc_vblank_on(crtc_state);
+ 	}
+ 
++	intel_fbc_sanitize(dev_priv);
++
+ 	intel_sanitize_plane_mapping(dev_priv);
+ 
+ 	for_each_intel_encoder(dev, encoder)
 diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index d657b5c6757b..86a0f024ef40 100644
+index ade54315706b..0187c61fa063 100644
 --- a/drivers/gpu/drm/i915/display/intel_fbc.c
 +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -666,6 +666,10 @@ static bool intel_fbc_is_compressing(struct intel_fbc *fbc)
+@@ -1702,22 +1702,26 @@ void intel_fbc_init(struct drm_i915_private *i915)
+ 	drm_dbg_kms(&i915->drm, "Sanitized enable_fbc value: %d\n",
+ 		    i915->params.enable_fbc);
  
- static void intel_fbc_nuke(struct intel_fbc *fbc)
- {
-+	struct drm_i915_private *i915 = fbc->i915;
-+
-+	drm_WARN_ON(&i915->drm, fbc->flip_pending);
-+
- 	trace_intel_fbc_nuke(fbc->state.plane);
+-	for_each_fbc_id(i915, fbc_id) {
+-		struct intel_fbc *fbc;
++	for_each_fbc_id(i915, fbc_id)
++		i915->fbc[fbc_id] = intel_fbc_create(i915, fbc_id);
++}
  
- 	fbc->funcs->nuke(fbc);
-@@ -968,6 +972,7 @@ static void intel_fbc_update_state(struct intel_atomic_state *state,
- 	struct intel_fbc_state *fbc_state = &fbc->state;
+-		fbc = intel_fbc_create(i915, fbc_id);
+-		if (!fbc)
+-			continue;
++/**
++ * intel_fbc_sanitize - Sanitize FBC
++ * @i915: the i915 device
++ *
++ * Make sure FBC is initially disabled since we have no
++ * idea eg. into which parts of stolen it might be scribbling
++ * into.
++ */
++void intel_fbc_sanitize(struct drm_i915_private *i915)
++{
++	struct intel_fbc *fbc;
++	enum intel_fbc_id fbc_id;
  
- 	WARN_ON(plane_state->no_fbc_reason);
-+	WARN_ON(fbc_state->plane && fbc_state->plane != plane);
- 
- 	fbc_state->plane = plane;
- 
-@@ -1272,6 +1277,7 @@ static void __intel_fbc_disable(struct intel_fbc *fbc)
- 	__intel_fbc_cleanup_cfb(fbc);
- 
- 	fbc->state.plane = NULL;
-+	fbc->flip_pending = false;
- 	fbc->busy_bits = 0;
+-		/*
+-		 * We still don't have any sort of hardware state readout
+-		 * for FBC, so deactivate it in case the BIOS activated it
+-		 * to make sure software matches the hardware state.
+-		 */
++	for_each_intel_fbc(i915, fbc, fbc_id) {
+ 		if (intel_fbc_hw_is_active(fbc))
+ 			intel_fbc_hw_deactivate(fbc);
+-
+-		i915->fbc[fbc->id] = fbc;
+ 	}
  }
  
-@@ -1366,12 +1372,12 @@ static void __intel_fbc_flush(struct intel_fbc *fbc,
- 	if (origin == ORIGIN_FLIP || origin == ORIGIN_CURSOR_UPDATE)
- 		goto out;
- 
--	if (fbc->busy_bits)
-+	if (fbc->busy_bits || fbc->flip_pending)
- 		goto out;
- 
- 	if (fbc->active)
- 		intel_fbc_nuke(fbc);
--	else if (!fbc->flip_pending)
-+	else
- 		__intel_fbc_post_update(fbc);
- 
- out:
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.h b/drivers/gpu/drm/i915/display/intel_fbc.h
+index 29e4216c2799..db60143295ec 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.h
++++ b/drivers/gpu/drm/i915/display/intel_fbc.h
+@@ -30,6 +30,7 @@ void intel_fbc_post_update(struct intel_atomic_state *state,
+ 			   struct intel_crtc *crtc);
+ void intel_fbc_init(struct drm_i915_private *dev_priv);
+ void intel_fbc_cleanup(struct drm_i915_private *dev_priv);
++void intel_fbc_sanitize(struct drm_i915_private *dev_priv);
+ void intel_fbc_update(struct intel_atomic_state *state,
+ 		      struct intel_crtc *crtc);
+ void intel_fbc_disable(struct intel_crtc *crtc);
 -- 
 2.34.1
 
