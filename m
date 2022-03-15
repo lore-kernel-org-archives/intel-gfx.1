@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6415EC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 13:28:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CDB9C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 13:28:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F423B10E47D;
-	Tue, 15 Mar 2022 13:28:13 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81FC310E422
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 13:28:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A14EC10E422;
+	Tue, 15 Mar 2022 13:28:16 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC34310E422
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 13:28:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647350892; x=1678886892;
+ t=1647350890; x=1678886890;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=TYnwqzjntIaoY3AhSZ3wAC22u4jLnCilsNhw9tyKNFQ=;
- b=n4ML27rMvCsPqYFT5YpbZjXeVt5D8YeZ7x4vLYb8eSzzZ5qZZ/LwmrQ6
- nvz4K4GejVUY96kwE/vumuWWh3K9T4LMC7F86GhpecFOKIWKCmWPI2lbX
- y0XvdI00oSi1aCJTj7Gt2DkShFFSjrHHosge4cuJo4P5FmXOL+MNdgJAH
- +DyrYV6LsvqibfoY5kDSnrU+teOkuBVX1yPPKxxEzhjBrILyn8Lp7xfft
- bncbJF2zTTwZl4IsPevyypiKgvkO6OiR6KLwlMLQzsgvrGglph7YekHzU
- PCUMrGrz7mZfDv24prmmeD/7CPlM/KqG+H+GaePQxtoEPjFWEGX9UgsN9 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="256250018"
-X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="256250018"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2022 06:28:01 -0700
+ bh=YI2sB0jzL1ZnYBCpNsiBweWs2kyTYCYja22mDGDehOQ=;
+ b=ae4G617ka/vqJKqlBkvbGFYG94z6jf5tmwQD5yh0QfDN7TrFltXXEsBv
+ Qfhsm3YQEWYPGH4W8jTwNOKyJiN+qyB1HUWLNoWt5L5ulFQdsCwyxTU8S
+ gsT6HyPw2D+vSDUA+BDbJfdaeX5WmCjfZMnrpPmQJgii+a9Rttn/8eFQl
+ M/Hl8a7Quilizx6VsSW4vrEWlM10yY+XmTkYHr7d7vb+6wATOk3690Bhz
+ QAd4faBj4OAF2pADE1X0mrKMb0moChZjeCpxKd0itKX7wAERvxXqKf2Gp
+ gWUMy7Y9WybLSLDohPbSVArP8xVk3UB+Y6fDJb3hcWUGTfFdJCqe5zDGW Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="317019029"
+X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="317019029"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2022 06:28:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="549595226"
+X-IronPort-AV: E=Sophos;i="5.90,183,1643702400"; d="scan'208";a="540434849"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga007.fm.intel.com with SMTP; 15 Mar 2022 06:27:59 -0700
+ by orsmga007.jf.intel.com with SMTP; 15 Mar 2022 06:28:08 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 15 Mar 2022 15:27:58 +0200
+ Tue, 15 Mar 2022 15:28:07 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Mar 2022 15:27:45 +0200
-Message-Id: <20220315132752.11849-3-ville.syrjala@linux.intel.com>
+Date: Tue, 15 Mar 2022 15:27:48 +0200
+Message-Id: <20220315132752.11849-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220315132752.11849-1-ville.syrjala@linux.intel.com>
 References: <20220315132752.11849-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/9] drm/i915: Add missing tab to DRRS debugfs
+Subject: [Intel-gfx] [PATCH 5/9] drm/i915: Don't cancel/schedule drrs work
+ if the pipe wasn't affected
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,27 +64,60 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The DRRS refresh rate should be indented by one tab like the
-other per-crtc DRRS stuff.
+Skip all the DRRS work cancel/schedule stuff if the pipe's
+frontbuffer bits were not among those affected by the frontbuffer
+rendering.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_debugfs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_drrs.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index b3d426cc3266..e0a126e7ebb8 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -1171,7 +1171,7 @@ static int i915_drrs_status(struct seq_file *m, void *unused)
- 		seq_printf(m, "\tBusy_frontbuffer_bits: 0x%X\n",
- 			   crtc->drrs.busy_frontbuffer_bits);
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
+index 91aab77c495c..f36394fd85be 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.c
++++ b/drivers/gpu/drm/i915/display/intel_drrs.c
+@@ -278,32 +278,31 @@ static void intel_drrs_frontbuffer_update(struct drm_i915_private *dev_priv,
+ 	for_each_intel_crtc(&dev_priv->drm, crtc) {
+ 		unsigned int frontbuffer_bits;
  
--		seq_printf(m, "DRRS refresh rate: %s\n",
-+		seq_printf(m, "\tDRRS refresh rate: %s\n",
- 			   crtc->drrs.refresh_rate == DRRS_REFRESH_RATE_LOW ?
- 			   "low" : "high");
+-		cancel_delayed_work(&crtc->drrs.work);
+-
+ 		mutex_lock(&crtc->drrs.mutex);
  
+-		if (!intel_drrs_is_enabled(crtc)) {
++		frontbuffer_bits = all_frontbuffer_bits & crtc->drrs.frontbuffer_bits;
++		if (!frontbuffer_bits) {
+ 			mutex_unlock(&crtc->drrs.mutex);
+ 			continue;
+ 		}
+ 
+-		frontbuffer_bits = all_frontbuffer_bits & crtc->drrs.frontbuffer_bits;
+ 		if (invalidate)
+ 			crtc->drrs.busy_frontbuffer_bits |= frontbuffer_bits;
+ 		else
+ 			crtc->drrs.busy_frontbuffer_bits &= ~frontbuffer_bits;
+ 
+ 		/* flush/invalidate means busy screen hence upclock */
+-		if (frontbuffer_bits)
+-			intel_drrs_set_state(crtc, DRRS_REFRESH_RATE_HIGH);
++		intel_drrs_set_state(crtc, DRRS_REFRESH_RATE_HIGH);
+ 
+ 		/*
+ 		 * flush also means no more activity hence schedule downclock, if all
+ 		 * other fbs are quiescent too
+ 		 */
+-		if (!invalidate && !crtc->drrs.busy_frontbuffer_bits)
+-			schedule_delayed_work(&crtc->drrs.work,
+-					      msecs_to_jiffies(1000));
++		if (!crtc->drrs.busy_frontbuffer_bits)
++			mod_delayed_work(system_wq, &crtc->drrs.work,
++					 msecs_to_jiffies(1000));
++		else
++			cancel_delayed_work(&crtc->drrs.work);
+ 
+ 		mutex_unlock(&crtc->drrs.mutex);
+ 	}
 -- 
 2.34.1
 
