@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC7C1C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 15:40:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57312C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 15:40:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADF1B10E722;
-	Wed, 23 Mar 2022 15:40:21 +0000 (UTC)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2BE10E5DA;
- Wed, 23 Mar 2022 07:46:01 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id
- p184-20020a1c29c1000000b0037f76d8b484so438842wmp.5; 
- Wed, 23 Mar 2022 00:46:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1ED510E70D;
+	Wed, 23 Mar 2022 15:40:54 +0000 (UTC)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 442E710E3E6;
+ Tue, 15 Mar 2022 20:24:52 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id h15so185476wrc.6;
+ Tue, 15 Mar 2022 13:24:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=/tI7zGGt+x41R8KiHPdUoyOyIHkSUkQkSEGje6l4sPc=;
- b=gvXuyor1r5VScZ8n5Zh4o6Y9gQh6rZJFY1kEFcMtzVxKGQTY/7qwiDdQXNE0aWIwc+
- jAz5swm1D9WW2q0c8up7KKaqIfSLBwSg+lbXcx3jKfO5zTO6R/OJs/QH/2e0AfDlYrC1
- Gtc0KY7LKyBwuk8fynX25OKMTXX7EUxVzLM5dhRe8cgjbgEFrpMhNujdBQOZz5Zw42W9
- nXxDEF/+UZ1IyH4B+/GuRno5S3KKiDlWFGRqdKwsBNVqW/vZoTm1GufSHHwJbpHM+z+R
- VkS5pPBvNpQCYp8BKUhaCZxBEELX69MQGoG0pBGJoYNmOVHs3QnDhYRm7Ijkd7cw7hD+
- nxYQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SLLTqIhVx97asbYPr4Ba30RhGW0/k9gGUJ6yMqUQca8=;
+ b=HGVwT2u8w1di/2Ba6Mr3uF7wANvgMQhwksp2VCgHGD+YHZd2YNQFvthoW0aL1i+eUW
+ Ut+47rb5iS6ZjVGYKl2VEeLBQBkEs0iwXXdh6PwbjyICixDvwj0+2y6GSgtdUAIsve/K
+ Y1u/+x3hCOFHzjtISdWRQnfcaRJHy1R3n3I8jaNS8pqfX+EFIpDL3ZyF/dR8mnWyTSFa
+ 9gwxCf5RcGXqMHGEWNpB1V1Eb1DvqizTGVwm9nggVh2QjXqGLhyWVkGBzGLAJ7W79MB+
+ d8Z7AKgHVKJ/vLT0PSkxbR/zwLHNXat10jflfoOOXA2Ppjcb3X0gT2rqdevVVOXxRDt6
+ 0ihA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=/tI7zGGt+x41R8KiHPdUoyOyIHkSUkQkSEGje6l4sPc=;
- b=zZoQB0ywTipgbsTfJTQeciu11+cgNg8hakVYSblYSHS8pGMHJGgPLKHD8zIb5cdrzm
- B0lQocI2a1ts9X0rBx1g7uwi42IgBANqWcUFC0ZwI36SVFa1gbOxNM7eHWulNuitQLDw
- CcLG5b8i7H0Q5jgLF1l0j3VjyQWlALfs6mPTUggbT74wtPWUCZszfHVId79URLc0XZjw
- kbRI5fatvmAl4hE2LIyJ9bNc5ZiNxcJTGGcWLEOe495o8MxhK4zjL1V7WOrNuv8tmn6y
- 551G+wYK9Y8DurdXtBDDR5d8TgspiMCaZZHokmi7C8qPiSmXpbW2JrTCsfEBvEbJvIMA
- sJAQ==
-X-Gm-Message-State: AOAM531Fk3aYOleQ9NmA5zVYDjl+apKtWDrNzeZqs1ddH+524Z2q3V3k
- ntzrQwmlM2f42wWmf5D4/sI=
-X-Google-Smtp-Source: ABdhPJxFjKMowJE1R5p36CQo58LE9rKLtPs3b7wfECKQIDeNHCjHfeZUw592zFRi0CWBjFNtLQwuew==
-X-Received: by 2002:a05:600c:3b08:b0:38c:c8f1:16ca with SMTP id
- m8-20020a05600c3b0800b0038cc8f116camr1108644wms.192.1648021559991; 
- Wed, 23 Mar 2022 00:45:59 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
- by smtp.gmail.com with ESMTPSA id
- f13-20020a05600c4e8d00b0038c949ef0d5sm3704767wmq.8.2022.03.23.00.45.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Mar 2022 00:45:59 -0700 (PDT)
-Message-ID: <72e9b499-f31f-41d3-aee2-130f83115fc1@gmail.com>
-Date: Wed, 23 Mar 2022 08:45:56 +0100
+ bh=SLLTqIhVx97asbYPr4Ba30RhGW0/k9gGUJ6yMqUQca8=;
+ b=eLuWbXhRN8xzW5NlE0gtRHAURJkRrEGKJM1S7ciu5DRyaNd7Qek50BHbpOaeHmXrAd
+ OkZ/Vr0XvLKXxCzi1bF5E4Px1k1LY0FsyALRE83Q0pE0WfnXj5FTsx6iU47PQ+jmF44/
+ vNiPCW/Sa1UrHqt44iizSeCiElvn0gWwmx7pHKWZJILReE7+ZRnF8PCADBy5ul4KwgR0
+ Gf1rXWerZxvORTQ9nMWTGl0ysPchhKM42j83wNpoyI0HoP16r4oxoa4/uoq9oKJ8t8MU
+ sHuAF+onE82D1CS85DSYCtaat5N4ocEk67wYilkh0GLxciRFcle6aUndWK9FOodMvk+y
+ 2SxA==
+X-Gm-Message-State: AOAM530bLHLaG8YXZVCdEH9mvyEZC+lkE0Z3NzTHX0w9vwzECCl9U5SY
+ UC2Bi1ytKkNb+vqXqVWwtss=
+X-Google-Smtp-Source: ABdhPJxhdTXqW/kPnVuI531rJ1j83VzktKMWxWPNmL/em2OL4k0Zaihe+NRG+blq1ChVnZ991OdzQA==
+X-Received: by 2002:a5d:6d86:0:b0:1f1:f938:6626 with SMTP id
+ l6-20020a5d6d86000000b001f1f9386626mr21184356wrs.701.1647375890836; 
+ Tue, 15 Mar 2022 13:24:50 -0700 (PDT)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ k18-20020adfe8d2000000b0020294da2b42sm24801116wrn.117.2022.03.15.13.24.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Mar 2022 13:24:50 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Date: Tue, 15 Mar 2022 20:24:49 +0000
+Message-Id: <20220315202449.2952845-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20220323073426.228866-1-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220323073426.228866-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 23 Mar 2022 15:40:20 +0000
-Subject: Re: [Intel-gfx] [PATCH v2] drm: add a check to verify the size
- alignment
+Subject: [Intel-gfx] [PATCH] drm/i915/reg: Fix spelling mistake "Unsupport"
+ -> "Unsupported"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,57 +77,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, pmenzel@molgen.mpg.de, matthew.auld@intel.com,
- christian.koenig@amd.com
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 23.03.22 um 08:34 schrieb Arunpravin Paneer Selvam:
-> Add a simple check to reject any size not aligned to the
-> min_page_size.
->
-> handle instances when size is not aligned with the min_page_size.
-> Unigine Heaven has allocation requests for example required pages
-> are 257 and alignment request is 256. To allocate the left over 1
-> page, continues the iteration to find the order value which is 0
-> and when it compares with min_order = 8, triggers the BUG_ON(order
-> < min_order). To avoid this problem, we added a simple check to
-> return -EINVAL if size is not aligned to the min_page_size.
->
-> v2: Added more details to the commit description
->
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Suggested-by: Matthew Auld <matthew.auld@intel.com>
-> ---
->   drivers/gpu/drm/drm_buddy.c | 3 +++
->   1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 72f52f293249..b503c88786b0 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -661,6 +661,9 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->   	if (range_overflows(start, size, mm->size))
->   		return -EINVAL;
->   
-> +	if (WARN_ON(!IS_ALIGNED(size, min_page_size)))
-> +		return -EINVAL;
-> +
+There is a spelling mistake in a gvt_vgpu_err error message. Fix it.
 
-I'm not that happy with the handling here.
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/i915/gvt/handlers.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-See a minimum page size larger than the requested size is perfectly 
-valid, it just means that the remaining pages needs to be trimmed.
-
-In other words when the request is to allocate 1 page with an alignment 
-of 256 we just need to give the remaining 255 pages back to the allocator.
-
-Regards,
-Christian.
-
->   	/* Actual range allocation */
->   	if (start + size == end)
->   		return __drm_buddy_alloc_range(mm, start, size, blocks);
->
-> base-commit: 056d47eaf6ea753fa2e21da31f9cbd8b721bbb7b
+diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
+index 520a7e1942f3..a01e3a893e24 100644
+--- a/drivers/gpu/drm/i915/gvt/handlers.c
++++ b/drivers/gpu/drm/i915/gvt/handlers.c
+@@ -914,7 +914,7 @@ static int update_fdi_rx_iir_status(struct intel_vgpu *vgpu,
+ 	else if (FDI_RX_IMR_TO_PIPE(offset) != INVALID_INDEX)
+ 		index = FDI_RX_IMR_TO_PIPE(offset);
+ 	else {
+-		gvt_vgpu_err("Unsupport registers %x\n", offset);
++		gvt_vgpu_err("Unsupported registers %x\n", offset);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.35.1
 
