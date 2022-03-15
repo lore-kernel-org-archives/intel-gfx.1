@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62A3CC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 18:15:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E35E2C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 18:23:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB78910E48B;
-	Tue, 15 Mar 2022 18:15:17 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2275110E447
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 18:15:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3828D10E141;
+	Tue, 15 Mar 2022 18:23:25 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1061110E141
+ for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 18:23:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647368109; x=1678904109;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=BUatimKTEh7uqS5V8AjB0V5ZneCPIu5gGAXWUBggXDs=;
- b=fIiEsIk90KlEeTX/Zs2pRw6HsdsijiaZyRk4Y+y1qeXQ/caPyqprwU/J
- ZJE909CcALDgkiuo0q4AydWRopLQT4WcWC45pim8zQbs3hGDjtC4EddXB
- GjHLt93NDTt9BC/HA4QKKQ3JLnurPwTm2saHzN5z0cPOyKEqjzgzFG8+A
- 6BEkEJ9e1F+/VuqPOVa9GES7ATL7xGiHD6ZB2/FEk/Ji9TEbnPU1IeVrY
- VQU4letDaX7pfrFAkjA1RM8g7oYl6gJK0TTXPLESvZDZPZ+PE6Ubw4GHJ
- 5LV1mZSEygbfnxlzBhfqtfZzqxnsAZ2EoDoEU9gHHQfkkH1XJWzeIGUqg A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="255221155"
-X-IronPort-AV: E=Sophos;i="5.90,184,1643702400"; d="scan'208";a="255221155"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2022 11:15:08 -0700
-X-IronPort-AV: E=Sophos;i="5.90,184,1643702400"; d="scan'208";a="498133176"
-Received: from sobyrne-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.252.31.219])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2022 11:15:08 -0700
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Mar 2022 18:14:23 +0000
-Message-Id: <20220315181425.576828-5-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220315181425.576828-1-matthew.auld@intel.com>
-References: <20220315181425.576828-1-matthew.auld@intel.com>
+ t=1647368604; x=1678904604;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=8aDwoz9laovZQyNLS3VPgpYTPXuSXjcBdJ0XIMUzo6Y=;
+ b=RnQLtx0gHktMei6z58X6cj5hV8R4aOEd4RuL6SyXCFfJbF8M+iRPz1eX
+ efPK9rDh+yNTIPZU3I9J0gPnvNqOezK6J2/fz5qotTfEfw23PM+sl9AqZ
+ JIh66AgmrFcNyrHUPGPhncXyKBvcExQeltu/nUqsvOW5Uz0rSQJ1fZBkV
+ PWYditrtd1Ov9Rr0cIKwsjnzEBkS9o+0RNu9d2CVKQf6byPLmq9U2aZvo
+ +5w7+M17Rg90Bsgz7uUjjCZoixcsurO6Ppl0+bRe6X7HmmtB2MBQSsFo3
+ IKwZy2iuCElG7gaFAq6FYMqZ3VTDfKAZdmej4QtiQ5dZFN4qxuwGMMqj6 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="281166910"
+X-IronPort-AV: E=Sophos;i="5.90,184,1643702400"; d="scan'208";a="281166910"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2022 11:23:22 -0700
+X-IronPort-AV: E=Sophos;i="5.90,184,1643702400"; d="scan'208";a="512716765"
+Received: from labuser-z97x-ud5h.jf.intel.com (HELO labuser-Z97X-UD5H)
+ ([10.165.21.211])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2022 11:23:22 -0700
+Date: Tue, 15 Mar 2022 11:24:35 -0700
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20220315182435.GA32032@labuser-Z97X-UD5H>
+References: <20220315132752.11849-1-ville.syrjala@linux.intel.com>
+ <20220315132752.11849-9-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 5/7] drm/i915/ttm: wire up the object offset
+In-Reply-To: <20220315132752.11849-9-ville.syrjala@linux.intel.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [Intel-gfx] [PATCH 8/9] drm/i915: Deal with bigjoiner vs. DRRS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,178 +59,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For the ttm backend we can use existing placements fpfn and lpfn to
-force the allocator to place the object at the requested offset,
-potentially evicting stuff if the spot is currently occupied.
+On Tue, Mar 15, 2022 at 03:27:51PM +0200, Ville Syrjala wrote:
+> From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> 
+> DRRS operates on transcoder level, so we should only poke at it from
+> the master crtc rather than letting every joined pipe give it
+> potentially conflicting input.
+> 
+> Signed-off-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
 
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellstr√∂m <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@linux.intel.com>
----
- .../gpu/drm/i915/gem/i915_gem_object_types.h   |  2 ++
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c        | 18 ++++++++++++++----
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.c  |  3 ++-
- drivers/gpu/drm/i915/intel_region_ttm.c        |  7 ++++++-
- drivers/gpu/drm/i915/intel_region_ttm.h        |  1 +
- drivers/gpu/drm/i915/selftests/mock_region.c   |  3 +++
- 6 files changed, 28 insertions(+), 6 deletions(-)
+Looks good
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index fd54eb8f4826..2c88bdb8ff7c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -631,6 +631,8 @@ struct drm_i915_gem_object {
- 
- 		struct drm_mm_node *stolen;
- 
-+		resource_size_t bo_offset;
-+
- 		unsigned long scratch;
- 		u64 encode;
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 5e543ed867a2..e4a06fcf741a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -126,6 +126,8 @@ i915_ttm_select_tt_caching(const struct drm_i915_gem_object *obj)
- static void
- i915_ttm_place_from_region(const struct intel_memory_region *mr,
- 			   struct ttm_place *place,
-+			   resource_size_t offset,
-+			   resource_size_t size,
- 			   unsigned int flags)
- {
- 	memset(place, 0, sizeof(*place));
-@@ -133,7 +135,10 @@ i915_ttm_place_from_region(const struct intel_memory_region *mr,
- 
- 	if (flags & I915_BO_ALLOC_CONTIGUOUS)
- 		place->flags |= TTM_PL_FLAG_CONTIGUOUS;
--	if (mr->io_size && mr->io_size < mr->total) {
-+	if (offset != I915_BO_INVALID_OFFSET) {
-+		place->fpfn = offset >> PAGE_SHIFT;
-+		place->lpfn = place->fpfn + (size >> PAGE_SHIFT);
-+	} else if (mr->io_size && mr->io_size < mr->total) {
- 		if (flags & I915_BO_ALLOC_GPU_ONLY) {
- 			place->flags |= TTM_PL_FLAG_TOPDOWN;
- 		} else {
-@@ -155,12 +160,14 @@ i915_ttm_placement_from_obj(const struct drm_i915_gem_object *obj,
- 
- 	placement->num_placement = 1;
- 	i915_ttm_place_from_region(num_allowed ? obj->mm.placements[0] :
--				   obj->mm.region, requested, flags);
-+				   obj->mm.region, requested, obj->bo_offset,
-+				   obj->base.size, flags);
- 
- 	/* Cache this on object? */
- 	placement->num_busy_placement = num_allowed;
- 	for (i = 0; i < placement->num_busy_placement; ++i)
--		i915_ttm_place_from_region(obj->mm.placements[i], busy + i, flags);
-+		i915_ttm_place_from_region(obj->mm.placements[i], busy + i,
-+					   obj->bo_offset, obj->base.size, flags);
- 
- 	if (num_allowed == 0) {
- 		*busy = *requested;
-@@ -802,7 +809,8 @@ static int __i915_ttm_migrate(struct drm_i915_gem_object *obj,
- 	struct ttm_placement placement;
- 	int ret;
- 
--	i915_ttm_place_from_region(mr, &requested, flags);
-+	i915_ttm_place_from_region(mr, &requested, obj->bo_offset,
-+				   obj->base.size, flags);
- 	placement.num_placement = 1;
- 	placement.num_busy_placement = 1;
- 	placement.placement = &requested;
-@@ -1159,6 +1167,8 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
- 	drm_gem_private_object_init(&i915->drm, &obj->base, size);
- 	i915_gem_object_init(obj, &i915_gem_ttm_obj_ops, &lock_class, flags);
- 
-+	obj->bo_offset = offset;
-+
- 	/* Don't put on a region list until we're either locked or fully initialized. */
- 	obj->mm.region = mem;
- 	INIT_LIST_HEAD(&obj->mm.region_link);
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-index 129f668f21ff..8e4e3f72c1ef 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-@@ -71,7 +71,8 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
- 
- 	GEM_BUG_ON(min_page_size < mm->chunk_size);
- 
--	if (place->flags & TTM_PL_FLAG_CONTIGUOUS) {
-+	if (place->fpfn + bman_res->base.num_pages != place->lpfn &&
-+	    place->flags & TTM_PL_FLAG_CONTIGUOUS) {
- 		unsigned long pages;
- 
- 		size = roundup_pow_of_two(size);
-diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
-index 737ef3f4ab54..62ff77445b01 100644
---- a/drivers/gpu/drm/i915/intel_region_ttm.c
-+++ b/drivers/gpu/drm/i915/intel_region_ttm.c
-@@ -12,6 +12,7 @@
- 
- #include "intel_region_ttm.h"
- 
-+#include "gem/i915_gem_region.h"
- #include "gem/i915_gem_ttm.h" /* For the funcs/ops export only */
- /**
-  * DOC: TTM support structure
-@@ -191,6 +192,7 @@ intel_region_ttm_resource_to_rsgt(struct intel_memory_region *mem,
-  */
- struct ttm_resource *
- intel_region_ttm_resource_alloc(struct intel_memory_region *mem,
-+				resource_size_t offset,
- 				resource_size_t size,
- 				unsigned int flags)
- {
-@@ -202,7 +204,10 @@ intel_region_ttm_resource_alloc(struct intel_memory_region *mem,
- 
- 	if (flags & I915_BO_ALLOC_CONTIGUOUS)
- 		place.flags |= TTM_PL_FLAG_CONTIGUOUS;
--	if (mem->io_size && mem->io_size < mem->total) {
-+	if (offset != I915_BO_INVALID_OFFSET) {
-+		place.fpfn = offset >> PAGE_SHIFT;
-+		place.lpfn = place.fpfn + (size >> PAGE_SHIFT);
-+	} else if (mem->io_size && mem->io_size < mem->total) {
- 		if (flags & I915_BO_ALLOC_GPU_ONLY) {
- 			place.flags |= TTM_PL_FLAG_TOPDOWN;
- 		} else {
-diff --git a/drivers/gpu/drm/i915/intel_region_ttm.h b/drivers/gpu/drm/i915/intel_region_ttm.h
-index fdee5e7bd46c..cf9d86dcf409 100644
---- a/drivers/gpu/drm/i915/intel_region_ttm.h
-+++ b/drivers/gpu/drm/i915/intel_region_ttm.h
-@@ -36,6 +36,7 @@ struct ttm_device_funcs *i915_ttm_driver(void);
- #ifdef CONFIG_DRM_I915_SELFTEST
- struct ttm_resource *
- intel_region_ttm_resource_alloc(struct intel_memory_region *mem,
-+				resource_size_t offset,
- 				resource_size_t size,
- 				unsigned int flags);
- #endif
-diff --git a/drivers/gpu/drm/i915/selftests/mock_region.c b/drivers/gpu/drm/i915/selftests/mock_region.c
-index f16c0b7198c7..670557ce1024 100644
---- a/drivers/gpu/drm/i915/selftests/mock_region.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_region.c
-@@ -26,6 +26,7 @@ static int mock_region_get_pages(struct drm_i915_gem_object *obj)
- 	int err;
- 
- 	obj->mm.res = intel_region_ttm_resource_alloc(obj->mm.region,
-+						      obj->bo_offset,
- 						      obj->base.size,
- 						      obj->flags);
- 	if (IS_ERR(obj->mm.res))
-@@ -71,6 +72,8 @@ static int mock_object_init(struct intel_memory_region *mem,
- 	drm_gem_private_object_init(&i915->drm, &obj->base, size);
- 	i915_gem_object_init(obj, &mock_region_obj_ops, &lock_class, flags);
- 
-+	obj->bo_offset = offset;
-+
- 	obj->read_domains = I915_GEM_DOMAIN_CPU | I915_GEM_DOMAIN_GTT;
- 
- 	i915_gem_object_set_cache_coherency(obj, I915_CACHE_NONE);
--- 
-2.34.1
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 
+Manasi
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_drrs.c | 16 +++++++++++++++-
+>  1 file changed, 15 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
+> index 44c9af8f8b9b..9a341ab1a848 100644
+> --- a/drivers/gpu/drm/i915/display/intel_drrs.c
+> +++ b/drivers/gpu/drm/i915/display/intel_drrs.c
+> @@ -176,8 +176,16 @@ static void intel_drrs_schedule_work(struct intel_crtc *crtc)
+>  static unsigned int intel_drrs_frontbuffer_bits(const struct intel_crtc_state *crtc_state)
+>  {
+>  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+> +	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+> +	unsigned int frontbuffer_bits;
+>  
+> -	return INTEL_FRONTBUFFER_ALL_MASK(crtc->pipe);
+> +	frontbuffer_bits = INTEL_FRONTBUFFER_ALL_MASK(crtc->pipe);
+> +
+> +	for_each_intel_crtc_in_pipe_mask(&i915->drm, crtc,
+> +					 crtc_state->bigjoiner_pipes)
+> +		frontbuffer_bits |= INTEL_FRONTBUFFER_ALL_MASK(crtc->pipe);
+> +
+> +	return frontbuffer_bits;
+>  }
+>  
+>  /**
+> @@ -196,6 +204,9 @@ void intel_drrs_enable(const struct intel_crtc_state *crtc_state)
+>  	if (!crtc_state->hw.active)
+>  		return;
+>  
+> +	if (intel_crtc_is_bigjoiner_slave(crtc_state))
+> +		return;
+> +
+>  	mutex_lock(&crtc->drrs.mutex);
+>  
+>  	crtc->drrs.cpu_transcoder = crtc_state->cpu_transcoder;
+> @@ -223,6 +234,9 @@ void intel_drrs_disable(const struct intel_crtc_state *old_crtc_state)
+>  	if (!old_crtc_state->hw.active)
+>  		return;
+>  
+> +	if (intel_crtc_is_bigjoiner_slave(old_crtc_state))
+> +		return;
+> +
+>  	mutex_lock(&crtc->drrs.mutex);
+>  
+>  	if (intel_drrs_is_enabled(crtc))
+> -- 
+> 2.34.1
+> 
