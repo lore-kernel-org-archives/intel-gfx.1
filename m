@@ -4,46 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D0F9C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 19:50:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCA6AC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Mar 2022 20:04:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BD7410E3E6;
-	Tue, 15 Mar 2022 19:50:23 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 729DE8954A
- for <intel-gfx@lists.freedesktop.org>; Tue, 15 Mar 2022 19:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647373812; x=1678909812;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Mz72k3vBWkuZ7lO85znm6PbManTRiDujt+cET/kOaI8=;
- b=M1rIxx1//Yrioi+yS0v58hEZUiNV9lS+Q4v5vNY6ovCCGO2cV4DiwjdZ
- FH/xeOBY5LAnflF3DKquprUA3QUZxYN+7VcNbp9A3vKkimvJt7v9npsl5
- AdD4VxpOjuDTXuII8z+oQF9q2NWEkC3ing+GCgBr+KgUCgrgMRXYZHwkB
- nOExDg+1ziOE+2K5wDAiA9lXfug57rwzRZwLOAtuaIA8btvJy9SpefLzu
- kMaVMacWdjFEB0fyUwyZoFx6ehlFUozWNWaOPI2uMaI5r4rodiLJPX+o2
- XUfIQgu/TlvmpW9ms6edyJNpRfdOb1HDjyeSwijBicvVlZS5LdX9lzZpA Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="319629257"
-X-IronPort-AV: E=Sophos;i="5.90,184,1643702400"; d="scan'208";a="319629257"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2022 12:50:12 -0700
-X-IronPort-AV: E=Sophos;i="5.90,184,1643702400"; d="scan'208";a="714312397"
-Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2022 12:50:12 -0700
-From: Anusha Srivatsa <anusha.srivatsa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Mar 2022 12:47:10 -0700
-Message-Id: <20220315194712.2113450-3-anusha.srivatsa@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220315194712.2113450-1-anusha.srivatsa@intel.com>
-References: <20220315194712.2113450-1-anusha.srivatsa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2078A89F55;
+	Tue, 15 Mar 2022 20:04:30 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 72C7B89F55;
+ Tue, 15 Mar 2022 20:04:28 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 6F8D1A9A42;
+ Tue, 15 Mar 2022 20:04:28 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915/display:
- s/intel_cdclk_can_squash/intel_cdclk_squash
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Auld" <matthew.auld@intel.com>
+Date: Tue, 15 Mar 2022 20:04:28 -0000
+Message-ID: <164737466842.20491.6378532448078880222@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220315181425.576828-1-matthew.auld@intel.com>
+In-Reply-To: <20220315181425.576828-1-matthew.auld@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5BCI=2C1/7=5D_drm/i915/lmem=3A_don=27t_tr?=
+ =?utf-8?q?eat_small_BAR_as_an_error?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,67 +41,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Apart from checking if squashing can be performed,
-accommodate accessing in-flight cdclk state for any changes
-that are needed during commit phase.
+== Series Details ==
 
-Cc: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cdclk.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+Series: series starting with [CI,1/7] drm/i915/lmem: don't treat small BAR as an error
+URL   : https://patchwork.freedesktop.org/series/101398/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 8888fda8b701..1f879af15d87 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1973,10 +1973,11 @@ static bool intel_cdclk_can_crawl(struct drm_i915_private *dev_priv,
- 		a->ref == b->ref;
- }
- 
--static bool intel_cdclk_can_squash(struct drm_i915_private *dev_priv,
--				   const struct intel_cdclk_config *a,
--				   const struct intel_cdclk_config *b)
-+static bool intel_cdclk_squash(struct drm_i915_private *dev_priv,
-+			       const struct intel_cdclk_state *a,
-+			       struct intel_cdclk_state *b)
- {
-+
- 	/*
- 	 * FIXME should store a bit more state in intel_cdclk_config
- 	 * to differentiate squasher vs. cd2x divider properly. For
-@@ -1986,10 +1987,10 @@ static bool intel_cdclk_can_squash(struct drm_i915_private *dev_priv,
- 	if (!has_cdclk_squasher(dev_priv))
- 		return false;
- 
--	return a->cdclk != b->cdclk &&
--		a->vco != 0 &&
--		a->vco == b->vco &&
--		a->ref == b->ref;
-+	return a->actual.cdclk != b->actual.cdclk &&
-+		a->actual.vco != 0 &&
-+		a->actual.vco == b->actual.vco &&
-+		a->actual.ref == b->actual.ref;
- }
- 
- /**
-@@ -2776,9 +2777,9 @@ int intel_modeset_calc_cdclk(struct intel_atomic_state *state)
- 			pipe = INVALID_PIPE;
- 	}
- 
--	if (intel_cdclk_can_squash(dev_priv,
--				   &old_cdclk_state->actual,
--				   &new_cdclk_state->actual)) {
-+	if (intel_cdclk_squash(dev_priv,
-+			       old_cdclk_state,
-+			       new_cdclk_state)) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "Can change cdclk via squasher\n");
- 	} else if (intel_cdclk_can_crawl(dev_priv,
--- 
-2.25.1
+== Summary ==
+
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+
 
