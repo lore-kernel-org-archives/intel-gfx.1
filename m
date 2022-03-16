@@ -4,46 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C67AC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 01:48:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19BC0C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 02:02:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E657E10E4E5;
-	Wed, 16 Mar 2022 01:48:02 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8752110E4DC
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 01:47:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647395279; x=1678931279;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=B2Qd3gNZH5uAIFJZjIMB+K6a/Gfd8Tu7gQ0ycbuhYu4=;
- b=mggaof4TgD9nUyOsPRT3nTO0bdc6/rNYINFphn2hfqQa6C2rNttnMpSn
- QdqFyOBRUtYCxrZxJ/SeYP9U7EuJip4GcHa9H6BFI8dMp1PR2rOGwdZeD
- TiX/yCg7k7RXwVhrvFdwc3a1xeUXEvxBekUVHmamAOhFH+i8K+8STPHX9
- KI1gMHJnFd/gNb9ySUDqxV7IpFXdYZ/MIGGnLL4cfa1dd+Fgc0Gt92Gqm
- fyrOBzq5PnMeUdcK/QD0Bkhh7OQQemkhazqf1fRw0ZM6VgMGUd8kSQoTH
- mO5Q9Br2amrI5ovrbnNoUfaQJ7+ebyvB49TmOfIpr9OzJj4IbTkyGpUP0 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="255294148"
-X-IronPort-AV: E=Sophos;i="5.90,185,1643702400"; d="scan'208";a="255294148"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2022 18:47:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,185,1643702400"; d="scan'208";a="634804817"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by FMSMGA003.fm.intel.com with ESMTP; 15 Mar 2022 18:47:58 -0700
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 15 Mar 2022 18:50:19 -0700
-Message-Id: <20220316015025.1664860-8-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220316015025.1664860-1-alan.previn.teres.alexis@intel.com>
-References: <20220316015025.1664860-1-alan.previn.teres.alexis@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 991D010E082;
+	Wed, 16 Mar 2022 02:02:38 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D5DF410E082;
+ Wed, 16 Mar 2022 02:02:36 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D3668AA914;
+ Wed, 16 Mar 2022 02:02:36 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 07/13] drm/i915/guc: Update GuC-log relay
- function names
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Alan Previn" <alan.previn.teres.alexis@intel.com>
+Date: Wed, 16 Mar 2022 02:02:36 -0000
+Message-ID: <164739615683.29209.4720199022798038579@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220316015025.1664860-1-alan.previn.teres.alexis@intel.com>
+In-Reply-To: <20220316015025.1664860-1-alan.previn.teres.alexis@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Add_GuC_Error_Capture_Support?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,148 +40,190 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For the sake of better code readibility, change previous
-relay logging function names with "capture_logs" to
-"copy_debug_logs" to differentiate from error capture
-functions that will use a different region of the same buffer.
+== Series Details ==
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 35 ++++++++++++----------
- 1 file changed, 19 insertions(+), 16 deletions(-)
+Series: Add GuC Error Capture Support
+URL   : https://patchwork.freedesktop.org/series/101410/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-index a24dc6441872..0d63c411080f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-@@ -12,7 +12,7 @@
- #include "i915_memcpy.h"
- #include "intel_guc_log.h"
- 
--static void guc_log_capture_logs(struct intel_guc_log *log);
-+static void guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log);
- 
- /**
-  * DOC: GuC firmware log
-@@ -198,7 +198,7 @@ static unsigned int guc_get_log_buffer_size(enum guc_log_buffer_type type)
- 	return 0;
- }
- 
--static void guc_read_update_log_buffer(struct intel_guc_log *log)
-+static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- {
- 	unsigned int buffer_size, read_offset, write_offset, bytes_to_copy, full_cnt;
- 	struct guc_log_buffer_state *log_buf_state, *log_buf_snapshot_state;
-@@ -223,7 +223,7 @@ static void guc_read_update_log_buffer(struct intel_guc_log *log)
- 		 * Used rate limited to avoid deluge of messages, logs might be
- 		 * getting consumed by User at a slow rate.
- 		 */
--		DRM_ERROR_RATELIMITED("no sub-buffer to capture logs\n");
-+		DRM_ERROR_RATELIMITED("no sub-buffer to copy general logs\n");
- 		log->relay.full_count++;
- 
- 		goto out_unlock;
-@@ -301,15 +301,15 @@ static void guc_read_update_log_buffer(struct intel_guc_log *log)
- 	mutex_unlock(&log->relay.lock);
- }
- 
--static void capture_logs_work(struct work_struct *work)
-+static void copy_debug_logs_work(struct work_struct *work)
- {
- 	struct intel_guc_log *log =
- 		container_of(work, struct intel_guc_log, relay.flush_work);
- 
--	guc_log_capture_logs(log);
-+	guc_log_copy_debuglogs_for_relay(log);
- }
- 
--static int guc_log_map(struct intel_guc_log *log)
-+static int guc_log_relay_map(struct intel_guc_log *log)
- {
- 	void *vaddr;
- 
-@@ -332,7 +332,7 @@ static int guc_log_map(struct intel_guc_log *log)
- 	return 0;
- }
- 
--static void guc_log_unmap(struct intel_guc_log *log)
-+static void guc_log_relay_unmap(struct intel_guc_log *log)
- {
- 	lockdep_assert_held(&log->relay.lock);
- 
-@@ -343,7 +343,7 @@ static void guc_log_unmap(struct intel_guc_log *log)
- void intel_guc_log_init_early(struct intel_guc_log *log)
- {
- 	mutex_init(&log->relay.lock);
--	INIT_WORK(&log->relay.flush_work, capture_logs_work);
-+	INIT_WORK(&log->relay.flush_work, copy_debug_logs_work);
- 	log->relay.started = false;
- }
- 
-@@ -358,8 +358,11 @@ static int guc_log_relay_create(struct intel_guc_log *log)
- 	lockdep_assert_held(&log->relay.lock);
- 	GEM_BUG_ON(!log->vma);
- 
--	 /* Keep the size of sub buffers same as shared log buffer */
--	subbuf_size = log->vma->size;
-+	 /*
-+	  * Keep the size of sub buffers same as shared log buffer
-+	  * but GuC log-events excludes the error-state-capture logs
-+	  */
-+	subbuf_size = log->vma->size - CAPTURE_BUFFER_SIZE;
- 
- 	/*
- 	 * Store up to 8 snapshots, which is large enough to buffer sufficient
-@@ -394,13 +397,13 @@ static void guc_log_relay_destroy(struct intel_guc_log *log)
- 	log->relay.channel = NULL;
- }
- 
--static void guc_log_capture_logs(struct intel_guc_log *log)
-+static void guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- {
- 	struct intel_guc *guc = log_to_guc(log);
- 	struct drm_i915_private *dev_priv = guc_to_gt(guc)->i915;
- 	intel_wakeref_t wakeref;
- 
--	guc_read_update_log_buffer(log);
-+	_guc_log_copy_debuglogs_for_relay(log);
- 
- 	/*
- 	 * Generally device is expected to be active only at this
-@@ -566,7 +569,7 @@ int intel_guc_log_relay_open(struct intel_guc_log *log)
- 	if (ret)
- 		goto out_unlock;
- 
--	ret = guc_log_map(log);
-+	ret = guc_log_relay_map(log);
- 	if (ret)
- 		goto out_relay;
- 
-@@ -616,8 +619,8 @@ void intel_guc_log_relay_flush(struct intel_guc_log *log)
- 	with_intel_runtime_pm(guc_to_gt(guc)->uncore->rpm, wakeref)
- 		guc_action_flush_log(guc);
- 
--	/* GuC would have updated log buffer by now, so capture it */
--	guc_log_capture_logs(log);
-+	/* GuC would have updated log buffer by now, so copy it */
-+	guc_log_copy_debuglogs_for_relay(log);
- }
- 
- /*
-@@ -646,7 +649,7 @@ void intel_guc_log_relay_close(struct intel_guc_log *log)
- 
- 	mutex_lock(&log->relay.lock);
- 	GEM_BUG_ON(!intel_guc_log_relay_created(log));
--	guc_log_unmap(log);
-+	guc_log_relay_unmap(log);
- 	guc_log_relay_destroy(log);
- 	mutex_unlock(&log->relay.lock);
- }
--- 
-2.25.1
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+287e39ce2771 drm/i915/guc: Update GuC ADS size for error capture lists
+-:40: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#40: 
+new file mode 100644
+
+-:471: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'regslist' - possible side-effects?
+#471: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:63:
++#define MAKE_REGLIST(regslist, regsowner, regstype, class) \
++	{ \
++		regslist, \
++		ARRAY_SIZE(regslist), \
++		TO_GCAP_DEF_OWNER(regsowner), \
++		TO_GCAP_DEF_TYPE(regstype), \
++		class, \
++	}
+
+-:691: WARNING:OOM_MESSAGE: Possible unnecessary 'out of memory' message
+#691: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:283:
++	if (!caplist) {
++		drm_dbg(&i915->drm, "GuC-capture: failed to alloc cached caplist");
+
+-:733: WARNING:OOM_MESSAGE: Possible unnecessary 'out of memory' message
+#733: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:325:
++	if (!null_header) {
++		drm_dbg(&i915->drm, "GuC-capture: failed to alloc cached nulllist");
+
+total: 0 errors, 3 warnings, 1 checks, 751 lines checked
+7f37017607c0 drm/i915/guc: Add XE_LP static registers for GuC error capture.
+-:26: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#26: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:25:
++#define COMMON_GEN12BASE_GLOBAL() \
++	{GEN12_FAULT_TLB_DATA0,    0,      0, "GEN12_FAULT_TLB_DATA0"}, \
++	{GEN12_FAULT_TLB_DATA1,    0,      0, "GEN12_FAULT_TLB_DATA1"}, \
++	{FORCEWAKE_MT,             0,      0, "FORCEWAKE"}, \
++	{GEN12_AUX_ERR_DBG,        0,      0, "AUX_ERR_DBG"}, \
++	{GEN12_GAM_DONE,           0,      0, "GAM_DONE"}, \
++	{GEN12_RING_FAULT_REG,     0,      0, "FAULT_REG"}
+
+-:34: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#34: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:33:
++#define COMMON_GEN12BASE_ENGINE_INSTANCE() \
++	{RING_PSMI_CTL(0),         0,      0, "RC PSMI"}, \
++	{RING_ESR(0),              0,      0, "ESR"}, \
++	{RING_DMA_FADD(0),         0,      0, "RING_DMA_FADD_LDW"}, \
++	{RING_DMA_FADD_UDW(0),     0,      0, "RING_DMA_FADD_UDW"}, \
++	{RING_IPEIR(0),            0,      0, "IPEIR"}, \
++	{RING_IPEHR(0),            0,      0, "IPEHR"}, \
++	{RING_INSTPS(0),           0,      0, "INSTPS"}, \
++	{RING_BBADDR(0),           0,      0, "RING_BBADDR_LOW32"}, \
++	{RING_BBADDR_UDW(0),       0,      0, "RING_BBADDR_UP32"}, \
++	{RING_BBSTATE(0),          0,      0, "BB_STATE"}, \
++	{CCID(0),                  0,      0, "CCID"}, \
++	{RING_ACTHD(0),            0,      0, "ACTHD_LDW"}, \
++	{RING_ACTHD_UDW(0),        0,      0, "ACTHD_UDW"}, \
++	{RING_INSTPM(0),           0,      0, "INSTPM"}, \
++	{RING_INSTDONE(0),         0,      0, "INSTDONE"}, \
++	{RING_NOPID(0),            0,      0, "RING_NOPID"}, \
++	{RING_START(0),            0,      0, "START"}, \
++	{RING_HEAD(0),             0,      0, "HEAD"}, \
++	{RING_TAIL(0),             0,      0, "TAIL"}, \
++	{RING_CTL(0),              0,      0, "CTL"}, \
++	{RING_MI_MODE(0),          0,      0, "MODE"}, \
++	{RING_CONTEXT_CONTROL(0),  0,      0, "RING_CONTEXT_CONTROL"}, \
++	{RING_HWS_PGA(0),          0,      0, "HWS"}, \
++	{RING_MODE_GEN7(0),        0,      0, "GFX_MODE"}, \
++	{GEN8_RING_PDP_LDW(0, 0),  0,      0, "PDP0_LDW"}, \
++	{GEN8_RING_PDP_UDW(0, 0),  0,      0, "PDP0_UDW"}, \
++	{GEN8_RING_PDP_LDW(0, 1),  0,      0, "PDP1_LDW"}, \
++	{GEN8_RING_PDP_UDW(0, 1),  0,      0, "PDP1_UDW"}, \
++	{GEN8_RING_PDP_LDW(0, 2),  0,      0, "PDP2_LDW"}, \
++	{GEN8_RING_PDP_UDW(0, 2),  0,      0, "PDP2_UDW"}, \
++	{GEN8_RING_PDP_LDW(0, 3),  0,      0, "PDP3_LDW"}, \
++	{GEN8_RING_PDP_UDW(0, 3),  0,      0, "PDP3_UDW"}
+
+-:71: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#71: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:70:
++#define COMMON_GEN12BASE_RENDER() \
++	{GEN7_SC_INSTDONE,         0,      0, "GEN7_SC_INSTDONE"}, \
++	{GEN12_SC_INSTDONE_EXTRA,  0,      0, "GEN12_SC_INSTDONE_EXTRA"}, \
++	{GEN12_SC_INSTDONE_EXTRA2, 0,      0, "GEN12_SC_INSTDONE_EXTRA2"}
+
+-:76: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#76: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:75:
++#define COMMON_GEN12BASE_VEC() \
++	{GEN12_SFC_DONE(0),        0,      0, "SFC_DONE[0]"}, \
++	{GEN12_SFC_DONE(1),        0,      0, "SFC_DONE[1]"}, \
++	{GEN12_SFC_DONE(2),        0,      0, "SFC_DONE[2]"}, \
++	{GEN12_SFC_DONE(3),        0,      0, "SFC_DONE[3]"}
+
+total: 4 errors, 0 warnings, 0 checks, 180 lines checked
+51043f76f2de drm/i915/guc: Add XE_LP steered register lists support
+928b396d4480 drm/i915/guc: Add DG2 registers for GuC error state capture.
+ce355675ab34 drm/i915/guc: Add Gen9 registers for GuC error state capture.
+-:23: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#23: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:28:
++#define COMMON_GEN9BASE_GLOBAL() \
++	{GEN8_FAULT_TLB_DATA0,     0,      0, "GEN8_FAULT_TLB_DATA0"}, \
++	{GEN8_FAULT_TLB_DATA1,     0,      0, "GEN8_FAULT_TLB_DATA1"}, \
++	{ERROR_GEN6,               0,      0, "ERROR_GEN6"}, \
++	{DONE_REG,                 0,      0, "DONE_REG"}, \
++	{HSW_GTT_CACHE_EN,         0,      0, "HSW_GTT_CACHE_EN"}
+
+-:39: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#39: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:42:
++#define COMMON_BASE_ENGINE_INSTANCE() \
+ 	{RING_PSMI_CTL(0),         0,      0, "RC PSMI"}, \
+ 	{RING_ESR(0),              0,      0, "ESR"}, \
+ 	{RING_DMA_FADD(0),         0,      0, "RING_DMA_FADD_LDW"}, \
+
+total: 2 errors, 0 warnings, 0 checks, 146 lines checked
+383cdd1241e9 drm/i915/guc: Add GuC's error state capture output structures.
+c5a8526e52f6 drm/i915/guc: Update GuC-log relay function names
+1d8eeee30789 drm/i915/guc: Add capture region into intel_guc_log
+c692b33c402f drm/i915/guc: Check sizing of guc_capture output
+4eaa9c0f893b drm/i915/guc: Extract GuC error capture lists on G2H notification.
+e2eea3d6684c drm/i915/guc: Pre-allocate output nodes for extraction
+8622162f1809 drm/i915/guc: Plumb GuC-capture into gpu_coredump
+dd3925e2fd0a drm/i915/guc: Print the GuC error capture output register list.
+-:132: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'a' - possible side-effects?
+#132: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:1440:
++#define __out(a, ...) \
++	do { \
++		drm_warn((&(a)->i915->drm), __VA_ARGS__); \
++		i915_error_printf((a), __VA_ARGS__); \
++	} while (0)
+
+-:142: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'ebuf' - possible side-effects?
+#142: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:1450:
++#define GCAP_PRINT_INTEL_ENG_INFO(ebuf, eng) \
++	do { \
++		__out(ebuf, "    i915-Eng-Name: %s command stream\n", \
++		      (eng)->name); \
++		__out(ebuf, "    i915-Eng-Inst-Class: 0x%02x\n", (eng)->class); \
++		__out(ebuf, "    i915-Eng-Inst-Id: 0x%02x\n", (eng)->instance); \
++		__out(ebuf, "    i915-Eng-LogicalMask: 0x%08x\n", \
++		      (eng)->logical_mask); \
++	} while (0)
+
+-:142: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'eng' - possible side-effects?
+#142: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:1450:
++#define GCAP_PRINT_INTEL_ENG_INFO(ebuf, eng) \
++	do { \
++		__out(ebuf, "    i915-Eng-Name: %s command stream\n", \
++		      (eng)->name); \
++		__out(ebuf, "    i915-Eng-Inst-Class: 0x%02x\n", (eng)->class); \
++		__out(ebuf, "    i915-Eng-Inst-Id: 0x%02x\n", (eng)->instance); \
++		__out(ebuf, "    i915-Eng-LogicalMask: 0x%08x\n", \
++		      (eng)->logical_mask); \
++	} while (0)
+
+-:152: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'ebuf' - possible side-effects?
+#152: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:1460:
++#define GCAP_PRINT_GUC_INST_INFO(ebuf, node) \
++	do { \
++		__out(ebuf, "    GuC-Engine-Inst-Id: 0x%08x\n", \
++		      (node)->eng_inst); \
++		__out(ebuf, "    GuC-Context-Id: 0x%08x\n", (node)->guc_id); \
++		__out(ebuf, "    LRCA: 0x%08x\n", (node)->lrca); \
++	} while (0)
+
+-:152: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'node' - possible side-effects?
+#152: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c:1460:
++#define GCAP_PRINT_GUC_INST_INFO(ebuf, node) \
++	do { \
++		__out(ebuf, "    GuC-Engine-Inst-Id: 0x%08x\n", \
++		      (node)->eng_inst); \
++		__out(ebuf, "    GuC-Context-Id: 0x%08x\n", (node)->guc_id); \
++		__out(ebuf, "    LRCA: 0x%08x\n", (node)->lrca); \
++	} while (0)
+
+total: 0 errors, 0 warnings, 5 checks, 286 lines checked
+
 
