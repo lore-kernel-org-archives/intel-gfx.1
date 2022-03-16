@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C9CC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 13:19:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B26AC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 13:21:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1015810E594;
-	Wed, 16 Mar 2022 13:19:38 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19E1910E55F;
- Wed, 16 Mar 2022 13:19:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: bbeckett) with ESMTPSA id A53301F44846
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1647436774;
- bh=KlpubNGA6jnqdOcoZkfYGoeHVn6Iss9ryIjC0eGTdmA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=RWvZRt4Ig4J2VCzgPFSTDLCZAtrjGk1beFTZ339Yz5BXql21elMmTptUePF4HxO66
- y96Hxrz3VPZnRChbrS2ybn0Ftd0J/HYye8L8KiMOVxp2J/prOA18acNY7ouKB+Yt6K
- d20u/Vm1fkSyO6oDO6qByKsWACR845Vd5RfJgqlntAz+EOj1F/yaiCI5id6FeDCciP
- 4cn+sm7NBu13LJICIpxDJYpOUrrt7WQ1Ja4nHuTd/wqufbFUhtbWqlWnxvbFCvvqwZ
- CFCgmr26YsfMaf8l/9pcYrfKkwvEExr0oXHK52c7NOuFmtgFje4nkd+G+2uWf8kmuA
- QCnjT6BY1H+sg==
-Message-ID: <1eef3b71-ef7c-24d1-b0d7-695fc1d2d353@collabora.com>
-Date: Wed, 16 Mar 2022 13:19:32 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDA7310E595;
+	Wed, 16 Mar 2022 13:21:05 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB5710E595
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Mar 2022 13:21:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1647436864; x=1678972864;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=vbcyDn5W2ZO3IS5FhgpNZ/lbFoeZwu0FItNvf0w6rNs=;
+ b=S6+F6j4wFg8GylGSRVU3PrBX6SBAl33MrkB5y7it1cjEnKcGuMSg3sO+
+ L6qfNcwxUsSN9Dbkjd3xhAZcRRhrs8+Dgz+qCi3Mry4HtMPSgKi1ELp5S
+ tVfn3MnI4saj2bkIgLz7XJgWhK00tno1qqZPblf4Mhb5hIxquHYmRDajG
+ hxO8+hbfGq8dmE8HY0enDubYNZV6oVwqw8HGtyCMKupnSHVlKgbj139Ee
+ R1PjApLhY/l45nNfaNyisDTiSAbw/tS4+cfJL1uM59GzyvVurIqM8hs+1
+ xYb8AZ1bIYgXcTZ/ENYotnyWFKN/HE0ZUl2FXwMloYCxCr3DNSuj9CMMY Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10286"; a="281364288"
+X-IronPort-AV: E=Sophos;i="5.90,186,1643702400"; d="scan'208";a="281364288"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2022 06:21:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,186,1643702400"; d="scan'208";a="646643908"
+Received: from tejas-system-product-name.iind.intel.com ([10.145.162.130])
+ by orsmga004.jf.intel.com with ESMTP; 16 Mar 2022 06:21:01 -0700
+From: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 16 Mar 2022 18:37:53 +0530
+Message-Id: <20220316130754.813761-1-tejaskumarx.surendrakumar.upadhyay@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- intel-gfx@lists.freedesktop.org, Huang Rui <ray.huang@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-References: <20220315180444.3327283-1-bob.beckett@collabora.com>
- <20220315180444.3327283-6-bob.beckett@collabora.com>
- <2918e4a2-3bb8-23e0-3b8c-90c620b82328@amd.com>
-From: Robert Beckett <bob.beckett@collabora.com>
-In-Reply-To: <2918e4a2-3bb8-23e0-3b8c-90c620b82328@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [RFC PATCH 5/7] drm/ttm: add range busy check for
- range manager
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/gt: preempt engine to idle before
+ reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,95 +54,267 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Chris Wilson <chris@chris-wilson.co.uk>
 
+We need to be able to suspend execution along an
+engine and flush any active contexts away from
+the HW, back into the execution queue. This is
+done using a preempt-to-idle, disabling the
+submission backed while sending a preemption
+request to ELSP. Unpon completion of the context
+switch into the preemption context, we know the
+existing contexts are now idle.
 
-On 16/03/2022 09:54, Christian König wrote:
-> Am 15.03.22 um 19:04 schrieb Robert Beckett:
->> RFC: do we want this to become a generic interface in
->> ttm_resource_manager_func?
->>
->> RFC: would we prefer a different interface? e.g.
->> for_each_resource_in_range or for_each_bo_in_range
-> 
-> Well completely NAK to that. Why do you need that?
-> 
-> The long term goal is to completely remove the range checks from TTM 
-> instead.
+This is useful for reset, as it means we can
+proceed knowing that the engine is idle or hung
+(and so needs a reset).
 
-ah, I did not know that.
-I wanted it just to enable parity with a selftest that checks whether a 
-range is allocated before initializing a given range with test data 
-behind the allocator's back. It needs to check the range so that it 
-doesn't destroy in use data.
+Suggested-by: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_types.h  |   4 +-
+ .../drm/i915/gt/intel_execlists_submission.c  | 131 +++++++++++++++++-
+ drivers/gpu/drm/i915/gt/intel_reset.c         |   9 ++
+ 3 files changed, 142 insertions(+), 2 deletions(-)
 
-I suppose we could add another drm_mm range tracker just for testing and 
-shadow track each allocation in the range, but that seemed like a lot of 
-extra infrastructure for no general runtime use.
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index eac20112709c..194155de900d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -237,6 +237,7 @@ struct intel_engine_execlists {
+ 	 */
+ 	struct rb_root_cached virtual;
+ 
++	struct intel_context *preempt_context;
+ 	/**
+ 	 * @csb_write: control register for Context Switch buffer
+ 	 *
+@@ -445,8 +446,9 @@ struct intel_engine_cs {
+ 	void		(*irq_disable)(struct intel_engine_cs *engine);
+ 	void		(*irq_handler)(struct intel_engine_cs *engine, u16 iir);
+ 
+-	void		(*sanitize)(struct intel_engine_cs *engine);
++	int             (*suspend)(struct intel_engine_cs *engine);
+ 	int		(*resume)(struct intel_engine_cs *engine);
++	void		(*sanitize)(struct intel_engine_cs *engine);
+ 
+ 	struct {
+ 		void (*prepare)(struct intel_engine_cs *engine);
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index e1470bb60f34..006e2d9a53e3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -2440,6 +2440,125 @@ static void execlists_submission_tasklet(struct tasklet_struct *t)
+ 	rcu_read_unlock();
+ }
+ 
++static void suspend_tasklet(struct tasklet_struct *t)
++{
++	struct i915_sched_engine *se = from_tasklet(se, t, tasklet);
++	struct intel_engine_cs * const engine = se->private_data;
++	struct i915_request *post[EXECLIST_MAX_PORTS];
++
++	rcu_read_lock();
++	post_process_csb(post, process_csb(engine, post));
++	rcu_read_unlock();
++}
++
++/* XXX return error and force a full reset if we fail to
++ * preempt-to-idle
++ */
++static int execlists_suspend(struct intel_engine_cs *engine)
++{
++	struct i915_sched_engine *se = engine->sched_engine;
++	struct intel_engine_execlists * const el = &engine->execlists;
++	unsigned long timeout;
++	int err;
++
++	/* Stop further submissions, but listen for our own preempt-to-idle */
++	tasklet_disable(&se->tasklet);
++	se->tasklet.callback = suspend_tasklet;
++	tasklet_enable(&se->tasklet);
++
++	/*
++	 * We have to wait for the HW to complete a pending context switch
++	 * before we can write to ELS[PQ] again. Otherwise the behaviour
++	 * is undefined...
++	 *
++	 * If the engine is truly hung, it will neither clear pending
++	 * nor respond to our preemption request. In the later case,
++	 * we have the dilemma of how to restore hang detection...
++	 */
++	timeout = jiffies + HZ / 2;
++	while (READ_ONCE(el->pending[0]) && time_before(jiffies, timeout))
++		intel_engine_flush_submission(engine);
++	if (READ_ONCE(el->pending[0])) {
++		err = -EBUSY;
++		goto err;
++	}
++
++	if (*el->active) { /* preempt to idle required */
++		struct i915_request **pending = el->pending;
++		struct intel_context *ce = el->preempt_context;
++		u64 desc;
++		int n;
++
++		/* Always submit an empty / idle context */
++		desc = lrc_update_regs(ce, engine, ce->ring->tail);
++
++		/*
++		 * As we submit a dummy context, we will get two events.
++		 * First a preemption of the running context, causing us
++		 * to promote el->pending to el->inflight. And then
++		 * we will receive a completion event as our context
++		 * idles.
++		 *
++		 * We can use any dummy request here for tracking the
++		 * preemption events.
++		 */
++		execlists_schedule_in(*el->active, 0);
++		*pending++ = i915_request_get(*el->active);
++		*pending++ = NULL;
++
++		/* Tell the HW to preempt to our special context */
++		for (n = execlists_num_ports(el); --n; )
++			write_desc(el, 0, n);
++		write_desc(el, desc, 0);
++		if (el->ctrl_reg)
++			writel(EL_CTRL_LOAD, el->ctrl_reg);
++
++		timeout = jiffies + HZ / 2;
++		while (READ_ONCE(el->pending[0]) &&
++		       time_before(jiffies, timeout))
++			intel_engine_flush_submission(engine);
++
++		if (READ_ONCE(el->pending[0])) {
++			err = -EIO;
++			goto err;
++		}
++	}
++
++	return 0;
++
++err:
++	tasklet_disable(&se->tasklet);
++	se->tasklet.callback = execlists_submission_tasklet;
++	tasklet_enable(&se->tasklet);
++	return err;
++}
++
++static int setup_preempt_to_idle(struct intel_engine_cs *engine)
++{
++	struct intel_engine_execlists * const el = &engine->execlists;
++	static struct lock_class_key preempt;
++	struct intel_context *ce;
++
++	ce = intel_engine_create_pinned_context(engine, engine->gt->vm, SZ_4K,
++						I915_GEM_HWS_SEQNO_ADDR, /* unused */
++						&preempt, "preempt_context");
++	if (IS_ERR(ce))
++		return PTR_ERR(ce);
++
++	el->preempt_context = ce;
++	return 0;
++}
++
++static void cleanup_preempt_to_idle(struct intel_engine_cs *engine)
++{
++	struct intel_engine_execlists * const el = &engine->execlists;
++
++	if (el->preempt_context) {
++		intel_engine_destroy_pinned_context(el->preempt_context);
++		el->preempt_context = NULL;
++	}
++}
++
+ static void execlists_irq_handler(struct intel_engine_cs *engine, u16 iir)
+ {
+ 	bool tasklet = false;
+@@ -2907,6 +3026,10 @@ static void enable_execlists(struct intel_engine_cs *engine)
+ 
+ static int execlists_resume(struct intel_engine_cs *engine)
+ {
++	struct i915_sched_engine *se = engine->sched_engine;
++
++	se->tasklet.callback = execlists_submission_tasklet;
++
+ 	intel_mocs_init_engine(engine);
+ 	intel_breadcrumbs_reset(engine->breadcrumbs);
+ 
+@@ -3337,6 +3460,7 @@ static void execlists_release(struct intel_engine_cs *engine)
+ 	engine->sanitize = NULL; /* no longer in control, nothing to sanitize */
+ 
+ 	execlists_shutdown(engine);
++	cleanup_preempt_to_idle(engine);
+ 
+ 	intel_engine_cleanup_common(engine);
+ 	lrc_fini_wa_ctx(engine);
+@@ -3378,7 +3502,7 @@ static void
+ logical_ring_default_vfuncs(struct intel_engine_cs *engine)
+ {
+ 	/* Default vfuncs which can be overridden by each engine. */
+-
++	engine->suspend = execlists_suspend;
+ 	engine->resume = execlists_resume;
+ 
+ 	engine->cops = &execlists_context_ops;
+@@ -3480,6 +3604,7 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
+ 	struct drm_i915_private *i915 = engine->i915;
+ 	struct intel_uncore *uncore = engine->uncore;
+ 	u32 base = engine->mmio_base;
++	int err;
+ 
+ 	tasklet_setup(&engine->sched_engine->tasklet, execlists_submission_tasklet);
+ 	timer_setup(&engine->execlists.timer, execlists_timeslice, 0);
+@@ -3491,6 +3616,10 @@ int intel_execlists_submission_setup(struct intel_engine_cs *engine)
+ 	if (engine->flags & I915_ENGINE_HAS_RCS_REG_STATE)
+ 		rcs_submission_override(engine);
+ 
++	err = setup_preempt_to_idle(engine);
++	if (err)
++		return err;
++
+ 	lrc_init_wa_ctx(engine);
+ 
+ 	if (HAS_LOGICAL_RING_ELSQ(i915)) {
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index a6ae213c7d89..e10718e2eee9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -772,6 +772,12 @@ static intel_engine_mask_t reset_prepare(struct intel_gt *gt)
+ 	intel_engine_mask_t awake = 0;
+ 	enum intel_engine_id id;
+ 
++	intel_uncore_forcewake_get(gt->uncore, FORCEWAKE_ALL);
++	/* XXX Assumes we have reset_domain broadening */
++	for_each_engine(engine, gt, id)
++		if (engine->suspend)
++			engine->suspend(engine);
++
+ 	for_each_engine(engine, gt, id) {
+ 		if (intel_engine_pm_get_if_awake(engine))
+ 			awake |= engine->mask;
+@@ -830,11 +836,14 @@ static void reset_finish(struct intel_gt *gt, intel_engine_mask_t awake)
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		reset_finish_engine(engine);
++		if (engine->resume)
++			engine->resume(engine);
+ 		if (awake & engine->mask)
+ 			intel_engine_pm_put(engine);
+ 	}
+ 
+ 	intel_uc_reset_finish(&gt->uc);
++	intel_uncore_forcewake_put(gt->uncore, FORCEWAKE_ALL);
+ }
+ 
+ static void nop_submit_request(struct i915_request *request)
+-- 
+2.34.1
 
-would you mind explaining the rationale for removing range checks? It 
-seems to me like a natural fit for a memory manager
-
-> 
-> Regards,
-> Christian.
-> 
->>
->> Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
->> ---
->>   drivers/gpu/drm/ttm/ttm_range_manager.c | 21 +++++++++++++++++++++
->>   include/drm/ttm/ttm_range_manager.h     |  3 +++
->>   2 files changed, 24 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/ttm/ttm_range_manager.c 
->> b/drivers/gpu/drm/ttm/ttm_range_manager.c
->> index 8cd4f3fb9f79..5662627bb933 100644
->> --- a/drivers/gpu/drm/ttm/ttm_range_manager.c
->> +++ b/drivers/gpu/drm/ttm/ttm_range_manager.c
->> @@ -206,3 +206,24 @@ int ttm_range_man_fini_nocheck(struct ttm_device 
->> *bdev,
->>       return 0;
->>   }
->>   EXPORT_SYMBOL(ttm_range_man_fini_nocheck);
->> +
->> +/**
->> + * ttm_range_man_range_busy - Check whether anything is allocated 
->> with a range
->> + *
->> + * @man: memory manager to check
->> + * @fpfn: first page number to check
->> + * @lpfn: last page number to check
->> + *
->> + * Return: true if anything allocated within the range, false otherwise.
->> + */
->> +bool ttm_range_man_range_busy(struct ttm_resource_manager *man,
->> +                  unsigned fpfn, unsigned lpfn)
->> +{
->> +    struct ttm_range_manager *rman = to_range_manager(man);
->> +    struct drm_mm *mm = &rman->mm;
->> +
->> +    if (__drm_mm_interval_first(mm, PFN_PHYS(fpfn), PFN_PHYS(lpfn + 
->> 1) - 1))
->> +        return true;
->> +    return false;
->> +}
->> +EXPORT_SYMBOL(ttm_range_man_range_busy);
->> diff --git a/include/drm/ttm/ttm_range_manager.h 
->> b/include/drm/ttm/ttm_range_manager.h
->> index 7963b957e9ef..86794a3f9101 100644
->> --- a/include/drm/ttm/ttm_range_manager.h
->> +++ b/include/drm/ttm/ttm_range_manager.h
->> @@ -53,4 +53,7 @@ static __always_inline int ttm_range_man_fini(struct 
->> ttm_device *bdev,
->>       BUILD_BUG_ON(__builtin_constant_p(type) && type >= 
->> TTM_NUM_MEM_TYPES);
->>       return ttm_range_man_fini_nocheck(bdev, type);
->>   }
->> +
->> +bool ttm_range_man_range_busy(struct ttm_resource_manager *man,
->> +                  unsigned fpfn, unsigned lpfn);
->>   #endif
-> 
