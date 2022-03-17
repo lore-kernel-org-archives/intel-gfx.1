@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EACAC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 17:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4120C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 17:20:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B384C10E639;
-	Thu, 17 Mar 2022 17:20:25 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C7F310E60B
- for <intel-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 17:20:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A3E510E60B;
+	Thu, 17 Mar 2022 17:20:28 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A406E10E60B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Mar 2022 17:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647537624; x=1679073624;
+ t=1647537625; x=1679073625;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=T3P6Brx9EQvJihqNSPM0glUGkdIGOvHaI2gfGcqmlBc=;
- b=Kc37Tkf2XDckO+e/AAxTedOv0xUz7nvO/LPvbvxLhFPbxAV+DMx0Jn8O
- 85JHZXkXcRfSCEI1kwvl8MfiQ9AmlANHc9q4qoEd8xQonPPfIAM2j5Vwe
- UVjc3hyeQ1ZOiCrOxHk3Gr+e0v7qxlpo2JuzZfwNXJ2jESgWZjB2I/1aL
- jNsiSTXckUoH6kGIGWE7s5IiqgIDMldIY+AmMPOyscSZpbAXSGeWLUcHf
- cMe+xm2flONgiWSqv5QOZ+4hbp3UEzRkd6iADP1jBYXwzrGoYEWSTTuM/
- LKRKlShEFh1MMHHYIlVNO9E7S8fRQdjTJSt4+s2N/qB12Umqt42WrhLSH g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10289"; a="244378698"
-X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="244378698"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2022 10:20:23 -0700
+ bh=CpY5ZpTj7Iakw9Yf3V/QqK5kJCW6VyY5DAeMaDaVoLg=;
+ b=R21RZiMGXzHZSnyhN6NHC6tbeH1NiQQDI+Y/Bf0eKwrAUwH79voK3ZzA
+ zR3jxSNVgoGju2jZK6OdE1mcQNYYETVhLPIOVUSLK0A9gLCu1sn9ZSuwG
+ knVWpKs9FjgU7RuXYJ+1ofegneSrf8kJj9OycUkRBxnS/OPraArmNcgcj
+ iN13wKdPldRQ2c0L1I9e3ekShLerdmmkvfS3pNPfVO0thv7rrWNWIMzlD
+ x+QfZckDaWfGBFzXSkqtiErUWu0ByawFBbsAlKckG/EXRpBOj2rRuotVU
+ x42cyV5adOMcNhQPe2cu9SGWek19x+NK4DFLPzAjYALJFQls8ytTPUfEY g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10289"; a="239086645"
+X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="239086645"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2022 10:20:17 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="516845298"
+X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; d="scan'208";a="558024706"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by orsmga006.jf.intel.com with SMTP; 17 Mar 2022 10:20:21 -0700
+ by orsmga008.jf.intel.com with SMTP; 17 Mar 2022 10:20:15 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 17 Mar 2022 19:20:21 +0200
+ Thu, 17 Mar 2022 19:20:15 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Mar 2022 19:19:48 +0200
-Message-Id: <20220317171948.10400-12-ville.syrjala@linux.intel.com>
+Date: Thu, 17 Mar 2022 19:19:46 +0200
+Message-Id: <20220317171948.10400-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220317171948.10400-1-ville.syrjala@linux.intel.com>
 References: <20220317171948.10400-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/11] drm/i915: Respect VBT seamless DRRS min
- refresh rate
+Subject: [Intel-gfx] [PATCH 09/11] drm/i915/bios: Get access to the tail end
+ of the LFP data block
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,39 +64,107 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Make sure our choice of downclock mode respects the VBT
-seameless DRRS min refresh rate limit.
+We need to start parsing stuff from the tail end of the LFP data block.
+This is made awkward by the fact that the fp_timing table has variable
+size. So we must use a bit more finesse to get the tail end, and to
+make sure we allocate enough memory for it to make sure our struct
+representation fits.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_panel.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c     | 31 ++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h | 17 ++++++++++
+ 2 files changed, 47 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index f428d0457c17..31527fad3028 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -74,13 +74,17 @@ const struct drm_display_mode *
- intel_panel_downclock_mode(struct intel_connector *connector,
- 			   const struct drm_display_mode *adjusted_mode)
- {
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	const struct drm_display_mode *fixed_mode, *best_mode = NULL;
--	int vrefresh = drm_mode_vrefresh(adjusted_mode);
-+	int min_vrefresh = i915->vbt.seamless_drrs_min_refresh_rate;
-+	int max_vrefresh = drm_mode_vrefresh(adjusted_mode);
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index b34f8a77712a..3d56fd440c0b 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -517,6 +517,28 @@ get_lvds_fp_timing(const struct bdb_lvds_lfp_data *data,
+ 	return (const void *)data + ptrs->ptr[index].fp_timing.offset;
+ }
  
- 	/* pick the fixed_mode with the lowest refresh rate */
- 	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
--		if (drm_mode_vrefresh(fixed_mode) < vrefresh) {
--			vrefresh = drm_mode_vrefresh(fixed_mode);
-+		int vrefesh = drm_mode_vrefresh(fixed_mode);
++static const struct bdb_lvds_lfp_data_tail *
++get_lfp_data_tail(const struct bdb_lvds_lfp_data *data,
++		  const struct bdb_lvds_lfp_data_ptrs *ptrs)
++{
++	if (ptrs->panel_name.table_size)
++		return (const void *)data + ptrs->panel_name.offset;
++	else
++		return NULL;
++}
 +
-+		if (vrefesh >= min_vrefresh && vrefesh < max_vrefresh) {
-+			max_vrefresh = vrefesh;
- 			best_mode = fixed_mode;
- 		}
- 	}
++static size_t lfp_data_min_size(const struct bdb_lvds_lfp_data_ptrs *ptrs)
++{
++	size_t size;
++
++	size = sizeof(struct bdb_lvds_lfp_data);
++	if (ptrs->panel_name.table_size)
++		size = max(size, ptrs->panel_name.offset +
++			   sizeof(struct bdb_lvds_lfp_data_tail));
++
++	return size;
++}
++
+ /* Parse general panel options */
+ static void
+ parse_panel_options(struct drm_i915_private *i915,
+@@ -624,6 +646,7 @@ parse_lfp_data(struct drm_i915_private *i915,
+ 	       const struct bdb_header *bdb)
+ {
+ 	const struct bdb_lvds_lfp_data *data;
++	const struct bdb_lvds_lfp_data_tail *tail;
+ 	const struct bdb_lvds_lfp_data_ptrs *ptrs;
+ 
+ 	ptrs = find_section(i915, bdb, BDB_LVDS_LFP_DATA_PTRS,
+@@ -632,12 +655,18 @@ parse_lfp_data(struct drm_i915_private *i915,
+ 		return;
+ 
+ 	data = find_section(i915, bdb, BDB_LVDS_LFP_DATA,
+-			    sizeof(*data));
++			    lfp_data_min_size(ptrs));
+ 	if (!data)
+ 		return;
+ 
+ 	if (!i915->vbt.lfp_lvds_vbt_mode)
+ 		parse_lfp_panel_dtd(i915, data, ptrs);
++
++	tail = get_lfp_data_tail(data, ptrs);
++	if (!tail)
++		return;
++
++	(void)tail;
+ }
+ 
+ static void
+diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+index e4a11c3e3f3e..64551d206aeb 100644
+--- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
++++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+@@ -783,6 +783,23 @@ struct lvds_lfp_panel_name {
+ 	u8 name[13];
+ } __packed;
+ 
++struct lvds_lfp_black_border {
++	u8 top; /*  227 */
++	u8 bottom; /*  227 */
++	u8 left; /* 238 */
++	u8 right; /* 238 */
++} __packed;
++
++struct bdb_lvds_lfp_data_tail {
++	struct lvds_lfp_panel_name panel_name[16]; /* 156-163? */
++	u16 scaling_enable; /* 187 */
++	u8 seamless_drrs_min_refresh_rate[16]; /* 188 */
++	u8 pixel_overlap_count[16]; /* 208 */
++	struct lvds_lfp_black_border black_border[16]; /* 227 */
++	u16 dual_lfp_port_sync_enable; /* 231 */
++	u16 gpu_dithering_for_banding_artifacts; /* 245 */
++} __packed;
++
+ /*
+  * Block 43 - LFP Backlight Control Data Block
+  */
 -- 
 2.34.1
 
