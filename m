@@ -4,44 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CB09C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Mar 2022 23:46:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03B49C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Mar 2022 00:05:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ED9910EAAF;
-	Wed, 16 Mar 2022 23:46:13 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE3410EAAC;
- Wed, 16 Mar 2022 23:46:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647474371; x=1679010371;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=D0KKmINQsD4q8WF2iXe93gXGlMYAqn0GEc9x0RjOSRA=;
- b=bL2QlNyUp5+Vr2iSZj2zKrBpXyYeZ8ntQjJAs9GOZw1Gpbu2g2RGdhcl
- IAAf3OHGECMg2i56TQ93A9qZEIyG3YXgCw+uGfjpwkEHHgseNhXrLSZB8
- ouAVoebyyGhLJ5Nx5UsPfa9Xr/qkmd2m4man6iBozmD9speuvPMq5MYxX
- fe18pZrsxYo9GpY+NC8pI8MlSU2HqTDVyCX7QdV9pQCDk4SdXJEFVE7I7
- v4luPBsewyaXWGWI+ina62S83+4qQbYw/8ub9UWdypfg1bglsNW2mFVvG
- gIAbKC9cA4xaQVpzm7aq8vvuCtqxqv7zUgxbjhQKJgegGVWElRgDNNcWV A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10288"; a="256468486"
-X-IronPort-AV: E=Sophos;i="5.90,187,1643702400"; d="scan'208";a="256468486"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2022 16:46:10 -0700
-X-IronPort-AV: E=Sophos;i="5.90,187,1643702400"; d="scan'208";a="821038530"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2022 16:46:09 -0700
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Mar 2022 16:45:37 -0700
-Message-Id: <20220316234538.434357-1-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6214210E151;
+	Thu, 17 Mar 2022 00:05:37 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 15ADD10E066;
+ Thu, 17 Mar 2022 00:05:37 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 13E12A0078;
+ Thu, 17 Mar 2022 00:05:37 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915: Fix renamed struct field
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lucas De Marchi" <lucas.demarchi@intel.com>
+Date: Thu, 17 Mar 2022 00:05:37 -0000
+Message-ID: <164747553705.32163.418879070252613934@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220316234538.434357-1-lucas.demarchi@intel.com>
+In-Reply-To: <20220316234538.434357-1-lucas.demarchi@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B1/2=5D_drm/i915=3A_Fix_renamed_stru?=
+ =?utf-8?q?ct_field?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,35 +41,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Earlier versions of commit a5b7ef27da60 ("drm/i915: Add struct to hold
-IP version") named "ver" as "arch" and then when it was renamed it
-missed the rename on MEDIA_VER_FULL() since it it's currently not used.
+== Series Details ==
 
-Fixes: a5b7ef27da60 ("drm/i915: Add struct to hold IP version")
-Cc: José Roberto de Souza <jose.souza@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/i915_drv.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Series: series starting with [1/2] drm/i915: Fix renamed struct field
+URL   : https://patchwork.freedesktop.org/series/101448/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 26df561a4e94..7458b107a1d6 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -922,7 +922,7 @@ static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
- 	(GRAPHICS_VER(i915) >= (from) && GRAPHICS_VER(i915) <= (until))
- 
- #define MEDIA_VER(i915)			(INTEL_INFO(i915)->media.ver)
--#define MEDIA_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->media.arch, \
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+4e997aa6f37e drm/i915: Fix renamed struct field
+-:27: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
+#27: FILE: drivers/gpu/drm/i915/i915_drv.h:925:
 +#define MEDIA_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->media.ver, \
  					       INTEL_INFO(i915)->media.rel)
- #define IS_MEDIA_VER(i915, from, until) \
- 	(MEDIA_VER(i915) >= (from) && MEDIA_VER(i915) <= (until))
--- 
-2.35.1
+
+total: 0 errors, 0 warnings, 1 checks, 8 lines checked
+7604b41d03ca drm/i915: Add logical mapping for video decode engines
+
 
