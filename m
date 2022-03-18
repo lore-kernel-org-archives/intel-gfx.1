@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58F68C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 23:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60D80C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 23:40:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFCE510E451;
-	Fri, 18 Mar 2022 23:40:11 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 665B110E451;
- Fri, 18 Mar 2022 23:40:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 345F410E489;
+	Fri, 18 Mar 2022 23:40:15 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51E6110E451;
+ Fri, 18 Mar 2022 23:40:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647646810; x=1679182810;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=GLmFMornaSnSqY+/8GFKSjNa3P2XPko6VrSXeh1rJj4=;
- b=AqRVwxNjqxXIkQGUS46sPYRT2QqsOlwZ8kj1f60bGi+/ckxGIZCRXZZb
- ZPIPPihiV3L2cwZzPF35aSdCBCGcMvh7TCLH+0laWzEFrF117bHs5H+vq
- +P7ahENHH5n20kmAoCdPiSlGjtKsu5e7whi4I9UTvYzYMw3Hq7vNg2fLh
- pqofy/ZCw34P2qVuGD/k5bTVAPKbzySSfagfPGOQ6f696c2iNz+oXdUqM
- 4Qc4ePpg722lqavoPiVIjXCxLVg7IkAHVvBoLJp6fjwsPN5Bm6VM8JnOA
- WOG5cy9hXucDc3rlSVL6uuqHyXKNW2ksgd2Qyj0n98XjcV/Eh7K9XH/uS g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10290"; a="317961416"
-X-IronPort-AV: E=Sophos;i="5.90,192,1643702400"; d="scan'208";a="317961416"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2022 16:40:08 -0700
-X-IronPort-AV: E=Sophos;i="5.90,192,1643702400"; d="scan'208";a="517463195"
+ t=1647646811; x=1679182811;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=WPTkIf+D6Ht1QEzuSLW2MFLBk/9iyb37Q/0NQ1o7adA=;
+ b=OrA5iNxtSd4jHsiUySRKzhgt5oRbHJ+89QVWrSzW4IDIPGBkaOETE5OG
+ fBSzS1gYOtWut0Hc+HenFARgU/3jbYqeD8GjtFCezR9S3rWY3caqPIZyB
+ yVxIUI36FTqekv69aeOb87ms0dYnlw5jeEhxyr43OcwvO3kk3R62jSioG
+ TBO+7Bg0sxvoB/c7t6BCfAImbrkCqqM8cslN27Od99cdm8ruauHNs9lCN
+ ZgodIiEg949EgULDk3RnigKfxITZrsnlzViS4vfV287xRDP3zmM4QSnXg
+ nUsVuLswVcbELRrr+k2WZKVsQ9am+CHRPcEkbt4qVygJ+odW5lBfiHHET Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10290"; a="244724329"
+X-IronPort-AV: E=Sophos;i="5.90,192,1643702400"; d="scan'208";a="244724329"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2022 16:39:51 -0700
+X-IronPort-AV: E=Sophos;i="5.90,192,1643702400"; d="scan'208";a="558717369"
 Received: from bradocaj-mobl.ger.corp.intel.com (HELO intel.com)
  ([10.249.39.168])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2022 16:40:03 -0700
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2022 16:39:46 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Intel GFX <intel-gfx@lists.freedesktop.org>,
  DRI Devel <dri-devel@lists.freedesktop.org>
-Date: Sat, 19 Mar 2022 01:39:32 +0200
-Message-Id: <20220318233938.149744-3-andi.shyti@linux.intel.com>
+Date: Sat, 19 Mar 2022 01:39:30 +0200
+Message-Id: <20220318233938.149744-1-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220318233938.149744-1-andi.shyti@linux.intel.com>
-References: <20220318233938.149744-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 2/7] drm/i915/gt: add gt_is_root() helper
+Subject: [Intel-gfx] [PATCH v7 0/7] Introduce multitile support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,34 +61,117 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The "gt_is_root(struct intel_gt *gt)" helper return true if the
-gt is the root gt, which means that its id is 0. Return false
-otherwise.
+Hi,
 
-Suggested-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt.h | 5 +++++
- 1 file changed, 5 insertions(+)
+This is the second series that prepares i915 to host multitile
+platforms. It introduces the for_each_gt() macro that loops over
+the tiles to perform per gt actions.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
-index 996f8f3c17b95..ce471aa5c83d7 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.h
-@@ -19,6 +19,11 @@ struct drm_printer;
- 		  ##__VA_ARGS__);					\
- } while (0)
- 
-+static inline bool gt_is_root(struct intel_gt *gt)
-+{
-+	return !gt->info.id;
-+}
-+
- static inline struct intel_gt *uc_to_gt(struct intel_uc *uc)
- {
- 	return container_of(uc, struct intel_gt, uc);
+This patch is a combination of two patches developed originally
+by Abdiel, who introduced some refactoring during probe, and then
+Tvrtko has added the necessary tools to start using the various
+tiles.
+
+The second patch re-organises the sysfs interface to expose the
+API for each of the GTs. I decided to prioritise this patch
+over others to unblock Sujaritha for further development.
+
+A third series will still follow this.
+
+Thanks Michal and Andrzej for the reviews and support!
+
+Thanks,
+Andi
+
+Patchwork: https://patchwork.freedesktop.org/series/98741/
+
+Changelog
+=========
+v6 -> v7
+ - fixed a mock selftest error by initializing i915->gt[0]
+   (thanks Tvrtko!)
+ - removed spurious file added by mistake (thanks Matt!)
+ - improved commit log in patch 7 (thanks Suja!)
+
+v5 -> v6
+ - address all Michal and Andrzej's reviews that consist mainly
+   in code refactoring.
+
+v4 -> v5
+ - fixed Michal's reviews.
+ - the sysfs patches have been split in 3 parts to make reviews
+   easier.
+ - Sujaritha's patch on pm throttle has been queued.
+ - INTEL_REGION_LMEM has been renamed to INTEL_REGION_LMEM_0
+ - added the gt_is_root() helper
+ - the sysfs files will be called intel_gt_sysfs_* instead of
+   sysfs_gt_*
+
+v3 -> v4
+ - fixed Tvrtko's review:
+    - remove the SYSFS_DEPRECATED_V2 mention from the commit log
+    - reworded the error message when accessing deprecated files
+    - errors in sysfs are printed as warnings as they are not
+      fatal
+    - the inline functions are moved to be out of line.
+   and some other minor refactoring.
+
+v2 -> v3
+ - Added Matt and Sujaritha's r-b for patch 1 and 2.
+ - Reworded the commit of patch 2 to underline the fact that the
+   interface is useful also when used manually.
+
+v1 -> v2
+ - fixed a couple of coding style issues in patch 2.
+
+Andi Shyti (5):
+  drm/i915: Rename INTEL_REGION_LMEM with INTEL_REGION_LMEM_0
+  drm/i915/gt: add gt_is_root() helper
+  drm/i915/gt: create per-tile sysfs interface
+  drm/i915/gt: Create per-tile RC6 sysfs interface
+  drm/i915/gt: Create per-tile RPS sysfs interfaces
+
+Sujaritha Sundaresan (1):
+  drm/i915/gt: Add sysfs throttle frequency interfaces
+
+Tvrtko Ursulin (1):
+  drm/i915: Prepare for multiple GTs
+
+ drivers/gpu/drm/i915/Makefile                 |   2 +
+ drivers/gpu/drm/i915/display/intel_fb.c       |   2 +-
+ drivers/gpu/drm/i915/display/intel_fb_pin.c   |   2 +-
+ .../drm/i915/display/intel_plane_initial.c    |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_lmem.c      |   4 +-
+ .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |   6 +-
+ .../drm/i915/gem/selftests/i915_gem_migrate.c |   8 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c            | 135 +++-
+ drivers/gpu/drm/i915/gt/intel_gt.h            |  22 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c         |   9 +-
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.c      | 122 ++++
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.h      |  34 +
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c   | 601 ++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.h   |  15 +
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      |   7 +
+ drivers/gpu/drm/i915/gt/intel_rps.c           |  18 +
+ drivers/gpu/drm/i915/gt/intel_rps.h           |   4 +
+ drivers/gpu/drm/i915/i915_driver.c            |  28 +-
+ drivers/gpu/drm/i915/i915_drv.h               |   8 +
+ drivers/gpu/drm/i915/i915_reg.h               |  11 +
+ drivers/gpu/drm/i915/i915_sysfs.c             | 310 +--------
+ drivers/gpu/drm/i915/i915_sysfs.h             |   3 +
+ drivers/gpu/drm/i915/intel_memory_region.c    |   2 +-
+ drivers/gpu/drm/i915/intel_memory_region.h    |   7 +-
+ drivers/gpu/drm/i915/intel_uncore.c           |  11 +-
+ drivers/gpu/drm/i915/intel_uncore.h           |   3 +-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |  13 +-
+ 27 files changed, 1023 insertions(+), 366 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.h
+
+
+base-commit: 76874531ffae41683316380bd6d6227bbba12148
 -- 
 2.35.1
 
