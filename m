@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60D80C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 23:40:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0506FC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 23:40:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 345F410E489;
-	Fri, 18 Mar 2022 23:40:15 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51E6110E451;
- Fri, 18 Mar 2022 23:40:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8086010E485;
+	Fri, 18 Mar 2022 23:40:21 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4EC10E47B;
+ Fri, 18 Mar 2022 23:40:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647646811; x=1679182811;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=WPTkIf+D6Ht1QEzuSLW2MFLBk/9iyb37Q/0NQ1o7adA=;
- b=OrA5iNxtSd4jHsiUySRKzhgt5oRbHJ+89QVWrSzW4IDIPGBkaOETE5OG
- fBSzS1gYOtWut0Hc+HenFARgU/3jbYqeD8GjtFCezR9S3rWY3caqPIZyB
- yVxIUI36FTqekv69aeOb87ms0dYnlw5jeEhxyr43OcwvO3kk3R62jSioG
- TBO+7Bg0sxvoB/c7t6BCfAImbrkCqqM8cslN27Od99cdm8ruauHNs9lCN
- ZgodIiEg949EgULDk3RnigKfxITZrsnlzViS4vfV287xRDP3zmM4QSnXg
- nUsVuLswVcbELRrr+k2WZKVsQ9am+CHRPcEkbt4qVygJ+odW5lBfiHHET Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10290"; a="244724329"
-X-IronPort-AV: E=Sophos;i="5.90,192,1643702400"; d="scan'208";a="244724329"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2022 16:39:51 -0700
-X-IronPort-AV: E=Sophos;i="5.90,192,1643702400"; d="scan'208";a="558717369"
+ t=1647646820; x=1679182820;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=LLfqAwBrPddrVyPFSma6JtSbmZRjCmBh+heF3XmwNAg=;
+ b=SmwXkbcpmWLs2UACWKrICWxlLWd4+wzWgDNM2SlnDw+NnGVJVTQ4PGy8
+ Xa5kfu9nTlwYwIl0WcZjQ/DCZSVuW8RJa0U8gjFOw941GVg7rXzgeFenQ
+ akaXtadvjxQdSccDPbKaNmJki0CjrUtgxVvy272vsR/6zzRGF3PWTbDF9
+ UR8WJSYLafynBx/QKsMfWNttmPpAI5+QCzoWXZ+zlm72p5+7VzGxB8Op1
+ QOv9u/kVmzBpxu28Sm1dcnFaPbgaKo1GYTvuJLFXpbdYz8En4FCHr5S4L
+ bOfhUJ5hYV0bbRLulwKjHjk40b0Mu6IllEE381u2tzBbU35xVrDvukXyB Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10290"; a="257199358"
+X-IronPort-AV: E=Sophos;i="5.90,192,1643702400"; d="scan'208";a="257199358"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2022 16:40:19 -0700
+X-IronPort-AV: E=Sophos;i="5.90,192,1643702400"; d="scan'208";a="715702642"
 Received: from bradocaj-mobl.ger.corp.intel.com (HELO intel.com)
  ([10.249.39.168])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2022 16:39:46 -0700
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2022 16:40:12 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Intel GFX <intel-gfx@lists.freedesktop.org>,
  DRI Devel <dri-devel@lists.freedesktop.org>
-Date: Sat, 19 Mar 2022 01:39:30 +0200
-Message-Id: <20220318233938.149744-1-andi.shyti@linux.intel.com>
+Date: Sat, 19 Mar 2022 01:39:33 +0200
+Message-Id: <20220318233938.149744-4-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220318233938.149744-1-andi.shyti@linux.intel.com>
+References: <20220318233938.149744-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 0/7] Introduce multitile support
+Subject: [Intel-gfx] [PATCH v7 3/7] drm/i915: Prepare for multiple GTs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,117 +62,559 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-This is the second series that prepares i915 to host multitile
-platforms. It introduces the for_each_gt() macro that loops over
-the tiles to perform per gt actions.
+On a multi-tile platform, each tile has its own registers + GGTT
+space, and BAR 0 is extended to cover all of them.
 
-This patch is a combination of two patches developed originally
-by Abdiel, who introduced some refactoring during probe, and then
-Tvrtko has added the necessary tools to start using the various
-tiles.
+Up to four GTs are supported in i915->gt[], with slot zero
+shadowing the existing i915->gt0 to enable source compatibility
+with legacy driver paths. A for_each_gt macro is added to iterate
+over the GTs and will be used by upcoming patches that convert
+various parts of the driver to be multi-gt aware.
 
-The second patch re-organises the sysfs interface to expose the
-API for each of the GTs. I decided to prioritise this patch
-over others to unblock Sujaritha for further development.
+Only the primary/root tile is initialized for now; the other
+tiles will be detected and plugged in by future patches once the
+necessary infrastructure is in place to handle them.
 
-A third series will still follow this.
-
-Thanks Michal and Andrzej for the reviews and support!
-
-Thanks,
-Andi
-
-Patchwork: https://patchwork.freedesktop.org/series/98741/
-
-Changelog
-=========
-v6 -> v7
- - fixed a mock selftest error by initializing i915->gt[0]
-   (thanks Tvrtko!)
- - removed spurious file added by mistake (thanks Matt!)
- - improved commit log in patch 7 (thanks Suja!)
-
-v5 -> v6
- - address all Michal and Andrzej's reviews that consist mainly
-   in code refactoring.
-
-v4 -> v5
- - fixed Michal's reviews.
- - the sysfs patches have been split in 3 parts to make reviews
-   easier.
- - Sujaritha's patch on pm throttle has been queued.
- - INTEL_REGION_LMEM has been renamed to INTEL_REGION_LMEM_0
- - added the gt_is_root() helper
- - the sysfs files will be called intel_gt_sysfs_* instead of
-   sysfs_gt_*
-
-v3 -> v4
- - fixed Tvrtko's review:
-    - remove the SYSFS_DEPRECATED_V2 mention from the commit log
-    - reworded the error message when accessing deprecated files
-    - errors in sysfs are printed as warnings as they are not
-      fatal
-    - the inline functions are moved to be out of line.
-   and some other minor refactoring.
-
-v2 -> v3
- - Added Matt and Sujaritha's r-b for patch 1 and 2.
- - Reworded the commit of patch 2 to underline the fact that the
-   interface is useful also when used manually.
-
-v1 -> v2
- - fixed a couple of coding style issues in patch 2.
-
-Andi Shyti (5):
-  drm/i915: Rename INTEL_REGION_LMEM with INTEL_REGION_LMEM_0
-  drm/i915/gt: add gt_is_root() helper
-  drm/i915/gt: create per-tile sysfs interface
-  drm/i915/gt: Create per-tile RC6 sysfs interface
-  drm/i915/gt: Create per-tile RPS sysfs interfaces
-
-Sujaritha Sundaresan (1):
-  drm/i915/gt: Add sysfs throttle frequency interfaces
-
-Tvrtko Ursulin (1):
-  drm/i915: Prepare for multiple GTs
-
- drivers/gpu/drm/i915/Makefile                 |   2 +
- drivers/gpu/drm/i915/display/intel_fb.c       |   2 +-
- drivers/gpu/drm/i915/display/intel_fb_pin.c   |   2 +-
- .../drm/i915/display/intel_plane_initial.c    |   2 +-
- drivers/gpu/drm/i915/gem/i915_gem_lmem.c      |   4 +-
- .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |   6 +-
- .../drm/i915/gem/selftests/i915_gem_migrate.c |   8 +-
- drivers/gpu/drm/i915/gt/intel_gt.c            | 135 +++-
- drivers/gpu/drm/i915/gt/intel_gt.h            |  22 +-
+Signed-off-by: Abdiel Janulgue <abdiel.janulgue@gmail.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt.c            | 133 ++++++++++++++++--
+ drivers/gpu/drm/i915/gt/intel_gt.h            |  17 ++-
  drivers/gpu/drm/i915/gt/intel_gt_pm.c         |   9 +-
- drivers/gpu/drm/i915/gt/intel_gt_sysfs.c      | 122 ++++
- drivers/gpu/drm/i915/gt/intel_gt_sysfs.h      |  34 +
- drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c   | 601 ++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.h   |  15 +
  drivers/gpu/drm/i915/gt/intel_gt_types.h      |   7 +
- drivers/gpu/drm/i915/gt/intel_rps.c           |  18 +
- drivers/gpu/drm/i915/gt/intel_rps.h           |   4 +
- drivers/gpu/drm/i915/i915_driver.c            |  28 +-
- drivers/gpu/drm/i915/i915_drv.h               |   8 +
- drivers/gpu/drm/i915/i915_reg.h               |  11 +
- drivers/gpu/drm/i915/i915_sysfs.c             | 310 +--------
- drivers/gpu/drm/i915/i915_sysfs.h             |   3 +
- drivers/gpu/drm/i915/intel_memory_region.c    |   2 +-
- drivers/gpu/drm/i915/intel_memory_region.h    |   7 +-
+ drivers/gpu/drm/i915/i915_driver.c            |  28 ++--
+ drivers/gpu/drm/i915/i915_drv.h               |   6 +
+ drivers/gpu/drm/i915/intel_memory_region.h    |   3 +
  drivers/gpu/drm/i915/intel_uncore.c           |  11 +-
  drivers/gpu/drm/i915/intel_uncore.h           |   3 +-
  .../gpu/drm/i915/selftests/mock_gem_device.c  |  13 +-
- 27 files changed, 1023 insertions(+), 366 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
- create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
- create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
- create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.h
+ 10 files changed, 184 insertions(+), 46 deletions(-)
 
-
-base-commit: 76874531ffae41683316380bd6d6227bbba12148
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index ca875ba3e2a9d..cfac4a913642e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -29,7 +29,7 @@
+ #include "intel_uncore.h"
+ #include "shmem_utils.h"
+ 
+-void __intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915)
++static void __intel_gt_init_early(struct intel_gt *gt)
+ {
+ 	spin_lock_init(&gt->irq_lock);
+ 
+@@ -51,17 +51,23 @@ void __intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915)
+ 	intel_rps_init_early(&gt->rps);
+ }
+ 
+-void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915)
++/* Preliminary initialization of Tile 0 */
++void intel_root_gt_init_early(struct drm_i915_private *i915)
+ {
++	struct intel_gt *gt = to_gt(i915);
++
+ 	gt->i915 = i915;
+ 	gt->uncore = &i915->uncore;
++
++	__intel_gt_init_early(gt);
+ }
+ 
+-int intel_gt_probe_lmem(struct intel_gt *gt)
++static int intel_gt_probe_lmem(struct intel_gt *gt)
+ {
+ 	struct drm_i915_private *i915 = gt->i915;
++	unsigned int instance = gt->info.id;
++	int id = INTEL_REGION_LMEM_0 + instance;
+ 	struct intel_memory_region *mem;
+-	int id;
+ 	int err;
+ 
+ 	mem = intel_gt_setup_lmem(gt);
+@@ -76,9 +82,8 @@ int intel_gt_probe_lmem(struct intel_gt *gt)
+ 		return err;
+ 	}
+ 
+-	id = INTEL_REGION_LMEM_0;
+-
+ 	mem->id = id;
++	mem->instance = instance;
+ 
+ 	intel_memory_region_set_name(mem, "local%u", mem->instance);
+ 
+@@ -807,16 +812,21 @@ void intel_gt_driver_release(struct intel_gt *gt)
+ 	intel_gt_fini_hwconfig(gt);
+ }
+ 
+-void intel_gt_driver_late_release(struct intel_gt *gt)
++void intel_gt_driver_late_release_all(struct drm_i915_private *i915)
+ {
++	struct intel_gt *gt;
++	unsigned int id;
++
+ 	/* We need to wait for inflight RCU frees to release their grip */
+ 	rcu_barrier();
+ 
+-	intel_uc_driver_late_release(&gt->uc);
+-	intel_gt_fini_requests(gt);
+-	intel_gt_fini_reset(gt);
+-	intel_gt_fini_timelines(gt);
+-	intel_engines_free(gt);
++	for_each_gt(gt, i915, id) {
++		intel_uc_driver_late_release(&gt->uc);
++		intel_gt_fini_requests(gt);
++		intel_gt_fini_reset(gt);
++		intel_gt_fini_timelines(gt);
++		intel_engines_free(gt);
++	}
+ }
+ 
+ /**
+@@ -1013,6 +1023,105 @@ void intel_gt_report_steering(struct drm_printer *p, struct intel_gt *gt,
+ 	}
+ }
+ 
++static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
++{
++	int ret;
++
++	if (!gt_is_root(gt)) {
++		struct intel_uncore_mmio_debug *mmio_debug;
++		struct intel_uncore *uncore;
++
++		uncore = kzalloc(sizeof(*uncore), GFP_KERNEL);
++		if (!uncore)
++			return -ENOMEM;
++
++		mmio_debug = kzalloc(sizeof(*mmio_debug), GFP_KERNEL);
++		if (!mmio_debug) {
++			kfree(uncore);
++			return -ENOMEM;
++		}
++
++		gt->uncore = uncore;
++		gt->uncore->debug = mmio_debug;
++
++		__intel_gt_init_early(gt);
++	}
++
++	intel_uncore_init_early(gt->uncore, gt);
++
++	ret = intel_uncore_setup_mmio(gt->uncore, phys_addr);
++	if (ret)
++		return ret;
++
++	gt->phys_addr = phys_addr;
++
++	return 0;
++}
++
++static void
++intel_gt_tile_cleanup(struct intel_gt *gt)
++{
++	intel_uncore_cleanup_mmio(gt->uncore);
++
++	if (!gt_is_root(gt)) {
++		kfree(gt->uncore->debug);
++		kfree(gt->uncore);
++		kfree(gt);
++	}
++}
++
++int intel_gt_probe_all(struct drm_i915_private *i915)
++{
++	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
++	struct intel_gt *gt = &i915->gt0;
++	phys_addr_t phys_addr;
++	unsigned int mmio_bar;
++	int ret;
++
++	mmio_bar = GRAPHICS_VER(i915) == 2 ? 1 : 0;
++	phys_addr = pci_resource_start(pdev, mmio_bar);
++
++	/*
++	 * We always have at least one primary GT on any device
++	 * and it has been already initialized early during probe
++	 * in i915_driver_probe()
++	 */
++	ret = intel_gt_tile_setup(gt, phys_addr);
++	if (ret)
++		return ret;
++
++	i915->gt[0] = gt;
++
++	/* TODO: add more tiles */
++	return 0;
++}
++
++int intel_gt_tiles_init(struct drm_i915_private *i915)
++{
++	struct intel_gt *gt;
++	unsigned int id;
++	int ret;
++
++	for_each_gt(gt, i915, id) {
++		ret = intel_gt_probe_lmem(gt);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++void intel_gt_release_all(struct drm_i915_private *i915)
++{
++	struct intel_gt *gt;
++	unsigned int id;
++
++	for_each_gt(gt, i915, id) {
++		intel_gt_tile_cleanup(gt);
++		i915->gt[id] = NULL;
++	}
++}
++
+ void intel_gt_info_print(const struct intel_gt_info *info,
+ 			 struct drm_printer *p)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
+index ce471aa5c83d7..e76168e10a21b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+@@ -39,10 +39,8 @@ static inline struct intel_gt *huc_to_gt(struct intel_huc *huc)
+ 	return container_of(huc, struct intel_gt, uc.huc);
+ }
+ 
+-void intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915);
+-void __intel_gt_init_early(struct intel_gt *gt, struct drm_i915_private *i915);
++void intel_root_gt_init_early(struct drm_i915_private *i915);
+ int intel_gt_assign_ggtt(struct intel_gt *gt);
+-int intel_gt_probe_lmem(struct intel_gt *gt);
+ int intel_gt_init_mmio(struct intel_gt *gt);
+ int __must_check intel_gt_init_hw(struct intel_gt *gt);
+ int intel_gt_init(struct intel_gt *gt);
+@@ -52,7 +50,7 @@ void intel_gt_driver_unregister(struct intel_gt *gt);
+ void intel_gt_driver_remove(struct intel_gt *gt);
+ void intel_gt_driver_release(struct intel_gt *gt);
+ 
+-void intel_gt_driver_late_release(struct intel_gt *gt);
++void intel_gt_driver_late_release_all(struct drm_i915_private *i915);
+ 
+ int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout);
+ 
+@@ -97,6 +95,17 @@ u32 intel_gt_read_register(struct intel_gt *gt, i915_reg_t reg);
+ 
+ void intel_gt_report_steering(struct drm_printer *p, struct intel_gt *gt,
+ 			      bool dump_table);
++
++int intel_gt_probe_all(struct drm_i915_private *i915);
++int intel_gt_tiles_init(struct drm_i915_private *i915);
++void intel_gt_release_all(struct drm_i915_private *i915);
++
++#define for_each_gt(gt__, i915__, id__) \
++	for ((id__) = 0; \
++	     (id__) < I915_MAX_GT; \
++	     (id__)++) \
++		for_each_if(((gt__) = (i915__)->gt[(id__)]))
++
+ void intel_gt_info_print(const struct intel_gt_info *info,
+ 			 struct drm_printer *p);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+index e4ecc17889d34..eeead40485fbc 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+@@ -129,7 +129,14 @@ static const struct intel_wakeref_ops wf_ops = {
+ 
+ void intel_gt_pm_init_early(struct intel_gt *gt)
+ {
+-	intel_wakeref_init(&gt->wakeref, gt->uncore->rpm, &wf_ops);
++	/*
++	 * We access the runtime_pm structure via gt->i915 here rather than
++	 * gt->uncore as we do elsewhere in the file because gt->uncore is not
++	 * yet initialized for all tiles at this point in the driver startup.
++	 * runtime_pm is per-device rather than per-tile, so this is still the
++	 * correct structure.
++	 */
++	intel_wakeref_init(&gt->wakeref, &gt->i915->runtime_pm, &wf_ops);
+ 	seqcount_mutex_init(&gt->stats.lock, &gt->wakeref.mutex);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index bbba885d45bd5..937b2e1a305ed 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -188,7 +188,14 @@ struct intel_gt {
+ 		u8 instanceid;
+ 	} default_steering;
+ 
++	/*
++	 * Base of per-tile GTTMMADR where we can derive the MMIO and the GGTT.
++	 */
++	phys_addr_t phys_addr;
++
+ 	struct intel_gt_info {
++		unsigned int id;
++
+ 		intel_engine_mask_t engine_mask;
+ 
+ 		u32 l3bank_mask;
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 92a625a174e22..64e6f76861f95 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -321,9 +321,7 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 	intel_device_info_subplatform_init(dev_priv);
+ 	intel_step_init(dev_priv);
+ 
+-	intel_gt_init_early(to_gt(dev_priv), dev_priv);
+ 	intel_uncore_mmio_debug_init_early(&dev_priv->mmio_debug);
+-	intel_uncore_init_early(&dev_priv->uncore, to_gt(dev_priv));
+ 
+ 	spin_lock_init(&dev_priv->irq_lock);
+ 	spin_lock_init(&dev_priv->gpu_error.lock);
+@@ -354,7 +352,7 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 
+ 	intel_wopcm_init_early(&dev_priv->wopcm);
+ 
+-	__intel_gt_init_early(to_gt(dev_priv), dev_priv);
++	intel_root_gt_init_early(dev_priv);
+ 
+ 	i915_gem_init_early(dev_priv);
+ 
+@@ -375,7 +373,7 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 
+ err_gem:
+ 	i915_gem_cleanup_early(dev_priv);
+-	intel_gt_driver_late_release(to_gt(dev_priv));
++	intel_gt_driver_late_release_all(dev_priv);
+ 	intel_region_ttm_device_fini(dev_priv);
+ err_ttm:
+ 	vlv_suspend_cleanup(dev_priv);
+@@ -394,7 +392,7 @@ static void i915_driver_late_release(struct drm_i915_private *dev_priv)
+ 	intel_irq_fini(dev_priv);
+ 	intel_power_domains_cleanup(dev_priv);
+ 	i915_gem_cleanup_early(dev_priv);
+-	intel_gt_driver_late_release(to_gt(dev_priv));
++	intel_gt_driver_late_release_all(dev_priv);
+ 	intel_region_ttm_device_fini(dev_priv);
+ 	vlv_suspend_cleanup(dev_priv);
+ 	i915_workqueues_cleanup(dev_priv);
+@@ -425,13 +423,9 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = intel_uncore_setup_mmio(&dev_priv->uncore);
+-	if (ret < 0)
+-		goto err_bridge;
+-
+ 	ret = intel_uncore_init_mmio(&dev_priv->uncore);
+ 	if (ret)
+-		goto err_mmio;
++		return ret;
+ 
+ 	/* Try to make sure MCHBAR is enabled before poking at it */
+ 	intel_setup_mchbar(dev_priv);
+@@ -449,9 +443,6 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+ err_uncore:
+ 	intel_teardown_mchbar(dev_priv);
+ 	intel_uncore_fini_mmio(&dev_priv->uncore);
+-err_mmio:
+-	intel_uncore_cleanup_mmio(&dev_priv->uncore);
+-err_bridge:
+ 	pci_dev_put(dev_priv->bridge_dev);
+ 
+ 	return ret;
+@@ -465,7 +456,6 @@ static void i915_driver_mmio_release(struct drm_i915_private *dev_priv)
+ {
+ 	intel_teardown_mchbar(dev_priv);
+ 	intel_uncore_fini_mmio(&dev_priv->uncore);
+-	intel_uncore_cleanup_mmio(&dev_priv->uncore);
+ 	pci_dev_put(dev_priv->bridge_dev);
+ }
+ 
+@@ -598,7 +588,7 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
+ 	if (ret)
+ 		goto err_ggtt;
+ 
+-	ret = intel_gt_probe_lmem(to_gt(dev_priv));
++	ret = intel_gt_tiles_init(dev_priv);
+ 	if (ret)
+ 		goto err_mem_regions;
+ 
+@@ -849,10 +839,14 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 
+ 	intel_vgpu_detect(i915);
+ 
+-	ret = i915_driver_mmio_probe(i915);
++	ret = intel_gt_probe_all(i915);
+ 	if (ret < 0)
+ 		goto out_runtime_pm_put;
+ 
++	ret = i915_driver_mmio_probe(i915);
++	if (ret < 0)
++		goto out_tiles_cleanup;
++
+ 	ret = i915_driver_hw_probe(i915);
+ 	if (ret < 0)
+ 		goto out_cleanup_mmio;
+@@ -909,6 +903,8 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	i915_ggtt_driver_late_release(i915);
+ out_cleanup_mmio:
+ 	i915_driver_mmio_release(i915);
++out_tiles_cleanup:
++	intel_gt_release_all(i915);
+ out_runtime_pm_put:
+ 	enable_rpm_wakeref_asserts(&i915->runtime_pm);
+ 	i915_driver_late_release(i915);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 97622d3ccfc2a..8e4083d413592 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -777,6 +777,12 @@ struct drm_i915_private {
+ 	/* Abstract the submission mechanism (legacy ringbuffer or execlists) away */
+ 	struct intel_gt gt0;
+ 
++	/*
++	 * i915->gt[0] == &i915->gt0
++	 */
++#define I915_MAX_GT 4
++	struct intel_gt *gt[I915_MAX_GT];
++
+ 	struct {
+ 		struct i915_gem_contexts {
+ 			spinlock_t lock; /* locks list */
+diff --git a/drivers/gpu/drm/i915/intel_memory_region.h b/drivers/gpu/drm/i915/intel_memory_region.h
+index cc7078bcbfbfc..3d8378c1b4478 100644
+--- a/drivers/gpu/drm/i915/intel_memory_region.h
++++ b/drivers/gpu/drm/i915/intel_memory_region.h
+@@ -30,6 +30,9 @@ enum intel_memory_type {
+ enum intel_region_id {
+ 	INTEL_REGION_SMEM = 0,
+ 	INTEL_REGION_LMEM_0,
++	INTEL_REGION_LMEM_1,
++	INTEL_REGION_LMEM_2,
++	INTEL_REGION_LMEM_3,
+ 	INTEL_REGION_STOLEN_SMEM,
+ 	INTEL_REGION_STOLEN_LMEM,
+ 	INTEL_REGION_UNKNOWN, /* Should be last */
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index ef8ffc01ad19c..8b9caaaacc21f 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -2039,14 +2039,11 @@ static int i915_pmic_bus_access_notifier(struct notifier_block *nb,
+ 	return NOTIFY_OK;
+ }
+ 
+-int intel_uncore_setup_mmio(struct intel_uncore *uncore)
++int intel_uncore_setup_mmio(struct intel_uncore *uncore, phys_addr_t phys_addr)
+ {
+ 	struct drm_i915_private *i915 = uncore->i915;
+-	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+-	int mmio_bar;
+ 	int mmio_size;
+ 
+-	mmio_bar = GRAPHICS_VER(i915) == 2 ? 1 : 0;
+ 	/*
+ 	 * Before gen4, the registers and the GTT are behind different BARs.
+ 	 * However, from gen4 onwards, the registers and the GTT are shared
+@@ -2063,7 +2060,7 @@ int intel_uncore_setup_mmio(struct intel_uncore *uncore)
+ 	else
+ 		mmio_size = 2 * 1024 * 1024;
+ 
+-	uncore->regs = pci_iomap(pdev, mmio_bar, mmio_size);
++	uncore->regs = ioremap(phys_addr, mmio_size);
+ 	if (uncore->regs == NULL) {
+ 		drm_err(&i915->drm, "failed to map registers\n");
+ 		return -EIO;
+@@ -2074,9 +2071,7 @@ int intel_uncore_setup_mmio(struct intel_uncore *uncore)
+ 
+ void intel_uncore_cleanup_mmio(struct intel_uncore *uncore)
+ {
+-	struct pci_dev *pdev = to_pci_dev(uncore->i915->drm.dev);
+-
+-	pci_iounmap(pdev, uncore->regs);
++	iounmap(uncore->regs);
+ }
+ 
+ void intel_uncore_init_early(struct intel_uncore *uncore,
+diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
+index 9a760952d46af..52fe3d89dd2b8 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.h
++++ b/drivers/gpu/drm/i915/intel_uncore.h
+@@ -29,6 +29,7 @@
+ #include <linux/notifier.h>
+ #include <linux/hrtimer.h>
+ #include <linux/io-64-nonatomic-lo-hi.h>
++#include <linux/types.h>
+ 
+ #include "i915_reg_defs.h"
+ 
+@@ -221,7 +222,7 @@ void
+ intel_uncore_mmio_debug_init_early(struct intel_uncore_mmio_debug *mmio_debug);
+ void intel_uncore_init_early(struct intel_uncore *uncore,
+ 			     struct intel_gt *gt);
+-int intel_uncore_setup_mmio(struct intel_uncore *uncore);
++int intel_uncore_setup_mmio(struct intel_uncore *uncore, phys_addr_t phys_addr);
+ int intel_uncore_init_mmio(struct intel_uncore *uncore);
+ void intel_uncore_prune_engine_fw_domains(struct intel_uncore *uncore,
+ 					  struct intel_gt *gt);
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+index 573d9b2e1a4a3..9c31a16f83800 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
++++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
+@@ -73,7 +73,7 @@ static void mock_device_release(struct drm_device *dev)
+ 	destroy_workqueue(i915->wq);
+ 
+ 	intel_region_ttm_device_fini(i915);
+-	intel_gt_driver_late_release(to_gt(i915));
++	intel_gt_driver_late_release_all(i915);
+ 	intel_memory_regions_driver_release(i915);
+ 
+ 	drm_mode_config_cleanup(&i915->drm);
+@@ -112,6 +112,11 @@ static struct dev_pm_domain pm_domain = {
+ 	},
+ };
+ 
++static void mock_gt_probe(struct drm_i915_private *i915)
++{
++	i915->gt[0] = &i915->gt0;
++}
++
+ struct drm_i915_private *mock_gem_device(void)
+ {
+ #if IS_ENABLED(CONFIG_IOMMU_API) && defined(CONFIG_INTEL_IOMMU)
+@@ -180,11 +185,11 @@ struct drm_i915_private *mock_gem_device(void)
+ 	spin_lock_init(&i915->gpu_error.lock);
+ 
+ 	i915_gem_init__mm(i915);
+-	intel_gt_init_early(to_gt(i915), i915);
+-	__intel_gt_init_early(to_gt(i915), i915);
++	intel_root_gt_init_early(i915);
+ 	mock_uncore_init(&i915->uncore, i915);
+ 	atomic_inc(&to_gt(i915)->wakeref.count); /* disable; no hw support */
+ 	to_gt(i915)->awake = -ENODEV;
++	mock_gt_probe(i915);
+ 
+ 	ret = intel_region_ttm_device_init(i915);
+ 	if (ret)
+@@ -229,7 +234,7 @@ struct drm_i915_private *mock_gem_device(void)
+ err_drv:
+ 	intel_region_ttm_device_fini(i915);
+ err_ttm:
+-	intel_gt_driver_late_release(to_gt(i915));
++	intel_gt_driver_late_release_all(i915);
+ 	intel_memory_regions_driver_release(i915);
+ 	drm_mode_config_cleanup(&i915->drm);
+ 	mock_destroy_device(i915);
 -- 
 2.35.1
 
