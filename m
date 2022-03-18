@@ -4,30 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B2BC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 17:59:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A978C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 18:12:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B61B910E210;
-	Fri, 18 Mar 2022 17:59:42 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id A624110E221;
- Fri, 18 Mar 2022 17:59:41 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id A1027A73C7;
- Fri, 18 Mar 2022 17:59:41 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2389698190344772023=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id AACEB10E172;
+	Fri, 18 Mar 2022 18:12:24 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FDB210E221
+ for <intel-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 18:12:24 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id w127so9569490oig.10
+ for <intel-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 11:12:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=NuUvMOcmVhOy9t3C5CpEov7/quTtIQ6IiXfXDllkM74=;
+ b=NVQV6+mm2IMDgwE3eOUdwXfbG0w072duUtTGE5sY3d+WMHiyFquab8Bb6WMkxQjsAJ
+ n91bg0CSdBfXb1eERxOwhbQvv0Se6s/WuXurF5GFADUHN8q2VcICSjc2P3Tll1G82hJn
+ 1dryNyWxiwRBwrjJPRSPN887Hs9mtvyIvBgVQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=NuUvMOcmVhOy9t3C5CpEov7/quTtIQ6IiXfXDllkM74=;
+ b=4nftHX+P0rTzAEWn+P5UBZCCJcLk82OrA4flWexK/Z9WlDnX9kwiodSsXqlYcRz1xX
+ FQvmQMbBuNyA9+bl/uh4oDZTQv2/Vnljq3LyjHGL0oUOQz9Nferkul3A+P9nihryJ7NQ
+ H5GN1toEQeAjPVJ5a8AsYy+DGVQrAdTtbmXxuyoLnZysB3r50AfG7avfDqaUTbBtITO8
+ vJZ9ELi1NuWZzTuwIRTyziRG+yMbHYuA5/15FRf9fpAQYeUOrMm0h1E45P3exiQKwvJa
+ nAYLEiat0xRZ1XHADlBXIL19qI2Tfyjn4Zm6XI0OgvqwNjooRgmkwBLrfQfwl6IvtUd2
+ nH+Q==
+X-Gm-Message-State: AOAM530+G6yoEDp5OmmDs2dKCbJC9RvfRkZYhSflvhJ4mlogeHzAbUMe
+ QjRIw1u40pMTutzDMq94FAkjyo3Xbb3O2IcwrJS/tQ==
+X-Google-Smtp-Source: ABdhPJzXcqv5gwxEkLVOplOdMD8vR3HAapsJab/n4UdEXNlf98bfnG3yF6j9wIYVTpZy8KGSDt9i9AIdh7LKuKZSbOc=
+X-Received: by 2002:a54:4099:0:b0:2ec:d31c:481d with SMTP id
+ i25-20020a544099000000b002ecd31c481dmr4823864oii.7.1647627143492; Fri, 18 Mar
+ 2022 11:12:23 -0700 (PDT)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Srivatsa, Anusha" <anusha.srivatsa@intel.com>
-Date: Fri, 18 Mar 2022 17:59:41 -0000
-Message-ID: <164762638162.31588.14573841244553782845@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220315194712.2113450-1-anusha.srivatsa@intel.com>
-In-Reply-To: <20220315194712.2113450-1-anusha.srivatsa@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgQWRk?=
- =?utf-8?q?_CDCLK_checks_to_atomic_check_phase_=28rev5=29?=
+References: <162c1566-87c6-072f-d340-1693f6a71aea@linux.intel.com>
+ <164750662822.7267.9355161518284202141@jlahtine-mobl.ger.corp.intel.com>
+ <9eb06b576948707f9a0527b07b58b9640821bf19.camel@linux.intel.com>
+ <d874ba08a65e4468baae737d826a85a5@intel.com>
+ <ddd7af8f57320a7e2a84b3fdb94e3050eae81857.camel@linux.intel.com>
+ <f80dc6ccf38343beb819e1584a9017f7@intel.com>
+In-Reply-To: <f80dc6ccf38343beb819e1584a9017f7@intel.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Fri, 18 Mar 2022 19:12:12 +0100
+Message-ID: <CAKMK7uGsCFJR2d-m0TsVjEy36bN1Z38fuoME6gezA9xY_MkSeA@mail.gmail.com>
+To: "Bloomfield, Jon" <jon.bloomfield@intel.com>, 
+ Kenneth W Graunke <kenneth.w.graunke@intel.com>, 
+ Lionel Landwerlin <lionel.g.landwerlin@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] Small bar recovery vs compressed content on DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,378 +68,203 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, "Auld,
+ Matthew" <matthew.auld@intel.com>, "Vetter, Daniel" <daniel.vetter@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2389698190344772023==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Maybe also good to add dri-devel to these discussions.
 
-== Series Details ==
+I'm not sure where exactly we landed with dgpu error capture (maybe I
+should check the code but it's really w/e here), but I think we can
+also toss in "you need a non-recoverable context for error capture to
+work on dgpu". Since that simplifies things even more. Maybe Thomas
+forgot to add that to the list of restrictions.
 
-Series: Add CDCLK checks to atomic check phase (rev5)
-URL   : https://patchwork.freedesktop.org/series/101068/
-State : failure
+Anyway on the "we can't capture lmem-only compressed buffers", I think
+that's totally fine. Those are for render targets, and we don't
+capture those. Adding Lionel and Ken to confirm.
+-Daniel
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_11381 -> Patchwork_22613
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_22613 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_22613, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/index.html
-
-Participating hosts (47 -> 25)
-------------------------------
-
-  Additional (1): fi-kbl-8809g 
-  Missing    (23): fi-rkl-11600 bat-dg1-6 bat-dg1-5 fi-apl-guc fi-pnv-d510 bat-rpls-1 bat-rpls-2 fi-bdw-5557u shard-tglu fi-adl-ddr5 bat-dg2-8 fi-glk-dsi bat-dg2-9 fi-kbl-7500u fi-skl-6700k2 fi-skl-guc fi-cfl-8700k bat-jsl-2 fi-bsw-cyan fi-cfl-guc fi-kbl-x1275 fi-cfl-8109u fi-bdw-samus 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_22613:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@gem_exec_suspend@basic-s0@smem:
-    - fi-bsw-nick:        [PASS][1] -> [INCOMPLETE][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-bsw-nick/igt@gem_exec_suspend@basic-s0@smem.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-bsw-nick/igt@gem_exec_suspend@basic-s0@smem.html
-    - fi-glk-j4005:       [PASS][3] -> [INCOMPLETE][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-glk-j4005/igt@gem_exec_suspend@basic-s0@smem.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-glk-j4005/igt@gem_exec_suspend@basic-s0@smem.html
-    - fi-rkl-guc:         [PASS][5] -> [INCOMPLETE][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-rkl-guc/igt@gem_exec_suspend@basic-s0@smem.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-rkl-guc/igt@gem_exec_suspend@basic-s0@smem.html
-    - fi-bsw-kefka:       [PASS][7] -> [INCOMPLETE][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-bsw-kefka/igt@gem_exec_suspend@basic-s0@smem.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-bsw-kefka/igt@gem_exec_suspend@basic-s0@smem.html
-    - fi-bsw-n3050:       [PASS][9] -> [INCOMPLETE][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-bsw-n3050/igt@gem_exec_suspend@basic-s0@smem.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-bsw-n3050/igt@gem_exec_suspend@basic-s0@smem.html
-    - fi-bxt-dsi:         [PASS][11] -> [INCOMPLETE][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-bxt-dsi/igt@gem_exec_suspend@basic-s0@smem.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-bxt-dsi/igt@gem_exec_suspend@basic-s0@smem.html
-
-  
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@gem_exec_suspend@basic-s0@smem:
-    - {fi-ehl-2}:         [PASS][13] -> [INCOMPLETE][14]
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-ehl-2/igt@gem_exec_suspend@basic-s0@smem.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-ehl-2/igt@gem_exec_suspend@basic-s0@smem.html
-    - {fi-jsl-1}:         [PASS][15] -> [INCOMPLETE][16]
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-jsl-1/igt@gem_exec_suspend@basic-s0@smem.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-jsl-1/igt@gem_exec_suspend@basic-s0@smem.html
-    - {fi-tgl-dsi}:       [PASS][17] -> [INCOMPLETE][18]
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-tgl-dsi/igt@gem_exec_suspend@basic-s0@smem.html
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-tgl-dsi/igt@gem_exec_suspend@basic-s0@smem.html
-    - {bat-adlp-6}:       [PASS][19] -> [INCOMPLETE][20]
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/bat-adlp-6/igt@gem_exec_suspend@basic-s0@smem.html
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/bat-adlp-6/igt@gem_exec_suspend@basic-s0@smem.html
-
-  * igt@runner@aborted:
-    - {bat-jsl-1}:        NOTRUN -> [FAIL][21]
-   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/bat-jsl-1/igt@runner@aborted.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_22613 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_exec_suspend@basic-s0@smem:
-    - fi-kbl-8809g:       NOTRUN -> [DMESG-WARN][22] ([i915#4962]) +1 similar issue
-   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@gem_exec_suspend@basic-s0@smem.html
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-kbl-8809g:       NOTRUN -> [SKIP][23] ([fdo#109271] / [i915#2190])
-   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@random-engines:
-    - fi-kbl-8809g:       NOTRUN -> [SKIP][24] ([fdo#109271] / [i915#4613]) +3 similar issues
-   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@gem_lmem_swapping@random-engines.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-hsw-4770:        [PASS][25] -> [INCOMPLETE][26] ([i915#4785])
-   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-
-  * igt@kms_chamelium@hdmi-edid-read:
-    - fi-kbl-8809g:       NOTRUN -> [SKIP][27] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@kms_chamelium@hdmi-edid-read.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c:
-    - fi-kbl-8809g:       NOTRUN -> [SKIP][28] ([fdo#109271] / [i915#5341])
-   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:
-    - fi-kbl-8809g:       NOTRUN -> [SKIP][29] ([fdo#109271] / [i915#533])
-   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html
-
-  * igt@kms_psr@cursor_plane_move:
-    - fi-kbl-8809g:       NOTRUN -> [SKIP][30] ([fdo#109271]) +54 similar issues
-   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@kms_psr@cursor_plane_move.html
-
-  * igt@prime_vgem@basic-userptr:
-    - fi-kbl-guc:         NOTRUN -> [SKIP][31] ([fdo#109271])
-   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-guc/igt@prime_vgem@basic-userptr.html
-
-  * igt@runner@aborted:
-    - fi-hsw-4770:        NOTRUN -> [FAIL][32] ([fdo#109271] / [i915#1436] / [i915#4312])
-   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-hsw-4770/igt@runner@aborted.html
-    - fi-tgl-1115g4:      NOTRUN -> [FAIL][33] ([i915#3690])
-   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-tgl-1115g4/igt@runner@aborted.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1436]: https://gitlab.freedesktop.org/drm/intel/issues/1436
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#3690]: https://gitlab.freedesktop.org/drm/intel/issues/3690
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#4785]: https://gitlab.freedesktop.org/drm/intel/issues/4785
-  [i915#4962]: https://gitlab.freedesktop.org/drm/intel/issues/4962
-  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
-  [i915#5341]: https://gitlab.freedesktop.org/drm/intel/issues/5341
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_11381 -> Patchwork_22613
-
-  CI-20190529: 20190529
-  CI_DRM_11381: 5cdb9acc7007edb97765f2ee891ef1afed9d64b5 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6386: 0fcd59ad25b2960c0b654f90dfe4dd9e7c7b874d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_22613: 275c56be3dc3958c1d55e71ea684a57c5bf2f30e @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-== Linux commits ==
-
-275c56be3dc3 drm/i915/display: Add cdclk checks to atomic check
-4d8ae0d2e4bb drm/i915/display: s/intel_cdclk_can_crawl/intel_cdclk_crawl
-f19caadb81b6 drm/i915/display: s/intel_cdclk_can_squash/intel_cdclk_squash
-29531a1812df drm/i915/display: Add CDCLK actions to intel_cdclk_state
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/index.html
-
---===============2389698190344772023==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
+On Fri, 18 Mar 2022 at 17:26, Bloomfield, Jon <jon.bloomfield@intel.com> wr=
+ote:
+>
+> @Thomas Hellstr=C3=B6m - I agree :-)
+>
+> My question was really to @Joonas Lahtinen, who was saying we could alway=
+s migrate in the CPU fault handler. I am pushing back on that unless we hav=
+e no choice. It's the very complication we were trying to avoid with the cu=
+rrent SAS. If that's what's needed, then so be it. But I'm asking whether w=
+e can instead handle this specially, instead of adding generic complexity t=
+o the primary code paths.
+>
+> Jon
+>
+> > -----Original Message-----
+> > From: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > Sent: Friday, March 18, 2022 2:48 AM
+> > To: Bloomfield, Jon <jon.bloomfield@intel.com>; Joonas Lahtinen
+> > <joonas.lahtinen@linux.intel.com>; Intel Graphics Development <intel-
+> > gfx@lists.freedesktop.org>; Auld, Matthew <matthew.auld@intel.com>; C,
+> > Ramalingam <ramalingam.c@intel.com>; Vetter, Daniel
+> > <daniel.vetter@intel.com>
+> > Subject: Re: Small bar recovery vs compressed content on DG2
+> >
+> > Hi,
+> >
+> > On Thu, 2022-03-17 at 18:21 +0000, Bloomfield, Jon wrote:
+> > > +@Vetter, Daniel
+> > >
+> > > Let's not start re-inventing this on the fly again. That's how we got
+> > > into trouble in the past. The SAS/Whitepaper does currently require
+> > > the SMEM+LMEM placement for mappable, for good reasons.
+> >
+> > Just to avoid any misunderstandings here:
+> >
+> > We have two hard requirements from Arch that clash, main problem is
+> > compressed bos can't be captured on error with current designs.
+> >
+> > From an engineering point of view we can do little more than list
+> > options available to resolve this and whether they are hard or not so
+> > hard to implemement. But IMHO Arch needs to agree on what's got to
+> > give.
+> >
+> > Thanks,
+> > Thomas
+> >
+> >
+> > >
+> > > We cannot 'always migrate to mappable in the fault handler'. Or at
+> > > least, this is not as trivial as it is to write in a sentence due to
+> > > the need to spill out other active objects, and all the usual
+> > > challenges with context synchronization etc. It is possible, perhaps
+> > > with a lot of care, but it is challenging to guarantee, easy to
+> > > break, and not needed for 99.9% of software. We are trying to
+> > > simplify our driver stack.
+> > >
+> > > If we need a special mechanism for debug, we should devise a special
+> > > mechanism, not throw out the general LMEM+SMEM requirement. Are
+> > there
+> > > any identified first-class clients that require such access, or is it
+> > > only debugging tools?
+> > >
+> > > If only debug, then why can't the tool use a copy engine submission
+> > > to access the data in place? Or perhaps a bespoke ioctl to access
+> > > this via the KMD (and kmd submitted copy-engine BB)?
+> > >
+> > > Thanks,
+> > >
+> > > Jon
+> > >
+> > > > -----Original Message-----
+> > > > From: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > > > Sent: Thursday, March 17, 2022 2:35 AM
+> > > > To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>; Bloomfield,
+> > > > Jon
+> > > > <jon.bloomfield@intel.com>; Intel Graphics Development <intel-
+> > > > gfx@lists.freedesktop.org>; Auld, Matthew <matthew.auld@intel.com>;
+> > > > C,
+> > > > Ramalingam <ramalingam.c@intel.com>
+> > > > Subject: Re: Small bar recovery vs compressed content on DG2
+> > > >
+> > > > On Thu, 2022-03-17 at 10:43 +0200, Joonas Lahtinen wrote:
+> > > > > Quoting Thomas Hellstr=C3=B6m (2022-03-16 09:25:16)
+> > > > > > Hi!
+> > > > > >
+> > > > > > Do we somehow need to clarify in the headers the semantics for
+> > > > > > this?
+> > > > > >
+> > > > > >  From my understanding when discussing the CCS migration series
+> > > > > > with
+> > > > > > Ram, the kernel will never do any resolving (compressing /
+> > > > > > decompressing) migrations or evictions which basically implies
+> > > > > > the
+> > > > > > following:
+> > > > > >
+> > > > > > *) Compressed data must have LMEM only placement, otherwise the
+> > > > GPU
+> > > > > > would read garbage if accessing from SMEM.
+> > > > >
+> > > > > This has always been the case, so it should be documented in the
+> > > > > uAPI
+> > > > > headers and kerneldocs.
+> > > > >
+> > > > > > *) Compressed data can't be assumed to be mappable by the CPU,
+> > > > > > because
+> > > > > > in order to ensure that on small BAR, the placement needs to be
+> > > > > > LMEM+SMEM.
+> > > > >
+> > > > > Not strictly true, as we could always migrate to the mappable
+> > > > > region
+> > > > > in
+> > > > > the CPU fault handler. Will need the same set of tricks as with
+> > > > > limited
+> > > > > mappable GGTT in past.
+> > > >
+> > > > In addition to Matt's reply:
+> > > >
+> > > > Yes, if there is sufficient space. I'm not sure we want to
+> > > > complicate
+> > > > this to migrate only part of the buffer to mappable on a fault
+> > > > basis?
+> > > > Otherwise this is likely to fail.
+> > > >
+> > > > One option is to allow cpu-mapping from SYSTEM like TTM is doing
+> > > > for
+> > > > evicted buffers, even if SYSTEM is not in the placement list, and
+> > > > then
+> > > > migrate back to LMEM for gpu access.
+> > > >
+> > > > But can user-space even interpret the compressed data when CPU-
+> > > > mapping?
+> > > > without access to the CCS metadata?
+> > > >
+> > > > >
+> > > > > > *) Neither can compressed data be part of a CAPTURE buffer,
+> > > > > > because
+> > > > > > that
+> > > > > > requires the data to be CPU-mappable.
+> > > > >
+> > > > > Especially this will be too big of a limitation which we can't
+> > > > > really
+> > > > > afford
+> > > > > when it comes to debugging.
+> > > >
+> > > > Same here WRT user-space interpretation.
+> > > >
+> > > > This will become especially tricky on small BAR, because either we
+> > > > need
+> > > > to fit all compressed buffers in the mappable portion, or be able
+> > > > to
+> > > > blit the contents of the capture buffers from within the fence
+> > > > signalling critical section, which will require a lot of work I
+> > > > guess.
+> > > >
+> > > > /Thomas
+> > > >
+> > > >
+> > > > >
+> > > > > Regards, Joonas
+> > > > >
+> > > > > > Are we (and user-mode drivers) OK with these restrictions, or
+> > > > > > do we
+> > > > > > need
+> > > > > > to rethink?
+> > > > > >
+> > > > > > Thanks,
+> > > > > >
+> > > > > > Thomas
+> > > > > >
+> > > > > >
+> > > >
+> > >
+> >
+>
 
 
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Add CDCLK checks to atomic check phase (rev5)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/101068/">https://patchwork.freedesktop.org/series/101068/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_11381 -&gt; Patchwork_22613</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_22613 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_22613, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/index.html</p>
-<h2>Participating hosts (47 -&gt; 25)</h2>
-<p>Additional (1): fi-kbl-8809g <br />
-  Missing    (23): fi-rkl-11600 bat-dg1-6 bat-dg1-5 fi-apl-guc fi-pnv-d510 bat-rpls-1 bat-rpls-2 fi-bdw-5557u shard-tglu fi-adl-ddr5 bat-dg2-8 fi-glk-dsi bat-dg2-9 fi-kbl-7500u fi-skl-6700k2 fi-skl-guc fi-cfl-8700k bat-jsl-2 fi-bsw-cyan fi-cfl-guc fi-kbl-x1275 fi-cfl-8109u fi-bdw-samus </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_22613:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s0@smem:</p>
-<ul>
-<li>
-<p>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-bsw-nick/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-bsw-nick/igt@gem_exec_suspend@basic-s0@smem.html">INCOMPLETE</a></p>
-</li>
-<li>
-<p>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-glk-j4005/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-glk-j4005/igt@gem_exec_suspend@basic-s0@smem.html">INCOMPLETE</a></p>
-</li>
-<li>
-<p>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-rkl-guc/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-rkl-guc/igt@gem_exec_suspend@basic-s0@smem.html">INCOMPLETE</a></p>
-</li>
-<li>
-<p>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-bsw-kefka/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-bsw-kefka/igt@gem_exec_suspend@basic-s0@smem.html">INCOMPLETE</a></p>
-</li>
-<li>
-<p>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-bsw-n3050/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-bsw-n3050/igt@gem_exec_suspend@basic-s0@smem.html">INCOMPLETE</a></p>
-</li>
-<li>
-<p>fi-bxt-dsi:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-bxt-dsi/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-bxt-dsi/igt@gem_exec_suspend@basic-s0@smem.html">INCOMPLETE</a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s0@smem:</p>
-<ul>
-<li>
-<p>{fi-ehl-2}:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-ehl-2/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-ehl-2/igt@gem_exec_suspend@basic-s0@smem.html">INCOMPLETE</a></p>
-</li>
-<li>
-<p>{fi-jsl-1}:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-jsl-1/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-jsl-1/igt@gem_exec_suspend@basic-s0@smem.html">INCOMPLETE</a></p>
-</li>
-<li>
-<p>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-tgl-dsi/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-tgl-dsi/igt@gem_exec_suspend@basic-s0@smem.html">INCOMPLETE</a></p>
-</li>
-<li>
-<p>{bat-adlp-6}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/bat-adlp-6/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/bat-adlp-6/igt@gem_exec_suspend@basic-s0@smem.html">INCOMPLETE</a></p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>{bat-jsl-1}:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/bat-jsl-1/igt@runner@aborted.html">FAIL</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_22613 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s0@smem:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@gem_exec_suspend@basic-s0@smem.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4962">i915#4962</a>) +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@random-engines:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@gem_lmem_swapping@random-engines.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11381/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4785">i915#4785</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@hdmi-edid-read:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@kms_chamelium@hdmi-edid-read.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-c.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5341">i915#5341</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-d.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/533">i915#533</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@cursor_plane_move:</p>
-<ul>
-<li>fi-kbl-8809g:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-8809g/igt@kms_psr@cursor_plane_move.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +54 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-userptr:</p>
-<ul>
-<li>fi-kbl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-kbl-guc/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>
-<p>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-hsw-4770/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1436">i915#1436</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</p>
-</li>
-<li>
-<p>fi-tgl-1115g4:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_22613/fi-tgl-1115g4/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3690">i915#3690</a>)</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_11381 -&gt; Patchwork_22613</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_11381: 5cdb9acc7007edb97765f2ee891ef1afed9d64b5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6386: 0fcd59ad25b2960c0b654f90dfe4dd9e7c7b874d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_22613: 275c56be3dc3958c1d55e71ea684a57c5bf2f30e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<p>== Linux commits ==</p>
-<p>275c56be3dc3 drm/i915/display: Add cdclk checks to atomic check<br />
-4d8ae0d2e4bb drm/i915/display: s/intel_cdclk_can_crawl/intel_cdclk_crawl<br />
-f19caadb81b6 drm/i915/display: s/intel_cdclk_can_squash/intel_cdclk_squash<br />
-29531a1812df drm/i915/display: Add CDCLK actions to intel_cdclk_state</p>
-
-</body>
-</html>
-
---===============2389698190344772023==--
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
