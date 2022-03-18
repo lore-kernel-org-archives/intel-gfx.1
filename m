@@ -4,45 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73AC7C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 08:51:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EFF7C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Mar 2022 08:57:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8B010E7AB;
-	Fri, 18 Mar 2022 08:51:53 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73CAB10E7AB
- for <intel-gfx@lists.freedesktop.org>; Fri, 18 Mar 2022 08:51:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647593511; x=1679129511;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=9y5aO2jXLHXSQ7Q9tT5Hltdom7ONW/zTr2Q2mmlFAOI=;
- b=R2IbJCP1xqLhqY6PLx9s26xZZSOeE+V81dvfWVAQwMizGRVdntdYINgI
- K/wye90CtceVsoUQW6mfLAVfYo7MlnS3Bi6WhGoh2reClVpbzHuINArh/
- Qo9VFp3vtS0Eac0kb45iAD5Ble6i20zUCbQRCjGRXOymimeJqryOMLdNx
- jsd39M0Hn22sNyKwexY7dMLHKn4GZwVL89lBLQATUxHhaj2rOyaGC+Hez
- ABweKPY8qin2zyUm3rlzvIMfIB3LzvNMqHzW01xMuIpmONMCh5AGqsIls
- RAgPmrtt2X6cu+CgyF4Vl8lGYIKJYBZK8LPsQRRp3ctEQM15rWKNHo1bo g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10289"; a="343531637"
-X-IronPort-AV: E=Sophos;i="5.90,191,1643702400"; d="scan'208";a="343531637"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2022 01:51:51 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,191,1643702400"; d="scan'208";a="499163987"
-Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
- ([10.237.72.65])
- by orsmga003.jf.intel.com with ESMTP; 18 Mar 2022 01:51:48 -0700
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 18 Mar 2022 10:52:26 +0200
-Message-Id: <20220318085226.7348-1-stanislav.lisovskiy@intel.com>
-X-Mailer: git-send-email 2.24.1.485.gad05a3d8e5
+	by gabe.freedesktop.org (Postfix) with ESMTP id A794E10E7DC;
+	Fri, 18 Mar 2022 08:57:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8FAA910E170;
+ Fri, 18 Mar 2022 08:57:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 8C151A9A42;
+ Fri, 18 Mar 2022 08:57:23 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/adl_p: Increase CDCLK by 15% if PSR2
- is used
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Hsin-Yi Wang" <hsinyi@chromium.org>
+Date: Fri, 18 Mar 2022 08:57:23 -0000
+Message-ID: <164759384354.31587.2581208982180460206@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220318074825.3359978-1-hsinyi@chromium.org>
+In-Reply-To: <20220318074825.3359978-1-hsinyi@chromium.org>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Separate_panel_orientation_property_creating_and_value_sett?=
+ =?utf-8?q?ing?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,51 +41,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We are currently getting FIFO underruns, in particular
-when PSR2 is enabled. There seem to be no existing workaround
-or patches, which can fix that issue(were expecting some recent
-selective fetch update and DBuf bw/SAGV fixes to help,
-which unfortunately didn't).
-Current idea is that it looks like for some reason the
-DBuf prefill time isn't enough once we exit PSR2, despite its
-theoretically correct.
-So bump it up a bit by 15%(minimum experimental amount required
-to get it working), if PSR2 is enabled.
-For PSR1 there is no need in this hack, so we limit it only
-to PSR2 and Alderlake.
+== Series Details ==
 
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cdclk.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Series: Separate panel orientation property creating and value setting
+URL   : https://patchwork.freedesktop.org/series/101530/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 8888fda8b701..095b79950788 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2325,6 +2325,19 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
- 					dev_priv->max_cdclk_freq));
- 	}
- 
-+	if (IS_ALDERLAKE_P(dev_priv)) {
-+		struct intel_encoder *encoder;
-+
-+		for_each_intel_encoder_with_psr(&dev_priv->drm, encoder) {
-+			struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-+
-+			if (intel_dp->psr.psr2_enabled) {
-+				min_cdclk = DIV_ROUND_UP(min_cdclk * 100, 85);
-+				break;
-+			}
-+		}
-+	}
-+
- 	if (min_cdclk > dev_priv->max_cdclk_freq) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "required cdclk (%d kHz) exceeds max (%d kHz)\n",
--- 
-2.24.1.485.gad05a3d8e5
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+e49373f13754 gpu: drm: separate panel orientation property creating and value setting
+-:130: WARNING:SPACE_BEFORE_TAB: please, no space before tabs
+#130: FILE: drivers/gpu/drm/drm_connector.c:2423:
++ * ^Icreate the connector's panel orientation property$
+
+-:141: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#141: FILE: drivers/gpu/drm/drm_connector.c:2434:
++int drm_connector_init_panel_orientation_property(
+
+-:147: ERROR:SPACING: space required before the open parenthesis '('
+#147: FILE: drivers/gpu/drm/drm_connector.c:2440:
++	if(dev->mode_config.panel_orientation_property)
+
+-:151: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#151: FILE: drivers/gpu/drm/drm_connector.c:2444:
++	prop = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
++			"panel orientation",
+
+-:176: CHECK:OPEN_ENDED_LINE: Lines should not end with a '('
+#176: FILE: include/drm/drm_connector.h:1808:
++int drm_connector_init_panel_orientation_property(
+
+total: 1 errors, 1 warnings, 3 checks, 99 lines checked
+10c78f057d39 drm/mediatek: init panel orientation property
+a6a047990b09 drm/msm: init panel orientation property
+912fd1736584 arm64: dts: mt8183: Add panel rotation
+
 
