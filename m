@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22213C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D531FC433EF
 	for <intel-gfx@archiver.kernel.org>; Sat, 19 Mar 2022 19:42:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4788B10EE52;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6D2510EE8D;
 	Sat, 19 Mar 2022 19:42:36 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C7CC10E2E8;
- Sat, 19 Mar 2022 19:42:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CA1E10EB71;
+ Sat, 19 Mar 2022 19:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647718952; x=1679254952;
+ t=1647718954; x=1679254954;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rjwSuIUn6Jnmfr9jQ6pdOkmU1EWUv0epqhaVTmiX/lA=;
- b=IePVNZuL4k7ShheoKBGeKBaJZuYkRj9leTOJ+IHZw0ZcmJRne6eBZxRD
- jzkfzLzSsiH/3v/qVEI7eSeEgnEvba18BHkAnZ1gw5iGiKGr3ZmxeNI21
- CU9FMZt12Vn6y0JkkzaN0EJHsusErSYd3I8CfLfmLqshkc3NrrZmxlOgu
- ZrZ+M65I50o5MEC7/+hOogRayoCXYGzSe8iEU1y9wEpOd8w380rrv3uKj
- 79v8KtnWX4sg9TBzOPlj2F3oIyGzYJqfKLxXE3Y+RThlgoFqv9MJAu54L
- 7Vh4K7A9OrCYIaEWQJUIpB0wXdcbD6CwSZITk2BQFiRneG+q2t2RULEL+ g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10291"; a="282145182"
-X-IronPort-AV: E=Sophos;i="5.90,195,1643702400"; d="scan'208";a="282145182"
+ bh=OTxUHmQQY7cQoxWryXWv/oqAfUW2bcJG5Qgzx8iJkAo=;
+ b=U/9BLl0U40ymNlw39NplLv/UgloEfN+uSPKLfFtFYuN5LDQnx7+6rlNL
+ zU+pr7znbrAQQUmNFuKtRP4gpVdxlqyUfD1kAPxaA9kiJxartCgqL8I5b
+ U+75yD+luXT+GqEaxCQE4XXc+Im0kHU+Xzkuk1W6FGRqi7TnHZHnitNcS
+ /YZvKpgPLy/ToAJojzCTXvxfK+RZH+u87qjPEqbACcXTuzaF+eqLKUeZU
+ E+ErNB7mBT200Ea5QTQcMlRptNo6hguS0AwE6VperG0dSuveieI7JnWTv
+ +FwjjjMpTN0OA6TUknYgItscur1L4kAv00H/V+u6p3s2piJOYlngd6q5U g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10291"; a="282145186"
+X-IronPort-AV: E=Sophos;i="5.90,195,1643702400"; d="scan'208";a="282145186"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2022 12:42:32 -0700
-X-IronPort-AV: E=Sophos;i="5.90,195,1643702400"; d="scan'208";a="600019676"
+ 19 Mar 2022 12:42:34 -0700
+X-IronPort-AV: E=Sophos;i="5.90,195,1643702400"; d="scan'208";a="600019696"
 Received: from jpulito-mobl2.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
  ([10.255.231.61])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2022 12:42:31 -0700
+ 19 Mar 2022 12:42:33 -0700
 From: Michael Cheng <michael.cheng@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat, 19 Mar 2022 12:42:24 -0700
-Message-Id: <20220319194227.297639-2-michael.cheng@intel.com>
+Date: Sat, 19 Mar 2022 12:42:27 -0700
+Message-Id: <20220319194227.297639-5-michael.cheng@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220319194227.297639-1-michael.cheng@intel.com>
 References: <20220319194227.297639-1-michael.cheng@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] i915/gem: drop wbinvd_on_all_cpus usage
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915/gt: Revert ggtt_resume to previous
+ logic
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,49 +63,81 @@ Cc: thomas.hellstrom@linux.intel.com, michael.cheng@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Previous concern with using drm_clflush_sg was that we don't know what the
-sg_table is pointing to, thus the usage of wbinvd_on_all_cpus to flush
-everything at once to avoid paranoia.
+To avoid having to call wbinvd_on_all_cpus, revert i915_ggtt_resume and
+i915_ggtt_resume_vm to previous logic [1].
 
-To make i915 more architecture-neutral and be less paranoid, lets attempt to
-use drm_clflush_sg to flush the pages for when the GPU wants to read
-from main memory.
+[1]. 64b95df91f44 drm/i915: Assume exclusive access to objects inside resume
 
+Suggested-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Signed-off-by: Michael Cheng <michael.cheng@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_ggtt.c | 17 ++++++-----------
+ drivers/gpu/drm/i915/gt/intel_gtt.h  |  2 +-
+ 2 files changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index f5062d0c6333..b0a5baaebc43 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -8,6 +8,7 @@
- #include <linux/highmem.h>
- #include <linux/dma-resv.h>
- #include <linux/module.h>
-+#include <drm/drm_cache.h>
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index 04191fe2ee34..811bfd9d8d80 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -1305,10 +1305,9 @@ void i915_ggtt_disable_guc(struct i915_ggtt *ggtt)
+  * Returns %true if restoring the mapping for any object that was in a write
+  * domain before suspend.
+  */
+-bool i915_ggtt_resume_vm(struct i915_address_space *vm)
++void i915_ggtt_resume_vm(struct i915_address_space *vm)
+ {
+ 	struct i915_vma *vma;
+-	bool write_domain_objs = false;
  
- #include <asm/smp.h>
+ 	drm_WARN_ON(&vm->i915->drm, !vm->is_ggtt && !vm->is_dpt);
  
-@@ -250,16 +251,10 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- 	 * DG1 is special here since it still snoops transactions even with
- 	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
- 	 * might need to revisit this as we add new discrete platforms.
--	 *
--	 * XXX: Consider doing a vmap flush or something, where possible.
--	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
--	 * the underlying sg_table might not even point to struct pages, so we
--	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
--	 * the driver.
- 	 */
- 	if (i915_gem_object_can_bypass_llc(obj) ||
- 	    (!HAS_LLC(i915) && !IS_DG1(i915)))
+@@ -1325,28 +1324,24 @@ bool i915_ggtt_resume_vm(struct i915_address_space *vm)
+ 		vma->ops->bind_vma(vm, NULL, vma->resource,
+ 				   obj ? obj->cache_level : 0,
+ 				   was_bound);
+-		if (obj) { /* only used during resume => exclusive access */
+-			write_domain_objs |= fetch_and_zero(&obj->write_domain);
+-			obj->read_domains |= I915_GEM_DOMAIN_GTT;
++		if (obj) {
++			i915_gem_object_lock(obj, NULL);
++			WARN_ON(i915_gem_object_set_to_gtt_domain(obj, false));
++			i915_gem_object_unlock(obj);
+ 		}
+ 	}
+ 
+-	return write_domain_objs;
+ }
+ 
+ void i915_ggtt_resume(struct i915_ggtt *ggtt)
+ {
+-	bool flush;
+ 
+ 	intel_gt_check_and_clear_faults(ggtt->vm.gt);
+ 
+-	flush = i915_ggtt_resume_vm(&ggtt->vm);
++	i915_ggtt_resume_vm(&ggtt->vm);
+ 
+ 	ggtt->invalidate(ggtt);
+ 
+-	if (flush)
 -		wbinvd_on_all_cpus();
-+		drm_clflush_sg(pages);
+-
+ 	if (GRAPHICS_VER(ggtt->vm.i915) >= 8)
+ 		setup_private_pat(ggtt->vm.gt->uncore);
  
- 	sg_page_sizes = i915_sg_dma_sizes(pages->sgl);
- 	__i915_gem_object_set_pages(obj, pages, sg_page_sizes);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index 4529b5e9f6e6..c86092054988 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -567,7 +567,7 @@ struct i915_ppgtt *i915_ppgtt_create(struct intel_gt *gt,
+ 				     unsigned long lmem_pt_obj_flags);
+ 
+ void i915_ggtt_suspend_vm(struct i915_address_space *vm);
+-bool i915_ggtt_resume_vm(struct i915_address_space *vm);
++void i915_ggtt_resume_vm(struct i915_address_space *vm);
+ void i915_ggtt_suspend(struct i915_ggtt *gtt);
+ void i915_ggtt_resume(struct i915_ggtt *ggtt);
+ 
 -- 
 2.25.1
 
