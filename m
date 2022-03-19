@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20863C433EF
-	for <intel-gfx@archiver.kernel.org>; Sat, 19 Mar 2022 19:42:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66AF2C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat, 19 Mar 2022 19:42:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 514D410E3A3;
-	Sat, 19 Mar 2022 19:42:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 456ED10EB71;
+	Sat, 19 Mar 2022 19:42:35 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DD7910E2E8;
- Sat, 19 Mar 2022 19:42:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 496A510E2E8;
+ Sat, 19 Mar 2022 19:42:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647718952; x=1679254952;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=R1QXbdRGuzhVOgqDzwsQWxTWBpTUv9KJtZ48CgUTZk4=;
- b=KE/SzViGHgLsi8/hK9XdyHpS0f7IxF+Mw5PChCM8P+dwZeyx8cVM74G7
- b4EivPfjctQbqdlT7blxxsetPGmFOuYtYkVkgj4hmQ28XNiWLfBNbkr35
- Wd8BRgCwafqFvbS9dgjgCjpUve/XEamJbQ6N9QyYlQOoqfK5Uv58pcIdV
- doAYPAmXZkCz+PCvMTYAxQBdZ625mdO8IJ8FtQ3FNIbbRbinEGb+m1XgZ
- 1CIQlQ8EavxYLkF6Jgj780I80dAlz818Yz0GcRJb5neR7QOiOAFADEvC7
- Psu8wteM+FVbaKjEiXxM1+NCfd34ICKw5+ebIak9266vRa/WBITsMUfXf Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10291"; a="282145180"
-X-IronPort-AV: E=Sophos;i="5.90,195,1643702400"; d="scan'208";a="282145180"
+ t=1647718953; x=1679254953;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=jU/aK/95X6rTDSeuxET9HUOTTCA6mU3z0tsc81rE3Yg=;
+ b=kfh3Mh0ZLcx1xXVLeKlmuyU0CFZzm6eSDi8edSvo+ldBKDlNpXLlcZGc
+ JcQF+omLNZq4biOBeCJ7PhPSTf2g7MGBMqQ9dfiCxauQsGAQT1I+iNPBy
+ ozdjDW8lRKm7IprSLhd9aDETcB0wBJWcgGeHFbVaSSGwzgggYqRMbpufz
+ L5sB1MlLjfUjac0WNC66zFZvNSqkLJoW0um58vyVdr9/9Ebkf4RQK6ElE
+ QqRFe1ahNBX8BQ0wVwFKU4pv/8HJex9u40rjjKGTBkkHsq6H1jRjCusNN
+ ekxiCjeebXyu6ygoqVDJL72UKdD/ZGb1DfDDNIsediXKTC4tKN4DnfSHV A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10291"; a="282145184"
+X-IronPort-AV: E=Sophos;i="5.90,195,1643702400"; d="scan'208";a="282145184"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2022 12:42:31 -0700
-X-IronPort-AV: E=Sophos;i="5.90,195,1643702400"; d="scan'208";a="600019671"
+ 19 Mar 2022 12:42:33 -0700
+X-IronPort-AV: E=Sophos;i="5.90,195,1643702400"; d="scan'208";a="600019683"
 Received: from jpulito-mobl2.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
  ([10.255.231.61])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2022 12:42:31 -0700
+ 19 Mar 2022 12:42:32 -0700
 From: Michael Cheng <michael.cheng@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat, 19 Mar 2022 12:42:23 -0700
-Message-Id: <20220319194227.297639-1-michael.cheng@intel.com>
+Date: Sat, 19 Mar 2022 12:42:25 -0700
+Message-Id: <20220319194227.297639-3-michael.cheng@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220319194227.297639-1-michael.cheng@intel.com>
+References: <20220319194227.297639-1-michael.cheng@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/4] Drop wbinvd_on_all_cpus usage
+Subject: [Intel-gfx] [PATCH 2/4] Revert "drm/i915/gem: Almagamate clflushes
+ on suspend"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,25 +63,93 @@ Cc: thomas.hellstrom@linux.intel.com, michael.cheng@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To align with the discussion in [1][2], this patch series drops all usage of
-wbvind_on_all_cpus within i915 by either replacing the call with certain
-drm clflush helpers, or reverting to a previous logic.
+As we are making i915 more architecture-neutral, lets revert this commit
+to the previous logic [1] to avoid using wbinvd_on_all_cpus.
 
-[1]. https://lists.freedesktop.org/archives/dri-devel/2021-November/330928.html
-[2]. https://patchwork.freedesktop.org/patch/475752/?series=99991&rev=5
+[1]. ac05a22cd07a ("drm/i915/gem: Almagamate clflushes on suspend")
 
-Michael Cheng (4):
-  i915/gem: drop wbinvd_on_all_cpus usage
-  Revert "drm/i915/gem: Almagamate clflushes on suspend"
-  i915/gem: Revert i915_gem_freeze to previous logic
-  drm/i915/gt: Revert ggtt_resume to previous logic
+Suggested-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Michael Cheng <michael.cheng@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_pm.c | 41 +++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 14 deletions(-)
 
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c |  9 +---
- drivers/gpu/drm/i915/gem/i915_gem_pm.c     | 56 ++++++++++++++--------
- drivers/gpu/drm/i915/gt/intel_ggtt.c       | 17 +++----
- drivers/gpu/drm/i915/gt/intel_gtt.h        |  2 +-
- 4 files changed, 46 insertions(+), 38 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
+index 00359ec9d58b..3f20961bb59b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
+@@ -13,13 +13,6 @@
+ #include "i915_driver.h"
+ #include "i915_drv.h"
+ 
+-#if defined(CONFIG_X86)
+-#include <asm/smp.h>
+-#else
+-#define wbinvd_on_all_cpus() \
+-	pr_warn(DRIVER_NAME ": Missing cache flush in %s\n", __func__)
+-#endif
+-
+ void i915_gem_suspend(struct drm_i915_private *i915)
+ {
+ 	GEM_TRACE("%s\n", dev_name(i915->drm.dev));
+@@ -123,6 +116,13 @@ int i915_gem_backup_suspend(struct drm_i915_private *i915)
+ 	return ret;
+ }
+ 
++static struct drm_i915_gem_object *first_mm_object(struct list_head *list)
++{
++	return list_first_entry_or_null(list,
++					struct drm_i915_gem_object,
++					mm.link);
++}
++
+ void i915_gem_suspend_late(struct drm_i915_private *i915)
+ {
+ 	struct drm_i915_gem_object *obj;
+@@ -132,7 +132,6 @@ void i915_gem_suspend_late(struct drm_i915_private *i915)
+ 		NULL
+ 	}, **phase;
+ 	unsigned long flags;
+-	bool flush = false;
+ 
+ 	/*
+ 	 * Neither the BIOS, ourselves or any other kernel
+@@ -158,15 +157,29 @@ void i915_gem_suspend_late(struct drm_i915_private *i915)
+ 
+ 	spin_lock_irqsave(&i915->mm.obj_lock, flags);
+ 	for (phase = phases; *phase; phase++) {
+-		list_for_each_entry(obj, *phase, mm.link) {
+-			if (!(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ))
+-				flush |= (obj->read_domains & I915_GEM_DOMAIN_CPU) == 0;
+-			__start_cpu_write(obj); /* presume auto-hibernate */
++		LIST_HEAD(keep);
++
++		while ((obj = first_mm_object(*phase))) {
++			list_move_tail(&obj->mm.link, &keep);
++
++			/* Beware the background _i915_gem_free_objects */
++			if (!kref_get_unless_zero(&obj->base.refcount))
++				continue;
++
++			spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
++
++			i915_gem_object_lock(obj, NULL);
++			drm_WARN_ON(&i915->drm,
++			    i915_gem_object_set_to_gtt_domain(obj, false));
++			i915_gem_object_unlock(obj);
++			i915_gem_object_put(obj);
++
++			spin_lock_irqsave(&i915->mm.obj_lock, flags);
+ 		}
++
++		list_splice_tail(&keep, *phase);
+ 	}
+ 	spin_unlock_irqrestore(&i915->mm.obj_lock, flags);
+-	if (flush)
+-		wbinvd_on_all_cpus();
+ }
+ 
+ int i915_gem_freeze(struct drm_i915_private *i915)
 -- 
 2.25.1
 
