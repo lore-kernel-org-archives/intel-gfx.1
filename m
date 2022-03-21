@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEA33C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 22:38:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8DDCC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 22:44:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35BB510E4A1;
-	Mon, 21 Mar 2022 22:38:38 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07EA810E49F;
- Mon, 21 Mar 2022 22:38:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1375E10E495;
+	Mon, 21 Mar 2022 22:44:28 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB7C310E05A;
+ Mon, 21 Mar 2022 22:44:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647902308; x=1679438308;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Iy9YArgAbPl2mC3L2YJIlihmkHxoD9W0X1K8+lQjIT8=;
- b=NWsPxLj4WDmqtCQ5lqqO7g7wutrsEk5KTFUj9dK6OK1N/fpv3fOcj1rk
- AYEwMjROWhY63br0Cj+kwwH3T16ru6hs04IuWkB/pYJSki1Yuv1z71hES
- eFOGQM3Eqa2CjopU5sU0T4t4rfotD5WsxaWGw893CrR8HbXGV+k2h8cwt
- jtf19qBzgmSOr8Y/0PzwSsZfmI4GyJVabhNpMt2Q/FtOOFtyxmUE5vJFR
- G4an+lpf1AZ0/2kN67HcILs2BKE9M8/uvVeZvH0VUWIBdPNn3dB/cF5x9
- eZry6WZuk1iKAOAh9w1M98CXReuOsafUxYcyqAiJWNoiHHIh1aNsjS82s Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="256484995"
-X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="256484995"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2022 15:38:24 -0700
-X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="518616779"
-Received: from prithika-mobl.amr.corp.intel.com (HELO mvcheng-desk2.intel.com)
- ([10.251.16.248])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2022 15:38:24 -0700
-From: Michael Cheng <michael.cheng@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 21 Mar 2022 15:38:18 -0700
-Message-Id: <20220321223819.72833-5-michael.cheng@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220321223819.72833-1-michael.cheng@intel.com>
-References: <20220321223819.72833-1-michael.cheng@intel.com>
+ t=1647902665; x=1679438665;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=beTDsanJLIJS77JHg88G3vaK95cfaCaDvvCRAhs8skI=;
+ b=TYPLtX++piU6VSbjQDGf8iaKm4/pnvRqjnVWZ4XllMrQu1o26GHU/XcR
+ 5m7Gz+LqTBYiF+US8/4ca+xnD+ibgou1SXtjrm9vC0k5CSPlPpvgGhrHB
+ c4gm9W+xefU/M6F3f+6wTubUkvVhNQbMTumjSWMsRShlgp+yQH5H7SBxM
+ 8UubdpkQl5X9js8DBFkTV7L0hlisi7g+Tgh5djdQTeyZHdm5SrbT0RI4F
+ yWAflLtJCgzd4JANaL3EKj4pPphmrnZjVu2IqAd2U7beVVekiQdewVj+r
+ GXV98nZZEnx8GCfnsq2tTSj8m5jxItDbCE/0ArCP1Hd5PnD8SgXkklGwT Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="257613675"
+X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="257613675"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2022 15:44:25 -0700
+X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="543414163"
+Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2022 15:44:23 -0700
+From: Ramalingam C <ramalingam.c@intel.com>
+To: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+Date: Tue, 22 Mar 2022 04:14:50 +0530
+Message-Id: <20220321224459.12223-1-ramalingam.c@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v13 4/5] drm/i915/: Re-work clflush_write32
+Subject: [Intel-gfx] [PATCH v5 0/9] drm/i915/ttm: Evict and restore of
+ compressed object
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,50 +55,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: michael.cheng@intel.com, lucas.demarchi@intel.com,
- dri-devel@lists.freedesktop.org
+Cc: Hellstrom Thomas <thomas.hellstrom@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use drm_clflush_virt_range instead of clflushopt and remove the memory
-barrier, since drm_clflush_virt_range takes care of that.
+On Xe-HP and later devices, we use dedicated compression control
+state (CCS) stored in local memory for each surface, to support
+the 3D and media compression formats.
 
-v2(Michael Cheng): Use sizeof(*addr) instead of sizeof(addr) to get the
-		   actual size of the page. Thanks to Matt Roper for
-		   pointing this out.
+The memory required for the CCS of the entire local memory is
+1/256 of the local memory size. So before the kernel
+boot, the required memory is reserved for the CCS data and a
+secure register will be programmed with the CCS base address
 
-Signed-off-by: Michael Cheng <michael.cheng@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+So when we allocate a object in local memory we dont need to explicitly
+allocate the space for ccs data. But when we evict the obj into the smem
+to hold the compression related data along with the obj we need smem
+space of obj_size + (obj_size/256).
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 631bc268e7c8..42a49fd2f2ab 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -1334,10 +1334,8 @@ static void *reloc_vaddr(struct i915_vma *vma,
- static void clflush_write32(u32 *addr, u32 value, unsigned int flushes)
- {
- 	if (unlikely(flushes & (CLFLUSH_BEFORE | CLFLUSH_AFTER))) {
--		if (flushes & CLFLUSH_BEFORE) {
--			clflushopt(addr);
--			mb();
--		}
-+		if (flushes & CLFLUSH_BEFORE)
-+			drm_clflush_virt_range(addr, sizeof(*addr));
- 
- 		*addr = value;
- 
-@@ -1349,7 +1347,7 @@ static void clflush_write32(u32 *addr, u32 value, unsigned int flushes)
- 		 * to ensure ordering of clflush wrt to the system.
- 		 */
- 		if (flushes & CLFLUSH_AFTER)
--			clflushopt(addr);
-+			drm_clflush_virt_range(addr, sizeof(*addr));
- 	} else
- 		*addr = value;
- }
+Hence when we create smem for an obj with lmem placement possibility we
+create with the extra space.
+
+When we are swapping out the local memory obj on flat-ccs capable platform,
+we need to capture the ccs data too along with main meory and we need to
+restore it when we are swapping in the content.
+
+When lmem object is swapped into a smem obj, smem obj will
+have the extra pages required to hold the ccs data corresponding to the
+lmem main memory. So main memory of lmem will be copied into the initial
+pages of the smem and then ccs data corresponding to the main memory
+will be copied to the subsequent pages of smem.
+
+Swapin happens exactly in reverse order. First main memory of lmem is
+restored from the smem's initial pages and the ccs data will be restored
+from the subsequent pages of smem.
+
+Extracting and restoring the CCS data is done through a special cmd called
+XY_CTRL_SURF_COPY_BLT
+
+v5:
+  Correct locating of ccs data [Thomas]
+  Reuse of emit_copy_ccs.
+  R-bs picked.
+
+Test-with: 20220314051432.15785-1-ramalingam.c@intel.com
+
+Ramalingam C (9):
+  drm/i915/gt: Use XY_FAST_COLOR_BLT to clear obj on graphics ver 12+
+  drm/i915/gt: Optimize the migration and clear loop
+  drm/i915/gt: Clear compress metadata for Flat-ccs objects
+  drm/i915/selftest_migrate: Consider the possible roundup of size
+  drm/i915/selftest_migrate: Check CCS meta data clear
+  drm/i915/gt: offset handling for multiple copy engines
+  drm/ttm: Add a parameter to add extra pages into ttm_tt
+  drm/i915/gem: Add extra pages in ttm_tt for ccs data
+  drm/i915/migrate: Evict and restore the flatccs capable lmem obj
+
+ drivers/gpu/drm/drm_gem_vram_helper.c        |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c      |  29 +-
+ drivers/gpu/drm/i915/gt/intel_gpu_commands.h |  20 +
+ drivers/gpu/drm/i915/gt/intel_migrate.c      | 409 +++++++++++++++++--
+ drivers/gpu/drm/i915/gt/selftest_migrate.c   | 253 ++++++++++--
+ drivers/gpu/drm/qxl/qxl_ttm.c                |   2 +-
+ drivers/gpu/drm/ttm/ttm_agp_backend.c        |   2 +-
+ drivers/gpu/drm/ttm/ttm_tt.c                 |  12 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c   |   2 +-
+ include/drm/ttm/ttm_tt.h                     |   4 +-
+ 10 files changed, 664 insertions(+), 71 deletions(-)
+
 -- 
-2.25.1
+2.20.1
 
