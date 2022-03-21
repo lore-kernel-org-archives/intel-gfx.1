@@ -4,90 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B4B7C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 06:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF93DC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 06:05:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2239610E38B;
-	Mon, 21 Mar 2022 06:00:09 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2058.outbound.protection.outlook.com [40.107.223.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8FA510E338;
- Mon, 21 Mar 2022 06:00:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34D2310E399;
+	Mon, 21 Mar 2022 06:05:05 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 190FC10E398;
+ Mon, 21 Mar 2022 06:05:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y//U5AkfYgfhI0U0yoBFcdLDhprNkX7pW93cUlfm3WX/LAeitoH5PacEK4XxMm6qdYxJlpYpmdeWguw+5Fg2oQ+OGg2yTIjnXMn1G/9kArxR5cwfZwXJ0iJZhLdNb5IZuoZGKkCrqw4k0YSnWdytfMruMg9wVO6uKXrk/mljgTGfClESAkADXAy09xbF26EPwBeEedm+f6Xk8IqcoRLt0IohIt9dWMobxPzpL4gHS4pcLIzZlbQ6uo6TcOP3tnvKG4NBE5qzh16keLhqleUFfhfVphuURpYxuofAuK3WkZs54arEJvvdRM3Gfj41XkWDWRJdcKafVtt3vOvrucS7pA==
+ b=YIJZg4L1Y38tr0Za3U257qXLGDBqVDT3VWoncIHug52l15OyYcWyRB8yE+E0i644YXJYIbuaTOeHDNunlLJx/s+p7ks4L9jy8G5JIc4ET+hrPla+RoJnlKJ0NnToOErbZoUOxbFU34yTqab6jD7DOEcf5EZFsF/I0lC1o8xT9kyc5stirIEnpSbu2Q7MMJzG/V5SkxdgB55aqgz7I+xaa+goIGO6Uig524Jtf+w+MiM8Hpi3qyprU0l3xP9vimdYn6koOoxi/3zm3m9Lb/nkKqkYy9kcn8MDeLqTo25Q/JiW7zQiZ7k4Dqr2iAhX4nZT5cIpxmerT5VV70EFYQwN0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FQNO+P6NkFGKNUZ8b878sDhWfcdTqzJjudWqAEB0BqQ=;
- b=T1bD0btZwYJqV5hDYm52e5Y/MZn1f6vkNNMkbVfOS/Hf9JxGwSZE4G69AaaUm1Tl4Foeec7EO+B22Epw2l1hBfIMyGgd9WDNKUOb4NaDJ9dFzkEXy2OKup6IonQFgLWyBiAeRlb8UpNytA5sAVT5rO8utimzJU4/106MTMi+jxV3xUbeBAKVzNLOFDdzbZdZD+AqmEP19/IgnafP8nB1LZTXd6rbtepneo+qvizMoUqGQ/ATvKb5euK4NsRj5R6P/aWGzlkbh8I/QU71zBGaItvM8Ub/TnCaq4DkIIIg48bDdBz/tiTjRsK4nCgeIe20amt8b1tK/9Otxi1VPkY/hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=5lW+SygKLPgScO8xfEQ1p3yrCgYwccuZNWvNbcQLtLI=;
+ b=K6svSokI2cdoo6Bp94Y5RFFftOZpR9dRWMowKmyjciZre5Aa42sw2ZjsPCpUL+2O6fdX6Zm9Usa9fooLeJf0A/s/xzlNCEUJZX1YpLy0Ln+5h6X74je1dk/0GgwmOP6Q8LNPZ5RjI7j5fJ205/2OTf1efspTNpF9AV9ySlcCSb8yUbPZZ7ZX2wAPAqwyp7baUI1fm6S09kAKXu/Ub1BZRJxUi2rTxAw7Cz0e2sHSsG9ShPFwV4IIlUITkyg/f0TvadVqlPr9NpXfaY+2a1KYdUf8ri6vT3QVkED3uqujKjnPIQycKfyVvuDJ6ynNHMfTf02Hj1beIbR3KBjqvG8KHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FQNO+P6NkFGKNUZ8b878sDhWfcdTqzJjudWqAEB0BqQ=;
- b=Jvu3ou84vNDKwKA7QFExVqM0+fKH897xVgh691mUiLTxGEr7EEv8n/entYnyswVQcXwjyo+TnwgGdZ1mjxFgCH2KFF4SPAaI82zwabuwD2cR5mQ1IEH1zDzsTQavYx9r528V3PMl/BTTY9MnYNFYvmoxko0TIsC/ELRNN/Gzy+k=
-Received: from MW4PR03CA0093.namprd03.prod.outlook.com (2603:10b6:303:b7::8)
- by BN9PR12MB5290.namprd12.prod.outlook.com (2603:10b6:408:103::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.15; Mon, 21 Mar
- 2022 06:00:04 +0000
-Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b7:cafe::ee) by MW4PR03CA0093.outlook.office365.com
- (2603:10b6:303:b7::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.22 via Frontend
- Transport; Mon, 21 Mar 2022 06:00:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com;
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5081.14 via Frontend Transport; Mon, 21 Mar 2022 06:00:03 +0000
-Received: from rtg-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Mon, 21 Mar
- 2022 00:59:59 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>
-Date: Mon, 21 Mar 2022 11:29:40 +0530
-Message-ID: <20220321055940.4851-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ bh=5lW+SygKLPgScO8xfEQ1p3yrCgYwccuZNWvNbcQLtLI=;
+ b=CueNRJKfwGQL4hcWJyFA98MP9ZErSahMtfapANT933xDocW6TL/EZXgEMyNzwAWqL3AMyQztsHlwsEPlGfRHwYs7WKHs6otx/bolxjIWUTtP2HoQKYyEoHGjXc2I1s5UY7URqyRRR2fssnFrorf7aVX0V1LHBlrkMl1cks4TFqs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB4349.namprd12.prod.outlook.com (2603:10b6:806:98::21)
+ by SA0PR12MB4574.namprd12.prod.outlook.com (2603:10b6:806:94::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Mon, 21 Mar
+ 2022 06:05:01 +0000
+Received: from SA0PR12MB4349.namprd12.prod.outlook.com
+ ([fe80::e15c:41ca:1c76:2ef]) by SA0PR12MB4349.namprd12.prod.outlook.com
+ ([fe80::e15c:41ca:1c76:2ef%3]) with mapi id 15.20.5081.022; Mon, 21 Mar 2022
+ 06:05:01 +0000
+Message-ID: <e4ed9aca-6400-9e26-ce8f-62e43c0f5dbb@amd.com>
+Date: Mon, 21 Mar 2022 11:45:31 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Content-Language: en-US
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+References: <20220314194049.534471-1-Arunpravin.PaneerSelvam@amd.com>
+ <0b9a8cc2-2f34-48c9-7960-727615eb2edb@molgen.mpg.de>
+ <1e410ba3-60d9-6a09-6a5d-625145c1c80a@amd.com>
+ <cd074d23-ee36-dd5f-bde5-1f5dd41a76be@molgen.mpg.de>
+ <3601c42f-0787-e21d-460b-44a5a100b710@amd.com>
+ <a19344ef-748c-7692-8089-d39dc562d0b3@molgen.mpg.de>
+ <537b9740-f7c3-dae6-a683-42dbef4e1b4c@amd.com>
+ <720c3778-aaea-ab68-b1c8-28027e19defc@molgen.mpg.de>
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <720c3778-aaea-ab68-b1c8-28027e19defc@molgen.mpg.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: BMXPR01CA0033.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:c::19) To SA0PR12MB4349.namprd12.prod.outlook.com
+ (2603:10b6:806:98::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e16a881e-2ace-4d12-b65d-08da0b000af1
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5290:EE_
-X-Microsoft-Antispam-PRVS: <BN9PR12MB5290547C8AEB4547F1FF7A06E4169@BN9PR12MB5290.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: ba71021d-97bf-4c74-10cf-08da0b00bc2a
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4574:EE_
+X-Microsoft-Antispam-PRVS: <SA0PR12MB45747A13889FFD8ED8BD67C9E4169@SA0PR12MB4574.namprd12.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pbt6stYxBW2QKQX7Kqu9QMYoJYAoRFwTcRigg4uRFKILbqKnU374IoZlv/Y6XKQ/oDdMjiDaanJN5HfwTWq1sOlhpWquZ+wTZ7Je/vx30tqxGoWHfyz30caEig3BGdI1DZEBI7uwkpdqSnxXeJHohAGQZn7VD1dFdHXQEi6I7VgP5+Sc80PC4Q05eoGRGTrMFBmwy0dhlsZj6UEX+ejzYrOxJYrkQGCLp7FghYjdPXV1L1lax8+SjeMy/3/qfv3sqScGOa9J6JcGrLCOQ4vT0IiV95WxWOwR2oxxWgUjFpxXEmV8R+NZmx0gElw0Xq9RYl2YSvi6VllV0M96mBk5UEA6jbvMMqwNcIW/XIy1zbihWGzchVHIFwJ6sIX72TGT4xPamOIsP75+V3Ws+Dzd3Hs78BWYxNLYjOSjSAcqbs1ACZ8ZrCDYBrb3JcDMVU5TLpD4ol3QjmX+pQcg1Bl9FGr/lDiX2olbO8tckmxQPumImjn5BJCkF4ALJzhJwqyrc93NTagAf0UVglgn91W8SBWU3aSpHjoVrEhhRv09zrv5O66AZlmwOarYfRm1FGdMLQ3/744mcNDllZsM/ruLTRf80Ek3Q9Wgm5HmID1u0aOEH2AzDdJd3kyPRxjHiTm4/6zZHZ24ZAW0EPI1atI6anD0uN99Yj15c4aJs7LzzK5TH/8N4YHEO58fMvWTCjELQKEhT0Vl1YsouXaa2h64lQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(26005)(83380400001)(356005)(186003)(16526019)(336012)(86362001)(40460700003)(47076005)(426003)(82310400004)(36860700001)(508600001)(2616005)(7696005)(6666004)(110136005)(316002)(54906003)(70586007)(70206006)(5660300002)(4326008)(8936002)(2906002)(4744005)(8676002)(36756003)(81166007)(1076003)(36900700001);
+X-Microsoft-Antispam-Message-Info: goDlrtzURzJ1b4BbfOVDdY7BEtKy71/G4leSi23wmeUKfVklS56qdDdzM6ySE4x9UwDnjLAY/6/m47S7PYTU4zeD837y8O5m1mnywwuFjCxMZFK5FY+PAbZlL8nXQG/aBKFAlUcScY1/5GQ18amFKWVXFw4/aACqMpaxHmzDDDV5eMijcWpTa3aTmtptERLjYnfXFGvonGf09pe3vqEx69H0NMBwwKl4xUOj/MkFE9KOGN2ZnzWkQVLHV/FTuzRZJW5/o3cXsqI81Qdcad6UES0uR9Djy5BwqVEOEdlaK1LT7uwuWar7aJK0oXuCxQqCyyQfruDijiYkIH+2NKfIuR/NLFyT4K2CA6YoVR+QsUkpkBibbmXtmcRoLbN9VwfRfLJc5Cs//oy9bDB4uuWK1TIi3QWcwAKa3MYToa+Lx5dINfeU6WKB85sGvaCcOoBMoLz08MSeCvm4Ziqg1Z7UQFrJzlfqThE2RISFWSvk8aJbAZnDCr74BcTUaHWI2ngkrYQhB/YqzzmguvP2Nn08ABznlvq6gnz6dS5iizDGdKcDP1OrI4wBJpKpAWSuxkM+XB561YywD3I4BNTsLkgHFT8HrZvAH6CIYkZ1inUwR3Yn63XH2SDA5MRMAHbuILJh7PXxRxZyd6kRnD6QMGgGAYkPQ3KBJJskHrnm2yANU96EhZ62lTzt0/IP7VhYka7RH1IIWg2cuY+i9pLuropVZ/cQgJwb1X+vskXtcAjj8C6JVN0mSaErn1gBKJYsuM98
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4349.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(508600001)(83380400001)(966005)(6486002)(6512007)(53546011)(2616005)(45080400002)(26005)(66946007)(66556008)(66476007)(8676002)(4326008)(31686004)(6916009)(186003)(86362001)(38100700002)(8936002)(36756003)(6506007)(5660300002)(6666004)(316002)(2906002)(31696002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZzY5dDNqZVVWdjRqeGNFVzB6UFNHVnd4azlkMjZVRmUvNXB2TmJmQk15M3Va?=
+ =?utf-8?B?dmt4K0VDa1N5V3ZZWnBneUV2dEw5aXl3RDB1b016Vkd6Q2pjZ2MxVlhlNHRU?=
+ =?utf-8?B?aUJKVnA5T21ROHNZZ3lER2pKRFVJSmVhajhKSlljMVVQODU0RThCd3Q1OFk0?=
+ =?utf-8?B?ZlpaaWtYcVZ6ZktxK1RCRVJhMncwVFF4NTg2Q1N6cHEwUHAydmhiK2xpOFJM?=
+ =?utf-8?B?QXhySGZPakRQbU5oaTB3Vi9PYklML0dqNUQzd0JhbFFUTDEyblZpdVQ2dE5x?=
+ =?utf-8?B?cHBkQ1FBRmRROW9KSHRGMGZQbXRTT3ZEN0l3R2FzWXNHOEhqZUVLMDJMZkNn?=
+ =?utf-8?B?T1dKV2RhSUdNVUd6MGJ1Um9nNFNsaU9oS3lCTmRYbG1MalBBTE11VkRZOTQz?=
+ =?utf-8?B?ZlVLN3A1RWQ3eXZJQlplTC9yUkdvWWtMcjc4ajZYSTFkZHlBdU15U0RFVmJJ?=
+ =?utf-8?B?aVFtWkEzdG9YYVBsNzdyamJoSTVtblhoNzI3Tk1XMU1SM3kxNFowVnkzdERi?=
+ =?utf-8?B?VTNnN1NaZU9iWS9SK0NnYlNpUU1yekkvVDU4U3ZQNGY0dDZZTE54M3VBeWoz?=
+ =?utf-8?B?dU4wSUc3YlhXbjNWdnlOa05YK0Z6RjZRRWdJY3ZaVExLR0dsYUtOWk1wanhy?=
+ =?utf-8?B?VjhmdGtOWlppTTNPZ1BmYkRIMnZQeTlmbHNFK2Zvd3I2aC9DaVRSamJQUFpi?=
+ =?utf-8?B?SVRpbHNFYWF6Z1F4NlljTjhUYk9yYXpreGpJelNEczlSRTVEOUo0Nys2R1kw?=
+ =?utf-8?B?SXFRM1VUb3JpVWkzTjdaTzNnOHg4L3ZLOVVFOG5xaUdVN3BwOVc2c2xxWHVY?=
+ =?utf-8?B?emIyMlloKzVodW5xajI3bS80R3JWSXNxc1Zzb09tdGtteVJMTkU4VWFTQ1ZR?=
+ =?utf-8?B?VDk4aUhWVm5SQUcyc3FVMHNtcWhvYnUxd256NnBJcUtrQm5tNlpHM1BpdEU1?=
+ =?utf-8?B?dVBVWHF1Y29MbTg0TisxZlF5a0J0NS94dFQzNFhpS2V2aWx6MVBFcmpwbWIz?=
+ =?utf-8?B?ZkJoV0Vkd3gxMTVVRjhBWm5SYmp0VDRXY3BVNFpsaW8yVzcwQUNvNCt3Mm1B?=
+ =?utf-8?B?Mzd6Rzh3ZUZlT29zN0MvdWFsZlU2ZGg3NHhnZFhJQlgvUFIxVnpEeHA1VU9L?=
+ =?utf-8?B?ZjVRdHl0aXBCZUtJbnM5d2dhQ3B6czFROXZzYzhwcXprZVdBOGpidkRRelEy?=
+ =?utf-8?B?ekFvUTY3TDZiMmtwbFdPWGZYdHhzWTg2YmFWU3hGOW8wV2l3QzBJWWR4S0t3?=
+ =?utf-8?B?RTd4aHN3WVlUd0tUQnZxaHR0Qk1neU9YSjkrS3I2NXdWUDFTWWtQeUgvakpY?=
+ =?utf-8?B?OU53RG5SaHBCYmVqaCtZTks3LzYrL1hJMXBra0xja1NZcFhNeHFqR1JTQ1V3?=
+ =?utf-8?B?ZDVPN3RxSUZNTzk2VTV0QmhubzhxZ0JjeHVQdGRDSFpiU1NiZytSNGNpOGVO?=
+ =?utf-8?B?MnF1ZUYzbVZPZjA3UFBUVTRKbDBmQ0xaOUJReU9nTHNVM0ZpTHBVVmxneGJF?=
+ =?utf-8?B?TEdyQ3JjemFXR3VRQUJ4V0t5eEVQakoxdndSVEFnUXl1UG5JNXBjNGhXYWNj?=
+ =?utf-8?B?WUpEUDRHa1pTdk5xTWMvQWp2c2FGYmZBd2JsNzl2Qm5meTRxcy9JcDVIZXp4?=
+ =?utf-8?B?WlRqVVVMWDV2eWU2QU9YdUczeW96WXdZV2hZdEVDeVdvNWNNNGVTTFQzc211?=
+ =?utf-8?B?blFNSFFLZURqcjVxYVBuOGJwakJIOEV6c0ZGOWt0QlRCbVByaTBjelAza0VR?=
+ =?utf-8?B?b0J6NThMbGE3M3JiNnlaSnhJQmtKRTJVdmxwa3JwblA0TlQybmZuTGRNS3p6?=
+ =?utf-8?B?a2FCQXBHSEdQeXYrT3NTZ2tIODhkaVdPK0JLYnczRnVSbTc3NlJpTUR0NHQw?=
+ =?utf-8?B?YWtyaHpmR1lLN1VSaEZVdFBNUGhjZGJKcEc5alVDTnBnRWMrczNERWlONGZG?=
+ =?utf-8?Q?Q3csCQ42LJk3GgFWQ0X2sH1NOfiCfh/8?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 06:00:03.6146 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e16a881e-2ace-4d12-b65d-08da0b000af1
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba71021d-97bf-4c74-10cf-08da0b00bc2a
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4349.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 06:05:01.7698 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5290
-Subject: [Intel-gfx] [PATCH] drm: add a check to verify the size alignment
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5ZXM00FpeJhDiTdY6+sx54gkMcEa7JBS5AE1lA6Y9a1bCpHm3tE4WO4/Kq6HES6p21P7eZCeCZ0tiR/VSMmB4g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4574
+Subject: Re: [Intel-gfx] [PATCH] drm: Fix a infinite loop condition when
+ order becomes 0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,34 +130,164 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- matthew.auld@intel.com, christian.koenig@amd.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, matthew.auld@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-add a simple check to reject any size not aligned to the
-min_page_size.
 
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
----
- drivers/gpu/drm/drm_buddy.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index 72f52f293249..b503c88786b0 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -661,6 +661,9 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
- 	if (range_overflows(start, size, mm->size))
- 		return -EINVAL;
- 
-+	if (WARN_ON(!IS_ALIGNED(size, min_page_size)))
-+		return -EINVAL;
-+
- 	/* Actual range allocation */
- 	if (start + size == end)
- 		return __drm_buddy_alloc_range(mm, start, size, blocks);
--- 
-2.25.1
+On 16/03/22 12:28 pm, Paul Menzel wrote:
+> Dear Arunprivin,
+> 
+> 
+> Am 16.03.22 um 07:49 schrieb Arunpravin Paneer Selvam:
+> 
+>> On 15/03/22 9:14 pm, Paul Menzel wrote:
+> 
+>>> Am 15.03.22 um 16:42 schrieb Arunpravin:
+>>>
+>>>> On 15/03/22 2:35 pm, Paul Menzel wrote:
+>>>
+>>>>> Am 15.03.22 um 10:01 schrieb Arunpravin:
+>>>>>
+>>>>>> On 15/03/22 1:49 pm, Paul Menzel wrote:
+>>>>>
+>>>>>>> Am 14.03.22 um 20:40 schrieb Arunpravin:
+>>>>>>>> handle a situation in the condition order-- == min_order,
+>>>>>>>> when order = 0, leading to order = -1, it now won't exit
+>>>>>>>> the loop. To avoid this problem, added a order check in
+>>>>>>>> the same condition, (i.e) when order is 0, we return
+>>>>>>>> -ENOSPC
+>>>>>>>>
+>>>>>>>> Signed-off-by: Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>>>>>>>
+>>>>>>> Please use your full name.
+>>>>>> okay
+>>>>>
+>>>>> You might also configure that in your email program.
+>>>> yes
+>>>
+>>> Not done yet though. ;-)
+>>>
+>> done in v2 :)
+>>>>>>>> ---
+>>>>>>>>      drivers/gpu/drm/drm_buddy.c | 2 +-
+>>>>>>>>      1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+>>>>>>>> index 72f52f293249..5ab66aaf2bbd 100644
+>>>>>>>> --- a/drivers/gpu/drm/drm_buddy.c
+>>>>>>>> +++ b/drivers/gpu/drm/drm_buddy.c
+>>>>>>>
+>>>>>>> In what tree is that file?
+>>>>>>>
+>>>>>> drm-tip - https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fdrm-tip%2Ftree%2F&amp;data=04%7C01%7Carunpravin.paneerselvam%40amd.com%7C439b31d360ef495ab13408da071a6e1f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637830107357395422%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=Z8KNmbUXmhk0xA8z7yHJN2j%2BRJ5VwpuMXww21mrC8x8%3D&amp;reserved=0
+>>>>>> drm-misc-next - https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcgit.freedesktop.org%2Fdrm%2Fdrm-misc%2Ftree%2F&amp;data=04%7C01%7Carunpravin.paneerselvam%40amd.com%7C439b31d360ef495ab13408da071a6e1f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637830107357395422%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=Mwqy6NVTiR%2FoHFpLvXnQdE95kHoJJUEiig0Juz37ATQ%3D&amp;reserved=0
+>>>
+>>> Thank Outlook. Now everybody feels safe.
+>>>
+>>>>>>>> @@ -685,7 +685,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>>>>>>>>      			if (!IS_ERR(block))
+>>>>>>>>      				break;
+>>>>>>>>      
+>>>>>>>> -			if (order-- == min_order) {
+>>>>>>>> +			if (!order || order-- == min_order) {
+>>>>>>>>      				err = -ENOSPC;
+>>>>>>>>      				goto err_free;
+>>>>>>>>      			}
+>>>>>
+>>>>> Thank you for the hint. So the whole function is:
+>>>>>
+>>>>> 	do {
+>>>>> 		order = min(order, (unsigned int)fls(pages) - 1);
+>>>>> 		BUG_ON(order > mm->max_order);
+>>>>> 		BUG_ON(order < min_order);
+>>>>>
+>>>>> 		do {
+>>>>> 			if (flags & DRM_BUDDY_RANGE_ALLOCATION)
+>>>>> 				/* Allocate traversing within the range */
+>>>>> 				block = alloc_range_bias(mm, start, end, order);
+>>>>> 			else
+>>>>> 				/* Allocate from freelist */
+>>>>> 				block = alloc_from_freelist(mm, order, flags);
+>>>>>
+>>>>> 			if (!IS_ERR(block))
+>>>>> 				break;
+>>>>>
+>>>>> 			if (order-- == min_order) {
+>>>>> 				err = -ENOSPC;
+>>>>> 				goto err_free;
+>>>>> 			}
+>>>>> 		} while (1);
+>>>>>
+>>>>> 		mark_allocated(block);
+>>>>> 		mm->avail -= drm_buddy_block_size(mm, block);
+>>>>> 		kmemleak_update_trace(block);
+>>>>> 		list_add_tail(&block->link, &allocated);
+>>>>>
+>>>>> 		pages -= BIT(order);
+>>>>>
+>>>>> 		if (!pages)
+>>>>> 			break;
+>>>>> 	} while (1);
+>>>>>
+>>>>> Was the BUG_ON triggered for your case?
+>>>>>
+>>>>> 	BUG_ON(order < min_order);
+>>>> no, this BUG_ON is not triggered for this bug
+>>>>>
+>>>>> Please give more details.
+>>>>
+>>>> there is a chance when there is no space to allocate, order value
+>>>> decrements and reaches to 0 at one point, here we should exit the loop,
+>>>> otherwise, further order value decrements to -1 and do..while loop
+>>>> doesn't exit. Hence added a check to exit the loop if order value becomes 0.
+>>>
+>>> Sorry, I do not see it. How can that be with order ≥ min_order and the
+>>> check `order-- == min_order`? Is min_order 0? Please explain that in the
+>>> next commit message.
+>>>
+>> please check v2, yes when min_order is 0, the above said situation may
+>> occur.And, since the order is unsigned int, I think it will not trigger
+>> the BUG_ON(order < min_order) when order becomes -1. Hence I think we
+>> needed a check !order to exit the loop.
+> 
+> Thank you for clarifying this. I still do not understand it though. With
+> 
+> 	order = fls(pages) - 1;
+> 	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
+> 
+> is zorder` always non-negative? Let’s assume it is. Also, can min_order 
+> get “negative” (wraps around)?
+> 
+> I would add BUG_ON statements for these cases?
+> 
+>      BUG_ON(fls(pages) - 1 < 1);
+>      BUG_ON(ilog2(min_page_size) - ilog2(mm->chunk_size) < 1);
+> 
+> Assuming “negative” is not possible, your case can only happen if 
+> `order` and `min_order` are 0, right? If `order` is greater than 0, and 
+> `min_order` is 0, the first BUG_ON in the while loop would be hit. If 
+> `order` is 0 and `min_order` is greater than 0, everything should work 
+> as the condition in `if (order-- == min_order)` is going to be true 
+> eventually.
+> 
+> Could you please analyze this more. The current patch looks more like 
+> papering over something, or I am missing something.
+> 
+Thanks for the analysis, Matthew suggested to add a simple check, I have
+sent the patch for the review.
 
+Regards,
+Arun
+
+> 
+> Kind regards,
+> 
+> Paul
+> 
+> 
+> PS: The commit message summary of your v2 should also be updated.
+> 
