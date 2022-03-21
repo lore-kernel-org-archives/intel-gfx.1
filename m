@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF9CAC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 16:43:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0103CC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 16:43:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8817310E42A;
-	Mon, 21 Mar 2022 16:42:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3258510E427;
+	Mon, 21 Mar 2022 16:42:58 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4E6C10E417;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 102A010E417;
  Mon, 21 Mar 2022 16:42:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1647880976; x=1679416976;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=B2Qd3gNZH5uAIFJZjIMB+K6a/Gfd8Tu7gQ0ycbuhYu4=;
- b=k5/lbUGyUNmeg3K8V7gLjQa84TqF8ZhdaBr3JR4dVTiZdHxeOr7idqu7
- JgB4COiFSUr4SffHdRiLsJ/OP/bhzo6dKkkLuNaxXJ7BLXrJIBdztpgKr
- ix9EjJaa2LjpduLnm9kPfuwDLSpVV+RI37Ag1+09RSHbZWhFF59VnTVIn
- TX4h6ShfZELPjGEaCteDmH09MN8qoGeQuAxT+BTDw2ySA1bGnNsJ5c0jl
- OB2KaKht5BEgpLeEZHbIWmxaLMmMfhjfe8jiu1aj1yumdWW/dWrCl8aqz
- dirxTNx1McgM+S0dv813wbDsiHwXUzMnG2/QqfJJpDQkk/H4jvF8ppGBm Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="239752677"
-X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="239752677"
+ bh=vtHYYwAisW2mw6jK9Prf7Ib0njT1dEEd3B0OWO/TFDE=;
+ b=Sz0eWuGu0NEAEzLlnjOG3CgjH1kU0UsVSOKnQC1mPNg2b9D1jrWKjmYM
+ 3jLr4V9xFBRngSspyjvSmiMA1uFp4jBdNzCnNoJY6caCMQLlLnzY/CGNe
+ lYwB8XOOV+X8t/yncZPAh35vqh9l4gD4DGCJuwzF7Zgd7idU3IeV1cmIf
+ KxwGZCKks7aXQQ0J3mnxPKYOIks9pW9IzCO5lu/B/k0LI0jeeslqF1iXH
+ 8C+B9rFktrhO4hApwinv4OLMFaVpdMeSVBSei4EMGXdrAYqBly3q98LDW
+ +y7k4e0/nRB5sgiLMsd860QzbkVLm0Wan0KevqBuDIKl6+0t/JJpP1dIr g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="239752673"
+X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="239752673"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2022 09:42:56 -0700
+ 21 Mar 2022 09:42:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="716563774"
+X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="716563766"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga005.jf.intel.com with ESMTP; 21 Mar 2022 09:42:56 -0700
+ by orsmga005.jf.intel.com with ESMTP; 21 Mar 2022 09:42:55 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 21 Mar 2022 09:45:21 -0700
-Message-Id: <20220321164527.2500062-8-alan.previn.teres.alexis@intel.com>
+Date: Mon, 21 Mar 2022 09:45:19 -0700
+Message-Id: <20220321164527.2500062-6-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220321164527.2500062-1-alan.previn.teres.alexis@intel.com>
 References: <20220321164527.2500062-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v13 07/13] drm/i915/guc: Update GuC-log relay
- function names
+Subject: [Intel-gfx] [PATCH v13 05/13] drm/i915/guc: Add Gen9 registers for
+ GuC error state capture.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,144 +62,171 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For the sake of better code readibility, change previous
-relay logging function names with "capture_logs" to
-"copy_debug_logs" to differentiate from error capture
-functions that will use a different region of the same buffer.
+Abstract out a Gen9 register list as the default for all other
+platforms we don't yet formally support GuC submission on.
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 35 ++++++++++++----------
- 1 file changed, 19 insertions(+), 16 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 82 +++++++++++++------
+ 1 file changed, 59 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-index a24dc6441872..0d63c411080f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-@@ -12,7 +12,7 @@
- #include "i915_memcpy.h"
- #include "intel_guc_log.h"
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
+index 7c3d9943ecdd..63ef407a2fd0 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
+@@ -22,15 +22,24 @@
+  * NOTE: For engine-registers, GuC only needs the register offsets
+  *       from the engine-mmio-base
+  */
++#define COMMON_BASE_GLOBAL \
++	{ FORCEWAKE_MT,             0,      0, "FORCEWAKE" }
++
++#define COMMON_GEN9BASE_GLOBAL \
++	{ GEN8_FAULT_TLB_DATA0,     0,      0, "GEN8_FAULT_TLB_DATA0" }, \
++	{ GEN8_FAULT_TLB_DATA1,     0,      0, "GEN8_FAULT_TLB_DATA1" }, \
++	{ ERROR_GEN6,               0,      0, "ERROR_GEN6" }, \
++	{ DONE_REG,                 0,      0, "DONE_REG" }, \
++	{ HSW_GTT_CACHE_EN,         0,      0, "HSW_GTT_CACHE_EN" }
++
+ #define COMMON_GEN12BASE_GLOBAL \
+ 	{ GEN12_FAULT_TLB_DATA0,    0,      0, "GEN12_FAULT_TLB_DATA0" }, \
+ 	{ GEN12_FAULT_TLB_DATA1,    0,      0, "GEN12_FAULT_TLB_DATA1" }, \
+-	{ FORCEWAKE_MT,             0,      0, "FORCEWAKE" }, \
+ 	{ GEN12_AUX_ERR_DBG,        0,      0, "AUX_ERR_DBG" }, \
+ 	{ GEN12_GAM_DONE,           0,      0, "GAM_DONE" }, \
+ 	{ GEN12_RING_FAULT_REG,     0,      0, "FAULT_REG" }
  
--static void guc_log_capture_logs(struct intel_guc_log *log);
-+static void guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log);
+-#define COMMON_GEN12BASE_ENGINE_INSTANCE \
++#define COMMON_BASE_ENGINE_INSTANCE \
+ 	{ RING_PSMI_CTL(0),         0,      0, "RC PSMI" }, \
+ 	{ RING_ESR(0),              0,      0, "ESR" }, \
+ 	{ RING_DMA_FADD(0),         0,      0, "RING_DMA_FADD_LDW" }, \
+@@ -64,11 +73,13 @@
+ 	{ GEN8_RING_PDP_LDW(0, 3),  0,      0, "PDP3_LDW" }, \
+ 	{ GEN8_RING_PDP_UDW(0, 3),  0,      0, "PDP3_UDW" }
  
- /**
-  * DOC: GuC firmware log
-@@ -198,7 +198,7 @@ static unsigned int guc_get_log_buffer_size(enum guc_log_buffer_type type)
- 	return 0;
+-#define COMMON_GEN12BASE_HAS_EU \
++#define COMMON_BASE_HAS_EU \
+ 	{ EIR,                      0,      0, "EIR" }
+ 
++#define COMMON_BASE_RENDER \
++	{ GEN7_SC_INSTDONE,         0,      0, "GEN7_SC_INSTDONE" }
++
+ #define COMMON_GEN12BASE_RENDER \
+-	{ GEN7_SC_INSTDONE,         0,      0, "GEN7_SC_INSTDONE" }, \
+ 	{ GEN12_SC_INSTDONE_EXTRA,  0,      0, "GEN12_SC_INSTDONE_EXTRA" }, \
+ 	{ GEN12_SC_INSTDONE_EXTRA2, 0,      0, "GEN12_SC_INSTDONE_EXTRA2" }
+ 
+@@ -80,28 +91,26 @@
+ 
+ /* XE_LPD - Global */
+ static const struct __guc_mmio_reg_descr xe_lpd_global_regs[] = {
++	COMMON_BASE_GLOBAL,
++	COMMON_GEN9BASE_GLOBAL,
+ 	COMMON_GEN12BASE_GLOBAL,
+ };
+ 
+ /* XE_LPD - Render / Compute Per-Class */
+ static const struct __guc_mmio_reg_descr xe_lpd_rc_class_regs[] = {
+-	COMMON_GEN12BASE_HAS_EU,
++	COMMON_BASE_HAS_EU,
++	COMMON_BASE_RENDER,
+ 	COMMON_GEN12BASE_RENDER,
+ };
+ 
+-/* XE_LPD - Render / Compute Per-Engine-Instance */
++/* GEN9/XE_LPD - Render / Compute Per-Engine-Instance */
+ static const struct __guc_mmio_reg_descr xe_lpd_rc_inst_regs[] = {
+-	COMMON_GEN12BASE_ENGINE_INSTANCE,
++	COMMON_BASE_ENGINE_INSTANCE,
+ };
+ 
+-/* XE_LPD - Media Decode/Encode Per-Class */
+-static const struct __guc_mmio_reg_descr xe_lpd_vd_class_regs[] = {
+-	COMMON_GEN12BASE_ENGINE_INSTANCE,
+-};
+-
+-/* XE_LPD - Media Decode/Encode Per-Engine-Instance */
++/* GEN9/XE_LPD - Media Decode/Encode Per-Engine-Instance */
+ static const struct __guc_mmio_reg_descr xe_lpd_vd_inst_regs[] = {
+-	COMMON_GEN12BASE_ENGINE_INSTANCE,
++	COMMON_BASE_ENGINE_INSTANCE,
+ };
+ 
+ /* XE_LPD - Video Enhancement Per-Class */
+@@ -109,18 +118,33 @@ static const struct __guc_mmio_reg_descr xe_lpd_vec_class_regs[] = {
+ 	COMMON_GEN12BASE_VEC,
+ };
+ 
+-/* XE_LPD - Video Enhancement Per-Engine-Instance */
++/* GEN9/XE_LPD - Video Enhancement Per-Engine-Instance */
+ static const struct __guc_mmio_reg_descr xe_lpd_vec_inst_regs[] = {
+-	COMMON_GEN12BASE_ENGINE_INSTANCE,
++	COMMON_BASE_ENGINE_INSTANCE,
+ };
+ 
+-/* XE_LPD - Blitter Per-Engine-Instance */
++/* GEN9/XE_LPD - Blitter Per-Engine-Instance */
+ static const struct __guc_mmio_reg_descr xe_lpd_blt_inst_regs[] = {
+-	COMMON_GEN12BASE_ENGINE_INSTANCE,
++	COMMON_BASE_ENGINE_INSTANCE,
+ };
+ 
+-/* XE_LPD - Blitter Per-Class */
+-/* XE_LPD - Media Decode/Encode Per-Class */
++/* GEN9 - Global */
++static const struct __guc_mmio_reg_descr default_global_regs[] = {
++	COMMON_BASE_GLOBAL,
++	COMMON_GEN9BASE_GLOBAL,
++};
++
++static const struct __guc_mmio_reg_descr default_rc_class_regs[] = {
++	COMMON_BASE_HAS_EU,
++	COMMON_BASE_RENDER,
++};
++
++/*
++ * Empty lists:
++ * GEN9/XE_LPD - Blitter Per-Class
++ * GEN9/XE_LPD - Media Decode/Encode Per-Class
++ * GEN9 - VEC Class
++ */
+ static const struct __guc_mmio_reg_descr empty_regs_list[] = {
+ };
+ 
+@@ -137,6 +161,19 @@ static const struct __guc_mmio_reg_descr empty_regs_list[] = {
+ 	}
+ 
+ /* List of lists */
++static struct __guc_mmio_reg_descr_group default_lists[] = {
++	MAKE_REGLIST(default_global_regs, PF, GLOBAL, 0),
++	MAKE_REGLIST(default_rc_class_regs, PF, ENGINE_CLASS, GUC_RENDER_CLASS),
++	MAKE_REGLIST(xe_lpd_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_RENDER_CLASS),
++	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_VIDEO_CLASS),
++	MAKE_REGLIST(xe_lpd_vd_inst_regs, PF, ENGINE_INSTANCE, GUC_VIDEO_CLASS),
++	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_VIDEOENHANCE_CLASS),
++	MAKE_REGLIST(xe_lpd_vec_inst_regs, PF, ENGINE_INSTANCE, GUC_VIDEOENHANCE_CLASS),
++	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_BLITTER_CLASS),
++	MAKE_REGLIST(xe_lpd_blt_inst_regs, PF, ENGINE_INSTANCE, GUC_BLITTER_CLASS),
++	{}
++};
++
+ static const struct __guc_mmio_reg_descr_group xe_lpd_lists[] = {
+ 	MAKE_REGLIST(xe_lpd_global_regs, PF, GLOBAL, 0),
+ 	MAKE_REGLIST(xe_lpd_rc_class_regs, PF, ENGINE_CLASS, GUC_RENDER_CLASS),
+@@ -376,9 +413,8 @@ guc_capture_get_device_reglist(struct intel_guc *guc)
+ 		return xe_lpd_lists;
+ 	}
+ 
+-	drm_warn(&i915->drm, "No GuC-capture register lists\n");
+-
+-	return NULL;
++	/* if GuC submission is enabled on a non-POR platform, just use a common baseline */
++	return default_lists;
  }
  
--static void guc_read_update_log_buffer(struct intel_guc_log *log)
-+static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- {
- 	unsigned int buffer_size, read_offset, write_offset, bytes_to_copy, full_cnt;
- 	struct guc_log_buffer_state *log_buf_state, *log_buf_snapshot_state;
-@@ -223,7 +223,7 @@ static void guc_read_update_log_buffer(struct intel_guc_log *log)
- 		 * Used rate limited to avoid deluge of messages, logs might be
- 		 * getting consumed by User at a slow rate.
- 		 */
--		DRM_ERROR_RATELIMITED("no sub-buffer to capture logs\n");
-+		DRM_ERROR_RATELIMITED("no sub-buffer to copy general logs\n");
- 		log->relay.full_count++;
- 
- 		goto out_unlock;
-@@ -301,15 +301,15 @@ static void guc_read_update_log_buffer(struct intel_guc_log *log)
- 	mutex_unlock(&log->relay.lock);
- }
- 
--static void capture_logs_work(struct work_struct *work)
-+static void copy_debug_logs_work(struct work_struct *work)
- {
- 	struct intel_guc_log *log =
- 		container_of(work, struct intel_guc_log, relay.flush_work);
- 
--	guc_log_capture_logs(log);
-+	guc_log_copy_debuglogs_for_relay(log);
- }
- 
--static int guc_log_map(struct intel_guc_log *log)
-+static int guc_log_relay_map(struct intel_guc_log *log)
- {
- 	void *vaddr;
- 
-@@ -332,7 +332,7 @@ static int guc_log_map(struct intel_guc_log *log)
- 	return 0;
- }
- 
--static void guc_log_unmap(struct intel_guc_log *log)
-+static void guc_log_relay_unmap(struct intel_guc_log *log)
- {
- 	lockdep_assert_held(&log->relay.lock);
- 
-@@ -343,7 +343,7 @@ static void guc_log_unmap(struct intel_guc_log *log)
- void intel_guc_log_init_early(struct intel_guc_log *log)
- {
- 	mutex_init(&log->relay.lock);
--	INIT_WORK(&log->relay.flush_work, capture_logs_work);
-+	INIT_WORK(&log->relay.flush_work, copy_debug_logs_work);
- 	log->relay.started = false;
- }
- 
-@@ -358,8 +358,11 @@ static int guc_log_relay_create(struct intel_guc_log *log)
- 	lockdep_assert_held(&log->relay.lock);
- 	GEM_BUG_ON(!log->vma);
- 
--	 /* Keep the size of sub buffers same as shared log buffer */
--	subbuf_size = log->vma->size;
-+	 /*
-+	  * Keep the size of sub buffers same as shared log buffer
-+	  * but GuC log-events excludes the error-state-capture logs
-+	  */
-+	subbuf_size = log->vma->size - CAPTURE_BUFFER_SIZE;
- 
- 	/*
- 	 * Store up to 8 snapshots, which is large enough to buffer sufficient
-@@ -394,13 +397,13 @@ static void guc_log_relay_destroy(struct intel_guc_log *log)
- 	log->relay.channel = NULL;
- }
- 
--static void guc_log_capture_logs(struct intel_guc_log *log)
-+static void guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- {
- 	struct intel_guc *guc = log_to_guc(log);
- 	struct drm_i915_private *dev_priv = guc_to_gt(guc)->i915;
- 	intel_wakeref_t wakeref;
- 
--	guc_read_update_log_buffer(log);
-+	_guc_log_copy_debuglogs_for_relay(log);
- 
- 	/*
- 	 * Generally device is expected to be active only at this
-@@ -566,7 +569,7 @@ int intel_guc_log_relay_open(struct intel_guc_log *log)
- 	if (ret)
- 		goto out_unlock;
- 
--	ret = guc_log_map(log);
-+	ret = guc_log_relay_map(log);
- 	if (ret)
- 		goto out_relay;
- 
-@@ -616,8 +619,8 @@ void intel_guc_log_relay_flush(struct intel_guc_log *log)
- 	with_intel_runtime_pm(guc_to_gt(guc)->uncore->rpm, wakeref)
- 		guc_action_flush_log(guc);
- 
--	/* GuC would have updated log buffer by now, so capture it */
--	guc_log_capture_logs(log);
-+	/* GuC would have updated log buffer by now, so copy it */
-+	guc_log_copy_debuglogs_for_relay(log);
- }
- 
- /*
-@@ -646,7 +649,7 @@ void intel_guc_log_relay_close(struct intel_guc_log *log)
- 
- 	mutex_lock(&log->relay.lock);
- 	GEM_BUG_ON(!intel_guc_log_relay_created(log));
--	guc_log_unmap(log);
-+	guc_log_relay_unmap(log);
- 	guc_log_relay_destroy(log);
- 	mutex_unlock(&log->relay.lock);
- }
+ static const char *
 -- 
 2.25.1
 
