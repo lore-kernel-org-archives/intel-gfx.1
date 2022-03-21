@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0979FC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 16:43:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDCB8C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Mar 2022 16:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 726F510E414;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1E8710E422;
 	Mon, 21 Mar 2022 16:42:56 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE4310E0CE;
- Mon, 21 Mar 2022 16:42:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69CA410E414;
+ Mon, 21 Mar 2022 16:42:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647880974; x=1679416974;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fb4qBgXrEaC5JogOvYSIg+whTcv1CAiYmHFGFOX2RfQ=;
- b=Jzv6aPlO+LRLMNwxYqQAqUeiwWAandUHIH6Rjfiitg6dBqInVFa43dib
- W92GUfIgUq3aHNerFMg5zCTRwR3n4XqmOHVDS4Of2+siZNdZP00TQ1hOr
- AA6QrYt7ro0mH+t4de5bqijfo3TQYI7I1H9+F57WHRnZhiOOfqYlA+86i
- mPWyusgY8zGcdFxnK3h3eGh7Z/gI1FnGr3y5xUFzZFG63rcNNxdqiSrG8
- KrCSgbu94xmqDTIOlKO8Of2N3J/eS3lBu+p8PTwqu48d8ROU8H3o3Hsph
- uuqeKZCjKwV7Kvi7v2QAmP5y8J1o1cUbis+V/rB1ONn/i/S2GlPh5gldV g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="239752661"
-X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="239752661"
+ t=1647880975; x=1679416975;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=VtqYh+XpQxfLFNYfs0AfgnvvVWrd37Cl2/Cf4GI+F00=;
+ b=nF8ndPXQ3deGyWx+QZMvKUtCIpSROPLiwVFughUT+kjGnF4X3z0xC8Yn
+ bDNKqC3HjLuA5GWfH09Ieqz69NHBw1TvLmJNl8FAd7k5Mn8iuF4CYd9BB
+ U+l/Quv9iUUOFcqyohbxfkKAyung7kEabSXgdE4P3XIUImKc3eIKhkRrl
+ 95CgP2MA/QbvDaeDImfkRZK7Qc6Kb3gYQjJpcsDfduHz9qMd2hiwLIWk7
+ 2MMgLZlrf6ojmYcSwFNyCXuQ1ajfCr9zjVxFsKvExPcf4TcUCgb4/nTZz
+ L2XAJnOn4CyaohdJw6LRjEer+BfF+9uAGCDA2buCBIRcvXxBk+Ph1rHmY A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="239752669"
+X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="239752669"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2022 09:42:53 -0700
+ 21 Mar 2022 09:42:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="716563744"
+X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="716563760"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga005.jf.intel.com with ESMTP; 21 Mar 2022 09:42:53 -0700
+ by orsmga005.jf.intel.com with ESMTP; 21 Mar 2022 09:42:54 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 21 Mar 2022 09:45:14 -0700
-Message-Id: <20220321164527.2500062-1-alan.previn.teres.alexis@intel.com>
+Date: Mon, 21 Mar 2022 09:45:17 -0700
+Message-Id: <20220321164527.2500062-4-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220321164527.2500062-1-alan.previn.teres.alexis@intel.com>
+References: <20220321164527.2500062-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v13 00/13] Add GuC Error Capture Support
+Subject: [Intel-gfx] [PATCH v13 03/13] drm/i915/guc: Add XE_LP steered
+ register lists support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,200 +62,294 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series:
-  1. Enables support of GuC to report error-state-capture
-     using a list of MMIO registers the driver registers
-     and GuC will dump, log and notify right before a GuC
-     triggered engine-reset event.
-  2. Updates the ADS blob creation to register said lists
-     of global, engine class and engine instance registers
-     with GuC.
-  3. Defines tables of register lists that are global or
-     engine class or engine instance in scope.
-  4. Updates usage and buffer-state data for the regions
-     of the shared GuC log-buffer to accomdate both
-     the existing relay logging of general debug logs
-     along with the new error state capture usage.
-  5. Using a pool of preallocated memory, provide ability
-     to extract and format the GuC reported register-capture
-     data into chunks consistent with existing i915 error-
-     state collection flows and structures.
-  6. Connects the i915_gpu_coredump reporting function
-     to the GuC error capture module to print all GuC
-     error state capture dumps that is reported.
+Add the ability for runtime allocation and freeing of
+steered register list extentions that depend on the
+detected HW config fuses.
 
-This is the 13th rev of this series where the first 3 revs
-are RFC
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h |   9 +
+ .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 176 ++++++++++++++++--
+ 2 files changed, 174 insertions(+), 11 deletions(-)
 
-Prior receipts of rvb's:
-  - Patch #2, #3, #4, #5, #10, #11, #12, #13 have received
-    R-v-b's from Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-  - Patch #1, #6, #7, #8, #9 has received an R-v-b from Matthew Brost
-    <matthew.brost@intel.com>. NOTE: some of these came in on the
-    trybot series. https://patchwork.freedesktop.org/series/100831/
-
-Changes from prior revs:
-  v13:- Fixing register list definition styling as per Jani's request.
-  v12:- Re-sending it because previous revs only got to intel-gfx,
-        and only cover letter was in dri-devel. Also rebased again.
-  v11:- Rebase again on latest drm-tip to fix merge error.
-  v10:- Rebase on latest drm-tip again. Fix a number of checkpatch
-        warnings and an error Reported-by: kernel test robot <lkp@intel.com>.
-  v9: - Rebase on latest drm-tip to solve CI merge-build error.
-  v8: - Fix a bug found by CI in rev7: Create a cached ADS
-        capture list for null-header like the other lists.
-      - Fixed a bug on the ggtt offset calculation in the
-        ADS population loop. Thanks to Matt Brost.
-      - Change the storage uses for initial allocation and
-        caching of the ADS register lists so we only store
-        a regular pointer instead of file handle.
-      - Multiple improvements on code styling, variable names,
-        comments and code reduction from Umesh suggestions
-        across multiple patches.
-
-  v7: - Rebased on lastest drm_tip that has the ADS now using
-        shmem based ads_blob_write utilities. Stress test
-        was performed with this patch included to fix a
-        legacy bug:
-        https://patchwork.freedesktop.org/series/100768/
-
-  v6: - In patch #1, ADS reg-list population, we now alloc
-        regular memory to create the lists and cache them for
-        simpler and faster use by GuC ADS module at init, 
-        suspend-resume and reset cycles. This was in response
-        to review comments from Lucas De Marchi that also
-        wanted to ensure the GuC ADS module owns the final
-        copying into the ADS phyical memory.
-      - Thanks to Jani Nikula for pointing out that patch #2
-        and #3 should ensure static tables as constant and
-        dynamic lists should be allocated and cached but
-        attached to the GT level for the case of multiple
-        cards with different fusings for steered registers.
-        These are addressed now along with multiple code
-        style fixups (thanks to review comment from Umesh)
-        and splitting the steered register list generation
-        as a seperate patch.
-      - The extraction functionality, Patch #10 and #11 (was
-        patch #7), has fixed all of Umesh's review comments
-        related to the code styling. Additionally, it was
-        discovered during stress tests that the extraction
-        function could be called by the ct processing thread
-        at the same time as the start of a GT reset event.
-        Thus, a redesign was done whereby the linked list of
-        processed capture-output-nodes are allocated up
-        front and reused throughout the driver's life to
-        ensure no memory locks are taken during extraction.
-      - For patch #6 (now 7, 8 and 9), updates to
-        intel_guc_log was split into smaller chunks and the
-        log_state structure was returned back to inside of
-        the intel_guc_log struct as opposed to the
-        intel_guc struct in prior rev. This is in response
-        to review comments by Matt Brost.
-      - #Patch 13 (previously #10) is mostly identical but
-        addresses all of the code styling comments reviews
-        from Umesh.
-        
-  v5: - Added Gen9->Gen11 register list for CI coverage that
-        included Gen9 with GuC submission.
-      - Redesigned the extraction of the GuC error-capture
-        dumps by grouping them into complete per-engine-reset
-        nodes. Complete here means each node includes the
-        global, engine-class and engine-instance register
-        lists in a single structure.
-      - Extraction is decoupled from the print-out. We now
-        do the extraction immediately when receiving the
-        G2H for error-capture notification. A link list of
-        nodes is maintained with a FIFO based threshold
-        while awaiting retrieval from i915_gpu_coredump's
-        capture_engine function.
-      - Added new plumbing through the i915_gpu_coredump
-        allocation and capture functions to include a flag
-        that is used indicate that GuC had triggered the
-        reset. This new plumbing guarantees an exact match
-        from i915_gpu_coredump's per-engine vma recording
-        and node-retrieval from the guc-error-capture.
-      - Broke the coredump gt_global capture and recording
-        functions into smaller subsets so we can reuse as
-        much of the existing legacy register reading + printing
-        functions and only rely on GuC error-capture for
-        the smaller subset of registers that are tied to
-        engine workload execution.
-      - Updated the register list to follow the legacy execlist
-        format of printout.
-  v4:
-      - Rebased on latest drm-tip that has been merged with the
-        support of GuC firmware version 69.0.3 that is required
-        for GuC error-state-catpure to work.
-      - Added register list for DG2 which is the same as XE_LP
-        except an additional steering register set.
-      - Fixed a bug in the end of capture parsing loop in
-        intel_guc_capture_out_print_next_group that was not
-        properly comparing the engine-instance and engine-
-        class being parsed against the one that triggered
-        the i915_gpu_coredump.
-  v3:
-      - Fixed all review comments from rev2 except the following:
-          - Michal Wajdeczko proposed adding a seperate function
-            to lookup register string nameslookup (based on offset)
-            but decided against it because of offset conflicts
-            and the current table layout is easier to maintain.
-          - Last set of checkpatch errors pertaining to "COMPLEX
-            MACROS" should be fixed on next rev.
-      - Abstracted internal-to-guc-capture information into a new
-        __guc_state_capture_priv structure that allows the exclusion
-        of intel_guc.h and intel_guc_fwif.h from intel_guc_capture.h.
-        Now, only the first 2 patches have a wider build time
-        impact because of the changes to intel_guc_fwif.h but
-        subsequent changes to guc-capture internal structures
-        or firmware interfaces used solely by guc-capture module
-        shoudn't impact the rest of the driver build.
-      - Added missing Gen12LP registers and added slice+subslice
-        indices when reporting extended steered registers.
-      - Add additional checks to ensure that the GuC reported
-        error capture information matches the i915_gpu_coredump
-        that is being printed before we print out the corresponding
-        VMA dumps such as the batch buffer.
-   v2:
-      - Ignore - failed CI retest.
-
-Alan Previn (13):
-  drm/i915/guc: Update GuC ADS size for error capture lists
-  drm/i915/guc: Add XE_LP static registers for GuC error capture.
-  drm/i915/guc: Add XE_LP steered register lists support
-  drm/i915/guc: Add DG2 registers for GuC error state capture.
-  drm/i915/guc: Add Gen9 registers for GuC error state capture.
-  drm/i915/guc: Add GuC's error state capture output structures.
-  drm/i915/guc: Update GuC-log relay function names
-  drm/i915/guc: Add capture region into intel_guc_log
-  drm/i915/guc: Check sizing of guc_capture output
-  drm/i915/guc: Extract GuC error capture lists on G2H notification.
-  drm/i915/guc: Pre-allocate output nodes for extraction
-  drm/i915/guc: Plumb GuC-capture into gpu_coredump
-  drm/i915/guc: Print the GuC error capture output register list.
-
- drivers/gpu/drm/i915/Makefile                 |    1 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |    4 +-
- .../drm/i915/gt/intel_execlists_submission.c  |    4 +-
- drivers/gpu/drm/i915/gt/intel_reset.c         |    2 +-
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |    7 +
- drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h |  218 +++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   13 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   12 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  127 +-
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 1655 +++++++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_capture.h    |   33 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   14 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    |  127 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |    7 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |   18 +-
- drivers/gpu/drm/i915/i915_debugfs.c           |    3 +-
- drivers/gpu/drm/i915/i915_gpu_error.c         |  282 ++-
- drivers/gpu/drm/i915/i915_gpu_error.h         |   35 +-
- 18 files changed, 2379 insertions(+), 183 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
+index 919ed985f09a..6c199433945d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
+@@ -52,6 +52,7 @@ struct __guc_mmio_reg_descr_group {
+ 	u32 owner; /* see enum guc_capture_owner */
+ 	u32 type; /* see enum guc_capture_type */
+ 	u32 engine; /* as per MAX_ENGINE_CLASS */
++	struct __guc_mmio_reg_descr *extlist; /* only used for steered registers */
+ };
+ 
+ /**
+@@ -79,6 +80,14 @@ struct intel_guc_state_capture {
+ 	 */
+ 	const struct __guc_mmio_reg_descr_group *reglists;
+ 
++	/**
++	 * @extlists: allocated table of steered register lists used for error-capture state.
++	 *
++	 * NOTE: steered registers have multiple instances depending on the HW configuration
++	 * (slices or dual-sub-slices) and thus depends on HW fuses discovered at startup
++	 */
++	struct __guc_mmio_reg_descr_group *extlists;
++
+ 	/**
+ 	 * @ads_cache: cached register lists that is ADS format ready
+ 	 */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
+index 478308f33d34..45ed09f3453d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
+@@ -133,6 +133,7 @@ static const struct __guc_mmio_reg_descr empty_regs_list[] = {
+ 		TO_GCAP_DEF_OWNER(regsowner), \
+ 		TO_GCAP_DEF_TYPE(regstype), \
+ 		class, \
++		NULL, \
+ 	}
+ 
+ /* List of lists */
+@@ -150,28 +151,33 @@ static const struct __guc_mmio_reg_descr_group xe_lpd_lists[] = {
+ };
+ 
+ static const struct __guc_mmio_reg_descr_group *
+-guc_capture_get_device_reglist(struct intel_guc *guc)
++guc_capture_get_one_list(const struct __guc_mmio_reg_descr_group *reglists,
++			 u32 owner, u32 type, u32 id)
+ {
+-	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
++	int i;
+ 
+-	if (IS_TIGERLAKE(i915) || IS_ROCKETLAKE(i915) ||
+-	    IS_ALDERLAKE_S(i915) || IS_ALDERLAKE_P(i915)) {
+-		return xe_lpd_lists;
++	if (!reglists)
++		return NULL;
++
++	for (i = 0; reglists[i].list; ++i) {
++		if (reglists[i].owner == owner && reglists[i].type == type &&
++		    (reglists[i].engine == id || reglists[i].type == GUC_CAPTURE_LIST_TYPE_GLOBAL))
++			return &reglists[i];
+ 	}
+ 
+ 	return NULL;
+ }
+ 
+-static const struct __guc_mmio_reg_descr_group *
+-guc_capture_get_one_list(const struct __guc_mmio_reg_descr_group *reglists,
+-			 u32 owner, u32 type, u32 id)
++static struct __guc_mmio_reg_descr_group *
++guc_capture_get_one_ext_list(struct __guc_mmio_reg_descr_group *reglists,
++			     u32 owner, u32 type, u32 id)
+ {
+ 	int i;
+ 
+ 	if (!reglists)
+ 		return NULL;
+ 
+-	for (i = 0; reglists[i].list; ++i) {
++	for (i = 0; reglists[i].extlist; ++i) {
+ 		if (reglists[i].owner == owner && reglists[i].type == type &&
+ 		    (reglists[i].engine == id || reglists[i].type == GUC_CAPTURE_LIST_TYPE_GLOBAL))
+ 			return &reglists[i];
+@@ -180,6 +186,127 @@ guc_capture_get_one_list(const struct __guc_mmio_reg_descr_group *reglists,
+ 	return NULL;
+ }
+ 
++static void guc_capture_free_extlists(struct __guc_mmio_reg_descr_group *reglists)
++{
++	int i = 0;
++
++	if (!reglists)
++		return;
++
++	while (reglists[i].extlist)
++		kfree(reglists[i++].extlist);
++}
++
++struct __ext_steer_reg {
++	const char *name;
++	i915_reg_t reg;
++};
++
++static const struct __ext_steer_reg xe_extregs[] = {
++	{"GEN7_SAMPLER_INSTDONE", GEN7_SAMPLER_INSTDONE},
++	{"GEN7_ROW_INSTDONE", GEN7_ROW_INSTDONE}
++};
++
++static void __fill_ext_reg(struct __guc_mmio_reg_descr *ext,
++			   const struct __ext_steer_reg *extlist,
++			   int slice_id, int subslice_id)
++{
++	ext->reg = extlist->reg;
++	ext->flags = FIELD_PREP(GUC_REGSET_STEERING_GROUP, slice_id);
++	ext->flags |= FIELD_PREP(GUC_REGSET_STEERING_INSTANCE, subslice_id);
++	ext->regname = extlist->name;
++}
++
++static int
++__alloc_ext_regs(struct __guc_mmio_reg_descr_group *newlist,
++		 const struct __guc_mmio_reg_descr_group *rootlist, int num_regs)
++{
++	struct __guc_mmio_reg_descr *list;
++
++	list = kcalloc(num_regs, sizeof(struct __guc_mmio_reg_descr), GFP_KERNEL);
++	if (!list)
++		return -ENOMEM;
++
++	newlist->extlist = list;
++	newlist->num_regs = num_regs;
++	newlist->owner = rootlist->owner;
++	newlist->engine = rootlist->engine;
++	newlist->type = rootlist->type;
++
++	return 0;
++}
++
++static void
++guc_capture_alloc_steered_lists_xe_lpd(struct intel_guc *guc,
++				       const struct __guc_mmio_reg_descr_group *lists)
++{
++	struct intel_gt *gt = guc_to_gt(guc);
++	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
++	int slice, subslice, i, num_steer_regs, num_tot_regs = 0;
++	const struct __guc_mmio_reg_descr_group *list;
++	struct __guc_mmio_reg_descr_group *extlists;
++	struct __guc_mmio_reg_descr *extarray;
++	struct sseu_dev_info *sseu;
++
++	/* In XE_LPD we only have steered registers for the render-class */
++	list = guc_capture_get_one_list(lists, GUC_CAPTURE_LIST_INDEX_PF,
++					GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS, GUC_RENDER_CLASS);
++	/* skip if extlists was previously allocated */
++	if (!list || guc->capture->extlists)
++		return;
++
++	num_steer_regs = ARRAY_SIZE(xe_extregs);
++
++	sseu = &gt->info.sseu;
++	for_each_instdone_slice_subslice(i915, sseu, slice, subslice)
++		num_tot_regs += num_steer_regs;
++
++	if (!num_tot_regs)
++		return;
++
++	/* allocate an extra for an end marker */
++	extlists = kcalloc(2, sizeof(struct __guc_mmio_reg_descr_group), GFP_KERNEL);
++	if (!extlists)
++		return;
++
++	if (__alloc_ext_regs(&extlists[0], list, num_tot_regs)) {
++		kfree(extlists);
++		return;
++	}
++
++	extarray = extlists[0].extlist;
++	for_each_instdone_slice_subslice(i915, sseu, slice, subslice) {
++		for (i = 0; i < num_steer_regs; ++i) {
++			__fill_ext_reg(extarray, &xe_extregs[i], slice, subslice);
++			++extarray;
++		}
++	}
++
++	guc->capture->extlists = extlists;
++}
++
++static const struct __guc_mmio_reg_descr_group *
++guc_capture_get_device_reglist(struct intel_guc *guc)
++{
++	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
++
++	if (IS_TIGERLAKE(i915) || IS_ROCKETLAKE(i915) ||
++	    IS_ALDERLAKE_S(i915) || IS_ALDERLAKE_P(i915)) {
++		/*
++		 * For certain engine classes, there are slice and subslice
++		 * level registers requiring steering. We allocate and populate
++		 * these at init time based on hw config add it as an extension
++		 * list at the end of the pre-populated render list.
++		 */
++		guc_capture_alloc_steered_lists_xe_lpd(guc, xe_lpd_lists);
++		return xe_lpd_lists;
++	}
++
++	drm_warn(&i915->drm, "No GuC-capture register lists\n");
++
++	return NULL;
++}
++
+ static const char *
+ __stringify_owner(u32 owner)
+ {
+@@ -250,10 +377,12 @@ static int
+ guc_capture_list_init(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
+ 		      struct guc_mmio_reg *ptr, u16 num_entries)
+ {
+-	u32 i = 0;
++	u32 i = 0, j = 0;
+ 	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
+ 	const struct __guc_mmio_reg_descr_group *reglists = guc->capture->reglists;
++	struct __guc_mmio_reg_descr_group *extlists = guc->capture->extlists;
+ 	const struct __guc_mmio_reg_descr_group *match;
++	struct __guc_mmio_reg_descr_group *matchext;
+ 
+ 	if (!reglists)
+ 		return -ENODEV;
+@@ -272,6 +401,17 @@ guc_capture_list_init(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
+ 		ptr[i].mask = match->list[i].mask;
+ 	}
+ 
++	matchext = guc_capture_get_one_ext_list(extlists, owner, type, classid);
++	if (matchext) {
++		for (i = match->num_regs, j = 0; i < num_entries &&
++		     i < (match->num_regs + matchext->num_regs) &&
++			j < matchext->num_regs; ++i, ++j) {
++			ptr[i].offset = matchext->extlist[j].reg.reg;
++			ptr[i].value = 0xDEADF00D;
++			ptr[i].flags = matchext->extlist[j].flags;
++			ptr[i].mask = matchext->extlist[j].mask;
++		}
++	}
+ 	if (i < num_entries)
+ 		drm_dbg(&i915->drm, "GuC-capture: Init reglist short %d out %d.\n",
+ 			(int)i, (int)num_entries);
+@@ -283,12 +423,20 @@ static int
+ guc_cap_list_num_regs(struct intel_guc_state_capture *gc, u32 owner, u32 type, u32 classid)
+ {
+ 	const struct __guc_mmio_reg_descr_group *match;
++	struct __guc_mmio_reg_descr_group *matchext;
++	int num_regs;
+ 
+ 	match = guc_capture_get_one_list(gc->reglists, owner, type, classid);
+ 	if (!match)
+ 		return 0;
+ 
+-	return match->num_regs;
++	num_regs = match->num_regs;
++
++	matchext = guc_capture_get_one_ext_list(gc->extlists, owner, type, classid);
++	if (matchext)
++		num_regs += matchext->num_regs;
++
++	return num_regs;
+ }
+ 
+ int
+@@ -432,6 +580,12 @@ void intel_guc_capture_destroy(struct intel_guc *guc)
+ 
+ 	kfree(guc->capture);
+ 	guc->capture = NULL;
++
++	guc_capture_free_extlists(guc->capture->extlists);
++	kfree(guc->capture->extlists);
++
++	kfree(guc->capture);
++	guc->capture = NULL;
+ }
+ 
+ int intel_guc_capture_init(struct intel_guc *guc)
 -- 
 2.25.1
 
