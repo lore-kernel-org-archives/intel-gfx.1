@@ -4,137 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAE2BC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 15:40:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFE3EC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 15:40:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A96CE10E71E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8703310E71D;
 	Wed, 23 Mar 2022 15:40:21 +0000 (UTC)
-Received: from mail1.bemta35.messagelabs.com (mail1.bemta35.messagelabs.com
- [67.219.250.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1D310E2FC
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Mar 2022 14:23:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lenovo.com;
- s=Selector; t=1647959000; i=@lenovo.com;
- bh=kyNafTKpHa5QpH1tHfE3IcIIFb6/N/1SL/YFZkOuMTg=;
- h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
- In-Reply-To:Content-Type:Content-Transfer-Encoding;
- b=svFw5xnfH53HYqm4GLOSiDpMnSvQSlminU77WSHzUIOXBbxpPXBQ1RHOlcuxqG+xD
- LnKs0keZYMmlCtBv1Md6PhfOLAQVZwSlaLmO5GMDcXRcN+ZMzO37wIkjmtZb9c0CAB
- tRA6fq3/9Ktqea+XRcHIOh5XvdbP9eIib7dCbl/ePJ/SRtbPeQ1hTPXQpfY0StyPyD
- MILNDtv6/iFdpsgoqOc/AQCFTxN6/uvecN2JzGZIicfu4qkbx/bXsf0KhXyUKrV857
- 0cX3Hrv8EyshW40MfyR+pSAD3JbXoWUzFQdwp6cTt5u9SpqMuclX1L8rlpgnIEAkHM
- Z4PrvvJD2VmBQ==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrIJsWRWlGSWpSXmKPExsWSoS+lo3v9tmW
- SwepvghazJ2xmsmjvsnFg8li85yWTx/3u40wBTFGsmXlJ+RUJrBl7b3kUvJatmLzwGFsD43qJ
- LkYuDkaBpcwS+66/Y4dwFrFKfLh6lqmLkRPI6WCS+HjcDiQhJDCbSaJ95WFGCOcgk8T/MzfBq
- iQEjjNKdK9yh0h0Mkrs3vqDDcKZxCTx6tVcKOcJo8S65jXsEM4jRol9O84wg/TzCthKXPtxih
- HEZhFQlViw8jQjRFxQ4uTMJywgtqhAuET3/v2sILawQJDEtKsb2EBsZgFxiVtP5oPdISJgJdG
- xbyErRFxV4s6+A1DLZjJKPH38FayBTUBbYsuWX2A2p4C+xNubH5kgGjQlWrf/Zoew5SW2v50D
- dpyQgLLEr/7zQDYH0KMKEqu/ykP8nCDRPOUoI4QtKXHt5gV2CFtW4ujZOSwQtq/EouYJbBC2r
- sSf9j/Q8MqRuPKqA6peTuJU7zmmCYy6s5C8PAvJa7OQXDcLyXULGFlWMVonFWWmZ5TkJmbm6B
- oaGOgaGproWlrqGpqY6SVW6SbqlRbrlqcWl+ga6SWWF+ulFhfrFVfmJuek6OWllmxiBKaelKL
- kSTsYv/f91DvEKMnBpCTKu/eIZZIQX1J+SmVGYnFGfFFpTmrxIUYZDg4lCd45Z4BygkWp6akV
- aZk5wDQIk5bg4FES4T1xGijNW1yQmFucmQ6ROsWoy3Fl2969zEIsefl5qVLivCtuAhUJgBRll
- ObBjYCl5EuMslLCvIwMDAxCPAWpRbmZJajyrxjFORiVhHk/3wKawpOZVwK36RXQEUxAR+izmo
- EcUZKIkJJqYFLOKzr1hn3j5A4197Icb03FP0ypPQsyPh0ynT0jiS3jolWsaNihrnuz9nIzFSw
- JS9kyjav3+NQVsySKrm/wzzDUbZpk/Ud367FV86MMMnoe6IssaDn1xUPl64yiq5es3l36diDO
- VZPP9Izfr9oiLaGze/0ETDhFSvSD7lU8PHPHP/Ny9XF74bK+A2YBDh0yWytvK4r5rbqYcFBJY
- Kdeu0172PTvzWGKv5cf3FLkXvxB1Gt17Ld/H9wUMoRtpnrWe+8NK5OQjeD8/7B7vsXGGr4y/n
- z/wEVL12Z9+ce9NfWdTCtba1R67fylQZ7LCqf0T9/PP4v924Z7fcvzvZomqZX1bi6fpDnL00m
- tcPFMJZbijERDLeai4kQAZqz9eEQEAAA=
-X-Env-Sender: markpearson@lenovo.com
-X-Msg-Ref: server-13.tower-636.messagelabs.com!1647958998!7216!1
-X-Originating-IP: [104.47.26.44]
-X-SYMC-ESS-Client-Auth: mailfrom-relay-check=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.10; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 5100 invoked from network); 22 Mar 2022 14:23:19 -0000
-Received: from mail-psaapc01lp2044.outbound.protection.outlook.com (HELO
- APC01-PSA-obe.outbound.protection.outlook.com) (104.47.26.44)
- by server-13.tower-636.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 22 Mar 2022 14:23:19 -0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iillRrG/oy7/DgVgqPZAIWhjQS1AXxEr3YVFRruhWNcKN9MDUAosr6YBTXB+r+VtKzDMhIJEmDXEAUx85sDnFkqUBly+37W73/HFVxbOTgaPdH5n2BwazwhdSRUNjUhEkQLKFM15j6+gLPFvWwFx2MMxmUetYCn48pdDyDmgkOK+pGU3KHhuR9XwdKBrmp0Pp+ZAU4N3azqRXx045FizuG5wxHFjrmZBql7N9/aZbBV/HdNzSXmH3ye87W3XwWLmddcMfo8C7CFgxcaBKsVc8grB3kk+sepKfnZ7uED/CQFxbVFltUSSghbuQPqAOKXaK48J1xbyQmOiN0EsIJbpZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kyNafTKpHa5QpH1tHfE3IcIIFb6/N/1SL/YFZkOuMTg=;
- b=KKE1ih3opgotw8kZn/aeju1WKhfCwmF4DR41yTCYmtnxo9oZrpEZK1Reh2zJeazfNyVAb2RkmmOhIb7QTa66fWZLqZ0OQ7PmNCIxz9yAS+FwqbEl7M/dDEFiFSI4Fwt24LrMHiw0P917xiO0u6H6tXGjQG14tz4IjgsPl/yeCrEgyCmao4QIygFxyMETr79p7Oi98k5yCSl+YR99TBEK4EAhRvUvC4JwDHGIr8+9UJJZOLsCZV0HcOya9jxu73rahwHmYXoGzFaOD1N9XmYxeAb7ufPBzGwWT5QE2oVoTlM0kO3Ktuud49dSRmmNutaY7Ymv41S9jwH2+rof8D9A5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 104.232.225.6) smtp.rcpttodomain=intel.com smtp.mailfrom=lenovo.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=lenovo.com;
- dkim=none (message not signed); arc=none
-Received: from HK2PR0302CA0020.apcprd03.prod.outlook.com (2603:1096:202::30)
- by SG2PR03MB6780.apcprd03.prod.outlook.com (2603:1096:4:1dc::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.7; Tue, 22 Mar
- 2022 14:23:17 +0000
-Received: from HK2APC01FT052.eop-APC01.prod.protection.outlook.com
- (2603:1096:202:0:cafe::c5) by HK2PR0302CA0020.outlook.office365.com
- (2603:1096:202::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17 via Frontend
- Transport; Tue, 22 Mar 2022 14:23:17 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 104.232.225.6) smtp.mailfrom=lenovo.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=lenovo.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- lenovo.com discourages use of 104.232.225.6 as permitted sender)
-Received: from mail.lenovo.com (104.232.225.6) by
- HK2APC01FT052.mail.protection.outlook.com (10.152.248.244) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5081.14 via Frontend Transport; Tue, 22 Mar 2022 14:23:15 +0000
-Received: from reswpmail01.lenovo.com (10.62.32.20) by mail.lenovo.com
- (10.62.123.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2308.27; Tue, 22 Mar
- 2022 10:23:14 -0400
-Received: from [10.46.54.105] (10.46.54.105) by reswpmail01.lenovo.com
- (10.62.32.20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2308.27; Tue, 22 Mar
- 2022 10:23:13 -0400
-Message-ID: <32a6c091-a30c-d8a1-6dd5-d86ce7314051@lenovo.com>
-Date: Tue, 22 Mar 2022 10:23:11 -0400
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0465889FF9;
+ Mon, 21 Mar 2022 13:59:20 +0000 (UTC)
+Received: by mail-wr1-x42e.google.com with SMTP id d7so20816954wrb.7;
+ Mon, 21 Mar 2022 06:59:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=IRiB/8pqrJn1mJ6lfMd6SCDu1bKUwWyYQLH5w5j700I=;
+ b=Zn1wwmet4pawxLOqP/cg2JwyS2ULGs2eq9xcTkt6GgsqmW0h/D4tqnXmX5Iobrir0v
+ SgwwZROkbGNFSIjRReRubAM5Vg+/MdPobbYT+GlWy4s5aih+Vh77TbYJ1G+abJB+BlKC
+ 6d2pdttGwss0mypXR9FbZz/GOe7H48vsclKuE7BkYMpk12Zsc+k+wOjMMXrvJaHwI3b7
+ tYvC72b1Z4XfHqZBb5/Q2Xe/S1LoBOq2Zd9fc3zBXTPBdUhAeMnnQ0opZ+vq9GsgC3ZI
+ r2h33shDQzHLSM1ozVgWl1KxlmBU9lhxaHFqW+0RuTi1A1sOWn+PzpqtFIUxWdHJgYhS
+ cRkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=IRiB/8pqrJn1mJ6lfMd6SCDu1bKUwWyYQLH5w5j700I=;
+ b=DZdhDEe9AQMA/Lusl4wg0yeEq3G2uA3rMfNLrkOM3NjdUXwTyPPpy9lLEbarIAhu7f
+ djaCYkmMhi5i7uzWFv/iPPUyGCtv1kShFzYKMjtWT4IIH0y2dR3sj71HYVqD3Fsxz2yy
+ 936dXisIqdc4l9aSfRm5IhsovDj9ZUUQFcITibtk6o5xFTPvUld5ZN52Ihn0icjT/8UU
+ fBt6IdWDFcFqInwZ1RhGt4XvTPGQ+0e33A6EQxxU2lsp+CVm1mq2mbvhgji7TzAriZi1
+ EUZGIG7+TbpWOjtNg4VLuHb95F8nZix41xbRFoKfOStQ+lZ9KIHP0RwJHCZ88aSdVmy/
+ Zlvw==
+X-Gm-Message-State: AOAM532+Nt9tMxu+KJF2c9crpwe4pBokhe0FTcAuwc+EUEpE6hBO9jdM
+ OUr7vg+qUPYg8XQgOMWdc1dPvyF1TFI=
+X-Google-Smtp-Source: ABdhPJx96sZKYxJq0GD0vKeaAgQxQuDzu2xCGdw4/kDWrDSZoy2Mezt5x/iaYON3zdfdHp9R1GC21g==
+X-Received: by 2002:a5d:6d44:0:b0:1e4:9a6d:c171 with SMTP id
+ k4-20020a5d6d44000000b001e49a6dc171mr18989963wri.468.1647871159523; 
+ Mon, 21 Mar 2022 06:59:19 -0700 (PDT)
+Received: from able.fritz.box (p5b0eab60.dip0.t-ipconnect.de. [91.14.171.96])
+ by smtp.gmail.com with ESMTPSA id
+ m3-20020a5d6243000000b001e33760776fsm13317640wrv.10.2022.03.21.06.59.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Mar 2022 06:59:19 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: daniel.vetter@ffwll.ch,
+	dri-devel@lists.freedesktop.org
+Date: Mon, 21 Mar 2022 14:58:55 +0100
+Message-Id: <20220321135856.1331-22-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220321135856.1331-1-christian.koenig@amd.com>
+References: <20220321135856.1331-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-References: <20220321104904.12425-1-stanislav.lisovskiy@intel.com>
- <9e70bec0-66b6-9ac7-1b5d-9d8679700523@lenovo.com>
- <20220322141809.GA31222@intel.com>
-From: Mark Pearson <markpearson@lenovo.com>
-In-Reply-To: <20220322141809.GA31222@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.46.54.105]
-X-ClientProxiedBy: reswpmail01.lenovo.com (10.62.32.20) To
- reswpmail01.lenovo.com (10.62.32.20)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 85761b9d-a902-431d-2efd-08da0c0f8196
-X-MS-TrafficTypeDiagnostic: SG2PR03MB6780:EE_
-X-Microsoft-Antispam-PRVS: <SG2PR03MB678074145FA66AB7B42D9727C5179@SG2PR03MB6780.apcprd03.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DK5uLxzD6H4U8FBJKAM6bcTKEHmS5OjYsek2Az+7PPExiVYyjjSHLu3+X+3t+fn68MTTNulQH/+qLONSLLGujikvt3NjcMe1m6EFB3GIwxDWI6RmhebPpy9owTzjEscSp78EWbigs4SK5617/IgH8molqIp+B/QIyeezoWEqdDCa5CNPXbVCpwo0f6l0N0btsA0krpbKCZFjYp+IvxQb1dt99pxUairgt0s8Ssr8nk38CbclLmT6XT+VgoEAD1qZsBdvWRc+3LIicP0kBTsQ+f+L0vQ2Af/oQaL7yDPaLfu+INYRjvENL7nAfXWH7+soV+NN7VYGwUq5HeBR4tvhO9a9VwNtKOO0sI6BF4A1xFypi39FWtyxkvARv8w7gBJSufaZnUbnJ+KdR3EkNn1K5mAZbSb3/F6Bwz65awQFAN8G5Zd7KKHvE/W2tYhh8LvefENefdbZK0rSZwrIMVoQHe2aCSGvIhOQ9ZWdrp3h+McTlqIOTGsFniXRYlzW0vyXx8VZAiNTUTKigJr5TX0Mu8/7H4ra25LP5urF35duzNfTTmcseekjje2f74L7CChgLkTNASmN+MIgggrpVOa4X/J4OrRbwrIG2T79RHi7/tchARs1zkDY+AwO68jO78uBgJZFKMR3dL+VJ0hwjPqkukcIv46aLxS9MyC8mUwTk1WYjIsGC0k7qviIDpxqd0s522FphTluClqwLimB3RTAdi7X8PCAD/rkyR6h30MHyObnT7w62yto6OwFHhvCBkl1Yb3yTGDDAnIT1TpGPBLnKg==
-X-Forefront-Antispam-Report: CIP:104.232.225.6; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.lenovo.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(186003)(356005)(40460700003)(426003)(26005)(53546011)(31686004)(70206006)(70586007)(5660300002)(336012)(4326008)(47076005)(2906002)(36756003)(8676002)(8936002)(82960400001)(31696002)(316002)(6916009)(16576012)(508600001)(16526019)(81166007)(36860700001)(83380400001)(2616005)(82310400004)(86362001)(36906005)(3940600001)(36900700001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-OriginatorOrg: lenovo.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2022 14:23:15.9024 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85761b9d-a902-431d-2efd-08da0c0f8196
-X-MS-Exchange-CrossTenant-Id: 5c7d0b28-bdf8-410c-aa93-4df372b16203
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=5c7d0b28-bdf8-410c-aa93-4df372b16203; Ip=[104.232.225.6];
- Helo=[mail.lenovo.com]
-X-MS-Exchange-CrossTenant-AuthSource: HK2APC01FT052.eop-APC01.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR03MB6780
-X-Mailman-Approved-At: Wed, 23 Mar 2022 15:40:19 +0000
-Subject: Re: [Intel-gfx] [External] Re: drm/i915/adl_p: Increase CDCLK by
- 15% if PSR2 is used
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 23 Mar 2022 15:40:20 +0000
+Subject: [Intel-gfx] [PATCH 22/23] drm/i915: drop bo->moving dependency
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,101 +74,149 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thanks Stanislav,
+That should now be handled by the common dma_resv framework.
 
-On 3/22/22 10:18, Lisovskiy, Stanislav wrote:
-> On Tue, Mar 22, 2022 at 09:55:35AM -0400, Mark Pearson wrote:
->> Hi,
->>
->> On 3/21/22 06:49, Stanislav Lisovskiy wrote:
->>> We are currently getting FIFO underruns, in particular
->>> when PSR2 is enabled. There seem to be no existing workaround
->>> or patches, which can fix that issue(were expecting some recent
->>> selective fetch update and DBuf bw/SAGV fixes to help,
->>> which unfortunately didn't).
->>> Current idea is that it looks like for some reason the
->>> DBuf prefill time isn't enough once we exit PSR2, despite its
->>> theoretically correct.
->>> So bump it up a bit by 15%(minimum experimental amount required
->>> to get it working), if PSR2 is enabled.
->>> For PSR1 there is no need in this hack, so we limit it only
->>> to PSR2 and Alderlake.
->>>
->>> v2: - Added comment(Jose Souza)
->>>     - Fixed 15% calculation(Jose Souza)
->>>
->>> Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
->>> ---
->>>  drivers/gpu/drm/i915/display/intel_cdclk.c | 26 ++++++++++++++++++++++
->>>  1 file changed, 26 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
->>> index 8888fda8b701..92d57869983a 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
->>> @@ -2325,6 +2325,32 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
->>>  					dev_priv->max_cdclk_freq));
->>>  	}
->>>  
->>> +
->>> +	/*
->>> +	 * HACK.  We are getting FIFO underruns, in particular
->>> +	 * when PSR2 is enabled. There seem to be no existing workaround
->>> +	 * or patches as of now.
->>> +	 * Current idea is that it looks like for some reason the
->>> +	 * DBuf prefill time isn't enough once we exit PSR2, despite its
->>> +	 * theoretically correct.
->>> +	 * So bump it up a bit by 15%(minimum experimental amount required
->>> +	 * to get it working), if PSR2 is enabled.
->>> +	 * For PSR1 there is no need in this hack, so we limit it only
->>> +	 * to PSR2 and Alderlake.
->>> +	 */
->>> +	if (IS_ALDERLAKE_P(dev_priv)) {
->>> +		struct intel_encoder *encoder;
->>> +
->>> +		for_each_intel_encoder_with_psr(&dev_priv->drm, encoder) {
->>> +			struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
->>> +
->>> +			if (intel_dp->psr.psr2_enabled) {
->>> +				min_cdclk = DIV_ROUND_UP(min_cdclk * 115, 100);
->>> +				break;
->>> +			}
->>> +		}
->>> +	}
->>> +
->>>  	if (min_cdclk > dev_priv->max_cdclk_freq) {
->>>  		drm_dbg_kms(&dev_priv->drm,
->>>  			    "required cdclk (%d kHz) exceeds max (%d kHz)\n",
->>
->> Not sure if this will get thru as I'm not subscribed to this list but I
->> tested the patch below on my X1 Yoga 7 (Intel ADL-P with Step C0
->> silicon) and it didn't fix some screen tearing issues I'm seeing there
->> that are PSR2 related
->>
->> I also tried increasing the timeout to *300 to see if that made any
->> difference and it didn't.
->>
->> Let me know if there's anything else I can try out - I have a couple of
->> ADL-P machines I can test against and both are seeing screen tearing
-> 
-> Are you getting this screen tearing because of the FIFO underruns?
-> Those should be visible in dmesg. This patch can fix only part of underrun
-> issues caused by PSR2. 
-> If your screen tearing caused by PSR2, but there are no underruns that 
-> patch won't help for sure.
-> 
-Ah - OK, no FIFO underruns that I've noticed in the logs but I was
-hoping the two were connected. I'll keep an eye out for those in the
-meantime.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Cc: intel-gfx@lists.freedesktop.org
+---
+ drivers/gpu/drm/i915/gem/i915_gem_object.c   | 29 ++++++--------------
+ drivers/gpu/drm/i915/gem/i915_gem_object.h   |  5 ++--
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 15 +---------
+ drivers/gpu/drm/i915/i915_vma.c              |  9 +++++-
+ 4 files changed, 19 insertions(+), 39 deletions(-)
 
-I guess I'll just wave a flag and say I'm seeing PSR2 related tearing
-issues. If I disable  PSR2 selective fetch it goes away
-(i915.enable_psr2_sel_fetch=0) - but as that's a different issue to this
-patch thread I don't want to drag the conversation too far sideways.
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index d87b508b59b1..fd240435ffef 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -742,18 +742,19 @@ static const struct drm_gem_object_funcs i915_gem_object_funcs = {
+ /**
+  * i915_gem_object_get_moving_fence - Get the object's moving fence if any
+  * @obj: The object whose moving fence to get.
++ * @fence: The resulting fence
+  *
+  * A non-signaled moving fence means that there is an async operation
+  * pending on the object that needs to be waited on before setting up
+  * any GPU- or CPU PTEs to the object's pages.
+  *
+- * Return: A refcounted pointer to the object's moving fence if any,
+- * NULL otherwise.
++ * Return: Negative error code or 0 for success.
+  */
+-struct dma_fence *
+-i915_gem_object_get_moving_fence(struct drm_i915_gem_object *obj)
++int i915_gem_object_get_moving_fence(struct drm_i915_gem_object *obj,
++				     struct dma_fence **fence)
+ {
+-	return dma_fence_get(i915_gem_to_ttm(obj)->moving);
++	return dma_resv_get_singleton(obj->base.resv, DMA_RESV_USAGE_KERNEL,
++				      fence);
+ }
+ 
+ /**
+@@ -771,23 +772,9 @@ i915_gem_object_get_moving_fence(struct drm_i915_gem_object *obj)
+ int i915_gem_object_wait_moving_fence(struct drm_i915_gem_object *obj,
+ 				      bool intr)
+ {
+-	struct dma_fence *fence = i915_gem_to_ttm(obj)->moving;
+-	int ret;
+-
+ 	assert_object_held(obj);
+-	if (!fence)
+-		return 0;
+-
+-	ret = dma_fence_wait(fence, intr);
+-	if (ret)
+-		return ret;
+-
+-	if (fence->error)
+-		return fence->error;
+-
+-	i915_gem_to_ttm(obj)->moving = NULL;
+-	dma_fence_put(fence);
+-	return 0;
++	return dma_resv_wait_timeout(obj->base. resv, DMA_RESV_USAGE_KERNEL,
++				     intr, MAX_SCHEDULE_TIMEOUT);
+ }
+ 
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index f66d46882ea7..be57af8bfb31 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -521,9 +521,8 @@ i915_gem_object_finish_access(struct drm_i915_gem_object *obj)
+ 	i915_gem_object_unpin_pages(obj);
+ }
+ 
+-struct dma_fence *
+-i915_gem_object_get_moving_fence(struct drm_i915_gem_object *obj);
+-
++int i915_gem_object_get_moving_fence(struct drm_i915_gem_object *obj,
++				     struct dma_fence **fence);
+ int i915_gem_object_wait_moving_fence(struct drm_i915_gem_object *obj,
+ 				      bool intr);
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index e4a232e22f9d..4d5d0cd64f23 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -452,19 +452,6 @@ __i915_ttm_move(struct ttm_buffer_object *bo,
+ 	return fence;
+ }
+ 
+-static int
+-prev_deps(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
+-	  struct i915_deps *deps)
+-{
+-	int ret;
+-
+-	ret = i915_deps_add_dependency(deps, bo->moving, ctx);
+-	if (!ret)
+-		ret = i915_deps_add_resv(deps, bo->base.resv, ctx);
+-
+-	return ret;
+-}
+-
+ /**
+  * i915_ttm_move - The TTM move callback used by i915.
+  * @bo: The buffer object.
+@@ -519,7 +506,7 @@ int i915_ttm_move(struct ttm_buffer_object *bo, bool evict,
+ 		struct i915_deps deps;
+ 
+ 		i915_deps_init(&deps, GFP_KERNEL | __GFP_NORETRY | __GFP_NOWARN);
+-		ret = prev_deps(bo, ctx, &deps);
++		ret = i915_deps_add_resv(&deps, bo->base.resv, ctx);
+ 		if (ret) {
+ 			i915_refct_sgt_put(dst_rsgt);
+ 			return ret;
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 52fd6705a518..8737159f4706 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -1247,10 +1247,17 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 	if (err)
+ 		return err;
+ 
++	if (vma->obj) {
++		err = i915_gem_object_get_moving_fence(vma->obj, &moving);
++		if (err)
++			return err;
++	} else {
++		moving = NULL;
++	}
++
+ 	if (flags & PIN_GLOBAL)
+ 		wakeref = intel_runtime_pm_get(&vma->vm->i915->runtime_pm);
+ 
+-	moving = vma->obj ? i915_gem_object_get_moving_fence(vma->obj) : NULL;
+ 	if (flags & vma->vm->bind_async_flags || moving) {
+ 		/* lock VM */
+ 		err = i915_vm_lock_objects(vma->vm, ww);
+-- 
+2.25.1
 
-Thanks!
-Mark
