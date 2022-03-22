@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27278C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Mar 2022 19:52:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B435EC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Mar 2022 19:53:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9127E10E0ED;
-	Tue, 22 Mar 2022 19:52:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D6BF10E0ED;
+	Tue, 22 Mar 2022 19:53:40 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id BD93810E0ED;
- Tue, 22 Mar 2022 19:52:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8007710E0ED;
+ Tue, 22 Mar 2022 19:53:38 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id BD665A66C9;
- Tue, 22 Mar 2022 19:52:29 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 8111AA66C9;
+ Tue, 22 Mar 2022 19:53:38 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-Date: Tue, 22 Mar 2022 19:52:29 -0000
-Message-ID: <164797874977.20007.10346348037313072764@emeril.freedesktop.org>
+Date: Tue, 22 Mar 2022 19:53:38 -0000
+Message-ID: <164797881852.20007.13473374922525639964@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220322185658.31344-1-ashutosh.dixit@intel.com>
 In-Reply-To: <20220322185658.31344-1-ashutosh.dixit@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/rps=3A_Centralize_computation_of_freq_caps_=28rev2?=
- =?utf-8?q?=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/rps=3A_Centralize_computation_of_freq_caps_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,13 +53,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-3df3df4064ea drm/i915/rps: Centralize computation of freq caps
--:265: WARNING:BLOCK_COMMENT_STYLE: Block comments should align the * on each line
-#265: FILE: drivers/gpu/drm/i915/gt/intel_rps_types.h:43:
-+ * should be used to convert to MHz
-+*/
-
-total: 0 errors, 1 warnings, 0 checks, 254 lines checked
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
