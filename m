@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20D61C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Mar 2022 21:42:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE2D9C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Mar 2022 21:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 645BD10E5C1;
-	Tue, 22 Mar 2022 21:42:34 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E906610E5BB;
- Tue, 22 Mar 2022 21:42:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E29E10E5C5;
+	Tue, 22 Mar 2022 21:42:36 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 316F510E5C1;
+ Tue, 22 Mar 2022 21:42:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647985351; x=1679521351;
+ t=1647985345; x=1679521345;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8hIKi79ccuLZ8nZqSaqYgq9+xnpKQSB7LLQJwKuSquI=;
- b=PZaU675OAKLoMxNd793mUTGmePKpt6r7+vVpFhoVdiCc/0tGXCNugeup
- dcwtF0FU2GYFD3XBzqoB863OqTs+9wC97+EGuZDjQtUWn9Ir5Bz5KxsX1
- PA+5sDTxK6y93nW80jP/7Eij4sGnxHGx1CVfQvkrrh1S2pTGxIExeidl1
- 4MEccy3onK2PLrxr8CaT2tjxNkR+bLigmiSXTi0yTTDcLLQSYG70uufMi
- ZRkkch3mHj/T375TS6qX2MED3l69mn9U+Ov/zOZQ6VeacMZkWQTHU656f
- Yx+ZFwHCghCilbXENxtO2g+wmKkthI2Owg/28dP0W+OjEA31hZ/Dz1Da8 w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10294"; a="344385886"
-X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; d="scan'208";a="344385886"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2022 14:42:24 -0700
-X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; d="scan'208";a="717136076"
+ bh=RAs881SQdU0x9yQqDTJ4ecj4mknGyUDxzffOdBjt/qQ=;
+ b=jaM7SSMiN9oyeZec5zBcSafq6LI1vVNmq274//Spps1u5m9DJo++435w
+ 2IL6GIbTFYriKGslCLLksgASZNCA+mfNSGIOTDaUb9ZLXc6xfLSbuLufy
+ jRu4xQ0LL6PZe9r903il/LgK6iFUd5DAHZIMs3dVnQf5dW6R36H6yPVst
+ sbKRCHXi+cyxoPfVivIIxhLsDDJFSXO78MRQBEz/1fSBs99ZIQHVZ+o9L
+ nqM+bM0hQlW77s9XQrhyDTcs2YGhSoW6Lv3J7peGLKpUWdIn9FQRl9PLl
+ L8Zy/23hinmzlDYgNz7aQa5k/nCfdbpuenzRpEXs8QUVR9I+Q4IDBtWmB g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10294"; a="282795557"
+X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; d="scan'208";a="282795557"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2022 14:42:11 -0700
+X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; d="scan'208";a="560605846"
 Received: from sburacze-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.58.237])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2022 14:42:23 -0700
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2022 14:42:09 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Tue, 22 Mar 2022 23:40:48 +0200
-Message-Id: <091dcecb74a14b2cb618f2fc494fd0b52bf535b2.1647985054.git.jani.nikula@intel.com>
+Date: Tue, 22 Mar 2022 23:40:45 +0200
+Message-Id: <403d47054c94a1feecab1c5fb8b4779689b38088.1647985054.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1647985054.git.jani.nikula@intel.com>
 References: <cover.1647985054.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 19/19] drm/edid: sunset drm_find_cea_extension()
+Subject: [Intel-gfx] [RFC 16/19] drm/edid: detect basic audio only on CEA
+ extension
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,66 +62,48 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Convert drm_find_cea_extension() to a predicate function to check if the
-EDID has a CEA extension or a DisplayID CTA data block. This is mainly
-to avoid adding new users that only find the first CEA extension.
+The CTA data block in DisplayID does not have the bits from byte 3 that
+a CEA extension has. Only look for them in CEA extensions, but also look
+for them in all CEA extensions.
 
+References: https://patchwork.freedesktop.org/patch/msgid/20220321044330.27723-1-cooper.chiou@intel.com
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index dfaa21f00941..84314b65b75b 100644
+index b3aedeefed82..b6675f8638bb 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -3422,30 +3422,29 @@ const u8 *drm_find_edid_extension(const struct edid *edid,
- 	return edid_ext;
- }
- 
--static const u8 *drm_find_cea_extension(const struct edid *edid)
-+/* Return true if the EDID has a CEA extension or a DisplayID CTA data block */
-+static bool drm_edid_has_cea_extension(const struct edid *edid)
+@@ -4959,16 +4959,21 @@ EXPORT_SYMBOL(drm_detect_hdmi_monitor);
+  */
+ bool drm_detect_monitor_audio(struct edid *edid)
  {
- 	const struct displayid_block *block;
- 	struct displayid_iter iter;
--	const u8 *cea;
- 	int ext_index = 0;
-+	bool found = false;
++	struct drm_edid_iter edid_iter;
+ 	const struct cea_db *db;
+ 	struct cea_db_iter iter;
+-	const u8 *edid_ext;
++	const u8 *cea;
+ 	bool has_audio = false;
  
- 	/* Look for a top level CEA extension block */
--	/* FIXME: make callers iterate through multiple CEA ext blocks? */
--	cea = drm_find_edid_extension(edid, CEA_EXT, &ext_index);
--	if (cea)
--		return cea;
-+	if (drm_find_edid_extension(edid, CEA_EXT, &ext_index))
-+		return true;
+-	edid_ext = drm_find_cea_extension(edid);
+-	if (!edid_ext)
+-		goto end;
+-
+-	has_audio = ((edid_ext[3] & EDID_BASIC_AUDIO) != 0);
++	drm_edid_iter_begin(edid, &edid_iter);
++	drm_edid_iter_for_each(cea, &edid_iter) {
++		if (cea[0] == CEA_EXT) {
++			has_audio = cea[3] & EDID_BASIC_AUDIO;
++			if (has_audio)
++				break;
++		}
++	}
++	drm_edid_iter_end(&edid_iter);
  
- 	/* CEA blocks can also be found embedded in a DisplayID block */
- 	displayid_iter_edid_begin(edid, &iter);
- 	displayid_iter_for_each(block, &iter) {
- 		if (block->tag == DATA_BLOCK_CTA) {
--			cea = (const u8 *)block;
-+			found = true;
- 			break;
- 		}
- 	}
- 	displayid_iter_end(&iter);
- 
--	return cea;
-+	return found;
- }
- 
- static __always_inline const struct drm_display_mode *cea_mode_for_vic(u8 vic)
-@@ -3715,7 +3714,7 @@ add_alternate_cea_modes(struct drm_connector *connector, struct edid *edid)
- 	int modes = 0;
- 
- 	/* Don't add CEA modes if the CEA extension block is missing */
--	if (!drm_find_cea_extension(edid))
-+	if (!drm_edid_has_cea_extension(edid))
- 		return 0;
- 
- 	/*
+ 	if (has_audio) {
+ 		DRM_DEBUG_KMS("Monitor has basic audio support\n");
 -- 
 2.30.2
 
