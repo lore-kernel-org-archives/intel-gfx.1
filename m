@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE2D9C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Mar 2022 21:42:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24345C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Mar 2022 21:45:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E29E10E5C5;
-	Tue, 22 Mar 2022 21:42:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A73E10E5A9;
+	Tue, 22 Mar 2022 21:45:12 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 316F510E5C1;
- Tue, 22 Mar 2022 21:42:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBE9A10E5A9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Mar 2022 21:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647985345; x=1679521345;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=RAs881SQdU0x9yQqDTJ4ecj4mknGyUDxzffOdBjt/qQ=;
- b=jaM7SSMiN9oyeZec5zBcSafq6LI1vVNmq274//Spps1u5m9DJo++435w
- 2IL6GIbTFYriKGslCLLksgASZNCA+mfNSGIOTDaUb9ZLXc6xfLSbuLufy
- jRu4xQ0LL6PZe9r903il/LgK6iFUd5DAHZIMs3dVnQf5dW6R36H6yPVst
- sbKRCHXi+cyxoPfVivIIxhLsDDJFSXO78MRQBEz/1fSBs99ZIQHVZ+o9L
- nqM+bM0hQlW77s9XQrhyDTcs2YGhSoW6Lv3J7peGLKpUWdIn9FQRl9PLl
- L8Zy/23hinmzlDYgNz7aQa5k/nCfdbpuenzRpEXs8QUVR9I+Q4IDBtWmB g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10294"; a="282795557"
-X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; d="scan'208";a="282795557"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ t=1647985510; x=1679521510;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=zvi6rsdHH+v8L7qvqSWfJFW+SFf9XcYslK612i10d1M=;
+ b=OpoDyiqvnsBWejOxpG2rFe95wKzW6GcoGdeq0881oCgw2G4h5qrDDQRh
+ eEKeIYXtJgL6UHPl6kKRUFDgUamPqZvgVcwA0WAyo0PTeBl78oUvkp099
+ aA++Hkj4bmsD0rIWI4RVjc642NlFJQZYHsk5bWMk5AWXhzlBwJLMQ7FUm
+ 55O7xnobAaSskHiItybrznA6PRSWtNe7c40mJbxRjD83yKZ7z/zhqetME
+ zBmKxHeZ/++Jt1sD7J/67z+NiJGqKWMoyIBd0xpauq6XAQyfzlb9O2V86
+ AgYe+rIx05oT/1b/zbd66JjsN7wHBl3E4REQkkerFXnLW1WqEfHaFePXy g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10294"; a="282796505"
+X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; d="scan'208";a="282796505"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2022 14:42:11 -0700
-X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; d="scan'208";a="560605846"
-Received: from sburacze-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.58.237])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2022 14:42:09 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue, 22 Mar 2022 23:40:45 +0200
-Message-Id: <403d47054c94a1feecab1c5fb8b4779689b38088.1647985054.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1647985054.git.jani.nikula@intel.com>
-References: <cover.1647985054.git.jani.nikula@intel.com>
+ 22 Mar 2022 14:45:10 -0700
+X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; d="scan'208";a="583449596"
+Received: from idwilson-mobl.amr.corp.intel.com (HELO
+ josouza-mobl2.amr.corp.intel.com) ([10.212.48.12])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2022 14:45:07 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 22 Mar 2022 14:46:13 -0700
+Message-Id: <20220322214616.160640-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 16/19] drm/edid: detect basic audio only on CEA
- extension
+Subject: [Intel-gfx] [PATCH v2 1/4] drm/i915/display: Program
+ PIPE_MBUS_DBOX_CTL with adl-p values
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,52 +56,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The CTA data block in DisplayID does not have the bits from byte 3 that
-a CEA extension has. Only look for them in CEA extensions, but also look
-for them in all CEA extensions.
+From: Caz Yokoyama <caz.yokoyama@intel.com>
 
-References: https://patchwork.freedesktop.org/patch/msgid/20220321044330.27723-1-cooper.chiou@intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+B credits set by IFWI do not match with specification default, so here
+programming the right value.
+
+Also while at it, taking the oportunity to do a read-modify-write to
+not overwrite all other bits in this register that specification don't
+ask us to change.
+
+BSpec: 49213
+BSpec: 50343
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Caz Yokoyama <caz.yokoyama@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index b3aedeefed82..b6675f8638bb 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -4959,16 +4959,21 @@ EXPORT_SYMBOL(drm_detect_hdmi_monitor);
-  */
- bool drm_detect_monitor_audio(struct edid *edid)
- {
-+	struct drm_edid_iter edid_iter;
- 	const struct cea_db *db;
- 	struct cea_db_iter iter;
--	const u8 *edid_ext;
-+	const u8 *cea;
- 	bool has_audio = false;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index dc6e21e4ef0b9..424cd7e9afe60 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1830,13 +1830,19 @@ static void icl_pipe_mbus_enable(struct intel_crtc *crtc, bool joined_mbus)
+ 	enum pipe pipe = crtc->pipe;
+ 	u32 val;
  
--	edid_ext = drm_find_cea_extension(edid);
--	if (!edid_ext)
--		goto end;
--
--	has_audio = ((edid_ext[3] & EDID_BASIC_AUDIO) != 0);
-+	drm_edid_iter_begin(edid, &edid_iter);
-+	drm_edid_iter_for_each(cea, &edid_iter) {
-+		if (cea[0] == CEA_EXT) {
-+			has_audio = cea[3] & EDID_BASIC_AUDIO;
-+			if (has_audio)
-+				break;
-+		}
-+	}
-+	drm_edid_iter_end(&edid_iter);
++	val = intel_de_read(dev_priv, PIPE_MBUS_DBOX_CTL(pipe));
++	val &= ~MBUS_DBOX_A_CREDIT_MASK;
+ 	/* Wa_22010947358:adl-p */
+ 	if (IS_ALDERLAKE_P(dev_priv))
+-		val = joined_mbus ? MBUS_DBOX_A_CREDIT(6) : MBUS_DBOX_A_CREDIT(4);
++		val |= joined_mbus ? MBUS_DBOX_A_CREDIT(6) : MBUS_DBOX_A_CREDIT(4);
+ 	else
+-		val = MBUS_DBOX_A_CREDIT(2);
++		val |= MBUS_DBOX_A_CREDIT(2);
  
- 	if (has_audio) {
- 		DRM_DEBUG_KMS("Monitor has basic audio support\n");
+-	if (DISPLAY_VER(dev_priv) >= 12) {
++	val &= ~(MBUS_DBOX_BW_CREDIT_MASK | MBUS_DBOX_B_CREDIT_MASK);
++	if (IS_ALDERLAKE_P(dev_priv)) {
++		val |= MBUS_DBOX_BW_CREDIT(2);
++		val |= MBUS_DBOX_B_CREDIT(8);
++	} else if (DISPLAY_VER(dev_priv) >= 12) {
+ 		val |= MBUS_DBOX_BW_CREDIT(2);
+ 		val |= MBUS_DBOX_B_CREDIT(12);
+ 	} else {
 -- 
-2.30.2
+2.35.1
 
