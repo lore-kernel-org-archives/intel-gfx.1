@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEB4DC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Mar 2022 12:00:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 486C9C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Mar 2022 12:00:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAE4C10E406;
-	Tue, 22 Mar 2022 12:00:31 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2FAC10E55C
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Mar 2022 12:00:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8074C10E55C;
+	Tue, 22 Mar 2022 12:00:37 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACCF10E55C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Mar 2022 12:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647950427; x=1679486427;
+ t=1647950434; x=1679486434;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=ZbClmHlXheS+6ZlPP/dQzmRhXjxxyvOqln8w+8MbAZI=;
- b=HeGDjnHCLJ2P9hypMuKE4iBB0d38gaUd7VbUFytDhebf0Vo+SGMLRVd6
- lTppX2KlkJzB1b618yzrYgTSEwEPs8ZwS3Qnd7+Oz4h8HMOgxUIpHk1yH
- 7KD3ypkwqcG/6bplVskUW4Xai92f91vPDTSSEnATCqIcEn/klCLmyY7eZ
- IvO25kZRzx9kUg83Qp0EGVqkavb7l0CKX1x7p//zYI1yU3m3OidI+xFIM
- xhsJIsK/+tKJAtDrhAvbP9hJojtK6xoR4rSqPMZmRF4/DStmNyDRSkzz6
- 1VmY7pF28wl7d4hYDyN/w0wGABmVtoEs4tpBk+DVZGgoLX6TLfGWGbblj w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="245273352"
-X-IronPort-AV: E=Sophos;i="5.90,201,1643702400"; d="scan'208";a="245273352"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2022 05:00:27 -0700
+ bh=1k01XVi5PwICq1RZPZZGKfpYZA5g1Ux2NENOIeDv2Eg=;
+ b=BcTWrso6Mju213PCV9HZrJPIzSPnum7N7p11zS84UOEIzdW/ZjgwhqEC
+ FGHLZhdztKN2AxJ3oBZlNutoJ6U3nmSMLC0Ql3HEO0sN0d8v/YG/RBirp
+ /B/RM+g4LsexfIue+VI7KFELasqbll/AjoOzUSXaVLBfQrd1v/qxqO7ix
+ rGbrzb636tVBUSFitqthRlJwCHdUFK9fEZEV+hIWh2aAeUZn4heT5BcHO
+ j5B4O9g7fQeZVXHSCm3XfnQni2f+f/HaD4sXlW0+7wIkkNOU9WXHTbioF
+ pKmAiyjhGJiw+E36ze/NWyEIwjFv4qAWFs7IoDEBwuLvBe+8ivj8enRor A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="257989539"
+X-IronPort-AV: E=Sophos;i="5.90,201,1643702400"; d="scan'208";a="257989539"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2022 05:00:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,201,1643702400"; d="scan'208";a="518853369"
+X-IronPort-AV: E=Sophos;i="5.90,201,1643702400"; d="scan'208";a="515315540"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.61])
- by orsmga006.jf.intel.com with SMTP; 22 Mar 2022 05:00:25 -0700
+ by orsmga002.jf.intel.com with SMTP; 22 Mar 2022 05:00:31 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 22 Mar 2022 14:00:24 +0200
+ Tue, 22 Mar 2022 14:00:30 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Mar 2022 14:00:06 +0200
-Message-Id: <20220322120015.28074-4-ville.syrjala@linux.intel.com>
+Date: Tue, 22 Mar 2022 14:00:08 +0200
+Message-Id: <20220322120015.28074-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220322120015.28074-1-ville.syrjala@linux.intel.com>
 References: <20220322120015.28074-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 03/12] drm/i915/dp: Extract
- intel_dp_has_audio()
+Subject: [Intel-gfx] [PATCH v2 05/12] drm/i915/dp: Reorder
+ intel_dp_compute_config() a bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,73 +64,68 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Declutter intel_dp_compute_config() a bit by moving the
-has_audio computation into a helper. HDMI already does the same thing.
+Consolidate the double pfit call, and reorder things so that
+intel_dp_output_format() and intel_dp_compute_link_config() are
+back-to-back. They are intimately related, and will need to be
+called twice to properly handle the "4:2:0 also" modes.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 30 ++++++++++++++++---------
- 1 file changed, 20 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 23 ++++++++++-------------
+ 1 file changed, 10 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 3394e4951fef..fc50802c9997 100644
+index 9720571438e9..a655af1ab359 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1798,6 +1798,24 @@ intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
- 		intel_hdmi_infoframe_enable(HDMI_PACKET_TYPE_GAMUT_METADATA);
- }
- 
-+static bool intel_dp_has_audio(struct intel_encoder *encoder,
-+			       const struct intel_crtc_state *crtc_state,
-+			       const struct drm_connector_state *conn_state)
-+{
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-+	const struct intel_digital_connector_state *intel_conn_state =
-+		to_intel_digital_connector_state(conn_state);
-+
-+	if (!intel_dp_port_has_audio(i915, encoder->port))
-+		return false;
-+
-+	if (intel_conn_state->force_audio == HDMI_AUDIO_AUTO)
-+		return intel_dp->has_audio;
-+	else
-+		return intel_conn_state->force_audio == HDMI_AUDIO_ON;
-+}
-+
- int
- intel_dp_compute_config(struct intel_encoder *encoder,
- 			struct intel_crtc_state *pipe_config,
-@@ -1807,14 +1825,11 @@ intel_dp_compute_config(struct intel_encoder *encoder,
- 	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 	const struct drm_display_mode *fixed_mode;
--	enum port port = encoder->port;
- 	struct intel_connector *intel_connector = intel_dp->attached_connector;
--	struct intel_digital_connector_state *intel_conn_state =
--		to_intel_digital_connector_state(conn_state);
- 	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CONSTANT_N);
- 	int ret = 0, output_bpp;
- 
--	if (HAS_PCH_SPLIT(dev_priv) && !HAS_DDI(dev_priv) && port != PORT_A)
-+	if (HAS_PCH_SPLIT(dev_priv) && !HAS_DDI(dev_priv) && encoder->port != PORT_A)
+@@ -1832,15 +1832,6 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 	if (HAS_PCH_SPLIT(dev_priv) && !HAS_DDI(dev_priv) && encoder->port != PORT_A)
  		pipe_config->has_pch_encoder = true;
  
- 	pipe_config->output_format = intel_dp_output_format(&intel_connector->base,
-@@ -1826,12 +1841,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
- 			return ret;
- 	}
- 
--	if (!intel_dp_port_has_audio(dev_priv, port))
--		pipe_config->has_audio = false;
--	else if (intel_conn_state->force_audio == HDMI_AUDIO_AUTO)
--		pipe_config->has_audio = intel_dp->has_audio;
--	else
--		pipe_config->has_audio = intel_conn_state->force_audio == HDMI_AUDIO_ON;
-+	pipe_config->has_audio = intel_dp_has_audio(encoder, pipe_config, conn_state);
+-	pipe_config->output_format = intel_dp_output_format(&intel_connector->base,
+-							    adjusted_mode);
+-
+-	if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
+-		ret = intel_panel_fitting(pipe_config, conn_state);
+-		if (ret)
+-			return ret;
+-	}
+-
+ 	pipe_config->has_audio = intel_dp_has_audio(encoder, pipe_config, conn_state);
  
  	fixed_mode = intel_panel_fixed_mode(intel_connector, adjusted_mode);
- 	if (intel_dp_is_edp(intel_dp) && fixed_mode) {
+@@ -1848,10 +1839,6 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 		ret = intel_panel_compute_config(intel_connector, adjusted_mode);
+ 		if (ret)
+ 			return ret;
+-
+-		ret = intel_panel_fitting(pipe_config, conn_state);
+-		if (ret)
+-			return ret;
+ 	}
+ 
+ 	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLSCAN)
+@@ -1867,10 +1854,20 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 	if (intel_dp_hdisplay_bad(dev_priv, adjusted_mode->crtc_hdisplay))
+ 		return -EINVAL;
+ 
++	pipe_config->output_format = intel_dp_output_format(&intel_connector->base,
++							    adjusted_mode);
++
+ 	ret = intel_dp_compute_link_config(encoder, pipe_config, conn_state);
+ 	if (ret < 0)
+ 		return ret;
+ 
++	if ((intel_dp_is_edp(intel_dp) && fixed_mode) ||
++	    pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
++		ret = intel_panel_fitting(pipe_config, conn_state);
++		if (ret)
++			return ret;
++	}
++
+ 	pipe_config->limited_color_range =
+ 		intel_dp_limited_color_range(pipe_config, conn_state);
+ 
 -- 
 2.34.1
 
