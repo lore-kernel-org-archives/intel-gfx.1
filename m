@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC2D5C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 18:30:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B4F7C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 18:30:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4986B10E0EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E1B510E1CD;
 	Wed, 23 Mar 2022 18:30:04 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5802610E1B7
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 18:30:02 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6032610E171
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 18:30:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648060202; x=1679596202;
+ t=1648060200; x=1679596200;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=NFfhFr3CNlxcWLuYQDmPi5OQIWVLk0/20L7Cr2AtHrE=;
- b=Nr4fM0qUN0MkiPHEjSY5Hh4n3I7TI2GZojDflmwM4vULHcLjtwK2xGAc
- k2j8jdG02BTnjqkInFowzaHOrvOksr41Sz7B910VtwDMctWcsr6+rp6YQ
- vYSCp1FvFCZkeU7+kZJb31yElws7RanDhWHt9Gz6+zzS8SnK4aEQt8EP8
- xdtXHfALAWXMEqfppm6ckoWC2YYBJVBMabfiRb5MNbCiBLIStSsUe2yoz
- rTdQdq/eUncdYrr+JyuCAtCWyChyV3R5IAR1zT5pFSSxaOPPt//S0kvMC
- qlod8ihL0CHtPEii1zepnXntb3ZzQGIU0O63uoYCnZ3tbeQCpxBsIhzZu g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="321395374"
-X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="321395374"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2022 11:30:01 -0700
+ bh=0zJr+qYZ7Eo+cKl3WcDhvxsrL4UNymOWr+BGmF/T1LA=;
+ b=JBuh7Wl1o99x+ITOpoXxrxhuvacTXeCYfxxTs1B3UTxe0KWh58LAHm7d
+ bhN2cSFh8zup7N/MeZxZZOFob01GIk1Zq51XdxzUKqAgzf66HHLbsvo0D
+ u6OPRcgIOn5eC4ODI0RspktzsV/VzG5d1xQrym9YEDQyL99eFIpPqAdA1
+ 8XwAO/3kAXOLOQ3+61Kdzrc/QEPPEt+hBBCFnSU/4CGUup0e3orGfJ9ZL
+ 4kRikpAtOMHlydeTAG19AY72FdlQk3fUpxiF3omkPn9IOS8/36Y6HmWSc
+ hr7c3eDevoOK/OdQz8YWO+1U5+AxgmvD98YuzBej0cYRgXvy1LNU7B9QN Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="344631689"
+X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="344631689"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2022 11:29:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="647585448"
+X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="561034537"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.61])
- by fmsmga002.fm.intel.com with SMTP; 23 Mar 2022 11:29:59 -0700
+ by orsmga008.jf.intel.com with SMTP; 23 Mar 2022 11:29:39 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 23 Mar 2022 20:29:58 +0200
+ Wed, 23 Mar 2022 20:29:38 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Mar 2022 20:29:34 +0200
-Message-Id: <20220323182935.4701-9-ville.syrjala@linux.intel.com>
+Date: Wed, 23 Mar 2022 20:29:27 +0200
+Message-Id: <20220323182935.4701-2-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220323182935.4701-1-ville.syrjala@linux.intel.com>
 References: <20220323182935.4701-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 8/9] drm/i915: Use intel_panel_edid_fixed_mode()
- for sdvo
+Subject: [Intel-gfx] [PATCH 1/9] drm/i915: Pass intel_connector to
+ intel_panel_{init, fini}()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,57 +64,170 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Despite the name intel_panel_edid_fixed_mode() doesn't actually
-look in the EDID. All it does is dig out the preferred mode from
-the connector's probed_modes list. That is also what the SDVO
-LVDS code is doing by hand. Let's just call
-intel_panel_edid_fixed_mode().
-
-The slight difference in behaviour is that the SDVO code currently
-bails if it can't find the preferred mode, whereas
-intel_panel_edid_fixed_mode() will fall back to just returning
-the first mode from the probed_modes list. Can't imagine why
-such an LVDS panel would even exist, and also why would you have
-a panel and be expected to not use it? So I'm going to assume
-this is a total non-issue.
+All the other intel_panel functions take struct intel_connector,
+so might as well make init()/fini() take one as well.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_sdvo.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c         |  2 +-
+ drivers/gpu/drm/i915/display/intel_connector.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp.c        |  2 +-
+ drivers/gpu/drm/i915/display/intel_dvo.c       |  2 +-
+ drivers/gpu/drm/i915/display/intel_lvds.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_panel.c     | 11 ++++++-----
+ drivers/gpu/drm/i915/display/intel_panel.h     |  5 ++---
+ drivers/gpu/drm/i915/display/intel_sdvo.c      |  2 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c         |  2 +-
+ 9 files changed, 15 insertions(+), 15 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index 00cae5d26637..c7a6c2cce297 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -2057,7 +2057,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
+ 		goto err;
+ 	}
+ 
+-	intel_panel_init(&intel_connector->panel, fixed_mode, NULL);
++	intel_panel_init(intel_connector, fixed_mode, NULL);
+ 	intel_backlight_setup(intel_connector, INVALID_PIPE);
+ 
+ 	if (dev_priv->vbt.dsi.config->dual_link)
+diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
+index a5f5dd55b0cb..1dcc268927a2 100644
+--- a/drivers/gpu/drm/i915/display/intel_connector.c
++++ b/drivers/gpu/drm/i915/display/intel_connector.c
+@@ -102,7 +102,7 @@ void intel_connector_destroy(struct drm_connector *connector)
+ 	if (!IS_ERR_OR_NULL(intel_connector->edid))
+ 		kfree(intel_connector->edid);
+ 
+-	intel_panel_fini(&intel_connector->panel);
++	intel_panel_fini(intel_connector);
+ 
+ 	drm_connector_cleanup(connector);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 9e19165fd175..3bf44f7909e5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5060,7 +5060,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 			    pipe_name(pipe));
+ 	}
+ 
+-	intel_panel_init(&intel_connector->panel, fixed_mode, downclock_mode);
++	intel_panel_init(intel_connector, fixed_mode, downclock_mode);
+ 	if (!(dev_priv->quirks & QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK))
+ 		intel_connector->panel.backlight.power = intel_pps_backlight_power;
+ 	intel_backlight_setup(intel_connector, pipe);
+diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
+index d4670889d26c..d4dc16a9c0dd 100644
+--- a/drivers/gpu/drm/i915/display/intel_dvo.c
++++ b/drivers/gpu/drm/i915/display/intel_dvo.c
+@@ -549,7 +549,7 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
+ 			 * headers, likely), so for now, just get the current
+ 			 * mode being output through DVO.
+ 			 */
+-			intel_panel_init(&intel_connector->panel,
++			intel_panel_init(intel_connector,
+ 					 intel_dvo_get_current_mode(intel_encoder),
+ 					 NULL);
+ 			intel_dvo->panel_wants_dither = true;
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+index 5449d69fbae5..cd685dbf324b 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.c
++++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+@@ -996,7 +996,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
+ out:
+ 	mutex_unlock(&dev->mode_config.mutex);
+ 
+-	intel_panel_init(&intel_connector->panel, fixed_mode, downclock_mode);
++	intel_panel_init(intel_connector, fixed_mode, downclock_mode);
+ 	intel_backlight_setup(intel_connector, INVALID_PIPE);
+ 
+ 	lvds_encoder->is_dual_link = compute_is_dual_link_lvds(lvds_encoder, fixed_mode);
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index f428d0457c17..8c9e26539cc5 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -599,10 +599,12 @@ intel_panel_mode_valid(struct intel_connector *connector,
+ 	return MODE_OK;
+ }
+ 
+-int intel_panel_init(struct intel_panel *panel,
++int intel_panel_init(struct intel_connector *connector,
+ 		     struct drm_display_mode *fixed_mode,
+ 		     struct drm_display_mode *downclock_mode)
+ {
++	struct intel_panel *panel = &connector->panel;
++
+ 	intel_backlight_init_funcs(panel);
+ 
+ 	if (fixed_mode)
+@@ -613,16 +615,15 @@ int intel_panel_init(struct intel_panel *panel,
+ 	return 0;
+ }
+ 
+-void intel_panel_fini(struct intel_panel *panel)
++void intel_panel_fini(struct intel_connector *connector)
+ {
+-	struct intel_connector *intel_connector =
+-		container_of(panel, struct intel_connector, panel);
++	struct intel_panel *panel = &connector->panel;
+ 	struct drm_display_mode *fixed_mode, *next;
+ 
+ 	intel_backlight_destroy(panel);
+ 
+ 	list_for_each_entry_safe(fixed_mode, next, &panel->fixed_modes, head) {
+ 		list_del(&fixed_mode->head);
+-		drm_mode_destroy(intel_connector->base.dev, fixed_mode);
++		drm_mode_destroy(connector->base.dev, fixed_mode);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
+index e86100903f9e..579200270825 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.h
++++ b/drivers/gpu/drm/i915/display/intel_panel.h
+@@ -16,12 +16,11 @@ struct drm_display_mode;
+ struct drm_i915_private;
+ struct intel_connector;
+ struct intel_crtc_state;
+-struct intel_panel;
+ 
+-int intel_panel_init(struct intel_panel *panel,
++int intel_panel_init(struct intel_connector *connector,
+ 		     struct drm_display_mode *fixed_mode,
+ 		     struct drm_display_mode *downclock_mode);
+-void intel_panel_fini(struct intel_panel *panel);
++void intel_panel_fini(struct intel_connector *connector);
+ enum drm_connector_status
+ intel_panel_detect(struct drm_connector *connector, bool force);
+ bool intel_panel_use_ssc(struct drm_i915_private *i915);
 diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 27b3d3a79989..62e2e8b4358c 100644
+index 328a8f20c63b..a2061b132107 100644
 --- a/drivers/gpu/drm/i915/display/intel_sdvo.c
 +++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2886,7 +2886,7 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
- 	struct drm_connector *connector;
- 	struct intel_connector *intel_connector;
- 	struct intel_sdvo_connector *intel_sdvo_connector;
--	struct drm_display_mode *mode;
-+	struct drm_display_mode *fixed_mode;
+@@ -2928,7 +2928,7 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
+ 			struct drm_display_mode *fixed_mode =
+ 				drm_mode_duplicate(connector->dev, mode);
  
- 	DRM_DEBUG_KMS("initialising LVDS device %d\n", device);
+-			intel_panel_init(&intel_connector->panel,
++			intel_panel_init(intel_connector,
+ 					 fixed_mode, NULL);
+ 			break;
+ 		}
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+index c87a6e729a3c..32f5b115c2c2 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+@@ -1987,7 +1987,7 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
+ 		goto err_cleanup_connector;
+ 	}
  
-@@ -2917,16 +2917,9 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
- 
- 	intel_sdvo_get_lvds_modes(connector);
- 
--	list_for_each_entry(mode, &connector->probed_modes, head) {
--		if (mode->type & DRM_MODE_TYPE_PREFERRED) {
--			struct drm_display_mode *fixed_mode =
--				drm_mode_duplicate(connector->dev, mode);
-+	fixed_mode = intel_panel_edid_fixed_mode(intel_connector);
- 
--			intel_panel_init(intel_connector,
--					 fixed_mode, NULL);
--			break;
--		}
--	}
+-	intel_panel_init(&intel_connector->panel, fixed_mode, NULL);
 +	intel_panel_init(intel_connector, fixed_mode, NULL);
+ 	intel_backlight_setup(intel_connector, INVALID_PIPE);
  
- 	if (!intel_panel_preferred_fixed_mode(intel_connector))
- 		goto err;
+ 	vlv_dsi_add_properties(intel_connector, fixed_mode);
 -- 
 2.34.1
 
