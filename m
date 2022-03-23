@@ -4,51 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAC2CC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 15:33:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 292A7C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 15:40:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F51910E6E9;
-	Wed, 23 Mar 2022 15:33:23 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2801010E6E9;
- Wed, 23 Mar 2022 15:33:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648049602; x=1679585602;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=MKK1oWyHz1JtpH5BhOmnBy9zvcSHBTGdb3YZ/fif2q8=;
- b=DtI2AJhi3DZ6hdzae+GT3jBRoF7b/7BnhJaV+z0hwHq4p+05bMxj2kfK
- XBBl85/r7PzfIo1SCrT64D/cVD9Lu0ausJpyFixScZ6RjRa0AwCnakIdF
- L85Ht/kUiXIT9WH3xOTVkyrZO8+t/KVVCPUvmjUY6CnfbELFF+RAABhzG
- umawOBwl1wmwp9WVez9VTvQjIRaHXakPm2T+JqivFbdbaYaknxv7oi4ft
- vuJsb9lslgMt9nf0Ac1aKae00asgGjjmF6y9wWpgBCZmZDKmTOkGGniIl
- QgfbHT42d4zTu9ZECxetv8XXifF185A5X3wTsV0KZwRSP6I2+SoE6vgrj w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="238741018"
-X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="238741018"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2022 08:33:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="519398709"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.61])
- by orsmga006.jf.intel.com with SMTP; 23 Mar 2022 08:33:18 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 23 Mar 2022 17:33:18 +0200
-Date: Wed, 23 Mar 2022 17:33:18 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <Yjs9vvhrIhQDbChJ@intel.com>
-References: <cover.1647985054.git.jani.nikula@intel.com>
- <657900c5a984a0bd7a830686cb5f919ae16912f8.1647985054.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9970410E710;
+	Wed, 23 Mar 2022 15:40:20 +0000 (UTC)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C04FD10E65C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 10:19:36 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id d5so1869614lfj.9
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 03:19:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=jwtA3pgAKVmewmwW2CEap5jLxzJfz+i4doALRThTG/0=;
+ b=Ozm3WAqOjbC0V3L/SexsRDLgqPGbQ+k9Dtlbs+44tZzQAxPVOUmDuiUtozcEUvrsLV
+ cWCXozTIQ11E03wMEVVx/hHBc29OhUv9Myl8UkTsmVjav5OI9tOg+E6jvKHKF4dUPUS7
+ ungFFhBemjEuyNPXv6RdsSgOluIODx0ZfWwuD0L8GbsnsxeSAkjyZzggbgTu0S2BRXTS
+ Ncy8LgG4UUjiiuw20bZ02ZKfNcZTSrLSyFwujCGI9pszouqSAWVh3I5sM7VkNs+vvsPQ
+ dyhFWt5J9v8lJx/qvlgFWt0pWcKZcwfGxHBmh2B1c6cDsHXhs/3hFtEZPzPq+bbpxa7/
+ +iTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=jwtA3pgAKVmewmwW2CEap5jLxzJfz+i4doALRThTG/0=;
+ b=r3WNn1hu28V+s71Ul29mrr5EG9j3L0ANoMdHex6npTNtHQRXYwyZSalPQTjOC5rusg
+ IvVoC7kqit1hCZVPUKfRP+TGt/nlC02PsjomzK1zo/lpTeFCsfaLtsIQWLkMMUDZ+H1k
+ 1jfaTnZxNfsx0Swm4ZmDEdhU0ZSOrFl1bx9nRfYSoIrXLvtrmOw9cLZHY1pSxtSjj9B8
+ 5Me2LbUjB5UHbpMs0kcparEoIh1/RYVtIi9k+3k4J62OIiC8KKwRv+yYB6GrqyskG2Cm
+ OvTZjDnTwoDcQgKc5YvMIyzRT60Zz3TNlaF596GwF3AIYqISK2qM16WVNknaPbtEsLqy
+ 4OIg==
+X-Gm-Message-State: AOAM533yNw7dfxWo9UEEbdjWp02u7h18vmrbFMyvUFahDJ7/cBp7e0Ub
+ Duu0wdI+iHJnIcALpCspejShJA==
+X-Google-Smtp-Source: ABdhPJxbtenqDf8ffjjp86dT+ADLbGZK3u3Ely90YnIqBwOcBYrFmxDEgjlPMaX8dGIge+Yb7sJADA==
+X-Received: by 2002:a05:6512:3d13:b0:449:fd85:f61d with SMTP id
+ d19-20020a0565123d1300b00449fd85f61dmr20090668lfv.368.1648030775062; 
+ Wed, 23 Mar 2022 03:19:35 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ c6-20020a19e346000000b00448ac0a351dsm2484589lfk.221.2022.03.23.03.19.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Mar 2022 03:19:34 -0700 (PDT)
+Message-ID: <5b2a478f-9864-8fcd-574d-1527cc9b3333@linaro.org>
+Date: Wed, 23 Mar 2022 13:19:34 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-GB
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
+ <20220218100403.7028-11-ville.syrjala@linux.intel.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220218100403.7028-11-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <657900c5a984a0bd7a830686cb5f919ae16912f8.1647985054.git.jani.nikula@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [RFC 03/19] drm/edid: clean up CEA data block tag
- definitions
+X-Mailman-Approved-At: Wed, 23 Mar 2022 15:40:20 +0000
+Subject: Re: [Intel-gfx] [PATCH 10/22] drm/msm: Nuke weird on stack mode copy
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,212 +76,68 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 22, 2022 at 11:40:32PM +0200, Jani Nikula wrote:
-> Add prefixed names, group, sort, add references.
+On 18/02/2022 13:03, Ville Syrjala wrote:
+> From: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
 > 
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> This on stack middle man mode looks entirely pointless.
+> Just duplicate the original mode directly.
+> 
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> Signed-off-by: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+
+I took a glance at the surrounding piece of code.
+The dp_connector_get_modes() calls dp_display_get_modes() in attempt to 
+fill the dp_mode argument. However the dp_display_get_modes() function 
+just calls dp_panel_get_modes(), which does not touch dp_mode argument 
+since the commit ab205927592b ("drm/msm/dp: remove mode hard-coding in 
+case of DP CTS") dating September 2020. I think we can drop this piece 
+of code completely.
+
 > ---
->  drivers/gpu/drm/drm_edid.c | 59 +++++++++++++++++++++-----------------
->  1 file changed, 32 insertions(+), 27 deletions(-)
+>   drivers/gpu/drm/msm/dp/dp_drm.c | 10 ++++------
+>   1 file changed, 4 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index b96906774433..6c188539493e 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -3329,15 +3329,20 @@ add_detailed_modes(struct drm_connector *connector, struct edid *edid,
->  	return closure.modes;
->  }
->  
-> -#define AUDIO_BLOCK	0x01
-> -#define VIDEO_BLOCK     0x02
-> -#define VENDOR_BLOCK    0x03
-> -#define SPEAKER_BLOCK	0x04
-> -#define HDR_STATIC_METADATA_BLOCK	0x6
-> -#define USE_EXTENDED_TAG 0x07
-> -#define EXT_VIDEO_CAPABILITY_BLOCK 0x00
-> -#define EXT_VIDEO_DATA_BLOCK_420	0x0E
-> -#define EXT_VIDEO_CAP_BLOCK_Y420CMDB 0x0F
-> +/* CEA-861-F Table 44 CEA Data Block Tag Codes */
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index d4d360d19eba..09188d02aa1e 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -56,7 +56,7 @@ static int dp_connector_get_modes(struct drm_connector *connector)
+>   	int rc = 0;
+>   	struct msm_dp *dp;
+>   	struct dp_display_mode *dp_mode = NULL;
+> -	struct drm_display_mode *m, drm_mode;
+> +	struct drm_display_mode *m;
+>   
+>   	if (!connector)
+>   		return 0;
+> @@ -82,13 +82,11 @@ static int dp_connector_get_modes(struct drm_connector *connector)
+>   			return rc;
+>   		}
+>   		if (dp_mode->drm_mode.clock) { /* valid DP mode */
+> -			memset(&drm_mode, 0x0, sizeof(drm_mode));
+> -			drm_mode_copy(&drm_mode, &dp_mode->drm_mode);
+> -			m = drm_mode_duplicate(connector->dev, &drm_mode);
+> +			m = drm_mode_duplicate(connector->dev, &dp_mode->drm_mode);
+>   			if (!m) {
+>   				DRM_ERROR("failed to add mode %ux%u\n",
+> -				       drm_mode.hdisplay,
+> -				       drm_mode.vdisplay);
+> +					  dp_mode->drm_mode.hdisplay,
+> +					  dp_mode->drm_mode.vdisplay);
+>   				kfree(dp_mode);
+>   				return 0;
+>   			}
 
-Table 55 in CTA-861-G, if we want to use a more recent reference.
-Though IIRC someone did say CTA-861-H might already be out as well.
-
-> +#define CEA_DB_AUDIO			1
-> +#define CEA_DB_VIDEO			2
-> +#define CEA_DB_VENDOR			3
-> +#define CEA_DB_SPEAKER			4
-> +#define CEA_DB_EXTENDED_TAG		7
-> +
-> +/* CEA-861-F Table 46 CEA Data Block Tag Codes */
-
-Table 57 in CTA-861-G.
-
-Reviewed-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-
-> +#define CEA_EXT_DB_VIDEO_CAP		0
-> +#define CEA_EXT_DB_VENDOR		1
-> +#define CEA_EXT_DB_HDR_STATIC_METADATA	6 /* CEA-861.3 2005 */
-> +#define CEA_EXT_DB_420_VIDEO_DATA	14
-> +#define CEA_EXT_DB_420_VIDEO_CAP_MAP	15
-> +
->  #define EDID_BASIC_AUDIO	(1 << 6)
->  #define EDID_CEA_YCRCB444	(1 << 5)
->  #define EDID_CEA_YCRCB422	(1 << 4)
-> @@ -4220,7 +4225,7 @@ cea_db_offsets(const u8 *cea, int *start, int *end)
->  
->  static bool cea_db_is_hdmi_vsdb(const u8 *db)
->  {
-> -	if (cea_db_tag(db) != VENDOR_BLOCK)
-> +	if (cea_db_tag(db) != CEA_DB_VENDOR)
->  		return false;
->  
->  	if (cea_db_payload_len(db) < 5)
-> @@ -4231,7 +4236,7 @@ static bool cea_db_is_hdmi_vsdb(const u8 *db)
->  
->  static bool cea_db_is_hdmi_forum_vsdb(const u8 *db)
->  {
-> -	if (cea_db_tag(db) != VENDOR_BLOCK)
-> +	if (cea_db_tag(db) != CEA_DB_VENDOR)
->  		return false;
->  
->  	if (cea_db_payload_len(db) < 7)
-> @@ -4242,7 +4247,7 @@ static bool cea_db_is_hdmi_forum_vsdb(const u8 *db)
->  
->  static bool cea_db_is_microsoft_vsdb(const u8 *db)
->  {
-> -	if (cea_db_tag(db) != VENDOR_BLOCK)
-> +	if (cea_db_tag(db) != CEA_DB_VENDOR)
->  		return false;
->  
->  	if (cea_db_payload_len(db) != 21)
-> @@ -4253,13 +4258,13 @@ static bool cea_db_is_microsoft_vsdb(const u8 *db)
->  
->  static bool cea_db_is_vcdb(const u8 *db)
->  {
-> -	if (cea_db_tag(db) != USE_EXTENDED_TAG)
-> +	if (cea_db_tag(db) != CEA_DB_EXTENDED_TAG)
->  		return false;
->  
->  	if (cea_db_payload_len(db) != 2)
->  		return false;
->  
-> -	if (cea_db_extended_tag(db) != EXT_VIDEO_CAPABILITY_BLOCK)
-> +	if (cea_db_extended_tag(db) != CEA_EXT_DB_VIDEO_CAP)
->  		return false;
->  
->  	return true;
-> @@ -4267,13 +4272,13 @@ static bool cea_db_is_vcdb(const u8 *db)
->  
->  static bool cea_db_is_y420cmdb(const u8 *db)
->  {
-> -	if (cea_db_tag(db) != USE_EXTENDED_TAG)
-> +	if (cea_db_tag(db) != CEA_DB_EXTENDED_TAG)
->  		return false;
->  
->  	if (!cea_db_payload_len(db))
->  		return false;
->  
-> -	if (cea_db_extended_tag(db) != EXT_VIDEO_CAP_BLOCK_Y420CMDB)
-> +	if (cea_db_extended_tag(db) != CEA_EXT_DB_420_VIDEO_CAP_MAP)
->  		return false;
->  
->  	return true;
-> @@ -4281,13 +4286,13 @@ static bool cea_db_is_y420cmdb(const u8 *db)
->  
->  static bool cea_db_is_y420vdb(const u8 *db)
->  {
-> -	if (cea_db_tag(db) != USE_EXTENDED_TAG)
-> +	if (cea_db_tag(db) != CEA_DB_EXTENDED_TAG)
->  		return false;
->  
->  	if (!cea_db_payload_len(db))
->  		return false;
->  
-> -	if (cea_db_extended_tag(db) != EXT_VIDEO_DATA_BLOCK_420)
-> +	if (cea_db_extended_tag(db) != CEA_EXT_DB_420_VIDEO_DATA)
->  		return false;
->  
->  	return true;
-> @@ -4354,7 +4359,7 @@ add_cea_modes(struct drm_connector *connector, struct edid *edid)
->  			db = &cea[i];
->  			dbl = cea_db_payload_len(db);
->  
-> -			if (cea_db_tag(db) == VIDEO_BLOCK) {
-> +			if (cea_db_tag(db) == CEA_DB_VIDEO) {
->  				video = db + 1;
->  				video_len = dbl;
->  				modes += do_cea_modes(connector, video, dbl);
-> @@ -4428,10 +4433,10 @@ static void fixup_detailed_cea_mode_clock(struct drm_display_mode *mode)
->  
->  static bool cea_db_is_hdmi_hdr_metadata_block(const u8 *db)
->  {
-> -	if (cea_db_tag(db) != USE_EXTENDED_TAG)
-> +	if (cea_db_tag(db) != CEA_DB_EXTENDED_TAG)
->  		return false;
->  
-> -	if (db[1] != HDR_STATIC_METADATA_BLOCK)
-> +	if (db[1] != CEA_EXT_DB_HDR_STATIC_METADATA)
->  		return false;
->  
->  	if (cea_db_payload_len(db) < 3)
-> @@ -4622,7 +4627,7 @@ static void drm_edid_to_eld(struct drm_connector *connector, struct edid *edid)
->  			dbl = cea_db_payload_len(db);
->  
->  			switch (cea_db_tag(db)) {
-> -			case AUDIO_BLOCK:
-> +			case CEA_DB_AUDIO:
->  				/* Audio Data Block, contains SADs */
->  				sad_count = min(dbl / 3, 15 - total_sad_count);
->  				if (sad_count >= 1)
-> @@ -4630,12 +4635,12 @@ static void drm_edid_to_eld(struct drm_connector *connector, struct edid *edid)
->  					       &db[1], sad_count * 3);
->  				total_sad_count += sad_count;
->  				break;
-> -			case SPEAKER_BLOCK:
-> +			case CEA_DB_SPEAKER:
->  				/* Speaker Allocation Data Block */
->  				if (dbl >= 1)
->  					eld[DRM_ELD_SPEAKER] = db[1];
->  				break;
-> -			case VENDOR_BLOCK:
-> +			case CEA_DB_VENDOR:
->  				/* HDMI Vendor-Specific Data Block */
->  				if (cea_db_is_hdmi_vsdb(db))
->  					drm_parse_hdmi_vsdb_audio(connector, db);
-> @@ -4696,7 +4701,7 @@ int drm_edid_to_sad(struct edid *edid, struct cea_sad **sads)
->  	for_each_cea_db(cea, i, start, end) {
->  		const u8 *db = &cea[i];
->  
-> -		if (cea_db_tag(db) == AUDIO_BLOCK) {
-> +		if (cea_db_tag(db) == CEA_DB_AUDIO) {
->  			int j;
->  
->  			dbl = cea_db_payload_len(db);
-> @@ -4758,7 +4763,7 @@ int drm_edid_to_speaker_allocation(struct edid *edid, u8 **sadb)
->  	for_each_cea_db(cea, i, start, end) {
->  		const u8 *db = &cea[i];
->  
-> -		if (cea_db_tag(db) == SPEAKER_BLOCK) {
-> +		if (cea_db_tag(db) == CEA_DB_SPEAKER) {
->  			dbl = cea_db_payload_len(db);
->  
->  			/* Speaker Allocation Data Block */
-> @@ -4888,7 +4893,7 @@ bool drm_detect_monitor_audio(struct edid *edid)
->  		goto end;
->  
->  	for_each_cea_db(edid_ext, i, start_offset, end_offset) {
-> -		if (cea_db_tag(&edid_ext[i]) == AUDIO_BLOCK) {
-> +		if (cea_db_tag(&edid_ext[i]) == CEA_DB_AUDIO) {
->  			has_audio = true;
->  			for (j = 1; j < cea_db_payload_len(&edid_ext[i]) + 1; j += 3)
->  				DRM_DEBUG_KMS("CEA audio format %d\n",
-> -- 
-> 2.30.2
 
 -- 
-Ville Syrj‰l‰
-Intel
+With best wishes
+Dmitry
