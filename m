@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D9C4C433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 941CFC433F5
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 18:30:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E84310E1B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1DE289E57;
 	Wed, 23 Mar 2022 18:30:10 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5669710E1FC
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 18:30:05 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 513A410E1B7
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Mar 2022 18:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648060205; x=1679596205;
+ t=1648060208; x=1679596208;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=rqyySXaBB8B/VVz53Ftt3LOqKZj5Re+UvpdNT4TmAmg=;
- b=KPp60uy0pzEA/G05dXUBaFs3W9jl+ef1GwuDXsG7BCP4kWZrTUkpSre7
- mg44cMR+ghZMNRGY2TcSoH5hnZiBqh25T1dzs/M7yThHpbgsOKVOyHBqx
- Ey5quJe/vl5G2/m9aoANP0m2dixHc2eEt+YPk/qocLx+XTUtaDeQtsTxi
- lb/FnyTzVCMiYU0Amx6UfFP5MYvfpFuBffaJSOMWZ2ZOBwOSl3pU1PsrQ
- w0oJoyv3LBzkypnFWt/xPFyRx9mmtZKI6BQpCLChoaIQlJwr9KJCfsXWy
- vVYnllM1Za29+XbF870FqCSTC1as81ZTyE3OFC5bLTkGAoVKDZB7EgVJ6 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="318909515"
-X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="318909515"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2022 11:30:04 -0700
+ bh=VaFV28L+/PtVNuQXzmc7RQDPlu7Dw0OOgccCLD6xtXw=;
+ b=gtWU9HFKeb42xcjm9guNBCleppusPTF1BANfD2biN0/ZCao1feAuq7gU
+ TlQ/IYmzTRu1arCMfZDPRZwpC9wtKyxT5zG8YNJqbmSSlSi8V3pYbuANI
+ BQ2knTFvtjAru/bn56WkL7fZXdKkG4VZ36mqMq2fsnMtP4rkgy3snU94E
+ 5C/Z/Uaw6DA6a8h7ZszU3SzFsVxAe5N4+2Bd96PRuG0EBG1r9KhKGXqMG
+ lqplyoWYrz7dgkwUKYWsldJ64qMk3v73y4KN9zlWFQ6CDJYt1gMTZdS2C
+ 1i23p0GIxYO5rcfDYGxNYpfv5dGUSikIakZ9UoG08A0kltWfflDRh52XP A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="283046349"
+X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="283046349"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2022 11:29:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="552593400"
+X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="515888466"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.61])
- by fmsmga007.fm.intel.com with SMTP; 23 Mar 2022 11:30:02 -0700
+ by orsmga002.jf.intel.com with SMTP; 23 Mar 2022 11:29:50 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 23 Mar 2022 20:30:01 +0200
+ Wed, 23 Mar 2022 20:29:50 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Mar 2022 20:29:35 +0200
-Message-Id: <20220323182935.4701-10-ville.syrjala@linux.intel.com>
+Date: Wed, 23 Mar 2022 20:29:31 +0200
+Message-Id: <20220323182935.4701-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220323182935.4701-1-ville.syrjala@linux.intel.com>
 References: <20220323182935.4701-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 9/9] drm/i915: Change SDVO fixed mode handling
+Subject: [Intel-gfx] [PATCH 5/9] drm/i915: Rename
+ intel_panel_vbt_fixed_mode()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,68 +64,98 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-SDVO is the only connector type currently returning the VBT
-fixed mode directly from .get_modes(), everyone else just
-adds it to the fixed_modes list and then returns that from
-.get_modes(). Adjust SDVO to follow the common behaviour.
+Rename intel_panel_vbt_fixed_mode() to
+intel_panel_vbt_lfp_fixed_mode() to be more descriptive.
+We'll have another VBT fixed mode function soon and we
+don't want to confuse the two.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_sdvo.c | 29 ++++++++---------------
- 1 file changed, 10 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c     | 2 +-
+ drivers/gpu/drm/i915/display/intel_dp.c    | 2 +-
+ drivers/gpu/drm/i915/display/intel_lvds.c  | 2 +-
+ drivers/gpu/drm/i915/display/intel_panel.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_panel.h | 2 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c     | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 62e2e8b4358c..c9c3f71818d9 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2291,27 +2291,12 @@ static int intel_sdvo_get_lvds_modes(struct drm_connector *connector)
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index b4fda29b04b5..44f4c65522b9 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -2050,7 +2050,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
+ 	intel_connector_attach_encoder(intel_connector, encoder);
+ 
+ 	mutex_lock(&dev->mode_config.mutex);
+-	fixed_mode = intel_panel_vbt_fixed_mode(intel_connector);
++	fixed_mode = intel_panel_vbt_lfp_fixed_mode(intel_connector);
+ 	mutex_unlock(&dev->mode_config.mutex);
+ 
+ 	if (!fixed_mode) {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index d62123b9d0d3..e882a04a4cb1 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5055,7 +5055,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 
+ 	/* fallback to VBT if available for eDP */
+ 	if (!fixed_mode)
+-		fixed_mode = intel_panel_vbt_fixed_mode(intel_connector);
++		fixed_mode = intel_panel_vbt_lfp_fixed_mode(intel_connector);
+ 	mutex_unlock(&dev->mode_config.mutex);
+ 
+ 	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+index d068e0607153..c3f017c3740c 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.c
++++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+@@ -974,7 +974,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
+ 		goto out;
+ 
+ 	/* Failed to get EDID, what about VBT? */
+-	fixed_mode = intel_panel_vbt_fixed_mode(intel_connector);
++	fixed_mode = intel_panel_vbt_lfp_fixed_mode(intel_connector);
+ 	if (fixed_mode)
+ 		goto out;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 2ba51222d156..bd606d0b1c24 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -246,7 +246,7 @@ intel_panel_edid_fixed_mode(struct intel_connector *connector)
+ }
+ 
+ struct drm_display_mode *
+-intel_panel_vbt_fixed_mode(struct intel_connector *connector)
++intel_panel_vbt_lfp_fixed_mode(struct intel_connector *connector)
  {
- 	struct intel_sdvo *intel_sdvo = intel_attached_sdvo(to_intel_connector(connector));
- 	struct drm_i915_private *dev_priv = to_i915(connector->dev);
--	struct drm_display_mode *newmode;
- 	int num_modes = 0;
+ 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+ 	struct drm_display_info *info = &connector->base.display_info;
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
+index 579200270825..9704ac81fe3e 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.h
++++ b/drivers/gpu/drm/i915/display/intel_panel.h
+@@ -47,6 +47,6 @@ intel_panel_edid_downclock_mode(struct intel_connector *connector,
+ struct drm_display_mode *
+ intel_panel_edid_fixed_mode(struct intel_connector *connector);
+ struct drm_display_mode *
+-intel_panel_vbt_fixed_mode(struct intel_connector *connector);
++intel_panel_vbt_lfp_fixed_mode(struct intel_connector *connector);
  
- 	drm_dbg_kms(&dev_priv->drm, "[CONNECTOR:%d:%s]\n",
- 		    connector->base.id, connector->name);
+ #endif /* __INTEL_PANEL_H__ */
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+index da0af425ed94..dc43cb8ecb86 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+@@ -1980,7 +1980,7 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
+ 	intel_connector_attach_encoder(intel_connector, intel_encoder);
  
--	/*
--	 * Fetch modes from VBT. For SDVO prefer the VBT mode since some
--	 * SDVO->LVDS transcoders can't cope with the EDID mode.
--	 */
--	newmode = intel_panel_vbt_sdvo_fixed_mode(to_intel_connector(connector));
--	if (newmode) {
--		drm_mode_probed_add(connector, newmode);
--		num_modes++;
--	}
--
--	/*
--	 * Attempt to get the mode list from DDC.
--	 * Assume that the preferred modes are
--	 * arranged in priority order.
--	 */
-+	num_modes += intel_panel_get_modes(to_intel_connector(connector));
- 	num_modes += intel_ddc_get_modes(connector, &intel_sdvo->ddc);
+ 	mutex_lock(&dev->mode_config.mutex);
+-	fixed_mode = intel_panel_vbt_fixed_mode(intel_connector);
++	fixed_mode = intel_panel_vbt_lfp_fixed_mode(intel_connector);
+ 	mutex_unlock(&dev->mode_config.mutex);
  
- 	return num_modes;
-@@ -2915,9 +2900,15 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
- 	if (!intel_sdvo_create_enhance_property(intel_sdvo, intel_sdvo_connector))
- 		goto err;
- 
--	intel_sdvo_get_lvds_modes(connector);
--
--	fixed_mode = intel_panel_edid_fixed_mode(intel_connector);
-+	/*
-+	 * Fetch modes from VBT. For SDVO prefer the VBT mode since some
-+	 * SDVO->LVDS transcoders can't cope with the EDID mode.
-+	 */
-+	fixed_mode = intel_panel_vbt_sdvo_fixed_mode(intel_connector);
-+	if (!fixed_mode) {
-+		intel_ddc_get_modes(connector, &intel_sdvo->ddc);
-+		fixed_mode = intel_panel_edid_fixed_mode(intel_connector);
-+	}
- 
- 	intel_panel_init(intel_connector, fixed_mode, NULL);
- 
+ 	if (!fixed_mode) {
 -- 
 2.34.1
 
