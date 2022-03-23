@@ -4,30 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A564C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 16:00:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3F76C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 16:07:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE16410E6FA;
-	Wed, 23 Mar 2022 16:00:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8658110E745;
+	Wed, 23 Mar 2022 16:07:56 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id C66F610E719;
- Wed, 23 Mar 2022 16:00:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1453410E744;
+ Wed, 23 Mar 2022 16:07:55 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id C34EEA00E8;
- Wed, 23 Mar 2022 16:00:12 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0FAAEA008A;
+ Wed, 23 Mar 2022 16:07:55 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jason Baron" <jbaron@akamai.com>
-Date: Wed, 23 Mar 2022 16:00:12 -0000
-Message-ID: <164805121279.17991.15855788665179599255@emeril.freedesktop.org>
+To: "Colin Ian King" <colin.i.king@gmail.com>
+Date: Wed, 23 Mar 2022 16:07:55 -0000
+Message-ID: <164805167503.17994.7536241676874641716@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20220311044756.425777-1-jim.cromie@gmail.com>
-In-Reply-To: <20220311044756.425777-1-jim.cromie@gmail.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
- =?utf-8?q?yndbg_add_exclusive_class_support_=28rev2=29?=
+References: <20220315202449.2952845-1-colin.i.king@gmail.com>
+In-Reply-To: <20220315202449.2952845-1-colin.i.king@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/reg=3A_Fix_spelling_mistake_=22Unsupport=22_-=3E_?=
+ =?utf-8?q?=22Unsupported=22?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,20 +48,16 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: dyndbg add exclusive class support (rev2)
-URL   : https://patchwork.freedesktop.org/series/101265/
-State : failure
+Series: drm/i915/reg: Fix spelling mistake "Unsupport" -> "Unsupported"
+URL   : https://patchwork.freedesktop.org/series/101699/
+State : warning
 
 == Summary ==
 
-Applying: dyndbg: fix static_branch manipulation
-Applying: dyndbg: add class_id field and query support
-error: sha1 information is lacking or useless (lib/dynamic_debug.c).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0002 dyndbg: add class_id field and query support
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+$ dim checkpatch origin/drm-tip
+fce9e0a464ec drm/i915/reg: Fix spelling mistake "Unsupport" -> "Unsupported"
+-:23: WARNING:FROM_SIGN_OFF_MISMATCH: From:/Signed-off-by: email address mismatch: 'From: Colin Ian King <colin.king@intel.com>' != 'Signed-off-by: Colin Ian King <colin.i.king@gmail.com>'
+
+total: 0 errors, 1 warnings, 0 checks, 8 lines checked
 
 
