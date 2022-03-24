@@ -4,62 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0726C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Mar 2022 23:42:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DADCC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 00:08:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6912110E1F6;
-	Wed, 23 Mar 2022 23:42:39 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD72B10E1E9;
- Wed, 23 Mar 2022 23:42:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B43F10E456;
+	Thu, 24 Mar 2022 00:08:05 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C63E710E358;
+ Thu, 24 Mar 2022 00:08:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648078957; x=1679614957;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=1ZvH3O7jlYsV/OWsE1AUStHyTXVc2NZKMGEJlxZ8Ggg=;
- b=W1khKYJM363k3wWOhSJLEjI87lTJiV7utJlffhp+5XjRJVB0s/YklpyY
- ojborq7PDvzEpmppiROwzQhf9BTPo0pF5ON4+ATNLx7Kmd2KVW3ypLV5o
- D/HZLrZc6JrJ3Dnc6JDr/JWNk1JVtWFS72zDEkY61jr2KGwvfD81p2ZNO
- +T1FrtfTKI7CIsigH7z2jvSjUPiTM6aeW7gNGQSJ9VkhZfJNOb2G0to9l
- gcwUGS7w1KL8HxigEGuARUryqAXRkWI6CnmFVxNJyB11TKo1OEKldwM9R
- 8PAz74LVtC5yVODpVEdbz1nS1BNw5xIDh7c5GqXqHfkcW7v39aWsbrPo1 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="238192148"
-X-IronPort-AV: E=Sophos;i="5.90,205,1643702400"; d="scan'208";a="238192148"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2022 16:42:37 -0700
+ t=1648080483; x=1679616483;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=ScW1KifLvIg/rGF7pWVloW5MzZ/vex/fcHB4I2H74jk=;
+ b=EQnt78YyV39GVUglTjrxya/tzt8fwKxKm8NCNnYLpr0HDyN1vWp0UhGM
+ uIO8XwF6UP7X6B3wYXnNpEdQoWpQqhtHku2BH4JTl7r5gdtN6K0mOKAB7
+ GG/o/TUtcqxm5O5KnlsT8aVt33DYyH4/MgQSYz1Twn1xKDsznKtkf5jt7
+ d5ToW02CY+A0u+WFo4igCoNQt2KYn4vOTsQiydAwB77osIZ29ZXg//6R6
+ opfA5abGktAa6PLUr9rXLabd7KacbckxWj9WZa6+Wq+nvkjJdTGhG0W7P
+ CI+zUZC4AbN0OX5ANRmk6L34KUGhR2c2VGQffaRxymgtPCI/iMVEOLb9f g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="257965366"
+X-IronPort-AV: E=Sophos;i="5.90,205,1643702400"; 
+ d="scan'208,217";a="257965366"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2022 17:08:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,205,1643702400"; d="scan'208";a="583881931"
-Received: from irsmsx602.ger.corp.intel.com ([163.33.146.8])
- by orsmga001.jf.intel.com with ESMTP; 23 Mar 2022 16:42:36 -0700
+X-IronPort-AV: E=Sophos;i="5.90,205,1643702400"; 
+ d="scan'208,217";a="785978024"
+Received: from irsmsx606.ger.corp.intel.com ([163.33.146.139])
+ by fmsmga006.fm.intel.com with ESMTP; 23 Mar 2022 17:08:01 -0700
 Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- irsmsx602.ger.corp.intel.com (163.33.146.8) with Microsoft SMTP Server
+ IRSMSX606.ger.corp.intel.com (163.33.146.139) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Wed, 23 Mar 2022 23:42:34 +0000
+ 15.1.2308.21; Thu, 24 Mar 2022 00:07:59 +0000
 Received: from fmsmsx611.amr.corp.intel.com ([10.18.126.91]) by
  fmsmsx611.amr.corp.intel.com ([10.18.126.91]) with mapi id 15.01.2308.021;
- Wed, 23 Mar 2022 16:42:33 -0700
+ Wed, 23 Mar 2022 17:07:58 -0700
 From: "Chery, Nanley G" <nanley.g.chery@intel.com>
-To: "Deak, Imre" <imre.deak@intel.com>, Juha-Pekka Heikkila
- <juhapekka.heikkila@gmail.com>
-Thread-Topic: [Intel-gfx] [PATCH v5 16/19] uapi/drm/dg2: Introduce format
- modifier for DG2 clear color
-Thread-Index: AQHYH663IhAmnebor0aDTKWpiG9p6qyVPvUA//96bNCAAJvFgP//fGmAgACZCAD//3tQwAAU3QcABp6+UIAAVluA4A==
-Date: Wed, 23 Mar 2022 23:42:33 +0000
-Message-ID: <24c2d65725c54df7aa90e97934f34cda@intel.com>
-References: <20220201104132.3050-1-ramalingam.c@intel.com>
- <20220201104132.3050-17-ramalingam.c@intel.com>
- <CAJDL4u+hX2Dbu7q5P48t44XLSOr7vA9mf_jiC607oA1Y6+2k6Q@mail.gmail.com>
- <a95a1168-5419-0688-0700-c9e81e50727b@gmail.com>
- <dc66535e7a5d4a9dae25a9548f333385@intel.com>
- <3e514431-ab0d-a455-871d-b7c9b183a98b@gmail.com>
- <3ff28a866f494a7ebec5b09eddd894c4@intel.com>
- <07650a50-6de5-7508-5602-4eaeba9d6cbb@gmail.com>
- <0d24d1ba37644f0fbd587dda983e5e00@intel.com>
- <1c7ebd63-aef0-accf-16ce-857b8352c3ba@gmail.com>
- <20220321132009.GB5666@ideak-desk.fi.intel.com>
-In-Reply-To: <20220321132009.GB5666@ideak-desk.fi.intel.com>
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, "C, Ramalingam"
+ <ramalingam.c@intel.com>
+Thread-Topic: RE: [Intel-gfx] [PATCH v5 13/19] drm/i915: Introduce new Tile 4
+ format
+Thread-Index: Adg/EpoKBUHSMXe8SgOFLlDUEvgGMw==
+Date: Thu, 24 Mar 2022 00:07:58 +0000
+Message-ID: <d3bcbbb51ff346219fabe4f17fba70d3@intel.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -68,11 +58,11 @@ dlp-product: dlpe-windows
 dlp-reaction: no-action
 dlp-version: 11.6.401.20
 x-originating-ip: [10.22.254.132]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/alternative;
+ boundary="_000_d3bcbbb51ff346219fabe4f17fba70d3intelcom_"
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH v5 16/19] uapi/drm/dg2: Introduce format
- modifier for DG2 clear color
+Subject: Re: [Intel-gfx] [PATCH v5 13/19] drm/i915: Introduce new Tile 4
+ format
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,212 +75,202 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, "Auld, 
- Matthew" <matthew.auld@intel.com>, Nanley Chery <nanleychery@gmail.com>
+Cc: "Auld, Matthew" <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--_000_d3bcbbb51ff346219fabe4f17fba70d3intelcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+Hi all,
 
-> -----Original Message-----
-> From: Deak, Imre <imre.deak@intel.com>
-> Sent: Monday, March 21, 2022 6:20 AM
-> To: Chery, Nanley G <nanley.g.chery@intel.com>; Juha-Pekka Heikkila <juha=
-pekka.heikkila@gmail.com>
-> Cc: Nanley Chery <nanleychery@gmail.com>; C, Ramalingam <ramalingam.c@int=
-el.com>; intel-gfx <intel-gfx@lists.freedesktop.org>;
-> Auld, Matthew <matthew.auld@intel.com>; dri-devel <dri-devel@lists.freede=
-sktop.org>
-> Subject: Re: [Intel-gfx] [PATCH v5 16/19] uapi/drm/dg2: Introduce format =
-modifier for DG2 clear color
->=20
-> Hi Nanley, JP,
->=20
-> On Tue, Feb 15, 2022 at 09:34:22PM +0200, Juha-Pekka Heikkila wrote:
-> > [...]
-> > > > > > > > > > diff --git a/include/uapi/drm/drm_fourcc.h
-> > > > > > > > > > b/include/uapi/drm/drm_fourcc.h index b8fb7b44c03c..697=
-614ea4b84 100644
-> > > > > > > > > > --- a/include/uapi/drm/drm_fourcc.h
-> > > > > > > > > > +++ b/include/uapi/drm/drm_fourcc.h
-> > > > > > > > > > @@ -605,6 +605,16 @@ extern "C" {
-> > > > > > > > > >       */
-> > > > > > > > > >      #define I915_FORMAT_MOD_4_TILED_DG2_MC_CCS fourcc_=
-mod_code(INTEL, 11)
-> > > > > > > > > >
-> > > > > > > > > > +/*
-> > > > > > > > > > + * Intel color control surfaces (CCS) for DG2 clear co=
-lor render compression.
-> > > > > > > > > > + *
-> > > > > > > > > > + * DG2 uses a unified compression format for clear col=
-or render compression.
-> > > > > > > > >
-> > > > > > > > > What's unified about DG2's compression format? If this do=
-esn't
-> > > > > > > > > affect the layout, maybe we should drop this sentence.
->=20
-> Unified here probably refers to the fact the DG2 render engine is
-> capable of generating both a render and a media compressed surface as
-> opposed to earlier platforms. The display engine still needs to know
-> which compression format the FB uses, hence we need both an RC and MC
-> modifier. Based on this I also think we can drop the mention of unified
-> compression.
->=20
-> > > > > > > > > > + * The general layout is a tiled layout using 4Kb tile=
-s i.e. Tile4 layout.
-> > > > > > > > > > + *
-> > > > > > > > >
-> > > > > > > > > This also needs a pitch aligned to four tiles, right? I t=
-hink we
-> > > > > > > > > can save some effort by referencing the DG2_RC_CCS modifi=
-er here.
-> > > > > > > > >
-> > > > > > > > > > + * Fast clear color value expected by HW is located in=
- fb at offset 0 of plane#1
-> > > > > > > > >
-> > > > > > > > > Why is the expected offset hardcoded to 0 instead of rely=
-ing on
-> > > > > > > > > the offset provided by the modifier API? This looks like =
-a bug.
-> > > > > > > >
-> > > > > > > > Hi Nanley,
-> > > > > > > >
-> > > > > > > > can you elaborate a bit, which offset from modifier API tha=
-t
-> > > > > > > > applies to cc surface?
-> > > > > > >
-> > > > > > > Hi Juha-Pekka,
-> > > > > > >
-> > > > > > > On the kernel-side of things, I'm thinking of drm_mode_fb_cmd=
-2::offsets[1].
-> > > > > >
-> > > > > > Hi Nanley,
-> > > > > >
-> > > > > > this offset is coming from userspace on creation of framebuffer=
-, at
-> > > > > > that moment from userspace caller can point to offset of desire=
-.
-> > > > > > Normally offset[0] is set at 0 and then offset[n] at plane n st=
-art
-> > > > > > which is not stated to have to be exactly after plane n-1 end. =
-Or did I
-> > > > > > misunderstand what you meant?
-> > > > >
-> > > > > Perhaps, at least, I'm not sure what you're meaning to say. This
-> > > > > modifier description seems to say that the drm_mode_fb_cmd2::offs=
-ets
-> > > > > value for the clear color plane must be zero. Are you saying that=
- it's
-> > > > > correct? This doesn't match the GEN12_RC_CCS_CC behavior and does=
-n't
-> > > > > match mesa's expectations.
-> > > >
-> > > > It doesn't say "drm_mode_fb_cmd2::offsets value for the clear color=
- plane must
-> > > > be zero", it says "Fast clear color value expected by HW is located=
- in fb at offset 0
-> > > > of plane#1".
-> > >
-> > > Yes, it doesn't say that exactly, but that's what it seems to say. Wi=
-th every other
-> > > modifier, it's implied that the data for the plane begins at the offs=
-et specified
-> > > through the modifier API. So, explicitly mentioning it here (and with=
- that wording)
-> > > conveys a new requirement.
-> >
-> > I don't have objections on changing this description but for reference =
-gen12
-> > version of the same says "The main surface is Y-tiled and is at plane i=
-ndex
-> > 0 whereas CCS is linear and at index 1. The clear color is stored at in=
-dex
-> > 2, and the pitch should be ignored.", only plane indexes are mentioned.=
- I
-> > anyway wrote neither of these descriptions.
-> >
-> > > > Plane#1 location is pointed by drm_mode_fb_cmd2::offsets[1] and the=
-re's
-> > > > nothing stated about that offset.
-> > >
-> > > Technically, plane #1's location is specified to be the combination o=
-f ::handles[1]
-> > > and ::offsets[1]. In practice though, I can imagine that there are ar=
-eas of the stack
-> > > that are implicitly requiring that all ::handles[] entries match.
->=20
-> The FB modifier API requires all ::handles[] to match, that is all
-> planes must be contained in one GEM object.
->=20
+Found an error in this description..
 
-This is a requirement for i915, or for all drm drivers? I couldn't find any=
-thing in the
-generic DRM headers or docs requiring this. Feel free to ping me about this=
- offline.
+> From: Stanislav Lisovskiy stanislav.lisovskiy@intel.com<mailto:stanislav.=
+lisovskiy@intel.com>
+>
+> This tiling layout uses 4KB tiles in a row-major layout. It has the same
+> shape as Tile Y at two granularities: 4KB (128B x 32) and 64B (16B x 4). =
+It
+> only differs from Tile Y at the 256B granularity in between. At this
+> granularity, Tile Y has a shape of 16B x 32 rows, but this tiling has a s=
+hape
+> of 64B x 8 rows.
+>
 
-> > I didn't think we needed to go deeper as you started to just talk about=
- how
-> > drm_mode_fb_cmd2::offsets[1] not being used. Let's not waste time.
-> >
-> > > > These offsets are just offsets to bo which contain the framebuffer =
-information
-> > > > hence drm_mode_fb_cmd2::offsets[1] can be changed as one wish and c=
-c
-> > > > information is found starting at drm_mode_fb_cmd2::offsets[1][0]
-> > >
-> > > If the clear color handling is the same as GEN12_RC_CCS_CC (apart for=
- the plane
-> > > index), I propose that we drop this sentence due to avoid any confusi=
-on.
-> >
-> > But it need to defined as part of the modifier. It's the modifier featu=
-res
-> > which are being described here.
-> >
-> > > This offset discussion raises another question. The description says =
-that the value
-> > > expected by HW is at offset 0. I'm assuming "HW" is referring to the =
-render engine?
-> > > The kernel is still giving the display engine the packed values at ::=
-offsets[1] + 16B right?
-> >
-> > Generally answer is yes but these parts you can see in patch "[PATCH v5
-> > 17/19] drm/i915/dg2: Flat CCS Support" and should be discussed there. H=
-ere
-> > "HW" should probably be changed something meaningful though.
->=20
-> The 256 bit clear color format starting at plane index 1 matches the one
-> described at I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC . So yes, "HW" refer=
-s
-> to the render engine and display consumes the 64 bit data at
-> ::offset[1] + 16 bytes (and DE ignores the 64 bit data starting at
-> ::offset[1] + 24 bytes.
->=20
-> The following captures all the above, would it be ok?:
->=20
-> Intel Color Control Surface with Clear Color (CCS) for DG2 render compres=
-sion.
->=20
-> The main surface is Tile 4 and at plane index 0. The CCS data is stored
-> outside of the GEM object in a reserved memory area dedicated for the
-> storage of the CCS data from all GEM objects. The main surface pitch is
-                                                      ^
-		                "for all compressible" ? (since SMEM objects don't have t=
-his)=20
+256B should be 512B (same feedback for the modifier description).
 
-> required to be a multiple of four Tile 4 widths. The clear color is store=
-d
-> at plane index 1 and the pitch should be ignored. The format of the 256
-> bits clear color data matches the one used for the
-   ^
-"256 bits of"?
+Regards,
+Nanley
 
-> I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC modifier, see its description
-> for details.
->=20
+> Reviewed-by: Imre Deak imre.deak@intel.com<mailto:imre.deak@intel.com>
+> Acked-by: Nanley Chery nanley.g.chery@intel.com<mailto:nanley.g.chery@int=
+el.com>
+> Signed-off-by: Stanislav Lisovskiy stanislav.lisovskiy@intel.com<mailto:s=
+tanislav.lisovskiy@intel.com>
+> ---
+>  include/uapi/drm/drm_fourcc.h | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.=
+h
+> index fc0c1454d275..b73fe6797fc3 100644
+> --- a/include/uapi/drm/drm_fourcc.h
+> +++ b/include/uapi/drm/drm_fourcc.h
+> @@ -572,6 +572,17 @@ extern "C" {
+>   */
+>  #define I915_FORMAT_MOD_Y_TILED_GEN12_RC_CCS_CC fourcc_mod_code(INTEL, 8=
+)
+>
+> +/*
+> + * Intel Tile 4 layout
+> + *
+> + * This is a tiled layout using 4KB tiles in a row-major layout. It has =
+the same
+> + * shape as Tile Y at two granularities: 4KB (128B x 32) and 64B (16B x =
+4). It
+> + * only differs from Tile Y at the 256B granularity in between. At this
+> + * granularity, Tile Y has a shape of 16B x 32 rows, but this tiling has=
+ a shape
+> + * of 64B x 8 rows.
+> + */
+> +#define I915_FORMAT_MOD_4_TILED         fourcc_mod_code(INTEL, 9)
+> +
+>  /*
+>   * Tiled, NV12MT, grouped in 64 (pixels) x 32 (lines) -sized macroblocks
+>   *
+>
 
-Looks good to me. With the above minor changes,
-Acked-by: Nanley Chery <nanley.g.chery@intel.com>
+--_000_d3bcbbb51ff346219fabe4f17fba70d3intelcom_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-> --Imre
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi all,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Found an error in this description..<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&gt; From: Stanislav Lisovskiy <a href=3D"mailto:sta=
+nislav.lisovskiy@intel.com">
+stanislav.lisovskiy@intel.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; <o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; This tiling layout uses 4KB tiles in a row-majo=
+r layout. It has the same<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; shape as Tile Y at two granularities: 4KB (128B=
+ x 32) and 64B (16B x 4). It<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; only differs from Tile Y at the 256B granularit=
+y in between. At this<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; granularity, Tile Y has a shape of 16B x 32 row=
+s, but this tiling has a shape<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; of 64B x 8 rows.<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">256B should be 512B (same feedback for the modifier =
+description).<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Nanley<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&gt; Reviewed-by: Imre Deak <a href=3D"mailto:imre.d=
+eak@intel.com">
+imre.deak@intel.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; Acked-by: Nanley Chery <a href=3D"mailto:nanley=
+.g.chery@intel.com">
+nanley.g.chery@intel.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; Signed-off-by: Stanislav Lisovskiy <a href=3D"m=
+ailto:stanislav.lisovskiy@intel.com">
+stanislav.lisovskiy@intel.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; ---<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;&nbsp; include/uapi/drm/drm_fourcc.h | 11 &#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;&nbsp; 1 file changed, 11 insertions(&#43;)<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">&gt; <o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; diff --git a/include/uapi/drm/drm_fourcc.h b/in=
+clude/uapi/drm/drm_fourcc.h<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; index fc0c1454d275..b73fe6797fc3 100644<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">&gt; --- a/include/uapi/drm/drm_fourcc.h<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">&gt; &#43;&#43;&#43; b/include/uapi/drm/drm_fourcc.h=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; @@ -572,6 &#43;572,17 @@ extern &quot;C&quot; {=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;&nbsp;&nbsp; */<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;&nbsp; #define I915_FORMAT_MOD_Y_TILED_GEN12_RC_=
+CCS_CC fourcc_mod_code(INTEL, 8)<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;&nbsp; <o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &#43;/*<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &#43; * Intel Tile 4 layout<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &#43; *<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &#43; * This is a tiled layout using 4KB tiles =
+in a row-major layout. It has the same<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &#43; * shape as Tile Y at two granularities: 4=
+KB (128B x 32) and 64B (16B x 4). It<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &#43; * only differs from Tile Y at the 256B gr=
+anularity in between. At this<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &#43; * granularity, Tile Y has a shape of 16B =
+x 32 rows, but this tiling has a shape<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &#43; * of 64B x 8 rows.<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &#43; */<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &#43;#define I915_FORMAT_MOD_4_TILED&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fourcc_mod_code(INTEL, 9)<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">&gt; &#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;&nbsp; /*<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;&nbsp;&nbsp; * Tiled, NV12MT, grouped in 64 (pix=
+els) x 32 (lines) -sized macroblocks<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;&nbsp;&nbsp; *<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;<o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_d3bcbbb51ff346219fabe4f17fba70d3intelcom_--
