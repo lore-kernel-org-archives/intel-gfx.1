@@ -4,44 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31171C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 00:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ED97C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 00:39:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ED0B10E456;
-	Thu, 24 Mar 2022 00:09:38 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6533210E456;
- Thu, 24 Mar 2022 00:09:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648080577; x=1679616577;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=vDd32vI4mzc5F5uC4EE9i7SU/I8iRx/aSWPHKpqe7nQ=;
- b=cdPMd7rcKpYNN0w/Gj/+n+jRMn59EqTeTwBqexpEnTXd8knJZFvo5QBy
- jGE/RMTowziKE2/Sgh6iRE5EalS+j9y9dc4RYMKdo9Fv7LJRfYIM47f05
- SrF2nK3T3pQetUVgVuBhzDS/hpLem/k8l9slQhkAmRxuIhzgNq2FM1KfG
- 92CN6Oo+MeIVkYQv+Qmd9ibG+GlqqDGFZkIgqXOF3LZuqdMbLvSsM7uVp
- 1Hlc1ewuHq1/ywYd2n9sB6esKupkxowsjd0V4Tkpnq/1+p2fIy5SRPw+8
- id7kUpzdqVZ/2vzJS2+nV8c9/pcFNZsxpmVt5jvibCtKZ5uP0N++wzqKc Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="257965560"
-X-IronPort-AV: E=Sophos;i="5.90,205,1643702400"; d="scan'208";a="257965560"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2022 17:09:26 -0700
-X-IronPort-AV: E=Sophos;i="5.90,205,1643702400"; d="scan'208";a="637663226"
-Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2022 17:09:25 -0700
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Mar 2022 17:04:39 -0700
-Message-Id: <20220324000439.2370440-1-daniele.ceraolospurio@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4C0D10E525;
+	Thu, 24 Mar 2022 00:39:14 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id F381E10E51B;
+ Thu, 24 Mar 2022 00:39:12 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id EDC3CA008A;
+ Thu, 24 Mar 2022 00:39:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/guc: Correctly free guc capture struct
- on error
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Daniele Ceraolo Spurio" <daniele.ceraolospurio@intel.com>
+Date: Thu, 24 Mar 2022 00:39:12 -0000
+Message-ID: <164808235293.18591.13265459472341942616@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220324000439.2370440-1-daniele.ceraolospurio@intel.com>
+In-Reply-To: <20220324000439.2370440-1-daniele.ceraolospurio@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/guc=3A_Correctly_free_guc_capture_struct_on_error?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,33 +40,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On error the "new" allocation is not freed, so add the required kfree.
+== Series Details ==
 
-Fixes: 247f8071d5893 ("drm/i915/guc: Pre-allocate output nodes for extraction")
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
-Cc: John Harrison <john.c.harrison@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c | 1 +
- 1 file changed, 1 insertion(+)
+Series: drm/i915/guc: Correctly free guc capture struct on error
+URL   : https://patchwork.freedesktop.org/series/101716/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index afdcbe63e9eb1..c4e25966d3e9f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -1040,6 +1040,7 @@ guc_capture_alloc_one_node(struct intel_guc *guc)
- 		if (!new->reginfo[i].regs) {
- 			while (i)
- 				kfree(new->reginfo[--i].regs);
-+			kfree(new);
- 			return NULL;
- 		}
- 	}
--- 
-2.25.1
+== Summary ==
+
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/display/intel_drrs.c:1: warning: 'intel_drrs_enable' not found
+./drivers/gpu/drm/i915/display/intel_drrs.c:1: warning: 'intel_drrs_disable' not found
+
 
