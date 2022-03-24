@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 012C8C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 08:49:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B485DC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Mar 2022 08:53:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B46C10E866;
-	Thu, 24 Mar 2022 08:49:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC2310E87C;
+	Thu, 24 Mar 2022 08:53:59 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0CFCC10E865;
- Thu, 24 Mar 2022 08:49:28 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C169A10E877;
+ Thu, 24 Mar 2022 08:53:58 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 0A166AAA91;
- Thu, 24 Mar 2022 08:49:28 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id BD987A0099;
+ Thu, 24 Mar 2022 08:53:58 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Animesh Manna" <animesh.manna@intel.com>
-Date: Thu, 24 Mar 2022 08:49:28 -0000
-Message-ID: <164811176800.18591.5258423966014873326@emeril.freedesktop.org>
+Date: Thu, 24 Mar 2022 08:53:58 -0000
+Message-ID: <164811203877.18591.8336200028224123106@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220324074300.21294-1-animesh.manna@intel.com>
 In-Reply-To: <20220324074300.21294-1-animesh.manna@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/dsb=3A_modified_to_drm=5Finfo_in_dsb=5Fprepare=28?=
- =?utf-8?q?=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/dsb=3A_modified_to_drm=5Finfo_in_dsb=5Fprepare=28=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,13 +53,8 @@ State : warning
 
 == Summary ==
 
-$ dim checkpatch origin/drm-tip
-d7c0e5b3bf10 drm/i915/dsb: modified to drm_info in dsb_prepare()
--:28: WARNING:OOM_MESSAGE: Possible unnecessary 'out of memory' message
-#28: FILE: drivers/gpu/drm/i915/display/intel_dsb.c:278:
- 	if (!dsb) {
-+		drm_info(&i915->drm, "DSB object creation failed\n");
-
-total: 0 errors, 1 warnings, 0 checks, 32 lines checked
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/display/intel_drrs.c:1: warning: 'intel_drrs_enable' not found
+./drivers/gpu/drm/i915/display/intel_drrs.c:1: warning: 'intel_drrs_disable' not found
 
 
