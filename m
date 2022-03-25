@@ -4,44 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F903C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 00:21:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6685DC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 01:06:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C176310E118;
-	Fri, 25 Mar 2022 00:21:33 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D48C10E118
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Mar 2022 00:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648167692; x=1679703692;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=19hJJWkXm/LYVSherWrLzpKsPVSh89fYyHKtPJYygkQ=;
- b=BCRyS+GvkWcdE+HDXSf+89r8UfKlBfObXRbC5eam1CSy4SSXy/+uKwc1
- nKPZBEczasuMw60FWZ4c6NSFgxGNWz7139/c2TElpMUwy2GCDw4PgMTMH
- ccbSrQlTYWRp5bgumvgsyylUM+iWPFYWG09+LuU7DYQx0HejBIIvkTv9h
- qe1fD/LmZkkgtReKb7nmafUCrCbY2Ifre4WF6BzhmWHn4DocOPOCd5W4F
- NNiRRnLN13yCFvOq+Gx3+gVZ5w3SuTKjy8TRtpD0ODIdXFrsOiJjTqhZW
- hIeVbVrO/dYifcdY7DU4oqOTXRDtGcO2K7uIhxuPv97La4DqPPIYYUTz+ g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10296"; a="321717554"
-X-IronPort-AV: E=Sophos;i="5.90,208,1643702400"; d="scan'208";a="321717554"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2022 17:21:29 -0700
-X-IronPort-AV: E=Sophos;i="5.90,208,1643702400"; d="scan'208";a="520005875"
-Received: from dillonfo-mobl.amr.corp.intel.com (HELO localhost)
- ([10.209.59.70])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2022 17:21:29 -0700
-From: Jordan Justen <jordan.l.justen@intel.com>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>
-Date: Thu, 24 Mar 2022 17:21:15 -0700
-Message-Id: <20220325002115.103036-1-jordan.l.justen@intel.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 888F510E135;
+	Fri, 25 Mar 2022 01:06:04 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7F2D810E118;
+ Fri, 25 Mar 2022 01:06:03 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7CE85A00A0;
+ Fri, 25 Mar 2022 01:06:03 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/hwconfig: Add DG2 support
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jordan Justen" <jordan.l.justen@intel.com>
+Date: Fri, 25 Mar 2022 01:06:03 -0000
+Message-ID: <164817036348.24038.17109337546196376239@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220325002115.103036-1-jordan.l.justen@intel.com>
+In-Reply-To: <20220325002115.103036-1-jordan.l.justen@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/hwconfig=3A_Add_DG2_support?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,35 +40,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+== Series Details ==
 
-DG2 support for hwconfig tables varies by both SKU and stepping.
+Series: drm/i915/hwconfig: Add DG2 support
+URL   : https://patchwork.freedesktop.org/series/101760/
+State : warning
 
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-Tested-by: Jordan Justen <jordan.l.justen@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c | 2 ++
- 1 file changed, 2 insertions(+)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c
-index e0f65bdd1c84..b34833cca44a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c
-@@ -96,6 +96,8 @@ static bool has_table(struct drm_i915_private *i915)
- {
- 	if (IS_ALDERLAKE_P(i915))
- 		return true;
-+	if (IS_DG2_G11(i915) || IS_DG2_GRAPHICS_STEP(i915, G10, STEP_A2, STEP_FOREVER))
-+		return true;
- 
- 	return false;
- }
--- 
-2.35.1
+$ make htmldocs 2>&1 > /dev/null | grep i915
+./drivers/gpu/drm/i915/display/intel_drrs.c:1: warning: 'intel_drrs_enable' not found
+./drivers/gpu/drm/i915/display/intel_drrs.c:1: warning: 'intel_drrs_disable' not found
+
 
