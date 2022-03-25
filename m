@@ -4,45 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01871C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 18:37:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB6A1C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Mar 2022 18:37:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E28C10E149;
-	Fri, 25 Mar 2022 18:37:23 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60CB510E149
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Mar 2022 18:37:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D010110E285;
+	Fri, 25 Mar 2022 18:37:42 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A042D10E182;
+ Fri, 25 Mar 2022 18:37:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648233442; x=1679769442;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Sw6BJaZb5NBjSGHCuAVrngXxZtXfDwG866ogFQz1exg=;
- b=ZTKfiEurUHuCZ0FkNtXD/ilHC2KhmJ7aa4RmF53Cjw5H2o1LepYyG64u
- 50kUQwDkegQpRkxV/BrH5Y4FvKWhL1WGXnVjY201POFAnDzPmAUSpUKWq
- fzxoBniVV+uNXeTQLV3fvGLo1vtg0WXFc/+6HNFtC8Q6DJj/IseFwiBoK
- xqR/Bhs/vAFP+XPOpp2HmF0CVdwDtxahwdVTnVOMauBSN9s944djYEFam
- u1mRncLa5SOlMs8HplLcsRn1YMwa7rfH4lrlPqhMjuAaFMlAPGyWuIky8
- Aoi5fZulyxHEvBZWDapfLfJAkzRBc54AGihsgm9583gQzPYRz/lLJR9uM Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10297"; a="258410729"
-X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="258410729"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2022 11:37:21 -0700
-X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="545183983"
-Received: from mymcglot-mobl.amr.corp.intel.com (HELO
- josouza-mobl2.amr.corp.intel.com) ([10.213.175.5])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2022 11:37:20 -0700
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 25 Mar 2022 11:38:32 -0700
-Message-Id: <20220325183832.146472-1-jose.souza@intel.com>
-X-Mailer: git-send-email 2.35.1
+ t=1648233461; x=1679769461;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=wuLEbTBz7SfTnuMZJ9l8kCMV8rdyCtiXOoi0m6I0OUE=;
+ b=NFAJR6WxJd9CHefak+5q5mMUoq2lm8ExHXXrD4lvXps418c/iUj/9oor
+ 2zgF+6WFsd8jgubHnZT5LlJcVnjXTKeBIh++QadmxDTV0lf3LwA2slkbu
+ Lcy3qScen0Dp6ub15StJZWB4wA9lTTsLOLagP7/GAopNrQPbWqQQyyEju
+ PJ4SGvEUWuxBi2dXUIVvMtX0vDoRINPWF6LR2FETKGEBpdtST+fbXatz2
+ ZeNgiXdSsvDbX98DNwnMeGbbiNm7+RZYvU2pW3Pg8Pn+t82gDTLvUsV7U
+ vnY0tKnXhSwjkM+Z72yEIIJdAmIsuiD2A4ICKOwKErCotl9vYrUlGUvIS g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10297"; a="319401465"
+X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="319401465"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2022 11:37:41 -0700
+X-IronPort-AV: E=Sophos;i="5.90,211,1643702400"; d="scan'208";a="561933074"
+Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.252.61.27])
+ ([10.252.61.27])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2022 11:37:40 -0700
+Message-ID: <71bbc214-b3a0-d3ca-c3bc-fe6d0b8d162c@linux.intel.com>
+Date: Fri, 25 Mar 2022 19:37:38 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20220325175839.2717499-1-daniele.ceraolospurio@intel.com>
+From: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
+In-Reply-To: <20220325175839.2717499-1-daniele.ceraolospurio@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] docs: gpu: i915.rst: Fix DRRS documentation
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: fix remaining_timeout in
+ intel_gt_retire_requests_timeout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,51 +61,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_drrs_enable() and intel_drrs_disable() were renamed to
-intel_drrs_activate() and intel_drrs_deactivate() in commit
-54903c7a6b40 ("drm/i915: s/enable/active/ for DRRS") and it is
-causing warnings when generating the kernel documentation.
 
-But as for a while DRRS has its own file, so here just let the tool
-generate the documentation for all exported and documented functions
-in intel_drrs.c.
+On 3/25/2022 6:58 PM, Daniele Ceraolo Spurio wrote:
+> In intel_gt_wait_for_idle, we use the remaining timeout returned from
+> intel_gt_retire_requests_timeout to wait on the GuC being idle. However,
+> the returned variable can have a negative value if something goes wrong
+> during the wait, leading to us hitting a GEM_BUG_ON in the GuC wait
+> function.
+> To fix this, make sure to only return the timeout if it is positive.
+>
+> Fixes: b97060a99b01b ("drm/i915/guc: Update intel_gt_wait_for_idle to work with GuC")
+> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: John Harrison <john.c.harrison@intel.com>
+> ---
+>   drivers/gpu/drm/i915/gt/intel_gt_requests.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+> index edb881d756309..ef70c209976d8 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+> @@ -197,7 +197,7 @@ out_active:	spin_lock(&timelines->lock);
+>   		active_count++;
+>   
+>   	if (remaining_timeout)
+> -		*remaining_timeout = timeout;
+> +		*remaining_timeout = timeout > 0 ? timeout : 0;
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
----
- Documentation/gpu/i915.rst | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
 
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index bcaefc952764e..0f08693d05cdf 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -187,19 +187,7 @@ Display Refresh Rate Switching (DRRS)
-    :doc: Display Refresh Rate Switching (DRRS)
- 
- .. kernel-doc:: drivers/gpu/drm/i915/display/intel_drrs.c
--   :functions: intel_drrs_enable
--
--.. kernel-doc:: drivers/gpu/drm/i915/display/intel_drrs.c
--   :functions: intel_drrs_disable
--
--.. kernel-doc:: drivers/gpu/drm/i915/display/intel_drrs.c
--   :functions: intel_drrs_invalidate
--
--.. kernel-doc:: drivers/gpu/drm/i915/display/intel_drrs.c
--   :functions: intel_drrs_flush
--
--.. kernel-doc:: drivers/gpu/drm/i915/display/intel_drrs.c
--   :functions: intel_drrs_init
-+   :internal:
- 
- DPIO
- ----
--- 
-2.35.1
+Should the last flush_submission() be  "if ( timeout > 0 
+&&flush_submission(gt, timeout))" ?
 
+
+Nirmoy
+
+>   
+>   	return active_count ? timeout : 0;
+>   }
