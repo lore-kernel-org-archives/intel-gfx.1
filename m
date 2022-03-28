@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22D8FC433EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96997C433F5
 	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 17:26:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 731B610E733;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0FD310E738;
 	Mon, 28 Mar 2022 17:26:37 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E35AD10E730
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 17:26:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5683310E07B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 17:26:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648488390; x=1680024390;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=UwAg1t85iKs3sigMVX36FFVsnsFmokWgPZCSyA/FAz4=;
- b=hiupeKr2TCGQpOCrVuyARFnY8YzxbxM2oMiqUtV3fMsMbNRdN6bKDaXR
- jaGIoyP5Vr4F5lMMfdYBEhVb1IXx/RePDIdwLdK7HPN0guZpAQfEFp1Q3
- GO8bSmxKommECMzuRSLgFl1KDw+ovtMY4X24tJb79uD2YaBKYTSViodhF
- fgo/l5wjXPrBDu9xMVG7BuCEVGwNTkdpKbLDkxRcgjM6UF9e/U2pYThNQ
- wlG3UDNjQ+IN54NwADoBnlYY1XI6/wDR5Ci5jn6WA0WSCchyIH4+dTFu3
- y+qhFpYX6VLIDD9E33k9iQB/wUvl+yJoxUDWq+10OxlL2u3yZz2Rl0I8V w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="256637145"
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="256637145"
+ t=1648488389; x=1680024389;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=eBJYt63n+lOC0ezUVrjv8xiupC4aY+LEGOvH9fsQB+k=;
+ b=hJg79b2arq94vGHuKrIKinxD+ZkWWCBIqhK1uDUCS4TdJC0VIQvFwvX2
+ K1HlkeAjjvmqCeEyhsXDSTf1QWgE4wVacFftn8qfYmfndp7g7pSgotkSY
+ zPu/N98bBG5ydZUhOxRdtCwrzLGSGmn6e+BcKydRErmVQxzN/Yk+RVu2d
+ 28emUtYthGhoRflaC8XSZzTzMfTE91fEx/bYEALe1FFE/imJ6by56TB6G
+ uGkqxveigqhl7sx5WwdcAgk+cn0MZ3Bkq7wuq5MfgBNG6/V1ykDALLF3P
+ d38iNOaMYWL1DCaoXdusR5dpa+BqFs6tLt5UB9UzmVDn0wkaqIHuvWFDj w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="256637123"
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="256637123"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 10:26:30 -0700
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="521107946"
+ 28 Mar 2022 10:26:28 -0700
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="521107927"
 Received: from khogan-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.19.170])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 10:26:29 -0700
+ 28 Mar 2022 10:26:26 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Mar 2022 18:25:51 +0100
-Message-Id: <20220328172551.43309-4-matthew.auld@intel.com>
+Date: Mon, 28 Mar 2022 18:25:48 +0100
+Message-Id: <20220328172551.43309-1-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220328172551.43309-1-matthew.auld@intel.com>
-References: <20220328172551.43309-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 4/4] drm/i915/selftest: Always cancel semaphore on
- error
+Subject: [Intel-gfx] [CI 1/4] drm/i915/gt: Explicitly clear BB_OFFSET for
+ new contexts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,50 +60,91 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Chris Wilson <chris@chris-wilson.co.uk>
 
-Ensure that we always signal the semaphore when timing out, so that if it
-happens to be stuck waiting for the semaphore we will quickly recover
-without having to wait for a reset.
+Even though the initial protocontext we load onto HW has the register
+cleared, by the time we save it into the default image, BB_OFFSET has
+had the enable bit set. Reclear BB_OFFSET for each new context.
 
-Reported-by: CQ Tang <cq.tang@intel.com>
+Testcase: igt/i915_selftests/gt_lrc
+
 Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: CQ Tang <cq.tang@intel.com>
-cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_lrc.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_regs.h |  1 +
+ drivers/gpu/drm/i915/gt/intel_lrc.c         | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/gt/selftest_lrc.c      |  5 +++++
+ 3 files changed, 23 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_regs.h b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+index 0bf8b45c9319..d6da3bbf66f8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+@@ -109,6 +109,7 @@
+ #define RING_SBBSTATE(base)			_MMIO((base) + 0x118) /* hsw+ */
+ #define RING_SBBADDR_UDW(base)			_MMIO((base) + 0x11c) /* gen8+ */
+ #define RING_BBADDR(base)			_MMIO((base) + 0x140)
++#define RING_BB_OFFSET(base)			_MMIO((base) + 0x158)
+ #define RING_BBADDR_UDW(base)			_MMIO((base) + 0x168) /* gen8+ */
+ #define CCID(base)				_MMIO((base) + 0x180)
+ #define   CCID_EN				BIT(0)
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 07bef7128fdb..f673bae97a03 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -662,6 +662,18 @@ static int lrc_ring_mi_mode(const struct intel_engine_cs *engine)
+ 		return -1;
+ }
+ 
++static int lrc_ring_bb_offset(const struct intel_engine_cs *engine)
++{
++	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
++		return 0x80;
++	else if (GRAPHICS_VER(engine->i915) >= 12)
++		return 0x70;
++	else if (GRAPHICS_VER(engine->i915) >= 9)
++		return 0x64;
++	else
++		return -1;
++}
++
+ static int lrc_ring_gpr0(const struct intel_engine_cs *engine)
+ {
+ 	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
+@@ -768,6 +780,7 @@ static void init_common_regs(u32 * const regs,
+ 			     bool inhibit)
+ {
+ 	u32 ctl;
++	int loc;
+ 
+ 	ctl = _MASKED_BIT_ENABLE(CTX_CTRL_INHIBIT_SYN_CTX_SWITCH);
+ 	ctl |= _MASKED_BIT_DISABLE(CTX_CTRL_ENGINE_CTX_RESTORE_INHIBIT);
+@@ -779,6 +792,10 @@ static void init_common_regs(u32 * const regs,
+ 	regs[CTX_CONTEXT_CONTROL] = ctl;
+ 
+ 	regs[CTX_TIMESTAMP] = ce->runtime.last;
++
++	loc = lrc_ring_bb_offset(engine);
++	if  (loc != -1)
++		regs[loc + 1] = 0;
+ }
+ 
+ static void init_wa_bb_regs(u32 * const regs,
 diff --git a/drivers/gpu/drm/i915/gt/selftest_lrc.c b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-index 6c394d0c0fb0..c7eead0f0d8f 100644
+index 21c29d315cc0..13f57c7c4224 100644
 --- a/drivers/gpu/drm/i915/gt/selftest_lrc.c
 +++ b/drivers/gpu/drm/i915/gt/selftest_lrc.c
-@@ -1435,18 +1435,17 @@ static int __lrc_isolation(struct intel_engine_cs *engine, u32 poison)
- 	}
- 
- 	err = poison_registers(B, poison, sema);
--	if (err) {
--		WRITE_ONCE(*sema, -1);
--		i915_request_put(rq);
--		goto err_result1;
--	}
--
--	if (i915_request_wait(rq, 0, HZ / 2) < 0) {
--		i915_request_put(rq);
-+	if (err == 0 && i915_request_wait(rq, 0, HZ / 2) < 0) {
-+		pr_err("%s(%s): wait for results timed out\n",
-+		       __func__, engine->name);
- 		err = -ETIME;
--		goto err_result1;
- 	}
-+
-+	/* Always cancel the semaphore wait, just in case the GPU gets stuck */
-+	WRITE_ONCE(*sema, -1);
- 	i915_request_put(rq);
-+	if (err)
-+		goto err_result1;
- 
- 	err = compare_isolation(engine, ref, result, A, poison);
- 
+@@ -323,6 +323,11 @@ static int live_lrc_fixed(void *arg)
+ 				lrc_ring_cmd_buf_cctl(engine),
+ 				"RING_CMD_BUF_CCTL"
+ 			},
++			{
++				i915_mmio_reg_offset(RING_BB_OFFSET(engine->mmio_base)),
++				lrc_ring_bb_offset(engine),
++				"RING_BB_OFFSET"
++			},
+ 			{ },
+ 		}, *t;
+ 		u32 *hw;
 -- 
 2.34.1
 
