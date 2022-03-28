@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEFF5C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 09:18:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74B67C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 09:18:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 646B510EC27;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF33510EC28;
 	Mon, 28 Mar 2022 09:18:34 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1BFE10EBB6;
- Mon, 28 Mar 2022 09:18:25 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4395B10EBEB;
+ Mon, 28 Mar 2022 09:18:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1648459106; x=1679995106;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=U5eI4u1D+0DhKWd1tvpzwvpi060icjZPwKJUqtmC3n8=;
- b=dSUh/W2Q9hoWkvD4wqqcizhuRRTd7v/vgHbPhxHI5scxIq9TO4R7OQBD
- UyoOkThf71SoU0Qdqmr8ZQyNTvpDF0dlyKp2M2soNJPVnU1wRiLBbAzQL
- OUFX4whx5EBl+6bD6OxJ/hyTneZymXb8CxNo/LXFqjED1F2xiYfnpaXv9
- io6Y+pU9ITYe+EV4io4BMKCn8sL7iGFlFkUb9bWAWurl6cV0uWiy1ppCv
- 3Aw3wkvomqxIl44SC0lh3G2sRZUke2d+rdnO+Fvekbrzx4UzugxBO/SUK
- RimM2GBYUzx5quy/VPAb0wcn8T9+dFBIHHmT2a4OU5RY8u4CKh9a9lza1 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10299"; a="319655844"
-X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="319655844"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 02:18:25 -0700
-X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="617721951"
+ bh=RiJIIxEYo5DrI+6dT0nLvCLL+B3So7UixYzpfdMv534=;
+ b=OUfWLhVq0s6JH3w0wzGssogdB+ZBLUu3nZi+QfGDkLNCkXAL8sEvuy0+
+ 99UWmk8iDCDUIp/egoLplatwcU2t8vcD/QQ8XHChAfWLrIIm9AHKHbxe4
+ v/iwUEqq77PFPOazEuFHGKILhzyp5k6NhNQd6bU4SF6tajHzuqqkWp2Vr
+ LzWoAEKaWG2vQTlXt+v+ROPFzeMGc6+oXTZQm/koC6MdMIWbcusNiJV+Y
+ RL4HFNrPsx4DpJM3eEBwh5K8O4XUEQJITMzaaNmVVYRIBMAtoADK/KKLM
+ VhOjgBhHPupPQvSXhHW+pvOezH7O0Q4LqGyCaxSJi/lRpzR6As0xNS5Jr g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10299"; a="283841884"
+X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="283841884"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2022 02:18:08 -0700
+X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="603962424"
 Received: from aysivtso-mobl.ccr.corp.intel.com (HELO localhost)
  ([10.252.62.56])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 02:18:23 -0700
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2022 02:18:06 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon, 28 Mar 2022 12:17:25 +0300
-Message-Id: <db34a607afb05802c882a437bb1183174ba0985e.1648458971.git.jani.nikula@intel.com>
+Date: Mon, 28 Mar 2022 12:17:21 +0300
+Message-Id: <5db2906c3767ea80392cf91b9aa5745763349c4f.1648458971.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1648458971.git.jani.nikula@intel.com>
 References: <cover.1648458971.git.jani.nikula@intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 11/11] drm/edid: add more general struct edid
- constness in the interfaces
+Subject: [Intel-gfx] [PATCH v2 07/11] drm/edid: constify struct
+ detailed_timing in lower level parsing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,146 +63,176 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With this, the remaining non-const parts are the ones that actually
-modify the EDID, for example to fix corrupt EDID.
+Start constifying the struct detailed_timing pointers being passed
+around from bottom up.
 
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 21 +++++++++++----------
- include/drm/drm_edid.h     | 10 +++++-----
- 2 files changed, 16 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 40 +++++++++++++++++++-------------------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 0c4b95fb6bd9..114ccc712c71 100644
+index 4d63f3412672..60eee683be3f 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -2150,7 +2150,7 @@ static u32 edid_extract_panel_id(const struct edid *edid)
- 
- u32 drm_edid_get_panel_id(struct i2c_adapter *adapter)
- {
--	struct edid *edid;
-+	const struct edid *edid;
- 	u32 panel_id;
- 
- 	edid = drm_do_get_edid_base_block(NULL, drm_do_probe_ddc_edid, adapter);
-@@ -3670,7 +3670,7 @@ static bool drm_valid_hdmi_vic(u8 vic)
- }
- 
- static int
--add_alternate_cea_modes(struct drm_connector *connector, struct edid *edid)
-+add_alternate_cea_modes(struct drm_connector *connector, const struct edid *edid)
+@@ -2566,7 +2566,7 @@ static int drm_mode_hsync(const struct drm_display_mode *mode)
+  */
+ static struct drm_display_mode *
+ drm_mode_std(struct drm_connector *connector, struct edid *edid,
+-	     struct std_timing *t)
++	     const struct std_timing *t)
  {
  	struct drm_device *dev = connector->dev;
- 	struct drm_display_mode *mode, *tmp;
-@@ -4351,7 +4351,7 @@ static void drm_parse_y420cmdb_bitmap(struct drm_connector *connector,
+ 	struct drm_display_mode *m, *mode = NULL;
+@@ -2684,7 +2684,7 @@ drm_mode_std(struct drm_connector *connector, struct edid *edid,
+  */
+ static void
+ drm_mode_do_interlace_quirk(struct drm_display_mode *mode,
+-			    struct detailed_pixel_timing *pt)
++			    const struct detailed_pixel_timing *pt)
+ {
+ 	int i;
+ 	static const struct {
+@@ -2728,11 +2728,11 @@ drm_mode_do_interlace_quirk(struct drm_display_mode *mode,
+  */
+ static struct drm_display_mode *drm_mode_detailed(struct drm_device *dev,
+ 						  struct edid *edid,
+-						  struct detailed_timing *timing,
++						  const struct detailed_timing *timing,
+ 						  u32 quirks)
+ {
+ 	struct drm_display_mode *mode;
+-	struct detailed_pixel_timing *pt = &timing->data.pixel_data;
++	const struct detailed_pixel_timing *pt = &timing->data.pixel_data;
+ 	unsigned hactive = (pt->hactive_hblank_hi & 0xf0) << 4 | pt->hactive_lo;
+ 	unsigned vactive = (pt->vactive_vblank_hi & 0xf0) << 4 | pt->vactive_lo;
+ 	unsigned hblank = (pt->hactive_hblank_hi & 0xf) << 8 | pt->hblank_lo;
+@@ -2827,7 +2827,7 @@ static struct drm_display_mode *drm_mode_detailed(struct drm_device *dev,
+ 
+ static bool
+ mode_in_hsync_range(const struct drm_display_mode *mode,
+-		    struct edid *edid, u8 *t)
++		    struct edid *edid, const u8 *t)
+ {
+ 	int hsync, hmin, hmax;
+ 
+@@ -2844,7 +2844,7 @@ mode_in_hsync_range(const struct drm_display_mode *mode,
+ 
+ static bool
+ mode_in_vsync_range(const struct drm_display_mode *mode,
+-		    struct edid *edid, u8 *t)
++		    struct edid *edid, const u8 *t)
+ {
+ 	int vsync, vmin, vmax;
+ 
+@@ -2860,7 +2860,7 @@ mode_in_vsync_range(const struct drm_display_mode *mode,
+ }
+ 
+ static u32
+-range_pixel_clock(struct edid *edid, u8 *t)
++range_pixel_clock(struct edid *edid, const u8 *t)
+ {
+ 	/* unspecified */
+ 	if (t[9] == 0 || t[9] == 255)
+@@ -2876,10 +2876,10 @@ range_pixel_clock(struct edid *edid, u8 *t)
+ 
+ static bool
+ mode_in_range(const struct drm_display_mode *mode, struct edid *edid,
+-	      struct detailed_timing *timing)
++	      const struct detailed_timing *timing)
+ {
+ 	u32 max_clock;
+-	u8 *t = (u8 *)timing;
++	const u8 *t = (const u8 *)timing;
+ 
+ 	if (!mode_in_hsync_range(mode, edid, t))
+ 		return false;
+@@ -2922,7 +2922,7 @@ static bool valid_inferred_mode(const struct drm_connector *connector,
+ 
+ static int
+ drm_dmt_modes_for_range(struct drm_connector *connector, struct edid *edid,
+-			struct detailed_timing *timing)
++			const struct detailed_timing *timing)
+ {
+ 	int i, modes = 0;
+ 	struct drm_display_mode *newmode;
+@@ -2957,7 +2957,7 @@ void drm_mode_fixup_1366x768(struct drm_display_mode *mode)
+ 
+ static int
+ drm_gtf_modes_for_range(struct drm_connector *connector, struct edid *edid,
+-			struct detailed_timing *timing)
++			const struct detailed_timing *timing)
+ {
+ 	int i, modes = 0;
+ 	struct drm_display_mode *newmode;
+@@ -2986,7 +2986,7 @@ drm_gtf_modes_for_range(struct drm_connector *connector, struct edid *edid,
+ 
+ static int
+ drm_cvt_modes_for_range(struct drm_connector *connector, struct edid *edid,
+-			struct detailed_timing *timing)
++			const struct detailed_timing *timing)
+ {
+ 	int i, modes = 0;
+ 	struct drm_display_mode *newmode;
+@@ -3018,8 +3018,8 @@ static void
+ do_inferred_modes(struct detailed_timing *timing, void *c)
+ {
+ 	struct detailed_mode_closure *closure = c;
+-	struct edid_display_descriptor *data = &timing->data.descriptor;
+-	struct detailed_data_monitor_range *range = &data->data.range;
++	const struct edid_display_descriptor *data = &timing->data.descriptor;
++	const struct detailed_data_monitor_range *range = &data->data.range;
+ 
+ 	if (!is_display_descriptor(timing, EDID_DETAIL_MONITOR_RANGE))
+ 		return;
+@@ -3068,11 +3068,11 @@ add_inferred_modes(struct drm_connector *connector, struct edid *edid)
  }
  
  static int
--add_cea_modes(struct drm_connector *connector, struct edid *edid)
-+add_cea_modes(struct drm_connector *connector, const struct edid *edid)
+-drm_est3_modes(struct drm_connector *connector, struct detailed_timing *timing)
++drm_est3_modes(struct drm_connector *connector, const struct detailed_timing *timing)
  {
- 	const u8 *cea = drm_find_cea_extension(edid);
- 	const u8 *db, *hdmi = NULL, *video = NULL;
-@@ -4557,7 +4557,7 @@ static int get_monitor_name(const struct edid *edid, char name[13])
-  * @bufsize: The size of the name buffer (should be at least 14 chars.)
-  *
-  */
--void drm_edid_get_monitor_name(struct edid *edid, char *name, int bufsize)
-+void drm_edid_get_monitor_name(const struct edid *edid, char *name, int bufsize)
+ 	int i, j, m, modes = 0;
+ 	struct drm_display_mode *mode;
+-	u8 *est = ((u8 *)timing) + 6;
++	const u8 *est = ((const u8 *)timing) + 6;
+ 
+ 	for (i = 0; i < 6; i++) {
+ 		for (j = 7; j >= 0; j--) {
+@@ -3151,7 +3151,7 @@ static void
+ do_standard_modes(struct detailed_timing *timing, void *c)
  {
- 	int name_length;
- 	char buf[13];
-@@ -4591,7 +4591,8 @@ static void clear_eld(struct drm_connector *connector)
-  * Fill the ELD (EDID-Like Data) buffer for passing to the audio driver. The
-  * HDCP and Port_ID ELD fields are left for the graphics driver to fill in.
-  */
--static void drm_edid_to_eld(struct drm_connector *connector, struct edid *edid)
-+static void drm_edid_to_eld(struct drm_connector *connector,
-+			    const struct edid *edid)
- {
- 	uint8_t *eld = connector->eld;
- 	const u8 *cea;
-@@ -4687,7 +4688,7 @@ static void drm_edid_to_eld(struct drm_connector *connector, struct edid *edid)
-  *
-  * Return: The number of found SADs or negative number on error.
-  */
--int drm_edid_to_sad(struct edid *edid, struct cea_sad **sads)
-+int drm_edid_to_sad(const struct edid *edid, struct cea_sad **sads)
- {
- 	int count = 0;
- 	int i, start, end, dbl;
-@@ -4749,7 +4750,7 @@ EXPORT_SYMBOL(drm_edid_to_sad);
-  * Return: The number of found Speaker Allocation Blocks or negative number on
-  * error.
-  */
--int drm_edid_to_speaker_allocation(struct edid *edid, u8 **sadb)
-+int drm_edid_to_speaker_allocation(const struct edid *edid, u8 **sadb)
- {
- 	int count = 0;
- 	int i, start, end, dbl;
-@@ -4844,7 +4845,7 @@ EXPORT_SYMBOL(drm_av_sync_delay);
-  *
-  * Return: True if the monitor is HDMI, false if not or unknown.
-  */
--bool drm_detect_hdmi_monitor(struct edid *edid)
-+bool drm_detect_hdmi_monitor(const struct edid *edid)
- {
- 	const u8 *edid_ext;
+ 	struct detailed_mode_closure *closure = c;
+-	struct edid_display_descriptor *data = &timing->data.descriptor;
++	const struct edid_display_descriptor *data = &timing->data.descriptor;
+ 	struct drm_connector *connector = closure->connector;
+ 	struct edid *edid = closure->edid;
  	int i;
-@@ -4882,7 +4883,7 @@ EXPORT_SYMBOL(drm_detect_hdmi_monitor);
-  *
-  * Return: True if the monitor supports audio, false otherwise.
-  */
--bool drm_detect_monitor_audio(struct edid *edid)
-+bool drm_detect_monitor_audio(const struct edid *edid)
- {
- 	const u8 *edid_ext;
- 	int i, j;
-@@ -5549,7 +5550,7 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+@@ -3160,7 +3160,7 @@ do_standard_modes(struct detailed_timing *timing, void *c)
+ 		return;
+ 
+ 	for (i = 0; i < 6; i++) {
+-		struct std_timing *std = &data->data.timings[i];
++		const struct std_timing *std = &data->data.timings[i];
+ 		struct drm_display_mode *newmode;
+ 
+ 		newmode = drm_mode_std(connector, edid, std);
+@@ -3209,12 +3209,12 @@ add_standard_modes(struct drm_connector *connector, struct edid *edid)
  }
  
- static int add_displayid_detailed_modes(struct drm_connector *connector,
--					struct edid *edid)
-+					const struct edid *edid)
+ static int drm_cvt_modes(struct drm_connector *connector,
+-			 struct detailed_timing *timing)
++			 const struct detailed_timing *timing)
  {
- 	const struct displayid_block *block;
- 	struct displayid_iter iter;
-diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-index 8e322ef173a8..5fe6e302a81f 100644
---- a/include/drm/drm_edid.h
-+++ b/include/drm/drm_edid.h
-@@ -373,8 +373,8 @@ struct drm_connector;
- struct drm_connector_state;
- struct drm_display_mode;
+ 	int i, j, modes = 0;
+ 	struct drm_display_mode *newmode;
+ 	struct drm_device *dev = connector->dev;
+-	struct cvt_timing *cvt;
++	const struct cvt_timing *cvt;
+ 	const int rates[] = { 60, 85, 75, 60, 50 };
+ 	const u8 empty[3] = { 0, 0, 0 };
  
--int drm_edid_to_sad(struct edid *edid, struct cea_sad **sads);
--int drm_edid_to_speaker_allocation(struct edid *edid, u8 **sadb);
-+int drm_edid_to_sad(const struct edid *edid, struct cea_sad **sads);
-+int drm_edid_to_speaker_allocation(const struct edid *edid, u8 **sadb);
- int drm_av_sync_delay(struct drm_connector *connector,
- 		      const struct drm_display_mode *mode);
- 
-@@ -570,8 +570,8 @@ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid);
- int drm_add_override_edid_modes(struct drm_connector *connector);
- 
- u8 drm_match_cea_mode(const struct drm_display_mode *to_match);
--bool drm_detect_hdmi_monitor(struct edid *edid);
--bool drm_detect_monitor_audio(struct edid *edid);
-+bool drm_detect_hdmi_monitor(const struct edid *edid);
-+bool drm_detect_monitor_audio(const struct edid *edid);
- enum hdmi_quantization_range
- drm_default_rgb_quant_range(const struct drm_display_mode *mode);
- int drm_add_modes_noedid(struct drm_connector *connector,
-@@ -583,7 +583,7 @@ int drm_edid_header_is_valid(const u8 *raw_edid);
- bool drm_edid_block_valid(u8 *raw_edid, int block, bool print_bad_edid,
- 			  bool *edid_corrupt);
- bool drm_edid_is_valid(struct edid *edid);
--void drm_edid_get_monitor_name(struct edid *edid, char *name,
-+void drm_edid_get_monitor_name(const struct edid *edid, char *name,
- 			       int buflen);
- struct drm_display_mode *drm_mode_find_dmt(struct drm_device *dev,
- 					   int hsize, int vsize, int fresh,
 -- 
 2.30.2
 
