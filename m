@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1232EC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 10:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64D20C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 10:22:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4190F10EB64;
-	Mon, 28 Mar 2022 10:09:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4ABD10E65A;
+	Mon, 28 Mar 2022 10:22:50 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FEDF10EB53;
- Mon, 28 Mar 2022 10:09:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FCBA10E65A
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 10:22:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648462149; x=1679998149;
+ t=1648462970; x=1679998970;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=qQNzTnw+hvKGKmLpigEQ/hn0WuCfeQLTgkQ6U6259pY=;
- b=Ag7u50IYpIUXLcMqpZX0lMOq5E3NjB+xReSLl/W64acNERduxG+vjePL
- Rx2/27IiYxFn8x5qxacirr4PirPtf9CHsKobGHM38JMK6aqk69ew0ZlrZ
- Z7aBpSuAnkQhbgt/JbfrDeplbflYTwxw+NFwi5KFZi2E3W6kYMFOnt+bK
- hiad0ZFgT+iIrftAiAuoYx2x0j85/fQGks6OPogm8NxS2lHYl43MmIvAU
- pmKwVc9sNBMWcnkTRp6/qQi/mmTcNOkkySCDdOJgMu7xlGNVTpVbexUk2
- g7xhgSY1Hm/MGWiMG8iF8LvFrrejDma0r5vLT+zvdcUNLA0XbBr9b4RjX g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10299"; a="258677971"
-X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="258677971"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ bh=peOpJ9GiLhqaM/IInlNQSAy3028uzVWvxw2+ABqq6+E=;
+ b=GjQpOrLBZ+1bp52l/nhen2i2sagdNXhwbC5Tkp/2Lpqbb/9jn1BT3YSd
+ 1bWP1eSjIKoWnedzeaxCldjUqu+htls5cEgLIhbttV2TR3ZxGQ5cM1xLf
+ KbsHdc2IR1wOLaN6fjzusDr4iMRk/2w2lCGx6D5n696cuiCQp0q3KpSA2
+ NPxVRyKQo1wI9scYGtObCcw7pexqzM0tEbMYzRx0NQ9/TmAyAlGmbJN2y
+ zD14UyeBs8kD2XOzh+VKH2OJgCuttq4JIrPjVbO925gHekwRSR4LwuNvI
+ sfPMJ49sC3uI9LkeF4K+NFA21lNgX6SzzJwx6Kk+bgPon8iTz68h1mV3O g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10299"; a="258679698"
+X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="258679698"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 03:09:09 -0700
-X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="787173775"
-Received: from khogan-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.252.19.170])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 03:09:06 -0700
-From: Matthew Auld <matthew.auld@intel.com>
-To: igt-dev@lists.freedesktop.org
-Date: Mon, 28 Mar 2022 11:08:59 +0100
-Message-Id: <20220328100859.13550-1-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.34.1
+ 28 Mar 2022 03:22:49 -0700
+X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="517989080"
+Received: from srr4-3-linux-105-anshuma1.iind.intel.com ([10.223.74.179])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2022 03:22:47 -0700
+From: Anshuman Gupta <anshuman.gupta@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 28 Mar 2022 15:52:27 +0530
+Message-Id: <20220328102227.14545-1-anshuman.gupta@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t v3] tests/gem_lmem_swapping: limit lmem to
- 4G
+Subject: [Intel-gfx] [PATCH] drm/i915/debugfs: Dump i915 children runtime
+ status
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,71 +54,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, CQ Tang <cq.tang@intel.com>,
- Nirmoy Das <nirmoy.das@intel.com>
+Cc: Chris Wilson <chris.p.wilson@intel.com>, rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: CQ Tang <cq.tang@intel.com>
+i915 doesn't use pm_suspend_ignore_children() which warrants that
+any runtime active child of i915 will block the runtime suspend
+of i915.
+i915_runtime_pm_status only exposes i915 runtime pm usage_count,
+which is not sufficient to debug in the scenarios when i915 has
+zero usage_count but there are runtime active children.
+Dump i915 child's runtime pm status to debug such
+i915 runtime suspend issues.
 
-On some systems lmem can be as large as 16G, which seems to trigger
-various CI timeouts, and in the best case just takes a long time. For
-the purposes of the test we should be able to limit to 4G, without any
-big loss in coverage.
-
-v2:
- - No need to try again without the modparam; if it's not supported it
-   will still load the driver just fine.
-v3(Petri):
- - Add a helpful debug print in case the kernel is missing support for
-   the lmem_size modparam.
-
-Signed-off-by: CQ Tang <cq.tang@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Nirmoy Das <nirmoy.das@linux.intel.com>
-Cc: Petri Latvala <petri.latvala@intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+Cc: Chris Wilson <chris.p.wilson@intel.com>
+Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- tests/i915/gem_lmem_swapping.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_debugfs.c | 38 +++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-diff --git a/tests/i915/gem_lmem_swapping.c b/tests/i915/gem_lmem_swapping.c
-index 31644bcd..6cf1acec 100644
---- a/tests/i915/gem_lmem_swapping.c
-+++ b/tests/i915/gem_lmem_swapping.c
-@@ -526,11 +526,20 @@ igt_main_args("", long_options, help_str, opt_handler, NULL)
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index 445b4da23950..ea1730419f8d 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -483,6 +483,40 @@ static int i915_rps_boost_info(struct seq_file *m, void *data)
+ 	return 0;
+ }
  
- 	igt_fixture {
- 		struct intel_execution_engine2 *e;
-+		char *tmp;
- 
--		i915 = drm_open_driver(DRIVER_INTEL);
-+		igt_i915_driver_unload();
-+		igt_assert_eq(igt_i915_driver_load("lmem_size=4096"), 0);
++#ifdef CONFIG_PM
++static int i915_runtime_dump_child_status(struct device *dev, void *data)
++{
++	struct seq_file *m = data;
++	const char *rpm_status;
 +
-+		i915 = __drm_open_driver(DRIVER_INTEL);
- 		igt_require_gem(i915);
- 		igt_require(gem_has_lmem(i915));
- 
-+		tmp = __igt_params_get(i915, "lmem_size");
-+		if (!tmp)
-+			igt_info("lmem_size modparam not supported on this kernel. Continuing with full lmem size. This may result in CI timeouts.");
-+		free(tmp);
++	/* Early return if runtime_pm is disabled */
++	if (dev->power.disable_depth)
++		return 0;
 +
- 		regions = gem_get_query_memory_regions(i915);
- 		igt_require(regions);
- 
-@@ -556,6 +565,7 @@ igt_main_args("", long_options, help_str, opt_handler, NULL)
- 		intel_ctx_destroy(i915, ctx);
- 		free(regions);
- 		close(i915);
-+		igt_i915_driver_unload();
- 	}
- 
- 	igt_exit();
++	switch (dev->power.runtime_status) {
++	case RPM_SUSPENDED:
++		rpm_status = "suspended";
++		break;
++	case RPM_SUSPENDING:
++		rpm_status = "suspending";
++		break;
++	case RPM_RESUMING:
++		rpm_status = "resuming";
++		break;
++	case RPM_ACTIVE:
++		rpm_status = "active";
++		break;
++	default:
++		rpm_status = "unknown";
++	}
++
++	seq_printf(m, "\t%s %s: Runtime status: %s\n", dev_driver_string(dev),
++		   dev_name(dev), rpm_status);
++
++	return 0;
++}
++#endif
++
+ static int i915_runtime_pm_status(struct seq_file *m, void *unused)
+ {
+ 	struct drm_i915_private *dev_priv = node_to_i915(m->private);
+@@ -500,6 +534,10 @@ static int i915_runtime_pm_status(struct seq_file *m, void *unused)
+ #ifdef CONFIG_PM
+ 	seq_printf(m, "Usage count: %d\n",
+ 		   atomic_read(&dev_priv->drm.dev->power.usage_count));
++	seq_printf(m, "Runtime active children: %d\n",
++		   atomic_read(&dev_priv->drm.dev->power.child_count));
++	device_for_each_child(&pdev->dev, m, i915_runtime_dump_child_status);
++
+ #else
+ 	seq_printf(m, "Device Power Management (CONFIG_PM) disabled\n");
+ #endif
 -- 
-2.34.1
+2.26.2
 
