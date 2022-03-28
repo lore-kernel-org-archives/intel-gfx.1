@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F1B1C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 19:07:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31D0CC43219
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 19:07:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F28F810ECA8;
-	Mon, 28 Mar 2022 19:07:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E413510ECF9;
+	Mon, 28 Mar 2022 19:07:20 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF74D10EC94;
- Mon, 28 Mar 2022 19:07:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF9710EC97;
+ Mon, 28 Mar 2022 19:07:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648494432; x=1680030432;
+ t=1648494439; x=1680030439;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zHfKjMe+Mqe8zItuzfwyew5RZ4JZTR7tZ5GrNQVoKio=;
- b=eSZrQPMAhZYvUQF0Ly8I4dek1t2Z/TyT3bDTgqnNjJ2T0Ej9NuEg/VcK
- B4BrnvOG9KZK2hpUCvYy3gXBKco8ABqdFScH3VeanzcMWGJ/yVcfFWqlw
- 0sAJ+jeyD+fyFsjvJdiROJ96tdJSHfoS2DT42kTMzaIZHliKcGSKDJwQz
- j+SSzpRbrg4OM8EpgL5RM2ggVsVdnjXTf3836kYLMlkouyvEEGtRsw7MK
- ne3hjF4mCA8SndxVvvWxuGby4OnkE4shRFYZ5J9GX464n2kcLiWlVGBpy
- u7NN3rMsnEmsgIFhJa9a+gp0t2Hn0m4PgJzdEdqKRDAN5UcEEPa/QCSMH g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="239678712"
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="239678712"
+ bh=SMoHwr7XZk4xD1DA+MVvC9mIKdSFmbh8Gs9T5lXaEeQ=;
+ b=BPg9Pf1wtjJmBDXvG/RDcd0IhYq+yrOgK9SmVnUZP72TnJnl9muW+DV0
+ 8phonFlVlyWJkKsvtZKBolwMbhyIL244nnPI4z0jVUyp7E9hp8bxnRhMo
+ RBUwG6nPmhasgzYabBbNI3xOfaARv4vmM3v3IdJwEvFQ8n2WapeVKo1JT
+ muQE7wSKbR6WrlKLT0Mi2ec1qAZDZKQMZ2nyq9gmfRFDRnn/q4+SZSTN1
+ FeDE1v7dN4PCCNnSYv41Aq8S7s2Ls+aKb1Vk1yON0q0nv3FO+SqCbpMv7
+ eFFlBnh0QkYtgWk3ctxB1hQLl0XL+IGBeRvq8dJTkQko/mwkmWfnkinbr A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="239678744"
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="239678744"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 12:07:11 -0700
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="563921038"
+ 28 Mar 2022 12:07:19 -0700
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="563921105"
 Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 12:07:09 -0700
+ 28 Mar 2022 12:07:17 -0700
 From: Ramalingam C <ramalingam.c@intel.com>
 To: Hellstrom Thomas <thomas.hellstrom@intel.com>,
  intel-gfx <intel-gfx@lists.freedesktop.org>,
  dri-devel <dri-devel@lists.freedesktop.org>
-Date: Tue, 29 Mar 2022 00:37:33 +0530
-Message-Id: <20220328190736.19697-7-ramalingam.c@intel.com>
+Date: Tue, 29 Mar 2022 00:37:36 +0530
+Message-Id: <20220328190736.19697-10-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220328190736.19697-1-ramalingam.c@intel.com>
 References: <20220328190736.19697-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 6/9] drm/i915/selftest_migrate: Check CCS
- meta data clear
+Subject: [Intel-gfx] [PATCH v7 9/9] drm/i915/migrate: Evict and restore the
+ flatccs capable lmem obj
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,310 +62,248 @@ Cc: Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Extend the live migrate selftest, to verify the ccs surface clearing
-during the Flat-CCS capable lmem obj clear.
+When we are swapping out the local memory obj on flat-ccs capable platform,
+we need to capture the ccs data too along with main meory and we need to
+restore it when we are swapping in the content.
 
-v2:
-  Look at right places for ccs data [Thomas]
+When lmem object is swapped into a smem obj, smem obj will
+have the extra pages required to hold the ccs data corresponding to the
+lmem main memory. So main memory of lmem will be copied into the initial
+pages of the smem and then ccs data corresponding to the main memory
+will be copied to the subsequent pages of smem. ccs data is 1/256 of
+lmem size.
+
+Swapin happens exactly in reverse order. First main memory of lmem is
+restored from the smem's initial pages and the ccs data will be restored
+from the subsequent pages of smem.
+
+Extracting and restoring the CCS data is done through a special cmd called
+XY_CTRL_SURF_COPY_BLT
+
+v2: Fixing the ccs handling
+v3: Handle the ccs data at same loop as main memory [Thomas]
+v4: changes for emit_copy_ccs
+v5: handle non-flat-ccs scenario
 
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_migrate.c | 250 ++++++++++++++++++---
- 1 file changed, 222 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_migrate.c | 164 +++++++++++++++++++++++-
+ 1 file changed, 160 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_migrate.c b/drivers/gpu/drm/i915/gt/selftest_migrate.c
-index b5da8b8cd039..8cd9a22054f3 100644
---- a/drivers/gpu/drm/i915/gt/selftest_migrate.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_migrate.c
-@@ -132,6 +132,124 @@ static int copy(struct intel_migrate *migrate,
- 	return err;
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index 0657d33fedac..0b44e3785eed 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -633,6 +633,65 @@ static int emit_copy(struct i915_request *rq,
+ 	return 0;
  }
  
-+static int intel_context_copy_ccs(struct intel_context *ce,
-+				  const struct i915_deps *deps,
-+				  struct scatterlist *sg,
-+				  enum i915_cache_level cache_level,
-+				  bool write_to_ccs,
-+				  struct i915_request **out)
++static int scatter_list_length(struct scatterlist *sg)
 +{
-+	u8 src_access = write_to_ccs ? DIRECT_ACCESS : INDIRECT_ACCESS;
-+	u8 dst_access = write_to_ccs ? INDIRECT_ACCESS : DIRECT_ACCESS;
-+	struct sgt_dma it = sg_sgt(sg);
-+	struct i915_request *rq;
-+	u32 offset;
-+	int err;
++	int len = 0;
 +
-+	GEM_BUG_ON(ce->vm != ce->engine->gt->migrate.context->vm);
-+	*out = NULL;
++	while (sg && sg_dma_len(sg)) {
++		len += sg_dma_len(sg);
++		sg = sg_next(sg);
++	};
 +
-+	GEM_BUG_ON(ce->ring->size < SZ_64K);
++	return len;
++}
 +
-+	offset = 0;
-+	if (HAS_64K_PAGES(ce->engine->i915))
-+		offset = CHUNK_SZ;
++static void
++calculate_chunk_sz(struct drm_i915_private *i915, bool src_is_lmem,
++		   int *src_sz, int *ccs_sz, u32 bytes_to_cpy,
++		   u32 ccs_bytes_to_cpy)
++{
++	if (ccs_bytes_to_cpy) {
++		/*
++		 * We can only copy the ccs data corresponding to
++		 * the CHUNK_SZ of lmem which is
++		 * GET_CCS_BYTES(i915, CHUNK_SZ))
++		 */
++		*ccs_sz = min_t(int, ccs_bytes_to_cpy, GET_CCS_BYTES(i915, CHUNK_SZ));
++
++		if (!src_is_lmem)
++			/*
++			 * When CHUNK_SZ is passed all the pages upto CHUNK_SZ
++			 * will be taken for the blt. in Flat-ccs supported
++			 * platform Smem obj will have more pages than required
++			 * for main meory hence limit it to the required size
++			 * for main memory
++			 */
++			*src_sz = min_t(int, bytes_to_cpy, CHUNK_SZ);
++	} else { /* ccs handling is not required */
++		*src_sz = CHUNK_SZ;
++	}
++}
++
++static void get_ccs_sg_sgt(struct sgt_dma *it, u32 bytes_to_cpy)
++{
++	u32 len;
 +
 +	do {
-+		int len;
-+
-+		rq = i915_request_create(ce);
-+		if (IS_ERR(rq)) {
-+			err = PTR_ERR(rq);
-+			goto out_ce;
++		GEM_BUG_ON(!it->sg || !sg_dma_len(it->sg));
++		len = it->max - it->dma;
++		if (len > bytes_to_cpy) {
++			it->dma += bytes_to_cpy;
++			break;
 +		}
 +
-+		if (deps) {
-+			err = i915_request_await_deps(rq, deps);
++		bytes_to_cpy -= len;
++
++		it->sg = __sg_next(it->sg);
++		it->dma = sg_dma_address(it->sg);
++		it->max = it->dma + sg_dma_len(it->sg);
++	} while (bytes_to_cpy);
++}
++
+ int
+ intel_context_migrate_copy(struct intel_context *ce,
+ 			   const struct i915_deps *deps,
+@@ -644,9 +703,15 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 			   bool dst_is_lmem,
+ 			   struct i915_request **out)
+ {
+-	struct sgt_dma it_src = sg_sgt(src), it_dst = sg_sgt(dst);
++	struct sgt_dma it_src = sg_sgt(src), it_dst = sg_sgt(dst), it_ccs;
++	struct drm_i915_private *i915 = ce->engine->i915;
++	u32 ccs_bytes_to_cpy = 0, bytes_to_cpy;
++	enum i915_cache_level ccs_cache_level;
++	int src_sz, dst_sz, ccs_sz;
+ 	u32 src_offset, dst_offset;
++	u8 src_access, dst_access;
+ 	struct i915_request *rq;
++	bool ccs_is_src;
+ 	int err;
+ 
+ 	GEM_BUG_ON(ce->vm != ce->engine->gt->migrate.context->vm);
+@@ -654,6 +719,38 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 
+ 	GEM_BUG_ON(ce->ring->size < SZ_64K);
+ 
++	src_sz = scatter_list_length(src);
++	bytes_to_cpy = src_sz;
++
++	if (HAS_FLAT_CCS(i915) && src_is_lmem ^ dst_is_lmem) {
++		src_access = !src_is_lmem && dst_is_lmem;
++		dst_access = !src_access;
++
++		dst_sz = scatter_list_length(dst);
++		if (src_is_lmem) {
++			it_ccs = it_dst;
++			ccs_cache_level = dst_cache_level;
++			ccs_is_src = false;
++		} else if (dst_is_lmem) {
++			bytes_to_cpy = dst_sz;
++			it_ccs = it_src;
++			ccs_cache_level = src_cache_level;
++			ccs_is_src = true;
++		}
++
++		/*
++		 * When there is a eviction of ccs needed smem will have the
++		 * extra pages for the ccs data
++		 *
++		 * TO-DO: Want to move the size mismatch check to a WARN_ON,
++		 * but still we have some requests of smem->lmem with same size.
++		 * Need to fix it.
++		 */
++		ccs_bytes_to_cpy = src_sz != dst_sz ? GET_CCS_BYTES(i915, bytes_to_cpy) : 0;
++		if (ccs_bytes_to_cpy)
++			get_ccs_sg_sgt(&it_ccs, bytes_to_cpy);
++	}
++
+ 	src_offset = 0;
+ 	dst_offset = CHUNK_SZ;
+ 	if (HAS_64K_PAGES(ce->engine->i915)) {
+@@ -695,8 +792,11 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 		if (err)
+ 			goto out_rq;
+ 
++		calculate_chunk_sz(i915, src_is_lmem, &src_sz, &ccs_sz,
++				   bytes_to_cpy, ccs_bytes_to_cpy);
++
+ 		len = emit_pte(rq, &it_src, src_cache_level, src_is_lmem,
+-			       src_offset, CHUNK_SZ);
++			       src_offset, src_sz);
+ 		if (len <= 0) {
+ 			err = len;
+ 			goto out_rq;
+@@ -713,7 +813,46 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 		if (err)
+ 			goto out_rq;
+ 
+-		err = emit_copy(rq, dst_offset, src_offset, len);
++		err = emit_copy(rq, dst_offset,	src_offset, len);
++		if (err)
++			goto out_rq;
++
++		bytes_to_cpy -= len;
++
++		if (ccs_bytes_to_cpy) {
++			err = rq->engine->emit_flush(rq, EMIT_INVALIDATE);
 +			if (err)
 +				goto out_rq;
 +
-+			if (rq->engine->emit_init_breadcrumb) {
-+				err = rq->engine->emit_init_breadcrumb(rq);
-+				if (err)
-+					goto out_rq;
-+			}
++			err = emit_pte(rq, &it_ccs, ccs_cache_level, false,
++				       ccs_is_src ? src_offset : dst_offset,
++				       ccs_sz);
 +
-+			deps = NULL;
++			err = rq->engine->emit_flush(rq, EMIT_INVALIDATE);
++			if (err)
++				goto out_rq;
++
++			/*
++			 * Using max of src_sz and dst_sz, as we need to
++			 * pass the lmem size corresponding to the ccs
++			 * blocks we need to handle.
++			 */
++			ccs_sz = max_t(int, ccs_is_src ? ccs_sz : src_sz,
++				       ccs_is_src ? dst_sz : ccs_sz);
++
++			err = emit_copy_ccs(rq, dst_offset, dst_access,
++					    src_offset, src_access, ccs_sz);
++			if (err)
++				goto out_rq;
++
++			err = rq->engine->emit_flush(rq, EMIT_INVALIDATE);
++			if (err)
++				goto out_rq;
++
++			/* Converting back to ccs bytes */
++			ccs_sz = GET_CCS_BYTES(rq->engine->i915, ccs_sz);
++			ccs_bytes_to_cpy -= ccs_sz;
 +		}
+ 
+ 		/* Arbitration is re-enabled between requests. */
+ out_rq:
+@@ -721,9 +860,26 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 			i915_request_put(*out);
+ 		*out = i915_request_get(rq);
+ 		i915_request_add(rq);
+-		if (err || !it_src.sg || !sg_dma_len(it_src.sg))
 +
-+		/* The PTE updates + clear must not be interrupted. */
-+		err = emit_no_arbitration(rq);
 +		if (err)
-+			goto out_rq;
-+
-+		len = emit_pte(rq, &it, cache_level, true, offset, CHUNK_SZ);
-+		if (len <= 0) {
-+			err = len;
-+			goto out_rq;
-+		}
-+
-+		err = rq->engine->emit_flush(rq, EMIT_INVALIDATE);
-+		if (err)
-+			goto out_rq;
-+
-+		err = emit_copy_ccs(rq, offset, dst_access,
-+				    offset, src_access, len);
-+		if (err)
-+			goto out_rq;
-+
-+		err = rq->engine->emit_flush(rq, EMIT_INVALIDATE);
-+
-+		/* Arbitration is re-enabled between requests. */
-+out_rq:
-+		if (*out)
-+			i915_request_put(*out);
-+		*out = i915_request_get(rq);
-+		i915_request_add(rq);
-+		if (err || !it.sg || !sg_dma_len(it.sg))
+ 			break;
+ 
++		if (!bytes_to_cpy && !ccs_bytes_to_cpy) {
++			if (src_is_lmem)
++				WARN_ON(it_src.sg && sg_dma_len(it_src.sg));
++			else
++				WARN_ON(it_dst.sg && sg_dma_len(it_dst.sg));
 +			break;
-+
-+		cond_resched();
-+	} while (1);
-+
-+out_ce:
-+	return err;
-+}
-+
-+static int
-+intel_migrate_ccs_copy(struct intel_migrate *m,
-+		       struct i915_gem_ww_ctx *ww,
-+		       const struct i915_deps *deps,
-+		       struct scatterlist *sg,
-+		       enum i915_cache_level cache_level,
-+		       bool write_to_ccs,
-+		       struct i915_request **out)
-+{
-+	struct intel_context *ce;
-+	int err;
-+
-+	*out = NULL;
-+	if (!m->context)
-+		return -ENODEV;
-+
-+	ce = intel_migrate_create_context(m);
-+	if (IS_ERR(ce))
-+		ce = intel_context_get(m->context);
-+	GEM_BUG_ON(IS_ERR(ce));
-+
-+	err = intel_context_pin_ww(ce, ww);
-+	if (err)
-+		goto out;
-+
-+	err = intel_context_copy_ccs(ce, deps, sg, cache_level,
-+				     write_to_ccs, out);
-+
-+	intel_context_unpin(ce);
-+out:
-+	intel_context_put(ce);
-+	return err;
-+}
-+
- static int clear(struct intel_migrate *migrate,
- 		 int (*fn)(struct intel_migrate *migrate,
- 			   struct i915_gem_ww_ctx *ww,
-@@ -144,7 +262,8 @@ static int clear(struct intel_migrate *migrate,
- 	struct drm_i915_gem_object *obj;
- 	struct i915_request *rq;
- 	struct i915_gem_ww_ctx ww;
--	u32 *vaddr;
-+	u32 *vaddr, val = 0;
-+	bool ccs_cap = false;
- 	int err = 0;
- 	int i;
- 
-@@ -155,7 +274,12 @@ static int clear(struct intel_migrate *migrate,
- 	/* Consider the rounded up memory too */
- 	sz = obj->base.size;
- 
-+	if (HAS_FLAT_CCS(i915) && i915_gem_object_is_lmem(obj))
-+		ccs_cap = true;
-+
- 	for_i915_gem_ww(&ww, err, true) {
-+		int ccs_bytes, ccs_bytes_per_chunk;
-+
- 		err = i915_gem_object_lock(obj, &ww);
- 		if (err)
- 			continue;
-@@ -170,44 +294,114 @@ static int clear(struct intel_migrate *migrate,
- 			vaddr[i] = ~i;
- 		i915_gem_object_flush_map(obj);
- 
--		err = fn(migrate, &ww, obj, sz, &rq);
--		if (!err)
--			continue;
-+		if (ccs_cap && !val) {
-+			/* Write the obj data into ccs surface */
-+			err = intel_migrate_ccs_copy(migrate, &ww, NULL,
-+						     obj->mm.pages->sgl,
-+						     obj->cache_level,
-+						     true, &rq);
-+			if (rq && !err) {
-+				if (i915_request_wait(rq, 0, HZ) < 0) {
-+					pr_err("%ps timed out, size: %u\n",
-+					       fn, sz);
-+					err = -ETIME;
-+				}
-+				i915_request_put(rq);
-+				rq = NULL;
-+			}
-+			if (err)
-+				continue;
 +		}
- 
--		if (err != -EDEADLK && err != -EINTR && err != -ERESTARTSYS)
--			pr_err("%ps failed, size: %u\n", fn, sz);
--		if (rq) {
--			i915_request_wait(rq, 0, HZ);
-+		err = fn(migrate, &ww, obj, val, &rq);
-+		if (rq && !err) {
-+			if (i915_request_wait(rq, 0, HZ) < 0) {
-+				pr_err("%ps timed out, size: %u\n", fn, sz);
-+				err = -ETIME;
-+			}
- 			i915_request_put(rq);
-+			rq = NULL;
- 		}
--		i915_gem_object_unpin_map(obj);
--	}
--	if (err)
--		goto err_out;
-+		if (err)
-+			continue;
- 
--	if (rq) {
--		if (i915_request_wait(rq, 0, HZ) < 0) {
--			pr_err("%ps timed out, size: %u\n", fn, sz);
--			err = -ETIME;
-+		i915_gem_object_flush_map(obj);
 +
-+		/* Verify the set/clear of the obj mem */
-+		for (i = 0; !err && i < sz / PAGE_SIZE; i++) {
-+			int x = i * 1024 +
-+				i915_prandom_u32_max_state(1024, prng);
-+
-+			if (vaddr[x] != val) {
-+				pr_err("%ps failed, (%u != %u), offset: %zu\n",
-+				       fn, vaddr[x], val,  x * sizeof(u32));
-+				igt_hexdump(vaddr + i * 1024, 4096);
-+				err = -EINVAL;
-+			}
- 		}
--		i915_request_put(rq);
--	}
-+		if (err)
-+			continue;
- 
--	for (i = 0; !err && i < sz / PAGE_SIZE; i++) {
--		int x = i * 1024 + i915_prandom_u32_max_state(1024, prng);
-+		if (ccs_cap && !val) {
-+			for (i = 0; i < sz / sizeof(u32); i++)
-+				vaddr[i] = ~i;
-+			i915_gem_object_flush_map(obj);
-+
-+			err = intel_migrate_ccs_copy(migrate, &ww, NULL,
-+						     obj->mm.pages->sgl,
-+						     obj->cache_level,
-+						     false, &rq);
-+			if (rq && !err) {
-+				if (i915_request_wait(rq, 0, HZ) < 0) {
-+					pr_err("%ps timed out, size: %u\n",
-+					       fn, sz);
-+					err = -ETIME;
-+				}
-+				i915_request_put(rq);
-+				rq = NULL;
-+			}
-+			if (err)
-+				continue;
-+
-+			ccs_bytes = GET_CCS_BYTES(i915, sz);
-+			ccs_bytes_per_chunk = GET_CCS_BYTES(i915, CHUNK_SZ);
-+			i915_gem_object_flush_map(obj);
-+
-+			for (i = 0; !err && i < DIV_ROUND_UP(ccs_bytes, PAGE_SIZE); i++) {
-+				int offset = ((i * PAGE_SIZE)  /
-+					ccs_bytes_per_chunk) * CHUNK_SZ / sizeof(u32);
-+				int ccs_bytes_left = (ccs_bytes - i * PAGE_SIZE) / sizeof(u32);
-+				int x = i915_prandom_u32_max_state(min_t(int, 1024,
-+									 ccs_bytes_left), prng);
-+
-+				if (vaddr[offset + x]) {
-+					pr_err("%ps ccs clearing failed, offset: %ld/%d\n",
-+					       fn, i * PAGE_SIZE + x * sizeof(u32), ccs_bytes);
-+					igt_hexdump(vaddr + offset,
-+						    min_t(int, 4096,
-+							  ccs_bytes_left * sizeof(u32)));
-+					err = -EINVAL;
-+				}
-+			}
-+
-+			if (err)
-+				continue;
++		if (WARN_ON(!it_src.sg || !sg_dma_len(it_src.sg) ||
++			    !it_dst.sg || !sg_dma_len(it_dst.sg) ||
++			    (ccs_bytes_to_cpy && (!it_ccs.sg ||
++						  !sg_dma_len(it_ccs.sg))))) {
++			err = -EINVAL;
++			break;
 +		}
-+		i915_gem_object_unpin_map(obj);
-+	}
- 
--		if (vaddr[x] != sz) {
--			pr_err("%ps failed, size: %u, offset: %zu\n",
--			       fn, sz, x * sizeof(u32));
--			igt_hexdump(vaddr + i * 1024, 4096);
--			err = -EINVAL;
-+	if (err) {
-+		if (err != -EDEADLK && err != -EINTR && err != -ERESTARTSYS)
-+			pr_err("%ps failed, size: %u\n", fn, sz);
-+		if (rq && err != -EINVAL) {
-+			i915_request_wait(rq, 0, HZ);
-+			i915_request_put(rq);
- 		}
 +
-+		i915_gem_object_unpin_map(obj);
- 	}
- 
--	i915_gem_object_unpin_map(obj);
--err_out:
- 	i915_gem_object_put(obj);
--
- 	return err;
- }
+ 		cond_resched();
+ 	} while (1);
  
 -- 
 2.20.1
