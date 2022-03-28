@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC057C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 14:35:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B978CC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 14:35:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4095210E662;
-	Mon, 28 Mar 2022 14:35:10 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A923510E662;
- Mon, 28 Mar 2022 14:35:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D77610E695;
+	Mon, 28 Mar 2022 14:35:24 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF2AE10E66D;
+ Mon, 28 Mar 2022 14:35:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648478108; x=1680014108;
+ t=1648478122; x=1680014122;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=oAhfUXiMazft0Sk7OJlKeUDeL0NNjK33Z2dPTFGQWX8=;
- b=kdnl08Xj0E8nscUpGuFMpGRUbV5J+G7wXZips7hjnEmahONppln3Tq7s
- WyikjZVzKlUM1PAozp01hRdnzGwv0DQnkX19jmzCWho98khdf4m3UhXN2
- +YUBWJ0Bo1hYT62HIxoac1VcTPSLT7VYEG0lTsLfVvbkhk5yPHAdA0PBE
- MbazfWxpE6ZgZf45AfSz0ykAg03J7qbU8O0Q8caGq28D8VkOiI3Tmudy7
- dnYTXgVhBeMBCRsUGuH99WMH0IU8YP/jPWKWEkbYqZb1CugryVu6JsqP4
- dfKxXjkNmJaprO14NRGHlDfWhtgJi6bFDt/ufcfC0bL7IjOjPHgutIq7G g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10299"; a="322198033"
-X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="322198033"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 07:35:08 -0700
-X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="502532270"
+ bh=vHFKmpWj20lJChpg69d2popFmvVVdWvvQwQ/6yIz8fQ=;
+ b=NrUpRcHYi0u+tt9G+3Ne9bRl0mapNZJ1nsiLpfD30Degkc7VMBR1GUcE
+ /s3U8VU0ha9cc73BHhYQc1bJdbR/Madmw47GtBshLcRhUtjhuNTXZafjE
+ RjIjkFbI5V1T2CQPTg+zTEKFFoT8lpD3k2Q5IXO+YhrasNuGiWksmlzBA
+ sZsHlMGJhOvppIcUUdxKG24iynmb2qaYM8YJV8HYUgzyynFe3X/jwCMNw
+ 5+yCSAfeXuS7a5ge9IJHn9uqEwphNDnbdJj8A7hqEf9afMBOTyoGEbARJ
+ ywF7EbxQgdAGYpHSew2sKxmBfIQrio5grBgBlvwcu8Q3J5Dm294HREoYE w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10299"; a="283900704"
+X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="283900704"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2022 07:35:22 -0700
+X-IronPort-AV: E=Sophos;i="5.90,217,1643702400"; d="scan'208";a="638978294"
 Received: from aysivtso-mobl.ccr.corp.intel.com (HELO localhost)
  ([10.252.62.56])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 07:35:06 -0700
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2022 07:35:20 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon, 28 Mar 2022 17:34:26 +0300
-Message-Id: <c069669c2fe8f9c3061c7d1a413c75a33ec48813.1648477901.git.jani.nikula@intel.com>
+Date: Mon, 28 Mar 2022 17:34:29 +0300
+Message-Id: <9b617068d2349a574a837ad6207b1d45c4d79eb5.1648477901.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1648477901.git.jani.nikula@intel.com>
 References: <cover.1648477901.git.jani.nikula@intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 05/12] drm/edid: use struct detailed_timing
- member access in is_rb()
+Subject: [Intel-gfx] [PATCH v3 08/12] drm/edid: constify struct
+ detailed_timing in parsing callbacks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,46 +63,172 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use struct detailed_timing member access instead of direct offsets to
-avoid casting.
-
-Use BUILD_BUG_ON() for sanity check.
+Moving one level higher, constify struct detailed_timing pointers in
+callbacks.
 
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 40 ++++++++++++++++++++------------------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 10da6b9b14fb..39c8bf4ca082 100644
+index 6d1461991ba4..47234cf211ca 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -2408,15 +2408,19 @@ drm_for_each_detailed_block(u8 *raw_edid, detailed_cb *cb, void *closure)
+@@ -2349,7 +2349,7 @@ static bool is_detailed_timing_descriptor(const struct detailed_timing *descript
+ 	return descriptor->pixel_clock != 0;
+ }
+ 
+-typedef void detailed_cb(struct detailed_timing *timing, void *closure);
++typedef void detailed_cb(const struct detailed_timing *timing, void *closure);
+ 
+ static void
+ cea_for_each_detailed_block(u8 *ext, detailed_cb *cb, void *closure)
+@@ -2408,7 +2408,7 @@ drm_for_each_detailed_block(u8 *raw_edid, detailed_cb *cb, void *closure)
  }
  
  static void
--is_rb(struct detailed_timing *t, void *data)
-+is_rb(struct detailed_timing *descriptor, void *data)
+-is_rb(struct detailed_timing *descriptor, void *data)
++is_rb(const struct detailed_timing *descriptor, void *data)
  {
--	u8 *r = (u8 *)t;
-+	bool *res = data;
+ 	bool *res = data;
  
--	if (!is_display_descriptor(t, EDID_DETAIL_MONITOR_RANGE))
-+	if (!is_display_descriptor(descriptor, EDID_DETAIL_MONITOR_RANGE))
- 		return;
- 
--	if (r[10] == DRM_EDID_CVT_SUPPORT_FLAG && r[15] & 0x10)
--		*(bool *)data = true;
-+	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.flags) != 10);
-+	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.cvt.flags) != 15);
-+
-+	if (descriptor->data.other_data.data.range.flags == DRM_EDID_CVT_SUPPORT_FLAG &&
-+	    descriptor->data.other_data.data.range.formula.cvt.flags & 0x10)
-+		*res = true;
+@@ -2438,9 +2438,9 @@ drm_monitor_supports_rb(struct edid *edid)
  }
  
- /* EDID 1.4 defines this explicitly.  For EDID 1.3, we guess, badly. */
+ static void
+-find_gtf2(struct detailed_timing *descriptor, void *data)
++find_gtf2(const struct detailed_timing *descriptor, void *data)
+ {
+-	struct detailed_timing **res = data;
++	const struct detailed_timing **res = data;
+ 
+ 	if (!is_display_descriptor(descriptor, EDID_DETAIL_MONITOR_RANGE))
+ 		return;
+@@ -2455,7 +2455,7 @@ find_gtf2(struct detailed_timing *descriptor, void *data)
+ static int
+ drm_gtf2_hbreak(struct edid *edid)
+ {
+-	struct detailed_timing *descriptor = NULL;
++	const struct detailed_timing *descriptor = NULL;
+ 
+ 	drm_for_each_detailed_block((u8 *)edid, find_gtf2, &descriptor);
+ 
+@@ -2467,7 +2467,7 @@ drm_gtf2_hbreak(struct edid *edid)
+ static int
+ drm_gtf2_2c(struct edid *edid)
+ {
+-	struct detailed_timing *descriptor = NULL;
++	const struct detailed_timing *descriptor = NULL;
+ 
+ 	drm_for_each_detailed_block((u8 *)edid, find_gtf2, &descriptor);
+ 
+@@ -2479,7 +2479,7 @@ drm_gtf2_2c(struct edid *edid)
+ static int
+ drm_gtf2_m(struct edid *edid)
+ {
+-	struct detailed_timing *descriptor = NULL;
++	const struct detailed_timing *descriptor = NULL;
+ 
+ 	drm_for_each_detailed_block((u8 *)edid, find_gtf2, &descriptor);
+ 
+@@ -2491,7 +2491,7 @@ drm_gtf2_m(struct edid *edid)
+ static int
+ drm_gtf2_k(struct edid *edid)
+ {
+-	struct detailed_timing *descriptor = NULL;
++	const struct detailed_timing *descriptor = NULL;
+ 
+ 	drm_for_each_detailed_block((u8 *)edid, find_gtf2, &descriptor);
+ 
+@@ -2503,7 +2503,7 @@ drm_gtf2_k(struct edid *edid)
+ static int
+ drm_gtf2_2j(struct edid *edid)
+ {
+-	struct detailed_timing *descriptor = NULL;
++	const struct detailed_timing *descriptor = NULL;
+ 
+ 	drm_for_each_detailed_block((u8 *)edid, find_gtf2, &descriptor);
+ 
+@@ -3009,7 +3009,7 @@ drm_cvt_modes_for_range(struct drm_connector *connector, struct edid *edid,
+ }
+ 
+ static void
+-do_inferred_modes(struct detailed_timing *timing, void *c)
++do_inferred_modes(const struct detailed_timing *timing, void *c)
+ {
+ 	struct detailed_mode_closure *closure = c;
+ 	const struct detailed_non_pixel *data = &timing->data.other_data;
+@@ -3091,7 +3091,7 @@ drm_est3_modes(struct drm_connector *connector, const struct detailed_timing *ti
+ }
+ 
+ static void
+-do_established_modes(struct detailed_timing *timing, void *c)
++do_established_modes(const struct detailed_timing *timing, void *c)
+ {
+ 	struct detailed_mode_closure *closure = c;
+ 
+@@ -3142,7 +3142,7 @@ add_established_modes(struct drm_connector *connector, struct edid *edid)
+ }
+ 
+ static void
+-do_standard_modes(struct detailed_timing *timing, void *c)
++do_standard_modes(const struct detailed_timing *timing, void *c)
+ {
+ 	struct detailed_mode_closure *closure = c;
+ 	const struct detailed_non_pixel *data = &timing->data.other_data;
+@@ -3255,7 +3255,7 @@ static int drm_cvt_modes(struct drm_connector *connector,
+ }
+ 
+ static void
+-do_cvt_mode(struct detailed_timing *timing, void *c)
++do_cvt_mode(const struct detailed_timing *timing, void *c)
+ {
+ 	struct detailed_mode_closure *closure = c;
+ 
+@@ -3284,7 +3284,7 @@ add_cvt_modes(struct drm_connector *connector, struct edid *edid)
+ static void fixup_detailed_cea_mode_clock(struct drm_display_mode *mode);
+ 
+ static void
+-do_detailed_mode(struct detailed_timing *timing, void *c)
++do_detailed_mode(const struct detailed_timing *timing, void *c)
+ {
+ 	struct detailed_mode_closure *closure = c;
+ 	struct drm_display_mode *newmode;
+@@ -4517,17 +4517,19 @@ drm_parse_hdmi_vsdb_audio(struct drm_connector *connector, const u8 *db)
+ }
+ 
+ static void
+-monitor_name(struct detailed_timing *t, void *data)
++monitor_name(const struct detailed_timing *timing, void *data)
+ {
+-	if (!is_display_descriptor(t, EDID_DETAIL_MONITOR_NAME))
++	const char **res = data;
++
++	if (!is_display_descriptor(timing, EDID_DETAIL_MONITOR_NAME))
+ 		return;
+ 
+-	*(u8 **)data = t->data.other_data.data.str.str;
++	*res = timing->data.other_data.data.str.str;
+ }
+ 
+ static int get_monitor_name(struct edid *edid, char name[13])
+ {
+-	char *edid_name = NULL;
++	const char *edid_name = NULL;
+ 	int mnl;
+ 
+ 	if (!edid || !name)
+@@ -5247,7 +5249,7 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
+ }
+ 
+ static
+-void get_monitor_range(struct detailed_timing *timing,
++void get_monitor_range(const struct detailed_timing *timing,
+ 		       void *info_monitor_range)
+ {
+ 	struct drm_monitor_range_info *monitor_range = info_monitor_range;
 -- 
 2.30.2
 
