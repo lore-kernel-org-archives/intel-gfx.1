@@ -4,48 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65790C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 19:07:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDF13C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 19:07:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2C9A10E96F;
-	Mon, 28 Mar 2022 19:07:54 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82C1E10EC97;
- Mon, 28 Mar 2022 19:07:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648494437; x=1680030437;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=T4QnBamZ1NwEm/z3q5TwiBkzhgitkbVOM5v4PNCv4Lo=;
- b=A6xgiKa+mK9VaYpOEJ9926w8x+5IqnBVa9+vPX7OpgpC+kcb1C7Ge7xn
- YuduHPJ9HnefvNYlzR4wTJGz0WnMmDO+bs/XEMqYACTMxWzrOKIBdpDiG
- Mp+Yy9kR9mLm1RhZ1hHSRAF7b+GtqwhaSq8FrrUfk4/HyHyoqfgeHVboL
- X+ZbD0IVvKv55UJOxR2/Z9Pt8kgRqol5LOMdGT3Be5H5hc+kavvAyyvJE
- JEn9JXx2ijAt5XcKS/gO4On+btsJSgTrvgyBOItWFjmPaVij3MPeU04cw
- Sb3ywxPKbw7+kPjBy146KlKOhXhNsdalMJw5iT9M+O4AgrI1YFNOUDfcG A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="239678732"
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="239678732"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 12:07:17 -0700
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="563921091"
-Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 12:07:14 -0700
-From: Ramalingam C <ramalingam.c@intel.com>
-To: Hellstrom Thomas <thomas.hellstrom@intel.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>
-Date: Tue, 29 Mar 2022 00:37:35 +0530
-Message-Id: <20220328190736.19697-9-ramalingam.c@intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20220328190736.19697-1-ramalingam.c@intel.com>
-References: <20220328190736.19697-1-ramalingam.c@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3065910E966;
+	Mon, 28 Mar 2022 19:07:57 +0000 (UTC)
+Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com
+ [IPv6:2607:f8b0:4864:20::92e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E3010E966;
+ Mon, 28 Mar 2022 19:07:55 +0000 (UTC)
+Received: by mail-ua1-x92e.google.com with SMTP id j20so362923uan.1;
+ Mon, 28 Mar 2022 12:07:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CCKplzUskEQ9PwRTyuFUMJADGXMGT+3wuQ0LIFqQJTA=;
+ b=iVLFo3/Wbarqi1Gy59ZX3ni8OxRbwnW/akTYc6RfW1m8CgbjSSyNDMtRp1RVi7Tejz
+ b8YQxZyK2jg/JAPh9AsJ0u4zLhoff1XDlf7NrWZEhJegte0LIdZ4IU6PC0WYwSjaHDjG
+ RFgv7u7HdAtOW66kFkWDiyk0LYdF9Ihm9DpHuX+mloqKl0secFILqUdD6yRMndKNIzGN
+ EFEJJBx6HsqPkivC5Zr9d/3RQqo6iWX2oenhxT7GQSq58SPUyBmNv6jwsg86dQzXeyE3
+ A3TdXe+MnA71RRcWLkbZ3wp8uGAphDzGldReYbNgQVUH49wE9PBm9VkLo0ky5A2w1yNh
+ 1p9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CCKplzUskEQ9PwRTyuFUMJADGXMGT+3wuQ0LIFqQJTA=;
+ b=PxW0umZHFyC2tNQLS7vYMYywuhPlOipIPm0bI5ezF/naYnezBP4IYk8wXiM8Uk/ZWi
+ ec5V3ZYzgFjOXXozq3dS/U1PS/jS4ofJRZvS3XuN5lLDwH74AV4mSTjOd1jbA3w3XFz6
+ Wsh0FfqdZdKpniygPAisr2qVztyMSpBqfqwpRwf2Ja+E9CX4eX5QLn2CjfFWkq6kpMpt
+ 7OZkdO0bPc6j7hagp2oswBrhBBBTyJMAyzZQJ/n8UT9Qg9f8ux6f0Sv3jKcq31VVzyc+
+ jNywgomYTzC554wVKaML5wpnyCePcAtYXqzDhdvPijr6vE8fAuNbR2BpC8pJasbVoPqr
+ I9aA==
+X-Gm-Message-State: AOAM533ByzerHIBaVh5ncdvgaOTYpwdruIDxvvYoDuSgvITA/3YuDc06
+ XRjoUiLYw44txbbAMzxBnS6sSe/L26Zzb+qptS0=
+X-Google-Smtp-Source: ABdhPJyeB+4PzruoBESQc2VKSlA60X+ybn+mXU9Z41UctfcgMdS1JkVl9uLoW0REsYsj4gV+ulwXOYj02EGWedpRbnw=
+X-Received: by 2002:ab0:4ac1:0:b0:351:ed7d:e65c with SMTP id
+ t1-20020ab04ac1000000b00351ed7de65cmr12559304uae.36.1648494474130; Mon, 28
+ Mar 2022 12:07:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 8/9] drm/i915/gem: Add extra pages in ttm_tt
- for ccs data
+References: <20220311044756.425777-1-jim.cromie@gmail.com>
+ <20220311044756.425777-3-jim.cromie@gmail.com>
+ <823e51e6-2af4-7854-9428-697a2af12488@akamai.com>
+ <CAJfuBxxVti_pa1YPmas=Ub28yWUFFGeR13wxveLvPCYS61NxuA@mail.gmail.com>
+ <0d00c529-3bac-f09f-e07c-584194251a06@akamai.com>
+In-Reply-To: <0d00c529-3bac-f09f-e07c-584194251a06@akamai.com>
+From: jim.cromie@gmail.com
+Date: Mon, 28 Mar 2022 13:07:27 -0600
+Message-ID: <CAJfuBxwxA-9EwBaEow2UTBXD5-iER03+f5=D1zCUjTUut_bQaw@mail.gmail.com>
+To: Jason Baron <jbaron@akamai.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Intel-gfx] [PATCH 2/5] dyndbg: add class_id field and query
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,114 +67,177 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Nirmoy Das <nirmoy.das@intel.com>, Matthew Auld <matthew.auld@intel.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <seanpaul@chromium.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Joe Perches <joe@perches.com>,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Xe-HP and later devices, dedicated compression control state (CCS)
-stored in local memory is used for each surface, to support the
-3D and media compression formats.
+On Mon, Mar 14, 2022 at 3:30 PM Jason Baron <jbaron@akamai.com> wrote:
+>
+>
+>
+> On 3/11/22 20:06, jim.cromie@gmail.com wrote:
+> > On Fri, Mar 11, 2022 at 12:06 PM Jason Baron <jbaron@akamai.com> wrote:
+> >>
+> >>
+> >>
+> >> On 3/10/22 23:47, Jim Cromie wrote:
+> >>>
+> >>> With the patch, one can enable current/unclassed callsites by:
+> >>>
+> >>>   #> echo drm class 15 +p > /proc/dynamic_debug/control
+> >>>
+> >>
+> >> To me, this is hard to read, what the heck is '15'? I have to go look it
+> >> up in the control file and it's not descriptive. I think that using
+> >> classes/categories makes sense but I'm wondering if it can be a bit more
+> >> user friendly? Perhaps, we can pass an array of strings that is indexed
+> >> by the class id to each pr_debug() site that wants to use class. So
+> >> something like:
 
-The memory required for the CCS of the entire local memory is 1/256 of
-the local memory size. So before the kernel boot, the required memory
-is reserved for the CCS data and a secure register will be programmed
-with the CCS base address
+hi Jason,
+Im now in basically full agreement with you
 
-So when an object is allocated in local memory, dont need to explicitly
-allocate the space for ccs data. But when the obj is evicted into the
-smem, to hold the compression related data along with the obj extra space
-is needed in smem. i.e obj_size + (obj_size/256).
+1.   .class_id  is a "global" space, in that all callsites have one.
+2.    0-15 is an exceedingly small range for a global space
 
-Hence when a smem pages are allocated for an obj with lmem placement
-possibility we create with the extra pages required for the ccs data for
-the obj size.
+Fix that by
+3. make it private (by removing "class N" parsing)
+   now nobody can do
+   echo module * class N +p >control
 
-v2:
-  Used imperative wording [Thomas]
-v3:
-  Inflate the pages only when obj's placement is lmem only
-v4:
-  GEM_BUG_ON if the ttm->num_pages > obj page size [Thomas]
+4. add private/per-module "string" -> class_id map
+    each module will have to declare the class-strings they use/accept
+    opt-in - want coordinated / shared names for DRM_UT_KMS etc.
 
-Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-cc: Christian Koenig <christian.koenig@amd.com>
-cc: Hellstrom Thomas <thomas.hellstrom@intel.com>
-Reviewed-by: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 30 ++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+5. validate input using the known class_string -> class_id
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 3b9f99c765c4..5b34fe8ea9d7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -20,6 +20,7 @@
- #include "gem/i915_gem_ttm.h"
- #include "gem/i915_gem_ttm_move.h"
- #include "gem/i915_gem_ttm_pm.h"
-+#include "gt/intel_gpu_commands.h"
- 
- #define I915_TTM_PRIO_PURGE     0
- #define I915_TTM_PRIO_NO_PAGES  1
-@@ -262,12 +263,33 @@ static const struct i915_refct_sgt_ops tt_rsgt_ops = {
- 	.release = i915_ttm_tt_release
- };
- 
-+static inline bool
-+i915_gem_object_needs_ccs_pages(struct drm_i915_gem_object *obj)
-+{
-+	bool lmem_placement = false;
-+	int i;
-+
-+	for (i = 0; i < obj->mm.n_placements; i++) {
-+		/* Compression is not allowed for the objects with smem placement */
-+		if (obj->mm.placements[i]->type == INTEL_MEMORY_SYSTEM)
-+			return false;
-+		if (!lmem_placement &&
-+		    obj->mm.placements[i]->type == INTEL_MEMORY_LOCAL)
-+			lmem_placement = true;
-+	}
-+
-+	return lmem_placement;
-+}
-+
- static struct ttm_tt *i915_ttm_tt_create(struct ttm_buffer_object *bo,
- 					 uint32_t page_flags)
- {
-+	struct drm_i915_private *i915 = container_of(bo->bdev, typeof(*i915),
-+						     bdev);
- 	struct ttm_resource_manager *man =
- 		ttm_manager_type(bo->bdev, bo->resource->mem_type);
- 	struct drm_i915_gem_object *obj = i915_ttm_to_gem(bo);
-+	unsigned long ccs_pages = 0;
- 	enum ttm_caching caching;
- 	struct i915_ttm_tt *i915_tt;
- 	int ret;
-@@ -290,7 +312,12 @@ static struct ttm_tt *i915_ttm_tt_create(struct ttm_buffer_object *bo,
- 		i915_tt->is_shmem = true;
- 	}
- 
--	ret = ttm_tt_init(&i915_tt->ttm, bo, page_flags, caching, 0);
-+	if (HAS_FLAT_CCS(i915) && i915_gem_object_needs_ccs_pages(obj))
-+		ccs_pages = DIV_ROUND_UP(DIV_ROUND_UP(bo->base.size,
-+						      NUM_BYTES_PER_CCS_BYTE),
-+					 PAGE_SIZE);
-+
-+	ret = ttm_tt_init(&i915_tt->ttm, bo, page_flags, caching, ccs_pages);
- 	if (ret)
- 		goto err_free;
- 
-@@ -770,6 +797,7 @@ static int __i915_ttm_get_pages(struct drm_i915_gem_object *obj,
- 					    i915_sg_dma_sizes(rsgt->table.sgl));
- 	}
- 
-+	GEM_BUG_ON(bo->ttm && ((obj->base.size >> PAGE_SHIFT) < bo->ttm->num_pages));
- 	i915_ttm_adjust_lru(obj);
- 	return ret;
- }
--- 
-2.20.1
+then, this is knowably right or wrong, depending on DRM_FOO:
+     echo module drm class DRM_FOO +p > control
 
+it also means that
+     echo class DRM_UT_KMS +p >control
+is both wellformed and minimal;
+any module that has DRM_UT_KMS defined will know which class_id *they*
+have mapped it to.
+theres no global "DRM_UT_KMS" to be abused.
+
+So Ive been working towards that..
+Heres my current biggest roadblock
+
+DEFINE_DYNAMIC_DEBUG_CLASSBITS
+creates the class-strings[] array declaratively, at compile-time.
+This array is attached to the kernel-param.args,
+so it can be used by the callbacks (to construct the command)
+
+But its not obviously available from outside the sysfs knob
+that its attached to, as is needed to apply command >control generally.
+
+If I can attach the class-strings[]  to struct ddebug_table,
+then ddebug_change() can use it to validate >control input.
+
+So, how to attach ?
+its got to work for both builtin & loadable modules.
+(which precludes something in struct module ?)
+
+I looked for a kernel_param_register callback, came up empty.
+Trying to add it feels invasive / imposing.
+
+
+> >
+> > If that works, its cuz DEFINE_DYNAMIC_DEBUG_CLASSBITS()
+> > plucks class symbols out of its __VA_ARGS__, and #stringifes them.
+> > So that macro could then build the 1-per-module static constant string array
+> > and (only) the callbacks would be able to use it.
+> >
+
+So Ive been tinkering hard on this macro, since its pretty central to
+the interface defn.
+heres some choices:
+
+this is what Ive been working towards.
+using enum symbols directly like this associates them by grep,
+in contrast, class-strings are mealy-mouthed, milquetoast.
+
+DEFINE_DYNAMIC_DEBUG_CLASSBITS(debug, __drm_debug, "p",
+        "enable drm.debug categories - 1 bit per category",
+        DRM_UT_CORE,
+        DRM_UT_DRIVER,
+        DRM_UT_KMS,
+        DRM_UT_PRIME,
+        DRM_UT_ATOMIC,
+        DRM_UT_VBL,
+        DRM_UT_STATE,
+        DRM_UT_LEASE,
+        DRM_UT_DP,
+        DRM_UT_DRMRES);
+
+ I found a slick MAP ( ) macro to do this:
+
+#define DEFINE_DYNAMIC_DEBUG_CLASSBITS(fsname, _var, _flgs, desc, ...) \
+  MODULE_PARM_DESC(fsname, desc); \
+  static struct dyndbg_classbits_param ddcats_##_var = { \
+    .bits = &(_var), \
+    .flags = _flgs, \
+    .classes = { __VA_ARGS__, _DPRINTK_CLASS_DFLT }, \
+    .class_names = { mgMAP(__stringify, sCOMMA, \
+                                                __VA_ARGS__,
+_DPRINTK_CLASS_DFLT) } \
+}; \
+module_param_cb(fsname, &param_ops_dyndbg_classbits, \
+&ddcats_##_var, 0644)
+
+ __VA_ARGS__   is used 2x
+.class_names is available for validating command >control
+
+As much as I like the above, the MAP macro has a longer, more risky
+path to the kernel
+
+so a more modest alternative: module user defines class-strings in interface,
+but they *must* align manually with the enum values they correspond to;
+the order determines the bit-pos in the sysfs node,
+since the interface no longer provides the enum values themselves.
+
+DEFINE_DYNAMIC_DEBUG_CLASS_STRINGS(debug, __drm_debug, "p",
+        "enable drm.debug categories - 1 bit per category",
+        "DRM_UT_CORE",
+        "DRM_UT_DRIVER",
+        "DRM_UT_KMS",
+
+different name allows CLASSBITs or similar in future, if MAP works out.
+class-strings are completely defined by users, drm can drop UT naming
+
+TLDR: FWIW
+
+iSTM that  the same macro will support the coordinated use of class-strings
+across multiple modules.
+
+drm_print.c - natural home for exposed sysfs node
+
+amdgpu/, drm_helper/ i915/  nouveau/  will all need a DEFINE_DD added,
+so that ddebug_change() can allow those .class_ids to be controlled.
+sysfs perm inits can disable their nodes, since theyre coordinated.
+
+> >
+>
+> Ok, yeah so I guess I'm thinking about the 'class' more as global namespace,
+> so that for example, it could span modules, or be specific to certain modules.
+> I'm also thinking of it as a 'string' which is maybe hierarchical, so that it's
+> clear what sub-system, or sub-sub-system it belongs to. So for DRM for example,
+> it could be a string like "DRM:CORE". The index num I think is still helpful for
+> implementation so we don't have to store a pointer size, but I don't think it's
+> really exposed (except perhaps in module params b/c drm is doing that already?).
+>
+
+So what Ive got here is as described above,
+I just need a few bright ideas,
+then I can bring it together.
+got a spare tuit?
+
+Jim
