@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6121EC433FE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37B0EC433F5
 	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 21:59:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9455910EDC1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B0FD10EDC0;
 	Mon, 28 Mar 2022 21:59:16 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C829A10EDC1
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 21:59:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2573C10EDC1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 21:59:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648504748; x=1680040748;
+ t=1648504751; x=1680040751;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=HE0SBSqPp8RU4jtIUbXuUmIJ6dbe7BZyYEKb1gaada4=;
- b=Vb1iOINxVsVLku2RzQwZUOOGsSnOXjIRh1YnTETOy5Mjc2q/4Ie/Jycv
- mFBhSMB6k+BHYOnXfdtYhnqfG6s8Vd42cRiJznfcmVM7MTvzFTwNhxxkx
- fKtBdVM/63AtGyu57Xrg5hRDTpsNU99ari/1//ZCDuzDS+jHQuM7Bk98E
- Fiu/DtDJMYsOhnvda7w47lSLtJxnyC/1vf/hxWxXQ3zXWo8KLrNw9Xibw
- H5ZjONMMzkNjazbzeJiJUKrwCzyoc7D4+H2qeCtEFeWYMYhUnhpg0fZwl
- 4USiHIf0T+3pwaqZ8Fwg86c4ViwwvGoKKUekNGs4ACcl1QQ6t1C2dPjaF g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="246599326"
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="246599326"
+ bh=ae+38MuCG1rDihjdakDeHihporQNGFHbUo95dkf9ynQ=;
+ b=U6UxuZYEGyJmb5OJQyEBEybqsR/XG59HXTNCMpdZpV5L32y33wGZtKUw
+ SaJ/yUgpwl1UkxedlLWXnZJJf2mzPsOolZQB2+9SM1FHaDhVxPZ7InPEb
+ QabIKQWNixuj+XSwu7oJZLEVssGdPlJFvcucdgDgoasN4fG7z1zioNz/R
+ W1ENwcpc3B3FSQ70F0sbyJeEFXbNZjk0LDxQKxjNbxIC1U9wJrY4QpXKO
+ sNIxGWPFfhfmrEmezfZOffHYvjREIEbwWF4BiUakdGIqBXs3Qh3tHgmi8
+ CUYk0wynDMj5A6fxX7t7/nVLwzhKiMyn+DP5RmX5DpgLaO3aGFmp2SMYP A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="246599335"
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="246599335"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 14:59:08 -0700
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="546129280"
+ 28 Mar 2022 14:59:10 -0700
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="546129300"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 14:59:08 -0700
+ 28 Mar 2022 14:59:10 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Mar 2022 14:53:55 -0700
-Message-Id: <20220328215358.2866707-4-daniele.ceraolospurio@intel.com>
+Date: Mon, 28 Mar 2022 14:53:58 -0700
+Message-Id: <20220328215358.2866707-7-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220328215358.2866707-1-daniele.ceraolospurio@intel.com>
 References: <20220328215358.2866707-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 3/6] mei: gsc: setup char driver alive in spite of
- firmware handshake failure
+Subject: [Intel-gfx] [CI 6/6] HAX: drm/i915: force INTEL_MEI_GSC on for CI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,49 +59,27 @@ Cc: alexander.usyskin@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Alexander Usyskin <alexander.usyskin@intel.com>
+After the new config option is merged we'll enable it by default in the
+CI config, but for now just force it on via the i915 Kconfig so we can
+get pre-merge CI results for it.
 
-Setup char device in spite of firmware handshake failure.
-In order to provide host access to the firmware status registers and other
-information required for the manufacturing process.
-
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/misc/mei/gsc-me.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/Kconfig.debug | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/misc/mei/gsc-me.c b/drivers/misc/mei/gsc-me.c
-index 64b02adf3149d..58e39c00f1501 100644
---- a/drivers/misc/mei/gsc-me.c
-+++ b/drivers/misc/mei/gsc-me.c
-@@ -79,11 +79,12 @@ static int mei_gsc_probe(struct auxiliary_device *aux_dev,
- 	pm_runtime_set_active(device);
- 	pm_runtime_enable(device);
- 
--	if (mei_start(dev)) {
--		dev_err(device, "init hw failure.\n");
--		ret = -ENODEV;
--		goto irq_err;
--	}
-+	/* Continue to char device setup in spite of firmware handshake failure.
-+	 * In order to provide access to the firmware status registers to the user
-+	 * space via sysfs.
-+	 */
-+	if (mei_start(dev))
-+		dev_warn(device, "init hw failure.\n");
- 
- 	pm_runtime_set_autosuspend_delay(device, MEI_GSC_RPM_TIMEOUT);
- 	pm_runtime_use_autosuspend(device);
-@@ -97,7 +98,6 @@ static int mei_gsc_probe(struct auxiliary_device *aux_dev,
- 
- register_err:
- 	mei_stop(dev);
--irq_err:
- 	devm_free_irq(device, hw->irq, dev);
- 
- err:
+diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
+index e7fd3e76f8a20..be4ef485d6c1d 100644
+--- a/drivers/gpu/drm/i915/Kconfig.debug
++++ b/drivers/gpu/drm/i915/Kconfig.debug
+@@ -48,6 +48,7 @@ config DRM_I915_DEBUG
+ 	select DRM_I915_DEBUG_RUNTIME_PM
+ 	select DRM_I915_SW_FENCE_DEBUG_OBJECTS
+ 	select DRM_I915_SELFTEST
++	select INTEL_MEI_GSC
+ 	select BROKEN # for prototype uAPI
+ 	default n
+ 	help
 -- 
 2.25.1
 
