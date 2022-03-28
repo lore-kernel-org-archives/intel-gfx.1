@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DC88C4332F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF882C433FE
 	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 19:07:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E548910EC8A;
-	Mon, 28 Mar 2022 19:07:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B810510EC99;
+	Mon, 28 Mar 2022 19:07:15 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91BA010EC83;
- Mon, 28 Mar 2022 19:07:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E41A10EC71;
+ Mon, 28 Mar 2022 19:07:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648494429; x=1680030429;
+ t=1648494425; x=1680030425;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aV72eiNbFQojrgOHXlBFcVVE5yGUs4sDzt209QLZecA=;
- b=S7Cg/Q6IFZ1UUy4Vz43dRC22p8Oj11xx11/Ytn0X68fwTiXTbxe8eaKi
- 7gNyj/kjrQzvW8vQ/9tg0oJLOrEsB6FC1tBOCykbuqeFPOjK1l9oeV8j3
- 83Ju+bVIwsgtBB+QgSRouz4zR/kvXoaF4Mju+LqcekKkiAgL5Q+7tu1my
- m7dLEW40Jk8S+kZ3Fz/CTEwkb51Tc5/MPxW17WiS2HRsQeonM8ADoUDfO
- ej3SzcG8Vx+yfj2Iw3uW57BKOv5TkX1rMgCMcJzJwu141hcMDgE93Auf0
- cv7Au07axpXNX4J2wBQuFUuryEDgjt8pqFB5FkEUd7CbT01vsR7FyMA5U g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="239678698"
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="239678698"
+ bh=5v6ZFKKS4WlAXROLFguq5zDCVNsABFwrBMmSBfhivr0=;
+ b=NWJIDujMy/lYe1TnSvJKzED822VN9JPFXGiSkIz8yNdg1JFhRS3BirN8
+ wMgkSjCeLwh9OxqTRzPwxhVQGA99rgUsYs2rQxkbz3Y7ZGAmIceXwpQ71
+ D5aePPa8dc7EuHYFkQW7OU5qIndgsSwM//1QaQFozLehNS0WiLiIrapU5
+ TJXoGc3WPF4KkWKNaLEvM1KitJoL7vsIt2jqoFNaoU62tksMhPj6GFlqX
+ rH3ONYMq+ZqwJxTDZJIKFIRnCdltTv/S6J4Xf8KowzVl9kGpcvXb9W9d3
+ xPD8WfDPdSzU1kcmTwWI2LPpVRcG4TRrXOOwuTzi7AzAhJIJVUKHxVbWC w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="239678681"
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="239678681"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 12:07:09 -0700
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="563921008"
+ 28 Mar 2022 12:07:04 -0700
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="563920959"
 Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 12:07:07 -0700
+ 28 Mar 2022 12:07:02 -0700
 From: Ramalingam C <ramalingam.c@intel.com>
 To: Hellstrom Thomas <thomas.hellstrom@intel.com>,
  intel-gfx <intel-gfx@lists.freedesktop.org>,
  dri-devel <dri-devel@lists.freedesktop.org>
-Date: Tue, 29 Mar 2022 00:37:32 +0530
-Message-Id: <20220328190736.19697-6-ramalingam.c@intel.com>
+Date: Tue, 29 Mar 2022 00:37:30 +0530
+Message-Id: <20220328190736.19697-4-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220328190736.19697-1-ramalingam.c@intel.com>
 References: <20220328190736.19697-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 5/9] drm/i915/selftest_migrate: Consider the
- possible roundup of size
+Subject: [Intel-gfx] [PATCH v7 3/9] drm/i915/gt: Optimize the migration and
+ clear loop
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,32 +59,120 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Consider the possible round up happened at obj size alignment to
-min_page_size during the obj allocation.
+Move the static calculations out of the loops for copy and clear.
 
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_migrate.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_migrate.c | 44 ++++++++++++-------------
+ 1 file changed, 21 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_migrate.c b/drivers/gpu/drm/i915/gt/selftest_migrate.c
-index c9c4f391c5cc..b5da8b8cd039 100644
---- a/drivers/gpu/drm/i915/gt/selftest_migrate.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_migrate.c
-@@ -152,6 +152,9 @@ static int clear(struct intel_migrate *migrate,
- 	if (IS_ERR(obj))
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index 17dd372a47d1..ec9a9e7cb388 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -526,6 +526,7 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 			   struct i915_request **out)
+ {
+ 	struct sgt_dma it_src = sg_sgt(src), it_dst = sg_sgt(dst);
++	u32 src_offset, dst_offset;
+ 	struct i915_request *rq;
+ 	int err;
  
-+	/* Consider the rounded up memory too */
-+	sz = obj->base.size;
+@@ -534,8 +535,20 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 
+ 	GEM_BUG_ON(ce->ring->size < SZ_64K);
+ 
++	src_offset = 0;
++	dst_offset = CHUNK_SZ;
++	if (HAS_64K_PAGES(ce->engine->i915)) {
++		GEM_BUG_ON(!src_is_lmem && !dst_is_lmem);
 +
- 	for_i915_gem_ww(&ww, err, true) {
- 		err = i915_gem_object_lock(obj, &ww);
++		src_offset = 0;
++		dst_offset = 0;
++		if (src_is_lmem)
++			src_offset = CHUNK_SZ;
++		if (dst_is_lmem)
++			dst_offset = 2 * CHUNK_SZ;
++	}
++
+ 	do {
+-		u32 src_offset, dst_offset;
+ 		int len;
+ 
+ 		rq = i915_request_create(ce);
+@@ -563,19 +576,6 @@ intel_context_migrate_copy(struct intel_context *ce,
  		if (err)
+ 			goto out_rq;
+ 
+-		src_offset = 0;
+-		dst_offset = CHUNK_SZ;
+-		if (HAS_64K_PAGES(ce->engine->i915)) {
+-			GEM_BUG_ON(!src_is_lmem && !dst_is_lmem);
+-
+-			src_offset = 0;
+-			dst_offset = 0;
+-			if (src_is_lmem)
+-				src_offset = CHUNK_SZ;
+-			if (dst_is_lmem)
+-				dst_offset = 2 * CHUNK_SZ;
+-		}
+-
+ 		len = emit_pte(rq, &it_src, src_cache_level, src_is_lmem,
+ 			       src_offset, CHUNK_SZ);
+ 		if (len <= 0) {
+@@ -585,12 +585,10 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 
+ 		err = emit_pte(rq, &it_dst, dst_cache_level, dst_is_lmem,
+ 			       dst_offset, len);
+-		if (err < 0)
+-			goto out_rq;
+-		if (err < len) {
++		if (err < len)
+ 			err = -EINVAL;
++		if (err < 0)
+ 			goto out_rq;
+-		}
+ 
+ 		err = rq->engine->emit_flush(rq, EMIT_INVALIDATE);
+ 		if (err)
+@@ -691,6 +689,7 @@ intel_context_migrate_clear(struct intel_context *ce,
+ {
+ 	struct sgt_dma it = sg_sgt(sg);
+ 	struct i915_request *rq;
++	u32 offset;
+ 	int err;
+ 
+ 	GEM_BUG_ON(ce->vm != ce->engine->gt->migrate.context->vm);
+@@ -698,8 +697,11 @@ intel_context_migrate_clear(struct intel_context *ce,
+ 
+ 	GEM_BUG_ON(ce->ring->size < SZ_64K);
+ 
++	offset = 0;
++	if (HAS_64K_PAGES(ce->engine->i915) && is_lmem)
++		offset = CHUNK_SZ;
++
+ 	do {
+-		u32 offset;
+ 		int len;
+ 
+ 		rq = i915_request_create(ce);
+@@ -727,10 +729,6 @@ intel_context_migrate_clear(struct intel_context *ce,
+ 		if (err)
+ 			goto out_rq;
+ 
+-		offset = 0;
+-		if (HAS_64K_PAGES(ce->engine->i915) && is_lmem)
+-			offset = CHUNK_SZ;
+-
+ 		len = emit_pte(rq, &it, cache_level, is_lmem, offset, CHUNK_SZ);
+ 		if (len <= 0) {
+ 			err = len;
 -- 
 2.20.1
 
