@@ -4,57 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDF13C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 19:07:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD07C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 19:15:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3065910E966;
-	Mon, 28 Mar 2022 19:07:57 +0000 (UTC)
-Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com
- [IPv6:2607:f8b0:4864:20::92e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0E3010E966;
- Mon, 28 Mar 2022 19:07:55 +0000 (UTC)
-Received: by mail-ua1-x92e.google.com with SMTP id j20so362923uan.1;
- Mon, 28 Mar 2022 12:07:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CCKplzUskEQ9PwRTyuFUMJADGXMGT+3wuQ0LIFqQJTA=;
- b=iVLFo3/Wbarqi1Gy59ZX3ni8OxRbwnW/akTYc6RfW1m8CgbjSSyNDMtRp1RVi7Tejz
- b8YQxZyK2jg/JAPh9AsJ0u4zLhoff1XDlf7NrWZEhJegte0LIdZ4IU6PC0WYwSjaHDjG
- RFgv7u7HdAtOW66kFkWDiyk0LYdF9Ihm9DpHuX+mloqKl0secFILqUdD6yRMndKNIzGN
- EFEJJBx6HsqPkivC5Zr9d/3RQqo6iWX2oenhxT7GQSq58SPUyBmNv6jwsg86dQzXeyE3
- A3TdXe+MnA71RRcWLkbZ3wp8uGAphDzGldReYbNgQVUH49wE9PBm9VkLo0ky5A2w1yNh
- 1p9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CCKplzUskEQ9PwRTyuFUMJADGXMGT+3wuQ0LIFqQJTA=;
- b=PxW0umZHFyC2tNQLS7vYMYywuhPlOipIPm0bI5ezF/naYnezBP4IYk8wXiM8Uk/ZWi
- ec5V3ZYzgFjOXXozq3dS/U1PS/jS4ofJRZvS3XuN5lLDwH74AV4mSTjOd1jbA3w3XFz6
- Wsh0FfqdZdKpniygPAisr2qVztyMSpBqfqwpRwf2Ja+E9CX4eX5QLn2CjfFWkq6kpMpt
- 7OZkdO0bPc6j7hagp2oswBrhBBBTyJMAyzZQJ/n8UT9Qg9f8ux6f0Sv3jKcq31VVzyc+
- jNywgomYTzC554wVKaML5wpnyCePcAtYXqzDhdvPijr6vE8fAuNbR2BpC8pJasbVoPqr
- I9aA==
-X-Gm-Message-State: AOAM533ByzerHIBaVh5ncdvgaOTYpwdruIDxvvYoDuSgvITA/3YuDc06
- XRjoUiLYw44txbbAMzxBnS6sSe/L26Zzb+qptS0=
-X-Google-Smtp-Source: ABdhPJyeB+4PzruoBESQc2VKSlA60X+ybn+mXU9Z41UctfcgMdS1JkVl9uLoW0REsYsj4gV+ulwXOYj02EGWedpRbnw=
-X-Received: by 2002:ab0:4ac1:0:b0:351:ed7d:e65c with SMTP id
- t1-20020ab04ac1000000b00351ed7de65cmr12559304uae.36.1648494474130; Mon, 28
- Mar 2022 12:07:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52A0210ED88;
+	Mon, 28 Mar 2022 19:15:14 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1D9F10ED88
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 19:15:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1648494912; x=1680030912;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=DJNoJcmhu8UCEIFTvQa4hkrL77iTzAWSeoErHtCSjwo=;
+ b=Hms1/dSh5sjhaYQGlpErNlwnzFNDtfkgHGSvXYumo1Mf+i+510znsRlS
+ 1wfZdig/V3nwf1FXF7AbLiwjS3VM3Cy8BK0NVZhVVgum4x2IGYhHlW4Ep
+ U41TYkNSuRH41ED9zZotSctZFeqrZ0hTgglWq99hBHhn5KUaAzX1ItptE
+ 2d535GdE5MMlcjyUMNejmqZdEhp2huStS8hz17NVAfbz5D28goR99VoxZ
+ 6YOENeaDDSoJwg9OXxM2sH7bgtqwPkfIiQWcRhZUdpSLVxUCwVC4P4PR6
+ tDVukmPLjaL8lUyNIwEHUphbaWcOthVMOxozJXkCA/rW3npGjAcqjqB9i A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="259272282"
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="259272282"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2022 12:15:11 -0700
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="719235710"
+Received: from josouza-mobl2.fso.intel.com (HELO josouza-mobl2.intel.com)
+ ([10.230.19.149])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2022 12:15:09 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 28 Mar 2022 12:16:15 -0700
+Message-Id: <20220328191617.122838-1-jose.souza@intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <20220311044756.425777-1-jim.cromie@gmail.com>
- <20220311044756.425777-3-jim.cromie@gmail.com>
- <823e51e6-2af4-7854-9428-697a2af12488@akamai.com>
- <CAJfuBxxVti_pa1YPmas=Ub28yWUFFGeR13wxveLvPCYS61NxuA@mail.gmail.com>
- <0d00c529-3bac-f09f-e07c-584194251a06@akamai.com>
-In-Reply-To: <0d00c529-3bac-f09f-e07c-584194251a06@akamai.com>
-From: jim.cromie@gmail.com
-Date: Mon, 28 Mar 2022 13:07:27 -0600
-Message-ID: <CAJfuBxwxA-9EwBaEow2UTBXD5-iER03+f5=D1zCUjTUut_bQaw@mail.gmail.com>
-To: Jason Baron <jbaron@akamai.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Intel-gfx] [PATCH 2/5] dyndbg: add class_id field and query
- support
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v3 1/3] drm/i915/display: Program
+ PIPE_MBUS_DBOX_CTL with adl-p values
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,177 +56,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Greg KH <gregkh@linuxfoundation.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Sean Paul <seanpaul@chromium.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Joe Perches <joe@perches.com>,
- intel-gvt-dev@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 14, 2022 at 3:30 PM Jason Baron <jbaron@akamai.com> wrote:
->
->
->
-> On 3/11/22 20:06, jim.cromie@gmail.com wrote:
-> > On Fri, Mar 11, 2022 at 12:06 PM Jason Baron <jbaron@akamai.com> wrote:
-> >>
-> >>
-> >>
-> >> On 3/10/22 23:47, Jim Cromie wrote:
-> >>>
-> >>> With the patch, one can enable current/unclassed callsites by:
-> >>>
-> >>>   #> echo drm class 15 +p > /proc/dynamic_debug/control
-> >>>
-> >>
-> >> To me, this is hard to read, what the heck is '15'? I have to go look it
-> >> up in the control file and it's not descriptive. I think that using
-> >> classes/categories makes sense but I'm wondering if it can be a bit more
-> >> user friendly? Perhaps, we can pass an array of strings that is indexed
-> >> by the class id to each pr_debug() site that wants to use class. So
-> >> something like:
+From: Caz Yokoyama <caz.yokoyama@intel.com>
 
-hi Jason,
-Im now in basically full agreement with you
+B credits set by IFWI do not match with specification default, so here
+programming the right value.
 
-1.   .class_id  is a "global" space, in that all callsites have one.
-2.    0-15 is an exceedingly small range for a global space
+Also while at it, taking the oportunity to do a read-modify-write to
+not overwrite all other bits in this register that specification don't
+ask us to change.
 
-Fix that by
-3. make it private (by removing "class N" parsing)
-   now nobody can do
-   echo module * class N +p >control
+BSpec: 49213
+BSpec: 50343
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Caz Yokoyama <caz.yokoyama@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-4. add private/per-module "string" -> class_id map
-    each module will have to declare the class-strings they use/accept
-    opt-in - want coordinated / shared names for DRM_UT_KMS etc.
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 3d2ff258f0a94..078ada041e1cd 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1830,13 +1830,19 @@ static void icl_pipe_mbus_enable(struct intel_crtc *crtc, bool joined_mbus)
+ 	enum pipe pipe = crtc->pipe;
+ 	u32 val;
+ 
++	val = intel_de_read(dev_priv, PIPE_MBUS_DBOX_CTL(pipe));
++	val &= ~MBUS_DBOX_A_CREDIT_MASK;
+ 	/* Wa_22010947358:adl-p */
+ 	if (IS_ALDERLAKE_P(dev_priv))
+-		val = joined_mbus ? MBUS_DBOX_A_CREDIT(6) : MBUS_DBOX_A_CREDIT(4);
++		val |= joined_mbus ? MBUS_DBOX_A_CREDIT(6) : MBUS_DBOX_A_CREDIT(4);
+ 	else
+-		val = MBUS_DBOX_A_CREDIT(2);
++		val |= MBUS_DBOX_A_CREDIT(2);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 12) {
++	val &= ~(MBUS_DBOX_BW_CREDIT_MASK | MBUS_DBOX_B_CREDIT_MASK);
++	if (IS_ALDERLAKE_P(dev_priv)) {
++		val |= MBUS_DBOX_BW_CREDIT(2);
++		val |= MBUS_DBOX_B_CREDIT(8);
++	} else if (DISPLAY_VER(dev_priv) >= 12) {
+ 		val |= MBUS_DBOX_BW_CREDIT(2);
+ 		val |= MBUS_DBOX_B_CREDIT(12);
+ 	} else {
+-- 
+2.35.1
 
-5. validate input using the known class_string -> class_id
-
-then, this is knowably right or wrong, depending on DRM_FOO:
-     echo module drm class DRM_FOO +p > control
-
-it also means that
-     echo class DRM_UT_KMS +p >control
-is both wellformed and minimal;
-any module that has DRM_UT_KMS defined will know which class_id *they*
-have mapped it to.
-theres no global "DRM_UT_KMS" to be abused.
-
-So Ive been working towards that..
-Heres my current biggest roadblock
-
-DEFINE_DYNAMIC_DEBUG_CLASSBITS
-creates the class-strings[] array declaratively, at compile-time.
-This array is attached to the kernel-param.args,
-so it can be used by the callbacks (to construct the command)
-
-But its not obviously available from outside the sysfs knob
-that its attached to, as is needed to apply command >control generally.
-
-If I can attach the class-strings[]  to struct ddebug_table,
-then ddebug_change() can use it to validate >control input.
-
-So, how to attach ?
-its got to work for both builtin & loadable modules.
-(which precludes something in struct module ?)
-
-I looked for a kernel_param_register callback, came up empty.
-Trying to add it feels invasive / imposing.
-
-
-> >
-> > If that works, its cuz DEFINE_DYNAMIC_DEBUG_CLASSBITS()
-> > plucks class symbols out of its __VA_ARGS__, and #stringifes them.
-> > So that macro could then build the 1-per-module static constant string array
-> > and (only) the callbacks would be able to use it.
-> >
-
-So Ive been tinkering hard on this macro, since its pretty central to
-the interface defn.
-heres some choices:
-
-this is what Ive been working towards.
-using enum symbols directly like this associates them by grep,
-in contrast, class-strings are mealy-mouthed, milquetoast.
-
-DEFINE_DYNAMIC_DEBUG_CLASSBITS(debug, __drm_debug, "p",
-        "enable drm.debug categories - 1 bit per category",
-        DRM_UT_CORE,
-        DRM_UT_DRIVER,
-        DRM_UT_KMS,
-        DRM_UT_PRIME,
-        DRM_UT_ATOMIC,
-        DRM_UT_VBL,
-        DRM_UT_STATE,
-        DRM_UT_LEASE,
-        DRM_UT_DP,
-        DRM_UT_DRMRES);
-
- I found a slick MAP ( ) macro to do this:
-
-#define DEFINE_DYNAMIC_DEBUG_CLASSBITS(fsname, _var, _flgs, desc, ...) \
-  MODULE_PARM_DESC(fsname, desc); \
-  static struct dyndbg_classbits_param ddcats_##_var = { \
-    .bits = &(_var), \
-    .flags = _flgs, \
-    .classes = { __VA_ARGS__, _DPRINTK_CLASS_DFLT }, \
-    .class_names = { mgMAP(__stringify, sCOMMA, \
-                                                __VA_ARGS__,
-_DPRINTK_CLASS_DFLT) } \
-}; \
-module_param_cb(fsname, &param_ops_dyndbg_classbits, \
-&ddcats_##_var, 0644)
-
- __VA_ARGS__   is used 2x
-.class_names is available for validating command >control
-
-As much as I like the above, the MAP macro has a longer, more risky
-path to the kernel
-
-so a more modest alternative: module user defines class-strings in interface,
-but they *must* align manually with the enum values they correspond to;
-the order determines the bit-pos in the sysfs node,
-since the interface no longer provides the enum values themselves.
-
-DEFINE_DYNAMIC_DEBUG_CLASS_STRINGS(debug, __drm_debug, "p",
-        "enable drm.debug categories - 1 bit per category",
-        "DRM_UT_CORE",
-        "DRM_UT_DRIVER",
-        "DRM_UT_KMS",
-
-different name allows CLASSBITs or similar in future, if MAP works out.
-class-strings are completely defined by users, drm can drop UT naming
-
-TLDR: FWIW
-
-iSTM that  the same macro will support the coordinated use of class-strings
-across multiple modules.
-
-drm_print.c - natural home for exposed sysfs node
-
-amdgpu/, drm_helper/ i915/  nouveau/  will all need a DEFINE_DD added,
-so that ddebug_change() can allow those .class_ids to be controlled.
-sysfs perm inits can disable their nodes, since theyre coordinated.
-
-> >
->
-> Ok, yeah so I guess I'm thinking about the 'class' more as global namespace,
-> so that for example, it could span modules, or be specific to certain modules.
-> I'm also thinking of it as a 'string' which is maybe hierarchical, so that it's
-> clear what sub-system, or sub-sub-system it belongs to. So for DRM for example,
-> it could be a string like "DRM:CORE". The index num I think is still helpful for
-> implementation so we don't have to store a pointer size, but I don't think it's
-> really exposed (except perhaps in module params b/c drm is doing that already?).
->
-
-So what Ive got here is as described above,
-I just need a few bright ideas,
-then I can bring it together.
-got a spare tuit?
-
-Jim
