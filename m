@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37B0EC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 21:59:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60964C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 21:59:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B0FD10EDC0;
-	Mon, 28 Mar 2022 21:59:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5EB089B70;
+	Mon, 28 Mar 2022 21:59:21 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2573C10EDC1
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 21:59:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9380E10EDC3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Mar 2022 21:59:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648504751; x=1680040751;
+ t=1648504749; x=1680040749;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ae+38MuCG1rDihjdakDeHihporQNGFHbUo95dkf9ynQ=;
- b=U6UxuZYEGyJmb5OJQyEBEybqsR/XG59HXTNCMpdZpV5L32y33wGZtKUw
- SaJ/yUgpwl1UkxedlLWXnZJJf2mzPsOolZQB2+9SM1FHaDhVxPZ7InPEb
- QabIKQWNixuj+XSwu7oJZLEVssGdPlJFvcucdgDgoasN4fG7z1zioNz/R
- W1ENwcpc3B3FSQ70F0sbyJeEFXbNZjk0LDxQKxjNbxIC1U9wJrY4QpXKO
- sNIxGWPFfhfmrEmezfZOffHYvjREIEbwWF4BiUakdGIqBXs3Qh3tHgmi8
- CUYk0wynDMj5A6fxX7t7/nVLwzhKiMyn+DP5RmX5DpgLaO3aGFmp2SMYP A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="246599335"
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="246599335"
+ bh=l/tTPmGwwLdDptWvNXTXU/TJJaBbkLdTthPVHWkA544=;
+ b=ASscFiyRANxt7WVTowdsq+2HM5Lz06l61VCy2aMeF+L1Zu8qaG3lnN5E
+ FjdgrWtCpWfDUEGk3u00vcpLx/tCk7qJv2CnXqFtA2wuWYvJyBc0LrvXD
+ 7Q8hPclRZO3I5025CMJTEk+KmFkEZmZYzhOmfxXw3dewqDzoVR05Xd6p4
+ x4l2NI9AB52+krSWOzbLkKooLT6jACdYhwCOt5U+aaASDSTkb3xhxF05y
+ cpsgS7T3Iz2lSLkvMmCyzfovzPW/MMFlgs8BE2iNJth6mIWFnUbdPzOpO
+ Ijr3hdFqjirvzDdegFURWMPkPf3pAfWER3AEkAa/AREtdJRMQL4ychSZd Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10300"; a="246599329"
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="246599329"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 14:59:10 -0700
-X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="546129300"
+ 28 Mar 2022 14:59:09 -0700
+X-IronPort-AV: E=Sophos;i="5.90,218,1643702400"; d="scan'208";a="546129286"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2022 14:59:10 -0700
+ 28 Mar 2022 14:59:09 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Mar 2022 14:53:58 -0700
-Message-Id: <20220328215358.2866707-7-daniele.ceraolospurio@intel.com>
+Date: Mon, 28 Mar 2022 14:53:56 -0700
+Message-Id: <20220328215358.2866707-5-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220328215358.2866707-1-daniele.ceraolospurio@intel.com>
 References: <20220328215358.2866707-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 6/6] HAX: drm/i915: force INTEL_MEI_GSC on for CI
+Subject: [Intel-gfx] [CI 4/6] mei: gsc: add runtime pm handlers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,27 +59,97 @@ Cc: alexander.usyskin@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After the new config option is merged we'll enable it by default in the
-CI config, but for now just force it on via the i915 Kconfig so we can
-get pre-merge CI results for it.
+From: Tomas Winkler <tomas.winkler@intel.com>
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Implement runtime handlers for mei-gsc, to track
+idle state of the device properly.
+
+CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/Kconfig.debug | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/misc/mei/gsc-me.c | 67 ++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 66 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-index e7fd3e76f8a20..be4ef485d6c1d 100644
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -48,6 +48,7 @@ config DRM_I915_DEBUG
- 	select DRM_I915_DEBUG_RUNTIME_PM
- 	select DRM_I915_SW_FENCE_DEBUG_OBJECTS
- 	select DRM_I915_SELFTEST
-+	select INTEL_MEI_GSC
- 	select BROKEN # for prototype uAPI
- 	default n
- 	help
+diff --git a/drivers/misc/mei/gsc-me.c b/drivers/misc/mei/gsc-me.c
+index 58e39c00f1501..32ea75f5e7aa5 100644
+--- a/drivers/misc/mei/gsc-me.c
++++ b/drivers/misc/mei/gsc-me.c
+@@ -159,7 +159,72 @@ static int __maybe_unused mei_gsc_pm_resume(struct device *device)
+ 	return 0;
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(mei_gsc_pm_ops, mei_gsc_pm_suspend, mei_gsc_pm_resume);
++static int __maybe_unused mei_gsc_pm_runtime_idle(struct device *device)
++{
++	struct mei_device *dev = dev_get_drvdata(device);
++
++	if (!dev)
++		return -ENODEV;
++	if (mei_write_is_idle(dev))
++		pm_runtime_autosuspend(device);
++
++	return -EBUSY;
++}
++
++static int  __maybe_unused mei_gsc_pm_runtime_suspend(struct device *device)
++{
++	struct mei_device *dev = dev_get_drvdata(device);
++	struct mei_me_hw *hw;
++	int ret;
++
++	if (!dev)
++		return -ENODEV;
++
++	mutex_lock(&dev->device_lock);
++
++	if (mei_write_is_idle(dev)) {
++		hw = to_me_hw(dev);
++		hw->pg_state = MEI_PG_ON;
++		ret = 0;
++	} else {
++		ret = -EAGAIN;
++	}
++
++	mutex_unlock(&dev->device_lock);
++
++	return ret;
++}
++
++static int __maybe_unused mei_gsc_pm_runtime_resume(struct device *device)
++{
++	struct mei_device *dev = dev_get_drvdata(device);
++	struct mei_me_hw *hw;
++	irqreturn_t irq_ret;
++
++	if (!dev)
++		return -ENODEV;
++
++	mutex_lock(&dev->device_lock);
++
++	hw = to_me_hw(dev);
++	hw->pg_state = MEI_PG_OFF;
++
++	mutex_unlock(&dev->device_lock);
++
++	irq_ret = mei_me_irq_thread_handler(1, dev);
++	if (irq_ret != IRQ_HANDLED)
++		dev_err(dev->dev, "thread handler fail %d\n", irq_ret);
++
++	return 0;
++}
++
++static const struct dev_pm_ops mei_gsc_pm_ops = {
++	SET_SYSTEM_SLEEP_PM_OPS(mei_gsc_pm_suspend,
++				mei_gsc_pm_resume)
++	SET_RUNTIME_PM_OPS(mei_gsc_pm_runtime_suspend,
++			   mei_gsc_pm_runtime_resume,
++			   mei_gsc_pm_runtime_idle)
++};
+ 
+ static const struct auxiliary_device_id mei_gsc_id_table[] = {
+ 	{
 -- 
 2.25.1
 
