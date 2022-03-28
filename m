@@ -4,28 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF397C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 06:50:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85314C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Mar 2022 06:50:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5768610E37A;
-	Mon, 28 Mar 2022 06:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 261E910E18D;
+	Mon, 28 Mar 2022 06:50:32 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF2310E37A;
- Mon, 28 Mar 2022 06:50:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98D7110E18D;
+ Mon, 28 Mar 2022 06:50:30 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id E63D768B05; Mon, 28 Mar 2022 08:50:08 +0200 (CEST)
-Date: Mon, 28 Mar 2022 08:50:08 +0200
+ id E5B6168B05; Mon, 28 Mar 2022 08:50:27 +0200 (CEST)
+Date: Mon, 28 Mar 2022 08:50:27 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Zhi Wang <zhi.wang.linux@gmail.com>
-Message-ID: <20220328065008.GA29798@lst.de>
+Message-ID: <20220328065027.GB29798@lst.de>
 References: <20220325175251.167164-1-zhi.a.wang@intel.com>
+ <20220325175251.167164-2-zhi.a.wang@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220325175251.167164-1-zhi.a.wang@intel.com>
+In-Reply-To: <20220325175251.167164-2-zhi.a.wang@intel.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-Subject: Re: [Intel-gfx] [PATCH v7 1/3] i915/gvt: Separate the MMIO tracking
- table from GVT-g
+Subject: Re: [Intel-gfx] [PATCH v7 2/3] i915/gvt: Save the initial HW state
+ snapshot in i915
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,21 +39,13 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Zhi Wang <zhi.a.wang@gmail.com>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Jason Gunthorpe <jgg@nvidia.com>, Vivi Rodrigo <rodrigo.vivi@intel.com>,
- intel-gvt-dev@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Jason Gunthorpe <jgg@nvidia.com>,
+ Vivi Rodrigo <rodrigo.vivi@intel.com>, intel-gvt-dev@lists.freedesktop.org,
+ Christoph Hellwig <hch@lst.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 25, 2022 at 01:52:49PM -0400, Zhi Wang wrote:
-> 
-> v7:
-> 
-> - Keep the marcos of device generation in GVT-g. (Christoph, Jani)
-
-The changelog go under the "---" line (also for the other patches).
-
-Otherwise looks good:
+Looks good:
 
 Reviewed-by: Christoph Hellwig <hch@lst.de>
