@@ -4,30 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB7EDC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 00:45:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DE68C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 01:00:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E0D610E1D8;
-	Tue, 29 Mar 2022 00:45:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A36CB10E396;
+	Tue, 29 Mar 2022 01:00:05 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3057310E1D8;
- Tue, 29 Mar 2022 00:45:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id CB7F810E2CA;
+ Tue, 29 Mar 2022 01:00:03 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2B876A47DF;
- Tue, 29 Mar 2022 00:45:37 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id B85BEA008A;
+ Tue, 29 Mar 2022 01:00:03 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ramalingam C" <ramalingam.c@intel.com>
-Date: Tue, 29 Mar 2022 00:45:37 -0000
-Message-ID: <164851473714.5798.3187867192704115263@emeril.freedesktop.org>
+To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
+Date: Tue, 29 Mar 2022 01:00:03 -0000
+Message-ID: <164851560372.5799.9365268165274272359@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20220328190736.19697-1-ramalingam.c@intel.com>
-In-Reply-To: <20220328190736.19697-1-ramalingam.c@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
- =?utf-8?q?m/i915/ttm=3A_Evict_and_restore_of_compressed_object_=28rev5=29?=
+References: <20220328191617.122838-1-jose.souza@intel.com>
+In-Reply-To: <20220328191617.122838-1-jose.souza@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5Bv3=2C1/3=5D_drm/i915/display=3A_Program?=
+ =?utf-8?q?_PIPE=5FMBUS=5FDBOX=5FCTL_with_adl-p_values?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,14 +48,14 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/ttm: Evict and restore of compressed object (rev5)
-URL   : https://patchwork.freedesktop.org/series/101106/
+Series: series starting with [v3,1/3] drm/i915/display: Program PIPE_MBUS_DBOX_CTL with adl-p values
+URL   : https://patchwork.freedesktop.org/series/101902/
 State : warning
 
 == Summary ==
 
-$ make htmldocs 2>&1 > /dev/null | grep i915
-./drivers/gpu/drm/i915/display/intel_drrs.c:1: warning: 'intel_drrs_enable' not found
-./drivers/gpu/drm/i915/display/intel_drrs.c:1: warning: 'intel_drrs_disable' not found
+$ dim sparse --fast origin/drm-tip
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
