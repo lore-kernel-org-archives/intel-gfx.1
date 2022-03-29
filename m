@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCE2DC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 15:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 681D4C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 15:08:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 555B110E8C6;
-	Tue, 29 Mar 2022 15:08:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9277710EAFC;
+	Tue, 29 Mar 2022 15:08:15 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8FD110EC01
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 15:08:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53E3710E8C0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 15:08:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648566483; x=1680102483;
+ t=1648566492; x=1680102492;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=UTef0DOJD/H/3+29A+vt7W31PxmyQ97qSCvD+3uisbU=;
- b=lIiNNPDRuVOASb6LnKcaQvAzXpxkAuu2mbWwxo6sctaEZig1ZgqXeJBK
- Qw3XzMY3um7EjSGoZTYUAzmg/cBxyYYQbYdZ2h7yQqQhEmGjMhFWCzn8J
- iQKBJ+1WtECvurkjMF9j1jghJyHIr1oPVKAZtZJFYN6/Ys+RfHy3JX9jQ
- QBfoFS20+kO3hT9x70o0svnX72tQtXP0yavAT9gqD5pXeD9A2S8legkb3
- bueEcsoG7cgtJybYb63+kcsjGYxq70FEH9zryLI1T5uqav2t1/C5PVQgC
- X8SoRgU01UTVHrfnj3PbCpBcoMJ7BbF02pfqgM0urgrCKt+ghv5WEETI/ g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="345707141"
-X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="345707141"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ bh=srz1JlbNSAY6SFV/yzq3VcRPH/OSYIMlsSXQGGGsrew=;
+ b=TYIK/9iZa6XlJUuLXEIgoiy9gfbW+uNHfaLe3gdF35arlgU/rvrNTpIC
+ yvSe2jiuVMBALJSvTr2mjlS9mPBgcM1otMMWyjp38UHSOlcvj+6qapDV9
+ kBp0BRJXBLENpuitTtzpZcS6+r5w03XCXrgO0FL0o4geQSdbNYB2bkf5z
+ tXHbapN/KKVKWt13Fo2HVI0csMvfuNMfkjot0DA29QY3Q6XeXp1L+eUxr
+ E+8TlNxQtXp1ehx72kEhacysoPLgcn255wawXEFc+n7YqSo6hZf80OlnG
+ IMJeUJ02dt70Zyti5e9OCrrL91hITJwj1MEuEDTDdHPh0h2fGgX0GW82E w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="345707202"
+X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="345707202"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2022 08:08:03 -0700
+ 29 Mar 2022 08:08:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="518979381"
+X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="649480099"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.61])
- by orsmga002.jf.intel.com with SMTP; 29 Mar 2022 08:08:01 -0700
+ by fmsmga002.fm.intel.com with SMTP; 29 Mar 2022 08:08:09 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 29 Mar 2022 18:08:00 +0300
+ Tue, 29 Mar 2022 18:08:09 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Mar 2022 18:07:37 +0300
-Message-Id: <20220329150742.31783-7-ville.syrjala@linux.intel.com>
+Date: Tue, 29 Mar 2022 18:07:40 +0300
+Message-Id: <20220329150742.31783-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220329150742.31783-1-ville.syrjala@linux.intel.com>
 References: <20220329150742.31783-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/11] drm/i915: Stop duplicating the EDID
- fixed/downclock modes
+Subject: [Intel-gfx] [PATCH 09/11] drm/i915: Move
+ intel_drrs_compute_config() into intel_dp.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,129 +64,181 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Instead of duplicating the fixed/downclock modes we can just grab
-the originals straight from the probed_modes list and keep them.
-The next .get_modes() is going to repopulate the probed_modes list
-anyway so whatever we leave there is just going to sit around until
-that time wasting memory. In fact let's clear out the probed modes
-list entirely to make sure we get 100% consistent behaviour starting
-already from the very first real .get_modes().
+intel_drrs_compute_config() is 100% DP specific. DRRS on other
+types of encoders wouldn't do any of these M2/N2 calculations
+etc. So let's move this into intel_dp.c so all the DP state
+calculation is more concentrated into one place.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_panel.c | 66 ++++++++++------------
- 1 file changed, 31 insertions(+), 35 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c   | 59 +++++++++++++++++++++--
+ drivers/gpu/drm/i915/display/intel_drrs.c | 54 ---------------------
+ drivers/gpu/drm/i915/display/intel_drrs.h |  3 --
+ 3 files changed, 56 insertions(+), 60 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 3b1da9aa023f..5d08b2bf27ec 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -164,8 +164,7 @@ static void intel_panel_add_edid_downclock_mode(struct intel_connector *connecto
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	const struct drm_display_mode *fixed_mode =
- 		intel_panel_preferred_fixed_mode(connector);
--	const struct drm_display_mode *scan, *best_mode = NULL;
--	struct drm_display_mode *downclock_mode;
-+	struct drm_display_mode *scan, *best_mode = NULL;
- 	int best_clock = fixed_mode->clock;
- 
- 	list_for_each_entry(scan, &connector->base.probed_modes, head) {
-@@ -190,58 +189,54 @@ static void intel_panel_add_edid_downclock_mode(struct intel_connector *connecto
- 	if (!best_mode)
- 		return;
- 
--	downclock_mode = drm_mode_duplicate(&dev_priv->drm, best_mode);
--	if (!downclock_mode)
--		return;
--
- 	drm_dbg_kms(&dev_priv->drm,
--		    "[CONNECTOR:%d:%s] using downclock mode from EDID: " DRM_MODE_FMT "\n",
-+		    "[CONNECTOR:%d:%s] using EDID downclock mode: " DRM_MODE_FMT "\n",
- 		    connector->base.base.id, connector->base.name,
--		    DRM_MODE_ARG(downclock_mode));
-+		    DRM_MODE_ARG(best_mode));
- 
--	list_add_tail(&downclock_mode->head, &connector->panel.fixed_modes);
-+	list_move_tail(&best_mode->head, &connector->panel.fixed_modes);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index d57ef123ded5..92c0c24517b3 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -60,7 +60,6 @@
+ #include "intel_dp_mst.h"
+ #include "intel_dpio_phy.h"
+ #include "intel_dpll.h"
+-#include "intel_drrs.h"
+ #include "intel_fifo_underrun.h"
+ #include "intel_hdcp.h"
+ #include "intel_hdmi.h"
+@@ -1765,6 +1764,60 @@ intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
+ 		intel_hdmi_infoframe_enable(HDMI_PACKET_TYPE_GAMUT_METADATA);
  }
  
- static void intel_panel_add_edid_fixed_mode(struct intel_connector *connector)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
--	const struct drm_display_mode *scan;
--	struct drm_display_mode *fixed_mode;
-+	struct drm_display_mode *scan, *fixed_mode = NULL;
- 
- 	if (list_empty(&connector->base.probed_modes))
- 		return;
- 
--	/* prefer fixed mode from EDID if available */
-+	/* make sure the preferred mode is first */
- 	list_for_each_entry(scan, &connector->base.probed_modes, head) {
--		if ((scan->type & DRM_MODE_TYPE_PREFERRED) == 0)
--			continue;
--
--		fixed_mode = drm_mode_duplicate(&dev_priv->drm, scan);
--		if (!fixed_mode)
--			return;
--
--		drm_dbg_kms(&dev_priv->drm,
--			    "[CONNECTOR:%d:%s] using preferred mode from EDID: " DRM_MODE_FMT "\n",
--			    connector->base.base.id, connector->base.name,
--			    DRM_MODE_ARG(fixed_mode));
--
--		list_add_tail(&fixed_mode->head, &connector->panel.fixed_modes);
--		return;
-+		if (scan->type & DRM_MODE_TYPE_PREFERRED) {
-+			fixed_mode = scan;
-+			break;
-+		}
- 	}
- 
--	scan = list_first_entry(&connector->base.probed_modes,
--				typeof(*scan), head);
--	fixed_mode = drm_mode_duplicate(&dev_priv->drm, scan);
- 	if (!fixed_mode)
--		return;
-+		fixed_mode = list_first_entry(&connector->base.probed_modes,
-+					      typeof(*fixed_mode), head);
++static bool can_enable_drrs(struct intel_connector *connector,
++			    const struct intel_crtc_state *pipe_config,
++			    const struct drm_display_mode *downclock_mode)
++{
++	if (pipe_config->vrr.enable)
++		return false;
 +
-+	drm_dbg_kms(&dev_priv->drm,
-+		    "[CONNECTOR:%d:%s] using %s EDID fixed mode: " DRM_MODE_FMT "\n",
-+		    connector->base.base.id, connector->base.name,
-+		    fixed_mode->type & DRM_MODE_TYPE_PREFERRED ? "preferred" : "first",
-+		    DRM_MODE_ARG(fixed_mode));
- 
- 	fixed_mode->type |= DRM_MODE_TYPE_PREFERRED;
--	drm_dbg_kms(&dev_priv->drm,
--		    "[CONNECTOR:%d:%s] using first mode from EDID: " DRM_MODE_FMT "\n",
--		    connector->base.base.id, connector->base.name,
--		    DRM_MODE_ARG(fixed_mode));
- 
--	list_add_tail(&fixed_mode->head, &connector->panel.fixed_modes);
-+	list_move_tail(&fixed_mode->head, &connector->panel.fixed_modes);
++	/*
++	 * DRRS and PSR can't be enable together, so giving preference to PSR
++	 * as it allows more power-savings by complete shutting down display,
++	 * so to guarantee this, intel_drrs_compute_config() must be called
++	 * after intel_psr_compute_config().
++	 */
++	if (pipe_config->has_psr)
++		return false;
++
++	return downclock_mode &&
++		intel_panel_drrs_type(connector) == DRRS_TYPE_SEAMLESS;
 +}
 +
-+static void intel_panel_destroy_probed_modes(struct intel_connector *connector)
++static void
++intel_dp_drrs_compute_config(struct intel_connector *connector,
++			     struct intel_crtc_state *pipe_config,
++			     int output_bpp, bool constant_n)
 +{
 +	struct drm_i915_private *i915 = to_i915(connector->base.dev);
-+	struct drm_display_mode *mode, *next;
++	const struct drm_display_mode *downclock_mode =
++		intel_panel_downclock_mode(connector, &pipe_config->hw.adjusted_mode);
++	int pixel_clock;
 +
-+	list_for_each_entry_safe(mode, next, &connector->base.probed_modes, head) {
-+		list_del(&mode->head);
-+		drm_mode_destroy(&i915->drm, mode);
++	if (!can_enable_drrs(connector, pipe_config, downclock_mode)) {
++		if (intel_cpu_transcoder_has_m2_n2(i915, pipe_config->cpu_transcoder))
++			intel_zero_m_n(&pipe_config->dp_m2_n2);
++		return;
 +	}
++
++	if (IS_IRONLAKE(i915) || IS_SANDYBRIDGE(i915) || IS_IVYBRIDGE(i915))
++		pipe_config->msa_timing_delay = i915->vbt.edp.drrs_msa_timing_delay;
++
++	pipe_config->has_drrs = true;
++
++	pixel_clock = downclock_mode->clock;
++	if (pipe_config->splitter.enable)
++		pixel_clock /= pipe_config->splitter.link_count;
++
++	intel_link_compute_m_n(output_bpp, pipe_config->lane_count, pixel_clock,
++			       pipe_config->port_clock, &pipe_config->dp_m2_n2,
++			       constant_n, pipe_config->fec_enable);
++
++	/* FIXME: abstract this better */
++	if (pipe_config->splitter.enable)
++		pipe_config->dp_m2_n2.data_m *= pipe_config->splitter.link_count;
++}
++
+ int
+ intel_dp_compute_config(struct intel_encoder *encoder,
+ 			struct intel_crtc_state *pipe_config,
+@@ -1873,8 +1926,8 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 
+ 	intel_vrr_compute_config(pipe_config, conn_state);
+ 	intel_psr_compute_config(intel_dp, pipe_config, conn_state);
+-	intel_drrs_compute_config(intel_connector, pipe_config,
+-				  output_bpp, constant_n);
++	intel_dp_drrs_compute_config(intel_connector, pipe_config,
++				     output_bpp, constant_n);
+ 	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
+ 	intel_dp_compute_hdr_metadata_infoframe_sdp(intel_dp, pipe_config, conn_state);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
+index 3ebea697f77a..166caf293f7b 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.c
++++ b/drivers/gpu/drm/i915/display/intel_drrs.c
+@@ -61,60 +61,6 @@ const char *intel_drrs_type_str(enum drrs_type drrs_type)
+ 	return str[drrs_type];
  }
  
- void intel_panel_add_edid_fixed_modes(struct intel_connector *connector, bool has_drrs)
-@@ -249,6 +244,7 @@ void intel_panel_add_edid_fixed_modes(struct intel_connector *connector, bool ha
- 	intel_panel_add_edid_fixed_mode(connector);
- 	if (intel_panel_preferred_fixed_mode(connector) && has_drrs)
- 		intel_panel_add_edid_downclock_mode(connector);
-+	intel_panel_destroy_probed_modes(connector);
- }
+-static bool can_enable_drrs(struct intel_connector *connector,
+-			    const struct intel_crtc_state *pipe_config,
+-			    const struct drm_display_mode *downclock_mode)
+-{
+-	if (pipe_config->vrr.enable)
+-		return false;
+-
+-	/*
+-	 * DRRS and PSR can't be enable together, so giving preference to PSR
+-	 * as it allows more power-savings by complete shutting down display,
+-	 * so to guarantee this, intel_drrs_compute_config() must be called
+-	 * after intel_psr_compute_config().
+-	 */
+-	if (pipe_config->has_psr)
+-		return false;
+-
+-	return downclock_mode &&
+-		intel_panel_drrs_type(connector) == DRRS_TYPE_SEAMLESS;
+-}
+-
+-void
+-intel_drrs_compute_config(struct intel_connector *connector,
+-			  struct intel_crtc_state *pipe_config,
+-			  int output_bpp, bool constant_n)
+-{
+-	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+-	const struct drm_display_mode *downclock_mode =
+-		intel_panel_downclock_mode(connector, &pipe_config->hw.adjusted_mode);
+-	int pixel_clock;
+-
+-	if (!can_enable_drrs(connector, pipe_config, downclock_mode)) {
+-		if (intel_cpu_transcoder_has_m2_n2(i915, pipe_config->cpu_transcoder))
+-			intel_zero_m_n(&pipe_config->dp_m2_n2);
+-		return;
+-	}
+-
+-	if (IS_IRONLAKE(i915) || IS_SANDYBRIDGE(i915) || IS_IVYBRIDGE(i915))
+-		pipe_config->msa_timing_delay = i915->vbt.edp.drrs_msa_timing_delay;
+-
+-	pipe_config->has_drrs = true;
+-
+-	pixel_clock = downclock_mode->clock;
+-	if (pipe_config->splitter.enable)
+-		pixel_clock /= pipe_config->splitter.link_count;
+-
+-	intel_link_compute_m_n(output_bpp, pipe_config->lane_count, pixel_clock,
+-			       pipe_config->port_clock, &pipe_config->dp_m2_n2,
+-			       constant_n, pipe_config->fec_enable);
+-
+-	/* FIXME: abstract this better */
+-	if (pipe_config->splitter.enable)
+-		pipe_config->dp_m2_n2.data_m *= pipe_config->splitter.link_count;
+-}
+-
+ static void
+ intel_drrs_set_refresh_rate_pipeconf(struct intel_crtc *crtc,
+ 				     enum drrs_refresh_rate refresh_rate)
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.h b/drivers/gpu/drm/i915/display/intel_drrs.h
+index 084c3f4f8403..3ad1be1ad9c1 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.h
++++ b/drivers/gpu/drm/i915/display/intel_drrs.h
+@@ -23,9 +23,6 @@ void intel_drrs_invalidate(struct drm_i915_private *dev_priv,
+ 			   unsigned int frontbuffer_bits);
+ void intel_drrs_flush(struct drm_i915_private *dev_priv,
+ 		      unsigned int frontbuffer_bits);
+-void intel_drrs_compute_config(struct intel_connector *connector,
+-			       struct intel_crtc_state *pipe_config,
+-			       int output_bpp, bool constant_n);
+ void intel_crtc_drrs_init(struct intel_crtc *crtc);
  
- static void intel_panel_add_fixed_mode(struct intel_connector *connector,
+ #endif /* __INTEL_DRRS_H__ */
 -- 
 2.34.1
 
