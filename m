@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FBBEC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 18:43:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5ECBC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 18:43:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6E110EE4E;
-	Tue, 29 Mar 2022 18:43:26 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1E6510E8A6;
- Tue, 29 Mar 2022 18:43:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC6C10E555;
+	Tue, 29 Mar 2022 18:43:27 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DB5D10EE4B;
+ Tue, 29 Mar 2022 18:43:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648579393; x=1680115393;
+ t=1648579401; x=1680115401;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=U5xS+XlqX8sY8sxm2AG/pE2+YgdTmUM6gq2p8jTqfKw=;
- b=VsbYm+tMOT5gxTn3QcyNNvpmvNTTKQ5EIZKgEUBYNWPE5I8TvZEi5wB7
- 0Mz2+IqHs9126/w2seh6I5eBKtRLlBmsAq+l2nFRcjTVj3Ye735vgVVr/
- 6+O9Ga9f0t5AepaiN/jEFlAr5V83JvkncxCMVudEeXX5Xjj9MaiVSLYUD
- NCR0S0tj3SglMu+jmrOAZ7xVWWEuEr37J9m69byFhqOD+mmzF9q23bhnp
- Uedh50XKRXT5s9Y83+q1T0IDTunQ1jidFEv4Nb44E7S0cnEHe65dHIBtS
- VptZwiJf6IzqbzVevcJH3RUyjRXkDYXMbBQ5aJ0dnQjTKmxNGghgETlrg A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="320034326"
-X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="320034326"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2022 11:43:12 -0700
-X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="719650555"
+ bh=AFETZEz5P2/j5Fp8KX76zGzvbKtMTCY7DmnZDIqTVGk=;
+ b=U45YuGg0m+WcLMlLNYMoMvC9I0sWFOKnbWRPiE7yYVes6w4T7ZtZ901/
+ +6XUJJTple5BYH7vxoqxpanEW4SaUvissHFpl2rxuoHQR0JPjVdLYXNcV
+ 4Ilbs4RmiJU9daVsgXfJ4jf4FIeT+MC3aPoBUOESt6vbG3S74Nk9+pugB
+ AIEv3XpntEIjZKeoVjRSjL5LrjDHXKrZy8vSkAgLeGuzCO79LSbo6bNXH
+ lSkRGU7m11TyBr0vf0ipISVl7ex8mjnXuiZjGiWlNI7HJ3whKdLQ0gKed
+ LQpjxOnJ211d4GtJ1SSyEuiBLKfy9W4FzxC5LmSTyNMYkT2d1C0eHtMHk g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="256912797"
+X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="256912797"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2022 11:43:21 -0700
+X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="653180941"
 Received: from dmendyk-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.63.121])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2022 11:43:10 -0700
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2022 11:43:19 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Tue, 29 Mar 2022 21:42:17 +0300
-Message-Id: <04d5ad0bbb43267f32312bccbab8a1f4c80565a1.1648578814.git.jani.nikula@intel.com>
+Date: Tue, 29 Mar 2022 21:42:19 +0300
+Message-Id: <0ec68aa82b4be2d46e442e74e341419d10c4c41b.1648578814.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1648578814.git.jani.nikula@intel.com>
 References: <cover.1648578814.git.jani.nikula@intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/12] drm/edid: split out invalid block
- filtering to a separate function
+Subject: [Intel-gfx] [PATCH 12/12] drm/edid: reduce magic when updating the
+ EDID block checksum
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,87 +63,29 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's such a special case there's no point in keeping it inline in the
-happy day scenario, confusing matters.
+The code modifying the EDID block should not need to do tricks to fix
+the checksum. We have a function for computing the checksum, use it.
 
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 52 ++++++++++++++++++++------------------
- 1 file changed, 28 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index a1be5c3a80e5..dee95332d7e1 100644
+index d0a76781ed19..d2dfab28b5b7 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -1821,6 +1821,33 @@ bool drm_edid_is_valid(struct edid *edid)
- }
- EXPORT_SYMBOL(drm_edid_is_valid);
- 
-+static struct edid *edid_filter_invalid_blocks(const struct edid *edid,
-+					       int valid_extensions)
-+{
-+	struct edid *new, *base;
-+	int i;
-+
-+	new = kmalloc_array(valid_extensions + 1, EDID_LENGTH, GFP_KERNEL);
-+	if (!new)
-+		goto out;
-+
-+	base = new;
-+	for (i = 0; i <= edid->extensions; i++) {
-+		const void *block = edid + i;
-+
-+		if (edid_block_valid(block, i == 0))
-+			memcpy(base++, block, EDID_LENGTH);
-+	}
-+
-+	new->checksum += new->extensions - valid_extensions;
-+	new->extensions = valid_extensions;
-+
-+out:
-+	kfree(edid);
-+
-+	return new;
-+}
-+
- #define DDC_SEGMENT_ADDR 0x30
- /**
-  * drm_do_probe_ddc_edid() - get EDID information via I2C
-@@ -2070,32 +2097,9 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+@@ -1840,8 +1840,8 @@ static struct edid *edid_filter_invalid_blocks(const struct edid *edid,
+ 			memcpy(base++, block, EDID_LENGTH);
  	}
  
- 	if (valid_extensions != edid->extensions) {
--		struct edid *base;
--		int i;
--
- 		connector_bad_edid(connector, (u8 *)edid, edid->extensions + 1);
+-	new->checksum += new->extensions - valid_extensions;
+ 	new->extensions = valid_extensions;
++	new->checksum = edid_block_compute_checksum(new);
  
--		edid->checksum += edid->extensions - valid_extensions;
--		edid->extensions = valid_extensions;
--
--		new = kmalloc_array(valid_extensions + 1, EDID_LENGTH,
--				    GFP_KERNEL);
--		if (!new)
--			goto out;
--
--		base = new;
--		for (i = 0; i <= edid->extensions; i++) {
--			void *block = edid + i;
--
--			if (!edid_block_valid(block, i == 0))
--				continue;
--
--			memcpy(base, block, EDID_LENGTH);
--			base++;
--		}
--
--		kfree(edid);
--		edid = new;
-+		edid = edid_filter_invalid_blocks(edid, valid_extensions);
- 	}
- 
- 	return edid;
+ out:
+ 	kfree(edid);
 -- 
 2.30.2
 
