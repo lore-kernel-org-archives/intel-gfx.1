@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3822C43217
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 15:08:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89750C43219
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 15:08:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 573C010F0BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC07410F0BB;
 	Tue, 29 Mar 2022 15:08:20 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C56A10E8C0
- for <intel-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 15:08:09 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7468710F0B9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Mar 2022 15:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648566489; x=1680102489;
+ t=1648566498; x=1680102498;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=7/w00WpShgniglqODY0pi4IoXqSSzu9Io7Ub3og0sE0=;
- b=dRy3w93JPN4xZiOtBcmCk0jCr91vQzNb2kKd3j+gtvf3TPpbHYyVQe+v
- GpgJxed3NZiZz3+ty1B5ECp2Fhpc1l9BUmq1IGhHJrvmmgE00do35LyEL
- xHOXj17coqgwmAX4uO+OU4+QzP73TPjEknHicc1lOvm+ljY66nQSm29dZ
- P1PtzZfWa03LwjiMFuaGUuWhC8uK1i7WF9WQsu4v/x625MdJ2qOlPSX+D
- zrXoIGpHFmA6hPcaH+NPli8eF4OCU6NLQ7GjqoQcBlpk+zTE0KaBSm5Md
- o9YS3LOBPWRZ7WzccMfgP7Zycj6WPb1idlZKBHM/WHrOjc/81OxksOGG/ w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="239203044"
-X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="239203044"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2022 08:08:09 -0700
+ bh=N45I0Oj11Fw92hL3aerFd55twJ+Tn8QC1bV8Po5RY50=;
+ b=F3xdw3FZdM7OOYnf9qhM8aA6YjapABVtGkyG6t6AH+dcwxKtlCAL49t2
+ 2hMQeGsEVI2xMbZNvGLGSxDlWBZnXfjpmRiMyVt6gzyOcO1VPMYcdYV3M
+ 9Q73zWYggQfsNV/ndfje7rcFLNuqXvySZ2tN3NpE8SQCJWkXVgKRihptP
+ 2hh/FKb10WN0eJYX0Cq///ayZ/s8lkohNQnhswCG5Db/AIFI5TzLFo3+a
+ d921JY1XAg3xInLjWBBO+QH9Gl8xCEmFX2Ky8e6h54aMkNYKkHklaH6zA
+ 3XelRVItoYBrdagcUwBCyMz93dRgU+7oVdUa2lDGuCeZvMTFkT6LC7BZC g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="345707247"
+X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="345707247"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2022 08:08:17 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="604831283"
+X-IronPort-AV: E=Sophos;i="5.90,220,1643702400"; d="scan'208";a="694739856"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.61])
- by fmsmga008.fm.intel.com with SMTP; 29 Mar 2022 08:08:07 -0700
+ by fmsmga001.fm.intel.com with SMTP; 29 Mar 2022 08:08:15 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 29 Mar 2022 18:08:06 +0300
+ Tue, 29 Mar 2022 18:08:15 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Mar 2022 18:07:39 +0300
-Message-Id: <20220329150742.31783-9-ville.syrjala@linux.intel.com>
+Date: Tue, 29 Mar 2022 18:07:42 +0300
+Message-Id: <20220329150742.31783-12-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220329150742.31783-1-ville.syrjala@linux.intel.com>
 References: <20220329150742.31783-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/11] drm/i915: Allow higher refresh rate
- alternate fixed modes
+Subject: [Intel-gfx] [PATCH 11/11] drm/i915: Allow static DRRS on LVDS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,78 +63,28 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We shouldn't restrict ourselves to just downclock modes with
-lower refresh rate than the preferred mode. Laptops these
-days can offer higher refresh rate modes as well.
+Nothing special about static DRRS on LVDS, it's just your
+bog standard modeset. Let's allow it.
 
-Remove the arbitrary limit and allow all modes that, apart
-from the clock, match the preferred mode.
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/125
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_panel.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_lvds.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index d359c8050fdc..f3e52e7413fe 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -149,29 +149,29 @@ int intel_panel_compute_config(struct intel_connector *connector,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+index 73129d21f5e5..e8478161f8b9 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.c
++++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+@@ -968,7 +968,8 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
+ 	intel_connector->edid = edid;
  
--static bool is_downclock_mode(const struct drm_display_mode *downclock_mode,
--			      const struct drm_display_mode *fixed_mode)
-+static bool is_alt_fixed_mode(const struct drm_display_mode *mode,
-+			      const struct drm_display_mode *preferred_mode)
- {
--	return drm_mode_match(downclock_mode, fixed_mode,
-+	return drm_mode_match(mode, preferred_mode,
- 			      DRM_MODE_MATCH_TIMINGS |
- 			      DRM_MODE_MATCH_FLAGS |
- 			      DRM_MODE_MATCH_3D_FLAGS) &&
--		downclock_mode->clock < fixed_mode->clock;
-+		mode->clock != preferred_mode->clock;
- }
+ 	/* Try EDID first */
+-	intel_panel_add_edid_fixed_modes(intel_connector, false);
++	intel_panel_add_edid_fixed_modes(intel_connector,
++					 dev_priv->vbt.drrs_type != DRRS_TYPE_NONE);
  
- static void intel_panel_add_edid_downclock_modes(struct intel_connector *connector)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
--	const struct drm_display_mode *fixed_mode =
-+	const struct drm_display_mode *preferred_mode =
- 		intel_panel_preferred_fixed_mode(connector);
- 	struct drm_display_mode *mode, *next;
- 
- 	list_for_each_entry_safe(mode, next, &connector->base.probed_modes, head) {
--		if (!is_downclock_mode(mode, fixed_mode))
-+		if (!is_alt_fixed_mode(mode, preferred_mode))
- 			continue;
- 
- 		drm_dbg_kms(&dev_priv->drm,
--			    "[CONNECTOR:%d:%s] using EDID downclock mode: " DRM_MODE_FMT "\n",
-+			    "[CONNECTOR:%d:%s] using alternate EDID fixed mode: " DRM_MODE_FMT "\n",
- 			    connector->base.base.id, connector->base.name,
- 			    DRM_MODE_ARG(mode));
- 
-@@ -179,7 +179,7 @@ static void intel_panel_add_edid_downclock_modes(struct intel_connector *connect
- 	}
- }
- 
--static void intel_panel_add_edid_fixed_mode(struct intel_connector *connector)
-+static void intel_panel_add_edid_preferred_mode(struct intel_connector *connector)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct drm_display_mode *scan, *fixed_mode = NULL;
-@@ -223,7 +223,7 @@ static void intel_panel_destroy_probed_modes(struct intel_connector *connector)
- 
- void intel_panel_add_edid_fixed_modes(struct intel_connector *connector, bool has_drrs)
- {
--	intel_panel_add_edid_fixed_mode(connector);
-+	intel_panel_add_edid_preferred_mode(connector);
- 	if (intel_panel_preferred_fixed_mode(connector) && has_drrs)
- 		intel_panel_add_edid_downclock_modes(connector);
- 	intel_panel_destroy_probed_modes(connector);
+ 	/* Failed to get EDID, what about VBT? */
+ 	if (!intel_panel_preferred_fixed_mode(intel_connector))
 -- 
 2.34.1
 
