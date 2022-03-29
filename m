@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19A8AC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 16:08:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADBB8C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Mar 2022 16:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9545810E8D6;
-	Tue, 29 Mar 2022 16:08:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32ADD10F14B;
+	Tue, 29 Mar 2022 16:42:56 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id D2EE910E8D6;
- Tue, 29 Mar 2022 16:08:12 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BC97910F148;
+ Tue, 29 Mar 2022 16:42:55 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id CEBBEAADD5;
- Tue, 29 Mar 2022 16:08:12 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id B7BB8A0078;
+ Tue, 29 Mar 2022 16:42:55 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Imre Deak" <imre.deak@intel.com>
-Date: Tue, 29 Mar 2022 16:08:12 -0000
-Message-ID: <164857009284.5798.11246375857447958902@emeril.freedesktop.org>
+To: "Souza, Jose" <jose.souza@intel.com>
+Date: Tue, 29 Mar 2022 16:42:55 -0000
+Message-ID: <164857217574.5797.6905193686591489044@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20220323201749.288566-1-imre.deak@intel.com>
-In-Reply-To: <20220323201749.288566-1-imre.deak@intel.com>
+References: <20220325142249.81443-1-jose.souza@intel.com>
+In-Reply-To: <20220325142249.81443-1-jose.souza@intel.com>
 Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
- =?utf-8?q?m/i915/adlp=3A_Fix_register_corruption_after_DDI_clock_enabling?=
- =?utf-8?q?_=28rev2=29?=
+ =?utf-8?q?m/i915/dg2=3A_Add_Wa=5F22014226127_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,8 +47,8 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/adlp: Fix register corruption after DDI clock enabling (rev2)
-URL   : https://patchwork.freedesktop.org/series/101712/
+Series: drm/i915/dg2: Add Wa_22014226127 (rev4)
+URL   : https://patchwork.freedesktop.org/series/101792/
 State : warning
 
 == Summary ==
