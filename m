@@ -4,47 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C78C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 14:30:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B17DC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 14:38:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E691F10E23D;
-	Wed, 30 Mar 2022 14:30:37 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E6F510E23D
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Mar 2022 14:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648650635; x=1680186635;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ag63MVOi8EijQ41sQa0/e4VktIkOmQBzS10BdKQKijk=;
- b=GGZ33IzOWRjXt3XXq1xm8QcElVGVGy8LG9aVUcuJqLR4Y2JBhH62OHhM
- SRpUFFSTZi6hGVJ1GJVHDUhn+QXioQ/vblUxKnqpTY2+SZ2/Qh7pydRut
- bqzaLI1ArqoXcEv51BQDUx5aQWDXQOOEcHeW1EWZ4426dxqrPRTyKuUd1
- /Ff1OCoDQTPefCF2JKdh1SxqmY582cL2Ph1XszQFvkvPdR22uQCo01ReE
- 9PcCYMs14BfuDYwvQyOcKbPucDzNIU3eF/AOzntxZG4fLBJdkX4H55Cc4
- p0qw4eYPRRTz9vpgB1rRwx9Hc8z25D8hDRKidmtAjvDuiDFO3h+RftVZV A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="241711267"
-X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="241711267"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 07:30:28 -0700
-X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="653851230"
-Received: from josouza-mobl2.fso.intel.com (HELO josouza-mobl2.intel.com)
- ([10.230.19.149])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 07:30:27 -0700
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 30 Mar 2022 07:31:35 -0700
-Message-Id: <20220330143136.84930-3-jose.souza@intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220330143136.84930-1-jose.souza@intel.com>
-References: <20220330143136.84930-1-jose.souza@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B45910E1E6;
+	Wed, 30 Mar 2022 14:38:10 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7664110E1E6;
+ Wed, 30 Mar 2022 14:38:09 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 72699AADDC;
+ Wed, 30 Mar 2022 14:38:09 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH CI 3/4] drm/i915/display: Add HAS_MBUS_JOINING
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
+Date: Wed, 30 Mar 2022 14:38:09 -0000
+Message-ID: <164865108943.8653.7314170324526878209@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220330143136.84930-1-jose.souza@intel.com>
+In-Reply-To: <20220330143136.84930-1-jose.souza@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBz?=
+ =?utf-8?q?eries_starting_with_=5BCI=2C1/4=5D_drm/i915/display/tgl+=3A_Set?=
+ =?utf-8?q?_default_values_for_all_registers_in_PIPE=5FMBUS=5FDBOX=5FCTL?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,63 +41,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This will make easy to extend MBUS joining support to future platforms
-that also supports this feature.
+== Series Details ==
 
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
----
- drivers/gpu/drm/i915/i915_drv.h | 2 ++
- drivers/gpu/drm/i915/intel_pm.c | 6 +++---
- 2 files changed, 5 insertions(+), 3 deletions(-)
+Series: series starting with [CI,1/4] drm/i915/display/tgl+: Set default values for all registers in PIPE_MBUS_DBOX_CTL
+URL   : https://patchwork.freedesktop.org/series/101961/
+State : failure
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 799f386a7ef25..ff2c83acea374 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1387,6 +1387,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define HAS_D12_PLANE_MINIMIZATION(dev_priv) (IS_ROCKETLAKE(dev_priv) || \
- 					      IS_ALDERLAKE_S(dev_priv))
- 
-+#define HAS_MBUS_JOINING(i915) (IS_ALDERLAKE_P(i915))
-+
- /* i915_gem.c */
- void i915_gem_init_early(struct drm_i915_private *dev_priv);
- void i915_gem_cleanup_early(struct drm_i915_private *dev_priv);
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 2c3cd4d775daf..e60c02d760ffa 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -6038,7 +6038,7 @@ skl_compute_ddb(struct intel_atomic_state *state)
- 			return ret;
- 	}
- 
--	if (IS_ALDERLAKE_P(dev_priv))
-+	if (HAS_MBUS_JOINING(dev_priv))
- 		new_dbuf_state->joined_mbus =
- 			adlp_check_mbus_joined(new_dbuf_state->active_pipes);
- 
-@@ -6530,7 +6530,7 @@ void skl_wm_get_hw_state(struct drm_i915_private *dev_priv)
- 		to_intel_dbuf_state(dev_priv->dbuf.obj.state);
- 	struct intel_crtc *crtc;
- 
--	if (IS_ALDERLAKE_P(dev_priv))
-+	if (HAS_MBUS_JOINING(dev_priv))
- 		dbuf_state->joined_mbus = intel_de_read(dev_priv, MBUS_CTL) & MBUS_JOIN;
- 
- 	for_each_intel_crtc(&dev_priv->drm, crtc) {
-@@ -8192,7 +8192,7 @@ static void update_mbus_pre_enable(struct intel_atomic_state *state)
- 	const struct intel_dbuf_state *dbuf_state =
- 		intel_atomic_get_new_dbuf_state(state);
- 
--	if (!IS_ALDERLAKE_P(dev_priv))
-+	if (!HAS_MBUS_JOINING(dev_priv))
- 		return;
- 
- 	/*
--- 
-2.35.1
+== Summary ==
+
+Applying: drm/i915/display/tgl+: Set default values for all registers in PIPE_MBUS_DBOX_CTL
+Applying: drm/i915/display/adlp: Adjust MBUS DBOX BW and B credits
+Applying: drm/i915/display: Add HAS_MBUS_JOINING
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/i915_drv.h
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/i915/i915_drv.h
+CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/i915_drv.h
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0003 drm/i915/display: Add HAS_MBUS_JOINING
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+
 
