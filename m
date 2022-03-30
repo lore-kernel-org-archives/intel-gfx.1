@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF419C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 23:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A092C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 23:30:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DC4E890B0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B605D89194;
 	Wed, 30 Mar 2022 23:29:26 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 585A610E20F;
- Wed, 30 Mar 2022 23:29:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C47810E1EC;
+ Wed, 30 Mar 2022 23:29:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648682957; x=1680218957;
+ t=1648682956; x=1680218956;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ffoNTdS90mZsX3xqRXtzLDwDCcUJi5PXgG8vRBWk1DI=;
- b=RKAUNhmUSqaRCsqIUCbVHDXUBRE4dtexzK6LGDw/clphSUuA3I/fh+1m
- kWhMubVjJiqeCK5Hg4nhUm9rlGArhDQHzbMNL7G5enTy0V45ZhCPkmwgE
- KMjiqqW/HPSexLs/JfGO1faxeMlGjnKDVqG3XlWt1IV+3uXDQ8K2dKyxd
- d71J0k+x/jVdU6MP0PApZOKz0mSmyilK4SvOoS0tFG38KAtnClqNsT8tQ
- OSp8JGqeyV70WeQPfacQ6a6bAQ19kiTsu2Us8KCY1k9qGOktIRwilido1
- R84StrRnu8vRAc45D+s/fz6AfQjIoiomeLMQTEnD6aA/2uB0MJdL8YEIB Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="284582515"
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="284582515"
+ bh=GNEqjMxA/kCyHCRBOd8ObGI5nL36g7RNu+QLzo873N0=;
+ b=bUSMRWxdi51ZfKMj2NugyjKtqNEJ+e7OpBkXpTnNKpWGTorlD/SNY2JH
+ D+QYHhSsepfPumunRz3zuXdgPR1UYVrcMrsLS7YeYQZiGViKi2KQSeYV1
+ bgDXL5dmFU9XYLREdOi0SiHEE0I374mhD9uOvjpS1godgintcujwEx5yg
+ 2rTmH925miGGeNResf/2yZ3814xr+MUwYlv1q5OkV+u+CcHb/dQTCWj21
+ C8Ys/lA1wwdWySE7jTkwHXveXRF9fzpWvnlRBgFDjgd84RVdmGqYp2PTp
+ CLFr6RqliBwy7vBc+1Wc8DPvfpWgYmPI2dLcWeggI1pl02KZjP3KRpWZV A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="284582508"
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="284582508"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 16:29:17 -0700
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="547052023"
+ 30 Mar 2022 16:29:16 -0700
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="547052000"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Mar 2022 16:29:16 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 30 Mar 2022 16:28:55 -0700
-Message-Id: <20220330232858.3204283-13-matthew.d.roper@intel.com>
+Date: Wed, 30 Mar 2022 16:28:48 -0700
+Message-Id: <20220330232858.3204283-6-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220330232858.3204283-1-matthew.d.roper@intel.com>
 References: <20220330232858.3204283-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 12/15] drm/i915/guc: Handle save/restore of MCR
- registers explicitly
+Subject: [Intel-gfx] [PATCH 05/15] drm/i915/xehp: Check for faults on all
+ mslices
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,116 +60,97 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-MCR registers can be placed on the GuC's save/restore list, but at the
-moment they are always handled in a multicast manner (i.e., the GuC
-reads one instance to save the value and then does a multicast write to
-restore that single value to all instances).  In the future the GuC will
-probably give us an alternate interface to do unicast per-instance
-save/restore operations, so we should be very clear about which
-registers on the list are MCR registers (and in the future which
-save/restore behavior we want for them).
+The fault registers are multicast registers, replicated per-mslice
+starting on Xe_HP.  When checking for faults, we should check each
+mslice's instance of the register rather than just one of the instances.
 
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 55 +++++++++++++---------
- 1 file changed, 34 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt.c      | 44 ++++++++++++++++++++++++-
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h |  3 ++
+ 2 files changed, 46 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index 15f2ded6debf..389c5c0aad7a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -277,24 +277,16 @@ __mmio_reg_add(struct temp_regset *regset, struct guc_mmio_reg *reg)
- 	return slot;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 5001a6168d56..1992325c2895 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -350,6 +350,46 @@ static void gen6_check_faults(struct intel_gt *gt)
+ 	}
  }
  
--#define GUC_REGSET_STEERING(group, instance) ( \
--	FIELD_PREP(GUC_REGSET_STEERING_GROUP, (group)) | \
--	FIELD_PREP(GUC_REGSET_STEERING_INSTANCE, (instance)) | \
--	GUC_REGSET_NEEDS_STEERING \
--)
--
- static long __must_check guc_mmio_reg_add(struct intel_gt *gt,
- 					  struct temp_regset *regset,
--					  i915_reg_t reg, u32 flags)
-+					  u32 offset, u32 flags)
- {
- 	u32 count = regset->storage_used - (regset->registers - regset->storage);
--	u32 offset = i915_mmio_reg_offset(reg);
- 	struct guc_mmio_reg entry = {
- 		.offset = offset,
- 		.flags = flags,
- 	};
- 	struct guc_mmio_reg *slot;
--	u8 group, inst;
- 
- 	/*
- 	 * The mmio list is built using separate lists within the driver.
-@@ -306,17 +298,6 @@ static long __must_check guc_mmio_reg_add(struct intel_gt *gt,
- 		    sizeof(entry), guc_mmio_reg_cmp))
- 		return 0;
- 
--	/*
--	 * The GuC doesn't have a default steering, so we need to explicitly
--	 * steer all registers that need steering. However, we do not keep track
--	 * of all the steering ranges, only of those that have a chance of using
--	 * a non-default steering from the i915 pov. Instead of adding such
--	 * tracking, it is easier to just program the default steering for all
--	 * regs that don't need a non-default one.
--	 */
--	intel_gt_mcr_get_nonterminated_steering(gt, reg, &group, &inst);
--	entry.flags |= GUC_REGSET_STEERING(group, inst);
--
- 	slot = __mmio_reg_add(regset, &entry);
- 	if (IS_ERR(slot))
- 		return PTR_ERR(slot);
-@@ -334,6 +315,38 @@ static long __must_check guc_mmio_reg_add(struct intel_gt *gt,
- 
- #define GUC_MMIO_REG_ADD(gt, regset, reg, masked) \
- 	guc_mmio_reg_add(gt, \
-+			 regset, \
-+			 i915_mmio_reg_offset(reg), \
-+			 (masked) ? GUC_REGSET_MASKED : 0)
-+
-+#define GUC_REGSET_STEERING(group, instance) ( \
-+	FIELD_PREP(GUC_REGSET_STEERING_GROUP, (group)) | \
-+	FIELD_PREP(GUC_REGSET_STEERING_INSTANCE, (instance)) | \
-+	GUC_REGSET_NEEDS_STEERING \
-+)
-+
-+static long __must_check guc_mcr_reg_add(struct intel_gt *gt,
-+					 struct temp_regset *regset,
-+					 i915_reg_t reg, u32 flags)
++static void xehp_check_faults(struct intel_gt *gt)
 +{
-+	u8 group, inst;
++	struct intel_uncore *uncore = gt->uncore;
++	u32 fault;
++	int mslice;
 +
-+	/*
-+	 * The GuC doesn't have a default steering, so we need to explicitly
-+	 * steer all registers that need steering. However, we do not keep track
-+	 * of all the steering ranges, only of those that have a chance of using
-+	 * a non-default steering from the i915 pov. Instead of adding such
-+	 * tracking, it is easier to just program the default steering for all
-+	 * regs that don't need a non-default one.
-+	 */
-+	intel_gt_mcr_get_nonterminated_steering(gt, reg, &group, &inst);
-+	flags |= GUC_REGSET_STEERING(group, inst);
++	/* Check each mslice's fault register */
++	for (mslice = 0; mslice < 4; mslice++) {
++		fault = intel_uncore_read_with_mcr_steering(uncore,
++							    XEHP_RING_FAULT_REG,
++							    mslice, 0);
++		if (fault & RING_FAULT_VALID) {
++			u32 fault_data0, fault_data1;
++			u64 fault_addr;
 +
-+	return guc_mmio_reg_add(gt, regset, i915_mmio_reg_offset(reg), flags);
++			fault_data0 = intel_uncore_read_with_mcr_steering(uncore,
++									  XEHP_FAULT_TLB_DATA0,
++									  mslice, 0);
++			fault_data1 = intel_uncore_read_with_mcr_steering(uncore,
++									  XEHP_FAULT_TLB_DATA1,
++									  mslice, 0);
++
++			fault_addr = ((u64)(fault_data1 & FAULT_VA_HIGH_BITS) << 44) |
++				     ((u64)fault_data0 << 12);
++
++			drm_dbg(&uncore->i915->drm, "Unexpected fault\n"
++				"\tAddr: 0x%08x_%08x\n"
++				"\tAddress space: %s\n"
++				"\tEngine ID: %d\n"
++				"\tSource ID: %d\n"
++				"\tType: %d\n",
++				upper_32_bits(fault_addr), lower_32_bits(fault_addr),
++				fault_data1 & FAULT_GTT_SEL ? "GGTT" : "PPGTT",
++				GEN8_RING_FAULT_ENGINE_ID(fault),
++				RING_FAULT_SRCID(fault),
++				RING_FAULT_FAULT_TYPE(fault));
++		}
++	}
 +}
 +
-+#define GUC_MCR_REG_ADD(gt, regset, reg, masked) \
-+	guc_mcr_reg_add(gt, \
- 			 regset, \
- 			 (reg), \
- 			 (masked) ? GUC_REGSET_MASKED : 0)
-@@ -374,7 +387,7 @@ static int guc_mmio_regset_init(struct temp_regset *regset,
- 	/* add in local MOCS registers */
- 	for (i = 0; i < LNCFCMOCS_REG_COUNT; i++)
- 		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
--			ret |= GUC_MMIO_REG_ADD(gt, regset, XEHP_LNCFCMOCS(i), false);
-+			ret |= GUC_MCR_REG_ADD(gt, regset, XEHP_LNCFCMOCS(i), false);
- 		else
- 			ret |= GUC_MMIO_REG_ADD(gt, regset, GEN9_LNCFCMOCS(i), false);
+ static void gen8_check_faults(struct intel_gt *gt)
+ {
+ 	struct intel_uncore *uncore = gt->uncore;
+@@ -396,7 +436,9 @@ void intel_gt_check_and_clear_faults(struct intel_gt *gt)
+ 	struct drm_i915_private *i915 = gt->i915;
  
+ 	/* From GEN8 onwards we only have one 'All Engine Fault Register' */
+-	if (GRAPHICS_VER(i915) >= 8)
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
++		xehp_check_faults(gt);
++	else if (GRAPHICS_VER(i915) >= 8)
+ 		gen8_check_faults(gt);
+ 	else if (GRAPHICS_VER(i915) >= 6)
+ 		gen6_check_faults(gt);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 0f05bbda773e..a060de66126a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -966,11 +966,14 @@
+ #define GEN9_BLT_MOCS(i)			_MMIO(__GEN9_BCS0_MOCS0 + (i) * 4)
+ 
+ #define GEN12_FAULT_TLB_DATA0			_MMIO(0xceb8)
++#define XEHP_FAULT_TLB_DATA0			_MMIO(0xceb8)
+ #define GEN12_FAULT_TLB_DATA1			_MMIO(0xcebc)
++#define XEHP_FAULT_TLB_DATA1			_MMIO(0xcebc)
+ #define   FAULT_VA_HIGH_BITS			(0xf << 0)
+ #define   FAULT_GTT_SEL				(1 << 4)
+ 
+ #define GEN12_RING_FAULT_REG			_MMIO(0xcec4)
++#define XEHP_RING_FAULT_REG			_MMIO(0xcec4)
+ #define   GEN8_RING_FAULT_ENGINE_ID(x)		(((x) >> 12) & 0x7)
+ #define   RING_FAULT_GTTSEL_MASK		(1 << 11)
+ #define   RING_FAULT_SRCID(x)			(((x) >> 3) & 0xff)
 -- 
 2.34.1
 
