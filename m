@@ -4,45 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3BA4C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 20:59:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCAEDC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 21:02:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C451610E991;
-	Wed, 30 Mar 2022 20:58:59 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F3E310E95D
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Mar 2022 20:58:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9305E10E991;
+	Wed, 30 Mar 2022 21:02:03 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56D7610E95F;
+ Wed, 30 Mar 2022 21:02:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648673927; x=1680209927;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=l/tTPmGwwLdDptWvNXTXU/TJJaBbkLdTthPVHWkA544=;
- b=K09XC3zwVmcACFdIqIu1iRPx2G2TMEeq4YAiwUMgV3HlTig6zZzrzfP0
- PB8mKeY9rsEQwSlRknZu4wKoUSNVuGs0hPGiiTwZUE+bPcX3SreoMokn4
- LANw+IWdGf2n2BzR7ozwLvBDeYwGG/79TZMHUqU4g7IVz698dud5QXcnU
- 0xW7HJpjqxneKu/dYvejnqa7F2jZJe5SCyXNYzXDMZ6UWsdVmzls4g0tI
- RYRwPJSnPbAYLK7dtGp8OwaVCw5HSPVNX4bUQ8rdkmqH3R9BMIg4hFCEr
- 6PVJzJfFsRpxPB+RDaSIZ2rvefVMPf2cNfd/vdZrKf1EVK27LMaF+F5n+ Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="259829079"
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="259829079"
+ t=1648674121; x=1680210121;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=VKsl5l0X5qZnjhCGV/8i/8Hg2/JrMfYqoAv9nloXixY=;
+ b=J8lIvZFufNEaC4AnVNGeTBf8394IOzTNPPmrRG6YB6Qi1Ms+O+H4k8Ya
+ 6ygv634UU4Lz02Z1/E98hS4CFeqKKRsSNQaxQTUKvsl+v7w8iu6hDzwfW
+ eDRRTe8wqk7BjDYcEwgXeo+xM8imuEF30w1LnLsJ176ygoOmliYL+9oC7
+ SrcTnUTuwmpYjrmlQpEuQRseAegS7ku5o4fg68FI6V66mM6h/bYV6HsPT
+ U2gtlYxdy0YwlY/F9/tZ0Bs7EKwm9DKCzTInyFHFGGKlEb2txvdhZwxFl
+ Rvt7jviMh7fTy1i1WLNE/UipYu1ZvGjYHq8IoD7e0qkSlVVUDbUUi119K g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="284557741"
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="284557741"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 13:58:46 -0700
-X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="565814573"
-Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 14:02:00 -0700
+X-IronPort-AV: E=Sophos;i="5.90,223,1643702400"; d="scan'208";a="565817165"
+Received: from nhanus-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.62.116])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 13:58:46 -0700
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 30 Mar 2022 13:53:32 -0700
-Message-Id: <20220330205334.3016587-5-daniele.ceraolospurio@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220330205334.3016587-1-daniele.ceraolospurio@intel.com>
-References: <20220330205334.3016587-1-daniele.ceraolospurio@intel.com>
+ 30 Mar 2022 14:01:59 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+In-Reply-To: <87r16jbhdq.fsf@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1648578814.git.jani.nikula@intel.com>
+ <380b903fb91b1e20a1a7af61db40b6c7c5617005.1648578814.git.jani.nikula@intel.com>
+ <YkRViiFfSOJQnsoI@intel.com> <87r16jbhdq.fsf@intel.com>
+Date: Thu, 31 Mar 2022 00:01:56 +0300
+Message-ID: <874k3fb1dn.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 4/6] mei: gsc: add runtime pm handlers
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 01/12] drm/edid: use struct edid * in
+ drm_do_get_edid()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,101 +60,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.usyskin@intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tomas Winkler <tomas.winkler@intel.com>
+On Wed, 30 Mar 2022, Jani Nikula <jani.nikula@intel.com> wrote:
+> On Wed, 30 Mar 2022, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.c=
+om> wrote:
+>> This one points to extension blocks too so using=20
+>> struct edid doesn't seem entirely appropriate.
+>
+> So I've gone back and forth with this. I think I want to get rid of u8*
+> no matter what, because it always requires casting. I've used void* here
+> and there to allow mixed use, internally in drm_edid.c while
+> transitioning, and in public interfaces due to usage all over the place.
+>
+> OTOH I don't much like arithmetics on void*. It's a gcc extension.
+>
+> struct edid * is useful for e.g. ->checksum and arithmetics. In many
+> places I've named it struct edid *block to distinguish. We could have a
+> struct edid_block too, which could have ->tag and ->checksum members,
+> for example, but then it would require casting or a function for "safe"
+> typecasting.
+>
+> I've also gone back and forth with the helpers for getting a pointer to
+> a block. For usage like this, kind of need both const and non-const
+> versions. And, with the plans I have for future, I'm not sure I want to
+> promote any EDID parsing outside of drm_edid.c, so maybe they should be
+> static.
+>
+> Undecided. C is a bit clunky here.
 
-Implement runtime handlers for mei-gsc, to track
-idle state of the device properly.
+Hmm. I wonder how a flexible array member would pan out.
 
-CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
----
- drivers/misc/mei/gsc-me.c | 67 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 66 insertions(+), 1 deletion(-)
+struct edid_extension {
+	u8 tag;
+        u8 revision;
+        u8 data[EDID_LENGTH - 3];
+        u8 checksum;
+} __packed;
 
-diff --git a/drivers/misc/mei/gsc-me.c b/drivers/misc/mei/gsc-me.c
-index 58e39c00f1501..32ea75f5e7aa5 100644
---- a/drivers/misc/mei/gsc-me.c
-+++ b/drivers/misc/mei/gsc-me.c
-@@ -159,7 +159,72 @@ static int __maybe_unused mei_gsc_pm_resume(struct device *device)
- 	return 0;
- }
- 
--static SIMPLE_DEV_PM_OPS(mei_gsc_pm_ops, mei_gsc_pm_suspend, mei_gsc_pm_resume);
-+static int __maybe_unused mei_gsc_pm_runtime_idle(struct device *device)
-+{
-+	struct mei_device *dev = dev_get_drvdata(device);
-+
-+	if (!dev)
-+		return -ENODEV;
-+	if (mei_write_is_idle(dev))
-+		pm_runtime_autosuspend(device);
-+
-+	return -EBUSY;
-+}
-+
-+static int  __maybe_unused mei_gsc_pm_runtime_suspend(struct device *device)
-+{
-+	struct mei_device *dev = dev_get_drvdata(device);
-+	struct mei_me_hw *hw;
-+	int ret;
-+
-+	if (!dev)
-+		return -ENODEV;
-+
-+	mutex_lock(&dev->device_lock);
-+
-+	if (mei_write_is_idle(dev)) {
-+		hw = to_me_hw(dev);
-+		hw->pg_state = MEI_PG_ON;
-+		ret = 0;
-+	} else {
-+		ret = -EAGAIN;
-+	}
-+
-+	mutex_unlock(&dev->device_lock);
-+
-+	return ret;
-+}
-+
-+static int __maybe_unused mei_gsc_pm_runtime_resume(struct device *device)
-+{
-+	struct mei_device *dev = dev_get_drvdata(device);
-+	struct mei_me_hw *hw;
-+	irqreturn_t irq_ret;
-+
-+	if (!dev)
-+		return -ENODEV;
-+
-+	mutex_lock(&dev->device_lock);
-+
-+	hw = to_me_hw(dev);
-+	hw->pg_state = MEI_PG_OFF;
-+
-+	mutex_unlock(&dev->device_lock);
-+
-+	irq_ret = mei_me_irq_thread_handler(1, dev);
-+	if (irq_ret != IRQ_HANDLED)
-+		dev_err(dev->dev, "thread handler fail %d\n", irq_ret);
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops mei_gsc_pm_ops = {
-+	SET_SYSTEM_SLEEP_PM_OPS(mei_gsc_pm_suspend,
-+				mei_gsc_pm_resume)
-+	SET_RUNTIME_PM_OPS(mei_gsc_pm_runtime_suspend,
-+			   mei_gsc_pm_runtime_resume,
-+			   mei_gsc_pm_runtime_idle)
-+};
- 
- static const struct auxiliary_device_id mei_gsc_id_table[] = {
- 	{
--- 
-2.25.1
+struct edid {
+	/* existing stuff*/
+        struct edid_extension extensions[];
+} __packed;
 
+
+BR,
+Jani.
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
