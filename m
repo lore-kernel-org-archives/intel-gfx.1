@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83D18C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 11:34:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8671C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Mar 2022 11:34:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03E4B10E995;
-	Wed, 30 Mar 2022 11:34:35 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC64710E995
- for <intel-gfx@lists.freedesktop.org>; Wed, 30 Mar 2022 11:34:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C09610E9BC;
+	Wed, 30 Mar 2022 11:34:39 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8293F10E9BC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Mar 2022 11:34:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648640073; x=1680176073;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=nMonvoZKMBodEH6911OzsX+FIK1TiIEYYwOAwe+P6+E=;
- b=NDYVdogXWMFNRcfh0brpRz/uCCcQ786LxdfA23fA5mzOPJTTi+C9jLkN
- ytAnfYGlg0iXN3rfvH6nWmBScGLvxB5Cq/FF9+H+QtTIV12zPt++0W0yB
- rJS/0k9aar55ysNzsDl+Co4Wwnj4uv6Xg9R7IhuygcW9m2Bfe0LXs1qk9
- O0Qi+StN0sDyFljCKtW4J8bJ71UHvZwXWDP7ntTgsfHjIHhvrnNHKjzSf
- 0arMHAI7eTWzPk8KvuOzrxRM+ai1mEMGGEoY4lWvJ/uKbkSumNo2esVof
- MyT9DzaMiNQCUvVgg4wR/nga0bpJEXwcnIeQsoAOYHOo/o3PUkyWKtWWn g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="284426584"
-X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="284426584"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 04:34:33 -0700
-X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="546822697"
+ t=1648640075; x=1680176075;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=iuBRso/FwishfC3YAsHhjbrsAjd3WW7vTfe20qSuKlI=;
+ b=bexByGvE9LxiN/SzUF6rZz2+jDciXRqdBka6Tkaw1l/t1AVFA8ENbkH7
+ LWckpbV6rRDzk8pSIG08GnUyJ1eljpRjMekI3Q/kzOJw5O52e1P9Yq/w/
+ aEnwiSG+R+fTMkn/T2yADo/9ZsCntaWNIhtuG7xh6TAlnbyJFUNnatoZq
+ kjS/69bcRu6PZpQsPYKzfUtx4NKIBuZ8bVXRzuC8cynUXR67C4w5OYj3T
+ bDMld/DYZOQVLIVBBodlcsJ2YTpyvO72PiKo93tGAvmAUypOUA6sp5sf7
+ PBCpFUOBR/9MCyUoDOR5iiNs9ngZqFO8Bl+afxDP6eOFZCtf3z0rdSng0 Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10301"; a="259235137"
+X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="259235137"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 04:34:23 -0700
+X-IronPort-AV: E=Sophos;i="5.90,222,1643702400"; d="scan'208";a="565498643"
 Received: from nhanus-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.62.116])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2022 04:34:31 -0700
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 04:34:22 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 30 Mar 2022 14:34:17 +0300
-Message-Id: <20220330113417.220964-3-jani.nikula@intel.com>
+Date: Wed, 30 Mar 2022 14:34:15 +0300
+Message-Id: <20220330113417.220964-1-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220330113417.220964-1-jani.nikula@intel.com>
-References: <20220330113417.220964-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/dmc: split out dmc registers to a
- separate file
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915/dmc: abstract GPU error state dump
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,113 +59,107 @@ Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Clean up the massive i915_reg.h a bit with this isolated set of
-registers.
+Only intel_dmc.c should be accessing dmc details directly.
 
-v2: Remove stale comment (Lucas)
+Need to add an i915_error_printf() stub for
+CONFIG_DRM_I915_CAPTURE_ERROR=n.
+
+v2: Add the stub (kernel test robot <lkp@intel.com>)
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com> # v1
 ---
- drivers/gpu/drm/i915/display/intel_dmc.c      |  1 +
- drivers/gpu/drm/i915/display/intel_dmc_regs.h | 30 +++++++++++++++++++
- drivers/gpu/drm/i915/gvt/handlers.c           |  1 +
- drivers/gpu/drm/i915/i915_reg.h               | 21 -------------
- 4 files changed, 32 insertions(+), 21 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_dmc_regs.h
+ drivers/gpu/drm/i915/display/intel_dmc.c | 15 +++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dmc.h |  3 +++
+ drivers/gpu/drm/i915/i915_gpu_error.c    | 10 +---------
+ drivers/gpu/drm/i915/i915_gpu_error.h    |  6 ++++++
+ 4 files changed, 25 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index a204b60a061f..257cf662f9f4 100644
+index 5de13f978e57..f0eb3de8de60 100644
 --- a/drivers/gpu/drm/i915/display/intel_dmc.c
 +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -28,6 +28,7 @@
- #include "i915_reg.h"
- #include "intel_de.h"
- #include "intel_dmc.h"
-+#include "intel_dmc_regs.h"
+@@ -811,6 +811,21 @@ void intel_dmc_ucode_fini(struct drm_i915_private *dev_priv)
+ 		kfree(dev_priv->dmc.dmc_info[id].payload);
+ }
  
- /**
-  * DOC: DMC Firmware Support
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc_regs.h b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
-new file mode 100644
-index 000000000000..d65e698832eb
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
-@@ -0,0 +1,30 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
++void intel_dmc_print_error_state(struct drm_i915_error_state_buf *m,
++				 struct drm_i915_private *i915)
++{
++	struct intel_dmc *dmc = &i915->dmc;
 +
-+#ifndef __INTEL_DMC_REGS_H__
-+#define __INTEL_DMC_REGS_H__
++	if (!HAS_DMC(i915))
++		return;
 +
-+#include "i915_reg_defs.h"
++	i915_error_printf(m, "DMC loaded: %s\n",
++			  str_yes_no(intel_dmc_has_payload(i915)));
++	i915_error_printf(m, "DMC fw version: %d.%d\n",
++			  DMC_VERSION_MAJOR(dmc->version),
++			  DMC_VERSION_MINOR(dmc->version));
++}
 +
-+#define DMC_PROGRAM(addr, i)	_MMIO((addr) + (i) * 4)
-+#define DMC_SSP_BASE_ADDR_GEN9	0x00002FC0
-+#define DMC_HTP_ADDR_SKL	0x00500034
-+#define DMC_SSP_BASE		_MMIO(0x8F074)
-+#define DMC_HTP_SKL		_MMIO(0x8F004)
-+#define DMC_LAST_WRITE		_MMIO(0x8F034)
-+#define DMC_LAST_WRITE_VALUE	0xc003b400
-+#define DMC_MMIO_START_RANGE	0x80000
-+#define DMC_MMIO_END_RANGE	0x8FFFF
-+#define SKL_DMC_DC3_DC5_COUNT	_MMIO(0x80030)
-+#define SKL_DMC_DC5_DC6_COUNT	_MMIO(0x8002C)
-+#define BXT_DMC_DC3_DC5_COUNT	_MMIO(0x80038)
-+#define TGL_DMC_DEBUG_DC5_COUNT	_MMIO(0x101084)
-+#define TGL_DMC_DEBUG_DC6_COUNT	_MMIO(0x101088)
-+#define DG1_DMC_DEBUG_DC5_COUNT	_MMIO(0x134154)
-+
-+#define TGL_DMC_DEBUG3		_MMIO(0x101090)
-+#define DG1_DMC_DEBUG3		_MMIO(0x13415c)
-+
-+#endif /* __INTEL_DMC_REGS_H__ */
-diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
-index 0ee3ecc83234..57b0f4977760 100644
---- a/drivers/gpu/drm/i915/gvt/handlers.c
-+++ b/drivers/gpu/drm/i915/gvt/handlers.c
-@@ -42,6 +42,7 @@
- #include "i915_pvinfo.h"
- #include "intel_mchbar_regs.h"
- #include "display/intel_display_types.h"
-+#include "display/intel_dmc_regs.h"
- #include "display/intel_fbc.h"
- #include "display/vlv_dsi_pll_regs.h"
- #include "gt/intel_gt_regs.h"
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index a0d652f19ff9..7caa96e2e866 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5504,27 +5504,6 @@
- #define  GAMMA_MODE_MODE_SPLIT	(3 << 0) /* ivb-bdw */
- #define  GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED	(3 << 0) /* icl + */
+ static int intel_dmc_debugfs_status_show(struct seq_file *m, void *unused)
+ {
+ 	struct drm_i915_private *i915 = m->private;
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.h b/drivers/gpu/drm/i915/display/intel_dmc.h
+index b9f608057700..dd8880d2cbed 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.h
++++ b/drivers/gpu/drm/i915/display/intel_dmc.h
+@@ -10,6 +10,7 @@
+ #include "intel_wakeref.h"
+ #include <linux/workqueue.h>
  
--/* DMC */
--#define DMC_PROGRAM(addr, i)	_MMIO((addr) + (i) * 4)
--#define DMC_SSP_BASE_ADDR_GEN9	0x00002FC0
--#define DMC_HTP_ADDR_SKL	0x00500034
--#define DMC_SSP_BASE		_MMIO(0x8F074)
--#define DMC_HTP_SKL		_MMIO(0x8F004)
--#define DMC_LAST_WRITE		_MMIO(0x8F034)
--#define DMC_LAST_WRITE_VALUE	0xc003b400
--/* MMIO address range for DMC program (0x80000 - 0x82FFF) */
--#define DMC_MMIO_START_RANGE	0x80000
--#define DMC_MMIO_END_RANGE	0x8FFFF
--#define SKL_DMC_DC3_DC5_COUNT	_MMIO(0x80030)
--#define SKL_DMC_DC5_DC6_COUNT	_MMIO(0x8002C)
--#define BXT_DMC_DC3_DC5_COUNT	_MMIO(0x80038)
--#define TGL_DMC_DEBUG_DC5_COUNT	_MMIO(0x101084)
--#define TGL_DMC_DEBUG_DC6_COUNT	_MMIO(0x101088)
--#define DG1_DMC_DEBUG_DC5_COUNT	_MMIO(0x134154)
++struct drm_i915_error_state_buf;
+ struct drm_i915_private;
+ 
+ #define DMC_VERSION(major, minor)	((major) << 16 | (minor))
+@@ -55,6 +56,8 @@ void intel_dmc_ucode_suspend(struct drm_i915_private *i915);
+ void intel_dmc_ucode_resume(struct drm_i915_private *i915);
+ bool intel_dmc_has_payload(struct drm_i915_private *i915);
+ void intel_dmc_debugfs_register(struct drm_i915_private *i915);
++void intel_dmc_print_error_state(struct drm_i915_error_state_buf *m,
++				 struct drm_i915_private *i915);
+ 
+ void assert_dmc_loaded(struct drm_i915_private *i915);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 795f91a88d1d..25f4e178b410 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -848,15 +848,7 @@ static void __err_print_to_sgl(struct drm_i915_error_state_buf *m,
+ 
+ 	err_printf(m, "IOMMU enabled?: %d\n", error->iommu);
+ 
+-	if (HAS_DMC(m->i915)) {
+-		struct intel_dmc *dmc = &m->i915->dmc;
 -
--#define TGL_DMC_DEBUG3		_MMIO(0x101090)
--#define DG1_DMC_DEBUG3		_MMIO(0x13415c)
--
- /* Display Internal Timeout Register */
- #define RM_TIMEOUT		_MMIO(0x42060)
- #define  MMIO_TIMEOUT_US(us)	((us) << 0)
+-		err_printf(m, "DMC loaded: %s\n",
+-			   str_yes_no(intel_dmc_has_payload(m->i915) != 0));
+-		err_printf(m, "DMC fw version: %d.%d\n",
+-			   DMC_VERSION_MAJOR(dmc->version),
+-			   DMC_VERSION_MINOR(dmc->version));
+-	}
++	intel_dmc_print_error_state(m, m->i915);
+ 
+ 	err_printf(m, "RPM wakelock: %s\n", str_yes_no(error->wakelock));
+ 	err_printf(m, "PM suspended: %s\n", str_yes_no(error->suspended));
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
+index 09159ff01411..7977a01a708f 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.h
++++ b/drivers/gpu/drm/i915/i915_gpu_error.h
+@@ -298,6 +298,12 @@ void i915_disable_error_state(struct drm_i915_private *i915, int err);
+ 
+ #else
+ 
++__printf(2, 3)
++static inline void
++i915_error_printf(struct drm_i915_error_state_buf *e, const char *f, ...)
++{
++}
++
+ static inline void
+ i915_capture_error_state(struct intel_gt *gt, intel_engine_mask_t engine_mask, u32 dump_flags)
+ {
 -- 
 2.30.2
 
