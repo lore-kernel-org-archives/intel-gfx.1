@@ -4,49 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5912DC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 18:46:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 303A7C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 19:01:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6BF210F487;
-	Thu, 31 Mar 2022 18:46:40 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADE7B10F48F;
- Thu, 31 Mar 2022 18:46:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648752398; x=1680288398;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=MtOBo42g9PKC6W0n+zCx2wtvOY1VNB8ooqCDwbPWoVk=;
- b=hnuGGcfyDfVwnrPeuXuxJqoyRpx8L02qo2lZzKUbWMDXPh5ogj7MM3sn
- Kn3XPw0HcpBLVd9ev0bxeWvLSeZus6OWlH39ePKj67w6vV++TxmZLPBx5
- Z5E7vTh0akFoUeSIDJehqa0urrpMGSwQZfBlUO9RbAJUh3jhdUKPmOT8p
- zxT6dJjdZQJd/6jKWZ0VL1jMaDiFh9N4IHr0BkOeo4dqu7Zw6ka0WGnw8
- Wr0UzcrztRSzIn5Yygjlyrioi+p90GlIC0yXPwmS9RE30Y8jz5X9DBhrS
- Hw4orIfNbp2Fq9AzV7BO7Jegn1GPMaxqFZ0FrKKfWZoC3hleAO6jCNHzl g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="239847996"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="239847996"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 11:46:09 -0700
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="520757783"
-Received: from gluca-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.48.194])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 11:46:07 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 21:45:09 +0300
-Message-Id: <5a11435419d804a58ef356c0b9acf445cffc1354.1648752228.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1648752228.git.jani.nikula@intel.com>
-References: <cover.1648752228.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFA1810E0CE;
+	Thu, 31 Mar 2022 19:01:04 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7731210E0CE;
+ Thu, 31 Mar 2022 19:01:03 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 664C4A00FD;
+ Thu, 31 Mar 2022 19:01:03 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 12/12] drm/edid: reduce magic when updating
- the EDID block checksum
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
+Date: Thu, 31 Mar 2022 19:01:03 -0000
+Message-ID: <164875326338.14471.8726007595038516397@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220331140920.2986689-1-tvrtko.ursulin@linux.intel.com>
+In-Reply-To: <20220331140920.2986689-1-tvrtko.ursulin@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Per_client_GPU_utilisation_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,34 +40,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The code modifying the EDID block should not need to do tricks to fix
-the checksum. We have a function for computing the checksum, use it.
+== Series Details ==
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/drm_edid.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Series: Per client GPU utilisation (rev3)
+URL   : https://patchwork.freedesktop.org/series/100573/
+State : warning
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 8bf0ae72fd2c..04e818ecd662 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -1842,8 +1842,8 @@ static struct edid *edid_filter_invalid_blocks(const struct edid *edid,
- 			memcpy(dest_block++, block, EDID_LENGTH);
- 	}
- 
--	new->checksum += new->extensions - valid_extensions;
- 	new->extensions = valid_extensions;
-+	new->checksum = edid_block_compute_checksum(new);
- 
- out:
- 	kfree(edid);
--- 
-2.30.2
+== Summary ==
+
+$ dim checkpatch origin/drm-tip
+9ab6226114e2 drm/i915: Explicitly track DRM clients
+-:130: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#130: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 234 lines checked
+7504e8884502 drm/i915: Make GEM contexts track DRM clients
+68d691714dc8 drm/i915: Track runtime spent in closed and unreachable GEM contexts
+b49e0af9ca13 drm/i915: Track all user contexts per client
+e6f38c52c820 drm/i915: Track context current active time
+-:140: WARNING:LINE_SPACING: Missing a blank line after declarations
+#140: FILE: drivers/gpu/drm/i915/gt/intel_context_types.h:149:
++			u32 last;
++			I915_SELFTEST_DECLARE(u32 num_underflow);
+
+total: 0 errors, 1 warnings, 0 checks, 308 lines checked
+2608f8a9667f drm: Document fdinfo format specification
+-:45: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#45: 
+new file mode 100644
+
+-:50: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#50: FILE: Documentation/gpu/drm-usage-stats.rst:1:
++.. _drm-client-usage-stats:
+
+total: 0 errors, 2 warnings, 0 checks, 113 lines checked
+6cc1ba16a6ad drm/i915: Count engine instances per uabi class
+ba944f3e5a66 drm/i915: Expose client engine utilisation via fdinfo
+
 
