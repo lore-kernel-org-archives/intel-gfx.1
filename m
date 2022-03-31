@@ -4,45 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61647C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 08:21:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31E2FC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 08:25:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47BE610F611;
-	Thu, 31 Mar 2022 08:21:44 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7184F10F608;
- Thu, 31 Mar 2022 08:21:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC7C10F673;
+	Thu, 31 Mar 2022 08:25:33 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D017B10F670;
+ Thu, 31 Mar 2022 08:25:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648714901; x=1680250901;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=myVCPXLKnE2azmLhkrDxrF54mH1jpd2DeSM054qRZdo=;
- b=cnq+wzNWjW8Pf9fWCz3j5pG7rXw6w5+fs9C13OzZwHpZQSCGdp0sOObC
- WxgnV5LpsfiD+AoW8tIETh6HrqhpYukDMb25pDmTWxy4wPby1gavhmxY0
- 0ZPDTeOoVQ20HAGRYO2p1lfA5hG43tM3Cbpf2rSsHa6+Bbo6BL1i+p5Jf
- +xCXMUHifjFOTDBZNbQqetj0sxnswTwVXqj9whTbPAwTrcffqsfZkiiAa
- lHSIO8m4EO4Lgh3k02B/VBZXvcW0W2sY90QZdvpJCUAVwTUgaGX/bSEWh
- xttysfGMhLw0OcDw2W/ey1e7/pgdW4J9AQ4YB4FnNDDDa9WC44bvRoNB5 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="284669980"
-X-IronPort-AV: E=Sophos;i="5.90,224,1643702400"; d="scan'208";a="284669980"
+ t=1648715131; x=1680251131;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=KCSXDm3RC4aQp01a11FrJWqsx450JrWrRKmLFEH0CtQ=;
+ b=OPE5H/W3jyGGQFvUYE0lUohQH8EaZ6qrW5N25yY39rAc52KqJBP8gicr
+ jYcaooiMsI/729GrD46flnM5F5zXU4SGcLmQCeB1MyI2mEZia4VEBDrJl
+ X30rk9bZm/vdUbmqvT/y8SmWcZAx9f6xQu2fkrvlSVog5OAyyFt4fnmD7
+ dZC6SZBcaSRmHc2dm8mz+K4oN1Q7/AXtQ3t/3X/yr4FkG3E2zaK6LnmBI
+ OXegOScptBOFYhGvDm/tRsCRuvtMxwWjUtglAx5SIvksEcyzqYfIFnSTn
+ 4ouaVI3J/sINl99DR1W12kXh6gKVF/b0hd6GLvxWxPBoP5wHK6wvRZZBe g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="259937577"
+X-IronPort-AV: E=Sophos;i="5.90,224,1643702400"; d="scan'208";a="259937577"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 01:21:34 -0700
-X-IronPort-AV: E=Sophos;i="5.90,224,1643702400"; d="scan'208";a="566266485"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 01:25:31 -0700
+X-IronPort-AV: E=Sophos;i="5.90,224,1643702400"; d="scan'208";a="566269025"
 Received: from cgarnier-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.62.224])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 01:21:32 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gvt-dev@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 11:21:26 +0300
-Message-Id: <20220331082127.432171-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
+ 31 Mar 2022 01:25:27 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: "Wang, Zhi A" <zhi.a.wang@intel.com>, Christoph Hellwig <hch@lst.de>,
+ Zhi Wang <zhi.wang.linux@gmail.com>
+In-Reply-To: <4af59d97-b583-4022-3ec3-360e7df43689@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915/gvt: fix trace TRACE_INCLUDE_PATH
+References: <20220325175251.167164-1-zhi.a.wang@intel.com>
+ <20220328065008.GA29798@lst.de>
+ <4af59d97-b583-4022-3ec3-360e7df43689@intel.com>
+Date: Thu, 31 Mar 2022 11:25:25 +0300
+Message-ID: <871qyibkay.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH v7 1/3] i915/gvt: Separate the MMIO tracking
+ table from GVT-g
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,33 +60,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
- Zhi Wang <zhi.wang.linux@gmail.com>
+Cc: Zhi Wang <zhi.a.wang@gmail.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-TRACE_INCLUDE_PATH should be a path relative to define_trace.h, not the
-file including it. (See the comment in include/trace/define_trace.h.)
+On Thu, 31 Mar 2022, "Wang, Zhi A" <zhi.a.wang@intel.com> wrote:
+> Hi Jani and Joonas:
+>
+> Are you OK with these patches? I noticed I need to change the license
+> of the new file. Will do that when check-in if you are OK with these.
 
-Cc: Zhi Wang <zhi.wang.linux@gmail.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/gvt/trace.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Use SPDX license header instead of the full text?
 
-diff --git a/drivers/gpu/drm/i915/gvt/trace.h b/drivers/gpu/drm/i915/gvt/trace.h
-index 6d787750d279..020f1aa28322 100644
---- a/drivers/gpu/drm/i915/gvt/trace.h
-+++ b/drivers/gpu/drm/i915/gvt/trace.h
-@@ -377,7 +377,7 @@ TRACE_EVENT(render_mmio,
- 
- /* This part must be out of protection */
- #undef TRACE_INCLUDE_PATH
--#define TRACE_INCLUDE_PATH .
- #undef TRACE_INCLUDE_FILE
-+#define TRACE_INCLUDE_PATH ../../drivers/gpu/drm/i915/gvt
- #define TRACE_INCLUDE_FILE trace
- #include <trace/define_trace.h>
+I don't know much about the actual contents, I'll leave that part to
+others.
+
+Seems that you are dropping const in a number of places where I thought
+you could perhaps retain it.
+
+Also in drivers/gpu/drm/i915/intel_gvt_mmio_table.c:
+
+#include "gvt.h" 
+
+looks bad. It should be "gvt/gvt.h". I realize you can do that because
+gvt/Makefile has:
+
+ccflags-y += -I $(srctree)/$(src) -I $(srctree)/$(src)/$(GVT_DIR)/
+
+which I think should be removed.
+
+I sent patches fixing this to give you an idea. No need to queue them
+first, I can rebase them later. But please make sure this builds without
+the ccflags.
+
+
+BR,
+Jani.
+
+
+>
+> Thanks,
+> Zhi.
+>
+> On 3/28/22 6:50 AM, Christoph Hellwig wrote:
+>> On Fri, Mar 25, 2022 at 01:52:49PM -0400, Zhi Wang wrote:
+>>>
+>>> v7:
+>>>
+>>> - Keep the marcos of device generation in GVT-g. (Christoph, Jani)
+>> 
+>> The changelog go under the "---" line (also for the other patches).
+>> 
+>> Otherwise looks good:
+>> 
+>> Reviewed-by: Christoph Hellwig <hch@lst.de>
+>> 
+>
+
 -- 
-2.30.2
-
+Jani Nikula, Intel Open Source Graphics Center
