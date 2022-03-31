@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B82CCC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 14:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5574C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 14:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2C8110F410;
-	Thu, 31 Mar 2022 14:04:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B89E8914E;
+	Thu, 31 Mar 2022 14:04:29 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA6AC10F2DC;
- Thu, 31 Mar 2022 14:04:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3B4310F21D;
+ Thu, 31 Mar 2022 14:04:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648735461; x=1680271461;
+ t=1648735459; x=1680271459;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aTVrt2cqXjYUP16ctlEazT6xf2B1Gz3HeJDo6NhzfT8=;
- b=LUEWxM+TzDZcxE7ErV4gUXnnF11YhBIT6ACJLR0MgpOgVdjROA0I2Tjz
- Kf1MsawGL8bLBt9KkZotLEoVuYOnkTR1InXJCuhCeESe8hO+6IEWND9VD
- sQHamBSqNVUJIuMlTMBxBRQ2SesVVPCgVzTMafhwgKfr7kizr5GQWThHO
- keisI5kn5Htj6yHecKMhHk8XT/AHHOTvd3eWDZIuP6Bakyd+VyeZJtaJK
- yQZKRB9t85ZypxjEQBOZzsie7IdTYNUxJL1NleVwz/hLR+/Wasr9qwiMS
- u+KcF9Tl9xITJPLflsU8B4toLfV98WsPowVGcUKU9NKDPi71xPBMY9KJ9 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="260027307"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="260027307"
+ bh=/3T8I3j+Efc5imHVVXY8ChABE/kooCa0kMx4cvT/1BI=;
+ b=Cf7b1eA92hFlUNArCVIwGYCzuNaXJZUeXPs+hhmDQSoaXnS5qBCF8+iC
+ Rk7yMCpD+mcS+jyUKmUhwhYiz6NJYaZ6iN5IUICz8JveuJqTD4WYxk0gC
+ aI2I5o/lGHPVlF91xXX/p0T5II9ZF8tSv84LVRESixjaafXNYdpFe3ck+
+ 3QUf3qusq2lHXwEW4GnQlGnrQfFjcuqO5EazvOY0p5XIGBxtaDqLcE6iz
+ W1ni0Gj/04mkXKa0+VUscrXrr0e5UIHr8z07w44hYgH9w+Kdgk2S1IojX
+ bFyGO3wCWxXXZpV9Vliwu/dFnW6uexHPu4ueG2qobD92zW4aScT6d9H0F Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="260027258"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="260027258"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 07:04:17 -0700
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="547347378"
+ 31 Mar 2022 07:04:09 -0700
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="547347307"
 Received: from juanniex-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.215.247])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 07:04:15 -0700
+ 31 Mar 2022 07:04:08 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 15:03:48 +0100
-Message-Id: <20220331140348.2985832-13-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 31 Mar 2022 15:03:43 +0100
+Message-Id: <20220331140348.2985832-8-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220331140348.2985832-1-tvrtko.ursulin@linux.intel.com>
 References: <20220331140348.2985832-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 12/12] gputop: Basic vendor agnostic GPU
- top tool
+Subject: [Intel-gfx] [PATCH i-g-t 07/12] libdrmclient: Support multiple DRM
+ cards
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,322 +57,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Cc: Intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Rudimentary vendor agnostic example of how lib_igt_drm_clients can be used
-to display a sorted by card and usage list of processes using GPUs.
+Require DRM minor match during client lookup.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Rob Clark <robdclark@chromium.org>
 ---
- tools/gputop.c    | 276 ++++++++++++++++++++++++++++++++++++++++++++++
- tools/meson.build |   5 +
- 2 files changed, 281 insertions(+)
- create mode 100644 tools/gputop.c
+ lib/igt_drm_clients.c | 14 ++++++++------
+ lib/igt_drm_clients.h |  2 +-
+ 2 files changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/tools/gputop.c b/tools/gputop.c
-new file mode 100644
-index 000000000000..1a30d03753c4
---- /dev/null
-+++ b/tools/gputop.c
-@@ -0,0 +1,276 @@
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice (including the next
-+ * paragraph) shall be included in all copies or substantial portions of the
-+ * Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-+ * DEALINGS IN THE SOFTWARE.
-+ */
-+
-+#include <assert.h>
-+#include <ctype.h>
-+#include <dirent.h>
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <inttypes.h>
-+#include <limits.h>
-+#include <locale.h>
-+#include <math.h>
-+#include <poll.h>
-+#include <signal.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/ioctl.h>
-+#include <sys/stat.h>
-+#include <sys/types.h>
-+#include <unistd.h>
-+#include <termios.h>
-+#include <sys/sysmacros.h>
-+#include <stdbool.h>
-+
-+#include "igt_drm_clients.h"
-+#include "igt_drm_fdinfo.h"
-+
-+#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof(arr[0]))
-+
-+static const char *bars[] = { " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" };
-+
-+static void n_spaces(const unsigned int n)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < n; i++)
-+		putchar(' ');
-+}
-+
-+static void print_percentage_bar(double percent, int max_len)
-+{
-+	int bar_len, i, len = max_len - 2;
-+	const int w = 8;
-+
-+	assert(max_len > 0);
-+
-+	bar_len = ceil(w * percent * len / 100.0);
-+	if (bar_len > w * len)
-+		bar_len = w * len;
-+
-+	putchar('|');
-+
-+	for (i = bar_len; i >= w; i -= w)
-+		printf("%s", bars[w]);
-+	if (i)
-+		printf("%s", bars[i]);
-+
-+	len -= (bar_len + (w - 1)) / w;
-+	n_spaces(len);
-+
-+	putchar('|');
-+}
-+
-+static int
-+print_client_header(struct igt_drm_client *c, int lines, int con_w, int con_h,
-+		    int *engine_w)
-+{
-+	const char *pidname = "    PID               NAME ";
-+	int ret, len = strlen(pidname);
-+
-+	if (lines++ >= con_h || len >= con_w)
-+		return lines;
-+	printf("\033[7m");
-+	ret = printf("DRM minor %u", c->drm_minor);
-+	n_spaces(con_w - ret);
-+
-+	if (lines++ >= con_h)
-+		return lines;
-+	printf("\n%s", pidname);
-+
-+	if (c->engines->num_engines) {
-+		unsigned int i;
-+		int width;
-+
-+		*engine_w = width = (con_w - len) / c->engines->num_engines;
-+
-+		for (i = 0; i <= c->engines->max_engine_id; i++) {
-+			const char *name = c->engines->names[i];
-+			int name_len = strlen(name);
-+			int pad = (width - name_len) / 2;
-+			int spaces = width - pad - name_len;
-+
-+			if (!name)
-+				continue;
-+
-+			if (pad < 0 || spaces < 0)
-+				continue;
-+
-+			n_spaces(pad);
-+			printf("%s", name);
-+			n_spaces(spaces);
-+			len += pad + name_len + spaces;
-+		}
-+	}
-+
-+	n_spaces(con_w - len);
-+	printf("\033[0m\n");
-+
-+	return lines;
-+}
-+
-+
-+static bool
-+newheader(const struct igt_drm_client *c, const struct igt_drm_client *pc)
-+{
-+	return !pc || c->drm_minor != pc->drm_minor;
-+}
-+
-+static bool filter_idle = true;
-+
-+static int
-+print_client(struct igt_drm_client *c, struct igt_drm_client **prevc,
-+	     double t, int lines, int con_w, int con_h,
-+	     unsigned int period_us, int *engine_w)
-+{
-+	unsigned int i;
-+
-+	if (filter_idle && (!c->total_runtime || c->samples < 2))
-+		return lines;
-+
-+	if (newheader(c, *prevc)) {
-+		lines = print_client_header(c, lines, con_w, con_h, engine_w);
-+		if (lines >= con_h)
-+			return lines;
-+	}
-+
-+	*prevc = c;
-+
-+	printf("%8u %17s ", c->pid, c->print_name);
-+	lines++;
-+
-+	for (i = 0; c->samples > 1 && i <= c->engines->max_engine_id; i++) {
-+		double pct;
-+
-+		if (!c->engines->capacity[i])
-+			continue;
-+
-+		pct = (double)c->val[i] / period_us / 1e3 * 100 /
-+		      c->engines->capacity[i];
-+
-+		/*
-+		 * Guard against possible time-drift between sampling
-+		 * client data and time we obtained our time-delta from
-+		 * PMU.
-+		 */
-+		if (pct > 100.0)
-+			pct = 100.0;
-+
-+		print_percentage_bar(pct, *engine_w);
-+	}
-+
-+	putchar('\n');
-+
-+	return lines;
-+}
-+
-+static int
-+__client_id_cmp(const struct igt_drm_client *a,
-+		const struct igt_drm_client *b)
-+{
-+	if (a->id > b->id)
-+		return 1;
-+	else if (a->id < b->id)
-+		return -1;
-+	else
-+		return 0;
-+}
-+
-+static int client_cmp(const void *_a, const void *_b, void *unused)
-+{
-+	const struct igt_drm_client *a = _a;
-+	const struct igt_drm_client *b = _b;
-+	long val_a, val_b;
-+
-+	val_a = a->drm_minor;
-+	val_b = b->drm_minor;
-+	if (val_a > val_b)
-+		return 1;
-+	else if (val_b > val_a)
-+		return -1;
-+
-+	val_a = a->last_runtime;
-+	val_b = b->last_runtime;
-+	if (val_a == val_b)
-+		return __client_id_cmp(a, b);
-+	else if (val_b > val_a)
-+		return 1;
-+	else
-+		return -1;
-+
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	unsigned int period_us = 2e6;
-+	struct igt_drm_clients *clients = NULL;
-+	int con_w = -1, con_h = -1;
-+
-+	clients = igt_drm_clients_init(NULL);
-+	if (!clients)
-+		exit(1);
-+
-+	igt_drm_clients_scan(clients, NULL, NULL, 0);
-+
-+	for (;;) {
-+		struct igt_drm_client *c, *prevc = NULL;
-+		int i, engine_w = 0, lines = 0;
-+		struct winsize ws;
-+
-+		if (ioctl(0, TIOCGWINSZ, &ws) != -1) {
-+			con_w = ws.ws_col;
-+			con_h = ws.ws_row;
-+			if (con_w == 0 && con_h == 0) {
-+				/* Serial console. */
-+				con_w = 80;
-+				con_h = 24;
-+			}
-+		}
-+
-+		igt_drm_clients_scan(clients, NULL, NULL, 0);
-+		igt_drm_clients_sort(clients, client_cmp);
-+
-+		printf("\033[H\033[J");
-+
-+		igt_for_each_drm_client(clients, c, i) {
-+			assert(c->status != IGT_DRM_CLIENT_PROBE);
-+			if (c->status != IGT_DRM_CLIENT_ALIVE)
-+				break; /* Active clients are first in the array. */
-+
-+			lines = print_client(c, &prevc, (double)period_us / 1e6,
-+					     lines, con_w, con_h, period_us,
-+					     &engine_w);
-+			if (lines >= con_h)
-+				break;
-+		}
-+
-+		if (lines++ < con_h)
-+			printf("\n");
-+
-+		usleep(period_us);
-+	}
-+
-+	return 0;
-+}
-diff --git a/tools/meson.build b/tools/meson.build
-index e65aceeef9fa..508964004bb0 100644
---- a/tools/meson.build
-+++ b/tools/meson.build
-@@ -69,6 +69,11 @@ if libudev.found()
- 		   install : true)
- endif
+diff --git a/lib/igt_drm_clients.c b/lib/igt_drm_clients.c
+index 116479a9f363..cf044597d537 100644
+--- a/lib/igt_drm_clients.c
++++ b/lib/igt_drm_clients.c
+@@ -57,7 +57,7 @@ struct igt_drm_clients *igt_drm_clients_init(void *private_data)
+ struct igt_drm_client *
+ igt_drm_clients_find(struct igt_drm_clients *clients,
+ 		     enum igt_drm_client_status status,
+-		     unsigned int id)
++		     unsigned int drm_minor, unsigned int id)
+ {
+ 	unsigned int start, num;
+ 	struct igt_drm_client *c;
+@@ -69,7 +69,8 @@ igt_drm_clients_find(struct igt_drm_clients *clients,
+ 		if (status != c->status)
+ 			continue;
  
-+executable('gputop', 'gputop.c',
-+           install : true,
-+           install_rpath : bindir_rpathdir,
-+           dependencies : [lib_igt_drm_clients,lib_igt_drm_fdinfo,math])
-+
- intel_l3_parity_src = [ 'intel_l3_parity.c', 'intel_l3_udev_listener.c' ]
- executable('intel_l3_parity', sources : intel_l3_parity_src,
- 	   dependencies : tool_deps,
+-		if (status == IGT_DRM_CLIENT_FREE || c->id == id)
++		if (status == IGT_DRM_CLIENT_FREE ||
++		    (drm_minor == c->drm_minor && c->id == id))
+ 			return c;
+ 	}
+ 
+@@ -123,9 +124,10 @@ igt_drm_client_add(struct igt_drm_clients *clients,
+ {
+ 	struct igt_drm_client *c;
+ 
+-	assert(!igt_drm_clients_find(clients, IGT_DRM_CLIENT_ALIVE, info->id));
++	assert(!igt_drm_clients_find(clients, IGT_DRM_CLIENT_ALIVE,
++				     drm_minor, info->id));
+ 
+-	c = igt_drm_clients_find(clients, IGT_DRM_CLIENT_FREE, 0);
++	c = igt_drm_clients_find(clients, IGT_DRM_CLIENT_FREE, 0, 0);
+ 	if (!c) {
+ 		unsigned int idx = clients->num_clients;
+ 
+@@ -359,11 +361,11 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 				continue;
+ 
+ 			if (igt_drm_clients_find(clients, IGT_DRM_CLIENT_ALIVE,
+-						info.id))
++						 minor, info.id))
+ 				continue; /* Skip duplicate fds. */
+ 
+ 			c = igt_drm_clients_find(clients, IGT_DRM_CLIENT_PROBE,
+-						info.id);
++						 minor, info.id);
+ 			if (!c)
+ 				igt_drm_client_add(clients, &info, client_pid,
+ 						   client_name, minor);
+diff --git a/lib/igt_drm_clients.h b/lib/igt_drm_clients.h
+index 7a6318c6af5f..6da445eab34a 100644
+--- a/lib/igt_drm_clients.h
++++ b/lib/igt_drm_clients.h
+@@ -87,7 +87,7 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ struct igt_drm_client *
+ igt_drm_clients_find(struct igt_drm_clients *clients,
+ 		     enum igt_drm_client_status status,
+-		     unsigned int id);
++		     unsigned int drm_minor, unsigned int id);
+ 
+ struct igt_drm_clients *
+ igt_drm_clients_sort(struct igt_drm_clients *clients,
 -- 
 2.32.0
 
