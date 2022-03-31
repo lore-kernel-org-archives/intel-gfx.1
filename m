@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4F1EC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 14:05:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F5FCC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 14:05:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0391C89206;
-	Thu, 31 Mar 2022 14:04:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C812891D1;
+	Thu, 31 Mar 2022 14:04:31 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AAD910F3F5;
- Thu, 31 Mar 2022 14:04:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD52D10F3E6;
+ Thu, 31 Mar 2022 14:04:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648735461; x=1680271461;
+ t=1648735458; x=1680271458;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=swj5SXsn4gJVTmUEenT3MRID7PSQknmpIH/17D6TzQw=;
- b=barCBQY1l/almNNA0coLYTNNMXboiNhory2AnAZvHRJmPmARiipvATQ1
- ireWI7he36QIWwaX/0O1OhkcqyoxfsG/yjXpIQbMaVrt/ekKgDsxY2Cs4
- NJIwQZyTmDzZGf5i5A5vZsCm7KgiK804TQn5u8jzitB1HoMqxziAC6Ass
- KDiCr2Z61N4snTGOpXGg3Sg7nBCto242MxwYtmto14W6hKeyhPUB5uZTi
- REdbwYzQEHoko12nE2Q+2xyZXkWrg2+1d68AzB20R+o7HkC+wwQFb2VaU
- aiEjiagi+gsGTf0yvzHzCl/UCGFODSF/7om/29T6EFC29ISGs31c7a6Mb w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="260027293"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="260027293"
+ bh=JrPPcF8Z/g19JKyVRgayx1eXG/HFkPd8TCdk6t/qE70=;
+ b=OGsAsiJLLx39hKiyYYwX8IRJvdHjaglvY0Z3dIyPE5Jh8SdwcO5sY0co
+ Z6EG2bIzq1xv3EMp0pCP3dRW05rY4idF9eChxccFO72WJ10UiBl1Ci5Mx
+ 7bFSgPOzmf8Eg7RCIp8Ex388A9lK8xZfk8KUovhA61/IcAqkMbJ/m5OwB
+ 299oAuc+ig5Xw6300fdhSGkqWvoMLUl9m6ux5bd7Y5b3Xy9ThFsZnlyyL
+ 81ED0kTu/icrpRVcIkUCflfRFc+uRp46hw9V6ui4r3Pci3szPYjxCHZI1
+ gUtxHxnzvJWtHPU2bj+s4UvicW8XYde1cJnk1zc7tK2JrP0Jg6h1Tm41l g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="260027250"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="260027250"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 07:04:15 -0700
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="547347368"
+ 31 Mar 2022 07:04:08 -0700
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="547347285"
 Received: from juanniex-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.215.247])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 07:04:14 -0700
+ 31 Mar 2022 07:04:07 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 15:03:47 +0100
-Message-Id: <20220331140348.2985832-12-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 31 Mar 2022 15:03:42 +0100
+Message-Id: <20220331140348.2985832-7-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220331140348.2985832-1-tvrtko.ursulin@linux.intel.com>
 References: <20220331140348.2985832-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 11/12] libdrmclient: Unexport
- igt_drm_client_update
+Subject: [Intel-gfx] [PATCH i-g-t 06/12] libdrmclients: Record client drm
+ minor
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,83 +63,135 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-It is currently unused so no need to export it as API for now.
-
-Also change the signature to take struct drm_client_fdinfo in order to
-avoid needing to pass in a sized array.
+Prepare for supporting clients belonging to multiple DRM cards by storing
+the DRM minor in the client record.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- lib/igt_drm_clients.c | 16 ++++++++--------
- lib/igt_drm_clients.h |  3 ---
- 2 files changed, 8 insertions(+), 11 deletions(-)
+ lib/igt_drm_clients.c | 33 ++++++++++++++++++++-------------
+ lib/igt_drm_clients.h |  6 ++++--
+ 2 files changed, 24 insertions(+), 15 deletions(-)
 
 diff --git a/lib/igt_drm_clients.c b/lib/igt_drm_clients.c
-index e8e86969f984..32e1d7a0f20e 100644
+index 591602f4c9f5..116479a9f363 100644
 --- a/lib/igt_drm_clients.c
 +++ b/lib/igt_drm_clients.c
-@@ -77,9 +77,9 @@ igt_drm_clients_find(struct igt_drm_clients *clients,
- 	return NULL;
+@@ -117,12 +117,13 @@ igt_drm_client_update(struct igt_drm_client *c, unsigned int pid, char *name,
  }
  
--void
-+static void
- igt_drm_client_update(struct igt_drm_client *c, unsigned int pid, char *name,
--		      uint64_t val[16])
-+		      const struct drm_client_fdinfo *info)
+ void
+-igt_drm_client_add(struct igt_drm_clients *clients, unsigned int id,
+-		   unsigned int pid, char *name, uint64_t busy[16])
++igt_drm_client_add(struct igt_drm_clients *clients,
++		   struct drm_client_fdinfo *info,
++		   unsigned int pid, char *name, unsigned int drm_minor)
  {
- 	unsigned int i;
+ 	struct igt_drm_client *c;
  
-@@ -104,13 +104,13 @@ igt_drm_client_update(struct igt_drm_client *c, unsigned int pid, char *name,
- 	c->total_runtime = 0;
+-	assert(!igt_drm_clients_find(clients, IGT_DRM_CLIENT_ALIVE, id));
++	assert(!igt_drm_clients_find(clients, IGT_DRM_CLIENT_ALIVE, info->id));
  
- 	for (i = 0; i <= c->engines->max_engine_id; i++) {
--		if (val[i] < c->last[i])
-+		if (info->busy[i] < c->last[i])
- 			continue; /* It will catch up soon. */
- 
--		c->total_runtime += val[i];
--		c->val[i] = val[i] - c->last[i];
-+		c->total_runtime += info->busy[i];
-+		c->val[i] = info->busy[i] - c->last[i];
- 		c->last_runtime += c->val[i];
--		c->last[i] = val[i];
-+		c->last[i] = info->busy[i];
+ 	c = igt_drm_clients_find(clients, IGT_DRM_CLIENT_FREE, 0);
+ 	if (!c) {
+@@ -137,13 +138,14 @@ igt_drm_client_add(struct igt_drm_clients *clients, unsigned int id,
+ 		memset(c, 0, (clients->num_clients - idx) * sizeof(*c));
  	}
  
- 	c->samples++;
-@@ -168,7 +168,7 @@ igt_drm_client_add(struct igt_drm_clients *clients,
- 	c->last = calloc(c->engines->max_engine_id + 1, sizeof(c->last));
+-	c->id = id;
++	c->id = info->id;
++	c->drm_minor = drm_minor;
+ 	c->clients = clients;
+ 	c->val = calloc(clients->num_classes, sizeof(c->val));
+ 	c->last = calloc(clients->num_classes, sizeof(c->last));
  	assert(c->val && c->last);
  
--	igt_drm_client_update(c, pid, name, info->busy);
-+	igt_drm_client_update(c, pid, name, info);
+-	igt_drm_client_update(c, pid, name, busy);
++	igt_drm_client_update(c, pid, name, info->busy);
  }
  
  void igt_drm_client_free(struct igt_drm_client *c)
-@@ -418,7 +418,7 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
- 						   client_name, minor);
+@@ -254,16 +256,21 @@ static bool get_task_name(const char *buffer, char *out, unsigned long sz)
+ 	return true;
+ }
+ 
+-static bool is_drm_fd(int fd_dir, const char *name)
++static bool is_drm_fd(int fd_dir, const char *name, unsigned int *minor)
+ {
+ 	struct stat stat;
+ 	int ret;
+ 
+ 	ret = fstatat(fd_dir, name, &stat, 0);
+ 
+-	return ret == 0 &&
+-	       (stat.st_mode & S_IFMT) == S_IFCHR &&
+-	       major(stat.st_rdev) == 226;
++	if (ret == 0 &&
++	    (stat.st_mode & S_IFMT) == S_IFCHR &&
++	    major(stat.st_rdev) == 226) {
++		*minor = minor(stat.st_rdev);
++		return true;
++	}
++
++	return false;
+ }
+ 
+ struct igt_drm_clients *
+@@ -293,10 +300,10 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 		return clients;
+ 
+ 	while ((proc_dent = readdir(proc_dir)) != NULL) {
++		unsigned int client_pid, minor = 0;
+ 		int pid_dir = -1, fd_dir = -1;
+ 		struct dirent *fdinfo_dent;
+ 		char client_name[64] = { };
+-		unsigned int client_pid;
+ 		DIR *fdinfo_dir = NULL;
+ 		char buf[4096];
+ 		size_t count;
+@@ -338,7 +345,7 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 			if (!isdigit(fdinfo_dent->d_name[0]))
+ 				continue;
+ 
+-			if (!is_drm_fd(fd_dir, fdinfo_dent->d_name))
++			if (!is_drm_fd(fd_dir, fdinfo_dent->d_name, &minor))
+ 				continue;
+ 
+ 			memset(&info, 0, sizeof(info));
+@@ -358,8 +365,8 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 			c = igt_drm_clients_find(clients, IGT_DRM_CLIENT_PROBE,
+ 						info.id);
+ 			if (!c)
+-				igt_drm_client_add(clients, info.id, client_pid,
+-						   client_name, info.busy);
++				igt_drm_client_add(clients, &info, client_pid,
++						   client_name, minor);
  			else
  				igt_drm_client_update(c, client_pid,
--						      client_name, info.busy);
-+						      client_name, &info);
- 		}
- 
- next:
+ 						      client_name, info.busy);
 diff --git a/lib/igt_drm_clients.h b/lib/igt_drm_clients.h
-index 47547aa8b75f..6817acc34e81 100644
+index 91e9da4c0733..7a6318c6af5f 100644
 --- a/lib/igt_drm_clients.h
 +++ b/lib/igt_drm_clients.h
-@@ -92,9 +92,6 @@ struct igt_drm_clients *
- igt_drm_clients_sort(struct igt_drm_clients *clients,
- 		     int (*cmp)(const void *, const void *, void *));
+@@ -48,6 +48,7 @@ struct igt_drm_client {
  
--void igt_drm_client_update(struct igt_drm_client *c,
--			   unsigned int pid, char *name, uint64_t val[16]);
--
- void igt_drm_client_add(struct igt_drm_clients *clients,
- 			struct drm_client_fdinfo *,
- 			unsigned int pid, char *name, unsigned int drm_minor);
+ 	enum igt_drm_client_status status;
+ 	unsigned int id;
++	unsigned int drm_minor;
+ 	unsigned int pid;
+ 	char name[24];
+ 	char print_name[24];
+@@ -95,8 +96,9 @@ igt_drm_clients_sort(struct igt_drm_clients *clients,
+ void igt_drm_client_update(struct igt_drm_client *c,
+ 			   unsigned int pid, char *name, uint64_t val[16]);
+ 
+-void igt_drm_client_add(struct igt_drm_clients *clients, unsigned int id,
+-			unsigned int pid, char *name, uint64_t busy[16]);
++void igt_drm_client_add(struct igt_drm_clients *clients,
++			struct drm_client_fdinfo *,
++			unsigned int pid, char *name, unsigned int drm_minor);
+ 
+ void igt_drm_client_free(struct igt_drm_client *c);
+ 
 -- 
 2.32.0
 
