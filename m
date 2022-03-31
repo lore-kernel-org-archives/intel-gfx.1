@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D36E3C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 18:46:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48DBFC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 18:46:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F50110F498;
-	Thu, 31 Mar 2022 18:46:21 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B32E10F484;
- Thu, 31 Mar 2022 18:46:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C03A10F48D;
+	Thu, 31 Mar 2022 18:46:29 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13D1D10F48D;
+ Thu, 31 Mar 2022 18:46:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648752372; x=1680288372;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=9mHjZBzFu+ZT78deVICwPRULZVVYzoQtUaNUQxZnSOQ=;
- b=JlvUa+wFzuZnGKDpvUXwdOnnkPewBzNbC/nJVN15tCALGhRtwNFCoQu6
- cH/vg5wVJHe7CrW9HAN6xhHr4DSLcXy4zH/IBQDx9biBWPOnOOs9RGiRf
- mWAhDn2UtwJs6oaZHxUtAjyep8HvWCV4OFT5PWsAYHuq4FKCJLomBsnni
- O/qnmePfSz4Fj8q+H/95LPz5qMg468EE4SAMyk9I5ucVInyFCRnrkno/W
- k6U1CkDR7TkG6uOzVq8fTJjnvmrLdFx7VYysxldhVoTKCxk56Mkxvyd1M
- EmMhvQmyL90uYsvDE8oSTJjmap7lfZL2RbmB/2XNTQg6JoVtgwmzmFcSh g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="257505587"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="257505587"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 11:45:59 -0700
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="654985245"
+ t=1648752386; x=1680288386;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=ycIavbnN5Vq7Lc/HdN8u5JyGJ0thZenvJF0SF4p7i9c=;
+ b=GOSmMJkRqVPBmv6cor4FkiCzBWofu+wJokegWQXlEI19OKpnsriEGG81
+ sotUnlmEV6aokhde7JgrCXXCmUCKl3Bp3Z+y5zuim5WMez6UkDSXVGb+V
+ Ef3nHfQU/KTGLBFRb8pPY04TVIyklxK76jQGS0L27LANmGVzGbSZN1s4U
+ yZ4ervmV1n5IK5fTnBhlqm/NbUAjPDO+8SyecqxSUN5y1Y+f67EQyFZVg
+ j+Ov87G7dJNw9hQD+O9BhtcnSk45KrAz+GaSalQLHrTBpzwjHsmPA/SO7
+ XijoodUUxWqscMYKzTtfm/zGaXbd4m89e9CYppnhCECjuSBDvTYuopgC2 g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="247422093"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="247422093"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 11:46:09 -0700
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="586546497"
 Received: from gluca-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.48.194])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 11:45:57 -0700
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 11:46:07 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 21:45:07 +0300
-Message-Id: <ea8ccd654b5beca6ccf99666754aea09c836b6a5.1648752228.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1648752228.git.jani.nikula@intel.com>
-References: <cover.1648752228.git.jani.nikula@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+In-Reply-To: <YkRViiFfSOJQnsoI@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 10/12] drm/edid: split out invalid block
- filtering to a separate function
+References: <cover.1648578814.git.jani.nikula@intel.com>
+ <380b903fb91b1e20a1a7af61db40b6c7c5617005.1648578814.git.jani.nikula@intel.com>
+ <YkRViiFfSOJQnsoI@intel.com>
+Date: Thu, 31 Mar 2022 21:46:04 +0300
+Message-ID: <87h77e7yfn.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 01/12] drm/edid: use struct edid * in
+ drm_do_get_edid()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,94 +60,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's such a special case there's no point in keeping it inline in the
-happy day scenario, confusing matters.
+On Wed, 30 Mar 2022, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Tue, Mar 29, 2022 at 09:42:08PM +0300, Jani Nikula wrote:
+>> +	if (valid_extensions !=3D edid->extensions) {
+>> +		struct edid *base;
+>
+> This one points to extension blocks too so using=20
+> struct edid doesn't seem entirely appropriate.
 
-v2: Rebase on the invalid block filtering fix
+Settled on calling it struct edid *dest_block in v2 with hopes that's a
+good enough compromise.
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/drm_edid.c | 52 ++++++++++++++++++++------------------
- 1 file changed, 28 insertions(+), 24 deletions(-)
+BR,
+Jani.
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 4803033d44fd..73bb2c4a7014 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -1823,6 +1823,33 @@ bool drm_edid_is_valid(struct edid *edid)
- }
- EXPORT_SYMBOL(drm_edid_is_valid);
- 
-+static struct edid *edid_filter_invalid_blocks(const struct edid *edid,
-+					       int valid_extensions)
-+{
-+	struct edid *new, *dest_block;
-+	int i;
-+
-+	new = kmalloc_array(valid_extensions + 1, EDID_LENGTH, GFP_KERNEL);
-+	if (!new)
-+		goto out;
-+
-+	dest_block = new;
-+	for (i = 0; i <= edid->extensions; i++) {
-+		const void *block = edid + i;
-+
-+		if (edid_block_valid(block, i == 0))
-+			memcpy(dest_block++, block, EDID_LENGTH);
-+	}
-+
-+	new->checksum += new->extensions - valid_extensions;
-+	new->extensions = valid_extensions;
-+
-+out:
-+	kfree(edid);
-+
-+	return new;
-+}
-+
- #define DDC_SEGMENT_ADDR 0x30
- /**
-  * drm_do_probe_ddc_edid() - get EDID information via I2C
-@@ -2072,32 +2099,9 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
- 	}
- 
- 	if (valid_extensions != edid->extensions) {
--		struct edid *dest_block;
--		int i;
--
- 		connector_bad_edid(connector, (u8 *)edid, edid->extensions + 1);
- 
--		new = kmalloc_array(valid_extensions + 1, EDID_LENGTH,
--				    GFP_KERNEL);
--		if (!new)
--			goto out;
--
--		dest_block = new;
--		for (i = 0; i <= edid->extensions; i++) {
--			void *block = edid + i;
--
--			if (!edid_block_valid(block, i == 0))
--				continue;
--
--			memcpy(dest_block, block, EDID_LENGTH);
--			dest_block++;
--		}
--
--		new->checksum += new->extensions - valid_extensions;
--		new->extensions = valid_extensions;
--
--		kfree(edid);
--		edid = new;
-+		edid = edid_filter_invalid_blocks(edid, valid_extensions);
- 	}
- 
- 	return edid;
--- 
-2.30.2
-
+--=20
+Jani Nikula, Intel Open Source Graphics Center
