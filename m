@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC12EC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 11:28:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 736CBC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 11:28:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CCC410F2CC;
-	Thu, 31 Mar 2022 11:28:32 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73E3510F2CC
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 11:28:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCB2310F2D1;
+	Thu, 31 Mar 2022 11:28:35 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF6C10F2D1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 11:28:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648726108; x=1680262108;
+ t=1648726114; x=1680262114;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=wnZ3v/FvGsL/kPwgRNi/HN4ZhcYLLUXmhA5SiVFASgE=;
- b=NfE33SEfxCqljHsJrxtIssrPhegJ8sqSq1bx55Y4U1cUDojmBX5cDbld
- ZusgP1R2XRHLmODq08u9eQfcEHQs4u5BO+3JNDvRsBAU+UnyCNM2f2Qb9
- 6z+CfHESa4mUkXf7CDI3sZ7bFQCQfZMi/f8aU+YJv9xPlYRm6i9KEoxm0
- JBOlRa5ZZ6BqYhkJR4ms/+jTzqwS+1QewV+9FqABWqKqZDuseW+pNveri
- bRkv/i32z7STbd1onVVMxZ0WeJBFTTAsIP0MZGRW3R1Aeblf07D/ivqtE
- 93HEBnNK++jRh8VT3D7PQc3whU7TvLlq6VmdVvDOqFLAZoAzYZa1znT+/ w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="241953326"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="241953326"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 04:28:27 -0700
+ bh=EvaNx+67G87hdP0B4MDhBDYD+2pMeGVb2nSAPlihW9w=;
+ b=WZBd9m9bcNFd6ufzQ2b50mKmr6UGulKn/B6n2NSQ7b1mqm7U3J5ouZK7
+ a88h4z6BKBQ3zBe3MgBGA8QU0kdt/tEwnYo2/ysSGqNbp+iVkkJc/IN6y
+ sF76pAySi11g8LTzaNG3MErnQJO8Bze5KIt0Ty0yl1voeDgV9bi1gAY5+
+ V9Lw+IG6I7rALVloRhfHbYWreRVO2ao0moiVWJEtEUnnutXDIXn0RC+6c
+ KniBMpsAIKMOQnTwU2m/RoKVjz0DSM/KItP37mgAacuxBxsY6gRIaLt4g
+ FmQ4O+NsMit63VbmvjtgYcGytRdpFjJWpDck/70fdxMYJjrHTp5zpOudF Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="247301720"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="247301720"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 04:28:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="640097372"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="650252790"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.61])
- by FMSMGA003.fm.intel.com with SMTP; 31 Mar 2022 04:28:25 -0700
+ by fmsmga002.fm.intel.com with SMTP; 31 Mar 2022 04:28:31 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 31 Mar 2022 14:28:25 +0300
+ Thu, 31 Mar 2022 14:28:30 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 14:28:12 +0300
-Message-Id: <20220331112822.11462-2-ville.syrjala@linux.intel.com>
+Date: Thu, 31 Mar 2022 14:28:14 +0300
+Message-Id: <20220331112822.11462-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220331112822.11462-1-ville.syrjala@linux.intel.com>
 References: <20220331112822.11462-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 01/11] drm/i915: Extract intel_edp_has_drrs()
+Subject: [Intel-gfx] [PATCH v2 03/11] drm/i915: Refactor non-EDID fixed mode
+ duplication
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,105 +64,123 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Pull all the eDP specific platform/port checks out from
-intel_drrs_init() into intel_edp_has_drrs().
+All the non-EDID fixed mode functions basically do the exact
+same thing. Let's refactor the common bits into a shared
+function.
+
+There are minor differences on how the mode types are populated,
+whether the display info physical size is updated, and the debug
+print. The differences are purely accidental, so unifying them is
+actually a good thing.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c   | 35 ++++++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_drrs.c | 24 ----------------
- 2 files changed, 34 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/display/intel_panel.c | 66 ++++++++++------------
+ 1 file changed, 30 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 56c36c9ef173..2c23ec0a880a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4976,6 +4976,39 @@ intel_edp_add_properties(struct intel_dp *intel_dp)
- 						       fixed_mode->vdisplay);
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 415aa381f732..1e56ca9033e0 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -243,68 +243,62 @@ void intel_panel_add_edid_fixed_mode(struct intel_connector *connector)
+ 	list_add_tail(&fixed_mode->head, &connector->panel.fixed_modes);
  }
  
-+static bool
-+intel_edp_has_drrs(struct intel_dp *intel_dp)
-+{
-+	struct intel_connector *connector = intel_dp->attached_connector;
-+	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
+-void intel_panel_add_vbt_lfp_fixed_mode(struct intel_connector *connector)
++static void intel_panel_add_fixed_mode(struct intel_connector *connector,
++				       struct drm_display_mode *fixed_mode,
++				       const char *type)
+ {
+-	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
 +	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	struct drm_display_info *info = &connector->base.display_info;
+-	struct drm_display_mode *fixed_mode;
+ 
+-	if (!dev_priv->vbt.lfp_lvds_vbt_mode)
+-		return;
+-
+-	fixed_mode = drm_mode_duplicate(&dev_priv->drm,
+-					dev_priv->vbt.lfp_lvds_vbt_mode);
+ 	if (!fixed_mode)
+ 		return;
+ 
+-	fixed_mode->type |= DRM_MODE_TYPE_PREFERRED;
+-
+-	drm_dbg_kms(&dev_priv->drm, "[CONNECTOR:%d:%s] using mode from VBT: " DRM_MODE_FMT "\n",
+-		    connector->base.base.id, connector->base.name,
+-		    DRM_MODE_ARG(fixed_mode));
++	fixed_mode->type |= DRM_MODE_TYPE_PREFERRED | DRM_MODE_TYPE_DRIVER;
+ 
+ 	info->width_mm = fixed_mode->width_mm;
+ 	info->height_mm = fixed_mode->height_mm;
+ 
++	drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s] using %s fixed mode: " DRM_MODE_FMT "\n",
++		    connector->base.base.id, connector->base.name, type,
++		    DRM_MODE_ARG(fixed_mode));
 +
-+	if (DISPLAY_VER(i915) < 5) {
-+		drm_dbg_kms(&i915->drm,
-+			    "[CONNECTOR:%d:%s] DRRS not supported on platform\n",
-+			    connector->base.base.id, connector->base.name);
-+		return false;
-+	}
-+
-+	if ((DISPLAY_VER(i915) < 8 && !HAS_GMCH(i915)) &&
-+	    encoder->port != PORT_A) {
-+		drm_dbg_kms(&i915->drm,
-+			    "[CONNECTOR:%d:%s] DRRS not supported on [ENCODER:%d:%s]\n",
-+			    connector->base.base.id, connector->base.name,
-+			    encoder->base.base.id, encoder->base.name);
-+		return false;
-+	}
-+
-+	if (i915->vbt.drrs_type == DRRS_TYPE_NONE) {
-+		drm_dbg_kms(&i915->drm,
-+			    "[CONNECTOR:%d:%s] DRRS not supported according to VBT\n",
-+			    connector->base.base.id, connector->base.name);
-+		return false;
-+	}
-+
-+	return true;
+ 	list_add_tail(&fixed_mode->head, &connector->panel.fixed_modes);
+ }
+ 
+-void intel_panel_add_vbt_sdvo_fixed_mode(struct intel_connector *connector)
++void intel_panel_add_vbt_lfp_fixed_mode(struct intel_connector *connector)
+ {
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+-	struct drm_display_mode *fixed_mode;
+-
+-	if (!i915->vbt.sdvo_lvds_vbt_mode)
+-		return;
++	const struct drm_display_mode *mode;
+ 
+-	fixed_mode = drm_mode_duplicate(&i915->drm,
+-					i915->vbt.sdvo_lvds_vbt_mode);
+-	if (!fixed_mode)
++	mode = i915->vbt.lfp_lvds_vbt_mode;
++	if (!mode)
+ 		return;
+ 
+-	/* Guarantee the mode is preferred */
+-	fixed_mode->type = DRM_MODE_TYPE_PREFERRED | DRM_MODE_TYPE_DRIVER;
+-
+-	list_add_tail(&fixed_mode->head, &connector->panel.fixed_modes);
++	intel_panel_add_fixed_mode(connector,
++				   drm_mode_duplicate(&i915->drm, mode),
++				   "VBT LFP");
+ }
+ 
+-void intel_panel_add_encoder_fixed_mode(struct intel_connector *connector,
+-					struct intel_encoder *encoder)
++void intel_panel_add_vbt_sdvo_fixed_mode(struct intel_connector *connector)
+ {
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+-	struct drm_display_mode *fixed_mode;
++	const struct drm_display_mode *mode;
+ 
+-	fixed_mode = intel_encoder_current_mode(encoder);
+-	if (!fixed_mode)
++	mode = i915->vbt.sdvo_lvds_vbt_mode;
++	if (!mode)
+ 		return;
+ 
+-	drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s] using current (BIOS) mode: " DRM_MODE_FMT "\n",
+-		    connector->base.base.id, connector->base.name,
+-		    DRM_MODE_ARG(fixed_mode));
+-
+-	fixed_mode->type |= DRM_MODE_TYPE_PREFERRED;
++	intel_panel_add_fixed_mode(connector,
++				   drm_mode_duplicate(&i915->drm, mode),
++				   "VBT SDVO");
 +}
-+
- static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 				     struct intel_connector *intel_connector)
- {
-@@ -5041,7 +5074,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 	intel_connector->edid = edid;
  
- 	fixed_mode = intel_panel_edid_fixed_mode(intel_connector);
--	if (fixed_mode)
-+	if (fixed_mode && intel_edp_has_drrs(intel_dp))
- 		downclock_mode = intel_drrs_init(intel_connector, fixed_mode);
+-	list_add_tail(&fixed_mode->head, &connector->panel.fixed_modes);
++void intel_panel_add_encoder_fixed_mode(struct intel_connector *connector,
++					struct intel_encoder *encoder)
++{
++	intel_panel_add_fixed_mode(connector,
++				   intel_encoder_current_mode(encoder),
++				   "current (BIOS)");
+ }
  
- 	/* MSO requires information from the EDID */
-diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
-index a5c7d58b36e0..1448c3029b8e 100644
---- a/drivers/gpu/drm/i915/display/intel_drrs.c
-+++ b/drivers/gpu/drm/i915/display/intel_drrs.c
-@@ -373,32 +373,8 @@ intel_drrs_init(struct intel_connector *connector,
- 		const struct drm_display_mode *fixed_mode)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
--	struct intel_encoder *encoder = connector->encoder;
- 	struct drm_display_mode *downclock_mode;
- 
--	if (DISPLAY_VER(dev_priv) < 5) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "[CONNECTOR:%d:%s] DRRS not supported on platform\n",
--			    connector->base.base.id, connector->base.name);
--		return NULL;
--	}
--
--	if ((DISPLAY_VER(dev_priv) < 8 && !HAS_GMCH(dev_priv)) &&
--	    encoder->port != PORT_A) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "[CONNECTOR:%d:%s] DRRS not supported on [ENCODER:%d:%s]\n",
--			    connector->base.base.id, connector->base.name,
--			    encoder->base.base.id, encoder->base.name);
--		return NULL;
--	}
--
--	if (dev_priv->vbt.drrs_type == DRRS_TYPE_NONE) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "[CONNECTOR:%d:%s] DRRS not supported according to VBT\n",
--			    connector->base.base.id, connector->base.name);
--		return NULL;
--	}
--
- 	downclock_mode = intel_panel_edid_downclock_mode(connector, fixed_mode);
- 	if (!downclock_mode) {
- 		drm_dbg_kms(&dev_priv->drm,
+ /* adjusted_mode has been preset to be the panel's fixed mode */
 -- 
 2.34.1
 
