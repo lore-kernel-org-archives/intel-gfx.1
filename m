@@ -4,47 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F51BC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 14:09:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC5D6C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 14:35:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14DC310EBF5;
-	Thu, 31 Mar 2022 14:09:42 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A8E410E732;
- Thu, 31 Mar 2022 14:09:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42D9910EA94;
+	Thu, 31 Mar 2022 14:35:20 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B966F10EA94
+ for <intel-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 14:35:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648735775; x=1680271775;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=uvJtbjaiyo18vSt0V+OzlGZjRF7mfVnj6BlDD8Nrkxs=;
- b=aO4UZwR9vS5vj2Cdbb5VnGVPDYk5XvuGAaeIN5Sy9sJwUWq/F97pRy+g
- 0MF6RLXRYX4fpYXNSAQeTSMcWo42k97dpVrhnd7zlDHfD7RXZ67bbplBF
- u68N5r8iRTlktLRzZIrPpezCTzk8RaYpOMnMcxjas2ga7KSvPtv7qj9Lm
- VBMmHOq1kAWbk/uBDqJ/ynYe7BSmxx/gh+C+vDZS2PW4m1SarpojpE613
- MV4WXkGTAuIQjkBP5P4HrEIMdjJN0NPfZOZBw9ix6XRFoY1UPZPw8I1o9
- poNoH0qVG+SUJZB3yxmbMBVeY74HMxe2SenVITjhCFH7o0VDDNOFhVBaL g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="259825451"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="259825451"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 07:09:34 -0700
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="606114221"
-Received: from juanniex-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
+ t=1648737318; x=1680273318;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=hpiB2L0Di77Ynun39ckuSAmIWWfb7lgHv8jME3j6VtM=;
+ b=cbYNCXgDc5TdDBQ3aEab1+jfb/zisPgB8da4W3uz2Tt3vcvzBOcZo/dg
+ GBSPL8V4QQyiIkO4M0kKuHkYoAzc3zsIE1fiNjhbm1Zq+BPaOYwCYxPK7
+ KFisveSsSOTpGmgPagCLvI0wzmvc6WGrWbnVVKAXWlxQLce6a2vG22oNN
+ JgKS4ikY61hY3Zd9V+mBstHdUXfMcVeQOuwyCbga6qSGDlZAtl9zOrx51
+ EBHAJhyv9ATbB7pP5Ht272TkLqcdWH08+Wc9H5arWqoJcPrwhBQxH0QEI
+ +fP8wk6e8cVLNgvdQXPndQ7NUvEaoUgQ9xvbFtNs8cNAg9QZLXBXwaXUk w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="260035960"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="260035960"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 07:35:18 -0700
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="654791910"
+Received: from juanniex-mobl.ger.corp.intel.com (HELO [10.213.215.247])
  ([10.213.215.247])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 07:09:33 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 15:09:19 +0100
-Message-Id: <20220331140920.2986689-8-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220331140920.2986689-1-tvrtko.ursulin@linux.intel.com>
-References: <20220331140920.2986689-1-tvrtko.ursulin@linux.intel.com>
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 07:35:16 -0700
+Message-ID: <0ad71510-0682-0179-213f-af9c623d09c1@linux.intel.com>
+Date: Thu, 31 Mar 2022 15:35:12 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 7/8] drm/i915: Count engine instances per uabi
- class
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Casey Bowman <casey.g.bowman@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20220331000908.1225343-1-casey.g.bowman@intel.com>
+ <20220331000908.1225343-2-casey.g.bowman@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20220331000908.1225343-2-casey.g.bowman@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [RFC PATCH v5 1/1] Split i915_run_as_guest into x86
+ and non-x86
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,69 +62,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: michael.cheng@intel.com, lucas.demarchi@intel.com, daniel.vetter@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-This will be useful to have at hand in a following patch.
+On 31/03/2022 01:09, Casey Bowman wrote:
+> Splitting i915_run_as_guest into a more arch-friendly function
+> as non-x86 builds do not support this functionality.
+> 
+> Signed-off-by: Casey Bowman <casey.g.bowman@intel.com>
+> ---
+>   drivers/gpu/drm/i915/i915_utils.h | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+> index b2d89c43f24d..a42882e68eea 100644
+> --- a/drivers/gpu/drm/i915/i915_utils.h
+> +++ b/drivers/gpu/drm/i915/i915_utils.h
+> @@ -428,7 +428,12 @@ static inline bool timer_expired(const struct timer_list *t)
+>   
+>   static inline bool i915_run_as_guest(void)
+>   {
+> +#if IS_ENABLED(CONFIG_X86)
+>   	return !hypervisor_is_type(X86_HYPER_NATIVE);
+> +#else
+> +	/* Not supported yet */
+> +	return false;
+> +#endif
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_engine_user.c | 11 ++++++-----
- drivers/gpu/drm/i915/i915_drv.h             |  1 +
- 2 files changed, 7 insertions(+), 5 deletions(-)
+Works for me.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-index b8c9b6b89003..0f6cd96b459f 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-@@ -193,7 +193,6 @@ static void add_legacy_ring(struct legacy_ring *ring,
- void intel_engines_driver_register(struct drm_i915_private *i915)
- {
- 	struct legacy_ring ring = {};
--	u8 uabi_instances[5] = {};
- 	struct list_head *it, *next;
- 	struct rb_node **p, *prev;
- 	LIST_HEAD(engines);
-@@ -214,8 +213,10 @@ void intel_engines_driver_register(struct drm_i915_private *i915)
- 		GEM_BUG_ON(engine->class >= ARRAY_SIZE(uabi_classes));
- 		engine->uabi_class = uabi_classes[engine->class];
- 
--		GEM_BUG_ON(engine->uabi_class >= ARRAY_SIZE(uabi_instances));
--		engine->uabi_instance = uabi_instances[engine->uabi_class]++;
-+		GEM_BUG_ON(engine->uabi_class >=
-+			   ARRAY_SIZE(i915->engine_uabi_class_count));
-+		engine->uabi_instance =
-+			i915->engine_uabi_class_count[engine->uabi_class]++;
- 
- 		/* Replace the internal name with the final user facing name */
- 		memcpy(old, engine->name, sizeof(engine->name));
-@@ -245,8 +246,8 @@ void intel_engines_driver_register(struct drm_i915_private *i915)
- 		int class, inst;
- 		int errors = 0;
- 
--		for (class = 0; class < ARRAY_SIZE(uabi_instances); class++) {
--			for (inst = 0; inst < uabi_instances[class]; inst++) {
-+		for (class = 0; class < ARRAY_SIZE(i915->engine_uabi_class_count); class++) {
-+			for (inst = 0; inst < i915->engine_uabi_class_count[class]; inst++) {
- 				engine = intel_engine_lookup_user(i915,
- 								  class, inst);
- 				if (!engine) {
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index bbda3e01d03d..7f33cf2afb9e 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -500,6 +500,7 @@ struct drm_i915_private {
- 	struct pci_dev *bridge_dev;
- 
- 	struct rb_root uabi_engines;
-+	unsigned int engine_uabi_class_count[I915_LAST_UABI_ENGINE_CLASS + 1];
- 
- 	struct resource mch_res;
- 
--- 
-2.32.0
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
+You may want to #ifdef the inclusion of asm/hypervisor.h as well. It 
+only happens to work by chance since Arm has that file. Although it 
+becomes uglier at that point..
+
+There is a function in there which appears may give you a way to query 
+if under hypervisor, based on some feature flags, but you'd have to ask 
+Arm experts if that would make sense.
+
+Regards,
+
+Tvrtko
+
+>   }
+>   
+>   bool i915_vtd_active(struct drm_i915_private *i915);
