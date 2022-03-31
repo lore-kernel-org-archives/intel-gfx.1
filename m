@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D017FC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 18:46:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D36E3C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 18:46:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C08610F484;
-	Thu, 31 Mar 2022 18:46:14 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4566E10F480;
- Thu, 31 Mar 2022 18:46:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F50110F498;
+	Thu, 31 Mar 2022 18:46:21 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B32E10F484;
+ Thu, 31 Mar 2022 18:46:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648752368; x=1680288368;
+ t=1648752372; x=1680288372;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=I2MQNoQcU9RRZI0i0XgrxX9NiVM1o/EA1egRGwCD4kg=;
- b=NqA0X6L/VJpPbjD4uXdUyGBO2wUwnzHmxVCEQBaGmyov8YWJdnkArM6G
- VG+Hw/9q0EThm5Dp12RMHjK4HEr3bWVTPDKiqHLGQSeksS9ZhcgNfKAQd
- 6D+elDb7EnNsbOLJlXOz8WHgVy3F9plEKNNPmIQM7QhYHNHHRBt0vNzAp
- Oq4hL4EZ1BdXYMgN7MYbwLrYdYEOmakXCX41Ch0WC5J0KUltIfGkYKbyt
- BjEXrGNlPGDUSuOKk+P3YvI0vfAqcBcoYV+TKYwFja4P+3on6PAjWaCPw
- qDJ5alxUFJV4c1+G6CHilK11JyHT6HRXu020TtRDfoqy/6BHCQfxqRvPk g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="346364730"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="346364730"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 11:45:37 -0700
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="720574376"
+ bh=9mHjZBzFu+ZT78deVICwPRULZVVYzoQtUaNUQxZnSOQ=;
+ b=JlvUa+wFzuZnGKDpvUXwdOnnkPewBzNbC/nJVN15tCALGhRtwNFCoQu6
+ cH/vg5wVJHe7CrW9HAN6xhHr4DSLcXy4zH/IBQDx9biBWPOnOOs9RGiRf
+ mWAhDn2UtwJs6oaZHxUtAjyep8HvWCV4OFT5PWsAYHuq4FKCJLomBsnni
+ O/qnmePfSz4Fj8q+H/95LPz5qMg468EE4SAMyk9I5ucVInyFCRnrkno/W
+ k6U1CkDR7TkG6uOzVq8fTJjnvmrLdFx7VYysxldhVoTKCxk56Mkxvyd1M
+ EmMhvQmyL90uYsvDE8oSTJjmap7lfZL2RbmB/2XNTQg6JoVtgwmzmFcSh g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="257505587"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="257505587"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 11:45:59 -0700
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="654985245"
 Received: from gluca-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.48.194])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 11:45:35 -0700
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 11:45:57 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 21:45:02 +0300
-Message-Id: <15220580f07b63c92a3e448347cf59b297990407.1648752228.git.jani.nikula@intel.com>
+Date: Thu, 31 Mar 2022 21:45:07 +0300
+Message-Id: <ea8ccd654b5beca6ccf99666754aea09c836b6a5.1648752228.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1648752228.git.jani.nikula@intel.com>
 References: <cover.1648752228.git.jani.nikula@intel.com>
@@ -45,7 +45,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 05/12] drm/edid: clean up edid_is_zero()
+Subject: [Intel-gfx] [PATCH v2 10/12] drm/edid: split out invalid block
+ filtering to a separate function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,62 +63,90 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplify, rename, take void pointer. No need for the drm_ prefix for
-internal helpers.
+It's such a special case there's no point in keeping it inline in the
+happy day scenario, confusing matters.
+
+v2: Rebase on the invalid block filtering fix
 
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 52 ++++++++++++++++++++------------------
+ 1 file changed, 28 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 92e51f502fde..081aff2d1068 100644
+index 4803033d44fd..73bb2c4a7014 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -1627,12 +1627,9 @@ static int edid_block_tag(const void *_block)
- 	return block[0];
+@@ -1823,6 +1823,33 @@ bool drm_edid_is_valid(struct edid *edid)
  }
+ EXPORT_SYMBOL(drm_edid_is_valid);
  
--static bool drm_edid_is_zero(const u8 *in_edid, int length)
-+static bool edid_is_zero(const void *edid, int length)
- {
--	if (memchr_inv(in_edid, 0, length))
--		return false;
--
--	return true;
-+	return !memchr_inv(edid, 0, length);
- }
- 
++static struct edid *edid_filter_invalid_blocks(const struct edid *edid,
++					       int valid_extensions)
++{
++	struct edid *new, *dest_block;
++	int i;
++
++	new = kmalloc_array(valid_extensions + 1, EDID_LENGTH, GFP_KERNEL);
++	if (!new)
++		goto out;
++
++	dest_block = new;
++	for (i = 0; i <= edid->extensions; i++) {
++		const void *block = edid + i;
++
++		if (edid_block_valid(block, i == 0))
++			memcpy(dest_block++, block, EDID_LENGTH);
++	}
++
++	new->checksum += new->extensions - valid_extensions;
++	new->extensions = valid_extensions;
++
++out:
++	kfree(edid);
++
++	return new;
++}
++
+ #define DDC_SEGMENT_ADDR 0x30
  /**
-@@ -1750,7 +1747,7 @@ bool drm_edid_block_valid(u8 *raw_edid, int block, bool print_bad_edid,
+  * drm_do_probe_ddc_edid() - get EDID information via I2C
+@@ -2072,32 +2099,9 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+ 	}
  
- bad:
- 	if (print_bad_edid) {
--		if (drm_edid_is_zero(raw_edid, EDID_LENGTH)) {
-+		if (edid_is_zero(raw_edid, EDID_LENGTH)) {
- 			pr_notice("EDID block is all zeroes\n");
- 		} else {
- 			pr_notice("Raw EDID:\n");
-@@ -1878,7 +1875,7 @@ static void connector_bad_edid(struct drm_connector *connector,
- 		u8 *block = edid + i * EDID_LENGTH;
- 		char prefix[20];
+ 	if (valid_extensions != edid->extensions) {
+-		struct edid *dest_block;
+-		int i;
+-
+ 		connector_bad_edid(connector, (u8 *)edid, edid->extensions + 1);
  
--		if (drm_edid_is_zero(block, EDID_LENGTH))
-+		if (edid_is_zero(block, EDID_LENGTH))
- 			sprintf(prefix, "\t[%02x] ZERO ", i);
- 		else if (!drm_edid_block_valid(block, i, false, NULL))
- 			sprintf(prefix, "\t[%02x] BAD  ", i);
-@@ -1955,7 +1952,7 @@ static struct edid *drm_do_get_edid_base_block(struct drm_connector *connector,
- 			goto out;
- 		if (drm_edid_block_valid(edid, 0, false, edid_corrupt))
- 			break;
--		if (i == 0 && drm_edid_is_zero(edid, EDID_LENGTH)) {
-+		if (i == 0 && edid_is_zero(edid, EDID_LENGTH)) {
- 			if (null_edid_counter)
- 				(*null_edid_counter)++;
- 			goto carp;
+-		new = kmalloc_array(valid_extensions + 1, EDID_LENGTH,
+-				    GFP_KERNEL);
+-		if (!new)
+-			goto out;
+-
+-		dest_block = new;
+-		for (i = 0; i <= edid->extensions; i++) {
+-			void *block = edid + i;
+-
+-			if (!edid_block_valid(block, i == 0))
+-				continue;
+-
+-			memcpy(dest_block, block, EDID_LENGTH);
+-			dest_block++;
+-		}
+-
+-		new->checksum += new->extensions - valid_extensions;
+-		new->extensions = valid_extensions;
+-
+-		kfree(edid);
+-		edid = new;
++		edid = edid_filter_invalid_blocks(edid, valid_extensions);
+ 	}
+ 
+ 	return edid;
 -- 
 2.30.2
 
