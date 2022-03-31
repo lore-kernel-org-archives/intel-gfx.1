@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF461C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 14:09:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 335DCC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 14:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB2AC10E27D;
-	Thu, 31 Mar 2022 14:09:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50E8B10E9D9;
+	Thu, 31 Mar 2022 14:09:33 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 166A110E24B;
- Thu, 31 Mar 2022 14:09:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5EC610E732;
+ Thu, 31 Mar 2022 14:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648735768; x=1680271768;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=3y1t0uS93fUnI9dDde71NLHWhxoCHp/Vnmk79acWmoo=;
- b=YleLVREdYaOQB/8t9cmVDYQ0FTVBKaJu4e9E/psfKvaNyqbr66JYrPD9
- w3xwb5IGwS7MqFcZdqjH4HOxS7Et710r53xbKhFJ6AbmE3VpF6SPcWLSp
- oaQWyb1hJcu/r0ZlLQINJECLuCEAn6KrK9GoPJKdpLSF4CiFG4/2o4mEM
- eZ3csaNQPTqsDv1Khj55V39d9WQmAMDQEMIZBGi1uyKZ8mIM/yXHAqq9P
- UZBY1riLvhAIAHm8DfReUBgCHYRnyTGUHFXRfp1Xy8BAas5XpJr+dHDYC
- KIralLUzqkz2IujJq6VcaRT9HRaTfd3a4S2IBOy6SGHCFhQye0NLaIsP0 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="259825408"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="259825408"
+ t=1648735771; x=1680271771;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=FlWDQk8MMacsZSzIW5h4WTGe1Ga9Hv1aPUt1FJup1nI=;
+ b=PDmnPK6DORvauPmfzfD9HT8ULL7jRFKq1twGGuDB1rsUbigKHcDtfZLE
+ oNV3d6Ux5/VHDRWtD7nnrBxvCPj2QmlyXrLZ1OZP6QQRNNU+lLpEThbty
+ WsHJ05NT/fslD0cykMUa/kThYjRhe0CQQzMq0imdhjauvFYF6N4t78Vu4
+ AMuLWYfNtjQ07jxjAFM4qOgjSMkF3x28rtmHkpV1+hM0d1sC5IZodwSiU
+ d+xSGP6p4OQZCBDWZ8P4vSVpW+SnMO7+uMnjuW+LE4hh/PYRFilB+FZxE
+ ll+YWAgpO6EOOSUSR+3+qmsTJWfMvtAM2K904LWXGTdJ1Z5NmEAdUmsVA A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="259825424"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="259825424"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 07:09:27 -0700
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="606114156"
+ 31 Mar 2022 07:09:30 -0700
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="606114182"
 Received: from juanniex-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.215.247])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 07:09:26 -0700
+ 31 Mar 2022 07:09:29 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 15:09:12 +0100
-Message-Id: <20220331140920.2986689-1-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 31 Mar 2022 15:09:15 +0100
+Message-Id: <20220331140920.2986689-4-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220331140920.2986689-1-tvrtko.ursulin@linux.intel.com>
+References: <20220331140920.2986689-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/8] Per client GPU utilisation
+Subject: [Intel-gfx] [PATCH 3/8] drm/i915: Track runtime spent in closed and
+ unreachable GEM contexts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,101 +63,104 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Just a rebase - fully reviewed now.
+As contexts are abandoned we want to remember how much GPU time they used
+(per class) so later we can used it for smarter purposes.
 
-Example of the intel_gpu_top output:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-intel-gpu-top: Intel Tigerlake (Gen12) @ /dev/dri/card0 -  220/ 221 MHz
-    70% RC6;  0.62/ 7.08 W;      760 irqs/s
-
-         ENGINES     BUSY                                 MI_SEMA MI_WAIT
-       Render/3D   23.06% |██████▊                      |      0%      0%
-         Blitter    0.00% |                             |      0%      0%
-           Video    5.40% |█▋                           |      0%      0%
-    VideoEnhance   20.67% |██████                       |      0%      0%
-
-   PID              NAME  Render/3D    Blitter      Video    VideoEnhance
-  3082               mpv |          ||          ||▌         ||██        |
-  3117         neverball |█▉        ||          ||          ||          |
-     1           systemd |▍         ||          ||          ||          |
-  2338       gnome-shell |          ||          ||          ||          |
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Example of the gputop output:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-DRM minor 0
-    PID               NAME    render       copy       video
-    3816          kwin_x11 |███▎      ||          ||          ||          |
-    3523              Xorg |▊         ||          ||          ||          |
- 1120449               mpv |          ||          ||▋         ||          |
- 1120529          glxgears |▋         ||          ||          ||          |
- 1120449               mpv |▍         ||          ||          ||          |
-    3860       plasmashell |▏         ||          ||          ||          |
-    4764           krunner |          ||          ||          ||          |
-  575206            chrome |          ||          ||          ||          |
-  833481           firefox |          ||          ||          ||          |
-  892924       thunderbird |          ||          ||          ||          |
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+As GEM contexts are closed we want to have the DRM client remember how
+much GPU time they used (per class) so later we can used it for smarter
+purposes.
 
 v2:
- * Added prototype of possible amdgpu changes and spec updates to align with the
-   common spec.
+ * Size past runtimes array by uabi class, not internal.
 
-v3:
- * Documented that 'drm-driver' tag shall correspond with
-   struct drm_driver.name.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com> # v1
+Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk> # v1
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 25 +++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_drm_client.h      |  9 ++++++++
+ 2 files changed, 32 insertions(+), 2 deletions(-)
 
-v4:
- * Dropped amdgpu conversion from the series for now until AMD folks can find
-   some time to finish that patch.
-
-v5:
- * Added drm-engine-capacity-* tag.
- * Couple small tweaks.
-
-v6:
- * Just a rebase and r-b tags updated.
-
-Test-with: 20220331140348.2985832-1-tvrtko.ursulin@linux.intel.com
-
-Tvrtko Ursulin (8):
-  drm/i915: Explicitly track DRM clients
-  drm/i915: Make GEM contexts track DRM clients
-  drm/i915: Track runtime spent in closed and unreachable GEM contexts
-  drm/i915: Track all user contexts per client
-  drm/i915: Track context current active time
-  drm: Document fdinfo format specification
-  drm/i915: Count engine instances per uabi class
-  drm/i915: Expose client engine utilisation via fdinfo
-
- Documentation/gpu/drm-usage-stats.rst         | 112 +++++++++++++
- Documentation/gpu/i915.rst                    |  28 ++++
- Documentation/gpu/index.rst                   |   1 +
- drivers/gpu/drm/i915/Makefile                 |   1 +
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |  43 ++++-
- .../gpu/drm/i915/gem/i915_gem_context_types.h |   6 +
- drivers/gpu/drm/i915/gt/intel_context.c       |  27 +++-
- drivers/gpu/drm/i915/gt/intel_context.h       |  15 +-
- drivers/gpu/drm/i915/gt/intel_context_types.h |  24 ++-
- drivers/gpu/drm/i915/gt/intel_engine_user.c   |  11 +-
- .../drm/i915/gt/intel_execlists_submission.c  |  23 ++-
- .../gpu/drm/i915/gt/intel_gt_clock_utils.c    |   4 +
- drivers/gpu/drm/i915/gt/intel_lrc.c           |  27 ++--
- drivers/gpu/drm/i915/gt/intel_lrc.h           |  27 +++-
- drivers/gpu/drm/i915/gt/selftest_lrc.c        |  10 +-
- drivers/gpu/drm/i915/i915_driver.c            |   9 ++
- drivers/gpu/drm/i915/i915_drm_client.c        | 151 ++++++++++++++++++
- drivers/gpu/drm/i915/i915_drm_client.h        |  68 ++++++++
- drivers/gpu/drm/i915/i915_drv.h               |   4 +
- drivers/gpu/drm/i915/i915_file_private.h      |   3 +
- drivers/gpu/drm/i915/i915_gem.c               |  21 ++-
- drivers/gpu/drm/i915/i915_gpu_error.c         |   9 +-
- drivers/gpu/drm/i915/i915_gpu_error.h         |   2 +-
- 23 files changed, 566 insertions(+), 60 deletions(-)
- create mode 100644 Documentation/gpu/drm-usage-stats.rst
- create mode 100644 drivers/gpu/drm/i915/i915_drm_client.c
- create mode 100644 drivers/gpu/drm/i915/i915_drm_client.h
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 6781ee34646c..50cc87b0cf97 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1031,23 +1031,44 @@ static void free_engines_rcu(struct rcu_head *rcu)
+ 	free_engines(engines);
+ }
+ 
++static void accumulate_runtime(struct i915_drm_client *client,
++			       struct i915_gem_engines *engines)
++{
++	struct i915_gem_engines_iter it;
++	struct intel_context *ce;
++
++	if (!client)
++		return;
++
++	/* Transfer accumulated runtime to the parent GEM context. */
++	for_each_gem_engine(ce, engines, it) {
++		unsigned int class = ce->engine->uabi_class;
++
++		GEM_BUG_ON(class >= ARRAY_SIZE(client->past_runtime));
++		atomic64_add(intel_context_get_total_runtime_ns(ce),
++			     &client->past_runtime[class]);
++	}
++}
++
+ static int
+ engines_notify(struct i915_sw_fence *fence, enum i915_sw_fence_notify state)
+ {
+ 	struct i915_gem_engines *engines =
+ 		container_of(fence, typeof(*engines), fence);
++	struct i915_gem_context *ctx = engines->ctx;
+ 
+ 	switch (state) {
+ 	case FENCE_COMPLETE:
+ 		if (!list_empty(&engines->link)) {
+-			struct i915_gem_context *ctx = engines->ctx;
+ 			unsigned long flags;
+ 
+ 			spin_lock_irqsave(&ctx->stale.lock, flags);
+ 			list_del(&engines->link);
+ 			spin_unlock_irqrestore(&ctx->stale.lock, flags);
+ 		}
+-		i915_gem_context_put(engines->ctx);
++		accumulate_runtime(ctx->client, engines);
++		i915_gem_context_put(ctx);
++
+ 		break;
+ 
+ 	case FENCE_FREE:
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index e8986ad51176..cbc3161ab021 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -9,6 +9,10 @@
+ #include <linux/kref.h>
+ #include <linux/xarray.h>
+ 
++#include "gt/intel_engine_types.h"
++
++#define I915_LAST_UABI_ENGINE_CLASS I915_ENGINE_CLASS_VIDEO_ENHANCE
++
+ struct drm_i915_private;
+ 
+ struct i915_drm_clients {
+@@ -24,6 +28,11 @@ struct i915_drm_client {
+ 	unsigned int id;
+ 
+ 	struct i915_drm_clients *clients;
++
++	/**
++	 * @past_runtime: Accumulation of pphwsp runtimes from closed contexts.
++	 */
++	atomic64_t past_runtime[I915_LAST_UABI_ENGINE_CLASS + 1];
+ };
+ 
+ void i915_drm_clients_init(struct i915_drm_clients *clients,
 -- 
 2.32.0
 
