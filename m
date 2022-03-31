@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84BC8C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 18:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F4FFC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 18:46:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37C5810F47C;
-	Thu, 31 Mar 2022 18:46:05 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4887810F478;
- Thu, 31 Mar 2022 18:46:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F0FA10F47F;
+	Thu, 31 Mar 2022 18:46:06 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E67410F47F;
+ Thu, 31 Mar 2022 18:46:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648752363; x=1680288363;
+ t=1648752365; x=1680288365;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=R3p5aWr/Rrgl2uqycgY/KbEOcV+eBKqBaQU3u3ZlCC8=;
- b=MqER9pRe7yTho1zsxNPDIyKT4i+Lznfy9Gtmz4r3KqY5A5iGt1x56K4d
- rfvlit17Rwq41PLSqbllrrOwOX2uqtUedlszdmQRU8l76bYxLRGYhoP6C
- GR0O94mF8vV492THE8HuFVNbUhUv+B4Up0hbQyBI32/G4ys6057YhIFdO
- rCsYl3uEScqsp76h2GSFWOSwKMwNIjZZPYqMmfVzE5tAkBEeNX53mqGB1
- ++Ei8gVCw0wRPm1XY71c8f5aEoEf0/DwD1YU9259CVVgsZg+TTvYJnxWc
- dFhcDhqcWigo4muNpsG9ekFDEuLRdaynB7BuDcKPY2M7uuHeoVKtbKmg5 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="259901204"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="259901204"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 11:45:54 -0700
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="720574442"
+ bh=oNB+rFH2a4nQLOujdW956cFCjgoPEESTeQWyM8nFN7M=;
+ b=eLesIu6FjRHyQJf5Xd30/stxk0fQLehETVhLPtGcr6RvAa9wh6+m1VZB
+ Ox0aomjvhU/UpzOk/br4BNd5/5aQd67w3vVxCSTLwS1BZ8bveaWAvl/2h
+ jfzpDTF+/PrXxbzmdm/vui0wSlxLW7/fTFm8pvka0C23sfQRHSBvMeGN9
+ 2idQ+dghH9oJTEXiqnDn2a/N7H81M2UtXhUg5Em0g5ddPplOLD9PAI1UJ
+ kJS2PqFGefQPfxgbvay0HsAlacM4/nlgOGdim70g+gN5RnbhaqKU73GTJ
+ ZzzHsuJTcLp7Y7n8ny0gEE5tCRlUiDIEnGhwNyBWJ4Y20d4zOXqI5hIwU Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="284846399"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="284846399"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 11:46:04 -0700
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="503865326"
 Received: from gluca-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.48.194])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 11:45:53 -0700
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 11:46:02 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 21:45:06 +0300
-Message-Id: <aa25131c3454c7dbc1e8fdb46549f3787bdf6354.1648752228.git.jani.nikula@intel.com>
+Date: Thu, 31 Mar 2022 21:45:08 +0300
+Message-Id: <6215f85b01c579a44c66129d2b5f41e1ab9294de.1648752228.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1648752228.git.jani.nikula@intel.com>
 References: <cover.1648752228.git.jani.nikula@intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 09/12] drm/edid: simplify block check when
- filtering invalid blocks
+Subject: [Intel-gfx] [PATCH v2 11/12] drm/edid: track invalid blocks in
+ drm_do_get_edid()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,47 +63,73 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There's no need to handle complicated scenarios or debug log when
-filtering blocks that have already been identified as invalid. Simplify
-by adding an edid_block_valid() helper that operates on const data and
-prints nothing.
-
-(Finally, here's the justification for the previously added separate
-edid_block_status_valid() function!)
+Track invalid blocks instead of valid extensions to minimize impact on
+the happy day scenario, and hide the details in the separate function.
 
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_edid.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index a967e6e65ab5..4803033d44fd 100644
+index 73bb2c4a7014..8bf0ae72fd2c 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -1714,6 +1714,12 @@ static bool edid_block_status_valid(enum edid_block_status status, int tag)
- 		(status == EDID_BLOCK_CHECKSUM && tag == CEA_EXT);
- }
+@@ -1824,9 +1824,10 @@ bool drm_edid_is_valid(struct edid *edid)
+ EXPORT_SYMBOL(drm_edid_is_valid);
  
-+static bool edid_block_valid(const void *block, bool base)
-+{
-+	return edid_block_status_valid(edid_block_check(block, base),
-+				       edid_block_tag(block));
-+}
-+
- /**
-  * drm_edid_block_valid - Sanity check the EDID block (base or extension)
-  * @raw_edid: pointer to raw EDID block
-@@ -2080,7 +2086,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
- 		for (i = 0; i <= edid->extensions; i++) {
- 			void *block = edid + i;
+ static struct edid *edid_filter_invalid_blocks(const struct edid *edid,
+-					       int valid_extensions)
++					       int invalid_blocks)
+ {
+ 	struct edid *new, *dest_block;
++	int valid_extensions = edid->extensions - invalid_blocks;
+ 	int i;
  
--			if (!drm_edid_block_valid(block, i, false, NULL))
-+			if (!edid_block_valid(block, i == 0))
- 				continue;
+ 	new = kmalloc_array(valid_extensions + 1, EDID_LENGTH, GFP_KERNEL);
+@@ -2062,7 +2063,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+ 			      size_t len),
+ 	void *data)
+ {
+-	int j, valid_extensions = 0;
++	int j, invalid_blocks = 0;
+ 	struct edid *edid, *new, *override;
  
- 			memcpy(dest_block, block, EDID_LENGTH);
+ 	override = drm_get_override_edid(connector);
+@@ -2073,12 +2074,10 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+ 	if (!edid)
+ 		return NULL;
+ 
+-	/* if there's no extensions or no connector, we're done */
+-	valid_extensions = edid->extensions;
+-	if (valid_extensions == 0)
++	if (edid->extensions == 0)
+ 		return edid;
+ 
+-	new = krealloc(edid, (valid_extensions + 1) * EDID_LENGTH, GFP_KERNEL);
++	new = krealloc(edid, (edid->extensions + 1) * EDID_LENGTH, GFP_KERNEL);
+ 	if (!new)
+ 		goto out;
+ 	edid = new;
+@@ -2095,13 +2094,13 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+ 		}
+ 
+ 		if (try == 4)
+-			valid_extensions--;
++			invalid_blocks++;
+ 	}
+ 
+-	if (valid_extensions != edid->extensions) {
++	if (invalid_blocks) {
+ 		connector_bad_edid(connector, (u8 *)edid, edid->extensions + 1);
+ 
+-		edid = edid_filter_invalid_blocks(edid, valid_extensions);
++		edid = edid_filter_invalid_blocks(edid, invalid_blocks);
+ 	}
+ 
+ 	return edid;
 -- 
 2.30.2
 
