@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41475C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 11:28:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CE26C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Mar 2022 11:28:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6BC110F2FF;
-	Thu, 31 Mar 2022 11:28:50 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBB2610F2FF
- for <intel-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 11:28:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 752EA10F314;
+	Thu, 31 Mar 2022 11:28:51 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D787910F30B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 31 Mar 2022 11:28:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648726128; x=1680262128;
+ t=1648726126; x=1680262126;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=7/w00WpShgniglqODY0pi4IoXqSSzu9Io7Ub3og0sE0=;
- b=T2h+WhKYniY6jVTZrfwuuZHlohpjkqi80LHH1YgZ06ya2rwXezJi72ee
- 660TOskMo09M7OcuG1SVTLqH3xPEHUzm+O4GSUuxbkC1p2/n1Y/hH+MoH
- ooqEv2wdZnp3KUvrnl4iGGFDxd+y9Yp2LAS2HcYX4cZvOtx6s5BFaYMXN
- 7qetnOXD30k5KRAhc4XMTaDNh8UHzcV0wYmgTlKyGNafUmjD7ts4bjkjv
- V6HEvQ7LXSklKaQ/YR1KUi4/bSsG8Ami0RzyLm1QdA/WT2Ixp+mrqqZKc
- blwgcseiGFdv6N/lNweqA720Z7/QCP1xzQfHylPaDBl10mQmxxaB98ZWe w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="258633357"
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="258633357"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 04:28:48 -0700
+ bh=eJXUeGSuw3KfA6HEZmt3G9dXIpmmfWxhXS7UAtFwEj8=;
+ b=UwPtXj1MbCWAK6fwlvdnLH9KDhpEdBoXgI7ZtEJHksUbY27WH682dVy5
+ QrJTDqICOHAWqKeppotWL3CVfWIo0ekmMwOa3BiNdki3kNuM2IsDhRNBh
+ 5qLea4xQlYNx12RKfg423GhmCrQGeNGBN4XPzuxqHifgpFvPvWMRmGLto
+ Lzofv2/E3yl4SFtSfI995dgSv+fmwIe8/imbUv/M1KUG3g0yHzjIZqioX
+ APXkx0rZLDvtA8oHTI7SiDKCS3IrSh7VpZxjHJQRl7wNediUrPNWaD4ip
+ eEtHD9iMduDuDckQv4XtNa22ZliSOYtVjOrp+dzmQq7avF9OrBKBWSU70 A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10302"; a="240394804"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="240394804"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2022 04:28:39 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="522302394"
+X-IronPort-AV: E=Sophos;i="5.90,225,1643702400"; d="scan'208";a="695454130"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.61])
- by orsmga006.jf.intel.com with SMTP; 31 Mar 2022 04:28:46 -0700
+ by fmsmga001.fm.intel.com with SMTP; 31 Mar 2022 04:28:37 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 31 Mar 2022 14:28:45 +0300
+ Thu, 31 Mar 2022 14:28:36 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 31 Mar 2022 14:28:19 +0300
-Message-Id: <20220331112822.11462-9-ville.syrjala@linux.intel.com>
+Date: Thu, 31 Mar 2022 14:28:16 +0300
+Message-Id: <20220331112822.11462-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220331112822.11462-1-ville.syrjala@linux.intel.com>
 References: <20220331112822.11462-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 08/11] drm/i915: Allow higher refresh rate
- alternate fixed modes
+Subject: [Intel-gfx] [PATCH v2 05/11] drm/i915: Combine the EDID
+ fixed_mode+downclock_mode lookup into one
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,78 +64,115 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We shouldn't restrict ourselves to just downclock modes with
-lower refresh rate than the preferred mode. Laptops these
-days can offer higher refresh rate modes as well.
+The intel_panel_add_edid_fixed_mode() vs.
+intel_panel_add_edid_downclock_mode() split is not really
+helpful. Let's just roll those into a single function so
+that the connector init code doesn't have to care too much
+about this. All we need to know is whether DRRS should be
+allowed or not.
 
-Remove the arbitrary limit and allow all modes that, apart
-from the clock, match the preferred mode.
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/125
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_panel.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c    |  6 ++----
+ drivers/gpu/drm/i915/display/intel_lvds.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_panel.c | 11 +++++++++--
+ drivers/gpu/drm/i915/display/intel_panel.h |  3 +--
+ drivers/gpu/drm/i915/display/intel_sdvo.c  |  2 +-
+ 5 files changed, 14 insertions(+), 10 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index e539bc315d7b..abfdaa0c7382 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5072,10 +5072,8 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 	}
+ 	intel_connector->edid = edid;
+ 
+-	intel_panel_add_edid_fixed_mode(intel_connector);
+-	if (intel_panel_preferred_fixed_mode(intel_connector) &&
+-	    intel_edp_has_drrs(intel_dp))
+-		intel_panel_add_edid_downclock_mode(intel_connector);
++	intel_panel_add_edid_fixed_modes(intel_connector,
++					 intel_edp_has_drrs(intel_dp));
+ 
+ 	/* MSO requires information from the EDID */
+ 	intel_edp_mso_init(intel_dp);
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+index 193daffadc90..73129d21f5e5 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.c
++++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+@@ -968,7 +968,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
+ 	intel_connector->edid = edid;
+ 
+ 	/* Try EDID first */
+-	intel_panel_add_edid_fixed_mode(intel_connector);
++	intel_panel_add_edid_fixed_modes(intel_connector, false);
+ 
+ 	/* Failed to get EDID, what about VBT? */
+ 	if (!intel_panel_preferred_fixed_mode(intel_connector))
 diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index d359c8050fdc..f3e52e7413fe 100644
+index 5ecc6fc80588..3b1da9aa023f 100644
 --- a/drivers/gpu/drm/i915/display/intel_panel.c
 +++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -149,29 +149,29 @@ int intel_panel_compute_config(struct intel_connector *connector,
- 	return 0;
+@@ -159,7 +159,7 @@ static bool is_downclock_mode(const struct drm_display_mode *downclock_mode,
+ 		downclock_mode->clock < fixed_mode->clock;
  }
  
--static bool is_downclock_mode(const struct drm_display_mode *downclock_mode,
--			      const struct drm_display_mode *fixed_mode)
-+static bool is_alt_fixed_mode(const struct drm_display_mode *mode,
-+			      const struct drm_display_mode *preferred_mode)
- {
--	return drm_mode_match(downclock_mode, fixed_mode,
-+	return drm_mode_match(mode, preferred_mode,
- 			      DRM_MODE_MATCH_TIMINGS |
- 			      DRM_MODE_MATCH_FLAGS |
- 			      DRM_MODE_MATCH_3D_FLAGS) &&
--		downclock_mode->clock < fixed_mode->clock;
-+		mode->clock != preferred_mode->clock;
- }
- 
- static void intel_panel_add_edid_downclock_modes(struct intel_connector *connector)
+-void intel_panel_add_edid_downclock_mode(struct intel_connector *connector)
++static void intel_panel_add_edid_downclock_mode(struct intel_connector *connector)
  {
  	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
--	const struct drm_display_mode *fixed_mode =
-+	const struct drm_display_mode *preferred_mode =
- 		intel_panel_preferred_fixed_mode(connector);
- 	struct drm_display_mode *mode, *next;
+ 	const struct drm_display_mode *fixed_mode =
+@@ -202,7 +202,7 @@ void intel_panel_add_edid_downclock_mode(struct intel_connector *connector)
+ 	list_add_tail(&downclock_mode->head, &connector->panel.fixed_modes);
+ }
  
- 	list_for_each_entry_safe(mode, next, &connector->base.probed_modes, head) {
--		if (!is_downclock_mode(mode, fixed_mode))
-+		if (!is_alt_fixed_mode(mode, preferred_mode))
- 			continue;
+-void intel_panel_add_edid_fixed_mode(struct intel_connector *connector)
++static void intel_panel_add_edid_fixed_mode(struct intel_connector *connector)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+ 	const struct drm_display_mode *scan;
+@@ -244,6 +244,13 @@ void intel_panel_add_edid_fixed_mode(struct intel_connector *connector)
+ 	list_add_tail(&fixed_mode->head, &connector->panel.fixed_modes);
+ }
  
- 		drm_dbg_kms(&dev_priv->drm,
--			    "[CONNECTOR:%d:%s] using EDID downclock mode: " DRM_MODE_FMT "\n",
-+			    "[CONNECTOR:%d:%s] using alternate EDID fixed mode: " DRM_MODE_FMT "\n",
- 			    connector->base.base.id, connector->base.name,
- 			    DRM_MODE_ARG(mode));
++void intel_panel_add_edid_fixed_modes(struct intel_connector *connector, bool has_drrs)
++{
++	intel_panel_add_edid_fixed_mode(connector);
++	if (intel_panel_preferred_fixed_mode(connector) && has_drrs)
++		intel_panel_add_edid_downclock_mode(connector);
++}
++
+ static void intel_panel_add_fixed_mode(struct intel_connector *connector,
+ 				       struct drm_display_mode *fixed_mode,
+ 				       const char *type)
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
+index 5eaa2a1c2337..2e32bb728beb 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.h
++++ b/drivers/gpu/drm/i915/display/intel_panel.h
+@@ -40,8 +40,7 @@ int intel_panel_fitting(struct intel_crtc_state *crtc_state,
+ 			const struct drm_connector_state *conn_state);
+ int intel_panel_compute_config(struct intel_connector *connector,
+ 			       struct drm_display_mode *adjusted_mode);
+-void intel_panel_add_edid_fixed_mode(struct intel_connector *connector);
+-void intel_panel_add_edid_downclock_mode(struct intel_connector *connector);
++void intel_panel_add_edid_fixed_modes(struct intel_connector *connector, bool has_drrs);
+ void intel_panel_add_vbt_lfp_fixed_mode(struct intel_connector *connector);
+ void intel_panel_add_vbt_sdvo_fixed_mode(struct intel_connector *connector);
+ void intel_panel_add_encoder_fixed_mode(struct intel_connector *connector,
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+index 866e05c1a49d..ab88d8b783e6 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.c
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+@@ -2907,7 +2907,7 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
  
-@@ -179,7 +179,7 @@ static void intel_panel_add_edid_downclock_modes(struct intel_connector *connect
+ 	if (!intel_panel_preferred_fixed_mode(intel_connector)) {
+ 		intel_ddc_get_modes(connector, &intel_sdvo->ddc);
+-		intel_panel_add_edid_fixed_mode(intel_connector);
++		intel_panel_add_edid_fixed_modes(intel_connector, false);
  	}
- }
  
--static void intel_panel_add_edid_fixed_mode(struct intel_connector *connector)
-+static void intel_panel_add_edid_preferred_mode(struct intel_connector *connector)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct drm_display_mode *scan, *fixed_mode = NULL;
-@@ -223,7 +223,7 @@ static void intel_panel_destroy_probed_modes(struct intel_connector *connector)
- 
- void intel_panel_add_edid_fixed_modes(struct intel_connector *connector, bool has_drrs)
- {
--	intel_panel_add_edid_fixed_mode(connector);
-+	intel_panel_add_edid_preferred_mode(connector);
- 	if (intel_panel_preferred_fixed_mode(connector) && has_drrs)
- 		intel_panel_add_edid_downclock_modes(connector);
- 	intel_panel_destroy_probed_modes(connector);
+ 	intel_panel_init(intel_connector);
 -- 
 2.34.1
 
