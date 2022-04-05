@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A395CC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 15:08:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9AF9C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 15:08:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A54910E90D;
-	Tue,  5 Apr 2022 15:07:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 355DA10E8F7;
+	Tue,  5 Apr 2022 15:08:02 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9C2910E8E1;
- Tue,  5 Apr 2022 15:07:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 517B510E8F7;
+ Tue,  5 Apr 2022 15:08:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649171278; x=1680707278;
+ t=1649171281; x=1680707281;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=b0JQ8nwkBzNoQ8uotPUYMhFyJhn8jMd8eYx0G5tzSRA=;
- b=lVnHGvMKIl0NxbJ+le+XG36eb+N433tn2iMaxW+5VBDUybZZEfNm9PDE
- kWD50+s8BgqYGDwXPQRz6o8JS2i8LeKFpZ5rq9uPgxMxeKeFN/UwsEGXz
- siosBnBb410YRvvtMtS2GjFUTg59SjdIG/jxZyxj5LExdqnbS9H78PoJV
- GuBS5E/N6qJbaVuu4M7Kdx0gEDhiMCwaD+ex2oj5N7s7/IfZ9wiPnAidu
- 0kfuqLhu6xoRucA5SWoDVjykIHPOj+TRJ1WuDeuMMXDG2mmItKhkkPwUI
- ujlP5LHyD7dyaTP1Pfch/RT2PmHg7ans+MtC13/Ho/ZazKD+7v7waLQhP w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10307"; a="240706458"
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="240706458"
+ bh=UE2vxJt6gyQ89iSeWVNxs91pR4a1kC/8Q0bopc3qPtc=;
+ b=T+V6U5kIIJIT5kCG+rgWtqdOHUlXbSltFCpdEZZ8zpEFTtBltmi4mKyA
+ ZWA79ZLCz12S7f/bhEvLPlo4DazNbqgBJe9YgB+12xjiHFM7NkvzDOPw5
+ jmezhmEqwUkTxkCpGSdOJ58rVdRDEdQeKvtxtPTiBD/bk8ZpuCQLgfSVY
+ la4h6a4Ijo+oFVxq1umfqLcojJXZvnyPKOrepg4oWzzTmqBfAIOoGYxpd
+ wmV9TaX0AlUNidiseBsSSakD8YHWz9zNkMY9spulb0xHfUNAtucNoFcfZ
+ q1NePtHyzf9FPxz4MpgHvC+mXtiW/PPeuQooJ+pKdaJZ/IHT6w2PeeJCX g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10307"; a="240706473"
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="240706473"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 08:07:58 -0700
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="641644305"
+ 05 Apr 2022 08:08:01 -0700
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="641644330"
 Received: from ramaling-i9x.iind.intel.com ([10.203.144.108])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 08:07:57 -0700
+ 05 Apr 2022 08:08:00 -0700
 From: Ramalingam C <ramalingam.c@intel.com>
 To: intel-gfx <intel-gfx@lists.freedesktop.org>,
  dri-devel <dri-devel@lists.freedesktop.org>
-Date: Tue,  5 Apr 2022 20:38:33 +0530
-Message-Id: <20220405150840.29351-3-ramalingam.c@intel.com>
+Date: Tue,  5 Apr 2022 20:38:35 +0530
+Message-Id: <20220405150840.29351-5-ramalingam.c@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220405150840.29351-1-ramalingam.c@intel.com>
 References: <20220405150840.29351-1-ramalingam.c@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 2/9] drm/i915/gt: Use XY_FAST_COLOR_BLT to
- clear obj on graphics ver 12+
+Subject: [Intel-gfx] [PATCH v9 4/9] drm/i915/gt: Pass the -EINVAL when
+ emit_pte doesn't update any PTE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,109 +60,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use faster XY_FAST_COLOR_BLT cmd on graphics version of 12 and more,
-for clearing (Zero out) the pages of the newly allocated object.
-
-XY_FAST_COLOR_BLT is faster than the older XY_COLOR_BLT.
+When emit_pte doesn't update any PTE with return value as 0, interpret
+it as -EINVAL.
 
 v2:
-  Typo fix at title [Thomas]
-v3:
-  XY_FAST_COLOR_BLT is used only for FLAT_CCS capable gen12+
+  Add missing goto [Thomas]
 
 Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Reviewed-by: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h |  5 +++
- drivers/gpu/drm/i915/gt/intel_migrate.c      | 43 +++++++++++++++++---
- 2 files changed, 43 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_migrate.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-index 4243be030bc1..d1b8c23f7a9e 100644
---- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-@@ -206,6 +206,11 @@
- 
- #define COLOR_BLT_CMD			(2 << 29 | 0x40 << 22 | (5 - 2))
- #define XY_COLOR_BLT_CMD		(2 << 29 | 0x50 << 22)
-+#define XY_FAST_COLOR_BLT_CMD		(2 << 29 | 0x44 << 22)
-+#define   XY_FAST_COLOR_BLT_DEPTH_32	(2 << 19)
-+#define   XY_FAST_COLOR_BLT_DW		16
-+#define   XY_FAST_COLOR_BLT_MOCS_MASK	GENMASK(27, 21)
-+#define   XY_FAST_COLOR_BLT_MEM_TYPE_SHIFT 31
- #define SRC_COPY_BLT_CMD		(2 << 29 | 0x43 << 22)
- #define GEN9_XY_FAST_COPY_BLT_CMD	(2 << 29 | 0x42 << 22)
- #define XY_SRC_COPY_BLT_CMD		(2 << 29 | 0x53 << 22)
 diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
-index 9d852a570400..e81f20266f62 100644
+index e0f1c727662e..6378d4450e1a 100644
 --- a/drivers/gpu/drm/i915/gt/intel_migrate.c
 +++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
-@@ -613,18 +613,51 @@ intel_context_migrate_copy(struct intel_context *ce,
- 	return err;
- }
+@@ -577,7 +577,11 @@ intel_context_migrate_copy(struct intel_context *ce,
  
--static int emit_clear(struct i915_request *rq, u32 offset, int size, u32 value)
-+static int emit_clear(struct i915_request *rq, u32 offset, int size,
-+		      u32 value, bool is_lmem)
- {
--	const int ver = GRAPHICS_VER(rq->engine->i915);
-+	struct drm_i915_private *i915 = rq->engine->i915;
-+	int mocs = rq->engine->gt->mocs.uc_index << 1;
-+	const int ver = GRAPHICS_VER(i915);
-+	int ring_sz;
- 	u32 *cs;
- 
- 	GEM_BUG_ON(size >> PAGE_SHIFT > S16_MAX);
- 
--	cs = intel_ring_begin(rq, ver >= 8 ? 8 : 6);
-+	if (HAS_FLAT_CCS(i915) && ver >= 12)
-+		ring_sz = XY_FAST_COLOR_BLT_DW;
-+	else if (ver >= 8)
-+		ring_sz = 8;
-+	else
-+		ring_sz = 6;
-+
-+	cs = intel_ring_begin(rq, ring_sz);
- 	if (IS_ERR(cs))
- 		return PTR_ERR(cs);
- 
--	if (ver >= 8) {
-+	if (HAS_FLAT_CCS(i915) && ver >= 12) {
-+		*cs++ = XY_FAST_COLOR_BLT_CMD | XY_FAST_COLOR_BLT_DEPTH_32 |
-+			(XY_FAST_COLOR_BLT_DW - 2);
-+		*cs++ = FIELD_PREP(XY_FAST_COLOR_BLT_MOCS_MASK, mocs) |
-+			(PAGE_SIZE - 1);
-+		*cs++ = 0;
-+		*cs++ = size >> PAGE_SHIFT << 16 | PAGE_SIZE / 4;
-+		*cs++ = offset;
-+		*cs++ = rq->engine->instance;
-+		*cs++ = !is_lmem << XY_FAST_COLOR_BLT_MEM_TYPE_SHIFT;
-+		/* BG7 */
-+		*cs++ = value;
-+		*cs++ = 0;
-+		*cs++ = 0;
-+		*cs++ = 0;
-+		/* BG11 */
-+		*cs++ = 0;
-+		*cs++ = 0;
-+		/* BG13 */
-+		*cs++ = 0;
-+		*cs++ = 0;
-+		*cs++ = 0;
-+	} else if (ver >= 8) {
- 		*cs++ = XY_COLOR_BLT_CMD | BLT_WRITE_RGBA | (7 - 2);
- 		*cs++ = BLT_DEPTH_32 | BLT_ROP_COLOR_COPY | PAGE_SIZE;
- 		*cs++ = 0;
-@@ -707,7 +740,7 @@ intel_context_migrate_clear(struct intel_context *ce,
- 		if (err)
+ 		len = emit_pte(rq, &it_src, src_cache_level, src_is_lmem,
+ 			       src_offset, CHUNK_SZ);
+-		if (len <= 0) {
++		if (!len) {
++			err = -EINVAL;
++			goto out_rq;
++		}
++		if (len < 0) {
+ 			err = len;
  			goto out_rq;
- 
--		err = emit_clear(rq, offset, len, value);
-+		err = emit_clear(rq, offset, len, value, is_lmem);
- 
- 		/* Arbitration is re-enabled between requests. */
- out_rq:
+ 		}
 -- 
 2.20.1
 
