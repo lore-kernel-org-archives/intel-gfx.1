@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F093CC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 21:04:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97649C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 21:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DEAC10EED4;
-	Tue,  5 Apr 2022 21:03:57 +0000 (UTC)
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A191010EEBE
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Apr 2022 21:03:53 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- v64-20020a1cac43000000b0038cfd1b3a6dso2391013wme.5
- for <intel-gfx@lists.freedesktop.org>; Tue, 05 Apr 2022 14:03:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B211C10EECB;
+	Tue,  5 Apr 2022 21:03:56 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7335E10EECB
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Apr 2022 21:03:55 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 123-20020a1c1981000000b0038b3616a71aso394909wmz.4
+ for <intel-gfx@lists.freedesktop.org>; Tue, 05 Apr 2022 14:03:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=oO7tI9jrSQtKzVpob0Hh45uTxd3Oj5D3HqV7+xvwP0E=;
- b=hVJj5tRQHl6yapkknVp9UhOA0rMjg60S7bcU9jQDTg/rPLwr3MeoPYzhfKkPn1hAE3
- 1KMD+kPyKxWMm2yLJA8vO6SpSbKJ9R+QWdS24FKKQcaZTgonrNEnLEIv5VpKneShcepC
- KMPM7B/1CBJ44UG3vbjwao3AFSnOt6FwTVOcM=
+ bh=Ox4yXC0LP8o2wCPaioNRgnQjoBr7m6vhS+hT+ChhFWw=;
+ b=Sgh3CF5Ckw42AeEhX78SI/d/+ee0k632GIyAmfCQa6GpzvQ/S3HANfSm4C0XKuP4+X
+ v3lbVepEiDelzTwS2GE3w74y7BsywOzQ1iZjEgv3QRTaOEVvd8yMx+CnFdb/BXKoDsba
+ TYH+msiuIzP7Pah2Gb87+iwP1V8fnkwyIy/jY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=oO7tI9jrSQtKzVpob0Hh45uTxd3Oj5D3HqV7+xvwP0E=;
- b=n0ZtTQmFbV2js9cxJFKK+SWyQFpfQoaqw46cZzI7RjafIiWNTWH8DiprVBTfdWL4DG
- aBlHlP7j7joE1lWr4cPuH7HovqqGsQsPZCOt+zEE6seWYptoA+n1adOKCh8DfJmtf6tP
- xhk+yMB/OJmIU5TVL4ia18K8JgF1KMf3qFWwyjJyQH9gz8VRnMGYqV1LJh//g65E4WpN
- tPivqg/7qQHofFAu1A9jeQu18SLo97VPwj1H4kvcdiUnjewpve9f7zR0CY0QlhUY91Mj
- JAdvZm7aHDqIdL4vcIpwaf3CYgaGXQDFvy86Uu739rZ44ymDUc5cUPEtiMSDIAwQmA+M
- 8eKw==
-X-Gm-Message-State: AOAM533qB3uRVyCtAiDfDnEnDfn3zBkU3j0n8+DHjkWVs/LvR6C9THj3
- gpgy2ggn04YotLttTeYHfugjMg==
-X-Google-Smtp-Source: ABdhPJzth0Aj+Rj9tfTbF6FBijO21LbMEwHdZ3vb+wlz/mwc0Eq4tNMCm/f65JVbUkvelCVfb4pQvQ==
-X-Received: by 2002:a7b:c384:0:b0:38e:6b47:58c4 with SMTP id
- s4-20020a7bc384000000b0038e6b4758c4mr4673982wmj.134.1649192632052; 
- Tue, 05 Apr 2022 14:03:52 -0700 (PDT)
+ bh=Ox4yXC0LP8o2wCPaioNRgnQjoBr7m6vhS+hT+ChhFWw=;
+ b=MKbBALrzD/HWYe1EInlwR82vmc5TosWlguJ8CM56OXBLhF3PHwAkS/u/J+peHPol14
+ ILXQd/zeCN85pQYsBjCohrdhWErlLOVKkkodIu+RQpYqqSKXcHmSykKKz9HFmmD/TmjI
+ Lh/ICnA7jKS4rG+sdhjXrQsIfylAwDRYid9sTmSV0IsNWKWUoOGTS1N6sI/t3bDj+2Uz
+ IYzvKnCpJZWoMNR17+XAjwygMZI3fk+G/Z4MSVJt6fxd18IhUgQarIlFAXSwR//AFHsx
+ ObCjYILIv9EMBLDhANBBXY6nIvTAA1BjejdYwzY/xC+hNCE1dO6H1uAnt/317xwsGF41
+ nkFA==
+X-Gm-Message-State: AOAM530yO5Ni5G/I74WQnyvEwVaniIvOZ8NWtR0VB3/sgEv/LK1L7Hv9
+ PdmzNlm/nyU3kWJH093bBBglog==
+X-Google-Smtp-Source: ABdhPJx9UpHyqbLoK0CaZyafLEEes2Y+/xKuaKuYEnp6xN7y7BE/+nbUdlvugVR72TTVLP4cXaHVHA==
+X-Received: by 2002:a7b:c844:0:b0:37b:b986:7726 with SMTP id
+ c4-20020a7bc844000000b0037bb9867726mr4869296wml.160.1649192634031; 
+ Tue, 05 Apr 2022 14:03:54 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- az19-20020a05600c601300b0038cadf3aa69sm4858569wmb.36.2022.04.05.14.03.51
+ az19-20020a05600c601300b0038cadf3aa69sm4858569wmb.36.2022.04.05.14.03.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Apr 2022 14:03:51 -0700 (PDT)
+ Tue, 05 Apr 2022 14:03:53 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue,  5 Apr 2022 23:03:29 +0200
-Message-Id: <20220405210335.3434130-12-daniel.vetter@ffwll.ch>
+Date: Tue,  5 Apr 2022 23:03:31 +0200
+Message-Id: <20220405210335.3434130-14-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220405210335.3434130-1-daniel.vetter@ffwll.ch>
 References: <20220405210335.3434130-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 11/17] fbcon: move more common code into
- fb_open()
+Subject: [Intel-gfx] [PATCH v3 13/17] fbcon: Consistently protect
+ deferred_takeover with console_lock()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,179 +68,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Du Cheng <ducheng2@gmail.com>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Du Cheng <ducheng2@gmail.com>,
  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No idea why con2fb_acquire_newinfo() initializes much less than
-fbcon_startup(), but so be it. From a quick look most of the
-un-initialized stuff should be fairly harmless, but who knows.
+This shouldn't be a problem in practice since until we've actually
+taken over the console there's nothing we've registered with the
+console/vt subsystem, so the exit/unbind path that check this can't
+do the wrong thing. But it's confusing, so fix it by moving it a tad
+later.
 
-Note that the error handling for the con2fb_acquire_newinfo() failure
-case was very strange: Callers updated con2fb_map to the new value
-before calling this function, but upon error con2fb_acquire_newinfo
-reset it to the old value. Since I removed the call to fbcon_release
-anyway that strange error path was sticking out like a sore thumb,
-hence I removed it. Which also allows us to remove the oldidx
-parameter from that function.
-
-v2: Explain what's going on with oldidx and error paths (Sam)
-
-v3: Drop unused variable (0day)
-
-v4: Rebased over bisect fix in previous patch, unchagend end result.
-
-Acked-by: Sam Ravnborg <sam@ravnborg.org> (v2)
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: kernel test robot <lkp@intel.com>
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Claudio Suarez <cssk@net-c.es>
 Cc: Du Cheng <ducheng2@gmail.com>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: Claudio Suarez <cssk@net-c.es>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/video/fbdev/core/fbcon.c | 75 +++++++++++++-------------------
- 1 file changed, 30 insertions(+), 45 deletions(-)
+ drivers/video/fbdev/core/fbcon.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index d828fef16910..f0213a0e3870 100644
+index cc960bf49991..4f9752ee9189 100644
 --- a/drivers/video/fbdev/core/fbcon.c
 +++ b/drivers/video/fbdev/core/fbcon.c
-@@ -682,8 +682,18 @@ static int fbcon_invalid_charcount(struct fb_info *info, unsigned charcount)
+@@ -3227,6 +3227,9 @@ static void fbcon_register_existing_fbs(struct work_struct *work)
  
- #endif /* CONFIG_MISC_TILEBLITTING */
+ 	console_lock();
  
-+static void fbcon_release(struct fb_info *info)
-+{
-+	if (info->fbops->fb_release)
-+		info->fbops->fb_release(info, 0);
++	deferred_takeover = false;
++	logo_shown = FBCON_LOGO_DONTSHOW;
 +
-+	module_put(info->fbops->owner);
-+}
-+
- static int fbcon_open(struct fb_info *info)
- {
-+	struct fbcon_ops *ops;
-+
- 	if (!try_module_get(info->fbops->owner))
- 		return -ENODEV;
+ 	for_each_registered_fb(i)
+ 		fbcon_fb_registered(registered_fb[i]);
  
-@@ -693,48 +703,31 @@ static int fbcon_open(struct fb_info *info)
- 		return -ENODEV;
- 	}
+@@ -3244,8 +3247,6 @@ static int fbcon_output_notifier(struct notifier_block *nb,
+ 	pr_info("fbcon: Taking over console\n");
  
--	return 0;
--}
-+	ops = kzalloc(sizeof(struct fbcon_ops), GFP_KERNEL);
-+	if (!ops) {
-+		fbcon_release(info);
-+		return -ENOMEM;
-+	}
+ 	dummycon_unregister_output_notifier(&fbcon_output_nb);
+-	deferred_takeover = false;
+-	logo_shown = FBCON_LOGO_DONTSHOW;
  
--static void fbcon_release(struct fb_info *info)
--{
--	if (info->fbops->fb_release)
--		info->fbops->fb_release(info, 0);
-+	INIT_DELAYED_WORK(&ops->cursor_work, fb_flashcursor);
-+	ops->info = info;
-+	info->fbcon_par = ops;
-+	ops->cur_blink_jiffies = HZ / 5;
- 
--	module_put(info->fbops->owner);
-+	return 0;
- }
- 
- static int con2fb_acquire_newinfo(struct vc_data *vc, struct fb_info *info,
--				  int unit, int oldidx)
-+				  int unit)
- {
--	struct fbcon_ops *ops = NULL;
- 	int err;
- 
- 	err = fbcon_open(info);
- 	if (err)
- 		return err;
- 
--	if (!err) {
--		ops = kzalloc(sizeof(struct fbcon_ops), GFP_KERNEL);
--		if (!ops)
--			err = -ENOMEM;
--	}
--
--	if (!err) {
--		INIT_DELAYED_WORK(&ops->cursor_work, fb_flashcursor);
--
--		ops->cur_blink_jiffies = HZ / 5;
--		ops->info = info;
--		info->fbcon_par = ops;
--
--		if (vc)
--			set_blitting_type(vc, info);
--	}
--
--	if (err) {
--		con2fb_map[unit] = oldidx;
--		fbcon_release(info);
--	}
-+	if (vc)
-+		set_blitting_type(vc, info);
- 
- 	return err;
- }
-@@ -842,9 +835,11 @@ static int set_con2fb_map(int unit, int newidx, int user)
- 
- 	found = search_fb_in_map(newidx);
- 
--	con2fb_map[unit] = newidx;
--	if (!err && !found)
--		err = con2fb_acquire_newinfo(vc, info, unit, oldidx);
-+	if (!err && !found) {
-+		err = con2fb_acquire_newinfo(vc, info, unit);
-+		if (!err)
-+			con2fb_map[unit] = newidx;
-+	}
- 
- 	/*
- 	 * If old fb is not mapped to any of the consoles,
-@@ -941,20 +936,10 @@ static const char *fbcon_startup(void)
- 	if (fbcon_open(info))
- 		return NULL;
- 
--	ops = kzalloc(sizeof(struct fbcon_ops), GFP_KERNEL);
--	if (!ops) {
--		fbcon_release(info);
--		return NULL;
--	}
--
--	INIT_DELAYED_WORK(&ops->cursor_work, fb_flashcursor);
--
-+	ops = info->fbcon_par;
- 	ops->currcon = -1;
- 	ops->graphics = 1;
- 	ops->cur_rotate = -1;
--	ops->cur_blink_jiffies = HZ / 5;
--	ops->info = info;
--	info->fbcon_par = ops;
- 
- 	p->con_rotate = initial_rotation;
- 	if (p->con_rotate == -1)
-@@ -1024,7 +1009,7 @@ static void fbcon_init(struct vc_data *vc, int init)
- 		return;
- 
- 	if (!info->fbcon_par)
--		con2fb_acquire_newinfo(vc, info, vc->vc_num, -1);
-+		con2fb_acquire_newinfo(vc, info, vc->vc_num);
- 
- 	/* If we are not the first console on this
- 	   fb, copy the font from that console */
+ 	/* We may get called in atomic context */
+ 	schedule_work(&fbcon_deferred_takeover_work);
 -- 
 2.34.1
 
