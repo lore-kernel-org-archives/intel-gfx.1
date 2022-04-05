@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2292C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 07:56:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98DADC4332F
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 08:09:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC9010EF6B;
-	Tue,  5 Apr 2022 07:56:46 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49F2B10EF6B;
- Tue,  5 Apr 2022 07:56:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A6F810F04D;
+	Tue,  5 Apr 2022 08:09:08 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33C6610F048;
+ Tue,  5 Apr 2022 08:09:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649145405; x=1680681405;
- h=message-id:date:mime-version:subject:from:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=bFiZgv/xOs43ni0kEF1NioLbAa7hvQiHhgffIU6sRIc=;
- b=Dg0rkEzqnq5/GvjP0s4zZX2kl5usMP2ABIyT1nYvEmbQ5j6/LzfC00VL
- 7pehI7b+4WZGbKYda2WtJmRIinK7jONCEJF5eEQ99DhKpRQIOq5OR9pU4
- ncSZn7Wzr8oWtHsu3ekRUdhifFNWhu6ter6BoxS76+c8nonz3ASYdOK1N
- 7uXWoXOcAcbArCAsFX5J5l5U1nRlAir6K4GP8HN8fSoHcNAjlpMK/NSxo
- sKUMgYG+d0K5C0UjeBb30Auw9iOVi1OPhtlEEyRiAc5X47wECw6ULu2pz
- XyABuLw7R0BA9lGirwc5U19PP9rGPs3CuBTJipPlMmcJv+EImnD9cK8WZ g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10307"; a="285646898"
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="285646898"
+ t=1649146146; x=1680682146;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=S6iRPRF2ZC7Klpn70Lbv5AMePvin0QkZXNw7cGoV190=;
+ b=largmXXaJANyRQKTasT3Osg44Z2L5oVtk7ux2+pTYtnomq2Xa5eTGrCX
+ u4IAj424sKV4sfHuLnndA9nCO1QP0vqTIZTTsDOk0APF8EKY6DnrLAQKA
+ cqZPrK8Mdnc/LDs8Q9QmMNMe10oM69XPuFvm+4ksntk7o9TfqwqIzuLRH
+ MIefzRRb1u8p0YqlHYAzMNtQSlveWYu5fIfFo7Bvva1Lj8LnYJ1x6653o
+ 8B/VpOnqFRk7aqhz1CR82I0wVMRfQKlR4yP19kVWJwygRSLF4tRvpK9xz
+ wGGM5lxDqHEv6eMidqJ9hLTS+B4iJoHCKZjtzIJ8TMAf/Vzzm8PBRMnqZ A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10307"; a="248207767"
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="248207767"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 00:56:44 -0700
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="657840543"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2022 01:09:02 -0700
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="657843861"
 Received: from pmulcahy-mobl.ger.corp.intel.com (HELO [10.213.235.32])
  ([10.213.235.32])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 00:56:41 -0700
-Message-ID: <b33c23c6-a374-e70c-e2f2-caf95a46df77@linux.intel.com>
-Date: Tue, 5 Apr 2022 08:56:37 +0100
+ 05 Apr 2022 01:09:00 -0700
+Message-ID: <70c2b24a-60b6-6222-ff73-d33abf073e4b@linux.intel.com>
+Date: Tue, 5 Apr 2022 09:08:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
 Content-Language: en-US
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <20220401142205.3123159-1-tvrtko.ursulin@linux.intel.com>
+ <20220401142205.3123159-9-tvrtko.ursulin@linux.intel.com>
+ <5a6d725f-02a3-bbdf-4585-5e0b491f2721@linux.intel.com>
+ <b0e7449b-c4f9-e2fb-2866-08997f0195bf@linux.intel.com>
+ <YksQhinav7N4/Qjk@phenom.ffwll.local>
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Alan Previn <alan.previn.teres.alexis@intel.com>,
- intel-gfx@lists.freedesktop.org
-References: <20220321164527.2500062-1-alan.previn.teres.alexis@intel.com>
- <7f81de90-da3c-ea4f-4d74-c064b54b0ab2@linux.intel.com>
 Organization: Intel Corporation UK Plc
-In-Reply-To: <7f81de90-da3c-ea4f-4d74-c064b54b0ab2@linux.intel.com>
+In-Reply-To: <YksQhinav7N4/Qjk@phenom.ffwll.local>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v13 00/13] Add GuC Error Capture Support
+Subject: Re: [Intel-gfx] [CI 8/8] drm/i915: Expose client engine utilisation
+ via fdinfo
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,230 +65,293 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Intel-gfx@lists.freedesktop.org, Dave Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On 23/03/2022 13:19, Tvrtko Ursulin wrote:
+On 04/04/2022 16:36, Daniel Vetter wrote:
+> On Mon, Apr 04, 2022 at 10:23:53AM +0100, Tvrtko Ursulin wrote:
+>>
+>> + Dave and Daniel
+>>
+>> Guys, are you okay with merging this via drm-intel-gt-next? It is one new
+>> file at Documentation/gpu/drm-usage-stats.rst only which is outside i915. It
+>> has acks from Christian and Rob.
 > 
-> Hi,
-> 
-> On 21/03/2022 16:45, Alan Previn wrote:
->> This series:
->>    1. Enables support of GuC to report error-state-capture
->>       using a list of MMIO registers the driver registers
->>       and GuC will dump, log and notify right before a GuC
->>       triggered engine-reset event.
->>    2. Updates the ADS blob creation to register said lists
->>       of global, engine class and engine instance registers
->>       with GuC.
->>    3. Defines tables of register lists that are global or
->>       engine class or engine instance in scope.
->>    4. Updates usage and buffer-state data for the regions
->>       of the shared GuC log-buffer to accomdate both
->>       the existing relay logging of general debug logs
->>       along with the new error state capture usage.
->>    5. Using a pool of preallocated memory, provide ability
->>       to extract and format the GuC reported register-capture
->>       data into chunks consistent with existing i915 error-
->>       state collection flows and structures.
->>    6. Connects the i915_gpu_coredump reporting function
->>       to the GuC error capture module to print all GuC
->>       error state capture dumps that is reported.
-> 
-> Story is finished with this series and we have everything on feature 
-> parity? Intel_error_decode handles it fine?
-> 
-> Would you have an example error capture at hand, I am curious how it looks?
+> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-Ping? I need to write a meaningful pull request text in ~2 weeks time 
-when submitting the feature to drm-next so looking for a high level 
-statement as described - does it complete the work and is error capture 
-now at feature parity and all usual userspace tools to access it handle it?
+Thanks, pushed now.
+
+Rob - you can proceed with your driver at your leisure. I will re-send 
+the rebased gputop to igt-dev shortly and copy you.
 
 Regards,
 
 Tvrtko
 
-
-
-
-> Regards,
+>>
+>> Daniel, series is also fully reviewed and IGT reviewed and ready. Rob also
+>> demonstrated the approach works for msm when using the vendor agnosstic
+>> gputop tool I sketched out (see
+>> 20220225202614.225197-3-robdclark@gmail.com).
+>>
+>> My plan is to merge the i915 support with the common spec and intel_gpu_top
+>> on the IGT side. Then follow-up with vendor agnostic gputop and later yet
+>> potentially re-visit the AMD side by re-sending the patch which tweaks the
+>> fdinfo format there and adds support for relative engine utilisation as
+>> provided by amdgpu.
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>> On 04/04/2022 10:12, Tvrtko Ursulin wrote:
+>>>
+>>> On 01/04/2022 15:22, Tvrtko Ursulin wrote:
+>>>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>>>
+>>>> Similar to AMD commit
+>>>> 874442541133 ("drm/amdgpu: Add show_fdinfo() interface"), using the
+>>>> infrastructure added in previous patches, we add basic client info
+>>>> and GPU engine utilisation for i915.
+>>>>
+>>>> Example of the output:
+>>>>
+>>>>     pos:    0
+>>>>     flags:  0100002
+>>>>     mnt_id: 21
+>>>>     drm-driver: i915
+>>>>     drm-pdev:   0000:00:02.0
+>>>>     drm-client-id:      7
+>>>>     drm-engine-render:  9288864723 ns
+>>>>     drm-engine-copy:    2035071108 ns
+>>>>     drm-engine-video:   0 ns
+>>>>     drm-engine-video-enhance:   0 ns
+>>>>
+>>>> v2:
+>>>>    * Update for removal of name and pid.
+>>>>
+>>>> v3:
+>>>>    * Use drm_driver.name.
+>>>>
+>>>> v4:
+>>>>    * Added drm-engine-capacity- tag.
+>>>>    * Fix typo. (Umesh)
+>>>>
+>>>> v5:
+>>>>    * Don't output engine data before Gen8.
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>>> Cc: David M Nieto <David.Nieto@amd.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> Cc: Daniel Vetter <daniel@ffwll.ch>
+>>>> Cc: Chris Healy <cphealy@gmail.com>
+>>>> Acked-by: Christian König <christian.koenig@amd.com>
+>>>> Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+>>>
+>>> Forgot to apply an earlier:
+>>>
+>>> Acked-by: Rob Clark <robdclark@gmail.com>
+>>>
+>>> Regards,
+>>>
+>>> Tvrtko
+>>>
+>>>> ---
+>>>>    Documentation/gpu/drm-usage-stats.rst  |  6 ++
+>>>>    Documentation/gpu/i915.rst             | 28 +++++++++
+>>>>    drivers/gpu/drm/i915/i915_driver.c     |  3 +
+>>>>    drivers/gpu/drm/i915/i915_drm_client.c | 84 ++++++++++++++++++++++++++
+>>>>    drivers/gpu/drm/i915/i915_drm_client.h |  4 ++
+>>>>    5 files changed, 125 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/gpu/drm-usage-stats.rst
+>>>> b/Documentation/gpu/drm-usage-stats.rst
+>>>> index b8cc28f4da6f..6c9f166a8d6f 100644
+>>>> --- a/Documentation/gpu/drm-usage-stats.rst
+>>>> +++ b/Documentation/gpu/drm-usage-stats.rst
+>>>> @@ -104,3 +104,9 @@ object belong to this client, in the respective
+>>>> memory region.
+>>>>    Default unit shall be bytes with optional unit specifiers of 'KiB'
+>>>> or 'MiB'
+>>>>    indicating kibi- or mebi-bytes.
+>>>> +
+>>>> +===============================
+>>>> +Driver specific implementations
+>>>> +===============================
+>>>> +
+>>>> +:ref:`i915-usage-stats`
+>>>> diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+>>>> index 0f08693d05cd..54060cd6c419 100644
+>>>> --- a/Documentation/gpu/i915.rst
+>>>> +++ b/Documentation/gpu/i915.rst
+>>>> @@ -697,3 +697,31 @@ The style guide for ``i915_reg.h``.
+>>>>    .. kernel-doc:: drivers/gpu/drm/i915/i915_reg.h
+>>>>       :doc: The i915 register macro definition style guide
+>>>> +
+>>>> +.. _i915-usage-stats:
+>>>> +
+>>>> +i915 DRM client usage stats implementation
+>>>> +==========================================
+>>>> +
+>>>> +The drm/i915 driver implements the DRM client usage stats
+>>>> specification as
+>>>> +documented in :ref:`drm-client-usage-stats`.
+>>>> +
+>>>> +Example of the output showing the implemented key value pairs and
+>>>> entirety of
+>>>> +the currently possible format options:
+>>>> +
+>>>> +::
+>>>> +
+>>>> +      pos:    0
+>>>> +      flags:  0100002
+>>>> +      mnt_id: 21
+>>>> +      drm-driver: i915
+>>>> +      drm-pdev:   0000:00:02.0
+>>>> +      drm-client-id:      7
+>>>> +      drm-engine-render:  9288864723 ns
+>>>> +      drm-engine-copy:    2035071108 ns
+>>>> +      drm-engine-video:   0 ns
+>>>> +      drm-engine-capacity-video:   2
+>>>> +      drm-engine-video-enhance:   0 ns
+>>>> +
+>>>> +Possible `drm-engine-` key names are: `render`, `copy`, `video` and
+>>>> +`video-enhance`.
+>>>> diff --git a/drivers/gpu/drm/i915/i915_driver.c
+>>>> b/drivers/gpu/drm/i915/i915_driver.c
+>>>> index b2df273e6d7b..3ffb617d75c9 100644
+>>>> --- a/drivers/gpu/drm/i915/i915_driver.c
+>>>> +++ b/drivers/gpu/drm/i915/i915_driver.c
+>>>> @@ -1745,6 +1745,9 @@ static const struct file_operations
+>>>> i915_driver_fops = {
+>>>>        .read = drm_read,
+>>>>        .compat_ioctl = i915_ioc32_compat_ioctl,
+>>>>        .llseek = noop_llseek,
+>>>> +#ifdef CONFIG_PROC_FS
+>>>> +    .show_fdinfo = i915_drm_client_fdinfo,
+>>>> +#endif
+>>>>    };
+>>>>    static int
+>>>> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c
+>>>> b/drivers/gpu/drm/i915/i915_drm_client.c
+>>>> index 91a8559bebf7..e539f6b23060 100644
+>>>> --- a/drivers/gpu/drm/i915/i915_drm_client.c
+>>>> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
+>>>> @@ -7,7 +7,13 @@
+>>>>    #include <linux/slab.h>
+>>>>    #include <linux/types.h>
+>>>> +#include <uapi/drm/i915_drm.h>
+>>>> +
+>>>> +#include <drm/drm_print.h>
+>>>> +
+>>>> +#include "gem/i915_gem_context.h"
+>>>>    #include "i915_drm_client.h"
+>>>> +#include "i915_file_private.h"
+>>>>    #include "i915_gem.h"
+>>>>    #include "i915_utils.h"
+>>>> @@ -68,3 +74,81 @@ void i915_drm_clients_fini(struct
+>>>> i915_drm_clients *clients)
+>>>>        GEM_BUG_ON(!xa_empty(&clients->xarray));
+>>>>        xa_destroy(&clients->xarray);
+>>>>    }
+>>>> +
+>>>> +#ifdef CONFIG_PROC_FS
+>>>> +static const char * const uabi_class_names[] = {
+>>>> +    [I915_ENGINE_CLASS_RENDER] = "render",
+>>>> +    [I915_ENGINE_CLASS_COPY] = "copy",
+>>>> +    [I915_ENGINE_CLASS_VIDEO] = "video",
+>>>> +    [I915_ENGINE_CLASS_VIDEO_ENHANCE] = "video-enhance",
+>>>> +};
+>>>> +
+>>>> +static u64 busy_add(struct i915_gem_context *ctx, unsigned int class)
+>>>> +{
+>>>> +    struct i915_gem_engines_iter it;
+>>>> +    struct intel_context *ce;
+>>>> +    u64 total = 0;
+>>>> +
+>>>> +    for_each_gem_engine(ce, rcu_dereference(ctx->engines), it) {
+>>>> +        if (ce->engine->uabi_class != class)
+>>>> +            continue;
+>>>> +
+>>>> +        total += intel_context_get_total_runtime_ns(ce);
+>>>> +    }
+>>>> +
+>>>> +    return total;
+>>>> +}
+>>>> +
+>>>> +static void
+>>>> +show_client_class(struct seq_file *m,
+>>>> +          struct i915_drm_client *client,
+>>>> +          unsigned int class)
+>>>> +{
+>>>> +    const struct list_head *list = &client->ctx_list;
+>>>> +    u64 total = atomic64_read(&client->past_runtime[class]);
+>>>> +    const unsigned int capacity =
+>>>> +        client->clients->i915->engine_uabi_class_count[class];
+>>>> +    struct i915_gem_context *ctx;
+>>>> +
+>>>> +    rcu_read_lock();
+>>>> +    list_for_each_entry_rcu(ctx, list, client_link)
+>>>> +        total += busy_add(ctx, class);
+>>>> +    rcu_read_unlock();
+>>>> +
+>>>> +    seq_printf(m, "drm-engine-%s:\t%llu ns\n",
+>>>> +           uabi_class_names[class], total);
+>>>> +
+>>>> +    if (capacity > 1)
+>>>> +        seq_printf(m, "drm-engine-capacity-%s:\t%u\n",
+>>>> +               uabi_class_names[class],
+>>>> +               capacity);
+>>>> +}
+>>>> +
+>>>> +void i915_drm_client_fdinfo(struct seq_file *m, struct file *f)
+>>>> +{
+>>>> +    struct drm_file *file = f->private_data;
+>>>> +    struct drm_i915_file_private *file_priv = file->driver_priv;
+>>>> +    struct drm_i915_private *i915 = file_priv->dev_priv;
+>>>> +    struct i915_drm_client *client = file_priv->client;
+>>>> +    struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+>>>> +    unsigned int i;
+>>>> +
+>>>> +    /*
+>>>> +     *
+>>>> ******************************************************************
+>>>> +     * For text output format description please see
+>>>> drm-usage-stats.rst!
+>>>> +     *
+>>>> ******************************************************************
+>>>> +     */
+>>>> +
+>>>> +    seq_printf(m, "drm-driver:\t%s\n", i915->drm.driver->name);
+>>>> +    seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n",
+>>>> +           pci_domain_nr(pdev->bus), pdev->bus->number,
+>>>> +           PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
+>>>> +    seq_printf(m, "drm-client-id:\t%u\n", client->id);
+>>>> +
+>>>> +    if (GRAPHICS_VER(i915) < 8)
+>>>> +        return;
+>>>> +
+>>>> +    for (i = 0; i < ARRAY_SIZE(uabi_class_names); i++)
+>>>> +        show_client_class(m, client, i);
+>>>> +}
+>>>> +#endif
+>>>> diff --git a/drivers/gpu/drm/i915/i915_drm_client.h
+>>>> b/drivers/gpu/drm/i915/i915_drm_client.h
+>>>> index 191368386ace..5f5b02b01ba0 100644
+>>>> --- a/drivers/gpu/drm/i915/i915_drm_client.h
+>>>> +++ b/drivers/gpu/drm/i915/i915_drm_client.h
+>>>> @@ -59,6 +59,10 @@ static inline void i915_drm_client_put(struct
+>>>> i915_drm_client *client)
+>>>>    struct i915_drm_client *i915_drm_client_add(struct
+>>>> i915_drm_clients *clients);
+>>>> +#ifdef CONFIG_PROC_FS
+>>>> +void i915_drm_client_fdinfo(struct seq_file *m, struct file *f);
+>>>> +#endif
+>>>> +
+>>>>    void i915_drm_clients_fini(struct i915_drm_clients *clients);
+>>>>    #endif /* !__I915_DRM_CLIENT_H__ */
 > 
-> Tvrtko
-> 
->>
->> This is the 13th rev of this series where the first 3 revs
->> are RFC
->>
->> Prior receipts of rvb's:
->>    - Patch #2, #3, #4, #5, #10, #11, #12, #13 have received
->>      R-v-b's from Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
->>    - Patch #1, #6, #7, #8, #9 has received an R-v-b from Matthew Brost
->>      <matthew.brost@intel.com>. NOTE: some of these came in on the
->>      trybot series. https://patchwork.freedesktop.org/series/100831/
->>
->> Changes from prior revs:
->>    v13:- Fixing register list definition styling as per Jani's request.
->>    v12:- Re-sending it because previous revs only got to intel-gfx,
->>          and only cover letter was in dri-devel. Also rebased again.
->>    v11:- Rebase again on latest drm-tip to fix merge error.
->>    v10:- Rebase on latest drm-tip again. Fix a number of checkpatch
->>          warnings and an error Reported-by: kernel test robot 
->> <lkp@intel.com>.
->>    v9: - Rebase on latest drm-tip to solve CI merge-build error.
->>    v8: - Fix a bug found by CI in rev7: Create a cached ADS
->>          capture list for null-header like the other lists.
->>        - Fixed a bug on the ggtt offset calculation in the
->>          ADS population loop. Thanks to Matt Brost.
->>        - Change the storage uses for initial allocation and
->>          caching of the ADS register lists so we only store
->>          a regular pointer instead of file handle.
->>        - Multiple improvements on code styling, variable names,
->>          comments and code reduction from Umesh suggestions
->>          across multiple patches.
->>
->>    v7: - Rebased on lastest drm_tip that has the ADS now using
->>          shmem based ads_blob_write utilities. Stress test
->>          was performed with this patch included to fix a
->>          legacy bug:
->>          https://patchwork.freedesktop.org/series/100768/
->>
->>    v6: - In patch #1, ADS reg-list population, we now alloc
->>          regular memory to create the lists and cache them for
->>          simpler and faster use by GuC ADS module at init,
->>          suspend-resume and reset cycles. This was in response
->>          to review comments from Lucas De Marchi that also
->>          wanted to ensure the GuC ADS module owns the final
->>          copying into the ADS phyical memory.
->>        - Thanks to Jani Nikula for pointing out that patch #2
->>          and #3 should ensure static tables as constant and
->>          dynamic lists should be allocated and cached but
->>          attached to the GT level for the case of multiple
->>          cards with different fusings for steered registers.
->>          These are addressed now along with multiple code
->>          style fixups (thanks to review comment from Umesh)
->>          and splitting the steered register list generation
->>          as a seperate patch.
->>        - The extraction functionality, Patch #10 and #11 (was
->>          patch #7), has fixed all of Umesh's review comments
->>          related to the code styling. Additionally, it was
->>          discovered during stress tests that the extraction
->>          function could be called by the ct processing thread
->>          at the same time as the start of a GT reset event.
->>          Thus, a redesign was done whereby the linked list of
->>          processed capture-output-nodes are allocated up
->>          front and reused throughout the driver's life to
->>          ensure no memory locks are taken during extraction.
->>        - For patch #6 (now 7, 8 and 9), updates to
->>          intel_guc_log was split into smaller chunks and the
->>          log_state structure was returned back to inside of
->>          the intel_guc_log struct as opposed to the
->>          intel_guc struct in prior rev. This is in response
->>          to review comments by Matt Brost.
->>        - #Patch 13 (previously #10) is mostly identical but
->>          addresses all of the code styling comments reviews
->>          from Umesh.
->>    v5: - Added Gen9->Gen11 register list for CI coverage that
->>          included Gen9 with GuC submission.
->>        - Redesigned the extraction of the GuC error-capture
->>          dumps by grouping them into complete per-engine-reset
->>          nodes. Complete here means each node includes the
->>          global, engine-class and engine-instance register
->>          lists in a single structure.
->>        - Extraction is decoupled from the print-out. We now
->>          do the extraction immediately when receiving the
->>          G2H for error-capture notification. A link list of
->>          nodes is maintained with a FIFO based threshold
->>          while awaiting retrieval from i915_gpu_coredump's
->>          capture_engine function.
->>        - Added new plumbing through the i915_gpu_coredump
->>          allocation and capture functions to include a flag
->>          that is used indicate that GuC had triggered the
->>          reset. This new plumbing guarantees an exact match
->>          from i915_gpu_coredump's per-engine vma recording
->>          and node-retrieval from the guc-error-capture.
->>        - Broke the coredump gt_global capture and recording
->>          functions into smaller subsets so we can reuse as
->>          much of the existing legacy register reading + printing
->>          functions and only rely on GuC error-capture for
->>          the smaller subset of registers that are tied to
->>          engine workload execution.
->>        - Updated the register list to follow the legacy execlist
->>          format of printout.
->>    v4:
->>        - Rebased on latest drm-tip that has been merged with the
->>          support of GuC firmware version 69.0.3 that is required
->>          for GuC error-state-catpure to work.
->>        - Added register list for DG2 which is the same as XE_LP
->>          except an additional steering register set.
->>        - Fixed a bug in the end of capture parsing loop in
->>          intel_guc_capture_out_print_next_group that was not
->>          properly comparing the engine-instance and engine-
->>          class being parsed against the one that triggered
->>          the i915_gpu_coredump.
->>    v3:
->>        - Fixed all review comments from rev2 except the following:
->>            - Michal Wajdeczko proposed adding a seperate function
->>              to lookup register string nameslookup (based on offset)
->>              but decided against it because of offset conflicts
->>              and the current table layout is easier to maintain.
->>            - Last set of checkpatch errors pertaining to "COMPLEX
->>              MACROS" should be fixed on next rev.
->>        - Abstracted internal-to-guc-capture information into a new
->>          __guc_state_capture_priv structure that allows the exclusion
->>          of intel_guc.h and intel_guc_fwif.h from intel_guc_capture.h.
->>          Now, only the first 2 patches have a wider build time
->>          impact because of the changes to intel_guc_fwif.h but
->>          subsequent changes to guc-capture internal structures
->>          or firmware interfaces used solely by guc-capture module
->>          shoudn't impact the rest of the driver build.
->>        - Added missing Gen12LP registers and added slice+subslice
->>          indices when reporting extended steered registers.
->>        - Add additional checks to ensure that the GuC reported
->>          error capture information matches the i915_gpu_coredump
->>          that is being printed before we print out the corresponding
->>          VMA dumps such as the batch buffer.
->>     v2:
->>        - Ignore - failed CI retest.
->>
->> Alan Previn (13):
->>    drm/i915/guc: Update GuC ADS size for error capture lists
->>    drm/i915/guc: Add XE_LP static registers for GuC error capture.
->>    drm/i915/guc: Add XE_LP steered register lists support
->>    drm/i915/guc: Add DG2 registers for GuC error state capture.
->>    drm/i915/guc: Add Gen9 registers for GuC error state capture.
->>    drm/i915/guc: Add GuC's error state capture output structures.
->>    drm/i915/guc: Update GuC-log relay function names
->>    drm/i915/guc: Add capture region into intel_guc_log
->>    drm/i915/guc: Check sizing of guc_capture output
->>    drm/i915/guc: Extract GuC error capture lists on G2H notification.
->>    drm/i915/guc: Pre-allocate output nodes for extraction
->>    drm/i915/guc: Plumb GuC-capture into gpu_coredump
->>    drm/i915/guc: Print the GuC error capture output register list.
->>
->>   drivers/gpu/drm/i915/Makefile                 |    1 +
->>   drivers/gpu/drm/i915/gt/intel_engine_cs.c     |    4 +-
->>   .../drm/i915/gt/intel_execlists_submission.c  |    4 +-
->>   drivers/gpu/drm/i915/gt/intel_reset.c         |    2 +-
->>   .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |    7 +
->>   drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h |  218 +++
->>   drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   13 +-
->>   drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   12 +-
->>   drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  127 +-
->>   .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 1655 +++++++++++++++++
->>   .../gpu/drm/i915/gt/uc/intel_guc_capture.h    |   33 +
->>   drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   14 +-
->>   drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    |  127 +-
->>   drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |    7 +-
->>   .../gpu/drm/i915/gt/uc/intel_guc_submission.c |   18 +-
->>   drivers/gpu/drm/i915/i915_debugfs.c           |    3 +-
->>   drivers/gpu/drm/i915/i915_gpu_error.c         |  282 ++-
->>   drivers/gpu/drm/i915/i915_gpu_error.h         |   35 +-
->>   18 files changed, 2379 insertions(+), 183 deletions(-)
->>   create mode 100644 drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
->>   create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
->>   create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
->>
