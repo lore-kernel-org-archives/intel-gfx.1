@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76D3BC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 21:04:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 133F7C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 21:04:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BDAD10EECD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42F5510EECE;
 	Tue,  5 Apr 2022 21:03:56 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 806CD10EECA
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Apr 2022 21:03:54 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id d3so322154wrb.7
- for <intel-gfx@lists.freedesktop.org>; Tue, 05 Apr 2022 14:03:54 -0700 (PDT)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 564F510EEBE
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Apr 2022 21:03:52 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id m30so358118wrb.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 05 Apr 2022 14:03:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=eAf6GnUNR4qzkfmM8oxrtWzw19A6DGGVW1uJzOzW25Q=;
- b=iRAaJ9nYq8r39GMvZWhwWGnCjiicvFhrWQUozK78cMDTl5Ovcicvhcn/I4K9GIsZsm
- DSFbabJ9O3KsR3OS35kqw4Zh9RDNHJryz3fL3WQAIdS4i0HkPYLa21YG/K6Sp9qjUZsr
- TiNk5EIAx9y0NdXxlL74P0rwLA5hS+eulSJlk=
+ bh=zkSaZWiAEzn1vI2UmGdVu2E73Kg6gjQbIUxAzTewX/s=;
+ b=GCsDirz/ALLhTV5XRsibA0w1P1sd6snP0Vcp9TNoUziMLBWm83tspxKtHyrMcDwHg1
+ r5oY/jsjHG0vKCiA2MW/Gt92kfWYxLCM24LJn/SXoUGnBsf8faCwFzlYgwMxZHEDYLFD
+ oQPQwugkUyVqf93fteG9M+ZMBh6ud1X1hg7XA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=eAf6GnUNR4qzkfmM8oxrtWzw19A6DGGVW1uJzOzW25Q=;
- b=MSMrRxK3R8xkJ6RxH9FjfEM7P4t9X/PXcQeuTYPSTgEdrAWFZd8gSwkcpsWYr47BcN
- hASTKYMR9CJqWsPnptjuF0/FH4FdsKwz3LEf9cfZ6KCJexuR0r/dTejDFB5qHk8t+tj5
- 3Vw8C2yHnKF581uZpeC+9HHQNv3FQQ99frxjbxwcHgIdmUwV4RZtxqdVmwxMyV0ofy+p
- HvQGhpc/pZLK7Dsp2kc/yB7z/wP12g4KrrQWLOEASGRO8mfU/DV1UILs5/eGkc25AT3c
- sRs10kvDwh89bgsn9wJ8kFW2U9mPqGcLtq5l1qR/e6MG1haudyweJno3SZTF7Lnsd4dH
- oDDQ==
-X-Gm-Message-State: AOAM533NrprqjG7rje/gMSUK/Mc++0Wqy65Bpnemk8VRjLevM7tR50fH
- +oz/Pqq3//l/tcZRooQ2v5QSvw==
-X-Google-Smtp-Source: ABdhPJwZUOZ464Nx7G+r+V0R4B61UmlM8FngsriGZzYkWXARhQ5fVzXYfdItCCHo99mvdjptjEngtQ==
-X-Received: by 2002:a05:6000:15c3:b0:204:1185:7033 with SMTP id
- y3-20020a05600015c300b0020411857033mr3940754wry.625.1649192632993; 
- Tue, 05 Apr 2022 14:03:52 -0700 (PDT)
+ bh=zkSaZWiAEzn1vI2UmGdVu2E73Kg6gjQbIUxAzTewX/s=;
+ b=VllXrsLY4PCmjQkZDZ8P/xGf5PctFHDhTYSkXYlwT6eBcOCkqJZ+FvUhXtR9IQJEC6
+ a7qlHGC2oM5JNo4JTI2aNrgczrj/D+G5UNgIgxaPrpsQwpPQ8FOK3mOo1hd2+Oj/vI0e
+ I2F+3tPxFLz/G4nqCMZhyeqCd3dzfvlJ+0XpjDIkvJ1uGuCA3GnUQAZWDoWWAjEzoesI
+ R98vsLZQMEcficPGMfF+EQK9m1oO+iPQ9P/BpxYvlo9vAcMuttzDl8Xa78jzM9s8Iv8S
+ +Bb1EcVsTm3P07hB5Y8Ai5sGdV7Ce5q3R8vZRHT+7OinYriwcWrT/nnn0F9dXBf2Eeo7
+ c1Qw==
+X-Gm-Message-State: AOAM533QiqUXWLvNfzMAc5nnEBz5Z1K6TaEKnzDF9b23dKYlmlIYVAKW
+ NJPJbQfYv+RFUcR40jrHBOAyEA==
+X-Google-Smtp-Source: ABdhPJwomfdFv74g7LtWrv3BgKpRE1uYToOAK4I3V3CrGlNjPPs0bVax+FBzsmncsI5lXTdncewIKA==
+X-Received: by 2002:adf:f1d1:0:b0:206:1303:ee49 with SMTP id
+ z17-20020adff1d1000000b002061303ee49mr3980391wro.533.1649192630865; 
+ Tue, 05 Apr 2022 14:03:50 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
  by smtp.gmail.com with ESMTPSA id
- az19-20020a05600c601300b0038cadf3aa69sm4858569wmb.36.2022.04.05.14.03.52
+ az19-20020a05600c601300b0038cadf3aa69sm4858569wmb.36.2022.04.05.14.03.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Apr 2022 14:03:52 -0700 (PDT)
+ Tue, 05 Apr 2022 14:03:50 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue,  5 Apr 2022 23:03:30 +0200
-Message-Id: <20220405210335.3434130-13-daniel.vetter@ffwll.ch>
+Date: Tue,  5 Apr 2022 23:03:28 +0200
+Message-Id: <20220405210335.3434130-11-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220405210335.3434130-1-daniel.vetter@ffwll.ch>
 References: <20220405210335.3434130-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 12/17] fbcon: use lock_fb_info in
- fbcon_open/release
+Subject: [Intel-gfx] [PATCH v3 10/17] fbcon: Ditch error handling for
+ con2fb_release_oldinfo
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,113 +67,115 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Zhen Lei <thunder.leizhen@huawei.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Xiyu Yang <xiyuyang19@fudan.edu.cn>,
- Du Cheng <ducheng2@gmail.com>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Du Cheng <ducheng2@gmail.com>,
  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Zheyu Ma <zheyuma97@gmail.com>, Matthew Wilcox <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alex Deucher <alexander.deucher@amd.com>,
  Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now we get to the real motiviation, because fbmem.c insists that
-that's the right lock for these.
-
-Ofc fbcon.c has a lot more places where it probably should call
-lock_fb_info(). But looking at fbmem.c at least most of these seem to
-be protected by console_lock() too, which is probably what papers over
-any issues.
-
-Note that this means we're shuffling around a bit the locking sections
-for some of the console takeover and unbind paths, but not all:
-- console binding/unbinding from the console layer never with
-lock_fb_info
-- unbind (as opposed to unlink) never bother with lock_fb_info
-
-Also the real serialization against set_par and set_pan are still
-doing by wrapping the entire ioctl code in console_lock(). So this
-shuffling shouldn't be worse than what we had from a "can you trigger
-races?" pov, but it's at least clearer.
+It doesn't ever fail anymore.
 
 Acked-by: Sam Ravnborg <sam@ravnborg.org>
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Claudio Suarez <cssk@net-c.es>
-Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Claudio Suarez <cssk@net-c.es>
 Cc: Du Cheng <ducheng2@gmail.com>
-Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: William Kucharski <william.kucharski@oracle.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Zheyu Ma <zheyuma97@gmail.com>
-Cc: Zhen Lei <thunder.leizhen@huawei.com>
-Cc: Xiyu Yang <xiyuyang19@fudan.edu.cn>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 ---
- drivers/video/fbdev/core/fbcon.c | 5 +++++
- drivers/video/fbdev/core/fbmem.c | 4 ----
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ drivers/video/fbdev/core/fbcon.c | 37 +++++++++++---------------------
+ 1 file changed, 13 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index f0213a0e3870..cc960bf49991 100644
+index d50154b62007..d828fef16910 100644
 --- a/drivers/video/fbdev/core/fbcon.c
 +++ b/drivers/video/fbdev/core/fbcon.c
-@@ -684,8 +684,10 @@ static int fbcon_invalid_charcount(struct fb_info *info, unsigned charcount)
+@@ -739,9 +739,8 @@ static int con2fb_acquire_newinfo(struct vc_data *vc, struct fb_info *info,
+ 	return err;
+ }
  
- static void fbcon_release(struct fb_info *info)
+-static int con2fb_release_oldinfo(struct vc_data *vc, struct fb_info *oldinfo,
+-				  struct fb_info *newinfo, int unit,
+-				  int oldidx, int found)
++static void con2fb_release_oldinfo(struct vc_data *vc, struct fb_info *oldinfo,
++				   struct fb_info *newinfo)
  {
-+	lock_fb_info(info);
- 	if (info->fbops->fb_release)
- 		info->fbops->fb_release(info, 0);
-+	unlock_fb_info(info);
- 
- 	module_put(info->fbops->owner);
- }
-@@ -697,11 +699,14 @@ static int fbcon_open(struct fb_info *info)
- 	if (!try_module_get(info->fbops->owner))
- 		return -ENODEV;
- 
-+	lock_fb_info(info);
- 	if (info->fbops->fb_open &&
- 	    info->fbops->fb_open(info, 0)) {
-+		unlock_fb_info(info);
- 		module_put(info->fbops->owner);
- 		return -ENODEV;
+ 	struct fbcon_ops *ops = oldinfo->fbcon_par;
+ 	int ret;
+@@ -770,8 +769,6 @@ static int con2fb_release_oldinfo(struct vc_data *vc, struct fb_info *oldinfo,
+ 				"detected unhandled fb_set_par error, "
+ 				"error code %d\n", ret);
  	}
-+	unlock_fb_info(info);
- 
- 	ops = kzalloc(sizeof(struct fbcon_ops), GFP_KERNEL);
- 	if (!ops) {
-diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
-index 34d6bb1bf82e..0e68d9456bc2 100644
---- a/drivers/video/fbdev/core/fbmem.c
-+++ b/drivers/video/fbdev/core/fbmem.c
-@@ -1670,9 +1670,7 @@ static int do_register_framebuffer(struct fb_info *fb_info)
- 		console_lock();
- 	else
- 		atomic_inc(&ignore_console_lock_warning);
--	lock_fb_info(fb_info);
- 	ret = fbcon_fb_registered(fb_info);
--	unlock_fb_info(fb_info);
- 
- 	if (!lockless_register_fb)
- 		console_unlock();
-@@ -1689,9 +1687,7 @@ static void unbind_console(struct fb_info *fb_info)
- 		return;
- 
- 	console_lock();
--	lock_fb_info(fb_info);
- 	fbcon_fb_unbind(fb_info);
--	unlock_fb_info(fb_info);
- 	console_unlock();
+-
+-	return 0;
  }
  
+ static void con2fb_init_display(struct vc_data *vc, struct fb_info *info,
+@@ -825,7 +822,7 @@ static int set_con2fb_map(int unit, int newidx, int user)
+ 	int oldidx = con2fb_map[unit];
+ 	struct fb_info *info = registered_fb[newidx];
+ 	struct fb_info *oldinfo = NULL;
+-	int found, err = 0;
++	int found, err = 0, show_logo;
+ 
+ 	WARN_CONSOLE_UNLOCKED();
+ 
+@@ -854,18 +851,15 @@ static int set_con2fb_map(int unit, int newidx, int user)
+ 	 * fbcon should release it.
+ 	 */
+ 	if (!err && oldinfo && !search_fb_in_map(oldidx))
+-		err = con2fb_release_oldinfo(vc, oldinfo, info, unit, oldidx,
+-					     found);
++		con2fb_release_oldinfo(vc, oldinfo, info);
+ 
+-	if (!err) {
+-		int show_logo = (fg_console == 0 && !user &&
+-				 logo_shown != FBCON_LOGO_DONTSHOW);
++	show_logo = (fg_console == 0 && !user &&
++			 logo_shown != FBCON_LOGO_DONTSHOW);
+ 
+-		if (!found)
+-			fbcon_add_cursor_work(info);
+-		con2fb_map_boot[unit] = newidx;
+-		con2fb_init_display(vc, info, unit, show_logo);
+-	}
++	if (!found)
++		fbcon_add_cursor_work(info);
++	con2fb_map_boot[unit] = newidx;
++	con2fb_init_display(vc, info, unit, show_logo);
+ 
+ 	if (!search_fb_in_map(info_idx))
+ 		info_idx = newidx;
+@@ -2769,7 +2763,7 @@ static inline void fbcon_unbind(void) {}
+ /* called with console_lock held */
+ void fbcon_fb_unbind(struct fb_info *info)
+ {
+-	int i, new_idx = -1, ret = 0;
++	int i, new_idx = -1;
+ 	int idx = info->node;
+ 
+ 	WARN_CONSOLE_UNLOCKED();
+@@ -2803,13 +2797,8 @@ void fbcon_fb_unbind(struct fb_info *info)
+ 			if (con2fb_map[i] == idx) {
+ 				con2fb_map[i] = -1;
+ 				if (!search_fb_in_map(idx)) {
+-					ret = con2fb_release_oldinfo(vc_cons[i].d,
+-								     info, NULL, i,
+-								     idx, 0);
+-					if (ret) {
+-						con2fb_map[i] = idx;
+-						return;
+-					}
++					con2fb_release_oldinfo(vc_cons[i].d,
++							       info, NULL);
+ 				}
+ 			}
+ 		}
 -- 
 2.34.1
 
