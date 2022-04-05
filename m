@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1D93C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 14:54:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05039C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 14:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F00E810E349;
-	Tue,  5 Apr 2022 14:54:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4867310E70A;
+	Tue,  5 Apr 2022 14:54:20 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3938710E120;
- Tue,  5 Apr 2022 14:54:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA01D10E8F2;
+ Tue,  5 Apr 2022 14:54:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649170456; x=1680706456;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Kd3nlWmkEqpB3azCjuvEFm6r1dY1JSqtgZJmi1ohBjs=;
- b=mcZYPI6hnbmzNnnO3OiR7RTvsyvdNgNwEqQBRR5yDnBCwTyheS0vi9a5
- XQT7zMxPOmOSGPs4HEl6Kv6boRTXEjrskcTmsblVHUNzRJP5N9pBFJ8Fs
- wzXNJlEcNDBmLi6d78YFZhbDfSurJ8pHEuZvhDMhAK2UTUcJubUvaspJH
- NmngtKy7l1RHwGBx/GMueK+P4iEAh0CM22F7DaUnMpTnVPAA/aDKNk+td
- N4UvX1A3eMXcfCQVLN2xdHn9wtYziL0NWNy0BrES0y64+7hRq6WhRcLwO
- PklVz7Hub60AncxSyaQnOxw8RvUsDfBYcPwePAF8Tkq3wYO1ReeeLzVbX A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10307"; a="241353392"
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="241353392"
+ t=1649170458; x=1680706458;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=2xzqcSyvNHIAd+n8MJRx9N+efbj28lVr9ccNI2LFD+M=;
+ b=U5Nc0kBoTP741cdmoW4UYXMm9rsoHG+9BFe8B7VwLGZxVjw1ILyQz+GL
+ jNpM33EetjpSDeAnhYFjmb2Lp1rIoHn9vOWR/d40MJ58eWUdTayO7Y2VE
+ CuMsMyoGha5lv2pzurBLpdaWB2g/t2aGA3UnS4LzDOPvYnutmGxjACuoY
+ l6A5DnhGY7WaA5kV/Bqh4iaKzenksF9ElaoTfcbNtOBAMo7u0yfAOYkvt
+ iiGeJnAhw3Tn7RHHoLZm4y9ZCrIsbq6i56APjDj7ksCRgfKm5lzmM0NC/
+ v5uiU9W489/ln8tAVULHRQEaw28UJWd7l6RUA1hbdcGcPsH0pjbmnkwJe Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10307"; a="241353403"
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="241353403"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 07:54:15 -0700
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="608470331"
+ 05 Apr 2022 07:54:18 -0700
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="608470339"
 Received: from pmulcahy-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.235.32])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 07:54:14 -0700
+ 05 Apr 2022 07:54:17 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Apr 2022 15:53:42 +0100
-Message-Id: <20220405145345.3284084-1-tvrtko.ursulin@linux.intel.com>
+Date: Tue,  5 Apr 2022 15:53:44 +0100
+Message-Id: <20220405145345.3284084-3-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220405145345.3284084-1-tvrtko.ursulin@linux.intel.com>
+References: <20220405145345.3284084-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/3] Inherit GPU scheduling priority from
- process nice
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915: Inherit process nice for context
+ scheduling priority
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,76 +63,224 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Current processing landscape seems to be more and more composed of pipelines
-where computations are done on multiple hardware devices. Furthermore some of
-the non-CPU devices, like in this case many GPUs supported by the i915 driver,
-actually support priority based scheduling which is currently rather
-inaccessible to the user (in terms of being able to control it from the
-outside).
+Introduce the concept of context nice value which matches the process
+nice.
 
-From these two statements a question arises on how to allow for a simple,
-effective and consolidated user experience. In other words why user would not be
-able to do something like:
+We do this by extending the struct i915_sched_attr and add a helper
+(i915_sched_attr_priority) to be used to convert to effective priority
+when used by backend code and for priority sorting.
 
- $ nice ffmmpeg ...transcode my videos...
- $ my-favourite-game
+Context nice is then inherited from the process which creates the GEM
+context and utilised secondary to context priority, but only when the
+latter has been left at the default setting in order to avoid disturbing
+any application made choices of low and high (batch processing and maybe
+latency sensitive compositing). In this case nice value adjusts the
+effective priority in the narrow band of -19 to +20 around
+I915_CONTEXT_DEFAULT_PRIORITY.
 
-And have the nice hint apply to GPU parts of the transcode pipeline as well?
+This means that userspace using the context priority uapi directly has a
+wider range of possible adjustments (in practice that only applies to
+execlists platforms - with GuC there are only three priority buckets), but
+in all cases nice adjustment has the expected effect: positive nice
+lowering the scheduling priority and negative nice raising it.
 
-This would in fact follow the approach taken by kernel's block scheduler where
-ionice is by default inherited from process nice.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c        |  6 +++++-
+ .../gpu/drm/i915/gt/intel_execlists_submission.c   |  4 ++--
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c  |  2 +-
+ drivers/gpu/drm/i915/i915_request.c                |  2 +-
+ drivers/gpu/drm/i915/i915_request.h                |  5 +++++
+ drivers/gpu/drm/i915/i915_scheduler.c              | 12 ++++++++----
+ drivers/gpu/drm/i915/i915_scheduler.h              | 14 ++++++++++++++
+ drivers/gpu/drm/i915/i915_scheduler_types.h        |  8 ++++++++
+ 8 files changed, 44 insertions(+), 9 deletions(-)
 
-This series implements the same idea by inheriting context creator and batch
-buffer submitted nice value as context nice. To avoid influencing GPU scheduling
-aware clients this is done only one for contexts where userspace hasn't
-explicitly specified a non-default scheduling priority
-
-With the series applied I simulated the scenario of a background GPU task
-running simultaneously with an interactive client, varying the hog's nice value.
-These were the results:
-
-   GPU hog (nice) |   TRex fps    |   perf drop
-   ---------------+---------------+------------
-       no hog     |     48.9      |    - n/a -
-          0       |     42.7      |     -13%
-         10       |     47.9      |      -2%
-        -10       |     29.0      |     -41%
-
-As can be seen running the background GPU task re-niced can restore the
-performance of the foreground task to almost the level when it is running alone
-on the machine.
-
-The approach is completely compatible with GuC and drm/scheduler since all
-support at least low/normal/high priority levels with just the granularity of
-available control differing. In other words with GuC scheduling there is no
-difference between nice 5 and 10, both would map to low priority, but the
-default case of positive or negative nice, versus nice 0, is still correctly
-propagated to the firmware scheduler.
-
-v2:
- * Moved notifier outside task_rq_lock.
- * Some improvements and restructuring on the i915 side of the series.
-
-v3:
- * Dropped task nice notifier - inheriting nice on request submit time is good
-   enough.
-
-Tvrtko Ursulin (3):
-  drm/i915: Make some recently added vfuncs use full scheduling
-    attribute
-  drm/i915: Inherit process nice for context scheduling priority
-  drm/i915: Inherit submitter nice when scheduling requests
-
- drivers/gpu/drm/i915/gem/i915_gem_context.c      |  6 +++++-
- .../gpu/drm/i915/gt/intel_execlists_submission.c |  6 ++++--
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c    |  3 ++-
- drivers/gpu/drm/i915/i915_request.c              |  7 +++++--
- drivers/gpu/drm/i915/i915_request.h              |  5 +++++
- drivers/gpu/drm/i915/i915_scheduler.c            | 16 ++++++++++------
- drivers/gpu/drm/i915/i915_scheduler.h            | 14 ++++++++++++++
- drivers/gpu/drm/i915/i915_scheduler_types.h      | 12 ++++++++++--
- 8 files changed, 55 insertions(+), 14 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index ab4c5ab28e4d..1d772cc87ae6 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -294,6 +294,7 @@ proto_context_create(struct drm_i915_private *i915, unsigned int flags)
+ 	if (i915->params.enable_hangcheck)
+ 		pc->user_flags |= BIT(UCONTEXT_PERSISTENCE);
+ 	pc->sched.priority = I915_PRIORITY_NORMAL;
++	pc->sched.nice = task_nice(current);
+ 
+ 	if (flags & I915_CONTEXT_CREATE_FLAGS_SINGLE_TIMELINE) {
+ 		if (!HAS_EXECLISTS(i915)) {
+@@ -914,8 +915,11 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
+ 
+ 	case I915_CONTEXT_PARAM_PRIORITY:
+ 		ret = validate_priority(fpriv->dev_priv, args);
+-		if (!ret)
++		if (!ret) {
+ 			pc->sched.priority = args->value;
++			if (args->value == I915_CONTEXT_DEFAULT_PRIORITY)
++				pc->sched.nice = task_nice(current);
++		}
+ 		break;
+ 
+ 	case I915_CONTEXT_PARAM_SSEU:
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 8b04c6e4c006..eb035cd73bc5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -254,7 +254,7 @@ static struct i915_priolist *to_priolist(struct rb_node *rb)
+ 
+ static int rq_prio(const struct i915_request *rq)
+ {
+-	return READ_ONCE(rq->sched.attr.priority);
++	return i915_request_priority(rq);
+ }
+ 
+ static int effective_prio(const struct i915_request *rq)
+@@ -3278,8 +3278,8 @@ static void kick_execlists(const struct i915_request *rq,
+ {
+ 	struct intel_engine_cs *engine = rq->engine;
+ 	struct i915_sched_engine *sched_engine = engine->sched_engine;
++	const int prio = i915_sched_attr_priority(attr);
+ 	const struct i915_request *inflight;
+-	const int prio = attr->priority;
+ 
+ 	/*
+ 	 * We only need to kick the tasklet once for the high priority
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 2d5193a9a1d3..a60118461750 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -3523,7 +3523,7 @@ static void guc_bump_inflight_request_prio(struct i915_request *rq,
+ 					   const struct i915_sched_attr *attr)
+ {
+ 	struct intel_context *ce = request_to_scheduling_context(rq);
+-	const int prio = attr->priority;
++	const int prio = i915_sched_attr_priority(attr);
+ 	u8 new_guc_prio = map_i915_prio_to_guc_prio(prio);
+ 
+ 	/* Short circuit function */
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 582770360ad1..960bfd517ff7 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -2093,7 +2093,7 @@ static int print_sched_attr(const struct i915_sched_attr *attr,
+ 		return x;
+ 
+ 	x += snprintf(buf + x, len - x,
+-		      " prio=%d", attr->priority);
++		      " prio=%d nice=%d", attr->priority, attr->nice);
+ 
+ 	return x;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index 28b1f9db5487..57648206bdc6 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -439,6 +439,11 @@ long i915_request_wait(struct i915_request *rq,
+ #define I915_WAIT_PRIORITY	BIT(1) /* small priority bump for the request */
+ #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
+ 
++static inline int i915_request_priority(const struct i915_request *rq)
++{
++	return i915_sched_attr_priority(&rq->sched.attr);
++}
++
+ void i915_request_show(struct drm_printer *m,
+ 		       const struct i915_request *rq,
+ 		       const char *prefix,
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
+index 534bab99fcdc..e75793e36454 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.c
++++ b/drivers/gpu/drm/i915/i915_scheduler.c
+@@ -155,7 +155,9 @@ lock_sched_engine(struct i915_sched_node *node,
+ static void __i915_schedule(struct i915_sched_node *node,
+ 			    const struct i915_sched_attr *attr)
+ {
+-	const int prio = max(attr->priority, node->attr.priority);
++	const int prio =
++		max(i915_sched_attr_priority(attr),
++		    i915_sched_attr_priority(&node->attr));
+ 	struct i915_sched_engine *sched_engine;
+ 	struct i915_dependency *dep, *p;
+ 	struct i915_dependency stack;
+@@ -209,7 +211,7 @@ static void __i915_schedule(struct i915_sched_node *node,
+ 			if (node_signaled(p->signaler))
+ 				continue;
+ 
+-			if (prio > READ_ONCE(p->signaler->attr.priority))
++			if (prio > i915_sched_attr_priority(&p->signaler->attr))
+ 				list_move_tail(&p->dfs_link, &dfs);
+ 		}
+ 	}
+@@ -247,7 +249,8 @@ static void __i915_schedule(struct i915_sched_node *node,
+ 		lockdep_assert_held(&sched_engine->lock);
+ 
+ 		/* Recheck after acquiring the engine->timeline.lock */
+-		if (prio <= node->attr.priority || node_signaled(node))
++		if (prio <= i915_sched_attr_priority(&node->attr) ||
++		    node_signaled(node))
+ 			continue;
+ 
+ 		GEM_BUG_ON(node_to_request(node)->engine->sched_engine !=
+@@ -257,7 +260,7 @@ static void __i915_schedule(struct i915_sched_node *node,
+ 		if (sched_engine->bump_inflight_request_prio)
+ 			sched_engine->bump_inflight_request_prio(from, attr);
+ 
+-		WRITE_ONCE(node->attr.priority, prio);
++		WRITE_ONCE(node->attr, *attr);
+ 
+ 		/*
+ 		 * Once the request is ready, it will be placed into the
+@@ -305,6 +308,7 @@ void i915_sched_node_init(struct i915_sched_node *node)
+ void i915_sched_node_reinit(struct i915_sched_node *node)
+ {
+ 	node->attr.priority = I915_PRIORITY_INVALID;
++	node->attr.nice = 0;
+ 	node->semaphores = 0;
+ 	node->flags = 0;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_scheduler.h b/drivers/gpu/drm/i915/i915_scheduler.h
+index 0b9b86af6c7f..75ccc9f55d14 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler.h
++++ b/drivers/gpu/drm/i915/i915_scheduler.h
+@@ -38,6 +38,20 @@ void i915_sched_node_fini(struct i915_sched_node *node);
+ void i915_schedule(struct i915_request *request,
+ 		   const struct i915_sched_attr *attr);
+ 
++static inline int i915_sched_attr_priority(const struct i915_sched_attr *attr)
++{
++	int prio = attr->priority;
++
++	/*
++	 * Only allow I915_CONTEXT_DEFAULT_PRIORITY to be affected by the
++	 * nice setting.
++	 */
++	if (!prio)
++		prio = -attr->nice;
++
++	return prio;
++}
++
+ struct list_head *
+ i915_sched_lookup_priolist(struct i915_sched_engine *sched_engine, int prio);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
+index 24b9ac1c2ce2..159237aa7609 100644
+--- a/drivers/gpu/drm/i915/i915_scheduler_types.h
++++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
+@@ -29,6 +29,14 @@ struct i915_sched_attr {
+ 	 * The &drm_i915_private.kernel_context is assigned the lowest priority.
+ 	 */
+ 	int priority;
++
++	/**
++	 * @nice: context nice level
++	 *
++	 * Nice level follows the CPU scheduler nice value as set for the
++	 * process owning the GPU context.
++	 */
++	int nice;
+ };
+ 
+ /*
 -- 
 2.32.0
 
