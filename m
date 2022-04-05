@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0FE9C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 17:34:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AACCFC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 17:34:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA75D10ED9B;
-	Tue,  5 Apr 2022 17:34:24 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E00C10ED94
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Apr 2022 17:34:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3968B10EDA2;
+	Tue,  5 Apr 2022 17:34:28 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCC6210ED9D
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Apr 2022 17:34:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649180063; x=1680716063;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=8SsqxWSX/Tv11FBHGeA6ir0gv2IbNe/kMwlS7xwgPq0=;
- b=WcqEyuz4ApKzIWb7u4J6RxxGe1vns9tKycvAcWRfBH+If36qVxLYgLy5
- fSZMHO0AouyfVsIdiOG+zntreroBwIPpk2z/x/MmL96NHmQfVimVM0y8x
- MZonuoLUMyxMyfWbyNxd5y9xrqqzW2/5YATmGf75LL6JZZxhyP5dJKOhS
- y13/26/+GTJCVEosuyyi6EM92HxFJIu2UG2opYNWFxR3vmlt1rv2EXr8B
- wu0vbeedcRAGgw5n60qSczVjEVzVa37QtfjaGnfthYouddl+AORHw5oDk
- 1ciqn8JEC5tmNyvma18tolvKXlo1/7q5EaB6VnLIL+foeYCINcOPJ6gek Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10308"; a="259648155"
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="259648155"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 10:34:13 -0700
+ t=1649180065; x=1680716065;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=338ru83bqkjn18NS8B+LdEAPv7YXbvYUOgH+AlmPM6M=;
+ b=EbjqmDsO18m9VR7hk8o7fzcSpO9RcjYXNDVsz1uVTQnHMQLDJo+UuDVh
+ fNjwTrMaCEog5ATbJP7ULFJSTT7Y/c7vNp5lBEsz6CPW9Q8047TNsXdPY
+ eyuurbzhzS8AoY/RYPX2NZt0uVw8dBltNQM9sOwaFB2Gwbd2QR9kfwG70
+ WNHHcbLg5qoehFWnDEBKRRPGz9BIKQM672Jx/ypcnY13Lrb+04Gcu+I64
+ NhlbIxG6Vzz8og0QfL4/Wl3Q5xSuuQ4oyrRT5KHmU/KBjjZOeNbQxo//N
+ 85dx6+gGwlZzJR7Bz+8CmmeaMF1podZemZ8nxlqHXt5+DaXQuoPc6lD/j g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10308"; a="260809854"
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="260809854"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2022 10:34:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="651984273"
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="549151513"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
- by fmsmga002.fm.intel.com with SMTP; 05 Apr 2022 10:34:11 -0700
+ by orsmga007.jf.intel.com with SMTP; 05 Apr 2022 10:34:23 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 05 Apr 2022 20:34:10 +0300
+ Tue, 05 Apr 2022 20:34:22 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Apr 2022 20:33:48 +0300
-Message-Id: <20220405173410.11436-1-ville.syrjala@linux.intel.com>
+Date: Tue,  5 Apr 2022 20:33:52 +0300
+Message-Id: <20220405173410.11436-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220405173410.11436-1-ville.syrjala@linux.intel.com>
+References: <20220405173410.11436-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 00/22] drm/i915/bios: Rework BDB block
- handling and PNPID->panel_type matching
+Subject: [Intel-gfx] [PATCH v2 04/22] drm/i915/bios: Validate LFP data table
+ pointers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,77 +64,122 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Several changes to our BDB block handling:
+Make sure the LFP data table pointers sane. Sensible looking
+table entries, everything points correctly into the data block,
+etc.
 
-1)
-The current way of trusting the version checks to avoid out of
-bounds accesses to the BDB blocks is fragile. We might just get
-the version check wrong, or the VBT may be corrupted/malicious.
-So instead of doing blind accesses into the original data let's
-make a copy of each block with a gauranteed minimum size.
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c | 82 ++++++++++++++++++++++-
+ 1 file changed, 81 insertions(+), 1 deletion(-)
 
-2)
-The LFP data table pointer stuff is a horrible mess currently.
-Let's make that sensible by verifying the pointers ahead of
-time, which allows us to trust them 100% when we acually
-parse the actual data block.
-
-3)
-There's more stuff at the tail end of the LFP data block we
-need to parse. The variable size of the fp_timing table makes
-that a bit awkward, but with the pointer validation in place
-it's not too horrible.
-
-4)
-Modern VBTs (seen it on TGL/ADL-P/CML so far) no longer include
-the LFP data table pointers block (41) in the VBT. In order to
-keep the rest of the code working as is we must therefore
-generate the pointers block from scratch.
-
-New stuff in v2:
-- Make all the BDB block copies up front
-- Split the VBT parsing into two parts and add the EDID
-  PNPID->panel_type matching because many modern machines need it
-
-Ville Syrjälä (22):
-  drm/i915/bios: Use the cached BDB version
-  drm/i915/bios: Make copies of VBT data blocks
-  drm/i915/bios: Use the copy of the LFP data table always
-  drm/i915/bios: Validate LFP data table pointers
-  drm/i915/bios: Trust the LFP data pointers
-  drm/i915/bios: Validate the panel_name table
-  drm/i915/bios: Reorder panel DTD parsing
-  drm/i915/bios: Generate LFP data table pointers if the VBT lacks them
-  drm/i915/bios: Get access to the tail end of the LFP data block
-  drm/i915/bios: Assume panel_type==0 if the VBT has bogus data
-  drm/i915/bios: Split parse_driver_features() into two parts
-  drm/i915/bios: Split VBT parsing to global vs. panel specific parts
-  drm/i915/pps: Split PPS init+sanitize in two
-  drm/i915/pps: Reinit PPS delays after VBT has been fully parsed
-  drm/i915/bios: Do panel specific VBT parsing later
-  drm/i915/bios: Extract get_panel_type()
-  drm/i915/bios: Refactor panel_type code
-  drm/i915/bios: Determine panel type via PNPID match
-  drm/i915/bios: Parse the seamless DRRS min refresh rate
-  drm/i915: Respect VBT seamless DRRS min refresh rate
-  drm/edid: Extract drm_edid_decode_mfg_id()
-  drm/i915/bios: Dump PNPID and panel name
-
- drivers/gpu/drm/i915/display/icl_dsi.c        |   2 +
- drivers/gpu/drm/i915/display/intel_bios.c     | 883 ++++++++++++++----
- drivers/gpu/drm/i915/display/intel_bios.h     |   3 +
- drivers/gpu/drm/i915/display/intel_dp.c       |   4 +
- drivers/gpu/drm/i915/display/intel_lvds.c     |   2 +
- drivers/gpu/drm/i915/display/intel_panel.c    |  10 +-
- drivers/gpu/drm/i915/display/intel_pps.c      |  35 +-
- drivers/gpu/drm/i915/display/intel_pps.h      |   1 +
- drivers/gpu/drm/i915/display/intel_sdvo.c     |   3 +
- drivers/gpu/drm/i915/display/intel_vbt_defs.h |  22 +
- drivers/gpu/drm/i915/display/vlv_dsi.c        |   2 +
- drivers/gpu/drm/i915/i915_drv.h               |   2 +
- include/drm/drm_edid.h                        |  21 +-
- 13 files changed, 810 insertions(+), 180 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 000544280c35..cd82ea4de8e1 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -133,6 +133,18 @@ static u32 block_offset(const void *bdb, enum bdb_block_id section_id)
+ 	return block - bdb;
+ }
+ 
++/* size of the block excluding the header */
++static u32 block_size(const void *bdb, enum bdb_block_id section_id)
++{
++	const void *block;
++
++	block = find_raw_section(bdb, section_id);
++	if (!block)
++		return 0;
++
++	return get_blocksize(block);
++}
++
+ struct bdb_block_entry {
+ 	struct list_head node;
+ 	enum bdb_block_id section_id;
+@@ -191,6 +203,74 @@ static const struct {
+ 	  .min_size = sizeof(struct bdb_generic_dtd), },
+ };
+ 
++static bool validate_lfp_data_ptrs(const void *bdb,
++				   const struct bdb_lvds_lfp_data_ptrs *ptrs)
++{
++	int fp_timing_size, dvo_timing_size, panel_pnp_id_size;
++	int data_block_size, lfp_data_size;
++	int i;
++
++	data_block_size = block_size(bdb, BDB_LVDS_LFP_DATA);
++	if (data_block_size == 0)
++		return false;
++
++	/* always 3 indicating the presence of fp_timing+dvo_timing+panel_pnp_id */
++	if (ptrs->lvds_entries != 3)
++		return false;
++
++	fp_timing_size = ptrs->ptr[0].fp_timing.table_size;
++	dvo_timing_size = ptrs->ptr[0].dvo_timing.table_size;
++	panel_pnp_id_size = ptrs->ptr[0].panel_pnp_id.table_size;
++
++	/* fp_timing has variable size */
++	if (fp_timing_size < 32 ||
++	    dvo_timing_size != sizeof(struct lvds_dvo_timing) ||
++	    panel_pnp_id_size != sizeof(struct lvds_pnp_id))
++		return false;
++
++	lfp_data_size = ptrs->ptr[1].fp_timing.offset - ptrs->ptr[0].fp_timing.offset;
++	if (16 * lfp_data_size > data_block_size)
++		return false;
++
++	/*
++	 * Except for vlv/chv machines all real VBTs seem to have 6
++	 * unaccounted bytes in the fp_timing table. And it doesn't
++	 * appear to be a really intentional hole as the fp_timing
++	 * 0xffff terminator is always within those 6 missing bytes.
++	 */
++	if (fp_timing_size + dvo_timing_size + panel_pnp_id_size != lfp_data_size &&
++	    fp_timing_size + 6 + dvo_timing_size + panel_pnp_id_size != lfp_data_size)
++		return false;
++
++	if (ptrs->ptr[0].fp_timing.offset + fp_timing_size > ptrs->ptr[0].dvo_timing.offset ||
++	    ptrs->ptr[0].dvo_timing.offset + dvo_timing_size != ptrs->ptr[0].panel_pnp_id.offset ||
++	    ptrs->ptr[0].panel_pnp_id.offset + panel_pnp_id_size != lfp_data_size)
++		return false;
++
++	/* make sure the table entries have uniform size */
++	for (i = 1; i < 16; i++) {
++		if (ptrs->ptr[i].fp_timing.table_size != fp_timing_size ||
++		    ptrs->ptr[i].dvo_timing.table_size != dvo_timing_size ||
++		    ptrs->ptr[i].panel_pnp_id.table_size != panel_pnp_id_size)
++			return false;
++
++		if (ptrs->ptr[i].fp_timing.offset - ptrs->ptr[i-1].fp_timing.offset != lfp_data_size ||
++		    ptrs->ptr[i].dvo_timing.offset - ptrs->ptr[i-1].dvo_timing.offset != lfp_data_size ||
++		    ptrs->ptr[i].panel_pnp_id.offset - ptrs->ptr[i-1].panel_pnp_id.offset != lfp_data_size)
++			return false;
++	}
++
++	/* make sure the tables fit inside the data block */
++	for (i = 0; i < 16; i++) {
++		if (ptrs->ptr[i].fp_timing.offset + fp_timing_size > data_block_size ||
++		    ptrs->ptr[i].dvo_timing.offset + dvo_timing_size > data_block_size ||
++		    ptrs->ptr[i].panel_pnp_id.offset + panel_pnp_id_size > data_block_size)
++			return false;
++	}
++
++	return true;
++}
++
+ /* make the data table offsets relative to the data block */
+ static bool fixup_lfp_data_ptrs(const void *bdb, void *ptrs_block)
+ {
+@@ -211,7 +291,7 @@ static bool fixup_lfp_data_ptrs(const void *bdb, void *ptrs_block)
+ 		ptrs->ptr[i].panel_pnp_id.offset -= offset;
+ 	}
+ 
+-	return true;
++	return validate_lfp_data_ptrs(bdb, ptrs);
+ }
+ 
+ static void
 -- 
 2.35.1
 
