@@ -4,42 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBABEC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 08:37:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0CF5C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 08:40:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEF910F1EA;
-	Tue,  5 Apr 2022 08:37:51 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8620810F1EA
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Apr 2022 08:37:49 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 24A4CB81B13;
- Tue,  5 Apr 2022 08:37:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692BFC385A1;
- Tue,  5 Apr 2022 08:37:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1649147866;
- bh=+cvy/v5TGZXagD6fIYk4pEytVC1K83ILUAf1awavJYs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PSGZrzyBO5vhLMgFcgWU7Zk2GIkTQHaXIL3ioYzRC6Jv7N67AXeSLFzWadrLOaT1a
- V25oc34QF5gr8Oo7L2xBe03CVgae9UPB1BfDfKACscmjIumZeLjmVM7sDm0gVRQm4i
- +wGgN6Z34R0K2lIAyjeBBE9WzNr2PvmjNR3goj5I=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Date: Tue,  5 Apr 2022 09:17:42 +0200
-Message-Id: <20220405070358.630157664@linuxfoundation.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220405070354.155796697@linuxfoundation.org>
-References: <20220405070354.155796697@linuxfoundation.org>
-User-Agent: quilt/0.66
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40A7610E913;
+	Tue,  5 Apr 2022 08:40:42 +0000 (UTC)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6628810E913
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Apr 2022 08:40:41 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id q26so6391003edc.7
+ for <intel-gfx@lists.freedesktop.org>; Tue, 05 Apr 2022 01:40:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=QRQdW4TxY/XkOYOT3oxLG3OIsaxqVCqvMm2visUSAZI=;
+ b=R5WyFM3Hb3GT2s4H08DzUIMQiUCuX9Lg5BSB6FtLOqpb9+K0R/+NXBIvm5gKP5c9J3
+ 9uKEocy6gvBxFpFp3qCT0vApX1ZAxWoy2UjfBaiGsZGlxJO8MBrCopzDmKf7hLQSHfEx
+ 1t/1TiVB/Zv+FY3jh4d8cFdSJTjj852yReO4U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:subject:message-id:mail-followup-to
+ :references:mime-version:content-disposition:in-reply-to;
+ bh=QRQdW4TxY/XkOYOT3oxLG3OIsaxqVCqvMm2visUSAZI=;
+ b=7Yi1qPLxo/MwV8+aZ4fmu9Z8XdMdKw1dXPeULzDODwedEX3zSbRz1gBbae4UA1q7vX
+ DiRE0YPCYvS3hHy3zUwSTJIm69eWOARH8ufEao1Zl+aAAwWPJt0xoW1+zQCo6bgt2KGn
+ tpTqNoroDGJjYhxw8lYFkp3rn/tS7PbsvCvvmTsQFPeWUCz0CQN1i8qUpXP6nS0/+pC1
+ 4y/pLhwLv2DfpkjxX/5QOcv7I0p0xAb8bxuLOpfmu/CdPmCBFxdDD0OLM9515oG8d0bm
+ HRIL4e64cUL+9SPKoC17HX8/m279wEW5mP4hTLyPEcNDVfltIqyhIZoeuPNXr59vsMPU
+ Yy5g==
+X-Gm-Message-State: AOAM531ltKeme6n/3VPDMnV1p4P8b4ttCtOl2nU9iKOPNXST8NUbphv5
+ YO/DK5Nd+grgjuDWMOq1XXdw8Q==
+X-Google-Smtp-Source: ABdhPJxdMNTJdlht0ASSjqOZpmGfUZPUZ3aVJQxSpEJt0tJUibhrkRySvqoqStIMLvI+YtZTojtm1Q==
+X-Received: by 2002:a05:6402:31e2:b0:41c:dd5e:3c61 with SMTP id
+ dy2-20020a05640231e200b0041cdd5e3c61mr2342747edb.407.1649148039950; 
+ Tue, 05 Apr 2022 01:40:39 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ d7-20020a170906174700b006e80a7e3111sm568499eje.17.2022.04.05.01.40.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Apr 2022 01:40:39 -0700 (PDT)
+Date: Tue, 5 Apr 2022 10:40:37 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Javier Martinez Canillas <javierm@redhat.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ linux-fbdev@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Zack Rusin <zackr@vmware.com>, Hans de Goede <hdegoede@redhat.com>,
+ Ilya Trukhanov <lahvuun@gmail.com>,
+ Daniel Vetter <daniel.vetter@intel.com>, Peter Jones <pjones@redhat.com>
+Message-ID: <YkwAhSt9HlbxcuZo@phenom.ffwll.local>
+Mail-Followup-To: Javier Martinez Canillas <javierm@redhat.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ linux-fbdev@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Zack Rusin <zackr@vmware.com>, Hans de Goede <hdegoede@redhat.com>,
+ Ilya Trukhanov <lahvuun@gmail.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Peter Jones <pjones@redhat.com>
+References: <20220208210824.2238981-1-daniel.vetter@ffwll.ch>
+ <20220208210824.2238981-19-daniel.vetter@ffwll.ch>
+ <4ae20b63-f452-fdb4-ced6-d4968a8d69f0@redhat.com>
+ <Ykv/k/WoVemoCJJA@phenom.ffwll.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5.16 0149/1017] drm/edid: check basic audio
- support on CEA extension block
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Ykv/k/WoVemoCJJA@phenom.ffwll.local>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Intel-gfx] [PATCH v2 18/19] Revert "fbdev: Prevent probing
+ generic drivers if a FB is already registered"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,48 +87,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Cooper Chiou <cooper.chiou@intel.com>, Jani Nikula <jani.nikula@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>, stable@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Cooper Chiou <cooper.chiou@intel.com>
+On Tue, Apr 05, 2022 at 10:36:35AM +0200, Daniel Vetter wrote:
+> On Wed, Feb 09, 2022 at 01:19:26AM +0100, Javier Martinez Canillas wrote:
+> > On 2/8/22 22:08, Daniel Vetter wrote:
+> > > This reverts commit fb561bf9abde49f7e00fdbf9ed2ccf2d86cac8ee.
+> > > 
+> > > With
+> > > 
+> > > commit 27599aacbaefcbf2af7b06b0029459bbf682000d
+> > > Author: Thomas Zimmermann <tzimmermann@suse.de>
+> > > Date:   Tue Jan 25 10:12:18 2022 +0100
+> > > 
+> > >     fbdev: Hot-unplug firmware fb devices on forced removal
+> > > 
+> > > this should be fixed properly and we can remove this somewhat hackish
+> > > check here (e.g. this won't catch drm drivers if fbdev emulation isn't
+> > > enabled).
+> > >
+> > 
+> > Unfortunately this hack can't be reverted yet. Thomas' patch solves the issue
+> > of platform devices matched with fbdev drivers to be properly unregistered if
+> > a DRM driver attempts to remove all the conflicting framebuffers.
+> > 
+> > But the problem that fb561bf9abde ("fbdev: Prevent probing generic drivers if
+> > a FB is already registered") worked around is different. It happens when the
+> > DRM driver is probed before the {efi,simple}fb and other fbdev drivers, the
+> > kicking out of conflicting framebuffers already happened and these drivers
+> > will be allowed to probe even when a DRM driver is already present.
+> > 
+> > We need a clearer way to prevent it, but can't revert fb561bf9abde until that.
+> 
+> Yeah that entire area is a mess still, ideally we'd have something else
+> creating the platform devices, and efifb/offb and all these would just
+> bind against them.
+> 
+> Hm one idea that just crossed my mind: Could we have a flag in fb_info for
+> fw drivers, and check this in framebuffer_register? Then at least all the
+> logic would be in the fbdev core.
 
-commit 5662abf6e21338be6d085d6375d3732ac6147fd2 upstream.
+Ok coffee just kicked in, how exactly does your scenario work?
 
-Tag code stored in bit7:5 for CTA block byte[3] is not the same as
-CEA extension block definition. Only check CEA block has
-basic audio support.
+This code I'm reverting here is in the platform_dev->probe function.
+Thomas' patch removes the platform_dev. How exactly can you still probe
+against a platform dev if that platform dev is gone?
 
-v3: update commit message.
+Iow, now that I reponder your case after a few weeks I'm no longer sure
+things work like you claim.
 
-Cc: stable@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Shawn C Lee <shawn.c.lee@intel.com>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>
-Signed-off-by: Cooper Chiou <cooper.chiou@intel.com>
-Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
-Fixes: e28ad544f462 ("drm/edid: parse CEA blocks embedded in DisplayID")
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20220324061218.32739-1-shawn.c.lee@intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/drm_edid.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -4848,7 +4848,8 @@ bool drm_detect_monitor_audio(struct edi
- 	if (!edid_ext)
- 		goto end;
- 
--	has_audio = ((edid_ext[3] & EDID_BASIC_AUDIO) != 0);
-+	has_audio = (edid_ext[0] == CEA_EXT &&
-+		    (edid_ext[3] & EDID_BASIC_AUDIO) != 0);
- 
- 	if (has_audio) {
- 		DRM_DEBUG_KMS("Monitor has basic audio support\n");
-
-
+There is the issue that offb still bidns without a platform_dev, but
+that's not affected by this patch here.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
