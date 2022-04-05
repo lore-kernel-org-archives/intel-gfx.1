@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28459C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 17:35:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14D0BC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 17:35:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7080410EDB6;
-	Tue,  5 Apr 2022 17:35:26 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7F7710EDB6
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Apr 2022 17:35:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9423F10EDC7;
+	Tue,  5 Apr 2022 17:35:30 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F28110EDCB
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Apr 2022 17:35:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649180124; x=1680716124;
+ t=1649180129; x=1680716129;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=K2i/IKdbX/lCzZtwB7fwE8KufzBUc8lqjDcIn8xdQws=;
- b=DPCzxymK0acGtyEcDd14KHS5Ah+VL6CkIOYCSxohoaLpcjqiI31EfnpQ
- 9tkCkGbEczln6B+cLQE/10e9QjMyvoarzv+c3Q0ol/q46GnM0ZtRNhtzD
- s3RhMkL4AQRQphCB/BmhrmZ1WlxyrKQfdo7KToQP4hKd+odCqwKbqSzOH
- wx4SQX5PE3JN0A7+EIxOwYVGEOOX4tDmCC6pzSlAjCyNU/1zjxi5Vu6LI
- fhTLR6JpY+V3hxYXmophWH+ieHl0CK3EOFt+Um7bjGVkkdBfIjlOM/FFM
- eF+ehwongIxGFlexjz6sitQhflb04j67CDcNoqMxkv6HbvwWROTGD1CFp w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10308"; a="242959711"
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="242959711"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 10:34:55 -0700
+ bh=IgVqLB9KUwwVuIyiRKWLG2PoiUD+gQbpHYrIBkDDLWg=;
+ b=dGZpLPv2mdVe8P3rBTdqZse0LjtaQGSl0yAPcAF0mxOohl+ro/3TzMgs
+ 6LX3Nu/nvxEI3rqi6tbCAEmcrQzkRv9KR9b97Zpg3RK950Dz9I8+8vJSj
+ 2A8CobvhhhHGwfCSaWe0/gz8tzgx/Kzd3hf6tnJ32PtVpvVadkBkVsF5O
+ KLAGUMnAadGiuc1soVYxxjWY+rMwrUvl/vRuKQZwe2aUyB5pn12MxX6yy
+ aFj044JDdQEaeNibtxMQuf+PuBUDD8hMinyBJED9SDy8ra+HYVI6Gz8R5
+ iuvE3CPjRVMmaVEGEHcBThS2DyMSOhmcIv8hjfq2R/rspv16GVg3aksZP A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10308"; a="258402699"
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="258402699"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2022 10:35:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="549151704"
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="651984722"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
- by orsmga007.jf.intel.com with SMTP; 05 Apr 2022 10:34:53 -0700
+ by fmsmga002.fm.intel.com with SMTP; 05 Apr 2022 10:35:10 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 05 Apr 2022 20:34:52 +0300
+ Tue, 05 Apr 2022 20:35:09 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Apr 2022 20:34:02 +0300
-Message-Id: <20220405173410.11436-15-ville.syrjala@linux.intel.com>
+Date: Tue,  5 Apr 2022 20:34:08 +0300
+Message-Id: <20220405173410.11436-21-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220405173410.11436-1-ville.syrjala@linux.intel.com>
 References: <20220405173410.11436-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 14/22] drm/i915/pps: Reinit PPS delays after
- VBT has been fully parsed
+Subject: [Intel-gfx] [PATCH v2 20/22] drm/i915: Respect VBT seamless DRRS
+ min refresh rate
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,38 +64,38 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-During the eDP probe we may not yet know the panel_type used
-to index the VBT panel tables. So the initial eDP probe will have
-to be done without that, and thus we won't yet have the PPS delays
-from the VBT. Once the VBT has been fully parse we should reinit
-the PPS delays to make sure it's fully accounted for.
-
-TODO: I wonder if we should do the eDP probe with some super safe
-PPS delayes (eg. max of all VBT PPS delays) just to make sure we
-don't violate the timings. Though typically the VBIOS/GOP do leave
-VDD enabled after boot in which case we don't actually have to care
-about the delays at all.
+Make sure our choice of downclock mode respects the VBT
+seameless DRRS min refresh rate limit.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_pps.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/i915/display/intel_panel.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-index 6ab8d971901b..140191290e85 100644
---- a/drivers/gpu/drm/i915/display/intel_pps.c
-+++ b/drivers/gpu/drm/i915/display/intel_pps.c
-@@ -1395,6 +1395,11 @@ void intel_pps_init_late(struct intel_dp *intel_dp)
- 	intel_wakeref_t wakeref;
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 03398feb6676..35d8676438a3 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -75,13 +75,17 @@ const struct drm_display_mode *
+ intel_panel_downclock_mode(struct intel_connector *connector,
+ 			   const struct drm_display_mode *adjusted_mode)
+ {
++	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	const struct drm_display_mode *fixed_mode, *best_mode = NULL;
+-	int vrefresh = drm_mode_vrefresh(adjusted_mode);
++	int min_vrefresh = i915->vbt.seamless_drrs_min_refresh_rate;
++	int max_vrefresh = drm_mode_vrefresh(adjusted_mode);
  
- 	with_intel_pps_lock(intel_dp, wakeref) {
-+		/* Reinit delays after per-panel info has been parsed from VBT */
-+		memset(&intel_dp->pps.pps_delays, 0, sizeof(intel_dp->pps.pps_delays));
-+		pps_init_delays(intel_dp);
-+		pps_init_registers(intel_dp, false);
+ 	/* pick the fixed_mode with the lowest refresh rate */
+ 	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
+-		if (drm_mode_vrefresh(fixed_mode) < vrefresh) {
+-			vrefresh = drm_mode_vrefresh(fixed_mode);
++		int vrefesh = drm_mode_vrefresh(fixed_mode);
 +
- 		if (edp_have_panel_vdd(intel_dp))
- 			edp_panel_vdd_schedule_off(intel_dp);
++		if (vrefesh >= min_vrefresh && vrefesh < max_vrefresh) {
++			max_vrefresh = vrefesh;
+ 			best_mode = fixed_mode;
+ 		}
  	}
 -- 
 2.35.1
