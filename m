@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9C44C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 14:54:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAABBC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Apr 2022 14:54:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59CF710E8DD;
-	Tue,  5 Apr 2022 14:54:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9092910E19A;
+	Tue,  5 Apr 2022 14:54:21 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82A9B10E91C;
- Tue,  5 Apr 2022 14:54:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12BF510E19A;
+ Tue,  5 Apr 2022 14:54:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649170457; x=1680706457;
+ t=1649170460; x=1680706460;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=BH6rhIiByOXzo9zRMRtLAntr271Y6ajSjCNhzEAAA0E=;
- b=DXZgyNB61179BRKy4WbHRGbMoSZNImjnLb5d9yRGVx19gXP+NxrYbBlc
- 8zHFDr3ZJe8/s9g1oJPVAOzCZocRFCbZ9r8u30imWha/IiDUde6v0+wXT
- 0Zew5oYb3+pXW660jdAubmoVyb0dYPQacm/cPA4YVUc8TCP9QeH1OO22O
- PeHG6odsexXGODTi7om6KwHAujCVWxamMi/++Z4BlO0cvilSrycYxIJMs
- de7xewsBM8v7R7j6eZDBB5xm6caSkICA+bOwwlhOFIMGWOxTb2ukRY7Qw
- hAjx6sD7k1cGWSB0QJOf/hH5/S/kb0gUNYT1k17Sma2Qg8LFq04taWKL/ w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10307"; a="241353395"
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="241353395"
+ bh=oUkQbA5pN5V7a89ItbEKPba81WjVPT45OU0bMAv6p20=;
+ b=OYi9+qduav0gtMUIBmxs8y3BULaGbxbPkH6W7fSMUfIXRAuPFEQI+4af
+ e5Ptz+uZ1JCom0H/uxPuk8U8+KU3eAOpc5M2GoVmj1f58qyluiqh2uOWr
+ bGP95RlMZZ8EXEKqPghRalXEuA18DBETo/ZmeuR6tllOSqJ7mEaj9UW2N
+ Gt8YckhEe7Dl3w0FUq3NB79ZQHfEgPh1fM02f9LszDX445UYQp1YHPNOj
+ hmvJQ9I1LWT4PFxZN2/SCpFBV//9KqOdf4aoDssuDgb/7lYWvXzgKcs59
+ Wj2Y1h6DeCR0Hfy4OTSEDaBKybH2yrYjJrAlVNwxfqb5GxMo2Au4ft3VW Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10307"; a="241353412"
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="241353412"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 07:54:17 -0700
-X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="608470336"
+ 05 Apr 2022 07:54:19 -0700
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="608470346"
 Received: from pmulcahy-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.235.32])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 07:54:15 -0700
+ 05 Apr 2022 07:54:18 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Apr 2022 15:53:43 +0100
-Message-Id: <20220405145345.3284084-2-tvrtko.ursulin@linux.intel.com>
+Date: Tue,  5 Apr 2022 15:53:45 +0100
+Message-Id: <20220405145345.3284084-4-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220405145345.3284084-1-tvrtko.ursulin@linux.intel.com>
 References: <20220405145345.3284084-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915: Make some recently added vfuncs
- use full scheduling attribute
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Inherit submitter nice when
+ scheduling requests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,103 +63,34 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Code added in 71ed60112d5d ("drm/i915: Add kick_backend function to
-i915_sched_engine") and ee242ca704d3 ("drm/i915/guc: Implement GuC
-priority management") introduced some scheduling related vfuncs which
-take integer request priority as argument.
+Inherit submitter nice at point of request submission to account for
+long running processes getting either externally or self re-niced.
 
-Make them instead take struct i915_sched_attr which is the type
-encapsulating this information. This better aligns with the codebase
-and enables transparently extending the internal data passed along
-the scheduling call chains.
+Nice value will only apply to requests which originate from user
+contexts and have default context priority.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 4 +++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c    | 3 ++-
- drivers/gpu/drm/i915/i915_scheduler.c                | 4 ++--
- drivers/gpu/drm/i915/i915_scheduler_types.h          | 4 ++--
- 4 files changed, 9 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index f8749c433b7c..8b04c6e4c006 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3273,11 +3273,13 @@ static bool can_preempt(struct intel_engine_cs *engine)
- 	return engine->class != RENDER_CLASS;
- }
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 960bfd517ff7..a777f14e4b87 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -1811,8 +1811,11 @@ void i915_request_add(struct i915_request *rq)
+ 	/* XXX placeholder for selftests */
+ 	rcu_read_lock();
+ 	ctx = rcu_dereference(rq->context->gem_context);
+-	if (ctx)
++	if (ctx) {
+ 		attr = ctx->sched;
++		if (attr.priority == I915_CONTEXT_DEFAULT_PRIORITY)
++			attr.nice = task_nice(current);
++	}
+ 	rcu_read_unlock();
  
--static void kick_execlists(const struct i915_request *rq, int prio)
-+static void kick_execlists(const struct i915_request *rq,
-+			   const struct i915_sched_attr *attr)
- {
- 	struct intel_engine_cs *engine = rq->engine;
- 	struct i915_sched_engine *sched_engine = engine->sched_engine;
- 	const struct i915_request *inflight;
-+	const int prio = attr->priority;
- 
- 	/*
- 	 * We only need to kick the tasklet once for the high priority
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index e1612c393781..2d5193a9a1d3 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -3520,9 +3520,10 @@ static void guc_init_breadcrumbs(struct intel_engine_cs *engine)
- }
- 
- static void guc_bump_inflight_request_prio(struct i915_request *rq,
--					   int prio)
-+					   const struct i915_sched_attr *attr)
- {
- 	struct intel_context *ce = request_to_scheduling_context(rq);
-+	const int prio = attr->priority;
- 	u8 new_guc_prio = map_i915_prio_to_guc_prio(prio);
- 
- 	/* Short circuit function */
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index 762127dd56c5..534bab99fcdc 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -255,7 +255,7 @@ static void __i915_schedule(struct i915_sched_node *node,
- 
- 		/* Must be called before changing the nodes priority */
- 		if (sched_engine->bump_inflight_request_prio)
--			sched_engine->bump_inflight_request_prio(from, prio);
-+			sched_engine->bump_inflight_request_prio(from, attr);
- 
- 		WRITE_ONCE(node->attr.priority, prio);
- 
-@@ -280,7 +280,7 @@ static void __i915_schedule(struct i915_sched_node *node,
- 
- 		/* Defer (tasklet) submission until after all of our updates. */
- 		if (sched_engine->kick_backend)
--			sched_engine->kick_backend(node_to_request(node), prio);
-+			sched_engine->kick_backend(node_to_request(node), attr);
- 	}
- 
- 	spin_unlock(&sched_engine->lock);
-diff --git a/drivers/gpu/drm/i915/i915_scheduler_types.h b/drivers/gpu/drm/i915/i915_scheduler_types.h
-index b0a1b58c7893..24b9ac1c2ce2 100644
---- a/drivers/gpu/drm/i915/i915_scheduler_types.h
-+++ b/drivers/gpu/drm/i915/i915_scheduler_types.h
-@@ -177,13 +177,13 @@ struct i915_sched_engine {
- 	 * @kick_backend: kick backend after a request's priority has changed
- 	 */
- 	void	(*kick_backend)(const struct i915_request *rq,
--				int prio);
-+				const struct i915_sched_attr *attr);
- 
- 	/**
- 	 * @bump_inflight_request_prio: update priority of an inflight request
- 	 */
- 	void	(*bump_inflight_request_prio)(struct i915_request *rq,
--					      int prio);
-+					      const struct i915_sched_attr *attr);
- 
- 	/**
- 	 * @retire_inflight_request_prio: indicate request is retired to
+ 	__i915_request_queue(rq, &attr);
 -- 
 2.32.0
 
