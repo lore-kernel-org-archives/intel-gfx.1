@@ -4,30 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48AD3C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Apr 2022 01:51:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92E06C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Apr 2022 01:52:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B03AF10E35D;
-	Wed,  6 Apr 2022 01:51:48 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id BC0A110E35D;
- Wed,  6 Apr 2022 01:51:46 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id BCAB0A0078;
- Wed,  6 Apr 2022 01:51:46 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A84F10E930;
+	Wed,  6 Apr 2022 01:52:23 +0000 (UTC)
+X-Greylist: delayed 385 seconds by postgrey-1.36 at gabe;
+ Wed, 06 Apr 2022 01:52:22 UTC
+Received: from phobos.denx.de (phobos.denx.de
+ [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4587B10E930
+ for <intel-gfx@lists.freedesktop.org>; Wed,  6 Apr 2022 01:52:22 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 5E0FD839BA;
+ Wed,  6 Apr 2022 03:45:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1649209555;
+ bh=v3oFc7B9bk2XqycnFoV04ixZ2YcCpeqjwMggrSrn75U=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=o4J3v1s3ENNJEYYwqYgvj1wHS6f9tcldZPd7pkPdyzU6mW3Rol9t91MY41+ydOFqP
+ 0+mAXb9BdNRZ2rgPZJELmfBa6E4gzP2kSyYospn3W4EdT82ZcOnH7cB2Z65VruxKdR
+ mOqgA4gc3aKwE8vKKIvh6unJbnqA7H0GJOPFkoyUuK1PErGEavYAv622jrZA8FJHTe
+ AFRZP+T+p11ZJOuJOaODsOnGV3lBVABwYHlSCsCZGYEhQJh1PEp+WXBohaylgwS4kZ
+ 35eOXXxc7NIJJJznSlFPJRyzhqXWcV9M+Mg0oblqaqIj+YdwmsVHAJ3ajIvwgY1t0h
+ fcGjS6QUK0LAw==
+Message-ID: <481e40a3-bf84-1b04-b6e6-2a74a0b4b6fe@denx.de>
+Date: Wed, 6 Apr 2022 03:45:49 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+References: <20220406105828.6d238651@canb.auug.org.au>
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <20220406105828.6d238651@canb.auug.org.au>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Casey Bowman" <casey.g.bowman@intel.com>
-Date: Wed, 06 Apr 2022 01:51:46 -0000
-Message-ID: <164920990677.5450.12993176624353696752@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220330234809.1218210-1-casey.g.bowman@intel.com>
-In-Reply-To: <20220330234809.1218210-1-casey.g.bowman@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?Splitting_intel-gtt_calls_for_non-x86_platforms_=28rev8=29?=
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
+Subject: Re: [Intel-gfx] linux-next: build warning after merge of the
+ drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,21 +62,34 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Robert Foss <robert.foss@linaro.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On 4/6/22 02:58, Stephen Rothwell wrote:
+> Hi all,
 
-Series: Splitting intel-gtt calls for non-x86 platforms (rev8)
-URL   : https://patchwork.freedesktop.org/series/101552/
-State : warning
+Hi,
 
-== Summary ==
+> After merging the drm-misc tree, today's linux-next build (x86_64
+> allmodconfig) produced this warning:
+> 
+> WARNING: modpost: drivers/gpu/drm/bridge/chipone-icn6211.prelink.o(.exit.data+0x0): Section mismatch in reference from the variable __cfi_jt_cleanup_module to the function .init.text:cleanup_module()
+> The variable __exitdata __cfi_jt_cleanup_module references
+> a function __init cleanup_module().
+> This is often seen when error handling in the exit function
+> uses functionality in the init path.
+> The fix is often to remove the __init annotation of
+> cleanup_module() so it may be used outside an init section.
+> 
+> Introduced by commit
+> 
+>    8dde6f7452a1 ("drm: bridge: icn6211: Add I2C configuration support")
+> 
+> The chipone_exit function should not be marked __init.
 
-$ dim sparse --fast origin/drm-tip
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+Thanks, fix is submitted.
 
-
+Sigh.
