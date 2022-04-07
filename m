@@ -4,69 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9A59C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 08:59:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F0A6C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 09:14:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2E0A10E13C;
-	Thu,  7 Apr 2022 08:59:47 +0000 (UTC)
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C13D89121;
- Thu,  7 Apr 2022 08:59:46 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id A525E320209D;
- Thu,  7 Apr 2022 04:59:44 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 07 Apr 2022 04:59:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:message-id
- :mime-version:reply-to:sender:subject:subject:to:to; s=fm3; bh=U
- PEbxSZNGoPkznv6tY2V0ao1UTJuNhv50QJy+Nov4lk=; b=LcCf+TatfUq2HlgQb
- TOUAK0JummHCIbsjr6RCnOoDQ2Y0mGTbDRz7atJWggOK3FG14fsFqcrsHm7qla+z
- 4abaNqcXlvm8WdE0AUItHtE2W3FqUAoMaF0BXBYe925wwYxOI1w6/eEJUbFwnacg
- 5fVaplyBRe0iTv/B52r8BJXKr5lHudpm7TfWB+i3R6xhtEW5M9p/vK3H6AiNvEDh
- T8eX2bwJiuYrlr4oc0bjLH8J/gZDW8a44pYnYSSYAKwrAvm7NHJ3yHu5ebZLivax
- lxAAqY+VnaWt35ORURgSr4oQtg1xTgzKs8vzWJ54tOmqIYZF5kIdeoQWndOPcxY2
- uRlFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=UPEbxSZNGoPkznv6tY2V0ao1UTJuNhv50QJy+Nov4
- lk=; b=mskAKWm/TsqUfOsf19I+i0EIl4caPn/hpqxfPX8P1bxUd1Z0OFeJ/kQ+s
- 8sHCoeB2LJl2H1qUuNs+b5eSIZuLhUs+FzpWdSOiEZsSNTH0Qq+1Y6KAgMXBTIBU
- QIS8xFHbnqIuC7CDl6oK/T0WLg6NWoIYBPXDtrWGG5Z7uOH/O2QeiDj6bbjg8qdO
- 2X/KtG1krY41/j7DtB8m2ngx5kGgyHlPagvwuzTEkBwX4uKOYkYakc2ltHcYFmr3
- QWTqMHeUNOyw/XieGXo0NoUgjIFD4B4E9+YUMdDRFN+1Lt1H4WygV6RBEpTDeel0
- dT9KCPdJSrQs97pN/1DsDP4D/b9QA==
-X-ME-Sender: <xms:_6dOYrr-R16-yRWRiuAfzntpfz5TMV8jIdNCxn1pQzcX7NFp9ECqkw>
- <xme:_6dOYlqt8Dqi4hywwwFNS70wekdZ8JS4EDxhIdT0S-6lIhkch_hy-wQI0Cba49TWv
- 7W9G-6oBxI5b5S9Hh4>
-X-ME-Received: <xmr:_6dOYoMDkSb3BmMtie2fzXBXghzIERr5jPMs1z0cq_LHs1fX5gva6eCp2469eLUejBldeuXJenUCOSM7YD_aUVktKpljZT_2Kr7YknE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudejkedguddtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfggtggusehgtderredttddunecuhfhrohhmpeforgigihhmvgcu
- tfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrthhtvg
- hrnhephfehtefggeekteffueeileekfeegteetfffggfekleehkeffvedvgedtieetvddu
- necuffhomhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgnecuvehluhhsthgvrhfuih
- iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordht
- vggthh
-X-ME-Proxy: <xmx:_6dOYu6cjdBHymoy3VUxIoz-R_IIHheFMDZRIlmb78SGLz8IBXdVBA>
- <xmx:_6dOYq5p9VItQJgn643wyBLIcOjRcl3ULtsbIvcWXvYa8Y1tEY-_5A>
- <xmx:_6dOYmjvvqDxjyE0S5HXvA3-vRW4bA0dxiGlkZX7hvFqHYCuZYZYlQ>
- <xmx:AKhOYnzDYa7DdY0bvloNStW49BoihOL7X24scNyDlqv39zpEVdp9Vg>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 7 Apr 2022 04:59:42 -0400 (EDT)
-Date: Thu, 7 Apr 2022 10:59:40 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20220407085940.pnflvjojs4qw4b77@houat>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55CA210E4A1;
+	Thu,  7 Apr 2022 09:14:40 +0000 (UTC)
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
+ [IPv6:2a00:1450:4864:20::641])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 916B210E086
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 09:14:38 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id bh17so9470741ejb.8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 07 Apr 2022 02:14:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=kRU2cjJ16M+LXMqWXy59MUuJxln7fVmKJMH+BWQIkn4=;
+ b=LZ5tgJC8lE4/vNcf0Y7AOPg7dUQeMBpLcAlzO8HimiIQ6ZAbv3oh3SmiWxTpad9JhQ
+ 2DbnY67HWEakk6C6cdpxsbBo82lp2NfK7j+Ru9q+6CiWRfo/nbUrxCSOQ08LRCyaho2J
+ PrJuoZ4+ssyo7cofHhwYpFyZx3K45ZaJFZQmk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=kRU2cjJ16M+LXMqWXy59MUuJxln7fVmKJMH+BWQIkn4=;
+ b=MG1dsk3Rlvs+2xSajywlBNn32yRH6YKeKFkf4brKvRc5MOyW3PaD8Ni6eqU+lWvMVf
+ d/0ToQOpROiqqyTZkDiO10yDYZWbQPzoLxK9w1Ju31Zxr6xjB0GntXGYlfsQ6T1P+/EL
+ Afjf9I0ZUlRkGyZLV+qNUo39NI3dBtZLVdQj7stNMtYicvgEnevyI60EwEqLi9eotuWz
+ 6uH626vh2PRAjnQYWTmihOJMZF/AgyynUue2zKs4r6ccl4o1OLsz0J8S6Gh1cXwbaiA1
+ KKKeW3fSGxG6EV+j+cLoLC2EOXde5jvNmgV1qUZ94qx2QEs+LN+N53ApT745o+ap6z7L
+ LOsQ==
+X-Gm-Message-State: AOAM531ndIcDQv7JNbHBUPyF+L1tngusv8YT3sykqDJrkNpX6rhlOhZ8
+ 5sNyYFOq1ov2P7cwVLhxeGjkZg==
+X-Google-Smtp-Source: ABdhPJxe+Jh8TwVzBg9lbgbNBVS1+IeiV9AVFbmwuwZn1j4rACNixOhImmqm0p8hsUloscjThr9Ypw==
+X-Received: by 2002:a17:906:79c4:b0:6cf:5489:da57 with SMTP id
+ m4-20020a17090679c400b006cf5489da57mr12168570ejo.48.1649322876761; 
+ Thu, 07 Apr 2022 02:14:36 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ v2-20020a17090606c200b006a728f4a9bcsm7496642ejb.148.2022.04.07.02.14.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Apr 2022 02:14:36 -0700 (PDT)
+Date: Thu, 7 Apr 2022 11:14:34 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <Yk6reolnZJsdlixU@phenom.ffwll.local>
+References: <20220407085946.744568-1-christian.koenig@amd.com>
+ <20220407085946.744568-3-christian.koenig@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ttoaypuzkkqwegvo"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Subject: [Intel-gfx] [PULL] drm-misc-next
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220407085946.744568-3-christian.koenig@amd.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Intel-gfx] [PATCH 02/15] dma-buf: specify usage while adding
+ fences to dma_resv obj v7
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,674 +71,940 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: daniel.vetter@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
---ttoaypuzkkqwegvo
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Dave, Daniel,
-
-Here's the first drm-misc-next for 5.19
-
-Maxime
-
-drm-misc-next-2022-04-07:
-drm-misc-next for 5.19:
-
-UAPI Changes:
-
-Cross-subsystem Changes:
-
-Core Changes:
-  - atomic: Add atomic_print_state to private objects
-  - edid: Constify the EDID parsing API, rework of the API
-  - dma-buf: Add dma_resv_replace_fences, dma_resv_get_singleton, make
-    dma_resv_excl_fence private
-  - format: Support monochrome formats
-  - fbdev: fixes for cfb_imageblit and sys_imageblit, pagelist
-    corruption fix
-  - selftests: several small fixes
-  - ttm: Rework bulk move handling
-
-Driver Changes:
-  - Switch all relevant drivers to drm_mode_copy or drm_mode_duplicate
-  - bridge: conversions to devm_drm_of_get_bridge and panel_bridge,
-    autosuspend for analogix_dp, audio support for it66121, DSI to DPI
-    support for tc358767, PLL fixes and I2C support for icn6211
-  - bridge_connector: Enable HPD if supported
-  - etnaviv: fencing improvements
-  - gma500: GEM and GTT improvements, connector handling fixes
-  - komeda: switch to plane reset helper
-  - mediatek: MIPI DSI improvements
-  - omapdrm: GEM improvements
-  - panel: DT bindings fixes for st7735r, few fixes for ssd130x, new
-    panels: ltk035c5444t, B133UAN01, NV3052C
-  - qxl: Allow to run on arm64
-  - sysfb: Kconfig rework, support for VESA graphic mode selection
-  - vc4: Add a tracepoint for CL submissions, HDMI YUV output,
-    HDMI and clock improvements
-  - virtio: Remove restriction of non-zero blob_flags,
-  - vmwgfx: support for CursorMob and CursorBypass 4, various
-    improvements and small fixes
-The following changes since commit 3123109284176b1532874591f7c81f3837bbdc17:
-
-  Linux 5.18-rc1 (2022-04-03 14:08:21 -0700)
-
-are available in the Git repository at:
-
-  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-2022-04-07
-
-for you to fetch changes up to c8d4c18bfbc4ab467188dbe45cc8155759f49d9e:
-
-  dma-buf/drivers: make reserving a shared slot mandatory v4 (2022-04-06 17=
-:38:25 +0200)
-
-----------------------------------------------------------------
-drm-misc-next for 5.19:
-
-UAPI Changes:
-
-Cross-subsystem Changes:
-
-Core Changes:
-  - atomic: Add atomic_print_state to private objects
-  - edid: Constify the EDID parsing API, rework of the API
-  - dma-buf: Add dma_resv_replace_fences, dma_resv_get_singleton, make
-    dma_resv_excl_fence private
-  - format: Support monochrome formats
-  - fbdev: fixes for cfb_imageblit and sys_imageblit, pagelist
-    corruption fix
-  - selftests: several small fixes
-  - ttm: Rework bulk move handling
-
-Driver Changes:
-  - Switch all relevant drivers to drm_mode_copy or drm_mode_duplicate
-  - bridge: conversions to devm_drm_of_get_bridge and panel_bridge,
-    autosuspend for analogix_dp, audio support for it66121, DSI to DPI
-    support for tc358767, PLL fixes and I2C support for icn6211
-  - bridge_connector: Enable HPD if supported
-  - etnaviv: fencing improvements
-  - gma500: GEM and GTT improvements, connector handling fixes
-  - komeda: switch to plane reset helper
-  - mediatek: MIPI DSI improvements
-  - omapdrm: GEM improvements
-  - panel: DT bindings fixes for st7735r, few fixes for ssd130x, new
-    panels: ltk035c5444t, B133UAN01, NV3052C
-  - qxl: Allow to run on arm64
-  - sysfb: Kconfig rework, support for VESA graphic mode selection
-  - vc4: Add a tracepoint for CL submissions, HDMI YUV output,
-    HDMI and clock improvements
-  - virtio: Remove restriction of non-zero blob_flags,
-  - vmwgfx: support for CursorMob and CursorBypass 4, various
-    improvements and small fixes
-
-----------------------------------------------------------------
-Andrey Grodzovsky (1):
-      drm/sched: Fix htmldoc warning.
-
-Arunpravin (1):
-      drm/selftests: fix a shift-out-of-bounds bug
-
-Brian Norris (2):
-      drm/bridge: analogix_dp: Grab runtime PM reference for DP-AUX
-      drm/bridge: analogix_dp: Enable autosuspend
-
-Chen-Yu Tsai (2):
-      drm: ssd130x: Fix COM scan direction register mask
-      drm: ssd130x: Always apply segment remap setting
-
-Christian K=F6nig (21):
-      drm/etnaviv: stop using dma_resv_excl_fence v2
-      RDMA: use dma_resv_wait() instead of extracting the fence
-      dma-buf: add dma_resv_replace_fences v2
-      dma-buf: finally make the dma_resv_list private v2
-      drm/ttm: move the LRU into resource handling v4
-      drm/ttm: add resource iterator v4
-      drm/ttm: allow bulk moves for all domains
-      drm/ttm: de-inline ttm_bo_pin/unpin
-      drm/ttm: rework bulk move handling v5
-      drm/amdgpu: drop amdgpu_gtt_node
-      dma-buf: drop the DAG approach for the dma_resv object v3
-      dma-buf: add dma_resv_get_singleton v2
-      drm/vmwgfx: stop using dma_resv_excl_fence v2
-      drm/radeon: stop using dma_resv_excl_fence
-      drm/amdgpu: use dma_resv_for_each_fence for CS workaround v2
-      drm/atomic-helper: support more than one write fence in drm_gem_plane=
-_helper_prepare_fb
-      drm/amdgpu: use dma_resv_get_singleton in amdgpu_pasid_free_cb
-      drm/nouveau: stop using dma_resv_excl_fence
-      dma-buf: finally make dma_resv_excl_fence private v2
-      drm/nouveau: support more than one write fence in fenv50_wndw_prepare=
-_fb
-      dma-buf/drivers: make reserving a shared slot mandatory v4
-
-Christophe Branchereau (4):
-      dt-bindings: display/panel: Add Leadtek ltk035c5444t
-      drm/ingenic: Add ingenic_drm_bridge_atomic_enable and disable
-      drm/panel: Add panel driver for NewVision NV3052C based LCDs
-      drm/panel: innolux-ej030na and abt-y030xx067a: add .enable and .disab=
-le
-
-Chuansheng Liu (1):
-      fbdev: defio: fix the pagelist corruption
-
-Colin Ian King (1):
-      drm/nouveau: Fix spelling mistake "endianess" -> "endianness"
-
-Cong Liu (1):
-      drm/qxl: fix qxl can't use in arm64
-
-Dan Carpenter (1):
-      drm/selftests: missing error code in igt_buddy_alloc_smoke()
-
-Daniel Vetter (3):
-      drm/etnaviv: Use scheduler dependency handling
-      drm/gem: Delete gem array fencing helpers
-      drm/sched: Check locking in drm_sched_job_add_implicit_dependencies
-
-Dmitry Baryshkov (1):
-      drm/blend: fix typo in the comment
-
-Douglas Anderson (3):
-      drm/bridge: Add MAINTAINERS entry for DRM drivers for bridge chip bin=
-dings
-      drm/bridge: Add myself as a reviewer for the TI SN65DSI86 bridge chip
-      drm/bridge: Add myself as a reviewer for the Parade PS8640 bridge chip
-
-Geert Uytterhoeven (5):
-      drm: Drop commas after SoC match table sentinels
-      drm/format-helper: Rename drm_fb_xrgb8888_to_mono_reversed()
-      drm/format-helper: Fix XRGB888 to monochrome conversion
-      drm/ssd130x: Fix rectangle updates
-      drm/ssd130x: Reduce temporary buffer sizes
-
-Guo Zhengkui (1):
-      drm/nouveau/instmem: fix uninitialized_var.cocci warning
-
-Ivaylo Dimitrov (3):
-      drm: omapdrm: simplify omap_gem_pin
-      drm: omapdrm: Support exporting of non-contiguous GEM BOs
-      drm: omapdrm: Do no allocate non-scanout GEMs through DMM/TILER
-
-Jagan Teki (12):
-      drm: bridge: tc358764: Use drm panel_bridge API
-      drm: bridge: panel: Reset the connector state pointer
-      exynos: drm: dsi: Attach in_bridge in MIC driver
-      drm: exynos: dsi: Use drm panel_bridge API
-      drm: exynos: dsi: Convert to bridge driver
-      drm: exynos: dsi: Switch to atomic funcs
-      Revert "drm/bridge: dw-mipi-dsi: Find the possible DSI devices"
-      drm: bridge: nwl-dsi: Switch to devm_drm_of_get_bridge
-      drm: bridge: mtk_dsi: Switch to devm_drm_of_get_bridge
-      drm: bridge: dw-mipi-dsi: Switch to devm_drm_of_get_bridge
-      drm: bridge: mcde_dsi: Switch to devm_drm_of_get_bridge
-      drm: bridge: mcde_dsi: Drop explicit bridge remove
-
-Jani Nikula (25):
-      drm/edid: don't modify EDID while parsing
-      drm/edid: fix reduced blanking support check
-      drm/edid: pass a timing pointer to is_display_descriptor()
-      drm/edid: pass a timing pointer to is_detailed_timing_descriptor()
-      drm/edid: use struct detailed_timing member access in is_rb()
-      drm/edid: use struct detailed_timing member access in gtf2 functions
-      drm/edid: constify struct detailed_timing in lower level parsing
-      drm/edid: constify struct detailed_timing in parsing callbacks
-      drm/edid: constify struct edid passed to detailed blocks
-      drm/edid: constify struct edid passed around in callbacks and closure
-      drm/edid: add more general struct edid constness in the interfaces
-      drm/edid: split drm_add_edid_modes() to two
-      drm/edid: fix invalid EDID extension block filtering
-      drm/edid: use struct edid * in drm_do_get_edid()
-      drm/edid: clean up EDID block checksum functions
-      drm/edid: add edid_block_tag() helper to get the EDID extension tag
-      drm/edid: make drm_edid_header_is_valid() accept void pointer
-      drm/edid: clean up edid_is_zero()
-      drm/edid: split out edid_header_fix()
-      drm/edid: split drm_edid_block_valid() to check and act parts
-      drm/edid: use a better variable name for EDID block read retries
-      drm/edid: simplify block check when filtering invalid blocks
-      drm/edid: split out invalid block filtering to a separate function
-      drm/edid: track invalid blocks in drm_do_get_edid()
-      drm/edid: reduce magic when updating the EDID block checksum
-
-Jeffrey Hugo (1):
-      drm/doc: Clarify what ioctls can be used on render nodes
-
-Jos=E9 Exp=F3sito (8):
-      drm/bridge: nxp-ptn3460: switch to devm_drm_of_get_bridge
-      drm/bridge: parade-ps8622: switch to devm_drm_of_get_bridge
-      drm/bridge: parade-ps8640: switch to devm_drm_of_get_bridge
-      drm/bridge: tc358762: switch to devm_drm_of_get_bridge
-      drm/bridge: tc358775: switch to devm_drm_of_get_bridge
-      drm/bridge: ti-sn65dsi83: switch to devm_drm_of_get_bridge
-      drm/bridge: ti-sn65dsi86: switch to devm_drm_of_get_bridge
-      drm/bridge: anx7625: switch to devm_drm_of_get_bridge
-
-Liu Ying (1):
-      drm/bridge: nwl-dsi: Drop the drm_of_panel_bridge_remove() function c=
-all
-
-Liu Zixian (1):
-      drm/virtio: fix NULL pointer dereference in virtio_gpu_conn_get_modes
-
-Lucas Stach (1):
-      drm/bridge: adv7511: clean up CEC adapter when probe fails
-
-Marek Vasut (28):
-      dt-bindings: display: bridge: tc358867: Document DPI output support
-      dt-bindings: display: bridge: tc358867: Document DSI data-lanes prope=
-rty
-      drm/bridge: tc358767: Change tc_ prefix to tc_edp_ for (e)DP specific=
- functions
-      drm/bridge: tc358767: Convert to atomic ops
-      drm/bridge: tc358767: Implement atomic_check callback
-      drm/bridge: tc358767: Move (e)DP bridge endpoint parsing into dedicat=
-ed function
-      drm/bridge: tc358767: Wrap (e)DP aux I2C registration into tc_aux_lin=
-k_setup()
-      drm/bridge: tc358767: Move bridge ops setup into tc_probe_edp_bridge_=
-endpoint()
-      drm/bridge: tc358767: Detect bridge mode from connected endpoints in =
-DT
-      drm/bridge: tc358767: Split tc_set_video_mode() into common and (e)DP=
- part
-      drm/bridge: tc358767: Add DSI-to-DPI mode support
-      drm: bridge: icn6211: Fix register layout
-      drm: bridge: icn6211: Fix HFP_HSW_HBP_HI and HFP_MIN handling
-      drm: bridge: icn6211: Add HS/VS/DE polarity handling
-      drm: bridge: icn6211: Add generic DSI-to-DPI PLL configuration
-      drm: bridge: icn6211: Use DSI burst mode without EoT and with LP comm=
-and mode
-      drm: bridge: icn6211: Disable DPI color swap
-      drm: bridge: icn6211: Set SYS_CTRL_1 to value used in examples
-      drm: bridge: icn6211: Implement atomic_get_input_bus_fmts
-      drm: bridge: icn6211: Add I2C configuration support
-      drm: bridge: icn6211: Rework ICN6211_DSI to chipone_writeb()
-      drm: bridge: icn6211: Read and validate chip IDs before configuration
-      drm/bridge: ti-sn65dsi83: Check link status register after enabling t=
-he bridge
-      drm/bridge: lt9611: Switch to atomic operations
-      drm/bridge: lt9611: Add atomic_get_input_bus_fmts
-      drm: bridge: icn6211: Fix DSI-to-DPI PLL configuration
-      drm: bridge: icn6211: Mark module exit callback with __exit
-      drm: bridge: icn6211: Drop I2C module owner assignment
-
-Martin Krastev (1):
-      drm/vmwgfx: Add support for CursorMob and CursorBypass 4
-
-Matthew Auld (1):
-      drm/doc: pull in drm_buddy.c
-
-Matthias Kaehlcke (2):
-      drm/panel-edp: Add AUO B133UAN01
-      drm/panel-edp: Fix AUO B133UAN01 panel id
-
-Maxime Ripard (24):
-      drm/komeda: plane: switch to plane reset helper
-      drm/komeda: plane: Remove redundant zpos initialisation
-      drm/komeda: plane: Remove redundant color encoding and range initiali=
-sation
-      drm/vc4: hdmi: Rename pixel_rate variable
-      drm/vc4: hdmi: Move clock validation to its own function
-      drm/vc4: hdmi: Move clock calculation into its own function
-      drm/vc4: hdmi: Take the sink maximum TMDS clock into account
-      drm/vc4: hdmi: Take bpp into account for the scrambler
-      drm/vc4: hdmi: Always try to have the highest bpc
-      drm/vc4: hdmi: Support HDMI YUV output
-      drm/atomic: Print the state every non-blocking commit
-      drm/atomic: Add atomic_print_state to private objects
-      drm/vc4: Constify private state accessors
-      drm/vc4: Implement atomic_print_state for HVS channel state
-      Merge drm/drm-next into drm-misc-next
-      drm/vc4: Add logging and comments
-      drm/vc4: hdmi: Remove clock rate initialization
-      drm/vc4: kms: Take old state core clock rate into account
-      drm/vc4: hvs: Fix frame count register readout
-      drm/vc4: hvs: Store channel in variable
-      drm/vc4: hvs: Remove dlist setup duplication
-      drm/vc4: hvs: Move the dlist setup to its own function
-      drm/vc4: kms: Ignore atomic_flush if we're disabled
-      drm/vc4: hvs: Use pointer to HVS in HVS_READ and HVS_WRITE macros
-
-Melissa Wen (1):
-      drm/vc4: add tracepoints for CL submissions
-
-Michal Suchanek (3):
-      sysfb: Make config option dependencies explicit
-      sysfb: Enable boot time VESA graphic mode selection
-      efifb: Remove redundant efifb_setup_from_dmi stub
-
-Nicolas Belin (3):
-      dt-bindings: display: bridge: it66121: Add audio support
-      drm: bridge: it66121: Fix the register page length
-      drm: bridge: it66121: Add audio support
-
-Nikita Yushchenko (1):
-      drm/bridge_connector: enable HPD by default if supported
-
-Noralf Tr=F8nnes (3):
-      dt-bindings: display: sitronix, st7735r: Fix backlight in example
-      dt-bindings: display: sitronix, st7735r: Make reset-gpios optional
-      dt-bindings: display: sitronix, st7735r: Remove spi-max-frequency lim=
-it
-
-Patrik Jakobsson (11):
-      drm/gma500: Remove unused declarations and other cruft
-      drm/gma500: Move gma_intel_crtc_funcs into gma_display.c
-      drm/gma500: Don't store crtc_funcs in psb_ops
-      drm/gma500: Cosmetic cleanup of irq code
-      drm/gma500: Use managed drmm_mode_config_init()
-      drm/gma500: Uninstall interrupts on driver removal
-      drm/gma500: Make use of the drm connector iterator
-      drm/gma500: gma500 don't register non-hotpluggable connectors
-      drm/gma500: Free the correct connector allocation
-      drm/gma500: Declare a few functions static
-      drm/gma500: Add crtc prefix to vblank functions
-
-Ramalingam C (1):
-      drm/ttm: Add a parameter to add extra pages into ttm_tt
-
-Randy Dunlap (2):
-      drm: fix a kernel-doc typo
-      drm/format_helper: fix a kernel-doc typo
-
-Rex-BC Chen (3):
-      drm/dsi: transfer DSI HS packets ending at the same time
-      drm/mediatek: implement the DSI HS packets aligned
-      drm/bridge: anx7625: config hs packets end aligned to avoid screen sh=
-ift
-
-Rob Clark (1):
-      drm/virtio: Remove restriction of non-zero blob_flags
-
-Sankeerth Billakanti (1):
-      drm/panel-edp: add LQ140M1JW46 edp panel entry
-
-Sui Jingfeng (2):
-      drivers/dma-buf: dma-buf.c: fix a typo
-      drm/drm_modeset_helper_vtables.h: fix a typo
-
-Thomas Zimmermann (14):
-      drm/gma500: Remove struct psb_gem_object.npage
-      drm/gma500: Acquire reservation lock for GEM objects
-      drm/gma500: Move GTT locking into GTT helpers
-      drm/gma500: Remove struct psb_gtt.sem sempahore
-      drm/gma500: Move GTT setup and restoration into helper funtions
-      drm/gma500: Move GTT resume logic out of psb_gtt_init()
-      drm/gma500: Cleanup GTT uninit and error handling
-      drm/gma500: Split GTT init/resume/fini into GTT and GEM functions
-      drm/gma500: Inline psb_gtt_restore()
-      drm/gma500: Move GEM memory management functions to gem.c
-      drm/gma500: Move GTT enable and disable code into helpers
-      drm/gma500: Move GTT memory-range setup into helper
-      fbdev: Fix sys_imageblit() for arbitrary image widths
-      fbdev: Fix cfb_imageblit() for arbitrary image widths
-
-Tom Rix (1):
-      drm/bridge: anx7625: check the return on anx7625_aux_trans
-
-Ville Syrj=E4l=E4 (6):
-      drm: Add drm_mode_init()
-      drm/bridge: Use drm_mode_copy()
-      drm/imx: Use drm_mode_duplicate()
-      drm/panel: Use drm_mode_duplicate()
-      drm/gma500: Use drm_mode_copy()
-      drm/tilcdc: Use drm_mode_copy()
-
-Wan Jiabing (1):
-      drm/omap: fix NULL but dereferenced coccicheck error
-
-Xiaomeng Tong (5):
-      drm/nouveau/kms/nv50-: atom: fix an incorrect NULL check on list iter=
-ator
-      gma500: fix an incorrect NULL check on list iterator
-      tilcdc: tilcdc_external: fix an incorrect NULL check on list iterator
-      drm/nouveau/clk: Fix an incorrect NULL check on list iterator
-      drm/gma500: fix a missing break in psb_intel_crtc_mode_set
-
-Xin Ji (1):
-      drm/bridge: anx7625: Set downstream sink into normal status
-
-Yang Yingliang (1):
-      drm/bridge: anx7625: add missing destroy_workqueue() in anx7625_i2c_p=
-robe()
-
-YueHaibing (2):
-      drm/solomon: Make DRM_SSD130X depends on MMU
-      drm/bridge: it6505: Fix build error
-
-Zack Rusin (11):
-      drm/vmwgfx: Cleanup multimon initialization code
-      drm/vmwgfx: Print capabilities early during the initialization
-      drm/vmwgfx: Fix fencing on SVGAv3
-      drm/vmwgfx: Allow querying of the SVGA PCI id from the userspace
-      drm/vmwgfx: Initialize drm_mode_fb_cmd2
-      drm/vmwgfx: Implement MSI/MSI-X support for IRQs
-      drm/vmwgfx: Stop using surface dma commands on most configurations
-      drm/vmwgfx: Fix an invalid read
-      drm/vmwgfx: Fix mob cursor allocation race
-      drm/vmwgfx: validate the screen formats
-      drm/vmwgfx: Disable command buffers on svga3 without gbobjects
-
- .../bindings/display/bridge/ite,it66121.yaml       |   3 +
- .../bindings/display/bridge/toshiba,tc358767.yaml  |  22 +-
- .../display/panel/leadtek,ltk035c5444t.yaml        |  59 ++
- .../bindings/display/sitronix,st7735r.yaml         |   6 +-
- Documentation/gpu/drm-mm.rst                       |   9 +
- Documentation/gpu/drm-uapi.rst                     |   4 +-
- MAINTAINERS                                        |  11 +
- arch/x86/Kconfig                                   |   6 +
- arch/x86/boot/video-vesa.c                         |   4 +-
- drivers/dma-buf/dma-buf.c                          |   2 +-
- drivers/dma-buf/dma-resv.c                         | 142 ++++-
- drivers/dma-buf/st-dma-resv.c                      |  64 +--
- drivers/firmware/Kconfig                           |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  53 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |  15 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c        |  49 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |  23 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |   8 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  78 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |   3 -
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |   2 +-
- drivers/gpu/drm/arm/display/komeda/komeda_plane.c  |  13 +-
- drivers/gpu/drm/bridge/Kconfig                     |   2 +
- drivers/gpu/drm/bridge/adv7511/adv7511_drv.c       |   1 +
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c |  20 +-
- drivers/gpu/drm/bridge/analogix/anx7625.c          |  36 +-
- drivers/gpu/drm/bridge/chipone-icn6211.c           | 499 ++++++++++++++--
- drivers/gpu/drm/bridge/ite-it66121.c               | 629 +++++++++++++++++=
-+++-
- drivers/gpu/drm/bridge/lontium-lt9611.c            |  49 +-
- drivers/gpu/drm/bridge/nwl-dsi.c                   |  30 +-
- drivers/gpu/drm/bridge/nxp-ptn3460.c               |   7 +-
- drivers/gpu/drm/bridge/panel.c                     |   3 +
- drivers/gpu/drm/bridge/parade-ps8622.c             |   7 +-
- drivers/gpu/drm/bridge/parade-ps8640.c             |   9 +-
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          |   2 +-
- drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c      |  51 +-
- drivers/gpu/drm/bridge/tc358762.c                  |   9 +-
- drivers/gpu/drm/bridge/tc358764.c                  | 104 +---
- drivers/gpu/drm/bridge/tc358767.c                  | 605 +++++++++++++++++=
----
- drivers/gpu/drm/bridge/tc358775.c                  |  11 +-
- drivers/gpu/drm/bridge/ti-sn65dsi83.c              |  17 +-
- drivers/gpu/drm/bridge/ti-sn65dsi86.c              |   8 +-
- drivers/gpu/drm/drm_atomic.c                       |  20 +
- drivers/gpu/drm/drm_atomic_uapi.c                  |   4 -
- drivers/gpu/drm/drm_blend.c                        |   2 +-
- drivers/gpu/drm/drm_bridge_connector.c             |   4 +-
- drivers/gpu/drm/drm_edid.c                         | 620 +++++++++++------=
----
- drivers/gpu/drm/drm_format_helper.c                |  76 +--
- drivers/gpu/drm/drm_gem.c                          |  80 ---
- drivers/gpu/drm/drm_gem_atomic_helper.c            |  18 +-
- drivers/gpu/drm/drm_gem_vram_helper.c              |   2 +-
- drivers/gpu/drm/drm_modes.c                        |  17 +
- drivers/gpu/drm/etnaviv/etnaviv_gem.h              |   5 +-
- drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c       |  67 ++-
- drivers/gpu/drm/etnaviv/etnaviv_sched.c            |  63 +--
- drivers/gpu/drm/etnaviv/etnaviv_sched.h            |   3 +-
- drivers/gpu/drm/exynos/exynos_drm_dsi.c            | 241 ++------
- drivers/gpu/drm/exynos/exynos_drm_mic.c            |  22 +
- drivers/gpu/drm/gma500/cdv_device.c                |  11 +-
- drivers/gpu/drm/gma500/cdv_intel_crt.c             |   6 +-
- drivers/gpu/drm/gma500/cdv_intel_display.c         |   9 +-
- drivers/gpu/drm/gma500/cdv_intel_dp.c              |   6 +-
- drivers/gpu/drm/gma500/cdv_intel_hdmi.c            |   5 +-
- drivers/gpu/drm/gma500/cdv_intel_lvds.c            |   5 +-
- drivers/gpu/drm/gma500/framebuffer.c               |  10 +-
- drivers/gpu/drm/gma500/gem.c                       | 161 +++++-
- drivers/gpu/drm/gma500/gem.h                       |  13 +-
- drivers/gpu/drm/gma500/gma_display.c               |  53 +-
- drivers/gpu/drm/gma500/gma_display.h               |  10 +-
- drivers/gpu/drm/gma500/gtt.c                       | 321 +++++------
- drivers/gpu/drm/gma500/gtt.h                       |   8 +-
- drivers/gpu/drm/gma500/oaktrail_crtc.c             |  25 +-
- drivers/gpu/drm/gma500/oaktrail_device.c           |   1 -
- drivers/gpu/drm/gma500/oaktrail_hdmi.c             |   1 -
- drivers/gpu/drm/gma500/oaktrail_lvds.c             |  16 +-
- drivers/gpu/drm/gma500/opregion.c                  |   5 +-
- drivers/gpu/drm/gma500/power.c                     |  15 +-
- drivers/gpu/drm/gma500/psb_device.c                |  29 +-
- drivers/gpu/drm/gma500/psb_drv.c                   |  29 +-
- drivers/gpu/drm/gma500/psb_drv.h                   |  90 +--
- drivers/gpu/drm/gma500/psb_intel_display.c         |  39 +-
- drivers/gpu/drm/gma500/psb_intel_lvds.c            |   5 +-
- drivers/gpu/drm/gma500/psb_intel_sdvo.c            |   6 +-
- drivers/gpu/drm/gma500/psb_irq.c                   |  94 ++-
- drivers/gpu/drm/gma500/psb_irq.h                   |  19 +-
- drivers/gpu/drm/i915/gem/i915_gem_clflush.c        |   3 +-
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c     |  10 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c            |   4 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c       |   6 +-
- .../gpu/drm/i915/gem/selftests/i915_gem_migrate.c  |   5 +-
- drivers/gpu/drm/i915/i915_vma.c                    |  10 +-
- .../gpu/drm/i915/selftests/intel_memory_region.c   |   7 +
- drivers/gpu/drm/imx/imx-ldb.c                      |   3 +-
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  34 +-
- drivers/gpu/drm/lima/lima_gem.c                    |  10 +-
- drivers/gpu/drm/mcde/mcde_dsi.c                    |  43 +-
- drivers/gpu/drm/mediatek/mtk_dsi.c                 |  12 +
- drivers/gpu/drm/meson/meson_drv.c                  |   2 +-
- drivers/gpu/drm/msm/msm_gem_submit.c               |  18 +-
- drivers/gpu/drm/nouveau/dispnv50/atom.h            |   6 +-
- drivers/gpu/drm/nouveau/dispnv50/crc.c             |  27 +-
- drivers/gpu/drm/nouveau/dispnv50/wndw.c            |  14 +-
- drivers/gpu/drm/nouveau/nouveau_bo.c               |   9 +-
- drivers/gpu/drm/nouveau/nouveau_fence.c            |   8 +-
- drivers/gpu/drm/nouveau/nvkm/engine/device/base.c  |   2 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c     |   6 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c |   2 +-
- drivers/gpu/drm/omapdrm/omap_gem.c                 | 198 ++++---
- drivers/gpu/drm/omapdrm/omap_gem.h                 |   3 +-
- drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c          |   5 +-
- drivers/gpu/drm/omapdrm/omap_overlay.c             |   2 +-
- drivers/gpu/drm/panel/Kconfig                      |   9 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-abt-y030xx067a.c       |  30 +-
- drivers/gpu/drm/panel/panel-edp.c                  |   2 +
- drivers/gpu/drm/panel/panel-innolux-ej030na.c      |  31 +-
- drivers/gpu/drm/panel/panel-newvision-nv3052c.c    | 484 ++++++++++++++++
- drivers/gpu/drm/panel/panel-truly-nt35597.c        |   3 +-
- drivers/gpu/drm/panel/panel-visionox-rm69299.c     |   4 +-
- drivers/gpu/drm/panfrost/panfrost_job.c            |   4 +
- drivers/gpu/drm/qxl/qxl_kms.c                      |   4 +-
- drivers/gpu/drm/qxl/qxl_release.c                  |   2 +-
- drivers/gpu/drm/qxl/qxl_ttm.c                      |   6 +-
- drivers/gpu/drm/radeon/radeon_cs.c                 |   4 +
- drivers/gpu/drm/radeon/radeon_display.c            |   7 +-
- drivers/gpu/drm/radeon/radeon_object.c             |   8 +
- drivers/gpu/drm/radeon/radeon_vm.c                 |   2 +-
- drivers/gpu/drm/scheduler/sched_main.c             |   2 +
- drivers/gpu/drm/selftests/test-drm_buddy.c         |  10 +-
- drivers/gpu/drm/solomon/Kconfig                    |   2 +-
- drivers/gpu/drm/solomon/ssd130x.c                  |  42 +-
- drivers/gpu/drm/tilcdc/tilcdc_crtc.c               |   2 +-
- drivers/gpu/drm/tilcdc/tilcdc_external.c           |   8 +-
- drivers/gpu/drm/tiny/repaper.c                     |   2 +-
- drivers/gpu/drm/ttm/ttm_agp_backend.c              |   2 +-
- drivers/gpu/drm/ttm/ttm_bo.c                       | 231 ++++----
- drivers/gpu/drm/ttm/ttm_bo_util.c                  |  13 +-
- drivers/gpu/drm/ttm/ttm_device.c                   |  84 ++-
- drivers/gpu/drm/ttm/ttm_execbuf_util.c             |  15 +-
- drivers/gpu/drm/ttm/ttm_resource.c                 | 197 ++++++-
- drivers/gpu/drm/ttm/ttm_tt.c                       |  12 +-
- drivers/gpu/drm/v3d/v3d_gem.c                      |  15 +-
- drivers/gpu/drm/vc4/vc4_crtc.c                     |  14 +-
- drivers/gpu/drm/vc4/vc4_drv.h                      |  15 +-
- drivers/gpu/drm/vc4/vc4_gem.c                      |   9 +-
- drivers/gpu/drm/vc4/vc4_hdmi.c                     | 442 +++++++++++++--
- drivers/gpu/drm/vc4/vc4_hdmi.h                     |  23 +-
- drivers/gpu/drm/vc4/vc4_hdmi_phy.c                 |   2 +-
- drivers/gpu/drm/vc4/vc4_hdmi_regs.h                |   6 +
- drivers/gpu/drm/vc4/vc4_hvs.c                      | 127 +++--
- drivers/gpu/drm/vc4/vc4_irq.c                      |   5 +
- drivers/gpu/drm/vc4/vc4_kms.c                      |  48 +-
- drivers/gpu/drm/vc4/vc4_regs.h                     |  28 +-
- drivers/gpu/drm/vc4/vc4_trace.h                    |  95 ++++
- drivers/gpu/drm/vgem/vgem_fence.c                  |  12 +-
- drivers/gpu/drm/virtio/virtgpu_display.c           |   2 +
- drivers/gpu/drm/virtio/virtgpu_gem.c               |   9 +
- drivers/gpu/drm/virtio/virtgpu_ioctl.c             |   3 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c                 |  16 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_cmd.c                |  13 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c                |  20 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.h                |  23 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_fb.c                 |   2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_fence.c              |  28 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_ioctl.c              |  27 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_irq.c                |  81 ++-
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                | 457 +++++++++++----
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                |  29 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |  36 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_resource.c           |  19 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |  17 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |  27 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c         |   2 +-
- drivers/infiniband/core/umem_dmabuf.c              |   8 +-
- drivers/video/fbdev/Kconfig                        |  14 +-
- drivers/video/fbdev/core/fb_defio.c                |   9 +-
- include/drm/drm_atomic.h                           |  27 +-
- include/drm/drm_edid.h                             |  12 +-
- include/drm/drm_file.h                             |   2 +-
- include/drm/drm_format_helper.h                    |   5 +-
- include/drm/drm_gem.h                              |   5 -
- include/drm/drm_mipi_dsi.h                         |   2 +
- include/drm/drm_modes.h                            |   2 +
- include/drm/drm_modeset_helper_vtables.h           |   2 +-
- include/drm/gpu_scheduler.h                        |   1 +
- include/drm/ttm/ttm_bo_api.h                       |  62 +-
- include/drm/ttm/ttm_bo_driver.h                    |  29 +-
- include/drm/ttm/ttm_device.h                       |  11 -
- include/drm/ttm/ttm_resource.h                     |  74 +++
- include/drm/ttm/ttm_tt.h                           |   4 +-
- include/linux/dma-buf.h                            |   4 +-
- include/linux/dma-resv.h                           |  73 +--
- include/linux/efi.h                                |   4 -
- include/uapi/drm/vmwgfx_drm.h                      |   9 +-
- 195 files changed, 5804 insertions(+), 2797 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/panel/leadtek=
-,ltk035c5444t.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-newvision-nv3052c.c
-
---ttoaypuzkkqwegvo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYk6n/AAKCRDj7w1vZxhR
-xbryAP92Iw2vQeHRUCWGb/92berjWkJCriuU4yj/PcqYqTUlcwD9HVXBCoGdVuGi
-Pw7aL07zagWdq4jmxmsDKfa7t/RPSQE=
-=6y92
------END PGP SIGNATURE-----
-
---ttoaypuzkkqwegvo--
+On Thu, Apr 07, 2022 at 10:59:33AM +0200, Christian König wrote:
+> Instead of distingting between shared and exclusive fences specify
+> the fence usage while adding fences.
+> 
+> Rework all drivers to use this interface instead and deprecate the old one.
+> 
+> v2: some kerneldoc comments suggested by Daniel
+> v3: fix a missing case in radeon
+> v4: rebase on nouveau changes, fix lockdep and temporary disable warning
+> v5: more documentation updates
+> v6: separate internal dma_resv changes from this patch, avoids to
+>     disable warning temporary, rebase on upstream changes
+> v7: fix missed case in lima driver, minimize changes to i915_gem_busy_ioctl
+
+I've only done an incremental review of these two things, lgtm.
+
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>  drivers/dma-buf/dma-resv.c                    |  48 +++++++--
+>  drivers/dma-buf/st-dma-resv.c                 | 101 +++++-------------
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |   6 +-
+>  drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c  |  10 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_busy.c      |   6 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_clflush.c   |   3 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |   5 +-
+>  .../drm/i915/gem/selftests/i915_gem_migrate.c |   4 +-
+>  .../drm/i915/gem/selftests/i915_gem_mman.c    |   3 +-
+>  drivers/gpu/drm/i915/i915_vma.c               |   8 +-
+>  .../drm/i915/selftests/intel_memory_region.c  |   3 +-
+>  drivers/gpu/drm/lima/lima_gem.c               |   7 +-
+>  drivers/gpu/drm/msm/msm_gem_submit.c          |   6 +-
+>  drivers/gpu/drm/nouveau/nouveau_bo.c          |   9 +-
+>  drivers/gpu/drm/nouveau/nouveau_fence.c       |   4 +-
+>  drivers/gpu/drm/panfrost/panfrost_job.c       |   2 +-
+>  drivers/gpu/drm/qxl/qxl_release.c             |   3 +-
+>  drivers/gpu/drm/radeon/radeon_object.c        |   6 +-
+>  drivers/gpu/drm/ttm/ttm_bo.c                  |   2 +-
+>  drivers/gpu/drm/ttm/ttm_bo_util.c             |   5 +-
+>  drivers/gpu/drm/ttm/ttm_execbuf_util.c        |   6 +-
+>  drivers/gpu/drm/v3d/v3d_gem.c                 |   4 +-
+>  drivers/gpu/drm/vc4/vc4_gem.c                 |   2 +-
+>  drivers/gpu/drm/vgem/vgem_fence.c             |   9 +-
+>  drivers/gpu/drm/virtio/virtgpu_gem.c          |   3 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_bo.c            |   3 +-
+>  include/linux/dma-buf.h                       |  16 +--
+>  include/linux/dma-resv.h                      |  25 +++--
+>  30 files changed, 149 insertions(+), 166 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+> index 17237e6ee30c..543dae6566d2 100644
+> --- a/drivers/dma-buf/dma-resv.c
+> +++ b/drivers/dma-buf/dma-resv.c
+> @@ -234,14 +234,14 @@ EXPORT_SYMBOL(dma_resv_reserve_fences);
+>  
+>  #ifdef CONFIG_DEBUG_MUTEXES
+>  /**
+> - * dma_resv_reset_shared_max - reset shared fences for debugging
+> + * dma_resv_reset_max_fences - reset shared fences for debugging
+>   * @obj: the dma_resv object to reset
+>   *
+>   * Reset the number of pre-reserved shared slots to test that drivers do
+>   * correct slot allocation using dma_resv_reserve_fences(). See also
+>   * &dma_resv_list.shared_max.
+>   */
+> -void dma_resv_reset_shared_max(struct dma_resv *obj)
+> +void dma_resv_reset_max_fences(struct dma_resv *obj)
+>  {
+>  	struct dma_resv_list *fences = dma_resv_shared_list(obj);
+>  
+> @@ -251,7 +251,7 @@ void dma_resv_reset_shared_max(struct dma_resv *obj)
+>  	if (fences)
+>  		fences->shared_max = fences->shared_count;
+>  }
+> -EXPORT_SYMBOL(dma_resv_reset_shared_max);
+> +EXPORT_SYMBOL(dma_resv_reset_max_fences);
+>  #endif
+>  
+>  /**
+> @@ -264,7 +264,8 @@ EXPORT_SYMBOL(dma_resv_reset_shared_max);
+>   *
+>   * See also &dma_resv.fence for a discussion of the semantics.
+>   */
+> -void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence)
+> +static void dma_resv_add_shared_fence(struct dma_resv *obj,
+> +				      struct dma_fence *fence)
+>  {
+>  	struct dma_resv_list *fobj;
+>  	struct dma_fence *old;
+> @@ -305,13 +306,13 @@ void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence)
+>  	write_seqcount_end(&obj->seq);
+>  	dma_fence_put(old);
+>  }
+> -EXPORT_SYMBOL(dma_resv_add_shared_fence);
+>  
+>  /**
+>   * dma_resv_replace_fences - replace fences in the dma_resv obj
+>   * @obj: the reservation object
+>   * @context: the context of the fences to replace
+>   * @replacement: the new fence to use instead
+> + * @usage: how the new fence is used, see enum dma_resv_usage
+>   *
+>   * Replace fences with a specified context with a new fence. Only valid if the
+>   * operation represented by the original fence has no longer access to the
+> @@ -321,12 +322,16 @@ EXPORT_SYMBOL(dma_resv_add_shared_fence);
+>   * update fence which makes the resource inaccessible.
+>   */
+>  void dma_resv_replace_fences(struct dma_resv *obj, uint64_t context,
+> -			     struct dma_fence *replacement)
+> +			     struct dma_fence *replacement,
+> +			     enum dma_resv_usage usage)
+>  {
+>  	struct dma_resv_list *list;
+>  	struct dma_fence *old;
+>  	unsigned int i;
+>  
+> +	/* Only readers supported for now */
+> +	WARN_ON(usage != DMA_RESV_USAGE_READ);
+> +
+>  	dma_resv_assert_held(obj);
+>  
+>  	write_seqcount_begin(&obj->seq);
+> @@ -360,7 +365,8 @@ EXPORT_SYMBOL(dma_resv_replace_fences);
+>   * Add a fence to the exclusive slot. @obj must be locked with dma_resv_lock().
+>   * See also &dma_resv.fence_excl for a discussion of the semantics.
+>   */
+> -void dma_resv_add_excl_fence(struct dma_resv *obj, struct dma_fence *fence)
+> +static void dma_resv_add_excl_fence(struct dma_resv *obj,
+> +				    struct dma_fence *fence)
+>  {
+>  	struct dma_fence *old_fence = dma_resv_excl_fence(obj);
+>  
+> @@ -375,7 +381,27 @@ void dma_resv_add_excl_fence(struct dma_resv *obj, struct dma_fence *fence)
+>  
+>  	dma_fence_put(old_fence);
+>  }
+> -EXPORT_SYMBOL(dma_resv_add_excl_fence);
+> +
+> +/**
+> + * dma_resv_add_fence - Add a fence to the dma_resv obj
+> + * @obj: the reservation object
+> + * @fence: the fence to add
+> + * @usage: how the fence is used, see enum dma_resv_usage
+> + *
+> + * Add a fence to a slot, @obj must be locked with dma_resv_lock(), and
+> + * dma_resv_reserve_fences() has been called.
+> + *
+> + * See also &dma_resv.fence for a discussion of the semantics.
+> + */
+> +void dma_resv_add_fence(struct dma_resv *obj, struct dma_fence *fence,
+> +			enum dma_resv_usage usage)
+> +{
+> +	if (usage == DMA_RESV_USAGE_WRITE)
+> +		dma_resv_add_excl_fence(obj, fence);
+> +	else
+> +		dma_resv_add_shared_fence(obj, fence);
+> +}
+> +EXPORT_SYMBOL(dma_resv_add_fence);
+>  
+>  /* Restart the iterator by initializing all the necessary fields, but not the
+>   * relation to the dma_resv object. */
+> @@ -574,7 +600,7 @@ int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src)
+>  		}
+>  
+>  		dma_fence_get(f);
+> -		if (dma_resv_iter_is_exclusive(&cursor))
+> +		if (dma_resv_iter_usage(&cursor) == DMA_RESV_USAGE_WRITE)
+>  			excl = f;
+>  		else
+>  			RCU_INIT_POINTER(list->shared[list->shared_count++], f);
+> @@ -771,13 +797,13 @@ EXPORT_SYMBOL_GPL(dma_resv_test_signaled);
+>   */
+>  void dma_resv_describe(struct dma_resv *obj, struct seq_file *seq)
+>  {
+> +	static const char *usage[] = { "write", "read" };
+>  	struct dma_resv_iter cursor;
+>  	struct dma_fence *fence;
+>  
+>  	dma_resv_for_each_fence(&cursor, obj, DMA_RESV_USAGE_READ, fence) {
+>  		seq_printf(seq, "\t%s fence:",
+> -			   dma_resv_iter_is_exclusive(&cursor) ?
+> -				"Exclusive" : "Shared");
+> +			   usage[dma_resv_iter_usage(&cursor)]);
+>  		dma_fence_describe(fence, seq);
+>  	}
+>  }
+> diff --git a/drivers/dma-buf/st-dma-resv.c b/drivers/dma-buf/st-dma-resv.c
+> index d097981061b1..d0f7c2bfd4f0 100644
+> --- a/drivers/dma-buf/st-dma-resv.c
+> +++ b/drivers/dma-buf/st-dma-resv.c
+> @@ -58,8 +58,9 @@ static int sanitycheck(void *arg)
+>  	return r;
+>  }
+>  
+> -static int test_signaling(void *arg, enum dma_resv_usage usage)
+> +static int test_signaling(void *arg)
+>  {
+> +	enum dma_resv_usage usage = (unsigned long)arg;
+>  	struct dma_resv resv;
+>  	struct dma_fence *f;
+>  	int r;
+> @@ -81,11 +82,7 @@ static int test_signaling(void *arg, enum dma_resv_usage usage)
+>  		goto err_unlock;
+>  	}
+>  
+> -	if (usage >= DMA_RESV_USAGE_READ)
+> -		dma_resv_add_shared_fence(&resv, f);
+> -	else
+> -		dma_resv_add_excl_fence(&resv, f);
+> -
+> +	dma_resv_add_fence(&resv, f, usage);
+>  	if (dma_resv_test_signaled(&resv, usage)) {
+>  		pr_err("Resv unexpectedly signaled\n");
+>  		r = -EINVAL;
+> @@ -105,18 +102,9 @@ static int test_signaling(void *arg, enum dma_resv_usage usage)
+>  	return r;
+>  }
+>  
+> -static int test_excl_signaling(void *arg)
+> -{
+> -	return test_signaling(arg, DMA_RESV_USAGE_WRITE);
+> -}
+> -
+> -static int test_shared_signaling(void *arg)
+> -{
+> -	return test_signaling(arg, DMA_RESV_USAGE_READ);
+> -}
+> -
+> -static int test_for_each(void *arg, enum dma_resv_usage usage)
+> +static int test_for_each(void *arg)
+>  {
+> +	enum dma_resv_usage usage = (unsigned long)arg;
+>  	struct dma_resv_iter cursor;
+>  	struct dma_fence *f, *fence;
+>  	struct dma_resv resv;
+> @@ -139,10 +127,7 @@ static int test_for_each(void *arg, enum dma_resv_usage usage)
+>  		goto err_unlock;
+>  	}
+>  
+> -	if (usage >= DMA_RESV_USAGE_READ)
+> -		dma_resv_add_shared_fence(&resv, f);
+> -	else
+> -		dma_resv_add_excl_fence(&resv, f);
+> +	dma_resv_add_fence(&resv, f, usage);
+>  
+>  	r = -ENOENT;
+>  	dma_resv_for_each_fence(&cursor, &resv, usage, fence) {
+> @@ -156,8 +141,7 @@ static int test_for_each(void *arg, enum dma_resv_usage usage)
+>  			r = -EINVAL;
+>  			goto err_unlock;
+>  		}
+> -		if (dma_resv_iter_is_exclusive(&cursor) !=
+> -		    (usage >= DMA_RESV_USAGE_READ)) {
+> +		if (dma_resv_iter_usage(&cursor) != usage) {
+>  			pr_err("Unexpected fence usage\n");
+>  			r = -EINVAL;
+>  			goto err_unlock;
+> @@ -177,18 +161,9 @@ static int test_for_each(void *arg, enum dma_resv_usage usage)
+>  	return r;
+>  }
+>  
+> -static int test_excl_for_each(void *arg)
+> -{
+> -	return test_for_each(arg, DMA_RESV_USAGE_WRITE);
+> -}
+> -
+> -static int test_shared_for_each(void *arg)
+> -{
+> -	return test_for_each(arg, DMA_RESV_USAGE_READ);
+> -}
+> -
+> -static int test_for_each_unlocked(void *arg, enum dma_resv_usage usage)
+> +static int test_for_each_unlocked(void *arg)
+>  {
+> +	enum dma_resv_usage usage = (unsigned long)arg;
+>  	struct dma_resv_iter cursor;
+>  	struct dma_fence *f, *fence;
+>  	struct dma_resv resv;
+> @@ -212,10 +187,7 @@ static int test_for_each_unlocked(void *arg, enum dma_resv_usage usage)
+>  		goto err_free;
+>  	}
+>  
+> -	if (usage >= DMA_RESV_USAGE_READ)
+> -		dma_resv_add_shared_fence(&resv, f);
+> -	else
+> -		dma_resv_add_excl_fence(&resv, f);
+> +	dma_resv_add_fence(&resv, f, usage);
+>  	dma_resv_unlock(&resv);
+>  
+>  	r = -ENOENT;
+> @@ -235,8 +207,7 @@ static int test_for_each_unlocked(void *arg, enum dma_resv_usage usage)
+>  			r = -EINVAL;
+>  			goto err_iter_end;
+>  		}
+> -		if (dma_resv_iter_is_exclusive(&cursor) !=
+> -		    (usage >= DMA_RESV_USAGE_READ)) {
+> +		if (dma_resv_iter_usage(&cursor) != usage) {
+>  			pr_err("Unexpected fence usage\n");
+>  			r = -EINVAL;
+>  			goto err_iter_end;
+> @@ -262,18 +233,9 @@ static int test_for_each_unlocked(void *arg, enum dma_resv_usage usage)
+>  	return r;
+>  }
+>  
+> -static int test_excl_for_each_unlocked(void *arg)
+> -{
+> -	return test_for_each_unlocked(arg, DMA_RESV_USAGE_WRITE);
+> -}
+> -
+> -static int test_shared_for_each_unlocked(void *arg)
+> -{
+> -	return test_for_each_unlocked(arg, DMA_RESV_USAGE_READ);
+> -}
+> -
+> -static int test_get_fences(void *arg, enum dma_resv_usage usage)
+> +static int test_get_fences(void *arg)
+>  {
+> +	enum dma_resv_usage usage = (unsigned long)arg;
+>  	struct dma_fence *f, **fences = NULL;
+>  	struct dma_resv resv;
+>  	int r, i;
+> @@ -296,10 +258,7 @@ static int test_get_fences(void *arg, enum dma_resv_usage usage)
+>  		goto err_resv;
+>  	}
+>  
+> -	if (usage >= DMA_RESV_USAGE_READ)
+> -		dma_resv_add_shared_fence(&resv, f);
+> -	else
+> -		dma_resv_add_excl_fence(&resv, f);
+> +	dma_resv_add_fence(&resv, f, usage);
+>  	dma_resv_unlock(&resv);
+>  
+>  	r = dma_resv_get_fences(&resv, usage, &i, &fences);
+> @@ -324,30 +283,24 @@ static int test_get_fences(void *arg, enum dma_resv_usage usage)
+>  	return r;
+>  }
+>  
+> -static int test_excl_get_fences(void *arg)
+> -{
+> -	return test_get_fences(arg, DMA_RESV_USAGE_WRITE);
+> -}
+> -
+> -static int test_shared_get_fences(void *arg)
+> -{
+> -	return test_get_fences(arg, DMA_RESV_USAGE_READ);
+> -}
+> -
+>  int dma_resv(void)
+>  {
+>  	static const struct subtest tests[] = {
+>  		SUBTEST(sanitycheck),
+> -		SUBTEST(test_excl_signaling),
+> -		SUBTEST(test_shared_signaling),
+> -		SUBTEST(test_excl_for_each),
+> -		SUBTEST(test_shared_for_each),
+> -		SUBTEST(test_excl_for_each_unlocked),
+> -		SUBTEST(test_shared_for_each_unlocked),
+> -		SUBTEST(test_excl_get_fences),
+> -		SUBTEST(test_shared_get_fences),
+> +		SUBTEST(test_signaling),
+> +		SUBTEST(test_for_each),
+> +		SUBTEST(test_for_each_unlocked),
+> +		SUBTEST(test_get_fences),
+>  	};
+> +	enum dma_resv_usage usage;
+> +	int r;
+>  
+>  	spin_lock_init(&fence_lock);
+> -	return subtests(tests, NULL);
+> +	for (usage = DMA_RESV_USAGE_WRITE; usage <= DMA_RESV_USAGE_READ;
+> +	     ++usage) {
+> +		r = subtests(tests, (void *)(unsigned long)usage);
+> +		if (r)
+> +			return r;
+> +	}
+> +	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 98b1736bb221..5031e26e6716 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -263,7 +263,7 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
+>  	 */
+>  	replacement = dma_fence_get_stub();
+>  	dma_resv_replace_fences(bo->tbo.base.resv, ef->base.context,
+> -				replacement);
+> +				replacement, DMA_RESV_USAGE_READ);
+>  	dma_fence_put(replacement);
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 413f32c3fd63..76fd916424d6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -55,8 +55,8 @@ static int amdgpu_cs_user_fence_chunk(struct amdgpu_cs_parser *p,
+>  	bo = amdgpu_bo_ref(gem_to_amdgpu_bo(gobj));
+>  	p->uf_entry.priority = 0;
+>  	p->uf_entry.tv.bo = &bo->tbo;
+> -	/* One for TTM and one for the CS job */
+> -	p->uf_entry.tv.num_shared = 2;
+> +	/* One for TTM and two for the CS job */
+> +	p->uf_entry.tv.num_shared = 3;
+>  
+>  	drm_gem_object_put(gobj);
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index a7f39f8ab7be..a3cdf8a24377 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1397,10 +1397,8 @@ void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
+>  		return;
+>  	}
+>  
+> -	if (shared)
+> -		dma_resv_add_shared_fence(resv, fence);
+> -	else
+> -		dma_resv_add_excl_fence(resv, fence);
+> +	dma_resv_add_fence(resv, fence, shared ? DMA_RESV_USAGE_READ :
+> +			   DMA_RESV_USAGE_WRITE);
+>  }
+>  
+>  /**
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
+> index 53f7c78628a4..98bb5c9239de 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
+> @@ -202,14 +202,10 @@ static void submit_attach_object_fences(struct etnaviv_gem_submit *submit)
+>  
+>  	for (i = 0; i < submit->nr_bos; i++) {
+>  		struct drm_gem_object *obj = &submit->bos[i].obj->base;
+> +		bool write = submit->bos[i].flags & ETNA_SUBMIT_BO_WRITE;
+>  
+> -		if (submit->bos[i].flags & ETNA_SUBMIT_BO_WRITE)
+> -			dma_resv_add_excl_fence(obj->resv,
+> -							  submit->out_fence);
+> -		else
+> -			dma_resv_add_shared_fence(obj->resv,
+> -							    submit->out_fence);
+> -
+> +		dma_resv_add_fence(obj->resv, submit->out_fence, write ?
+> +				   DMA_RESV_USAGE_WRITE : DMA_RESV_USAGE_READ);
+>  		submit_unlock_object(submit, i);
+>  	}
+>  }
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_busy.c b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
+> index 14a1c0ad8c3c..ddda468241ef 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_busy.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_busy.c
+> @@ -148,11 +148,11 @@ i915_gem_busy_ioctl(struct drm_device *dev, void *data,
+>  		if (dma_resv_iter_is_restarted(&cursor))
+>  			args->busy = 0;
+>  
+> -		if (dma_resv_iter_is_exclusive(&cursor))
+> -			/* Translate the exclusive fence to the READ *and* WRITE engine */
+> +		if (dma_resv_iter_usage(&cursor) <= DMA_RESV_USAGE_WRITE)
+> +			/* Translate the write fences to the READ *and* WRITE engine */
+>  			args->busy |= busy_check_writer(fence);
+>  		else
+> -			/* Translate shared fences to READ set of engines */
+> +			/* Translate read fences to READ set of engines */
+>  			args->busy |= busy_check_reader(fence);
+>  	}
+>  	dma_resv_iter_end(&cursor);
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
+> index 1fd0cc9ca213..f5f2b8b115ea 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_clflush.c
+> @@ -116,7 +116,8 @@ bool i915_gem_clflush_object(struct drm_i915_gem_object *obj,
+>  						obj->base.resv, NULL, true,
+>  						i915_fence_timeout(i915),
+>  						I915_FENCE_GFP);
+> -		dma_resv_add_excl_fence(obj->base.resv, &clflush->base.dma);
+> +		dma_resv_add_fence(obj->base.resv, &clflush->base.dma,
+> +				   DMA_RESV_USAGE_WRITE);
+>  		dma_fence_work_commit(&clflush->base);
+>  		/*
+>  		 * We must have successfully populated the pages(since we are
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+> index 432ac74ff225..438b8a95b3d1 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+> @@ -637,9 +637,8 @@ int i915_gem_obj_copy_ttm(struct drm_i915_gem_object *dst,
+>  	if (IS_ERR_OR_NULL(copy_fence))
+>  		return PTR_ERR_OR_ZERO(copy_fence);
+>  
+> -	dma_resv_add_excl_fence(dst_bo->base.resv, copy_fence);
+> -	dma_resv_add_shared_fence(src_bo->base.resv, copy_fence);
+> -
+> +	dma_resv_add_fence(dst_bo->base.resv, copy_fence, DMA_RESV_USAGE_WRITE);
+> +	dma_resv_add_fence(src_bo->base.resv, copy_fence, DMA_RESV_USAGE_READ);
+>  	dma_fence_put(copy_fence);
+>  
+>  	return 0;
+> diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
+> index 0e52eb87cd55..4997ed18b6e4 100644
+> --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
+> +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c
+> @@ -218,8 +218,8 @@ static int __igt_lmem_pages_migrate(struct intel_gt *gt,
+>  		if (rq) {
+>  			err = dma_resv_reserve_fences(obj->base.resv, 1);
+>  			if (!err)
+> -				dma_resv_add_excl_fence(obj->base.resv,
+> -							&rq->fence);
+> +				dma_resv_add_fence(obj->base.resv, &rq->fence,
+> +						   DMA_RESV_USAGE_WRITE);
+>  			i915_gem_object_set_moving_fence(obj, &rq->fence);
+>  			i915_request_put(rq);
+>  		}
+> diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+> index a132e241c3ee..3a6e3f6d239f 100644
+> --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+> +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+> @@ -1220,7 +1220,8 @@ static int __igt_mmap_migrate(struct intel_memory_region **placements,
+>  					  expand32(POISON_INUSE), &rq);
+>  	i915_gem_object_unpin_pages(obj);
+>  	if (rq) {
+> -		dma_resv_add_excl_fence(obj->base.resv, &rq->fence);
+> +		dma_resv_add_fence(obj->base.resv, &rq->fence,
+> +				   DMA_RESV_USAGE_WRITE);
+>  		i915_gem_object_set_moving_fence(obj, &rq->fence);
+>  		i915_request_put(rq);
+>  	}
+> diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+> index bae3423f58e8..524477d8939e 100644
+> --- a/drivers/gpu/drm/i915/i915_vma.c
+> +++ b/drivers/gpu/drm/i915/i915_vma.c
+> @@ -1826,7 +1826,8 @@ int _i915_vma_move_to_active(struct i915_vma *vma,
+>  		}
+>  
+>  		if (fence) {
+> -			dma_resv_add_excl_fence(vma->obj->base.resv, fence);
+> +			dma_resv_add_fence(vma->obj->base.resv, fence,
+> +					   DMA_RESV_USAGE_WRITE);
+>  			obj->write_domain = I915_GEM_DOMAIN_RENDER;
+>  			obj->read_domains = 0;
+>  		}
+> @@ -1838,7 +1839,8 @@ int _i915_vma_move_to_active(struct i915_vma *vma,
+>  		}
+>  
+>  		if (fence) {
+> -			dma_resv_add_shared_fence(vma->obj->base.resv, fence);
+> +			dma_resv_add_fence(vma->obj->base.resv, fence,
+> +					   DMA_RESV_USAGE_READ);
+>  			obj->write_domain = 0;
+>  		}
+>  	}
+> @@ -2078,7 +2080,7 @@ int i915_vma_unbind_async(struct i915_vma *vma, bool trylock_vm)
+>  		goto out_rpm;
+>  	}
+>  
+> -	dma_resv_add_shared_fence(obj->base.resv, fence);
+> +	dma_resv_add_fence(obj->base.resv, fence, DMA_RESV_USAGE_READ);
+>  	dma_fence_put(fence);
+>  
+>  out_rpm:
+> diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+> index 6114e013092b..73eb53edb8de 100644
+> --- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+> +++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
+> @@ -1056,7 +1056,8 @@ static int igt_lmem_write_cpu(void *arg)
+>  					  obj->mm.pages->sgl, I915_CACHE_NONE,
+>  					  true, 0xdeadbeaf, &rq);
+>  	if (rq) {
+> -		dma_resv_add_excl_fence(obj->base.resv, &rq->fence);
+> +		dma_resv_add_fence(obj->base.resv, &rq->fence,
+> +				   DMA_RESV_USAGE_WRITE);
+>  		i915_request_put(rq);
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/lima/lima_gem.c b/drivers/gpu/drm/lima/lima_gem.c
+> index e0a11ee0e86d..0f1ca0b0db49 100644
+> --- a/drivers/gpu/drm/lima/lima_gem.c
+> +++ b/drivers/gpu/drm/lima/lima_gem.c
+> @@ -364,10 +364,9 @@ int lima_gem_submit(struct drm_file *file, struct lima_submit *submit)
+>  	fence = lima_sched_context_queue_task(submit->task);
+>  
+>  	for (i = 0; i < submit->nr_bos; i++) {
+> -		if (submit->bos[i].flags & LIMA_SUBMIT_BO_WRITE)
+> -			dma_resv_add_excl_fence(lima_bo_resv(bos[i]), fence);
+> -		else
+> -			dma_resv_add_shared_fence(lima_bo_resv(bos[i]), fence);
+> +		dma_resv_add_fence(lima_bo_resv(bos[i]), fence,
+> +				   submit->bos[i].flags & LIMA_SUBMIT_BO_WRITE ?
+> +				   DMA_RESV_USAGE_WRITE : DMA_RESV_USAGE_READ);
+>  	}
+>  
+>  	drm_gem_unlock_reservations((struct drm_gem_object **)bos,
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index 3164db8be893..8d1eef914ba8 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -395,9 +395,11 @@ static void submit_attach_object_fences(struct msm_gem_submit *submit)
+>  		struct drm_gem_object *obj = &submit->bos[i].obj->base;
+>  
+>  		if (submit->bos[i].flags & MSM_SUBMIT_BO_WRITE)
+> -			dma_resv_add_excl_fence(obj->resv, submit->user_fence);
+> +			dma_resv_add_fence(obj->resv, submit->user_fence,
+> +					   DMA_RESV_USAGE_WRITE);
+>  		else if (submit->bos[i].flags & MSM_SUBMIT_BO_READ)
+> -			dma_resv_add_shared_fence(obj->resv, submit->user_fence);
+> +			dma_resv_add_fence(obj->resv, submit->user_fence,
+> +					   DMA_RESV_USAGE_READ);
+>  	}
+>  }
+>  
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
+> index c6bb4dbcd735..05076e530e7d 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_bo.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+> @@ -1308,10 +1308,11 @@ nouveau_bo_fence(struct nouveau_bo *nvbo, struct nouveau_fence *fence, bool excl
+>  {
+>  	struct dma_resv *resv = nvbo->bo.base.resv;
+>  
+> -	if (exclusive)
+> -		dma_resv_add_excl_fence(resv, &fence->base);
+> -	else if (fence)
+> -		dma_resv_add_shared_fence(resv, &fence->base);
+> +	if (!fence)
+> +		return;
+> +
+> +	dma_resv_add_fence(resv, &fence->base, exclusive ?
+> +			   DMA_RESV_USAGE_WRITE : DMA_RESV_USAGE_READ);
+>  }
+>  
+>  static void
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
+> index d5e81ccee01c..7f01dcf81fab 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_fence.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
+> @@ -360,9 +360,11 @@ nouveau_fence_sync(struct nouveau_bo *nvbo, struct nouveau_channel *chan,
+>  		dma_resv_for_each_fence(&cursor, resv,
+>  					dma_resv_usage_rw(exclusive),
+>  					fence) {
+> +			enum dma_resv_usage usage;
+>  			struct nouveau_fence *f;
+>  
+> -			if (i == 0 && dma_resv_iter_is_exclusive(&cursor))
+> +			usage = dma_resv_iter_usage(&cursor);
+> +			if (i == 0 && usage == DMA_RESV_USAGE_WRITE)
+>  				continue;
+>  
+>  			f = nouveau_local_fence(fence, chan->drm);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+> index c34114560e49..fda5871aebe3 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -268,7 +268,7 @@ static void panfrost_attach_object_fences(struct drm_gem_object **bos,
+>  	int i;
+>  
+>  	for (i = 0; i < bo_count; i++)
+> -		dma_resv_add_excl_fence(bos[i]->resv, fence);
+> +		dma_resv_add_fence(bos[i]->resv, fence, DMA_RESV_USAGE_WRITE);
+>  }
+>  
+>  int panfrost_job_push(struct panfrost_job *job)
+> diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+> index cde1e8ddaeaa..368d26da0d6a 100644
+> --- a/drivers/gpu/drm/qxl/qxl_release.c
+> +++ b/drivers/gpu/drm/qxl/qxl_release.c
+> @@ -429,7 +429,8 @@ void qxl_release_fence_buffer_objects(struct qxl_release *release)
+>  	list_for_each_entry(entry, &release->bos, head) {
+>  		bo = entry->bo;
+>  
+> -		dma_resv_add_shared_fence(bo->base.resv, &release->base);
+> +		dma_resv_add_fence(bo->base.resv, &release->base,
+> +				   DMA_RESV_USAGE_READ);
+>  		ttm_bo_move_to_lru_tail_unlocked(bo);
+>  		dma_resv_unlock(bo->base.resv);
+>  	}
+> diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
+> index 7ffd2e90f325..cb5c4aa45cef 100644
+> --- a/drivers/gpu/drm/radeon/radeon_object.c
+> +++ b/drivers/gpu/drm/radeon/radeon_object.c
+> @@ -791,8 +791,6 @@ void radeon_bo_fence(struct radeon_bo *bo, struct radeon_fence *fence,
+>  		return;
+>  	}
+>  
+> -	if (shared)
+> -		dma_resv_add_shared_fence(resv, &fence->base);
+> -	else
+> -		dma_resv_add_excl_fence(resv, &fence->base);
+> +	dma_resv_add_fence(resv, &fence->base, shared ?
+> +			   DMA_RESV_USAGE_READ : DMA_RESV_USAGE_WRITE);
+>  }
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index cff05b62f3f7..d74f9eea855e 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -739,7 +739,7 @@ static int ttm_bo_add_move_fence(struct ttm_buffer_object *bo,
+>  		return ret;
+>  	}
+>  
+> -	dma_resv_add_shared_fence(bo->base.resv, fence);
+> +	dma_resv_add_fence(bo->base.resv, fence, DMA_RESV_USAGE_WRITE);
+>  
+>  	ret = dma_resv_reserve_fences(bo->base.resv, 1);
+>  	if (unlikely(ret)) {
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index 1b96b91bf81b..7a96a1db13a7 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -507,7 +507,8 @@ static int ttm_bo_move_to_ghost(struct ttm_buffer_object *bo,
+>  	if (ret)
+>  		return ret;
+>  
+> -	dma_resv_add_excl_fence(&ghost_obj->base._resv, fence);
+> +	dma_resv_add_fence(&ghost_obj->base._resv, fence,
+> +			   DMA_RESV_USAGE_WRITE);
+>  
+>  	/**
+>  	 * If we're not moving to fixed memory, the TTM object
+> @@ -561,7 +562,7 @@ int ttm_bo_move_accel_cleanup(struct ttm_buffer_object *bo,
+>  	struct ttm_resource_manager *man = ttm_manager_type(bdev, new_mem->mem_type);
+>  	int ret = 0;
+>  
+> -	dma_resv_add_excl_fence(bo->base.resv, fence);
+> +	dma_resv_add_fence(bo->base.resv, fence, DMA_RESV_USAGE_WRITE);
+>  	if (!evict)
+>  		ret = ttm_bo_move_to_ghost(bo, fence, man->use_tt);
+>  	else if (!from->use_tt && pipeline)
+> diff --git a/drivers/gpu/drm/ttm/ttm_execbuf_util.c b/drivers/gpu/drm/ttm/ttm_execbuf_util.c
+> index 789c645f004e..0eb995d25df1 100644
+> --- a/drivers/gpu/drm/ttm/ttm_execbuf_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_execbuf_util.c
+> @@ -154,10 +154,8 @@ void ttm_eu_fence_buffer_objects(struct ww_acquire_ctx *ticket,
+>  	list_for_each_entry(entry, list, head) {
+>  		struct ttm_buffer_object *bo = entry->bo;
+>  
+> -		if (entry->num_shared)
+> -			dma_resv_add_shared_fence(bo->base.resv, fence);
+> -		else
+> -			dma_resv_add_excl_fence(bo->base.resv, fence);
+> +		dma_resv_add_fence(bo->base.resv, fence, entry->num_shared ?
+> +				   DMA_RESV_USAGE_READ : DMA_RESV_USAGE_WRITE);
+>  		ttm_bo_move_to_lru_tail_unlocked(bo);
+>  		dma_resv_unlock(bo->base.resv);
+>  	}
+> diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
+> index 961812d33827..2352e9640922 100644
+> --- a/drivers/gpu/drm/v3d/v3d_gem.c
+> +++ b/drivers/gpu/drm/v3d/v3d_gem.c
+> @@ -550,8 +550,8 @@ v3d_attach_fences_and_unlock_reservation(struct drm_file *file_priv,
+>  
+>  	for (i = 0; i < job->bo_count; i++) {
+>  		/* XXX: Use shared fences for read-only objects. */
+> -		dma_resv_add_excl_fence(job->bo[i]->resv,
+> -					job->done_fence);
+> +		dma_resv_add_fence(job->bo[i]->resv, job->done_fence,
+> +				   DMA_RESV_USAGE_WRITE);
+>  	}
+>  
+>  	drm_gem_unlock_reservations(job->bo, job->bo_count, acquire_ctx);
+> diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+> index 594bd6bb00d2..38550317e025 100644
+> --- a/drivers/gpu/drm/vc4/vc4_gem.c
+> +++ b/drivers/gpu/drm/vc4/vc4_gem.c
+> @@ -546,7 +546,7 @@ vc4_update_bo_seqnos(struct vc4_exec_info *exec, uint64_t seqno)
+>  		bo = to_vc4_bo(&exec->bo[i]->base);
+>  		bo->seqno = seqno;
+>  
+> -		dma_resv_add_shared_fence(bo->base.base.resv, exec->fence);
+> +		dma_resv_add_fence(bo->base.base.resv, exec->fence);
+>  	}
+>  
+>  	list_for_each_entry(bo, &exec->unref_list, unref_head) {
+> diff --git a/drivers/gpu/drm/vgem/vgem_fence.c b/drivers/gpu/drm/vgem/vgem_fence.c
+> index 91fc4940c65a..c2a879734d40 100644
+> --- a/drivers/gpu/drm/vgem/vgem_fence.c
+> +++ b/drivers/gpu/drm/vgem/vgem_fence.c
+> @@ -161,12 +161,9 @@ int vgem_fence_attach_ioctl(struct drm_device *dev,
+>  	/* Expose the fence via the dma-buf */
+>  	dma_resv_lock(resv, NULL);
+>  	ret = dma_resv_reserve_fences(resv, 1);
+> -	if (!ret) {
+> -		if (arg->flags & VGEM_FENCE_WRITE)
+> -			dma_resv_add_excl_fence(resv, fence);
+> -		else
+> -			dma_resv_add_shared_fence(resv, fence);
+> -	}
+> +	if (!ret)
+> +		dma_resv_add_fence(resv, fence, arg->flags & VGEM_FENCE_WRITE ?
+> +				   DMA_RESV_USAGE_WRITE : DMA_RESV_USAGE_READ);
+>  	dma_resv_unlock(resv);
+>  
+>  	/* Record the fence in our idr for later signaling */
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
+> index 1820ca6cf673..580a78809836 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_gem.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+> @@ -250,7 +250,8 @@ void virtio_gpu_array_add_fence(struct virtio_gpu_object_array *objs,
+>  	int i;
+>  
+>  	for (i = 0; i < objs->nents; i++)
+> -		dma_resv_add_excl_fence(objs->objs[i]->resv, fence);
+> +		dma_resv_add_fence(objs->objs[i]->resv, fence,
+> +				   DMA_RESV_USAGE_WRITE);
+>  }
+>  
+>  void virtio_gpu_array_put_free(struct virtio_gpu_object_array *objs)
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+> index b96884f7d03d..bec50223efe5 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+> @@ -758,7 +758,8 @@ void vmw_bo_fence_single(struct ttm_buffer_object *bo,
+>  
+>  	ret = dma_resv_reserve_fences(bo->base.resv, 1);
+>  	if (!ret)
+> -		dma_resv_add_excl_fence(bo->base.resv, &fence->base);
+> +		dma_resv_add_fence(bo->base.resv, &fence->base,
+> +				   DMA_RESV_USAGE_WRITE);
+>  	else
+>  		/* Last resort fallback when we are OOM */
+>  		dma_fence_wait(&fence->base, false);
+> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> index a297397743a2..71731796c8c3 100644
+> --- a/include/linux/dma-buf.h
+> +++ b/include/linux/dma-buf.h
+> @@ -393,15 +393,15 @@ struct dma_buf {
+>  	 * e.g. exposed in `Implicit Fence Poll Support`_ must follow the
+>  	 * below rules.
+>  	 *
+> -	 * - Drivers must add a shared fence through dma_resv_add_shared_fence()
+> -	 *   for anything the userspace API considers a read access. This highly
+> -	 *   depends upon the API and window system.
+> +	 * - Drivers must add a read fence through dma_resv_add_fence() with the
+> +	 *   DMA_RESV_USAGE_READ flag for anything the userspace API considers a
+> +	 *   read access. This highly depends upon the API and window system.
+>  	 *
+> -	 * - Similarly drivers must set the exclusive fence through
+> -	 *   dma_resv_add_excl_fence() for anything the userspace API considers
+> -	 *   write access.
+> +	 * - Similarly drivers must add a write fence through
+> +	 *   dma_resv_add_fence() with the DMA_RESV_USAGE_WRITE flag for
+> +	 *   anything the userspace API considers write access.
+>  	 *
+> -	 * - Drivers may just always set the exclusive fence, since that only
+> +	 * - Drivers may just always add a write fence, since that only
+>  	 *   causes unecessarily synchronization, but no correctness issues.
+>  	 *
+>  	 * - Some drivers only expose a synchronous userspace API with no
+> @@ -416,7 +416,7 @@ struct dma_buf {
+>  	 * Dynamic importers, see dma_buf_attachment_is_dynamic(), have
+>  	 * additional constraints on how they set up fences:
+>  	 *
+> -	 * - Dynamic importers must obey the exclusive fence and wait for it to
+> +	 * - Dynamic importers must obey the write fences and wait for them to
+>  	 *   signal before allowing access to the buffer's underlying storage
+>  	 *   through the device.
+>  	 *
+> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+> index 92cd8023980f..98dc5234b487 100644
+> --- a/include/linux/dma-resv.h
+> +++ b/include/linux/dma-resv.h
+> @@ -195,6 +195,9 @@ struct dma_resv_iter {
+>  	/** @fence: the currently handled fence */
+>  	struct dma_fence *fence;
+>  
+> +	/** @fence_usage: the usage of the current fence */
+> +	enum dma_resv_usage fence_usage;
+> +
+>  	/** @seq: sequence number to check for modifications */
+>  	unsigned int seq;
+>  
+> @@ -244,14 +247,15 @@ static inline void dma_resv_iter_end(struct dma_resv_iter *cursor)
+>  }
+>  
+>  /**
+> - * dma_resv_iter_is_exclusive - test if the current fence is the exclusive one
+> + * dma_resv_iter_usage - Return the usage of the current fence
+>   * @cursor: the cursor of the current position
+>   *
+> - * Returns true if the currently returned fence is the exclusive one.
+> + * Returns the usage of the currently processed fence.
+>   */
+> -static inline bool dma_resv_iter_is_exclusive(struct dma_resv_iter *cursor)
+> +static inline enum dma_resv_usage
+> +dma_resv_iter_usage(struct dma_resv_iter *cursor)
+>  {
+> -	return cursor->index == 0;
+> +	return cursor->fence_usage;
+>  }
+>  
+>  /**
+> @@ -306,9 +310,9 @@ static inline bool dma_resv_iter_is_restarted(struct dma_resv_iter *cursor)
+>  #define dma_resv_assert_held(obj) lockdep_assert_held(&(obj)->lock.base)
+>  
+>  #ifdef CONFIG_DEBUG_MUTEXES
+> -void dma_resv_reset_shared_max(struct dma_resv *obj);
+> +void dma_resv_reset_max_fences(struct dma_resv *obj);
+>  #else
+> -static inline void dma_resv_reset_shared_max(struct dma_resv *obj) {}
+> +static inline void dma_resv_reset_max_fences(struct dma_resv *obj) {}
+>  #endif
+>  
+>  /**
+> @@ -454,17 +458,18 @@ static inline struct ww_acquire_ctx *dma_resv_locking_ctx(struct dma_resv *obj)
+>   */
+>  static inline void dma_resv_unlock(struct dma_resv *obj)
+>  {
+> -	dma_resv_reset_shared_max(obj);
+> +	dma_resv_reset_max_fences(obj);
+>  	ww_mutex_unlock(&obj->lock);
+>  }
+>  
+>  void dma_resv_init(struct dma_resv *obj);
+>  void dma_resv_fini(struct dma_resv *obj);
+>  int dma_resv_reserve_fences(struct dma_resv *obj, unsigned int num_fences);
+> -void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence);
+> +void dma_resv_add_fence(struct dma_resv *obj, struct dma_fence *fence,
+> +			enum dma_resv_usage usage);
+>  void dma_resv_replace_fences(struct dma_resv *obj, uint64_t context,
+> -			     struct dma_fence *fence);
+> -void dma_resv_add_excl_fence(struct dma_resv *obj, struct dma_fence *fence);
+> +			     struct dma_fence *fence,
+> +			     enum dma_resv_usage usage);
+>  int dma_resv_get_fences(struct dma_resv *obj, enum dma_resv_usage usage,
+>  			unsigned int *num_fences, struct dma_fence ***fences);
+>  int dma_resv_get_singleton(struct dma_resv *obj, enum dma_resv_usage usage,
+> -- 
+> 2.25.1
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
