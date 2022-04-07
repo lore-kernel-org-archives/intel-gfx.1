@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 239EFC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 09:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCD7AC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 09:15:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 881AB10E7AB;
-	Thu,  7 Apr 2022 09:15:23 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BFE210E7AB;
- Thu,  7 Apr 2022 09:15:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E17F10E4A1;
+	Thu,  7 Apr 2022 09:15:29 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81E2710E4A1;
+ Thu,  7 Apr 2022 09:15:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649322923; x=1680858923;
+ t=1649322928; x=1680858928;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7ua2793r9eRSzOqGh/E5qjHz/9DC8CrOiw6Dp3nSrk0=;
- b=ibHRMEKyoA31SmbHynS0aQYNT1emQ3Lu/IwFS5KiOi+rvAEYJ6hNu9E3
- QKDT4wKtksODPRO0ctduw3/0rCbBXovMT+rYwp6qy/TLyakxUjyV37FE+
- p3uM6nzUy3tePvs+wVPqh4k7+MzZuGAnKJ/jdO8rF9H+41ewNl4QpJn0/
- ydrguYh3eeBks5fX7cqv3+orLCz6VxtlqzvWlJwVMRVvfk+t+e6pg2R07
- QYQiED/N/irYc+4gsLUxJjZPuqQibYM2TLZ7VtYV7GPey/DVOXoCuL48N
- xBG73iPuynG8e7PaiNHQRJK6sIG29puM+hoz8RDzMXBsNzgtxEnDKLiWu A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="286251386"
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="286251386"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 02:15:22 -0700
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="506078184"
+ bh=Zjq4m8ktl35THTgYx3jFnjZtAOYdlwXz42yAjO7fNd8=;
+ b=dSpYPzvIEdLjMoaW3XI0OzU9AlBklvVvEolG5mN0FrAzqHoSIqEs1E5q
+ J430xf8PU+PuhRD8vMMj9O1d5FuV/ONDMVKUvyNrrPk4YilLtRzK8G+cD
+ IjpCRXX9z7Nr/9yNhp0gzVGoS7kfO/Hdb5TUZnYWNSgU/bM2Pr/E/P0RB
+ Wvmi0FPfA3HkYlOwqf6y8CsyPpJPQqjVXJjNMb66WAd3EP8JmjDY0qUUr
+ bgfiZt4+oSJ2FZxjUEyxts3D9d2IB7nqihGrawjYZQtVezIvA32tXW2U9
+ hrQNdEfavY4MP1jBgoHIWt0qfl54+3ngRq16scOufdO/RIlIUDiDFhmTO A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="258863883"
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="258863883"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 02:15:28 -0700
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="524292488"
 Received: from kgibala-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.142.48])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 02:15:20 -0700
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 02:15:25 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu,  7 Apr 2022 12:14:33 +0300
-Message-Id: <f9fa9811b2a6a9bbdd03809805b3d18fb21956cf.1649322799.git.jani.nikula@intel.com>
+Date: Thu,  7 Apr 2022 12:14:34 +0300
+Message-Id: <05f4f103cda02565c913435e0a2d7bffeca82d44.1649322799.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1649322799.git.jani.nikula@intel.com>
 References: <cover.1649322799.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/12] drm/edid: abstract an EDID block read
- helper
+Subject: [Intel-gfx] [PATCH 08/12] drm/edid: use EDID block read helper in
+ drm_do_get_edid()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,118 +62,106 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We have an abstraction for the EDID base block read, yet duplicating the
-retries and error handling for extension block reads. Introduce a more
-generic EDID block read helper.
-
-Switch to the helper piecemeal, starting with drm_edid_get_panel_id(),
-which doesn't need or have access to the connector anyway.
-
-The subtle change is switching from drm_edid_block_valid() to
-edid_block_check(). We also status print once, not for every attempt.
+Convert drm_do_get_edit() from the base block read helper to the generic
+block read helper. There's quite a bit going on here, as the corrupt and
+null EDID information is moved back to the caller. As we see, they were
+not all that clear to begin with, and this change underlines that.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 58 +++++++++++++++++++++++++++++++++-----
- 1 file changed, 51 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 62 ++++++++++++++------------------------
+ 1 file changed, 23 insertions(+), 39 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 926ffe5cd97e..162f0a959376 100644
+index 162f0a959376..bffb8a599cda 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -1670,6 +1670,7 @@ EXPORT_SYMBOL(drm_edid_are_equal);
+@@ -2076,44 +2076,6 @@ static enum edid_block_status edid_block_read(void *block, unsigned int block_nu
+ 	return status;
+ }
  
- enum edid_block_status {
- 	EDID_BLOCK_OK = 0,
-+	EDID_BLOCK_READ_FAIL,
- 	EDID_BLOCK_NULL,
- 	EDID_BLOCK_ZERO,
- 	EDID_BLOCK_HEADER_CORRUPT,
-@@ -1736,6 +1737,9 @@ static void edid_block_status_print(enum edid_block_status status,
- 	switch (status) {
- 	case EDID_BLOCK_OK:
- 		break;
-+	case EDID_BLOCK_READ_FAIL:
-+		pr_debug("EDID block %d read failed\n", block_num);
-+		break;
- 	case EDID_BLOCK_NULL:
- 		pr_debug("EDID block %d pointer is NULL\n", block_num);
- 		break;
-@@ -2039,6 +2043,39 @@ EXPORT_SYMBOL(drm_add_override_edid_modes);
- 
- typedef int read_block_fn(void *context, u8 *buf, unsigned int block, size_t len);
- 
-+static enum edid_block_status edid_block_read(void *block, unsigned int block_num,
-+					      read_block_fn read_block,
-+					      void *context)
-+{
+-static struct edid *drm_do_get_edid_base_block(struct drm_connector *connector,
+-					       read_block_fn read_block,
+-					       void *context)
+-{
+-	int *null_edid_counter = connector ? &connector->null_edid_counter : NULL;
+-	bool *edid_corrupt = connector ? &connector->edid_corrupt : NULL;
+-	void *edid;
+-	int try;
+-
+-	edid = kmalloc(EDID_LENGTH, GFP_KERNEL);
+-	if (edid == NULL)
+-		return NULL;
+-
+-	/* base block fetch */
+-	for (try = 0; try < 4; try++) {
+-		if (read_block(context, edid, 0, EDID_LENGTH))
+-			goto out;
+-		if (drm_edid_block_valid(edid, 0, false, edid_corrupt))
+-			break;
+-		if (try == 0 && edid_block_is_zero(edid)) {
+-			if (null_edid_counter)
+-				(*null_edid_counter)++;
+-			goto carp;
+-		}
+-	}
+-	if (try == 4)
+-		goto carp;
+-
+-	return edid;
+-
+-carp:
+-	if (connector)
+-		connector_bad_edid(connector, edid, 1);
+-out:
+-	kfree(edid);
+-	return NULL;
+-}
+-
+ /**
+  * drm_do_get_edid - get EDID data using a custom EDID block read function
+  * @connector: connector we're probing
+@@ -2138,6 +2100,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+ 			     read_block_fn read_block,
+ 			     void *context)
+ {
 +	enum edid_block_status status;
-+	bool is_base_block = block_num == 0;
-+	int try;
+ 	int j, invalid_blocks = 0;
+ 	struct edid *edid, *new, *override;
+ 
+@@ -2145,10 +2108,31 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+ 	if (override)
+ 		return override;
+ 
+-	edid = drm_do_get_edid_base_block(connector, read_block, context);
++	edid = kmalloc(EDID_LENGTH, GFP_KERNEL);
+ 	if (!edid)
+ 		return NULL;
+ 
++	status = edid_block_read(edid, 0, read_block, context);
 +
-+	for (try = 0; try < 4; try++) {
-+		if (read_block(context, block, block_num, EDID_LENGTH))
-+			return EDID_BLOCK_READ_FAIL;
++	edid_block_status_print(status, edid, 0);
 +
-+		status = edid_block_check(block, is_base_block);
-+		if (status == EDID_BLOCK_HEADER_REPAIR) {
-+			edid_header_fix(block);
++	if (status == EDID_BLOCK_READ_FAIL)
++		goto out;
 +
-+			/* Retry with fixed header, update status if that worked. */
-+			status = edid_block_check(block, is_base_block);
-+			if (status == EDID_BLOCK_OK)
-+				status = EDID_BLOCK_HEADER_FIXED;
-+		}
++	/* FIXME: Clarify what a corrupt EDID actually means. */
++	if (status == EDID_BLOCK_OK || status == EDID_BLOCK_VERSION)
++		connector->edid_corrupt = false;
++	else
++		connector->edid_corrupt = true;
 +
-+		if (edid_block_status_valid(status, edid_block_tag(block)))
-+			break;
++	if (!edid_block_status_valid(status, edid_block_tag(edid))) {
++		if (status == EDID_BLOCK_ZERO)
++			connector->null_edid_counter++;
 +
-+		/* Fail early for unrepairable base block all zeros. */
-+		if (try == 0 && is_base_block && status == EDID_BLOCK_ZERO)
-+			break;
++		connector_bad_edid(connector, edid, 1);
++		goto out;
 +	}
 +
-+	return status;
-+}
-+
- static struct edid *drm_do_get_edid_base_block(struct drm_connector *connector,
- 					       read_block_fn read_block,
- 					       void *context)
-@@ -2237,20 +2274,27 @@ static u32 edid_extract_panel_id(const struct edid *edid)
+ 	if (edid->extensions == 0)
+ 		return edid;
  
- u32 drm_edid_get_panel_id(struct i2c_adapter *adapter)
- {
--	const struct edid *edid;
--	u32 panel_id;
--
--	edid = drm_do_get_edid_base_block(NULL, drm_do_probe_ddc_edid, adapter);
-+	enum edid_block_status status;
-+	void *base_block;
-+	u32 panel_id = 0;
- 
- 	/*
- 	 * There are no manufacturer IDs of 0, so if there is a problem reading
- 	 * the EDID then we'll just return 0.
- 	 */
--	if (!edid)
-+
-+	base_block = kmalloc(EDID_LENGTH, GFP_KERNEL);
-+	if (!base_block)
- 		return 0;
- 
--	panel_id = edid_extract_panel_id(edid);
--	kfree(edid);
-+	status = edid_block_read(base_block, 0, drm_do_probe_ddc_edid, adapter);
-+
-+	edid_block_status_print(status, base_block, 0);
-+
-+	if (edid_block_status_valid(status, edid_block_tag(base_block)))
-+		panel_id = edid_extract_panel_id(base_block);
-+
-+	kfree(base_block);
- 
- 	return panel_id;
- }
 -- 
 2.30.2
 
