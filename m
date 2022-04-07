@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80AFBC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 13:00:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C989BC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 13:00:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E805310EB48;
-	Thu,  7 Apr 2022 13:00:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0684710EB6A;
+	Thu,  7 Apr 2022 13:00:33 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE63710EB56
- for <intel-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 13:00:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B06CA10EB48
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 13:00:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649336429; x=1680872429;
+ t=1649336428; x=1680872428;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FqQD8V1tZDNnF7Zs/RsGtMzs5YtWuA1/y2GnU/ZA+R8=;
- b=eqyJIMBsduNxtqTaYe4SCLAVLSYSyCdvZ3xxOL60drMA02AptcLlhDMR
- hB5qmP0y9rkCxpKBarzmB0wMMdNKgvcRhqAZ8F0DxaALNhqMwr2mrVlLw
- avpkdCNw/iTwuVmGI2pHkpT2BXxweWoo3KZkZPkSIg+uxH4oCiw8YXfo1
- oa+1IBwwqckB1nJw2VesMjBhsw25GrguA+MGZAwTNNrOIUDGtImgGEOM1
- CqE68fuRTkJIS66kC3dQeAgWYjulP7wUE9+uQg8eDsZYjWIvhAspy3Uif
- TBTKrIdjxCJ/07IbpFmkj+NN1k/Uo8glu0UUdR2KjRNUBSxb1kj+Mpzv5 g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10309"; a="261492279"
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="261492279"
+ bh=b7vYITy2pH3SdPsKSfw6JD5LUWFsWbb9ZTOwd08KSkM=;
+ b=Jz21UaSc7TXXAiScfROkXcGSUIcM7wAAAS2PxCioXE97yl6GSiQoww5P
+ TGmXbKUs6sp/M4RDW6uZOl5R/ya4A/B5mRaoSBa1XOhMF97urkZ9Wl1J1
+ tAO8TJwv26iPYkuBvHijdWIPoJvg6WIaNfDjilL96hiIB2H9jrYYQ//nm
+ Q7cNEoxZu5+BzoxUeZ2dMFiUwx1t/VdIyT7Ghd/w2WISeRCXvt498coOT
+ D9Fm3uSbkL5u7KQhj4/D4qpBbK6ef/A+cLQ3cL33Eao4Jp3LFzb6w1VYC
+ cT2pCam8IgD2qKAVMNJIbXoa73utDkLk/ADlbUpLVo2fxHighg26vIrqZ g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10309"; a="261492275"
+X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="261492275"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 06:00:29 -0700
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="571041242"
+ 07 Apr 2022 06:00:28 -0700
+X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="571041197"
 Received: from sannilnx.jer.intel.com ([10.12.231.73])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 06:00:25 -0700
+ 07 Apr 2022 06:00:17 -0700
 From: Alexander Usyskin <alexander.usyskin@intel.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -40,14 +40,15 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Date: Thu,  7 Apr 2022 15:58:35 +0300
-Message-Id: <20220407125839.1479249-17-alexander.usyskin@intel.com>
+Date: Thu,  7 Apr 2022 15:58:33 +0300
+Message-Id: <20220407125839.1479249-15-alexander.usyskin@intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220407125839.1479249-1-alexander.usyskin@intel.com>
 References: <20220407125839.1479249-1-alexander.usyskin@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 16/20] mei: mkhi: add memory ready command
+Subject: [Intel-gfx] [PATCH 14/20] drm/i915/dg2: add gsc with special gsc
+ bar offsets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,62 +61,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Alexander Usyskin <alexander.usyskin@intel.com>, linux-kernel@vger.kernel.org,
- Tomas Winkler <tomas.winkler@intel.com>,
- Vitaly Lubart <vitaly.lubart@intel.com>
+Cc: linux-kernel@vger.kernel.org, Tomas Winkler <tomas.winkler@intel.com>,
+ Alexander Usyskin <alexander.usyskin@intel.com>,
+ Vitaly Lubart <vitaly.lubart@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tomas Winkler <tomas.winkler@intel.com>
 
-Add GSC memory ready command.
-The command indicates to the firmware that
-extend operation memory was setup and
-the firmware may enter PXP mode.
+DG2 uses different GSC offsets on memory bar
+and uses PXP head (HECI1).
 
-CC: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 ---
- drivers/misc/mei/mkhi.h | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_gsc.c | 15 +++++++++++++++
+ drivers/gpu/drm/i915/i915_pci.c     |  1 +
+ drivers/gpu/drm/i915/i915_reg.h     |  2 ++
+ 3 files changed, 18 insertions(+)
 
-diff --git a/drivers/misc/mei/mkhi.h b/drivers/misc/mei/mkhi.h
-index 27a9b476904e..ea9fe487cb0f 100644
---- a/drivers/misc/mei/mkhi.h
-+++ b/drivers/misc/mei/mkhi.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0 */
- /*
-- * Copyright (c) 2003-2020, Intel Corporation. All rights reserved.
-+ * Copyright (c) 2003-2021, Intel Corporation. All rights reserved.
-  * Intel Management Engine Interface (Intel MEI) Linux driver
-  */
+diff --git a/drivers/gpu/drm/i915/gt/intel_gsc.c b/drivers/gpu/drm/i915/gt/intel_gsc.c
+index ffe6716590f0..bfc307e49bf9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gsc.c
++++ b/drivers/gpu/drm/i915/gt/intel_gsc.c
+@@ -69,6 +69,19 @@ static const struct gsc_def gsc_def_xehpsdv[] = {
+ 	}
+ };
  
-@@ -18,6 +18,13 @@
- 
- #define MCHI_GROUP_ID  0xA
- 
-+#define MKHI_GROUP_ID_GFX              0x30
-+#define MKHI_GFX_RESET_WARN_CMD_REQ    0x0
-+#define MKHI_GFX_MEMORY_READY_CMD_REQ  0x1
++static const struct gsc_def gsc_def_dg2[] = {
++	{
++		.name = "mei-gsc",
++		.bar = DG2_GSC_HECI1_BASE,
++		.bar_size = GSC_BAR_LENGTH,
++	},
++	{
++		.name = "mei-gscfi",
++		.bar = DG2_GSC_HECI2_BASE,
++		.bar_size = GSC_BAR_LENGTH,
++	}
++};
 +
-+/* Allow transition to PXP mode without approval */
-+#define MKHI_GFX_MEM_READY_PXP_ALLOWED  0x1
-+
- struct mkhi_rule_id {
- 	__le16 rule_type;
- 	u8 feature_id;
-@@ -42,4 +49,9 @@ struct mkhi_msg {
- 	u8 data[];
- } __packed;
+ static void gsc_release_dev(struct device *dev)
+ {
+ 	struct auxiliary_device *aux_dev = to_auxiliary_dev(dev);
+@@ -109,6 +122,8 @@ static void gsc_init_one(struct drm_i915_private *i915,
+ 		def = &gsc_def_dg1[intf_id];
+ 	} else if (IS_XEHPSDV(i915)) {
+ 		def = &gsc_def_xehpsdv[intf_id];
++	} else if (IS_DG2(i915)) {
++		def = &gsc_def_dg2[intf_id];
+ 	} else {
+ 		drm_warn_once(&i915->drm, "Unknown platform\n");
+ 		return;
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 06e6dad0d7f7..cb6dcc3f48f4 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1051,6 +1051,7 @@ static const struct intel_device_info xehpsdv_info = {
+ 	.has_4tile = 1, \
+ 	.has_64k_pages = 1, \
+ 	.has_guc_deprivilege = 1, \
++	.has_heci_pxp = 1, \
+ 	.needs_compact_pt = 1, \
+ 	.platform_engine_mask = \
+ 		BIT(RCS0) | BIT(BCS0) | \
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 1dd7b7de6002..efcfe32cd8eb 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -978,6 +978,8 @@
+ #define BLT_RING_BASE		0x22000
+ #define DG1_GSC_HECI1_BASE	0x00258000
+ #define DG1_GSC_HECI2_BASE	0x00259000
++#define DG2_GSC_HECI1_BASE	0x00373000
++#define DG2_GSC_HECI2_BASE	0x00374000
  
-+struct mkhi_gfx_mem_ready {
-+	struct mkhi_msg_hdr hdr;
-+	uint32_t flags;
-+} __packed;
-+
- #endif /* _MEI_MKHI_H_ */
+ 
+ 
 -- 
 2.32.0
 
