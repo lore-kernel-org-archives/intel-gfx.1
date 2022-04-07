@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 675D8C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 15:16:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C04B4C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 15:28:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B886710EACC;
-	Thu,  7 Apr 2022 15:16:42 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6212410EAA4;
- Thu,  7 Apr 2022 15:16:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67A0910EAE9;
+	Thu,  7 Apr 2022 15:28:18 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57A8389CCE;
+ Thu,  7 Apr 2022 15:28:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649344601; x=1680880601;
+ t=1649345297; x=1680881297;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lDiLvcciIOdC1NXP+sNVWvVR2nFuU7TF5JOpwHyxflc=;
- b=NN6jLNnJkldnvT+RB9jlvhpWC0ER0yVgW0Nh5ZL+0SOg5Myu0fHxoJ8K
- 1cunkibxndoQxwDOb1mS87adSpTMJdeeQQX0EO0ultN7b9D93ptMZwbye
- QcQd99IZj6amDvjavRNwjosnoxdcPNhR/+7+4RL4IuvxNmz5TVBBvTDPy
- Znb7kaFvierJWqF3WkGzZlzn6u9zjE0sjBmwC8cqiEgGbQYK/56oAFzI+
- igfMDl7/OB0o7CW5dbvag7dntfqoVortrHwMg+W8vOLZ6uoP9fZUSPwE+
- MEJZrf9ZpMcmBn6ps9YRgD9B728pBxRxgd/RJOm/LOACSbH8xT1atDlxu Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10310"; a="324512350"
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="324512350"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 08:16:41 -0700
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="524962800"
+ bh=bUbcOPaBch2WjGx/2zQb/KDRe7TQnVSLtYb7km7Sfqc=;
+ b=Xmm0yAM/aYoy14jiXqjAqAEV4CQdXd9PlnWWDtJ3xC+mCIjC8MKXMSUV
+ kuOQa8KPa7GVbxZtb4TLjmT4PCnF4Hb6WtdNy4IyankTE/gQh8ZAnQcLf
+ F5kD1m4V9dBarBcNrURChnHoKZnl8p4oh/YpSVfcfTPk/cRwlk5BVQe/R
+ zdSbs/kM+JqKq+zMgTvCOPtcZEQanljF+RGi+ys59M/aOuUgjKdQze54V
+ 7TmEa/Rvc+3ftg9QiO9IosT8ZZE6RnUb+onDHpuIO0b/qeAnLkiXHpx0h
+ 61cQKukMdksdB/vETNQTwnv55mmop6ho13182qEZ5p6V//pqH0rBb/xpS w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10310"; a="261046708"
+X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="261046708"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 08:28:17 -0700
+X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="557412175"
 Received: from twsparks-mobl1.amr.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.212.41.19])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 08:16:40 -0700
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 08:28:16 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Thu,  7 Apr 2022 16:16:27 +0100
-Message-Id: <20220407151627.3387655-2-tvrtko.ursulin@linux.intel.com>
+Date: Thu,  7 Apr 2022 16:28:06 +0100
+Message-Id: <20220407152806.3387898-2-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220407151627.3387655-1-tvrtko.ursulin@linux.intel.com>
-References: <20220407151627.3387655-1-tvrtko.ursulin@linux.intel.com>
+In-Reply-To: <20220407152806.3387898-1-tvrtko.ursulin@linux.intel.com>
+References: <20220407152806.3387898-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Subject: [Intel-gfx] [PATCH 1/1] drm/i915: Inherit submitter nice when
@@ -84,20 +84,17 @@ lowering the scheduling priority and negative nice raising it.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/i915_request.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 582770360ad1..e5cfa073d8f0 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1811,8 +1811,17 @@ void i915_request_add(struct i915_request *rq)
- 	/* XXX placeholder for selftests */
- 	rcu_read_lock();
- 	ctx = rcu_dereference(rq->context->gem_context);
--	if (ctx)
-+	if (ctx) {
- 		attr = ctx->sched;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 50cbc8b4885b..2d5e71029d7c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -3043,6 +3043,14 @@ static int eb_request_add(struct i915_execbuffer *eb, struct i915_request *rq,
+ 	/* Check that the context wasn't destroyed before submission */
+ 	if (likely(!intel_context_is_closed(eb->context))) {
+ 		attr = eb->gem_context->sched;
 +		/*
 +		 * Inherit process nice when scheduling user contexts but only
 +		 * if context has the default priority to avoid touching
@@ -106,10 +103,9 @@ index 582770360ad1..e5cfa073d8f0 100644
 +		 */
 +		if (attr.priority == I915_CONTEXT_DEFAULT_PRIORITY)
 +			attr.priority = -task_nice(current);
-+	}
- 	rcu_read_unlock();
- 
- 	__i915_request_queue(rq, &attr);
+ 	} else {
+ 		/* Serialise with context_close via the add_to_timeline */
+ 		i915_request_set_error_once(rq, -ENOENT);
 -- 
 2.32.0
 
