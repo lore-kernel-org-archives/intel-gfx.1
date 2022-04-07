@@ -4,48 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7E46C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 09:15:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3124C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 09:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D56010E92D;
-	Thu,  7 Apr 2022 09:15:53 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F62910E90C;
- Thu,  7 Apr 2022 09:15:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649322952; x=1680858952;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=GDCocADPGy9W8ErEvCBSDhfHLZTsKfBFIsXsxTXRCO0=;
- b=gx1dGRuFGGvqVvUOFNmchzBFopBd2tI0xURlfgmS0VO3kDxd6zjVYclc
- ISnGDuJxil0fdjc3ikhsz4r2DPQw4RrSHezG08Kt8g90d9PMJwuT9SoIx
- BsdF/NzWrabkVTgl9RrZV8l0VIFLCOg4APoKOHQKd+eYMRm9Jf0+XNmyN
- cui489VtjYkoBxFXurA9W0Y6HHKkKW/O9Psuf6cgHpaG624aAh0k3aIlS
- H6m7IxIA17ngkL5iULZVFOb6NGOJITNAl+/qkcDO8kz+GEVMXUqJwgSAj
- e8s/rFVXaLZIn3+6L8mvmkjqvAeVdIH63H6cT2gs5zo6f4HwLtIiX8DSO Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="261450505"
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="261450505"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 02:15:51 -0700
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="570970751"
-Received: from kgibala-mobl.ger.corp.intel.com (HELO localhost)
- ([10.249.142.48])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 02:15:48 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu,  7 Apr 2022 12:14:38 +0300
-Message-Id: <1626a18cffe0ffb47cb2994739f822dd2023435e.1649322799.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1649322799.git.jani.nikula@intel.com>
-References: <cover.1649322799.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F5BD10E0F5;
+	Thu,  7 Apr 2022 09:19:37 +0000 (UTC)
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
+ [IPv6:2a00:1450:4864:20::644])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 400D010E162
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 09:19:36 +0000 (UTC)
+Received: by mail-ej1-x644.google.com with SMTP id l7so4111229ejn.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 07 Apr 2022 02:19:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=tl9nBOnLqqP1/acS+yYHjDz2pgRvrY9cqBHbFKj8Fnc=;
+ b=CBDEbkCCAkqWcu7rwSRxHuzvDQzAI6q2gOWepIQXIDBbJj5cPNZbu6U8yOAL3lfJYR
+ xhKFp5hUopFdDtyiwJfVkQdRMsq1huLcJV7GkTRXOLg8M8+oumKCgOrVEZHJFOeZaqug
+ QaS7Fun7MTS/4JRgL7uvADTsO+5Y9rvnLTgKw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=tl9nBOnLqqP1/acS+yYHjDz2pgRvrY9cqBHbFKj8Fnc=;
+ b=1mJpdEd7sjemlZlByBORNWzkD4p4zBF0e71fJ4bkR1vm/ejNfSRN/LTxk/IGhjPhtc
+ zGnNpg0rYmBSOFEuYc6zNRTaIyRIRao8U5OYodnzxSgPfkr6uuqWw5vkaVWr6MYTLHgh
+ RVnTqssiis1eCXH5BebqB/XAlCILs/W0AcEC/EFvBLa+67PvEkAl83gDXkyiOCg8EAnx
+ RqSNhvNBCk3n9KwQIeo9TJdYOcsQYoBSqamR/cKrymkPwG89Lxg/lm3sHfeBUdCN11q6
+ rAlrzrrILTg1Go2xA+fPQ6pRwMcWfOtLeTSn++tAZ/nWaECwbO8u8ScS0vwJVCjapFkz
+ SqzQ==
+X-Gm-Message-State: AOAM532zQkXJ/7oes1cW3Xd9X/14AvAJKvHgNmErR04PFWjYrpGED+dv
+ xGKUEyNuKQiML9mqAFNpXcGlnA==
+X-Google-Smtp-Source: ABdhPJzUgJqDlmh4A5Ht8QOIfc1rzltJqxuNxKdfx/yt4VDI386e+Hs+rpvAXO7SRwNbW/OkTGfw7g==
+X-Received: by 2002:a17:907:6e16:b0:6e4:de0d:d93 with SMTP id
+ sd22-20020a1709076e1600b006e4de0d0d93mr12253676ejc.29.1649323174807; 
+ Thu, 07 Apr 2022 02:19:34 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ r19-20020a17090638d300b006d6e4fc047bsm7585498ejd.11.2022.04.07.02.19.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Apr 2022 02:19:34 -0700 (PDT)
+Date: Thu, 7 Apr 2022 11:19:32 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <Yk6spNv/zSCB2ewe@phenom.ffwll.local>
+Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
+ <ckoenig.leichtzumerken@gmail.com>, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, intel-gfx@lists.freedesktop.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+ Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>,
+ linux-kernel@vger.kernel.org
+References: <20220407085946.744568-1-christian.koenig@amd.com>
+ <20220407085946.744568-16-christian.koenig@amd.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 12/12] drm/edid: add EDID block count and size
- helpers
+In-Reply-To: <20220407085946.744568-16-christian.koenig@amd.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Intel-gfx] [PATCH 15/15] seqlock: drop seqcount_ww_mutex_t
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,196 +79,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Cc: Boqun Feng <boqun.feng@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ daniel.vetter@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Ingo Molnar <mingo@redhat.com>,
+ Waiman Long <longman@redhat.com>, Will Deacon <will@kernel.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add some helpers to figure out the EDID extension block count, block
-count, size, pointers to blocks.
+On Thu, Apr 07, 2022 at 10:59:46AM +0200, Christian König wrote:
+> Daniel pointed out that this series removes the last user of
+> seqcount_ww_mutex_t, so let's drop this.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Waiman Long <longman@redhat.com>
+> Cc: Boqun Feng <boqun.feng@gmail.com>
+> Cc: linux-kernel@vger.kernel.org
 
-Unfortunately, we'll need to cast away the const in a few places where
-we actually need to access the data.
+Yeah I don't think we'll ever need this again, ww_mutex aren't common and
+the ww_mutex+seqlock thing wasn't the brighest idea.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/drm_edid.c | 78 +++++++++++++++++++++++++++-----------
- 1 file changed, 56 insertions(+), 22 deletions(-)
+Peter/Ingo, assuming you agree, can you ack this for merging through
+drm-misc, or want to pick this up later on when the last user disappeared
+in Linus' tree?
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 90615e30eaf5..53a57ff5f4a1 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -1568,6 +1568,38 @@ static const struct drm_display_mode edid_4k_modes[] = {
- 
- /*** DDC fetch and block validation ***/
- 
-+static int edid_extension_block_count(const struct edid *edid)
-+{
-+	return edid->extensions;
-+}
-+
-+static int edid_block_count(const struct edid *edid)
-+{
-+	return edid_extension_block_count(edid) + 1;
-+}
-+
-+static int edid_size_by_blocks(int num_blocks)
-+{
-+	return num_blocks * EDID_LENGTH;
-+}
-+
-+static int edid_size(const struct edid *edid)
-+{
-+	return edid_size_by_blocks(edid_block_count(edid));
-+}
-+
-+static const void *edid_block_data(const struct edid *edid, int index)
-+{
-+	BUILD_BUG_ON(sizeof(*edid) != EDID_LENGTH);
-+
-+	return edid + index;
-+}
-+
-+static const void *edid_extension_block_data(const struct edid *edid, int index)
-+{
-+	return edid_block_data(edid, index + 1);
-+}
-+
- static const u8 edid_header[] = {
- 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00
- };
-@@ -1654,8 +1686,8 @@ bool drm_edid_are_equal(const struct edid *edid1, const struct edid *edid2)
- 		return false;
- 
- 	if (edid1) {
--		edid1_len = EDID_LENGTH * (1 + edid1->extensions);
--		edid2_len = EDID_LENGTH * (1 + edid2->extensions);
-+		edid1_len = edid_size(edid1);
-+		edid2_len = edid_size(edid2);
- 
- 		if (edid1_len != edid2_len)
- 			return false;
-@@ -1865,14 +1897,16 @@ EXPORT_SYMBOL(drm_edid_block_valid);
- bool drm_edid_is_valid(struct edid *edid)
- {
- 	int i;
--	u8 *raw = (u8 *)edid;
- 
- 	if (!edid)
- 		return false;
- 
--	for (i = 0; i <= edid->extensions; i++)
--		if (!drm_edid_block_valid(raw + i * EDID_LENGTH, i, true, NULL))
-+	for (i = 0; i < edid_block_count(edid); i++) {
-+		void *block = (void *)edid_block_data(edid, i);
-+
-+		if (!drm_edid_block_valid(block, i, true, NULL))
- 			return false;
-+	}
- 
- 	return true;
- }
-@@ -1885,13 +1919,13 @@ static struct edid *edid_filter_invalid_blocks(const struct edid *edid,
- 	int valid_extensions = edid->extensions - invalid_blocks;
- 	int i;
- 
--	new = kmalloc_array(valid_extensions + 1, EDID_LENGTH, GFP_KERNEL);
-+	new = kmalloc(edid_size_by_blocks(valid_extensions + 1), GFP_KERNEL);
- 	if (!new)
- 		goto out;
- 
- 	dest_block = new;
--	for (i = 0; i <= edid->extensions; i++) {
--		const void *block = edid + i;
-+	for (i = 0; i < edid_block_count(edid); i++) {
-+		const void *block = edid_block_data(edid, i);
- 
- 		if (edid_block_valid(block, i == 0))
- 			memcpy(dest_block++, block, EDID_LENGTH);
-@@ -2101,7 +2135,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
- 			     void *context)
- {
- 	enum edid_block_status status;
--	int j, invalid_blocks = 0;
-+	int i, invalid_blocks = 0;
- 	struct edid *edid, *new;
- 
- 	edid = drm_get_override_edid(connector);
-@@ -2133,18 +2167,18 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
- 		goto fail;
- 	}
- 
--	if (edid->extensions == 0)
-+	if (!edid_extension_block_count(edid) == 0)
- 		goto ok;
- 
--	new = krealloc(edid, (edid->extensions + 1) * EDID_LENGTH, GFP_KERNEL);
-+	new = krealloc(edid, edid_size(edid), GFP_KERNEL);
- 	if (!new)
- 		goto fail;
- 	edid = new;
- 
--	for (j = 1; j <= edid->extensions; j++) {
--		void *block = edid + j;
-+	for (i = 1; i < edid_block_count(edid); i++) {
-+		void *block = (void *)edid_block_data(edid, i);
- 
--		status = edid_block_read(block, j, read_block, context);
-+		status = edid_block_read(block, i, read_block, context);
- 
- 		edid_block_status_print(status, block, j);
- 
-@@ -2156,7 +2190,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
- 	}
- 
- 	if (invalid_blocks) {
--		connector_bad_edid(connector, edid, edid->extensions + 1);
-+		connector_bad_edid(connector, edid, edid_block_count(edid));
- 
- 		edid = edid_filter_invalid_blocks(edid, invalid_blocks);
- 	}
-@@ -2321,7 +2355,7 @@ EXPORT_SYMBOL(drm_get_edid_switcheroo);
-  */
- struct edid *drm_edid_duplicate(const struct edid *edid)
- {
--	return kmemdup(edid, (edid->extensions + 1) * EDID_LENGTH, GFP_KERNEL);
-+	return kmemdup(edid, edid_size(edid), GFP_KERNEL);
- }
- EXPORT_SYMBOL(drm_edid_duplicate);
- 
-@@ -2505,8 +2539,8 @@ drm_for_each_detailed_block(const struct edid *edid, detailed_cb *cb, void *clos
- 	for (i = 0; i < EDID_DETAILED_TIMINGS; i++)
- 		cb(&(edid->detailed_timings[i]), closure);
- 
--	for (i = 1; i <= edid->extensions; i++) {
--		const u8 *ext = (const u8 *)edid + (i * EDID_LENGTH);
-+	for (i = 0; i < edid_extension_block_count(edid); i++) {
-+		const u8 *ext = edid_extension_block_data(edid, i);
- 
- 		switch (*ext) {
- 		case CEA_EXT:
-@@ -3476,17 +3510,17 @@ const u8 *drm_find_edid_extension(const struct edid *edid,
- 	int i;
- 
- 	/* No EDID or EDID extensions */
--	if (edid == NULL || edid->extensions == 0)
-+	if (!edid || !edid_extension_block_count(edid))
- 		return NULL;
- 
- 	/* Find CEA extension */
--	for (i = *ext_index; i < edid->extensions; i++) {
--		edid_ext = (const u8 *)edid + EDID_LENGTH * (i + 1);
-+	for (i = *ext_index; i < edid_extension_block_count(edid); i++) {
-+		edid_ext = edid_extension_block_data(edid, i);
- 		if (edid_block_tag(edid_ext) == ext_id)
- 			break;
- 	}
- 
--	if (i >= edid->extensions)
-+	if (i >= edid_extension_block_count(edid))
- 		return NULL;
- 
- 	*ext_index = i + 1;
+Cheers, Daniel
+
+> ---
+>  include/linux/seqlock.h | 8 ++------
+>  1 file changed, 2 insertions(+), 6 deletions(-)
+> 
+> diff --git a/include/linux/seqlock.h b/include/linux/seqlock.h
+> index 37ded6b8fee6..3926e9027947 100644
+> --- a/include/linux/seqlock.h
+> +++ b/include/linux/seqlock.h
+> @@ -17,7 +17,6 @@
+>  #include <linux/kcsan-checks.h>
+>  #include <linux/lockdep.h>
+>  #include <linux/mutex.h>
+> -#include <linux/ww_mutex.h>
+>  #include <linux/preempt.h>
+>  #include <linux/spinlock.h>
+>  
+> @@ -164,7 +163,7 @@ static inline void seqcount_lockdep_reader_access(const seqcount_t *s)
+>   * static initializer or init function. This enables lockdep to validate
+>   * that the write side critical section is properly serialized.
+>   *
+> - * LOCKNAME:	raw_spinlock, spinlock, rwlock, mutex, or ww_mutex.
+> + * LOCKNAME:	raw_spinlock, spinlock, rwlock or mutex
+>   */
+>  
+>  /*
+> @@ -184,7 +183,6 @@ static inline void seqcount_lockdep_reader_access(const seqcount_t *s)
+>  #define seqcount_spinlock_init(s, lock)		seqcount_LOCKNAME_init(s, lock, spinlock)
+>  #define seqcount_rwlock_init(s, lock)		seqcount_LOCKNAME_init(s, lock, rwlock)
+>  #define seqcount_mutex_init(s, lock)		seqcount_LOCKNAME_init(s, lock, mutex)
+> -#define seqcount_ww_mutex_init(s, lock)		seqcount_LOCKNAME_init(s, lock, ww_mutex)
+>  
+>  /*
+>   * SEQCOUNT_LOCKNAME()	- Instantiate seqcount_LOCKNAME_t and helpers
+> @@ -277,7 +275,6 @@ SEQCOUNT_LOCKNAME(raw_spinlock, raw_spinlock_t,  false,    s->lock,        raw_s
+>  SEQCOUNT_LOCKNAME(spinlock,     spinlock_t,      __SEQ_RT, s->lock,        spin,     spin_lock(s->lock))
+>  SEQCOUNT_LOCKNAME(rwlock,       rwlock_t,        __SEQ_RT, s->lock,        read,     read_lock(s->lock))
+>  SEQCOUNT_LOCKNAME(mutex,        struct mutex,    true,     s->lock,        mutex,    mutex_lock(s->lock))
+> -SEQCOUNT_LOCKNAME(ww_mutex,     struct ww_mutex, true,     &s->lock->base, ww_mutex, ww_mutex_lock(s->lock, NULL))
+>  
+>  /*
+>   * SEQCNT_LOCKNAME_ZERO - static initializer for seqcount_LOCKNAME_t
+> @@ -304,8 +301,7 @@ SEQCOUNT_LOCKNAME(ww_mutex,     struct ww_mutex, true,     &s->lock->base, ww_mu
+>  	__seqprop_case((s),	raw_spinlock,	prop),			\
+>  	__seqprop_case((s),	spinlock,	prop),			\
+>  	__seqprop_case((s),	rwlock,		prop),			\
+> -	__seqprop_case((s),	mutex,		prop),			\
+> -	__seqprop_case((s),	ww_mutex,	prop))
+> +	__seqprop_case((s),	mutex,		prop))
+>  
+>  #define seqprop_ptr(s)			__seqprop(s, ptr)
+>  #define seqprop_sequence(s)		__seqprop(s, sequence)
+> -- 
+> 2.25.1
+> 
+
 -- 
-2.30.2
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
