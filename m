@@ -4,65 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 286D2C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 15:52:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3006C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 15:52:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1A5F10E300;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB9910E2B9;
 	Mon, 11 Apr 2022 15:52:44 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 495AE10E5AE;
- Thu,  7 Apr 2022 08:59:58 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id bg10so9453775ejb.4;
- Thu, 07 Apr 2022 01:59:58 -0700 (PDT)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F3EF10E4BB;
+ Thu,  7 Apr 2022 08:59:51 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id b24so5571247edu.10;
+ Thu, 07 Apr 2022 01:59:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=fLTp1rDW4i3mY7eYY/RGlpkFX2oma6BG2r9ZnWbz4W8=;
- b=RyoBUlxLgDLhzTvyNfjF+EkytESivgX1dhEo0gcCn5VZSZzh7H6HCKmtJNYBzXC6Nz
- mI8dpm1eo3NAcUoqtn4LXpJ+EpIB3oBfnruBHftNG+3J9XQsBZrvCgs7cV9m4fhxJLfW
- YfeCfGH0EnRrZiFe4yxiob4iqEtW1C52sXmnBkbLhhpt2YM/MjajEGuteG0tx4nMDbXU
- cxCyMGoiKVhA2Ym6gdPEDa2LJ1fw0cYOrEAnw78I/Kjz6IPex74StxxGnb/iT785YUcK
- oD+WlJKrtaCFc5rgydkDbhgP1xl5v+FR9SoRM1qljZbY4Qx0m1ESYhrpMQpPH5/R3t8R
- IfuQ==
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mLaoaPEpHffRvRTEifG5GvlOmzNyIxhDlxnSe+A6QV4=;
+ b=KQk/koXUWDrAcboJIVgBLjpc0QYpwsZ3DIM0o9klQbRZJsaCO34oSRRIrMfgKpDF2S
+ ZWlmRIjETP+JDut3v3QRzL8jT9+95eE0DSNyl9zuhuEg+sll8Kxs9lYCDYtdCa6el3rG
+ s1ixTXOTAUz1BuJTIjnhQmP0Rx/9kp3PkPyv5fltrv3I8RRz3KJjgWGO2gc0fMdXX/0k
+ sQecUP+jtN5lgcsURh88wjQmR2OH+MxbMnFH/8BoORqJ52TeAOkUeYIQsdh+yDPl2GkZ
+ Ap2EmIMb6bVMJU5e8hd5z42cKS7/4faWcDaSH3sLsSlUJn/DoACF7GrKHj44pgRXUFa3
+ lHFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=fLTp1rDW4i3mY7eYY/RGlpkFX2oma6BG2r9ZnWbz4W8=;
- b=evRm0TDGyldFcDpWj87omNi1NoyQiXHZ4JbGr2bbS1jp0kA5ayUF3cqyDkbnIOQZp6
- aJ3TZEyI2uG4wHm/38LgnvQy7t3y9Z9ICgXTbM6l6zyKGu/8elRMmEZY71kd1PuFRGvW
- cKakfz9Z2aFfsavrg/T+vZd5wkGieAfDfCdiQDTpaIwp3QY4ns4CX10NQbi7vj3XXXWg
- yVUJXnA3c2IjLAjxFCdRJIR62/lCL77I9l2oJg/7OeV00/bC5s/BhE3uCGVvqRuHjqAB
- vFmDwEu2v6vyOn4wJ93F9QoAgcHAWlQioprbpfMnpGUlE8cGAT9mNLQAB4j3dWfRODmE
- dpLA==
-X-Gm-Message-State: AOAM531WnZsRtCQPPeTmm+dXK/su4zCGrblJwxOlpIrgz0irg9qW2Dy8
- CrqWw9KFjKmFKfMBN3GKxrPdb9rgpzI=
-X-Google-Smtp-Source: ABdhPJybdeY80Ujzj5/bv7vK1+k9Ar1apQmg9d9BVBW8qyLyTVJkUvryNql02/i+jE1F5jbDUKTmWg==
-X-Received: by 2002:a17:907:3fa8:b0:6d3:477a:efe with SMTP id
- hr40-20020a1709073fa800b006d3477a0efemr12634642ejc.401.1649321996781; 
- Thu, 07 Apr 2022 01:59:56 -0700 (PDT)
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mLaoaPEpHffRvRTEifG5GvlOmzNyIxhDlxnSe+A6QV4=;
+ b=zg6BmDcXNAHs2BYe248tYQPiuUlGOwMfzy83JhY25fhxcfmfSBH/fNmyYbrIEZlO7k
+ TqyXztBYdZ8djzNkkLmwfO7eJTEnOlNqQPhJMlJYSDlM+EeSXZXo9wvmy1Q4RhOpDO/A
+ vAJuuqpvjwTQkJRnkBjn1eSKsRt9CwqW7h/wwp2tz7R2kF1erH/uFQMPc1a34dre+y/f
+ yVTmpAd6w2hyBQnRYtkbezxMvlYBZbobfyQndiom7i9nn/V/U3J9YXL3aR0jjLrrWDoe
+ wD4ABgAMcpiuEr+tD2cGuPwFW2Fk4DrvFtX4HffubpBfA/1vIghhDUESSIpoQxdUpomS
+ ujTA==
+X-Gm-Message-State: AOAM530Nz5JauyOF4qlXZZX+dI9cmewiJejyIvO3hnxJYrZ35sXl6N+U
+ vFtSIhmJuBfwbOAETRZaZTE=
+X-Google-Smtp-Source: ABdhPJzeETI+aibm16Fz7XHOsM+emhYvd4jn7+9bFUhsY3UvzT3cfJuShTcwU9S3v1mIXnpgHhIOGA==
+X-Received: by 2002:aa7:d287:0:b0:41d:79:73ca with SMTP id
+ w7-20020aa7d287000000b0041d007973camr3673930edq.142.1649321989621; 
+ Thu, 07 Apr 2022 01:59:49 -0700 (PDT)
 Received: from able.fritz.box (p57b0b9e1.dip0.t-ipconnect.de. [87.176.185.225])
  by smtp.gmail.com with ESMTPSA id
- h26-20020a170906111a00b006e778bd4fc8sm5186563eja.38.2022.04.07.01.59.55
+ h26-20020a170906111a00b006e778bd4fc8sm5186563eja.38.2022.04.07.01.59.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Apr 2022 01:59:56 -0700 (PDT)
+ Thu, 07 Apr 2022 01:59:48 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  intel-gfx@lists.freedesktop.org
-Date: Thu,  7 Apr 2022 10:59:37 +0200
-Message-Id: <20220407085946.744568-7-christian.koenig@amd.com>
+Date: Thu,  7 Apr 2022 10:59:31 +0200
+Message-Id: <20220407085946.744568-1-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220407085946.744568-1-christian.koenig@amd.com>
-References: <20220407085946.744568-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 11 Apr 2022 15:52:43 +0000
-Subject: [Intel-gfx] [PATCH 06/15] drm/radeon: use DMA_RESV_USAGE_KERNEL
+Subject: [Intel-gfx] DMA-resv usage
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,68 +73,16 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Always wait for kernel fences before kmap and not only for UVD kmaps.
+Hi Daniel,
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
----
- drivers/gpu/drm/radeon/radeon_object.c |  7 ++++++-
- drivers/gpu/drm/radeon/radeon_uvd.c    | 12 ++----------
- 2 files changed, 8 insertions(+), 11 deletions(-)
+only patch #2 had some significant changes. The rest ist pretty much the
+same except for the dropped exynos change and the added cleanup for the
+seqlock.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
-index cb5c4aa45cef..6c4a6802ca96 100644
---- a/drivers/gpu/drm/radeon/radeon_object.c
-+++ b/drivers/gpu/drm/radeon/radeon_object.c
-@@ -219,7 +219,12 @@ int radeon_bo_create(struct radeon_device *rdev,
- int radeon_bo_kmap(struct radeon_bo *bo, void **ptr)
- {
- 	bool is_iomem;
--	int r;
-+	long r;
-+
-+	r = dma_resv_wait_timeout(bo->tbo.base.resv, DMA_RESV_USAGE_KERNEL,
-+				  false, MAX_SCHEDULE_TIMEOUT);
-+	if (r < 0)
-+		return r;
- 
- 	if (bo->kptr) {
- 		if (ptr) {
-diff --git a/drivers/gpu/drm/radeon/radeon_uvd.c b/drivers/gpu/drm/radeon/radeon_uvd.c
-index a50750740ab0..a2cda184b2b2 100644
---- a/drivers/gpu/drm/radeon/radeon_uvd.c
-+++ b/drivers/gpu/drm/radeon/radeon_uvd.c
-@@ -470,24 +470,16 @@ static int radeon_uvd_cs_msg(struct radeon_cs_parser *p, struct radeon_bo *bo,
- 	int32_t *msg, msg_type, handle;
- 	unsigned img_size = 0;
- 	void *ptr;
--	long r;
--	int i;
-+	int i, r;
- 
- 	if (offset & 0x3F) {
- 		DRM_ERROR("UVD messages must be 64 byte aligned!\n");
- 		return -EINVAL;
- 	}
- 
--	r = dma_resv_wait_timeout(bo->tbo.base.resv, DMA_RESV_USAGE_WRITE,
--				  false, MAX_SCHEDULE_TIMEOUT);
--	if (r <= 0) {
--		DRM_ERROR("Failed waiting for UVD message (%ld)!\n", r);
--		return r ? r : -ETIME;
--	}
--
- 	r = radeon_bo_kmap(bo, &ptr);
- 	if (r) {
--		DRM_ERROR("Failed mapping the UVD message (%ld)!\n", r);
-+		DRM_ERROR("Failed mapping the UVD message (%d)!\n", r);
- 		return r;
- 	}
- 
--- 
-2.25.1
+Thanks,
+Christian.
+
 
