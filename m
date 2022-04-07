@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CFBCC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 10:56:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB4E4C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 11:06:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B20EA10E9D7;
-	Thu,  7 Apr 2022 10:56:33 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3975010E9D7;
- Thu,  7 Apr 2022 10:56:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22E2110E9E6;
+	Thu,  7 Apr 2022 11:06:48 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CB3210E9D9;
+ Thu,  7 Apr 2022 11:06:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649328992; x=1680864992;
- h=message-id:date:mime-version:from:to:cc:subject:
- content-transfer-encoding;
- bh=k2bgQS5XVDuWGUk97XidIy3K5t+y12mnp6gAJ2/OG3I=;
- b=SJGDUZBAAOHuHHZ2bgUlhMex5DyvwMWX9b+Lcrks73C8/o3z35n6pFBR
- qyDpkgtRowyc+nMVs2DHgKPuVWNYDbCvabQ9UAkX06hkvQypxj6QSYLKn
- eqcnbELdt+GAz6JoysRJCnV+9RIwGBeeJ1RW9ppXKqZ1nVXmkgbFvB0H4
- BwmDKaFxinlQ1kN3YCgnPPgvtQd1YIwj6op6YGHjHJEV2M+3D65m+qbcb
- g+zS3Gnvbz8QYSvr7nuu9KdCX1izPCFjjysOBcSbBc8BkTR2joyzFQ9qR
- GcS0CUsUhyPmd4WSJvFg1z6wYp37ofAZ6mbuqG+D9hK5R4DHljqBhVfC4 Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="243424992"
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="243424992"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 03:56:31 -0700
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="549997496"
-Received: from dzinchen-mobl1.ccr.corp.intel.com (HELO [10.252.52.87])
- ([10.252.52.87])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 03:56:29 -0700
-Message-ID: <3b8e6439-612e-f640-e380-51e834393e94@linux.intel.com>
-Date: Thu, 7 Apr 2022 12:56:27 +0200
+ t=1649329607; x=1680865607;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=vq+WHe0fRq5MeVc2xCkkiRKAkBz1JYQuA7zP8fWAgmE=;
+ b=OuGjyNMlcXP5C81UKXfadXBQaQBY5j6TOx2Cso1xqabOSBTl4YhJZ/H+
+ w3f/AVwrqp0hqgWWuV0WnaBt1NXaXNKAEfdsDLiue+plyOnDLMVXVQ+7q
+ P/o3aa/pOgL/TEUzLE3odCQYY73FEMMQnVa5kZh0GlGD8fpx0ENghUQ0k
+ tMsuOwkByduhXGffxPOv8AcSJFz+SBMj5s6KzknPezfLkIbxDupvi0+/r
+ ZKZFVq9kiSGS2IBPHsPWJBWmMCzkHU7CJOVQ8ahs7S8c22db+VJq0Mxmw
+ 52wSx7eIMLqO+noriRr4eObNOn6psunEwqSpC+TqcTjX+A58BMN/PPOwo A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="324455035"
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="324455035"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 04:06:46 -0700
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="642442340"
+Received: from doboyle-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.252.21.221])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 04:06:45 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  7 Apr 2022 12:06:08 +0100
+Message-Id: <20220407110608.1184820-2-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220407110608.1184820-1-matthew.auld@intel.com>
+References: <20220407110608.1184820-1-matthew.auld@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.7.0
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PULL] drm-misc-next-fixes
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/buddy: sanity check the size
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,58 +57,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm-misc-next-fixes-2022-04-07:
-drm-misc-next-fixes for v5.18-rc2:
-- fix warning about fence containers
-- fix logic error in new fence merge code
-- handle empty dma_fence_arrays gracefully
-- Try all possible cases for bridge/panel detection.
-The following changes since commit 7344bad7fb6daa4877a1c064b52c7d5f9182c41b:
+Ensure we check that the size is compatible with the requested
+page_size. For tiny objects that are automatically annotated with
+TTM_PL_FLAG_CONTIGUOUS(since they fit within a single page), we
+currently end up silently overriding the min_page_size, which ends up
+hiding bugs elsewhere.
 
-  drm/edid: fix CEA extension byte #3 parsing (2022-03-24 11:41:14 +0200)
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Nirmoy Das <nirmoy.das@linux.intel.com>
+---
+ drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-are available in the Git repository at:
+diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+index 8e4e3f72c1ef..a5109548abc0 100644
+--- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
++++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
+@@ -70,6 +70,7 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
+ 		min_page_size = bo->page_alignment << PAGE_SHIFT;
+ 
+ 	GEM_BUG_ON(min_page_size < mm->chunk_size);
++	GEM_BUG_ON(!IS_ALIGNED(size, min_page_size));
+ 
+ 	if (place->fpfn + bman_res->base.num_pages != place->lpfn &&
+ 	    place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+-- 
+2.34.1
 
-  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-fixes-2022-04-07
-
-for you to fetch changes up to 67bae5f28c895f8737a1974c3f31cf12b9170b14:
-
-  drm: of: Properly try all possible cases for bridge/panel detection (2022-03-30 10:16:05 +0200)
-
-----------------------------------------------------------------
-drm-misc-next-fixes for v5.18-rc2:
-- fix warning about fence containers
-- fix logic error in new fence merge code
-- handle empty dma_fence_arrays gracefully
-- Try all possible cases for bridge/panel detection.
-
-----------------------------------------------------------------
-Christian König (5):
-      dma-buf: Add dma_fence_array_for_each (v2)
-      dma-buf: add dma_fence_unwrap v2
-      dma-buf/sync-file: fix warning about fence containers
-      dma-buf/sync-file: fix logic error in new fence merge code
-      dma-buf: handle empty dma_fence_arrays gracefully
-
-Paul Kocialkowski (1):
-      drm: of: Properly try all possible cases for bridge/panel detection
-
- Documentation/driver-api/dma-buf.rst  |   6 +
- drivers/dma-buf/Makefile              |   1 +
- drivers/dma-buf/dma-fence-array.c     |  32 +++++
- drivers/dma-buf/selftests.h           |   1 +
- drivers/dma-buf/st-dma-fence-unwrap.c | 261 ++++++++++++++++++++++++++++++++++
- drivers/dma-buf/sync_file.c           | 141 +++++++++---------
- drivers/gpu/drm/drm_of.c              |  99 ++++++-------
- include/linux/dma-fence-array.h       |  19 +++
- include/linux/dma-fence-chain.h       |   2 +
- include/linux/dma-fence-unwrap.h      |  95 +++++++++++++
- 10 files changed, 540 insertions(+), 117 deletions(-)
- create mode 100644 drivers/dma-buf/st-dma-fence-unwrap.c
- create mode 100644 include/linux/dma-fence-unwrap.h
