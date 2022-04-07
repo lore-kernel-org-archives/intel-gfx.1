@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEAAAC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 12:05:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF576C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 12:06:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BA8210E9E6;
-	Thu,  7 Apr 2022 12:05:04 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C02410E9C3
- for <intel-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 12:05:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D61310E9E7;
+	Thu,  7 Apr 2022 12:06:17 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B209710E9E7;
+ Thu,  7 Apr 2022 12:06:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649333103; x=1680869103;
+ t=1649333175; x=1680869175;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=t3tjjaixhYqeYX6mR/NlXj8c+Pkpt4mXQOjGVck8Kgc=;
- b=lqLg8v5z6JhlxBAa5fs5FdLlIsGRbHjzfMKMFVdHsMbRarMxLi0r6YrO
- VjJH/WKpYLeX2TYWlEdgiZH1WyLFQsZsB+hRuMmqDNT5zxpdR4MRLFH4D
- TsZ9lQo76kIwUIgWlkyxsjCD1hHb89bqDS6JESMBKEbjBWoS6iHXD4pre
- gVMasfPd+3gGZBa5TnNWQZ03XfwmvBP+FNQGUMUenayNi3qCU2ySJ3hBb
- msFc7t3Havn43i7kmoh7qqm5dhttJA1QAl+1c00d7/AlC0d0AL2Zsvmeu
- L4KMAUqmdaN6MOhE+LRRMqJ3RnnPr7wRWSb6Y1akO3gmbFTHk9CBaQ1oA g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="261298409"
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="261298409"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 05:05:02 -0700
+ bh=mGaqFKTQXiJuKGE+whZJcOJfR266Ubfu+PbrFF/qsro=;
+ b=GQ7BHK3WJigia2rgwz9cdksSX4V37A93wkHoQCmKwjEDaEkJHQ5aGl9+
+ tVB2VSHXTqoD3fm2vstRBY+YBb99mw3oZ1h8JZn8Gj/eULKk9msDzCga9
+ yjmgY4vQbNtDpfZ7xrEJ1YPFMUjLMMtHwgN/ftFZw6nJ0jnZBpW3QM8zY
+ glIjVgkdfYbNUKtyBidvYEUestNLdubfS+VO/cfpqtxFCv+a26Ygmg39y
+ nBEAT1bR/3xMYB/zTwLSP7v1qufZ3XtfSH/Ei7bARjScNgyK4CmyJ7Ra7
+ RBNkLbX5Q9+4Cq1yjzW/GcgK1R9s0UqBxQZHFaQVOj5s3nDMUt94Ou1HH g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="347745910"
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="347745910"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 05:06:14 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="697770680"
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="571025978"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
- by fmsmga001.fm.intel.com with SMTP; 07 Apr 2022 05:04:59 -0700
+ by orsmga008.jf.intel.com with SMTP; 07 Apr 2022 05:06:12 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 07 Apr 2022 15:04:59 +0300
-Date: Thu, 7 Apr 2022 15:04:59 +0300
+ Thu, 07 Apr 2022 15:06:11 +0300
+Date: Thu, 7 Apr 2022 15:06:11 +0300
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-Message-ID: <Yk7Ta4TsnN1xLreF@intel.com>
-References: <20220407084235.9526-1-stanislav.lisovskiy@intel.com>
- <Yk7GvHfxpwTuq1Wm@intel.com> <20220407112417.GA20534@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <Yk7Ts/ejETyarJSh@intel.com>
+References: <cover.1649322799.git.jani.nikula@intel.com>
+ <94e414efe8d127f3fd0b4fd7948aafbe7be079a9.1649322799.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220407112417.GA20534@intel.com>
+In-Reply-To: <94e414efe8d127f3fd0b4fd7948aafbe7be079a9.1649322799.git.jani.nikula@intel.com>
 X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix FIFO underruns caused by
- missing cumulative bpp W/A
+Subject: Re: [Intel-gfx] [PATCH 06/12] drm/edid: add typedef for block read
+ function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,45 +61,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 07, 2022 at 02:24:17PM +0300, Lisovskiy, Stanislav wrote:
-> On Thu, Apr 07, 2022 at 02:10:52PM +0300, Ville Syrjälä wrote:
-> > On Thu, Apr 07, 2022 at 11:42:35AM +0300, Stanislav Lisovskiy wrote:
-> > > We had some FIFO underruns appearing on platforms like ADL,
-> > > which could be fixed though by increasing CDCLK, however we were
-> > > lacking explanation for that - we were not calculating CDCLK,
-> > > also based on cumulative bpp W/A formula, mentioned in BSpec 64631.
-> > 
-> > We already have that in intel_bw_crtc_min_cdclk().
+On Thu, Apr 07, 2022 at 12:14:32PM +0300, Jani Nikula wrote:
+> Make the callback a bit easier on the eye.
 > 
-> It actually is not quite what BSpec is talking about it adds
-> data_rate per plane, instead of bpp, I think it confuses 
-> those 2 from BSpec:
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/drm_edid.c | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
 > 
-> "
-> Plane required bandwidth MB/s = pixel rate MHz * source pixel format in bytes 
-> * plane down scale amount * pipe down scale amount
-> Display required memory bandwidth MB/s += Plane required bandwidth
-> Pipe cumulative bytes per pixel += plane source pixel format in bytes
-> "
-> 
-> then we have to different formulas used to estimate whats the CDCLK
-> should be, one is "DBUF maximum data buffer bandwidth MB/s = CDCLK frequency MHz * 64 Bytes"
-> 
-> another is pipe CDCLK = cumulative bytes per pixel * (pixel rate MHz * 
-> plane down scale amount * pipe down scale amount)) * 51.2)
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index ba54701f91f6..926ffe5cd97e 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -2037,10 +2037,11 @@ int drm_add_override_edid_modes(struct drm_connector *connector)
+>  }
+>  EXPORT_SYMBOL(drm_add_override_edid_modes);
+>  
+> +typedef int read_block_fn(void *context, u8 *buf, unsigned int block, size_t len);
+> +
 
-That specific statement in the spec is kinda nonsense. Mixing
-"plane up/down scale amount" (which is per plane) with this
-"cumulative bytes per pixel" thing (which is sum of bytes per pixel
-across all planes) doesn't make sense.
+The header still has the eyesore. Maybe we want to put the typedef
+there?
 
-What we so is sum bytes_per_pixel*pixel_rate*plane_up/down_scale from
-all planes, which I think is what the spec is trying to say as that
-is the cumulative bw used up by all the planes.
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+
+>  static struct edid *drm_do_get_edid_base_block(struct drm_connector *connector,
+> -	int (*get_edid_block)(void *data, u8 *buf, unsigned int block,
+> -			      size_t len),
+> -	void *data)
+> +					       read_block_fn read_block,
+> +					       void *context)
+>  {
+>  	int *null_edid_counter = connector ? &connector->null_edid_counter : NULL;
+>  	bool *edid_corrupt = connector ? &connector->edid_corrupt : NULL;
+> @@ -2053,7 +2054,7 @@ static struct edid *drm_do_get_edid_base_block(struct drm_connector *connector,
+>  
+>  	/* base block fetch */
+>  	for (try = 0; try < 4; try++) {
+> -		if (get_edid_block(data, edid, 0, EDID_LENGTH))
+> +		if (read_block(context, edid, 0, EDID_LENGTH))
+>  			goto out;
+>  		if (drm_edid_block_valid(edid, 0, false, edid_corrupt))
+>  			break;
+> @@ -2097,9 +2098,8 @@ static struct edid *drm_do_get_edid_base_block(struct drm_connector *connector,
+>   * Return: Pointer to valid EDID or NULL if we couldn't find any.
+>   */
+>  struct edid *drm_do_get_edid(struct drm_connector *connector,
+> -	int (*get_edid_block)(void *data, u8 *buf, unsigned int block,
+> -			      size_t len),
+> -	void *data)
+> +			     read_block_fn read_block,
+> +			     void *context)
+>  {
+>  	int j, invalid_blocks = 0;
+>  	struct edid *edid, *new, *override;
+> @@ -2108,7 +2108,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+>  	if (override)
+>  		return override;
+>  
+> -	edid = drm_do_get_edid_base_block(connector, get_edid_block, data);
+> +	edid = drm_do_get_edid_base_block(connector, read_block, context);
+>  	if (!edid)
+>  		return NULL;
+>  
+> @@ -2125,7 +2125,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+>  		int try;
+>  
+>  		for (try = 0; try < 4; try++) {
+> -			if (get_edid_block(data, block, j, EDID_LENGTH))
+> +			if (read_block(context, block, j, EDID_LENGTH))
+>  				goto out;
+>  			if (drm_edid_block_valid(block, j, false, NULL))
+>  				break;
+> -- 
+> 2.30.2
 
 -- 
 Ville Syrjälä
