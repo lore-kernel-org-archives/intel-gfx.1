@@ -4,47 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04ADFC433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A17C433FE
 	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 09:15:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29D6910E7FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D86010E7EF;
 	Thu,  7 Apr 2022 09:15:40 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C537D10E656;
- Thu,  7 Apr 2022 09:15:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649322938; x=1680858938;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=JMsibKSc8UGw4kGTSdh4I0s6w2YjnLgecEdqszYwy8k=;
- b=MfzMtX8i3s0hxb4yKg0UIVW2xCiwbNecMU8XraLv6cpSSx0LUrSK0LDi
- BUxNopcDpzNV8tFtJD4oMjv6wC6VsDgPxPNWdeXgIVP+KTHVhQMRvaOTC
- 1c7+sEvcwo3u+LUb/JTU8Odp+wUOfYgX+GbmE8u1HooaEYjXtohrH+tHy
- 82Z/5a5xucyFTxKYRemYGGFSJQuOQ8iPRp3vpkXZ9gSTzTDu7nJSmJwZK
- PzuV5DCsT2TfFoVwfawpI0AidyIgodck8kswcClGgdW+EeGWKSn+mgRig
- Hh0H8MdMmzVLlgti0sYHfUsOR7II9zdltXTVy5LHWuMijZh/F1154jLDl g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="260108705"
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="260108705"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 02:15:38 -0700
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="588734796"
-Received: from kgibala-mobl.ger.corp.intel.com (HELO localhost)
- ([10.249.142.48])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 02:15:36 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu,  7 Apr 2022 12:14:36 +0300
-Message-Id: <e4c78887af517793280973c8b364040acd601f68.1649322799.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1649322799.git.jani.nikula@intel.com>
-References: <cover.1649322799.git.jani.nikula@intel.com>
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [IPv6:2a00:1450:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14DBD10E7FC
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 09:15:39 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id w18so5597499edi.13
+ for <intel-gfx@lists.freedesktop.org>; Thu, 07 Apr 2022 02:15:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=wOZr49sb/Ny9apGippa8fdUG/E6tcaVDX+ivqlNiEoY=;
+ b=OUJdfm0Skg/SevIzmzikdz6fZur6D0CXVIcupP3mXL+yxFUOW0AUukZZ3mPDZIAqz6
+ oOojssy3IAFP3UuvZOjSFUnfyfVG+F2Ur+jroH3JX/9Xuqbcy6tNPI9BF6qzAls8Pyes
+ O5Tz5E9oaCFqu9ZnbxNI31yVF2KMClPL1HDtg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=wOZr49sb/Ny9apGippa8fdUG/E6tcaVDX+ivqlNiEoY=;
+ b=rnX5sE13bj0/lYs20gIAzp+W6D8SrUHguFJiQrTPRjTletnzSwmJ1S44aKBTSDxrj6
+ IU/JT1LRixH+3qCYnwMRtIbJOFncKC3LTq1zNfDuTZDk4AEelFl/eR2Bs5U3LP7M1pbh
+ Jto1+7CbCS1HVx/U1n2kBcOg2+uE4wCAn/tSdbSbZ9dHI8IuLX+j3g1tqvO9FGzdnNC7
+ +sFchWLRf46mBLQqcRNlLcGfCheesemQvbyWMkrRMFZG+PRnsHKgBlnKaAeuUVbbk/5E
+ j1r/gCP9KLzTCffV1evkHVRaB7rYuWdMe817G8toXpqug1Sydq5pVSpBfNrhKOdGY5Rx
+ LKnQ==
+X-Gm-Message-State: AOAM532HGKk6NKkbFlIZkXeN7zy6/tgzaG6fOdIArXcXPNzeyyfsEUfG
+ ZXVcc3259ajIdkAk+kNFMdD7AQ==
+X-Google-Smtp-Source: ABdhPJzmpKY3RGEMTeuwi1iMVD/SXnxu3nIwPkgnTiZcLFENqdqDVYQLLrvfFPDqAev7Uq5qFJsuMA==
+X-Received: by 2002:a05:6402:5186:b0:419:651e:5137 with SMTP id
+ q6-20020a056402518600b00419651e5137mr13192197edd.335.1649322937637; 
+ Thu, 07 Apr 2022 02:15:37 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ i14-20020a50cfce000000b0041cbaba8743sm7069038edk.56.2022.04.07.02.15.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Apr 2022 02:15:37 -0700 (PDT)
+Date: Thu, 7 Apr 2022 11:15:35 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <Yk6rt7Vpm038eGMZ@phenom.ffwll.local>
+References: <20220407085946.744568-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/12] drm/edid: drop extra local var
+In-Reply-To: <20220407085946.744568-1-christian.koenig@amd.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Intel-gfx] DMA-resv usage
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,37 +69,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Cc: linaro-mm-sig@lists.linaro.org, daniel.vetter@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We don't need override as a variable for anything.
+On Thu, Apr 07, 2022 at 10:59:31AM +0200, Christian König wrote:
+> Hi Daniel,
+> 
+> only patch #2 had some significant changes. The rest ist pretty much the
+> same except for the dropped exynos change and the added cleanup for the
+> seqlock.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/drm_edid.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Reviewed that patch, I plan to do a full review of the docs and hopefully
+also a bit of all the various users once it's all landed.
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 6fa17084af02..767639364bd9 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -2102,11 +2102,11 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
- {
- 	enum edid_block_status status;
- 	int j, invalid_blocks = 0;
--	struct edid *edid, *new, *override;
-+	struct edid *edid, *new;
- 
--	override = drm_get_override_edid(connector);
--	if (override)
--		return override;
-+	edid = drm_get_override_edid(connector);
-+	if (edid)
-+		return edid;
- 
- 	edid = kmalloc(EDID_LENGTH, GFP_KERNEL);
- 	if (!edid)
+Cheers, Daniel
 -- 
-2.30.2
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
