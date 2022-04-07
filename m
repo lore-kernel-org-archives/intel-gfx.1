@@ -4,45 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0329CC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 15:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B1F1C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 15:49:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7065610EB1F;
-	Thu,  7 Apr 2022 15:28:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E255E10EB1F;
+	Thu,  7 Apr 2022 15:49:37 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 050F289CCE;
- Thu,  7 Apr 2022 15:28:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1302B10EB1F;
+ Thu,  7 Apr 2022 15:49:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649345297; x=1680881297;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Lmekl74JyRAklWTLwRqUauiJGtCoAqF44WYvfFS0kHk=;
- b=GQUv11WF7x4HaV4pP8fhrBUak4yAFQ9zJ4F+wkZ/XV/So608qDOvAX+f
- +foMj6zGyVl+KhzLLMc93Li/c+ro/k2ERdRbpuCi/K+p4ktdCgAEoTl4k
- ZudGub1AnvzoDMLe54eF2bML7nqEZMgRH9ob/GQvA8gMlvc8nBzKcH+aD
- 3Ra27dpq90/hZq6Zrt3rxtdIasrPbmfX4RbQujVqRU72DpnvJeA2cFidR
- p3sBtF1lw+FLRwnnFIwgYZq59uuiakkdhfPUcEZWPr2PdPI/pQk4nQRFH
- NPGDtOh7j3UgemiND7f3U8I9tHcHDfsuq2J/FKAz0cDBY9qGKeUpOWnu/ g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10310"; a="261046707"
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="261046707"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ t=1649346577; x=1680882577;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=XSc8pEK+RI47ykM9bp0qquvx1rqrmsm6Pqs6pey3OWQ=;
+ b=MbAqjMV1iuGi2qcwld4qJyBkPudvXZ62CzIupFRlb04yW0Xf/k58HtcI
+ AVZQTqqheX6K1oYOErTabhKU1Gu+TFNVgXm89MbhCeRbX+tx/ISDIVYnT
+ uEBDILqkaYf3kQc1pADvCRyANNkzrL3onDFuFUC5V8+ZkGRtEP7rkFqZI
+ RdBuONr0G8VAp8dP63ZmxdYAiBkPmFxNavXqalabuFpzAYCgRvMRKiXCv
+ 61kvqf+IIh0fl0OkfsiBMeg8ZgUAdMe0l26VBodRA6fzPgscY1zH6SYBk
+ Td22LaFzrJAApVllDAwAjMMvfuPpLm108neSDSty8AERWgG9uZgKpgImG g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10310"; a="261053956"
+X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="261053956"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 08:28:16 -0700
-X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="557412164"
-Received: from twsparks-mobl1.amr.corp.intel.com (HELO tursulin-mobl2.home)
+ 07 Apr 2022 08:49:36 -0700
+X-IronPort-AV: E=Sophos;i="5.90,242,1643702400"; d="scan'208";a="550117245"
+Received: from twsparks-mobl1.amr.corp.intel.com (HELO [10.212.41.19])
  ([10.212.41.19])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 08:28:14 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Thu,  7 Apr 2022 16:28:05 +0100
-Message-Id: <20220407152806.3387898-1-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 08:49:35 -0700
+Message-ID: <062c1a4b-f35d-6ecf-14a0-b41b438d3464@linux.intel.com>
+Date: Thu, 7 Apr 2022 16:49:30 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/1] Inherit GPU scheduling priority from
- process nice
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Matthew Brost <matthew.brost@intel.com>, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, John Harrison <John.C.Harrison@Intel.com>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ "Wajdeczko, Michal" <Michal.Wajdeczko@intel.com>
+References: <20210603164812.19045-1-matthew.brost@intel.com>
+ <20210603164812.19045-2-matthew.brost@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20210603164812.19045-2-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 1/1] drm/i915/uc: Use platform specific
+ defaults for GuC/HuC enabling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,105 +65,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Current processing landscape seems to be more and more composed of pipelines
-where computations are done on multiple hardware devices. Furthermore some of
-the non-CPU devices, like in this case many GPUs supported by the i915 driver,
-actually support priority based scheduling which is currently rather
-inaccessible to the user (in terms of being able to control it from the
-outside).
+On 03/06/2021 17:48, Matthew Brost wrote:
+> From: John Harrison <John.C.Harrison@Intel.com>
+> 
+> The meaning of 'default' for the enable_guc module parameter has been
+> updated to accurately reflect what is supported on current platforms.
+> So start using the defaults instead of forcing everything off.
+> Although, note that right now, the default is for everything to be off
+> anyway. So this is not a change for current platforms.
+> 
+> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+> ---
+>   drivers/gpu/drm/i915/i915_params.c | 2 +-
+>   drivers/gpu/drm/i915/i915_params.h | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+> index 0320878d96b0..e07f4cfea63a 100644
+> --- a/drivers/gpu/drm/i915/i915_params.c
+> +++ b/drivers/gpu/drm/i915/i915_params.c
+> @@ -160,7 +160,7 @@ i915_param_named_unsafe(edp_vswing, int, 0400,
+>   i915_param_named_unsafe(enable_guc, int, 0400,
+>   	"Enable GuC load for GuC submission and/or HuC load. "
+>   	"Required functionality can be selected using bitmask values. "
+> -	"(-1=auto, 0=disable [default], 1=GuC submission, 2=HuC load)");
+> +	"(-1=auto [default], 0=disable, 1=GuC submission, 2=HuC load)");
+>   
+>   i915_param_named(guc_log_level, int, 0400,
+>   	"GuC firmware logging level. Requires GuC to be loaded. "
+> diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
+> index 4a114a5ad000..f27eceb82c0f 100644
+> --- a/drivers/gpu/drm/i915/i915_params.h
+> +++ b/drivers/gpu/drm/i915/i915_params.h
+> @@ -59,7 +59,7 @@ struct drm_printer;
+>   	param(int, disable_power_well, -1, 0400) \
+>   	param(int, enable_ips, 1, 0600) \
+>   	param(int, invert_brightness, 0, 0600) \
+> -	param(int, enable_guc, 0, 0400) \
+> +	param(int, enable_guc, -1, 0400) \
+>   	param(int, guc_log_level, -1, 0400) \
+>   	param(char *, guc_firmware_path, NULL, 0400) \
+>   	param(char *, huc_firmware_path, NULL, 0400) \
 
->From these two statements a question arises on how to allow for a simple,
-effective and consolidated user experience. In other words why user would not be
-able to do something like:
+What is the BKM to use this with multi-GPU setups? Specifically I have a 
+TGL+DG1 laptop (off the shelf) and want to have GuC with DG1 only. If I 
+pass i915.enable_guc=3 it seems it wants to enable it for TGL as well 
+and wedges the GPU if it can't?
 
- $ nice ffmmpeg ...transcode my videos...
- $ my-favourite-game
+Regards,
 
-And have the nice hint apply to GPU parts of the transcode pipeline as well?
-
-This would in fact follow the approach taken by kernel's block scheduler where
-ionice is by default inherited from process nice.
-
-This series implements the same idea by inheriting context creator and batch
-buffer submitted nice value as context nice. To avoid influencing GPU scheduling
-aware clients this is done only one for contexts where userspace hasn't
-explicitly specified a non-default scheduling priority
-
-The approach is completely compatible with GuC and drm/scheduler since all
-support at least low/normal/high priority levels with just the granularity of
-available control differing. In other words with GuC scheduling there is no
-difference between nice 5 and 10, both would map to low priority, but the
-default case of positive or negative nice, versus nice 0, is still correctly
-propagated to the firmware scheduler.
-
-With the series applied I simulated the scenario of a background GPU task
-running simultaneously with an interactive client, varying the former's nice
-value.
-
-Simulating a non-interactive GPU background task was:
-  vblank_mode=0 nice -n <N> glxgears -geometry 1600x800
-
-Interactive client was simulated with:
-  gem_wsim -w ~/test.wsim -r 300 -v # (This one is self-capped at ~60fps.)
-
-These were the results on DG1, first with execlists (default):
-
-   Background nice  |   Interactive FPS
- -------------------+--------------------
-      <not running> |         59
-                  0 |         35
-                 10 |         42
-
-As we can see running the background load with nice 10 can somewhat help the
-performance of the interactive/foreground task. (Although to be noted is that
-without the fair scheduler completed there are possible starvation issues
-depending on the workload which cannot be fixed by this patch.)
-
-Now results with GuC (although it is not default on DG1):
-
-   Background nice  |   Interactive FPS
- -------------------+--------------------
-      <not running> |         58
-                  0 |         26
-                 10 |         25
-
-Unfortunately GuC is not showing any change (25 vs 26 is rounding/run error).
-But reverse mesurement with background client at nice 0 and foreground at nice
--10 does give 40 FPS proving the priority adjustment does work. (Same reverse
-test gives 46 FPS with execlists). What is happening with GuC here is something
-to be looked at since it seems normal-vs-low GuC priority time slices
-differently than normal-vs-high. Normal does not seem to be preferred over low,
-in this test at least.
-
-v2:
- * Moved notifier outside task_rq_lock.
- * Some improvements and restructuring on the i915 side of the series.
-
-v3:
- * Dropped task nice notifier - inheriting nice on request submit time is good
-   enough.
-
-v4:
- * Realisation came that this can be heavily simplified and only one simple
-   patch is enough to achieve the desired behaviour.
- * Fixed the priority adjustment location to actually worked after rebase!
- * Re-done the benchmarking.
-
- v5:
- * I am sending wrong files out yet again (v4), apologies for the spam..
-
-Tvrtko Ursulin (1):
-  drm/i915: Inherit submitter nice when scheduling requests
-
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
--- 
-2.32.0
-
+Tvrtko
