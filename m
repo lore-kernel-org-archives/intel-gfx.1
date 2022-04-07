@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3BF1C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 09:14:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92DEEC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 09:14:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CE1610E73A;
-	Thu,  7 Apr 2022 09:14:46 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7364210E685;
- Thu,  7 Apr 2022 09:14:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CFE210E656;
+	Thu,  7 Apr 2022 09:14:56 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CA2010E656;
+ Thu,  7 Apr 2022 09:14:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649322884; x=1680858884;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=D3gIMkRiHLXcV951qsCOXaT7ZR2F2IWC1kbATTi4ZR4=;
- b=HOuMwOJXCMylROkdkUZixIhnTbtqjW/cN62/S32oBI4bnXuM21Rn5f0M
- IFenmrMJwq9Ztv3eF2r3AE+EDfSGQWS8iPhJ45emxj2NKWfm3p91PUApo
- FdwU9aLxT2HFs/ceb4caow7y3UDL8cdpQ0SeBqnqRS9Z27jP6GvQQQF6z
- zRkECHVtHdvNQLPjSzyRuzXNWljE2NYcg8OgQMCuKzjXUEoUQkIlekcjb
- K2fSXIYg7Cn+U44Uei11XQ+/jd7rfBFyBd7GyVwjkVgp+jMloPfT3+kvW
- sfC5TAXXssGcbSLKxhoMr/k+82TcJnmEa0YW/b53j7zsMtWBeEFkLOUcI Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="347713259"
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="347713259"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 02:14:44 -0700
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="570970371"
+ t=1649322895; x=1680858895;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=XaDp3DJV+THGFW/cFPINCIEEAJ5+GOYXCAM3Znv1bZo=;
+ b=K8qCnJH1eStIou/tr/M3B6JpItv2aSsmbSzABCXnH0XfIRheSmFSVh1E
+ UrNNMaoUcqtpp3orNfAOZkr6SlLbLR17APW9XMVw4s4/94/kUo0r091xx
+ 1cuMZbJpAGrKma4w5xr2URshEkRjhx3EjLCaDnFUnAN7NjAER7OaSVcaD
+ K27s/wFl//46Hc96g4XKQlBDQMaCtEGaPuTjTeQmDz/aFlBDbYPDB5hpF
+ 5fL3musTrDowNNO9FREvN2qm8ZncyWmCyK5JljqC2sKfAwF2EWdPvyydF
+ otfh4tm7hRUWyn/zlmv/rleici7DILl8QqkSps31JXZjmlTmNOlzwrkdU Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="248795092"
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="248795092"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 02:14:55 -0700
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="524844615"
 Received: from kgibala-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.142.48])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 02:14:41 -0700
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 02:14:52 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu,  7 Apr 2022 12:14:26 +0300
-Message-Id: <cover.1649322799.git.jani.nikula@intel.com>
+Date: Thu,  7 Apr 2022 12:14:28 +0300
+Message-Id: <eb493446e5a7fd442f78078dc49d83c6e458caa0.1649322799.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <cover.1649322799.git.jani.nikula@intel.com>
+References: <cover.1649322799.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/12] drm/edid: low level EDID block read
- refactoring etc.
+Subject: [Intel-gfx] [PATCH 02/12] drm/edid: have edid_block_check() detect
+ blocks that are all zero
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,25 +62,63 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ever so slowly moving towards cleaner EDID reading.
+We have the check function, have it also detect blocks that are all zero
+instead of leaving that to callers.
 
-Jani Nikula (12):
-  drm/edid: convert edid_is_zero() to edid_block_is_zero() for blocks
-  drm/edid: have edid_block_check() detect blocks that are all zero
-  drm/edid: refactor EDID block status printing
-  drm/edid: add a helper to log dump an EDID block
-  drm/edid: pass struct edid to connector_bad_edid()
-  drm/edid: add typedef for block read function
-  drm/edid: abstract an EDID block read helper
-  drm/edid: use EDID block read helper in drm_do_get_edid()
-  drm/edid: convert extension block read to EDID block read helper
-  drm/edid: drop extra local var
-  drm/edid: add single point of return to drm_do_get_edid()
-  drm/edid: add EDID block count and size helpers
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/drm_edid.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
- drivers/gpu/drm/drm_edid.c | 350 ++++++++++++++++++++++++-------------
- 1 file changed, 225 insertions(+), 125 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index f4da3f92f41b..f062d1715ec3 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -1671,6 +1671,7 @@ EXPORT_SYMBOL(drm_edid_are_equal);
+ enum edid_block_status {
+ 	EDID_BLOCK_OK = 0,
+ 	EDID_BLOCK_NULL,
++	EDID_BLOCK_ZERO,
+ 	EDID_BLOCK_HEADER_CORRUPT,
+ 	EDID_BLOCK_HEADER_REPAIR,
+ 	EDID_BLOCK_HEADER_FIXED,
+@@ -1689,15 +1690,23 @@ static enum edid_block_status edid_block_check(const void *_block,
+ 	if (is_base_block) {
+ 		int score = drm_edid_header_is_valid(block);
+ 
+-		if (score < clamp(edid_fixup, 0, 8))
+-			return EDID_BLOCK_HEADER_CORRUPT;
++		if (score < clamp(edid_fixup, 0, 8)) {
++			if (edid_block_is_zero(block))
++				return EDID_BLOCK_ZERO;
++			else
++				return EDID_BLOCK_HEADER_CORRUPT;
++		}
+ 
+ 		if (score < 8)
+ 			return EDID_BLOCK_HEADER_REPAIR;
+ 	}
+ 
+-	if (edid_block_compute_checksum(block) != edid_block_get_checksum(block))
+-		return EDID_BLOCK_CHECKSUM;
++	if (edid_block_compute_checksum(block) != edid_block_get_checksum(block)) {
++		if (edid_block_is_zero(block))
++			return EDID_BLOCK_ZERO;
++		else
++			return EDID_BLOCK_CHECKSUM;
++	}
+ 
+ 	if (is_base_block) {
+ 		if (block->version != 1)
+@@ -1785,7 +1794,7 @@ bool drm_edid_block_valid(u8 *_block, int block_num, bool print_bad_edid,
+ 	}
+ 
+ 	if (!valid && print_bad_edid) {
+-		if (edid_block_is_zero(block)) {
++		if (status == EDID_BLOCK_ZERO) {
+ 			pr_notice("EDID block is all zeroes\n");
+ 		} else {
+ 			pr_notice("Raw EDID:\n");
 -- 
 2.30.2
 
