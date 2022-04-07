@@ -4,50 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E50CC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 12:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 387DCC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Apr 2022 12:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E56DB10E9C3;
-	Thu,  7 Apr 2022 12:06:32 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A2A210E9C3
- for <intel-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 12:06:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE07E10E9D7;
+	Thu,  7 Apr 2022 12:09:53 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E31C10E9E6
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 Apr 2022 12:09:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649333191; x=1680869191;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=ZQklzcFCB/YzrbHQQcAbTTmyyWQ4heTyAxrb9TmaivY=;
- b=eMEbnGEnVOPltmKz10WZD2bI2Wtkobh3hmX+FvHL06Mk1f9l8tanG4Ys
- Xv1O3idkCNb1M1Kr6TQdPk3Ubf0RIM7nprT5FlwvaxQzQtjdvM40CKAXM
- 5oUhqcL4nyg+Vo9WzX9t+eJgSBDYOikcWsJqZ8gW7zllR76BT+iHfrW/Y
- V1NbaV4lHsiN61K4YQpdhdZhfFA6cSNdJnVGE3yXLuQ0SGomifO+ZyaZc
- iuUqhv1jHL7Ulq4JKG0riEUycQVhFwlN0YYoDao6XWo5Xgmsb226bjsz5
- F8x6a2wll69O1ttLVcWvtYuirz7aNmsw0rJqXyJfLGlOj5a8rVLd3L6op w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="241236363"
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="241236363"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 05:06:09 -0700
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="571025950"
-Received: from kgibala-mobl.ger.corp.intel.com (HELO localhost)
- ([10.249.142.48])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2022 05:06:06 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-In-Reply-To: <Yk7IgZJlOkIebTq7@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220405173410.11436-3-ville.syrjala@linux.intel.com>
- <20220406133817.30652-1-ville.syrjala@linux.intel.com>
- <87k0c15h05.fsf@intel.com> <Yk7IgZJlOkIebTq7@intel.com>
-Date: Thu, 07 Apr 2022 15:06:04 +0300
-Message-ID: <87czht5c9f.fsf@intel.com>
+ t=1649333392; x=1680869392;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=hmDjiy3EFS5PQnPala27suBJR9QlBhgVxrpLReeBJG8=;
+ b=Y0+k/D/KBMAMld3bhMQMJhY4cfpbyrsOFY17uPJEeYwIUHa4dv1v13Du
+ b5xeI/lSyLczDhih84/yJUwi+9HrOspHYKFd1rtz7RQPcuijCywNZ057H
+ CHXG8HNySG5fquNFTTaGe/yRVxEF/4UrBrokIdkFsr65ofvSJ5N3u+kkK
+ iElT5JuxWUeM9QwW2+3ZaWD+N3Kf85DiqGSmPG3U6MN2D2GnBwmoEX32i
+ RpYDOIEsYk7cGF/RskzG0vEDm4yL/X8nazrV1yzxh8NstLH3Xbz4Ljwn3
+ 5iyApNoWLW0eaOEPNWAxgC1Cn76HwihwrYSJ3J3Fw5tZGcwFf9bbk4l3I g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="261299381"
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="261299381"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2022 05:09:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; d="scan'208";a="722938280"
+Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
+ by orsmga005.jf.intel.com with ESMTP; 07 Apr 2022 05:09:51 -0700
+Received: from fmsmsx605.amr.corp.intel.com (10.18.126.85) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Thu, 7 Apr 2022 05:09:51 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27 via Frontend Transport; Thu, 7 Apr 2022 05:09:51 -0700
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.174)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.27; Thu, 7 Apr 2022 05:09:50 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eJ0ZcJna1o6gDq7MOlH58DoGV7mtM07guSxx9giTcNS8qei+ZwOrOR/gyw6z2gWcsirhGeV6pxe7jIpdEy7KQV2y19IqZZDRSlCxKtRd4l/QwRQNr1RMtJuer1AQHCVMD0LvP8D3HKBMBbU9fpCaahRQQjdXVF4UyjdHIMPtcUZd2G/QrnpJiM9OI1BbP8M6NhkJAWa+smKpK0Nd99NCKhFJhxpNU1iXgKUgEPaJQu2WgGYi+Ca1qXkhmMSk7exc6eqlCinimSp4cFN3o5Pc1cixrAJ5uxez0zSAoBvxsnkKZpcyVvhKvyZR7sOGSFPAIkDEtqPDgS1IeCtqmr/dMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hmDjiy3EFS5PQnPala27suBJR9QlBhgVxrpLReeBJG8=;
+ b=kFkxD4OWo8ltYiWa9rmMJRPsl9C03qiQPKw+EYvCwxel6iS7bLQOUvFQe9Px5nVnIPcjN7RnOlarQitRpYxUZzJzCkMfKInFRSyCf1GquLlJQE42ZHJmK//78Bf+vPDv2sZ8vHSW/MxW6EFOAQCmggKLvlftlZtr67/o2VCZ/H0sW2iNKdq4vhGzWb0CdNO/mdTwk17xC02VP1TT6oEIRn6ydmGu7I9oH0xGA8CbS0EJ5hbxD+1tGuE5rTnjV95vJMk4ocidFWqXZzM8YSlS7fAfSoww9+ECFLvYQGsUZ8zmrBadx1U81fwItnHOYWa5r1rlMaUx0cI/Tuz9244B/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CO1PR11MB4962.namprd11.prod.outlook.com (2603:10b6:303:99::23)
+ by MN2PR11MB4677.namprd11.prod.outlook.com (2603:10b6:208:24e::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.22; Thu, 7 Apr
+ 2022 12:09:48 +0000
+Received: from CO1PR11MB4962.namprd11.prod.outlook.com
+ ([fe80::ddc3:c37d:9541:9b7c]) by CO1PR11MB4962.namprd11.prod.outlook.com
+ ([fe80::ddc3:c37d:9541:9b7c%8]) with mapi id 15.20.5144.022; Thu, 7 Apr 2022
+ 12:09:48 +0000
+From: "Govindapillai, Vinod" <vinod.govindapillai@intel.com>
+To: "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
+ "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+Thread-Topic: [PATCH] drm/i915: program wm blocks to at least blocks required
+ per line
+Thread-Index: AQHYSbSYiEPeU/SmNUGg/JKV45vY8qzi5boAgAAEiICAADYDAIAADyAAgADS3wCAAFsSgA==
+Date: Thu, 7 Apr 2022 12:09:48 +0000
+Message-ID: <5b133d1f8fb9d6c96270e8c00f0ae978d28da9a8.camel@intel.com>
+References: <20220404134918.729038-1-vinod.govindapillai@intel.com>
+ <Yk2MAo+cfr3npN2O@intel.com> <20220406134526.GA22124@intel.com>
+ <Yk2dQ7VIKWFHfFDl@intel.com> <20220406171446.GA22549@intel.com>
+ <Yk3XQhkYplbMxkkM@intel.com> <20220407064350.GA24386@intel.com>
+In-Reply-To: <20220407064350.GA24386@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.36.5-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 071b5804-db39-430e-f5d1-08da188f8337
+x-ms-traffictypediagnostic: MN2PR11MB4677:EE_
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-microsoft-antispam-prvs: <MN2PR11MB46775ECB6385BF2F02F988BEF6E69@MN2PR11MB4677.namprd11.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 1hBdnQUT77TeFj8HiK4KaNw6RwfsRxdm5UclPh7nBOddJeJOvIIO0SHTkqdC4BFfGq1M+Sqx6hgJNquGpE238uWTVZdtrcMnhbQj3aa+jqKaNYdjk/4gbAcYKJ4QcJaxl2ZhwNGnkG72UnzbjgHua6GZY0YbzCr3RdJI87024s/Qc5jRnRvWM5c9ZRGOqujRXPw+uSiE6vPDzWNQfzUcP0WLjCnSMNTRx3/Z7YZnvuxZ1ba2jNGu+trjbslAlCRbUFiryVaFBobmB9j/dYs0bzDK+kMMMFkWAnlQHlB0rQ2v0XgcwQHR7K0PQJCRoZz6becbaCjUm/OVyXlWCxArIT9iKZdbPjImoIxvBePVlMclc69WltqZV9Pc6ybgviCFMm0WUI+R5ae0I7fZXBbYqDCYLuMoV8k7RWrwPbDlQtRsNf9OUyHYeqji0R6gUGawoyQ2AMkFL3gmR0IGkfkEYeA7PeXIyIrHi4ZJyq5YCYw1dRlGehHV2zugVkuvAx7yovQmD0WN69sE2F4TGYUd/caln7vwQ9L0LK1zXKo+h291KH5IqqTNJkLrkvAQT4+K62gBParHCzADizQdVOKm9vUhsUeRxuc/zxOfmdcf9X4vmN4PEI2hktJM9Or7UjY9vHfAPYv4TfXKms32wMO3m0HXHrUQ/jAxMc5zkjxHrJuIZAZHmgP9ofEHc2JnAwknELWG+ZMfO+2MhNKMRG0BFw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4962.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(366004)(110136005)(508600001)(91956017)(6636002)(82960400001)(71200400001)(316002)(6486002)(38070700005)(76116006)(38100700002)(36756003)(122000001)(86362001)(83380400001)(66574015)(6506007)(64756008)(5660300002)(66446008)(26005)(186003)(2616005)(6512007)(2906002)(8676002)(8936002)(66476007)(66556008)(66946007)(4326008);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bUxkeVJoK2FQWnArazd2bS9kUVV1RWhUVmZvQ012czQxa3Y3cTZDZ2k2RGxV?=
+ =?utf-8?B?bGtPZk5oSUVOZHV0VTFhNzVLU2x5U1JKRWxXSzBIVWJjOExhVkRhaTJuUERI?=
+ =?utf-8?B?eEhyTzJNRkg1Q3k5YzNMeGFhUVg0RkFFNVNlY0EwQ3dXR3ZqVWJ5YVE0VVNT?=
+ =?utf-8?B?K1dmMlFCTUhWKzNvRHRUU2pHWEs3UEFNZytOYml3U2dFdk9zTkNOY0VwZFMy?=
+ =?utf-8?B?V1d2dDhId1BMVWRMMzU1MWJFbFJpVFVuend5eHRtdG5DWUlLRVpHQ1lieXcz?=
+ =?utf-8?B?dExFZVVvNXhGMWxKbHY4VC9UL1E2b3U5dWtjREoyRll3eW5HVExjU044V0RO?=
+ =?utf-8?B?Tk1pdFV3S01jZXBvT0JEZHRzOGJteFArTFpVUXlvZjlQbzM1ZGtvVWlxWEtO?=
+ =?utf-8?B?VVI0TVpHOFNOM2ZUWE5NaUljN3docjJUbTRzcE0waVd1cHFXYXIxNU0vMmxi?=
+ =?utf-8?B?TkpML2NveW53YVNwNzZieGJZUkxpcGpqUWdRVHllYXF0REVSSDRiNldrS1Fy?=
+ =?utf-8?B?emMxQ1I4aU1ib2VXZmpMSTFGL2JBZzhQMDNvTGlZaDlWdko1ZnVFcHZiUEgr?=
+ =?utf-8?B?R0g1TlhTUy9LdFE2MlJmeTNTWm1TUzdIK3lLZHVGUlp5dnBrdGp0SnpGd2Fs?=
+ =?utf-8?B?OWJpTHBvMmE2d2JweDZPTkdQRnVMQmRPa05JYTVRVmRQSTZOZWp2SlFsaFNC?=
+ =?utf-8?B?cjU3ZHFJRDk4bEtlK2toSGpSUXFrb0lJczJhZk9tTk9ka3BYWVMraElsMEw4?=
+ =?utf-8?B?c1IyRnNsTlJXZ1ppY0pnWFZURXBpVkNkaFUvNFBMRkVnQjNpUHo2TkY4aGht?=
+ =?utf-8?B?aEo2eGlLcnd6ZTlBQmthRnlLcUxoY05NOXpmRzVFd1dsZDg5SEV0NzJObUxH?=
+ =?utf-8?B?NkN1VndndDJNVlBhT0lLT2VGYWxyMUdYVXpjY2lJZFpuOUlTbTNGOVlwK2NH?=
+ =?utf-8?B?alFmalRPcnYwVnBTSHd4bFpIbUNGS0ZtYU1rejdRd1REZWNjOEZTUkZnQUx2?=
+ =?utf-8?B?dmlCUXlMVnUzVXZ2alZ4VzJFakRpZjhZSkVuWE01bUdVS29kRUhLYmdTQ0RX?=
+ =?utf-8?B?aVkrOHJ3cHVpam14aUs0Ny93OGFDaHZBcDhSUkFwZUpyVUg3TVRLOS8wazFx?=
+ =?utf-8?B?RVprUEViRlZFVzZ5OGhSa0tEQllreVdrdjZXQjNIQWdCN3hOMENKL09YVGNT?=
+ =?utf-8?B?MnRITzI5UStyekRGU3VSbFk4OUQ0MmlnTXBPTUZVK3liaHVJTGZ6VGZFV2Jy?=
+ =?utf-8?B?em9aNWV4UTd4b05MWHAxVWRRbk8yd1pXNG5iejJ5VmxiMEd0WVFQazdIWGZn?=
+ =?utf-8?B?cFF0eHYzbXVvY1J5WWhQZlJPU3g2dmszWHVEQmw3TWphSVNFajBYVnFuekFH?=
+ =?utf-8?B?djlWVWxFZkVqZ2sySHAvSFNnOXRtU0dja2QvR1FVdlAvRXhyemhJSVZOa0hu?=
+ =?utf-8?B?QU42OEwweHl5MkRVZkUxejdqV3VwTkNzNVRrN09wUEFkZ0JSeC9FWkFnaFAx?=
+ =?utf-8?B?UTJXMWRMMklSTlZKaTBGQTJCWWpLNjJVSHdiZW9OT202OGNUZW90MmRtdTNB?=
+ =?utf-8?B?bWcyZmdQTndEZjVHc1d0K0phTUp3OVlDU0svejl5TlFkV1dIUEluREFMMDNr?=
+ =?utf-8?B?REZmV3lmbW93aFppSGlqK0NJUXNMUW40aHdUdVdLaTIveDJvV255bEQzeitU?=
+ =?utf-8?B?OWZxd2wyREpzWnk2V01tRmpUNk9nMUdIcU1icHcrT1ZNTzBzdlV5R1Jjd3Rp?=
+ =?utf-8?B?TlZCb2U1ODBOZkRTQS83K1VKZnJMakNsM0V6V2QxajZhZzR5MDBDbHlWNU9K?=
+ =?utf-8?B?OTZUM1E1ZnE5Y3BsUUxybEpoTyt2SFRBcGdyVmU5RnNJSHEvK08ybUc0NytD?=
+ =?utf-8?B?SnhhOVdyNUYyQmFaYmp2MTdhc3IvY3h4RjdmcE8rdkx3UFJqbTNYczFHWXcv?=
+ =?utf-8?B?ZlNLOG5pSys0dldwSngwNUpacE1aQzNqMml3dWI2ejlwYVl6SFBzRDE1RjV0?=
+ =?utf-8?B?czZqcG1mRGdOa0pMQVh4eURVMXVaTC8xVnhwcFEraERTRGNiS2RnMUFiYytj?=
+ =?utf-8?B?TUtRZWhGNzY1bnhiTG4wS0owRTQ0S3ppTm85NG1ibW5yUExIS2IxblVCQ2Yy?=
+ =?utf-8?B?T0gybkJSTDNtelgvY201Sy95N2V2TTJLdVdHemxwWU9hSk0xTisrVnNWc210?=
+ =?utf-8?B?akp2Um1RWXE4S0EwakVmZ1ZXbFREeERtM1lGdWYwdEFoaTN0bktHM1N3dm9v?=
+ =?utf-8?B?a1pEcnJCMmxIdlVJbjYzRU9LWVdzNVlvRGR0SmNXWnFqNEEzcGVmUGgrc0Uv?=
+ =?utf-8?B?NFAzcXhBQ0dqVXNjZXJSKytQUEJ6bDRINlAxdzZpQ3lGd2FoMjdXaWZad09D?=
+ =?utf-8?Q?I/6H56P1seFMyPIu+YCvdGFpMvubSFJXp2piU?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <DAA58B37855F4F42ABCA3C717411EB8E@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH v3 02/22] drm/i915/bios: Make copies of VBT
- data blocks
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4962.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 071b5804-db39-430e-f5d1-08da188f8337
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2022 12:09:48.5969 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KVMbjRpHA30Mned69Yktsu+O03KWP+ZwJh0GK9qUbWkOIKU6w+36MsTOECuKu5VJSV4IgvKetahi+fZRogYvzyzei8ZGLz6fYbZXIDTcfEM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4677
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: program wm blocks to at least
+ blocks required per line
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,588 +166,136 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 07 Apr 2022, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
-> wrote:
-> On Thu, Apr 07, 2022 at 01:23:38PM +0300, Jani Nikula wrote:
->> On Wed, 06 Apr 2022, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
->> > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->> >
->> > Make a copy of each VB data block with a guaranteed minimum
->> > size. The extra (if any) will just be left zeroed.
->> >
->> > This means we don't have to worry about going out of bounds
->> > when accessing any of the structure members. Otherwise that
->> > could easliy happen if we simply get the version check wrong,
->> > or if the VBT is broken/malicious.
->> >
->> > v2: Don't do arithmetic between bdb header and copy
->> >     of the LFP data block (Jani)
->> > v3: Make all the copies up front
->> > v4: Only WARN about min_size=3D=3D0 if we found the block
->> >
->> > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->> > ---
->> >  drivers/gpu/drm/i915/display/intel_bios.c | 230 ++++++++++++++++------
->> >  drivers/gpu/drm/i915/i915_drv.h           |   1 +
->> >  2 files changed, 174 insertions(+), 57 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/d=
-rm/i915/display/intel_bios.c
->> > index 5518f4cfa1b1..068978734e3b 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_bios.c
->> > +++ b/drivers/gpu/drm/i915/display/intel_bios.c
->> > @@ -88,7 +88,7 @@ static u32 get_blocksize(const void *block_data)
->> >  }
->> >=20=20
->> >  static const void *
->> > -find_section(const void *_bdb, enum bdb_block_id section_id)
->> > +find_raw_section(const void *_bdb, enum bdb_block_id section_id)
->> >  {
->> >  	const struct bdb_header *bdb =3D _bdb;
->> >  	const u8 *base =3D _bdb;
->> > @@ -118,6 +118,124 @@ find_section(const void *_bdb, enum bdb_block_id=
- section_id)
->> >  	return NULL;
->> >  }
->> >=20=20
->> > +/*
->> > + * Offset from the start of BDB to the start of the
->> > + * block data (just past the block header).
->> > + */
->> > +static u32 block_offset(const void *bdb, enum bdb_block_id section_id)
->> > +{
->> > +	const void *block;
->> > +
->> > +	block =3D find_raw_section(bdb, section_id);
->> > +	if (!block)
->> > +		return 0;
->> > +
->> > +	return block - bdb;
->> > +}
->> > +
->> > +struct bdb_block_entry {
->> > +	struct list_head node;
->> > +	enum bdb_block_id section_id;
->> > +	u8 data[];
->> > +};
->> > +
->> > +static const void *
->> > +find_section(struct drm_i915_private *i915,
->> > +	     enum bdb_block_id section_id)
->> > +{
->> > +	struct bdb_block_entry *entry;
->> > +
->> > +	list_for_each_entry(entry, &i915->vbt.bdb_blocks, node) {
->> > +		if (entry->section_id =3D=3D section_id)
->> > +			return entry->data + 3;
->> > +	}
->> > +
->>=20
->> Failing to find the section_id in the list above, perhaps this should
->> check if the section_id is present in bdb_blocks[] and complain
->> loudly. If we fail to add a section there, this will never find
->> it. I.e. we should never call find_section() on a section_id that isn't
->> present in bdb_blocks[].
->
-> That's perfectly legit. Eg. old VBTs are always missing a lot
-> of the eDP related blocks.
->
-> What we could do is add some kind of dummy block into the list
-> for every block we've initialized, whether we found it or not.
-> With that we could complain if find_section() gets called on
-> anything that we didn't try to duplicate.
-
-I mean if we don't find it in the list, we can check the bdb_blocks[]
-array if we even have it in our initialization list.
-
-BR,
-Jani.
-
-
->
->>=20
->> I also dislike the +/- 3 here and there.
->
-> Yeah, I was pondering about defining a structure that actually includes
-> the BDB block header and try to replace all the magic +/-3 stuff with
-> that. But didn't feel like bloating this series any further right now.
->
->>=20
->> But both of these can be cleaned up later.
->>=20
->> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
->>=20
->>=20
->> > +	return NULL;
->> > +}
->> > +
->> > +static const struct {
->> > +	enum bdb_block_id section_id;
->> > +	size_t min_size;
->> > +} bdb_blocks[] =3D {
->> > +	{ .section_id =3D BDB_GENERAL_FEATURES,
->> > +	  .min_size =3D sizeof(struct bdb_general_features), },
->> > +	{ .section_id =3D BDB_GENERAL_DEFINITIONS,
->> > +	  .min_size =3D sizeof(struct bdb_general_definitions), },
->> > +	{ .section_id =3D BDB_PSR,
->> > +	  .min_size =3D sizeof(struct bdb_psr), },
->> > +	{ .section_id =3D BDB_DRIVER_FEATURES,
->> > +	  .min_size =3D sizeof(struct bdb_driver_features), },
->> > +	{ .section_id =3D BDB_SDVO_LVDS_OPTIONS,
->> > +	  .min_size =3D sizeof(struct bdb_sdvo_lvds_options), },
->> > +	{ .section_id =3D BDB_SDVO_PANEL_DTDS,
->> > +	  .min_size =3D sizeof(struct bdb_sdvo_panel_dtds), },
->> > +	{ .section_id =3D BDB_EDP,
->> > +	  .min_size =3D sizeof(struct bdb_edp), },
->> > +	{ .section_id =3D BDB_LVDS_OPTIONS,
->> > +	  .min_size =3D sizeof(struct bdb_lvds_options), },
->> > +	{ .section_id =3D BDB_LVDS_LFP_DATA_PTRS,
->> > +	  .min_size =3D sizeof(struct bdb_lvds_lfp_data_ptrs), },
->> > +	{ .section_id =3D BDB_LVDS_LFP_DATA,
->> > +	  .min_size =3D sizeof(struct bdb_lvds_lfp_data), },
->> > +	{ .section_id =3D BDB_LVDS_BACKLIGHT,
->> > +	  .min_size =3D sizeof(struct bdb_lfp_backlight_data), },
->> > +	{ .section_id =3D BDB_LFP_POWER,
->> > +	  .min_size =3D sizeof(struct bdb_lfp_power), },
->> > +	{ .section_id =3D BDB_MIPI_CONFIG,
->> > +	  .min_size =3D sizeof(struct bdb_mipi_config), },
->> > +	{ .section_id =3D BDB_MIPI_SEQUENCE,
->> > +	  .min_size =3D sizeof(struct bdb_mipi_sequence) },
->> > +	{ .section_id =3D BDB_COMPRESSION_PARAMETERS,
->> > +	  .min_size =3D sizeof(struct bdb_compression_parameters), },
->> > +	{ .section_id =3D BDB_GENERIC_DTD,
->> > +	  .min_size =3D sizeof(struct bdb_generic_dtd), },
->> > +};
->> > +
->> > +static void
->> > +init_bdb_block(struct drm_i915_private *i915,
->> > +	       const void *bdb, enum bdb_block_id section_id,
->> > +	       size_t min_size)
->> > +{
->> > +	struct bdb_block_entry *entry;
->> > +	const void *block;
->> > +	size_t block_size;
->> > +
->> > +	block =3D find_raw_section(bdb, section_id);
->> > +	if (!block)
->> > +		return;
->> > +
->> > +	drm_WARN(&i915->drm, min_size =3D=3D 0,
->> > +		 "Block %d min_size is zero\n", section_id);
->> > +
->> > +	block_size =3D get_blocksize(block);
->> > +
->> > +	entry =3D kzalloc(struct_size(entry, data, max(min_size, block_size)=
- + 3),
->> > +			GFP_KERNEL);
->> > +	if (!entry)
->> > +		return;
->> > +
->> > +	entry->section_id =3D section_id;
->> > +	memcpy(entry->data, block - 3, block_size + 3);
->> > +
->> > +	drm_dbg_kms(&i915->drm, "Found BDB block %d (size %zu, min size %zu)=
-\n",
->> > +		    section_id, block_size, min_size);
->> > +
->> > +	list_add_tail(&entry->node, &i915->vbt.bdb_blocks);
->> > +}
->> > +
->> > +static void init_bdb_blocks(struct drm_i915_private *i915,
->> > +			    const void *bdb)
->> > +{
->> > +	int i;
->> > +
->> > +	for (i =3D 0; i < ARRAY_SIZE(bdb_blocks); i++) {
->> > +		enum bdb_block_id section_id =3D bdb_blocks[i].section_id;
->> > +		size_t min_size =3D bdb_blocks[i].min_size;
->> > +
->> > +		init_bdb_block(i915, bdb, section_id, min_size);
->> > +	}
->> > +}
->> > +
->> >  static void
->> >  fill_detail_timing_data(struct drm_display_mode *panel_fixed_mode,
->> >  			const struct lvds_dvo_timing *dvo_timing)
->> > @@ -199,7 +317,7 @@ get_lvds_fp_timing(const struct bdb_header *bdb,
->> >  		   const struct bdb_lvds_lfp_data_ptrs *ptrs,
->> >  		   int index)
->> >  {
->> > -	size_t data_ofs =3D (const u8 *)data - (const u8 *)bdb;
->> > +	size_t data_ofs =3D block_offset(bdb, BDB_LVDS_LFP_DATA);
->> >  	u16 data_size =3D ((const u16 *)data)[-1]; /* stored in header */
->> >  	size_t ofs;
->> >=20=20
->> > @@ -214,15 +332,14 @@ get_lvds_fp_timing(const struct bdb_header *bdb,
->> >=20=20
->> >  /* Parse general panel options */
->> >  static void
->> > -parse_panel_options(struct drm_i915_private *i915,
->> > -		    const struct bdb_header *bdb)
->> > +parse_panel_options(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_lvds_options *lvds_options;
->> >  	int panel_type;
->> >  	int drrs_mode;
->> >  	int ret;
->> >=20=20
->> > -	lvds_options =3D find_section(bdb, BDB_LVDS_OPTIONS);
->> > +	lvds_options =3D find_section(i915, BDB_LVDS_OPTIONS);
->> >  	if (!lvds_options)
->> >  		return;
->> >=20=20
->> > @@ -285,11 +402,11 @@ parse_lfp_panel_dtd(struct drm_i915_private *i91=
-5,
->> >  	struct drm_display_mode *panel_fixed_mode;
->> >  	int panel_type =3D i915->vbt.panel_type;
->> >=20=20
->> > -	lvds_lfp_data =3D find_section(bdb, BDB_LVDS_LFP_DATA);
->> > +	lvds_lfp_data =3D find_section(i915, BDB_LVDS_LFP_DATA);
->> >  	if (!lvds_lfp_data)
->> >  		return;
->> >=20=20
->> > -	lvds_lfp_data_ptrs =3D find_section(bdb, BDB_LVDS_LFP_DATA_PTRS);
->> > +	lvds_lfp_data_ptrs =3D find_section(i915, BDB_LVDS_LFP_DATA_PTRS);
->> >  	if (!lvds_lfp_data_ptrs)
->> >  		return;
->> >=20=20
->> > @@ -325,15 +442,14 @@ parse_lfp_panel_dtd(struct drm_i915_private *i91=
-5,
->> >  }
->> >=20=20
->> >  static void
->> > -parse_generic_dtd(struct drm_i915_private *i915,
->> > -		  const struct bdb_header *bdb)
->> > +parse_generic_dtd(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_generic_dtd *generic_dtd;
->> >  	const struct generic_dtd_entry *dtd;
->> >  	struct drm_display_mode *panel_fixed_mode;
->> >  	int num_dtd;
->> >=20=20
->> > -	generic_dtd =3D find_section(bdb, BDB_GENERIC_DTD);
->> > +	generic_dtd =3D find_section(i915, BDB_GENERIC_DTD);
->> >  	if (!generic_dtd)
->> >  		return;
->> >=20=20
->> > @@ -416,21 +532,20 @@ parse_panel_dtd(struct drm_i915_private *i915,
->> >  	 * back to trying the old LFP block if that fails.
->> >  	 */
->> >  	if (i915->vbt.version >=3D 229)
->> > -		parse_generic_dtd(i915, bdb);
->> > +		parse_generic_dtd(i915);
->> >  	if (!i915->vbt.lfp_lvds_vbt_mode)
->> >  		parse_lfp_panel_dtd(i915, bdb);
->> >  }
->> >=20=20
->> >  static void
->> > -parse_lfp_backlight(struct drm_i915_private *i915,
->> > -		    const struct bdb_header *bdb)
->> > +parse_lfp_backlight(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_lfp_backlight_data *backlight_data;
->> >  	const struct lfp_backlight_data_entry *entry;
->> >  	int panel_type =3D i915->vbt.panel_type;
->> >  	u16 level;
->> >=20=20
->> > -	backlight_data =3D find_section(bdb, BDB_LVDS_BACKLIGHT);
->> > +	backlight_data =3D find_section(i915, BDB_LVDS_BACKLIGHT);
->> >  	if (!backlight_data)
->> >  		return;
->> >=20=20
->> > @@ -514,8 +629,7 @@ parse_lfp_backlight(struct drm_i915_private *i915,
->> >=20=20
->> >  /* Try to find sdvo panel data */
->> >  static void
->> > -parse_sdvo_panel_data(struct drm_i915_private *i915,
->> > -		      const struct bdb_header *bdb)
->> > +parse_sdvo_panel_data(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_sdvo_panel_dtds *dtds;
->> >  	struct drm_display_mode *panel_fixed_mode;
->> > @@ -531,14 +645,14 @@ parse_sdvo_panel_data(struct drm_i915_private *i=
-915,
->> >  	if (index =3D=3D -1) {
->> >  		const struct bdb_sdvo_lvds_options *sdvo_lvds_options;
->> >=20=20
->> > -		sdvo_lvds_options =3D find_section(bdb, BDB_SDVO_LVDS_OPTIONS);
->> > +		sdvo_lvds_options =3D find_section(i915, BDB_SDVO_LVDS_OPTIONS);
->> >  		if (!sdvo_lvds_options)
->> >  			return;
->> >=20=20
->> >  		index =3D sdvo_lvds_options->panel_type;
->> >  	}
->> >=20=20
->> > -	dtds =3D find_section(bdb, BDB_SDVO_PANEL_DTDS);
->> > +	dtds =3D find_section(i915, BDB_SDVO_PANEL_DTDS);
->> >  	if (!dtds)
->> >  		return;
->> >=20=20
->> > @@ -570,12 +684,11 @@ static int intel_bios_ssc_frequency(struct drm_i=
-915_private *i915,
->> >  }
->> >=20=20
->> >  static void
->> > -parse_general_features(struct drm_i915_private *i915,
->> > -		       const struct bdb_header *bdb)
->> > +parse_general_features(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_general_features *general;
->> >=20=20
->> > -	general =3D find_section(bdb, BDB_GENERAL_FEATURES);
->> > +	general =3D find_section(i915, BDB_GENERAL_FEATURES);
->> >  	if (!general)
->> >  		return;
->> >=20=20
->> > @@ -695,12 +808,11 @@ parse_sdvo_device_mapping(struct drm_i915_privat=
-e *i915)
->> >  }
->> >=20=20
->> >  static void
->> > -parse_driver_features(struct drm_i915_private *i915,
->> > -		      const struct bdb_header *bdb)
->> > +parse_driver_features(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_driver_features *driver;
->> >=20=20
->> > -	driver =3D find_section(bdb, BDB_DRIVER_FEATURES);
->> > +	driver =3D find_section(i915, BDB_DRIVER_FEATURES);
->> >  	if (!driver)
->> >  		return;
->> >=20=20
->> > @@ -747,8 +859,7 @@ parse_driver_features(struct drm_i915_private *i91=
-5,
->> >  }
->> >=20=20
->> >  static void
->> > -parse_power_conservation_features(struct drm_i915_private *i915,
->> > -				  const struct bdb_header *bdb)
->> > +parse_power_conservation_features(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_lfp_power *power;
->> >  	u8 panel_type =3D i915->vbt.panel_type;
->> > @@ -756,7 +867,7 @@ parse_power_conservation_features(struct drm_i915_=
-private *i915,
->> >  	if (i915->vbt.version < 228)
->> >  		return;
->> >=20=20
->> > -	power =3D find_section(bdb, BDB_LFP_POWER);
->> > +	power =3D find_section(i915, BDB_LFP_POWER);
->> >  	if (!power)
->> >  		return;
->> >=20=20
->> > @@ -776,14 +887,14 @@ parse_power_conservation_features(struct drm_i91=
-5_private *i915,
->> >  }
->> >=20=20
->> >  static void
->> > -parse_edp(struct drm_i915_private *i915, const struct bdb_header *bdb)
->> > +parse_edp(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_edp *edp;
->> >  	const struct edp_power_seq *edp_pps;
->> >  	const struct edp_fast_link_params *edp_link_params;
->> >  	int panel_type =3D i915->vbt.panel_type;
->> >=20=20
->> > -	edp =3D find_section(bdb, BDB_EDP);
->> > +	edp =3D find_section(i915, BDB_EDP);
->> >  	if (!edp)
->> >  		return;
->> >=20=20
->> > @@ -894,13 +1005,13 @@ parse_edp(struct drm_i915_private *i915, const =
-struct bdb_header *bdb)
->> >  }
->> >=20=20
->> >  static void
->> > -parse_psr(struct drm_i915_private *i915, const struct bdb_header *bdb)
->> > +parse_psr(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_psr *psr;
->> >  	const struct psr_table *psr_table;
->> >  	int panel_type =3D i915->vbt.panel_type;
->> >=20=20
->> > -	psr =3D find_section(bdb, BDB_PSR);
->> > +	psr =3D find_section(i915, BDB_PSR);
->> >  	if (!psr) {
->> >  		drm_dbg_kms(&i915->drm, "No PSR BDB found.\n");
->> >  		return;
->> > @@ -1034,8 +1145,7 @@ static void parse_dsi_backlight_ports(struct drm=
-_i915_private *i915,
->> >  }
->> >=20=20
->> >  static void
->> > -parse_mipi_config(struct drm_i915_private *i915,
->> > -		  const struct bdb_header *bdb)
->> > +parse_mipi_config(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_mipi_config *start;
->> >  	const struct mipi_config *config;
->> > @@ -1058,7 +1168,7 @@ parse_mipi_config(struct drm_i915_private *i915,
->> >  	/* Parse #52 for panel index used from panel_type already
->> >  	 * parsed
->> >  	 */
->> > -	start =3D find_section(bdb, BDB_MIPI_CONFIG);
->> > +	start =3D find_section(i915, BDB_MIPI_CONFIG);
->> >  	if (!start) {
->> >  		drm_dbg_kms(&i915->drm, "No MIPI config BDB found");
->> >  		return;
->> > @@ -1354,8 +1464,7 @@ static void fixup_mipi_sequences(struct drm_i915=
-_private *i915)
->> >  }
->> >=20=20
->> >  static void
->> > -parse_mipi_sequence(struct drm_i915_private *i915,
->> > -		    const struct bdb_header *bdb)
->> > +parse_mipi_sequence(struct drm_i915_private *i915)
->> >  {
->> >  	int panel_type =3D i915->vbt.panel_type;
->> >  	const struct bdb_mipi_sequence *sequence;
->> > @@ -1368,7 +1477,7 @@ parse_mipi_sequence(struct drm_i915_private *i91=
-5,
->> >  	if (i915->vbt.dsi.panel_id !=3D MIPI_DSI_GENERIC_PANEL_ID)
->> >  		return;
->> >=20=20
->> > -	sequence =3D find_section(bdb, BDB_MIPI_SEQUENCE);
->> > +	sequence =3D find_section(i915, BDB_MIPI_SEQUENCE);
->> >  	if (!sequence) {
->> >  		drm_dbg_kms(&i915->drm,
->> >  			    "No MIPI Sequence found, parsing complete\n");
->> > @@ -1439,8 +1548,7 @@ parse_mipi_sequence(struct drm_i915_private *i91=
-5,
->> >  }
->> >=20=20
->> >  static void
->> > -parse_compression_parameters(struct drm_i915_private *i915,
->> > -			     const struct bdb_header *bdb)
->> > +parse_compression_parameters(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_compression_parameters *params;
->> >  	struct intel_bios_encoder_data *devdata;
->> > @@ -1451,7 +1559,7 @@ parse_compression_parameters(struct drm_i915_pri=
-vate *i915,
->> >  	if (i915->vbt.version < 198)
->> >  		return;
->> >=20=20
->> > -	params =3D find_section(bdb, BDB_COMPRESSION_PARAMETERS);
->> > +	params =3D find_section(i915, BDB_COMPRESSION_PARAMETERS);
->> >  	if (params) {
->> >  		/* Sanity checks */
->> >  		if (params->entry_size !=3D sizeof(params->data[0])) {
->> > @@ -2086,8 +2194,7 @@ static void parse_ddi_ports(struct drm_i915_priv=
-ate *i915)
->> >  }
->> >=20=20
->> >  static void
->> > -parse_general_definitions(struct drm_i915_private *i915,
->> > -			  const struct bdb_header *bdb)
->> > +parse_general_definitions(struct drm_i915_private *i915)
->> >  {
->> >  	const struct bdb_general_definitions *defs;
->> >  	struct intel_bios_encoder_data *devdata;
->> > @@ -2097,7 +2204,7 @@ parse_general_definitions(struct drm_i915_privat=
-e *i915,
->> >  	u16 block_size;
->> >  	int bus_pin;
->> >=20=20
->> > -	defs =3D find_section(bdb, BDB_GENERAL_DEFINITIONS);
->> > +	defs =3D find_section(i915, BDB_GENERAL_DEFINITIONS);
->> >  	if (!defs) {
->> >  		drm_dbg_kms(&i915->drm,
->> >  			    "No general definition block is found, no devices defined.\n");
->> > @@ -2466,6 +2573,7 @@ void intel_bios_init(struct drm_i915_private *i9=
-15)
->> >  	const struct bdb_header *bdb;
->> >=20=20
->> >  	INIT_LIST_HEAD(&i915->vbt.display_devices);
->> > +	INIT_LIST_HEAD(&i915->vbt.bdb_blocks);
->> >=20=20
->> >  	if (!HAS_DISPLAY(i915)) {
->> >  		drm_dbg_kms(&i915->drm,
->> > @@ -2499,22 +2607,24 @@ void intel_bios_init(struct drm_i915_private *=
-i915)
->> >  		    "VBT signature \"%.*s\", BDB version %d\n",
->> >  		    (int)sizeof(vbt->signature), vbt->signature, i915->vbt.version);
->> >=20=20
->> > +	init_bdb_blocks(i915, bdb);
->> > +
->> >  	/* Grab useful general definitions */
->> > -	parse_general_features(i915, bdb);
->> > -	parse_general_definitions(i915, bdb);
->> > -	parse_panel_options(i915, bdb);
->> > +	parse_general_features(i915);
->> > +	parse_general_definitions(i915);
->> > +	parse_panel_options(i915);
->> >  	parse_panel_dtd(i915, bdb);
->> > -	parse_lfp_backlight(i915, bdb);
->> > -	parse_sdvo_panel_data(i915, bdb);
->> > -	parse_driver_features(i915, bdb);
->> > -	parse_power_conservation_features(i915, bdb);
->> > -	parse_edp(i915, bdb);
->> > -	parse_psr(i915, bdb);
->> > -	parse_mipi_config(i915, bdb);
->> > -	parse_mipi_sequence(i915, bdb);
->> > +	parse_lfp_backlight(i915);
->> > +	parse_sdvo_panel_data(i915);
->> > +	parse_driver_features(i915);
->> > +	parse_power_conservation_features(i915);
->> > +	parse_edp(i915);
->> > +	parse_psr(i915);
->> > +	parse_mipi_config(i915);
->> > +	parse_mipi_sequence(i915);
->> >=20=20
->> >  	/* Depends on child device list */
->> > -	parse_compression_parameters(i915, bdb);
->> > +	parse_compression_parameters(i915);
->> >=20=20
->> >  out:
->> >  	if (!vbt) {
->> > @@ -2536,14 +2646,20 @@ void intel_bios_init(struct drm_i915_private *=
-i915)
->> >   */
->> >  void intel_bios_driver_remove(struct drm_i915_private *i915)
->> >  {
->> > -	struct intel_bios_encoder_data *devdata, *n;
->> > +	struct intel_bios_encoder_data *devdata, *nd;
->> > +	struct bdb_block_entry *entry, *ne;
->> >=20=20
->> > -	list_for_each_entry_safe(devdata, n, &i915->vbt.display_devices, nod=
-e) {
->> > +	list_for_each_entry_safe(devdata, nd, &i915->vbt.display_devices, no=
-de) {
->> >  		list_del(&devdata->node);
->> >  		kfree(devdata->dsc);
->> >  		kfree(devdata);
->> >  	}
->> >=20=20
->> > +	list_for_each_entry_safe(entry, ne, &i915->vbt.bdb_blocks, node) {
->> > +		list_del(&entry->node);
->> > +		kfree(entry);
->> > +	}
->> > +
->> >  	kfree(i915->vbt.sdvo_lvds_vbt_mode);
->> >  	i915->vbt.sdvo_lvds_vbt_mode =3D NULL;
->> >  	kfree(i915->vbt.lfp_lvds_vbt_mode);
->> > diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i9=
-15_drv.h
->> > index 06e7c2802c5e..9274417cd87a 100644
->> > --- a/drivers/gpu/drm/i915/i915_drv.h
->> > +++ b/drivers/gpu/drm/i915/i915_drv.h
->> > @@ -380,6 +380,7 @@ struct intel_vbt_data {
->> >  	int crt_ddc_pin;
->> >=20=20
->> >  	struct list_head display_devices;
->> > +	struct list_head bdb_blocks;
->> >=20=20
->> >  	struct intel_bios_encoder_data *ports[I915_MAX_PORTS]; /* Non-NULL i=
-f port present. */
->> >  	struct sdvo_device_mapping sdvo_mappings[2];
->>=20
->> --=20
->> Jani Nikula, Intel Open Source Graphics Center
-
---=20
-Jani Nikula, Intel Open Source Graphics Center
+T24gVGh1LCAyMDIyLTA0LTA3IGF0IDA5OjQzICswMzAwLCBMaXNvdnNraXksIFN0YW5pc2xhdiB3
+cm90ZToNCj4gT24gV2VkLCBBcHIgMDYsIDIwMjIgYXQgMDk6MDk6MDZQTSArMDMwMCwgVmlsbGUg
+U3lyasOkbMOkIHdyb3RlOg0KPiA+IE9uIFdlZCwgQXByIDA2LCAyMDIyIGF0IDA4OjE0OjU4UE0g
+KzAzMDAsIExpc292c2tpeSwgU3RhbmlzbGF2IHdyb3RlOg0KPiA+ID4gT24gV2VkLCBBcHIgMDYs
+IDIwMjIgYXQgMDU6MDE6MzlQTSArMDMwMCwgVmlsbGUgU3lyasOkbMOkIHdyb3RlOg0KPiA+ID4g
+PiBPbiBXZWQsIEFwciAwNiwgMjAyMiBhdCAwNDo0NToyNlBNICswMzAwLCBMaXNvdnNraXksIFN0
+YW5pc2xhdiB3cm90ZToNCj4gPiA+ID4gPiBPbiBXZWQsIEFwciAwNiwgMjAyMiBhdCAwMzo0ODow
+MlBNICswMzAwLCBWaWxsZSBTeXJqw6Rsw6Qgd3JvdGU6DQo+ID4gPiA+ID4gPiBPbiBNb24sIEFw
+ciAwNCwgMjAyMiBhdCAwNDo0OToxOFBNICswMzAwLCBWaW5vZCBHb3ZpbmRhcGlsbGFpIHdyb3Rl
+Og0KPiA+ID4gPiA+ID4gPiBJbiBjb25maWd1cmF0aW9ucyB3aXRoIHNpbmdsZSBEUkFNIGNoYW5u
+ZWwsIGZvciB1c2VjYXNlcyBsaWtlDQo+ID4gPiA+ID4gPiA+IDRLIDYwIEh6LCBGSUZPIHVuZGVy
+cnVucyBhcmUgb2JzZXJ2ZWQgcXVpdGUgZnJlcXVlbnRseS4gTG9va3MNCj4gPiA+ID4gPiA+ID4g
+bGlrZSB0aGUgd20wIHdhdGVybWFyayB2YWx1ZXMgbmVlZCB0byBidW1wZWQgdXAgYmVjYXVzZSB0
+aGUgd20wDQo+ID4gPiA+ID4gPiA+IG1lbW9yeSBsYXRlbmN5IGNhbGN1bGF0aW9ucyBhcmUgcHJv
+YmFibHkgbm90IHRha2luZyB0aGUgRFJBTQ0KPiA+ID4gPiA+ID4gPiBjaGFubmVsJ3MgaW1wYWN0
+IGludG8gYWNjb3VudC4NCj4gPiA+ID4gPiA+ID4gDQo+ID4gPiA+ID4gPiA+IEFzIHBlciB0aGUg
+QnNwZWMgNDkzMjUsIGlmIHRoZSBkZGIgYWxsb2NhdGlvbiBjYW4gaG9sZCBhdCBsZWFzdA0KPiA+
+ID4gPiA+ID4gPiBvbmUgcGxhbmVfYmxvY2tzX3Blcl9saW5lIHdlIHNob3VsZCBoYXZlIHNlbGVj
+dGVkIG1ldGhvZDIuDQo+ID4gPiA+ID4gPiA+IEFzc3VtaW5nIHRoYXQgbW9kZXJuIEhXIHZlcnNp
+b25zIGhhdmUgZW5vdWdoIGRidWYgdG8gaG9sZA0KPiA+ID4gPiA+ID4gPiBhdCBsZWFzdCBvbmUg
+bGluZSwgc2V0IHRoZSB3bSBibG9ja3MgdG8gZXF1aXZhbGVudCB0byBibG9ja3MNCj4gPiA+ID4g
+PiA+ID4gcGVyIGxpbmUuDQo+ID4gPiA+ID4gPiA+IA0KPiA+ID4gPiA+ID4gPiBjYzogVmlsbGUg
+U3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4NCj4gPiA+ID4gPiA+ID4g
+Y2M6IFN0YW5pc2xhdiBMaXNvdnNraXkgPHN0YW5pc2xhdi5saXNvdnNraXlAaW50ZWwuY29tPg0K
+PiA+ID4gPiA+ID4gPiANCj4gPiA+ID4gPiA+ID4gU2lnbmVkLW9mZi1ieTogVmlub2QgR292aW5k
+YXBpbGxhaSA8dmlub2QuZ292aW5kYXBpbGxhaUBpbnRlbC5jb20+DQo+ID4gPiA+ID4gPiA+IC0t
+LQ0KPiA+ID4gPiA+ID4gPiAgZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcG0uYyB8IDE5ICsr
+KysrKysrKysrKysrKysrKy0NCj4gPiA+ID4gPiA+ID4gIDEgZmlsZSBjaGFuZ2VkLCAxOCBpbnNl
+cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+ID4gPiA+ID4gPiA+IA0KPiA+ID4gPiA+ID4gPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfcG0uYyBiL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2ludGVsX3BtLmMNCj4gPiA+ID4gPiA+ID4gaW5kZXggODgyNGYyNjllNWY1Li5h
+ZTI4YThjNjNjYTQgMTAwNjQ0DQo+ID4gPiA+ID4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2ludGVsX3BtLmMNCj4gPiA+ID4gPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUv
+aW50ZWxfcG0uYw0KPiA+ID4gPiA+ID4gPiBAQCAtNTQ3NCw3ICs1NDc0LDI0IEBAIHN0YXRpYyB2
+b2lkIHNrbF9jb21wdXRlX3BsYW5lX3dtKGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlDQo+
+ID4gPiA+ID4gPiA+ICpjcnRjX3N0YXRlLA0KPiA+ID4gPiA+ID4gPiAgCQl9DQo+ID4gPiA+ID4g
+PiA+ICAJfQ0KPiA+ID4gPiA+ID4gPiAgDQo+ID4gPiA+ID4gPiA+IC0JYmxvY2tzID0gZml4ZWQx
+Nl90b191MzJfcm91bmRfdXAoc2VsZWN0ZWRfcmVzdWx0KSArIDE7DQo+ID4gPiA+ID4gPiA+ICsJ
+LyoNCj4gPiA+ID4gPiA+ID4gKwkgKiBMZXRzIGhhdmUgYmxvY2tzIGF0IG1pbmltdW0gZXF1aXZh
+bGVudCB0byBwbGFuZV9ibG9ja3NfcGVyX2xpbmUNCj4gPiA+ID4gPiA+ID4gKwkgKiBhcyB0aGVy
+ZSB3aWxsIGJlIGF0IG1pbmltdW0gb25lIGxpbmUgZm9yIGxpbmVzIGNvbmZpZ3VyYXRpb24uDQo+
+ID4gPiA+ID4gPiA+ICsJICoNCj4gPiA+ID4gPiA+ID4gKwkgKiBBcyBwZXIgdGhlIEJzcGVjIDQ5
+MzI1LCBpZiB0aGUgZGRiIGFsbG9jYXRpb24gY2FuIGhvbGQgYXQgbGVhc3QNCj4gPiA+ID4gPiA+
+ID4gKwkgKiBvbmUgcGxhbmVfYmxvY2tzX3Blcl9saW5lLCB3ZSBzaG91bGQgaGF2ZSBzZWxlY3Rl
+ZCBtZXRob2QyIGluDQo+ID4gPiA+ID4gPiA+ICsJICogdGhlIGFib3ZlIGxvZ2ljLiBBc3N1bWlu
+ZyB0aGF0IG1vZGVybiB2ZXJzaW9ucyBoYXZlIGVub3VnaCBkYnVmDQo+ID4gPiA+ID4gPiA+ICsJ
+ICogYW5kIG1ldGhvZDIgZ3VhcmFudGVlcyBibG9ja3MgZXF1aXZhbGVudCB0byBhdCBsZWFzdCAx
+IGxpbmUsDQo+ID4gPiA+ID4gPiA+ICsJICogc2VsZWN0IHRoZSBibG9ja3MgYXMgcGxhbmVfYmxv
+Y2tzX3Blcl9saW5lLg0KPiA+ID4gPiA+ID4gPiArCSAqDQo+ID4gPiA+ID4gPiA+ICsJICogVE9E
+TzogUmV2aXNpdCB0aGUgbG9naWMgd2hlbiB3ZSBoYXZlIGJldHRlciB1bmRlcnN0YW5kaW5nIG9u
+IERSQU0NCj4gPiA+ID4gPiA+ID4gKwkgKiBjaGFubmVscycgaW1wYWN0IG9uIHRoZSBsZXZlbCAw
+IG1lbW9yeSBsYXRlbmN5IGFuZCB0aGUgcmVsZXZhbnQNCj4gPiA+ID4gPiA+ID4gKwkgKiB3bSBj
+YWxjdWxhdGlvbnMuDQo+ID4gPiA+ID4gPiA+ICsJICovDQo+ID4gPiA+ID4gPiA+ICsJYmxvY2tz
+ID0gc2tsX3dtX2hhc19saW5lcyhkZXZfcHJpdiwgbGV2ZWwpID8NCj4gPiA+ID4gPiA+ID4gKwkJ
+CW1heF90KHUzMiwgZml4ZWQxNl90b191MzJfcm91bmRfdXAoc2VsZWN0ZWRfcmVzdWx0KSArIDEs
+DQo+ID4gPiA+ID4gPiA+ICsJCQkJICBmaXhlZDE2X3RvX3UzMl9yb3VuZF91cCh3cC0+cGxhbmVf
+YmxvY2tzX3Blcl9saW5lKSkgOg0KPiA+ID4gPiA+ID4gPiArCQkJZml4ZWQxNl90b191MzJfcm91
+bmRfdXAoc2VsZWN0ZWRfcmVzdWx0KSArIDE7DQo+ID4gPiA+ID4gPiANCj4gPiA+ID4gPiA+IFRo
+YXQncyBsb29rcyByYXRoZXIgY29udm9sdXRlZC4NCj4gPiA+ID4gPiA+IA0KPiA+ID4gPiA+ID4g
+ICBibG9ja3MgPSBmaXhlZDE2X3RvX3UzMl9yb3VuZF91cChzZWxlY3RlZF9yZXN1bHQpICsgMTsN
+Cj4gPiA+ID4gPiA+ICsgLyogYmxhaCAqLw0KPiA+ID4gPiA+ID4gKyBpZiAoaGFzX2xpbmVzKQ0K
+PiA+ID4gPiA+ID4gKwlibG9ja3MgPSBtYXgoYmxvY2tzLCBmaXhlZDE2X3RvX3UzMl9yb3VuZF91
+cCh3cC0+cGxhbmVfYmxvY2tzX3Blcl9saW5lKSk7DQo+ID4gPiA+ID4gDQo+ID4gPiA+ID4gV2Ug
+cHJvYmFibHkgbmVlZCB0byBkbyBzaW1pbGFyIHJlZmFjdG9yaW5nIGluIHRoZSB3aG9sZSBmdW5j
+dGlvbiA7LSkNCj4gPiA+ID4gPiANCj4gPiA+ID4gPiA+IEFsc28gc2luY2UgQXJ0IHNhaWQgbm90
+aGluZyBsaWtlIHRoaXMgc2hvdWxkIGFjdHVhbGx5IGJlIG5lZWRlZA0KPiA+ID4gPiA+ID4gSSB0
+aGluayB0aGUgY29tbWVudCBzaG91bGQgbWFrZSBpdCBhIGJpdCBtb3JlIGNsZWFyIHRoYXQgdGhp
+cw0KPiA+ID4gPiA+ID4gaXMganVzdCBhIGhhY2sgdG8gd29yayBhcm91bmQgdGhlIHVuZGVycnVu
+cyB3aXRoIHNvbWUgc2luZ2xlDQo+ID4gPiA+ID4gPiBtZW1vcnkgY2hhbm5lbCBjb25maWd1cmF0
+aW9ucy4NCj4gPiA+ID4gPiANCj4gPiA+ID4gPiBJdCBpcyBhY3R1YWxseSBub3QgcXVpdGUgYSBo
+YWNrLCBiZWNhdXNlIHdlIGFyZSBtaXNzaW5nIHRoYXQgY29uZGl0aW9uDQo+ID4gPiA+ID4gaW1w
+bGVtZW50YXRpb24gZnJvbSBCU3BlYyA0OTMyNSwgd2hpY2ggaW5zdHJ1Y3RzIHVzIHRvIHNlbGVj
+dCBtZXRob2QyDQo+ID4gPiA+ID4gd2hlbiBkZGIgYmxvY2tzIGFsbG9jYXRpb24gaXMga25vd24g
+YW5kIHRoYXQgcmF0aW8gaXMgPj0gMS4NCj4gPiA+ID4gDQo+ID4gPiA+IFRoZSBkZGIgYWxsb2Nh
+dGlvbiBpcyBub3QgeWV0IGtub3duLCBzbyB3ZSdyZSBpbXBsZW1lbnRpbmcgdGhlDQo+ID4gPiA+
+IGFsZ29yaXRobSAxMDAlIGNvcnJlY3RseS4NCj4gPiA+ID4gDQo+ID4gPiA+IEFuZCB0aGlzIHBh
+dGNoIGRvZXMgbm90IGltcGxlbWVudCB0aGF0IG1pc2lzbmcgcGFydCBhbnl3YXkuDQo+ID4gPiAN
+Cj4gPiA+IFllcywgYXMgSSB1bmRlcnN0b29kIG1ldGhvZDIgd291bGQganVzdCBnaXZlIGFtb3Vu
+dCBvZiBibG9ja3MgdG8gYmUNCj4gPiA+IGF0IGxlYXN0IGFzIGRidWYgYmxvY2tzIHBlciBsaW5l
+Lg0KPiA+ID4gDQo+ID4gPiBXb25kZXIgd2hldGhlciBzaG91bGQgd2UgYWN0dWFsbHkgZnVsbHkg
+aW1wbGVtZW50IHRoaXMgQlNwZWMgY2xhdXNlIA0KPiA+ID4gYW5kIGFkZCBpdCB0byB0aGUgcG9p
+bnQgd2hlcmUgZGRiIGFsbG9jYXRpb24gaXMga25vd24gb3IgYXJlIHRoZXJlIA0KPiA+ID4gYW55
+IG9ic3RhY2xlcyB0byBkbyB0aGF0LCBiZXNpZGVzIGhhdmluZyB0byByZXNodWZmbGUgdGhpcyBm
+dW5jdGlvbiBhIGJpdD8NCj4gPiANCj4gPiBXZSBuZWVkIHRvIGNhbGN1bGF0ZSB0aGUgd20gdG8g
+ZmlndXJlIG91dCBob3cgbXVjaCBkZGIgdG8gYWxsb2NhdGUsDQo+ID4gYW5kIHRoZW4gd2UnZCBu
+ZWVkIHRoZSBkZGIgYWxsb2NhdGlvbiB0byBmaWd1cmUgb3V0IGhvdyB0byBjYWxjdWxhdGUNCj4g
+PiB0aGUgd20uIFZlcnkgbXVjaCBjaGlja2VuIHZzLiBlZ2cgcmlnaHQgdGhlcmUuIFdlJ2QgaGF2
+ZSB0byBkbyBzb21lDQo+ID4ga2luZCBvZiBoaWRlb3VzIGxvb3Agd2hlcmUgd2UnZCBjYWxjdWxh
+dGUgZXZlcnl0aGluZyB0d2ljZS4gSSBkb24ndA0KPiA+IHJlYWxseSB3YW50IHRvIGRvIHRoYXQg
+c2luY2UgSSdkIGFjdHVhbGx5IGxpa2UgdG8gbW92ZSB0aGUgd20NCj4gPiBjYWxjdWxhdGlvbiB0
+byBoYXBwZW4gYWxyZWFkeSBtdWNoIGVhcmxpZXIgZHVyaW5nIC5jaGVja19wbGFuZSgpDQo+ID4g
+YXMgdGhhdCBjb3VsZCByZWR1Y2UgdGhlIGFtb3VudCBvZiByZWR1bmRhbnQgd20gY2FsY3VsYXRp
+b25zIHdlDQo+ID4gYXJlIGN1cnJlbnRseSBkb2luZy4NCj4gDQo+IEkgbWlnaHQgYmUgbWlzc2lu
+ZyBzb21lIGRldGFpbHMgcmlnaHQgbm93LCBidXQgd2h5IGRvIHdlIG5lZWQgYSBkZGINCj4gYWxs
+b2NhdGlvbiB0byBjb3VudCB3bXM/DQo+IA0KPiBJIHRob3VnaHQgaXRzIGxpa2Ugd2UgdXN1YWxs
+eSBjYWxjdWxhdGUgd20gbGV2ZWxzICsgbWluX2RkYl9hbGxvY2F0aW9uLA0KPiB0aGVuIGJhc2Vk
+IG9uIHRoYXQgd2UgZG8gYWxsb2NhdGUgbWluX2RkYiArIGV4dHJhIGZvciBlYWNoIHBsYW5lLg0K
+PiBUaGlzIGlzIGNvcnJlY3QgdGhhdCBieSB0aGlzIG1vbWVudCB3aGVuIHdlIGNhbGN1bGF0ZSB3
+bXMgd2UgaGF2ZSBvbmx5DQo+IG1pbl9kZGIgYXZhaWxhYmxlLCBzbyBpZiB0aGlzIGxldmVsIHdv
+dWxkIGJlIGV2ZW4gZW5hYmxlZCwgd2Ugd291bGQNCj4gYXQgbGVhc3QgbmVlZCBtaW5fZGRiIGJs
+b2Nrcy4NCj4gDQo+IEkgdGhpbmsgd2UgY291bGQganVzdCB1c2UgdGhhdCBtaW5fZGRiIHZhbHVl
+IGhlcmUgZm9yIHRoYXQgcHVycG9zZSwNCj4gYmVjYXVzZSB0aGUgY29uZGl0aW9uIGFueXdheSBj
+aGVja3MgaWYgDQo+IChwbGFuZSBidWZmZXIgYWxsb2NhdGlvbiAvIHBsYW5lIGJsb2NrcyBwZXIg
+bGluZSkgPj0xIHNvLCBldmVuIGlmDQo+IGlmIHRoaXMgd20gbGV2ZWwgd291bGQgYmUgZW5hYmxl
+ZCBwbGFuZSBidWZmZXIgYWxsb2NhdGlvbiB3b3VsZA0KPiBiZSBhdCBsZWFzdCBtaW5fZGRiIF9v
+ciBoaWdoZXJfIC0gaG93ZXZlciB0aGF0IHdvbid0IGFmZmVjdCB0aGlzIA0KPiBjb25kaXRpb24g
+YmVjYXVzZSBldmVuIGlmIGl0IGhhcHBlbnMgdG8gYmUgInBsYW5lIGJ1ZmZlciBhbGxvY2F0aW9u
+DQo+ICsgc29tZSBleHRyYSIgdGhlIHJhdGlvIHdvdWxkIHN0aWxsIGJlIHZhbGlkLg0KPiBTbyBp
+ZiBpdCBleGVjdXRlcyBmb3IgbWluX2RkYiAvIHBsYW5lIGJsb2NrcyBwZXIgbGluZSwgd2UgY2Fu
+DQo+IHByb2JhYmx5IHNhZmVseSBzdGF0ZSwgZnVydGhlciBpdCB3aWxsIGJlIGFsc28gdHJ1ZS4N
+Cg0KbWluX2RkYiA9IDExMCUgb2YgdGhlIGJsb2NrcyBjYWxjdWxhdGVkIGZyb20gdGhlIDIgbWV0
+aG9kcyAoYmxvY2tzICsgMTAlKQ0KSXQgZGVwZW5kcyBvbiB3aGF0IG1ldGhvZCB3ZSBjaG9vc2Uu
+IFNvIEkgZG9udCB0aGluayB3ZSBjYW4gdXNlIGl0IGZvciBhbnkgYXNzdW1wdGlvbnMuDQoNCkJ1
+dCBpbiBhbnkgY2FzZSwgSSB0aGluayB0aGlzIHBhdGNoIGRvIG5vdCBjYXVzZSBhbnkgaGFybSBp
+biBtb3N0IG9mIHRoZSB1c2VjYXNlcyBleHBlY3RlZCBvdXQgb2YNCnNrbCsgcGxhdGZvcm1zIHdo
+aWNoIGhhdmUgZW5vdWdoIGRidWYhDQoNClBlciBwbGFuZSBkZGIgYWxsb2NhdGlvbiBoYXBwZW5z
+IGJhc2VkIG9uIHRoZSBoaWdoZXN0IHdtIGxldmVsIG1pbl9kZGIgd2hpY2ggY2FuIGZpdCBpbnRv
+IHRoZQ0KYWxsb2NhdGlvbi4gSWYgb25lIGxldmVsIGlzIG5vdCBmaXQsIHRoZW4gdGhhdCBsZXZl
+bCArIGFib3ZlIHBhY2thZ2UgQyBzdGF0ZSB0cmFuc2l0aW9ucyBhcmUNCmRpc2FibGVkLiANCk5v
+dyBpZiB5b3UgbG9vayBhdCB0aGUgbG9naWMgdG8gc2VsZWN0IHdoaWNoIG1ldGhvZCB0byB1c2Ug
+LSBpZiB0aGUgbGF0ZW5jeSA+PSBsaW5ldGltZSwgd2Ugc2VsZWN0DQp0aGUgbGFyZ2UgYnVmZmVy
+IG1ldGhvZCB3aGljaCBndWFudGVlcyB0aGF0IHRoZXJlIGlzIGF0bGVhc3QgcGxhbmVfYmxvY2tz
+X3Blcl9saW5lLiBTbyBJIHRoaW5rIHdlDQpjYW4gc2FmZWx5IGFzc3VtZSB0aGF0IGxhdGVuY3kg
+Zm9yIHdha2Ugd20gbGV2ZWwgd2lsbCBiZSBtb3N0bHkgaGlnaGVyLCB3aGljaCBpbXBsaWVzIHVz
+aW5nIHRoZQ0KImxhcmdlIGJ1ZmZlciIgbWV0aG9kLg0KDQpTbyB0aGlzIGNoYW5nZSBtb3N0bHkg
+bGltaXRzIHRvIHdtMC4gQW5kIGhlbmNlIHNob3VsZCBub3QgaW1wYWN0IGRkYiBhbGxvY2F0aW9u
+LCBidXQgdGhlIG1lbW9yeQ0KZmV0Y2ggYnVyc3RzIG1pZ2h0IGhhcHBlbiBzbGlnaHRseSBtb3Jl
+IGZyZXF1ZW50bHkgd2hlbiB0aGUgcHJvY2Vzc29yIGlzIGluIEMwPw0KDQpCUg0Kdmlub2QNCg0K
+PiANCj4gU3Rhbg0KPiANCj4gPiAtLSANCj4gPiBWaWxsZSBTeXJqw6Rsw6QNCj4gPiBJbnRlbA0K
