@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06C4C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 09:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D4E1C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 09:57:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 812C810F311;
-	Mon, 11 Apr 2022 09:53:49 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCABE10F2DF;
- Mon, 11 Apr 2022 09:53:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C138B10F36E;
+	Mon, 11 Apr 2022 09:56:55 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D2F610E3C2;
+ Mon, 11 Apr 2022 09:56:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649670826; x=1681206826;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Q14gVpMViSy+uX40LBQXVwAs2fCP8Busdechi17pxnE=;
- b=FCCg/EgnJaFdRq912I4Bp4kbjH2qjaf/BjFMUS5ZHw8Ep/hxAZR9Lr2K
- wVkwij19gBBZj2ViJzjmYv9vE7MnmXUVr6R5AEv2H/0NNOim7y6iwzw1A
- /DSIwA9Gcipwe3qWgbhcqsibdde9N443rGUkqOALD9YsPn0Ni26/R5qim
- Fw17kMfW7iNXfvQ4Wa4DciqjOnF5in51tPnp9kTAN4xMhdPHXWoc89h3F
- Mj9lolsQ8en0OAxLYjp6l7YH/9Mfth4IPqSx2V1b8GjmphZLzcs//sJJQ
- y8a7UDYTTKB8IwrKjtPg6w3H98yHzi42SYxPZAGM7P1kdQXX6ZLjpVuE5 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10313"; a="259673798"
-X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="259673798"
+ t=1649671014; x=1681207014;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=NNPrqqvwfE4T6SxQFXSeKUi94YKnxShNax7eJP3mXHc=;
+ b=coE7Gf4nwp9W/bWd0hOv6jFj8eE5recKgYCfR2PsSrHN0HOt4IQO4niW
+ BSt6RrRPvQRWEziBQsgiEIfpblHAZm+yLw4Y7EPpJPZ3wzjs5a3Qggd1s
+ 0WFzcxkGRitGrhA/ryZwCl/oPf5tch6xCUiyEdM4PeEBb0Kn0k+fm5hXz
+ ck6kSngGcsxFeBTt45iP3tButu5LsTJLeGOpGY9lw35bKoc6smFFAA0af
+ u0gjHY2db9NDRsA0H9DonVfzTjRWMz11peu01qKUXjeT4qArQx0nkOOuw
+ mSULlI0JoB9Ault+uyFLTh41v6xWL0q5guWJTr/6/s4wngxwkRjE+QJh/ A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10313"; a="242666840"
+X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="242666840"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 02:53:46 -0700
-X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="659985359"
-Received: from bhanu-nuclab.iind.intel.com ([10.145.162.173])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2022 02:56:54 -0700
+X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="659986098"
+Received: from melhebea-mobl1.amr.corp.intel.com (HELO [10.249.254.167])
+ ([10.249.254.167])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 02:53:43 -0700
-From: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
- ville.syrjala@linux.intel.com, harry.wentland@amd.com,
- swati2.sharma@intel.com
-Date: Mon, 11 Apr 2022 15:21:29 +0530
-Message-Id: <20220411095129.1652096-4-bhanuprakash.modem@intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220411095129.1652096-1-bhanuprakash.modem@intel.com>
-References: <20220411095129.1652096-1-bhanuprakash.modem@intel.com>
+ 11 Apr 2022 02:56:52 -0700
+Message-ID: <11835204-fd38-ef91-8e55-2b3e15aaaacd@linux.intel.com>
+Date: Mon, 11 Apr 2022 11:56:49 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20220411085603.58156-1-matthew.auld@intel.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20220411085603.58156-1-matthew.auld@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [V2 3/3] drm/amd/display: Move connector debugfs to drm
+Subject: Re: [Intel-gfx] [PATCH] drm/ttm: stop passing NULL fence in
+ ttm_bo_move_sync_cleanup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,170 +60,135 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As drm_connector already have the display_info, instead of creating
-"output_bpc" debugfs in vendor specific driver, move the logic to
-the drm layer.
+Hi, Matthew
 
-This patch will also move "Current" bpc to the crtc debugfs from
-connector debugfs, since we are getting this info from crtc_state.
+On 4/11/22 10:56, Matthew Auld wrote:
+> If we hit the sync case, like when skipping clearing for kernel internal
+> objects, or when falling back to cpu clearing, like in i915, we end up
+> trying to add a NULL fence, but with some recent changes in this area
+> this now just results in NULL deref in dma_resv_add_fence:
+>
+> <1>[    5.466383] BUG: kernel NULL pointer dereference, address: 0000000000000008
+> <1>[    5.466384] #PF: supervisor read access in kernel mode
+> <1>[    5.466385] #PF: error_code(0x0000) - not-present page
+> <6>[    5.466386] PGD 0 P4D 0
+> <4>[    5.466387] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> <4>[    5.466389] CPU: 5 PID: 267 Comm: modprobe Not tainted 5.18.0-rc2-CI-CI_DRM_11481+ #1
+> <4>[    5.466391] RIP: 0010:dma_resv_add_fence+0x63/0x260
+> <4>[    5.466395] Code: 38 85 c0 0f 84 df 01 00 00 0f 88 e8 01 00 00 83 c0 01 0f 88 df 01 00 00 8b 05 35 89 10 01 49 8d 5e 68 85 c0 0f 85 45 01 00 00 <48> 8b 45 08 48 3d c0 a5 0a 82 0f 84 5c 01 00 00 48 3d 60 a5 0a 82
+> <4>[    5.466396] RSP: 0018:ffffc90000e974f8 EFLAGS: 00010202
+> <4>[    5.466397] RAX: 0000000000000001 RBX: ffff888123e88b28 RCX: 00000000ffffffff
+> <4>[    5.466398] RDX: 0000000000000001 RSI: ffffffff822e4f50 RDI: ffffffff8233f087
+> <4>[    5.466399] RBP: 0000000000000000 R08: ffff8881313dbc80 R09: 0000000000000001
+> <4>[    5.466399] R10: 0000000000000001 R11: 00000000da354294 R12: 0000000000000000
+> <4>[    5.466400] R13: ffff88810927dc58 R14: ffff888123e88ac0 R15: ffff88810a88d600
+> <4>[    5.466401] FS:  00007f5fa1193540(0000) GS:ffff88845d880000(0000) knlGS:0000000000000000
+> <4>[    5.466402] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> <4>[    5.466402] CR2: 0000000000000008 CR3: 0000000106dd6003 CR4: 00000000003706e0
+> <4>[    5.466403] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> <4>[    5.466404] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+> <4>[    5.466404] Call Trace:
+> <4>[    5.466405]  <TASK>
+> <4>[    5.466406]  ttm_bo_move_accel_cleanup+0x62/0x270 [ttm]
+> <4>[    5.466411]  ? i915_rsgt_from_buddy_resource+0x185/0x1e0 [i915]
+> <4>[    5.466529]  i915_ttm_move+0xfd/0x430 [i915]
+> <4>[    5.466833]  ? dma_resv_reserve_fences+0x4e/0x320
+> <4>[    5.466836]  ? ttm_bo_add_move_fence.constprop.20+0xf7/0x140 [ttm]
+> <4>[    5.466841]  ttm_bo_handle_move_mem+0xa1/0x140 [ttm]
+> <4>[    5.466845]  ttm_bo_validate+0xee/0x160 [ttm]
+> <4>[    5.466849]  __i915_ttm_get_pages+0x4f/0x210 [i915]
+> <4>[    5.466976]  i915_ttm_get_pages+0xad/0x140 [i915]
+> <4>[    5.467094]  ____i915_gem_object_get_pages+0x32/0xf0 [i915]
+> <4>[    5.467210]  __i915_gem_object_get_pages+0x89/0xa0 [i915]
+> <4>[    5.467323]  i915_vma_get_pages+0x114/0x1d0 [i915]
+> <4>[    5.467446]  i915_vma_pin_ww+0xd3/0xa90 [i915]
+> <4>[    5.467570]  i915_vma_pin.constprop.10+0x119/0x1b0 [i915]
+> <4>[    5.467700]  ? __mutex_unlock_slowpath+0x3e/0x2b0
+> <4>[    5.467704]  intel_alloc_initial_plane_obj.isra.6+0x1a9/0x390 [i915]
+> <4>[    5.467833]  intel_crtc_initial_plane_config+0x83/0x340 [i915]
+>
+> In the ttm_bo_move_sync_cleanup() case it seems we only really care
+> about calling ttm_bo_wait_free_node(), so let's instead just call that
+> directly.
+>
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+> Cc: Nirmoy Das <nirmoy.das@linux.intel.com>
+> ---
+>   drivers/gpu/drm/ttm/ttm_bo_util.c | 15 +++++++++++++++
+>   include/drm/ttm/ttm_bo_driver.h   | 11 +++--------
+>   2 files changed, 18 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index bc5190340b9c..1cbfb00c1d65 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -572,6 +572,21 @@ int ttm_bo_move_accel_cleanup(struct ttm_buffer_object *bo,
+>   }
+>   EXPORT_SYMBOL(ttm_bo_move_accel_cleanup);
+>   
+> +void ttm_bo_move_sync_cleanup(struct ttm_buffer_object *bo,
+> +			      struct ttm_resource *new_mem)
+> +{
+> +	struct ttm_device *bdev = bo->bdev;
+> +	struct ttm_resource_manager *man = ttm_manager_type(bdev, new_mem->mem_type);
+> +	int ret;
+> +
+> +	ret = ttm_bo_wait_free_node(bo, man->use_tt);
+> +	if (WARN_ON(ret))
+> +		return;
+> +
+> +	ttm_bo_assign_mem(bo, new_mem);
+> +}
+> +EXPORT_SYMBOL(ttm_bo_move_sync_cleanup);
 
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
-Reported-by: kernel test robot <lkp@intel.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 --
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 38 +++++++------------
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.h |  2 -
- 3 files changed, 13 insertions(+), 31 deletions(-)
+I don't think this will help in the case where we call 
+ttm_bo_move_accel_cleanup() with a NULL fence....
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 73423b805b54..f89651c71ec7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6615,14 +6615,12 @@ dm_crtc_duplicate_state(struct drm_crtc *crtc)
- 	return &state->base;
- }
- 
--#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- static int amdgpu_dm_crtc_late_register(struct drm_crtc *crtc)
- {
- 	crtc_debugfs_init(crtc);
- 
- 	return 0;
- }
--#endif
- 
- static inline int dm_set_vupdate_irq(struct drm_crtc *crtc, bool enable)
- {
-@@ -6720,9 +6718,7 @@ static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs = {
- 	.enable_vblank = dm_enable_vblank,
- 	.disable_vblank = dm_disable_vblank,
- 	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
--#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
- 	.late_register = amdgpu_dm_crtc_late_register,
--#endif
- };
- 
- static enum drm_connector_status
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index da17ece1a2c5..3ee26083920b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -873,28 +873,18 @@ static int psr_capability_show(struct seq_file *m, void *data)
- }
- 
- /*
-- * Returns the current and maximum output bpc for the connector.
-- * Example usage: cat /sys/kernel/debug/dri/0/DP-1/output_bpc
-+ * Returns the current bpc for the crtc.
-+ * Example usage: cat /sys/kernel/debug/dri/0/crtc-0/amdgpu_current_bpc
-  */
--static int output_bpc_show(struct seq_file *m, void *data)
-+static int amdgpu_current_bpc_show(struct seq_file *m, void *data)
- {
--	struct drm_connector *connector = m->private;
--	struct drm_device *dev = connector->dev;
--	struct drm_crtc *crtc = NULL;
-+	struct drm_crtc *crtc = m->private;
-+	struct drm_device *dev = crtc->dev;
- 	struct dm_crtc_state *dm_crtc_state = NULL;
- 	int res = -ENODEV;
- 	unsigned int bpc;
- 
- 	mutex_lock(&dev->mode_config.mutex);
--	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
--
--	if (connector->state == NULL)
--		goto unlock;
--
--	crtc = connector->state->crtc;
--	if (crtc == NULL)
--		goto unlock;
--
- 	drm_modeset_lock(&crtc->mutex, NULL);
- 	if (crtc->state == NULL)
- 		goto unlock;
-@@ -924,18 +914,15 @@ static int output_bpc_show(struct seq_file *m, void *data)
- 	}
- 
- 	seq_printf(m, "Current: %u\n", bpc);
--	seq_printf(m, "Maximum: %u\n", connector->display_info.bpc);
- 	res = 0;
- 
- unlock:
--	if (crtc)
--		drm_modeset_unlock(&crtc->mutex);
--
--	drm_modeset_unlock(&dev->mode_config.connection_mutex);
-+	drm_modeset_unlock(&crtc->mutex);
- 	mutex_unlock(&dev->mode_config.mutex);
- 
- 	return res;
- }
-+DEFINE_SHOW_ATTRIBUTE(amdgpu_current_bpc);
- 
- /*
-  * Example usage:
-@@ -2541,7 +2528,6 @@ static int target_backlight_show(struct seq_file *m, void *unused)
- DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
- DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
- DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
--DEFINE_SHOW_ATTRIBUTE(output_bpc);
- DEFINE_SHOW_ATTRIBUTE(dp_lttpr_status);
- #ifdef CONFIG_DRM_AMD_DC_HDCP
- DEFINE_SHOW_ATTRIBUTE(hdcp_sink_capability);
-@@ -2788,7 +2774,6 @@ static const struct {
- 	const struct file_operations *fops;
- } connector_debugfs_entries[] = {
- 		{"force_yuv420_output", &force_yuv420_output_fops},
--		{"output_bpc", &output_bpc_fops},
- 		{"trigger_hotplug", &trigger_hotplug_debugfs_fops},
- 		{"internal_display", &internal_display_fops}
- };
-@@ -3172,9 +3157,10 @@ static int crc_win_update_get(void *data, u64 *val)
- 
- DEFINE_DEBUGFS_ATTRIBUTE(crc_win_update_fops, crc_win_update_get,
- 			 crc_win_update_set, "%llu\n");
--
-+#endif
- void crtc_debugfs_init(struct drm_crtc *crtc)
- {
-+#ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- 	struct dentry *dir = debugfs_lookup("crc", crtc->debugfs_entry);
- 
- 	if (!dir)
-@@ -3190,9 +3176,11 @@ void crtc_debugfs_init(struct drm_crtc *crtc)
- 				   &crc_win_y_end_fops);
- 	debugfs_create_file_unsafe("crc_win_update", 0644, dir, crtc,
- 				   &crc_win_update_fops);
--
--}
- #endif
-+	debugfs_create_file("amdgpu_current_bpc", 0644, crtc->debugfs_entry,
-+			    crtc, &amdgpu_current_bpc_fops);
-+}
-+
- /*
-  * Writes DTN log state to the user supplied buffer.
-  * Example usage: cat /sys/kernel/debug/dri/0/amdgpu_dm_dtn_log
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
-index 3366cb644053..071200473c27 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.h
-@@ -31,8 +31,6 @@
- 
- void connector_debugfs_init(struct amdgpu_dm_connector *connector);
- void dtn_debugfs_init(struct amdgpu_device *adev);
--#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
- void crtc_debugfs_init(struct drm_crtc *crtc);
--#endif
- 
- #endif
--- 
-2.35.1
+Perhaps we need to fix it there.
 
+/Thomas
+
+
+
+> +
+>   /**
+>    * ttm_bo_pipeline_gutting - purge the contents of a bo
+>    * @bo: The buffer object
+> diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_driver.h
+> index 059a595e14e5..897b88f0bd59 100644
+> --- a/include/drm/ttm/ttm_bo_driver.h
+> +++ b/include/drm/ttm/ttm_bo_driver.h
+> @@ -245,7 +245,7 @@ int ttm_bo_move_accel_cleanup(struct ttm_buffer_object *bo,
+>   			      struct ttm_resource *new_mem);
+>   
+>   /**
+> - * ttm_bo_move_accel_cleanup.
+> + * ttm_bo_move_sync_cleanup.
+>    *
+>    * @bo: A pointer to a struct ttm_buffer_object.
+>    * @new_mem: struct ttm_resource indicating where to move.
+> @@ -253,13 +253,8 @@ int ttm_bo_move_accel_cleanup(struct ttm_buffer_object *bo,
+>    * Special case of ttm_bo_move_accel_cleanup where the bo is guaranteed
+>    * by the caller to be idle. Typically used after memcpy buffer moves.
+>    */
+> -static inline void ttm_bo_move_sync_cleanup(struct ttm_buffer_object *bo,
+> -					    struct ttm_resource *new_mem)
+> -{
+> -	int ret = ttm_bo_move_accel_cleanup(bo, NULL, true, false, new_mem);
+> -
+> -	WARN_ON(ret);
+> -}
+> +void ttm_bo_move_sync_cleanup(struct ttm_buffer_object *bo,
+> +			      struct ttm_resource *new_mem);
+>   
+>   /**
+>    * ttm_bo_pipeline_gutting.
