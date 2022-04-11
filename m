@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A01AEC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 22:43:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2853EC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 22:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EA9A10E3F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C7EE10E3F8;
 	Mon, 11 Apr 2022 22:43:27 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 848B010E0FC;
- Mon, 11 Apr 2022 22:43:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16D1B10E0FC;
+ Mon, 11 Apr 2022 22:43:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649717005; x=1681253005;
+ t=1649717006; x=1681253006;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=q0IAn+1+/DcmLaHcG9wId5Ak9o3EYK1AC1U+YefCK3E=;
- b=Av47VM5qVjk2i3LQgsm4zX8kx4uCDGqvYc9pIQw5qz71/GXdCCfo7TuB
- IThN4EPfFrQAVj7/FAWLwZeKsHawjugTPXfbr/sa6YKvb3UoZ719F9k1f
- wGYW0is0CbeCoSo+o0dk+6wd2nPluU46lzi5H1QUmC2ddfCCzPjM220+A
- BUiVWs3UKoLbB0nZjwjTK6WRGQd85L/Kj8dSP0BfocIGqvXafqAlkuoko
- JP0e/gU/YSIzK8iFD7dWdh62o5DPTZG/maGt+cWDBK2pfg/X7FA2iNJPE
- 3dkOZ8ItCVQNJHNkNsi3o6o/5iPdnuzKTtEiCV1zUCZZtJ3cS46ti4SQd A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="249513171"
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="249513171"
+ bh=6WwvN7y4ArFU4yNiuCpSi6x5yHhjL93Oi6aMccisVRc=;
+ b=c/+vkzymkPsOg4iJM9BNUx7fJ75tQgkX7dOT4Ne818mVoARH85YitR3j
+ /s9wmcAE8rdjzhsqLBK7552MZF2VeKBX2wDt3047UN81rUYimiMMVI92Y
+ EEZeX4eC8Iks2J7+qBruYthk/Bgl9hdawXEr7g2OvJ+0WgV9MzZKsCbKw
+ Z33jSwDc8L8fSPs5923aQhmvRkdhZLHlt1sT3YkTLqs5Jd/fjqKSsvWkD
+ 1J4ZfCiWW9/Pp0YdzK8rvmWngOHF+lvAuvTVQs9pGtG81eAiI/jamiczG
+ KRQ3jJoRUPPZcHsekBl2Zx2qf/G/Vp0F9kkaQoOnWVHlLxiirqRqmkRLa w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="249513174"
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="249513174"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 15:43:24 -0700
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="551432089"
+ 11 Apr 2022 15:43:25 -0700
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="551432097"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 15:43:24 -0700
+ 11 Apr 2022 15:43:25 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Apr 2022 15:43:17 -0700
-Message-Id: <20220411224319.467166-3-matthew.d.roper@intel.com>
+Date: Mon, 11 Apr 2022 15:43:19 -0700
+Message-Id: <20220411224319.467166-5-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220411224319.467166-1-matthew.d.roper@intel.com>
 References: <20220411224319.467166-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915/doc: Convert perf UAPI comments to
- kerneldoc
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915/uapi: Add
+ DRM_I915_QUERY_GEOMETRY_SUBSLICES
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,184 +60,252 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Convert the comments for  drm_i915_query_perf_config and
-drm_i915_perf_oa_config to kerneldoc so that they will show up in the
-generated documentation.  Also correct a couple places that referred to
-query_id when they actually meant to refer to query_item.flags.
+From: Matt Atwood <matthew.s.atwood@intel.com>
 
+Newer platforms have DSS that aren't necessarily available for both
+geometry and compute, two queries will need to exist. This introduces
+the first, when passing a valid engine class and engine instance in the
+flags returns a topology describing geometry.
+
+Based on past discussion, we currently only support this new query item
+on Xe_HP and beyond; earlier platforms do not need to worry about
+geometry and compute pipelines having access to different topology and
+should continue to use the existing topology query.
+
+v2: fix white space errors
+v3: change flags from hosting 2 8 bit numbers to holding a
+i915_engine_class_instance struct
+v4: add error if non rcs engine passed.
+v5 (by MattR):
+ - Improve kerneldoc and cross references to related structs/enums.
+   (Daniel)
+ - Clarify that geometry query is only supported on render engines
+   (Francisco)
+ - Clarify that the new query is only supported on Xe_HP+.
+ - Fix checkpatch warnings.
+
+Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Francisco Jerez <currojerez@riseup.net>
+UMD (mesa): https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/14143
+Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- include/uapi/drm/i915_drm.h | 116 ++++++++++++++++++++++++++----------
- 1 file changed, 86 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/i915/i915_query.c | 71 ++++++++++++++++++++++---------
+ include/uapi/drm/i915_drm.h       | 27 ++++++++++--
+ 2 files changed, 75 insertions(+), 23 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+index b5ca00cb6cf6..7584cec53d5d 100644
+--- a/drivers/gpu/drm/i915/i915_query.c
++++ b/drivers/gpu/drm/i915/i915_query.c
+@@ -9,6 +9,7 @@
+ #include "i915_drv.h"
+ #include "i915_perf.h"
+ #include "i915_query.h"
++#include "gt/intel_engine_user.h"
+ #include <uapi/drm/i915_drm.h>
+ 
+ static int copy_query_item(void *query_hdr, size_t query_sz,
+@@ -28,36 +29,30 @@ static int copy_query_item(void *query_hdr, size_t query_sz,
+ 	return 0;
+ }
+ 
+-static int query_topology_info(struct drm_i915_private *dev_priv,
+-			       struct drm_i915_query_item *query_item)
++static int fill_topology_info(const struct sseu_dev_info *sseu,
++			      struct drm_i915_query_item *query_item,
++			      const u8 *subslice_mask)
+ {
+-	const struct sseu_dev_info *sseu = &to_gt(dev_priv)->info.sseu;
+ 	struct drm_i915_query_topology_info topo;
+ 	u32 slice_length, subslice_length, eu_length, total_length;
+ 	int ret;
+ 
+-	if (query_item->flags != 0)
+-		return -EINVAL;
++	BUILD_BUG_ON(sizeof(u8) != sizeof(sseu->slice_mask));
+ 
+ 	if (sseu->max_slices == 0)
+ 		return -ENODEV;
+ 
+-	BUILD_BUG_ON(sizeof(u8) != sizeof(sseu->slice_mask));
+-
+ 	slice_length = sizeof(sseu->slice_mask);
+ 	subslice_length = sseu->max_slices * sseu->ss_stride;
+ 	eu_length = sseu->max_slices * sseu->max_subslices * sseu->eu_stride;
+ 	total_length = sizeof(topo) + slice_length + subslice_length +
+ 		       eu_length;
+ 
+-	ret = copy_query_item(&topo, sizeof(topo), total_length,
+-			      query_item);
++	ret = copy_query_item(&topo, sizeof(topo), total_length, query_item);
++
+ 	if (ret != 0)
+ 		return ret;
+ 
+-	if (topo.flags != 0)
+-		return -EINVAL;
+-
+ 	memset(&topo, 0, sizeof(topo));
+ 	topo.max_slices = sseu->max_slices;
+ 	topo.max_subslices = sseu->max_subslices;
+@@ -69,27 +64,64 @@ static int query_topology_info(struct drm_i915_private *dev_priv,
+ 	topo.eu_stride = sseu->eu_stride;
+ 
+ 	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr),
+-			   &topo, sizeof(topo)))
++			 &topo, sizeof(topo)))
+ 		return -EFAULT;
+ 
+ 	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr + sizeof(topo)),
+-			   &sseu->slice_mask, slice_length))
++			 &sseu->slice_mask, slice_length))
+ 		return -EFAULT;
+ 
+ 	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr +
+-					   sizeof(topo) + slice_length),
+-			   sseu->subslice_mask, subslice_length))
++					 sizeof(topo) + slice_length),
++			 subslice_mask, subslice_length))
+ 		return -EFAULT;
+ 
+ 	if (copy_to_user(u64_to_user_ptr(query_item->data_ptr +
+-					   sizeof(topo) +
+-					   slice_length + subslice_length),
+-			   sseu->eu_mask, eu_length))
++					 sizeof(topo) +
++					 slice_length + subslice_length),
++			 sseu->eu_mask, eu_length))
+ 		return -EFAULT;
+ 
+ 	return total_length;
+ }
+ 
++static int query_topology_info(struct drm_i915_private *dev_priv,
++			       struct drm_i915_query_item *query_item)
++{
++	const struct sseu_dev_info *sseu = &to_gt(dev_priv)->info.sseu;
++
++	if (query_item->flags != 0)
++		return -EINVAL;
++
++	return fill_topology_info(sseu, query_item, sseu->subslice_mask);
++}
++
++static int query_geometry_subslices(struct drm_i915_private *i915,
++				    struct drm_i915_query_item *query_item)
++{
++	const struct sseu_dev_info *sseu;
++	struct intel_engine_cs *engine;
++	struct i915_engine_class_instance classinstance;
++
++	if (GRAPHICS_VER_FULL(i915) < IP_VER(12, 50))
++		return -ENODEV;
++
++	classinstance = *((struct i915_engine_class_instance *)&query_item->flags);
++
++	engine = intel_engine_lookup_user(i915, (u8)classinstance.engine_class,
++					  (u8)classinstance.engine_instance);
++
++	if (!engine)
++		return -EINVAL;
++
++	if (engine->class != RENDER_CLASS)
++		return -EINVAL;
++
++	sseu = &engine->gt->info.sseu;
++
++	return fill_topology_info(sseu, query_item, sseu->geometry_subslice_mask);
++}
++
+ static int
+ query_engine_info(struct drm_i915_private *i915,
+ 		  struct drm_i915_query_item *query_item)
+@@ -508,6 +540,7 @@ static int (* const i915_query_funcs[])(struct drm_i915_private *dev_priv,
+ 	query_perf_config,
+ 	query_memregion_info,
+ 	query_hwconfig_blob,
++	query_geometry_subslices,
+ };
+ 
+ int i915_query_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
 diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 73e1c6180ddb..787dab98f7b0 100644
+index 097a7935a510..35ca528803fd 100644
 --- a/include/uapi/drm/i915_drm.h
 +++ b/include/uapi/drm/i915_drm.h
-@@ -2657,24 +2657,65 @@ enum drm_i915_perf_record_type {
- 	DRM_I915_PERF_RECORD_MAX /* non-ABI */
+@@ -172,7 +172,9 @@ enum drm_i915_gem_engine_class {
+ 	I915_ENGINE_CLASS_INVALID	= -1
  };
  
 -/*
 +/**
-+ * struct drm_i915_perf_oa_config
++ * struct i915_engine_class_instance - Engine class/instance identifier
 + *
-  * Structure to upload perf dynamic configuration into the kernel.
+  * There may be more than one engine fulfilling any role within the system.
+  * Each engine of a class is given a unique instance number and therefore
+  * any engine can be specified by its class:instance tuplet. APIs that allow
+@@ -180,10 +182,21 @@ enum drm_i915_gem_engine_class {
+  * for this identification.
   */
- struct drm_i915_perf_oa_config {
--	/** String formatted like "%08x-%04x-%04x-%04x-%012x" */
+ struct i915_engine_class_instance {
+-	__u16 engine_class; /* see enum drm_i915_gem_engine_class */
+-	__u16 engine_instance;
 +	/**
-+	 * @uuid:
++	 * @engine_class:
 +	 *
-+	 * String formatted like "%\08x-%\04x-%\04x-%\04x-%\012x"
++	 * Engine class from enum drm_i915_gem_engine_class
 +	 */
- 	char uuid[36];
- 
-+	/**
-+	 * @n_mux_regs:
-+	 *
-+	 * Number of mux regs in &mux_regs_ptr.
-+	 */
- 	__u32 n_mux_regs;
++	__u16 engine_class;
+ #define I915_ENGINE_CLASS_INVALID_NONE -1
+ #define I915_ENGINE_CLASS_INVALID_VIRTUAL -2
 +
 +	/**
-+	 * @n_boolean_regs:
++	 * @engine_instance:
 +	 *
-+	 * Number of boolean regs in &boolean_regs_ptr.
++	 * Engine instance.
 +	 */
- 	__u32 n_boolean_regs;
-+
-+	/**
-+	 * @n_flex_regs:
-+	 *
-+	 * Number of flex regs in &flex_regs_ptr.
-+	 */
- 	__u32 n_flex_regs;
++	__u16 engine_instance;
+ };
  
--	/*
--	 * These fields are pointers to tuples of u32 values (register address,
--	 * value). For example the expected length of the buffer pointed by
--	 * mux_regs_ptr is (2 * sizeof(u32) * n_mux_regs).
-+	/**
-+	 * @mux_regs_ptr:
-+	 *
-+	 * Pointer to tuples of u32 values (register address, value) for mux
-+	 * registers.  Expected length of buffer is (2 * sizeof(u32) *
-+	 * &n_mux_regs).
+ /**
+@@ -2735,6 +2748,7 @@ struct drm_i915_query_item {
+ 	 *  - %DRM_I915_QUERY_PERF_CONFIG (see struct drm_i915_query_perf_config)
+ 	 *  - %DRM_I915_QUERY_MEMORY_REGIONS (see struct drm_i915_query_memory_regions)
+ 	 *  - %DRM_I915_QUERY_HWCONFIG_BLOB (see `GuC HWCONFIG blob uAPI`)
++	 *  - %DRM_I915_QUERY_GEOMETRY_SUBSLICES (see struct drm_i915_query_topology_info)
  	 */
- 	__u64 mux_regs_ptr;
-+
-+	/**
-+	 * @boolean_regs_ptr:
-+	 *
-+	 * Pointer to tuples of u32 values (register address, value) for mux
-+	 * registers.  Expected length of buffer is (2 * sizeof(u32) *
-+	 * &n_boolean_regs).
-+	 */
- 	__u64 boolean_regs_ptr;
-+
-+	/**
-+	 * @flex_regs_ptr:
-+	 *
-+	 * Pointer to tuples of u32 values (register address, value) for mux
-+	 * registers.  Expected length of buffer is (2 * sizeof(u32) *
-+	 * &n_flex_regs).
-+	 */
- 	__u64 flex_regs_ptr;
- };
+ 	__u64 query_id;
+ #define DRM_I915_QUERY_TOPOLOGY_INFO		1
+@@ -2742,6 +2756,7 @@ struct drm_i915_query_item {
+ #define DRM_I915_QUERY_PERF_CONFIG		3
+ #define DRM_I915_QUERY_MEMORY_REGIONS		4
+ #define DRM_I915_QUERY_HWCONFIG_BLOB		5
++#define DRM_I915_QUERY_GEOMETRY_SUBSLICES	6
+ /* Must be kept compact -- no holes and well documented */
  
-@@ -3001,52 +3042,67 @@ struct drm_i915_query_engine_info {
- 	struct drm_i915_engine_info engines[];
- };
- 
--/*
-- * Data written by the kernel with query DRM_I915_QUERY_PERF_CONFIG.
-+/**
-+ * struct drm_i915_query_perf_config
-+ *
-+ * Data written by the kernel with query %DRM_I915_QUERY_PERF_CONFIG.
+ 	/**
+@@ -2765,6 +2780,9 @@ struct drm_i915_query_item {
+ 	 *	- %DRM_I915_QUERY_PERF_CONFIG_LIST
+ 	 *      - %DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_UUID
+ 	 *      - %DRM_I915_QUERY_PERF_CONFIG_FOR_UUID
++	 *
++	 * When &query_id == %DRM_I915_QUERY_GEOMETRY_SUBSLICES must contain
++	 * a struct i915_engine_class_instance that references a render engine.
+ 	 */
+ 	__u32 flags;
+ #define DRM_I915_QUERY_PERF_CONFIG_LIST          1
+@@ -3051,7 +3069,8 @@ struct drm_i915_query_engine_info {
+ /**
+  * struct drm_i915_query_perf_config
+  *
+- * Data written by the kernel with query %DRM_I915_QUERY_PERF_CONFIG.
++ * Data written by the kernel with query %DRM_I915_QUERY_PERF_CONFIG and
++ * %DRM_I915_QUERY_GEOMETRY_SUBSLICES.
   */
  struct drm_i915_query_perf_config {
  	union {
--		/*
--		 * When query_item.flags == DRM_I915_QUERY_PERF_CONFIG_LIST, i915 sets
--		 * this fields to the number of configurations available.
-+		/**
-+		 * @n_configs:
-+		 *
-+		 * When &drm_i915_query_item.flags ==
-+		 * %DRM_I915_QUERY_PERF_CONFIG_LIST, i915 sets this fields to
-+		 * the number of configurations available.
- 		 */
- 		__u64 n_configs;
- 
--		/*
--		 * When query_id == DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_ID,
--		 * i915 will use the value in this field as configuration
--		 * identifier to decide what data to write into config_ptr.
-+		/**
-+		 * @config:
-+		 *
-+		 * When &drm_i915_query_item.flags ==
-+		 * %DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_ID, i915 will use the
-+		 * value in this field as configuration identifier to decide
-+		 * what data to write into config_ptr.
- 		 */
- 		__u64 config;
- 
--		/*
--		 * When query_id == DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_UUID,
--		 * i915 will use the value in this field as configuration
--		 * identifier to decide what data to write into config_ptr.
-+		/**
-+		 * @uuid:
-+		 *
-+		 * When &drm_i915_query_item.flags ==
-+		 * %DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_UUID, i915 will use the
-+		 * value in this field as configuration identifier to decide
-+		 * what data to write into config_ptr.
- 		 *
- 		 * String formatted like "%08x-%04x-%04x-%04x-%012x"
- 		 */
- 		char uuid[36];
- 	};
- 
--	/*
-+	/**
-+	 * @flags:
-+	 *
- 	 * Unused for now. Must be cleared to zero.
- 	 */
- 	__u32 flags;
- 
--	/*
--	 * When query_item.flags == DRM_I915_QUERY_PERF_CONFIG_LIST, i915 will
--	 * write an array of __u64 of configuration identifiers.
-+	/**
-+	 * @data:
-+	 *
-+	 * When &drm_i915_query_item.flags == %DRM_I915_QUERY_PERF_CONFIG_LIST,
-+	 * i915 will write an array of __u64 of configuration identifiers.
- 	 *
--	 * When query_item.flags == DRM_I915_QUERY_PERF_CONFIG_DATA, i915 will
--	 * write a struct drm_i915_perf_oa_config. If the following fields of
--	 * drm_i915_perf_oa_config are set not set to 0, i915 will write into
--	 * the associated pointers the values of submitted when the
-+	 * When &drm_i915_query_item.flags == %DRM_I915_QUERY_PERF_CONFIG_DATA,
-+	 * i915 will write a struct drm_i915_perf_oa_config. If the following
-+	 * fields of struct drm_i915_perf_oa_config are not set to 0, i915 will
-+	 * write into the associated pointers the values of submitted when the
- 	 * configuration was created :
- 	 *
--	 *         - n_mux_regs
--	 *         - n_boolean_regs
--	 *         - n_flex_regs
-+	 *  - &drm_i915_perf_oa_config.n_mux_regs
-+	 *  - &drm_i915_perf_oa_config.n_boolean_regs
-+	 *  - &drm_i915_perf_oa_config.n_flex_regs
- 	 */
- 	__u8 data[];
- };
 -- 
 2.34.1
 
