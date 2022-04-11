@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0DD8C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 10:47:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB0CC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 10:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6390610F6C3;
-	Mon, 11 Apr 2022 10:47:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6634010F6D6;
+	Mon, 11 Apr 2022 10:47:59 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8457B10F6C3;
- Mon, 11 Apr 2022 10:47:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id B4A7310F6D6;
+ Mon, 11 Apr 2022 10:47:57 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 882DBA0078;
- Mon, 11 Apr 2022 10:47:56 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id B711CA0078;
+ Mon, 11 Apr 2022 10:47:57 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Matthew Auld" <matthew.auld@intel.com>
-Date: Mon, 11 Apr 2022 10:47:56 -0000
-Message-ID: <164967407655.2972.7109263680818777206@emeril.freedesktop.org>
+Date: Mon, 11 Apr 2022 10:47:57 -0000
+Message-ID: <164967407774.2971.1886943701104632259@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220411085603.58156-1-matthew.auld@intel.com>
 In-Reply-To: <20220411085603.58156-1-matthew.auld@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/ttm=3A_stop_passing_NULL_fence_in_ttm=5Fbo=5Fmove=5Fsyn?=
- =?utf-8?q?c=5Fcleanup?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/ttm=3A_stop_passing_NULL_fence_in_ttm=5Fbo=5Fmove=5Fsync=5F?=
+ =?utf-8?q?cleanup?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,12 +54,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-db59dc3b0c7f drm/ttm: stop passing NULL fence in ttm_bo_move_sync_cleanup
--:14: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#14: 
-<1>[    5.466383] BUG: kernel NULL pointer dereference, address: 0000000000000008
-
-total: 0 errors, 1 warnings, 0 checks, 44 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
