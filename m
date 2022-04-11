@@ -4,65 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46854C43217
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 15:53:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2814CC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 15:53:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AB6810E810;
-	Mon, 11 Apr 2022 15:53:05 +0000 (UTC)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71C3C10E744;
- Thu,  7 Apr 2022 09:00:08 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id r13so9445370ejd.5;
- Thu, 07 Apr 2022 02:00:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1858F10E8FC;
+	Mon, 11 Apr 2022 15:53:06 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43ED810E4D4;
+ Mon, 11 Apr 2022 12:42:27 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id c64so6059742edf.11;
+ Mon, 11 Apr 2022 05:42:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=VbFDVmTFBsd/3PPMbLnd0zhFg5hlSy27/q7PHNvEkAU=;
- b=L4OO6eb7ni5fxfWYjcoc1AJlIPg5JcpoXNN12PfSY9eA57qm2EUg5RVLIHGBK3VNbf
- RFHNi0kNwvI9iT+7c0Hb6apznk/SvQ1WsHaKj+i/wYdVG1Hr/cCgFNJHFECCiAcgaIWG
- 5kXJmsWr7eM5aFIGc/eV/NlPLgi/riHhwoVbHHqZCFube8OUfza+H5hFgVG3O7CwytrA
- RgunR52+1F2wDi8pSJnOFn0PIJKgJMUxzOHFYYRZKZXjn51LrxUfkcYZjcl+4s7OFvON
- 6TSv1XA0xJ9KyafbipSjeswu6Wvq1C64YEh1/5T9Ayq4BH9auU/fHwIO1+1Q2lfPFIo1
- RuVQ==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=R6BFNRU2q1XNxEfGm88CIyqAqlzFNs0kRryqmEb8+MA=;
+ b=mbahqTcKWODAb57udTkBykSONqmHLxj1kOIm6IAKEqMWMnv0EUekwdqNL9geZAqrG7
+ 30Y2AXxVyXQJ+ThE00kInGYavMpFd4si684CkHdbKXWgUHSw6u+w3AR4xey+YD/e7wpO
+ i2e0d43QynDfEh62TKYLCtPb2naWlHGoPzau5W8hXOhU3i8wMxc391GKONlGZGoRU7iz
+ LadTQgUZWq+o8oxzA7KJ0RWJKkujKipFrKiG/MBMCtH9aZNL5+e84nmU8pAjW3Vyfv8F
+ 8UNx7dYKYEXcbJY93q8qmt/xv44eRZxSL/SoHNHbWBD2hKUF7zuPHzYaz4RGNWH9PLdC
+ Pl2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=VbFDVmTFBsd/3PPMbLnd0zhFg5hlSy27/q7PHNvEkAU=;
- b=RBVqHBfaOfQYDJOtyny4NvepB5gsxK6TfvJVj6r4JWmnLCN4VJuC3v7kvQZZ6hK7aa
- wbFodAbY29Aw/EeyLU3qPpZEUrSR8Dm2gSc/OumClDFKGE5bbavqW9ThfZA+1DzwMehP
- hCaIzjOruUsBLYQ/5evaG28VmWMLl3pOu3VUlPnekvbAPr2YiVsj5QjwJrN9Pj2vtA7V
- qfmIQYcGmhzBtbtOKhqwCFaR7qrUzOyQ4270wQoO9gTq4yFnrtz07qe4lTn+Ws84i+fv
- C8wb6cap2NoFaH6htapNrGQKbxmmsR7fNgJS40mhSkgEVBh37dTM2YRAq9K296JEO0Sn
- lUwg==
-X-Gm-Message-State: AOAM531oUxJdeM6gXKhFwYwNyKLIQavTfE64TMJH6U3EzMErj2uLqh5N
- NvBwbzT4I0DQJvXJx8j7IZo=
-X-Google-Smtp-Source: ABdhPJwcwlCuBQZ5LEDFL+WbGTxNe8cavosIh6OlGUwJxIjCDdIzBgTE+UAYL0o8qUk83C1jHYYuYw==
-X-Received: by 2002:a17:906:9397:b0:6e7:eb3a:ec2d with SMTP id
- l23-20020a170906939700b006e7eb3aec2dmr12172316ejx.257.1649322006685; 
- Thu, 07 Apr 2022 02:00:06 -0700 (PDT)
-Received: from able.fritz.box (p57b0b9e1.dip0.t-ipconnect.de. [87.176.185.225])
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=R6BFNRU2q1XNxEfGm88CIyqAqlzFNs0kRryqmEb8+MA=;
+ b=LBBaHArXZa23gvsWt0SqIfETkll0w56DB4XSNFwuhQoF0Q27tNzaNXwIW+JuDUHJ7J
+ MMizq0NvGY4Anl645+9CLRX49FVAD9P1D5RK3xaUbxMokF713icksw5ErKp2lqOmfjbI
+ cwzoO4sFznzBLIaAVZCkvg6efWWaBBgBrH9QiUq+qbxg1r56Huw6fv6VJhllQZDmQH67
+ VPlhyEApBIzuxvlSmS6sWHWThpf1xldsbnxdUJG93+48ql8fruVFYqHWVDFyVD7RbtCr
+ 6BeBc3reIVtxknXrUXAPqUAPi4diGeKH7Wuhx6r0OcTjbuHxxMhckQlUvztLC9bV//6V
+ dRJw==
+X-Gm-Message-State: AOAM530+H5uXIzGSwekqHkw7zvh9mt00IR8CSWETu/ZdAAImHa/yQ+bM
+ HadlamE9S9nr+6Xs/e8FwAWVU2P95Mk=
+X-Google-Smtp-Source: ABdhPJzTBJjuCbQaiLn1At+PIXEVw9RxrGMXa4nMxqgo6zGZW1f7D2ORIm1m2yOHVm1mHkE1Pt/5fw==
+X-Received: by 2002:a05:6402:51d2:b0:41c:e157:84f1 with SMTP id
+ r18-20020a05640251d200b0041ce15784f1mr33530772edd.135.1649680945724; 
+ Mon, 11 Apr 2022 05:42:25 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1252:fb60:b3e9:56a3:6bb9:f974?
+ ([2a02:908:1252:fb60:b3e9:56a3:6bb9:f974])
  by smtp.gmail.com with ESMTPSA id
- h26-20020a170906111a00b006e778bd4fc8sm5186563eja.38.2022.04.07.02.00.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Apr 2022 02:00:06 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- intel-gfx@lists.freedesktop.org
-Date: Thu,  7 Apr 2022 10:59:46 +0200
-Message-Id: <20220407085946.744568-16-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220407085946.744568-1-christian.koenig@amd.com>
-References: <20220407085946.744568-1-christian.koenig@amd.com>
+ l11-20020a509dcb000000b0041cbaf0ce2asm13111184edk.6.2022.04.11.05.42.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Apr 2022 05:42:24 -0700 (PDT)
+Message-ID: <ca280f24-8efe-e972-4a03-700e002cc6f7@gmail.com>
+Date: Mon, 11 Apr 2022 14:42:23 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Matthew Auld <matthew.auld@intel.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20220411073834.15210-1-Arunpravin.PaneerSelvam@amd.com>
+ <9ecac65c-84d9-9965-4fd3-f86ea572bb9d@intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <9ecac65c-84d9-9965-4fd3-f86ea572bb9d@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 11 Apr 2022 15:52:44 +0000
-Subject: [Intel-gfx] [PATCH 15/15] seqlock: drop seqcount_ww_mutex_t
+Subject: Re: [Intel-gfx] [PATCH v3] drm: add a check to verify the size
+ alignment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,74 +80,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun.feng@gmail.com>,
- linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
- Waiman Long <longman@redhat.com>, Will Deacon <will@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Daniel pointed out that this series removes the last user of
-seqcount_ww_mutex_t, so let's drop this.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Waiman Long <longman@redhat.com>
-Cc: Boqun Feng <boqun.feng@gmail.com>
-Cc: linux-kernel@vger.kernel.org
----
- include/linux/seqlock.h | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+Am 11.04.22 um 11:47 schrieb Matthew Auld:
+> On 11/04/2022 08:38, Arunpravin Paneer Selvam wrote:
+>> Add a simple check to reject any size not aligned to the
+>> min_page_size.
+>>
+>> when size is not aligned to min_page_size, driver module
+>> should handle in their own way either to round_up() the
+>> size value to min_page_size or just to enable WARN_ON().
+>>
+>> If we dont handle the alignment properly, we may hit the
+>> following bug, Unigine Heaven has allocation requests for
+>> example required pages are 257 and alignment request is 256.
+>> To allocate the left over 1 page, continues the iteration to
+>> find the order value which is 0 and when it compares with
+>> min_order = 8, triggers the BUG_ON(order < min_order).
+>>
+>> v2: add more commit description
+>> v3: remove WARN_ON()
+>>
+>> Signed-off-by: Arunpravin Paneer Selvam 
+>> <Arunpravin.PaneerSelvam@amd.com>
+>> Suggested-by: Matthew Auld <matthew.auld@intel.com>
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+>
 
-diff --git a/include/linux/seqlock.h b/include/linux/seqlock.h
-index 37ded6b8fee6..3926e9027947 100644
---- a/include/linux/seqlock.h
-+++ b/include/linux/seqlock.h
-@@ -17,7 +17,6 @@
- #include <linux/kcsan-checks.h>
- #include <linux/lockdep.h>
- #include <linux/mutex.h>
--#include <linux/ww_mutex.h>
- #include <linux/preempt.h>
- #include <linux/spinlock.h>
- 
-@@ -164,7 +163,7 @@ static inline void seqcount_lockdep_reader_access(const seqcount_t *s)
-  * static initializer or init function. This enables lockdep to validate
-  * that the write side critical section is properly serialized.
-  *
-- * LOCKNAME:	raw_spinlock, spinlock, rwlock, mutex, or ww_mutex.
-+ * LOCKNAME:	raw_spinlock, spinlock, rwlock or mutex
-  */
- 
- /*
-@@ -184,7 +183,6 @@ static inline void seqcount_lockdep_reader_access(const seqcount_t *s)
- #define seqcount_spinlock_init(s, lock)		seqcount_LOCKNAME_init(s, lock, spinlock)
- #define seqcount_rwlock_init(s, lock)		seqcount_LOCKNAME_init(s, lock, rwlock)
- #define seqcount_mutex_init(s, lock)		seqcount_LOCKNAME_init(s, lock, mutex)
--#define seqcount_ww_mutex_init(s, lock)		seqcount_LOCKNAME_init(s, lock, ww_mutex)
- 
- /*
-  * SEQCOUNT_LOCKNAME()	- Instantiate seqcount_LOCKNAME_t and helpers
-@@ -277,7 +275,6 @@ SEQCOUNT_LOCKNAME(raw_spinlock, raw_spinlock_t,  false,    s->lock,        raw_s
- SEQCOUNT_LOCKNAME(spinlock,     spinlock_t,      __SEQ_RT, s->lock,        spin,     spin_lock(s->lock))
- SEQCOUNT_LOCKNAME(rwlock,       rwlock_t,        __SEQ_RT, s->lock,        read,     read_lock(s->lock))
- SEQCOUNT_LOCKNAME(mutex,        struct mutex,    true,     s->lock,        mutex,    mutex_lock(s->lock))
--SEQCOUNT_LOCKNAME(ww_mutex,     struct ww_mutex, true,     &s->lock->base, ww_mutex, ww_mutex_lock(s->lock, NULL))
- 
- /*
-  * SEQCNT_LOCKNAME_ZERO - static initializer for seqcount_LOCKNAME_t
-@@ -304,8 +301,7 @@ SEQCOUNT_LOCKNAME(ww_mutex,     struct ww_mutex, true,     &s->lock->base, ww_mu
- 	__seqprop_case((s),	raw_spinlock,	prop),			\
- 	__seqprop_case((s),	spinlock,	prop),			\
- 	__seqprop_case((s),	rwlock,		prop),			\
--	__seqprop_case((s),	mutex,		prop),			\
--	__seqprop_case((s),	ww_mutex,	prop))
-+	__seqprop_case((s),	mutex,		prop))
- 
- #define seqprop_ptr(s)			__seqprop(s, ptr)
- #define seqprop_sequence(s)		__seqprop(s, sequence)
--- 
-2.25.1
+Question here is who will be pushing that to drm-misc-next? Should I 
+take care of that?
 
+I think it's time that Arun should request push permission for 
+drm-misc-next.
+
+Thanks,
+Christian.
