@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD18BC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 09:52:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B86EC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 09:53:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF7610F9B1;
-	Mon, 11 Apr 2022 09:52:00 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A71E310F9B1;
- Mon, 11 Apr 2022 09:51:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE32510E3C2;
+	Mon, 11 Apr 2022 09:53:38 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3446610E344;
+ Mon, 11 Apr 2022 09:53:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649670719; x=1681206719;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=GnKCpRluJ4MAcEqKJNoeviJ5OA/H0mHPpdohl4lhaes=;
- b=Of8NcIc/MmXILjj0Te6gzvcOaM1GRFUb6zTzRNbSpzYoRrMYA5AjFIDI
- mo8zIMkn92xRHeQfBz6zelEyet2RN824HjEbarXiMSFqfx6X1H0Nrijtw
- a92OYxyEvzK687hZXWAucLvt9yK60vAXw5mclruBCJ8qa7pxRUK3A5kks
- zemRdAC5ZuCM7Ainc1O8UDB2xhF+j0MCYrU9jKoB0PtX0YSrgY0iKrZTK
- 4QXBBhThAsVtHLKC/0fPV015wSXK9dJ9w83ViF+p4djyW8at8NBxHutE3
- dGqA/qKNpiS3O4zuvsRZ/eWsFkFcGlWMbBc+cKLi2ID1xAHE8XEgFxp+x Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10313"; a="261822838"
-X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="261822838"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 02:51:59 -0700
-X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="525439177"
-Received: from lwit-desk1.ger.corp.intel.com (HELO localhost) ([10.249.143.43])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 02:51:57 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-In-Reply-To: <Yk7csG+mdZ9LwA4+@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1649322799.git.jani.nikula@intel.com>
- <Yk7csG+mdZ9LwA4+@intel.com>
-Date: Mon, 11 Apr 2022 12:51:54 +0300
-Message-ID: <87fsmkhrr9.fsf@intel.com>
+ t=1649670817; x=1681206817;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=FSibAL3MvWjIr1YAtYjlscBQwpddrhbzKlDAvMnbOUA=;
+ b=VIOkoT6qwKIj6Fi6yB9pvaxWFFnYMEnX9DoWT6PTAXbKsUhVLIQ80OHb
+ 83I49vOVqx+yr68GJG7DBwqLCHbMlE3r5NZ35xrKPqOTsI58GlIVDUhSG
+ d/MHpbSI4l3/ThUc+f0qOhwX+/YomtLwb1qbvtamjQ3fPbGeXp0xmxSPA
+ AuFSu7jY28vAzohJKzByeR9eNggQhiXrJiOcF8WszjX57SB0Qhn3adFns
+ qVXfFz8nwbS5ixNdfjzuAhNajpDcQpQ4mwfFzui/Fzu3rzc3zIWKKZQCA
+ ARFvMfiixUy+BaE6MsRU9n9itRZFnmNj6Yawb+jIpv2oblEtw6XXkrmV8 Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10313"; a="259673783"
+X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="259673783"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2022 02:53:36 -0700
+X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="659985316"
+Received: from bhanu-nuclab.iind.intel.com ([10.145.162.173])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2022 02:53:33 -0700
+From: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ ville.syrjala@linux.intel.com, harry.wentland@amd.com,
+ swati2.sharma@intel.com
+Date: Mon, 11 Apr 2022 15:21:26 +0530
+Message-Id: <20220411095129.1652096-1-bhanuprakash.modem@intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH 00/12] drm/edid: low level EDID block read
- refactoring etc.
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [V2 0/3] Expose max and current bpc via debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,52 +57,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 07 Apr 2022, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
-> wrote:
-> On Thu, Apr 07, 2022 at 12:14:26PM +0300, Jani Nikula wrote:
->> Ever so slowly moving towards cleaner EDID reading.
->>=20
->> Jani Nikula (12):
->>   drm/edid: convert edid_is_zero() to edid_block_is_zero() for blocks
->>   drm/edid: have edid_block_check() detect blocks that are all zero
->>   drm/edid: refactor EDID block status printing
->>   drm/edid: add a helper to log dump an EDID block
->>   drm/edid: pass struct edid to connector_bad_edid()
->>   drm/edid: add typedef for block read function
->>   drm/edid: abstract an EDID block read helper
->>   drm/edid: use EDID block read helper in drm_do_get_edid()
->>   drm/edid: convert extension block read to EDID block read helper
->>   drm/edid: drop extra local var
->>   drm/edid: add single point of return to drm_do_get_edid()
->>   drm/edid: add EDID block count and size helpers
->
-> Some of the stuff was a bit hard to follow, but I suppose that's mostly
-> an indication of the messy state of the current code. Didn't spot
-> anything obviously wrong at least.
+This series will expose the Connector's max supported bpc via connector
+debugfs and Crtc's current bpc via crtc debugfs. Also move the existing
+vendor specific "output_bpc" logic to drm.
 
-I'm painfully aware. I'm just hoping the end result has more clarity. At
-least highlights the warts in the logic that I tried to preserve...
+Test-with: 20220411094147.1650859-2-bhanuprakash.modem@intel.com
 
-> Series is
-> Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+Bhanuprakash Modem (3):
+  drm/debug: Expose connector's max supported bpc via debugfs
+  drm/i915/display/debug: Expose crtc current bpc via debugfs
+  drm/amd/display: Move connector debugfs to drm
 
-Again, thanks a bunch!
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 --
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 38 +++++++------------
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.h |  2 -
+ drivers/gpu/drm/drm_debugfs.c                 | 21 ++++++++++
+ .../drm/i915/display/intel_display_debugfs.c  | 28 ++++++++++++++
+ 5 files changed, 62 insertions(+), 31 deletions(-)
 
-BR,
-Jani.
+--
+2.35.1
 
-
->
->>=20
->>  drivers/gpu/drm/drm_edid.c | 350 ++++++++++++++++++++++++-------------
->>  1 file changed, 225 insertions(+), 125 deletions(-)
->>=20
->> --=20
->> 2.30.2
-
---=20
-Jani Nikula, Intel Open Source Graphics Center
