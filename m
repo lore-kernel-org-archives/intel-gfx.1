@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9B27C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 22:43:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A01AEC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 22:43:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0AB10E3E0;
-	Mon, 11 Apr 2022 22:43:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EA9A10E3F5;
+	Mon, 11 Apr 2022 22:43:27 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FE7810E0FC;
- Mon, 11 Apr 2022 22:43:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 848B010E0FC;
+ Mon, 11 Apr 2022 22:43:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1649717005; x=1681253005;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=AG/MSrbAGH6Ci7p/rt2x/bultsAooqilkD67DUwyCp8=;
- b=E2oG5z5EVci6AZPEgeeM/4e6q9tLC/eEHBZ0aJpCZPELb+KbNCfbiOVF
- q43A+y30+TsVuBSvx5VUTrTr8EmvV06iOKd506PDxQWGbia/91ox9Xelg
- SkhkdPfpb87vkfpsuRu+XluykmNLRBXmSetPPBkqk9CPn6Ug/rDSCsftl
- 311svEmOjZi9n2MEQFUjIgx4PDNlskgLV0S0cFIFyO3Ya4vYTUJTm8wB9
- r3/qwboXBS86S2/Bp54SVucwFlXvh9TKBliVaF7zFuqFyPM8JjkphZf5t
- 9a1ng26pHxzzha+gK64AA4V408T6FgBYcjDj3+jkoqxkEjDuzawsctYpr A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="249513169"
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="249513169"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=q0IAn+1+/DcmLaHcG9wId5Ak9o3EYK1AC1U+YefCK3E=;
+ b=Av47VM5qVjk2i3LQgsm4zX8kx4uCDGqvYc9pIQw5qz71/GXdCCfo7TuB
+ IThN4EPfFrQAVj7/FAWLwZeKsHawjugTPXfbr/sa6YKvb3UoZ719F9k1f
+ wGYW0is0CbeCoSo+o0dk+6wd2nPluU46lzi5H1QUmC2ddfCCzPjM220+A
+ BUiVWs3UKoLbB0nZjwjTK6WRGQd85L/Kj8dSP0BfocIGqvXafqAlkuoko
+ JP0e/gU/YSIzK8iFD7dWdh62o5DPTZG/maGt+cWDBK2pfg/X7FA2iNJPE
+ 3dkOZ8ItCVQNJHNkNsi3o6o/5iPdnuzKTtEiCV1zUCZZtJ3cS46ti4SQd A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="249513171"
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="249513171"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Apr 2022 15:43:24 -0700
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="551432082"
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="551432089"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Apr 2022 15:43:24 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Apr 2022 15:43:15 -0700
-Message-Id: <20220411224319.467166-1-matthew.d.roper@intel.com>
+Date: Mon, 11 Apr 2022 15:43:17 -0700
+Message-Id: <20220411224319.467166-3-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220411224319.467166-1-matthew.d.roper@intel.com>
+References: <20220411224319.467166-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/4] i915: Add DRM_I915_QUERY_GEOMETRY_SUBSLICES
- uapi
+Subject: [Intel-gfx] [PATCH 2/4] drm/i915/doc: Convert perf UAPI comments to
+ kerneldoc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,34 +60,184 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a continuation of Matt Atwood's new geometry topology query from
-here:
+Convert the comments for  drm_i915_query_perf_config and
+drm_i915_perf_oa_config to kerneldoc so that they will show up in the
+generated documentation.  Also correct a couple places that referred to
+query_id when they actually meant to refer to query_item.flags.
 
-    https://patchwork.freedesktop.org/series/101219/#rev4
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ include/uapi/drm/i915_drm.h | 116 ++++++++++++++++++++++++++----------
+ 1 file changed, 86 insertions(+), 30 deletions(-)
 
-This does a bit of initial cleanup/clarification of the query interface
-documentation (including converting more of it to kerneldoc so it will
-actually show up in the generated html/pdf) and then applies MattA's
-changes on top of that.
-
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
-Cc: Francisco Jerez <currojerez@riseup.net>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-UMD(Mesa): https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/14143
-
-Matt Atwood (1):
-  drm/i915/uapi: Add DRM_I915_QUERY_GEOMETRY_SUBSLICES
-
-Matt Roper (3):
-  drm/i915/doc: Convert drm_i915_query_topology_info comment to
-    kerneldoc
-  drm/i915/doc: Convert perf UAPI comments to kerneldoc
-  drm/i915/doc: Link query items to their uapi structs
-
- drivers/gpu/drm/i915/i915_query.c |  71 ++++++--
- include/uapi/drm/i915_drm.h       | 285 +++++++++++++++++++++---------
- 2 files changed, 258 insertions(+), 98 deletions(-)
-
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 73e1c6180ddb..787dab98f7b0 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2657,24 +2657,65 @@ enum drm_i915_perf_record_type {
+ 	DRM_I915_PERF_RECORD_MAX /* non-ABI */
+ };
+ 
+-/*
++/**
++ * struct drm_i915_perf_oa_config
++ *
+  * Structure to upload perf dynamic configuration into the kernel.
+  */
+ struct drm_i915_perf_oa_config {
+-	/** String formatted like "%08x-%04x-%04x-%04x-%012x" */
++	/**
++	 * @uuid:
++	 *
++	 * String formatted like "%\08x-%\04x-%\04x-%\04x-%\012x"
++	 */
+ 	char uuid[36];
+ 
++	/**
++	 * @n_mux_regs:
++	 *
++	 * Number of mux regs in &mux_regs_ptr.
++	 */
+ 	__u32 n_mux_regs;
++
++	/**
++	 * @n_boolean_regs:
++	 *
++	 * Number of boolean regs in &boolean_regs_ptr.
++	 */
+ 	__u32 n_boolean_regs;
++
++	/**
++	 * @n_flex_regs:
++	 *
++	 * Number of flex regs in &flex_regs_ptr.
++	 */
+ 	__u32 n_flex_regs;
+ 
+-	/*
+-	 * These fields are pointers to tuples of u32 values (register address,
+-	 * value). For example the expected length of the buffer pointed by
+-	 * mux_regs_ptr is (2 * sizeof(u32) * n_mux_regs).
++	/**
++	 * @mux_regs_ptr:
++	 *
++	 * Pointer to tuples of u32 values (register address, value) for mux
++	 * registers.  Expected length of buffer is (2 * sizeof(u32) *
++	 * &n_mux_regs).
+ 	 */
+ 	__u64 mux_regs_ptr;
++
++	/**
++	 * @boolean_regs_ptr:
++	 *
++	 * Pointer to tuples of u32 values (register address, value) for mux
++	 * registers.  Expected length of buffer is (2 * sizeof(u32) *
++	 * &n_boolean_regs).
++	 */
+ 	__u64 boolean_regs_ptr;
++
++	/**
++	 * @flex_regs_ptr:
++	 *
++	 * Pointer to tuples of u32 values (register address, value) for mux
++	 * registers.  Expected length of buffer is (2 * sizeof(u32) *
++	 * &n_flex_regs).
++	 */
+ 	__u64 flex_regs_ptr;
+ };
+ 
+@@ -3001,52 +3042,67 @@ struct drm_i915_query_engine_info {
+ 	struct drm_i915_engine_info engines[];
+ };
+ 
+-/*
+- * Data written by the kernel with query DRM_I915_QUERY_PERF_CONFIG.
++/**
++ * struct drm_i915_query_perf_config
++ *
++ * Data written by the kernel with query %DRM_I915_QUERY_PERF_CONFIG.
+  */
+ struct drm_i915_query_perf_config {
+ 	union {
+-		/*
+-		 * When query_item.flags == DRM_I915_QUERY_PERF_CONFIG_LIST, i915 sets
+-		 * this fields to the number of configurations available.
++		/**
++		 * @n_configs:
++		 *
++		 * When &drm_i915_query_item.flags ==
++		 * %DRM_I915_QUERY_PERF_CONFIG_LIST, i915 sets this fields to
++		 * the number of configurations available.
+ 		 */
+ 		__u64 n_configs;
+ 
+-		/*
+-		 * When query_id == DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_ID,
+-		 * i915 will use the value in this field as configuration
+-		 * identifier to decide what data to write into config_ptr.
++		/**
++		 * @config:
++		 *
++		 * When &drm_i915_query_item.flags ==
++		 * %DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_ID, i915 will use the
++		 * value in this field as configuration identifier to decide
++		 * what data to write into config_ptr.
+ 		 */
+ 		__u64 config;
+ 
+-		/*
+-		 * When query_id == DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_UUID,
+-		 * i915 will use the value in this field as configuration
+-		 * identifier to decide what data to write into config_ptr.
++		/**
++		 * @uuid:
++		 *
++		 * When &drm_i915_query_item.flags ==
++		 * %DRM_I915_QUERY_PERF_CONFIG_DATA_FOR_UUID, i915 will use the
++		 * value in this field as configuration identifier to decide
++		 * what data to write into config_ptr.
+ 		 *
+ 		 * String formatted like "%08x-%04x-%04x-%04x-%012x"
+ 		 */
+ 		char uuid[36];
+ 	};
+ 
+-	/*
++	/**
++	 * @flags:
++	 *
+ 	 * Unused for now. Must be cleared to zero.
+ 	 */
+ 	__u32 flags;
+ 
+-	/*
+-	 * When query_item.flags == DRM_I915_QUERY_PERF_CONFIG_LIST, i915 will
+-	 * write an array of __u64 of configuration identifiers.
++	/**
++	 * @data:
++	 *
++	 * When &drm_i915_query_item.flags == %DRM_I915_QUERY_PERF_CONFIG_LIST,
++	 * i915 will write an array of __u64 of configuration identifiers.
+ 	 *
+-	 * When query_item.flags == DRM_I915_QUERY_PERF_CONFIG_DATA, i915 will
+-	 * write a struct drm_i915_perf_oa_config. If the following fields of
+-	 * drm_i915_perf_oa_config are set not set to 0, i915 will write into
+-	 * the associated pointers the values of submitted when the
++	 * When &drm_i915_query_item.flags == %DRM_I915_QUERY_PERF_CONFIG_DATA,
++	 * i915 will write a struct drm_i915_perf_oa_config. If the following
++	 * fields of struct drm_i915_perf_oa_config are not set to 0, i915 will
++	 * write into the associated pointers the values of submitted when the
+ 	 * configuration was created :
+ 	 *
+-	 *         - n_mux_regs
+-	 *         - n_boolean_regs
+-	 *         - n_flex_regs
++	 *  - &drm_i915_perf_oa_config.n_mux_regs
++	 *  - &drm_i915_perf_oa_config.n_boolean_regs
++	 *  - &drm_i915_perf_oa_config.n_flex_regs
+ 	 */
+ 	__u8 data[];
+ };
 -- 
 2.34.1
 
