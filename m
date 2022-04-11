@@ -4,27 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08FD4C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 19:25:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F4FEC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 19:25:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04FDA10E194;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA21910E13B;
 	Mon, 11 Apr 2022 19:25:13 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D51610E032;
- Mon, 11 Apr 2022 19:25:10 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADED210E032;
+ Mon, 11 Apr 2022 19:25:11 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: bbeckett) with ESMTPSA id 026B31F43CB4
+ (Authenticated sender: bbeckett) with ESMTPSA id 338461F43CD1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1649705109;
- bh=GrofPaVaAIh/vGpNqrDMDcYhEYMfkIf09BP3sK/sbsE=;
+ s=mail; t=1649705110;
+ bh=yZDfYMtfaZRY0QUffB9LSGM0LIHt1Kf7UYxXwd7bE5k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EU6erXzCI7f81sjt6x336MGMJH7FfZKE5CDaUJc6KJCOkGolIQz6CNplo0GKhYZjL
- RE7vc4GNdFKq+A1ITS+boHQvkIkQFwWiVHf1Q9uuRndevGQylJw2FvEyuX/jHCFtgQ
- 5uzIuzB4hORtKXz/hNE9npZxQ+qSf0wGumhfOiebrXJj4+XwSbia7+xVCQipARPKBm
- 2uSLzI4Kijfqyt4jRBXhfT38X9ZOTd/ueWDy19h7Lx52vT6i5qQ0m9O2Uj13maMk3T
- y/WSvxN/GfoKS+BFCnnWZoIvFwhrhvNBIl2VsB6s3VSlinYIe2ZZXWiRo+YLvpWUPJ
- 3s2P/1gq+zlKg==
+ b=bsgfAQMuBcUec5kIPrh3W8eFfG7NSq8Fjs+q+NnVAFvt8MOz1VzIMCLkqUXY8mNrg
+ SbUOHsAvASeX8Q/sGdT7i9iveZm7Wmo+tB1dBIbACZyLFYsBZo5pKFGAVRNm5AaB7/
+ +Q2LNbGb9X2GOBtd3tD/zvEz0aZFwVHXCsGro8L6TYwqDT/p6y6bAd0mu97Iejzlbx
+ QynHcTj+Uy85sDvDz9/at8SDsvNTl46DoqhpFx1M/BQ2ODbux5/ey3xOqudph8NJO1
+ ILllXNz2bEjfFMIFDQk4mO9kPZFqjK28ml38pcnkSPHBCnuzsqifo/t1LyfiCUz6tT
+ 05FjkOnda2klQ==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -32,15 +31,15 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 11 Apr 2022 19:24:50 +0000
-Message-Id: <20220411192453.1000147-3-bob.beckett@collabora.com>
+Date: Mon, 11 Apr 2022 19:24:52 +0000
+Message-Id: <20220411192453.1000147-5-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220411192453.1000147-1-bob.beckett@collabora.com>
 References: <20220411192453.1000147-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/5] drm/i915: sanitize mem_flags for stolen
- buffers
+Subject: [Intel-gfx] [PATCH 4/5] drm/i915: ttm backend dont provide
+ mmap_offset for kernel buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,29 +57,81 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-stolen regions are not page backed or considered iomem.
+stolen/kernel buffers should not be mmapable by userland.
+do not provide callbacks to facilitate this for these buffers.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 32 +++++++++++++++++++++----
+ 1 file changed, 27 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index 358f8a1a30ce..9fe8132de3b2 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -122,8 +122,9 @@ void i915_ttm_adjust_gem_after_move(struct drm_i915_gem_object *obj)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index a878910a563c..b20f81836c54 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -1092,8 +1092,8 @@ static void i915_ttm_unmap_virtual(struct drm_i915_gem_object *obj)
+ 	ttm_bo_unmap_virtual(i915_gem_to_ttm(obj));
+ }
  
- 	obj->mem_flags &= ~(I915_BO_FLAG_STRUCT_PAGE | I915_BO_FLAG_IOMEM);
+-static const struct drm_i915_gem_object_ops i915_gem_ttm_obj_ops = {
+-	.name = "i915_gem_object_ttm",
++static const struct drm_i915_gem_object_ops i915_gem_ttm_user_obj_ops = {
++	.name = "i915_gem_object_ttm_user",
+ 	.flags = I915_GEM_OBJECT_IS_SHRINKABLE |
+ 		 I915_GEM_OBJECT_SELF_MANAGED_SHRINK_LIST,
  
--	obj->mem_flags |= i915_ttm_cpu_maps_iomem(bo->resource) ? I915_BO_FLAG_IOMEM :
--		I915_BO_FLAG_STRUCT_PAGE;
-+	if (obj->mm.region->id != INTEL_REGION_STOLEN_SMEM)
-+		obj->mem_flags |= i915_ttm_cpu_maps_iomem(bo->resource) ? I915_BO_FLAG_IOMEM :
-+			I915_BO_FLAG_STRUCT_PAGE;
+@@ -1111,6 +1111,21 @@ static const struct drm_i915_gem_object_ops i915_gem_ttm_obj_ops = {
+ 	.mmap_ops = &vm_ops_ttm,
+ };
  
- 	cache_level = i915_ttm_cache_level(to_i915(bo->base.dev), bo->resource,
- 					   bo->ttm);
++static const struct drm_i915_gem_object_ops i915_gem_ttm_kern_obj_ops = {
++	.name = "i915_gem_object_ttm_kern",
++	.flags = I915_GEM_OBJECT_IS_SHRINKABLE |
++		 I915_GEM_OBJECT_SELF_MANAGED_SHRINK_LIST,
++
++	.get_pages = i915_ttm_get_pages,
++	.put_pages = i915_ttm_put_pages,
++	.truncate = i915_ttm_truncate,
++	.shrink = i915_ttm_shrink,
++
++	.adjust_lru = i915_ttm_adjust_lru,
++	.delayed_free = i915_ttm_delayed_free,
++	.migrate = i915_ttm_migrate,
++};
++
+ void i915_ttm_bo_destroy(struct ttm_buffer_object *bo)
+ {
+ 	struct drm_i915_gem_object *obj = i915_ttm_to_gem(bo);
+@@ -1165,10 +1180,19 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 		.no_wait_gpu = false,
+ 	};
+ 	enum ttm_bo_type bo_type;
++	const struct drm_i915_gem_object_ops *ops;
+ 	int ret;
+ 
+ 	drm_gem_private_object_init(&i915->drm, &obj->base, size);
+-	i915_gem_object_init(obj, &i915_gem_ttm_obj_ops, &lock_class, flags);
++
++	if (flags & I915_BO_ALLOC_USER && intel_region_to_ttm_type(mem) != I915_PL_STOLEN) {
++		bo_type = ttm_bo_type_device;
++		ops = &i915_gem_ttm_user_obj_ops;
++	} else {
++		bo_type = ttm_bo_type_kernel;
++		ops = &i915_gem_ttm_kern_obj_ops;
++	}
++	i915_gem_object_init(obj, ops, &lock_class, flags);
+ 
+ 	obj->bo_offset = offset;
+ 
+@@ -1178,8 +1202,6 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 
+ 	INIT_RADIX_TREE(&obj->ttm.get_io_page.radix, GFP_KERNEL | __GFP_NOWARN);
+ 	mutex_init(&obj->ttm.get_io_page.lock);
+-	bo_type = (obj->flags & I915_BO_ALLOC_USER) ? ttm_bo_type_device :
+-		ttm_bo_type_kernel;
+ 
+ 	obj->base.vma_node.driver_private = i915_gem_to_ttm(obj);
+ 
 -- 
 2.25.1
 
