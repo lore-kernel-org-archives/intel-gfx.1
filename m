@@ -4,48 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB04C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 09:47:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29EE7C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 09:48:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00C1110FA04;
-	Mon, 11 Apr 2022 09:47:58 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E23ED10F9EC;
- Mon, 11 Apr 2022 09:47:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87BE710FA05;
+	Mon, 11 Apr 2022 09:48:00 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E37BE10FA05;
+ Mon, 11 Apr 2022 09:47:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649670476; x=1681206476;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=J291T5B0/vg+PlwHYdwNEhO3zaCOD4WT+HRAmm3cbTo=;
- b=WJokJFxCAf5OQ0UYwAGnNYhyoUv4ziG+1t4hz3YTZe3UR+hYcSBnXSwF
- 6B5qZn5Zy5Y8thWzUO9k25TrNhhG2FoDJnah5x537oZkccyjIGmTiNnpr
- NkXBjS10vJZscYpgGDNS/JlkqJa6T/cFNuiGvsvTm4uZ00ksnmSlnEnZO
- EKaurmbMrQVhO1n89W3gBviWVnz6063h+o8STnVv8JDkpvCflEZ2YVxPa
- +9ICuriOXwPIClh8BLZhbLn0f4FhjmvnQ1/C8iHv41w3GbFk0S8c4rVJK
- r6zOsMdhjBT2DYbtcMgXxQgwdc916PVu8CIgvK7Yz0AqVS1CnJ/NsHnx0 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10313"; a="261822321"
-X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="261822321"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 02:47:56 -0700
-X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="507045541"
-Received: from lwit-desk1.ger.corp.intel.com (HELO localhost) ([10.249.143.43])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 02:47:54 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon, 11 Apr 2022 12:47:24 +0300
-Message-Id: <8b2422d85c69b55dd60374bb32d16dcc259bea5e.1649670305.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1649670305.git.jani.nikula@intel.com>
-References: <cover.1649670305.git.jani.nikula@intel.com>
+ t=1649670480; x=1681206480;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=M71gBGGg3XR4HT6P8C26gvTsRIXuF9IEkb2c1AATyX4=;
+ b=gLfrDFQ2FVw3KYp2Sj+BzIYg+xfgxmTTrcJp2rbSVdHdOpGP4DEeMiKO
+ sXDrJrGbhXw6lXfPW3e3017AmVQ6Li1g8tpNYWt6q4IIi44kbCvOB+9Wl
+ ZDWX2QcG1j2NEdUpKQ8C7psa3it/6Gf4fU+BQXqKLygRuaRHXGKLA2phq
+ waQygwvg+4OHguSjhQ5NhAWnXxe0hK6tF0kg4w938od2khhi4qX4QJUHL
+ zqaTbxkTuO6v0TWgk3ZJ5djRv4aAvDMiqtdUEVbpcVaJsqe/Vw2hdir7x
+ ZNe7gIrhrDacdywKnc8IADPfBactwX4vltUAIFndcs0dElnUb8yurOxX1 w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10313"; a="287085159"
+X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="287085159"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2022 02:47:59 -0700
+X-IronPort-AV: E=Sophos;i="5.90,251,1643702400"; d="scan'208";a="644022554"
+Received: from dxharrix-mobl.ger.corp.intel.com (HELO [10.252.1.119])
+ ([10.252.1.119])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2022 02:47:57 -0700
+Message-ID: <9ecac65c-84d9-9965-4fd3-f86ea572bb9d@intel.com>
+Date: Mon, 11 Apr 2022 10:47:55 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI v2 03/12] drm/edid: refactor EDID block status
- printing
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-GB
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20220411073834.15210-1-Arunpravin.PaneerSelvam@amd.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20220411073834.15210-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v3] drm: add a check to verify the size
+ alignment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,120 +62,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Split out a function to log EDID block status. The printouts get changed
-slightly.
-
-Unfortunately, not all users will have struct drm_device available, so
-we convert to pr_* debug logging instead of drm device based logging.
-
-v2: Complain more loudly about unknown status codes (Ville)
-
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/drm_edid.c | 75 ++++++++++++++++++++++++++------------
- 1 file changed, 51 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index f062d1715ec3..88e8f906a229 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -1729,6 +1729,50 @@ static bool edid_block_valid(const void *block, bool base)
- 				       edid_block_tag(block));
- }
- 
-+static void edid_block_status_print(enum edid_block_status status,
-+				    const struct edid *block,
-+				    int block_num)
-+{
-+	switch (status) {
-+	case EDID_BLOCK_OK:
-+		break;
-+	case EDID_BLOCK_NULL:
-+		pr_debug("EDID block %d pointer is NULL\n", block_num);
-+		break;
-+	case EDID_BLOCK_ZERO:
-+		pr_notice("EDID block %d is all zeroes\n", block_num);
-+		break;
-+	case EDID_BLOCK_HEADER_CORRUPT:
-+		pr_notice("EDID has corrupt header\n");
-+		break;
-+	case EDID_BLOCK_HEADER_REPAIR:
-+		pr_debug("EDID corrupt header needs repair\n");
-+		break;
-+	case EDID_BLOCK_HEADER_FIXED:
-+		pr_debug("EDID corrupt header fixed\n");
-+		break;
-+	case EDID_BLOCK_CHECKSUM:
-+		if (edid_block_status_valid(status, edid_block_tag(block))) {
-+			pr_debug("EDID block %d (tag 0x%02x) checksum is invalid, remainder is %d, ignoring\n",
-+				 block_num, edid_block_tag(block),
-+				 edid_block_compute_checksum(block));
-+		} else {
-+			pr_notice("EDID block %d (tag 0x%02x) checksum is invalid, remainder is %d\n",
-+				  block_num, edid_block_tag(block),
-+				  edid_block_compute_checksum(block));
-+		}
-+		break;
-+	case EDID_BLOCK_VERSION:
-+		pr_notice("EDID has major version %d, instead of 1\n",
-+			  block->version);
-+		break;
-+	default:
-+		WARN(1, "EDID block %d unknown edid block status code %d\n",
-+		     block_num, status);
-+		break;
-+	}
-+}
-+
- /**
-  * drm_edid_block_valid - Sanity check the EDID block (base or extension)
-  * @raw_edid: pointer to raw EDID block
-@@ -1775,33 +1819,16 @@ bool drm_edid_block_valid(u8 *_block, int block_num, bool print_bad_edid,
- 			*edid_corrupt = true;
- 	}
- 
-+	edid_block_status_print(status, block, block_num);
-+
- 	/* Determine whether we can use this block with this status. */
- 	valid = edid_block_status_valid(status, edid_block_tag(block));
- 
--	/* Some fairly random status printouts. */
--	if (status == EDID_BLOCK_CHECKSUM) {
--		if (valid) {
--			DRM_DEBUG("EDID block checksum is invalid, remainder is %d\n",
--				  edid_block_compute_checksum(block));
--			DRM_DEBUG("Assuming a KVM switch modified the block but left the original checksum\n");
--		} else if (print_bad_edid) {
--			DRM_NOTE("EDID block checksum is invalid, remainder is %d\n",
--				 edid_block_compute_checksum(block));
--		}
--	} else if (status == EDID_BLOCK_VERSION) {
--		DRM_NOTE("EDID has major version %d, instead of 1\n",
--			 block->version);
--	}
--
--	if (!valid && print_bad_edid) {
--		if (status == EDID_BLOCK_ZERO) {
--			pr_notice("EDID block is all zeroes\n");
--		} else {
--			pr_notice("Raw EDID:\n");
--			print_hex_dump(KERN_NOTICE,
--				       " \t", DUMP_PREFIX_NONE, 16, 1,
--				       block, EDID_LENGTH, false);
--		}
-+	if (!valid && print_bad_edid && status != EDID_BLOCK_ZERO) {
-+		pr_notice("Raw EDID:\n");
-+		print_hex_dump(KERN_NOTICE,
-+			       " \t", DUMP_PREFIX_NONE, 16, 1,
-+			       block, EDID_LENGTH, false);
- 	}
- 
- 	return valid;
--- 
-2.30.2
+On 11/04/2022 08:38, Arunpravin Paneer Selvam wrote:
+> Add a simple check to reject any size not aligned to the
+> min_page_size.
+> 
+> when size is not aligned to min_page_size, driver module
+> should handle in their own way either to round_up() the
+> size value to min_page_size or just to enable WARN_ON().
+> 
+> If we dont handle the alignment properly, we may hit the
+> following bug, Unigine Heaven has allocation requests for
+> example required pages are 257 and alignment request is 256.
+> To allocate the left over 1 page, continues the iteration to
+> find the order value which is 0 and when it compares with
+> min_order = 8, triggers the BUG_ON(order < min_order).
+> 
+> v2: add more commit description
+> v3: remove WARN_ON()
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Suggested-by: Matthew Auld <matthew.auld@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
