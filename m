@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A011CC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 13:41:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2E3FC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Apr 2022 13:46:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4661F10E9E5;
-	Tue, 12 Apr 2022 13:41:41 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F70A10E9D8;
- Tue, 12 Apr 2022 13:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649770899; x=1681306899;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=oD6m9SeRfl7eHmHKzLOAmxJnQwG1UbpU/JTq/9MxsDM=;
- b=i4xtZH32l3RVr6e8QgrmWwbkUh3Gp/i+R0ejDjioQxH9mdOzH34LXr7E
- ZpIChuyoChjAmj13hex+1v9u3U4gDCSwSfjj2p+DcdMhYhvG7B/0eQh8C
- zoa3eS34P31gULq9xfQMYdKO/FKUaGE2P3DoFI6WouDzdo7spjnXYmzV2
- OeyNL1fBfQpYDUGHHH1LHaTxLDCUgL7VbUFOq9G0Vv5O4QvJ04NEuYfWg
- cI9i+AP7wJTfPiHLCU8qmPZEVbCb6qslCz15EVgd/fpxQ6ID9ZNfipv1L
- 71r0KjCIlzx2bfV+1G2YoOB/rWkUAVMN2Si5MJfDpEjtvdAprcy2aQC69 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="242963730"
-X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="242963730"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2022 06:41:38 -0700
-X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="526480890"
-Received: from aguzmanb-mobl.amr.corp.intel.com (HELO intel.com)
- ([10.255.33.149])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2022 06:41:36 -0700
-Date: Tue, 12 Apr 2022 09:41:35 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Sean Paul <sean@poorly.run>
-Message-ID: <YlWBjy5lxtuGZ4vm@intel.com>
-References: <20220411204741.1074308-1-sean@poorly.run>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2957310E9E2;
+	Tue, 12 Apr 2022 13:46:11 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC0B10E090;
+ Mon, 11 Apr 2022 22:27:57 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CC88761776;
+ Mon, 11 Apr 2022 22:27:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97D8C385A3;
+ Mon, 11 Apr 2022 22:27:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649716074;
+ bh=6KzJ2U0BFdGw2Dd8rbf6y6V7A15Lm+p/0Tn+UumRDOY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=K1j63g7tC590U21DUMNKsqyemPNIWT5VJStqo81Au9EANSGT1x8e/D6dg3f3YIF4y
+ sdAmklvNYIdvtDt49nAP4g09t7MSmq2d13Hw3qUzXrSdxpNEVbwgLk1cf41huMgutF
+ FztrMpiy6b7Pb8REOkIOuFmDgjiKjPaKD/PzAhhEs5iicxB0MzxjBoG5Z+4bEn54/D
+ xHqtspxYuySq+RsBQGt80Uj2LOq+BWxtGb0zwumjr75AskF8IIjXiQBx6nFQ2cxPR+
+ PnIq10asbaoKbshZcqKpZk+T4WsiytfXKdL5xQHiS7bT9KRdxjhurlCbkr3IsuzJdd
+ ae9r6UZHnkyWg==
+Date: Mon, 11 Apr 2022 15:27:47 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <YlSrYyVlcq/gHV5T@dev-arch.thelio-3990X>
+References: <20220405210335.3434130-1-daniel.vetter@ffwll.ch>
+ <20220405210335.3434130-15-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220411204741.1074308-1-sean@poorly.run>
-Subject: Re: [Intel-gfx] [PATCH v5 00/10] drm/hdcp: Pull HDCP
- auth/exchange/check into helpers
+In-Reply-To: <20220405210335.3434130-15-daniel.vetter@ffwll.ch>
+X-Mailman-Approved-At: Tue, 12 Apr 2022 13:46:09 +0000
+Subject: Re: [Intel-gfx] [PATCH v3 14/17] fbcon: Move console_lock for
+ register/unlink/unregister
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,92 +54,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, markyacoub@chromium.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, Sean Paul <seanpaul@chromium.org>,
- abhinavk@codeaurora.org, bjorn.andersson@linaro.org,
- freedreno@lists.freedesktop.org
+Cc: Xiyu Yang <xiyuyang19@fudan.edu.cn>, Du Cheng <ducheng2@gmail.com>,
+ Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Zheyu Ma <zheyuma97@gmail.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Matthew Wilcox <willy@infradead.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Zhen Lei <thunder.leizhen@huawei.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Guenter Roeck <linux@roeck-us.net>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 11, 2022 at 08:47:29PM +0000, Sean Paul wrote:
-> From: Sean Paul <seanpaul@chromium.org>
-> 
-> Rebased set from November. Fixed a nit from Stephen in the msm patch and
-> moved hdcp registers into the trogdor dtsi file to avoid differences
-> with sc7180-based windows devices. The set is 4 patches lighter since
-> some of the changes were accepted into msm.
-> 
-> I'm still waiting for Intel review of the first 7 patches. Rodrigo/Jani,
-> would you please provide your input so we can move forward with this
-> set?
+Hi Daniel,
 
-I'm a bit concerned with patches 4 and 7. It is hard to map the removals
-and additions and there are some changes that looks like changing behaviors,
-but end up not being clear in the big patch. Also with big patch it is prune
-to the rebasing and backport conflicts.
+On Tue, Apr 05, 2022 at 11:03:32PM +0200, Daniel Vetter wrote:
+> Ideally console_lock becomes an implementation detail of fbcon.c and
+> doesn't show up anywhere in fbmem.c. We're still pretty far from that,
+> but at least the register/unregister code is there now.
+> 
+> With this the do_fb_ioctl() handler is the only code in fbmem.c still
+> calling console_lock().
+> 
+> Acked-by: Sam Ravnborg <sam@ravnborg.org>
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Du Cheng <ducheng2@gmail.com>
+> Cc: Claudio Suarez <cssk@net-c.es>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+> Cc: Matthew Wilcox <willy@infradead.org>
+> Cc: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Zheyu Ma <zheyuma97@gmail.com>
+> Cc: Guenter Roeck <linux@roeck-us.net>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Zhen Lei <thunder.leizhen@huawei.com>
+> Cc: Xiyu Yang <xiyuyang19@fudan.edu.cn>
 
-Would be possible to split some work in moving individual functions from i915
-to drm little by little with smaller patches?
+This patch as commit 6e7da3af008b ("fbcon: Move console_lock for
+register/unlink/unregister") in next-20220411 causes a lock up on my
+test Intel desktop; I get no output on my display and I cannot ssh into
+the machine. Bisect log below. If back out of this patch and the ones
+that follow in this series on top of next-20220411, everything works
+properly (i.e. 'git diff 6e7da3af008b^..efc3acbc105a | git apply -R').
 
-But thank you for this great work. It is also good to align our drm drivers.
+What information would be helpful for debugging this? The system has an
+i7-11700 in it and it is booting under UEFI, so I assume it should be
+using EFI_FB. I am happy to offer any debugging information or test any
+patches.
 
-Thanks,
-Rodrigo.
+# bad: [d12d7e1cfe38e0c36d28c7a9fbbc436ad0d17c14] Add linux-next specific files for 20220411
+# good: [8b57b3046107b50ebecb65537a172ef3d6cec673] Merge tag 'tty-5.18-rc2' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty
+git bisect start 'd12d7e1cfe38e0c36d28c7a9fbbc436ad0d17c14' '8b57b3046107b50ebecb65537a172ef3d6cec673'
+# bad: [8f0b3ef070bd35e80da1caa85824fc344fb6b82e] Merge branch 'for-linux-next' of git://anongit.freedesktop.org/drm/drm-misc
+git bisect bad 8f0b3ef070bd35e80da1caa85824fc344fb6b82e
+# good: [69ae2d6587df089ec1c21bddddc7852df403d3ce] Merge branch 'for-next' of git://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git
+git bisect good 69ae2d6587df089ec1c21bddddc7852df403d3ce
+# good: [43ffc7321ed6ce13e5424fa687576f4442c25f9d] Merge branch 'master' of git://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth-next.git
+git bisect good 43ffc7321ed6ce13e5424fa687576f4442c25f9d
+# good: [d44c2642c40b6c11e4a0afc76d491287c074376c] drm/gem: Delete gem array fencing helpers
+git bisect good d44c2642c40b6c11e4a0afc76d491287c074376c
+# good: [3223e922ccf8b5c3dd0b05faeaba407655ee0774] orinoco: Prepare cleanup of powerpc's asm/prom.h
+git bisect good 3223e922ccf8b5c3dd0b05faeaba407655ee0774
+# good: [689333136327b6cd618df85d83d79f2aa620d585] fbcon: Move fbcon_bmove(_rec) functions
+git bisect good 689333136327b6cd618df85d83d79f2aa620d585
+# good: [840db0076b05a1dd4c2ded8d08f8481e0297d09f] Merge branch 'master' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git
+git bisect good 840db0076b05a1dd4c2ded8d08f8481e0297d09f
+# bad: [6e7da3af008b72520f5318507f455f344b27f022] fbcon: Move console_lock for register/unlink/unregister
+git bisect bad 6e7da3af008b72520f5318507f455f344b27f022
+# good: [6b2060cf9138a2cd5f3468a949d3869abed049ef] fb: Delete fb_info->queue
+git bisect good 6b2060cf9138a2cd5f3468a949d3869abed049ef
+# good: [d443d93864726ad68c0a741d1e7b03934a9af143] fbcon: move more common code into fb_open()
+git bisect good d443d93864726ad68c0a741d1e7b03934a9af143
+# good: [43553559121ca90965b572cf8a1d6d0fd618b449] fbcon: Consistently protect deferred_takeover with console_lock()
+git bisect good 43553559121ca90965b572cf8a1d6d0fd618b449
+# first bad commit: [6e7da3af008b72520f5318507f455f344b27f022] fbcon: Move console_lock for register/unlink/unregister
 
-> 
-> Thanks,
-> 
-> Sean
-> 
-> Link: https://patchwork.freedesktop.org/series/94623/ #v1
-> Link: https://patchwork.freedesktop.org/series/94713/ #v2
-> Link: https://patchwork.freedesktop.org/series/94712/ #v3
-> Link: https://patchwork.freedesktop.org/series/94712/ #v4
-> 
-> Sean Paul (10):
->   drm/hdcp: Add drm_hdcp_atomic_check()
->   drm/hdcp: Avoid changing crtc state in hdcp atomic check
->   drm/hdcp: Update property value on content type and user changes
->   drm/hdcp: Expand HDCP helper library for enable/disable/check
->   drm/i915/hdcp: Consolidate HDCP setup/state cache
->   drm/i915/hdcp: Retain hdcp_capable return codes
->   drm/i915/hdcp: Use HDCP helpers for i915
->   dt-bindings: msm/dp: Add bindings for HDCP registers
->   arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
->   drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
-> 
->  .../bindings/display/msm/dp-controller.yaml   |    7 +-
->  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
->  arch/arm64/boot/dts/qcom/sc7180.dtsi          |    6 +-
->  drivers/gpu/drm/drm_hdcp.c                    | 1197 ++++++++++++++++-
->  drivers/gpu/drm/i915/display/intel_atomic.c   |    7 +-
->  drivers/gpu/drm/i915/display/intel_ddi.c      |   29 +-
->  .../drm/i915/display/intel_display_debugfs.c  |   11 +-
->  .../drm/i915/display/intel_display_types.h    |   58 +-
->  drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  345 ++---
->  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   17 +-
->  drivers/gpu/drm/i915/display/intel_hdcp.c     | 1011 +++-----------
->  drivers/gpu/drm/i915/display/intel_hdcp.h     |   36 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c     |  256 ++--
->  drivers/gpu/drm/msm/Makefile                  |    1 +
->  drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
->  drivers/gpu/drm/msm/dp/dp_debug.h             |    6 +-
->  drivers/gpu/drm/msm/dp/dp_display.c           |   46 +-
->  drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
->  drivers/gpu/drm/msm/dp/dp_drm.c               |   68 +-
->  drivers/gpu/drm/msm/dp/dp_drm.h               |    5 +
->  drivers/gpu/drm/msm/dp/dp_hdcp.c              |  453 +++++++
->  drivers/gpu/drm/msm/dp/dp_hdcp.h              |   27 +
->  drivers/gpu/drm/msm/dp/dp_parser.c            |   20 +-
->  drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
->  drivers/gpu/drm/msm/dp/dp_reg.h               |   32 +-
->  drivers/gpu/drm/msm/msm_atomic.c              |   15 +
->  include/drm/drm_hdcp.h                        |  194 +++
->  27 files changed, 2582 insertions(+), 1328 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
-> 
-> -- 
-> Sean Paul, Software Engineer, Google / Chromium OS
-> 
+Cheers,
+Nathan
