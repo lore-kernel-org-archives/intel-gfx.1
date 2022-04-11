@@ -4,48 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD8B1C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 14:02:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EBFAC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Apr 2022 14:14:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABA4010F74A;
-	Mon, 11 Apr 2022 14:02:13 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 353B010F748;
- Mon, 11 Apr 2022 14:02:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649685732; x=1681221732;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8I4SSzmngspo0Z8Lz1kRe+dzgDyTF6F0PtgW/6Fxe+c=;
- b=Fi8G7ujLv4O8PqASFzrdpAJYFPV7e33ei49PxE10vbTn2Xq/PH7LRIuZ
- XXm8R66OMM6EO95deakvR6pGsSROwMOeyvHa4uAqk6SKqcwSp8oxxnH3P
- WuVUzLU3SGohuvadZb/nuzs3d9dB6khJXzqC4981EfETEWtwbNkfxI7UT
- +arhJtl7poq7VOKfSlw8bS+UO87LEpqZd5jeZPfGBZpIdCoy1f7C+N1iF
- dlnyhvt6mnoCRz/e2xrBrphSQQLCyI0qaQVGI1xBY75SWHluQMVzBzu/j
- 4v6gwi2Zr4PWAEI1Y6wb7yZ3Hnuc/A/NEeOvKxOHG5WHVcaV8ybLho0rV Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10313"; a="261560293"
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="261560293"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 07:01:42 -0700
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="660059218"
-Received: from lwit-desk1.ger.corp.intel.com (HELO localhost) ([10.249.143.43])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 07:01:40 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon, 11 Apr 2022 17:00:35 +0300
-Message-Id: <dc7b0850293d837439fb3914c8a9d81e39018b4b.1649685475.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4752E10E111;
+	Mon, 11 Apr 2022 14:14:13 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEFDA10E111;
+ Mon, 11 Apr 2022 14:14:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=C8NDoDyqZvQBoGqfHeb040RcvsP4vUZqRpM2TBpIVh8=; b=eiX8fUOyFg6kzfTVNVUmza6+Wx
+ fBpDqSkeDwGoweT9Gegf39Lu+hcA9AEK7M0rJjLjDJ/0P++isIIMCySrNTfdDemwdSYiGsoyTKse+
+ 3vU/9Rt1cgUtBDEL89e+7IT2rKSvVrMeExsmLo0OVnp1doIS5kW3FZ4Ct5EvZo+Pu5dNTUBDrsh98
+ rLHkxtElLCRXdxm8gcx1WjtoLuZELubYs+3Wik8Z+DrpeOF5VOSiFNRzamhJaLi9ktGhu0sm8FR/t
+ S5fz45rALbWHMNr/VHE9IuLEIDAtp9FyMbgEWWay7tIy3fzPObh/g0KODsowLXaOsXhzdfp58N9o+
+ UZnXs90g==;
+Received: from [2001:4bb8:18e:76f5:3747:ef85:d03d:53e4] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1ndunw-009KHC-IW; Mon, 11 Apr 2022 14:14:09 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
+Date: Mon, 11 Apr 2022 16:13:29 +0200
+Message-Id: <20220411141403.86980-1-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1649685475.git.jani.nikula@intel.com>
-References: <cover.1649685475.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI v3 12/12] drm/edid: add EDID block count and size
- helpers
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [Intel-gfx] refactor the i915 GVT support and move to the modern
+ mdev API v3
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,204 +52,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Jason Gunthorpe <jgg@nvidia.com>,
+ linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add some helpers to figure out the EDID extension block count, block
-count, size, pointers to blocks.
+Hi all,
 
-Unfortunately, we'll need to cast away the const in a few places where
-we actually need to access the data.
+the GVT code in the i915 is a bit of a mess right now due to strange
+abstractions and lots of indirect calls.  This series refactors various
+bits to clean that up.  The main user visible change is that almost all
+of the GVT code moves out of the main i915 driver and into the kvmgt
+module.
 
-v3: fix (!edid_extension_block_count(edid) == 0) (kernel test robot)
+Tested on my Thinkpad with a Kaby Lake CPU and integrated graphics.
 
-v2: fix s/j/i/ introduced in a rebase
+Git tree:
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/drm_edid.c | 80 +++++++++++++++++++++++++++-----------
- 1 file changed, 57 insertions(+), 23 deletions(-)
+    git://git.infradead.org/users/hch/misc.git i915-gvt
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 0933a5c44998..e2739f06d72b 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -1568,6 +1568,38 @@ static const struct drm_display_mode edid_4k_modes[] = {
- 
- /*** DDC fetch and block validation ***/
- 
-+static int edid_extension_block_count(const struct edid *edid)
-+{
-+	return edid->extensions;
-+}
-+
-+static int edid_block_count(const struct edid *edid)
-+{
-+	return edid_extension_block_count(edid) + 1;
-+}
-+
-+static int edid_size_by_blocks(int num_blocks)
-+{
-+	return num_blocks * EDID_LENGTH;
-+}
-+
-+static int edid_size(const struct edid *edid)
-+{
-+	return edid_size_by_blocks(edid_block_count(edid));
-+}
-+
-+static const void *edid_block_data(const struct edid *edid, int index)
-+{
-+	BUILD_BUG_ON(sizeof(*edid) != EDID_LENGTH);
-+
-+	return edid + index;
-+}
-+
-+static const void *edid_extension_block_data(const struct edid *edid, int index)
-+{
-+	return edid_block_data(edid, index + 1);
-+}
-+
- static const u8 edid_header[] = {
- 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00
- };
-@@ -1654,8 +1686,8 @@ bool drm_edid_are_equal(const struct edid *edid1, const struct edid *edid2)
- 		return false;
- 
- 	if (edid1) {
--		edid1_len = EDID_LENGTH * (1 + edid1->extensions);
--		edid2_len = EDID_LENGTH * (1 + edid2->extensions);
-+		edid1_len = edid_size(edid1);
-+		edid2_len = edid_size(edid2);
- 
- 		if (edid1_len != edid2_len)
- 			return false;
-@@ -1865,14 +1897,16 @@ EXPORT_SYMBOL(drm_edid_block_valid);
- bool drm_edid_is_valid(struct edid *edid)
- {
- 	int i;
--	u8 *raw = (u8 *)edid;
- 
- 	if (!edid)
- 		return false;
- 
--	for (i = 0; i <= edid->extensions; i++)
--		if (!drm_edid_block_valid(raw + i * EDID_LENGTH, i, true, NULL))
-+	for (i = 0; i < edid_block_count(edid); i++) {
-+		void *block = (void *)edid_block_data(edid, i);
-+
-+		if (!drm_edid_block_valid(block, i, true, NULL))
- 			return false;
-+	}
- 
- 	return true;
- }
-@@ -1885,13 +1919,13 @@ static struct edid *edid_filter_invalid_blocks(const struct edid *edid,
- 	int valid_extensions = edid->extensions - invalid_blocks;
- 	int i;
- 
--	new = kmalloc_array(valid_extensions + 1, EDID_LENGTH, GFP_KERNEL);
-+	new = kmalloc(edid_size_by_blocks(valid_extensions + 1), GFP_KERNEL);
- 	if (!new)
- 		goto out;
- 
- 	dest_block = new;
--	for (i = 0; i <= edid->extensions; i++) {
--		const void *block = edid + i;
-+	for (i = 0; i < edid_block_count(edid); i++) {
-+		const void *block = edid_block_data(edid, i);
- 
- 		if (edid_block_valid(block, i == 0))
- 			memcpy(dest_block++, block, EDID_LENGTH);
-@@ -2101,7 +2135,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
- 			     void *context)
- {
- 	enum edid_block_status status;
--	int j, invalid_blocks = 0;
-+	int i, invalid_blocks = 0;
- 	struct edid *edid, *new;
- 
- 	edid = drm_get_override_edid(connector);
-@@ -2133,20 +2167,20 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
- 		goto fail;
- 	}
- 
--	if (edid->extensions == 0)
-+	if (!edid_extension_block_count(edid))
- 		goto ok;
- 
--	new = krealloc(edid, (edid->extensions + 1) * EDID_LENGTH, GFP_KERNEL);
-+	new = krealloc(edid, edid_size(edid), GFP_KERNEL);
- 	if (!new)
- 		goto fail;
- 	edid = new;
- 
--	for (j = 1; j <= edid->extensions; j++) {
--		void *block = edid + j;
-+	for (i = 1; i < edid_block_count(edid); i++) {
-+		void *block = (void *)edid_block_data(edid, i);
- 
--		status = edid_block_read(block, j, read_block, context);
-+		status = edid_block_read(block, i, read_block, context);
- 
--		edid_block_status_print(status, block, j);
-+		edid_block_status_print(status, block, i);
- 
- 		if (!edid_block_status_valid(status, edid_block_tag(block))) {
- 			if (status == EDID_BLOCK_READ_FAIL)
-@@ -2156,7 +2190,7 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
- 	}
- 
- 	if (invalid_blocks) {
--		connector_bad_edid(connector, edid, edid->extensions + 1);
-+		connector_bad_edid(connector, edid, edid_block_count(edid));
- 
- 		edid = edid_filter_invalid_blocks(edid, invalid_blocks);
- 	}
-@@ -2321,7 +2355,7 @@ EXPORT_SYMBOL(drm_get_edid_switcheroo);
-  */
- struct edid *drm_edid_duplicate(const struct edid *edid)
- {
--	return kmemdup(edid, (edid->extensions + 1) * EDID_LENGTH, GFP_KERNEL);
-+	return kmemdup(edid, edid_size(edid), GFP_KERNEL);
- }
- EXPORT_SYMBOL(drm_edid_duplicate);
- 
-@@ -2505,8 +2539,8 @@ drm_for_each_detailed_block(const struct edid *edid, detailed_cb *cb, void *clos
- 	for (i = 0; i < EDID_DETAILED_TIMINGS; i++)
- 		cb(&(edid->detailed_timings[i]), closure);
- 
--	for (i = 1; i <= edid->extensions; i++) {
--		const u8 *ext = (const u8 *)edid + (i * EDID_LENGTH);
-+	for (i = 0; i < edid_extension_block_count(edid); i++) {
-+		const u8 *ext = edid_extension_block_data(edid, i);
- 
- 		switch (*ext) {
- 		case CEA_EXT:
-@@ -3476,17 +3510,17 @@ const u8 *drm_find_edid_extension(const struct edid *edid,
- 	int i;
- 
- 	/* No EDID or EDID extensions */
--	if (edid == NULL || edid->extensions == 0)
-+	if (!edid || !edid_extension_block_count(edid))
- 		return NULL;
- 
- 	/* Find CEA extension */
--	for (i = *ext_index; i < edid->extensions; i++) {
--		edid_ext = (const u8 *)edid + EDID_LENGTH * (i + 1);
-+	for (i = *ext_index; i < edid_extension_block_count(edid); i++) {
-+		edid_ext = edid_extension_block_data(edid, i);
- 		if (edid_block_tag(edid_ext) == ext_id)
- 			break;
- 	}
- 
--	if (i >= edid->extensions)
-+	if (i >= edid_extension_block_count(edid))
- 		return NULL;
- 
- 	*ext_index = i + 1;
--- 
-2.30.2
+Gitweb:
 
+    http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/i915-gvt
+
+Changes since v2:
+ - rebased on top of Linx 5.18-rc +
+   "Refactor GVT-g MMIO tracking table and handlers"
+ - don't fold the gvt Makefile into the main Makefile
+ - add the mdev patches to remove the legacy interface that is now
+   unused to the end of the series
+
+Changes since v1:
+ - rebased on Linux 5.15
+ - allow the kvmgvt module to be loaded at any time and thus solve
+   the deadlock when both i915 amd kvmgvt are modular
+ - include the conversion to the modern mdev API
+
+Note that I do expect to rebased this again against 5.16-rc1 once
+released, but I'd like to get this out for review ASAP.
+
+Diffstat:
+ b/drivers/gpu/drm/i915/Kconfig          |   33 
+ b/drivers/gpu/drm/i915/Makefile         |   31 
+ b/drivers/gpu/drm/i915/gvt/cfg_space.c  |   89 --
+ b/drivers/gpu/drm/i915/gvt/cmd_parser.c |    4 
+ b/drivers/gpu/drm/i915/gvt/dmabuf.c     |   36 -
+ b/drivers/gpu/drm/i915/gvt/execlist.c   |   12 
+ b/drivers/gpu/drm/i915/gvt/gtt.c        |   55 +
+ b/drivers/gpu/drm/i915/gvt/gvt.h        |  125 ++-
+ b/drivers/gpu/drm/i915/gvt/interrupt.c  |   38 +
+ b/drivers/gpu/drm/i915/gvt/kvmgt.c      | 1099 +++++++++++++++-----------------
+ b/drivers/gpu/drm/i915/gvt/mmio.c       |    4 
+ b/drivers/gpu/drm/i915/gvt/opregion.c   |  148 ----
+ b/drivers/gpu/drm/i915/gvt/page_track.c |    8 
+ b/drivers/gpu/drm/i915/gvt/scheduler.c  |   37 -
+ b/drivers/gpu/drm/i915/gvt/trace.h      |    2 
+ b/drivers/gpu/drm/i915/gvt/vgpu.c       |   22 
+ b/drivers/gpu/drm/i915/i915_drv.c       |    7 
+ b/drivers/gpu/drm/i915/i915_drv.h       |    1 
+ b/drivers/gpu/drm/i915/i915_trace.h     |    1 
+ b/drivers/gpu/drm/i915/intel_gvt.c      |  162 +++-
+ b/drivers/gpu/drm/i915/intel_gvt.h      |   17 
+ drivers/gpu/drm/i915/gvt/Makefile       |    9 
+ drivers/gpu/drm/i915/gvt/gvt.c          |  340 ---------
+ drivers/gpu/drm/i915/gvt/hypercall.h    |   82 --
+ drivers/gpu/drm/i915/gvt/mpt.h          |  400 -----------
+ 25 files changed, 929 insertions(+), 1833 deletions(-)
