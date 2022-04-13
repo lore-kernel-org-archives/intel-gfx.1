@@ -4,56 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F21DAC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 09:25:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AF72C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 09:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A82F10F0A5;
-	Wed, 13 Apr 2022 09:25:08 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B2DF10F0A5
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 09:25:06 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id 21so1652695edv.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 02:25:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=4a+KwZ9O7ePc1lJlI7Aul+JRsitXWR/8aN0R46dtP1g=;
- b=d5++MrZ49m3/7hfX8bHqQn1ZwneBnzCFt+huh+QmSz7czye923xn+t0niWJyEXc1N3
- RIa3RBWXx5nGU+w32dxGUWxGmwKkbF6+DK3s4yAJsyNubZIfHNWhqJ/Lnhj7bMzgJd2L
- ZKdW1p/lTN1EmOcTHz2cZ15LqxoIVRsaGybrU=
+	by gabe.freedesktop.org (Postfix) with ESMTP id F217D10E34A;
+	Wed, 13 Apr 2022 09:31:24 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01D7B10FBA2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 09:31:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1649842283;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IAMVXndxW0OtvIwRqL0hyfDoLN2+4Iki0eZzZOShd7A=;
+ b=HhRpiCMN+vJyNBrGoee/NaH3umPt3RfhluL47e/9euMRxiX1u42VghYghxf7ZfTCx1jO2o
+ bkKqK/xlkCNGsFmRrJ1o682fqhYxQbe9Cl/wd6boTaXXq3RtYsfXLyOn721n0l0V/cWsAh
+ 9G6Rblt9g2rQg3oXzkY4TN+dJGWa7Nk=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-342-P5PmJMy4Pr-02MoabIMLTQ-1; Wed, 13 Apr 2022 05:31:21 -0400
+X-MC-Unique: P5PmJMy4Pr-02MoabIMLTQ-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ h61-20020adf9043000000b002079bbaa5d3so208882wrh.16
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 02:31:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=4a+KwZ9O7ePc1lJlI7Aul+JRsitXWR/8aN0R46dtP1g=;
- b=DsOEdVRclLC7pAxbKcw8Q3HG6R++6iODRxNAdDWwckhdjacmbkUNatbqsMyBSIhnZl
- OTBqjAZtaoHgh8tj6bK7L/CdCnsZ/Mz5MvRM0ts8ZB5sOdmpmvfB1w6OefKrvjNO5tVr
- aqLAEwTbAsqdcEyfukn3yk46kOcB7JcliDghUlBz8nzVoFUUJGeJN6vvPd+lQBN89lQ9
- 0xI/+1kmkCoJXxTs7dWncgEltHnr2KeO5XQ9ttSjlhH1B1ewGk+lhStKTR1BUPvFzksf
- /tV7cL0qy9VyoiAgOjVA6I0UK/8gH04017eO/PGAs3c2tvfjsysA07QjFTw9BAb6M4VW
- Uikg==
-X-Gm-Message-State: AOAM532axMBGW48XgTOx1BWqZzqlXtiXlgilfC6Vz1KeIlhRmoYb7NV4
- KV/06i6ZSPbJKR18Tyfgy09dKQ==
-X-Google-Smtp-Source: ABdhPJxMfrNLcHwSkWqBAyaWOKHQCj1lJBLsPAFGNtXSvqojqiOSV5Tnb2nI+vJvSdN4FufjNogQEQ==
-X-Received: by 2002:aa7:db0f:0:b0:41d:7b44:2613 with SMTP id
- t15-20020aa7db0f000000b0041d7b442613mr14222034eds.126.1649841904607; 
- Wed, 13 Apr 2022 02:25:04 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=IAMVXndxW0OtvIwRqL0hyfDoLN2+4Iki0eZzZOShd7A=;
+ b=xKXE+DxzDIVMznZo9a+LWc6bwWjqKCRZD2KRtrbo1uugwmSUAh8rRYQgCMnTDbE48q
+ CyU9NuI2U90zxzsQJwz+wKTUNIMnCKEEm/N4/Pwy04e4k48urGDJZdr6/9yJS5I8ytX5
+ h9WbbxgLlzFEKx++SpbCBfhKxabQjg7ZaYL0U3/yy/Rr7nrvE9QWK9h1Q0OmJwvJJLAR
+ u0/BxpAwPLXZF2ktvIEUcmYxtR2qs/IrF7179bhkIBwZRxAWaxVqOQLKz1Vfp8nVwUpj
+ v8cFC63xMO4m+fnmP9WhqKHngsKI017zsXF6F2ue03YD7PmhkFYNzfsIE3mWKmtlAt+l
+ hz9g==
+X-Gm-Message-State: AOAM533fTIP3PPiFiaRGUVmTK5Q6/ZKJZlTWUQeGYFODD6fhsdQFfDvP
+ oH3F78QE1BzGE20My2Vh5kAriMueH/v8j8YohMG/jMX/aUd9on7l6kcfXus2w0DVsyATK368XPa
+ oPyMn14YysL9KFkiuGCZjWTitcB75
+X-Received: by 2002:a5d:4303:0:b0:207:a7d8:4ce6 with SMTP id
+ h3-20020a5d4303000000b00207a7d84ce6mr10638954wrq.101.1649842279853; 
+ Wed, 13 Apr 2022 02:31:19 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwUm1vydojlfWe/H1ysZrMzcrbEN1Uf13kLtCOmU70SI8wmq4v7NO1wCDHQORMytmlOINcbNA==
+X-Received: by 2002:a5d:4303:0:b0:207:a7d8:4ce6 with SMTP id
+ h3-20020a5d4303000000b00207a7d84ce6mr10638931wrq.101.1649842279662; 
+ Wed, 13 Apr 2022 02:31:19 -0700 (PDT)
+Received: from [192.168.1.102] ([92.176.231.205])
  by smtp.gmail.com with ESMTPSA id
- gj3-20020a170906e10300b006e8ac161bcfsm1980889ejb.203.2022.04.13.02.25.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Apr 2022 02:25:04 -0700 (PDT)
-Date: Wed, 13 Apr 2022 11:25:02 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Message-ID: <YlaW7mq/LbHMN7AZ@phenom.ffwll.local>
-References: <20220413082128.348186-1-daniel.vetter@ffwll.ch>
+ m1-20020a1ca301000000b0038ea15d5f75sm1932109wme.38.2022.04.13.02.31.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Apr 2022 02:31:19 -0700 (PDT)
+Message-ID: <85a3bd58-7c7c-051d-665d-68d00e4b3ee0@redhat.com>
+Date: Wed, 13 Apr 2022 11:31:17 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220413082128.348186-1-daniel.vetter@ffwll.ch>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+To: Daniel Vetter <daniel@ffwll.ch>
+References: <20220413082128.348186-1-daniel.vetter@ffwll.ch>
+ <955400a5-a785-57af-92d4-42710c55ce99@redhat.com>
+ <YlaWE+/YBtcrnLHY@phenom.ffwll.local>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <YlaWE+/YBtcrnLHY@phenom.ffwll.local>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=javierm@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Intel-gfx] [PATCH] fbcon: Fix delayed takeover locking
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,13 +89,13 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Du Cheng <ducheng2@gmail.com>,
+Cc: Daniel Vetter <daniel.vetter@intel.com>, Du Cheng <ducheng2@gmail.com>,
  Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Zheyu Ma <zheyuma97@gmail.com>, Javier Martinez Canillas <javierm@redhat.com>,
- Matthew Wilcox <willy@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
+ Zheyu Ma <zheyuma97@gmail.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Nathan Chancellor <nathan@kernel.org>, Matthew Wilcox <willy@infradead.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Geert Uytterhoeven <geert@linux-m68k.org>, Sam Ravnborg <sam@ravnborg.org>,
@@ -81,126 +103,50 @@ Cc: Du Cheng <ducheng2@gmail.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 13, 2022 at 10:21:28AM +0200, Daniel Vetter wrote:
-> I messed up the delayed takover path in the locking conversion in
-> 6e7da3af008b ("fbcon: Move console_lock for register/unlink/unregister").
+On 4/13/22 11:21, Daniel Vetter wrote:
+> On Wed, Apr 13, 2022 at 11:16:08AM +0200, Javier Martinez Canillas wrote:
+>> Hello Daniel,
+>>
+>> On 4/13/22 10:21, Daniel Vetter wrote:
+>>> I messed up the delayed takover path in the locking conversion in
+>>> 6e7da3af008b ("fbcon: Move console_lock for register/unlink/unregister").
+>>>
+>>
+>> Maybe a few more words of what the issue is ? Something like the following:
+>>
+>> If CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER is enabled, fbcon take-over
+>> doesn't take place when calling fbcon_fb_registered(). Instead, is deferred
+>> using a workqueue and its fbcon_register_existing_fbs() function calls to
+>> fbcon_fb_registered() again for each registered fbcon fb.
+>>
+>> This leads to the console_lock tried to be held twice, causing a deadlock.
 > 
-> Fix it by re-extracting the lockless function and using it in the
-> delayed takeover path, where we need to hold the lock already to
-> iterate over the list of already registered fb. Well the current code
-> still is broken in there (since the list is protected by a
-> registration_lock, which we can't take here because it nests the other
-> way round with console_lock), but in the future this will be a list
-> protected by console_lock when this is all sorted out.
-> 
-> Reported-by: Nathan Chancellor <nathan@kernel.org>
-> Cc: Nathan Chancellor <nathan@kernel.org>
+> Will add.
+>>
 
-Nathan, if you can supply a tested-by today still I could push it before I
-disappear into easter w/e. I'm pretty sure this is it, but better safe
-than sorry.
--Daniel
+Thanks.
 
-> Fixes: 6e7da3af008b ("fbcon: Move console_lock for register/unlink/unregister")
-> Cc: Sam Ravnborg <sam@ravnborg.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Du Cheng <ducheng2@gmail.com>
-> Cc: Claudio Suarez <cssk@net-c.es>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-> Cc: Matthew Wilcox <willy@infradead.org>
-> Cc: Zheyu Ma <zheyuma97@gmail.com>
-> Cc: Guenter Roeck <linux@roeck-us.net>
-> Cc: Helge Deller <deller@gmx.de>
-> Cc: Geert Uytterhoeven <geert@linux-m68k.org>
-> Cc: Javier Martinez Canillas <javierm@redhat.com>
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> ---
->  drivers/video/fbdev/core/fbcon.c | 28 ++++++++++++++++++----------
->  1 file changed, 18 insertions(+), 10 deletions(-)
+[snip]  
+
+>> Removing these comments feels like should be in a separate patch or at least
+>> mention in the patch description that should had been removed in the commit
+>> 6e7da3af008b ("fbcon: Move console_lock for register/unlink/unregister"),
+>> that made these functions to be called without the console_lock being held.
 > 
-> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-> index 6a7d470beec7..b4e43b39d9a8 100644
-> --- a/drivers/video/fbdev/core/fbcon.c
-> +++ b/drivers/video/fbdev/core/fbcon.c
-> @@ -2772,7 +2772,6 @@ static void fbcon_unbind(void)
->  static inline void fbcon_unbind(void) {}
->  #endif /* CONFIG_VT_HW_CONSOLE_BINDING */
->  
-> -/* called with console_lock held */
->  void fbcon_fb_unbind(struct fb_info *info)
->  {
->  	int i, new_idx = -1;
-> @@ -2822,7 +2821,6 @@ void fbcon_fb_unbind(struct fb_info *info)
->  	console_unlock();
->  }
->  
-> -/* called with console_lock held */
->  void fbcon_fb_unregistered(struct fb_info *info)
->  {
->  	int i, idx;
-> @@ -2928,14 +2926,11 @@ MODULE_PARM_DESC(lockless_register_fb,
->  	"Lockless framebuffer registration for debugging [default=off]");
->  
->  /* called with console_lock held */
-> -int fbcon_fb_registered(struct fb_info *info)
-> +static int do_fb_registered(struct fb_info *info)
->  {
->  	int ret = 0, i, idx;
->  
-> -	if (!lockless_register_fb)
-> -		console_lock();
-> -	else
-> -		atomic_inc(&ignore_console_lock_warning);
-> +	WARN_CONSOLE_UNLOCKED();
->  
->  	fbcon_registered_fb[info->node] = info;
->  	fbcon_num_registered_fb++;
-> @@ -2945,7 +2940,7 @@ int fbcon_fb_registered(struct fb_info *info)
->  
->  	if (deferred_takeover) {
->  		pr_info("fbcon: Deferring console take-over\n");
-> -		goto out;
-> +		return 0;
->  	}
->  
->  	if (info_idx == -1) {
-> @@ -2965,7 +2960,20 @@ int fbcon_fb_registered(struct fb_info *info)
->  		}
->  	}
->  
-> -out:
-> +	return ret;
-> +}
-> +
-> +int fbcon_fb_registered(struct fb_info *info)
-> +{
-> +	int ret;
-> +
-> +	if (!lockless_register_fb)
-> +		console_lock();
-> +	else
-> +		atomic_inc(&ignore_console_lock_warning);
-> +
-> +	ret = do_fb_registered(info);
-> +
->  	if (!lockless_register_fb)
->  		console_unlock();
->  	else
-> @@ -3280,7 +3288,7 @@ static void fbcon_register_existing_fbs(struct work_struct *work)
->  	logo_shown = FBCON_LOGO_DONTSHOW;
->  
->  	fbcon_for_each_registered_fb(i)
-> -		fbcon_fb_registered(fbcon_registered_fb[i]);
-> +		do_fb_registered(fbcon_registered_fb[i]);
->  
->  	console_unlock();
->  }
-> -- 
-> 2.34.1
+> Yeah I forgot to mention that in the commit message - while reviewing all
+> the locking to figure out the bug I also noticed that I didn't update the
+> comments, and since it's all issues in the same patch I figured I'll do it
+> all in one go.
 > 
+> Ok if I explain that and then keep the comment removals?
+Yes, I'm OK with that and agreed that all changes are to fix the same commit.
+
+It's just that it took me some time to figure out why you were removing those.
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Best regards,
+
+Javier Martinez Canillas
+Linux Engineering
+Red Hat
+
