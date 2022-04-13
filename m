@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0F09C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 19:27:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5496C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 19:27:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A4D410E49B;
-	Wed, 13 Apr 2022 19:27:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0477B10E47D;
+	Wed, 13 Apr 2022 19:27:38 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3583210E432
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 19:27:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74AFC10E424
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 19:27:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649878058; x=1681414058;
+ t=1649878057; x=1681414057;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=PUyrg6I6/BFyjphgRdjq42MoyrKhCzZMi2y86gzwrLA=;
- b=BbPsFhI650aBL/SdTM27BWSFgDJ49NyCRQXaHaaGFGHs2djpNvD9oGAw
- Cdh7qEWaTd9usfEyH0XPff0dbpUcpomChkRz2zDWXft7c5HMcpx4ELSwP
- Sq6cQo4Oj0t9siZA9FIvMBg7lWG1VbXtbeQkPMAhXkcJNQYd8lquBbofz
- YCkiC+3Cqx7QmX5/ug3jSgM9q4kcXtoIllc+FlADvrrxpDcMdcgjRAFLm
- B18TL57gGcb2OXp23CvAPxTEp5F3v++PA1Ua0D/Io/IRxsUS2luFyf8jt
- Q/MwjhJzM5S5QGnEIEkPL65mCmbc9//sWO+Di7c+IA1uD89sRH1YtCwhm A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10316"; a="250045086"
-X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="250045086"
+ bh=vv/r0CWJ3EaJVrVq2Yrd1+jM7lKq7E67hSOHTFzAMaM=;
+ b=BFokkHulqCulRY/SLhiERhKN1xAxhsXkRjKsfJxbMC+GyKMFc/2+eVX/
+ 3zf5iiOvVkKdGwT45ZDJXqq5+zDFJQg1xEmZIjAljtjs+D/9EbVJF7QW+
+ 1ZvfF0qhbnvEGBljupvM3/ooX0t3JvJxeQGOQnLDsHHuZPj7W5l75XYdp
+ KBR+HtNAxK9PZXNJmRNr5O9HmhQiPAHHtvkfyNdmMeYxqkvcMXOMVo0AH
+ oEzT+5JQvXKkGroXYncwLv0wJ1AsexHPcqnpyCVrZLHFvSd8mdoETmJ0i
+ EWiD1CAigtn7tjH41N6g1329XjKpSxjqkNETxjJ+u97tALYH4WelMrTsr g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10316"; a="250045083"
+X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="250045083"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Apr 2022 12:27:37 -0700
-X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="645290491"
+X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="645290482"
 Received: from unerlige-desk.jf.intel.com ([10.165.21.210])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 12:27:37 -0700
+ 13 Apr 2022 12:27:36 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
  daniele.ceraolospurio@intel.com, john.c.harrison@intel.com,
  vinay.belgaumkar@intel.com
-Date: Wed, 13 Apr 2022 12:27:27 -0700
-Message-Id: <20220413192730.3608660-8-umesh.nerlige.ramappa@intel.com>
+Date: Wed, 13 Apr 2022 12:27:24 -0700
+Message-Id: <20220413192730.3608660-5-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220413192730.3608660-1-umesh.nerlige.ramappa@intel.com>
 References: <20220413192730.3608660-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/10] drm/i915/guc: Enable GuC based
- workarounds for DG2
+Subject: [Intel-gfx] [PATCH 04/10] drm/i915/xehp: Add compute engine ABI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,276 +60,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+From: Matt Roper <matthew.d.roper@intel.com>
 
-There are some workarounds for DG2 that are implemented in the GuC
-firmware. However, the KMD is required to enable these by setting the
-appropriate flag as GuC does not know what platform it is running on.
-  Wa_16011759253
-  Wa_14012630569
-  Wa_14013746162
+We're now ready to start exposing compute engines to userspace.
 
-v2: Add a couple more workarounds and drop the FIXME prefix as the
-HSDs seem to be updated now. (JohnH)
-v3: Add remaining parts of Wa_22011802037 (Umesh)
-v4: (Daniele)
-- Fix R-b versioning
-- Add engine->reset.prepare hook for Wa_22011802037
-- Apply Wa_22011802037 to graphics version 11 and onwards
-- Fix comments on stepping validity for WAs
-v5: (Daniele)
-- Enable the Wa_22011802037 for 12+ platforms only for now
-- Use GEM_WARN_ON to warn if ring is not idle
-v6: (CI)
-- Since reset_prepare(gt) is being called from VF, move the WA to GuC's
-  engine reset_prepare vfunc and ensure that the vfunc is nop for VF.
-v7: (Daniele, Rodrigo)
-- Stop submission before stopping ring
-- ORing not needed for pending forcewake
-- Fix Wa_22011802037 to apply to gen12 only
-v8:
-- Make sure CS is resumed after reset
-- Fix uninitialized MSG_IDLE access
-v9: (Daniele)
-- Drop cs resume as not needed in GT reset path
-- Use same loop for reset.prepare and status_page.sanitize
-v10: Add TODO for timeout on intel_engine_stop_cs (Umesh)
+While we're at it, let's extend the kerneldoc description for the other
+engine types as well.
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-CC: Matt Roper <matthew.d.roper@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Cc: Jordan Justen <jordan.l.justen@intel.com>
+Cc: Szymon Morek <szymon.morek@intel.com>
+UMD (mesa): https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/14395
+UMD (compute): https://github.com/intel/compute-runtime/pull/451
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_pm.c         |  9 +-
- drivers/gpu/drm/i915/gt/intel_gt_regs.h       | 18 ++++
- drivers/gpu/drm/i915/gt/intel_reset.c         |  5 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        | 18 ++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  5 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 85 ++++++++++++++++++-
- 6 files changed, 132 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_user.c |  2 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c          |  1 +
+ drivers/gpu/drm/i915/i915_drm_client.c      |  1 +
+ drivers/gpu/drm/i915/i915_drm_client.h      |  2 +-
+ include/uapi/drm/i915_drm.h                 | 62 +++++++++++++++++++--
+ 5 files changed, 60 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-index eeead40485fb..f553e2173bda 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-@@ -182,15 +182,16 @@ static void gt_sanitize(struct intel_gt *gt, bool force)
- 	if (intel_gt_is_wedged(gt))
- 		intel_gt_unset_wedged(gt);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+index 0f6cd96b459f..46a174f8aa00 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+@@ -47,7 +47,7 @@ static const u8 uabi_classes[] = {
+ 	[COPY_ENGINE_CLASS] = I915_ENGINE_CLASS_COPY,
+ 	[VIDEO_DECODE_CLASS] = I915_ENGINE_CLASS_VIDEO,
+ 	[VIDEO_ENHANCEMENT_CLASS] = I915_ENGINE_CLASS_VIDEO_ENHANCE,
+-	/* TODO: Add COMPUTE_CLASS mapping once ABI is available */
++	[COMPUTE_CLASS] = I915_ENGINE_CLASS_COMPUTE,
+ };
  
--	for_each_engine(engine, gt, id)
-+	/* For GuC mode, ensure submission is disabled before stopping ring */
-+	intel_uc_reset_prepare(&gt->uc);
-+
-+	for_each_engine(engine, gt, id) {
- 		if (engine->reset.prepare)
- 			engine->reset.prepare(engine);
+ static int engine_cmp(void *priv, const struct list_head *A,
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index f0014c5072c9..65a579c200ef 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -1172,6 +1172,7 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 		[VIDEO_DECODE_CLASS]		= GEN12_VD_TLB_INV_CR,
+ 		[VIDEO_ENHANCEMENT_CLASS]	= GEN12_VE_TLB_INV_CR,
+ 		[COPY_ENGINE_CLASS]		= GEN12_BLT_TLB_INV_CR,
++		[COMPUTE_CLASS]			= GEN12_GFX_TLB_INV_CR,
+ 	};
+ 	struct drm_i915_private *i915 = gt->i915;
+ 	struct intel_uncore *uncore = gt->uncore;
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+index e539f6b23060..118db6f03f15 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
++++ b/drivers/gpu/drm/i915/i915_drm_client.c
+@@ -81,6 +81,7 @@ static const char * const uabi_class_names[] = {
+ 	[I915_ENGINE_CLASS_COPY] = "copy",
+ 	[I915_ENGINE_CLASS_VIDEO] = "video",
+ 	[I915_ENGINE_CLASS_VIDEO_ENHANCE] = "video-enhance",
++	[I915_ENGINE_CLASS_COMPUTE] = "compute",
+ };
  
--	intel_uc_reset_prepare(&gt->uc);
--
--	for_each_engine(engine, gt, id)
- 		if (engine->sanitize)
- 			engine->sanitize(engine);
-+	}
+ static u64 busy_add(struct i915_gem_context *ctx, unsigned int class)
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index 5f5b02b01ba0..f796c5e8e060 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -13,7 +13,7 @@
  
- 	if (reset_engines(gt) || force) {
- 		for_each_engine(engine, gt, id)
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 0a5c2648aaf0..12d892851684 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -841,6 +841,24 @@
- #define   CTC_SHIFT_PARAMETER_SHIFT		1
- #define   CTC_SHIFT_PARAMETER_MASK		(0x3 << CTC_SHIFT_PARAMETER_SHIFT)
+ #include "gt/intel_engine_types.h"
  
-+/* GPM MSG_IDLE */
-+#define MSG_IDLE_CS		_MMIO(0x8000)
-+#define MSG_IDLE_VCS0		_MMIO(0x8004)
-+#define MSG_IDLE_VCS1		_MMIO(0x8008)
-+#define MSG_IDLE_BCS		_MMIO(0x800C)
-+#define MSG_IDLE_VECS0		_MMIO(0x8010)
-+#define MSG_IDLE_VCS2		_MMIO(0x80C0)
-+#define MSG_IDLE_VCS3		_MMIO(0x80C4)
-+#define MSG_IDLE_VCS4		_MMIO(0x80C8)
-+#define MSG_IDLE_VCS5		_MMIO(0x80CC)
-+#define MSG_IDLE_VCS6		_MMIO(0x80D0)
-+#define MSG_IDLE_VCS7		_MMIO(0x80D4)
-+#define MSG_IDLE_VECS1		_MMIO(0x80D8)
-+#define MSG_IDLE_VECS2		_MMIO(0x80DC)
-+#define MSG_IDLE_VECS3		_MMIO(0x80E0)
-+#define  MSG_IDLE_FW_MASK	REG_GENMASK(13, 9)
-+#define  MSG_IDLE_FW_SHIFT	9
-+
- #define FORCEWAKE_MEDIA_GEN9			_MMIO(0xa270)
- #define FORCEWAKE_RENDER_GEN9			_MMIO(0xa278)
+-#define I915_LAST_UABI_ENGINE_CLASS I915_ENGINE_CLASS_VIDEO_ENHANCE
++#define I915_LAST_UABI_ENGINE_CLASS I915_ENGINE_CLASS_COMPUTE
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index f52015e79fdf..5422a3b84bd4 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -772,14 +772,15 @@ static intel_engine_mask_t reset_prepare(struct intel_gt *gt)
- 	intel_engine_mask_t awake = 0;
- 	enum intel_engine_id id;
+ struct drm_i915_private;
  
-+	/* For GuC mode, ensure submission is disabled before stopping ring */
-+	intel_uc_reset_prepare(&gt->uc);
-+
- 	for_each_engine(engine, gt, id) {
- 		if (intel_engine_pm_get_if_awake(engine))
- 			awake |= engine->mask;
- 		reset_prepare_engine(engine);
- 	}
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 9ab021c4d632..6a587848b0cf 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -154,21 +154,71 @@ enum i915_mocs_table_index {
+ 	I915_MOCS_CACHED,
+ };
  
--	intel_uc_reset_prepare(&gt->uc);
--
- 	return awake;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index cda7e4bb8bac..fd04c4cd9d44 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -292,6 +292,24 @@ static u32 guc_ctl_wa_flags(struct intel_guc *guc)
- 	    GRAPHICS_VER_FULL(gt->i915) < IP_VER(12, 50))
- 		flags |= GUC_WA_POLLCS;
- 
-+	/* Wa_16011759253:dg2_g10:a0 */
-+	if (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_B0))
-+		flags |= GUC_WA_GAM_CREDITS;
-+
-+	/*
-+	 * Wa_14012197797:dg2_g10:a0,dg2_g11:a0
-+	 * Wa_22011391025:dg2_g10,dg2_g11,dg2_g12
+-/*
++/**
++ * enum drm_i915_gem_engine_class - uapi engine type enumeration
++ *
+  * Different engines serve different roles, and there may be more than one
+- * engine serving each role. enum drm_i915_gem_engine_class provides a
+- * classification of the role of the engine, which may be used when requesting
+- * operations to be performed on a certain subset of engines, or for providing
+- * information about that group.
++ * engine serving each role.  This enum provides a classification of the role
++ * of the engine, which may be used when requesting operations to be performed
++ * on a certain subset of engines, or for providing information about that
++ * group.
+  */
+ enum drm_i915_gem_engine_class {
++	/**
++	 * @I915_ENGINE_CLASS_RENDER:
 +	 *
-+	 * The same WA bit is used for both and 22011391025 is applicable to
-+	 * all DG2.
++	 * Render engines support instructions used for 3D, Compute (GPGPU),
++	 * and programmable media workloads.  These instructions fetch data and
++	 * dispatch individual work items to threads that operate in parallel.
++	 * The threads run small programs (called "kernels" or "shaders") on
++	 * the GPU's execution units (EUs).
 +	 */
-+	if (IS_DG2(gt->i915))
-+		flags |= GUC_WA_DUAL_QUEUE;
+ 	I915_ENGINE_CLASS_RENDER	= 0,
 +
-+	/* Wa_22011802037: graphics version 12 */
-+	if (GRAPHICS_VER(gt->i915) == 12)
-+		flags |= GUC_WA_PRE_PARSER;
-+
- 	return flags;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index c154b5efccde..fe5751f67b19 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -98,7 +98,10 @@
- #define   GUC_LOG_BUF_ADDR_SHIFT	12
- 
- #define GUC_CTL_WA			1
--#define   GUC_WA_POLLCS                 BIT(18)
-+#define   GUC_WA_GAM_CREDITS		BIT(10)
-+#define   GUC_WA_DUAL_QUEUE		BIT(11)
-+#define   GUC_WA_PRE_PARSER		BIT(14)
-+#define   GUC_WA_POLLCS			BIT(18)
- 
- #define GUC_CTL_FEATURE			2
- #define   GUC_CTL_ENABLE_SLPC		BIT(2)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 2bd680064942..38ba9f783312 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1540,6 +1540,89 @@ static void guc_reset_state(struct intel_context *ce, u32 head, bool scrub)
- 	lrc_update_regs(ce, engine, head);
- }
- 
-+static u32 __cs_pending_mi_force_wakes(struct intel_engine_cs *engine)
-+{
-+	static const i915_reg_t _reg[I915_NUM_ENGINES] = {
-+		[RCS0] = MSG_IDLE_CS,
-+		[BCS0] = MSG_IDLE_BCS,
-+		[VCS0] = MSG_IDLE_VCS0,
-+		[VCS1] = MSG_IDLE_VCS1,
-+		[VCS2] = MSG_IDLE_VCS2,
-+		[VCS3] = MSG_IDLE_VCS3,
-+		[VCS4] = MSG_IDLE_VCS4,
-+		[VCS5] = MSG_IDLE_VCS5,
-+		[VCS6] = MSG_IDLE_VCS6,
-+		[VCS7] = MSG_IDLE_VCS7,
-+		[VECS0] = MSG_IDLE_VECS0,
-+		[VECS1] = MSG_IDLE_VECS1,
-+		[VECS2] = MSG_IDLE_VECS2,
-+		[VECS3] = MSG_IDLE_VECS3,
-+		[CCS0] = MSG_IDLE_CS,
-+		[CCS1] = MSG_IDLE_CS,
-+		[CCS2] = MSG_IDLE_CS,
-+		[CCS3] = MSG_IDLE_CS,
-+	};
-+	u32 val;
-+
-+	if (!_reg[engine->id].reg)
-+		return 0;
-+
-+	val = intel_uncore_read(engine->uncore, _reg[engine->id]);
-+
-+	/* bits[29:25] & bits[13:9] >> shift */
-+	return (val & (val >> 16) & MSG_IDLE_FW_MASK) >> MSG_IDLE_FW_SHIFT;
-+}
-+
-+static void __gpm_wait_for_fw_complete(struct intel_gt *gt, u32 fw_mask)
-+{
-+	int ret;
-+
-+	/* Ensure GPM receives fw up/down after CS is stopped */
-+	udelay(1);
-+
-+	/* Wait for forcewake request to complete in GPM */
-+	ret =  __intel_wait_for_register_fw(gt->uncore,
-+					    GEN9_PWRGT_DOMAIN_STATUS,
-+					    fw_mask, fw_mask, 5000, 0, NULL);
-+
-+	/* Ensure CS receives fw ack from GPM */
-+	udelay(1);
-+
-+	if (ret)
-+		GT_TRACE(gt, "Failed to complete pending forcewake %d\n", ret);
-+}
-+
-+/*
-+ * Wa_22011802037:gen12: In addition to stopping the cs, we need to wait for any
-+ * pending MI_FORCE_WAKEUP requests that the CS has initiated to complete. The
-+ * pending status is indicated by bits[13:9] (masked by bits[ 29:25]) in the
-+ * MSG_IDLE register. There's one MSG_IDLE register per reset domain. Since we
-+ * are concerned only with the gt reset here, we use a logical OR of pending
-+ * forcewakeups from all reset domains and then wait for them to complete by
-+ * querying PWRGT_DOMAIN_STATUS.
-+ */
-+static void guc_engine_reset_prepare(struct intel_engine_cs *engine)
-+{
-+	u32 fw_pending;
-+
-+	if (GRAPHICS_VER(engine->i915) != 12)
-+		return;
-+
-+	/*
-+	 * Wa_22011802037
-+	 * TODO: Occassionally trying to stop the cs times out, but does not
-+	 * adversely affect functionality. The timeout is set as a config
-+	 * parameter that defaults to 100ms. Assuming that this timeout is
-+	 * sufficient for any pending MI_FORCEWAKEs to complete, ignore the
-+	 * timeout returned here until it is root caused.
++	/**
++	 * @I915_ENGINE_CLASS_COPY:
++	 *
++	 * Copy engines (also referred to as "blitters") support instructions
++	 * that move blocks of data from one location in memory to another,
++	 * or that fill a specified location of memory with fixed data.
++	 * Copy engines can perform pre-defined logical or bitwise operations
++	 * on the source, destination, or pattern data.
 +	 */
-+	intel_engine_stop_cs(engine);
+ 	I915_ENGINE_CLASS_COPY		= 1,
 +
-+	fw_pending = __cs_pending_mi_force_wakes(engine);
-+	if (fw_pending)
-+		__gpm_wait_for_fw_complete(engine->gt, fw_pending);
-+}
++	/**
++	 * @I915_ENGINE_CLASS_VIDEO:
++	 *
++	 * Video engines (also referred to as "bit stream decode" (BSD) or
++	 * "vdbox") support instructions that perform fixed-function media
++	 * decode and encode.
++	 */
+ 	I915_ENGINE_CLASS_VIDEO		= 2,
 +
- static void guc_reset_nop(struct intel_engine_cs *engine)
- {
- }
-@@ -3795,7 +3878,7 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
++	/**
++	 * @I915_ENGINE_CLASS_VIDEO_ENHANCE:
++	 *
++	 * Video enhancement engines (also referred to as "vebox") support
++	 * instructions related to image enhancement.
++	 */
+ 	I915_ENGINE_CLASS_VIDEO_ENHANCE	= 3,
  
- 	engine->sched_engine->schedule = i915_schedule;
+-	/* should be kept compact */
++	/**
++	 * @I915_ENGINE_CLASS_COMPUTE:
++	 *
++	 * Compute engines support a subset of the instructions available
++	 * on render engines:  compute engines support Compute (GPGPU) and
++	 * programmable media workloads, but do not support the 3D pipeline.
++	 */
++	I915_ENGINE_CLASS_COMPUTE	= 4,
++
++	/* Values in this enum should be kept compact. */
  
--	engine->reset.prepare = guc_reset_nop;
-+	engine->reset.prepare = guc_engine_reset_prepare;
- 	engine->reset.rewind = guc_rewind_nop;
- 	engine->reset.cancel = guc_reset_nop;
- 	engine->reset.finish = guc_reset_nop;
++	/**
++	 * @I915_ENGINE_CLASS_INVALID:
++	 *
++	 * Placeholder value to represent an invalid engine class assignment.
++	 */
+ 	I915_ENGINE_CLASS_INVALID	= -1
+ };
+ 
 -- 
 2.35.1
 
