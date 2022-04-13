@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B686C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 18:11:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE886C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 18:11:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1907510E1C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11AFF10E1C4;
 	Wed, 13 Apr 2022 18:11:20 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15FBB10E1C3
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 18:11:18 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22B0C10E1A0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 18:11:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649873478; x=1681409478;
+ t=1649873479; x=1681409479;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jSRJTQ0qsnt5rcnNF5iD1O+0w4DusvJLFYc1DNyw4bM=;
- b=nPFArMMWqX9QPXeE3aDE8jz1vmeDHfucVz+Z/sv5IyzIxP63NdGuxmhO
- CgrHzjtt2ym8z0q7iWlRZ/T8lewtT27uoVluiAv8NmudVh5YJxkzPzylz
- acM1LKz0bPfrN+W417fJ6flP4cZvTPr9fIPIacuYn7y2yDXJUryrapY7x
- Wg49ktlN11XUfN3X9u6NVCTDe1SolBTIL7u24a4QFxoCS3RC5PGEkbJZE
- 0BEW0X0YijooX5ersXOiZX2Zmh33ey+oC0RIaosaFQgZYzUyoeDX0j/YL
- XTkqcyyzGi/9O6g3OaPcW17qn3nrlvZk2Gu8f6QBCcf61+/61X4R0uFnk g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10316"; a="243325718"
-X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="243325718"
+ bh=O5i4Esjq5jCFqc4c1Grt25ARZoRzXUiYXc0Kh/yqVuo=;
+ b=nPLgA88UPLkmtnXJtGOUvx/1anyH7OVp57j+inJPOooumoomI5iRLHYH
+ JZx/o/HFeFOEehG4A97l3YBz1KQtl+lM44knu2rRq9XNEtGkaxfkxhuVi
+ LEtuFYXZ5L0lR+0vecPnbQmfsYtxqNL/4nPEDTmcngHpTrNNnVJ/Xq6qb
+ HOQpfUlvPbzTtsOMkgsUbkdPt0klI7ZF9P8i6xd+6VnXNHmP1hrg4+cZp
+ XuYWNJNqaNj96V0Isn2kDItNQA4JNt/UfIqOJ7yBn7Ga+nJjAfpdgUV55
+ nBuwyq820q3HMAPQyaTkyoLRlBT+aVrWJ1IX4sIac8NThM+Ynt7Mh6vM9 Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10316"; a="323181902"
+X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="323181902"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 11:11:17 -0700
-X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="802788722"
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2022 11:11:16 -0700
+X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="802788715"
 Received: from orsosgc001.jf.intel.com (HELO unerlige-ril-10.165.21.154.com)
  ([10.165.21.154])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 11:11:16 -0700
+ 13 Apr 2022 11:11:15 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Apr 2022 11:11:07 -0700
-Message-Id: <ebf752ac16894e26cbc94baf05d22bdc17ba4e23.1649871650.git.ashutosh.dixit@intel.com>
+Date: Wed, 13 Apr 2022 11:11:05 -0700
+Message-Id: <5b1cfcd6fc47dcc3d6aa9ed2f4412e7b6bf1159c.1649871650.git.ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1649871650.git.ashutosh.dixit@intel.com>
 References: <cover.1649871650.git.ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/8] drm/i915/gt: Fix memory leaks in per-gt
- sysfs
+Subject: [Intel-gfx] [PATCH 4/8] drm/i915/pcode: Add a couple of pcode
+ helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,164 +57,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andi Shyti <andi.shyti@intel.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-All kmalloc'd kobjects need a kobject_put() to free memory. For example in
-previous code, kobj_gt_release() never gets called. The requirement of
-kobject_put() now results in a slightly different code organization.
+Add a couple of helpers to help formatting pcode commands and improve code
+readability.
 
-Cc: Andi Shyti <andi.shyti@intel.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: Mike Ruhl <michael.j.ruhl@intel.com>
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Fixes: b770bcfae9ad ("drm/i915/gt: create per-tile sysfs interface")
+Original-author: Dale B Stimson <dale.b.stimson@intel.com>
+Signed-off-by: Dale B Stimson <dale.b.stimson@intel.com>
 Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c       |  1 +
- drivers/gpu/drm/i915/gt/intel_gt_sysfs.c | 35 ++++++++++--------------
- drivers/gpu/drm/i915/gt/intel_gt_sysfs.h |  6 +---
- drivers/gpu/drm/i915/gt/intel_gt_types.h |  3 ++
- drivers/gpu/drm/i915/i915_sysfs.c        |  2 ++
- 5 files changed, 22 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/i915_reg.h    |  3 +++
+ drivers/gpu/drm/i915/intel_pcode.c | 32 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/intel_pcode.h | 12 +++++++++++
+ 3 files changed, 47 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index f0014c5072c9..f0c56ca12c0b 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -783,6 +783,7 @@ void intel_gt_driver_unregister(struct intel_gt *gt)
- {
- 	intel_wakeref_t wakeref;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index fef71b242706..0d5a4ecd374a 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -6684,6 +6684,9 @@
  
-+	intel_gt_sysfs_unregister(gt);
- 	intel_rps_driver_unregister(&gt->rps);
+ #define GEN6_PCODE_MAILBOX			_MMIO(0x138124)
+ #define   GEN6_PCODE_READY			(1 << 31)
++#define   GEN6_PCODE_MB_PARAM2			REG_GENMASK(23, 16)
++#define   GEN6_PCODE_MB_PARAM1			REG_GENMASK(15, 8)
++#define   GEN6_PCODE_MB_COMMAND			REG_GENMASK(7, 0)
+ #define   GEN6_PCODE_ERROR_MASK			0xFF
+ #define     GEN6_PCODE_SUCCESS			0x0
+ #define     GEN6_PCODE_ILLEGAL_CMD		0x1
+diff --git a/drivers/gpu/drm/i915/intel_pcode.c b/drivers/gpu/drm/i915/intel_pcode.c
+index 0cff212cc81b..87b9f5035741 100644
+--- a/drivers/gpu/drm/i915/intel_pcode.c
++++ b/drivers/gpu/drm/i915/intel_pcode.c
+@@ -239,3 +239,35 @@ int intel_pcode_init(struct drm_i915_private *i915)
  
- 	intel_pxp_fini(&gt->pxp);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
-index 8ec8bc660c8c..6f1b081ca5b7 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
-@@ -24,7 +24,7 @@ bool is_object_gt(struct kobject *kobj)
- 
- static struct intel_gt *kobj_to_gt(struct kobject *kobj)
- {
--	return container_of(kobj, struct kobj_gt, base)->gt;
-+	return container_of(kobj, struct intel_gt, sysfs_gtn);
- }
- 
- struct intel_gt *intel_gt_sysfs_get_drvdata(struct device *dev,
-@@ -72,21 +72,19 @@ static struct attribute *id_attrs[] = {
- };
- ATTRIBUTE_GROUPS(id);
- 
--static void kobj_gt_release(struct kobject *kobj)
-+/* A kobject needs a release() method even if it does nothing */
-+static void kobj_gtn_release(struct kobject *kobj)
- {
--	kfree(kobj);
- }
- 
--static struct kobj_type kobj_gt_type = {
--	.release = kobj_gt_release,
-+static struct kobj_type kobj_gtn_type = {
-+	.release = kobj_gtn_release,
- 	.sysfs_ops = &kobj_sysfs_ops,
- 	.default_groups = id_groups,
- };
- 
- void intel_gt_sysfs_register(struct intel_gt *gt)
- {
--	struct kobj_gt *kg;
--
- 	/*
- 	 * We need to make things right with the
- 	 * ABI compatibility. The files were originally
-@@ -98,25 +96,22 @@ void intel_gt_sysfs_register(struct intel_gt *gt)
- 	if (gt_is_root(gt))
- 		intel_gt_sysfs_pm_init(gt, gt_get_parent_obj(gt));
- 
--	kg = kzalloc(sizeof(*kg), GFP_KERNEL);
--	if (!kg)
-+	/* init and xfer ownership to sysfs tree */
-+	if (kobject_init_and_add(&gt->sysfs_gtn, &kobj_gtn_type,
-+				 gt->i915->sysfs_gt, "gt%d", gt->info.id))
- 		goto exit_fail;
- 
--	kobject_init(&kg->base, &kobj_gt_type);
--	kg->gt = gt;
--
--	/* xfer ownership to sysfs tree */
--	if (kobject_add(&kg->base, gt->i915->sysfs_gt, "gt%d", gt->info.id))
--		goto exit_kobj_put;
--
--	intel_gt_sysfs_pm_init(gt, &kg->base);
-+	intel_gt_sysfs_pm_init(gt, &gt->sysfs_gtn);
- 
- 	return;
- 
--exit_kobj_put:
--	kobject_put(&kg->base);
--
- exit_fail:
-+	kobject_put(&gt->sysfs_gtn);
- 	drm_warn(&gt->i915->drm,
- 		 "failed to initialize gt%d sysfs root\n", gt->info.id);
+ 	return 0;
  }
 +
-+void intel_gt_sysfs_unregister(struct intel_gt *gt)
++int __intel_gt_pcode_read(struct intel_gt *gt, u32 mbcmd, u32 p1, u32 p2, u32 *val)
 +{
-+	kobject_put(&gt->sysfs_gtn);
++	intel_wakeref_t wakeref;
++	u32 mbox;
++	int err;
++
++	mbox = REG_FIELD_PREP(GEN6_PCODE_MB_COMMAND, mbcmd)
++		| REG_FIELD_PREP(GEN6_PCODE_MB_PARAM1, p1)
++		| REG_FIELD_PREP(GEN6_PCODE_MB_PARAM2, p2);
++
++	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
++		err = intel_gt_pcode_read(gt, mbox, val, NULL);
++
++	return err;
 +}
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
-index 9471b26752cf..a99aa7e8b01a 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
-@@ -13,11 +13,6 @@
- 
- struct intel_gt;
- 
--struct kobj_gt {
--	struct kobject base;
--	struct intel_gt *gt;
--};
--
- bool is_object_gt(struct kobject *kobj);
- 
- struct drm_i915_private *kobj_to_i915(struct kobject *kobj);
-@@ -28,6 +23,7 @@ intel_gt_create_kobj(struct intel_gt *gt,
- 		     const char *name);
- 
- void intel_gt_sysfs_register(struct intel_gt *gt);
-+void intel_gt_sysfs_unregister(struct intel_gt *gt);
- struct intel_gt *intel_gt_sysfs_get_drvdata(struct device *dev,
- 					    const char *name);
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index 937b2e1a305e..4c72b4f983a6 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -222,6 +222,9 @@ struct intel_gt {
- 	} mocs;
- 
- 	struct intel_pxp pxp;
 +
-+	/* gt/gtN sysfs */
-+	struct kobject sysfs_gtn;
- };
- 
- enum intel_gt_scratch_field {
-diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
-index 8521daba212a..3f06106cdcf5 100644
---- a/drivers/gpu/drm/i915/i915_sysfs.c
-+++ b/drivers/gpu/drm/i915/i915_sysfs.c
-@@ -259,4 +259,6 @@ void i915_teardown_sysfs(struct drm_i915_private *dev_priv)
- 
- 	device_remove_bin_file(kdev,  &dpf_attrs_1);
- 	device_remove_bin_file(kdev,  &dpf_attrs);
++int __intel_gt_pcode_write(struct intel_gt *gt, u32 mbcmd, u32 p1, u32 p2, u32 val)
++{
++	intel_wakeref_t wakeref;
++	u32 mbox;
++	int err;
 +
-+	kobject_put(dev_priv->sysfs_gt);
- }
++	mbox = REG_FIELD_PREP(GEN6_PCODE_MB_COMMAND, mbcmd)
++		| REG_FIELD_PREP(GEN6_PCODE_MB_PARAM1, p1)
++		| REG_FIELD_PREP(GEN6_PCODE_MB_PARAM2, p2);
++
++	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
++		err = intel_gt_pcode_write(gt, mbox, val);
++
++	return err;
++}
+diff --git a/drivers/gpu/drm/i915/intel_pcode.h b/drivers/gpu/drm/i915/intel_pcode.h
+index 96c954ec91f9..65175d82e033 100644
+--- a/drivers/gpu/drm/i915/intel_pcode.h
++++ b/drivers/gpu/drm/i915/intel_pcode.h
+@@ -36,4 +36,16 @@ int intel_gt_pcode_request(struct intel_gt *gt, u32 mbox, u32 request,
+ 
+ int intel_pcode_init(struct drm_i915_private *i915);
+ 
++/*
++ * Helpers for dGfx PCODE mailbox command formatting
++ */
++int __intel_gt_pcode_read(struct intel_gt *gt, u32 mbcmd, u32 p1, u32 p2, u32 *val);
++int __intel_gt_pcode_write(struct intel_gt *gt, u32 mbcmd, u32 p1, u32 p2, u32 val);
++
++#define __snb_pcode_read(i915, mbcmd, p1, p2, val) \
++	__intel_gt_pcode_read(&(i915)->gt0, mbcmd, p1, p2, val)
++
++#define __snb_pcode_write(i915, mbcmd, p1, p2, val) \
++	__intel_gt_pcode_write(&(i915)->gt0, mbcmd, p1, p2, val)
++
+ #endif /* _INTEL_PCODE_H */
 -- 
 2.34.1
 
