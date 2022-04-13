@@ -4,46 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31577C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 18:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09D55C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 19:02:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DA9510E205;
-	Wed, 13 Apr 2022 18:11:31 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E36110E19F
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 18:11:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649873478; x=1681409478;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=4IsB1ZlCcum/pDXrZE8Fx+3ff3Y4XsMhSZ/am1lGC3g=;
- b=ZrfhJQaR7oMQW2oUIdG/QW5yFv/YA+0hnic6KcQyl2+kJwaAIC+jdLTT
- XSlj/p3mKOWiA4GSpEJkgYr41gGHMZnVjpxeuFP1lx7/UkEllmC7ncrX6
- oOE08kuMNtI1rShHIyWIOsG0nQfLxU1xqDjPITlz58oaojgYsbDKPxBDQ
- TzC5/YSwsiDUDghqpm8WFiyxKH9Rjl6BDbQyS7jWuBHlqE17tSmcwIeh6
- 5wK4mEwej/tj6EXT7uUHEubJ/3g8jfa0Z1OS2Duf3xSZfqi4hKTKLoURq
- Lg3QGJbY9UCoeXuUxzHZe2BdpSX7vsIKwA0jli8H1ZWAHrzziwwjzBWWm w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10316"; a="323181897"
-X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="323181897"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 11:11:15 -0700
-X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="802788702"
-Received: from orsosgc001.jf.intel.com (HELO unerlige-ril-10.165.21.154.com)
- ([10.165.21.154])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 11:11:15 -0700
-From: Ashutosh Dixit <ashutosh.dixit@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Apr 2022 11:11:02 -0700
-Message-Id: <8401d5f5a87035ce1dda28a663771cb867fdf928.1649871650.git.ashutosh.dixit@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1649871650.git.ashutosh.dixit@intel.com>
-References: <cover.1649871650.git.ashutosh.dixit@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6721E10E23B;
+	Wed, 13 Apr 2022 19:02:27 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D72AD10E205;
+ Wed, 13 Apr 2022 19:02:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id D4DECAADD2;
+ Wed, 13 Apr 2022 19:02:26 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/8] drm/i915: Introduce has_media_ratio_mode
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: john.c.harrison@intel.com
+Date: Wed, 13 Apr 2022 19:02:26 -0000
+Message-ID: <164987654683.28396.13087610919232485168@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220412225955.1802543-1-John.C.Harrison@Intel.com>
+In-Reply-To: <20220412225955.1802543-1-John.C.Harrison@Intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Update_to_GuC_v70?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,68 +40,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Media ratio mode (the ability for media IP to work at a different frequency
-from the GT) is available for a subset of dGfx platforms supporting
-GuC/SLPC. Introduce 'has_media_ratio_mode' flag in intel_device_info to
-identify these platforms and set it for XEHPSDV and DG2/ATS-M.
+== Series Details ==
 
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
----
- drivers/gpu/drm/i915/i915_drv.h          | 2 ++
- drivers/gpu/drm/i915/i915_pci.c          | 2 ++
- drivers/gpu/drm/i915/intel_device_info.h | 1 +
- 3 files changed, 5 insertions(+)
+Series: Update to GuC v70
+URL   : https://patchwork.freedesktop.org/series/102626/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 9274417cd87a..1573769b516f 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1222,6 +1222,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define CCS_MASK(gt) \
- 	ENGINE_INSTANCES_MASK(gt, CCS0, I915_MAX_CCS)
- 
-+#define HAS_MEDIA_RATIO_MODE(dev_priv) (INTEL_INFO(dev_priv)->has_media_ratio_mode)
-+
- /*
-  * The Gen7 cmdparser copies the scanned buffer to the ggtt for execution
-  * All later gens can run the final buffer from the ppgtt
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 736e04078f56..ddc72bb07259 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1032,6 +1032,7 @@ static const struct intel_device_info xehpsdv_info = {
- 	.display = { },
- 	.has_64k_pages = 1,
- 	.needs_compact_pt = 1,
-+	.has_media_ratio_mode = 1,
- 	.platform_engine_mask =
- 		BIT(RCS0) | BIT(BCS0) |
- 		BIT(VECS0) | BIT(VECS1) | BIT(VECS2) | BIT(VECS3) |
-@@ -1051,6 +1052,7 @@ static const struct intel_device_info xehpsdv_info = {
- 	.has_64k_pages = 1, \
- 	.has_guc_deprivilege = 1, \
- 	.needs_compact_pt = 1, \
-+	.has_media_ratio_mode = 1, \
- 	.platform_engine_mask = \
- 		BIT(RCS0) | BIT(BCS0) | \
- 		BIT(VECS0) | BIT(VECS1) | \
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index f9b955810593..bf4f2b27fd47 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -146,6 +146,7 @@ enum intel_ppgtt_type {
- 	func(has_llc); \
- 	func(has_logical_ring_contexts); \
- 	func(has_logical_ring_elsq); \
-+	func(has_media_ratio_mode); \
- 	func(has_mslices); \
- 	func(has_pooled_eu); \
- 	func(has_pxp); \
--- 
-2.34.1
+== Summary ==
+
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+
 
