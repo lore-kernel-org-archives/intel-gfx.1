@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF736C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 19:27:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D22E1C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 19:27:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F16210E424;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6FB910E470;
 	Wed, 13 Apr 2022 19:27:38 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C50F810E424
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 19:27:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4940010E432
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 19:27:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649878056; x=1681414056;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=H+3pyaHO/TYd12i82qDOQjY9CyvHZRH/3MZgc6v0M1I=;
- b=dhLjaTP7YQUst5DA77cjvAn5tuYv8KsvQxClPHtEnjwZBhNCjRAL9F7u
- IJ9nSYZcwUthUUIeu9NPkCvwtjqLZY89ma2sKFXSSN1TmmyevEMM4x6HN
- fDjpJokLfDY8CBoFepY3C1672g+aFpbhqFGrv4xlreJJ0KYzuInm/ghyl
- 9deAfvg+Xg8NJA8wD4kCh7LQC+QfmFHlLc0YIhRmu87P1esL2HsdgAduY
- BABl+fbg6/CLv/Gt6600ty2y8fdWWkjbfoI4uGtUShejjGW3x4XPM6eIT
- g66ZTxWg/aV4+ppb1vgF6momGJdhzDUCMNMTuq8TmJIU2+93s768iPYp0 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10316"; a="250045078"
-X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="250045078"
+ t=1649878057; x=1681414057;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=3Hbuy/kPXBrJJ/ALPowTKTLpT/W2tGqTmPysaJ+0cWQ=;
+ b=Sypgxq192U0P0fJRNRH2M5C4T5Od+7kXOSBtHJJ9Pxdd3RuruImv48gs
+ 6YPHs1CDofMiNEXwciLv9IVlDXgzmQA/9Kt8E/KK9YVwSrp/l+VoRRaWK
+ EtPVz+oZ8WD8QSDe1V9Qla4iF1YJnSRV0h7RwFl+gmH+b1PqojjGOxtUx
+ AHcMc6bxNta0G/BbvSQtZidgCwEcTumK6FeQfahH/i0WPyMVEezT+q7ay
+ /kyJGZ3FAVp1Fy7gbHRdGjs1PrmnNpGzaCaO5QYkS7/ElJ859yABS86RR
+ w7mEb2C/q5NXayYL/wePvvlqPBX+R1EKPYgDXXaXO0jSGJzssp0gWD7Uy g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10316"; a="250045082"
+X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="250045082"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Apr 2022 12:27:36 -0700
-X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="645290469"
+X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="645290479"
 Received: from unerlige-desk.jf.intel.com ([10.165.21.210])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 12:27:35 -0700
+ 13 Apr 2022 12:27:36 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
  daniele.ceraolospurio@intel.com, john.c.harrison@intel.com,
  vinay.belgaumkar@intel.com
-Date: Wed, 13 Apr 2022 12:27:20 -0700
-Message-Id: <20220413192730.3608660-1-umesh.nerlige.ramappa@intel.com>
+Date: Wed, 13 Apr 2022 12:27:23 -0700
+Message-Id: <20220413192730.3608660-4-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220413192730.3608660-1-umesh.nerlige.ramappa@intel.com>
+References: <20220413192730.3608660-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/10] Enable compute and related WAs for DG2
+Subject: [Intel-gfx] [PATCH 03/10] drm/i915/guc: Update to GuC version 70.1.1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,60 +60,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable compute, work arounds and relevant GuC FW for DG2.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Update to the latest GuC firmware release.
+
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Signed-off-by: Tilak Tangudu <tilak.tangudu@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 32 ++++++++++++------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
-Daniele Ceraolo Spurio (1):
-  drm/i915: Xe_HP SDV and DG2 have 4 CCS engines
-
-John Harrison (5):
-  drm/i915/guc: Update context registration to new GuC API
-  drm/i915/guc: Update scheduling policies to new GuC API
-  drm/i915/guc: Update to GuC version 70.1.1
-  drm/i915/guc: Enable GuC based workarounds for DG2
-  drm/i915/dg2: Enable Wa_22012727170/Wa_22012727685
-
-Matt Roper (1):
-  drm/i915/xehp: Add compute engine ABI
-
-Matthew Brost (1):
-  drm/i915/dg2: Enable Wa_14014475959 - RCS / CCS context exit
-
-Tilak Tangudu (1):
-  drm/i915: Add Wa_22011802037 force cs halt
-
-Vinay Belgaumkar (1):
-  drm/i915/guc: Apply Wa_16011777198
-
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |  41 ++
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   9 +
- drivers/gpu/drm/i915/gt/intel_engine_regs.h   |   1 +
- drivers/gpu/drm/i915/gt/intel_engine_types.h  |   8 +
- drivers/gpu/drm/i915/gt/intel_engine_user.c   |   2 +-
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |   7 +
- drivers/gpu/drm/i915/gt/intel_gt.c            |   1 +
- drivers/gpu/drm/i915/gt/intel_gt_pm.c         |   9 +-
- drivers/gpu/drm/i915/gt/intel_gt_regs.h       |  18 +
- drivers/gpu/drm/i915/gt/intel_reset.c         |   5 +-
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   4 +-
- drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h |  15 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  35 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   5 -
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  75 ++-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 464 ++++++++++++------
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      |  32 +-
- drivers/gpu/drm/i915/i915_drm_client.c        |   1 +
- drivers/gpu/drm/i915/i915_drm_client.h        |   2 +-
- drivers/gpu/drm/i915/i915_pci.c               |   6 +-
- include/uapi/drm/i915_drm.h                   |  62 ++-
- 21 files changed, 580 insertions(+), 222 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index bb864655c495..cb5dd16421d0 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -53,22 +53,22 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+  * firmware as TGL.
+  */
+ #define INTEL_GUC_FIRMWARE_DEFS(fw_def, guc_def) \
+-	fw_def(DG2,          0, guc_def(dg2,  69, 0, 3)) \
+-	fw_def(ALDERLAKE_P,  0, guc_def(adlp, 69, 0, 3)) \
+-	fw_def(ALDERLAKE_S,  0, guc_def(tgl,  69, 0, 3)) \
+-	fw_def(DG1,          0, guc_def(dg1,  69, 0, 3)) \
+-	fw_def(ROCKETLAKE,   0, guc_def(tgl,  69, 0, 3)) \
+-	fw_def(TIGERLAKE,    0, guc_def(tgl,  69, 0, 3)) \
+-	fw_def(JASPERLAKE,   0, guc_def(ehl,  69, 0, 3)) \
+-	fw_def(ELKHARTLAKE,  0, guc_def(ehl,  69, 0, 3)) \
+-	fw_def(ICELAKE,      0, guc_def(icl,  69, 0, 3)) \
+-	fw_def(COMETLAKE,    5, guc_def(cml,  69, 0, 3)) \
+-	fw_def(COMETLAKE,    0, guc_def(kbl,  69, 0, 3)) \
+-	fw_def(COFFEELAKE,   0, guc_def(kbl,  69, 0, 3)) \
+-	fw_def(GEMINILAKE,   0, guc_def(glk,  69, 0, 3)) \
+-	fw_def(KABYLAKE,     0, guc_def(kbl,  69, 0, 3)) \
+-	fw_def(BROXTON,      0, guc_def(bxt,  69, 0, 3)) \
+-	fw_def(SKYLAKE,      0, guc_def(skl,  69, 0, 3))
++	fw_def(DG2,          0, guc_def(dg2,  70, 1, 1)) \
++	fw_def(ALDERLAKE_P,  0, guc_def(adlp, 70, 1, 1)) \
++	fw_def(ALDERLAKE_S,  0, guc_def(tgl,  70, 1, 1)) \
++	fw_def(DG1,          0, guc_def(dg1,  70, 1, 1)) \
++	fw_def(ROCKETLAKE,   0, guc_def(tgl,  70, 1, 1)) \
++	fw_def(TIGERLAKE,    0, guc_def(tgl,  70, 1, 1)) \
++	fw_def(JASPERLAKE,   0, guc_def(ehl,  70, 1, 1)) \
++	fw_def(ELKHARTLAKE,  0, guc_def(ehl,  70, 1, 1)) \
++	fw_def(ICELAKE,      0, guc_def(icl,  70, 1, 1)) \
++	fw_def(COMETLAKE,    5, guc_def(cml,  70, 1, 1)) \
++	fw_def(COMETLAKE,    0, guc_def(kbl,  70, 1, 1)) \
++	fw_def(COFFEELAKE,   0, guc_def(kbl,  70, 1, 1)) \
++	fw_def(GEMINILAKE,   0, guc_def(glk,  70, 1, 1)) \
++	fw_def(KABYLAKE,     0, guc_def(kbl,  70, 1, 1)) \
++	fw_def(BROXTON,      0, guc_def(bxt,  70, 1, 1)) \
++	fw_def(SKYLAKE,      0, guc_def(skl,  70, 1, 1))
+ 
+ #define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_def) \
+ 	fw_def(ALDERLAKE_P,  0, huc_def(tgl,  7, 9, 3)) \
 -- 
 2.35.1
 
