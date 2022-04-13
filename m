@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F293C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 19:27:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0F09C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Apr 2022 19:27:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62EB610E43A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A4D410E49B;
 	Wed, 13 Apr 2022 19:27:39 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECE1610E432
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 19:27:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3583210E432
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Apr 2022 19:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649878056; x=1681414056;
+ t=1649878058; x=1681414058;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=1mo1+v/rr7XiqAbjIPrRUIP0IEPxQazBVCcSnoEWZj8=;
- b=McRFp1XPIxcH9UbSQVg1Oh7lJyg7sTkjjgxo3NZDrwRjThkhLhMaYYDE
- ui2QK9rtYm3maX4B1jSDuXfbjtrBCRU3o/G+RAFNWXTtyJEc/4veABNyd
- SS7b5B2Zamwl4kywAl0Kxfz+dTOhEx9j46S2Q+7igrmWJg4HxHDf1otxt
- xzi5INzXRO0OxxBxcQJlP4nIQaALVVYUeeVHw6TXAMdEPNYTaLeb6O1QW
- ZAWHXgfYh0XpLfQFL0+5RvZUeYrtVc5AQHctXEUDYcVEqSF2KG119lORH
- i37aYuYZXPPSLqGs9Jz/cXwoDxjMPOauUUDaRtodWmhg+Mw1TzX9NOefC Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10316"; a="250045079"
-X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="250045079"
+ bh=PUyrg6I6/BFyjphgRdjq42MoyrKhCzZMi2y86gzwrLA=;
+ b=BbPsFhI650aBL/SdTM27BWSFgDJ49NyCRQXaHaaGFGHs2djpNvD9oGAw
+ Cdh7qEWaTd9usfEyH0XPff0dbpUcpomChkRz2zDWXft7c5HMcpx4ELSwP
+ Sq6cQo4Oj0t9siZA9FIvMBg7lWG1VbXtbeQkPMAhXkcJNQYd8lquBbofz
+ YCkiC+3Cqx7QmX5/ug3jSgM9q4kcXtoIllc+FlADvrrxpDcMdcgjRAFLm
+ B18TL57gGcb2OXp23CvAPxTEp5F3v++PA1Ua0D/Io/IRxsUS2luFyf8jt
+ Q/MwjhJzM5S5QGnEIEkPL65mCmbc9//sWO+Di7c+IA1uD89sRH1YtCwhm A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10316"; a="250045086"
+X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="250045086"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 12:27:36 -0700
-X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="645290472"
+ 13 Apr 2022 12:27:37 -0700
+X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; d="scan'208";a="645290491"
 Received: from unerlige-desk.jf.intel.com ([10.165.21.210])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 12:27:36 -0700
+ 13 Apr 2022 12:27:37 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
  daniele.ceraolospurio@intel.com, john.c.harrison@intel.com,
  vinay.belgaumkar@intel.com
-Date: Wed, 13 Apr 2022 12:27:21 -0700
-Message-Id: <20220413192730.3608660-2-umesh.nerlige.ramappa@intel.com>
+Date: Wed, 13 Apr 2022 12:27:27 -0700
+Message-Id: <20220413192730.3608660-8-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220413192730.3608660-1-umesh.nerlige.ramappa@intel.com>
 References: <20220413192730.3608660-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/10] drm/i915/guc: Update context registration
- to new GuC API
+Subject: [Intel-gfx] [PATCH 07/10] drm/i915/guc: Enable GuC based
+ workarounds for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,550 +63,274 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The latest GuC firmware drops the context descriptor pool in favour of
-passing all creation data in the create H2G. It also greatly simplifies
-the work queue and removes the process descriptor used for multi-LRC
-submission. So, remove all mention of LRC and process descriptors and
-update the registration code accordingly.
+There are some workarounds for DG2 that are implemented in the GuC
+firmware. However, the KMD is required to enable these by setting the
+appropriate flag as GuC does not know what platform it is running on.
+  Wa_16011759253
+  Wa_14012630569
+  Wa_14013746162
 
-Unfortunately, the new API also removes the ability to set default
-values for the scheduling policies at context registration time.
-Instead, a follow up H2G must be sent. This will be addressed in the
-next patch.
+v2: Add a couple more workarounds and drop the FIXME prefix as the
+HSDs seem to be updated now. (JohnH)
+v3: Add remaining parts of Wa_22011802037 (Umesh)
+v4: (Daniele)
+- Fix R-b versioning
+- Add engine->reset.prepare hook for Wa_22011802037
+- Apply Wa_22011802037 to graphics version 11 and onwards
+- Fix comments on stepping validity for WAs
+v5: (Daniele)
+- Enable the Wa_22011802037 for 12+ platforms only for now
+- Use GEM_WARN_ON to warn if ring is not idle
+v6: (CI)
+- Since reset_prepare(gt) is being called from VF, move the WA to GuC's
+  engine reset_prepare vfunc and ensure that the vfunc is nop for VF.
+v7: (Daniele, Rodrigo)
+- Stop submission before stopping ring
+- ORing not needed for pending forcewake
+- Fix Wa_22011802037 to apply to gen12 only
+v8:
+- Make sure CS is resumed after reset
+- Fix uninitialized MSG_IDLE access
+v9: (Daniele)
+- Drop cs resume as not needed in GT reset path
+- Use same loop for reset.prepare and status_page.sanitize
+v10: Add TODO for timeout on intel_engine_stop_cs (Umesh)
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+CC: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   5 -
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  52 ++---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 221 ++++++++----------
- 3 files changed, 116 insertions(+), 162 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c         |  9 +-
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h       | 18 ++++
+ drivers/gpu/drm/i915/gt/intel_reset.c         |  5 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        | 18 ++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  5 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 85 ++++++++++++++++++-
+ 6 files changed, 132 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 4e431c14b118..3f3373f68123 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -170,11 +170,6 @@ struct intel_guc {
- 	/** @ads_engine_usage_size: size of engine usage in the ADS */
- 	u32 ads_engine_usage_size;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+index eeead40485fb..f553e2173bda 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+@@ -182,15 +182,16 @@ static void gt_sanitize(struct intel_gt *gt, bool force)
+ 	if (intel_gt_is_wedged(gt))
+ 		intel_gt_unset_wedged(gt);
  
--	/** @lrc_desc_pool: object allocated to hold the GuC LRC descriptor pool */
--	struct i915_vma *lrc_desc_pool;
--	/** @lrc_desc_pool_vaddr: contents of the GuC LRC descriptor pool */
--	void *lrc_desc_pool_vaddr;
+-	for_each_engine(engine, gt, id)
++	/* For GuC mode, ensure submission is disabled before stopping ring */
++	intel_uc_reset_prepare(&gt->uc);
++
++	for_each_engine(engine, gt, id) {
+ 		if (engine->reset.prepare)
+ 			engine->reset.prepare(engine);
+ 
+-	intel_uc_reset_prepare(&gt->uc);
 -
- 	/**
- 	 * @context_lookup: used to resolve intel_context from guc_id, if a
- 	 * context is present in this structure it is registered with the GuC
+-	for_each_engine(engine, gt, id)
+ 		if (engine->sanitize)
+ 			engine->sanitize(engine);
++	}
+ 
+ 	if (reset_engines(gt) || force) {
+ 		for_each_engine(engine, gt, id)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 0a5c2648aaf0..12d892851684 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -841,6 +841,24 @@
+ #define   CTC_SHIFT_PARAMETER_SHIFT		1
+ #define   CTC_SHIFT_PARAMETER_MASK		(0x3 << CTC_SHIFT_PARAMETER_SHIFT)
+ 
++/* GPM MSG_IDLE */
++#define MSG_IDLE_CS		_MMIO(0x8000)
++#define MSG_IDLE_VCS0		_MMIO(0x8004)
++#define MSG_IDLE_VCS1		_MMIO(0x8008)
++#define MSG_IDLE_BCS		_MMIO(0x800C)
++#define MSG_IDLE_VECS0		_MMIO(0x8010)
++#define MSG_IDLE_VCS2		_MMIO(0x80C0)
++#define MSG_IDLE_VCS3		_MMIO(0x80C4)
++#define MSG_IDLE_VCS4		_MMIO(0x80C8)
++#define MSG_IDLE_VCS5		_MMIO(0x80CC)
++#define MSG_IDLE_VCS6		_MMIO(0x80D0)
++#define MSG_IDLE_VCS7		_MMIO(0x80D4)
++#define MSG_IDLE_VECS1		_MMIO(0x80D8)
++#define MSG_IDLE_VECS2		_MMIO(0x80DC)
++#define MSG_IDLE_VECS3		_MMIO(0x80E0)
++#define  MSG_IDLE_FW_MASK	REG_GENMASK(13, 9)
++#define  MSG_IDLE_FW_SHIFT	9
++
+ #define FORCEWAKE_MEDIA_GEN9			_MMIO(0xa270)
+ #define FORCEWAKE_RENDER_GEN9			_MMIO(0xa278)
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index f52015e79fdf..5422a3b84bd4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -772,14 +772,15 @@ static intel_engine_mask_t reset_prepare(struct intel_gt *gt)
+ 	intel_engine_mask_t awake = 0;
+ 	enum intel_engine_id id;
+ 
++	/* For GuC mode, ensure submission is disabled before stopping ring */
++	intel_uc_reset_prepare(&gt->uc);
++
+ 	for_each_engine(engine, gt, id) {
+ 		if (intel_engine_pm_get_if_awake(engine))
+ 			awake |= engine->mask;
+ 		reset_prepare_engine(engine);
+ 	}
+ 
+-	intel_uc_reset_prepare(&gt->uc);
+-
+ 	return awake;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index cda7e4bb8bac..fd04c4cd9d44 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -292,6 +292,24 @@ static u32 guc_ctl_wa_flags(struct intel_guc *guc)
+ 	    GRAPHICS_VER_FULL(gt->i915) < IP_VER(12, 50))
+ 		flags |= GUC_WA_POLLCS;
+ 
++	/* Wa_16011759253:dg2_g10:a0 */
++	if (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_B0))
++		flags |= GUC_WA_GAM_CREDITS;
++
++	/*
++	 * Wa_14012197797:dg2_g10:a0,dg2_g11:a0
++	 * Wa_22011391025:dg2_g10,dg2_g11,dg2_g12
++	 *
++	 * The same WA bit is used for both and 22011391025 is applicable to
++	 * all DG2.
++	 */
++	if (IS_DG2(gt->i915))
++		flags |= GUC_WA_DUAL_QUEUE;
++
++	/* Wa_22011802037: graphics version 12 */
++	if (GRAPHICS_VER(gt->i915) == 12)
++		flags |= GUC_WA_PRE_PARSER;
++
+ 	return flags;
+ }
+ 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index f21b6de46a99..0e1e8d0079b5 100644
+index c154b5efccde..fe5751f67b19 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -197,20 +197,28 @@ struct guc_wq_item {
- 	u32 fence_id;
- } __packed;
+@@ -98,7 +98,10 @@
+ #define   GUC_LOG_BUF_ADDR_SHIFT	12
  
--struct guc_process_desc {
--	u32 stage_id;
--	u64 db_base_addr;
-+struct guc_sched_wq_desc {
- 	u32 head;
- 	u32 tail;
- 	u32 error_offset;
--	u64 wq_base_addr;
--	u32 wq_size_bytes;
- 	u32 wq_status;
--	u32 engine_presence;
--	u32 priority;
--	u32 reserved[36];
-+	u32 reserved[28];
- } __packed;
+ #define GUC_CTL_WA			1
+-#define   GUC_WA_POLLCS                 BIT(18)
++#define   GUC_WA_GAM_CREDITS		BIT(10)
++#define   GUC_WA_DUAL_QUEUE		BIT(11)
++#define   GUC_WA_PRE_PARSER		BIT(14)
++#define   GUC_WA_POLLCS			BIT(18)
  
-+/* Helper for context registration H2G */
-+struct guc_ctxt_registration_info {
-+	u32 flags;
-+	u32 context_idx;
-+	u32 engine_class;
-+	u32 engine_submit_mask;
-+	u32 wq_desc_lo;
-+	u32 wq_desc_hi;
-+	u32 wq_base_lo;
-+	u32 wq_base_hi;
-+	u32 wq_size;
-+	u32 hwlrca_lo;
-+	u32 hwlrca_hi;
-+};
- #define CONTEXT_REGISTRATION_FLAG_KMD	BIT(0)
- 
- #define CONTEXT_POLICY_DEFAULT_EXECUTION_QUANTUM_US 1000000
-@@ -219,34 +227,6 @@ struct guc_process_desc {
- /* Preempt to idle on quantum expiry */
- #define CONTEXT_POLICY_FLAG_PREEMPT_TO_IDLE	BIT(0)
- 
--/*
-- * GuC Context registration descriptor.
-- * FIXME: This is only required to exist during context registration.
-- * The current 1:1 between guc_lrc_desc and LRCs for the lifetime of the LRC
-- * is not required.
-- */
--struct guc_lrc_desc {
--	u32 hw_context_desc;
--	u32 slpm_perf_mode_hint;	/* SPLC v1 only */
--	u32 slpm_freq_hint;
--	u32 engine_submit_mask;		/* In logical space */
--	u8 engine_class;
--	u8 reserved0[3];
--	u32 priority;
--	u32 process_desc;
--	u32 wq_addr;
--	u32 wq_size;
--	u32 context_flags;		/* CONTEXT_REGISTRATION_* */
--	/* Time for one workload to execute. (in micro seconds) */
--	u32 execution_quantum;
--	/* Time to wait for a preemption request to complete before issuing a
--	 * reset. (in micro seconds).
--	 */
--	u32 preemption_timeout;
--	u32 policy_flags;		/* CONTEXT_POLICY_* */
--	u32 reserved1[19];
--} __packed;
--
- #define GUC_POWER_UNSPECIFIED	0
- #define GUC_POWER_D0		1
- #define GUC_POWER_D1		2
+ #define GUC_CTL_FEATURE			2
+ #define   GUC_CTL_ENABLE_SLPC		BIT(2)
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index e1612c393781..bd0584d7d489 100644
+index 2bd680064942..38ba9f783312 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -396,12 +396,12 @@ struct sync_semaphore {
- };
- 
- struct parent_scratch {
--	struct guc_process_desc pdesc;
-+	struct guc_sched_wq_desc wq_desc;
- 
- 	struct sync_semaphore go;
- 	struct sync_semaphore join[MAX_ENGINE_INSTANCE + 1];
- 
--	u8 unused[WQ_OFFSET - sizeof(struct guc_process_desc) -
-+	u8 unused[WQ_OFFSET - sizeof(struct guc_sched_wq_desc) -
- 		sizeof(struct sync_semaphore) * (MAX_ENGINE_INSTANCE + 2)];
- 
- 	u32 wq[WQ_SIZE / sizeof(u32)];
-@@ -438,15 +438,15 @@ __get_parent_scratch(struct intel_context *ce)
- 		   LRC_STATE_OFFSET) / sizeof(u32)));
+@@ -1540,6 +1540,89 @@ static void guc_reset_state(struct intel_context *ce, u32 head, bool scrub)
+ 	lrc_update_regs(ce, engine, head);
  }
  
--static struct guc_process_desc *
--__get_process_desc(struct intel_context *ce)
-+static struct guc_sched_wq_desc *
-+__get_wq_desc(struct intel_context *ce)
- {
- 	struct parent_scratch *ps = __get_parent_scratch(ce);
- 
--	return &ps->pdesc;
-+	return &ps->wq_desc;
- }
- 
--static u32 *get_wq_pointer(struct guc_process_desc *desc,
-+static u32 *get_wq_pointer(struct guc_sched_wq_desc *wq_desc,
- 			   struct intel_context *ce,
- 			   u32 wqi_size)
- {
-@@ -458,7 +458,7 @@ static u32 *get_wq_pointer(struct guc_process_desc *desc,
- #define AVAILABLE_SPACE	\
- 	CIRC_SPACE(ce->parallel.guc.wqi_tail, ce->parallel.guc.wqi_head, WQ_SIZE)
- 	if (wqi_size > AVAILABLE_SPACE) {
--		ce->parallel.guc.wqi_head = READ_ONCE(desc->head);
-+		ce->parallel.guc.wqi_head = READ_ONCE(wq_desc->head);
- 
- 		if (wqi_size > AVAILABLE_SPACE)
- 			return NULL;
-@@ -468,15 +468,6 @@ static u32 *get_wq_pointer(struct guc_process_desc *desc,
- 	return &__get_parent_scratch(ce)->wq[ce->parallel.guc.wqi_tail / sizeof(u32)];
- }
- 
--static struct guc_lrc_desc *__get_lrc_desc(struct intel_guc *guc, u32 index)
--{
--	struct guc_lrc_desc *base = guc->lrc_desc_pool_vaddr;
--
--	GEM_BUG_ON(index >= GUC_MAX_CONTEXT_ID);
--
--	return &base[index];
--}
--
- static inline struct intel_context *__get_context(struct intel_guc *guc, u32 id)
- {
- 	struct intel_context *ce = xa_load(&guc->context_lookup, id);
-@@ -486,39 +477,11 @@ static inline struct intel_context *__get_context(struct intel_guc *guc, u32 id)
- 	return ce;
- }
- 
--static int guc_lrc_desc_pool_create(struct intel_guc *guc)
--{
--	u32 size;
--	int ret;
--
--	size = PAGE_ALIGN(sizeof(struct guc_lrc_desc) *
--			  GUC_MAX_CONTEXT_ID);
--	ret = intel_guc_allocate_and_map_vma(guc, size, &guc->lrc_desc_pool,
--					     (void **)&guc->lrc_desc_pool_vaddr);
--	if (ret)
--		return ret;
--
--	return 0;
--}
--
--static void guc_lrc_desc_pool_destroy(struct intel_guc *guc)
--{
--	guc->lrc_desc_pool_vaddr = NULL;
--	i915_vma_unpin_and_release(&guc->lrc_desc_pool, I915_VMA_RELEASE_MAP);
--}
--
- static inline bool guc_submission_initialized(struct intel_guc *guc)
- {
- 	return guc->submission_initialized;
- }
- 
--static inline void _reset_lrc_desc(struct intel_guc *guc, u32 id)
--{
--	struct guc_lrc_desc *desc = __get_lrc_desc(guc, id);
--
--	memset(desc, 0, sizeof(*desc));
--}
--
- static inline bool ctx_id_mapped(struct intel_guc *guc, u32 id)
- {
- 	return __get_context(guc, id);
-@@ -545,8 +508,6 @@ static inline void clr_ctx_id_mapping(struct intel_guc *guc, u32 id)
- 	if (unlikely(!guc_submission_initialized(guc)))
- 		return;
- 
--	_reset_lrc_desc(guc, id);
--
- 	/*
- 	 * xarray API doesn't have xa_erase_irqsave wrapper, so calling
- 	 * the lower level functions directly.
-@@ -751,7 +712,7 @@ static u32 wq_space_until_wrap(struct intel_context *ce)
- 	return (WQ_SIZE - ce->parallel.guc.wqi_tail);
- }
- 
--static void write_wqi(struct guc_process_desc *desc,
-+static void write_wqi(struct guc_sched_wq_desc *wq_desc,
- 		      struct intel_context *ce,
- 		      u32 wqi_size)
- {
-@@ -764,13 +725,13 @@ static void write_wqi(struct guc_process_desc *desc,
- 
- 	ce->parallel.guc.wqi_tail = (ce->parallel.guc.wqi_tail + wqi_size) &
- 		(WQ_SIZE - 1);
--	WRITE_ONCE(desc->tail, ce->parallel.guc.wqi_tail);
-+	WRITE_ONCE(wq_desc->tail, ce->parallel.guc.wqi_tail);
- }
- 
- static int guc_wq_noop_append(struct intel_context *ce)
- {
--	struct guc_process_desc *desc = __get_process_desc(ce);
--	u32 *wqi = get_wq_pointer(desc, ce, wq_space_until_wrap(ce));
-+	struct guc_sched_wq_desc *wq_desc = __get_wq_desc(ce);
-+	u32 *wqi = get_wq_pointer(wq_desc, ce, wq_space_until_wrap(ce));
- 	u32 len_dw = wq_space_until_wrap(ce) / sizeof(u32) - 1;
- 
- 	if (!wqi)
-@@ -789,7 +750,7 @@ static int __guc_wq_item_append(struct i915_request *rq)
- {
- 	struct intel_context *ce = request_to_scheduling_context(rq);
- 	struct intel_context *child;
--	struct guc_process_desc *desc = __get_process_desc(ce);
-+	struct guc_sched_wq_desc *wq_desc = __get_wq_desc(ce);
- 	unsigned int wqi_size = (ce->parallel.number_children + 4) *
- 		sizeof(u32);
- 	u32 *wqi;
-@@ -809,7 +770,7 @@ static int __guc_wq_item_append(struct i915_request *rq)
- 			return ret;
- 	}
- 
--	wqi = get_wq_pointer(desc, ce, wqi_size);
-+	wqi = get_wq_pointer(wq_desc, ce, wqi_size);
- 	if (!wqi)
- 		return -EBUSY;
- 
-@@ -824,7 +785,7 @@ static int __guc_wq_item_append(struct i915_request *rq)
- 	for_each_child(ce, child)
- 		*wqi++ = child->ring->tail / sizeof(u64);
- 
--	write_wqi(desc, ce, wqi_size);
-+	write_wqi(wq_desc, ce, wqi_size);
- 
- 	return 0;
- }
-@@ -1812,20 +1773,10 @@ static void reset_fail_worker_func(struct work_struct *w);
- int intel_guc_submission_init(struct intel_guc *guc)
- {
- 	struct intel_gt *gt = guc_to_gt(guc);
--	int ret;
- 
- 	if (guc->submission_initialized)
- 		return 0;
- 
--	ret = guc_lrc_desc_pool_create(guc);
--	if (ret)
--		return ret;
--	/*
--	 * Keep static analysers happy, let them know that we allocated the
--	 * vma after testing that it didn't exist earlier.
--	 */
--	GEM_BUG_ON(!guc->lrc_desc_pool);
--
- 	guc->submission_state.guc_ids_bitmap =
- 		bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID(guc), GFP_KERNEL);
- 	if (!guc->submission_state.guc_ids_bitmap)
-@@ -1844,7 +1795,6 @@ void intel_guc_submission_fini(struct intel_guc *guc)
- 		return;
- 
- 	guc_flush_destroyed_contexts(guc);
--	guc_lrc_desc_pool_destroy(guc);
- 	i915_sched_engine_put(guc->sched_engine);
- 	bitmap_free(guc->submission_state.guc_ids_bitmap);
- 	guc->submission_initialized = false;
-@@ -2104,63 +2054,88 @@ static void unpin_guc_id(struct intel_guc *guc, struct intel_context *ce)
- 
- static int __guc_action_register_multi_lrc(struct intel_guc *guc,
- 					   struct intel_context *ce,
--					   u32 guc_id,
--					   u32 offset,
-+					   struct guc_ctxt_registration_info *info,
- 					   bool loop)
- {
- 	struct intel_context *child;
--	u32 action[4 + MAX_ENGINE_INSTANCE];
-+	u32 action[13 + (MAX_ENGINE_INSTANCE * 2)];
- 	int len = 0;
-+	u32 next_id;
- 
- 	GEM_BUG_ON(ce->parallel.number_children > MAX_ENGINE_INSTANCE);
- 
- 	action[len++] = INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC;
--	action[len++] = guc_id;
-+	action[len++] = info->flags;
-+	action[len++] = info->context_idx;
-+	action[len++] = info->engine_class;
-+	action[len++] = info->engine_submit_mask;
-+	action[len++] = info->wq_desc_lo;
-+	action[len++] = info->wq_desc_hi;
-+	action[len++] = info->wq_base_lo;
-+	action[len++] = info->wq_base_hi;
-+	action[len++] = info->wq_size;
- 	action[len++] = ce->parallel.number_children + 1;
--	action[len++] = offset;
-+	action[len++] = info->hwlrca_lo;
-+	action[len++] = info->hwlrca_hi;
++static u32 __cs_pending_mi_force_wakes(struct intel_engine_cs *engine)
++{
++	static const i915_reg_t _reg[I915_NUM_ENGINES] = {
++		[RCS0] = MSG_IDLE_CS,
++		[BCS0] = MSG_IDLE_BCS,
++		[VCS0] = MSG_IDLE_VCS0,
++		[VCS1] = MSG_IDLE_VCS1,
++		[VCS2] = MSG_IDLE_VCS2,
++		[VCS3] = MSG_IDLE_VCS3,
++		[VCS4] = MSG_IDLE_VCS4,
++		[VCS5] = MSG_IDLE_VCS5,
++		[VCS6] = MSG_IDLE_VCS6,
++		[VCS7] = MSG_IDLE_VCS7,
++		[VECS0] = MSG_IDLE_VECS0,
++		[VECS1] = MSG_IDLE_VECS1,
++		[VECS2] = MSG_IDLE_VECS2,
++		[VECS3] = MSG_IDLE_VECS3,
++		[CCS0] = MSG_IDLE_CS,
++		[CCS1] = MSG_IDLE_CS,
++		[CCS2] = MSG_IDLE_CS,
++		[CCS3] = MSG_IDLE_CS,
++	};
++	u32 val;
 +
-+	next_id = info->context_idx + 1;
- 	for_each_child(ce, child) {
--		offset += sizeof(struct guc_lrc_desc);
--		action[len++] = offset;
-+		GEM_BUG_ON(next_id++ != child->guc_id.id);
++	if (!_reg[engine->id].reg)
++		return 0;
 +
-+		/*
-+		 * NB: GuC interface supports 64 bit LRCA even though i915
-+		 * only supports 32 bit currently.
-+		 */
-+		action[len++] = lower_32_bits(child->lrc.lrca);
-+		action[len++] = upper_32_bits(child->lrc.lrca);
- 	}
- 
-+	GEM_BUG_ON(len > ARRAY_SIZE(action));
++	val = intel_uncore_read(engine->uncore, _reg[engine->id]);
 +
- 	return guc_submission_send_busy_loop(guc, action, len, 0, loop);
- }
- 
- static int __guc_action_register_context(struct intel_guc *guc,
--					 u32 guc_id,
--					 u32 offset,
-+					 struct guc_ctxt_registration_info *info,
- 					 bool loop)
- {
- 	u32 action[] = {
- 		INTEL_GUC_ACTION_REGISTER_CONTEXT,
--		guc_id,
--		offset,
-+		info->flags,
-+		info->context_idx,
-+		info->engine_class,
-+		info->engine_submit_mask,
-+		info->wq_desc_lo,
-+		info->wq_desc_hi,
-+		info->wq_base_lo,
-+		info->wq_base_hi,
-+		info->wq_size,
-+		info->hwlrca_lo,
-+		info->hwlrca_hi,
- 	};
- 
- 	return guc_submission_send_busy_loop(guc, action, ARRAY_SIZE(action),
- 					     0, loop);
- }
- 
--static void prepare_context_registration_info(struct intel_context *ce);
-+static void prepare_context_registration_info(struct intel_context *ce,
-+					      struct guc_ctxt_registration_info *info);
- 
- static int register_context(struct intel_context *ce, bool loop)
- {
-+	struct guc_ctxt_registration_info info;
- 	struct intel_guc *guc = ce_to_guc(ce);
--	u32 offset = intel_guc_ggtt_offset(guc, guc->lrc_desc_pool) +
--		ce->guc_id.id * sizeof(struct guc_lrc_desc);
- 	int ret;
- 
- 	GEM_BUG_ON(intel_context_is_child(ce));
- 	trace_intel_context_register(ce);
- 
--	prepare_context_registration_info(ce);
-+	prepare_context_registration_info(ce, &info);
- 
- 	if (intel_context_is_parent(ce))
--		ret = __guc_action_register_multi_lrc(guc, ce, ce->guc_id.id,
--						      offset, loop);
-+		ret = __guc_action_register_multi_lrc(guc, ce, &info, loop);
- 	else
--		ret = __guc_action_register_context(guc, ce->guc_id.id, offset,
--						    loop);
-+		ret = __guc_action_register_context(guc, &info, loop);
- 	if (likely(!ret)) {
- 		unsigned long flags;
- 
-@@ -2216,6 +2191,8 @@ static inline u32 get_children_join_value(struct intel_context *ce,
- 	return __get_parent_scratch(ce)->join[child_index].semaphore;
- }
- 
-+#if 0
-+/* FIXME: This needs to be updated for new v70 interface... */
- static void guc_context_policy_init(struct intel_engine_cs *engine,
- 				    struct guc_lrc_desc *desc)
- {
-@@ -2228,14 +2205,14 @@ static void guc_context_policy_init(struct intel_engine_cs *engine,
- 	desc->execution_quantum = engine->props.timeslice_duration_ms * 1000;
- 	desc->preemption_timeout = engine->props.preempt_timeout_ms * 1000;
- }
-+#endif
- 
--static void prepare_context_registration_info(struct intel_context *ce)
-+static void prepare_context_registration_info(struct intel_context *ce,
-+					      struct guc_ctxt_registration_info *info)
- {
- 	struct intel_engine_cs *engine = ce->engine;
- 	struct intel_guc *guc = &engine->gt->uc.guc;
- 	u32 ctx_id = ce->guc_id.id;
--	struct guc_lrc_desc *desc;
--	struct intel_context *child;
- 
- 	GEM_BUG_ON(!engine->mask);
- 
-@@ -2246,47 +2223,49 @@ static void prepare_context_registration_info(struct intel_context *ce)
- 	GEM_BUG_ON(i915_gem_object_is_lmem(guc->ct.vma->obj) !=
- 		   i915_gem_object_is_lmem(ce->ring->vma->obj));
- 
--	desc = __get_lrc_desc(guc, ctx_id);
--	desc->engine_class = engine_class_to_guc_class(engine->class);
--	desc->engine_submit_mask = engine->logical_mask;
--	desc->hw_context_desc = ce->lrc.lrca;
--	desc->priority = ce->guc_state.prio;
--	desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
--	guc_context_policy_init(engine, desc);
-+	memset(info, 0, sizeof(*info));
-+	info->context_idx = ctx_id;
-+	info->engine_class = engine_class_to_guc_class(engine->class);
-+	info->engine_submit_mask = engine->logical_mask;
++	/* bits[29:25] & bits[13:9] >> shift */
++	return (val & (val >> 16) & MSG_IDLE_FW_MASK) >> MSG_IDLE_FW_SHIFT;
++}
++
++static void __gpm_wait_for_fw_complete(struct intel_gt *gt, u32 fw_mask)
++{
++	int ret;
++
++	/* Ensure GPM receives fw up/down after CS is stopped */
++	udelay(1);
++
++	/* Wait for forcewake request to complete in GPM */
++	ret =  __intel_wait_for_register_fw(gt->uncore,
++					    GEN9_PWRGT_DOMAIN_STATUS,
++					    fw_mask, fw_mask, 5000, 0, NULL);
++
++	/* Ensure CS receives fw ack from GPM */
++	udelay(1);
++
++	if (ret)
++		GT_TRACE(gt, "Failed to complete pending forcewake %d\n", ret);
++}
++
++/*
++ * Wa_22011802037:gen12: In addition to stopping the cs, we need to wait for any
++ * pending MI_FORCE_WAKEUP requests that the CS has initiated to complete. The
++ * pending status is indicated by bits[13:9] (masked by bits[ 29:25]) in the
++ * MSG_IDLE register. There's one MSG_IDLE register per reset domain. Since we
++ * are concerned only with the gt reset here, we use a logical OR of pending
++ * forcewakeups from all reset domains and then wait for them to complete by
++ * querying PWRGT_DOMAIN_STATUS.
++ */
++static void guc_engine_reset_prepare(struct intel_engine_cs *engine)
++{
++	u32 fw_pending;
++
++	if (GRAPHICS_VER(engine->i915) != 12)
++		return;
++
 +	/*
-+	 * NB: GuC interface supports 64 bit LRCA even though i915
-+	 * only supports 32 bit currently.
++	 * Wa_22011802037
++	 * TODO: Occassionally trying to stop the cs times out, but does not
++	 * adversely affect functionality. The timeout is set as a config
++	 * parameter that defaults to 100ms. Assuming that this timeout is
++	 * sufficient for any pending MI_FORCEWAKEs to complete, ignore the
++	 * timeout returned here until it is root caused.
 +	 */
-+	info->hwlrca_lo = lower_32_bits(ce->lrc.lrca);
-+	info->hwlrca_hi = upper_32_bits(ce->lrc.lrca);
-+	info->flags = CONTEXT_REGISTRATION_FLAG_KMD;
-+	/* FIXME: This needs to be updated for new v70 interface... */
-+	//desc->priority = ce->guc_state.prio;
-+	//guc_context_policy_init(engine, desc);
- 
- 	/*
- 	 * If context is a parent, we need to register a process descriptor
- 	 * describing a work queue and register all child contexts.
- 	 */
- 	if (intel_context_is_parent(ce)) {
--		struct guc_process_desc *pdesc;
-+		struct guc_sched_wq_desc *wq_desc;
-+		u64 wq_desc_offset, wq_base_offset;
- 
- 		ce->parallel.guc.wqi_tail = 0;
- 		ce->parallel.guc.wqi_head = 0;
- 
--		desc->process_desc = i915_ggtt_offset(ce->state) +
--			__get_parent_scratch_offset(ce);
--		desc->wq_addr = i915_ggtt_offset(ce->state) +
--			__get_wq_offset(ce);
--		desc->wq_size = WQ_SIZE;
--
--		pdesc = __get_process_desc(ce);
--		memset(pdesc, 0, sizeof(*(pdesc)));
--		pdesc->stage_id = ce->guc_id.id;
--		pdesc->wq_base_addr = desc->wq_addr;
--		pdesc->wq_size_bytes = desc->wq_size;
--		pdesc->wq_status = WQ_STATUS_ACTIVE;
--
--		for_each_child(ce, child) {
--			desc = __get_lrc_desc(guc, child->guc_id.id);
--
--			desc->engine_class =
--				engine_class_to_guc_class(engine->class);
--			desc->hw_context_desc = child->lrc.lrca;
--			desc->priority = ce->guc_state.prio;
--			desc->context_flags = CONTEXT_REGISTRATION_FLAG_KMD;
--			guc_context_policy_init(engine, desc);
--		}
-+		wq_desc_offset = i915_ggtt_offset(ce->state) +
-+				 __get_parent_scratch_offset(ce);
-+		wq_base_offset = i915_ggtt_offset(ce->state) +
-+				 __get_wq_offset(ce);
-+		info->wq_desc_lo = lower_32_bits(wq_desc_offset);
-+		info->wq_desc_hi = upper_32_bits(wq_desc_offset);
-+		info->wq_base_lo = lower_32_bits(wq_base_offset);
-+		info->wq_base_hi = upper_32_bits(wq_base_offset);
-+		info->wq_size = WQ_SIZE;
++	intel_engine_stop_cs(engine);
 +
-+		wq_desc = __get_wq_desc(ce);
-+		memset(wq_desc, 0, sizeof(*wq_desc));
-+		wq_desc->wq_status = WQ_STATUS_ACTIVE;
++	fw_pending = __cs_pending_mi_force_wakes(engine);
++	if (fw_pending)
++		__gpm_wait_for_fw_complete(engine->gt, fw_pending);
++}
 +
-+		/* FIXME: This needs to be updated for new v70 interface... */
-+		//desc->priority = ce->guc_state.prio;
-+		//guc_context_policy_init(engine, desc);
+ static void guc_reset_nop(struct intel_engine_cs *engine)
+ {
+ }
+@@ -3795,7 +3878,7 @@ static void guc_default_vfuncs(struct intel_engine_cs *engine)
  
- 		clear_children_join_go_memory(ce);
- 	}
-@@ -4360,17 +4339,17 @@ void intel_guc_submission_print_context_info(struct intel_guc *guc,
- 		guc_log_context_priority(p, ce);
+ 	engine->sched_engine->schedule = i915_schedule;
  
- 		if (intel_context_is_parent(ce)) {
--			struct guc_process_desc *desc = __get_process_desc(ce);
-+			struct guc_sched_wq_desc *wq_desc = __get_wq_desc(ce);
- 			struct intel_context *child;
- 
- 			drm_printf(p, "\t\tNumber children: %u\n",
- 				   ce->parallel.number_children);
- 			drm_printf(p, "\t\tWQI Head: %u\n",
--				   READ_ONCE(desc->head));
-+				   READ_ONCE(wq_desc->head));
- 			drm_printf(p, "\t\tWQI Tail: %u\n",
--				   READ_ONCE(desc->tail));
-+				   READ_ONCE(wq_desc->tail));
- 			drm_printf(p, "\t\tWQI Status: %u\n\n",
--				   READ_ONCE(desc->wq_status));
-+				   READ_ONCE(wq_desc->wq_status));
- 
- 			if (ce->engine->emit_bb_start ==
- 			    emit_bb_start_parent_no_preempt_mid_batch) {
+-	engine->reset.prepare = guc_reset_nop;
++	engine->reset.prepare = guc_engine_reset_prepare;
+ 	engine->reset.rewind = guc_rewind_nop;
+ 	engine->reset.cancel = guc_reset_nop;
+ 	engine->reset.finish = guc_reset_nop;
 -- 
 2.35.1
 
