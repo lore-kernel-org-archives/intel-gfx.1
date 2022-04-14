@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53B0DC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 21:07:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D00C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 21:14:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AB6A10E409;
-	Thu, 14 Apr 2022 21:07:34 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1FF810E3D7
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Apr 2022 21:07:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A277010E247;
+	Thu, 14 Apr 2022 21:14:49 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72AAE10E247
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Apr 2022 21:14:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649970441; x=1681506441;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Fk3a54r4OlLIbfpg08R5rwE+2NijgySz/qvMoXMw1qs=;
- b=L3yjUnSPZ3nlr3mIj9XvxfCVr+W98yl3kYrM44jHe6aeq2mAhiLFfFM+
- woVCES4DkVqkkKs1LxJgW+CaAw7FzIeIH1ZMo4Xwa+RYQqj2jUlTWGEJ4
- vHDj+8Ts1J1S+dteGGDI7yMdd9jT8emQjIgZrxVR0UwwYc8LV269zxo3i
- kAI3/LdHiE1wByLc48SvjR+tavlsuScWhuaLs/y5WPOzu41Kh0xtCJAck
- NeQvyPqkiVas/W6aetGnEu0q47AcOeyxpD5lLlQuAT1u/bAJtF6NzVavs
- i04ak3RXUIunsDsz1i6NbGfISlTUGq/d8qYZBo6+SZJnJUfgy37w/i6sZ w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="288089786"
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="288089786"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 14:07:21 -0700
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="527550425"
-Received: from ideak-desk.fi.intel.com ([10.237.72.175])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 14:07:20 -0700
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Apr 2022 00:06:54 +0300
-Message-Id: <20220414210657.1785773-15-imre.deak@intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220414210657.1785773-1-imre.deak@intel.com>
-References: <20220414210657.1785773-1-imre.deak@intel.com>
+ t=1649970888; x=1681506888;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=lYt/aHXJx9dHHtsWfuw0gwbwGNwYAHZ3es4IjhOKNLQ=;
+ b=NUSXc0/+TuYbsgY6Nh3GmQbGGwjrfcY+KaJM4IZGnc5JJWAf4x8ZzB7o
+ t4V1aU9vkIiF1Xbph1fzDcl+G6rHrn3fHh5hlvESmQ4qXCOzAuOPo9qt6
+ oCxG9JR6nGluGEkGRW0R1HZJRV44d3hg0JMRpnVwDn8i//XJHVcOktV8x
+ rAsR8pxDYIxzXXOrG++Uy7zDuTJDvqiP1Yu9P04h98z172uvHc/abft79
+ lLzveqBRNDVNQnVh/zRVsb1Xd+exx/E3cHOEh6y/7Wb+5kVAtzKBcEzic
+ /zmjIO0Y+CsTOm1VPEPv0HQpSd47TPdeEmTm2gErkNKgvP+7Zp04Zxkb2 w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="263208806"
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="263208806"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 14:14:47 -0700
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="552862497"
+Received: from mdroper-desk1.fm.intel.com (HELO
+ mdroper-desk1.amr.corp.intel.com) ([10.1.27.134])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 14:14:47 -0700
+Date: Thu, 14 Apr 2022 14:14:46 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Message-ID: <YliOxoxkldSujrQ5@mdroper-desk1.amr.corp.intel.com>
+References: <20220413213927.40927-1-rodrigo.vivi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 15/18] drm/i915: Remove the aliasing of power
- domain enum values
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220413213927.40927-1-rodrigo.vivi@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Reserving some Multi-thread
+ forcewake bits.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,219 +57,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Aliasing the intel_display_power_domain enum values was required because
-of the u64 power domain mask size limit. This makes the dmesg/debugfs
-printouts of the domain names somewhat unclear, for instance domain
-names for port D are shown on D12+ platforms where the corresponding
-port is called TC1. Make this clearer by removing the aliasing which is
-possible after a previous patch converting the mask to a bitmap.
+On Wed, Apr 13, 2022 at 05:39:27PM -0400, Rodrigo Vivi wrote:
+> Bit 0: Currently bit used by i915. Ideally only i915 touches it
+>        in a Linux stack.
+> 
+> Bits 1 and 2: A while ago we were using Bit 1 for i915 and bit 2
+>        	      for the user space, until commit 7130630323c5 ("drm/i915:
+> 	      Use fallback forcewake if primary ack missing") changed it
+> 	      to bit 1.
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
----
- .../drm/i915/display/intel_display_power.c    | 84 +++++++++++++------
- .../drm/i915/display/intel_display_power.h    | 26 ++----
- 2 files changed, 67 insertions(+), 43 deletions(-)
+That commit didn't change the bits, just the notation used to describe
+them.  0x1 == BIT(0) and 0x2 == BIT(1) so no functional change.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index b417ca4e5c58f..f1f4d877a9751 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -80,12 +80,22 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
- 		return "PORT_DDI_LANES_E";
- 	case POWER_DOMAIN_PORT_DDI_LANES_F:
- 		return "PORT_DDI_LANES_F";
--	case POWER_DOMAIN_PORT_DDI_LANES_G:
--		return "PORT_DDI_LANES_G";
--	case POWER_DOMAIN_PORT_DDI_LANES_H:
--		return "PORT_DDI_LANES_H";
--	case POWER_DOMAIN_PORT_DDI_LANES_I:
--		return "PORT_DDI_LANES_I";
-+	case POWER_DOMAIN_PORT_DDI_LANES_TC1:
-+		return "PORT_DDI_LANES_TC1";
-+	case POWER_DOMAIN_PORT_DDI_LANES_TC2:
-+		return "PORT_DDI_LANES_TC2";
-+	case POWER_DOMAIN_PORT_DDI_LANES_TC3:
-+		return "PORT_DDI_LANES_TC3";
-+	case POWER_DOMAIN_PORT_DDI_LANES_TC4:
-+		return "PORT_DDI_LANES_TC4";
-+	case POWER_DOMAIN_PORT_DDI_LANES_TC5:
-+		return "PORT_DDI_LANES_TC5";
-+	case POWER_DOMAIN_PORT_DDI_LANES_TC6:
-+		return "PORT_DDI_LANES_TC6";
-+	case POWER_DOMAIN_PORT_DDI_LANES_D_XELPD:
-+		return "PORT_DDI_LANES_D_XELPD";
-+	case POWER_DOMAIN_PORT_DDI_LANES_E_XELPD:
-+		return "PORT_DDI_LANES_E_XELPD";
- 	case POWER_DOMAIN_PORT_DDI_IO_A:
- 		return "PORT_DDI_IO_A";
- 	case POWER_DOMAIN_PORT_DDI_IO_B:
-@@ -98,12 +108,22 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
- 		return "PORT_DDI_IO_E";
- 	case POWER_DOMAIN_PORT_DDI_IO_F:
- 		return "PORT_DDI_IO_F";
--	case POWER_DOMAIN_PORT_DDI_IO_G:
--		return "PORT_DDI_IO_G";
--	case POWER_DOMAIN_PORT_DDI_IO_H:
--		return "PORT_DDI_IO_H";
--	case POWER_DOMAIN_PORT_DDI_IO_I:
--		return "PORT_DDI_IO_I";
-+	case POWER_DOMAIN_PORT_DDI_IO_TC1:
-+		return "PORT_DDI_IO_TC1";
-+	case POWER_DOMAIN_PORT_DDI_IO_TC2:
-+		return "PORT_DDI_IO_TC2";
-+	case POWER_DOMAIN_PORT_DDI_IO_TC3:
-+		return "PORT_DDI_IO_TC3";
-+	case POWER_DOMAIN_PORT_DDI_IO_TC4:
-+		return "PORT_DDI_IO_TC4";
-+	case POWER_DOMAIN_PORT_DDI_IO_TC5:
-+		return "PORT_DDI_IO_TC5";
-+	case POWER_DOMAIN_PORT_DDI_IO_TC6:
-+		return "PORT_DDI_IO_TC6";
-+	case POWER_DOMAIN_PORT_DDI_IO_D_XELPD:
-+		return "PORT_DDI_IO_D_XELPD";
-+	case POWER_DOMAIN_PORT_DDI_IO_E_XELPD:
-+		return "PORT_DDI_IO_E_XELPD";
- 	case POWER_DOMAIN_PORT_DSI:
- 		return "PORT_DSI";
- 	case POWER_DOMAIN_PORT_CRT:
-@@ -128,12 +148,22 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
- 		return "AUX_E";
- 	case POWER_DOMAIN_AUX_F:
- 		return "AUX_F";
--	case POWER_DOMAIN_AUX_G:
--		return "AUX_G";
--	case POWER_DOMAIN_AUX_H:
--		return "AUX_H";
--	case POWER_DOMAIN_AUX_I:
--		return "AUX_I";
-+	case POWER_DOMAIN_AUX_USBC1:
-+		return "AUX_USBC1";
-+	case POWER_DOMAIN_AUX_USBC2:
-+		return "AUX_USBC2";
-+	case POWER_DOMAIN_AUX_USBC3:
-+		return "AUX_USBC3";
-+	case POWER_DOMAIN_AUX_USBC4:
-+		return "AUX_USBC4";
-+	case POWER_DOMAIN_AUX_USBC5:
-+		return "AUX_USBC5";
-+	case POWER_DOMAIN_AUX_USBC6:
-+		return "AUX_USBC6";
-+	case POWER_DOMAIN_AUX_D_XELPD:
-+		return "AUX_D_XELPD";
-+	case POWER_DOMAIN_AUX_E_XELPD:
-+		return "AUX_E_XELPD";
- 	case POWER_DOMAIN_AUX_IO_A:
- 		return "AUX_IO_A";
- 	case POWER_DOMAIN_AUX_TBT_C:
-@@ -144,12 +174,18 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
- 		return "AUX_TBT_E";
- 	case POWER_DOMAIN_AUX_TBT_F:
- 		return "AUX_TBT_F";
--	case POWER_DOMAIN_AUX_TBT_G:
--		return "AUX_TBT_G";
--	case POWER_DOMAIN_AUX_TBT_H:
--		return "AUX_TBT_H";
--	case POWER_DOMAIN_AUX_TBT_I:
--		return "AUX_TBT_I";
-+	case POWER_DOMAIN_AUX_TBT1:
-+		return "AUX_TBT1";
-+	case POWER_DOMAIN_AUX_TBT2:
-+		return "AUX_TBT2";
-+	case POWER_DOMAIN_AUX_TBT3:
-+		return "AUX_TBT3";
-+	case POWER_DOMAIN_AUX_TBT4:
-+		return "AUX_TBT4";
-+	case POWER_DOMAIN_AUX_TBT5:
-+		return "AUX_TBT5";
-+	case POWER_DOMAIN_AUX_TBT6:
-+		return "AUX_TBT6";
- 	case POWER_DOMAIN_GMBUS:
- 		return "GMBUS";
- 	case POWER_DOMAIN_INIT:
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-index 2ea30a4cfaa89..b58c5bada6d85 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-@@ -48,18 +48,15 @@ enum intel_display_power_domain {
- 	POWER_DOMAIN_PORT_DDI_LANES_D,
- 	POWER_DOMAIN_PORT_DDI_LANES_E,
- 	POWER_DOMAIN_PORT_DDI_LANES_F,
--	POWER_DOMAIN_PORT_DDI_LANES_G,
--	POWER_DOMAIN_PORT_DDI_LANES_H,
--	POWER_DOMAIN_PORT_DDI_LANES_I,
- 
--	POWER_DOMAIN_PORT_DDI_LANES_TC1 = POWER_DOMAIN_PORT_DDI_LANES_D, /* tgl+ */
-+	POWER_DOMAIN_PORT_DDI_LANES_TC1,
- 	POWER_DOMAIN_PORT_DDI_LANES_TC2,
- 	POWER_DOMAIN_PORT_DDI_LANES_TC3,
- 	POWER_DOMAIN_PORT_DDI_LANES_TC4,
- 	POWER_DOMAIN_PORT_DDI_LANES_TC5,
- 	POWER_DOMAIN_PORT_DDI_LANES_TC6,
- 
--	POWER_DOMAIN_PORT_DDI_LANES_D_XELPD = POWER_DOMAIN_PORT_DDI_LANES_TC5, /* XELPD */
-+	POWER_DOMAIN_PORT_DDI_LANES_D_XELPD,
- 	POWER_DOMAIN_PORT_DDI_LANES_E_XELPD,
- 
- 	POWER_DOMAIN_PORT_DDI_IO_A,
-@@ -68,18 +65,15 @@ enum intel_display_power_domain {
- 	POWER_DOMAIN_PORT_DDI_IO_D,
- 	POWER_DOMAIN_PORT_DDI_IO_E,
- 	POWER_DOMAIN_PORT_DDI_IO_F,
--	POWER_DOMAIN_PORT_DDI_IO_G,
--	POWER_DOMAIN_PORT_DDI_IO_H,
--	POWER_DOMAIN_PORT_DDI_IO_I,
- 
--	POWER_DOMAIN_PORT_DDI_IO_TC1 = POWER_DOMAIN_PORT_DDI_IO_D, /* tgl+ */
-+	POWER_DOMAIN_PORT_DDI_IO_TC1,
- 	POWER_DOMAIN_PORT_DDI_IO_TC2,
- 	POWER_DOMAIN_PORT_DDI_IO_TC3,
- 	POWER_DOMAIN_PORT_DDI_IO_TC4,
- 	POWER_DOMAIN_PORT_DDI_IO_TC5,
- 	POWER_DOMAIN_PORT_DDI_IO_TC6,
- 
--	POWER_DOMAIN_PORT_DDI_IO_D_XELPD = POWER_DOMAIN_PORT_DDI_IO_TC5, /* XELPD */
-+	POWER_DOMAIN_PORT_DDI_IO_D_XELPD,
- 	POWER_DOMAIN_PORT_DDI_IO_E_XELPD,
- 
- 	POWER_DOMAIN_PORT_DSI,
-@@ -94,18 +88,15 @@ enum intel_display_power_domain {
- 	POWER_DOMAIN_AUX_D,
- 	POWER_DOMAIN_AUX_E,
- 	POWER_DOMAIN_AUX_F,
--	POWER_DOMAIN_AUX_G,
--	POWER_DOMAIN_AUX_H,
--	POWER_DOMAIN_AUX_I,
- 
--	POWER_DOMAIN_AUX_USBC1 = POWER_DOMAIN_AUX_D, /* tgl+ */
-+	POWER_DOMAIN_AUX_USBC1,
- 	POWER_DOMAIN_AUX_USBC2,
- 	POWER_DOMAIN_AUX_USBC3,
- 	POWER_DOMAIN_AUX_USBC4,
- 	POWER_DOMAIN_AUX_USBC5,
- 	POWER_DOMAIN_AUX_USBC6,
- 
--	POWER_DOMAIN_AUX_D_XELPD = POWER_DOMAIN_AUX_USBC5, /* XELPD */
-+	POWER_DOMAIN_AUX_D_XELPD,
- 	POWER_DOMAIN_AUX_E_XELPD,
- 
- 	POWER_DOMAIN_AUX_IO_A,
-@@ -113,11 +104,8 @@ enum intel_display_power_domain {
- 	POWER_DOMAIN_AUX_TBT_D,
- 	POWER_DOMAIN_AUX_TBT_E,
- 	POWER_DOMAIN_AUX_TBT_F,
--	POWER_DOMAIN_AUX_TBT_G,
--	POWER_DOMAIN_AUX_TBT_H,
--	POWER_DOMAIN_AUX_TBT_I,
- 
--	POWER_DOMAIN_AUX_TBT1 = POWER_DOMAIN_AUX_TBT_D, /* tgl+ */
-+	POWER_DOMAIN_AUX_TBT1,
- 	POWER_DOMAIN_AUX_TBT2,
- 	POWER_DOMAIN_AUX_TBT3,
- 	POWER_DOMAIN_AUX_TBT4,
+In general userspace shouldn't ever be using forcewake and the very few
+exceptions to that rule aren't using the definitions in our kernel
+register header anyway so I don't see much value in trying to reserve
+bits in our kernel header.  I believe the only userspace users of
+forcewake are/were:
+
+ * The old Intel-specific DDX driver (which has now been replaced by the
+   vendor-agnostic xf86-video-modesetting) used to grab forcewake via
+   the command streamer while waiting for scanline on hsw-gen9
+
+        b[3] = MI_LOAD_REGISTER_IMM | 1;
+        b[4] = 0xa188; /* FORCEWAKE_MT */
+        b[5] = 2 << 16 | 2;
+
+   So the usage of bit 1 (i.e., 0x2) is hardcoded into the DDX; you'd
+   need to update the DDX itself if you're worried about clashes with
+   pcode on those old platforms.
+
+   Honestly I don't know if the above register update even lands...at
+   least for modern platforms bspec page 45546 doesn't list 0xa188 as a
+   register that userspace has permission to update via the command
+   streamer (it would probably be a security concern if it was!), so
+   this old DDX strategy of using an LRI instruction to update the
+   register shouldn't be something we even need to consider going
+   forward.
+
+ * debug tools like intel_reg that run as root can manipulate registers
+   directly, including the forcewake register.  But the bits that get
+   used are up to whoever is running the tool; the definitions in i915
+   code don't matter.
+
+ * There's an "i915_forcewake_user" debugfs entry that holds forcewake
+   while userspace holds an open file descriptor on it.  But usage of
+   that debugfs still utilizes the FORCEWAKE_KERNEL bit rather than the
+   "userspace" bit.
+
+Since FORCEWAKE_USER is completely unused by i915, I'd suggest just
+dropping the definition so that people don't even get the bad idea that
+manipulating forcewake from userspace is okay.  Just leave
+FORCEWAKE_KERNEL and FORCEWAKE_KERNEL_FALLBACK as the only ones defined
+since from our point of view those are the only ones that matter.
+
+
+Matt
+
+> 	      Now we have a situation where PCODE is also using this bit-1
+> 	      in one case, while it should actually be using the Bit-3.
+> 	      So, let's redirect users back to bit-2 and mark this 1 as
+> 	      reserved.
+> 
+> Bit 3: Let's reserve for PCODE.
+> 
+> Bit 4: Let's reserve for PSMI.
+> 
+> Cc: Tilak Tangudu <tilak.tangudu@intel.com>
+> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+> Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/intel_gt_regs.h | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+> index 0a5c2648aaf0..15ceaaace4d9 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+> @@ -1399,8 +1399,11 @@
+>  #define FORCEWAKE_MT_ACK			_MMIO(0x130040)
+>  #define FORCEWAKE_ACK_HSW			_MMIO(0x130044)
+>  #define FORCEWAKE_ACK_GT_GEN9			_MMIO(0x130044)
+> -#define   FORCEWAKE_KERNEL			BIT(0)
+> -#define   FORCEWAKE_USER			BIT(1)
+> +#define   FORCEWAKE_KERNEL			BIT(0) /* For i915 use only */
+> +#define   FORCEWAKE_RSVD			BIT(1)
+> +#define   FORCEWAKE_USER			BIT(2)
+> +#define   FORCEWAKE_PCODE			BIT(3)
+> +#define   FORCEWAKE_PSMI			BIT(4)
+>  #define   FORCEWAKE_KERNEL_FALLBACK		BIT(15)
+>  #define FORCEWAKE_ACK				_MMIO(0x130090)
+>  #define VLV_GTLC_WAKE_CTRL			_MMIO(0x130090)
+> -- 
+> 2.34.1
+> 
+
 -- 
-2.30.2
-
+Matt Roper
+Graphics Software Engineer
+VTT-OSGC Platform Enablement
+Intel Corporation
+(916) 356-2795
