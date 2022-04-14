@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9CB8C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:07:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8977C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:07:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4439510FF57;
-	Thu, 14 Apr 2022 15:07:43 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C72010FF51;
- Thu, 14 Apr 2022 15:07:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53F0A10FF5D;
+	Thu, 14 Apr 2022 15:07:50 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43DAA10FF5D;
+ Thu, 14 Apr 2022 15:07:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649948862; x=1681484862;
+ t=1649948869; x=1681484869;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ATLkre7exDN92CUYLN16of+EFgUdq1ko/VIwSaVNZto=;
- b=mHGEa3YGsoj8c7LlzW7VfrAZT6SGPbadR5+m1hnGSOLyptfWYwHipr8T
- Cq11O49JbHezZjy2JnfqtcgtenaCRloVZR/cU3moUTNOxMn/JXAK/2kL+
- NTKJySCDKJx2PfuRlXkrojxiAt2YYBMI61PyqkxR0ZzI8ptz1URdiW2my
- LxA4Bt5vbQRS7aVXXqo4M+NBkDr25Y3+0as4cnorFWXBb1XPrp3glFZSO
- hlh2ntv8TjxWUTwdV9PG1W670Q2FiTqfUud9Us6SQasJUeur/R+KqUl1t
- PXvxyIWAerh2s4awnI8EQFaJ+4ZAXZd+GfeilcfAoQvazBlOUpUEE40qn g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="323394648"
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="323394648"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:07:42 -0700
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="725393675"
+ bh=wWS7hj66mMEwSHWZdqJDoEzQIEuEW6MGVfGa/Cd5DSY=;
+ b=gquKgfi/4m34Mo9Ny/fEeTlKh04LiEB6ctTA0nCM1v/7ms9jSbJvoP+V
+ oSQsZ+dr++39RHo7sIYHuGMLVEVdDgPQFhjwI/VZaOaNv2YluY6q83/qc
+ 1K/T3PxZW/NcBDIWfYjVjtOjZwtZVNudY+4xm30lTt35ZWkfJyquTdeFY
+ vGN8rU7Q39s5e7GkiXlT+2k0dnW0SU/Mmhxh68iKSgJ+j1hFQvVqmCjIA
+ jCtOoAdLMVSaXkv024M6ZGoizplIun5RWNFYjDim0I7xohK8CNLWJOWw+
+ sI1zinn45Ou/recZQrs1BcW4rcGdXBhznAc1mzKqT0a/lXkSrAqd1HOiq w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="288006748"
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="288006748"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:07:30 -0700
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="527427282"
 Received: from nplaweck-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.149.236])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:07:39 -0700
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:07:28 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 14 Apr 2022 18:06:49 +0300
-Message-Id: <da6e3a1f1b5f1038d37e82bdbd9244f999b72d96.1649948562.git.jani.nikula@intel.com>
+Date: Thu, 14 Apr 2022 18:06:47 +0300
+Message-Id: <8311cab3a1e58f492bec757c0508ad7b78cbc459.1649948562.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1649948562.git.jani.nikula@intel.com>
 References: <cover.1649948562.git.jani.nikula@intel.com>
@@ -45,7 +45,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/19] drm/edid: clean up cea_db_is_*() functions
+Subject: [Intel-gfx] [PATCH 04/19] drm/edid: add iterator for EDID base and
+ extension blocks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,199 +63,73 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Abstract helpers for matching vendor data blocks and extended tags, and
-use them to simplify all the cea_db_is_*() functions.
-
-Take void pointer as parameter to allow transitional use for both u8 *
-and struct cea_db *.
-
-v2: Remove superfluous parens (Ville)
+Add an iterator abstraction for going through all the EDID blocks.
 
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 127 ++++++++++++-------------------------
- 1 file changed, 40 insertions(+), 87 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 48 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 43d9e04f8fb9..34897b1417a5 100644
+index 18b0ff223885..40ffd7aba157 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -4360,12 +4360,6 @@ do_hdmi_vsdb_modes(struct drm_connector *connector, const u8 *db, u8 len,
- 	return modes;
+@@ -1600,6 +1600,54 @@ static const void *edid_extension_block_data(const struct edid *edid, int index)
+ 	return edid_block_data(edid, index + 1);
  }
  
--static int
--cea_db_extended_tag(const u8 *db)
--{
--	return db[1];
--}
--
- static int
- cea_revision(const u8 *cea)
- {
-@@ -4477,6 +4471,22 @@ static const void *cea_db_data(const struct cea_db *db)
- 	return db->data;
- }
- 
-+static bool cea_db_is_extended_tag(const struct cea_db *db, int tag)
++/*
++ * EDID base and extension block iterator.
++ *
++ * struct drm_edid_iter iter;
++ * const u8 *block;
++ *
++ * drm_edid_iter_begin(edid, &iter);
++ * drm_edid_iter_for_each(block, &iter) {
++ *         // do stuff with block
++ * }
++ * drm_edid_iter_end(&iter);
++ */
++struct drm_edid_iter {
++	const struct edid *edid;
++
++	/* Current block index. */
++	int index;
++};
++
++static void drm_edid_iter_begin(const struct edid *edid,
++				struct drm_edid_iter *iter)
 +{
-+	return cea_db_tag(db) == CTA_DB_EXTENDED_TAG &&
-+		cea_db_payload_len(db) >= 1 &&
-+		db->data[0] == tag;
++	memset(iter, 0, sizeof(*iter));
++
++	iter->edid = edid;
 +}
 +
-+static bool cea_db_is_vendor(const struct cea_db *db, int vendor_oui)
++static const void *__drm_edid_iter_next(struct drm_edid_iter *iter)
 +{
-+	const u8 *data = cea_db_data(db);
++	const void *block = NULL;
 +
-+	return cea_db_tag(db) == CTA_DB_VENDOR &&
-+		cea_db_payload_len(db) >= 3 &&
-+		oui(data[2], data[1], data[0]) == vendor_oui;
++	if (!iter->edid)
++		return NULL;
++
++	if (iter->index < edid_block_count(iter->edid))
++		block = edid_block_data(iter->edid, iter->index++);
++
++	return block;
 +}
 +
- static void cea_db_iter_edid_begin(const struct edid *edid, struct cea_db_iter *iter)
- {
- 	memset(iter, 0, sizeof(*iter));
-@@ -4611,93 +4621,50 @@ static void cea_db_iter_end(struct cea_db_iter *iter)
- 	memset(iter, 0, sizeof(*iter));
- }
- 
--static bool cea_db_is_hdmi_vsdb(const u8 *db)
-+static bool cea_db_is_hdmi_vsdb(const void *db)
- {
--	if (cea_db_tag(db) != CTA_DB_VENDOR)
--		return false;
--
--	if (cea_db_payload_len(db) < 5)
--		return false;
--
--	return oui(db[3], db[2], db[1]) == HDMI_IEEE_OUI;
-+	return cea_db_is_vendor(db, HDMI_IEEE_OUI) &&
-+		cea_db_payload_len(db) >= 5;
- }
- 
--static bool cea_db_is_hdmi_forum_vsdb(const u8 *db)
-+static bool cea_db_is_hdmi_forum_vsdb(const void *db)
- {
--	if (cea_db_tag(db) != CTA_DB_VENDOR)
--		return false;
--
--	if (cea_db_payload_len(db) < 7)
--		return false;
--
--	return oui(db[3], db[2], db[1]) == HDMI_FORUM_IEEE_OUI;
-+	return cea_db_is_vendor(db, HDMI_FORUM_IEEE_OUI) &&
-+		cea_db_payload_len(db) >= 7;
- }
- 
--static bool cea_db_is_microsoft_vsdb(const u8 *db)
-+static bool cea_db_is_microsoft_vsdb(const void *db)
- {
--	if (cea_db_tag(db) != CTA_DB_VENDOR)
--		return false;
--
--	if (cea_db_payload_len(db) != 21)
--		return false;
--
--	return oui(db[3], db[2], db[1]) == MICROSOFT_IEEE_OUI;
-+	return cea_db_is_vendor(db, MICROSOFT_IEEE_OUI) &&
-+		cea_db_payload_len(db) == 21;
- }
- 
--static bool cea_db_is_vcdb(const u8 *db)
-+static bool cea_db_is_vcdb(const void *db)
- {
--	if (cea_db_tag(db) != CTA_DB_EXTENDED_TAG)
--		return false;
--
--	if (cea_db_payload_len(db) != 2)
--		return false;
--
--	if (cea_db_extended_tag(db) != CTA_EXT_DB_VIDEO_CAP)
--		return false;
--
--	return true;
-+	return cea_db_is_extended_tag(db, CTA_EXT_DB_VIDEO_CAP) &&
-+		cea_db_payload_len(db) == 2;
- }
- 
--static bool cea_db_is_hdmi_forum_scdb(const u8 *db)
-+static bool cea_db_is_hdmi_forum_scdb(const void *db)
- {
--	if (cea_db_tag(db) != CTA_DB_EXTENDED_TAG)
--		return false;
--
--	if (cea_db_payload_len(db) < 7)
--		return false;
--
--	if (cea_db_extended_tag(db) != CTA_EXT_DB_HF_SCDB)
--		return false;
--
--	return true;
-+	return cea_db_is_extended_tag(db, CTA_EXT_DB_HF_SCDB) &&
-+		cea_db_payload_len(db) >= 7;
- }
- 
--static bool cea_db_is_y420cmdb(const u8 *db)
-+static bool cea_db_is_y420cmdb(const void *db)
- {
--	if (cea_db_tag(db) != CTA_DB_EXTENDED_TAG)
--		return false;
--
--	if (!cea_db_payload_len(db))
--		return false;
--
--	if (cea_db_extended_tag(db) != CTA_EXT_DB_420_VIDEO_CAP_MAP)
--		return false;
--
--	return true;
-+	return cea_db_is_extended_tag(db, CTA_EXT_DB_420_VIDEO_CAP_MAP);
- }
- 
--static bool cea_db_is_y420vdb(const u8 *db)
-+static bool cea_db_is_y420vdb(const void *db)
- {
--	if (cea_db_tag(db) != CTA_DB_EXTENDED_TAG)
--		return false;
--
--	if (!cea_db_payload_len(db))
--		return false;
--
--	if (cea_db_extended_tag(db) != CTA_EXT_DB_420_VIDEO_DATA)
--		return false;
-+	return cea_db_is_extended_tag(db, CTA_EXT_DB_420_VIDEO_DATA);
-+}
- 
--	return true;
-+static bool cea_db_is_hdmi_hdr_metadata_block(const void *db)
++#define drm_edid_iter_for_each(__block, __iter)			\
++	while (((__block) = __drm_edid_iter_next(__iter)))
++
++static void drm_edid_iter_end(struct drm_edid_iter *iter)
 +{
-+	return cea_db_is_extended_tag(db, CTA_EXT_DB_HDR_STATIC_METADATA) &&
-+		cea_db_payload_len(db) >= 3;
- }
- 
- #define for_each_cea_db(cea, i, start, end) \
-@@ -4833,20 +4800,6 @@ static void fixup_detailed_cea_mode_clock(struct drm_display_mode *mode)
- 	mode->clock = clock;
- }
- 
--static bool cea_db_is_hdmi_hdr_metadata_block(const u8 *db)
--{
--	if (cea_db_tag(db) != CTA_DB_EXTENDED_TAG)
--		return false;
--
--	if (db[1] != CTA_EXT_DB_HDR_STATIC_METADATA)
--		return false;
--
--	if (cea_db_payload_len(db) < 3)
--		return false;
--
--	return true;
--}
--
- static uint8_t eotf_supported(const u8 *edid_ext)
- {
- 	return edid_ext[2] &
++	memset(iter, 0, sizeof(*iter));
++}
++
+ static const u8 edid_header[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00
+ };
 -- 
 2.30.2
 
