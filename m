@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BB33C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:08:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57EBDC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:08:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C1B610FD01;
-	Thu, 14 Apr 2022 15:08:24 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46ED710E00B;
- Thu, 14 Apr 2022 15:08:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78F4810FCE1;
+	Thu, 14 Apr 2022 15:08:25 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C5B910FCFF;
+ Thu, 14 Apr 2022 15:08:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649948903; x=1681484903;
+ t=1649948904; x=1681484904;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sMkCARBdbCjp9/ZHyaRd0YEGcFQeDShNiROgCIOc9YA=;
- b=BEDuryfM4S8VobklGIpeXRfOKW0Rz+a2OFFAKgcmAUCP22zUKwKq2PLt
- ozPaC9WRNBTj/il4ENlWQBicCyaSZtLVRkBMGYMMtezLkVjhYrS4UCcj+
- 7DO4nojAyr6xW2wJwK8Hx7KVkgTb/WNjnNMFqaVLaGvz0qwpFnD6YLxjJ
- A/JtfyXrGUuaNcqU74EZbdDOwkqDI87Gopu3PdhlreLRrymPj+rQ4wKtf
- ChLc9RkKV5XBznrrBpY/57zprIjzPSicRAo/V6NQdcdv3qyU7ykSxb5Kh
- 9zc3fxXIcpTVcoPTnkcOaH470N1Ls/1qgxIUC/2CgK+Cs6Y5zl9uhvHJ3 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="244836265"
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="244836265"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:08:22 -0700
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="645654848"
+ bh=9+SHWqV26mwgE6ZzT52bR3T+TNWXFIRbLch36yzGpI0=;
+ b=Ah0DWG6wBp31SMN/7qoAxW0uQFxnem0luW340u2NUfwDlWRc28WUCm7n
+ vns/hiJIlWBD92jLdmGP3Y6VZylK9UqkrF4dYWtCZnSDYCDfKtq2BFES0
+ B5YumG1vrz+Nh+Y3BzZqBt3na+VCrSON/iD2U7RGppP/zwz5jm4sL1gik
+ /RVKYa+GTz/zY4up2QqDvrqTnlzV/o6bCS3siJ2HZHGocHbqF3OrAOHIv
+ ysd6yw/+csRLdDgx4MIvzNlakpTS+8zB0NDUwhFbko8OR2mrOKRuHjqe0
+ XF2uz181DixOU6YQAEaxE/gjkEXWE4AaGySoB/fwI8ue5RCQg0yZDWW/A Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="325855775"
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="325855775"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:07:58 -0700
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="661408856"
 Received: from nplaweck-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.149.236])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:08:20 -0700
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:07:56 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 14 Apr 2022 18:06:56 +0300
-Message-Id: <89b7d83488d7b0dd252efb9b66cbc2da27ab34a7.1649948563.git.jani.nikula@intel.com>
+Date: Thu, 14 Apr 2022 18:06:52 +0300
+Message-Id: <610ef8d6e8ebdbf49ebf5e9e86da801115bd0689.1649948562.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1649948562.git.jani.nikula@intel.com>
 References: <cover.1649948562.git.jani.nikula@intel.com>
@@ -45,7 +45,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 13/19] drm/edid: convert drm_edid_to_eld() to
+Subject: [Intel-gfx] [PATCH 09/19] drm/edid: convert drm_edid_to_sad() to
  use cea db iter
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,106 +63,77 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Iterate through all CTA data blocks across all CTA extensions and
-DisplayID data blocks. This may gather more data than before, and if
-there's duplicated data, some is overwritten by whichever comes last.
+Use the cea db iterator for short audio descriptors. We'll still stop at
+the first audio data block, but not at the first CTA Extension if that
+doesn't have the info.
 
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 64 +++++++++++++++++---------------------
- 1 file changed, 29 insertions(+), 35 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 34 +++++++++-------------------------
+ 1 file changed, 9 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 91f15b561d78..fa7f2bf68da3 100644
+index dac6a400905b..164a2020f9e1 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -4935,12 +4935,12 @@ static void clear_eld(struct drm_connector *connector)
- static void drm_edid_to_eld(struct drm_connector *connector,
- 			    const struct edid *edid)
+@@ -5031,40 +5031,21 @@ static void drm_edid_to_eld(struct drm_connector *connector,
+  */
+ int drm_edid_to_sad(const struct edid *edid, struct cea_sad **sads)
  {
 +	const struct cea_db *db;
 +	struct cea_db_iter iter;
- 	uint8_t *eld = connector->eld;
- 	const u8 *cea;
--	const u8 *db;
- 	int total_sad_count = 0;
- 	int mnl;
--	int dbl;
+ 	int count = 0;
+-	int i, start, end, dbl;
+-	const u8 *cea;
+-
+-	cea = drm_find_cea_extension(edid);
+-	if (!cea) {
+-		DRM_DEBUG_KMS("SAD: no CEA Extension found\n");
+-		return 0;
+-	}
+-
+-	if (cea_revision(cea) < 3) {
+-		DRM_DEBUG_KMS("SAD: wrong CEA revision\n");
+-		return 0;
+-	}
+-
+-	if (cea_db_offsets(cea, &start, &end)) {
+-		DRM_DEBUG_KMS("SAD: invalid data block offsets\n");
+-		return -EPROTO;
+-	}
+-
+-	for_each_cea_db(cea, i, start, end) {
+-		const u8 *db = &cea[i];
  
- 	clear_eld(connector);
- 
-@@ -4966,43 +4966,37 @@ static void drm_edid_to_eld(struct drm_connector *connector,
- 	eld[DRM_ELD_PRODUCT_CODE0] = edid->prod_code[0];
- 	eld[DRM_ELD_PRODUCT_CODE1] = edid->prod_code[1];
- 
--	if (cea_revision(cea) >= 3) {
--		int i, start, end;
 +	cea_db_iter_edid_begin(edid, &iter);
 +	cea_db_iter_for_each(db, &iter) {
-+		const u8 *data = cea_db_data(db);
-+		int len = cea_db_payload_len(db);
- 		int sad_count;
+ 		if (cea_db_tag(db) == CTA_DB_AUDIO) {
+ 			int j;
  
--		if (cea_db_offsets(cea, &start, &end)) {
--			start = 0;
--			end = 0;
--		}
--
--		for_each_cea_db(cea, i, start, end) {
--			db = &cea[i];
 -			dbl = cea_db_payload_len(db);
 -
--			switch (cea_db_tag(db)) {
--			case CTA_DB_AUDIO:
--				/* Audio Data Block, contains SADs */
--				sad_count = min(dbl / 3, 15 - total_sad_count);
--				if (sad_count >= 1)
--					memcpy(&eld[DRM_ELD_CEA_SAD(mnl, total_sad_count)],
--					       &db[1], sad_count * 3);
--				total_sad_count += sad_count;
--				break;
--			case CTA_DB_SPEAKER:
--				/* Speaker Allocation Data Block */
--				if (dbl >= 1)
--					eld[DRM_ELD_SPEAKER] = db[1];
--				break;
--			case CTA_DB_VENDOR:
--				/* HDMI Vendor-Specific Data Block */
--				if (cea_db_is_hdmi_vsdb(db))
--					drm_parse_hdmi_vsdb_audio(connector, db);
--				break;
--			default:
--				break;
--			}
-+		switch (cea_db_tag(db)) {
-+		case CTA_DB_AUDIO:
-+			/* Audio Data Block, contains SADs */
-+			sad_count = min(len / 3, 15 - total_sad_count);
-+			if (sad_count >= 1)
-+				memcpy(&eld[DRM_ELD_CEA_SAD(mnl, total_sad_count)],
-+				       data, sad_count * 3);
-+			total_sad_count += sad_count;
-+			break;
-+		case CTA_DB_SPEAKER:
-+			/* Speaker Allocation Data Block */
-+			if (len >= 1)
-+				eld[DRM_ELD_SPEAKER] = data[0];
-+			break;
-+		case CTA_DB_VENDOR:
-+			/* HDMI Vendor-Specific Data Block */
-+			if (cea_db_is_hdmi_vsdb(db))
-+				drm_parse_hdmi_vsdb_audio(connector, (const u8 *)db);
-+			break;
-+		default:
-+			break;
+-			count = dbl / 3; /* SAD is 3B */
++			count = cea_db_payload_len(db) / 3; /* SAD is 3B */
+ 			*sads = kcalloc(count, sizeof(**sads), GFP_KERNEL);
+ 			if (!*sads)
+ 				return -ENOMEM;
+ 			for (j = 0; j < count; j++) {
+-				const u8 *sad = &db[1 + j * 3];
++				const u8 *sad = &db->data[j * 3];
+ 
+ 				(*sads)[j].format = (sad[0] & 0x78) >> 3;
+ 				(*sads)[j].channels = sad[0] & 0x7;
+@@ -5074,6 +5055,9 @@ int drm_edid_to_sad(const struct edid *edid, struct cea_sad **sads)
+ 			break;
  		}
  	}
 +	cea_db_iter_end(&iter);
 +
- 	eld[DRM_ELD_SAD_COUNT_CONN_TYPE] |= total_sad_count << DRM_ELD_SAD_COUNT_SHIFT;
++	DRM_DEBUG_KMS("Found %d Short Audio Descriptors\n", count);
  
- 	if (connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
+ 	return count;
+ }
 -- 
 2.30.2
 
