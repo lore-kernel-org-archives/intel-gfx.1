@@ -4,54 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6006C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:04:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B86C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:04:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93CEB10E4DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFCE810E4E7;
 	Mon, 25 Apr 2022 13:04:06 +0000 (UTC)
-Received: from dispatch1-us1.ppe-hosted.com (dispatch1-us1.ppe-hosted.com
- [148.163.129.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E6D310E11A;
- Wed, 20 Apr 2022 15:35:34 +0000 (UTC)
-X-Virus-Scanned: Proofpoint Essentials engine
-Received: from mx1-us1.ppe-hosted.com (unknown [10.7.67.119])
- by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTPS id 808AC2007B; 
- Wed, 20 Apr 2022 15:35:32 +0000 (UTC)
-Received: from mail3.candelatech.com (mail2.candelatech.com [208.74.158.173])
- by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTP id
- 97CA07C0091; Wed, 20 Apr 2022 15:35:31 +0000 (UTC)
-Received: from [192.168.100.195] (50-251-239-81-static.hfc.comcastbusiness.net
- [50.251.239.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail3.candelatech.com (Postfix) with ESMTPSA id 0D55D13C2B0;
- Wed, 20 Apr 2022 08:35:31 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail3.candelatech.com 0D55D13C2B0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=candelatech.com;
- s=default; t=1650468931;
- bh=m6UmcaUNAJbiUAjl9D1S7563d1lALHm4+6MIjVko97A=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=VOttTPX9D2xuN0YICl2Gr74GByEwy6WkJtsWdYYbJ1jWW92A+ZjlIRkHQkeFwMfe/
- Bx4/9LYrN7rYiRhBm81uvJmeMyt9H39cTT7CxWcHu8ch+Au38fqb9pz3xT02gj3+T5
- 1mcU2k0rtCDlXqGL2HzqW+G/wJyTd8/SJ3meo4eY=
-To: Kalle Valo <kvalo@kernel.org>, Jani Nikula <jani.nikula@intel.com>
-References: <20220414123033.654198-1-jani.nikula@intel.com>
- <YlgfXxjefuxiXjtC@kroah.com> <87a6cneoco.fsf@intel.com>
- <87sfq8qqus.fsf@tynnyri.adurom.net>
-From: Ben Greear <greearb@candelatech.com>
-Organization: Candela Technologies
-Message-ID: <0be3baa1-d4aa-8ab2-173f-085d47497251@candelatech.com>
-Date: Wed, 20 Apr 2022 08:35:30 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+X-Greylist: delayed 923 seconds by postgrey-1.36 at gabe;
+ Thu, 14 Apr 2022 14:07:27 UTC
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2327710FDEC;
+ Thu, 14 Apr 2022 14:07:27 +0000 (UTC)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 23EC3x8m006615; 
+ Thu, 14 Apr 2022 13:52:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=oHY6GZiVb5HyuxgKDnBJtLv236U25bxeDI9Xv19FNTk=;
+ b=gOHaXCF6Yb7Tdkl6Qe1YRyLuVxqrwiUjA5tyGFt/K/LWHAsrfBE8gJkT1t7iVBM4L7Yf
+ /YBp6dsQn2s3j9urf4T7HQ5cvujwFnRvHGSXZtK4HnhfQvU2NwLDk4DLP7+Q+x0ev06p
+ TUxvgqjNFo8bIUuTaTBLbaMT8gck8PIz55J7lYtwyWdjZfO8CVgTHObMU8ShTAd5RmJZ
+ WnrfEPGqxtGbxaXcKLa6JIxWjU+arE1EcXyWIvqVkv68luZvUzO1WZct5BgfQ5vXMlQg
+ Bt+TokHdsPhuG9T9CPZJoKNyuLetz2gKD44e5gHu1cxkLqe1MyMGDX5ga72vsmaRsEml fg== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3fefh56up2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 14 Apr 2022 13:52:00 +0000
+Received: from m0098404.ppops.net (m0098404.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 23EDTc1s002057;
+ Thu, 14 Apr 2022 13:52:00 GMT
+Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.26])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3fefh56unq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 14 Apr 2022 13:51:59 +0000
+Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
+ by ppma04wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 23EDhjun003747;
+ Thu, 14 Apr 2022 13:51:58 GMT
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26]) by ppma04wdc.us.ibm.com with ESMTP id 3fb1sa7ntq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 14 Apr 2022 13:51:58 +0000
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 23EDpvES13828434
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 14 Apr 2022 13:51:57 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AD049AE05F;
+ Thu, 14 Apr 2022 13:51:57 +0000 (GMT)
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 63B9AAE05C;
+ Thu, 14 Apr 2022 13:51:50 +0000 (GMT)
+Received: from [9.211.76.45] (unknown [9.211.76.45])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
+ Thu, 14 Apr 2022 13:51:50 +0000 (GMT)
+Message-ID: <d6e2778a-01e4-6468-2c2b-3b718d924e65@linux.ibm.com>
+Date: Thu, 14 Apr 2022 09:51:49 -0400
 MIME-Version: 1.0
-In-Reply-To: <87sfq8qqus.fsf@tynnyri.adurom.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
 Content-Language: en-US
+To: Jason Gunthorpe <jgg@nvidia.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Eric Farman <farman@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Jason Herne <jjherne@linux.ibm.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-doc@vger.kernel.org,
+ linux-s390@vger.kernel.org, Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
+References: <9-v1-a8faf768d202+125dd-vfio_mdev_no_group_jgg@nvidia.com>
+From: Matthew Rosato <mjrosato@linux.ibm.com>
+In-Reply-To: <9-v1-a8faf768d202+125dd-vfio_mdev_no_group_jgg@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-MDID: 1650468933-iY1Kl7vagF1E
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: p__mnI6kUAsRVhj3MeN1iQJ3xzHvSix8
+X-Proofpoint-ORIG-GUID: eRlxuhpLbLi2wEFbBZUimbF33iPl8iJP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-04-14_04,2022-04-14_01,2022-02-23_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 mlxscore=0
+ malwarescore=0 adultscore=0 priorityscore=1501 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 impostorscore=0 phishscore=0
+ mlxlogscore=765 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2204140074
 X-Mailman-Approved-At: Mon, 25 Apr 2022 13:03:42 +0000
-Subject: Re: [Intel-gfx] [PATCH 0/1] add support for enum module parameters
+Subject: Re: [Intel-gfx] [PATCH 9/9] vfio: Remove calls to
+ vfio_group_add_container_user()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,61 +121,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-wireless@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
+Cc: "Liu, Yi L" <yi.l.liu@intel.com>, Christoph Hellwig <hch@lst.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 4/19/22 10:13 PM, Kalle Valo wrote:
-> + linux-wireless, netdev
+On 4/12/22 11:53 AM, Jason Gunthorpe wrote:
+> When the open_device() op is called the container_users is incremented and
+> held incremented until close_device(). Thus, so long as drivers call
+> functions within their open_device()/close_device() region they do not
+> need to worry about the container_users.
 > 
-> Jani Nikula <jani.nikula@intel.com> writes:
+> These functions can all only be called between
+> open_device()/close_device():
 > 
->> On Thu, 14 Apr 2022, Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->>> On Thu, Apr 14, 2022 at 03:30:32PM +0300, Jani Nikula wrote:
->>>> Hey, I've sent this before, ages ago, but haven't really followed
->>>> through with it. I still think it would be useful for many scenarios
->>>> where a plain number is a clumsy interface for a module param.
->>>>
->>>> Thoughts?
->>>
->>> We should not be adding new module parameters anyway (they operate on
->>> code, not data/devices), so what would this be used for?
->>
->> I think it's just easier to use names than random values, and this also
->> gives you range check on the input.
->>
->> I also keep telling people not to add new module parameters, but it's
->> not like they're going away anytime soon.
->>
->> If there's a solution to being able to pass device specific debug
->> parameters at probe time, I'm all ears. At least i915 has a bunch of
->> things which can't really be changed after probe, when debugfs for the
->> device is around. Module parameters aren't ideal, but debugfs doesn't
->> work for this.
+>    vfio_pin_pages()
+>    vfio_unpin_pages()
+>    vfio_dma_rw()
+>    vfio_register_notifier()
+>    vfio_unregister_notifier()
 > 
-> Wireless drivers would also desperately need to pass device specific
-> parameters at (or before) probe time. And not only debug parameters but
-> also configuration parameters, for example firmware memory allocations
-> schemes (optimise for features vs number of clients etc) and whatnot.
+> So eliminate the calls to vfio_group_add_container_user() and add a simple
+> WARN_ON to detect mis-use by drivers.
 > 
-> Any ideas how to implement that? Is there any prior work for anything
-> like this? This is pretty hard limiting usability of upstream wireless
-> drivers and I really want to find a proper solution.
 
-I used a 'fwcfg' file that is loaded during ath10k initialization, from
-same general location as the firmware.  Name is with pci-id or other unique
-identifier like board files sometimes are named, and you get per radio
-configuration at device load time.  I'm sure I posted a patch on this
-some years ago, but I can point you to my current tree if you prefer.
+vfio_device_fops_release decrements dev->open_count immediately before 
+calling dev->ops->close_device, which means we could enter close_device 
+with a dev_count of 0.
 
-Thanks,
-Ben
+Maybe vfio_device_fops_release should handle the same way as 
+vfio_group_get_device_fd?
 
--- 
-Ben Greear <greearb@candelatech.com>
-Candela Technologies Inc  http://www.candelatech.com
+	if (device->open_count == 1 && device->ops->close_device)
+		device->ops->close_device(device);
+	device->open_count--;
 
