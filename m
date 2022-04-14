@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 841BDC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:08:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D71AC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:08:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F36B510FD09;
-	Thu, 14 Apr 2022 15:08:35 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFA9410FD0F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2174B10FD10;
+	Thu, 14 Apr 2022 15:08:39 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C94B910FD0A;
  Thu, 14 Apr 2022 15:08:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649948914; x=1681484914;
+ t=1649948913; x=1681484913;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4niLel28+IMLEaHcmO7uPWmP0A8HCa/uRSIfLqUpvQA=;
- b=Qq1z6k/DTXTRXJx2N4oA/CTxChvmV6qBz1iKq8I3rZlZPWovvkMGCPie
- X3RCVgRMtlGktl3PyMTN3Z2GzD4bbhzYzVPWvsEGWXuQwzVUKp1aVSFCR
- figBAVgUT/cwk9u7qsBwI3nQRwkpSI7EKrfm02TrrMx7aYCKcFrppVX0Y
- uD12fKobTFMks5HV8dZ23Jpw6SqCyRAAwoLYnPeE+/sLni7uIx7Nv34Vb
- PwP3GJFpJKA2TcvcPLPP8Vu8Mmk+azdCelte/lN6qfRXh887nlWA1/Md7
- LeiGW2nBv/8k/B7zBOE5WrK6JGqpRME1jWMSuw/fR3/ZyHGJddFR2M1KX w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="325855869"
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="325855869"
+ bh=s2NOXR/knAlXxwdsPOtoM6zmnlRRdX1WGQLUAEQwwJk=;
+ b=HoZXLJTuGzbgh9AvniaZSv3VBvQAAEyK7Z0QyamjBsBLsmP3cR+it5ZH
+ uU8IwrCS8hfTC0dJgjjKjw9bW09NPjwVXIwKfIIlMJkgpLmR1AOGVvfqz
+ eC/yNIGCl25PJiHjw4pPBfHx1VDnKHJO1LPp4OOgYLmWMzUPRBxni4Yih
+ ON2MZAc1saAHit5gFr8pWfpHLbrLLuZQX6qIF5O6/81Zl7iXxNGKF39uI
+ TAiQxxqz70r9Vp1Or9nMjeEpexSZvDy/objhPpADyC5v98c99kKkW3T9/
+ fpEZgIYn56luUvUIZyUzMroaq9AmYZYpmD0E6YlCu7tk8XDNmgXN1BhXf A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="262394778"
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="262394778"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:08:17 -0700
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="591219231"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:08:33 -0700
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="591219314"
 Received: from nplaweck-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.149.236])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:08:14 -0700
+ 14 Apr 2022 08:08:30 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 14 Apr 2022 18:06:55 +0300
-Message-Id: <ec713490029350819f63ad471e6eb00c1e0cec3b.1649948563.git.jani.nikula@intel.com>
+Date: Thu, 14 Apr 2022 18:06:58 +0300
+Message-Id: <8bca14cf89ad475380b45525fd1e3b553184db72.1649948563.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1649948562.git.jani.nikula@intel.com>
 References: <cover.1649948562.git.jani.nikula@intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 12/19] drm/edid: convert drm_parse_cea_ext() to
- use cea db iter
+Subject: [Intel-gfx] [PATCH 15/19] drm/edid: restore some type safety to
+ cea_db_*() functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,68 +63,89 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Iterate through all CTA data blocks across all CTA Extensions and
-DisplayID data blocks.
+During the transition, we accepted a void pointer for a poor C
+programmer's version of polymorphism. Switch the functions to use struct
+cea_db * to regain some more type safety.
 
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 25 +++++++++++++------------
- 1 file changed, 13 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 21 +++++++++------------
+ 1 file changed, 9 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index e47bbcd103e6..91f15b561d78 100644
+index 7ed0258c0edf..1fc4e8754cd4 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -5520,8 +5520,9 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
- 			      const struct edid *edid)
+@@ -4408,11 +4408,8 @@ struct cea_db {
+ 	u8 data[];
+ } __packed;
+ 
+-static int cea_db_tag(const void *_db)
++static int cea_db_tag(const struct cea_db *db)
  {
- 	struct drm_display_info *info = &connector->display_info;
-+	const struct cea_db *db;
-+	struct cea_db_iter iter;
- 	const u8 *edid_ext;
--	int i, start, end;
- 
- 	edid_ext = drm_find_cea_extension(edid);
- 	if (!edid_ext)
-@@ -5540,26 +5541,26 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
- 			info->color_formats |= DRM_COLOR_FORMAT_YCBCR422;
- 	}
- 
--	if (cea_db_offsets(edid_ext, &start, &end))
--		return;
+-	/* FIXME: Transition to passing struct cea_db * everywhere. */
+-	const struct cea_db *db = _db;
 -
--	for_each_cea_db(edid_ext, i, start, end) {
--		const u8 *db = &edid_ext[i];
-+	cea_db_iter_edid_begin(edid, &iter);
-+	cea_db_iter_for_each(db, &iter) {
-+		/* FIXME: convert parsers to use struct cea_db */
-+		const u8 *data = (const u8 *)db;
- 
- 		if (cea_db_is_hdmi_vsdb(db))
--			drm_parse_hdmi_vsdb_video(connector, db);
-+			drm_parse_hdmi_vsdb_video(connector, data);
- 		if (cea_db_is_hdmi_forum_vsdb(db) ||
- 		    cea_db_is_hdmi_forum_scdb(db))
--			drm_parse_hdmi_forum_vsdb(connector, db);
-+			drm_parse_hdmi_forum_vsdb(connector, data);
- 		if (cea_db_is_microsoft_vsdb(db))
--			drm_parse_microsoft_vsdb(connector, db);
-+			drm_parse_microsoft_vsdb(connector, data);
- 		if (cea_db_is_y420cmdb(db))
--			drm_parse_y420cmdb_bitmap(connector, db);
-+			drm_parse_y420cmdb_bitmap(connector, data);
- 		if (cea_db_is_vcdb(db))
--			drm_parse_vcdb(connector, db);
-+			drm_parse_vcdb(connector, data);
- 		if (cea_db_is_hdmi_hdr_metadata_block(db))
--			drm_parse_hdr_metadata_block(connector, db);
-+			drm_parse_hdr_metadata_block(connector, data);
- 	}
-+	cea_db_iter_end(&iter);
+ 	return db->tag_length >> 5;
  }
  
- static
+@@ -4579,47 +4576,47 @@ static void cea_db_iter_end(struct cea_db_iter *iter)
+ 	memset(iter, 0, sizeof(*iter));
+ }
+ 
+-static bool cea_db_is_hdmi_vsdb(const void *db)
++static bool cea_db_is_hdmi_vsdb(const struct cea_db *db)
+ {
+ 	return cea_db_is_vendor(db, HDMI_IEEE_OUI) &&
+ 		cea_db_payload_len(db) >= 5;
+ }
+ 
+-static bool cea_db_is_hdmi_forum_vsdb(const void *db)
++static bool cea_db_is_hdmi_forum_vsdb(const struct cea_db *db)
+ {
+ 	return cea_db_is_vendor(db, HDMI_FORUM_IEEE_OUI) &&
+ 		cea_db_payload_len(db) >= 7;
+ }
+ 
+-static bool cea_db_is_microsoft_vsdb(const void *db)
++static bool cea_db_is_microsoft_vsdb(const struct cea_db *db)
+ {
+ 	return cea_db_is_vendor(db, MICROSOFT_IEEE_OUI) &&
+ 		cea_db_payload_len(db) == 21;
+ }
+ 
+-static bool cea_db_is_vcdb(const void *db)
++static bool cea_db_is_vcdb(const struct cea_db *db)
+ {
+ 	return cea_db_is_extended_tag(db, CTA_EXT_DB_VIDEO_CAP) &&
+ 		cea_db_payload_len(db) == 2;
+ }
+ 
+-static bool cea_db_is_hdmi_forum_scdb(const void *db)
++static bool cea_db_is_hdmi_forum_scdb(const struct cea_db *db)
+ {
+ 	return cea_db_is_extended_tag(db, CTA_EXT_DB_HF_SCDB) &&
+ 		cea_db_payload_len(db) >= 7;
+ }
+ 
+-static bool cea_db_is_y420cmdb(const void *db)
++static bool cea_db_is_y420cmdb(const struct cea_db *db)
+ {
+ 	return cea_db_is_extended_tag(db, CTA_EXT_DB_420_VIDEO_CAP_MAP);
+ }
+ 
+-static bool cea_db_is_y420vdb(const void *db)
++static bool cea_db_is_y420vdb(const struct cea_db *db)
+ {
+ 	return cea_db_is_extended_tag(db, CTA_EXT_DB_420_VIDEO_DATA);
+ }
+ 
+-static bool cea_db_is_hdmi_hdr_metadata_block(const void *db)
++static bool cea_db_is_hdmi_hdr_metadata_block(const struct cea_db *db)
+ {
+ 	return cea_db_is_extended_tag(db, CTA_EXT_DB_HDR_STATIC_METADATA) &&
+ 		cea_db_payload_len(db) >= 3;
 -- 
 2.30.2
 
