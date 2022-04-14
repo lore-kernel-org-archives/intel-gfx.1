@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A208C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:09:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C66A0C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:10:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0A6310FD77;
-	Thu, 14 Apr 2022 15:09:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AD5310FD75;
+	Thu, 14 Apr 2022 15:10:15 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAF7410FD68
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Apr 2022 15:09:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58CD410FD75
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Apr 2022 15:10:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649948991; x=1681484991;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=qz4BET55BpbDnOsppq7gX+mCTP4VwS9T9oAHfQSAAfY=;
- b=BZBqu7bxTAr8i6KUm33AfWALp3vMwSMh7Opi3zcjmuJOezFJask16Ybi
- RaLCziXxCd/cs5xheNBSJKdjSjOCZmfwOulrMve72hNs6QTSLVt/msdFV
- Q/7XsROsTo52MusdpaubGy+PSFvpOIgn2J/+M0XNR8mJAowJWNMQ1F0hl
- 8WGykqVly2rJcuQOxSxhMHw+A5htFx9Qa93a/eFStPn9qT7N/0XRWVCYm
- AU9D3EnxXLCl4emXiswTDxY7rs8veLZD/zUjUyUUba/SJp2CzboemwXYn
- Bu7FEPAUNJ6QLHc6U/aVHJygKzOINFVGGyiE2A5mX+LYtVwyxsVldLGBt g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="250247563"
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="250247563"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ t=1649949013; x=1681485013;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Fsl2h5K3snX5ve6WteNFrI7hVMRx1JAWLM4Uy2NqzIM=;
+ b=IEKHi3XBzfWs6iGGTVqwx46DMO3+ZYH8JzRJEefRh6nyI0pqyrCnUibi
+ BrrRGf5/R4dFEIWKlHDgqxz6p9gQnTMkANM2N4dxhDwPhDGcPeNvPLzZx
+ mTih9bu/R01FDm429UqbaSg30fP/reOZDkMZcSQH+ckFGhXFefxdI4qdu
+ v4A3p4NUh0Emp0ysqttvgIF6Bpc6lLPsqep+BHsnCd5r3KK3Y3ypjHFVV
+ et/YeH0SRaIffixmaXsNPa16MMNM+B5RAoHRn5+ivnmvEDFUI8Kkp2e5r
+ +36f29cZ8onovYtZuJDBMelDF8aBchM/dx3t5VYTE327NOmAsC+WPzXkO w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="250247689"
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="250247689"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:09:51 -0700
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="803162459"
-Received: from hchuang-mobl3.amr.corp.intel.com (HELO
- josouza-mobl2.amr.corp.intel.com) ([10.212.30.222])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:09:50 -0700
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Apr 2022 08:11:18 -0700
-Message-Id: <20220414151118.21980-2-jose.souza@intel.com>
-X-Mailer: git-send-email 2.35.2
-In-Reply-To: <20220414151118.21980-1-jose.souza@intel.com>
-References: <20220414151118.21980-1-jose.souza@intel.com>
+ 14 Apr 2022 08:10:12 -0700
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="725394907"
+Received: from mdnavare-mobl1.jf.intel.com ([10.165.21.211])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:10:12 -0700
+Date: Thu, 14 Apr 2022 08:10:18 -0700
+From: "Navare, Manasi" <manasi.d.navare@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+Message-ID: <20220414151018.GA204099@mdnavare-mobl1.jf.intel.com>
+References: <20220413152852.7336-1-ville.syrjala@linux.intel.com>
+ <20220413152852.7336-2-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 2/2] drm/i915/display/psr: Clear more PSR
- state during disable
+In-Reply-To: <20220413152852.7336-2-ville.syrjala@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/fbc: s/false/0/
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,47 +57,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After commit 805f04d42a6b ("drm/i915/display/psr: Use continuos full
-frame to handle frontbuffer invalidations") was merged we started to
-get some drm_WARN_ON(&dev_priv->drm, !(tmp & PSR2_MAN_TRK_CTL_ENABLE))
-in tests that are executed in pipe B.
+On Wed, Apr 13, 2022 at 06:28:52PM +0300, Ville Syrjala wrote:
+> From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> 
+> intel_fbc_check_plane() is supposed to an int, not a boolean.
+> So replace the bogus 'return false's with the correct 'return 0's.
+> These were accidental copy-paste mistakes when the code got moved
+> into intel_fbc_check_plane() from somewhere else tht did return
+> a boolean.
+> 
+> No functional issue here since false==0.
+> 
+> Signed-off-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
 
-This is probably due psr2_sel_fetch_cff_enabled being left set during
-PSR disable in the pipe A, so the PSR2_MAN_TRK_CTL write in
-intel_psr2_program_trans_man_trk_ctl() is skipped in pipe B and then
-we get the warning when actually enabling PSR after planes programing.
-We don't get such warnings when running tests in pipe A because
-PSR2_MAN_TRK_CTL is only cleared when enabling PSR2 with hardware
-tracking.
+Good catch
 
-Was not able to reproduce this issue but cleaning the PSR state
-disable will not harm anything at all.
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
 
-Fixes: 805f04d42a6b ("drm/i915/display/psr: Use continuos full frame to handle frontbuffer invalidations")
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/5634
-Cc: Jouni H√∂gander <jouni.hogander@intel.com>
-Signed-off-by: Jos√© Roberto de Souza <jose.souza@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 3 +++
- 1 file changed, 3 insertions(+)
+Manasi
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 8ec7c161284be..06db407e2749f 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1353,6 +1353,9 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- 		drm_dp_dpcd_writeb(&intel_dp->aux, DP_RECEIVER_ALPM_CONFIG, 0);
- 
- 	intel_dp->psr.enabled = false;
-+	intel_dp->psr.psr2_enabled = false;
-+	intel_dp->psr.psr2_sel_fetch_enabled = false;
-+	intel_dp->psr.psr2_sel_fetch_cff_enabled = false;
- }
- 
- /**
--- 
-2.35.2
-
+> ---
+>  drivers/gpu/drm/i915/display/intel_fbc.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+> index ff303c7d3a57..966970d1cf0a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fbc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+> @@ -1086,7 +1086,7 @@ static int intel_fbc_check_plane(struct intel_atomic_state *state,
+>  	 */
+>  	if (DISPLAY_VER(i915) >= 12 && crtc_state->has_psr2) {
+>  		plane_state->no_fbc_reason = "PSR2 enabled";
+> -		return false;
+> +		return 0;
+>  	}
+>  
+>  	if (!pixel_format_is_valid(plane_state)) {
+> @@ -1112,7 +1112,7 @@ static int intel_fbc_check_plane(struct intel_atomic_state *state,
+>  	if (plane_state->hw.pixel_blend_mode != DRM_MODE_BLEND_PIXEL_NONE &&
+>  	    fb->format->has_alpha) {
+>  		plane_state->no_fbc_reason = "per-pixel alpha not supported";
+> -		return false;
+> +		return 0;
+>  	}
+>  
+>  	if (!intel_fbc_hw_tracking_covers_screen(plane_state)) {
+> @@ -1128,7 +1128,7 @@ static int intel_fbc_check_plane(struct intel_atomic_state *state,
+>  	if (DISPLAY_VER(i915) >= 9 &&
+>  	    plane_state->view.color_plane[0].y & 3) {
+>  		plane_state->no_fbc_reason = "plane start Y offset misaligned";
+> -		return false;
+> +		return 0;
+>  	}
+>  
+>  	/* Wa_22010751166: icl, ehl, tgl, dg1, rkl */
+> @@ -1136,7 +1136,7 @@ static int intel_fbc_check_plane(struct intel_atomic_state *state,
+>  	    (plane_state->view.color_plane[0].y +
+>  	     (drm_rect_height(&plane_state->uapi.src) >> 16)) & 3) {
+>  		plane_state->no_fbc_reason = "plane end Y offset misaligned";
+> -		return false;
+> +		return 0;
+>  	}
+>  
+>  	/* WaFbcExceedCdClockThreshold:hsw,bdw */
+> -- 
+> 2.35.1
+> 
