@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F26C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:08:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E8C0C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9326A10FF7F;
-	Thu, 14 Apr 2022 15:08:00 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 390A910FF7D;
- Thu, 14 Apr 2022 15:07:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92CF810FF82;
+	Thu, 14 Apr 2022 15:08:07 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CC2A10FF85;
+ Thu, 14 Apr 2022 15:08:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649948879; x=1681484879;
+ t=1649948886; x=1681484886;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gnraO2dCuv7+v6vhSze4bgoJU3ziQkKy8SDyC3/QoOM=;
- b=mqgOE9abf3kDWjntFeoU/tSXcdfALXCeCRrbMwmnm7XuSREJ41y8ZJ8g
- Qw1HWEvYml34Lot9hhX++dj+nlVsjs+kYpWUe8hZ73WDv/AP6CHGa8EfJ
- 0NMPWSB5hcAfNjxQpmnncsgclQEVn40G5leWsin0jjIqYsVq/tm1RmsU1
- O8VdwkqaUEdue0SzsOBMJmtXs7ohZcoRsGAuMT/McL7PtECJtBMohsrFt
- PmDSrkyqY2iNH8Zke6SVUqse91+58VekfwX/W2yMG11T4/FfVIXrew86a
- qnBZdsXtO2hswS+DHiZf6PzbpoG2kMbq7cSELNk09DmUpgsbyyaP+Sdf1 g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="288006843"
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="288006843"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:07:47 -0700
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="661408656"
+ bh=29zczUUX57yKL4EmfUU4UBQXbZGhhOud6StRedh2RKk=;
+ b=hJwSK0Ht7eKTHUu8SJQhcelq2Er1Llox62qTh9Y4f4w/PBlugxlyKhrz
+ Yny1J1t0hcSTzzXfJREZ//QlSx+dTKKAmqILpPiWuFbyIBBoRNU8BR7Nn
+ spFRFFDAkzgRAXmm39dNgu/vSL4Rxn9J8OkotGeEmMjUNBehQmKkDaLZA
+ cXn82AFEiMMVwUPh6xtF9knf444TmrV70xmkcNbIwI4KL3oDBwZI7TvR6
+ L9oVNbPamW0I4OvNnVwGnbokdXjvKsZBXWSlXZPNoorbDYXGWDAN8CjaP
+ ouKJiy4vFcaKvVN27PUPOc8hr1p65/tFaXE2YNgkrfAt6Pqq3it728DLF Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="262703055"
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="262703055"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:08:05 -0700
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="508439562"
 Received: from nplaweck-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.149.236])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:07:45 -0700
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:08:02 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 14 Apr 2022 18:06:50 +0300
-Message-Id: <98d48a8c33108ae065944ae70a7f1052967fc8d1.1649948562.git.jani.nikula@intel.com>
+Date: Thu, 14 Apr 2022 18:06:53 +0300
+Message-Id: <b9ff79857c53ef89e3e1920cb8860430b1487f17.1649948563.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1649948562.git.jani.nikula@intel.com>
 References: <cover.1649948562.git.jani.nikula@intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/19] drm/edid: convert add_cea_modes() to use
- cea db iter
+Subject: [Intel-gfx] [PATCH 10/19] drm/edid: convert
+ drm_detect_hdmi_monitor() to use cea db iter
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,97 +63,57 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Iterate through all CTA EDID extension blocks and DisplayID CTA data
-blocks to add CEA modes.
+Iterate through all CTA data blocks, not just the first CTA extension.
 
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 67 ++++++++++++++++++--------------------
- 1 file changed, 31 insertions(+), 36 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 25 +++++++++++--------------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 34897b1417a5..d02588637879 100644
+index 164a2020f9e1..b1fac281fd85 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -4713,46 +4713,41 @@ static void drm_parse_y420cmdb_bitmap(struct drm_connector *connector,
- static int
- add_cea_modes(struct drm_connector *connector, const struct edid *edid)
+@@ -5155,27 +5155,24 @@ EXPORT_SYMBOL(drm_av_sync_delay);
+  */
+ bool drm_detect_hdmi_monitor(const struct edid *edid)
  {
--	const u8 *cea = drm_find_cea_extension(edid);
--	const u8 *db, *hdmi = NULL, *video = NULL;
--	u8 dbl, hdmi_len, video_len = 0;
+-	const u8 *edid_ext;
+-	int i;
+-	int start_offset, end_offset;
+-
+-	edid_ext = drm_find_cea_extension(edid);
+-	if (!edid_ext)
+-		return false;
+-
+-	if (cea_db_offsets(edid_ext, &start_offset, &end_offset))
+-		return false;
 +	const struct cea_db *db;
 +	struct cea_db_iter iter;
- 	int modes = 0;
++	bool hdmi = false;
  
--	if (cea && cea_revision(cea) >= 3) {
--		int i, start, end;
--
--		if (cea_db_offsets(cea, &start, &end))
--			return 0;
--
--		for_each_cea_db(cea, i, start, end) {
--			db = &cea[i];
--			dbl = cea_db_payload_len(db);
--
--			if (cea_db_tag(db) == CTA_DB_VIDEO) {
--				video = db + 1;
--				video_len = dbl;
--				modes += do_cea_modes(connector, video, dbl);
--			} else if (cea_db_is_hdmi_vsdb(db)) {
--				hdmi = db;
--				hdmi_len = dbl;
--			} else if (cea_db_is_y420vdb(db)) {
--				const u8 *vdb420 = &db[2];
--
--				/* Add 4:2:0(only) modes present in EDID */
--				modes += do_y420vdb_modes(connector,
--							  vdb420,
--							  dbl - 1);
--			}
+ 	/*
+ 	 * Because HDMI identifier is in Vendor Specific Block,
+ 	 * search it from all data blocks of CEA extension.
+ 	 */
+-	for_each_cea_db(edid_ext, i, start_offset, end_offset) {
+-		if (cea_db_is_hdmi_vsdb(&edid_ext[i]))
+-			return true;
 +	cea_db_iter_edid_begin(edid, &iter);
 +	cea_db_iter_for_each(db, &iter) {
-+		const u8 *hdmi = NULL, *video = NULL;
-+		u8 hdmi_len = 0, video_len = 0;
-+
-+		if (cea_db_tag(db) == CTA_DB_VIDEO) {
-+			video = cea_db_data(db);
-+			video_len = cea_db_payload_len(db);
-+			modes += do_cea_modes(connector, video, video_len);
-+		} else if (cea_db_is_hdmi_vsdb(db)) {
-+			/* FIXME: Switch to use cea_db_data() */
-+			hdmi = (const u8 *)db;
-+			hdmi_len = cea_db_payload_len(db);
-+		} else if (cea_db_is_y420vdb(db)) {
-+			const u8 *vdb420 = cea_db_data(db) + 1;
-+
-+			/* Add 4:2:0(only) modes present in EDID */
-+			modes += do_y420vdb_modes(connector, vdb420,
-+						  cea_db_payload_len(db) - 1);
- 		}
--	}
- 
--	/*
--	 * We parse the HDMI VSDB after having added the cea modes as we will
--	 * be patching their flags when the sink supports stereo 3D.
--	 */
--	if (hdmi)
--		modes += do_hdmi_vsdb_modes(connector, hdmi, hdmi_len, video,
--					    video_len);
-+		/*
-+		 * We parse the HDMI VSDB after having added the cea modes as we
-+		 * will be patching their flags when the sink supports stereo
-+		 * 3D.
-+		 */
-+		if (hdmi)
-+			modes += do_hdmi_vsdb_modes(connector, hdmi, hdmi_len,
-+						    video, video_len);
-+	}
++		if (cea_db_is_hdmi_vsdb(db)) {
++			hdmi = true;
++			break;
++		}
+ 	}
 +	cea_db_iter_end(&iter);
  
- 	return modes;
+-	return false;
++	return hdmi;
  }
+ EXPORT_SYMBOL(drm_detect_hdmi_monitor);
+ 
 -- 
 2.30.2
 
