@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B902C433FE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DD22C433EF
 	for <intel-gfx@archiver.kernel.org>; Thu, 14 Apr 2022 15:07:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7889410FEF7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3639B10FEAB;
 	Thu, 14 Apr 2022 15:07:20 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B77210FEAB;
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B858910FEEE;
  Thu, 14 Apr 2022 15:07:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1649948838; x=1681484838;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=tq6g9TUYU6cilRnhCVU8XsklaIbrEZocMrSoAwf2ldk=;
- b=B3KCnMy5QYhnOriVR1zpkUDMRanfvWFugv0zGtBfGYgPd6Z3uxYESK/e
- UMRycdXPXRiYaZ9mSKSQK6eHon/Twawu3QXkKnvbpYy7F+VTWv7CsvEyt
- NnDlSi30g+m/l/walm+FDIi/wgsOvuC0eKGy1bCd32KIhb2WU9p9mGmOW
- +sktXo9DmvtlOAOH8+1WWfHbsrxwl7etOIqOsQ2aGMiR9NuqSYx3Ob6Q2
- GlqqiBi493i4d5Jtsya8+i5f9j0oZJqhML/mMvM5f8NNPXlVjCWWK1fRZ
- AgAtByIveZdmmfWiSDGlZp147OWOs/X9gCWpAS0EB5W89hUinTQq2vUHY w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="260545820"
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="260545820"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:07:06 -0700
-X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="552718728"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=V16ETtYrck/lMi1WGBWuU2OSKOcUPf6yBHPnd+cGtko=;
+ b=iWebrxEd/sr7yCMIgraVu6FR7+PQ+9UFPZ3lSaSNgE//ElRKqOPPzRCU
+ nP/7jROFyes2LOqTY72ff79ceRZ25nXM7hUCgD2hpX41K6ANsMQYhPiV4
+ 6AYJnwwYviE4Og9Rfp/ow/r5CarVwxgoA4GkU2co76LKW3vE9UAWxJgwR
+ VAl/lqT4+4y8rW9IichSr/W12xeHPdP1l6AIbjKyMLHkM2ETKnt8imDrS
+ hCpFESuNfEU2n6ycGsqyeW+pe0zcf0xsU3f2RleNlvrpS+qkYItw2kZ3a
+ 7iRJHw5DF8j7oij6jA7q3AS+e9HfxAJ3M8VMsQPP5Bo/pCMZz6tOm7szK w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10317"; a="323394527"
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="323394527"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:07:18 -0700
+X-IronPort-AV: E=Sophos;i="5.90,260,1643702400"; d="scan'208";a="573840042"
 Received: from nplaweck-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.149.236])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2022 08:07:03 -0700
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 08:07:15 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 14 Apr 2022 18:06:43 +0300
-Message-Id: <cover.1649948562.git.jani.nikula@intel.com>
+Date: Thu, 14 Apr 2022 18:06:45 +0300
+Message-Id: <a372cec9ce98438a963d199ebb04c2de56152513.1649948562.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <cover.1649948562.git.jani.nikula@intel.com>
+References: <cover.1649948562.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/19] drm/edid: CEA data block iterators,
- and more
+Subject: [Intel-gfx] [PATCH 02/19] drm/edid: check for HF-SCDB block
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,41 +61,67 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Get back to the CEA data block iterator stuff now that a bunch of prep
-work has landed.
+From: Lee Shawn C <shawn.c.lee@intel.com>
 
-My git repo at [1], branch edid-hfeeodb-2022-04-14, contains where this
-is all headed after this.
+Find HF-SCDB information in CEA extensions block. And retrieve
+Max_TMDS_Character_Rate that support by sink device.
 
-[1] https://cgit.freedesktop.org/~jani/drm/log/?h=edid-hfeeodb-2022-04-14
+v2: HF-SCDB and HF-VSDBS carry the same SCDS data. Reuse
+    drm_parse_hdmi_forum_vsdb() to parse this packet.
 
-Jani Nikula (18):
-  drm/edid: reset display info in drm_add_edid_modes() for NULL edid
-  drm/edid: clean up CTA data block tag definitions
-  drm/edid: add iterator for EDID base and extension blocks
-  drm/edid: add iterator for CTA data blocks
-  drm/edid: clean up cea_db_is_*() functions
-  drm/edid: convert add_cea_modes() to use cea db iter
-  drm/edid: convert drm_edid_to_speaker_allocation() to use cea db iter
-  drm/edid: convert drm_edid_to_sad() to use cea db iter
-  drm/edid: convert drm_detect_hdmi_monitor() to use cea db iter
-  drm/edid: convert drm_detect_monitor_audio() to use cea db iter
-  drm/edid: convert drm_parse_cea_ext() to use cea db iter
-  drm/edid: convert drm_edid_to_eld() to use cea db iter
-  drm/edid: sunset the old unused cea data block iterators
-  drm/edid: restore some type safety to cea_db_*() functions
-  drm/edid: detect basic audio in all CEA extensions
-  drm/edid: detect color formats and CTA revision in all CTA extensions
-  drm/edid: skip CTA extension scan in drm_edid_to_eld() just for CTA
-    rev
-  drm/edid: sunset drm_find_cea_extension()
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>
+Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/drm_edid.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-Lee Shawn C (1):
-  drm/edid: check for HF-SCDB block
-
- drivers/gpu/drm/drm_edid.c | 760 +++++++++++++++++++++----------------
- 1 file changed, 438 insertions(+), 322 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 4758e78fad82..32ece9607b94 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -3495,6 +3495,7 @@ add_detailed_modes(struct drm_connector *connector, const struct edid *edid,
+ #define EXT_VIDEO_CAPABILITY_BLOCK 0x00
+ #define EXT_VIDEO_DATA_BLOCK_420	0x0E
+ #define EXT_VIDEO_CAP_BLOCK_Y420CMDB 0x0F
++#define EXT_VIDEO_HF_SCDB_DATA_BLOCK	0x79
+ #define EDID_BASIC_AUDIO	(1 << 6)
+ #define EDID_CEA_YCRCB444	(1 << 5)
+ #define EDID_CEA_YCRCB422	(1 << 4)
+@@ -4426,6 +4427,20 @@ static bool cea_db_is_vcdb(const u8 *db)
+ 	return true;
+ }
+ 
++static bool cea_db_is_hdmi_forum_scdb(const u8 *db)
++{
++	if (cea_db_tag(db) != USE_EXTENDED_TAG)
++		return false;
++
++	if (cea_db_payload_len(db) < 7)
++		return false;
++
++	if (cea_db_extended_tag(db) != EXT_VIDEO_HF_SCDB_DATA_BLOCK)
++		return false;
++
++	return true;
++}
++
+ static bool cea_db_is_y420cmdb(const u8 *db)
+ {
+ 	if (cea_db_tag(db) != USE_EXTENDED_TAG)
+@@ -5387,7 +5402,8 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
+ 
+ 		if (cea_db_is_hdmi_vsdb(db))
+ 			drm_parse_hdmi_vsdb_video(connector, db);
+-		if (cea_db_is_hdmi_forum_vsdb(db))
++		if (cea_db_is_hdmi_forum_vsdb(db) ||
++		    cea_db_is_hdmi_forum_scdb(db))
+ 			drm_parse_hdmi_forum_vsdb(connector, db);
+ 		if (cea_db_is_microsoft_vsdb(db))
+ 			drm_parse_microsoft_vsdb(connector, db);
 -- 
 2.30.2
 
