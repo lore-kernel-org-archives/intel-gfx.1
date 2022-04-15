@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA868C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Apr 2022 22:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C742C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Apr 2022 22:40:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E675E10E611;
-	Fri, 15 Apr 2022 22:40:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8C210E61C;
+	Fri, 15 Apr 2022 22:40:33 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E491410E602
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Apr 2022 22:40:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F93810E603
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Apr 2022 22:40:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650062429; x=1681598429;
+ t=1650062430; x=1681598430;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=ou4PpFZeJlHACTxQDujvw6zj+rPiKn9hufrOkdAwDwM=;
- b=GjrV/j3XrgiAJNgAGuWcm3QI0926VkuSwaz4Bcr5cpRhbI334+w/lH5I
- wRfQuwDmuFkhctGAoJD90/Q8+tnH6r5EgnlB76nuA3BGXA8r0jCgnHBjy
- wrWIqefCyPQ12SbRBO0DNeM7b9ugiZHo3rxNzQLbSx+O/sIIsSCmAYSnI
- TNHtDgyKlt/XBI9jvpiPZ8v/WIpP5QUgAZhk7r0VTkmcviFfz4NYD7yxJ
- oK3dIzkG0cxjwV8UhFa4RO6roYeNrRKSLHNxlBuL/hRexLborQ7LieWom
- O5frL4Cc5HVu9Ni+oVMT90YKG1/+IAw7CcJ6QwWZQJjRBcyycA5afXHs9 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10318"; a="326144496"
-X-IronPort-AV: E=Sophos;i="5.90,264,1643702400"; d="scan'208";a="326144496"
+ bh=2HKsMJ5jBv2bhu1rlAWA3Ut7jXi2EEt0czOjjIRIt40=;
+ b=WnnBC8DKq92VqfAN+gta/QqFkbCgnzWXf+SmD4TQUMRUmaVJwclDcE6g
+ IDD/FblIGs2rUDsGDPNhTu0yPXgdSNCBXq3oZB8WxHCgewXGFH94J2Hdt
+ wEzrK6RYvmfRLDa+jPiopdzg4e9kDaabSHUaR86yKt8vmkDpnQ/fPlzD8
+ cgU0v4v8plJwK1aTuMC6+hOX+25MbGzVXNh3u1JkJuDuV8hldTFYEksI+
+ Mr13+FqlYDNJcEnSBOef8wfyAUXKarSabntfoKoEBDaN3VB+EGYWoXgwu
+ t8kkPD7yT44CfwfOGudYKkMxi5eN4OK/pN+CiiTopQzQrQ61BbGJHNKCa w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10318"; a="326144497"
+X-IronPort-AV: E=Sophos;i="5.90,264,1643702400"; d="scan'208";a="326144497"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Apr 2022 15:40:28 -0700
-X-IronPort-AV: E=Sophos;i="5.90,264,1643702400"; d="scan'208";a="574563710"
+X-IronPort-AV: E=Sophos;i="5.90,264,1643702400"; d="scan'208";a="574563716"
 Received: from unerlige-desk.jf.intel.com ([10.165.21.210])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Apr 2022 15:40:28 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org, daniele.ceraolospurio@intel.com,
  john.c.harrison@intel.com
-Date: Fri, 15 Apr 2022 15:40:20 -0700
-Message-Id: <20220415224025.3693037-2-umesh.nerlige.ramappa@intel.com>
+Date: Fri, 15 Apr 2022 15:40:22 -0700
+Message-Id: <20220415224025.3693037-4-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220415224025.3693037-1-umesh.nerlige.ramappa@intel.com>
 References: <20220415224025.3693037-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/6] drm/i915: Add Wa_22011802037 force cs halt
+Subject: [Intel-gfx] [PATCH 3/6] drm/i915/guc: Enable GuC based workarounds
+ for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,52 +60,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tilak Tangudu <tilak.tangudu@intel.com>
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Prior to doing a reset, SW must ensure command streamer is stopped,
-as a workaround, to eliminate a race condition in GPM flow.
-Setting both the ring stop and prefetch disable bits, will cause the
-command streamer to halt.
+There are some workarounds for DG2 that are implemented in the GuC
+firmware. However, the KMD is required to enable these by setting the
+appropriate flag as GuC does not know what platform it is running on.
+  Wa_16011759253
+  Wa_14012630569
+  Wa_14013746162
 
-Signed-off-by: Tilak Tangudu <tilak.tangudu@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+CC: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c   | 9 +++++++++
- drivers/gpu/drm/i915/gt/intel_engine_regs.h | 1 +
- 2 files changed, 10 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c      | 14 ++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h |  2 ++
+ 2 files changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 98b61ff13c95..14c6ddbbfde8 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1280,6 +1280,15 @@ static int __intel_engine_stop_cs(struct intel_engine_cs *engine,
- 	int err;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index 185fb4d59791..fd04c4cd9d44 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -292,6 +292,20 @@ static u32 guc_ctl_wa_flags(struct intel_guc *guc)
+ 	    GRAPHICS_VER_FULL(gt->i915) < IP_VER(12, 50))
+ 		flags |= GUC_WA_POLLCS;
  
- 	intel_uncore_write_fw(uncore, mode, _MASKED_BIT_ENABLE(STOP_RING));
++	/* Wa_16011759253:dg2_g10:a0 */
++	if (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_B0))
++		flags |= GUC_WA_GAM_CREDITS;
 +
 +	/*
-+	 * Wa_22011802037 : gen12, Prior to doing a reset, ensure CS is
-+	 * stopped, set ring stop bit and prefetch disable bit to halt CS
++	 * Wa_14012197797:dg2_g10:a0,dg2_g11:a0
++	 * Wa_22011391025:dg2_g10,dg2_g11,dg2_g12
++	 *
++	 * The same WA bit is used for both and 22011391025 is applicable to
++	 * all DG2.
 +	 */
-+	if (GRAPHICS_VER(engine->i915) == 12)
-+		intel_uncore_write_fw(uncore, RING_MODE_GEN7(engine->mmio_base),
-+				      _MASKED_BIT_ENABLE(GEN12_GFX_PREFETCH_DISABLE));
++	if (IS_DG2(gt->i915))
++		flags |= GUC_WA_DUAL_QUEUE;
 +
- 	err = __intel_wait_for_register_fw(engine->uncore, mode,
- 					   MODE_IDLE, MODE_IDLE,
- 					   fast_timeout_us,
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_regs.h b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
-index 0bf8b45c9319..594a629cb28f 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
-@@ -181,6 +181,7 @@
- #define   GFX_SURFACE_FAULT_ENABLE		(1 << 12)
- #define   GFX_REPLAY_MODE			(1 << 11)
- #define   GFX_PSMI_GRANULARITY			(1 << 10)
-+#define   GEN12_GFX_PREFETCH_DISABLE		REG_BIT(10)
- #define   GFX_PPGTT_ENABLE			(1 << 9)
- #define   GEN8_GFX_PPGTT_48B			(1 << 7)
- #define   GFX_FORWARD_VBLANK_MASK		(3 << 5)
+ 	/* Wa_22011802037: graphics version 12 */
+ 	if (GRAPHICS_VER(gt->i915) == 12)
+ 		flags |= GUC_WA_PRE_PARSER;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index b136d6528fbf..fe5751f67b19 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -98,6 +98,8 @@
+ #define   GUC_LOG_BUF_ADDR_SHIFT	12
+ 
+ #define GUC_CTL_WA			1
++#define   GUC_WA_GAM_CREDITS		BIT(10)
++#define   GUC_WA_DUAL_QUEUE		BIT(11)
+ #define   GUC_WA_PRE_PARSER		BIT(14)
+ #define   GUC_WA_POLLCS			BIT(18)
+ 
 -- 
 2.35.1
 
