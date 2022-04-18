@@ -4,81 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86220C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A68DC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:03:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 122ED10E35F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0C510E40C;
 	Mon, 25 Apr 2022 13:03:43 +0000 (UTC)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE04810F6CA;
- Thu, 21 Apr 2022 10:17:39 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id r13so9025022ejd.5;
- Thu, 21 Apr 2022 03:17:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=o9Uwrnr+J/6PoPyTPGmYSGkDODoDuGBLtRMs0gUpXJk=;
- b=Tw1xmngZVfgCT7TLBstw8nQFpll9Eq0dUwiVJsGbsS/YNeQ/L4ksc7k4vKU2gYhMG4
- WIP/P3GVtSM8yQUBvFu0wzQ78CvU/jVksuhYepDhTmaFzetdJPma6K/6biJfMh2ou1mV
- Y8YlaBN2lk5t/HxXOih3jiSyY0LmmKxksUQfDKQigduQaJfdeFZYGTZtfX6lrtc+7PgK
- nU0GqecKph+MxFN0nxH2edRAv/7RwdPu1D7V/yjTDsOtz0gs4xjJISOSJZgsCOOt6zRZ
- DFqR9U/lLaDZcgzIAgXpFM0KtrraQjTO95+6FFitzuEIK1qjfmZ2ZOUfzFuf61KKx9nZ
- ynZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=o9Uwrnr+J/6PoPyTPGmYSGkDODoDuGBLtRMs0gUpXJk=;
- b=efKx249VQV55+/+WQ9VnY2JMeSyYxNrJHKw7WO4OslmOXLGTApWc2R8kOZgJ9pCDcg
- /Xylgdf1ovZwl59HuCygG9LyfN5DuBZa+MWJr1sMTw4ryuaBT5a5hi7Q6bDR8FMTbAHb
- Km/f6jSA29w9V2DFlVzZAk6eYaOhPxy2eWy0Ysj6/vG6Gnhz+E7/U8MCS8mbB/WCcxA4
- whuGL4Lbtup9RyXLNGxq3/+NHtIEM3AgOcT2XEycMNq+HXiaScV2Jq88pUafy/SHWxPv
- bCnC2Fu7Gvpm1bFrkwbwmUbsTyVUc4pnMDNh9VmOBHWrrPOhInDZ1CEVTcAlcjI7orZy
- +eog==
-X-Gm-Message-State: AOAM532lHx67pueZgvZSr0drq2e5cAYNmdlgy+xETK0VDLnhd2BuBiGg
- nXml6idq8/QZ+BDpZDpIuALJeBDW5YQ=
-X-Google-Smtp-Source: ABdhPJwfX3c1ZjiNGKR8X3C8C8qD7akq9C+VUDTYnVQCMx9rkiXUpNWEIgmkZxnq8ehfCKoNipcwXg==
-X-Received: by 2002:a17:907:7da3:b0:6f0:d63:69bd with SMTP id
- oz35-20020a1709077da300b006f00d6369bdmr5677073ejc.289.1650536258169; 
- Thu, 21 Apr 2022 03:17:38 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1252:fb60:74ec:39fd:9a7c:7ff3?
- ([2a02:908:1252:fb60:74ec:39fd:9a7c:7ff3])
- by smtp.gmail.com with ESMTPSA id
- a1-20020a1709063e8100b006ce06ed8aa7sm7745262ejj.142.2022.04.21.03.17.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Apr 2022 03:17:37 -0700 (PDT)
-Message-ID: <6cd3571c-099b-df43-a7e0-243aba11726b@gmail.com>
-Date: Thu, 21 Apr 2022 12:17:36 +0200
+X-Greylist: delayed 2567 seconds by postgrey-1.36 at gabe;
+ Mon, 18 Apr 2022 16:11:28 UTC
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED9EB10E154;
+ Mon, 18 Apr 2022 16:11:28 +0000 (UTC)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 23IDQVwU007067; 
+ Mon, 18 Apr 2022 15:28:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=mXyV8zBO0d7NK+u2E09/wjZ4ZPRhf8/bUCmA/aKkUVA=;
+ b=Tp7DUlnQZ/eBXjoSa9D0vXPOIQzKBjQZl/SKCBzXOX+wRe1hqr9TSJ48LOHRKU9rr4I8
+ ngas/aBK9zqZDjm9Z7cpUHampv4SOdtkiG7rvtf3gv+fXQHXKrE3Atk/EZuLgw/D0spC
+ gTOjHsqYJiFhXP8rPQcfMLNKDq5S9nGtbQJYkMBJDFyqcfIUzJriaPMFN6vmk8kBBKLE
+ zIjDn+LMHKAO67qvOpixVV826QZn8AaxxuyVOj0avVQ4hg9tJdgD/UE6hVJUZZuzvliW
+ vyMsRjz8+V9+0Fqe7AI317qtR1cVoCDDeVCci+Ma2+JPEayJXTieMNaxp0hoFYyfE/u/ sQ== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3fg77j7swq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Apr 2022 15:28:36 +0000
+Received: from m0098416.ppops.net (m0098416.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 23IFHbVW021846;
+ Mon, 18 Apr 2022 15:28:36 GMT
+Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
+ [169.55.91.170])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3fg77j7swg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Apr 2022 15:28:35 +0000
+Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
+ by ppma02wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 23IFKp43025583;
+ Mon, 18 Apr 2022 15:28:35 GMT
+Received: from b03cxnp07027.gho.boulder.ibm.com
+ (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
+ by ppma02wdc.us.ibm.com with ESMTP id 3fg2xvkbta-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Apr 2022 15:28:35 +0000
+Received: from b03ledav005.gho.boulder.ibm.com
+ (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
+ by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 23IFSXsU36569348
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 18 Apr 2022 15:28:34 GMT
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E0D89BE056;
+ Mon, 18 Apr 2022 15:28:33 +0000 (GMT)
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 361BDBE054;
+ Mon, 18 Apr 2022 15:28:31 +0000 (GMT)
+Received: from [9.65.204.148] (unknown [9.65.204.148])
+ by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Mon, 18 Apr 2022 15:28:31 +0000 (GMT)
+Message-ID: <aa721d27-9622-5d47-2671-a503ba6cf2ef@linux.ibm.com>
+Date: Mon, 18 Apr 2022 11:28:30 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
 Content-Language: en-US
-To: Zack Rusin <zackr@vmware.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-References: <20220407085946.744568-1-christian.koenig@amd.com>
- <20220407085946.744568-4-christian.koenig@amd.com>
- <60ab53ce1ce1333f5e6a15fc83c3c05cd9bd1084.camel@vmware.com>
- <4c2e9414-3926-c9d7-8482-0d6d9191c2ac@amd.com>
- <fe8916b53b0f0101e6616d23eb6896399b092d58.camel@vmware.com>
- <54d00af9-9384-5794-490c-7d4cafe086b6@gmail.com>
- <e1c60e2a1478c406f515d51608a751fdc9feff3a.camel@vmware.com>
- <baa19a2d-6ad9-63ea-20f4-284a794f8998@amd.com>
- <ac12f900-fb47-37d6-9a1c-ac44bc711069@gmail.com>
- <5d699ffa903b5e54e8660367c3b46f07c86f4c55.camel@vmware.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <5d699ffa903b5e54e8660367c3b46f07c86f4c55.camel@vmware.com>
+To: Jason Gunthorpe <jgg@nvidia.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ David Airlie <airlied@linux.ie>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Eric Farman <farman@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Jason Herne <jjherne@linux.ibm.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-doc@vger.kernel.org,
+ linux-s390@vger.kernel.org, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
+References: <1-v1-a8faf768d202+125dd-vfio_mdev_no_group_jgg@nvidia.com>
+From: Tony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <1-v1-a8faf768d202+125dd-vfio_mdev_no_group_jgg@nvidia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: CW51WGGH1p_elZ8hWZBK9X2lbbjcUqa0
+X-Proofpoint-ORIG-GUID: JXvh0oN3Bu8uyGw4E5OeVPkEz07EM0kB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-04-18_02,2022-04-15_01,2022-02-23_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ priorityscore=1501 mlxscore=0 mlxlogscore=917 spamscore=0 impostorscore=0
+ bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 clxscore=1011
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2204180089
 X-Mailman-Approved-At: Mon, 25 Apr 2022 13:03:42 +0000
-Subject: Re: [Intel-gfx] [PATCH 03/15] dma-buf & drm/amdgpu: remove dma_resv
- workaround
+Subject: Re: [Intel-gfx] [PATCH 1/9] vfio: Make vfio_(un)register_notifier
+ accept a vfio_device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,43 +123,298 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Liu, Yi L" <yi.l.liu@intel.com>, Christoph Hellwig <hch@lst.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 20.04.22 um 21:28 schrieb Zack Rusin:
-> [SNIP]
->> To figure out what it is could you try the following code fragment:
->>
->> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
->> b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
->> index f46891012be3..a36f89d3f36d 100644
->> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
->> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
->> @@ -288,7 +288,7 @@ int vmw_validation_add_bo(struct
->> vmw_validation_context *ctx,
->>                   val_buf->bo = ttm_bo_get_unless_zero(&vbo->base);
->>                   if (!val_buf->bo)
->>                           return -ESRCH;
->> -               val_buf->num_shared = 0;
->> +               val_buf->num_shared = 16;
->>                   list_add_tail(&val_buf->head, &ctx->bo_list);
->>                   bo_node->as_mob = as_mob;
->>                   bo_node->cpu_blit = cpu_blit;
-> Fails the same BUG_ON with num_fences and max_fences == 0.
 
-Thanks for testing this.
 
-So the buffer object is not reserved through 
-vmw_validation_bo_reserve(), but comes from somewhere else. 
-Unfortunately I absolutely can't find where that's coming from.
-
-Do you have some documentation howto setup vmwgfx? E.g. sample VM which 
-I can download somewhere etc..
-
-Thanks,
-Christian.
-
+On 4/12/22 11:53 AM, Jason Gunthorpe wrote:
+> All callers have a struct vfio_device trivially available, pass it in
+> directly and avoid calling the expensive vfio_group_get_from_dev().
 >
-> z
+> To support the unconverted kvmgt mdev driver add
+> mdev_legacy_get_vfio_device() which will return the vfio_device pointer
+> vfio_mdev.c puts in the drv_data.
+>
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> ---
+>   drivers/gpu/drm/i915/gvt/kvmgt.c  | 15 +++++++++------
+>   drivers/s390/cio/vfio_ccw_ops.c   |  7 +++----
+>   drivers/s390/crypto/vfio_ap_ops.c | 14 +++++++-------
+>   drivers/vfio/mdev/vfio_mdev.c     | 12 ++++++++++++
+>   drivers/vfio/vfio.c               | 25 +++++++------------------
+>   include/linux/mdev.h              |  1 +
+>   include/linux/vfio.h              |  4 ++--
+>   7 files changed, 41 insertions(+), 37 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> index 057ec449010458..bb59d21cf898ab 100644
+> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
+> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> @@ -904,6 +904,7 @@ static int intel_vgpu_group_notifier(struct notifier_block *nb,
+>   
+>   static int intel_vgpu_open_device(struct mdev_device *mdev)
+>   {
+> +	struct vfio_device *vfio_dev = mdev_legacy_get_vfio_device(mdev);
+>   	struct intel_vgpu *vgpu = mdev_get_drvdata(mdev);
+>   	struct kvmgt_vdev *vdev = kvmgt_vdev(vgpu);
+>   	unsigned long events;
+> @@ -914,7 +915,7 @@ static int intel_vgpu_open_device(struct mdev_device *mdev)
+>   	vdev->group_notifier.notifier_call = intel_vgpu_group_notifier;
+>   
+>   	events = VFIO_IOMMU_NOTIFY_DMA_UNMAP;
+> -	ret = vfio_register_notifier(mdev_dev(mdev), VFIO_IOMMU_NOTIFY, &events,
+> +	ret = vfio_register_notifier(vfio_dev, VFIO_IOMMU_NOTIFY, &events,
+>   				&vdev->iommu_notifier);
+>   	if (ret != 0) {
+>   		gvt_vgpu_err("vfio_register_notifier for iommu failed: %d\n",
+> @@ -923,7 +924,7 @@ static int intel_vgpu_open_device(struct mdev_device *mdev)
+>   	}
+>   
+>   	events = VFIO_GROUP_NOTIFY_SET_KVM;
+> -	ret = vfio_register_notifier(mdev_dev(mdev), VFIO_GROUP_NOTIFY, &events,
+> +	ret = vfio_register_notifier(vfio_dev, VFIO_GROUP_NOTIFY, &events,
+>   				&vdev->group_notifier);
+>   	if (ret != 0) {
+>   		gvt_vgpu_err("vfio_register_notifier for group failed: %d\n",
+> @@ -961,11 +962,11 @@ static int intel_vgpu_open_device(struct mdev_device *mdev)
+>   	vdev->vfio_group = NULL;
+>   
+>   undo_register:
+> -	vfio_unregister_notifier(mdev_dev(mdev), VFIO_GROUP_NOTIFY,
+> +	vfio_unregister_notifier(vfio_dev, VFIO_GROUP_NOTIFY,
+>   					&vdev->group_notifier);
+>   
+>   undo_iommu:
+> -	vfio_unregister_notifier(mdev_dev(mdev), VFIO_IOMMU_NOTIFY,
+> +	vfio_unregister_notifier(vfio_dev, VFIO_IOMMU_NOTIFY,
+>   					&vdev->iommu_notifier);
+>   out:
+>   	return ret;
+> @@ -988,6 +989,7 @@ static void __intel_vgpu_release(struct intel_vgpu *vgpu)
+>   	struct kvmgt_vdev *vdev = kvmgt_vdev(vgpu);
+>   	struct drm_i915_private *i915 = vgpu->gvt->gt->i915;
+>   	struct kvmgt_guest_info *info;
+> +	struct vfio_device *vfio_dev;
+>   	int ret;
+>   
+>   	if (!handle_valid(vgpu->handle))
+> @@ -998,12 +1000,13 @@ static void __intel_vgpu_release(struct intel_vgpu *vgpu)
+>   
+>   	intel_gvt_ops->vgpu_release(vgpu);
+>   
+> -	ret = vfio_unregister_notifier(mdev_dev(vdev->mdev), VFIO_IOMMU_NOTIFY,
+> +	vfio_dev = mdev_legacy_get_vfio_device(vdev->mdev);
+> +	ret = vfio_unregister_notifier(vfio_dev, VFIO_IOMMU_NOTIFY,
+>   					&vdev->iommu_notifier);
+>   	drm_WARN(&i915->drm, ret,
+>   		 "vfio_unregister_notifier for iommu failed: %d\n", ret);
+>   
+> -	ret = vfio_unregister_notifier(mdev_dev(vdev->mdev), VFIO_GROUP_NOTIFY,
+> +	ret = vfio_unregister_notifier(vfio_dev, VFIO_GROUP_NOTIFY,
+>   					&vdev->group_notifier);
+>   	drm_WARN(&i915->drm, ret,
+>   		 "vfio_unregister_notifier for group failed: %d\n", ret);
+> diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_ops.c
+> index d8589afac272f1..e1ce24d8fb2555 100644
+> --- a/drivers/s390/cio/vfio_ccw_ops.c
+> +++ b/drivers/s390/cio/vfio_ccw_ops.c
+> @@ -183,7 +183,7 @@ static int vfio_ccw_mdev_open_device(struct vfio_device *vdev)
+>   
+>   	private->nb.notifier_call = vfio_ccw_mdev_notifier;
+>   
+> -	ret = vfio_register_notifier(vdev->dev, VFIO_IOMMU_NOTIFY,
+> +	ret = vfio_register_notifier(vdev, VFIO_IOMMU_NOTIFY,
+>   				     &events, &private->nb);
+>   	if (ret)
+>   		return ret;
+> @@ -204,8 +204,7 @@ static int vfio_ccw_mdev_open_device(struct vfio_device *vdev)
+>   
+>   out_unregister:
+>   	vfio_ccw_unregister_dev_regions(private);
+> -	vfio_unregister_notifier(vdev->dev, VFIO_IOMMU_NOTIFY,
+> -				 &private->nb);
+> +	vfio_unregister_notifier(vdev, VFIO_IOMMU_NOTIFY, &private->nb);
+>   	return ret;
+>   }
+>   
+> @@ -223,7 +222,7 @@ static void vfio_ccw_mdev_close_device(struct vfio_device *vdev)
+>   
+>   	cp_free(&private->cp);
+>   	vfio_ccw_unregister_dev_regions(private);
+> -	vfio_unregister_notifier(vdev->dev, VFIO_IOMMU_NOTIFY, &private->nb);
+> +	vfio_unregister_notifier(vdev, VFIO_IOMMU_NOTIFY, &private->nb);
+>   }
+>   
+>   static ssize_t vfio_ccw_mdev_read_io_region(struct vfio_ccw_private *private,
+> diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+> index 6e08d04b605d6e..69768061cd7bd9 100644
+> --- a/drivers/s390/crypto/vfio_ap_ops.c
+> +++ b/drivers/s390/crypto/vfio_ap_ops.c
+> @@ -1406,21 +1406,21 @@ static int vfio_ap_mdev_open_device(struct vfio_device *vdev)
+>   	matrix_mdev->group_notifier.notifier_call = vfio_ap_mdev_group_notifier;
+>   	events = VFIO_GROUP_NOTIFY_SET_KVM;
+>   
+> -	ret = vfio_register_notifier(vdev->dev, VFIO_GROUP_NOTIFY,
+> -				     &events, &matrix_mdev->group_notifier);
+> +	ret = vfio_register_notifier(vdev, VFIO_GROUP_NOTIFY, &events,
+> +				     &matrix_mdev->group_notifier);
+>   	if (ret)
+>   		return ret;
+>   
+>   	matrix_mdev->iommu_notifier.notifier_call = vfio_ap_mdev_iommu_notifier;
+>   	events = VFIO_IOMMU_NOTIFY_DMA_UNMAP;
+> -	ret = vfio_register_notifier(vdev->dev, VFIO_IOMMU_NOTIFY,
+> -				     &events, &matrix_mdev->iommu_notifier);
+> +	ret = vfio_register_notifier(vdev, VFIO_IOMMU_NOTIFY, &events,
+> +				     &matrix_mdev->iommu_notifier);
+>   	if (ret)
+>   		goto out_unregister_group;
+>   	return 0;
+>   
+>   out_unregister_group:
+> -	vfio_unregister_notifier(vdev->dev, VFIO_GROUP_NOTIFY,
+> +	vfio_unregister_notifier(vdev, VFIO_GROUP_NOTIFY,
+>   				 &matrix_mdev->group_notifier);
+>   	return ret;
+>   }
+> @@ -1430,9 +1430,9 @@ static void vfio_ap_mdev_close_device(struct vfio_device *vdev)
+>   	struct ap_matrix_mdev *matrix_mdev =
+>   		container_of(vdev, struct ap_matrix_mdev, vdev);
+>   
+> -	vfio_unregister_notifier(vdev->dev, VFIO_IOMMU_NOTIFY,
+> +	vfio_unregister_notifier(vdev, VFIO_IOMMU_NOTIFY,
+>   				 &matrix_mdev->iommu_notifier);
+> -	vfio_unregister_notifier(vdev->dev, VFIO_GROUP_NOTIFY,
+> +	vfio_unregister_notifier(vdev, VFIO_GROUP_NOTIFY,
+>   				 &matrix_mdev->group_notifier);
+>   	vfio_ap_mdev_unset_kvm(matrix_mdev);
+>   }
+> diff --git a/drivers/vfio/mdev/vfio_mdev.c b/drivers/vfio/mdev/vfio_mdev.c
+> index a90e24b0c851d3..91605c1e8c8f94 100644
+> --- a/drivers/vfio/mdev/vfio_mdev.c
+> +++ b/drivers/vfio/mdev/vfio_mdev.c
+> @@ -17,6 +17,18 @@
+>   
+>   #include "mdev_private.h"
+>   
+> +/*
+> + * Return the struct vfio_device for the mdev when using the legacy
+> + * vfio_mdev_dev_ops path. No new callers to this function should be added.
+> + */
+> +struct vfio_device *mdev_legacy_get_vfio_device(struct mdev_device *mdev)
+> +{
+> +	if (WARN_ON(mdev->dev.driver != &vfio_mdev_driver.driver))
+> +		return NULL;
+> +	return dev_get_drvdata(&mdev->dev);
+> +}
+> +EXPORT_SYMBOL_GPL(mdev_legacy_get_vfio_device);
+> +
+>   static int vfio_mdev_open_device(struct vfio_device *core_vdev)
+>   {
+>   	struct mdev_device *mdev = to_mdev_device(core_vdev->dev);
+> diff --git a/drivers/vfio/vfio.c b/drivers/vfio/vfio.c
+> index a4555014bd1e72..8a5c46aa2bef61 100644
+> --- a/drivers/vfio/vfio.c
+> +++ b/drivers/vfio/vfio.c
+> @@ -2484,19 +2484,15 @@ static int vfio_unregister_group_notifier(struct vfio_group *group,
+>   	return ret;
+>   }
+>   
+> -int vfio_register_notifier(struct device *dev, enum vfio_notify_type type,
+> +int vfio_register_notifier(struct vfio_device *dev, enum vfio_notify_type type,
+>   			   unsigned long *events, struct notifier_block *nb)
+>   {
+> -	struct vfio_group *group;
+> +	struct vfio_group *group = dev->group;
+
+Is there a guarantee that dev != NULL? The original code below checks
+the value of dev, so why is that check eliminated here?
+
+>   	int ret;
+>   
+> -	if (!dev || !nb || !events || (*events == 0))
+> +	if (!nb || !events || (*events == 0))
+>   		return -EINVAL;
+>   
+> -	group = vfio_group_get_from_dev(dev);
+> -	if (!group)
+> -		return -ENODEV;
+> -
+>   	switch (type) {
+>   	case VFIO_IOMMU_NOTIFY:
+>   		ret = vfio_register_iommu_notifier(group, events, nb);
+> @@ -2507,25 +2503,20 @@ int vfio_register_notifier(struct device *dev, enum vfio_notify_type type,
+>   	default:
+>   		ret = -EINVAL;
+>   	}
+> -
+> -	vfio_group_put(group);
+>   	return ret;
+>   }
+>   EXPORT_SYMBOL(vfio_register_notifier);
+>   
+> -int vfio_unregister_notifier(struct device *dev, enum vfio_notify_type type,
+> +int vfio_unregister_notifier(struct vfio_device *dev,
+> +			     enum vfio_notify_type type,
+>   			     struct notifier_block *nb)
+>   {
+> -	struct vfio_group *group;
+> +	struct vfio_group *group = dev->group;
+
+Same comment as above, not NULL check here.
+
+>   	int ret;
+>   
+> -	if (!dev || !nb)
+> +	if (!nb)
+>   		return -EINVAL;
+>   
+> -	group = vfio_group_get_from_dev(dev);
+> -	if (!group)
+> -		return -ENODEV;
+> -
+>   	switch (type) {
+>   	case VFIO_IOMMU_NOTIFY:
+>   		ret = vfio_unregister_iommu_notifier(group, nb);
+> @@ -2536,8 +2527,6 @@ int vfio_unregister_notifier(struct device *dev, enum vfio_notify_type type,
+>   	default:
+>   		ret = -EINVAL;
+>   	}
+> -
+> -	vfio_group_put(group);
+>   	return ret;
+>   }
+>   EXPORT_SYMBOL(vfio_unregister_notifier);
+> diff --git a/include/linux/mdev.h b/include/linux/mdev.h
+> index 15d03f6532d073..67d07220a28f29 100644
+> --- a/include/linux/mdev.h
+> +++ b/include/linux/mdev.h
+> @@ -29,6 +29,7 @@ static inline struct mdev_device *to_mdev_device(struct device *dev)
+>   unsigned int mdev_get_type_group_id(struct mdev_device *mdev);
+>   unsigned int mtype_get_type_group_id(struct mdev_type *mtype);
+>   struct device *mtype_get_parent_dev(struct mdev_type *mtype);
+> +struct vfio_device *mdev_legacy_get_vfio_device(struct mdev_device *mdev);
+>   
+>   /**
+>    * struct mdev_parent_ops - Structure to be registered for each parent device to
+> diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+> index 66dda06ec42d1b..748ec0e0293aea 100644
+> --- a/include/linux/vfio.h
+> +++ b/include/linux/vfio.h
+> @@ -178,11 +178,11 @@ enum vfio_notify_type {
+>   /* events for VFIO_GROUP_NOTIFY */
+>   #define VFIO_GROUP_NOTIFY_SET_KVM	BIT(0)
+>   
+> -extern int vfio_register_notifier(struct device *dev,
+> +extern int vfio_register_notifier(struct vfio_device *dev,
+>   				  enum vfio_notify_type type,
+>   				  unsigned long *required_events,
+>   				  struct notifier_block *nb);
+> -extern int vfio_unregister_notifier(struct device *dev,
+> +extern int vfio_unregister_notifier(struct vfio_device *dev,
+>   				    enum vfio_notify_type type,
+>   				    struct notifier_block *nb);
+>   
 
