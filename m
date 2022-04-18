@@ -4,63 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C97FFC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92954C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA43410E4F6;
-	Mon, 25 Apr 2022 13:04:06 +0000 (UTC)
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74F1410F0D5
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Apr 2022 03:08:56 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-e604f712ecso637705fac.9
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 20:08:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=VpSTKYqkqFR3j3gpp3u9MmNz741BTZjDYJR17V6fB/A=;
- b=xJuAHaSlEn5vduy6+6UiMf+Ch+7wvMjCuqJK3wIuq1uxbWMpDmLpJCm/yY7P/ueEFT
- hLSAs/rpsGPsDzub6xJfh1F93XUcC4dodZQGWoot4zl5Nyhn/z3YZ/lPX3DVgheIUDh+
- SNJx5y9DK8U97Rkxb9LapzpDttKURUpWDxfiOatqUUzdvfLQVW8GvEPvhb1v7u9IEo+Y
- hlvRfs6bOqf2ssM3oMsJvSvF4bXc6dPkdndG3p6uW6o5rYmW8x7yMxCBe/Ell1wkWRBX
- Pc4X0dD1aUqGOawFzf1c5CR9MOaHz9CmtLyPsY1rCQhCrE3SIQa4DQv3Qgc8+6XBRPmQ
- 6sNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=VpSTKYqkqFR3j3gpp3u9MmNz741BTZjDYJR17V6fB/A=;
- b=KeM6ld9uBTJwE8YHTXMErWKMcOz/T8mYycuHLJBNWnQvTyOTrqthAnAhQZ5vH6Qnio
- 4YPOGytfBfz48Kfu256nEWLSZKXgAra3Fni6BElTU4PqI3OZOis5MXYF3rqSWRxd9zgn
- r5BGAdYRSGIP7lsUGkflN6wkOKhsPxsxb6HvIU2Q9cV1XkRtPYowharj36ZQ7CePpjTC
- luElN5A7oDaLS/PRI/FCXwbZxy1ZwKrNrWXTsuzwM43m+uGfDgljo+Tvdv+QZRRdUmL5
- h8q4gOe7aU6qxOfYYcQpa/rXeCWI5WFW4bA3H3Y69jDJ8PbTYLC8NmUG9YjUFDk82Xz0
- BnCQ==
-X-Gm-Message-State: AOAM533GqaYhM3vsCvtZ+Bc2ZgcD80G4EVZ/5+JJ5I4g7Q7V3yjaj/U/
- cAj+skyasGpwp137VpbyS0v8Tw==
-X-Google-Smtp-Source: ABdhPJwuE3e8JdHNSkztSiMB3bw3lhXHpJVcsaIYnlal5WfMSUFBo5oORhTrVxVy1YSdDqi1luoqDw==
-X-Received: by 2002:a05:6870:34e:b0:d7:17d7:bb94 with SMTP id
- n14-20020a056870034e00b000d717d7bb94mr758617oaf.52.1650424135693; 
- Tue, 19 Apr 2022 20:08:55 -0700 (PDT)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id
- pv14-20020a0568709d8e00b000e2c2f0dbbesm5647519oab.54.2022.04.19.20.08.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Apr 2022 20:08:54 -0700 (PDT)
-Date: Tue, 19 Apr 2022 20:10:59 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Sean Paul <sean@poorly.run>
-Message-ID: <Yl95w2xG73z6uFlT@ripper>
-References: <20220411204741.1074308-1-sean@poorly.run>
- <20220411204741.1074308-10-sean@poorly.run>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D22D810E553;
+	Mon, 25 Apr 2022 13:04:15 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AB6B10E154;
+ Mon, 18 Apr 2022 16:07:30 +0000 (UTC)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 23ICqA2P005763; 
+ Mon, 18 Apr 2022 15:25:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : date :
+ mime-version : reply-to : subject : to : cc : references : from :
+ in-reply-to : content-type : content-transfer-encoding; s=pp1;
+ bh=evwWpk1Dm5bcc6QEDuXhMspZWK6TKCHyVA1qTLrlimg=;
+ b=JZ6jbQE3dxDOMfvOcU84vAXoKI/qfewfyg26AMwOhOnit6QwwFvrN5l1m8MtJ771adL/
+ LB1h1YGzrNrYb7DS5f5N5Y6YkmLQbiHMi1m8SstMUuYdIMzp5zQnEaOQL43m34Fw15ZW
+ DpuW8YQM1f5kDQn3MGQMfJhHRJUyBkcjsY1BHVS9KSssUOatCCjSQaqEvmBdB8bPbL8M
+ 7QAjGWJBsckn5kneVvw0Irz6E0pmmV8/aTETdGPoDqG7D7oulkKjwQVvJDt5LjWkueQ3
+ qQGAqYYCj5usUczuQJHffUWU+DkINoG7nEgypflCEbELqqgn6bplDJwayqyNbjoIgOD+ iA== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3fg79dyvsf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Apr 2022 15:25:20 +0000
+Received: from m0098410.ppops.net (m0098410.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 23IFJIvp031153;
+ Mon, 18 Apr 2022 15:25:19 GMT
+Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.27])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3fg79dyvs2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Apr 2022 15:25:19 +0000
+Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
+ by ppma05wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 23IFKltc016286;
+ Mon, 18 Apr 2022 15:25:18 GMT
+Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
+ [9.57.198.25]) by ppma05wdc.us.ibm.com with ESMTP id 3ffne9etgg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Apr 2022 15:25:18 +0000
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 23IFPHEr26083802
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 18 Apr 2022 15:25:17 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 38C8CAE060;
+ Mon, 18 Apr 2022 15:25:17 +0000 (GMT)
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CD393AE05F;
+ Mon, 18 Apr 2022 15:25:15 +0000 (GMT)
+Received: from [9.65.235.174] (unknown [9.65.235.174])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
+ Mon, 18 Apr 2022 15:25:15 +0000 (GMT)
+Message-ID: <9cebd8fb-e7c2-690f-90f5-be84f9a9d6b1@linux.ibm.com>
+Date: Mon, 18 Apr 2022 11:25:15 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220411204741.1074308-10-sean@poorly.run>
-X-Mailman-Approved-At: Mon, 25 Apr 2022 13:03:41 +0000
-Subject: Re: [Intel-gfx] [PATCH v5 09/10] arm64: dts: qcom: sc7180: Add
- support for HDCP in dp-controller
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Content-Language: en-US
+To: Jason Gunthorpe <jgg@nvidia.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Eric Farman <farman@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-doc@vger.kernel.org,
+ linux-s390@vger.kernel.org, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
+References: <3-v1-a8faf768d202+125dd-vfio_mdev_no_group_jgg@nvidia.com>
+From: "Jason J. Herne" <jjherne@linux.ibm.com>
+Organization: IBM
+In-Reply-To: <3-v1-a8faf768d202+125dd-vfio_mdev_no_group_jgg@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: xLFIuplWrGMb4izzQTVWhsbDAV-A_T-r
+X-Proofpoint-ORIG-GUID: fd5UQ2plZHcyE-AzEOHOpSz_FcgI0X6C
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-04-18_02,2022-04-15_01,2022-02-23_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0
+ bulkscore=0 phishscore=0 clxscore=1011 malwarescore=0 spamscore=0
+ priorityscore=1501 mlxscore=0 impostorscore=0 lowpriorityscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2204180089
+X-Mailman-Approved-At: Mon, 25 Apr 2022 13:03:42 +0000
+Subject: Re: [Intel-gfx] [PATCH 3/9] vfio/mdev: Pass in a struct vfio_device
+ * to vfio_pin/unpin_pages()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,94 +120,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, jani.nikula@intel.com, markyacoub@chromium.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, Rob Herring <robh+dt@kernel.org>,
- Andy Gross <agross@kernel.org>, Sean Paul <seanpaul@chromium.org>,
- abhinavk@codeaurora.org, rodrigo.vivi@intel.com,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
+Reply-To: jjherne@linux.ibm.com
+Cc: "Liu, Yi L" <yi.l.liu@intel.com>, Christoph Hellwig <hch@lst.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon 11 Apr 13:47 PDT 2022, Sean Paul wrote:
+On 4/12/22 11:53, Jason Gunthorpe wrote:
+> Every caller has a readily available vfio_device pointer, use that instead
+> of passing in a generic struct device. The struct vfio_device already
+> contains the group we need so this avoids complexity, extra refcountings,
+> and a confusing lifecycle model.
+> ...
+> diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+> index 69768061cd7bd9..a10b3369d76c41 100644
+> --- a/drivers/s390/crypto/vfio_ap_ops.c
+> +++ b/drivers/s390/crypto/vfio_ap_ops.c
+> @@ -124,7 +124,7 @@ static void vfio_ap_free_aqic_resources(struct vfio_ap_queue *q)
+>   		q->saved_isc = VFIO_AP_ISC_INVALID;
+>   	}
+>   	if (q->saved_pfn && !WARN_ON(!q->matrix_mdev)) {
+> -		vfio_unpin_pages(mdev_dev(q->matrix_mdev->mdev),
+> +		vfio_unpin_pages(&q->matrix_mdev->vdev,
+>   				 &q->saved_pfn, 1);
 
-> From: Sean Paul <seanpaul@chromium.org>
-> 
-> This patch adds the register ranges required for HDCP key injection and
-> HDCP TrustZone interaction as described in the dt-bindings for the
-> sc7180 dp controller.
+Could be contracted to a single line. If you feel like it :)
 
-Can you please mention why this is only done for trogdor and not sc7180
-as a whole?
+>   		q->saved_pfn = 0;
+>   	}
+> @@ -258,7 +258,7 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
+>   		return status;
+>   	}
+>   
+> -	ret = vfio_pin_pages(mdev_dev(q->matrix_mdev->mdev), &g_pfn, 1,
+> +	ret = vfio_pin_pages(&q->matrix_mdev->vdev, &g_pfn, 1,
+>   			     IOMMU_READ | IOMMU_WRITE, &h_pfn);
+>   	switch (ret) {
+>   	case 1:
+> @@ -301,7 +301,7 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
+>   		break;
+>   	case AP_RESPONSE_OTHERWISE_CHANGED:
+>   		/* We could not modify IRQ setings: clear new configuration */
+> -		vfio_unpin_pages(mdev_dev(q->matrix_mdev->mdev), &g_pfn, 1);
+> +		vfio_unpin_pages(&q->matrix_mdev->vdev, &g_pfn, 1);
+>   		kvm_s390_gisc_unregister(kvm, isc);
+>   		break;
+>   	default:
+> @@ -1250,7 +1250,7 @@ static int vfio_ap_mdev_iommu_notifier(struct notifier_block *nb,
+>   		struct vfio_iommu_type1_dma_unmap *unmap = data;
+>   		unsigned long g_pfn = unmap->iova >> PAGE_SHIFT;
+>   
+> -		vfio_unpin_pages(mdev_dev(matrix_mdev->mdev), &g_pfn, 1);
+> +		vfio_unpin_pages(&matrix_mdev->vdev, &g_pfn, 1);
+>   		return NOTIFY_OK;
+>   	}
+>   
 
-> Now that these are supported, change the compatible string to
-> "dp-hdcp".
-> 
+Looks good to me.
+Reviewed-by: Jason J. Herne <jjherne@linux.ibm.com>
 
-I don't see this change in the patch.
-
-> Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-15-sean@poorly.run #v1
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-14-sean@poorly.run #v2
-> Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-14-sean@poorly.run #v3
-> Link: https://patchwork.freedesktop.org/patch/msgid/20211105030434.2828845-14-sean@poorly.run #v4
-> 
-> Changes in v3:
-> -Split off into a new patch containing just the dts change (Stephen)
-> -Add hdcp compatible string (Stephen)
-> Changes in v4:
-> -Rebase on Bjorn's multi-dp patchset
-> Changes in v5:
-> -Put the tz register offsets in trogdor dtsi (Rob C)
-> ---
->  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi | 8 ++++++++
->  arch/arm64/boot/dts/qcom/sc7180.dtsi         | 6 +++++-
->  2 files changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> index 732e1181af48..c3559253aefc 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> @@ -815,6 +815,14 @@ &mdss_dp {
->  	data-lanes = <0 1>;
->  	vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
->  	vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
-> +
-> +	reg = <0 0x0ae90000 0 0x200>,
-> +	      <0 0x0ae90200 0 0x200>,
-> +	      <0 0x0ae90400 0 0xc00>,
-> +	      <0 0x0ae91000 0 0x400>,
-> +	      <0 0x0ae91400 0 0x400>,
-> +	      <0 0x0aed1000 0 0x175>,
-> +	      <0 0x0aee1000 0 0x2c>;
->  };
->  
->  &pm6150_adc {
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index e1c46b80f14a..3c3eef7a7d52 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -3089,7 +3089,11 @@ mdss_dp: displayport-controller@ae90000 {
->  				compatible = "qcom,sc7180-dp";
->  				status = "disabled";
->  
-> -				reg = <0 0x0ae90000 0 0x1400>;
-> +				reg = <0 0x0ae90000 0 0x200>,
-> +				      <0 0x0ae90200 0 0x200>,
-> +				      <0 0x0ae90400 0 0xc00>,
-> +				      <0 0x0ae91000 0 0x400>,
-> +				      <0 0x0ae91400 0 0x400>;
-
-This hunk stands on its own, following the DT binding changes I did
-earlier. Would you mind spinning it off so I can merge it separately?
-
-Thanks,
-Bjorn
-
->  
->  				interrupt-parent = <&mdss>;
->  				interrupts = <12>;
-> -- 
-> Sean Paul, Software Engineer, Google / Chromium OS
-> 
+-- 
+-- Jason J. Herne (jjherne@linux.ibm.com)
