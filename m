@@ -4,40 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 507E7C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Apr 2022 06:24:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EFF1C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Apr 2022 06:25:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA39D10F185;
-	Wed, 20 Apr 2022 06:24:39 +0000 (UTC)
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B44C410F121;
- Wed, 20 Apr 2022 06:24:38 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4KjrHP1h8Nz4xPw;
- Wed, 20 Apr 2022 16:24:32 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1650435874;
- bh=/zHO/0ZsN7tcC3Lxb9ooaUNEwaM2L33rQaty8QyuL8M=;
- h=Date:From:To:Cc:Subject:From;
- b=c8Aq6Qlp2MKgzIdyWLtmFEzRKY3HJYlN0Jd3qG1JTgrrG2sxFnE6mZTEiQ5rHLMRh
- PWgsBKN3GjYC+hXodxKC3fd0krdyPeB1jHFOPks7HFAV4Xax9XDICoEzqFQ29VP6YB
- vpgaWOTIGe6gpfNxD+R/AY8FfDgablX+e/qio7jaj2wAig/eKR/nNOUR27dAXUwVt/
- eJWTtb41gyaodAjjj2m7fHtid0XPV1Uw9qNffjSPRuF3O7GUmcn57BGYPcyTfzqVle
- R7FzlIHRP2c7Fq7sbLINiEm0GU3Gyw2L6zPHu1x+ZaMuIQSPzpG5XjJ1/lewZ3xveO
- O+4psYer2xF1g==
-Date: Wed, 20 Apr 2022 16:24:31 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
- <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
-Message-ID: <20220420162431.2b28ddea@canb.auug.org.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F84510F18E;
+	Wed, 20 Apr 2022 06:25:17 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC58210F18E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Apr 2022 06:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1650435916; x=1681971916;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=htkwio9xjcxwLvbCNvkhYuKqWfjITJAvoK0xqiOCYvc=;
+ b=HqZdchJuguDVVMZ0QDm/VLCe/dnOEPZusTPJe1+80QPeDS0zdWaSWFIq
+ s/xTFdp1xtMlH6HH+kBeT2HcWOQNz9HQFEc9UWwjw9OaEKLMnjZyDnnz2
+ mE+nHSOtWNI299id8fqRLqsgO01FZHQAX/sW1v4TOVR6lmVZj65jj9CVg
+ FeoBQ9q1n5/JOLiqzkWGdWTTYqu58KlG6+Eo8eReTg3ULjw99TUgQPXAX
+ oyrgZrNSF+gxZ+P1Az1FZHNiW2SCSRHVq9dqCVmSODxGg3B6AuXC7w5vk
+ DeqKVAi62azx13M2jDqj2OMJ9vhgaJBJn44BTHxbk+BnSeEZTthkt4GbW A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10322"; a="263414504"
+X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="263414504"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2022 23:25:16 -0700
+X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="529618345"
+Received: from orsosgc001.jf.intel.com (HELO unerlige-ril-10.165.21.154.com)
+ ([10.165.21.154])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2022 23:25:14 -0700
+From: Ashutosh Dixit <ashutosh.dixit@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 19 Apr 2022 23:25:09 -0700
+Message-Id: <5ba96bb1f136d275a5ccc59e0aae1964ce81a054.1650435571.git.ashutosh.dixit@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1650435571.git.ashutosh.dixit@intel.com>
+References: <cover.1650435571.git.ashutosh.dixit@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/+/yu2sxTOFQJ6m8YC9ZDH_y";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: [Intel-gfx] linux-next: build warning after merge of the drm-misc
- tree
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 9/9] drm/i915/gt: Expose default value for
+ media_freq_factor in per-gt sysfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,52 +57,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---Sig_/+/yu2sxTOFQJ6m8YC9ZDH_y
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Add the following sysfs file to gt/gtN/.defaults:
+* media_freq_factor
 
-Hi all,
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 18 ++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h    |  1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c |  2 ++
+ 3 files changed, 21 insertions(+)
 
-After merging the drm-misc tree, today's linux-next build (htmldocs)
-produced this warning:
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
+index 2b9024cf1d78..1953b085bd83 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
+@@ -759,6 +759,18 @@ default_boost_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, c
+ static struct kobj_attribute default_boost_freq_mhz =
+ __ATTR(rps_boost_freq_mhz, 0444, default_boost_freq_mhz_show, NULL);
+ 
++static ssize_t
++default_media_freq_factor_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
++{
++	struct intel_gt *gt = kobj_to_gt(kobj->parent);
++
++	return sysfs_emit(buf, "%d\n",
++			  media_ratio_mode_to_factor(gt->rps_defaults.media_ratio_mode));
++}
++
++static struct kobj_attribute default_media_freq_factor =
++__ATTR(media_freq_factor, 0444, default_media_freq_factor_show, NULL);
++
+ static const struct attribute * const rps_defaults_attrs[] = {
+ 	&default_min_freq_mhz.attr,
+ 	&default_max_freq_mhz.attr,
+@@ -819,6 +831,12 @@ void intel_gt_sysfs_pm_init(struct intel_gt *gt, struct kobject *kobj)
+ 			drm_warn(&gt->i915->drm,
+ 				 "failed to create add gt%u media_perf_power_attrs sysfs (%pe)\n",
+ 				 gt->info.id, ERR_PTR(ret));
++
++		ret = sysfs_create_file(gt->sysfs_defaults, &default_media_freq_factor.attr);
++		if (ret)
++			drm_warn(&gt->i915->drm,
++				 "failed to add gt%u default_media_freq_factor sysfs (%pe)\n",
++				 gt->info.id, ERR_PTR(ret));
+ 	}
+ 
+ 	ret = add_rps_defaults(gt);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index 8ad872c9751a..fe502534113b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -65,6 +65,7 @@ struct intel_rps_defaults {
+ 	u32 min_freq;
+ 	u32 max_freq;
+ 	u32 boost_freq;
++	u32 media_ratio_mode;
+ };
+ 
+ enum intel_submission_method {
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+index cefd864c84eb..047c80838fcd 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+@@ -260,7 +260,9 @@ int intel_guc_slpc_init(struct intel_guc_slpc *slpc)
+ 	slpc->boost_freq = 0;
+ 	atomic_set(&slpc->num_waiters, 0);
+ 	slpc->num_boosts = 0;
++
+ 	slpc->media_ratio_mode = SLPC_MEDIA_RATIO_MODE_DYNAMIC_CONTROL;
++	slpc_to_gt(slpc)->rps_defaults.media_ratio_mode = slpc->media_ratio_mode;
+ 
+ 	mutex_init(&slpc->lock);
+ 	INIT_WORK(&slpc->boost_work, slpc_boost_work);
+-- 
+2.34.1
 
-drivers/gpu/drm/drm_edid.c:2136: warning: Function parameter or member 'rea=
-d_block' not described in 'drm_do_get_edid'
-drivers/gpu/drm/drm_edid.c:2136: warning: Function parameter or member 'con=
-text' not described in 'drm_do_get_edid'
-drivers/gpu/drm/drm_edid.c:2136: warning: Excess function parameter 'get_ed=
-id_block' description in 'drm_do_get_edid'
-drivers/gpu/drm/drm_edid.c:2136: warning: Excess function parameter 'data' =
-description in 'drm_do_get_edid'
-
-Introduced by commit
-
-  89fb7536ad2f ("drm/edid: add typedef for block read function")
-
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/+/yu2sxTOFQJ6m8YC9ZDH_y
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmJfpx8ACgkQAVBC80lX
-0GxZZAf/T1Y2OmjSqd8ow7L2wUV3wqHTL9yWRQSLudTi092OiWNhhyZ/ub4w++UU
-wU+yyI4V7jhVsbd00t+en4S7BvMlzeMfKjF7uso7+XwcsX7/tTcZcWpvW+VUj13V
-guOuZM+8Rse9UYaWVYmrH0tWYDiukkICQp779gh2+HH7LULg6wI3dyL1UmCu3NYR
-ra2mdJUv98+6jG437X5oytYOy6NKBrx4hcKlhcx2LKnKLwSzeIsENUFpreEjHYu1
-ivMGR9lc8yngyi4eCUlnAGdjRhMAl3f7RlshQkb5KjuYbdAD8b0rwLBpk3JpKRuJ
-JH1jmonsq35wEKyhtJwip4xkFScKbA==
-=GLfA
------END PGP SIGNATURE-----
-
---Sig_/+/yu2sxTOFQJ6m8YC9ZDH_y--
