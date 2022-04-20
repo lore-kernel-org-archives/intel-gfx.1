@@ -4,66 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45707C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:03:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56918C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54D8D10E4BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9EEC10E4BE;
 	Mon, 25 Apr 2022 13:03:43 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3A8410EE68
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Apr 2022 22:30:25 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-d6e29fb3d7so10078470fac.7
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Apr 2022 15:30:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=llCxmLTdaCZHW14cipFv3zKVNDfg4S3k4Clp+5fnjFI=;
- b=h5DEHQlk+fmuvc0+DZD9NC4Fe0/4QoIQmg5FvCBetRbm49gLG1iDmBKTdFHUn6XSpE
- OfSVgokMm/O0iAioCNkrA0iUo1CoNtJM/2d4RA6abyhjtj713jxNEiwssjzL/I/3PvSc
- XZi9PDjbvj2mubCQvkvMFuRHm4CO2ry/q7KT4AHO1rOkSun8blesvUHXZeWfNe9hUh5D
- Z59EZCa3f1JkopcFSBhwO4k9CJqkGRm3mmP+/0dOduKiPYTJDMVIBtRHmSKgGz4xM1QD
- UctwP0Ov9asO/GKAoDV+nV9giz54Lc2+C3t2pQeatIEpWNEmipI+ffeNoa9FUdiUh8+1
- x7lQ==
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAA0F10E2C3;
+ Wed, 20 Apr 2022 18:56:41 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id bv19so5403811ejb.6;
+ Wed, 20 Apr 2022 11:56:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=rc0pPwaP6/47w0P3YZ39eMLVgRn/8HQa1EN8gwRIGPs=;
+ b=cmErzdTGtahwYRQP00Qx8ZhwKKlMefoOYkcL5s+3xGq3JNVsS/YzcT3ZAxRoU+OnB4
+ Fvu4mS+ZQeWtA88hbuNOPIUv9KPSuSzmrdD6Jlfnd6b+tSHT2NlftqPlRufBHvi9tMc2
+ loSjNnChoqebzllejBYgyAhkRSGLI3PCNbTbGPCjMCKVg4LE2dQPoCVGHM3jECncMctU
+ IYggO6Zr8mhmCjUIPHb9H3vbiDHEPEjT/WXKJNUvplY7zVVI7teffHrjweDk2osj+f3P
+ XkkBMv24FTjxyGvP7mVVyU9y9/awljahl+gICqSG3mdp1b8uKhkc7YI095oI7p3pldf0
+ Evpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=llCxmLTdaCZHW14cipFv3zKVNDfg4S3k4Clp+5fnjFI=;
- b=tygiI0X0OCm+tByzdA6gYt08FyGfujgvDa2e9SFunEqL2YYPMkSDGhLP244FftCGDt
- dLV0oeXGzJDIkPg4dz6Uz/6vYWnQcUfk8GTLdGr1mi7uuvcD11wPpnHUryBz3pYbW9M4
- dqmO/GJogA7kbyfGfWeu9xnD3gfBEwxfDItYMixgOqTYjckt0duyi2OLjvbuNh84CThE
- LHANqvDd5O5g5UuQHGhthUCsRhjHy23NVAm0DVSy/6YzcP4QUyIMteV6ZPI/VnTmbyKK
- /+WuJOnq7roxzpXpcz3dT8LJ53sUOcmmHsQPlwzw30Mg3DbmgBjNFzXmIFQ0n3O4da+S
- wq8A==
-X-Gm-Message-State: AOAM530NHhNx/WgMT0AkyJcEnJGEzjBC1ZRQhT0KgsufP/lnH1h7qvAk
- 0Muo6r5wEpYbkndgyAlnxY4DQw==
-X-Google-Smtp-Source: ABdhPJz138kHCGoPHhU2qrDzH3POGVzi1U1OMbGNcHB9jQ41j8e0vvGToVhUplDG6/T+BzbPAtV2pQ==
-X-Received: by 2002:a05:6870:f21d:b0:e1:cb99:bd46 with SMTP id
- t29-20020a056870f21d00b000e1cb99bd46mr2880205oao.140.1650666625046; 
- Fri, 22 Apr 2022 15:30:25 -0700 (PDT)
-Received: from ripper.. ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=rc0pPwaP6/47w0P3YZ39eMLVgRn/8HQa1EN8gwRIGPs=;
+ b=4xNxWwoK5mSw0Fdf2mmPc61XiXgPJm5smdtmn4Lup8BYfOFDw1BGbDv6mWqY8rVynj
+ nCa5iA+JOBztjz5wn9vthZSZ6lF/Ado62A7SdfxBUpCvxGa284qi+xkzmejN238UmaLo
+ aa5fkt5AW090Qf2cteLMOi9VEAgL3Gauh3RPaChS3aukBl2AJHNLgg9kXklxp+VfcjRo
+ C6KT7ejWkspprlLWwCzz18/31JfVxXUENJN3uohyRU6HWYKqhGGm9VIKdbBbjZF2AtaZ
+ E2p3yxp0TVRJYpQ9zdpdHIYnGrEXzxTdvxm4HT7KXnKxiVScNU6zyT5WwfHJhMhxzhcA
+ zQNA==
+X-Gm-Message-State: AOAM533Edvx+R2/Z4vLSEZQ/hI+spLzVE/iDyB6yKUaQVHK2hyQBpJkI
+ tm3dZZshywAh0AW+VdxM3YA=
+X-Google-Smtp-Source: ABdhPJymoss9KS5UEweBNeuSGQfdIi8XFSwbjs/XNcQRdCopeJCWXgyfUb9ZXOzrmQgQ0Um++2aN9Q==
+X-Received: by 2002:a17:906:31c2:b0:6e8:6e8b:cbe4 with SMTP id
+ f2-20020a17090631c200b006e86e8bcbe4mr20179080ejf.293.1650481000148; 
+ Wed, 20 Apr 2022 11:56:40 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1252:fb60:425d:2971:45fa:ac5d?
+ ([2a02:908:1252:fb60:425d:2971:45fa:ac5d])
  by smtp.gmail.com with ESMTPSA id
- a14-20020a544e0e000000b002f9c00dc626sm1218831oiy.28.2022.04.22.15.30.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Apr 2022 15:30:24 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 22 Apr 2022 15:32:25 -0700
-Message-Id: <20220422223225.1297434-2-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220422223225.1297434-1-bjorn.andersson@linaro.org>
-References: <20220422223225.1297434-1-bjorn.andersson@linaro.org>
+ r3-20020aa7d583000000b00420a8b66566sm10414324edq.97.2022.04.20.11.56.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Apr 2022 11:56:39 -0700 (PDT)
+Message-ID: <ac12f900-fb47-37d6-9a1c-ac44bc711069@gmail.com>
+Date: Wed, 20 Apr 2022 20:56:38 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Zack Rusin <zackr@vmware.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+References: <20220407085946.744568-1-christian.koenig@amd.com>
+ <20220407085946.744568-4-christian.koenig@amd.com>
+ <60ab53ce1ce1333f5e6a15fc83c3c05cd9bd1084.camel@vmware.com>
+ <4c2e9414-3926-c9d7-8482-0d6d9191c2ac@amd.com>
+ <fe8916b53b0f0101e6616d23eb6896399b092d58.camel@vmware.com>
+ <54d00af9-9384-5794-490c-7d4cafe086b6@gmail.com>
+ <e1c60e2a1478c406f515d51608a751fdc9feff3a.camel@vmware.com>
+ <baa19a2d-6ad9-63ea-20f4-284a794f8998@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <baa19a2d-6ad9-63ea-20f4-284a794f8998@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 25 Apr 2022 13:03:41 +0000
-Subject: [Intel-gfx] [PATCH v3 2/2] drm/msm/dp: Implement oob_hotplug_event()
+X-Mailman-Approved-At: Mon, 25 Apr 2022 13:03:42 +0000
+Subject: Re: [Intel-gfx] [PATCH 03/15] dma-buf & drm/amdgpu: remove dma_resv
+ workaround
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,199 +89,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org, linux-usb@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The Qualcomm DisplayPort driver contains traces of the necessary
-plumbing to hook up USB HPD, in the form of the dp_hpd module and the
-dp_usbpd_cb struct. Use this as basis for implementing the
-oob_hotplug_event() callback, by amending the dp_hpd module with the
-missing logic.
+Am 20.04.22 um 20:49 schrieb Christian König:
+> Am 20.04.22 um 20:41 schrieb Zack Rusin:
+>> On Wed, 2022-04-20 at 19:40 +0200, Christian König wrote:
+>>> Am 20.04.22 um 19:38 schrieb Zack Rusin:
+>>>> On Wed, 2022-04-20 at 09:37 +0200, Christian König wrote:
+>>>>> ⚠ External Email
+>>>>>
+>>>>> Hi Zack,
+>>>>>
+>>>>> Am 20.04.22 um 05:56 schrieb Zack Rusin:
+>>>>>> On Thu, 2022-04-07 at 10:59 +0200, Christian König wrote:
+>>>>>>> Rework the internals of the dma_resv object to allow adding
+>>>>>>> more
+>>>>>>> than
+>>>>>>> one
+>>>>>>> write fence and remember for each fence what purpose it had.
+>>>>>>>
+>>>>>>> This allows removing the workaround from amdgpu which used a
+>>>>>>> container
+>>>>>>> for
+>>>>>>> this instead.
+>>>>>>>
+>>>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>>>>>> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+>>>>>>> Cc: amd-gfx@lists.freedesktop.org
+>>>>>> afaict this change broke vmwgfx which now kernel oops right
+>>>>>> after
+>>>>>> boot.
+>>>>>> I haven't had the time to look into it yet, so I'm not sure
+>>>>>> what's
+>>>>>> the
+>>>>>> problem. I'll look at this tomorrow, but just in case you have
+>>>>>> some
+>>>>>> clues, the backtrace follows:
+>>>>> that's a known issue and should already be fixed with:
+>>>>>
+>>>>> commit d72dcbe9fce505228dae43bef9da8f2b707d1b3d
+>>>>> Author: Christian König <christian.koenig@amd.com>
+>>>>> Date:   Mon Apr 11 15:21:59 2022 +0200
+>>>> Unfortunately that doesn't seem to be it. The backtrace is from the
+>>>> current (as of the time of sending of this email) drm-misc-next,
+>>>> which
+>>>> has this change, so it's something else.
+>>> Ok, that's strange. In this case I need to investigate further.
+>>>
+>>> Maybe VMWGFX is adding more than one fence and we actually need to
+>>> reserve multiple slots.
+>> This might be helper code issue with CONFIG_DEBUG_MUTEXES set. On 
+>> that config
+>> dma_resv_reset_max_fences does:
+>>     fences->max_fences = fences->num_fences;
+>> For some objects num_fences is 0 and so after max_fences and 
+>> num_fences are both 0.
+>> And then BUG_ON(num_fences >= max_fences) is triggered.
+>
+> Yeah, but that's expected behavior.
+>
+> What's not expected is that max_fences is still 0 (or equal to old 
+> num_fences) when VMWGFX tries to add a new fence. The function 
+> ttm_eu_reserve_buffers() should have reserved at least one fence slot.
+>
+> So the underlying problem is that either ttm_eu_reserve_buffers() was 
+> never called or VMWGFX tried to add more than one fence.
 
-Overall the solution is similar to what's done downstream, but upstream
-all the code to disect the HPD notification lives on the calling side of
-drm_connector_oob_hotplug_event().
 
-drm_connector_oob_hotplug_event() performs the lookup of the
-drm_connector based on fwnode, hence the need to assign the fwnode in
-dp_drm_connector_init().
+To figure out what it is could you try the following code fragment:
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c 
+b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
+index f46891012be3..a36f89d3f36d 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.c
+@@ -288,7 +288,7 @@ int vmw_validation_add_bo(struct 
+vmw_validation_context *ctx,
+                 val_buf->bo = ttm_bo_get_unless_zero(&vbo->base);
+                 if (!val_buf->bo)
+                         return -ESRCH;
+-               val_buf->num_shared = 0;
++               val_buf->num_shared = 16;
+                 list_add_tail(&val_buf->head, &ctx->bo_list);
+                 bo_node->as_mob = as_mob;
+                 bo_node->cpu_blit = cpu_blit;
 
-Changes since v2:
-- Rebased patch
+Thanks,
+Christian.
 
- drivers/gpu/drm/msm/dp/dp_display.c |  9 +++++++++
- drivers/gpu/drm/msm/dp/dp_display.h |  3 +++
- drivers/gpu/drm/msm/dp/dp_drm.c     | 11 +++++++++++
- drivers/gpu/drm/msm/dp/dp_hpd.c     | 21 +++++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_hpd.h     |  5 +++++
- 5 files changed, 49 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index a42732b67349..1019f6d8fd03 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -449,6 +449,14 @@ static int dp_display_usbpd_configure_cb(struct device *dev)
- 	return dp_display_process_hpd_high(dp);
- }
- 
-+void dp_display_oob_hotplug_event(struct msm_dp *dp_display,
-+				  enum drm_connector_hpd_state hpd_state)
-+{
-+	struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
-+
-+	dp->usbpd->oob_event(dp->usbpd, hpd_state);
-+}
-+
- static int dp_display_usbpd_disconnect_cb(struct device *dev)
- {
- 	struct dp_display_private *dp = dev_get_dp_display_private(dev);
-@@ -1302,6 +1310,7 @@ static int dp_display_probe(struct platform_device *pdev)
- 	dp->pdev = pdev;
- 	dp->name = "drm_dp";
- 	dp->dp_display.connector_type = desc->connector_type;
-+	dp->dp_display.dev = &pdev->dev;
- 
- 	rc = dp_init_sub_modules(dp);
- 	if (rc) {
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index 7af2b186d2d9..16658270df2c 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.h
-+++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -11,6 +11,7 @@
- #include "disp/msm_disp_snapshot.h"
- 
- struct msm_dp {
-+	struct device *dev;
- 	struct drm_device *drm_dev;
- 	struct device *codec_dev;
- 	struct drm_bridge *bridge;
-@@ -40,5 +41,7 @@ bool dp_display_check_video_test(struct msm_dp *dp_display);
- int dp_display_get_test_bpp(struct msm_dp *dp_display);
- void dp_display_signal_audio_start(struct msm_dp *dp_display);
- void dp_display_signal_audio_complete(struct msm_dp *dp_display);
-+void dp_display_oob_hotplug_event(struct msm_dp *dp_display,
-+				  enum drm_connector_hpd_state hpd_state);
- 
- #endif /* _DP_DISPLAY_H_ */
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index 80f59cf99089..76904b1601b1 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -123,6 +123,14 @@ static enum drm_mode_status dp_connector_mode_valid(
- 	return dp_display_validate_mode(dp_disp, mode->clock);
- }
- 
-+static void dp_oob_hotplug_event(struct drm_connector *connector,
-+				 enum drm_connector_hpd_state hpd_state)
-+{
-+	struct msm_dp *dp_disp = to_dp_connector(connector)->dp_display;
-+
-+	dp_display_oob_hotplug_event(dp_disp, hpd_state);
-+}
-+
- static const struct drm_connector_funcs dp_connector_funcs = {
- 	.detect = dp_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
-@@ -130,6 +138,7 @@ static const struct drm_connector_funcs dp_connector_funcs = {
- 	.reset = drm_atomic_helper_connector_reset,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-+	.oob_hotplug_event = dp_oob_hotplug_event,
- };
- 
- static const struct drm_connector_helper_funcs dp_connector_helper_funcs = {
-@@ -160,6 +169,8 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
- 	if (ret)
- 		return ERR_PTR(ret);
- 
-+	connector->fwnode = fwnode_handle_get(dev_fwnode(dp_display->dev));
-+
- 	drm_connector_helper_add(connector, &dp_connector_helper_funcs);
- 
- 	/*
-diff --git a/drivers/gpu/drm/msm/dp/dp_hpd.c b/drivers/gpu/drm/msm/dp/dp_hpd.c
-index db98a1d431eb..cdb1feea5ebf 100644
---- a/drivers/gpu/drm/msm/dp/dp_hpd.c
-+++ b/drivers/gpu/drm/msm/dp/dp_hpd.c
-@@ -7,6 +7,8 @@
- 
- #include <linux/slab.h>
- #include <linux/device.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_print.h>
- 
- #include "dp_hpd.h"
- 
-@@ -45,6 +47,24 @@ int dp_hpd_connect(struct dp_usbpd *dp_usbpd, bool hpd)
- 	return rc;
- }
- 
-+static void dp_hpd_oob_event(struct dp_usbpd *dp_usbpd,
-+			     enum drm_connector_hpd_state hpd_state)
-+{
-+	struct dp_hpd_private *hpd_priv = container_of(dp_usbpd, struct dp_hpd_private, dp_usbpd);
-+
-+	DRM_DEBUG_DP("hpd_state: %d connected: %d\n", hpd_state, dp_usbpd->connected);
-+
-+	if (!dp_usbpd->connected && hpd_state == DRM_CONNECTOR_HPD_HIGH) {
-+		dp_usbpd->connected = true;
-+		hpd_priv->dp_cb->configure(hpd_priv->dev);
-+	} else if (hpd_state == DRM_CONNECTOR_HPD_LOW) {
-+		dp_usbpd->connected = false;
-+		hpd_priv->dp_cb->disconnect(hpd_priv->dev);
-+	} else {
-+		hpd_priv->dp_cb->attention(hpd_priv->dev);
-+	}
-+}
-+
- struct dp_usbpd *dp_hpd_get(struct device *dev, struct dp_usbpd_cb *cb)
- {
- 	struct dp_hpd_private *dp_hpd;
-@@ -62,6 +82,7 @@ struct dp_usbpd *dp_hpd_get(struct device *dev, struct dp_usbpd_cb *cb)
- 	dp_hpd->dp_cb = cb;
- 
- 	dp_hpd->dp_usbpd.connect = dp_hpd_connect;
-+	dp_hpd->dp_usbpd.oob_event = dp_hpd_oob_event;
- 
- 	return &dp_hpd->dp_usbpd;
- }
-diff --git a/drivers/gpu/drm/msm/dp/dp_hpd.h b/drivers/gpu/drm/msm/dp/dp_hpd.h
-index 8feec5aa5027..4166e5fd3156 100644
---- a/drivers/gpu/drm/msm/dp/dp_hpd.h
-+++ b/drivers/gpu/drm/msm/dp/dp_hpd.h
-@@ -29,7 +29,9 @@ enum plug_orientation {
-  * @hpd_irq: Change in the status since last message
-  * @alt_mode_cfg_done: bool to specify alt mode status
-  * @debug_en: bool to specify debug mode
-+ * @connected: cable currently connected
-  * @connect: simulate disconnect or connect for debug mode
-+ * @oob_event: deliver oob event to the usbpd code
-  */
- struct dp_usbpd {
- 	enum plug_orientation orientation;
-@@ -41,8 +43,11 @@ struct dp_usbpd {
- 	bool hpd_irq;
- 	bool alt_mode_cfg_done;
- 	bool debug_en;
-+	bool connected;
- 
- 	int (*connect)(struct dp_usbpd *dp_usbpd, bool hpd);
-+	void (*oob_event)(struct dp_usbpd *dp_usbpd,
-+			  enum drm_connector_hpd_state hpd_state);
- };
- 
- /**
--- 
-2.35.1
+>
+> Regards,
+> Christian.
+>
+>>
+>> z
+>>
+>
 
