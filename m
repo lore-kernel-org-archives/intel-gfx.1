@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B8BAC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Apr 2022 18:16:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76F05C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Apr 2022 18:16:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE73710F0C6;
-	Wed, 20 Apr 2022 18:16:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30FFE10F1A0;
+	Wed, 20 Apr 2022 18:16:36 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD9F810F0C6;
- Wed, 20 Apr 2022 18:16:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D80A910F155;
+ Wed, 20 Apr 2022 18:16:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1650478587; x=1682014587;
+ t=1650478590; x=1682014590;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NQvdXMR8VJZkfFbkqOekFtgyx8K8r75dirGeAIhwMPM=;
- b=T3COwRHXUlS5uNauVdXKA9WwyavgQm4VGnjWNvb5KSNEt31iSf8m0kLo
- BuDxQ6amXOxhaC+lxHqgnxzXzVoSgV9xfwWgOKgNSm7y1kK123q2EpM80
- bIXJ0JW7Hkkm2cJlqBi3dflGHGgOIq8/xTTa9WTlFilfALZA+rjVtqYZz
- VS4U2d9WRcf6qbXCHtULaUFuDQ2ksmutZfz3ZSEuXD3Yyinqb6fgP13BA
- FLTthjGY26JMwxq6ULq8e6i3NPsmsYj7CIg+gp5VENhh07fpsjm3YfR+z
- rw/TTfPFDinA6F/HJco3urZ0468qs3vWlO03TPMEpjZv87xJ9uGYiUMgU A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10323"; a="261723156"
-X-IronPort-AV: E=Sophos;i="5.90,276,1643702400"; d="scan'208";a="261723156"
+ bh=XgWYKSlRoBFsnGMiweFrdME+zGMs8Ncq7SNAO5Rl3iY=;
+ b=adUCo9K+V1bztbY6DZZiLom4y4zVP5TUXe4mRCDN9qfFs4c2BsGIVmD+
+ 5oTn0Fy4d8vcRZnEhljgIc7JkCsnPY/XVMv+kAMmcxsjyeT4nxxrYM8sn
+ nvLYZ+6eTmXY+NOJJxs5kmBKoescxrmDmnFSo4WBvEa+URkU56sApl7My
+ InpjEpPoMVH/nuozqKhpL/flHQWmSf1AxIN1bdpCCVV3ADpn8anl2Z4Je
+ BspNwDj/ylfk+RtSn2URY4A+CwTjoVQ+tDoCu8cVZpw8ue9G7o8cuIJla
+ Yt9pnIzK64NXzX7uldcY2OS3i1lDetyZnC3nW0Zpfpxi1LJ4NheCNhiTq g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10323"; a="261723170"
+X-IronPort-AV: E=Sophos;i="5.90,276,1643702400"; d="scan'208";a="261723170"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2022 11:16:27 -0700
-X-IronPort-AV: E=Sophos;i="5.90,276,1643702400"; d="scan'208";a="593286070"
+ 20 Apr 2022 11:16:30 -0700
+X-IronPort-AV: E=Sophos;i="5.90,276,1643702400"; d="scan'208";a="593286128"
 Received: from briansim-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.3.144])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2022 11:16:24 -0700
+ 20 Apr 2022 11:16:28 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 20 Apr 2022 19:16:11 +0100
-Message-Id: <20220420181613.70033-2-matthew.auld@intel.com>
+Date: Wed, 20 Apr 2022 19:16:13 +0100
+Message-Id: <20220420181613.70033-4-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220420181613.70033-1-matthew.auld@intel.com>
 References: <20220420181613.70033-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 2/4] drm/i915/buddy: sanity check the size
+Subject: [Intel-gfx] [CI 4/4] drm/i915/selftests: tweak the misaligned_case
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,32 +62,42 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ensure we check that the size is compatible with the requested
-page_size. For tiny objects that are automatically annotated with
-TTM_PL_FLAG_CONTIGUOUS(since they fit within a single page), we
-currently end up silently overriding the min_page_size, which ends up
-hiding bugs elsewhere.
+The compact-pt layout restrictions should only apply to the ppGTT. Also
+make this play nice on platforms that only have the 64K GTT restriction,
+and not the compact-pt thing.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Nirmoy Das <nirmoy.das@linux.intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@linux.intel.com>
+Cc: Ramalingam C <ramalingam.c@intel.com>
 ---
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-index 8e4e3f72c1ef..a5109548abc0 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-@@ -70,6 +70,7 @@ static int i915_ttm_buddy_man_alloc(struct ttm_resource_manager *man,
- 		min_page_size = bo->page_alignment << PAGE_SHIFT;
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index bccc49a8ab5e..8633bec18fa7 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -1112,10 +1112,16 @@ static int misaligned_case(struct i915_address_space *vm, struct intel_memory_re
+ 	expected_vma_size = round_up(size, 1 << (ffs(vma->resource->page_sizes_gtt) - 1));
+ 	expected_node_size = expected_vma_size;
  
- 	GEM_BUG_ON(min_page_size < mm->chunk_size);
-+	GEM_BUG_ON(!IS_ALIGNED(size, min_page_size));
+-	if (NEEDS_COMPACT_PT(vm->i915) && i915_gem_object_is_lmem(obj)) {
+-		/* compact-pt should expand lmem node to 2MB */
++	if (HAS_64K_PAGES(vm->i915) && i915_gem_object_is_lmem(obj)) {
++		/*
++		 * The compact-pt should expand lmem node to 2MB for the ppGTT,
++		 * for all other cases we should only expect 64K.
++		 */
+ 		expected_vma_size = round_up(size, I915_GTT_PAGE_SIZE_64K);
+-		expected_node_size = round_up(size, I915_GTT_PAGE_SIZE_2M);
++		if (NEEDS_COMPACT_PT(vm->i915) && !i915_is_ggtt(vm))
++			expected_node_size = round_up(size, I915_GTT_PAGE_SIZE_2M);
++		else
++			expected_node_size = round_up(size, I915_GTT_PAGE_SIZE_64K);
+ 	}
  
- 	if (place->fpfn + bman_res->base.num_pages != place->lpfn &&
- 	    place->flags & TTM_PL_FLAG_CONTIGUOUS) {
+ 	if (vma->size != expected_vma_size || vma->node.size != expected_node_size) {
 -- 
 2.34.1
 
