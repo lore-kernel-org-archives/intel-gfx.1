@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC9C8C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:04:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C97FFC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:04:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC1E10E501;
-	Mon, 25 Apr 2022 13:04:08 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4747110EABC
- for <intel-gfx@lists.freedesktop.org>; Sat, 23 Apr 2022 04:10:17 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id e4so11227801oif.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 Apr 2022 21:10:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA43410E4F6;
+	Mon, 25 Apr 2022 13:04:06 +0000 (UTC)
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74F1410F0D5
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Apr 2022 03:08:56 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-e604f712ecso637705fac.9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Apr 2022 20:08:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=YNhoTijYDK5hg3tJxjQgdgbL/kgrcPDOQkgZNKFoLe0=;
- b=hdtSyu9V8DkuUoFOA2YMj1NAwALLRl8/nme92ADOd6vw4uiyPQw2nLnwlWE4hZOTYh
- hMVnDHLTvfUc3WViSmGZpg2u+pUEdcvsCyRqN73T6IzHEHGfA1vTEDiRHBJPN+6XlSrv
- msMrpfZZZUF+GyEAV6/iGHUUspOxCkoTxxTgLKGlzea3b8Ke23TheCXbCJsLEcyEmSAx
- ScCt27p+r7SoHmhvmiiLbK5GcRXCci038RWnzP44TuuwC/pgLF4fgvBbUOcFzAdBcVtl
- NfA6FDVc5YQAbEHs68IP4imFUJETFAHSxXGTUp5cLGJo2EgIWtcozlUiXlg7hCcXLvqZ
- T+QQ==
+ bh=VpSTKYqkqFR3j3gpp3u9MmNz741BTZjDYJR17V6fB/A=;
+ b=xJuAHaSlEn5vduy6+6UiMf+Ch+7wvMjCuqJK3wIuq1uxbWMpDmLpJCm/yY7P/ueEFT
+ hLSAs/rpsGPsDzub6xJfh1F93XUcC4dodZQGWoot4zl5Nyhn/z3YZ/lPX3DVgheIUDh+
+ SNJx5y9DK8U97Rkxb9LapzpDttKURUpWDxfiOatqUUzdvfLQVW8GvEPvhb1v7u9IEo+Y
+ hlvRfs6bOqf2ssM3oMsJvSvF4bXc6dPkdndG3p6uW6o5rYmW8x7yMxCBe/Ell1wkWRBX
+ Pc4X0dD1aUqGOawFzf1c5CR9MOaHz9CmtLyPsY1rCQhCrE3SIQa4DQv3Qgc8+6XBRPmQ
+ 6sNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=YNhoTijYDK5hg3tJxjQgdgbL/kgrcPDOQkgZNKFoLe0=;
- b=DsYpfFAZ5tZqfXjta4EjB+RIuaff1y0CSnVaV4lf6f+//ds8HU7SMzeGuTG3oZjPGv
- aU8Y6iWL9HqekXFQGH8v1Im45S8jW3G1yhzjupiYI0jzjUH9o9ZouTqwWkyYyOhI4H2l
- pYCca8QeYEg/CsWT2hJZVKCKH6S/ShL8MjCERhXRY+CHHkQgP6947KaCyemmEjqAY6Ah
- jzB6oYiQADbtMOqN96G0HZcwzc68lnm6ImzK1mYa567hfvDmFSGMudaMYdgUXjT1doii
- KUcjm4tCHZfQsCzsB2cj0USx7mQwDcB7SjjXISkLIQ5RpucAdkv1a5+rWqvnqwZYzzWX
- kixQ==
-X-Gm-Message-State: AOAM531l0h77E2+1BMpmYcN2NZn27Z+r/CO2FoG1sxYcJq2CZgHhCx0N
- ODSoptxTKZXqEWDSDFybwgzFEg==
-X-Google-Smtp-Source: ABdhPJzEuQC08m6xCkVKR6XsHeSL5p0/ZkR7uRyRVVh9KvlNaDYNcO6f0NhDLqPj0GWi2P4EkbGFgQ==
-X-Received: by 2002:a05:6808:1a04:b0:322:7b89:1973 with SMTP id
- bk4-20020a0568081a0400b003227b891973mr8311352oib.227.1650687016176; 
- Fri, 22 Apr 2022 21:10:16 -0700 (PDT)
+ bh=VpSTKYqkqFR3j3gpp3u9MmNz741BTZjDYJR17V6fB/A=;
+ b=KeM6ld9uBTJwE8YHTXMErWKMcOz/T8mYycuHLJBNWnQvTyOTrqthAnAhQZ5vH6Qnio
+ 4YPOGytfBfz48Kfu256nEWLSZKXgAra3Fni6BElTU4PqI3OZOis5MXYF3rqSWRxd9zgn
+ r5BGAdYRSGIP7lsUGkflN6wkOKhsPxsxb6HvIU2Q9cV1XkRtPYowharj36ZQ7CePpjTC
+ luElN5A7oDaLS/PRI/FCXwbZxy1ZwKrNrWXTsuzwM43m+uGfDgljo+Tvdv+QZRRdUmL5
+ h8q4gOe7aU6qxOfYYcQpa/rXeCWI5WFW4bA3H3Y69jDJ8PbTYLC8NmUG9YjUFDk82Xz0
+ BnCQ==
+X-Gm-Message-State: AOAM533GqaYhM3vsCvtZ+Bc2ZgcD80G4EVZ/5+JJ5I4g7Q7V3yjaj/U/
+ cAj+skyasGpwp137VpbyS0v8Tw==
+X-Google-Smtp-Source: ABdhPJwuE3e8JdHNSkztSiMB3bw3lhXHpJVcsaIYnlal5WfMSUFBo5oORhTrVxVy1YSdDqi1luoqDw==
+X-Received: by 2002:a05:6870:34e:b0:d7:17d7:bb94 with SMTP id
+ n14-20020a056870034e00b000d717d7bb94mr758617oaf.52.1650424135693; 
+ Tue, 19 Apr 2022 20:08:55 -0700 (PDT)
 Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
  by smtp.gmail.com with ESMTPSA id
- l10-20020aca3e0a000000b0032258369a5fsm1410185oia.44.2022.04.22.21.10.14
+ pv14-20020a0568709d8e00b000e2c2f0dbbesm5647519oab.54.2022.04.19.20.08.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Apr 2022 21:10:15 -0700 (PDT)
-Date: Fri, 22 Apr 2022 21:12:16 -0700
+ Tue, 19 Apr 2022 20:08:54 -0700 (PDT)
+Date: Tue, 19 Apr 2022 20:10:59 -0700
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <YmN8oMl7EulvBbEG@ripper>
-References: <20220422223225.1297434-1-bjorn.andersson@linaro.org>
- <20220422223225.1297434-2-bjorn.andersson@linaro.org>
- <11a77fd7-d30b-edf6-3570-64d0c2e1764c@linaro.org>
+To: Sean Paul <sean@poorly.run>
+Message-ID: <Yl95w2xG73z6uFlT@ripper>
+References: <20220411204741.1074308-1-sean@poorly.run>
+ <20220411204741.1074308-10-sean@poorly.run>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <11a77fd7-d30b-edf6-3570-64d0c2e1764c@linaro.org>
+In-Reply-To: <20220411204741.1074308-10-sean@poorly.run>
 X-Mailman-Approved-At: Mon, 25 Apr 2022 13:03:41 +0000
-Subject: Re: [Intel-gfx] [PATCH v3 2/2] drm/msm/dp: Implement
- oob_hotplug_event()
+Subject: Re: [Intel-gfx] [PATCH v5 09/10] arm64: dts: qcom: sc7180: Add
+ support for HDCP in dp-controller
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,76 +73,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- David Airlie <airlied@linux.ie>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, linux-usb@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, freedreno@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, jani.nikula@intel.com, markyacoub@chromium.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, Rob Herring <robh+dt@kernel.org>,
+ Andy Gross <agross@kernel.org>, Sean Paul <seanpaul@chromium.org>,
+ abhinavk@codeaurora.org, rodrigo.vivi@intel.com,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri 22 Apr 16:07 PDT 2022, Dmitry Baryshkov wrote:
-> On 23/04/2022 01:32, Bjorn Andersson wrote:
-[..]
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-> > index 80f59cf99089..76904b1601b1 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_drm.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-> > @@ -123,6 +123,14 @@ static enum drm_mode_status dp_connector_mode_valid(
-> >   	return dp_display_validate_mode(dp_disp, mode->clock);
-> >   }
-> > +static void dp_oob_hotplug_event(struct drm_connector *connector,
-> > +				 enum drm_connector_hpd_state hpd_state)
-> > +{
-> > +	struct msm_dp *dp_disp = to_dp_connector(connector)->dp_display;
-> > +
-> > +	dp_display_oob_hotplug_event(dp_disp, hpd_state);
-> > +}
-> > +
-> >   static const struct drm_connector_funcs dp_connector_funcs = {
-> >   	.detect = dp_connector_detect,
-> >   	.fill_modes = drm_helper_probe_single_connector_modes,
-> > @@ -130,6 +138,7 @@ static const struct drm_connector_funcs dp_connector_funcs = {
-> >   	.reset = drm_atomic_helper_connector_reset,
-> >   	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-> >   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-> > +	.oob_hotplug_event = dp_oob_hotplug_event,
+On Mon 11 Apr 13:47 PDT 2022, Sean Paul wrote:
+
+> From: Sean Paul <seanpaul@chromium.org>
 > 
-> We were (are) going to switch dp driver to use drm_bridge_connector (to fix
-> support for bridge chains, eDP panels, etc.
-> 
-> So these changes must be ported to drm_bridge_connector (or we must
-> abandon/defer the idea of using the bridge_connector).
-> 
-> For the oob_hotplug_event() callback proper support might be as simple as
-> calling drm_bridge_connector_hpd_cb().
+> This patch adds the register ranges required for HDCP key injection and
+> HDCP TrustZone interaction as described in the dt-bindings for the
+> sc7180 dp controller.
+
+Can you please mention why this is only done for trogdor and not sc7180
+as a whole?
+
+> Now that these are supported, change the compatible string to
+> "dp-hdcp".
 > 
 
-Are you saying that you have code ready and being merged into linux-next
-that I should redesign this on top of, or that you're planning to write
-some code in the future and DisplayPort support have to wait until then?
+I don't see this change in the patch.
 
-> >   };
-> >   static const struct drm_connector_helper_funcs dp_connector_helper_funcs = {
-> > @@ -160,6 +169,8 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
-> >   	if (ret)
-> >   		return ERR_PTR(ret);
-> > +	connector->fwnode = fwnode_handle_get(dev_fwnode(dp_display->dev));
-> > +
+> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-15-sean@poorly.run #v1
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-14-sean@poorly.run #v2
+> Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-14-sean@poorly.run #v3
+> Link: https://patchwork.freedesktop.org/patch/msgid/20211105030434.2828845-14-sean@poorly.run #v4
 > 
-> This would be much more interesting. Supporting this in a generic way might
-> be tricky. But we can still set the fwnode manually from the dp code.
+> Changes in v3:
+> -Split off into a new patch containing just the dts change (Stephen)
+> -Add hdcp compatible string (Stephen)
+> Changes in v4:
+> -Rebase on Bjorn's multi-dp patchset
+> Changes in v5:
+> -Put the tz register offsets in trogdor dtsi (Rob C)
+> ---
+>  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi | 8 ++++++++
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi         | 6 +++++-
+>  2 files changed, 13 insertions(+), 1 deletion(-)
 > 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+> index 732e1181af48..c3559253aefc 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+> @@ -815,6 +815,14 @@ &mdss_dp {
+>  	data-lanes = <0 1>;
+>  	vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
+>  	vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
+> +
+> +	reg = <0 0x0ae90000 0 0x200>,
+> +	      <0 0x0ae90200 0 0x200>,
+> +	      <0 0x0ae90400 0 0xc00>,
+> +	      <0 0x0ae91000 0 0x400>,
+> +	      <0 0x0ae91400 0 0x400>,
+> +	      <0 0x0aed1000 0 0x175>,
+> +	      <0 0x0aee1000 0 0x2c>;
+>  };
+>  
+>  &pm6150_adc {
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> index e1c46b80f14a..3c3eef7a7d52 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> @@ -3089,7 +3089,11 @@ mdss_dp: displayport-controller@ae90000 {
+>  				compatible = "qcom,sc7180-dp";
+>  				status = "disabled";
+>  
+> -				reg = <0 0x0ae90000 0 0x1400>;
+> +				reg = <0 0x0ae90000 0 0x200>,
+> +				      <0 0x0ae90200 0 0x200>,
+> +				      <0 0x0ae90400 0 0xc00>,
+> +				      <0 0x0ae91000 0 0x400>,
+> +				      <0 0x0ae91400 0 0x400>;
 
-There's a slight mishmash here, because the device used to initialize
-the connector is the drm_dev, but we need the actual fwnode of the DP
-device associated with the connector.
+This hunk stands on its own, following the DT binding changes I did
+earlier. Would you mind spinning it off so I can merge it separately?
 
-So I think this is how it needs to be done.
-
-Regards,
+Thanks,
 Bjorn
+
+>  
+>  				interrupt-parent = <&mdss>;
+>  				interrupts = <12>;
+> -- 
+> Sean Paul, Software Engineer, Google / Chromium OS
+> 
