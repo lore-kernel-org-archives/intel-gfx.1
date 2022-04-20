@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F361C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Apr 2022 06:25:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DAB4C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Apr 2022 06:25:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20F7B10F197;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE4F810F198;
 	Wed, 20 Apr 2022 06:25:29 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43F2F10F18D
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81F4010F18F
  for <intel-gfx@lists.freedesktop.org>; Wed, 20 Apr 2022 06:25:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1650435917; x=1681971917;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=9naEU7v6/6JpsFV76sSinyPx6hrSdM5zKeSRcHJmLl4=;
- b=Tv+k8L6UUDlFSrV56HlL23v8eVOSj4uBrb9nd1w51SQdMjRPKcalDI7V
- VzPOjbBmRdbAYsgPuSiVChojUR+Xl9M7SZ3wZncMq71VRauAWzA2w4hX7
- rWP4QXzDSfOxl1Ll6Rriad1cLEkgf4q6/8IFPJsBO+IvsYu59JbPApd2l
- Vm3omicz0reVn5MZ+j9Z63XRfgbpdZGIXa5C5z8P2hVdy7RcjYIlPgx8Z
- Fb5J9bxtRSYpXSAeYchTrEnJtV8Crv+yMevFxKlMScDSyfIKjbX6r0SLH
- ujgSlXItDTH05JhigtLkoGxcHpZWPDOoadgpQHvaPjt5ZcKvhw5H9jAxj g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10322"; a="289055124"
-X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="289055124"
+ bh=dkl44UwVGSh1bMQqpLF6IkqNX5RGDbbBOsPDBLGsEIc=;
+ b=n4VkPYFsYm9MTDKS1MWd2uANetM19Mitgf0a5WwrloyGQQjEt+mI/34f
+ e0l3caS+xA4PhXFsoEvd5PotyDrDRR7rD0uHlJssldRusHYT7Ib8pVFqz
+ 2zXXIwJROiwBjosGylVeaTdYZsUn3/u9YHzfM28JhsgS1F5w4gSxrdxlD
+ Oag2yidlb9iDbtm1XGNC48Y+xnWjtl4fJONJfqZIWUVvHz7mqbgIt1Ymg
+ Bu38Y3xyAM1sIf5futQNbs4PYyyXxGoKUDAH0jVReG1AaFY8zm8zW4c29
+ 9A4YWAhXhkp3e5g8c5rKHj5XsXPVtTqwHHsnSIhBd2lQmaFWNiD9LBg4D A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10322"; a="263414503"
+X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="263414503"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2022 23:25:15 -0700
-X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="529618334"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2022 23:25:16 -0700
+X-IronPort-AV: E=Sophos;i="5.90,274,1643702400"; d="scan'208";a="529618343"
 Received: from orsosgc001.jf.intel.com (HELO unerlige-ril-10.165.21.154.com)
  ([10.165.21.154])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Apr 2022 23:25:14 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Apr 2022 23:25:02 -0700
-Message-Id: <e17dd7ffecafe0f597d24bb53d3170ad9284dba9.1650435571.git.ashutosh.dixit@intel.com>
+Date: Tue, 19 Apr 2022 23:25:08 -0700
+Message-Id: <7eb9d251f2ac506027d57d4ae3be839a5766b057.1650435571.git.ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1650435571.git.ashutosh.dixit@intel.com>
 References: <cover.1650435571.git.ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/9] drm/i915/gt: Add media freq factor to
- per-gt sysfs
+Subject: [Intel-gfx] [PATCH 8/9] drm/i915/gt: Expose per-gt RPS defaults in
+ sysfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,279 +60,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Expose new sysfs to program and retrieve media freq factor. Factor values
-of 0 (dynamic), 0.5 and 1.0 are supported via a u8.8 fixed point
-representation (corresponding to integer values of 0, 128 and 256
-respectively).
+Create a gt/gtN/.defaults directory (similar to
+engine/<engine-name>/.defaults) to expose default parameter values for each
+gt in sysfs. Populate the .defaults directory with RPS parameter default
+values in order to allow userspace to revert to default values when needed.
 
-Media freq factor is converted to media_ratio_mode for GuC. It is
-programmed into GuC using H2G SLPC interface. It is retrieved from GuC
-through a register read. A cached media_ratio_mode is maintained to
-preserve set values across GuC resets.
-
-This patch adds the following sysfs files to gt/gtN sysfs:
-* media_freq_factor
-* media_freq_factor.scale
+This patch adds the following sysfs files to gt/gtN/.defaults:
+* default_min_freq_mhz
+* default_max_freq_mhz
+* default_boost_freq_mhz
 
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Andi Shyti <andi.shyti@intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Signed-off-by: Dale B Stimson <dale.b.stimson@intel.com>
 Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_regs.h       |   1 +
- drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c   | 130 ++++++++++++++++++
- .../drm/i915/gt/uc/abi/guc_actions_slpc_abi.h |   6 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   |  20 +++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h   |   1 +
- .../gpu/drm/i915/gt/uc/intel_guc_slpc_types.h |   3 +
- 6 files changed, 161 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.c    | 10 ++--
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.h    |  6 +++
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 51 +++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h    | 10 ++++
+ drivers/gpu/drm/i915/gt/intel_rps.c         |  3 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 17 +++++--
+ 6 files changed, 87 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 12d892851684..b06ba95f8cd2 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -732,6 +732,7 @@
- #define   GEN6_AGGRESSIVE_TURBO			(0 << 15)
- #define   GEN9_SW_REQ_UNSLICE_RATIO_SHIFT	23
- #define   GEN9_IGNORE_SLICE_RATIO		(0 << 0)
-+#define   GEN12_MEDIA_FREQ_RATIO		REG_BIT(13)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
+index 6f1b081ca5b7..7df32fc8b29d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
+@@ -22,11 +22,6 @@ bool is_object_gt(struct kobject *kobj)
+ 	return !strncmp(kobj->name, "gt", 2);
+ }
  
- #define GEN6_RC_VIDEO_FREQ			_MMIO(0xa00c)
- #define   GEN6_RC_CTL_RC6pp_ENABLE		(1 << 16)
+-static struct intel_gt *kobj_to_gt(struct kobject *kobj)
+-{
+-	return container_of(kobj, struct intel_gt, sysfs_gtn);
+-}
+-
+ struct intel_gt *intel_gt_sysfs_get_drvdata(struct device *dev,
+ 					    const char *name)
+ {
+@@ -101,6 +96,10 @@ void intel_gt_sysfs_register(struct intel_gt *gt)
+ 				 gt->i915->sysfs_gt, "gt%d", gt->info.id))
+ 		goto exit_fail;
+ 
++	gt->sysfs_defaults = kobject_create_and_add(".defaults", &gt->sysfs_gtn);
++	if (!gt->sysfs_defaults)
++		goto exit_fail;
++
+ 	intel_gt_sysfs_pm_init(gt, &gt->sysfs_gtn);
+ 
+ 	return;
+@@ -113,5 +112,6 @@ void intel_gt_sysfs_register(struct intel_gt *gt)
+ 
+ void intel_gt_sysfs_unregister(struct intel_gt *gt)
+ {
++	kobject_put(gt->sysfs_defaults);
+ 	kobject_put(&gt->sysfs_gtn);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
+index a99aa7e8b01a..fb5fd1bdab1f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
+@@ -10,6 +10,7 @@
+ #include <linux/kobject.h>
+ 
+ #include "i915_gem.h" /* GEM_BUG_ON() */
++#include "intel_gt_types.h"
+ 
+ struct intel_gt;
+ 
+@@ -22,6 +23,11 @@ intel_gt_create_kobj(struct intel_gt *gt,
+ 		     struct kobject *dir,
+ 		     const char *name);
+ 
++static inline struct intel_gt *kobj_to_gt(struct kobject *kobj)
++{
++	return container_of(kobj, struct intel_gt, sysfs_gtn);
++}
++
+ void intel_gt_sysfs_register(struct intel_gt *gt);
+ void intel_gt_sysfs_unregister(struct intel_gt *gt);
+ struct intel_gt *intel_gt_sysfs_get_drvdata(struct device *dev,
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-index 26cbfa6477d1..2b1cd6a01724 100644
+index 2a3398003933..2b9024cf1d78 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-@@ -557,6 +557,128 @@ static const struct attribute *freq_attrs[] = {
+@@ -726,6 +726,51 @@ static const struct attribute *media_perf_power_attrs[] = {
  	NULL
  };
  
-+/*
-+ * Scaling for multipliers (aka frequency factors).
-+ * The format of the value in the register is u8.8.
-+ *
-+ * The presentation to userspace is inspired by the perf event framework.
-+ * See:
-+ *   Documentation/ABI/testing/sysfs-bus-event_source-devices-events
-+ * for description of:
-+ *   /sys/bus/event_source/devices/<pmu>/events/<event>.scale
-+ *
-+ * Summary: Expose two sysfs files for each multiplier.
-+ *
-+ * 1. File <attr> contains a raw hardware value.
-+ * 2. File <attr>.scale contains the multiplicative scale factor to be
-+ *    used by userspace to compute the actual value.
-+ *
-+ * So userspace knows that to get the frequency_factor it multiplies the
-+ * provided value by the specified scale factor and vice-versa.
-+ *
-+ * That way there is no precision loss in the kernel interface and API
-+ * is future proof should one day the hardware register change to u16.u16,
-+ * on some platform. (Or any other fixed point representation.)
-+ *
-+ * Example:
-+ * File <attr> contains the value 2.5, represented as u8.8 0x0280, which
-+ * is comprised of:
-+ * - an integer part of 2
-+ * - a fractional part of 0x80 (representing 0x80 / 2^8 == 0x80 / 256).
-+ * File <attr>.scale contains a string representation of floating point
-+ * value 0.00390625 (which is (1 / 256)).
-+ * Userspace computes the actual value:
-+ *   0x0280 * 0.00390625 -> 2.5
-+ * or converts an actual value to the value to be written into <attr>:
-+ *   2.5 / 0.00390625 -> 0x0280
-+ */
-+
-+#define U8_8_VAL_MASK           0xffff
-+#define U8_8_SCALE_TO_VALUE     "0.00390625"
-+
-+static ssize_t freq_factor_scale_show(struct device *dev,
-+				      struct device_attribute *attr,
-+				      char *buff)
++static ssize_t
++default_min_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
 +{
-+	return sysfs_emit(buff, "%s\n", U8_8_SCALE_TO_VALUE);
++	struct intel_gt *gt = kobj_to_gt(kobj->parent);
++
++	return sysfs_emit(buf, "%d\n", gt->rps_defaults.min_freq);
 +}
 +
-+static u32 media_ratio_mode_to_factor(u32 mode)
++static struct kobj_attribute default_min_freq_mhz =
++__ATTR(rps_min_freq_mhz, 0444, default_min_freq_mhz_show, NULL);
++
++static ssize_t
++default_max_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
 +{
-+	/* 0 -> 0, 1 -> 256, 2 -> 128 */
-+	return !mode ? mode : 256 / mode;
++	struct intel_gt *gt = kobj_to_gt(kobj->parent);
++
++	return sysfs_emit(buf, "%d\n", gt->rps_defaults.max_freq);
 +}
 +
-+static ssize_t media_freq_factor_show(struct device *dev,
-+				      struct device_attribute *attr,
-+				      char *buff)
++static struct kobj_attribute default_max_freq_mhz =
++__ATTR(rps_max_freq_mhz, 0444, default_max_freq_mhz_show, NULL);
++
++static ssize_t
++default_boost_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
 +{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_guc_slpc *slpc = &gt->uc.guc.slpc;
-+	intel_wakeref_t wakeref;
-+	u32 mode;
++	struct intel_gt *gt = kobj_to_gt(kobj->parent);
 +
-+	/*
-+	 * Retrieve media_ratio_mode from GEN6_RPNSWREQ bit 13 set by
-+	 * GuC. GEN6_RPNSWREQ:13 value 0 represents 1:2 and 1 represents 1:1
-+	 */
-+	if (IS_XEHPSDV(gt->i915) &&
-+	    slpc->media_ratio_mode == SLPC_MEDIA_RATIO_MODE_DYNAMIC_CONTROL) {
-+		/*
-+		 * For XEHPSDV dynamic mode GEN6_RPNSWREQ:13 does not contain
-+		 * the media_ratio_mode, just return the cached media ratio
-+		 */
-+		mode = slpc->media_ratio_mode;
-+	} else {
-+		with_intel_runtime_pm(gt->uncore->rpm, wakeref)
-+			mode = intel_uncore_read(gt->uncore, GEN6_RPNSWREQ);
-+		mode = REG_FIELD_GET(GEN12_MEDIA_FREQ_RATIO, mode) ?
-+			SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_ONE :
-+			SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_TWO;
-+	}
-+
-+	return sysfs_emit(buff, "%u\n", media_ratio_mode_to_factor(mode));
++	return sysfs_emit(buf, "%d\n", gt->rps_defaults.boost_freq);
 +}
 +
-+static ssize_t media_freq_factor_store(struct device *dev,
-+				       struct device_attribute *attr,
-+				       const char *buff, size_t count)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
-+	struct intel_guc_slpc *slpc = &gt->uc.guc.slpc;
-+	u32 factor, mode;
-+	int err;
++static struct kobj_attribute default_boost_freq_mhz =
++__ATTR(rps_boost_freq_mhz, 0444, default_boost_freq_mhz_show, NULL);
 +
-+	err = kstrtou32(buff, 0, &factor);
-+	if (err)
-+		return err;
-+
-+	for (mode = SLPC_MEDIA_RATIO_MODE_DYNAMIC_CONTROL;
-+	     mode <= SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_TWO; mode++)
-+		if (factor == media_ratio_mode_to_factor(mode))
-+			break;
-+
-+	if (mode > SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_TWO)
-+		return -EINVAL;
-+
-+	err = intel_guc_slpc_set_media_ratio_mode(slpc, mode);
-+	if (!err) {
-+		slpc->media_ratio_mode = mode;
-+		DRM_DEBUG("Set slpc->media_ratio_mode to %d", mode);
-+	}
-+	return err ?: count;
-+}
-+
-+static DEVICE_ATTR_RW(media_freq_factor);
-+static struct device_attribute dev_attr_media_freq_factor_scale =
-+	__ATTR(media_freq_factor.scale, 0444, freq_factor_scale_show, NULL);
-+
-+static const struct attribute *media_perf_power_attrs[] = {
-+	&dev_attr_media_freq_factor.attr,
-+	&dev_attr_media_freq_factor_scale.attr,
++static const struct attribute * const rps_defaults_attrs[] = {
++	&default_min_freq_mhz.attr,
++	&default_max_freq_mhz.attr,
++	&default_boost_freq_mhz.attr,
 +	NULL
 +};
++
++static int add_rps_defaults(struct intel_gt *gt)
++{
++	return sysfs_create_files(gt->sysfs_defaults, rps_defaults_attrs);
++}
 +
  static int intel_sysfs_rps_init(struct intel_gt *gt, struct kobject *kobj,
  				const struct attribute * const *attrs)
  {
-@@ -598,4 +720,12 @@ void intel_gt_sysfs_pm_init(struct intel_gt *gt, struct kobject *kobj)
- 		drm_warn(&gt->i915->drm,
- 			 "failed to create gt%u throttle sysfs files (%pe)",
- 			 gt->info.id, ERR_PTR(ret));
+@@ -775,4 +820,10 @@ void intel_gt_sysfs_pm_init(struct intel_gt *gt, struct kobject *kobj)
+ 				 "failed to create add gt%u media_perf_power_attrs sysfs (%pe)\n",
+ 				 gt->info.id, ERR_PTR(ret));
+ 	}
 +
-+	if (HAS_MEDIA_RATIO_MODE(gt->i915) && intel_uc_uses_guc_slpc(&gt->uc)) {
-+		ret = sysfs_create_files(kobj, media_perf_power_attrs);
-+		if (ret)
-+			drm_warn(&gt->i915->drm,
-+				 "failed to create add gt%u media_perf_power_attrs sysfs (%pe)\n",
-+				 gt->info.id, ERR_PTR(ret));
-+	}
++	ret = add_rps_defaults(gt);
++	if (ret)
++		drm_warn(&gt->i915->drm,
++			 "failed to add gt%u rps defaults (%pe)\n",
++			 gt->info.id, ERR_PTR(ret));
  }
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
-index 62cb4254a77a..4c840a2639dc 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
-@@ -122,6 +122,12 @@ enum slpc_param_id {
- 	SLPC_MAX_PARAM = 32,
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index 4c72b4f983a6..8ad872c9751a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -61,6 +61,12 @@ enum intel_steering_type {
+ 	NUM_STEERING_TYPES
  };
  
-+enum slpc_media_ratio_mode {
-+	SLPC_MEDIA_RATIO_MODE_DYNAMIC_CONTROL = 0,
-+	SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_ONE = 1,
-+	SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_TWO = 2,
++struct intel_rps_defaults {
++	u32 min_freq;
++	u32 max_freq;
++	u32 boost_freq;
 +};
 +
- enum slpc_event_id {
- 	SLPC_EVENT_RESET = 0,
- 	SLPC_EVENT_SHUTDOWN = 1,
+ enum intel_submission_method {
+ 	INTEL_SUBMISSION_RING,
+ 	INTEL_SUBMISSION_ELSP,
+@@ -225,6 +231,10 @@ struct intel_gt {
+ 
+ 	/* gt/gtN sysfs */
+ 	struct kobject sysfs_gtn;
++
++	/* sysfs defaults per gt */
++	struct intel_rps_defaults rps_defaults;
++	struct kobject *sysfs_defaults;
+ };
+ 
+ enum intel_gt_scratch_field {
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index 413cbf984b94..47ab82331d67 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -1976,7 +1976,9 @@ void intel_rps_init(struct intel_rps *rps)
+ 
+ 	/* Derive initial user preferences/limits from the hardware limits */
+ 	rps->max_freq_softlimit = rps->max_freq;
++	rps_to_gt(rps)->rps_defaults.max_freq = rps->max_freq_softlimit;
+ 	rps->min_freq_softlimit = rps->min_freq;
++	rps_to_gt(rps)->rps_defaults.min_freq = rps->min_freq_softlimit;
+ 
+ 	/* After setting max-softlimit, find the overclock max freq */
+ 	if (GRAPHICS_VER(i915) == 6 || IS_IVYBRIDGE(i915) || IS_HASWELL(i915)) {
+@@ -1994,6 +1996,7 @@ void intel_rps_init(struct intel_rps *rps)
+ 
+ 	/* Finally allow us to boost to max by default */
+ 	rps->boost_freq = rps->max_freq;
++	rps_to_gt(rps)->rps_defaults.boost_freq = rps->boost_freq;
+ 	rps->idle_freq = rps->min_freq;
+ 
+ 	/* Start in the middle, from here we will autotune based on workload */
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-index 1db833da42df..2df31af70d63 100644
+index 2df31af70d63..cefd864c84eb 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-@@ -260,6 +260,7 @@ int intel_guc_slpc_init(struct intel_guc_slpc *slpc)
- 	slpc->boost_freq = 0;
- 	atomic_set(&slpc->num_waiters, 0);
- 	slpc->num_boosts = 0;
-+	slpc->media_ratio_mode = SLPC_MEDIA_RATIO_MODE_DYNAMIC_CONTROL;
+@@ -547,20 +547,24 @@ static int slpc_set_softlimits(struct intel_guc_slpc *slpc)
+ 	 * unless they have deviated from defaults, in which case,
+ 	 * we retain the values and set min/max accordingly.
+ 	 */
+-	if (!slpc->max_freq_softlimit)
++	if (!slpc->max_freq_softlimit) {
+ 		slpc->max_freq_softlimit = slpc->rp0_freq;
+-	else if (slpc->max_freq_softlimit != slpc->rp0_freq)
++		slpc_to_gt(slpc)->rps_defaults.max_freq = slpc->max_freq_softlimit;
++	} else if (slpc->max_freq_softlimit != slpc->rp0_freq) {
+ 		ret = intel_guc_slpc_set_max_freq(slpc,
+ 						  slpc->max_freq_softlimit);
++	}
  
- 	mutex_init(&slpc->lock);
- 	INIT_WORK(&slpc->boost_work, slpc_boost_work);
-@@ -506,6 +507,22 @@ int intel_guc_slpc_get_min_freq(struct intel_guc_slpc *slpc, u32 *val)
- 	return ret;
- }
- 
-+int intel_guc_slpc_set_media_ratio_mode(struct intel_guc_slpc *slpc, u32 val)
-+{
-+	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	intel_wakeref_t wakeref;
-+	int ret = 0;
-+
-+	if (!HAS_MEDIA_RATIO_MODE(i915))
-+		return -ENODEV;
-+
-+	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
-+		ret = slpc_set_param(slpc,
-+				     SLPC_PARAM_MEDIA_FF_RATIO_MODE,
-+				     val);
-+	return ret;
-+}
-+
- void intel_guc_pm_intrmsk_enable(struct intel_gt *gt)
- {
- 	u32 pm_intrmsk_mbz = 0;
-@@ -654,6 +671,9 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
+ 	if (unlikely(ret))
  		return ret;
- 	}
  
-+	/* Set cached media freq ratio mode */
-+	intel_guc_slpc_set_media_ratio_mode(slpc, slpc->media_ratio_mode);
-+
+-	if (!slpc->min_freq_softlimit)
++	if (!slpc->min_freq_softlimit) {
+ 		slpc->min_freq_softlimit = slpc->min_freq;
+-	else if (slpc->min_freq_softlimit != slpc->min_freq)
++		slpc_to_gt(slpc)->rps_defaults.min_freq = slpc->min_freq_softlimit;
++	} else if (slpc->min_freq_softlimit != slpc->min_freq) {
+ 		return intel_guc_slpc_set_min_freq(slpc,
+ 						   slpc->min_freq_softlimit);
++	}
+ 
  	return 0;
  }
+@@ -606,8 +610,11 @@ static void slpc_get_rp_values(struct intel_guc_slpc *slpc)
+ 	slpc->rp1_freq = intel_gpu_freq(rps, caps.rp1_freq);
+ 	slpc->min_freq = intel_gpu_freq(rps, caps.min_freq);
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-index 0caa8fee3c04..82a98f78f96c 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-@@ -38,6 +38,7 @@ int intel_guc_slpc_set_boost_freq(struct intel_guc_slpc *slpc, u32 val);
- int intel_guc_slpc_get_max_freq(struct intel_guc_slpc *slpc, u32 *val);
- int intel_guc_slpc_get_min_freq(struct intel_guc_slpc *slpc, u32 *val);
- int intel_guc_slpc_print_info(struct intel_guc_slpc *slpc, struct drm_printer *p);
-+int intel_guc_slpc_set_media_ratio_mode(struct intel_guc_slpc *slpc, u32 val);
- void intel_guc_pm_intrmsk_enable(struct intel_gt *gt);
- void intel_guc_slpc_boost(struct intel_guc_slpc *slpc);
- void intel_guc_slpc_dec_waiters(struct intel_guc_slpc *slpc);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-index bf5b9a563c09..73d208123528 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc_types.h
-@@ -29,6 +29,9 @@ struct intel_guc_slpc {
- 	u32 min_freq_softlimit;
- 	u32 max_freq_softlimit;
+-	if (!slpc->boost_freq)
++	/* Boost freq is RP0, unless already set */
++	if (!slpc->boost_freq) {
+ 		slpc->boost_freq = slpc->rp0_freq;
++		slpc_to_gt(slpc)->rps_defaults.boost_freq = slpc->boost_freq;
++	}
+ }
  
-+	/* cached media ratio mode */
-+	u32 media_ratio_mode;
-+
- 	/* Protects set/reset of boost freq
- 	 * and value of num_waiters
- 	 */
+ /*
 -- 
 2.34.1
 
