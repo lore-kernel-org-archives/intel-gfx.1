@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33694C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 21:25:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A5F2C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Apr 2022 21:40:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A047810E17F;
-	Thu, 21 Apr 2022 21:25:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70BF910E00D;
+	Thu, 21 Apr 2022 21:40:06 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3C26F10E17F;
- Thu, 21 Apr 2022 21:25:38 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B2EB010E00D;
+ Thu, 21 Apr 2022 21:40:04 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2CD51AAA91;
- Thu, 21 Apr 2022 21:25:38 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id AF6CCA00E8;
+ Thu, 21 Apr 2022 21:40:04 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jason Gunthorpe" <jgg@nvidia.com>
-Date: Thu, 21 Apr 2022 21:25:38 -0000
-Message-ID: <165057633815.10762.13640868169345358117@emeril.freedesktop.org>
+To: "Mullati Siva" <siva.mullati@intel.com>
+Date: Thu, 21 Apr 2022 21:40:04 -0000
+Message-ID: <165057720468.10764.2920999848839060549@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <0-v2-6011bde8e0a1+5f-vfio_mdev_no_group_jgg@nvidia.com>
-In-Reply-To: <0-v2-6011bde8e0a1+5f-vfio_mdev_no_group_jgg@nvidia.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBN?=
- =?utf-8?q?ake_the_rest_of_the_VFIO_driver_interface_use_vfio=5Fdevice_=28?=
- =?utf-8?q?rev3=29?=
+References: <20220421172635.76236-1-siva.mullati@intel.com>
+In-Reply-To: <20220421172635.76236-1-siva.mullati@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Refactor_CT_access_to_use_iosys=5Fmap?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,20 +47,14 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: Make the rest of the VFIO driver interface use vfio_device (rev3)
-URL   : https://patchwork.freedesktop.org/series/102606/
-State : failure
+Series: Refactor CT access to use iosys_map
+URL   : https://patchwork.freedesktop.org/series/102949/
+State : warning
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/102606/revisions/3/mbox/ not applied
-Applying: vfio: Make vfio_(un)register_notifier accept a vfio_device
-error: sha1 information is lacking or useless (drivers/gpu/drm/i915/gvt/kvmgt.c).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 vfio: Make vfio_(un)register_notifier accept a vfio_device
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
