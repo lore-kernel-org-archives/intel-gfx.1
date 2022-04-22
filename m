@@ -4,111 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B86C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:04:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6251FC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFCE810E4E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C483710E4D5;
 	Mon, 25 Apr 2022 13:04:06 +0000 (UTC)
-X-Greylist: delayed 923 seconds by postgrey-1.36 at gabe;
- Thu, 14 Apr 2022 14:07:27 UTC
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2327710FDEC;
- Thu, 14 Apr 2022 14:07:27 +0000 (UTC)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 23EC3x8m006615; 
- Thu, 14 Apr 2022 13:52:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=pp1;
- bh=oHY6GZiVb5HyuxgKDnBJtLv236U25bxeDI9Xv19FNTk=;
- b=gOHaXCF6Yb7Tdkl6Qe1YRyLuVxqrwiUjA5tyGFt/K/LWHAsrfBE8gJkT1t7iVBM4L7Yf
- /YBp6dsQn2s3j9urf4T7HQ5cvujwFnRvHGSXZtK4HnhfQvU2NwLDk4DLP7+Q+x0ev06p
- TUxvgqjNFo8bIUuTaTBLbaMT8gck8PIz55J7lYtwyWdjZfO8CVgTHObMU8ShTAd5RmJZ
- WnrfEPGqxtGbxaXcKLa6JIxWjU+arE1EcXyWIvqVkv68luZvUzO1WZct5BgfQ5vXMlQg
- Bt+TokHdsPhuG9T9CPZJoKNyuLetz2gKD44e5gHu1cxkLqe1MyMGDX5ga72vsmaRsEml fg== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3fefh56up2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Apr 2022 13:52:00 +0000
-Received: from m0098404.ppops.net (m0098404.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 23EDTc1s002057;
- Thu, 14 Apr 2022 13:52:00 GMT
-Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
- [169.47.144.26])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3fefh56unq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Apr 2022 13:51:59 +0000
-Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
- by ppma04wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 23EDhjun003747;
- Thu, 14 Apr 2022 13:51:58 GMT
-Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
- [9.57.198.26]) by ppma04wdc.us.ibm.com with ESMTP id 3fb1sa7ntq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Apr 2022 13:51:58 +0000
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 23EDpvES13828434
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 14 Apr 2022 13:51:57 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AD049AE05F;
- Thu, 14 Apr 2022 13:51:57 +0000 (GMT)
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 63B9AAE05C;
- Thu, 14 Apr 2022 13:51:50 +0000 (GMT)
-Received: from [9.211.76.45] (unknown [9.211.76.45])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu, 14 Apr 2022 13:51:50 +0000 (GMT)
-Message-ID: <d6e2778a-01e4-6468-2c2b-3b718d924e65@linux.ibm.com>
-Date: Thu, 14 Apr 2022 09:51:49 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08E3C10E30B;
+ Fri, 22 Apr 2022 20:44:10 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A2727B8325C;
+ Fri, 22 Apr 2022 20:44:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD2DC385A0;
+ Fri, 22 Apr 2022 20:44:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1650660247;
+ bh=HnbkQVOtfa7+/56LQ5INga98V0wHs2i7oJ/vI85Yrbo=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ncbmxN3DmsIJneYRy5/ENYjoC5IpODUGNtoqIcYvp/kNhyNvjtlhNgLsf6F+yjb1g
+ jVstrDggPk3uYKOKKFux0FNjQg3bs96RfiXaseCMLwErKmAc8oBTYrAdPRplYUgsCr
+ QYNI4YeEOzSnE32G+XYQ8zz4EfY8tkrhGUEPj68EpOas+hjCUvS65aUIip7ajutCsd
+ +gdiDnVGG5UwdRzvLF6aiIWhUeiNmoIpEkflQamA1hjzkDrTzh8s4lIvT10OyyMXKF
+ AaV6d/p07sO4C8+ML8hhojkVpFX7fBRXEmpsgecLOiAB2R/yWEnqoAlV1bTEkyIF0K
+ ZJXv69B6gizkw==
+Date: Fri, 22 Apr 2022 13:44:05 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Kalle Valo <kvalo@kernel.org>
+Message-ID: <20220422134405.7a519a0f@kernel.org>
+In-Reply-To: <87sfq8qqus.fsf@tynnyri.adurom.net>
+References: <20220414123033.654198-1-jani.nikula@intel.com>
+ <YlgfXxjefuxiXjtC@kroah.com> <87a6cneoco.fsf@intel.com>
+ <87sfq8qqus.fsf@tynnyri.adurom.net>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Jason Gunthorpe <jgg@nvidia.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
- Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Eric Farman <farman@linux.ibm.com>,
- Harald Freudenberger <freude@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Jason Herne <jjherne@linux.ibm.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
- Kirti Wankhede <kwankhede@nvidia.com>, linux-doc@vger.kernel.org,
- linux-s390@vger.kernel.org, Peter Oberparleiter <oberpar@linux.ibm.com>,
- Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
-References: <9-v1-a8faf768d202+125dd-vfio_mdev_no_group_jgg@nvidia.com>
-From: Matthew Rosato <mjrosato@linux.ibm.com>
-In-Reply-To: <9-v1-a8faf768d202+125dd-vfio_mdev_no_group_jgg@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: p__mnI6kUAsRVhj3MeN1iQJ3xzHvSix8
-X-Proofpoint-ORIG-GUID: eRlxuhpLbLi2wEFbBZUimbF33iPl8iJP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-04-14_04,2022-04-14_01,2022-02-23_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 mlxscore=0
- malwarescore=0 adultscore=0 priorityscore=1501 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 impostorscore=0 phishscore=0
- mlxlogscore=765 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2202240000 definitions=main-2204140074
 X-Mailman-Approved-At: Mon, 25 Apr 2022 13:03:42 +0000
-Subject: Re: [Intel-gfx] [PATCH 9/9] vfio: Remove calls to
- vfio_group_add_container_user()
+Subject: Re: [Intel-gfx] [PATCH 0/1] add support for enum module parameters
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,37 +54,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Yi L" <yi.l.liu@intel.com>, Christoph Hellwig <hch@lst.de>
+Cc: linux-wireless@vger.kernel.org, Jani Nikula <jani.nikula@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 4/12/22 11:53 AM, Jason Gunthorpe wrote:
-> When the open_device() op is called the container_users is incremented and
-> held incremented until close_device(). Thus, so long as drivers call
-> functions within their open_device()/close_device() region they do not
-> need to worry about the container_users.
+On Wed, 20 Apr 2022 08:13:47 +0300 Kalle Valo wrote:
+> Wireless drivers would also desperately need to pass device specific
+> parameters at (or before) probe time. And not only debug parameters but
+> also configuration parameters, for example firmware memory allocations
+> schemes (optimise for features vs number of clients etc) and whatnot.
 > 
-> These functions can all only be called between
-> open_device()/close_device():
-> 
->    vfio_pin_pages()
->    vfio_unpin_pages()
->    vfio_dma_rw()
->    vfio_register_notifier()
->    vfio_unregister_notifier()
-> 
-> So eliminate the calls to vfio_group_add_container_user() and add a simple
-> WARN_ON to detect mis-use by drivers.
-> 
+> Any ideas how to implement that? Is there any prior work for anything
+> like this? This is pretty hard limiting usability of upstream wireless
+> drivers and I really want to find a proper solution.
 
-vfio_device_fops_release decrements dev->open_count immediately before 
-calling dev->ops->close_device, which means we could enter close_device 
-with a dev_count of 0.
-
-Maybe vfio_device_fops_release should handle the same way as 
-vfio_group_get_device_fd?
-
-	if (device->open_count == 1 && device->ops->close_device)
-		device->ops->close_device(device);
-	device->open_count--;
-
+In netdev we have devlink which is used for all sort of device
+configuration. devlink-resource sounds like what you need,
+but it'd have to be extended to support configuration which requires
+reload/re-probe. Currently only devlink-params support that but params
+were a mistake so don't use that.
