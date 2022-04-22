@@ -4,30 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23554C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Apr 2022 19:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E7ECC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Apr 2022 19:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B06AC10E2B3;
-	Fri, 22 Apr 2022 19:20:39 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 81BAA10E5B6;
- Fri, 22 Apr 2022 19:20:38 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 72A3CAADD9;
- Fri, 22 Apr 2022 19:20:38 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5157725216633391847=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id C175910E626;
+	Fri, 22 Apr 2022 19:50:22 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9107D10E64A;
+ Fri, 22 Apr 2022 19:50:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1650657021; x=1682193021;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=crpxNc2oUcn53DncUN9ljqmb/XSre7mfZ/TeMzWpuzQ=;
+ b=VrJ3hyYwaF4qfqH6SOAykVN+k3WdQmSQGsw4TpLViFfkqvBf+75qMssK
+ je9dHFwYZqp5VRWpSHAffssGl8+HzEkD9GCejVD7n0Hrcvu+j19oHtPax
+ MlMs/zo7RiT7HHiDjEKmEljAkAYVJB//8X0YZjZgXg1tb+YyiuGwpYXHk
+ eGOeEEtRHuUtcktkD+oGMYyEtR50oA+C6naLcbU7UgOVNmwzVxiF3J+2u
+ shJOCqb5Tp7L5PsRi/c12SwHjESfiNm1YHS+YmxB0LLZ2AuT857yaG1Vc
+ xB7ja9DesJ0o2+BoPwO4T0BjDEiwJ2ZYJ2NgkG9tqJQze74wOWAug52zW A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10324"; a="351219969"
+X-IronPort-AV: E=Sophos;i="5.90,282,1643702400"; d="scan'208";a="351219969"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2022 12:50:21 -0700
+X-IronPort-AV: E=Sophos;i="5.90,282,1643702400"; d="scan'208";a="672595750"
+Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2022 12:50:20 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 22 Apr 2022 12:50:06 -0700
+Message-Id: <20220422195007.4019661-2-matthew.d.roper@intel.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220422195007.4019661-1-matthew.d.roper@intel.com>
+References: <20220422195007.4019661-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Badal Nilawar" <badal.nilawar@intel.com>
-Date: Fri, 22 Apr 2022 19:20:38 -0000
-Message-ID: <165065523843.14005.7814974696553863149@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220422133752.1370964-1-badal.nilawar@intel.com>
-In-Reply-To: <20220422133752.1370964-1-badal.nilawar@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/rc6=3A_Access_RC6_regs_with_forcewake?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/xehp: Add compute engine ABI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,263 +55,163 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Szymon Morek <szymon.morek@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5157725216633391847==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+We're now ready to start exposing compute engines to userspace.
 
-== Series Details ==
+While we're at it, let's extend the kerneldoc description for the other
+engine types as well.
 
-Series: drm/i915/rc6: Access RC6 regs with forcewake
-URL   : https://patchwork.freedesktop.org/series/102995/
-State : success
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Cc: Jordan Justen <jordan.l.justen@intel.com>
+Cc: Szymon Morek <szymon.morek@intel.com>
+UMD (mesa): https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/14395
+UMD (compute): https://github.com/intel/compute-runtime/pull/451
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_user.c |  2 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c          |  1 +
+ drivers/gpu/drm/i915/i915_drm_client.c      |  1 +
+ drivers/gpu/drm/i915/i915_drm_client.h      |  2 +-
+ include/uapi/drm/i915_drm.h                 | 62 +++++++++++++++++++--
+ 5 files changed, 60 insertions(+), 8 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+index 0f6cd96b459f..46a174f8aa00 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+@@ -47,7 +47,7 @@ static const u8 uabi_classes[] = {
+ 	[COPY_ENGINE_CLASS] = I915_ENGINE_CLASS_COPY,
+ 	[VIDEO_DECODE_CLASS] = I915_ENGINE_CLASS_VIDEO,
+ 	[VIDEO_ENHANCEMENT_CLASS] = I915_ENGINE_CLASS_VIDEO_ENHANCE,
+-	/* TODO: Add COMPUTE_CLASS mapping once ABI is available */
++	[COMPUTE_CLASS] = I915_ENGINE_CLASS_COMPUTE,
+ };
+ 
+ static int engine_cmp(void *priv, const struct list_head *A,
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 92394f13b42f..c96e123496a5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -1175,6 +1175,7 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 		[VIDEO_DECODE_CLASS]		= GEN12_VD_TLB_INV_CR,
+ 		[VIDEO_ENHANCEMENT_CLASS]	= GEN12_VE_TLB_INV_CR,
+ 		[COPY_ENGINE_CLASS]		= GEN12_BLT_TLB_INV_CR,
++		[COMPUTE_CLASS]			= GEN12_GFX_TLB_INV_CR,
+ 	};
+ 	struct drm_i915_private *i915 = gt->i915;
+ 	struct intel_uncore *uncore = gt->uncore;
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+index 475a6f824cad..18d38cb59923 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
++++ b/drivers/gpu/drm/i915/i915_drm_client.c
+@@ -81,6 +81,7 @@ static const char * const uabi_class_names[] = {
+ 	[I915_ENGINE_CLASS_COPY] = "copy",
+ 	[I915_ENGINE_CLASS_VIDEO] = "video",
+ 	[I915_ENGINE_CLASS_VIDEO_ENHANCE] = "video-enhance",
++	[I915_ENGINE_CLASS_COMPUTE] = "compute",
+ };
+ 
+ static u64 busy_add(struct i915_gem_context *ctx, unsigned int class)
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index 5f5b02b01ba0..f796c5e8e060 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -13,7 +13,7 @@
+ 
+ #include "gt/intel_engine_types.h"
+ 
+-#define I915_LAST_UABI_ENGINE_CLASS I915_ENGINE_CLASS_VIDEO_ENHANCE
++#define I915_LAST_UABI_ENGINE_CLASS I915_ENGINE_CLASS_COMPUTE
+ 
+ struct drm_i915_private;
+ 
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 35ca528803fd..a2def7b27009 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -154,21 +154,71 @@ enum i915_mocs_table_index {
+ 	I915_MOCS_CACHED,
+ };
+ 
+-/*
++/**
++ * enum drm_i915_gem_engine_class - uapi engine type enumeration
++ *
+  * Different engines serve different roles, and there may be more than one
+- * engine serving each role. enum drm_i915_gem_engine_class provides a
+- * classification of the role of the engine, which may be used when requesting
+- * operations to be performed on a certain subset of engines, or for providing
+- * information about that group.
++ * engine serving each role.  This enum provides a classification of the role
++ * of the engine, which may be used when requesting operations to be performed
++ * on a certain subset of engines, or for providing information about that
++ * group.
+  */
+ enum drm_i915_gem_engine_class {
++	/**
++	 * @I915_ENGINE_CLASS_RENDER:
++	 *
++	 * Render engines support instructions used for 3D, Compute (GPGPU),
++	 * and programmable media workloads.  These instructions fetch data and
++	 * dispatch individual work items to threads that operate in parallel.
++	 * The threads run small programs (called "kernels" or "shaders") on
++	 * the GPU's execution units (EUs).
++	 */
+ 	I915_ENGINE_CLASS_RENDER	= 0,
++
++	/**
++	 * @I915_ENGINE_CLASS_COPY:
++	 *
++	 * Copy engines (also referred to as "blitters") support instructions
++	 * that move blocks of data from one location in memory to another,
++	 * or that fill a specified location of memory with fixed data.
++	 * Copy engines can perform pre-defined logical or bitwise operations
++	 * on the source, destination, or pattern data.
++	 */
+ 	I915_ENGINE_CLASS_COPY		= 1,
++
++	/**
++	 * @I915_ENGINE_CLASS_VIDEO:
++	 *
++	 * Video engines (also referred to as "bit stream decode" (BSD) or
++	 * "vdbox") support instructions that perform fixed-function media
++	 * decode and encode.
++	 */
+ 	I915_ENGINE_CLASS_VIDEO		= 2,
++
++	/**
++	 * @I915_ENGINE_CLASS_VIDEO_ENHANCE:
++	 *
++	 * Video enhancement engines (also referred to as "vebox") support
++	 * instructions related to image enhancement.
++	 */
+ 	I915_ENGINE_CLASS_VIDEO_ENHANCE	= 3,
+ 
+-	/* should be kept compact */
++	/**
++	 * @I915_ENGINE_CLASS_COMPUTE:
++	 *
++	 * Compute engines support a subset of the instructions available
++	 * on render engines:  compute engines support Compute (GPGPU) and
++	 * programmable media workloads, but do not support the 3D pipeline.
++	 */
++	I915_ENGINE_CLASS_COMPUTE	= 4,
++
++	/* Values in this enum should be kept compact. */
+ 
++	/**
++	 * @I915_ENGINE_CLASS_INVALID:
++	 *
++	 * Placeholder value to represent an invalid engine class assignment.
++	 */
+ 	I915_ENGINE_CLASS_INVALID	= -1
+ };
+ 
+-- 
+2.35.1
 
-CI Bug Log - changes from CI_DRM_11544 -> Patchwork_102995v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/index.html
-
-Participating hosts (45 -> 41)
-------------------------------
-
-  Missing    (4): fi-bsw-kefka fi-bsw-cyan fi-bsw-nick fi-bsw-n3050 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_102995v1:
-
-### IGT changes ###
-
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@i915_selftest@live@reset:
-    - {bat-rpls-1}:       [PASS][1] -> [DMESG-WARN][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-rpls-1/igt@i915_selftest@live@reset.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-rpls-1/igt@i915_selftest@live@reset.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_102995v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@hangcheck:
-    - bat-dg1-5:          [PASS][3] -> [DMESG-FAIL][4] ([i915#4494] / [i915#4957])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-dg1-5/igt@i915_selftest@live@hangcheck.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-dg1-5/igt@i915_selftest@live@hangcheck.html
-
-  * igt@i915_selftest@live@slpc:
-    - bat-dg1-5:          [PASS][5] -> [INCOMPLETE][6] ([i915#5198])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-dg1-5/igt@i915_selftest@live@slpc.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-dg1-5/igt@i915_selftest@live@slpc.html
-
-  * igt@runner@aborted:
-    - fi-bdw-5557u:       NOTRUN -> [FAIL][7] ([i915#4312])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/fi-bdw-5557u/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@core_hotunplug@unbind-rebind:
-    - {bat-rpls-2}:       [DMESG-WARN][8] ([i915#4391]) -> [PASS][9]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-rpls-2/igt@core_hotunplug@unbind-rebind.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-rpls-2/igt@core_hotunplug@unbind-rebind.html
-
-  * igt@gem_exec_suspend@basic-s3@smem:
-    - fi-bdw-5557u:       [INCOMPLETE][10] ([i915#146]) -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html
-
-  * igt@i915_selftest@live@perf:
-    - {fi-tgl-dsi}:       [DMESG-WARN][12] -> [PASS][13] +17 similar issues
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/fi-tgl-dsi/igt@i915_selftest@live@perf.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/fi-tgl-dsi/igt@i915_selftest@live@perf.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:
-    - {bat-adlp-6}:       [DMESG-WARN][14] ([i915#3576]) -> [PASS][15]
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-adlp-6/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-adlp-6/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a:
-    - {bat-adlm-1}:       [DMESG-WARN][16] -> [PASS][17]
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-adlm-1/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-adlm-1/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#1155]: https://gitlab.freedesktop.org/drm/intel/issues/1155
-  [i915#146]: https://gitlab.freedesktop.org/drm/intel/issues/146
-  [i915#3576]: https://gitlab.freedesktop.org/drm/intel/issues/3576
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4391]: https://gitlab.freedesktop.org/drm/intel/issues/4391
-  [i915#4494]: https://gitlab.freedesktop.org/drm/intel/issues/4494
-  [i915#4957]: https://gitlab.freedesktop.org/drm/intel/issues/4957
-  [i915#5198]: https://gitlab.freedesktop.org/drm/intel/issues/5198
-  [i915#5607]: https://gitlab.freedesktop.org/drm/intel/issues/5607
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_11544 -> Patchwork_102995v1
-
-  CI-20190529: 20190529
-  CI_DRM_11544: 5f9019934f9819738661f0618a29865abed617f4 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6449: 704da775abb83faa9324a665fe2992ab90f4ab03 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_102995v1: 5f9019934f9819738661f0618a29865abed617f4 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-a063f5f643f0 drm/i915/rc6: Access RC6 regs with forcewake
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/index.html
-
---===============5157725216633391847==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/rc6: Access RC6 regs with forcewake</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/102995/">https://patchwork.freedesktop.org/series/102995/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_11544 -&gt; Patchwork_102995v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/index.html</p>
-<h2>Participating hosts (45 -&gt; 41)</h2>
-<p>Missing    (4): fi-bsw-kefka fi-bsw-cyan fi-bsw-nick fi-bsw-n3050 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_102995v1:</p>
-<h3>IGT changes</h3>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>igt@i915_selftest@live@reset:<ul>
-<li>{bat-rpls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-rpls-1/igt@i915_selftest@live@reset.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-rpls-1/igt@i915_selftest@live@reset.html">DMESG-WARN</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_102995v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>bat-dg1-5:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-dg1-5/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-dg1-5/igt@i915_selftest@live@hangcheck.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4494">i915#4494</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4957">i915#4957</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@slpc:</p>
-<ul>
-<li>bat-dg1-5:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-dg1-5/igt@i915_selftest@live@slpc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-dg1-5/igt@i915_selftest@live@slpc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5198">i915#5198</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@core_hotunplug@unbind-rebind:</p>
-<ul>
-<li>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-rpls-2/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4391">i915#4391</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-rpls-2/igt@core_hotunplug@unbind-rebind.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_suspend@basic-s3@smem:</p>
-<ul>
-<li>fi-bdw-5557u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/146">i915#146</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/fi-bdw-5557u/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@perf:</p>
-<ul>
-<li>{fi-tgl-dsi}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/fi-tgl-dsi/igt@i915_selftest@live@perf.html">DMESG-WARN</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/fi-tgl-dsi/igt@i915_selftest@live@perf.html">PASS</a> +17 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b:</p>
-<ul>
-<li>{bat-adlp-6}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-adlp-6/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3576">i915#3576</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-adlp-6/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-pipe-b.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a:</p>
-<ul>
-<li>{bat-adlm-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11544/bat-adlm-1/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html">DMESG-WARN</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_102995v1/bat-adlm-1/igt@kms_pipe_crc_basic@suspend-read-crc-pipe-a.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_11544 -&gt; Patchwork_102995v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_11544: 5f9019934f9819738661f0618a29865abed617f4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6449: 704da775abb83faa9324a665fe2992ab90f4ab03 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_102995v1: 5f9019934f9819738661f0618a29865abed617f4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>a063f5f643f0 drm/i915/rc6: Access RC6 regs with forcewake</p>
-
-</body>
-</html>
-
---===============5157725216633391847==--
