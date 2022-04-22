@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F3E8C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Apr 2022 19:50:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A8E3C433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Apr 2022 19:50:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE2C10E65D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9443910E668;
 	Fri, 22 Apr 2022 19:50:24 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6976810E626;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B245E10E626;
  Fri, 22 Apr 2022 19:50:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1650657021; x=1682193021;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=OqgG0GR+0VBBJuq+Vgw7mJj008P4RyMJ8mEZV2ZoE8g=;
- b=JbaQEaWOqKUymaUcsBOWKsHoNfE3od8p9Mj3dK4afaQ6nPlgFDsz88xc
- z0IgkwvvbTK61ZJYcp6P34ZKRyhDl4kdMH960osNfJ+ZUKwhGcqmy0iQ+
- 5WgB0gfI409pFJw2WhSkVBVAGMzlLNEZBSXWm5SR1XZ8+E7gxFfirjsUt
- wGfmdPVcdTpsWe+AxGzA0WIurRACPeB7ZmD75kV2hvlJ0UmDG7YuIZEss
- oWWH6O/s6MOOKoQA2nIjtoRkxR3s5+4rDsPKkeVWiEv246N2WPKX/YUtX
- yYszzOyGAXXiBqpf/ZPQDzl0Om5MTePkbqoPzOj9rR6BWEjH580kGlR0W g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10324"; a="351219967"
-X-IronPort-AV: E=Sophos;i="5.90,282,1643702400"; d="scan'208";a="351219967"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=HVns9C+wVSYG1swLjui8REBT2rszVQsq6+BzuOThcBM=;
+ b=cXvZOI5n7UO3S/hHQ+eFyxJb6C7f8BsLGagA61KrHPa1aSXf9SeIBgSE
+ BpnZAhD2ERgXD1/DXcrfnRlJRAfplGPaBgSFtMSDGyTt6xImJ3n0y8imy
+ 709pwA9WUAwCzEXqFq7GYh6ljdG4hwjKB3uZ8xOiRG1JhR4o+s1C9Q1lA
+ jbXJ/PnCUKd3geOwHsUUTA+I5NtJZadeIHxGX8+Q+C4N07L3zX4J88F5p
+ 6Qy/riR2/3XV1cu4R4HZcISsQ3H9vBgS/0fkP4KeMgl8Kvkmnw779Z9T0
+ KnehMPUZKvRNZbjKlz64pmEltQ97cQ2LOs0QzY8y7IfJMeo38fmiZ7Zrp g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10324"; a="351219970"
+X-IronPort-AV: E=Sophos;i="5.90,282,1643702400"; d="scan'208";a="351219970"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2022 12:50:20 -0700
-X-IronPort-AV: E=Sophos;i="5.90,282,1643702400"; d="scan'208";a="672595742"
+ 22 Apr 2022 12:50:21 -0700
+X-IronPort-AV: E=Sophos;i="5.90,282,1643702400"; d="scan'208";a="672595756"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  22 Apr 2022 12:50:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 22 Apr 2022 12:50:05 -0700
-Message-Id: <20220422195007.4019661-1-matthew.d.roper@intel.com>
+Date: Fri, 22 Apr 2022 12:50:07 -0700
+Message-Id: <20220422195007.4019661-3-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220422195007.4019661-1-matthew.d.roper@intel.com>
+References: <20220422195007.4019661-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] i915: Turn on compute engine support
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915: Xe_HP SDV and DG2 have up to 4
+ CCS engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,41 +56,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that the necessary GuC-based hardware workarounds have landed, we're
-finally ready to actually enable compute engines for use by userspace.
-All of the "under-the-hood" heavy lifting already landed a while back in
-other series so all that remains now is to add I915_ENGINE_CLASS_COMPUTE
-to the uapi enum and add the CCS engines to the engine lists for the
-Xe_HP SDV and DG2.
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Userspace (both Mesa and compute drivers) are linked in the ABI patch.
-Existing IGT tests (e.g., i915_hangman) provide test coverage for
-general engine behavior since compute engines should follow the same
-general rules as other engines.  We've also recently added some
-additional subtests like igt@gem_reset_stats@shared-reset-domain to
-cover the user-visible impacts of the compute engines sharing the same
-hardware reset domain as the render engine.
+Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/i915_pci.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-
-Daniele Ceraolo Spurio (1):
-  drm/i915: Xe_HP SDV and DG2 have up to 4 CCS engines
-
-Matt Roper (1):
-  drm/i915/xehp: Add compute engine ABI
-
- drivers/gpu/drm/i915/gt/intel_engine_user.c |  2 +-
- drivers/gpu/drm/i915/gt/intel_gt.c          |  1 +
- drivers/gpu/drm/i915/i915_drm_client.c      |  1 +
- drivers/gpu/drm/i915/i915_drm_client.h      |  2 +-
- drivers/gpu/drm/i915/i915_pci.c             |  6 +-
- include/uapi/drm/i915_drm.h                 | 62 +++++++++++++++++++--
- 6 files changed, 64 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index b60492826478..7739d6c33481 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1037,7 +1037,8 @@ static const struct intel_device_info xehpsdv_info = {
+ 		BIT(RCS0) | BIT(BCS0) |
+ 		BIT(VECS0) | BIT(VECS1) | BIT(VECS2) | BIT(VECS3) |
+ 		BIT(VCS0) | BIT(VCS1) | BIT(VCS2) | BIT(VCS3) |
+-		BIT(VCS4) | BIT(VCS5) | BIT(VCS6) | BIT(VCS7),
++		BIT(VCS4) | BIT(VCS5) | BIT(VCS6) | BIT(VCS7) |
++		BIT(CCS0) | BIT(CCS1) | BIT(CCS2) | BIT(CCS3),
+ 	.require_force_probe = 1,
+ };
+ 
+@@ -1056,7 +1057,8 @@ static const struct intel_device_info xehpsdv_info = {
+ 	.platform_engine_mask = \
+ 		BIT(RCS0) | BIT(BCS0) | \
+ 		BIT(VECS0) | BIT(VECS1) | \
+-		BIT(VCS0) | BIT(VCS2)
++		BIT(VCS0) | BIT(VCS2) | \
++		BIT(CCS0) | BIT(CCS1) | BIT(CCS2) | BIT(CCS3)
+ 
+ static const struct intel_device_info dg2_info = {
+ 	DG2_FEATURES,
 -- 
 2.35.1
 
