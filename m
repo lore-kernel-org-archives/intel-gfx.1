@@ -4,76 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C6FBC433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC9C8C433FE
 	for <intel-gfx@archiver.kernel.org>; Mon, 25 Apr 2022 13:04:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7737A10E514;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC1E10E501;
 	Mon, 25 Apr 2022 13:04:08 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D75710E20B;
- Wed, 20 Apr 2022 17:40:24 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id g20so3263633edw.6;
- Wed, 20 Apr 2022 10:40:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=UGqF/VNrOQXVy0XVsg7vlIex9Byf7MQ1HLHnkGVT8jI=;
- b=jEJ8ogj8lc9owjZce7IJB4It8T4hbhUnmPeuGb9BcLfMhltaGMKp4GqC8/3NkFbH7h
- ymNvxWDpt/iCgckENBA7mGuXa2Vgzj+XsdFqwroEgf+BNnzssz3JnND7K3x0opOK4SlL
- 4kxC5HmhON6Epj8hkoIgY14/PklMvafmxMBy2EjsORqnUGj+mBqKW+QEpoSBXKjbHI4f
- NYzqjFZWDn6usSAYL2EdbnNQVn1MF86oDYi0qsGN66jLhxxqOiVCI0cNXox0EN2YjJ2d
- QGuH2UdIfE80ppvFsk/bXC29kpp53y0/+rN6ZzcuzSsEjgLh+K160NXtR+g97QC3BiWX
- K8rQ==
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4747110EABC
+ for <intel-gfx@lists.freedesktop.org>; Sat, 23 Apr 2022 04:10:17 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id e4so11227801oif.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 Apr 2022 21:10:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=YNhoTijYDK5hg3tJxjQgdgbL/kgrcPDOQkgZNKFoLe0=;
+ b=hdtSyu9V8DkuUoFOA2YMj1NAwALLRl8/nme92ADOd6vw4uiyPQw2nLnwlWE4hZOTYh
+ hMVnDHLTvfUc3WViSmGZpg2u+pUEdcvsCyRqN73T6IzHEHGfA1vTEDiRHBJPN+6XlSrv
+ msMrpfZZZUF+GyEAV6/iGHUUspOxCkoTxxTgLKGlzea3b8Ke23TheCXbCJsLEcyEmSAx
+ ScCt27p+r7SoHmhvmiiLbK5GcRXCci038RWnzP44TuuwC/pgLF4fgvBbUOcFzAdBcVtl
+ NfA6FDVc5YQAbEHs68IP4imFUJETFAHSxXGTUp5cLGJo2EgIWtcozlUiXlg7hCcXLvqZ
+ T+QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=UGqF/VNrOQXVy0XVsg7vlIex9Byf7MQ1HLHnkGVT8jI=;
- b=1q6kCHfU+8QSFxr3/qSqzjGwb8xne/nM2PX20Y2HARYefq71mTDDd8cslNEJTfqQr8
- T0jOZX9aggv68r1Zz06TGYKV3z7K5Pp6A5f10PHjgoTLurp7SGJpKncLIkdSf/TDv3d4
- bfJ+2OrG8pX/Zw0+kUkLHxIWPgC7zU7eBqukfSAowCf7JVvwHHbOwsTSPDyUD6xx7G66
- bxqA1nvpFzBCDvmrSHGknAL0/W7rTzKEWfoGcqJRY3YawmWlaUiIy8qcjHZXVvKSFCon
- TwlrM0YCfjGKokHxSH5PWCMfE14SIeErkgZYDueN0ZMbWeJI/SwnKh6Vsh5gVTce1ImN
- XfYA==
-X-Gm-Message-State: AOAM533o/aKzViWENasdfrsLAh66F9UKq/omDMH2AxsfcwRCcsrW1N0B
- yfGA3+9CC2EeVab0j+NPx/paw7bRJ2o=
-X-Google-Smtp-Source: ABdhPJzl4hP6+bYyCHH6YeLv3zGSn/Zl1qGJV0gcCoYdO4ALyzAM4zbXzED5a3WR79SdNoCSmCxO/w==
-X-Received: by 2002:a50:fd81:0:b0:41d:7582:75df with SMTP id
- o1-20020a50fd81000000b0041d758275dfmr24584159edt.208.1650476422538; 
- Wed, 20 Apr 2022 10:40:22 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1252:fb60:425d:2971:45fa:ac5d?
- ([2a02:908:1252:fb60:425d:2971:45fa:ac5d])
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=YNhoTijYDK5hg3tJxjQgdgbL/kgrcPDOQkgZNKFoLe0=;
+ b=DsYpfFAZ5tZqfXjta4EjB+RIuaff1y0CSnVaV4lf6f+//ds8HU7SMzeGuTG3oZjPGv
+ aU8Y6iWL9HqekXFQGH8v1Im45S8jW3G1yhzjupiYI0jzjUH9o9ZouTqwWkyYyOhI4H2l
+ pYCca8QeYEg/CsWT2hJZVKCKH6S/ShL8MjCERhXRY+CHHkQgP6947KaCyemmEjqAY6Ah
+ jzB6oYiQADbtMOqN96G0HZcwzc68lnm6ImzK1mYa567hfvDmFSGMudaMYdgUXjT1doii
+ KUcjm4tCHZfQsCzsB2cj0USx7mQwDcB7SjjXISkLIQ5RpucAdkv1a5+rWqvnqwZYzzWX
+ kixQ==
+X-Gm-Message-State: AOAM531l0h77E2+1BMpmYcN2NZn27Z+r/CO2FoG1sxYcJq2CZgHhCx0N
+ ODSoptxTKZXqEWDSDFybwgzFEg==
+X-Google-Smtp-Source: ABdhPJzEuQC08m6xCkVKR6XsHeSL5p0/ZkR7uRyRVVh9KvlNaDYNcO6f0NhDLqPj0GWi2P4EkbGFgQ==
+X-Received: by 2002:a05:6808:1a04:b0:322:7b89:1973 with SMTP id
+ bk4-20020a0568081a0400b003227b891973mr8311352oib.227.1650687016176; 
+ Fri, 22 Apr 2022 21:10:16 -0700 (PDT)
+Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
  by smtp.gmail.com with ESMTPSA id
- g15-20020a170906520f00b006cd07ba40absm6918464ejm.160.2022.04.20.10.40.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Apr 2022 10:40:21 -0700 (PDT)
-Message-ID: <54d00af9-9384-5794-490c-7d4cafe086b6@gmail.com>
-Date: Wed, 20 Apr 2022 19:40:20 +0200
+ l10-20020aca3e0a000000b0032258369a5fsm1410185oia.44.2022.04.22.21.10.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Apr 2022 21:10:15 -0700 (PDT)
+Date: Fri, 22 Apr 2022 21:12:16 -0700
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <YmN8oMl7EulvBbEG@ripper>
+References: <20220422223225.1297434-1-bjorn.andersson@linaro.org>
+ <20220422223225.1297434-2-bjorn.andersson@linaro.org>
+ <11a77fd7-d30b-edf6-3570-64d0c2e1764c@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Zack Rusin <zackr@vmware.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-References: <20220407085946.744568-1-christian.koenig@amd.com>
- <20220407085946.744568-4-christian.koenig@amd.com>
- <60ab53ce1ce1333f5e6a15fc83c3c05cd9bd1084.camel@vmware.com>
- <4c2e9414-3926-c9d7-8482-0d6d9191c2ac@amd.com>
- <fe8916b53b0f0101e6616d23eb6896399b092d58.camel@vmware.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <fe8916b53b0f0101e6616d23eb6896399b092d58.camel@vmware.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 25 Apr 2022 13:03:42 +0000
-Subject: Re: [Intel-gfx] [PATCH 03/15] dma-buf & drm/amdgpu: remove dma_resv
- workaround
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <11a77fd7-d30b-edf6-3570-64d0c2e1764c@linaro.org>
+X-Mailman-Approved-At: Mon, 25 Apr 2022 13:03:41 +0000
+Subject: Re: [Intel-gfx] [PATCH v3 2/2] drm/msm/dp: Implement
+ oob_hotplug_event()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,54 +73,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: linux-arm-msm@vger.kernel.org,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>, linux-usb@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, freedreno@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 20.04.22 um 19:38 schrieb Zack Rusin:
-> On Wed, 2022-04-20 at 09:37 +0200, Christian König wrote:
->> ⚠ External Email
->>
->> Hi Zack,
->>
->> Am 20.04.22 um 05:56 schrieb Zack Rusin:
->>> On Thu, 2022-04-07 at 10:59 +0200, Christian König wrote:
->>>> Rework the internals of the dma_resv object to allow adding more
->>>> than
->>>> one
->>>> write fence and remember for each fence what purpose it had.
->>>>
->>>> This allows removing the workaround from amdgpu which used a
->>>> container
->>>> for
->>>> this instead.
->>>>
->>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->>>> Cc: amd-gfx@lists.freedesktop.org
->>> afaict this change broke vmwgfx which now kernel oops right after
->>> boot.
->>> I haven't had the time to look into it yet, so I'm not sure what's
->>> the
->>> problem. I'll look at this tomorrow, but just in case you have some
->>> clues, the backtrace follows:
->> that's a known issue and should already be fixed with:
->>
->> commit d72dcbe9fce505228dae43bef9da8f2b707d1b3d
->> Author: Christian König <christian.koenig@amd.com>
->> Date:   Mon Apr 11 15:21:59 2022 +0200
-> Unfortunately that doesn't seem to be it. The backtrace is from the
-> current (as of the time of sending of this email) drm-misc-next, which
-> has this change, so it's something else.
+On Fri 22 Apr 16:07 PDT 2022, Dmitry Baryshkov wrote:
+> On 23/04/2022 01:32, Bjorn Andersson wrote:
+[..]
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> > index 80f59cf99089..76904b1601b1 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> > @@ -123,6 +123,14 @@ static enum drm_mode_status dp_connector_mode_valid(
+> >   	return dp_display_validate_mode(dp_disp, mode->clock);
+> >   }
+> > +static void dp_oob_hotplug_event(struct drm_connector *connector,
+> > +				 enum drm_connector_hpd_state hpd_state)
+> > +{
+> > +	struct msm_dp *dp_disp = to_dp_connector(connector)->dp_display;
+> > +
+> > +	dp_display_oob_hotplug_event(dp_disp, hpd_state);
+> > +}
+> > +
+> >   static const struct drm_connector_funcs dp_connector_funcs = {
+> >   	.detect = dp_connector_detect,
+> >   	.fill_modes = drm_helper_probe_single_connector_modes,
+> > @@ -130,6 +138,7 @@ static const struct drm_connector_funcs dp_connector_funcs = {
+> >   	.reset = drm_atomic_helper_connector_reset,
+> >   	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+> >   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> > +	.oob_hotplug_event = dp_oob_hotplug_event,
+> 
+> We were (are) going to switch dp driver to use drm_bridge_connector (to fix
+> support for bridge chains, eDP panels, etc.
+> 
+> So these changes must be ported to drm_bridge_connector (or we must
+> abandon/defer the idea of using the bridge_connector).
+> 
+> For the oob_hotplug_event() callback proper support might be as simple as
+> calling drm_bridge_connector_hpd_cb().
+> 
 
-Ok, that's strange. In this case I need to investigate further.
+Are you saying that you have code ready and being merged into linux-next
+that I should redesign this on top of, or that you're planning to write
+some code in the future and DisplayPort support have to wait until then?
 
-Maybe VMWGFX is adding more than one fence and we actually need to 
-reserve multiple slots.
+> >   };
+> >   static const struct drm_connector_helper_funcs dp_connector_helper_funcs = {
+> > @@ -160,6 +169,8 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
+> >   	if (ret)
+> >   		return ERR_PTR(ret);
+> > +	connector->fwnode = fwnode_handle_get(dev_fwnode(dp_display->dev));
+> > +
+> 
+> This would be much more interesting. Supporting this in a generic way might
+> be tricky. But we can still set the fwnode manually from the dp code.
+> 
+
+There's a slight mishmash here, because the device used to initialize
+the connector is the drm_dev, but we need the actual fwnode of the DP
+device associated with the connector.
+
+So I think this is how it needs to be done.
 
 Regards,
-Christian.
-
->
-> z
-
+Bjorn
