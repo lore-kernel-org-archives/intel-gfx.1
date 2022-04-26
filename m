@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A78E5C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 19:33:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F1B8C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Apr 2022 19:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEBCE10E4F0;
-	Tue, 26 Apr 2022 19:33:22 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45B5C896B5
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 19:33:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E097E10E558;
+	Tue, 26 Apr 2022 19:33:34 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEA3310E5F2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Apr 2022 19:33:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651001601; x=1682537601;
+ t=1651001613; x=1682537613;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IwxhH1YE+8j97dnYXEWbOuTODYjVDlJ5m2+OWmIv8eE=;
- b=ZOHhdr2Unc5y4L/68EY7vATTIf30kFFUQxdX4KZpFVNX/9uvj3keRIFk
- CeNbzIcn1DRAQ5UCXbLVeEkEP7c8TGtm0OS4H/vRWyN5XCBNt7JXN8Qtm
- 6tLIMPm9Zl4uXMQi28aMmDZa6GBmpmD/u8DBuS9K+dFkuwUQC9Z9vG3Ez
- SrKZch/tQniw/WSH0a+bejKX9AJTtHponUErCIYqT3/ZdI+z0sH6gdrJe
- 9aiS69e7+sKopUnReJaYbRnpe5LIHLBqgaNjcrA9PlhAWsdWTcIJiVckk
- oujRuBJBXFoWruAOfeG1Sq9a3Xtd8lcECMQ05uj6H9SkGwN0mSt+jEESy Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="264546202"
-X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="264546202"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 12:33:20 -0700
+ bh=TEqOLHI2aDhu43kNO6fzGfaPjCGKtnUNywAuP9TDl0U=;
+ b=crhNBbMbGkyWOFwBzJpSC14l/fibw1bwTCbL/XfhOPLRUDW+xKoEOqDn
+ EX9OSN6Sy0FkJdbzyyqmB2TBttPi8onc7jPiRBlo8rSQ/kW9YlFwheeZt
+ vzxzYbKXmi5x7SnmI5kzicsxvLvTPCf7s3M8yvmdMfv5AqpBwQ9RE29UV
+ lWlp6FogEgA55QDURr2pCoATUF/tlR8uK/CAyMPFIqPD7A+NatQP6F04C
+ zweiTEBILWTO6RpyD7QznBlHVdwuYwE0i8qIsFsI7oXCt1Z03lKHV2S/1
+ Giu5QgUMOxod3qzkBT1+CX0pQUGcDrFptxN7mn6k2irqQSIhDH7bQdGU8 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="352140238"
+X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="352140238"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2022 12:33:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="705201958"
+X-IronPort-AV: E=Sophos;i="5.90,291,1643702400"; d="scan'208";a="617152917"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
- by fmsmga001.fm.intel.com with SMTP; 26 Apr 2022 12:33:18 -0700
+ by fmsmga008.fm.intel.com with SMTP; 26 Apr 2022 12:33:09 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 26 Apr 2022 22:33:17 +0300
+ Tue, 26 Apr 2022 22:33:08 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 26 Apr 2022 22:32:22 +0300
-Message-Id: <20220426193222.3422-19-ville.syrjala@linux.intel.com>
+Date: Tue, 26 Apr 2022 22:32:19 +0300
+Message-Id: <20220426193222.3422-16-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220426193222.3422-1-ville.syrjala@linux.intel.com>
 References: <20220426193222.3422-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 18/18] drm/i915/bios: Dump PNPID and panel
- name
+Subject: [Intel-gfx] [PATCH v3 15/18] drm/i915/bios: Parse the seamless DRRS
+ min refresh rate
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,81 +65,56 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Dump the panel PNPID and name from the VBT.
+Extract the seamless DRRS min refresh rate from the VBT.
+
+v2: Do a version check
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c | 24 +++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/gpu/drm/i915/display/intel_bios.c | 9 ++++++++-
+ drivers/gpu/drm/i915/i915_drv.h           | 1 +
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index f1afc267b5f9..1b08553b22d0 100644
+index 1b84c0e55497..f1afc267b5f9 100644
 --- a/drivers/gpu/drm/i915/display/intel_bios.c
 +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -25,6 +25,7 @@
-  *
-  */
- 
-+#include <drm/drm_edid.h>
- #include <drm/display/drm_dp_helper.h>
- #include <drm/display/drm_dsc_helper.h>
- 
-@@ -603,6 +604,19 @@ get_lfp_data_tail(const struct bdb_lvds_lfp_data *data,
- 		return NULL;
- }
- 
-+static void dump_pnp_id(struct drm_i915_private *i915,
-+			const struct lvds_pnp_id *pnp_id,
-+			const char *name)
-+{
-+	u16 mfg_name = be16_to_cpu((__force __be16)pnp_id->mfg_name);
-+	char vend[4];
-+
-+	drm_dbg_kms(&i915->drm, "%s PNPID mfg: %s (0x%x), prod: %u, serial: %u, week: %d, year: %d\n",
-+		    name, drm_edid_decode_mfg_id(mfg_name, vend),
-+		    pnp_id->mfg_name, pnp_id->product_code, pnp_id->serial,
-+		    pnp_id->mfg_week, pnp_id->mfg_year + 1990);
-+}
-+
- static int opregion_get_panel_type(struct drm_i915_private *i915,
- 				   const struct edid *edid)
- {
-@@ -646,6 +660,8 @@ static int pnpid_get_panel_type(struct drm_i915_private *i915,
- 	edid_id_nodate.mfg_week = 0;
- 	edid_id_nodate.mfg_year = 0;
- 
-+	dump_pnp_id(i915, edid_id, "EDID");
-+
- 	ptrs = find_section(i915, BDB_LVDS_LFP_DATA_PTRS);
- 	if (!ptrs)
- 		return -1;
-@@ -833,6 +849,7 @@ parse_lfp_data(struct drm_i915_private *i915)
+@@ -833,6 +833,7 @@ parse_lfp_data(struct drm_i915_private *i915)
  	const struct bdb_lvds_lfp_data *data;
  	const struct bdb_lvds_lfp_data_tail *tail;
  	const struct bdb_lvds_lfp_data_ptrs *ptrs;
-+	const struct lvds_pnp_id *pnp_id;
- 	int panel_type = i915->vbt.panel_type;
++	int panel_type = i915->vbt.panel_type;
  
  	ptrs = find_section(i915, BDB_LVDS_LFP_DATA_PTRS);
-@@ -846,10 +863,17 @@ parse_lfp_data(struct drm_i915_private *i915)
- 	if (!i915->vbt.lfp_lvds_vbt_mode)
- 		parse_lfp_panel_dtd(i915, data, ptrs);
- 
-+	pnp_id = get_lvds_pnp_id(data, ptrs, panel_type);
-+	dump_pnp_id(i915, pnp_id, "Panel");
-+
- 	tail = get_lfp_data_tail(data, ptrs);
+ 	if (!ptrs)
+@@ -849,7 +850,13 @@ parse_lfp_data(struct drm_i915_private *i915)
  	if (!tail)
  		return;
  
-+	drm_dbg_kms(&i915->drm, "Panel name: %.*s\n",
-+		    (int)sizeof(tail->panel_name[0].name),
-+		    tail->panel_name[panel_type].name);
-+
- 	if (i915->vbt.version >= 188) {
- 		i915->vbt.seamless_drrs_min_refresh_rate =
- 			tail->seamless_drrs_min_refresh_rate[panel_type];
+-	(void)tail;
++	if (i915->vbt.version >= 188) {
++		i915->vbt.seamless_drrs_min_refresh_rate =
++			tail->seamless_drrs_min_refresh_rate[panel_type];
++		drm_dbg_kms(&i915->drm,
++			    "Seamless DRRS min refresh rate: %d Hz\n",
++			    i915->vbt.seamless_drrs_min_refresh_rate);
++	}
+ }
+ 
+ static void
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 24111bf42ce0..c2a31ca56232 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -327,6 +327,7 @@ struct intel_vbt_data {
+ 	bool override_afc_startup;
+ 	u8 override_afc_startup_val;
+ 
++	u8 seamless_drrs_min_refresh_rate;
+ 	enum drrs_type drrs_type;
+ 
+ 	struct {
 -- 
 2.35.1
 
