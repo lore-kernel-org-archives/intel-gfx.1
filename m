@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13720C4167E
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Apr 2022 20:03:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2575C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Apr 2022 20:03:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AFB110E25D;
-	Wed, 27 Apr 2022 20:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38F1A10E455;
+	Wed, 27 Apr 2022 20:03:45 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14DC310E25D
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 Apr 2022 20:03:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2604010E377
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Apr 2022 20:03:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1651089812;
+ s=mimecast20190719; t=1651089823;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=O/591BE30Gw+sLgR7wcCQy4XNcbdAfVRmL/PYPXct/c=;
- b=d3oqXRNYd5pHMB3mzaVN1vlhLNn76DvyhDoQc7EXA5RVPW7Z94BHo4MRJ7JN6wEhy2nELg
- JV0QFfmWD8nyiiLPwMsOnizRQSQ6ljapxR7hwhwmhnLVgcwcpw5eFMEKXnxF4HWkhjnVDk
- qOAhuXllJe9doEzIvJvq38FYHPyhosM=
+ bh=JICLMFpK3jJ3Opx/D6G7EacoR9G87P/Z34aQ6aS+ZJc=;
+ b=CfLDY/hxnFMS0UBGfCU7cBo+qq1wusCyFDa3drnWsTtJbADqSSh5GbsQx8GdFfozkX/u8T
+ BJgHzLwNVWvrnVufWdgS0pcc8ycLT+Vc05Iy4ex3UlCO0xEqB8eXe46PTrpE39dimiXK2P
+ DwIYyUqM0KqYQbwdCt16+ke9tcaUG4I=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-550-dQOqBeYMObyNtmOAhvPWIA-1; Wed, 27 Apr 2022 16:03:30 -0400
-X-MC-Unique: dQOqBeYMObyNtmOAhvPWIA-1
+ us-mta-120-Sy16V930P4CpskDb-3jrlQ-1; Wed, 27 Apr 2022 16:03:41 -0400
+X-MC-Unique: Sy16V930P4CpskDb-3jrlQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
  [10.11.54.5])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 06EDD8039D7;
- Wed, 27 Apr 2022 20:03:29 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61132802803;
+ Wed, 27 Apr 2022 20:03:40 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.40.192.41])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6323F9E82;
- Wed, 27 Apr 2022 20:03:23 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E90F79E84;
+ Wed, 27 Apr 2022 20:03:34 +0000 (UTC)
 From: Maxim Levitsky <mlevitsk@redhat.com>
 To: kvm@vger.kernel.org
-Date: Wed, 27 Apr 2022 23:02:56 +0300
-Message-Id: <20220427200314.276673-2-mlevitsk@redhat.com>
+Date: Wed, 27 Apr 2022 23:02:58 +0300
+Message-Id: <20220427200314.276673-4-mlevitsk@redhat.com>
 In-Reply-To: <20220427200314.276673-1-mlevitsk@redhat.com>
 References: <20220427200314.276673-1-mlevitsk@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-Subject: [Intel-gfx] [RFC PATCH v3 01/19] KVM: x86: document AVIC/APICv
- inhibit reasons
+Subject: [Intel-gfx] [RFC PATCH v3 03/19] KVM: x86: SVM: remove avic's
+ broken code that updated APIC ID
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,49 +74,74 @@ Cc: Wanpeng Li <wanpengli@tencent.com>, David Airlie <airlied@linux.ie>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These days there are too many AVIC/APICv inhibit
-reasons, and it doesn't hurt to have some documentation
-for them.
+AVIC is now inhibited if the guest changes apic id, thus remove
+that broken code.
 
 Signed-off-by: Maxim Levitsky <mlevitsk@redhat.com>
 ---
- arch/x86/include/asm/kvm_host.h | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ arch/x86/kvm/svm/avic.c | 35 -----------------------------------
+ 1 file changed, 35 deletions(-)
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index f164c6c1514a4..63eae00625bda 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1046,14 +1046,29 @@ struct kvm_x86_msr_filter {
- };
+diff --git a/arch/x86/kvm/svm/avic.c b/arch/x86/kvm/svm/avic.c
+index 54fe03714f8a6..1102421668a11 100644
+--- a/arch/x86/kvm/svm/avic.c
++++ b/arch/x86/kvm/svm/avic.c
+@@ -508,35 +508,6 @@ static int avic_handle_ldr_update(struct kvm_vcpu *vcpu)
+ 	return ret;
+ }
  
- enum kvm_apicv_inhibit {
-+	/* APICv/AVIC is disabled by module param and/or not supported in hardware */
- 	APICV_INHIBIT_REASON_DISABLE,
-+	/* APICv/AVIC is inhibited because AutoEOI feature is being used by a HyperV guest*/
- 	APICV_INHIBIT_REASON_HYPERV,
-+	/* AVIC is inhibited on a CPU because it runs a nested guest */
- 	APICV_INHIBIT_REASON_NESTED,
-+	/* AVIC is inhibited due to wait for an irq window (AVIC doesn't support this) */
- 	APICV_INHIBIT_REASON_IRQWIN,
-+	/*
-+	 * AVIC is inhibited because i8254 're-inject' mode is used
-+	 * which needs EOI intercept which AVIC doesn't support
-+	 */
- 	APICV_INHIBIT_REASON_PIT_REINJ,
-+	/* AVIC is inhibited because the guest has x2apic in its CPUID*/
- 	APICV_INHIBIT_REASON_X2APIC,
-+	/* AVIC/APICv is inhibited because KVM_GUESTDBG_BLOCKIRQ was enabled */
- 	APICV_INHIBIT_REASON_BLOCKIRQ,
-+	/*
-+	 * AVIC/APICv is inhibited because the guest didn't yet
-+	 * enable kernel/split irqchip
-+	 */
- 	APICV_INHIBIT_REASON_ABSENT,
-+	/* AVIC is disabled because SEV doesn't support it */
- 	APICV_INHIBIT_REASON_SEV,
- };
+-static int avic_handle_apic_id_update(struct kvm_vcpu *vcpu)
+-{
+-	u64 *old, *new;
+-	struct vcpu_svm *svm = to_svm(vcpu);
+-	u32 id = kvm_xapic_id(vcpu->arch.apic);
+-
+-	if (vcpu->vcpu_id == id)
+-		return 0;
+-
+-	old = avic_get_physical_id_entry(vcpu, vcpu->vcpu_id);
+-	new = avic_get_physical_id_entry(vcpu, id);
+-	if (!new || !old)
+-		return 1;
+-
+-	/* We need to move physical_id_entry to new offset */
+-	*new = *old;
+-	*old = 0ULL;
+-	to_svm(vcpu)->avic_physical_id_cache = new;
+-
+-	/*
+-	 * Also update the guest physical APIC ID in the logical
+-	 * APIC ID table entry if already setup the LDR.
+-	 */
+-	if (svm->ldr_reg)
+-		avic_handle_ldr_update(vcpu);
+-
+-	return 0;
+-}
+-
+ static void avic_handle_dfr_update(struct kvm_vcpu *vcpu)
+ {
+ 	struct vcpu_svm *svm = to_svm(vcpu);
+@@ -555,10 +526,6 @@ static int avic_unaccel_trap_write(struct kvm_vcpu *vcpu)
+ 				AVIC_UNACCEL_ACCESS_OFFSET_MASK;
  
+ 	switch (offset) {
+-	case APIC_ID:
+-		if (avic_handle_apic_id_update(vcpu))
+-			return 0;
+-		break;
+ 	case APIC_LDR:
+ 		if (avic_handle_ldr_update(vcpu))
+ 			return 0;
+@@ -650,8 +617,6 @@ int avic_init_vcpu(struct vcpu_svm *svm)
+ 
+ void avic_apicv_post_state_restore(struct kvm_vcpu *vcpu)
+ {
+-	if (avic_handle_apic_id_update(vcpu) != 0)
+-		return;
+ 	avic_handle_dfr_update(vcpu);
+ 	avic_handle_ldr_update(vcpu);
+ }
 -- 
 2.26.3
 
