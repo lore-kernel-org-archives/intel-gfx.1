@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C0D9C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Apr 2022 00:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ED97C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Apr 2022 00:35:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D247910ECAE;
-	Wed, 27 Apr 2022 00:26:37 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ED6C10ECAE;
- Wed, 27 Apr 2022 00:26:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2BBF10EC45;
+	Wed, 27 Apr 2022 00:35:32 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0711810EC15
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Apr 2022 00:35:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651019197; x=1682555197;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Lj5EEEgJrE1Ey3LYhwrYg2cSsvNeYBOUeIVQV/GF7gg=;
- b=mjGzkYXv0K2MTgJxwL46AkBia2xPzfHcp1qIfM8caBw85egfU15ME9oB
- iP8AdewiTaLcdyaOzyQ/TKzFmAmEKcVDIS5IUEMvFiQPcplFGOiuu5gcD
- ZQHsrF231UKPQC+3cH/zcDPbenlUorwTdIqxbkpwK2GTsUC5OUXEOsbjo
- zch/cp6sydACkWkm8jOg8LxXgIC1/ZAveTN3nQEKxIg5M4jzLGJbXu14q
- AgE810t8cLNd0i6WxPe2cL3OItMw/Iwn6WihCF6uP7Ib2lo6pz0S5OiCv
- kuZ+mKI/iZ3cBKT3MgF83oKBOCN6cOt/KiDJMEtUI4R2Z3igZdvbFp52S Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="247695774"
-X-IronPort-AV: E=Sophos;i="5.90,292,1643702400"; d="scan'208";a="247695774"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 17:26:36 -0700
-X-IronPort-AV: E=Sophos;i="5.90,292,1643702400"; d="scan'208";a="730524684"
-Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 17:26:36 -0700
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 26 Apr 2022 17:26:17 -0700
-Message-Id: <20220427002617.1767295-5-daniele.ceraolospurio@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220427002617.1767295-1-daniele.ceraolospurio@intel.com>
-References: <20220427002617.1767295-1-daniele.ceraolospurio@intel.com>
+ t=1651019731; x=1682555731;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=PqzGOcKtjv1DplY86Pvxhknb+8z03R4lDFgwCQcwzgg=;
+ b=BmCQVV5x/3j1pngGq2fzXQioouCenR+PlJ9wGtqwn/wZp460MpSgFFHz
+ 5kHL2NkeJJfCCWARV4x4x09HMqrNMP5TwE84GOV1KAoA7X8Eo2ClN2ywd
+ usZEAK3Bdj5yVDHmEADZgNyVMFf0poWB7U+0y9IM4RgLz/gYEzGDBThRr
+ cx/pMcBp3SVmAGs2UNxiB5VdX3v1moh1asLzbB9fWCdjPaI6WvCYBBdHb
+ vZ/iS9mvfJ+s+yVQdTWHyPCRXMkgcU6QvuW/Diu0KLjB+SXv2FMtpU5HP
+ EMdNWL58QoZgRT8rwWS/SBiJ2QTwUWUVv53i75iMpCSfuS7+VxvyDSJKN g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10329"; a="253146542"
+X-IronPort-AV: E=Sophos;i="5.90,292,1643702400"; d="scan'208";a="253146542"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2022 17:35:30 -0700
+X-IronPort-AV: E=Sophos;i="5.90,292,1643702400"; d="scan'208";a="580256012"
+Received: from unerlige-desk.jf.intel.com ([10.165.21.210])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2022 17:35:30 -0700
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Date: Tue, 26 Apr 2022 17:35:15 -0700
+Message-Id: <20220427003515.3944267-1-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915/huc: Don't fail the probe if HuC
- init fails
+Subject: [Intel-gfx] [PATCH] drm/i915/pmu: Use existing uncore helper to
+ read gpm_timestamp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,62 +55,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The previous patch introduced new failure cases in the HuC init flow
-that can be hit by simply changing the config, so we want to avoid
-failing the probe in those scenarios. HuC load failure is already
-considered a non-fatal error and we have a way to report to userspace
-if the HuC is not available via a dedicated getparam, so no changes
-in expectation there.
-The error message in the HuC init code has also been lowered to info to
-avoid throwing error message for an expected behavior.
+Use intel_uncore_read64_2x32 to read upper and lower fields of the GPM
+timestamp.
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+v2: Fix compile error
+
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_huc.c |  2 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c  | 11 ++---------
- 2 files changed, 3 insertions(+), 10 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c   | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-index 76a7df7f136fc..3d2e7a6d7c1b7 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-@@ -113,7 +113,7 @@ int intel_huc_init(struct intel_huc *huc)
- 	return 0;
- 
- out:
--	i915_probe_error(i915, "failed with %d\n", err);
-+	drm_info(&i915->drm, "HuC init failed with %d\n", err);
- 	return err;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 61a6f2424e24..33e695adfd6a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1200,20 +1200,6 @@ static u32 gpm_timestamp_shift(struct intel_gt *gt)
+ 	return 3 - shift;
  }
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 0dce94f896a8c..ecf149c5fdb02 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -323,17 +323,10 @@ static int __uc_init(struct intel_uc *uc)
- 	if (ret)
- 		return ret;
- 
--	if (intel_uc_uses_huc(uc)) {
--		ret = intel_huc_init(huc);
--		if (ret)
--			goto out_guc;
--	}
-+	if (intel_uc_uses_huc(uc))
-+		intel_huc_init(huc);
- 
- 	return 0;
+-static u64 gpm_timestamp(struct intel_gt *gt)
+-{
+-	u32 lo, hi, old_hi, loop = 0;
 -
--out_guc:
--	intel_guc_fini(guc);
--	return ret;
- }
+-	hi = intel_uncore_read(gt->uncore, MISC_STATUS1);
+-	do {
+-		lo = intel_uncore_read(gt->uncore, MISC_STATUS0);
+-		old_hi = hi;
+-		hi = intel_uncore_read(gt->uncore, MISC_STATUS1);
+-	} while (old_hi != hi && loop++ < 2);
+-
+-	return ((u64)hi << 32) | lo;
+-}
+-
+ static void guc_update_pm_timestamp(struct intel_guc *guc, ktime_t *now)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
+@@ -1223,7 +1209,8 @@ static void guc_update_pm_timestamp(struct intel_guc *guc, ktime_t *now)
+ 	lockdep_assert_held(&guc->timestamp.lock);
  
- static void __uc_fini(struct intel_uc *uc)
+ 	gt_stamp_hi = upper_32_bits(guc->timestamp.gt_stamp);
+-	gpm_ts = gpm_timestamp(gt) >> guc->timestamp.shift;
++	gpm_ts = intel_uncore_read64_2x32(gt->uncore, MISC_STATUS0,
++					  MISC_STATUS1) >> guc->timestamp.shift;
+ 	gt_stamp_lo = lower_32_bits(gpm_ts);
+ 	*now = ktime_get();
+ 
 -- 
-2.25.1
+2.35.1
 
