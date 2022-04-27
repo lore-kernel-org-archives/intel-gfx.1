@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 792AFC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Apr 2022 00:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9B26C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Apr 2022 00:39:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7E9D10E1C8;
-	Wed, 27 Apr 2022 00:39:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D92110E3C0;
+	Wed, 27 Apr 2022 00:39:44 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2876810E1C8;
- Wed, 27 Apr 2022 00:39:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id AD96D10E3C0;
+ Wed, 27 Apr 2022 00:39:42 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 25740A7DFB;
- Wed, 27 Apr 2022 00:39:40 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id B038AAADDF;
+ Wed, 27 Apr 2022 00:39:42 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Daniele Ceraolo Spurio" <daniele.ceraolospurio@intel.com>
-Date: Wed, 27 Apr 2022 00:39:40 -0000
-Message-ID: <165101998014.24234.4381315389029396201@emeril.freedesktop.org>
+Date: Wed, 27 Apr 2022 00:39:42 -0000
+Message-ID: <165101998271.24235.7480744162665726201@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220427002617.1767295-1-daniele.ceraolospurio@intel.com>
 In-Reply-To: <20220427002617.1767295-1-daniele.ceraolospurio@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Prepare_for_GSC-loaded_HuC?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_Prepare_for_GSC-loaded_HuC?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,16 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-8916eb4e3081 drm/i915/huc: check HW directly for HuC auth status
-0cbbd92e569f drm/i915/huc: Add fetch support for gsc-loaded HuC binary
-f17e836d85dc drm/i915/huc: Prepare for GSC-loaded HuC
--:22: CHECK:SPACING: spaces preferred around that '<<' (ctx:VxV)
-#22: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h:99:
-+#define   GSC_LOADS_HUC			(1<<30)
-                        			  ^
-
-total: 0 errors, 0 warnings, 1 checks, 177 lines checked
-120b114272a8 drm/i915/huc: Don't fail the probe if HuC init fails
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
