@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 891DEC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 04:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5CC4C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 04:19:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E924B10E2E8;
-	Thu, 28 Apr 2022 04:19:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 940FF10E16E;
+	Thu, 28 Apr 2022 04:19:46 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F096C10E16E;
- Thu, 28 Apr 2022 04:19:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C58710E16E;
+ Thu, 28 Apr 2022 04:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1651119583; x=1682655583;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=/UzZiwvL/dsHVvmgIGNXphh4x/ft7iXHPNUUPwBsVpo=;
- b=Csvjech6PJWFo41mZMdPucuJNh3ee/hFpWHg4JpgrhghsBGvkr2sb490
- vOJdufPLvcpCvsPiKM07XVx9JXwf5RYKrE2QaNOZ/hzx130UIvgKsXp/i
- r64tuWtqRNCv+Ezw2Z6QMIAoyXpSyHrU0bhmgs7oFv4EF+4TTWKKJFCwh
- prp7O/QOkHu5RToFpxRZai6QU//QW8FE8uwLt55qYWiNVReaiQtVBaMgU
- 1bwEihzKINnLy3IOb22TDtz5xKkxsEcAO6QxRPl6f3Zb/EbV/boggfAMC
- 3UkD2TvUkTMjz2r4ZHHebirWQTXR5qQ6PCff9MItKwv746Xt0xWCzzK7X g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10330"; a="326645777"
-X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="326645777"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=MqZjNrwp3e6BwY563NnkxrCKPrXoS2eMyWhX4ik8H24=;
+ b=fB7DKOVdrN3O3ZcQrC9uJESbcgFH0ifA1uXtk2S85uvjCSBIyYjzZyzx
+ OqOuNxervoyvx+Se8Qxf1N356GsqfvzUumx+4jegvsf78wCyUFYRMeunB
+ zWjlY8JefCkcrtbS/c6bMhjxgGv4VbForoDgM10hCgeFYQqtSNBqnH9vN
+ o7l4tpNAgn4LZ6dmxiGKjDDaa4Fnw7w51IQDrY9uV3zUQ+I8Nmob6WqNg
+ vMdKJnw4Kucb1QjhV8y1taYYjQuLzTId2Avma9t7yfTrVhREWT4xmk+fF
+ OxXehytOCCp+1oyzboNkydGG4fx+UYFocwX9OH1VciJdv3p2clWnHOzgO A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10330"; a="326645780"
+X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="326645780"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Apr 2022 21:19:42 -0700
-X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="559403034"
+X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="559403040"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Apr 2022 21:19:42 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Apr 2022 21:19:22 -0700
-Message-Id: <20220428041926.1483683-1-matthew.d.roper@intel.com>
+Date: Wed, 27 Apr 2022 21:19:24 -0700
+Message-Id: <20220428041926.1483683-3-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220428041926.1483683-1-matthew.d.roper@intel.com>
+References: <20220428041926.1483683-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/4] i915: Turn on compute engine support
+Subject: [Intel-gfx] [PATCH v2 2/4] drm/i915/xehp: Add register for compute
+ engine's MMIO-based TLB invalidation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,58 +56,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that the necessary GuC-based hardware workarounds have landed, we're
-finally ready to actually enable compute engines for use by userspace.
-All of the "under-the-hood" heavy lifting already landed a while back in
-other series so all that remains now is to add I915_ENGINE_CLASS_COMPUTE
-to the uapi enum and add the CCS engines to the engine lists for the
-Xe_HP SDV and DG2.
+Compute engines have a separate register that the driver should use to
+perform MMIO-based TLB invalidation.
 
-Userspace (Mesa) is linked in the ABI patch.  Existing IGT tests (e.g.,
-i915_hangman) provide test coverage for general engine behavior since compute
-engines should follow the same general rules as other engines.  We've also
-recently added some additional subtests like
-igt@gem_reset_stats@shared-reset-domain to cover the user-visible impacts of
-the compute engines sharing the same hardware reset domain as the render
-engine.
+Note that the term "context" in this register's bspec description is
+used to refer to the engine instance (in the same way "context" is used
+on bspec 46167).
 
-v2:
- - Update TLB invalidation register for compute engines and move it to a
-   separate patch since it isn't related to the new uapi.  (Tvrtko,
-   Prathap)
- - Move new kerneldoc for pre-existing engine classes to a separate
-   patch.  (Andi)
- - Drop the compute UMD merge request link for now because it also
-   included some additional multi-tile uapi that we're not ready to
-   upstream just yet.  Even if they don't have a disentangled MR ready
-   for reference, we still have the Mesa MR as a key userspace consumer.
-   (Tvrtko)
-
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Bspec: 43930
+Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt.c      | 1 +
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h | 1 +
+ 2 files changed, 2 insertions(+)
 
-Daniele Ceraolo Spurio (1):
-  drm/i915: Xe_HP SDV and DG2 have up to 4 CCS engines
-
-Matt Roper (3):
-  drm/i915/uapi: Add kerneldoc for engine class enum
-  drm/i915/xehp: Add register for compute engine's MMIO-based TLB
-    invalidation
-  drm/i915/xehp: Add compute engine ABI
-
- drivers/gpu/drm/i915/gt/intel_engine_user.c |  2 +-
- drivers/gpu/drm/i915/gt/intel_gt.c          |  1 +
- drivers/gpu/drm/i915/gt/intel_gt_regs.h     |  1 +
- drivers/gpu/drm/i915/i915_drm_client.c      |  1 +
- drivers/gpu/drm/i915/i915_drm_client.h      |  2 +-
- drivers/gpu/drm/i915/i915_pci.c             |  6 +-
- include/uapi/drm/i915_drm.h                 | 62 +++++++++++++++++++--
- 7 files changed, 65 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 92394f13b42f..53307ca0eed0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -1175,6 +1175,7 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 		[VIDEO_DECODE_CLASS]		= GEN12_VD_TLB_INV_CR,
+ 		[VIDEO_ENHANCEMENT_CLASS]	= GEN12_VE_TLB_INV_CR,
+ 		[COPY_ENGINE_CLASS]		= GEN12_BLT_TLB_INV_CR,
++		[COMPUTE_CLASS]			= GEN12_COMPCTX_TLB_INV_CR,
+ 	};
+ 	struct drm_i915_private *i915 = gt->i915;
+ 	struct intel_uncore *uncore = gt->uncore;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index a39718a40cc3..a0a49c16babd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -1007,6 +1007,7 @@
+ #define GEN12_VD_TLB_INV_CR			_MMIO(0xcedc)
+ #define GEN12_VE_TLB_INV_CR			_MMIO(0xcee0)
+ #define GEN12_BLT_TLB_INV_CR			_MMIO(0xcee4)
++#define GEN12_COMPCTX_TLB_INV_CR		_MMIO(0xcf04)
+ 
+ #define GEN12_MERT_MOD_CTRL			_MMIO(0xcf28)
+ #define RENDER_MOD_CTRL				_MMIO(0xcf2c)
 -- 
 2.35.1
 
