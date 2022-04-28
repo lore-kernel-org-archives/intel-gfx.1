@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4E73C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 04:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D574C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 04:19:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D908C10E35B;
-	Thu, 28 Apr 2022 04:19:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 164C110E3B4;
+	Thu, 28 Apr 2022 04:19:47 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D30D710E16E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3873810E2E8;
  Thu, 28 Apr 2022 04:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1651119583; x=1682655583;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=XybL2HMDvMnhpnqktXlJaAEIGUZOL806mvIPTZ3Scqg=;
- b=V08GSCnigGrqAA+agvTn48S81VxT74ByTe7rK1hCSdNZdQQ/s+3HfD/5
- mAf+OsubDpR7n6oagfaqSrlMcrjW/iy34aJH+vt/98D4eSpjm9Gfn38lc
- UCtKdaJeuzAiaCoAED6AevIX4fYnsIfjE28m7Thn+ck+WmD5Nac1DF6fs
- h9TjkJjpIE1uQgyuiFsMdLIJDTcDfZ3JSQB8pzYiDrLSS+4+g4KazJZpW
- pWG5M4pATCAvixeJ55yc4Fl9wQj/51PHU/yfKrwt1+WSYvnFUD/cWVzb6
- PmW+LoEwl+dM+6G4oHWoVDLco2TECl8nGgk6DCDV1FQFKcb4PtY3YklVC w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10330"; a="326645783"
-X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="326645783"
+ bh=I6a3I0TBnnyW7OqUh6QcWJ7fsKcv/7muMhOOQfbq5lg=;
+ b=XuItMU8+WHhUbErLKxyqELFg10ffiM10Ue2+DDPvMDS/9T8A/pKPAVKT
+ xYkDZKo+keeFC5CI8yQOz3cSfJ01/kr/mswtreaMr44RPyrgsKo8SfSQH
+ zclojxfo1uiYIrDGRB7Ehfwx6cDFiB5pPCnPlGkmARAjn4/jqx8EHMbii
+ QXi71XsNKKBJ3/ZVDKZ/+GArdq1ObCUQZ7eu1IZWk1S7BZOdpgZCEMMVL
+ aczr9ectcM7Y5jBnK0nupP3cOgspAjz3DA78OjSL74tP5DmDr/UwKzG+B
+ VaMs689JyBKFMIiw95RjMMIqks3JYQZi3QtTxj+NcmvVYWbvVMVforM6Y g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10330"; a="326645778"
+X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="326645778"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Apr 2022 21:19:42 -0700
-X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="559403046"
+X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="559403037"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Apr 2022 21:19:42 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Apr 2022 21:19:26 -0700
-Message-Id: <20220428041926.1483683-5-matthew.d.roper@intel.com>
+Date: Wed, 27 Apr 2022 21:19:23 -0700
+Message-Id: <20220428041926.1483683-2-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220428041926.1483683-1-matthew.d.roper@intel.com>
 References: <20220428041926.1483683-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/4] drm/i915: Xe_HP SDV and DG2 have up to 4
- CCS engines
+Subject: [Intel-gfx] [PATCH v2 1/4] drm/i915/uapi: Add kerneldoc for engine
+ class enum
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,41 +60,89 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+We'll be adding a new type of engine soon.  Let's document the existing
+engine classes first to help make it clear what each type of engine is
+used for.
 
-Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_pci.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ include/uapi/drm/i915_drm.h | 53 ++++++++++++++++++++++++++++++++-----
+ 1 file changed, 47 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index b60492826478..7739d6c33481 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1037,7 +1037,8 @@ static const struct intel_device_info xehpsdv_info = {
- 		BIT(RCS0) | BIT(BCS0) |
- 		BIT(VECS0) | BIT(VECS1) | BIT(VECS2) | BIT(VECS3) |
- 		BIT(VCS0) | BIT(VCS1) | BIT(VCS2) | BIT(VCS3) |
--		BIT(VCS4) | BIT(VCS5) | BIT(VCS6) | BIT(VCS7),
-+		BIT(VCS4) | BIT(VCS5) | BIT(VCS6) | BIT(VCS7) |
-+		BIT(CCS0) | BIT(CCS1) | BIT(CCS2) | BIT(CCS3),
- 	.require_force_probe = 1,
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 35ca528803fd..ec000fc6c879 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -154,21 +154,62 @@ enum i915_mocs_table_index {
+ 	I915_MOCS_CACHED,
  };
  
-@@ -1056,7 +1057,8 @@ static const struct intel_device_info xehpsdv_info = {
- 	.platform_engine_mask = \
- 		BIT(RCS0) | BIT(BCS0) | \
- 		BIT(VECS0) | BIT(VECS1) | \
--		BIT(VCS0) | BIT(VCS2)
-+		BIT(VCS0) | BIT(VCS2) | \
-+		BIT(CCS0) | BIT(CCS1) | BIT(CCS2) | BIT(CCS3)
+-/*
++/**
++ * enum drm_i915_gem_engine_class - uapi engine type enumeration
++ *
+  * Different engines serve different roles, and there may be more than one
+- * engine serving each role. enum drm_i915_gem_engine_class provides a
+- * classification of the role of the engine, which may be used when requesting
+- * operations to be performed on a certain subset of engines, or for providing
+- * information about that group.
++ * engine serving each role.  This enum provides a classification of the role
++ * of the engine, which may be used when requesting operations to be performed
++ * on a certain subset of engines, or for providing information about that
++ * group.
+  */
+ enum drm_i915_gem_engine_class {
++	/**
++	 * @I915_ENGINE_CLASS_RENDER:
++	 *
++	 * Render engines support instructions used for 3D, Compute (GPGPU),
++	 * and programmable media workloads.  These instructions fetch data and
++	 * dispatch individual work items to threads that operate in parallel.
++	 * The threads run small programs (called "kernels" or "shaders") on
++	 * the GPU's execution units (EUs).
++	 */
+ 	I915_ENGINE_CLASS_RENDER	= 0,
++
++	/**
++	 * @I915_ENGINE_CLASS_COPY:
++	 *
++	 * Copy engines (also referred to as "blitters") support instructions
++	 * that move blocks of data from one location in memory to another,
++	 * or that fill a specified location of memory with fixed data.
++	 * Copy engines can perform pre-defined logical or bitwise operations
++	 * on the source, destination, or pattern data.
++	 */
+ 	I915_ENGINE_CLASS_COPY		= 1,
++
++	/**
++	 * @I915_ENGINE_CLASS_VIDEO:
++	 *
++	 * Video engines (also referred to as "bit stream decode" (BSD) or
++	 * "vdbox") support instructions that perform fixed-function media
++	 * decode and encode.
++	 */
+ 	I915_ENGINE_CLASS_VIDEO		= 2,
++
++	/**
++	 * @I915_ENGINE_CLASS_VIDEO_ENHANCE:
++	 *
++	 * Video enhancement engines (also referred to as "vebox") support
++	 * instructions related to image enhancement.
++	 */
+ 	I915_ENGINE_CLASS_VIDEO_ENHANCE	= 3,
  
- static const struct intel_device_info dg2_info = {
- 	DG2_FEATURES,
+-	/* should be kept compact */
++	/* Values in this enum should be kept compact. */
+ 
++	/**
++	 * @I915_ENGINE_CLASS_INVALID:
++	 *
++	 * Placeholder value to represent an invalid engine class assignment.
++	 */
+ 	I915_ENGINE_CLASS_INVALID	= -1
+ };
+ 
 -- 
 2.35.1
 
