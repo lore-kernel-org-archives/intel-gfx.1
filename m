@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5CC4C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 04:19:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4E73C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Apr 2022 04:19:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 940FF10E16E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D908C10E35B;
 	Thu, 28 Apr 2022 04:19:46 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C58710E16E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D30D710E16E;
  Thu, 28 Apr 2022 04:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1651119583; x=1682655583;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=MqZjNrwp3e6BwY563NnkxrCKPrXoS2eMyWhX4ik8H24=;
- b=fB7DKOVdrN3O3ZcQrC9uJESbcgFH0ifA1uXtk2S85uvjCSBIyYjzZyzx
- OqOuNxervoyvx+Se8Qxf1N356GsqfvzUumx+4jegvsf78wCyUFYRMeunB
- zWjlY8JefCkcrtbS/c6bMhjxgGv4VbForoDgM10hCgeFYQqtSNBqnH9vN
- o7l4tpNAgn4LZ6dmxiGKjDDaa4Fnw7w51IQDrY9uV3zUQ+I8Nmob6WqNg
- vMdKJnw4Kucb1QjhV8y1taYYjQuLzTId2Avma9t7yfTrVhREWT4xmk+fF
- OxXehytOCCp+1oyzboNkydGG4fx+UYFocwX9OH1VciJdv3p2clWnHOzgO A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10330"; a="326645780"
-X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="326645780"
+ bh=XybL2HMDvMnhpnqktXlJaAEIGUZOL806mvIPTZ3Scqg=;
+ b=V08GSCnigGrqAA+agvTn48S81VxT74ByTe7rK1hCSdNZdQQ/s+3HfD/5
+ mAf+OsubDpR7n6oagfaqSrlMcrjW/iy34aJH+vt/98D4eSpjm9Gfn38lc
+ UCtKdaJeuzAiaCoAED6AevIX4fYnsIfjE28m7Thn+ck+WmD5Nac1DF6fs
+ h9TjkJjpIE1uQgyuiFsMdLIJDTcDfZ3JSQB8pzYiDrLSS+4+g4KazJZpW
+ pWG5M4pATCAvixeJ55yc4Fl9wQj/51PHU/yfKrwt1+WSYvnFUD/cWVzb6
+ PmW+LoEwl+dM+6G4oHWoVDLco2TECl8nGgk6DCDV1FQFKcb4PtY3YklVC w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10330"; a="326645783"
+X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="326645783"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Apr 2022 21:19:42 -0700
-X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="559403040"
+X-IronPort-AV: E=Sophos;i="5.90,295,1643702400"; d="scan'208";a="559403046"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Apr 2022 21:19:42 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Apr 2022 21:19:24 -0700
-Message-Id: <20220428041926.1483683-3-matthew.d.roper@intel.com>
+Date: Wed, 27 Apr 2022 21:19:26 -0700
+Message-Id: <20220428041926.1483683-5-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220428041926.1483683-1-matthew.d.roper@intel.com>
 References: <20220428041926.1483683-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/4] drm/i915/xehp: Add register for compute
- engine's MMIO-based TLB invalidation
+Subject: [Intel-gfx] [PATCH v2 4/4] drm/i915: Xe_HP SDV and DG2 have up to 4
+ CCS engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,46 +60,41 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute engines have a separate register that the driver should use to
-perform MMIO-based TLB invalidation.
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-Note that the term "context" in this register's bspec description is
-used to refer to the engine instance (in the same way "context" is used
-on bspec 46167).
-
-Bspec: 43930
-Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c      | 1 +
- drivers/gpu/drm/i915/gt/intel_gt_regs.h | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpu/drm/i915/i915_pci.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 92394f13b42f..53307ca0eed0 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -1175,6 +1175,7 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 		[VIDEO_DECODE_CLASS]		= GEN12_VD_TLB_INV_CR,
- 		[VIDEO_ENHANCEMENT_CLASS]	= GEN12_VE_TLB_INV_CR,
- 		[COPY_ENGINE_CLASS]		= GEN12_BLT_TLB_INV_CR,
-+		[COMPUTE_CLASS]			= GEN12_COMPCTX_TLB_INV_CR,
- 	};
- 	struct drm_i915_private *i915 = gt->i915;
- 	struct intel_uncore *uncore = gt->uncore;
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index a39718a40cc3..a0a49c16babd 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1007,6 +1007,7 @@
- #define GEN12_VD_TLB_INV_CR			_MMIO(0xcedc)
- #define GEN12_VE_TLB_INV_CR			_MMIO(0xcee0)
- #define GEN12_BLT_TLB_INV_CR			_MMIO(0xcee4)
-+#define GEN12_COMPCTX_TLB_INV_CR		_MMIO(0xcf04)
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index b60492826478..7739d6c33481 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1037,7 +1037,8 @@ static const struct intel_device_info xehpsdv_info = {
+ 		BIT(RCS0) | BIT(BCS0) |
+ 		BIT(VECS0) | BIT(VECS1) | BIT(VECS2) | BIT(VECS3) |
+ 		BIT(VCS0) | BIT(VCS1) | BIT(VCS2) | BIT(VCS3) |
+-		BIT(VCS4) | BIT(VCS5) | BIT(VCS6) | BIT(VCS7),
++		BIT(VCS4) | BIT(VCS5) | BIT(VCS6) | BIT(VCS7) |
++		BIT(CCS0) | BIT(CCS1) | BIT(CCS2) | BIT(CCS3),
+ 	.require_force_probe = 1,
+ };
  
- #define GEN12_MERT_MOD_CTRL			_MMIO(0xcf28)
- #define RENDER_MOD_CTRL				_MMIO(0xcf2c)
+@@ -1056,7 +1057,8 @@ static const struct intel_device_info xehpsdv_info = {
+ 	.platform_engine_mask = \
+ 		BIT(RCS0) | BIT(BCS0) | \
+ 		BIT(VECS0) | BIT(VECS1) | \
+-		BIT(VCS0) | BIT(VCS2)
++		BIT(VCS0) | BIT(VCS2) | \
++		BIT(CCS0) | BIT(CCS1) | BIT(CCS2) | BIT(CCS3)
+ 
+ static const struct intel_device_info dg2_info = {
+ 	DG2_FEATURES,
 -- 
 2.35.1
 
