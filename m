@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43B08C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 19:56:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AF6DC433F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Apr 2022 19:56:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 505FE10EF52;
-	Fri, 29 Apr 2022 19:56:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C127B10EF69;
+	Fri, 29 Apr 2022 19:56:46 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0767E10EEB7
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67DE510EF38
  for <intel-gfx@lists.freedesktop.org>; Fri, 29 Apr 2022 19:56:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1651262198; x=1682798198;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Fh3uM2YkznqHtxf1g/J5li7518YUWUKD5aPHwOtHp5s=;
- b=QH5TkCtU/bve1y/FPHznnFkNH81Mq9gC/FWGlR4yGKm6AFU15lJJ3ria
- rZ0aUn1TmJpu7S++NmZFKq0wcYQ03kmhquVW2WR/C4+BcHuNTzFbjwPoj
- kItMN2aFcbV53/jYaomzLwzeEkqv5GgbkB/J3+KFCZmRNm7uv9Rx0V+ru
- h2585ZzxrQOCiXP49k3a5F72SNiLrUJ5WZmcmvdzkPiBkJvsO43P690RP
- rzBw4XBK4NRBdRQ0Ayg6WfRbFbKPyet908zag+XRssnJwkct0XYN77hm2
- pJzElZ6L9pkxt7NKvpxx8zIGkpH2Cmpc2qr+GWGWK52UqwkG5TPNkCd55 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10332"; a="246674400"
-X-IronPort-AV: E=Sophos;i="5.91,186,1647327600"; d="scan'208";a="246674400"
+ bh=prbaKkjm3NNh1GNGW5dxsDyC7Ow2kVh9Lp6j58u89Gc=;
+ b=VB7LwjQxJulykejxtlOhDFzs/u7f/SH8clHfVwHVGtTBqLaJ0WW8xvoA
+ 94E5vgqJ11Q37mKiO1kqu56wUIZqMBj4r/vvJbELOjvkkpfqSlAxiLJib
+ BbE04j/GmNRVsrTUFGWebnFdiu1b5PI9Hvi4d8nWutfQs3ubfBC1Mp/P1
+ XH53AtEaBx9osf/bMz3t7WGWvUjw7S6zcCoUGGWhwyu3WB05a48V4HOIN
+ nkUU9jDo/sZfva6IFjhUPpKdUdYJZgIloyyo9WqlvWlT+oHhBKHwLEGdt
+ n8flulhRU7KB02f7Ciz2liAYxJo+dEbFaetNe9vNED8UANPoG8WuDCepV g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10332"; a="246674401"
+X-IronPort-AV: E=Sophos;i="5.91,186,1647327600"; d="scan'208";a="246674401"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Apr 2022 12:56:37 -0700
-X-IronPort-AV: E=Sophos;i="5.91,186,1647327600"; d="scan'208";a="685282472"
+X-IronPort-AV: E=Sophos;i="5.91,186,1647327600"; d="scan'208";a="685282464"
 Received: from orsosgc001.jf.intel.com (HELO unerlige-ril-10.165.21.154.com)
  ([10.165.21.154])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Apr 2022 12:56:36 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 29 Apr 2022 12:56:28 -0700
-Message-Id: <e4c5f650a41fa7955c3ddabbb32846b3fafb3134.1651261886.git.ashutosh.dixit@intel.com>
+Date: Fri, 29 Apr 2022 12:56:26 -0700
+Message-Id: <cff41fcc5ee15c4cc0b295d314d0c1c83f54e1e8.1651261886.git.ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1651261886.git.ashutosh.dixit@intel.com>
 References: <cover.1651261886.git.ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 7/8] drm/i915/gt: Expose per-gt RPS defaults in
+Subject: [Intel-gfx] [PATCH 5/8] drm/i915/gt: Add media RP0/RPn to per-gt
  sysfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,252 +57,123 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Dale B Stimson <dale.b.stimson@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Create a gt/gtN/.defaults directory (similar to
-engine/<engine-name>/.defaults) to expose default parameter values for each
-gt in sysfs. Populate the .defaults directory with RPS parameter default
-values in order to allow userspace to revert to default values when needed.
+From: Dale B Stimson <dale.b.stimson@intel.com>
 
-This patch adds the following sysfs files to gt/gtN/.defaults:
-* default_min_freq_mhz
-* default_max_freq_mhz
-* default_boost_freq_mhz
+Retrieve RP0 and RPn freq for media IP from PCODE and display in per-gt
+sysfs. This patch adds the following files to gt/gtN sysfs:
+* media_RP0_freq_mhz
+* media_RPn_freq_mhz
 
+v2: Fixed commit author (Rodrigo)
+v3: Convert to new uncore interface for pcode functions
+v4: Adapt to intel_pcode.* function rename
+
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Signed-off-by: Dale B Stimson <dale.b.stimson@intel.com>
 Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_sysfs.c    | 10 ++--
- drivers/gpu/drm/i915/gt/intel_gt_sysfs.h    |  6 +++
- drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 51 +++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_types.h    | 10 ++++
- drivers/gpu/drm/i915/gt/intel_rps.c         |  3 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 17 +++++--
- 6 files changed, 87 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 47 +++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_reg.h             |  8 ++++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
-index 9e4ebf53379b..d651ccd0ab20 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
-@@ -22,11 +22,6 @@ bool is_object_gt(struct kobject *kobj)
- 	return !strncmp(kobj->name, "gt", 2);
- }
- 
--static struct intel_gt *kobj_to_gt(struct kobject *kobj)
--{
--	return container_of(kobj, struct intel_gt, sysfs_gt);
--}
--
- struct intel_gt *intel_gt_sysfs_get_drvdata(struct device *dev,
- 					    const char *name)
- {
-@@ -101,6 +96,10 @@ void intel_gt_sysfs_register(struct intel_gt *gt)
- 				 gt->i915->sysfs_gt, "gt%d", gt->info.id))
- 		goto exit_fail;
- 
-+	gt->sysfs_defaults = kobject_create_and_add(".defaults", &gt->sysfs_gt);
-+	if (!gt->sysfs_defaults)
-+		goto exit_fail;
-+
- 	intel_gt_sysfs_pm_init(gt, &gt->sysfs_gt);
- 
- 	return;
-@@ -113,5 +112,6 @@ void intel_gt_sysfs_register(struct intel_gt *gt)
- 
- void intel_gt_sysfs_unregister(struct intel_gt *gt)
- {
-+	kobject_put(gt->sysfs_defaults);
- 	kobject_put(&gt->sysfs_gt);
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
-index a99aa7e8b01a..6232923a420d 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.h
-@@ -10,6 +10,7 @@
- #include <linux/kobject.h>
- 
- #include "i915_gem.h" /* GEM_BUG_ON() */
-+#include "intel_gt_types.h"
- 
- struct intel_gt;
- 
-@@ -22,6 +23,11 @@ intel_gt_create_kobj(struct intel_gt *gt,
- 		     struct kobject *dir,
- 		     const char *name);
- 
-+static inline struct intel_gt *kobj_to_gt(struct kobject *kobj)
-+{
-+	return container_of(kobj, struct intel_gt, sysfs_gt);
-+}
-+
- void intel_gt_sysfs_register(struct intel_gt *gt);
- void intel_gt_sysfs_unregister(struct intel_gt *gt);
- struct intel_gt *intel_gt_sysfs_get_drvdata(struct device *dev,
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-index ab91e9cf9deb..5a191973322e 100644
+index 2b1cd6a01724..ab91e9cf9deb 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-@@ -726,6 +726,51 @@ static const struct attribute *media_perf_power_attrs[] = {
+@@ -12,6 +12,7 @@
+ #include "i915_sysfs.h"
+ #include "intel_gt.h"
+ #include "intel_gt_regs.h"
++#include "intel_pcode.h"
+ #include "intel_gt_sysfs.h"
+ #include "intel_gt_sysfs_pm.h"
+ #include "intel_rc6.h"
+@@ -669,13 +670,59 @@ static ssize_t media_freq_factor_store(struct device *dev,
+ 	return err ?: count;
+ }
+ 
++static ssize_t media_RP0_freq_mhz_show(struct device *dev,
++				       struct device_attribute *attr,
++				       char *buff)
++{
++	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
++	u32 val;
++	int err;
++
++	err = snb_pcode_read_p(gt->uncore, XEHPSDV_PCODE_FREQUENCY_CONFIG,
++			       PCODE_MBOX_FC_SC_READ_FUSED_P0,
++			       PCODE_MBOX_DOMAIN_MEDIAFF, &val);
++
++	if (err)
++		return err;
++
++	/* Fused media RP0 read from pcode is in units of 50 MHz */
++	val *= GT_FREQUENCY_MULTIPLIER;
++
++	return sysfs_emit(buff, "%u\n", val);
++}
++
++static ssize_t media_RPn_freq_mhz_show(struct device *dev,
++				       struct device_attribute *attr,
++				       char *buff)
++{
++	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
++	u32 val;
++	int err;
++
++	err = snb_pcode_read_p(gt->uncore, XEHPSDV_PCODE_FREQUENCY_CONFIG,
++			       PCODE_MBOX_FC_SC_READ_FUSED_PN,
++			       PCODE_MBOX_DOMAIN_MEDIAFF, &val);
++
++	if (err)
++		return err;
++
++	/* Fused media RPn read from pcode is in units of 50 MHz */
++	val *= GT_FREQUENCY_MULTIPLIER;
++
++	return sysfs_emit(buff, "%u\n", val);
++}
++
+ static DEVICE_ATTR_RW(media_freq_factor);
+ static struct device_attribute dev_attr_media_freq_factor_scale =
+ 	__ATTR(media_freq_factor.scale, 0444, freq_factor_scale_show, NULL);
++static DEVICE_ATTR_RO(media_RP0_freq_mhz);
++static DEVICE_ATTR_RO(media_RPn_freq_mhz);
+ 
+ static const struct attribute *media_perf_power_attrs[] = {
+ 	&dev_attr_media_freq_factor.attr,
+ 	&dev_attr_media_freq_factor_scale.attr,
++	&dev_attr_media_RP0_freq_mhz.attr,
++	&dev_attr_media_RPn_freq_mhz.attr,
  	NULL
  };
  
-+static ssize_t
-+default_min_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
-+{
-+	struct intel_gt *gt = kobj_to_gt(kobj->parent);
-+
-+	return sysfs_emit(buf, "%d\n", gt->rps_defaults.min_freq);
-+}
-+
-+static struct kobj_attribute default_min_freq_mhz =
-+__ATTR(rps_min_freq_mhz, 0444, default_min_freq_mhz_show, NULL);
-+
-+static ssize_t
-+default_max_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
-+{
-+	struct intel_gt *gt = kobj_to_gt(kobj->parent);
-+
-+	return sysfs_emit(buf, "%d\n", gt->rps_defaults.max_freq);
-+}
-+
-+static struct kobj_attribute default_max_freq_mhz =
-+__ATTR(rps_max_freq_mhz, 0444, default_max_freq_mhz_show, NULL);
-+
-+static ssize_t
-+default_boost_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
-+{
-+	struct intel_gt *gt = kobj_to_gt(kobj->parent);
-+
-+	return sysfs_emit(buf, "%d\n", gt->rps_defaults.boost_freq);
-+}
-+
-+static struct kobj_attribute default_boost_freq_mhz =
-+__ATTR(rps_boost_freq_mhz, 0444, default_boost_freq_mhz_show, NULL);
-+
-+static const struct attribute * const rps_defaults_attrs[] = {
-+	&default_min_freq_mhz.attr,
-+	&default_max_freq_mhz.attr,
-+	&default_boost_freq_mhz.attr,
-+	NULL
-+};
-+
-+static int add_rps_defaults(struct intel_gt *gt)
-+{
-+	return sysfs_create_files(gt->sysfs_defaults, rps_defaults_attrs);
-+}
-+
- static int intel_sysfs_rps_init(struct intel_gt *gt, struct kobject *kobj,
- 				const struct attribute * const *attrs)
- {
-@@ -775,4 +820,10 @@ void intel_gt_sysfs_pm_init(struct intel_gt *gt, struct kobject *kobj)
- 				 "failed to create add gt%u media_perf_power_attrs sysfs (%pe)\n",
- 				 gt->info.id, ERR_PTR(ret));
- 	}
-+
-+	ret = add_rps_defaults(gt);
-+	if (ret)
-+		drm_warn(&gt->i915->drm,
-+			 "failed to add gt%u rps defaults (%pe)\n",
-+			 gt->info.id, ERR_PTR(ret));
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index edd7a3cf5f5f..8b696669b846 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -62,6 +62,12 @@ enum intel_steering_type {
- 	NUM_STEERING_TYPES
- };
- 
-+struct intel_rps_defaults {
-+	u32 min_freq;
-+	u32 max_freq;
-+	u32 boost_freq;
-+};
-+
- enum intel_submission_method {
- 	INTEL_SUBMISSION_RING,
- 	INTEL_SUBMISSION_ELSP,
-@@ -227,6 +233,10 @@ struct intel_gt {
- 
- 	/* gt/gtN sysfs */
- 	struct kobject sysfs_gt;
-+
-+	/* sysfs defaults per gt */
-+	struct intel_rps_defaults rps_defaults;
-+	struct kobject *sysfs_defaults;
- };
- 
- enum intel_gt_scratch_field {
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 6b68b40ebff0..6f2461e12409 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1976,7 +1976,9 @@ void intel_rps_init(struct intel_rps *rps)
- 
- 	/* Derive initial user preferences/limits from the hardware limits */
- 	rps->max_freq_softlimit = rps->max_freq;
-+	rps_to_gt(rps)->rps_defaults.max_freq = rps->max_freq_softlimit;
- 	rps->min_freq_softlimit = rps->min_freq;
-+	rps_to_gt(rps)->rps_defaults.min_freq = rps->min_freq_softlimit;
- 
- 	/* After setting max-softlimit, find the overclock max freq */
- 	if (GRAPHICS_VER(i915) == 6 || IS_IVYBRIDGE(i915) || IS_HASWELL(i915)) {
-@@ -1994,6 +1996,7 @@ void intel_rps_init(struct intel_rps *rps)
- 
- 	/* Finally allow us to boost to max by default */
- 	rps->boost_freq = rps->max_freq;
-+	rps_to_gt(rps)->rps_defaults.boost_freq = rps->boost_freq;
- 	rps->idle_freq = rps->min_freq;
- 
- 	/* Start in the middle, from here we will autotune based on workload */
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-index 2df31af70d63..cefd864c84eb 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-@@ -547,20 +547,24 @@ static int slpc_set_softlimits(struct intel_guc_slpc *slpc)
- 	 * unless they have deviated from defaults, in which case,
- 	 * we retain the values and set min/max accordingly.
- 	 */
--	if (!slpc->max_freq_softlimit)
-+	if (!slpc->max_freq_softlimit) {
- 		slpc->max_freq_softlimit = slpc->rp0_freq;
--	else if (slpc->max_freq_softlimit != slpc->rp0_freq)
-+		slpc_to_gt(slpc)->rps_defaults.max_freq = slpc->max_freq_softlimit;
-+	} else if (slpc->max_freq_softlimit != slpc->rp0_freq) {
- 		ret = intel_guc_slpc_set_max_freq(slpc,
- 						  slpc->max_freq_softlimit);
-+	}
- 
- 	if (unlikely(ret))
- 		return ret;
- 
--	if (!slpc->min_freq_softlimit)
-+	if (!slpc->min_freq_softlimit) {
- 		slpc->min_freq_softlimit = slpc->min_freq;
--	else if (slpc->min_freq_softlimit != slpc->min_freq)
-+		slpc_to_gt(slpc)->rps_defaults.min_freq = slpc->min_freq_softlimit;
-+	} else if (slpc->min_freq_softlimit != slpc->min_freq) {
- 		return intel_guc_slpc_set_min_freq(slpc,
- 						   slpc->min_freq_softlimit);
-+	}
- 
- 	return 0;
- }
-@@ -606,8 +610,11 @@ static void slpc_get_rp_values(struct intel_guc_slpc *slpc)
- 	slpc->rp1_freq = intel_gpu_freq(rps, caps.rp1_freq);
- 	slpc->min_freq = intel_gpu_freq(rps, caps.min_freq);
- 
--	if (!slpc->boost_freq)
-+	/* Boost freq is RP0, unless already set */
-+	if (!slpc->boost_freq) {
- 		slpc->boost_freq = slpc->rp0_freq;
-+		slpc_to_gt(slpc)->rps_defaults.boost_freq = slpc->boost_freq;
-+	}
- }
- 
- /*
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 5a4689171cc7..90a9922faffc 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -6758,6 +6758,14 @@
+ #define     DG1_UNCORE_GET_INIT_STATUS		0x0
+ #define     DG1_UNCORE_INIT_STATUS_COMPLETE	0x1
+ #define GEN12_PCODE_READ_SAGV_BLOCK_TIME_US	0x23
++#define   XEHPSDV_PCODE_FREQUENCY_CONFIG		0x6e	/* xehpsdv, pvc */
++/* XEHPSDV_PCODE_FREQUENCY_CONFIG sub-commands (param1) */
++#define     PCODE_MBOX_FC_SC_READ_FUSED_P0	0x0
++#define     PCODE_MBOX_FC_SC_READ_FUSED_PN	0x1
++/* PCODE_MBOX_DOMAIN_* - mailbox domain IDs */
++/*   XEHPSDV_PCODE_FREQUENCY_CONFIG param2 */
++#define     PCODE_MBOX_DOMAIN_NONE		0x0
++#define     PCODE_MBOX_DOMAIN_MEDIAFF		0x3
+ #define GEN6_PCODE_DATA				_MMIO(0x138128)
+ #define   GEN6_PCODE_FREQ_IA_RATIO_SHIFT	8
+ #define   GEN6_PCODE_FREQ_RING_RATIO_SHIFT	16
 -- 
 2.34.1
 
