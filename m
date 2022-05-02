@@ -4,46 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9122FC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:34:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9C4EC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:45:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AA0F10F0B6;
-	Mon,  2 May 2022 16:34:29 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1BF710F02B;
- Mon,  2 May 2022 16:34:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11F8D10F134;
+	Mon,  2 May 2022 16:45:43 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 261C910F12D;
+ Mon,  2 May 2022 16:45:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651509262; x=1683045262;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=UO4yfbyLBtT8ltB4MShn+Pzd/rvgaeyUbABeWY9B/7o=;
- b=GpQTQ08YibfVGFu54zUdzUPXVduAzus/dacRubMZVmq40ZxpnUiGm2QC
- xUJtuzHLmliQdYqO4vgBXXIp5QnttHXNBkBANjv97QVOJT7p032Y2ug0Z
- eiDHA5QIqDAvw56me4Y768/ESmxwEEkJch9VYtG0JGu7qGYQ/WTZplH5X
- ftnXCsZGblfM0VMaO8s1Mi7YjerdSPSAmK/9kYXuciCfUIwQy/YQaCqie
- 6+ibj1/i6hQ/AU8dByyyUGbtohRz1wNodiUV3CIFywOhjryZ6yH4QA9zD
- Z0120aS7nfwTmxGqMKTL9coibiKLQsNJ+CTuizgZ3bLqfFt9ptHvYacdI Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10335"; a="266105004"
-X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="266105004"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2022 09:34:22 -0700
-X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="583781849"
-Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2022 09:34:22 -0700
-From: Matt Roper <matthew.d.roper@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  2 May 2022 09:34:14 -0700
-Message-Id: <20220502163417.2635462-9-matthew.d.roper@intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220502163417.2635462-1-matthew.d.roper@intel.com>
-References: <20220502163417.2635462-1-matthew.d.roper@intel.com>
+ t=1651509941; x=1683045941;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=urEYlcJWHthvNZxMK8DIFey3lc2i6h8I94/72RJ3Cts=;
+ b=adDkxFln8xC4wXaQbDBdueSlLwxSTRLufTIuZ+LsC7QqyBc7RNC4oGr/
+ 0r1XrUsCnqW/gpLCol4lA8NYc4RuZIJNgTmKmpPU4QZibEZ4WkjYtzkr1
+ L8nPLkOXRSuoh4PC38A/VjzBgxGh1xmN1cLPdE2kpMEt74/0H35RuOvwq
+ c+W8k7akuSJun+WTyKeIiuCvP/3ARaXDL42dWRdu0OUWefVvwT0eq74PG
+ jKD7WK3m5OvvJIiv4YCwzjzysNwWMnX6k+iQNWnCH9LAZGB7Y6c9OFsN9
+ o6HgI1bAYZ5iX9h/dQBOTJ0Jnhdea5UMMh8eIiMaJR43YUxdqrjtEiEFX g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10335"; a="267135257"
+X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="267135257"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2022 09:45:40 -0700
+X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="561813232"
+Received: from wagoleb-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.249.155.30])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2022 09:45:38 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ramalingam C <ramalingam.c@intel.com>, intel-gfx
+ <intel-gfx@lists.freedesktop.org>, dri-devel
+ <dri-devel@lists.freedesktop.org>
+In-Reply-To: <20220502142618.2704-2-ramalingam.c@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220502142618.2704-1-ramalingam.c@intel.com>
+ <20220502142618.2704-2-ramalingam.c@intel.com>
+Date: Mon, 02 May 2022 19:45:35 +0300
+Message-ID: <87v8unrihc.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/11] drm/i915/pvc: Interrupt support for new
- copy engines
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH v3 1/3] drm/i915/gt: BUG_ON unexpected NULL
+ at scatterlist walking
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,70 +60,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch adds the interrupt handler support for
-new copy engines.
+On Mon, 02 May 2022, Ramalingam C <ramalingam.c@intel.com> wrote:
+> While locating the start of ccs scatterlist in smem scatterlist, that has
+> to be the size of lmem obj size + corresponding ccs data size, report bug
+> if scatterlist terminate before that length.
+>
+> v2:
+>   s/GEM_BUG_ON/BUG_ON with more commenting [Matt]
+> v3:
+>   Converted GEM_BUG_ON into BUG_ON with more documentation [Matt]
+>
+> Signed-off-by: Ramalingam C <ramalingam.c@intel.com>
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com> (v1)
+> ---
+>  drivers/gpu/drm/i915/gt/intel_migrate.c | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+> index 9d552f30b627..168d17b6f48a 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_migrate.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+> @@ -687,6 +687,16 @@ static void get_ccs_sg_sgt(struct sgt_dma *it, u32 bytes_to_cpy)
+>  		bytes_to_cpy -= len;
+>  
+>  		it->sg = __sg_next(it->sg);
+> +
+> +		/*
+> +		 * On Flat-CCS capable platform when we back the lmem pages with
+> +		 * smem pages we add extra pages at the end of the smem
+> +		 * scatterlist, to store the ccs data corresponding to the lmem
+> +		 * pages. get_ccs_sg_sgt() is called to get the pointer for the
+> +		 * start of the extra pages added at the end of smem scatterlist.
+> +		 * So scatterlist can't end at or before bytes_to_cpy.
+> +		 */
+> +		BUG_ON(!it->sg);
 
-Bspec: 54030
-Original-author: CQ Tang
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_irq.c  | 16 ++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_regs.h |  4 ++++
- 2 files changed, 20 insertions(+)
+Why would you have to bring the entire kernel down in this case? Why not
+just let it oops on the NULL pointer dereference?
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-index 88b4becfcb17..3a72d4fd0214 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-@@ -193,6 +193,14 @@ void gen11_gt_irq_reset(struct intel_gt *gt)
- 	/* Restore masks irqs on RCS, BCS, VCS and VECS engines. */
- 	intel_uncore_write(uncore, GEN11_RCS0_RSVD_INTR_MASK,	~0);
- 	intel_uncore_write(uncore, GEN11_BCS_RSVD_INTR_MASK,	~0);
-+	if (HAS_ENGINE(gt, BCS1) || HAS_ENGINE(gt, BCS2))
-+		intel_uncore_write(uncore, XEHPC_BCS1_BCS2_INTR_MASK, ~0);
-+	if (HAS_ENGINE(gt, BCS3) || HAS_ENGINE(gt, BCS4))
-+		intel_uncore_write(uncore, XEHPC_BCS3_BCS4_INTR_MASK, ~0);
-+	if (HAS_ENGINE(gt, BCS5) || HAS_ENGINE(gt, BCS6))
-+		intel_uncore_write(uncore, XEHPC_BCS5_BCS6_INTR_MASK, ~0);
-+	if (HAS_ENGINE(gt, BCS7) || HAS_ENGINE(gt, BCS8))
-+		intel_uncore_write(uncore, XEHPC_BCS7_BCS8_INTR_MASK, ~0);
- 	intel_uncore_write(uncore, GEN11_VCS0_VCS1_INTR_MASK,	~0);
- 	intel_uncore_write(uncore, GEN11_VCS2_VCS3_INTR_MASK,	~0);
- 	if (HAS_ENGINE(gt, VCS4) || HAS_ENGINE(gt, VCS5))
-@@ -248,6 +256,14 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
- 	/* Unmask irqs on RCS, BCS, VCS and VECS engines. */
- 	intel_uncore_write(uncore, GEN11_RCS0_RSVD_INTR_MASK, ~smask);
- 	intel_uncore_write(uncore, GEN11_BCS_RSVD_INTR_MASK, ~smask);
-+	if (HAS_ENGINE(gt, BCS1) || HAS_ENGINE(gt, BCS2))
-+		intel_uncore_write(uncore, XEHPC_BCS1_BCS2_INTR_MASK, ~dmask);
-+	if (HAS_ENGINE(gt, BCS3) || HAS_ENGINE(gt, BCS4))
-+		intel_uncore_write(uncore, XEHPC_BCS3_BCS4_INTR_MASK, ~dmask);
-+	if (HAS_ENGINE(gt, BCS5) || HAS_ENGINE(gt, BCS6))
-+		intel_uncore_write(uncore, XEHPC_BCS5_BCS6_INTR_MASK, ~dmask);
-+	if (HAS_ENGINE(gt, BCS7) || HAS_ENGINE(gt, BCS8))
-+		intel_uncore_write(uncore, XEHPC_BCS7_BCS8_INTR_MASK, ~dmask);
- 	intel_uncore_write(uncore, GEN11_VCS0_VCS1_INTR_MASK, ~dmask);
- 	intel_uncore_write(uncore, GEN11_VCS2_VCS3_INTR_MASK, ~dmask);
- 	if (HAS_ENGINE(gt, VCS4) || HAS_ENGINE(gt, VCS5))
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index aa2c0974b02c..fe09288a3145 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1529,6 +1529,10 @@
- #define GEN11_GUNIT_CSME_INTR_MASK		_MMIO(0x1900f4)
- #define GEN12_CCS0_CCS1_INTR_MASK		_MMIO(0x190100)
- #define GEN12_CCS2_CCS3_INTR_MASK		_MMIO(0x190104)
-+#define XEHPC_BCS1_BCS2_INTR_MASK		_MMIO(0x190110)
-+#define XEHPC_BCS3_BCS4_INTR_MASK		_MMIO(0x190114)
-+#define XEHPC_BCS5_BCS6_INTR_MASK		_MMIO(0x190118)
-+#define XEHPC_BCS7_BCS8_INTR_MASK		_MMIO(0x19011c)
- 
- #define GEN12_SFC_DONE(n)			_MMIO(0x1cc000 + (n) * 0x1000)
- 
+I'd prefer nuking *all* of the current BUG/BUG_ON in the driver, and not
+add any single one back.
+
+
+BR,
+Jani.
+
+
+>  		it->dma = sg_dma_address(it->sg);
+>  		it->max = it->dma + sg_dma_len(it->sg);
+>  	} while (bytes_to_cpy);
+> @@ -748,8 +758,10 @@ intel_context_migrate_copy(struct intel_context *ce,
+>  		 * Need to fix it.
+>  		 */
+>  		ccs_bytes_to_cpy = src_sz != dst_sz ? GET_CCS_BYTES(i915, bytes_to_cpy) : 0;
+> -		if (ccs_bytes_to_cpy)
+> +		if (ccs_bytes_to_cpy) {
+> +			WARN_ON(abs(src_sz - dst_sz) < ccs_bytes_to_cpy);
+>  			get_ccs_sg_sgt(&it_ccs, bytes_to_cpy);
+> +		}
+>  	}
+>  
+>  	src_offset = 0;
+
 -- 
-2.35.1
-
+Jani Nikula, Intel Open Source Graphics Center
