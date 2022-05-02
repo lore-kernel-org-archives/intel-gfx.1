@@ -4,50 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E936C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 May 2022 11:46:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E04AAC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 May 2022 12:03:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8F0B10F534;
-	Tue,  3 May 2022 11:46:41 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8435C10F534
- for <intel-gfx@lists.freedesktop.org>; Tue,  3 May 2022 11:46:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651578400; x=1683114400;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=D4oxStzuGGvhJ+5L+gluEb1cQNnrNry0I8bTKJyxk4I=;
- b=clKb10V9EO8EAeXCY7y7M3PgkKjY/VxoyBMX1brTkr5xEle2wD5NSdIj
- /xecSZwJJ0DriFNyK1hEUkkZjzjqiyYP24FYofbOkwroAuTVVlcYqYOFJ
- qQ9Tqwy0zk39IKPrOysUzlTJWdD9qQW7DHAcvxV9FktCzmS/Zkjshb/b0
- U90DwoYhBeNWLLhN3aiPpBo34H4R9wPMPdjU8IdmvxchYxLom147tCg0F
- xI66bViY9xF79ZUksELUTJVTHoF72gnXBKKGPz8+heulBJJfXGThbnOJJ
- 9sOtD4DgkiE5MJ7YZ+b4TGF2hzaO6kxcI20ldCwg3JsuaHHJE1ZjQqplN w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10335"; a="266300954"
-X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="266300954"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2022 04:46:40 -0700
-X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="584165999"
-Received: from jasinski-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.249.133.126])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2022 04:46:38 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20220426193222.3422-11-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220426193222.3422-1-ville.syrjala@linux.intel.com>
- <20220426193222.3422-11-ville.syrjala@linux.intel.com>
-Date: Tue, 03 May 2022 14:46:35 +0300
-Message-ID: <878rrirg84.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C29F10EA71;
+	Tue,  3 May 2022 12:03:06 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27CBE10F13B
+ for <intel-gfx@lists.freedesktop.org>; Mon,  2 May 2022 16:51:34 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-e5e433d66dso14801602fac.5
+ for <intel-gfx@lists.freedesktop.org>; Mon, 02 May 2022 09:51:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=083NsRblbzEQ87LGTO+L08IA3IGSXzJoRYSgZZZrf6k=;
+ b=S4Fr5c/7eGQbkWSwsgPaQcWk2YXkPfkDZTZRK8fwui3zinAcUQW8y01G7vjYt/hDUB
+ OWvLpbxcW3zNMwX0rtpv16LA5PB7LqC9ymSHsLk/h4Tz0Lz3OK9sohA7X3k+k3yD8gRT
+ Z+WBOyUl51lDUzo3MxCWGjwoSlRB3vySZUr/wqK6yetbik6u4h3XciV3sTNrwkyfbvXU
+ iBDmoMn/fh2CpJK13twRuIYMViam4VMrJkeEOvH6g+H+9aaXP1z1YyRAXiVOJAkA2yjr
+ Ur4oCgMMNsXYMRrQeE7ljhqNw2dPi082fsvdNcdmnQKDJvW5X92o3fHVq7zf7hG+wUmy
+ OysQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=083NsRblbzEQ87LGTO+L08IA3IGSXzJoRYSgZZZrf6k=;
+ b=hKMcSHRHb6MRfGBjlBmfCVvnid8EUbyFLN/3AYHRzBXENQ3+rvfMUBo35NpNgHgNk7
+ 3DB88P8Al4Q4vqCZWj4QjrbqFKwS47xiWhJfoQb+ECoa1Ki7tka+EU3ziQRUpK1WTsEn
+ N1APCgTfwCIWnqOOcrBWYhTRKJCPmtZFnVJATwuinl616P6BfyB8EwItQy2fPRKhz/79
+ 2gSSxNZ3oF0FzU5bjUQH5xsi2GuGLivVvzDl/xE+fqatOaM+k/+BckCV7oPGrwGHY93c
+ DaPAGY7iQkVckOhNzTtOwJ7LYTgVUcOlsWvtm/4Tfb1VFqVsLpFLldrmZnH1E0kFMOBC
+ Jh7g==
+X-Gm-Message-State: AOAM531yzdIlNOfoYjR6wyCB/VhmT1XIc4GYLxnrWBs30d5GseiqW8pU
+ Phy2oduURs+OEkZtcxjiQmlc1g==
+X-Google-Smtp-Source: ABdhPJyWrn5TyBZsDMqJkPF2ef2E3cA9vrWmhPamNgg0C9OtRrCbHSIxDAIjTDle/BB2nCxhOxW/+w==
+X-Received: by 2002:a05:6870:63a7:b0:ed:9ab5:2916 with SMTP id
+ t39-20020a05687063a700b000ed9ab52916mr18971oap.288.1651510293401; 
+ Mon, 02 May 2022 09:51:33 -0700 (PDT)
+Received: from ripper.. (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
+ h11-20020a4add8b000000b0035eb4e5a6ccsm4029422oov.34.2022.05.02.09.51.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 May 2022 09:51:32 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+Date: Mon,  2 May 2022 09:53:13 -0700
+Message-Id: <20220502165316.4167199-3-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220502165316.4167199-1-bjorn.andersson@linaro.org>
+References: <20220502165316.4167199-1-bjorn.andersson@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH v3 10/18] drm/i915/pps: Reinit PPS delays
- after VBT has been fully parsed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 03 May 2022 12:03:05 +0000
+Subject: [Intel-gfx] [PATCH v4 2/5] drm: Add HPD state to
+ drm_connector_oob_hotplug_event()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,60 +84,174 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 26 Apr 2022, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> During the eDP probe we may not yet know the panel_type used
-> to index the VBT panel tables. So the initial eDP probe will have
-> to be done without that, and thus we won't yet have the PPS delays
-> from the VBT. Once the VBT has been fully parse we should reinit
-> the PPS delays to make sure it's fully accounted for.
->
-> TODO: I wonder if we should do the eDP probe with some super safe
-> PPS delayes (eg. max of all VBT PPS delays) just to make sure we
-> don't violate the timings. Though typically the VBIOS/GOP do leave
-> VDD enabled after boot in which case we don't actually have to care
-> about the delays at all.
+In some implementations, such as the Qualcomm platforms, the display
+driver has no way to query the current HPD state and as such it's
+impossible to distinguish between disconnect and attention events.
 
-The trouble here is that the first init writes the registers, and the
-second init reads them back as "bios set values", and never goes lower
-than them. The late init can only increase the values based on VBT data.
+Add a parameter to drm_connector_oob_hotplug_event() to pass the HPD
+state.
 
-So I'm holding off on the r-b on both the PPS changes for now because I
-think this will need some kind of a redesign. Maybe we'll need to keep
-track of the origins of the values at each step, and choose the right
-ones at late init and skip the register writes if there are no
-changes. I don't know.
+Also push the test for unchanged state in the displayport altmode driver
+into the i915 driver, to allow other drivers to act upon each update.
 
-BR,
-Jani.
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
 
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_pps.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i=
-915/display/intel_pps.c
-> index 0ae2be5c5318..15cbdc465a86 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pps.c
-> +++ b/drivers/gpu/drm/i915/display/intel_pps.c
-> @@ -1396,6 +1396,11 @@ void intel_pps_init_late(struct intel_dp *intel_dp)
->  	intel_wakeref_t wakeref;
->=20=20
->  	with_intel_pps_lock(intel_dp, wakeref) {
-> +		/* Reinit delays after per-panel info has been parsed from VBT */
-> +		memset(&intel_dp->pps.pps_delays, 0, sizeof(intel_dp->pps.pps_delays));
-> +		pps_init_delays(intel_dp);
-> +		pps_init_registers(intel_dp, false);
-> +
->  		if (edp_have_panel_vdd(intel_dp))
->  			edp_panel_vdd_schedule_off(intel_dp);
->  	}
+Changes since v3:
+- Transition to drm_connector_status instead of custom hpd_state 
 
---=20
-Jani Nikula, Intel Open Source Graphics Center
+ drivers/gpu/drm/drm_connector.c          |  6 ++++--
+ drivers/gpu/drm/i915/display/intel_dp.c  | 17 ++++++++++++++---
+ drivers/gpu/drm/i915/i915_drv.h          |  3 +++
+ drivers/usb/typec/altmodes/displayport.c | 10 +++-------
+ include/drm/drm_connector.h              |  6 ++++--
+ 5 files changed, 28 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 1c48d162c77e..e86c69f0640f 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2794,6 +2794,7 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+ /**
+  * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
+  * @connector_fwnode: fwnode_handle to report the event on
++ * @status: hot plug detect logical state
+  *
+  * On some hardware a hotplug event notification may come from outside the display
+  * driver / device. An example of this is some USB Type-C setups where the hardware
+@@ -2803,7 +2804,8 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+  * This function can be used to report these out-of-band events after obtaining
+  * a drm_connector reference through calling drm_connector_find_by_fwnode().
+  */
+-void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
++void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
++				     enum drm_connector_status status)
+ {
+ 	struct drm_connector *connector;
+ 
+@@ -2812,7 +2814,7 @@ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
+ 		return;
+ 
+ 	if (connector->funcs->oob_hotplug_event)
+-		connector->funcs->oob_hotplug_event(connector);
++		connector->funcs->oob_hotplug_event(connector, status);
+ 
+ 	drm_connector_put(connector);
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index e4a79c11fd25..56cc023f7bbd 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4951,15 +4951,26 @@ static int intel_dp_connector_atomic_check(struct drm_connector *conn,
+ 	return intel_modeset_synced_crtcs(state, conn);
+ }
+ 
+-static void intel_dp_oob_hotplug_event(struct drm_connector *connector)
++static void intel_dp_oob_hotplug_event(struct drm_connector *connector,
++				       enum drm_connector_status hpd_state)
+ {
+ 	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
+ 	struct drm_i915_private *i915 = to_i915(connector->dev);
++	bool hpd_high = hpd_state == connector_status_connected;
++	unsigned int hpd_pin = encoder->hpd_pin;
++	bool need_work = false;
+ 
+ 	spin_lock_irq(&i915->irq_lock);
+-	i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
++	if (hpd_high != test_bit(hpd_pin, &i915->hotplug.oob_hotplug_last_state)) {
++		i915->hotplug.event_bits |= BIT(hpd_pin);
++
++		__assign_bit(hpd_pin, &i915->hotplug.oob_hotplug_last_state, hpd_high);
++		need_work = true;
++	}
+ 	spin_unlock_irq(&i915->irq_lock);
+-	queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
++
++	if (need_work)
++		queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
+ }
+ 
+ static const struct drm_connector_funcs intel_dp_connector_funcs = {
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 24111bf42ce0..96c088bb5522 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -135,6 +135,9 @@ struct i915_hotplug {
+ 	/* Whether or not to count short HPD IRQs in HPD storms */
+ 	u8 hpd_short_storm_enabled;
+ 
++	/* Last state reported by oob_hotplug_event for each encoder */
++	unsigned long oob_hotplug_last_state;
++
+ 	/*
+ 	 * if we get a HPD irq from DP and a HPD irq from non-DP
+ 	 * the non-DP HPD could block the workqueue on a mode config
+diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec/altmodes/displayport.c
+index c1d8c23baa39..9360ca177c7d 100644
+--- a/drivers/usb/typec/altmodes/displayport.c
++++ b/drivers/usb/typec/altmodes/displayport.c
+@@ -59,7 +59,6 @@ struct dp_altmode {
+ 	struct typec_displayport_data data;
+ 
+ 	enum dp_state state;
+-	bool hpd;
+ 
+ 	struct mutex lock; /* device lock */
+ 	struct work_struct work;
+@@ -143,10 +142,8 @@ static int dp_altmode_status_update(struct dp_altmode *dp)
+ 		if (!ret)
+ 			dp->state = DP_STATE_CONFIGURE;
+ 	} else {
+-		if (dp->hpd != hpd) {
+-			drm_connector_oob_hotplug_event(dp->connector_fwnode);
+-			dp->hpd = hpd;
+-		}
++		drm_connector_oob_hotplug_event(dp->connector_fwnode,
++						hpd ? connector_status_connected : connector_status_disconnected);
+ 	}
+ 
+ 	return ret;
+@@ -573,8 +570,7 @@ void dp_altmode_remove(struct typec_altmode *alt)
+ 	cancel_work_sync(&dp->work);
+ 
+ 	if (dp->connector_fwnode) {
+-		if (dp->hpd)
+-			drm_connector_oob_hotplug_event(dp->connector_fwnode);
++		drm_connector_oob_hotplug_event(dp->connector_fwnode, connector_status_disconnected);
+ 
+ 		fwnode_handle_put(dp->connector_fwnode);
+ 	}
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 3ac4bf87f257..886aa1861ed9 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1141,7 +1141,8 @@ struct drm_connector_funcs {
+ 	 * This will get called when a hotplug-event for a drm-connector
+ 	 * has been received from a source outside the display driver / device.
+ 	 */
+-	void (*oob_hotplug_event)(struct drm_connector *connector);
++	void (*oob_hotplug_event)(struct drm_connector *connector,
++				  enum drm_connector_status status);
+ 
+ 	/**
+ 	 * @debugfs_init:
+@@ -1749,7 +1750,8 @@ drm_connector_is_unregistered(struct drm_connector *connector)
+ 		DRM_CONNECTOR_UNREGISTERED;
+ }
+ 
+-void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode);
++void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
++				     enum drm_connector_status status);
+ const char *drm_get_connector_type_name(unsigned int connector_type);
+ const char *drm_get_connector_status_name(enum drm_connector_status status);
+ const char *drm_get_subpixel_order_name(enum subpixel_order order);
+-- 
+2.35.1
+
