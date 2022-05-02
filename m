@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 768FFC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:34:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EEC8C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:34:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D11AF10F025;
-	Mon,  2 May 2022 16:34:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2D0110F065;
+	Mon,  2 May 2022 16:34:23 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE65F10E53F;
- Mon,  2 May 2022 16:34:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CFE610F025;
+ Mon,  2 May 2022 16:34:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651509261; x=1683045261;
+ t=1651509262; x=1683045262;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8rd0ScOubeBxgLxv8yMgw6/R/6d0J3dnn3Ns6Enhd50=;
- b=Z2ZOW4QrQs0YgGtiyWcV8k8XruSjC3hlgScMuLk3ZG0AfsNVSSU4iAvo
- +9cOj+l4g27e6VypGhkDhxTyk00KUcNwHyBl2pJeP8hvWswHOgNajsoHd
- DlMJDYDkZhE+U4f09+0Fd/igxue1KiVegoF3AxqlNAgroXN8vf5D92Hgs
- Lj9r/DP+iOu5WRN5KC+zQX6zqDUWtHZPmB/2w0duBNkmlVk8ECoNmoAJl
- oCFkL2qxMRg79pZF+zUyeXFjLZfuc5CZVo5uEJgJak5tWdaVfqo4Pttf4
- PcdFwRoMU6MySjILIWuZ37ye/3ZspLmdlImn5mgBRGCKn1QxT3VPBQOHp w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10335"; a="266104998"
-X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="266104998"
+ bh=M4gryaaRAJ5psw2TDdD/t46rlZedrW2iQIdMK+LjNuo=;
+ b=jFzadZGG8BdAE6MicvR6lGRwu7dAksghtG3In1Day0jbBpoB8i9z+Eod
+ Op2LpjWzg0Q8ncIcoTcML3/BR0ZF/fUynnqahOgrgKaibya+L6Hk+kTl8
+ Qt87SETTSh6g0vKFbBYTj9FsoKL/yPd3xDOzj3lH/7X8+feWdWf6Rrdfu
+ ltkedinuDeXbiRl/EhO7i7NSL/IvxUy3WahoVt1G3mo3873pQt0Nik+xa
+ 4lmOJFaJkeIdrkiRUYIK4KM/2HyLC3rl2rhBywYVJ+elP++LzgogbQCxc
+ MwOQWTsYhFbaWSN6+Z3hbfapWZq1eCw0DhSFDzYiSJ51SZ7AwtWpVszwJ g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10335"; a="266105001"
+X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="266105001"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 May 2022 09:34:21 -0700
-X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="583781831"
+X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="583781841"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 May 2022 09:34:21 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  2 May 2022 09:34:10 -0700
-Message-Id: <20220502163417.2635462-5-matthew.d.roper@intel.com>
+Date: Mon,  2 May 2022 09:34:12 -0700
+Message-Id: <20220502163417.2635462-7-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220502163417.2635462-1-matthew.d.roper@intel.com>
 References: <20220502163417.2635462-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/11] drm/i915/pvc: Read correct RP_STATE_CAP
- register
+Subject: [Intel-gfx] [PATCH 06/11] drm/i915/pvc: Reduce stack usage in reset
+ selftest with extra blitter engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,48 +56,66 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The SoC registers, including RP_STATE_CAP, have moved to a new location
-in GTTMMADR on Ponte Vecchio.  We need to update the register offset
-accordingly.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+PVC adds extra blitter engines (in the following patch). The reset
+selftest has a local array on the stack which is sized by the number
+of engines. The increase pushes the size of this array to the point
+where it trips the 'stack too large' compile warning. This patch takes
+the allocation of the stack and makes it dynamic instead.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_rps.c | 4 +++-
- drivers/gpu/drm/i915/i915_reg.h     | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 3476a11f294c..3bd8415a0f1b 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1075,7 +1075,9 @@ static u32 intel_rps_read_state_cap(struct intel_rps *rps)
- 	struct drm_i915_private *i915 = rps_to_i915(rps);
- 	struct intel_uncore *uncore = rps_to_uncore(rps);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 83ff4c2e57c5..3b9d82276db2 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -979,6 +979,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 	enum intel_engine_id id, tmp;
+ 	struct hang h;
+ 	int err = 0;
++	struct active_engine *threads;
  
--	if (IS_XEHPSDV(i915))
-+	if (IS_PONTEVECCHIO(i915))
-+		return intel_uncore_read(uncore, PVC_RP_STATE_CAP);
-+	else if (IS_XEHPSDV(i915))
- 		return intel_uncore_read(uncore, XEHPSDV_RP_STATE_CAP);
- 	else if (IS_GEN9_LP(i915))
- 		return intel_uncore_read(uncore, BXT_RP_STATE_CAP);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 9ccb67eec1bd..4a3d7b96ef43 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1846,6 +1846,7 @@
- #define BXT_RP_STATE_CAP        _MMIO(0x138170)
- #define GEN9_RP_STATE_LIMITS	_MMIO(0x138148)
- #define XEHPSDV_RP_STATE_CAP	_MMIO(0x250014)
-+#define PVC_RP_STATE_CAP	_MMIO(0x281014)
+ 	/* Check that issuing a reset on one engine does not interfere
+ 	 * with any other engine.
+@@ -996,8 +997,11 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 			h.ctx->sched.priority = 1024;
+ 	}
  
- #define GT0_PERF_LIMIT_REASONS		_MMIO(0x1381a8)
- #define   GT0_PERF_LIMIT_REASONS_MASK	0xde3
++	threads = kzalloc(sizeof(*threads) * I915_NUM_ENGINES, GFP_KERNEL);
++	if (!threads)
++		return -ENOMEM;
++
+ 	for_each_engine(engine, gt, id) {
+-		struct active_engine threads[I915_NUM_ENGINES] = {};
+ 		unsigned long device = i915_reset_count(global);
+ 		unsigned long count = 0, reported;
+ 		bool using_guc = intel_engine_uses_guc(engine);
+@@ -1016,7 +1020,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 			break;
+ 		}
+ 
+-		memset(threads, 0, sizeof(threads));
++		memset(threads, 0, sizeof(*threads) * I915_NUM_ENGINES);
+ 		for_each_engine(other, gt, tmp) {
+ 			struct task_struct *tsk;
+ 
+@@ -1236,6 +1240,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 			break;
+ 		}
+ 	}
++	kfree(threads);
+ 
+ 	if (intel_gt_is_wedged(gt))
+ 		err = -EIO;
 -- 
 2.35.1
 
