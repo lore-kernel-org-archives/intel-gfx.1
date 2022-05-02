@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C906DC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:34:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789DEC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:34:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E92A710F076;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E4D510F02B;
 	Mon,  2 May 2022 16:34:24 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55E4C10F02B;
- Mon,  2 May 2022 16:34:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86C8F10E53F;
+ Mon,  2 May 2022 16:34:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651509262; x=1683045262;
+ t=1651509261; x=1683045261;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UmPAbMUV9KfChzYVAJbMQEukr5dfl17fUGYL9Nk/j3s=;
- b=FQmCozYIPDi8hGbmuaEi/+EkD4ttNDNOWf1jpF8ntj66HnZ4cmeBfiZz
- 755ps/kMhv9MAn+YMZVyWRfEDHWqG4OfduAMG3kuBl83t66Lt8zKZjjgR
- 0bGEBbzmzUnY0yGfi2zqnyp7JlTDopQXq0IFRy22deqBL9I/qqPSEyOxG
- 3XH4fd//j3R2PTk9g6Wm2Uh5QwtNCF8aLAnuKrgbV0KRTaZZrpcQvA7TN
- NbPEhFKbIKKA9Ilpdg6rksNc25UKwmjPGmfo+44opW1Wp4mjkqVKkUYR/
- 7s586N1d5BrvCbrjGVrLiPGpu7wL6a2iEHS5txWNnXqJuGT2N6YJ4Uhjl Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10335"; a="266105003"
-X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="266105003"
+ bh=hmBKzpHWnrCDn1xYfjGt0eHUn4ashe+TkmDsscMV0jM=;
+ b=i7e+LFz0WG84nInx7gy90C/QLrU5INByzE4JRUaNItngLrAM9Zmx5ONw
+ 4J0kRqldo66aShM1KNDYuur7A/0d7Xf69a7YY3ITdl2GjGmHAVtIf0ZHj
+ iSl4a1v+O2rt0dFOqH18EE3ao9bwGCYeEMJOKAY4fgnXvttnbjo8yoiKS
+ q4en/kXXXIx1Z0cohsF2PgZ5FUPSTzd65i8E27dqIHlsGFernw5iEySdo
+ jYuLiqGVVYgYNFeom0dPrrty7grSFhSM0ZqR4PAmMynbXI9526HIgZDv4
+ gc58w8rMU+UDqtB+tpVVfhweQKt2CKYTntvZpqStIhOa15SySvvkLtNbO Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10335"; a="266104996"
+X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="266104996"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2022 09:34:22 -0700
-X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="583781845"
+ 02 May 2022 09:34:21 -0700
+X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="583781818"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2022 09:34:21 -0700
+ 02 May 2022 09:34:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  2 May 2022 09:34:13 -0700
-Message-Id: <20220502163417.2635462-8-matthew.d.roper@intel.com>
+Date: Mon,  2 May 2022 09:34:08 -0700
+Message-Id: <20220502163417.2635462-3-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220502163417.2635462-1-matthew.d.roper@intel.com>
 References: <20220502163417.2635462-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/11] drm/i915/pvc: Engines definitions for new
- copy engines
+Subject: [Intel-gfx] [PATCH 02/11] drm/i915/pvc: Add forcewake support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,167 +59,211 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch adds the basic definitions needed to support
-new copy engines. Also updating the cmd_info to accommodate
-new engines, as the engine id's of legacy engines have been
-changed.
+Add PVC's forcewake ranges.
 
-Original-author: CQ Tang
+Bspec: 67609
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 56 ++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_engine_types.h | 10 +++-
- drivers/gpu/drm/i915/gt/intel_gt_regs.h      |  8 +++
- drivers/gpu/drm/i915/gvt/cmd_parser.c        |  2 +-
- drivers/gpu/drm/i915/i915_reg.h              |  8 +++
- 5 files changed, 82 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/intel_uncore.c           | 150 +++++++++++++++++-
+ drivers/gpu/drm/i915/selftests/intel_uncore.c |   2 +
+ 2 files changed, 151 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 14c6ddbbfde8..4532c3ea9ace 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -71,6 +71,62 @@ static const struct engine_info intel_engines[] = {
- 			{ .graphics_ver = 6, .base = BLT_RING_BASE }
- 		},
- 	},
-+	[BCS1] = {
-+		.class = COPY_ENGINE_CLASS,
-+		.instance = 1,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHPC_BCS1_RING_BASE }
-+		},
-+	},
-+	[BCS2] = {
-+		.class = COPY_ENGINE_CLASS,
-+		.instance = 2,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHPC_BCS2_RING_BASE }
-+		},
-+	},
-+	[BCS3] = {
-+		.class = COPY_ENGINE_CLASS,
-+		.instance = 3,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHPC_BCS3_RING_BASE }
-+		},
-+	},
-+	[BCS4] = {
-+		.class = COPY_ENGINE_CLASS,
-+		.instance = 4,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHPC_BCS4_RING_BASE }
-+		},
-+	},
-+	[BCS5] = {
-+		.class = COPY_ENGINE_CLASS,
-+		.instance = 5,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHPC_BCS5_RING_BASE }
-+		},
-+	},
-+	[BCS6] = {
-+		.class = COPY_ENGINE_CLASS,
-+		.instance = 6,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHPC_BCS6_RING_BASE }
-+		},
-+	},
-+	[BCS7] = {
-+		.class = COPY_ENGINE_CLASS,
-+		.instance = 7,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHPC_BCS7_RING_BASE }
-+		},
-+	},
-+	[BCS8] = {
-+		.class = COPY_ENGINE_CLASS,
-+		.instance = 8,
-+		.mmio_bases = {
-+			{ .graphics_ver = 12, .base = XEHPC_BCS8_RING_BASE }
-+		},
-+	},
- 	[VCS0] = {
- 		.class = VIDEO_DECODE_CLASS,
- 		.instance = 0,
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 298f2cc7a879..356c15cdccf0 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -35,7 +35,7 @@
- #define OTHER_CLASS		4
- #define COMPUTE_CLASS		5
- #define MAX_ENGINE_CLASS	5
--#define MAX_ENGINE_INSTANCE	7
-+#define MAX_ENGINE_INSTANCE	8
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index 83517a703eb6..3352065635e8 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -1080,6 +1080,45 @@ static const struct i915_range dg2_shadowed_regs[] = {
+ 	{ .start = 0x1F8510, .end = 0x1F8550 },
+ };
  
- #define I915_MAX_SLICES	3
- #define I915_MAX_SUBSLICES 8
-@@ -107,6 +107,14 @@ struct i915_ctx_workarounds {
- enum intel_engine_id {
- 	RCS0 = 0,
- 	BCS0,
-+	BCS1,
-+	BCS2,
-+	BCS3,
-+	BCS4,
-+	BCS5,
-+	BCS6,
-+	BCS7,
-+	BCS8,
- 	VCS0,
- 	VCS1,
- 	VCS2,
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index a0a49c16babd..aa2c0974b02c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1476,6 +1476,14 @@
- #define   GEN11_KCR				(19)
- #define   GEN11_GTPM				(16)
- #define   GEN11_BCS				(15)
-+#define   XEHPC_BCS1				(14)
-+#define   XEHPC_BCS2				(13)
-+#define   XEHPC_BCS3				(12)
-+#define   XEHPC_BCS4				(11)
-+#define   XEHPC_BCS5				(10)
-+#define   XEHPC_BCS6				(9)
-+#define   XEHPC_BCS7				(8)
-+#define   XEHPC_BCS8				(23)
- #define   GEN12_CCS3				(7)
- #define   GEN12_CCS2				(6)
- #define   GEN12_CCS1				(5)
-diff --git a/drivers/gpu/drm/i915/gvt/cmd_parser.c b/drivers/gpu/drm/i915/gvt/cmd_parser.c
-index b9eb75a2b400..0ba2a3455d99 100644
---- a/drivers/gpu/drm/i915/gvt/cmd_parser.c
-+++ b/drivers/gpu/drm/i915/gvt/cmd_parser.c
-@@ -428,7 +428,7 @@ struct cmd_info {
- #define R_VECS	BIT(VECS0)
- #define R_ALL (R_RCS | R_VCS | R_BCS | R_VECS)
- 	/* rings that support this cmd: BLT/RCS/VCS/VECS */
--	u16 rings;
-+	intel_engine_mask_t rings;
++static const struct i915_range pvc_shadowed_regs[] = {
++	{ .start =   0x2030, .end =   0x2030 },
++	{ .start =   0x2510, .end =   0x2550 },
++	{ .start =   0xA008, .end =   0xA00C },
++	{ .start =   0xA188, .end =   0xA188 },
++	{ .start =   0xA278, .end =   0xA278 },
++	{ .start =   0xA540, .end =   0xA56C },
++	{ .start =   0xC4C8, .end =   0xC4C8 },
++	{ .start =   0xC4E0, .end =   0xC4E0 },
++	{ .start =   0xC600, .end =   0xC600 },
++	{ .start =   0xC658, .end =   0xC658 },
++	{ .start =  0x22030, .end =  0x22030 },
++	{ .start =  0x22510, .end =  0x22550 },
++	{ .start = 0x1C0030, .end = 0x1C0030 },
++	{ .start = 0x1C0510, .end = 0x1C0550 },
++	{ .start = 0x1C4030, .end = 0x1C4030 },
++	{ .start = 0x1C4510, .end = 0x1C4550 },
++	{ .start = 0x1C8030, .end = 0x1C8030 },
++	{ .start = 0x1C8510, .end = 0x1C8550 },
++	{ .start = 0x1D0030, .end = 0x1D0030 },
++	{ .start = 0x1D0510, .end = 0x1D0550 },
++	{ .start = 0x1D4030, .end = 0x1D4030 },
++	{ .start = 0x1D4510, .end = 0x1D4550 },
++	{ .start = 0x1D8030, .end = 0x1D8030 },
++	{ .start = 0x1D8510, .end = 0x1D8550 },
++	{ .start = 0x1E0030, .end = 0x1E0030 },
++	{ .start = 0x1E0510, .end = 0x1E0550 },
++	{ .start = 0x1E4030, .end = 0x1E4030 },
++	{ .start = 0x1E4510, .end = 0x1E4550 },
++	{ .start = 0x1E8030, .end = 0x1E8030 },
++	{ .start = 0x1E8510, .end = 0x1E8550 },
++	{ .start = 0x1F0030, .end = 0x1F0030 },
++	{ .start = 0x1F0510, .end = 0x1F0550 },
++	{ .start = 0x1F4030, .end = 0x1F4030 },
++	{ .start = 0x1F4510, .end = 0x1F4550 },
++	{ .start = 0x1F8030, .end = 0x1F8030 },
++	{ .start = 0x1F8510, .end = 0x1F8550 },
++};
++
+ static int mmio_range_cmp(u32 key, const struct i915_range *range)
+ {
+ 	if (key < range->start)
+@@ -1490,6 +1529,111 @@ static const struct intel_forcewake_range __dg2_fw_ranges[] = {
+ 	XEHP_FWRANGES(FORCEWAKE_RENDER)
+ };
  
- 	/* devices that support this cmd: SNB/IVB/HSW/... */
- 	u16 devices;
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 4a3d7b96ef43..ab64ab4317b3 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -976,6 +976,14 @@
- #define GEN12_COMPUTE2_RING_BASE	0x1e000
- #define GEN12_COMPUTE3_RING_BASE	0x26000
- #define BLT_RING_BASE		0x22000
-+#define XEHPC_BCS1_RING_BASE	0x3e0000
-+#define XEHPC_BCS2_RING_BASE	0x3e2000
-+#define XEHPC_BCS3_RING_BASE	0x3e4000
-+#define XEHPC_BCS4_RING_BASE	0x3e6000
-+#define XEHPC_BCS5_RING_BASE	0x3e8000
-+#define XEHPC_BCS6_RING_BASE	0x3ea000
-+#define XEHPC_BCS7_RING_BASE	0x3ec000
-+#define XEHPC_BCS8_RING_BASE	0x3ee000
- #define DG1_GSC_HECI1_BASE	0x00258000
- #define DG1_GSC_HECI2_BASE	0x00259000
- #define DG2_GSC_HECI1_BASE	0x00373000
++/*
++ * *Must* be sorted by offset ranges! See intel_fw_table_check().
++ *
++ * Note that the spec lists several reserved/unused ranges that don't actually
++ * contain any registers.  In the table below we'll combine those reserved
++ * ranges with either the preceding or following range to keep the table small
++ * and lookups fast.
++ */
++static const struct intel_forcewake_range __pvc_fw_ranges[] = {
++	GEN_FW_RANGE(0x0, 0xaff, 0),
++	GEN_FW_RANGE(0xb00, 0xbff, FORCEWAKE_GT),
++	GEN_FW_RANGE(0xc00, 0xfff, 0),
++	GEN_FW_RANGE(0x1000, 0x1fff, FORCEWAKE_GT),
++	GEN_FW_RANGE(0x2000, 0x26ff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x2700, 0x2fff, FORCEWAKE_GT),
++	GEN_FW_RANGE(0x3000, 0x3fff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x4000, 0x813f, FORCEWAKE_GT), /*
++		0x4000 - 0x4aff: gt
++		0x4b00 - 0x4fff: reserved
++		0x5000 - 0x51ff: gt
++		0x5200 - 0x52ff: reserved
++		0x5300 - 0x53ff: gt
++		0x5400 - 0x7fff: reserved
++		0x8000 - 0x813f: gt */
++	GEN_FW_RANGE(0x8140, 0x817f, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x8180, 0x81ff, 0),
++	GEN_FW_RANGE(0x8200, 0x94cf, FORCEWAKE_GT), /*
++		0x8200 - 0x82ff: gt
++		0x8300 - 0x84ff: reserved
++		0x8500 - 0x887f: gt
++		0x8880 - 0x8a7f: reserved
++		0x8a80 - 0x8aff: gt
++		0x8b00 - 0x8fff: reserved
++		0x9000 - 0x947f: gt
++		0x9480 - 0x94cf: reserved */
++	GEN_FW_RANGE(0x94d0, 0x955f, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x9560, 0x967f, 0), /*
++		0x9560 - 0x95ff: always on
++		0x9600 - 0x967f: reserved */
++	GEN_FW_RANGE(0x9680, 0x97ff, FORCEWAKE_RENDER), /*
++		0x9680 - 0x96ff: render
++		0x9700 - 0x97ff: reserved */
++	GEN_FW_RANGE(0x9800, 0xcfff, FORCEWAKE_GT), /*
++		0x9800 - 0xb4ff: gt
++		0xb500 - 0xbfff: reserved
++		0xc000 - 0xcfff: gt */
++	GEN_FW_RANGE(0xd000, 0xd3ff, 0),
++	GEN_FW_RANGE(0xd400, 0xdbff, FORCEWAKE_GT),
++	GEN_FW_RANGE(0xdc00, 0xdcff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0xdd00, 0xde7f, FORCEWAKE_GT), /*
++		0xdd00 - 0xddff: gt
++		0xde00 - 0xde7f: reserved */
++	GEN_FW_RANGE(0xde80, 0xe8ff, FORCEWAKE_RENDER), /*
++		0xde80 - 0xdeff: render
++		0xdf00 - 0xe1ff: reserved
++		0xe200 - 0xe7ff: render
++		0xe800 - 0xe8ff: reserved */
++	GEN_FW_RANGE(0xe900, 0x11fff, FORCEWAKE_GT), /*
++		 0xe900 -  0xe9ff: gt
++		 0xea00 -  0xebff: reserved
++		 0xec00 -  0xffff: gt
++		0x10000 - 0x11fff: reserved */
++	GEN_FW_RANGE(0x12000, 0x12fff, 0), /*
++		0x12000 - 0x127ff: always on
++		0x12800 - 0x12fff: reserved */
++	GEN_FW_RANGE(0x13000, 0x23fff, FORCEWAKE_GT), /*
++		0x13000 - 0x135ff: gt
++		0x13600 - 0x147ff: reserved
++		0x14800 - 0x153ff: gt
++		0x15400 - 0x19fff: reserved
++		0x1a000 - 0x1ffff: gt
++		0x20000 - 0x21fff: reserved
++		0x22000 - 0x23fff: gt */
++	GEN_FW_RANGE(0x24000, 0x2417f, 0), /*
++		24000 - 0x2407f: always on
++		24080 - 0x2417f: reserved */
++	GEN_FW_RANGE(0x24180, 0x3ffff, FORCEWAKE_GT), /*
++		0x24180 - 0x241ff: gt
++		0x24200 - 0x251ff: reserved
++		0x25200 - 0x252ff: gt
++		0x25300 - 0x25fff: reserved
++		0x26000 - 0x27fff: gt
++		0x28000 - 0x2ffff: reserved
++		0x30000 - 0x3ffff: gt */
++	GEN_FW_RANGE(0x40000, 0x1bffff, 0),
++	GEN_FW_RANGE(0x1c0000, 0x1c3fff, FORCEWAKE_MEDIA_VDBOX0), /*
++		0x1c0000 - 0x1c2bff: VD0
++		0x1c2c00 - 0x1c2cff: reserved
++		0x1c2d00 - 0x1c2dff: VD0
++		0x1c2e00 - 0x1c3eff: reserved
++		0x1c3f00 - 0x1c3fff: VD0 */
++	GEN_FW_RANGE(0x1c4000, 0x1cffff, FORCEWAKE_MEDIA_VDBOX1), /*
++		0x1c4000 - 0x1c6aff: VD1
++		0x1c6b00 - 0x1c7eff: reserved
++		0x1c7f00 - 0x1c7fff: VD1
++		0x1c8000 - 0x1cffff: reserved */
++	GEN_FW_RANGE(0x1d0000, 0x23ffff, FORCEWAKE_MEDIA_VDBOX2), /*
++		0x1d0000 - 0x1d2aff: VD2
++		0x1d2b00 - 0x1d3eff: reserved
++		0x1d3f00 - 0x1d3fff: VD2
++		0x1d4000 - 0x23ffff: reserved */
++	GEN_FW_RANGE(0x240000, 0x3dffff, 0),
++	GEN_FW_RANGE(0x3e0000, 0x3effff, FORCEWAKE_GT),
++};
++
+ static void
+ ilk_dummy_write(struct intel_uncore *uncore)
+ {
+@@ -2125,7 +2269,11 @@ static int uncore_forcewake_init(struct intel_uncore *uncore)
+ 
+ 	ASSIGN_READ_MMIO_VFUNCS(uncore, fwtable);
+ 
+-	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55)) {
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 60)) {
++		ASSIGN_FW_DOMAINS_TABLE(uncore, __pvc_fw_ranges);
++		ASSIGN_SHADOW_TABLE(uncore, pvc_shadowed_regs);
++		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
++	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55)) {
+ 		ASSIGN_FW_DOMAINS_TABLE(uncore, __dg2_fw_ranges);
+ 		ASSIGN_SHADOW_TABLE(uncore, dg2_shadowed_regs);
+ 		ASSIGN_WRITE_MMIO_VFUNCS(uncore, fwtable);
+diff --git a/drivers/gpu/drm/i915/selftests/intel_uncore.c b/drivers/gpu/drm/i915/selftests/intel_uncore.c
+index cdd196783535..fda9bb79c049 100644
+--- a/drivers/gpu/drm/i915/selftests/intel_uncore.c
++++ b/drivers/gpu/drm/i915/selftests/intel_uncore.c
+@@ -69,6 +69,7 @@ static int intel_shadow_table_check(void)
+ 		{ gen11_shadowed_regs, ARRAY_SIZE(gen11_shadowed_regs) },
+ 		{ gen12_shadowed_regs, ARRAY_SIZE(gen12_shadowed_regs) },
+ 		{ dg2_shadowed_regs, ARRAY_SIZE(dg2_shadowed_regs) },
++		{ pvc_shadowed_regs, ARRAY_SIZE(pvc_shadowed_regs) },
+ 	};
+ 	const struct i915_range *range;
+ 	unsigned int i, j;
+@@ -115,6 +116,7 @@ int intel_uncore_mock_selftests(void)
+ 		{ __gen11_fw_ranges, ARRAY_SIZE(__gen11_fw_ranges), true },
+ 		{ __gen12_fw_ranges, ARRAY_SIZE(__gen12_fw_ranges), true },
+ 		{ __xehp_fw_ranges, ARRAY_SIZE(__xehp_fw_ranges), true },
++		{ __pvc_fw_ranges, ARRAY_SIZE(__pvc_fw_ranges), true },
+ 	};
+ 	int err, i;
+ 
 -- 
 2.35.1
 
