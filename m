@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8B5EC433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:34:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81ADBC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 May 2022 16:34:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B29010F085;
-	Mon,  2 May 2022 16:34:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F4E510F097;
+	Mon,  2 May 2022 16:34:28 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6607B10F025;
- Mon,  2 May 2022 16:34:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8DB10F061;
+ Mon,  2 May 2022 16:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651509261; x=1683045261;
+ t=1651509263; x=1683045263;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xZIcIY/rcqnqG1AtNPqmr8fGr4epQ12bWcgLjjVnv9o=;
- b=OFy44fZlBHBP2KFBq5VNhtfxPKqmXZnNpahupU5vBkjDkHsh3Qx7lw+M
- AaGJui4jLVFMiWNHIes3sOd2znFPiH4g+1fDYmK1pcxcVv3N2cAB1Wk6c
- vu+fDSlDC5PUN/FN1YEYgpNXWpyNPu7rdccrJxIvGal6t1KFN9GHFKcim
- SgUIPYDMpCKDc3OtFRW0Wfj9au5/R+JBtwBZfg6h3VkNL0ywR6i2dSNbs
- zZyuQaVtMDxd/P42H+1DGPeya6V5RNIvHwv5W72lQyMCb/FXffkOAhfq9
- hA5vlfk4K9K82qXjgvs+IjwKEfumkWrV6oUe1cQv925X1DrknLuDlibYs A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10335"; a="266104995"
-X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="266104995"
+ bh=ejxDqASMUHAnbN8YjXXxikuMnH9wFldJYbdxcOM3GRA=;
+ b=Ab+zt/mmuuOCtQniqVqwWr6AgBVeofvOqqQZgjjtZHvHGzItP0GOKSOk
+ jAGPeegmh47cDoBVP3FxT+LfK9LCulJ60Cm/+kyZ9JzRBpwy7H3vmMvfl
+ Jhp/zfeLoXBEIl1e+FaQ/mMQQnSNNXHWhA9GEVLXL0oWlY2vVCzq7W43Y
+ YF9o4yiGzVPmC5XB+/CrDlxE5CuiF42fvDiA2Fk3FFnaQa4GUEuZ6DGh/
+ lZLYIaGlKKTXE4BUq1H+8ZcfngoUULpso+jN35EiEA2fMbfkwKuE0C5qQ
+ CsbSaNatppIRnc0BzrfHU8tEtJMLOTviDaWzOEqKcUtU7DjO3DkUDpekc w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10335"; a="266105008"
+X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="266105008"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2022 09:34:20 -0700
-X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="583781811"
+ 02 May 2022 09:34:23 -0700
+X-IronPort-AV: E=Sophos;i="5.91,192,1647327600"; d="scan'208";a="583781861"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2022 09:34:20 -0700
+ 02 May 2022 09:34:22 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  2 May 2022 09:34:07 -0700
-Message-Id: <20220502163417.2635462-2-matthew.d.roper@intel.com>
+Date: Mon,  2 May 2022 09:34:17 -0700
+Message-Id: <20220502163417.2635462-12-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220502163417.2635462-1-matthew.d.roper@intel.com>
 References: <20220502163417.2635462-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/11] drm/i915/pvc: add initial Ponte Vecchio
- definitions
+Subject: [Intel-gfx] [PATCH 11/11] drm/i915/pvc: read fuses for link copy
+ engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,93 +56,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stuart Summers <stuart.summers@intel.com>
+From: Lucas De Marchi <lucas.demarchi@intel.com>
 
-Additional blitter and media engines will be enabled later.
+The new Link Copy engines in PVC may be fused off according to the
+mslice_mask. Each bit of the MEML3_EN_MASK we read from the
+GEN10_MIRROR_FUSE3 register disables a pair of link copy engines.
 
-Bspec: 44481, 44482
-Signed-off-by: Stuart Summers <stuart.summers@intel.com>
+Bspec: 44483
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h          |  2 ++
- drivers/gpu/drm/i915/i915_pci.c          | 21 +++++++++++++++++++++
- drivers/gpu/drm/i915/intel_device_info.c |  1 +
- drivers/gpu/drm/i915/intel_device_info.h |  1 +
- 4 files changed, 25 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 28 +++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 24111bf42ce0..2dddc27a1b0e 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1062,6 +1062,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define IS_ALDERLAKE_P(dev_priv) IS_PLATFORM(dev_priv, INTEL_ALDERLAKE_P)
- #define IS_XEHPSDV(dev_priv) IS_PLATFORM(dev_priv, INTEL_XEHPSDV)
- #define IS_DG2(dev_priv)	IS_PLATFORM(dev_priv, INTEL_DG2)
-+#define IS_PONTEVECCHIO(dev_priv) IS_PLATFORM(dev_priv, INTEL_PONTEVECCHIO)
-+
- #define IS_DG2_G10(dev_priv) \
- 	IS_SUBPLATFORM(dev_priv, INTEL_DG2, INTEL_SUBPLATFORM_G10)
- #define IS_DG2_G11(dev_priv) \
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 7739d6c33481..498708b33924 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1074,6 +1074,27 @@ static const struct intel_device_info ats_m_info = {
- 	.require_force_probe = 1,
- };
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index c6e93db134b1..d10cdeff5072 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -686,6 +686,33 @@ static void engine_mask_apply_compute_fuses(struct intel_gt *gt)
+ 	}
+ }
  
-+#define XE_HPC_FEATURES \
-+	XE_HP_FEATURES, \
-+	.dma_mask_size = 52
++static void engine_mask_apply_copy_fuses(struct intel_gt *gt)
++{
++	struct drm_i915_private *i915 = gt->i915;
++	struct intel_gt_info *info = &gt->info;
++	unsigned long meml3_mask;
++	u8 quad;
 +
-+__maybe_unused
-+static const struct intel_device_info pvc_info = {
-+	XE_HPC_FEATURES,
-+	XE_HPM_FEATURES,
-+	DGFX_FEATURES,
-+	.graphics.rel = 60,
-+	.media.rel = 60,
-+	PLATFORM(INTEL_PONTEVECCHIO),
-+	.display = { 0 },
-+	.has_flat_ccs = 0,
-+	.platform_engine_mask =
-+		BIT(BCS0) |
-+		BIT(VCS0) |
-+		BIT(CCS0) | BIT(CCS1) | BIT(CCS2) | BIT(CCS3),
-+	.require_force_probe = 1,
-+};
++	meml3_mask = intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3);
++	meml3_mask = REG_FIELD_GET(GEN12_MEML3_EN_MASK, meml3_mask);
 +
- #undef PLATFORM
- 
++	/*
++	 * Link Copy engines may be fused off according to meml3_mask. Each
++	 * bit is a quad that houses 2 Link Copy and two Sub Copy engines.
++	 */
++	for_each_clear_bit(quad, &meml3_mask, GEN12_MAX_MSLICES) {
++		intel_engine_mask_t mask = GENMASK(BCS1 + quad * 2 + 1,
++						   BCS1 + quad * 2);
++
++		if (mask & info->engine_mask) {
++			drm_dbg(&i915->drm, "bcs%u fused off\n", quad * 2 + 1);
++			drm_dbg(&i915->drm, "bcs%u fused off\n", quad * 2 + 2);
++
++			info->engine_mask &= ~mask;
++		}
++	}
++}
++
  /*
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 63e05cd15a90..f0bf23726ed8 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -72,6 +72,7 @@ static const char * const platform_names[] = {
- 	PLATFORM_NAME(ALDERLAKE_P),
- 	PLATFORM_NAME(XEHPSDV),
- 	PLATFORM_NAME(DG2),
-+	PLATFORM_NAME(PONTEVECCHIO),
- };
- #undef PLATFORM_NAME
+  * Determine which engines are fused off in our particular hardware.
+  * Note that we have a catch-22 situation where we need to be able to access
+@@ -768,6 +795,7 @@ static intel_engine_mask_t init_engine_mask(struct intel_gt *gt)
+ 	GEM_BUG_ON(vebox_mask != VEBOX_MASK(gt));
  
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 20c351c8d5bd..e7d2cf7d65c8 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -88,6 +88,7 @@ enum intel_platform {
- 	INTEL_ALDERLAKE_P,
- 	INTEL_XEHPSDV,
- 	INTEL_DG2,
-+	INTEL_PONTEVECCHIO,
- 	INTEL_MAX_PLATFORMS
- };
+ 	engine_mask_apply_compute_fuses(gt);
++	engine_mask_apply_copy_fuses(gt);
  
+ 	return info->engine_mask;
+ }
 -- 
 2.35.1
 
