@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09E8AC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 May 2022 18:23:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABC3BC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 May 2022 18:23:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D09C10E800;
-	Tue,  3 May 2022 18:23:41 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17C6010E800
- for <intel-gfx@lists.freedesktop.org>; Tue,  3 May 2022 18:23:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3832C10E854;
+	Tue,  3 May 2022 18:23:47 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B8AC10E854
+ for <intel-gfx@lists.freedesktop.org>; Tue,  3 May 2022 18:23:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651602220; x=1683138220;
+ t=1651602226; x=1683138226;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=DFiSeBBT9l+mT6a5kooajnj07I2kT+jKqBJndGB54OY=;
- b=OcJBGoN8vNdYnE4tHzXiVINMPVQkH1sbFkaD+WyPwvTVjXDE49A4yccL
- 1G6rlhej+oQqMJaus6FyN2r6PmDhrzIOtbKmWYgm42j4aCjjxG6/YXrA+
- t31rEyP+Z4q/ppft2G41UsP60KLpe9ZRWR9AAJp1B8uz/OQFx3PY9oOKu
- S7t2zwvGajc/VPqtG9tfQB0jfo+ENxXvQdfhH0iA+A69WRs3CjWigPC9z
- M7yOO40gGNIH0uWj5CntoTMVGJs/6pELjQskWYViEbqBTouS6bGnKJ9ZG
- 3qHGSaKJH8PcGZ7pTYiAEHSAmsoAiOpgNfsvD/3zs+NbvT4EKfn9To3oy Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10336"; a="292743042"
-X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="292743042"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2022 11:23:39 -0700
+ bh=xPU5/7FgpIQegjOrjODk4T2N6YDt1EKFhEfvjuDLnTk=;
+ b=AKCkN+bn1+5IGoAniA3SwGQ4CsOgSfXlY9bHF1nv1yMRczWNYvADNoaX
+ GKZbV7nRTg2vBDlpImcKmj62DD2hK20HMGnHLHofFmLGNoXS6bw2HC0hF
+ Y30sS9+nwMmCAb3L8eNoNkgcmKNABwpn2bPpSyT5xGZ0XzcYJ6sE6blMT
+ 0IHOe/Zne3CsjSzoFRrkGSYNqeyY633AbbkHV3tVnNJWSNJMXbAU2oZD7
+ v1rOybiYIiPIZSuQx+V0QN/gr+Ejn5f6hFOlDFQROUB1dPjINmuiSHUIG
+ h6gGNyeE6McHaI2yEtM7cIU6K55H+71DEPQTACq+TXoedXGmfR34dSW32 w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10336"; a="265143386"
+X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="265143386"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2022 11:23:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="584316105"
+X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="536449222"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
- by orsmga008.jf.intel.com with SMTP; 03 May 2022 11:23:37 -0700
+ by orsmga006.jf.intel.com with SMTP; 03 May 2022 11:23:43 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 03 May 2022 21:23:36 +0300
+ Tue, 03 May 2022 21:23:42 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  3 May 2022 21:22:34 +0300
-Message-Id: <20220503182242.18797-19-ville.syrjala@linux.intel.com>
+Date: Tue,  3 May 2022 21:22:36 +0300
+Message-Id: <20220503182242.18797-21-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220503182242.18797-1-ville.syrjala@linux.intel.com>
 References: <20220503182242.18797-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 18/26] drm/i915: Nuke fastet state copy hacks
+Subject: [Intel-gfx] [PATCH 20/26] drm/i915: Check hw.enable and hw.active
+ in intel_pipe_config_compare()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,63 +64,45 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Now that we no longer do the fuzzy clock and M/N checks we can
-get rid of the fastset state copy hacks.
+Don't see a real reson not to check hw.active and hw.enable in
+intel_pipe_config_compare(). We do have some checks for them
+at a higher level, but I think better check them also in
+intel_pipe_config_compare() in case something else doesn't
+do a thorough enough job.
+
+Also shuffle the mst_master_transcoder check next to the
+cpu_transcoder check for a bit of consistency.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 28 +++-----------------
- 1 file changed, 3 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 066b9e7a5696..11e974d66c29 100644
+index a81d866bdb19..2acc5f3a2c0e 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7013,23 +7013,6 @@ static void intel_crtc_check_fastset(const struct intel_crtc_state *old_crtc_sta
- 	new_crtc_state->update_pipe = true;
- }
+@@ -6160,7 +6160,11 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ #define PIPE_CONF_QUIRK(quirk) \
+ 	((current_config->quirks | pipe_config->quirks) & (quirk))
  
--static void intel_crtc_copy_fastset(const struct intel_crtc_state *old_crtc_state,
--				    struct intel_crtc_state *new_crtc_state)
--{
--	/*
--	 * If we're not doing the full modeset we want to
--	 * keep the current M/N values as they may be
--	 * sufficiently different to the computed values
--	 * to cause problems.
--	 *
--	 * FIXME: should really copy more fuzzy state here
--	 */
--	new_crtc_state->fdi_m_n = old_crtc_state->fdi_m_n;
--	new_crtc_state->dp_m_n = old_crtc_state->dp_m_n;
--	new_crtc_state->dp_m2_n2 = old_crtc_state->dp_m2_n2;
--	new_crtc_state->has_drrs = old_crtc_state->has_drrs;
--}
++	PIPE_CONF_CHECK_I(hw.enable);
++	PIPE_CONF_CHECK_I(hw.active);
++
+ 	PIPE_CONF_CHECK_I(cpu_transcoder);
++	PIPE_CONF_CHECK_I(mst_master_transcoder);
+ 
+ 	PIPE_CONF_CHECK_BOOL(has_pch_encoder);
+ 	PIPE_CONF_CHECK_I(fdi_lanes);
+@@ -6333,8 +6337,6 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	PIPE_CONF_CHECK_I(splitter.link_count);
+ 	PIPE_CONF_CHECK_I(splitter.pixel_overlap);
+ 
+-	PIPE_CONF_CHECK_I(mst_master_transcoder);
 -
- static int intel_crtc_add_planes_to_state(struct intel_atomic_state *state,
- 					  struct intel_crtc *crtc,
- 					  u8 plane_ids_mask)
-@@ -7739,17 +7722,12 @@ static int intel_atomic_check(struct drm_device *dev,
- 
- 	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
- 					    new_crtc_state, i) {
--		if (intel_crtc_needs_modeset(new_crtc_state)) {
--			any_ms = true;
--
--			intel_release_shared_dplls(state, crtc);
-+		if (!intel_crtc_needs_modeset(new_crtc_state))
- 			continue;
--		}
- 
--		if (!new_crtc_state->update_pipe)
--			continue;
-+		any_ms = true;
- 
--		intel_crtc_copy_fastset(old_crtc_state, new_crtc_state);
-+		intel_release_shared_dplls(state, crtc);
- 	}
- 
- 	if (any_ms && !check_digital_port_conflicts(state)) {
+ 	PIPE_CONF_CHECK_BOOL(vrr.enable);
+ 	PIPE_CONF_CHECK_I(vrr.vmin);
+ 	PIPE_CONF_CHECK_I(vrr.vmax);
 -- 
 2.35.1
 
