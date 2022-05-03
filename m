@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BC80C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 May 2022 18:23:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A9BBC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 May 2022 18:23:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FFED10EA41;
-	Tue,  3 May 2022 18:23:51 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A816B10EA41
- for <intel-gfx@lists.freedesktop.org>; Tue,  3 May 2022 18:23:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F43210EAA2;
+	Tue,  3 May 2022 18:23:55 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA03310E90C
+ for <intel-gfx@lists.freedesktop.org>; Tue,  3 May 2022 18:23:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651602229; x=1683138229;
+ t=1651602234; x=1683138234;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=gEBSp8S2OKT7tizwvwOev6CEFuhOdSrq/fKrPcWCHrI=;
- b=arMpK/0LPlNqDvkYsR+QFBIG1LayAzvrySNM0t9Ec1EdBXulScz2kbCe
- AH4OQlOHshSxqNB+GiH7yig36L9aCBTgaS7gT2r3cAz+IV/k2tRk33jz7
- yzsjzYWO1/qbWj47QxoYnAVTBxoiAYIt7xgZ1OpDDVgfCswiKRXxi9re9
- Vxp230YTq3gUAj+3jcszb/e56dYwG/ajd97Fk7uI0VA1+onYGItsNPwNs
- syir2hynPtdNwYp/QRTXH0AYODkM095RJJEMWCNvYm87TGVEa+HH+Y4CF
- omVDZkn1CcnpBbV5W1XDjblfL6fGJ7ANWBqvUC3GnNVU7laYgpQmD3Z0x g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10336"; a="255016357"
-X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="255016357"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2022 11:23:42 -0700
+ bh=gjpKm+4DgF2C14hQbW7C/R8So84Kyu8k1wrP7iSxJMM=;
+ b=YwI45h7VAXaAh2gjDKSyL6q8fe8w2TqltIBSvefCGZkM5orQof3YaLsz
+ NxWypHvXaHWo8as8cDacNQZ1IKR8R3LNGsLet+MShpR1SqVSmbmgjA957
+ 6Tq5+RxdXbjVohBSASFfRYv/sKE8Qi9vrvZzCB74yXzRJ4Uz+I5J+7Lc1
+ r/YcguaRlL7FIHvKFazAP2e+uPpYRIj9MnhNVIfsJgPSR4WqC+ZB+vuJr
+ 8UVLhdmj5nDKCLswM2WzPj/Bz3O9uSEZmQs4OTtGL07IlDuukKbIb/YD5
+ DTfUfdMP9CcumpcIIYcXhSb6y+fVH1IIFQclD7mrVtDh21JtiRGve/ivU Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10336"; a="265143440"
+X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="265143440"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2022 11:23:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="562326958"
+X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="653372872"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
- by orsmga007.jf.intel.com with SMTP; 03 May 2022 11:23:40 -0700
+ by FMSMGA003.fm.intel.com with SMTP; 03 May 2022 11:23:52 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 03 May 2022 21:23:39 +0300
+ Tue, 03 May 2022 21:23:51 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  3 May 2022 21:22:35 +0300
-Message-Id: <20220503182242.18797-20-ville.syrjala@linux.intel.com>
+Date: Tue,  3 May 2022 21:22:39 +0300
+Message-Id: <20220503182242.18797-24-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220503182242.18797-1-ville.syrjala@linux.intel.com>
 References: <20220503182242.18797-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 19/26] drm/i915: Skip
- intel_modeset_pipe_config_late() if the pipe is not enabled
+Subject: [Intel-gfx] [PATCH 23/26] drm/i915: Require an exact DP link freq
+ match for the DG2 PLL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,33 +64,27 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-No sense in calling intel_modeset_pipe_config_late() for a disabled
-pipe.
+No idea why the DG2 PLL DP link frequency calculation is allowing
+a non-exact match. That makes no sense so get rid of it.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_snps_phy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 11e974d66c29..a81d866bdb19 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7669,9 +7669,11 @@ static int intel_atomic_check(struct drm_device *dev,
- 		if (!intel_crtc_needs_modeset(new_crtc_state))
- 			continue;
+diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+index 0dd4775e8195..877f9a4bd7a5 100644
+--- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
+@@ -597,7 +597,7 @@ int intel_mpllb_calc_state(struct intel_crtc_state *crtc_state,
+ 		return -EINVAL;
  
--		ret = intel_modeset_pipe_config_late(state, crtc);
--		if (ret)
--			goto fail;
-+		if (new_crtc_state->hw.enable) {
-+			ret = intel_modeset_pipe_config_late(state, crtc);
-+			if (ret)
-+				goto fail;
-+		}
- 
- 		intel_crtc_check_fastset(old_crtc_state, new_crtc_state);
- 	}
+ 	for (i = 0; tables[i]; i++) {
+-		if (crtc_state->port_clock <= tables[i]->clock) {
++		if (crtc_state->port_clock == tables[i]->clock) {
+ 			crtc_state->mpllb_state = *tables[i];
+ 			return 0;
+ 		}
 -- 
 2.35.1
 
