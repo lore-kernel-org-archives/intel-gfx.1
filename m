@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 419F0C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 May 2022 18:23:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB8C9C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 May 2022 18:24:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DD5A10EB6B;
-	Tue,  3 May 2022 18:23:58 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D684A10E90C
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64F4410E90C;
+	Tue,  3 May 2022 18:24:01 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6EBE10EB6B
  for <intel-gfx@lists.freedesktop.org>; Tue,  3 May 2022 18:23:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1651602237; x=1683138237;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=GgX2e2MpmOfh8bgMUTMXGPnPqRwtC0xdsYfPdAwjw90=;
- b=gABUZrPkN9g5hAImHuY/q97WStx6ss0N4uSklFtrHaReG0tbBZfyzTWD
- SLNV+02+mkkoygoAU6sZ53xrXxV3YWVg8NxZ/sivuJy14j/PRqU1gLjZT
- t+9MeZupHkQ090MaEuDOKcsCgVAU2hb9PLqJHFZF85pXY3iTSvdYFNNdg
- fbnKd8UEL42UWeBD3qPZe+7lqsQEAauMXHN+ufhnr+mUnZFOYr0068iKX
- NchJmRRtHY/LLXTKe6L54BgJ0o4P5qH+vyyew+5b4k0UW+vzpplFO0DJ5
- 0XitMISo3adks+d/uJjfgY2p1zButu3bKV2O29/HtVn75c6xiquYKtBy9 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10336"; a="267432919"
-X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="267432919"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2022 11:23:51 -0700
+ bh=xLOhIfkRgoOmMc0hZK9ZIiKxSndH6ClXJfCJTuhfeCw=;
+ b=B0et6e6w/+5/7HHM5Fhw8IH62liar7xk+hG2wMBfhlKKq6pB9OqsaPU3
+ pekLslER39xRvxmU9Hqnubc+4FDOgxNHDeOuNyThIHnp66QenZwKBUMUf
+ vgfwNeN8OcHsKWt9nWh2nUsNE+n33BYSOBe8OcB2FIzxRea4/pENYal+J
+ VlDtOngiGDAfnaYz5dsForMSK2fqbzlD7gDyL+PddomvkZVFH0yHZMAVG
+ xEFvbkRU5TrPhLe1NqSR2IBnBBIbxF+akZ87eCo3ZbKeRwztE4oVtFTKR
+ N9lp/9VnxXP4PDE2EGnWywwfk99d3rG90WSd7OZ/PpWAS52/LzcyIcUC9 g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10336"; a="249533073"
+X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="249533073"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2022 11:23:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="547720202"
+X-IronPort-AV: E=Sophos;i="5.91,195,1647327600"; d="scan'208";a="620451281"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
- by orsmga002.jf.intel.com with SMTP; 03 May 2022 11:23:49 -0700
+ by fmsmga008.fm.intel.com with SMTP; 03 May 2022 11:23:55 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 03 May 2022 21:23:48 +0300
+ Tue, 03 May 2022 21:23:54 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  3 May 2022 21:22:38 +0300
-Message-Id: <20220503182242.18797-23-ville.syrjala@linux.intel.com>
+Date: Tue,  3 May 2022 21:22:40 +0300
+Message-Id: <20220503182242.18797-25-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220503182242.18797-1-ville.syrjala@linux.intel.com>
 References: <20220503182242.18797-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 22/26] drm/i915: Allow M/N change during fastset
- on bdw+
+Subject: [Intel-gfx] [PATCH 24/26] drm/i915: Use a fixed N value always
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,134 +63,180 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-On BDW+ M/N are double buffered and so we can easily reprogram them
-during a fastset. So for eDP panels that support seamless DRRS we
-can just change these without a full modeset.
+Windows/BIOS always uses fixed N values. Let's match that
+behaviour.
 
-For earlier platforms we'd need to play tricks with M1/N1 vs.
-M2/N2 during the fastset to make sure we do the switch atomically.
-Not sure the added complexity is worth the hassle, so leave it
-alone for now.
+Allows us to also get rid of that constant_n quirk stuff.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c  | 13 +++++++---
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_dp.c       | 26 +++++++++++++++----
- 3 files changed, 32 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 36 +++++++++-----------
+ drivers/gpu/drm/i915/display/intel_display.h |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp.c      | 10 +++---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  |  3 +-
+ drivers/gpu/drm/i915/display/intel_fdi.c     |  2 +-
+ 5 files changed, 24 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 2acc5f3a2c0e..f30bdcdd4c84 100644
+index f30bdcdd4c84..89a7c8c1be28 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6174,7 +6174,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	PIPE_CONF_CHECK_X(lane_lat_optim_mask);
- 
- 	if (DISPLAY_VER(dev_priv) >= 9 || IS_BROADWELL(dev_priv)) {
--		PIPE_CONF_CHECK_M_N_ALT(dp_m_n, dp_m2_n2);
-+		if (!fastset || !pipe_config->seamless_m_n)
-+			PIPE_CONF_CHECK_M_N_ALT(dp_m_n, dp_m2_n2);
- 	} else {
- 		PIPE_CONF_CHECK_M_N(dp_m_n);
- 		PIPE_CONF_CHECK_M_N(dp_m2_n2);
-@@ -6306,8 +6307,10 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	if (IS_G4X(dev_priv) || DISPLAY_VER(dev_priv) >= 5)
- 		PIPE_CONF_CHECK_I(pipe_bpp);
- 
--	PIPE_CONF_CHECK_I(hw.pipe_mode.crtc_clock);
--	PIPE_CONF_CHECK_I(hw.adjusted_mode.crtc_clock);
-+	if (!fastset || !pipe_config->seamless_m_n) {
-+		PIPE_CONF_CHECK_I(hw.pipe_mode.crtc_clock);
-+		PIPE_CONF_CHECK_I(hw.adjusted_mode.crtc_clock);
-+	}
- 	PIPE_CONF_CHECK_I(port_clock);
- 
- 	PIPE_CONF_CHECK_I(min_voltage_level);
-@@ -7890,6 +7893,10 @@ static void intel_pipe_fastset(const struct intel_crtc_state *old_crtc_state,
- 	if (DISPLAY_VER(dev_priv) >= 9 ||
- 	    IS_BROADWELL(dev_priv) || IS_HASWELL(dev_priv))
- 		hsw_set_linetime_wm(new_crtc_state);
-+
-+	if (new_crtc_state->seamless_m_n)
-+		intel_cpu_transcoder_set_m1_n1(crtc, new_crtc_state->cpu_transcoder,
-+					       &new_crtc_state->dp_m_n);
- }
- 
- static void commit_pipe_pre_planes(struct intel_atomic_state *state,
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 408152f9f46a..fb58893510a1 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1057,6 +1057,7 @@ struct intel_crtc_state {
- 	/* m2_n2 for eDP downclock */
- 	struct intel_link_m_n dp_m2_n2;
- 	bool has_drrs;
-+	bool seamless_m_n;
- 
- 	/* PSR is supported but might not be enabled due the lack of enabled planes */
- 	bool has_psr;
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index e4a79c11fd25..9385178c7fd6 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1270,21 +1270,33 @@ intel_dp_adjust_compliance_config(struct intel_dp *intel_dp,
+@@ -2848,19 +2848,11 @@ intel_reduce_m_n_ratio(u32 *num, u32 *den)
  	}
  }
  
-+static int intel_dp_mode_clock(const struct intel_crtc_state *crtc_state,
-+			       const struct drm_connector_state *conn_state)
-+{
-+	struct intel_connector *connector = to_intel_connector(conn_state->connector);
-+	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+
-+	/* FIXME a bit of a mess wrt clock vs. crtc_clock */
-+	if (intel_panel_drrs_type(connector) == DRRS_TYPE_SEAMLESS)
-+		return intel_panel_highest_mode(connector, adjusted_mode)->clock;
-+	else
-+		return adjusted_mode->crtc_clock;
-+}
-+
- /* Optimize link config in order: max bpp, min clock, min lanes */
- static int
- intel_dp_compute_link_config_wide(struct intel_dp *intel_dp,
- 				  struct intel_crtc_state *pipe_config,
-+				  const struct drm_connector_state *conn_state,
- 				  const struct link_config_limits *limits)
+-static void compute_m_n(unsigned int m, unsigned int n,
+-			u32 *ret_m, u32 *ret_n,
+-			bool constant_n)
++static void compute_m_n(u32 *ret_m, u32 *ret_n,
++			u32 m, u32 n, u32 constant_n)
  {
--	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
--	int bpp, i, lane_count;
-+	int bpp, i, lane_count, clock = intel_dp_mode_clock(pipe_config, conn_state);
- 	int mode_rate, link_rate, link_avail;
+-	/*
+-	 * Several DP dongles in particular seem to be fussy about
+-	 * too large link M/N values. Give N value as 0x8000 that
+-	 * should be acceptable by specific devices. 0x8000 is the
+-	 * specified fixed N value for asynchronous clock mode,
+-	 * which the devices expect also in synchronous clock mode.
+-	 */
+ 	if (constant_n)
+-		*ret_n = DP_LINK_CONSTANT_N_VALUE;
++		*ret_n = constant_n;
+ 	else
+ 		*ret_n = min_t(unsigned int, roundup_pow_of_two(n), DATA_LINK_N_MAX);
  
- 	for (bpp = limits->max_bpp; bpp >= limits->min_bpp; bpp -= 2 * 3) {
- 		int output_bpp = intel_dp_output_bpp(pipe_config->output_format, bpp);
+@@ -2872,22 +2864,28 @@ void
+ intel_link_compute_m_n(u16 bits_per_pixel, int nlanes,
+ 		       int pixel_clock, int link_clock,
+ 		       struct intel_link_m_n *m_n,
+-		       bool constant_n, bool fec_enable)
++		       bool fec_enable)
+ {
+ 	u32 data_clock = bits_per_pixel * pixel_clock;
  
--		mode_rate = intel_dp_link_required(adjusted_mode->crtc_clock,
--						   output_bpp);
-+		mode_rate = intel_dp_link_required(clock, output_bpp);
+ 	if (fec_enable)
+ 		data_clock = intel_dp_mode_to_fec_clock(data_clock);
  
- 		for (i = 0; i < intel_dp->num_common_rates; i++) {
- 			link_rate = intel_dp_common_rate(intel_dp, i);
-@@ -1584,7 +1596,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 	 * Optimize for slow and wide for everything, because there are some
- 	 * eDP 1.3 and 1.4 panels don't work well with fast and narrow.
- 	 */
--	ret = intel_dp_compute_link_config_wide(intel_dp, pipe_config, &limits);
-+	ret = intel_dp_compute_link_config_wide(intel_dp, pipe_config, conn_state, &limits);
++	/*
++	 * Windows/BIOS uses fixed M/N values always. Follow suit.
++	 *
++	 * Also several DP dongles in particular seem to be fussy
++	 * about too large link M/N values. Presumably the 20bit
++	 * value used by Windows/BIOS is acceptable to everyone.
++	 */
+ 	m_n->tu = 64;
+-	compute_m_n(data_clock,
+-		    link_clock * nlanes * 8,
+-		    &m_n->data_m, &m_n->data_n,
+-		    constant_n);
++	compute_m_n(&m_n->data_m, &m_n->data_n,
++		    data_clock, link_clock * nlanes * 8,
++		    0x8000000);
  
- 	if (ret || joiner_needs_dsc || intel_dp->force_dsc_en) {
- 		drm_dbg_kms(&i915->drm, "Try DSC (fallback=%s, joiner=%s, force=%s)\n",
-@@ -1873,6 +1885,10 @@ intel_dp_drrs_compute_config(struct intel_connector *connector,
- 		intel_panel_downclock_mode(connector, &pipe_config->hw.adjusted_mode);
- 	int pixel_clock;
+-	compute_m_n(pixel_clock, link_clock,
+-		    &m_n->link_m, &m_n->link_n,
+-		    constant_n);
++	compute_m_n(&m_n->link_m, &m_n->link_n,
++		    pixel_clock, link_clock,
++		    0x80000);
+ }
  
-+	if ((DISPLAY_VER(i915) >= 9 || IS_BROADWELL(i915)) &&
-+	    intel_panel_drrs_type(connector) == DRRS_TYPE_SEAMLESS)
-+		pipe_config->seamless_m_n = true;
-+
- 	if (!can_enable_drrs(connector, pipe_config, downclock_mode)) {
- 		if (intel_cpu_transcoder_has_m2_n2(i915, pipe_config->cpu_transcoder))
- 			intel_zero_m_n(&pipe_config->dp_m2_n2);
+ static void intel_panel_sanitize_ssc(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index 187910d94ec6..862338b6c4fa 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -546,7 +546,7 @@ u8 intel_calc_active_pipes(struct intel_atomic_state *state,
+ void intel_link_compute_m_n(u16 bpp, int nlanes,
+ 			    int pixel_clock, int link_clock,
+ 			    struct intel_link_m_n *m_n,
+-			    bool constant_n, bool fec_enable);
++			    bool fec_enable);
+ u32 intel_plane_fb_max_stride(struct drm_i915_private *dev_priv,
+ 			      u32 pixel_format, u64 modifier);
+ enum drm_mode_status
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 9385178c7fd6..d10f05d40360 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1878,7 +1878,7 @@ static bool can_enable_drrs(struct intel_connector *connector,
+ static void
+ intel_dp_drrs_compute_config(struct intel_connector *connector,
+ 			     struct intel_crtc_state *pipe_config,
+-			     int output_bpp, bool constant_n)
++			     int output_bpp)
+ {
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	const struct drm_display_mode *downclock_mode =
+@@ -1906,7 +1906,7 @@ intel_dp_drrs_compute_config(struct intel_connector *connector,
+ 
+ 	intel_link_compute_m_n(output_bpp, pipe_config->lane_count, pixel_clock,
+ 			       pipe_config->port_clock, &pipe_config->dp_m2_n2,
+-			       constant_n, pipe_config->fec_enable);
++			       pipe_config->fec_enable);
+ 
+ 	/* FIXME: abstract this better */
+ 	if (pipe_config->splitter.enable)
+@@ -1981,7 +1981,6 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+ 	const struct drm_display_mode *fixed_mode;
+ 	struct intel_connector *connector = intel_dp->attached_connector;
+-	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CONSTANT_N);
+ 	int ret = 0, output_bpp;
+ 
+ 	if (HAS_PCH_SPLIT(dev_priv) && !HAS_DDI(dev_priv) && encoder->port != PORT_A)
+@@ -2060,7 +2059,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 			       adjusted_mode->crtc_clock,
+ 			       pipe_config->port_clock,
+ 			       &pipe_config->dp_m_n,
+-			       constant_n, pipe_config->fec_enable);
++			       pipe_config->fec_enable);
+ 
+ 	/* FIXME: abstract this better */
+ 	if (pipe_config->splitter.enable)
+@@ -2071,8 +2070,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 
+ 	intel_vrr_compute_config(pipe_config, conn_state);
+ 	intel_psr_compute_config(intel_dp, pipe_config, conn_state);
+-	intel_dp_drrs_compute_config(connector, pipe_config,
+-				     output_bpp, constant_n);
++	intel_dp_drrs_compute_config(connector, pipe_config, output_bpp);
+ 	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
+ 	intel_dp_compute_hdr_metadata_infoframe_sdp(intel_dp, pipe_config, conn_state);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 061b277e5ce7..00e55555091a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -57,7 +57,6 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
+-	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CONSTANT_N);
+ 	int bpp, slots = -EINVAL;
+ 
+ 	crtc_state->lane_count = limits->max_lane_count;
+@@ -93,7 +92,7 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+ 			       adjusted_mode->crtc_clock,
+ 			       crtc_state->port_clock,
+ 			       &crtc_state->dp_m_n,
+-			       constant_n, crtc_state->fec_enable);
++			       crtc_state->fec_enable);
+ 	crtc_state->dp_m_n.tu = slots;
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
+index 67d2484afbaa..0dc6414a56c4 100644
+--- a/drivers/gpu/drm/i915/display/intel_fdi.c
++++ b/drivers/gpu/drm/i915/display/intel_fdi.c
+@@ -256,7 +256,7 @@ int ilk_fdi_compute_config(struct intel_crtc *crtc,
+ 	pipe_config->fdi_lanes = lane;
+ 
+ 	intel_link_compute_m_n(pipe_config->pipe_bpp, lane, fdi_dotclock,
+-			       link_bw, &pipe_config->fdi_m_n, false, false);
++			       link_bw, &pipe_config->fdi_m_n, false);
+ 
+ 	ret = ilk_check_fdi_lanes(dev, crtc->pipe, pipe_config);
+ 	if (ret == -EDEADLK)
 -- 
 2.35.1
 
