@@ -4,152 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D95A4C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 18:57:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D91CC433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 19:02:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5910810EEDF;
-	Thu,  5 May 2022 18:57:34 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8547110EF3E
- for <intel-gfx@lists.freedesktop.org>; Thu,  5 May 2022 18:57:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651777053; x=1683313053;
- h=message-id:date:subject:to:references:from:in-reply-to:
- content-transfer-encoding:mime-version;
- bh=bdlE+OH9XEJtFhD+AcZqyY0Bd1Qk5UHIh1+/IlGxnA0=;
- b=NOSf72BZ8m0UaLq9RbESiEm33PtNzHRFsNTQISkpevS3gAx6fOLQxOaM
- QCcFe+RDqV/7rRe/+FF4e9fXEORGf64e10tWI99mFYkTjoVVFbSPsDsyr
- XxZICI75N544IxKJWk/A6qcRkACbC+w23+kK6I7g4k19UqNMpj7blGAsB
- RDrFAPViiitDiYL7zHHygiK8zB4c4cWPoypVVdnCaw3aQavdUMjSK3suY
- oCJ+XaKo10wtHOezWF/Ro65H1a0da7n/6u7P5enoBOdJLvKc1qvnT6DuY
- yGU+HtdmraNMKprKWOBwTx2dsAvi9YCZ7MIXnDzjmhKTnVrj0IKqSc/BR g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="248754951"
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="248754951"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2022 11:57:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="654357480"
-Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
- by FMSMGA003.fm.intel.com with ESMTP; 05 May 2022 11:57:32 -0700
-Received: from orsmsx604.amr.corp.intel.com (10.22.229.17) by
- ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Thu, 5 May 2022 11:57:32 -0700
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Thu, 5 May 2022 11:57:32 -0700
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.176)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.27; Thu, 5 May 2022 11:57:31 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l56alL9WNYfscGp6oucjcTG6LW/IbU0TWGZYSHES0EQJmv8YY/xE+HM98jtb5+iPSf0dcsjHi4GTWX/amijQcyrZDONIABWWvFV05IY5osv/7M7HeC9tGHIcryfV0np5IvaH5SfpzEeiv9uYRRI/spXh8QNZxa9Q4SOtjb4aABXAtJGxRjwiYz2UHKiRZt+oV9Th9Dft31ok/cyOuJFVVQhOeML8gMItQ8/cr1N3YMXs8Re0h30mF33F7rz2+vip8JkQgfMcz0OejvT0/9HjnfAW+mWzPmFzHSA8S9OHFJcLGcrLfQs+hr/3gp2oB2W3R9Gczb+FcTYNHCM2XUC03A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C/wjMRetxgpZlyqytIGxhYOBj2y+DlPmDc8WczoDxxw=;
- b=m4SmtteLOrh9hztOYD04xbAUVbX8npCU31gGoXjwBrJRaccRVsnj3js14JuUXKbytJGFpSw0mv7iKVj2vIHIuCrLTeb7vUdK7cWZb5zQGSsqbvAUsBpTePKh042HIi3ORzAMoHrPj3FRTvhv2ItjVqFV9PuNjwGN2hiNqo7Cu7TyNL8TLSdcr2Na27R+Yve6hJO4Cxo0VtGTSnQljCz607+ewkmYLkZGwm+5kFaP9Rk7vsFjSgiA2+IE7aZKVzISuDHAe4UpvqHLAlufEL5rTjvgE2atlCNXLIZrl6FnAkEjxwlO4RLLrs6D0NRKedGr3SGFh66lWc+anLiJwpjrSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM6PR11MB3180.namprd11.prod.outlook.com (2603:10b6:5:9::13) by
- BL0PR11MB3123.namprd11.prod.outlook.com (2603:10b6:208:7b::33) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5206.13; Thu, 5 May 2022 18:57:29 +0000
-Received: from DM6PR11MB3180.namprd11.prod.outlook.com
- ([fe80::b1fa:393c:9fb6:6871]) by DM6PR11MB3180.namprd11.prod.outlook.com
- ([fe80::b1fa:393c:9fb6:6871%5]) with mapi id 15.20.5206.025; Thu, 5 May 2022
- 18:57:29 +0000
-Message-ID: <2ff8c00e-485e-8e2f-6f74-b34385d058a6@intel.com>
-Date: Thu, 5 May 2022 20:57:25 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.8.1
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- <intel-gfx@lists.freedesktop.org>
-References: <20220504114808.1578304-1-andrzej.hajda@intel.com>
- <87h763ltaa.fsf@intel.com>
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <87h763ltaa.fsf@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0322.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:197::21) To DM6PR11MB3180.namprd11.prod.outlook.com
- (2603:10b6:5:9::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6080F10E198;
+	Thu,  5 May 2022 19:02:27 +0000 (UTC)
+X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
+ Thu, 05 May 2022 19:02:25 UTC
+Received: from us-smtp-delivery-74.mimecast.com
+ (us-smtp-delivery-74.mimecast.com [170.10.133.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4B5610E198
+ for <intel-gfx@lists.freedesktop.org>; Thu,  5 May 2022 19:02:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1651777344;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=f18f3HFDzcWcpCnJEAghZSsw8ma5U8xDHMSYzQxl1Kw=;
+ b=bhLJO9WJKFPJ5BJvl8TaE9og71b7ZgnosKAfS1p1vmn/vxoDknpFLXkgz4Ka4NDWlx7WQc
+ Ve5tzTgB2rTMj+n9SXFeeAOp8nE+KqtZYOKg2Cl7ulNYV1vfYixxdbDtSeSPNZ0chC5ASZ
+ JahSY2Pz7nBqDo9trQKJZh5+3edv3Yg=
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
+ [209.85.166.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-490-Ul5Wbmy7M9CAe32orsNi4w-1; Thu, 05 May 2022 14:56:17 -0400
+X-MC-Unique: Ul5Wbmy7M9CAe32orsNi4w-1
+Received: by mail-io1-f72.google.com with SMTP id
+ 204-20020a6b01d5000000b00657bb7a0f33so3498281iob.4
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 May 2022 11:56:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:organization:mime-version:content-transfer-encoding;
+ bh=f18f3HFDzcWcpCnJEAghZSsw8ma5U8xDHMSYzQxl1Kw=;
+ b=riHXY36Ct7PW+jhISxAKQOXcngKFxZ2O/DO1ZMR7wiWJuyf1k6TLVSz8bY2OyjWrYK
+ le3HOua0+FFfRe8EeElE0wZJV/jtZ3CR3uEfvGQuWHvqVjieOHLdDdCrKQ3vX4TRTq5H
+ 4J/dNsb2vX4BGxkN7DTA6gS9VsYGVg3FZrMhaqL/bBpBULsCAire263CQgIbgBwAsMXT
+ Ns1x1GWruZxcnLm7YLjkWh/cGl2sbxD1wT2X9FbLjQGT0UjjwU3EqfqCfIISeIZ7KW6x
+ YZAA9kmjwIclzSTJ6ydkYsYirKFlwaA+tWmP8Xstp9LLaU8Ljdala+Hy1HaPtLWnuZxA
+ J94A==
+X-Gm-Message-State: AOAM533ei1NhRXjz527j5zwhHa++zxHjaJE1ajDZ547ndb7Ara7lbrpv
+ uXLjlXPa0+25s4LE/3b3qqEzKPQ821t4HTVVK9HkHEE7Iakq/pXzNrbtFzHnJk1PaG1+EWO1Oi2
+ sY0pU9NQjhEY1coyRF7FKhhjAjcA0
+X-Received: by 2002:a05:6e02:101:b0:2ca:c6d7:b077 with SMTP id
+ t1-20020a056e02010100b002cac6d7b077mr11076512ilm.306.1651776976242; 
+ Thu, 05 May 2022 11:56:16 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxHFbJ0nCKsQ0bBlR27/4L6UbMkIWyWen+MSEs+NIpdNuI/bZ/K9W8lim3i/GNxpjm4hIKzqw==
+X-Received: by 2002:a05:6e02:101:b0:2ca:c6d7:b077 with SMTP id
+ t1-20020a056e02010100b002cac6d7b077mr11076495ilm.306.1651776975845; 
+ Thu, 05 May 2022 11:56:15 -0700 (PDT)
+Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
+ f7-20020a926a07000000b002cde6e352f2sm621896ilc.60.2022.05.05.11.56.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 May 2022 11:56:15 -0700 (PDT)
+Date: Thu, 5 May 2022 12:56:14 -0600
+From: Alex Williamson <alex.williamson@redhat.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Message-ID: <20220505125614.0f927782.alex.williamson@redhat.com>
+In-Reply-To: <20220504174926.GA88353@nvidia.com>
+References: <0-v3-e131a9b6b467+14b6-vfio_mdev_no_group_jgg@nvidia.com>
+ <20220504174926.GA88353@nvidia.com>
+Organization: Red Hat
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 51ee4ea6-cb4e-4a80-0809-08da2ec91a83
-X-MS-TrafficTypeDiagnostic: BL0PR11MB3123:EE_
-X-Microsoft-Antispam-PRVS: <BL0PR11MB31235F85ED8914C15B85A171EBC29@BL0PR11MB3123.namprd11.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: thmXKE81F5PK8HugZQm4i/qH8QC4nBJ0skbkyRcgmdKeBxsSh7uZifUsFHmRtwPwAEk7AQFiQ0nLh6mDG5VeEMHAXC0JeHSU9Qq6OrhiqGraWEkrl5105ClDktRVSC4buymgaShj/XQ5m9CIoKv2vbnfAME7vX4uKjxCecQA4QA6ySxq7wVw8QlwzdtJ8uGhHmHl5y7L65LXv7ZSH14CR9vNSvRGf8y1IOs126s3UZCYbIOvfdkTvF1EpjtDKEwE7b6ylRdcdJfLNN4Qrf5QwrQyF7Q938VhOsp7yRrXAns0DLSJCmgIc+pxxaxBQ3h3Myynyf0UEqWCdEpIZBPYwPxbAW5F/w25O3pLDwrbnuWN6YWPfbz+jX0tQdw7y7Cu6xfRXpuMXbYrlUDXkouaMk+LyR3RfyZ0koYS3Rl9aRAhEl3TA1v4mZzHMtKCSrAdAlIzKCXrKDvTHKjb3eYmowNzE6YVYOR4jSiFBKrL91uZRSA2BtVrp+nwkMwRbQfDf8qfJcg3koV50Jw5Kn0Oe8DCKYVZRp75AztbNBg3SndtzkpY0d0uvOMwDcqIBngl4jJTjauKlSYh2URswkBPEYiV52CVi+DSVDsyI0RSX7KIoovIK3xunG+MDME8xD2GDXAifwoVHYYP1+aIbd0Tf+evZaBWTJpH/HHN38ki+I6xtwcoBHme3vO4HnmUWyHTwvcqDJO5ynC6EFnELv+tqfiGE1A40mtkjX01yj3xjeg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB3180.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(5660300002)(36916002)(6666004)(6506007)(6512007)(38100700002)(2906002)(26005)(8936002)(966005)(36756003)(82960400001)(2616005)(83380400001)(44832011)(186003)(508600001)(31686004)(53546011)(6486002)(86362001)(66946007)(316002)(31696002)(66476007)(66556008)(8676002)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T2tNMThSZGduRld6ckRpSTA5eVUrOTkra3FXZTJJUEd0YmN5WHBJUytDRjJU?=
- =?utf-8?B?WkpGN09BQ1NDWDlyN0ZsTnNHOCs4L2dpZFkyY01IanA0TXhVaEpwUzJmbWdl?=
- =?utf-8?B?bVVaQ1d1K1M1eUdzTzIwdnY5S2w5TGJjNm45S29PVHdXWStEaWFjTTNSN01O?=
- =?utf-8?B?S0IvTVdMVXBTbVhFS1ZJbGpsdUI4RzQwZkNBNk0xSkg5Z093TVlrNG0xdmc1?=
- =?utf-8?B?L09wbHNabkNaMi9oWUppd3BTZFg4a2pmWDlDYTlYdFVaRktxaDZZWVNFNDBQ?=
- =?utf-8?B?YTc2Q3JENTlEVjhLVWticzNuU2NQcnJFbE5rNzFsTXNpTWV3YWVNLzEra0Q4?=
- =?utf-8?B?LzhxQ1VnZ1RZdVl4dHVLdmd2UENuOS9FWEFvR0hYNi9IYkhGV3A4dmF6VVJx?=
- =?utf-8?B?SmZpRTdqMEdhWXI4NjMxeWd6YzdrS09OL1dtbEhGQkk2UENzU1ExeTJLLzdp?=
- =?utf-8?B?N2RFOWJwUTVDZ2hJU1FuNzRZNmlwcVUzMUtEWmppZFBNK3JVbmJLNXF5NXNZ?=
- =?utf-8?B?QW4wTHl2RnVXNGZEMU1lRGYvTjVERytRcVpFWFFUdEVuVDVCaDIvL0x4ZWti?=
- =?utf-8?B?bVBYVXVBZ1B6blF3bjA5YmhFK2FmVTh5aUVGamZuUDN2VHJvbTNsVnBqOWFG?=
- =?utf-8?B?MitET1gyK2lsRVpPSU9IOTJJYXRhb3NtUEFxQlRwYlN5MHdneHVxRmRXNHBP?=
- =?utf-8?B?SW4yaEJwMlh4YmlMd0c0amtPeVNKWm5vb3Z4VVdBV0REcGpDNUV5MFRWVUpa?=
- =?utf-8?B?N0I5NWdHSm04QXozTG9IeWpCbVFLUFFJZk9RNzhPR05UdTlGR2ZLYUxjSFNC?=
- =?utf-8?B?UHJReThnQTFJclhHL3VPQ0xsRFQySnNKc2lncy9wTXdBWWRRSWVZNjhxNUJh?=
- =?utf-8?B?SkU2eGZLMzl1NlZ6Z1RkMzdlNk1rWUxvMmZzU0plWFIwbTIwRE1zSGo5Y1h1?=
- =?utf-8?B?L1NpY0xUL1FIK1J6YkR6dW1YK3FMS0tKZmFVVkovS0lCQWN5MTRNOFc4aWFh?=
- =?utf-8?B?KzN5TDJ2MmxDUVJMcERrdlZTb1FiMVFsNFY3eDUyM29kWFlBUG1vSWg5OFRB?=
- =?utf-8?B?YSs2WTRKdk1STXRNbGlxWnNnamZ4Ynl5Q3dSdU4xVktLeEo5bTZOV3VyTXg4?=
- =?utf-8?B?YXhwQ2pwLzlLS0ZhVVFDaE9jd2JEdldaRTNUR2VZY0dOaTIxUkJnSkhaUzJl?=
- =?utf-8?B?MXU0WXJoREwwT05qaERJKzZTOExyam83NTV0Y2xpK1oyZWVqMFFUNmhjZkNa?=
- =?utf-8?B?dWx1Sm9JM0cwZzlsWDRINENWazc4VjVyMHViTmY1WUcxNnJRalNhSXZvOG9o?=
- =?utf-8?B?Y0Z4WkVsc2hZTDJtVGswZFc0aXB1RFY1TEJ3ZjR5K0lQdENKcGxnRktsdWk2?=
- =?utf-8?B?d0RBK1BjdVcvdTlseTdWVENnUDlacHl5Q2x0Y0hvRDI3ZURCYUY0NWwzVVdJ?=
- =?utf-8?B?YmFZUnQ4aW1xQVRJTTFNT2lXdzdqZ2JhOTJzczZwbDlkeVBjdWl6NnRid0tw?=
- =?utf-8?B?ZEJ1am10UnlxTncxR0twMlA2ZDRVZlRYRmxTSmdBTjNUK0lEZ2xTazdJeFRq?=
- =?utf-8?B?STdIVHlYOXg4YWRFL3dIUUgxTHBZdWwzbjBGd09XSjlIRUhDdzVQaGQxRFB4?=
- =?utf-8?B?dDNnVFdxWWJIdmUxajZXVFhVVEUwSGd1MDNQSFp6RmRBN3c4aytrYmNjYTEr?=
- =?utf-8?B?bWw3Y1lIWTMwRWVCMUYwSE1OblpCZDZ4Z1hJTUpuYkJaUkozbDlMbW82Q3ZM?=
- =?utf-8?B?cVcrWENzY1RUVnlDaWJHdFptaXlMZEh1eTZGRGV2NnlheDdlNkgrWDZpaVM4?=
- =?utf-8?B?SXFMdG8xVlY0aDRuK3F2V0ZROW1hTzdwd0pySi85eHFvaEFmdWRyT052bUoy?=
- =?utf-8?B?OXNuWUlXT2FVVnNSSEdjS3F4YmJSOURxaWo4TXU0NTI5K1kwWkJpZTh2bnpW?=
- =?utf-8?B?dTlCNXQyZDRsZ0V0ZFdGdnhqMnFKcmphRG96Z1I3ekkzT0pTTStNVlVHdEJu?=
- =?utf-8?B?VGt0WW5MVk1qTjY1cVVnNFRxSzhRNlNna1BYbUFrejVrUUNBYjVlSGxsUnF2?=
- =?utf-8?B?dHVsVk0zYloyK2dJOW9ocUQyRVl2QnhXVnR2QkovTmFZOWpOQzdEQlRmUjJC?=
- =?utf-8?B?VDlpUDZ3UVlJaXRUdjJqQWwyZUhTT3UvdGQxSWpnMFVSTzQ5UVROb25La1Fh?=
- =?utf-8?B?R2JqWTJtZjN3VFc0S0NYRkNBdEpZYTNWektyRWtNbi9UcG5xNXRMZWVTWWdR?=
- =?utf-8?B?ZjRGTDRnb0NWOEQzdWRJV1podUlmWmlOL084NVV1RW1GRHVtZHpRU21ZQVlP?=
- =?utf-8?B?NE9adGRZYnhFVFMyM2phaDhxajhkMWhEVXIyb05nWll3U0ZoR0RkSncrckRU?=
- =?utf-8?Q?IxzwBvKVNNjXayTo=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51ee4ea6-cb4e-4a80-0809-08da2ec91a83
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3180.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2022 18:57:29.6476 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A8JysLnSn5LfOWjgGPvUjHESrdxD5Ia8hZ4Tqc7ADI5E9LGRDG46NNY2SF2OSrtCLMTqAD/g+fWs8V7hfw8JTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR11MB3123
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/fbdev: print error in case
- drm_fb_helper_initial_config fails
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=alex.williamson@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v3 0/7] Make the rest of the VFIO driver
+ interface use vfio_device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,67 +87,299 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Tony Krowiak <akrowiak@linux.ibm.com>,
+ "Jason J. Herne" <jjherne@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>,
+ "Liu, Yi L" <yi.l.liu@intel.com>, kvm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ Christoph Hellwig <hch@lst.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Jani,
+On Wed, 4 May 2022 14:49:26 -0300
+Jason Gunthorpe <jgg@nvidia.com> wrote:
 
-On 05.05.2022 20:37, Jani Nikula wrote:
-> On Wed, 04 May 2022, Andrzej Hajda <andrzej.hajda@intel.com> wrote:
->> On some configurations drm_fb_helper_initial_config sometimes fails.
->> Logging error value should help debugging such issues.
->>
->> Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
->> ---
->>   drivers/gpu/drm/i915/display/intel_fbdev.c | 11 ++++++++---
->>   1 file changed, 8 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
->> index 221336178991f0..557c7f15ac22a9 100644
->> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
->> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
->> @@ -539,11 +539,16 @@ int intel_fbdev_init(struct drm_device *dev)
->>   static void intel_fbdev_initial_config(void *data, async_cookie_t cookie)
->>   {
->>   	struct intel_fbdev *ifbdev = data;
->> +	int ret;
->>   
->>   	/* Due to peculiar init order wrt to hpd handling this is separate. */
->> -	if (drm_fb_helper_initial_config(&ifbdev->helper,
->> -					 ifbdev->preferred_bpp))
->> -		intel_fbdev_unregister(to_i915(ifbdev->helper.dev));
->> +	ret = drm_fb_helper_initial_config(&ifbdev->helper,
->> +					   ifbdev->preferred_bpp);
->> +	if (!ret)
->> +		return;
-> If this patch is intended for merging, I'd prefer keeping the failure
-> path indented within if (ret).
->
->> +	drm_err(ifbdev->helper.dev, "failed to set initial configuration: %pe\n",
->> +		ERR_PTR(ret));
-> I'm leaning towards preferring "%s", errname(ret) over "%pe",
-> ERR_PTR(ret) because everyone knows what %s means and using ERR_PTR()
-> seems odd when it's really a plain int.
->
-> BR,
-> Jani.
+> On Mon, May 02, 2022 at 02:31:30PM -0300, Jason Gunthorpe wrote:
+> > Prior series have transformed other parts of VFIO from working on struct
+> > device or struct vfio_group into working directly on struct
+> > vfio_device. Based on that work we now have vfio_device's readily
+> > available in all the drivers.
+> > 
+> > Update the rest of the driver facing API to use vfio_device as an input.
+> > 
+> > The following are switched from struct device to struct vfio_device:
+> >   vfio_register_notifier()
+> >   vfio_unregister_notifier()
+> >   vfio_pin_pages()
+> >   vfio_unpin_pages()
+> >   vfio_dma_rw()
+> > 
+> > The following group APIs are obsoleted and removed by just using struct
+> > vfio_device with the above:
+> >   vfio_group_pin_pages()
+> >   vfio_group_unpin_pages()
+> >   vfio_group_iommu_domain()
+> >   vfio_group_get_external_user_from_dev()
+> > 
+> > To retain the performance of the new device APIs relative to their group
+> > versions optimize how vfio_group_add_container_user() is used to avoid
+> > calling it when the driver must already guarantee the device is open and
+> > the container_users incrd.
+> > 
+> > The remaining exported VFIO group interfaces are only used by kvm, and are
+> > addressed by a parallel series.
+> > 
+> > This series is based on Christoph's gvt rework here:
+> > 
+> >  https://lore.kernel.org/all/5a8b9f48-2c32-8177-1c18-e3bd7bfde558@intel.com/
+> > 
+> > and so will need the PR merged first.
+> > 
+> > I have a followup series that needs this.
+> > 
+> > This is also part of the iommufd work - moving the driver facing interface
+> > to vfio_device provides a much cleaner path to integrate with iommufd.
+> > 
+> > v3:
+> >  - Based on VFIO's gvt/iommu merge
+> >  - Remove mention of mdev_legacy_get_vfio_device() from commit message
+> >  - Clarify commit message for vfio_dma_rw() conversion
+> >  - Talk about the open_count change in the commit message
+> >  - No code change
+> > v2: https://lore.kernel.org/r/0-v2-6011bde8e0a1+5f-vfio_mdev_no_group_jgg@nvidia.com
+> >  - Based on Christoph's series so mdev_legacy_get_vfio_device() is removed
+> >  - Reflow indenting
+> >  - Use vfio_assert_device_open() and WARN_ON_ONCE instead of open coding
+> >    the assertion
+> > v1: https://lore.kernel.org/r/0-v1-a8faf768d202+125dd-vfio_mdev_no_group_jgg@nvidia.com  
+> 
+> Hi Alex,
+> 
+> This v3 is still good to go, it applies clean on top of the gvt series.
 
-Apparently this patch didn't help in catching the bug, so no big 
-feelings about it.
-Anyway I think I have found the issue I was looking for: hpd poll worker 
-could be run during driver removal after console unregistration causing 
-re-registration of console, which is not removed later leaving dangling 
-pointers.
-If you could take a look at the patch [1], it would be nice :)
+I wasn't cc'd on that version.  It looks to me like we'd still prefer
+to see acks from GVT-g maintainers, Zhenyu and Zhi.
 
-[1]: https://patchwork.freedesktop.org/series/103621/#rev1
+Also, I was thinking of posting the below cleanup patch unless you'd
+prefer to roll it in.
 
-Regards
-Andrzej
+Regarding your other outstanding patches, I think all of these depend
+on the IOMMU changes, please correct if there are any that can be
+queued with only the GVT-g topic branch dependency:
 
->
->> +	intel_fbdev_unregister(to_i915(ifbdev->helper.dev));
->>   }
->>   
->>   void intel_fbdev_initial_config_async(struct drm_device *dev)
+Subject: [PATCH v3 0/8] Remove vfio_group from the struct file facing VFIO API
+Date: Wed,  4 May 2022 16:14:38 -0300
+https://lore.kernel.org/all/0-v3-f7729924a7ea+25e33-vfio_kvm_no_group_jgg@nvidia.com/
+
+Subject: [PATCH] vfio: Delete container_q
+Date: Fri, 29 Apr 2022 15:46:17 -0300
+https://lore.kernel.org/all/0-v1-a1e8791d795b+6b-vfio_container_q_jgg@nvidia.com/
+
+And I'm waiting for a respin based on comments for:
+
+Subject: [PATCH v3 0/2] Remove vfio_device_get_from_dev()
+Date: Wed,  4 May 2022 16:01:46 -0300
+https://lore.kernel.org/all/0-v3-4adf6c1b8e7c+170-vfio_get_from_dev_jgg@nvidia.com/
+
+If there are others I should be tracking, please let me know.  Thanks,
+
+Alex
+
+commit e35ab17c48abcd8f6b40a35025d6d34a4d57f67a
+Author: Alex Williamson <alex.williamson@redhat.com>
+Date:   Wed May 4 17:01:51 2022 -0600
+
+    vfio: Rename notifier function args
+    
+    We typically use "device" for a struct vfio_device* whereas "dev" is
+    more likely a "struct device*".
+    
+    Signed-off-by: Alex Williamson <alex.williamson@redhat.com>
+
+diff --git a/drivers/vfio/vfio.c b/drivers/vfio/vfio.c
+index b566ae3d320b..5de9a9892877 100644
+--- a/drivers/vfio/vfio.c
++++ b/drivers/vfio/vfio.c
+@@ -2104,7 +2104,7 @@ EXPORT_SYMBOL(vfio_set_irqs_validate_and_prepare);
+ /*
+  * Pin a set of guest PFNs and return their associated host PFNs for
+local
+  * domain only.
+- * @dev [in]     : device
++ * @device [in]  : vfio device
+  * @user_pfn [in]: array of user/guest PFNs to be pinned.
+  * @npage [in]   : count of elements in user_pfn array.  This count
+should not
+  *		   be greater VFIO_PIN_PAGES_MAX_ENTRIES.
+@@ -2112,15 +2112,16 @@
+EXPORT_SYMBOL(vfio_set_irqs_validate_and_prepare);
+  * @phys_pfn[out]: array of host PFNs
+  * Return error or number of pages pinned.
+  */
+-int vfio_pin_pages(struct vfio_device *vdev, unsigned long *user_pfn,
+int npage,
+-		   int prot, unsigned long *phys_pfn)
++int vfio_pin_pages(struct vfio_device *device, unsigned long *user_pfn,
++		   int npage, int prot, unsigned long *phys_pfn)
+ {
+ 	struct vfio_container *container;
+-	struct vfio_group *group = vdev->group;
++	struct vfio_group *group = device->group;
+ 	struct vfio_iommu_driver *driver;
+ 	int ret;
+ 
+-	if (!user_pfn || !phys_pfn || !npage ||
+!vfio_assert_device_open(vdev))
++	if (!user_pfn || !phys_pfn || !npage ||
++	    !vfio_assert_device_open(device))
+ 		return -EINVAL;
+ 
+ 	if (npage > VFIO_PIN_PAGES_MAX_ENTRIES)
+@@ -2144,27 +2145,27 @@ EXPORT_SYMBOL(vfio_pin_pages);
+ 
+ /*
+  * Unpin set of host PFNs for local domain only.
+- * @dev [in]     : device
++ * @device [in]  : vfio device
+  * @user_pfn [in]: array of user/guest PFNs to be unpinned. Number of
+user/guest
+  *		   PFNs should not be greater than
+VFIO_PIN_PAGES_MAX_ENTRIES.
+  * @npage [in]   : count of elements in user_pfn array.  This count
+should not
+  *                 be greater than VFIO_PIN_PAGES_MAX_ENTRIES.
+  * Return error or number of pages unpinned.
+  */
+-int vfio_unpin_pages(struct vfio_device *vdev, unsigned long *user_pfn,
++int vfio_unpin_pages(struct vfio_device *device, unsigned long
+*user_pfn, int npage)
+ {
+ 	struct vfio_container *container;
+ 	struct vfio_iommu_driver *driver;
+ 	int ret;
+ 
+-	if (!user_pfn || !npage || !vfio_assert_device_open(vdev))
++	if (!user_pfn || !npage || !vfio_assert_device_open(device))
+ 		return -EINVAL;
+ 
+ 	if (npage > VFIO_PIN_PAGES_MAX_ENTRIES)
+ 		return -E2BIG;
+ 
+-	container = vdev->group->container;
++	container = device->group->container;
+ 	driver = container->iommu_driver;
+ 	if (likely(driver && driver->ops->unpin_pages))
+ 		ret = driver->ops->unpin_pages(container->iommu_data,
+user_pfn, @@ -2186,24 +2187,24 @@ EXPORT_SYMBOL(vfio_unpin_pages);
+  * As the read/write of user space memory is conducted via the CPUs
+and is
+  * not a real device DMA, it is not necessary to pin the user space
+memory. *
+- * @vdev [in]		: VFIO device
++ * @device [in]		: VFIO device
+  * @user_iova [in]	: base IOVA of a user space buffer
+  * @data [in]		: pointer to kernel buffer
+  * @len [in]		: kernel buffer length
+  * @write		: indicate read or write
+  * Return error code on failure or 0 on success.
+  */
+-int vfio_dma_rw(struct vfio_device *vdev, dma_addr_t user_iova, void
+*data, +int vfio_dma_rw(struct vfio_device *device, dma_addr_t
+user_iova, void *data, size_t len, bool write)
+ {
+ 	struct vfio_container *container;
+ 	struct vfio_iommu_driver *driver;
+ 	int ret = 0;
+ 
+-	if (!data || len <= 0 || !vfio_assert_device_open(vdev))
++	if (!data || len <= 0 || !vfio_assert_device_open(device))
+ 		return -EINVAL;
+ 
+-	container = vdev->group->container;
++	container = device->group->container;
+ 	driver = container->iommu_driver;
+ 
+ 	if (likely(driver && driver->ops->dma_rw))
+@@ -2211,6 +2212,7 @@ int vfio_dma_rw(struct vfio_device *vdev,
+dma_addr_t user_iova, void *data, user_iova, data, len, write);
+ 	else
+ 		ret = -ENOTTY;
++
+ 	return ret;
+ }
+ EXPORT_SYMBOL(vfio_dma_rw);
+@@ -2287,13 +2289,15 @@ static int vfio_register_group_notifier(struct
+vfio_group *group, return ret;
+ }
+ 
+-int vfio_register_notifier(struct vfio_device *dev, enum
+vfio_notify_type type,
+-			   unsigned long *events, struct
+notifier_block *nb) +int vfio_register_notifier(struct vfio_device
+*device,
++			   enum vfio_notify_type type, unsigned long
+*events,
++			   struct notifier_block *nb)
+ {
+-	struct vfio_group *group = dev->group;
++	struct vfio_group *group = device->group;
+ 	int ret;
+ 
+-	if (!nb || !events || (*events == 0) ||
+!vfio_assert_device_open(dev))
++	if (!nb || !events || (*events == 0) ||
++	    !vfio_assert_device_open(device))
+ 		return -EINVAL;
+ 
+ 	switch (type) {
+@@ -2310,14 +2314,14 @@ int vfio_register_notifier(struct vfio_device
+*dev, enum vfio_notify_type type, }
+ EXPORT_SYMBOL(vfio_register_notifier);
+ 
+-int vfio_unregister_notifier(struct vfio_device *dev,
++int vfio_unregister_notifier(struct vfio_device *device,
+ 			     enum vfio_notify_type type,
+ 			     struct notifier_block *nb)
+ {
+-	struct vfio_group *group = dev->group;
++	struct vfio_group *group = device->group;
+ 	int ret;
+ 
+-	if (!nb || !vfio_assert_device_open(dev))
++	if (!nb || !vfio_assert_device_open(device))
+ 		return -EINVAL;
+ 
+ 	switch (type) {
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index 9a9981c26228..6195edd2edcd 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -148,11 +148,11 @@ extern long vfio_external_check_extension(struct
+vfio_group *group, 
+ #define VFIO_PIN_PAGES_MAX_ENTRIES	(PAGE_SIZE/sizeof(unsigned
+long)) 
+-extern int vfio_pin_pages(struct vfio_device *vdev, unsigned long
+*user_pfn, +extern int vfio_pin_pages(struct vfio_device *device,
+unsigned long *user_pfn, int npage, int prot, unsigned long *phys_pfn);
+-extern int vfio_unpin_pages(struct vfio_device *vdev, unsigned long
+*user_pfn, +extern int vfio_unpin_pages(struct vfio_device *device,
+unsigned long *user_pfn, int npage);
+-extern int vfio_dma_rw(struct vfio_device *vdev, dma_addr_t user_iova,
++extern int vfio_dma_rw(struct vfio_device *device, dma_addr_t
+user_iova, void *data, size_t len, bool write);
+ 
+ /* each type has independent events */
+@@ -167,11 +167,11 @@ enum vfio_notify_type {
+ /* events for VFIO_GROUP_NOTIFY */
+ #define VFIO_GROUP_NOTIFY_SET_KVM	BIT(0)
+ 
+-extern int vfio_register_notifier(struct vfio_device *dev,
++extern int vfio_register_notifier(struct vfio_device *device,
+ 				  enum vfio_notify_type type,
+ 				  unsigned long *required_events,
+ 				  struct notifier_block *nb);
+-extern int vfio_unregister_notifier(struct vfio_device *dev,
++extern int vfio_unregister_notifier(struct vfio_device *device,
+ 				    enum vfio_notify_type type,
+ 				    struct notifier_block *nb);
+ 
 
