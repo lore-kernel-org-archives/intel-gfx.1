@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C4DCC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 21:38:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE620C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 21:38:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05F4C10FA93;
-	Thu,  5 May 2022 21:38:28 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED27510FA4A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36C1510FA9B;
+	Thu,  5 May 2022 21:38:33 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7184E10ECAD;
  Thu,  5 May 2022 21:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651786703; x=1683322703;
+ t=1651786702; x=1683322702;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CQ2YALazLqeqv4u4N6P6Sr2k1SUd9irisFjlWj30Hpg=;
- b=F1jV+5FSRiL0VdongoAxMrA4f2YAvMCberZY1Br5KdYKX/6qJUOxOJJ6
- Idv4eAEVEhgPphG7u4WMFcRBaNGYCtIK3BVonApc5NxcsZzRxJ6tqYS1h
- VzuSYAlBIJ9TJsdk76U2ivSrJmPjO6qhOXkixcVTlinVOKOWKHHtlNX8p
- Yg1ulN1Nix4ZM0tWnRYZ38Mi7XyPVFduKbLeFXMElaOZ9qrabkmEG1zwT
- EZMLPN7ZmvLM+5eUwfraWCNcKTazR8xBUQ1cAE8HeQOKJekdt8Rd8aKkW
- jp4POL7dAGuYKYLEAG876FV/O2CHcukZ35lzAfHqwCXtJgDrixqZ9yt4D A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="265851852"
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="265851852"
+ bh=y7VRDT+9u7/ffAIo/19MXpNwmSWnQgmtiRhOblw05oo=;
+ b=WkuQskBbr4qs0ZNaYFkdxS0nFOSq7zeBU1Qvy4JecxHDrOkfrg8kTqbR
+ icqc4m0W79yxFNe9bnCwmJLUslcJuK0868LcwKEm1scngQpxvExvaD8bI
+ yYcszaWmLexepiN1Q+Lpzhsgj23mV+i82pJRFTaAiZbfHMkRgQG/Lx0zV
+ NmToRkPnGmHV25Y06X7wwkDlc8gWRAoPDu36JtiRislmv/R1NTgijb86f
+ h0kA4U51uHQb7x4hJ2640vqxURI1fC7DYiDfhXV+1Vxxk+W2uFMbjTbNn
+ eH1Ag/A0sTidtA6HpoSIt7bDPusnoOZoIufzlWVo54hs0qej+kl6mNGUS w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="248166064"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="248166064"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2022 14:38:22 -0700
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="549553293"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2022 14:38:21 -0700
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="549553275"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  05 May 2022 14:38:21 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 May 2022 14:38:11 -0700
-Message-Id: <20220505213812.3979301-12-matthew.d.roper@intel.com>
+Date: Thu,  5 May 2022 14:38:06 -0700
+Message-Id: <20220505213812.3979301-7-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220505213812.3979301-1-matthew.d.roper@intel.com>
 References: <20220505213812.3979301-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 11/12] drm/i915/pvc: skip all copy engines
- from aux table invalidate
+Subject: [Intel-gfx] [PATCH v2 06/12] drm/i915/pvc: Reduce stack usage in
+ reset selftest with extra blitter engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,42 +57,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Lucas De Marchi <lucas.demarchi@intel.com>
+From: John Harrison <John.C.Harrison@Intel.com>
 
-As we have more copy engines now, mask all of them from aux table
-invalidate.
+PVC adds extra blitter engines (in the following patch). The reset
+selftest has a local array on the stack which is sized by the number
+of engines. The increase pushes the size of this array to the point
+where it trips the 'stack too large' compile warning. This patch takes
+the allocation of the stack and makes it dynamic instead.
 
 v2 (MattR):
- - Use I915_MAX_BCS to determine mask rather than hardcoding BCS8.
-   (Prathap)
+ - Minor cosmetic changes:  re-sort definition and allocate using
+   kmalloc_array().  (Tvrtko)
 
-Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Reviewed-by: José Roberto de Souza <jose.souza@intel.com>
-Reviewed-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 11c72792573d..0f5ab2c99ffc 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -276,7 +276,8 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 		if (!HAS_FLAT_CCS(rq->engine->i915) &&
- 		    (rq->engine->class == VIDEO_DECODE_CLASS ||
- 		     rq->engine->class == VIDEO_ENHANCEMENT_CLASS)) {
--			aux_inv = rq->engine->mask & ~BIT(BCS0);
-+			aux_inv = rq->engine->mask &
-+				~GENMASK(_BCS(I915_MAX_BCS - 1), BCS0);
- 			if (aux_inv)
- 				cmd += 4;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 83ff4c2e57c5..6493265d5f64 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -976,6 +976,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ {
+ 	struct i915_gpu_error *global = &gt->i915->gpu_error;
+ 	struct intel_engine_cs *engine, *other;
++	struct active_engine *threads;
+ 	enum intel_engine_id id, tmp;
+ 	struct hang h;
+ 	int err = 0;
+@@ -996,8 +997,11 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 			h.ctx->sched.priority = 1024;
+ 	}
+ 
++	threads = kmalloc_array(I915_NUM_ENGINES, sizeof(*threads), GFP_KERNEL);
++	if (!threads)
++		return -ENOMEM;
++
+ 	for_each_engine(engine, gt, id) {
+-		struct active_engine threads[I915_NUM_ENGINES] = {};
+ 		unsigned long device = i915_reset_count(global);
+ 		unsigned long count = 0, reported;
+ 		bool using_guc = intel_engine_uses_guc(engine);
+@@ -1016,7 +1020,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 			break;
  		}
+ 
+-		memset(threads, 0, sizeof(threads));
++		memset(threads, 0, sizeof(*threads) * I915_NUM_ENGINES);
+ 		for_each_engine(other, gt, tmp) {
+ 			struct task_struct *tsk;
+ 
+@@ -1236,6 +1240,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
+ 			break;
+ 		}
+ 	}
++	kfree(threads);
+ 
+ 	if (intel_gt_is_wedged(gt))
+ 		err = -EIO;
 -- 
 2.35.1
 
