@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE620C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 21:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EC17C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 21:39:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36C1510FA9B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B93BA10FA89;
 	Thu,  5 May 2022 21:38:33 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7184E10ECAD;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A924410FA3B;
  Thu,  5 May 2022 21:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1651786702; x=1683322702;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=y7VRDT+9u7/ffAIo/19MXpNwmSWnQgmtiRhOblw05oo=;
- b=WkuQskBbr4qs0ZNaYFkdxS0nFOSq7zeBU1Qvy4JecxHDrOkfrg8kTqbR
- icqc4m0W79yxFNe9bnCwmJLUslcJuK0868LcwKEm1scngQpxvExvaD8bI
- yYcszaWmLexepiN1Q+Lpzhsgj23mV+i82pJRFTaAiZbfHMkRgQG/Lx0zV
- NmToRkPnGmHV25Y06X7wwkDlc8gWRAoPDu36JtiRislmv/R1NTgijb86f
- h0kA4U51uHQb7x4hJ2640vqxURI1fC7DYiDfhXV+1Vxxk+W2uFMbjTbNn
- eH1Ag/A0sTidtA6HpoSIt7bDPusnoOZoIufzlWVo54hs0qej+kl6mNGUS w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="248166064"
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="248166064"
+ bh=KS2DYBhqUac1AYCJV/ZgWKbjWMRKGcdAevXhNdjTWq8=;
+ b=S0jVqvDmlNxxlhk/BJUES1YLrpb0GV4dT4peFPr3o/FfVNZWuQkslQWi
+ 7LNzjxSFDAT+zkL4mYCoaPZ8IM+Av26VcaKrgHGZ6P3ybK1NyvHbKvvzY
+ oOkQrHi0tUKqiITnZg7jdZQeiV2KSwVLdtlpFXB9vVaGxw/fShGJLOSjf
+ 3CRj/3HfPeCk0Y41ENSqJgbwFUfTSbynrabnm10q+Fnyv+gEXegdcblKi
+ F5LQRjNZ7jE7B7idqcbj3JomtfNd9g4uzxbIRe4cvg/2mf50azzxBsnBn
+ UdguWf13Bw0EG1EGVOYivs1IKX3BT+RW+FdM829mBhyPhnOvN1uU288Lo A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="248166067"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="248166067"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  05 May 2022 14:38:21 -0700
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="549553275"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="549553282"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  05 May 2022 14:38:21 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 May 2022 14:38:06 -0700
-Message-Id: <20220505213812.3979301-7-matthew.d.roper@intel.com>
+Date: Thu,  5 May 2022 14:38:08 -0700
+Message-Id: <20220505213812.3979301-9-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220505213812.3979301-1-matthew.d.roper@intel.com>
 References: <20220505213812.3979301-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 06/12] drm/i915/pvc: Reduce stack usage in
- reset selftest with extra blitter engine
+Subject: [Intel-gfx] [PATCH v2 08/12] drm/i915/pvc: Engine definitions for
+ new copy engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,68 +61,170 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+This patch adds the basic definitions needed to support
+new copy engines. Also updating the cmd_info to accommodate
+new engines, as the engine id's of legacy engines have been
+changed.
 
-PVC adds extra blitter engines (in the following patch). The reset
-selftest has a local array on the stack which is sized by the number
-of engines. The increase pushes the size of this array to the point
-where it trips the 'stack too large' compile warning. This patch takes
-the allocation of the stack and makes it dynamic instead.
+v2:
+ - Add _BCS(n) definition, similar to other engines.  (Tvrtko)
+ - Add I915_MAX_BCS definition, similar to other engnes.  (Prathap)
+ - Move GVT change to avoid u16 overflow to its own patch.  (Tvrtko)
 
-v2 (MattR):
- - Minor cosmetic changes:  re-sort definition and allocate using
-   kmalloc_array().  (Tvrtko)
-
+Original-author: CQ Tang
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Reviewed-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c    | 56 ++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_engine_types.h | 12 ++++-
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h      |  8 +++
+ drivers/gpu/drm/i915/i915_reg.h              |  8 +++
+ 4 files changed, 83 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-index 83ff4c2e57c5..6493265d5f64 100644
---- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-@@ -976,6 +976,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
- {
- 	struct i915_gpu_error *global = &gt->i915->gpu_error;
- 	struct intel_engine_cs *engine, *other;
-+	struct active_engine *threads;
- 	enum intel_engine_id id, tmp;
- 	struct hang h;
- 	int err = 0;
-@@ -996,8 +997,11 @@ static int __igt_reset_engines(struct intel_gt *gt,
- 			h.ctx->sched.priority = 1024;
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 14c6ddbbfde8..4532c3ea9ace 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -71,6 +71,62 @@ static const struct engine_info intel_engines[] = {
+ 			{ .graphics_ver = 6, .base = BLT_RING_BASE }
+ 		},
+ 	},
++	[BCS1] = {
++		.class = COPY_ENGINE_CLASS,
++		.instance = 1,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHPC_BCS1_RING_BASE }
++		},
++	},
++	[BCS2] = {
++		.class = COPY_ENGINE_CLASS,
++		.instance = 2,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHPC_BCS2_RING_BASE }
++		},
++	},
++	[BCS3] = {
++		.class = COPY_ENGINE_CLASS,
++		.instance = 3,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHPC_BCS3_RING_BASE }
++		},
++	},
++	[BCS4] = {
++		.class = COPY_ENGINE_CLASS,
++		.instance = 4,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHPC_BCS4_RING_BASE }
++		},
++	},
++	[BCS5] = {
++		.class = COPY_ENGINE_CLASS,
++		.instance = 5,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHPC_BCS5_RING_BASE }
++		},
++	},
++	[BCS6] = {
++		.class = COPY_ENGINE_CLASS,
++		.instance = 6,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHPC_BCS6_RING_BASE }
++		},
++	},
++	[BCS7] = {
++		.class = COPY_ENGINE_CLASS,
++		.instance = 7,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHPC_BCS7_RING_BASE }
++		},
++	},
++	[BCS8] = {
++		.class = COPY_ENGINE_CLASS,
++		.instance = 8,
++		.mmio_bases = {
++			{ .graphics_ver = 12, .base = XEHPC_BCS8_RING_BASE }
++		},
++	},
+ 	[VCS0] = {
+ 		.class = VIDEO_DECODE_CLASS,
+ 		.instance = 0,
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 298f2cc7a879..2286f96f5f87 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -35,7 +35,7 @@
+ #define OTHER_CLASS		4
+ #define COMPUTE_CLASS		5
+ #define MAX_ENGINE_CLASS	5
+-#define MAX_ENGINE_INSTANCE	7
++#define MAX_ENGINE_INSTANCE	8
  
-+	threads = kmalloc_array(I915_NUM_ENGINES, sizeof(*threads), GFP_KERNEL);
-+	if (!threads)
-+		return -ENOMEM;
-+
- 	for_each_engine(engine, gt, id) {
--		struct active_engine threads[I915_NUM_ENGINES] = {};
- 		unsigned long device = i915_reset_count(global);
- 		unsigned long count = 0, reported;
- 		bool using_guc = intel_engine_uses_guc(engine);
-@@ -1016,7 +1020,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
- 			break;
- 		}
+ #define I915_MAX_SLICES	3
+ #define I915_MAX_SUBSLICES 8
+@@ -99,6 +99,7 @@ struct i915_ctx_workarounds {
+ #define I915_MAX_SFC	(I915_MAX_VCS / 2)
+ #define I915_MAX_CCS	4
+ #define I915_MAX_RCS	1
++#define I915_MAX_BCS	9
  
--		memset(threads, 0, sizeof(threads));
-+		memset(threads, 0, sizeof(*threads) * I915_NUM_ENGINES);
- 		for_each_engine(other, gt, tmp) {
- 			struct task_struct *tsk;
- 
-@@ -1236,6 +1240,7 @@ static int __igt_reset_engines(struct intel_gt *gt,
- 			break;
- 		}
- 	}
-+	kfree(threads);
- 
- 	if (intel_gt_is_wedged(gt))
- 		err = -EIO;
+ /*
+  * Engine IDs definitions.
+@@ -107,6 +108,15 @@ struct i915_ctx_workarounds {
+ enum intel_engine_id {
+ 	RCS0 = 0,
+ 	BCS0,
++	BCS1,
++	BCS2,
++	BCS3,
++	BCS4,
++	BCS5,
++	BCS6,
++	BCS7,
++	BCS8,
++#define _BCS(n) (BCS0 + (n))
+ 	VCS0,
+ 	VCS1,
+ 	VCS2,
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index a0a49c16babd..aa2c0974b02c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -1476,6 +1476,14 @@
+ #define   GEN11_KCR				(19)
+ #define   GEN11_GTPM				(16)
+ #define   GEN11_BCS				(15)
++#define   XEHPC_BCS1				(14)
++#define   XEHPC_BCS2				(13)
++#define   XEHPC_BCS3				(12)
++#define   XEHPC_BCS4				(11)
++#define   XEHPC_BCS5				(10)
++#define   XEHPC_BCS6				(9)
++#define   XEHPC_BCS7				(8)
++#define   XEHPC_BCS8				(23)
+ #define   GEN12_CCS3				(7)
+ #define   GEN12_CCS2				(6)
+ #define   GEN12_CCS1				(5)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 4a3d7b96ef43..ab64ab4317b3 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -976,6 +976,14 @@
+ #define GEN12_COMPUTE2_RING_BASE	0x1e000
+ #define GEN12_COMPUTE3_RING_BASE	0x26000
+ #define BLT_RING_BASE		0x22000
++#define XEHPC_BCS1_RING_BASE	0x3e0000
++#define XEHPC_BCS2_RING_BASE	0x3e2000
++#define XEHPC_BCS3_RING_BASE	0x3e4000
++#define XEHPC_BCS4_RING_BASE	0x3e6000
++#define XEHPC_BCS5_RING_BASE	0x3e8000
++#define XEHPC_BCS6_RING_BASE	0x3ea000
++#define XEHPC_BCS7_RING_BASE	0x3ec000
++#define XEHPC_BCS8_RING_BASE	0x3ee000
+ #define DG1_GSC_HECI1_BASE	0x00258000
+ #define DG1_GSC_HECI2_BASE	0x00259000
+ #define DG2_GSC_HECI1_BASE	0x00373000
 -- 
 2.35.1
 
