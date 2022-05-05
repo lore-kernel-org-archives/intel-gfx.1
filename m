@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CAF0C433F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB348C433EF
 	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 21:38:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 057BF10FA71;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C34B10FA78;
 	Thu,  5 May 2022 21:38:27 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B902910E24A;
- Thu,  5 May 2022 21:38:22 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6FEC10E2FE;
+ Thu,  5 May 2022 21:38:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651786702; x=1683322702;
+ t=1651786701; x=1683322701;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IFkYyNaXAU4EpuScwGbMbfVvSZD2WpCv8HcNE5UQuUY=;
- b=QmxCH7RryK0PBL/Fe824VANqHw0nv89voWYAMF7Zr9aOCBxY41CyI2aD
- SYJhUqnJi6dMLIjjLglFJYt1BC97G3BGBrTWFPSQqfByNkG7rvNErUxlc
- 9DKAraBGPxX+dB5YvCXbJdfjsDhCjgIFDgbaVErImTBOArxN6cKBPlBW6
- 1lfyPvHZMHjSoTIHXs1liP0JHb7AeSGLBDiHvSvprHArllW8OVultFUsF
- OBJDO8b8L5dJAgz3PgzdjovLLu6vhfQNCVo5LwHdDn5uHL+ueanK3+TWH
- uZS8dLxQ2kzBf8PVA+3eZz/70J+DndA85E26R3RrbT411/95Me9ilyH/9 g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="265851849"
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="265851849"
+ bh=PccuXPZNhJptlBB4X3xZoOVQ8bdLAfjzi9nV4Noz0u4=;
+ b=k3V4jTR/pLXZD2qV7vkUfdDxqalkZNxzd422fRuSvte19Vi4+HtJVhnM
+ FNpldtMfmZKle4dnW8fb1ruTonmOzF3RaOntsSPwT3bzRy8zqz1fx1Dbk
+ 3ST+ST/BQHFPz6/6HtKEAA81VtcPRV/Pavmz3OvPFjroISX0xdVmufPzp
+ jDANh1r/x7S6S1YmHvK8y9kLKQBsOrVSE1G2nQeasl0HLtE8fr5QhVguG
+ vM5r3car03S/bvHTBZ4dGsxQgqld4YpERLlsVoBICqtkx+4gJjT0Lo14y
+ YN3tjPsTaPiT03TLKHb0paFGNNqmsPLyYHvAwjyB3vtgCSK8RkU9/4wXI Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="248166057"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="248166057"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2022 14:38:21 -0700
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="549553287"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2022 14:38:20 -0700
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="549553253"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2022 14:38:21 -0700
+ 05 May 2022 14:38:20 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 May 2022 14:38:09 -0700
-Message-Id: <20220505213812.3979301-10-matthew.d.roper@intel.com>
+Date: Thu,  5 May 2022 14:38:01 -0700
+Message-Id: <20220505213812.3979301-2-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220505213812.3979301-1-matthew.d.roper@intel.com>
 References: <20220505213812.3979301-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 09/12] drm/i915/pvc: Interrupt support for
- new copy engines
+Subject: [Intel-gfx] [PATCH v2 01/12] drm/i915/uncore: Reorganize and
+ document shadow and forcewake tables
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,66 +60,202 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the interrupt handler support for new copy engines.
+Let's reorganize some of the forcewake/shadow handling in intel_uncore.c
+and consolidate the cargo-cult comments on each table into more general
+comments that apply to all tables.
 
-Bspec: 54030
-Original-author: CQ Tang
+We'll probably move forcewake handling to its own dedicated file in the
+near future and further enhance this with true kerneldoc.  But this is a
+good intermediate step to help clarify the behavior a bit.
+
+Cc: Stuart Summers <stuart.summers@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Stuart Summers <stuart.summers@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_irq.c  | 16 ++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_regs.h |  4 ++++
- 2 files changed, 20 insertions(+)
+ drivers/gpu/drm/i915/intel_uncore.c | 125 ++++++++++++++++++----------
+ 1 file changed, 80 insertions(+), 45 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-index 88b4becfcb17..3a72d4fd0214 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-@@ -193,6 +193,14 @@ void gen11_gt_irq_reset(struct intel_gt *gt)
- 	/* Restore masks irqs on RCS, BCS, VCS and VECS engines. */
- 	intel_uncore_write(uncore, GEN11_RCS0_RSVD_INTR_MASK,	~0);
- 	intel_uncore_write(uncore, GEN11_BCS_RSVD_INTR_MASK,	~0);
-+	if (HAS_ENGINE(gt, BCS1) || HAS_ENGINE(gt, BCS2))
-+		intel_uncore_write(uncore, XEHPC_BCS1_BCS2_INTR_MASK, ~0);
-+	if (HAS_ENGINE(gt, BCS3) || HAS_ENGINE(gt, BCS4))
-+		intel_uncore_write(uncore, XEHPC_BCS3_BCS4_INTR_MASK, ~0);
-+	if (HAS_ENGINE(gt, BCS5) || HAS_ENGINE(gt, BCS6))
-+		intel_uncore_write(uncore, XEHPC_BCS5_BCS6_INTR_MASK, ~0);
-+	if (HAS_ENGINE(gt, BCS7) || HAS_ENGINE(gt, BCS8))
-+		intel_uncore_write(uncore, XEHPC_BCS7_BCS8_INTR_MASK, ~0);
- 	intel_uncore_write(uncore, GEN11_VCS0_VCS1_INTR_MASK,	~0);
- 	intel_uncore_write(uncore, GEN11_VCS2_VCS3_INTR_MASK,	~0);
- 	if (HAS_ENGINE(gt, VCS4) || HAS_ENGINE(gt, VCS5))
-@@ -248,6 +256,14 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
- 	/* Unmask irqs on RCS, BCS, VCS and VECS engines. */
- 	intel_uncore_write(uncore, GEN11_RCS0_RSVD_INTR_MASK, ~smask);
- 	intel_uncore_write(uncore, GEN11_BCS_RSVD_INTR_MASK, ~smask);
-+	if (HAS_ENGINE(gt, BCS1) || HAS_ENGINE(gt, BCS2))
-+		intel_uncore_write(uncore, XEHPC_BCS1_BCS2_INTR_MASK, ~dmask);
-+	if (HAS_ENGINE(gt, BCS3) || HAS_ENGINE(gt, BCS4))
-+		intel_uncore_write(uncore, XEHPC_BCS3_BCS4_INTR_MASK, ~dmask);
-+	if (HAS_ENGINE(gt, BCS5) || HAS_ENGINE(gt, BCS6))
-+		intel_uncore_write(uncore, XEHPC_BCS5_BCS6_INTR_MASK, ~dmask);
-+	if (HAS_ENGINE(gt, BCS7) || HAS_ENGINE(gt, BCS8))
-+		intel_uncore_write(uncore, XEHPC_BCS7_BCS8_INTR_MASK, ~dmask);
- 	intel_uncore_write(uncore, GEN11_VCS0_VCS1_INTR_MASK, ~dmask);
- 	intel_uncore_write(uncore, GEN11_VCS2_VCS3_INTR_MASK, ~dmask);
- 	if (HAS_ENGINE(gt, VCS4) || HAS_ENGINE(gt, VCS5))
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index aa2c0974b02c..fe09288a3145 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1529,6 +1529,10 @@
- #define GEN11_GUNIT_CSME_INTR_MASK		_MMIO(0x1900f4)
- #define GEN12_CCS0_CCS1_INTR_MASK		_MMIO(0x190100)
- #define GEN12_CCS2_CCS3_INTR_MASK		_MMIO(0x190104)
-+#define XEHPC_BCS1_BCS2_INTR_MASK		_MMIO(0x190110)
-+#define XEHPC_BCS3_BCS4_INTR_MASK		_MMIO(0x190114)
-+#define XEHPC_BCS5_BCS6_INTR_MASK		_MMIO(0x190118)
-+#define XEHPC_BCS7_BCS8_INTR_MASK		_MMIO(0x19011c)
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index 83517a703eb6..095e071e4053 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -938,36 +938,32 @@ find_fw_domain(struct intel_uncore *uncore, u32 offset)
+ 	return entry->domains;
+ }
  
- #define GEN12_SFC_DONE(n)			_MMIO(0x1cc000 + (n) * 0x1000)
+-#define GEN_FW_RANGE(s, e, d) \
+-	{ .start = (s), .end = (e), .domains = (d) }
+-
+-/* *Must* be sorted by offset ranges! See intel_fw_table_check(). */
+-static const struct intel_forcewake_range __vlv_fw_ranges[] = {
+-	GEN_FW_RANGE(0x2000, 0x3fff, FORCEWAKE_RENDER),
+-	GEN_FW_RANGE(0x5000, 0x7fff, FORCEWAKE_RENDER),
+-	GEN_FW_RANGE(0xb000, 0x11fff, FORCEWAKE_RENDER),
+-	GEN_FW_RANGE(0x12000, 0x13fff, FORCEWAKE_MEDIA),
+-	GEN_FW_RANGE(0x22000, 0x23fff, FORCEWAKE_MEDIA),
+-	GEN_FW_RANGE(0x2e000, 0x2ffff, FORCEWAKE_RENDER),
+-	GEN_FW_RANGE(0x30000, 0x3ffff, FORCEWAKE_MEDIA),
+-};
+-
+-#define __fwtable_reg_read_fw_domains(uncore, offset) \
+-({ \
+-	enum forcewake_domains __fwd = 0; \
+-	if (NEEDS_FORCE_WAKE((offset))) \
+-		__fwd = find_fw_domain(uncore, offset); \
+-	__fwd; \
+-})
++/*
++ * Shadowed register tables describe special register ranges that i915 is
++ * allowed to write to without acquiring forcewake.  If these registers' power
++ * wells are down, the hardware will save values written by i915 to a shadow
++ * copy and automatically transfer them into the real register the next time
++ * the power well is woken up.  Shadowing only applies to writes; forcewake
++ * must still be acquired when reading from registers in these ranges.
++ *
++ * The documentation for shadowed registers is somewhat spotty on older
++ * platforms.  However missing registers from these lists is non-fatal; it just
++ * means we'll wake up the hardware for some register accesses where we didn't
++ * really need to.
++ *
++ * The ranges listed in these tables must be sorted by offset.
++ *
++ * When adding new tables here, please also add them to
++ * intel_shadow_table_check() in selftests/intel_uncore.c so that they will be
++ * scanned for obvious mistakes or typos by the selftests.
++ */
  
+-/* *Must* be sorted by offset! See intel_shadow_table_check(). */
+ static const struct i915_range gen8_shadowed_regs[] = {
+ 	{ .start =  0x2030, .end =  0x2030 },
+ 	{ .start =  0xA008, .end =  0xA00C },
+ 	{ .start = 0x12030, .end = 0x12030 },
+ 	{ .start = 0x1a030, .end = 0x1a030 },
+ 	{ .start = 0x22030, .end = 0x22030 },
+-	/* TODO: Other registers are not yet used */
+ };
+ 
+ static const struct i915_range gen11_shadowed_regs[] = {
+@@ -1107,11 +1103,71 @@ gen6_reg_write_fw_domains(struct intel_uncore *uncore, i915_reg_t reg)
+ 	return FORCEWAKE_RENDER;
+ }
+ 
++#define __fwtable_reg_read_fw_domains(uncore, offset) \
++({ \
++	enum forcewake_domains __fwd = 0; \
++	if (NEEDS_FORCE_WAKE((offset))) \
++		__fwd = find_fw_domain(uncore, offset); \
++	__fwd; \
++})
++
++#define __fwtable_reg_write_fw_domains(uncore, offset) \
++({ \
++	enum forcewake_domains __fwd = 0; \
++	const u32 __offset = (offset); \
++	if (NEEDS_FORCE_WAKE((__offset)) && !is_shadowed(uncore, __offset)) \
++		__fwd = find_fw_domain(uncore, __offset); \
++	__fwd; \
++})
++
++#define GEN_FW_RANGE(s, e, d) \
++	{ .start = (s), .end = (e), .domains = (d) }
++
++/*
++ * All platforms' forcewake tables below must be sorted by offset ranges.
++ * Furthermore, new forcewake tables added should be "watertight" and have
++ * no gaps between ranges.
++ *
++ * When there are multiple consecutive ranges listed in the bspec with
++ * the same forcewake domain, it is customary to combine them into a single
++ * row in the tables below to keep the tables small and lookups fast.
++ * Likewise, reserved/unused ranges may be combined with the preceding and/or
++ * following ranges since the driver will never be making MMIO accesses in
++ * those ranges.
++ *
++ * For example, if the bspec were to list:
++ *
++ *    ...
++ *    0x1000 - 0x1fff:  GT
++ *    0x2000 - 0x2cff:  GT
++ *    0x2d00 - 0x2fff:  unused/reserved
++ *    0x3000 - 0xffff:  GT
++ *    ...
++ *
++ * these could all be represented by a single line in the code:
++ *
++ *   GEN_FW_RANGE(0x1000, 0xffff, FORCEWAKE_GT)
++ *
++ * When adding new forcewake tables here, please also add them to
++ * intel_uncore_mock_selftests in selftests/intel_uncore.c so that they will be
++ * scanned for obvious mistakes or typos by the selftests.
++ */
++
+ static const struct intel_forcewake_range __gen6_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x0, 0x3ffff, FORCEWAKE_RENDER),
+ };
+ 
+-/* *Must* be sorted by offset ranges! See intel_fw_table_check(). */
++static const struct intel_forcewake_range __vlv_fw_ranges[] = {
++	GEN_FW_RANGE(0x2000, 0x3fff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x5000, 0x7fff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0xb000, 0x11fff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x12000, 0x13fff, FORCEWAKE_MEDIA),
++	GEN_FW_RANGE(0x22000, 0x23fff, FORCEWAKE_MEDIA),
++	GEN_FW_RANGE(0x2e000, 0x2ffff, FORCEWAKE_RENDER),
++	GEN_FW_RANGE(0x30000, 0x3ffff, FORCEWAKE_MEDIA),
++};
++
++
+ static const struct intel_forcewake_range __chv_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x2000, 0x3fff, FORCEWAKE_RENDER),
+ 	GEN_FW_RANGE(0x4000, 0x4fff, FORCEWAKE_RENDER | FORCEWAKE_MEDIA),
+@@ -1131,16 +1187,6 @@ static const struct intel_forcewake_range __chv_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x30000, 0x37fff, FORCEWAKE_MEDIA),
+ };
+ 
+-#define __fwtable_reg_write_fw_domains(uncore, offset) \
+-({ \
+-	enum forcewake_domains __fwd = 0; \
+-	const u32 __offset = (offset); \
+-	if (NEEDS_FORCE_WAKE((__offset)) && !is_shadowed(uncore, __offset)) \
+-		__fwd = find_fw_domain(uncore, __offset); \
+-	__fwd; \
+-})
+-
+-/* *Must* be sorted by offset ranges! See intel_fw_table_check(). */
+ static const struct intel_forcewake_range __gen9_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x0, 0xaff, FORCEWAKE_GT),
+ 	GEN_FW_RANGE(0xb00, 0x1fff, 0), /* uncore range */
+@@ -1176,7 +1222,6 @@ static const struct intel_forcewake_range __gen9_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x30000, 0x3ffff, FORCEWAKE_MEDIA),
+ };
+ 
+-/* *Must* be sorted by offset ranges! See intel_fw_table_check(). */
+ static const struct intel_forcewake_range __gen11_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x0, 0x1fff, 0), /* uncore range */
+ 	GEN_FW_RANGE(0x2000, 0x26ff, FORCEWAKE_RENDER),
+@@ -1215,14 +1260,6 @@ static const struct intel_forcewake_range __gen11_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x1d4000, 0x1dbfff, 0)
+ };
+ 
+-/*
+- * *Must* be sorted by offset ranges! See intel_fw_table_check().
+- *
+- * Note that the spec lists several reserved/unused ranges that don't
+- * actually contain any registers.  In the table below we'll combine those
+- * reserved ranges with either the preceding or following range to keep the
+- * table small and lookups fast.
+- */
+ static const struct intel_forcewake_range __gen12_fw_ranges[] = {
+ 	GEN_FW_RANGE(0x0, 0x1fff, 0), /*
+ 		0x0   -  0xaff: reserved
+@@ -1327,8 +1364,6 @@ static const struct intel_forcewake_range __gen12_fw_ranges[] = {
+ /*
+  * Graphics IP version 12.55 brings a slight change to the 0xd800 range,
+  * switching it from the GT domain to the render domain.
+- *
+- * *Must* be sorted by offset ranges! See intel_fw_table_check().
+  */
+ #define XEHP_FWRANGES(FW_RANGE_D800)					\
+ 	GEN_FW_RANGE(0x0, 0x1fff, 0), /*					\
 -- 
 2.35.1
 
