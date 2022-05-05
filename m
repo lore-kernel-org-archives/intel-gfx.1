@@ -4,45 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C50DC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 11:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25F76C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 11:02:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 778B110F708;
-	Thu,  5 May 2022 11:00:17 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4939F10F708;
- Thu,  5 May 2022 11:00:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F26B10F7B0;
+	Thu,  5 May 2022 11:02:50 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04D3410F7AB;
+ Thu,  5 May 2022 11:02:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651748416; x=1683284416;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=8SDRkQqiQDEV/GlOGolM6AiyFj8aZhAGppfNzVID1Vo=;
- b=R7xWcIjuQC9ToFMCNU6Zn8p8JByWs0kZjDDMa6Fh5Bu3eoq8/OBYf4Wc
- uXLJ/tIgeS5E7+HXgLsHqhu/Q36dWK80GYctkPOQw5FKYxk+bkqfhFbJJ
- 0RkNJFZ+dK/8gXc/YZ1Sh/+dlSknMymXBdHtFhPhCfreSwcXtMJHJCu7/
- b4F0OfRbMLavh/eHf/IqtPL20Xw+M1r107Lznh/HjJArM43eB0UnNJvxv
- H3kDiKjjFIkzGlZF4cHKvua+hIkW6enBJJvuFzJdFxT1rt9L7mEd4Tl6o
- 47w/3+RZjnpf6IPNchDqCBIa6Y/h4wwEF/RnyXMwMBOErFk6dbDiG3Lm3 g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10337"; a="268224321"
-X-IronPort-AV: E=Sophos;i="5.91,201,1647327600"; d="scan'208";a="268224321"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2022 04:00:15 -0700
-X-IronPort-AV: E=Sophos;i="5.91,201,1647327600"; d="scan'208";a="563189036"
-Received: from mrbroom-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
+ t=1651748569; x=1683284569;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=1kZrf5iYfENp6NglA3xL1INf9ahgbEpfdabChSreAHg=;
+ b=eoPNTMrtZMus75kz17RJo1TfymvY4/+hVF57zhx/VHeuHOfAxUGLr3wj
+ ok5lbcYEpKO9ZvupMv16c2C3k5Ni6702J1dKI9cEmHX9xdPYfjnAoE7Tv
+ c940Y3hwhS1exZ1fArGj1vkOklx1c21b2PNQ8Wwrd8BQiaN8fAIFEHebv
+ RUlL2B3mv3JZfcqT8VbtUiMMNpYPF5QT6FNcl1v5/y+1ZScyjuLzHhNQg
+ XnAoEKyvzqlYFAzbpGQfoKQXvJV/mpghz9+Xx0riBCfNse33ckqezp/yB
+ ypJI4uIOcrneesmPcCf64d9junlwhdatoDTWvUzwYlW/RWYBpvxTJUJEU w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10337"; a="331060868"
+X-IronPort-AV: E=Sophos;i="5.91,201,1647327600"; d="scan'208";a="331060868"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2022 04:02:48 -0700
+X-IronPort-AV: E=Sophos;i="5.91,201,1647327600"; d="scan'208";a="517461735"
+Received: from mrbroom-mobl.ger.corp.intel.com (HELO [10.213.206.41])
  ([10.213.206.41])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2022 04:00:13 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org
-Date: Thu,  5 May 2022 12:00:06 +0100
-Message-Id: <20220505110007.943449-1-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2022 04:02:47 -0700
+Message-ID: <a746320b-8431-a171-4c73-3ed64eedc726@linux.intel.com>
+Date: Thu, 5 May 2022 12:02:45 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 1/2] drm/i915: Don't use DRM_DEBUG_WARN_ON for
- unexpected l3bank/mslice config
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-US
+To: Matt Roper <matthew.d.roper@intel.com>
+References: <20220504120715.911045-1-tvrtko.ursulin@linux.intel.com>
+ <YnKuX0F0bDBF5ahP@mdroper-desk1.amr.corp.intel.com>
+ <12d849fb-3255-139a-7905-2d3dd679e3c8@linux.intel.com>
+ <YnLDMANc6xdnjOdy@mdroper-desk1.amr.corp.intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <YnLDMANc6xdnjOdy@mdroper-desk1.amr.corp.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915: Don't use DRM_DEBUG_WARN_ON
+ for unexpected l3bank/mslice config
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,85 +64,130 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>, Intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-DRM_DEBUG_WARN_ON should only be used when we are certain CI is guaranteed
-to exercise a certain code path, so in case of values coming from MMIO
-reads we cannot be sure CI will have all the possible SKUs and parts.
+On 04/05/2022 19:17, Matt Roper wrote:
+> On Wed, May 04, 2022 at 06:59:32PM +0100, Tvrtko Ursulin wrote:
+>>
+>> On 04/05/2022 17:48, Matt Roper wrote:
+>>> On Wed, May 04, 2022 at 01:07:14PM +0100, Tvrtko Ursulin wrote:
+>>>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>>>
+>>>> DRM_DEBUG_WARN_ON should only be used when we are certain CI is guaranteed
+>>>> to exercise a certain code path, so in case of values coming from MMIO
+>>>> reads we cannot be sure CI will have all the possible SKUs and parts.
+>>>>
+>>>> Use drm_warn instead and move logging to init phase while at it.
+>>>
+>>> Changing to drm_warn looks good, although moving the location changes
+>>> the intent a bit; I think originally the idea was to warn if we were
+>>> trying to do a steering lookup for a type that we never initialized
+>>> (e.g., an LNCF lookup for a !HAS_MSLICES platform where we never even
+>>> read the register in the first place).  But I don't think we've ever
+>>> made a mistake that would cause us to trip the warning, so it probably
+>>> isn't terribly important to keep it there.
+>>
+>> Ah I see.. there we could put something like:
+>>
+>> 	case MSLICE:
+>> 		GEM_WARN_ON(!HAS_MSLICES(...));
+>>
+> 
+> Yeah, that would work for MSLICE and LNCF.  Although L3BANK is a bit
+> stranger since we have multiple platforms that obtain the L3 bank mask
+> in completely different ways (Xe_HP reads it from XEHP_FUSE4, whereas
+> gen11/gen12 reads it from GEN10_MIRROR_FUSE3).  We want to make sure
+> there that no matter which branch of init we take, we didn't forget to
+> initialize l3bank_mask somehow.
 
-Use drm_warn instead and move logging to init phase while at it.
+The two init paths are not something present in drm-tip at this point, 
+right? At least I couldn't find it. In which case it could be handled 
+later by moving the drm_warn to tail of intel_gt_init_mmio, give or take.
 
-v2:
- * GEM_WARN_ON in intel_gt_get_valid_steering.
+Anyway, I've sent v2 out with your r-b and GEM_WARN_ON for mslice/lncf. 
+I won't merge it though until you definitely are okay with it so please 
+have a look and confirm.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+Regards,
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 53307ca0eed0..034182f85501 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -153,11 +153,14 @@ int intel_gt_init_mmio(struct intel_gt *gt)
- 	 * An mslice is unavailable only if both the meml3 for the slice is
- 	 * disabled *and* all of the DSS in the slice (quadrant) are disabled.
- 	 */
--	if (HAS_MSLICES(i915))
-+	if (HAS_MSLICES(i915)) {
- 		gt->info.mslice_mask =
- 			slicemask(gt, GEN_DSS_PER_MSLICE) |
- 			(intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3) &
- 			 GEN12_MEML3_EN_MASK);
-+		if (!gt->info.mslice_mask) /* should be impossible! */
-+			drm_warn(&i915->drm, "mslice mask all zero!\n");
-+	}
- 
- 	if (IS_DG2(i915)) {
- 		gt->steering_table[MSLICE] = xehpsdv_mslice_steering_table;
-@@ -171,6 +174,8 @@ int intel_gt_init_mmio(struct intel_gt *gt)
- 		gt->info.l3bank_mask =
- 			~intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3) &
- 			GEN10_L3BANK_MASK;
-+		if (!gt->info.l3bank_mask) /* should be impossible! */
-+			drm_warn(&i915->drm, "L3 bank mask is all zero!\n");
- 	} else if (HAS_MSLICES(i915)) {
- 		MISSING_CASE(INTEL_INFO(i915)->platform);
- 	}
-@@ -882,24 +887,20 @@ static void intel_gt_get_valid_steering(struct intel_gt *gt,
- {
- 	switch (type) {
- 	case L3BANK:
--		GEM_DEBUG_WARN_ON(!gt->info.l3bank_mask); /* should be impossible! */
--
- 		*sliceid = 0;		/* unused */
- 		*subsliceid = __ffs(gt->info.l3bank_mask);
- 		break;
- 	case MSLICE:
--		GEM_DEBUG_WARN_ON(!gt->info.mslice_mask); /* should be impossible! */
--
-+		GEM_WARN_ON(!HAS_MSLICES(gt->i915));
- 		*sliceid = __ffs(gt->info.mslice_mask);
- 		*subsliceid = 0;	/* unused */
- 		break;
- 	case LNCF:
--		GEM_DEBUG_WARN_ON(!gt->info.mslice_mask); /* should be impossible! */
--
- 		/*
- 		 * An LNCF is always present if its mslice is present, so we
- 		 * can safely just steer to LNCF 0 in all cases.
- 		 */
-+		GEM_WARN_ON(!HAS_MSLICES(gt->i915));
- 		*sliceid = __ffs(gt->info.mslice_mask) << 1;
- 		*subsliceid = 0;	/* unused */
- 		break;
--- 
-2.32.0
+Tvrtko
 
+
+> 
+> Matt
+> 
+>> ?
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>
+>>> Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+>>>
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>>> Cc: Matt Roper <matthew.d.roper@intel.com>
+>>>> Cc: Jani Nikula <jani.nikula@intel.com>
+>>>> ---
+>>>>    drivers/gpu/drm/i915/gt/intel_gt.c | 13 ++++++-------
+>>>>    1 file changed, 6 insertions(+), 7 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+>>>> index 53307ca0eed0..c474e5c3ea5e 100644
+>>>> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
+>>>> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+>>>> @@ -153,11 +153,14 @@ int intel_gt_init_mmio(struct intel_gt *gt)
+>>>>    	 * An mslice is unavailable only if both the meml3 for the slice is
+>>>>    	 * disabled *and* all of the DSS in the slice (quadrant) are disabled.
+>>>>    	 */
+>>>> -	if (HAS_MSLICES(i915))
+>>>> +	if (HAS_MSLICES(i915)) {
+>>>>    		gt->info.mslice_mask =
+>>>>    			slicemask(gt, GEN_DSS_PER_MSLICE) |
+>>>>    			(intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3) &
+>>>>    			 GEN12_MEML3_EN_MASK);
+>>>> +		if (!gt->info.mslice_mask) /* should be impossible! */
+>>>> +			drm_warn(&i915->drm, "mslice mask all zero!\n");
+>>>> +	}
+>>>>    	if (IS_DG2(i915)) {
+>>>>    		gt->steering_table[MSLICE] = xehpsdv_mslice_steering_table;
+>>>> @@ -171,6 +174,8 @@ int intel_gt_init_mmio(struct intel_gt *gt)
+>>>>    		gt->info.l3bank_mask =
+>>>>    			~intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3) &
+>>>>    			GEN10_L3BANK_MASK;
+>>>> +		if (!gt->info.l3bank_mask) /* should be impossible! */
+>>>> +			drm_warn(&i915->drm, "L3 bank mask is all zero!\n");
+>>>>    	} else if (HAS_MSLICES(i915)) {
+>>>>    		MISSING_CASE(INTEL_INFO(i915)->platform);
+>>>>    	}
+>>>> @@ -882,20 +887,14 @@ static void intel_gt_get_valid_steering(struct intel_gt *gt,
+>>>>    {
+>>>>    	switch (type) {
+>>>>    	case L3BANK:
+>>>> -		GEM_DEBUG_WARN_ON(!gt->info.l3bank_mask); /* should be impossible! */
+>>>> -
+>>>>    		*sliceid = 0;		/* unused */
+>>>>    		*subsliceid = __ffs(gt->info.l3bank_mask);
+>>>>    		break;
+>>>>    	case MSLICE:
+>>>> -		GEM_DEBUG_WARN_ON(!gt->info.mslice_mask); /* should be impossible! */
+>>>> -
+>>>>    		*sliceid = __ffs(gt->info.mslice_mask);
+>>>>    		*subsliceid = 0;	/* unused */
+>>>>    		break;
+>>>>    	case LNCF:
+>>>> -		GEM_DEBUG_WARN_ON(!gt->info.mslice_mask); /* should be impossible! */
+>>>> -
+>>>>    		/*
+>>>>    		 * An LNCF is always present if its mslice is present, so we
+>>>>    		 * can safely just steer to LNCF 0 in all cases.
+>>>> -- 
+>>>> 2.32.0
+>>>>
+>>>
+> 
