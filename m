@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA82C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 21:38:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CAF0C433F5
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 21:38:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3602A10FA3B;
-	Thu,  5 May 2022 21:38:24 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43EE410E24A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 057BF10FA71;
+	Thu,  5 May 2022 21:38:27 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B902910E24A;
  Thu,  5 May 2022 21:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1651786702; x=1683322702;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8yV0j1eu2Yc6vkn3Udf0Jhy0+YiBZBmraGKCzN/bw4c=;
- b=UoFMMr/pe+wuS4mA1b2vfBmUlLczjXZ9ZtyQU+Te9RrTP3B9v37mTwwr
- nrs+RA2mbHKb97wne/ca//uo983K7pDsTjEDAQ7hPlSBlB0iLX/vJEDM9
- 3oMWlCm0lb02t4jEFX6uy6tOJsYGtqxE9GTZ74SK3xwrRdfjXZ432Mw2A
- xBZp6oSPrT6e5H2yJAKWTznFaaEFdq/CEwks5KpRpfkN0sfOePDExaBzm
- xKON27r1uWujsQGqY6FrEc5poornQ/m6SjE30BDe8qVm22Wbu951KVmXC
- eW8wIAuPFVryeb9OlnobBiupSEVkAspElBnWyMB9/96V2KWd4vb2+QCuj Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="248166061"
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="248166061"
+ bh=IFkYyNaXAU4EpuScwGbMbfVvSZD2WpCv8HcNE5UQuUY=;
+ b=QmxCH7RryK0PBL/Fe824VANqHw0nv89voWYAMF7Zr9aOCBxY41CyI2aD
+ SYJhUqnJi6dMLIjjLglFJYt1BC97G3BGBrTWFPSQqfByNkG7rvNErUxlc
+ 9DKAraBGPxX+dB5YvCXbJdfjsDhCjgIFDgbaVErImTBOArxN6cKBPlBW6
+ 1lfyPvHZMHjSoTIHXs1liP0JHb7AeSGLBDiHvSvprHArllW8OVultFUsF
+ OBJDO8b8L5dJAgz3PgzdjovLLu6vhfQNCVo5LwHdDn5uHL+ueanK3+TWH
+ uZS8dLxQ2kzBf8PVA+3eZz/70J+DndA85E26R3RrbT411/95Me9ilyH/9 g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="265851849"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="265851849"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  05 May 2022 14:38:21 -0700
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="549553264"
+X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="549553287"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2022 14:38:20 -0700
+ 05 May 2022 14:38:21 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  5 May 2022 14:38:04 -0700
-Message-Id: <20220505213812.3979301-5-matthew.d.roper@intel.com>
+Date: Thu,  5 May 2022 14:38:09 -0700
+Message-Id: <20220505213812.3979301-10-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220505213812.3979301-1-matthew.d.roper@intel.com>
 References: <20220505213812.3979301-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 04/12] drm/i915/pvc: Read correct
- RP_STATE_CAP register
+Subject: [Intel-gfx] [PATCH v2 09/12] drm/i915/pvc: Interrupt support for
+ new copy engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,49 +56,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The SoC registers, including RP_STATE_CAP, have moved to a new location
-in GTTMMADR on Ponte Vecchio.  We need to update the register offset
-accordingly.
+Add the interrupt handler support for new copy engines.
 
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Bspec: 54030
+Original-author: CQ Tang
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reviewed-by: Stuart Summers <stuart.summers@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_rps.c | 4 +++-
- drivers/gpu/drm/i915/i915_reg.h     | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c  | 16 ++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h |  4 ++++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 3476a11f294c..3bd8415a0f1b 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1075,7 +1075,9 @@ static u32 intel_rps_read_state_cap(struct intel_rps *rps)
- 	struct drm_i915_private *i915 = rps_to_i915(rps);
- 	struct intel_uncore *uncore = rps_to_uncore(rps);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+index 88b4becfcb17..3a72d4fd0214 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+@@ -193,6 +193,14 @@ void gen11_gt_irq_reset(struct intel_gt *gt)
+ 	/* Restore masks irqs on RCS, BCS, VCS and VECS engines. */
+ 	intel_uncore_write(uncore, GEN11_RCS0_RSVD_INTR_MASK,	~0);
+ 	intel_uncore_write(uncore, GEN11_BCS_RSVD_INTR_MASK,	~0);
++	if (HAS_ENGINE(gt, BCS1) || HAS_ENGINE(gt, BCS2))
++		intel_uncore_write(uncore, XEHPC_BCS1_BCS2_INTR_MASK, ~0);
++	if (HAS_ENGINE(gt, BCS3) || HAS_ENGINE(gt, BCS4))
++		intel_uncore_write(uncore, XEHPC_BCS3_BCS4_INTR_MASK, ~0);
++	if (HAS_ENGINE(gt, BCS5) || HAS_ENGINE(gt, BCS6))
++		intel_uncore_write(uncore, XEHPC_BCS5_BCS6_INTR_MASK, ~0);
++	if (HAS_ENGINE(gt, BCS7) || HAS_ENGINE(gt, BCS8))
++		intel_uncore_write(uncore, XEHPC_BCS7_BCS8_INTR_MASK, ~0);
+ 	intel_uncore_write(uncore, GEN11_VCS0_VCS1_INTR_MASK,	~0);
+ 	intel_uncore_write(uncore, GEN11_VCS2_VCS3_INTR_MASK,	~0);
+ 	if (HAS_ENGINE(gt, VCS4) || HAS_ENGINE(gt, VCS5))
+@@ -248,6 +256,14 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+ 	/* Unmask irqs on RCS, BCS, VCS and VECS engines. */
+ 	intel_uncore_write(uncore, GEN11_RCS0_RSVD_INTR_MASK, ~smask);
+ 	intel_uncore_write(uncore, GEN11_BCS_RSVD_INTR_MASK, ~smask);
++	if (HAS_ENGINE(gt, BCS1) || HAS_ENGINE(gt, BCS2))
++		intel_uncore_write(uncore, XEHPC_BCS1_BCS2_INTR_MASK, ~dmask);
++	if (HAS_ENGINE(gt, BCS3) || HAS_ENGINE(gt, BCS4))
++		intel_uncore_write(uncore, XEHPC_BCS3_BCS4_INTR_MASK, ~dmask);
++	if (HAS_ENGINE(gt, BCS5) || HAS_ENGINE(gt, BCS6))
++		intel_uncore_write(uncore, XEHPC_BCS5_BCS6_INTR_MASK, ~dmask);
++	if (HAS_ENGINE(gt, BCS7) || HAS_ENGINE(gt, BCS8))
++		intel_uncore_write(uncore, XEHPC_BCS7_BCS8_INTR_MASK, ~dmask);
+ 	intel_uncore_write(uncore, GEN11_VCS0_VCS1_INTR_MASK, ~dmask);
+ 	intel_uncore_write(uncore, GEN11_VCS2_VCS3_INTR_MASK, ~dmask);
+ 	if (HAS_ENGINE(gt, VCS4) || HAS_ENGINE(gt, VCS5))
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index aa2c0974b02c..fe09288a3145 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -1529,6 +1529,10 @@
+ #define GEN11_GUNIT_CSME_INTR_MASK		_MMIO(0x1900f4)
+ #define GEN12_CCS0_CCS1_INTR_MASK		_MMIO(0x190100)
+ #define GEN12_CCS2_CCS3_INTR_MASK		_MMIO(0x190104)
++#define XEHPC_BCS1_BCS2_INTR_MASK		_MMIO(0x190110)
++#define XEHPC_BCS3_BCS4_INTR_MASK		_MMIO(0x190114)
++#define XEHPC_BCS5_BCS6_INTR_MASK		_MMIO(0x190118)
++#define XEHPC_BCS7_BCS8_INTR_MASK		_MMIO(0x19011c)
  
--	if (IS_XEHPSDV(i915))
-+	if (IS_PONTEVECCHIO(i915))
-+		return intel_uncore_read(uncore, PVC_RP_STATE_CAP);
-+	else if (IS_XEHPSDV(i915))
- 		return intel_uncore_read(uncore, XEHPSDV_RP_STATE_CAP);
- 	else if (IS_GEN9_LP(i915))
- 		return intel_uncore_read(uncore, BXT_RP_STATE_CAP);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 9ccb67eec1bd..4a3d7b96ef43 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1846,6 +1846,7 @@
- #define BXT_RP_STATE_CAP        _MMIO(0x138170)
- #define GEN9_RP_STATE_LIMITS	_MMIO(0x138148)
- #define XEHPSDV_RP_STATE_CAP	_MMIO(0x250014)
-+#define PVC_RP_STATE_CAP	_MMIO(0x281014)
+ #define GEN12_SFC_DONE(n)			_MMIO(0x1cc000 + (n) * 0x1000)
  
- #define GT0_PERF_LIMIT_REASONS		_MMIO(0x1381a8)
- #define   GT0_PERF_LIMIT_REASONS_MASK	0xde3
 -- 
 2.35.1
 
