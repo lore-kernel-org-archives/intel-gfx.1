@@ -4,45 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A918FC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 May 2022 17:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F36B0C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 May 2022 17:22:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EE9010F2A0;
-	Fri,  6 May 2022 17:17:22 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD11910F22F
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 May 2022 17:17:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651857438; x=1683393438;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1P6ev43TPdsLQ1dSmZvmDHYeMDIY0iA2fLyr0PopDBM=;
- b=U3RAB4iwCWgSarQcoASo3tqvV1vkvbut6s2J4v+gb6qfKxZSfK8KSkVy
- CNjmSJsRQH/n767LPyPb4GwLLk+74d6wyjaXFLysEoUOYPciZui4TH9mm
- h84vupgog4dQBdyqlN4hFfKEnVk7eS+oUWd/JKNWdx78irEiubn3qJjmk
- 37FvjVXZSjzwgn0ScTlfsj7eVLR+4i4Ue+UcC+Ied55sM1gRautxHIgsP
- Kyfv7/YB99ZRDemxZ/Kd+nmhYRAeibPk79HcSVn60liNMDmg7QmV/kvca
- hKacpGBLo4TDhx26rovqsL4e+lLjhv1FkrK6HKqxoQyZ6hLClSqk/VwrS w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10339"; a="329070223"
-X-IronPort-AV: E=Sophos;i="5.91,205,1647327600"; d="scan'208";a="329070223"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2022 10:17:08 -0700
-X-IronPort-AV: E=Sophos;i="5.91,205,1647327600"; d="scan'208";a="518129804"
-Received: from anushasr-mobl6.jf.intel.com ([10.165.21.155])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2022 10:17:08 -0700
-From: Anusha Srivatsa <anusha.srivatsa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri,  6 May 2022 10:13:28 -0700
-Message-Id: <20220506171328.845107-2-anusha.srivatsa@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220506171328.845107-1-anusha.srivatsa@intel.com>
-References: <20220506171328.845107-1-anusha.srivatsa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8E410F018;
+	Fri,  6 May 2022 17:22:48 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AF93A10F2A0;
+ Fri,  6 May 2022 17:22:47 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id AB19DA01BB;
+ Fri,  6 May 2022 17:22:47 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4328804987559867175=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/dmc: Load DMC on DG2
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Juha-Pekka Heikkila" <juhapekka.heikkila@gmail.com>
+Date: Fri, 06 May 2022 17:22:47 -0000
+Message-ID: <165185776766.18816.3811854021639435385@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220506131109.20942-1-juhapekka.heikkila@gmail.com>
+In-Reply-To: <20220506131109.20942-1-juhapekka.heikkila@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLklHVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5B1/2=5D_drm/i915/display=3A_Add_smem_fallba?=
+ =?utf-8?q?ck_allocation_for_dpt?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,75 +41,185 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add Support for DC states on Dg2.
+--===============4328804987559867175==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-v2: Add dc9 as the max supported DC states and disable DC5.
-v3: set max_dc to 0. (Imre)
-v4: Add FIXME (Rodrigo)
+== Series Details ==
 
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>(v1)
----
- drivers/gpu/drm/i915/display/intel_display_power.c | 11 +++++++++--
- drivers/gpu/drm/i915/display/intel_dmc.c           | 10 +++++++++-
- 2 files changed, 18 insertions(+), 3 deletions(-)
+Series: series starting with [1/2] drm/i915/display: Add smem fallback allocation for dpt
+URL   : https://patchwork.freedesktop.org/series/103678/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 1d9bd5808849..2271f88e9a25 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -906,8 +906,15 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
- 
- 	if (!HAS_DISPLAY(dev_priv))
- 		return 0;
--
--	if (IS_DG1(dev_priv))
-+	/* FIXME: change max_dc back to 3 once
-+	 * we have DC5 bugs resolved. Till then,
-+	 * DG2 will use only DC9. Though DC9 does
-+	 * not depend on DMC, loading it in order
-+	 * to unblock runtime PM
-+	 */
-+	if (IS_DG2(dev_priv))
-+		max_dc = 0;
-+	else if (IS_DG1(dev_priv))
- 		max_dc = 3;
- 	else if (DISPLAY_VER(dev_priv) >= 12)
- 		max_dc = 4;
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index 257cf662f9f4..2f01aca4d981 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -52,6 +52,10 @@
- 
- #define DISPLAY_VER12_DMC_MAX_FW_SIZE	ICL_DMC_MAX_FW_SIZE
- 
-+#define DG2_DMC_PATH			DMC_PATH(dg2, 2, 06)
-+#define DG2_DMC_VERSION_REQUIRED	DMC_VERSION(2, 06)
-+MODULE_FIRMWARE(DG2_DMC_PATH);
-+
- #define ADLP_DMC_PATH			DMC_PATH(adlp, 2, 16)
- #define ADLP_DMC_VERSION_REQUIRED	DMC_VERSION(2, 16)
- MODULE_FIRMWARE(ADLP_DMC_PATH);
-@@ -688,7 +692,11 @@ void intel_dmc_ucode_init(struct drm_i915_private *dev_priv)
- 	 */
- 	intel_dmc_runtime_pm_get(dev_priv);
- 
--	if (IS_ALDERLAKE_P(dev_priv)) {
-+	if (IS_DG2(dev_priv)) {
-+		dmc->fw_path = DG2_DMC_PATH;
-+		dmc->required_version = DG2_DMC_VERSION_REQUIRED;
-+		dmc->max_fw_size = DISPLAY_VER13_DMC_MAX_FW_SIZE;
-+	} else if (IS_ALDERLAKE_P(dev_priv)) {
- 		dmc->fw_path = ADLP_DMC_PATH;
- 		dmc->required_version = ADLP_DMC_VERSION_REQUIRED;
- 		dmc->max_fw_size = DISPLAY_VER13_DMC_MAX_FW_SIZE;
--- 
-2.25.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_11617_full -> Patchwork_103678v1_full
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/index.html
+
+Participating hosts (11 -> 7)
+------------------------------
+
+  Missing    (4): pig-skl-6260u pig-kbl-iris shard-tglu pig-glk-j5005 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_103678v1_full that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_exec_flush@basic-batch-kernel-default-uc:
+    - shard-snb:          [PASS][1] -> [SKIP][2] ([fdo#109271])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11617/shard-snb7/igt@gem_exec_flush@basic-batch-kernel-default-uc.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/shard-snb6/igt@gem_exec_flush@basic-batch-kernel-default-uc.html
+
+  * igt@kms_chamelium@dp-hpd-storm:
+    - shard-snb:          NOTRUN -> [SKIP][3] ([fdo#109271] / [fdo#111827])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/shard-snb7/igt@kms_chamelium@dp-hpd-storm.html
+
+  * igt@kms_hdmi_inject@inject-4k:
+    - shard-snb:          NOTRUN -> [SKIP][4] ([fdo#109271]) +8 similar issues
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/shard-snb7/igt@kms_hdmi_inject@inject-4k.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_flush@basic-wb-prw-default:
+    - shard-snb:          [SKIP][5] ([fdo#109271]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11617/shard-snb6/igt@gem_exec_flush@basic-wb-prw-default.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/shard-snb5/igt@gem_exec_flush@basic-wb-prw-default.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - shard-snb:          [INCOMPLETE][7] ([i915#3921]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11617/shard-snb5/igt@i915_selftest@live@hangcheck.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/shard-snb7/igt@i915_selftest@live@hangcheck.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_11617 -> Patchwork_103678v1
+  * Piglit: piglit_4509 -> None
+
+  CI-20190529: 20190529
+  CI_DRM_11617: d96cea3d7ffb524248fcc8db433c579cf262eaea @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6468: cffa5fffe9acddf49565b4caeeb5e3355ff2ea44 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_103678v1: d96cea3d7ffb524248fcc8db433c579cf262eaea @ git://anongit.freedesktop.org/gfx-ci/linux
+  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/index.html
+
+--===============4328804987559867175==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [1/2] drm/i915/display: Add smem fallback allocation for dpt</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/103678/">https://patchwork.freedesktop.org/series/103678/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_11617_full -&gt; Patchwork_103678v1_full</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/index.html</p>
+<h2>Participating hosts (11 -&gt; 7)</h2>
+<p>Missing    (4): pig-skl-6260u pig-kbl-iris shard-tglu pig-glk-j5005 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_103678v1_full that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_exec_flush@basic-batch-kernel-default-uc:</p>
+<ul>
+<li>shard-snb:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11617/shard-snb7/igt@gem_exec_flush@basic-batch-kernel-default-uc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/shard-snb6/igt@gem_exec_flush@basic-batch-kernel-default-uc.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@dp-hpd-storm:</p>
+<ul>
+<li>shard-snb:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/shard-snb7/igt@kms_chamelium@dp-hpd-storm.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_hdmi_inject@inject-4k:</p>
+<ul>
+<li>shard-snb:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/shard-snb7/igt@kms_hdmi_inject@inject-4k.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +8 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_flush@basic-wb-prw-default:</p>
+<ul>
+<li>shard-snb:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11617/shard-snb6/igt@gem_exec_flush@basic-wb-prw-default.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/shard-snb5/igt@gem_exec_flush@basic-wb-prw-default.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>shard-snb:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11617/shard-snb5/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103678v1/shard-snb7/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_11617 -&gt; Patchwork_103678v1</li>
+<li>Piglit: piglit_4509 -&gt; None</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_11617: d96cea3d7ffb524248fcc8db433c579cf262eaea @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6468: cffa5fffe9acddf49565b4caeeb5e3355ff2ea44 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_103678v1: d96cea3d7ffb524248fcc8db433c579cf262eaea @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit</p>
+
+</body>
+</html>
+
+--===============4328804987559867175==--
