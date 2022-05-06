@@ -4,30 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE9FC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 May 2022 22:58:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E324FC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 May 2022 00:08:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD94310FC0D;
-	Thu,  5 May 2022 22:58:18 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9D09310FC0D;
- Thu,  5 May 2022 22:58:17 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 9A37AA01BB;
- Thu,  5 May 2022 22:58:17 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1687287141837141639=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED69410FDEB;
+	Fri,  6 May 2022 00:08:52 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062.outbound.protection.outlook.com [40.107.236.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC87510FDC9;
+ Fri,  6 May 2022 00:08:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=S1UoZeBlXwslVK1vQ1bbf3hrCzkAAzitfGiQWEAMNABkqlrMs0zKrOnu9crMYVzisMLm+EUqO/yYEM+ac1DlACY6JK5dQjJiQF2mBUtPBMWKiArUK39J0cAXv6IeahRLaBEh2qjagutY1QwCHziUpi4atDjWwanXJNWCLGuUvkPY5LB709LBY7pZi1Xngzt9x6/tGhcduxk4MTw3fcsv8dqN7DoswfHQHQbCnS1OKhwooDeM3H6DTF+m+F3BArKPJ42VIMCvyIVRZfmHeR8jE08qYBBM0Xjr5GiNOHAE5NnLBlZ8C5xG3f9wHSM1PS0ls22MaH9Wq4QfQAeBnnF0Iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=007v1D6OZ6VdXRrP2OlGA8BaIYAWfzduE7Z598Jqj6s=;
+ b=iM2I2S2yMbFySK5qFmSYgh9y2Kx8n+yewT9n6mgW/Q8hbZOEU3I4UQRLpb5T+65IuBuyO+y1fwuPVra8RLH/EZAK4Rx27v9Xj0hf6MP0FpGTxE2mk6XAIfobMsUv/Grqyj5K8v1ku3hapabK+2UPByYsGGICBEBvEwadrEMy/TjPlFVZqL7zNc/XyxttwbqBLbiA3fyFy+WhVeoeNnhjxUn2r0w/Qta6ok0HHSU9XctPai2ohSVgP6TMiq9GFlWuOJJc8xM3J81d66frk5uB9JnRT9Ma7sxyBQ5ZGRmAfxN0DcLLUZT6Lr5KFOnU9exvkH5xgy0aMyS9HxL7Y5nkqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=007v1D6OZ6VdXRrP2OlGA8BaIYAWfzduE7Z598Jqj6s=;
+ b=cm04q43ORbqfEkXErSOMwFhoGnSouEF/EaxRjV7Ey+Ex/jElfBwCIUm1pP8nh75w4L9P6pheTjXGjgJ2nTzrvC5E7HtZnFRX02G324sfiqsjEDarRwZqKBUmvrDu+rspO7hWfwqzFTHqI2tIFTJK6cPu1afvLDpzNXww7OR6jTJwl6QvBg5dMozXtmGjMp1S5K72T+lkMMXJz6eiRlgAvWMps6Bw8ERynUZOGxzrVqffgZs/PbneNtavBDfPNiBNkcM7iZJJ2YIc+M8h4S/+ef7X12ysek8kjMRuN3DJKuzXHI9nifRxqw5HQ2y86uN1xe+kTArX4EmklM2WzfQ7aw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
+ by BYAPR12MB2934.namprd12.prod.outlook.com (2603:10b6:a03:13b::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24; Fri, 6 May
+ 2022 00:08:48 +0000
+Received: from MN2PR12MB4192.namprd12.prod.outlook.com
+ ([fe80::ec2d:9167:1b47:2db2]) by MN2PR12MB4192.namprd12.prod.outlook.com
+ ([fe80::ec2d:9167:1b47:2db2%6]) with mapi id 15.20.5206.027; Fri, 6 May 2022
+ 00:08:46 +0000
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+ David Airlie <airlied@linux.ie>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Cornelia Huck <cohuck@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Jason Herne <jjherne@linux.ibm.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-doc@vger.kernel.org,
+ linux-s390@vger.kernel.org, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
+Date: Thu,  5 May 2022 21:08:41 -0300
+Message-Id: <3-v4-8045e76bf00b+13d-vfio_mdev_no_group_jgg@nvidia.com>
+In-Reply-To: <0-v4-8045e76bf00b+13d-vfio_mdev_no_group_jgg@nvidia.com>
+References: 
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MN2PR10CA0004.namprd10.prod.outlook.com
+ (2603:10b6:208:120::17) To MN2PR12MB4192.namprd12.prod.outlook.com
+ (2603:10b6:208:1d5::15)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matt Roper" <matthew.d.roper@intel.com>
-Date: Thu, 05 May 2022 22:58:17 -0000
-Message-ID: <165179149759.7657.16218190513757016859@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220505213812.3979301-1-matthew.d.roper@intel.com>
-In-Reply-To: <20220505213812.3979301-1-matthew.d.roper@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgaTkx?=
- =?utf-8?q?5=3A_Introduce_Ponte_Vecchio_=28rev2=29?=
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2d8aa6d9-bb34-4f78-5909-08da2ef496f7
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2934:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR12MB29349BC213C02C6127A139B9C2C59@BYAPR12MB2934.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Y3RS2vDMjBKCcSvwuVbV+46AhVhujKOdjhfzh47rPeCCFwt4NBdDYDMCL5OpARpAvzA0haDGwZD6fnjtSDuHG4ZOqR1q7pwC+KCp19lSJWO8hTINB1XrYG30AJze43v3bPFRPiTUIuJyb1LDo708FVzGzHkMFnCb9hDdBnXsrpm34BX9RjanH4+Byu0QkJrfW5t+OQJzzHf36JwOwUoKeiLdaFd7AgIoMb4NvlCYZ11Dc+NCargcC9jfsyvTnBCbPjV+c5cBwxMndGfw3GkK5G9syLYvNci7Br5fJ6tLc1y4vcaGubD+eeNh2lLTx295cgBsu7+Xp3B9CST1gHy3k6pAg3M6W81icL1yN1xLwo/S0BvLfwzlwhsFh0HipVZtn8hawXr2mxUQ8wSgAN0BMVRhiHxf2OjSOfigf4S0LE/Ewg8FgpsvQ3gjKRIKS9dsOAIslMdSqBpjUX1y1+3fHeGzAP0+DTlfWFg3gBCOEqoPqobI7umQ3YfkEVKVy57HN5MBdHTVCu5QeA6q6BD7La3F2UvcSkAOp9xYPKoVjR2iZ5uuGB1TFv5udRAUSzRhSpGmNEQJvnmzu6Vw0FPRECO1vXHyeXei6fHtWwVi3TikCQ9Y5QNHKYVU+bCA+o+RX8iMpW0o5PfCo88scfSNbRsHoSA/a9SVCjnQi41imRfvb8xVpR+0hbVsaUYUIIR2DjA3dym9HS7CZcVQC1yDfQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(5660300002)(2906002)(66946007)(66556008)(54906003)(8676002)(86362001)(110136005)(4326008)(6486002)(38100700002)(508600001)(316002)(66476007)(6666004)(6512007)(6506007)(186003)(2616005)(921005)(26005)(7416002)(8936002)(83380400001)(7406005)(36756003)(4216001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?o3Bpl9JqnGFxs5pxG0hCmV4ZJoLg9PUtCGK4cn88aF6wvERCa8T9I/xOn1AT?=
+ =?us-ascii?Q?2JPAw74vlmD5GBusho6FF1sdzXRALKrm2+BkxisWSqLoq2UK3DpQInpWeQc8?=
+ =?us-ascii?Q?2cW+3qSUmQAImSuwsXBF4M7t+UNk0g4p5t4NukACInUE94OhLvdqGr7uLGbL?=
+ =?us-ascii?Q?jqYJ+3R+PpgNJxJstv+Vm9uV1wUnOoOeaa/mJYvuSOIs0+yVB2LI1GRPTq/0?=
+ =?us-ascii?Q?SEuRPiA5vxBKmKxAaq2sB81oAh0BplsBObu9ew2H3cQIpmvrI8BmHPPw5uup?=
+ =?us-ascii?Q?9eL5WLxaH7nI15YOqwJf8wa9D8NL9ynFHy2nhFnluw51ZBlWyf3HxG0vQeIN?=
+ =?us-ascii?Q?BrjbNBbjyCOMYpnyB6tB+VGB8JLlmc27NShAmakMl9k/hZ3WdA1v4ROLl9/j?=
+ =?us-ascii?Q?PDHUqq0pMI9sIM9af9K+rL+2Z4WkJGmpnOdxoaxOYuL1V/L/1FexFx4O6RpY?=
+ =?us-ascii?Q?Cjb4iOELDLQgD0li5wVkZjL4WUP0fZtdE9/Xy8IzuSW1wz2tIiUacV5p4mA0?=
+ =?us-ascii?Q?L6toCDSGf4I1Cu89lX+zi9sevrRtONmic9/R7McHLrtK46Cwt6kDBSoAjky6?=
+ =?us-ascii?Q?zsyc0ejvSMGrytxTg9dIxkHy2lnMc05+V/v+mdAfknm24OgOYFBrn7vYJ2ZI?=
+ =?us-ascii?Q?HFoO2qvFxPE4/VgSwwlzcVt7UbSMzaqQAf1XLmgrUQnqge9e/0f5Fj/x9jNH?=
+ =?us-ascii?Q?Vl8Qt1ZxS6vWmFTKwiPnP7pW2hFjKiCGynBnCDFAsKoYTZG/Z8c+bmCPF3t9?=
+ =?us-ascii?Q?VU0S1ZRHkkoHnbGgjc5Xqv53y03Df4qxCLMV7zWm1jbhQXAnNQcub5UURdRz?=
+ =?us-ascii?Q?grG5JcIv3M+5G9+oT5rThzeUZFlWFJ785AglQqADqmLXksX9gySmTsM+h7pY?=
+ =?us-ascii?Q?xhBBcADsvwttbGR9OYBkBfXgMJzpgX6opVM3tXqCSmrJjuAH2wbxY99+f0H3?=
+ =?us-ascii?Q?gOnGOqMpoD+lDz+lrVn17uSTAmYVdVUT6W1WMF6U5wH6veD/HWlZT/woBr91?=
+ =?us-ascii?Q?ZqecoALjUNA1ysDQQjy29HpJ1oHxwnqik1tIDGBuomTH6aOzi9ikrDex6ibP?=
+ =?us-ascii?Q?neU6JF5Yg8kmXE/aFNp8LiqKL5jac87NYmWzdj8WVVruVqs4h3EdIlAPH6La?=
+ =?us-ascii?Q?B+h7jt4zRCIl/tNPCu1k7sZsBuH4VckrHm/yAjfYOLQ22aR3MU4bXXgBCOLg?=
+ =?us-ascii?Q?U62yrgZcj6T7uuwCrA1P35ElEOoOI38YfYLjQ/NIjH6X9s+mQLXd3S2JEe9H?=
+ =?us-ascii?Q?vz+bQ7EKYtoIpYkBqdzbtzo6svKiNdeGm+iwaiFQ6BbPV5auNfGjdchKacRi?=
+ =?us-ascii?Q?NDn3jO2cnGMOM8+6Uev0LyO4PTLIA8+eIooJOrSWoCPhXFnEwYFOIjCtP+Cs?=
+ =?us-ascii?Q?pY9GXE9vROu/K/9IY8hoB7OowcmWRi5glxPSYUpbu08gxE9liFK+3ekblTUH?=
+ =?us-ascii?Q?yTZBAvn280pSzYb1KHKfLMob72NQweprbZJv1rKZML4TUaQ0iRL6Nbl6BmEL?=
+ =?us-ascii?Q?MMw46iqqb8L4kdjDETEQDge5FjfKAUuCZfMkEtL9TKgm8kmaTQdjcHsurmFY?=
+ =?us-ascii?Q?x09iab5rwvX8zaONzjLNv6aAG99v7UUN4Qh8y3fK2I24vVp5i/3oHiA/F9dn?=
+ =?us-ascii?Q?qsVgwtVDIOmpIl1JKW9DQ+hNoX53ZBCG5m33W1iiBNDimHDBXpgApou8sgn7?=
+ =?us-ascii?Q?TO+GF0UWal7llqKhVQyV+Wiwr07h18tpq/D9mRBpPF9DyW2jPLi6hUf0qy8O?=
+ =?us-ascii?Q?cAtaxRsPFw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d8aa6d9-bb34-4f78-5909-08da2ef496f7
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2022 00:08:46.9029 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MREoh2h6HWmtvX7NJqLPsXDjMBUzKb8nmglfq40KTA/p3sTpXAPv/V4D7Ezksv67
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2934
+Subject: [Intel-gfx] [PATCH v4 3/7] vfio/mdev: Pass in a struct vfio_device
+ * to vfio_pin/unpin_pages()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,267 +137,249 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Tony Krowiak <akrowiak@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>,
+ "Liu, Yi L" <yi.l.liu@intel.com>, Christoph Hellwig <hch@lst.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1687287141837141639==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Every caller has a readily available vfio_device pointer, use that instead
+of passing in a generic struct device. The struct vfio_device already
+contains the group we need so this avoids complexity, extra refcountings,
+and a confusing lifecycle model.
 
-== Series Details ==
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Acked-by: Eric Farman <farman@linux.ibm.com>
+Reviewed-by: Jason J. Herne <jjherne@linux.ibm.com>
+Reviewed-by: Tony Krowiak <akrowiak@linux.ibm.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+---
+ .../driver-api/vfio-mediated-device.rst       |  4 +-
+ drivers/s390/cio/vfio_ccw_cp.c                |  6 +--
+ drivers/s390/crypto/vfio_ap_ops.c             |  9 ++--
+ drivers/vfio/vfio.c                           | 46 +++++++------------
+ include/linux/vfio.h                          |  4 +-
+ 5 files changed, 27 insertions(+), 42 deletions(-)
 
-Series: i915: Introduce Ponte Vecchio (rev2)
-URL   : https://patchwork.freedesktop.org/series/103443/
-State : failure
+diff --git a/Documentation/driver-api/vfio-mediated-device.rst b/Documentation/driver-api/vfio-mediated-device.rst
+index 784bbeb22adcf5..eded8719180fba 100644
+--- a/Documentation/driver-api/vfio-mediated-device.rst
++++ b/Documentation/driver-api/vfio-mediated-device.rst
+@@ -262,10 +262,10 @@ Translation APIs for Mediated Devices
+ The following APIs are provided for translating user pfn to host pfn in a VFIO
+ driver::
+ 
+-	extern int vfio_pin_pages(struct device *dev, unsigned long *user_pfn,
++	int vfio_pin_pages(struct vfio_device *device, unsigned long *user_pfn,
+ 				  int npage, int prot, unsigned long *phys_pfn);
+ 
+-	extern int vfio_unpin_pages(struct device *dev, unsigned long *user_pfn,
++	int vfio_unpin_pages(struct vfio_device *device, unsigned long *user_pfn,
+ 				    int npage);
+ 
+ These functions call back into the back-end IOMMU module by using the pin_pages
+diff --git a/drivers/s390/cio/vfio_ccw_cp.c b/drivers/s390/cio/vfio_ccw_cp.c
+index 7a1cf3091cd647..0c2be9421ab78f 100644
+--- a/drivers/s390/cio/vfio_ccw_cp.c
++++ b/drivers/s390/cio/vfio_ccw_cp.c
+@@ -103,13 +103,13 @@ static int pfn_array_pin(struct pfn_array *pa, struct vfio_device *vdev)
+ {
+ 	int ret = 0;
+ 
+-	ret = vfio_pin_pages(vdev->dev, pa->pa_iova_pfn, pa->pa_nr,
++	ret = vfio_pin_pages(vdev, pa->pa_iova_pfn, pa->pa_nr,
+ 			     IOMMU_READ | IOMMU_WRITE, pa->pa_pfn);
+ 
+ 	if (ret < 0) {
+ 		goto err_out;
+ 	} else if (ret > 0 && ret != pa->pa_nr) {
+-		vfio_unpin_pages(vdev->dev, pa->pa_iova_pfn, ret);
++		vfio_unpin_pages(vdev, pa->pa_iova_pfn, ret);
+ 		ret = -EINVAL;
+ 		goto err_out;
+ 	}
+@@ -127,7 +127,7 @@ static void pfn_array_unpin_free(struct pfn_array *pa, struct vfio_device *vdev)
+ {
+ 	/* Only unpin if any pages were pinned to begin with */
+ 	if (pa->pa_nr)
+-		vfio_unpin_pages(vdev->dev, pa->pa_iova_pfn, pa->pa_nr);
++		vfio_unpin_pages(vdev, pa->pa_iova_pfn, pa->pa_nr);
+ 	pa->pa_nr = 0;
+ 	kfree(pa->pa_iova_pfn);
+ }
+diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+index bfa7ee6ef532d9..e8914024f5b1af 100644
+--- a/drivers/s390/crypto/vfio_ap_ops.c
++++ b/drivers/s390/crypto/vfio_ap_ops.c
+@@ -124,8 +124,7 @@ static void vfio_ap_free_aqic_resources(struct vfio_ap_queue *q)
+ 		q->saved_isc = VFIO_AP_ISC_INVALID;
+ 	}
+ 	if (q->saved_pfn && !WARN_ON(!q->matrix_mdev)) {
+-		vfio_unpin_pages(mdev_dev(q->matrix_mdev->mdev),
+-				 &q->saved_pfn, 1);
++		vfio_unpin_pages(&q->matrix_mdev->vdev, &q->saved_pfn, 1);
+ 		q->saved_pfn = 0;
+ 	}
+ }
+@@ -258,7 +257,7 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
+ 		return status;
+ 	}
+ 
+-	ret = vfio_pin_pages(mdev_dev(q->matrix_mdev->mdev), &g_pfn, 1,
++	ret = vfio_pin_pages(&q->matrix_mdev->vdev, &g_pfn, 1,
+ 			     IOMMU_READ | IOMMU_WRITE, &h_pfn);
+ 	switch (ret) {
+ 	case 1:
+@@ -301,7 +300,7 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
+ 		break;
+ 	case AP_RESPONSE_OTHERWISE_CHANGED:
+ 		/* We could not modify IRQ setings: clear new configuration */
+-		vfio_unpin_pages(mdev_dev(q->matrix_mdev->mdev), &g_pfn, 1);
++		vfio_unpin_pages(&q->matrix_mdev->vdev, &g_pfn, 1);
+ 		kvm_s390_gisc_unregister(kvm, isc);
+ 		break;
+ 	default:
+@@ -1250,7 +1249,7 @@ static int vfio_ap_mdev_iommu_notifier(struct notifier_block *nb,
+ 		struct vfio_iommu_type1_dma_unmap *unmap = data;
+ 		unsigned long g_pfn = unmap->iova >> PAGE_SHIFT;
+ 
+-		vfio_unpin_pages(mdev_dev(matrix_mdev->mdev), &g_pfn, 1);
++		vfio_unpin_pages(&matrix_mdev->vdev, &g_pfn, 1);
+ 		return NOTIFY_OK;
+ 	}
+ 
+diff --git a/drivers/vfio/vfio.c b/drivers/vfio/vfio.c
+index d70890ab9cea92..93caab1f29dbd7 100644
+--- a/drivers/vfio/vfio.c
++++ b/drivers/vfio/vfio.c
+@@ -1919,7 +1919,7 @@ EXPORT_SYMBOL(vfio_set_irqs_validate_and_prepare);
+ /*
+  * Pin a set of guest PFNs and return their associated host PFNs for local
+  * domain only.
+- * @dev [in]     : device
++ * @device [in]  : device
+  * @user_pfn [in]: array of user/guest PFNs to be pinned.
+  * @npage [in]   : count of elements in user_pfn array.  This count should not
+  *		   be greater VFIO_PIN_PAGES_MAX_ENTRIES.
+@@ -1927,32 +1927,26 @@ EXPORT_SYMBOL(vfio_set_irqs_validate_and_prepare);
+  * @phys_pfn[out]: array of host PFNs
+  * Return error or number of pages pinned.
+  */
+-int vfio_pin_pages(struct device *dev, unsigned long *user_pfn, int npage,
+-		   int prot, unsigned long *phys_pfn)
++int vfio_pin_pages(struct vfio_device *device, unsigned long *user_pfn,
++		   int npage, int prot, unsigned long *phys_pfn)
+ {
+ 	struct vfio_container *container;
+-	struct vfio_group *group;
++	struct vfio_group *group = device->group;
+ 	struct vfio_iommu_driver *driver;
+ 	int ret;
+ 
+-	if (!dev || !user_pfn || !phys_pfn || !npage)
++	if (!user_pfn || !phys_pfn || !npage)
+ 		return -EINVAL;
+ 
+ 	if (npage > VFIO_PIN_PAGES_MAX_ENTRIES)
+ 		return -E2BIG;
+ 
+-	group = vfio_group_get_from_dev(dev);
+-	if (!group)
+-		return -ENODEV;
+-
+-	if (group->dev_counter > 1) {
+-		ret = -EINVAL;
+-		goto err_pin_pages;
+-	}
++	if (group->dev_counter > 1)
++		return -EINVAL;
+ 
+ 	ret = vfio_group_add_container_user(group);
+ 	if (ret)
+-		goto err_pin_pages;
++		return ret;
+ 
+ 	container = group->container;
+ 	driver = container->iommu_driver;
+@@ -1965,43 +1959,37 @@ int vfio_pin_pages(struct device *dev, unsigned long *user_pfn, int npage,
+ 
+ 	vfio_group_try_dissolve_container(group);
+ 
+-err_pin_pages:
+-	vfio_group_put(group);
+ 	return ret;
+ }
+ EXPORT_SYMBOL(vfio_pin_pages);
+ 
+ /*
+  * Unpin set of host PFNs for local domain only.
+- * @dev [in]     : device
++ * @device [in]  : device
+  * @user_pfn [in]: array of user/guest PFNs to be unpinned. Number of user/guest
+  *		   PFNs should not be greater than VFIO_PIN_PAGES_MAX_ENTRIES.
+  * @npage [in]   : count of elements in user_pfn array.  This count should not
+  *                 be greater than VFIO_PIN_PAGES_MAX_ENTRIES.
+  * Return error or number of pages unpinned.
+  */
+-int vfio_unpin_pages(struct device *dev, unsigned long *user_pfn, int npage)
++int vfio_unpin_pages(struct vfio_device *device, unsigned long *user_pfn,
++		     int npage)
+ {
+ 	struct vfio_container *container;
+-	struct vfio_group *group;
+ 	struct vfio_iommu_driver *driver;
+ 	int ret;
+ 
+-	if (!dev || !user_pfn || !npage)
++	if (!user_pfn || !npage)
+ 		return -EINVAL;
+ 
+ 	if (npage > VFIO_PIN_PAGES_MAX_ENTRIES)
+ 		return -E2BIG;
+ 
+-	group = vfio_group_get_from_dev(dev);
+-	if (!group)
+-		return -ENODEV;
+-
+-	ret = vfio_group_add_container_user(group);
++	ret = vfio_group_add_container_user(device->group);
+ 	if (ret)
+-		goto err_unpin_pages;
++		return ret;
+ 
+-	container = group->container;
++	container = device->group->container;
+ 	driver = container->iommu_driver;
+ 	if (likely(driver && driver->ops->unpin_pages))
+ 		ret = driver->ops->unpin_pages(container->iommu_data, user_pfn,
+@@ -2009,10 +1997,8 @@ int vfio_unpin_pages(struct device *dev, unsigned long *user_pfn, int npage)
+ 	else
+ 		ret = -ENOTTY;
+ 
+-	vfio_group_try_dissolve_container(group);
++	vfio_group_try_dissolve_container(device->group);
+ 
+-err_unpin_pages:
+-	vfio_group_put(group);
+ 	return ret;
+ }
+ EXPORT_SYMBOL(vfio_unpin_pages);
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index a00fd722f044b0..bddc70f88899c3 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -150,9 +150,9 @@ extern long vfio_external_check_extension(struct vfio_group *group,
+ 
+ #define VFIO_PIN_PAGES_MAX_ENTRIES	(PAGE_SIZE/sizeof(unsigned long))
+ 
+-extern int vfio_pin_pages(struct device *dev, unsigned long *user_pfn,
++extern int vfio_pin_pages(struct vfio_device *device, unsigned long *user_pfn,
+ 			  int npage, int prot, unsigned long *phys_pfn);
+-extern int vfio_unpin_pages(struct device *dev, unsigned long *user_pfn,
++extern int vfio_unpin_pages(struct vfio_device *device, unsigned long *user_pfn,
+ 			    int npage);
+ 
+ extern int vfio_group_pin_pages(struct vfio_group *group,
+-- 
+2.36.0
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_11612 -> Patchwork_103443v2
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_103443v2 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_103443v2, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/index.html
-
-Participating hosts (41 -> 40)
-------------------------------
-
-  Additional (1): bat-adlm-1 
-  Missing    (2): fi-rkl-11600 fi-bsw-cyan 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_103443v2:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@gem_sync@basic-each:
-    - fi-hsw-g3258:       [PASS][1] -> [FAIL][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/fi-hsw-g3258/igt@gem_sync@basic-each.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/fi-hsw-g3258/igt@gem_sync@basic-each.html
-
-  
-#### Warnings ####
-
-  * igt@kms_chamelium@dp-hpd-fast:
-    - fi-kbl-soraka:      [SKIP][3] ([fdo#109271] / [fdo#111827]) -> [INCOMPLETE][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/fi-kbl-soraka/igt@kms_chamelium@dp-hpd-fast.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/fi-kbl-soraka/igt@kms_chamelium@dp-hpd-fast.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_103443v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-snb-2600:        [PASS][5] -> [INCOMPLETE][6] ([i915#3921])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@gt_pm:
-    - fi-tgl-1115g4:      [DMESG-FAIL][7] ([i915#3987]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - {fi-jsl-1}:         [INCOMPLETE][9] ([i915#3921] / [i915#5153]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/fi-jsl-1/igt@i915_selftest@live@hangcheck.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/fi-jsl-1/igt@i915_selftest@live@hangcheck.html
-
-  * igt@kms_busy@basic@modeset:
-    - bat-adlp-4:         [DMESG-WARN][11] ([i915#3576]) -> [PASS][12] +2 similar issues
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/bat-adlp-4/igt@kms_busy@basic@modeset.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/bat-adlp-4/igt@kms_busy@basic@modeset.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#1155]: https://gitlab.freedesktop.org/drm/intel/issues/1155
-  [i915#3282]: https://gitlab.freedesktop.org/drm/intel/issues/3282
-  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
-  [i915#3576]: https://gitlab.freedesktop.org/drm/intel/issues/3576
-  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
-  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
-  [i915#3987]: https://gitlab.freedesktop.org/drm/intel/issues/3987
-  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#5153]: https://gitlab.freedesktop.org/drm/intel/issues/5153
-  [i915#5801]: https://gitlab.freedesktop.org/drm/intel/issues/5801
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_11612 -> Patchwork_103443v2
-
-  CI-20190529: 20190529
-  CI_DRM_11612: 9f6ebefdd3fadb37d1e284e7f0bf0cfcd2fef75b @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6467: 929abc51cdd48d673efa03e025b1f31b557972ed @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_103443v2: 9f6ebefdd3fadb37d1e284e7f0bf0cfcd2fef75b @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-f41752acf146 drm/i915/pvc: read fuses for link copy engines
-130d53a5578d drm/i915/pvc: skip all copy engines from aux table invalidate
-d608ac99fab2 drm/i915/pvc: Reset support for new copy engines
-2b1639d2aa3e drm/i915/pvc: Interrupt support for new copy engines
-d4064df82c11 drm/i915/pvc: Engine definitions for new copy engines
-0d90a6d4e6a2 drm/i915/gvt: Use intel_engine_mask_t for ring mask
-69140f89ec0d drm/i915/pvc: Reduce stack usage in reset selftest with extra blitter engine
-9782f9902d63 drm/i915/pvc: Remove additional 3D flags from PIPE_CONTROL
-332fe30ef673 drm/i915/pvc: Read correct RP_STATE_CAP register
-b8a70a3201f1 drm/i915/pvc: Define MOCS table for PVC
-a15e27c9fa27 drm/i915/pvc: Add forcewake support
-24bbf8bbee2c drm/i915/uncore: Reorganize and document shadow and forcewake tables
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/index.html
-
---===============1687287141837141639==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>i915: Introduce Ponte Vecchio (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/103443/">https://patchwork.freedesktop.org/series/103443/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_11612 -&gt; Patchwork_103443v2</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_103443v2 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_103443v2, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/index.html</p>
-<h2>Participating hosts (41 -&gt; 40)</h2>
-<p>Additional (1): bat-adlm-1 <br />
-  Missing    (2): fi-rkl-11600 fi-bsw-cyan </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_103443v2:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@gem_sync@basic-each:<ul>
-<li>fi-hsw-g3258:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/fi-hsw-g3258/igt@gem_sync@basic-each.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/fi-hsw-g3258/igt@gem_sync@basic-each.html">FAIL</a></li>
-</ul>
-</li>
-</ul>
-<h4>Warnings</h4>
-<ul>
-<li>igt@kms_chamelium@dp-hpd-fast:<ul>
-<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/fi-kbl-soraka/igt@kms_chamelium@dp-hpd-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/fi-kbl-soraka/igt@kms_chamelium@dp-hpd-fast.html">INCOMPLETE</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_103443v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live@hangcheck:<ul>
-<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@gt_pm:</p>
-<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3987">i915#3987</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/fi-tgl-1115g4/igt@i915_selftest@live@gt_pm.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>{fi-jsl-1}:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/fi-jsl-1/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5153">i915#5153</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/fi-jsl-1/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_busy@basic@modeset:</p>
-<ul>
-<li>bat-adlp-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11612/bat-adlp-4/igt@kms_busy@basic@modeset.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3576">i915#3576</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_103443v2/bat-adlp-4/igt@kms_busy@basic@modeset.html">PASS</a> +2 similar issues</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_11612 -&gt; Patchwork_103443v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_11612: 9f6ebefdd3fadb37d1e284e7f0bf0cfcd2fef75b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6467: 929abc51cdd48d673efa03e025b1f31b557972ed @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_103443v2: 9f6ebefdd3fadb37d1e284e7f0bf0cfcd2fef75b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>f41752acf146 drm/i915/pvc: read fuses for link copy engines<br />
-130d53a5578d drm/i915/pvc: skip all copy engines from aux table invalidate<br />
-d608ac99fab2 drm/i915/pvc: Reset support for new copy engines<br />
-2b1639d2aa3e drm/i915/pvc: Interrupt support for new copy engines<br />
-d4064df82c11 drm/i915/pvc: Engine definitions for new copy engines<br />
-0d90a6d4e6a2 drm/i915/gvt: Use intel_engine_mask_t for ring mask<br />
-69140f89ec0d drm/i915/pvc: Reduce stack usage in reset selftest with extra blitter engine<br />
-9782f9902d63 drm/i915/pvc: Remove additional 3D flags from PIPE_CONTROL<br />
-332fe30ef673 drm/i915/pvc: Read correct RP_STATE_CAP register<br />
-b8a70a3201f1 drm/i915/pvc: Define MOCS table for PVC<br />
-a15e27c9fa27 drm/i915/pvc: Add forcewake support<br />
-24bbf8bbee2c drm/i915/uncore: Reorganize and document shadow and forcewake tables</p>
-
-</body>
-</html>
-
---===============1687287141837141639==--
