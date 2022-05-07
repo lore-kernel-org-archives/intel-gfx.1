@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8977DC433F5
-	for <intel-gfx@archiver.kernel.org>; Sat,  7 May 2022 13:29:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E175C433EF
+	for <intel-gfx@archiver.kernel.org>; Sat,  7 May 2022 13:29:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 176BC10E529;
-	Sat,  7 May 2022 13:29:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 030BB10EBDA;
+	Sat,  7 May 2022 13:29:04 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D94D10E529
- for <intel-gfx@lists.freedesktop.org>; Sat,  7 May 2022 13:29:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 708AA10EBDA
+ for <intel-gfx@lists.freedesktop.org>; Sat,  7 May 2022 13:29:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651930140; x=1683466140;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=mq9AHU+ryEnP+wBTJwPjPHyV7o5mxrdBHzSTQi/vDTs=;
- b=LlRY5oyf8I/wL3l9S9NeZmYaLkA8yZMPOggNVn6ROWs8uZwmjzsbXGMe
- i7nELuLuWxYz+ru4RtmU6q/edX7dgd6acA3BB9x2z4tB1JiFmoQ/4wfsQ
- t1jZ9HmKUkyrMSzuYom1Id5aYeoM8m2Vy5O6O6VQFkAxovX1QpimwRhpQ
- QLAHV+5O60gmrrioGACn/XrgA3azqEldpEIf2XC0m3NCYPu72LVpoqL5V
- gdXl2mCUq7qXFbN4AGKaOnWLp/b97PGTP9RXIIZ0q0bKg0qT/YC3PxE4J
- R8/x4FP/XDAiyBasJkRsxQN+LFTygxjhJ5pAAYuBEsueAjdzYI/jOKBNj w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10340"; a="268334252"
-X-IronPort-AV: E=Sophos;i="5.91,207,1647327600"; d="scan'208";a="268334252"
+ t=1651930143; x=1683466143;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=QSl5aiDT4JThvIdSn+HiYSJax8+K/f/J2cnfA2IYCTw=;
+ b=E7BKzz5wrz2hmk96CcKcBa7ifJAhhTdC67Ulo9zyEv4sBpaRWW6nzwCD
+ D6xDgxv/PCaoXf/W3bIQ98ow5d6FOMjer7HhQEp1H4C6k3LD1OE4YyT1C
+ +Mwq8QT3ZFkcRFPRCn9/eRM44b6iuoULobF/YKkHAytJts7cUI2Bq2pg8
+ AUUUionHLidjr1Yuxd5W/vXYwdr2oaeLtUGbGZnzfEfRRm7XqWC2t+Zkg
+ wP04WUGhI8UAj7s2IZJsk26LqynudbzqhE/8C0pukbkUr4Oblro9dCXdN
+ l+eLNGFOgPF3SnHl6Dpt78/otCs2FX578KODTuaw0GCBpofOVeDv5M5p5 w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10340"; a="268334256"
+X-IronPort-AV: E=Sophos;i="5.91,207,1647327600"; d="scan'208";a="268334256"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2022 06:28:59 -0700
-X-IronPort-AV: E=Sophos;i="5.91,207,1647327600"; d="scan'208";a="564292939"
+ 07 May 2022 06:29:03 -0700
+X-IronPort-AV: E=Sophos;i="5.91,207,1647327600"; d="scan'208";a="564292949"
 Received: from henrypet-mobl1.amr.corp.intel.com (HELO
  josouza-mobl2.intel.com) ([10.212.61.248])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2022 06:28:58 -0700
+ 07 May 2022 06:29:01 -0700
 From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat,  7 May 2022 06:28:35 -0700
-Message-Id: <20220507132850.10272-1-jose.souza@intel.com>
+Date: Sat,  7 May 2022 06:28:37 -0700
+Message-Id: <20220507132850.10272-3-jose.souza@intel.com>
 X-Mailer: git-send-email 2.36.0
+In-Reply-To: <20220507132850.10272-1-jose.souza@intel.com>
+References: <20220507132850.10272-1-jose.souza@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/16] drm/i915: Drop has_llc from device info
+Subject: [Intel-gfx] [PATCH 03/16] drm/i915/display: Disable DSB for DG2 and
+ Alderlake-P
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,106 +61,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This feature is supported in graphics version 6 and newer in all
-integrated GPUs not including VLC and CHV, so we can drop this flag
-for a not so complicated macro check.
+Commit 99510e1afb48 ("drm/i915: Disable DSB usage for now") disabled
+DSB for all display 12 platforms because it is not properly
+programming gamma LUT but left display 13 platforms with it enabled
+what I believe is not intentional.
 
-For this flag we were lucky as XE_HP_FEATURES was setting it to true
-while DGFX_FEATURES was setting it to false and xehpsdv and DG2 were
-using those macros in this givin order if it was the other way around,
-some code paths would follow the HAS_LLC path while LLC is not
-available in hardware and was not initialized in software.
+kms_color@pipe-a-gamma test is still passing on TGL with DSB enabled
+like reported in https://gitlab.freedesktop.org/drm/intel/-/issues/3916
+and got the same behavior on Alderlake-P.
+
+So here disabling DSB for all platforms and to avoid this mistake in
+future platforms dropping the it from intel_device_info struct.
 
 As a side effect of the of removal this flag, it will not be printed
 in dmesg during driver load anymore and developers will have to rely
 on to check the macro and compare with platform being used and IP
 versions of it.
 
+Fixes: 99510e1afb48 ("drm/i915: Disable DSB usage for now")
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_llc.c      | 2 +-
- drivers/gpu/drm/i915/i915_drv.h          | 5 ++++-
- drivers/gpu/drm/i915/i915_pci.c          | 4 ----
+ drivers/gpu/drm/i915/i915_drv.h          | 3 ++-
+ drivers/gpu/drm/i915/i915_pci.c          | 4 +---
  drivers/gpu/drm/i915/intel_device_info.h | 1 -
- 4 files changed, 5 insertions(+), 7 deletions(-)
+ 3 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_llc.c b/drivers/gpu/drm/i915/gt/intel_llc.c
-index 40e2e28ee6c75..ffcff51ee6e47 100644
---- a/drivers/gpu/drm/i915/gt/intel_llc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_llc.c
-@@ -52,7 +52,7 @@ static bool get_ia_constants(struct intel_llc *llc,
- 	struct drm_i915_private *i915 = llc_to_gt(llc)->i915;
- 	struct intel_rps *rps = &llc_to_gt(llc)->rps;
- 
--	if (!HAS_LLC(i915) || IS_DGFX(i915))
-+	if (!HAS_LLC(i915))
- 		return false;
- 
- 	if (rps->max_freq <= rps->min_freq)
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 6dfaf7fce9156..fd5269845e9ad 100644
+index 8d00d24e16dc5..4a93ea3bf4949 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1236,7 +1236,10 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
-  */
- #define CMDPARSER_USES_GGTT(dev_priv) (GRAPHICS_VER(dev_priv) == 7)
+@@ -938,7 +938,8 @@ static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
  
--#define HAS_LLC(dev_priv)	(INTEL_INFO(dev_priv)->has_llc)
-+#define HAS_LLC(dev_priv)	(!IS_DGFX(dev_priv) && (GRAPHICS_VER(dev_priv) >= 8 || \
-+							IS_HASWELL(dev_priv) || \
-+							IS_IVYBRIDGE(dev_priv) || \
-+							IS_SANDYBRIDGE(dev_priv)))
- #define HAS_4TILE(dev_priv)	(INTEL_INFO(dev_priv)->has_4tile)
- #define HAS_SNOOP(dev_priv)	(INTEL_INFO(dev_priv)->has_snoop)
- #define HAS_EDRAM(dev_priv)	((dev_priv)->edram_size_mb)
+ #define INTEL_REVID(dev_priv)	(to_pci_dev((dev_priv)->drm.dev)->revision)
+ 
+-#define HAS_DSB(dev_priv)	(INTEL_INFO(dev_priv)->display.has_dsb)
++/* FIXME: LUT load is broken with DSB */
++#define HAS_DSB(dev_priv)	(DISPLAY_VER(i915) >= 12 && 0)
+ 
+ #define INTEL_DISPLAY_STEP(__i915) (RUNTIME_INFO(__i915)->step.display_step)
+ #define INTEL_GRAPHICS_STEP(__i915) (RUNTIME_INFO(__i915)->step.graphics_step)
 diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 799573a5e5a6f..30a32a5d0e3c9 100644
+index 8a7f7aad1a5d2..58653e5c24d35 100644
 --- a/drivers/gpu/drm/i915/i915_pci.c
 +++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -404,7 +404,6 @@ static const struct intel_device_info ilk_m_info = {
- 	.display.fbc_mask = BIT(INTEL_FBC_A), \
- 	.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0), \
- 	.has_coherent_ggtt = true, \
--	.has_llc = 1, \
- 	.has_rc6p = 1, \
- 	.has_rps = true, \
- 	.dma_mask_size = 40, \
-@@ -454,7 +453,6 @@ static const struct intel_device_info snb_m_gt2_info = {
- 	.display.fbc_mask = BIT(INTEL_FBC_A), \
- 	.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0), \
- 	.has_coherent_ggtt = true, \
--	.has_llc = 1, \
- 	.has_rc6p = 1, \
- 	.has_rps = true, \
- 	.dma_mask_size = 40, \
-@@ -878,7 +876,6 @@ static const struct intel_device_info rkl_info = {
- 
- #define DGFX_FEATURES \
- 	.memory_regions = REGION_SMEM | REGION_LMEM | REGION_STOLEN_LMEM, \
--	.has_llc = 0, \
- 	.has_pxp = 0, \
- 	.has_snoop = 1, \
- 	.is_dgfx = 1, \
-@@ -985,7 +982,6 @@ static const struct intel_device_info adl_p_info = {
- 	.has_64bit_reloc = 1, \
- 	.has_flat_ccs = 1, \
+@@ -848,8 +848,7 @@ static const struct intel_device_info jsl_info = {
+ 	}, \
+ 	TGL_CURSOR_OFFSETS, \
  	.has_global_mocs = 1, \
--	.has_llc = 1, \
- 	.has_logical_ring_contexts = 1, \
- 	.has_mslices = 1, \
- 	.has_rps = 1, \
+-	.has_pxp = 1, \
+-	.display.has_dsb = 0 /* FIXME: LUT load is broken with DSB */
++	.has_pxp = 1
+ 
+ static const struct intel_device_info tgl_info = {
+ 	GEN12_FEATURES,
+@@ -922,7 +921,6 @@ static const struct intel_device_info adl_s_info = {
+ 	.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2) | BIT(DBUF_S3) |		\
+ 		BIT(DBUF_S4),							\
+ 	.display.has_dmc = 1,							\
+-	.display.has_dsb = 1,							\
+ 	.display.has_dsc = 1,							\
+ 	.display.fbc_mask = BIT(INTEL_FBC_A),					\
+ 	.display.has_fpga_dbg = 1,						\
 diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index a2e53b8683285..e8d53c7a1bd83 100644
+index f614f29267273..d4fb2af3b8be8 100644
 --- a/drivers/gpu/drm/i915/intel_device_info.h
 +++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -149,7 +149,6 @@ enum intel_ppgtt_type {
- 	func(has_heci_gscfi); \
- 	func(has_guc_deprivilege); \
- 	func(has_l3_dpf); \
--	func(has_llc); \
- 	func(has_logical_ring_contexts); \
- 	func(has_mslices); \
- 	func(has_pooled_eu); \
+@@ -166,7 +166,6 @@ enum intel_ppgtt_type {
+ 	func(cursor_needs_physical); \
+ 	func(has_cdclk_crawl); \
+ 	func(has_dmc); \
+-	func(has_dsb); \
+ 	func(has_dsc); \
+ 	func(has_fpga_dbg); \
+ 	func(has_gmch); \
 -- 
 2.36.0
 
