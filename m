@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7881CC433FE
-	for <intel-gfx@archiver.kernel.org>; Sat,  7 May 2022 13:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19638C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat,  7 May 2022 13:29:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 060A1112775;
-	Sat,  7 May 2022 13:29:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 785F1113354;
+	Sat,  7 May 2022 13:29:17 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBF01112775
- for <intel-gfx@lists.freedesktop.org>; Sat,  7 May 2022 13:29:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6816711276E
+ for <intel-gfx@lists.freedesktop.org>; Sat,  7 May 2022 13:29:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651930151; x=1683466151;
+ t=1651930154; x=1683466154;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=yYiNnGP0Z8iCB4dTaNj3gP2K7S7fhqYIWjxioGCcuLk=;
- b=LBYQxxxkV9LQonvJsciYgJbWq1zm3gMBLA/8bUzZJ3O7sysu4p/hJ3V+
- uZc6T8wZ1+bMrJG24OhKmsnC5NuFIAfkVzeAgCbeUodCgWwmZy86AAYXT
- 38evRmb/wDYfwlbRZNLtoBsXTNl9Gb6gaQfoy8FwwsRYbLVeljm2DYTnR
- ZUb4fe5lfX+1DBo8Kf/iKb6M8/XXq/hLHQCyJDEaSno3xvPfMsVB3fJ2R
- OjSsAIVuCqgEryg/OdQm+YOfwOvIqMmI6yDbcpGTXOrDiYXsAVJzJqiQT
- C/mmxKxTpwaADbBMZ1s9QTVTsZ0TxL+HmKGyZ/sSto4LHZpNWn+w9bFHJ w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10340"; a="268334288"
-X-IronPort-AV: E=Sophos;i="5.91,207,1647327600"; d="scan'208";a="268334288"
+ bh=GCnC3YYmqcFtjbJniIo6qA3goB0+TH7fvrw48O3Cuzk=;
+ b=SNrbaMgEAcmqFVwQ82xvyvBKE31GivgvkHGJhP4OdB9MEYMMx09XUO7A
+ /d6GDVE/ygN0uDAUP1iXkidKYO6UTJ9eKH1tVVcpfPwiiMlgg/HODqN5T
+ KSi4gjvgFM8mmVv00SuoVcovtN78reh8kRbm5amiFcIIh+bOH9TiyUfAq
+ Bm8yAWxrs9DsGV2Rt624CWxIIJJjGpuqwQoC2RbEZZZZ+QHj9uNP6D+9C
+ WWfQCA5r+/JMPzRjA/ezCsZB2jhQS5aizO3DsVFGOV6y/Q7TBmEb/eh3N
+ TYASE+KBtIGHG4xBhdzvAT5gY1uAaLkJMAttiKr1TdwU6WdPMrox/ivx8 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10340"; a="268334292"
+X-IronPort-AV: E=Sophos;i="5.91,207,1647327600"; d="scan'208";a="268334292"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2022 06:29:11 -0700
-X-IronPort-AV: E=Sophos;i="5.91,207,1647327600"; d="scan'208";a="564292978"
+ 07 May 2022 06:29:14 -0700
+X-IronPort-AV: E=Sophos;i="5.91,207,1647327600"; d="scan'208";a="564292988"
 Received: from henrypet-mobl1.amr.corp.intel.com (HELO
  josouza-mobl2.intel.com) ([10.212.61.248])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2022 06:29:10 -0700
+ 07 May 2022 06:29:13 -0700
 From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat,  7 May 2022 06:28:43 -0700
-Message-Id: <20220507132850.10272-9-jose.souza@intel.com>
+Date: Sat,  7 May 2022 06:28:45 -0700
+Message-Id: <20220507132850.10272-11-jose.souza@intel.com>
 X-Mailer: git-send-email 2.36.0
 In-Reply-To: <20220507132850.10272-1-jose.souza@intel.com>
 References: <20220507132850.10272-1-jose.souza@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 09/16] drm/i915: Drop has_global_mocs from
- device info
+Subject: [Intel-gfx] [PATCH 11/16] drm/i915: Drop has_pxp from device info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,7 +61,8 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 No need to have this parameter in intel_device_info struct
-as all platforms with graphics version 12 or newer has this feature.
+as all integrated platforms with graphics version 12 or newer supports
+this feature.
 
 As a side effect of the of removal this flag, it will not be printed
 in dmesg during driver load anymore and developers will have to rely
@@ -72,55 +72,57 @@ versions of it.
 Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 ---
  drivers/gpu/drm/i915/i915_drv.h          | 2 +-
- drivers/gpu/drm/i915/i915_pci.c          | 2 --
+ drivers/gpu/drm/i915/i915_pci.c          | 4 +---
  drivers/gpu/drm/i915/intel_device_info.h | 1 -
- 3 files changed, 1 insertion(+), 4 deletions(-)
+ 3 files changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 1552a44a1fafe..cf896cbf107e5 100644
+index 6daf4b82c131f..29e5017e64d70 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1365,7 +1365,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 
- #define HAS_POOLED_EU(dev_priv)	(INTEL_INFO(dev_priv)->has_pooled_eu)
- 
--#define HAS_GLOBAL_MOCS_REGISTERS(dev_priv)	(INTEL_INFO(dev_priv)->has_global_mocs)
-+#define HAS_GLOBAL_MOCS_REGISTERS(dev_priv)	(GRAPHICS_VER(dev_priv) >= 12)
+@@ -1368,7 +1368,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define HAS_GLOBAL_MOCS_REGISTERS(dev_priv)	(GRAPHICS_VER(dev_priv) >= 12)
  
  #define HAS_PXP(dev_priv)  ((IS_ENABLED(CONFIG_DRM_I915_PXP) && \
- 			    INTEL_INFO(dev_priv)->has_pxp) && \
+-			    INTEL_INFO(dev_priv)->has_pxp) && \
++			    (!IS_DGFX(dev_priv) && GRAPHICS_VER(dev_priv) >= 12) && \
+ 			    VDBOX_MASK(to_gt(dev_priv)))
+ 
+ #define HAS_GMCH(dev_priv) (INTEL_INFO(dev_priv)->display.has_gmch)
 diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 0e326b5ccf10f..e03c640ff05d5 100644
+index 48cfb0ee56bf3..e8afaa0344134 100644
 --- a/drivers/gpu/drm/i915/i915_pci.c
 +++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -835,7 +835,6 @@ static const struct intel_device_info jsl_info = {
+@@ -834,8 +834,7 @@ static const struct intel_device_info jsl_info = {
+ 		[TRANSCODER_DSI_0] = TRANSCODER_DSI0_OFFSET, \
  		[TRANSCODER_DSI_1] = TRANSCODER_DSI1_OFFSET, \
  	}, \
- 	TGL_CURSOR_OFFSETS, \
--	.has_global_mocs = 1, \
- 	.has_pxp = 1
+-	TGL_CURSOR_OFFSETS, \
+-	.has_pxp = 1
++	TGL_CURSOR_OFFSETS
  
  static const struct intel_device_info tgl_info = {
-@@ -960,7 +959,6 @@ static const struct intel_device_info adl_p_info = {
- 	XE_HP_PAGE_SIZES, \
- 	.dma_mask_size = 46, \
- 	.has_flat_ccs = 1, \
--	.has_global_mocs = 1, \
- 	.has_logical_ring_contexts = 1, \
- 	.has_mslices = 1, \
- 	.has_rps = 1, \
+ 	GEN12_FEATURES,
+@@ -859,7 +858,6 @@ static const struct intel_device_info rkl_info = {
+ 
+ #define DGFX_FEATURES \
+ 	.memory_regions = REGION_SMEM | REGION_LMEM | REGION_STOLEN_LMEM, \
+-	.has_pxp = 0, \
+ 	.has_snoop = 1, \
+ 	.is_dgfx = 1, \
+ 	.has_heci_gscfi = 1
 diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index e0b9a7547acc2..bf192b9498d4b 100644
+index a199031b5a6ec..edbd76aa31a9c 100644
 --- a/drivers/gpu/drm/i915/intel_device_info.h
 +++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -142,7 +142,6 @@ enum intel_ppgtt_type {
- 	func(needs_compact_pt); \
- 	func(gpu_reset_clobbers_display); \
- 	func(has_flat_ccs); \
--	func(has_global_mocs); \
- 	func(has_heci_pxp); \
- 	func(has_heci_gscfi); \
- 	func(has_guc_deprivilege); \
+@@ -148,7 +148,6 @@ enum intel_ppgtt_type {
+ 	func(has_logical_ring_contexts); \
+ 	func(has_mslices); \
+ 	func(has_pooled_eu); \
+-	func(has_pxp); \
+ 	func(has_rps); \
+ 	func(has_runtime_pm); \
+ 	func(has_snoop); \
 -- 
 2.36.0
 
