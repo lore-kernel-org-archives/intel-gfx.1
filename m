@@ -4,48 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6A96C433EF
-	for <intel-gfx@archiver.kernel.org>; Sat,  7 May 2022 13:29:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10F37C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat,  7 May 2022 13:43:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0F24113359;
-	Sat,  7 May 2022 13:29:24 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52768113355
- for <intel-gfx@lists.freedesktop.org>; Sat,  7 May 2022 13:29:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651930159; x=1683466159;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=S7VVH5fwH0hRPGCFMJte0XEKV7eWeVZFcpxLl1XV/bw=;
- b=VomJov/oIrUR4QzhXLICWENJ0ZnmUj6s5bctUCk/s/p5IGqXlKDfvK1a
- VR7Siqw7yNMDwdgbJ9mD/lSwsJl4Vz4dq7d8KQ1cJ4z3EK0mNpg62HVp8
- BzZ0H6YWVnYJ5Zkov/BUgtJMYZ/g/Iv3tXpgjIUBeXo7w4orqSXEId9ic
- KBcJMSQNrbl92v3PTxom5ft1VI11dr4+dzg7rhj35IkGYDWw+7OXorxPr
- FFiIEIRJUelFluZMRje5dWtoEdtmjY936+dUUriWiUt6HpfYkwwrpMDxp
- XEceSzJBiAwfbJyhoqCj49p3drkfGKIDNCgVKazbyW7+lEVyw8j+vWvG8 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10340"; a="268334314"
-X-IronPort-AV: E=Sophos;i="5.91,207,1647327600"; d="scan'208";a="268334314"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2022 06:29:19 -0700
-X-IronPort-AV: E=Sophos;i="5.91,207,1647327600"; d="scan'208";a="564293007"
-Received: from henrypet-mobl1.amr.corp.intel.com (HELO
- josouza-mobl2.intel.com) ([10.212.61.248])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2022 06:29:18 -0700
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Sat,  7 May 2022 06:28:49 -0700
-Message-Id: <20220507132850.10272-15-jose.souza@intel.com>
-X-Mailer: git-send-email 2.36.0
-In-Reply-To: <20220507132850.10272-1-jose.souza@intel.com>
-References: <20220507132850.10272-1-jose.souza@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61A0F11221C;
+	Sat,  7 May 2022 13:43:30 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2884C10F8B9;
+ Sat,  7 May 2022 13:43:29 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 27E8CAA0EA;
+ Sat,  7 May 2022 13:43:29 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 15/16] drm/i915: Drop has_logical_ring_contexts
- from device info
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
+Date: Sat, 07 May 2022 13:43:29 -0000
+Message-ID: <165193100913.22139.12993291513578934092@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220507132850.10272-1-jose.souza@intel.com>
+In-Reply-To: <20220507132850.10272-1-jose.souza@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B01/16=5D_drm/i915=3A_Drop_has=5Fllc?=
+ =?utf-8?q?_from_device_info?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,87 +41,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No need to have this parameter in intel_device_info struct
-as this feature is supported all platforms with graphics version 8 or
-newer.
+== Series Details ==
 
-As a side effect of the of removal this flag, it will not be printed
-in dmesg during driver load anymore and developers will have to rely
-on to check the macro and compare with platform being used and IP
-versions of it.
+Series: series starting with [01/16] drm/i915: Drop has_llc from device info
+URL   : https://patchwork.freedesktop.org/series/103718/
+State : warning
 
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
----
- drivers/gpu/drm/i915/i915_drv.h          | 3 +--
- drivers/gpu/drm/i915/i915_pci.c          | 4 ----
- drivers/gpu/drm/i915/intel_device_info.h | 1 -
- 3 files changed, 1 insertion(+), 7 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index b193374f53f91..4b1025dbaab2a 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1249,8 +1249,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 
- #define HWS_NEEDS_PHYSICAL(dev_priv)	(INTEL_INFO(dev_priv)->hws_needs_physical)
- 
--#define HAS_LOGICAL_RING_CONTEXTS(dev_priv) \
--		(INTEL_INFO(dev_priv)->has_logical_ring_contexts)
-+#define HAS_LOGICAL_RING_CONTEXTS(dev_priv) (GRAPHICS_VER(dev_priv) >= 8)
- #define HAS_LOGICAL_RING_ELSQ(dev_priv) (GRAPHICS_VER(dev_priv) >= 11)
- 
- #define HAS_EXECLISTS(dev_priv) HAS_LOGICAL_RING_CONTEXTS(dev_priv)
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 9638949f40eb7..5a42acb162a15 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -548,7 +548,6 @@ static const struct intel_device_info hsw_gt3_info = {
- #define GEN8_FEATURES \
- 	G75_FEATURES, \
- 	GEN(8), \
--	.has_logical_ring_contexts = 1, \
- 	.dma_mask_size = 39, \
- 	.ppgtt_type = INTEL_PPGTT_FULL, \
- 	.ppgtt_size = 48
-@@ -591,7 +590,6 @@ static const struct intel_device_info chv_info = {
- 	.is_lp = 1,
- 	.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0) | BIT(VECS0),
- 	.has_rps = true,
--	.has_logical_ring_contexts = 1,
- 	.display.has_gmch = 1,
- 	.dma_mask_size = 39,
- 	.ppgtt_type = INTEL_PPGTT_FULL,
-@@ -664,7 +662,6 @@ static const struct intel_device_info skl_gt4_info = {
- 	.display.has_hdcp = 1, \
- 	.display.has_dmc = 1, \
- 	.has_rps = true, \
--	.has_logical_ring_contexts = 1, \
- 	.dma_mask_size = 39, \
- 	.ppgtt_type = INTEL_PPGTT_FULL, \
- 	.ppgtt_size = 48, \
-@@ -948,7 +945,6 @@ static const struct intel_device_info adl_p_info = {
- 	XE_HP_PAGE_SIZES, \
- 	.dma_mask_size = 46, \
- 	.has_flat_ccs = 1, \
--	.has_logical_ring_contexts = 1, \
- 	.has_mslices = 1, \
- 	.has_rps = 1, \
- 	.ppgtt_size = 48, \
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 7974b3edf42e2..7581ef4a68f94 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -143,7 +143,6 @@ enum intel_ppgtt_type {
- 	func(gpu_reset_clobbers_display); \
- 	func(has_flat_ccs); \
- 	func(has_heci_pxp); \
--	func(has_logical_ring_contexts); \
- 	func(has_mslices); \
- 	func(has_pooled_eu); \
- 	func(has_rps); \
--- 
-2.36.0
+Error: dim checkpatch failed
+749bad5dad9c drm/i915: Drop has_llc from device info
+-:48: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
+#48: FILE: drivers/gpu/drm/i915/i915_drv.h:1239:
++#define HAS_LLC(dev_priv)	(!IS_DGFX(dev_priv) && (GRAPHICS_VER(dev_priv) >= 8 || \
++							IS_HASWELL(dev_priv) || \
++							IS_IVYBRIDGE(dev_priv) || \
++							IS_SANDYBRIDGE(dev_priv)))
+
+total: 0 errors, 0 warnings, 1 checks, 54 lines checked
+54a34a98dcc4 drm/i915: Drop has_ipc from device info
+59fd2eb5368e drm/i915/display: Disable DSB for DG2 and Alderlake-P
+d0c64ff37c59 drm/i915: Drop has_rc6p from device info
+-:33: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
+#33: FILE: drivers/gpu/drm/i915/i915_drv.h:1318:
++#define HAS_RC6p(dev_priv)		 (IS_SANDYBRIDGE(dev_priv) || IS_IVYBRIDGE(dev_priv))
+
+total: 0 errors, 0 warnings, 1 checks, 36 lines checked
+1832f734ee5e drm/i915: Drop has_psr_hw_tracking from device info
+-:36: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
+#36: FILE: drivers/gpu/drm/i915/display/intel_psr.c:87:
++#define HAS_PSR_HW_TRACKING(dev_priv) ((DISPLAY_VER(dev_priv) >= 9 && \
++					DISPLAY_VER(dev_priv) <= 11) || \
++					IS_TIGERLAKE(dev_priv) || \
++					IS_DG1(dev_priv))
+
+total: 0 errors, 0 warnings, 1 checks, 61 lines checked
+d3c243f6bed4 drm/i915: Drop supports_tv from device info
+-:28: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
+#28: FILE: drivers/gpu/drm/i915/i915_drv.h:1293:
++#define SUPPORTS_TV(dev_priv)		(IS_I915GM(dev_priv) || IS_I945GM(dev_priv) || \
++					 IS_I965GM(dev_priv) || IS_GM45(dev_priv))
+
+total: 0 errors, 0 warnings, 1 checks, 46 lines checked
+d20d70fb49a1 drm/i915: Drop has_4tile from device info
+994026183810 drm/i915: Drop has_64bit_reloc from device info
+574a028dd3b1 drm/i915: Drop has_global_mocs from device info
+5c4257c463e4 drm/i915: Drop has_guc_deprivilege from device info
+c1f37fbf76be drm/i915: Drop has_pxp from device info
+d32fc5596825 drm/i915: Drop has_heci_gscfi from device info
+07cf212d426a drm/i915: Drop has_heci_gscfi from device info
+-:28: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
+#28: FILE: drivers/gpu/drm/i915/i915_drv.h:1378:
++#define HAS_L3_DPF(dev_priv) (IS_HASWELL(dev_priv) || IS_IVYBRIDGE(dev_priv))
+
+total: 0 errors, 0 warnings, 1 checks, 51 lines checked
+5198bddb1f82 drm/i915: Drop has_runtime_pm from device info
+-:29: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
+#29: FILE: drivers/gpu/drm/i915/i915_drv.h:1333:
++#define HAS_RUNTIME_PM(dev_priv) (GRAPHICS_VER(dev_priv) >= 8 || \
++				  IS_HASWELL(dev_priv) || \
++				  IS_VALLEYVIEW(dev_priv))
+
+total: 0 errors, 0 warnings, 1 checks, 54 lines checked
+ca6382ffb8b2 drm/i915: Drop has_logical_ring_contexts from device info
+850ead5e0d81 drm/i915: Drop display.has_fpga_db from device info
+-:29: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'dev_priv' - possible side-effects?
+#29: FILE: drivers/gpu/drm/i915/i915_drv.h:1309:
++#define HAS_FPGA_DBG_UNCLAIMED(dev_priv) (DISPLAY_VER(dev_priv) >= 9 || \
++					  IS_BROADWELL(dev_priv) || \
++					  IS_HASWELL(dev_priv))
+
+total: 0 errors, 0 warnings, 1 checks, 38 lines checked
+
 
