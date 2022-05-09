@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68CF5C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 12:05:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEEC8C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 12:05:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4A3010EEEA;
-	Mon,  9 May 2022 12:04:59 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9774D10EE68;
- Mon,  9 May 2022 12:04:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE3910E487;
+	Mon,  9 May 2022 12:05:04 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25B0710EEF9;
+ Mon,  9 May 2022 12:05:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652097898; x=1683633898;
+ t=1652097903; x=1683633903;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=XO01sFGZFgBwjSKmt7DnzUDNl+nCnCuzVQg24cqbuws=;
- b=KDhafAU+iy3MvEPl/GgiWikSw2ef4e2C5BqhZSLz7neHLfSWcg4KqMVd
- 68rwOnj0xkOyi5vKcmHcua+Z7E15/qpdTySRXiyHm5/KtdQhnH77G+fs1
- Cq3Tf4WbmsdBIhDdgGY6x2YXADuOo0umwvTQ5L8dyUjpmn6xhJhrT8ZQm
- qcpQuOG6w5T6dhz4/jUyoz4E7s87qhalpd2FdTi9JeG0k6SmI6GVTu9/+
- 3qcMF2ykdh/rjIB8sOdKHSGNBut4VfIQAbpquH+QafapgL5jd+NqxlFnk
- D8YxYgMIj3a8l1cJxu4LgVD2I8fxzK8thYO73Cmdo58bQAgCd+YSXD1FP A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="332062962"
-X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="332062962"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 05:04:58 -0700
-X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="656733121"
+ bh=y6527320DXjS/K1KKLYGDj1NI6tuGeHfVEt42F+CDNA=;
+ b=Z9JQvEML/C/E4FjJC6HLEd0HMC8pe/olQW0tHJbhvyhp3jOdROc9CWO8
+ MGuTVj1roM3hZADQrbZOLe+ESUu14l8wCg3biabaTQ+n7R0AzM0IF3Svy
+ 6ugVrPrIW5pQjRr719Iq7T/o4sB+GD6F79c76B+X1VIoHTGuxQks0sBID
+ +Yv9/ppsW5yMoJGLkgASGUp5HasK32yZizFrvJQdAxajxJxcu9Rip5GOw
+ iKNnMOc2d93cebod+c9QUT3QSQNdet/pBx8wATEiTSPnP1dslzuJQx/T7
+ VYZxr+HlyuFFdyg8ix5Ofs4b+CDjEh3elb5LDBmhJv2g3ruxWpoJYXkUV A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="251074466"
+X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="251074466"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2022 05:04:48 -0700
+X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="601935460"
 Received: from csawicki-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.129.3])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 05:04:56 -0700
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2022 05:04:46 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon,  9 May 2022 15:03:16 +0300
-Message-Id: <14aa1e44caa2e9c1b54c2f2a471d2fd7d3f62d5d.1652097712.git.jani.nikula@intel.com>
+Date: Mon,  9 May 2022 15:03:14 +0300
+Message-Id: <c940aad14f323ef3a7907a0fb534011deb1589a9.1652097712.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1652097712.git.jani.nikula@intel.com>
 References: <cover.1652097712.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 17/25] drm/edid: add drm_edid helper for
- drm_edid_to_sad()
+Subject: [Intel-gfx] [PATCH v2 15/25] drm/edid: convert get_monitor_name()
+ to drm_edid
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,70 +64,72 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 We'll need to propagate drm_edid everywhere.
 
-v2: Handle NULL EDID pointer (Ville, CI)
+v2: Drop incorrect NULL name check (Dan Carpenter)
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 34 +++++++++++++++++++++-------------
- 1 file changed, 21 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 61551ce0db88..dee09359bbc3 100644
+index 364949e146a9..e3ff0f31a614 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -4972,24 +4972,14 @@ static void drm_edid_to_eld(struct drm_connector *connector,
- 		      drm_eld_size(eld), total_sad_count);
+@@ -4830,15 +4830,15 @@ monitor_name(const struct detailed_timing *timing, void *data)
+ 	*res = timing->data.other_data.data.str.str;
  }
  
--/**
-- * drm_edid_to_sad - extracts SADs from EDID
-- * @edid: EDID to parse
-- * @sads: pointer that will be set to the extracted SADs
-- *
-- * Looks for CEA EDID block and extracts SADs (Short Audio Descriptors) from it.
-- *
-- * Note: The returned pointer needs to be freed using kfree().
-- *
-- * Return: The number of found SADs or negative number on error.
-- */
--int drm_edid_to_sad(const struct edid *edid, struct cea_sad **sads)
-+static int _drm_edid_to_sad(const struct drm_edid *drm_edid,
-+			    struct cea_sad **sads)
+-static int get_monitor_name(const struct edid *edid, char name[13])
++static int get_monitor_name(const struct drm_edid *drm_edid, char name[13])
  {
- 	const struct cea_db *db;
- 	struct cea_db_iter iter;
- 	int count = 0;
+ 	const char *edid_name = NULL;
+ 	int mnl;
  
--	cea_db_iter_edid_begin(edid, &iter);
-+	cea_db_iter_edid_begin(drm_edid ? drm_edid->edid : NULL, &iter);
- 	cea_db_iter_for_each(db, &iter) {
- 		if (cea_db_tag(db) == CTA_DB_AUDIO) {
- 			int j;
-@@ -5015,6 +5005,24 @@ int drm_edid_to_sad(const struct edid *edid, struct cea_sad **sads)
+-	if (!edid || !name)
++	if (!drm_edid || !name)
+ 		return 0;
  
- 	return count;
+-	drm_for_each_detailed_block(edid, monitor_name, &edid_name);
++	drm_for_each_detailed_block(drm_edid->edid, monitor_name, &edid_name);
+ 	for (mnl = 0; edid_name && mnl < 13; mnl++) {
+ 		if (edid_name[mnl] == 0x0a)
+ 			break;
+@@ -4858,14 +4858,22 @@ static int get_monitor_name(const struct edid *edid, char name[13])
+  */
+ void drm_edid_get_monitor_name(const struct edid *edid, char *name, int bufsize)
+ {
+-	int name_length;
+-	char buf[13];
++	int name_length = 0;
+ 
+ 	if (bufsize <= 0)
+ 		return;
+ 
+-	name_length = min(get_monitor_name(edid, buf), bufsize - 1);
+-	memcpy(name, buf, name_length);
++	if (edid) {
++		char buf[13];
++		struct drm_edid drm_edid = {
++			.edid = edid,
++			.size = edid_size(edid),
++		};
++
++		name_length = min(get_monitor_name(&drm_edid, buf), bufsize - 1);
++		memcpy(name, buf, name_length);
++	}
++
+ 	name[name_length] = '\0';
  }
-+
-+/**
-+ * drm_edid_to_sad - extracts SADs from EDID
-+ * @edid: EDID to parse
-+ * @sads: pointer that will be set to the extracted SADs
-+ *
-+ * Looks for CEA EDID block and extracts SADs (Short Audio Descriptors) from it.
-+ *
-+ * Note: The returned pointer needs to be freed using kfree().
-+ *
-+ * Return: The number of found SADs or negative number on error.
-+ */
-+int drm_edid_to_sad(const struct edid *edid, struct cea_sad **sads)
-+{
-+	struct drm_edid drm_edid;
-+
-+	return _drm_edid_to_sad(drm_edid_legacy_init(&drm_edid, edid), sads);
-+}
- EXPORT_SYMBOL(drm_edid_to_sad);
+ EXPORT_SYMBOL(drm_edid_get_monitor_name);
+@@ -4905,7 +4913,7 @@ static void drm_edid_to_eld(struct drm_connector *connector,
+ 	if (!drm_edid)
+ 		return;
  
- /**
+-	mnl = get_monitor_name(drm_edid->edid, &eld[DRM_ELD_MONITOR_NAME_STRING]);
++	mnl = get_monitor_name(drm_edid, &eld[DRM_ELD_MONITOR_NAME_STRING]);
+ 	DRM_DEBUG_KMS("ELD monitor %s\n", &eld[DRM_ELD_MONITOR_NAME_STRING]);
+ 
+ 	eld[DRM_ELD_CEA_EDID_VER_MNL] = info->cea_rev << DRM_ELD_CEA_EDID_VER_SHIFT;
 -- 
 2.30.2
 
