@@ -4,38 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41587C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 20:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9FDEC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 21:01:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA92610E357;
-	Mon,  9 May 2022 20:38:38 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0582E10E171;
- Mon,  9 May 2022 20:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=sVDi3ZkthDWhU24EgtzN+wCLFG3z5NXVqbnb7DL7KRg=; b=MSu8yd2G1QdsEetiBeGz/X3MKM
- 95MHBpcDUIVbe77heF3/WbEV+39tM/Gth0iTVQ2YXNQSdpZ+hLuwy5Yvfg7qNvoqE/FD0fnND5y1D
- Nd0OqoHaem/jn+UyniR/gmp+kRo7GS5JczmtEIpjDS6/1+W944dyqpLsL0ypUb1o7ACx8eItUzN7T
- nv6i0CJCp4GhlzodxwzbvAzpMNrIjGnUWW/ZesZkCeSyuC64rOwnmNFd+ct2DEfYGIZFuYk+NgrVq
- 6++7eT9mQ3pukrjrCDRBhq/MXjqgdfKATRraJkN+m9zX4Eww8OKfegheqNNEkVj16ohJN9pddjl9w
- Cx/4S4MQ==;
-Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
- (Red Hat Linux)) id 1noA9F-00GBdr-0y; Mon, 09 May 2022 20:38:29 +0000
-Date: Mon, 9 May 2022 13:38:28 -0700
-From: Luis Chamberlain <mcgrof@kernel.org>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Message-ID: <Ynl7xGy+a9MYjXi1@bombadil.infradead.org>
-References: <cover.1652113087.git.mchehab@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E35AD10F1E6;
+	Mon,  9 May 2022 21:01:47 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC4110F1EF
+ for <intel-gfx@lists.freedesktop.org>; Mon,  9 May 2022 21:01:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1652130106; x=1683666106;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=dYnUTteFcMP5sRyGAIb7K2FM5v4FyAFpRxWKAHfDUuo=;
+ b=D/QUxOa+OuTUUjejzTd15QY+dypiHIFjWTlA0xVgI2KjpRXJemlV3IYl
+ fRxu1f1oQU4gM8Dfz178JOhf65eAp8Dzl1SD/KpM9wlp2f+Q9uGCUSyNs
+ qq7UgGv5ESDt7YDTtZj7guOgPdhU9abqhknLz8GvxCPukpngb5GBuj8xT
+ fw8Tcj+yM/kbPSHNTt5tJwJiNcAOiB648XsXWlU52PaOw8jrgTO7OFpLp
+ /znKuvOBfzQV8gN3vnGe59/VzgrSkVHNsRwiSGyHK3UFoTQ8A8IBXy8H5
+ Ji0T8h/jBuJmX16O2vQW/IMKa44ZNtiWjN3u2/ukbLSV+xjDAw58Esauc w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="249703593"
+X-IronPort-AV: E=Sophos;i="5.91,212,1647327600"; d="scan'208";a="249703593"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2022 14:01:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,212,1647327600"; d="scan'208";a="519410906"
+Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
+ by orsmga003.jf.intel.com with ESMTP; 09 May 2022 14:01:45 -0700
+From: Alan Previn <alan.previn.teres.alexis@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon,  9 May 2022 14:01:47 -0700
+Message-Id: <20220509210151.1843173-3-alan.previn.teres.alexis@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220509210151.1843173-1-alan.previn.teres.alexis@intel.com>
+References: <20220509210151.1843173-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1652113087.git.mchehab@kernel.org>
-Subject: Re: [Intel-gfx] [PATCH v6 0/4] Let userspace know when
- snd-hda-intel needs i915
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [Intel-gfx 2/6] drm/i915/guc: Add unaligned wc memcpy
+ for copying GuC Log
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,29 +56,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mauro.chehab@linux.intel.com, Richard Weinberger <richard@nod.at>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@intel.com>,
- Greg KH <gregkh@linuxfoundation.org>, intel-gfx@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, Takashi Iwai <tiwai@suse.com>,
- dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
- Vignesh Raghavendra <vigneshr@ti.com>, David Airlie <airlied@linux.ie>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-modules@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 09, 2022 at 06:23:35PM +0200, Mauro Carvalho Chehab wrote:
-> Currently, kernel/module annotates module dependencies when
-> request_symbol is used, but it doesn't cover more complex inter-driver
-> dependencies that are subsystem and/or driver-specific.
-> 
+Add usage of unaligned wc mempy in read_update_log_buffer
+as newer formats of GuC debug-log-events are no longer
+guaranteed to be exactly 4-dwords long per event.
 
-At this pount v5.18-rc7 is out and so it is too late to soak this
-in for the proper level of testing I'd like to see for modules-next.
-So I can review this after the next merge window. I'd want to beat
-the hell out of this and if possible I'd like to see if we can have
-some test coverage for the intended goal and how to break it.
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-  Luis
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+index 09f4d5fbca82..d902b40ded0e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+@@ -301,13 +301,16 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
+ 
+ 		/* Just copy the newly written data */
+ 		if (read_offset > write_offset) {
+-			i915_memcpy_from_wc(dst_data, src_data, write_offset);
++			if (!i915_memcpy_from_wc(dst_data, src_data, write_offset))
++				i915_unaligned_memcpy_from_wc(dst_data, src_data, write_offset);
+ 			bytes_to_copy = buffer_size - read_offset;
+ 		} else {
+ 			bytes_to_copy = write_offset - read_offset;
+ 		}
+-		i915_memcpy_from_wc(dst_data + read_offset,
+-				    src_data + read_offset, bytes_to_copy);
++		if (!i915_memcpy_from_wc(dst_data + read_offset,
++					 src_data + read_offset, bytes_to_copy))
++			i915_unaligned_memcpy_from_wc(dst_data + read_offset,
++						      src_data + read_offset, bytes_to_copy);
+ 
+ 		src_data += buffer_size;
+ 		dst_data += buffer_size;
+-- 
+2.25.1
+
