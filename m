@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5A20C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 21:01:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AC06C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 21:01:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE2BD10F20C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5944B10F1EF;
 	Mon,  9 May 2022 21:01:48 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A150810F1E6
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 625E910F1EA
  for <intel-gfx@lists.freedesktop.org>; Mon,  9 May 2022 21:01:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1652130106; x=1683666106;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=EmyH7zUpNBcLRtu1eBPomsIAxrsy9jJDCH/e9KxcUZ8=;
- b=MseqYcIxpOf2GV2s3azaUobLVOgCZ7KHqgdi9DX0xYJ2KFdDBlLFWDA+
- zDBqaB5118x75D/a8V8eIt0mXk6QPbcNThRcuAc0Ave4KIWmBpGfCs3rP
- l4t5ot4dl2UAsl3m8xqsjJY5/6qOiJOIjhxt7AtPaK7Ged3yCNTF0AFll
- UgH3l484mJssG1VYaqDKsawQx+qrzXCJyNbArah6k5di8ZJe129JQ6XXk
- nP33i473b+EiQyF2LpqVrQfUXWVmM0gJsi9x5mET81jTs+7obKajenakN
- HXMCniFxyNiMZSuRcyVUq3dRuikGay0r6z05zI0SIR1JrkasS35meKEeX w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="249703596"
-X-IronPort-AV: E=Sophos;i="5.91,212,1647327600"; d="scan'208";a="249703596"
+ bh=twZSMi3yviI4f0odHrBgbM8gDhqsymy4UmR9Z9/zuWo=;
+ b=MYMkkRFuSZcAG+pGFZ+r+DBmJQ69u+5MACCLOJTVd4pEyUaO3zZyDuyC
+ cSFL+PFMK43fAdwmPGn8jlT5hpFux1z3LOBWh2lD+ChbkD6wjlXAxytZt
+ oHK+9t5q5ExgjjIXv9QU2vJJujY+RKTapW3EIwVv6CQul/3AT8OZ1GMeb
+ nVv4wf5/YAVGTY81N0LjfKAmwiI09bqUOGEYbRfo2/hCuIyzmAVKleewr
+ dx0SgGqpetQ5o7hSG8FKHxSZ2P0uvMLq3Zen/kxJn6h9CZOHwnvSC3znr
+ hTUtGGvNWt6Da8mqq5P8DUJ70ubbELS4EqBNlil93XOI17FNWms690qgK Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="249703592"
+X-IronPort-AV: E=Sophos;i="5.91,212,1647327600"; d="scan'208";a="249703592"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 14:01:46 -0700
+ 09 May 2022 14:01:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,212,1647327600"; d="scan'208";a="519410907"
+X-IronPort-AV: E=Sophos;i="5.91,212,1647327600"; d="scan'208";a="519410905"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
  by orsmga003.jf.intel.com with ESMTP; 09 May 2022 14:01:45 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  9 May 2022 14:01:48 -0700
-Message-Id: <20220509210151.1843173-4-alan.previn.teres.alexis@intel.com>
+Date: Mon,  9 May 2022 14:01:46 -0700
+Message-Id: <20220509210151.1843173-2-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220509210151.1843173-1-alan.previn.teres.alexis@intel.com>
 References: <20220509210151.1843173-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [Intel-gfx 3/6] drm/i915/guc: Add a helper for log
- buffer size
+Subject: [Intel-gfx] [Intel-gfx 1/6] drm/i915/guc: Fix GuC relay log debugfs
+ failing open
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,84 +59,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a helper to get GuC log buffer size.
+When GuC-Error-Capture was introduced, we created
+buf_in_use as a way to identify if relay logging
+had started. It is meant to replace the previous
+method where a mmap of the GuC log buffer was
+the indicator but not since GuC Error Capture
+shares that mapping throughout operation.
+
+However, that method of checking was not updated
+when the debugfs guc_log_relay_ctl_open was called.
+Fix that check.
+
+Fixes:
+   drm/i915/guc: Add capture region into intel_guc_log
+   (daff407a083d).
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Link: https://patchwork.freedesktop.org/patch/479021/?series=101603&rev=1
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 49 ++++++++++++----------
- 1 file changed, 27 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-index d902b40ded0e..f454d53a8bca 100644
+index 78d2989fe917..09f4d5fbca82 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-@@ -15,6 +15,32 @@
+@@ -568,7 +568,7 @@ int intel_guc_log_set_level(struct intel_guc_log *log, u32 level)
  
- static void guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log);
+ bool intel_guc_log_relay_created(const struct intel_guc_log *log)
+ {
+-	return log->buf_addr;
++	return log->relay.buf_in_use;
+ }
  
-+static u32 intel_guc_log_size(struct intel_guc_log *log)
-+{
-+	/*
-+	 *  GuC Log buffer Layout:
-+	 *
-+	 *  NB: Ordering must follow "enum guc_log_buffer_type".
-+	 *
-+	 *  +===============================+ 00B
-+	 *  |      Debug state header       |
-+	 *  +-------------------------------+ 32B
-+	 *  |    Crash dump state header    |
-+	 *  +-------------------------------+ 64B
-+	 *  |     Capture state header      |
-+	 *  +-------------------------------+ 96B
-+	 *  |                               |
-+	 *  +===============================+ PAGE_SIZE (4KB)
-+	 *  |          Debug logs           |
-+	 *  +===============================+ + DEBUG_SIZE
-+	 *  |        Crash Dump logs        |
-+	 *  +===============================+ + CRASH_SIZE
-+	 *  |         Capture logs          |
-+	 *  +===============================+ + CAPTURE_SIZE
-+	 */
-+	return PAGE_SIZE + CRASH_BUFFER_SIZE + DEBUG_BUFFER_SIZE + CAPTURE_BUFFER_SIZE;
-+}
-+
- /**
-  * DOC: GuC firmware log
-  *
-@@ -464,32 +490,11 @@ int intel_guc_log_create(struct intel_guc_log *log)
- 
- 	GEM_BUG_ON(log->vma);
- 
--	/*
--	 *  GuC Log buffer Layout
--	 * (this ordering must follow "enum guc_log_buffer_type" definition)
--	 *
--	 *  +===============================+ 00B
--	 *  |      Debug state header       |
--	 *  +-------------------------------+ 32B
--	 *  |    Crash dump state header    |
--	 *  +-------------------------------+ 64B
--	 *  |     Capture state header      |
--	 *  +-------------------------------+ 96B
--	 *  |                               |
--	 *  +===============================+ PAGE_SIZE (4KB)
--	 *  |          Debug logs           |
--	 *  +===============================+ + DEBUG_SIZE
--	 *  |        Crash Dump logs        |
--	 *  +===============================+ + CRASH_SIZE
--	 *  |         Capture logs          |
--	 *  +===============================+ + CAPTURE_SIZE
--	 */
- 	if (intel_guc_capture_output_min_size_est(guc) > CAPTURE_BUFFER_SIZE)
- 		DRM_WARN("GuC log buffer for state_capture maybe too small. %d < %d\n",
- 			 CAPTURE_BUFFER_SIZE, intel_guc_capture_output_min_size_est(guc));
- 
--	guc_log_size = PAGE_SIZE + CRASH_BUFFER_SIZE + DEBUG_BUFFER_SIZE +
--		       CAPTURE_BUFFER_SIZE;
-+	guc_log_size = intel_guc_log_size(log);
- 
- 	vma = intel_guc_allocate_vma(guc, guc_log_size);
- 	if (IS_ERR(vma)) {
+ int intel_guc_log_relay_open(struct intel_guc_log *log)
 -- 
 2.25.1
 
