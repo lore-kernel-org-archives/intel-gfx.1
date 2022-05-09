@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AD59C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 12:04:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABB44C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 12:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02C610EE94;
-	Mon,  9 May 2022 12:04:27 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66C9410EE9E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9FA410EEBF;
+	Mon,  9 May 2022 12:04:29 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 320F110EE94;
  Mon,  9 May 2022 12:04:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1652097866; x=1683633866;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5yHaI1nKrawDEghgxdQlWaGJ28fwoT1Eyj30sB3mVOA=;
- b=JaqiG7pQw8K7YNm+troVuF02fnYQW44RHx9pTS583Hdzqi36S5vy/Qke
- htTP08pnXqPQc64zbyKjASNVp8QZ9lN7akKOzJDEFNotZtzyCzKLJb28T
- tkjGwbSPY9R9L8K8u9Q94jm6mcyqG30/+q9ebhmHGnAQLR9Q62SVZwYBh
- Sxf83dY0TDYdJOxytHmJ2ZJ/7aQT1OpfqqnlgO6vS0/M81dZcPioL4OPA
- OFOn6TZCf2Uxvs3gY46pxQPdeq/22h1kCplHgJYZhPuiYYNwvnjJQZIfp
- eM6n1Dz6Zb1Ugfn3WAXg+8/EE6BqpmWhyHTCFwcFSKNJxVqLFlmigwsv5 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="268693437"
-X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="268693437"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 05:04:26 -0700
-X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="696464671"
+ bh=sqTfDA6od/vzBsvfTa88yJL0XJ4ZCW0ZxL65nRgKaK0=;
+ b=WRjDaSH1yZAArnLR4YmG9UoqkORQuhxIkhYTMlkR0Ume2FjvPLyrDaCw
+ xQpXuUr3hzyjpmDOMuV/O8KH1PR5lCn97bfIEsuAhtyFOF2eeRFzKw9rK
+ voAffXU6ueWw8UNzWE/++tVmCVXUlAkrr09gbzmS0MMrbDaRTMTH9LJCx
+ nBHoZFXiZU3y12n6+ROwfic0dwyPUoTJWRPwfZapb+i912q5Osu+3kK6M
+ 0axKRKOtLe1lQNqf28j6dJy0vpdixbqiI2BZg5epEZIEg1LbYGHyV5zxl
+ /py8V4FmHYpL3OFIv9BCAwthxHjXHLFrPAWuIfgO9dgAsgknauf5Cg8Zp Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="268958042"
+X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="268958042"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2022 05:04:11 -0700
+X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="550993008"
 Received: from csawicki-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.129.3])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 05:04:24 -0700
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2022 05:04:09 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon,  9 May 2022 15:03:10 +0300
-Message-Id: <b50377ce67fd3cee6628ea5865c80fa0fa7da990.1652097712.git.jani.nikula@intel.com>
+Date: Mon,  9 May 2022 15:03:07 +0300
+Message-Id: <da4c927cd973766568a79ef044254fff20317e7f.1652097712.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1652097712.git.jani.nikula@intel.com>
 References: <cover.1652097712.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 11/25] drm/edid: convert
- drm_gtf_modes_for_range() to drm_edid
+Subject: [Intel-gfx] [PATCH v2 08/25] drm/edid: convert struct
+ detailed_mode_closure to drm_edid
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,44 +66,124 @@ We'll need to propagate drm_edid everywhere.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 27 +++++++++++++--------------
+ 1 file changed, 13 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 5d8744a7b62e..037102a4d0b5 100644
+index f54699422bca..c2887012add0 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -3156,9 +3156,9 @@ void drm_mode_fixup_1366x768(struct drm_display_mode *mode)
- 	}
- }
+@@ -96,7 +96,7 @@ static int oui(u8 first, u8 second, u8 third)
  
--static int
--drm_gtf_modes_for_range(struct drm_connector *connector, const struct edid *edid,
--			const struct detailed_timing *timing)
-+static int drm_gtf_modes_for_range(struct drm_connector *connector,
-+				   const struct drm_edid *drm_edid,
-+				   const struct detailed_timing *timing)
- {
- 	int i, modes = 0;
- 	struct drm_display_mode *newmode;
-@@ -3172,7 +3172,7 @@ drm_gtf_modes_for_range(struct drm_connector *connector, const struct edid *edid
- 			return modes;
+ struct detailed_mode_closure {
+ 	struct drm_connector *connector;
+-	const struct edid *edid;
++	const struct drm_edid *drm_edid;
+ 	bool preferred;
+ 	u32 quirks;
+ 	int modes;
+@@ -3226,25 +3226,25 @@ do_inferred_modes(const struct detailed_timing *timing, void *c)
+ 		return;
  
- 		drm_mode_fixup_1366x768(newmode);
--		if (!mode_in_range(newmode, edid, timing) ||
-+		if (!mode_in_range(newmode, drm_edid->edid, timing) ||
- 		    !valid_inferred_mode(connector, newmode)) {
- 			drm_mode_destroy(dev, newmode);
- 			continue;
-@@ -3236,7 +3236,7 @@ do_inferred_modes(const struct detailed_timing *timing, void *c)
+ 	closure->modes += drm_dmt_modes_for_range(closure->connector,
+-						  closure->edid,
++						  closure->drm_edid->edid,
+ 						  timing);
+ 
+-	if (!version_greater(closure->edid, 1, 1))
++	if (!version_greater(closure->drm_edid->edid, 1, 1))
+ 		return; /* GTF not defined yet */
+ 
+ 	switch (range->flags) {
  	case 0x02: /* secondary gtf, XXX could do more */
  	case 0x00: /* default gtf */
  		closure->modes += drm_gtf_modes_for_range(closure->connector,
--							  closure->drm_edid->edid,
-+							  closure->drm_edid,
+-							  closure->edid,
++							  closure->drm_edid->edid,
  							  timing);
  		break;
  	case 0x04: /* cvt, only in 1.4+ */
+-		if (!version_greater(closure->edid, 1, 3))
++		if (!version_greater(closure->drm_edid->edid, 1, 3))
+ 			break;
+ 
+ 		closure->modes += drm_cvt_modes_for_range(closure->connector,
+-							  closure->edid,
++							  closure->drm_edid->edid,
+ 							  timing);
+ 		break;
+ 	case 0x01: /* just the ranges, no formula */
+@@ -3258,7 +3258,7 @@ static int add_inferred_modes(struct drm_connector *connector,
+ {
+ 	struct detailed_mode_closure closure = {
+ 		.connector = connector,
+-		.edid = drm_edid->edid,
++		.drm_edid = drm_edid,
+ 	};
+ 
+ 	if (version_greater(drm_edid->edid, 1, 0))
+@@ -3323,7 +3323,7 @@ static int add_established_modes(struct drm_connector *connector,
+ 	int i, modes = 0;
+ 	struct detailed_mode_closure closure = {
+ 		.connector = connector,
+-		.edid = edid,
++		.drm_edid = drm_edid,
+ 	};
+ 
+ 	for (i = 0; i <= EDID_EST_TIMINGS; i++) {
+@@ -3351,7 +3351,6 @@ do_standard_modes(const struct detailed_timing *timing, void *c)
+ 	struct detailed_mode_closure *closure = c;
+ 	const struct detailed_non_pixel *data = &timing->data.other_data;
+ 	struct drm_connector *connector = closure->connector;
+-	const struct edid *edid = closure->edid;
+ 	int i;
+ 
+ 	if (!is_display_descriptor(timing, EDID_DETAIL_STD_MODES))
+@@ -3361,7 +3360,7 @@ do_standard_modes(const struct detailed_timing *timing, void *c)
+ 		const struct std_timing *std = &data->data.timings[i];
+ 		struct drm_display_mode *newmode;
+ 
+-		newmode = drm_mode_std(connector, edid, std);
++		newmode = drm_mode_std(connector, closure->drm_edid->edid, std);
+ 		if (newmode) {
+ 			drm_mode_probed_add(connector, newmode);
+ 			closure->modes++;
+@@ -3380,7 +3379,7 @@ static int add_standard_modes(struct drm_connector *connector,
+ 	int i, modes = 0;
+ 	struct detailed_mode_closure closure = {
+ 		.connector = connector,
+-		.edid = drm_edid->edid,
++		.drm_edid = drm_edid,
+ 	};
+ 
+ 	for (i = 0; i < EDID_STD_TIMINGS; i++) {
+@@ -3471,7 +3470,7 @@ add_cvt_modes(struct drm_connector *connector, const struct drm_edid *drm_edid)
+ {
+ 	struct detailed_mode_closure closure = {
+ 		.connector = connector,
+-		.edid = drm_edid->edid,
++		.drm_edid = drm_edid,
+ 	};
+ 
+ 	if (version_greater(drm_edid->edid, 1, 2))
+@@ -3494,7 +3493,7 @@ do_detailed_mode(const struct detailed_timing *timing, void *c)
+ 		return;
+ 
+ 	newmode = drm_mode_detailed(closure->connector->dev,
+-				    closure->edid, timing,
++				    closure->drm_edid->edid, timing,
+ 				    closure->quirks);
+ 	if (!newmode)
+ 		return;
+@@ -3525,7 +3524,7 @@ static int add_detailed_modes(struct drm_connector *connector,
+ {
+ 	struct detailed_mode_closure closure = {
+ 		.connector = connector,
+-		.edid = drm_edid->edid,
++		.drm_edid = drm_edid,
+ 		.preferred = true,
+ 		.quirks = quirks,
+ 	};
 -- 
 2.30.2
 
