@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A77CFC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 09:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0A71C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 09:31:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6080E10E849;
-	Mon,  9 May 2022 09:30:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC47710E8A6;
+	Mon,  9 May 2022 09:31:01 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E443310E800;
- Mon,  9 May 2022 09:30:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 175CC10E6CE;
+ Mon,  9 May 2022 09:30:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652088657; x=1683624657;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=/RIgezBLOF+MXamCszJHFsxvkDXIArAWNBIn8z9Ay+E=;
- b=aCgDKL7KC5EBFMHcgt0MZ1lc73NxayLEaut5tY4xNPtAWAgEc+Q3/QcJ
- z0jfQO3z3T47BKbRCaklDwzw3t/+i/gCQWlPyxDf225dxLLHwTloW7+pp
- wHGvMHRJUKVBRKu7gkgBXNkj4x3Gk2VGEqej/j9ZEw6HFeLlyw6yX+Gnz
- mPeeDA9LoD6lwptzSA7KSXyifxf3RXEeFJH6Jv87Mx0J0Pe97qTptY2Ar
- p7+kWHJvEacL6+HNyzxgIFIj1KX2Y9sO3rSuD1baYl/jKPH5GbIB61j5D
- A6Zj0tLlWDnQ09MSYJ6hJFLl7M794Dfbdi8OEysV6MmvpUpFM0SWr2cVu A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="294218297"
-X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="294218297"
+ t=1652088659; x=1683624659;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=XLEYnhufhiZQ1J/UDY2UmrUb3aP6hXrcdEGDho0+Yk0=;
+ b=Nx0utvmVvjGjOajL303LZ1qb3hgVEqowNcgoJUWeWY0oGNDs1F+Oy8mb
+ X9nBjrUUypIL6pUzrb49cAf+SShx+RcE++iUnwGtkBZ6YfaLFq0Hn7MHw
+ vNmDp1g/fTJ0V0aIyn0Hl60HSSnRHbe68Dx60rgFZ6354PfJrfT7rJlXZ
+ bbLWbo/rFMbbN+jm++r5PQmuz+ZMO6XiHWsZdHeRN3VNjv5rYXCo+VCPb
+ Q/RAWWVHQ/3Beke0eGStZZc8rEnOV8hh0YxGySkbQ5i4SYT06cg2QaGyG
+ z+51G9ijmuKUKYlmd43ftZjBmzokQIVGrUUmjddogyclW33YnXdxFGI8v Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="294218316"
+X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="294218316"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 02:30:49 -0700
-X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="591551125"
+ 09 May 2022 02:30:52 -0700
+X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="591551333"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 02:30:47 -0700
+ 09 May 2022 02:30:50 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  9 May 2022 15:01:28 +0530
-Message-Id: <20220509093130.3511032-1-ankit.k.nautiyal@intel.com>
+Date: Mon,  9 May 2022 15:01:30 +0530
+Message-Id: <20220509093130.3511032-3-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220509093130.3511032-1-ankit.k.nautiyal@intel.com>
+References: <20220509093130.3511032-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] Prune unsupported modes as per HDMI2.1 spec
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/hdmi: Prune unsupported modes as
+ per HDMI2.1 spec
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,31 +60,98 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Modes like 4K100, 4K120, 8K50, 8K60 need FRL and/or DSC from source.
-Since FRL and DSC are not currently supported natively by intel
-platforms (are supported only via DP-HDMI2.1 PCONs), these modes must
-be pruned as per spec.
-Currently these modes are not getting pruned as we check the TMDS clock,
-which passes some of these with YCbCr420 format and with lower bpc.
-This causes failures during compliance test (e.g. HFR1-67).
+As per Sec 7.8.1 of HDMI2.1 spec, sources that support modes:
+4K100, 4K120, 8K50, 8K60 must support these modes in at least one of
+the below formats:
+i) uncompressed FRL, 420 format and min of 10 bpc, or
+ii) compressed FRL, 444 format and min of 10 bpc.
 
-This patch prunes the modes, if FRL, DSC not supported, or the support
-requirement not met as per the spec.
-Although the spec mentions 4K100, 4K120, 8K50, and 8K60 video timings,
-I have used the check for clock >= 2376 MHz (or 1188 MHz with 420
-format), instead of using individual VICs.
+Since FRL and DSC are not supported natively with HDMI, the above
+modes must be pruned as per the spec, and is a requirement for the
+HDMI2.1 compliance test.
 
-While at it, fix a bug while parsing the compressed bpc supported
-from edid.
+This patch adds a condition to check for the modes with clock
+requirement more than 2376 MHz (1188 MHz with 420 format),
+and prune them if none of the above two formats are supported.
 
-Ankit Nautiyal (2):
-  drm/edid: Fix minimum bpc supported with DSC1.2 for HDMI sink
-  drm/i915/hdmi: Prune unsupported modes as per HDMI2.1 spec
-
- drivers/gpu/drm/drm_edid.c                |  3 +-
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
  drivers/gpu/drm/i915/display/intel_hdmi.c | 48 +++++++++++++++++++++++
- 2 files changed, 50 insertions(+), 1 deletion(-)
+ 1 file changed, 48 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 1ae09431f53a..2ee1262f6427 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -1940,6 +1940,44 @@ static bool intel_hdmi_sink_bpc_possible(struct drm_connector *connector,
+ 	}
+ }
+ 
++/*
++ * HDMI2.1 Sec7.8.1
++ * Support requirement for 4K100, 4K120, 8K50, and 8K60.
++ *
++ * The modes with timings same as above modes are supported only with min of 10 bpc
++ * along with:
++ *
++ * i) 444 format only with FRL mode support with DSC
++ * ii) 420 format only with FRL mode without DSC.
++ */
++static bool
++intel_hdmi21_bpc_possible(struct drm_connector *connector,
++			  int clock, int bpc, bool ycbcr420_output,
++			  bool frl, bool dsc)
++{
++	const struct drm_display_info *info = &connector->display_info;
++	const struct drm_hdmi_info *hdmi = &info->hdmi;
++
++	int pixel_clock = ycbcr420_output ? clock * 2 : clock;
++
++	if (pixel_clock < 2376000)
++		return true;
++
++	if (!frl)
++		return false;
++
++	if (dsc && bpc > hdmi->dsc_cap.bpc_supported)
++		return false;
++
++	if (!ycbcr420_output && !dsc)
++		return false;
++
++	if (bpc < 10)
++		return false;
++
++	return true;
++}
++
+ static enum drm_mode_status
+ intel_hdmi_mode_clock_valid(struct drm_connector *connector, int clock,
+ 			    bool has_hdmi_sink, bool ycbcr420_output)
+@@ -1948,6 +1986,13 @@ intel_hdmi_mode_clock_valid(struct drm_connector *connector, int clock,
+ 	struct intel_hdmi *hdmi = intel_attached_hdmi(to_intel_connector(connector));
+ 	enum drm_mode_status status = MODE_OK;
+ 	int bpc;
++	bool frl, dsc;
++
++	/*
++	 * FRL and DSC not supported for HDMI from source as of now.
++	 */
++	frl = false;
++	dsc = false;
+ 
+ 	/*
+ 	 * Try all color depths since valid port clock range
+@@ -1963,6 +2008,9 @@ intel_hdmi_mode_clock_valid(struct drm_connector *connector, int clock,
+ 		if (!intel_hdmi_sink_bpc_possible(connector, bpc, has_hdmi_sink, ycbcr420_output))
+ 			continue;
+ 
++		if (!intel_hdmi21_bpc_possible(connector, clock, bpc, ycbcr420_output, frl, dsc))
++			continue;
++
+ 		status = hdmi_port_clock_valid(hdmi, tmds_clock, true, has_hdmi_sink);
+ 		if (status == MODE_OK)
+ 			return MODE_OK;
 -- 
 2.25.1
 
