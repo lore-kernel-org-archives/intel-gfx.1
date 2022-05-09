@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02F0FC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 12:05:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82833C433EF
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 12:05:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF8AF10EF11;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4257D10EEFD;
 	Mon,  9 May 2022 12:05:06 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A648C10EEF8;
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BD3E10E487;
  Mon,  9 May 2022 12:05:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1652097903; x=1683633903;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=h8iBJUXGwnHpWaWNo2pD5dakHk8nvuh4ZAe9dBCLh88=;
- b=E/9mS9+rFASOhCkwNpVX43zYf8Q0yubEieOs2b5JsJvw3sGXRb6GLGYc
- hNQ3Nj+fOwZ6X4zHZnd+LoNcz8S5mPP4PkaOyLm3BvZ7mwuYGS38n+MO8
- ohvQKh76XZ+pfRlo7oif4n8h/irZfJXplFX3SjmwmoWFmuz59Fue/lWCs
- L5+NnrMfO8B6tE5sBwlVXZZCXtV1O+JscGXHqis69fl0u7OE8xEt11W8d
- 1jF7dXFne7biUMghM5wpYEeGCMqMt4Q67UQ/fM9qF8MiANPH2Kiyw+S/p
- H6ajap4x+bZQonXbl74vQYo0rZjeGRyCva5pVFP9ea497BTV83ecyqiGc g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="256563903"
-X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="256563903"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 05:05:02 -0700
-X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="622937093"
+ bh=Wc8hNVmaBYkdQ6rSRpf1GF1qqlCU2JBshnNhGtTCXvs=;
+ b=NrOU3IcwkagJddbkgGuOtiRLorf6FwszV6zA6/9wRMpAVf2d3BuojqPt
+ QSoodGKyDAub24RHJ+lfFr2EL5MsJnrJiElOJLvBrqDh+NIrkmffzCs05
+ OJvo/l8kT/xmFe6Kk99T9LaPf/7JqxORtMFOIfpVJ158mhf2a7pV8HE/x
+ egIMQbkuzaGKJxxnkJIDfdThHgLu5ZYR44MxnRw6qqYN+HuivIAK9ZXZG
+ 4zJMfmsp+f4o+pVTrzFG80wAVxEBsdjfR1pxkGrD8XOu5j01Y38lCDpEQ
+ PDPiV33+znVvc7z0wioF43f4SI+YhBCoYNHLN1ipk803knBd1KswmGQ/p A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10341"; a="251074488"
+X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="251074488"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2022 05:04:53 -0700
+X-IronPort-AV: E=Sophos;i="5.91,211,1647327600"; d="scan'208";a="669115883"
 Received: from csawicki-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.129.3])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 05:05:00 -0700
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2022 05:04:51 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon,  9 May 2022 15:03:17 +0300
-Message-Id: <770d095c93274969c4b86480e07044e16a7b5760.1652097712.git.jani.nikula@intel.com>
+Date: Mon,  9 May 2022 15:03:15 +0300
+Message-Id: <bfd06d64235393012b2f3626d5764350de5f5321.1652097712.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1652097712.git.jani.nikula@intel.com>
 References: <cover.1652097712.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 18/25] drm/edid: add drm_edid helper for
- drm_edid_to_speaker_allocation()
+Subject: [Intel-gfx] [PATCH v2 16/25] drm/edid: convert
+ drm_for_each_detailed_block() to drm_edid
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,75 +62,162 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We'll need to propagate drm_edid everywhere.'
+We'll need to propagate drm_edid everywhere.
 
-v2: Handle NULL EDID pointer (Ville, CI)
+v2: Fix checkpatch warning on superfluous parens
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 37 +++++++++++++++++++++++--------------
- 1 file changed, 23 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 36 ++++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index dee09359bbc3..5cc851f6d3b3 100644
+index e3ff0f31a614..61551ce0db88 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -5025,25 +5025,14 @@ int drm_edid_to_sad(const struct edid *edid, struct cea_sad **sads)
+@@ -2598,20 +2598,20 @@ vtb_for_each_detailed_block(const u8 *ext, detailed_cb *cb, void *closure)
+ 		cb((const struct detailed_timing *)(det_base + 18 * i), closure);
  }
- EXPORT_SYMBOL(drm_edid_to_sad);
  
--/**
-- * drm_edid_to_speaker_allocation - extracts Speaker Allocation Data Blocks from EDID
-- * @edid: EDID to parse
-- * @sadb: pointer to the speaker block
-- *
-- * Looks for CEA EDID block and extracts the Speaker Allocation Data Block from it.
-- *
-- * Note: The returned pointer needs to be freed using kfree().
-- *
-- * Return: The number of found Speaker Allocation Blocks or negative number on
-- * error.
-- */
--int drm_edid_to_speaker_allocation(const struct edid *edid, u8 **sadb)
-+static int _drm_edid_to_speaker_allocation(const struct drm_edid *drm_edid,
-+					   u8 **sadb)
+-static void
+-drm_for_each_detailed_block(const struct edid *edid, detailed_cb *cb, void *closure)
++static void drm_for_each_detailed_block(const struct drm_edid *drm_edid,
++					detailed_cb *cb, void *closure)
  {
- 	const struct cea_db *db;
- 	struct cea_db_iter iter;
- 	int count = 0;
+ 	struct drm_edid_iter edid_iter;
+ 	const u8 *ext;
+ 	int i;
  
--	cea_db_iter_edid_begin(edid, &iter);
-+	cea_db_iter_edid_begin(drm_edid ? drm_edid->edid : NULL, &iter);
- 	cea_db_iter_for_each(db, &iter) {
- 		if (cea_db_tag(db) == CTA_DB_SPEAKER &&
- 		    cea_db_payload_len(db) == 3) {
-@@ -5061,6 +5050,26 @@ int drm_edid_to_speaker_allocation(const struct edid *edid, u8 **sadb)
+-	if (edid == NULL)
++	if (!drm_edid)
+ 		return;
  
- 	return count;
+ 	for (i = 0; i < EDID_DETAILED_TIMINGS; i++)
+-		cb(&(edid->detailed_timings[i]), closure);
++		cb(&drm_edid->edid->detailed_timings[i], closure);
+ 
+-	drm_edid_iter_begin(edid, &edid_iter);
++	drm_edid_iter_begin(drm_edid->edid, &edid_iter);
+ 	drm_edid_iter_for_each(ext, &edid_iter) {
+ 		switch (*ext) {
+ 		case CEA_EXT:
+@@ -2650,7 +2650,7 @@ drm_monitor_supports_rb(const struct drm_edid *drm_edid)
+ 	if (drm_edid->edid->revision >= 4) {
+ 		bool ret = false;
+ 
+-		drm_for_each_detailed_block(drm_edid->edid, is_rb, &ret);
++		drm_for_each_detailed_block(drm_edid, is_rb, &ret);
+ 		return ret;
+ 	}
+ 
+@@ -2677,7 +2677,7 @@ drm_gtf2_hbreak(const struct drm_edid *drm_edid)
+ {
+ 	const struct detailed_timing *descriptor = NULL;
+ 
+-	drm_for_each_detailed_block(drm_edid->edid, find_gtf2, &descriptor);
++	drm_for_each_detailed_block(drm_edid, find_gtf2, &descriptor);
+ 
+ 	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.gtf2.hfreq_start_khz) != 12);
+ 
+@@ -2689,7 +2689,7 @@ drm_gtf2_2c(const struct drm_edid *drm_edid)
+ {
+ 	const struct detailed_timing *descriptor = NULL;
+ 
+-	drm_for_each_detailed_block(drm_edid->edid, find_gtf2, &descriptor);
++	drm_for_each_detailed_block(drm_edid, find_gtf2, &descriptor);
+ 
+ 	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.gtf2.c) != 13);
+ 
+@@ -2701,7 +2701,7 @@ drm_gtf2_m(const struct drm_edid *drm_edid)
+ {
+ 	const struct detailed_timing *descriptor = NULL;
+ 
+-	drm_for_each_detailed_block(drm_edid->edid, find_gtf2, &descriptor);
++	drm_for_each_detailed_block(drm_edid, find_gtf2, &descriptor);
+ 
+ 	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.gtf2.m) != 14);
+ 
+@@ -2713,7 +2713,7 @@ drm_gtf2_k(const struct drm_edid *drm_edid)
+ {
+ 	const struct detailed_timing *descriptor = NULL;
+ 
+-	drm_for_each_detailed_block(drm_edid->edid, find_gtf2, &descriptor);
++	drm_for_each_detailed_block(drm_edid, find_gtf2, &descriptor);
+ 
+ 	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.gtf2.k) != 16);
+ 
+@@ -2725,7 +2725,7 @@ drm_gtf2_2j(const struct drm_edid *drm_edid)
+ {
+ 	const struct detailed_timing *descriptor = NULL;
+ 
+-	drm_for_each_detailed_block(drm_edid->edid, find_gtf2, &descriptor);
++	drm_for_each_detailed_block(drm_edid, find_gtf2, &descriptor);
+ 
+ 	BUILD_BUG_ON(offsetof(typeof(*descriptor), data.other_data.data.range.formula.gtf2.j) != 17);
+ 
+@@ -3265,7 +3265,7 @@ static int add_inferred_modes(struct drm_connector *connector,
+ 	};
+ 
+ 	if (version_greater(drm_edid->edid, 1, 0))
+-		drm_for_each_detailed_block(drm_edid->edid, do_inferred_modes, &closure);
++		drm_for_each_detailed_block(drm_edid, do_inferred_modes, &closure);
+ 
+ 	return closure.modes;
  }
-+
-+/**
-+ * drm_edid_to_speaker_allocation - extracts Speaker Allocation Data Blocks from EDID
-+ * @edid: EDID to parse
-+ * @sadb: pointer to the speaker block
-+ *
-+ * Looks for CEA EDID block and extracts the Speaker Allocation Data Block from it.
-+ *
-+ * Note: The returned pointer needs to be freed using kfree().
-+ *
-+ * Return: The number of found Speaker Allocation Blocks or negative number on
-+ * error.
-+ */
-+int drm_edid_to_speaker_allocation(const struct edid *edid, u8 **sadb)
-+{
-+	struct drm_edid drm_edid;
-+
-+	return _drm_edid_to_speaker_allocation(drm_edid_legacy_init(&drm_edid, edid),
-+					       sadb);
-+}
- EXPORT_SYMBOL(drm_edid_to_speaker_allocation);
+@@ -3342,7 +3342,7 @@ static int add_established_modes(struct drm_connector *connector,
+ 	}
  
- /**
+ 	if (version_greater(edid, 1, 0))
+-		drm_for_each_detailed_block(drm_edid->edid, do_established_modes,
++		drm_for_each_detailed_block(drm_edid, do_established_modes,
+ 					    &closure);
+ 
+ 	return modes + closure.modes;
+@@ -3397,7 +3397,7 @@ static int add_standard_modes(struct drm_connector *connector,
+ 	}
+ 
+ 	if (version_greater(drm_edid->edid, 1, 0))
+-		drm_for_each_detailed_block(drm_edid->edid, do_standard_modes,
++		drm_for_each_detailed_block(drm_edid, do_standard_modes,
+ 					    &closure);
+ 
+ 	/* XXX should also look for standard codes in VTB blocks */
+@@ -3477,7 +3477,7 @@ add_cvt_modes(struct drm_connector *connector, const struct drm_edid *drm_edid)
+ 	};
+ 
+ 	if (version_greater(drm_edid->edid, 1, 2))
+-		drm_for_each_detailed_block(drm_edid->edid, do_cvt_mode, &closure);
++		drm_for_each_detailed_block(drm_edid, do_cvt_mode, &closure);
+ 
+ 	/* XXX should also look for CVT codes in VTB blocks */
+ 
+@@ -3536,7 +3536,7 @@ static int add_detailed_modes(struct drm_connector *connector,
+ 		closure.preferred =
+ 		    (drm_edid->edid->features & DRM_EDID_FEATURE_PREFERRED_TIMING);
+ 
+-	drm_for_each_detailed_block(drm_edid->edid, do_detailed_mode, &closure);
++	drm_for_each_detailed_block(drm_edid, do_detailed_mode, &closure);
+ 
+ 	return closure.modes;
+ }
+@@ -4838,7 +4838,7 @@ static int get_monitor_name(const struct drm_edid *drm_edid, char name[13])
+ 	if (!drm_edid || !name)
+ 		return 0;
+ 
+-	drm_for_each_detailed_block(drm_edid->edid, monitor_name, &edid_name);
++	drm_for_each_detailed_block(drm_edid, monitor_name, &edid_name);
+ 	for (mnl = 0; edid_name && mnl < 13; mnl++) {
+ 		if (edid_name[mnl] == 0x0a)
+ 			break;
+@@ -5559,7 +5559,7 @@ static void drm_get_monitor_range(struct drm_connector *connector,
+ 	if (!version_greater(drm_edid->edid, 1, 1))
+ 		return;
+ 
+-	drm_for_each_detailed_block(drm_edid->edid, get_monitor_range,
++	drm_for_each_detailed_block(drm_edid, get_monitor_range,
+ 				    &info->monitor_range);
+ 
+ 	DRM_DEBUG_KMS("Supported Monitor Refresh rate range is %d Hz - %d Hz\n",
 -- 
 2.30.2
 
