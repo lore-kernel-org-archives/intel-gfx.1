@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F0A0C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 16:23:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0A74C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 May 2022 16:23:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8A6110E104;
-	Mon,  9 May 2022 16:23:45 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FD6610E07C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2C0210E089;
+	Mon,  9 May 2022 16:23:46 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B80FB10E0A7;
  Mon,  9 May 2022 16:23:44 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B97EE6134F;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5BFC2B80D3A;
  Mon,  9 May 2022 16:23:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18849C385B4;
- Mon,  9 May 2022 16:23:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D9AC385B1;
+ Mon,  9 May 2022 16:23:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1652113423;
- bh=SrbmG/FGRx9mnqf8kRpRVHkNIYGrA6qPuY6/5C7xAUA=;
+ bh=mdAPNlLnOrv84PSoSJSxXEtEdCuj0qy2zCvHlvJ5Njo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AmChdpm2bT+XTKXg+8kYfVM7LxKIWNgM4goPhOfYiYSWw4CiCCo2E/MZSIQFuRSfh
- MIJoAEQmQdM2C3B3XarTl3M2BrWjFAo1to6WoXpiKTeUm5CgMeaqmweC6dk/1W3xHF
- 4OZhPQgZZbi6qjPoGvMAgSqkYAnXTM/BKu2rnAyq4/xF2gPYwRNvBzIORdgziRBDHl
- lnpFNKHt3j+6Oym4NFljcYgzzoRcf6vN/YIefNU3j1gdpKsfB9HZJ4LHrtJv9Tvoss
- SeOcaH/Q3laiieFCuc7k8KOhnGXys7N6Yfuuh0DO1cbB45acuDBzlDKuLGjZPUWLpj
- xXIWzCeTRfdCg==
+ b=mi2544dS7YM1A/FSFwFeIwBDZblvgLsGSEpCwm+trqSAnt8wy5S5Qxto9Wur2y4tO
+ 9cpkOftKBmZiVgPD7AYJPlCh5bucJIreuaqYsH3amUCE4IdKRG42FKL04zCcjwSABg
+ F/ii55iELg27DEEsp+767f5ls63aiwURAJEdXjUDQkwnfs/cq02uiDDSuY8Gu0wllF
+ EBzhbG4bWuU3xbaBtlYBCpHP6pWPpDqzbDXEBoFUOuZMg2SLH5sMo34M8upZFsdEOv
+ NBny6sycMAKpOlw1elPGs+06j0/ruIgmMXZbHNPxazEsK7iM72JdgdhjyPu/Wyvvco
+ 88LhlYqi4D5jg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.94.2)
  (envelope-from <mchehab@kernel.org>)
- id 1no6Ae-006xVS-Hw; Mon, 09 May 2022 18:23:40 +0200
+ id 1no6Ae-006xVb-Lo; Mon, 09 May 2022 18:23:40 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: Luis Chamberlain <mcgrof@kernel.org>
-Date: Mon,  9 May 2022 18:23:37 +0200
-Message-Id: <28a942f860ccdee05751dcccc74b70e9d64f2b94.1652113087.git.mchehab@kernel.org>
+Date: Mon,  9 May 2022 18:23:39 +0200
+Message-Id: <f53f8a9d04b39a6843f19fe3069d1be7a9713aae.1652113087.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <cover.1652113087.git.mchehab@kernel.org>
 References: <cover.1652113087.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 2/4] module: update dependencies at
- try_module_get()
+Subject: [Intel-gfx] [PATCH v6 4/4] ALSA: hda - identify when audio is
+ provided by a video driver
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,179 +58,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: alsa-devel@alsa-project.org, mauro.chehab@linux.intel.com,
  David Airlie <airlied@linux.ie>, Greg KH <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- Takashi Iwai <tiwai@suse.com>, dri-devel@lists.freedesktop.org,
- Jaroslav Kysela <perex@perex.cz>, Kai Vehmanen <kai.vehmanen@intel.com>,
- linux-modules@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ intel-gfx@lists.freedesktop.org, Takashi Iwai <tiwai@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ Kai Vehmanen <kai.vehmanen@intel.com>, linux-modules@vger.kernel.org,
  Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Sometimes, device drivers are bound into each other via try_module_get(),
-making such references invisible when looking at /proc/modules or lsmod.
+On some devices, the hda driver needs to hook into a video driver,
+in order to be able to properly access the audio hardware and/or
+the power management function.
 
-Add a function to allow setting up module references for such
-cases, and call it when try_module_get() is used.
+That's the case of several snd_hda_intel devices that depends on
+i915 driver.
 
-Reviewed-by: Dan Williams <dan.j.williams@intel.com>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Ensure that a proper reference between the snd-hda driver needing
+such binding is shown at /proc/modules, in order to allow userspace
+to know about such binding.
+
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 See [PATCH v6 0/4] at: https://lore.kernel.org/all/cover.1652113087.git.mchehab@kernel.org/
 
- include/linux/module.h |  8 +++--
- kernel/module/main.c   | 73 ++++++++++++++++++++++++++++++++++--------
- 2 files changed, 64 insertions(+), 17 deletions(-)
+ sound/hda/hdac_component.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/module.h b/include/linux/module.h
-index 77961f5773b6..a66b9be92ef5 100644
---- a/include/linux/module.h
-+++ b/include/linux/module.h
-@@ -618,12 +618,12 @@ extern void __module_get(struct module *module);
+diff --git a/sound/hda/hdac_component.c b/sound/hda/hdac_component.c
+index bb37e7e0bd79..7789873ddf47 100644
+--- a/sound/hda/hdac_component.c
++++ b/sound/hda/hdac_component.c
+@@ -199,7 +199,7 @@ static int hdac_component_master_bind(struct device *dev)
+ 	}
  
- /* This is the Right Way to get a module: if it fails, it's being removed,
-  * so pretend it's not there. */
--extern bool try_module_get(struct module *module);
-+extern bool try_module_get_owner(struct module *module, struct module *this);
- 
- extern void module_put(struct module *module);
- 
- #else /*!CONFIG_MODULE_UNLOAD*/
--static inline bool try_module_get(struct module *module)
-+static inline bool try_module_get_owner(struct module *module, struct module *this)
- {
- 	return !module || module_is_live(module);
- }
-@@ -752,7 +752,7 @@ static inline void __module_get(struct module *module)
- {
- }
- 
--static inline bool try_module_get(struct module *module)
-+static inline bool try_module_get_owner(struct module *module, struct module *this)
- {
- 	return true;
- }
-@@ -893,6 +893,8 @@ static inline bool module_sig_ok(struct module *module)
- }
- #endif	/* CONFIG_MODULE_SIG */
- 
-+#define try_module_get(mod) try_module_get_owner(mod, THIS_MODULE)
-+
- int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
- 					     struct module *, unsigned long),
- 				   void *data);
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index fe44d46c378b..6044aeba0f18 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -139,6 +139,24 @@ int unregister_module_notifier(struct notifier_block *nb)
- }
- EXPORT_SYMBOL(unregister_module_notifier);
- 
-+static bool __try_module_get(struct module *module)
-+{
-+	bool ret = true;
-+
-+	if (module) {
-+		preempt_disable();
-+		/* Note: here, we can fail to get a reference */
-+		if (likely(module_is_live(module) &&
-+			   atomic_inc_not_zero(&module->refcnt) != 0))
-+			trace_module_get(module, _RET_IP_);
-+		else
-+			ret = false;
-+
-+		preempt_enable();
-+	}
-+	return ret;
-+}
-+
- /*
-  * We require a truly strong try_module_get(): 0 means success.
-  * Otherwise an error is returned due to ongoing or failed
-@@ -149,7 +167,7 @@ static inline int strong_try_module_get(struct module *mod)
- 	BUG_ON(mod && mod->state == MODULE_STATE_UNFORMED);
- 	if (mod && mod->state == MODULE_STATE_COMING)
- 		return -EBUSY;
--	if (try_module_get(mod))
-+	if (__try_module_get(mod))
- 		return 0;
- 	else
- 		return -ENOENT;
-@@ -620,6 +638,41 @@ static int ref_module(struct module *a, struct module *b)
- 	return 0;
- }
- 
-+static int ref_module_dependency(struct module *mod, struct module *this)
-+{
-+	int ret = 0;
-+
-+	if (!this || !mod || !this->name || !mod->holders_dir)
-+		return -EINVAL;
-+
-+	if (mod == this)
-+		return 0;
-+
-+	mutex_lock(&module_mutex);
-+
-+	if (already_uses(this, mod))
-+		goto ret;
-+
-+	ret = strong_try_module_get(mod);
-+	if (ret)
-+		goto ret;
-+
-+	ret = add_module_usage(this, mod);
-+	if (ret) {
-+		module_put(mod);
-+		goto ret;
-+	}
-+
-+#ifdef CONFIG_MODULE_UNLOAD
-+	ret = sysfs_create_link(mod->holders_dir,
-+				&this->mkobj.kobj, this->name);
-+#endif
-+
-+ret:
-+	mutex_unlock(&module_mutex);
-+	return ret;
-+}
-+
- /* Clear the unload stuff of the module. */
- static void module_unload_free(struct module *mod)
- {
-@@ -830,24 +883,16 @@ void __module_get(struct module *module)
- }
- EXPORT_SYMBOL(__module_get);
- 
--bool try_module_get(struct module *module)
-+bool try_module_get_owner(struct module *module, struct module *this)
- {
--	bool ret = true;
-+	int ret = __try_module_get(module);
- 
--	if (module) {
--		preempt_disable();
--		/* Note: here, we can fail to get a reference */
--		if (likely(module_is_live(module) &&
--			   atomic_inc_not_zero(&module->refcnt) != 0))
--			trace_module_get(module, _RET_IP_);
--		else
--			ret = false;
-+	if (ret)
-+		ref_module_dependency(module, this);
- 
--		preempt_enable();
--	}
- 	return ret;
- }
--EXPORT_SYMBOL(try_module_get);
-+EXPORT_SYMBOL(try_module_get_owner);
- 
- void module_put(struct module *module)
- {
+ 	/* pin the module to avoid dynamic unbinding, but only if given */
+-	if (!try_module_get(acomp->ops->owner)) {
++	if (!try_module_get_owner(acomp->ops->owner, dev->driver->owner)) {
+ 		ret = -ENODEV;
+ 		goto out_unbind;
+ 	}
 -- 
 2.35.3
 
