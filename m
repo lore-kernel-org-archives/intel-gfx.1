@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88BAEC433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 May 2022 10:43:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40402C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 May 2022 10:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C99C10E46F;
-	Tue, 10 May 2022 10:43:46 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD1C710E35B;
- Tue, 10 May 2022 10:43:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 893BF10F320;
+	Tue, 10 May 2022 10:58:24 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1500110F3AB
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 May 2022 10:58:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652179424; x=1683715424;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=tB4uLRME3PUAds1LwM5IxIPN/1RmiiXuYmIUkg6WBGg=;
- b=mHU7W9YT26NuQrx7zNxiL2bdZFKwoEL7GIYvt5tXCFLwhxHVgHk1K03q
- lsnQTmmnyW6faJQ9MmYifpwCGDS3BBqwFFI2YhFeeig55fKqHpxM4txBz
- y2lGXH6Qv+Ba6joyWyoYYVTypYAKKgmqhv/W8YhSlix+BS5viCalf67xF
- MDYnsjHS8Rf2tBDQtrFMkq2B83J0DbvbU0piL2OXvbyHkLao4ZxJFpTAZ
- dMHEO8t2BoXW/ptPy/TOF2V+nrWy3/7Ch2/xyO+iXUk9vWkkb8yipxlsI
- ZVybiwEbSJIU9/jLZlvtjYeGPtIczJLCvi3nSR7dMJBTc9L7MHUYa2yyV w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="268174186"
-X-IronPort-AV: E=Sophos;i="5.91,214,1647327600"; d="scan'208";a="268174186"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2022 03:43:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,214,1647327600"; d="scan'208";a="570617859"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
- by fmsmga007.fm.intel.com with SMTP; 10 May 2022 03:43:27 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 10 May 2022 13:43:26 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 May 2022 13:42:41 +0300
-Message-Id: <20220510104242.6099-15-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220510104242.6099-1-ville.syrjala@linux.intel.com>
-References: <20220510104242.6099-1-ville.syrjala@linux.intel.com>
+ t=1652180303; x=1683716303;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=PFELCBQF7lGPBBfCsjqLNeMQXFnOSv11Md4u3ub9i1g=;
+ b=jSFi9TUOv0HXZ8mKfJLnl+N0PgeyCpzLb3wjdkohvpHyBzXzDBR1opJo
+ ZoMmLKattaAv00WLT6yvnnaJxqvgyb0QsNK2JtPM7OOdJm3ZnWN8wNz2U
+ ZG4vYL7o1jr1LKRmqCD/HgAlxBvOTQKhZGSugssSDqnWd/XCQHIlx+KHY
+ lgiQFjsNiSX8cT7d6kTAbRwGII8C8RxV3azsmy+Gm4rrW22oo0herU1mW
+ pKMY+95PPkiuNk/xQtNOly83M3D4STiByNjnNNrNxVwKCYdNehCVs9Gi7
+ hOApPDsKuF2RlMR1zt9BSqj8ApHv1aLN1Z5a7Qfnlfze5EotqFkW+kwio A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="269474284"
+X-IronPort-AV: E=Sophos;i="5.91,214,1647327600"; d="scan'208";a="269474284"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2022 03:58:21 -0700
+X-IronPort-AV: E=Sophos;i="5.91,214,1647327600"; d="scan'208";a="593445705"
+Received: from brauta-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.252.50.37])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2022 03:58:18 -0700
+Date: Tue, 10 May 2022 12:58:13 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <YnpFRQx99kv1ZdfL@intel.intel>
+References: <cover.1651261886.git.ashutosh.dixit@intel.com>
+ <e4c5f650a41fa7955c3ddabbb32846b3fafb3134.1651261886.git.ashutosh.dixit@intel.com>
+ <bdd33a4c-f0a9-1855-8c6b-c4895bbc363d@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 14/15] drm/edid: Extract drm_edid_decode_mfg_id()
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bdd33a4c-f0a9-1855-8c6b-c4895bbc363d@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 7/8] drm/i915/gt: Expose per-gt RPS defaults
+ in sysfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,60 +59,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Hi Ashutosh,
 
-Make the PNPID decoding available for other users.
+> > +static ssize_t
+> > +default_min_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
+> > +{
+> > +	struct intel_gt *gt = kobj_to_gt(kobj->parent);
+> > +
+> > +	return sysfs_emit(buf, "%d\n", gt->rps_defaults.min_freq);
 
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- include/drm/drm_edid.h | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+I guess this is %u.
 
-diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-index c3204a58fb09..e92385a13d2a 100644
---- a/include/drm/drm_edid.h
-+++ b/include/drm/drm_edid.h
-@@ -496,6 +496,22 @@ static inline u8 drm_eld_get_conn_type(const uint8_t *eld)
- 	return eld[DRM_ELD_SAD_COUNT_CONN_TYPE] & DRM_ELD_CONN_TYPE_MASK;
- }
- 
-+/**
-+ * drm_edid_decode_mfg_id - Decode the manufacturer ID
-+ * @mfg_id: The manufacturer ID
-+ * @vend: A 4-byte buffer to store the 3-letter vendor string plus a '\0'
-+ *	  termination
-+ */
-+static inline const char *drm_edid_decode_mfg_id(u16 mfg_id, char vend[4])
-+{
-+	vend[0] = '@' + ((mfg_id >> 10) & 0x1f);
-+	vend[1] = '@' + ((mfg_id >> 5) & 0x1f);
-+	vend[2] = '@' + ((mfg_id >> 0) & 0x1f);
-+	vend[3] = '\0';
-+
-+	return vend;
-+}
-+
- /**
-  * drm_edid_encode_panel_id - Encode an ID for matching against drm_edid_get_panel_id()
-  * @vend_chr_0: First character of the vendor string.
-@@ -536,10 +552,7 @@ static inline u8 drm_eld_get_conn_type(const uint8_t *eld)
- static inline void drm_edid_decode_panel_id(u32 panel_id, char vend[4], u16 *product_id)
- {
- 	*product_id = (u16)(panel_id & 0xffff);
--	vend[0] = '@' + ((panel_id >> 26) & 0x1f);
--	vend[1] = '@' + ((panel_id >> 21) & 0x1f);
--	vend[2] = '@' + ((panel_id >> 16) & 0x1f);
--	vend[3] = '\0';
-+	drm_edid_decode_mfg_id(panel_id >> 16, vend);
- }
- 
- bool drm_probe_ddc(struct i2c_adapter *adapter);
--- 
-2.35.1
+> > +}
+> > +
+> > +static struct kobj_attribute default_min_freq_mhz =
+> > +__ATTR(rps_min_freq_mhz, 0444, default_min_freq_mhz_show, NULL);
+> > +
+> > +static ssize_t
+> > +default_max_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
+> > +{
+> > +	struct intel_gt *gt = kobj_to_gt(kobj->parent);
+> > +
+> > +	return sysfs_emit(buf, "%d\n", gt->rps_defaults.max_freq);
+> > +}
+> > +
+> > +static struct kobj_attribute default_max_freq_mhz =
+> > +__ATTR(rps_max_freq_mhz, 0444, default_max_freq_mhz_show, NULL);
+> > +
+> > +static ssize_t
+> > +default_boost_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
+> > +{
+> > +	struct intel_gt *gt = kobj_to_gt(kobj->parent);
+> > +
+> > +	return sysfs_emit(buf, "%d\n", gt->rps_defaults.boost_freq);
+> > +}
+> > +
+> > +static struct kobj_attribute default_boost_freq_mhz =
+> > +__ATTR(rps_boost_freq_mhz, 0444, default_boost_freq_mhz_show, NULL);
+> > +
+> > +static const struct attribute * const rps_defaults_attrs[] = {
+> > +	&default_min_freq_mhz.attr,
+> > +	&default_max_freq_mhz.attr,
+> > +	&default_boost_freq_mhz.attr,
+> > +	NULL
+> > +};
 
+Do you think this in the default group of kobj_gt_type like the
+gt_id?
+
+[...]
+
+> > +struct intel_rps_defaults {
+> > +	u32 min_freq;
+> > +	u32 max_freq;
+> > +	u32 boost_freq;
+> > +};
+> > +
+> >   enum intel_submission_method {
+> >   	INTEL_SUBMISSION_RING,
+> >   	INTEL_SUBMISSION_ELSP,
+> > @@ -227,6 +233,10 @@ struct intel_gt {
+> >   	/* gt/gtN sysfs */
+> >   	struct kobject sysfs_gt;
+> > +
+> > +	/* sysfs defaults per gt */
+> > +	struct intel_rps_defaults rps_defaults;
+
+more of a matter of taste, but this looks natural to me to be in
+rps rather then in the gt.
+
+[...]
+
+Andi
