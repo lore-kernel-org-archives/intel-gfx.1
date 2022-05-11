@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B38C3C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 May 2022 01:12:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E52C9C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 May 2022 01:12:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2816A10E2D5;
-	Wed, 11 May 2022 01:11:57 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C79A410E2D5;
- Wed, 11 May 2022 01:11:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB2F10E212;
+	Wed, 11 May 2022 01:12:37 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDD8710E212;
+ Wed, 11 May 2022 01:12:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652231515; x=1683767515;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=I6FtYd8IWa0vizcHYBNqD6wELn3qIz9PbRheYsUhBH4=;
- b=UjfaUuzdJRtmI5I01XL7xZCUlv9QY0pyF3sSbr5kSYumTsbzhZIAiE0L
- RxBEraCPvBObABEF0GuPuoRf4Pa2Lx/3fR9XJrZxx82dipx19vpGzwY24
- n5DsMVgTbQL3duyhI394cyn2vw9YUBVoB252iouP2BazcmnVHxoY2vnT6
- m6ToUPJq/2ImxlKOmgWnEoR3Y1oMNZz29Tx1qGSXCsXP8CJN3vN+X2SIZ
- F5KbX+eUWVVYVyf3Kc1qDkP3mHaraLKDHAv+gk2wRnqQ68cit7ylFbYVZ
- 6ehyhVQyaxpSONsp1m32N+AAfOnnMAiyMrn9iFLVMnAI7QVBYTr9oV5hf w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10343"; a="249446416"
-X-IronPort-AV: E=Sophos;i="5.91,215,1647327600"; d="scan'208";a="249446416"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2022 18:11:54 -0700
-X-IronPort-AV: E=Sophos;i="5.91,215,1647327600"; d="scan'208";a="738983106"
+ t=1652231557; x=1683767557;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=iy3+5WJwsOnHdm/x0ebakKb2Hlj6xBu6DXfvecRK7wk=;
+ b=PfWJtn5ymNxIzaV5mJctMEPdsVckXNOY33r4T0hfMzzF3dpBU0pVE0Ek
+ LCxwsA8KqNgq7e4OguXxI1Sm+0eKxJKLDn3uNgSSRldIuZyomXLUbptGx
+ UB+zhVpCgxdYlKqzHoMEBh4pPp+82r6xo5K7+EVVNaPXI9B6UloDPtHI5
+ fpVr0t2iSDmsPYEWJblkXTOcsPIKaBaDzZ/G5v1c9ff0LA4m+1IHv9OZs
+ J1qdBLdZ8quxx7sqvFKprPABDQmPsjTihJyGs2f2itgG1X6ovlCQc3nOR
+ LuINX383yTOwMFdvm++nFtXveCaZExkz0ff2vA5SupATXcHHjWM+HTGj9 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10343"; a="250080608"
+X-IronPort-AV: E=Sophos;i="5.91,215,1647327600"; d="scan'208";a="250080608"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2022 18:12:02 -0700
+X-IronPort-AV: E=Sophos;i="5.91,215,1647327600"; d="scan'208";a="593842577"
 Received: from ymmonter-mobl.amr.corp.intel.com (HELO intel.com)
  ([10.249.32.19])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2022 18:11:51 -0700
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2022 18:11:31 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Intel GFX <intel-gfx@lists.freedesktop.org>,
  DRI Devel <dri-devel@lists.freedesktop.org>
-Date: Wed, 11 May 2022 03:11:21 +0200
-Message-Id: <20220511011121.114226-4-andi.shyti@linux.intel.com>
+Date: Wed, 11 May 2022 03:11:18 +0200
+Message-Id: <20220511011121.114226-1-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220511011121.114226-1-andi.shyti@linux.intel.com>
-References: <20220511011121.114226-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 3/3] drm/i915/gt: Skip TLB invalidation if
- the engine is not awake
+Subject: [Intel-gfx] [PATCH v4 0/3] Clear TLB caches in all tiles when
+ object is removed
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,37 +61,44 @@ Cc: Matthew Auld <matthew.auld@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We want to check if the engine is awake first before invalidating
-its cache.
+Hi,
 
-Suggested-by: Chris Wilson <chris@chris-wilson.co.uk>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Maybe I should not send patches this late at night as I end up
+messing things up and spamming sleeping people. Sorry for this
+version 4.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 034182f85501b..a1dc9f4203c2b 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -12,6 +12,7 @@
- #include "i915_drv.h"
- #include "intel_context.h"
- #include "intel_engine_regs.h"
-+#include "intel_engine_pm.h"
- #include "intel_gt.h"
- #include "intel_gt_buffer_pool.h"
- #include "intel_gt_clock_utils.h"
-@@ -1219,6 +1220,9 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 		const unsigned int timeout_ms = 4;
- 		struct reg_and_bit rb;
- 
-+		if (!intel_engine_pm_is_awake(engine))
-+			continue;
-+
- 		rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
- 		if (!i915_mmio_reg_offset(rb.reg))
- 			continue;
+The real fix is in patch 2. The rest is a helper that adds
+the with_intel_gt_pm_if_awake() (from Chris) and one more check
+on the status of the engine before accessing it for clearing the
+TLB.
+
+Andi
+
+Changelog
+=========
+v3 -> v4
+ - Fix e-mail mismatch in author and in SoB (Sorry!).
+
+v2 -> v3 (v2: https://patchwork.freedesktop.org/series/103835/)
+ - Add missing header file that was causing a compmile error.
+ - Fix wrong patch formatting.
+
+v1 -> v2 (v1: https://patchwork.freedesktop.org/series/103831/)
+ - Add with_intel_gt_pm_if_awake() macro for gt specific wakeref.
+ - Check if an engine is awake before invalidating its TLB.
+
+Andi Shyti (2):
+  drm/i915/gem: Flush TLBs for all the tiles when clearing an obj
+  drm/i915/gt: Skip TLB invalidation if the engine is not awake
+
+Chris Wilson (1):
+  drm/i915/gt: Ignore TLB invalidations on idle engines
+
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c | 12 +++++++++---
+ drivers/gpu/drm/i915/gt/intel_gt.c        |  4 ++++
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h     |  4 ++++
+ 3 files changed, 17 insertions(+), 3 deletions(-)
+
 -- 
 2.36.1
 
