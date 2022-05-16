@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BFC4C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 May 2022 09:11:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CEE3C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 May 2022 09:11:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7770C10EF05;
-	Mon, 16 May 2022 09:11:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 453AB10EF96;
+	Mon, 16 May 2022 09:11:42 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F418510EF05
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 May 2022 09:11:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 353F510EF05
+ for <intel-gfx@lists.freedesktop.org>; Mon, 16 May 2022 09:11:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652692298; x=1684228298;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=3jveAccv5LS7WbpOf8IYIN1HjuU45v/EQg9WCG+UHDs=;
- b=V6zM3o5AwOm4hE7EDt5mDsyT2upt1kcO97qXRtp1b3qYporYY0Zg5wH6
- Z0XAH1MkhT/t8EgOr7iTOghgObZAgjleR9Q2PJE1SoN/Gj0gBxL3w5wme
- wkTU40deMoj/dUX26+WlNGzQGBUWpAD097k6VEUXmeDTovIFtN0Vo2iK0
- FjVKOhIejs/fuN1jA/YSjNRxnbbtEhOwDJ112vj7p/SSFSuVtv2OkAjaB
- xMw2oThZOXNj6KVuccD1K0zlOEFac73i7fI4rRDzt6iXlKSLxN1pHUIv9
- VzAvWonV/67wFSkqjwM4fnMdspnau2+HkiTbi/NJtodUb6dEG9AvWR1N4 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10348"; a="269602328"
-X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="269602328"
+ t=1652692299; x=1684228299;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=/jgOOaHqhIBsv7TFEti9vb+bsQUWnnYh1mmp+uRca9I=;
+ b=bfSpc9vRtenZh6wJHk3xqF2dEbF+LC85tahoQzLdlciFvZR8cW8cn7kB
+ J7bH9/JCNi3qSSSw5fSWZmsRqI3dO18eQAjXe2U3c7q9wyekqpvK33fZ3
+ vHJmFEbSPZdFNhiRTOhpGESZ6TUV+IoA3Nim0ZO9a5VhvN0uE9DPWj3FX
+ 3mIGyz+DtgE0azenwbVgtuJ+uD8vUcFR3jNCl1ICatMDFgUVePfnakQ4i
+ BtUcNv8RuNgSAR5Kc9iraM7edIrUMOWuSNfU7whnk+TACQk8A/njI2nNg
+ qS+caHpRzllC+IPdKhdXnLUxwUg+oSQsKtSLisMbVDB7dETJu4lUyXSUv Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10348"; a="269602330"
+X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="269602330"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 May 2022 02:11:38 -0700
-X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="522370442"
+X-IronPort-AV: E=Sophos;i="5.91,229,1647327600"; d="scan'208";a="522370447"
 Received: from vkasired-desk2.fm.intel.com ([10.105.128.127])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2022 02:11:37 -0700
+ 16 May 2022 02:11:38 -0700
 From: Vivek Kasireddy <vivek.kasireddy@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 16 May 2022 01:54:00 -0700
-Message-Id: <20220516085402.3591249-1-vivek.kasireddy@intel.com>
+Date: Mon, 16 May 2022 01:54:02 -0700
+Message-Id: <20220516085402.3591249-3-vivek.kasireddy@intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220516085402.3591249-1-vivek.kasireddy@intel.com>
+References: <20220516085402.3591249-1-vivek.kasireddy@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v1 0/2] drm/i915/tc: Prevent system hang when
- modesetting disconnected Type-C ports
+Subject: [Intel-gfx] [PATCH v1 2/2] drm/i915: Reject the atomic modeset if
+ an associated Type-C port is disconnected
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,39 +60,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The following two patches try to prevent a system hang when a modeset
-is forced by userspace (Weston) on legacy Type-C ports that are
-disconnected. This issue was accidentally discovered while trying
-to modeset one of the HDMI ports on the TGL based Gigabyte system
-(https://www.gigabyte.com/Mini-PcBarebone/GB-BSi3-1115G4-rev-10#ov)
-using the following Weston settings (configured via weston.ini):
+Although, doing a modeset on any disconnected connector might be futile,
+it can be particularly problematic if the connector is a Type-C port
+without a sink. And, the spec only says "Display software must not use
+a disconnected port" while referring to the Type-C DDI seqeuence, it does
+not spell out what happens if such an attempt is made. Experimental results
+have shown that this can lead to serious issues including a system hang.
+Therefore, reject the atomic modeset if we detect that the Type-C port
+is not connected.
 
-[output]
-name=HDMI-A-3
-mode=173.00 1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
-force-on=true
-
-Entering the name of the HDMI connector incorrectly above (for example
-HDMI-A-3 (disconnected) instead of HDMI-A-2 (connected)) lead to 
-warnings in the log followed by a system hang. To fix this issue,
-the first patch prevents the selection of TBT PLL for legacy Type-C
-ports and the second one rejects any attempts to modeset disconnected
-Type-C ports.
-
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: José Roberto de Souza <jose.souza@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-Vivek Kasireddy (2):
-  drm/i915/tc: Don't default disconnected legacy Type-C ports to TBT
-    mode
-  drm/i915: Reject the atomic modeset if an associated Type-C port is
-    disconnected
-
+Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+---
  drivers/gpu/drm/i915/display/intel_atomic.c | 20 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_tc.c     |  3 ++-
- 2 files changed, 22 insertions(+), 1 deletion(-)
+ 1 file changed, 20 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+index 40da7910f845..40576964b8c1 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -114,6 +114,8 @@ int intel_digital_connector_atomic_set_property(struct drm_connector *connector,
+ int intel_digital_connector_atomic_check(struct drm_connector *conn,
+ 					 struct drm_atomic_state *state)
+ {
++	struct drm_device *dev = conn->dev;
++	struct drm_i915_private *dev_priv = to_i915(dev);
+ 	struct drm_connector_state *new_state =
+ 		drm_atomic_get_new_connector_state(state, conn);
+ 	struct intel_digital_connector_state *new_conn_state =
+@@ -122,6 +124,10 @@ int intel_digital_connector_atomic_check(struct drm_connector *conn,
+ 		drm_atomic_get_old_connector_state(state, conn);
+ 	struct intel_digital_connector_state *old_conn_state =
+ 		to_intel_digital_connector_state(old_state);
++	struct intel_encoder *encoder =
++		intel_attached_encoder(to_intel_connector(conn));
++	struct intel_digital_port *dig_port =
++		encoder ? enc_to_dig_port(encoder) : NULL;
+ 	struct drm_crtc_state *crtc_state;
+ 
+ 	intel_hdcp_atomic_check(conn, old_state, new_state);
+@@ -131,6 +137,20 @@ int intel_digital_connector_atomic_check(struct drm_connector *conn,
+ 
+ 	crtc_state = drm_atomic_get_new_crtc_state(state, new_state->crtc);
+ 
++	/*
++	 * The spec says that it is not safe to use a disconnected Type-C port.
++	 * Therefore, check to see if this connector is connected and reject
++	 * the modeset if there is no sink detected.
++	 */
++	if (dig_port && !dig_port->connected(encoder) &&
++	    intel_phy_is_tc(dev_priv,
++	    intel_port_to_phy(dev_priv, encoder->port))) {
++		drm_dbg_atomic(&dev_priv->drm,
++			       "[CONNECTOR:%d:%s] is not connected; rejecting the modeset\n",
++			       conn->base.id, conn->name);
++		return -EINVAL;
++	}
++
+ 	/*
+ 	 * These properties are handled by fastset, and might not end
+ 	 * up in a modeset.
 -- 
 2.35.1
 
