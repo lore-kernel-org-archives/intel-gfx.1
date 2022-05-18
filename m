@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE84C433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 May 2022 11:25:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D176C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 May 2022 11:25:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C041110E068;
-	Wed, 18 May 2022 11:25:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69BB810E346;
+	Wed, 18 May 2022 11:25:43 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3F44A10E068;
- Wed, 18 May 2022 11:25:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id DA22310E346;
+ Wed, 18 May 2022 11:25:41 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 3585CA7DFC;
- Wed, 18 May 2022 11:25:39 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id D4A7CAADE2;
+ Wed, 18 May 2022 11:25:41 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Stanislav Lisovskiy" <stanislav.lisovskiy@intel.com>
-Date: Wed, 18 May 2022 11:25:39 -0000
-Message-ID: <165287313919.21389.2929891200877630827@emeril.freedesktop.org>
+Date: Wed, 18 May 2022 11:25:41 -0000
+Message-ID: <165287314186.21387.15319664808843835634@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220518105946.28179-1-stanislav.lisovskiy@intel.com>
 In-Reply-To: <20220518105946.28179-1-stanislav.lisovskiy@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Write_zero_wms_if_we_disable_planes_for_icl+?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_Write_zero_wms_if_we_disable_planes_for_icl+?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,13 +53,12 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-ad72e46079ae drm/i915: Write zero wms if we disable planes for icl+
--:78: CHECK:LINE_SPACING: Please don't use multiple blank lines
-#78: FILE: drivers/gpu/drm/i915/intel_pm.c:5933:
-+
-+
-
-total: 0 errors, 0 warnings, 1 checks, 68 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
++ ^
++ }
++drivers/gpu/drm/i915/intel_pm.c:5931:1: warning: the frame size of 1296 bytes is larger than 1024 bytes [-Wframe-larger-than=]
++drivers/gpu/drm/i915/intel_pm.c: In function ‘skl_write_zero_plane_wm’:
 
 
