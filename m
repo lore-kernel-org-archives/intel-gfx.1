@@ -4,40 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F10BC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 May 2022 07:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60B91C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 May 2022 07:50:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05300113E58;
-	Wed, 18 May 2022 07:48:00 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1E22113E41;
- Wed, 18 May 2022 07:47:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=aexzG6QT7OwxTkVV+awVYjuMAu3L2V7mGlqxPgNrxYU=; b=EeO0qMprxdclZ/T8O5w4wRGgBl
- yK0/SLxrtiPXqvDFHbKQtiWVdp64UUltfCI1iRQnDWSYMd3RlVxHG9ta+pJwcJCSTA/mKQE15m0lq
- erOEmg0Id8OWhU5wRqbxttRf+G8qjAbJZM5s/iK87aHb2mOwadXq9j5/qaxRJ2yjAzP6ANeXODmGd
- U+YNi9VopdTaZoHirm7hf0+1oivBlF9vpqLLI8c+suSdyS0GXyVhx5rjrdFfa5Jg3vYrksBV+MEkI
- 04rYnOCMwrm+a1zIiUk4IyLU+z3bDUxaENtVN4TbyAFLQHxTwu91d2cZ8qIWq8G/p5d+e9e5Rs7rn
- XOdHS+KQ==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nrEPR-000EBP-Sb; Wed, 18 May 2022 07:47:53 +0000
-Date: Wed, 18 May 2022 00:47:53 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Matthew Rosato <mjrosato@linux.ibm.com>
-Message-ID: <YoSkqWl7YkqYksG5@infradead.org>
-References: <20220517180851.166538-1-mjrosato@linux.ibm.com>
- <20220517180851.166538-2-mjrosato@linux.ibm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DCFB113E82;
+	Wed, 18 May 2022 07:50:55 +0000 (UTC)
+X-Greylist: delayed 348 seconds by postgrey-1.36 at gabe;
+ Wed, 18 May 2022 07:50:53 UTC
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF67113E80;
+ Wed, 18 May 2022 07:50:53 +0000 (UTC)
+Received: from zn.tnic (p200300ea974657d0329c23fffea6a903.dip0.t-ipconnect.de
+ [IPv6:2003:ea:9746:57d0:329c:23ff:fea6:a903])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 527C91EC0666;
+ Wed, 18 May 2022 09:44:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1652859898;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=a8Szr4z7U3LLWZpmFRmG29wYOgRi5MD6X+p5qsug0OA=;
+ b=Pob2AA/6Vhjy47GRjAV39j87RoTblM7SFu97DnhIry+QeDLbyAQdHuDrgFDWIiEnpC4bm/
+ Xi/iAffzZviq9amZHlIwnWlB180E1+Fa+9cjED1quaEIpjZb08y2XM+M/dfSOZpW8uPJ98
+ G1U8sQiSeFJI7pnTBmLcMFUjPrbkZYw=
+Date: Wed, 18 May 2022 09:44:52 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <YoSj9O/6yA0nn/xW@zn.tnic>
+References: <20220405151517.29753-1-bp@alien8.de>
+ <20220405151517.29753-12-bp@alien8.de>
+ <78e67e42-7e1e-e9fa-036d-441168100731@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20220517180851.166538-2-mjrosato@linux.ibm.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [Intel-gfx] [PATCH 1/1] vfio: remove VFIO_GROUP_NOTIFY_SET_KVM
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <78e67e42-7e1e-e9fa-036d-441168100731@infradead.org>
+Subject: Re: [Intel-gfx] [PATCH 11/11] drm/i915: Fix undefined behavior due
+ to shift overflowing the constant
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,76 +56,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jjherne@linux.ibm.com, akrowiak@linux.ibm.com, kvm@vger.kernel.org,
- hch@infradead.org, linux-s390@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- cohuck@redhat.com, linux-kernel@vger.kernel.org, pasic@linux.ibm.com,
- jgg@nvidia.com, borntraeger@linux.ibm.com, intel-gvt-dev@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ LKML <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With this the release_work in gvt can go away as well:
+On Tue, May 17, 2022 at 04:05:46PM -0700, Randy Dunlap wrote:
+> 
+> 
+> On 4/5/22 08:15, Borislav Petkov wrote:
+> > From: Borislav Petkov <bp@suse.de>
+> > 
+> > Fix:
+> > 
+> >   In file included from <command-line>:0:0:
+> >   drivers/gpu/drm/i915/gt/uc/intel_guc.c: In function ‘intel_guc_send_mmio’:
+> >   ././include/linux/compiler_types.h:352:38: error: call to ‘__compiletime_assert_1047’ \
+> >   declared with attribute error: FIELD_PREP: mask is not constant
+> >     _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+> > 
+> > and other build errors due to shift overflowing values.
+> > 
+> > See https://lore.kernel.org/r/YkwQ6%2BtIH8GQpuct@zn.tnic for the gory
+> > details as to why it triggers with older gccs only.
+> > 
+> 
+> Acked-by: Randy Dunlap <rdunlap@infradead.org>
+> Tested-by: Randy Dunlap <rdunlap@infradead.org>
+> 
+> Is this merged anywhere?
 
-diff --git a/drivers/gpu/drm/i915/gvt/gvt.h b/drivers/gpu/drm/i915/gvt/gvt.h
-index 633acfcf76bf2..aee1a45da74bc 100644
---- a/drivers/gpu/drm/i915/gvt/gvt.h
-+++ b/drivers/gpu/drm/i915/gvt/gvt.h
-@@ -227,7 +227,6 @@ struct intel_vgpu {
- 	struct mutex cache_lock;
- 
- 	struct notifier_block iommu_notifier;
--	struct work_struct release_work;
- 	atomic_t released;
- 
- 	struct kvm_page_track_notifier_node track_node;
-diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index b317ae4cc7d2d..917617d7599a9 100644
---- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-+++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -228,8 +228,6 @@ static void intel_gvt_cleanup_vgpu_type_groups(struct intel_gvt *gvt)
- 	}
- }
- 
--static void intel_vgpu_release_work(struct work_struct *work);
--
- static void gvt_unpin_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
- 		unsigned long size)
- {
-@@ -850,8 +848,9 @@ static void intel_vgpu_release_msi_eventfd_ctx(struct intel_vgpu *vgpu)
- 	}
- }
- 
--static void __intel_vgpu_release(struct intel_vgpu *vgpu)
-+static void intel_vgpu_close_device(struct vfio_device *vfio_dev)
- {
-+	struct intel_vgpu *vgpu = vfio_dev_to_vgpu(vfio_dev);
- 	struct drm_i915_private *i915 = vgpu->gvt->gt->i915;
- 	int ret;
- 
-@@ -880,19 +879,6 @@ static void __intel_vgpu_release(struct intel_vgpu *vgpu)
- 	vgpu->attached = false;
- }
- 
--static void intel_vgpu_close_device(struct vfio_device *vfio_dev)
--{
--	__intel_vgpu_release(vfio_dev_to_vgpu(vfio_dev));
--}
--
--static void intel_vgpu_release_work(struct work_struct *work)
--{
--	struct intel_vgpu *vgpu =
--		container_of(work, struct intel_vgpu, release_work);
--
--	__intel_vgpu_release(vgpu);
--}
--
- static u64 intel_vgpu_get_bar_addr(struct intel_vgpu *vgpu, int bar)
- {
- 	u32 start_lo, start_hi;
-@@ -1639,7 +1625,6 @@ static int intel_vgpu_probe(struct mdev_device *mdev)
- 		return PTR_ERR(vgpu);
- 	}
- 
--	INIT_WORK(&vgpu->release_work, intel_vgpu_release_work);
- 	vfio_init_group_dev(&vgpu->vfio_device, &mdev->dev,
- 			    &intel_vgpu_dev_ops);
- 
+It's state is "new" in their patchwork:
+
+https://patchwork.freedesktop.org/patch/480756/
+
+so I guess not yet.
+
+> It could/should at least be in linux-next so that other people
+> don't waste time on it.
+
+-ETOOMANYPATCHES I guess. :-\
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
