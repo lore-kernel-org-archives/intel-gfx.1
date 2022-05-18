@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 834ABC433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 May 2022 13:07:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96944C433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 May 2022 13:08:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0C7010EE22;
-	Wed, 18 May 2022 13:07:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B2CA10ED93;
+	Wed, 18 May 2022 13:08:00 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7E4B10EDA2
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 May 2022 13:07:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEC3310EDD8
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 May 2022 13:07:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652879273; x=1684415273;
+ t=1652879276; x=1684415276;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+pSBa1GnNKNtnpgN8PTvCzu5VMCKneJ23a+NFTDP3ak=;
- b=b8EMdXFrqKn0Yz6M1wVi87OH7baa5T6sZSm9U0V/pihKN+s09d+U0Pz0
- O+VrdjpP71kfDiS4SXqZtfw3jYPRM1jlYFPvuCVkcF2Fm/AOUV9bMKZUn
- 7s8EC91vYWL9/YanaASkU1ShrFHBbsDFyJs87nYdZwchZ8HFMaKazNWGK
- r8RHE24C4tmVWn3xaI8w4/Hn7m3o72ZJYYO9bTTIU07mCoJDBPpgDRnP+
- YhPlVs/IWCBtMYHNHJk6rw+W60nPmaBJJ674Lbfz54ZwTqY1yFXzBM5GS
- 55yOGNhGbxEvZnUFNg6WraNNMJmVjkHl2pNxwkqHWcnXOcfQ00QeWwvSB w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10350"; a="358071776"
-X-IronPort-AV: E=Sophos;i="5.91,234,1647327600"; d="scan'208";a="358071776"
+ bh=irv+D35PTx3xSADxPJOUoMTtlfW0lv3c8qVEqXlqnwM=;
+ b=Yu9KZniCNG+tFvqPz+raAX6BIU4ciewa3AppvEkAVk3FSpwqTOrM9xLQ
+ g5W7Jm3y3lGLys4RowZM8TB0DzUpz1uw9OSa+0USGPywHF2+dsXfbKQIJ
+ DFQQGXScWV46IivriOPmh85wLMwA8AIBedN4TbIE5mCRGd182QgFdisnb
+ B7Od7O7yQbG2w1a3GyuF/zuczQdth2tDSqElx7MVJ8FjgEtt1SkY5o1H8
+ ISsXM9GYJh/1LEnxSlHj+GxKz7ESPNz9Bbmw1QHgObdp9KJQavXUu5pYc
+ 6ROKF572FSTM/QbnAnQAthgdjQ7Ba1rL91yf30rItdGSKAZ0kWEiqpflh w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10350"; a="358071836"
+X-IronPort-AV: E=Sophos;i="5.91,234,1647327600"; d="scan'208";a="358071836"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2022 06:07:41 -0700
-X-IronPort-AV: E=Sophos;i="5.91,234,1647327600"; d="scan'208";a="742314358"
+ 18 May 2022 06:07:46 -0700
+X-IronPort-AV: E=Sophos;i="5.91,234,1647327600"; d="scan'208";a="742314402"
 Received: from srr4-3-linux-105-anshuma1.iind.intel.com ([10.223.74.179])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2022 06:07:38 -0700
+ 18 May 2022 06:07:44 -0700
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 18 May 2022 18:37:14 +0530
-Message-Id: <20220518130716.10936-6-anshuman.gupta@intel.com>
+Date: Wed, 18 May 2022 18:37:16 +0530
+Message-Id: <20220518130716.10936-8-anshuman.gupta@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20220518130716.10936-1-anshuman.gupta@intel.com>
 References: <20220518130716.10936-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/7] drm/i915/pcode: DGFX PCODE MBOX headers
+Subject: [Intel-gfx] [PATCH 7/7] drm/i915/rpm: Enable D3Cold VRAM SR Support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,35 +55,95 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, rodrigo.vivi@intel.com
+Cc: jani.nikula@intel.com, Chris Wilson <chris.p.wilson@intel.com>,
+ rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DGFX uses similar PCODE MBOX interface as IGFX but
-uses distinct COMMAND and PARAM set of bit fields.
-Adding those headers Accordingly.
+Intel Client DGFX card supports D3Cold with two option.
+D3Cold-off zero watt, D3Cold-VRAM Self Refresh.
+
+i915 requires to evict the lmem objects to smem in order to
+support D3Cold-Off, which increases i915 the suspend/resume
+latency. Enabling VRAM Self Refresh feature optimize the
+latency with additional power cost which required to retain
+the lmem.
+
+Adding intel_runtime_idle (runtime_idle callback) to enable
+VRAM_SR, it will be used for policy to choose
+between D3Cold-off vs D3Cold-VRAM_SR.
+
+Since we have introduced i915 runtime_idle callback.
+It need to be warranted that Runtime PM Core invokes runtime_idle
+callback when runtime usages count becomes zero. That requires
+to use pm_runtime_put instead of pm_runtime_put_autosuspend.
 
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Cc: Chris Wilson <chris.p.wilson@intel.com>
 Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/i915_driver.c      | 26 +++++++++++++++++++++++++
+ drivers/gpu/drm/i915/intel_runtime_pm.c |  3 +--
+ 2 files changed, 27 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 321a08281a3f..ec2609fa233b 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -6735,6 +6735,9 @@
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 5a9d5529fc90..bbb11c632799 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1541,6 +1541,31 @@ static int i915_pm_restore(struct device *kdev)
+ 	return i915_pm_resume(kdev);
+ }
  
- #define GEN6_PCODE_MAILBOX			_MMIO(0x138124)
- #define   GEN6_PCODE_READY			(1 << 31)
-+#define   GEN6_PCODE_MB_PARAM2                  REG_GENMASK(23, 16)
-+#define   GEN6_PCODE_MB_PARAM1                  REG_GENMASK(15, 8)
-+#define   GEN6_PCODE_MB_COMMAND                 REG_GENMASK(7, 0)
- #define   GEN6_PCODE_ERROR_MASK			0xFF
- #define     GEN6_PCODE_SUCCESS			0x0
- #define     GEN6_PCODE_ILLEGAL_CMD		0x1
++static int intel_runtime_idle(struct device *kdev)
++{
++	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
++	int ret = 1;
++
++	if (!HAS_LMEM_SR(dev_priv)) {
++		/*TODO: Prepare for D3Cold-Off */
++		goto out;
++	}
++
++	disable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
++
++	ret = intel_pm_vram_sr(dev_priv, true);
++	if (!ret)
++		drm_dbg(&dev_priv->drm, "VRAM Self Refresh enabled\n");
++
++	enable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
++
++out:
++	pm_runtime_mark_last_busy(kdev);
++	pm_runtime_autosuspend(kdev);
++
++	return ret;
++}
++
+ static int intel_runtime_suspend(struct device *kdev)
+ {
+ 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
+@@ -1726,6 +1751,7 @@ const struct dev_pm_ops i915_pm_ops = {
+ 	.restore = i915_pm_restore,
+ 
+ 	/* S0ix (via runtime suspend) event handlers */
++	.runtime_idle = intel_runtime_idle,
+ 	.runtime_suspend = intel_runtime_suspend,
+ 	.runtime_resume = intel_runtime_resume,
+ };
+diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
+index 6ed5786bcd29..4dade7e8a795 100644
+--- a/drivers/gpu/drm/i915/intel_runtime_pm.c
++++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
+@@ -492,8 +492,7 @@ static void __intel_runtime_pm_put(struct intel_runtime_pm *rpm,
+ 
+ 	intel_runtime_pm_release(rpm, wakelock);
+ 
+-	pm_runtime_mark_last_busy(kdev);
+-	pm_runtime_put_autosuspend(kdev);
++	pm_runtime_put(kdev);
+ }
+ 
+ /**
 -- 
 2.26.2
 
