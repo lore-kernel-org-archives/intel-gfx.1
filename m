@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE39C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 May 2022 09:08:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B4CFC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 May 2022 09:08:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D095311B11E;
-	Thu, 19 May 2022 09:08:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5A0411B122;
+	Thu, 19 May 2022 09:08:20 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 594F111B115;
- Thu, 19 May 2022 09:08:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9646B11B11B;
+ Thu, 19 May 2022 09:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652951295; x=1684487295;
+ t=1652951298; x=1684487298;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NYdDdxPTxs0qimNbx4S2Te3rbwrw2uk/H/X4LmXwUAc=;
- b=OQX5pQE5aK0ofExfjoMXfEV+b6CbRXAOBiCASpRHh1qLXAiVZS0XW65V
- FZnPNmOBNFfUgDQ41A8HS7BkvjKyyEO9EuTD+VeNH7oDvpnxbbb/Fe+qu
- AkY4jj6jbk1ApziHXCCvkl8TR/6ZI8XRMLLSHaj2/OE+oDbR5/VU5syIs
- 8eJkdYH+g6BkfL7HuINgD2zn/J0a5C+1UVc5tK6AbBsM5FEGW90xTYEOR
- TfacCdelEVysRrSKit6PwGndGPseY0H7kKuPSnrdhTFF7L+aJRZvvd7ik
- wiIx3+clPuiFnbTEW2+jqOntzfS/8pn5fSz4w4cdRIlRFLVdHoJl2+17P Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="358511903"
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="358511903"
+ bh=hmNBCtYD/Gr1g+nUAY3Jz1UJUczMFtXfPDqrZuDzssE=;
+ b=RDwSfc5Vs85aAUcGyLJbDP1VOE47Osg0e3hZRYMIbnQ8fH2TNQXJa6QQ
+ ybvKYGDkOl6tfUYH3QJ2sP/nVPkZtaqK6h8Gi10FCDmeYkQjzB8/1davk
+ oh+SBUz2GxU9owR5uuhR0RDUdReRY2vwt5taZMK2m8CQP60UqMiEddodw
+ dBF6xUjvFU5MiktD7q1ODjuszEfdgW87jlyDjdlFSYFonSD8bURWuIP31
+ jqrhOL5kn6nAfDqzIfyc2jQvKibILWAh7tJyqONMy448yOxwieFgOqjqh
+ F1w4HmvK0UmTGAsog9Ap5Ez1XQZzhe7Dte0VxHWBrD9PDQsQ7++rUQJV0 g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="358511915"
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="358511915"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 02:08:15 -0700
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="639699273"
+ 19 May 2022 02:08:18 -0700
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="639699294"
 Received: from wangyaqi-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.199.90])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 02:08:13 -0700
+ 19 May 2022 02:08:17 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 19 May 2022 10:07:59 +0100
-Message-Id: <20220519090802.1294691-5-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 19 May 2022 10:08:01 +0100
+Message-Id: <20220519090802.1294691-7-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220519090802.1294691-1-tvrtko.ursulin@linux.intel.com>
 References: <20220519090802.1294691-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/7] Revert "drm/i915: Drop
- has_logical_ring_elsq from device info"
+Subject: [Intel-gfx] [PATCH 6/7] Revert "drm/i915: Drop has_rc6 from device
+ info"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,65 +63,104 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-This reverts commit b6411373d3954c8fe4617c27f90f773108b0ab03.
+This reverts commit 218076abbcd647de46635d21331a34b814f90906.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Acked-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h          | 3 ++-
- drivers/gpu/drm/i915/i915_pci.c          | 4 +++-
+ drivers/gpu/drm/i915/i915_drv.h          | 3 +--
+ drivers/gpu/drm/i915/i915_pci.c          | 8 ++++++++
  drivers/gpu/drm/i915/intel_device_info.h | 1 +
- 3 files changed, 6 insertions(+), 2 deletions(-)
+ 3 files changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index c051b9420d2e..ba93faf3545d 100644
+index ba93faf3545d..3a2db27cbe1c 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1247,7 +1247,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+@@ -1308,8 +1308,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define HAS_PSR2_SEL_FETCH(dev_priv)	 (DISPLAY_VER(dev_priv) >= 12)
+ #define HAS_TRANSCODER(dev_priv, trans)	 ((INTEL_INFO(dev_priv)->display.cpu_transcoder_mask & BIT(trans)) != 0)
  
- #define HAS_LOGICAL_RING_CONTEXTS(dev_priv) \
- 		(INTEL_INFO(dev_priv)->has_logical_ring_contexts)
--#define HAS_LOGICAL_RING_ELSQ(dev_priv) (GRAPHICS_VER(dev_priv) >= 11)
-+#define HAS_LOGICAL_RING_ELSQ(dev_priv) \
-+		(INTEL_INFO(dev_priv)->has_logical_ring_elsq)
- 
- #define HAS_EXECLISTS(dev_priv) HAS_LOGICAL_RING_CONTEXTS(dev_priv)
+-/* ilk does support rc6, but we do not implement [power] contexts */
+-#define HAS_RC6(dev_priv)		 (GRAPHICS_VER(dev_priv) >= 6)
++#define HAS_RC6(dev_priv)		 (INTEL_INFO(dev_priv)->has_rc6)
+ #define HAS_RC6p(dev_priv)		 (INTEL_INFO(dev_priv)->has_rc6p)
+ #define HAS_RC6pp(dev_priv)		 (false) /* HW was never validated */
  
 diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index f8292d7b90f4..cd0b542a3a3a 100644
+index 542553e1be9e..938c18321ef8 100644
 --- a/drivers/gpu/drm/i915/i915_pci.c
 +++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -809,7 +809,8 @@ static const struct intel_device_info cml_gt2_info = {
- 	.dbuf.size = 2048, \
- 	.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2), \
- 	.display.has_dsc = 1, \
--	.has_coherent_ggtt = false
-+	.has_coherent_ggtt = false, \
-+	.has_logical_ring_elsq = 1
- 
- static const struct intel_device_info icl_info = {
- 	GEN11_FEATURES,
-@@ -996,6 +997,7 @@ static const struct intel_device_info adl_p_info = {
- 	.has_global_mocs = 1, \
+@@ -376,6 +376,8 @@ static const struct intel_device_info gm45_info = {
+ 	.platform_engine_mask = BIT(RCS0) | BIT(VCS0), \
+ 	.has_snoop = true, \
+ 	.has_coherent_ggtt = true, \
++	/* ilk does support rc6, but we do not implement [power] contexts */ \
++	.has_rc6 = 0, \
+ 	.dma_mask_size = 36, \
+ 	I9XX_PIPE_OFFSETS, \
+ 	I9XX_CURSOR_OFFSETS, \
+@@ -405,6 +407,7 @@ static const struct intel_device_info ilk_m_info = {
+ 	.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0), \
+ 	.has_coherent_ggtt = true, \
  	.has_llc = 1, \
++	.has_rc6 = 1, \
+ 	.has_rc6p = 1, \
+ 	.has_rps = true, \
+ 	.dma_mask_size = 40, \
+@@ -455,6 +458,7 @@ static const struct intel_device_info snb_m_gt2_info = {
+ 	.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0), \
+ 	.has_coherent_ggtt = true, \
+ 	.has_llc = 1, \
++	.has_rc6 = 1, \
+ 	.has_rc6p = 1, \
+ 	.has_reset_engine = true, \
+ 	.has_rps = true, \
+@@ -514,6 +518,7 @@ static const struct intel_device_info vlv_info = {
+ 	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B),
+ 	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B),
+ 	.has_runtime_pm = 1,
++	.has_rc6 = 1,
+ 	.has_reset_engine = true,
+ 	.has_rps = true,
+ 	.display.has_gmch = 1,
+@@ -612,6 +617,7 @@ static const struct intel_device_info chv_info = {
+ 	.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0) | BIT(VECS0),
+ 	.has_64bit_reloc = 1,
+ 	.has_runtime_pm = 1,
++	.has_rc6 = 1,
+ 	.has_rps = true,
+ 	.has_logical_ring_contexts = 1,
+ 	.display.has_gmch = 1,
+@@ -694,6 +700,7 @@ static const struct intel_device_info skl_gt4_info = {
+ 	.display.has_psr_hw_tracking = 1, \
+ 	.has_runtime_pm = 1, \
+ 	.display.has_dmc = 1, \
++	.has_rc6 = 1, \
+ 	.has_rps = true, \
+ 	.display.has_dp_mst = 1, \
  	.has_logical_ring_contexts = 1, \
-+	.has_logical_ring_elsq = 1, \
+@@ -1003,6 +1010,7 @@ static const struct intel_device_info adl_p_info = {
+ 	.has_logical_ring_contexts = 1, \
+ 	.has_logical_ring_elsq = 1, \
  	.has_mslices = 1, \
++	.has_rc6 = 1, \
+ 	.has_reset_engine = 1, \
  	.has_rps = 1, \
  	.has_runtime_pm = 1, \
 diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index ec6d834cda09..0eaa3e0b4389 100644
+index 991ed8f304b5..ecc3403c2aa9 100644
 --- a/drivers/gpu/drm/i915/intel_device_info.h
 +++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -152,6 +152,7 @@ enum intel_ppgtt_type {
- 	func(has_l3_dpf); \
- 	func(has_llc); \
- 	func(has_logical_ring_contexts); \
-+	func(has_logical_ring_elsq); \
+@@ -157,6 +157,7 @@ enum intel_ppgtt_type {
  	func(has_mslices); \
  	func(has_pooled_eu); \
  	func(has_pxp); \
++	func(has_rc6); \
+ 	func(has_rc6p); \
+ 	func(has_rps); \
+ 	func(has_runtime_pm); \
 -- 
 2.32.0
 
