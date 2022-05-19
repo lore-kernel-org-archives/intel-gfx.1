@@ -4,60 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CEDFC433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 May 2022 09:02:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9762BC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 May 2022 09:08:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0C9511B0B1;
-	Thu, 19 May 2022 09:02:58 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E55411B0B1;
- Thu, 19 May 2022 09:02:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7537B11B110;
+	Thu, 19 May 2022 09:08:12 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0C4D11B10A;
+ Thu, 19 May 2022 09:08:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652950978; x=1684486978;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=hAoQkRu47IyaWQTtveq3c7aHdT3liXee0nWJIpO68aY=;
- b=KnfdPscxlT8KXdzqv75Z1ANV1KHBgEGg+OdxYgkoWkDUH8X5cV0uVJEB
- 5fOfAZhJCy/DzImsYRScRePnUMfzMyCHNTEgvtEfb0U/JdEBgdmshYMPN
- Um+82sYVNuLCjS4AFqdfqQ/ig6ORQs3JxLp9eBxjspcGULTIhe2ldBnLo
- 9iHHyAVlkB2OcTTTMIe5uC7lr4T2V+j9oHd9cP9DzzVyfuxHheTtRTXTW
- rqB/oWg+bdc5MyV5eei86tVUbrERwFQWq/a9G50r3xUYuzIlxuCWZb89Y
- pnD/6oXJC5Ww8rKbMCzLkM9wHexDfSWSZaZ+IVxmXbeflj4cH5lGF10Vm Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="297405542"
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="297405542"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 02:02:57 -0700
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="545991736"
-Received: from tszulist-mobl.ger.corp.intel.com (HELO localhost)
- ([10.249.146.157])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 02:02:49 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>, Daniel Dadap
- <ddadap@nvidia.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>,
- Mark Gross <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
-In-Reply-To: <dc30ddc2-b00e-234e-5ec3-b1ea79c74082@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220517152331.16217-1-hdegoede@redhat.com>
- <20220517152331.16217-2-hdegoede@redhat.com> <87y1yzdxtk.fsf@intel.com>
- <dc30ddc2-b00e-234e-5ec3-b1ea79c74082@redhat.com>
-Date: Thu, 19 May 2022 12:02:46 +0300
-Message-ID: <87pmk9dhe1.fsf@intel.com>
+ t=1652951290; x=1684487290;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=OhF7MjXaZDK9apCEYmjWvGn+ChV7x/2RNlpB+5XmbBs=;
+ b=NxzavgkM5K3IE6dX98CrZ0qpne+gYNI/8T5CzRccqFJFyIH2KSN6xhWN
+ bcvBYwv+O2fFpR6G0CGf+gsbShUNnwCYS7BZ+Gs/2XBSL7MfJYhYNSq5Q
+ QdAHI6UuKaGCeAdXUV+XP3NtAFptKCiwCOEvyPDEMTe3ArPCNwncdBy2G
+ 2MGDOH+BnRLRxAeogpnwepvxmrZvnVbn3L8rfbtzdZf69gTNxOWijrOmE
+ NBnBaTmGOGUCy4bOLGGpsUGLYPJP4cHw/qpCZ2R7jDUqNju2t8dVU7lly
+ uYRcyJ2vVxmpQ/+GJUtZj5tLT9W+LU2rBtczN80WAl7l9sTufhYZi8TX3 w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="358511884"
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="358511884"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 02:08:10 -0700
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="639699258"
+Received: from wangyaqi-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
+ ([10.213.199.90])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 02:08:09 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Thu, 19 May 2022 10:07:56 +0100
+Message-Id: <20220519090802.1294691-2-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220519090802.1294691-1-tvrtko.ursulin@linux.intel.com>
+References: <20220519090802.1294691-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH 01/14] ACPI: video: Add a native function
- parameter to acpi_video_get_backlight_type()
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/7] Revert "drm/i915: Drop has_psr from device
+ info"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,117 +57,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Len Brown <lenb@kernel.org>
+Cc: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 18 May 2022, Hans de Goede <hdegoede@redhat.com> wrote:
-> Hi,
->
-> On 5/18/22 10:55, Jani Nikula wrote:
->> On Tue, 17 May 2022, Hans de Goede <hdegoede@redhat.com> wrote:
->>> ATM on x86 laptops where we want userspace to use the acpi_video backlight
->>> device we often register both the GPU's native backlight device and
->>> acpi_video's firmware acpi_video# backlight device. This relies on
->>> userspace preferring firmware type backlight devices over native ones, but
->>> registering 2 backlight devices for a single display really is undesirable.
->>>
->>> On x86 laptops where the native GPU backlight device should be used,
->>> the registering of other backlight devices is avoided by their drivers
->>> using acpi_video_get_backlight_type() and only registering their backlight
->>> if the return value matches their type.
->>>
->>> acpi_video_get_backlight_type() uses
->>> backlight_device_get_by_type(BACKLIGHT_RAW) to determine if a native
->>> driver is available and will never return native if this returns
->>> false. This means that the GPU's native backlight registering code
->>> cannot just call acpi_video_get_backlight_type() to determine if it
->>> should register its backlight, since acpi_video_get_backlight_type() will
->>> never return native until the native backlight has already registered.
->>>
->>> To fix this add a native function parameter to
->>> acpi_video_get_backlight_type(), which when set to true will make
->>> acpi_video_get_backlight_type() behave as if a native backlight has
->>> already been registered.
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Regarding the question below, this is the part that throws me off.
+This reverts commit b15a7357a84f091fde8ce35bf2fd494150ad4bd0.
 
->>>
->>> Note that all current callers are updated to pass false for the new
->>> parameter, so this change in itself causes no functional changes.
->> 
->> 
->>> diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
->>> index becc198e4c22..0a06f0edd298 100644
->>> --- a/drivers/acpi/video_detect.c
->>> +++ b/drivers/acpi/video_detect.c
->>> @@ -17,12 +17,14 @@
->>>   * Otherwise vendor specific drivers like thinkpad_acpi, asus-laptop,
->>>   * sony_acpi,... can take care about backlight brightness.
->>>   *
->>> - * Backlight drivers can use acpi_video_get_backlight_type() to determine
->>> - * which driver should handle the backlight.
->>> + * Backlight drivers can use acpi_video_get_backlight_type() to determine which
->>> + * driver should handle the backlight. RAW/GPU-driver backlight drivers must
->>> + * pass true for the native function argument, other drivers must pass false.
->>>   *
->>>   * If CONFIG_ACPI_VIDEO is neither set as "compiled in" (y) nor as a module (m)
->>>   * this file will not be compiled and acpi_video_get_backlight_type() will
->>> - * always return acpi_backlight_vendor.
->>> + * return acpi_backlight_native when its native argument is true and
->>> + * acpi_backlight_vendor when it is false.
->>>   */
->> 
->> Frankly, I think the boolean native parameter here, and at the call
->> sites, is confusing, and the slightly different explanations in the
->> commit message and comment here aren't helping.
->
-> Can you elaborate the "slightly different explanations in the
-> commit message and comment" part a bit (so that I can fix this) ?
->
->> I suggest adding a separate function that the native backlight drivers
->> should use. I think it's more obvious all around, and easier to document
->> too.
->
-> Code wise I think this would mean renaming the original and
-> then adding 2 wrappers, but that is fine with me. I've no real
-> preference either way and I'm happy with adding a new variant of
-> acpi_video_get_backlight_type() for the native backlight drivers
-> any suggestion for a name ?
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Acked-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/i915_drv.h          | 2 +-
+ drivers/gpu/drm/i915/i915_pci.c          | 3 +++
+ drivers/gpu/drm/i915/intel_device_info.h | 1 +
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
-Alternatively, do the native backlight drivers have any need for the
-actual backlight type information from acpi? They only need to be able
-to ask if they should register themselves, right?
-
-I understand this sounds like bikeshedding, but I'm trying to avoid
-duplicating the conditions in the drivers where a single predicate
-function call could be sufficient, and the complexity could be hidden in
-acpi.
-
-	if (!acpi_video_backlight_use_native())
-		return;
-
-Perhaps all the drivers/platform/x86/* backlight drivers could use:
-
-	if (acpi_video_backlight_use_vendor())
-		...
-
-You can still use the native parameter etc. internally, but just hide
-the details from everyone else, and, hopefully, make it harder for them
-to do silly things?
-
-BR,
-Jani.
-
-
->
-> Regards,
->
-> Hans
->
-
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 10f273800645..f4d070d2803c 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1303,7 +1303,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 					  IS_HASWELL(dev_priv))
+ #define HAS_DP_MST(dev_priv)		 (HAS_DDI(dev_priv))
+ #define HAS_FPGA_DBG_UNCLAIMED(dev_priv) (INTEL_INFO(dev_priv)->display.has_fpga_dbg)
+-#define HAS_PSR(dev_priv)		 (DISPLAY_VER(dev_priv) >= 9)
++#define HAS_PSR(dev_priv)		 (INTEL_INFO(dev_priv)->display.has_psr)
+ #define HAS_PSR_HW_TRACKING(dev_priv) \
+ 	(INTEL_INFO(dev_priv)->display.has_psr_hw_tracking)
+ #define HAS_PSR2_SEL_FETCH(dev_priv)	 (DISPLAY_VER(dev_priv) >= 12)
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index d8d893bafa51..b00f2ddb5de6 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -635,6 +635,7 @@ static const struct intel_device_info chv_info = {
+ 	.display.has_dmc = 1, \
+ 	.display.has_hdcp = 1, \
+ 	.display.has_ipc = 1, \
++	.display.has_psr = 1, \
+ 	.display.has_psr_hw_tracking = 1, \
+ 	.dbuf.size = 896 - 4, /* 4 blocks for bypass path allocation */ \
+ 	.dbuf.slice_mask = BIT(DBUF_S1)
+@@ -683,6 +684,7 @@ static const struct intel_device_info skl_gt4_info = {
+ 	.display.has_fpga_dbg = 1, \
+ 	.display.fbc_mask = BIT(INTEL_FBC_A), \
+ 	.display.has_hdcp = 1, \
++	.display.has_psr = 1, \
+ 	.display.has_psr_hw_tracking = 1, \
+ 	.has_runtime_pm = 1, \
+ 	.display.has_dmc = 1, \
+@@ -934,6 +936,7 @@ static const struct intel_device_info adl_s_info = {
+ 	.display.has_hdcp = 1,							\
+ 	.display.has_hotplug = 1,						\
+ 	.display.has_ipc = 1,							\
++	.display.has_psr = 1,							\
+ 	.display.ver = 13,							\
+ 	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),	\
+ 	.pipe_offsets = {							\
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 60fc35ae81df..f698e7b18640 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -178,6 +178,7 @@ enum intel_ppgtt_type {
+ 	func(has_ipc); \
+ 	func(has_modular_fia); \
+ 	func(has_overlay); \
++	func(has_psr); \
+ 	func(has_psr_hw_tracking); \
+ 	func(overlay_needs_physical); \
+ 	func(supports_tv);
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.32.0
+
