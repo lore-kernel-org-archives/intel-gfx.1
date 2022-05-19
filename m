@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B86B1C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 May 2022 09:08:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1F33C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 May 2022 09:08:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ED0E11B11B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9FF11B11C;
 	Thu, 19 May 2022 09:08:19 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65E6411B117;
- Thu, 19 May 2022 09:08:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C798F11B112;
+ Thu, 19 May 2022 09:08:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652951297; x=1684487297;
+ t=1652951293; x=1684487293;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9d/1A42OgT2gcqPn94vqCEJacWXeg5ag/Y1B8S3yO3U=;
- b=YA1G/a7d7Chgo8hAZMx45GGvPW17EO1cDjKafqhLstWShzDnGNpFARv1
- GkdTWke6xdbb1Puy2E5sAyS8hRy07RrxJ6UZVo0ZysQUP2hDuKfUFA6hy
- z14Czw2BoORefa2Z9EOaU1SK47nm1bDlNUT8Xu6ne3bKGg7zXab3THTUj
- VGi3vfA3In3oKd3uzz+KQjM2xPArvIETq3ClnFR/6GSIJC6I0EBHGWKbF
- wcHWsRLJDgeIRMNIxD5vFcM/uUXXVQumKXB4EyzjDqhCQmQ/EVJuYxJlY
- 5IdfH4SKJ041wbxeIDNDkizQFYtHF7nF+GqI4jk/psM/nHHpDFso8GXLw w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="358511910"
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="358511910"
+ bh=/kEzel4emKpAn84HPWiollM2qj00XYvzX/XmP4JXt80=;
+ b=A5kUZkbKnAWxTSBLuJajb923cuQb1hwDFWeO1RncWf9nvUoRD/mPl6Cs
+ j14sGbkAszRLPrhSGPacwge+RFq1vzHK1ZKC9uGVHcMzsuTCJgtDdB4W4
+ hXq+cD1HYb2XV3M5xo1JoZ5m0xi9luLGrtQvNxRD8BaD6SJGp1FeaU1jV
+ LiOF9KHHtIgraMxtB5SX7prDcEUNmBFoy3opXPySufGHGhZ/PJR7SYS4Y
+ 046v/0TXZwy+w4poRvJDD+Gk9OjqiUBX0piRXTbEy0QP0wUcCggnzsRbg
+ VfIiDUZWSc9t0Stk4PMVEkJSZdLtkGspJLFzYX4p5BePm0tIAmBDi7DVY A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="358511895"
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="358511895"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 02:08:16 -0700
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="639699283"
+ 19 May 2022 02:08:13 -0700
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; d="scan'208";a="639699268"
 Received: from wangyaqi-mobl.ger.corp.intel.com (HELO tursulin-mobl2.home)
  ([10.213.199.90])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 02:08:15 -0700
+ 19 May 2022 02:08:12 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Thu, 19 May 2022 10:08:00 +0100
-Message-Id: <20220519090802.1294691-6-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 19 May 2022 10:07:58 +0100
+Message-Id: <20220519090802.1294691-4-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220519090802.1294691-1-tvrtko.ursulin@linux.intel.com>
 References: <20220519090802.1294691-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/7] Revert "drm/i915: Drop has_reset_engine
- from device info"
+Subject: [Intel-gfx] [PATCH 3/7] Revert "drm/i915: Drop has_ddi from device
+ info"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,86 +63,72 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-This reverts commit 922abe4d19bd21b38298f3902674774b92a49293.
+This reverts commit efd01cd3c27636bc4840057a03839e54abaf11dc.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Acked-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_reset.c    | 2 +-
- drivers/gpu/drm/i915/i915_pci.c          | 5 +++++
+ drivers/gpu/drm/i915/i915_drv.h          | 4 +---
+ drivers/gpu/drm/i915/i915_pci.c          | 3 +++
  drivers/gpu/drm/i915/intel_device_info.h | 1 +
- 3 files changed, 7 insertions(+), 1 deletion(-)
+ 3 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index 11bf33f1f772..a5338c3fde7a 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -699,7 +699,7 @@ bool intel_has_reset_engine(const struct intel_gt *gt)
- 	if (gt->i915->params.reset < 2)
- 		return false;
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 7c25602b4e50..c051b9420d2e 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1299,9 +1299,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define HAS_DP20(dev_priv)	(IS_DG2(dev_priv))
  
--	return GRAPHICS_VER(gt->i915) >= 7;
-+	return INTEL_INFO(gt->i915)->has_reset_engine;
- }
- 
- int intel_reset_guc(struct intel_gt *gt)
+ #define HAS_CDCLK_CRAWL(dev_priv)	 (INTEL_INFO(dev_priv)->display.has_cdclk_crawl)
+-#define HAS_DDI(dev_priv)		 (DISPLAY_VER(dev_priv) >= 9 || \
+-					  IS_BROADWELL(dev_priv) || \
+-					  IS_HASWELL(dev_priv))
++#define HAS_DDI(dev_priv)		 (INTEL_INFO(dev_priv)->display.has_ddi)
+ #define HAS_FPGA_DBG_UNCLAIMED(dev_priv) (INTEL_INFO(dev_priv)->display.has_fpga_dbg)
+ #define HAS_PSR(dev_priv)		 (INTEL_INFO(dev_priv)->display.has_psr)
+ #define HAS_PSR_HW_TRACKING(dev_priv) \
 diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index cd0b542a3a3a..542553e1be9e 100644
+index 5eaec25b5489..f8292d7b90f4 100644
 --- a/drivers/gpu/drm/i915/i915_pci.c
 +++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -456,6 +456,7 @@ static const struct intel_device_info snb_m_gt2_info = {
- 	.has_coherent_ggtt = true, \
- 	.has_llc = 1, \
- 	.has_rc6p = 1, \
-+	.has_reset_engine = true, \
- 	.has_rps = true, \
- 	.dma_mask_size = 40, \
- 	.ppgtt_type = INTEL_PPGTT_ALIASING, \
-@@ -513,6 +514,7 @@ static const struct intel_device_info vlv_info = {
- 	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B),
- 	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B),
- 	.has_runtime_pm = 1,
-+	.has_reset_engine = true,
- 	.has_rps = true,
- 	.display.has_gmch = 1,
- 	.display.has_hotplug = 1,
-@@ -616,6 +618,7 @@ static const struct intel_device_info chv_info = {
- 	.dma_mask_size = 39,
- 	.ppgtt_type = INTEL_PPGTT_FULL,
- 	.ppgtt_size = 32,
-+	.has_reset_engine = 1,
- 	.has_snoop = true,
- 	.has_coherent_ggtt = false,
- 	.display_mmio_offset = VLV_DISPLAY_BASE,
-@@ -697,6 +700,7 @@ static const struct intel_device_info skl_gt4_info = {
- 	.dma_mask_size = 39, \
- 	.ppgtt_type = INTEL_PPGTT_FULL, \
- 	.ppgtt_size = 48, \
-+	.has_reset_engine = 1, \
- 	.has_snoop = true, \
- 	.has_coherent_ggtt = false, \
- 	.display.has_ipc = 1, \
-@@ -999,6 +1003,7 @@ static const struct intel_device_info adl_p_info = {
- 	.has_logical_ring_contexts = 1, \
- 	.has_logical_ring_elsq = 1, \
- 	.has_mslices = 1, \
-+	.has_reset_engine = 1, \
- 	.has_rps = 1, \
- 	.has_runtime_pm = 1, \
- 	.ppgtt_size = 48, \
+@@ -535,6 +535,7 @@ static const struct intel_device_info vlv_info = {
+ 	.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0) | BIT(VECS0), \
+ 	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
+ 		BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP), \
++	.display.has_ddi = 1, \
+ 	.display.has_fpga_dbg = 1, \
+ 	.display.has_dp_mst = 1, \
+ 	.has_rc6p = 0 /* RC6p removed-by HSW */, \
+@@ -682,6 +683,7 @@ static const struct intel_device_info skl_gt4_info = {
+ 		BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP) | \
+ 		BIT(TRANSCODER_DSI_A) | BIT(TRANSCODER_DSI_C), \
+ 	.has_64bit_reloc = 1, \
++	.display.has_ddi = 1, \
+ 	.display.has_fpga_dbg = 1, \
+ 	.display.fbc_mask = BIT(INTEL_FBC_A), \
+ 	.display.has_hdcp = 1, \
+@@ -930,6 +932,7 @@ static const struct intel_device_info adl_s_info = {
+ 	.dbuf.size = 4096,							\
+ 	.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2) | BIT(DBUF_S3) |		\
+ 		BIT(DBUF_S4),							\
++	.display.has_ddi = 1,							\
+ 	.display.has_dmc = 1,							\
+ 	.display.has_dp_mst = 1,						\
+ 	.display.has_dsb = 1,							\
 diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 0eaa3e0b4389..991ed8f304b5 100644
+index 71e528b7e9e8..ec6d834cda09 100644
 --- a/drivers/gpu/drm/i915/intel_device_info.h
 +++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -142,6 +142,7 @@ enum intel_ppgtt_type {
- 	func(has_64k_pages); \
- 	func(needs_compact_pt); \
- 	func(gpu_reset_clobbers_display); \
-+	func(has_reset_engine); \
- 	func(has_4tile); \
- 	func(has_flat_ccs); \
- 	func(has_global_mocs); \
+@@ -168,6 +168,7 @@ enum intel_ppgtt_type {
+ 	func(cursor_needs_physical); \
+ 	func(has_cdclk_crawl); \
+ 	func(has_dmc); \
++	func(has_ddi); \
+ 	func(has_dp_mst); \
+ 	func(has_dsb); \
+ 	func(has_dsc); \
 -- 
 2.32.0
 
