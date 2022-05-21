@@ -4,47 +4,180 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21956C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 May 2022 06:15:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE851C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 May 2022 06:54:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A98E10F140;
-	Tue, 24 May 2022 06:15:30 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B08110F140
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 May 2022 06:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1653372929; x=1684908929;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=2aCwqL3MCrul5ui5iwDLyXEePSi1U7xC1HOexCf6qPw=;
- b=k6hmfqI4fhui2R8J3qTW2SsENGHkCvLS9NRYbcojS4w3PEsmTvWZJVe1
- or6EUY0JOsTsJvE8C/lgJWsZ3sLWNs756jMazTWh5DFjU8iVzrqOEj5VP
- aPbvzPY7TQJDZgf/995+FG+FM2H8AKiCGlrURCa706Xeb0/cJEIgALn/Z
- hlGR78Cv/lbO2jl6bCT9Vhk+GM7Kaqw6WVcN2WsZmIVjVGwIeS0K7v6c/
- SbvebUJLR3WgZj43qk3TlD2kzmgl9keN/gXiLm0R4CcqzkqINGFArLWLN
- U7+m/H7cfhXkEuvCpIrp5o3v0i6Fd2bFQHalutONeMT8g9vKpvBZrE1Uf g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10356"; a="273556272"
-X-IronPort-AV: E=Sophos;i="5.91,248,1647327600"; d="scan'208";a="273556272"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2022 23:15:28 -0700
-X-IronPort-AV: E=Sophos;i="5.91,248,1647327600"; d="scan'208";a="745089401"
-Received: from mcypersx-mobl.ger.corp.intel.com (HELO localhost)
- ([10.213.10.223])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2022 23:15:26 -0700
-Date: Tue, 24 May 2022 08:15:24 +0200
-From: Zbigniew =?utf-8?Q?Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>
-To: Nirmoy Das <nirmoy.das@intel.com>
-Message-ID: <Yox3/L8dsPWuHTCl@zkempczy-mobl2>
-References: <20220513084754.10601-1-nirmoy.das@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 701FE10E15D;
+	Tue, 24 May 2022 06:54:13 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EACA810E119
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 May 2022 06:54:11 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6400,9594,10356"; a="253948915"
+X-IronPort-AV: E=Sophos;i="5.91,248,1647327600"; d="scan'208";a="253948915"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2022 23:54:11 -0700
+X-IronPort-AV: E=Sophos;i="5.91,248,1647327600"; d="scan'208";a="572486963"
+Received: from mduda-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.249.148.185])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2022 23:54:09 -0700
+Resent-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7,
+ 02160 Espoo
+Resent-To: intel-gfx@lists.freedesktop.org
+Resent-From: Jani Nikula <jani.nikula@intel.com>
+Resent-Date: Tue, 24 May 2022 09:54:07 +0300
+Resent-Message-ID: <87mtf7a0a8.fsf@intel.com>
+Received: from linux.intel.com [10.54.29.200]
+ by jnikula-mobl4.ger.corp.intel.com with IMAP (fetchmail-6.4.29)
+ for <jani@localhost> (single-drop); Mon, 23 May 2022 10:35:03 +0300 (EEST)
+Received: from fmsmga007.fm.intel.com (fmsmga007.fm.intel.com [10.253.24.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id A58EE5802E4;
+ Sat, 21 May 2022 04:12:12 -0700 (PDT)
+X-IronPort-AV: E=McAfee;i="6400,9594,10353"; a="576599229"
+X-IronPort-AV: E=Sophos;i="5.91,242,1647327600"; d="scan'208";a="576599229"
+Received: from fmsmga102.fm.intel.com ([10.1.193.69])
+ by fmsmga007-1.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21
+ May 2022 04:12:12 -0700
+Authentication-Results: mtab.intel.com; spf=None
+ smtp.pra=Julia.Lawall@inria.fr; spf=Pass
+ smtp.mailfrom=Julia.Lawall@inria.fr; spf=None
+ smtp.helo=postmaster@mail3-relais-sop.national.inria.fr; dkim=pass
+ (signature verified) header.i=@inria.fr; dmarc=pass (p=none dis=none)
+ d=inria.fr
+IronPort-SDR: XofapJcTAZyyk2XPAR9jAVdsBEmjeajvWrpQu06j8X3v1qXaYMkJwCNoLHirfreAyqgu3TVLEN
+ SqIs+JmkbjAZPI/Alwq3gniFweYedDzJQ=
+X-IPAS-Result: =?us-ascii?q?A0FjATM7yIhih2ikhsBagiQ0gXwoAYFSLQQLQ5VcnmMLA?=
+ =?us-ascii?q?QEBAQEBAQEBCUACBAEBAwSEe1EJhGgCHQcBBDMGDgECAQIBAQEBAQMCAQIBA?=
+ =?us-ascii?q?QEBAQEDAQEBAgIBAQECAQECBAIBAQEBAhABAQEBDQsJBQgMBRAOBUFkWIFPg?=
+ =?us-ascii?q?gQGAwEwDYI1KQF0gQgBAQEBAQEBAQEBAQEBAQEBAQEBFgINUoEUCwENAQERJ?=
+ =?us-ascii?q?gGBPROCJViDGAWsUzKBAYIIAQEGBAIBA4V/gVwJgTyEeIRPhCKBIRCBVUSBF?=
+ =?us-ascii?q?YE8giyEJoZZjwgjhE+CMwMJBgcFaBKBIXEBCAYGBwoFMgYCDBgUBAITElMLE?=
+ =?us-ascii?q?gITDAocDg5GGQwPAxIDEQEHAgsSCBUsCAMCAwgDAgMjCwIDGAkHCgMdCAocE?=
+ =?us-ascii?q?hAUAgQTHwsIAxofLQkCBA4DQwgLCgMRBAMTGAsWCBAEBgMJLw0oCwMUDwEGA?=
+ =?us-ascii?q?wYCBQUBAyADFAMFJwcDIQcLJg0NBCMdAwMFJgMCAhsHAgIDAgYXBgICQDEKK?=
+ =?us-ascii?q?A0IBAgEHB4lDgUFAgcxBQQvAh4EBQYRCQIWAgYEBQIEBBYCAhIIAggnGwcWN?=
+ =?us-ascii?q?hkBBV0GCwkiHCwRBQYWAyR4BQckBiIdl04QPRY8gR+BD5J9gxyOTJxMNAeBf?=
+ =?us-ascii?q?oFSgUMMniQaBC2oWAGWZ6cwgXeCADMaJ4M0TgECAQIBDAECAgECAQIBAQEJA?=
+ =?us-ascii?q?QEBAY4pDQmFDokiPzQ7AgYLAQEDCYVhikZdAQE?=
+IronPort-PHdr: A9a23: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
+IronPort-Data: A9a23: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
+IronPort-HdrOrdr: A9a23:wp7KjarxZHzzV2q8DznnhykaV5omeYIsimQD101hICG9Evbzqy
+ lhppUmPHjP+VEssRQb8uxoV5PwIk80maQb3WBzB8bHYOCZghrLEGgK1+KLrwEIcBefygcy78
+ ldmq5FZeEYdWIK6PrH3A==
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=McAfee;i="6400,9594,10353"; a="270422393"
+X-IronPort-AV: E=Sophos;i="5.91,242,1647327600"; d="scan'208";a="270422393"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from mail3-relais-sop.national.inria.fr ([192.134.164.104])
+ by mtab.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 May 2022
+ 04:12:09 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inria.fr; s=dc;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Md9/6NzAv0jrHFbIgTAsd+38B+aN7Go6jo2y146vOSs=;
+ b=nEkZMStRD5LCP/VtnJZ2rb7SbzoSoQmd6Y7PlbrHS+OlZZVHojupzuFz
+ wOJVUYAhRgiCdK5R0aiA9Sd5V9CdCvgiG97CfVa0Vy7lKiwrgN7152Nui
+ 2oq2VhsyrUmBopkMe4/ki4O4qkCTRa2rN1aX8HQNyyqXmnh/yttadOjeD k=;
+X-IronPort-AV: E=Sophos;i="5.91,242,1647298800"; d="scan'208";a="14727998"
+Received: from i80.paris.inria.fr (HELO i80.paris.inria.fr.) ([128.93.90.48])
+ by mail3-relais-sop.national.inria.fr with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 May 2022 13:12:08 +0200
+From: Julia Lawall <Julia.Lawall@inria.fr>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Date: Sat, 21 May 2022 13:11:40 +0200
+Message-Id: <20220521111145.81697-90-Julia.Lawall@inria.fr>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220513084754.10601-1-nirmoy.das@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v3] drm/i915: Enable Tile4 tiling mode
+Subject: [Intel-gfx] [PATCH] drm/i915: fix typos in comments
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,402 +190,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: krishnaiah.bommu@intel.com, intel-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, chris.p.wilson@intel.com
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 13, 2022 at 10:47:54AM +0200, Nirmoy Das wrote:
-> From: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-> 
-> Enable Tile4 tiling mode on platform that supports
-> Tile4 but no TileY like DG2.
-> 
-> v3: add a function to find X-tile availability for a platform.
-> v2: disable X-tile for iGPU in fastblit
->     fix checkpath --strict warnings
-> 
-> Signed-off-by: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
-> Co-developed-by: Nirmoy Das <nirmoy.das@intel.com>
-> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+Spelling mistakes (triple letters) in comments.
+Detected with the help of Coccinelle.
 
-Looks good for me, X is skipped on DG1 and integrated (gen12):
+Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
 
-Reviewed-by: Zbigniew Kempczyński <zbigniew.kempczynski@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_color.c           |    2 +-
+ drivers/gpu/drm/i915/display/intel_pps.c             |    2 +-
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c |    2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c           |    2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
---
-Zbigniew
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 34128c9c635c..a27ce874a9e8 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -1638,7 +1638,7 @@ static u32 icl_gamma_mode(const struct intel_crtc_state *crtc_state)
+ 	/*
+ 	 * Enable 10bit gamma for D13
+ 	 * ToDo: Extend to Logarithmic Gamma once the new UAPI
+-	 * is acccepted and implemented by a userspace consumer
++	 * is accepted and implemented by a userspace consumer
+ 	 */
+ 	else if (DISPLAY_VER(i915) >= 13)
+ 		gamma_mode |= GAMMA_MODE_MODE_10BIT;
+diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
+index 5a598dd06039..4bc0563dde92 100644
+--- a/drivers/gpu/drm/i915/display/intel_pps.c
++++ b/drivers/gpu/drm/i915/display/intel_pps.c
+@@ -509,7 +509,7 @@ static void wait_panel_power_cycle(struct intel_dp *intel_dp)
+ 
+ 	drm_dbg_kms(&i915->drm, "Wait for panel power cycle\n");
+ 
+-	/* take the difference of currrent time and panel power off time
++	/* take the difference of current time and panel power off time
+ 	 * and then make panel wait for t11_t12 if needed. */
+ 	panel_power_on_time = ktime_get_boottime();
+ 	panel_power_off_duration = ktime_ms_delta(panel_power_on_time, intel_dp->pps.panel_power_off_time);
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 86f7a9ac1c39..aa0d2bbbbcc4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1350,7 +1350,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 			 * submission. If we don't cancel the timer now,
+ 			 * we will see that the timer has expired and
+ 			 * reschedule the tasklet; continually until the
+-			 * next context switch or other preeemption event.
++			 * next context switch or other preemption event.
+ 			 *
+ 			 * Since we have decided to reschedule based on
+ 			 * consumption of this timeslice, if we submit the
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+index 78d2989fe917..02311ad90264 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+@@ -588,7 +588,7 @@ int intel_guc_log_relay_open(struct intel_guc_log *log)
+ 	/*
+ 	 * We require SSE 4.1 for fast reads from the GuC log buffer and
+ 	 * it should be present on the chipsets supporting GuC based
+-	 * submisssions.
++	 * submissions.
+ 	 */
+ 	if (!i915_has_memcpy_from_wc()) {
+ 		ret = -ENXIO;
 
-> ---
->  .../i915/gem/selftests/i915_gem_client_blt.c  | 250 ++++++++++++++----
->  drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |  22 ++
->  2 files changed, 227 insertions(+), 45 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-> index ddd0772fd828..3cfc621ef363 100644
-> --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-> +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-> @@ -6,6 +6,7 @@
->  #include "i915_selftest.h"
->  
->  #include "gt/intel_context.h"
-> +#include "gt/intel_engine_regs.h"
->  #include "gt/intel_engine_user.h"
->  #include "gt/intel_gpu_commands.h"
->  #include "gt/intel_gt.h"
-> @@ -18,10 +19,71 @@
->  #include "huge_gem_object.h"
->  #include "mock_context.h"
->  
-> +#define OW_SIZE 16                      /* in bytes */
-> +#define F_SUBTILE_SIZE 64               /* in bytes */
-> +#define F_TILE_WIDTH 128                /* in bytes */
-> +#define F_TILE_HEIGHT 32                /* in pixels */
-> +#define F_SUBTILE_WIDTH  OW_SIZE        /* in bytes */
-> +#define F_SUBTILE_HEIGHT 4              /* in pixels */
-> +
-> +static int linear_x_y_to_ftiled_pos(int x, int y, u32 stride, int bpp)
-> +{
-> +	int tile_base;
-> +	int tile_x, tile_y;
-> +	int swizzle, subtile;
-> +	int pixel_size = bpp / 8;
-> +	int pos;
-> +
-> +	/*
-> +	 * Subtile remapping for F tile. Note that map[a]==b implies map[b]==a
-> +	 * so we can use the same table to tile and until.
-> +	 */
-> +	static const u8 f_subtile_map[] = {
-> +		 0,  1,  2,  3,  8,  9, 10, 11,
-> +		 4,  5,  6,  7, 12, 13, 14, 15,
-> +		16, 17, 18, 19, 24, 25, 26, 27,
-> +		20, 21, 22, 23, 28, 29, 30, 31,
-> +		32, 33, 34, 35, 40, 41, 42, 43,
-> +		36, 37, 38, 39, 44, 45, 46, 47,
-> +		48, 49, 50, 51, 56, 57, 58, 59,
-> +		52, 53, 54, 55, 60, 61, 62, 63
-> +	};
-> +
-> +	x *= pixel_size;
-> +	/*
-> +	 * Where does the 4k tile start (in bytes)?  This is the same for Y and
-> +	 * F so we can use the Y-tile algorithm to get to that point.
-> +	 */
-> +	tile_base =
-> +		y / F_TILE_HEIGHT * stride * F_TILE_HEIGHT +
-> +		x / F_TILE_WIDTH * 4096;
-> +
-> +	/* Find pixel within tile */
-> +	tile_x = x % F_TILE_WIDTH;
-> +	tile_y = y % F_TILE_HEIGHT;
-> +
-> +	/* And figure out the subtile within the 4k tile */
-> +	subtile = tile_y / F_SUBTILE_HEIGHT * 8 + tile_x / F_SUBTILE_WIDTH;
-> +
-> +	/* Swizzle the subtile number according to the bspec diagram */
-> +	swizzle = f_subtile_map[subtile];
-> +
-> +	/* Calculate new position */
-> +	pos = tile_base +
-> +		swizzle * F_SUBTILE_SIZE +
-> +		tile_y % F_SUBTILE_HEIGHT * OW_SIZE +
-> +		tile_x % F_SUBTILE_WIDTH;
-> +
-> +	GEM_BUG_ON(!IS_ALIGNED(pos, pixel_size));
-> +
-> +	return pos / pixel_size * 4;
-> +}
-> +
->  enum client_tiling {
->  	CLIENT_TILING_LINEAR,
->  	CLIENT_TILING_X,
->  	CLIENT_TILING_Y,
-> +	CLIENT_TILING_4,
->  	CLIENT_NUM_TILING_TYPES
->  };
->  
-> @@ -45,6 +107,36 @@ struct tiled_blits {
->  	u32 height;
->  };
->  
-> +static bool supports_x_tiling(const struct drm_i915_private *i915)
-> +{
-> +	int gen = GRAPHICS_VER(i915);
-> +
-> +	if (gen < 12)
-> +		return true;
-> +
-> +	if (!HAS_LMEM(i915) || IS_DG1(i915))
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
-> +static bool fast_blit_ok(const struct blit_buffer *buf)
-> +{
-> +	int gen = GRAPHICS_VER(buf->vma->vm->i915);
-> +
-> +	if (gen < 9)
-> +		return false;
-> +
-> +	if (gen < 12)
-> +		return true;
-> +
-> +	/* filter out platforms with unsupported X-tile support in fastblit */
-> +	if (buf->tiling == CLIENT_TILING_X && !supports_x_tiling(buf->vma->vm->i915))
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
->  static int prepare_blit(const struct tiled_blits *t,
->  			struct blit_buffer *dst,
->  			struct blit_buffer *src,
-> @@ -59,51 +151,103 @@ static int prepare_blit(const struct tiled_blits *t,
->  	if (IS_ERR(cs))
->  		return PTR_ERR(cs);
->  
-> -	*cs++ = MI_LOAD_REGISTER_IMM(1);
-> -	*cs++ = i915_mmio_reg_offset(BCS_SWCTRL);
-> -	cmd = (BCS_SRC_Y | BCS_DST_Y) << 16;
-> -	if (src->tiling == CLIENT_TILING_Y)
-> -		cmd |= BCS_SRC_Y;
-> -	if (dst->tiling == CLIENT_TILING_Y)
-> -		cmd |= BCS_DST_Y;
-> -	*cs++ = cmd;
-> -
-> -	cmd = MI_FLUSH_DW;
-> -	if (ver >= 8)
-> -		cmd++;
-> -	*cs++ = cmd;
-> -	*cs++ = 0;
-> -	*cs++ = 0;
-> -	*cs++ = 0;
-> -
-> -	cmd = XY_SRC_COPY_BLT_CMD | BLT_WRITE_RGBA | (8 - 2);
-> -	if (ver >= 8)
-> -		cmd += 2;
-> -
-> -	src_pitch = t->width * 4;
-> -	if (src->tiling) {
-> -		cmd |= XY_SRC_COPY_BLT_SRC_TILED;
-> -		src_pitch /= 4;
-> -	}
-> +	if (fast_blit_ok(dst) && fast_blit_ok(src)) {
-> +		struct intel_gt *gt = t->ce->engine->gt;
-> +		u32 src_tiles = 0, dst_tiles = 0;
-> +		u32 src_4t = 0, dst_4t = 0;
-> +
-> +		/* Need to program BLIT_CCTL if it is not done previously
-> +		 * before using XY_FAST_COPY_BLT
-> +		 */
-> +		*cs++ = MI_LOAD_REGISTER_IMM(1);
-> +		*cs++ = i915_mmio_reg_offset(BLIT_CCTL(t->ce->engine->mmio_base));
-> +		*cs++ = (BLIT_CCTL_SRC_MOCS(gt->mocs.uc_index) |
-> +			 BLIT_CCTL_DST_MOCS(gt->mocs.uc_index));
-> +
-> +		src_pitch = t->width; /* in dwords */
-> +		if (src->tiling == CLIENT_TILING_4) {
-> +			src_tiles = XY_FAST_COPY_BLT_D0_SRC_TILE_MODE(YMAJOR);
-> +			src_4t = XY_FAST_COPY_BLT_D1_SRC_TILE4;
-> +		} else if (src->tiling == CLIENT_TILING_Y) {
-> +			src_tiles = XY_FAST_COPY_BLT_D0_SRC_TILE_MODE(YMAJOR);
-> +		} else if (src->tiling == CLIENT_TILING_X) {
-> +			src_tiles = XY_FAST_COPY_BLT_D0_SRC_TILE_MODE(TILE_X);
-> +		} else {
-> +			src_pitch *= 4; /* in bytes */
-> +		}
->  
-> -	dst_pitch = t->width * 4;
-> -	if (dst->tiling) {
-> -		cmd |= XY_SRC_COPY_BLT_DST_TILED;
-> -		dst_pitch /= 4;
-> -	}
-> +		dst_pitch = t->width; /* in dwords */
-> +		if (dst->tiling == CLIENT_TILING_4) {
-> +			dst_tiles = XY_FAST_COPY_BLT_D0_DST_TILE_MODE(YMAJOR);
-> +			dst_4t = XY_FAST_COPY_BLT_D1_DST_TILE4;
-> +		} else if (dst->tiling == CLIENT_TILING_Y) {
-> +			dst_tiles = XY_FAST_COPY_BLT_D0_DST_TILE_MODE(YMAJOR);
-> +		} else if (dst->tiling == CLIENT_TILING_X) {
-> +			dst_tiles = XY_FAST_COPY_BLT_D0_DST_TILE_MODE(TILE_X);
-> +		} else {
-> +			dst_pitch *= 4; /* in bytes */
-> +		}
->  
-> -	*cs++ = cmd;
-> -	*cs++ = BLT_DEPTH_32 | BLT_ROP_SRC_COPY | dst_pitch;
-> -	*cs++ = 0;
-> -	*cs++ = t->height << 16 | t->width;
-> -	*cs++ = lower_32_bits(dst->vma->node.start);
-> -	if (use_64b_reloc)
-> +		*cs++ = GEN9_XY_FAST_COPY_BLT_CMD | (10 - 2) |
-> +			src_tiles | dst_tiles;
-> +		*cs++ = src_4t | dst_4t | BLT_DEPTH_32 | dst_pitch;
-> +		*cs++ = 0;
-> +		*cs++ = t->height << 16 | t->width;
-> +		*cs++ = lower_32_bits(dst->vma->node.start);
->  		*cs++ = upper_32_bits(dst->vma->node.start);
-> -	*cs++ = 0;
-> -	*cs++ = src_pitch;
-> -	*cs++ = lower_32_bits(src->vma->node.start);
-> -	if (use_64b_reloc)
-> +		*cs++ = 0;
-> +		*cs++ = src_pitch;
-> +		*cs++ = lower_32_bits(src->vma->node.start);
->  		*cs++ = upper_32_bits(src->vma->node.start);
-> +	} else {
-> +		if (ver >= 6) {
-> +			*cs++ = MI_LOAD_REGISTER_IMM(1);
-> +			*cs++ = i915_mmio_reg_offset(BCS_SWCTRL);
-> +			cmd = (BCS_SRC_Y | BCS_DST_Y) << 16;
-> +			if (src->tiling == CLIENT_TILING_Y)
-> +				cmd |= BCS_SRC_Y;
-> +			if (dst->tiling == CLIENT_TILING_Y)
-> +				cmd |= BCS_DST_Y;
-> +			*cs++ = cmd;
-> +
-> +			cmd = MI_FLUSH_DW;
-> +			if (ver >= 8)
-> +				cmd++;
-> +			*cs++ = cmd;
-> +			*cs++ = 0;
-> +			*cs++ = 0;
-> +			*cs++ = 0;
-> +		}
-> +
-> +		cmd = XY_SRC_COPY_BLT_CMD | BLT_WRITE_RGBA | (8 - 2);
-> +		if (ver >= 8)
-> +			cmd += 2;
-> +
-> +		src_pitch = t->width * 4;
-> +		if (src->tiling) {
-> +			cmd |= XY_SRC_COPY_BLT_SRC_TILED;
-> +			src_pitch /= 4;
-> +		}
-> +
-> +		dst_pitch = t->width * 4;
-> +		if (dst->tiling) {
-> +			cmd |= XY_SRC_COPY_BLT_DST_TILED;
-> +			dst_pitch /= 4;
-> +		}
-> +
-> +		*cs++ = cmd;
-> +		*cs++ = BLT_DEPTH_32 | BLT_ROP_SRC_COPY | dst_pitch;
-> +		*cs++ = 0;
-> +		*cs++ = t->height << 16 | t->width;
-> +		*cs++ = lower_32_bits(dst->vma->node.start);
-> +		if (use_64b_reloc)
-> +			*cs++ = upper_32_bits(dst->vma->node.start);
-> +		*cs++ = 0;
-> +		*cs++ = src_pitch;
-> +		*cs++ = lower_32_bits(src->vma->node.start);
-> +		if (use_64b_reloc)
-> +			*cs++ = upper_32_bits(src->vma->node.start);
-> +	}
->  
->  	*cs++ = MI_BATCH_BUFFER_END;
->  
-> @@ -181,7 +325,13 @@ static int tiled_blits_create_buffers(struct tiled_blits *t,
->  
->  		t->buffers[i].vma = vma;
->  		t->buffers[i].tiling =
-> -			i915_prandom_u32_max_state(CLIENT_TILING_Y + 1, prng);
-> +			i915_prandom_u32_max_state(CLIENT_NUM_TILING_TYPES, prng);
-> +
-> +		/* Platforms support either TileY or Tile4, not both */
-> +		if (HAS_4TILE(i915) && t->buffers[i].tiling == CLIENT_TILING_Y)
-> +			t->buffers[i].tiling = CLIENT_TILING_4;
-> +		else if (!HAS_4TILE(i915) && t->buffers[i].tiling == CLIENT_TILING_4)
-> +			t->buffers[i].tiling = CLIENT_TILING_Y;
->  	}
->  
->  	return 0;
-> @@ -206,7 +356,8 @@ static u64 swizzle_bit(unsigned int bit, u64 offset)
->  static u64 tiled_offset(const struct intel_gt *gt,
->  			u64 v,
->  			unsigned int stride,
-> -			enum client_tiling tiling)
-> +			enum client_tiling tiling,
-> +			int x_pos, int y_pos)
->  {
->  	unsigned int swizzle;
->  	u64 x, y;
-> @@ -216,7 +367,12 @@ static u64 tiled_offset(const struct intel_gt *gt,
->  
->  	y = div64_u64_rem(v, stride, &x);
->  
-> -	if (tiling == CLIENT_TILING_X) {
-> +	if (tiling == CLIENT_TILING_4) {
-> +		v = linear_x_y_to_ftiled_pos(x_pos, y_pos, stride, 32);
-> +
-> +		/* no swizzling for f-tiling */
-> +		swizzle = I915_BIT_6_SWIZZLE_NONE;
-> +	} else if (tiling == CLIENT_TILING_X) {
->  		v = div64_u64_rem(y, 8, &y) * stride * 8;
->  		v += y * 512;
->  		v += div64_u64_rem(x, 512, &x) << 12;
-> @@ -259,6 +415,7 @@ static const char *repr_tiling(enum client_tiling tiling)
->  	case CLIENT_TILING_LINEAR: return "linear";
->  	case CLIENT_TILING_X: return "X";
->  	case CLIENT_TILING_Y: return "Y";
-> +	case CLIENT_TILING_4: return "F";
->  	default: return "unknown";
->  	}
->  }
-> @@ -284,7 +441,7 @@ static int verify_buffer(const struct tiled_blits *t,
->  	} else {
->  		u64 v = tiled_offset(buf->vma->vm->gt,
->  				     p * 4, t->width * 4,
-> -				     buf->tiling);
-> +				     buf->tiling, x, y);
->  
->  		if (vaddr[v / sizeof(*vaddr)] != buf->start_val + p)
->  			ret = -EINVAL;
-> @@ -504,6 +661,9 @@ static int tiled_blits_bounce(struct tiled_blits *t, struct rnd_state *prng)
->  	if (err)
->  		return err;
->  
-> +	/* Simulating GTT eviction of the same buffer / layout */
-> +	t->buffers[2].tiling = t->buffers[0].tiling;
-> +
->  	/* Reposition so that we overlap the old addresses, and slightly off */
->  	err = tiled_blit(t,
->  			 &t->buffers[2], t->hole + t->align,
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-> index 556bca3be804..246ab8f7bf57 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-> @@ -236,6 +236,28 @@
->  #define   XY_FAST_COLOR_BLT_DW		16
->  #define   XY_FAST_COLOR_BLT_MOCS_MASK	GENMASK(27, 21)
->  #define   XY_FAST_COLOR_BLT_MEM_TYPE_SHIFT 31
-> +
-> +#define   XY_FAST_COPY_BLT_D0_SRC_TILING_MASK     REG_GENMASK(21, 20)
-> +#define   XY_FAST_COPY_BLT_D0_DST_TILING_MASK     REG_GENMASK(14, 13)
-> +#define   XY_FAST_COPY_BLT_D0_SRC_TILE_MODE(mode)  \
-> +	REG_FIELD_PREP(XY_FAST_COPY_BLT_D0_SRC_TILING_MASK, mode)
-> +#define   XY_FAST_COPY_BLT_D0_DST_TILE_MODE(mode)  \
-> +	REG_FIELD_PREP(XY_FAST_COPY_BLT_D0_DST_TILING_MASK, mode)
-> +#define     LINEAR				0
-> +#define     TILE_X				0x1
-> +#define     XMAJOR				0x1
-> +#define     YMAJOR				0x2
-> +#define     TILE_64			0x3
-> +#define   XY_FAST_COPY_BLT_D1_SRC_TILE4	REG_BIT(31)
-> +#define   XY_FAST_COPY_BLT_D1_DST_TILE4	REG_BIT(30)
-> +#define BLIT_CCTL_SRC_MOCS_MASK  REG_GENMASK(6, 0)
-> +#define BLIT_CCTL_DST_MOCS_MASK  REG_GENMASK(14, 8)
-> +/* Note:  MOCS value = (index << 1) */
-> +#define BLIT_CCTL_SRC_MOCS(idx) \
-> +	REG_FIELD_PREP(BLIT_CCTL_SRC_MOCS_MASK, (idx) << 1)
-> +#define BLIT_CCTL_DST_MOCS(idx) \
-> +	REG_FIELD_PREP(BLIT_CCTL_DST_MOCS_MASK, (idx) << 1)
-> +
->  #define SRC_COPY_BLT_CMD		(2 << 29 | 0x43 << 22)
->  #define GEN9_XY_FAST_COPY_BLT_CMD	(2 << 29 | 0x42 << 22)
->  #define XY_SRC_COPY_BLT_CMD		(2 << 29 | 0x53 << 22)
-> -- 
-> 2.35.1
-> 
