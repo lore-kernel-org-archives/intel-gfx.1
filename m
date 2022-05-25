@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF16C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 May 2022 18:38:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7787CC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 May 2022 18:38:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B37810EC37;
-	Wed, 25 May 2022 18:38:02 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DEAD10EC11;
- Wed, 25 May 2022 18:37:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78FA110EC45;
+	Wed, 25 May 2022 18:38:06 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 734A610EC4E;
+ Wed, 25 May 2022 18:38:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1653503879; x=1685039879;
+ t=1653503885; x=1685039885;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QWHD3BXlQzkL4VcCkUeRqIcTjs0Gm3cptnMKH6ex1Ps=;
- b=hxyosBuuWYHUk0X3WFu7i6Ikh1KZkHoao5C+3CxBzEF/n1dHU4txp9tT
- l6IfjN3HrvTuDLIF80sJgrNVXmIMUm74l63nayiKDPm7umU5CAD2A66F0
- Fc1j1zbSCh2OT1evcMA8HiGRc7fxQmNLSwJbLRy2vsMGzR8VkD8Ct8mmo
- 9okEiJ0lSbkrNWrwhACXnZP5KhXsHed2XMa2LaYY101hkdoSsnsRgIuWm
- 07tgyOOxK86uVd66G+6Ysob97ebJfCF6s9vra21Tu1hfNIJkl1N0Hyqt7
- r7ljga0FgL4FRpQMAMy9L6l6V8I3cIfZg4ab3NTRkIBpgzZfyToc+FhIy A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10358"; a="360294793"
-X-IronPort-AV: E=Sophos;i="5.91,250,1647327600"; d="scan'208";a="360294793"
+ bh=dEoHLI4g1sZEcvGOE8LAOndC0SH+F5ck9wIctTiiq5s=;
+ b=UubxCu90VTdekPJZnEub/VFRk6hh9CHfUGJ4PI18vCKNKkYxqCJRC68r
+ fkuiPSxjkYAqJfIUm1A04wHzALOJG6BQwQvP5Q547uCXQXtMGGj6Tca7+
+ nC0Jvs5GhcCjM3BFMRVIK0K6n6rHA9RXFShg06pjfyMln1sxIIfoZxXyz
+ IjYqIcLjlqGF6MzwKw9CnnrznqyldF01DW2jEic8r/aLg89fcy5oYE3A5
+ dtr+IsK/RY3u3lC81/v6mXUIJ/vScp/y+RkyRIWoZeGiJjMxCqojDzoNr
+ P0Azmg4CpafTKbbKqHiCr4KzXwv3rR93xMLe5oZf65H7mNw/Bv+9e5cNH g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10358"; a="336954760"
+X-IronPort-AV: E=Sophos;i="5.91,250,1647327600"; d="scan'208";a="336954760"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2022 11:37:58 -0700
-X-IronPort-AV: E=Sophos;i="5.91,250,1647327600"; d="scan'208";a="526989557"
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 May 2022 11:37:47 -0700
+X-IronPort-AV: E=Sophos;i="5.91,250,1647327600"; d="scan'208";a="526989500"
 Received: from daithiby-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.5.16])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2022 11:37:57 -0700
+ 25 May 2022 11:37:46 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Wed, 25 May 2022 19:37:02 +0100
-Message-Id: <20220525183702.490989-10-matthew.auld@intel.com>
+Date: Wed, 25 May 2022 19:36:54 +0100
+Message-Id: <20220525183702.490989-2-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.34.3
 In-Reply-To: <20220525183702.490989-1-matthew.auld@intel.com>
 References: <20220525183702.490989-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 9/9] lib/i915: request CPU_ACCESS for fb
- objects
+Subject: [Intel-gfx] [PATCH i-g-t 1/9] lib/i915_drm_local: Add
+ I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,32 +63,48 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-kms_frontbuffer_tracking@basic falls over if the fb needs to be migrated
-from non-mappable device memory, to the mappable part, due to being
-temporarily pinned for scanout, when hitting the CPU fault handler,
-which just gives us SIGBUS. If the device has a small BAR let's attempt
-to use the mappable portion, if possible.
+For now dump into i915_drm_local.h. Once the uapi on the kernel side is
+merged, and is part of drm-next, we can sync the kernel headers and
+remove this.
 
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- lib/ioctl_wrappers.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ lib/i915/i915_drm_local.h | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/lib/ioctl_wrappers.c b/lib/ioctl_wrappers.c
-index 09eb3ce7..7713e78b 100644
---- a/lib/ioctl_wrappers.c
-+++ b/lib/ioctl_wrappers.c
-@@ -635,7 +635,8 @@ uint32_t gem_buffer_create_fb_obj(int fd, uint64_t size)
- 	uint32_t handle;
+diff --git a/lib/i915/i915_drm_local.h b/lib/i915/i915_drm_local.h
+index 9a2273c4..ac35abf6 100644
+--- a/lib/i915/i915_drm_local.h
++++ b/lib/i915/i915_drm_local.h
+@@ -23,6 +23,27 @@ extern "C" {
  
- 	if (gem_has_lmem(fd))
--		handle = gem_create_in_memory_regions(fd, size, REGION_LMEM(0));
-+		handle = gem_create_with_cpu_access_in_memory_regions(fd, size,
-+								      REGION_LMEM(0));
- 	else
- 		handle = gem_create(fd, size);
+ #define DRM_I915_QUERY_GEOMETRY_SUBSLICES      6
  
++/*
++ * Signal to the kernel that the object will need to be accessed via
++ * the CPU.
++ *
++ * Only valid when placing objects in I915_MEMORY_CLASS_DEVICE, and only
++ * strictly required on platforms where only some of the device memory
++ * is directly visible or mappable through the CPU, like on DG2+.
++ *
++ * One of the placements MUST also be I915_MEMORY_CLASS_SYSTEM, to
++ * ensure we can always spill the allocation to system memory, if we
++ * can't place the object in the mappable part of
++ * I915_MEMORY_CLASS_DEVICE.
++ *
++ * Without this hint, the kernel will assume that non-mappable
++ * I915_MEMORY_CLASS_DEVICE is preferred for this object. Note that the
++ * kernel can still migrate the object to the mappable part, as a last
++ * resort, if userspace ever CPU faults this object, but this might be
++ * expensive, and so ideally should be avoided.
++ */
++#define I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS (1 << 0)
++
+ #if defined(__cplusplus)
+ }
+ #endif
 -- 
 2.34.3
 
