@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D823BC433F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 May 2022 00:00:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C6CC433F5
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 May 2022 00:00:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A2A010E29E;
-	Wed, 25 May 2022 00:00:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C40310E474;
+	Wed, 25 May 2022 00:00:33 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1AA7510E29E;
- Wed, 25 May 2022 00:00:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id BA43E10E474;
+ Wed, 25 May 2022 00:00:29 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id F3C70A73C7;
- Wed, 25 May 2022 00:00:26 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id B2AE2A73C7;
+ Wed, 25 May 2022 00:00:29 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-Date: Wed, 25 May 2022 00:00:26 -0000
-Message-ID: <165343682699.16574.694370023568656209@emeril.freedesktop.org>
+Date: Wed, 25 May 2022 00:00:29 -0000
+Message-ID: <165343682972.16573.9158376485866137317@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <cover.1653321034.git.ashutosh.dixit@intel.com>
 In-Reply-To: <cover.1653321034.git.ashutosh.dixit@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Media_freq_factor_and_per-gt_enhancements/fixes?=
- =?utf-8?q?_=28rev9=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_Media_freq_factor_and_per-gt_enhancements/fixes_=28?=
+ =?utf-8?q?rev9=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,19 +54,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-63e0ab0ed664 drm/i915/gt: Add media freq factor to per-gt sysfs
-2e706c2fdf7e drm/i915/pcode: Init pcode on different gt's
-7fd38d4f289e drm/i915/gt: Add media RP0/RPn to per-gt sysfs
--:83: CHECK:CAMELCASE: Avoid CamelCase: <media_RPn_freq_mhz>
-#83: FILE: drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c:720:
-+static DEVICE_ATTR_RO(media_RPn_freq_mhz);
-
--:89: CHECK:CAMELCASE: Avoid CamelCase: <dev_attr_media_RPn_freq_mhz>
-#89: FILE: drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c:726:
-+	&dev_attr_media_RPn_freq_mhz.attr,
-
-total: 0 errors, 0 warnings, 2 checks, 80 lines checked
-e18539ed7c20 drm/i915/gt: Fix memory leaks in per-gt sysfs
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
