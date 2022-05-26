@@ -4,30 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE5F1C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 May 2022 18:58:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AC35C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 May 2022 19:01:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AAFC10E22B;
-	Thu, 26 May 2022 18:58:48 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1CD1210E22B;
- Thu, 26 May 2022 18:58:46 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 0FF0EAADD5;
- Thu, 26 May 2022 18:58:46 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9E2689ABE;
+	Thu, 26 May 2022 19:01:17 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 716FD89ABE
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 May 2022 19:01:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1653591676; x=1685127676;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=EhZHalqyBiOGSGG+j5KD2zJX7rQT0HdG3R8QLTiX6Qs=;
+ b=aNXk38BlvefSR2legX1x15UqbI6ylj7kNAbx/etuU6ZCv/wlZFvIpk6i
+ QdMjOPfzu2UWDG4ds7yQmbZe3idbUC31fR9Z5o17dwufMB9hloPFtBy1s
+ cbG/J5AidLTqoDae1JdsoBPt/5YU5RhgSMshp2ePBHeCjInB2sVjg51SC
+ eQ3O8D3eosPlpAVg2PhBHqefPl/IQ9ddHLr4Rtq8kSSLtjrYSp38yUFv7
+ q1XjN8+sE4LbuJAz6cY0fl5RF+9aTX+UGGELlR/vIEnHhjA22yfunEefS
+ rwZ5CNQtoFKZqzRKBlwfCNVZW9wA79YwyimRrBpNwl2wgLisP8YvGrO/X A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10359"; a="273978987"
+X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="273978987"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2022 12:00:49 -0700
+X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="574034403"
+Received: from orsosgc001.jf.intel.com ([10.165.21.154])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2022 12:00:49 -0700
+From: Ashutosh Dixit <ashutosh.dixit@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 26 May 2022 12:00:43 -0700
+Message-Id: <2a69623d431e84b6b60518e5b667051efaf9bd5b.1653591227.git.ashutosh.dixit@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1653591227.git.ashutosh.dixit@intel.com>
+References: <cover.1653591227.git.ashutosh.dixit@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ashutosh Dixit" <ashutosh.dixit@intel.com>
-Date: Thu, 26 May 2022 18:58:46 -0000
-Message-ID: <165359152603.19751.172950198672758096@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <cover.1653589699.git.ashutosh.dixit@intel.com>
-In-Reply-To: <cover.1653589699.git.ashutosh.dixit@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915/gt=3A_Expose_per_gt_defaults_in_sysfs?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915/gt: Create gt/gtN/.defaults for
+ per gt sysfs defaults
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,21 +56,74 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Create a gt/gtN/.defaults directory (similar to
+engine/<engine-name>/.defaults) to expose default parameter values for each
+gt in sysfs. This allows userspace to restore default parameter values
+after they have changed. The empty 'struct gt_defaults' will be populated
+by subsequent patches.
 
-Series: drm/i915/gt: Expose per gt defaults in sysfs
-URL   : https://patchwork.freedesktop.org/series/104422/
-State : warning
+v2: Changed 'struct intel_rps_defaults rps_defaults' to
+    'struct gt_defaults defaults' (Andi)
 
-== Summary ==
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.c | 5 +++++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h | 7 +++++++
+ 2 files changed, 12 insertions(+)
 
-Error: dim sparse failed
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
+index 9e4ebf53379b..6447c0376dbd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
+@@ -101,6 +101,10 @@ void intel_gt_sysfs_register(struct intel_gt *gt)
+ 				 gt->i915->sysfs_gt, "gt%d", gt->info.id))
+ 		goto exit_fail;
+ 
++	gt->sysfs_defaults = kobject_create_and_add(".defaults", &gt->sysfs_gt);
++	if (!gt->sysfs_defaults)
++		goto exit_fail;
++
+ 	intel_gt_sysfs_pm_init(gt, &gt->sysfs_gt);
+ 
+ 	return;
+@@ -113,5 +117,6 @@ void intel_gt_sysfs_register(struct intel_gt *gt)
+ 
+ void intel_gt_sysfs_unregister(struct intel_gt *gt)
+ {
++	kobject_put(gt->sysfs_defaults);
+ 	kobject_put(&gt->sysfs_gt);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index 993f003dad1d..9842bf0bc4cb 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -68,6 +68,9 @@ enum intel_submission_method {
+ 	INTEL_SUBMISSION_GUC,
+ };
+ 
++struct gt_defaults {
++};
++
+ struct intel_gt {
+ 	struct drm_i915_private *i915;
+ 	struct intel_uncore *uncore;
+@@ -228,6 +231,10 @@ struct intel_gt {
+ 
+ 	/* gt/gtN sysfs */
+ 	struct kobject sysfs_gt;
++
++	/* sysfs defaults per gt */
++	struct gt_defaults defaults;
++	struct kobject *sysfs_defaults;
+ };
+ 
+ enum intel_gt_scratch_field {
+-- 
+2.34.1
 
