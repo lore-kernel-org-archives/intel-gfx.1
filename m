@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0592DC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 May 2022 19:01:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A919EC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 May 2022 19:01:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 375A010E22B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAD2210E28C;
 	Thu, 26 May 2022 19:01:21 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 428CC89ABE
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 May 2022 19:01:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C65DA89ABE
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 May 2022 19:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1653591677; x=1685127677;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=lmTb7hvou90QmcuNsAUBuftz0xD6vGm0i55Zm8cYihs=;
- b=dj0SWKftKQ/p20/aNlEczGJxlJXaEPrE+OIBnOC2NCuVWgKJ3J8ylHmZ
- 44oGvrBho6qc8Uuq1xArm7UFbPOrigD9e9Bk7ZNjttxFAgIyFEzsk+mga
- Lgel201rFGxxjX9I+4uj7yyVH3nMjxxCxPGzwp/vEFuBQ9EiI0BlRGEIz
- hMThnvKKmRkRESO5C0nZqa2o6NujATLzSbFYtzaQ556e2iYDZZ1uVrNyl
- CV71CJaFFi+4zlKUaXyfDz/6FsVrZbcMkrzQiMo9L6kmQ+6nAbAEPxfhH
- nRKrhP2zePJUVoMxp1sm/dbbbcivnNJZAQsHGET/QOG8qWIVcvCaYyhlF Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10359"; a="273978989"
-X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="273978989"
+ t=1653591676; x=1685127676;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=LBcpkd0AxIyGAgZ50cJxhK6bSbNi3oVn723FcX0WMQY=;
+ b=JyA18J8ueY5SdDh71g2m7Kn50FSdFzSlnuHOB4OLZ+rjB5q2+UpIvD4R
+ 1Ctf1fjEutIVj5TyL38tWQ6LD4NFoEahOY0xG2ZSQTv3CLKNhaLqW6wNw
+ QGCo0n2+RWmM5DcrNrSRYDhBbUD981qWUErwNFpiv2ilNkaRvbbtPIkVh
+ xa5awdXZZTE96frcmtqZmh1bAmQdg2HP16DKiIXjiLAJgQMpXIZ2vR5pF
+ O6OTLLCawc/Ir6iLw7hb4MDjlZPMKderXwSzGsOXwfirUdiOBkzqUhXPf
+ C4RyudHxoe+EuNwsKNDOKKje+2D/KIxRbyEQndV2baN7FYYjGdJhGsVLp A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10359"; a="273978986"
+X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="273978986"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 May 2022 12:00:49 -0700
-X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="574034409"
+X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="574034400"
 Received: from orsosgc001.jf.intel.com ([10.165.21.154])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 May 2022 12:00:49 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 May 2022 12:00:45 -0700
-Message-Id: <acf9369d4a11a8335b585e54500ea1bcfd69d0a5.1653591227.git.ashutosh.dixit@intel.com>
+Date: Thu, 26 May 2022 12:00:42 -0700
+Message-Id: <cover.1653591227.git.ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1653591227.git.ashutosh.dixit@intel.com>
-References: <cover.1653591227.git.ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/gt: Expose default value for
- media_freq_factor in per-gt sysfs
+Subject: [Intel-gfx] [PATCH v2 0/3] drm/i915/gt: Expose per gt defaults in
+ sysfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,81 +57,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the following sysfs file to gt/gtN/.defaults:
-* media_freq_factor
+Create a gt/gtN/.defaults directory (similar to
+engine/<engine-name>/.defaults) to expose default parameter values for each
+gt in sysfs. This allows userspace to restore default parameter values
+after they may have changed.
+
+Patch 1: Creates the gt/gtN/.defaults directory
+Patch 2: Adds per-gt RPS defaults to gt/gtN/.defaults
+Patch 3: Adds media_freq_factor to gt/gtN/.defaults
 
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Cc: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 18 ++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_types.h    |  1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c |  2 ++
- 3 files changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-index 5eea9f78a6b2..c7e33084dd7c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-@@ -760,6 +760,18 @@ default_boost_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, c
- static struct kobj_attribute default_boost_freq_mhz =
- __ATTR(rps_boost_freq_mhz, 0444, default_boost_freq_mhz_show, NULL);
- 
-+static ssize_t
-+default_media_freq_factor_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
-+{
-+	struct intel_gt *gt = kobj_to_gt(kobj->parent);
-+
-+	return sysfs_emit(buf, "%u\n",
-+			  media_ratio_mode_to_factor(gt->defaults.media_ratio_mode));
-+}
-+
-+static struct kobj_attribute default_media_freq_factor =
-+__ATTR(media_freq_factor, 0444, default_media_freq_factor_show, NULL);
-+
- static const struct attribute * const rps_defaults_attrs[] = {
- 	&default_min_freq_mhz.attr,
- 	&default_max_freq_mhz.attr,
-@@ -815,6 +827,12 @@ void intel_gt_sysfs_pm_init(struct intel_gt *gt, struct kobject *kobj)
- 			drm_warn(&gt->i915->drm,
- 				 "failed to create gt%u media_perf_power_attrs sysfs (%pe)\n",
- 				 gt->info.id, ERR_PTR(ret));
-+
-+		ret = sysfs_create_file(gt->sysfs_defaults, &default_media_freq_factor.attr);
-+		if (ret)
-+			drm_warn(&gt->i915->drm,
-+				 "failed to add gt%u default_media_freq_factor sysfs (%pe)\n",
-+				 gt->info.id, ERR_PTR(ret));
- 	}
- 
- 	ret = sysfs_create_files(gt->sysfs_defaults, rps_defaults_attrs);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index 4fb21daeaf09..4bca9ab492c3 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -72,6 +72,7 @@ struct gt_defaults {
- 	u32 min_freq;
- 	u32 max_freq;
- 	u32 boost_freq;
-+	u32 media_ratio_mode;
- };
- 
- struct intel_gt {
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-index 0a02bd132da5..8220a2491a45 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-@@ -260,7 +260,9 @@ int intel_guc_slpc_init(struct intel_guc_slpc *slpc)
- 	slpc->boost_freq = 0;
- 	atomic_set(&slpc->num_waiters, 0);
- 	slpc->num_boosts = 0;
-+
- 	slpc->media_ratio_mode = SLPC_MEDIA_RATIO_MODE_DYNAMIC_CONTROL;
-+	slpc_to_gt(slpc)->defaults.media_ratio_mode = slpc->media_ratio_mode;
- 
- 	mutex_init(&slpc->lock);
- 	INIT_WORK(&slpc->boost_work, slpc_boost_work);
+Ashutosh Dixit (3):
+  drm/i915/gt: Create gt/gtN/.defaults for per gt sysfs defaults
+  drm/i915/gt: Expose per-gt RPS defaults in sysfs
+  drm/i915/gt: Expose default value for media_freq_factor in per-gt
+    sysfs
+
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.c    | 10 ++--
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.h    |  6 ++
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 64 +++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h    | 11 ++++
+ drivers/gpu/drm/i915/gt/intel_rps.c         |  3 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 19 ++++--
+ 6 files changed, 103 insertions(+), 10 deletions(-)
+
 -- 
 2.34.1
 
