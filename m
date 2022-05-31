@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40743C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 May 2022 19:19:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18E92C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 May 2022 19:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C52DD10E207;
-	Tue, 31 May 2022 19:19:02 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E86CC10E25B
- for <intel-gfx@lists.freedesktop.org>; Tue, 31 May 2022 19:19:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC4910E25B;
+	Tue, 31 May 2022 19:19:06 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B7B010E25B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 31 May 2022 19:19:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654024740; x=1685560740;
+ t=1654024745; x=1685560745;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=anzpidqpvdNQlISFn8NVbS22VaVIo1saTzhseq/NfNY=;
- b=ITyAiWnI3ne+nWBElq5KlwtIJS2CCYs6PUtFmhuXVA/rod9r6zqqLhDD
- YTcUu9EVcuHJEeuTKkbmfW7gJ3axD8s0VB+Jm8vHJfS0xOhCuDBgUVQD7
- WWUoQ2RRVV5c8aF+1mNOVd+//XBk0Avrz52UXmU/8O+iUQB/+fumvOvTP
- D8VtVkKOfohbti2xJEmr8ICM3IV1ktzgZ7D60tIYP9mSwDWZ9sgC38L0k
- spbtcbjLE+NA/3NagWM7eIWnZ4ZN+BsbAxqO7XzyNsmJy5/iwp2dgnP82
- BvZMUwJ+5VQw4ACkYr/Sj3MKIQXkt8EAOZpQ4okzheKCXwkWfnQaSBUVi g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10364"; a="272930537"
-X-IronPort-AV: E=Sophos;i="5.91,266,1647327600"; d="scan'208";a="272930537"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2022 12:19:00 -0700
+ bh=vyWmk8YfsWhnm20PBXqbnxvgnpmK3WEBPNjsZZo4tKI=;
+ b=gc6GBWOZTm3pUyT+jpn4+qNMhKNvgPosqxVzhvg+4B7VcbdDZuDEuy4N
+ Jl++fpcdjOEfuYqeJ0MVcJGWdlKpeeJsfmMlVsPZsGQwXjzA/mcbqvtEI
+ vXgwYBnRZGVaP+BrPf9+zKqPeiEfZY5sNVc0mHVecjLal8OPm9zwKiI9v
+ WDmpoyz0Jj4PoHmUiEMIc9Su9jUeHCc33On/cEupNFVEO/AwU5qqaofMJ
+ PEWW1qZ3fwR2Sow0le9cBeQICX5NuF8ThTqlwBHGHHcoayW0jZgvjRJXG
+ 9bOFDG37QGM6Ta7KoeVStGag+nj217kA5cIGFhUmJdrR7uwpWaM6LFKIg g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10364"; a="275444254"
+X-IronPort-AV: E=Sophos;i="5.91,266,1647327600"; d="scan'208";a="275444254"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 May 2022 12:18:50 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,266,1647327600"; d="scan'208";a="605843105"
+X-IronPort-AV: E=Sophos;i="5.91,266,1647327600"; d="scan'208";a="679733249"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.163])
- by orsmga008.jf.intel.com with SMTP; 31 May 2022 12:18:57 -0700
+ by fmsmga002.fm.intel.com with SMTP; 31 May 2022 12:18:48 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 31 May 2022 22:18:57 +0300
+ Tue, 31 May 2022 22:18:47 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 31 May 2022 22:18:42 +0300
-Message-Id: <20220531191844.11313-5-ville.syrjala@linux.intel.com>
+Date: Tue, 31 May 2022 22:18:39 +0300
+Message-Id: <20220531191844.11313-2-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220531191844.11313-1-ville.syrjala@linux.intel.com>
 References: <20220531191844.11313-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/6] drm/i915/bios: Fix aggressiveness typos
+Subject: [Intel-gfx] [PATCH v2 1/6] drm/i915: Parse VRR capability from VBT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,43 +64,93 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Fix various typos around "aggressiveness". Note that
-the VBT spec also sometimes missspells it as
-"agressiveness" so I guess that's where some of the typos
-came from.
+VBT seems to have an extra flag for VRR vs. not. Let's consult
+that for eDP panels.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vbt_defs.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c     |  5 +++++
+ .../drm/i915/display/intel_display_types.h    |  2 ++
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 22 ++++++++++++++-----
+ 3 files changed, 23 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-index 4b98bab3b890..39109f204c6d 100644
---- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-+++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-@@ -856,9 +856,9 @@ struct als_data_entry {
- 	u16 lux;
- } __packed;
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 337277ae3dae..0774238e429b 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -1293,6 +1293,8 @@ parse_power_conservation_features(struct drm_i915_private *i915,
+ 	const struct bdb_lfp_power *power;
+ 	u8 panel_type = panel->vbt.panel_type;
  
--struct agressiveness_profile_entry {
--	u8 dpst_agressiveness : 4;
--	u8 lace_agressiveness : 4;
-+struct aggressiveness_profile_entry {
-+	u8 dpst_aggressiveness : 4;
-+	u8 lace_aggressiveness : 4;
- } __packed;
++	panel->vbt.vrr = true; /* matches Windows behaviour */
++
+ 	if (i915->vbt.version < 228)
+ 		return;
  
- struct bdb_lfp_power {
-@@ -873,7 +873,7 @@ struct bdb_lfp_power {
- 	u16 dmrrs;
- 	u16 adb;
- 	u16 lace_enabled_status;
--	struct agressiveness_profile_entry aggressivenes[16];
-+	struct aggressiveness_profile_entry aggressiveness[16];
- 	u16 hobl; /* 232+ */
- 	u16 vrr_feature_enabled; /* 233+ */
- } __packed;
+@@ -1313,6 +1315,9 @@ parse_power_conservation_features(struct drm_i915_private *i915,
+ 
+ 	if (i915->vbt.version >= 232)
+ 		panel->vbt.edp.hobl = power->hobl & BIT(panel_type);
++
++	if (i915->vbt.version >= 233)
++		panel->vbt.vrr = power->vrr_feature_enabled & BIT(panel_type);
+ }
+ 
+ static void
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index a27d66fd4383..7a76ba1a3b47 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -294,6 +294,8 @@ struct intel_vbt_panel_data {
+ 	unsigned int lvds_dither:1;
+ 	unsigned int bios_lvds_val; /* initial [PCH_]LVDS reg val in VBIOS */
+ 
++	bool vrr;
++
+ 	u8 seamless_drrs_min_refresh_rate;
+ 	enum drrs_type drrs_type;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 081e52dd6c4e..04250a0fec3c 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -15,19 +15,29 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	struct intel_dp *intel_dp;
+ 
+-	if (connector->base.connector_type != DRM_MODE_CONNECTOR_eDP &&
+-	    connector->base.connector_type != DRM_MODE_CONNECTOR_DisplayPort)
+-		return false;
+-
+-	intel_dp = intel_attached_dp(connector);
+ 	/*
+ 	 * DP Sink is capable of VRR video timings if
+ 	 * Ignore MSA bit is set in DPCD.
+ 	 * EDID monitor range also should be atleast 10 for reasonable
+ 	 * Adaptive Sync or Variable Refresh Rate end user experience.
+ 	 */
++	switch (connector->base.connector_type) {
++	case DRM_MODE_CONNECTOR_eDP:
++		if (!connector->panel.vbt.vrr)
++			return false;
++		fallthrough;
++	case DRM_MODE_CONNECTOR_DisplayPort:
++		intel_dp = intel_attached_dp(connector);
++
++		if (!drm_dp_sink_can_do_video_without_timing_msa(intel_dp->dpcd))
++			return false;
++
++		break;
++	default:
++		return false;
++	}
++
+ 	return HAS_VRR(i915) &&
+-		drm_dp_sink_can_do_video_without_timing_msa(intel_dp->dpcd) &&
+ 		info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
+ }
+ 
 -- 
 2.35.1
 
