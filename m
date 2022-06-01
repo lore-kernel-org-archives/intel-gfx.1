@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE5D8CCA473
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jun 2022 15:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF1E5CCA473
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jun 2022 15:07:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E88A10EA6D;
-	Wed,  1 Jun 2022 15:07:36 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD83810EA63;
- Wed,  1 Jun 2022 15:07:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1796010EA63;
+	Wed,  1 Jun 2022 15:07:52 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1A1E10EA63;
+ Wed,  1 Jun 2022 15:07:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654096055; x=1685632055;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6aqW4bvZQ6KPwm3e2wHZec+Jvlz11MZyvWzJTklU1rs=;
- b=WqZVaWKGCKzRym5T+h0/QWRpkqniaA1/5uUeZiWiTXa1B3sVVWfKTZjv
- rXxWz9oIYgRbAjPmEfjHqodLovu24+C4QUYgBBKranRwjwQkJQ2soEF0p
- 5yf20N0VUR1hBrMENqxNCLofagThcmv82wb1Kg5H7Je5fX6j2ZryVKAXl
- 1XUf7s47XIpZBg+/Fsc3xFXB05FhefpIHM2YYASty60ejNd85cFG6xgjB
- Lgz/QRuAHYAEG9lC/0Nqv8Ql224fd3IcgsLYmIJXMTILIpXnVBBBeQ5fC
- vzPrks7eKzpCvQVLu3eXDl8ScnBez3ivJX8KDMWJJG9aPBrz6FBv6zntD Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10365"; a="257688445"
-X-IronPort-AV: E=Sophos;i="5.91,268,1647327600"; d="scan'208";a="257688445"
+ t=1654096071; x=1685632071;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=3pPfeGG4dqswArI08N+BDseC1XkYd7c4GSF7aLis9Q0=;
+ b=WWx2vHeQMvtqToopThm46rzYmejBUeWL96KL2f/icAjWxpBAKJR+1IqM
+ Jq/hFwqKVkR6XhHJMAVdxIgds9qEGKJRWMnh22PNJY5skrqK3V8vwWMr6
+ xeLe8c2lk/xIWHl9BlTLpBre2nTbxvNZaoDmfm4tGaNSSthCv1FgKR2T+
+ afvia0hUJQA4oSalzsMnSS6XoN6FMWQd0mzNY15VsI7lRoEtfhp2zUSbE
+ lntisxwzw5HIUFmkLthYVaKhfn0G2PHKtS9p7QlQB6EVj6q98obu6xfxI
+ 1hiRFukMSLcHEU+BumiM5n9bqp9mnC/3+vSM8mB19GbbT9HY4eFBaTIEV g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10365"; a="338665524"
+X-IronPort-AV: E=Sophos;i="5.91,268,1647327600"; d="scan'208";a="338665524"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2022 08:07:32 -0700
-X-IronPort-AV: E=Sophos;i="5.91,268,1647327600"; d="scan'208";a="667465458"
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2022 08:07:31 -0700
+X-IronPort-AV: E=Sophos;i="5.91,268,1647327600"; d="scan'208";a="667465440"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2022 08:07:31 -0700
+ 01 Jun 2022 08:07:30 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  1 Jun 2022 08:07:25 -0700
-Message-Id: <20220601150725.521468-7-matthew.d.roper@intel.com>
+Date: Wed,  1 Jun 2022 08:07:19 -0700
+Message-Id: <20220601150725.521468-1-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220601150725.521468-1-matthew.d.roper@intel.com>
-References: <20220601150725.521468-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 6/6] drm/i915/pvc: Add SSEU changes
+Subject: [Intel-gfx] [PATCH v5 0/6] i915: SSEU handling updates
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,141 +57,107 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PVC splits the mask of enabled DSS over two registers.  It also changes
-the meaning of the EU fuse register such that each bit represents a
-single EU rather than a pair of EUs.
+This series reworks i915's internal handling of slice/subslice/EU (SSEU)                                                                             
+data to represent platforms like Xe_HP in a more natural manner and to                                                                               
+prepare for future platforms where the masks will need to grow in size.                                                                              
+One key idea of this series is that although we have a fixed ABI to                                                                                  
+convey SSEU data to userspace (i.e., multiple u8[] arrays with data                                                                                  
+stored at different strides), we don't need to use this cumbersome                                                                                   
+format for the driver's own internal storage.  As long as we can convert                                                                             
+into the uapi form properly when responding to the I915_QUERY ioctl,                                                                                 
+it's preferable to use an internal storage format that's easier for the                                                                              
+driver to work with.                                                                                                                                 
+                                                                                                                                                     
+Another key point here is that we're reaching the point where subslice                                                                               
+(DSS) masks will soon not fit within simple u32/u64 integer values.                                                                                  
+Xe_HP SDV and DG2 platforms today have subslice (DSS) masks that are 32                                                                              
+bits, which maxes out the current storage of a u32.  With PVC the masks                                                                              
+are represented by a pair of 32-bit registers, requiring a bump up to at                                                                             
+least 64-bits of storage internally.  We could switch to u64 for that in                                                                             
+the short term, but since we already know that upcoming architectures                                                                                
+intend to provide DSS fuse bits via three or more registers it's best to                                                                             
+switch to a representation that's more future-proof but still easy to                                                                                
+work with in the driver code.  To accomodate this, we start storing our                                                                              
+subslice mask for Xe_HP and beyond in a new typedef that can be                                                                                      
+processed by the linux/bitmap.h operations.                                                                                                          
+                                                                                                                                                     
+Finally, since no userspace for Xe_HP or beyond is using the legacy                                                                                  
+I915_GETPARAM ioctl lookups for I915_PARAM_SLICE_MASK and                                                                                            
+I915_PARAM_SUBSLICE_MASK (since they've migrated to the more flexible                                                                                
+I915_QUERY ioctl that can return more than a simple u32 value), we take                                                                              
+the opportunity to officially drop support for those GETPARAM lookups on                                                                             
+modern platforms.  Maintaining support for these GETPARAM lookups don't                                                                              
+make sense for a number of reasons:                                                                                                                  
+                                                                                                                                                     
+ * Traditional slices no longer exist, and newer ideas like gslices,                                                                                 
+   cslices, mslices, etc. aren't something userspace needs to query                                                                                  
+   since it can be inferred from other information.                                                                                                  
+ * The GETPARAM ioctl doesn't have a way to distinguish between geometry                                                                             
+   subslice masks and compute subslice masks, which are distinct on                                                                                  
+   Xe_HP and beyond.                                                                                                                                 
+ * The I915_GETPARAM ioctl is limited to returning a 32-bit value, so                                                                                
+   when subslice masks begin to exceed 32-bits (on PVC), it simply can't                                                                             
+   return the entire mask.                                                                                                                           
+ * The GETPARAM ioctl doesn't have a way to give sensible information                                                                                
+   for multi-tile devices.                                                                                                                           
+                                                                                                                                                     
+v2:                                                                                                                                                  
+ - Switch to union of hsw/xehp formats to keep the representation in a                                                                               
+   natural format for different types of hardware.                                                                                                   
+ - Avoid accessing internals of intel_sseu_ss_mask_t directly outside of                                                                             
+   intel_sseu.[ch].                                                                                                                                  
+ - Include PVC SSEU which needs the larger SS mask storage enabled by                                                                                
+   this series.                                                                                                                                      
+                                                                                                                                                     
+v3:                                                                                                                                                  
+ - Correct a BIT(s) typo that should have been BIT(ss), causing                                                                                      
+   incorrect handling on gen9 platforms.                                                                                                             
+                                                                                                                                                     
+v4:                                                                                                                                                  
+ - Eliminate sseu->{ss,eu}_stride fields and just calculate the proper                                                                               
+   value in the UAPI code that needs them.                                                                                                           
+ - Handle unwanted ~u8 sign extension at the callsite instead of inside                                                                              
+   sseu_set_eus.                                                                                                                                     
+ - Use BITMAP_BITS() macro rather than passing I915_MAX_SS_FUSE_BITS                                                                                 
+   around directly to bitmap operations.                                                                                                             
+ - Improved debugfs / dmesg reporting for Xe_HP dumps                                                                                                
+ - Various assertion check improvements.                                                                                                             
+                                                                                                                                                     
+v5:
+ - Rebase to latest drm-tip (resolve trivial conflicts)
+ - Move XEHP_BITMAP_BITS() to the header so that we can also replace a usage of
+   I915_MAX_SS_FUSE_BITS in one of the inline functions.  (Bala)
+ - Change the local variable in intel_slicemask_from_xehp_dssmask() from u16 to
+   'unsigned long' to make it a bit more future-proof.
+ - Incorporate ack's received from Tvrtko and Lionel.
 
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_regs.h  |  1 +
- drivers/gpu/drm/i915/gt/intel_sseu.c     | 31 ++++++++++++++++++------
- drivers/gpu/drm/i915/gt/intel_sseu.h     |  2 +-
- drivers/gpu/drm/i915/i915_drv.h          |  2 ++
- drivers/gpu/drm/i915/i915_pci.c          |  3 ++-
- drivers/gpu/drm/i915/intel_device_info.h |  1 +
- 6 files changed, 31 insertions(+), 9 deletions(-)
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 58e9b464d564..6aa1ceaa8d27 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -561,6 +561,7 @@
- #define   GEN11_GT_VEBOX_DISABLE_MASK		(0x0f << GEN11_GT_VEBOX_DISABLE_SHIFT)
- 
- #define GEN12_GT_COMPUTE_DSS_ENABLE		_MMIO(0x9144)
-+#define XEHPC_GT_COMPUTE_DSS_ENABLE_EXT		_MMIO(0x9148)
- 
- #define GEN6_UCGCTL1				_MMIO(0x9400)
- #define   GEN6_GAMUNIT_CLOCK_GATE_DISABLE	(1 << 22)
-diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
-index 38069330d828..5cc1896a6cb9 100644
---- a/drivers/gpu/drm/i915/gt/intel_sseu.c
-+++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
-@@ -210,27 +210,44 @@ static void xehp_sseu_info_init(struct intel_gt *gt)
- 	struct intel_uncore *uncore = gt->uncore;
- 	u16 eu_en = 0;
- 	u8 eu_en_fuse;
-+	int num_compute_regs, num_geometry_regs;
- 	int eu;
- 
-+	if (IS_PONTEVECCHIO(gt->i915)) {
-+		num_geometry_regs = 0;
-+		num_compute_regs = 2;
-+	} else {
-+		num_geometry_regs = 1;
-+		num_compute_regs = 1;
-+	}
-+
- 	/*
- 	 * The concept of slice has been removed in Xe_HP.  To be compatible
- 	 * with prior generations, assume a single slice across the entire
- 	 * device. Then calculate out the DSS for each workload type within
- 	 * that software slice.
- 	 */
--	intel_sseu_set_info(sseu, 1, 32, 16);
-+	intel_sseu_set_info(sseu, 1,
-+			    32 * max(num_geometry_regs, num_compute_regs),
-+			    16);
- 	sseu->has_xehp_dss = 1;
- 
--	xehp_load_dss_mask(uncore, &sseu->geometry_subslice_mask, 1,
-+	xehp_load_dss_mask(uncore, &sseu->geometry_subslice_mask,
-+			   num_geometry_regs,
- 			   GEN12_GT_GEOMETRY_DSS_ENABLE);
--	xehp_load_dss_mask(uncore, &sseu->compute_subslice_mask, 1,
--			   GEN12_GT_COMPUTE_DSS_ENABLE);
-+	xehp_load_dss_mask(uncore, &sseu->compute_subslice_mask,
-+			   num_compute_regs,
-+			   GEN12_GT_COMPUTE_DSS_ENABLE,
-+			   XEHPC_GT_COMPUTE_DSS_ENABLE_EXT);
- 
- 	eu_en_fuse = intel_uncore_read(uncore, XEHP_EU_ENABLE) & XEHP_EU_ENA_MASK;
- 
--	for (eu = 0; eu < sseu->max_eus_per_subslice / 2; eu++)
--		if (eu_en_fuse & BIT(eu))
--			eu_en |= BIT(eu * 2) | BIT(eu * 2 + 1);
-+	if (HAS_ONE_EU_PER_FUSE_BIT(gt->i915))
-+		eu_en = eu_en_fuse;
-+	else
-+		for (eu = 0; eu < sseu->max_eus_per_subslice / 2; eu++)
-+			if (eu_en_fuse & BIT(eu))
-+				eu_en |= BIT(eu * 2) | BIT(eu * 2 + 1);
- 
- 	xehp_compute_sseu_info(sseu, eu_en);
- }
-diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.h b/drivers/gpu/drm/i915/gt/intel_sseu.h
-index 61abcab5a76b..b86f23f5b3a1 100644
---- a/drivers/gpu/drm/i915/gt/intel_sseu.h
-+++ b/drivers/gpu/drm/i915/gt/intel_sseu.h
-@@ -33,7 +33,7 @@ struct drm_printer;
-  * Maximum number of 32-bit registers used by hardware to express the
-  * enabled/disabled subslices.
-  */
--#define I915_MAX_SS_FUSE_REGS	1
-+#define I915_MAX_SS_FUSE_REGS	2
- #define I915_MAX_SS_FUSE_BITS	(I915_MAX_SS_FUSE_REGS * 32)
- 
- /* Maximum number of EUs that can exist within a subslice or DSS. */
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index bc1a7ff19463..c3854b8a014f 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1359,6 +1359,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 
- #define HAS_3D_PIPELINE(i915)	(INTEL_INFO(i915)->has_3d_pipeline)
- 
-+#define HAS_ONE_EU_PER_FUSE_BIT(i915)	(INTEL_INFO(i915)->has_one_eu_per_fuse_bit)
-+
- /* i915_gem.c */
- void i915_gem_init_early(struct drm_i915_private *dev_priv);
- void i915_gem_cleanup_early(struct drm_i915_private *dev_priv);
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 61386d1bb07b..047a6e326031 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1089,7 +1089,8 @@ static const struct intel_device_info ats_m_info = {
- 	XE_HP_FEATURES, \
- 	.dma_mask_size = 52, \
- 	.has_3d_pipeline = 0, \
--	.has_l3_ccs_read = 1
-+	.has_l3_ccs_read = 1, \
-+	.has_one_eu_per_fuse_bit = 1
- 
- __maybe_unused
- static const struct intel_device_info pvc_info = {
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 4e1c80966ab5..346f17f2dce8 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -158,6 +158,7 @@ enum intel_ppgtt_type {
- 	func(has_logical_ring_elsq); \
- 	func(has_media_ratio_mode); \
- 	func(has_mslices); \
-+	func(has_one_eu_per_fuse_bit); \
- 	func(has_pooled_eu); \
- 	func(has_pxp); \
- 	func(has_rc6); \
+Matt Roper (6):
+  drm/i915/xehp: Use separate sseu init function
+  drm/i915/xehp: Drop GETPARAM lookups of I915_PARAM_[SUB]SLICE_MASK
+  drm/i915/sseu: Simplify gen11+ SSEU handling
+  drm/i915/sseu: Don't try to store EU mask internally in UAPI format
+  drm/i915/sseu: Disassociate internal subslice mask representation from
+    uapi
+  drm/i915/pvc: Add SSEU changes
+
+ drivers/gpu/drm/i915/gem/i915_gem_context.c  |   5 +-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c    |   4 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c           |  12 +-
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h      |   1 +
+ drivers/gpu/drm/i915/gt/intel_sseu.c         | 450 ++++++++++++-------
+ drivers/gpu/drm/i915/gt/intel_sseu.h         |  92 ++--
+ drivers/gpu/drm/i915/gt/intel_sseu_debugfs.c |  30 +-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c  |  24 +-
+ drivers/gpu/drm/i915/i915_drv.h              |   2 +
+ drivers/gpu/drm/i915/i915_getparam.c         |  11 +-
+ drivers/gpu/drm/i915/i915_pci.c              |   3 +-
+ drivers/gpu/drm/i915/i915_query.c            |  26 +-
+ drivers/gpu/drm/i915/intel_device_info.h     |   1 +
+ 13 files changed, 397 insertions(+), 264 deletions(-)
+
 -- 
 2.35.3
 
