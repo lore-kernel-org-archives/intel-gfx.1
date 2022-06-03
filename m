@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 188C3C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jun 2022 13:06:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67493C43334
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jun 2022 13:06:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EC1D1134D3;
-	Fri,  3 Jun 2022 13:06:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DACD71134C5;
+	Fri,  3 Jun 2022 13:06:26 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98FC911365D
- for <intel-gfx@lists.freedesktop.org>; Fri,  3 Jun 2022 13:06:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24ED81134C5
+ for <intel-gfx@lists.freedesktop.org>; Fri,  3 Jun 2022 13:06:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654261577; x=1685797577;
+ t=1654261586; x=1685797586;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zkdfu5zNedSj+vPLHF0BtpeMLB2e9TjigVOYb7YJ+j4=;
- b=bKsAUxoRvZhD7tksDojacerNzoHUxN6fN+uE+5ZdKLicKyTWXC9M2FDX
- W7869FTVp4EHA31jZdYinM2gDCHtOGiB0Rpjdhxm5bl/fLtfoYSGfwzmz
- gWvPVPDK1ooLRh6aJhPaBdZLRDQR9urTyjblknV4g5Arl9nbRx4kb0Oe8
- 85EJuQdUfHfZQusdZNhT6BK4vc/7/44st8FKbdJSnbyufOXlrRosOzGXO
- z/4FT7z+zlzVpPnr+M1lB/ZRyYWBGeKx9cTV9HEM8S5CTQTQlqmXBQCb0
- uNwOT2pOcrgRDhiC2bnp07vPDFpxfSDkDAPCqxIVWUF8xLdEt8SzxGOLu g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10366"; a="263897468"
-X-IronPort-AV: E=Sophos;i="5.91,274,1647327600"; d="scan'208";a="263897468"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ bh=HatwjPwiowOU2o0invSZXIyK4F22MW/hPq6xsB7WG1o=;
+ b=ehoOKYozQO812MWcX+aq+E4oqdF0/tHDI8Wxd8rEaMiGsyShFZ0A1C8j
+ bnnblxsWlzwFq00J421ofK3kT3u2+QJCAEjQBviuMzctCTOiyYUlSpq1J
+ FtuIS9V4sBMStaWwQb0TH/jCv7MxppS9q1jyxw1b6vzs+ZUB08DawCfIo
+ 2SfGkNUK5epBFPG98njSIV4+ECJWvc/D+jpTdag9MNCquwPploSek7xWp
+ igqSHxaBTuk+0p4jml3a2saSPz92KR2eA04ktRRc9NRY5DAdOy4l1+DBL
+ YLdWmB/gkvBJl+iUj9pIhAB3CD54I64ry20Nau6KMtiLnWFejXLmqtTm7 g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10366"; a="263897491"
+X-IronPort-AV: E=Sophos;i="5.91,274,1647327600"; d="scan'208";a="263897491"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2022 06:06:17 -0700
-X-IronPort-AV: E=Sophos;i="5.91,274,1647327600"; d="scan'208";a="607389777"
+ 03 Jun 2022 06:06:25 -0700
+X-IronPort-AV: E=Sophos;i="5.91,274,1647327600"; d="scan'208";a="553322492"
 Received: from richardf-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.55.27])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2022 06:06:16 -0700
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2022 06:06:24 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  3 Jun 2022 16:05:56 +0300
-Message-Id: <1a8b6339d30fcb29976e2e1839c8a9203d557dd2.1654261471.git.jani.nikula@intel.com>
+Date: Fri,  3 Jun 2022 16:05:58 +0300
+Message-Id: <6490a5aa5d148cec99b7cf59ec40146a099ac9b2.1654261471.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1654261471.git.jani.nikula@intel.com>
 References: <cover.1654261471.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/7] drm/i915: un-inline i915_gem_drain_*
- functions
+Subject: [Intel-gfx] [PATCH 5/7] drm/i915/drv: drop intel_bios.h include
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,115 +61,25 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As best I can tell these aren't used in the kind of hotpaths that
-mandate using static inline. They do make header cleanup harder, though,
-so un-inline.
+No longer needed after panel data was moved.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h | 39 ++-------------------------------
- drivers/gpu/drm/i915/i915_gem.c | 38 ++++++++++++++++++++++++++++++++
- 2 files changed, 40 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 5d4607535f2a..c3b2cbf8bfb7 100644
+index fa8f208c8939..5093fe824789 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1364,43 +1364,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- void i915_gem_init_early(struct drm_i915_private *dev_priv);
- void i915_gem_cleanup_early(struct drm_i915_private *dev_priv);
+@@ -37,7 +37,6 @@
+ #include <drm/drm_connector.h>
+ #include <drm/ttm/ttm_device.h>
  
--static inline void i915_gem_drain_freed_objects(struct drm_i915_private *i915)
--{
--	/*
--	 * A single pass should suffice to release all the freed objects (along
--	 * most call paths) , but be a little more paranoid in that freeing
--	 * the objects does take a little amount of time, during which the rcu
--	 * callbacks could have added new objects into the freed list, and
--	 * armed the work again.
--	 */
--	while (atomic_read(&i915->mm.free_count)) {
--		flush_delayed_work(&i915->mm.free_work);
--		flush_delayed_work(&i915->bdev.wq);
--		rcu_barrier();
--	}
--}
--
--static inline void i915_gem_drain_workqueue(struct drm_i915_private *i915)
--{
--	/*
--	 * Similar to objects above (see i915_gem_drain_freed-objects), in
--	 * general we have workers that are armed by RCU and then rearm
--	 * themselves in their callbacks. To be paranoid, we need to
--	 * drain the workqueue a second time after waiting for the RCU
--	 * grace period so that we catch work queued via RCU from the first
--	 * pass. As neither drain_workqueue() nor flush_workqueue() report
--	 * a result, we make an assumption that we only don't require more
--	 * than 3 passes to catch all _recursive_ RCU delayed work.
--	 *
--	 */
--	int pass = 3;
--	do {
--		flush_workqueue(i915->wq);
--		rcu_barrier();
--		i915_gem_drain_freed_objects(i915);
--	} while (--pass);
--	drain_workqueue(i915->wq);
--}
-+void i915_gem_drain_freed_objects(struct drm_i915_private *i915);
-+void i915_gem_drain_workqueue(struct drm_i915_private *i915);
- 
- struct i915_vma * __must_check
- i915_gem_object_ggtt_pin_ww(struct drm_i915_gem_object *obj,
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 702e5b89be22..5a6bd2547f04 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1085,6 +1085,44 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
- 	return err;
- }
- 
-+void i915_gem_drain_freed_objects(struct drm_i915_private *i915)
-+{
-+	/*
-+	 * A single pass should suffice to release all the freed objects (along
-+	 * most call paths) , but be a little more paranoid in that freeing
-+	 * the objects does take a little amount of time, during which the rcu
-+	 * callbacks could have added new objects into the freed list, and
-+	 * armed the work again.
-+	 */
-+	while (atomic_read(&i915->mm.free_count)) {
-+		flush_delayed_work(&i915->mm.free_work);
-+		flush_delayed_work(&i915->bdev.wq);
-+		rcu_barrier();
-+	}
-+}
-+
-+void i915_gem_drain_workqueue(struct drm_i915_private *i915)
-+{
-+	/*
-+	 * Similar to objects above (see i915_gem_drain_freed-objects), in
-+	 * general we have workers that are armed by RCU and then rearm
-+	 * themselves in their callbacks. To be paranoid, we need to
-+	 * drain the workqueue a second time after waiting for the RCU
-+	 * grace period so that we catch work queued via RCU from the first
-+	 * pass. As neither drain_workqueue() nor flush_workqueue() report
-+	 * a result, we make an assumption that we only don't require more
-+	 * than 3 passes to catch all _recursive_ RCU delayed work.
-+	 *
-+	 */
-+	int pass = 3;
-+	do {
-+		flush_workqueue(i915->wq);
-+		rcu_barrier();
-+		i915_gem_drain_freed_objects(i915);
-+	} while (--pass);
-+	drain_workqueue(i915->wq);
-+}
-+
- int i915_gem_init(struct drm_i915_private *dev_priv)
- {
- 	int ret;
+-#include "display/intel_bios.h"
+ #include "display/intel_cdclk.h"
+ #include "display/intel_display.h"
+ #include "display/intel_display_power.h"
 -- 
 2.30.2
 
