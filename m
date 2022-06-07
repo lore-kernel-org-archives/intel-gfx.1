@@ -4,126 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7972FCCA47C
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 23:02:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD62AC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Jun 2022 23:02:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EFB611205D;
-	Tue,  7 Jun 2022 23:02:21 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2052.outbound.protection.outlook.com [40.107.223.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF6A111203A;
- Tue,  7 Jun 2022 23:02:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCFA911206C;
+	Tue,  7 Jun 2022 23:02:46 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C64A311206C;
+ Tue,  7 Jun 2022 23:02:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654642965; x=1686178965;
+ h=message-id:date:subject:to:references:from:in-reply-to:
+ mime-version; bh=PfldJGRgDlmYTXd8GXNNF/RdhdL4Ft6TSNOfF7pzmP8=;
+ b=HeagEi1Snvb7rKR1GEaM3tlmFA5oh1MWmvZpjiMtRNNdYWoOLu993k7W
+ ctLwSsxfnnOZV1YmjUxOl5MRik1OdehEpXqtxwVyxFszewbRiMIEdo95c
+ s27iBsTRC7h4VkPt1dlPxwZRdMtS31Lui7xF9PM0aUUnGPWUtYwD1rNW8
+ TeI4d+CL5fxQ8X1OOX13g7vqql6W/vGZYHxnOvIHl3t+B4WXmUecg1PYR
+ gmR8Tb7zAPmXAWvvQGYnmVvq4ieu9ebgrJCP0ZtokGmDOeUVVOfs4fNwK
+ 5pBE+letFyGlPWlZlnk26R3cDo6wHax3krrUMm8DJrSUJZ4Yfw8lE/lpM Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10371"; a="302120465"
+X-IronPort-AV: E=Sophos;i="5.91,284,1647327600"; 
+ d="scan'208,217";a="302120465"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2022 16:02:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,284,1647327600"; 
+ d="scan'208,217";a="907302051"
+Received: from fmsmsx606.amr.corp.intel.com ([10.18.126.86])
+ by fmsmga005.fm.intel.com with ESMTP; 07 Jun 2022 16:02:45 -0700
+Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
+ fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Tue, 7 Jun 2022 16:02:44 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27 via Frontend Transport; Tue, 7 Jun 2022 16:02:44 -0700
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.177)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.27; Tue, 7 Jun 2022 16:02:44 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=auvU/ZdhF33GmmSg84VY03Yt46Hkj86Orvy5bA7y8MG22T2eZpbyv1OdEcHWCRG2Na2nkwzaZ4FQsm0PbICUqFy0ujB8xQt0fUxqIam4uaTWhPsIUiAenTGX66c+XUSL7wzvLKt9356QJr0DLQ6bKfMY4e3rAmktZ4ilCN+LvdgTnAIRydU7b4Flf9CvdwJoCXGJSYuUr279AfWseBsFWSM+w4RN/3IESbQak8SZ3F8M587Q916aPkqaN+9fSePVbRUMx5ZRYE62ujN8BLs/abGhXPXbZipMGypmtlRsIZDw+J6994mxEHGdFM0RVmg1ZPSiNJIZ3LQ5tSCrRE99uA==
+ b=O0muMdNkSjcJtDyG/fRx6W13khKjB5dxoblQGMvoCtI0nTuOs/+VLE6bjccgpxo7xhxbDBx/4f34NOfc0grAqUrD3j746hAZPgefOzpnVpjY0oprd0NWaOA7032txqhBlSf9x53oWd2aoHFEVb+CFip6ACKeR8G3d2W95ZgG349/SdnPVNTcvFQYd/Dnpl1Ine5EuykkKIdyKLM+gru32yPDZ+1MMdbzgUsXB663nYqbo47D3iOQkCBJg4+ySxrbJjC47PLrWBrjKBai6X1VZwv9h6WTYLeQ7TbLgmxiPzGsvsEfzihkHTsj2yjUiXBeDoyKDRaRTNvnzO8WrMcciw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HNbcGpcsEgm6mYMIS0bnwPhrjqaxUTSKxGyqAUibrQ4=;
- b=eS10MQO17JtOSlLrr6yNiT6fuzrbX0s5yF2wGh2cZPRtshzkmCCpIHUYrxTKAN1BiLHUZqZXq7EWzI8tDbY3CGRtsY3cPelM4clUmGCUvsOe97Mo82twv1GrccNbk2YdAMC6ebEgF8iM27QFLxq8cGg8Pqr2K8ztHRAamD4/255gXDqa1nMnODTUdtvYFy2DAowrteaVMQ/r9i5Vgw8jg3ekEMArd6WcDzP412Rz4XP4gq9gpLaIGqtmpNgWEbQdRxqf6ZOkEKlHgzLvK4uug2rf/tu6TGHJ9B00ZMm8rWOYdMx1VYPvBEgRZ/989Csq0qvw6spKIUwaK3wjJvKbKg==
+ bh=VRGOLj4PIRe36xsT/IIVHtm8ockG9lHYWc4DuviS54I=;
+ b=CPnJRfgy0YZb4f1g6p8sFN0y/v6lBd/9Xv4zD1Vh6xaZTIV4a44/YMEMSzLMC7IJ9lePAjSkXJD3RBVHFglfAyNpKMumFDvFI4l4ysVme3eUD93C3fRb11DTDqNHvFDySFX05LbnUYGv/klKrHhb8Te7Hn2CaCYKULynvCGwMdD73CvNo8k/DD3iClbm8kWjb2djmCqEfGcZ7rsWXRRG7H2DjPJJwV3q2CO2+c4i0+/12x1Bi04lC08X1lgfJuU8vjsfcwX6bL8qiEnxT3OP2nW22VKHv39svQDlgAf8BB0w3qKBWOB30inNOM2Cy6dqHPzis9T+9R2KwqypQYZ6xw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HNbcGpcsEgm6mYMIS0bnwPhrjqaxUTSKxGyqAUibrQ4=;
- b=XRRDFq5lUEWwQuAv+NyPsmgy1Fgw50FKowfdvNfwRpzQqmOUTH9V5NXUb41xSqo82Fi0Sq0ojMpTddRNcRsOtJU1AW01XxGV/4SNCWbOmQX43OVuoIr3nvUk1tq1uNWtGI+eAo6LIcaJP1oHaf9xOXP+bEQc4IiLeWhyQuLkh0lB9qT8Vi/EbZq28JXCyD4Zeg7iRbr82d8N4apJi7addc0z9TQh4rpYeWK4ri6m/L/PGgqwVaEgIIF/XdIX5G8rCjjFg9Ujnt6QoFywLIAvgS/2/sgX6oUkVXW8IK9uJZ/o2mABRS6jmKUMwrSEMG+jNc6XeB/KeCpsLRjRoJi6+w==
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
- by DM6PR12MB3593.namprd12.prod.outlook.com (2603:10b6:5:11c::28) with
- Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BY5PR11MB3911.namprd11.prod.outlook.com (2603:10b6:a03:18d::29)
+ by CH0PR11MB5521.namprd11.prod.outlook.com (2603:10b6:610:d4::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.13; Tue, 7 Jun
- 2022 23:02:14 +0000
-Received: from MN2PR12MB4192.namprd12.prod.outlook.com
- ([fe80::2484:51da:d56f:f1a5]) by MN2PR12MB4192.namprd12.prod.outlook.com
- ([fe80::2484:51da:d56f:f1a5%9]) with mapi id 15.20.5314.019; Tue, 7 Jun 2022
- 23:02:14 +0000
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>,
- David Airlie <airlied@linux.ie>, Tony Krowiak <akrowiak@linux.ibm.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Cornelia Huck <cohuck@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- dri-devel@lists.freedesktop.org, Eric Farman <farman@linux.ibm.com>,
- Harald Freudenberger <freude@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Jason Herne <jjherne@linux.ibm.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, kvm@vger.kernel.org,
- linux-s390@vger.kernel.org, Matthew Rosato <mjrosato@linux.ibm.com>,
- Peter Oberparleiter <oberpar@linux.ibm.com>,
- Halil Pasic <pasic@linux.ibm.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
-Date: Tue,  7 Jun 2022 20:02:11 -0300
-Message-Id: <1-v2-80aa110d03ce+24b-vfio_unmap_notif_jgg@nvidia.com>
-In-Reply-To: <0-v2-80aa110d03ce+24b-vfio_unmap_notif_jgg@nvidia.com>
-References: 
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MN2PR08CA0026.namprd08.prod.outlook.com
- (2603:10b6:208:239::31) To MN2PR12MB4192.namprd12.prod.outlook.com
- (2603:10b6:208:1d5::15)
+ 2022 23:02:41 +0000
+Received: from BY5PR11MB3911.namprd11.prod.outlook.com
+ ([fe80::c4f8:da8e:7cef:8cf]) by BY5PR11MB3911.namprd11.prod.outlook.com
+ ([fe80::c4f8:da8e:7cef:8cf%6]) with mapi id 15.20.5314.019; Tue, 7 Jun 2022
+ 23:02:41 +0000
+Content-Type: multipart/alternative;
+ boundary="------------mnvacnBJiLe20emF53ojqZA0"
+Message-ID: <2f66b35c-e7a1-fb48-e490-566b05f9a03b@intel.com>
+Date: Tue, 7 Jun 2022 16:02:32 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.10.0
+Content-Language: en-GB
+To: Jani Nikula <jani.nikula@linux.intel.com>, Vinay Belgaumkar
+ <vinay.belgaumkar@intel.com>, <intel-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+References: <20220515060506.22084-1-vinay.belgaumkar@intel.com>
+ <874k1pj4bi.fsf@intel.com>
+From: John Harrison <john.c.harrison@intel.com>
+In-Reply-To: <874k1pj4bi.fsf@intel.com>
+X-ClientProxiedBy: MW4PR03CA0299.namprd03.prod.outlook.com
+ (2603:10b6:303:b5::34) To BY5PR11MB3911.namprd11.prod.outlook.com
+ (2603:10b6:a03:18d::29)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b22b581e-367f-4c9d-a986-08da48d9c288
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3593:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3593E88CAAD5FFB6C94DF69CC2A59@DM6PR12MB3593.namprd12.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: c6cbcc2e-ff71-4bca-ae23-08da48d9d33b
+X-MS-TrafficTypeDiagnostic: CH0PR11MB5521:EE_
+X-Microsoft-Antispam-PRVS: <CH0PR11MB55218500E05EE60EF24F89A7BDA59@CH0PR11MB5521.namprd11.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BTi9bNFDE4gn0ApMbVBd2MNNYeMojfMzSxTdbOa7r8fUG+MIzirdT7OUgTmwrsMtQwedsb2Rn7k+GihOCfJm6zCSe8CahoinizsjDbLIle4brFbzeFwY2YJc0s42w63Bh9IRHs4G1PxYHv1kMtGFL8dO+FepCDcJDX5IoizMqc7QKcHEjYcpbXs3bnxJiu4mNUDHaQQlLHWBy+uYqbeIwFSHvxjMsIdWkSKNqcH/ZV1ka2Q54FCBVWsOGLz5UdrvdBjlDL17FlTRmeiKje04zc33lDRK4srVXFkpfYvBRp9tgcgXTpK859fBQG8cA3jztbzNfK07ogrp5pA5CIbgOHSxdexZasKbgZWy+xVMraeKEWQOigVx3bFQwXnhYYl1l32beZxvCohvP9cw4xLkYog4zwPTdPuOpNQ8s7OZyxKx2M5L6/x8OCcIUN2xu1bpd9RI+dmEAgG1c1q45wefZGN4UGk+vKMk6mHW2C3N2Cdi1tqAmV0dyYBkMorCFE51SpeGMCMeGpq79qalxK37ttD/rg0Z5d5W9CUFf036lAm6bByXHldm/QP1o0G1oxZzoeQKuEoMptnitONuEbz2h7PSDSqjqqQFNHF8lEjKElIt17Mur8/Hfg0M6+ARZbv4qlWWDI/ihTiUsXVD5gi0N4YvFlqxSXFjmMvimz7+OSuQh5W6Zpde8oSVuyPhd1+1EppBEuP4aKywvPs1rmiEwg==
+X-Microsoft-Antispam-Message-Info: XvJnuMHshJnr1FQdaPdiUin80LwehI9Is4IqQ+XlR4abE3CfFBVshP+sMJT1ALal3J25WCjyAOgzX+w/4pZTsCk330zzNlsSttR9TpZ200meR6WE65NmAGnhUAELgeaty5k2ASUd+gg+Jihw3xheH/30QUgWrIkP7ZFkew6TA6Bo1zWso0oBp0QB2NmiyeLWX/tJf5WSthavF1zUVu6SxJUD0kXZHPlvFkeSDJkFpu8l8PJtLd40EAE8EnYB7mUnCqnvdyZ1scyNsnVT0vdBr8sAK+HsQ2LJTSwk29PiqzHiqGmuxkdcYZVPl7vcHgrmH7/wH8Nt7EASEEYHhq4NJkRTDbD38VaBqmSfrz9sgELg57uy7JPcgTGMJHXuP/Yrtddsrm1M8clyngiir5vTTEBHdJmlKQ0xqZQBj76M3BPsU6e2Wo6YBZrazgIxjt3LxQN1ZBcZOSfJHf/N8impCSZe1Xsds3BHDzzq97/GNhZrz7OpbPmzuyHXSh7IIvd+dtKgh8XBUIvdJ0xeUuJjAX+UBObPJDtZqqCeFxmk2FGNhoQtqWFJwcVZIEtivmPvQMjTBfPZiyc+/22HK10+sWCr/3NLJRxod6SlShK8M38B30klS5M8pH21pnswC6nCEfYCHMqY+z1Y6ojB4udcvqa4WS7YdBFlWE/dPKnKVqbBTdSPisKcC4E6Ayndspn+xq5ZNzP0rnlph/F+C2Iu3TG1ZhiCV+CnZaXUm5ujzBXfRYUADRakUGX3kdlKyKkD
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(66946007)(38100700002)(86362001)(316002)(110136005)(921005)(2906002)(66476007)(66556008)(8676002)(4326008)(5660300002)(8936002)(30864003)(186003)(2616005)(83380400001)(6666004)(6486002)(508600001)(6512007)(26005)(6506007)(36756003)(7416002)(4216001);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BY5PR11MB3911.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(366004)(26005)(82960400001)(6666004)(2906002)(38100700002)(6506007)(33964004)(6512007)(86362001)(316002)(36756003)(83380400001)(53546011)(31696002)(66476007)(8676002)(110136005)(2616005)(6486002)(66946007)(31686004)(186003)(66556008)(5660300002)(508600001)(8936002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+YHXWXqgmWzN52WgUARssE5pFeLRMPCuxEb7L/f6h9y1Z7cOuc2hATeh670P?=
- =?us-ascii?Q?uU5RaRl7HVUR+Ysj5CLAsgP65Vn+rOrlKmwBE/mBpQLfKEjX8N7wZNedc7QF?=
- =?us-ascii?Q?YrXd+qrEAw+sgMSgsudrBHpEpWlc6/KYZN/iYvPUoLiBxK3v/+ODx9cLHpnL?=
- =?us-ascii?Q?rcPCaAE54ntIWxj+8TxGWboe9lhO3XlvLRPicoTJDKqPdSy/XNNdYYtKSwK/?=
- =?us-ascii?Q?hA5fPWp61Muo02w4itHagOKwolsaWcgrlj++/uknEg4ZOBHXwcItrz6lLGwr?=
- =?us-ascii?Q?ekZmDhQMLi0eCK+q3x3YTCSR4sngeEvWEpIgaxDb99yiDFJ2Nyur7xitqBSW?=
- =?us-ascii?Q?XdQ3vpZcEuyOimBhGzas7emZewVvgCn5edyhoZpcPlvZrIJka3G6o27LHx7G?=
- =?us-ascii?Q?iUSny0P0oa7DXr7T3j7XFZlRP8ntrByTMtd1YkC9NK4O5REesvAhIdumXmmh?=
- =?us-ascii?Q?VLl2K0hXoHgoMWYH7n9drjr0Up8nYDiOQooKgOMRzlikKLEP7REkiJcZQG4b?=
- =?us-ascii?Q?RU+Ty6pj95wDvW42Fz/gMGT8HtFlBfeZ6O58lkgNmkiKGqLHhCBMpbND6ppZ?=
- =?us-ascii?Q?VrclEfqkee+ueynhEOD636vePzvo6qQda2LWp/QtuRsnacFrSCMpU4f/m2+6?=
- =?us-ascii?Q?Z2f4qj9aWqWBbot8Qbu9Os5kix39f5SuGOCPLhWhAEjq3//veHKrDH8s2U8U?=
- =?us-ascii?Q?lhD2dor86ua+B49xPGZuunZhS4vM7HCuFpPEAhtf82MYOnhqusXyHeOEPbWY?=
- =?us-ascii?Q?R4fGvv3bnL+Gm+VU92ZowzdAoVxg2RiaTaYdNh9eUNyUIfHQ8M3px/6Bntex?=
- =?us-ascii?Q?E766gAe4nTaLo7pmYbuNLbl0IIWaxAL9yzUOrW9HQvQGzJg6zQWBsuejBxwP?=
- =?us-ascii?Q?uFykok6xFlKWC7X5zlLdJJdBxB2rkPgIh6MEiE5fy/L74c9/K7x0PnUqGuhT?=
- =?us-ascii?Q?t9ZhSSY1z9N5V8ljhBF6RFTuOmXm/21lcmefo5X7sGddXZSq28cuuW1NNOIw?=
- =?us-ascii?Q?ytx6D+ulJV4P6rWkcHp6lVbE07vdVsKj1AGePc++Z2FnJV+Kx59Ui+QzMxpv?=
- =?us-ascii?Q?EDYOJ8WZ1D711rwsjpmyqfB8F348b1sGTzN1jz7Or53POkYJXGj6tDzxk9nt?=
- =?us-ascii?Q?lL+YH732IrTkk95JRn351YX9pJvXP4rliIoyG6NgR2snMeEHPwhn+ps/PC0P?=
- =?us-ascii?Q?usKbGKst0NBw/6bw4ngwwIN0Tv9YzkuTDxpgT4nmgLExwQhJo+vB4NcNMu3X?=
- =?us-ascii?Q?YG03TsDqk2XvcpwFPpu+ohqNbz9DWWtHuagaFtbGVlhxEjagGBefgeBQ0FM+?=
- =?us-ascii?Q?IowJyVahmxM49Fh7jfC4++o+BF2Q/r+V+DDpzmaNk2V1PF1/lStcwQW1FudG?=
- =?us-ascii?Q?Y4Rj+2/ORwEjE/3rf/AeJ8QC32DnGGrampJFlXI4EV/8b3Sq8Lb1KriGOdDU?=
- =?us-ascii?Q?Jx84VZaqOUS8idtIt1A2G/EkYacEor7/hNYDWaomQHfO5x8791JH7RigCjnu?=
- =?us-ascii?Q?Uw2HGUtWVj5abzqgXV4z4eBrWa3bqcALc1BW8jqJyiltDy6hfnbldWJRjQnF?=
- =?us-ascii?Q?l8MlXfSIu34tjf5vjYEVu+OhA4F3wSuQfKwk/3sexD5rBZB2WbaEG2drgEmD?=
- =?us-ascii?Q?M16pBb4L7KumSb8aTH0bcyiOgTqc6bTvTyrI6okKhYFZB3v2ZCs9gHRihBJm?=
- =?us-ascii?Q?+iJTRKPfdPFqLC8sxISARZddMmbzA5LWyZyORBrwyKxhbWGkNl43W5kEc1Am?=
- =?us-ascii?Q?/8l03F4iWw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b22b581e-367f-4c9d-a986-08da48d9c288
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4192.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ek5VZEExNUJYSmMvandrV2RLaUNNQ3llS3VPQm9KanNJK3Z4WCtna01zdm1F?=
+ =?utf-8?B?TlNJTWJobXhCLzVyRG1sT3FpVG9ObzVGNEdKV2M2d293MmNTVE1TSG9PZzFz?=
+ =?utf-8?B?TUFnalI3VklaOXRFbXN0MGMyck8wZDRhcUk4ZmJVMEh4ZVk1cWNDMnMrVHo4?=
+ =?utf-8?B?cDNLL0pEMW5TZEhOdTg4QWhUT09wSHhjV2wyczhlSUwzTmpiTHNnaHBSczVX?=
+ =?utf-8?B?QWowdTI5S01ZNWR3QU9sS1RJaDF3R2tZQnZML21yMGtreGtzMHlZRHRXRUlQ?=
+ =?utf-8?B?YjlNY1llYjM2ckUyVEptdTB6bFVsYUxHSWtOb0NUc0VGaDhMbXhXanVydHor?=
+ =?utf-8?B?TnFVYitpcjNVU1AzUnVONDVxU3RmaHVqY1ZFUU5ZKzBSNHpVNmVhOXMxc3hY?=
+ =?utf-8?B?ZUtaQ0dpNGtBbGI4cVZFSVlFaXYrcXdLWXpaNFp5MmhnU0luNlVxamc4WGpV?=
+ =?utf-8?B?bVF5Q2F1RmNQNnRZamVETVhlME13NGJjUUhPd3g1Z0tRMzlPQlZzZDhsRDJa?=
+ =?utf-8?B?ckEvQm5hZjM2clpCWEVKSHU3U3FTN0FuVVBYR2F4aWZPNVRodEk1d0VISkdu?=
+ =?utf-8?B?YWc2WUFqUnNWYitYWXd5clhyVzZEWVBaSEVOZW1tcU53blVqaVlkMWw0SGxD?=
+ =?utf-8?B?MnJlVHMzc25uamd3U3R5a2VHVVVDMmZYc3hOcWcxK1JzQUFOankvY1dsRWQ1?=
+ =?utf-8?B?dEZjWUxNN3YzV296TkFuTXJLL1drL2dkdWpaa1NVbmRyVXpGNHBvT0ducWRV?=
+ =?utf-8?B?VlhzUFJtd21wUjlEVEkvallEbkEzeDJOdVYxWTNBcWJzSmtxMGJadHR0dzhK?=
+ =?utf-8?B?SUd5UUpKbDVtVVl3SThxcHRTNis1UXBONUVhUDhtaWpuejl3dkRBamJDK05Y?=
+ =?utf-8?B?anVIVlpFdkZ2eTEzYWRhOEZjUlZiTFo2b0hsVHlrTmoxZzVQNEl2RWJNbkxt?=
+ =?utf-8?B?K1VLdXZFQStmb1J2cHovTGgvQzk4NEJoQXdVRGo0N0pSVmZQQ0Vub2cvWmVG?=
+ =?utf-8?B?Y2tWNEZYSmdMOEVGYkhpSzZSRG9UaEN3RFNPZ3BwbVZIUVpsVkRUemF4eHg4?=
+ =?utf-8?B?cE5XVHhmaG1FSVdmOXYvcVFLb1l6SGtSUlI2VEJ4WFFEUVBKNUpEVnpLS3Rr?=
+ =?utf-8?B?WXhiV01sYUpwOUR0ZDdBalJ3MzFWM0owdklrRHBZSzljbTVSTTNRUHJZcW5w?=
+ =?utf-8?B?bmtwNlcyNCsrRDZWdDV4UmMrYXJyeG1mUXp5NmFMUDRHRHVUcGl2OTB5U2Iv?=
+ =?utf-8?B?WEl1NU9jb01DbU1qUVVLOTZseEhRRW4xWTlMWjhyb21FUjFSNlRSVmhOaTli?=
+ =?utf-8?B?MzVYc3NCOTBuSXZkMXhGeTYwOWZJUTE1MjlpTjEyZE04ZzMxdFFEdW4wdGRj?=
+ =?utf-8?B?NDBhMjdRK2tJb2xubnNveFFhSE1yc3RVNnAwZnpldDJNbXowR25oQWloOTZu?=
+ =?utf-8?B?QkNyR3hscTJhOTR3N0ZobDk0ZFMwMFppbHZpTVFqMlVkb3gvbEsrNkpXQXJ3?=
+ =?utf-8?B?NHdjZGhISEdsTVRrcGJ3dVpXWEcxRHI3UGdlNlFzaExEWWh0UUR5VEZ6azFY?=
+ =?utf-8?B?OTdDUjZSMDgyUk5JQWYyRVNrcXR1Y0hjSmdvK1pxYmxzelJqOUpBV24zZjc0?=
+ =?utf-8?B?YUl0VTVaVnZUWTA4UTlTeWlUSzJ3dEE3UVFDOHRsRzl6bkgvOXVYR0ZZWUpG?=
+ =?utf-8?B?QmxQVUJwdVNWNG1UV2tuYkN2L3ZYYnY3V0dnYjBMKzJuRkZ0R3FYbkhGUzFv?=
+ =?utf-8?B?T3Y2em1FdzdxazlyaEVIMXlEOUlObVcrNTFycnc3d3kzNjk5VHhhNFRUQ1BR?=
+ =?utf-8?B?WGZZOGhvVThqc2paRVFRRTBCVWIwaUZxYy9adVdxSkExN3NvOGpkdktOUXN3?=
+ =?utf-8?B?YlVnVzhLQWRENlEzdHl5NlRQSGkybk9hUDlBVU1aNUp2Z0R5OUpLYVNXUllF?=
+ =?utf-8?B?c2xkOFZ2ODkyL1lBaFZCaUpJVzZQQU5DeE9LVlA3elpJZ0ZtY3hjdEttQms0?=
+ =?utf-8?B?Lzh2Vi8vWTJ3cUdKQWt5MkZtbElML2dCQ1hMWHRFWEQxaFJqYisvbCtmd0lV?=
+ =?utf-8?B?R3ZyTEZZbFdlZDFqR2FtZ0hBb0U5K2x0enZ6eENibHdrUlV0enAzQTFSMGpB?=
+ =?utf-8?B?NVZyS0NRNk9wcXhQZzh3KzJUVDA2NTk1YlZ4MWE1NzF6RllJYUZqeExLV1lQ?=
+ =?utf-8?B?MFQvLzJZTVE5WGJxL1lGWEpQY0F1Z2RQZjFPQzAzeEVWKzlydzdhZEt4UG5R?=
+ =?utf-8?B?WG5uMjZHY2t2YUFQdlRJdzVXblovVDJ2emJ0V01jRTRET21yWkE4UGl0bjlI?=
+ =?utf-8?B?Z2hkUXQ5dEF3RFVOMDMxSVhEWW15b1pmYk9KWWVsSTMrS04wckhuRnExZExw?=
+ =?utf-8?Q?YAUinYrh3831S3uw=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6cbcc2e-ff71-4bca-ae23-08da48d9d33b
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR11MB3911.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2022 23:02:13.8297 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2022 23:02:41.6915 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DO3OpsYDw28i/aR96OErEVLVJ4S+B9nbW6g8wDlWo85DBN1nOFg/w5tkkU3zpia9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3593
-Subject: [Intel-gfx] [PATCH v2 1/2] vfio: Replace the DMA unmapping notifier
- with a callback
+X-MS-Exchange-CrossTenant-UserPrincipalName: lvJosdqxpMdrjifA0X+XBb75+3a8ZA+gicVEKmck19cQT8A9SLhuYXNyt4xPN+RKIvrWGXFaYbvoUXJtVFRQqrSvqHbl4VK+baBK/43B0N8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB5521
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/guc/slpc: Use non-blocking H2G for
+ waitboost
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,633 +162,311 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christoph Hellwig <hch@lst.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of having drivers register the notifier with explicit code just
-have them provide a dma_unmap callback op in their driver ops and rely on
-the core code to wire it up.
+--------------mnvacnBJiLe20emF53ojqZA0
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+On 5/16/2022 00:59, Jani Nikula wrote:
+> On Sat, 14 May 2022, Vinay Belgaumkar<vinay.belgaumkar@intel.com>  wrote:
+>> SLPC min/max frequency updates require H2G calls. We are seeing
+>> timeouts when GuC channel is backed up and it is unable to respond
+>> in a timely fashion causing warnings and affecting CI.
+>>
+>> This is seen when waitboosting happens during a stress test.
+>> this patch updates the waitboost path to use a non-blocking
+>> H2G call instead, which returns as soon as the message is
+>> successfully transmitted.
+>>
+>> v2: Use drm_notice to report any errors that might occur while
+>> sending the waitboost H2G request (Tvrtko)
+>>
+>> Signed-off-by: Vinay Belgaumkar<vinay.belgaumkar@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 44 +++++++++++++++++----
+>>   1 file changed, 36 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+>> index 1db833da42df..e5e869c96262 100644
+>> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+>> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+>> @@ -98,6 +98,30 @@ static u32 slpc_get_state(struct intel_guc_slpc *slpc)
+>>   	return data->header.global_state;
+>>   }
+>>   
+>> +static int guc_action_slpc_set_param_nb(struct intel_guc *guc, u8 id, u32 value)
+>> +{
+>> +	u32 request[] = {
+> static const
+>
+>> +		GUC_ACTION_HOST2GUC_PC_SLPC_REQUEST,
+>> +		SLPC_EVENT(SLPC_EVENT_PARAMETER_SET, 2),
+>> +		id,
+>> +		value,
+>> +	};
+>> +	int ret;
+>> +
+>> +	ret = intel_guc_send_nb(guc, request, ARRAY_SIZE(request), 0);
+>> +
+>> +	return ret > 0 ? -EPROTO : ret;
+>> +}
+>> +
+>> +static int slpc_set_param_nb(struct intel_guc_slpc *slpc, u8 id, u32 value)
+>> +{
+>> +	struct intel_guc *guc = slpc_to_guc(slpc);
+>> +
+>> +	GEM_BUG_ON(id >= SLPC_MAX_PARAM);
+>> +
+>> +	return guc_action_slpc_set_param_nb(guc, id, value);
+>> +}
+>> +
+>>   static int guc_action_slpc_set_param(struct intel_guc *guc, u8 id, u32 value)
+>>   {
+>>   	u32 request[] = {
+> Ditto here, and the whole gt/uc directory seems to have tons of these
+> u32 action/request array variables on stack, with the required
+> initialization, that could be in rodata.
+>
+> Please fix all of them.
+>
+> BR,
+> Jani.
+But the only constant is the action code. Everything else is parameters 
+and will be different on each call.
+
+You mean something like this?
+
+    static const u32 template[] = {
+         action,
+    };
+    u32 *request = kmalloc_array(sizeof(*request), 4);
+    memcpy(request, template, sizeof(*request) * 1);
+    request[1] = param0;
+    request[2] = param1;
+    request[3] = param2;
+    ret = send(request);
+    kfree(request);
+    return ret;
+
+
+Not seeing how that would be an improvement. It's a lot more code, a lot 
+less readable, more prone to bugs due to incorrect structure sizes 
+and/or params in the wrong place. The current version is easy to read 
+and therefore to maintain, almost impossible to get wrong, and only puts 
+a few words on the stack. I think the largest request is region of 15 
+words? I'm not seeing what the problem is.
+
+John.
+
+
+>> @@ -208,12 +232,10 @@ static int slpc_force_min_freq(struct intel_guc_slpc *slpc, u32 freq)
+>>   	 */
+>>   
+>>   	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+>> -		ret = slpc_set_param(slpc,
+>> -				     SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
+>> -				     freq);
+>> -		if (ret)
+>> -			i915_probe_error(i915, "Unable to force min freq to %u: %d",
+>> -					 freq, ret);
+>> +		/* Non-blocking request will avoid stalls */
+>> +		ret = slpc_set_param_nb(slpc,
+>> +					SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
+>> +					freq);
+>>   	}
+>>   
+>>   	return ret;
+>> @@ -222,6 +244,8 @@ static int slpc_force_min_freq(struct intel_guc_slpc *slpc, u32 freq)
+>>   static void slpc_boost_work(struct work_struct *work)
+>>   {
+>>   	struct intel_guc_slpc *slpc = container_of(work, typeof(*slpc), boost_work);
+>> +	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+>> +	int err;
+>>   
+>>   	/*
+>>   	 * Raise min freq to boost. It's possible that
+>> @@ -231,8 +255,12 @@ static void slpc_boost_work(struct work_struct *work)
+>>   	 */
+>>   	mutex_lock(&slpc->lock);
+>>   	if (atomic_read(&slpc->num_waiters)) {
+>> -		slpc_force_min_freq(slpc, slpc->boost_freq);
+>> -		slpc->num_boosts++;
+>> +		err = slpc_force_min_freq(slpc, slpc->boost_freq);
+>> +		if (!err)
+>> +			slpc->num_boosts++;
+>> +		else
+>> +			drm_notice(&i915->drm, "Failed to send waitboost request (%d)\n",
+>> +				   err);
+>>   	}
+>>   	mutex_unlock(&slpc->lock);
+>>   }
+
+--------------mnvacnBJiLe20emF53ojqZA0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    On 5/16/2022 00:59, Jani Nikula wrote:<br>
+    <blockquote type="cite" cite="mid:874k1pj4bi.fsf@intel.com">
+      <pre class="moz-quote-pre" wrap="">On Sat, 14 May 2022, Vinay Belgaumkar <a class="moz-txt-link-rfc2396E" href="mailto:vinay.belgaumkar@intel.com">&lt;vinay.belgaumkar@intel.com&gt;</a> wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">SLPC min/max frequency updates require H2G calls. We are seeing
+timeouts when GuC channel is backed up and it is unable to respond
+in a timely fashion causing warnings and affecting CI.
+
+This is seen when waitboosting happens during a stress test.
+this patch updates the waitboost path to use a non-blocking
+H2G call instead, which returns as soon as the message is
+successfully transmitted.
+
+v2: Use drm_notice to report any errors that might occur while
+sending the waitboost H2G request (Tvrtko)
+
+Signed-off-by: Vinay Belgaumkar <a class="moz-txt-link-rfc2396E" href="mailto:vinay.belgaumkar@intel.com">&lt;vinay.belgaumkar@intel.com&gt;</a>
 ---
- drivers/gpu/drm/i915/gvt/gvt.h        |   1 -
- drivers/gpu/drm/i915/gvt/kvmgt.c      |  75 ++++-----------
- drivers/s390/cio/vfio_ccw_ops.c       |  41 ++-------
- drivers/s390/cio/vfio_ccw_private.h   |   1 -
- drivers/s390/crypto/vfio_ap_ops.c     |  53 ++---------
- drivers/s390/crypto/vfio_ap_private.h |   3 -
- drivers/vfio/vfio.c                   | 126 +++++++++-----------------
- drivers/vfio/vfio.h                   |   5 +
- include/linux/vfio.h                  |  21 +----
- 9 files changed, 87 insertions(+), 239 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 44 +++++++++++++++++----
+ 1 file changed, 36 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/gvt.h b/drivers/gpu/drm/i915/gvt/gvt.h
-index aee1a45da74bcb..705689e6401197 100644
---- a/drivers/gpu/drm/i915/gvt/gvt.h
-+++ b/drivers/gpu/drm/i915/gvt/gvt.h
-@@ -226,7 +226,6 @@ struct intel_vgpu {
- 	unsigned long nr_cache_entries;
- 	struct mutex cache_lock;
- 
--	struct notifier_block iommu_notifier;
- 	atomic_t released;
- 
- 	struct kvm_page_track_notifier_node track_node;
-diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index e2f6c56ab3420c..ecd5bb37b63a2a 100644
---- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-+++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -729,34 +729,25 @@ int intel_gvt_set_edid(struct intel_vgpu *vgpu, int port_num)
- 	return ret;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+index 1db833da42df..e5e869c96262 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+@@ -98,6 +98,30 @@ static u32 slpc_get_state(struct intel_guc_slpc *slpc)
+ 	return data-&gt;header.global_state;
  }
  
--static int intel_vgpu_iommu_notifier(struct notifier_block *nb,
--				     unsigned long action, void *data)
-+static void intel_vgpu_dma_unmap(struct vfio_device *vfio_dev, u64 iova,
-+				 u64 length)
- {
--	struct intel_vgpu *vgpu =
--		container_of(nb, struct intel_vgpu, iommu_notifier);
--
--	if (action == VFIO_IOMMU_NOTIFY_DMA_UNMAP) {
--		struct vfio_iommu_type1_dma_unmap *unmap = data;
--		struct gvt_dma *entry;
--		unsigned long iov_pfn, end_iov_pfn;
-+	struct intel_vgpu *vgpu = vfio_dev_to_vgpu(vfio_dev);
-+	struct gvt_dma *entry;
-+	u64 iov_pfn = iova >> PAGE_SHIFT;
-+	u64 end_iov_pfn = iov_pfn + length / PAGE_SIZE;
- 
--		iov_pfn = unmap->iova >> PAGE_SHIFT;
--		end_iov_pfn = iov_pfn + unmap->size / PAGE_SIZE;
-+	mutex_lock(&vgpu->cache_lock);
-+	for (; iov_pfn < end_iov_pfn; iov_pfn++) {
-+		entry = __gvt_cache_find_gfn(vgpu, iov_pfn);
-+		if (!entry)
-+			continue;
- 
--		mutex_lock(&vgpu->cache_lock);
--		for (; iov_pfn < end_iov_pfn; iov_pfn++) {
--			entry = __gvt_cache_find_gfn(vgpu, iov_pfn);
--			if (!entry)
--				continue;
--
--			gvt_dma_unmap_page(vgpu, entry->gfn, entry->dma_addr,
--					   entry->size);
--			__gvt_cache_remove_entry(vgpu, entry);
--		}
--		mutex_unlock(&vgpu->cache_lock);
-+		gvt_dma_unmap_page(vgpu, entry->gfn, entry->dma_addr,
-+				   entry->size);
-+		__gvt_cache_remove_entry(vgpu, entry);
- 	}
--
--	return NOTIFY_OK;
-+	mutex_unlock(&vgpu->cache_lock);
- }
- 
- static bool __kvmgt_vgpu_exist(struct intel_vgpu *vgpu)
-@@ -783,36 +774,20 @@ static bool __kvmgt_vgpu_exist(struct intel_vgpu *vgpu)
- static int intel_vgpu_open_device(struct vfio_device *vfio_dev)
- {
- 	struct intel_vgpu *vgpu = vfio_dev_to_vgpu(vfio_dev);
--	unsigned long events;
--	int ret;
--
--	vgpu->iommu_notifier.notifier_call = intel_vgpu_iommu_notifier;
- 
--	events = VFIO_IOMMU_NOTIFY_DMA_UNMAP;
--	ret = vfio_register_notifier(vfio_dev, VFIO_IOMMU_NOTIFY, &events,
--				     &vgpu->iommu_notifier);
--	if (ret != 0) {
--		gvt_vgpu_err("vfio_register_notifier for iommu failed: %d\n",
--			ret);
--		goto out;
--	}
--
--	ret = -EEXIST;
- 	if (vgpu->attached)
--		goto undo_iommu;
-+		return -EEXIST;
- 
--	ret = -ESRCH;
- 	if (!vgpu->vfio_device.kvm ||
- 	    vgpu->vfio_device.kvm->mm != current->mm) {
- 		gvt_vgpu_err("KVM is required to use Intel vGPU\n");
--		goto undo_iommu;
-+		return -ESRCH;
- 	}
- 
- 	kvm_get_kvm(vgpu->vfio_device.kvm);
- 
--	ret = -EEXIST;
- 	if (__kvmgt_vgpu_exist(vgpu))
--		goto undo_iommu;
-+		return -EEXIST;
- 
- 	vgpu->attached = true;
- 
-@@ -831,12 +806,6 @@ static int intel_vgpu_open_device(struct vfio_device *vfio_dev)
- 
- 	atomic_set(&vgpu->released, 0);
- 	return 0;
--
--undo_iommu:
--	vfio_unregister_notifier(vfio_dev, VFIO_IOMMU_NOTIFY,
--				 &vgpu->iommu_notifier);
--out:
--	return ret;
- }
- 
- static void intel_vgpu_release_msi_eventfd_ctx(struct intel_vgpu *vgpu)
-@@ -853,8 +822,6 @@ static void intel_vgpu_release_msi_eventfd_ctx(struct intel_vgpu *vgpu)
- static void intel_vgpu_close_device(struct vfio_device *vfio_dev)
- {
- 	struct intel_vgpu *vgpu = vfio_dev_to_vgpu(vfio_dev);
--	struct drm_i915_private *i915 = vgpu->gvt->gt->i915;
--	int ret;
- 
- 	if (!vgpu->attached)
- 		return;
-@@ -864,11 +831,6 @@ static void intel_vgpu_close_device(struct vfio_device *vfio_dev)
- 
- 	intel_gvt_release_vgpu(vgpu);
- 
--	ret = vfio_unregister_notifier(&vgpu->vfio_device, VFIO_IOMMU_NOTIFY,
--				       &vgpu->iommu_notifier);
--	drm_WARN(&i915->drm, ret,
--		 "vfio_unregister_notifier for iommu failed: %d\n", ret);
--
- 	debugfs_remove(debugfs_lookup(KVMGT_DEBUGFS_FILENAME, vgpu->debugfs));
- 
- 	kvm_page_track_unregister_notifier(vgpu->vfio_device.kvm,
-@@ -1610,6 +1572,7 @@ static const struct vfio_device_ops intel_vgpu_dev_ops = {
- 	.write		= intel_vgpu_write,
- 	.mmap		= intel_vgpu_mmap,
- 	.ioctl		= intel_vgpu_ioctl,
-+	.dma_unmap	= intel_vgpu_dma_unmap,
- };
- 
- static int intel_vgpu_probe(struct mdev_device *mdev)
-diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_ops.c
-index b49e2e9db2dc6f..09e0ce7b72324c 100644
---- a/drivers/s390/cio/vfio_ccw_ops.c
-+++ b/drivers/s390/cio/vfio_ccw_ops.c
-@@ -44,31 +44,19 @@ static int vfio_ccw_mdev_reset(struct vfio_ccw_private *private)
- 	return ret;
- }
- 
--static int vfio_ccw_mdev_notifier(struct notifier_block *nb,
--				  unsigned long action,
--				  void *data)
-+static void vfio_ccw_dma_unmap(struct vfio_device *vdev, u64 iova, u64 length)
- {
- 	struct vfio_ccw_private *private =
--		container_of(nb, struct vfio_ccw_private, nb);
--
--	/*
--	 * Vendor drivers MUST unpin pages in response to an
--	 * invalidation.
--	 */
--	if (action == VFIO_IOMMU_NOTIFY_DMA_UNMAP) {
--		struct vfio_iommu_type1_dma_unmap *unmap = data;
--
--		if (!cp_iova_pinned(&private->cp, unmap->iova))
--			return NOTIFY_OK;
-+		container_of(vdev, struct vfio_ccw_private, vdev);
- 
--		if (vfio_ccw_mdev_reset(private))
--			return NOTIFY_BAD;
-+	/* Drivers MUST unpin pages in response to an invalidation. */
-+	if (!cp_iova_pinned(&private->cp, iova))
-+		return;
- 
--		cp_free(&private->cp);
--		return NOTIFY_OK;
--	}
-+	if (vfio_ccw_mdev_reset(private))
-+		return;
- 
--	return NOTIFY_DONE;
-+	cp_free(&private->cp);
- }
- 
- static ssize_t name_show(struct mdev_type *mtype,
-@@ -178,19 +166,11 @@ static int vfio_ccw_mdev_open_device(struct vfio_device *vdev)
- {
- 	struct vfio_ccw_private *private =
- 		container_of(vdev, struct vfio_ccw_private, vdev);
--	unsigned long events = VFIO_IOMMU_NOTIFY_DMA_UNMAP;
- 	int ret;
- 
--	private->nb.notifier_call = vfio_ccw_mdev_notifier;
--
--	ret = vfio_register_notifier(vdev, VFIO_IOMMU_NOTIFY,
--				     &events, &private->nb);
--	if (ret)
--		return ret;
--
- 	ret = vfio_ccw_register_async_dev_regions(private);
- 	if (ret)
--		goto out_unregister;
-+		return ret;
- 
- 	ret = vfio_ccw_register_schib_dev_regions(private);
- 	if (ret)
-@@ -204,7 +184,6 @@ static int vfio_ccw_mdev_open_device(struct vfio_device *vdev)
- 
- out_unregister:
- 	vfio_ccw_unregister_dev_regions(private);
--	vfio_unregister_notifier(vdev, VFIO_IOMMU_NOTIFY, &private->nb);
- 	return ret;
- }
- 
-@@ -222,7 +201,6 @@ static void vfio_ccw_mdev_close_device(struct vfio_device *vdev)
- 
- 	cp_free(&private->cp);
- 	vfio_ccw_unregister_dev_regions(private);
--	vfio_unregister_notifier(vdev, VFIO_IOMMU_NOTIFY, &private->nb);
- }
- 
- static ssize_t vfio_ccw_mdev_read_io_region(struct vfio_ccw_private *private,
-@@ -645,6 +623,7 @@ static const struct vfio_device_ops vfio_ccw_dev_ops = {
- 	.write = vfio_ccw_mdev_write,
- 	.ioctl = vfio_ccw_mdev_ioctl,
- 	.request = vfio_ccw_mdev_request,
-+	.dma_unmap = vfio_ccw_dma_unmap,
- };
- 
- struct mdev_driver vfio_ccw_mdev_driver = {
-diff --git a/drivers/s390/cio/vfio_ccw_private.h b/drivers/s390/cio/vfio_ccw_private.h
-index 7272eb78861244..2627791c9006d4 100644
---- a/drivers/s390/cio/vfio_ccw_private.h
-+++ b/drivers/s390/cio/vfio_ccw_private.h
-@@ -98,7 +98,6 @@ struct vfio_ccw_private {
- 	struct completion	*completion;
- 	atomic_t		avail;
- 	struct mdev_device	*mdev;
--	struct notifier_block	nb;
- 	struct ccw_io_region	*io_region;
- 	struct mutex		io_mutex;
- 	struct vfio_ccw_region *region;
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index a7d2a95796d360..bb1a1677c5c230 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -1226,34 +1226,14 @@ static int vfio_ap_mdev_set_kvm(struct ap_matrix_mdev *matrix_mdev,
- 	return 0;
- }
- 
--/**
-- * vfio_ap_mdev_iommu_notifier - IOMMU notifier callback
-- *
-- * @nb: The notifier block
-- * @action: Action to be taken
-- * @data: data associated with the request
-- *
-- * For an UNMAP request, unpin the guest IOVA (the NIB guest address we
-- * pinned before). Other requests are ignored.
-- *
-- * Return: for an UNMAP request, NOFITY_OK; otherwise NOTIFY_DONE.
-- */
--static int vfio_ap_mdev_iommu_notifier(struct notifier_block *nb,
--				       unsigned long action, void *data)
-+static void vfio_ap_mdev_dma_unmap(struct vfio_device *vdev, u64 iova,
-+				   u64 length)
- {
--	struct ap_matrix_mdev *matrix_mdev;
--
--	matrix_mdev = container_of(nb, struct ap_matrix_mdev, iommu_notifier);
--
--	if (action == VFIO_IOMMU_NOTIFY_DMA_UNMAP) {
--		struct vfio_iommu_type1_dma_unmap *unmap = data;
--		unsigned long g_pfn = unmap->iova >> PAGE_SHIFT;
--
--		vfio_unpin_pages(&matrix_mdev->vdev, &g_pfn, 1);
--		return NOTIFY_OK;
--	}
-+	struct ap_matrix_mdev *matrix_mdev =
-+		container_of(vdev, struct ap_matrix_mdev, vdev);
-+	unsigned long g_pfn = iova >> PAGE_SHIFT;
- 
--	return NOTIFY_DONE;
-+	vfio_unpin_pages(&matrix_mdev->vdev, &g_pfn, 1);
- }
- 
- /**
-@@ -1380,27 +1360,11 @@ static int vfio_ap_mdev_open_device(struct vfio_device *vdev)
- {
- 	struct ap_matrix_mdev *matrix_mdev =
- 		container_of(vdev, struct ap_matrix_mdev, vdev);
--	unsigned long events;
--	int ret;
- 
- 	if (!vdev->kvm)
- 		return -EINVAL;
- 
--	ret = vfio_ap_mdev_set_kvm(matrix_mdev, vdev->kvm);
--	if (ret)
--		return ret;
--
--	matrix_mdev->iommu_notifier.notifier_call = vfio_ap_mdev_iommu_notifier;
--	events = VFIO_IOMMU_NOTIFY_DMA_UNMAP;
--	ret = vfio_register_notifier(vdev, VFIO_IOMMU_NOTIFY, &events,
--				     &matrix_mdev->iommu_notifier);
--	if (ret)
--		goto err_kvm;
--	return 0;
--
--err_kvm:
--	vfio_ap_mdev_unset_kvm(matrix_mdev);
--	return ret;
-+	return vfio_ap_mdev_set_kvm(matrix_mdev, vdev->kvm);
- }
- 
- static void vfio_ap_mdev_close_device(struct vfio_device *vdev)
-@@ -1408,8 +1372,6 @@ static void vfio_ap_mdev_close_device(struct vfio_device *vdev)
- 	struct ap_matrix_mdev *matrix_mdev =
- 		container_of(vdev, struct ap_matrix_mdev, vdev);
- 
--	vfio_unregister_notifier(vdev, VFIO_IOMMU_NOTIFY,
--				 &matrix_mdev->iommu_notifier);
- 	vfio_ap_mdev_unset_kvm(matrix_mdev);
- }
- 
-@@ -1461,6 +1423,7 @@ static const struct vfio_device_ops vfio_ap_matrix_dev_ops = {
- 	.open_device = vfio_ap_mdev_open_device,
- 	.close_device = vfio_ap_mdev_close_device,
- 	.ioctl = vfio_ap_mdev_ioctl,
-+	.dma_unmap = vfio_ap_mdev_dma_unmap,
- };
- 
- static struct mdev_driver vfio_ap_matrix_driver = {
-diff --git a/drivers/s390/crypto/vfio_ap_private.h b/drivers/s390/crypto/vfio_ap_private.h
-index a26efd804d0df3..abb59d59f81b20 100644
---- a/drivers/s390/crypto/vfio_ap_private.h
-+++ b/drivers/s390/crypto/vfio_ap_private.h
-@@ -81,8 +81,6 @@ struct ap_matrix {
-  * @node:	allows the ap_matrix_mdev struct to be added to a list
-  * @matrix:	the adapters, usage domains and control domains assigned to the
-  *		mediated matrix device.
-- * @iommu_notifier: notifier block used for specifying callback function for
-- *		    handling the VFIO_IOMMU_NOTIFY_DMA_UNMAP even
-  * @kvm:	the struct holding guest's state
-  * @pqap_hook:	the function pointer to the interception handler for the
-  *		PQAP(AQIC) instruction.
-@@ -92,7 +90,6 @@ struct ap_matrix_mdev {
- 	struct vfio_device vdev;
- 	struct list_head node;
- 	struct ap_matrix matrix;
--	struct notifier_block iommu_notifier;
- 	struct kvm *kvm;
- 	crypto_hook pqap_hook;
- 	struct mdev_device *mdev;
-diff --git a/drivers/vfio/vfio.c b/drivers/vfio/vfio.c
-index 61e71c1154be67..f005b644ab9e69 100644
---- a/drivers/vfio/vfio.c
-+++ b/drivers/vfio/vfio.c
-@@ -1077,8 +1077,20 @@ static void vfio_device_unassign_container(struct vfio_device *device)
- 	up_write(&device->group->group_rwsem);
- }
- 
-+static int vfio_iommu_notifier(struct notifier_block *nb, unsigned long action,
-+			       void *data)
++static int guc_action_slpc_set_param_nb(struct intel_guc *guc, u8 id, u32 value)
 +{
-+	struct vfio_device *vfio_device =
-+		container_of(nb, struct vfio_device, iommu_nb);
-+	struct vfio_iommu_type1_dma_unmap *unmap = data;
++	u32 request[] = {
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+static const
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">+		GUC_ACTION_HOST2GUC_PC_SLPC_REQUEST,
++		SLPC_EVENT(SLPC_EVENT_PARAMETER_SET, 2),
++		id,
++		value,
++	};
++	int ret;
 +
-+	vfio_device->ops->dma_unmap(vfio_device, unmap->iova, unmap->size);
-+	return NOTIFY_OK;
++	ret = intel_guc_send_nb(guc, request, ARRAY_SIZE(request), 0);
++
++	return ret &gt; 0 ? -EPROTO : ret;
 +}
 +
- static struct file *vfio_device_open(struct vfio_device *device)
++static int slpc_set_param_nb(struct intel_guc_slpc *slpc, u8 id, u32 value)
++{
++	struct intel_guc *guc = slpc_to_guc(slpc);
++
++	GEM_BUG_ON(id &gt;= SLPC_MAX_PARAM);
++
++	return guc_action_slpc_set_param_nb(guc, id, value);
++}
++
+ static int guc_action_slpc_set_param(struct intel_guc *guc, u8 id, u32 value)
  {
-+	struct vfio_iommu_driver *iommu_driver;
- 	struct file *filep;
- 	int ret;
- 
-@@ -1109,6 +1121,18 @@ static struct file *vfio_device_open(struct vfio_device *device)
- 			if (ret)
- 				goto err_undo_count;
- 		}
-+
-+		iommu_driver = device->group->container->iommu_driver;
-+		if (device->ops->dma_unmap && iommu_driver &&
-+		    iommu_driver->ops->register_notifier) {
-+			unsigned long events = VFIO_IOMMU_NOTIFY_DMA_UNMAP;
-+
-+			device->iommu_nb.notifier_call = vfio_iommu_notifier;
-+			iommu_driver->ops->register_notifier(
-+				device->group->container->iommu_data, &events,
-+				&device->iommu_nb);
-+		}
-+
- 		up_read(&device->group->group_rwsem);
- 	}
- 	mutex_unlock(&device->dev_set->lock);
-@@ -1143,8 +1167,16 @@ static struct file *vfio_device_open(struct vfio_device *device)
- err_close_device:
- 	mutex_lock(&device->dev_set->lock);
- 	down_read(&device->group->group_rwsem);
--	if (device->open_count == 1 && device->ops->close_device)
-+	if (device->open_count == 1 && device->ops->close_device) {
- 		device->ops->close_device(device);
-+
-+		iommu_driver = device->group->container->iommu_driver;
-+		if (device->ops->dma_unmap && iommu_driver &&
-+		    iommu_driver->ops->register_notifier)
-+			iommu_driver->ops->unregister_notifier(
-+				device->group->container->iommu_data,
-+				&device->iommu_nb);
-+	}
- err_undo_count:
- 	device->open_count--;
- 	if (device->open_count == 0 && device->kvm)
-@@ -1339,12 +1371,20 @@ static const struct file_operations vfio_group_fops = {
- static int vfio_device_fops_release(struct inode *inode, struct file *filep)
- {
- 	struct vfio_device *device = filep->private_data;
-+	struct vfio_iommu_driver *iommu_driver;
- 
- 	mutex_lock(&device->dev_set->lock);
- 	vfio_assert_device_open(device);
- 	down_read(&device->group->group_rwsem);
- 	if (device->open_count == 1 && device->ops->close_device)
- 		device->ops->close_device(device);
-+
-+	iommu_driver = device->group->container->iommu_driver;
-+	if (device->ops->dma_unmap && iommu_driver &&
-+	    iommu_driver->ops->register_notifier)
-+		iommu_driver->ops->unregister_notifier(
-+			device->group->container->iommu_data,
-+			&device->iommu_nb);
- 	up_read(&device->group->group_rwsem);
- 	device->open_count--;
- 	if (device->open_count == 0)
-@@ -2027,90 +2067,6 @@ int vfio_dma_rw(struct vfio_device *device, dma_addr_t user_iova, void *data,
- }
- EXPORT_SYMBOL(vfio_dma_rw);
- 
--static int vfio_register_iommu_notifier(struct vfio_group *group,
--					unsigned long *events,
--					struct notifier_block *nb)
--{
--	struct vfio_container *container;
--	struct vfio_iommu_driver *driver;
--	int ret;
--
--	lockdep_assert_held_read(&group->group_rwsem);
--
--	container = group->container;
--	driver = container->iommu_driver;
--	if (likely(driver && driver->ops->register_notifier))
--		ret = driver->ops->register_notifier(container->iommu_data,
--						     events, nb);
--	else
--		ret = -ENOTTY;
--
--	return ret;
--}
--
--static int vfio_unregister_iommu_notifier(struct vfio_group *group,
--					  struct notifier_block *nb)
--{
--	struct vfio_container *container;
--	struct vfio_iommu_driver *driver;
--	int ret;
--
--	lockdep_assert_held_read(&group->group_rwsem);
--
--	container = group->container;
--	driver = container->iommu_driver;
--	if (likely(driver && driver->ops->unregister_notifier))
--		ret = driver->ops->unregister_notifier(container->iommu_data,
--						       nb);
--	else
--		ret = -ENOTTY;
--
--	return ret;
--}
--
--int vfio_register_notifier(struct vfio_device *device,
--			   enum vfio_notify_type type, unsigned long *events,
--			   struct notifier_block *nb)
--{
--	struct vfio_group *group = device->group;
--	int ret;
--
--	if (!nb || !events || (*events == 0) ||
--	    !vfio_assert_device_open(device))
--		return -EINVAL;
--
--	switch (type) {
--	case VFIO_IOMMU_NOTIFY:
--		ret = vfio_register_iommu_notifier(group, events, nb);
--		break;
--	default:
--		ret = -EINVAL;
--	}
--	return ret;
--}
--EXPORT_SYMBOL(vfio_register_notifier);
--
--int vfio_unregister_notifier(struct vfio_device *device,
--			     enum vfio_notify_type type,
--			     struct notifier_block *nb)
--{
--	struct vfio_group *group = device->group;
--	int ret;
--
--	if (!nb || !vfio_assert_device_open(device))
--		return -EINVAL;
--
--	switch (type) {
--	case VFIO_IOMMU_NOTIFY:
--		ret = vfio_unregister_iommu_notifier(group, nb);
--		break;
--	default:
--		ret = -EINVAL;
--	}
--	return ret;
--}
--EXPORT_SYMBOL(vfio_unregister_notifier);
--
- /*
-  * Module/class support
-  */
-diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
-index a6713022115155..cb2e4e9baa8fe8 100644
---- a/drivers/vfio/vfio.h
-+++ b/drivers/vfio/vfio.h
-@@ -33,6 +33,11 @@ enum vfio_iommu_notify_type {
- 	VFIO_IOMMU_CONTAINER_CLOSE = 0,
- };
- 
-+/* events for register_notifier() */
-+enum {
-+	VFIO_IOMMU_NOTIFY_DMA_UNMAP = 1,
-+};
-+
- /**
-  * struct vfio_iommu_driver_ops - VFIO IOMMU driver callbacks
-  */
-diff --git a/include/linux/vfio.h b/include/linux/vfio.h
-index aa888cc517578e..b76623e3b92fca 100644
---- a/include/linux/vfio.h
-+++ b/include/linux/vfio.h
-@@ -44,6 +44,7 @@ struct vfio_device {
- 	unsigned int open_count;
- 	struct completion comp;
- 	struct list_head group_next;
-+	struct notifier_block iommu_nb;
- };
- 
- /**
-@@ -60,6 +61,8 @@ struct vfio_device {
-  * @match: Optional device name match callback (return: 0 for no-match, >0 for
-  *         match, -errno for abort (ex. match with insufficient or incorrect
-  *         additional args)
-+ * @dma_unmap: Called when userspace unmaps IOVA from the container
-+ *             this device is attached to.
-  * @device_feature: Optional, fill in the VFIO_DEVICE_FEATURE ioctl
-  * @migration_set_state: Optional callback to change the migration state for
-  *         devices that support migration. It's mandatory for
-@@ -85,6 +88,7 @@ struct vfio_device_ops {
- 	int	(*mmap)(struct vfio_device *vdev, struct vm_area_struct *vma);
- 	void	(*request)(struct vfio_device *vdev, unsigned int count);
- 	int	(*match)(struct vfio_device *vdev, char *buf);
-+	void	(*dma_unmap)(struct vfio_device *vdev, u64 iova, u64 length);
- 	int	(*device_feature)(struct vfio_device *device, u32 flags,
- 				  void __user *arg, size_t argsz);
- 	struct file *(*migration_set_state)(
-@@ -154,23 +158,6 @@ extern int vfio_unpin_pages(struct vfio_device *device, unsigned long *user_pfn,
- extern int vfio_dma_rw(struct vfio_device *device, dma_addr_t user_iova,
- 		       void *data, size_t len, bool write);
- 
--/* each type has independent events */
--enum vfio_notify_type {
--	VFIO_IOMMU_NOTIFY = 0,
--};
--
--/* events for VFIO_IOMMU_NOTIFY */
--#define VFIO_IOMMU_NOTIFY_DMA_UNMAP	BIT(0)
--
--extern int vfio_register_notifier(struct vfio_device *device,
--				  enum vfio_notify_type type,
--				  unsigned long *required_events,
--				  struct notifier_block *nb);
--extern int vfio_unregister_notifier(struct vfio_device *device,
--				    enum vfio_notify_type type,
--				    struct notifier_block *nb);
--
--
- /*
-  * Sub-module helpers
-  */
--- 
-2.36.1
+ 	u32 request[] = {
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Ditto here, and the whole gt/uc directory seems to have tons of these
+u32 action/request array variables on stack, with the required
+initialization, that could be in rodata.
 
+Please fix all of them.
+
+BR,
+Jani.
+</pre>
+    </blockquote>
+    But the only constant is the action code. Everything else is
+    parameters and will be different on each call. <br>
+    <br>
+    You mean something like this?<br>
+    <blockquote>static const u32 template[] = {<br>
+      &nbsp;&nbsp;&nbsp; action,<br>
+      };<br>
+      u32 *request = kmalloc_array(sizeof(*request), 4);<br>
+      memcpy(request, template, sizeof(*request) * 1);<br>
+      request[1] = param0;<br>
+      request[2] = param1;<br>
+      request[3] = param2;<br>
+      ret = send(request);<br>
+      kfree(request);<br>
+      return ret;<br>
+    </blockquote>
+    <br>
+    Not seeing how that would be an improvement. It's a lot more code, a
+    lot less readable, more prone to bugs due to incorrect structure
+    sizes and/or params in the wrong place. The current version is easy
+    to read and therefore to maintain, almost impossible to get wrong,
+    and only puts a few words on the stack. I think the largest request
+    is region of 15 words? I'm not seeing what the problem is.<br>
+    <br>
+    John.<br>
+    <br>
+    <br>
+    <blockquote type="cite" cite="mid:874k1pj4bi.fsf@intel.com">
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">@@ -208,12 +232,10 @@ static int slpc_force_min_freq(struct intel_guc_slpc *slpc, u32 freq)
+ 	 */
+ 
+ 	with_intel_runtime_pm(&amp;i915-&gt;runtime_pm, wakeref) {
+-		ret = slpc_set_param(slpc,
+-				     SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
+-				     freq);
+-		if (ret)
+-			i915_probe_error(i915, &quot;Unable to force min freq to %u: %d&quot;,
+-					 freq, ret);
++		/* Non-blocking request will avoid stalls */
++		ret = slpc_set_param_nb(slpc,
++					SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
++					freq);
+ 	}
+ 
+ 	return ret;
+@@ -222,6 +244,8 @@ static int slpc_force_min_freq(struct intel_guc_slpc *slpc, u32 freq)
+ static void slpc_boost_work(struct work_struct *work)
+ {
+ 	struct intel_guc_slpc *slpc = container_of(work, typeof(*slpc), boost_work);
++	struct drm_i915_private *i915 = slpc_to_i915(slpc);
++	int err;
+ 
+ 	/*
+ 	 * Raise min freq to boost. It's possible that
+@@ -231,8 +255,12 @@ static void slpc_boost_work(struct work_struct *work)
+ 	 */
+ 	mutex_lock(&amp;slpc-&gt;lock);
+ 	if (atomic_read(&amp;slpc-&gt;num_waiters)) {
+-		slpc_force_min_freq(slpc, slpc-&gt;boost_freq);
+-		slpc-&gt;num_boosts++;
++		err = slpc_force_min_freq(slpc, slpc-&gt;boost_freq);
++		if (!err)
++			slpc-&gt;num_boosts++;
++		else
++			drm_notice(&amp;i915-&gt;drm, &quot;Failed to send waitboost request (%d)\n&quot;,
++				   err);
+ 	}
+ 	mutex_unlock(&amp;slpc-&gt;lock);
+ }
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------mnvacnBJiLe20emF53ojqZA0--
