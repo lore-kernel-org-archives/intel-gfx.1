@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6B8ACCA47B
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 07:51:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86773C43334
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Jun 2022 07:51:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 930D810EECF;
-	Wed,  8 Jun 2022 07:51:30 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B440510EECF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0819410EEE2;
+	Wed,  8 Jun 2022 07:51:33 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3131D10EECD;
  Wed,  8 Jun 2022 07:51:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1654674689; x=1686210689;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=GpE7nEyY2uspeeoHz7FHu7PpDL0wfiXZ3iIaSnnNdJM=;
- b=Uson+bCc8s7GpmOJw2KB80df61QJOhmuq53n4Sk7efs0dxz0At/hiAgb
- UfHefM2Hlb0LJLN1+gGWlHPoaoQYVF53TFKH3yyjh4E8inYV9mdt8F1i4
- 064E9N1MkHDk47bPB0Nake0N1t5G+ln+jBJGtPGcouESIxnDYOYN/0J1R
- sTGNBNsKGgmJartZQCWnkd+rvHrojYMz3Vr3PMJKNcPtN5c9IvGkOj+EN
- jMal93MtjqIK4SYOQ+odS9nWlKz2xzdFgE9FPcz4ffhR+KEnQfKc3oNVZ
- KtywS3sPkp+Qz4hulJmJj4qGyYXh8022fIYTSQ/w+/e6aveRNLHd78pEG Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10371"; a="363142728"
-X-IronPort-AV: E=Sophos;i="5.91,285,1647327600"; d="scan'208";a="363142728"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2022 00:51:29 -0700
-X-IronPort-AV: E=Sophos;i="5.91,285,1647327600"; d="scan'208";a="907528407"
+ bh=RQfazp2nFqOsH62ebKVXq86BZfYqYSUML1XmhL+OOAY=;
+ b=EH4s9vaBEnFsF55KO0C6EM2q6CmBxKP/E6lTcX2KSC3VbTgQFl5Xfxp6
+ Whud6OPjQRugeDtyvTCjRihX7ZW9iJVSqM04gwbqFtfWQVpLsiGtID6bP
+ xUcjP+Sdu0HqzaPRW4xFHtzShOLv7gmquJnzIO2r11aY+WgIc7RwXNHgS
+ KjTBhvePkkIK4KHKzdWKigH6jY7J8P0Lq4vVCNqQr1hjGpaQhRvEq5sbR
+ jWmlWQfkKSVvcdhrL2rrFy2TLZmYQ+akALQeO+z6jMR9FrPqgn1un4KcY
+ kv+yyZJU5bRpmdmm6ruoLzrQdPXz1BAuteHmfMOq1O8kH2jyvToxkUde+ A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10371"; a="340914850"
+X-IronPort-AV: E=Sophos;i="5.91,285,1647327600"; d="scan'208";a="340914850"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2022 00:51:21 -0700
+X-IronPort-AV: E=Sophos;i="5.91,285,1647327600"; d="scan'208";a="648466340"
 Received: from jkosticx-mobl.amr.corp.intel.com (HELO localhost)
  ([10.252.58.130])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2022 00:51:27 -0700
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2022 00:51:19 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Wed,  8 Jun 2022 10:50:39 +0300
-Message-Id: <5363988bcd7f0af9a32e30634348dbb8f22ec5b9.1654674560.git.jani.nikula@intel.com>
+Date: Wed,  8 Jun 2022 10:50:37 +0300
+Message-Id: <a4de51efc246e4f5bcbf7b84d66bb49aaf7fd974.1654674560.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1654674560.git.jani.nikula@intel.com>
 References: <cover.1654674560.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 09/15] drm/edid: add drm_edid_raw() to access
- the raw EDID data
+Subject: [Intel-gfx] [PATCH v2 07/15] drm/probe-helper: abstract
+ .get_modes() connector helper call
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,68 +62,68 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Unfortunately, there are still plenty of interfaces around that require
-a struct edid pointer, and it's impossible to change them all at
-once. Add an accessor to the raw EDID data to help the transition.
-
-While there are no such cases now, be defensive against raw EDID
-extension count indicating bigger EDID than is actually allocated.
+Abstract the .get_modes() connector helper call, including the
+override/firmware EDID fallback, for clarity.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 26 ++++++++++++++++++++++++++
- include/drm/drm_edid.h     |  1 +
- 2 files changed, 27 insertions(+)
+ drivers/gpu/drm/drm_probe_helper.c | 29 +++++++++++++++++++----------
+ 1 file changed, 19 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 952724788963..4e788c5cbf25 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -2333,6 +2333,32 @@ struct edid *drm_do_get_edid(struct drm_connector *connector,
+diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+index 75a71649b64d..a8d26b29bfa0 100644
+--- a/drivers/gpu/drm/drm_probe_helper.c
++++ b/drivers/gpu/drm/drm_probe_helper.c
+@@ -354,6 +354,24 @@ drm_helper_probe_detect(struct drm_connector *connector,
  }
- EXPORT_SYMBOL_GPL(drm_do_get_edid);
+ EXPORT_SYMBOL(drm_helper_probe_detect);
  
-+/**
-+ * drm_edid_raw - Get a pointer to the raw EDID data.
-+ * @drm_edid: drm_edid container
-+ *
-+ * Get a pointer to the raw EDID data.
-+ *
-+ * This is for transition only. Avoid using this like the plague.
-+ *
-+ * Return: Pointer to raw EDID data.
-+ */
-+const struct edid *drm_edid_raw(const struct drm_edid *drm_edid)
++static int drm_helper_probe_get_modes(struct drm_connector *connector)
 +{
-+	if (!drm_edid || !drm_edid->size)
-+		return NULL;
++	const struct drm_connector_helper_funcs *connector_funcs =
++		connector->helper_private;
++	int count;
++
++	count = connector_funcs->get_modes(connector);
 +
 +	/*
-+	 * Do not return pointers where relying on EDID extension count would
-+	 * lead to buffer overflow.
++	 * Fallback for when DDC probe failed in drm_get_edid() and thus skipped
++	 * override/firmware EDID.
 +	 */
-+	if (WARN_ON(edid_size(drm_edid->edid) > drm_edid->size))
-+		return NULL;
++	if (count == 0 && connector->status == connector_status_connected)
++		count = drm_add_override_edid_modes(connector);
 +
-+	return drm_edid->edid;
++	return count;
 +}
-+EXPORT_SYMBOL(drm_edid_raw);
 +
- /* Allocate struct drm_edid container *without* duplicating the edid data */
- static const struct drm_edid *_drm_edid_alloc(const void *edid, size_t size)
+ static int __drm_helper_update_and_validate(struct drm_connector *connector,
+ 					    uint32_t maxX, uint32_t maxY,
+ 					    struct drm_modeset_acquire_ctx *ctx)
+@@ -473,8 +491,6 @@ int drm_helper_probe_single_connector_modes(struct drm_connector *connector,
  {
-diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-index aeb2fa95bc04..2181977ae683 100644
---- a/include/drm/drm_edid.h
-+++ b/include/drm/drm_edid.h
-@@ -597,6 +597,7 @@ drm_display_mode_from_cea_vic(struct drm_device *dev,
- const struct drm_edid *drm_edid_alloc(const void *edid, size_t size);
- const struct drm_edid *drm_edid_dup(const struct drm_edid *drm_edid);
- void drm_edid_free(const struct drm_edid *drm_edid);
-+const struct edid *drm_edid_raw(const struct drm_edid *drm_edid);
- const struct drm_edid *drm_edid_read(struct drm_connector *connector);
- const struct drm_edid *drm_edid_read_ddc(struct drm_connector *connector,
- 					 struct i2c_adapter *adapter);
+ 	struct drm_device *dev = connector->dev;
+ 	struct drm_display_mode *mode;
+-	const struct drm_connector_helper_funcs *connector_funcs =
+-		connector->helper_private;
+ 	int count = 0, ret;
+ 	enum drm_connector_status old_status;
+ 	struct drm_modeset_acquire_ctx ctx;
+@@ -559,14 +575,7 @@ int drm_helper_probe_single_connector_modes(struct drm_connector *connector,
+ 		goto exit;
+ 	}
+ 
+-	count = (*connector_funcs->get_modes)(connector);
+-
+-	/*
+-	 * Fallback for when DDC probe failed in drm_get_edid() and thus skipped
+-	 * override/firmware EDID.
+-	 */
+-	if (count == 0 && connector->status == connector_status_connected)
+-		count = drm_add_override_edid_modes(connector);
++	count = drm_helper_probe_get_modes(connector);
+ 
+ 	if (count == 0 && (connector->status == connector_status_connected ||
+ 			   connector->status == connector_status_unknown)) {
 -- 
 2.30.2
 
