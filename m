@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A0D4CCA47E
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 16:52:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EABDC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 16:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 800F411B0AB;
-	Thu,  9 Jun 2022 16:52:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D587911B0F6;
+	Thu,  9 Jun 2022 16:52:31 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E44C11AB75;
- Thu,  9 Jun 2022 16:52:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F42A11AFF5;
+ Thu,  9 Jun 2022 16:52:28 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id EBC5266017EC;
- Thu,  9 Jun 2022 17:52:27 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 7BD4E66017E0;
+ Thu,  9 Jun 2022 17:52:26 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1654793548;
- bh=8vOVoJXWNBNoAe7uHxF6kK6AtRixKpYtIjs6ocUktn4=;
+ s=mail; t=1654793546;
+ bh=JT0TnJkB0rL8RAGj5L8WxKKfTjJ2qr1XwBthtCgxh3Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Xihi5B5e5WHHgSAo6HedsLzSorg92CMGBrBGBqJ8uY5Rml9yp9GaLMXyJQd4zgYlx
- fQkX7x3wfEaMEqebyc8LVvxtzhtrGJRDpOF0bDzklafhaUfcCX23O6Y0FG45CJ4u+V
- 9zOdG/94nIeKMjWDxshowaCqawMaXhT+/+2yaSI3Hi3PVnw4MCDOqc8hBBfK8wKcKa
- BEC7VtPddb3oRQMdf4zH1YaSfRassGwea/vyR4N4hhYRB19ri/6DhRHtmDK4xToKwh
- Nvk1vqQij6fdjd2amg4aJN3DexdQdMb7j6sWxIa+0sGXNpb6Kg0AEpxvV5r1ZKCRCq
- v/4cMtg3TG6vA==
+ b=ZUY7j0J4rtnKrcF9zN5/dZNwoipi8ZxGGyyoLbyyg48THwbRtwyMXrsBCjkW/C/6/
+ jGGdtn0RIYATngU6r2GSqgWXuqz5G9Dkr9glRh4CSbQMkZFUIMvNAx3v+kPPOQrPWC
+ prkiuxP9YmLeH5/ZkhiSwDwk8ZGrA65Z74GR3pAYMGoQ4zAC9mPfetZOZGOMGcfOia
+ ZMYx68a6v2KNQqhMxxoTtRAQLm/4+2WIJ4Fqli9+JJ02tZczIEo8/1R3+yH7n2/4Ji
+ NZLw/QfC8SQvOYc29b6aZ89oYxH7Jd9EugLW4uO0kH6sjv6zwXuyUaUqJtqQtcz4UW
+ G6Wqsdn0DpTiw==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -36,15 +36,14 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Thu,  9 Jun 2022 16:51:59 +0000
-Message-Id: <20220609165200.842821-8-bob.beckett@collabora.com>
+Date: Thu,  9 Jun 2022 16:51:57 +0000
+Message-Id: <20220609165200.842821-6-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220609165200.842821-1-bob.beckett@collabora.com>
 References: <20220609165200.842821-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 7/8] drm/i915/ttm: only trust snooping for
- dgfx when deciding default cache_level
+Subject: [Intel-gfx] [PATCH v3 5/8] drm/i915: limit ttm to dma32 for i965G[M]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,32 +62,35 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-By default i915_ttm_cache_level() decides I915_CACHE_LLC if HAS_SNOOP.
-This is divergent from existing backends code which only considers
-HAS_LLC.
-Testing shows that trusting snooping on gen5- is unreliable and bsw via
-ggtt mappings, so limit DGFX for now and maintain previous behaviour.
+i965G[M] cannot relocate objects above 4GiB.
+Ensure ttm uses dma32 on these systems.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/intel_region_ttm.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index 4c1de0b4a10f..40249fa28a7a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -46,7 +46,9 @@ static enum i915_cache_level
- i915_ttm_cache_level(struct drm_i915_private *i915, struct ttm_resource *res,
- 		     struct ttm_tt *ttm)
+diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
+index 62ff77445b01..fd2ecfdd8fa1 100644
+--- a/drivers/gpu/drm/i915/intel_region_ttm.c
++++ b/drivers/gpu/drm/i915/intel_region_ttm.c
+@@ -32,10 +32,15 @@
+ int intel_region_ttm_device_init(struct drm_i915_private *dev_priv)
  {
--	return ((HAS_LLC(i915) || HAS_SNOOP(i915)) &&
-+	bool can_snoop = HAS_SNOOP(i915) && IS_DGFX(i915);
+ 	struct drm_device *drm = &dev_priv->drm;
++	bool use_dma32 = false;
 +
-+	return ((HAS_LLC(i915) || can_snoop) &&
- 		!i915_ttm_gtt_binds_lmem(res) &&
- 		ttm->caching == ttm_cached) ? I915_CACHE_LLC :
- 		I915_CACHE_NONE;
++	/* i965g[m] cannot relocate objects above 4GiB. */
++	if (IS_I965GM(dev_priv) || IS_I965G(dev_priv))
++		use_dma32 = true;
+ 
+ 	return ttm_device_init(&dev_priv->bdev, i915_ttm_driver(),
+ 			       drm->dev, drm->anon_inode->i_mapping,
+-			       drm->vma_offset_manager, false, false);
++			       drm->vma_offset_manager, false, use_dma32);
+ }
+ 
+ /**
 -- 
 2.25.1
 
