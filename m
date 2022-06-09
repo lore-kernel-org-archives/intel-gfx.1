@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 932B2C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 16:52:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A0D4CCA47E
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 16:52:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14E6F11AFF5;
-	Thu,  9 Jun 2022 16:52:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 800F411B0AB;
+	Thu,  9 Jun 2022 16:52:30 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52FCD11AB75;
- Thu,  9 Jun 2022 16:52:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E44C11AB75;
+ Thu,  9 Jun 2022 16:52:29 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id CD5A666017BA;
- Thu,  9 Jun 2022 17:52:25 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id EBC5266017EC;
+ Thu,  9 Jun 2022 17:52:27 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1654793546;
- bh=fNrnNmjm8O3impsJ3FwNrPFJIw42pnJblFgr2kI6zEE=;
+ s=mail; t=1654793548;
+ bh=8vOVoJXWNBNoAe7uHxF6kK6AtRixKpYtIjs6ocUktn4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EpKGah8MRwcPqjQ95aCfc7Oks1XrRyNlKgTrhFsuhUw2s3yzaRTIoYsy++VgRqvQ5
- Oy/gXuwzxwXXFaonnGDftHH9qzCXCKjtF/MEMtxP/q7xQw0howdNcAsAVCn3P5hKYQ
- Kbc/xg4zKL+o1MMWxLTFRpwbLg/0h7jua9peemWb5Bt7Po3wzD8Zg/QJk8f53P5sD6
- ePj1vstZNyUg69igFYvoFsjGWRxMpGCvpoK1EZZwhk6myvgmc6GD+SBuFVTr4NgYqF
- ElfEg472OJdCcPK0tbEWwiQtU2I/u411NrTuCAXGhbk0Qckeh6POMRbPN0yY/KPU1M
- cn3s2ysIC8RwQ==
+ b=Xihi5B5e5WHHgSAo6HedsLzSorg92CMGBrBGBqJ8uY5Rml9yp9GaLMXyJQd4zgYlx
+ fQkX7x3wfEaMEqebyc8LVvxtzhtrGJRDpOF0bDzklafhaUfcCX23O6Y0FG45CJ4u+V
+ 9zOdG/94nIeKMjWDxshowaCqawMaXhT+/+2yaSI3Hi3PVnw4MCDOqc8hBBfK8wKcKa
+ BEC7VtPddb3oRQMdf4zH1YaSfRassGwea/vyR4N4hhYRB19ri/6DhRHtmDK4xToKwh
+ Nvk1vqQij6fdjd2amg4aJN3DexdQdMb7j6sWxIa+0sGXNpb6Kg0AEpxvV5r1ZKCRCq
+ v/4cMtg3TG6vA==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -36,15 +36,15 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Thu,  9 Jun 2022 16:51:56 +0000
-Message-Id: <20220609165200.842821-5-bob.beckett@collabora.com>
+Date: Thu,  9 Jun 2022 16:51:59 +0000
+Message-Id: <20220609165200.842821-8-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220609165200.842821-1-bob.beckett@collabora.com>
 References: <20220609165200.842821-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 4/8] drm/i915: allow volatile buffers to use
- ttm pool allocator
+Subject: [Intel-gfx] [PATCH v3 7/8] drm/i915/ttm: only trust snooping for
+ dgfx when deciding default cache_level
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,42 +63,32 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Internal/volatile buffers should not be shmem backed.
-If a volatile buffer is requested, allow ttm to use the pool allocator
-to provide volatile pages as backing.
-Fix i915_ttm_shrink to handle !is_shmem volatile buffers by purging.
+By default i915_ttm_cache_level() decides I915_CACHE_LLC if HAS_SNOOP.
+This is divergent from existing backends code which only considers
+HAS_LLC.
+Testing shows that trusting snooping on gen5- is unreliable and bsw via
+ggtt mappings, so limit DGFX for now and maintain previous behaviour.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 27d59639177f..8edce04a0509 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -309,7 +309,8 @@ static struct ttm_tt *i915_ttm_tt_create(struct ttm_buffer_object *bo,
- 		page_flags |= TTM_TT_FLAG_ZERO_ALLOC;
- 
- 	caching = i915_ttm_select_tt_caching(obj);
--	if (i915_gem_object_is_shrinkable(obj) && caching == ttm_cached) {
-+	if (i915_gem_object_is_shrinkable(obj) && caching == ttm_cached &&
-+	    !i915_gem_object_is_volatile(obj)) {
- 		page_flags |= TTM_TT_FLAG_EXTERNAL |
- 			      TTM_TT_FLAG_EXTERNAL_MAPPABLE;
- 		i915_tt->is_shmem = true;
-@@ -531,9 +532,9 @@ static int i915_ttm_shrink(struct drm_i915_gem_object *obj, unsigned int flags)
- 	if (!bo->ttm || bo->resource->mem_type != TTM_PL_SYSTEM)
- 		return 0;
- 
--	GEM_BUG_ON(!i915_tt->is_shmem);
-+	GEM_BUG_ON(!i915_tt->is_shmem && obj->mm.madv != I915_MADV_DONTNEED);
- 
--	if (!i915_tt->filp)
-+	if (i915_tt->is_shmem && !i915_tt->filp)
- 		return 0;
- 
- 	ret = ttm_bo_wait_ctx(bo, &ctx);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index 4c1de0b4a10f..40249fa28a7a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -46,7 +46,9 @@ static enum i915_cache_level
+ i915_ttm_cache_level(struct drm_i915_private *i915, struct ttm_resource *res,
+ 		     struct ttm_tt *ttm)
+ {
+-	return ((HAS_LLC(i915) || HAS_SNOOP(i915)) &&
++	bool can_snoop = HAS_SNOOP(i915) && IS_DGFX(i915);
++
++	return ((HAS_LLC(i915) || can_snoop) &&
+ 		!i915_ttm_gtt_binds_lmem(res) &&
+ 		ttm->caching == ttm_cached) ? I915_CACHE_LLC :
+ 		I915_CACHE_NONE;
 -- 
 2.25.1
 
