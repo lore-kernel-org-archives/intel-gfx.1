@@ -4,41 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 355A5C43334
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 16:52:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3734C43334
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 16:52:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6B2711A942;
-	Thu,  9 Jun 2022 16:52:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE38411AE05;
+	Thu,  9 Jun 2022 16:52:27 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 878B711A8B7;
- Thu,  9 Jun 2022 16:52:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4F9811A93B;
+ Thu,  9 Jun 2022 16:52:25 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id E56D666017AF;
- Thu,  9 Jun 2022 17:52:22 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 5DCC666017D3;
+ Thu,  9 Jun 2022 17:52:24 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1654793543;
- bh=pQCbRn0lVajQk4VcAMZCeQpf9tg2Mi87SQhPp9uya5o=;
- h=From:To:Cc:Subject:Date:From;
- b=a4/bgd1loAfBcHpIZIkM9KCjjSeTQB/KSyl2JM5H3xp+o4uanBoKLs0IMtVAsnqoJ
- s6CEUVWuKt3KFc4Qzjb3ENm8hB4rR5Cz7iBHXtkLMgFLF5bSOzY4wtYHnsxxzuYtHc
- OimHPLWyuwPCGu9JS3c3Vs9JrRd15fa+PXlFTDG1e2xb3qoX2yKvkCi9oIULItgzUu
- iIwWbDzBpqqAaMyO+tscY2u5RgpImmfiFS5LpH+y/zT2bNzRSmQTmY2ZcvEsM6A0XV
- e3Ux81/hfc3IgGXvNpIa80ooAxrItrlTyXkpCx0R/PuHySdTkRG/dPGr/YSEPEfvHC
- 4S7se0jewuu/Q==
+ s=mail; t=1654793544;
+ bh=5MPDE6PLauo4xeTXuzQqjxRuaatIiJJgaRF7Azzw0o0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=RlkP1xHXyos7Ke4dm5wGk0GT576pUmbcE2uyzbC20aAskIonfza2gSq4uf5I6Mkls
+ l5OC82mjgKt6TFTNt+Sq9iiQX1af0na3XOgHUTU0xevMxQwFTs8q+HnEmkihWGsrQ9
+ 2R4oYIcKKoDqbS7RSLSiYJ16ap5U8P99DdxmT32hkvjQZqOuwtswWrLdk3UoMw6Xew
+ D3qcIpkWSghfDmvaEFhphJ3W84exgaQ+XaCWvr9TGsH4tBJur1XZoH3P+gijGL2zDt
+ sQ5B4bDoDUMpaTedzRtl1S2FloqhE3HLHj830GthW/sd0OWm/bfkPkkb0ZYsFTbZ73
+ /GNT8okcGtrXQ==
 From: Robert Beckett <bob.beckett@collabora.com>
-To: dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Jun 2022 16:51:52 +0000
-Message-Id: <20220609165200.842821-1-bob.beckett@collabora.com>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Thu,  9 Jun 2022 16:51:54 +0000
+Message-Id: <20220609165200.842821-3-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220609165200.842821-1-bob.beckett@collabora.com>
+References: <20220609165200.842821-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/8] drm/i915: ttm for internal
+Subject: [Intel-gfx] [PATCH v3 2/8] drm/i915: add gen6 ppgtt dummy creation
+ function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,58 +58,85 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- kernel@collabora.com, Matthew Auld <matthew.auld@intel.com>
+ kernel@collabora.com, Matthew Auld <matthew.auld@intel.com>,
+ linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series refactors i915's internal buffer backend to use ttm.
-It uses ttm's pool allocator to allocate volatile pages in place of the
-old code which rolled its own via alloc_pages.
-This is continuing progress to align all backends on using ttm.
+Internal gem objects will soon just be volatile system memory region
+objects.
+To enable this, create a separate dummy object creation function
+for gen6 ppgtt. The object only exists as a fake object pointing to ggtt
+and gains no benefit in going via the internal backend.
+Instead, create a dummy gem object and avoid having to maintain a custom
+ops api in the internal backend, which makes later refactoring easier.
 
-v2:	- commit message improvements to add detail
-	- fix i915_ttm_shrink to purge !is_shmem volatile buffers
-	- limit ttm pool allocator to using dma32 on i965G[M]
-	- fix mman selftest to always use smem buffers
-	- create new internal memory region
-	- make internal backend allocate from internal region
-	- Fixed various issues with tests and i915 ttm usage as a result
-	  of supporting regions other than lmem via ttm.
+Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
+---
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c | 43 ++++++++++++++++++++++++++--
+ 1 file changed, 40 insertions(+), 3 deletions(-)
 
-v4:	- limit i915 ttm default cache_level selection to only trust
-v4:	- limit i915 ttm default cache_level selection to only trust
-	  HAS_SNOOP on DGFX.
-
-Robert Beckett (8):
-  drm/i915/ttm: dont trample cache_level overrides during ttm move
-  drm/i915: add gen6 ppgtt dummy creation function
-  drm/i915: setup ggtt scratch page after memory regions
-  drm/i915: allow volatile buffers to use ttm pool allocator
-  drm/i915: limit ttm to dma32 for i965G[M]
-  drm/i915/gem: further fix mman selftest
-  drm/i915/ttm: only trust snooping for dgfx when deciding default
-    cache_level
-  drm/i915: internal buffers use ttm backend
-
- drivers/gpu/drm/i915/gem/i915_gem_internal.c  | 187 +-----------------
- drivers/gpu/drm/i915/gem/i915_gem_internal.h  |   5 -
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |   1 +
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |   1 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |   8 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm.h       |   1 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  13 +-
- .../drm/i915/gem/selftests/i915_gem_mman.c    |  20 +-
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c          |  43 +++-
- drivers/gpu/drm/i915/gt/intel_gt_gmch.c       |  20 +-
- drivers/gpu/drm/i915/gt/intel_gt_gmch.h       |   6 +
- drivers/gpu/drm/i915/i915_driver.c            |  16 +-
- drivers/gpu/drm/i915/i915_pci.c               |   4 +-
- drivers/gpu/drm/i915/intel_memory_region.c    |   8 +-
- drivers/gpu/drm/i915/intel_memory_region.h    |   2 +
- drivers/gpu/drm/i915/intel_region_ttm.c       |   7 +-
- .../gpu/drm/i915/selftests/mock_gem_device.c  |   2 +-
- 17 files changed, 123 insertions(+), 221 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+index 1bb766c79dcb..f3b660cfeb7f 100644
+--- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+@@ -372,6 +372,45 @@ static const struct drm_i915_gem_object_ops pd_dummy_obj_ops = {
+ 	.put_pages = pd_dummy_obj_put_pages,
+ };
+ 
++static struct drm_i915_gem_object *
++i915_gem_object_create_dummy(struct drm_i915_private *i915, phys_addr_t size)
++{
++	static struct lock_class_key lock_class;
++	struct drm_i915_gem_object *obj;
++	unsigned int cache_level;
++
++	GEM_BUG_ON(!size);
++	GEM_BUG_ON(!IS_ALIGNED(size, PAGE_SIZE));
++
++	if (overflows_type(size, obj->base.size))
++		return ERR_PTR(-E2BIG);
++
++	obj = i915_gem_object_alloc();
++	if (!obj)
++		return ERR_PTR(-ENOMEM);
++
++	drm_gem_private_object_init(&i915->drm, &obj->base, size);
++	i915_gem_object_init(obj, &pd_dummy_obj_ops, &lock_class, 0);
++	obj->mem_flags |= I915_BO_FLAG_STRUCT_PAGE;
++
++	/*
++	 * Mark the object as volatile, such that the pages are marked as
++	 * dontneed whilst they are still pinned. As soon as they are unpinned
++	 * they are allowed to be reaped by the shrinker, and the caller is
++	 * expected to repopulate - the contents of this object are only valid
++	 * whilst active and pinned.
++	 */
++	i915_gem_object_set_volatile(obj);
++
++	obj->read_domains = I915_GEM_DOMAIN_CPU;
++	obj->write_domain = I915_GEM_DOMAIN_CPU;
++
++	cache_level = HAS_LLC(i915) ? I915_CACHE_LLC : I915_CACHE_NONE;
++	i915_gem_object_set_cache_coherency(obj, cache_level);
++
++	return obj;
++}
++
+ static struct i915_page_directory *
+ gen6_alloc_top_pd(struct gen6_ppgtt *ppgtt)
+ {
+@@ -383,9 +422,7 @@ gen6_alloc_top_pd(struct gen6_ppgtt *ppgtt)
+ 	if (unlikely(!pd))
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	pd->pt.base = __i915_gem_object_create_internal(ppgtt->base.vm.gt->i915,
+-							&pd_dummy_obj_ops,
+-							I915_PDES * SZ_4K);
++	pd->pt.base = i915_gem_object_create_dummy(ppgtt->base.vm.gt->i915, I915_PDES * SZ_4K);
+ 	if (IS_ERR(pd->pt.base)) {
+ 		err = PTR_ERR(pd->pt.base);
+ 		pd->pt.base = NULL;
 -- 
 2.25.1
 
