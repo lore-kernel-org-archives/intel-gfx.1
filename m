@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45364C43334
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 22:22:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E35C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 23:20:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC98311B580;
-	Thu,  9 Jun 2022 22:22:15 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56D7011B580
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Jun 2022 22:22:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E01212AC4F;
+	Thu,  9 Jun 2022 23:20:23 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3262112AC1A;
+ Thu,  9 Jun 2022 23:20:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654813334; x=1686349334;
- h=from:to:subject:date:message-id:mime-version:
+ t=1654816822; x=1686352822;
+ h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=wDqh/6+ySOcH1pe4GrBErtaJyYsBlBtxEsHSgvsWdPc=;
- b=gayCocISWyL677LvIaZ43ny1zAVoEUqcGGynh4pbgbzjbX4YvFnNrExZ
- tSl7sy01BWyUbZLdEOkweNGU/E4Zp0xLCYszstP98taz4yp8sYzi67Q+M
- LT/JPhcItjvt3+M2r8bn8zKvZp2hHBHULiqzPwvmJNgHEiTlDdjbhWYVB
- I7EreENuXqFxpy7G6xWMLQqByNHnI/zUVVW390F4ZVFkB616oTcbeIUsw
- T9lOzqYyyrCN1Z6GeN2fuE8L1WgFe/44nbNaDM14nAb4GqkBGLLrSoG9Y
- 3BGedTy71GUpJXlIf1yspyT3dzs1kWoQx2bbx/V9GWJk1jhMOqblxIxyl g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="277469128"
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="277469128"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 15:22:12 -0700
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="671538654"
-Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 15:22:12 -0700
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Jun 2022 15:21:54 -0700
-Message-Id: <20220609222154.3632058-1-daniele.ceraolospurio@intel.com>
-X-Mailer: git-send-email 2.25.1
+ bh=R+Fo1R+Cx7Kjh3MFvBqzlSN0LIqhrzUE8y5UbCpsfyo=;
+ b=DI+CXSEZJXqB07RuZil0ouezelCDnF0lDkSJZP2qyXZsxW3ExuZeSVK1
+ cNNcQoUVDei757yprDWMxL35wOh3r1g0nAtfv7OqE4dq06tCo6H58py2J
+ wbdOPMYXeJfZFZwFTJQP84kuyeIzisCgYXD7VQxpWaUqjWyNqKSgo3tC9
+ l/IX5lSGxWX6p1ySGxw9dOr0OGmMLr5XOD2ybgd68J4JzXtoKMvAwl65O
+ i335AHrQrUPPUAJUkmJtUKfzpw3/ooL4R+aezQ7HPKVUrrv6S392cv0TD
+ M5XQizJDybnxleU6cJe0jbFpz+b/OFUWJyI4jp6pt5rHrwbiPWnWiGzac A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="278257503"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="278257503"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 16:20:21 -0700
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="908586197"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 16:20:21 -0700
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Thu,  9 Jun 2022 16:20:21 -0700
+Message-Id: <20220609232020.2292649-1-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI] PR for DG2 HuC v7.10.0
+Subject: [Intel-gfx] [PATCH] iosys-map: Add word-sized reads
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,26 +54,117 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: daniel.vetter@ffwll.ch, Lucas De Marchi <lucas.demarchi@intel.com>,
+ christian.koenig@amd.com, tzimmermann@suse.de,
+ Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The following changes since commit 02c69863c885db963f8c0121b533f2816ef5be3b:
+Instead of always falling back to memcpy_fromio() for any size, prefer
+using read{b,w,l}(). When reading struct members it's common to read
+individual integer variables individually. Going through memcpy_fromio()
+for each of them poses a high penalty.
 
-  rtl_bt: Update RTL8852A BT USB firmware to 0xDFB8_0634 (2022-06-07 08:32:39 -0400)
+Employ a similar trick as __seqprop() by using _Generic() to generate
+only the specific call based on a type-compatible variable.
 
-are available in the Git repository at:
+For a pariticular i915 workload producing GPU context switches,
+__get_engine_usage_record() is particularly hot since the engine usage
+is read from device local memory with dgfx, possibly multiple times
+since it's racy. Test execution time for this test shows a ~12.5%
+improvement with DG2:
 
-  git://anongit.freedesktop.org/drm/drm-firmware dg2_huc_7.10.0
+Before:
+	nrepeats = 1000; min = 7.63243e+06; max = 1.01817e+07;
+	median = 9.52548e+06; var = 526149;
+After:
+	nrepeats = 1000; min = 7.03402e+06; max = 8.8832e+06;
+	median = 8.33955e+06; var = 333113;
 
-for you to fetch changes up to 24b38442e8bd59c4456919aaedec111bb864ea5d:
+Other things attempted that didn't prove very useful:
+1) Change the _Generic() on x86 to just dereference the memory address
+2) Change __get_engine_usage_record() to do just 1 read per loop,
+   comparing with the previous value read
+3) Change __get_engine_usage_record() to access the fields directly as it
+   was before the conversion to iosys-map
 
-  i915: Add HuC 7.10.0 for DG2 (2022-06-09 15:09:58 -0700)
+(3) did gave a small improvement (~3%), but doesn't seem to scale well
+to other similar cases in the driver.
 
-----------------------------------------------------------------
-Daniele Ceraolo Spurio (1):
-      i915: Add HuC 7.10.0 for DG2
+Additional test by Chris Wilson using gem_create from igt with some
+changes to track object creation time. This happens to accidentaly
+stress this code path:
 
- WHENCE                      |   3 +++
- i915/dg2_huc_7.10.0_gsc.bin | Bin 0 -> 622592 bytes
- 2 files changed, 3 insertions(+)
- create mode 100644 i915/dg2_huc_7.10.0_gsc.bin
+	Pre iosys_map conversion of engine busyness:
+	lmem0: Creating    262144 4KiB objects took 59274.2ms
+
+	Unpatched:
+	lmem0: Creating    262144 4KiB objects took 108830.2ms
+
+	With readl (this patch):
+	lmem0: Creating    262144 4KiB objects took 61348.6ms
+
+	s/readl/READ_ONCE/
+	lmem0: Creating    262144 4KiB objects took 61333.2ms
+
+So we do take a little bit more time than before the conversion, but
+that is due to other factors: bringing the READ_ONCE back would be as
+good as just doing this conversion.
+
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+
+If this is acceptable we should probably add the write counterpart, too.
+Sending here only the read for now since this fixes the issue we are
+seeing and to gather feedback.
+
+ include/linux/iosys-map.h | 26 ++++++++++++++++++++++----
+ 1 file changed, 22 insertions(+), 4 deletions(-)
+
+diff --git a/include/linux/iosys-map.h b/include/linux/iosys-map.h
+index e69a002d5aa4..4ae3e459419e 100644
+--- a/include/linux/iosys-map.h
++++ b/include/linux/iosys-map.h
+@@ -333,6 +333,20 @@ static inline void iosys_map_memset(struct iosys_map *dst, size_t offset,
+ 		memset(dst->vaddr + offset, value, len);
+ }
+ 
++#ifdef CONFIG_64BIT
++#define __iosys_map_rd_io_u64_case(val_, vaddr_iomem_)			\
++	u64: val_ = readq(vaddr_iomem_),
++#else
++#define __iosys_map_u64_case(val_, vaddr_iomem_)
++#endif
++
++#define __iosys_map_rd_io(val__, vaddr_iomem__, type__) _Generic(val__,	\
++	u8: val__ = readb(vaddr_iomem__),				\
++	u16: val__ = readw(vaddr_iomem__),				\
++	u32: val__ = readl(vaddr_iomem__),				\
++	__iosys_map_rd_io_u64_case(val__, vaddr_iomem__)		\
++	default: memcpy_fromio(&(val__), vaddr_iomem__, sizeof(val__)))
++
+ /**
+  * iosys_map_rd - Read a C-type value from the iosys_map
+  *
+@@ -346,10 +360,14 @@ static inline void iosys_map_memset(struct iosys_map *dst, size_t offset,
+  * Returns:
+  * The value read from the mapping.
+  */
+-#define iosys_map_rd(map__, offset__, type__) ({			\
+-	type__ val;							\
+-	iosys_map_memcpy_from(&val, map__, offset__, sizeof(val));	\
+-	val;								\
++#define iosys_map_rd(map__, offset__, type__) ({				\
++	type__ val;								\
++	if ((map__)->is_iomem) {						\
++		__iosys_map_rd_io(val, (map__)->vaddr_iomem + offset__, type__);\
++	} else {								\
++		memcpy(&val, (map__)->vaddr + offset__, sizeof(val));		\
++	}									\
++	val;									\
+ })
+ 
+ /**
+-- 
+2.36.1
+
