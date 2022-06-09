@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DF47CCA47B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF560C43334
 	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 23:21:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86BBA12B260;
-	Thu,  9 Jun 2022 23:21:14 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF41C12B06C
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Jun 2022 23:21:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1017212B24F;
+	Thu,  9 Jun 2022 23:21:15 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4016A12B07D
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Jun 2022 23:21:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654816869; x=1686352869;
+ t=1654816870; x=1686352870;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+3kAGhaydErRyiNVVrN7wSKn/NU/mexLqiOFfV7GSes=;
- b=YSWOGtoe+JrVejkgIYHdEUTv8a8T2uaOmxkuf7ES3Wb1Aeu1qwpY/yRs
- y6zKAsLWEsgBB2WShRghoYqF2bTXMlpoRPbuNJXc0ai566CzVeCBPtyF2
- zK73CunbqtLzThbXDvr2mBWGLXgAwfCdgl/g+4+4+/N15Fx2K2ibswtyZ
- biUJa41xGLgaZD5kjMWK2eliZVlQq3PBv4V1EVjug0ei2JhqJPiwqAQiu
- q50nKOCkceow45YP5TkchKROb9QBF1iDHIDdgupJEfTi6Kas76NhXy5bu
- stJeXrCxNbCnamlJp3GtTnlPC1LcL2vHzA1gShTZHi+ikEa0D0ql7ZbCE Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="278257624"
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="278257624"
+ bh=Qa0G/BfULHv08bQ0ZOcpro+uf+UZT6p7kUlgGr4AAAU=;
+ b=gj9gfRSpuq8kDFuNiYtKtjOpk/e+9p4q5G1CtabNstR/GbqYdKYTGlid
+ s3gAYrYh6Lul0NGN6+CM8xQ8qNczNIZZCOsMt/A6FSwxODjD8OxjIIQvz
+ cWEAcUMLM/EtdfQNeq+ztyNUuca/ZU1TF1gw0tldn+SF0LBX5Tb2RxgDs
+ fDafTNUj57I7cYpDbDsCNx8kmfo0jFdaSah9EF19rj2/s1awpLhEEiCMB
+ rIa/e79UGjMNZgOfrVQ9NIGkt7MMl4lkkjIaYlz9ZDJl9p+etWmCLqyRl
+ VOhRZTfCyT+Q2i0rr1P02GD1xSx0fMa16OvxDyCw/be8oFIvwokH50mNn A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="363778913"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="363778913"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 16:21:07 -0700
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="908586445"
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 16:21:02 -0700
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="908586404"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 16:21:06 -0700
+ 09 Jun 2022 16:21:02 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Jun 2022 16:19:47 -0700
-Message-Id: <20220609231955.3632596-8-daniele.ceraolospurio@intel.com>
+Date: Thu,  9 Jun 2022 16:19:42 -0700
+Message-Id: <20220609231955.3632596-3-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220609231955.3632596-1-daniele.ceraolospurio@intel.com>
 References: <20220609231955.3632596-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/15] drm/i915/pxp: load the pxp module when we
- have a gsc-loaded huc
+Subject: [Intel-gfx] [PATCH 02/15] mei: add support to GSC extended header
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,265 +55,464 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alan.previn.teres.alexis@intel.com
+Cc: Tomas Winkler <tomas.winkler@intel.com>,
+ Vitaly Lubart <vitaly.lubart@intel.com>, alan.previn.teres.alexis@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The mei_pxp module is required to send the command to load authenticate
-the HuC to the GSC even if pxp is not in use for protected content
-management.
+From: Tomas Winkler <tomas.winkler@intel.com>
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+GSC extend header is of variable size and data
+is provided in a sgl list inside the header
+and not in the data buffers, need to enable the path.
+
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Cc: Vitaly Lubart <vitaly.lubart@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                | 10 +++---
- drivers/gpu/drm/i915/pxp/intel_pxp.c         | 32 +++++++++++++-------
- drivers/gpu/drm/i915/pxp/intel_pxp.h         | 32 --------------------
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.h     |  8 +++++
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c |  8 ++++-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.h | 11 +++++--
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c     | 10 ++++--
- 7 files changed, 57 insertions(+), 54 deletions(-)
+ drivers/misc/mei/client.c    | 55 ++++++++++++++++++++++++----------
+ drivers/misc/mei/hbm.c       | 13 ++++++++
+ drivers/misc/mei/hw-me.c     |  5 +++-
+ drivers/misc/mei/hw.h        | 57 ++++++++++++++++++++++++++++++++++++
+ drivers/misc/mei/interrupt.c | 47 ++++++++++++++++++++++++-----
+ drivers/misc/mei/mei_dev.h   |  3 ++
+ 6 files changed, 157 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index d2b18f03a33c..5d3aa4807def 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -303,15 +303,17 @@ i915-y += \
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index e7a16d9b2241..8860a708ed19 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -322,6 +322,7 @@ void mei_io_cb_free(struct mei_cl_cb *cb)
  
- i915-y += i915_perf.o
- 
--# Protected execution platform (PXP) support
--i915-$(CONFIG_DRM_I915_PXP) += \
-+# Protected execution platform (PXP) support. Base support is required for HuC
-+i915-y += \
- 	pxp/intel_pxp.o \
-+	pxp/intel_pxp_tee.o
-+
-+i915-$(CONFIG_DRM_I915_PXP) += \
- 	pxp/intel_pxp_cmd.o \
- 	pxp/intel_pxp_debugfs.o \
- 	pxp/intel_pxp_irq.o \
- 	pxp/intel_pxp_pm.o \
--	pxp/intel_pxp_session.o \
--	pxp/intel_pxp_tee.o
-+	pxp/intel_pxp_session.o
- 
- # Post-mortem debug and GPU hang state capture
- i915-$(CONFIG_DRM_I915_CAPTURE_ERROR) += i915_gpu_error.o
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 15311eaed848..b602a51c3692 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -103,19 +103,15 @@ static int create_vcs_context(struct intel_pxp *pxp)
- 
- static void destroy_vcs_context(struct intel_pxp *pxp)
- {
--	intel_engine_destroy_pinned_context(fetch_and_zero(&pxp->ce));
-+	if (pxp->ce)
-+		intel_engine_destroy_pinned_context(fetch_and_zero(&pxp->ce));
+ 	list_del(&cb->list);
+ 	kfree(cb->buf.data);
++	kfree(cb->ext_hdr);
+ 	kfree(cb);
  }
  
--void intel_pxp_init(struct intel_pxp *pxp)
-+static void pxp_init_full(struct intel_pxp *pxp)
- {
- 	struct intel_gt *gt = pxp_to_gt(pxp);
- 	int ret;
+@@ -401,6 +402,7 @@ static struct mei_cl_cb *mei_io_cb_init(struct mei_cl *cl,
+ 	cb->buf_idx = 0;
+ 	cb->fop_type = type;
+ 	cb->vtag = 0;
++	cb->ext_hdr = NULL;
  
--	if (!HAS_PXP(gt->i915))
--		return;
--
--	mutex_init(&pxp->tee_mutex);
--
- 	/*
- 	 * we'll use the completion to check if there is a termination pending,
- 	 * so we start it as completed and we reinit it when a termination
-@@ -124,8 +120,7 @@ void intel_pxp_init(struct intel_pxp *pxp)
- 	init_completion(&pxp->termination);
- 	complete_all(&pxp->termination);
- 
--	mutex_init(&pxp->arb_mutex);
--	INIT_WORK(&pxp->session_work, intel_pxp_session_work);
-+	intel_pxp_session_management_init(pxp);
- 
- 	ret = create_vcs_context(pxp);
- 	if (ret)
-@@ -143,11 +138,26 @@ void intel_pxp_init(struct intel_pxp *pxp)
- 	destroy_vcs_context(pxp);
+ 	return cb;
+ }
+@@ -1740,6 +1742,17 @@ static inline u8 mei_ext_hdr_set_vtag(void *ext, u8 vtag)
+ 	return vtag_hdr->hdr.length;
  }
  
--void intel_pxp_fini(struct intel_pxp *pxp)
-+void intel_pxp_init(struct intel_pxp *pxp)
- {
--	if (!intel_pxp_is_enabled(pxp))
-+	struct intel_gt *gt = pxp_to_gt(pxp);
-+
-+	/* we rely on the mei PXP module */
-+	if (!IS_ENABLED(CONFIG_INTEL_MEI_PXP))
- 		return;
- 
-+	/*
-+	 * If HuC is loaded by GSC but PXP is disabled, we can skip the init of
-+	 * the full PXP session/object management and just init the tee channel.
-+	 */
-+	if (HAS_PXP(gt->i915))
-+		pxp_init_full(pxp);
-+	else if (intel_huc_is_loaded_by_gsc(&gt->uc.huc) && intel_uc_uses_huc(&gt->uc))
-+		intel_pxp_tee_component_init(pxp);
++static inline bool mei_ext_hdr_is_gsc(struct mei_ext_hdr *ext)
++{
++	return ext && ext->type == MEI_EXT_HDR_GSC;
 +}
 +
-+void intel_pxp_fini(struct intel_pxp *pxp)
++static inline u8 mei_ext_hdr_set_gsc(struct mei_ext_hdr *ext, struct mei_ext_hdr *gsc_hdr)
 +{
- 	pxp->arb_is_valid = false;
- 
- 	intel_pxp_tee_component_fini(pxp);
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 73847e535cab..2da309088c6d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -12,7 +12,6 @@
- struct intel_pxp;
- struct drm_i915_gem_object;
- 
--#ifdef CONFIG_DRM_I915_PXP
- struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp);
- bool intel_pxp_is_enabled(const struct intel_pxp *pxp);
- bool intel_pxp_is_active(const struct intel_pxp *pxp);
-@@ -32,36 +31,5 @@ int intel_pxp_key_check(struct intel_pxp *pxp,
- 			bool assign);
- 
- void intel_pxp_invalidate(struct intel_pxp *pxp);
--#else
--static inline void intel_pxp_init(struct intel_pxp *pxp)
--{
--}
--
--static inline void intel_pxp_fini(struct intel_pxp *pxp)
--{
--}
--
--static inline int intel_pxp_start(struct intel_pxp *pxp)
--{
--	return -ENODEV;
--}
--
--static inline bool intel_pxp_is_enabled(const struct intel_pxp *pxp)
--{
--	return false;
--}
--
--static inline bool intel_pxp_is_active(const struct intel_pxp *pxp)
--{
--	return false;
--}
--
--static inline int intel_pxp_key_check(struct intel_pxp *pxp,
--				      struct drm_i915_gem_object *obj,
--				      bool assign)
--{
--	return -ENODEV;
--}
--#endif
- 
- #endif /* __INTEL_PXP_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
-index 8b5793654844..8c292dc86f68 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
-@@ -27,6 +27,14 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir);
- static inline void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
- {
- }
-+
-+static inline void intel_pxp_irq_enable(struct intel_pxp *pxp)
-+{
++	memcpy(ext, gsc_hdr, mei_ext_hdr_len(gsc_hdr));
++	return ext->length;
 +}
 +
-+static inline void intel_pxp_irq_disable(struct intel_pxp *pxp)
-+{
-+}
- #endif
+ /**
+  * mei_msg_hdr_init - allocate and initialize mei message header
+  *
+@@ -1752,14 +1765,17 @@ static struct mei_msg_hdr *mei_msg_hdr_init(const struct mei_cl_cb *cb)
+ 	size_t hdr_len;
+ 	struct mei_ext_meta_hdr *meta;
+ 	struct mei_msg_hdr *mei_hdr;
+-	bool is_ext, is_vtag;
++	bool is_ext, is_hbm, is_gsc, is_vtag;
++	struct mei_ext_hdr *next_ext;
  
- #endif /* __INTEL_PXP_IRQ_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index 92b00b4de240..8453e13e9120 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -137,7 +137,7 @@ static void pxp_terminate_complete(struct intel_pxp *pxp)
- 	complete_all(&pxp->termination);
- }
+ 	if (!cb)
+ 		return ERR_PTR(-EINVAL);
  
--void intel_pxp_session_work(struct work_struct *work)
-+static void pxp_session_work(struct work_struct *work)
- {
- 	struct intel_pxp *pxp = container_of(work, typeof(*pxp), session_work);
- 	struct intel_gt *gt = pxp_to_gt(pxp);
-@@ -172,3 +172,9 @@ void intel_pxp_session_work(struct work_struct *work)
+ 	/* Extended header for vtag is attached only on the first fragment */
+ 	is_vtag = (cb->vtag && cb->buf_idx == 0);
+-	is_ext = is_vtag;
++	is_hbm = cb->cl->me_cl->client_id == 0;
++	is_gsc = ((!is_hbm) && cb->cl->dev->hbm_f_gsc_supported && mei_ext_hdr_is_gsc(cb->ext_hdr));
++	is_ext = is_vtag || is_gsc;
  
- 	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
- }
+ 	/* Compute extended header size */
+ 	hdr_len = sizeof(*mei_hdr);
+@@ -1771,6 +1787,9 @@ static struct mei_msg_hdr *mei_msg_hdr_init(const struct mei_cl_cb *cb)
+ 	if (is_vtag)
+ 		hdr_len += sizeof(struct mei_ext_hdr_vtag);
+ 
++	if (is_gsc)
++		hdr_len += mei_ext_hdr_len(cb->ext_hdr);
 +
-+void intel_pxp_session_management_init(struct intel_pxp *pxp)
-+{
-+	mutex_init(&pxp->arb_mutex);
-+	INIT_WORK(&pxp->session_work, pxp_session_work);
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-index ba4c9d2b94b7..903ac52cffa1 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-@@ -8,8 +8,13 @@
+ setup_hdr:
+ 	mei_hdr = kzalloc(hdr_len, GFP_KERNEL);
+ 	if (!mei_hdr)
+@@ -1785,10 +1804,20 @@ static struct mei_msg_hdr *mei_msg_hdr_init(const struct mei_cl_cb *cb)
+ 		goto out;
  
- #include <linux/types.h>
+ 	meta = (struct mei_ext_meta_hdr *)mei_hdr->extension;
++	meta->size = 0;
++	next_ext = (struct mei_ext_hdr *)meta->hdrs;
+ 	if (is_vtag) {
+ 		meta->count++;
+-		meta->size += mei_ext_hdr_set_vtag(meta->hdrs, cb->vtag);
++		meta->size += mei_ext_hdr_set_vtag(next_ext, cb->vtag);
++		next_ext = mei_ext_next(next_ext);
++	}
++
++	if (is_gsc) {
++		meta->count++;
++		meta->size += mei_ext_hdr_set_gsc(next_ext, cb->ext_hdr);
++		next_ext = mei_ext_next(next_ext);
+ 	}
++
+ out:
+ 	mei_hdr->length = hdr_len - sizeof(*mei_hdr);
+ 	return mei_hdr;
+@@ -1812,14 +1841,14 @@ int mei_cl_irq_write(struct mei_cl *cl, struct mei_cl_cb *cb,
+ 	struct mei_msg_hdr *mei_hdr = NULL;
+ 	size_t hdr_len;
+ 	size_t hbuf_len, dr_len;
+-	size_t buf_len;
++	size_t buf_len = 0;
+ 	size_t data_len;
+ 	int hbuf_slots;
+ 	u32 dr_slots;
+ 	u32 dma_len;
+ 	int rets;
+ 	bool first_chunk;
+-	const void *data;
++	const void *data = NULL;
  
--struct work_struct;
--
--void intel_pxp_session_work(struct work_struct *work);
-+struct intel_pxp;
- 
-+#ifdef CONFIG_DRM_I915_PXP
-+void intel_pxp_session_management_init(struct intel_pxp *pxp);
-+#else
-+static inline void intel_pxp_session_management_init(struct intel_pxp *pxp)
-+{
-+}
-+#endif
- #endif /* __INTEL_PXP_SESSION_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index 4b6f5655fab5..2c1fc49ecec1 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -97,7 +97,8 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+ 	if (WARN_ON(!cl || !cl->dev))
+ 		return -ENODEV;
+@@ -1839,8 +1868,10 @@ int mei_cl_irq_write(struct mei_cl *cl, struct mei_cl_cb *cb,
  		return 0;
+ 	}
  
- 	/* the component is required to fully start the PXP HW */
--	intel_pxp_init_hw(pxp);
-+	if (intel_pxp_is_enabled(pxp))
-+		intel_pxp_init_hw(pxp);
+-	buf_len = buf->size - cb->buf_idx;
+-	data = buf->data + cb->buf_idx;
++	if (buf->data) {
++		buf_len = buf->size - cb->buf_idx;
++		data = buf->data + cb->buf_idx;
++	}
+ 	hbuf_slots = mei_hbuf_empty_slots(dev);
+ 	if (hbuf_slots < 0) {
+ 		rets = -EOVERFLOW;
+@@ -1858,9 +1889,6 @@ int mei_cl_irq_write(struct mei_cl *cl, struct mei_cl_cb *cb,
+ 		goto err;
+ 	}
  
- 	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
+-	cl_dbg(dev, cl, "Extended Header %d vtag = %d\n",
+-	       mei_hdr->extended, cb->vtag);
+-
+ 	hdr_len = sizeof(*mei_hdr) + mei_hdr->length;
  
-@@ -111,8 +112,9 @@ static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
- 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
- 	intel_wakeref_t wakeref;
+ 	/**
+@@ -1889,7 +1917,7 @@ int mei_cl_irq_write(struct mei_cl *cl, struct mei_cl_cb *cb,
+ 	}
+ 	mei_hdr->length += data_len;
  
--	with_intel_runtime_pm_if_in_use(&i915->runtime_pm, wakeref)
--		intel_pxp_fini_hw(pxp);
-+	if (intel_pxp_is_enabled(pxp))
-+		with_intel_runtime_pm_if_in_use(&i915->runtime_pm, wakeref)
-+			intel_pxp_fini_hw(pxp);
+-	if (mei_hdr->dma_ring)
++	if (mei_hdr->dma_ring && buf->data)
+ 		mei_dma_ring_write(dev, buf->data + cb->buf_idx, buf_len);
+ 	rets = mei_write_message(dev, mei_hdr, hdr_len, data, data_len);
  
- 	mutex_lock(&pxp->tee_mutex);
- 	pxp->pxp_component = NULL;
-@@ -130,6 +132,8 @@ int intel_pxp_tee_component_init(struct intel_pxp *pxp)
- 	struct intel_gt *gt = pxp_to_gt(pxp);
- 	struct drm_i915_private *i915 = gt->i915;
+@@ -1983,9 +2011,6 @@ ssize_t mei_cl_write(struct mei_cl *cl, struct mei_cl_cb *cb)
+ 		goto err;
+ 	}
  
-+	mutex_init(&pxp->tee_mutex);
+-	cl_dbg(dev, cl, "Extended Header %d vtag = %d\n",
+-	       mei_hdr->extended, cb->vtag);
+-
+ 	hdr_len = sizeof(*mei_hdr) + mei_hdr->length;
+ 
+ 	if (rets == 0) {
+@@ -2030,7 +2055,7 @@ ssize_t mei_cl_write(struct mei_cl *cl, struct mei_cl_cb *cb)
+ 
+ 	mei_hdr->length += data_len;
+ 
+-	if (mei_hdr->dma_ring)
++	if (mei_hdr->dma_ring && buf->data)
+ 		mei_dma_ring_write(dev, buf->data, buf_len);
+ 	rets = mei_write_message(dev, mei_hdr, hdr_len, data, data_len);
+ 
+diff --git a/drivers/misc/mei/hbm.c b/drivers/misc/mei/hbm.c
+index 4ff4dbfd07c0..61143f4655ea 100644
+--- a/drivers/misc/mei/hbm.c
++++ b/drivers/misc/mei/hbm.c
+@@ -340,9 +340,13 @@ static int mei_hbm_capabilities_req(struct mei_device *dev)
+ 	req.hbm_cmd = MEI_HBM_CAPABILITIES_REQ_CMD;
+ 	if (dev->hbm_f_vt_supported)
+ 		req.capability_requested[0] |= HBM_CAP_VT;
 +
- 	ret = component_add_typed(i915->drm.dev, &i915_pxp_tee_component_ops,
- 				  I915_COMPONENT_PXP);
- 	if (ret < 0) {
+ 	if (dev->hbm_f_cd_supported)
+ 		req.capability_requested[0] |= HBM_CAP_CD;
+ 
++	if (dev->hbm_f_gsc_supported)
++		req.capability_requested[0] |= HBM_CAP_GSC;
++
+ 	ret = mei_hbm_write_message(dev, &mei_hdr, &req);
+ 	if (ret) {
+ 		dev_err(dev->dev,
+@@ -1200,6 +1204,12 @@ static void mei_hbm_config_features(struct mei_device *dev)
+ 	     dev->version.minor_version >= HBM_MINOR_VERSION_VT))
+ 		dev->hbm_f_vt_supported = 1;
+ 
++	/* GSC support */
++	if (dev->version.major_version > HBM_MAJOR_VERSION_GSC ||
++	    (dev->version.major_version == HBM_MAJOR_VERSION_GSC &&
++	     dev->version.minor_version >= HBM_MINOR_VERSION_GSC))
++		dev->hbm_f_gsc_supported = 1;
++
+ 	/* Capability message Support */
+ 	dev->hbm_f_cap_supported = 0;
+ 	if (dev->version.major_version > HBM_MAJOR_VERSION_CAP ||
+@@ -1366,6 +1376,9 @@ int mei_hbm_dispatch(struct mei_device *dev, struct mei_msg_hdr *hdr)
+ 		if (!(capability_res->capability_granted[0] & HBM_CAP_CD))
+ 			dev->hbm_f_cd_supported = 0;
+ 
++		if (!(capability_res->capability_granted[0] & HBM_CAP_GSC))
++			dev->hbm_f_gsc_supported = 0;
++
+ 		if (dev->hbm_f_dr_supported) {
+ 			if (mei_dmam_ring_alloc(dev))
+ 				dev_info(dev->dev, "running w/o dma ring\n");
+diff --git a/drivers/misc/mei/hw-me.c b/drivers/misc/mei/hw-me.c
+index c86d6018bc20..29380d3a0761 100644
+--- a/drivers/misc/mei/hw-me.c
++++ b/drivers/misc/mei/hw-me.c
+@@ -590,7 +590,10 @@ static int mei_me_hbuf_write(struct mei_device *dev,
+ 	u32 dw_cnt;
+ 	int empty_slots;
+ 
+-	if (WARN_ON(!hdr || !data || hdr_len & 0x3))
++	if (WARN_ON(!hdr || hdr_len & 0x3))
++		return -EINVAL;
++
++	if (WARN_ON(!data && data_len))
+ 		return -EINVAL;
+ 
+ 	dev_dbg(dev->dev, MEI_HDR_FMT, MEI_HDR_PRM((struct mei_msg_hdr *)hdr));
+diff --git a/drivers/misc/mei/hw.h b/drivers/misc/mei/hw.h
+index 9381e5c13b4f..d2e3854def5f 100644
+--- a/drivers/misc/mei/hw.h
++++ b/drivers/misc/mei/hw.h
+@@ -92,6 +92,12 @@
+ #define HBM_MINOR_VERSION_VT               2
+ #define HBM_MAJOR_VERSION_VT               2
+ 
++/*
++ * MEI version with GSC support
++ */
++#define HBM_MINOR_VERSION_GSC              2
++#define HBM_MAJOR_VERSION_GSC              2
++
+ /*
+  * MEI version with capabilities message support
+  */
+@@ -229,10 +235,12 @@ enum mei_cl_disconnect_status {
+  *
+  * @MEI_EXT_HDR_NONE: sentinel
+  * @MEI_EXT_HDR_VTAG: vtag header
++ * @MEI_EXT_HDR_GSC: gsc header
+  */
+ enum mei_ext_hdr_type {
+ 	MEI_EXT_HDR_NONE = 0,
+ 	MEI_EXT_HDR_VTAG = 1,
++	MEI_EXT_HDR_GSC = 2,
+ };
+ 
+ /**
+@@ -305,6 +313,39 @@ static inline bool mei_ext_last(struct mei_ext_meta_hdr *meta,
+ 	return (u8 *)ext >= (u8 *)meta + sizeof(*meta) + (meta->size * 4);
+ }
+ 
++struct mei_gsc_sgl {
++	u32 low;
++	u32 high;
++	u32 length;
++} __packed;
++
++#define GSC_HECI_MSG_KERNEL 0
++#define GSC_HECI_MSG_USER   1
++
++#define GSC_ADDRESS_TYPE_GTT   0
++#define GSC_ADDRESS_TYPE_PPGTT 1
++#define GSC_ADDRESS_TYPE_PHYSICAL_CONTINUOUS 2 /* max of 64K */
++#define GSC_ADDRESS_TYPE_PHYSICAL_SGL 3
++
++struct mei_ext_hdr_gsc_h2f {
++	struct mei_ext_hdr hdr;
++	u8                 client_id;
++	u8                 addr_type;
++	u32                fence_id;
++	u8                 input_address_count;
++	u8                 output_address_count;
++	u8                 reserved[2];
++	struct mei_gsc_sgl sgl[];
++} __packed;
++
++struct mei_ext_hdr_gsc_f2h {
++	struct mei_ext_hdr hdr;
++	u8                 client_id;
++	u8                 reserved;
++	u32                fence_id;
++	u32                written;
++} __packed;
++
+ /**
+  * mei_ext_next - following extended header on the TLV list
+  *
+@@ -320,6 +361,18 @@ static inline struct mei_ext_hdr *mei_ext_next(struct mei_ext_hdr *ext)
+ 	return (struct mei_ext_hdr *)((u8 *)ext + (ext->length * 4));
+ }
+ 
++/**
++ * mei_ext_hdr_len - get ext header length in bytes
++ *
++ * @ext: extend header
++ *
++ * Return: extend header length in bytes
++ */
++static inline u32 mei_ext_hdr_len(struct mei_ext_hdr *ext)
++{
++	return  (ext) ? ext->length * sizeof(u32) : 0;
++}
++
+ /**
+  * struct mei_msg_hdr - MEI BUS Interface Section
+  *
+@@ -682,6 +735,10 @@ struct hbm_dma_ring_ctrl {
+ 
+ /* virtual tag supported */
+ #define HBM_CAP_VT BIT(0)
++
++/* gsc extended header support */
++#define HBM_CAP_GSC BIT(1)
++
+ /* client dma supported */
+ #define HBM_CAP_CD BIT(2)
+ 
+diff --git a/drivers/misc/mei/interrupt.c b/drivers/misc/mei/interrupt.c
+index 0706322154cb..0a0e984e5673 100644
+--- a/drivers/misc/mei/interrupt.c
++++ b/drivers/misc/mei/interrupt.c
+@@ -98,9 +98,12 @@ static int mei_cl_irq_read_msg(struct mei_cl *cl,
+ 	struct mei_device *dev = cl->dev;
+ 	struct mei_cl_cb *cb;
+ 
++	struct mei_ext_hdr_vtag *vtag_hdr = NULL;
++	struct mei_ext_hdr_gsc_f2h *gsc_f2h = NULL;
++
+ 	size_t buf_sz;
+ 	u32 length;
+-	int ext_len;
++	u32 ext_len;
+ 
+ 	length = mei_hdr->length;
+ 	ext_len = 0;
+@@ -122,18 +125,24 @@ static int mei_cl_irq_read_msg(struct mei_cl *cl,
+ 	}
+ 
+ 	if (mei_hdr->extended) {
+-		struct mei_ext_hdr *ext;
+-		struct mei_ext_hdr_vtag *vtag_hdr = NULL;
+-
+-		ext = mei_ext_begin(meta);
++		struct mei_ext_hdr *ext = mei_ext_begin(meta);
+ 		do {
+ 			switch (ext->type) {
+ 			case MEI_EXT_HDR_VTAG:
+ 				vtag_hdr = (struct mei_ext_hdr_vtag *)ext;
+ 				break;
++			case MEI_EXT_HDR_GSC:
++				gsc_f2h = (struct mei_ext_hdr_gsc_f2h *)ext;
++				cb->ext_hdr = kzalloc(sizeof(*gsc_f2h), GFP_KERNEL);
++				if (!cb->ext_hdr) {
++					cb->status = -ENOMEM;
++					goto discard;
++				}
++				break;
+ 			case MEI_EXT_HDR_NONE:
+ 				fallthrough;
+ 			default:
++				cl_err(dev, cl, "unknown extended header\n");
+ 				cb->status = -EPROTO;
+ 				break;
+ 			}
+@@ -141,12 +150,14 @@ static int mei_cl_irq_read_msg(struct mei_cl *cl,
+ 			ext = mei_ext_next(ext);
+ 		} while (!mei_ext_last(meta, ext));
+ 
+-		if (!vtag_hdr) {
+-			cl_dbg(dev, cl, "vtag not found in extended header.\n");
++		if (!vtag_hdr && !gsc_f2h) {
++			cl_dbg(dev, cl, "no vtag or gsc found in extended header.\n");
+ 			cb->status = -EPROTO;
+ 			goto discard;
+ 		}
++	}
+ 
++	if (vtag_hdr) {
+ 		cl_dbg(dev, cl, "vtag: %d\n", vtag_hdr->vtag);
+ 		if (cb->vtag && cb->vtag != vtag_hdr->vtag) {
+ 			cl_err(dev, cl, "mismatched tag: %d != %d\n",
+@@ -157,6 +168,28 @@ static int mei_cl_irq_read_msg(struct mei_cl *cl,
+ 		cb->vtag = vtag_hdr->vtag;
+ 	}
+ 
++	if (gsc_f2h) {
++		u32 ext_hdr_len = mei_ext_hdr_len(&gsc_f2h->hdr);
++
++		if (!dev->hbm_f_gsc_supported) {
++			cl_err(dev, cl, "gsc extended header is not supported\n");
++			cb->status = -EPROTO;
++			goto discard;
++		}
++
++		if (length) {
++			cl_err(dev, cl, "no data allowed in cb with gsc\n");
++			cb->status = -EPROTO;
++			goto discard;
++		}
++		if (ext_hdr_len > sizeof(*gsc_f2h)) {
++			cl_err(dev, cl, "gsc extended header is too big %u\n", ext_hdr_len);
++			cb->status = -EPROTO;
++			goto discard;
++		}
++		memcpy(cb->ext_hdr, gsc_f2h, ext_hdr_len);
++	}
++
+ 	if (!mei_cl_is_connected(cl)) {
+ 		cl_dbg(dev, cl, "not connected\n");
+ 		cb->status = -ENODEV;
+diff --git a/drivers/misc/mei/mei_dev.h b/drivers/misc/mei/mei_dev.h
+index 7c508bca9a00..862190b297aa 100644
+--- a/drivers/misc/mei/mei_dev.h
++++ b/drivers/misc/mei/mei_dev.h
+@@ -211,6 +211,7 @@ struct mei_cl_cb {
+ 	int status;
+ 	u32 internal:1;
+ 	u32 blocking:1;
++	struct mei_ext_hdr *ext_hdr;
+ };
+ 
+ /**
+@@ -487,6 +488,7 @@ struct mei_dev_timeouts {
+  * @hbm_f_vt_supported  : hbm feature vtag supported
+  * @hbm_f_cap_supported : hbm feature capabilities message supported
+  * @hbm_f_cd_supported  : hbm feature client dma supported
++ * @hbm_f_gsc_supported : hbm feature gsc supported
+  *
+  * @fw_ver : FW versions
+  *
+@@ -578,6 +580,7 @@ struct mei_device {
+ 	unsigned int hbm_f_vt_supported:1;
+ 	unsigned int hbm_f_cap_supported:1;
+ 	unsigned int hbm_f_cd_supported:1;
++	unsigned int hbm_f_gsc_supported:1;
+ 
+ 	struct mei_fw_version fw_ver[MEI_MAX_FW_VER_BLOCKS];
+ 
 -- 
 2.25.1
 
