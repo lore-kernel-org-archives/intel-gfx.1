@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F52BC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 23:21:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE89C43334
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jun 2022 23:21:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F260B12B23B;
-	Thu,  9 Jun 2022 23:21:13 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97CAD12B07D
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Jun 2022 23:21:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C65A212B26E;
+	Thu,  9 Jun 2022 23:21:14 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 325B912B23B
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Jun 2022 23:21:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654816870; x=1686352870;
+ t=1654816871; x=1686352871;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JsIC00iMXaTcZYJFrVYx16QvxZEjle9HVzofGKTQkr8=;
- b=M86fmvYUvnV5WnQZTUHgljvy321OQMsaOk0ujBrlslRHsK55D0sSBvSc
- Tz2nrBAp5WcNiY6TMqCgMjSn/AYNX4l2MiqtC1ZfOo7wJuC2mKig6sKK8
- uyF/HW7wiYV4nPrL1SzpzjVDo1NVhRcMZq2eRGrJ/8+UfTs6QLDsidvE4
- oY8lQ1bUwdGV7iVfp60IIldi5/EdjsL52+LoRY2UE0NO+ysHR1X8ZrUat
- diu2t/Dtevnj6hTCfLMAMGcu2ZMUeRBz4vb/bsFA3jbINctQXH3+Tx4tO
- q9BSbKjnq14xGquDN/6584bXXe/mFnuP9q59EXwY3OkvO1jxCYjx9bexq w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="363778914"
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="363778914"
+ bh=IniQ56IikGffyeZVup0EUCOBmy9Y+mIoHRkIqR/CBm0=;
+ b=K5JbSV9eHeLZZmJgwtacXw/ZCvgG2tx0HzDXZTpNoa8dymiWxCez7OWK
+ Zg6eNusY2nM2x+H6p5oJ96lfrXmHDPPzS3+yXQKWJOhBGFUb1VV+VG0P3
+ oF9wV66Wl9K/TUJYhy0P1nLYRQuDDnxfRbj+UwaGtrWWRF89Mab0r9aTT
+ gDeXtEEPxTDUkyPgkvEh5nwpAXofmnt7OWn0bDyHnEZ3QoqKXaA25WOwl
+ VwErJbDHCbBqPMRq3S+ih50C86Ch9WzZyCYO7G900pEZSTJs+r8cFFgr+
+ 0HYNT2Qi4Bb6UkYzmxzdTfFILWaAYwc0WwRgiw87FkSaL3sjbYJqrSr9Q w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10373"; a="277481332"
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="277481332"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 16:21:04 -0700
-X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="908586414"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 16:21:11 -0700
+X-IronPort-AV: E=Sophos;i="5.91,288,1647327600"; d="scan'208";a="908586482"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2022 16:21:03 -0700
+ 09 Jun 2022 16:21:10 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Jun 2022 16:19:43 -0700
-Message-Id: <20220609231955.3632596-4-daniele.ceraolospurio@intel.com>
+Date: Thu,  9 Jun 2022 16:19:53 -0700
+Message-Id: <20220609231955.3632596-14-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220609231955.3632596-1-daniele.ceraolospurio@intel.com>
 References: <20220609231955.3632596-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/15] mei: bus: enable sending gsc commands
+Subject: [Intel-gfx] [PATCH 13/15] drm/i915/huc: report HuC as loaded even
+ if load still in progress
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,88 +56,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tomas Winkler <tomas.winkler@intel.com>,
- Vitaly Lubart <vitaly.lubart@intel.com>, alan.previn.teres.alexis@intel.com
+Cc: alan.previn.teres.alexis@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tomas Winkler <tomas.winkler@intel.com>
+The media driver uses this only as an indication that HuC is enabled and
+they have a secondary check within their batches to verify if the HuC
+is indeed loaded or not. They have therefore requested us to report this
+as true if HuC loading is in progress.
 
-GSC command is and extended header containing a scatter gather
-list and without a data buffer. Using MEI_CL_IO_SGL flag,
-the caller send the GSC command as a data and the function internally
-moves it to the extended header.
-
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
-Cc: Vitaly Lubart <vitaly.lubart@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Tony Ye <tony.ye@intel.com>
 ---
- drivers/misc/mei/bus.c     | 20 ++++++++++++++++++--
- drivers/misc/mei/mei_dev.h |  4 ++++
- 2 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/misc/mei/bus.c b/drivers/misc/mei/bus.c
-index 46aa3554e97b..225f0b04c021 100644
---- a/drivers/misc/mei/bus.c
-+++ b/drivers/misc/mei/bus.c
-@@ -100,9 +100,18 @@ ssize_t __mei_cl_send(struct mei_cl *cl, const u8 *buf, size_t length, u8 vtag,
- 	cb->internal = !!(mode & MEI_CL_IO_TX_INTERNAL);
- 	cb->blocking = !!(mode & MEI_CL_IO_TX_BLOCKING);
- 	memcpy(cb->buf.data, buf, length);
-+	/* hack we point data to header */
-+	if (mode & MEI_CL_IO_SGL) {
-+		cb->ext_hdr = (struct mei_ext_hdr *)cb->buf.data;
-+		cb->buf.data = NULL;
-+		cb->buf.size = 0;
-+	}
- 
- 	rets = mei_cl_write(cl, cb);
- 
-+	if (mode & MEI_CL_IO_SGL && rets == 0)
-+		rets = length;
-+
- out:
- 	mutex_unlock(&bus->device_lock);
- 
-@@ -205,9 +214,16 @@ ssize_t __mei_cl_recv(struct mei_cl *cl, u8 *buf, size_t length, u8 *vtag,
- 		goto free;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+index 075ec97b459d..33bfac91fa01 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+@@ -408,8 +408,8 @@ bool intel_huc_is_authenticated(struct intel_huc *huc)
+  *  * -EOPNOTSUPP if HuC firmware is disabled,
+  *  * -ENOPKG if HuC firmware was not installed,
+  *  * -ENOEXEC if HuC firmware is invalid or mismatched,
+- *  * 0 if HuC firmware is not running,
+- *  * 1 if HuC firmware is authenticated and running.
++ *  * 1 if HuC firmware is authenticated and running or if delayed load is in progress,
++ *  * 0 if HuC firmware is not running and delayed load is not in progress
+  */
+ int intel_huc_check_status(struct intel_huc *huc)
+ {
+@@ -426,7 +426,10 @@ int intel_huc_check_status(struct intel_huc *huc)
+ 		break;
  	}
  
--	r_length = min_t(size_t, length, cb->buf_idx);
--	memcpy(buf, cb->buf.data, r_length);
-+	/* for the GSC type - copy the extended header to the buffer */
-+	if (cb->ext_hdr && cb->ext_hdr->type == MEI_EXT_HDR_GSC) {
-+		r_length = min_t(size_t, length, cb->ext_hdr->length * sizeof(u32));
-+		memcpy(buf, cb->ext_hdr, r_length);
-+	} else {
-+		r_length = min_t(size_t, length, cb->buf_idx);
-+		memcpy(buf, cb->buf.data, r_length);
-+	}
- 	rets = r_length;
+-	return intel_huc_is_authenticated(huc);
++	if (intel_huc_is_authenticated(huc))
++		return 1;
 +
- 	if (vtag)
- 		*vtag = cb->vtag;
++	return !i915_sw_fence_done(&huc->delayed_load.fence);
+ }
  
-diff --git a/drivers/misc/mei/mei_dev.h b/drivers/misc/mei/mei_dev.h
-index 862190b297aa..5e28294d5dca 100644
---- a/drivers/misc/mei/mei_dev.h
-+++ b/drivers/misc/mei/mei_dev.h
-@@ -109,12 +109,16 @@ enum mei_cb_file_ops {
-  * @MEI_CL_IO_TX_INTERNAL: internal communication between driver and FW
-  *
-  * @MEI_CL_IO_RX_NONBLOCK: recv is non-blocking
-+ *
-+ * @MEI_CL_IO_SGL: send command with sgl list.
-  */
- enum mei_cl_io_mode {
- 	MEI_CL_IO_TX_BLOCKING = BIT(0),
- 	MEI_CL_IO_TX_INTERNAL = BIT(1),
- 
- 	MEI_CL_IO_RX_NONBLOCK = BIT(2),
-+
-+	MEI_CL_IO_SGL         = BIT(3),
- };
- 
- /*
+ static bool huc_has_delayed_load(struct intel_huc *huc)
 -- 
 2.25.1
 
