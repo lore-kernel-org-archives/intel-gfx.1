@@ -4,57 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29CB5C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jun 2022 23:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9586CC43334
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jun 2022 00:06:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2C810FC3D;
-	Mon, 13 Jun 2022 23:46:19 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4D2210FC61;
- Mon, 13 Jun 2022 23:46:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2D410FD29;
+	Tue, 14 Jun 2022 00:06:10 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12F2510FD2A;
+ Tue, 14 Jun 2022 00:06:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655163978; x=1686699978;
+ t=1655165168; x=1686701168;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=QQ3/681JT5J/o1mTI7kLjce7vfT8Qa5dbcLh8QhxPRY=;
- b=maGushBj7tfMTkeGmTK51kYsH64q2T0/h6aSe2errXQBCQ951Wn7R4r5
- LiWbr04Ip2IOn/IfaR+jqZGGi+j/8NHnNq9FxIjgbLdoNjCpo3+e3TL9u
- Np+GTLlOtlK0TDJCPKiUFA3fKagfdYZ4jGXbceoLBbFgMt3wEqJMMyacl
- WtQCm1oS6AjUHFb3UtFa962PIT5u4LFmBwd7NDVBkHHwx78gx1tzBojq2
- n8aU0kMa1jVR2k8bvE1P8uSdK+B8qcM77GJW0sTuUbXmSjtPFUoy+z5QS
- zi3bOQKUSnPOiAy9ScimX16IbHD3YQbxqhZvapOt45wbJhoocZHAkYid+ w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10377"; a="267137424"
-X-IronPort-AV: E=Sophos;i="5.91,298,1647327600"; d="scan'208";a="267137424"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2022 16:46:18 -0700
-X-IronPort-AV: E=Sophos;i="5.91,298,1647327600"; d="scan'208";a="640023786"
-Received: from jons-linux-dev-box.fm.intel.com (HELO jons-linux-dev-box)
- ([10.1.27.20])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2022 16:46:17 -0700
-Date: Mon, 13 Jun 2022 16:39:47 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <20220613233947.GA15145@jons-linux-dev-box>
-References: <20220610070711.32407-1-niranjana.vishwanathapura@intel.com>
- <20220610070711.32407-4-niranjana.vishwanathapura@intel.com>
- <9b7c4864-18c2-5c70-009a-1c6e7843bf0d@linux.intel.com>
- <9043381e-ff63-934b-4576-132f15c2e363@intel.com>
- <20220610161420.GB376@nvishwa1-DESK>
- <b5292e01-5a1f-d339-cbb4-e565e07e4437@linux.intel.com>
- <20220613150551.GG376@nvishwa1-DESK>
- <459c327d-5796-f9e4-4442-a51714525c73@linux.intel.com>
- <20220613174956.GH376@nvishwa1-DESK>
- <5ebcd237-a6df-add2-070a-056ccb83427a@linux.intel.com>
+ mime-version:in-reply-to;
+ bh=gbJfpRZz/YDVR/gEGs030Xf6wY1Tu9v0X3I8mzAd5RQ=;
+ b=LMPpywhqi6ukBQ6h3Fhsq48R+t1v9uOq20nUHNwQRvszxc/2l59H+gvl
+ CcTJdAqol+mP49EEZnykgoj0frNSruhNjyF/p28WvafPxQvN8YDnONJpB
+ zmIPqS3ViymQjeZ9Gtg+e9U1ue7x+rxfIQu9yGUeW7BCtqrT/8Ci1LyVB
+ HiAqF69+woBmzV7EQ17cVzuB9FwgOmRLLpJZKC4bGLTJR5RN89A4s1Ndd
+ 1Ll4xRIwkLiuamFq4slg2L7Adi0/E/p21jQ81t7s4UdvO3evIcgbTSm5F
+ kXQQLOMACuUkjidtkJtn/+PbVgX3LezcgglfxpIm/zGMMsNFEtWhNCYUa Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10377"; a="342418761"
+X-IronPort-AV: E=Sophos;i="5.91,298,1647327600"; d="scan'208";a="342418761"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2022 17:06:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,298,1647327600"; d="scan'208";a="569570863"
+Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
+ by orsmga002.jf.intel.com with ESMTP; 13 Jun 2022 17:06:06 -0700
+Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o0u4L-000LH5-Cr;
+ Tue, 14 Jun 2022 00:06:05 +0000
+Date: Tue, 14 Jun 2022 08:05:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Message-ID: <202206140738.nK4EvaXD-lkp@intel.com>
+References: <20220613200317.11305-8-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5ebcd237-a6df-add2-070a-056ccb83427a@linux.intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Intel-gfx] [PATCH 3/3] drm/doc/rfc: VM_BIND uapi definition
+In-Reply-To: <20220613200317.11305-8-ville.syrjala@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 7/8] drm: Remove linux/media-bus-format.h
+ from drm_crtc.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,284 +60,178 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, paulo.r.zanoni@intel.com,
- intel-gfx@lists.freedesktop.org, chris.p.wilson@intel.com,
- thomas.hellstrom@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com
+Cc: intel-gfx@lists.freedesktop.org, kbuild-all@lists.01.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 13, 2022 at 07:09:06PM +0100, Tvrtko Ursulin wrote:
-> 
-> On 13/06/2022 18:49, Niranjana Vishwanathapura wrote:
-> > On Mon, Jun 13, 2022 at 05:22:02PM +0100, Tvrtko Ursulin wrote:
-> > > 
-> > > On 13/06/2022 16:05, Niranjana Vishwanathapura wrote:
-> > > > On Mon, Jun 13, 2022 at 09:24:18AM +0100, Tvrtko Ursulin wrote:
-> > > > > 
-> > > > > On 10/06/2022 17:14, Niranjana Vishwanathapura wrote:
-> > > > > > On Fri, Jun 10, 2022 at 05:48:39PM +0300, Lionel Landwerlin wrote:
-> > > > > > > On 10/06/2022 13:37, Tvrtko Ursulin wrote:
-> > > > > > > > 
-> > > > > > > > On 10/06/2022 08:07, Niranjana Vishwanathapura wrote:
-> > > > > > > > > VM_BIND and related uapi definitions
-> > > > > > > > > 
-> > > > > > > > > Signed-off-by: Niranjana Vishwanathapura
-> > > > > > > > > <niranjana.vishwanathapura@intel.com>
-> > > > > > > > > ---
-> > > > > > > > >   Documentation/gpu/rfc/i915_vm_bind.h | 490
-> > > > > > > > > +++++++++++++++++++++++++++
-> > > > > > > > >   1 file changed, 490 insertions(+)
-> > > > > > > > >   create mode 100644 Documentation/gpu/rfc/i915_vm_bind.h
-> > > > > > > > > 
-> > > > > > > > > diff --git
-> > > > > > > > > a/Documentation/gpu/rfc/i915_vm_bind.h
-> > > > > > > > > b/Documentation/gpu/rfc/i915_vm_bind.h
-> > > > > > > > > new file mode 100644
-> > > > > > > > > index 000000000000..9fc854969cfb
-> > > > > > > > > --- /dev/null
-> > > > > > > > > +++ b/Documentation/gpu/rfc/i915_vm_bind.h
-> > > > > > > > > @@ -0,0 +1,490 @@
-> > > > > > > > > +/* SPDX-License-Identifier: MIT */
-> > > > > > > > > +/*
-> > > > > > > > > + * Copyright © 2022 Intel Corporation
-> > > > > > > > > + */
-> > > > > > > > > +
-> > > > > > > > > +/**
-> > > > > > > > > + * DOC: I915_PARAM_HAS_VM_BIND
-> > > > > > > > > + *
-> > > > > > > > > + * VM_BIND feature availability.
-> > > > > > > > > + * See typedef drm_i915_getparam_t param.
-> > > > > > > > > + * bit[0]: If set, VM_BIND is supported, otherwise not.
-> > > > > > > > > + * bits[8-15]: VM_BIND implementation version.
-> > > > > > > > > + * version 0 will not have VM_BIND/UNBIND
-> > > > > > > > > timeline fence array support.
-> > > > > > > > > + */
-> > > > > > > > > +#define I915_PARAM_HAS_VM_BIND        57
-> > > > > > > > > +
-> > > > > > > > > +/**
-> > > > > > > > > + * DOC: I915_VM_CREATE_FLAGS_USE_VM_BIND
-> > > > > > > > > + *
-> > > > > > > > > + * Flag to opt-in for VM_BIND mode of binding during VM creation.
-> > > > > > > > > + * See struct drm_i915_gem_vm_control flags.
-> > > > > > > > > + *
-> > > > > > > > > + * The older execbuf2 ioctl will not
-> > > > > > > > > support VM_BIND mode of operation.
-> > > > > > > > > + * For VM_BIND mode, we have new execbuf3
-> > > > > > > > > ioctl which will not accept any
-> > > > > > > > > + * execlist (See struct
-> > > > > > > > > drm_i915_gem_execbuffer3 for more details).
-> > > > > > > > > + *
-> > > > > > > > > + */
-> > > > > > > > > +#define I915_VM_CREATE_FLAGS_USE_VM_BIND    (1 << 0)
-> > > > > > > > > +
-> > > > > > > > > +/**
-> > > > > > > > > + * DOC: I915_CONTEXT_CREATE_FLAGS_LONG_RUNNING
-> > > > > > > > > + *
-> > > > > > > > > + * Flag to declare context as long running.
-> > > > > > > > > + * See struct drm_i915_gem_context_create_ext flags.
-> > > > > > > > > + *
-> > > > > > > > > + * Usage of dma-fence expects that they
-> > > > > > > > > complete in reasonable amount of time.
-> > > > > > > > > + * Compute on the other hand can be long
-> > > > > > > > > running. Hence it is not appropriate
-> > > > > > > > > + * for compute contexts to export request
-> > > > > > > > > completion dma-fence to user.
-> > > > > > > > > + * The dma-fence usage will be limited to
-> > > > > > > > > in-kernel consumption only.
-> > > > > > > > > + * Compute contexts need to use user/memory fence.
-> > > > > > > > > + *
-> > > > > > > > > + * So, long running contexts do not support output fences. Hence,
-> > > > > > > > > + * I915_EXEC_FENCE_SIGNAL (See
-> > > > > > > > > &drm_i915_gem_exec_fence.flags) is expected
-> > > > > > > > > + * to be not used. DRM_I915_GEM_WAIT ioctl
-> > > > > > > > > call is also not supported for
-> > > > > > > > > + * objects mapped to long running contexts.
-> > > > > > > > > + */
-> > > > > > > > > +#define I915_CONTEXT_CREATE_FLAGS_LONG_RUNNING   (1u << 2)
-> > > > > > > > > +
-> > > > > > > > > +/* VM_BIND related ioctls */
-> > > > > > > > > +#define DRM_I915_GEM_VM_BIND        0x3d
-> > > > > > > > > +#define DRM_I915_GEM_VM_UNBIND        0x3e
-> > > > > > > > > +#define DRM_I915_GEM_EXECBUFFER3    0x3f
-> > > > > > > > > +#define DRM_I915_GEM_WAIT_USER_FENCE    0x40
-> > > > > > > > > +
-> > > > > > > > > +#define DRM_IOCTL_I915_GEM_VM_BIND
-> > > > > > > > > DRM_IOWR(DRM_COMMAND_BASE +
-> > > > > > > > > DRM_I915_GEM_VM_BIND, struct
-> > > > > > > > > drm_i915_gem_vm_bind)
-> > > > > > > > > +#define DRM_IOCTL_I915_GEM_VM_UNBIND
-> > > > > > > > > DRM_IOWR(DRM_COMMAND_BASE +
-> > > > > > > > > DRM_I915_GEM_VM_UNBIND, struct
-> > > > > > > > > drm_i915_gem_vm_bind)
-> > > > > > > > > +#define DRM_IOCTL_I915_GEM_EXECBUFFER3
-> > > > > > > > > DRM_IOWR(DRM_COMMAND_BASE +
-> > > > > > > > > DRM_I915_GEM_EXECBUFFER3, struct
-> > > > > > > > > drm_i915_gem_execbuffer3)
-> > > > > > > > > +#define DRM_IOCTL_I915_GEM_WAIT_USER_FENCE
-> > > > > > > > > DRM_IOWR(DRM_COMMAND_BASE +
-> > > > > > > > > DRM_I915_GEM_WAIT_USER_FENCE, struct
-> > > > > > > > > drm_i915_gem_wait_user_fence)
-> > > > > > > > > +
-> > > > > > > > > +/**
-> > > > > > > > > + * struct drm_i915_gem_vm_bind - VA to object mapping to bind.
-> > > > > > > > > + *
-> > > > > > > > > + * This structure is passed to VM_BIND
-> > > > > > > > > ioctl and specifies the mapping of GPU
-> > > > > > > > > + * virtual address (VA) range to the
-> > > > > > > > > section of an object that should be bound
-> > > > > > > > > + * in the device page table of the specified address space (VM).
-> > > > > > > > > + * The VA range specified must be unique
-> > > > > > > > > (ie., not currently bound) and can
-> > > > > > > > > + * be mapped to whole object or a section
-> > > > > > > > > of the object (partial binding).
-> > > > > > > > > + * Multiple VA mappings can be created to
-> > > > > > > > > the same section of the object
-> > > > > > > > > + * (aliasing).
-> > > > > > > > > + *
-> > > > > > > > > + * The @queue_idx specifies the queue to
-> > > > > > > > > use for binding. Same queue can be
-> > > > > > > > > + * used for both VM_BIND and VM_UNBIND
-> > > > > > > > > calls. All submitted bind and unbind
-> > > > > > > > > + * operations in a queue are performed in the order of submission.
-> > > > > > > > > + *
-> > > > > > > > > + * The @start, @offset and @length should
-> > > > > > > > > be 4K page aligned. However the DG2
-> > > > > > > > > + * and XEHPSDV has 64K page size for device
-> > > > > > > > > local-memory and has compact page
-> > > > > > > > > + * table. On those platforms, for binding
-> > > > > > > > > device local-memory objects, the
-> > > > > > > > > + * @start should be 2M aligned, @offset and
-> > > > > > > > > @length should be 64K aligned.
-> > > > > > > > > + * Also, on those platforms, it is not
-> > > > > > > > > allowed to bind an device local-memory
-> > > > > > > > > + * object and a system memory object in a
-> > > > > > > > > single 2M section of VA range.
-> > > > > > > > > + */
-> > > > > > > > > +struct drm_i915_gem_vm_bind {
-> > > > > > > > > +    /** @vm_id: VM (address space) id to bind */
-> > > > > > > > > +    __u32 vm_id;
-> > > > > > > > > +
-> > > > > > > > > +    /** @queue_idx: Index of queue for binding */
-> > > > > > > > > +    __u32 queue_idx;
-> > > > > > > > 
-> > > > > > > > I have a question here to which I did not find
-> > > > > > > > an answer by browsing the old threads.
-> > > > > > > > 
-> > > > > > > > Queue index appears to be an implicit
-> > > > > > > > synchronisation mechanism, right? Operations on
-> > > > > > > > the same index are executed/complete in order of
-> > > > > > > > ioctl submission?
-> > > > > > > > 
-> > > > > > > > Do we _have_ to implement this on the kernel
-> > > > > > > > side and could just allow in/out fence and let
-> > > > > > > > userspace deal with it?
-> > > > > > > 
-> > > > > > > 
-> > > > > > > It orders operations like in a queue. Which is kind
-> > > > > > > of what happens with existing queues/engines.
-> > > > > > > 
-> > > > > > > If I understood correctly, it's going to be a
-> > > > > > > kthread + a linked list right?
-> > > > > > > 
-> > > > > > 
-> > > > > > Yes, that is correct.
-> > > > > > 
-> > > > > > > 
-> > > > > > > -Lionel
-> > > > > > > 
-> > > > > > > 
-> > > > > > > > 
-> > > > > > > > Arbitrary/on-demand number of queues will add
-> > > > > > > > the complexity on the kernel side which should
-> > > > > > > > be avoided if possible.
-> > > > > > > > 
-> > > > > > 
-> > > > > > It was discussed in the other thread. Jason prefers this over putting
-> > > > > > an artificial limit on number of queues (as user can
-> > > > > > anyway can exhaust
-> > > > > > the memory). I think complexity in the driver is manageable.
-> > > > > 
-> > > > > You'll need to create tracking structures on demand, with
-> > > > > atomic replace of last fence, ref counting and locking of
-> > > > > some sort, more or less?
-> > > > > 
-> > > > 
-> > > > We will have a workqueue, an work item and a linked list per queue.
-> > > > VM_BIND/UNBIND call will add the mapping request to the
-> > > > specified queue's
-> > > > linked list and schedule the work item on the workqueue of that queue.
-> > > > I am not sure what you mean by last fence and replacing it.
-> > > > 
-> > > > > > The other option being discussed in to have the user create those
-> > > > > > queues (like creating engine map) before hand and use that in vm_bind
-> > > > > > and vm_unbind ioctls. This puts a limit on the number of queues.
-> > > > > > But it is not clean either and not sure it is worth
-> > > > > > making the interface
-> > > > > > more complex.
-> > > > > > https://www.spinics.net/lists/dri-devel/msg350448.html
-> > > > > 
-> > > > > What about the third option of a flag to return a fence (of
-> > > > > some sort) and pass in a fence? That way userspace can
-> > > > > imagine zero or N queues with very little effort on the
-> > > > > kernel side. Was this considered?
-> > > > > 
-> > > > 
-> > > > I am not clear what fence you are talking about here and how does that
-> > > > help with the number of vm_bind queues. Can you eloborate?
-> > > 
-> > > It is actually already documented that bind/unbind will support
-> > > input and output fences - so what are these queues on top of what
-> > > userspace can already achieve by using them? Purely a convenience or
-> > > there is more to it?
-> > > 
-> > 
-> > Oh, the vm_bind queues are discussed in this thread.
-> > https://lists.freedesktop.org/archives/intel-gfx/2022-June/299217.html
-> > 
-> > Apparently Vulkan has requirement for multiple queues, each queue
-> > processing vm_bind/unbind calls in the order of submission.
-> 
-> I don't see how that answers my question so I will take the freedom to
-> repeat it. What are these queues on top of what userspace can already
-> achieve by using in-out fences? Purely a convenience or there is more to it?
-> 
-> Queue1:
-> 
-> out_fence_A = vm_bind A
-> out_fence_B = vm_bind B, in_fence=out_fence_A
-> execbuf(in_fence = out_fence_B)
-> 
-> Queue2:
-> 
-> out_fence_C = vm_bind C
-> out_fence_D = vm_bind D, in_fence=out_fence_C
-> execbuf(in_fence = out_fence_D)
-> 
-> Parallel bind:
-> out_fence_E = vm_bind E
-> out_fence_F = vm_bind F
-> merged_fence = fence_merge(out_fence_E, out_fence_F)
-> execbuf(in_fence = merged_fence)
-> 
+Hi Ville,
 
-Let's say you do this and only 1 queue:
+Thank you for the patch! Yet something to improve:
 
-VM_BIND_A (in_fence=fence_A)
-VM_BIND_B (in_fence=NULL)
+[auto build test ERROR on next-20220610]
+[cannot apply to drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next v5.19-rc2 v5.19-rc1 v5.18 v5.19-rc2]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-With 1 queue VM_BIND_B in blocked on fence_A, hence the need for than 1
-queue.
+url:    https://github.com/intel-lab-lkp/linux/commits/Ville-Syrjala/drm-Clean-up-drm_crtc-h/20220614-040443
+base:    6d0c806803170f120f8cb97b321de7bd89d3a791
+config: xtensa-randconfig-r012-20220613 (https://download.01.org/0day-ci/archive/20220614/202206140738.nK4EvaXD-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 11.3.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/a94efb8736c53bd301f57ecaf952c154db64a56f
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Ville-Syrjala/drm-Clean-up-drm_crtc-h/20220614-040443
+        git checkout a94efb8736c53bd301f57ecaf952c154db64a56f
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=xtensa SHELL=/bin/bash drivers/gpu/drm/ingenic/
 
-e.g.
- 
-VM_BIND_A (queue_id=0, in_fence=fence_A)
-VM_BIND_B (queue_id=1, in_fence=NULL)
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
 
-Now VM_BIND_B can immediately be executed regardless of fence_A status.
+All errors (new ones prefixed by >>):
 
-Matt
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c: In function 'ingenic_drm_plane_atomic_check':
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:499:36: error: invalid use of undefined type 'struct drm_framebuffer'
+     499 |                 new_plane_state->fb->format->format == DRM_FORMAT_C8;
+         |                                    ^~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:511:33: error: invalid use of undefined type 'struct drm_framebuffer'
+     511 |              old_plane_state->fb->format->format != new_plane_state->fb->format->format))
+         |                                 ^~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:511:72: error: invalid use of undefined type 'struct drm_framebuffer'
+     511 |              old_plane_state->fb->format->format != new_plane_state->fb->format->format))
+         |                                                                        ^~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c: In function 'ingenic_drm_plane_atomic_update':
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:677:35: error: invalid use of undefined type 'struct drm_framebuffer'
+     677 |                 cpp = newstate->fb->format->cpp[0];
+         |                                   ^~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:695:45: error: invalid use of undefined type 'struct drm_framebuffer'
+     695 |                         switch (newstate->fb->format->format) {
+         |                                             ^~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:715:46: error: invalid use of undefined type 'struct drm_framebuffer'
+     715 |                         fourcc = newstate->fb->format->format;
+         |                                              ^~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c: In function 'ingenic_drm_encoder_atomic_mode_set':
+>> drivers/gpu/drm/ingenic/ingenic-drm-drv.c:765:30: error: 'MEDIA_BUS_FMT_RGB565_1X16' undeclared (first use in this function)
+     765 |                         case MEDIA_BUS_FMT_RGB565_1X16:
+         |                              ^~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:765:30: note: each undeclared identifier is reported only once for each function it appears in
+>> drivers/gpu/drm/ingenic/ingenic-drm-drv.c:768:30: error: 'MEDIA_BUS_FMT_RGB666_1X18' undeclared (first use in this function)
+     768 |                         case MEDIA_BUS_FMT_RGB666_1X18:
+         |                              ^~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/ingenic/ingenic-drm-drv.c:771:30: error: 'MEDIA_BUS_FMT_RGB888_1X24' undeclared (first use in this function)
+     771 |                         case MEDIA_BUS_FMT_RGB888_1X24:
+         |                              ^~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/ingenic/ingenic-drm-drv.c:774:30: error: 'MEDIA_BUS_FMT_RGB888_3X8_DELTA' undeclared (first use in this function)
+     774 |                         case MEDIA_BUS_FMT_RGB888_3X8_DELTA:
+         |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/ingenic/ingenic-drm-drv.c:777:30: error: 'MEDIA_BUS_FMT_RGB888_3X8' undeclared (first use in this function)
+     777 |                         case MEDIA_BUS_FMT_RGB888_3X8:
+         |                              ^~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c: In function 'ingenic_drm_bridge_atomic_check':
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:813:14: error: 'MEDIA_BUS_FMT_RGB888_3X8' undeclared (first use in this function)
+     813 |         case MEDIA_BUS_FMT_RGB888_3X8:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:814:14: error: 'MEDIA_BUS_FMT_RGB888_3X8_DELTA' undeclared (first use in this function)
+     814 |         case MEDIA_BUS_FMT_RGB888_3X8_DELTA:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:827:14: error: 'MEDIA_BUS_FMT_RGB565_1X16' undeclared (first use in this function)
+     827 |         case MEDIA_BUS_FMT_RGB565_1X16:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:828:14: error: 'MEDIA_BUS_FMT_RGB666_1X18' undeclared (first use in this function)
+     828 |         case MEDIA_BUS_FMT_RGB666_1X18:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:829:14: error: 'MEDIA_BUS_FMT_RGB888_1X24' undeclared (first use in this function)
+     829 |         case MEDIA_BUS_FMT_RGB888_1X24:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c: In function 'ingenic_drm_bridge_atomic_get_input_bus_fmts':
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:845:14: error: 'MEDIA_BUS_FMT_RGB888_1X24' undeclared (first use in this function)
+     845 |         case MEDIA_BUS_FMT_RGB888_1X24:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:846:14: error: 'MEDIA_BUS_FMT_RGB666_1X18' undeclared (first use in this function)
+     846 |         case MEDIA_BUS_FMT_RGB666_1X18:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:847:14: error: 'MEDIA_BUS_FMT_RGB565_1X16' undeclared (first use in this function)
+     847 |         case MEDIA_BUS_FMT_RGB565_1X16:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:848:14: error: 'MEDIA_BUS_FMT_RGB888_3X8' undeclared (first use in this function)
+     848 |         case MEDIA_BUS_FMT_RGB888_3X8:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/ingenic/ingenic-drm-drv.c:849:14: error: 'MEDIA_BUS_FMT_RGB888_3X8_DELTA' undeclared (first use in this function)
+     849 |         case MEDIA_BUS_FMT_RGB888_3X8_DELTA:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-> Regards,
-> 
-> Tvrtko
+
+vim +/MEDIA_BUS_FMT_RGB565_1X16 +765 drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  726  
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  727  static void ingenic_drm_encoder_atomic_mode_set(struct drm_encoder *encoder,
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  728  						struct drm_crtc_state *crtc_state,
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  729  						struct drm_connector_state *conn_state)
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  730  {
+c369cb27c267fe drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2020-07-16  731  	struct ingenic_drm *priv = drm_device_get_priv(encoder->dev);
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  732  	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
+dded00395bdbd4 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2021-10-26  733  	struct ingenic_drm_bridge *bridge = to_ingenic_drm_bridge(encoder);
+ca459a7407a2f5 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2020-11-19  734  	unsigned int cfg, rgbcfg = 0;
+dba8e987687f14 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  735  
+dded00395bdbd4 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2021-10-26  736  	priv->panel_is_sharp = bridge->bus_cfg.flags & DRM_BUS_FLAG_SHARP_SIGNALS;
+dba8e987687f14 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  737  
+dba8e987687f14 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  738  	if (priv->panel_is_sharp) {
+dba8e987687f14 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  739  		cfg = JZ_LCD_CFG_MODE_SPECIAL_TFT_1 | JZ_LCD_CFG_REV_POLARITY;
+dba8e987687f14 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  740  	} else {
+dba8e987687f14 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  741  		cfg = JZ_LCD_CFG_PS_DISABLE | JZ_LCD_CFG_CLS_DISABLE
+dba8e987687f14 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  742  		    | JZ_LCD_CFG_SPL_DISABLE | JZ_LCD_CFG_REV_DISABLE;
+dba8e987687f14 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  743  	}
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  744  
+b807fd2c43fe00 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Boddie   2021-12-02  745  	if (priv->soc_info->use_extended_hwdesc)
+b807fd2c43fe00 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Boddie   2021-12-02  746  		cfg |= JZ_LCD_CFG_DESCRIPTOR_8;
+b807fd2c43fe00 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Boddie   2021-12-02  747  
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  748  	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  749  		cfg |= JZ_LCD_CFG_HSYNC_ACTIVE_LOW;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  750  	if (mode->flags & DRM_MODE_FLAG_NVSYNC)
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  751  		cfg |= JZ_LCD_CFG_VSYNC_ACTIVE_LOW;
+dded00395bdbd4 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2021-10-26  752  	if (bridge->bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  753  		cfg |= JZ_LCD_CFG_DE_ACTIVE_LOW;
+dded00395bdbd4 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2021-10-26  754  	if (bridge->bus_cfg.flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE)
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  755  		cfg |= JZ_LCD_CFG_PCLK_FALLING_EDGE;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  756  
+dba8e987687f14 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  757  	if (!priv->panel_is_sharp) {
+dded00395bdbd4 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2021-10-26  758  		if (conn_state->connector->connector_type == DRM_MODE_CONNECTOR_TV) {
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  759  			if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  760  				cfg |= JZ_LCD_CFG_MODE_TV_OUT_I;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  761  			else
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  762  				cfg |= JZ_LCD_CFG_MODE_TV_OUT_P;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  763  		} else {
+dded00395bdbd4 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2021-10-26  764  			switch (bridge->bus_cfg.format) {
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03 @765  			case MEDIA_BUS_FMT_RGB565_1X16:
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  766  				cfg |= JZ_LCD_CFG_MODE_GENERIC_16BIT;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  767  				break;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03 @768  			case MEDIA_BUS_FMT_RGB666_1X18:
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  769  				cfg |= JZ_LCD_CFG_MODE_GENERIC_18BIT;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  770  				break;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03 @771  			case MEDIA_BUS_FMT_RGB888_1X24:
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  772  				cfg |= JZ_LCD_CFG_MODE_GENERIC_24BIT;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  773  				break;
+ca459a7407a2f5 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2020-11-19 @774  			case MEDIA_BUS_FMT_RGB888_3X8_DELTA:
+ca459a7407a2f5 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2020-11-19  775  				rgbcfg = JZ_LCD_RGBC_EVEN_GBR | JZ_LCD_RGBC_ODD_RGB;
+ca459a7407a2f5 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2020-11-19  776  				fallthrough;
+8721215c7ef928 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27 @777  			case MEDIA_BUS_FMT_RGB888_3X8:
+8721215c7ef928 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  778  				cfg |= JZ_LCD_CFG_MODE_8BIT_SERIAL;
+8721215c7ef928 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  779  				break;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  780  			default:
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  781  				break;
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  782  			}
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  783  		}
+dba8e987687f14 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-27  784  	}
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  785  
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  786  	regmap_write(priv->map, JZ_REG_LCD_CFG, cfg);
+ca459a7407a2f5 drivers/gpu/drm/ingenic/ingenic-drm-drv.c Paul Cercueil 2020-11-19  787  	regmap_write(priv->map, JZ_REG_LCD_RGBC, rgbcfg);
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  788  }
+90b86fcc47b4d1 drivers/gpu/drm/ingenic/ingenic-drm.c     Paul Cercueil 2019-06-03  789  
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
