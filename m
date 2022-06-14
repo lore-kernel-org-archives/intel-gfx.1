@@ -4,43 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75353C43334
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jun 2022 01:14:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4187C43334
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jun 2022 01:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0A7310FDC5;
-	Tue, 14 Jun 2022 01:14:10 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07B7810FD9B
- for <intel-gfx@lists.freedesktop.org>; Tue, 14 Jun 2022 01:14:09 +0000 (UTC)
-Received: from sobremesa.fritz.box (82-69-11-11.dsl.in-addr.zen.co.uk
- [82.69.11.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: alarumbe)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 7EA946601691;
- Tue, 14 Jun 2022 02:14:07 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1655169247;
- bh=BaGB9VdXoG6PHxMLhbqawBvC/BMTOcsBEPUZPxAOl5k=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YS+Thxdi1vJQHhyN5RFm6tg4ANMUqDtilQtPb5rqLavmbn2lDf6JaRJgc3/he9CcM
- 5PnfmIzcvTcLTbNYjtfO6DsHXH+gzt3MI1GJAleNgOUBLi5lLiHNAbMJ+eU/BEb6g0
- bcMadrADWqT3cbqF0LIQvrXOiaCQzF6jd/C9wH6zFNHyIERCvXqmgwYLvaJ9kuIFZ6
- AurfNZelnNsXupnL0re2iTFn6/XiXsKYQvKlOXW7jPJE4EtToibyvrhjhItfSWF9Vd
- lYJV8cBUr09cO3xBNFsYSktMCWT0nS4sqAaNz7JeQjU6Hdae2ycy0VjrgII+ezxUvd
- LgYRj/SJBLmqA==
-From: Adrian Larumbe <adrian.larumbe@collabora.com>
-To: daniel@ffwll.ch,
-	intel-gfx@lists.freedesktop.org
-Date: Tue, 14 Jun 2022 02:13:48 +0100
-Message-Id: <20220614011350.122168-2-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220614011350.122168-1-adrian.larumbe@collabora.com>
-References: <20220614011350.122168-1-adrian.larumbe@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8482510FF1E;
+	Tue, 14 Jun 2022 01:38:18 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2E10A10FF1D;
+ Tue, 14 Jun 2022 01:38:17 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 243C6AADDB;
+ Tue, 14 Jun 2022 01:38:17 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915/ttm: dont trample cache_level
- overrides during ttm move
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Date: Tue, 14 Jun 2022 01:38:17 -0000
+Message-ID: <165517069711.12484.17182426818167451023@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220613200317.11305-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20220613200317.11305-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm=3A_Clean_up_drm=5Fcrtc=2Eh?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,86 +40,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: adrian.larumbe@collabora.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Various places within the driver override the default chosen cache_level.
-Before ttm, these overrides were permanent until explicitly changed again or
-for the lifetime of the buffer.
+== Series Details ==
 
-TTM movement code came along and decided that it could make that
-decision at that time, which is usually well after object creation, so overrode
-the cache_level decision and reverted it back to its default decision.
+Series: drm: Clean up drm_crtc.h
+URL   : https://patchwork.freedesktop.org/series/105073/
+State : failure
 
-Add logic to indicate whether the caching mode has been set by anything
-other than the move logic. If so, assume that the code that overrode the
-defaults knows best and keep it.
+== Summary ==
 
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_object.c       | 1 +
- drivers/gpu/drm/i915/gem/i915_gem_object_types.h | 1 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c          | 1 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c     | 9 ++++++---
- 4 files changed, 9 insertions(+), 3 deletions(-)
+Error: make failed
+  CALL    scripts/checksyscalls.sh
+  CALL    scripts/atomic/check-atomics.sh
+  DESCEND objtool
+  CHK     include/generated/compile.h
+  CC [M]  drivers/gpu/drm/i915/display/intel_bios.o
+drivers/gpu/drm/i915/display/intel_bios.c: In function ‘pnpid_get_panel_type’:
+drivers/gpu/drm/i915/display/intel_bios.c:643:31: error: dereferencing pointer to incomplete type ‘const struct edid’
+  edid_id = (const void *)&edid->mfg_id[0];
+                               ^~
+scripts/Makefile.build:249: recipe for target 'drivers/gpu/drm/i915/display/intel_bios.o' failed
+make[4]: *** [drivers/gpu/drm/i915/display/intel_bios.o] Error 1
+scripts/Makefile.build:466: recipe for target 'drivers/gpu/drm/i915' failed
+make[3]: *** [drivers/gpu/drm/i915] Error 2
+scripts/Makefile.build:466: recipe for target 'drivers/gpu/drm' failed
+make[2]: *** [drivers/gpu/drm] Error 2
+scripts/Makefile.build:466: recipe for target 'drivers/gpu' failed
+make[1]: *** [drivers/gpu] Error 2
+Makefile:1843: recipe for target 'drivers' failed
+make: *** [drivers] Error 2
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 06b1b188ce5a..519887769c08 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -125,6 +125,7 @@ void i915_gem_object_set_cache_coherency(struct drm_i915_gem_object *obj,
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
- 
- 	obj->cache_level = cache_level;
-+	obj->ttm.cache_level_override = true;
- 
- 	if (cache_level != I915_CACHE_NONE)
- 		obj->cache_coherent = (I915_BO_CACHE_COHERENT_FOR_READ |
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index 2c88bdb8ff7c..6632ed52e919 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -605,6 +605,7 @@ struct drm_i915_gem_object {
- 		struct i915_gem_object_page_iter get_io_page;
- 		struct drm_i915_gem_object *backup;
- 		bool created:1;
-+		bool cache_level_override:1;
- 	} ttm;
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 4c25d9b2f138..27d59639177f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -1241,6 +1241,7 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
- 	i915_gem_object_init_memory_region(obj, mem);
- 	i915_ttm_adjust_domains_after_move(obj);
- 	i915_ttm_adjust_gem_after_move(obj);
-+	obj->ttm.cache_level_override = false;
- 	i915_gem_object_unlock(obj);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index a10716f4e717..4c1de0b4a10f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -123,9 +123,12 @@ void i915_ttm_adjust_gem_after_move(struct drm_i915_gem_object *obj)
- 	obj->mem_flags |= i915_ttm_cpu_maps_iomem(bo->resource) ? I915_BO_FLAG_IOMEM :
- 		I915_BO_FLAG_STRUCT_PAGE;
- 
--	cache_level = i915_ttm_cache_level(to_i915(bo->base.dev), bo->resource,
--					   bo->ttm);
--	i915_gem_object_set_cache_coherency(obj, cache_level);
-+	if (!obj->ttm.cache_level_override) {
-+		cache_level = i915_ttm_cache_level(to_i915(bo->base.dev),
-+						   bo->resource, bo->ttm);
-+		i915_gem_object_set_cache_coherency(obj, cache_level);
-+		obj->ttm.cache_level_override = false;
-+	}
- }
- 
- /**
--- 
-2.36.1
 
