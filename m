@@ -4,46 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61A98C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 05:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43261C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 06:30:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5F5C10E8D5;
-	Wed, 15 Jun 2022 05:53:27 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B7E710E8D5
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 05:53:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE5410E121;
+	Wed, 15 Jun 2022 06:30:36 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C96010E121
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 06:30:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655272406; x=1686808406;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=e7S8srk6m5b7j4gyX1z9DqZPZbEgdBHUdGq7rzLHKw4=;
- b=d+ADGdsuyTlligS75X2NP2eTkPNoz1QctFJLwr8puDo/CbQw67tWwqHW
- ZyAl3RRZ5Yo1+SavyMELnJ0p/n2lKDD6iBogM3ufCsLtNeFKopMEaO2xL
- OUzHJlN2KN1R6hELEMcDL14Sfs/2a+oxPC5aMvWYL6n7E4zfyOaNK8vpo
- sQ7lgi+brCQYum3M8C7UAxdIfmuUFnM4EWfayLVQdL7n8uDbzZDsZyIU5
- 6LkpNm6MHhDbXMWdcL2Ysf08JpfyKftYvhzFpCnM0ic9PoVYqlUEAU4Gf
- 54W9PYoEOQPIT7a4gA3MYxTo7sDH5DccZn7XlV7D0xBf7aEOvguy0kbpa w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10378"; a="258697506"
-X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="258697506"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2022 22:53:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="727212205"
-Received: from priyanka-nuc7i7bnh.iind.intel.com ([10.145.162.209])
- by fmsmga001.fm.intel.com with ESMTP; 14 Jun 2022 22:53:24 -0700
-From: priyanka.dandamudi@intel.com
-To: priyanka.dandamudi@intel.com, matthew.auld@intel.com,
- intel-gfx@lists.freedesktop.org
-Date: Wed, 15 Jun 2022 11:13:06 +0530
-Message-Id: <20220615054306.1175736-3-priyanka.dandamudi@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220615054306.1175736-1-priyanka.dandamudi@intel.com>
-References: <20220615054306.1175736-1-priyanka.dandamudi@intel.com>
+ t=1655274635; x=1686810635;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=gMYbgADp8KhQWSQ5rliQyozRabVG0Ude1ons9aRAcwY=;
+ b=AK0ciJJ0ZV/SGH46AN30FEprY29GEbN9yeAm7qTH6LTI22x1fuLY6m4k
+ YyITE5tG/wR6C8R0LhgXY9d9ES+F9zl82xrsfY8K0risgjHWIQtfKr4YW
+ R4YFSvTt2dWdUobwYFfbHaTS7AwiYLu+jjz4cA3Jb03gEBVQwzJjzxCIl
+ +YDkYKbpEDV3HnE127PmtEL1V3LVEA/uqEyDnkGQdiM6l1bHJ/0TOyAYQ
+ 6a8rCYNM1Z9j/SYvmGMQGUKy4NxOzgv7753+5FQEHbTXRH+uKzO2ezyDe
+ Z7kPLO7BxiSqHA+/z3Zz61RZG9ocPWMdgX/UyrxZQ4rRr9To2/saZYV+j w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10378"; a="276427647"
+X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="276427647"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2022 23:30:35 -0700
+X-IronPort-AV: E=Sophos;i="5.91,300,1647327600"; d="scan'208";a="640817473"
+Received: from jazuniga-mobl1.amr.corp.intel.com (HELO localhost)
+ ([10.252.33.103])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2022 23:30:34 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+In-Reply-To: <YqOK6nSJQsrElNy2@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1654870175.git.jani.nikula@intel.com>
+ <34e0dd92b7f7e9076df1f01b542347e599ec6653.1654870175.git.jani.nikula@intel.com>
+ <YqOK6nSJQsrElNy2@intel.com>
+Date: Wed, 15 Jun 2022 09:30:31 +0300
+Message-ID: <87h74mxwu0.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915: Add lmem_bar_size modparam
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915/bios: split ddi port parsing
+ and debug printing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,99 +60,144 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Priyanka Dandamudi <priyanka.dandamudi@intel.com>
+On Fri, 10 Jun 2022, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Fri, Jun 10, 2022 at 05:10:27PM +0300, Jani Nikula wrote:
+>> Split ddi port parsing and debug printing to clarify the functional
+>> parts of parse_ddi_port(), which are quite small nowadays.
+>>=20
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_bios.c | 65 +++++++++++++----------
+>>  1 file changed, 37 insertions(+), 28 deletions(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm=
+/i915/display/intel_bios.c
+>> index 59d55a99bc2e..fb5f8a9f5ab5 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_bios.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+>> @@ -2561,33 +2561,13 @@ static bool is_port_valid(struct drm_i915_privat=
+e *i915, enum port port)
+>>  	return true;
+>>  }
+>>=20=20
+>> -static void parse_ddi_port(struct intel_bios_encoder_data *devdata)
+>> +static void print_ddi_port(const struct intel_bios_encoder_data *devdat=
+a,
+>> +			   enum port port)
+>>  {
+>>  	struct drm_i915_private *i915 =3D devdata->i915;
+>>  	const struct child_device_config *child =3D &devdata->child;
+>>  	bool is_dvi, is_hdmi, is_dp, is_edp, is_crt, supports_typec_usb, suppo=
+rts_tbt;
+>>  	int dp_boost_level, dp_max_link_rate, hdmi_boost_level, hdmi_level_shi=
+ft, max_tmds_clock;
+>> -	enum port port;
+>> -
+>> -	port =3D dvo_port_to_port(i915, child->dvo_port);
+>> -	if (port =3D=3D PORT_NONE)
+>> -		return;
+>> -
+>> -	if (!is_port_valid(i915, port)) {
+>> -		drm_dbg_kms(&i915->drm,
+>> -			    "VBT reports port %c as supported, but that can't be true: skipp=
+ing\n",
+>> -			    port_name(port));
+>> -		return;
+>> -	}
+>> -
+>> -	if (i915->vbt.ports[port]) {
+>> -		drm_dbg_kms(&i915->drm,
+>> -			    "More than one child device for port %c in VBT, using the first.=
+\n",
+>> -			    port_name(port));
+>> -		return;
+>> -	}
+>> -
+>> -	sanitize_device_type(devdata, port);
+>>=20=20
+>>  	is_dvi =3D intel_bios_encoder_supports_dvi(devdata);
+>>  	is_dp =3D intel_bios_encoder_supports_dp(devdata);
+>> @@ -2605,12 +2585,6 @@ static void parse_ddi_port(struct intel_bios_enco=
+der_data *devdata)
+>>  		    supports_typec_usb, supports_tbt,
+>>  		    devdata->dsc !=3D NULL);
+>>=20=20
+>> -	if (is_dvi)
+>> -		sanitize_ddc_pin(devdata, port);
+>> -
+>> -	if (is_dp)
+>> -		sanitize_aux_ch(devdata, port);
+>> -
+>>  	hdmi_level_shift =3D _intel_bios_hdmi_level_shift(devdata);
+>>  	if (hdmi_level_shift >=3D 0) {
+>>  		drm_dbg_kms(&i915->drm,
+>> @@ -2642,6 +2616,41 @@ static void parse_ddi_port(struct intel_bios_enco=
+der_data *devdata)
+>>  		drm_dbg_kms(&i915->drm,
+>>  			    "Port %c VBT DP max link rate: %d\n",
+>>  			    port_name(port), dp_max_link_rate);
+>> +}
+>> +
+>> +static void parse_ddi_port(struct intel_bios_encoder_data *devdata)
+>> +{
+>> +	struct drm_i915_private *i915 =3D devdata->i915;
+>> +	const struct child_device_config *child =3D &devdata->child;
+>> +	enum port port;
+>> +
+>> +	port =3D dvo_port_to_port(i915, child->dvo_port);
+>> +	if (port =3D=3D PORT_NONE)
+>> +		return;
+>> +
+>> +	if (!is_port_valid(i915, port)) {
+>> +		drm_dbg_kms(&i915->drm,
+>> +			    "VBT reports port %c as supported, but that can't be true: skipp=
+ing\n",
+>> +			    port_name(port));
+>> +		return;
+>> +	}
+>> +
+>> +	if (i915->vbt.ports[port]) {
+>> +		drm_dbg_kms(&i915->drm,
+>> +			    "More than one child device for port %c in VBT, using the first.=
+\n",
+>> +			    port_name(port));
+>> +		return;
+>> +	}
+>> +
+>> +	sanitize_device_type(devdata, port);
+>> +
+>> +	print_ddi_port(devdata, port);
+>
+> Maybe put the print to the end, in case we want to start printing
+> something about the ddc/aux stuff?
 
-lmem_bar_size is used to resize lmem bar.
-It sets to only one of the supported sizes.
-Setting this param will be in MB unit.
+At least in this patch I wanted to keep the order the same.
 
-Cc: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Priyanka Dandamudi <priyanka.dandamudi@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_region_lmem.c |  3 +++
- drivers/gpu/drm/i915/i915_driver.c          | 25 ++++++++++++++++++++-
- drivers/gpu/drm/i915/i915_params.c          |  2 ++
- drivers/gpu/drm/i915/i915_params.h          |  1 +
- 4 files changed, 30 insertions(+), 1 deletion(-)
+> Series is
+> Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index 119e53f5d9b1..d73d8b2adfa2 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -132,6 +132,9 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
- 				  mul_u32_u32(i915->params.lmem_size, SZ_1M));
- 	}
- 
-+	if (i915->params.lmem_bar_size > 0)
-+		lmem_size = pci_resource_len(pdev, 2);
-+
- 	io_start = pci_resource_start(pdev, 2);
- 	io_size = min(pci_resource_len(pdev, 2), lmem_size);
- 	if (!io_size)
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 8d33a6a31675..2f5d7a1f1a7b 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -371,7 +371,30 @@ static void i915_resize_lmem_bar(struct drm_i915_private *i915)
- 	u32 pci_cmd;
- 	int i;
- 
--	if (!rebar_size)
-+	if (i915->params.lmem_bar_size > 0) {
-+		u32 lmem_bar_size;
-+		u32 set_bit;
-+		u32 rebar;
-+		u32 msb;
-+		int k;
-+
-+		lmem_bar_size = i915->params.lmem_bar_size;
-+		rebar = pci_rebar_get_possible_sizes(pdev, LMEM_BAR_NUM);
-+		msb = __fls(rebar);
-+
-+		for (k = msb; k >= 0; k--) {
-+			set_bit = (1 << k);
-+
-+			if (set_bit & rebar)
-+				if (set_bit == lmem_bar_size) {
-+					rebar_size = 1ULL << (__fls(lmem_bar_size) + BAR_SIZE_SHIFT);
-+
-+					if (rebar_size == pci_resource_len(pdev, LMEM_BAR_NUM))
-+						return;
-+					break;
-+				}
-+		}
-+	} else if (!rebar_size)
- 		return;
- 
- 	/* Find out if root bus contains 64bit memory addressing */
-diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index 701fbc98afa0..6fc475a5db61 100644
---- a/drivers/gpu/drm/i915/i915_params.c
-+++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -204,6 +204,8 @@ i915_param_named_unsafe(request_timeout_ms, uint, 0600,
- 
- i915_param_named_unsafe(lmem_size, uint, 0400,
- 			"Set the lmem size(in MiB) for each region. (default: 0, all memory)");
-+i915_param_named_unsafe(lmem_bar_size, uint, 0400,
-+			"Set the lmem bar size(in MiB).");
- 
- static __always_inline void _print_param(struct drm_printer *p,
- 					 const char *name,
-diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index b5e7ea45d191..2733cb6cfe09 100644
---- a/drivers/gpu/drm/i915/i915_params.h
-+++ b/drivers/gpu/drm/i915/i915_params.h
-@@ -74,6 +74,7 @@ struct drm_printer;
- 	param(char *, force_probe, CONFIG_DRM_I915_FORCE_PROBE, 0400) \
- 	param(unsigned int, request_timeout_ms, CONFIG_DRM_I915_REQUEST_TIMEOUT, CONFIG_DRM_I915_REQUEST_TIMEOUT ? 0600 : 0) \
- 	param(unsigned int, lmem_size, 0, 0400) \
-+	param(unsigned int, lmem_bar_size, 0, 0400) \
- 	/* leave bools at the end to not create holes */ \
- 	param(bool, enable_hangcheck, true, 0600) \
- 	param(bool, load_detect_test, false, 0600) \
--- 
-2.27.0
+Thanks, pushed to din.
 
+BR,
+Jani.
+
+>
+>> +
+>> +	if (intel_bios_encoder_supports_dvi(devdata))
+>> +		sanitize_ddc_pin(devdata, port);
+>> +
+>> +	if (intel_bios_encoder_supports_dp(devdata))
+>> +		sanitize_aux_ch(devdata, port);
+>>=20=20
+>>  	i915->vbt.ports[port] =3D devdata;
+>>  }
+>> --=20
+>> 2.30.2
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
