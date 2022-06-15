@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E744BC43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 15:28:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC32C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 15:28:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D052112243;
-	Wed, 15 Jun 2022 15:27:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B918112223;
+	Wed, 15 Jun 2022 15:27:52 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE8A4112185;
- Wed, 15 Jun 2022 15:27:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F8F2112241;
+ Wed, 15 Jun 2022 15:27:49 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4EF2DB81F0C;
+ by ams.source.kernel.org (Postfix) with ESMTPS id E8D50B81F0D;
  Wed, 15 Jun 2022 15:27:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECDEDC34115;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3672C385A2;
  Wed, 15 Jun 2022 15:27:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1655306866;
- bh=d5dFQ9NHsAkSm+gLQzVN8kPNqSNsxZsVoyo0jFhjNL0=;
+ bh=nX1w5nyKD3K3Gw/ZF5PMRaXHVZxvYBa3oXkY2JHQUN0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LXQf8xhEcd/2SP9lwnz0ukumi2OpBNyaaWzqoWEweJNDGmokgwGwt3y1sppwNHyQ7
- Rzxzuq4qly/kJRh9TpXSJs/vZ4SSwYySPo6oCtR3lSb9i2ZGukCYt4ukqKgYmFIxCi
- 4RYwiBl2BDFOyJEqVGqfPdTjg/wDJ2XcvxfPYlQ/2GwAx3ebFWcSy330pPk76hRvDv
- m1eLCgWxxKsmve7jSKKvt972JvLb/DQ1dXV3QlwxS2UNwbNxjFozXlJyyu8o8WPTFV
- KO/BfNu64ZOcJb9+Gdm3qMvPUeiwovYMC/uqNJ7oIVn1Y+/K4J48asEamxxyleAP/i
- 6fvv0mYBklH9w==
+ b=iyea28kx9k5ypeyLzp7cl1Ekca/aVGlkg75Bt3ZbxKPGTXSxU2vKgZ8XIjqXitRPW
+ 5H/QWhoNVlftRm8xtMxFKzTFvb3+5FAulFoYwyuq6PTJtUbITk4V2Bq82d1H8kTmB6
+ QNp00KVxH49Z2PIgW1iWNFlcNAKcgfHNvWHG0GqwEtti8EUo5zTPzIHK/ksGGLL23S
+ mohEEiyyP0AAxyro4qjdSFiw2litXaNf8u5fGvHIyVdW8Ka8CWwKiRNS10bIBNA658
+ ksgmxr6fGW3QfqzSjjT+JNh4fzUt3CaZX+qIvOZ1MfF0+4Jlvnpe45SC9fT+dgXX5t
+ IO2UvEwRD8+aQ==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1o1Uvm-00A4Jj-EX;
+ (envelope-from <mchehab@kernel.org>) id 1o1Uvm-00A4Jd-Cq;
  Wed, 15 Jun 2022 16:27:42 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Wed, 15 Jun 2022 16:27:37 +0100
-Message-Id: <9d9e663ca8e97becf04e1d4c8cb8a9a1f397a5f1.1655306128.git.mchehab@kernel.org>
+Date: Wed, 15 Jun 2022 16:27:35 +0100
+Message-Id: <ce7ddc900a5421e577ef446b6834ee69663c2d9a.1655306128.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1655306128.git.mchehab@kernel.org>
 References: <cover.1655306128.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/6] drm/i915/gt: Skip TLB invalidations once
- wedged
+Subject: [Intel-gfx] [PATCH 1/6] drm/i915/gt: Ignore TLB invalidations on
+ idle engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,7 +60,7 @@ Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
  Chris Wilson <chris.p.wilson@intel.com>, Matthew Auld <matthew.auld@intel.com>,
  Dave Airlie <airlied@redhat.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org,
  Thomas Hellstrom <thomas.hellstrom@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, mauro.chehab@linux.intel.com,
@@ -71,9 +71,14 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Chris Wilson <chris.p.wilson@intel.com>
 
-Skip all further TLB invalidations once the device is wedged and
-had been reset, as, on such cases, it can no longer process instructions
-on the GPU and the user no longer has access to the TLB's in each engine.
+As an extension of the current skip TLB invalidations,
+check if the device is powered down prior to any engine activity,
+
+as, on such cases, all the TLBs were already invalidated, so an
+explicit TLB invalidation is not needed.
+
+This becomes more significant  with GuC, as it can only do so when
+the connection to the GuC is awake.
 
 Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
 
@@ -87,23 +92,125 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 
 See [PATCH 0/6] at: https://lore.kernel.org/all/cover.1655306128.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gt/intel_gt.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c | 10 +++++----
+ drivers/gpu/drm/i915/gt/intel_gt.c        | 26 +++++++++++++++++------
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h     |  3 +++
+ 3 files changed, 28 insertions(+), 11 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 97c820eee115..6835279943df 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -6,14 +6,15 @@
+ 
+ #include <drm/drm_cache.h>
+ 
++#include "gt/intel_gt.h"
++#include "gt/intel_gt_pm.h"
++
+ #include "i915_drv.h"
+ #include "i915_gem_object.h"
+ #include "i915_scatterlist.h"
+ #include "i915_gem_lmem.h"
+ #include "i915_gem_mman.h"
+ 
+-#include "gt/intel_gt.h"
+-
+ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
+ 				 struct sg_table *pages,
+ 				 unsigned int sg_page_sizes)
+@@ -217,10 +218,11 @@ __i915_gem_object_unset_pages(struct drm_i915_gem_object *obj)
+ 
+ 	if (test_and_clear_bit(I915_BO_WAS_BOUND_BIT, &obj->flags)) {
+ 		struct drm_i915_private *i915 = to_i915(obj->base.dev);
++		struct intel_gt *gt = to_gt(i915);
+ 		intel_wakeref_t wakeref;
+ 
+-		with_intel_runtime_pm_if_active(&i915->runtime_pm, wakeref)
+-			intel_gt_invalidate_tlbs(to_gt(i915));
++		with_intel_gt_pm_if_awake(gt, wakeref)
++			intel_gt_invalidate_tlbs(gt);
+ 	}
+ 
+ 	return pages;
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 61b7ec5118f9..fb4fd5273ca4 100644
+index f33290358c51..d5ed6a6ac67c 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -1226,6 +1226,9 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 	if (I915_SELFTEST_ONLY(gt->awake == -ENODEV))
- 		return;
+@@ -11,6 +11,7 @@
  
-+	if (intel_gt_is_wedged(gt))
-+		return;
+ #include "i915_drv.h"
+ #include "intel_context.h"
++#include "intel_engine_pm.h"
+ #include "intel_engine_regs.h"
+ #include "intel_gt.h"
+ #include "intel_gt_buffer_pool.h"
+@@ -1216,6 +1217,7 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 	struct drm_i915_private *i915 = gt->i915;
+ 	struct intel_uncore *uncore = gt->uncore;
+ 	struct intel_engine_cs *engine;
++	intel_engine_mask_t awake, tmp;
+ 	enum intel_engine_id id;
+ 	const i915_reg_t *regs;
+ 	unsigned int num = 0;
+@@ -1239,12 +1241,27 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 
+ 	GEM_TRACE("\n");
+ 
+-	assert_rpm_wakelock_held(&i915->runtime_pm);
+-
+ 	mutex_lock(&gt->tlb_invalidate_lock);
+ 	intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
+ 
++	awake = 0;
+ 	for_each_engine(engine, gt, id) {
++		struct reg_and_bit rb;
 +
- 	if (GRAPHICS_VER(i915) == 12) {
- 		regs = gen12_regs;
- 		num = ARRAY_SIZE(gen12_regs);
++		if (!intel_engine_pm_is_awake(engine))
++			continue;
++
++		rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
++		if (!i915_mmio_reg_offset(rb.reg))
++			continue;
++
++		intel_uncore_write_fw(uncore, rb.reg, rb.bit);
++		awake |= engine->mask;
++	}
++
++	for_each_engine_masked(engine, gt, awake, tmp) {
++		struct reg_and_bit rb;
++
+ 		/*
+ 		 * HW architecture suggest typical invalidation time at 40us,
+ 		 * with pessimistic cases up to 100us and a recommendation to
+@@ -1252,13 +1269,8 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 		 */
+ 		const unsigned int timeout_us = 100;
+ 		const unsigned int timeout_ms = 4;
+-		struct reg_and_bit rb;
+ 
+ 		rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
+-		if (!i915_mmio_reg_offset(rb.reg))
+-			continue;
+-
+-		intel_uncore_write_fw(uncore, rb.reg, rb.bit);
+ 		if (__intel_wait_for_register_fw(uncore,
+ 						 rb.reg, rb.bit, 0,
+ 						 timeout_us, timeout_ms,
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
+index bc898df7a48c..a334787a4939 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
+@@ -55,6 +55,9 @@ static inline void intel_gt_pm_might_put(struct intel_gt *gt)
+ 	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
+ 	     intel_gt_pm_put(gt), tmp = 0)
+ 
++#define with_intel_gt_pm_if_awake(gt, wf) \
++	for (wf = intel_gt_pm_get_if_awake(gt); wf; intel_gt_pm_put_async(gt), wf = 0)
++
+ static inline int intel_gt_pm_wait_for_idle(struct intel_gt *gt)
+ {
+ 	return intel_wakeref_wait_for_idle(&gt->wakeref);
 -- 
 2.36.1
 
