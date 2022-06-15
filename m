@@ -4,52 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CA28C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 15:24:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C8A2C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jun 2022 15:27:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD1E01120E0;
-	Wed, 15 Jun 2022 15:24:49 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5205B11211A
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Jun 2022 15:24:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655306688; x=1686842688;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=3vPHvaKplrVcjTie5bPmBJ0ZptRJSnIRA/7Ly1Ck518=;
- b=MCRj44hl3r/gPWrvzr9PBAk/6+YphhksGm0RkIQy65uqw9TuOT3vv5Nj
- WXQz5hRjK/jkzxAVI7tQ6u0sGS0jO1HXnaXJMsolHdmnMAqIYJKmOkld8
- JbflrbIOH7g2pU0qUQC82bKIqXqiwKIrCSLNTB7u6w11zR6ppuLlJLSre
- A4WpwPGBhl6aDi7TKTeJAKa3GgosGrgBiVBb/wQ0+6QyH66Oj1faqwf67
- E9tjInRwkjjlzVv41FCn87qhj31h6qEMx7jYkeUOJzh0J3XiLwsYwGnL7
- rkEBhb5D0wozEtFQPcM37XcPxTdqFtB5tqM5A2SwtZYSv5rwCOjz7XJJO Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10378"; a="276570465"
-X-IronPort-AV: E=Sophos;i="5.91,302,1647327600"; d="scan'208";a="276570465"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 08:24:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,302,1647327600"; d="scan'208";a="589175926"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.163])
- by fmsmga007.fm.intel.com with SMTP; 15 Jun 2022 08:24:34 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 15 Jun 2022 18:24:33 +0300
-Date: Wed, 15 Jun 2022 18:24:33 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <Yqn5sfnFxypRCYBv@intel.com>
-References: <cover.1655297182.git.jani.nikula@intel.com>
- <YqneX9G0VVDqJvYC@intel.com> <878rpyxak6.fsf@intel.com>
- <875yl2x8i9.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB3F11121E0;
+	Wed, 15 Jun 2022 15:27:47 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 217AA1121D4;
+ Wed, 15 Jun 2022 15:27:47 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9055061591;
+ Wed, 15 Jun 2022 15:27:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1203C3411C;
+ Wed, 15 Jun 2022 15:27:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1655306866;
+ bh=BlDIEcKJ14OpD6+ESND5UCNOIyMjbS2bd2Y8eqJ8uxk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=F9MjNUhSfIW8LIsi3WBectn1THEMp6emsr48hbbUBq2P3TCS3ncW61UNYtleA9Knt
+ IxxtwpahQvzmOqagK7VYFtPf3ANq/H27tb65repDfjjs3Sf+RMG4fI0RH5bWBk0sDb
+ Ev4qrU/xSHXtHUr8+dGV980TkCrkOBq206yN7HUvhTWOwhIATeZikMwpUHhFWKakbW
+ obpNFsin/mwnj2cyGt4iBEf/unFNA0BLc8H5PxONTr2RgUnMlTlekmnPHeKHHJUs+F
+ bPobjAueges7heOGy0Xt7zGXXx9NFJCCfQAk0TGNRq6k0WSOf9jvnGn92WhMk6WyOR
+ MniWUE7lV7lbA==
+Received: from mchehab by mail.kernel.org with local (Exim 4.95)
+ (envelope-from <mchehab@kernel.org>) id 1o1Uvm-00A4Jp-Fz;
+ Wed, 15 Jun 2022 16:27:42 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: 
+Date: Wed, 15 Jun 2022 16:27:39 +0100
+Message-Id: <5ee647f243a774927ec328bfca8212abc4957909.1655306128.git.mchehab@kernel.org>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <cover.1655306128.git.mchehab@kernel.org>
+References: <cover.1655306128.git.mchehab@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <875yl2x8i9.fsf@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 0/7] drm/i915/display: split out verifation,
- compare and dump from intel_display.c
+Subject: [Intel-gfx] [PATCH 5/6] drm/i915/gt: Serialize GRDOM access between
+ multiple engine resets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,67 +57,129 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Chris Wilson <chris.p.wilson@intel.com>, Dave Airlie <airlied@redhat.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Andi Shyti <andi.shyti@intel.com>, intel-gfx@lists.freedesktop.org,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, mauro.chehab@linux.intel.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 15, 2022 at 06:15:58PM +0300, Jani Nikula wrote:
-> On Wed, 15 Jun 2022, Jani Nikula <jani.nikula@intel.com> wrote:
-> > On Wed, 15 Jun 2022, Ville Syrj‰l‰ <ville.syrjala@linux.intel.com> wrote:
-> >> On Wed, Jun 15, 2022 at 03:47:54PM +0300, Jani Nikula wrote:
-> >>> The state verification and pipe config comparison/dumping are fairly
-> >>> isolated pieces of code within intel_display.c. Move them to separate
-> >>> files in a long overdue cleanup.
-> >>> 
-> >>> Jani Nikula (7):
-> >>>   drm/i915/wm: move wm state verification to intel_pm.c
-> >>>   drm/i915/dpll: move shared dpll state verification to intel_dpll_mgr.c
-> >>>   drm/i915/mpllb: use I915_STATE_WARN() for state mismatch warnings
-> >>>   drm/i915/mpllb: move mpllb state check to intel_snps_phy.c
-> >>
-> >> I'd perhaps go for foo_state_verify() naming convention. Would
-> >> match the foo_state_dump() naming convention I suggested
-> >> for the dumping stuff.
-> >
-> > Roger.
-> >
-> >>
-> >> Apart from that these ^ four are
-> >> Reviewed-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> >>
-> >>>   drm/i915/display: split out modeset verification code
-> >>
-> >> I really hate some of that code. I guess hiding it is one option :P
-> >> This one ^ is
-> >> Reviewed-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> >
-> > Yeah, there's some weird stuff. For example we only call
-> > verify_encoder_state() only to verify it's disabled.
-> >
-> >>
-> >>>   drm/i915/display: split out pipe config compare to a separate file
-> >>
-> >> Not entirely sure I like moving this one. The fastset stuff
-> >> within needs to stay in sync with the fastset codepaths which
-> >> are in intel_display.c. Not sure if we risk more bugs if it's
-> >> too well hidden...
-> >
-> > Mixed feelings. The problem remains, the file is still too damn big, and
-> > it's hard to draw the lines what to extract. Maybe all the modeset code
-> > needs to be lifted, along with the config compare, but then I think that
-> > has too many dependencies to axe out cleanly. Damned if you do, damned
-> > if you don't.
-> 
-> I've also got a patch to move intel_modeset_setup_hw_state() and all the
-> static functions only it calls to another file. Do you also think that
-> needs to be together with the modeset code...?
+From: Chris Wilson <chris.p.wilson@intel.com>
 
-Readout+sanitation... I guess that's pretty self contained so a fairly
-good candidate for moving out.
+Don't allow two engines to be reset in parallel, as they would both
+try to select a reset bit (and send requests to common registers)
+and wait on that register, at the same time. Serialize control of
+the reset requests/acks using the uncore->lock, which will also ensure
+that no other GT state changes at the same time as the actual reset.
 
-Though it does mean I get to rebase my "nuke the legacy state pointers"
-branch at some point :/ Oh well, that's life.
+Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
 
+Reported-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@intel.com>
+Cc: stable@vger.kernel.org
+Acked-by: Thomas Hellstr√∂m <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+---
+
+See [PATCH 0/6] at: https://lore.kernel.org/all/cover.1655306128.git.mchehab@kernel.org/
+
+ drivers/gpu/drm/i915/gt/intel_reset.c | 37 ++++++++++++++++++++-------
+ 1 file changed, 28 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index a5338c3fde7a..c68d36fb5bbd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -300,9 +300,9 @@ static int gen6_hw_domain_reset(struct intel_gt *gt, u32 hw_domain_mask)
+ 	return err;
+ }
+ 
+-static int gen6_reset_engines(struct intel_gt *gt,
+-			      intel_engine_mask_t engine_mask,
+-			      unsigned int retry)
++static int __gen6_reset_engines(struct intel_gt *gt,
++				intel_engine_mask_t engine_mask,
++				unsigned int retry)
+ {
+ 	struct intel_engine_cs *engine;
+ 	u32 hw_mask;
+@@ -321,6 +321,20 @@ static int gen6_reset_engines(struct intel_gt *gt,
+ 	return gen6_hw_domain_reset(gt, hw_mask);
+ }
+ 
++static int gen6_reset_engines(struct intel_gt *gt,
++			      intel_engine_mask_t engine_mask,
++			      unsigned int retry)
++{
++	unsigned long flags;
++	int ret;
++
++	spin_lock_irqsave(&gt->uncore->lock, flags);
++	ret = __gen6_reset_engines(gt, engine_mask, retry);
++	spin_unlock_irqrestore(&gt->uncore->lock, flags);
++
++	return ret;
++}
++
+ static struct intel_engine_cs *find_sfc_paired_vecs_engine(struct intel_engine_cs *engine)
+ {
+ 	int vecs_id;
+@@ -487,9 +501,9 @@ static void gen11_unlock_sfc(struct intel_engine_cs *engine)
+ 	rmw_clear_fw(uncore, sfc_lock.lock_reg, sfc_lock.lock_bit);
+ }
+ 
+-static int gen11_reset_engines(struct intel_gt *gt,
+-			       intel_engine_mask_t engine_mask,
+-			       unsigned int retry)
++static int __gen11_reset_engines(struct intel_gt *gt,
++				 intel_engine_mask_t engine_mask,
++				 unsigned int retry)
+ {
+ 	struct intel_engine_cs *engine;
+ 	intel_engine_mask_t tmp;
+@@ -583,8 +597,11 @@ static int gen8_reset_engines(struct intel_gt *gt,
+ 	struct intel_engine_cs *engine;
+ 	const bool reset_non_ready = retry >= 1;
+ 	intel_engine_mask_t tmp;
++	unsigned long flags;
+ 	int ret;
+ 
++	spin_lock_irqsave(&gt->uncore->lock, flags);
++
+ 	for_each_engine_masked(engine, gt, engine_mask, tmp) {
+ 		ret = gen8_engine_reset_prepare(engine);
+ 		if (ret && !reset_non_ready)
+@@ -612,17 +629,19 @@ static int gen8_reset_engines(struct intel_gt *gt,
+ 	 * This is best effort, so ignore any error from the initial reset.
+ 	 */
+ 	if (IS_DG2(gt->i915) && engine_mask == ALL_ENGINES)
+-		gen11_reset_engines(gt, gt->info.engine_mask, 0);
++		__gen11_reset_engines(gt, gt->info.engine_mask, 0);
+ 
+ 	if (GRAPHICS_VER(gt->i915) >= 11)
+-		ret = gen11_reset_engines(gt, engine_mask, retry);
++		ret = __gen11_reset_engines(gt, engine_mask, retry);
+ 	else
+-		ret = gen6_reset_engines(gt, engine_mask, retry);
++		ret = __gen6_reset_engines(gt, engine_mask, retry);
+ 
+ skip_reset:
+ 	for_each_engine_masked(engine, gt, engine_mask, tmp)
+ 		gen8_engine_reset_cancel(engine);
+ 
++	spin_unlock_irqrestore(&gt->uncore->lock, flags);
++
+ 	return ret;
+ }
+ 
 -- 
-Ville Syrj‰l‰
-Intel
+2.36.1
+
