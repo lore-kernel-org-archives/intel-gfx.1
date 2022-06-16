@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52DAAC43334
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Jun 2022 12:15:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04D8CC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Jun 2022 12:23:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADFF211A26E;
-	Thu, 16 Jun 2022 12:15:32 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE3A411A0A5
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Jun 2022 12:15:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F767113B5B;
+	Thu, 16 Jun 2022 12:23:05 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04785113B5B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Jun 2022 12:23:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655381729; x=1686917729;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=7lFZ6pSQBrFQd3QkejtEjNaiWMhRWjToIeiInIfzsoE=;
- b=F8DOLS9QD0PHWHOUgtVvVFHdhzVvIezqT4BrbGgmwL5My3QpDmrqkXIQ
- f1dqgS/nFgVjR38XZaU3OfgDNQan8+RscDh7WSbiabsunFZd2U1bTqjEX
- wZk2metOGL2+fUBUWHWKwvyOILp6+n6oG5RntJWxtU5+JQIOs8BV5SZPB
- LtF9I3RsFL0omym1FiG3BJt4FUeqTDsbVPLw9FZY9Wz/XdjL005ngf6gz
- Q3ool2bqxCEjcCbgKPC9Gx8JQDb0qBKATK2A4bURhMMZH/QHWsp65d6ar
- eGnfyT5syGDaubQYgkpx0jNlIax4DvV6VHYt0MzLtu17i+tQnSsH1e9aS Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10379"; a="278030925"
-X-IronPort-AV: E=Sophos;i="5.91,305,1647327600"; d="scan'208";a="278030925"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 05:15:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,305,1647327600"; d="scan'208";a="831535822"
-Received: from priyanka-nuc7i7bnh.iind.intel.com ([10.145.162.209])
- by fmsmga006.fm.intel.com with ESMTP; 16 Jun 2022 05:15:28 -0700
-From: priyanka.dandamudi@intel.com
-To: priyanka.dandamudi@intel.com, matthew.auld@intel.com,
- intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Jun 2022 17:35:09 +0530
-Message-Id: <20220616120509.1190329-3-priyanka.dandamudi@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220616120509.1190329-1-priyanka.dandamudi@intel.com>
-References: <20220616120509.1190329-1-priyanka.dandamudi@intel.com>
+ t=1655382184; x=1686918184;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=WxWBW9ACUuHTXtxIYKQiKpxmTSt7t2eCH4V3qX3Wscw=;
+ b=WPBS/oxU/t+heiI7dQkZVjHXbjX4YljT0RtECEnWFLLTAFts5uvKsgSe
+ I445EXeY4KDnE8RfV47NQ4UpG31KSpy9xBupSrkqad0q2QD+4lSocAJAL
+ O4aLPhdSG1/PDZqnlWDtjydlIU9gXx2A02F3jNnIcGE4rZcPeNgjEI+cX
+ MIPvmyb1TvAjOcYYGhgZ2hhBQB6SlqD1LHuB7pEztxQjD+rZhPrjGfMn0
+ aBdBAXTOjy+XDwTtCascg7nW4HHX40X/WP18tLpj9TvQL2G1Up7ownJHp
+ 8F15lNqSUj7xwXTAui0RONzEE25VUu7qnDi3SwkYPcCPqX9Er0XK625HP A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10379"; a="262255528"
+X-IronPort-AV: E=Sophos;i="5.91,305,1647327600"; d="scan'208";a="262255528"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2022 05:23:03 -0700
+X-IronPort-AV: E=Sophos;i="5.91,305,1647327600"; d="scan'208";a="687798410"
+Received: from srr4-3-linux-105-anshuma1.iind.intel.com ([10.223.74.179])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2022 05:23:00 -0700
+From: Anshuman Gupta <anshuman.gupta@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 16 Jun 2022 17:52:49 +0530
+Message-Id: <20220616122249.5007-1-anshuman.gupta@intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20220606122656.31479-1-anshuman.gupta@intel.com>
+References: <20220606122656.31479-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 2/2] drm/i915: Add lmem_bar_size modparam
+Subject: [Intel-gfx] [PATCH v2] drm/i915/dgfx: Disable d3cold at gfx root
+ port
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,109 +56,133 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Priyanka Dandamudi <priyanka.dandamudi@intel.com>
+Currently i915 disables d3cold for i915 pci dev.
+This blocks D3 for i915 gfx pci upstream bridge (VSP).
+Let's disable d3cold at gfx root port to make sure that
+i915 gfx VSP can transition to D3 to save some power.
 
-For testing purposes, support forcing the lmem_bar_size through a new
-modparam. In CI we only have a limited number of configurations for DG2,
-but we still need to be reasonably sure we get a usable device (also
-verifying we report the correct values for things like
-probed_cpu_visible_size etc) with all the potential lmem_bar sizes that
-we might expect see in the wild.
+We don't need to disable/enable d3cold in rpm, s2idle
+suspend/resume handlers. Disabling/Enabling d3cold at
+gfx root port in probe/remove phase is sufficient.
 
-v2: Minor correction.(Matt)
-
-Cc: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Priyanka Dandamudi <priyanka.dandamudi@intel.com>
+Fixes: 1a085e23411d ("drm/i915: Disable D3Cold in s2idle and runtime pm")
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+Reviewed-by: Badal Nilawar <badal.nilawar@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_region_lmem.c |  4 +++
- drivers/gpu/drm/i915/i915_driver.c          | 28 ++++++++++++++++++++-
- drivers/gpu/drm/i915/i915_params.c          |  2 ++
- drivers/gpu/drm/i915/i915_params.h          |  1 +
- 4 files changed, 34 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_driver.c | 34 +++++++++++++-----------------
+ 1 file changed, 15 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index e9c12e0d6f59..4614c30f878f 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -111,6 +111,10 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
- 		flat_ccs_base = intel_gt_read_register(gt, XEHPSDV_FLAT_CCS_BASE_ADDR);
- 		flat_ccs_base = (flat_ccs_base >> XEHPSDV_CCS_BASE_SHIFT) * SZ_64K;
- 
-+		/* XXX: Remove this once we have small-bar uapi bits */
-+		if (i915->params.lmem_bar_size > 0)
-+			lmem_size = pci_resource_len(pdev, 2);
-+
- 		/* FIXME: Remove this when we have small-bar enabled */
- 		if (pci_resource_len(pdev, 2) < lmem_size) {
- 			drm_err(&i915->drm, "System requires small-BAR support, which is currently unsupported on this kernel\n");
 diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 4bdb471cb2e2..b2763b032012 100644
+index d26dcca7e654..86f9f0be76a6 100644
 --- a/drivers/gpu/drm/i915/i915_driver.c
 +++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -362,8 +362,34 @@ static void i915_resize_lmem_bar(struct drm_i915_private *i915)
- 	u32 pci_cmd;
- 	int i;
+@@ -546,6 +546,7 @@ static int i915_pcode_init(struct drm_i915_private *i915)
+ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
++	struct pci_dev *root_pdev;
+ 	int ret;
  
--	if (!rebar_size)
-+	if (i915->params.lmem_bar_size > 0) {
-+		u32 lmem_bar_size;
-+		u32 set_bit;
-+		u32 rebar;
-+		u32 msb;
-+		int k;
-+
-+		lmem_bar_size = i915->params.lmem_bar_size;
-+		rebar = pci_rebar_get_possible_sizes(pdev, LMEM_BAR_NUM);
-+		msb = __fls(rebar);
-+
-+		for (k = msb; k >= 0; k--) {
-+			set_bit = (1 << k);
-+
-+			if (set_bit & rebar) {
-+				if (set_bit == lmem_bar_size) {
-+					rebar_size = 1ULL << (__fls(lmem_bar_size) +
-+							BAR_SIZE_SHIFT);
-+
-+					if (rebar_size == pci_resource_len(pdev, LMEM_BAR_NUM))
-+						return;
-+					break;
-+				}
-+			}
-+		}
-+	} else if (!rebar_size) {
- 		return;
-+	}
+ 	if (i915_inject_probe_failure(dev_priv))
+@@ -657,6 +658,15 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
  
- 	/* Find out if root bus contains 64bit memory addressing */
- 	while (root->parent)
-diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index 701fbc98afa0..6fc475a5db61 100644
---- a/drivers/gpu/drm/i915/i915_params.c
-+++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -204,6 +204,8 @@ i915_param_named_unsafe(request_timeout_ms, uint, 0600,
+ 	intel_bw_init_hw(dev_priv);
  
- i915_param_named_unsafe(lmem_size, uint, 0400,
- 			"Set the lmem size(in MiB) for each region. (default: 0, all memory)");
-+i915_param_named_unsafe(lmem_bar_size, uint, 0400,
-+			"Set the lmem bar size(in MiB).");
++	/*
++	 * FIXME: Temporary hammer to avoid freezing the machine on our DGFX
++	 * This should be totally removed when we handle the pci states properly
++	 * on runtime PM and on s2idle cases.
++	 */
++	root_pdev = pcie_find_root_port(pdev);
++	if (root_pdev)
++		pci_d3cold_disable(root_pdev);
++
+ 	return 0;
  
- static __always_inline void _print_param(struct drm_printer *p,
- 					 const char *name,
-diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index b5e7ea45d191..2733cb6cfe09 100644
---- a/drivers/gpu/drm/i915/i915_params.h
-+++ b/drivers/gpu/drm/i915/i915_params.h
-@@ -74,6 +74,7 @@ struct drm_printer;
- 	param(char *, force_probe, CONFIG_DRM_I915_FORCE_PROBE, 0400) \
- 	param(unsigned int, request_timeout_ms, CONFIG_DRM_I915_REQUEST_TIMEOUT, CONFIG_DRM_I915_REQUEST_TIMEOUT ? 0600 : 0) \
- 	param(unsigned int, lmem_size, 0, 0400) \
-+	param(unsigned int, lmem_bar_size, 0, 0400) \
- 	/* leave bools at the end to not create holes */ \
- 	param(bool, enable_hangcheck, true, 0600) \
- 	param(bool, load_detect_test, false, 0600) \
+ err_msi:
+@@ -680,11 +690,16 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
+ static void i915_driver_hw_remove(struct drm_i915_private *dev_priv)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
++	struct pci_dev *root_pdev;
+ 
+ 	i915_perf_fini(dev_priv);
+ 
+ 	if (pdev->msi_enabled)
+ 		pci_disable_msi(pdev);
++
++	root_pdev = pcie_find_root_port(pdev);
++	if (root_pdev)
++		pci_d3cold_enable(root_pdev);
+ }
+ 
+ /**
+@@ -1209,14 +1224,6 @@ static int i915_drm_suspend_late(struct drm_device *dev, bool hibernation)
+ 		goto out;
+ 	}
+ 
+-	/*
+-	 * FIXME: Temporary hammer to avoid freezing the machine on our DGFX
+-	 * This should be totally removed when we handle the pci states properly
+-	 * on runtime PM and on s2idle cases.
+-	 */
+-	if (suspend_to_idle(dev_priv))
+-		pci_d3cold_disable(pdev);
+-
+ 	pci_disable_device(pdev);
+ 	/*
+ 	 * During hibernation on some platforms the BIOS may try to access
+@@ -1381,8 +1388,6 @@ static int i915_drm_resume_early(struct drm_device *dev)
+ 
+ 	pci_set_master(pdev);
+ 
+-	pci_d3cold_enable(pdev);
+-
+ 	disable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
+ 
+ 	ret = vlv_resume_prepare(dev_priv, false);
+@@ -1559,7 +1564,6 @@ static int intel_runtime_suspend(struct device *kdev)
+ {
+ 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
+ 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
+-	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
+ 	int ret;
+ 
+ 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !HAS_RUNTIME_PM(dev_priv)))
+@@ -1605,12 +1609,6 @@ static int intel_runtime_suspend(struct device *kdev)
+ 		drm_err(&dev_priv->drm,
+ 			"Unclaimed access detected prior to suspending\n");
+ 
+-	/*
+-	 * FIXME: Temporary hammer to avoid freezing the machine on our DGFX
+-	 * This should be totally removed when we handle the pci states properly
+-	 * on runtime PM and on s2idle cases.
+-	 */
+-	pci_d3cold_disable(pdev);
+ 	rpm->suspended = true;
+ 
+ 	/*
+@@ -1649,7 +1647,6 @@ static int intel_runtime_resume(struct device *kdev)
+ {
+ 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
+ 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
+-	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
+ 	int ret;
+ 
+ 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !HAS_RUNTIME_PM(dev_priv)))
+@@ -1662,7 +1659,6 @@ static int intel_runtime_resume(struct device *kdev)
+ 
+ 	intel_opregion_notify_adapter(dev_priv, PCI_D0);
+ 	rpm->suspended = false;
+-	pci_d3cold_enable(pdev);
+ 	if (intel_uncore_unclaimed_mmio(&dev_priv->uncore))
+ 		drm_dbg(&dev_priv->drm,
+ 			"Unclaimed access during suspend, bios?\n");
 -- 
-2.25.1
+2.26.2
 
