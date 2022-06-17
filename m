@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49CB2C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 16:56:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C67FAC43334
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 16:56:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1EF10EB83;
-	Fri, 17 Jun 2022 16:56:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2BFA10F3BF;
+	Fri, 17 Jun 2022 16:56:01 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE8D310E8FC;
- Fri, 17 Jun 2022 16:55:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B38F110EB83
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 16:55:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655484958; x=1687020958;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=icKCrwyu7XnCIDAVlJRYS2rfOqz+DDwTZIqOlmFvpLE=;
- b=E0xRnC7IIq7lBPRzF5flQPlUH9eBxfgBOhlK2KNJb1gbHriJytaO/bbw
- 9xFqLP4N2yTKtpZpil7YvBs/m1s+A4BkpgIDs1zxJ/j+Ix5vV3+uxL0sg
- F67IQqn20UjP7LMKadFlaANXdLQQjrpRFev9g9nmpceZG+XqhhPznaJaK
- oTqLfxOdcODtmiPbGe4glBmy+V6u74zgQDEK4pcEghcy7xJhEUxl3cwC0
- S0GldMJ1NiLxDD5/MfcdxzAo6bZuk5pxo9J9NQFqe+fOZoZ3eOj89j85I
- 1vN35PCf2doCH/hWH1B4VdHzggpYHZ6ialqz+fVha2k30J6zyaM0Jx0I3 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="279537660"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="279537660"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ t=1655484959; x=1687020959;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=aqLxZ6GvXbNLmh65aDW8PtgP2uubfO1bW8pJ946JDqs=;
+ b=DZ5YNKCK1XIB2Hf5VpAxCr2kYrPNs1AO9KaMMEkqgPCoQzjeEoR8k2rS
+ DqbNklim+Wmt55uLV3JJqmQJ2pxrul/RLbOTNBaf1uS03il2DrrT7E2Ji
+ Eoh+kzfFHLvbLvXNcbCmoturBWYnBb3tw5lclWUQtOd0yjkNWAlWdjHfn
+ tT8x4Fzl5fVJ5Hnz6YyDdo0OIp6DdfXHcy0p8lGxtqo5Ndv0M3UHUn3VI
+ YR/xrQk/8nXGB5jzY4GV9NHm7+oKPcNcrGTBq33VZ+LGqEWi3embSNgy8
+ WhhTVFxnGsGr5Olmbt09BLNlno+PKnIWZhjOfWMXzCGUIL89HQO4bFQMu w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="279544705"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="279544705"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 05:33:29 -0700
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="688278720"
-Received: from ettammin-mobl1.ger.corp.intel.com (HELO [10.249.254.175])
- ([10.249.254.175])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 05:33:27 -0700
-Message-ID: <7cf923bd-ae17-24fb-24de-1a53aee34630@linux.intel.com>
-Date: Fri, 17 Jun 2022 14:33:25 +0200
+ 17 Jun 2022 09:05:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="642071464"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.163])
+ by fmsmga008.fm.intel.com with SMTP; 17 Jun 2022 09:05:54 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 17 Jun 2022 19:05:53 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 17 Jun 2022 19:05:08 +0300
+Message-Id: <20220617160510.2082-15-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220617160510.2082-1-ville.syrjala@linux.intel.com>
+References: <20220617160510.2082-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Content-Language: en-US
-To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20220525184337.491763-1-matthew.auld@intel.com>
- <20220525184337.491763-10-matthew.auld@intel.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20220525184337.491763-10-matthew.auld@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH 09/10] drm/i915: turn on small BAR support
+Subject: [Intel-gfx] [PATCH v2 14/16] drm/i915: Allow M/N change during
+ fastset on bdw+
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,64 +59,160 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- Kenneth Graunke <kenneth@whitecape.org>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-On 5/25/22 20:43, Matthew Auld wrote:
-> With the uAPI in place we should now have enough in place to ensure a
-> working system on small BAR configurations.
->
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> Cc: Jon Bloomfield <jon.bloomfield@intel.com>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Jordan Justen <jordan.l.justen@intel.com>
-> Cc: Kenneth Graunke <kenneth@whitecape.org>
-> Cc: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
-> ---
->   drivers/gpu/drm/i915/gt/intel_region_lmem.c | 10 ++++------
->   1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-> index e9c12e0d6f59..6c6f8cbd7321 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-> @@ -111,12 +111,6 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
->   		flat_ccs_base = intel_gt_read_register(gt, XEHPSDV_FLAT_CCS_BASE_ADDR);
->   		flat_ccs_base = (flat_ccs_base >> XEHPSDV_CCS_BASE_SHIFT) * SZ_64K;
->   
-> -		/* FIXME: Remove this when we have small-bar enabled */
-> -		if (pci_resource_len(pdev, 2) < lmem_size) {
-> -			drm_err(&i915->drm, "System requires small-BAR support, which is currently unsupported on this kernel\n");
-> -			return ERR_PTR(-EINVAL);
-> -		}
-> -
->   		if (GEM_WARN_ON(lmem_size < flat_ccs_base))
->   			return ERR_PTR(-EIO);
->   
-> @@ -169,6 +163,10 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
->   	drm_info(&i915->drm, "Local memory available: %pa\n",
->   		 &lmem_size);
->   
-> +	if (io_size < lmem_size)
-> +		drm_info(&i915->drm, "Using a reduced BAR size of %lluMiB. Consider enabling the full BAR size if available in the BIOS.\n",
-> +			 (u64)io_size >> 20);
-> +
+On BDW+ M/N are double buffered and so we can easily reprogram them
+during a fastset. So for eDP panels that support seamless DRRS we
+can just change these without a full modeset.
 
-Hmm. I wonder what BIOS uis typically call the mappable portion of VRAM. 
-I'll se if I can check that on my DG1 system. Might be that an average 
-user misinterprets "full BAR".
+For earlier platforms we'd need to play tricks with M1/N1 vs.
+M2/N2 during the fastset to make sure we do the switch atomically.
+Not sure the added complexity is worth the hassle, so leave it
+alone for now.
 
-/Thomas
+The slight downside is that we have to keep the link running at
+a link rate capable of supporting the highest refresh rate we
+want to use. For the moment we just pick the highest mode the
+panel reports and calculate the link based on that. This might
+need further refinement (eg. if we run into bandwidth
+restrictions)...
 
+v2: Only use the high link rate if the platform really supports
+    the seamless M/N change uring fastset (ie. bdw+)
 
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c  | 13 +++++--
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 37 ++++++++++++++++---
+ 3 files changed, 43 insertions(+), 8 deletions(-)
 
->   	return mem;
->   
->   err_region_put:
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 4f7e119f1cd3..4e33ce635112 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -5864,7 +5864,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	PIPE_CONF_CHECK_X(lane_lat_optim_mask);
+ 
+ 	if (has_double_buffered_m_n(dev_priv)) {
+-		PIPE_CONF_CHECK_M_N_ALT(dp_m_n, dp_m2_n2);
++		if (!fastset || !pipe_config->seamless_m_n)
++			PIPE_CONF_CHECK_M_N_ALT(dp_m_n, dp_m2_n2);
+ 	} else {
+ 		PIPE_CONF_CHECK_M_N(dp_m_n);
+ 		PIPE_CONF_CHECK_M_N(dp_m2_n2);
+@@ -5996,8 +5997,10 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	if (IS_G4X(dev_priv) || DISPLAY_VER(dev_priv) >= 5)
+ 		PIPE_CONF_CHECK_I(pipe_bpp);
+ 
+-	PIPE_CONF_CHECK_I(hw.pipe_mode.crtc_clock);
+-	PIPE_CONF_CHECK_I(hw.adjusted_mode.crtc_clock);
++	if (!fastset || !pipe_config->seamless_m_n) {
++		PIPE_CONF_CHECK_I(hw.pipe_mode.crtc_clock);
++		PIPE_CONF_CHECK_I(hw.adjusted_mode.crtc_clock);
++	}
+ 	PIPE_CONF_CHECK_I(port_clock);
+ 
+ 	PIPE_CONF_CHECK_I(min_voltage_level);
+@@ -7137,6 +7140,10 @@ static void intel_pipe_fastset(const struct intel_crtc_state *old_crtc_state,
+ 	if (DISPLAY_VER(dev_priv) >= 9 ||
+ 	    IS_BROADWELL(dev_priv) || IS_HASWELL(dev_priv))
+ 		hsw_set_linetime_wm(new_crtc_state);
++
++	if (new_crtc_state->seamless_m_n)
++		intel_cpu_transcoder_set_m1_n1(crtc, new_crtc_state->cpu_transcoder,
++					       &new_crtc_state->dp_m_n);
+ }
+ 
+ static void commit_pipe_pre_planes(struct intel_atomic_state *state,
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 8b0949b6dc75..95159d1c8ca8 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1129,6 +1129,7 @@ struct intel_crtc_state {
+ 	/* m2_n2 for eDP downclock */
+ 	struct intel_link_m_n dp_m2_n2;
+ 	bool has_drrs;
++	bool seamless_m_n;
+ 
+ 	/* PSR is supported but might not be enabled due the lack of enabled planes */
+ 	bool has_psr;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 75645508080a..7c091c601e30 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1285,21 +1285,45 @@ intel_dp_adjust_compliance_config(struct intel_dp *intel_dp,
+ 	}
+ }
+ 
++static bool has_seamless_m_n(struct intel_connector *connector)
++{
++	struct drm_i915_private *i915 = to_i915(connector->base.dev);
++
++	/*
++	 * Seamless M/N reprogramming only implemented
++	 * for BDW+ double buffered M/N registers so far.
++	 */
++	return has_double_buffered_m_n(i915) &&
++		intel_panel_drrs_type(connector) == DRRS_TYPE_SEAMLESS;
++}
++
++static int intel_dp_mode_clock(const struct intel_crtc_state *crtc_state,
++			       const struct drm_connector_state *conn_state)
++{
++	struct intel_connector *connector = to_intel_connector(conn_state->connector);
++	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
++
++	/* FIXME a bit of a mess wrt clock vs. crtc_clock */
++	if (has_seamless_m_n(connector))
++		return intel_panel_highest_mode(connector, adjusted_mode)->clock;
++	else
++		return adjusted_mode->crtc_clock;
++}
++
+ /* Optimize link config in order: max bpp, min clock, min lanes */
+ static int
+ intel_dp_compute_link_config_wide(struct intel_dp *intel_dp,
+ 				  struct intel_crtc_state *pipe_config,
++				  const struct drm_connector_state *conn_state,
+ 				  const struct link_config_limits *limits)
+ {
+-	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
+-	int bpp, i, lane_count;
++	int bpp, i, lane_count, clock = intel_dp_mode_clock(pipe_config, conn_state);
+ 	int mode_rate, link_rate, link_avail;
+ 
+ 	for (bpp = limits->max_bpp; bpp >= limits->min_bpp; bpp -= 2 * 3) {
+ 		int output_bpp = intel_dp_output_bpp(pipe_config->output_format, bpp);
+ 
+-		mode_rate = intel_dp_link_required(adjusted_mode->crtc_clock,
+-						   output_bpp);
++		mode_rate = intel_dp_link_required(clock, output_bpp);
+ 
+ 		for (i = 0; i < intel_dp->num_common_rates; i++) {
+ 			link_rate = intel_dp_common_rate(intel_dp, i);
+@@ -1599,7 +1623,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 	 * Optimize for slow and wide for everything, because there are some
+ 	 * eDP 1.3 and 1.4 panels don't work well with fast and narrow.
+ 	 */
+-	ret = intel_dp_compute_link_config_wide(intel_dp, pipe_config, &limits);
++	ret = intel_dp_compute_link_config_wide(intel_dp, pipe_config, conn_state, &limits);
+ 
+ 	if (ret || joiner_needs_dsc || intel_dp->force_dsc_en) {
+ 		drm_dbg_kms(&i915->drm, "Try DSC (fallback=%s, joiner=%s, force=%s)\n",
+@@ -1887,6 +1911,9 @@ intel_dp_drrs_compute_config(struct intel_connector *connector,
+ 		intel_panel_downclock_mode(connector, &pipe_config->hw.adjusted_mode);
+ 	int pixel_clock;
+ 
++	if (has_seamless_m_n(connector))
++		pipe_config->seamless_m_n = true;
++
+ 	if (!can_enable_drrs(connector, pipe_config, downclock_mode)) {
+ 		if (intel_cpu_transcoder_has_m2_n2(i915, pipe_config->cpu_transcoder))
+ 			intel_zero_m_n(&pipe_config->dp_m2_n2);
+-- 
+2.35.1
+
