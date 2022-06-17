@@ -4,47 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36E64C43334
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 17:36:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3504EC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 17:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1543F10E45A;
-	Fri, 17 Jun 2022 17:36:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 881E210E257;
+	Fri, 17 Jun 2022 17:36:48 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FCB810E117;
- Fri, 17 Jun 2022 17:36:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3442F10E489
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 17:36:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655487403; x=1687023403;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=RYJQiD8PvPs56DbCBWxt5BRJsaIlAWpmuP2twc2xePw=;
- b=ezx+hJshuiUqlvnJpJj0f49eRPbDcd2SkJxrhh6Xw7MnUjAy7l35d69I
- V5EzwuUi0J2LMLxCGJO4icOmO2uG/Eymk7sfsTWTlHloE5r/biL8RYWgU
- a5c5Fu25/8VOehcFLuOLy+3kATGZA3lKkSJ7gotdT5L5/XU6VfjR18xzn
- pqHC66fLhwySADsBZt/cj5dqH/dbFIAk7jYcS9CYiBUxsLrwfdFGDQYra
- QNKmm3mptTDXSNLKHbqqEdeGWoXTYxFFDsHekGWbMIpx2oDud2eB4y3mT
- N9BXSLx4IEZ+lrAxrEphZXDFpfIqD+ClC46kkq7mAW8/z5PQn3fb9DZ37 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="259940083"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="259940083"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ t=1655487405; x=1687023405;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=kUY3wcovBYmYwOkgC7l38ML3kyupch8uH7lzTmhGry0=;
+ b=LwPIx1sM0jpzD2IN39q94qCVboCMFkEzWjg0m72Xap/eU7WnDeph5IjE
+ lp0l9uJvXi/3LSFW5j4IEqMEJAOZFURn7lYiJNmeZ2J7hjc96DSjkLUHz
+ vA8V/4KPPxX3nx12gBjIR0dG+gPz3SMlbfQMJRixiAgtthq6nSt7GSw29
+ pIbPhGhIlpy3Q0xnLaPSW81ibV3c8ZbPkqbpJflJsmyAQ0ZAv+qx02TZC
+ T38uhJlsr4rwqkW4snTeaXEUZk9qxGcJlosaYWqd7u3GBHhB30Ese/cF5
+ 8qd4Le/eEfJIO7kSmgC9eMSBiN+dzAK+nnLW0nrwIeSMFS7QeQRWu1Sm0 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="259947235"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="259947235"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 06:57:24 -0700
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="728354657"
-Received: from hchegond-ivm1.jf.intel.com (HELO intel.com) ([10.165.21.208])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 06:57:24 -0700
-Date: Fri, 17 Jun 2022 06:57:20 -0700
-From: Harish Chegondi <harish.chegondi@intel.com>
-To: Matt Roper <matthew.d.roper@intel.com>
-Message-ID: <YqyIQHC1H3fBLWOO@intel.com>
-References: <20220615001019.1821989-1-matthew.d.roper@intel.com>
- <20220615001019.1821989-3-matthew.d.roper@intel.com>
+ 17 Jun 2022 09:38:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="642079832"
+Received: from fmsmsx606.amr.corp.intel.com ([10.18.126.86])
+ by fmsmga008.fm.intel.com with ESMTP; 17 Jun 2022 09:38:58 -0700
+Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
+ fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Fri, 17 Jun 2022 09:38:58 -0700
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27 via Frontend Transport; Fri, 17 Jun 2022 09:38:58 -0700
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.104)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.27; Fri, 17 Jun 2022 09:38:57 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e6fkv81meDVjxavyB/RX/4Qx7L4MepIbKSlcA6ifhnLDOS5/PQFgr5mtsB8dGzt3zV8pJKgx/16DPQXWJjbz9yZKiOqvutPHAnUAtLU+jJ6DxnQ9/Vru2qM1N2ltw1m87lMLRklke5i4Vw8oZbklRz9Op5v8lTJgrCjFLKmoa8DKqHvWHpqkKEru/madqNSUpNrDA53ZqxrFHc4jZd/DnDRDzd9t5cHNX8bPiwamc0Q32462vlCa0+V5FeMT9HbxeGKHXfCgg6dD8g4jQVm4ojTjlb2UVINzCJCkk9FHtBCt7xdaYWTuHcXiyglbdzYkWHHFdtOkqYKaJFCBsVrSxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kUY3wcovBYmYwOkgC7l38ML3kyupch8uH7lzTmhGry0=;
+ b=jhcgZSw+YgRn8aMDRhpyygFUFRiB5sSjEOAyhVwlGLlxzfYa9w+YZy59/ebb8QcxfAsIzBvibo1HJ2S0MQ735NrlaXfQurWQoWZm4Jiuj/mj1EwFhTpKlhFefdL+lyRC7sawygf0aS+Dqsx5TfzTQ1IDhSMpn19hTlN/P/QcbgiAGKO9RZmgnlFmDLY6bqfu1cobVqqxv3d3hLvmye+KhgD547H+DbFKoJDsXLkp8yJ2GMxusCA/tDx/XhDJgCDPgqDvyIAJy3lVFGDkML4gznx4Dch07OVqPqOxMHbzH0g75rBRDnUJDvPTR/qH7nr4HwyPngzqfyR/Xn/2vegmNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM8PR11MB5751.namprd11.prod.outlook.com (2603:10b6:8:12::16) by
+ DM6PR11MB2666.namprd11.prod.outlook.com (2603:10b6:5:c9::27) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5353.15; Fri, 17 Jun 2022 16:38:50 +0000
+Received: from DM8PR11MB5751.namprd11.prod.outlook.com
+ ([fe80::61bd:a251:1543:93d7]) by DM8PR11MB5751.namprd11.prod.outlook.com
+ ([fe80::61bd:a251:1543:93d7%5]) with mapi id 15.20.5353.015; Fri, 17 Jun 2022
+ 16:38:50 +0000
+From: "Teres Alexis, Alan Previn" <alan.previn.teres.alexis@intel.com>
+To: "tvrtko.ursulin@linux.intel.com" <tvrtko.ursulin@linux.intel.com>, "De
+ Marchi, Lucas" <lucas.demarchi@intel.com>
+Thread-Topic: [Intel-gfx] [Intel-gfx 1/1] drm/i915/guc: Don't update engine
+ busyness stats too frequently
+Thread-Index: AQHYfbh72EbRT9IYxEa3+KUnTS4Wy61OG5sAgABjpwCAAll+gIABa8cAgAGRoYA=
+Date: Fri, 17 Jun 2022 16:38:50 +0000
+Message-ID: <1a21b8a1b90fdb065e726011be008d6c9db19565.camel@intel.com>
+References: <20220611172711.2154962-1-alan.previn.teres.alexis@intel.com>
+ <20220611172711.2154962-2-alan.previn.teres.alexis@intel.com>
+ <20220614011024.GE48807@orsosgc001.jf.intel.com>
+ <84534cf0-94f0-13e0-5fb3-332bee124a24@linux.intel.com>
+ <20220615185953.bsbyr27jcchccvge@ldmartin-desk2>
+ <1a19781d-5d78-aa15-9578-44106433cbf9@linux.intel.com>
+In-Reply-To: <1a19781d-5d78-aa15-9578-44106433cbf9@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.36.5-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 89316b6b-27ef-4bda-65ca-08da507fdbf5
+x-ms-traffictypediagnostic: DM6PR11MB2666:EE_
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-microsoft-antispam-prvs: <DM6PR11MB2666F4E3B727C9232D67E95D8AAF9@DM6PR11MB2666.namprd11.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 59M3n1gLGpmvGdRrq7j3m8uU4P/oEtkTf7r3ygpe23q9RULbc07C4aQ9mvmjbML3mMEuNJ6MRjgjvmFL8gjHLSqNSaLiL3ZIeSjWhS5nJ8u2wRwnhw7ySLL2JKxOfrGQcz+9nw1jUMMYZRq6fqSlGCTLyCWo3/EqaCEj99m1dKRPycPXncL7MgFQANuS25oKH1Hz2vzEaNqQKOMXQkP7bUadQxM0q2DfE86rLiIuqA/d8ByBweXQa4876sOCVhP0YW6GWAxkupejPM/C7r4RPq0WMfVKLHZjK2ozSSA5gXBKECk7u2F4sbipq4Uc6Z+XXbNz586SXXP2+W3JDmGgS1ldPFUd+Tnv1T7akRUA28DRlE/uwAjzI6ik2iA86CIgxYgBK7l9dsP4UQWqcS3VN72LXHCOSrT8I2XTCiOYeWb8bSK2MiEMorafe82POSB0iOvQo52ptjvpsIPsSh1MBwknRtxEc2uDaFbp+2Ae4kWmcKcKyqPbIKKQmJXnzEHLCnffbncqyGuWbNXN21FRiweHqbpUCxi2xLgQYRDLmpYvYhukZ5vcXeCGn3/qh8de/DA8ptJ2M6qyqdYW1qaykpifKqUE3wNbUq0XA7ZG2xM19XASfqeRaijzR8P3dTSuIGFR+jUiw08J4phlgmcA6EXOd15mUY0EPGZkOhXRZoOd7t78Mq/ONH4w3PFFdVmcQz4A7aqx507q/VGslk66Bw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM8PR11MB5751.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(366004)(122000001)(54906003)(6636002)(5660300002)(110136005)(316002)(498600001)(8936002)(6506007)(26005)(6512007)(186003)(2906002)(66946007)(66476007)(66446008)(71200400001)(36756003)(76116006)(6486002)(4744005)(4326008)(64756008)(82960400001)(66556008)(8676002)(91956017)(2616005)(86362001)(38100700002)(38070700005);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VlBQKzBxTHprOE9wQmJzNWJ1UDBuZjRQSWFMV3FJS3ZvTitwR0h6TFNXMFZC?=
+ =?utf-8?B?Q1FQMkV6NExSb1FNdnNMTXVjQjNqVnBES2orWjBDN0VHaStwWkRkM1B4Yjdr?=
+ =?utf-8?B?dTh0YVQvazNwTnlqZExFc0ZpMVIzSHFuOTVpNW5tZTFRcVFFcFRVZDBjV0kx?=
+ =?utf-8?B?WkhLK0RPR0lvSFZKNHpHUUFOV1RvWjlRak5POTludTdjZk5WYnZyRmw1MkNs?=
+ =?utf-8?B?am43QjdmMmNtdEcrd3pGQUdCQnpObkZNODh2Mkw5UnhhWFBKVFVTNE1XVzRm?=
+ =?utf-8?B?SmZaYnZnT3B4LzdLK2hVMCt1R2Zmem1FVldraW1rSDBYTFBTNG5Sc0pJMlEy?=
+ =?utf-8?B?V0pISDVqMnpVVWZ3S0ZvZElYaEliN3VKeEpCUUFKd2oxc1RJRkErdksydkpU?=
+ =?utf-8?B?MUFOZDdnaGE1ZUV4UXQ4L0hjeHVPK2ZOU05hdDdGUmhmWWpZZm5ZdDlzQXJQ?=
+ =?utf-8?B?YmMxZVpLRitSbXpzMXB1eEtPMFlQcTVkMkpxTDFmcXNNMytrZ1V1cldlK1Fo?=
+ =?utf-8?B?YUNGc3k4SEU3L04zNDlkYXRkbXNheTY3TGpUZW5Pb2JBSHY0NVBVK2hwYy8w?=
+ =?utf-8?B?dm5vUkN2TkUvckc3S29Scy9CQmhzYWRTeDFpOHhTVW04NjFCS0F0bFBXd280?=
+ =?utf-8?B?T3Y4MG4zTjdrT2FtQThCQkdQZlRpUVo1V00zSVoxY1hLYXg0cUI2aWNVUjEz?=
+ =?utf-8?B?c1RDcEdxRlhTM2IrR0NtK015QmNvK2FwTTd4QlhkWHh6ekhmcXJiOXpNTnhC?=
+ =?utf-8?B?QnpMNW5DY1czMDdKekNMOU40RnVrU3RlMndORmF1UWFSYVlYRG9ad0lUM0tu?=
+ =?utf-8?B?ZTljQmdnVlVFM0VLR21wejJiKy9DRldKZkEzNnFoejlOU3hoSUd4T1NNRzRW?=
+ =?utf-8?B?ZFZnVGhGTWZmMGVYVUYzZzZqa29xZDE3QmlpQmo0a3lBcktzUlB5ZzNIbnpH?=
+ =?utf-8?B?Y3lVcVhaV0QxMzRrcWpCS0o0NVhyTXhiWFFWem8xdVdtTkVoU1Fjdi84NFd3?=
+ =?utf-8?B?Y3ZaNk9kRTZQS0V5OUZLQkg4WEJSTjd3YU0xUXVBc1hLZTdVSjcrVzhZYXlx?=
+ =?utf-8?B?YkZTVC9GUm5QZHlDOUxpdENUQnN1WWwwWEl0S2szRHFrRExqT01SMzk0dXRz?=
+ =?utf-8?B?S2c2TkNRVStsVk1iZkkzdkRXQitGU2ZWUFU1a0V2VHVSU01WMXhoV2Fkc0ln?=
+ =?utf-8?B?STgrTHNhckVQd09mQWtsQkNFcXBNNEZwUjVXMVF1QzVJcmZDRkYyUERSMFZa?=
+ =?utf-8?B?bVljSis4bGRlYWZUTFRMcUdGcXR5UGgvZzVTdkV2YjlCd010eE00Nk8xdjdO?=
+ =?utf-8?B?L2FSNkNrQmRxRGV5WEhWbStPc0FOQXpzaGh3bWd6enJ6QzRPTDZhL0paN3U1?=
+ =?utf-8?B?eHlaOU5QR3AzT2xHbUNGNTZ4b1Z5WGpmZmRGMGdjNDBqNU8rMW1pWTFZeWRr?=
+ =?utf-8?B?L3hCTzgxSVEzZlNYK1FlZ1E4d2lxbmZTWGhzbUJzWkNCbFduS3BvRXRHY3dV?=
+ =?utf-8?B?NlR4bnRzb1M4cDFyYlJVcGVWRXNEbjdYZXYvOENCNFBFZFg4Y250M0lGUWh0?=
+ =?utf-8?B?UEtmTUpLeGYwMnhHU1pjeGU2Y0VvVEZCcU1yZWYyaFRKc2JjcklGUytaK0tW?=
+ =?utf-8?B?MEgyWEw2RWRtdVIweHF3K3d3c2k3SldIZUl2LzZDS3ByUG96bDE0MzlxZDVi?=
+ =?utf-8?B?VXZTeVAveGNablYzUzJPdFk4akxaMXh6N1E1YlBEblZHTE1NRHF2cjFrVEZG?=
+ =?utf-8?B?YTAzb3hHWm85S0xwcTNYa3lYc3dQdDE1T2QrdE5VVXdhOVFRQTFkWGZrNEhp?=
+ =?utf-8?B?T0lsZkozU1Y1L1VZMloycnVWNjJGM1I2RzJoU2kranhLa1VVWUU1aDBtd21X?=
+ =?utf-8?B?anZwaE9rT3NNQXdJZ3kwMFFWalEvQWs1WERRdTBEQUZURUhGTnlTdngxUUpm?=
+ =?utf-8?B?ekh1a2JPQ2ZWUlQyMjNuWmFKOGVlUzhGWGd4djIrQjE4SHZzTmNqRU5ja3lo?=
+ =?utf-8?B?RVVDS0IyaytJWitBNlRmb2wyaDIweW1Wa2JhNDdyNldiaU5DbHZ2ZHpaLzgy?=
+ =?utf-8?B?R09FMUI1NEw2T2ZENlo1cm5aU2dyVE9sYTVSZmg2bzh1ajhpOTR1cy9zZmtJ?=
+ =?utf-8?B?M0o5SmpkbmZ0SGlwLzB3R3VnOFYvSE9lSVFCS01QRkh4anRqalJERCtPM0Ix?=
+ =?utf-8?B?THhRWTVlUDFCSEdCL2tKcDhYckd4QUhja1g3RXdabnlvTmh5dGRWWHpZSVh6?=
+ =?utf-8?B?WVU5N2ZWcUpOZG9SMlhUakJrM2hkR01Pb2R0aGZYdytSTk9hRUJaNys3aGQr?=
+ =?utf-8?B?V3lBdU5hUUtqMUZKR2pkUGZmd0c2dHRRbEkyVFdPQUNtUC9BRGJGc1NFc0Fw?=
+ =?utf-8?Q?5+1uoFpTkq1fEv7sT4vq1BRZ9CwA4h2jkxns5+GjXAZns?=
+x-ms-exchange-antispam-messagedata-1: cLhWtmmzZiL+ug==
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A0F663160CEEAB4A99F1E762034A4F22@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20220615001019.1821989-3-matthew.d.roper@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 2/2] drm/i915/gt: Cleanup interface for
- MCR operations
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR11MB5751.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89316b6b-27ef-4bda-65ca-08da507fdbf5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2022 16:38:50.7551 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4w29iaTyhIVBDYjVQGI+hNHBnqSBPtdk6cGIy/iCq2BMU+gkWJ/Pm5KwORl6PHVO6Ka1/jsH+QdTmvRyI/6gnNVCZS6T2qOCMmJUsB7V6dDs7P8voIuKq/+JgViuHGeW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB2666
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [Intel-gfx 1/1] drm/i915/guc: Don't update engine
+ busyness stats too frequently
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,695 +169,17 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 14, 2022 at 05:10:19PM -0700, Matt Roper wrote:
-> Let's replace the assortment of intel_gt_* and intel_uncore_* functions
-> that operate on MCR registers with a cleaner set of interfaces:
-> 
->   * intel_gt_mcr_read -- unicast read from specific instance
->   * intel_gt_mcr_read_any[_fw] -- unicast read from any non-terminated
->     instance
->   * intel_gt_mcr_unicast_write -- unicast write to specific instance
->   * intel_gt_mcr_multicast_write[_fw] -- multicast write to all instances
-> 
-> We'll also replace the historic "slice" and "subslice" terminology with
-> "group" and "instance" to match the documentation for more recent
-> platforms; these days MCR steering applies to more types of replication
-> than just slice/subslice.
-> 
-> v2:
->  - Reference the new kerneldoc from i915.rst.  (Jani)
->  - Tweak the wording of the documentation for a couple functions to
->    clarify the difference between "_fw" and non-"_fw" forms.
-> 
-> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-> Acked-by: Jani Nikula <jani.nikula@linux.intel.com>
-> ---
->  Documentation/gpu/i915.rst                  |  12 +
->  drivers/gpu/drm/i915/gem/i915_gem_stolen.c  |   2 +-
->  drivers/gpu/drm/i915/gt/intel_engine_cs.c   |  33 ++-
->  drivers/gpu/drm/i915/gt/intel_gt_debugfs.c  |   2 +-
->  drivers/gpu/drm/i915/gt/intel_gt_mcr.c      | 239 ++++++++++++--------
->  drivers/gpu/drm/i915/gt/intel_gt_mcr.h      |  43 ++--
->  drivers/gpu/drm/i915/gt/intel_region_lmem.c |   4 +-
->  drivers/gpu/drm/i915/gt/intel_workarounds.c |   8 +-
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  |   2 +-
->  9 files changed, 200 insertions(+), 145 deletions(-)
-> 
-> diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-> index 54060cd6c419..4e59db1cfb00 100644
-> --- a/Documentation/gpu/i915.rst
-> +++ b/Documentation/gpu/i915.rst
-> @@ -246,6 +246,18 @@ Display State Buffer
->  .. kernel-doc:: drivers/gpu/drm/i915/display/intel_dsb.c
->     :internal:
->  
-> +GT Programming
-> +==============
-> +
-> +Multicast/Replicated (MCR) Registers
-> +------------------------------------
-> +
-> +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-> +   :doc: GT Multicast/Replicated (MCR) Register Support
-> +
-> +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-> +   :internal:
-> +
->  Memory Management and Command Submission
->  ========================================
->  
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> index da30503d3ca2..fa54823d1219 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> @@ -835,7 +835,7 @@ i915_gem_stolen_lmem_setup(struct drm_i915_private *i915, u16 type,
->  	} else {
->  		resource_size_t lmem_range;
->  
-> -		lmem_range = intel_gt_read_register(&i915->gt0, XEHPSDV_TILE0_ADDR_RANGE) & 0xFFFF;
-> +		lmem_range = intel_gt_mcr_read_any(&i915->gt0, XEHPSDV_TILE0_ADDR_RANGE) & 0xFFFF;
->  		lmem_size = lmem_range >> XEHPSDV_TILE_LMEM_RANGE_SHIFT;
->  		lmem_size *= SZ_1G;
->  	}
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> index 244af1bdb7db..136cc44c3deb 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-> @@ -1428,14 +1428,6 @@ void intel_engine_cancel_stop_cs(struct intel_engine_cs *engine)
->  	ENGINE_WRITE_FW(engine, RING_MI_MODE, _MASKED_BIT_DISABLE(STOP_RING));
->  }
->  
-> -static u32
-> -read_subslice_reg(const struct intel_engine_cs *engine,
-> -		  int slice, int subslice, i915_reg_t reg)
-> -{
-> -	return intel_uncore_read_with_mcr_steering(engine->uncore, reg,
-> -						   slice, subslice);
-> -}
-> -
->  /* NB: please notice the memset */
->  void intel_engine_get_instdone(const struct intel_engine_cs *engine,
->  			       struct intel_instdone *instdone)
-> @@ -1469,28 +1461,33 @@ void intel_engine_get_instdone(const struct intel_engine_cs *engine,
->  		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
->  			for_each_instdone_gslice_dss_xehp(i915, sseu, iter, slice, subslice) {
->  				instdone->sampler[slice][subslice] =
-> -					read_subslice_reg(engine, slice, subslice,
-> -							  GEN7_SAMPLER_INSTDONE);
-> +					intel_gt_mcr_read(engine->gt,
-> +							  GEN7_SAMPLER_INSTDONE,
-> +							  slice, subslice);
->  				instdone->row[slice][subslice] =
-> -					read_subslice_reg(engine, slice, subslice,
-> -							  GEN7_ROW_INSTDONE);
-> +					intel_gt_mcr_read(engine->gt,
-> +							  GEN7_ROW_INSTDONE,
-> +							  slice, subslice);
->  			}
->  		} else {
->  			for_each_instdone_slice_subslice(i915, sseu, slice, subslice) {
->  				instdone->sampler[slice][subslice] =
-> -					read_subslice_reg(engine, slice, subslice,
-> -							  GEN7_SAMPLER_INSTDONE);
-> +					intel_gt_mcr_read(engine->gt,
-> +							  GEN7_SAMPLER_INSTDONE,
-> +							  slice, subslice);
->  				instdone->row[slice][subslice] =
-> -					read_subslice_reg(engine, slice, subslice,
-> -							  GEN7_ROW_INSTDONE);
-> +					intel_gt_mcr_read(engine->gt,
-> +							  GEN7_ROW_INSTDONE,
-> +							  slice, subslice);
->  			}
->  		}
->  
->  		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 55)) {
->  			for_each_instdone_gslice_dss_xehp(i915, sseu, iter, slice, subslice)
->  				instdone->geom_svg[slice][subslice] =
-> -					read_subslice_reg(engine, slice, subslice,
-> -							  XEHPG_INSTDONE_GEOM_SVG);
-> +					intel_gt_mcr_read(engine->gt,
-> +							  XEHPG_INSTDONE_GEOM_SVG,
-> +							  slice, subslice);
->  		}
->  	} else if (GRAPHICS_VER(i915) >= 7) {
->  		instdone->instdone =
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c
-> index ea07f2bb846f..dd53641f3637 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c
-> @@ -65,7 +65,7 @@ static int steering_show(struct seq_file *m, void *data)
->  	struct drm_printer p = drm_seq_file_printer(m);
->  	struct intel_gt *gt = m->private;
->  
-> -	intel_gt_report_steering(&p, gt, true);
-> +	intel_gt_mcr_report_steering(&p, gt, true);
->  
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-> index 1279a1fe1001..aa4fb308d468 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-> @@ -134,23 +134,22 @@ void intel_gt_mcr_init(struct intel_gt *gt)
->  	}
->  }
->  
-> -/**
-> - * uncore_rw_with_mcr_steering_fw - Access a register after programming
-> - *				    the MCR selector register.
-> +/*
-> + * rw_with_mcr_steering_fw - Access a register with specific MCR steering
->   * @uncore: pointer to struct intel_uncore
->   * @reg: register being accessed
->   * @rw_flag: FW_REG_READ for read access or FW_REG_WRITE for write access
-> - * @slice: slice number (ignored for multi-cast write)
-> - * @subslice: sub-slice number (ignored for multi-cast write)
-> + * @group: group number (documented as "sliceid" on older platforms)
-> + * @instance: instance number (documented as "subsliceid" on older platforms)
->   * @value: register value to be written (ignored for read)
->   *
->   * Return: 0 for write access. register value for read access.
->   *
->   * Caller needs to make sure the relevant forcewake wells are up.
->   */
-> -static u32 uncore_rw_with_mcr_steering_fw(struct intel_uncore *uncore,
-> -					  i915_reg_t reg, u8 rw_flag,
-> -					  int slice, int subslice, u32 value)
-> +static u32 rw_with_mcr_steering_fw(struct intel_uncore *uncore,
-> +				   i915_reg_t reg, u8 rw_flag,
-> +				   int group, int instance, u32 value)
->  {
->  	u32 mcr_mask, mcr_ss, mcr, old_mcr, val = 0;
->  
-> @@ -158,7 +157,7 @@ static u32 uncore_rw_with_mcr_steering_fw(struct intel_uncore *uncore,
->  
->  	if (GRAPHICS_VER(uncore->i915) >= 11) {
->  		mcr_mask = GEN11_MCR_SLICE_MASK | GEN11_MCR_SUBSLICE_MASK;
-> -		mcr_ss = GEN11_MCR_SLICE(slice) | GEN11_MCR_SUBSLICE(subslice);
-> +		mcr_ss = GEN11_MCR_SLICE(group) | GEN11_MCR_SUBSLICE(instance);
->  
->  		/*
->  		 * Wa_22013088509
-> @@ -176,7 +175,7 @@ static u32 uncore_rw_with_mcr_steering_fw(struct intel_uncore *uncore,
->  			mcr_mask |= GEN11_MCR_MULTICAST;
->  	} else {
->  		mcr_mask = GEN8_MCR_SLICE_MASK | GEN8_MCR_SUBSLICE_MASK;
-> -		mcr_ss = GEN8_MCR_SLICE(slice) | GEN8_MCR_SUBSLICE(subslice);
-> +		mcr_ss = GEN8_MCR_SLICE(group) | GEN8_MCR_SUBSLICE(instance);
->  	}
->  
->  	old_mcr = mcr = intel_uncore_read_fw(uncore, GEN8_MCR_SELECTOR);
-> @@ -198,10 +197,10 @@ static u32 uncore_rw_with_mcr_steering_fw(struct intel_uncore *uncore,
->  	return val;
->  }
->  
-> -static u32 uncore_rw_with_mcr_steering(struct intel_uncore *uncore,
-> -				       i915_reg_t reg, u8 rw_flag,
-> -				       int slice, int subslice,
-> -				       u32 value)
-> +static u32 rw_with_mcr_steering(struct intel_uncore *uncore,
-> +				i915_reg_t reg, u8 rw_flag,
-> +				int group, int instance,
-> +				u32 value)
->  {
->  	enum forcewake_domains fw_domains;
->  	u32 val;
-> @@ -215,8 +214,7 @@ static u32 uncore_rw_with_mcr_steering(struct intel_uncore *uncore,
->  	spin_lock_irq(&uncore->lock);
->  	intel_uncore_forcewake_get__locked(uncore, fw_domains);
->  
-> -	val = uncore_rw_with_mcr_steering_fw(uncore, reg, rw_flag,
-> -					     slice, subslice, value);
-> +	val = rw_with_mcr_steering_fw(uncore, reg, rw_flag, group, instance, value);
->  
->  	intel_uncore_forcewake_put__locked(uncore, fw_domains);
->  	spin_unlock_irq(&uncore->lock);
-> @@ -224,31 +222,73 @@ static u32 uncore_rw_with_mcr_steering(struct intel_uncore *uncore,
->  	return val;
->  }
->  
-> -u32 intel_uncore_read_with_mcr_steering_fw(struct intel_uncore *uncore,
-> -					   i915_reg_t reg, int slice, int subslice)
-> +/**
-> + * intel_gt_mcr_read - read a specific instance of an MCR register
-> + * @gt: GT structure
-> + * @reg: the MCR register to read
-> + * @group: the MCR group
-> + * @instance: the MCR instance
-> + *
-> + * Returns the value read from an MCR register after steering toward a specific
-> + * group/instance.
-> + */
-> +u32 intel_gt_mcr_read(struct intel_gt *gt,
-> +		      i915_reg_t reg,
-> +		      int group, int instance)
->  {
-> -	return uncore_rw_with_mcr_steering_fw(uncore, reg, FW_REG_READ,
-> -					      slice, subslice, 0);
-> +	return rw_with_mcr_steering(gt->uncore, reg, FW_REG_READ, group, instance, 0);
->  }
->  
-> -u32 intel_uncore_read_with_mcr_steering(struct intel_uncore *uncore,
-> -					i915_reg_t reg, int slice, int subslice)
-> +/**
-> + * intel_gt_mcr_unicast_write - write a specific instance of an MCR register
-> + * @gt: GT structure
-> + * @reg: the MCR register to read
-to write
-> + * @value: value to write
-> + * @group: the MCR group
-> + * @instance: the MCR instance
-> + *
-> + * Write an MCR register in unicast mode after steering toward a specific
-> + * group/instance.
-> + */
-> +void intel_gt_mcr_unicast_write(struct intel_gt *gt, i915_reg_t reg, u32 value,
-> +				int group, int instance)
->  {
-> -	return uncore_rw_with_mcr_steering(uncore, reg, FW_REG_READ,
-> -					   slice, subslice, 0);
-> +	rw_with_mcr_steering(gt->uncore, reg, FW_REG_WRITE, group, instance, value);
->  }
->  
-> -void intel_uncore_write_with_mcr_steering(struct intel_uncore *uncore,
-> -					  i915_reg_t reg, u32 value,
-> -					  int slice, int subslice)
-> +/**
-> + * intel_gt_mcr_multicast_write - write a value to all instances of an MCR register
-> + * @gt: GT structure
-> + * @reg: the MCR register to read
-to write
-> + * @value: value to write
-> + *
-> + * Write an MCR register in multicast mode to update all instances.
-> + */
-> +void intel_gt_mcr_multicast_write(struct intel_gt *gt,
-> +				i915_reg_t reg, u32 value)
->  {
-> -	uncore_rw_with_mcr_steering(uncore, reg, FW_REG_WRITE,
-> -				    slice, subslice, value);
-> +	intel_uncore_write(gt->uncore, reg, value);
->  }
->  
->  /**
-> - * intel_gt_reg_needs_read_steering - determine whether a register read
-> - *     requires explicit steering
-> + * intel_gt_mcr_multicast_write_fw - write a value to all instances of an MCR register
-> + * @gt: GT structure
-> + * @reg: the MCR register to read
-to write
-> + * @value: value to write
-> + *
-> + * Write an MCR register in multicast mode to update all instances.  This
-> + * function assumes the caller is already holding any necessary forcewake
-> + * domains; use intel_gt_mcr_multicast_write() in cases where forcewake should
-> + * be obtained automatically.
-> + */
-> +void intel_gt_mcr_multicast_write_fw(struct intel_gt *gt, i915_reg_t reg, u32 value)
-> +{
-> +	intel_uncore_write_fw(gt->uncore, reg, value);
-> +}
-> +
-> +/*
-> + * reg_needs_read_steering - determine whether a register read requires
-> + *     explicit steering
->   * @gt: GT structure
->   * @reg: the register to check steering requirements for
->   * @type: type of multicast steering to check
-> @@ -260,14 +300,14 @@ void intel_uncore_write_with_mcr_steering(struct intel_uncore *uncore,
->   * steering type, or if the default (subslice-based) steering IDs are suitable
->   * for @type steering too.
->   */
-> -static bool intel_gt_reg_needs_read_steering(struct intel_gt *gt,
-> -					     i915_reg_t reg,
-> -					     enum intel_steering_type type)
-> +static bool reg_needs_read_steering(struct intel_gt *gt,
-> +				    i915_reg_t reg,
-> +				    enum intel_steering_type type)
->  {
->  	const u32 offset = i915_mmio_reg_offset(reg);
->  	const struct intel_mmio_range *entry;
->  
-> -	if (likely(!intel_gt_needs_read_steering(gt, type)))
-> +	if (likely(!gt->steering_table[type]))
->  		return false;
->  
->  	for (entry = gt->steering_table[type]; entry->end; entry++) {
-> @@ -278,29 +318,29 @@ static bool intel_gt_reg_needs_read_steering(struct intel_gt *gt,
->  	return false;
->  }
->  
-> -/**
-> - * intel_gt_get_valid_steering - determines valid IDs for a class of MCR steering
-> +/*
-> + * get_nonterminated_steering - determines valid IDs for a class of MCR steering
->   * @gt: GT structure
->   * @type: multicast register type
-> - * @sliceid: Slice ID returned
-> - * @subsliceid: Subslice ID returned
-> + * @group: Group ID returned
-> + * @instance: Instance ID returned
->   *
-> - * Determines sliceid and subsliceid values that will steer reads
-> - * of a specific multicast register class to a valid value.
-> + * Determines group and instance values that will steer reads of the specified
-> + * MCR class to a non-terminated instance.
->   */
-> -static void intel_gt_get_valid_steering(struct intel_gt *gt,
-> -					enum intel_steering_type type,
-> -					u8 *sliceid, u8 *subsliceid)
-> +static void get_nonterminated_steering(struct intel_gt *gt,
-> +				       enum intel_steering_type type,
-> +				       u8 *group, u8 *instance)
->  {
->  	switch (type) {
->  	case L3BANK:
-> -		*sliceid = 0;		/* unused */
-> -		*subsliceid = __ffs(gt->info.l3bank_mask);
-> +		*group = 0;		/* unused */
-> +		*instance = __ffs(gt->info.l3bank_mask);
->  		break;
->  	case MSLICE:
->  		GEM_WARN_ON(!HAS_MSLICE_STEERING(gt->i915));
-> -		*sliceid = __ffs(gt->info.mslice_mask);
-> -		*subsliceid = 0;	/* unused */
-> +		*group = __ffs(gt->info.mslice_mask);
-> +		*instance = 0;	/* unused */
->  		break;
->  	case LNCF:
->  		/*
-> @@ -308,96 +348,105 @@ static void intel_gt_get_valid_steering(struct intel_gt *gt,
->  		 * can safely just steer to LNCF 0 in all cases.
->  		 */
->  		GEM_WARN_ON(!HAS_MSLICE_STEERING(gt->i915));
-> -		*sliceid = __ffs(gt->info.mslice_mask) << 1;
-> -		*subsliceid = 0;	/* unused */
-> +		*group = __ffs(gt->info.mslice_mask) << 1;
-> +		*instance = 0;	/* unused */
->  		break;
->  	case INSTANCE0:
->  		/*
->  		 * There are a lot of MCR types for which instance (0, 0)
->  		 * will always provide a non-terminated value.
->  		 */
-> -		*sliceid = 0;
-> -		*subsliceid = 0;
-> +		*group = 0;
-> +		*instance = 0;
->  		break;
->  	default:
->  		MISSING_CASE(type);
-> -		*sliceid = 0;
-> -		*subsliceid = 0;
-> +		*group = 0;
-> +		*instance = 0;
->  	}
->  }
->  
->  /**
-> - * intel_gt_get_valid_steering_for_reg - get a valid steering for a register
-> + * intel_gt_mcr_get_nonterminated_steering - find group/instance values that
-> + *    will steer a register to a non-terminated instance
->   * @gt: GT structure
->   * @reg: register for which the steering is required
-> - * @sliceid: return variable for slice steering
-> - * @subsliceid: return variable for subslice steering
-> + * @group: return variable for group steering
-> + * @instance: return variable for instance steering
->   *
-> - * This function returns a slice/subslice pair that is guaranteed to work for
-> + * This function returns a group/instance pair that is guaranteed to work for
->   * read steering of the given register. Note that a value will be returned even
->   * if the register is not replicated and therefore does not actually require
->   * steering.
->   */
-> -void intel_gt_get_valid_steering_for_reg(struct intel_gt *gt, i915_reg_t reg,
-> -					 u8 *sliceid, u8 *subsliceid)
-> +void intel_gt_mcr_get_nonterminated_steering(struct intel_gt *gt,
-> +					     i915_reg_t reg,
-> +					     u8 *group, u8 *instance)
->  {
->  	int type;
->  
->  	for (type = 0; type < NUM_STEERING_TYPES; type++) {
-> -		if (intel_gt_reg_needs_read_steering(gt, reg, type)) {
-> -			intel_gt_get_valid_steering(gt, type, sliceid,
-> -						    subsliceid);
-> +		if (reg_needs_read_steering(gt, reg, type)) {
-> +			get_nonterminated_steering(gt, type, group, instance);
->  			return;
->  		}
->  	}
->  
-> -	*sliceid = gt->default_steering.groupid;
-> -	*subsliceid = gt->default_steering.instanceid;
-> +	*group = gt->default_steering.groupid;
-> +	*instance = gt->default_steering.instanceid;
->  }
->  
->  /**
-> - * intel_gt_read_register_fw - reads a GT register with support for multicast
-> + * intel_gt_mcr_read_any_fw - reads one instance of an MCR register
->   * @gt: GT structure
->   * @reg: register to read
->   *
-> - * This function will read a GT register.  If the register is a multicast
-> - * register, the read will be steered to a valid instance (i.e., one that
-> - * isn't fused off or powered down by power gating).
-> + * Reads a GT MCR register.  The read will be steered to a non-terminated
-> + * instance (i.e., one that isn't fused off or powered down by power gating).
-> + * This function assumes the caller is already holding any necessary forcewake
-> + * domains; use intel_gt_mcr_read_any() in cases where forcewake should be
-> + * obtained automatically.
->   *
-> - * Returns the value from a valid instance of @reg.
-> + * Returns the value from a non-terminated instance of @reg.
->   */
-> -u32 intel_gt_read_register_fw(struct intel_gt *gt, i915_reg_t reg)
-> +u32 intel_gt_mcr_read_any_fw(struct intel_gt *gt, i915_reg_t reg)
->  {
->  	int type;
-> -	u8 sliceid, subsliceid;
-> +	u8 group, instance;
->  
->  	for (type = 0; type < NUM_STEERING_TYPES; type++) {
-> -		if (intel_gt_reg_needs_read_steering(gt, reg, type)) {
-> -			intel_gt_get_valid_steering(gt, type, &sliceid,
-> -						    &subsliceid);
-> -			return intel_uncore_read_with_mcr_steering_fw(gt->uncore,
-> -								      reg,
-> -								      sliceid,
-> -								      subsliceid);
-> +		if (reg_needs_read_steering(gt, reg, type)) {
-> +			get_nonterminated_steering(gt, type, &group, &instance);
-> +			return rw_with_mcr_steering_fw(gt->uncore, reg,
-> +						       FW_REG_READ,
-> +						       group, instance, 0);
->  		}
->  	}
->  
->  	return intel_uncore_read_fw(gt->uncore, reg);
->  }
->  
-> -u32 intel_gt_read_register(struct intel_gt *gt, i915_reg_t reg)
-> +/**
-> + * intel_gt_mcr_read_any - reads one instance of an MCR register
-> + * @gt: GT structure
-> + * @reg: register to read
-> + *
-> + * Reads a GT MCR register.  The read will be steered to a non-terminated
-> + * instance (i.e., one that isn't fused off or powered down by power gating).
-> + *
-> + * Returns the value from a non-terminated instance of @reg.
-> + */
-> +u32 intel_gt_mcr_read_any(struct intel_gt *gt, i915_reg_t reg)
->  {
->  	int type;
-> -	u8 sliceid, subsliceid;
-> +	u8 group, instance;
->  
->  	for (type = 0; type < NUM_STEERING_TYPES; type++) {
-> -		if (intel_gt_reg_needs_read_steering(gt, reg, type)) {
-> -			intel_gt_get_valid_steering(gt, type, &sliceid,
-> -						    &subsliceid);
-> -			return intel_uncore_read_with_mcr_steering(gt->uncore,
-> -								   reg,
-> -								   sliceid,
-> -								   subsliceid);
-> +		if (reg_needs_read_steering(gt, reg, type)) {
-> +			get_nonterminated_steering(gt, type, &group, &instance);
-> +			return rw_with_mcr_steering(gt->uncore, reg,
-> +						    FW_REG_READ,
-> +						    group, instance, 0);
->  		}
->  	}
->  
-> @@ -410,7 +459,7 @@ static void report_steering_type(struct drm_printer *p,
->  				 bool dump_table)
->  {
->  	const struct intel_mmio_range *entry;
-> -	u8 slice, subslice;
-> +	u8 group, instance;
->  
->  	BUILD_BUG_ON(ARRAY_SIZE(intel_steering_types) != NUM_STEERING_TYPES);
->  
-> @@ -420,9 +469,9 @@ static void report_steering_type(struct drm_printer *p,
->  		return;
->  	}
->  
-> -	intel_gt_get_valid_steering(gt, type, &slice, &subslice);
-> -	drm_printf(p, "%s steering: sliceid=0x%x, subsliceid=0x%x\n",
-> -		   intel_steering_types[type], slice, subslice);
-> +	get_nonterminated_steering(gt, type, &group, &instance);
-> +	drm_printf(p, "%s steering: group=0x%x, instance=0x%x\n",
-> +		   intel_steering_types[type], group, instance);
->  
->  	if (!dump_table)
->  		return;
-> @@ -431,10 +480,10 @@ static void report_steering_type(struct drm_printer *p,
->  		drm_printf(p, "\t0x%06x - 0x%06x\n", entry->start, entry->end);
->  }
->  
-> -void intel_gt_report_steering(struct drm_printer *p, struct intel_gt *gt,
-> -			      bool dump_table)
-> +void intel_gt_mcr_report_steering(struct drm_printer *p, struct intel_gt *gt,
-> +				  bool dump_table)
->  {
-> -	drm_printf(p, "Default steering: sliceid=0x%x, subsliceid=0x%x\n",
-> +	drm_printf(p, "Default steering: group=0x%x, instance=0x%x\n",
->  		   gt->default_steering.groupid,
->  		   gt->default_steering.instanceid);
->  
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.h b/drivers/gpu/drm/i915/gt/intel_gt_mcr.h
-> index b570c1571243..506b0cbc8db3 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.h
-> @@ -10,28 +10,25 @@
->  
->  void intel_gt_mcr_init(struct intel_gt *gt);
->  
-> -u32 intel_uncore_read_with_mcr_steering_fw(struct intel_uncore *uncore,
-> -					   i915_reg_t reg,
-> -					   int slice, int subslice);
-> -u32 intel_uncore_read_with_mcr_steering(struct intel_uncore *uncore,
-> -					i915_reg_t reg,	int slice, int subslice);
-> -void intel_uncore_write_with_mcr_steering(struct intel_uncore *uncore,
-> -					  i915_reg_t reg, u32 value,
-> -					  int slice, int subslice);
-> -
-> -u32 intel_gt_read_register_fw(struct intel_gt *gt, i915_reg_t reg);
-> -u32 intel_gt_read_register(struct intel_gt *gt, i915_reg_t reg);
-> -
-> -static inline bool intel_gt_needs_read_steering(struct intel_gt *gt,
-> -						enum intel_steering_type type)
-> -{
-> -	return gt->steering_table[type];
-> -}
-> -
-> -void intel_gt_get_valid_steering_for_reg(struct intel_gt *gt, i915_reg_t reg,
-> -					 u8 *sliceid, u8 *subsliceid);
-> -
-> -void intel_gt_report_steering(struct drm_printer *p, struct intel_gt *gt,
-> -			      bool dump_table);
-> +u32 intel_gt_mcr_read(struct intel_gt *gt,
-> +		      i915_reg_t reg,
-> +		      int group, int instance);
-> +u32 intel_gt_mcr_read_any_fw(struct intel_gt *gt, i915_reg_t reg);
-> +u32 intel_gt_mcr_read_any(struct intel_gt *gt, i915_reg_t reg);
-> +
-> +void intel_gt_mcr_unicast_write(struct intel_gt *gt,
-> +				i915_reg_t reg, u32 value,
-> +				int group, int instance);
-> +void intel_gt_mcr_multicast_write(struct intel_gt *gt,
-> +				  i915_reg_t reg, u32 value);
-> +void intel_gt_mcr_multicast_write_fw(struct intel_gt *gt,
-> +				     i915_reg_t reg, u32 value);
-> +
-> +void intel_gt_mcr_get_nonterminated_steering(struct intel_gt *gt,
-> +					     i915_reg_t reg,
-> +					     u8 *group, u8 *instance);
-> +
-> +void intel_gt_mcr_report_steering(struct drm_printer *p, struct intel_gt *gt,
-> +				  bool dump_table);
->  
->  #endif /* __INTEL_GT_MCR__ */
-> diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-> index 1f4e7237a924..2ff448047020 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-> @@ -105,11 +105,11 @@ static struct intel_memory_region *setup_lmem(struct intel_gt *gt)
->  		resource_size_t lmem_range;
->  		u64 tile_stolen, flat_ccs_base;
->  
-> -		lmem_range = intel_gt_read_register(&i915->gt0, XEHPSDV_TILE0_ADDR_RANGE) & 0xFFFF;
-> +		lmem_range = intel_gt_mcr_read_any(&i915->gt0, XEHPSDV_TILE0_ADDR_RANGE) & 0xFFFF;
->  		lmem_size = lmem_range >> XEHPSDV_TILE_LMEM_RANGE_SHIFT;
->  		lmem_size *= SZ_1G;
->  
-> -		flat_ccs_base = intel_gt_read_register(gt, XEHPSDV_FLAT_CCS_BASE_ADDR);
-> +		flat_ccs_base = intel_gt_mcr_read_any(gt, XEHPSDV_FLAT_CCS_BASE_ADDR);
->  		flat_ccs_base = (flat_ccs_base >> XEHPSDV_CCS_BASE_SHIFT) * SZ_64K;
->  
->  		/* FIXME: Remove this when we have small-bar enabled */
-> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> index 97d7f30b1229..e42fbb982bb3 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-> @@ -1083,7 +1083,7 @@ static void __add_mcr_wa(struct intel_gt *gt, struct i915_wa_list *wal,
->  	gt->default_steering.instanceid = subslice;
->  
->  	if (drm_debug_enabled(DRM_UT_DRIVER))
-> -		intel_gt_report_steering(&p, gt, false);
-> +		intel_gt_mcr_report_steering(&p, gt, false);
->  }
->  
->  static void
-> @@ -1624,13 +1624,13 @@ wa_list_apply(struct intel_gt *gt, const struct i915_wa_list *wal)
->  		u32 val, old = 0;
->  
->  		/* open-coded rmw due to steering */
-> -		old = wa->clr ? intel_gt_read_register_fw(gt, wa->reg) : 0;
-> +		old = wa->clr ? intel_gt_mcr_read_any_fw(gt, wa->reg) : 0;
->  		val = (old & ~wa->clr) | wa->set;
->  		if (val != old || !wa->clr)
->  			intel_uncore_write_fw(uncore, wa->reg, val);
->  
->  		if (IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM))
-> -			wa_verify(wa, intel_gt_read_register_fw(gt, wa->reg),
-> +			wa_verify(wa, intel_gt_mcr_read_any_fw(gt, wa->reg),
->  				  wal->name, "application");
->  	}
->  
-> @@ -1661,7 +1661,7 @@ static bool wa_list_verify(struct intel_gt *gt,
->  
->  	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
->  		ok &= wa_verify(wa,
-> -				intel_gt_read_register_fw(gt, wa->reg),
-> +				intel_gt_mcr_read_any_fw(gt, wa->reg),
->  				wal->name, from);
->  
->  	intel_uncore_forcewake_put__locked(uncore, fw);
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> index dea138d78111..ba7541f3ca61 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-> @@ -314,7 +314,7 @@ static long __must_check guc_mmio_reg_add(struct intel_gt *gt,
->  	 * tracking, it is easier to just program the default steering for all
->  	 * regs that don't need a non-default one.
->  	 */
-> -	intel_gt_get_valid_steering_for_reg(gt, reg, &group, &inst);
-> +	intel_gt_mcr_get_nonterminated_steering(gt, reg, &group, &inst);
->  	entry.flags |= GUC_REGSET_STEERING(group, inst);
->  
->  	slot = __mmio_reg_add(regset, &entry);
-With the above minor fixes to comments
-
-Reviewed-by: Harish Chegondi <harish.chegondi@intel.com>
-> -- 
-> 2.35.3
-> 
+DQo+IFdobyBkaWQgeW91IGZpbmQgaXMgZG9pbmcgdGhlIHNhbXBsaW5nIGluIHRoZSByZWFsIHdv
+cmxkIHVzZSBjYXNlPyBBRkFJUiANCj4gaWYgb25lIG9uZSBpcyBxdWVyeWluZyBidXN5bmVzcywg
+SSB0aG91Z2h0IHRoZXJlIHdvdWxkIG9ubHkgYmUgdGhlIEd1QyANCj4gcGluZyB3b3JrZXIgd2hp
+Y2ggcnVucyBleHRyZW1lbHkgaW5mcmVxdWVudGx5ICh0byBhdm9pZCBzb21lIGNvdW50ZXIgDQo+
+IG92ZXJmbG93KS4NCj4gDQo+IFJlZ2FyZHMsDQo+IA0KPiBUdnJ0a28NCj4gDQo+ID4gDQoNCkhp
+IFR2cnRrbywgdGhlIGNhc2Ugd2hlcmUgd2UgYXJlIGxhdW5jaGluZyBtYW55IHRpbnkgdHJhbnNj
+b2RlIHdvcmtsb2FkcyBpbiBxdWljayBzdWNjZXNzaW9uIHNlZXMgdGhlIGd0X3VucGFyay9wYXJr
+DQpnZXR0aW5nIGhpcyBodW5kcmVkcyBvciB0aG91c2FuZHMgb2YgdGltZSAtIHRoaXMgaXMgd2hl
+cmUgdGhlIGJpZ2dlc3QgaGl0IGNvbWVzIGZyb20gKGFzIHBlciB0aGUgd29yc3QgY2FzZSBleGFt
+cGxlDQpudW1iZXIgaW4gdGhlIGNvbW1lbnQpLiANCg0KLi4uYWxhbg0K
