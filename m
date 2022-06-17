@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D284CCA47F
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 16:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F2BCCA479
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 16:57:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E027010F416;
-	Fri, 17 Jun 2022 16:57:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE1910F47A;
+	Fri, 17 Jun 2022 16:57:29 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE3D910EB0A;
- Fri, 17 Jun 2022 16:57:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF1D10F3F4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 16:57:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655485046; x=1687021046;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=W148iBq1FG+Msc13/lGtTcqFp/Gr3+ynFX4fD6ibi+w=;
- b=anCMadccjVxcEyQ/kuVMawPcX3IMb3rqYW8t0LhVfUsji04/wkmx7n31
- GoNcQn5IOEFY+51n9lKQB5H7hXHdxDuzmzNSFFVuOtO95h3D44SBgfxuD
- dvUMgiBiFBCHlfc9mQolH+Rwj/kpf74eZs6BfrbpeH4L51/qbi+pgmKDD
- ay+NE+3/QiU3j2BnFwuoNQBwfTPQ0xGRpTLqX5k0yxntA8zk/heAGPCbD
- IgDO4MHvglMUDntxiJ1KYNXs8+0KCYb2YaEEiA5hUobMPkgYFXZk1W+w2
- Ion/2RrmQB3umOVCLWmxRUh9HlTlF7F3Qjia9r1v3hqjT8nXNGDSZg5sL w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="304934609"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="304934609"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ t=1655485047; x=1687021047;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=JPcMo6ZvJvRGIWBdviaDiLw5tXQgPjHbrZ9/kFokzVA=;
+ b=jK4mXOZVTvU7FfCbFjyiiaBnMMoJr1i0KkhjFOZYIQgxtcV1CS2INxrk
+ IDR4A6fm4EMJ5p90l8WrrYM3HXsMHUQTtulm0ygwcuQLIAPTuCrJABPrF
+ RCxuLHKN1dYneKlUHnPM/IuNqPxFHyg0UIctRO8gV/ZIVryYJvWYqiIvM
+ GYHA8yGF2djEvp51YJH/z7Mi7WBxRO8naEOUUveFd0fPqr3lLdgQTfHX1
+ Zw+C4tlaB7tSc8y8ywaoda8AzHtKh0TkoZ3nZueM5Qd8ZoskAk/1POK58
+ qXFrQIpgJZGlTwBVjjHgNEvZCU7tUfnXJh38b7Q3pfYUWMF9cOguB7Xa3 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="304940053"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="304940053"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 06:45:36 -0700
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="642037027"
-Received: from theodo2x-mobl3.amr.corp.intel.com (HELO intel.com)
- ([10.249.41.104])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 06:45:33 -0700
-Date: Fri, 17 Jun 2022 15:45:31 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Anshuman Gupta <anshuman.gupta@intel.com>
-Message-ID: <YqyFe38Tgadb6GmW@intel.intel>
-References: <20220616120106.24353-1-anshuman.gupta@intel.com>
- <20220616120106.24353-9-anshuman.gupta@intel.com>
+ 17 Jun 2022 09:05:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="675523028"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.163])
+ by FMSMGA003.fm.intel.com with SMTP; 17 Jun 2022 09:05:19 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 17 Jun 2022 19:05:19 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 17 Jun 2022 19:04:57 +0300
+Message-Id: <20220617160510.2082-4-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220617160510.2082-1-ville.syrjala@linux.intel.com>
+References: <20220617160510.2082-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220616120106.24353-9-anshuman.gupta@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 8/9] drm/i915/xehpsdv: Store lmem region
- in gt
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 03/16] drm/i915: Extract
+ has_double_buffered_m_n()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,68 +59,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-On Thu, Jun 16, 2022 at 05:31:05PM +0530, Anshuman Gupta wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> 
-> Store a pointer to respective local memory region in intel_gt so it can be
-> used when memory local to a GT needs to be allocated.
-> 
-> Cc: Andi Shyti <andi.shyti@intel.com>
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/intel_gt.c       | 1 +
->  drivers/gpu/drm/i915/gt/intel_gt_types.h | 3 +++
->  2 files changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-> index f33290358c51..7a535f670ae1 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-> @@ -91,6 +91,7 @@ static int intel_gt_probe_lmem(struct intel_gt *gt)
->  	GEM_BUG_ON(!HAS_REGION(i915, id));
->  	GEM_BUG_ON(i915->mm.regions[id]);
->  	i915->mm.regions[id] = mem;
-> +	gt->lmem = mem;
->  
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-> index df708802889d..cd7744eaaeaa 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-> @@ -23,6 +23,7 @@
->  #include "intel_gt_buffer_pool_types.h"
->  #include "intel_hwconfig.h"
->  #include "intel_llc_types.h"
-> +#include "intel_memory_region.h"
->  #include "intel_reset_types.h"
->  #include "intel_rc6_types.h"
->  #include "intel_rps_types.h"
-> @@ -202,6 +203,8 @@ struct intel_gt {
->  	 */
->  	phys_addr_t phys_addr;
->  
-> +	struct intel_memory_region *lmem;
-> +
+We have a couple of places that want to make distinction between
+double buffered M/N registers vs. the split M1/N1+M2/N2 registers.
+Add a helper for that.
 
-this was somewhere in my next patch that is getting very
-delayed... anyway, with Jani's include note:
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 7 ++++++-
+ drivers/gpu/drm/i915/display/intel_display.h | 1 +
+ drivers/gpu/drm/i915/display/intel_dp.c      | 3 +--
+ 3 files changed, 8 insertions(+), 3 deletions(-)
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index b24784c4522d..5559688047b3 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2798,6 +2798,11 @@ static int intel_crtc_compute_config(struct intel_atomic_state *state,
+ 	return 0;
+ }
+ 
++bool has_double_buffered_m_n(struct drm_i915_private *i915)
++{
++	return DISPLAY_VER(i915) >= 9 || IS_BROADWELL(i915);
++}
++
+ static void
+ intel_reduce_m_n_ratio(u32 *num, u32 *den)
+ {
+@@ -5900,7 +5905,7 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	PIPE_CONF_CHECK_I(lane_count);
+ 	PIPE_CONF_CHECK_X(lane_lat_optim_mask);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 9 || IS_BROADWELL(dev_priv)) {
++	if (has_double_buffered_m_n(dev_priv)) {
+ 		PIPE_CONF_CHECK_M_N_ALT(dp_m_n, dp_m2_n2);
+ 	} else {
+ 		PIPE_CONF_CHECK_M_N(dp_m_n);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index 2feb8ae5d5d4..44c88aadfc30 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -543,6 +543,7 @@ int intel_atomic_add_affected_planes(struct intel_atomic_state *state,
+ 				     struct intel_crtc *crtc);
+ u8 intel_calc_active_pipes(struct intel_atomic_state *state,
+ 			   u8 active_pipes);
++bool has_double_buffered_m_n(struct drm_i915_private *i915);
+ void intel_link_compute_m_n(u16 bpp, int nlanes,
+ 			    int pixel_clock, int link_clock,
+ 			    struct intel_link_m_n *m_n,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 2fac76bcf06d..75645508080a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1842,8 +1842,7 @@ intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
+ static bool cpu_transcoder_has_drrs(struct drm_i915_private *i915,
+ 				    enum transcoder cpu_transcoder)
+ {
+-	/* M1/N1 is double buffered */
+-	if (DISPLAY_VER(i915) >= 9 || IS_BROADWELL(i915))
++	if (has_double_buffered_m_n(i915))
+ 		return true;
+ 
+ 	return intel_cpu_transcoder_has_m2_n2(i915, cpu_transcoder);
+-- 
+2.35.1
 
-Thanks,
-Andi
-
->  	struct intel_gt_info {
->  		unsigned int id;
->  
-> -- 
-> 2.26.2
