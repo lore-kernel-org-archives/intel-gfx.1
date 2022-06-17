@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60B26C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:06:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5249FC43334
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:06:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1D2410F32F;
-	Fri, 17 Jun 2022 19:05:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38ED710F364;
+	Fri, 17 Jun 2022 19:05:51 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D996010F1A5;
- Fri, 17 Jun 2022 19:05:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F69F10F32F;
+ Fri, 17 Jun 2022 19:05:48 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 6D90666017FA;
- Fri, 17 Jun 2022 20:05:42 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 96C1466018AF;
+ Fri, 17 Jun 2022 20:05:46 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1655492742;
- bh=8vOVoJXWNBNoAe7uHxF6kK6AtRixKpYtIjs6ocUktn4=;
+ s=mail; t=1655492746;
+ bh=BJ87eisXj9Ppx4nwiDdWpEsHsZ0BoBn8nQEON2j1/N8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GPTBn8NOGqnuUZcxrYuvmdiXrILvdzQYT9WQLvHPfa0X/+sokBAfL1UlCZFzFsiKM
- aiT+fl7fyAbSYHinJ0wjc9QdskgUbkBRfcgOCI9nujh5TLviWQov79tPoQJ8zFmA8z
- y/UWiwNg1SH7vBnn/TK+ez48JzKw+El5HueSMO6h6b7PIayMiwAZlSBVfGQDeODYfA
- 2iH8bzoYwYTlQ9o1ER5Mbajbu/Gp8bXKkzTd4yXGuPjVi/wtZJNXyIY1rdkaRusi+m
- LJ/1FmwS5GMVREwBccCqk2H3YDNrcv+MwUF81JEdYaT6DNjxZIGYaq2ibDuOjczU5N
- IF06SlMgd97ng==
+ b=CwhRcRKbJuopMPiRZLEn/1R8Isag4LuaoXiTIJeBSKNA68rv9FAseSLrBlWy8yp/C
+ v4yVg6d0nOSRIN0L7S7OMwMQIr8y/hdpN1quN+d/V8SRKHsL7s4mrpU6BtrnDb+PPO
+ gr6v2MgM9SkQjxzO+rlANBJPKA68bwMDmMro7/L7MRdBV5d2F5/equfr7AH6dthOkW
+ B+fN4nwgpAjcp5Doi439CZcvZjGH4QdL1rCNMFGcLbTXVPR34y2UbiQk4/LnCusShU
+ DUVsPMTDFAJJSEAcVafmQFaqfLURqt2XRgO7TjjCAfzUOYjWjL8XP78qudQi8QB+aD
+ JNi1jRZGgPU3w==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -37,15 +37,15 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Fri, 17 Jun 2022 19:05:09 +0000
-Message-Id: <20220617190516.2805572-4-bob.beckett@collabora.com>
+Date: Fri, 17 Jun 2022 19:05:15 +0000
+Message-Id: <20220617190516.2805572-10-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220617190516.2805572-1-bob.beckett@collabora.com>
 References: <20220617190516.2805572-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 03/10] drm/i915/ttm: only trust snooping for
- dgfx when deciding default cache_level
+Subject: [Intel-gfx] [PATCH v6 09/10] drm/i915/ttm: add buffer pin on alloc
+ flag
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,32 +64,114 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-By default i915_ttm_cache_level() decides I915_CACHE_LLC if HAS_SNOOP.
-This is divergent from existing backends code which only considers
-HAS_LLC.
-Testing shows that trusting snooping on gen5- is unreliable and bsw via
-ggtt mappings, so limit DGFX for now and maintain previous behaviour.
+For situations where allocations need to fail on alloc instead of
+delayed get_pages, add a new alloc flag to pin the ttm bo.
+This makes sure that the resource has been allocated during buffer
+creation, allowing it to fail with an error if the placement is
+exhausted.
+This allows existing fallback options for stolen backend allocation like
+create_ring_vma to work as expected.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  | 13 ++++++----
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 25 ++++++++++++++++++-
+ 2 files changed, 32 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index 4c1de0b4a10f..40249fa28a7a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -46,7 +46,9 @@ static enum i915_cache_level
- i915_ttm_cache_level(struct drm_i915_private *i915, struct ttm_resource *res,
- 		     struct ttm_tt *ttm)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 6632ed52e919..07bc11247a3e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -325,17 +325,20 @@ struct drm_i915_gem_object {
+  * dealing with userspace objects the CPU fault handler is free to ignore this.
+  */
+ #define I915_BO_ALLOC_GPU_ONLY	  BIT(6)
++/* object should be pinned in destination region from allocation */
++#define I915_BO_ALLOC_PINNED	  BIT(7)
+ #define I915_BO_ALLOC_FLAGS (I915_BO_ALLOC_CONTIGUOUS | \
+ 			     I915_BO_ALLOC_VOLATILE | \
+ 			     I915_BO_ALLOC_CPU_CLEAR | \
+ 			     I915_BO_ALLOC_USER | \
+ 			     I915_BO_ALLOC_PM_VOLATILE | \
+ 			     I915_BO_ALLOC_PM_EARLY | \
+-			     I915_BO_ALLOC_GPU_ONLY)
+-#define I915_BO_READONLY          BIT(7)
+-#define I915_TILING_QUIRK_BIT     8 /* unknown swizzling; do not release! */
+-#define I915_BO_PROTECTED         BIT(9)
+-#define I915_BO_WAS_BOUND_BIT     10
++			     I915_BO_ALLOC_GPU_ONLY | \
++			     I915_BO_ALLOC_PINNED)
++#define I915_BO_READONLY          BIT(8)
++#define I915_TILING_QUIRK_BIT     9 /* unknown swizzling; do not release! */
++#define I915_BO_PROTECTED         BIT(10)
++#define I915_BO_WAS_BOUND_BIT     11
+ 	/**
+ 	 * @mem_flags - Mutable placement-related flags
+ 	 *
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index 27d59639177f..bb988608296d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -998,6 +998,13 @@ static void i915_ttm_delayed_free(struct drm_i915_gem_object *obj)
  {
--	return ((HAS_LLC(i915) || HAS_SNOOP(i915)) &&
-+	bool can_snoop = HAS_SNOOP(i915) && IS_DGFX(i915);
+ 	GEM_BUG_ON(!obj->ttm.created);
+ 
++	/* stolen objects are pinned for lifetime. Unpin before putting */
++	if (obj->flags & I915_BO_ALLOC_PINNED) {
++		ttm_bo_reserve(i915_gem_to_ttm(obj), true, false, NULL);
++		ttm_bo_unpin(i915_gem_to_ttm(obj));
++		ttm_bo_unreserve(i915_gem_to_ttm(obj));
++	}
 +
-+	return ((HAS_LLC(i915) || can_snoop) &&
- 		!i915_ttm_gtt_binds_lmem(res) &&
- 		ttm->caching == ttm_cached) ? I915_CACHE_LLC :
- 		I915_CACHE_NONE;
+ 	ttm_bo_put(i915_gem_to_ttm(obj));
+ }
+ 
+@@ -1193,6 +1200,9 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 		.no_wait_gpu = false,
+ 	};
+ 	enum ttm_bo_type bo_type;
++	struct ttm_place _place;
++	struct ttm_placement _placement;
++	struct ttm_placement *placement;
+ 	int ret;
+ 
+ 	drm_gem_private_object_init(&i915->drm, &obj->base, size);
+@@ -1222,6 +1232,17 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 	 */
+ 	i915_gem_object_make_unshrinkable(obj);
+ 
++	if (obj->flags & I915_BO_ALLOC_PINNED) {
++		i915_ttm_place_from_region(mem, &_place, obj->bo_offset,
++					   obj->base.size, obj->flags);
++		_placement.num_placement = 1;
++		_placement.placement = &_place;
++		_placement.num_busy_placement = 0;
++		_placement.busy_placement = NULL;
++		placement = &_placement;
++	} else {
++		placement = &i915_sys_placement;
++	}
+ 	/*
+ 	 * If this function fails, it will call the destructor, but
+ 	 * our caller still owns the object. So no freeing in the
+@@ -1230,7 +1251,7 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 	 * until successful initialization.
+ 	 */
+ 	ret = ttm_bo_init_reserved(&i915->bdev, i915_gem_to_ttm(obj), size,
+-				   bo_type, &i915_sys_placement,
++				   bo_type, placement,
+ 				   page_size >> PAGE_SHIFT,
+ 				   &ctx, NULL, NULL, i915_ttm_bo_destroy);
+ 	if (ret)
+@@ -1242,6 +1263,8 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 	i915_ttm_adjust_domains_after_move(obj);
+ 	i915_ttm_adjust_gem_after_move(obj);
+ 	obj->ttm.cache_level_override = false;
++	if (obj->flags & I915_BO_ALLOC_PINNED)
++		ttm_bo_pin(i915_gem_to_ttm(obj));
+ 	i915_gem_object_unlock(obj);
+ 
+ 	return 0;
 -- 
 2.25.1
 
