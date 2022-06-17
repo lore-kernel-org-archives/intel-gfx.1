@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E6DC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 16:58:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 261BEC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 17:12:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C939610F4E0;
-	Fri, 17 Jun 2022 16:58:39 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D790210F4C0
- for <intel-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 16:58:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C0BF10E30E;
+	Fri, 17 Jun 2022 17:11:59 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AE1B10E30E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 17:11:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655485117; x=1687021117;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=9ip06MWcLXpE1qrug7wpviECkrnVQaXFYlpSrJmIpgc=;
- b=kQdlUsxqZKzXcBbkkvzqzO9VXHdKzifyZbuhbKDdXr9zf2Sn0nDEBrJS
- xp7AspPgodtjnHFS7DiH/vyhNAUnrJYjlyAonDus0xYPTcsI08hTUmwZh
- nyRhq2AFVoftZobvqO2QmuBy0+8NewzAH251VmhsB6XcC7Vc27eqtfgSY
- W/1z6pbcZIN9AbWJVfYd0KZUlWHf33ON1CsHEJE+HYQ5sfz4Pw4VV2u1z
- Fld0QZSjBzzqn8FgptY26cpQukB1FsG7CBe3HUO7YjlTyLVyhzyKTlvHZ
- bC2uEVHJODrAjs93X5xPob5ClzrnRz6MvABq99zSNkX7/qNMoV6fsdHbs Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="365838289"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="365838289"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 09:07:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="728385583"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.163])
- by fmsmga001.fm.intel.com with SMTP; 17 Jun 2022 09:07:31 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 17 Jun 2022 19:07:30 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 17 Jun 2022 19:07:30 +0300
-Message-Id: <20220617160730.10981-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
+ t=1655485918; x=1687021918;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=anUAuJfCcQtOmlwyzSHp4FiJgLaQT5PG3RkkrRwFji4=;
+ b=KV1oporSwL8JIsU/j4iSSxRC3/wSalTogk8J3D4SztEWmiNgO2v//vr9
+ VCnOAQApnJ7hol5eMH0qm5hyKS4M3pXQ3eRR5nao4l3XcD0YiVdasyMhF
+ tHcwBAbNq1kBeeg3MBEDnz8moxrpEoF0BC68nTxLZtfDAh1JkQ9z5MkAt
+ j3TT7+KQGM1gdj4EdvMHu+dURmistcvUPBNOpvbbIUx8BiZFQKqAIrkYL
+ g1LdJLmMOQVL7Wk1HngAcm7FxSDZjgq0dx1Hhcsxt+r1Ti0lUDJfk5xmM
+ bslglq4q1rKEN4ojGsuLJJBh745kdUiCR4lG1tVdYXBY0/9KewFXevxi+ g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="277053853"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="277053853"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2022 05:32:14 -0700
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="642016817"
+Received: from dfischbe-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.34.67])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2022 05:32:12 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Animesh Manna <animesh.manna@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20220617102649.1581-1-animesh.manna@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220617102649.1581-1-animesh.manna@intel.com>
+Date: Fri, 17 Jun 2022 15:32:10 +0300
+Message-ID: <874k0jv5bp.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: Implement a bit of bw_state readout
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH v3] drm/i915/bios: calculate panel type as
+ per child device index in VBT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,83 +60,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Fri, 17 Jun 2022, Animesh Manna <animesh.manna@intel.com> wrote:
+> Each LFP may have different panel type which is stored in LFP data
+> data block. Based on the child device index respective panel-type/
+> panel-type2 field will be used.
+>
+> v1: Initial rfc verion.
+> v2: Based on review comments from Jani,
+> - Used panel-type instead addition panel-index variable.
+> - DEVICE_HANDLE_* name changed and placed before DEVICE_TYPE_*
+> macro.
+> v3:
+> - Passing intel_bios_encoder_data as argument of
+> intel_bios_init_panel(). Passing NULL to indicate encoder is not
+> initialized yet for dsi as current focus is to enable dual EDP. [Jani]
+>
+> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/icl_dsi.c        |  2 +-
+>  drivers/gpu/drm/i915/display/intel_bios.c     | 16 ++++++++++++++--
+>  drivers/gpu/drm/i915/display/intel_bios.h     |  1 +
+>  drivers/gpu/drm/i915/display/intel_dp.c       |  4 +++-
+>  drivers/gpu/drm/i915/display/intel_lvds.c     |  2 +-
+>  drivers/gpu/drm/i915/display/intel_sdvo.c     |  2 +-
+>  drivers/gpu/drm/i915/display/intel_vbt_defs.h |  4 ++++
+>  drivers/gpu/drm/i915/display/vlv_dsi.c        |  2 +-
+>  8 files changed, 26 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+> index 3b5305c219ba..5dcfa7feffa9 100644
+> --- a/drivers/gpu/drm/i915/display/icl_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+> @@ -2050,7 +2050,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
+>  	/* attach connector to encoder */
+>  	intel_connector_attach_encoder(intel_connector, encoder);
+>  
+> -	intel_bios_init_panel(dev_priv, &intel_connector->panel, NULL);
+> +	intel_bios_init_panel(dev_priv, &intel_connector->panel, NULL, NULL);
+>  
+>  	mutex_lock(&dev->mode_config.mutex);
+>  	intel_panel_add_vbt_lfp_fixed_mode(intel_connector);
+> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+> index 76e86358adb9..e97f1f979a48 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bios.c
+> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+> @@ -604,12 +604,14 @@ get_lfp_data_tail(const struct bdb_lvds_lfp_data *data,
+>  }
+>  
+>  static int opregion_get_panel_type(struct drm_i915_private *i915,
+> +				   const struct intel_bios_encoder_data *devdata,
+>  				   const struct edid *edid)
+>  {
+>  	return intel_opregion_get_panel_type(i915);
+>  }
+>  
+>  static int vbt_get_panel_type(struct drm_i915_private *i915,
+> +			      const struct intel_bios_encoder_data *devdata,
+>  			      const struct edid *edid)
+>  {
+>  	const struct bdb_lvds_options *lvds_options;
+> @@ -625,10 +627,16 @@ static int vbt_get_panel_type(struct drm_i915_private *i915,
+>  		return -1;
+>  	}
+>  
+> +	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2)
+> +		return lvds_options->panel_type2;
+> +
+> +	drm_WARN_ON(&i915->drm, devdata && devdata->child.handle != DEVICE_HANDLE_LFP1);
+> +
+>  	return lvds_options->panel_type;
+>  }
+>  
+>  static int pnpid_get_panel_type(struct drm_i915_private *i915,
+> +				const struct intel_bios_encoder_data *devdata,
+>  				const struct edid *edid)
+>  {
+>  	const struct bdb_lvds_lfp_data *data;
+> @@ -675,6 +683,7 @@ static int pnpid_get_panel_type(struct drm_i915_private *i915,
+>  }
+>  
+>  static int fallback_get_panel_type(struct drm_i915_private *i915,
+> +				   const struct intel_bios_encoder_data *devdata,
+>  				   const struct edid *edid)
+>  {
+>  	return 0;
+> @@ -688,11 +697,13 @@ enum panel_type {
+>  };
+>  
+>  static int get_panel_type(struct drm_i915_private *i915,
+> +			  const struct intel_bios_encoder_data *devdata,
+>  			  const struct edid *edid)
+>  {
+>  	struct {
+>  		const char *name;
+>  		int (*get_panel_type)(struct drm_i915_private *i915,
+> +				      const struct intel_bios_encoder_data *devdata,
+>  				      const struct edid *edid);
+>  		int panel_type;
+>  	} panel_types[] = {
+> @@ -716,7 +727,7 @@ static int get_panel_type(struct drm_i915_private *i915,
+>  	int i;
+>  
+>  	for (i = 0; i < ARRAY_SIZE(panel_types); i++) {
+> -		panel_types[i].panel_type = panel_types[i].get_panel_type(i915, edid);
+> +		panel_types[i].panel_type = panel_types[i].get_panel_type(i915, devdata, edid);
+>  
+>  		drm_WARN_ON(&i915->drm, panel_types[i].panel_type > 0xf &&
+>  			    panel_types[i].panel_type != 0xff);
+> @@ -3127,11 +3138,12 @@ void intel_bios_init(struct drm_i915_private *i915)
+>  
+>  void intel_bios_init_panel(struct drm_i915_private *i915,
+>  			   struct intel_panel *panel,
+> +			   const struct intel_bios_encoder_data *devdata,
+>  			   const struct edid *edid)
+>  {
+>  	init_vbt_panel_defaults(panel);
+>  
+> -	panel->vbt.panel_type = get_panel_type(i915, edid);
+> +	panel->vbt.panel_type = get_panel_type(i915, devdata, edid);
+>  
+>  	parse_panel_options(i915, panel);
+>  	parse_generic_dtd(i915, panel);
+> diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+> index b112200ae0a0..e47582b0de0a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bios.h
+> +++ b/drivers/gpu/drm/i915/display/intel_bios.h
+> @@ -234,6 +234,7 @@ struct mipi_pps_data {
+>  void intel_bios_init(struct drm_i915_private *dev_priv);
+>  void intel_bios_init_panel(struct drm_i915_private *dev_priv,
+>  			   struct intel_panel *panel,
+> +			   const struct intel_bios_encoder_data *devdata,
+>  			   const struct edid *edid);
+>  void intel_bios_fini_panel(struct intel_panel *panel);
+>  void intel_bios_driver_remove(struct drm_i915_private *dev_priv);
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 2fac76bcf06d..3590de9227d5 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -5171,6 +5171,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+>  	bool has_dpcd;
+>  	enum pipe pipe = INVALID_PIPE;
+>  	struct edid *edid;
+> +	struct intel_bios_encoder_data *devdata;
+>  
+>  	if (!intel_dp_is_edp(intel_dp))
+>  		return true;
+> @@ -5224,7 +5225,8 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+>  	}
+>  	intel_connector->edid = edid;
+>  
+> -	intel_bios_init_panel(dev_priv, &intel_connector->panel,
+> +	devdata = dev_priv->vbt.ports[intel_connector->encoder->port];
 
-We currently fail to reconstruct the bw related cdclk limits
-during readout, which triggers a  cdclk reclaculation during
-fastboot, which is then likely forces a full modeset anyway.
-Reconstruct some of the missing state so that we can skip
-the cdclk recomputation and thus have a higher chance for
-flicker free boot.
+Sorry, i915->vbt.ports[] is supposed to be private to intel_bios.c. I
+tried to explain that we already look up devdata for some of the
+encoders. See intel_ddi_init() which is relevant for new platforms.
 
-Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_bw.c      | 9 ++++++---
- drivers/gpu/drm/i915/display/intel_display.c | 7 +++++--
- 2 files changed, 11 insertions(+), 5 deletions(-)
+We've got
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-index 79269d2c476b..30ffec63f9a3 100644
---- a/drivers/gpu/drm/i915/display/intel_bw.c
-+++ b/drivers/gpu/drm/i915/display/intel_bw.c
-@@ -627,11 +627,14 @@ void intel_bw_crtc_update(struct intel_bw_state *bw_state,
- 		intel_bw_crtc_data_rate(crtc_state);
- 	bw_state->num_active_planes[crtc->pipe] =
- 		intel_bw_crtc_num_active_planes(crtc_state);
-+	bw_state->min_cdclk[crtc->pipe] =
-+		intel_bw_crtc_min_cdclk(crtc_state);
- 
--	drm_dbg_kms(&i915->drm, "pipe %c data rate %u num active planes %u\n",
--		    pipe_name(crtc->pipe),
-+	drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] data rate %u num active planes %u min cdclk %d kHz\n",
-+		    crtc->base.base.id, crtc->base.name,
- 		    bw_state->data_rate[crtc->pipe],
--		    bw_state->num_active_planes[crtc->pipe]);
-+		    bw_state->num_active_planes[crtc->pipe],
-+		    bw_state->min_cdclk[crtc->pipe]);
- }
- 
- static unsigned int intel_bw_num_active_planes(struct drm_i915_private *dev_priv,
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 90bd26431e31..b17b9493c68f 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2498,6 +2498,7 @@ static void intel_crtc_disable_noatomic(struct intel_crtc *crtc,
- 
- 	bw_state->data_rate[pipe] = 0;
- 	bw_state->num_active_planes[pipe] = 0;
-+	bw_state->min_cdclk[pipe] = 0;
- }
- 
- /*
-@@ -9310,6 +9311,8 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
- 		to_intel_cdclk_state(dev_priv->cdclk.obj.state);
- 	struct intel_dbuf_state *dbuf_state =
- 		to_intel_dbuf_state(dev_priv->dbuf.obj.state);
-+	struct intel_bw_state *bw_state =
-+		to_intel_bw_state(dev_priv->bw_obj.state);
- 	enum pipe pipe;
- 	struct intel_crtc *crtc;
- 	struct intel_encoder *encoder;
-@@ -9425,8 +9428,6 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
- 	drm_connector_list_iter_end(&conn_iter);
- 
- 	for_each_intel_crtc(dev, crtc) {
--		struct intel_bw_state *bw_state =
--			to_intel_bw_state(dev_priv->bw_obj.state);
- 		struct intel_crtc_state *crtc_state =
- 			to_intel_crtc_state(crtc->base.state);
- 		struct intel_plane *plane;
-@@ -9490,6 +9491,8 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
- 
- 		intel_bw_crtc_update(bw_state, crtc_state);
- 	}
-+
-+	cdclk_state->bw_min_cdclk = intel_bw_min_cdclk(dev_priv, bw_state);
- }
- 
- static void
+	devdata = intel_bios_encoder_data_lookup(dev_priv, port);
+
+and
+
+	encoder->devdata = devdata;
+
+So you just need to get at the encoder here (via intel_dp), and pass
+encoder->devdata.
+
+With that fixed, this LGTM.
+
+BR,
+Jani.
+
+
+> +	intel_bios_init_panel(dev_priv, &intel_connector->panel, devdata,
+>  			      IS_ERR(edid) ? NULL : edid);
+>  
+>  	intel_panel_add_edid_fixed_modes(intel_connector,
+> diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+> index e55802b45461..730480ac3300 100644
+> --- a/drivers/gpu/drm/i915/display/intel_lvds.c
+> +++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+> @@ -967,7 +967,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
+>  	}
+>  	intel_connector->edid = edid;
+>  
+> -	intel_bios_init_panel(dev_priv, &intel_connector->panel,
+> +	intel_bios_init_panel(dev_priv, &intel_connector->panel, NULL,
+>  			      IS_ERR(edid) ? NULL : edid);
+>  
+>  	/* Try EDID first */
+> diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+> index 2b78a790e1b6..19122bc6d2ab 100644
+> --- a/drivers/gpu/drm/i915/display/intel_sdvo.c
+> +++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+> @@ -2901,7 +2901,7 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
+>  	if (!intel_sdvo_create_enhance_property(intel_sdvo, intel_sdvo_connector))
+>  		goto err;
+>  
+> -	intel_bios_init_panel(i915, &intel_connector->panel, NULL);
+> +	intel_bios_init_panel(i915, &intel_connector->panel, NULL, NULL);
+>  
+>  	/*
+>  	 * Fetch modes from VBT. For SDVO prefer the VBT mode since some
+> diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+> index 3766c09bd65d..509b0a419c20 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+> +++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+> @@ -182,6 +182,10 @@ struct bdb_general_features {
+>  #define GPIO_PIN_ADD_DDC	0x04 /* "ADDCARD DDC GPIO pins" */
+>  #define GPIO_PIN_ADD_DDC_I2C	0x06 /* "ADDCARD DDC/I2C GPIO pins" */
+>  
+> +/* Device handle */
+> +#define DEVICE_HANDLE_LFP1	0x0008
+> +#define DEVICE_HANDLE_LFP2	0x0080
+> +
+>  /* Pre 915 */
+>  #define DEVICE_TYPE_NONE	0x00
+>  #define DEVICE_TYPE_CRT		0x01
+> diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+> index abda0888c8d4..b9b1fed99874 100644
+> --- a/drivers/gpu/drm/i915/display/vlv_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+> @@ -1926,7 +1926,7 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
+>  
+>  	intel_dsi->panel_power_off_time = ktime_get_boottime();
+>  
+> -	intel_bios_init_panel(dev_priv, &intel_connector->panel, NULL);
+> +	intel_bios_init_panel(dev_priv, &intel_connector->panel, NULL, NULL);
+>  
+>  	if (intel_connector->panel.vbt.dsi.config->dual_link)
+>  		intel_dsi->ports = BIT(PORT_A) | BIT(PORT_C);
+
 -- 
-2.35.1
-
+Jani Nikula, Intel Open Source Graphics Center
