@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFE18C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:05:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 979EFCCA47C
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 19:05:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94B0310F1A5;
-	Fri, 17 Jun 2022 19:05:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CD8810F2E2;
+	Fri, 17 Jun 2022 19:05:47 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40FD410F2C5;
- Fri, 17 Jun 2022 19:05:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84C6210F302;
+ Fri, 17 Jun 2022 19:05:44 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id BE19B66017DF;
- Fri, 17 Jun 2022 20:05:41 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 165E26601815;
+ Fri, 17 Jun 2022 20:05:43 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1655492742;
- bh=JT0TnJkB0rL8RAGj5L8WxKKfTjJ2qr1XwBthtCgxh3Y=;
+ s=mail; t=1655492743;
+ bh=NNjcoDidsEevqXEiV8GzBg83apsOHvIp6XGvRc7cnZo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Anldpq7wlROSc+hLiByOyaVG5S6tpj3HJfdgyeyPL33JqkkObbaMHGcDKsRQbiIG4
- OTFVRrz6NmQipgBNa/UMgY7A26gj10Sg87LhExWPNkxwaJJc3fOR+lC2tOFj9QAo8s
- 5ms5RFLPaY01NgjmjiSqmEIrsN0tFDxcBYUX8EiGx70yrQOc+GdBMp0xnAjw8mL9h7
- bRgg1kVgAwLkJG1BhW0XhJMqxupSTZxISivyA3tVR8eTxnZ7a2wdC8KejAOFW5Q2ai
- 8pjNTAec65GInP6X9ybQIMEQ0okDHR6UrMNOTngJcxs32UBlFL4jT8NC57GxT0eEk5
- NQZD1CcStKjwA==
+ b=jSvyx8+gs1CHopAFpYO5MJaVdzl6X9s8j5SACF6sv1957YEYE66fqf3EYkIOX2yUX
+ NTSLlwSu2MqjAxKsUgdRpkXhYq4l0UygtfSTZfi6LwxHV4w+OGszl42oUCt3WRHCk+
+ eZ3yCKWC5aHuQ7U5XO82sPbuZf/9reySB36IK4DOqHdbOLfHn4r60YALq5qKVQNmZf
+ MheUmgwSQ/qFmnAB20vaSfBfB6WkOjRw2srv7+NzxrCs1Ao+BzYl0V+aowtNr0w7fK
+ lTSoWnetEf9y2rTStfowLYGb6t2Faat+WiC2Ur6PcGfX6Ks2VvHsfdFk6ltMd97y2w
+ GS1yxse8A22vg==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -37,15 +37,15 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Fri, 17 Jun 2022 19:05:08 +0000
-Message-Id: <20220617190516.2805572-3-bob.beckett@collabora.com>
+Date: Fri, 17 Jun 2022 19:05:10 +0000
+Message-Id: <20220617190516.2805572-5-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220617190516.2805572-1-bob.beckett@collabora.com>
 References: <20220617190516.2805572-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 02/10] drm/i915: limit ttm to dma32 for
- i965G[M]
+Subject: [Intel-gfx] [PATCH v6 04/10] drm/i915/gem: selftest should not
+ attempt mmap of private regions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,35 +64,27 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-i965G[M] cannot relocate objects above 4GiB.
-Ensure ttm uses dma32 on these systems.
+During testing make can_mmap consider whether the region is private.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
 ---
- drivers/gpu/drm/i915/intel_region_ttm.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
-index 62ff77445b01..fd2ecfdd8fa1 100644
---- a/drivers/gpu/drm/i915/intel_region_ttm.c
-+++ b/drivers/gpu/drm/i915/intel_region_ttm.c
-@@ -32,10 +32,15 @@
- int intel_region_ttm_device_init(struct drm_i915_private *dev_priv)
- {
- 	struct drm_device *drm = &dev_priv->drm;
-+	bool use_dma32 = false;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index 5bc93a1ce3e3..76181e28c75e 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -869,6 +869,9 @@ static bool can_mmap(struct drm_i915_gem_object *obj, enum i915_mmap_type type)
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	bool no_map;
+ 
++	if (obj->mm.region && obj->mm.region->private)
++		return false;
 +
-+	/* i965g[m] cannot relocate objects above 4GiB. */
-+	if (IS_I965GM(dev_priv) || IS_I965G(dev_priv))
-+		use_dma32 = true;
- 
- 	return ttm_device_init(&dev_priv->bdev, i915_ttm_driver(),
- 			       drm->dev, drm->anon_inode->i_mapping,
--			       drm->vma_offset_manager, false, false);
-+			       drm->vma_offset_manager, false, use_dma32);
- }
- 
- /**
+ 	if (obj->ops->mmap_offset)
+ 		return type == I915_MMAP_TYPE_FIXED;
+ 	else if (type == I915_MMAP_TYPE_FIXED)
 -- 
 2.25.1
 
