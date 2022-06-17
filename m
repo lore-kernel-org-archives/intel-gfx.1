@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18BE5C43334
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E6DC433EF
 	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jun 2022 16:58:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7564B10F416;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C939610F4E0;
 	Fri, 17 Jun 2022 16:58:39 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9F5C10F416
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D790210F4C0
  for <intel-gfx@lists.freedesktop.org>; Fri, 17 Jun 2022 16:58:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1655485117; x=1687021117;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=sIMWQUT1dm4ZaTSLDAhBNsSA9N1KLKt2eX7Fnv9aKK8=;
- b=KCm3oL7raGbS4+ag8MmsUqyDBSblP0e6UA1S9vF1sL5JlzpOo2KF+F98
- TkXol42Ti96NeKB8BTP6yy4sLr9NU9jOlgRhDDapMrfbbTwt5b3ghE5hb
- ZH+yfhXjLPYwq6Dz9cj5g0OArSOKyLo+u0eNlDpcPbcm1L7l/AZwJcF/u
- 8HYXfG1qRvNpcyYWHImbrJntLE6+OEQaLaCPctyVfgQJI7TK17VEzg0Eh
- ye3T7VWq+REz8xpOpJO3TsH7Th9ehtHLkUClDyddvrfHOGRAFjSRZRqf4
- R8+oXaLCQfBM/+qjGE1aXrkv+7tb8r3oxfniJnmGLrxJWnCkojILkl+aX w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="365838121"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="365838121"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9ip06MWcLXpE1qrug7wpviECkrnVQaXFYlpSrJmIpgc=;
+ b=kQdlUsxqZKzXcBbkkvzqzO9VXHdKzifyZbuhbKDdXr9zf2Sn0nDEBrJS
+ xp7AspPgodtjnHFS7DiH/vyhNAUnrJYjlyAonDus0xYPTcsI08hTUmwZh
+ nyRhq2AFVoftZobvqO2QmuBy0+8NewzAH251VmhsB6XcC7Vc27eqtfgSY
+ W/1z6pbcZIN9AbWJVfYd0KZUlWHf33ON1CsHEJE+HYQ5sfz4Pw4VV2u1z
+ Fld0QZSjBzzqn8FgptY26cpQukB1FsG7CBe3HUO7YjlTyLVyhzyKTlvHZ
+ bC2uEVHJODrAjs93X5xPob5ClzrnRz6MvABq99zSNkX7/qNMoV6fsdHbs Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="365838289"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="365838289"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 09:05:34 -0700
+ 17 Jun 2022 09:07:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="728384830"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="728385583"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.163])
- by fmsmga001.fm.intel.com with SMTP; 17 Jun 2022 09:05:32 -0700
+ by fmsmga001.fm.intel.com with SMTP; 17 Jun 2022 09:07:31 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 17 Jun 2022 19:05:31 +0300
+ Fri, 17 Jun 2022 19:07:30 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 17 Jun 2022 19:05:01 +0300
-Message-Id: <20220617160510.2082-8-ville.syrjala@linux.intel.com>
+Date: Fri, 17 Jun 2022 19:07:30 +0300
+Message-Id: <20220617160730.10981-1-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220617160510.2082-1-ville.syrjala@linux.intel.com>
-References: <20220617160510.2082-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 07/16] drm/i915: Compute clocks earlier
+Subject: [Intel-gfx] [PATCH] drm/i915: Implement a bit of bw_state readout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,49 +56,86 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Do the DPLL computation before fastset checks. This should
-allow us to get rid of all that horrible fuzzy clock handling
-for fastsets. Who knows how many bugs there are caused by our
-state not actually matching what the hardware will generate.
+We currently fail to reconstruct the bw related cdclk limits
+during readout, which triggers a  cdclk reclaculation during
+fastboot, which is then likely forces a full modeset anyway.
+Reconstruct some of the missing state so that we can skip
+the cdclk recomputation and thus have a higher chance for
+flicker free boot.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bw.c      | 9 ++++++---
+ drivers/gpu/drm/i915/display/intel_display.c | 7 +++++--
+ 2 files changed, 11 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+index 79269d2c476b..30ffec63f9a3 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_bw.c
+@@ -627,11 +627,14 @@ void intel_bw_crtc_update(struct intel_bw_state *bw_state,
+ 		intel_bw_crtc_data_rate(crtc_state);
+ 	bw_state->num_active_planes[crtc->pipe] =
+ 		intel_bw_crtc_num_active_planes(crtc_state);
++	bw_state->min_cdclk[crtc->pipe] =
++		intel_bw_crtc_min_cdclk(crtc_state);
+ 
+-	drm_dbg_kms(&i915->drm, "pipe %c data rate %u num active planes %u\n",
+-		    pipe_name(crtc->pipe),
++	drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] data rate %u num active planes %u min cdclk %d kHz\n",
++		    crtc->base.base.id, crtc->base.name,
+ 		    bw_state->data_rate[crtc->pipe],
+-		    bw_state->num_active_planes[crtc->pipe]);
++		    bw_state->num_active_planes[crtc->pipe],
++		    bw_state->min_cdclk[crtc->pipe]);
+ }
+ 
+ static unsigned int intel_bw_num_active_planes(struct drm_i915_private *dev_priv,
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 59dd66642c5f..ef7454c5b947 100644
+index 90bd26431e31..b17b9493c68f 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2782,6 +2782,10 @@ static int intel_crtc_compute_config(struct intel_atomic_state *state,
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	int ret;
+@@ -2498,6 +2498,7 @@ static void intel_crtc_disable_noatomic(struct intel_crtc *crtc,
  
-+	ret = intel_dpll_crtc_compute_clock(state, crtc);
-+	if (ret)
-+		return ret;
+ 	bw_state->data_rate[pipe] = 0;
+ 	bw_state->num_active_planes[pipe] = 0;
++	bw_state->min_cdclk[pipe] = 0;
+ }
+ 
+ /*
+@@ -9310,6 +9311,8 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
+ 		to_intel_cdclk_state(dev_priv->cdclk.obj.state);
+ 	struct intel_dbuf_state *dbuf_state =
+ 		to_intel_dbuf_state(dev_priv->dbuf.obj.state);
++	struct intel_bw_state *bw_state =
++		to_intel_bw_state(dev_priv->bw_obj.state);
+ 	enum pipe pipe;
+ 	struct intel_crtc *crtc;
+ 	struct intel_encoder *encoder;
+@@ -9425,8 +9428,6 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
+ 	drm_connector_list_iter_end(&conn_iter);
+ 
+ 	for_each_intel_crtc(dev, crtc) {
+-		struct intel_bw_state *bw_state =
+-			to_intel_bw_state(dev_priv->bw_obj.state);
+ 		struct intel_crtc_state *crtc_state =
+ 			to_intel_crtc_state(crtc->base.state);
+ 		struct intel_plane *plane;
+@@ -9490,6 +9491,8 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
+ 
+ 		intel_bw_crtc_update(bw_state, crtc_state);
+ 	}
 +
- 	ret = intel_crtc_compute_pipe_src(crtc_state);
- 	if (ret)
- 		return ret;
-@@ -7030,10 +7034,6 @@ static int intel_atomic_check(struct drm_device *dev,
- 		if (intel_crtc_needs_modeset(new_crtc_state)) {
- 			any_ms = true;
++	cdclk_state->bw_min_cdclk = intel_bw_min_cdclk(dev_priv, bw_state);
+ }
  
--			ret = intel_dpll_crtc_compute_clock(state, crtc);
--			if (ret)
--				goto fail;
--
- 			intel_release_shared_dplls(state, crtc);
- 			continue;
- 		}
+ static void
 -- 
 2.35.1
 
