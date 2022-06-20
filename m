@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 660C6C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 17:52:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B16AAC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jun 2022 17:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD6CF10ED8C;
-	Mon, 20 Jun 2022 17:52:26 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A20AD10ED8C
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 17:52:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 107D210ED9C;
+	Mon, 20 Jun 2022 17:52:30 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA94810EDFB
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 Jun 2022 17:52:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655747545; x=1687283545;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Ezba5+WiEIjsSdYZ/udHMYuFWy5WqqxJ53viLq/kWjQ=;
- b=OJelcTU5ojv5NolHkrZVHdEl46sbyuH4ehMuz0uEaqOW2RlJenHhIfhY
- vLp6e+HFpFck2V29OPXVkgorAIXnK+YSJ4GaJ2Z9imlq+IoZDSuUfbjYD
- C3lopXCjm/xRtJqxf91fgqMh+K78vAwlYZwG2xkdOJGcJm8ssJETXynNE
- EdL6Lpcdq/K1yrUJsiPsUy1qmGcew1dyzr2/fMA+j3xot0D78rTsIsm/6
- NbRs2Yvk8bGInZQLwW7oHPePtdOiPLZCoK/GIYfrTttTf0OzLNXoxM1Qq
- X42WIUB6mg3W0UQlbim6GPlfPvHd7UjArA3T1DHoz4HwxEiJKOSTSlJxr Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10384"; a="305385482"
-X-IronPort-AV: E=Sophos;i="5.92,207,1650956400"; d="scan'208";a="305385482"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2022 10:52:13 -0700
+ t=1655747549; x=1687283549;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=rO3O70PlLOxIyExfu46ovL8gnZCOBpoaZKZm6DccUP8=;
+ b=J8iz7i2R2eWB6KQGg/csYHRKsNmZhfmIWzKB8u/rHPWTGQ2wRZeM2Vnu
+ giaoC5CZ1K7y2DruFs19R35tjG+MBLIpCoInKbpz9CLbBFTW3qppBTqyF
+ UVSJFq7snFs/+IWXsFMDiL6iiYef+5gaIpDEOrXN4P6+WlxkMZIN6kN6c
+ 5EjQEV8ZnvW09x+nKBjzHEaPM4b7TI3jU9bFIXrWykd96ay4A+bP5R8QQ
+ X+ZqtwbBHzX1kdyYrfbNV8iFDaXZCYZlfxQulpfKGuRIUowYYzzOM/fdd
+ lgpoviTqkWaB8gBjneumSQEccbDHY0W8cjMKSV/JxJqqgm1+hQ8UOYmy9 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10384"; a="268669304"
+X-IronPort-AV: E=Sophos;i="5.92,207,1650956400"; d="scan'208";a="268669304"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jun 2022 10:52:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,207,1650956400"; d="scan'208";a="689558590"
+X-IronPort-AV: E=Sophos;i="5.92,207,1650956400"; d="scan'208";a="620189720"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.163])
- by fmsmga002.fm.intel.com with SMTP; 20 Jun 2022 10:52:11 -0700
+ by orsmga001.jf.intel.com with SMTP; 20 Jun 2022 10:52:26 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 20 Jun 2022 20:52:10 +0300
+ Mon, 20 Jun 2022 20:52:25 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 20 Jun 2022 20:51:53 +0300
-Message-Id: <20220620175210.28788-1-ville.syrjala@linux.intel.com>
+Date: Mon, 20 Jun 2022 20:51:58 +0300
+Message-Id: <20220620175210.28788-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220620175210.28788-1-ville.syrjala@linux.intel.com>
+References: <20220620175210.28788-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 00/17] drm/i915: Make fastset not suck and
- allow seamless M/N changes
+Subject: [Intel-gfx] [PATCH v3 05/17] drm/i915: Do .crtc_compute_clock()
+ earlier
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,84 +59,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-And with fastset made to not suck we can consider allowing
-seameless M/N changes on eDP panels that support such things.
-I've given that a quick test here on a TGL and it seemed to work
-OK.
+Currently we calculate a lot of things (pixel rate, watermarks,
+cdclk) trusting that the DPLL can generate the exact frequency
+we ask it. In practice that is not true and there can be
+certain amount of rounding involved.
 
-The rough parts:
-- The DPLL stuff is kinda messy still, a lot of which is due to
-  the dpll_mgr vs. not depending on platform/output type. Maybe
-  it's finally time to start cleaning that mess up...
-- the port_dpll[] stuff probably needs to be reworked at some
-  point to make a bit more sense
-- fastboot I *think* should mostly keep working now that we
-  try to match the GOP/VBIOS M/N behaviour. FDI M/N vs. DPLL is
-  a bit of a challenge for the platforms where the encoder live
-  in the PCH, but I'm going to declare that as not so important
-- DSI clock handling is snafu
-- DP link computation policy might need a bit more work since we
-  may now consume more bandwidth than before on machines where
-  seamless M/N changes are possible
+To allow us to eventually get accurate numbers for all our
+DPLL clock derived state we need to move the DPLL calculation
+to hapen much earlier. To that end we hoist it up to the just
+after the fastset checks. For now we just do the easy code
+motion, and the actual back feeding of the final DPLL clock
+into the state will come later.
 
-I also did a quick smoke test through the series on tgl and
-snb in the hopes of keeping this at least mostly bisectable.
+A slight change here is that now .crtc_compute_clock()
+can get called while the shared_dpll is still assigned.
+But since .crtc_compute_clock() no longer assignes new
+shared_dplls this is perfectly fine.
 
-Changes in v2:
-- bunch of stuff already merged
-- a bit more refactoring to make things nicer
-- Tweak the M/N rounding for fastboot
-- don't mess with the DP link rate on platforms (pre-BDW)
-  where we haven't implemented seamsless M/N chages
-Changes in v3:
-- Attempt to get the VLV/BXT DSI stuff to pass CI :/
+TODO: I'd actually like to do this before the fastset check
+so that if the DPLL state should change we actually do the
+modeset. Which I think is what the video aficionados want,
+but it might not be what the fans of fastboot want. Not yet
+sure how to reconcile those conflicting requirements...
 
-Ville Syrjälä (17):
-  drm/i915: Relocate intel_crtc_dotclock()
-  drm/i915: Shuffle some PLL code around
-  drm/i915: Extract HAS_DOUBLE_BUFFERED_M_N()
-  drm/i915/dsi: Extract {vlv,bxt}_get_pclk()
-  drm/i915: Do .crtc_compute_clock() earlier
-  drm/i915: Reassign DPLLs only for crtcs going throug .compute_config()
-  drm/i915: Feed the DPLL output freq back into crtc_state
-  drm/i915: Compute clocks earlier
-  drm/i915: Make M/N checks non-fuzzy
-  drm/i915: Make all clock checks non-fuzzy
-  drm/i915: Set active dpll early for icl+
-  drm/i915: Nuke fastet state copy hacks
-  drm/i915: Skip intel_modeset_pipe_config_late() if the pipe is not
-    enabled
-  drm/i915: Add intel_panel_highest_mode()
-  drm/i915: Allow M/N change during fastset on bdw+
-  drm/i915: Use a fixed N value always
-  drm/i915: Round TMDS clock to nearest
+v2: s/return/goto/ in error handling
 
- drivers/gpu/drm/i915/display/intel_crt.c      |   3 +
- drivers/gpu/drm/i915/display/intel_ddi.c      |  22 --
- drivers/gpu/drm/i915/display/intel_display.c  | 199 +++++++----------
- drivers/gpu/drm/i915/display/intel_display.h  |   2 +-
- .../drm/i915/display/intel_display_types.h    |   1 +
- drivers/gpu/drm/i915/display/intel_dp.c       |  50 +++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |   3 +-
- drivers/gpu/drm/i915/display/intel_dpll.c     |  69 +++++-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 204 ++++++++++--------
- drivers/gpu/drm/i915/display/intel_fdi.c      |   2 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c     |   2 +-
- .../drm/i915/display/intel_modeset_verify.c   |   6 +-
- drivers/gpu/drm/i915/display/intel_panel.c    |  15 ++
- drivers/gpu/drm/i915/display/intel_panel.h    |   3 +
- .../gpu/drm/i915/display/intel_pch_refclk.c   |  10 +
- .../gpu/drm/i915/display/intel_pch_refclk.h   |   1 +
- drivers/gpu/drm/i915/display/vlv_dsi.c        |  11 +-
- drivers/gpu/drm/i915/display/vlv_dsi_pll.c    | 141 +++++++-----
- drivers/gpu/drm/i915/i915_drv.h               |   2 +
- 19 files changed, 420 insertions(+), 326 deletions(-)
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 9 +++++----
+ drivers/gpu/drm/i915/display/intel_dpll.c    | 3 ---
+ 2 files changed, 5 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 0384af821ee5..25dd47835cfe 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -4809,10 +4809,6 @@ static int intel_crtc_atomic_check(struct intel_atomic_state *state,
+ 		crtc_state->update_wm_post = true;
+ 
+ 	if (mode_changed) {
+-		ret = intel_dpll_crtc_compute_clock(state, crtc);
+-		if (ret)
+-			return ret;
+-
+ 		ret = intel_dpll_crtc_get_shared_dpll(state, crtc);
+ 		if (ret)
+ 			return ret;
+@@ -6901,6 +6897,11 @@ static int intel_atomic_check(struct drm_device *dev,
+ 					    new_crtc_state, i) {
+ 		if (intel_crtc_needs_modeset(new_crtc_state)) {
+ 			any_ms = true;
++
++			ret = intel_dpll_crtc_compute_clock(state, crtc);
++			if (ret)
++				goto fail;
++
+ 			continue;
+ 		}
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
+index 5262f16b45ac..8d095f28fa20 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll.c
+@@ -1411,9 +1411,6 @@ int intel_dpll_crtc_compute_clock(struct intel_atomic_state *state,
+ 
+ 	drm_WARN_ON(&i915->drm, !intel_crtc_needs_modeset(crtc_state));
+ 
+-	if (drm_WARN_ON(&i915->drm, crtc_state->shared_dpll))
+-		return 0;
+-
+ 	memset(&crtc_state->dpll_hw_state, 0,
+ 	       sizeof(crtc_state->dpll_hw_state));
+ 
 -- 
 2.35.1
 
