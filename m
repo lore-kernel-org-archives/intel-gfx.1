@@ -4,42 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF401C43334
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 20:01:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD965C43334
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 20:01:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C24D10FE29;
-	Tue, 21 Jun 2022 20:01:15 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7201710F5C6;
- Tue, 21 Jun 2022 20:01:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0AF010FE5D;
+	Tue, 21 Jun 2022 20:01:17 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B02C10FC27;
+ Tue, 21 Jun 2022 20:01:15 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id CE89C6601795;
- Tue, 21 Jun 2022 21:01:11 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id E411866017FD;
+ Tue, 21 Jun 2022 21:01:13 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1655841672;
- bh=rWrjIyH1UrU5AZl0oNIAkNGBizb/FRgfR8mFNXvXnpg=;
- h=From:To:Cc:Subject:Date:From;
- b=HwA+7ra9y1nyEE2SGI7WFDO9jermLEg+2eN7brQeUHUG2IfIoJ8QB9PPzNregm43W
- e/0JW7PvMfr+7jYNXI6b6RVSAWU49Q9R/HnzWXWRq0QwhZTL7IvHg5I0xa1EceKmiR
- OCGyZ7R1//ied3sCvpX3aPp/vexWyrRV1KB2Pz4xF33wh6/Al8rvh/07uWjAKjTU36
- 2HAEsG2zKZH/4gaqa8L8rbvxXe50Rk1n5+BFjxZmJhUmAznoBZt/OZGwPhg9rfHnHe
- MG0qiYz7aULJlhTn1aw0nT5e2j9VnXVJ6hD14euMP/LQqzNtXh/b9YJM+zzWbuTQ6I
- NiQxJ4nhpbXwA==
+ s=mail; t=1655841674;
+ bh=8vOVoJXWNBNoAe7uHxF6kK6AtRixKpYtIjs6ocUktn4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=cKfR42W8QhvBEZgFjvCi9uu9Tu3me7dH9jzTgZ0qNvBBDZitpkEaRxby0bpdBeX5u
+ S3MM+bnwnJYpA6GgJVcL/fbwGDKeazRBIfuzrm0clmt2kY/J+zTNTW9y/NulZ5FIl5
+ BNa0JAM9wZqI8nAsGGR9QdIw55GTban3BM6CQympWrPIuEiJ5ZAmimICd4yz29t9xb
+ ao5pUKV651RAZUuVRS/D+TtJItJ2s9DMartS2IdzhqgW9uC9LcCSzwWUBucNTSgNmL
+ eEdyPBvbfrRhG4K4mAdo5fCSDK7EYOZtPRu7Ok5Xr4fqtjK6DIPu5rMN/5q1abc+7v
+ 9q5fwYPwNSnQA==
 From: Robert Beckett <bob.beckett@collabora.com>
-To: dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Date: Tue, 21 Jun 2022 20:00:48 +0000
-Message-Id: <20220621200058.3536182-1-bob.beckett@collabora.com>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Tue, 21 Jun 2022 20:00:51 +0000
+Message-Id: <20220621200058.3536182-4-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220621200058.3536182-1-bob.beckett@collabora.com>
+References: <20220621200058.3536182-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 00/10] drm/i915: ttm for stolen
+Subject: [Intel-gfx] [PATCH v8 03/10] drm/i915/ttm: only trust snooping for
+ dgfx when deciding default cache_level
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,81 +58,37 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- kernel@collabora.com, Matthew Auld <matthew.auld@intel.com>
+ kernel@collabora.com, Matthew Auld <matthew.auld@intel.com>,
+ linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series refactors i915's stolen memory region to use ttm.
+By default i915_ttm_cache_level() decides I915_CACHE_LLC if HAS_SNOOP.
+This is divergent from existing backends code which only considers
+HAS_LLC.
+Testing shows that trusting snooping on gen5- is unreliable and bsw via
+ggtt mappings, so limit DGFX for now and maintain previous behaviour.
 
-v2:	handle disabled stolen similar to legacy version.
-	relying on ttm to fail allocs works fine, but is dmesg noisy and causes testing
-	dmesg warning regressions.
+Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-v3:	rebase to latest drm-tip.
-	fix v2 code refactor which could leave a buffer pinned.
-	locally passes fftl again now.
-
-v4:	- Allow memory regions creators to do allocation. Allows stolen region to track
-	  it's own reservations.
-	- Pre-reserve first page of stolen mem (add back WaSkipStolenMemoryFirstPage:bdw+)
-	- Improve commit descritpion for "drm/i915: sanitize mem_flags for stolen buffers"
-	- replace i915_gem_object_pin_pages_unlocked() call with manual locking and pinning.
-	  this avoids ww ctx class reuse during context creation -> ring vma obj alloc.
-
-v5:	- detect both types of stolen as stolen buffers in
-	  "drm/i915: sanitize mem_flags for stolen buffers"
-	- in stolen_object_init limit page size to mem region minimum.
-	  The range allocator expects the page_size to define the
-	  alignment
-
-v6:	- Share first 4 patches from ttm for internal series as generic
-	  i915 ttm fixes
-	- Drop patch 4 from v5. We don't need separate object ops just
-	  to satisfy test interfaces. The tests have now been fixed via
-	  checking whether the memory region is private to decide
-	  whether to mmap
-	- Add new buffer pin alloc flag to allow creation of buffers in
-	  their final ttm placement instead of deferring until
-	  get_pages. This fixes legacy fallback paths for buffer
-	  allocations during stolen memory pressure.
-
-v7: 	- fix mock_region_get_pages() to correctly handle I915_BO_INVALID_OFFSET
-
-v8:	- Reserve I915_GEM_STOLEN_BIAS area from stolen
-
-Robert Beckett (10):
-  drm/i915/ttm: dont trample cache_level overrides during ttm move
-  drm/i915: limit ttm to dma32 for i965G[M]
-  drm/i915/ttm: only trust snooping for dgfx when deciding default
-    cache_level
-  drm/i915/gem: selftest should not attempt mmap of private regions
-  drm/i915: instantiate ttm ranger manager for stolen memory
-  drm/i915: sanitize mem_flags for stolen buffers
-  drm/i915: ttm move/clear logic fix
-  drm/i915: allow memory region creators to alloc and free the region
-  drm/i915/ttm: add buffer pin on alloc flag
-  drm/i915: stolen memory use ttm backend
-
- drivers/gpu/drm/i915/display/intel_fbc.c      |  78 ++--
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |   1 +
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |  16 +-
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c    | 441 +++++++-----------
- drivers/gpu/drm/i915/gem/i915_gem_stolen.h    |  21 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  29 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm.h       |   7 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  47 +-
- .../drm/i915/gem/selftests/i915_gem_mman.c    |   3 +
- drivers/gpu/drm/i915/gt/intel_rc6.c           |   4 +-
- drivers/gpu/drm/i915/gt/selftest_reset.c      |  16 +-
- drivers/gpu/drm/i915/i915_debugfs.c           |   7 +-
- drivers/gpu/drm/i915/i915_drv.h               |   5 -
- drivers/gpu/drm/i915/intel_memory_region.c    |  16 +-
- drivers/gpu/drm/i915/intel_memory_region.h    |   2 +
- drivers/gpu/drm/i915/intel_region_ttm.c       |  80 +++-
- drivers/gpu/drm/i915/intel_region_ttm.h       |   8 +-
- drivers/gpu/drm/i915/selftests/mock_region.c  |  12 +-
- 18 files changed, 424 insertions(+), 369 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index 4c1de0b4a10f..40249fa28a7a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -46,7 +46,9 @@ static enum i915_cache_level
+ i915_ttm_cache_level(struct drm_i915_private *i915, struct ttm_resource *res,
+ 		     struct ttm_tt *ttm)
+ {
+-	return ((HAS_LLC(i915) || HAS_SNOOP(i915)) &&
++	bool can_snoop = HAS_SNOOP(i915) && IS_DGFX(i915);
++
++	return ((HAS_LLC(i915) || can_snoop) &&
+ 		!i915_ttm_gtt_binds_lmem(res) &&
+ 		ttm->caching == ttm_cached) ? I915_CACHE_LLC :
+ 		I915_CACHE_NONE;
 -- 
 2.25.1
 
