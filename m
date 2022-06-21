@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD965C43334
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 20:01:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B274C433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jun 2022 20:01:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0AF010FE5D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0E7F10FEA2;
 	Tue, 21 Jun 2022 20:01:17 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B02C10FC27;
- Tue, 21 Jun 2022 20:01:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3379710F5C6;
+ Tue, 21 Jun 2022 20:01:14 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id E411866017FD;
- Tue, 21 Jun 2022 21:01:13 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 9814266017A7;
+ Tue, 21 Jun 2022 21:01:12 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1655841674;
- bh=8vOVoJXWNBNoAe7uHxF6kK6AtRixKpYtIjs6ocUktn4=;
+ s=mail; t=1655841672;
+ bh=KHg3eOnYqUoUcg57EXhLlpoQHXoJLlQC7w8GyVbN4OU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cKfR42W8QhvBEZgFjvCi9uu9Tu3me7dH9jzTgZ0qNvBBDZitpkEaRxby0bpdBeX5u
- S3MM+bnwnJYpA6GgJVcL/fbwGDKeazRBIfuzrm0clmt2kY/J+zTNTW9y/NulZ5FIl5
- BNa0JAM9wZqI8nAsGGR9QdIw55GTban3BM6CQympWrPIuEiJ5ZAmimICd4yz29t9xb
- ao5pUKV651RAZUuVRS/D+TtJItJ2s9DMartS2IdzhqgW9uC9LcCSzwWUBucNTSgNmL
- eEdyPBvbfrRhG4K4mAdo5fCSDK7EYOZtPRu7Ok5Xr4fqtjK6DIPu5rMN/5q1abc+7v
- 9q5fwYPwNSnQA==
+ b=lL6WldoeobFzLwX9XwfZyPDkVCi01W5Adrqci6zXH7kLKCW74xatTgF24NGx/oTx8
+ Lmd0+LLnMhvde2FT/h7Zo2+bfD9UnAgakVztMUsTyACJie5irB/wEzBrsmHbqw/sy+
+ V2JCy6/F7U0eflmJARn6fusJ2O6tjbDtI4dxTHp1NLyeXu1V3KXQMgVcAEBWc8tSJR
+ KjcWMvHjmHq0ONiRAa3+N3Jm1hikxslYQXFceNqlJJMc3zN2X7LMNqhtuM0/5rtSTe
+ uEzen/BtZhW6CcMngtP1U93GvcE66wDutFOEkGQgBsxewt4an9id6damYSK1A5n3K2
+ 6cey8WLSGuukw==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -36,15 +36,15 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Tue, 21 Jun 2022 20:00:51 +0000
-Message-Id: <20220621200058.3536182-4-bob.beckett@collabora.com>
+Date: Tue, 21 Jun 2022 20:00:49 +0000
+Message-Id: <20220621200058.3536182-2-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220621200058.3536182-1-bob.beckett@collabora.com>
 References: <20220621200058.3536182-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 03/10] drm/i915/ttm: only trust snooping for
- dgfx when deciding default cache_level
+Subject: [Intel-gfx] [PATCH v8 01/10] drm/i915/ttm: dont trample cache_level
+ overrides during ttm move
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,32 +63,83 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-By default i915_ttm_cache_level() decides I915_CACHE_LLC if HAS_SNOOP.
-This is divergent from existing backends code which only considers
-HAS_LLC.
-Testing shows that trusting snooping on gen5- is unreliable and bsw via
-ggtt mappings, so limit DGFX for now and maintain previous behaviour.
+Various places within the driver override the default chosen cache_level.
+Before ttm, these overrides were permanent until explicitly changed again
+or for the lifetime of the buffer.
+
+TTM movement code came along and decided that it could make that
+decision at that time, which is usually well after object creation, so
+overrode the cache_level decision and reverted it back to its default
+decision.
+
+Add logic to indicate whether the caching mode has been set by anything
+other than the move logic. If so, assume that the code that overrode the
+defaults knows best and keep it.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object.c       | 1 +
+ drivers/gpu/drm/i915/gem/i915_gem_object_types.h | 1 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c          | 1 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c     | 9 ++++++---
+ 4 files changed, 9 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 06b1b188ce5a..519887769c08 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -125,6 +125,7 @@ void i915_gem_object_set_cache_coherency(struct drm_i915_gem_object *obj,
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 
+ 	obj->cache_level = cache_level;
++	obj->ttm.cache_level_override = true;
+ 
+ 	if (cache_level != I915_CACHE_NONE)
+ 		obj->cache_coherent = (I915_BO_CACHE_COHERENT_FOR_READ |
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 2c88bdb8ff7c..6632ed52e919 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -605,6 +605,7 @@ struct drm_i915_gem_object {
+ 		struct i915_gem_object_page_iter get_io_page;
+ 		struct drm_i915_gem_object *backup;
+ 		bool created:1;
++		bool cache_level_override:1;
+ 	} ttm;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index 4c25d9b2f138..27d59639177f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -1241,6 +1241,7 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 	i915_gem_object_init_memory_region(obj, mem);
+ 	i915_ttm_adjust_domains_after_move(obj);
+ 	i915_ttm_adjust_gem_after_move(obj);
++	obj->ttm.cache_level_override = false;
+ 	i915_gem_object_unlock(obj);
+ 
+ 	return 0;
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index 4c1de0b4a10f..40249fa28a7a 100644
+index a10716f4e717..4c1de0b4a10f 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -46,7 +46,9 @@ static enum i915_cache_level
- i915_ttm_cache_level(struct drm_i915_private *i915, struct ttm_resource *res,
- 		     struct ttm_tt *ttm)
- {
--	return ((HAS_LLC(i915) || HAS_SNOOP(i915)) &&
-+	bool can_snoop = HAS_SNOOP(i915) && IS_DGFX(i915);
-+
-+	return ((HAS_LLC(i915) || can_snoop) &&
- 		!i915_ttm_gtt_binds_lmem(res) &&
- 		ttm->caching == ttm_cached) ? I915_CACHE_LLC :
- 		I915_CACHE_NONE;
+@@ -123,9 +123,12 @@ void i915_ttm_adjust_gem_after_move(struct drm_i915_gem_object *obj)
+ 	obj->mem_flags |= i915_ttm_cpu_maps_iomem(bo->resource) ? I915_BO_FLAG_IOMEM :
+ 		I915_BO_FLAG_STRUCT_PAGE;
+ 
+-	cache_level = i915_ttm_cache_level(to_i915(bo->base.dev), bo->resource,
+-					   bo->ttm);
+-	i915_gem_object_set_cache_coherency(obj, cache_level);
++	if (!obj->ttm.cache_level_override) {
++		cache_level = i915_ttm_cache_level(to_i915(bo->base.dev),
++						   bo->resource, bo->ttm);
++		i915_gem_object_set_cache_coherency(obj, cache_level);
++		obj->ttm.cache_level_override = false;
++	}
+ }
+ 
+ /**
 -- 
 2.25.1
 
