@@ -4,57 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2CFBCCA47E
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 09:47:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9C3FCCA47D
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 10:02:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2874E10FF6B;
-	Wed, 22 Jun 2022 09:47:19 +0000 (UTC)
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D89B710FF6B
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Jun 2022 09:47:17 +0000 (UTC)
-Received: by mail-qk1-x735.google.com with SMTP id p63so12090494qkd.10
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Jun 2022 02:47:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Xu27xjFGd7RqreWXeGPYbCHy+3gA0nXLgTkM1ruEeAI=;
- b=dhguqZtJ9kCOzytA/1u7kKrgwHMSBX54bVuhshBd+dNWoaVnf8Avgp6Cgsts4iLwMd
- u/rUhRhzqk0uNylCM0nYDdBJ1CqWZa3CX+U3sZy+rpykZFIoNUPpfEog4tX8/h12yn4D
- rboRmT2JLKXPxZ1RAWDsWRCaLjfCrMwvNMTJSLnuBo90xA2XVCWtd8Q9AvjnBMlVv1eK
- 27DDIzTC5/PiRyiMSFDsRWJYMExxykseEUqAAHr8YwuT0W+QQCRyJBzeXqw2CCHzAA2y
- WF8AfRI+KubqtyuJho+xZNJdU2wjct4x3RsIczKRysYOBTjry8yqxebYLdXziXBQcqe4
- m1Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Xu27xjFGd7RqreWXeGPYbCHy+3gA0nXLgTkM1ruEeAI=;
- b=FclyHqCjNoPHj3wIBl6VmxhULAmlPcbBJYf60K4nztOQtvePU1Dk4une92LSuCVRFC
- XDVoaoSv9M56o4w2u5otcll3BKSBU9rhVO/onb/7nKgCfHMcRPTdeFHpwVxcD9VIPPPd
- vD+C5NSuWjihRxM3iPo2WlxJ6+APtvMyZ8bBDWNKja2Cj6dRVqvCuZ5wv0SAOsMgRVip
- boUY9ED9F0teXbVQWYYohI40/BEUA1wBe0ffXwFAAOleLzvR/IyhXfpfwqWsbo/+phqY
- /FNQ1iMx3GH+Aa0T2uxnYwazrvUP+9rfw9+bucnbwbNESTyhquXNQ4bH5WDfh85eiIh6
- ZPXw==
-X-Gm-Message-State: AJIora+crT7rfh2isYEpeBl7oZ5LyGMp+HA6Zq4g7I+xRs38YTCgx9Jx
- OYA6RXQzZOwgLjXqHEPlphFSBIT1zaEzrH8PoGKskFFracDll/mB
-X-Google-Smtp-Source: AGRyM1tW+XDxuahVnENqUUgMrdZiCSIpSWfx06KBaFPt9X2HdzqAm4aOHD6R/rXzpMRyG06t9qzRnT7wm1YxIsQm1CM=
-X-Received: by 2002:a05:620a:f05:b0:6a9:7122:edb1 with SMTP id
- v5-20020a05620a0f0500b006a97122edb1mr1569978qkl.82.1655891237021; Wed, 22 Jun
- 2022 02:47:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AC6310E41D;
+	Wed, 22 Jun 2022 10:02:04 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2056.outbound.protection.outlook.com [40.107.220.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 977F81133F0;
+ Wed, 22 Jun 2022 01:18:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DzSzju4+YTAu7vWWXUdenqShMCW+XQjWeoKeLhQb6UwzMZyDLcTclRFiro8tsv+s8xDF1VZAgSzSNEhwY+JoPD3PjBPQCzDhz4XdUU7gkkpKkDm3G0LpQP+0PYoiGPzjvpWTfZ8ulMA3J2URMKzPjrLhQYlNLYdX/BOrM9zTJr9O5DHaDEenAgG3/rAU5Gmx9z7HHzpil4fiKpDutHctnHnV2gZv3khl1ZARY4McvI5nIBGw6kXztwVvCYlMlg5H2PaOuYQyJSkykkmt67rBuqEvZXAhvM53xeHw6CbSZgs1bM1JKmBrf5mMqpRUt9SxlqLRy64hFaTe4yqsWITzfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X6R7zljjET4b4JFP9tlx1Hg3i1+RDEOLnYjgG7YWpfo=;
+ b=bYFB5w50uknWHxL8AGeBSCSfTIuyfvyULTAimBOtjtSe74dqoWTmiHaYTyt8KPqKZWe2474kYOQrUsy8Q/lpONjdjrZ3/wo5juD09lNVIuyuNtXPjVIiGCtKsTGmKPp333ojGHuzy1IpBR6HrVM+wkT69Nm54Lbk6zVD7HC4IyhaT6rmvht3ch7bx50a8+GGhFc9Z/1c/ZaE3ZSE7ObUgIt8m0WuCvAmFgeQEDghNPTtbepR2DEulwr/5m9ykUSwkoacBwXYqgZFaIQ4Xfe54fH/YREfncpJ5FO9GxXpZu2VleY90zjpPcHMLSC4/qaw0bQwbXwlX7IsArtYh3Bawg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 12.22.5.238) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X6R7zljjET4b4JFP9tlx1Hg3i1+RDEOLnYjgG7YWpfo=;
+ b=Dc2749nue6ilL6Jy23nKSMKWjxnukq1m3/69siB7YJ079BeAE/FULesjU8Fs2v4KjlURrZHoyBxv3k8MdcMHNkdGC4fXzbWhGDENoS2wM+Erpkj8bs9R8/UnQ+cmnL25HTQFNWv/2nQ6Wc/fDXfFdxH+d6Qh2F4pD6BB+MRE57TB3b8I8EZ2CHTneQGoF4iqnfBlx0AjiiZAKvRZzvV8NejCHDhZkdm/mz9IdA0FQ+HRjMs9NVstPQ8Jgp17iNuLqw93tLNfvPgtrb0SL66s6l3T3mWJHAg9KxBDPub4ITPq2uedInV3ECdTHFZsfeC6mCEIbnp3DthMqBDMWS3ygA==
+Received: from BN6PR18CA0010.namprd18.prod.outlook.com (2603:10b6:404:121::20)
+ by MN2PR12MB3152.namprd12.prod.outlook.com (2603:10b6:208:ca::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.19; Wed, 22 Jun
+ 2022 01:18:34 +0000
+Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:121:cafe::3b) by BN6PR18CA0010.outlook.office365.com
+ (2603:10b6:404:121::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15 via Frontend
+ Transport; Wed, 22 Jun 2022 01:18:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.238)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 12.22.5.238 as permitted sender) receiver=protection.outlook.com;
+ client-ip=12.22.5.238; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (12.22.5.238) by
+ BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.5373.15 via Frontend Transport; Wed, 22 Jun 2022 01:18:34 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ DRHQMAIL105.nvidia.com (10.27.9.14) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.32; Wed, 22 Jun 2022 01:18:33 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 21 Jun 2022 18:18:32 -0700
+Received: from Asurada-Nvidia (10.127.8.12) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22 via Frontend
+ Transport; Tue, 21 Jun 2022 18:18:29 -0700
+Date: Tue, 21 Jun 2022 18:18:27 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Christoph Hellwig <hch@infradead.org>
+Message-ID: <YrJt43HQnoKSIIM3@Asurada-Nvidia>
+References: <20220616235212.15185-1-nicolinc@nvidia.com>
+ <20220616235212.15185-4-nicolinc@nvidia.com>
+ <Yqw+goqTJwb0lrxy@infradead.org>
 MIME-Version: 1.0
-References: <20220616120509.1190329-1-priyanka.dandamudi@intel.com>
- <20220616120509.1190329-2-priyanka.dandamudi@intel.com>
- <87pmj8vesm.fsf@intel.com>
-In-Reply-To: <87pmj8vesm.fsf@intel.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Wed, 22 Jun 2022 10:46:50 +0100
-Message-ID: <CAM0jSHN=MsqYocfhDcM3WEACcce8MiU4fXAxpymxOf0Sr0J3Lw@mail.gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH i-g-t 1/2] drm/i915: Add support for LMEM
- PCIe resizable bar
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <Yqw+goqTJwb0lrxy@infradead.org>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f8c94503-4e5d-48de-54cf-08da53ed208a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3152:EE_
+X-Microsoft-Antispam-PRVS: <MN2PR12MB315294CBC9C64879680D7E45ABB29@MN2PR12MB3152.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 16HKa3UYFqh+VeeReqfZbiQ9MSNhYWP8JJL6kgSZiqiWg2MhE5i8iDdGP7Z4ZaEXObooMbvk35kT5SV73zTUun7bM3GzKHNWT6iNOg9OEVYWczJrY3K90RxkaZLoOZ6mn0xQZhSPFQWUq3lyS1naH83IgxAE9/2Fs/cSUEHWIIIy+Xpgb/bK+kKBT14dD9ZUpNuY9CMr8EsuAwmMOvvBXUYOoJsU88Jci+bJLUbVX1hk0VqAPBCEELz2uLfqQkoHrGIde305P2zbu1+qbE2UdCxKhvt+RLqE9G5TUwaqmNvuXAMwwd0zaaaKISHf6OY8JhfIsNOgrnZlB4BSu+/5Z0OSP7m0g14YpnUbfF/VK3MM5/pAHtaILXfDlf0P7zK7jEnh1GFpInkyaOI26SCjA688/1IZXGlPejyvFftptbyWJT2WDZDr1Djx3GEkSza1NTvIZV9vd46k348ymOBnbCX/MjyDPkjo2YOH1pNOXFbrJzpfsJ0XmKa3OqATACk1xPS2V/vCMBnTS4E7zlOgNYywH+yZdhP9wrUat+XGMsrRLLla3SVzjaYYhvPfViWUk7EF+vt0qY3n1UmgNThweq/9MVF0r2tPenbDBagJ95asZsCR64SezuHZ6lqkE7ylS03lW43Ujd6twsqsXy/baysELZafalOI6iG8s1F7LB7lMyyRnh3WYApns6LKGuty/vVEsAwh/9eYILlnQ9Tts1kCH6oXkanmxqyCA+Z1h3U=
+X-Forefront-Antispam-Report: CIP:12.22.5.238; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(346002)(376002)(39860400002)(136003)(36840700001)(46966006)(40470700004)(5660300002)(186003)(316002)(478600001)(336012)(36860700001)(7416002)(81166007)(7406005)(55016003)(41300700001)(33716001)(40460700003)(82310400005)(47076005)(426003)(40480700001)(8936002)(356005)(6916009)(86362001)(4326008)(70586007)(82740400003)(70206006)(9686003)(8676002)(26005)(54906003)(2906002)(4744005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 01:18:34.2919 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8c94503-4e5d-48de-54cf-08da53ed208a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.238];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3152
+X-Mailman-Approved-At: Wed, 22 Jun 2022 10:02:03 +0000
+Subject: Re: [Intel-gfx] [RFT][PATCH v1 3/6] vfio: Pass in starting IOVA to
+ vfio_pin/unpin_pages API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,181 +109,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: priyanka.dandamudi@intel.com,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Matthew Auld <matthew.auld@intel.com>
+Cc: mjrosato@linux.ibm.com, linux-doc@vger.kernel.org, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kwankhede@nvidia.com, vneethv@linux.ibm.com, agordeev@linux.ibm.com,
+ linux-s390@vger.kernel.org, kvm@vger.kernel.org, corbet@lwn.net,
+ pasic@linux.ibm.com, jgg@nvidia.com, borntraeger@linux.ibm.com,
+ intel-gfx@lists.freedesktop.org, jjherne@linux.ibm.com, farman@linux.ibm.com,
+ jchrist@linux.ibm.com, gor@linux.ibm.com, hca@linux.ibm.com,
+ freude@linux.ibm.com, rodrigo.vivi@intel.com,
+ intel-gvt-dev@lists.freedesktop.org, akrowiak@linux.ibm.com, cohuck@redhat.com,
+ oberpar@linux.ibm.com, svens@linux.ibm.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 16 Jun 2022 at 15:55, Jani Nikula <jani.nikula@linux.intel.com> wro=
-te:
->
-> On Thu, 16 Jun 2022, priyanka.dandamudi@intel.com wrote:
-> > From: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
-> >
-> > This patch adds support for the local memory PICe resizable bar, so tha=
-t
-> > local memory can be resized to the maximum size supported by the device=
-,
-> > and mapped correctly to the PCIe memory bar. It is usual that GPU
-> > devices expose only 256MB BARs primarily to be compatible with 32-bit
-> > systems. So, those devices cannot claim larger memory BAR windows size =
-due
-> > to the system BIOS limitation. With this change, it would be possible t=
-o
-> > reprogram the windows of the bridge directly above the requesting devic=
-e
-> > on the same BAR type.
-> >
-> > Signed-off-by: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
-> > Signed-off-by: Micha=C5=82 Winiarski <michal.winiarski@intel.com>
-> > Cc: Stuart Summers <stuart.summers@intel.com>
-> > Cc: Michael J Ruhl <michael.j.ruhl@intel.com>
-> > Cc: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-> > Signed-off-by: Priyanka Dandamudi <priyanka.dandamudi@intel.com>
-> > Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/i915_driver.c | 92 ++++++++++++++++++++++++++++++
-> >  1 file changed, 92 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/=
-i915_driver.c
-> > index d26dcca7e654..4bdb471cb2e2 100644
-> > --- a/drivers/gpu/drm/i915/i915_driver.c
-> > +++ b/drivers/gpu/drm/i915/i915_driver.c
-> > @@ -303,6 +303,95 @@ static void sanitize_gpu(struct drm_i915_private *=
-i915)
-> >               __intel_gt_reset(to_gt(i915), ALL_ENGINES);
-> >  }
-> >
-> > +static void __release_bars(struct pci_dev *pdev)
->
-> What's with the double underscores?
->
-> > +{
-> > +     int resno;
-> > +
-> > +     for (resno =3D PCI_STD_RESOURCES; resno < PCI_STD_RESOURCE_END; r=
-esno++) {
-> > +             if (pci_resource_len(pdev, resno))
-> > +                     pci_release_resource(pdev, resno);
-> > +     }
-> > +}
-> > +
-> > +static void
-> > +__resize_bar(struct drm_i915_private *i915, int resno, resource_size_t=
- size)
-> > +{
-> > +     struct pci_dev *pdev =3D to_pci_dev(i915->drm.dev);
-> > +     int bar_size =3D pci_rebar_bytes_to_size(size);
-> > +     int ret;
-> > +
-> > +     __release_bars(pdev);
-> > +
-> > +     ret =3D pci_resize_resource(pdev, resno, bar_size);
-> > +     if (ret) {
-> > +             drm_info(&i915->drm, "Failed to resize BAR%d to %dM (%pe)=
-\n",
-> > +                      resno, 1 << bar_size, ERR_PTR(ret));
-> > +             return;
-> > +     }
-> > +
-> > +     drm_info(&i915->drm, "BAR%d resized to %dM\n", resno, 1 << bar_si=
-ze);
-> > +}
-> > +
-> > +/* BAR size starts from 1MB - 2^20 */
-> > +#define BAR_SIZE_SHIFT 20
-> > +static resource_size_t
-> > +__lmem_rebar_size(struct drm_i915_private *i915, int resno)
-> > +{
-> > +     struct pci_dev *pdev =3D to_pci_dev(i915->drm.dev);
-> > +     u32 rebar =3D pci_rebar_get_possible_sizes(pdev, resno);
-> > +     resource_size_t size;
-> > +
-> > +     if (!rebar)
-> > +             return 0;
-> > +
-> > +     size =3D 1ULL << (__fls(rebar) + BAR_SIZE_SHIFT);
-> > +
-> > +     if (size <=3D pci_resource_len(pdev, resno))
-> > +             return 0;
-> > +
-> > +     return size;
-> > +}
-> > +
-> > +#define LMEM_BAR_NUM 2
-> > +static void i915_resize_lmem_bar(struct drm_i915_private *i915)
-> > +{
-> > +     struct pci_dev *pdev =3D to_pci_dev(i915->drm.dev);
-> > +     struct pci_bus *root =3D pdev->bus;
-> > +     struct resource *root_res;
-> > +     resource_size_t rebar_size =3D __lmem_rebar_size(i915, LMEM_BAR_N=
-UM);
-> > +     u32 pci_cmd;
-> > +     int i;
-> > +
-> > +     if (!rebar_size)
-> > +             return;
-> > +
-> > +     /* Find out if root bus contains 64bit memory addressing */
-> > +     while (root->parent)
-> > +             root =3D root->parent;
-> > +
-> > +     pci_bus_for_each_resource(root, root_res, i) {
-> > +             if (root_res && root_res->flags & (IORESOURCE_MEM |
-> > +                                     IORESOURCE_MEM_64) && root_res->s=
-tart > 0x100000000ull)
-> > +                     break;
-> > +     }
-> > +
-> > +     /* pci_resize_resource will fail anyways */
-> > +     if (!root_res) {
-> > +             drm_info(&i915->drm, "Can't resize LMEM BAR - platform su=
-pport is missing\n");
-> > +             return;
-> > +     }
-> > +
-> > +     /* First disable PCI memory decoding references */
-> > +     pci_read_config_dword(pdev, PCI_COMMAND, &pci_cmd);
-> > +     pci_write_config_dword(pdev, PCI_COMMAND,
-> > +                            pci_cmd & ~PCI_COMMAND_MEMORY);
-> > +
-> > +     __resize_bar(i915, LMEM_BAR_NUM, rebar_size);
-> > +
-> > +     pci_assign_unassigned_bus_resources(pdev->bus);
-> > +     pci_write_config_dword(pdev, PCI_COMMAND, pci_cmd);
-> > +}
->
-> Doesn't feel like the above code belongs in this file. The file is
-> supposed to be very high level. The mchbar stuff is the only low level
-> thing here, and that feels out of place too. Maybe this and the mchbar
-> stuff belong in a new file.
+On Fri, Jun 17, 2022 at 01:42:42AM -0700, Christoph Hellwig wrote:
+> On Thu, Jun 16, 2022 at 04:52:09PM -0700, Nicolin Chen wrote:
+> > +	ret = vfio_unpin_pages(&vgpu->vfio_device, gfn << PAGE_SHIFT, npage);
+> > +	drm_WARN_ON(&i915->drm, ret != npage);
+> 
+> The shifting of gfn seems to happen bother here and in the callers.
 
-Not sure about mchbar, but maybe i915_resize_lmem_bar() could be moved
-into gt/intel_region_lmem.[ch]? That's at least where the consumer of
-lmem-bar lives.
-
->
-> BR,
-> Jani.
->
->
-> > +
-> >  /**
-> >   * i915_driver_early_probe - setup state not requiring device access
-> >   * @dev_priv: device private
-> > @@ -852,6 +941,9 @@ int i915_driver_probe(struct pci_dev *pdev, const s=
-truct pci_device_id *ent)
-> >
-> >       disable_rpm_wakeref_asserts(&i915->runtime_pm);
-> >
-> > +     if (HAS_LMEM(i915))
-> > +             i915_resize_lmem_bar(i915);
-> > +
-> >       intel_vgpu_detect(i915);
-> >
-> >       ret =3D intel_gt_probe_all(i915);
->
-> --
-> Jani Nikula, Intel Open Source Graphics Center
+Sorry. I overlooked this line. I can add another preparatory patches
+for callers to pass in an IOVA other than "pfn << PAGE_SHIFT", if you
+think it's necessary: although GVT still does things in PFN, both ap
+and ccw prepare their PFN lists from IOVAs, which now can be omitted.
