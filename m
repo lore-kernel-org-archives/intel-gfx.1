@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 061FEC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 15:55:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C7D1C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 15:55:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71B7510E9FA;
-	Wed, 22 Jun 2022 15:55:01 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9776110E9FA
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Jun 2022 15:54:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B3D910F646;
+	Wed, 22 Jun 2022 15:55:06 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1826310F646
+ for <intel-gfx@lists.freedesktop.org>; Wed, 22 Jun 2022 15:55:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655913299; x=1687449299;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8u4m0VUC9f+7OXJA9ewzS8P8aqI9McbEK+B9/qeSeMI=;
- b=eW18fnGl3lzLB7CyCYFCX7ka0Oa07o7izme7zckcVU6URbrf+DYcwAUR
- puwm5A9fDlCdC5qibCjH94N4d9VrQ5Le8m5aWrT4dzPyu/Dva2xyK9f7W
- CLq5pvkY5YBCSibQ40q1s7OWR3xbDtD9an42bL1MghXgP1zc7i+YxZIdC
- ZdMULQ9UXi2GOrSaT2tDm1t8CiaBjJ8+Wp6zlclpmj4OIzglLkeeiRnPY
- e8hW5FsBs4LuvjlPzGFV7CMs2quTYfllXDZ6/G+v8a5ReKu2JxvfbXgJq
- +/doy9VSOlr/nuAfKNwOOQbvEeRWJUL4oqY5Y59HrlR5MMsCRZcEfBApy g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="280504033"
-X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="280504033"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2022 08:54:59 -0700
+ t=1655913305; x=1687449305;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=I/YMAg8/XjRIDODnnffw9MabVOri1virv6scChDajfQ=;
+ b=PSruD3SPMDBh2WNg0zIoP/0XfjUWsk6f4RUMYksxhbnIaKBAGMj/5H3j
+ /dDMopLNqgRVi3aR7bKJtUBe57Mjy/fiLrsPTw4xvNlrwxMx6OE21VHtQ
+ A1VD7x3ztef3+duz8/pPHY11JaTzOzTKwLQn9RYid3PDNq9nzCl9P/090
+ GuMxP3XrgeB3tpmpE6qIf8qQYeA5/ywh4Kh0WjkfcXpFQr+FLqMV0GIx8
+ wyGJ94+EK+pkTOrLOxTTnD7QvbILHmtXQX0L7bv4Yn3RtCROEjMnj0RXq
+ r1L9FqOiwUd7oPBGz8RhHvVwZVO4PiGhP7iScgG2qA6RBEuyQ8JNpLdSe A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="269178914"
+X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="269178914"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2022 08:55:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="592251177"
+X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="585780071"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.163])
- by fmsmga007.fm.intel.com with SMTP; 22 Jun 2022 08:54:56 -0700
+ by orsmga007.jf.intel.com with SMTP; 22 Jun 2022 08:55:02 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 22 Jun 2022 18:54:55 +0300
+ Wed, 22 Jun 2022 18:55:01 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 22 Jun 2022 18:54:44 +0300
-Message-Id: <20220622155452.32587-2-ville.syrjala@linux.intel.com>
+Date: Wed, 22 Jun 2022 18:54:46 +0300
+Message-Id: <20220622155452.32587-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220622155452.32587-1-ville.syrjala@linux.intel.com>
 References: <20220622155452.32587-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/9] drm/i915: Split g4x_compute_pipe_wm()
- into two
+Subject: [Intel-gfx] [PATCH v2 3/9] drm/i915: Simplify up g4x watermark
+ sanitation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,95 +64,65 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Split g4x_compute_pipe_wm() into two halves. The first half computes
-the new raw watermarks, and the second half munges those up into real
-watermarks for the particular pipe.
+We can simplify the g4x watermark sanitation by reusing the
+second half of g4x_compute_pipe_wm() to convert the sanitized
+raw watermarks into the proper form to be used as the
+optimal/intermediate watermarks.
 
-We can reuse the second half for watermark sanitation as well.
-
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/intel_pm.c | 54 +++++++++++++++++++--------------
- 1 file changed, 31 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/intel_pm.c | 21 +++++++--------------
+ 1 file changed, 7 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 9b7e93ca1ff9..395ed3c832d6 100644
+index 4ea43fa73075..556fcdfb75f1 100644
 --- a/drivers/gpu/drm/i915/intel_pm.c
 +++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -1376,34 +1376,14 @@ static bool g4x_compute_fbc_en(const struct g4x_wm_state *wm_state,
- 	return true;
- }
+@@ -6951,37 +6951,30 @@ void g4x_wm_sanitize(struct drm_i915_private *dev_priv)
+ 			to_intel_crtc_state(crtc->base.state);
+ 		struct intel_plane_state *plane_state =
+ 			to_intel_plane_state(plane->base.state);
+-		struct g4x_wm_state *wm_state = &crtc_state->wm.g4x.optimal;
+ 		enum plane_id plane_id = plane->id;
+-		int level;
++		int level, num_levels = intel_wm_num_levels(dev_priv);
  
--static int g4x_compute_pipe_wm(struct intel_atomic_state *state,
--			       struct intel_crtc *crtc)
-+static int _g4x_compute_pipe_wm(struct intel_crtc_state *crtc_state)
- {
--	struct intel_crtc_state *crtc_state =
--		intel_atomic_get_new_crtc_state(state, crtc);
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct g4x_wm_state *wm_state = &crtc_state->wm.g4x.optimal;
- 	u8 active_planes = crtc_state->active_planes & ~BIT(PLANE_CURSOR);
- 	const struct g4x_pipe_wm *raw;
--	const struct intel_plane_state *old_plane_state;
--	const struct intel_plane_state *new_plane_state;
--	struct intel_plane *plane;
- 	enum plane_id plane_id;
--	int i, level;
--	unsigned int dirty = 0;
--
--	for_each_oldnew_intel_plane_in_state(state, plane,
--					     old_plane_state,
--					     new_plane_state, i) {
--		if (new_plane_state->hw.crtc != &crtc->base &&
--		    old_plane_state->hw.crtc != &crtc->base)
--			continue;
--
--		if (g4x_raw_plane_wm_compute(crtc_state, new_plane_state))
--			dirty |= BIT(plane->id);
--	}
--
--	if (!dirty)
--		return 0;
-+	int level;
+ 		if (plane_state->uapi.visible)
+ 			continue;
  
- 	level = G4X_WM_LEVEL_NORMAL;
- 	if (!g4x_raw_crtc_wm_is_valid(crtc_state, level))
-@@ -1456,6 +1436,34 @@ static int g4x_compute_pipe_wm(struct intel_atomic_state *state,
- 	return 0;
- }
+-		for (level = 0; level < 3; level++) {
++		for (level = 0; level < num_levels; level++) {
+ 			struct g4x_pipe_wm *raw =
+ 				&crtc_state->wm.g4x.raw[level];
  
-+static int g4x_compute_pipe_wm(struct intel_atomic_state *state,
-+			       struct intel_crtc *crtc)
-+{
-+	struct intel_crtc_state *crtc_state =
-+		intel_atomic_get_new_crtc_state(state, crtc);
-+	const struct intel_plane_state *old_plane_state;
-+	const struct intel_plane_state *new_plane_state;
-+	struct intel_plane *plane;
-+	unsigned int dirty = 0;
-+	int i;
+ 			raw->plane[plane_id] = 0;
+-			wm_state->wm.plane[plane_id] = 0;
+-		}
+ 
+-		if (plane_id == PLANE_PRIMARY) {
+-			for (level = 0; level < 3; level++) {
+-				struct g4x_pipe_wm *raw =
+-					&crtc_state->wm.g4x.raw[level];
++			if (plane_id == PLANE_PRIMARY)
+ 				raw->fbc = 0;
+-			}
+-
+-			wm_state->sr.fbc = 0;
+-			wm_state->hpll.fbc = 0;
+-			wm_state->fbc_en = false;
+ 		}
+ 	}
+ 
+ 	for_each_intel_crtc(&dev_priv->drm, crtc) {
+ 		struct intel_crtc_state *crtc_state =
+ 			to_intel_crtc_state(crtc->base.state);
++		int ret;
 +
-+	for_each_oldnew_intel_plane_in_state(state, plane,
-+					     old_plane_state,
-+					     new_plane_state, i) {
-+		if (new_plane_state->hw.crtc != &crtc->base &&
-+		    old_plane_state->hw.crtc != &crtc->base)
-+			continue;
-+
-+		if (g4x_raw_plane_wm_compute(crtc_state, new_plane_state))
-+			dirty |= BIT(plane->id);
-+	}
-+
-+	if (!dirty)
-+		return 0;
-+
-+	return _g4x_compute_pipe_wm(crtc_state);
-+}
-+
- static int g4x_compute_intermediate_wm(struct intel_atomic_state *state,
- 				       struct intel_crtc *crtc)
- {
++		ret = _g4x_compute_pipe_wm(crtc_state);
++		drm_WARN_ON(&dev_priv->drm, ret);
+ 
+ 		crtc_state->wm.g4x.intermediate =
+ 			crtc_state->wm.g4x.optimal;
 -- 
 2.35.1
 
