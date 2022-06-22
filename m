@@ -4,100 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39961CCA47D
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 10:02:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67B45C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jun 2022 10:23:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C314A10EB1C;
-	Wed, 22 Jun 2022 10:02:04 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2082.outbound.protection.outlook.com [40.107.243.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F01010F52D;
- Tue, 21 Jun 2022 21:21:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C811810EB53;
+	Wed, 22 Jun 2022 10:23:15 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0046010EB53
+ for <intel-gfx@lists.freedesktop.org>; Wed, 22 Jun 2022 10:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655893394; x=1687429394;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:reply-to:content-transfer-encoding: mime-version;
+ bh=Sx79uvY62DkZkSjlbxQWUV95BoVmXzZ5eCnjO5fu28c=;
+ b=LB+gUe6OcA7MsJ0v8s9IPC8uE3PwARtmTDtOnqpVP2AoyOGOfkEiqxVO
+ /p1g5Dh0vr4Z3+gu5iQudWXH3Y2af6er+OUkkqDALwgDd85L2MkvQFSs+
+ 1bC+EXnfbSJm53uNzJ/ndI9PiH6LZvYeLuoP+2tSj+cJ3AyyiwlWOAh4N
+ FSGKhhZcRi9MkTDTRdEppTQ4h2wYHDNT+bTgZ6UkWv/+3Mudku2TZG1Ia
+ zOwNsEuCRF+z0/eSNN7Fa6esiQHYM3E7NxqcS9YG2tDUouG6aeGKMIJdu
+ H29CNXAGWUlwVZsiR2HmlT27NliN6y9A7xUnGW/leIg0x2p6qr0Odi249 Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10385"; a="277926609"
+X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="277926609"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2022 03:23:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,212,1650956400"; d="scan'208";a="764835053"
+Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
+ by orsmga005.jf.intel.com with ESMTP; 22 Jun 2022 03:23:14 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Wed, 22 Jun 2022 03:23:13 -0700
+Received: from fmsmsx608.amr.corp.intel.com (10.18.126.88) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Wed, 22 Jun 2022 03:23:13 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx608.amr.corp.intel.com (10.18.126.88) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27 via Frontend Transport; Wed, 22 Jun 2022 03:23:13 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.173)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.27; Wed, 22 Jun 2022 03:23:13 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e9tCpbDH9Fk6Kcr2QUm9x/h1nhltk5oOwp87NCOkB4ec+37hu2fAkhDseRI659gHxAOJV9aV+TsnjCyetZFsULZ4ZbPs7zLOQqZLnuvDRh7HTLYdA9mpF9IlMN0I3fELW2sW7hcM3QYi9jaF1QrutkrBdGU/fReqnCvZPxWEDUvW7tdUbwDpw82Dz6brWMpIOaDtcfZjFUfqdwQ8U/CqrxU1aHMlMsNRwOqwgIU+vVf6s1dujfhHVfYjrH69LH4y8Glr/puCYYDSIIl7TbW4g2j6HNFc95nTlI8muvi3jXIYvKKw1AUXaIjkpQJLsxg5WvdImiI4FJkNsNmvYV1ZgA==
+ b=f8FKiJ/xitfYgLsUOLenwhV5ozFJLF/xNMbiLR6j6vlTglX+y+oXm23Y2K/gyhu1NOBaTOE4coAm7+thrB7bDsmSrfDAx5zvMFwJvvkjwnPor3ceYC+ROwsOCb1uDyuNhEy4jAQ8287zuPeDDtARi1uaO7ykPJ6hyZNOBqZb9nrltLwibY4lkjnsteTlrM/R/Xspr+yg85DEBuLO9EbuJYrZaNhvHMOo8lelAOdYpyd1KMjP6KaXmIOjkRDvnniNKcGkzrcTjk1I5frquM0rLiFKomnkOn1ATiTdh/Z3I86QYuBvn1I1qjS5fKjpC9bvpXCKTGo0zaa3aFFZiJQPYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7/csMImmXMS8W+ncO7h86h8MKt61Fpz6P3qybQ1Of5Y=;
- b=LHp3TOwaLQLRotocyO2lyaNUv3a8U/EEUXcd0MxBwEarnvLnxGHB+fp8qYz14arJd7p9SH+Y0eqF4cv9rzyxX/kZ+E5Ge3juwgmt62tTg8FRyy2eEtwlJMIdI20vG/LrkmqEik9R9mbba4pUivCyGOT2Yu03DfTNXvuOV4t7CYZi5v6wmiG5Epc2A8uoIAPh6AeZAPzEM+QoutgN2KNsPJDhW5vt43QoDESOBDrBPXY6RXfhDTJxQDf9kYmeAaCYGerbIyuyAMdhgyDOBxi7h8bP9IpGYCsyoBfcitGjmfHMmy1Zk4BHOlgwaCvRmDPzNfD2M7L5hENxWeZzhQ+LtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.234) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7/csMImmXMS8W+ncO7h86h8MKt61Fpz6P3qybQ1Of5Y=;
- b=k9BgDV1VBCYyZYTGxHu0L/9ZT3tKKc1n/m8ogiHlM4VE7MGPnw+M14DLuXQoclg1jwTlCt2ghK1UeSGomvVzDieX4TvhIi/bDKDwNbTt3Md4pmWWP4k0rmqwetQDQrA1hjuEQxaYk5K99Z1UWBWVOblGTShPrK6V5npS1Bao+zLxOAmjF/Gd3dBahA3Q46oPd284wP2YDX6geIlWR+QNdvj0rWOi5IP4gVVaMjaPkgfd3oy+/S1sLvAxZDuSd+GWZaW4uDMXbhHyq7nyrCZ6EgNId9h51DM81iOVTXhK6DHS5ZJUzxv466pq2i9AdTPVjM5SUJxD/87agxFkaWZreQ==
-Received: from MWHPR1401CA0022.namprd14.prod.outlook.com
- (2603:10b6:301:4b::32) by DM8PR12MB5414.namprd12.prod.outlook.com
- (2603:10b6:8:3e::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Tue, 21 Jun
- 2022 21:21:29 +0000
-Received: from CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:4b:cafe::e3) by MWHPR1401CA0022.outlook.office365.com
- (2603:10b6:301:4b::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.15 via Frontend
- Transport; Tue, 21 Jun 2022 21:21:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.234)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.234; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (12.22.5.234) by
- CO1NAM11FT028.mail.protection.outlook.com (10.13.175.214) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.5373.15 via Frontend Transport; Tue, 21 Jun 2022 21:21:29 +0000
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by DRHQMAIL101.nvidia.com
- (10.27.9.10) with Microsoft SMTP Server (TLS) id 15.0.1497.32;
- Tue, 21 Jun 2022 21:21:28 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail203.nvidia.com
- (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 21 Jun
- 2022 14:21:28 -0700
-Received: from Asurada-Nvidia (10.127.8.12) by mail.nvidia.com (10.129.68.8)
+ bh=V6lEERM70AVdqWlj+m4tmwMhIJfj2xTUsyhjKFgYe5E=;
+ b=L+WAMMy5po2gL4Ulng+iSy4kZwv1/lnp9DzVqB4V/bvvEIQkec7dfUkllE3NxxiMXDkYsbYVKOZNKS/vuFYTVERlf2Hc7EG1AfSaeS9tjyBncVUOgSjOo3oohJZ37tfbYj+F1nBtcIH26cuewmqKQmJWBE8FxbRJwh1pSD8D+khHRRz5GV0eBUPnt1/9+wngpntYRzx8gF+YQcW7+BwxWATHHHOcEJTyd8VtWkdM+I9Nb2+RCeXX1wYb9iwwK/7LPkachNKgUWzJdXWiHDY4zEvczOp1N0e3L+0K9HiF6KwOQYOCO0bsyOXJItpf9MNL8srB6XhbWavhI+arb4D/Ow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from SJ0PR11MB5894.namprd11.prod.outlook.com (2603:10b6:a03:42a::19)
+ by MN2PR11MB3680.namprd11.prod.outlook.com (2603:10b6:208:f3::26)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22 via Frontend
- Transport; Tue, 21 Jun 2022 14:21:24 -0700
-Date: Tue, 21 Jun 2022 14:21:22 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Christoph Hellwig <hch@infradead.org>
-Message-ID: <YrI2Ul/u6pRvt0rT@Asurada-Nvidia>
-References: <20220616235212.15185-1-nicolinc@nvidia.com>
- <20220616235212.15185-6-nicolinc@nvidia.com>
- <Yqw+7gM3Lz96UFdz@infradead.org> <20220620025726.GA5219@nvidia.com>
- <YrAUZ7hXy2FcZcjl@infradead.org>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.15; Wed, 22 Jun
+ 2022 10:23:11 +0000
+Received: from SJ0PR11MB5894.namprd11.prod.outlook.com
+ ([fe80::e417:840c:8c39:3668]) by SJ0PR11MB5894.namprd11.prod.outlook.com
+ ([fe80::e417:840c:8c39:3668%7]) with mapi id 15.20.5353.015; Wed, 22 Jun 2022
+ 10:23:11 +0000
+From: "Tseng, William" <william.tseng@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH v5] drm/i915/dsi: add payload receiving code
+Thread-Index: AQHYhIQiG7+PhxUQg0ibQEsjX9vA661ZpOAAgAGVL5A=
+Date: Wed, 22 Jun 2022 10:23:11 +0000
+Message-ID: <SJ0PR11MB5894E673926D9FAAAD866B73F1B29@SJ0PR11MB5894.namprd11.prod.outlook.com>
+References: <20220620075720.23274-1-william.tseng@intel.com>
+ <20220620085934.25237-1-william.tseng@intel.com> <87ilous4zb.fsf@intel.com>
+In-Reply-To: <87ilous4zb.fsf@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-reaction: no-action
+dlp-version: 11.6.500.17
+dlp-product: dlpe-windows
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: e3dc4e35-d44d-407e-171e-08da54393554
+x-ms-traffictypediagnostic: MN2PR11MB3680:EE_
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-microsoft-antispam-prvs: <MN2PR11MB3680B0552ED03AD6DF3A1091F1B29@MN2PR11MB3680.namprd11.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: OGY8xyC7gben43QkxkTeBvv2MAFFnTtomwMcG5xRt1dFN9Iq3rdb+mX5+iOTAC7NS9MAqHeg1Dg6thaYaNX6W2ips6YinTfAnoz7iLdmBzIHJ14MyBiqVFL8qQ3gARYbcW/kFyWMm7h74qiX8EEI5WETPpnlpRcYlqTlnweHFr840j5Xu7CFFi1u1L4DILhlQdFoh9msD3X1d/1qCWyXXx8rf//TNnYTN6sXSVvUzseGv56QIu8fSp5W4DrDMO1qmH08B6ACsHrqVaB4yqlpVoUTrPsmd75Nyg2M3qFAdo/SIXBsNTPHs84dfR5pM2iACaFoL8vz8ppfyIPj5wk0H7g1B8cYP+Zj8iHVYNaWyLJrTkSUxPS0aV2GD0sd8X38v32I0DnKvUjbgDwvfPiBhDZKCSDCo9/26fWyklRpR/4qCsD5XC204JKELdaFzCR9/lENVtXw1b0CnkDEW4soqxWCG7ikPymCjinM2/IjiS0MDT5h5yKeH8UUaK6cQVhW62arxlOo9im4RBl704CV/hcsQbqNaE80j8pZLO1CM2xq523Tf1pJKLCPyeBfX1NCMfkOejE7XmCeweGq/762RkNMY6T1+eoo8JQ+HbjR5R7BmMiKZZbURkuWnqQhT/NY8CL8ObDy8lHey9EpKkzGMElPulGkhD3+/R6fPvMcI5RXRUqBRsRz4AKDwVFVhrhxpcDi6+7HH/evyntuAL5fw8Sil1SesrLyfthPmRyQfqQm9krlT3IeKkcl7esggwodl0A1lonHsyxFs+InXDSy3A==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR11MB5894.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(346002)(376002)(136003)(39860400002)(396003)(366004)(33656002)(38100700002)(5660300002)(86362001)(52536014)(2906002)(38070700005)(122000001)(82960400001)(26005)(8796002)(478600001)(316002)(66476007)(66556008)(53546011)(8936002)(55016003)(8676002)(66574015)(71200400001)(4326008)(66446008)(110136005)(7696005)(6506007)(83380400001)(9686003)(186003)(54906003)(64756008)(41300700001)(66946007)(76116006);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?0/nUkVOv7UVMhngdo95+JgSfxbsUEsHcFdHQGgROEma+F5xViolU5fWADD?=
+ =?iso-8859-1?Q?hPZqRLg7HjeygVHPDWrQ1GkBMMDEhvYvm4L/UEWFx2V1ZfPhST0OAlUOOA?=
+ =?iso-8859-1?Q?6mO22xidEpHQyQzKXSe7K/oEq3c4US6eMudfHErGxp4Y4PAf9VqConC5cF?=
+ =?iso-8859-1?Q?5P2/QUSwc1RhzXqzvUHf0yexDwtoCOI85CcGct7TvOid7FMbexabxYZE30?=
+ =?iso-8859-1?Q?5es2633G+qBRpUZlx7FyHnHulqjh41+jbLkZuL8cNeKaEyI13iiC3l7caC?=
+ =?iso-8859-1?Q?dVPaCDFOyKwW1nEOLQPlZ/tA3GlxnvPv31wRl5+AoaqWuleSXhfVCExI6l?=
+ =?iso-8859-1?Q?tQpnrFer++j+taB0ThIeGkcUGBk711fhkjG8mZgJXypLD5OesDtcyQCw2k?=
+ =?iso-8859-1?Q?8+tCVJfcQwH/UglkZxXMxuAwhrBBTLwudmwmgH7k6NDIZNpTLvEovexII6?=
+ =?iso-8859-1?Q?ozcy2C5o7nwZSSwY6MAVwRB5mfyRvxI08loKYsTWY3fCdG2TA15G/5OTOK?=
+ =?iso-8859-1?Q?RrYZusagaPOT0dwDRqpA5ZYxWhNoQjCIK6WKMzp0uAZS445xhBFbzz16u9?=
+ =?iso-8859-1?Q?IxOzH/cs/fzwDELOA2v+P0Dt8YPIM2mvvbvUVMqeRTV3n/H9PZKuetxCsZ?=
+ =?iso-8859-1?Q?/H+kGVRXRPjxrAgdW1J+mID0PnS7rr09h+CvYvujSEqS+/88Uue/0XAnbw?=
+ =?iso-8859-1?Q?63Qjvft7dOsjGpl08B8nHyWd+2pyg2pBNUozbYsrtpBXq0Z25+xUaWShYU?=
+ =?iso-8859-1?Q?OB3rDRTZdY82nwRDVnzkXEkhTWf6tOeH5kndICrFZa/Xhz6h9+W2i74RMt?=
+ =?iso-8859-1?Q?YeKRlG6n/xQVG7pIioLdD/YyezMWzxv0bGSItVWXmXukDS1+NS+A1ysYJa?=
+ =?iso-8859-1?Q?eqVTIi/LOGwv8GjxmsSp5N0MT/mNYOUhvTdnLitMdwaV63W+dp7/ZMsWaw?=
+ =?iso-8859-1?Q?W/L7wmMnZQbbFugaWCqQeNWn+3jq5QMxkD8WoCKKGCHMz1WWBx0NXYnm8V?=
+ =?iso-8859-1?Q?l8QNMsBnu3m7tlnf7KTkleqYIBqW1Ll9aDWkfDk1fTZi+h2WP99nHWWGVP?=
+ =?iso-8859-1?Q?tO3XYcg/EwZH1QbA6ZnRZKcj7l5E4768FGO40Pk6SAVBdeRtYnem32IoBY?=
+ =?iso-8859-1?Q?7NZxuC1BR+XHqia7Uv+djUq5zUC/i8bKBavLT1JEbUG1+shtIknoGgB8vq?=
+ =?iso-8859-1?Q?p3+3Yxgdiy0rhiYXemWQg7ja1Lfyrk6bdaBelkzuAsDwQau6Y/baRIqDTJ?=
+ =?iso-8859-1?Q?xTigNUfEQOFlsvm9pxbieCC1fOUhxCW/UAyy6HYyMQEqfcZ9mDTqhik3AU?=
+ =?iso-8859-1?Q?tnCQIj2NL4uJv/BDEMgEFCYpEgvh5ZrrRNTIcNwmkXCP5jJfDk9rQOPNhz?=
+ =?iso-8859-1?Q?2TNLPG+7LjUkiGTlPxfm8jrgdw7wxzloSFRGIKrPX06x7adWwfWCkYjh+/?=
+ =?iso-8859-1?Q?T1s4zNHErjo3s5Mz6s4BYVEzg7UyUtJVNCijbNlkuCh42KO0xQkoO5NoD4?=
+ =?iso-8859-1?Q?UBuubK+NIo0qJRWIbCoopksDLtOr/JGKTrIwTPZmqr8IEXEu3TFLS0+f92?=
+ =?iso-8859-1?Q?SraeEbcyZ4yFzLi4Trha+t4Xigs7qaqkpOlepkIQKf7KIWylfJxVWw+fCk?=
+ =?iso-8859-1?Q?ATPNo+AJ01yC2PtQfznpD9qZ/javEqCrpdF2r9vJM1aJRhYG2zbZ3UNcai?=
+ =?iso-8859-1?Q?dZxuj8xLMBgeBgXvVoJq+9JNlqA9k+yLTqt+cG3AiclOl4z7NerdgRJLSx?=
+ =?iso-8859-1?Q?OnbjUAS+iulFuj/rngmgfa4ZtFmrH2IgO6VRRW5MBUn7jhUAJR/+Igw1Ps?=
+ =?iso-8859-1?Q?7MAT1GDBWg=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <YrAUZ7hXy2FcZcjl@infradead.org>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2232a662-aa28-4c05-38f3-08da53cc01cb
-X-MS-TrafficTypeDiagnostic: DM8PR12MB5414:EE_
-X-Microsoft-Antispam-PRVS: <DM8PR12MB54142DE1CF737009C21BE559ABB39@DM8PR12MB5414.namprd12.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ju20LiE/hVT3OWFeuo+XyUQ1uwoFM58J1GnhfAZr3Anwt2ev1iTTMiMOAdGuswyUOWoxLkImGWG4VUMC9TlqvcY4qCKej2JHYr57VAW5U4P62dJwTxcnRhj8jg+aqMxfVz6ti55ODxCS2TThuftDhWaMLnxq2Z0Gk9wuq17rnDcZyeJ0VW6jQh2Nz4DgwLLEzYRA/QYVQJuQynMHshOTpitN4m3gQenH/nzxq0HrBW4ZREM1QROPqw9TngEup0yxiHWpYEWOnbh/776lr3pifhAw6tjXm0Pes9KQC6plNfdZo1Dpzq6J8DbUHSBTqvoneXbpZYf16TrON38jmRk8tzMiHJ2S8y7t9eZPMblIR2SHthukrLGL/UuSxgmQaQ4QEUspQPSk3bJnFhJuEgQKdjfkWFvPs1E6mdy51QQqn+rxV28p3nFjSnu699ZX+PxaTbSuZ2Y6OFwx/7MesAZmuUbJns3tUYh775EmMxdD8m4s8u+ZHlIZokKyunb9nUsUBfzG1YXt1vxShjVtqE93P7n9/0/ps7xpBRZNO9F0v5xyzQC2iLduYqu9YDmAumyJq1sQdVMK2PdiZGi5f9/Ph694XgD+RnhiR/VQEo4XbylBdHvUl8cXRyH5I/1VbongYZbGmk2sPWwqUD7AobjD8L3JzHeIfquVoeheCMEASc90UULfSSvw77MBKEyT69WpgoJQSkljAXeOHKSjzonJqNM1jyO42Ugg+PilIEiy2W2ppHLhthAxUbBpYhRpsN+A
-X-Forefront-Antispam-Report: CIP:12.22.5.234; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(396003)(346002)(136003)(39860400002)(36840700001)(40470700004)(46966006)(8676002)(478600001)(70586007)(83380400001)(70206006)(47076005)(426003)(356005)(6916009)(4326008)(82740400003)(86362001)(36860700001)(336012)(41300700001)(9686003)(54906003)(316002)(40480700001)(26005)(81166007)(186003)(2906002)(5660300002)(40460700003)(82310400005)(33716001)(55016003)(7416002)(8936002)(7406005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2022 21:21:29.3625 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2232a662-aa28-4c05-38f3-08da53cc01cb
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.234];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5414
-X-Mailman-Approved-At: Wed, 22 Jun 2022 10:02:03 +0000
-Subject: Re: [Intel-gfx] [RFT][PATCH v1 5/6] vfio/ccw: Add kmap_local_page()
- for memcpy
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5894.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3dc4e35-d44d-407e-171e-08da54393554
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2022 10:23:11.0763 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: d3snAFisVWR2KU9JCspBMG2lKm/Hz2foxnyZbJUpIxNanMTTGyRmGjdzUJEJdaqpKvD58suE5iZRuQGgXYZ0JQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB3680
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH v5] drm/i915/dsi: add payload receiving code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,49 +158,236 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mjrosato@linux.ibm.com, linux-doc@vger.kernel.org, airlied@linux.ie,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kwankhede@nvidia.com, vneethv@linux.ibm.com, agordeev@linux.ibm.com,
- linux-s390@vger.kernel.org, kvm@vger.kernel.org, corbet@lwn.net,
- pasic@linux.ibm.com, Jason Gunthorpe <jgg@nvidia.com>,
- borntraeger@linux.ibm.com, intel-gfx@lists.freedesktop.org,
- jjherne@linux.ibm.com, farman@linux.ibm.com, jchrist@linux.ibm.com,
- gor@linux.ibm.com, hca@linux.ibm.com, freude@linux.ibm.com,
- rodrigo.vivi@intel.com, intel-gvt-dev@lists.freedesktop.org,
- akrowiak@linux.ibm.com, cohuck@redhat.com, oberpar@linux.ibm.com,
- svens@linux.ibm.com
+Reply-To: "20220620085934.25237-1-william.tseng@intel.com"
+ <20220620085934.25237-1-william.tseng@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jun 19, 2022 at 11:32:07PM -0700, Christoph Hellwig wrote:
-> On Sun, Jun 19, 2022 at 11:57:26PM -0300, Jason Gunthorpe wrote:
-> > The remark about io memory is because on s390 memcpy() will crash even
-> > on ioremapped memory, you have to use the memcpy_to/fromio() which
-> > uses the special s390 io access instructions.
-> 
-> Yes.  The same is true for various other architectures, inluding arm64
-> under the right circumstances.
-> 
-> > This helps because we now block io memory from ever getting into these
-> > call paths. I'm pretty sure this is a serious security bug, but would
-> > let the IBM folks remark as I don't know it all that well..
-> 
-> Prevent as in crash when trying to convert it to a page?
-> 
-> > As for the kmap, I thought it was standard practice even if it is a
-> > non-highmem? Aren't people trying to use this for other security
-> > stuff these days?
-> 
-> Ira has been lookin into the protection keys, although they don't
-> apply to s390.  Either way I don't object to using kmap, but the
-> commit log doesn't make much sense to me.
+Great.  Thanks Jani for the comments.
+I will update the patch based on your comments and submit a new version aga=
+in.
 
-How about the updated commit log below? Thanks.
+-----Original Message-----
+From: Jani Nikula <jani.nikula@linux.intel.com>=20
+Sent: Tuesday, June 21, 2022 6:09 PM
+To: Tseng, William <william.tseng@intel.com>; intel-gfx@lists.freedesktop.o=
+rg
+Cc: Tseng, William <william.tseng@intel.com>; Ville Syrj=E4l=E4 <ville.syrj=
+ala@linux.intel.com>; Kulkarni, Vandita <vandita.kulkarni@intel.com>; Lee, =
+Shawn C <shawn.c.lee@intel.com>
+Subject: Re: [PATCH v5] drm/i915/dsi: add payload receiving code
 
-The pinned PFN list returned from vfio_pin_pages() is converted using
-page_to_pfn(), so direct access via memcpy() will crash on S390 if the
-PFN is an IO PFN, as we have to use the memcpy_to/fromio(), which uses
-the special s390 IO access instructions.
+On Mon, 20 Jun 2022, William Tseng <william.tseng@intel.com> wrote:
+> To support Host to read data from Peripheral after a DCS read command=20
+> is sent over DSI.
 
-As a standard practice for security purpose, add kmap_local_page() to
-block any IO memory from ever getting into this call path.
+So the spec isn't all that clear on all the small details here. Since this =
+pretty much doesn't interfere with other code, I'll put more weight on test=
+ results. If it works, great. If not, needs more work.
+
+Currently we don't have a device in CI that would use this; we need a Teste=
+d-by from whoever has a device.
+
+Detailed comments inline.
+
+>
+> v1: initial version.
+> v2:
+> - adding error message when failing to place BTA.
+> - returning byte number instead of 0 for the read function=20
+> dsi_read_pkt_payld().
+> v3: fixing coding style warning.
+> v4:
+> - correcting the data type of returning data for the read function=20
+> dsi_read_pkt_payld().
+> v5: adding change history as part of commit messages.
+>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> Cc: Vandita Kulkarni <vandita.kulkarni@intel.com>
+> Cc: Lee Shawn C <shawn.c.lee@intel.com>
+> Signed-off-by: William Tseng <william.tseng@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/icl_dsi.c      | 75 +++++++++++++++++++--
+>  drivers/gpu/drm/i915/display/icl_dsi_regs.h | 13 ++++
+>  2 files changed, 83 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c=20
+> b/drivers/gpu/drm/i915/display/icl_dsi.c
+> index 19bf717fd4cb..b2aa3c7902f3 100644
+> --- a/drivers/gpu/drm/i915/display/icl_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+> @@ -201,6 +201,69 @@ static int dsi_send_pkt_hdr(struct intel_dsi_host *h=
+ost,
+>  	return 0;
+>  }
+> =20
+> +static int dsi_read_pkt_payld(struct intel_dsi_host *host,
+> +			      u8 *rx_buf, size_t rx_len)
+> +{
+> +	struct intel_dsi *intel_dsi =3D host->intel_dsi;
+> +	struct drm_i915_private *dev_priv =3D to_i915(intel_dsi->base.base.dev)=
+;
+> +	enum transcoder dsi_trans =3D dsi_port_to_transcoder(host->port);
+> +	u32 tmp, /*hdr_data, */payld_data;
+
+Please drop the commented out stuff.
+
+> +	u32 payld_dw;
+> +	size_t payld_read;
+> +	u8 i;
+
+Please use int for loop variables.
+
+> +
+> +	/* step2: place a BTA reque */
+> +	/* check if header credit available */
+> +	if (!wait_for_header_credits(dev_priv, dsi_trans, 1)) {
+> +		drm_err(&dev_priv->drm, "not ready to recive payload\n");
+> +		return -EBUSY;
+> +	}
+> +
+> +	/* place BTA request */
+> +	tmp =3D intel_de_read(dev_priv, DSI_LP_MSG(dsi_trans));
+> +	tmp |=3D LINK_BTA;
+> +	intel_de_write(dev_priv, DSI_LP_MSG(dsi_trans), tmp);
+
+Please use intel_de_rmw() for read-modify-write. Ditto below.
+
+> +
+> +	tmp =3D intel_de_read(dev_priv, DSI_LP_MSG(dsi_trans));
+
+Please use intel_de_posting_read() for posting reads. Ditto below.
+
+> +
+> +	/* step2a:  */
+> +	/* step2ai: set Turn-Around Timeout */
+> +	tmp =3D intel_de_read(dev_priv, DSI_TA_TO(dsi_trans));
+> +	tmp &=3D ~TA_TIMEOUT_VALUE_MASK;
+> +	tmp |=3D TA_TIMEOUT_VALUE(intel_dsi->turn_arnd_val);
+> +	intel_de_write(dev_priv, DSI_TA_TO(dsi_trans), tmp);
+> +
+> +	tmp =3D intel_de_read(dev_priv, DSI_TA_TO(dsi_trans));
+> +
+> +	/* step2aii: set maximum allowed time */
+> +	tmp =3D intel_de_read(dev_priv, DSI_LPRX_HOST_TO(dsi_trans));
+> +	tmp &=3D ~LPRX_TIMEOUT_VALUE_MASK;
+> +	tmp |=3D LPRX_TIMEOUT_VALUE(intel_dsi->lp_rx_timeout);
+> +	intel_de_write(dev_priv, DSI_LPRX_HOST_TO(dsi_trans), tmp);
+> +
+> +	tmp =3D intel_de_read(dev_priv, DSI_LPRX_HOST_TO(dsi_trans));
+
+Bspec 20597 says, "Prior to this SW should have set up the following", mean=
+ing the above should happen before DSI_LP_MSG update.
+
+I think the whole BTA stuff should be split out to a separate function, kee=
+ping the actual payload receive very clean, similar to dsi_send_pkt_payld()=
+.
+
+> +
+> +	/* step4a: wait and read payload */
+> +	if (wait_for_us(((intel_de_read(dev_priv, DSI_CMD_RXCTL(dsi_trans)) &
+> +		NUMBER_RX_PLOAD_DW_MASK) >> NUMBER_RX_PLOAD_DW_SHIFT) > 0, 100000)) {
+> +		drm_err(&dev_priv->drm, "DSI fails to receive payload\n");
+> +		return -EBUSY;
+> +	}
+> +
+> +	tmp =3D intel_de_read(dev_priv, DSI_CMD_RXCTL(dsi_trans));
+> +	payld_dw =3D (tmp & NUMBER_RX_PLOAD_DW_MASK) >> NUMBER_RX_PLOAD_DW_SHIF=
+T;
+> +	payld_read =3D min(rx_len, (size_t)(4 * payld_dw));
+> +
+> +	for (i =3D 0; i < payld_read; i++) {
+> +		if ((i % 4) =3D=3D 0)
+> +			payld_data =3D intel_de_read(dev_priv, DSI_CMD_RXPYLD(dsi_trans));
+
+Might be prudent to explicitly clear the READ_UNLOADS_DW bit of DSI_CMD_RXC=
+TL beforehand.
+
+> +
+> +		*(rx_buf + i) =3D (payld_data >> (8 * (i % 4))) & 0xff;
+> +	}
+
+Please use similar loop as in dsi_send_pkt_payld(). It's confusing to have =
+one (i =3D 0; i < len; i +=3D 4) handling bytes within, while the other is =
+(i =3D 0; i < payld_read; i++) handling dwords within. Same for using (*rx_=
+buf + i) instead of *data++.
+
+> +
+> +	return (int)payld_read;
+> +}
+> +
+>  void icl_dsi_frame_update(struct intel_crtc_state *crtc_state)  {
+>  	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
+> @@ -1078,8 +1141,8 @@ static void gen11_dsi_setup_timeouts(struct intel_e=
+ncoder *encoder,
+>  	mul =3D 8 * 1000000;
+>  	hs_tx_timeout =3D DIV_ROUND_UP(intel_dsi->hs_tx_timeout * mul,
+>  				     divisor);
+> -	lp_rx_timeout =3D DIV_ROUND_UP(intel_dsi->lp_rx_timeout * mul, divisor)=
+;
+> -	ta_timeout =3D DIV_ROUND_UP(intel_dsi->turn_arnd_val * mul, divisor);
+> +	lp_rx_timeout =3D intel_dsi->lp_rx_timeout;
+> +	ta_timeout =3D intel_dsi->turn_arnd_val;
+
+This is an unrelated change that needs to be a separate patch.
+
+> =20
+>  	for_each_dsi_port(port, intel_dsi->ports) {
+>  		dsi_trans =3D dsi_port_to_transcoder(port); @@ -1837,9 +1900,11 @@=20
+> static ssize_t gen11_dsi_host_transfer(struct mipi_dsi_host *host,
+>  	if (ret < 0)
+>  		return ret;
+> =20
+> -	//TODO: add payload receive code if needed
+> -
+> -	ret =3D sizeof(dsi_pkt.header) + dsi_pkt.payload_length;
+> +	/* add payload receive code if needed */
+
+Just drop the comment altogether.
+
+> +	if (msg->rx_buf && msg->rx_len > 0)
+
+It should probably be an error to have rx_len > 0 && !rx_buf.
+
+> +		ret =3D dsi_read_pkt_payld(intel_dsi_host, msg->rx_buf, msg->rx_len);
+> +	else
+> +		ret =3D sizeof(dsi_pkt.header) + dsi_pkt.payload_length;
+> =20
+>  	return ret;
+>  }
+> diff --git a/drivers/gpu/drm/i915/display/icl_dsi_regs.h=20
+> b/drivers/gpu/drm/i915/display/icl_dsi_regs.h
+> index f78f28b8dd94..a77a49b42d60 100644
+> --- a/drivers/gpu/drm/i915/display/icl_dsi_regs.h
+> +++ b/drivers/gpu/drm/i915/display/icl_dsi_regs.h
+> @@ -251,6 +251,18 @@
+>  #define  NUMBER_RX_PLOAD_DW_MASK	(0xff << 0)
+>  #define  NUMBER_RX_PLOAD_DW_SHIFT	0
+> =20
+> +#define _DSI_CMD_RXHDR_0		0x6b0e0
+> +#define _DSI_CMD_RXHDR_1		0x6b8e0
+> +#define DSI_CMD_RXHDR(tc)		_MMIO_DSI(tc,	\
+> +						  _DSI_CMD_RXHDR_0,\
+> +						  _DSI_CMD_RXHDR_1)
+> +
+> +#define _DSI_CMD_RXPYLD_0		0x6b0e4
+> +#define _DSI_CMD_RXPYLD_1		0x6b8e4
+> +#define DSI_CMD_RXPYLD(tc)		_MMIO_DSI(tc,	\
+> +						  _DSI_CMD_RXPYLD_0,\
+> +						  _DSI_CMD_RXPYLD_1)
+> +
+>  #define _DSI_CMD_TXCTL_0		0x6b0d0
+>  #define _DSI_CMD_TXCTL_1		0x6b8d0
+>  #define DSI_CMD_TXCTL(tc)		_MMIO_DSI(tc,	\
+> @@ -294,6 +306,7 @@
+>  #define  LPTX_IN_PROGRESS		(1 << 17)
+>  #define  LINK_IN_ULPS			(1 << 16)
+>  #define  LINK_ULPS_TYPE_LP11		(1 << 8)
+> +#define  LINK_BTA			(1 << 1)
+>  #define  LINK_ENTER_ULPS		(1 << 0)
+> =20
+>  /* DSI timeout registers */
+
+--
+Jani Nikula, Intel Open Source Graphics Center
