@@ -4,30 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D108CC433EF
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 07:56:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BFFEC433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 08:07:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DEB511A0A0;
-	Thu, 23 Jun 2022 07:56:39 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0880B11A09E;
- Thu, 23 Jun 2022 07:56:38 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id F0AA9A0003;
- Thu, 23 Jun 2022 07:56:37 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EA5211A0E6;
+	Thu, 23 Jun 2022 08:07:13 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A16611A0E3;
+ Thu, 23 Jun 2022 08:07:11 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BAEFE21C78;
+ Thu, 23 Jun 2022 08:07:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1655971629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KCBsYdYOHje91KLHafWJPqbinGkClfavlP+fBQY2REk=;
+ b=jtQ17Zaw965I1bp8wlUpJLURtUgcwCKuWzyFxwecWhJvV3bfauOQ4VOM3yF9w7pQJexGCP
+ FXw8V6+spumzwxvt8PpoWnhlhUVVSF4sC74D9ZX8UUuxQnmn1A6HpwihA0q+YC2im/Liqs
+ Wat5J+dsZpQM99092ZjXdK5wdxnMfho=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1655971629;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KCBsYdYOHje91KLHafWJPqbinGkClfavlP+fBQY2REk=;
+ b=QPJB+Fa24+J33ZciymEGu7yYwfF+J5RTj/RFOxRq5ZX/7pP1M4OksiWF3YBBbDLkojN9hU
+ cFYWopPuVwpXn5Bw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 830DA133A6;
+ Thu, 23 Jun 2022 08:07:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id BaAQHy0ftGL0eAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 23 Jun 2022 08:07:09 +0000
+Message-ID: <a3bf32dc-bcae-496c-0c3a-5fe5c5c89c3f@suse.de>
+Date: Thu, 23 Jun 2022 10:07:08 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Date: Thu, 23 Jun 2022 07:56:37 -0000
-Message-ID: <165597099795.17069.1451334836269312917@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <cover.1655895388.git.jani.nikula@intel.com>
-In-Reply-To: <cover.1655895388.git.jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/edid=3A_expand_on_struct_drm=5Fedid_usage_=28rev5=29?=
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-US
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+References: <YrQeAAVvQ6jxu2dl@linux-uq9g>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <YrQeAAVvQ6jxu2dl@linux-uq9g>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------jdxH7jDC21oeF8nlo5PkAFFO"
+Subject: Re: [Intel-gfx] [PULL] drm-misc-next
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,37 +69,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------jdxH7jDC21oeF8nlo5PkAFFO
+Content-Type: multipart/mixed; boundary="------------0acfKxdF6CAGtAVWC0C1MFfw";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Message-ID: <a3bf32dc-bcae-496c-0c3a-5fe5c5c89c3f@suse.de>
+Subject: Re: [PULL] drm-misc-next
+References: <YrQeAAVvQ6jxu2dl@linux-uq9g>
+In-Reply-To: <YrQeAAVvQ6jxu2dl@linux-uq9g>
 
-Series: drm/edid: expand on struct drm_edid usage (rev5)
-URL   : https://patchwork.freedesktop.org/series/104309/
-State : warning
+--------------0acfKxdF6CAGtAVWC0C1MFfw
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-== Summary ==
+SGkNCg0KQW0gMjMuMDYuMjIgdW0gMTA6MDIgc2NocmllYiBUaG9tYXMgWmltbWVybWFubjoN
+Cj4gSGkgRGF2ZSBhbmQgRGFuaWVsLA0KPiANCj4gaGVyZSdzIHRoZSBkcm0tbWlzYy1uZXh0
+IFBSIGZvciB0aGlzIHdlZWsuDQoNCkkgZm9yZ290IHRvIG1lbnRpb24gdGhhdCB3ZSBiYWNr
+bWVyZ2VkIHY1LjE5LXJjMi4gVGhhdCdzIHdoeSB0aGUgbGlzdCBvZiANCmNoYW5nZWQgZmls
+ZXMgaXMgc28gbG9uZy4NCg0KQmVzdCByZWdhcmRzDQpUaG9tYXMNCg0KPiANCg0KLS0gDQpU
+aG9tYXMgWmltbWVybWFubg0KR3JhcGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0
+d2FyZSBTb2x1dGlvbnMgR2VybWFueSBHbWJIDQpNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xy
+bmJlcmcsIEdlcm1hbnkNCihIUkIgMzY4MDksIEFHIE7DvHJuYmVyZykNCkdlc2Now6RmdHNm
+w7xocmVyOiBJdm8gVG90ZXYNCg==
 
-Error: dim checkpatch failed
-6703c524e9e9 drm/edid: move drm_connector_update_edid_property() to drm_edid.c
-59647b362ac2 drm/edid: convert drm_connector_update_edid_property() to struct drm_edid
-c2418cdef500 drm/edid: clean up connector update error handling and debug logging
-26937c8d7b0d drm/edid: abstract debugfs override EDID set/reset
-6ed6af98d125 drm/edid: add drm_edid_connector_update()
-60a7551ef43b drm/probe-helper: add drm_connector_helper_get_modes()
-b5f1d98b8a61 drm/edid: add drm_edid_raw() to access the raw EDID data
-0aecc0bd0212 drm/i915/edid: convert DP, HDMI and LVDS to drm_edid
--:266: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "drm_edid"
-#266: FILE: drivers/gpu/drm/i915/display/intel_hdmi.c:2429:
-+	intel_hdmi_dp_dual_mode_detect(connector, drm_edid != NULL);
+--------------0acfKxdF6CAGtAVWC0C1MFfw--
 
-total: 0 errors, 0 warnings, 1 checks, 311 lines checked
-456053fd34e7 drm/i915/bios: convert intel_bios_init_panel() to drm_edid
-89b76616d2c9 drm/edid: do invalid block filtering in-place
-e74c4052041e drm/edid: add HF-EEODB support to EDID read and allocation
-f20d29004375 drm/edid: take HF-EEODB extension count into account
-b3488db5ed6e drm/todo: add entry for converting the subsystem to struct drm_edid
+--------------jdxH7jDC21oeF8nlo5PkAFFO
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
+-----BEGIN PGP SIGNATURE-----
 
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmK0HywFAwAAAAAACgkQlh/E3EQov+B8
+lg//UBnyd81i/KxYdzGmCKWicezqr70RKVCAR8mXXec0z4OA0jne4C2w/wQ+grnh4tqO0bZVSsiE
+SWz1PT+GPF2awnzOUNPvkg5VIkqqwiTYFmDwLcxrh2WH6sINiH4Wt4hCBK1bOrSBrIcvJ75uKwpT
+m0X0pjKmtXLXTW5AXWtIvsF0mIm7ddrixuZZZkxcS1/b26PXHuKoY8qGuq4T8StMl+oIi/mg/9FZ
+eku6v67KFCXbpccV6kfdHT+yJvnesL4r1qEMt3WRa6Jrkr/J0KnMylmysEGeZeAOVAJBfnsh62Lw
+joDtQJmWkN3urEQM3cGjxNmZIoJ3DyVhVFyHbsoZR7Eh2Z8piCwbs/W56udk1ao/Dv+zTvq1ZM+l
+P6zsJrVu9eCGFZp6YUOVmp8UsF22Ou7pb8yJ91ti1oKbN/p3jjYIvpH4vAr4f1D52wo4DGNVkD+P
+zKJXb+3RK+2Llx/Mp+SJqAyCS56D1W1d+BCmJC13Mwr0fT3NUvlThLMuqCfXLOZhRaRMBgt8a+Ko
+yjNNLY7PKsxWuZSUMv1Z+umdqj8NcFRdgWxCALrZ6gqSXoL38jDTyCUqS/n64Ae4qI7k+2kawv0Y
+QAO2J9p98kivRcRJi9Wl83itWFIxCezIYHaplI3wCnUFzb4eFJFWwerqRtKK+ar2iN1J5A1eRjPu
+5do=
+=LAeD
+-----END PGP SIGNATURE-----
+
+--------------jdxH7jDC21oeF8nlo5PkAFFO--
