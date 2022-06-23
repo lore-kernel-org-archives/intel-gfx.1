@@ -4,60 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2E46CCA47C
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 12:41:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5498AC43334
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 13:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBFFB10E4ED;
-	Thu, 23 Jun 2022 12:41:36 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76B5C10E2A1;
- Thu, 23 Jun 2022 12:41:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEDB10E0B5;
+	Thu, 23 Jun 2022 13:09:08 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 764FD10E0B5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Jun 2022 13:09:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655988095; x=1687524095;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=VWzSbdROyvJm1bdHtCrZV3I6oXerAkRCM6dICVytbfU=;
- b=AF+CIUSbd56V77agGqbTQzj9t18uggzXLdS501PusEA6A05qPMDXKAxY
- DQJneYMI/oLS+c+Gio8JJiQMwrWL8ua21ovUZsNMJzN0F9b7rGl9mESEG
- t46iByGcXcxN7j8W9wpYdGTZc3MURSXmYulxPW5ILLh3iIjwnlhD/LD+F
- 71mZy/Kd/bvtJ5muTYScira1T3Rfkg9VTqCkNnRUu0u6Wvsij1dS1ouaJ
- zEEt7Sg9SAxvzHvWyzb8VXaRiprwpxqf43H/Yt7blmD2bpVaTn0qDr8Z4
- 57dNaoAqoXnf9c9QYepcaJZigmu/XOBlFgukl959Cqr3/yx4Zy3Y1fY5q g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="280754077"
-X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="280754077"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2022 05:41:35 -0700
+ t=1655989747; x=1687525747;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=/P664eRGctRLH2juhUkMKepj48bY2Pp5AAQ5vmN3mcg=;
+ b=n9x+FTd/wNiqJkL4DX7cSJVDICXM4bql6qHIxtiuuglpMXf1RcTa/PiY
+ yXhz8e8GeYWPVH3ibiExSIWsu3W9hTmSJFLuYYjCXe20Nq9qggdz26RLW
+ ZVhxL6iNqunbcgoXuvwCjobpWgFDNJue9eM2PiQMw34yCFfTq37qrS42W
+ 0uSgduuiQYhZeGTVir60MoqLINbtwBDHGrz7quTmH6GTFwZ8M20TxXlwg
+ uuWVq2xfO1bpdK8bvjPl2NKAmV1UN+j/0VQgXuvuM9vNff/GxPPRu9zKb
+ bs+GYhQaIwfrdwbm3Maq2xbTVRXEPXlkaOZb+F0CmYmN5qQuJZsZHDFMd g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="281443497"
+X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="281443497"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2022 06:09:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="644720054"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga008.fm.intel.com with ESMTP; 23 Jun 2022 05:41:34 -0700
-Received: from [10.249.130.158] (unknown [10.249.130.158])
- by linux.intel.com (Postfix) with ESMTP id F27B35808AB;
- Thu, 23 Jun 2022 05:41:31 -0700 (PDT)
-Message-ID: <9ed6180a-70e3-311b-f530-8de10b8ac663@intel.com>
-Date: Thu, 23 Jun 2022 15:41:30 +0300
+X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="730846734"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.163])
+ by fmsmga001.fm.intel.com with SMTP; 23 Jun 2022 06:09:04 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 23 Jun 2022 16:09:03 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 23 Jun 2022 16:08:52 +0300
+Message-Id: <20220623130900.26078-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220623130900.26078-1-ville.syrjala@linux.intel.com>
+References: <20220623130900.26078-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Content-Language: en-US
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-References: <20220622035650.29256-1-niranjana.vishwanathapura@intel.com>
- <20220622035650.29256-4-niranjana.vishwanathapura@intel.com>
- <6ac2f495-8ead-4824-f9af-1c03fb3770c4@linux.intel.com>
- <20220622151229.GY376@nvishwa1-DESK>
- <b347fb63-5200-9f5c-b0d6-ca51b7a064f9@linux.intel.com>
- <20220622164445.GZ376@nvishwa1-DESK>
- <e6ed0d2f-ee2a-2219-c2cc-49efc32f0560@linux.intel.com>
- <1874e47b-4337-5ac6-ebea-fca21ea1ba4c@intel.com>
- <6d70cde9-f856-540a-b1d4-0325596b0c88@linux.intel.com>
-From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-In-Reply-To: <6d70cde9-f856-540a-b1d4-0325596b0c88@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v3 3/3] drm/doc/rfc: VM_BIND uapi definition
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/9] drm/i915: Move dbuf details to
+ INTEL_INFO->display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,71 +59,170 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, thomas.hellstrom@intel.com,
- chris.p.wilson@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 23/06/2022 14:05, Tvrtko Ursulin wrote:
->
-> On 23/06/2022 09:57, Lionel Landwerlin wrote:
->> On 23/06/2022 11:27, Tvrtko Ursulin wrote:
->>>>
->>>> After a vm_unbind, UMD can re-bind to same VA range against an 
->>>> active VM.
->>>> Though I am not sue with Mesa usecase if that new mapping is 
->>>> required for
->>>> running GPU job or it will be for the next submission. But ensuring 
->>>> the
->>>> tlb flush upon unbind, KMD can ensure correctness.
->>>
->>> Isn't that their problem? If they re-bind for submitting _new_ work 
->>> then they get the flush as part of batch buffer pre-amble. 
->>
->> In the non sparse case, if a VA range is unbound, it is invalid to 
->> use that range for anything until it has been rebound by something else.
->>
->> We'll take the fence provided by vm_bind and put it as a wait fence 
->> on the next execbuffer.
->>
->> It might be safer in case of memory over fetching?
->>
->>
->> TLB flush will have to happen at some point right?
->>
->> What's the alternative to do it in unbind?
->
-> Currently TLB flush happens from the ring before every BB_START and 
-> also when i915 returns the backing store pages to the system.
->
-> For the former, I haven't seen any mention that for execbuf3 there are 
-> plans to stop doing it? Anyway, as long as this is kept and sequence 
-> of bind[1..N]+execbuf is safe and correctly sees all the preceding binds.
-> Hence about the alternative to doing it in unbind - first I think lets 
-> state the problem that is trying to solve.
->
-> For instance is it just for the compute "append work to the running 
-> batch" use case? I honestly don't remember how was that supposed to 
-> work so maybe the tlb flush on bind was supposed to deal with that 
-> scenario?
->
-> Or you see a problem even for Mesa with the current model?
->
-> Regards,
->
-> Tvrtko
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
+DBUF is a display thing, so move it into the display
+portion of the device info.
 
-As far as I can tell, all the binds should have completed before execbuf 
-starts if you follow the vulkan sparse binding rules.
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.h   |  2 +-
+ .../gpu/drm/i915/display/intel_display_power.c |  2 +-
+ drivers/gpu/drm/i915/i915_pci.c                | 18 +++++++++---------
+ drivers/gpu/drm/i915/intel_device_info.h       |  9 +++++----
+ drivers/gpu/drm/i915/intel_pm.c                |  8 ++++----
+ 5 files changed, 20 insertions(+), 19 deletions(-)
 
-For non-sparse, the UMD will take care of it.
-
-I think we're fine.
-
-
--Lionel
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index 8610e17cc593..c896c1070211 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -193,7 +193,7 @@ enum plane_id {
+ 
+ #define for_each_dbuf_slice(__dev_priv, __slice) \
+ 	for ((__slice) = DBUF_S1; (__slice) < I915_MAX_DBUF_SLICES; (__slice)++) \
+-		for_each_if(INTEL_INFO(__dev_priv)->dbuf.slice_mask & BIT(__slice))
++		for_each_if(INTEL_INFO(__dev_priv)->display.dbuf.slice_mask & BIT(__slice))
+ 
+ #define for_each_dbuf_slice_in_mask(__dev_priv, __slice, __mask) \
+ 	for_each_dbuf_slice((__dev_priv), (__slice)) \
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index fb17439bd4f8..a9cb27f1c964 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -1038,7 +1038,7 @@ void gen9_dbuf_slices_update(struct drm_i915_private *dev_priv,
+ 			     u8 req_slices)
+ {
+ 	struct i915_power_domains *power_domains = &dev_priv->power_domains;
+-	u8 slice_mask = INTEL_INFO(dev_priv)->dbuf.slice_mask;
++	u8 slice_mask = INTEL_INFO(dev_priv)->display.dbuf.slice_mask;
+ 	enum dbuf_slice slice;
+ 
+ 	drm_WARN(&dev_priv->drm, req_slices & ~slice_mask,
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 5e51fc29bb8b..212a958fd8bd 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -656,8 +656,8 @@ static const struct intel_device_info chv_info = {
+ 	.display.has_ipc = 1, \
+ 	.display.has_psr = 1, \
+ 	.display.has_psr_hw_tracking = 1, \
+-	.dbuf.size = 896 - 4, /* 4 blocks for bypass path allocation */ \
+-	.dbuf.slice_mask = BIT(DBUF_S1)
++	.display.dbuf.size = 896 - 4, /* 4 blocks for bypass path allocation */ \
++	.display.dbuf.slice_mask = BIT(DBUF_S1)
+ 
+ #define SKL_PLATFORM \
+ 	GEN9_FEATURES, \
+@@ -692,7 +692,7 @@ static const struct intel_device_info skl_gt4_info = {
+ #define GEN9_LP_FEATURES \
+ 	GEN(9), \
+ 	.is_lp = 1, \
+-	.dbuf.slice_mask = BIT(DBUF_S1), \
++	.display.dbuf.slice_mask = BIT(DBUF_S1), \
+ 	.display.has_hotplug = 1, \
+ 	.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0) | BIT(VECS0), \
+ 	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C), \
+@@ -730,14 +730,14 @@ static const struct intel_device_info skl_gt4_info = {
+ static const struct intel_device_info bxt_info = {
+ 	GEN9_LP_FEATURES,
+ 	PLATFORM(INTEL_BROXTON),
+-	.dbuf.size = 512 - 4, /* 4 blocks for bypass path allocation */
++	.display.dbuf.size = 512 - 4, /* 4 blocks for bypass path allocation */
+ };
+ 
+ static const struct intel_device_info glk_info = {
+ 	GEN9_LP_FEATURES,
+ 	PLATFORM(INTEL_GEMINILAKE),
+ 	.display.ver = 10,
+-	.dbuf.size = 1024 - 4, /* 4 blocks for bypass path allocation */
++	.display.dbuf.size = 1024 - 4, /* 4 blocks for bypass path allocation */
+ 	GLK_COLORS,
+ };
+ 
+@@ -827,8 +827,8 @@ static const struct intel_device_info cml_gt2_info = {
+ 	}, \
+ 	GEN(11), \
+ 	ICL_COLORS, \
+-	.dbuf.size = 2048, \
+-	.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2), \
++	.display.dbuf.size = 2048, \
++	.display.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2), \
+ 	.display.has_dsc = 1, \
+ 	.has_coherent_ggtt = false, \
+ 	.has_logical_ring_elsq = 1
+@@ -951,8 +951,8 @@ static const struct intel_device_info adl_s_info = {
+ 		   .degamma_lut_tests = DRM_COLOR_LUT_NON_DECREASING |		\
+ 					DRM_COLOR_LUT_EQUAL_CHANNELS,		\
+ 	},									\
+-	.dbuf.size = 4096,							\
+-	.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2) | BIT(DBUF_S3) |		\
++	.display.dbuf.size = 4096,						\
++	.display.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2) | BIT(DBUF_S3) |	\
+ 		BIT(DBUF_S4),							\
+ 	.display.has_ddi = 1,							\
+ 	.display.has_dmc = 1,							\
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 08341174ee0a..a5f0e5eac6a6 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -231,15 +231,16 @@ struct intel_device_info {
+ 		u8 fbc_mask;
+ 		u8 abox_mask;
+ 
++		struct {
++			u16 size; /* in blocks */
++			u8 slice_mask;
++		} dbuf;
++
+ #define DEFINE_FLAG(name) u8 name:1
+ 		DEV_INFO_DISPLAY_FOR_EACH_FLAG(DEFINE_FLAG);
+ #undef DEFINE_FLAG
+ 	} display;
+ 
+-	struct {
+-		u16 size; /* in blocks */
+-		u8 slice_mask;
+-	} dbuf;
+ 
+ 	/* Register offsets for the various display pipes and transcoders */
+ 	int pipe_offsets[I915_MAX_TRANSCODERS];
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 9b7e93ca1ff9..f06babdb3a8c 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -4101,8 +4101,8 @@ static u16 skl_ddb_entry_init(struct skl_ddb_entry *entry,
+ 
+ static int intel_dbuf_slice_size(struct drm_i915_private *dev_priv)
+ {
+-	return INTEL_INFO(dev_priv)->dbuf.size /
+-		hweight8(INTEL_INFO(dev_priv)->dbuf.slice_mask);
++	return INTEL_INFO(dev_priv)->display.dbuf.size /
++		hweight8(INTEL_INFO(dev_priv)->display.dbuf.slice_mask);
+ }
+ 
+ static void
+@@ -4121,7 +4121,7 @@ skl_ddb_entry_for_slices(struct drm_i915_private *dev_priv, u8 slice_mask,
+ 	ddb->end = fls(slice_mask) * slice_size;
+ 
+ 	WARN_ON(ddb->start >= ddb->end);
+-	WARN_ON(ddb->end > INTEL_INFO(dev_priv)->dbuf.size);
++	WARN_ON(ddb->end > INTEL_INFO(dev_priv)->display.dbuf.size);
+ }
+ 
+ static unsigned int mbus_ddb_offset(struct drm_i915_private *i915, u8 slice_mask)
+@@ -6096,7 +6096,7 @@ skl_compute_ddb(struct intel_atomic_state *state)
+ 			    "Enabled dbuf slices 0x%x -> 0x%x (total dbuf slices 0x%x), mbus joined? %s->%s\n",
+ 			    old_dbuf_state->enabled_slices,
+ 			    new_dbuf_state->enabled_slices,
+-			    INTEL_INFO(dev_priv)->dbuf.slice_mask,
++			    INTEL_INFO(dev_priv)->display.dbuf.slice_mask,
+ 			    str_yes_no(old_dbuf_state->joined_mbus),
+ 			    str_yes_no(new_dbuf_state->joined_mbus));
+ 	}
+-- 
+2.35.1
 
