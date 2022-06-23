@@ -4,49 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DB3AC43334
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 13:09:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CED97C43334
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jun 2022 13:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86E7510ED62;
-	Thu, 23 Jun 2022 13:09:26 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4689F10ED62
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Jun 2022 13:09:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D4C310EF93;
+	Thu, 23 Jun 2022 13:09:30 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45D9310EF93
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Jun 2022 13:09:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655989765; x=1687525765;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=rZVykARZEH8XICNf2gsvs7YOn/eGREdFdVEnhQ9QiXM=;
- b=PK10sgfeJ0NiB4UpR5vzSEV+GaIm9R8uuT86b3vfTQzjEEtvyo0Ydyn+
- gaCOsmZtvd+uoF5gV9UETPGm1JN2WmdX/cgARQcgqIWqz4WDS1WxYTPOp
- 3K21JcN1BOBu+g6p1YYH+YxD5XWPXV6GzqZCNbu4I3AxyW0AO1hh2vVAw
- ELncD2JOW24UvWUUXqoLeStM0+8RPBLjMX6ASO9qczr7XMoptH2iUIZk4
- D5Dn+CkDqVX3+FtOhJAEqQmrWumHbU7fne+Hp51pCk+ynN2GuxY35ivDs
- Vld6ch2HlotPFOF24IMd9q5a9HGweVkgp7udJxTIC+b84D+KDwQSyDq/X w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="344703323"
-X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="344703323"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2022 06:09:24 -0700
+ t=1655989767; x=1687525767;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=dMF+FgTUH10VyL1KEOXTSQvcbEQXU2kUjGzvVx8O5h8=;
+ b=XfsRH016F8BGLXCPIGwuJ57BvUk0Y1OHqbqC5AYHu6CHuvhn+HKReHO6
+ GCd8KCD92AIv5YVwjEHcLn4mTBp+MYHBEWr60ePCUDxfhvdSNAzgZ7oS/
+ 87DJLG2OxKs1gNFxj/Hg/reIOl1GdHRifohR7BXzsQUEokE2WjH700bu2
+ F0TeT16ENiaXi190amCR52ylSzIsRsEybnd6BNNyHYKHFsqaGAjLaFFNR
+ 8ZMMLqEZxts/V0BFKMolFDNVS07zhG5qLVjAGFWwPu/x2TPldwE1hg/gZ
+ AYnD3XiI/lLTnDAGvTiWypVM9pPA+/9A3sNLgZhm1q4G6RtCW8Ru+8Zkl Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10386"; a="278262425"
+X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="278262425"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2022 06:09:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="678051207"
+X-IronPort-AV: E=Sophos;i="5.92,216,1650956400"; d="scan'208";a="592697809"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.163])
- by FMSMGA003.fm.intel.com with SMTP; 23 Jun 2022 06:09:22 -0700
+ by fmsmga007.fm.intel.com with SMTP; 23 Jun 2022 06:09:01 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 23 Jun 2022 16:09:21 +0300
+ Thu, 23 Jun 2022 16:09:00 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Jun 2022 16:08:58 +0300
-Message-Id: <20220623130900.26078-8-ville.syrjala@linux.intel.com>
+Date: Thu, 23 Jun 2022 16:08:51 +0300
+Message-Id: <20220623130900.26078-1-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220623130900.26078-1-ville.syrjala@linux.intel.com>
-References: <20220623130900.26078-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 7/9] drm/i915: Use _MMIO_PIPE2() where
- appropriate
+Subject: [Intel-gfx] [PATCH 0/9] drm/i915: Display info cleanup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,28 +61,29 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Stop hand rolling _MMIO_TRANS2() and just use the real thing.
-Note that this register isn't even used atm, hence why this
-builds despite the _PIPE2() macro not actually existing.
+Collect more stuff under INTEL_INFO->display, and clean up
+some messy stuff in the related register macros.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/i915_reg.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Ville Syrjälä (9):
+  drm/i915: Move dbuf details to INTEL_INFO->display
+  drm/i195: Move pipe_offsets[] & co. to INTEL_INFO->display
+  drm/i915: Move display_mmio_offset under INTEL_INFO->display
+  drm/i915: Make pipe_offsets[] & co. u32
+  drm/i915: s/_CURSOR2/_MMIO_CURSOR2//
+  drm/i915: Use _MMIO_TRANS2() where appropriate
+  drm/i915: Use _MMIO_PIPE2() where appropriate
+  drm/i915: Get rid of XE_LPD_CURSOR_OFFSETS
+  drm/i915: Move the color stuff under INTEL_INFO->display
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 8bcde74e9217..36505c75e6b5 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4407,7 +4407,7 @@
- #define DSPLINOFF(plane)	DSPADDR(plane)
- #define DSPOFFSET(plane)	_MMIO_PIPE2(plane, _DSPAOFFSET)
- #define DSPSURFLIVE(plane)	_MMIO_PIPE2(plane, _DSPASURFLIVE)
--#define DSPGAMC(plane, i)	_MMIO(_PIPE2(plane, _DSPAGAMC) + (5 - (i)) * 4) /* plane C only, 6 x u0.8 */
-+#define DSPGAMC(plane, i)	_MMIO_PIPE2(plane, _DSPAGAMC + (5 - (i)) * 4) /* plane C only, 6 x u0.8 */
- 
- /* CHV pipe B blender and primary plane */
- #define _CHV_BLEND_A		0x60a00
+ drivers/gpu/drm/i915/display/intel_color.c    |  28 ++---
+ drivers/gpu/drm/i915/display/intel_display.h  |   2 +-
+ .../drm/i915/display/intel_display_power.c    |   2 +-
+ drivers/gpu/drm/i915/i915_pci.c               | 112 +++++++++---------
+ drivers/gpu/drm/i915/i915_reg.h               |  47 ++++----
+ drivers/gpu/drm/i915/intel_device_info.h      |  39 +++---
+ drivers/gpu/drm/i915/intel_pm.c               |   8 +-
+ 7 files changed, 117 insertions(+), 121 deletions(-)
+
 -- 
 2.35.1
 
