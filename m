@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 427CDCCA481
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 08:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E592DC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 08:05:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB91510FB0B;
-	Fri, 24 Jun 2022 08:04:50 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61AFD10F2C7;
- Fri, 24 Jun 2022 08:04:49 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id c13so2291698eds.10;
- Fri, 24 Jun 2022 01:04:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67F7A1120BE;
+	Fri, 24 Jun 2022 08:04:53 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD26A1120BE;
+ Fri, 24 Jun 2022 08:04:51 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id z11so2295706edp.9;
+ Fri, 24 Jun 2022 01:04:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LhrZ1UxjIpVC2XBdksQBTmD7BAYYNmGWhWbEjzEkz2c=;
- b=IT/2QY1S3wcM8FS/v0FfdNQ+N0HXcgQBGNh20MRJf8eVnqxcRW0P4dlyNLO+vVZ8g/
- 6Q+9dkqSDlXiGXgDpZQ0Bpt/FxnTiQwhmLrYF2pPF4xCysoOJkrd6xdjVCkn+Uvy+ffB
- quJO025nVRDKuN9elrZ48yacmrwHG6j8fQ5ySbuBDjbc6A7DHjXpkjjTouvrDvdQmO8c
- ms0eTCTSdv2gdgpHBUxImXnUGSIc33A3tu+afJmcDei235oxk6m1CWDn/CTQ5PlKsxAC
- SPK5To3d1dYAUUDB5YpwfCNc5A+uFc9Q9nF0XhuNgx0cPr6s4OJUdGvNRl1Rtwlr7tA1
- Xb0w==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=6j0Gpi54M48fI1NcNiQ2zQbh0cpYb0wFPGGgMk6DiNo=;
+ b=fk1Q8DhcfpcNKxoNpWHiQSY9AE96A9aVxjRhZQQUWDZRdv7jEZGX6hMqBKr6rqq5fy
+ 9t7SzX2Vl712znvGA8+d7SsV/SLjOuEz8EJqw7KMYQFjdKxhRvkPZZZiwuZ1Mbl3yEfV
+ 0czXl+5DWtas1YhPkEGvL798aRjcHESclYc/C/XKzSoId3CQoIeGfVhaQ9gE8V4nAnvz
+ yPNyik6e47/+4vPDqcfn3WUpjSuAR16t34HQILns5txBmvATmE4OpVbQiTQ3jTbxv/Ju
+ QRq5NGdaccxi64UFpJMIIRqRVNhqRxqlSvbkbbvI6sIihwWIzkjAbvWZWMqIO6dN8QxY
+ AsDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LhrZ1UxjIpVC2XBdksQBTmD7BAYYNmGWhWbEjzEkz2c=;
- b=FbKWmQfOlmBLGVCt9NzwaEbDVI6LxX+pyozkVFZzD5faWxBydP+y0oPiieM8s+npUr
- IGaKxMneWZXhqZpNuFNdLz/6ED7P0vigWgqYbWpq8pY7aiR+sxYcRvffo/v9YIaeh76C
- THR1A9Ql0Ns2pIEt4BbK0S3oggjoxxj5Vz8yKD4bFkTJiEKeg4cC8K/D+WYFMZsRDprp
- EB+SOOvMr5hNSssLq+LVmksTW39f3a6npljJ+zyTUTIlQZ8pokvQM3JB3UDgRNVKTB/7
- gcbxxs3upqOfinlVuCJaNtax56pSsaAIljBBZa9LXhVldXccCvazBXLeV6u+x03tnMhV
- Jv+g==
-X-Gm-Message-State: AJIora/yzKJp9jBTBgSKIAhLCHeoYILROKH5HX34aj9q9Hanb/DozfR7
- b+XnPuyPRNCyK5wAreOss4s=
-X-Google-Smtp-Source: AGRyM1vntYWPcpiFR2W5uxDMzVDamojnDeNXHGRVhdRGjoQWJzpXxx+4TF3fYwBFNAdDWENhklW23w==
-X-Received: by 2002:aa7:d29a:0:b0:435:705f:1319 with SMTP id
- w26-20020aa7d29a000000b00435705f1319mr15758286edq.54.1656057887845; 
- Fri, 24 Jun 2022 01:04:47 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=6j0Gpi54M48fI1NcNiQ2zQbh0cpYb0wFPGGgMk6DiNo=;
+ b=2z0zu7UN9NvdPF84ElWpoaBDz/dxdDfPIDw9mjPIIBUMqiudj8d+QHPr5gL4m+5bkf
+ +al3JDe18Ei2pEIatvbEbGkWJxvEKIGKHmcAocWmvig8sIg7xKPTNI6oXGadpLM6Or/A
+ 3S3pOiHGhnFe0wPR5VOh4wzEszmpXdp/EV9JL0J8Ce/fGdr7BP2eKnzbmgX3XYHBUn8t
+ TFMwapI5dXjya7/GS6LHJovsxp72EetpUPSC/zz3RQGjMAmA5g8PwQdwkstx+/IzhlRS
+ 1ZubKiF7evMSKmepNfTGwHeo5S5vUbyKmu3hifQVoocCIjnCSIwLm9gD8AXXamMbZgcI
+ WWXw==
+X-Gm-Message-State: AJIora+re+1RMGfkdXK+BwA26UYhcJvpAKoucNTSOQyBZD+mVG/LfaXd
+ 5h1mqCjz+Tg+sIpARs09hyo=
+X-Google-Smtp-Source: AGRyM1srTDsD3lF1Nj8u/D/xjMuJOrSeuMWkaVaQOvHyyq+uUmVQu5uN8XQJNPLwVdaC1R98cp8x3A==
+X-Received: by 2002:a05:6402:350f:b0:42f:68f9:ae5 with SMTP id
+ b15-20020a056402350f00b0042f68f90ae5mr16118492edd.36.1656057890308; 
+ Fri, 24 Jun 2022 01:04:50 -0700 (PDT)
 Received: from able.fritz.box (p57b0bd9f.dip0.t-ipconnect.de. [87.176.189.159])
  by smtp.gmail.com with ESMTPSA id
- c19-20020a170906155300b006fea43db5c1sm697779ejd.21.2022.06.24.01.04.46
+ c19-20020a170906155300b006fea43db5c1sm697779ejd.21.2022.06.24.01.04.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jun 2022 01:04:47 -0700 (PDT)
+ Fri, 24 Jun 2022 01:04:49 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -55,13 +55,14 @@ To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  dri-devel@lists.freedesktop.org
-Date: Fri, 24 Jun 2022 10:04:30 +0200
-Message-Id: <20220624080444.7619-1-christian.koenig@amd.com>
+Date: Fri, 24 Jun 2022 10:04:32 +0200
+Message-Id: <20220624080444.7619-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220624080444.7619-1-christian.koenig@amd.com>
+References: <20220624080444.7619-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC] Per file OOM-badness / RSS once more
+Subject: [Intel-gfx] [PATCH 02/14] oom: take per file RSS into account
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,52 +75,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mhocko@suse.com
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, mhocko@suse.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello everyone,
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 
-To summarize the issue I'm trying to address here: Processes can allocate
-resources through a file descriptor without being held responsible for it.
+Try to make better decisions which process to kill based on
+per file RSS.
 
-I'm not explaining all the details again. See here for a more deeply
-description of the problem: https://lwn.net/ml/linux-kernel/20220531100007.174649-1-christian.koenig@amd.com/
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+---
+ mm/oom_kill.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-With this iteration I'm trying to address a bunch of the comments Michal Hocko
-(thanks a lot for that) gave as well as giving some new ideas.
-
-Changes made so far:
-1. Renamed the callback into file_rss(). This is at least a start to better
-   describe what this is all about. I've been going back and forth over the
-   naming here, if you have any better idea please speak up.
-
-2. Cleanups, e.g. now providing a helper function in the fs layer to sum up
-   all the pages allocated by the files in a file descriptor table.
-
-3. Using the actual number of allocated pages for the shmem implementation
-   instead of just the size. I also tried to ignore shmem files which are part
-   of tmpfs, cause that has a separate accounting/limitation approach.
-
-4. The OOM killer now prints the memory of the killed process including the per
-   file pages which makes the whole things much more comprehensible.
-
-5. I've added the per file pages to the different reports in RSS in procfs.
-   This has the interesting effect that tools like top suddenly give a much
-   more accurate overview of the memory use as well. This of course increases
-   the overhead of gathering those information quite a bit and I'm not sure how
-   feasible that is for up-streaming. On the other hand this once more clearly
-   shows that we need to do something about this issue.
-
-Another rather interesting observation is that multiple subsystems (shmem,
-tmpfs, ttm) came up with the same workaround of limiting the memory which can
-be allocated through them to 50% of the whole system memory. Unfortunately
-that isn't the same 50% and it doesn't apply everywhere, so you can still
-easily crash the box.
-
-Ideas and/or comments are really welcome.
-
-Thanks,
-Christian.
-
+diff --git a/mm/oom_kill.c b/mm/oom_kill.c
+index 3c6cf9e3cd66..76a5ea73eb6a 100644
+--- a/mm/oom_kill.c
++++ b/mm/oom_kill.c
+@@ -18,6 +18,7 @@
+  *  kernel subsystems and hints as to where to find out what things do.
+  */
+ 
++#include <linux/fdtable.h>
+ #include <linux/oom.h>
+ #include <linux/mm.h>
+ #include <linux/err.h>
+@@ -228,7 +229,8 @@ long oom_badness(struct task_struct *p, unsigned long totalpages)
+ 	 * task's rss, pagetable and swap space use.
+ 	 */
+ 	points = get_mm_rss(p->mm) + get_mm_counter(p->mm, MM_SWAPENTS) +
+-		mm_pgtables_bytes(p->mm) / PAGE_SIZE;
++		files_rss(p->files) + mm_pgtables_bytes(p->mm) / PAGE_SIZE;
++
+ 	task_unlock(p);
+ 
+ 	/* Normalize to oom_score_adj units */
+@@ -401,8 +403,8 @@ static int dump_task(struct task_struct *p, void *arg)
+ 
+ 	pr_info("[%7d] %5d %5d %8lu %8lu %8ld %8lu         %5hd %s\n",
+ 		task->pid, from_kuid(&init_user_ns, task_uid(task)),
+-		task->tgid, task->mm->total_vm, get_mm_rss(task->mm),
+-		mm_pgtables_bytes(task->mm),
++		task->tgid, task->mm->total_vm, get_mm_rss(task->mm) +
++		files_rss(task->files),	mm_pgtables_bytes(task->mm),
+ 		get_mm_counter(task->mm, MM_SWAPENTS),
+ 		task->signal->oom_score_adj, task->comm);
+ 	task_unlock(task);
+@@ -594,7 +596,8 @@ static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
+ 	pr_info("oom_reaper: reaped process %d (%s), now anon-rss:%lukB, file-rss:%lukB, shmem-rss:%lukB\n",
+ 			task_pid_nr(tsk), tsk->comm,
+ 			K(get_mm_counter(mm, MM_ANONPAGES)),
+-			K(get_mm_counter(mm, MM_FILEPAGES)),
++			K(get_mm_counter(mm, MM_FILEPAGES) +
++			  files_rss(tsk->files)),
+ 			K(get_mm_counter(mm, MM_SHMEMPAGES)));
+ out_finish:
+ 	trace_finish_task_reaping(tsk->pid);
+@@ -950,7 +953,7 @@ static void __oom_kill_process(struct task_struct *victim, const char *message)
+ 	pr_err("%s: Killed process %d (%s) total-vm:%lukB, anon-rss:%lukB, file-rss:%lukB, shmem-rss:%lukB, UID:%u pgtables:%lukB oom_score_adj:%hd\n",
+ 		message, task_pid_nr(victim), victim->comm, K(mm->total_vm),
+ 		K(get_mm_counter(mm, MM_ANONPAGES)),
+-		K(get_mm_counter(mm, MM_FILEPAGES)),
++		K(get_mm_counter(mm, MM_FILEPAGES) + files_rss(victim->files)),
+ 		K(get_mm_counter(mm, MM_SHMEMPAGES)),
+ 		from_kuid(&init_user_ns, task_uid(victim)),
+ 		mm_pgtables_bytes(mm) >> 10, victim->signal->oom_score_adj);
+-- 
+2.25.1
 
