@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 643AFC43334
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 08:05:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E43DCCA47F
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 08:05:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBE6112C20;
-	Fri, 24 Jun 2022 08:04:57 +0000 (UTC)
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB2F112C01;
- Fri, 24 Jun 2022 08:04:55 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id c65so2327040edf.4;
- Fri, 24 Jun 2022 01:04:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43263112C24;
+	Fri, 24 Jun 2022 08:05:00 +0000 (UTC)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFEC2112C01;
+ Fri, 24 Jun 2022 08:04:57 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id z19so2279007edb.11;
+ Fri, 24 Jun 2022 01:04:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=SN2tXnkiXYHDkRcNluGEiWD+Zcie7EgTba4v+LS00Rw=;
- b=CjcSe9wc4EjfAkbjkiF8NJM6p2V4TBIzx/MVoQMmpgiPsjLyR+gRuRTFEYB3Ktsmj6
- uDAJoHxOnz8/QuPN6vTSy5gLwbvZIrxGeq6qoPabZTcRU6gXi4B9UgKRuVNDxdOuXcL1
- cxd/73iXXQR+fr9ZjFoDFmjR0cLQM1R0DIR2jGAJPqHq78r8H+21zwbEgz340DrDdfqf
- X5N2BIdOCyjdEdUdAOIQhfOYFDl6u7OALHxEmKZyWH8er7gOe7gpZJPRqEWHVjjT+Zda
- LFVWx/ojsAy6fLSK9XLReier7Yc/aQFSo1vJ6Ffb4pLtiw1aDQ3/hGk/ftltPnqcfrJN
- mArQ==
+ bh=ID2laRfYSApmjGzin/c5O7ZzYP1tMI9ua34YWk456Wk=;
+ b=U7uY3MsA0DHippF6S8UKVRKmsJnNzZVtyS/oxSk8mnuxYbuH6lVcfrpX+0QqNbAzsr
+ OHPqC1A2CJXe90yHB7/dZKLeRQkrpAbVd3R0tfpASOsFiFVpqjxyZSja4Ln6UQfGkV1F
+ vEhUaLJqQTsf0mDlK6LHd6b+sDgfx27xoxB1E1JLj9lewb9qKNqcQpOqIQ9VN902Eeco
+ K9AuesVMeK0hPkCglbUSWjfKsjVujF7T8cb3mCE5ZaCnxoDqUl7F2zCL64/5pa0gH7B9
+ 1NKNHVz889djG0KWGG8iwf1I/ljLUIKtvBLVbUBVPCkEvOT+MIVlMWKc5SSwZwD6KAKU
+ AbXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=SN2tXnkiXYHDkRcNluGEiWD+Zcie7EgTba4v+LS00Rw=;
- b=5Ll1rqaRGm/BqcPT412mRHi/Ul+Jvuv+QpezTWS6327qxyounJmaaHjSRsh25xldvO
- 2MKm8zkxl91YUeFExgEgmy1jS3C+ULGKtUWXXtn8cKcxzQeWPiOMk6VavWD7JCopvurZ
- RhaOoo1sW0D3YZkNTN33DwFBGZnKcRyWQW0nGudtDcgatpdLyA8AZRSXav0wufw3OKER
- L+ITsZZ4O11rlsKjoMH77XKVLCtQnfCmtuDKfy/H+VcCIepUq6G562Rw9Ui4MLcufBey
- takSjBPWU8/9szDRlprI2P+jr6vB/SHwTulcKQyCsca/M/c8N07mkPIrTEodurLI1WJp
- /l5Q==
-X-Gm-Message-State: AJIora/vqu+lroBz44Qis/YOJRvRVyAspEIS4z+QaeLyZAEfTTttAvWq
- 9CcCNlnXlt6PFG7V1l73sNVOUUGLwi0=
-X-Google-Smtp-Source: AGRyM1tBvj71cbsgZ5j4wXJcKfxDt7AmGXAvH0woqtRU4by1QVnuj6MIlbtq+6gf5TBsdwCsD9lmDQ==
-X-Received: by 2002:aa7:d296:0:b0:435:7f33:38bc with SMTP id
- w22-20020aa7d296000000b004357f3338bcmr15804834edq.399.1656057893977; 
- Fri, 24 Jun 2022 01:04:53 -0700 (PDT)
+ bh=ID2laRfYSApmjGzin/c5O7ZzYP1tMI9ua34YWk456Wk=;
+ b=WcPYqiKraWHqQM60SEvo+WiHHAfv+0i8yUB69s+O/9t68FzKVO2BsD1o50LrbCy48I
+ VZpMzFyBnXm+REzoqb6Q+J8CAYewa2DArI/XAjFLbnDQrncHnBxrurBDB6J0ODHe2Qst
+ /qzJY+RIRDyaVYbPb1rA2FdByNyy4B2isfUg5JLsG02SqJNpmppnK07q70iNpNkKK811
+ iudtyxPHV6w0/Jua45AiGpb+zfsVc2w3pEzFFCDk5X2VISao0JDtbT4VNW1PTZ99qeVO
+ ck8tdDTQBEgCb8r2+6bBaFElMTBmoW8xDPmagYgXFWVJh5K0bRuvrT/4KvgFh45o3w8g
+ twyw==
+X-Gm-Message-State: AJIora+naXhwWJi9NmOtUFeuItrbnez2He26bHEPlfnxopA67Htscwdn
+ ctd2iZ4SSWxbgJwGdPgWx1M=
+X-Google-Smtp-Source: AGRyM1vXothqzNCeq2wfXu0Iy7pDBGR1100k8JOpLZpuKKiLhk+9M6Fn95/BBmkDNLC1mjmi1D/X+w==
+X-Received: by 2002:a05:6402:11d1:b0:435:d76d:f985 with SMTP id
+ j17-20020a05640211d100b00435d76df985mr7954996edw.8.1656057896438; 
+ Fri, 24 Jun 2022 01:04:56 -0700 (PDT)
 Received: from able.fritz.box (p57b0bd9f.dip0.t-ipconnect.de. [87.176.189.159])
  by smtp.gmail.com with ESMTPSA id
- c19-20020a170906155300b006fea43db5c1sm697779ejd.21.2022.06.24.01.04.52
+ c19-20020a170906155300b006fea43db5c1sm697779ejd.21.2022.06.24.01.04.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jun 2022 01:04:53 -0700 (PDT)
+ Fri, 24 Jun 2022 01:04:56 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -55,16 +55,15 @@ To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  dri-devel@lists.freedesktop.org
-Date: Fri, 24 Jun 2022 10:04:35 +0200
-Message-Id: <20220624080444.7619-6-christian.koenig@amd.com>
+Date: Fri, 24 Jun 2022 10:04:37 +0200
+Message-Id: <20220624080444.7619-8-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220624080444.7619-1-christian.koenig@amd.com>
 References: <20220624080444.7619-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/14] dma-buf: provide file RSS for DMA-buf
- files
+Subject: [Intel-gfx] [PATCH 07/14] drm/gma500: use drm_file_rss
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,38 +81,25 @@ Cc: mhocko@suse.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Just return the size of the DMA-buf in pages since pages allocated or
-mapped through DMA-bufs are usually not accounted elsewhere.
+This allows the OOM killer to make a better decision which process to reap.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/dma-buf/dma-buf.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/gma500/psb_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 630133284e2b..16162ec3538c 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -494,6 +494,11 @@ static void dma_buf_show_fdinfo(struct seq_file *m, struct file *file)
- 	spin_unlock(&dmabuf->name_lock);
- }
- 
-+static long dma_buf_file_rss(struct file *file)
-+{
-+	return i_size_read(file_inode(file)) >> PAGE_SHIFT;
-+}
-+
- static const struct file_operations dma_buf_fops = {
- 	.release	= dma_buf_file_release,
- 	.mmap		= dma_buf_mmap_internal,
-@@ -502,6 +507,7 @@ static const struct file_operations dma_buf_fops = {
- 	.unlocked_ioctl	= dma_buf_ioctl,
- 	.compat_ioctl	= compat_ptr_ioctl,
- 	.show_fdinfo	= dma_buf_show_fdinfo,
-+	.file_rss	= dma_buf_file_rss,
+diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
+index 1d8744f3e702..92c005aa6e9e 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.c
++++ b/drivers/gpu/drm/gma500/psb_drv.c
+@@ -513,6 +513,7 @@ static const struct file_operations psb_gem_fops = {
+ 	.mmap = drm_gem_mmap,
+ 	.poll = drm_poll,
+ 	.read = drm_read,
++	.file_rss = drm_file_rss,
  };
  
- /*
+ static const struct drm_driver driver = {
 -- 
 2.25.1
 
