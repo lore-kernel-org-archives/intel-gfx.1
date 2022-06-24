@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76915C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 16:00:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90BF1C43334
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 16:00:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCEEA10E14E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D88B610E341;
 	Fri, 24 Jun 2022 16:00:02 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA23A10E14E
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 15:59:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D231110E14E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 16:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1656086400; x=1687622400;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Nlx+EAayxnhv9/HccveKs4YiVvkKi3SEuLDAioxC5aI=;
- b=hdIfuAq0HIAspJ0WaEgRqWeGUpjph5x8VtqQ+jaeuRSQF6J8rqdIYKL0
- I82c5ao1WODKF8MU8Ujmate3kdZnlGXJYTdesnV/UxWIJ9vXXpSPFhSD+
- /1hUaz2xy9Lu89bUcMaSDgWN0TwXps2uq2IWREgLc3+G5KFul3+vOvQWt
- EtZgdhbmNgfmYvHY6pLIj1pN0PULfR9hdTT/7sMyHdshndQwCtY5xQn2f
- /sNTGq1oGEXnv+dOeUsxiCzCiTVuiOgV+AGdMbHgejpy8V5tJv7/TCYVG
- tWL6jrEVqpIKitFS39mHy9Fn4eNqgPAs1VluxoU8pEjpVH9g6me6A1xY1 g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10388"; a="281762304"
-X-IronPort-AV: E=Sophos;i="5.92,218,1650956400"; d="scan'208";a="281762304"
+ bh=UgoyjaKwMk0mob1FS6XvcR9Y83K30xgGGKP+OMGyNcE=;
+ b=UpmEgOs5rNJs6KGxdyFSVMb4fcczSFahqg1g6xx/skac3qek+VQdEuFT
+ pw3NuCBfAI2DPtyaRWXyYJiGsBLuni6+LSqzopZS81ajrhaBKor/lrgYJ
+ 3dxqzRy3SHFNdqwOk3lh9fy6ji3VRmOMWECIT/nRY88i/X803LdoYo5EG
+ KFCPOCApXFnRalGXC5tYyqlsUU4rYhcNIvWzTeecwvJ6pvzS9BHgLCtSP
+ AX+Wov0Wa67M6z1LfuMMeWFbfD0B2t6jTV4uY6jwHZk3Oi+QIESS9Oa9U
+ AQ/dyCEjHCy/FoA13LL0aw13G3FeghqgaBaJp17edlMXGErhrAWDpZVPK A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10388"; a="281762326"
+X-IronPort-AV: E=Sophos;i="5.92,218,1650956400"; d="scan'208";a="281762326"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2022 08:59:49 -0700
-X-IronPort-AV: E=Sophos;i="5.92,218,1650956400"; d="scan'208";a="835170162"
+ 24 Jun 2022 09:00:00 -0700
+X-IronPort-AV: E=Sophos;i="5.92,218,1650956400"; d="scan'208";a="835170404"
 Received: from srr4-3-linux-105-anshuma1.iind.intel.com ([10.223.74.179])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2022 08:59:47 -0700
+ 24 Jun 2022 08:59:57 -0700
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 24 Jun 2022 21:29:16 +0530
-Message-Id: <20220624155922.7435-4-anshuman.gupta@intel.com>
+Date: Fri, 24 Jun 2022 21:29:20 +0530
+Message-Id: <20220624155922.7435-8-anshuman.gupta@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20220624155922.7435-1-anshuman.gupta@intel.com>
 References: <20220624155922.7435-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 3/9] drm/i915/dg2: Add DG2_NB_MBD subplatform
+Subject: [Intel-gfx] [PATCH v3 7/9] Drm/i915/rpm: Enable D3Cold VRAM SR
+ Support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,155 +56,100 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, rodrigo.vivi@intel.com
+Cc: jani.nikula@intel.com, Chris Wilson <chris.p.wilson@intel.com>,
+ rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DG2 NB SKU need to distinguish between MBD and AIC to probe
-the VRAM Self Refresh feature support. Adding those sub platform
-accordingly.
+Intel Client DGFX card supports D3Cold with two option.
+D3Cold-off zero watt, D3Cold-VRAM Self Refresh.
+
+i915 requires to evict the lmem objects to smem in order to
+support D3Cold-Off, which increases i915 the suspend/resume
+latency. Enabling VRAM Self Refresh feature optimize the
+latency with additional power cost which required to retain
+the lmem.
+
+Adding intel_runtime_idle (runtime_idle callback) to enable
+VRAM_SR, it will be used for policy to choose
+between D3Cold-off vs D3Cold-VRAM_SR.
+
+Since we have introduced i915 runtime_idle callback.
+It need to be warranted that Runtime PM Core invokes runtime_idle
+callback when runtime usages count becomes zero. That requires
+to use pm_runtime_put instead of pm_runtime_put_autosuspend.
+
+TODO: GT and GuC Interface state save/restore on VRAM_SR entry/exit.
 
 v2:
-- Adding only required MBD subplatform. [Jani, Matt]
+- Remove drm_dbg("VRAM Self Refresh enabled"). [Jani]
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Chris Wilson <chris.p.wilson@intel.com>
 Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h          |  2 ++
- drivers/gpu/drm/i915/intel_device_info.c | 14 ++++++++++++++
- drivers/gpu/drm/i915/intel_device_info.h |  3 ++-
- include/drm/i915_pciids.h                | 23 ++++++++++++++++-------
- 4 files changed, 34 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/i915_driver.c      | 26 +++++++++++++++++++++++++
+ drivers/gpu/drm/i915/intel_runtime_pm.c |  3 +--
+ 2 files changed, 27 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index c22f29c3faa0..a68777948db9 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1012,6 +1012,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 	IS_SUBPLATFORM(dev_priv, INTEL_DG2, INTEL_SUBPLATFORM_G11)
- #define IS_DG2_G12(dev_priv) \
- 	IS_SUBPLATFORM(dev_priv, INTEL_DG2, INTEL_SUBPLATFORM_G12)
-+#define IS_DG2_MBD(dev_priv) \
-+	IS_SUBPLATFORM(dev_priv, INTEL_DG2, INTEL_SUBPLATFORM_MBD)
- #define IS_ADLS_RPLS(dev_priv) \
- 	IS_SUBPLATFORM(dev_priv, INTEL_ALDERLAKE_S, INTEL_SUBPLATFORM_RPL)
- #define IS_ADLP_N(dev_priv) \
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index f0bf23726ed8..4490977a3322 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -189,16 +189,25 @@ static const u16 subplatform_rpl_ids[] = {
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 1bc6227c0287..7357639456b5 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1573,6 +1573,31 @@ static int i915_pm_restore(struct device *kdev)
+ 	return i915_pm_resume(kdev);
+ }
  
- static const u16 subplatform_g10_ids[] = {
- 	INTEL_DG2_G10_IDS(0),
-+	INTEL_DG2_G10_NB_MBD_IDS(0),
- 	INTEL_ATS_M150_IDS(0),
- };
- 
- static const u16 subplatform_g11_ids[] = {
- 	INTEL_DG2_G11_IDS(0),
-+	INTEL_DG2_G11_NB_MBD_IDS(0),
- 	INTEL_ATS_M75_IDS(0),
- };
- 
- static const u16 subplatform_g12_ids[] = {
- 	INTEL_DG2_G12_IDS(0),
-+	INTEL_DG2_G12_NB_MBD_IDS(0),
-+};
++static int intel_runtime_idle(struct device *kdev)
++{
++	struct drm_i915_private *i915 = kdev_to_i915(kdev);
++	int ret = 1;
 +
-+static const u16 subplatform_mbd_ids[] = {
-+	INTEL_DG2_G10_NB_MBD_IDS(0),
-+	INTEL_DG2_G11_NB_MBD_IDS(0),
-+	INTEL_DG2_G12_NB_MBD_IDS(0),
- };
- 
- static bool find_devid(u16 id, const u16 *p, unsigned int num)
-@@ -257,6 +266,11 @@ void intel_device_info_subplatform_init(struct drm_i915_private *i915)
- 		mask = BIT(INTEL_SUBPLATFORM_G12);
- 	}
- 
-+	if (find_devid(devid, subplatform_mbd_ids,
-+		       ARRAY_SIZE(subplatform_mbd_ids))) {
-+		mask |= BIT(INTEL_SUBPLATFORM_MBD);
++	if (!HAS_LMEM_SR(i915)) {
++		/*TODO: Prepare for D3Cold-Off */
++		goto out;
 +	}
 +
- 	GEM_BUG_ON(mask & ~INTEL_SUBPLATFORM_MASK);
- 
- 	RUNTIME_INFO(i915)->platform_mask[pi] |= mask;
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 08341174ee0a..6c9564429509 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -97,7 +97,7 @@ enum intel_platform {
-  * it is fine for the same bit to be used on multiple parent platforms.
-  */
- 
--#define INTEL_SUBPLATFORM_BITS (3)
-+#define INTEL_SUBPLATFORM_BITS (4)
- #define INTEL_SUBPLATFORM_MASK (BIT(INTEL_SUBPLATFORM_BITS) - 1)
- 
- /* HSW/BDW/SKL/KBL/CFL */
-@@ -114,6 +114,7 @@ enum intel_platform {
- #define INTEL_SUBPLATFORM_G10	0
- #define INTEL_SUBPLATFORM_G11	1
- #define INTEL_SUBPLATFORM_G12	2
-+#define INTEL_SUBPLATFORM_MBD	3
- 
- /* ADL */
- #define INTEL_SUBPLATFORM_RPL	0
-diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
-index 4585fed4e41e..198be417bb2d 100644
---- a/include/drm/i915_pciids.h
-+++ b/include/drm/i915_pciids.h
-@@ -693,32 +693,41 @@
- 	INTEL_VGA_DEVICE(0xA7A9, info)
- 
- /* DG2 */
--#define INTEL_DG2_G10_IDS(info) \
-+#define INTEL_DG2_G10_NB_MBD_IDS(info) \
- 	INTEL_VGA_DEVICE(0x5690, info), \
- 	INTEL_VGA_DEVICE(0x5691, info), \
--	INTEL_VGA_DEVICE(0x5692, info), \
-+	INTEL_VGA_DEVICE(0x5692, info)
++	disable_rpm_wakeref_asserts(&i915->runtime_pm);
 +
-+#define INTEL_DG2_G11_NB_MBD_IDS(info) \
-+	INTEL_VGA_DEVICE(0x5693, info), \
-+	INTEL_VGA_DEVICE(0x5694, info), \
-+	INTEL_VGA_DEVICE(0x5695, info)
++	ret = intel_pm_vram_sr(i915, true);
++	if (!ret)
++		ret = 1;
 +
-+#define INTEL_DG2_G12_NB_MBD_IDS(info) \
-+	INTEL_VGA_DEVICE(0x5696, info), \
-+	INTEL_VGA_DEVICE(0x5697, info)
++	enable_rpm_wakeref_asserts(&i915->runtime_pm);
 +
-+#define INTEL_DG2_G10_IDS(info) \
- 	INTEL_VGA_DEVICE(0x56A0, info), \
- 	INTEL_VGA_DEVICE(0x56A1, info), \
- 	INTEL_VGA_DEVICE(0x56A2, info)
++out:
++	pm_runtime_mark_last_busy(kdev);
++	pm_runtime_autosuspend(kdev);
++
++	return ret;
++}
++
+ static int intel_runtime_suspend(struct device *kdev)
+ {
+ 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
+@@ -1758,6 +1783,7 @@ const struct dev_pm_ops i915_pm_ops = {
+ 	.restore = i915_pm_restore,
  
- #define INTEL_DG2_G11_IDS(info) \
--	INTEL_VGA_DEVICE(0x5693, info), \
--	INTEL_VGA_DEVICE(0x5694, info), \
--	INTEL_VGA_DEVICE(0x5695, info), \
- 	INTEL_VGA_DEVICE(0x56A5, info), \
- 	INTEL_VGA_DEVICE(0x56A6, info), \
- 	INTEL_VGA_DEVICE(0x56B0, info), \
- 	INTEL_VGA_DEVICE(0x56B1, info)
+ 	/* S0ix (via runtime suspend) event handlers */
++	.runtime_idle = intel_runtime_idle,
+ 	.runtime_suspend = intel_runtime_suspend,
+ 	.runtime_resume = intel_runtime_resume,
+ };
+diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
+index 6ed5786bcd29..4dade7e8a795 100644
+--- a/drivers/gpu/drm/i915/intel_runtime_pm.c
++++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
+@@ -492,8 +492,7 @@ static void __intel_runtime_pm_put(struct intel_runtime_pm *rpm,
  
- #define INTEL_DG2_G12_IDS(info) \
--	INTEL_VGA_DEVICE(0x5696, info), \
--	INTEL_VGA_DEVICE(0x5697, info), \
- 	INTEL_VGA_DEVICE(0x56A3, info), \
- 	INTEL_VGA_DEVICE(0x56A4, info), \
- 	INTEL_VGA_DEVICE(0x56B2, info), \
- 	INTEL_VGA_DEVICE(0x56B3, info)
+ 	intel_runtime_pm_release(rpm, wakelock);
  
- #define INTEL_DG2_IDS(info) \
-+	INTEL_DG2_G10_NB_MBD_IDS(info), \
-+	INTEL_DG2_G11_NB_MBD_IDS(info), \
-+	INTEL_DG2_G12_NB_MBD_IDS(info), \
- 	INTEL_DG2_G10_IDS(info), \
- 	INTEL_DG2_G11_IDS(info), \
- 	INTEL_DG2_G12_IDS(info)
+-	pm_runtime_mark_last_busy(kdev);
+-	pm_runtime_put_autosuspend(kdev);
++	pm_runtime_put(kdev);
+ }
+ 
+ /**
 -- 
 2.26.2
 
