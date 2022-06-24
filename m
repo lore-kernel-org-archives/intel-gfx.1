@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90BF1C43334
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 16:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0C13CCA473
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jun 2022 16:00:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D88B610E341;
-	Fri, 24 Jun 2022 16:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C33810E4F4;
+	Fri, 24 Jun 2022 16:00:03 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D231110E14E
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D73B10E14E
  for <intel-gfx@lists.freedesktop.org>; Fri, 24 Jun 2022 16:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1656086400; x=1687622400;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UgoyjaKwMk0mob1FS6XvcR9Y83K30xgGGKP+OMGyNcE=;
- b=UpmEgOs5rNJs6KGxdyFSVMb4fcczSFahqg1g6xx/skac3qek+VQdEuFT
- pw3NuCBfAI2DPtyaRWXyYJiGsBLuni6+LSqzopZS81ajrhaBKor/lrgYJ
- 3dxqzRy3SHFNdqwOk3lh9fy6ji3VRmOMWECIT/nRY88i/X803LdoYo5EG
- KFCPOCApXFnRalGXC5tYyqlsUU4rYhcNIvWzTeecwvJ6pvzS9BHgLCtSP
- AX+Wov0Wa67M6z1LfuMMeWFbfD0B2t6jTV4uY6jwHZk3Oi+QIESS9Oa9U
- AQ/dyCEjHCy/FoA13LL0aw13G3FeghqgaBaJp17edlMXGErhrAWDpZVPK A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10388"; a="281762326"
-X-IronPort-AV: E=Sophos;i="5.92,218,1650956400"; d="scan'208";a="281762326"
+ bh=dULIKeTu7PL0/jW/Ro6CtXJ71Yp9wSEqPfXlqyjCaiI=;
+ b=bbbXrYBky/jLpP8h2EQmcYlbqdXGwswTNEJKuX4EeZK5VKb1WT58NIgR
+ 1jkrg9AEYxdAJw/CR8fM9Ege744fFHFdhjiGZ66pmDa0VoJyPisQOtOfk
+ yd2dqfVB27M21BYM1EVUJlvWHn8Lquso1XOCKjcn5J4mTzjbBeLq+CD4V
+ 6ZxkxZv/6d1IluHDUikC5TsjVT9MfR4sx/vzEZeHMv2MlEM9kDZ7gQVN9
+ 0fo/ML7MIJ98AS2FNfqyYZhpiibTLfq/S09v1uC8IkjO60ZyFc6XpfVP9
+ CY4HyfQkAf8gtu6/5yt3G7goPxxIBlB07v3JXmpDy1hOyJZyaUdsjQmpc Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10388"; a="281762310"
+X-IronPort-AV: E=Sophos;i="5.92,218,1650956400"; d="scan'208";a="281762310"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2022 09:00:00 -0700
-X-IronPort-AV: E=Sophos;i="5.92,218,1650956400"; d="scan'208";a="835170404"
+ 24 Jun 2022 08:59:52 -0700
+X-IronPort-AV: E=Sophos;i="5.92,218,1650956400"; d="scan'208";a="835170218"
 Received: from srr4-3-linux-105-anshuma1.iind.intel.com ([10.223.74.179])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2022 08:59:57 -0700
+ 24 Jun 2022 08:59:49 -0700
 From: Anshuman Gupta <anshuman.gupta@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 24 Jun 2022 21:29:20 +0530
-Message-Id: <20220624155922.7435-8-anshuman.gupta@intel.com>
+Date: Fri, 24 Jun 2022 21:29:17 +0530
+Message-Id: <20220624155922.7435-5-anshuman.gupta@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20220624155922.7435-1-anshuman.gupta@intel.com>
 References: <20220624155922.7435-1-anshuman.gupta@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 7/9] Drm/i915/rpm: Enable D3Cold VRAM SR
- Support
+Subject: [Intel-gfx] [PATCH v3 4/9] drm/i915/dg2: DG2 MBD config
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,100 +55,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, Chris Wilson <chris.p.wilson@intel.com>,
- rodrigo.vivi@intel.com
+Cc: jani.nikula@intel.com, rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Intel Client DGFX card supports D3Cold with two option.
-D3Cold-off zero watt, D3Cold-VRAM Self Refresh.
-
-i915 requires to evict the lmem objects to smem in order to
-support D3Cold-Off, which increases i915 the suspend/resume
-latency. Enabling VRAM Self Refresh feature optimize the
-latency with additional power cost which required to retain
-the lmem.
-
-Adding intel_runtime_idle (runtime_idle callback) to enable
-VRAM_SR, it will be used for policy to choose
-between D3Cold-off vs D3Cold-VRAM_SR.
-
-Since we have introduced i915 runtime_idle callback.
-It need to be warranted that Runtime PM Core invokes runtime_idle
-callback when runtime usages count becomes zero. That requires
-to use pm_runtime_put instead of pm_runtime_put_autosuspend.
-
-TODO: GT and GuC Interface state save/restore on VRAM_SR entry/exit.
+Add DG2 Motherboard Down Config check condition
+to intel_opregion_vram_sr_required().
 
 v2:
-- Remove drm_dbg("VRAM Self Refresh enabled"). [Jani]
+- Use MBD Subplatform to check DG2 MBD. [Jani]
 
+BSpec: 44477
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Chris Wilson <chris.p.wilson@intel.com>
 Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- drivers/gpu/drm/i915/i915_driver.c      | 26 +++++++++++++++++++++++++
- drivers/gpu/drm/i915/intel_runtime_pm.c |  3 +--
- 2 files changed, 27 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_opregion.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 1bc6227c0287..7357639456b5 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1573,6 +1573,31 @@ static int i915_pm_restore(struct device *kdev)
- 	return i915_pm_resume(kdev);
+diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
+index 03ae57f05371..ae0862bf10a5 100644
+--- a/drivers/gpu/drm/i915/display/intel_opregion.c
++++ b/drivers/gpu/drm/i915/display/intel_opregion.c
+@@ -1290,6 +1290,8 @@ intel_opregion_vram_sr_required(struct drm_i915_private *i915)
+ 
+ 	if (IS_DG1(i915))
+ 		return intel_opregion_dg1_mbd_config(i915);
++	else if (IS_DG2_MBD(i915))
++		return true;
+ 
+ 	return false;
  }
- 
-+static int intel_runtime_idle(struct device *kdev)
-+{
-+	struct drm_i915_private *i915 = kdev_to_i915(kdev);
-+	int ret = 1;
-+
-+	if (!HAS_LMEM_SR(i915)) {
-+		/*TODO: Prepare for D3Cold-Off */
-+		goto out;
-+	}
-+
-+	disable_rpm_wakeref_asserts(&i915->runtime_pm);
-+
-+	ret = intel_pm_vram_sr(i915, true);
-+	if (!ret)
-+		ret = 1;
-+
-+	enable_rpm_wakeref_asserts(&i915->runtime_pm);
-+
-+out:
-+	pm_runtime_mark_last_busy(kdev);
-+	pm_runtime_autosuspend(kdev);
-+
-+	return ret;
-+}
-+
- static int intel_runtime_suspend(struct device *kdev)
- {
- 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
-@@ -1758,6 +1783,7 @@ const struct dev_pm_ops i915_pm_ops = {
- 	.restore = i915_pm_restore,
- 
- 	/* S0ix (via runtime suspend) event handlers */
-+	.runtime_idle = intel_runtime_idle,
- 	.runtime_suspend = intel_runtime_suspend,
- 	.runtime_resume = intel_runtime_resume,
- };
-diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
-index 6ed5786bcd29..4dade7e8a795 100644
---- a/drivers/gpu/drm/i915/intel_runtime_pm.c
-+++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
-@@ -492,8 +492,7 @@ static void __intel_runtime_pm_put(struct intel_runtime_pm *rpm,
- 
- 	intel_runtime_pm_release(rpm, wakelock);
- 
--	pm_runtime_mark_last_busy(kdev);
--	pm_runtime_put_autosuspend(kdev);
-+	pm_runtime_put(kdev);
- }
- 
- /**
 -- 
 2.26.2
 
