@@ -4,149 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B9DCC43334
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 14:00:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E926FCCA485
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 14:09:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE48711A712;
-	Tue, 28 Jun 2022 13:59:59 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAFFF11399F;
- Tue, 28 Jun 2022 13:59:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7303B10E5D3;
+	Tue, 28 Jun 2022 14:08:53 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4F1F8929B;
+ Tue, 28 Jun 2022 14:08:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656424797; x=1687960797;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=flnyLmyUpUQuQU2gLt6iYRLtpW06tQcw9HbMyItRBMo=;
- b=EnMKed6zQ6aoxjYFtWuh1f53xcLxqH8pZFE6mKRjCZXtPF638/wAhr3a
- 9v3JLyPAUUK8dOoOZkXxTx5/B7p0Rs3HhEwpvamip9WGLGouKwFDTnshI
- 5WscFDbcvdQJheNdQRpoFxS4WnvU9vJTLNKQ7co9oB8Kqwj8PFsHgPCln
- JCODyh4D6IOSljx/5vo3PfdAkYpOfhyNZIsOD3i6NpfwTSbylMGZAqZ6B
- wLoHiwApHi32l+NvtH4p9jPjIfHlHO1nqS2OASK2307ZoZsdgsjVA+RRY
- qD7wtJmXIbVhw/dJwDnHIj699isHUC+KcRGGHwLjwcMyc91LfG1pVywza A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10391"; a="262156322"
-X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="262156322"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2022 06:59:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="680056098"
-Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
- by FMSMGA003.fm.intel.com with ESMTP; 28 Jun 2022 06:59:57 -0700
-Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Tue, 28 Jun 2022 06:59:56 -0700
-Received: from fmsmsx606.amr.corp.intel.com (10.18.126.86) by
- fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Tue, 28 Jun 2022 06:59:56 -0700
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Tue, 28 Jun 2022 06:59:56 -0700
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.107)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.27; Tue, 28 Jun 2022 06:59:55 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ly0mR9P6swysoSXA+cRRIdhx5SSrhTz7FTy+RlzuqJ4vE+9HGs+AnfBxeYeBh6WzkkDmbCP3tS44Pp+uPqhaZKh1mGq4dRn1jrnvqVgiAyphH2qM1X1j9kxrcwChRlEQaMRvyxPA4EoOHfUxbigukK0er8T5Ei40NGSBGQ8Qb+YSzgFOnDl4+fvZ8dDE7jo/HqFA8Y36nURLYT3jKEh1TBcao1j0T6v6afuqnTF16EyNAT5DJlahMFllZ0AvCVVLxS9q0gZy6ah8+/bham1VBn+7kCYsWfgNWnEOFi/TMpOO5SNkPiDtx6YVAh1gxaRtEv56HIGC/Br72kWoQ0/aQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=012/wmqIUTwePQAZUzhnkEZpDzboDvzTaqT/McEZ1Bg=;
- b=b83HXARzD48/GDZfwGRLaUV2Vqd+5IgwCfGjwbIjjFjFTUy3hkbtXFFy8SydwBgZD28EqSXTnygs3E6AUmEq17Xc0sCj7SFBZZ3QVFTYeewedSBASgRtOcMgMaEPtQd3DmBraiEBj8MwCxbkmTx8jVJ6Rc5/S/U0bQ1QwxP04orEEdKUA42KZfIwaYD0i8wmvQx+R3WFoDJh+mLpH72v3PJnjCzB/RLMeRBxs+mTDYQj3ddEwelqy0CnL0AV+4IgP0yjscqtxqTJjypiIu4AziFYuFmjnV9ULcyFxR0URTsUU/cNmuBfguipIuU8df9I6Blp6BgpQJkfxMvpzqy85Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH0PR11MB5409.namprd11.prod.outlook.com (2603:10b6:610:d0::7)
- by BL1PR11MB5954.namprd11.prod.outlook.com (2603:10b6:208:385::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.16; Tue, 28 Jun
- 2022 13:59:49 +0000
-Received: from CH0PR11MB5409.namprd11.prod.outlook.com
- ([fe80::49da:18ae:2975:c398]) by CH0PR11MB5409.namprd11.prod.outlook.com
- ([fe80::49da:18ae:2975:c398%8]) with mapi id 15.20.5373.018; Tue, 28 Jun 2022
- 13:59:49 +0000
-Message-ID: <1eb06a00-9a46-0452-6a8d-45104dfcde96@intel.com>
-Date: Tue, 28 Jun 2022 16:59:41 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-To: Matthew Auld <matthew.auld@intel.com>, <igt-dev@lists.freedesktop.org>
-References: <20220627161004.70153-1-matthew.auld@intel.com>
- <edb8ed97-fee9-1e86-9339-979fd97b3f95@intel.com>
- <5db0e882-3691-882f-23a4-86238b55401b@intel.com>
-From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-In-Reply-To: <5db0e882-3691-882f-23a4-86238b55401b@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0068.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::13) To CH0PR11MB5409.namprd11.prod.outlook.com
- (2603:10b6:610:d0::7)
+ t=1656425331; x=1687961331;
+ h=date:from:to:cc:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding:resent-date:
+ resent-from:subject:resent-message-id:resent-to;
+ bh=NlN93CPLmTbVnxPPhc+BVfuBiZgxZ+dnkYTe/LYS/gQ=;
+ b=GQFp4GSMz9aZsJu51arHOXiSc917AQpi6WBE1e4nVvydAmiIMOBLm7hm
+ 1ObneK1tIPaJfOu630qcEi9ksKWUh7Ggel96xi4mLHBYh3l7LiNTJ6+qk
+ km1qo9fL1RsgNVQf3kZuHv+DRl5N3gl+tR1O1/ZdatZs68AyKL7/e66Fj
+ np2DYK12fXqB0yL6BaWGcHDpmgBkB/HPqe5RzB15ADRjgxyljoVWiECn9
+ K3yL05MtXyhsEq4bFZfU5zGgczqM5DFZN9NCTXIcm0R6AJ2Gm66wIOAFm
+ /oaVwwfjXm9PPxNop6OIwI+ORH2G7JteqsrJnS2snbV+Dp+F8Dqhps2pp Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10391"; a="345747145"
+X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="345747145"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 07:08:51 -0700
+X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="594809580"
+Received: from maurocar-mobl2.ger.corp.intel.com (HELO maurocar-mobl2)
+ ([10.252.40.41])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 07:08:44 -0700
+Date: Mon, 27 Jun 2022 11:00:56 +0200
+From: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com> (by way of Mauro
+ Carvalho Chehab <mauro.chehab@linux.intel.com>)
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <20220627110056.6dfa4f9b@maurocar-mobl2>
+In-Reply-To: <160e613f-a0a8-18ff-5d4b-249d4280caa8@linux.intel.com>
+References: <cover.1655306128.git.mchehab@kernel.org>
+ <5ee647f243a774927ec328bfca8212abc4957909.1655306128.git.mchehab@kernel.org>
+ <YrRLyg1IJoZpVGfg@intel.intel>
+ <160e613f-a0a8-18ff-5d4b-249d4280caa8@linux.intel.com>
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 13438bfb-76d2-42fc-c4ca-08da590e76f6
-X-MS-TrafficTypeDiagnostic: BL1PR11MB5954:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DQJYqyi/Iy119sOXY3xuRYM2khKCn4wnD4rmWdgqQbKxOqIejLnHGmiY9aMuRKSOh7jld+JNCDHVgLTbzYcnIpwjXNkms/tGfMc3AsLFI4MUpE3pawtZAgq30BpKXRdjSK3/fVDgwpJiEL4Mn/TQcF4wCVzZKHRHY9QAQ+0eC9KsZpqxZ7Mi6HpPm+Z9805q/xqQd7zgflKXvJjtv1TtInKQFtWDoALUWAJ4NJXyQacxxbIe6pHAMDm0qzmMF34FR/buKKkZD1Sf1PnFlor7BlmCijDJ0PYQxqXsme0Q6Z0la71Yk9oQ5Fe6MBI/2T/yp6vdt2eti3pnc8976lGwFxa3HaB3SwzdsvHY4YXOSgdeAc07SAphdhFVQCpp0CIl7GZyvReabk3vIVZ7WxTzHrB9CV0m8oYpJNwxBDBbNUDNWUNfN+3wAbhgLiGyuIbDyXkK0sK4+YS098Nl6IBExFauuwC0lgy1O+eNgtZarDj3NuXkUeb9G+sDN1S6Nc2Kh1lS/wjrkR8UnF+5C1q2X6J11hKerCqk753+C/9ObwLxleh2pB+wg3TkmdW7ae5I/vW1+6rBHMPxmTwMFrP+GDxPGVIXprYjE874pmvLYsk+iMCnrr+2mCzP5fVdg9NRBdIJk69uulKKUeGTRHzeHs8hkwM9VQ3bNElOV2+6k34lvi99oMSo9PL5IIiYRqcqlY7xNcHLNTeb7ibuT1v8ekuoEDMA5R6Pm3o+Glg/zjYoth/IgSMLewp8cSjcgUropnsmUhAofKrpWkLtrDzbkLMN+aK7d35m8U4UXm7+ZRKjZX7LtH2tKTpa2BJ9X7fOmDSDBdE5u83FU5t/43GNAR0x5cVPFH4hPlHwhICDHSc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR11MB5409.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(376002)(346002)(396003)(366004)(39860400002)(136003)(8936002)(66556008)(53546011)(2616005)(6486002)(450100002)(4326008)(31696002)(31686004)(26005)(66946007)(41300700001)(5660300002)(6512007)(478600001)(82960400001)(83380400001)(6506007)(2906002)(36756003)(8676002)(66476007)(38100700002)(316002)(186003)(6666004)(86362001)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V0JEUWlLRStzajJGR3J5VHpDRFd1L1JqQ2U4L1pRSVBndEZ2RVlPdlMwWUJU?=
- =?utf-8?B?KzBLTW05WWozOVhKcVpoczhqUU1ZdjY5aUEydWhRUUlrSDlqcjJyMVRIeklQ?=
- =?utf-8?B?cnlUUUVOc285ZjNpMlZvSVVIT1dRYWVNUnl2VXpZR0I1K3cvMWFoVXpqdUI5?=
- =?utf-8?B?N24xaGQ4dkZOZ1BKTitSRGhRK2p3c1RoQXBSTHMzREFCUHNNeFVOK2prTzZE?=
- =?utf-8?B?UXBhN1BqZnRDekZVWHFzZEZobkU3SDF3V3ZYVjlsV01DdXVjKzY3YTFHQ0Zm?=
- =?utf-8?B?WHBHZW5HMFdOQ3FnUktGOHU4Uzg5bEEyQ1gxd2ZocGtmQ2N2d0x5K3JDam4z?=
- =?utf-8?B?cGNMcmp1Rm0xeXB4dDlscEttakZ2R1VxTTBxelRLTHlGOTBVVENHd21sd1JO?=
- =?utf-8?B?NmFZOVlJTWpLT3N4VGFLM09zNEliaDNSK0hZQWN3ZEU0ZmdmZWZYNmRrMVB2?=
- =?utf-8?B?QXhBVCtETFdPUXNnNnM4NnJWUDZPZ05aL1ZnVS82c0RxNXVhbVlSUnY5YkVi?=
- =?utf-8?B?SklNMXRnditKRTNBQnlLZGUwR2pUQnlUSlF4QytzYmI3R1JMNzg4eHZRLzMy?=
- =?utf-8?B?cXB2OGNpNnFpdmkzcGZPSEV5cEZXQWhPYUxQNmxRQ0NoSXRKMTVTakNJbWdW?=
- =?utf-8?B?Q2cyS1dLdW5YbTZmdDVNRUc0Z3JPSTVjKzJrekRhRlpUVjh1dWR5VlVkMmVw?=
- =?utf-8?B?OWVOR0x6ajZLY1F5dHdNMUNXS2RkZmdram5tbVhZZU1OWjlycHh0bDVHMXdV?=
- =?utf-8?B?bElKL3RhRU1tWFp6aWRzNmZvb05zYmRjZ3YrT3FmYmI3YjZobi8xZnJMVUJv?=
- =?utf-8?B?bWxvREV5L2FwNm5xdisvZTJ5NkFicHVQNTFCeEYwWWZSQkwyN2lzR3YzVU81?=
- =?utf-8?B?Q0NKeWFQdGIrcHpSWjZFRzZVQ2M0QXJFWXp1ZkVlMjNjdWt5U2NYM1M5ZGo3?=
- =?utf-8?B?ZC9yeFBBMHJiMDU1ejJnUmRsOWlrUklDUUpxQUFLYm5CWmlDb2N0ZzdDaXpS?=
- =?utf-8?B?QyszU1ZCQy9lUzVqNXZpcDRCL1FFM1RrQUY1Y3BMOWN4cnJac3pxdlg4TXJ4?=
- =?utf-8?B?dlZodllCUklDWnhISnVNUTQ5UUVjK2Z5S0tUMDNtV0daOTJmOE5RbjN6TldK?=
- =?utf-8?B?Sk45RGhqc1lRcU9qTFR1anZxRkJMa0VRT3ZCZ1hrSzBoOUxTbGhJZjdCOXdI?=
- =?utf-8?B?VGx2STVDQzFhMkZicjlEbUtrK1RXZzdkejUrSHNKb1NxSHV5WGhRcE93VlQ4?=
- =?utf-8?B?S2wyUWFKTXFaRmc1cmQvSlZUcGNWaCtWaDU0UHBuV1QrR1lnWTJzS1JFeG12?=
- =?utf-8?B?Zkd2U3N0OGFwc2tZNnFqa3dlS0dXMm1qajI0U0Jpc3JVRVpmZXcvUGN6QTRG?=
- =?utf-8?B?aU9sR21iU1lxNDNpVEtWVHdXMW40OXFaUmYzUHZkcWxCTjNTQ3ptd1JTTmJB?=
- =?utf-8?B?N2dCaGRvYlgrT1pzblVpbzZYY2Z0NnlqQ1V6VThMMStqVWR2TDE0Z3ZvdnlX?=
- =?utf-8?B?ZkV2UkhaVnZZanNqK3FPanZZTEdzL1pYUWg0TSt2TE1RcDdZSWpxTTVHMDli?=
- =?utf-8?B?T3p1R3Q1c3pML3YyQVBVdFZGa2NhbG5nb3ZRQTg2R3IyNDlmVGpTS0Jtd0t6?=
- =?utf-8?B?N0ZwZ1F0c3ovdUI5bHpvTXRMUjVuKzM2VXAvamx4cjdyT25hSHdlQjVhT2Zy?=
- =?utf-8?B?ZlJtakJYS0Zzckx6b2ZMcWhYdms4R3dOYlE2cW5JSHptYjZyc1NNOWJIcFNC?=
- =?utf-8?B?K3luaTZhekxBMksySFoyT0tjbzFoS2NZUjZ4QmE4L3RzUlYvakc1YzREQk9W?=
- =?utf-8?B?MG9aWWdVbkxCZVB6clhlbjYzQlR2QTJYRmxTY2pZSWlRd0dENUpmUE9kRGt0?=
- =?utf-8?B?SHhjYWVjSzdsSFdaNkRUN3NmTWNCdEg4MTY2TGowN0g0d3JzejlYV0NWdGhl?=
- =?utf-8?B?a0ltQWR6Z0laUlliNmUyVUg5bW11eFRJSGtkL1ZDWGUwd3E3UlFNdVIrbm5L?=
- =?utf-8?B?MzZwUWowTnZwV21KUm9PdHNrK0UrRXE4T01rbjZwTzNSd0tvdG9kY0QvL01T?=
- =?utf-8?B?T29PL01WVmxCUHpzSVFkOFhmUmp2WDZQblZTbjFsR0V4bXl6Yzd6WkdCcldJ?=
- =?utf-8?B?TnB4TEduWWVnOEhpSnRZRURMaTl2MSt5d1BORkdlQWl6Z3I4N3NLSmJrTUlz?=
- =?utf-8?B?YVE9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13438bfb-76d2-42fc-c4ca-08da590e76f6
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5409.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2022 13:59:48.9925 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8jZM4+kyF+Ct94RT03Zf1XtzZaD4GC5GYVy2Exf6F5oEW2hwRH7k1lETcii/YPmsgUm4+7SKeeGxfKdgfmd65etqrM74V3ECihWaFWE8tqQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5954
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH i-g-t 1/3] tests/i915/gem_eio: fix uaf
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Resent-Date: Tue, 28 Jun 2022 16:08:42 +0200
+Resent-From: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
+Resent-Message-ID: <20220628160842.59a9bd94@maurocar-mobl2>
+Resent-To: <tvrtko.ursulin@linux.intel.com>, <andi.shyti@linux.intel.com>,
+ <mchehab@kernel.org>, <chris.p.wilson@intel.com>, <fei.yang@intel.com>,
+ <thomas.hellstrom@intel.com>, <yu.bruce.chang@intel.com>, <daniel@ffwll.ch>,
+ <airlied@redhat.com>, <airlied@linux.ie>, <jani.nikula@linux.intel.com>,
+ <John.C.Harrison@intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <matthew.d.roper@intel.com>, <matthew.brost@intel.com>,
+ <rodrigo.vivi@intel.com>, <tejaskumarx.surendrakumar.upadhyay@intel.com>,
+ <umesh.nerlige.ramappa@intel.com>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <mika.kuoppala@linux.intel.com>, <chris@chris-wilson.co.uk>,
+ <stable@vger.kernel.org>, <thomas.hellstrom@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH 5/6] drm/i915/gt: Serialize GRDOM access
+ between multiple engine resets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,89 +77,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Chris Wilson <chris.p.wilson@intel.com>, Dave Airlie <airlied@redhat.com>,
+ Thomas =?UTF-8?B?SGVs?= =?UTF-8?B?bHN0csO2bQ==?=
+ <thomas.hellstrom@linux.intel.com>, intel-gfx@lists.freedesktop.org,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Tvrtko,
 
+On Fri, 24 Jun 2022 09:34:21 +0100
+Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
 
-On 6/28/22 3:47 PM, Matthew Auld wrote:
-> On 28/06/2022 11:24, Gwan-gyeong Mun wrote:
->> Looks good to me.
->>
->> Reviewed-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
->>
->> However, the use after free build issue did not occur only with the "$ 
->> meson build && ninja -C build" build command guided by the igt 
->> README.md. How did you check it?
-> 
-> Hmm, I assume it's just a difference in compiler version or so. I have: 
-> gcc (GCC) 12.1.1 20220507 (Red Hat 12.1.1-1).
-> 
-Thanks for sharing your compiling environment info.
-My gcc says its version is 11.1.0.
-I'll try with the version you mentioned.
+> On 23/06/2022 12:17, Andi Shyti wrote:
+> > Hi Mauro,
+> >=20
+> > On Wed, Jun 15, 2022 at 04:27:39PM +0100, Mauro Carvalho Chehab wrote: =
+=20
+> >> From: Chris Wilson <chris.p.wilson@intel.com>
+> >>
+> >> Don't allow two engines to be reset in parallel, as they would both
+> >> try to select a reset bit (and send requests to common registers)
+> >> and wait on that register, at the same time. Serialize control of
+> >> the reset requests/acks using the uncore->lock, which will also ensure
+> >> that no other GT state changes at the same time as the actual reset.
+> >>
+> >> Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing st=
+ore")
+> >>
+> >> Reported-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+> >> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+> >> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+> >> Cc: Andi Shyti <andi.shyti@intel.com>
+> >> Cc: stable@vger.kernel.org
+> >> Acked-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> >> Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org> =20
+> >=20
+> > Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com> =20
+>=20
+> Notice I had a bunch of questions and asks in this series so please do=20
+> not merge until those are addressed.
+>=20
+> In this particular patch (and some others) for instance Fixes: tag, at=20
+> least against that sha, shouldn't be there.
 
-$ gcc -v
-Using built-in specs.
-COLLECT_GCC=gcc
-COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/lto-wrapper
-Target: x86_64-pc-linux-gnu
-Configured with: /build/gcc/src/gcc/configure --prefix=/usr 
---libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man 
---infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ 
---enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++,d --with-isl 
---with-linker-hash-style=gnu --with-system-zlib --enable-__cxa_atexit 
---enable-cet=auto --enable-checking=release --enable-clocale=gnu 
---enable-default-pie --enable-default-ssp --enable-gnu-indirect-function 
---enable-gnu-unique-object --enable-install-libiberty 
---enable-linker-build-id --enable-lto --enable-multilib --enable-plugin 
---enable-shared --enable-threads=posix --disable-libssp 
---disable-libstdcxx-pch --disable-libunwind-exceptions --disable-werror 
-gdc_include_dir=/usr/include/dlang/gdc
-Thread model: posix
-Supported LTO compression algorithms: zlib zstd
-gcc version 11.1.0 (GCC)
+Hmm... I sent an answer to your points, but I can't see it at:
 
+	https://lore.kernel.org/all/160e613f-a0a8-18ff-5d4b-249d4280caa8@linux.int=
+el.com/
 
-Thanks,
-G.G.
+Maybe it got lost somewhere, I dunno.
 
->>
->> Br,
->>
->> G.G.
->>
->>
->> On 6/27/22 7:10 PM, Matthew Auld wrote:
->>> ../tests/i915/gem_eio.c:277:20: warning: pointer ‘ctx’ used after 
->>> ‘free’ [-Wuse-after-free]
->>>    277 |         igt_assert(igt_sysfs_printf(ctx->debugfs, 
->>> "i915_drop_caches",
->>> ../lib/igt_core.h:667:20: note: in definition of macro ‘igt_assert’
->>>    667 |         do { if (!(expr)) \
->>>        |                    ^~~~
->>> ../tests/i915/gem_eio.c:274:9: note: call to ‘free’ here
->>>    274 |         free(ctx);
->>>
->>> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
->>> Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
->>> ---
->>>   tests/i915/gem_eio.c | 2 +-
->>>   1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/tests/i915/gem_eio.c b/tests/i915/gem_eio.c
->>> index 913a21f9..6cbae6eb 100644
->>> --- a/tests/i915/gem_eio.c
->>> +++ b/tests/i915/gem_eio.c
->>> @@ -270,11 +270,11 @@ static void hang_handler(union sigval arg)
->>>             igt_nsec_elapsed(&ctx->delay) / 1000.0);
->>>       igt_assert_eq(timer_delete(ctx->timer), 0);
->>> -    free(ctx);
->>>       /* flush any excess work before we start timing our reset */
->>>       igt_assert(igt_sysfs_printf(ctx->debugfs, "i915_drop_caches",
->>>                       "%d", DROP_RCU));
->>> +    free(ctx);
->>>       igt_nsec_elapsed(ts);
->>>       igt_assert(igt_sysfs_printf(dir, "i915_wedged", "%llu", -1ull));
->>>
+Yeah, indeed the fixes tag on patch 5/6 should be removed as this is not
+directly related to changeset 7938d61591d3. Yet, this one is required for
+patch 6 to work.
+
+The other patches on this series, though, are modifying the code=20
+introduced by changeset 7938d61591d3.
+
+Patch 2 is clearly a workaround needed for TLB cache invalidation to
+work on some GPUs. So, while not related to Broadwell, they're also
+fixing some TLB cache issues. So, IMO, it should keep the fixes.
+
+I tried to port just the two serialize patches to drm-tip, in order
+to solve the issues on Broadwell, but it didn't work, as the logic=20
+inside the spinlock could be calling schedule() with a spinlock hold:
+=20
+	Jun 14 17:38:48 silver kernel: [   23.227813] BUG: sleeping function calle=
+d from invalid context at drivers/gpu/drm/i915/intel_uncore.c:2496
+	Jun 14 17:38:48 silver kernel: [   23.227816] in_atomic(): 1, irqs_disable=
+d(): 1, non_block: 0, pid: 37, name: kworker/u8:1
+	Jun 14 17:38:48 silver kernel: [   23.227818] preempt_count: 1, expected: 0
+	Jun 14 17:38:48 silver kernel: [   23.227819] RCU nest depth: 0, expected:=
+ 0
+	Jun 14 17:38:48 silver kernel: [   23.227820] 5 locks held by kworker/u8:1=
+/37:
+	Jun 14 17:38:48 silver kernel: [   23.227822]  #0: ffff88811159b538 ((wq_c=
+ompletion)i915){+.+.}-{0:0}, at: process_one_work+0x1e0/0x580
+	Jun 14 17:38:48 silver kernel: [   23.227831]  #1: ffffc90000183e60 ((work=
+_completion)(&(&i915->mm.free_work)->work)){+.+.}-{0:0}, at: process_one_wo=
+rk+0x1e0/0x580
+	Jun 14 17:38:48 silver kernel: [   23.227837]  #2: ffff88811b34c5e8 (reser=
+vation_ww_class_mutex){+.+.}-{3:3}, at: __i915_gem_free_objects+0xba/0x210 =
+[i915]
+	Jun 14 17:38:48 silver kernel: [   23.228283]  #3: ffff88810a66c2d8 (&gt->=
+tlb_invalidate_lock){+.+.}-{3:3}, at: intel_gt_invalidate_tlbs+0xe7/0x4d0 [=
+i915]
+	Jun 14 17:38:48 silver kernel: [   23.228663]  #4: ffff88810a668f28 (&unco=
+re->lock){-.-.}-{2:2}, at: intel_gt_invalidate_tlbs+0x115/0x4d0 [i915]
+
+I didn't investigate the root cause, but it seems related to PM, so=20
+patches 1 and 3 seem to be required for the serialization logic
+to actually work.
+
+So, I would keep the Fixes: tag mentioning changeset 7938d61591d3
+on patches: 1, 2, 3 and 6.
+
+Yet, IMO the entire series should be merged on -stable.
+
+If that's OK for you and there's no additional issues to be
+addressed, I'll submit a v2 of this series removing the Fixes tag
+from patches 4 and 5.
+
+Regards,
+Mauro
