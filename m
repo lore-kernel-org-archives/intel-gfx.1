@@ -4,67 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E926FCCA485
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 14:09:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC8DDC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 14:10:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7303B10E5D3;
-	Tue, 28 Jun 2022 14:08:53 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4F1F8929B;
- Tue, 28 Jun 2022 14:08:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ACB710F172;
+	Tue, 28 Jun 2022 14:10:13 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0A7C10EFC5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 14:10:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656425331; x=1687961331;
- h=date:from:to:cc:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding:resent-date:
- resent-from:subject:resent-message-id:resent-to;
- bh=NlN93CPLmTbVnxPPhc+BVfuBiZgxZ+dnkYTe/LYS/gQ=;
- b=GQFp4GSMz9aZsJu51arHOXiSc917AQpi6WBE1e4nVvydAmiIMOBLm7hm
- 1ObneK1tIPaJfOu630qcEi9ksKWUh7Ggel96xi4mLHBYh3l7LiNTJ6+qk
- km1qo9fL1RsgNVQf3kZuHv+DRl5N3gl+tR1O1/ZdatZs68AyKL7/e66Fj
- np2DYK12fXqB0yL6BaWGcHDpmgBkB/HPqe5RzB15ADRjgxyljoVWiECn9
- K3yL05MtXyhsEq4bFZfU5zGgczqM5DFZN9NCTXIcm0R6AJ2Gm66wIOAFm
- /oaVwwfjXm9PPxNop6OIwI+ORH2G7JteqsrJnS2snbV+Dp+F8Dqhps2pp Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10391"; a="345747145"
-X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="345747145"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2022 07:08:51 -0700
-X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="594809580"
-Received: from maurocar-mobl2.ger.corp.intel.com (HELO maurocar-mobl2)
- ([10.252.40.41])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2022 07:08:44 -0700
-Date: Mon, 27 Jun 2022 11:00:56 +0200
-From: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com> (by way of Mauro
- Carvalho Chehab <mauro.chehab@linux.intel.com>)
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <20220627110056.6dfa4f9b@maurocar-mobl2>
-In-Reply-To: <160e613f-a0a8-18ff-5d4b-249d4280caa8@linux.intel.com>
-References: <cover.1655306128.git.mchehab@kernel.org>
- <5ee647f243a774927ec328bfca8212abc4957909.1655306128.git.mchehab@kernel.org>
- <YrRLyg1IJoZpVGfg@intel.intel>
- <160e613f-a0a8-18ff-5d4b-249d4280caa8@linux.intel.com>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-redhat-linux-gnu)
+ t=1656425412; x=1687961412;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=rhl29QVSsMVOyWSJ23iK4zzpG1ggFOifgOlh+Qmq8SQ=;
+ b=hCcZ8ILwKBRV0t95CaOOBwv5d9G4ecrhswpSSSpo1sfiOAjkw9rAajGt
+ ranTK2k137GkMDR2/RpYH1sYJ8/WmsvwAIllr3HB3kv/tiPMLeOqRFazY
+ rf8i0vPtpb3ux8nJ0aapKtNyp8u88nAkMpoaZteG6yw+7fZnlay/pizuK
+ IwaxAN1iqZ9fk7pew2G0+gLuwULUAGE35SKR3HxFnWNLXfaGe+9FoP7vn
+ KE8YlSq55RxZfP91x+qOI3tdM5yGE3F4WXEIrcG7Zo2rWrflas3vJBYSk
+ eJw59OlyuZm8q3ZFvmSHihwiumUMMHLu1MrCJDPChcSqJl/ibaDZPLuYB Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10391"; a="261554334"
+X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="261554334"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 07:10:11 -0700
+X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="646927816"
+Received: from mwardyn-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.252.49.11])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 07:10:10 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 28 Jun 2022 17:10:05 +0300
+Message-Id: <20220628141005.226252-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Resent-Date: Tue, 28 Jun 2022 16:08:42 +0200
-Resent-From: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
-Resent-Message-ID: <20220628160842.59a9bd94@maurocar-mobl2>
-Resent-To: <tvrtko.ursulin@linux.intel.com>, <andi.shyti@linux.intel.com>,
- <mchehab@kernel.org>, <chris.p.wilson@intel.com>, <fei.yang@intel.com>,
- <thomas.hellstrom@intel.com>, <yu.bruce.chang@intel.com>, <daniel@ffwll.ch>,
- <airlied@redhat.com>, <airlied@linux.ie>, <jani.nikula@linux.intel.com>,
- <John.C.Harrison@intel.com>, <joonas.lahtinen@linux.intel.com>,
- <matthew.d.roper@intel.com>, <matthew.brost@intel.com>,
- <rodrigo.vivi@intel.com>, <tejaskumarx.surendrakumar.upadhyay@intel.com>,
- <umesh.nerlige.ramappa@intel.com>, <dri-devel@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <mika.kuoppala@linux.intel.com>, <chris@chris-wilson.co.uk>,
- <stable@vger.kernel.org>, <thomas.hellstrom@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH 5/6] drm/i915/gt: Serialize GRDOM access
- between multiple engine resets
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2] drm/i915: use DISPLAY_VER() instead of
+ accessing match_info directly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,113 +57,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Chris Wilson <chris.p.wilson@intel.com>, Dave Airlie <airlied@redhat.com>,
- Thomas =?UTF-8?B?SGVs?= =?UTF-8?B?bHN0csO2bQ==?=
- <thomas.hellstrom@linux.intel.com>, intel-gfx@lists.freedesktop.org,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
+We've just set up device info in i915_driver_create() so we can use
+DISPLAY_VER() intead of looking at match_info directly.
 
-On Fri, 24 Jun 2022 09:34:21 +0100
-Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
+Semantically we want to check the display version instead of the
+graphics version, and for the earlier platforms they are always the
+same.
 
-> On 23/06/2022 12:17, Andi Shyti wrote:
-> > Hi Mauro,
-> >=20
-> > On Wed, Jun 15, 2022 at 04:27:39PM +0100, Mauro Carvalho Chehab wrote: =
-=20
-> >> From: Chris Wilson <chris.p.wilson@intel.com>
-> >>
-> >> Don't allow two engines to be reset in parallel, as they would both
-> >> try to select a reset bit (and send requests to common registers)
-> >> and wait on that register, at the same time. Serialize control of
-> >> the reset requests/acks using the uncore->lock, which will also ensure
-> >> that no other GT state changes at the same time as the actual reset.
-> >>
-> >> Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing st=
-ore")
-> >>
-> >> Reported-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-> >> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> >> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-> >> Cc: Andi Shyti <andi.shyti@intel.com>
-> >> Cc: stable@vger.kernel.org
-> >> Acked-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> >> Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org> =20
-> >=20
-> > Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com> =20
->=20
-> Notice I had a bunch of questions and asks in this series so please do=20
-> not merge until those are addressed.
->=20
-> In this particular patch (and some others) for instance Fixes: tag, at=20
-> least against that sha, shouldn't be there.
+v2: Use DISPLAY_VER() instead of GRAPHICS_VER() (Ville)
 
-Hmm... I sent an answer to your points, but I can't see it at:
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/i915_driver.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-	https://lore.kernel.org/all/160e613f-a0a8-18ff-5d4b-249d4280caa8@linux.int=
-el.com/
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 6e5849c1086f..b2e14cd76d7e 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -847,8 +847,6 @@ i915_driver_create(struct pci_dev *pdev, const struct pci_device_id *ent)
+  */
+ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ {
+-	const struct intel_device_info *match_info =
+-		(struct intel_device_info *)ent->driver_data;
+ 	struct drm_i915_private *i915;
+ 	int ret;
+ 
+@@ -857,7 +855,7 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		return PTR_ERR(i915);
+ 
+ 	/* Disable nuclear pageflip by default on pre-ILK */
+-	if (!i915->params.nuclear_pageflip && match_info->graphics.ver < 5)
++	if (!i915->params.nuclear_pageflip && DISPLAY_VER(i915) < 5)
+ 		i915->drm.driver_features &= ~DRIVER_ATOMIC;
+ 
+ 	ret = pci_enable_device(pdev);
+-- 
+2.30.2
 
-Maybe it got lost somewhere, I dunno.
-
-Yeah, indeed the fixes tag on patch 5/6 should be removed as this is not
-directly related to changeset 7938d61591d3. Yet, this one is required for
-patch 6 to work.
-
-The other patches on this series, though, are modifying the code=20
-introduced by changeset 7938d61591d3.
-
-Patch 2 is clearly a workaround needed for TLB cache invalidation to
-work on some GPUs. So, while not related to Broadwell, they're also
-fixing some TLB cache issues. So, IMO, it should keep the fixes.
-
-I tried to port just the two serialize patches to drm-tip, in order
-to solve the issues on Broadwell, but it didn't work, as the logic=20
-inside the spinlock could be calling schedule() with a spinlock hold:
-=20
-	Jun 14 17:38:48 silver kernel: [   23.227813] BUG: sleeping function calle=
-d from invalid context at drivers/gpu/drm/i915/intel_uncore.c:2496
-	Jun 14 17:38:48 silver kernel: [   23.227816] in_atomic(): 1, irqs_disable=
-d(): 1, non_block: 0, pid: 37, name: kworker/u8:1
-	Jun 14 17:38:48 silver kernel: [   23.227818] preempt_count: 1, expected: 0
-	Jun 14 17:38:48 silver kernel: [   23.227819] RCU nest depth: 0, expected:=
- 0
-	Jun 14 17:38:48 silver kernel: [   23.227820] 5 locks held by kworker/u8:1=
-/37:
-	Jun 14 17:38:48 silver kernel: [   23.227822]  #0: ffff88811159b538 ((wq_c=
-ompletion)i915){+.+.}-{0:0}, at: process_one_work+0x1e0/0x580
-	Jun 14 17:38:48 silver kernel: [   23.227831]  #1: ffffc90000183e60 ((work=
-_completion)(&(&i915->mm.free_work)->work)){+.+.}-{0:0}, at: process_one_wo=
-rk+0x1e0/0x580
-	Jun 14 17:38:48 silver kernel: [   23.227837]  #2: ffff88811b34c5e8 (reser=
-vation_ww_class_mutex){+.+.}-{3:3}, at: __i915_gem_free_objects+0xba/0x210 =
-[i915]
-	Jun 14 17:38:48 silver kernel: [   23.228283]  #3: ffff88810a66c2d8 (&gt->=
-tlb_invalidate_lock){+.+.}-{3:3}, at: intel_gt_invalidate_tlbs+0xe7/0x4d0 [=
-i915]
-	Jun 14 17:38:48 silver kernel: [   23.228663]  #4: ffff88810a668f28 (&unco=
-re->lock){-.-.}-{2:2}, at: intel_gt_invalidate_tlbs+0x115/0x4d0 [i915]
-
-I didn't investigate the root cause, but it seems related to PM, so=20
-patches 1 and 3 seem to be required for the serialization logic
-to actually work.
-
-So, I would keep the Fixes: tag mentioning changeset 7938d61591d3
-on patches: 1, 2, 3 and 6.
-
-Yet, IMO the entire series should be merged on -stable.
-
-If that's OK for you and there's no additional issues to be
-addressed, I'll submit a v2 of this series removing the Fixes tag
-from patches 4 and 5.
-
-Regards,
-Mauro
