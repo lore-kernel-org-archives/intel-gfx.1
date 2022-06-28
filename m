@@ -4,46 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF141C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 05:50:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1047C43334
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 05:52:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 562C41139C1;
-	Tue, 28 Jun 2022 05:50:50 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 353471139B0
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Jun 2022 05:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656395448; x=1687931448;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=UDO1sK+KVa8zZpOVJkveyrafXT6sVdEZOQl7bGj534U=;
- b=kMiX7f0k4uJny5iCZv5xx+1Xt1OBnAwVGueTgMhT9sPcap8Jd5jvYvKk
- 9F8Gy43p4jBQNUVJeL46u7Hy7MAcOgcMzztocvGMzerbOumdMAeFGGeKc
- f1vcTG0bXkPsjrjuyNUw6MfYff1nnDbRy0oCNm5REFdeeMcTqKwIc5/WO
- PHHXiItxiyRz9MjenN2lEXEXqn4Oay8URkgq3v9Yrtn9FuG0/PTLiWTlR
- 0CiY+DBKIvmixTQJmXptlm4El38aif3QDraRVJqvP9HwiM49HmNKxeYmJ
- T9bCRumncqwj675SO2mIKXZyAli5Tnt85ybyL3N2054yWMUtFEl5Jt4n0 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10391"; a="282733268"
-X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="282733268"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2022 22:50:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,227,1650956400"; d="scan'208";a="657993728"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga004.fm.intel.com with ESMTP; 27 Jun 2022 22:50:47 -0700
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 27 Jun 2022 22:51:29 -0700
-Message-Id: <20220628055130.1117146-2-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220628055130.1117146-1-alan.previn.teres.alexis@intel.com>
-References: <20220628055130.1117146-1-alan.previn.teres.alexis@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C92C113AF7;
+	Tue, 28 Jun 2022 05:52:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6AAD0113ABD;
+ Tue, 28 Jun 2022 05:52:44 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5FB96A47EB;
+ Tue, 28 Jun 2022 05:52:44 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [Intel-gfx 1/2] drm/i915/selftests: Use correct selfest
- calls for live tests
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Lucas De Marchi" <lucas.demarchi@intel.com>
+Date: Tue, 28 Jun 2022 05:52:44 -0000
+Message-ID: <165639556437.14503.4791426123976871131@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220627224751.3627465-1-lucas.demarchi@intel.com>
+In-Reply-To: <20220627224751.3627465-1-lucas.demarchi@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5BCI=2C1/2=5D_iosys-map=3A_Add_per-wo?=
+ =?utf-8?q?rd_read_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,118 +41,243 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Brost <matthew.brost@intel.com>
+== Series Details ==
 
-This will help in an upcoming patch where the live selftest wrappers
-are extended to do more.
+Series: series starting with [CI,1/2] iosys-map: Add per-word read (rev2)
+URL   : https://patchwork.freedesktop.org/series/105692/
+State : warning
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c    | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c      | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c    | 2 +-
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c           | 2 +-
- drivers/gpu/drm/i915/selftests/i915_perf.c              | 2 +-
- drivers/gpu/drm/i915/selftests/i915_request.c           | 2 +-
- drivers/gpu/drm/i915/selftests/i915_vma.c               | 2 +-
- 8 files changed, 8 insertions(+), 8 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-index 13b088cc787e..a666d7e610f5 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-@@ -434,5 +434,5 @@ int i915_gem_coherency_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_gem_coherency),
- 	};
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-index 62c61af77a42..51ed824b020c 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-@@ -476,5 +476,5 @@ int i915_gem_dmabuf_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_dmabuf_import_same_driver_lmem_smem),
- 	};
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index 5bc93a1ce3e3..f705e2b5c082 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -1761,5 +1761,5 @@ int i915_gem_mman_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_mmap_gpu),
- 	};
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-index fe0a890775e2..bdf5bb40ccf1 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-@@ -95,5 +95,5 @@ int i915_gem_object_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_gem_huge),
- 	};
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index 8633bec18fa7..5813dbe929de 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -2324,5 +2324,5 @@ int i915_gem_gtt_live_selftests(struct drm_i915_private *i915)
- 
- 	GEM_BUG_ON(offset_in_page(to_gt(i915)->ggtt->vm.total));
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
-diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
-index 88db2e3d81d0..429c6d73b159 100644
---- a/drivers/gpu/drm/i915/selftests/i915_perf.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
-@@ -431,7 +431,7 @@ int i915_perf_live_selftests(struct drm_i915_private *i915)
- 	if (err)
- 		return err;
- 
--	err = i915_subtests(tests, i915);
-+	err = i915_live_subtests(tests, i915);
- 
- 	destroy_empty_config(&i915->perf);
- 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index c56a0c2cd2f7..b0d2fe119561 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -1821,7 +1821,7 @@ int i915_request_live_selftests(struct drm_i915_private *i915)
- 	if (intel_gt_is_wedged(to_gt(i915)))
- 		return 0;
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
- 
- static int switch_to_kernel_sync(struct intel_context *ce, int err)
-diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 6921ba128015..e3821398a5b0 100644
---- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -1103,5 +1103,5 @@ int i915_vma_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_vma_remapped_gtt),
- 	};
- 
--	return i915_subtests(tests, i915);
-+	return i915_live_subtests(tests, i915);
- }
--- 
-2.25.1
+Error: dim checkpatch failed
+40dfd8d9e7ab iosys-map: Add per-word read
+-:88: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#88: FILE: include/linux/iosys-map.h:339:
++	u64: val_ = readq(vaddr_iomem_)
+ 	   ^
+
+-:88: WARNING:INDENTED_LABEL: labels should not be indented
+#88: FILE: include/linux/iosys-map.h:339:
++	u64: val_ = readq(vaddr_iomem_)
+
+-:91: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#91: FILE: include/linux/iosys-map.h:342:
++	u64: memcpy_fromio(&(val_), vaddr_iomem_, sizeof(u64))
+ 	   ^
+
+-:91: WARNING:INDENTED_LABEL: labels should not be indented
+#91: FILE: include/linux/iosys-map.h:342:
++	u64: memcpy_fromio(&(val_), vaddr_iomem_, sizeof(u64))
+
+-:94: CHECK:CAMELCASE: Avoid CamelCase: <_Generic>
+#94: FILE: include/linux/iosys-map.h:345:
++#define __iosys_map_rd_io(val__, vaddr_iomem__, type__) _Generic(val__,		\
+
+-:94: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'val__' - possible side-effects?
+#94: FILE: include/linux/iosys-map.h:345:
++#define __iosys_map_rd_io(val__, vaddr_iomem__, type__) _Generic(val__,		\
++	u8: val__ = readb(vaddr_iomem__),					\
++	u16: val__ = readw(vaddr_iomem__),					\
++	u32: val__ = readl(vaddr_iomem__),					\
++	__iosys_map_rd_io_u64_case(val__, vaddr_iomem__))
+
+-:94: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'vaddr_iomem__' - possible side-effects?
+#94: FILE: include/linux/iosys-map.h:345:
++#define __iosys_map_rd_io(val__, vaddr_iomem__, type__) _Generic(val__,		\
++	u8: val__ = readb(vaddr_iomem__),					\
++	u16: val__ = readw(vaddr_iomem__),					\
++	u32: val__ = readl(vaddr_iomem__),					\
++	__iosys_map_rd_io_u64_case(val__, vaddr_iomem__))
+
+-:95: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#95: FILE: include/linux/iosys-map.h:346:
++	u8: val__ = readb(vaddr_iomem__),					\
+ 	  ^
+
+-:95: WARNING:INDENTED_LABEL: labels should not be indented
+#95: FILE: include/linux/iosys-map.h:346:
++	u8: val__ = readb(vaddr_iomem__),					\
+
+-:96: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#96: FILE: include/linux/iosys-map.h:347:
++	u16: val__ = readw(vaddr_iomem__),					\
+ 	   ^
+
+-:96: WARNING:INDENTED_LABEL: labels should not be indented
+#96: FILE: include/linux/iosys-map.h:347:
++	u16: val__ = readw(vaddr_iomem__),					\
+
+-:97: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#97: FILE: include/linux/iosys-map.h:348:
++	u32: val__ = readl(vaddr_iomem__),					\
+ 	   ^
+
+-:97: WARNING:INDENTED_LABEL: labels should not be indented
+#97: FILE: include/linux/iosys-map.h:348:
++	u32: val__ = readl(vaddr_iomem__),					\
+
+-:100: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'type__' may be better as '(type__)' to avoid precedence issues
+#100: FILE: include/linux/iosys-map.h:351:
++#define __iosys_map_rd_sys(val__, vaddr__, type__) ({				\
++	compiletime_assert(sizeof(type__) <= sizeof(u64),			\
++			   "Unsupported access size for __iosys_map_rd_sys()");	\
++	val__ = READ_ONCE(*((type__ *)vaddr__));				\
++})
+
+-:126: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'map__' - possible side-effects?
+#126: FILE: include/linux/iosys-map.h:371:
++#define iosys_map_rd(map__, offset__, type__) ({				\
++	type__ val;								\
++	if ((map__)->is_iomem) {						\
++		__iosys_map_rd_io(val, (map__)->vaddr_iomem + (offset__), type__);\
++	} else {								\
++		__iosys_map_rd_sys(val, (map__)->vaddr + (offset__), type__);	\
++	}									\
++	val;									\
+ })
+
+-:126: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'offset__' - possible side-effects?
+#126: FILE: include/linux/iosys-map.h:371:
++#define iosys_map_rd(map__, offset__, type__) ({				\
++	type__ val;								\
++	if ((map__)->is_iomem) {						\
++		__iosys_map_rd_io(val, (map__)->vaddr_iomem + (offset__), type__);\
++	} else {								\
++		__iosys_map_rd_sys(val, (map__)->vaddr + (offset__), type__);	\
++	}									\
++	val;									\
+ })
+
+-:126: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'type__' - possible side-effects?
+#126: FILE: include/linux/iosys-map.h:371:
++#define iosys_map_rd(map__, offset__, type__) ({				\
++	type__ val;								\
++	if ((map__)->is_iomem) {						\
++		__iosys_map_rd_io(val, (map__)->vaddr_iomem + (offset__), type__);\
++	} else {								\
++		__iosys_map_rd_sys(val, (map__)->vaddr + (offset__), type__);	\
++	}									\
++	val;									\
+ })
+
+total: 5 errors, 5 warnings, 7 checks, 73 lines checked
+41983976b78e iosys-map: Add per-word write
+-:31: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#31: FILE: include/linux/iosys-map.h:341:
++	u64: writeq(val_, vaddr_iomem_)
+ 	   ^
+
+-:31: WARNING:INDENTED_LABEL: labels should not be indented
+#31: FILE: include/linux/iosys-map.h:341:
++	u64: writeq(val_, vaddr_iomem_)
+
+-:36: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#36: FILE: include/linux/iosys-map.h:346:
++	u64: memcpy_toio(vaddr_iomem_, &(val_), sizeof(u64))
+ 	   ^
+
+-:36: WARNING:INDENTED_LABEL: labels should not be indented
+#36: FILE: include/linux/iosys-map.h:346:
++	u64: memcpy_toio(vaddr_iomem_, &(val_), sizeof(u64))
+
+-:44: CHECK:CAMELCASE: Avoid CamelCase: <_Generic>
+#44: FILE: include/linux/iosys-map.h:361:
++#define __iosys_map_wr_io(val__, vaddr_iomem__, type__) _Generic(val__,		\
+
+-:44: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'val__' - possible side-effects?
+#44: FILE: include/linux/iosys-map.h:361:
++#define __iosys_map_wr_io(val__, vaddr_iomem__, type__) _Generic(val__,		\
++	u8: writeb(val__, vaddr_iomem__),					\
++	u16: writew(val__, vaddr_iomem__),					\
++	u32: writel(val__, vaddr_iomem__),					\
++	__iosys_map_wr_io_u64_case(val__, vaddr_iomem__))
+
+-:44: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'vaddr_iomem__' - possible side-effects?
+#44: FILE: include/linux/iosys-map.h:361:
++#define __iosys_map_wr_io(val__, vaddr_iomem__, type__) _Generic(val__,		\
++	u8: writeb(val__, vaddr_iomem__),					\
++	u16: writew(val__, vaddr_iomem__),					\
++	u32: writel(val__, vaddr_iomem__),					\
++	__iosys_map_wr_io_u64_case(val__, vaddr_iomem__))
+
+-:45: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#45: FILE: include/linux/iosys-map.h:362:
++	u8: writeb(val__, vaddr_iomem__),					\
+ 	  ^
+
+-:45: WARNING:INDENTED_LABEL: labels should not be indented
+#45: FILE: include/linux/iosys-map.h:362:
++	u8: writeb(val__, vaddr_iomem__),					\
+
+-:46: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#46: FILE: include/linux/iosys-map.h:363:
++	u16: writew(val__, vaddr_iomem__),					\
+ 	   ^
+
+-:46: WARNING:INDENTED_LABEL: labels should not be indented
+#46: FILE: include/linux/iosys-map.h:363:
++	u16: writew(val__, vaddr_iomem__),					\
+
+-:47: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#47: FILE: include/linux/iosys-map.h:364:
++	u32: writel(val__, vaddr_iomem__),					\
+ 	   ^
+
+-:47: WARNING:INDENTED_LABEL: labels should not be indented
+#47: FILE: include/linux/iosys-map.h:364:
++	u32: writel(val__, vaddr_iomem__),					\
+
+-:50: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'type__' may be better as '(type__)' to avoid precedence issues
+#50: FILE: include/linux/iosys-map.h:367:
++#define __iosys_map_wr_sys(val__, vaddr__, type__) ({				\
++	compiletime_assert(sizeof(type__) <= sizeof(u64),			\
++			   "Unsupported access size for __iosys_map_wr_sys()"); \
++	WRITE_ONCE(*((type__ *)vaddr__), val__);				\
++})
+
+-:56: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#56: FILE: include/linux/iosys-map.h:373:
++
++
+
+-:73: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'map__' - possible side-effects?
+#73: FILE: include/linux/iosys-map.h:410:
++#define iosys_map_wr(map__, offset__, type__, val__) ({				\
++	type__ val = (val__);							\
++	if ((map__)->is_iomem) {						\
++		__iosys_map_wr_io(val, (map__)->vaddr_iomem + (offset__), type__);\
++	} else {								\
++		__iosys_map_wr_sys(val, (map__)->vaddr + (offset__), type__);	\
++	}									\
+ })
+
+-:73: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'offset__' - possible side-effects?
+#73: FILE: include/linux/iosys-map.h:410:
++#define iosys_map_wr(map__, offset__, type__, val__) ({				\
++	type__ val = (val__);							\
++	if ((map__)->is_iomem) {						\
++		__iosys_map_wr_io(val, (map__)->vaddr_iomem + (offset__), type__);\
++	} else {								\
++		__iosys_map_wr_sys(val, (map__)->vaddr + (offset__), type__);	\
++	}									\
+ })
+
+-:73: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'type__' - possible side-effects?
+#73: FILE: include/linux/iosys-map.h:410:
++#define iosys_map_wr(map__, offset__, type__, val__) ({				\
++	type__ val = (val__);							\
++	if ((map__)->is_iomem) {						\
++		__iosys_map_wr_io(val, (map__)->vaddr_iomem + (offset__), type__);\
++	} else {								\
++		__iosys_map_wr_sys(val, (map__)->vaddr + (offset__), type__);	\
++	}									\
+ })
+
+total: 5 errors, 5 warnings, 8 checks, 70 lines checked
+
 
