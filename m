@@ -4,55 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11AC5C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:07:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48A10CCA483
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:07:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8038911A77C;
-	Wed, 20 Jul 2022 14:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE1ED11A86D;
+	Wed, 20 Jul 2022 14:07:49 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17B9310E021;
- Tue,  5 Jul 2022 10:52:35 +0000 (UTC)
-Received: from [192.168.2.145] (unknown [109.252.119.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF86A112014;
+ Tue, 28 Jun 2022 13:11:14 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
+ [109.252.118.164])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 04042660180F;
- Tue,  5 Jul 2022 11:52:30 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 714326601856;
+ Tue, 28 Jun 2022 14:11:10 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657018353;
- bh=C0XVywH+oyNLG15zS9kJCfV/f1r6tRA5EPvm3RYnUOM=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=BFsJtEh/gBUsqY7oLRLDvEEt2L0qJInllcm8ERMdMkKs/ivYjVrMj7HM0VLqfdii4
- iZJrTAHKS+FQJADUDLdChPRH7Y6aiXltet0/Ptkf7VzEZKH0NTIj3TrpzjnTsS5eIM
- +daU4k8lz/lV6BZmBuVv7AHzc7nHJfY2f1YwSD3ROdt84HfzsTGjByasgAXNcMz4d1
- qg/O+0qPRX6gCd4cBJwu1DYAoDwhHm0Pyvxxug8XaHFbhF++KaNwZMKNBglpUncQwu
- n6itsrDfKq1GL6c0rmng3zw4Cd6j6JFnFqIEoFQiM5a30K8uZbuwLUOjlQtKkbkZuL
- 78aARH30ofTdQ==
-Message-ID: <37f028a0-f54a-a1a9-e23a-3c1af6979a62@collabora.com>
-Date: Tue, 5 Jul 2022 13:52:28 +0300
+ s=mail; t=1656421873;
+ bh=KNSZUjyY4CuF71/A7Usafn7IJCqpjpqnNb+s/bjmhpM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JVdCL4pOrZRjPYlW1sSxr0ov8MYwr/h/jFUMEmO4yZZL0Thh0VqUNftTIaNvUwEmY
+ myolbgF/rRAWBiGj8as5x4lXrPgfvowspQRix7IvWX3ujENW9n/A9RgofDbIFplpJ1
+ XKBUEiGyhohLkxg095z15R9kLoSIzKX7UR4GwSE03H/Wl5+upu3XGKE9fggwC3rLAJ
+ YwztUDyhr9vdUcLY8PyCIUcj0FTuvMwiQySOEZvk1YLzw5WODsuuCzO2945ZS6eOcK
+ kbjoe/4U6aWPVrza0Q6OS9hOE9m0uzU59dItxkwobNx4NGuRgKEN7SpAkBhFBnLjES
+ o9MoSYPi5XeiA==
+Message-ID: <8c5d3cb0-70fa-81a7-33a2-50f45bf8f40e@collabora.com>
+Date: Tue, 28 Jun 2022 16:11:07 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
 Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+To: Robin Murphy <robin.murphy@arm.com>, David Airlie <airlied@linux.ie>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ Qiang Yu <yuq825@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <20220526235040.678984-15-dmitry.osipenko@collabora.com>
- <0a02a31d-a256-4ca4-0e35-e2ea1868a8ae@amd.com>
- <e6e17c52-43c2-064b-500e-325bb3ba3b2c@collabora.com>
- <02e7946b-34ca-b48e-1ba6-e7b63740a2d9@amd.com>
- <7372dd1b-06f7-5336-4738-15f9b4d4d4b3@collabora.com>
- <90fe74f6-a622-e4ae-3004-6f1bc1790247@shipmail.org>
- <0d88cf7c-61e5-d7a8-a6ba-83388114a1fa@collabora.com>
- <fd026c44-b067-3537-3020-4ae8f24137ad@collabora.com>
-In-Reply-To: <fd026c44-b067-3537-3020-4ae8f24137ad@collabora.com>
+ <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 20 Jul 2022 14:07:33 +0000
-Subject: Re: [Intel-gfx] [PATCH v6 14/22] dma-buf: Introduce new locking
- convention
+Subject: Re: [Intel-gfx] [PATCH v6 00/22] Add generic memory shrinker to
+ VirtIO-GPU and Panfrost DRM drivers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,49 +83,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring <robh@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Chia-I Wu <olvaffe@gmail.com>, linux-media@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
- Qiang Yu <yuq825@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
- Robin Murphy <robin.murphy@arm.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 7/5/22 01:38, Dmitry Osipenko wrote:
-...
->>> Also i915 will run into trouble with attach. In particular since i915
->>> starts a full ww transaction in its attach callback to be able to lock
->>> other objects if migration is needed. I think i915 CI would catch this
->>> in a selftest.
->> Seems it indeed it should deadlock. But i915 selftests apparently
->> should've caught it and they didn't, I'll re-check what happened.
->>
-> 
-> The i915 selftests use a separate mock_dmabuf_ops. That's why it works
-> for the selftests, i.e. there is no deadlock.
-> 
-> Thomas, would i915 CI run a different set of tests or will it be the
-> default i915 selftests ran by IGT?
-> 
+Hello Robin,
 
-Nevermind, I had a local kernel change that was forgotten about.. it
-prevented the i915 live tests from running.
+On 6/28/22 15:31, Robin Murphy wrote:
+>> Hello,
+>>
+>> This patchset introduces memory shrinker for the VirtIO-GPU DRM driver
+>> and adds memory purging and eviction support to VirtIO-GPU driver.
+>>
+>> The new dma-buf locking convention is introduced here as well.
+>>
+>> During OOM, the shrinker will release BOs that are marked as "not needed"
+>> by userspace using the new madvise IOCTL, it will also evict idling BOs
+>> to SWAP. The userspace in this case is the Mesa VirGL driver, it will
+>> mark
+>> the cached BOs as "not needed", allowing kernel driver to release memory
+>> of the cached shmem BOs on lowmem situations, preventing OOM kills.
+>>
+>> The Panfrost driver is switched to use generic memory shrinker.
+> 
+> I think we still have some outstanding issues here - Alyssa reported
+> some weirdness yesterday, so I just tried provoking a low-memory
+> condition locally with this series applied and a few debug options
+> enabled, and the results as below were... interesting.
+
+The warning and crash that you got actually are the minor issues.
+
+Alyssa caught an interesting PREEMPT_DEBUG issue in the shrinker that I
+haven't seen before.
+
+She is also experiencing another problem in the Panfrost driver with a
+bad shmem pages (I think). It is unrelated to this patchset and
+apparently require an extra setup for the reproduction.
 
 -- 
 Best regards,
