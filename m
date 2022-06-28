@@ -4,35 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48A10CCA483
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACB2DC43334
 	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:07:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE1ED11A86D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A724211A899;
 	Wed, 20 Jul 2022 14:07:49 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF86A112014;
- Tue, 28 Jun 2022 13:11:14 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4878310F551;
+ Tue, 28 Jun 2022 12:51:04 +0000 (UTC)
 Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
  [109.252.118.164])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 714326601856;
- Tue, 28 Jun 2022 14:11:10 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 0CAD76601856;
+ Tue, 28 Jun 2022 13:50:59 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1656421873;
- bh=KNSZUjyY4CuF71/A7Usafn7IJCqpjpqnNb+s/bjmhpM=;
+ s=mail; t=1656420662;
+ bh=PFIWuLGIBDtoRI7sScn1Qx1sFNzrxav9CwBcyPc2Png=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=JVdCL4pOrZRjPYlW1sSxr0ov8MYwr/h/jFUMEmO4yZZL0Thh0VqUNftTIaNvUwEmY
- myolbgF/rRAWBiGj8as5x4lXrPgfvowspQRix7IvWX3ujENW9n/A9RgofDbIFplpJ1
- XKBUEiGyhohLkxg095z15R9kLoSIzKX7UR4GwSE03H/Wl5+upu3XGKE9fggwC3rLAJ
- YwztUDyhr9vdUcLY8PyCIUcj0FTuvMwiQySOEZvk1YLzw5WODsuuCzO2945ZS6eOcK
- kbjoe/4U6aWPVrza0Q6OS9hOE9m0uzU59dItxkwobNx4NGuRgKEN7SpAkBhFBnLjES
- o9MoSYPi5XeiA==
-Message-ID: <8c5d3cb0-70fa-81a7-33a2-50f45bf8f40e@collabora.com>
-Date: Tue, 28 Jun 2022 16:11:07 +0300
+ b=V6A4i4mgC7SygYLCmvg40e3M81RG/nLZ/L09nEF81ZEMMV40VCGpzFid5ug7Tsy+M
+ JJULMGU+7KkybWYvkIsvU/ssgYQavWAgTD+qaLt1ZFZMED89SRhVkbTpf0pkVLfkoR
+ JfMkEqOi6Jltg+VJCW0E6PxrF4y+o0UyiHoHJPm5iOgz2VnonBrpPs33i7rlIkHOWe
+ GbmYQjKXkSUuNfZXIi9JfAnVBSFfMhkr7oZUdkjoY+h8H0UjB5/VbfcY+JTYya+yEV
+ nUgQkyz86IxSI8sX2smo3E9EcgTcZljuRobh25uNSzXJ+0iLsUPXTV8KID1cNF+P49
+ tf0YoXH3FRlUA==
+Message-ID: <f77c1c2d-d9f9-db00-906a-ec10b535621d@collabora.com>
+Date: Tue, 28 Jun 2022 15:50:57 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
@@ -67,7 +66,7 @@ References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 In-Reply-To: <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 20 Jul 2022 14:07:33 +0000
 Subject: Re: [Intel-gfx] [PATCH v6 00/22] Add generic memory shrinker to
  VirtIO-GPU and Panfrost DRM drivers
@@ -91,38 +90,78 @@ Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello Robin,
-
 On 6/28/22 15:31, Robin Murphy wrote:
->> Hello,
->>
->> This patchset introduces memory shrinker for the VirtIO-GPU DRM driver
->> and adds memory purging and eviction support to VirtIO-GPU driver.
->>
->> The new dma-buf locking convention is introduced here as well.
->>
->> During OOM, the shrinker will release BOs that are marked as "not needed"
->> by userspace using the new madvise IOCTL, it will also evict idling BOs
->> to SWAP. The userspace in this case is the Mesa VirGL driver, it will
->> mark
->> the cached BOs as "not needed", allowing kernel driver to release memory
->> of the cached shmem BOs on lowmem situations, preventing OOM kills.
->>
->> The Panfrost driver is switched to use generic memory shrinker.
-> 
-> I think we still have some outstanding issues here - Alyssa reported
-> some weirdness yesterday, so I just tried provoking a low-memory
-> condition locally with this series applied and a few debug options
-> enabled, and the results as below were... interesting.
+> ----->8-----
+> [   68.295951] ======================================================
+> [   68.295956] WARNING: possible circular locking dependency detected
+> [   68.295963] 5.19.0-rc3+ #400 Not tainted
+> [   68.295972] ------------------------------------------------------
+> [   68.295977] cc1/295 is trying to acquire lock:
+> [   68.295986] ffff000008d7f1a0
+> (reservation_ww_class_mutex){+.+.}-{3:3}, at: drm_gem_shmem_free+0x7c/0x198
+> [   68.296036]
+> [   68.296036] but task is already holding lock:
+> [   68.296041] ffff80000c14b820 (fs_reclaim){+.+.}-{0:0}, at:
+> __alloc_pages_slowpath.constprop.0+0x4d8/0x1470
+> [   68.296080]
+> [   68.296080] which lock already depends on the new lock.
+> [   68.296080]
+> [   68.296085]
+> [   68.296085] the existing dependency chain (in reverse order) is:
+> [   68.296090]
+> [   68.296090] -> #1 (fs_reclaim){+.+.}-{0:0}:
+> [   68.296111]        fs_reclaim_acquire+0xb8/0x150
+> [   68.296130]        dma_resv_lockdep+0x298/0x3fc
+> [   68.296148]        do_one_initcall+0xe4/0x5f8
+> [   68.296163]        kernel_init_freeable+0x414/0x49c
+> [   68.296180]        kernel_init+0x2c/0x148
+> [   68.296195]        ret_from_fork+0x10/0x20
+> [   68.296207]
+> [   68.296207] -> #0 (reservation_ww_class_mutex){+.+.}-{3:3}:
+> [   68.296229]        __lock_acquire+0x1724/0x2398
+> [   68.296246]        lock_acquire+0x218/0x5b0
+> [   68.296260]        __ww_mutex_lock.constprop.0+0x158/0x2378
+> [   68.296277]        ww_mutex_lock+0x7c/0x4d8
+> [   68.296291]        drm_gem_shmem_free+0x7c/0x198
+> [   68.296304]        panfrost_gem_free_object+0x118/0x138
+> [   68.296318]        drm_gem_object_free+0x40/0x68
+> [   68.296334]        drm_gem_shmem_shrinker_run_objects_scan+0x42c/0x5b8
+> [   68.296352]        drm_gem_shmem_shrinker_scan_objects+0xa4/0x170
+> [   68.296368]        do_shrink_slab+0x220/0x808
+> [   68.296381]        shrink_slab+0x11c/0x408
+> [   68.296392]        shrink_node+0x6ac/0xb90
+> [   68.296403]        do_try_to_free_pages+0x1dc/0x8d0
+> [   68.296416]        try_to_free_pages+0x1ec/0x5b0
+> [   68.296429]        __alloc_pages_slowpath.constprop.0+0x528/0x1470
+> [   68.296444]        __alloc_pages+0x4e0/0x5b8
+> [   68.296455]        __folio_alloc+0x24/0x60
+> [   68.296467]        vma_alloc_folio+0xb8/0x2f8
+> [   68.296483]        alloc_zeroed_user_highpage_movable+0x58/0x68
+> [   68.296498]        __handle_mm_fault+0x918/0x12a8
+> [   68.296513]        handle_mm_fault+0x130/0x300
+> [   68.296527]        do_page_fault+0x1d0/0x568
+> [   68.296539]        do_translation_fault+0xa0/0xb8
+> [   68.296551]        do_mem_abort+0x68/0xf8
+> [   68.296562]        el0_da+0x74/0x100
+> [   68.296572]        el0t_64_sync_handler+0x68/0xc0
+> [   68.296585]        el0t_64_sync+0x18c/0x190
+> [   68.296596]
+> [   68.296596] other info that might help us debug this:
+> [   68.296596]
+> [   68.296601]  Possible unsafe locking scenario:
+> [   68.296601]
+> [   68.296604]        CPU0                    CPU1
+> [   68.296608]        ----                    ----
+> [   68.296612]   lock(fs_reclaim);
+> [   68.296622] lock(reservation_ww_class_mutex);
+> [   68.296633]                                lock(fs_reclaim);
+> [   68.296644]   lock(reservation_ww_class_mutex);
+> [   68.296654]
+> [   68.296654]  *** DEADLOCK ***
 
-The warning and crash that you got actually are the minor issues.
-
-Alyssa caught an interesting PREEMPT_DEBUG issue in the shrinker that I
-haven't seen before.
-
-She is also experiencing another problem in the Panfrost driver with a
-bad shmem pages (I think). It is unrelated to this patchset and
-apparently require an extra setup for the reproduction.
+This splat could be ignored for now. I'm aware about it, although
+haven't looked closely at how to fix it since it's a kind of a lockdep
+misreporting.
 
 -- 
 Best regards,
