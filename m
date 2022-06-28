@@ -4,66 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70D90C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:08:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC07EC43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AB5C11A909;
-	Wed, 20 Jul 2022 14:07:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 841DF11B57E;
+	Wed, 20 Jul 2022 14:08:24 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C542C10F45B;
- Fri, 15 Jul 2022 00:53:32 +0000 (UTC)
-Received: from dimapc.. (109-252-119-232.nat.spd-mgts.ru [109.252.119.232])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73D4B1131BB;
+ Tue, 28 Jun 2022 12:51:18 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
+ [109.252.118.164])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 06F906601A45;
- Fri, 15 Jul 2022 01:53:28 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 7ABBC6601856;
+ Tue, 28 Jun 2022 13:51:14 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657846411;
- bh=PteWYx7Wt5reZT7taoySnmyR4+zPHHT7pS736ipbNiM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=avN5sLDmsCMSZuDVcZ8lQbfDsoKw+pciIyMfgqRM7c6IrRo3Ty9cJVZ/pMdy+WDGr
- jon9Zguuo7QBGZD8t6zDWjKXJKkvq4ETPvYqBpGkOX1fYWDGdr0iAiSaAFLdPm4EvE
- ZSNXNqXzQNwUv/O53RU0S8lRJVobDWrWKl1tuIxeaEIaitq17gsxqSaPxF4PEDAwff
- +JQ3TYmJUfCUfbhznSPQ70FkRRUTt8q4+NDPkMEzpu+juiaMcm6d+uPpSHxJtiZ33p
- 6c7JswUZv2KGYU7BzJnwrB81p6cGlOplDqKScJdI3hUKQ276XEjQxSTvlLwHH5D0ki
- 71NFBoJ/4bGFA==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ s=mail; t=1656420677;
+ bh=QW35y0ngxo74XEIz+a+5lGVgqnaeMkyQSyje1iFHTww=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=VIJvhDUJcm5yDx9PlWKbGQ74WtOgaDIRlnuWjRl3RSZ92ypNqOuh2I3bpjSz7OH4H
+ JGvnNJC8zmFqC7hT5uFxiAW5Dx635g6KUOblvf4uNCAiNufzsiyVGYH0HJTP6nChNV
+ uH74sFdDAuum+u5SJdOOqnitGC6cxSx+PBAfF6ZBFwIz6UCVPzpKzW6K802UU551PJ
+ 9gd/kmz/LZafsmptA87YaQCQzcdNPvE77r/6v9FAzKaet4EK+0nCX6vqvEl0rlf6Gm
+ x1dq3kWwXK4S3yHxdJSm0xbxWEB4B/hMoLiQTHj6uc6GXhuywUCwPy1p9MPet+qr/A
+ GRvQWmyiyl8nA==
+Message-ID: <17318333-d9b1-9184-4147-7e3123a6fccb@collabora.com>
+Date: Tue, 28 Jun 2022 15:51:11 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-US
+To: Robin Murphy <robin.murphy@arm.com>, David Airlie <airlied@linux.ie>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  Gert Wollny <gert.wollny@collabora.com>,
  Gustavo Padovan <gustavo.padovan@collabora.com>,
  Daniel Stone <daniel@fooishbar.org>,
  Tomeu Vizoso <tomeu.vizoso@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ Qiang Yu <yuq825@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
  Marek Szyprowski <m.szyprowski@samsung.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Alex Deucher <alexander.deucher@amd.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>
-Date: Fri, 15 Jul 2022 03:52:43 +0300
-Message-Id: <20220715005244.42198-6-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
-References: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
-MIME-Version: 1.0
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
+ <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 20 Jul 2022 14:07:33 +0000
-Subject: [Intel-gfx] [PATCH v1 5/6] media: videobuf2: Stop using internal
- dma-buf lock
+Subject: Re: [Intel-gfx] [PATCH v6 00/22] Add generic memory shrinker to
+ VirtIO-GPU and Panfrost DRM drivers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,145 +82,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
  kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-All drivers that use dma-bufs have been moved to the updated locking
-specification and now dma-buf reservation is guaranteed to be locked
-by importers during the mapping operations. There is no need to take
-the internal dma-buf lock anymore. Remove locking from the videobuf2
-memory allocators.
+On 6/28/22 15:31, Robin Murphy wrote:
+> [  100.511411]
+> ==================================================================
+> [  100.511419] BUG: KASAN: use-after-free in irq_work_single+0xa4/0x110
+> [  100.511445] Write of size 4 at addr ffff0000107f5830 by task
+> glmark2-es2-drm/280
+> [  100.511458]
+> [  100.511464] CPU: 1 PID: 280 Comm: glmark2-es2-drm Not tainted
+> 5.19.0-rc3+ #400
+> [  100.511479] Hardware name: ARM LTD ARM Juno Development Platform/ARM
+> Juno Development Platform, BIOS EDK II Sep  3 2019
+> [  100.511489] Call trace:
+> [  100.511494]  dump_backtrace+0x1e4/0x1f0
+> [  100.511512]  show_stack+0x20/0x70
+> [  100.511523]  dump_stack_lvl+0x8c/0xb8
+> [  100.511543]  print_report+0x16c/0x668
+> [  100.511559]  kasan_report+0x80/0x208
+> [  100.511574]  kasan_check_range+0x100/0x1b8
+> [  100.511590]  __kasan_check_write+0x34/0x60
+> [  100.511607]  irq_work_single+0xa4/0x110
+> [  100.511619]  irq_work_run_list+0x6c/0x88
+> [  100.511632]  irq_work_run+0x28/0x48
+> [  100.511644]  ipi_handler+0x254/0x468
+> [  100.511664]  handle_percpu_devid_irq+0x11c/0x518
+> [  100.511681]  generic_handle_domain_irq+0x50/0x70
+> [  100.511699]  gic_handle_irq+0xd4/0x118
+> [  100.511711]  call_on_irq_stack+0x2c/0x58
+> [  100.511725]  do_interrupt_handler+0xc0/0xc8
+> [  100.511741]  el1_interrupt+0x40/0x68
+> [  100.511754]  el1h_64_irq_handler+0x18/0x28
+> [  100.511767]  el1h_64_irq+0x64/0x68
+> [  100.511778]  irq_work_queue+0xc0/0xd8
+> [  100.511790]  drm_sched_entity_fini+0x2c4/0x3b0
+> [  100.511805]  drm_sched_entity_destroy+0x2c/0x40
+> [  100.511818]  panfrost_job_close+0x44/0x1c0
+> [  100.511833]  panfrost_postclose+0x38/0x60
+> [  100.511845]  drm_file_free.part.0+0x33c/0x4b8
+> [  100.511862]  drm_close_helper.isra.0+0xc0/0xd8
+> [  100.511877]  drm_release+0xe4/0x1e0
+> [  100.511891]  __fput+0xf8/0x390
+> [  100.511904]  ____fput+0x18/0x28
+> [  100.511917]  task_work_run+0xc4/0x1e0
+> [  100.511929]  do_exit+0x554/0x1168
+> [  100.511945]  do_group_exit+0x60/0x108
+> [  100.511960]  __arm64_sys_exit_group+0x34/0x38
+> [  100.511977]  invoke_syscall+0x64/0x180
+> [  100.511993]  el0_svc_common.constprop.0+0x13c/0x170
+> [  100.512012]  do_el0_svc+0x48/0xe8
+> [  100.512028]  el0_svc+0x5c/0xe0
+> [  100.512038]  el0t_64_sync_handler+0xb8/0xc0
+> [  100.512051]  el0t_64_sync+0x18c/0x190
+> [  100.512064]
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- drivers/media/common/videobuf2/videobuf2-dma-contig.c | 11 +----------
- drivers/media/common/videobuf2/videobuf2-dma-sg.c     | 11 +----------
- drivers/media/common/videobuf2/videobuf2-vmalloc.c    | 11 +----------
- 3 files changed, 3 insertions(+), 30 deletions(-)
+This one shall be fixed by [1] that is not in the RC kernel yet, please
+use linux-next.
 
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-index de762dbdaf78..2c69bf0470e7 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-@@ -382,18 +382,12 @@ static struct sg_table *vb2_dc_dmabuf_ops_map(
- 	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
- {
- 	struct vb2_dc_attachment *attach = db_attach->priv;
--	/* stealing dmabuf mutex to serialize map/unmap operations */
--	struct mutex *lock = &db_attach->dmabuf->lock;
- 	struct sg_table *sgt;
- 
--	mutex_lock(lock);
--
- 	sgt = &attach->sgt;
- 	/* return previously mapped sg table */
--	if (attach->dma_dir == dma_dir) {
--		mutex_unlock(lock);
-+	if (attach->dma_dir == dma_dir)
- 		return sgt;
--	}
- 
- 	/* release any previous cache */
- 	if (attach->dma_dir != DMA_NONE) {
-@@ -409,14 +403,11 @@ static struct sg_table *vb2_dc_dmabuf_ops_map(
- 	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir,
- 			    DMA_ATTR_SKIP_CPU_SYNC)) {
- 		pr_err("failed to map scatterlist\n");
--		mutex_unlock(lock);
- 		return ERR_PTR(-EIO);
- 	}
- 
- 	attach->dma_dir = dma_dir;
- 
--	mutex_unlock(lock);
--
- 	return sgt;
- }
- 
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-index 39e11600304a..e63e718c0bf7 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-@@ -424,18 +424,12 @@ static struct sg_table *vb2_dma_sg_dmabuf_ops_map(
- 	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
- {
- 	struct vb2_dma_sg_attachment *attach = db_attach->priv;
--	/* stealing dmabuf mutex to serialize map/unmap operations */
--	struct mutex *lock = &db_attach->dmabuf->lock;
- 	struct sg_table *sgt;
- 
--	mutex_lock(lock);
--
- 	sgt = &attach->sgt;
- 	/* return previously mapped sg table */
--	if (attach->dma_dir == dma_dir) {
--		mutex_unlock(lock);
-+	if (attach->dma_dir == dma_dir)
- 		return sgt;
--	}
- 
- 	/* release any previous cache */
- 	if (attach->dma_dir != DMA_NONE) {
-@@ -446,14 +440,11 @@ static struct sg_table *vb2_dma_sg_dmabuf_ops_map(
- 	/* mapping to the client with new direction */
- 	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir, 0)) {
- 		pr_err("failed to map scatterlist\n");
--		mutex_unlock(lock);
- 		return ERR_PTR(-EIO);
- 	}
- 
- 	attach->dma_dir = dma_dir;
- 
--	mutex_unlock(lock);
--
- 	return sgt;
- }
- 
-diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-index 7831bf545874..41db707e43a4 100644
---- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-+++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-@@ -267,18 +267,12 @@ static struct sg_table *vb2_vmalloc_dmabuf_ops_map(
- 	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
- {
- 	struct vb2_vmalloc_attachment *attach = db_attach->priv;
--	/* stealing dmabuf mutex to serialize map/unmap operations */
--	struct mutex *lock = &db_attach->dmabuf->lock;
- 	struct sg_table *sgt;
- 
--	mutex_lock(lock);
--
- 	sgt = &attach->sgt;
- 	/* return previously mapped sg table */
--	if (attach->dma_dir == dma_dir) {
--		mutex_unlock(lock);
-+	if (attach->dma_dir == dma_dir)
- 		return sgt;
--	}
- 
- 	/* release any previous cache */
- 	if (attach->dma_dir != DMA_NONE) {
-@@ -289,14 +283,11 @@ static struct sg_table *vb2_vmalloc_dmabuf_ops_map(
- 	/* mapping to the client with new direction */
- 	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir, 0)) {
- 		pr_err("failed to map scatterlist\n");
--		mutex_unlock(lock);
- 		return ERR_PTR(-EIO);
- 	}
- 
- 	attach->dma_dir = dma_dir;
- 
--	mutex_unlock(lock);
--
- 	return sgt;
- }
- 
+[1]
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20220628&id=7d64c40a7d96190d9d06e240305389e025295916
+
 -- 
-2.36.1
-
+Best regards,
+Dmitry
