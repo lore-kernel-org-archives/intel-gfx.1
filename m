@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B543EC43334
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 18:47:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A25C6C43334
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jun 2022 18:47:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF15611B6EA;
-	Tue, 28 Jun 2022 18:47:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8999811B441;
+	Tue, 28 Jun 2022 18:47:31 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E91E211B4B7;
- Tue, 28 Jun 2022 18:47:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7193D11B4B7;
+ Tue, 28 Jun 2022 18:47:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656442048; x=1687978048;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=0GXC8PS9KFq4Tp92Y8v9WqQXSNLZ3bTC0LdtCxzSVQU=;
- b=er8pXB9LTEdVKU3ij4jH5mEXodKUKUyIJQjkeXbp/L61Y839oLjp3kJB
- ZSl1pE600zkrNqDZlBqX5oVPFxX2tZwF0xMEfHCDCZNc41ohpe7iM/QQN
- nvtnHRKPTjLIoVKdIzP/CntIKAk0+ZcQa4r7xuj281QQ6/IqQQ0Dphwop
- lLkDP/TBwAQcITsQp/+rsxnCtGse2TkjGMciO+FX+c+iij9vAkw8hNsSg
- uTkgKrhjkTCAiKS864QTDypLZDwNnmhBU7sM+V4ndq/yLOvjLHn2KCD8c
- RzqiabBdtQe1YikSV2k9K0TCB7j32f/9ijttR7X14ZFq7ubJ+Wh1eFz3+ w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="282915814"
-X-IronPort-AV: E=Sophos;i="5.92,229,1650956400"; d="scan'208";a="282915814"
+ t=1656442049; x=1687978049;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Gq0ZzJGdmcvmO4J+ld8VOXGM6Hpl0H6UEJdEzAkOF/M=;
+ b=kKQLug4F/QijUQvpb0dnHsoJbKUbcB8UpZzEBpG3nVAy9v8hDPsA8KZ4
+ 8CMXDOKsSBSTwKmQAqqsyIw0CwfFYJYoQS7/0njfQ8/14Or0Bx7CJE2js
+ sjGYFP/0xz1hhN5jL0ZkrYST0s5CJyJOAVlh4U1DVJt01ZWYXrT2cHtvB
+ ESxX8eQf+4P+vIlrUfro2WLgfnOoNJuzXk4N2P78r1uhjKviWZPsv+81Z
+ gnRTO8Xat6NFrjpTRkvuQGQOfjlVGr1n57LWEwdZ/454G9HsSm5VngPQi
+ cTXW29b1O5j0eQ+oKPRIVx/N4dew2jTNSCLXtudRSruBmbyaWhQw6K6aA A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="282915816"
+X-IronPort-AV: E=Sophos;i="5.92,229,1650956400"; d="scan'208";a="282915816"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Jun 2022 11:47:28 -0700
-X-IronPort-AV: E=Sophos;i="5.92,229,1650956400"; d="scan'208";a="594908727"
+X-IronPort-AV: E=Sophos;i="5.92,229,1650956400"; d="scan'208";a="594908733"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.202])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2022 11:47:27 -0700
+ 28 Jun 2022 11:47:28 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 28 Jun 2022 11:47:45 -0700
-Message-Id: <20220628184747.3844242-1-lucas.demarchi@intel.com>
+Date: Tue, 28 Jun 2022 11:47:47 -0700
+Message-Id: <20220628184747.3844242-3-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20220628184747.3844242-1-lucas.demarchi@intel.com>
+References: <20220628184747.3844242-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 1/3] drm-tip: 2022y-06m-27d-16h-18m-47s UTC
- integration manifest
+Subject: [Intel-gfx] [CI 3/3] iosys-map: Add per-word write
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,50 +57,107 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@intel.com>, christian.koenig@amd.com,
+Cc: Daniel Vetter <daniel.vetter@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, christian.koenig@amd.com,
  tzimmermann@suse.de
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Like was done for read, provide the equivalent for write. Even if
+current users are not in the hot path, this should future-proof it.
 
+v2:
+  - Remove default from _Generic() - callers wanting to write more
+    than u64 should use iosys_map_memcpy_to()
+  - Add WRITE_ONCE() cases dereferencing the pointer when using system
+    memory
+v3:
+  - Fix precedence issue when casting inside WRITE_ONCE(). By not using ()
+    around vaddr__ the offset was not part of the cast, but rather added
+    to it, producing a wrong address
+  - Remove compiletime_assert() as WRITE_ONCE() already contains it
+
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Reviewed-by: Christian König <christian.koenig@amd.com> # v1
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- integration-manifest | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
- create mode 100644 integration-manifest
+ include/linux/iosys-map.h | 38 +++++++++++++++++++++++++++++---------
+ 1 file changed, 29 insertions(+), 9 deletions(-)
 
-diff --git a/integration-manifest b/integration-manifest
-new file mode 100644
-index 000000000000..baffa2a57cd4
---- /dev/null
-+++ b/integration-manifest
-@@ -0,0 +1,26 @@
-+drm drm-fixes 03c765b0e3b4cb5063276b086c76f7a612856a9a
-+	Linux 5.19-rc4
-+drm-misc drm-misc-fixes 5f701324c0fb6f9f5aaac3f8d1575321375f6d8f
-+	drm/vc4: perfmon: Fix variable dereferenced before check
-+drm-intel drm-intel-fixes 79538490fd7ade244dba400923e792519a2bdfea
-+	drm/i915: tweak the ordering in cpu_write_needs_clflush
-+drm drm-next 805ada63ba0567b15d10d40419bcc5e6f0b461e6
-+	Merge tag 'drm-intel-next-2022-06-22' of git://anongit.freedesktop.org/drm/drm-intel into drm-next
-+drm-misc drm-misc-next-fixes 5ee8c8f930ba7d20717c4fc2d9f1ce0e757d1155
-+	drm/rockchip: Change register space names in vop2
-+drm-intel drm-intel-next-fixes f2906aa863381afb0015a9eb7fefad885d4e5a56
-+	Linux 5.19-rc1
-+drm-misc drm-misc-next 7d008eecb0cfc2b1a1a742d6faa0a02f339535c2
-+	drm/stm: ltdc: update hardware error management
-+drm-intel drm-intel-next f7fb92cd2e39357f14846d69ae0e1d8692371f82
-+	drm/i915: Move the color stuff under INTEL_INFO->display
-+drm-intel drm-intel-gt-next 7d8097073caa334ed6187a964645335324231e01
-+	drm/i915: Prefer "XEHP_" prefix for registers
-+sound-upstream for-linus 7cf3dead1ad70c72edb03e2d98e1f3dcd332cdb2
-+	Linux 5.13
-+sound-upstream for-next 7cf3dead1ad70c72edb03e2d98e1f3dcd332cdb2
-+	Linux 5.13
-+drm-intel topic/core-for-CI f7d7dddaab81eeae4508197b5f38f0b974d97b8c
-+	topic/core-for-CI: Add remaining DG2 and ATS-M device IDs
-+drm-misc topic/i915-ttm 1e3944578b749449bd7fa6bf0bae4c3d3f5f1733
-+	Merge tag 'amd-drm-next-5.16-2021-09-27' of https://gitlab.freedesktop.org/agd5f/linux into drm-next
+diff --git a/include/linux/iosys-map.h b/include/linux/iosys-map.h
+index 48e550b290fa..08dad5b0ad17 100644
+--- a/include/linux/iosys-map.h
++++ b/include/linux/iosys-map.h
+@@ -337,9 +337,13 @@ static inline void iosys_map_memset(struct iosys_map *dst, size_t offset,
+ #ifdef CONFIG_64BIT
+ #define __iosys_map_rd_io_u64_case(val_, vaddr_iomem_)				\
+ 	u64: val_ = readq(vaddr_iomem_)
++#define __iosys_map_wr_io_u64_case(val_, vaddr_iomem_)				\
++	u64: writeq(val_, vaddr_iomem_)
+ #else
+ #define __iosys_map_rd_io_u64_case(val_, vaddr_iomem_)				\
+ 	u64: memcpy_fromio(&(val_), vaddr_iomem_, sizeof(u64))
++#define __iosys_map_wr_io_u64_case(val_, vaddr_iomem_)				\
++	u64: memcpy_toio(vaddr_iomem_, &(val_), sizeof(u64))
+ #endif
+ 
+ #define __iosys_map_rd_io(val__, vaddr_iomem__, type__) _Generic(val__,		\
+@@ -351,6 +355,15 @@ static inline void iosys_map_memset(struct iosys_map *dst, size_t offset,
+ #define __iosys_map_rd_sys(val__, vaddr__, type__)				\
+ 	val__ = READ_ONCE(*(type__ *)(vaddr__));
+ 
++#define __iosys_map_wr_io(val__, vaddr_iomem__, type__) _Generic(val__,		\
++	u8: writeb(val__, vaddr_iomem__),					\
++	u16: writew(val__, vaddr_iomem__),					\
++	u32: writel(val__, vaddr_iomem__),					\
++	__iosys_map_wr_io_u64_case(val__, vaddr_iomem__))
++
++#define __iosys_map_wr_sys(val__, vaddr__, type__)				\
++	WRITE_ONCE(*(type__ *)(vaddr__), val__);
++
+ /**
+  * iosys_map_rd - Read a C-type value from the iosys_map
+  *
+@@ -383,12 +396,17 @@ static inline void iosys_map_memset(struct iosys_map *dst, size_t offset,
+  * @type__:	Type of the value being written
+  * @val__:	Value to write
+  *
+- * Write a C-type value to the iosys_map, handling possible un-aligned accesses
+- * to the mapping.
++ * Write a C type value (u8, u16, u32 and u64) to the iosys_map. For other types
++ * or if pointer may be unaligned (and problematic for the architecture
++ * supported), use iosys_map_memcpy_to()
+  */
+-#define iosys_map_wr(map__, offset__, type__, val__) ({			\
+-	type__ val = (val__);						\
+-	iosys_map_memcpy_to(map__, offset__, &val, sizeof(val));	\
++#define iosys_map_wr(map__, offset__, type__, val__) ({				\
++	type__ val = (val__);							\
++	if ((map__)->is_iomem) {						\
++		__iosys_map_wr_io(val, (map__)->vaddr_iomem + (offset__), type__);\
++	} else {								\
++		__iosys_map_wr_sys(val, (map__)->vaddr + (offset__), type__);	\
++	}									\
+ })
+ 
+ /**
+@@ -469,10 +487,12 @@ static inline void iosys_map_memset(struct iosys_map *dst, size_t offset,
+  * @field__:		Member of the struct to read
+  * @val__:		Value to write
+  *
+- * Write a value to the iosys_map considering its layout is described by a C struct
+- * starting at @struct_offset__. The field offset and size is calculated and the
+- * @val__ is written handling possible un-aligned memory accesses. Refer to
+- * iosys_map_rd_field() for expected usage and memory layout.
++ * Write a value to the iosys_map considering its layout is described by a C
++ * struct starting at @struct_offset__. The field offset and size is calculated
++ * and the @val__ is written. If the field access would incur in un-aligned
++ * access, then either iosys_map_memcpy_to() needs to be used or the
++ * architecture must support it. Refer to iosys_map_rd_field() for expected
++ * usage and memory layout.
+  */
+ #define iosys_map_wr_field(map__, struct_offset__, struct_type__, field__, val__) ({	\
+ 	struct_type__ *s;								\
 -- 
 2.36.1
 
