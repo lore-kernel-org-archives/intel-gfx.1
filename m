@@ -4,38 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B61AC43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:08:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FFECC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:08:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EAD311AA72;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9275511ABA3;
 	Wed, 20 Jul 2022 14:07:50 +0000 (UTC)
-Received: from smtpbg.qq.com (biz-43-154-221-58.mail.qq.com [43.154.221.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE8248B8E2;
- Mon, 18 Jul 2022 13:25:53 +0000 (UTC)
-X-QQ-mid: bizesmtp67t1658150513tr550luw
-Received: from localhost.localdomain ( [171.223.96.21])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 18 Jul 2022 21:21:50 +0800 (CST)
-X-QQ-SSF: 01000000002000E0U000C00A0000000
-X-QQ-FEAT: +bXiSo2NuBd9WaWHuSP8maq7+K/rGilFjsIUzYuFnDmWeFbwKfnBWyLGSaW0c
- QzQ6SoGrFLGaTk/aAEo6aRhsijiMnWswHxW2xm6ECEjkYlSGuxOOtl4q39CpaQXQI3o2hWg
- YlTZhn+IhNbF2YCkBnHB7h8GU2/ImkgSxyYuL9EPJgOJXQy3WPIvDCbygBKmhJgUc+v8Jja
- D8MJlXlImEKhTa7tkS7L8CAJj4IJiWZjHS1T7k/BEweihd7DyntgWcqs6MmI19sd6eJOtRI
- meNjgZ1FBBrO2s/qDCLB6rNKXm0FHXMtreIbcuaJEQil7xqF2hWpe6LKbO3d+yfIhhs9RZV
- D513iq8u95mrc9V36UDPbyNQzAcJg3FWmmJI8dmN6j2xwrtW6CTPf5mOeXHF3mVfYtY3LSU
- 1XWntNTeBbo=
-X-QQ-GoodBg: 0
-From: Jason Wang <wangborong@cdjrlc.com>
-To: daniel@ffwll.ch
-Date: Fri, 15 Jul 2022 13:19:53 +0800
-Message-Id: <20220715051953.31424-1-wangborong@cdjrlc.com>
-X-Mailer: git-send-email 2.35.1
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B721B10E41A;
+ Wed, 29 Jun 2022 23:06:08 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
+ [109.252.118.164])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 97A3B660177B;
+ Thu, 30 Jun 2022 00:06:04 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1656543967;
+ bh=MHzNXwrpamEQJfSn517DbHauHiLavqph9+6FDdh8cW0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=R3tBCTFOx5La3aI3IuCM416s6ri/Rh+h8/CoISbxHReBFWX7oD8ghFIqxKIheLH5w
+ K/nf9MDe20o+qs6uI9V4q7kgllcSj0UFzIr7895NwJrkgQscojZeKpuMoIZ/sXAhJ/
+ ByY76oOA2S/Qn7NuU44zmtC8ngpXqT/Sk6mv6EXPgD3t0Yu7tgBa91vpQ3RjptNtcQ
+ 8wCG1+oVsnGfEAp76m0cvoIjw+tsFZcA1BMMt46ZPsluMUFRdOJVorWacWuPAU7oSR
+ BcNWnLcHirxsy7f3PCwGEKwWPOZCORt9oP3UUBVzLpplCao7w54md/Ljni//qJgOjB
+ FFn9vf973GUvQ==
+Message-ID: <467a1cee-ba8c-98f3-0398-2a7a5a90b5c3@collabora.com>
+Date: Thu, 30 Jun 2022 02:06:01 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-US
+To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
+ <20220526235040.678984-3-dmitry.osipenko@collabora.com>
+ <b8271f0c-d6a3-4194-1959-e112859756a3@shipmail.org>
+ <c0273ac2-c87c-2612-03d4-dc52510b22f7@collabora.com>
+ <b4086751-9bff-ea5e-93fc-ce2c513b129b@shipmail.org>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <b4086751-9bff-ea5e-93fc-ce2c513b129b@shipmail.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr6
 X-Mailman-Approved-At: Wed, 20 Jul 2022 14:07:33 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/selftests: Fix comment typo
+Subject: Re: [Intel-gfx] [PATCH v6 02/22] drm/gem: Move mapping of imported
+ dma-bufs to drm_gem_mmap_obj()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,33 +62,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jason Wang <wangborong@cdjrlc.com>, michal.winiarski@intel.com,
- airlied@linux.ie, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com, zhou1615@umn.edu
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring <robh@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Chia-I Wu <olvaffe@gmail.com>, linux-media@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
+ Qiang Yu <yuq825@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The double `wait' is duplicated in line 974, remove one.
+On 6/29/22 11:43, Thomas Hellström (Intel) wrote:
+> 
+> On 6/29/22 10:22, Dmitry Osipenko wrote:
+>> On 6/29/22 09:40, Thomas Hellström (Intel) wrote:
+>>> On 5/27/22 01:50, Dmitry Osipenko wrote:
+>>>> Drivers that use drm_gem_mmap() and drm_gem_mmap_obj() helpers don't
+>>>> handle imported dma-bufs properly, which results in mapping of
+>>>> something
+>>>> else than the imported dma-buf. For example, on NVIDIA Tegra we get a
+>>>> hard
+>>>> lockup when userspace writes to the memory mapping of a dma-buf that
+>>>> was
+>>>> imported into Tegra's DRM GEM.
+>>>>
+>>>> To fix this bug, move mapping of imported dma-bufs to
+>>>> drm_gem_mmap_obj().
+>>>> Now mmaping of imported dma-bufs works properly for all DRM drivers.
+>>> Same comment about Fixes: as in patch 1,
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>>>> ---
+>>>>    drivers/gpu/drm/drm_gem.c              | 3 +++
+>>>>    drivers/gpu/drm/drm_gem_shmem_helper.c | 9 ---------
+>>>>    drivers/gpu/drm/tegra/gem.c            | 4 ++++
+>>>>    3 files changed, 7 insertions(+), 9 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+>>>> index 86d670c71286..7c0b025508e4 100644
+>>>> --- a/drivers/gpu/drm/drm_gem.c
+>>>> +++ b/drivers/gpu/drm/drm_gem.c
+>>>> @@ -1038,6 +1038,9 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj,
+>>>> unsigned long obj_size,
+>>>>        if (obj_size < vma->vm_end - vma->vm_start)
+>>>>            return -EINVAL;
+>>>>    +    if (obj->import_attach)
+>>>> +        return dma_buf_mmap(obj->dma_buf, vma, 0);
+>>> If we start enabling mmaping of imported dma-bufs on a majority of
+>>> drivers in this way, how do we ensure that user-space is not blindly
+>>> using the object mmap without calling the needed DMA_BUF_IOCTL_SYNC
+>>> which is needed before and after cpu access of mmap'ed dma-bufs?
+>>>
+>>> I was under the impression (admittedly without looking) that the few
+>>> drivers that actually called into dma_buf_mmap() had some private
+>>> user-mode driver code in place that ensured this happened.
+>> Since it's a userspace who does the mapping, then it should be a
+>> responsibility of userspace to do all the necessary syncing.
+> 
+> Sure, but nothing prohibits user-space to ignore the syncing thinking
+> "It works anyway", testing those drivers where the syncing is a NOP. And
+> when a driver that finally needs syncing is tested it's too late to fix
+> all broken user-space.
+> 
+>>   I'm not
+>> sure whether anyone in userspace really needs to map imported dma-bufs
+>> in practice. Nevertheless, this use-case is broken and should be fixed
+>> by either allowing to do the mapping or prohibiting it.
+>>
+> Then I'd vote for prohibiting it, at least for now. And for the future
+> moving forward we could perhaps revisit the dma-buf need for syncing,
+> requiring those drivers that actually need it to implement emulated
+> coherent memory which can be done not too inefficiently (vmwgfx being
+> one example).
 
-Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
----
- drivers/gpu/drm/i915/selftests/i915_request.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Alright, I'll change it to prohibit the mapping. This indeed should be a
+better option.
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index c56a0c2cd2f7..ec05f578a698 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -971,7 +971,7 @@ static struct i915_vma *empty_batch(struct drm_i915_private *i915)
- 	if (err)
- 		goto err;
- 
--	/* Force the wait wait now to avoid including it in the benchmark */
-+	/* Force the wait now to avoid including it in the benchmark */
- 	err = i915_vma_sync(vma);
- 	if (err)
- 		goto err_pin;
 -- 
-2.35.1
-
+Best regards,
+Dmitry
