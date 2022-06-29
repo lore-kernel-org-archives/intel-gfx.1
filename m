@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6CF6CCA47E
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 12:15:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7666CCA47C
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 12:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62B5E113B52;
-	Wed, 29 Jun 2022 12:15:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31233113B4C;
+	Wed, 29 Jun 2022 12:15:08 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92B0311346E;
- Wed, 29 Jun 2022 12:15:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A5BB112917;
+ Wed, 29 Jun 2022 12:14:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656504904; x=1688040904;
+ t=1656504899; x=1688040899;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8M/GCM2oZV4Oe2DyKYgO29WSWTMMuSWAnkd+4qkZb2s=;
- b=cy5COhjZmsN5pWyntGG0SAJb5pWMmk1ZyDoEj4FdvWM6+IQTmveedTYd
- XhEwlWn12Q3Nn0UHU9OSP5PJ239PTTrcLAzF2QpG5tovNBIRjM9p8zYWQ
- QZpFGwgkgNq0kCtfAwiLOrpRNxxpTZ/6xbTnCelrkrBMqSiFVx+wVum3F
- oL8t10lVjAxpbXbcog/5mRxkIBRBdruneBSAC4NWdL02sjPZNUVQKkE17
- fgP1Sd4VxyNtOr65YPpfPChVGcRNtz5oB1Yfv6x+Did8XAlI4k+b11SI2
- YON3mzWET2SK38Zr+jcn33ZSewo2ePLpC5Xtdj/g2PDbqBx/f9E6kMWni g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="262421423"
-X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="262421423"
+ bh=n5ckTRTLP9wiuuQK9cU4jhKq2TqebvscpQ2sbm9TNY8=;
+ b=fv23NnVdp4AyzJz6WWPyyc2jQXajrC6s3Sa6Pfq1HgK1RSLKGzAXqibd
+ rFATqyWqt6/Zkszyl1acuGnNjNGSOMramXtITCDBpTeGfdWqb1sEWvwgK
+ r+sdy1Z45v2uxDV6UMUWHdI4LURV8Xl4G90r7tJuOaSTDare+jRF/cffR
+ M3vUt4TeKLZWXB2qlRNM3cErO/WfB8/JhcrZIc6vPRV1z5dt2jlJ7vvZ7
+ bt7uQX4i+4THCgphadpERmRYn5hsXt+0W5pNecFtXbdHDK4LgRsJqtd+o
+ ekIdR5aVa734H4p+28o9Ute0r0XAmu+6HUvhIoTcYPuAM3A5EhCcaaCJC g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="262421401"
+X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="262421401"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 05:15:04 -0700
-X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="595215092"
+ 29 Jun 2022 05:14:59 -0700
+X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="595215051"
 Received: from nwalsh-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.213.202.136])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 05:15:01 -0700
+ 29 Jun 2022 05:14:56 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Jun 2022 13:14:21 +0100
-Message-Id: <20220629121427.353800-8-matthew.auld@intel.com>
+Date: Wed, 29 Jun 2022 13:14:19 +0100
+Message-Id: <20220629121427.353800-6-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220629121427.353800-1-matthew.auld@intel.com>
 References: <20220629121427.353800-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 07/13] drm/i915/error: skip non-mappable pages
+Subject: [Intel-gfx] [PATCH v3 05/13] drm/i915/uapi: apply ALLOC_GPU_ONLY by
+ default
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,15 +60,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
- Kenneth Graunke <kenneth@whitecape.org>, dri-devel@lists.freedesktop.org,
- Nirmoy Das <nirmoy.das@intel.com>
+ Kenneth Graunke <kenneth@whitecape.org>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Skip capturing any lmem pages that can't be copied using the CPU. This
-in now only best effort on platforms that have small BAR.
+On small BAR configurations, when dealing with I915_MEMORY_CLASS_DEVICE
+allocations, we assume that by default, all userspace allocations should
+be placed in the non-CPU visible portion.  Note that dumb buffers are
+not included here, since these are not "GPU accelerated" and likely need
+CPU access. We choose to just always set GPU_ONLY, and let the backend
+figure out if that should be ignored or not, for example on full BAR
+systems.
 
-Testcase: igt@gem-exec-capture@capture-invisible
+In a later patch userspace will be able to provide a hint if CPU access
+to the buffer is needed.
+
+v2(Thomas)
+ - Apply GPU_ONLY on all discrete devices, but only if the BO can be
+   placed in LMEM. Down in the depths this should be turned into a noop,
+   where required, and as an annotation it still make some sense. If we
+   apply it regardless of the placements then we end up needing to check
+   the placements during exec capture. Also it's slightly inconsistent
+   since the NEEDS_CPU_ACCESS can only be applied on objects that can be
+   placed in LMEM. The other annoyance would be gem_create_ext vs plain
+   gem_create, if we were to always apply GPU_ONLY.
+
+Testcase: igt@gem-create@create-ext-cpu-access-sanity-check
+Testcase: igt@gem-create@create-ext-cpu-access-big
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
@@ -77,35 +96,30 @@ Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: Jordan Justen <jordan.l.justen@intel.com>
 Cc: Kenneth Graunke <kenneth@whitecape.org>
 Cc: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
 Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_gpu_error.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_create.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index f9b1969ed7ed..52ea13fee015 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1129,11 +1129,15 @@ i915_vma_coredump_create(const struct intel_gt *gt,
- 		dma_addr_t dma;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+index 5802692ea604..d094cae0ddf1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+@@ -427,6 +427,14 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
+ 		ext_data.n_placements = 1;
+ 	}
  
- 		for_each_sgt_daddr(dma, iter, vma_res->bi.pages) {
-+			dma_addr_t offset = dma - mem->region.start;
- 			void __iomem *s;
- 
--			s = io_mapping_map_wc(&mem->iomap,
--					      dma - mem->region.start,
--					      PAGE_SIZE);
-+			if (offset + PAGE_SIZE > mem->io_size) {
-+				ret = -EINVAL;
-+				break;
-+			}
++	/*
++	 * TODO: add a userspace hint to force CPU_ACCESS for the object, which
++	 * can override this.
++	 */
++	if (ext_data.n_placements > 1 ||
++	    ext_data.placements[0]->type != INTEL_MEMORY_SYSTEM)
++		ext_data.flags |= I915_BO_ALLOC_GPU_ONLY;
 +
-+			s = io_mapping_map_wc(&mem->iomap, offset, PAGE_SIZE);
- 			ret = compress_page(compress,
- 					    (void __force *)s, dst,
- 					    true);
+ 	obj = __i915_gem_object_create_user_ext(i915, args->size,
+ 						ext_data.placements,
+ 						ext_data.n_placements,
 -- 
 2.36.1
 
