@@ -4,48 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30B59C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 17:44:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FD04C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 18:08:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 653F010EDD5;
-	Wed, 29 Jun 2022 17:44:37 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3500F10E723
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Jun 2022 17:44:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656524657; x=1688060657;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=TeuRfcjvZhKKkn166vxa2P0/naPkOZanzKnCmSTcjZM=;
- b=m5zlXWB7eqTAYeTTq72XY6Cu76cP51x54TzSsV2xgr+5ihDUyBlTb1W3
- le4cQuh9gFy03RDfH0IHwfrPfgvOzQM7mu1wgelJoORpXWr57ye67rWW4
- hkeLMTylKtNUgBoEDQvc9Wu3m82/quWhwPBIaunYFvbezNYrhlmUcLHHR
- iCE8Mnl4GRBsj7IcckDR32tte2i28yVnL75Uve3Nj8IGIj0pQ4bDwWkzH
- zDHwvEXbD+xxUID+TnF6PVyjT7lOlqwyzvE1FRXz7fZrhfxOFLWJleXf8
- /ed4Du4xBh0Uw956mkTGBAh7jGlxMG8kjx5Z/bibGU0Bk4rOGsvGuAhs9 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10393"; a="279643951"
-X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="279643951"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 10:44:17 -0700
-X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="595331073"
-Received: from nwalsh-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.213.202.136])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 10:44:16 -0700
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Jun 2022 18:43:49 +0100
-Message-Id: <20220629174350.384910-12-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220629174350.384910-1-matthew.auld@intel.com>
-References: <20220629174350.384910-1-matthew.auld@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3BC610EBB7;
+	Wed, 29 Jun 2022 18:08:48 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4B83E10E433;
+ Wed, 29 Jun 2022 18:08:47 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 3E265A882E;
+ Wed, 29 Jun 2022 18:08:47 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI v4 12/13] drm/i915/ttm: disallow CPU fallback mode
- for ccs pages
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Auld" <matthew.auld@intel.com>
+Date: Wed, 29 Jun 2022 18:08:47 -0000
+Message-ID: <165652612722.23229.6157046892767837163@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220629174350.384910-1-matthew.auld@intel.com>
+In-Reply-To: <20220629174350.384910-1-matthew.auld@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5BCI=2Cv4=2C01/13=5D_drm/doc=3A_add_r?=
+ =?utf-8?q?fc_section_for_small_BAR_uapi?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,125 +41,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Falling back to memcpy/memset shouldn't be allowed if we know we have
-CCS state to manage using the blitter. Otherwise we are potentially
-leaving the aux CCS state in an unknown state, which smells like an info
-leak.
+== Series Details ==
 
-Fixes: 48760ffe923a ("drm/i915/gt: Clear compress metadata for Flat-ccs objects")
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Jon Bloomfield <jon.bloomfield@intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Jordan Justen <jordan.l.justen@intel.com>
-Cc: Kenneth Graunke <kenneth@whitecape.org>
-Cc: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
-Cc: Ramalingam C <ramalingam.c@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_object.c   | 26 ++++++++++++++++++++
- drivers/gpu/drm/i915/gem/i915_gem_object.h   |  2 ++
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c      | 18 --------------
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c |  3 +++
- 4 files changed, 31 insertions(+), 18 deletions(-)
+Series: series starting with [CI,v4,01/13] drm/doc: add rfc section for small BAR uapi
+URL   : https://patchwork.freedesktop.org/series/105787/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 642a5d59ce26..ccec4055fde3 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -717,6 +717,32 @@ bool i915_gem_object_placement_possible(struct drm_i915_gem_object *obj,
- 	return false;
- }
- 
+== Summary ==
+
+Error: dim checkpatch failed
+1e231f799d31 drm/doc: add rfc section for small BAR uapi
+-:46: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#46: 
+new file mode 100644
+
+-:51: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#51: FILE: Documentation/gpu/rfc/i915_small_bar.h:1:
 +/**
-+ * i915_gem_object_needs_ccs_pages - Check whether the object requires extra
-+ * pages when placed in system-memory, in order to save and later restore the
-+ * flat-CCS aux state when the object is moved between local-memory and
-+ * system-memory
-+ * @obj: Pointer to the object
-+ *
-+ * Return: True if the object needs extra ccs pages. False otherwise.
-+ */
-+bool i915_gem_object_needs_ccs_pages(struct drm_i915_gem_object *obj)
-+{
-+	bool lmem_placement = false;
-+	int i;
-+
-+	for (i = 0; i < obj->mm.n_placements; i++) {
-+		/* Compression is not allowed for the objects with smem placement */
-+		if (obj->mm.placements[i]->type == INTEL_MEMORY_SYSTEM)
-+			return false;
-+		if (!lmem_placement &&
-+		    obj->mm.placements[i]->type == INTEL_MEMORY_LOCAL)
-+			lmem_placement = true;
-+	}
-+
-+	return lmem_placement;
-+}
-+
- void i915_gem_init__objects(struct drm_i915_private *i915)
- {
- 	INIT_DELAYED_WORK(&i915->mm.free_work, __i915_gem_free_work);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 0bf3ee27a2a8..6f0a3ce35567 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -618,6 +618,8 @@ int i915_gem_object_wait_migration(struct drm_i915_gem_object *obj,
- bool i915_gem_object_placement_possible(struct drm_i915_gem_object *obj,
- 					enum intel_memory_type type);
- 
-+bool i915_gem_object_needs_ccs_pages(struct drm_i915_gem_object *obj);
-+
- int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 			 size_t size, struct intel_memory_region *mr,
- 			 struct address_space *mapping,
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 098409a33e10..7e1f8b83077f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -266,24 +266,6 @@ static const struct i915_refct_sgt_ops tt_rsgt_ops = {
- 	.release = i915_ttm_tt_release
- };
- 
--static inline bool
--i915_gem_object_needs_ccs_pages(struct drm_i915_gem_object *obj)
--{
--	bool lmem_placement = false;
--	int i;
--
--	for (i = 0; i < obj->mm.n_placements; i++) {
--		/* Compression is not allowed for the objects with smem placement */
--		if (obj->mm.placements[i]->type == INTEL_MEMORY_SYSTEM)
--			return false;
--		if (!lmem_placement &&
--		    obj->mm.placements[i]->type == INTEL_MEMORY_LOCAL)
--			lmem_placement = true;
--	}
--
--	return lmem_placement;
--}
--
- static struct ttm_tt *i915_ttm_tt_create(struct ttm_buffer_object *bo,
- 					 uint32_t page_flags)
- {
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index df14ac81c128..9a7e50534b84 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -435,6 +435,9 @@ i915_ttm_memcpy_work_arm(struct i915_ttm_memcpy_work *work,
- static bool i915_ttm_memcpy_allowed(struct ttm_buffer_object *bo,
- 				    struct ttm_resource *dst_mem)
- {
-+	if (i915_gem_object_needs_ccs_pages(i915_ttm_to_gem(bo)))
-+		return false;
-+
- 	if (!(i915_ttm_resource_mappable(bo->resource) &&
- 	      i915_ttm_resource_mappable(dst_mem)))
- 		return false;
--- 
-2.36.1
+
+-:246: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#246: FILE: Documentation/gpu/rfc/i915_small_bar.rst:1:
++==========================
+
+total: 0 errors, 3 warnings, 0 checks, 243 lines checked
+074130260b8a drm/i915/uapi: add probed_cpu_visible_size
+10b5296e47a7 drm/i915/uapi: expose the avail tracking
+c3eb9d8be3d2 drm/i915: remove intel_memory_region avail
+26909dad1a50 drm/i915/uapi: apply ALLOC_GPU_ONLY by default
+f5972418c6a8 drm/i915/uapi: add NEEDS_CPU_ACCESS hint
+-:11: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#11: 
+(i.e I915_MEMORY_CLASS_SYSTEM) must be given as a potential placement for the
+
+total: 0 errors, 1 warnings, 0 checks, 142 lines checked
+0a888b2245b8 drm/i915/error: skip non-mappable pages
+2de27cb9a32f drm/i915/uapi: tweak error capture on recoverable contexts
+3ccdfc1bba44 drm/i915/selftests: skip the mman tests for stolen
+5cfc8cef82bf drm/i915/selftests: ensure we reserve a fence slot
+ad1b5b8d21f7 drm/i915/ttm: handle blitter failure on DG2
+-:488: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#488: FILE: drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c:327:
++						if (fail_gpu && !fail_alloc) {
+
+-:489: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#489: FILE: drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c:328:
++							if (!wedged) {
+
+-:494: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#494: FILE: drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c:333:
++						} else if (wedged) {
+
+-:497: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#497: FILE: drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c:336:
++						} else {
+
+-:573: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#573: FILE: drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c:482:
++						if (fail_gpu && !fail_alloc) {
+
+-:574: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#574: FILE: drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c:483:
++							if (!wedged) {
+
+-:579: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#579: FILE: drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c:488:
++						} else if (wedged) {
+
+-:582: WARNING:DEEP_INDENTATION: Too many leading tabs - consider code refactoring
+#582: FILE: drivers/gpu/drm/i915/gem/selftests/i915_gem_migrate.c:491:
++						} else {
+
+total: 0 errors, 8 warnings, 0 checks, 660 lines checked
+afbbc5468a3d drm/i915/ttm: disallow CPU fallback mode for ccs pages
+d059ab690f72 drm/i915: turn on small BAR support
+
 
