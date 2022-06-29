@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B41A9C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 09:28:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98E46C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jun 2022 09:28:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5592D11A408;
-	Wed, 29 Jun 2022 09:28:08 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B56611A3C8;
- Wed, 29 Jun 2022 09:28:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E715811A44C;
+	Wed, 29 Jun 2022 09:28:16 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A101F11A44C;
+ Wed, 29 Jun 2022 09:28:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656494887; x=1688030887;
+ t=1656494895; x=1688030895;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hmuNGiitVa6cjf/Uxo5Yjtb9f0kESKlRijv2ieic1Uc=;
- b=Ivl/nIzZRVWcLM0O1YTPQkmCmZ+naREInkL/1uiTOOPxy96VqbwxQLNs
- ObXWAIN5wVRGCSvBfqiSEOSDd8rtG4+YBQu/tlmp2IoOzr6pb4isUJeNt
- l2GC5lPgWZCrjZioAiFChxlvqwAMA20cxMIu276K0IssYuslNpVWoPCg3
- mZm6lIgKM3nZiOsDY3Vwl7OGkcjj3D6yxpoav2hjQNahhmjA9gcyoL4HP
- f83cZiuesAGYGSCHPdwJ5PT9aVlvdQNlNRJLgE4a0S3jDxOvY2EY4AmXc
- UnixNL3kxy4zPJJXyuvqQK2CAgubJskbFTwfqASbxgMausJzyijV2ihAO Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="279529190"
-X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="279529190"
+ bh=QKgSqM/COQaUR6bs4N0mAliGXqtRhNNkUN0eldxpPk4=;
+ b=eJ7MIJoXPnD+1RjcXBeUuARSdqiDMoQVpqvF3QVDh+SYm77L5J6UWefi
+ Y9ioRyCUVxe+Q6fufhRK0XtJ6hp0WhtzirAFAgYj1N7wTGWUIJ6ueApZR
+ zXQNAGVZI26gqXcE/AcCymi4pc9TSPAkrTVj82Lx9WDWeoOoJiTikDJXh
+ P0ajCJTD4dx+AlVxOTv0Pn7iWT4wHrHMhcxL+NFFFeNsg7nb7NoURmyAy
+ LzagLB0GtHryGaB1ouSSMYkdgri+m8M78yk3f0efOl6UiLQyFEz7Pp8M3
+ SP2Yie19yBRRXSoQD7PyqiXPIX6z0XRfAN8UENb0kjnaDfYmC4Lpui5O+ A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10392"; a="307476667"
+X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="307476667"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 02:28:06 -0700
-X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="595169731"
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2022 02:28:15 -0700
+X-IronPort-AV: E=Sophos;i="5.92,231,1650956400"; d="scan'208";a="595169795"
 Received: from srdoo-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.63.102])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 02:28:05 -0700
+ 29 Jun 2022 02:28:13 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Wed, 29 Jun 2022 12:27:46 +0300
-Message-Id: <cbabce6ffb41fdc903533f21d946e8cae0667be5.1656494768.git.jani.nikula@intel.com>
+Date: Wed, 29 Jun 2022 12:27:48 +0300
+Message-Id: <de4270b3d2e61fe42b9248490376594d472d19aa.1656494768.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1656494768.git.jani.nikula@intel.com>
 References: <cover.1656494768.git.jani.nikula@intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI RESEND 01/10] drm/edid: move
- drm_connector_update_edid_property() to drm_edid.c
+Subject: [Intel-gfx] [CI RESEND 03/10] drm/edid: clean up connector update
+ error handling and debug logging
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,233 +63,77 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The function needs access to drm_edid.c internals more than
-drm_connector.c. We can make drm_reset_display_info(),
-drm_add_display_info() and drm_update_tile_info() static. There will be
-more benefits with follow-up struct drm_edid refactoring.
+Bail out on all errors, debug log all errors, and convert to drm device
+based debug logging.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/drm_connector.c     | 74 -------------------------
- drivers/gpu/drm/drm_crtc_internal.h |  3 -
- drivers/gpu/drm/drm_edid.c          | 86 +++++++++++++++++++++++++++--
- 3 files changed, 81 insertions(+), 82 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 41 ++++++++++++++++++++++++++------------
+ 1 file changed, 28 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index c7ca435ceb95..7b1b61183747 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2077,80 +2077,6 @@ int drm_connector_set_tile_property(struct drm_connector *connector)
- }
- EXPORT_SYMBOL(drm_connector_set_tile_property);
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 62967db78139..e360e1a269f4 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6231,29 +6231,44 @@ static int _drm_connector_update_edid_property(struct drm_connector *connector,
  
--/**
-- * drm_connector_update_edid_property - update the edid property of a connector
-- * @connector: drm connector
-- * @edid: new value of the edid property
-- *
-- * This function creates a new blob modeset object and assigns its id to the
-- * connector's edid property.
-- * Since we also parse tile information from EDID's displayID block, we also
-- * set the connector's tile property here. See drm_connector_set_tile_property()
-- * for more details.
-- *
-- * Returns:
-- * Zero on success, negative errno on failure.
-- */
--int drm_connector_update_edid_property(struct drm_connector *connector,
--				       const struct edid *edid)
--{
--	struct drm_device *dev = connector->dev;
--	size_t size = 0;
--	int ret;
--	const struct edid *old_edid;
--
--	/* ignore requests to set edid when overridden */
--	if (connector->override_edid)
--		return 0;
--
--	if (edid)
--		size = EDID_LENGTH * (1 + edid->extensions);
--
--	/* Set the display info, using edid if available, otherwise
--	 * resetting the values to defaults. This duplicates the work
--	 * done in drm_add_edid_modes, but that function is not
--	 * consistently called before this one in all drivers and the
--	 * computation is cheap enough that it seems better to
--	 * duplicate it rather than attempt to ensure some arbitrary
--	 * ordering of calls.
--	 */
--	if (edid)
--		drm_add_display_info(connector, edid);
--	else
--		drm_reset_display_info(connector);
--
--	drm_update_tile_info(connector, edid);
--
--	if (connector->edid_blob_ptr) {
--		old_edid = (const struct edid *)connector->edid_blob_ptr->data;
--		if (old_edid) {
--			if (!drm_edid_are_equal(edid, old_edid)) {
+ 		if (old_edid) {
+ 			if (!drm_edid_are_equal(drm_edid ? drm_edid->edid : NULL, old_edid)) {
 -				DRM_DEBUG_KMS("[CONNECTOR:%d:%s] Edid was changed.\n",
 -					      connector->base.id, connector->name);
 -
 -				connector->epoch_counter += 1;
 -				DRM_DEBUG_KMS("Updating change counter to %llu\n",
 -					      connector->epoch_counter);
--			}
--		}
--	}
--
++				connector->epoch_counter++;
++				drm_dbg_kms(dev, "[CONNECTOR:%d:%s] EDID changed, epoch counter %llu\n",
++					    connector->base.id, connector->name,
++					    connector->epoch_counter);
+ 			}
+ 		}
+ 	}
+ 
 -	drm_object_property_set_value(&connector->base,
 -				      dev->mode_config.non_desktop_property,
 -				      connector->display_info.non_desktop);
 -
--	ret = drm_property_replace_global_blob(dev,
--					       &connector->edid_blob_ptr,
--					       size,
--					       edid,
--					       &connector->base,
--					       dev->mode_config.edid_property);
+ 	ret = drm_property_replace_global_blob(dev,
+ 					       &connector->edid_blob_ptr,
+ 					       drm_edid ? drm_edid->size : 0,
+ 					       drm_edid ? drm_edid->edid : NULL,
+ 					       &connector->base,
+ 					       dev->mode_config.edid_property);
 -	if (ret)
 -		return ret;
 -	return drm_connector_set_tile_property(connector);
--}
--EXPORT_SYMBOL(drm_connector_update_edid_property);
--
- /**
-  * drm_connector_set_link_status_property - Set link status property of a connector
-  * @connector: drm connector
-diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
-index 63279e984342..aecab5308bae 100644
---- a/drivers/gpu/drm/drm_crtc_internal.h
-+++ b/drivers/gpu/drm/drm_crtc_internal.h
-@@ -286,6 +286,3 @@ int drm_mode_page_flip_ioctl(struct drm_device *dev,
- 
- /* drm_edid.c */
- void drm_mode_fixup_1366x768(struct drm_display_mode *mode);
--void drm_reset_display_info(struct drm_connector *connector);
--u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edid);
--void drm_update_tile_info(struct drm_connector *connector, const struct edid *edid);
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 2bdaf1e34a9d..36bf7b0fe8d9 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -5928,8 +5928,7 @@ static void drm_update_mso(struct drm_connector *connector,
- /* A connector has no EDID information, so we've got no EDID to compute quirks from. Reset
-  * all of the values which would have been set from EDID
-  */
--void
--drm_reset_display_info(struct drm_connector *connector)
-+static void drm_reset_display_info(struct drm_connector *connector)
- {
- 	struct drm_display_info *info = &connector->display_info;
- 
-@@ -6043,7 +6042,7 @@ static u32 update_display_info(struct drm_connector *connector,
- 	return quirks;
- }
- 
--u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edid)
-+static u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edid)
- {
- 	struct drm_edid drm_edid;
- 
-@@ -6207,6 +6206,83 @@ static int drm_edid_connector_update(struct drm_connector *connector,
- 	return num_modes;
- }
- 
-+static void drm_update_tile_info(struct drm_connector *connector,
-+				 const struct edid *edid);
-+
-+/**
-+ * drm_connector_update_edid_property - update the edid property of a connector
-+ * @connector: drm connector
-+ * @edid: new value of the edid property
-+ *
-+ * This function creates a new blob modeset object and assigns its id to the
-+ * connector's edid property.
-+ * Since we also parse tile information from EDID's displayID block, we also
-+ * set the connector's tile property here. See drm_connector_set_tile_property()
-+ * for more details.
-+ *
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-+ */
-+int drm_connector_update_edid_property(struct drm_connector *connector,
-+				       const struct edid *edid)
-+{
-+	struct drm_device *dev = connector->dev;
-+	size_t size = 0;
-+	int ret;
-+	const struct edid *old_edid;
-+
-+	/* ignore requests to set edid when overridden */
-+	if (connector->override_edid)
-+		return 0;
-+
-+	if (edid)
-+		size = EDID_LENGTH * (1 + edid->extensions);
-+
-+	/*
-+	 * Set the display info, using edid if available, otherwise resetting
-+	 * the values to defaults. This duplicates the work done in
-+	 * drm_add_edid_modes, but that function is not consistently called
-+	 * before this one in all drivers and the computation is cheap enough
-+	 * that it seems better to duplicate it rather than attempt to ensure
-+	 * some arbitrary ordering of calls.
-+	 */
-+	if (edid)
-+		drm_add_display_info(connector, edid);
-+	else
-+		drm_reset_display_info(connector);
-+
-+	drm_update_tile_info(connector, edid);
-+
-+	if (connector->edid_blob_ptr) {
-+		old_edid = (const struct edid *)connector->edid_blob_ptr->data;
-+		if (old_edid) {
-+			if (!drm_edid_are_equal(edid, old_edid)) {
-+				DRM_DEBUG_KMS("[CONNECTOR:%d:%s] Edid was changed.\n",
-+					      connector->base.id, connector->name);
-+
-+				connector->epoch_counter += 1;
-+				DRM_DEBUG_KMS("Updating change counter to %llu\n",
-+					      connector->epoch_counter);
-+			}
-+		}
++	if (ret) {
++		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] EDID property update failed (%d)\n",
++			    connector->base.id, connector->name, ret);
++		goto out;
 +	}
 +
-+	drm_object_property_set_value(&connector->base,
-+				      dev->mode_config.non_desktop_property,
-+				      connector->display_info.non_desktop);
++	ret = drm_object_property_set_value(&connector->base,
++					    dev->mode_config.non_desktop_property,
++					    connector->display_info.non_desktop);
++	if (ret) {
++		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Non-desktop property update failed (%d)\n",
++			    connector->base.id, connector->name, ret);
++		goto out;
++	}
 +
-+	ret = drm_property_replace_global_blob(dev,
-+					       &connector->edid_blob_ptr,
-+					       size,
-+					       edid,
-+					       &connector->base,
-+					       dev->mode_config.edid_property);
-+	if (ret)
-+		return ret;
-+	return drm_connector_set_tile_property(connector);
-+}
-+EXPORT_SYMBOL(drm_connector_update_edid_property);
++	ret = drm_connector_set_tile_property(connector);
++	if (ret) {
++		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Tile property update failed (%d)\n",
++			    connector->base.id, connector->name, ret);
++		goto out;
++	}
 +
- /**
-  * drm_add_edid_modes - add modes from EDID data, if available
-  * @connector: connector we're probing
-@@ -6645,8 +6721,8 @@ static void _drm_update_tile_info(struct drm_connector *connector,
- 	}
++out:
++	return ret;
  }
  
--void drm_update_tile_info(struct drm_connector *connector,
--			  const struct edid *edid)
-+static void drm_update_tile_info(struct drm_connector *connector,
-+				 const struct edid *edid)
- {
- 	struct drm_edid drm_edid;
- 
+ /**
 -- 
 2.30.2
 
