@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C223FC43334
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 19:51:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DDB2C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jun 2022 19:51:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3610312AEDB;
-	Thu, 30 Jun 2022 19:51:28 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F76412AEE1;
- Thu, 30 Jun 2022 19:51:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBF6112AEF7;
+	Thu, 30 Jun 2022 19:51:33 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8EB812AEF7;
+ Thu, 30 Jun 2022 19:51:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656618684; x=1688154684;
+ t=1656618691; x=1688154691;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=uRzs1x2ts43xYquqeYv8Caws/Ioz2tV6EYs5szcSqKk=;
- b=Ma8Tqhh0s9uqxah6MVQe4sJnNMhkzVD+9uLJG5yZvMJAvLpz7o4rBuly
- DqjzjY5UXlTW0T8eZ55Sp5hcKiWl0JzUwD45mhlN2jPfHrn6Utlj8T7bE
- PgCD0eZnHWaCNYADDys9LOc60h4hRGdnW5vOWIK0jC0LyCt6/kQIFUAGF
- LOiL6QeOSBsQIa3edIpME+ySc6Exk0BYrNfjyEut321c554rHT1C95GS5
- 570niRJISoUeK+nmZiGmYfFUlq7q2mptSTB8nOxNrVKHJLnuNqp4uOAap
- Sb37vP/dehuyL7N88tFgDSutRJlDgXyGsfoaAwRVz+fP6++61vJQsAbKJ w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10394"; a="262251831"
-X-IronPort-AV: E=Sophos;i="5.92,235,1650956400"; d="scan'208";a="262251831"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2022 12:51:24 -0700
+ bh=z5a64W/7uVTT7Blz0yagzbdPsQZAOyJIDcFtikED3Sw=;
+ b=i82wk7PdJwCKIox4HUSVaxDZhhZ0Lgc8X9dYLipEH7e5Z8gu16Z+ESB1
+ oRFOVBsQMm6+/BjxXe+7sfVD/M4zXRolEN7A6/i/QtxlFekkHpu0n+MTo
+ jzu7yGtOTprt1X3+1RDDWPFWGPqkia8pe260J+6fMbGfihQTMx9nZyVAp
+ QR81F7EJtcOMt3M42v9S1noRDK7Nk9dS0x0TRLeu9j7aTRrw0ZhxmyXrg
+ 0idM5ZJR/Ysz8RwO1fVgYBXQn17+DqVtXePySVpcftff+zW0s9fJsDbvP
+ 3OqekX8Jk0ncaiuNnLwHzmGq0uFCjABrk4udJeaa5Uk42T6L2f+jYgc9Z w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10394"; a="262853381"
+X-IronPort-AV: E=Sophos;i="5.92,235,1650956400"; d="scan'208";a="262853381"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2022 12:51:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,235,1650956400"; d="scan'208";a="648032986"
+X-IronPort-AV: E=Sophos;i="5.92,235,1650956400"; d="scan'208";a="595943006"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.161])
- by fmsmga008.fm.intel.com with SMTP; 30 Jun 2022 12:51:21 -0700
+ by fmsmga007.fm.intel.com with SMTP; 30 Jun 2022 12:51:28 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 30 Jun 2022 22:51:21 +0300
+ Thu, 30 Jun 2022 22:51:28 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 30 Jun 2022 22:51:12 +0300
-Message-Id: <20220630195114.17407-3-ville.syrjala@linux.intel.com>
+Date: Thu, 30 Jun 2022 22:51:14 +0300
+Message-Id: <20220630195114.17407-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220630195114.17407-1-ville.syrjala@linux.intel.com>
 References: <20220630195114.17407-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/4] drm: Remove linux/fb.h from drm_crtc.h
+Subject: [Intel-gfx] [PATCH v2 4/4] drm: Remove linux/i2c.h from drm_crtc.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,361 +65,191 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-drm_crtc.h has no need for linux/fb.h, so don't include it.
+drm_crtc.h has no need for linux/i2c.h, so don't include it.
 Avoids useless rebuilds of the entire universe when
-touching linux/fb.h.
+touching linux/i2c.h.
 
-Quite a few placs do currently depend on linux/fb.h or other
-headers pulled in by it without actually including any of it
-directly. All of those need to be fixed up.
+Quite a few placs do currently depend on linux/i2c.h without
+actually including it directly. All of those need to be
+fixed up.
 
-v2: Split the vmwgfx change out
+v2: imx and mcde need linux/io.h for readl()/etc.
 
 Acked-by: Sam Ravnborg <sam@ravnborg.org>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/arm/display/komeda/komeda_pipeline.c | 2 ++
- drivers/gpu/drm/armada/armada_510.c                  | 1 +
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c     | 1 +
- drivers/gpu/drm/bridge/tc358764.c                    | 1 +
- drivers/gpu/drm/display/drm_dp_helper.c              | 1 +
- drivers/gpu/drm/drm_connector.c                      | 1 +
- drivers/gpu/drm/drm_mipi_dbi.c                       | 1 +
- drivers/gpu/drm/drm_modes.c                          | 1 +
- drivers/gpu/drm/drm_of.c                             | 1 +
- drivers/gpu/drm/exynos/exynos_drm_dpi.c              | 1 +
- drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c         | 1 +
- drivers/gpu/drm/i915/display/intel_backlight.c       | 1 +
- drivers/gpu/drm/imx/dcss/dcss-drv.c                  | 1 +
- drivers/gpu/drm/kmb/kmb_dsi.c                        | 1 +
- drivers/gpu/drm/omapdrm/omap_dmm_tiler.c             | 1 +
- drivers/gpu/drm/rcar-du/rcar_du_encoder.c            | 1 +
- drivers/gpu/drm/sti/sti_compositor.c                 | 1 +
- drivers/gpu/drm/sti/sti_gdp.c                        | 1 +
- drivers/gpu/drm/sti/sti_hda.c                        | 1 +
- drivers/gpu/drm/sti/sti_hqvdp.c                      | 1 +
- drivers/gpu/drm/sun4i/sun4i_tcon.h                   | 1 +
- drivers/gpu/drm/tilcdc/tilcdc_panel.c                | 1 +
- drivers/gpu/drm/vc4/vc4_drv.h                        | 1 +
- drivers/gpu/drm/vmwgfx/vmwgfx_fb.c                   | 1 +
- include/drm/drm_crtc.h                               | 1 -
- include/drm/drm_fb_helper.h                          | 1 +
- 26 files changed, 26 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/chrontel-ch7033.c            | 1 +
+ drivers/gpu/drm/bridge/imx/imx8qxp-pixel-combiner.c | 1 +
+ drivers/gpu/drm/bridge/lontium-lt9611.c             | 1 +
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c          | 1 +
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c           | 1 +
+ drivers/gpu/drm/exynos/exynos_dp.c                  | 1 +
+ drivers/gpu/drm/i2c/tda998x_drv.c                   | 1 +
+ drivers/gpu/drm/mcde/mcde_clk_div.c                 | 1 +
+ drivers/gpu/drm/panel/panel-simple.c                | 1 +
+ drivers/gpu/drm/sti/sti_hdmi.c                      | 1 +
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c              | 1 +
+ include/drm/drm_crtc.h                              | 1 -
+ include/drm/drm_encoder_slave.h                     | 2 ++
+ 13 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline.c b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline.c
-index 06c595378dda..4b7d94961527 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline.c
-@@ -4,6 +4,8 @@
-  * Author: James.Qian.Wang <james.qian.wang@arm.com>
-  *
-  */
-+#include <linux/of.h>
-+
- #include <drm/drm_print.h>
- 
- #include "komeda_dev.h"
-diff --git a/drivers/gpu/drm/armada/armada_510.c b/drivers/gpu/drm/armada/armada_510.c
-index 93d5c0a2d49a..93cd7e1a08ab 100644
---- a/drivers/gpu/drm/armada/armada_510.c
-+++ b/drivers/gpu/drm/armada/armada_510.c
+diff --git a/drivers/gpu/drm/bridge/chrontel-ch7033.c b/drivers/gpu/drm/bridge/chrontel-ch7033.c
+index 486f405c2e16..ba060277c3fd 100644
+--- a/drivers/gpu/drm/bridge/chrontel-ch7033.c
++++ b/drivers/gpu/drm/bridge/chrontel-ch7033.c
 @@ -6,6 +6,7 @@
   */
- #include <linux/clk.h>
- #include <linux/io.h>
-+#include <linux/of.h>
- #include <drm/drm_probe_helper.h>
- #include "armada_crtc.h"
- #include "armada_drm.h"
-diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c
-index 43bc709e3523..50fee6a93964 100644
---- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c
-+++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c
-@@ -9,6 +9,7 @@
-  */
  
+ #include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/regmap.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/imx/imx8qxp-pixel-combiner.c b/drivers/gpu/drm/bridge/imx/imx8qxp-pixel-combiner.c
+index 682ae0c73722..503bd8db8afe 100644
+--- a/drivers/gpu/drm/bridge/imx/imx8qxp-pixel-combiner.c
++++ b/drivers/gpu/drm/bridge/imx/imx8qxp-pixel-combiner.c
+@@ -7,6 +7,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
++#include <linux/io.h>
  #include <linux/media-bus-format.h>
-+#include <linux/of.h>
- #include <linux/of_graph.h>
- 
- #include <drm/drm_bridge.h>
-diff --git a/drivers/gpu/drm/bridge/tc358764.c b/drivers/gpu/drm/bridge/tc358764.c
-index dca41ed32f8a..fdfb14aca926 100644
---- a/drivers/gpu/drm/bridge/tc358764.c
-+++ b/drivers/gpu/drm/bridge/tc358764.c
-@@ -9,6 +9,7 @@
- 
- #include <linux/delay.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/mod_devicetable.h>
  #include <linux/module.h>
- #include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 0c765375640f..e5bab236b3ae 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -20,6 +20,7 @@
-  * OF THIS SOFTWARE.
-  */
- 
-+#include <linux/backlight.h>
- #include <linux/delay.h>
- #include <linux/errno.h>
- #include <linux/i2c.h>
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 7b1b61183747..1ab083b35e3b 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -32,6 +32,7 @@
- #include <drm/drm_privacy_screen_consumer.h>
- #include <drm/drm_sysfs.h>
- 
-+#include <linux/fb.h>
- #include <linux/uaccess.h>
- 
- #include "drm_crtc_internal.h"
-diff --git a/drivers/gpu/drm/drm_mipi_dbi.c b/drivers/gpu/drm/drm_mipi_dbi.c
-index 0eda9dcb0e52..2f61f53d472f 100644
---- a/drivers/gpu/drm/drm_mipi_dbi.c
-+++ b/drivers/gpu/drm/drm_mipi_dbi.c
+ #include <linux/of.h>
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
+index 585506eae10c..8a60e83482a0 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9611.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
 @@ -5,6 +5,7 @@
-  * Copyright 2016 Noralf Trønnes
   */
  
-+#include <linux/backlight.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
  #include <linux/gpio/consumer.h>
-diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-index a2542254233e..304004fb80aa 100644
---- a/drivers/gpu/drm/drm_modes.c
-+++ b/drivers/gpu/drm/drm_modes.c
-@@ -34,6 +34,7 @@
- #include <linux/list.h>
- #include <linux/list_sort.h>
- #include <linux/export.h>
-+#include <linux/fb.h>
- 
- #include <video/of_display_timing.h>
- #include <video/of_videomode.h>
-diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
-index 2c1ee601f1d8..6d640d2ab4d4 100644
---- a/drivers/gpu/drm/drm_of.c
-+++ b/drivers/gpu/drm/drm_of.c
-@@ -2,6 +2,7 @@
- #include <linux/component.h>
- #include <linux/export.h>
- #include <linux/list.h>
-+#include <linux/of.h>
- #include <linux/of_graph.h>
- 
- #include <drm/drm_bridge.h>
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_dpi.c b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
-index 741323a2e6c3..378e5381978f 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_dpi.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
-@@ -7,6 +7,7 @@
-  * Contacts: Andrzej Hajda <a.hajda@samsung.com>
- */
- 
-+#include <linux/of.h>
- #include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- 
-diff --git a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
-index 1d556482bb46..a0d5aa727d58 100644
---- a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
-+++ b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
-@@ -14,6 +14,7 @@
- #include <linux/clk.h>
- #include <linux/component.h>
- #include <linux/delay.h>
-+#include <linux/mod_devicetable.h>
++#include <linux/i2c.h>
+ #include <linux/interrupt.h>
+ #include <linux/media-bus-format.h>
  #include <linux/module.h>
- #include <linux/platform_device.h>
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index 68513206a66a..110fc98ec280 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2021 Intel Corporation
-  */
- 
-+#include <linux/backlight.h>
- #include <linux/kernel.h>
- #include <linux/pwm.h>
- #include <linux/string_helpers.h>
-diff --git a/drivers/gpu/drm/imx/dcss/dcss-drv.c b/drivers/gpu/drm/imx/dcss/dcss-drv.c
-index 24147ee7080e..1c70f70247f6 100644
---- a/drivers/gpu/drm/imx/dcss/dcss-drv.c
-+++ b/drivers/gpu/drm/imx/dcss/dcss-drv.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/module.h>
- #include <linux/kernel.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <drm/drm_module.h>
- #include <drm/drm_of.h>
-diff --git a/drivers/gpu/drm/kmb/kmb_dsi.c b/drivers/gpu/drm/kmb/kmb_dsi.c
-index f6071882054c..cf7cf0b07541 100644
---- a/drivers/gpu/drm/kmb/kmb_dsi.c
-+++ b/drivers/gpu/drm/kmb/kmb_dsi.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/clk.h>
- #include <linux/delay.h>
-+#include <linux/of.h>
- #include <linux/of_graph.h>
- #include <linux/mfd/syscon.h>
- #include <linux/platform_device.h>
-diff --git a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-index 852e78a5f142..ac869acf80ea 100644
---- a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-+++ b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-@@ -17,6 +17,7 @@
- #include <linux/list.h>
- #include <linux/mm.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h> /* platform_device() */
- #include <linux/sched.h>
- #include <linux/seq_file.h>
-diff --git a/drivers/gpu/drm/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/rcar-du/rcar_du_encoder.c
-index 3977aaa1ab5a..abf8022eb884 100644
---- a/drivers/gpu/drm/rcar-du/rcar_du_encoder.c
-+++ b/drivers/gpu/drm/rcar-du/rcar_du_encoder.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/export.h>
-+#include <linux/of.h>
- #include <linux/slab.h>
- 
- #include <drm/drm_bridge.h>
-diff --git a/drivers/gpu/drm/sti/sti_compositor.c b/drivers/gpu/drm/sti/sti_compositor.c
-index 9caaf3ccfabe..142a8e1b4436 100644
---- a/drivers/gpu/drm/sti/sti_compositor.c
-+++ b/drivers/gpu/drm/sti/sti_compositor.c
-@@ -9,6 +9,7 @@
- #include <linux/component.h>
- #include <linux/io.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
- 
-diff --git a/drivers/gpu/drm/sti/sti_gdp.c b/drivers/gpu/drm/sti/sti_gdp.c
-index a1f78d52fb33..af783f599306 100644
---- a/drivers/gpu/drm/sti/sti_gdp.c
-+++ b/drivers/gpu/drm/sti/sti_gdp.c
-@@ -7,6 +7,7 @@
-  */
- 
- #include <linux/dma-mapping.h>
-+#include <linux/of.h>
- #include <linux/seq_file.h>
- 
- #include <drm/drm_atomic.h>
-diff --git a/drivers/gpu/drm/sti/sti_hda.c b/drivers/gpu/drm/sti/sti_hda.c
-index 03f3377f918c..03cc401ed593 100644
---- a/drivers/gpu/drm/sti/sti_hda.c
-+++ b/drivers/gpu/drm/sti/sti_hda.c
-@@ -7,6 +7,7 @@
- #include <linux/clk.h>
- #include <linux/component.h>
- #include <linux/io.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/seq_file.h>
-diff --git a/drivers/gpu/drm/sti/sti_hqvdp.c b/drivers/gpu/drm/sti/sti_hqvdp.c
-index b5ae5d217bc0..271982080437 100644
---- a/drivers/gpu/drm/sti/sti_hqvdp.c
-+++ b/drivers/gpu/drm/sti/sti_hqvdp.c
-@@ -10,6 +10,7 @@
- #include <linux/firmware.h>
- #include <linux/io.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/reset.h>
- #include <linux/seq_file.h>
- 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.h b/drivers/gpu/drm/sun4i/sun4i_tcon.h
-index e624f6977eb8..fa23aa23fe4a 100644
---- a/drivers/gpu/drm/sun4i/sun4i_tcon.h
-+++ b/drivers/gpu/drm/sun4i/sun4i_tcon.h
-@@ -14,6 +14,7 @@
- 
- #include <linux/kernel.h>
- #include <linux/list.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/reset.h>
- 
- #define SUN4I_TCON_GCTL_REG			0x0
-diff --git a/drivers/gpu/drm/tilcdc/tilcdc_panel.c b/drivers/gpu/drm/tilcdc/tilcdc_panel.c
-index 42357808eaf2..2729e16bc053 100644
---- a/drivers/gpu/drm/tilcdc/tilcdc_panel.c
-+++ b/drivers/gpu/drm/tilcdc/tilcdc_panel.c
-@@ -4,6 +4,7 @@
-  * Author: Rob Clark <robdclark@gmail.com>
-  */
- 
-+#include <linux/backlight.h>
- #include <linux/gpio/consumer.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/platform_device.h>
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
-index 93fd55b9e99e..1beb96b77b8c 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.h
-+++ b/drivers/gpu/drm/vc4/vc4_drv.h
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+index 310b3b194491..fdf12d4c6416 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
 @@ -6,6 +6,7 @@
- #define _VC4_DRV_H_
+ 
+ #include <linux/firmware.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
+ #include <linux/interrupt.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 3e1be9894ed1..25a60eb4d67c 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -10,6 +10,7 @@
+ #include <linux/delay.h>
+ #include <linux/err.h>
+ #include <linux/hdmi.h>
++#include <linux/i2c.h>
+ #include <linux/irq.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/exynos_dp.c
+index 27664f663c5a..4e3d3d5f6866 100644
+--- a/drivers/gpu/drm/exynos/exynos_dp.c
++++ b/drivers/gpu/drm/exynos/exynos_dp.c
+@@ -10,6 +10,7 @@
+ #include <linux/component.h>
+ #include <linux/err.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/of_graph.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+diff --git a/drivers/gpu/drm/i2c/tda998x_drv.c b/drivers/gpu/drm/i2c/tda998x_drv.c
+index b7ec6c374fbd..7c4455541dbb 100644
+--- a/drivers/gpu/drm/i2c/tda998x_drv.c
++++ b/drivers/gpu/drm/i2c/tda998x_drv.c
+@@ -7,6 +7,7 @@
+ #include <linux/component.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/hdmi.h>
++#include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/platform_data/tda9950.h>
+ #include <linux/irq.h>
+diff --git a/drivers/gpu/drm/mcde/mcde_clk_div.c b/drivers/gpu/drm/mcde/mcde_clk_div.c
+index 038821d2ef80..3056ac566473 100644
+--- a/drivers/gpu/drm/mcde/mcde_clk_div.c
++++ b/drivers/gpu/drm/mcde/mcde_clk_div.c
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include <linux/clk-provider.h>
++#include <linux/io.h>
+ #include <linux/regulator/consumer.h>
+ 
+ #include "mcde_drm.h"
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index ee35f3065f4a..04f28372c9b7 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -23,6 +23,7 @@
  
  #include <linux/delay.h>
-+#include <linux/of.h>
- #include <linux/refcount.h>
- #include <linux/uaccess.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
+ #include <linux/media-bus-format.h>
+ #include <linux/module.h>
+ #include <linux/of_platform.h>
+diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
+index b3fbee7eac11..61a034a01764 100644
+--- a/drivers/gpu/drm/sti/sti_hdmi.c
++++ b/drivers/gpu/drm/sti/sti_hdmi.c
+@@ -8,6 +8,7 @@
+ #include <linux/component.h>
+ #include <linux/debugfs.h>
+ #include <linux/hdmi.h>
++#include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/io.h>
+ #include <linux/platform_device.h>
+diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+index d8b71710e8f6..c0df5e892fa7 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
++++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+@@ -7,6 +7,7 @@
  
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_fb.c b/drivers/gpu/drm/vmwgfx/vmwgfx_fb.c
-index 0ba9739f406d..5b85b477e4c6 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_fb.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_fb.c
-@@ -26,6 +26,7 @@
-  *
-  **************************************************************************/
- 
-+#include <linux/fb.h>
- #include <linux/pci.h>
- 
- #include <drm/drm_fourcc.h>
+ #include <linux/clk.h>
+ #include <linux/component.h>
++#include <linux/i2c.h>
+ #include <linux/iopoll.h>
+ #include <linux/module.h>
+ #include <linux/of_device.h>
 diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index 1cbd95689f33..146898220d5b 100644
+index a583669eb443..ffc1cde331d3 100644
 --- a/include/drm/drm_crtc.h
 +++ b/include/drm/drm_crtc.h
-@@ -28,7 +28,6 @@
- #include <linux/i2c.h>
+@@ -25,7 +25,6 @@
+ #ifndef __DRM_CRTC_H__
+ #define __DRM_CRTC_H__
+ 
+-#include <linux/i2c.h>
  #include <linux/spinlock.h>
  #include <linux/types.h>
--#include <linux/fb.h>
- #include <linux/media-bus-format.h>
  #include <drm/drm_modeset_lock.h>
- #include <drm/drm_mode_object.h>
-diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-index 329607ca65c0..fddd0d1af689 100644
---- a/include/drm/drm_fb_helper.h
-+++ b/include/drm/drm_fb_helper.h
-@@ -35,6 +35,7 @@ struct drm_fb_helper;
- #include <drm/drm_client.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_device.h>
-+#include <linux/fb.h>
- #include <linux/kgdb.h>
+diff --git a/include/drm/drm_encoder_slave.h b/include/drm/drm_encoder_slave.h
+index a09864f6d684..7214101fd731 100644
+--- a/include/drm/drm_encoder_slave.h
++++ b/include/drm/drm_encoder_slave.h
+@@ -27,6 +27,8 @@
+ #ifndef __DRM_ENCODER_SLAVE_H__
+ #define __DRM_ENCODER_SLAVE_H__
  
- enum mode_set_atomic {
++#include <linux/i2c.h>
++
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_encoder.h>
+ 
 -- 
 2.35.1
 
