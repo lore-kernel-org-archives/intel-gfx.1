@@ -4,67 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8402CCCA480
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:07:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2872C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:07:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 788FA11AB4D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D964611ABC4;
 	Wed, 20 Jul 2022 14:07:50 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 840AD10ECD6;
- Fri, 15 Jul 2022 00:53:27 +0000 (UTC)
-Received: from dimapc.. (109-252-119-232.nat.spd-mgts.ru [109.252.119.232])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26BC710F3EF;
+ Fri,  1 Jul 2022 10:44:00 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
+ [109.252.118.164])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id B161F6601A52;
- Fri, 15 Jul 2022 01:53:23 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id EF4536601596;
+ Fri,  1 Jul 2022 11:43:55 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657846406;
- bh=97ScU/XzBWnFMURtp1TI4dy45l3K+cbLfS70sqP3l1o=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R6c6r91Av1Cy0liCl7qy3cfVrQtVpDxkopwQXPoDXifXxk3jKCNB/sDL4Lt6NwZbQ
- NMfdYanGjFtcDPx70znL9miWiomfnnevfdg6KLCsdCcbTXk+Y1eK4FhyhKydi/0r9q
- DQhTu0nG6ELRNbEDPmCUs9qtCuCdCMFWhLkPEWNXk88lQ621ZJS0Qa84qJpY0C4S9w
- OfVSxwOAzLFoScj2+qT7wUQPW1lUSmNqPz2Rbsjq2fejDa4aJQ6pBdPK6PdAWaInnD
- Cy96bNQCPz1M5FXJlpLo4ZeeoUxS9LkEsLUfv9WUTgFbM8umIWetL4nHvLd6ijkWi1
- X0BP+zxIg2arA==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ s=mail; t=1656672238;
+ bh=i4sbwr4hhjkUIAG7olH1BdTwsBlNFqkIOpYSjFNHV/w=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ULKCbZZHPga04p61cEES7RO/PSbb0r9MTw2jLhk1vi7BxkUF2s/2oUlr45wDJ32Zl
+ hIi0EggvcohKCTYDuxjdSAD59R7x9Ho2wjo4+6Ny8R8XDP/2VnA+4rXHqSae59y5RQ
+ u5g9F4c0oWXgkQsy4x9ghsH1A+H0ASGLlB/xYvVhJTwQ62LFKi02GoHFAf3sMxSS6Y
+ geLgbeGzXOFcaOwO/w4rVpiXrZFLjie0W6FtGRjOo0ip0CObSJ6s7RbR690zd9JtQj
+ nYXKDpzfPVg8bswZlSutaJYkriJpXv9aMGuffojK4WnalY6TM+1VIHOnL0NBjdCTlr
+ +nAwSqj+vBJNw==
+Message-ID: <0d88cf7c-61e5-d7a8-a6ba-83388114a1fa@collabora.com>
+Date: Fri, 1 Jul 2022 13:43:53 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-US
+To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Daniel Almeida <daniel.almeida@collabora.com>,
  Gert Wollny <gert.wollny@collabora.com>,
  Gustavo Padovan <gustavo.padovan@collabora.com>,
  Daniel Stone <daniel@fooishbar.org>,
  Tomeu Vizoso <tomeu.vizoso@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>, Qiang Yu <yuq825@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
  Marek Szyprowski <m.szyprowski@samsung.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Alex Deucher <alexander.deucher@amd.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>
-Date: Fri, 15 Jul 2022 03:52:41 +0300
-Message-Id: <20220715005244.42198-4-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
-References: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
-MIME-Version: 1.0
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
+ <20220526235040.678984-15-dmitry.osipenko@collabora.com>
+ <0a02a31d-a256-4ca4-0e35-e2ea1868a8ae@amd.com>
+ <e6e17c52-43c2-064b-500e-325bb3ba3b2c@collabora.com>
+ <02e7946b-34ca-b48e-1ba6-e7b63740a2d9@amd.com>
+ <7372dd1b-06f7-5336-4738-15f9b4d4d4b3@collabora.com>
+ <90fe74f6-a622-e4ae-3004-6f1bc1790247@shipmail.org>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <90fe74f6-a622-e4ae-3004-6f1bc1790247@shipmail.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 20 Jul 2022 14:07:33 +0000
-Subject: [Intel-gfx] [PATCH v1 3/6] dma-buf: Move all dma-bufs to dynamic
- locking specification
+Subject: Re: [Intel-gfx] [PATCH v6 14/22] dma-buf: Introduce new locking
+ convention
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,423 +88,106 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
  kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch moves the non-dynamic dma-buf users over to the dynamic
-locking specification. From now on all dma-buf importers are responsible
-for holding dma-buf's reservation lock around operations performed over
-dma-bufs. This strict locking convention prevents dead lock situation for
-dma-buf importers and exporters.
+On 6/29/22 00:26, Thomas Hellström (Intel) wrote:
+> 
+> On 5/30/22 15:57, Dmitry Osipenko wrote:
+>> On 5/30/22 16:41, Christian König wrote:
+>>> Hi Dmitry,
+>>>
+>>> Am 30.05.22 um 15:26 schrieb Dmitry Osipenko:
+>>>> Hello Christian,
+>>>>
+>>>> On 5/30/22 09:50, Christian König wrote:
+>>>>> Hi Dmitry,
+>>>>>
+>>>>> First of all please separate out this patch from the rest of the
+>>>>> series,
+>>>>> since this is a complex separate structural change.
+>>>> I assume all the patches will go via the DRM tree in the end since the
+>>>> rest of the DRM patches in this series depend on this dma-buf change.
+>>>> But I see that separation may ease reviewing of the dma-buf changes, so
+>>>> let's try it.
+>>> That sounds like you are underestimating a bit how much trouble this
+>>> will be.
+>>>
+>>>>> I have tried this before and failed because catching all the locks in
+>>>>> the right code paths are very tricky. So expect some fallout from this
+>>>>> and make sure the kernel test robot and CI systems are clean.
+>>>> Sure, I'll fix up all the reported things in the next iteration.
+>>>>
+>>>> BTW, have you ever posted yours version of the patch? Will be great if
+>>>> we could compare the changed code paths.
+>>> No, I never even finished creating it after realizing how much work it
+>>> would be.
+>>>
+>>>>>> This patch introduces new locking convention for dma-buf users. From
+>>>>>> now
+>>>>>> on all dma-buf importers are responsible for holding dma-buf
+>>>>>> reservation
+>>>>>> lock around operations performed over dma-bufs.
+>>>>>>
+>>>>>> This patch implements the new dma-buf locking convention by:
+>>>>>>
+>>>>>>      1. Making dma-buf API functions to take the reservation lock.
+>>>>>>
+>>>>>>      2. Adding new locked variants of the dma-buf API functions for
+>>>>>> drivers
+>>>>>>         that need to manage imported dma-bufs under the held lock.
+>>>>> Instead of adding new locked variants please mark all variants which
+>>>>> expect to be called without a lock with an _unlocked postfix.
+>>>>>
+>>>>> This should make it easier to remove those in a follow up patch set
+>>>>> and
+>>>>> then fully move the locking into the importer.
+>>>> Do we really want to move all the locks to the importers? Seems the
+>>>> majority of drivers should be happy with the dma-buf helpers handling
+>>>> the locking for them.
+>>> Yes, I clearly think so.
+>>>
+>>>>>>      3. Converting all drivers to the new locking scheme.
+>>>>> I have strong doubts that you got all of them. At least radeon and
+>>>>> nouveau should grab the reservation lock in their ->attach callbacks
+>>>>> somehow.
+>>>> Radeon and Nouveau use gem_prime_import_sg_table() and they take resv
+>>>> lock already, seems they should be okay (?)
+>>> You are looking at the wrong side. You need to fix the export code path,
+>>> not the import ones.
+>>>
+>>> See for example attach on radeon works like this
+>>> drm_gem_map_attach->drm_gem_pin->radeon_gem_prime_pin->radeon_bo_reserve->ttm_bo_reserve->dma_resv_lock.
+>>>
+>> Yeah, I was looking at the both sides, but missed this one.
+> 
+> Also i915 will run into trouble with attach. In particular since i915
+> starts a full ww transaction in its attach callback to be able to lock
+> other objects if migration is needed. I think i915 CI would catch this
+> in a selftest.
 
-Previously the "unlocked" versions of the dma-buf API functions weren't
-taking the reservation lock and this patch makes them to take the lock.
+Seems it indeed it should deadlock. But i915 selftests apparently
+should've caught it and they didn't, I'll re-check what happened.
 
-Intel and AMD GPU drivers already were mapping imported dma-bufs under
-the held lock, hence the "locked" variant of the functions are added
-for them and the drivers are updated to use the "locked" versions.
+> Perhaps it's worthwile to take a step back and figure out, if the
+> importer is required to lock, which callbacks might need a ww acquire
+> context?
 
-Intel driver is also updated to not lock the exported buffer on
-attachment since lock is now held by importer. We also need to move
-the ww context acquirement from exporters (i915 driver) to importers,
-otherwise lockdep won't be happy. This will be done in the next patch
-since i915 is the only driver that uses ww context on attachment today
-and it's not critical to make this change separately for i915 driver.
+I'll take this into account, thanks.
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- drivers/dma-buf/dma-buf.c                  | 125 +++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |   4 +-
- drivers/gpu/drm/drm_prime.c                |   4 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c |  12 +-
- include/linux/dma-buf.h                    |   6 +
- 5 files changed, 104 insertions(+), 47 deletions(-)
+> (And off-topic, Since we do a lot of fancy stuff under dma-resv locks
+> including waiting for fences and other locks, IMO taking these locks
+> uninterruptible should ring a warning bell)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d16237a6ffaa..0ee588276534 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -841,14 +841,14 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf *dmabuf, struct device *dev,
- 	attach->importer_ops = importer_ops;
- 	attach->importer_priv = importer_priv;
- 
-+	dma_resv_lock(dmabuf->resv, NULL);
-+
- 	if (dmabuf->ops->attach) {
- 		ret = dmabuf->ops->attach(dmabuf, attach);
- 		if (ret)
- 			goto err_attach;
- 	}
--	dma_resv_lock(dmabuf->resv, NULL);
- 	list_add(&attach->node, &dmabuf->attachments);
--	dma_resv_unlock(dmabuf->resv);
- 
- 	/* When either the importer or the exporter can't handle dynamic
- 	 * mappings we cache the mapping here to avoid issues with the
-@@ -859,7 +859,6 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf *dmabuf, struct device *dev,
- 		struct sg_table *sgt;
- 
- 		if (dma_buf_is_dynamic(attach->dmabuf)) {
--			dma_resv_lock(attach->dmabuf->resv, NULL);
- 			ret = dmabuf->ops->pin(attach);
- 			if (ret)
- 				goto err_unlock;
-@@ -872,15 +871,16 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf *dmabuf, struct device *dev,
- 			ret = PTR_ERR(sgt);
- 			goto err_unpin;
- 		}
--		if (dma_buf_is_dynamic(attach->dmabuf))
--			dma_resv_unlock(attach->dmabuf->resv);
- 		attach->sgt = sgt;
- 		attach->dir = DMA_BIDIRECTIONAL;
- 	}
- 
-+	dma_resv_unlock(dmabuf->resv);
-+
- 	return attach;
- 
- err_attach:
-+	dma_resv_unlock(attach->dmabuf->resv);
- 	kfree(attach);
- 	return ERR_PTR(ret);
- 
-@@ -889,8 +889,7 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf *dmabuf, struct device *dev,
- 		dmabuf->ops->unpin(attach);
- 
- err_unlock:
--	if (dma_buf_is_dynamic(attach->dmabuf))
--		dma_resv_unlock(attach->dmabuf->resv);
-+	dma_resv_unlock(dmabuf->resv);
- 
- 	dma_buf_detach_unlocked(dmabuf, attach);
- 	return ERR_PTR(ret);
-@@ -937,24 +936,23 @@ void dma_buf_detach_unlocked(struct dma_buf *dmabuf,
- 	if (WARN_ON(!dmabuf || !attach))
- 		return;
- 
--	if (attach->sgt) {
--		if (dma_buf_is_dynamic(attach->dmabuf))
--			dma_resv_lock(attach->dmabuf->resv, NULL);
-+	if (WARN_ON(dmabuf != attach->dmabuf))
-+		return;
- 
-+	dma_resv_lock(dmabuf->resv, NULL);
-+
-+	if (attach->sgt) {
- 		__unmap_dma_buf(attach, attach->sgt, attach->dir);
- 
--		if (dma_buf_is_dynamic(attach->dmabuf)) {
-+		if (dma_buf_is_dynamic(attach->dmabuf))
- 			dmabuf->ops->unpin(attach);
--			dma_resv_unlock(attach->dmabuf->resv);
--		}
- 	}
--
--	dma_resv_lock(dmabuf->resv, NULL);
- 	list_del(&attach->node);
--	dma_resv_unlock(dmabuf->resv);
-+
- 	if (dmabuf->ops->detach)
- 		dmabuf->ops->detach(dmabuf, attach);
- 
-+	dma_resv_unlock(dmabuf->resv);
- 	kfree(attach);
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_detach_unlocked, DMA_BUF);
-@@ -1030,10 +1028,11 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, DMA_BUF);
-  *
-  * Important: Dynamic importers must wait for the exclusive fence of the struct
-  * dma_resv attached to the DMA-BUF first.
-+ *
-+ * Importer is responsible for holding dmabuf's reservation lock.
-  */
--struct sg_table *
--dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
--				enum dma_data_direction direction)
-+struct sg_table *dma_buf_map_attachment_locked(struct dma_buf_attachment *attach,
-+					       enum dma_data_direction direction)
- {
- 	struct sg_table *sg_table;
- 	int r;
-@@ -1043,8 +1042,7 @@ dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
- 	if (WARN_ON(!attach || !attach->dmabuf))
- 		return ERR_PTR(-EINVAL);
- 
--	if (dma_buf_attachment_is_dynamic(attach))
--		dma_resv_assert_held(attach->dmabuf->resv);
-+	dma_resv_assert_held(attach->dmabuf->resv);
- 
- 	if (attach->sgt) {
- 		/*
-@@ -1059,7 +1057,6 @@ dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
- 	}
- 
- 	if (dma_buf_is_dynamic(attach->dmabuf)) {
--		dma_resv_assert_held(attach->dmabuf->resv);
- 		if (!IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY)) {
- 			r = attach->dmabuf->ops->pin(attach);
- 			if (r)
-@@ -1099,10 +1096,38 @@ dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
- #endif /* CONFIG_DMA_API_DEBUG */
- 	return sg_table;
- }
-+EXPORT_SYMBOL_NS_GPL(dma_buf_map_attachment_locked, DMA_BUF);
-+
-+/**
-+ * dma_buf_map_attachment_unlocked - Returns the scatterlist table of the attachment;
-+ * mapped into _device_ address space. Is a wrapper for map_dma_buf() of the
-+ * dma_buf_ops.
-+ * @attach:	[in]	attachment whose scatterlist is to be returned
-+ * @direction:	[in]	direction of DMA transfer
-+ *
-+ * Unlocked variant of dma_buf_map_attachment().
-+ */
-+struct sg_table *
-+dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
-+				enum dma_data_direction direction)
-+{
-+	struct sg_table *sg_table;
-+
-+	might_sleep();
-+
-+	if (WARN_ON(!attach || !attach->dmabuf))
-+		return ERR_PTR(-EINVAL);
-+
-+	dma_resv_lock(attach->dmabuf->resv, NULL);
-+	sg_table = dma_buf_map_attachment_locked(attach, direction);
-+	dma_resv_unlock(attach->dmabuf->resv);
-+
-+	return sg_table;
-+}
- EXPORT_SYMBOL_NS_GPL(dma_buf_map_attachment_unlocked, DMA_BUF);
- 
- /**
-- * dma_buf_unmap_attachment_unlocked - unmaps and decreases usecount of the buffer;might
-+ * dma_buf_unmap_attachment_locked - unmaps and decreases usecount of the buffer;might
-  * deallocate the scatterlist associated. Is a wrapper for unmap_dma_buf() of
-  * dma_buf_ops.
-  * @attach:	[in]	attachment to unmap buffer from
-@@ -1110,31 +1135,51 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_map_attachment_unlocked, DMA_BUF);
-  * @direction:  [in]    direction of DMA transfer
-  *
-  * This unmaps a DMA mapping for @attached obtained by dma_buf_map_attachment().
-+ *
-+ * Importer is responsible for holding dmabuf's reservation lock.
-  */
--void dma_buf_unmap_attachment_unlocked(struct dma_buf_attachment *attach,
--				       struct sg_table *sg_table,
--				       enum dma_data_direction direction)
-+void dma_buf_unmap_attachment_locked(struct dma_buf_attachment *attach,
-+				     struct sg_table *sg_table,
-+				     enum dma_data_direction direction)
- {
- 	might_sleep();
- 
--	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
--		return;
--
--	if (dma_buf_attachment_is_dynamic(attach))
--		dma_resv_assert_held(attach->dmabuf->resv);
-+	dma_resv_assert_held(attach->dmabuf->resv);
- 
- 	if (attach->sgt == sg_table)
- 		return;
- 
--	if (dma_buf_is_dynamic(attach->dmabuf))
--		dma_resv_assert_held(attach->dmabuf->resv);
--
- 	__unmap_dma_buf(attach, sg_table, direction);
- 
- 	if (dma_buf_is_dynamic(attach->dmabuf) &&
- 	    !IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY))
- 		dma_buf_unpin(attach);
- }
-+EXPORT_SYMBOL_NS_GPL(dma_buf_unmap_attachment_locked, DMA_BUF);
-+
-+/**
-+ * dma_buf_unmap_attachment_unlocked - unmaps and decreases usecount of the buffer;might
-+ * deallocate the scatterlist associated. Is a wrapper for unmap_dma_buf() of
-+ * dma_buf_ops.
-+ * @attach:	[in]	attachment to unmap buffer from
-+ * @sg_table:	[in]	scatterlist info of the buffer to unmap
-+ * @direction:	[in]	direction of DMA transfer
-+ *
-+ * Unlocked variant of dma_buf_unmap_attachment().
-+ */
-+void dma_buf_unmap_attachment_unlocked(struct dma_buf_attachment *attach,
-+				       struct sg_table *sg_table,
-+				       enum dma_data_direction direction)
-+{
-+	might_sleep();
-+
-+	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
-+		return;
-+
-+	dma_resv_lock(attach->dmabuf->resv, NULL);
-+	dma_buf_unmap_attachment_locked(attach, sg_table, direction);
-+	dma_resv_unlock(attach->dmabuf->resv);
-+}
- EXPORT_SYMBOL_NS_GPL(dma_buf_unmap_attachment_unlocked, DMA_BUF);
- 
- /**
-@@ -1348,6 +1393,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_end_cpu_access, DMA_BUF);
- int dma_buf_mmap_unlocked(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 			  unsigned long pgoff)
- {
-+	int ret;
-+
- 	if (WARN_ON(!dmabuf || !vma))
- 		return -EINVAL;
- 
-@@ -1368,7 +1415,11 @@ int dma_buf_mmap_unlocked(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- 	vma_set_file(vma, dmabuf->file);
- 	vma->vm_pgoff = pgoff;
- 
--	return dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	ret = dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	return ret;
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_mmap_unlocked, DMA_BUF);
- 
-@@ -1401,6 +1452,7 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	if (!dmabuf->ops->vmap)
- 		return -EINVAL;
- 
-+	dma_resv_lock(dmabuf->resv, NULL);
- 	mutex_lock(&dmabuf->lock);
- 	if (dmabuf->vmapping_counter) {
- 		dmabuf->vmapping_counter++;
-@@ -1422,6 +1474,7 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 
- out_unlock:
- 	mutex_unlock(&dmabuf->lock);
-+	dma_resv_unlock(dmabuf->resv);
- 	return ret;
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vmap_unlocked, DMA_BUF);
-@@ -1440,6 +1493,7 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	BUG_ON(dmabuf->vmapping_counter == 0);
- 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
- 
-+	dma_resv_lock(dmabuf->resv, NULL);
- 	mutex_lock(&dmabuf->lock);
- 	if (--dmabuf->vmapping_counter == 0) {
- 		if (dmabuf->ops->vunmap)
-@@ -1447,6 +1501,7 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 		iosys_map_clear(&dmabuf->vmap_ptr);
- 	}
- 	mutex_unlock(&dmabuf->lock);
-+	dma_resv_unlock(dmabuf->resv);
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index e354ad140a0a..0d8b82e5b22f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -883,7 +883,7 @@ static int amdgpu_ttm_backend_bind(struct ttm_device *bdev,
- 			struct sg_table *sgt;
- 
- 			attach = gtt->gobj->import_attach;
--			sgt = dma_buf_map_attachment_unlocked(attach, DMA_BIDIRECTIONAL);
-+			sgt = dma_buf_map_attachment_locked(attach, DMA_BIDIRECTIONAL);
- 			if (IS_ERR(sgt))
- 				return PTR_ERR(sgt);
- 
-@@ -1008,7 +1008,7 @@ static void amdgpu_ttm_backend_unbind(struct ttm_device *bdev,
- 		struct dma_buf_attachment *attach;
- 
- 		attach = gtt->gobj->import_attach;
--		dma_buf_unmap_attachment_unlocked(attach, ttm->sg, DMA_BIDIRECTIONAL);
-+		dma_buf_unmap_attachment_locked(attach, ttm->sg, DMA_BIDIRECTIONAL);
- 		ttm->sg = NULL;
- 	}
- 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 1bd234fd21a5..b75ef1756873 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -678,7 +678,7 @@ int drm_gem_dmabuf_vmap(struct dma_buf *dma_buf, struct iosys_map *map)
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
- 
--	return drm_gem_vmap_unlocked(obj, map);
-+	return drm_gem_vmap(obj, map);
- }
- EXPORT_SYMBOL(drm_gem_dmabuf_vmap);
- 
-@@ -694,7 +694,7 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map)
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
- 
--	drm_gem_vunmap_unlocked(obj, map);
-+	drm_gem_vunmap(obj, map);
- }
- EXPORT_SYMBOL(drm_gem_dmabuf_vunmap);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index cc54a5b1d6ae..c199bf71c373 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -174,10 +174,6 @@ static int i915_gem_dmabuf_attach(struct dma_buf *dmabuf,
- 		return -EOPNOTSUPP;
- 
- 	for_i915_gem_ww(&ww, err, true) {
--		err = i915_gem_object_lock(obj, &ww);
--		if (err)
--			continue;
--
- 		err = i915_gem_object_migrate(obj, &ww, INTEL_REGION_SMEM);
- 		if (err)
- 			continue;
-@@ -241,8 +237,8 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- 
- 	assert_object_held(obj);
- 
--	pages = dma_buf_map_attachment_unlocked(obj->base.import_attach,
--						DMA_BIDIRECTIONAL);
-+	pages = dma_buf_map_attachment_locked(obj->base.import_attach,
-+					      DMA_BIDIRECTIONAL);
- 	if (IS_ERR(pages))
- 		return PTR_ERR(pages);
- 
-@@ -270,8 +266,8 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- static void i915_gem_object_put_pages_dmabuf(struct drm_i915_gem_object *obj,
- 					     struct sg_table *pages)
- {
--	dma_buf_unmap_attachment_unlocked(obj->base.import_attach, pages,
--					  DMA_BIDIRECTIONAL);
-+	dma_buf_unmap_attachment_locked(obj->base.import_attach, pages,
-+					DMA_BIDIRECTIONAL);
- }
- 
- static const struct drm_i915_gem_object_ops i915_gem_object_dmabuf_ops = {
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 9ab09569dec1..da924a56d58f 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -626,6 +626,12 @@ void dma_buf_unmap_attachment_unlocked(struct dma_buf_attachment *,
- 				       struct sg_table *,
- 				       enum dma_data_direction);
- 
-+struct sg_table *dma_buf_map_attachment_locked(struct dma_buf_attachment *,
-+					       enum dma_data_direction);
-+void dma_buf_unmap_attachment_locked(struct dma_buf_attachment *attach,
-+				     struct sg_table *sg_table,
-+				     enum dma_data_direction direction);
-+
- void dma_buf_move_notify(struct dma_buf *dma_buf);
- int dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
- 			     enum dma_data_direction dir);
+I had the same thought and had a version that used the interruptible
+locking variant, but then decided to fall back to the uninterruptible,
+don't remember why. I'll revisit this.
+
 -- 
-2.36.1
-
+Best regards,
+Dmitry
