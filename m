@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8125DC43334
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Jul 2022 08:56:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B10BCCA479
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Jul 2022 08:56:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D971410F37F;
-	Fri,  1 Jul 2022 08:56:05 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E57710F37F;
- Fri,  1 Jul 2022 08:56:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E5D010F45E;
+	Fri,  1 Jul 2022 08:56:13 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F0F610F39A;
+ Fri,  1 Jul 2022 08:56:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656665764; x=1688201764;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=gBcbt7vpu6FIciQzhRIg00DNXTRKJ9bU/ELB71RRins=;
- b=NXREYWY7tKgYkR1dFi0L7bL6diNmehc8h8zfk3iof47p2qtvpXi3YRNb
- OfBRu03YANxl+sq1Ei3NHDqu5zNbXxCoXzQXjp6Xtg3Cjt/ed8FdlH857
- dixTa1vpUrK3DFjGCk1vBUkZrQT8b+C4EjfMTN9011exD8i6V3ofSB/fb
- pB8itvczu0UsRi8mPWY1EXiIb38aQK0IOFwuCi5ZG0h1iRyweBZT6eKA5
- Uf+TRhdhvz4G8DW/dWFxrxZYXSgUz6GYokJZcTUDKrpNwfqvDwh6PV4U5
- mJlwnIDsWy11d0+7fV0T+/NhxXwizgtgvo2VpuEBniA2AJ0bUUoqiXUjB Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10394"; a="281363098"
-X-IronPort-AV: E=Sophos;i="5.92,236,1650956400"; d="scan'208";a="281363098"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2022 01:55:48 -0700
-X-IronPort-AV: E=Sophos;i="5.92,236,1650956400"; d="scan'208";a="648265757"
+ t=1656665771; x=1688201771;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=y2qcFNSZBKBBtV0jtnQ7wtTDeohfTyPNXKS+okFkS+E=;
+ b=HNXLu/0N8zGLw6COd06xl/MUtkt5EphGUQY7PEMN2ByaWA/Jp4+ghKM+
+ psMFTLkDLiurf47VYtYOL3fnvlAZDGQt5mttg36QO/9l1v07GvaHgC+EF
+ 990/Q3fEquiLgq5Njc+P1Zhyqpq3jUUAP0JgujwkkJmZ3XI3iu9rhqp1z
+ J1LAxVUhBn/oQTc8nq2QJLdVOWcchn5uHYpscJOlwU7DkT90uNzPSnECE
+ j7UFepgISgTl6CrErnO/LBm38QHVLhTptO/e4YJYXgMQapYO15ssceD/4
+ mzQ6FSOltQpjAfVVsK5rIQ4vG7NevufPvmGVLaJRzhfOuIGYvNwV4siBS A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10394"; a="263000347"
+X-IronPort-AV: E=Sophos;i="5.92,236,1650956400"; d="scan'208";a="263000347"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2022 01:55:59 -0700
+X-IronPort-AV: E=Sophos;i="5.92,236,1650956400"; d="scan'208";a="596180406"
 Received: from bachaue1-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.33.184])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2022 01:55:46 -0700
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2022 01:55:56 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  1 Jul 2022 11:55:37 +0300
-Message-Id: <cover.1656665533.git.jani.nikula@intel.com>
+Date: Fri,  1 Jul 2022 11:55:39 +0300
+Message-Id: <125183e0b6917bf246d02e63b96b9f31f5ecb358.1656665533.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <cover.1656665533.git.jani.nikula@intel.com>
+References: <cover.1656665533.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 0/2] drm/i915: switch DP,
- HDMI and LVDS to drm_edid
+Subject: [Intel-gfx] [PATCH v4 2/2] drm/i915/bios: convert
+ intel_bios_init_panel() to drm_edid
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,25 +64,153 @@ Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The remaining patches to add HF-EEODB support to i915 by switching to
-using drm_edid in certain encoders. This depends on the drm_edid work in
-drm-misc-next, and either needs to be merged via drm-misc-next, or we'll
-need the dependencies merged to drm-intel-next via drm-misc-next pull
-request -> drm-next -> backmerge.
+Try to use struct drm_edid where possible, even if having to fall back
+to looking into struct edid down low via drm_edid_raw().
 
-Jani Nikula (2):
-  drm/i915/edid: convert DP, HDMI and LVDS to drm_edid
-  drm/i915/bios: convert intel_bios_init_panel() to drm_edid
+v2: Rebase
 
- drivers/gpu/drm/i915/display/intel_bios.c     | 19 ++---
- drivers/gpu/drm/i915/display/intel_bios.h     |  4 +-
- .../gpu/drm/i915/display/intel_connector.c    |  4 +-
- .../drm/i915/display/intel_display_types.h    |  4 +-
- drivers/gpu/drm/i915/display/intel_dp.c       | 80 +++++++++++--------
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 28 ++++---
- drivers/gpu/drm/i915/display/intel_lvds.c     | 37 +++++----
- 7 files changed, 99 insertions(+), 77 deletions(-)
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c | 19 ++++++++++---------
+ drivers/gpu/drm/i915/display/intel_bios.h |  4 ++--
+ drivers/gpu/drm/i915/display/intel_dp.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_lvds.c |  2 +-
+ 4 files changed, 14 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 51dde5bfd956..2fa296d8e69d 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -606,14 +606,14 @@ get_lfp_data_tail(const struct bdb_lvds_lfp_data *data,
+ 
+ static int opregion_get_panel_type(struct drm_i915_private *i915,
+ 				   const struct intel_bios_encoder_data *devdata,
+-				   const struct edid *edid)
++				   const struct drm_edid *drm_edid)
+ {
+ 	return intel_opregion_get_panel_type(i915);
+ }
+ 
+ static int vbt_get_panel_type(struct drm_i915_private *i915,
+ 			      const struct intel_bios_encoder_data *devdata,
+-			      const struct edid *edid)
++			      const struct drm_edid *drm_edid)
+ {
+ 	const struct bdb_lvds_options *lvds_options;
+ 
+@@ -638,12 +638,13 @@ static int vbt_get_panel_type(struct drm_i915_private *i915,
+ 
+ static int pnpid_get_panel_type(struct drm_i915_private *i915,
+ 				const struct intel_bios_encoder_data *devdata,
+-				const struct edid *edid)
++				const struct drm_edid *drm_edid)
+ {
+ 	const struct bdb_lvds_lfp_data *data;
+ 	const struct bdb_lvds_lfp_data_ptrs *ptrs;
+ 	const struct lvds_pnp_id *edid_id;
+ 	struct lvds_pnp_id edid_id_nodate;
++	const struct edid *edid = drm_edid_raw(drm_edid); /* FIXME */
+ 	int i, best = -1;
+ 
+ 	if (!edid)
+@@ -685,7 +686,7 @@ static int pnpid_get_panel_type(struct drm_i915_private *i915,
+ 
+ static int fallback_get_panel_type(struct drm_i915_private *i915,
+ 				   const struct intel_bios_encoder_data *devdata,
+-				   const struct edid *edid)
++				   const struct drm_edid *drm_edid)
+ {
+ 	return 0;
+ }
+@@ -699,13 +700,13 @@ enum panel_type {
+ 
+ static int get_panel_type(struct drm_i915_private *i915,
+ 			  const struct intel_bios_encoder_data *devdata,
+-			  const struct edid *edid)
++			  const struct drm_edid *drm_edid)
+ {
+ 	struct {
+ 		const char *name;
+ 		int (*get_panel_type)(struct drm_i915_private *i915,
+ 				      const struct intel_bios_encoder_data *devdata,
+-				      const struct edid *edid);
++				      const struct drm_edid *drm_edid);
+ 		int panel_type;
+ 	} panel_types[] = {
+ 		[PANEL_TYPE_OPREGION] = {
+@@ -728,7 +729,7 @@ static int get_panel_type(struct drm_i915_private *i915,
+ 	int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(panel_types); i++) {
+-		panel_types[i].panel_type = panel_types[i].get_panel_type(i915, devdata, edid);
++		panel_types[i].panel_type = panel_types[i].get_panel_type(i915, devdata, drm_edid);
+ 
+ 		drm_WARN_ON(&i915->drm, panel_types[i].panel_type > 0xf &&
+ 			    panel_types[i].panel_type != 0xff);
+@@ -3144,11 +3145,11 @@ void intel_bios_init(struct drm_i915_private *i915)
+ void intel_bios_init_panel(struct drm_i915_private *i915,
+ 			   struct intel_panel *panel,
+ 			   const struct intel_bios_encoder_data *devdata,
+-			   const struct edid *edid)
++			   const struct drm_edid *drm_edid)
+ {
+ 	init_vbt_panel_defaults(panel);
+ 
+-	panel->vbt.panel_type = get_panel_type(i915, devdata, edid);
++	panel->vbt.panel_type = get_panel_type(i915, devdata, drm_edid);
+ 
+ 	parse_panel_options(i915, panel);
+ 	parse_generic_dtd(i915, panel);
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+index e47582b0de0a..defea578a768 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -32,8 +32,8 @@
+ 
+ #include <linux/types.h>
+ 
++struct drm_edid;
+ struct drm_i915_private;
+-struct edid;
+ struct intel_bios_encoder_data;
+ struct intel_crtc_state;
+ struct intel_encoder;
+@@ -235,7 +235,7 @@ void intel_bios_init(struct drm_i915_private *dev_priv);
+ void intel_bios_init_panel(struct drm_i915_private *dev_priv,
+ 			   struct intel_panel *panel,
+ 			   const struct intel_bios_encoder_data *devdata,
+-			   const struct edid *edid);
++			   const struct drm_edid *drm_edid);
+ void intel_bios_fini_panel(struct intel_panel *panel);
+ void intel_bios_driver_remove(struct drm_i915_private *dev_priv);
+ bool intel_bios_is_valid_vbt(const void *buf, size_t size);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 8a3b2dbebe04..f9633fc90e10 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5265,7 +5265,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 	intel_connector->edid = drm_edid;
+ 
+ 	intel_bios_init_panel(dev_priv, &intel_connector->panel, encoder->devdata,
+-			      IS_ERR_OR_NULL(drm_edid) ? NULL : drm_edid_raw(drm_edid));
++			      IS_ERR(drm_edid) ? NULL : drm_edid);
+ 
+ 	intel_panel_add_edid_fixed_modes(intel_connector,
+ 					 intel_connector->panel.vbt.drrs_type != DRRS_TYPE_NONE,
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+index 98c07fd3bd3e..1f578a8ea919 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.c
++++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+@@ -973,7 +973,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
+ 	intel_connector->edid = drm_edid;
+ 
+ 	intel_bios_init_panel(dev_priv, &intel_connector->panel, NULL,
+-			      IS_ERR_OR_NULL(drm_edid) ? NULL : drm_edid_raw(drm_edid));
++			      IS_ERR(drm_edid) ? NULL : drm_edid);
+ 
+ 	/* Try EDID first */
+ 	intel_panel_add_edid_fixed_modes(intel_connector,
 -- 
 2.30.2
 
