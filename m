@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C542C43334
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Jul 2022 22:51:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3D53C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Jul 2022 23:19:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3553F112626;
-	Fri,  1 Jul 2022 22:51:21 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B844F11255E;
- Fri,  1 Jul 2022 22:51:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656715878; x=1688251878;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=t3CQ28+tk3FAO6P5gUSxnKk7+KI8tOH4ZaOvfKCZrxU=;
- b=DShfl8xWE8w30W/VQ5qV5fVZe2kvM4gZti7w+vANc8L506noNBeafgiS
- RLKUebF0YA21RSItmSonDb+ZIxbI9QW9oMB++/YcPYxB2sORVOuyI53GY
- CgosOmTfeoRArbCMvB5iPEjAq+au5jsswqBK6k+941d8xAiX/bciXMPdr
- r56cJzHzjXo/dMoqr83srOL+oB/tbfa8vzmQVnaeVgi0sK/Lt6YQzr62S
- 4uWsopCg2f8GyXTeGQ1f3bATdkHjs8nNjLg0uJFhXM3JHxQHrPMuvQ5pP
- Ls3aJn54ffbYnQYQQLgFVgAzJBbrC2cCWQ8YdbddLc/Nxa9EjukW0VIC4 g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10395"; a="282789054"
-X-IronPort-AV: E=Sophos;i="5.92,238,1650956400"; d="scan'208";a="282789054"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2022 15:51:17 -0700
-X-IronPort-AV: E=Sophos;i="5.92,238,1650956400"; d="scan'208";a="918645105"
-Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 01 Jul 2022 15:51:17 -0700
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Fri,  1 Jul 2022 15:50:52 -0700
-Message-Id: <20220701225055.8204-8-niranjana.vishwanathapura@intel.com>
-X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
-In-Reply-To: <20220701225055.8204-1-niranjana.vishwanathapura@intel.com>
-References: <20220701225055.8204-1-niranjana.vishwanathapura@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDA32112162;
+	Fri,  1 Jul 2022 23:19:08 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6FDDB10E8F7;
+ Fri,  1 Jul 2022 23:19:07 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 65B31AA0EA;
+ Fri,  1 Jul 2022 23:19:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 07/10] drm/i915/vm_bind: Handle persistent vmas in
- execbuf3
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Niranjana Vishwanathapura" <niranjana.vishwanathapura@intel.com>
+Date: Fri, 01 Jul 2022 23:19:07 -0000
+Message-ID: <165671754738.30283.5824051868330044366@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220701225055.8204-1-niranjana.vishwanathapura@intel.com>
+In-Reply-To: <20220701225055.8204-1-niranjana.vishwanathapura@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/vm=5Fbind=3A_Add_VM=5FBIND_functionality?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,257 +40,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, thomas.hellstrom@intel.com,
- matthew.auld@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Handle persistent (VM_BIND) mappings during the request submission
-in the execbuf3 path.
+== Series Details ==
 
-Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
----
- .../gpu/drm/i915/gem/i915_gem_execbuffer3.c   | 176 +++++++++++++++++-
- 1 file changed, 175 insertions(+), 1 deletion(-)
+Series: drm/i915/vm_bind: Add VM_BIND functionality
+URL   : https://patchwork.freedesktop.org/series/105879/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
-index 13121df72e3d..2079f5ca9010 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
-@@ -22,6 +22,7 @@
- #include "i915_gem_vm_bind.h"
- #include "i915_trace.h"
- 
-+#define __EXEC3_HAS_PIN			BIT_ULL(33)
- #define __EXEC3_ENGINE_PINNED		BIT_ULL(32)
- #define __EXEC3_INTERNAL_FLAGS		(~0ull << 32)
- 
-@@ -45,7 +46,9 @@
-  * execlist. Hence, no support for implicit sync.
-  *
-  * The new execbuf3 ioctl only works in VM_BIND mode and the VM_BIND mode only
-- * works with execbuf3 ioctl for submission.
-+ * works with execbuf3 ioctl for submission. All BOs mapped on that VM (through
-+ * VM_BIND call) at the time of execbuf3 call are deemed required for that
-+ * submission.
-  *
-  * The execbuf3 ioctl directly specifies the batch addresses instead of as
-  * object handles as in execbuf2 ioctl. The execbuf3 ioctl will also not
-@@ -61,6 +64,13 @@
-  * So, a lot of code supporting execbuf2 ioctl, like relocations, VA evictions,
-  * vma lookup table, implicit sync, vma active reference tracking etc., are not
-  * applicable for execbuf3 ioctl.
-+ *
-+ * During each execbuf submission, request fence is added to all VM_BIND mapped
-+ * objects with DMA_RESV_USAGE_BOOKKEEP. The DMA_RESV_USAGE_BOOKKEEP usage will
-+ * prevent over sync (See enum dma_resv_usage). Note that DRM_I915_GEM_WAIT and
-+ * DRM_I915_GEM_BUSY ioctls do not check for DMA_RESV_USAGE_BOOKKEEP usage and
-+ * hence should not be used for end of batch check. Instead, the execbuf3
-+ * timeline out fence should be used for end of batch check.
-  */
- 
- struct eb_fence {
-@@ -124,6 +134,19 @@ eb_find_vma(struct i915_address_space *vm, u64 addr)
- 	return i915_gem_vm_bind_lookup_vma(vm, va);
- }
- 
-+static void eb_scoop_unbound_vmas(struct i915_address_space *vm)
-+{
-+	struct i915_vma *vma, *vn;
-+
-+	spin_lock(&vm->vm_rebind_lock);
-+	list_for_each_entry_safe(vma, vn, &vm->vm_rebind_list, vm_rebind_link) {
-+		list_del_init(&vma->vm_rebind_link);
-+		if (!list_empty(&vma->vm_bind_link))
-+			list_move_tail(&vma->vm_bind_link, &vm->vm_bind_list);
-+	}
-+	spin_unlock(&vm->vm_rebind_lock);
-+}
-+
- static int eb_lookup_vmas(struct i915_execbuffer *eb)
- {
- 	unsigned int i, current_batch = 0;
-@@ -138,11 +161,118 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
- 		++current_batch;
- 	}
- 
-+	eb_scoop_unbound_vmas(eb->context->vm);
-+
-+	return 0;
-+}
-+
-+static int eb_lock_vmas(struct i915_execbuffer *eb)
-+{
-+	struct i915_address_space *vm = eb->context->vm;
-+	struct i915_vma *vma;
-+	int err;
-+
-+	err = i915_gem_vm_priv_lock(eb->context->vm, &eb->ww);
-+	if (err)
-+		return err;
-+
-+	list_for_each_entry(vma, &vm->non_priv_vm_bind_list,
-+			    non_priv_vm_bind_link) {
-+		err = i915_gem_object_lock(vma->obj, &eb->ww);
-+		if (err)
-+			return err;
-+	}
-+
- 	return 0;
- }
- 
-+static void eb_release_persistent_vmas(struct i915_execbuffer *eb, bool final)
-+{
-+	struct i915_address_space *vm = eb->context->vm;
-+	struct i915_vma *vma, *vn;
-+
-+	assert_vm_bind_held(vm);
-+
-+	if (!(eb->args->flags & __EXEC3_HAS_PIN))
-+		return;
-+
-+	assert_vm_priv_held(vm);
-+
-+	list_for_each_entry(vma, &vm->vm_bind_list, vm_bind_link)
-+		__i915_vma_unpin(vma);
-+
-+	eb->args->flags &= ~__EXEC3_HAS_PIN;
-+	if (!final)
-+		return;
-+
-+	list_for_each_entry_safe(vma, vn, &vm->vm_bind_list, vm_bind_link)
-+		if (i915_vma_is_bind_complete(vma))
-+			list_move_tail(&vma->vm_bind_link, &vm->vm_bound_list);
-+}
-+
- static void eb_release_vmas(struct i915_execbuffer *eb, bool final)
- {
-+	eb_release_persistent_vmas(eb, final);
-+	eb_unpin_engine(eb);
-+}
-+
-+static int eb_reserve_fence_for_persistent_vmas(struct i915_execbuffer *eb)
-+{
-+	struct i915_address_space *vm = eb->context->vm;
-+	struct i915_vma *vma;
-+	int ret;
-+
-+	ret = dma_resv_reserve_fences(vm->root_obj->base.resv, 1);
-+	if (ret)
-+		return ret;
-+
-+	list_for_each_entry(vma, &vm->non_priv_vm_bind_list,
-+			    non_priv_vm_bind_link) {
-+		ret = dma_resv_reserve_fences(vma->obj->base.resv, 1);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int eb_validate_persistent_vmas(struct i915_execbuffer *eb)
-+{
-+	struct i915_address_space *vm = eb->context->vm;
-+	struct i915_vma *vma, *last_pinned_vma = NULL;
-+	int ret = 0;
-+
-+	assert_vm_bind_held(vm);
-+	assert_vm_priv_held(vm);
-+
-+	ret = eb_reserve_fence_for_persistent_vmas(eb);
-+	if (ret)
-+		return ret;
-+
-+	if (list_empty(&vm->vm_bind_list))
-+		return 0;
-+
-+	list_for_each_entry(vma, &vm->vm_bind_list, vm_bind_link) {
-+		u64 pin_flags = vma->start | PIN_OFFSET_FIXED | PIN_USER;
-+
-+		ret = i915_vma_pin_ww(vma, &eb->ww, 0, 0, pin_flags);
-+		if (ret)
-+			break;
-+
-+		last_pinned_vma = vma;
-+	}
-+
-+	if (ret && last_pinned_vma) {
-+		list_for_each_entry(vma, &vm->vm_bind_list, vm_bind_link) {
-+			__i915_vma_unpin(vma);
-+			if (vma == last_pinned_vma)
-+				break;
-+		}
-+	} else if (last_pinned_vma) {
-+		eb->args->flags |= __EXEC3_HAS_PIN;
-+	}
-+
-+	return ret;
- }
- 
- static int eb_validate_vmas(struct i915_execbuffer *eb)
-@@ -162,8 +292,17 @@ static int eb_validate_vmas(struct i915_execbuffer *eb)
- 	/* only throttle once, even if we didn't need to throttle */
- 	throttle = false;
- 
-+	err = eb_lock_vmas(eb);
-+	if (err)
-+		goto err;
-+
-+	err = eb_validate_persistent_vmas(eb);
-+	if (err)
-+		goto err;
-+
- err:
- 	if (err == -EDEADLK) {
-+		eb_release_vmas(eb, false);
- 		err = i915_gem_ww_ctx_backoff(&eb->ww);
- 		if (!err)
- 			goto retry;
-@@ -187,8 +326,43 @@ static int eb_validate_vmas(struct i915_execbuffer *eb)
- 	BUILD_BUG_ON(!typecheck(int, _i)); \
- 	for ((_i) = (_eb)->num_batches - 1; (_i) >= 0; --(_i))
- 
-+static void __eb_persistent_add_shared_fence(struct drm_i915_gem_object *obj,
-+					     struct dma_fence *fence)
-+{
-+	dma_resv_add_fence(obj->base.resv, fence, DMA_RESV_USAGE_BOOKKEEP);
-+	obj->write_domain = 0;
-+	obj->read_domains |= I915_GEM_GPU_DOMAINS;
-+	obj->mm.dirty = true;
-+}
-+
-+static void eb_persistent_add_shared_fence(struct i915_execbuffer *eb)
-+{
-+	struct i915_address_space *vm = eb->context->vm;
-+	struct dma_fence *fence;
-+	struct i915_vma *vma;
-+
-+	fence = eb->composite_fence ? eb->composite_fence :
-+		&eb->requests[0]->fence;
-+
-+	__eb_persistent_add_shared_fence(vm->root_obj, fence);
-+	list_for_each_entry(vma, &vm->non_priv_vm_bind_list,
-+			    non_priv_vm_bind_link)
-+		__eb_persistent_add_shared_fence(vma->obj, fence);
-+}
-+
-+static void eb_persistent_vmas_move_to_active(struct i915_execbuffer *eb)
-+{
-+	/* Add fence to BOs dma-resv fence list */
-+	eb_persistent_add_shared_fence(eb);
-+}
-+
- static int eb_move_to_gpu(struct i915_execbuffer *eb)
- {
-+	assert_vm_bind_held(eb->context->vm);
-+	assert_vm_priv_held(eb->context->vm);
-+
-+	eb_persistent_vmas_move_to_active(eb);
-+
- 	/* Unconditionally flush any chipset caches (for streaming writes). */
- 	intel_gt_chipset_flush(eb->gt);
- 
--- 
-2.21.0.rc0.32.g243a4c7e27
+== Summary ==
+
+Error: dim checkpatch failed
+9a618f815c5e drm/i915/vm_bind: Introduce VM_BIND ioctl
+-:196: WARNING:LONG_LINE: line length of 118 exceeds 100 columns
+#196: FILE: include/uapi/drm/i915_drm.h:539:
++#define DRM_IOCTL_I915_GEM_VM_BIND	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_BIND, struct drm_i915_gem_vm_bind)
+
+-:197: WARNING:LONG_LINE: line length of 122 exceeds 100 columns
+#197: FILE: include/uapi/drm/i915_drm.h:540:
++#define DRM_IOCTL_I915_GEM_VM_UNBIND	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_UNBIND, struct drm_i915_gem_vm_unbind)
+
+total: 0 errors, 2 warnings, 0 checks, 368 lines checked
+b021c9cf1fd7 drm/i915/vm_bind: Bind and unbind mappings
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:73: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#73: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 443 lines checked
+6375255bdb22 drm/i915/vm_bind: Support private and shared BOs
+bc88aa1c4e77 drm/i915/vm_bind: Add out fence support
+150c21055b0e drm/i915/vm_bind: Handle persistent vmas
+bd2c34d240da drm/i915/vm_bind: Add I915_GEM_EXECBUFFER3 ioctl
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:44: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#44: 
+new file mode 100644
+
+-:232: CHECK:MACRO_ARG_REUSE: Macro argument reuse '_i' - possible side-effects?
+#232: FILE: drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c:184:
++#define for_each_batch_create_order(_eb, _i) \
++	for ((_i) = 0; (_i) < (_eb)->num_batches; ++(_i))
+
+-:234: ERROR:MULTISTATEMENT_MACRO_USE_DO_WHILE: Macros with multiple statements should be enclosed in a do - while loop
+#234: FILE: drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c:186:
++#define for_each_batch_add_order(_eb, _i) \
++	BUILD_BUG_ON(!typecheck(int, _i)); \
++	for ((_i) = (_eb)->num_batches - 1; (_i) >= 0; --(_i))
+
+-:234: CHECK:MACRO_ARG_REUSE: Macro argument reuse '_i' - possible side-effects?
+#234: FILE: drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c:186:
++#define for_each_batch_add_order(_eb, _i) \
++	BUILD_BUG_ON(!typecheck(int, _i)); \
++	for ((_i) = (_eb)->num_batches - 1; (_i) >= 0; --(_i))
+
+-:1119: WARNING:LONG_LINE: line length of 126 exceeds 100 columns
+#1119: FILE: include/uapi/drm/i915_drm.h:542:
++#define DRM_IOCTL_I915_GEM_EXECBUFFER3	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_EXECBUFFER3, struct drm_i915_gem_execbuffer3)
+
+total: 1 errors, 2 warnings, 2 checks, 1153 lines checked
+05108f6c5754 drm/i915/vm_bind: Handle persistent vmas in execbuf3
+481d633a73ce drm/i915/vm_bind: userptr dma-resv changes
+aaafeac528d6 drm/i915/vm_bind: Skip vma_lookup for persistent vmas
+27b31d00e6b0 drm/i915/vm_bind: Fix vm->vm_bind_mutex and vm->mutex nesting
+
 
