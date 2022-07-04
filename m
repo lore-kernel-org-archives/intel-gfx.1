@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06E3C43334
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:23:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A607C43334
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:23:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6646510F7D9;
-	Mon,  4 Jul 2022 16:16:26 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C965410E174;
- Mon,  4 Jul 2022 15:20:09 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 07C0D616EC;
- Mon,  4 Jul 2022 15:20:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62598C341CE;
- Mon,  4 Jul 2022 15:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656948008;
- bh=06YFOWy5ci6Ny48R6RNGVBykXsXj0MvRxiXVVF8DTPE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pwGYVJhlAmZYDpy38yA6SzXey0ODv2ll15HQX6jQk6W+1C37witucXSPi8V3GqxSs
- VnXqtS6q29ezCZi2jwrEQR9yOkmegoZQJEdpZIW9f77x+Yj+8j3Sr568k3oeEsrJYr
- uXvBBenHiLgazJQQizCGdqewnvWgqaUEUoS4Jt3/QK8nQWDo/mGX7ovWtUQXgmMms1
- RRu3bsk2SmJeqZFN4aACI5o31zLZ5FFU7SpGSc42n2KB+sHftz5aaqV2eVdoEgcpPM
- Kowc4BLf924CJWCboXyA5rxKts/O0+n7Nl27xHGUTAaYmFihf+4+3xbcK+PJZpORl1
- IVbrNjMccg9ig==
-Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1o8Nrp-009fKZ-66;
- Mon, 04 Jul 2022 16:20:05 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: 
-Date: Mon,  4 Jul 2022 16:20:04 +0100
-Message-ID: <3ecc1f94290a66b2e682f956b5232b4903c32a2c.1656921701.git.mchehab@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FA5F10E590;
+	Mon,  4 Jul 2022 16:16:34 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 211A010E14A;
+ Mon,  4 Jul 2022 13:53:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656942800; x=1688478800;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=DZxY6zVl4Yu5rlmCpzKQErgJ7yFuXf8s2eN4HPg8oCE=;
+ b=XCxPPcNEToujKVrVJpTxITOT+cUc6hy80FYnG1tykwyup7SMFblAzf2c
+ FUTLv1u++Ip/eYFUQjn3vL3UXnAxy2X3owxytnzGuAjCTmabyEX0pY76T
+ d8DUe4H8nK5CFVRT9ShqdZ6TQnVZUyoNtxH5NuVKNhUEK9J0L+TTRIju7
+ nVoxklI/sIQIVAZbbYB9/VFA0iR/A/T4Vu8MOr80SGOjNb7gLZplfCkRq
+ 6eA7+5+HV0+7U4bzCS0nKmbJLZcJEvxTEIXT9ldWHE6Ylmi0CrJZIQT71
+ s7DISMQbXzpruD5SZqh/06gip6mbYpmtOlmqw04itMu9i82B0xOx/GChh g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10397"; a="271905996"
+X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="271905996"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2022 06:53:19 -0700
+X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="542595751"
+Received: from acagidia-mobl.ger.corp.intel.com (HELO
+ thellstr-mobl1.intel.com) ([10.249.254.34])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2022 06:53:18 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Mon,  4 Jul 2022 15:52:47 +0200
+Message-Id: <20220704135249.8241-1-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.36.1
-In-Reply-To: <cover.1656921701.git.mchehab@kernel.org>
-References: <cover.1656921701.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 2/2] drm/i915/gt: Serialize TLB invalidates
- with GT resets
+Subject: [Intel-gfx] [PATCH 0/2] Protect vma destruction with the object lock
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,82 +56,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Chris Wilson <chris.p.wilson@intel.com>, Dave Airlie <airlied@redhat.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Andi Shyti <andi.shyti@intel.com>, intel-gfx@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20220704152004.jM_-kDfjjrOj7MXsX6VHm51TjbdPJl54rQTUa8mGlOE@z>
 
-From: Chris Wilson <chris.p.wilson@intel.com>
+Protecting vma destruction with the object lock is already
+implemented everywhere as part of the "Remove short-term pinning" work,
+except in the vm destructor where the reasoning was that most code that
+needs to keep vmas alive also holds a vm reference.
 
-Avoid trying to invalidate the TLB in the middle of performing an
-engine reset, as this may result in the reset timing out. Currently,
-the TLB invalidate is only serialised by its own mutex, forgoing the
-uncore lock, but we can take the uncore->lock as well to serialise
-the mmio access, thereby serialising with the GDRST.
+However this complicates lifetime rules for vmas, so take the
+object lock around vma destruction also in the vm destructor, trying
+first with trylock to avoid having to unnecessarily release and
+re-take the vm mutex that protects the vma lists.
 
-Tested on a NUC5i7RYB, BIOS RYBDWi35.86A.0380.2019.0517.1530 with
-i915 selftest/hangcheck.
+As a follow up remove the now unnecessary taking of the vm reference in
+i915_gem_object_unbind(), and the "BARRIER" retry when taking that
+reference fails.
 
-Cc: stable@vger.kernel.org # Up to 4.4
-Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
-Reported-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Tested-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Chris Wilson <chris.p.wilson@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Andi Shyti <andi.shyti@intel.com>
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
----
+Thomas Hellström (2):
+  drm/i915: Take the object lock when destroying vmas from vm
+    destruction
+  drm/i915/gem: Rework i915_gem_object_unbind to rely on the object lock
 
-To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
-See [PATCH v3 0/2] at: https://lore.kernel.org/all/cover.1656921701.git.mchehab@kernel.org/
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c |  4 +---
+ drivers/gpu/drm/i915/gt/intel_gtt.c        | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/i915_drv.h            |  7 +++----
+ drivers/gpu/drm/i915/i915_gem.c            | 18 ------------------
+ 4 files changed, 21 insertions(+), 25 deletions(-)
 
- drivers/gpu/drm/i915/gt/intel_gt.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 8da3314bb6bf..68c2b0d8f187 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -952,6 +952,20 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 	mutex_lock(&gt->tlb_invalidate_lock);
- 	intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
- 
-+	spin_lock_irq(&uncore->lock); /* serialise invalidate with GT reset */
-+
-+	for_each_engine(engine, gt, id) {
-+		struct reg_and_bit rb;
-+
-+		rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
-+		if (!i915_mmio_reg_offset(rb.reg))
-+			continue;
-+
-+		intel_uncore_write_fw(uncore, rb.reg, rb.bit);
-+	}
-+
-+	spin_unlock_irq(&uncore->lock);
-+
- 	for_each_engine(engine, gt, id) {
- 		/*
- 		 * HW architecture suggest typical invalidation time at 40us,
-@@ -966,7 +980,6 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 		if (!i915_mmio_reg_offset(rb.reg))
- 			continue;
- 
--		intel_uncore_write_fw(uncore, rb.reg, rb.bit);
- 		if (__intel_wait_for_register_fw(uncore,
- 						 rb.reg, rb.bit, 0,
- 						 timeout_us, timeout_ms,
 -- 
 2.36.1
 
