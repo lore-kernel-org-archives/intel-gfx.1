@@ -4,71 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6AEACCA479
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2442C43334
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:19:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A38CB10EF88;
-	Mon,  4 Jul 2022 16:15:35 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7F1E10E00A
- for <intel-gfx@lists.freedesktop.org>; Mon,  4 Jul 2022 06:31:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 666A610F03F;
+	Mon,  4 Jul 2022 16:15:40 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 972E210E028;
+ Mon,  4 Jul 2022 08:43:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656916295; x=1688452295;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=Zy96tSsV4C7m7Zb32mdvEbZdQ8JUr8AMH44cWEWgPDc=;
- b=UKLkDDVyVPT9wiywFXvgFOAGj+Ap42FhLiLfEhWvOQRdiLTRLvj+vJOT
- mWqm3RHksImCg9AynTBFiFjF7JlyvZt8NdFJsuk/dVfI3v6x/S6HhUcng
- FijyNbi5tBY3sBK8/kgkJLDtiIZUE9yy3aWGiKM0BFS/61ulT5IecxaNI
- /Yv27dQuEjSsyX8nyX+3JNgViMD039koSMbyGMFtDQYwXFU3qB48Ll3yT
- XSUYqY3Vx2KUDWVXCgaMcY7XcX3XEDiMu2jZuDg2NmA+4zLE8r0tcSs3g
- I1Mr5LPvoxTRJ3CwpVJx57d9iPFE5q8OV8DZ6D5FkXW5rawnrol8UeSE/ Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10397"; a="283775733"
-X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="283775733"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2022 23:31:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="624941652"
-Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
- by orsmga001.jf.intel.com with ESMTP; 03 Jul 2022 23:31:34 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Sun, 3 Jul 2022 23:31:33 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Sun, 3 Jul 2022 23:31:33 -0700
-Received: from fmsmsx612.amr.corp.intel.com ([10.18.126.92]) by
- fmsmsx612.amr.corp.intel.com ([10.18.126.92]) with mapi id 15.01.2308.027;
- Sun, 3 Jul 2022 23:31:33 -0700
-From: "Shankar, Uma" <uma.shankar@intel.com>
-To: "Murthy, Arun R" <arun.r.murthy@intel.com>, "Nikula, Jani"
- <jani.nikula@intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [PATCHv3] drm/i915/dp: wait on timeout before retry
-Thread-Index: AQHYjTo2E2aiiMhtnkGEoJ44I8ufP61p0nSAgAPd2yCAAHrGAP//mRgg
-Date: Mon, 4 Jul 2022 06:31:33 +0000
-Message-ID: <72638a4cf3c6434b810702337e29eb37@intel.com>
-References: <20220627105939.657782-1-arun.r.murthy@intel.com>
- <20220701110309.1237002-1-arun.r.murthy@intel.com> <87sfnlm6dw.fsf@intel.com>
- <ebb45d3701bb4a78ad8b7bf1d926addc@intel.com>
- <DM6PR11MB3177F52AE19DA65003E1D8FFBABE9@DM6PR11MB3177.namprd11.prod.outlook.com>
-In-Reply-To: <DM6PR11MB3177F52AE19DA65003E1D8FFBABE9@DM6PR11MB3177.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.6.500.17
-x-originating-ip: [10.108.32.68]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ t=1656924182; x=1688460182;
+ h=date:from:to:cc:subject:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Z5AgiPRT1LGOtg/2zx17iOgDnsUMebMSOWAh7X2B8b0=;
+ b=HVtTpeiBOJ2BFoi1oNCL1I5ULt39ZC8Z7unaN04jthDQDDwF6FrV6P5E
+ 7pGyuEpGok3fd/pMJZz2TznodLscvY4JE5sYt9C9EsQ1ecWo5XD7HNScz
+ znMneRbeYswySIOhA8Gb1No8OFuA2zJ96Q1+FAClqRFacKM1WAf/65KNa
+ mrZKC7Y8iYRA9jerdFBUD3On3IKmXX51djoChhnbDMRhL5tqGGWPBuFTY
+ 0KEwYf4ZjE+thT4B0OiUYfHm8CqeTCnUnhN9W6ypSsIp0b91bfTUMx9Q3
+ 9FamvK9BrF7l21alQrgfL0xXu04MT/IGMLOwdGeKSri6sRP2wEU8nosSU A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10397"; a="263494937"
+X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="263494937"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2022 01:43:01 -0700
+X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="619194805"
+Received: from maurocar-mobl2.ger.corp.intel.com (HELO maurocar-mobl2)
+ ([10.252.33.112])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2022 01:42:55 -0700
+Date: Mon, 4 Jul 2022 10:42:52 +0200
+From: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <20220704104252.1ab7c579@maurocar-mobl2>
+In-Reply-To: <4c46e69e-9af7-3c20-7569-7a4b5897ec7d@linux.intel.com>
+References: <cover.1655306128.git.mchehab@kernel.org>
+ <5ee647f243a774927ec328bfca8212abc4957909.1655306128.git.mchehab@kernel.org>
+ <YrRLyg1IJoZpVGfg@intel.intel>
+ <160e613f-a0a8-18ff-5d4b-249d4280caa8@linux.intel.com>
+ <20220627110056.6dfa4f9b@maurocar-mobl2>
+ <d79492ad-b99a-f9a9-f64a-52b94db68a3b@linux.intel.com>
+ <20220629172955.64ffb5c3@maurocar-mobl2>
+ <7e6a9a27-7286-7f21-7fec-b9832b93b10c@linux.intel.com>
+ <20220630083256.35a56cb1@sal.lan>
+ <9477a8f1-3535-ed7f-c491-9ca9f27a10dc@linux.intel.com>
+ <20220630170134.3f89e0a3@sal.lan>
+ <4c46e69e-9af7-3c20-7569-7a4b5897ec7d@linux.intel.com>
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCHv3] drm/i915/dp: wait on timeout before retry
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 5/6] drm/i915/gt: Serialize GRDOM access
+ between multiple engine resets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,80 +69,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "tprevite@gmail.com" <tprevite@gmail.com>, "Zanoni,
- Paulo R" <paulo.r.zanoni@intel.com>
+Cc: Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>,
+ Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>,
+ David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ Chris Wilson <chris.p.wilson@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dave Airlie <airlied@redhat.com>, stable@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Fri, 1 Jul 2022 08:56:53 +0100
+Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
 
+> On 30/06/2022 17:01, Mauro Carvalho Chehab wrote:
+> > Em Thu, 30 Jun 2022 09:12:41 +0100
+> > Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> escreveu:
+> >  =20
+> >> On 30/06/2022 08:32, Mauro Carvalho Chehab wrote: =20
+> >>> Em Wed, 29 Jun 2022 17:02:59 +0100
+> >>> Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> escreveu:
+> >>>     =20
+> >>>> On 29/06/2022 16:30, Mauro Carvalho Chehab wrote: =20
+> >>>>> On Tue, 28 Jun 2022 16:49:23 +0100
+> >>>>> Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
+> >>>>>        =20
+> >>>>>> .. which for me means a different patch 1, followed by patch 6 (mo=
+ved
+> >>>>>> to be patch 2) would be ideal stable material.
+> >>>>>>
+> >>>>>> Then we have the current patch 2 which is open/unknown (to me at l=
+east).
+> >>>>>>
+> >>>>>> And the rest seem like optimisations which shouldn't be tagged as =
+fixes.
+> >>>>>>
+> >>>>>> Apart from patch 5 which should be cc: stable, but no fixes as agr=
+eed.
+> >>>>>>
+> >>>>>> Could you please double check if what I am suggesting here is feas=
+ible
+> >>>>>> to implement and if it is just send those minimal patches out alon=
+e? =20
+> >>>>>
+> >>>>> Tested and porting just those 3 patches are enough to fix the Broad=
+well
+> >>>>> bug.
+> >>>>>
+> >>>>> So, I submitted a v2 of this series with just those. They all need =
+to
+> >>>>> be backported to stable. =20
+> >>>>
+> >>>> I would really like to give even a smaller fix a try. Something like=
+, although not even compile tested:
+> >>>>
+> >>>> commit 4d5e94aef164772f4d85b3b4c1a46eac9a2bd680
+> >>>> Author: Chris Wilson <chris.p.wilson@intel.com>
+> >>>> Date:   Wed Jun 29 16:25:24 2022 +0100
+> >>>>
+> >>>>        drm/i915/gt: Serialize TLB invalidates with GT resets
+> >>>>       =20
+> >>>>        Avoid trying to invalidate the TLB in the middle of performin=
+g an
+> >>>>        engine reset, as this may result in the reset timing out. Cur=
+rently,
+> >>>>        the TLB invalidate is only serialised by its own mutex, forgo=
+ing the
+> >>>>        uncore lock, but we can take the uncore->lock as well to seri=
+alise
+> >>>>        the mmio access, thereby serialising with the GDRST.
+> >>>>       =20
+> >>>>        Tested on a NUC5i7RYB, BIOS RYBDWi35.86A.0380.2019.0517.1530 =
+with
+> >>>>        i915 selftest/hangcheck.
+> >>>>       =20
+> >>>>        Cc: stable@vger.kernel.org
+> >>>>        Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing b=
+acking store")
+> >>>>        Reported-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+> >>>>        Tested-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+> >>>>        Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+> >>>>        Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
+> >>>>        Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> >>>>        Acked-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel=
+.com>
+> >>>>        Reviewed-by: Andi Shyti <andi.shyti@intel.com>
+> >>>>        Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+> >>>>        Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i9=
+15/gt/intel_gt.c
+> >>>> index 8da3314bb6bf..aaadd0b02043 100644
+> >>>> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
+> >>>> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+> >>>> @@ -952,7 +952,23 @@ void intel_gt_invalidate_tlbs(struct intel_gt *=
+gt)
+> >>>>            mutex_lock(&gt->tlb_invalidate_lock);
+> >>>>            intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
+> >>>>    =20
+> >>>> +       spin_lock_irq(&uncore->lock); /* serialise invalidate with G=
+T reset */
+> >>>> +
+> >>>> +       for_each_engine(engine, gt, id) {
+> >>>> +               struct reg_and_bit rb;
+> >>>> +
+> >>>> +               rb =3D get_reg_and_bit(engine, regs =3D=3D gen8_regs=
+, regs, num);
+> >>>> +               if (!i915_mmio_reg_offset(rb.reg))
+> >>>> +                       continue;
+> >>>> +
+> >>>> +               intel_uncore_write_fw(uncore, rb.reg, rb.bit);
+> >>>> +       }
+> >>>> +
+> >>>> +       spin_unlock_irq(&uncore->lock);
+> >>>> +
+> >>>>            for_each_engine(engine, gt, id) {
+> >>>> +               struct reg_and_bit rb;
+> >>>> +
+> >>>>                    /*
+> >>>>                     * HW architecture suggest typical invalidation t=
+ime at 40us,
+> >>>>                     * with pessimistic cases up to 100us and a recom=
+mendation to
+> >>>> @@ -960,13 +976,11 @@ void intel_gt_invalidate_tlbs(struct intel_gt =
+*gt)
+> >>>>                     */
+> >>>>                    const unsigned int timeout_us =3D 100;
+> >>>>                    const unsigned int timeout_ms =3D 4;
+> >>>> -               struct reg_and_bit rb;
+> >>>>    =20
+> >>>>                    rb =3D get_reg_and_bit(engine, regs =3D=3D gen8_r=
+egs, regs, num);
+> >>>>                    if (!i915_mmio_reg_offset(rb.reg))
+> >>>>                            continue;
+> >>>>    =20
+> >>>> -               intel_uncore_write_fw(uncore, rb.reg, rb.bit);
+> >>>>                    if (__intel_wait_for_register_fw(uncore,
+> >>>>                                                     rb.reg, rb.bit, =
+0,
+> >>>>                                                     timeout_us, time=
+out_ms,
+> >>>>    =20
 
-> -----Original Message-----
-> From: Murthy, Arun R <arun.r.murthy@intel.com>
-> Sent: Monday, July 4, 2022 11:07 AM
-> To: Shankar, Uma <uma.shankar@intel.com>; Nikula, Jani <jani.nikula@intel=
-.com>;
-> intel-gfx@lists.freedesktop.org
-> Cc: ville.syrjala@linux.intel.com; Zanoni, Paulo R <paulo.r.zanoni@intel.=
-com>;
-> tprevite@gmail.com
-> Subject: RE: [PATCHv3] drm/i915/dp: wait on timeout before retry
->=20
-> > > -----Original Message-----
-> > > From: Nikula, Jani <jani.nikula@intel.com>
-> > > Sent: Friday, July 1, 2022 4:45 PM
-> > > To: Murthy, Arun R <arun.r.murthy@intel.com>;
-> > > intel-gfx@lists.freedesktop.org
-> > > Cc: ville.syrjala@linux.intel.com; Zanoni, Paulo R
-> > > <paulo.r.zanoni@intel.com>; tprevite@gmail.com; Shankar, Uma
-> > > <uma.shankar@intel.com>; Murthy, Arun R <arun.r.murthy@intel.com>
-> > > Subject: Re: [PATCHv3] drm/i915/dp: wait on timeout before retry
-> > >
-> > > On Fri, 01 Jul 2022, Arun R Murthy <arun.r.murthy@intel.com> wrote:
-> > > > On linktraining error/timeout before retry need to wait for
-> > > > 400usec as per the DP CTS spec1.2
-> > > >
-> > > > The patch with commit 74ebf294a1dd ("drm/i915: Add a delay in
-> > > > Displayport AUX transactions for compliance testing") removes this
-> > > > delay mentioning the hardware already meets this requirement, but
-> > > > as per the spec the delay mentioned in the spec specifies how long
-> > > > to wait for the receiver response before timeout. So the delay
-> > > > here to wait for timeout and not a delay after timeout. The DP
-> > > > spec specifies a delay after timeout and hence adding this delay.
-> >
-> > The source side as per bspec says how much time to wait for sink
-> > response before calling timeout:
-> > Reg: DDI_AUX_CTL, BitField: 27:26
-> > Name: Time out timer value
-> > Description:
-> > ValueName
-> > 00b400us (default)
-> > 01b600us
-> > 10b800us
-> > 11b4000us
-> >
-> > So this should meet the CTS requirement. For any non-timeout error
-> > from sink, s/w should add explicit delay of minimum 400us before retry
-> > (which is being done)
-> >
-> > If 400us is not enough this needs to be checked separately or the
-> > timeout value in this register can be changed from default of 400us
-> >
-> The delay specified in the register is the time to wait for triggering th=
-e timeout. This
-> is being achieved in the register mentioned above.
->=20
-> But what the CTS spec says is once the timeout has occurred, before retry=
-ing again
-> we need to wait for 400ms. This is the delay that this patch has added.
+...
 
-Thanks Arun for clarification. Seems there is some confusion with the hardw=
-are wait
-and this retry wait. I would suggest to add the CTS spec details clarifying=
- this wait and
-we should be good.
+> What about intel_engine_pm_is_awake, what will you do with that one?
 
->=20
-> Thanks and Regards,
-> Arun R Murthy
-> --------------------
+Ok, let's keep this series plain simple. I'm dropping PM awake logic
+as you suggested on v3, keeping just the bare minimal required to
+fix the selftest breakage.
 
+That actually means that we're not considering on such backports that TLB=20
+cache invalidation does add performance penalties and might cause apps
+to break.
+
+I suspect that we'll need to also backport at least some of the other
+patches like the PM awake logic and the one that avoids TLB cache=20
+invalidation when the memory was not touched by userspace, but let's
+focus first on fixing the regression pointed by selftest.
+
+Regards,
+Mauro
