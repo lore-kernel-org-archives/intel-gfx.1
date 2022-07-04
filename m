@@ -4,49 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EBFAC43334
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:20:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A63C43334
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:22:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6028010F225;
-	Mon,  4 Jul 2022 16:15:52 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01D5210E14A;
- Mon,  4 Jul 2022 13:53:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1656942806; x=1688478806;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1Js1Vns6LXoJe4GOCxHyTP8R3HC+/JHvhojp773kbGA=;
- b=lJdRPyuzZlBUCqyzZzUz5A6cClwGFbsdZXEeVYRVRHWtYbiSUuss4QRk
- S3gkx74F0gdpYyzPqCnIyuKZaDrskR6Q39SmBRmsoM4wIDKOzXas1iNaQ
- 78ON7ERT1Z1w8wFRXhlH9XYfdcLR/21SwNi+HHZj9B1cWn3dsRmBqziVF
- p1jNNMHDJ6tjXHAPGMnHbJDtazGThSxJKkkvCyUVQ4SshQITqQmsRpGiY
- tobSqOdtJmLE+gjybwjn1bLyv9owgHI4TQjNtxZneLaoIT7XJ2kJPbPjz
- pVzCHIK3U4ocqIsNeIcOOPhF4FxfyqCUMci+GKcjkhYexVj/xuuPjznUy w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10397"; a="347112578"
-X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="347112578"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2022 06:53:26 -0700
-X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="542595781"
-Received: from acagidia-mobl.ger.corp.intel.com (HELO
- thellstr-mobl1.intel.com) ([10.249.254.34])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2022 06:53:26 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Mon,  4 Jul 2022 15:52:49 +0200
-Message-Id: <20220704135249.8241-3-thomas.hellstrom@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A924210F358;
+	Mon,  4 Jul 2022 16:16:08 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96E9610E174;
+ Mon,  4 Jul 2022 15:20:12 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7A29CB81014;
+ Mon,  4 Jul 2022 15:20:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C8EC3411E;
+ Mon,  4 Jul 2022 15:20:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1656948008;
+ bh=D5q5Dno29GppKOQ4ew8H36+AhOTbVVxHP3lYtieRXwI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=GuMul2XePRnR7RYnHMhIwS5z5XCiwMtSxgrtkQVCLbE28d+mb3262Ia/XdYoz2o4W
+ bL3FUJYTLe69tzoox6yV0hdWPtIsiYVAOqMx/FjwYTJhlSlCJwmZFUuBWK6/iAGRKQ
+ k5GjOCHStr1FGODKEhz5axE0dS7XoZwuVYkvKynbSfrMmW1fAgQ5CMZrDJPiWLFXOO
+ HneDbpSK5A4nQEinuLvXAw2eAGIy8QW7ynTT1e0Zm61spMmUmpNJjcYxdFv41CCamn
+ Uq9sBQX72T6B+K1m+LzLcWZEdQfNq7gIP+Lgr4rGUqERXFiDTL/D39mz3CVRjDhdTp
+ yMNXR0E8J5K9Q==
+Received: from mchehab by mail.kernel.org with local (Exim 4.95)
+ (envelope-from <mchehab@kernel.org>) id 1o8Nro-009fKT-WA;
+ Mon, 04 Jul 2022 16:20:05 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: 
+Date: Mon,  4 Jul 2022 16:20:02 +0100
+Message-ID: <cover.1656921701.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220704135249.8241-1-thomas.hellstrom@linux.intel.com>
-References: <20220704135249.8241-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915/gem: Rework i915_gem_object_unbind
- to rely on the object lock
+Subject: [Intel-gfx] [PATCH v3 0/2] Fix TLB invalidate issues with Broadwell
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,107 +53,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Chris Wilson <chris.p.wilson@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>, dri-devel@lists.freedesktop.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+Message-ID: <20220704152002.fg6fcVYC8_T8B1IW6fNtGvCi8T_lRdQj6BRDgBu0W44@z>
 
-Since vma destruction from the vm destruction path now takes the
-object lock, we no longer need to take a vm reference from
-i915_gem_object_unbind to make sure vmas are kept alive, the
-required object lock taken across i915_gem_object_unbind is
-sufficient.
+i915 selftest hangcheck is causing the i915 driver timeouts, as reported
+by Intel CI bot:
 
-Also skip retrying on I915_GEM_OBJECT_UNBIND_BARRIER, since we
-can't race with vm destruction anymore.
+http://gfx-ci.fi.intel.com/cibuglog-ng/issuefilterassoc/24297?query_key=42a999f48fa6ecce068bc8126c069be7c31153b4
 
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_domain.c |  4 +---
- drivers/gpu/drm/i915/i915_drv.h            |  7 +++----
- drivers/gpu/drm/i915/i915_gem.c            | 18 ------------------
- 3 files changed, 4 insertions(+), 25 deletions(-)
+When such test runs, the only output is:
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-index 1674b0c5802b..cf1f39f80603 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-@@ -279,9 +279,7 @@ int i915_gem_object_set_cache_level(struct drm_i915_gem_object *obj,
- 	}
- 
- 	/* The cache-level will be applied when each vma is rebound. */
--	return i915_gem_object_unbind(obj,
--				      I915_GEM_OBJECT_UNBIND_ACTIVE |
--				      I915_GEM_OBJECT_UNBIND_BARRIER);
-+	return i915_gem_object_unbind(obj, I915_GEM_OBJECT_UNBIND_ACTIVE);
- }
- 
- int i915_gem_get_caching_ioctl(struct drm_device *dev, void *data,
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index c22f29c3faa0..6034e6319b6c 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1415,10 +1415,9 @@ i915_gem_object_ggtt_pin(struct drm_i915_gem_object *obj,
- int i915_gem_object_unbind(struct drm_i915_gem_object *obj,
- 			   unsigned long flags);
- #define I915_GEM_OBJECT_UNBIND_ACTIVE BIT(0)
--#define I915_GEM_OBJECT_UNBIND_BARRIER BIT(1)
--#define I915_GEM_OBJECT_UNBIND_TEST BIT(2)
--#define I915_GEM_OBJECT_UNBIND_VM_TRYLOCK BIT(3)
--#define I915_GEM_OBJECT_UNBIND_ASYNC BIT(4)
-+#define I915_GEM_OBJECT_UNBIND_TEST BIT(1)
-+#define I915_GEM_OBJECT_UNBIND_VM_TRYLOCK BIT(2)
-+#define I915_GEM_OBJECT_UNBIND_ASYNC BIT(3)
- 
- void i915_gem_runtime_suspend(struct drm_i915_private *dev_priv);
- 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 702e5b89be22..df16a5e8f5c7 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -137,7 +137,6 @@ int i915_gem_object_unbind(struct drm_i915_gem_object *obj,
- 	 */
- 	wakeref = intel_runtime_pm_get(rpm);
- 
--try_again:
- 	ret = 0;
- 	spin_lock(&obj->vma.lock);
- 	while (!ret && (vma = list_first_entry_or_null(&obj->vma.list,
-@@ -152,17 +151,6 @@ int i915_gem_object_unbind(struct drm_i915_gem_object *obj,
- 			break;
- 		}
- 
--		/*
--		 * Requiring the vm destructor to take the object lock
--		 * before destroying a vma would help us eliminate the
--		 * i915_vm_tryget() here, AND thus also the barrier stuff
--		 * at the end. That's an easy fix, but sleeping locks in
--		 * a kthread should generally be avoided.
--		 */
--		ret = -EAGAIN;
--		if (!i915_vm_tryget(vma->vm))
--			break;
--
- 		spin_unlock(&obj->vma.lock);
- 
- 		/*
-@@ -189,17 +177,11 @@ int i915_gem_object_unbind(struct drm_i915_gem_object *obj,
- 			}
- 		}
- 
--		i915_vm_put(vma->vm);
- 		spin_lock(&obj->vma.lock);
- 	}
- 	list_splice_init(&still_in_list, &obj->vma.list);
- 	spin_unlock(&obj->vma.lock);
- 
--	if (ret == -EAGAIN && flags & I915_GEM_OBJECT_UNBIND_BARRIER) {
--		rcu_barrier(); /* flush the i915_vm_release() */
--		goto try_again;
--	}
--
- 	intel_runtime_pm_put(rpm, wakeref);
- 
- 	return ret;
+	[   68.811639] i915: Performing live selftests with st_random_seed=0xe138eac7 st_timeout=500
+	[   68.811792] i915: Running hangcheck
+	[   68.811859] i915: Running intel_hangcheck_live_selftests/igt_hang_sanitycheck
+	[   68.816910] i915 0000:00:02.0: [drm] Cannot find any crtc or sizes
+	[   68.841597] i915: Running intel_hangcheck_live_selftests/igt_reset_nop
+	[   69.346347] igt_reset_nop: 80 resets
+	[   69.362695] i915: Running intel_hangcheck_live_selftests/igt_reset_nop_engine
+	[   69.863559] igt_reset_nop_engine(rcs0): 709 resets
+	[   70.364924] igt_reset_nop_engine(bcs0): 903 resets
+	[   70.866005] igt_reset_nop_engine(vcs0): 659 resets
+	[   71.367934] igt_reset_nop_engine(vcs1): 549 resets
+	[   71.869259] igt_reset_nop_engine(vecs0): 553 resets
+	[   71.882592] i915: Running intel_hangcheck_live_selftests/igt_reset_idle_engine
+	[   72.383554] rcs0: Completed 16605 idle resets
+	[   72.884599] bcs0: Completed 18641 idle resets
+	[   73.385592] vcs0: Completed 17517 idle resets
+	[   73.886658] vcs1: Completed 15474 idle resets
+	[   74.387600] vecs0: Completed 17983 idle resets
+	[   74.387667] i915: Running intel_hangcheck_live_selftests/igt_reset_active_engine
+	[   74.889017] rcs0: Completed 747 active resets
+	[   75.174240] intel_engine_reset(bcs0) failed, err:-110
+	[   75.174301] bcs0: Completed 525 active resets
+
+After that, the machine just silently hangs.
+
+Bisecting the issue, the patch that introduced the regression is:
+
+    7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
+
+Reverting it fix the issues, but introduce other problems, as TLB
+won't be invalidated anymore. So, instead, let's fix the root cause.
+
+It turns that the TLB flush logic ends conflicting with i915 reset,
+which is called during selftest hangcheck. So, the TLB cache should
+be serialized together with i915 reset.
+
+Tested on an Intel NUC5i7RYB with an i7-5557U Broadwell CPU.
+
+v3:
+- Removed the logic that would check if the engine is awake before doing
+  TLB flush invalidation as backporting PM logic up to Kernel 4.x could be
+  too painful. After getting this one merged, I'll submit a separate patch
+  with the PM awake logic.
+
+v2:
+
+- Reduced to bare minimum fixes, as this shoud be backported deeply
+  into stable.
+
+
+Chris Wilson (2):
+  drm/i915/gt: Serialize GRDOM access between multiple engine resets
+  drm/i915/gt: Serialize TLB invalidates with GT resets
+
+ drivers/gpu/drm/i915/gt/intel_gt.c    | 15 ++++++++++-
+ drivers/gpu/drm/i915/gt/intel_reset.c | 37 ++++++++++++++++++++-------
+ 2 files changed, 42 insertions(+), 10 deletions(-)
+
 -- 
 2.36.1
+
 
