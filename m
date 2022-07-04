@@ -4,43 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46805C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6AEACCA479
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Jul 2022 16:19:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE67C10ED3C;
-	Mon,  4 Jul 2022 16:15:24 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 490F910E00A;
- Mon,  4 Jul 2022 08:09:37 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9CFC461196;
- Mon,  4 Jul 2022 08:09:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08BC9C385A5;
- Mon,  4 Jul 2022 08:09:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1656922176;
- bh=D5q5Dno29GppKOQ4ew8H36+AhOTbVVxHP3lYtieRXwI=;
- h=From:To:Cc:Subject:Date:From;
- b=Rt9N2X9DLYlkxitVXy4r2YmnjlAVgKS3pMkFFca2T7LESc7nWaOcUDH+pdUhNJ1Gk
- Pe6J/79+S6KbN7D68GNqUfDRcced0npvnGAYJGbXhyOsoNozsi2LMVUk86V7IV+qn9
- fvOtNnGmRxRZYmvgBrNzA1htJxc2SS3gejPLBtcaRW0HdYtqNeQUWYzMDONrIWStG1
- ExYMdaQxD5HD3bUAZg2Lz/tTCRPL+1DCIhy51Ze8y/OyOlsAAe43kNb+Lpnu0OQghB
- zZ57sB+JWEZ7VyAT+nSrwGb25Hxu96mb0yGSTiS807hPdOYM5HoNe3/bWQQ95Irh47
- 6kj3sJkEmEuXQ==
-Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1o8H9A-009OaV-Qi;
- Mon, 04 Jul 2022 09:09:32 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: 
-Date: Mon,  4 Jul 2022 09:09:27 +0100
-Message-Id: <cover.1656921701.git.mchehab@kernel.org>
-X-Mailer: git-send-email 2.36.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A38CB10EF88;
+	Mon,  4 Jul 2022 16:15:35 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7F1E10E00A
+ for <intel-gfx@lists.freedesktop.org>; Mon,  4 Jul 2022 06:31:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1656916295; x=1688452295;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=Zy96tSsV4C7m7Zb32mdvEbZdQ8JUr8AMH44cWEWgPDc=;
+ b=UKLkDDVyVPT9wiywFXvgFOAGj+Ap42FhLiLfEhWvOQRdiLTRLvj+vJOT
+ mWqm3RHksImCg9AynTBFiFjF7JlyvZt8NdFJsuk/dVfI3v6x/S6HhUcng
+ FijyNbi5tBY3sBK8/kgkJLDtiIZUE9yy3aWGiKM0BFS/61ulT5IecxaNI
+ /Yv27dQuEjSsyX8nyX+3JNgViMD039koSMbyGMFtDQYwXFU3qB48Ll3yT
+ XSUYqY3Vx2KUDWVXCgaMcY7XcX3XEDiMu2jZuDg2NmA+4zLE8r0tcSs3g
+ I1Mr5LPvoxTRJ3CwpVJx57d9iPFE5q8OV8DZ6D5FkXW5rawnrol8UeSE/ Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10397"; a="283775733"
+X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="283775733"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2022 23:31:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,243,1650956400"; d="scan'208";a="624941652"
+Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
+ by orsmga001.jf.intel.com with ESMTP; 03 Jul 2022 23:31:34 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Sun, 3 Jul 2022 23:31:33 -0700
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Sun, 3 Jul 2022 23:31:33 -0700
+Received: from fmsmsx612.amr.corp.intel.com ([10.18.126.92]) by
+ fmsmsx612.amr.corp.intel.com ([10.18.126.92]) with mapi id 15.01.2308.027;
+ Sun, 3 Jul 2022 23:31:33 -0700
+From: "Shankar, Uma" <uma.shankar@intel.com>
+To: "Murthy, Arun R" <arun.r.murthy@intel.com>, "Nikula, Jani"
+ <jani.nikula@intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCHv3] drm/i915/dp: wait on timeout before retry
+Thread-Index: AQHYjTo2E2aiiMhtnkGEoJ44I8ufP61p0nSAgAPd2yCAAHrGAP//mRgg
+Date: Mon, 4 Jul 2022 06:31:33 +0000
+Message-ID: <72638a4cf3c6434b810702337e29eb37@intel.com>
+References: <20220627105939.657782-1-arun.r.murthy@intel.com>
+ <20220701110309.1237002-1-arun.r.murthy@intel.com> <87sfnlm6dw.fsf@intel.com>
+ <ebb45d3701bb4a78ad8b7bf1d926addc@intel.com>
+ <DM6PR11MB3177F52AE19DA65003E1D8FFBABE9@DM6PR11MB3177.namprd11.prod.outlook.com>
+In-Reply-To: <DM6PR11MB3177F52AE19DA65003E1D8FFBABE9@DM6PR11MB3177.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.6.500.17
+x-originating-ip: [10.108.32.68]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/2] Fix TLB invalidate issues with Broadwell
+Subject: Re: [Intel-gfx] [PATCHv3] drm/i915/dp: wait on timeout before retry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,78 +81,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: "tprevite@gmail.com" <tprevite@gmail.com>, "Zanoni,
+ Paulo R" <paulo.r.zanoni@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-i915 selftest hangcheck is causing the i915 driver timeouts, as reported
-by Intel CI bot:
-
-http://gfx-ci.fi.intel.com/cibuglog-ng/issuefilterassoc/24297?query_key=42a999f48fa6ecce068bc8126c069be7c31153b4
-
-When such test runs, the only output is:
-
-	[   68.811639] i915: Performing live selftests with st_random_seed=0xe138eac7 st_timeout=500
-	[   68.811792] i915: Running hangcheck
-	[   68.811859] i915: Running intel_hangcheck_live_selftests/igt_hang_sanitycheck
-	[   68.816910] i915 0000:00:02.0: [drm] Cannot find any crtc or sizes
-	[   68.841597] i915: Running intel_hangcheck_live_selftests/igt_reset_nop
-	[   69.346347] igt_reset_nop: 80 resets
-	[   69.362695] i915: Running intel_hangcheck_live_selftests/igt_reset_nop_engine
-	[   69.863559] igt_reset_nop_engine(rcs0): 709 resets
-	[   70.364924] igt_reset_nop_engine(bcs0): 903 resets
-	[   70.866005] igt_reset_nop_engine(vcs0): 659 resets
-	[   71.367934] igt_reset_nop_engine(vcs1): 549 resets
-	[   71.869259] igt_reset_nop_engine(vecs0): 553 resets
-	[   71.882592] i915: Running intel_hangcheck_live_selftests/igt_reset_idle_engine
-	[   72.383554] rcs0: Completed 16605 idle resets
-	[   72.884599] bcs0: Completed 18641 idle resets
-	[   73.385592] vcs0: Completed 17517 idle resets
-	[   73.886658] vcs1: Completed 15474 idle resets
-	[   74.387600] vecs0: Completed 17983 idle resets
-	[   74.387667] i915: Running intel_hangcheck_live_selftests/igt_reset_active_engine
-	[   74.889017] rcs0: Completed 747 active resets
-	[   75.174240] intel_engine_reset(bcs0) failed, err:-110
-	[   75.174301] bcs0: Completed 525 active resets
-
-After that, the machine just silently hangs.
-
-Bisecting the issue, the patch that introduced the regression is:
-
-    7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
-
-Reverting it fix the issues, but introduce other problems, as TLB
-won't be invalidated anymore. So, instead, let's fix the root cause.
-
-It turns that the TLB flush logic ends conflicting with i915 reset,
-which is called during selftest hangcheck. So, the TLB cache should
-be serialized together with i915 reset.
-
-Tested on an Intel NUC5i7RYB with an i7-5557U Broadwell CPU.
-
-v3:
-- Removed the logic that would check if the engine is awake before doing
-  TLB flush invalidation as backporting PM logic up to Kernel 4.x could be
-  too painful. After getting this one merged, I'll submit a separate patch
-  with the PM awake logic.
-
-v2:
-
-- Reduced to bare minimum fixes, as this shoud be backported deeply
-  into stable.
 
 
-Chris Wilson (2):
-  drm/i915/gt: Serialize GRDOM access between multiple engine resets
-  drm/i915/gt: Serialize TLB invalidates with GT resets
+> -----Original Message-----
+> From: Murthy, Arun R <arun.r.murthy@intel.com>
+> Sent: Monday, July 4, 2022 11:07 AM
+> To: Shankar, Uma <uma.shankar@intel.com>; Nikula, Jani <jani.nikula@intel=
+.com>;
+> intel-gfx@lists.freedesktop.org
+> Cc: ville.syrjala@linux.intel.com; Zanoni, Paulo R <paulo.r.zanoni@intel.=
+com>;
+> tprevite@gmail.com
+> Subject: RE: [PATCHv3] drm/i915/dp: wait on timeout before retry
+>=20
+> > > -----Original Message-----
+> > > From: Nikula, Jani <jani.nikula@intel.com>
+> > > Sent: Friday, July 1, 2022 4:45 PM
+> > > To: Murthy, Arun R <arun.r.murthy@intel.com>;
+> > > intel-gfx@lists.freedesktop.org
+> > > Cc: ville.syrjala@linux.intel.com; Zanoni, Paulo R
+> > > <paulo.r.zanoni@intel.com>; tprevite@gmail.com; Shankar, Uma
+> > > <uma.shankar@intel.com>; Murthy, Arun R <arun.r.murthy@intel.com>
+> > > Subject: Re: [PATCHv3] drm/i915/dp: wait on timeout before retry
+> > >
+> > > On Fri, 01 Jul 2022, Arun R Murthy <arun.r.murthy@intel.com> wrote:
+> > > > On linktraining error/timeout before retry need to wait for
+> > > > 400usec as per the DP CTS spec1.2
+> > > >
+> > > > The patch with commit 74ebf294a1dd ("drm/i915: Add a delay in
+> > > > Displayport AUX transactions for compliance testing") removes this
+> > > > delay mentioning the hardware already meets this requirement, but
+> > > > as per the spec the delay mentioned in the spec specifies how long
+> > > > to wait for the receiver response before timeout. So the delay
+> > > > here to wait for timeout and not a delay after timeout. The DP
+> > > > spec specifies a delay after timeout and hence adding this delay.
+> >
+> > The source side as per bspec says how much time to wait for sink
+> > response before calling timeout:
+> > Reg: DDI_AUX_CTL, BitField: 27:26
+> > Name: Time out timer value
+> > Description:
+> > ValueName
+> > 00b400us (default)
+> > 01b600us
+> > 10b800us
+> > 11b4000us
+> >
+> > So this should meet the CTS requirement. For any non-timeout error
+> > from sink, s/w should add explicit delay of minimum 400us before retry
+> > (which is being done)
+> >
+> > If 400us is not enough this needs to be checked separately or the
+> > timeout value in this register can be changed from default of 400us
+> >
+> The delay specified in the register is the time to wait for triggering th=
+e timeout. This
+> is being achieved in the register mentioned above.
+>=20
+> But what the CTS spec says is once the timeout has occurred, before retry=
+ing again
+> we need to wait for 400ms. This is the delay that this patch has added.
 
- drivers/gpu/drm/i915/gt/intel_gt.c    | 15 ++++++++++-
- drivers/gpu/drm/i915/gt/intel_reset.c | 37 ++++++++++++++++++++-------
- 2 files changed, 42 insertions(+), 10 deletions(-)
+Thanks Arun for clarification. Seems there is some confusion with the hardw=
+are wait
+and this retry wait. I would suggest to add the CTS spec details clarifying=
+ this wait and
+we should be good.
 
--- 
-2.36.1
-
+>=20
+> Thanks and Regards,
+> Arun R Murthy
+> --------------------
 
