@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7BADC43334
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jul 2022 11:33:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1416AC433EF
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Jul 2022 11:33:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B14D10E808;
-	Tue,  5 Jul 2022 11:30:36 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA43B10E021;
- Tue,  5 Jul 2022 09:18:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05548112073;
+	Tue,  5 Jul 2022 11:30:37 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AD2910E04C;
+ Tue,  5 Jul 2022 08:54:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657012709; x=1688548709;
- h=date:from:to:cc:subject:message-id:references:
+ t=1657011281; x=1688547281;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
  mime-version:in-reply-to;
- bh=ZdY0W/Cw1LwOY22Aq7p7hSWGi6OOHeWXfkQCnKYiIH8=;
- b=JXbdKEtWysJy2Qn+NSq2SRzp7zZ1+h2J0M8mIlwSMSoCU+1MnXLaiP/7
- h0DBE1iY8/YeVl2F8HCtGhXY+XytFGfBHrZl0J/4ehAaRul1Bsk8tTRwk
- qzmih6OumRVhmh3vOS+XWnHjdrY8Ei2h1n8kVy564hWMn3Cinkx6tOTJs
- cWO+PDwPq+UgD3e7A82lG8eC4lYEhYdwfhqrz8mt0lNfL4LXVrHe+zdDB
- OTvtUqVffXbo3O18ELDIobTSbuphiozmaXX4q0mjnBdcQLiRI/DnxpPBZ
- BSWITQLRXFwmaqqSHuJhRYvmND2UTQ7sgk4gSgH6E8NZyr3D+/z4YCSSd A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10398"; a="369624912"
-X-IronPort-AV: E=Sophos;i="5.92,245,1650956400"; d="scan'208";a="369624912"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2022 02:18:28 -0700
-X-IronPort-AV: E=Sophos;i="5.92,245,1650956400"; d="scan'208";a="769582281"
-Received: from ramaling-i9x.iind.intel.com (HELO intel.com) ([10.203.144.108])
- by orsmga005-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jul 2022 02:18:25 -0700
-Date: Tue, 5 Jul 2022 14:50:09 +0530
-From: Ramalingam C <ramalingam.c@intel.com>
-To: "Zeng, Oak" <oak.zeng@intel.com>
-Message-ID: <20220705092008.GA19913@intel.com>
-References: <20220701225055.8204-1-niranjana.vishwanathapura@intel.com>
- <20220701225055.8204-6-niranjana.vishwanathapura@intel.com>
- <BN6PR11MB1633C9D1751468194FAD212F92BE9@BN6PR11MB1633.namprd11.prod.outlook.com>
+ bh=g6BONoqwyYFdwqpfxorfSG9kCiHa2zfaJ8YHwkSPYwk=;
+ b=ZAniFgKWVO4jgf5tqEJ6kaJVBkYqopb2ECGdkGF1m2k7agW91w+XVNlu
+ JkTCfsy2dk4rDuqKvhb1OFBR7X8v6Wc8MjrBqeQN+1b7SxCFTmQjp+vL/
+ GR2Kw9wTB3ykAudUAfmdTPPLuws0KecqoDD2EVTxY7x+c+Rg4hOWmxhpj
+ Qu266mZtO3vXuOSbEUmg8G+ddwpsPtaDe3QY4oUsgw4GxfMPqf33qw/uT
+ Wkan/ZGQK9AFQTKDqLdeph7WwJHl7IKCLZ5Q9vFjITfjG28XIH2ImZOn1
+ gpU6htoSatGQo+AsJi1bnP4MvSW01/Hyzxf3wzyU1mjstEqJqsIqiV3B4 w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10398"; a="263087650"
+X-IronPort-AV: E=Sophos;i="5.92,245,1650956400"; 
+ d="asc'?scan'208";a="263087650"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jul 2022 01:54:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,245,1650956400"; 
+ d="asc'?scan'208";a="597217894"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.159.108])
+ by fmsmga007.fm.intel.com with ESMTP; 05 Jul 2022 01:54:30 -0700
+Date: Tue, 5 Jul 2022 16:31:18 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Message-ID: <20220705083118.GY1089@zhen-hp.sh.intel.com>
+References: <0-v3-7593f297c43f+56ce-vfio_unmap_notif_jgg@nvidia.com>
+ <1-v3-7593f297c43f+56ce-vfio_unmap_notif_jgg@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="XzWDHICoUFRd33PB"
 Content-Disposition: inline
-In-Reply-To: <BN6PR11MB1633C9D1751468194FAD212F92BE9@BN6PR11MB1633.namprd11.prod.outlook.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Intel-gfx] [RFC 05/10] drm/i915/vm_bind: Handle persistent vmas
+In-Reply-To: <1-v3-7593f297c43f+56ce-vfio_unmap_notif_jgg@nvidia.com>
+Subject: Re: [Intel-gfx] [PATCH v3 1/2] vfio: Replace the DMA unmapping
+ notifier with a callback
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,419 +60,728 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zanoni, Paulo R" <paulo.r.zanoni@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Hellstrom, Thomas" <thomas.hellstrom@intel.com>, "Auld,
- Matthew" <matthew.auld@intel.com>, "Vetter, Daniel" <daniel.vetter@intel.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Christoph Hellwig <hch@lst.de>,
+ linux-s390@vger.kernel.org, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Eric Farman <farman@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gvt-dev@lists.freedesktop.org,
+ Jason Herne <jjherne@linux.ibm.com>, Cornelia Huck <cohuck@redhat.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2022-07-04 at 17:05:38 +0000, Zeng, Oak wrote:
-> 
-> 
-> Thanks,
-> Oak
-> 
-> > -----Original Message-----
-> > From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> > Niranjana Vishwanathapura
-> > Sent: July 1, 2022 6:51 PM
-> > To: intel-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
-> > Cc: Zanoni, Paulo R <paulo.r.zanoni@intel.com>; Hellstrom, Thomas
-> > <thomas.hellstrom@intel.com>; Auld, Matthew <matthew.auld@intel.com>;
-> > Vetter, Daniel <daniel.vetter@intel.com>; christian.koenig@amd.com
-> > Subject: [Intel-gfx] [RFC 05/10] drm/i915/vm_bind: Handle persistent vmas
-> > 
-> > Treat VM_BIND vmas as persistent and handle them during the request
-> > submission in the execbuff path.
-> 
-> Hi Niranjana,
-> 
-> Is the meaning of "persistent" above persistent across all the subsequent execbuf ioctls?
 
-Yes oak. Thats correct. persistent across multiple execbuf ioctls.
+--XzWDHICoUFRd33PB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
-Ram.
-> 
-> Thanks,
-> Oak 
-> 
-> > 
-> > Support eviction by maintaining a list of evicted persistent vmas for rebinding
-> > during next submission.
-> > 
-> > Signed-off-by: Niranjana Vishwanathapura
-> > <niranjana.vishwanathapura@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/gem/i915_gem_object.c    |  1 +
-> >  drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h   |  3 +
-> >  .../drm/i915/gem/i915_gem_vm_bind_object.c    | 12 ++-
-> >  drivers/gpu/drm/i915/gt/intel_gtt.c           |  2 +
-> >  drivers/gpu/drm/i915/gt/intel_gtt.h           |  2 +
-> >  drivers/gpu/drm/i915/i915_gem_gtt.h           | 22 ++++++
-> >  drivers/gpu/drm/i915/i915_vma.c               | 32 +++++++-
-> >  drivers/gpu/drm/i915/i915_vma.h               | 78 +++++++++++++++++--
-> >  drivers/gpu/drm/i915/i915_vma_types.h         | 23 ++++++
-> >  9 files changed, 163 insertions(+), 12 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> > b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> > index ccec4055fde3..5121f02ba95c 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-> > @@ -38,6 +38,7 @@
-> >  #include "i915_gem_mman.h"
-> >  #include "i915_gem_object.h"
-> >  #include "i915_gem_ttm.h"
-> > +#include "i915_gem_vm_bind.h"
-> >  #include "i915_memcpy.h"
-> >  #include "i915_trace.h"
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
-> > b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
-> > index 849bf3c1061e..eaadf5a6ab09 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
-> > @@ -6,6 +6,7 @@
-> >  #ifndef __I915_GEM_VM_BIND_H
-> >  #define __I915_GEM_VM_BIND_H
-> > 
-> > +#include <linux/dma-resv.h>
-> >  #include "i915_drv.h"
-> > 
-> >  #define assert_vm_bind_held(vm)   lockdep_assert_held(&(vm)-
-> > >vm_bind_lock)
-> > @@ -26,6 +27,8 @@ static inline void i915_gem_vm_bind_unlock(struct
-> > i915_address_space *vm)
-> >  	mutex_unlock(&vm->vm_bind_lock);
-> >  }
-> > 
-> > +#define assert_vm_priv_held(vm)   assert_object_held((vm)->root_obj)
-> > +
-> >  static inline int i915_gem_vm_priv_lock(struct i915_address_space *vm,
-> >  					struct i915_gem_ww_ctx *ww)
-> >  {
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-> > b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-> > index 96f139cc8060..1a8efa83547f 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-> > @@ -85,6 +85,13 @@ void i915_gem_vm_bind_remove(struct i915_vma
-> > *vma, bool release_obj)  {
-> >  	assert_vm_bind_held(vma->vm);
-> > 
-> > +	spin_lock(&vma->vm->vm_rebind_lock);
-> > +	if (!list_empty(&vma->vm_rebind_link))
-> > +		list_del_init(&vma->vm_rebind_link);
-> > +	i915_vma_set_purged(vma);
-> > +	i915_vma_set_freed(vma);
-> > +	spin_unlock(&vma->vm->vm_rebind_lock);
-> > +
-> >  	if (!list_empty(&vma->vm_bind_link)) {
-> >  		list_del_init(&vma->vm_bind_link);
-> >  		list_del_init(&vma->non_priv_vm_bind_link);
-> > @@ -220,6 +227,7 @@ static struct i915_vma *vm_bind_get_vma(struct
-> > i915_address_space *vm,
-> > 
-> >  	vma->start = va->start;
-> >  	vma->last = va->start + va->length - 1;
-> > +	i915_vma_set_persistent(vma);
-> > 
-> >  	return vma;
-> >  }
-> > @@ -304,8 +312,10 @@ int i915_gem_vm_bind_obj(struct
-> > i915_address_space *vm,
-> > 
-> >  	i915_vm_bind_put_fence(vma);
-> >  put_vma:
-> > -	if (ret)
-> > +	if (ret) {
-> > +		i915_vma_set_freed(vma);
-> >  		i915_vma_destroy(vma);
-> > +	}
-> > 
-> >  	i915_gem_ww_ctx_fini(&ww);
-> >  unlock_vm:
-> > diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c
-> > b/drivers/gpu/drm/i915/gt/intel_gtt.c
-> > index df0a8459c3c6..55d5389b2c6c 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-> > +++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-> > @@ -293,6 +293,8 @@ void i915_address_space_init(struct
-> > i915_address_space *vm, int subclass)
-> >  	INIT_LIST_HEAD(&vm->non_priv_vm_bind_list);
-> >  	vm->root_obj = i915_gem_object_create_internal(vm->i915,
-> > PAGE_SIZE);
-> >  	GEM_BUG_ON(IS_ERR(vm->root_obj));
-> > +	INIT_LIST_HEAD(&vm->vm_rebind_list);
-> > +	spin_lock_init(&vm->vm_rebind_lock);
-> >  }
-> > 
-> >  void *__px_vaddr(struct drm_i915_gem_object *p) diff --git
-> > a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-> > index f538ce9115c9..fe5485c4a1cd 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-> > +++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-> > @@ -265,6 +265,8 @@ struct i915_address_space {
-> >  	struct mutex vm_bind_lock;  /* Protects vm_bind lists */
-> >  	struct list_head vm_bind_list;
-> >  	struct list_head vm_bound_list;
-> > +	struct list_head vm_rebind_list;
-> > +	spinlock_t vm_rebind_lock;   /* Protects vm_rebind_list */
-> >  	/* va tree of persistent vmas */
-> >  	struct rb_root_cached va;
-> >  	struct list_head non_priv_vm_bind_list; diff --git
-> > a/drivers/gpu/drm/i915/i915_gem_gtt.h
-> > b/drivers/gpu/drm/i915/i915_gem_gtt.h
-> > index 8c2f57eb5dda..09b89d1913fc 100644
-> > --- a/drivers/gpu/drm/i915/i915_gem_gtt.h
-> > +++ b/drivers/gpu/drm/i915/i915_gem_gtt.h
-> > @@ -51,4 +51,26 @@ int i915_gem_gtt_insert(struct i915_address_space
-> > *vm,
-> > 
-> >  #define PIN_OFFSET_MASK		I915_GTT_PAGE_MASK
-> > 
-> > +static inline int i915_vm_sync(struct i915_address_space *vm) {
-> > +	int ret;
-> > +
-> > +	/* Wait for all requests under this vm to finish */
-> > +	ret = dma_resv_wait_timeout(vm->root_obj->base.resv,
-> > +				    DMA_RESV_USAGE_BOOKKEEP, false,
-> > +				    MAX_SCHEDULE_TIMEOUT);
-> > +	if (ret < 0)
-> > +		return ret;
-> > +	else if (ret > 0)
-> > +		return 0;
-> > +	else
-> > +		return -ETIMEDOUT;
-> > +}
-> > +
-> > +static inline bool i915_vm_is_active(const struct i915_address_space
-> > +*vm) {
-> > +	return !dma_resv_test_signaled(vm->root_obj->base.resv,
-> > +				       DMA_RESV_USAGE_BOOKKEEP);
-> > +}
-> > +
-> >  #endif
-> > diff --git a/drivers/gpu/drm/i915/i915_vma.c
-> > b/drivers/gpu/drm/i915/i915_vma.c index 6737236b7884..6adb013579be
-> > 100644
-> > --- a/drivers/gpu/drm/i915/i915_vma.c
-> > +++ b/drivers/gpu/drm/i915/i915_vma.c
-> > @@ -237,6 +237,7 @@ vma_create(struct drm_i915_gem_object *obj,
-> > 
-> >  	INIT_LIST_HEAD(&vma->vm_bind_link);
-> >  	INIT_LIST_HEAD(&vma->non_priv_vm_bind_link);
-> > +	INIT_LIST_HEAD(&vma->vm_rebind_link);
-> >  	return vma;
-> > 
-> >  err_unlock:
-> > @@ -1622,7 +1623,8 @@ void i915_vma_close(struct i915_vma *vma)
-> >  	if (atomic_dec_and_lock_irqsave(&vma->open_count,
-> >  					&gt->closed_lock,
-> >  					flags)) {
-> > -		__vma_close(vma, gt);
-> > +		if (!i915_vma_is_persistent(vma))
-> > +			__vma_close(vma, gt);
-> >  		spin_unlock_irqrestore(&gt->closed_lock, flags);
-> >  	}
-> >  }
-> > @@ -1647,6 +1649,13 @@ static void force_unbind(struct i915_vma *vma)
-> >  	if (!drm_mm_node_allocated(&vma->node))
-> >  		return;
-> > 
-> > +	/*
-> > +	 * Mark persistent vma as purged to avoid it waiting
-> > +	 * for VM to be released.
-> > +	 */
-> > +	if (i915_vma_is_persistent(vma))
-> > +		i915_vma_set_purged(vma);
-> > +
-> >  	atomic_and(~I915_VMA_PIN_MASK, &vma->flags);
-> >  	WARN_ON(__i915_vma_unbind(vma));
-> >  	GEM_BUG_ON(drm_mm_node_allocated(&vma->node));
-> > @@ -1666,9 +1675,12 @@ static void release_references(struct i915_vma
-> > *vma, bool vm_ddestroy)
-> > 
-> >  	spin_unlock(&obj->vma.lock);
-> > 
-> > -	i915_gem_vm_bind_lock(vma->vm);
-> > -	i915_gem_vm_bind_remove(vma, true);
-> > -	i915_gem_vm_bind_unlock(vma->vm);
-> > +	if (i915_vma_is_persistent(vma) &&
-> > +	    !i915_vma_is_freed(vma)) {
-> > +		i915_gem_vm_bind_lock(vma->vm);
-> > +		i915_gem_vm_bind_remove(vma, true);
-> > +		i915_gem_vm_bind_unlock(vma->vm);
-> > +	}
-> > 
-> >  	spin_lock_irq(&gt->closed_lock);
-> >  	__i915_vma_remove_closed(vma);
-> > @@ -1839,6 +1851,8 @@ int _i915_vma_move_to_active(struct i915_vma
-> > *vma,
-> >  	int err;
-> > 
-> >  	assert_object_held(obj);
-> > +	if (i915_vma_is_persistent(vma))
-> > +		return -EINVAL;
-> > 
-> >  	GEM_BUG_ON(!vma->pages);
-> > 
-> > @@ -1999,6 +2013,16 @@ int __i915_vma_unbind(struct i915_vma *vma)
-> >  	__i915_vma_evict(vma, false);
-> > 
-> >  	drm_mm_remove_node(&vma->node); /* pairs with
-> > i915_vma_release() */
-> > +
-> > +	if (i915_vma_is_persistent(vma)) {
-> > +		spin_lock(&vma->vm->vm_rebind_lock);
-> > +		if (list_empty(&vma->vm_rebind_link) &&
-> > +		    !i915_vma_is_purged(vma))
-> > +			list_add_tail(&vma->vm_rebind_link,
-> > +				      &vma->vm->vm_rebind_list);
-> > +		spin_unlock(&vma->vm->vm_rebind_lock);
-> > +	}
-> > +
-> >  	return 0;
-> >  }
-> > 
-> > diff --git a/drivers/gpu/drm/i915/i915_vma.h
-> > b/drivers/gpu/drm/i915/i915_vma.h index dcb49f79ff7e..6c1369a40e03
-> > 100644
-> > --- a/drivers/gpu/drm/i915/i915_vma.h
-> > +++ b/drivers/gpu/drm/i915/i915_vma.h
-> > @@ -47,12 +47,6 @@ i915_vma_instance(struct drm_i915_gem_object *obj,
-> > 
-> >  void i915_vma_unpin_and_release(struct i915_vma **p_vma, unsigned int
-> > flags);  #define I915_VMA_RELEASE_MAP BIT(0)
-> > -
-> > -static inline bool i915_vma_is_active(const struct i915_vma *vma) -{
-> > -	return !i915_active_is_idle(&vma->active);
-> > -}
-> > -
-> >  /* do not reserve memory to prevent deadlocks */  #define
-> > __EXEC_OBJECT_NO_RESERVE BIT(31)
-> > 
-> > @@ -138,6 +132,48 @@ static inline u32 i915_ggtt_pin_bias(struct i915_vma
-> > *vma)
-> >  	return i915_vm_to_ggtt(vma->vm)->pin_bias;
-> >  }
-> > 
-> > +static inline bool i915_vma_is_persistent(const struct i915_vma *vma) {
-> > +	return test_bit(I915_VMA_PERSISTENT_BIT,
-> > __i915_vma_flags(vma)); }
-> > +
-> > +static inline void i915_vma_set_persistent(struct i915_vma *vma) {
-> > +	set_bit(I915_VMA_PERSISTENT_BIT, __i915_vma_flags(vma)); }
-> > +
-> > +static inline bool i915_vma_is_purged(const struct i915_vma *vma) {
-> > +	return test_bit(I915_VMA_PURGED_BIT, __i915_vma_flags(vma)); }
-> > +
-> > +static inline void i915_vma_set_purged(struct i915_vma *vma) {
-> > +	set_bit(I915_VMA_PURGED_BIT, __i915_vma_flags(vma)); }
-> > +
-> > +static inline bool i915_vma_is_freed(const struct i915_vma *vma) {
-> > +	return test_bit(I915_VMA_FREED_BIT, __i915_vma_flags(vma)); }
-> > +
-> > +static inline void i915_vma_set_freed(struct i915_vma *vma) {
-> > +	set_bit(I915_VMA_FREED_BIT, __i915_vma_flags(vma)); }
-> > +
-> > +static inline bool i915_vma_is_active(const struct i915_vma *vma) {
-> > +	if (i915_vma_is_persistent(vma)) {
-> > +		if (i915_vma_is_purged(vma))
-> > +			return false;
-> > +
-> > +		return i915_vm_is_active(vma->vm);
-> > +	}
-> > +
-> > +	return !i915_active_is_idle(&vma->active);
-> > +}
-> > +
-> >  static inline struct i915_vma *i915_vma_get(struct i915_vma *vma)  {
-> >  	i915_gem_object_get(vma->obj);
-> > @@ -408,8 +444,36 @@ int i915_vma_wait_for_bind(struct i915_vma *vma);
-> > 
-> >  static inline int i915_vma_sync(struct i915_vma *vma)  {
-> > +	int ret;
-> > +
-> >  	/* Wait for the asynchronous bindings and pending GPU reads */
-> > -	return i915_active_wait(&vma->active);
-> > +	ret = i915_active_wait(&vma->active);
-> > +	if (ret || !i915_vma_is_persistent(vma) ||
-> > i915_vma_is_purged(vma))
-> > +		return ret;
-> > +
-> > +	return i915_vm_sync(vma->vm);
-> > +}
-> > +
-> > +static inline bool i915_vma_is_bind_complete(struct i915_vma *vma) {
-> > +	/* Ensure vma bind is initiated */
-> > +	if (!i915_vma_is_bound(vma, I915_VMA_BIND_MASK))
-> > +		return false;
-> > +
-> > +	/* Ensure any binding started is complete */
-> > +	if (rcu_access_pointer(vma->active.excl.fence)) {
-> > +		struct dma_fence *fence;
-> > +
-> > +		rcu_read_lock();
-> > +		fence = dma_fence_get_rcu_safe(&vma->active.excl.fence);
-> > +		rcu_read_unlock();
-> > +		if (fence) {
-> > +			dma_fence_put(fence);
-> > +			return false;
-> > +		}
-> > +	}
-> > +
-> > +	return true;
-> >  }
-> > 
-> >  /**
-> > diff --git a/drivers/gpu/drm/i915/i915_vma_types.h
-> > b/drivers/gpu/drm/i915/i915_vma_types.h
-> > index 7d830a6a0b51..405c82e1bc30 100644
-> > --- a/drivers/gpu/drm/i915/i915_vma_types.h
-> > +++ b/drivers/gpu/drm/i915/i915_vma_types.h
-> > @@ -264,6 +264,28 @@ struct i915_vma {
-> >  #define I915_VMA_SCANOUT_BIT	17
-> >  #define I915_VMA_SCANOUT	((int)BIT(I915_VMA_SCANOUT_BIT))
-> > 
-> > +  /**
-> > +   * I915_VMA_PERSISTENT_BIT:
-> > +   * The vma is persistent (created with VM_BIND call).
-> > +   *
-> > +   * I915_VMA_PURGED_BIT:
-> > +   * The persistent vma is force unbound either due to VM_UNBIND call
-> > +   * from UMD or VM is released. Do not check/wait for VM activeness
-> > +   * in i915_vma_is_active() and i915_vma_sync() calls.
-> > +   *
-> > +   * I915_VMA_FREED_BIT:
-> > +   * The persistent vma is being released by UMD via VM_UNBIND call.
-> > +   * While releasing the vma, do not take VM_BIND lock as VM_UNBIND call
-> > +   * already holds the lock.
-> > +   */
-> > +#define I915_VMA_PERSISTENT_BIT	19
-> > +#define I915_VMA_PURGED_BIT	20
-> > +#define I915_VMA_FREED_BIT	21
-> > +
-> > +#define I915_VMA_PERSISTENT
-> > 	((int)BIT(I915_VMA_PERSISTENT_BIT))
-> > +#define I915_VMA_PURGED		((int)BIT(I915_VMA_PURGED_BIT))
-> > +#define I915_VMA_FREED		((int)BIT(I915_VMA_FREED_BIT))
-> > +
-> >  	struct i915_active active;
-> > 
-> >  #define I915_VMA_PAGES_BIAS 24
-> > @@ -292,6 +314,7 @@ struct i915_vma {
-> >  	struct list_head vm_bind_link; /* Link in persistent VMA list */
-> >  	/* Link in non-private persistent VMA list */
-> >  	struct list_head non_priv_vm_bind_link;
-> > +	struct list_head vm_rebind_link; /* Link in vm_rebind_list */
-> > 
-> >  	/** Timeline fence for vm_bind completion notification */
-> >  	struct {
-> > --
-> > 2.21.0.rc0.32.g243a4c7e27
-> 
+On 2022.07.04 21:59:03 -0300, Jason Gunthorpe wrote:
+> Instead of having drivers register the notifier with explicit code just
+> have them provide a dma_unmap callback op in their driver ops and rely on
+> the core code to wire it up.
+>=20
+> Suggested-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> Reviewed-by: Tony Krowiak <akrowiak@linux.ibm.com>
+> Reviewed-by: Eric Farman <farman@linux.ibm.com>
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> ---
+>  drivers/gpu/drm/i915/gvt/gvt.h        |   1 -
+>  drivers/gpu/drm/i915/gvt/kvmgt.c      |  75 ++++-----------
+
+gvt change looks fine to me.
+
+Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
+
+>  drivers/s390/cio/vfio_ccw_ops.c       |  41 ++------
+>  drivers/s390/cio/vfio_ccw_private.h   |   2 -
+>  drivers/s390/crypto/vfio_ap_ops.c     |  53 ++---------
+>  drivers/s390/crypto/vfio_ap_private.h |   3 -
+>  drivers/vfio/vfio.c                   | 129 +++++++++-----------------
+>  drivers/vfio/vfio.h                   |   3 +
+>  include/linux/vfio.h                  |  21 +----
+>  9 files changed, 88 insertions(+), 240 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gvt/gvt.h b/drivers/gpu/drm/i915/gvt/gv=
+t.h
+> index aee1a45da74bcb..705689e6401197 100644
+> --- a/drivers/gpu/drm/i915/gvt/gvt.h
+> +++ b/drivers/gpu/drm/i915/gvt/gvt.h
+> @@ -226,7 +226,6 @@ struct intel_vgpu {
+>  	unsigned long nr_cache_entries;
+>  	struct mutex cache_lock;
+> =20
+> -	struct notifier_block iommu_notifier;
+>  	atomic_t released;
+> =20
+>  	struct kvm_page_track_notifier_node track_node;
+> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/=
+kvmgt.c
+> index e2f6c56ab3420c..ecd5bb37b63a2a 100644
+> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
+> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> @@ -729,34 +729,25 @@ int intel_gvt_set_edid(struct intel_vgpu *vgpu, int=
+ port_num)
+>  	return ret;
+>  }
+> =20
+> -static int intel_vgpu_iommu_notifier(struct notifier_block *nb,
+> -				     unsigned long action, void *data)
+> +static void intel_vgpu_dma_unmap(struct vfio_device *vfio_dev, u64 iova,
+> +				 u64 length)
+>  {
+> -	struct intel_vgpu *vgpu =3D
+> -		container_of(nb, struct intel_vgpu, iommu_notifier);
+> -
+> -	if (action =3D=3D VFIO_IOMMU_NOTIFY_DMA_UNMAP) {
+> -		struct vfio_iommu_type1_dma_unmap *unmap =3D data;
+> -		struct gvt_dma *entry;
+> -		unsigned long iov_pfn, end_iov_pfn;
+> +	struct intel_vgpu *vgpu =3D vfio_dev_to_vgpu(vfio_dev);
+> +	struct gvt_dma *entry;
+> +	u64 iov_pfn =3D iova >> PAGE_SHIFT;
+> +	u64 end_iov_pfn =3D iov_pfn + length / PAGE_SIZE;
+> =20
+> -		iov_pfn =3D unmap->iova >> PAGE_SHIFT;
+> -		end_iov_pfn =3D iov_pfn + unmap->size / PAGE_SIZE;
+> +	mutex_lock(&vgpu->cache_lock);
+> +	for (; iov_pfn < end_iov_pfn; iov_pfn++) {
+> +		entry =3D __gvt_cache_find_gfn(vgpu, iov_pfn);
+> +		if (!entry)
+> +			continue;
+> =20
+> -		mutex_lock(&vgpu->cache_lock);
+> -		for (; iov_pfn < end_iov_pfn; iov_pfn++) {
+> -			entry =3D __gvt_cache_find_gfn(vgpu, iov_pfn);
+> -			if (!entry)
+> -				continue;
+> -
+> -			gvt_dma_unmap_page(vgpu, entry->gfn, entry->dma_addr,
+> -					   entry->size);
+> -			__gvt_cache_remove_entry(vgpu, entry);
+> -		}
+> -		mutex_unlock(&vgpu->cache_lock);
+> +		gvt_dma_unmap_page(vgpu, entry->gfn, entry->dma_addr,
+> +				   entry->size);
+> +		__gvt_cache_remove_entry(vgpu, entry);
+>  	}
+> -
+> -	return NOTIFY_OK;
+> +	mutex_unlock(&vgpu->cache_lock);
+>  }
+> =20
+>  static bool __kvmgt_vgpu_exist(struct intel_vgpu *vgpu)
+> @@ -783,36 +774,20 @@ static bool __kvmgt_vgpu_exist(struct intel_vgpu *v=
+gpu)
+>  static int intel_vgpu_open_device(struct vfio_device *vfio_dev)
+>  {
+>  	struct intel_vgpu *vgpu =3D vfio_dev_to_vgpu(vfio_dev);
+> -	unsigned long events;
+> -	int ret;
+> -
+> -	vgpu->iommu_notifier.notifier_call =3D intel_vgpu_iommu_notifier;
+> =20
+> -	events =3D VFIO_IOMMU_NOTIFY_DMA_UNMAP;
+> -	ret =3D vfio_register_notifier(vfio_dev, VFIO_IOMMU_NOTIFY, &events,
+> -				     &vgpu->iommu_notifier);
+> -	if (ret !=3D 0) {
+> -		gvt_vgpu_err("vfio_register_notifier for iommu failed: %d\n",
+> -			ret);
+> -		goto out;
+> -	}
+> -
+> -	ret =3D -EEXIST;
+>  	if (vgpu->attached)
+> -		goto undo_iommu;
+> +		return -EEXIST;
+> =20
+> -	ret =3D -ESRCH;
+>  	if (!vgpu->vfio_device.kvm ||
+>  	    vgpu->vfio_device.kvm->mm !=3D current->mm) {
+>  		gvt_vgpu_err("KVM is required to use Intel vGPU\n");
+> -		goto undo_iommu;
+> +		return -ESRCH;
+>  	}
+> =20
+>  	kvm_get_kvm(vgpu->vfio_device.kvm);
+> =20
+> -	ret =3D -EEXIST;
+>  	if (__kvmgt_vgpu_exist(vgpu))
+> -		goto undo_iommu;
+> +		return -EEXIST;
+> =20
+>  	vgpu->attached =3D true;
+> =20
+> @@ -831,12 +806,6 @@ static int intel_vgpu_open_device(struct vfio_device=
+ *vfio_dev)
+> =20
+>  	atomic_set(&vgpu->released, 0);
+>  	return 0;
+> -
+> -undo_iommu:
+> -	vfio_unregister_notifier(vfio_dev, VFIO_IOMMU_NOTIFY,
+> -				 &vgpu->iommu_notifier);
+> -out:
+> -	return ret;
+>  }
+> =20
+>  static void intel_vgpu_release_msi_eventfd_ctx(struct intel_vgpu *vgpu)
+> @@ -853,8 +822,6 @@ static void intel_vgpu_release_msi_eventfd_ctx(struct=
+ intel_vgpu *vgpu)
+>  static void intel_vgpu_close_device(struct vfio_device *vfio_dev)
+>  {
+>  	struct intel_vgpu *vgpu =3D vfio_dev_to_vgpu(vfio_dev);
+> -	struct drm_i915_private *i915 =3D vgpu->gvt->gt->i915;
+> -	int ret;
+> =20
+>  	if (!vgpu->attached)
+>  		return;
+> @@ -864,11 +831,6 @@ static void intel_vgpu_close_device(struct vfio_devi=
+ce *vfio_dev)
+> =20
+>  	intel_gvt_release_vgpu(vgpu);
+> =20
+> -	ret =3D vfio_unregister_notifier(&vgpu->vfio_device, VFIO_IOMMU_NOTIFY,
+> -				       &vgpu->iommu_notifier);
+> -	drm_WARN(&i915->drm, ret,
+> -		 "vfio_unregister_notifier for iommu failed: %d\n", ret);
+> -
+>  	debugfs_remove(debugfs_lookup(KVMGT_DEBUGFS_FILENAME, vgpu->debugfs));
+> =20
+>  	kvm_page_track_unregister_notifier(vgpu->vfio_device.kvm,
+> @@ -1610,6 +1572,7 @@ static const struct vfio_device_ops intel_vgpu_dev_=
+ops =3D {
+>  	.write		=3D intel_vgpu_write,
+>  	.mmap		=3D intel_vgpu_mmap,
+>  	.ioctl		=3D intel_vgpu_ioctl,
+> +	.dma_unmap	=3D intel_vgpu_dma_unmap,
+>  };
+> =20
+>  static int intel_vgpu_probe(struct mdev_device *mdev)
+> diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_=
+ops.c
+> index b49e2e9db2dc6f..09e0ce7b72324c 100644
+> --- a/drivers/s390/cio/vfio_ccw_ops.c
+> +++ b/drivers/s390/cio/vfio_ccw_ops.c
+> @@ -44,31 +44,19 @@ static int vfio_ccw_mdev_reset(struct vfio_ccw_privat=
+e *private)
+>  	return ret;
+>  }
+> =20
+> -static int vfio_ccw_mdev_notifier(struct notifier_block *nb,
+> -				  unsigned long action,
+> -				  void *data)
+> +static void vfio_ccw_dma_unmap(struct vfio_device *vdev, u64 iova, u64 l=
+ength)
+>  {
+>  	struct vfio_ccw_private *private =3D
+> -		container_of(nb, struct vfio_ccw_private, nb);
+> -
+> -	/*
+> -	 * Vendor drivers MUST unpin pages in response to an
+> -	 * invalidation.
+> -	 */
+> -	if (action =3D=3D VFIO_IOMMU_NOTIFY_DMA_UNMAP) {
+> -		struct vfio_iommu_type1_dma_unmap *unmap =3D data;
+> -
+> -		if (!cp_iova_pinned(&private->cp, unmap->iova))
+> -			return NOTIFY_OK;
+> +		container_of(vdev, struct vfio_ccw_private, vdev);
+> =20
+> -		if (vfio_ccw_mdev_reset(private))
+> -			return NOTIFY_BAD;
+> +	/* Drivers MUST unpin pages in response to an invalidation. */
+> +	if (!cp_iova_pinned(&private->cp, iova))
+> +		return;
+> =20
+> -		cp_free(&private->cp);
+> -		return NOTIFY_OK;
+> -	}
+> +	if (vfio_ccw_mdev_reset(private))
+> +		return;
+> =20
+> -	return NOTIFY_DONE;
+> +	cp_free(&private->cp);
+>  }
+> =20
+>  static ssize_t name_show(struct mdev_type *mtype,
+> @@ -178,19 +166,11 @@ static int vfio_ccw_mdev_open_device(struct vfio_de=
+vice *vdev)
+>  {
+>  	struct vfio_ccw_private *private =3D
+>  		container_of(vdev, struct vfio_ccw_private, vdev);
+> -	unsigned long events =3D VFIO_IOMMU_NOTIFY_DMA_UNMAP;
+>  	int ret;
+> =20
+> -	private->nb.notifier_call =3D vfio_ccw_mdev_notifier;
+> -
+> -	ret =3D vfio_register_notifier(vdev, VFIO_IOMMU_NOTIFY,
+> -				     &events, &private->nb);
+> -	if (ret)
+> -		return ret;
+> -
+>  	ret =3D vfio_ccw_register_async_dev_regions(private);
+>  	if (ret)
+> -		goto out_unregister;
+> +		return ret;
+> =20
+>  	ret =3D vfio_ccw_register_schib_dev_regions(private);
+>  	if (ret)
+> @@ -204,7 +184,6 @@ static int vfio_ccw_mdev_open_device(struct vfio_devi=
+ce *vdev)
+> =20
+>  out_unregister:
+>  	vfio_ccw_unregister_dev_regions(private);
+> -	vfio_unregister_notifier(vdev, VFIO_IOMMU_NOTIFY, &private->nb);
+>  	return ret;
+>  }
+> =20
+> @@ -222,7 +201,6 @@ static void vfio_ccw_mdev_close_device(struct vfio_de=
+vice *vdev)
+> =20
+>  	cp_free(&private->cp);
+>  	vfio_ccw_unregister_dev_regions(private);
+> -	vfio_unregister_notifier(vdev, VFIO_IOMMU_NOTIFY, &private->nb);
+>  }
+> =20
+>  static ssize_t vfio_ccw_mdev_read_io_region(struct vfio_ccw_private *pri=
+vate,
+> @@ -645,6 +623,7 @@ static const struct vfio_device_ops vfio_ccw_dev_ops =
+=3D {
+>  	.write =3D vfio_ccw_mdev_write,
+>  	.ioctl =3D vfio_ccw_mdev_ioctl,
+>  	.request =3D vfio_ccw_mdev_request,
+> +	.dma_unmap =3D vfio_ccw_dma_unmap,
+>  };
+> =20
+>  struct mdev_driver vfio_ccw_mdev_driver =3D {
+> diff --git a/drivers/s390/cio/vfio_ccw_private.h b/drivers/s390/cio/vfio_=
+ccw_private.h
+> index b7163bac8cc75d..61418109238976 100644
+> --- a/drivers/s390/cio/vfio_ccw_private.h
+> +++ b/drivers/s390/cio/vfio_ccw_private.h
+> @@ -74,7 +74,6 @@ struct vfio_ccw_crw {
+>   * @completion: synchronization helper of the I/O completion
+>   * @avail: available for creating a mediated device
+>   * @mdev: pointer to the mediated device
+> - * @nb: notifier for vfio events
+>   * @io_region: MMIO region to input/output I/O arguments/results
+>   * @io_mutex: protect against concurrent update of I/O regions
+>   * @region: additional regions for other subchannel operations
+> @@ -98,7 +97,6 @@ struct vfio_ccw_private {
+>  	struct completion	*completion;
+>  	atomic_t		avail;
+>  	struct mdev_device	*mdev;
+> -	struct notifier_block	nb;
+>  	struct ccw_io_region	*io_region;
+>  	struct mutex		io_mutex;
+>  	struct vfio_ccw_region *region;
+> diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio=
+_ap_ops.c
+> index a7d2a95796d360..bb1a1677c5c230 100644
+> --- a/drivers/s390/crypto/vfio_ap_ops.c
+> +++ b/drivers/s390/crypto/vfio_ap_ops.c
+> @@ -1226,34 +1226,14 @@ static int vfio_ap_mdev_set_kvm(struct ap_matrix_=
+mdev *matrix_mdev,
+>  	return 0;
+>  }
+> =20
+> -/**
+> - * vfio_ap_mdev_iommu_notifier - IOMMU notifier callback
+> - *
+> - * @nb: The notifier block
+> - * @action: Action to be taken
+> - * @data: data associated with the request
+> - *
+> - * For an UNMAP request, unpin the guest IOVA (the NIB guest address we
+> - * pinned before). Other requests are ignored.
+> - *
+> - * Return: for an UNMAP request, NOFITY_OK; otherwise NOTIFY_DONE.
+> - */
+> -static int vfio_ap_mdev_iommu_notifier(struct notifier_block *nb,
+> -				       unsigned long action, void *data)
+> +static void vfio_ap_mdev_dma_unmap(struct vfio_device *vdev, u64 iova,
+> +				   u64 length)
+>  {
+> -	struct ap_matrix_mdev *matrix_mdev;
+> -
+> -	matrix_mdev =3D container_of(nb, struct ap_matrix_mdev, iommu_notifier);
+> -
+> -	if (action =3D=3D VFIO_IOMMU_NOTIFY_DMA_UNMAP) {
+> -		struct vfio_iommu_type1_dma_unmap *unmap =3D data;
+> -		unsigned long g_pfn =3D unmap->iova >> PAGE_SHIFT;
+> -
+> -		vfio_unpin_pages(&matrix_mdev->vdev, &g_pfn, 1);
+> -		return NOTIFY_OK;
+> -	}
+> +	struct ap_matrix_mdev *matrix_mdev =3D
+> +		container_of(vdev, struct ap_matrix_mdev, vdev);
+> +	unsigned long g_pfn =3D iova >> PAGE_SHIFT;
+> =20
+> -	return NOTIFY_DONE;
+> +	vfio_unpin_pages(&matrix_mdev->vdev, &g_pfn, 1);
+>  }
+> =20
+>  /**
+> @@ -1380,27 +1360,11 @@ static int vfio_ap_mdev_open_device(struct vfio_d=
+evice *vdev)
+>  {
+>  	struct ap_matrix_mdev *matrix_mdev =3D
+>  		container_of(vdev, struct ap_matrix_mdev, vdev);
+> -	unsigned long events;
+> -	int ret;
+> =20
+>  	if (!vdev->kvm)
+>  		return -EINVAL;
+> =20
+> -	ret =3D vfio_ap_mdev_set_kvm(matrix_mdev, vdev->kvm);
+> -	if (ret)
+> -		return ret;
+> -
+> -	matrix_mdev->iommu_notifier.notifier_call =3D vfio_ap_mdev_iommu_notifi=
+er;
+> -	events =3D VFIO_IOMMU_NOTIFY_DMA_UNMAP;
+> -	ret =3D vfio_register_notifier(vdev, VFIO_IOMMU_NOTIFY, &events,
+> -				     &matrix_mdev->iommu_notifier);
+> -	if (ret)
+> -		goto err_kvm;
+> -	return 0;
+> -
+> -err_kvm:
+> -	vfio_ap_mdev_unset_kvm(matrix_mdev);
+> -	return ret;
+> +	return vfio_ap_mdev_set_kvm(matrix_mdev, vdev->kvm);
+>  }
+> =20
+>  static void vfio_ap_mdev_close_device(struct vfio_device *vdev)
+> @@ -1408,8 +1372,6 @@ static void vfio_ap_mdev_close_device(struct vfio_d=
+evice *vdev)
+>  	struct ap_matrix_mdev *matrix_mdev =3D
+>  		container_of(vdev, struct ap_matrix_mdev, vdev);
+> =20
+> -	vfio_unregister_notifier(vdev, VFIO_IOMMU_NOTIFY,
+> -				 &matrix_mdev->iommu_notifier);
+>  	vfio_ap_mdev_unset_kvm(matrix_mdev);
+>  }
+> =20
+> @@ -1461,6 +1423,7 @@ static const struct vfio_device_ops vfio_ap_matrix_=
+dev_ops =3D {
+>  	.open_device =3D vfio_ap_mdev_open_device,
+>  	.close_device =3D vfio_ap_mdev_close_device,
+>  	.ioctl =3D vfio_ap_mdev_ioctl,
+> +	.dma_unmap =3D vfio_ap_mdev_dma_unmap,
+>  };
+> =20
+>  static struct mdev_driver vfio_ap_matrix_driver =3D {
+> diff --git a/drivers/s390/crypto/vfio_ap_private.h b/drivers/s390/crypto/=
+vfio_ap_private.h
+> index a26efd804d0df3..abb59d59f81b20 100644
+> --- a/drivers/s390/crypto/vfio_ap_private.h
+> +++ b/drivers/s390/crypto/vfio_ap_private.h
+> @@ -81,8 +81,6 @@ struct ap_matrix {
+>   * @node:	allows the ap_matrix_mdev struct to be added to a list
+>   * @matrix:	the adapters, usage domains and control domains assigned to =
+the
+>   *		mediated matrix device.
+> - * @iommu_notifier: notifier block used for specifying callback function=
+ for
+> - *		    handling the VFIO_IOMMU_NOTIFY_DMA_UNMAP even
+>   * @kvm:	the struct holding guest's state
+>   * @pqap_hook:	the function pointer to the interception handler for the
+>   *		PQAP(AQIC) instruction.
+> @@ -92,7 +90,6 @@ struct ap_matrix_mdev {
+>  	struct vfio_device vdev;
+>  	struct list_head node;
+>  	struct ap_matrix matrix;
+> -	struct notifier_block iommu_notifier;
+>  	struct kvm *kvm;
+>  	crypto_hook pqap_hook;
+>  	struct mdev_device *mdev;
+> diff --git a/drivers/vfio/vfio.c b/drivers/vfio/vfio.c
+> index 61e71c1154be67..610bb884d9197b 100644
+> --- a/drivers/vfio/vfio.c
+> +++ b/drivers/vfio/vfio.c
+> @@ -231,6 +231,9 @@ int vfio_register_iommu_driver(const struct vfio_iomm=
+u_driver_ops *ops)
+>  {
+>  	struct vfio_iommu_driver *driver, *tmp;
+> =20
+> +	if (WARN_ON(!ops->register_notifier !=3D !ops->unregister_notifier))
+> +		return -EINVAL;
+> +
+>  	driver =3D kzalloc(sizeof(*driver), GFP_KERNEL);
+>  	if (!driver)
+>  		return -ENOMEM;
+> @@ -1077,8 +1080,20 @@ static void vfio_device_unassign_container(struct =
+vfio_device *device)
+>  	up_write(&device->group->group_rwsem);
+>  }
+> =20
+> +static int vfio_iommu_notifier(struct notifier_block *nb, unsigned long =
+action,
+> +			       void *data)
+> +{
+> +	struct vfio_device *vfio_device =3D
+> +		container_of(nb, struct vfio_device, iommu_nb);
+> +	struct vfio_iommu_type1_dma_unmap *unmap =3D data;
+> +
+> +	vfio_device->ops->dma_unmap(vfio_device, unmap->iova, unmap->size);
+> +	return NOTIFY_OK;
+> +}
+> +
+>  static struct file *vfio_device_open(struct vfio_device *device)
+>  {
+> +	struct vfio_iommu_driver *iommu_driver;
+>  	struct file *filep;
+>  	int ret;
+> =20
+> @@ -1109,6 +1124,18 @@ static struct file *vfio_device_open(struct vfio_d=
+evice *device)
+>  			if (ret)
+>  				goto err_undo_count;
+>  		}
+> +
+> +		iommu_driver =3D device->group->container->iommu_driver;
+> +		if (device->ops->dma_unmap && iommu_driver &&
+> +		    iommu_driver->ops->register_notifier) {
+> +			unsigned long events =3D VFIO_IOMMU_NOTIFY_DMA_UNMAP;
+> +
+> +			device->iommu_nb.notifier_call =3D vfio_iommu_notifier;
+> +			iommu_driver->ops->register_notifier(
+> +				device->group->container->iommu_data, &events,
+> +				&device->iommu_nb);
+> +		}
+> +
+>  		up_read(&device->group->group_rwsem);
+>  	}
+>  	mutex_unlock(&device->dev_set->lock);
+> @@ -1143,8 +1170,16 @@ static struct file *vfio_device_open(struct vfio_d=
+evice *device)
+>  err_close_device:
+>  	mutex_lock(&device->dev_set->lock);
+>  	down_read(&device->group->group_rwsem);
+> -	if (device->open_count =3D=3D 1 && device->ops->close_device)
+> +	if (device->open_count =3D=3D 1 && device->ops->close_device) {
+>  		device->ops->close_device(device);
+> +
+> +		iommu_driver =3D device->group->container->iommu_driver;
+> +		if (device->ops->dma_unmap && iommu_driver &&
+> +		    iommu_driver->ops->unregister_notifier)
+> +			iommu_driver->ops->unregister_notifier(
+> +				device->group->container->iommu_data,
+> +				&device->iommu_nb);
+> +	}
+>  err_undo_count:
+>  	device->open_count--;
+>  	if (device->open_count =3D=3D 0 && device->kvm)
+> @@ -1339,12 +1374,20 @@ static const struct file_operations vfio_group_fo=
+ps =3D {
+>  static int vfio_device_fops_release(struct inode *inode, struct file *fi=
+lep)
+>  {
+>  	struct vfio_device *device =3D filep->private_data;
+> +	struct vfio_iommu_driver *iommu_driver;
+> =20
+>  	mutex_lock(&device->dev_set->lock);
+>  	vfio_assert_device_open(device);
+>  	down_read(&device->group->group_rwsem);
+>  	if (device->open_count =3D=3D 1 && device->ops->close_device)
+>  		device->ops->close_device(device);
+> +
+> +	iommu_driver =3D device->group->container->iommu_driver;
+> +	if (device->ops->dma_unmap && iommu_driver &&
+> +	    iommu_driver->ops->unregister_notifier)
+> +		iommu_driver->ops->unregister_notifier(
+> +			device->group->container->iommu_data,
+> +			&device->iommu_nb);
+>  	up_read(&device->group->group_rwsem);
+>  	device->open_count--;
+>  	if (device->open_count =3D=3D 0)
+> @@ -2027,90 +2070,6 @@ int vfio_dma_rw(struct vfio_device *device, dma_ad=
+dr_t user_iova, void *data,
+>  }
+>  EXPORT_SYMBOL(vfio_dma_rw);
+> =20
+> -static int vfio_register_iommu_notifier(struct vfio_group *group,
+> -					unsigned long *events,
+> -					struct notifier_block *nb)
+> -{
+> -	struct vfio_container *container;
+> -	struct vfio_iommu_driver *driver;
+> -	int ret;
+> -
+> -	lockdep_assert_held_read(&group->group_rwsem);
+> -
+> -	container =3D group->container;
+> -	driver =3D container->iommu_driver;
+> -	if (likely(driver && driver->ops->register_notifier))
+> -		ret =3D driver->ops->register_notifier(container->iommu_data,
+> -						     events, nb);
+> -	else
+> -		ret =3D -ENOTTY;
+> -
+> -	return ret;
+> -}
+> -
+> -static int vfio_unregister_iommu_notifier(struct vfio_group *group,
+> -					  struct notifier_block *nb)
+> -{
+> -	struct vfio_container *container;
+> -	struct vfio_iommu_driver *driver;
+> -	int ret;
+> -
+> -	lockdep_assert_held_read(&group->group_rwsem);
+> -
+> -	container =3D group->container;
+> -	driver =3D container->iommu_driver;
+> -	if (likely(driver && driver->ops->unregister_notifier))
+> -		ret =3D driver->ops->unregister_notifier(container->iommu_data,
+> -						       nb);
+> -	else
+> -		ret =3D -ENOTTY;
+> -
+> -	return ret;
+> -}
+> -
+> -int vfio_register_notifier(struct vfio_device *device,
+> -			   enum vfio_notify_type type, unsigned long *events,
+> -			   struct notifier_block *nb)
+> -{
+> -	struct vfio_group *group =3D device->group;
+> -	int ret;
+> -
+> -	if (!nb || !events || (*events =3D=3D 0) ||
+> -	    !vfio_assert_device_open(device))
+> -		return -EINVAL;
+> -
+> -	switch (type) {
+> -	case VFIO_IOMMU_NOTIFY:
+> -		ret =3D vfio_register_iommu_notifier(group, events, nb);
+> -		break;
+> -	default:
+> -		ret =3D -EINVAL;
+> -	}
+> -	return ret;
+> -}
+> -EXPORT_SYMBOL(vfio_register_notifier);
+> -
+> -int vfio_unregister_notifier(struct vfio_device *device,
+> -			     enum vfio_notify_type type,
+> -			     struct notifier_block *nb)
+> -{
+> -	struct vfio_group *group =3D device->group;
+> -	int ret;
+> -
+> -	if (!nb || !vfio_assert_device_open(device))
+> -		return -EINVAL;
+> -
+> -	switch (type) {
+> -	case VFIO_IOMMU_NOTIFY:
+> -		ret =3D vfio_unregister_iommu_notifier(group, nb);
+> -		break;
+> -	default:
+> -		ret =3D -EINVAL;
+> -	}
+> -	return ret;
+> -}
+> -EXPORT_SYMBOL(vfio_unregister_notifier);
+> -
+>  /*
+>   * Module/class support
+>   */
+> diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
+> index a6713022115155..25da02ca1568fc 100644
+> --- a/drivers/vfio/vfio.h
+> +++ b/drivers/vfio/vfio.h
+> @@ -33,6 +33,9 @@ enum vfio_iommu_notify_type {
+>  	VFIO_IOMMU_CONTAINER_CLOSE =3D 0,
+>  };
+> =20
+> +/* events for register_notifier() */
+> +#define VFIO_IOMMU_NOTIFY_DMA_UNMAP BIT(0)
+> +
+>  /**
+>   * struct vfio_iommu_driver_ops - VFIO IOMMU driver callbacks
+>   */
+> diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+> index 49580fa2073a8d..8c5c389d42d918 100644
+> --- a/include/linux/vfio.h
+> +++ b/include/linux/vfio.h
+> @@ -44,6 +44,7 @@ struct vfio_device {
+>  	unsigned int open_count;
+>  	struct completion comp;
+>  	struct list_head group_next;
+> +	struct notifier_block iommu_nb;
+>  };
+> =20
+>  /**
+> @@ -60,6 +61,8 @@ struct vfio_device {
+>   * @match: Optional device name match callback (return: 0 for no-match, =
+>0 for
+>   *         match, -errno for abort (ex. match with insufficient or incor=
+rect
+>   *         additional args)
+> + * @dma_unmap: Called when userspace unmaps IOVA from the container
+> + *             this device is attached to.
+>   * @device_feature: Optional, fill in the VFIO_DEVICE_FEATURE ioctl
+>   * @migration_set_state: Optional callback to change the migration state=
+ for
+>   *         devices that support migration. It's mandatory for
+> @@ -85,6 +88,7 @@ struct vfio_device_ops {
+>  	int	(*mmap)(struct vfio_device *vdev, struct vm_area_struct *vma);
+>  	void	(*request)(struct vfio_device *vdev, unsigned int count);
+>  	int	(*match)(struct vfio_device *vdev, char *buf);
+> +	void	(*dma_unmap)(struct vfio_device *vdev, u64 iova, u64 length);
+>  	int	(*device_feature)(struct vfio_device *device, u32 flags,
+>  				  void __user *arg, size_t argsz);
+>  	struct file *(*migration_set_state)(
+> @@ -154,23 +158,6 @@ int vfio_unpin_pages(struct vfio_device *device, uns=
+igned long *user_pfn,
+>  int vfio_dma_rw(struct vfio_device *device, dma_addr_t user_iova,
+>  		void *data, size_t len, bool write);
+> =20
+> -/* each type has independent events */
+> -enum vfio_notify_type {
+> -	VFIO_IOMMU_NOTIFY =3D 0,
+> -};
+> -
+> -/* events for VFIO_IOMMU_NOTIFY */
+> -#define VFIO_IOMMU_NOTIFY_DMA_UNMAP	BIT(0)
+> -
+> -int vfio_register_notifier(struct vfio_device *device,
+> -			   enum vfio_notify_type type,
+> -			   unsigned long *required_events,
+> -			   struct notifier_block *nb);
+> -int vfio_unregister_notifier(struct vfio_device *device,
+> -			     enum vfio_notify_type type,
+> -			     struct notifier_block *nb);
+> -
+> -
+>  /*
+>   * Sub-module helpers
+>   */
+> --=20
+> 2.37.0
+>=20
+
+--XzWDHICoUFRd33PB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYsP20AAKCRCxBBozTXgY
+Jyz7AKCb2pHfQ9DPRS9D1bia48aXOK0g2ACeM4yslhnf0CzNnfIVmU66W44r5eE=
+=490+
+-----END PGP SIGNATURE-----
+
+--XzWDHICoUFRd33PB--
