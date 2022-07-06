@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7181ACCA473
-	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jul 2022 06:56:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C206FC43334
+	for <intel-gfx@archiver.kernel.org>; Wed,  6 Jul 2022 06:57:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2AAC10FFFE;
-	Wed,  6 Jul 2022 06:56:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 671D311200C;
+	Wed,  6 Jul 2022 06:57:13 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 049B410FFFD;
- Wed,  6 Jul 2022 06:56:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02F0D10FFFD;
+ Wed,  6 Jul 2022 06:57:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
  :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=/m24PsaB4Cz1aJpY2Cyju0n6At9XHWz5aCK5PGbqU1o=; b=X7/FBvhB9T2/CRNeMUuvEypKFb
- mD4tslMhbVmzWVE7SzYN0fXxNPgmANxnjxT2D6qxg2jDjE0bROkrGdpPBFAyPSO8FHnKUCIG/tgPV
- CMNagu0OUPgBs64PQS7P4nXbZgGlxj5VjAJ6nM6zqV7hQjSC6sKfZLLO0RJ0VL4NobI37zolQJAUN
- cAgI2u0JmXW32Dyx1G0/S+Yv9wxomqBEfcd4FRBh8980GD/IG+cC0BSRiZbJJO4/EubgDPvK8J0WA
- zOJSX/xDYsjpPpiNWA8VsEiOYtCIsjsjimpF4ualAySYR/TX0H9EHbt+3pK55aWBcTupeb+etyics
- m5+ajWhg==;
+ bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=; b=nqKbk1UlEewvZP+vqUJW8uTo8i
+ ZudlE5mJHs0GiUKJzeWrxuJLt1S0VH6qI4pXliPMFL8PRZBpw/xHTiurL8AVISlyOdyyoglpcG4r2
+ NZz7H5iFDgsxHbtzF1QGEnA3O4PyOa50x2Eq9aTnCR9QLFlkqY0unaTxBeki417LyDI+j93M8+uDX
+ qO0J3gGGRdgFSL/IVBFHNnQM5c+VJnkXR/RvdzbkSP8pICPfEPjgKpCBafV8ctXvQHiL2H9Vbr1Al
+ 5Ohz/6aUmBkaN/K4f3bthIE0T3bZlNp2xP66HEC5CVuUkWW2p9Nli3DPyQ8l3BTmd19sby4ECXWzn
+ 6RIGsQ4Q==;
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1o8yxV-006rmp-Lm; Wed, 06 Jul 2022 06:56:25 +0000
-Date: Tue, 5 Jul 2022 23:56:25 -0700
+ Hat Linux)) id 1o8yy7-006s5y-Jq; Wed, 06 Jul 2022 06:57:03 +0000
+Date: Tue, 5 Jul 2022 23:57:03 -0700
 From: Christoph Hellwig <hch@infradead.org>
 To: Nicolin Chen <nicolinc@nvidia.com>
-Message-ID: <YsUyGS7kct2BbiS8@infradead.org>
+Message-ID: <YsUyP8zcjtaMp5y1@infradead.org>
 References: <20220706062759.24946-1-nicolinc@nvidia.com>
- <20220706062759.24946-5-nicolinc@nvidia.com>
+ <20220706062759.24946-8-nicolinc@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220706062759.24946-5-nicolinc@nvidia.com>
+In-Reply-To: <20220706062759.24946-8-nicolinc@nvidia.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [Intel-gfx] [RFT][PATCH v2 4/9] vfio: Pass in starting IOVA to
- vfio_pin/unpin_pages API
+Subject: Re: [Intel-gfx] [RFT][PATCH v2 7/9] vfio: Rename user_iova of
+ vfio_dma_rw()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,11 +64,6 @@ Cc: mjrosato@linux.ibm.com, linux-doc@vger.kernel.org, airlied@linux.ie,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> -		vfio_unpin_pages(&q->matrix_mdev->vdev, &q->saved_pfn, 1);
-> +		vfio_unpin_pages(&q->matrix_mdev->vdev, q->saved_pfn << PAGE_SHIFT, 1);
-
-Overly long line here.
-
-Otherwise looks good:
+Looks good:
 
 Reviewed-by: Christoph Hellwig <hch@lst.de>
