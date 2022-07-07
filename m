@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6EDAC43334
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 20:03:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE08C43334
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 20:03:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F22D912B9A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C304511B787;
 	Thu,  7 Jul 2022 20:02:53 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7192B11B66D;
- Thu,  7 Jul 2022 20:02:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B2FF11B697;
+ Thu,  7 Jul 2022 20:02:48 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 08AEB66019E7;
- Thu,  7 Jul 2022 21:02:49 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 0FB3E66019CA;
+ Thu,  7 Jul 2022 21:02:47 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657224169;
- bh=yyqoiKo1vjbgBxUDvFfH6fIoAaG7ofkIEVjSYkMkda8=;
+ s=mail; t=1657224167;
+ bh=AgP5Riz/FHb587iBL1vYiW/g4qmDc92BtRCaR0jjFGw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jxcCnHRvMsZooefKE1L+riEhT0DTivOOpHuwBE74HcbdbVkGnvIxNHyOmXJQt/b0H
- yD9IJJ1DlVtNoeY7VQgePaGz3DfgeXPME8mN0WPZ8sfYPXv9PbKp9uppjJ+iI1Al7M
- DFWZZVf5MANOJ4mF4+6lhwqQxuuq1xaShFE2tq2i6tV4EJT0/jKGKZryH2r1Kz5SRV
- weyzCxtpTWONDfevbIkhyMBKebe7EO4uaRuOeRXhsfYQDCoryFPJ2Z2j+NVTm1L9Wr
- gj1CpHJt0y/TM/Iv0mENn83ah7SITLEhAxYL6OMjLaIdVRwD59yR601W51Jo1gpfCL
- hw++BJC9wbaWA==
+ b=c3A3YQU43mD8tHoWDu6hmqoZ0rPpWu01rTbGnvF4TSgJEBEs96Y3CPDjSXrDMcPWp
+ 37wFTItIVXgx7iJ7Uu+rr4dNvNaqWjNqGIaHkvjsb7N6Tum3qOAQgo7oRsPruywZdi
+ O/uzPKUQLt4w8PEuN+iIZHlnBxKXtgDdj8JEYd7zjzZgnltAXlLSXKK81era0eVTUz
+ deeUuVlLP6ly6deQeqRczfX2LlfwqLtnwGl3a1RtbHDTmVxFl1TJn8exIgRhq8Jn4n
+ KG9ZiNne4MMdXmVhXXC19GMzBCKqciKV1DRtknRjHvaVVPeyMLYGtUJgqEpNcI6L4H
+ FQ4IGo4dW6zeg==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -36,15 +36,16 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Thu,  7 Jul 2022 20:02:27 +0000
-Message-Id: <20220707200230.1657555-10-bob.beckett@collabora.com>
+Date: Thu,  7 Jul 2022 20:02:24 +0000
+Message-Id: <20220707200230.1657555-7-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220707200230.1657555-1-bob.beckett@collabora.com>
 References: <20220707200230.1657555-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 09/11] drm/i915/selftest: don't attempt
- engine reset of guc submission engines
+Subject: [Intel-gfx] [PATCH v10 06/11] drm/i915: sanitize mem_flags for
+ stolen buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,38 +64,44 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-igt_reset_engines_stolen tries to reset engines without checking if it
-is possible.
-Engines using GuC submission are not able to be reset from the host.
+Stolen regions are not page backed or considered iomem.
+Prevent flags indicating such.
+This correctly prevents stolen buffers from attempting to directly map
+them.
 
-In this scenario, the reset exits early, then on the next iteration of
-the each engine loop, the async teardown of the spinner request
-context's ring occurs while the next engine is under test.
-
-This is seen as a stolen memory corruption as the ring buffer was busy
-initially, but free during the confirmation check and had been poisoned
-during cleanup.
-
-Fix this by not testing GuC submission using engines.
+See i915_gem_object_has_struct_page() and i915_gem_object_has_iomem()
+usage for where it would break otherwise.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_reset.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
-index 37c38bdd5f47..55f3b34e5f6e 100644
---- a/drivers/gpu/drm/i915/gt/selftest_reset.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
-@@ -194,6 +194,8 @@ static int igt_reset_engines_stolen(void *arg)
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index 675e9ab30396..81c67ca9edda 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -14,6 +14,7 @@
+ #include "gem/i915_gem_region.h"
+ #include "gem/i915_gem_ttm.h"
+ #include "gem/i915_gem_ttm_move.h"
++#include "gem/i915_gem_stolen.h"
  
- 	for_each_engine(engine, gt, id) {
-+		if (intel_engine_uses_guc(engine))
-+			continue;
- 		err = __igt_reset_stolen(gt, engine->mask, engine->name);
- 		if (err)
- 			return err;
+ #include "gt/intel_engine_pm.h"
+ #include "gt/intel_gt.h"
+@@ -124,8 +125,9 @@ void i915_ttm_adjust_gem_after_move(struct drm_i915_gem_object *obj)
+ 
+ 	obj->mem_flags &= ~(I915_BO_FLAG_STRUCT_PAGE | I915_BO_FLAG_IOMEM);
+ 
+-	obj->mem_flags |= i915_ttm_cpu_maps_iomem(bo->resource) ? I915_BO_FLAG_IOMEM :
+-		I915_BO_FLAG_STRUCT_PAGE;
++	if (!i915_gem_object_is_stolen(obj))
++		obj->mem_flags |= i915_ttm_cpu_maps_iomem(bo->resource) ? I915_BO_FLAG_IOMEM :
++			I915_BO_FLAG_STRUCT_PAGE;
+ 
+ 	if (!obj->ttm.cache_level_override) {
+ 		cache_level = i915_ttm_cache_level(to_i915(bo->base.dev),
 -- 
 2.25.1
 
