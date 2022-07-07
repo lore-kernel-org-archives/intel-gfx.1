@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E25AC43334
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E44D9C433EF
 	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 16:37:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EEB7113DA0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C0AD113A72;
 	Thu,  7 Jul 2022 16:36:54 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D143113A72;
- Thu,  7 Jul 2022 16:36:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 708FB1128FD;
+ Thu,  7 Jul 2022 16:36:50 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id EB6E766019CE;
- Thu,  7 Jul 2022 17:36:45 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id F023566019DD;
+ Thu,  7 Jul 2022 17:36:48 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657211806;
- bh=4aLhOjNbnMWEd5TE2kdvFPY0DN2hydFT2IvNHlkBa+w=;
+ s=mail; t=1657211809;
+ bh=yyqoiKo1vjbgBxUDvFfH6fIoAaG7ofkIEVjSYkMkda8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DwoP+4IhrKT7vq3Vo5jM/qc2rAFh0l9FBCDtg/2HE+OKfs9PmfthvYnROAvaaK4Hs
- Juz/X+WnNhDx7hackb/B8ljBrnHkQ+QOCLM3oBQbNholdiP5/WQb5Kvp3BTP88D94F
- JAYVtV8FMgg5+8wxNGwapLDgxdJ7kPG84RX8p+hs275Qv4mziRyikSekAQnteECVjG
- TvyIFRVy7dh7aBmNuY8xxV5/wUenBinSilZzuL5Fk2PUjZ0WF6VKoWCh+1QdRgSNU0
- HFH6x+NGEmFpS62ySx9vzij4KWKbbl9GuYtAK109W3ZOIOBZ7F7+TPP51FrWhehH8e
- acpC1segULhnw==
+ b=S2kS6QnGpjD57PEwB480ynQtUoapIaA63cBW9pqtjzasS0yZoA5XCZqnYPaHlY76h
+ uaR0jaJN5EjdprHX59F6OWdAqbzfHd3QDwo9NG/ZJrwl2mQbXyORlBe0FrhZ4Be3pv
+ 4pYgp9uYTKPcZxzviqPTk1v5fMcaK5uvMzaW7OLeRnaruwUgnfeu93UfXk/Ui1qE0e
+ Oj25lZnGeO9M6PUaetxA5Vzg0IPPAyBfc3Jbm6DOJAb859iBo7MM7a3dGpHLZ/2Ec3
+ f/8iO2d2EIaTmT0IJ+2wN461ZLVLJiO+wS2/ThqxfyjH4ot7YAbnKhUb392VvR1Cfi
+ 5g8DCk9BWGSAg==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -37,16 +37,15 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Thu,  7 Jul 2022 16:36:00 +0000
-Message-Id: <20220707163606.1474111-6-bob.beckett@collabora.com>
+Date: Thu,  7 Jul 2022 16:36:04 +0000
+Message-Id: <20220707163606.1474111-10-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220707163606.1474111-1-bob.beckett@collabora.com>
 References: <20220707163606.1474111-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 05/11] drm/i915: instantiate ttm ranger
- manager for stolen memory
+Subject: [Intel-gfx] [PATCH v9 09/11] drm/i915/selftest: don't attempt
+ engine reset of guc submission engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,110 +64,38 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-prepare for ttm based stolen region by using ttm range manager
-as the resource manager for stolen region.
+igt_reset_engines_stolen tries to reset engines without checking if it
+is possible.
+Engines using GuC submission are not able to be reset from the host.
+
+In this scenario, the reset exits early, then on the next iteration of
+the each engine loop, the async teardown of the spinner request
+context's ring occurs while the next engine is under test.
+
+This is seen as a stolen memory corruption as the ring buffer was busy
+initially, but free during the confirmation check and had been poisoned
+during cleanup.
+
+Fix this by not testing GuC submission using engines.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c |  6 ++--
- drivers/gpu/drm/i915/intel_region_ttm.c      | 31 +++++++++++++++-----
- 2 files changed, 27 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_reset.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index 40249fa28a7a..675e9ab30396 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -60,11 +60,13 @@ i915_ttm_region(struct ttm_device *bdev, int ttm_mem_type)
- 	struct drm_i915_private *i915 = container_of(bdev, typeof(*i915), bdev);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
+index 37c38bdd5f47..55f3b34e5f6e 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_reset.c
++++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
+@@ -194,6 +194,8 @@ static int igt_reset_engines_stolen(void *arg)
+ 		return 0;
  
- 	/* There's some room for optimization here... */
--	GEM_BUG_ON(ttm_mem_type != I915_PL_SYSTEM &&
--		   ttm_mem_type < I915_PL_LMEM0);
-+	GEM_BUG_ON(ttm_mem_type == I915_PL_GGTT);
-+
- 	if (ttm_mem_type == I915_PL_SYSTEM)
- 		return intel_memory_region_lookup(i915, INTEL_MEMORY_SYSTEM,
- 						  0);
-+	if (ttm_mem_type == I915_PL_STOLEN)
-+		return i915->mm.stolen_region;
- 
- 	return intel_memory_region_lookup(i915, INTEL_MEMORY_LOCAL,
- 					  ttm_mem_type - I915_PL_LMEM0);
-diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
-index fd2ecfdd8fa1..694e9acb69e2 100644
---- a/drivers/gpu/drm/i915/intel_region_ttm.c
-+++ b/drivers/gpu/drm/i915/intel_region_ttm.c
-@@ -54,7 +54,7 @@ void intel_region_ttm_device_fini(struct drm_i915_private *dev_priv)
- 
- /*
-  * Map the i915 memory regions to TTM memory types. We use the
-- * driver-private types for now, reserving TTM_PL_VRAM for stolen
-+ * driver-private types for now, reserving I915_PL_STOLEN for stolen
-  * memory and TTM_PL_TT for GGTT use if decided to implement this.
-  */
- int intel_region_to_ttm_type(const struct intel_memory_region *mem)
-@@ -63,11 +63,17 @@ int intel_region_to_ttm_type(const struct intel_memory_region *mem)
- 
- 	GEM_BUG_ON(mem->type != INTEL_MEMORY_LOCAL &&
- 		   mem->type != INTEL_MEMORY_MOCK &&
--		   mem->type != INTEL_MEMORY_SYSTEM);
-+		   mem->type != INTEL_MEMORY_SYSTEM &&
-+		   mem->type != INTEL_MEMORY_STOLEN_SYSTEM &&
-+		   mem->type != INTEL_MEMORY_STOLEN_LOCAL);
- 
- 	if (mem->type == INTEL_MEMORY_SYSTEM)
- 		return TTM_PL_SYSTEM;
- 
-+	if (mem->type == INTEL_MEMORY_STOLEN_SYSTEM ||
-+	    mem->type == INTEL_MEMORY_STOLEN_LOCAL)
-+		return I915_PL_STOLEN;
-+
- 	type = mem->instance + TTM_PL_PRIV;
- 	GEM_BUG_ON(type >= TTM_NUM_MEM_TYPES);
- 
-@@ -91,10 +97,16 @@ int intel_region_ttm_init(struct intel_memory_region *mem)
- 	int mem_type = intel_region_to_ttm_type(mem);
- 	int ret;
- 
--	ret = i915_ttm_buddy_man_init(bdev, mem_type, false,
--				      resource_size(&mem->region),
--				      mem->io_size,
--				      mem->min_page_size, PAGE_SIZE);
-+	if (mem_type == I915_PL_STOLEN) {
-+		ret = ttm_range_man_init(bdev, mem_type, false,
-+					 resource_size(&mem->region) >> PAGE_SHIFT);
-+		mem->is_range_manager = true;
-+	} else {
-+		ret = i915_ttm_buddy_man_init(bdev, mem_type, false,
-+					      resource_size(&mem->region),
-+					      mem->io_size,
-+					      mem->min_page_size, PAGE_SIZE);
-+	}
- 	if (ret)
- 		return ret;
- 
-@@ -114,6 +126,7 @@ int intel_region_ttm_init(struct intel_memory_region *mem)
- int intel_region_ttm_fini(struct intel_memory_region *mem)
- {
- 	struct ttm_resource_manager *man = mem->region_private;
-+	int mem_type = intel_region_to_ttm_type(mem);
- 	int ret = -EBUSY;
- 	int count;
- 
-@@ -144,8 +157,10 @@ int intel_region_ttm_fini(struct intel_memory_region *mem)
- 	if (ret || !man)
- 		return ret;
- 
--	ret = i915_ttm_buddy_man_fini(&mem->i915->bdev,
--				      intel_region_to_ttm_type(mem));
-+	if (mem_type == I915_PL_STOLEN)
-+		ret = ttm_range_man_fini(&mem->i915->bdev, mem_type);
-+	else
-+		ret = i915_ttm_buddy_man_fini(&mem->i915->bdev, mem_type);
- 	GEM_WARN_ON(ret);
- 	mem->region_private = NULL;
- 
+ 	for_each_engine(engine, gt, id) {
++		if (intel_engine_uses_guc(engine))
++			continue;
+ 		err = __igt_reset_stolen(gt, engine->mask, engine->name);
+ 		if (err)
+ 			return err;
 -- 
 2.25.1
 
