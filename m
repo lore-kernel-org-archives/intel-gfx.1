@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA17CCA47F
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 20:02:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B299CCA479
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 20:03:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25CCE11B66D;
-	Thu,  7 Jul 2022 20:02:51 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C32011B6D0;
- Thu,  7 Jul 2022 20:02:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72FD111B6FF;
+	Thu,  7 Jul 2022 20:02:53 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B38B11B66D;
+ Thu,  7 Jul 2022 20:02:47 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id A4C9D66019DD;
- Thu,  7 Jul 2022 21:02:47 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id B746066019D5;
+ Thu,  7 Jul 2022 21:02:45 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657224167;
- bh=vcV9d53cSiZS9S6xUBuwTwjcLWVgxyTlm1c7ldt4HDk=;
+ s=mail; t=1657224166;
+ bh=qy8+fGCHoC0k4JC8KL3MA8/A+stlKuCvaW0SY+DabgM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DkdaUT9KatkLleaiwgAQXYI5tiMl4pr7LWT3/t9PDKeOVGNBCamBwHfChCGxn6FpO
- xP4dFE70BvWSXHUzda+yHPqbXv7s0MyYpPfGQM5sdl2Mh0bjDh43mfjst82FRUDgHL
- Wo4wESi3d3rPIRtRqT8qD263nLVzjRLyeH00YMZrrkf4LMukqm+4vZdL6xrGFaCc/j
- Qakp0dMbC37zF/3DArOAaGy0CAcJInWyhdWRCnZJoVh6F+lHRQ3bNcIVwUGpAl2xEH
- pI3qgQEyQve11NAxOk5QJLgygwc++0l8PXrWsEbb/r2ZMILOArx8k+iz5xe5XElcEZ
- pMyQXDuLsDWMg==
+ b=XHKITXNbokLUcewLHkw402KhFQh7UWhgyGj5R9Eh9QkF37aVykycR81Mn/seHYjYz
+ JJLhpR764RYcSYoBCjHYemNaGGNUxP62KZTCa4VDU88Vb61vvlVW3sAAd3gSVFL8/v
+ 6ka8foOd1euFPuNFRBTiZnPIJoq/WcXjb2l3VhSfVuu+aqYkOT9Sje+BHh4/vNs/F6
+ KaMouzWvdWDATsCMPDJq3MBWBoGo5m4IuRhBTmG1g7Oo6oiMtH3bG+cfXZgKzN6DA/
+ 8f0TZ/NMN+wDasrAHFwdtdmdfJSm335RLPv+cPbUVN9r9URZ0lalwHJzrOKC6bwxe2
+ NkR1uw1NwXacw==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -36,15 +37,16 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Thu,  7 Jul 2022 20:02:25 +0000
-Message-Id: <20220707200230.1657555-8-bob.beckett@collabora.com>
+Date: Thu,  7 Jul 2022 20:02:22 +0000
+Message-Id: <20220707200230.1657555-5-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220707200230.1657555-1-bob.beckett@collabora.com>
 References: <20220707200230.1657555-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 07/11] drm/i915: ttm move/clear logic fix
+Subject: [Intel-gfx] [PATCH v10 04/11] drm/i915/gem: selftest should not
+ attempt mmap of private regions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,68 +65,28 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-ttm managed buffers start off with system resource definitions and ttm_tt
-tracking structures allocated (though unpopulated).
-currently this prevents clearing of buffers on first move to desired
-placements.
-
-The desired behaviour is to clear user allocated buffers and any kernel
-buffers that specifically requests it only.
-Make the logic match the desired behaviour.
+During testing make can_mmap consider whether the region is private.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
 Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 22 +++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index 81c67ca9edda..a3f8fc056dbc 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2021 Intel Corporation
-  */
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index 5bc93a1ce3e3..76181e28c75e 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -869,6 +869,9 @@ static bool can_mmap(struct drm_i915_gem_object *obj, enum i915_mmap_type type)
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	bool no_map;
  
-+#include "drm/ttm/ttm_tt.h"
- #include <drm/ttm/ttm_bo_driver.h>
- 
- #include "i915_deps.h"
-@@ -476,6 +477,25 @@ __i915_ttm_move(struct ttm_buffer_object *bo,
- 	return fence;
- }
- 
-+static bool
-+allow_clear(struct drm_i915_gem_object *obj, struct ttm_tt *ttm, struct ttm_resource *dst_mem)
-+{
-+	/* never clear stolen */
-+	if (dst_mem->mem_type == I915_PL_STOLEN)
++	if (obj->mm.region && obj->mm.region->private)
 +		return false;
-+	/*
-+	 * we want to clear user buffers and any kernel buffers
-+	 * that specifically request clearing.
-+	 */
-+	if (obj->flags & I915_BO_ALLOC_USER)
-+		return true;
 +
-+	if (ttm && ttm->page_flags & TTM_TT_FLAG_ZERO_ALLOC)
-+		return true;
-+
-+	return false;
-+}
-+
- /**
-  * i915_ttm_move - The TTM move callback used by i915.
-  * @bo: The buffer object.
-@@ -526,7 +546,7 @@ int i915_ttm_move(struct ttm_buffer_object *bo, bool evict,
- 		return PTR_ERR(dst_rsgt);
- 
- 	clear = !i915_ttm_cpu_maps_iomem(bo->resource) && (!ttm || !ttm_tt_is_populated(ttm));
--	if (!(clear && ttm && !(ttm->page_flags & TTM_TT_FLAG_ZERO_ALLOC))) {
-+	if (!clear || allow_clear(obj, ttm, dst_mem)) {
- 		struct i915_deps deps;
- 
- 		i915_deps_init(&deps, GFP_KERNEL | __GFP_NORETRY | __GFP_NOWARN);
+ 	if (obj->ops->mmap_offset)
+ 		return type == I915_MMAP_TYPE_FIXED;
+ 	else if (type == I915_MMAP_TYPE_FIXED)
 -- 
 2.25.1
 
