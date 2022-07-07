@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A832C43334
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 16:37:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7313EC43334
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 16:37:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 617AE113D65;
-	Thu,  7 Jul 2022 16:36:48 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC323113A72;
- Thu,  7 Jul 2022 16:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67874113522;
+	Thu,  7 Jul 2022 16:36:51 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68BC7113DA0;
+ Thu,  7 Jul 2022 16:36:48 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 2996C66019CB;
- Thu,  7 Jul 2022 17:36:45 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id D2F2F66019BC;
+ Thu,  7 Jul 2022 17:36:46 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657211805;
- bh=qy8+fGCHoC0k4JC8KL3MA8/A+stlKuCvaW0SY+DabgM=;
+ s=mail; t=1657211807;
+ bh=AgP5Riz/FHb587iBL1vYiW/g4qmDc92BtRCaR0jjFGw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KQceRyr8HJTiByldyuhsZFJRYl7MX/X07QW4Lo6mbI8Itl7B9EQ1WtMYTQBvsmHsO
- i1hK3gE81mt27Y7DGyKztLQ9AZvsAVHa0pj8rw0IB+cEKPpe8Bf44SI4KfLyuY1pm/
- Sz5fuNP+9Q/V5MKuxozHPw4yazMG5ri+rWshkly6a4PAOfYIfvoqzeECPrpnJ+/mey
- tB5TtnM0h3+fdCZnpgaDE35bKH4ldgyUJzHGLgjlyq3NgmoiyF1MuIRjGf4ANZ+Ism
- gLW7nIRgLiBvqsG1cF4PMXRJxbkecdHF7LOTkBidjLw7r7Hw6xgxa8Y667qaEHZwIV
- CTNLHA4K0lm1g==
+ b=YS9jOYNtPuzqA95YrPDFVvYrVJBTJd5k9Itt7n8Kq8m+U+ucKnnozKeA0Y/Pbz/w6
+ kXlUutnOopNomSwTk7zVbDD/9I6oJCm3F03JSgTFy5uhda0WX5OkfUeea4fPnYPDaf
+ b5OX1mTAaS1CuVUdh5T0EMW5JcOn0yQkW4ge00neZq02mv86SidJLTxBg5KfrFrMJs
+ /k2rTxgl1yKkG5a09GiRBe451/BiPYLMURzpYV986jH01u1+OK3oNZNaEv2AGWcPkS
+ DtqFAs5orb8/pH8Q+8lbgXUAYgLz1OrM3uE8YGfF5iSvJSJzNm+QRHPvxnCjbb30Vx
+ TLGzUUlpeoP3Q==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -36,16 +37,16 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Thu,  7 Jul 2022 16:35:59 +0000
-Message-Id: <20220707163606.1474111-5-bob.beckett@collabora.com>
+Date: Thu,  7 Jul 2022 16:36:01 +0000
+Message-Id: <20220707163606.1474111-7-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220707163606.1474111-1-bob.beckett@collabora.com>
 References: <20220707163606.1474111-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 04/11] drm/i915/gem: selftest should not
- attempt mmap of private regions
+Subject: [Intel-gfx] [PATCH v9 06/11] drm/i915: sanitize mem_flags for
+ stolen buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,28 +65,44 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-During testing make can_mmap consider whether the region is private.
+Stolen regions are not page backed or considered iomem.
+Prevent flags indicating such.
+This correctly prevents stolen buffers from attempting to directly map
+them.
+
+See i915_gem_object_has_struct_page() and i915_gem_object_has_iomem()
+usage for where it would break otherwise.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
 Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index 5bc93a1ce3e3..76181e28c75e 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -869,6 +869,9 @@ static bool can_mmap(struct drm_i915_gem_object *obj, enum i915_mmap_type type)
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
- 	bool no_map;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index 675e9ab30396..81c67ca9edda 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -14,6 +14,7 @@
+ #include "gem/i915_gem_region.h"
+ #include "gem/i915_gem_ttm.h"
+ #include "gem/i915_gem_ttm_move.h"
++#include "gem/i915_gem_stolen.h"
  
-+	if (obj->mm.region && obj->mm.region->private)
-+		return false;
-+
- 	if (obj->ops->mmap_offset)
- 		return type == I915_MMAP_TYPE_FIXED;
- 	else if (type == I915_MMAP_TYPE_FIXED)
+ #include "gt/intel_engine_pm.h"
+ #include "gt/intel_gt.h"
+@@ -124,8 +125,9 @@ void i915_ttm_adjust_gem_after_move(struct drm_i915_gem_object *obj)
+ 
+ 	obj->mem_flags &= ~(I915_BO_FLAG_STRUCT_PAGE | I915_BO_FLAG_IOMEM);
+ 
+-	obj->mem_flags |= i915_ttm_cpu_maps_iomem(bo->resource) ? I915_BO_FLAG_IOMEM :
+-		I915_BO_FLAG_STRUCT_PAGE;
++	if (!i915_gem_object_is_stolen(obj))
++		obj->mem_flags |= i915_ttm_cpu_maps_iomem(bo->resource) ? I915_BO_FLAG_IOMEM :
++			I915_BO_FLAG_STRUCT_PAGE;
+ 
+ 	if (!obj->ttm.cache_level_override) {
+ 		cache_level = i915_ttm_cache_level(to_i915(bo->base.dev),
 -- 
 2.25.1
 
