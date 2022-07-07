@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FBF6CCA47F
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 20:03:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19ABDCCA479
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 20:03:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAB3312B9AA;
-	Thu,  7 Jul 2022 20:02:54 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 072C211B6D7;
- Thu,  7 Jul 2022 20:02:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 614DA11B6F8;
+	Thu,  7 Jul 2022 20:02:53 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5BE811B6C3;
+ Thu,  7 Jul 2022 20:02:49 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id A131D66019EE;
- Thu,  7 Jul 2022 21:02:49 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 633BC66019E2;
+ Thu,  7 Jul 2022 21:02:48 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657224169;
- bh=4Q2MmpoHgvo6IqR+FhRTJWk4TRp24CULBaAdeSzO30A=;
+ s=mail; t=1657224168;
+ bh=BJ87eisXj9Ppx4nwiDdWpEsHsZ0BoBn8nQEON2j1/N8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JcQ8SBZEpPP8EVYE51rSwLw651bQzWdQSRRUwK1M4rWQYn5HR8crPwf6o8cKWODl0
- DbR1AXNNhzUfA5JTgnIiRB36fje01CdfpOXc0UKLYFI0VOVJJZiDRqrnfPKDqDNW5s
- EC+Y6vaNL2T15/5SglZMBCePcuWrgjqmYRlzWOQ5bMEeo15W1EE6f4boLQh1nPFB98
- lj0gphq9lFYno2gjqGknMcPlsFBzgTbUp20r6OeN0TxIDVn+6/ipjGXVly5b7g8BsP
- TldLyJXAQZiExu1gXaj0VUa/JhQM6r3k8mlRBls158d/E1fsqNdIF+g9iA2fyi+DD6
- 3Z2HFxjwCl8dA==
+ b=eMVQAxAA055i7JCbwZV4VOLNSzs/tarHYtDiTlr9njl1uqAHufvYPx23qR5eAwSUW
+ ZVHVSmD8hBjGAJtpVUnnnpRmsnWcu/y7+u5IiiRbJwf+er3koiV+mGcCNEcYGzXr7Y
+ Ff0TJGoWs2BfEOeMXRNkZFqVXyj+JukdEKhLX9iw9P6YIJPP3yvXLwIyMWqyi9n92k
+ JnJV2SYaKFQX8OGfkIZkBNouzRAevtR9wzvQpmdNd/Tvs+PaI12MYc+3/m2YaZsW6s
+ Wft5LOa+oUnQaNdqJ9ViZXisA0oKzW25j0ued7BY53r1g8c4MWU4RDN9sJb2lP+/ab
+ QHkPQV3xvU7NA==
 From: Robert Beckett <bob.beckett@collabora.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -37,15 +36,15 @@ To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Thu,  7 Jul 2022 20:02:28 +0000
-Message-Id: <20220707200230.1657555-11-bob.beckett@collabora.com>
+Date: Thu,  7 Jul 2022 20:02:26 +0000
+Message-Id: <20220707200230.1657555-9-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220707200230.1657555-1-bob.beckett@collabora.com>
 References: <20220707200230.1657555-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 10/11] drm/i915/selftest: wait for requests
- during engine reset selftest
+Subject: [Intel-gfx] [PATCH v10 08/11] drm/i915/ttm: add buffer pin on alloc
+ flag
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,91 +63,114 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While looping around each engine and testing for corrupted solen memory
-during engine reset, the old requests from the previous engine can still
-be yet to retire.
-To prevent false positive corruption tests, wait for the outstanding
-requests at the end of the test
+For situations where allocations need to fail on alloc instead of
+delayed get_pages, add a new alloc flag to pin the ttm bo.
+This makes sure that the resource has been allocated during buffer
+creation, allowing it to fail with an error if the placement is
+exhausted.
+This allows existing fallback options for stolen backend allocation like
+create_ring_vma to work as expected.
 
 Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_reset.c | 35 ++++++++++++++++++++++--
- 1 file changed, 33 insertions(+), 2 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  | 13 ++++++----
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 25 ++++++++++++++++++-
+ 2 files changed, 32 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i915/gt/selftest_reset.c
-index 55f3b34e5f6e..a2558bc31408 100644
---- a/drivers/gpu/drm/i915/gt/selftest_reset.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
-@@ -6,6 +6,7 @@
- #include <linux/crc32.h>
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 6632ed52e919..07bc11247a3e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -325,17 +325,20 @@ struct drm_i915_gem_object {
+  * dealing with userspace objects the CPU fault handler is free to ignore this.
+  */
+ #define I915_BO_ALLOC_GPU_ONLY	  BIT(6)
++/* object should be pinned in destination region from allocation */
++#define I915_BO_ALLOC_PINNED	  BIT(7)
+ #define I915_BO_ALLOC_FLAGS (I915_BO_ALLOC_CONTIGUOUS | \
+ 			     I915_BO_ALLOC_VOLATILE | \
+ 			     I915_BO_ALLOC_CPU_CLEAR | \
+ 			     I915_BO_ALLOC_USER | \
+ 			     I915_BO_ALLOC_PM_VOLATILE | \
+ 			     I915_BO_ALLOC_PM_EARLY | \
+-			     I915_BO_ALLOC_GPU_ONLY)
+-#define I915_BO_READONLY          BIT(7)
+-#define I915_TILING_QUIRK_BIT     8 /* unknown swizzling; do not release! */
+-#define I915_BO_PROTECTED         BIT(9)
+-#define I915_BO_WAS_BOUND_BIT     10
++			     I915_BO_ALLOC_GPU_ONLY | \
++			     I915_BO_ALLOC_PINNED)
++#define I915_BO_READONLY          BIT(8)
++#define I915_TILING_QUIRK_BIT     9 /* unknown swizzling; do not release! */
++#define I915_BO_PROTECTED         BIT(10)
++#define I915_BO_WAS_BOUND_BIT     11
+ 	/**
+ 	 * @mem_flags - Mutable placement-related flags
+ 	 *
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index 27d59639177f..bb988608296d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -998,6 +998,13 @@ static void i915_ttm_delayed_free(struct drm_i915_gem_object *obj)
+ {
+ 	GEM_BUG_ON(!obj->ttm.created);
  
- #include "gem/i915_gem_stolen.h"
-+#include "gt/intel_gt.h"
- 
- #include "i915_memcpy.h"
- #include "i915_selftest.h"
-@@ -26,6 +27,7 @@ __igt_reset_stolen(struct intel_gt *gt,
- 	intel_wakeref_t wakeref;
- 	enum intel_engine_id id;
- 	struct igt_spinner spin;
-+	struct i915_request *requests[I915_NUM_ENGINES] = {0};
- 	long max, count;
- 	void *tmp;
- 	u32 *crc;
-@@ -68,15 +70,16 @@ __igt_reset_stolen(struct intel_gt *gt,
- 		ce = intel_context_create(engine);
- 		if (IS_ERR(ce)) {
- 			err = PTR_ERR(ce);
--			goto err_spin;
-+			goto err_requests;
- 		}
- 		rq = igt_spinner_create_request(&spin, ce, MI_ARB_CHECK);
- 		intel_context_put(ce);
- 		if (IS_ERR(rq)) {
- 			err = PTR_ERR(rq);
--			goto err_spin;
-+			goto err_requests;
- 		}
- 		i915_request_add(rq);
-+		requests[id] = i915_request_get(rq);
- 	}
- 
- 	for (page = 0; page < num_pages; page++) {
-@@ -165,6 +168,34 @@ __igt_reset_stolen(struct intel_gt *gt,
- 		err = -EINVAL;
- 	}
- 
-+	/* wait for requests and idle, otherwise cleanup can happen on next loop */
-+	for (id = 0; id < I915_NUM_ENGINES; id++) {
-+		if (!requests[id])
-+			continue;
-+		err = i915_request_wait(requests[id], I915_WAIT_INTERRUPTIBLE, HZ);
-+		if (err < 0) {
-+			pr_err("%s failed to wait for rq: %d\n", msg, err);
-+			goto err_requests;
-+		}
-+
-+		i915_request_put(requests[id]);
-+		requests[id] = NULL;
++	/* stolen objects are pinned for lifetime. Unpin before putting */
++	if (obj->flags & I915_BO_ALLOC_PINNED) {
++		ttm_bo_reserve(i915_gem_to_ttm(obj), true, false, NULL);
++		ttm_bo_unpin(i915_gem_to_ttm(obj));
++		ttm_bo_unreserve(i915_gem_to_ttm(obj));
 +	}
 +
-+	err = intel_gt_wait_for_idle(gt, HZ);
-+	if (err < 0) {
-+		pr_err("%s failed to wait for gt idle: %d\n", msg, err);
-+		goto err_spin;
-+	}
-+
-+	err = 0;
-+
-+err_requests:
-+	for (id = 0; id < I915_NUM_ENGINES; id++) {
-+		if (!requests[id])
-+			continue;
-+		i915_request_put(requests[id]);
-+	}
- err_spin:
- 	igt_spinner_fini(&spin);
+ 	ttm_bo_put(i915_gem_to_ttm(obj));
+ }
  
+@@ -1193,6 +1200,9 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 		.no_wait_gpu = false,
+ 	};
+ 	enum ttm_bo_type bo_type;
++	struct ttm_place _place;
++	struct ttm_placement _placement;
++	struct ttm_placement *placement;
+ 	int ret;
+ 
+ 	drm_gem_private_object_init(&i915->drm, &obj->base, size);
+@@ -1222,6 +1232,17 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 	 */
+ 	i915_gem_object_make_unshrinkable(obj);
+ 
++	if (obj->flags & I915_BO_ALLOC_PINNED) {
++		i915_ttm_place_from_region(mem, &_place, obj->bo_offset,
++					   obj->base.size, obj->flags);
++		_placement.num_placement = 1;
++		_placement.placement = &_place;
++		_placement.num_busy_placement = 0;
++		_placement.busy_placement = NULL;
++		placement = &_placement;
++	} else {
++		placement = &i915_sys_placement;
++	}
+ 	/*
+ 	 * If this function fails, it will call the destructor, but
+ 	 * our caller still owns the object. So no freeing in the
+@@ -1230,7 +1251,7 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 	 * until successful initialization.
+ 	 */
+ 	ret = ttm_bo_init_reserved(&i915->bdev, i915_gem_to_ttm(obj), size,
+-				   bo_type, &i915_sys_placement,
++				   bo_type, placement,
+ 				   page_size >> PAGE_SHIFT,
+ 				   &ctx, NULL, NULL, i915_ttm_bo_destroy);
+ 	if (ret)
+@@ -1242,6 +1263,8 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 	i915_ttm_adjust_domains_after_move(obj);
+ 	i915_ttm_adjust_gem_after_move(obj);
+ 	obj->ttm.cache_level_override = false;
++	if (obj->flags & I915_BO_ALLOC_PINNED)
++		ttm_bo_pin(i915_gem_to_ttm(obj));
+ 	i915_gem_object_unlock(obj);
+ 
+ 	return 0;
 -- 
 2.25.1
 
