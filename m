@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6223C433EF
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Jul 2022 21:52:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65071C43334
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Jul 2022 00:04:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B2F814ADC5;
-	Thu,  7 Jul 2022 21:52:09 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDADD14ADB9
- for <intel-gfx@lists.freedesktop.org>; Thu,  7 Jul 2022 21:52:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C324710E7E8;
+	Fri,  8 Jul 2022 00:03:52 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DBAA10EDB4
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 Jul 2022 00:03:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657230727; x=1688766727;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=+iL3VtoYA21b89d2ZSW117ukFcHNQprZtgVagCev1M8=;
- b=lrrKI6MYhEr7ky/lBIvr85mRf4ohwxCgYVGCQRmD4k2mE94qUJ1hTjz4
- U3TiQ2nfLahtFw3xGBYR8ZrPT6fhHXDIyOgEOra2NykvXRIrJOKwX9DLq
- htC2wM5be41iFz+9zrMGFDTRppdRSBhP4dSmQt1TVtYSRv6h3IhmZzgGq
- iWLXep3DOmGe9+1hyl54Q0L/WE6xuZGAEWU16OVHx76VcDqgEp5Q34pRf
- 3T/20Y9/I/0lg48JLpT5RUTJX52gMqzKW8yYc8VPOcJ0jrkPwDsOb3nTH
- t0rvYKHCSfP9S7VxW/Soh/uCkGJvEDYeyJyj5Ulv3+PxVTPqhuqveVEOY w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10401"; a="282881968"
-X-IronPort-AV: E=Sophos;i="5.92,253,1650956400"; d="scan'208";a="282881968"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2022 14:52:07 -0700
-X-IronPort-AV: E=Sophos;i="5.92,253,1650956400"; d="scan'208";a="620962024"
-Received: from tlonnber-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.251.208.235])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2022 14:52:05 -0700
-Date: Thu, 7 Jul 2022 23:52:03 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Karolina Drobnik <karolina.drobnik@intel.com>
-Message-ID: <YsdVgzWHjo01QLMC@alfio.lan>
-References: <cover.1656911806.git.karolina.drobnik@intel.com>
- <5c77a2a12b4159415e5e448a563ab70a13a8d8cb.1656911806.git.karolina.drobnik@intel.com>
+ t=1657238630; x=1688774630;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Tr3KdOy+tTkxe1r0smnriN3eMAH4A/TTvgazyE6Ur6U=;
+ b=nKafPTqyl9V0Vpm7Ojw7rDgyzDUNGgT09s13cqiYjgDcQQV8VrBDnpwP
+ 2baOv3klVVBNLTBzOEMrODMo8D4sxNtmT7JwO19Vn3vgUEgIVDylidOCk
+ xaUqu81qj878dmkGYJfgQAGr6G3pjY/2hAThBjCtBiUMxD9RG9nQqS79y
+ HYjLdXrcn6G5F4kOwdZjoySKRBpn6FlM1JguNDtNeVIqmDr/B636Y051H
+ EJmXWojBel/1bXwNCUGNCyxtXKr+kt0lYOogrlDgbJeJIawaGjh29jEl2
+ yU/MDsckVi12gnsIvIPEJ74NgKpjwd/MWiKykVwFMaIbgONDcP3ud9YJy w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10401"; a="345836745"
+X-IronPort-AV: E=Sophos;i="5.92,253,1650956400"; d="scan'208";a="345836745"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2022 17:03:49 -0700
+X-IronPort-AV: E=Sophos;i="5.92,253,1650956400"; d="scan'208";a="598196586"
+Received: from invictus.jf.intel.com ([10.165.21.205])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2022 17:03:49 -0700
+From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  7 Jul 2022 17:03:34 -0700
+Message-Id: <20220708000335.2869311-2-radhakrishna.sripada@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220708000335.2869311-1-radhakrishna.sripada@intel.com>
+References: <20220708000335.2869311-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5c77a2a12b4159415e5e448a563ab70a13a8d8cb.1656911806.git.karolina.drobnik@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 2/3] drm/i915: Bump GT idling delay to 2
- jiffies
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v3 1/2] drm/i915/mtl: Add MeteorLake platform
+ info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,46 +56,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
+Cc: jani.nikula@intel.com, lucas.demarchi@intel.com, rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+MTL has Xe_LPD+ display IP (version = 14), MTL graphics IP
+(version = 12.70), and Xe_LPM+ media IP (version = 13).
 
-On Tue, Jul 05, 2022 at 12:57:18PM +0200, Karolina Drobnik wrote:
-> From: Chris Wilson <chris@chris-wilson.co.uk>
-> 
-> In monitoring a transcode pipeline that is latency sensitive (it waits
-> between submitting frames, and each frame requires work on rcs/vcs/vecs
-> engines), it is found that it took longer than a single jiffy for it to
-> sustain its workload. Allowing an extra jiffy headroom for the userspace
-> prevents us from prematurely parking and having to exit powersaving
-> immediately.
-> 
-> Link: https://gitlab.freedesktop.org/drm/intel/-/issues/6284
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> Signed-off-by: Karolina Drobnik <karolina.drobnik@intel.com>
+Bspec: 55413
+Bspec: 55416
+Bspec: 55417
+Bspec: 55418
+Bspec: 55726
+Bspec: 45544
+Bspec: 65380
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+v2: rearrange the fields in pci_info(MattR)
 
-Andi
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+---
+ drivers/gpu/drm/i915/i915_drv.h          |  1 +
+ drivers/gpu/drm/i915/i915_pci.c          | 25 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/intel_device_info.c |  1 +
+ drivers/gpu/drm/i915/intel_device_info.h |  1 +
+ 4 files changed, 28 insertions(+)
 
-> ---
->  drivers/gpu/drm/i915/i915_active.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-> index ee2b3a375362..7412abf166a8 100644
-> --- a/drivers/gpu/drm/i915/i915_active.c
-> +++ b/drivers/gpu/drm/i915/i915_active.c
-> @@ -974,7 +974,7 @@ void i915_active_acquire_barrier(struct i915_active *ref)
->  
->  		GEM_BUG_ON(!intel_engine_pm_is_awake(engine));
->  		llist_add(barrier_to_ll(node), &engine->barrier_tasks);
-> -		intel_engine_pm_put_delay(engine, 1);
-> +		intel_engine_pm_put_delay(engine, 2);
->  	}
->  }
->  
-> -- 
-> 2.25.1
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index c22f29c3faa0..00998a78a2ba 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1018,6 +1018,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 	IS_SUBPLATFORM(dev_priv, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_N)
+ #define IS_ADLP_RPLP(dev_priv) \
+ 	IS_SUBPLATFORM(dev_priv, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_RPL)
++#define IS_METEORLAKE(dev_priv) IS_PLATFORM(dev_priv, INTEL_METEORLAKE)
+ #define IS_HSW_EARLY_SDV(dev_priv) (IS_HASWELL(dev_priv) && \
+ 				    (INTEL_DEVID(dev_priv) & 0xFF00) == 0x0C00)
+ #define IS_BDW_ULT(dev_priv) \
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 0cdd6513fbb7..859d43c7d0a3 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1107,6 +1107,31 @@ static const struct intel_device_info pvc_info = {
+ 	.require_force_probe = 1,
+ };
+ 
++#define XE_LPDP_FEATURES	\
++	XE_LPD_FEATURES,	\
++	.display.ver = 14,	\
++	.display.has_cdclk_crawl = 1
++
++__maybe_unused
++static const struct intel_device_info mtl_info = {
++	XE_HP_FEATURES,
++	XE_LPDP_FEATURES,
++	/*
++	 * Real graphics IP version will be obtained from hardware GMD_ID
++	 * register.  Value provided here is just for sanity checking.
++	 */
++	.graphics.ver = 12,
++	.graphics.rel = 70,
++	.media.ver = 13,
++	PLATFORM(INTEL_METEORLAKE),
++	.display.has_modular_fia = 1,
++	.has_flat_ccs = 0,
++	.has_snoop = 1,
++	.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
++	.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(CCS0),
++	.require_force_probe = 1,
++};
++
+ #undef PLATFORM
+ 
+ /*
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index f0bf23726ed8..27c343316afa 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -73,6 +73,7 @@ static const char * const platform_names[] = {
+ 	PLATFORM_NAME(XEHPSDV),
+ 	PLATFORM_NAME(DG2),
+ 	PLATFORM_NAME(PONTEVECCHIO),
++	PLATFORM_NAME(METEORLAKE),
+ };
+ #undef PLATFORM_NAME
+ 
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 1c150cd7dceb..7ba9663213f4 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -89,6 +89,7 @@ enum intel_platform {
+ 	INTEL_XEHPSDV,
+ 	INTEL_DG2,
+ 	INTEL_PONTEVECCHIO,
++	INTEL_METEORLAKE,
+ 	INTEL_MAX_PLATFORMS
+ };
+ 
+-- 
+2.25.1
+
