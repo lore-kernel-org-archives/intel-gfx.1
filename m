@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29B8AC43334
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:26:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD06BC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:27:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C48290FD2;
-	Mon, 11 Jul 2022 20:26:16 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0EDB8B05E;
- Mon, 11 Jul 2022 20:25:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A9AB8D0C9;
+	Mon, 11 Jul 2022 20:26:12 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 447AE8D851;
+ Mon, 11 Jul 2022 20:25:32 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2311BB81230;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 02C5861666;
  Mon, 11 Jul 2022 20:25:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E795C341D1;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D49AC385A5;
  Mon, 11 Jul 2022 20:25:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657571125;
- bh=ijCPUHCQ+PvIvqv0lj0eAF28GMG83iZ88gPn2azWN00=;
+ bh=UdbBOFAYSkJ31LJ7NEPV5jkgfH7PpdrewW2qgrHkwbM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LuT7CaQRkdWFb8J/EDSonrTwNrneFh4vQzZa34mfbf3abyiL9uJB0RNLTsPkHeCg9
- Gvy/qehbvXma6MzykQXN6Q3bAWc9AgkVRyK737bGrBp4jccYBKwaoDhHHmVQ68qfkL
- QxNqwvTJi2HNVQLXX5pxdT9uId/imH0kHyPC4xg6F6hJ6PoR8puYgEKWx1mJr4pdTP
- xp4QpPXQmhDIu74KD0OzuNfbuv0W0qDQDEhsz7OshIbocDgDlNWJs/g9txY5KijQMz
- LEXa5jPSdb82yxhavdHFzgrH+8LNGXx1r4ih4RoBXA7oxqc2FReW+kwZEV2CdgUHhq
- 7aqWQhvXVAkKw==
+ b=pLMeVYWxALOk8RWwUW5gRt3PP0b62nRZLuSxKIPXqZzUVOUnKhFAvdDnKuEQfEz/r
+ j69hS+Z5GWEEzkl/nlNifflKxbYXM/hMOw0pu4KT4XjT1RYn5EDiTWmTkAkUWHf6Et
+ PRhTH6Q4y7jdqSQXsbgDXGY0FW5lU8l/ZT2kahZUCRubeqOgdp6yGEdjoQp3m5IJbi
+ utfQLWfEAk6L1Ct+rs4UBW0QTiY1pdkuErID8ffN8ejOAnucgW0iUBvpYSeLPgW5aG
+ ovD4zNor57X0TN6Wr2vZjoF1tRDEtLae8gtVggIi9KQxK/HcGanmQOvzPpurETLh8V
+ vahxDA6QbIBZQ==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e8I-LS;
+ (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e7p-F4;
  Mon, 11 Jul 2022 21:25:19 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Mon, 11 Jul 2022 21:25:02 +0100
-Message-Id: <54d781157866d7dc4f656b50500f228dca4070ed.1657565224.git.mchehab@kernel.org>
+Date: Mon, 11 Jul 2022 21:24:53 +0100
+Message-Id: <5f03e188e48746f86da543b1c983d01fab70e9ef.1657565224.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657565224.git.mchehab@kernel.org>
 References: <cover.1657565224.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 17/32] drm/i915: i915_gem_wait.c: fix a
- kernel-doc markup
+Subject: [Intel-gfx] [PATCH 08/32] drm/i915: i915_gem_ttm_pm.c: fix
+ kernel-doc markups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,14 +60,21 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
  Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
  Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+ Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The return codes for i915_gem_wait_ioctl() have identation issues,
-and will be displayed on a very confusing way. Use lists to improve
-its output.
+The documentation for the flags field is missing there. It sounds
+that some last-time change converted some bools into flags, but
+the kernel-doc change didn't follow it.
+
+Fix those warnings:
+
+	drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c:135: warning: Function parameter or member 'flags' not described in 'i915_ttm_backup_region'
+	drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c:135: warning: Excess function parameter 'allow_gpu' description in 'i915_ttm_backup_region'
+	drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c:135: warning: Excess function parameter 'backup_pinned' description in 'i915_ttm_backup_region'
+	drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c:199: warning: Function parameter or member 'flags' not described in 'i915_ttm_restore_region'
+	drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c:199: warning: Excess function parameter 'allow_gpu' description in 'i915_ttm_restore_region'
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
@@ -74,50 +82,35 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH 00/32] at: https://lore.kernel.org/all/cover.1657565224.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gem/i915_gem_wait.c | 24 +++++++++++++-----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-index bdba05492582..7b4e216a295b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-@@ -176,23 +176,25 @@ static unsigned long to_wait_timeout(s64 timeout_ns)
-  * @data: ioctl data blob
-  * @file: drm file pointer
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+index 9aad84059d56..1c4b576a2540 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+@@ -123,8 +123,9 @@ void i915_ttm_recover_region(struct intel_memory_region *mr)
+ /**
+  * i915_ttm_backup_region - Back up all objects of a region to smem.
+  * @mr: The memory region
+- * @allow_gpu: Whether to allow the gpu blitter for this backup.
+- * @backup_pinned: Backup also pinned objects.
++ * @flags: Bitmap field with the following flags:
++ * 	%I915_TTM_BACKUP_ALLOW_GPU: allow the gpu blitter for this backup;
++ * 	%I915_TTM_BACKUP_PINNED: backup also pinned objects.
   *
-- * Returns 0 if successful, else an error is returned with the remaining time in
-- * the timeout parameter.
-- *  -ETIME: object is still busy after timeout
-- *  -ERESTARTSYS: signal interrupted the wait
-- *  -ENONENT: object doesn't exist
-- * Also possible, but rare:
-- *  -EAGAIN: incomplete, restart syscall
-- *  -ENOMEM: damn
-- *  -ENODEV: Internal IRQ fail
-- *  -E?: The add request failed
-- *
-  * The wait ioctl with a timeout of 0 reimplements the busy ioctl. With any
-  * non-zero timeout parameter the wait ioctl will wait for the given number of
-  * nanoseconds on an object becoming unbusy. Since the wait itself does so
-  * without holding struct_mutex the object may become re-busied before this
-  * function completes. A similar but shorter * race condition exists in the busy
-  * ioctl
-+ *
-+ * Returns:
-+ * 0 if successful, else an error is returned with the remaining time in
-+ * the timeout parameter.
-+ * * -ETIME: object is still busy after timeout
-+ * * -ERESTARTSYS: signal interrupted the wait
-+ * * -ENONENT: object doesn't exist
-+ *
-+ * Also possible, but rare:
-+ * * -EAGAIN: incomplete, restart syscall
-+ * * -ENOMEM: damn
-+ * * -ENODEV: Internal IRQ fail
-+ * * -E?: The add request failed
-  */
- int
- i915_gem_wait_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+  * Loops over all objects of a region and either evicts them if they are
+  * evictable or backs them up using a backup object if they are pinned.
+@@ -188,7 +189,8 @@ static int i915_ttm_restore(struct i915_gem_apply_to_region *apply,
+ /**
+  * i915_ttm_restore_region - Restore backed-up objects of a region from smem.
+  * @mr: The memory region
+- * @allow_gpu: Whether to allow the gpu blitter to recover.
++ * @flags: Bitmap field with the following flags:
++ * 	%I915_TTM_BACKUP_ALLOW_GPU: allow the gpu blitter for this backup;
+  *
+  * Loops over all objects of a region and if they are backed-up, restores
+  * them from smem.
 -- 
 2.36.1
 
