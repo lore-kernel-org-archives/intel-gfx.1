@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 505E3C43334
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:26:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E2C6C43334
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:26:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6655718AABB;
-	Mon, 11 Jul 2022 20:26:00 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7F0F11BF14;
- Mon, 11 Jul 2022 20:25:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9343C90B54;
+	Mon, 11 Jul 2022 20:26:02 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9C262B467;
+ Mon, 11 Jul 2022 20:25:29 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7947D61614;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0B9B2B8122C;
+ Mon, 11 Jul 2022 20:25:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8912C341C0;
  Mon, 11 Jul 2022 20:25:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EEAFC341D1;
- Mon, 11 Jul 2022 20:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657571123;
- bh=EgibZKVt1WNDqfCmMOvbWTwvkxOj8KwTZjedbEb+YYs=;
+ s=k20201202; t=1657571125;
+ bh=68mGlwaA0EtgA4nJuAvhd7iYXVxtW3CSXJug597Q8rA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=crg+WUXwH3i4tkkfcM5AkKxNB4gcjbGgDqHC0CbR6gMiOi5sddZi/OhISpENOgiNK
- mvqmUdpiymEV8AhZnesmVQlH+b/u+F8YcLC8Js5XoC3YLkp48bALVVIDLxE0YLKFTm
- IiEUJ8G5nOOZSCbyM84Mpjjhy2t3lIcx7WswEoG/gaUO8F+ivhOVTI58fM0R7BlHI6
- QlpCkiZvyE372fBZNhn3LPLyz/CpKLnHR1xDjryrR+Ey4GAGxbwgc6VBM9I2dR8e7g
- 9lfNAzAjN0w4IjSV1fOkKx9rK3J9C4UwHWJcvYWtfBHXdOfFooH0PUSxOiiUqCoo22
- hP8P+C8yk9QkA==
+ b=CBSTj4IN8j0qXmrjuDC6FgYUE8xR3y7Un/6+x7oa4EOA9god2bnLQgJKxUJPeY8Y+
+ IB17n0LDvBK20uIn65DOpGMlBIOn8RAPMpCNIoJdjTqb7RaPn7BqlQvp0uJh/k33wO
+ w4n8TlW2nUAl4WRnI41fuEifCDVPrVYQJmJU6VZU9vJhht8fid9zVxnL/ODiPdHasK
+ tAJn91z7P32HnXIwOpTI0HTIjHh5ml50ayvvcTvSUCd+hEwOOht9BMx1I3a8+uByYg
+ Rbsu6unLS2GpfhvkdgiQCpj/e6AfGtiQUdYa9sizfAe10VOUtQQD9uqsAS6mN9lX39
+ NVSx4TrPIY0Mg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e7m-ER;
+ (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e96-T1;
  Mon, 11 Jul 2022 21:25:19 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Mon, 11 Jul 2022 21:24:52 +0100
-Message-Id: <8d20311d1163e8581a815410a2c319fae1f36894.1657565224.git.mchehab@kernel.org>
+Date: Mon, 11 Jul 2022 21:25:13 +0100
+Message-Id: <a22fbe2ea7ca57099f2aadf29fbce6b896fc53c5.1657565224.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657565224.git.mchehab@kernel.org>
 References: <cover.1657565224.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/32] drm/i915: i915_gem_ttm: fix a kernel-doc
- markup
+Subject: [Intel-gfx] [PATCH 28/32] docs: gpu: i915.rst: GuC: add more
+ kernel-doc markups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,45 +55,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
  David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
  Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Nirmoy Das <nirmoy.das@intel.com>
+ linux-doc@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Two new fields were added to __i915_gem_ttm_object_init() without
-their corresponding documentation.
+There are several documented GuC kAPI that aren't currently part
+of the docs. Add them, as this allows identifying issues with
+badly-formatted tags.
 
-Document them.
-
-Fixes: 9b78b5dade2d ("drm/i915: add i915_gem_object_create_region_at()")
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH 00/32] at: https://lore.kernel.org/all/cover.1657565224.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/gpu/i915.rst | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 4b54ef3d1f74..6446748c4a70 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -1180,7 +1180,9 @@ void i915_ttm_bo_destroy(struct ttm_buffer_object *bo)
-  * __i915_gem_ttm_object_init - Initialize a ttm-backed i915 gem object
-  * @mem: The initial memory region for the object.
-  * @obj: The gem object.
-+ * @offset: The range start.
-  * @size: Object size in bytes.
-+ * @page_size: The requested page size in bytes for this object.
-  * @flags: gem object flags.
-  *
-  * Return: 0 on success, negative error code on failure.
+diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+index afd8c0e3c689..70f2f4826eba 100644
+--- a/Documentation/gpu/i915.rst
++++ b/Documentation/gpu/i915.rst
+@@ -596,6 +596,28 @@ GuC
+ 
+ .. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_guc.h
+ 
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_uc.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++
+ GuC Firmware Layout
+ ~~~~~~~~~~~~~~~~~~~
+ 
 -- 
 2.36.1
 
