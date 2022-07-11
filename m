@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93A3ACCA47B
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:26:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FC4DC43334
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:26:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66F9A8D097;
-	Mon, 11 Jul 2022 20:26:07 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8BE018AABB;
- Mon, 11 Jul 2022 20:25:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD14890FA0;
+	Mon, 11 Jul 2022 20:26:06 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4EB511BE71;
+ Mon, 11 Jul 2022 20:25:24 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5E8D561647;
- Mon, 11 Jul 2022 20:25:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94604C341EA;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A9E01615FF;
+ Mon, 11 Jul 2022 20:25:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1019EC341CD;
  Mon, 11 Jul 2022 20:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657571123;
- bh=r3W63NJWrdS0Vy07BtL9oix19YbndHPlmCwb9o4vglU=;
+ bh=bXMFov/Bg+gXhXFAPZsN2vr4FlCksYPMpkdasMmUlrI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NdARCe/QsxWvA3TRtTGk58YbkclQO/ywDMeQ/EjhYKu2pGdaIN0sJhO5X3tEs7Pz6
- g52H5FnyHNp9SMWougn6WXlhC9yB5qmRIMq4LT68mzZ2fuEC4itKNB1sufP/7bgres
- 9J1EWaQyqw+6kBGjwBKivf/iCGRPA53ZQgH76Omo4J8Ff1Dzic4FkKM23AnPth3lQB
- T1uDpL9Zxcyq9hsAtUOjJ8a6K8H3lrj8DolDLn4uPJrdWdC07fkkqEiLrRtI+9jxtf
- 1tY3WjOMDSFHlS+1YmPFWcHjhb564ZX25lZQjalKRRu0zD1IkTwJCYMJzrMc48fMut
- fRKfCkD3UBrXA==
+ b=jdiHz0gm9HDa6XIdwt4KprXlWibz76PTd/uinwRJMaD8+yKHvx2/7jmIPTGJS5quN
+ UXpXW+v6ZTI4JbJM+V1FLxs8+Lzi3UnRYZPptyKSHmInL+KbYKfJms7230Bs1MYPMw
+ /3WeNit5gwqvBGuimg14jOmH68jpVr6jHxyuffsqglw0ybCO9q/HWDY5xfSfG7QaZM
+ HRYu3iBnjK1/7Zr4ff9YRpS6l9SIAw+fMnpGJICx/p2pdZGOlEcjx2gzxESd55eJPB
+ E2PQqclLeAQN40cg9bT8Ofyq4iY0d+G1gy4fNm+71BYX5+9RCUPXMW3txXpqvMjTlw
+ F+f9JP2xUouyw==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e9K-V6;
+ (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e81-Hy;
  Mon, 11 Jul 2022 21:25:19 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Mon, 11 Jul 2022 21:25:16 +0100
-Message-Id: <692da4d8c56a1ab99c95042e7fc18deeb608c022.1657565224.git.mchehab@kernel.org>
+Date: Mon, 11 Jul 2022 21:24:57 +0100
+Message-Id: <fcda0c1f321d59d4c193d4b123a5d8f24dae0011.1657565224.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657565224.git.mchehab@kernel.org>
 References: <cover.1657565224.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 31/32] docs: gpu: i915.rst: GEM/TTM: add more
- kernel-doc markups
+Subject: [Intel-gfx] [PATCH 12/32] drm/i915: intel_dp_link_training.c: fix
+ kernel-doc markup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,18 +56,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+Cc: David Airlie <airlied@linux.ie>, Lucas De Marchi <lucas.demarchi@intel.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are several documented GEM/TTM kAPI that aren't currently part
-of the docs. Add them, as this allows identifying issues with
-badly-formatted tags.
+The return code table is not properly marked, causing warnings
+and being badly parsed by Sphinx:
+
+    Documentation/gpu/i915:130: ./drivers/gpu/drm/i915/display/intel_dp_link_training.c:183: WARNING: Block quote ends without a blank line; unexpected unindent.
+    Documentation/gpu/i915:130: ./drivers/gpu/drm/i915/display/intel_dp_link_training.c:186: WARNING: Definition list ends without a blank line; unexpected unindent.
+
+Use table markups to fix it.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
@@ -74,58 +77,28 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH 00/32] at: https://lore.kernel.org/all/cover.1657565224.git.mchehab@kernel.org/
 
- Documentation/gpu/i915.rst | 38 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index c32409c03d32..974754586be8 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -615,6 +615,44 @@ Protected Objects
- 
- .. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp_types.h
- 
-+Table Manager (TTM)
-+-------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+
-+Graphics Execution Manager (GEM)
-+--------------------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_create.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_domain.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_internal.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_object.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_object.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_region.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_region.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+
- Microcontrollers
- ================
- 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 9feaf1a589f3..23a269fcf6ca 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -177,12 +177,14 @@ static int intel_dp_init_lttpr(struct intel_dp *intel_dp, const u8 dpcd[DP_RECEI
+  * transparent mode link training mode.
+  *
+  * Returns:
++ * ====  =====================================================================
+  *   >0  if LTTPRs were detected and the non-transparent LT mode was set. The
+  *       DPRX capabilities are read out.
+  *    0  if no LTTPRs or more than 8 LTTPRs were detected or in case of a
+  *       detection failure and the transparent LT mode was set. The DPRX
+  *       capabilities are read out.
+  *   <0  Reading out the DPRX capabilities failed.
++ * ====  =====================================================================
+  */
+ int intel_dp_init_lttpr_and_dprx_caps(struct intel_dp *intel_dp)
+ {
 -- 
 2.36.1
 
