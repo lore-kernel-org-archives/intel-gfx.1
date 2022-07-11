@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6596CCA47F
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93A3ACCA47B
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:26:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9EC590FAD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66F9A8D097;
 	Mon, 11 Jul 2022 20:26:07 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43BBF11BE36;
- Mon, 11 Jul 2022 20:25:32 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8BE018AABB;
+ Mon, 11 Jul 2022 20:25:28 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C83AC6165C;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5E8D561647;
  Mon, 11 Jul 2022 20:25:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA016C341C8;
- Mon, 11 Jul 2022 20:25:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94604C341EA;
+ Mon, 11 Jul 2022 20:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657571124;
- bh=o2iriqr9yGWd6meVOtOwBCMeiBhrD3lI1NVS6cm0Kmc=;
+ s=k20201202; t=1657571123;
+ bh=r3W63NJWrdS0Vy07BtL9oix19YbndHPlmCwb9o4vglU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YLT6S5V3wpeb0ALSjTIoMWeqhQ6ejsrrlvZ8WVJT5r4tJ5Rl9d+N9pV1TnMFigJ4B
- vt9x8lHKg4dzcpkz4jc/moK8YEp4XfBi6eN0VtE31STGN92PCC6j2rlCBnhnmVuk83
- hrpRdNe8fuKgDpfBL5YmNOW1+IXpACRU6BZju0rYBAvQXrp8u3+JSyjMfSE0sX7MtU
- dvru0K5hMWY1dHb6LaZrjg1YYYSbIsdW1kn7lFIUvxky1XWgQDZOa8aHCqn0zmW3JQ
- gfnXqGPII7fIyACS/9x5VFyVFU1YZ+kin5r4tiJ/tbkL1Mpnk4m6NK99C7AHo6NVzE
- 8f+CMKKIiANWQ==
+ b=NdARCe/QsxWvA3TRtTGk58YbkclQO/ywDMeQ/EjhYKu2pGdaIN0sJhO5X3tEs7Pz6
+ g52H5FnyHNp9SMWougn6WXlhC9yB5qmRIMq4LT68mzZ2fuEC4itKNB1sufP/7bgres
+ 9J1EWaQyqw+6kBGjwBKivf/iCGRPA53ZQgH76Omo4J8Ff1Dzic4FkKM23AnPth3lQB
+ T1uDpL9Zxcyq9hsAtUOjJ8a6K8H3lrj8DolDLn4uPJrdWdC07fkkqEiLrRtI+9jxtf
+ 1tY3WjOMDSFHlS+1YmPFWcHjhb564ZX25lZQjalKRRu0zD1IkTwJCYMJzrMc48fMut
+ fRKfCkD3UBrXA==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e8F-Kg;
+ (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e9K-V6;
  Mon, 11 Jul 2022 21:25:19 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Mon, 11 Jul 2022 21:25:01 +0100
-Message-Id: <d422b77a1d40e815e6e84dcb0f7be9097efffe36.1657565224.git.mchehab@kernel.org>
+Date: Mon, 11 Jul 2022 21:25:16 +0100
+Message-Id: <692da4d8c56a1ab99c95042e7fc18deeb608c022.1657565224.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657565224.git.mchehab@kernel.org>
 References: <cover.1657565224.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 16/32] drm/i915: i915_gem_region.h: fix
- i915_gem_apply_to_region_ops doc
+Subject: [Intel-gfx] [PATCH 31/32] docs: gpu: i915.rst: GEM/TTM: add more
+ kernel-doc markups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,24 +55,18 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
  David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
  Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ linux-doc@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The kernel-doc markup for i915_gem_apply_to_region_ops() has some
-issues:
-
-1. The field should be marked as @process_obj;
-2. The callback parameters aren't document properly, as sphinx
-   will consider them to be placed at the wrong place.
-
-Fix (1) and change the way the parameters are described, using
-a list, in order for it to be properly parsed during documentation
-build time.
+There are several documented GEM/TTM kAPI that aren't currently part
+of the docs. Add them, as this allows identifying issues with
+badly-formatted tags.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
@@ -81,28 +74,58 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH 00/32] at: https://lore.kernel.org/all/cover.1657565224.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gem/i915_gem_region.h | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ Documentation/gpu/i915.rst | 38 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_region.h b/drivers/gpu/drm/i915/gem/i915_gem_region.h
-index 2dfcc41c0170..b0134bf4b1b7 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_region.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_region.h
-@@ -22,9 +22,11 @@ struct i915_gem_apply_to_region;
-  */
- struct i915_gem_apply_to_region_ops {
- 	/**
--	 * process_obj - Process the current object
--	 * @apply: Embed this for private data.
--	 * @obj: The current object.
-+	 * @process_obj: Callback function to process the current object
-+	 * it requires two arguments:
-+	 *
-+	 * - @apply: Embed this for private data.
-+	 * - @obj: The current object.
- 	 *
- 	 * Note that if this function is part of a ww transaction, and
- 	 * if returns -EDEADLK for one of the objects, it may be
+diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+index c32409c03d32..974754586be8 100644
+--- a/Documentation/gpu/i915.rst
++++ b/Documentation/gpu/i915.rst
+@@ -615,6 +615,44 @@ Protected Objects
+ 
+ .. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+ 
++Table Manager (TTM)
++-------------------
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++
++Graphics Execution Manager (GEM)
++--------------------------------
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_create.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_domain.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_internal.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_lmem.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_mman.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_object.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_object.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_region.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_region.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_userptr.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_wait.c
++
+ Microcontrollers
+ ================
+ 
 -- 
 2.36.1
 
