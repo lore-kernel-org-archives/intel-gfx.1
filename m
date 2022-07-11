@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55297CCA47F
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:25:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D10ACCA47B
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:25:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47FD614A0BF;
-	Mon, 11 Jul 2022 20:25:35 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C934714A0A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D341C11BE75;
+	Mon, 11 Jul 2022 20:25:40 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B873D11BFD1;
  Mon, 11 Jul 2022 20:25:25 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6B373B81205;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 84F5B61616;
  Mon, 11 Jul 2022 20:25:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085C9C34115;
- Mon, 11 Jul 2022 20:25:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20786C385A5;
+ Mon, 11 Jul 2022 20:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657571123;
- bh=gmUsOXoQJn4VasGdRabTn//YULN5ONt5Qo/z2YXpkw4=;
+ bh=JmPMr0UNPPF1GlXrFpz+iVGZIKjSFpWV9k4IbirRPBA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=beVau9XqV6z2ujjPu0EBBrK1UT5fo0ZgcW+NtaZx5kIjL6ceFS2Ug1ZYg9OX0lcqt
- cBS4CgmZP+BQuezzkYcbT5jqvHnGFpKJwVmRuepSeWlG0OaakiJlmKd0wl7Ye8+uF5
- cXS/bbWtT5UmPYnxKbmH8vmyM2JchrKLjaexbtWKTGCQhovq7WqumRLsTI5A1UkXCY
- 7rBLEeq+6TrLDeM7b4clTV4r+9AunCxQKKewspd+8wRqnPme+m/atqf9vQTtI9J2v0
- f3fYeETnnL29zuJNXaxM9M7HTyUzcaqQohuhBg39YKV0gvNL9Bspf6M65DXUuP7bIp
- biCUbjo4odRvw==
+ b=WlYMrICxqmmhFoXpZTNbJxuVcUnpORO3ZJXRfTMdKGS5N7Vtxd0zjqeW1iyjbOyCO
+ gaeY/FyMy0Un+ad/GacAO6aUXMxgm8JM1u9QAjDOrhG+cKomDFJvSPmbDvZffnNBgZ
+ sN8SWlq9BLBkuydTLryYhJAKe5xF85nmM4Ab3Xw8exklCFi75QEgl/dF2ao45BIqiW
+ LsdyL8juHvH54PJjUCU802oMwvXD9O9oWGXqX6knGW9IviEK6HdghPePMd45u9MswX
+ fuaTeTOd//+FBpGHPEemTVp+TR4k9QzODTJuKXKMSNTzyx29ECnDmLVLOkkhpXTDSk
+ n0PWg2S2Oi8Bg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e8A-Jz;
+ (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e7j-Di;
  Mon, 11 Jul 2022 21:25:19 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Mon, 11 Jul 2022 21:25:00 +0100
-Message-Id: <eb7522b15921a505e88572b128e0caabf9574b2b.1657565224.git.mchehab@kernel.org>
+Date: Mon, 11 Jul 2022 21:24:51 +0100
+Message-Id: <d06a1fd8f9361edda39d1b15b6c7b2645c6a3fca.1657565224.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657565224.git.mchehab@kernel.org>
 References: <cover.1657565224.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 15/32] drm/i915: intel_pm.c: fix some ascii
- artwork at kernel-doc
+Subject: [Intel-gfx] [PATCH 06/32] drm/i915: intel_wakeref.h: fix some
+ kernel-doc markups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,24 +62,15 @@ Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Preserving ascii artwork on kernel-docs is tricky, as it needs
-to respect both the Sphinx rules and be properly parsed by
-kernel-doc script.
+Two documented functions don't match the kernel-doc comments,
+as reported by kernel-doc:
 
-The Sphinx syntax require code-blocks, which is:
+	drivers/gpu/drm/i915/intel_wakeref.h:117: warning: expecting prototype for intel_wakeref_get_if_in_use(). Prototype was for intel_wakeref_get_if_active() instead
+	drivers/gpu/drm/i915/intel_wakeref.h:149: warning: expecting prototype for intel_wakeref_put_flags(). Prototype was for __intel_wakeref_put() instead
 
-	::
+Fix them.
 
-followed by a blank line and indended lines.
-
-But kernel-doc only works fine if the first and the last line
-are indented with the same amount of spaces.
-
-Also, a "\" at the end means that the next line should be merged
-with the first one.
-
-Change the ascii artwork to be on code-blocks, starting all
-lines at the same characters and not ending with a backslash.
+Additionally, improve title for intel_wakeref_get_if_active().
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
@@ -87,64 +78,31 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH 00/32] at: https://lore.kernel.org/all/cover.1657565224.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/intel_pm.c | 33 ++++++++++++++++++---------------
- 1 file changed, 18 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/intel_wakeref.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index f06babdb3a8c..d3393752b04b 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -684,18 +684,20 @@ static const struct intel_watermark_params i845_wm_info = {
-  * FIFO is relatively small compared to the amount of data
-  * fetched.
+diff --git a/drivers/gpu/drm/i915/intel_wakeref.h b/drivers/gpu/drm/i915/intel_wakeref.h
+index 4f4c2e15e736..63e539c9b1f3 100644
+--- a/drivers/gpu/drm/i915/intel_wakeref.h
++++ b/drivers/gpu/drm/i915/intel_wakeref.h
+@@ -104,7 +104,7 @@ __intel_wakeref_get(struct intel_wakeref *wf)
+ }
+ 
+ /**
+- * intel_wakeref_get_if_in_use: Acquire the wakeref
++ * intel_wakeref_get_if_active: Acquire the wakeref if active
+  * @wf: the wakeref
   *
-- * The FIFO level vs. time graph might look something like:
-+ * The FIFO level vs. time graph might look something like::
+  * Acquire a hold on the wakeref, but only if the wakeref is already
+@@ -130,7 +130,7 @@ intel_wakeref_might_get(struct intel_wakeref *wf)
+ }
+ 
+ /**
+- * intel_wakeref_put_flags: Release the wakeref
++ * __intel_wakeref_put: Release the wakeref
+  * @wf: the wakeref
+  * @flags: control flags
   *
-- *   |\   |\
-- *   | \  | \
-- * __---__---__ (- plane active, _ blanking)
-- * -> time
-+ *   ^
-+ *   |   |\   |\      (                          )
-+ *   |   | \  | \     (                          )
-+ *   |   __---__---__ (- plane active, _ blanking)
-+ *   +-------------------> time
-  *
-- * or perhaps like this:
-+ * or perhaps like this::
-  *
-- *   |\|\  |\|\
-- * __----__----__ (- plane active, _ blanking)
-- * -> time
-+ *   ^
-+ *   |     |\|\  |\|\   (                          )
-+ *   |   __----__----__ (- plane active, _ blanking)
-+ *   +-------------------> time
-  *
-  * Returns:
-  * The watermark in bytes
-@@ -731,13 +733,14 @@ static unsigned int intel_wm_method1(unsigned int pixel_rate,
-  * FIFO is relatively large compared to the amount of data
-  * fetched.
-  *
-- * The FIFO level vs. time graph might look something like:
-+ * The FIFO level vs. time graph might look something like::
-  *
-- *    |\___       |\___
-- *    |    \___   |    \___
-- *    |        \  |        \
-- * __ --__--__--__--__--__--__ (- plane active, _ blanking)
-- * -> time
-+ *   ^
-+ *   |     |\___       |\___        (                          )
-+ *   |     |    \___   |    \___    (                          )
-+ *   |     |        \  |        \   (                          )
-+ *   |  __ --__--__--__--__--__--__ (- plane active, _ blanking)
-+ *   +---------------------------------> time
-  *
-  * Returns:
-  * The watermark in bytes
 -- 
 2.36.1
 
