@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 050CEC43334
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6596CCA47F
 	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 20:26:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84DCC8B4B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9EC590FAD;
 	Mon, 11 Jul 2022 20:26:07 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFD2414B8ED;
- Mon, 11 Jul 2022 20:25:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43BBF11BE36;
+ Mon, 11 Jul 2022 20:25:32 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2DA9261635;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C83AC6165C;
  Mon, 11 Jul 2022 20:25:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412B1C341DD;
- Mon, 11 Jul 2022 20:25:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA016C341C8;
+ Mon, 11 Jul 2022 20:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657571123;
- bh=OSO6ejWnnUoc5otDMF/W0MkHHWHT3ycWD8ycMnZEBb0=;
+ s=k20201202; t=1657571124;
+ bh=o2iriqr9yGWd6meVOtOwBCMeiBhrD3lI1NVS6cm0Kmc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z1Pg+upYwFWFjLPEZvT4GDwufhDwhW95VBaCZK9Xb2t8xv3+E9qwZjc/vlgWLm6lp
- kbL0bzUuafivfNQ/73KLxUmZ3jb51dHabYYyG1b9JBqHqfdYpoW+y8Sp1SaEigeBSM
- bzpjzibRmkt22NDcZftWnyaZ3LK6h8FCO55fiN/qF4XnVedXv3hRrAp0TsVfTWwbuS
- GvmVmmLZa9ghioKMISpM3Z67vNSGr0jm94wLsYU7H36/YsENjq7UNlkr+zjv5Jy7Du
- Y80L2NFddxYLQGLeLqydyh0j5SceT4M1D5AkzseOhZwmo7l33oMFTwS/pitkTxExwM
- ckASa52gqkLQw==
+ b=YLT6S5V3wpeb0ALSjTIoMWeqhQ6ejsrrlvZ8WVJT5r4tJ5Rl9d+N9pV1TnMFigJ4B
+ vt9x8lHKg4dzcpkz4jc/moK8YEp4XfBi6eN0VtE31STGN92PCC6j2rlCBnhnmVuk83
+ hrpRdNe8fuKgDpfBL5YmNOW1+IXpACRU6BZju0rYBAvQXrp8u3+JSyjMfSE0sX7MtU
+ dvru0K5hMWY1dHb6LaZrjg1YYYSbIsdW1kn7lFIUvxky1XWgQDZOa8aHCqn0zmW3JQ
+ gfnXqGPII7fIyACS/9x5VFyVFU1YZ+kin5r4tiJ/tbkL1Mpnk4m6NK99C7AHo6NVzE
+ 8f+CMKKIiANWQ==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e9B-Tk;
+ (envelope-from <mchehab@kernel.org>) id 1oAzy3-004e8F-Kg;
  Mon, 11 Jul 2022 21:25:19 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Mon, 11 Jul 2022 21:25:14 +0100
-Message-Id: <fc356e3a7b9cb51391afca3dad3ffb06dc0b5741.1657565224.git.mchehab@kernel.org>
+Date: Mon, 11 Jul 2022 21:25:01 +0100
+Message-Id: <d422b77a1d40e815e6e84dcb0f7be9097efffe36.1657565224.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657565224.git.mchehab@kernel.org>
 References: <cover.1657565224.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 29/32] docs: gpu: i915.rst: GVT: add more
- kernel-doc markups
+Subject: [Intel-gfx] [PATCH 16/32] drm/i915: i915_gem_region.h: fix
+ i915_gem_apply_to_region_ops doc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,18 +56,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
  Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are several documented GVT kAPI that aren't currently part
-of the docs. Add them, as this allows identifying issues with
-badly-formatted tags.
+The kernel-doc markup for i915_gem_apply_to_region_ops() has some
+issues:
+
+1. The field should be marked as @process_obj;
+2. The callback parameters aren't document properly, as sphinx
+   will consider them to be placed at the wrong place.
+
+Fix (1) and change the way the parameters are described, using
+a list, in order for it to be properly parsed during documentation
+build time.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
@@ -75,61 +81,28 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH 00/32] at: https://lore.kernel.org/all/cover.1657565224.git.mchehab@kernel.org/
 
- Documentation/gpu/i915.rst | 41 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_region.h | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index 70f2f4826eba..3ee121a0ea62 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -58,6 +58,47 @@ Intel GVT-g Host Support(vGPU device model)
- .. kernel-doc:: drivers/gpu/drm/i915/intel_gvt.c
-    :internal:
- 
-+Other Intel GVT-g interfaces
-+----------------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/gvt.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/aperture_gm.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/cfg_space.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/debugfs.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/display.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/edid.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/fb_decoder.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/firmware.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/gtt.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/handlers.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/interrupt.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/kvmgt.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/intel_gvt_mmio_table.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/mmio.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/mmio_context.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/opregion.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/page_track.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/scheduler.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gvt/vgpu.c
-+
- Workarounds
- -----------
- 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_region.h b/drivers/gpu/drm/i915/gem/i915_gem_region.h
+index 2dfcc41c0170..b0134bf4b1b7 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_region.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_region.h
+@@ -22,9 +22,11 @@ struct i915_gem_apply_to_region;
+  */
+ struct i915_gem_apply_to_region_ops {
+ 	/**
+-	 * process_obj - Process the current object
+-	 * @apply: Embed this for private data.
+-	 * @obj: The current object.
++	 * @process_obj: Callback function to process the current object
++	 * it requires two arguments:
++	 *
++	 * - @apply: Embed this for private data.
++	 * - @obj: The current object.
+ 	 *
+ 	 * Note that if this function is part of a ww transaction, and
+ 	 * if returns -EDEADLK for one of the objects, it may be
 -- 
 2.36.1
 
