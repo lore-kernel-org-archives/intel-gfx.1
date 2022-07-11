@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D7B3C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 06:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E79BCCA47B
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Jul 2022 06:50:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB6B28BF57;
-	Mon, 11 Jul 2022 06:50:46 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AE658BF56;
- Mon, 11 Jul 2022 06:50:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFA6F8BF5D;
+	Mon, 11 Jul 2022 06:50:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6209E8BF58;
+ Mon, 11 Jul 2022 06:50:46 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 11E96B80DBD;
- Mon, 11 Jul 2022 06:50:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C313CC34115;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6B0E761225;
+ Mon, 11 Jul 2022 06:50:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56EFC341C0;
  Mon, 11 Jul 2022 06:50:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657522241;
- bh=v728tOul6+PGvXrlWjEPs+tZZnXRsqYiqEgFBvOFrZI=;
+ bh=gk82hRBUZ3Mn14HV5eJTdUL1I+0tth+4dSD2PfL0rWg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DoMmBTYW8sPb35KHgtw0eHES3TzliwEXBMid+Er6yW7PN6LffQGW0I2rK4eT0+J6S
- bElViG2seshFAVqYqC7o2IWawrRk8hGlRXjUO/EKy5kacJMhZodBBaBzjq4SUErPA7
- gfQRINGyMZ9eFmoATYvosmEWRKAOtxLLmeZ4UH3P/r1LmLk1vxqB6SZf2emCLpLuIp
- hdVTqKBK9HyNp5buRj+Gmx+snS1l9P7X39ZDplz9VGihU44AWX2ASllVW/bhaT/W0q
- oBDhH6P2i7GHi5Q/wKtforE4YWOdkI8wwc6xqNCK43s6FnMcoxqX8nvNJvG27nHOSP
- VzVvvz/OVt+Cg==
+ b=BnTrGNyEN8TZpU56IIxuNfSNwUae2BY7kfqudFHnJczmA8G6Y8ylGLYc28BWuVL5i
+ YjNMyr9+ItZmd9xOLQRpMaqupSoq4U+lRfCMLAEGv1cf61zlBKpfvL80vh/uzjQ3+O
+ GnZ0ubHczVyqccQgGnfrsNZ1CMDaOe1AHoX/qBlNbyBimL5HBiOS8ECiuYlLYIjEtp
+ c7B+Gi89dPGm7ivmu1DJWtR4+wJ183awgXDrHgQKB+6ki+tRE1H3zMjNcm1LdrOaXE
+ Y7jwrcf8g2nCnkA6OE4XhnGA7QFr5o5mbQCO/A+IviROQU4542J+Lzggs9OYK3I+Ye
+ 4dAOyAEdVhQYA==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oAnFe-004a3P-HD;
+ (envelope-from <mchehab@kernel.org>) id 1oAnFe-004a3M-GQ;
  Mon, 11 Jul 2022 07:50:38 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Mon, 11 Jul 2022 07:50:37 +0100
-Message-Id: <0a5f5bca4a9f538a8529a1496c3dd3453268a69a.1657522157.git.mchehab@kernel.org>
+Date: Mon, 11 Jul 2022 07:50:36 +0100
+Message-Id: <e0a2d894e77aed7c2e36b0d1abdc7dbac3011729.1657522157.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657522157.git.mchehab@kernel.org>
 References: <cover.1657522157.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 2/2] drm/i915/gt: Serialize TLB invalidates
- with GT resets
+Subject: [Intel-gfx] [PATCH v4 1/2] drm/i915/gt: Serialize GRDOM access
+ between multiple engine resets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,75 +57,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- Chris Wilson <chris.p.wilson@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dave Airlie <airlied@redhat.com>, stable@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Andi Shyti <andi.shyti@intel.com>, intel-gfx@lists.freedesktop.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris.p.wilson@intel.com>
+From: Chris Wilson <chris@chris-wilson.co.uk>
 
-Avoid trying to invalidate the TLB in the middle of performing an
-engine reset, as this may result in the reset timing out. Currently,
-the TLB invalidate is only serialised by its own mutex, forgoing the
-uncore lock, but we can take the uncore->lock as well to serialise
-the mmio access, thereby serialising with the GDRST.
+Don't allow two engines to be reset in parallel, as they would both
+try to select a reset bit (and send requests to common registers)
+and wait on that register, at the same time. Serialize control of
+the reset requests/acks using the uncore->lock, which will also ensure
+that no other GT state changes at the same time as the actual reset.
 
-Tested on a NUC5i7RYB, BIOS RYBDWi35.86A.0380.2019.0517.1530 with
-i915 selftest/hangcheck.
-
-Cc: stable@vger.kernel.org  # v4.4 and upper
-Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
-Reported-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Tested-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: stable@vger.kernel.org # v4.4 and upper
+Reported-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Acked-by: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@intel.com>
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 Acked-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 See [PATCH v4 0/2] at: https://lore.kernel.org/all/cover.1657522157.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gt/intel_gt.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_reset.c | 37 ++++++++++++++++++++-------
+ 1 file changed, 28 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 8da3314bb6bf..68c2b0d8f187 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -952,6 +952,20 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 	mutex_lock(&gt->tlb_invalidate_lock);
- 	intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index a5338c3fde7a..c68d36fb5bbd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -300,9 +300,9 @@ static int gen6_hw_domain_reset(struct intel_gt *gt, u32 hw_domain_mask)
+ 	return err;
+ }
  
-+	spin_lock_irq(&uncore->lock); /* serialise invalidate with GT reset */
-+
-+	for_each_engine(engine, gt, id) {
-+		struct reg_and_bit rb;
-+
-+		rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
-+		if (!i915_mmio_reg_offset(rb.reg))
-+			continue;
-+
-+		intel_uncore_write_fw(uncore, rb.reg, rb.bit);
-+	}
-+
-+	spin_unlock_irq(&uncore->lock);
-+
- 	for_each_engine(engine, gt, id) {
- 		/*
- 		 * HW architecture suggest typical invalidation time at 40us,
-@@ -966,7 +980,6 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 		if (!i915_mmio_reg_offset(rb.reg))
- 			continue;
+-static int gen6_reset_engines(struct intel_gt *gt,
+-			      intel_engine_mask_t engine_mask,
+-			      unsigned int retry)
++static int __gen6_reset_engines(struct intel_gt *gt,
++				intel_engine_mask_t engine_mask,
++				unsigned int retry)
+ {
+ 	struct intel_engine_cs *engine;
+ 	u32 hw_mask;
+@@ -321,6 +321,20 @@ static int gen6_reset_engines(struct intel_gt *gt,
+ 	return gen6_hw_domain_reset(gt, hw_mask);
+ }
  
--		intel_uncore_write_fw(uncore, rb.reg, rb.bit);
- 		if (__intel_wait_for_register_fw(uncore,
- 						 rb.reg, rb.bit, 0,
- 						 timeout_us, timeout_ms,
++static int gen6_reset_engines(struct intel_gt *gt,
++			      intel_engine_mask_t engine_mask,
++			      unsigned int retry)
++{
++	unsigned long flags;
++	int ret;
++
++	spin_lock_irqsave(&gt->uncore->lock, flags);
++	ret = __gen6_reset_engines(gt, engine_mask, retry);
++	spin_unlock_irqrestore(&gt->uncore->lock, flags);
++
++	return ret;
++}
++
+ static struct intel_engine_cs *find_sfc_paired_vecs_engine(struct intel_engine_cs *engine)
+ {
+ 	int vecs_id;
+@@ -487,9 +501,9 @@ static void gen11_unlock_sfc(struct intel_engine_cs *engine)
+ 	rmw_clear_fw(uncore, sfc_lock.lock_reg, sfc_lock.lock_bit);
+ }
+ 
+-static int gen11_reset_engines(struct intel_gt *gt,
+-			       intel_engine_mask_t engine_mask,
+-			       unsigned int retry)
++static int __gen11_reset_engines(struct intel_gt *gt,
++				 intel_engine_mask_t engine_mask,
++				 unsigned int retry)
+ {
+ 	struct intel_engine_cs *engine;
+ 	intel_engine_mask_t tmp;
+@@ -583,8 +597,11 @@ static int gen8_reset_engines(struct intel_gt *gt,
+ 	struct intel_engine_cs *engine;
+ 	const bool reset_non_ready = retry >= 1;
+ 	intel_engine_mask_t tmp;
++	unsigned long flags;
+ 	int ret;
+ 
++	spin_lock_irqsave(&gt->uncore->lock, flags);
++
+ 	for_each_engine_masked(engine, gt, engine_mask, tmp) {
+ 		ret = gen8_engine_reset_prepare(engine);
+ 		if (ret && !reset_non_ready)
+@@ -612,17 +629,19 @@ static int gen8_reset_engines(struct intel_gt *gt,
+ 	 * This is best effort, so ignore any error from the initial reset.
+ 	 */
+ 	if (IS_DG2(gt->i915) && engine_mask == ALL_ENGINES)
+-		gen11_reset_engines(gt, gt->info.engine_mask, 0);
++		__gen11_reset_engines(gt, gt->info.engine_mask, 0);
+ 
+ 	if (GRAPHICS_VER(gt->i915) >= 11)
+-		ret = gen11_reset_engines(gt, engine_mask, retry);
++		ret = __gen11_reset_engines(gt, engine_mask, retry);
+ 	else
+-		ret = gen6_reset_engines(gt, engine_mask, retry);
++		ret = __gen6_reset_engines(gt, engine_mask, retry);
+ 
+ skip_reset:
+ 	for_each_engine_masked(engine, gt, engine_mask, tmp)
+ 		gen8_engine_reset_cancel(engine);
+ 
++	spin_unlock_irqrestore(&gt->uncore->lock, flags);
++
+ 	return ret;
+ }
+ 
 -- 
 2.36.1
 
