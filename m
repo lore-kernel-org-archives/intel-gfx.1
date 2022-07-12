@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3A09C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 23:32:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59B21CCA47F
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 23:32:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54E8F976C4;
-	Tue, 12 Jul 2022 23:31:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34EA1976D6;
+	Tue, 12 Jul 2022 23:31:44 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B03A976B7;
- Tue, 12 Jul 2022 23:31:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF1C9976BD;
+ Tue, 12 Jul 2022 23:31:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657668698; x=1689204698;
+ t=1657668697; x=1689204697;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2ehL0zZkwvXNrmnYBiiPSCHEAsOmycj3lFAbLlsu+t0=;
- b=AiugKUqi56EXYa6CUMMOergOOf5QzrmulH8wctax2m110xJ1odambXhc
- q115gsQNZVDaIj3SPI/fKO8sZLth2CXUfix6cBxdb2FaUbJ0IAGN+eX2U
- qFok5kAKar+YZzfzeELmSy8HPx/Bb/fUTqFDgdwoe+XL0iE4I9j3T/V1d
- j3X/IBVqxVdeJKB/9//JW5OuNoeSe9IlBKcc0w+dZenLZrwh2yE5O7G1W
- 3mUxkSqQVH8lw5rutA9A/SGsIBQ7TZL6JWeKzooTf/Mbvv0zzorDWzKFi
- Wk47GAs6DXBBxWbnvXSfcs+AcnZ+YLAXA6HP1bf/4F9DdOc2BUBUxoO4s w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10406"; a="285812566"
-X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="285812566"
+ bh=koQtewMmMuXnhh3PufImj24iKBtfjhu5HFVVsTn04ao=;
+ b=VnwHwh5en+O9nyJO++ky41837UitDEUUshCxjC8lOt5k+iRkNp90TRsz
+ 0xTdrDCloCgiqJzBev8Km/l1xKX2CIVEC7pKqqb1b2cOXrRt9j7b7JMVr
+ Ai78hFZnmTpVrpmuWzMWq0y2vj5yfH3QUsqZA/ZzXKxzuj0cZ1J7xkBf2
+ s9Piqktimcyv01qRHCvHckMejt5vV8Bx+Mbpz7ElhQ/SGnXsyMeypy7L+
+ IawLKVxOxfWii6iFn5zJOaF2bklwD5DK4JRMF+AWUv0OGZalRJSLaEbGf
+ hqXpSYGykkLxT91c09HIy4ghfCJdUQtS1BUa1xXSkI2+8o6uh14YOic8G g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10406"; a="285812563"
+X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="285812563"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2022 16:31:37 -0700
+ 12 Jul 2022 16:31:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="722137773"
+X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="722137762"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga004.jf.intel.com with ESMTP; 12 Jul 2022 16:31:36 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Tue, 12 Jul 2022 16:31:30 -0700
-Message-Id: <20220712233136.1044951-7-John.C.Harrison@Intel.com>
+Date: Tue, 12 Jul 2022 16:31:27 -0700
+Message-Id: <20220712233136.1044951-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.36.0
 In-Reply-To: <20220712233136.1044951-1-John.C.Harrison@Intel.com>
 References: <20220712233136.1044951-1-John.C.Harrison@Intel.com>
@@ -44,8 +44,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/12] drm/i915/guc: Use streaming loads to
- speed up dumping the guc log
+Subject: [Intel-gfx] [PATCH 03/12] drm/i915/guc: Fix issues with
+ live_preempt_cancel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,75 +58,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris.p.wilson@intel.com>, DRI-Devel@Lists.FreeDesktop.Org
+Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris.p.wilson@intel.com>
+From: Matthew Brost <matthew.brost@intel.com>
 
-Use a temporary page and mempy_from_wc to reduce the time it takes to
-dump the guc log to debugfs.
+Having semaphores results in different behavior when a dependent request
+is cancelled. In the case of semaphores the request could be on the HW
+and complete successfully while without the request is held in the
+driver and the error from the dependent request is propagated. Fix
+live_preempt_cancel to take this behavior into account.
 
-Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
+Also update live_preempt_cancel to use new function intel_context_ban
+rather than intel_context_set_banned.
+
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 24 ++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_execlists.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-index 45f62cdabe356..ff091adb56096 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-@@ -749,8 +749,9 @@ int intel_guc_log_dump(struct intel_guc_log *log, struct drm_printer *p,
- 	struct intel_guc *guc = log_to_guc(log);
- 	struct intel_uc *uc = container_of(guc, struct intel_uc, guc);
- 	struct drm_i915_gem_object *obj = NULL;
--	u32 *map;
--	int i = 0;
-+	void *map;
-+	u32 *page;
-+	int i, j;
- 
- 	if (!intel_guc_is_supported(guc))
- 		return -ENODEV;
-@@ -763,23 +764,34 @@ int intel_guc_log_dump(struct intel_guc_log *log, struct drm_printer *p,
- 	if (!obj)
- 		return 0;
- 
-+	page = (u32 *)__get_free_page(GFP_KERNEL);
-+	if (!page)
-+		return -ENOMEM;
-+
- 	intel_guc_dump_time_info(guc, p);
- 
- 	map = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
- 	if (IS_ERR(map)) {
- 		DRM_DEBUG("Failed to pin object\n");
- 		drm_puts(p, "(log data unaccessible)\n");
-+		free_page((unsigned long)page);
- 		return PTR_ERR(map);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+index 02fc97a0ab502..015f8cd3463e2 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
++++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+@@ -2087,7 +2087,7 @@ static int __cancel_active0(struct live_preempt_cancel *arg)
+ 		goto out;
  	}
  
--	for (i = 0; i < obj->base.size / sizeof(u32); i += 4)
--		drm_printf(p, "0x%08x 0x%08x 0x%08x 0x%08x\n",
--			   *(map + i), *(map + i + 1),
--			   *(map + i + 2), *(map + i + 3));
-+	for (i = 0; i < obj->base.size; i += PAGE_SIZE) {
-+		if (!i915_memcpy_from_wc(page, map + i, PAGE_SIZE))
-+			memcpy(page, map + i, PAGE_SIZE);
-+
-+		for (j = 0; j < PAGE_SIZE / sizeof(u32); j += 4)
-+			drm_printf(p, "0x%08x 0x%08x 0x%08x 0x%08x\n",
-+				   *(page + j + 0), *(page + j + 1),
-+				   *(page + j + 2), *(page + j + 3));
-+	}
+-	intel_context_set_banned(rq->context);
++	intel_context_ban(rq->context, rq);
+ 	err = intel_engine_pulse(arg->engine);
+ 	if (err)
+ 		goto out;
+@@ -2146,7 +2146,7 @@ static int __cancel_active1(struct live_preempt_cancel *arg)
+ 	if (err)
+ 		goto out;
  
- 	drm_puts(p, "\n");
+-	intel_context_set_banned(rq[1]->context);
++	intel_context_ban(rq[1]->context, rq[1]);
+ 	err = intel_engine_pulse(arg->engine);
+ 	if (err)
+ 		goto out;
+@@ -2229,7 +2229,7 @@ static int __cancel_queued(struct live_preempt_cancel *arg)
+ 	if (err)
+ 		goto out;
  
- 	i915_gem_object_unpin_map(obj);
-+	free_page((unsigned long)page);
+-	intel_context_set_banned(rq[2]->context);
++	intel_context_ban(rq[2]->context, rq[2]);
+ 	err = intel_engine_pulse(arg->engine);
+ 	if (err)
+ 		goto out;
+@@ -2244,7 +2244,13 @@ static int __cancel_queued(struct live_preempt_cancel *arg)
+ 		goto out;
+ 	}
  
- 	return 0;
- }
+-	if (rq[1]->fence.error != 0) {
++	/*
++	 * The behavior between having semaphores and not is different. With
++	 * semaphores the subsequent request is on the hardware and not cancelled
++	 * while without the request is held in the driver and cancelled.
++	 */
++	if (intel_engine_has_semaphores(rq[1]->engine) &&
++	    rq[1]->fence.error != 0) {
+ 		pr_err("Normal inflight1 request did not complete\n");
+ 		err = -EINVAL;
+ 		goto out;
+@@ -2292,7 +2298,7 @@ static int __cancel_hostile(struct live_preempt_cancel *arg)
+ 		goto out;
+ 	}
+ 
+-	intel_context_set_banned(rq->context);
++	intel_context_ban(rq->context, rq);
+ 	err = intel_engine_pulse(arg->engine); /* force reset */
+ 	if (err)
+ 		goto out;
 -- 
 2.36.0
 
