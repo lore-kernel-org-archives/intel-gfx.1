@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60140C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 23:32:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA909C43334
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 23:32:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 490E0976C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE978976D5;
 	Tue, 12 Jul 2022 23:31:43 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFC2A976B7;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3330976C2;
  Tue, 12 Jul 2022 23:31:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657668699; x=1689204699;
+ t=1657668698; x=1689204698;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rHhl06ObpqZjyXGZ1VryxfY6f/5XCI/yrin3mQpA+pc=;
- b=BPEc9Uxz+8rb4YXiC159SyowGT5JpLodSYnMYBAJxqRkmk4TK4jcBGAE
- JN/e2ow8rCIAHGWrxOAZaOlAiDDwXsI4agRFMiMAHfTd/9RXtcVpqc3+D
- TdvYdZn/mz+HJqAvgynUZ3o6r/UD2OjPkLCoE+wFDPkenqxLRF0BdUdfU
- UPbjciF+qwP3plQsGdAVokrUjcNNHyakAZaptk8a5qXdO1IH51f+EK2Mj
- 2+kgd0Ylx8egglh365sYWu/iWT2vkc5jjFUzQE4CIB+epeRKTbIEz9gBg
- zwoumHB92t5hLPXJo1ZZ/2svOBfhK/ZGECl7lOvLPWQuMpKKZR+3IqRrl g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10406"; a="285812571"
-X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="285812571"
+ bh=EszMBTrM3tmnOy5hUioPTWVuKtMomlV5dThX/JbF/V0=;
+ b=eiHb64oULWS02c0JMr497glxwOzBAvEwZlCa8lV3wv1PNbMMRhJMcAz4
+ wtRiNITDTMlXQYa11ge/1wh7qIRKjsVNoLcRqmKdEHk03VyD5M3wWt1s1
+ 4wyF/xJ417vEpOaRkZ5+PMldzIxgJv1R4z5EDpl2Eq95P+oTmyU6+4SIw
+ YenFUYMBJLroVhz3RCdhXsj7+dOrMs7V2rD9PMN2FPIHBu5bLEoRUk0+F
+ 6NrwPzZt3xyquaOeaXNMb8/DjHidXYJ2oUbPlBSPcjJiGJytIVMTkeUpq
+ 7s0Cs86vCbjv29IfHexGOBWgxZCTW7gMSva14TcZpzOH6RQo02SUvr1Qm g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10406"; a="285812569"
+X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="285812569"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Jul 2022 16:31:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="722137789"
+X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="722137783"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by orsmga004.jf.intel.com with ESMTP; 12 Jul 2022 16:31:37 -0700
+ by orsmga004.jf.intel.com with ESMTP; 12 Jul 2022 16:31:36 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Tue, 12 Jul 2022 16:31:35 -0700
-Message-Id: <20220712233136.1044951-12-John.C.Harrison@Intel.com>
+Date: Tue, 12 Jul 2022 16:31:33 -0700
+Message-Id: <20220712233136.1044951-10-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.36.0
 In-Reply-To: <20220712233136.1044951-1-John.C.Harrison@Intel.com>
 References: <20220712233136.1044951-1-John.C.Harrison@Intel.com>
@@ -44,8 +44,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/12] drm/i915/guc: Don't abort on CTB_UNUSED
- status
+Subject: [Intel-gfx] [PATCH 09/12] drm/i915/selftest: Cope with not having
+ an RCS engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,78 +64,70 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-When the KMD sends a CLIENT_RESET request to GuC (as part of the
-suspend sequence), GuC will mark the CTB buffer as 'UNUSED'. If the
-KMD then checked the CTB queue, it would see a non-zero status value
-and report the buffer as corrupted.
-
-Technically, no G2H messages should be received once the CLIENT_RESET
-has been sent. However, if a context was outstanding on an engine then
-it would get reset and a reset notification would be sent. So, don't
-actually treat UNUSED as a catastrophic error. Just flag it up as
-unexpected and keep going.
+It is no longer guaranteed that there will always be an RCS engine.
+So, use the helper function for finding the first available engine that
+can be used for general purpose selftets.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- .../i915/gt/uc/abi/guc_communication_ctb_abi.h |  8 +++++---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c      | 18 ++++++++++++++++--
- 2 files changed, 21 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-index df83c1cc7c7a6..28b8387f97b77 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_communication_ctb_abi.h
-@@ -37,6 +37,7 @@
-  *  |   |       |   - _`GUC_CTB_STATUS_OVERFLOW` = 1 (head/tail too large)     |
-  *  |   |       |   - _`GUC_CTB_STATUS_UNDERFLOW` = 2 (truncated message)      |
-  *  |   |       |   - _`GUC_CTB_STATUS_MISMATCH` = 4 (head/tail modified)      |
-+ *  |   |       |   - _`GUC_CTB_STATUS_UNUSED` = 8 (CTB is not in use)         |
-  *  +---+-------+--------------------------------------------------------------+
-  *  |...|       | RESERVED = MBZ                                               |
-  *  +---+-------+--------------------------------------------------------------+
-@@ -49,9 +50,10 @@ struct guc_ct_buffer_desc {
- 	u32 tail;
- 	u32 status;
- #define GUC_CTB_STATUS_NO_ERROR				0
--#define GUC_CTB_STATUS_OVERFLOW				(1 << 0)
--#define GUC_CTB_STATUS_UNDERFLOW			(1 << 1)
--#define GUC_CTB_STATUS_MISMATCH				(1 << 2)
-+#define GUC_CTB_STATUS_OVERFLOW				BIT(0)
-+#define GUC_CTB_STATUS_UNDERFLOW			BIT(1)
-+#define GUC_CTB_STATUS_MISMATCH				BIT(2)
-+#define GUC_CTB_STATUS_UNUSED				BIT(3)
- 	u32 reserved[13];
- } __packed;
- static_assert(sizeof(struct guc_ct_buffer_desc) == 64);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index f01325cd1b625..11b5d4ddb19ce 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -816,8 +816,22 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- 	if (unlikely(ctb->broken))
- 		return -EPIPE;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 6493265d5f642..7f3bb1d34dfbf 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -1302,13 +1302,15 @@ static int igt_reset_wait(void *arg)
+ {
+ 	struct intel_gt *gt = arg;
+ 	struct i915_gpu_error *global = &gt->i915->gpu_error;
+-	struct intel_engine_cs *engine = gt->engine[RCS0];
++	struct intel_engine_cs *engine;
+ 	struct i915_request *rq;
+ 	unsigned int reset_count;
+ 	struct hang h;
+ 	long timeout;
+ 	int err;
  
--	if (unlikely(desc->status))
--		goto corrupted;
-+	if (unlikely(desc->status)) {
-+		u32 status = desc->status;
++	engine = intel_selftest_find_any_engine(gt);
 +
-+		if (status & GUC_CTB_STATUS_UNUSED) {
-+			/*
-+			 * Potentially valid if a CLIENT_RESET request resulted in
-+			 * contexts/engines being reset. But should never happen as
-+			 * no contexts should be active when CLIENT_RESET is sent.
-+			 */
-+			CT_ERROR(ct, "Unexpected G2H after GuC has stopped!\n");
-+			status &= ~GUC_CTB_STATUS_UNUSED;
-+		}
+ 	if (!engine || !intel_engine_can_store_dword(engine))
+ 		return 0;
+ 
+@@ -1432,7 +1434,7 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 				 int (*fn)(void *),
+ 				 unsigned int flags)
+ {
+-	struct intel_engine_cs *engine = gt->engine[RCS0];
++	struct intel_engine_cs *engine;
+ 	struct drm_i915_gem_object *obj;
+ 	struct task_struct *tsk = NULL;
+ 	struct i915_request *rq;
+@@ -1444,6 +1446,8 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
+ 	if (!gt->ggtt->num_fences && flags & EXEC_OBJECT_NEEDS_FENCE)
+ 		return 0;
+ 
++	engine = intel_selftest_find_any_engine(gt);
 +
-+		if (status)
-+			goto corrupted;
-+	}
+ 	if (!engine || !intel_engine_can_store_dword(engine))
+ 		return 0;
  
- 	GEM_BUG_ON(head > size);
+@@ -1819,12 +1823,14 @@ static int igt_handle_error(void *arg)
+ {
+ 	struct intel_gt *gt = arg;
+ 	struct i915_gpu_error *global = &gt->i915->gpu_error;
+-	struct intel_engine_cs *engine = gt->engine[RCS0];
++	struct intel_engine_cs *engine;
+ 	struct hang h;
+ 	struct i915_request *rq;
+ 	struct i915_gpu_coredump *error;
+ 	int err;
  
++	engine = intel_selftest_find_any_engine(gt);
++
+ 	/* Check that we can issue a global GPU and engine reset */
+ 
+ 	if (!intel_has_reset_engine(gt))
 -- 
 2.36.0
 
