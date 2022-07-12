@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA598C433EF
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 23:31:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA1A9CCA47F
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 23:31:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC347976B3;
-	Tue, 12 Jul 2022 23:31:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E0D8976B4;
+	Tue, 12 Jul 2022 23:31:39 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 847FF976C1;
- Tue, 12 Jul 2022 23:31:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A628976BA;
+ Tue, 12 Jul 2022 23:31:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657668698; x=1689204698;
+ t=1657668697; x=1689204697;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=T5bXWjsBZJq1RD2+IzFYmGze2avfRAHa+EQvelqgFzk=;
- b=eqS0RHoMUxLVuTNAQDm39qI+tSgK98nnhXK97sL343G4TRkd+FF45APb
- LxrLzX+/eUqTVZj1BXvdoflB5+pRdNaBPPRcsx9Pz87Ze4+1uEhuGT0fI
- 06FFN/vI2+oM+yFYTk3Mo0FWIEusTYzMfo/c36tIa+YrmWLfshG3H4dK7
- GSmBBBcOArnGhBJEkYp/4b6Ks7FiILy8yimLstbsOBxTsB1iYmVuioaPl
- OKOha0G9SzOAgi3x3rvSBC+E6Hd9pXOM1N0H/4isbodC3fMM0dH1PM+o6
- GYjGkNXI79mU1xFVBFGHP8lPW6KxDYFyrSFz9nR+lcvpsKLbScvAXkTP7 Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10406"; a="285812568"
-X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="285812568"
+ bh=qBe309PiRX8yFdfwVnKYrxKQ1Mrayni6ox1W/IA4huM=;
+ b=KZPqkcfAv+t2pxWMaIRqFWO30zRH+wrMPSCHbk7HcMWxd64rhvYBHZ9c
+ JA1zm0Z1bbF6nEpaZxlUTzLKzlhaJGIfxhU1WDLfKNLNDiOL/kkpYsa9K
+ JA+0Hg2uG5/sTvoNaCtr19XtUujQJlcHj9a6PH5NtCo1mwL60CaGS3Jcp
+ sPV+bfyg97nIWbFGLaUl2V2E0buEep9MoqPltQQZaEvTbQYsquAgdDNKa
+ k8Ws7oGF9mEa282VwqUyybRfauKquZr4+RMEVxPk1pyla3puInXKM7oXk
+ c7nYNnUwTKA1NP3nlf7t3RaaA4v7Eh8moAsnS3X3+5hFlJu84fohpgdDR A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10406"; a="285812561"
+X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="285812561"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2022 16:31:37 -0700
+ 12 Jul 2022 16:31:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="722137779"
+X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="722137755"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga004.jf.intel.com with ESMTP; 12 Jul 2022 16:31:36 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Tue, 12 Jul 2022 16:31:32 -0700
-Message-Id: <20220712233136.1044951-9-John.C.Harrison@Intel.com>
+Date: Tue, 12 Jul 2022 16:31:25 -0700
+Message-Id: <20220712233136.1044951-2-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.36.0
 In-Reply-To: <20220712233136.1044951-1-John.C.Harrison@Intel.com>
 References: <20220712233136.1044951-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/12] drm/i915/guc: Add selftest for a hung GuC
+Subject: [Intel-gfx] [PATCH 01/12] drm/i915: Remove bogus GEM_BUG_ON in
+ unpark
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,210 +58,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org,
- Rahul Kumar Singh <rahul.kumar.singh@intel.com>
+Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Rahul Kumar Singh <rahul.kumar.singh@intel.com>
+From: Matthew Brost <matthew.brost@intel.com>
 
-Add a test to check that the hangcheck will recover from a submission
-hang in the GuC.
+Remove bogus GEM_BUG_ON which compared kernel context timeline seqno to
+seqno in memory on engine PM unpark. If a GT reset occurred these values
+might not match as a kernel context could be skipped. This bug was
+hidden by always switching to a kernel context on park (execlists
+requirement).
 
-Signed-off-by: Rahul Kumar Singh <rahul.kumar.singh@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |   1 +
- .../drm/i915/gt/uc/selftest_guc_hangcheck.c   | 159 ++++++++++++++++++
- .../drm/i915/selftests/i915_live_selftests.h  |   1 +
- 3 files changed, 161 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 7537459080278..72832a4f4bac7 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4937,4 +4937,5 @@ bool intel_guc_virtual_engine_has_heartbeat(const struct intel_engine_cs *ve)
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "selftest_guc.c"
- #include "selftest_guc_multi_lrc.c"
-+#include "selftest_guc_hangcheck.c"
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-new file mode 100644
-index 0000000000000..af913c4b09d37
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
-@@ -0,0 +1,159 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright �� 2019 Intel Corporation
-+ */
-+
-+#include "selftests/igt_spinner.h"
-+#include "selftests/igt_reset.h"
-+#include "selftests/intel_scheduler_helpers.h"
-+#include "gt/intel_engine_heartbeat.h"
-+#include "gem/selftests/mock_context.h"
-+
-+#define BEAT_INTERVAL	100
-+
-+static struct i915_request *nop_request(struct intel_engine_cs *engine)
-+{
-+	struct i915_request *rq;
-+
-+	rq = intel_engine_create_kernel_request(engine);
-+	if (IS_ERR(rq))
-+		return rq;
-+
-+	i915_request_get(rq);
-+	i915_request_add(rq);
-+
-+	return rq;
-+}
-+
-+static int intel_hang_guc(void *arg)
-+{
-+	struct intel_gt *gt = arg;
-+	int ret = 0;
-+	struct i915_gem_context *ctx;
-+	struct intel_context *ce;
-+	struct igt_spinner spin;
-+	struct i915_request *rq;
-+	intel_wakeref_t wakeref;
-+	struct i915_gpu_error *global = &gt->i915->gpu_error;
-+	struct intel_engine_cs *engine;
-+	unsigned int reset_count;
-+	u32 guc_status;
-+	u32 old_beat;
-+
-+	ctx = kernel_context(gt->i915, NULL);
-+	if (IS_ERR(ctx)) {
-+		pr_err("Failed get kernel context: %ld\n", PTR_ERR(ctx));
-+		return PTR_ERR(ctx);
-+	}
-+
-+	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
-+
-+	ce = intel_context_create(gt->engine[BCS0]);
-+	if (IS_ERR(ce)) {
-+		ret = PTR_ERR(ce);
-+		pr_err("Failed to create spinner request: %d\n", ret);
-+		goto err;
-+	}
-+
-+	engine = ce->engine;
-+	reset_count = i915_reset_count(global);
-+
-+	old_beat = engine->props.heartbeat_interval_ms;
-+	ret = intel_engine_set_heartbeat(engine, BEAT_INTERVAL);
-+	if (ret) {
-+		pr_err("Failed to boost heatbeat interval: %d\n", ret);
-+		goto err;
-+	}
-+
-+	ret = igt_spinner_init(&spin, engine->gt);
-+	if (ret) {
-+		pr_err("Failed to create spinner: %d\n", ret);
-+		goto err;
-+	}
-+
-+	rq = igt_spinner_create_request(&spin, ce, MI_NOOP);
-+	intel_context_put(ce);
-+	if (IS_ERR(rq)) {
-+		ret = PTR_ERR(rq);
-+		pr_err("Failed to create spinner request: %d\n", ret);
-+		goto err_spin;
-+	}
-+
-+	ret = request_add_spin(rq, &spin);
-+	if (ret) {
-+		i915_request_put(rq);
-+		pr_err("Failed to add Spinner request: %d\n", ret);
-+		goto err_spin;
-+	}
-+
-+	ret = intel_reset_guc(gt);
-+	if (ret) {
-+		i915_request_put(rq);
-+		pr_err("Failed to reset GuC, ret = %d\n", ret);
-+		goto err_spin;
-+	}
-+
-+	guc_status = intel_uncore_read(gt->uncore, GUC_STATUS);
-+	if (!(guc_status & GS_MIA_IN_RESET)) {
-+		i915_request_put(rq);
-+		pr_err("GuC failed to reset: status = 0x%08X\n", guc_status);
-+		ret = -EIO;
-+		goto err_spin;
-+	}
-+
-+	/* Wait for the heartbeat to cause a reset */
-+	ret = intel_selftest_wait_for_rq(rq);
-+	i915_request_put(rq);
-+	if (ret) {
-+		pr_err("Request failed to complete: %d\n", ret);
-+		goto err_spin;
-+	}
-+
-+	if (i915_reset_count(global) == reset_count) {
-+		pr_err("Failed to record a GPU reset\n");
-+		ret = -EINVAL;
-+		goto err_spin;
-+	}
-+
-+err_spin:
-+	igt_spinner_end(&spin);
-+	igt_spinner_fini(&spin);
-+	intel_engine_set_heartbeat(engine, old_beat);
-+
-+	if (ret == 0) {
-+		rq = nop_request(engine);
-+		if (IS_ERR(rq)) {
-+			ret = PTR_ERR(rq);
-+			goto err;
-+		}
-+
-+		ret = intel_selftest_wait_for_rq(rq);
-+		i915_request_put(rq);
-+		if (ret) {
-+			pr_err("No-op failed to complete: %d\n", ret);
-+			goto err;
-+		}
-+	}
-+
-+err:
-+	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
-+	kernel_context_close(ctx);
-+
-+	return ret;
-+}
-+
-+int intel_guc_hang_check(struct drm_i915_private *i915)
-+{
-+	static const struct i915_subtest tests[] = {
-+		SUBTEST(intel_hang_guc),
-+	};
-+	struct intel_gt *gt = to_gt(i915);
-+
-+	if (intel_gt_is_wedged(gt))
-+		return 0;
-+
-+	if (!intel_uc_uses_guc_submission(&gt->uc))
-+		return 0;
-+
-+	return intel_gt_live_subtests(tests, gt);
-+}
-diff --git a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-index bdd290f2bf3cd..aaf8a380e5c78 100644
---- a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-+++ b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-@@ -49,5 +49,6 @@ selftest(perf, i915_perf_live_selftests)
- selftest(slpc, intel_slpc_live_selftests)
- selftest(guc, intel_guc_live_selftests)
- selftest(guc_multi_lrc, intel_guc_multi_lrc_live_selftests)
-+selftest(guc_hang, intel_guc_hang_check)
- /* Here be dragons: keep last to run last! */
- selftest(late_gt_pm, intel_gt_pm_late_selftests)
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index b0a4a2dbe3ee9..fb3e1599d04ec 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -68,8 +68,6 @@ static int __engine_unpark(struct intel_wakeref *wf)
+ 			 ce->timeline->seqno,
+ 			 READ_ONCE(*ce->timeline->hwsp_seqno),
+ 			 ce->ring->emit);
+-		GEM_BUG_ON(ce->timeline->seqno !=
+-			   READ_ONCE(*ce->timeline->hwsp_seqno));
+ 	}
+ 
+ 	if (engine->unpark)
 -- 
 2.36.0
 
