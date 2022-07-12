@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA909C43334
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 23:32:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF775C43334
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Jul 2022 23:32:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE978976D5;
-	Tue, 12 Jul 2022 23:31:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 463B7976D7;
+	Tue, 12 Jul 2022 23:31:44 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3330976C2;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67D97976B9;
  Tue, 12 Jul 2022 23:31:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1657668698; x=1689204698;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EszMBTrM3tmnOy5hUioPTWVuKtMomlV5dThX/JbF/V0=;
- b=eiHb64oULWS02c0JMr497glxwOzBAvEwZlCa8lV3wv1PNbMMRhJMcAz4
- wtRiNITDTMlXQYa11ge/1wh7qIRKjsVNoLcRqmKdEHk03VyD5M3wWt1s1
- 4wyF/xJ417vEpOaRkZ5+PMldzIxgJv1R4z5EDpl2Eq95P+oTmyU6+4SIw
- YenFUYMBJLroVhz3RCdhXsj7+dOrMs7V2rD9PMN2FPIHBu5bLEoRUk0+F
- 6NrwPzZt3xyquaOeaXNMb8/DjHidXYJ2oUbPlBSPcjJiGJytIVMTkeUpq
- 7s0Cs86vCbjv29IfHexGOBWgxZCTW7gMSva14TcZpzOH6RQo02SUvr1Qm g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10406"; a="285812569"
-X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="285812569"
+ bh=VFqMe0j+S44jZw9uqafpjDNUbGUGAOF3nDONWQ0Vxp4=;
+ b=TbttHTuumy8IGUpxqODJ0KqYg3O6B4/8dBhJzPmL13v78Rrk/+Te6qli
+ KKYOBOjYR0h7m93OdU7PpwEqfSF8vTv/YrGlaujV9HDybpDwizegjXwVm
+ 3zI2whq5VICsWJi9Nyq2YQ6gO8mr3vnB+0xmuY+qOV2F2xTjNn8zu3xzI
+ vqcTi77wDAzkrmqqHDVBJRAwucFcXLT8LPjGyAH2Z5jzCuRkFcXUwvsDD
+ 8BctcD8VsZj0z9II8xgkzAl9zMQ1Q6SmppYkB3VtJrI2XW8s9WuaVZxWo
+ Jus2C2Vfa9R2jfGUAJuoK95DyxSz3m7c83Ss0J1je49TuzKb6Dsf/wUxe g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10406"; a="285812567"
+X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="285812567"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Jul 2022 16:31:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="722137783"
+X-IronPort-AV: E=Sophos;i="5.92,266,1650956400"; d="scan'208";a="722137776"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga004.jf.intel.com with ESMTP; 12 Jul 2022 16:31:36 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Tue, 12 Jul 2022 16:31:33 -0700
-Message-Id: <20220712233136.1044951-10-John.C.Harrison@Intel.com>
+Date: Tue, 12 Jul 2022 16:31:31 -0700
+Message-Id: <20220712233136.1044951-8-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.36.0
 In-Reply-To: <20220712233136.1044951-1-John.C.Harrison@Intel.com>
 References: <20220712233136.1044951-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 09/12] drm/i915/selftest: Cope with not having
- an RCS engine
+Subject: [Intel-gfx] [PATCH 07/12] drm/i915/guc: Route semaphores to GuC for
+ Gen12+
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,76 +59,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Cc: =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+From: Michał Winiarski <michal.winiarski@intel.com>
 
-It is no longer guaranteed that there will always be an RCS engine.
-So, use the helper function for finding the first available engine that
-can be used for general purpose selftets.
+Since we're going to use semaphores in selftests (and eventually in
+regular GuC submission), let's route semaphores to GuC.
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Signed-off-by: Michał Winiarski <michal.winiarski@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h        |  4 ++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 14 ++++++++++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-index 6493265d5f642..7f3bb1d34dfbf 100644
---- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-@@ -1302,13 +1302,15 @@ static int igt_reset_wait(void *arg)
- {
- 	struct intel_gt *gt = arg;
- 	struct i915_gpu_error *global = &gt->i915->gpu_error;
--	struct intel_engine_cs *engine = gt->engine[RCS0];
-+	struct intel_engine_cs *engine;
- 	struct i915_request *rq;
- 	unsigned int reset_count;
- 	struct hang h;
- 	long timeout;
- 	int err;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
+index 8dc063f087eb1..a7092f711e9cd 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
+@@ -102,6 +102,10 @@
+ #define   GUC_SEND_TRIGGER		  (1<<0)
+ #define GEN11_GUC_HOST_INTERRUPT	_MMIO(0x1901f0)
  
-+	engine = intel_selftest_find_any_engine(gt);
++#define GEN12_GUC_SEM_INTR_ENABLES	_MMIO(0xc71c)
++#define   GUC_SEM_INTR_ROUTE_TO_GUC	BIT(31)
++#define   GUC_SEM_INTR_ENABLE_ALL	(0xff)
 +
- 	if (!engine || !intel_engine_can_store_dword(engine))
- 		return 0;
+ #define GUC_NUM_DOORBELLS		256
  
-@@ -1432,7 +1434,7 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
- 				 int (*fn)(void *),
- 				 unsigned int flags)
+ /* format of the HW-monitored doorbell cacheline */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 40f726c61e951..7537459080278 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -3953,13 +3953,27 @@ int intel_guc_submission_setup(struct intel_engine_cs *engine)
+ 
+ void intel_guc_submission_enable(struct intel_guc *guc)
  {
--	struct intel_engine_cs *engine = gt->engine[RCS0];
-+	struct intel_engine_cs *engine;
- 	struct drm_i915_gem_object *obj;
- 	struct task_struct *tsk = NULL;
- 	struct i915_request *rq;
-@@ -1444,6 +1446,8 @@ static int __igt_reset_evict_vma(struct intel_gt *gt,
- 	if (!gt->ggtt->num_fences && flags & EXEC_OBJECT_NEEDS_FENCE)
- 		return 0;
- 
-+	engine = intel_selftest_find_any_engine(gt);
++	struct intel_gt *gt = guc_to_gt(guc);
 +
- 	if (!engine || !intel_engine_can_store_dword(engine))
- 		return 0;
++	/* Enable and route to GuC */
++	if (GRAPHICS_VER(gt->i915) >= 12)
++		intel_uncore_write(gt->uncore, GEN12_GUC_SEM_INTR_ENABLES,
++				   GUC_SEM_INTR_ROUTE_TO_GUC |
++				   GUC_SEM_INTR_ENABLE_ALL);
++
+ 	guc_init_lrc_mapping(guc);
+ 	guc_init_engine_stats(guc);
+ }
  
-@@ -1819,12 +1823,14 @@ static int igt_handle_error(void *arg)
+ void intel_guc_submission_disable(struct intel_guc *guc)
  {
- 	struct intel_gt *gt = arg;
- 	struct i915_gpu_error *global = &gt->i915->gpu_error;
--	struct intel_engine_cs *engine = gt->engine[RCS0];
-+	struct intel_engine_cs *engine;
- 	struct hang h;
- 	struct i915_request *rq;
- 	struct i915_gpu_coredump *error;
- 	int err;
- 
-+	engine = intel_selftest_find_any_engine(gt);
++	struct intel_gt *gt = guc_to_gt(guc);
 +
- 	/* Check that we can issue a global GPU and engine reset */
+ 	/* Note: By the time we're here, GuC may have already been reset */
++
++	/* Disable and route to host */
++	if (GRAPHICS_VER(gt->i915) >= 12)
++		intel_uncore_write(gt->uncore, GEN12_GUC_SEM_INTR_ENABLES, 0x0);
+ }
  
- 	if (!intel_has_reset_engine(gt))
+ static bool __guc_submission_supported(struct intel_guc *guc)
 -- 
 2.36.0
 
