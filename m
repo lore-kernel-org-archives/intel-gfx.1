@@ -4,49 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47122C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:08:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EAD9C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:08:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0D8711B968;
-	Wed, 20 Jul 2022 14:08:52 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE51F10E81E;
- Wed, 29 Jun 2022 08:22:09 +0000 (UTC)
-Received: from [192.168.2.145] (unknown [109.252.118.164])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 96AF966018F1;
- Wed, 29 Jun 2022 09:22:05 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1656490928;
- bh=XVQSgsxJcmy7E9dO6ydXkj4ChuEFXc7MVQ+QygUQC8s=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=XDA5Kxe1tQjVWoYM/BGtNXeKxwfzbPWBe/P8pqnkFIaP99Cob4KetSZp2mOV5ryP3
- u7HvrxECrEmyBllUyLM9aJt9NxlBWJIjI1vH3F6cyKv3t6zcOoQ5eEnHwrBxui1qxj
- dhHHwgtCyjFiz0GVKfGTNTYY/r/P8cU6ccDNK3YajGTlvfcYzw3D0HBZvWZG99gBdw
- g3iqha1unBFwIZIh55U+Qs/ChxM3VgIRVZFM+pX3989oy8OqosWoTMbE+652VhJgHQ
- FAJaw4N5wVvjKnuA74fSOiQp7M9aReCv8cXtUS2LQKv6/MwDyHx8fBx07oNXwQjIzB
- fo3DQeZjKtWZw==
-Message-ID: <c0273ac2-c87c-2612-03d4-dc52510b22f7@collabora.com>
-Date: Wed, 29 Jun 2022 11:22:02 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id A953F11BA61;
+	Wed, 20 Jul 2022 14:08:53 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11ADF94AF9;
+ Tue, 12 Jul 2022 14:21:35 +0000 (UTC)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26CEI4MV007679;
+ Tue, 12 Jul 2022 14:21:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=utPHKvjQ3PMkdY+xJ5VlHs3OGEkWV/pOVBYs/I5OYf8=;
+ b=AhgqMWulLOKvlIQkEKXl7pMnBJHofvd4DEemz/BvCRpMrx1ntRpdjJO1UTMK+omvKEVh
+ eOAditBe2swViF72Aam4Gq8IU92968F5xAU/533yr2yAry4Zb09ErvpxVQui0hiZ2DNo
+ OpL3sILGLnjdnrU0QKrzr10QMCAdoUxZtGWGw0JIQslyZnKd0PLGiOOql1TDDprrLGv5
+ OMc0tYmmux6KXw+uABlk/i+gj8ShtgEk6SwhZBd2U37SJi2y9FFj1eLIpCjH3+4/P2pK
+ fG0R/N0WJwuQzfQfMsYjPm5SLVkUNNgJOICXa236z9V2zgjTz9Q6qy505Tv3ZiOam2wU aQ== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3h98jvkq33-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Jul 2022 14:21:19 +0000
+Received: from m0098416.ppops.net (m0098416.ppops.net [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 26CE7RHc022055;
+ Tue, 12 Jul 2022 14:21:18 GMT
+Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
+ [169.53.41.122])
+ by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3h98jvkq2m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Jul 2022 14:21:18 +0000
+Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
+ by ppma04dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 26CEKps9011415;
+ Tue, 12 Jul 2022 14:21:17 GMT
+Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
+ [9.57.198.24]) by ppma04dal.us.ibm.com with ESMTP id 3h71a9uq1v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Jul 2022 14:21:17 +0000
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 26CELGSR9437848
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 12 Jul 2022 14:21:16 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AC4C828058;
+ Tue, 12 Jul 2022 14:21:16 +0000 (GMT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DF6822805A;
+ Tue, 12 Jul 2022 14:21:14 +0000 (GMT)
+Received: from [9.65.200.23] (unknown [9.65.200.23])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
+ Tue, 12 Jul 2022 14:21:14 +0000 (GMT)
+Message-ID: <99c92c99-cd60-4034-8729-a90ac9a80a7b@linux.ibm.com>
+Date: Tue, 12 Jul 2022 10:21:14 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
 Content-Language: en-US
-To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <20220526235040.678984-3-dmitry.osipenko@collabora.com>
- <b8271f0c-d6a3-4194-1959-e112859756a3@shipmail.org>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <b8271f0c-d6a3-4194-1959-e112859756a3@shipmail.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Nicolin Chen <nicolinc@nvidia.com>, kwankhede@nvidia.com, corbet@lwn.net, 
+ hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+ borntraeger@linux.ibm.com, svens@linux.ibm.com,
+ zhenyuw@linux.intel.com, zhi.a.wang@intel.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com,
+ airlied@linux.ie, daniel@ffwll.ch, farman@linux.ibm.com,
+ mjrosato@linux.ibm.com, pasic@linux.ibm.com, vneethv@linux.ibm.com,
+ oberpar@linux.ibm.com, freude@linux.ibm.com, jjherne@linux.ibm.com,
+ alex.williamson@redhat.com, cohuck@redhat.com, jgg@nvidia.com,
+ kevin.tian@intel.com, hch@infradead.org
+References: <20220708224427.1245-1-nicolinc@nvidia.com>
+ <20220708224427.1245-2-nicolinc@nvidia.com>
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <20220708224427.1245-2-nicolinc@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: B60HSp5t_czb8X5a87Nm-XoxYiKFzc2z
+X-Proofpoint-ORIG-GUID: 4i9LQZnl2_bO8pVrbgtssKDQs1SsXODb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-12_08,2022-07-12_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 malwarescore=0
+ suspectscore=0 adultscore=0 lowpriorityscore=0 mlxlogscore=999
+ impostorscore=0 clxscore=1011 spamscore=0 bulkscore=0 phishscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2206140000 definitions=main-2207120055
 X-Mailman-Approved-At: Wed, 20 Jul 2022 14:07:33 +0000
-Subject: Re: [Intel-gfx] [PATCH v6 02/22] drm/gem: Move mapping of imported
- dma-bufs to drm_gem_mmap_obj()
+Subject: Re: [Intel-gfx] [PATCH v3 01/10] vfio: Make vfio_unpin_pages()
+ return void
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,78 +110,196 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring <robh@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Chia-I Wu <olvaffe@gmail.com>, linux-media@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
- Qiang Yu <yuq825@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
- Robin Murphy <robin.murphy@arm.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, jchrist@linux.ibm.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ terrence.xu@intel.com, intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 6/29/22 09:40, Thomas Hellström (Intel) wrote:
-> 
-> On 5/27/22 01:50, Dmitry Osipenko wrote:
->> Drivers that use drm_gem_mmap() and drm_gem_mmap_obj() helpers don't
->> handle imported dma-bufs properly, which results in mapping of something
->> else than the imported dma-buf. For example, on NVIDIA Tegra we get a
->> hard
->> lockup when userspace writes to the memory mapping of a dma-buf that was
->> imported into Tegra's DRM GEM.
->>
->> To fix this bug, move mapping of imported dma-bufs to drm_gem_mmap_obj().
->> Now mmaping of imported dma-bufs works properly for all DRM drivers.
-> Same comment about Fixes: as in patch 1,
->>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
->> ---
->>   drivers/gpu/drm/drm_gem.c              | 3 +++
->>   drivers/gpu/drm/drm_gem_shmem_helper.c | 9 ---------
->>   drivers/gpu/drm/tegra/gem.c            | 4 ++++
->>   3 files changed, 7 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
->> index 86d670c71286..7c0b025508e4 100644
->> --- a/drivers/gpu/drm/drm_gem.c
->> +++ b/drivers/gpu/drm/drm_gem.c
->> @@ -1038,6 +1038,9 @@ int drm_gem_mmap_obj(struct drm_gem_object *obj,
->> unsigned long obj_size,
->>       if (obj_size < vma->vm_end - vma->vm_start)
->>           return -EINVAL;
->>   +    if (obj->import_attach)
->> +        return dma_buf_mmap(obj->dma_buf, vma, 0);
-> 
-> If we start enabling mmaping of imported dma-bufs on a majority of
-> drivers in this way, how do we ensure that user-space is not blindly
-> using the object mmap without calling the needed DMA_BUF_IOCTL_SYNC
-> which is needed before and after cpu access of mmap'ed dma-bufs?
-> 
-> I was under the impression (admittedly without looking) that the few
-> drivers that actually called into dma_buf_mmap() had some private
-> user-mode driver code in place that ensured this happened.
 
-Since it's a userspace who does the mapping, then it should be a
-responsibility of userspace to do all the necessary syncing. I'm not
-sure whether anyone in userspace really needs to map imported dma-bufs
-in practice. Nevertheless, this use-case is broken and should be fixed
-by either allowing to do the mapping or prohibiting it.
+On 7/8/22 6:44 PM, Nicolin Chen wrote:
+> There's only one caller that checks its return value with a WARN_ON_ONCE,
+> while all other callers don't check the return value at all. Above that,
+> an undo function should not fail. So, simplify the API to return void by
+> embedding similar WARN_ONs.
+>
+> Also for users to pinpoint which condition fails, separate WARN_ON lines,
+> yet remove the "driver->ops->unpin_pages" check, since it's unreasonable
+> for callers to unpin on something totally random that wasn't even pinned.
+> And remove NULL pointer checks for they would trigger oops vs. warnings.
+> Note that npage is already validated in the vfio core, thus drop the same
+> check in the type1 code.
+>
+> Suggested-by: Christoph Hellwig <hch@infradead.org>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Reviewed-by: Kirti Wankhede <kwankhede@nvidia.com>
+> Tested-by: Terrence Xu <terrence.xu@intel.com>
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+> ---
+>   .../driver-api/vfio-mediated-device.rst       |  2 +-
+>   drivers/gpu/drm/i915/gvt/kvmgt.c              |  5 +----
+>   drivers/vfio/vfio.c                           | 21 +++++++------------
+>   drivers/vfio/vfio.h                           |  2 +-
+>   drivers/vfio/vfio_iommu_type1.c               | 15 ++++++-------
+>   include/linux/vfio.h                          |  4 ++--
+>   6 files changed, 18 insertions(+), 31 deletions(-)
+>
+> diff --git a/Documentation/driver-api/vfio-mediated-device.rst b/Documentation/driver-api/vfio-mediated-device.rst
+> index d7a512676853..4307421dcaa0 100644
+> --- a/Documentation/driver-api/vfio-mediated-device.rst
+> +++ b/Documentation/driver-api/vfio-mediated-device.rst
+> @@ -263,7 +263,7 @@ driver::
+>   	int vfio_pin_pages(struct vfio_device *device, unsigned long *user_pfn,
+>   				  int npage, int prot, unsigned long *phys_pfn);
+>   
+> -	int vfio_unpin_pages(struct vfio_device *device, unsigned long *user_pfn,
+> +	void vfio_unpin_pages(struct vfio_device *device, unsigned long *user_pfn,
+>   				    int npage);
+>   
+>   These functions call back into the back-end IOMMU module by using the pin_pages
+> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> index e2f6c56ab342..8c67c9aba82d 100644
+> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
+> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> @@ -231,18 +231,15 @@ static void intel_gvt_cleanup_vgpu_type_groups(struct intel_gvt *gvt)
+>   static void gvt_unpin_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
+>   		unsigned long size)
+>   {
+> -	struct drm_i915_private *i915 = vgpu->gvt->gt->i915;
+>   	int total_pages;
+>   	int npage;
+> -	int ret;
+>   
+>   	total_pages = roundup(size, PAGE_SIZE) / PAGE_SIZE;
+>   
+>   	for (npage = 0; npage < total_pages; npage++) {
+>   		unsigned long cur_gfn = gfn + npage;
+>   
+> -		ret = vfio_unpin_pages(&vgpu->vfio_device, &cur_gfn, 1);
+> -		drm_WARN_ON(&i915->drm, ret != 1);
+> +		vfio_unpin_pages(&vgpu->vfio_device, &cur_gfn, 1);
+>   	}
+>   }
+>   
+> diff --git a/drivers/vfio/vfio.c b/drivers/vfio/vfio.c
+> index 100a3d84380c..ad90adbfddc8 100644
+> --- a/drivers/vfio/vfio.c
+> +++ b/drivers/vfio/vfio.c
+> @@ -1964,31 +1964,24 @@ EXPORT_SYMBOL(vfio_pin_pages);
+>    *		   PFNs should not be greater than VFIO_PIN_PAGES_MAX_ENTRIES.
+>    * @npage [in]   : count of elements in user_pfn array.  This count should not
+>    *                 be greater than VFIO_PIN_PAGES_MAX_ENTRIES.
+> - * Return error or number of pages unpinned.
+>    */
+> -int vfio_unpin_pages(struct vfio_device *device, unsigned long *user_pfn,
+> -		     int npage)
+> +void vfio_unpin_pages(struct vfio_device *device, unsigned long *user_pfn,
+> +		      int npage)
+>   {
+>   	struct vfio_container *container;
+>   	struct vfio_iommu_driver *driver;
+> -	int ret;
+>   
+> -	if (!user_pfn || !npage || !vfio_assert_device_open(device))
+> -		return -EINVAL;
 
--- 
-Best regards,
-Dmitry
+
+You left out the check for !user_pfn?
+
+
+> +	if (WARN_ON(npage <= 0 || npage > VFIO_PIN_PAGES_MAX_ENTRIES))
+> +		return;
+>   
+> -	if (npage > VFIO_PIN_PAGES_MAX_ENTRIES)
+> -		return -E2BIG;
+> +	if (WARN_ON(!vfio_assert_device_open(device)))
+> +		return;
+>   
+>   	/* group->container cannot change while a vfio device is open */
+>   	container = device->group->container;
+>   	driver = container->iommu_driver;
+> -	if (likely(driver && driver->ops->unpin_pages))
+> -		ret = driver->ops->unpin_pages(container->iommu_data, user_pfn,
+> -					       npage);
+> -	else
+> -		ret = -ENOTTY;
+>   
+> -	return ret;
+> +	driver->ops->unpin_pages(container->iommu_data, user_pfn, npage);
+>   }
+>   EXPORT_SYMBOL(vfio_unpin_pages);
+>   
+> diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
+> index a67130221151..bef4edf58138 100644
+> --- a/drivers/vfio/vfio.h
+> +++ b/drivers/vfio/vfio.h
+> @@ -53,7 +53,7 @@ struct vfio_iommu_driver_ops {
+>   				     unsigned long *user_pfn,
+>   				     int npage, int prot,
+>   				     unsigned long *phys_pfn);
+> -	int		(*unpin_pages)(void *iommu_data,
+> +	void		(*unpin_pages)(void *iommu_data,
+>   				       unsigned long *user_pfn, int npage);
+>   	int		(*register_notifier)(void *iommu_data,
+>   					     unsigned long *events,
+> diff --git a/drivers/vfio/vfio_iommu_type1.c b/drivers/vfio/vfio_iommu_type1.c
+> index db24062fb343..cfeea4efd625 100644
+> --- a/drivers/vfio/vfio_iommu_type1.c
+> +++ b/drivers/vfio/vfio_iommu_type1.c
+> @@ -948,20 +948,16 @@ static int vfio_iommu_type1_pin_pages(void *iommu_data,
+>   	return ret;
+>   }
+>   
+> -static int vfio_iommu_type1_unpin_pages(void *iommu_data,
+> -					unsigned long *user_pfn,
+> -					int npage)
+> +static void vfio_iommu_type1_unpin_pages(void *iommu_data,
+> +					 unsigned long *user_pfn, int npage)
+>   {
+>   	struct vfio_iommu *iommu = iommu_data;
+>   	bool do_accounting;
+>   	int i;
+>   
+> -	if (!iommu || !user_pfn || npage <= 0)
+> -		return -EINVAL;
+
+
+Is there a reason the checks above were not checked for WARN_ON?
+
+
+> -
+>   	/* Supported for v2 version only */
+> -	if (!iommu->v2)
+> -		return -EACCES;
+> +	if (WARN_ON(!iommu->v2))
+> +		return;
+>   
+>   	mutex_lock(&iommu->lock);
+>   
+> @@ -979,7 +975,8 @@ static int vfio_iommu_type1_unpin_pages(void *iommu_data,
+>   	}
+>   
+>   	mutex_unlock(&iommu->lock);
+> -	return i > 0 ? i : -EINVAL;
+> +
+> +	WARN_ON(i != npage);
+>   }
+>   
+>   static long vfio_sync_unpin(struct vfio_dma *dma, struct vfio_domain *domain,
+> diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+> index 4d26e149db81..5348ef353029 100644
+> --- a/include/linux/vfio.h
+> +++ b/include/linux/vfio.h
+> @@ -159,8 +159,8 @@ bool vfio_file_has_dev(struct file *file, struct vfio_device *device);
+>   
+>   int vfio_pin_pages(struct vfio_device *device, unsigned long *user_pfn,
+>   		   int npage, int prot, unsigned long *phys_pfn);
+> -int vfio_unpin_pages(struct vfio_device *device, unsigned long *user_pfn,
+> -		     int npage);
+> +void vfio_unpin_pages(struct vfio_device *device, unsigned long *user_pfn,
+> +		      int npage);
+>   int vfio_dma_rw(struct vfio_device *device, dma_addr_t user_iova,
+>   		void *data, size_t len, bool write);
+>   
