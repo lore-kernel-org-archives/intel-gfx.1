@@ -4,42 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40D35C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 13:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 695A0CCA479
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 13:38:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9833410E9EE;
-	Wed, 13 Jul 2022 13:38:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5452B10FB0E;
+	Wed, 13 Jul 2022 13:38:45 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAD2B10E39F;
- Wed, 13 Jul 2022 13:38:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4025F10E39F;
+ Wed, 13 Jul 2022 13:38:41 +0000 (UTC)
 Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
  [82.71.8.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbeckett)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 576D666019B6;
- Wed, 13 Jul 2022 14:38:38 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id B804C66019D2;
+ Wed, 13 Jul 2022 14:38:39 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657719518;
- bh=s+i54G2qFMY7k4hZiW6XrnLWSTCsbPrc1QYLZP1Vpqk=;
- h=From:To:Cc:Subject:Date:From;
- b=VhnZQq1tK/0oM/jV0oh3yvhbcDKYFbLCkh1hbuh1GxunyjZ1NKwkIVpMBDeqfrD3c
- ZkhAn8Q7nGgZbVaAKcXjzsfumXQfZRcj6QJ9LHcJ6ft5SMxQ2PFS5ioFy+FxKu6GPU
- cNBfTs+er73jsOkx3TtY1gy5+hoiQ235jMa8kkfQjU87ISXCT+ZqsvDTBvfcYB7quw
- 9LS6WccB3TzZ8RXvU5gUjTPoXtQ7HEu/iKVQeSUhFLTy4AEqP7jVOhjJMT7iv9JFcI
- /M42clRdfDQqTQB+r3VWe1rzrC6TQpSLwvar4GyfiAz+ZOayV9sYnA8IHzacyPLQkC
- L2bf1jRp4tBDw==
+ s=mail; t=1657719520;
+ bh=ha13NipozoxIlhmnqDQLSM1i3fj+EPxYLmpfjPykhKo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=OVFmbp1+WuzLJbSMWJc+wgjgL0pr/UqwkAbI8SS85WZAbSLXvX6GF6UZTS5YWbd33
+ Tkvt74dPG8pxskKrjAhbk1ndSkP9O3E1hHuOQoxJvTOx5ko4MOn9muqgXBwn2zDFef
+ ZLjZ+cU6kvsISJ/4xohMLhtPYqLrPwwu/fvaUG8dWYvwkg+ea361X1y7i81+rLuNHE
+ xcjNsN96tRjpiYj9aKyk//6ByNFP7g5EVnYNJ4xNVyxBWmHIWBPEr2lax0iZbgnKrq
+ H3SRWOmKjw77ePk+Yrl6KDk02HSbmiNYstSDVBw6QDgLkUifoJpmocOClU8MAeWfD2
+ +jR1rV5TVn0Dw==
 From: Robert Beckett <bob.beckett@collabora.com>
-To: dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Jul 2022 14:38:10 +0100
-Message-Id: <20220713133818.3699604-1-bob.beckett@collabora.com>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 13 Jul 2022 14:38:12 +0100
+Message-Id: <20220713133818.3699604-3-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220713133818.3699604-1-bob.beckett@collabora.com>
+References: <20220713133818.3699604-1-bob.beckett@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 0/8] drm/i915: ttm for internal
+Subject: [Intel-gfx] [PATCH v4 2/8] drm/i915: limit ttm to dma32 for i965G[M]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,58 +59,41 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- kernel@collabora.com, Matthew Auld <matthew.auld@intel.com>
+ kernel@collabora.com, Matthew Auld <matthew.auld@intel.com>,
+ linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series refactors i915's internal buffer backend to use ttm.
-It uses ttm's pool allocator to allocate volatile pages in place of the
-old code which rolled its own via alloc_pages.
-This is continuing progress to align all backends on using ttm.
+i965G[M] cannot relocate objects above 4GiB.
+Ensure ttm uses dma32 on these systems.
 
-v2:	- commit message improvements to add detail
-	- fix i915_ttm_shrink to purge !is_shmem volatile buffers
-	- limit ttm pool allocator to using dma32 on i965G[M]
-	- fix mman selftest to always use smem buffers
-	- create new internal memory region
-	- make internal backend allocate from internal region
-	- Fixed various issues with tests and i915 ttm usage as a result
-	  of supporting regions other than lmem via ttm.
+Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+---
+ drivers/gpu/drm/i915/intel_region_ttm.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-v3:	- limit i915 ttm default cache_level selection to only trust
-	  HAS_SNOOP on DGFX.
-
-v4:	- rebase to drm-tip and handle conflicts
-
-Robert Beckett (8):
-  drm/i915/ttm: dont trample cache_level overrides during ttm move
-  drm/i915: limit ttm to dma32 for i965G[M]
-  drm/i915/ttm: only trust snooping for dgfx when deciding default
-    cache_level
-  drm/i915: add gen6 ppgtt dummy creation function
-  drm/i915: setup ggtt scratch page after memory regions
-  drm/i915: allow volatile buffers to use ttm pool allocator
-  drm/i915/gem: further fix mman selftest
-  drm/i915: internal buffers use ttm backend
-
- drivers/gpu/drm/i915/gem/i915_gem_internal.c  | 187 +-----------------
- drivers/gpu/drm/i915/gem/i915_gem_internal.h  |   5 -
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |   1 +
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |   1 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |   8 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  13 +-
- .../drm/i915/gem/selftests/i915_gem_mman.c    |  17 +-
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c          |  43 +++-
- drivers/gpu/drm/i915/gt/intel_ggtt.c          |  20 +-
- drivers/gpu/drm/i915/gt/intel_gtt.h           |   1 +
- drivers/gpu/drm/i915/i915_driver.c            |  16 +-
- drivers/gpu/drm/i915/i915_pci.c               |   4 +-
- drivers/gpu/drm/i915/intel_memory_region.c    |   8 +-
- drivers/gpu/drm/i915/intel_memory_region.h    |   2 +
- drivers/gpu/drm/i915/intel_region_ttm.c       |   7 +-
- .../gpu/drm/i915/selftests/mock_gem_device.c  |   2 +-
- 16 files changed, 114 insertions(+), 221 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
+index 6873808a7015..642cd1587976 100644
+--- a/drivers/gpu/drm/i915/intel_region_ttm.c
++++ b/drivers/gpu/drm/i915/intel_region_ttm.c
+@@ -32,10 +32,15 @@
+ int intel_region_ttm_device_init(struct drm_i915_private *dev_priv)
+ {
+ 	struct drm_device *drm = &dev_priv->drm;
++	bool use_dma32 = false;
++
++	/* i965g[m] cannot relocate objects above 4GiB. */
++	if (IS_I965GM(dev_priv) || IS_I965G(dev_priv))
++		use_dma32 = true;
+ 
+ 	return ttm_device_init(&dev_priv->bdev, i915_ttm_driver(),
+ 			       drm->dev, drm->anon_inode->i_mapping,
+-			       drm->vma_offset_manager, false, false);
++			       drm->vma_offset_manager, false, use_dma32);
+ }
+ 
+ /**
 -- 
 2.25.1
 
