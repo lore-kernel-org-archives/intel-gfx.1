@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 391F7CCA479
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 08:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBA1CCCA479
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 08:14:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4F695470;
-	Wed, 13 Jul 2022 08:12:58 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1592F95390;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF9A95D0B;
+	Wed, 13 Jul 2022 08:12:52 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 117D59536C;
  Wed, 13 Jul 2022 08:12:35 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6487961AC4;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D991061B01;
  Wed, 13 Jul 2022 08:12:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4A0C36AE5;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DB5EC36AF6;
  Wed, 13 Jul 2022 08:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657699952;
- bh=/9olzBx4OUc50koFFZQ+bGSBLR49rSjkVapHkfF/H3w=;
+ bh=cek8uuJCsBV9acCHN6Py4rPGTwRaYdkk3T9/tHIBSPs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PZNX4s+1P1th8a5vh9jjL3Y1YoLYk5P8KrcIeNBVMClqfBQQbpQIoJSqvOtX3QPC+
- icweIoHf0GtgMsvyovvwQOFfDsLoSFlsSAFWRZ83X0w5mcn6fHbcU8yc4/cmKxV6Ew
- X6c3t+BEEKDmaOX1pdpXWI47xwcCHh0H/Sn8VS9vm45SdreaLW/GvqnhENGPK5jAyi
- B9jw5dh63MlC+3Ovza6nuAHVvzvEA40E1JZ57Nkhf6mvZgeLMKyTTFYJKvYQSdnuwa
- DstkDSbgkqbia+gyaDq+DO4+KMNb7eOIqGIU9UxKguCMiszLhLR8mlr9ntZ9G11MfM
- /FjlPOy0Do5sQ==
+ b=V3/I4po2XZFKDYXmAwUF7rpr4fWvqBpcWvvmCcYQJ3UD7WVeBM/Vmtc4THACX0n4a
+ T3B/Oase/GG28x4wmKNEttXdZdrAxWd3amGxpOqh+rWET93h9r8aWICwmL0q42PGPj
+ lfuSzFhwgzo+UX6m8V/m3vFwRuEFVEL8G+KCzyLtz2Ew1NIVXRhHrdGiL4VC6LBA3P
+ FvD0M9GKD7ctbEF7N0DyJ9peyImvcVmrkbhBuqXwdzmx8uySnLGwNZ1vY4BlUl03Wl
+ 4Ga4S4ja1029U7I2XfhOc8/rLIH5DrjO41zx5cni5fm2B9WkJFsaNBhiMsTFbxRYNN
+ c/oVYaLtki7DA==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oBXTx-004ztt-QU;
- Wed, 13 Jul 2022 09:12:29 +0100
+ (envelope-from <mchehab@kernel.org>) id 1oBXTy-004zud-1u;
+ Wed, 13 Jul 2022 09:12:30 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Wed, 13 Jul 2022 09:12:12 +0100
-Message-Id: <002a8d51244a70572744de86cacbdae293e7d503.1657699522.git.mchehab@kernel.org>
+Date: Wed, 13 Jul 2022 09:12:24 +0100
+Message-Id: <6bdbfc5a739deceba57175269cc8e129ca481ed9.1657699522.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657699522.git.mchehab@kernel.org>
 References: <cover.1657699522.git.mchehab@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 24/39] drm/i915: dvo_sil164.c: use SPDX header
+Subject: [Intel-gfx] [PATCH v2 36/39] drm/i915 i915_gem_object_types.h:
+ document struct i915_lut_handle
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,15 +55,18 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Matthew Auld <matthew.auld@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
+ Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This file is licensed with MIT license.	Change its license text
-to use SPDX.
+commit d1b48c1e7184 ("drm/i915: Replace execbuf vma ht with an idr")
+added a rbtree list to allow searching for obj/ctx.
+
+Document it.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
@@ -72,50 +74,32 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v2 00/39] at: https://lore.kernel.org/all/cover.1657699522.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/display/dvo_sil164.c | 32 +++++------------------
- 1 file changed, 6 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object_types.h | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/dvo_sil164.c b/drivers/gpu/drm/i915/display/dvo_sil164.c
-index 0dfa0a0209ff..12974f7c9dc1 100644
---- a/drivers/gpu/drm/i915/display/dvo_sil164.c
-+++ b/drivers/gpu/drm/i915/display/dvo_sil164.c
-@@ -1,30 +1,10 @@
--/**************************************************************************
-+// SPDX-License-Identifier: MIT
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 5cf36a130061..ceed0d220ce3 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -21,9 +21,15 @@ struct drm_i915_gem_object;
+ struct intel_fronbuffer;
+ struct intel_memory_region;
  
--Copyright © 2006 Dave Airlie
--
--All Rights Reserved.
--
--Permission is hereby granted, free of charge, to any person obtaining a
--copy of this software and associated documentation files (the
--"Software"), to deal in the Software without restriction, including
--without limitation the rights to use, copy, modify, merge, publish,
--distribute, sub license, and/or sell copies of the Software, and to
--permit persons to whom the Software is furnished to do so, subject to
--the following conditions:
--
--The above copyright notice and this permission notice (including the
--next paragraph) shall be included in all copies or substantial portions
--of the Software.
--
--THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
--OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
--MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
--IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
--ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
--TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
--SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--
--**************************************************************************/
-+/*
-+ * Copyright © 2006 Dave Airlie
+-/*
+- * struct i915_lut_handle tracks the fast lookups from handle to vma used
+- * for execbuf. Although we use a radixtree for that mapping, in order to
++/**
++ * struct i915_lut_handle - tracks the fast lookups from handle to vma used
++ * for execbuf.
 + *
-+ * All Rights Reserved.
-+ */
- 
- #include "intel_display_types.h"
- #include "intel_dvo_dev.h"
++ * @obj_link: link to the object associated with the @handle.
++ * @ctx: context associated with the @handle.
++ * @handle: a rbtree handle to lookup context for specific obj/vma.
++ *
++ * Although we use a radixtree for that mapping, in order to
+  * remove them as the object or context is closed, we need a secondary list
+  * and a translation entry (i915_lut_handle).
+  */
 -- 
 2.36.1
 
