@@ -4,41 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 842A1C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 12:15:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E761C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 13:13:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3A6697BF8;
-	Wed, 13 Jul 2022 12:15:07 +0000 (UTC)
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80D0F9A1FE;
- Wed, 13 Jul 2022 12:15:05 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4Ljc4w07t5z4xvg;
- Wed, 13 Jul 2022 22:14:55 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1657714500;
- bh=uDhVXiqCj/rhBJXlqy337qGKpkTPsz6WFevTk5S1V0o=;
- h=Date:From:To:Cc:Subject:From;
- b=mXAxKtYg4H+GX8fk8PJZL5lIHkhQ+hbjy2si+rcjdyb0cMWT3t2IbgWifsmxALyWF
- oXm9pxQrPDf5EYY4+ot8ZvhlJU1NXHRH0bwfLEQ5YR1u8vGnFOeYAjux1utTDYOf62
- GJ+ULsOLMBauNOTuC4ga8hBvWBJy6sWjUGVBBAyRCdMHzt/b4JMH+B0riECVg51EBf
- lvX92TvwSnQqsPYlt/CmFfibS9lZaACPkXNfpguLd/O5l+21CN5ksAy96g9aI6Jqig
- neP23S9bq0Gs54EZGQ4e5Dr/wZxHQrVvXIDzI3eMlHG64HXLtm46eFJJeBbrvqiJZW
- oo5xwJVf/+x3g==
-Date: Wed, 13 Jul 2022 22:14:54 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Message-ID: <20220713221454.67bb20df@canb.auug.org.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6FDB12AC50;
+	Wed, 13 Jul 2022 13:13:09 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CEEE912AF2E;
+ Wed, 13 Jul 2022 13:13:07 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id B5A9FA0169;
+ Wed, 13 Jul 2022 13:13:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/eJxh_gAMEwDnUciW=_vQR2V";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: [Intel-gfx] linux-next: build failure after merge of the
- drm-intel-fixes tree
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mauro Carvalho Chehab" <mchehab@kernel.org>
+Date: Wed, 13 Jul 2022 13:13:07 -0000
+Message-ID: <165771798769.739.1808396546922793507@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <cover.1657703926.git.mchehab@kernel.org>
+In-Reply-To: <cover.1657703926.git.mchehab@kernel.org>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBG?=
+ =?utf-8?q?ix_performance_regressions_with_TLB_and_add_GuC_support_=28rev2?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,50 +41,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics <intel-gfx@lists.freedesktop.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Matthew Auld <matthew.auld@intel.com>, DRI <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---Sig_/eJxh_gAMEwDnUciW=_vQR2V
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+== Series Details ==
 
-Hi all,
+Series: Fix performance regressions with TLB and add GuC support (rev2)
+URL   : https://patchwork.freedesktop.org/series/106293/
+State : failure
 
-After merging the drm-intel-fixes tree, today's linux-next build (i386
-defconfig) failed like this:
+== Summary ==
 
-x86_64-linux-gnu-ld: drivers/gpu/drm/i915/i915_scatterlist.o: in function `=
-i915_rsgt_from_mm_node':
-i915_scatterlist.c:(.text+0x196): undefined reference to `__udivdi3'
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/106293/revisions/2/mbox/ not applied
+Applying: drm/i915/gt: Ignore TLB invalidations on idle engines
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/gt/intel_gt.c
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/i915/gt/intel_gt.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/gt/intel_gt.c
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm/i915/gt: Ignore TLB invalidations on idle engines
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
-Caused by commit
 
-  aff1e0b09b54 ("drm/i915/ttm: fix sg_table construction")
-
-I have reverted that commit for today.
-
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/eJxh_gAMEwDnUciW=_vQR2V
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmLOtz4ACgkQAVBC80lX
-0Gyu0AgAidtC+1SSKr14X+YbGBrvCORn0Pbc4VOBJgd/ET7eHhGwXO1XXW6G7Hfz
-Qm5TXiKTu76MXBcfja8Akh1yvVD3m6m5rIAQMn93ZmE+Cw5W5ROxku7pq1DZ1oKR
-h47QFCM0WdBCbF3jVtYX6XTflvQL9Pj5L9bUrgJNscPh48Nsu22eOcXBRsOQdKg7
-AmLjf6muUc5pLwsh3Dx3TlPLMrvpgyTVZUxQ0q050JxIPSOh/j9nx7X+CFweQjx0
-CrxCazdLAX7kZ73hoaVevmMwQ84UI2kIKOdkLL5McsmtgFwQBchcVw0C+Xw4Tdgq
-/gbu/YO0mwC3BQ+dlL3gz3ERyZuuvQ==
-=aURU
------END PGP SIGNATURE-----
-
---Sig_/eJxh_gAMEwDnUciW=_vQR2V--
