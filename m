@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71705CCA482
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 08:14:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 391F7CCA479
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 08:14:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B434953BC;
-	Wed, 13 Jul 2022 08:12:49 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E18079528F;
- Wed, 13 Jul 2022 08:12:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4F695470;
+	Wed, 13 Jul 2022 08:12:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1592F95390;
+ Wed, 13 Jul 2022 08:12:35 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2351061A87;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6487961AC4;
  Wed, 13 Jul 2022 08:12:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A8BC341D8;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4A0C36AE5;
  Wed, 13 Jul 2022 08:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657699952;
- bh=bSkbpAx11+TmEHvxW7ggJPLe705G0MX6L55HD9C2rwk=;
+ bh=/9olzBx4OUc50koFFZQ+bGSBLR49rSjkVapHkfF/H3w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rjOdtS7V4UCOa61lYWAyi5Mn+vyfIAjajlI8OZ5BtbuOLmNIUqHxX6HD/WL9mqHbe
- Eo2bS6Z6QMfZNVptdvWXhxHU9qiEGrkIzWYREMF5p4K50eh84OHpPER9dzj+TyR0xt
- 5dDzFtslvDmDnu/uNdmfStv0lC7sAC+CG+8RzqZoID4oiSQ1JWTGgFtbFZNtXsh6e/
- +ZqjRww0p+q6PWg95mHanQbh9glaA2x2ysFsd4SQR/efLcq7CR4SkFS3ENCT2RxFEd
- 9WqNresukybehqKoZq4+Rsf1oxRUOsGoAbHns/z1ZaYCcFH9+yY8iIcIWHvhthGzl9
- faa+sIePWLqcA==
+ b=PZNX4s+1P1th8a5vh9jjL3Y1YoLYk5P8KrcIeNBVMClqfBQQbpQIoJSqvOtX3QPC+
+ icweIoHf0GtgMsvyovvwQOFfDsLoSFlsSAFWRZ83X0w5mcn6fHbcU8yc4/cmKxV6Ew
+ X6c3t+BEEKDmaOX1pdpXWI47xwcCHh0H/Sn8VS9vm45SdreaLW/GvqnhENGPK5jAyi
+ B9jw5dh63MlC+3Ovza6nuAHVvzvEA40E1JZ57Nkhf6mvZgeLMKyTTFYJKvYQSdnuwa
+ DstkDSbgkqbia+gyaDq+DO4+KMNb7eOIqGIU9UxKguCMiszLhLR8mlr9ntZ9G11MfM
+ /FjlPOy0Do5sQ==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oBXTx-004zsq-Ee;
+ (envelope-from <mchehab@kernel.org>) id 1oBXTx-004ztt-QU;
  Wed, 13 Jul 2022 09:12:29 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Wed, 13 Jul 2022 09:11:55 +0100
-Message-Id: <375c0c0ca2ef414f25e14f274457f77373a9268d.1657699522.git.mchehab@kernel.org>
+Date: Wed, 13 Jul 2022 09:12:12 +0100
+Message-Id: <002a8d51244a70572744de86cacbdae293e7d503.1657699522.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657699522.git.mchehab@kernel.org>
 References: <cover.1657699522.git.mchehab@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 07/39] drm/i915: gvt: fix kernel-doc trivial
- warnings
+Subject: [Intel-gfx] [PATCH v2 24/39] drm/i915: dvo_sil164.c: use SPDX header
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,33 +56,15 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some functions seem to have been renamed without updating the kernel-doc
-markup causing warnings. Also, struct intel_vgpu_dmabuf_obj is not
-properly documented, but has a kerneld-doc markup.
-
-Fix those warnings:
-	drivers/gpu/drm/i915/gvt/aperture_gm.c:308: warning: expecting prototype for inte_gvt_free_vgpu_resource(). Prototype was for intel_vgpu_free_resource() instead
-	drivers/gpu/drm/i915/gvt/aperture_gm.c:344: warning: expecting prototype for intel_alloc_vgpu_resource(). Prototype was for intel_vgpu_alloc_resource() instead
-	drivers/gpu/drm/i915/gvt/cfg_space.c:257: warning: expecting prototype for intel_vgpu_emulate_cfg_read(). Prototype was for intel_vgpu_emulate_cfg_write() instead
-	drivers/gpu/drm/i915/gvt/dmabuf.h:61: warning: Function parameter or member 'vgpu' not described in 'intel_vgpu_dmabuf_obj'
-	drivers/gpu/drm/i915/gvt/dmabuf.h:61: warning: Function parameter or member 'info' not described in 'intel_vgpu_dmabuf_obj'
-	drivers/gpu/drm/i915/gvt/dmabuf.h:61: warning: Function parameter or member 'dmabuf_id' not described in 'intel_vgpu_dmabuf_obj'
-	drivers/gpu/drm/i915/gvt/dmabuf.h:61: warning: Function parameter or member 'kref' not described in 'intel_vgpu_dmabuf_obj'
-	drivers/gpu/drm/i915/gvt/dmabuf.h:61: warning: Function parameter or member 'initref' not described in 'intel_vgpu_dmabuf_obj'
-	drivers/gpu/drm/i915/gvt/dmabuf.h:61: warning: Function parameter or member 'list' not described in 'intel_vgpu_dmabuf_obj'
-	drivers/gpu/drm/i915/gvt/handlers.c:3066: warning: expecting prototype for intel_t_default_mmio_write(). Prototype was for intel_vgpu_default_mmio_write() instead
-	drivers/gpu/drm/i915/gvt/mmio_context.c:560: warning: expecting prototype for intel_gvt_switch_render_mmio(). Prototype was for intel_gvt_switch_mmio() instead
-	drivers/gpu/drm/i915/gvt/page_track.c:131: warning: expecting prototype for intel_vgpu_enable_page_track(). Prototype was for intel_vgpu_disable_page_track() instead
-	drivers/gpu/drm/i915/gvt/vgpu.c:215: warning: expecting prototype for intel_gvt_active_vgpu(). Prototype was for intel_gvt_activate_vgpu() instead
-	drivers/gpu/drm/i915/gvt/vgpu.c:230: warning: expecting prototype for intel_gvt_deactive_vgpu(). Prototype was for intel_gvt_deactivate_vgpu() instead
-	drivers/gpu/drm/i915/gvt/vgpu.c:358: warning: expecting prototype for intel_gvt_destroy_vgpu(). Prototype was for intel_gvt_destroy_idle_vgpu() instead
+This file is licensed with MIT license.	Change its license text
+to use SPDX.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
@@ -89,82 +72,50 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v2 00/39] at: https://lore.kernel.org/all/cover.1657699522.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gvt/cfg_space.c  | 2 +-
- drivers/gpu/drm/i915/gvt/dmabuf.h     | 2 +-
- drivers/gpu/drm/i915/gvt/page_track.c | 2 +-
- drivers/gpu/drm/i915/gvt/vgpu.c       | 6 +++---
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/dvo_sil164.c | 32 +++++------------------
+ 1 file changed, 6 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/cfg_space.c b/drivers/gpu/drm/i915/gvt/cfg_space.c
-index dad3a6054335..a0fc6d356588 100644
---- a/drivers/gpu/drm/i915/gvt/cfg_space.c
-+++ b/drivers/gpu/drm/i915/gvt/cfg_space.c
-@@ -243,7 +243,7 @@ static void emulate_pci_bar_write(struct intel_vgpu *vgpu, unsigned int offset,
- }
+diff --git a/drivers/gpu/drm/i915/display/dvo_sil164.c b/drivers/gpu/drm/i915/display/dvo_sil164.c
+index 0dfa0a0209ff..12974f7c9dc1 100644
+--- a/drivers/gpu/drm/i915/display/dvo_sil164.c
++++ b/drivers/gpu/drm/i915/display/dvo_sil164.c
+@@ -1,30 +1,10 @@
+-/**************************************************************************
++// SPDX-License-Identifier: MIT
  
- /**
-- * intel_vgpu_emulate_cfg_read - emulate vGPU configuration space write
-+ * intel_vgpu_emulate_cfg_write - emulate vGPU configuration space write
-  * @vgpu: target vgpu
-  * @offset: offset
-  * @p_data: write data ptr
-diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.h b/drivers/gpu/drm/i915/gvt/dmabuf.h
-index 5f8f03fb1d1b..3dcdb6570eda 100644
---- a/drivers/gpu/drm/i915/gvt/dmabuf.h
-+++ b/drivers/gpu/drm/i915/gvt/dmabuf.h
-@@ -48,7 +48,7 @@ struct intel_vgpu_fb_info {
- 	struct intel_vgpu_dmabuf_obj *obj;
- };
- 
--/**
+-Copyright © 2006 Dave Airlie
+-
+-All Rights Reserved.
+-
+-Permission is hereby granted, free of charge, to any person obtaining a
+-copy of this software and associated documentation files (the
+-"Software"), to deal in the Software without restriction, including
+-without limitation the rights to use, copy, modify, merge, publish,
+-distribute, sub license, and/or sell copies of the Software, and to
+-permit persons to whom the Software is furnished to do so, subject to
+-the following conditions:
+-
+-The above copyright notice and this permission notice (including the
+-next paragraph) shall be included in all copies or substantial portions
+-of the Software.
+-
+-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+-IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+-ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-
+-**************************************************************************/
 +/*
-  * struct intel_vgpu_dmabuf_obj- Intel vGPU device buffer object
-  */
- struct intel_vgpu_dmabuf_obj {
-diff --git a/drivers/gpu/drm/i915/gvt/page_track.c b/drivers/gpu/drm/i915/gvt/page_track.c
-index 3375b51c75f1..df34e73cba41 100644
---- a/drivers/gpu/drm/i915/gvt/page_track.c
-+++ b/drivers/gpu/drm/i915/gvt/page_track.c
-@@ -120,7 +120,7 @@ int intel_vgpu_enable_page_track(struct intel_vgpu *vgpu, unsigned long gfn)
- }
++ * Copyright © 2006 Dave Airlie
++ *
++ * All Rights Reserved.
++ */
  
- /**
-- * intel_vgpu_enable_page_track - cancel write-protection on guest page
-+ * intel_vgpu_disable_page_track - cancel write-protection on guest page
-  * @vgpu: a vGPU
-  * @gfn: the gfn of guest page
-  *
-diff --git a/drivers/gpu/drm/i915/gvt/vgpu.c b/drivers/gpu/drm/i915/gvt/vgpu.c
-index 46da19b3225d..8e71cda19995 100644
---- a/drivers/gpu/drm/i915/gvt/vgpu.c
-+++ b/drivers/gpu/drm/i915/gvt/vgpu.c
-@@ -205,7 +205,7 @@ static void intel_gvt_update_vgpu_types(struct intel_gvt *gvt)
- }
- 
- /**
-- * intel_gvt_active_vgpu - activate a virtual GPU
-+ * intel_gvt_activate_vgpu - activate a virtual GPU
-  * @vgpu: virtual GPU
-  *
-  * This function is called when user wants to activate a virtual GPU.
-@@ -219,7 +219,7 @@ void intel_gvt_activate_vgpu(struct intel_vgpu *vgpu)
- }
- 
- /**
-- * intel_gvt_deactive_vgpu - deactivate a virtual GPU
-+ * intel_gvt_deactivate_vgpu - deactivate a virtual GPU
-  * @vgpu: virtual GPU
-  *
-  * This function is called when user wants to deactivate a virtual GPU.
-@@ -348,7 +348,7 @@ struct intel_vgpu *intel_gvt_create_idle_vgpu(struct intel_gvt *gvt)
- }
- 
- /**
-- * intel_gvt_destroy_vgpu - destroy an idle virtual GPU
-+ * intel_gvt_destroy_idle_vgpu - destroy an idle virtual GPU
-  * @vgpu: virtual GPU
-  *
-  * This function is called when user wants to destroy an idle virtual GPU.
+ #include "intel_display_types.h"
+ #include "intel_dvo_dev.h"
 -- 
 2.36.1
 
