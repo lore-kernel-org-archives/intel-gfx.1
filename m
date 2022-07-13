@@ -4,30 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06651C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAF4BC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6005C98A42;
-	Wed, 13 Jul 2022 09:27:36 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id E910098A40;
- Wed, 13 Jul 2022 09:27:34 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E05C7AADD1;
- Wed, 13 Jul 2022 09:27:34 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19AAF98A6C;
+	Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C0C098A6F;
+ Wed, 13 Jul 2022 09:30:23 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 881C561C61;
+ Wed, 13 Jul 2022 09:30:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB669C34114;
+ Wed, 13 Jul 2022 09:30:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1657704621;
+ bh=TwXaLs6Qq1k/ViDsjq1vtPJ62qR+0nfRAZMZIFfXwvY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=lM43VL+56kTLfitdH7ZNh3bl3OKPYGv0CN/4i6cU/58LXkg0Z/TYeYJJm1XxLiPJK
+ RzXf0EjLOIMAtQ/xVBzpVliGJQxoRj56TNc1jDCUshX9hD1Y5AWHzd4fPj/hlJHD6u
+ 09s6sIo7fTDmu3Kl0lC6d49Tun9JOqaAmKlME7v+JBF6be2lZMcXyXl1qIa2Ccp/0K
+ FkRfrCExEsG9zk07B9SR4HuHH8A3xDOMcpa4VzU+qOx+PUUFzY2/5EWZm7rdbtBExO
+ YIClcqCUboOMsfJJ6yA1QnYdAgMBz9tU5Id+ERDyOHMyT6FdbnJLpnoRP2Yo1uOdYt
+ pITCazZ/bKRaw==
+Received: from mchehab by mail.kernel.org with local (Exim 4.95)
+ (envelope-from <mchehab@kernel.org>) id 1oBYhH-0050LI-Is;
+ Wed, 13 Jul 2022 10:30:19 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: 
+Date: Wed, 13 Jul 2022 10:30:00 +0100
+Message-Id: <0a56680efc82f69d1651b513e0de077b441e866e.1657703926.git.mchehab@kernel.org>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <cover.1657703926.git.mchehab@kernel.org>
+References: <cover.1657703926.git.mchehab@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Arun R Murthy" <arun.r.murthy@intel.com>
-Date: Wed, 13 Jul 2022 09:27:34 -0000
-Message-ID: <165770445491.24811.5186168756743716211@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220602141850.21301-1-animesh.manna@intel.com>
-In-Reply-To: <20220602141850.21301-1-animesh.manna@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBE?=
- =?utf-8?q?ual_LFP/EDP_enablement_=28rev2=29?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 03/21] drm/i915/gt: Invalidate TLB of the OA
+ unit at TLB invalidations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,51 +56,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
+ Chris Wilson <chris.p.wilson@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dave Airlie <airlied@redhat.com>, stable@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From: Chris Wilson <chris.p.wilson@intel.com>
 
-Series: Dual LFP/EDP enablement (rev2)
-URL   : https://patchwork.freedesktop.org/series/104663/
-State : failure
+Ensure that the TLB of the OA unit is also invalidated
+on gen12 HW, as just invalidating the TLB of an engine is not
+enough.
 
-== Summary ==
+Cc: stable@vger.kernel.org
+Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
+Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
+Cc: Fei Yang <fei.yang@intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Acked-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+---
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/104663/revisions/2/mbox/ not applied
-Applying: drm/i915/bios: calculate drrs mode using panel index for dual LFP
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/display/icl_dsi.c
-M	drivers/gpu/drm/i915/display/intel_bios.c
-M	drivers/gpu/drm/i915/display/intel_bios.h
-M	drivers/gpu/drm/i915/display/intel_dp.c
-M	drivers/gpu/drm/i915/display/intel_lvds.c
-M	drivers/gpu/drm/i915/display/intel_sdvo.c
-M	drivers/gpu/drm/i915/display/intel_vbt_defs.h
-M	drivers/gpu/drm/i915/display/vlv_dsi.c
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/display/vlv_dsi.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/vlv_dsi.c
-Auto-merging drivers/gpu/drm/i915/display/intel_vbt_defs.h
-Auto-merging drivers/gpu/drm/i915/display/intel_sdvo.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_sdvo.c
-Auto-merging drivers/gpu/drm/i915/display/intel_lvds.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_lvds.c
-Auto-merging drivers/gpu/drm/i915/display/intel_dp.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_dp.c
-Auto-merging drivers/gpu/drm/i915/display/intel_bios.h
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_bios.h
-Auto-merging drivers/gpu/drm/i915/display/intel_bios.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_bios.c
-Auto-merging drivers/gpu/drm/i915/display/icl_dsi.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/icl_dsi.c
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/i915/bios: calculate drrs mode using panel index for dual LFP
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+See [PATCH 00/21] at: https://lore.kernel.org/all/cover.1657703926.git.mchehab@kernel.org/
 
+ drivers/gpu/drm/i915/gt/intel_gt.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index c4d43da84d8e..1d84418e8676 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -11,6 +11,7 @@
+ #include "pxp/intel_pxp.h"
+ 
+ #include "i915_drv.h"
++#include "i915_perf_oa_regs.h"
+ #include "intel_context.h"
+ #include "intel_engine_pm.h"
+ #include "intel_engine_regs.h"
+@@ -969,6 +970,15 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 		awake |= engine->mask;
+ 	}
+ 
++	/* Wa_2207587034:tgl,dg1,rkl,adl-s,adl-p */
++	if (awake &&
++	    (IS_TIGERLAKE(i915) ||
++	     IS_DG1(i915) ||
++	     IS_ROCKETLAKE(i915) ||
++	     IS_ALDERLAKE_S(i915) ||
++	     IS_ALDERLAKE_P(i915)))
++		intel_uncore_write_fw(uncore, GEN12_OA_TLB_INV_CR, 1);
++
+ 	spin_unlock_irq(&uncore->lock);
+ 
+ 	for_each_engine_masked(engine, gt, awake, tmp) {
+-- 
+2.36.1
 
