@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B613BC43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:31:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A457C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:31:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24C4D98A7C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7599798A8C;
 	Wed, 13 Jul 2022 09:30:33 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECD5B98A70;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEFC598A7C;
  Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 009C961CC5;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1562561CCC;
  Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07134C385A2;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06BE8C341CE;
  Wed, 13 Jul 2022 09:30:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657704622;
- bh=+GgweU1Qvz3U0myu7Eg5zYjBW9WmB7ZwmFBD8Cp4cUM=;
+ bh=4kra6JYeTpbloCB6kM7O8tizc0ckPfouvDEAsME0I7s=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Pp6vjho4VjWsQPlyPa2b6aseR9AtRNLEmExELYnroH25HjSoYFv7MB6Pq6ICIUoqR
- fMShmj+jlj1Cmm5Hje1dZFiZAZF+SoPkI3NwD3EQxO35uQtn6/OPvkobnr+vbk1hN/
- xpEnq9TlvUA+Tu98JyRO0CF39mX7fwP6Oh6BZl7FQGr6lj4fWgW17BDcaVV0xwBWaG
- yGuLX8qDZ4rJmXyHNheE04KpBGxqVyW9R7R3lJlDYSYg+AhBYTqwijPbsoMsN6gsCL
- eoMuH1odwnwp+WuzwQqQTHYPbEtOsILEyD1XVD2LxNcJWC87dQO7HhsLOB8lpY7M86
- QDPVB5eFYGouw==
+ b=NemMJha7tWvDKcj4DC+bd1y8XTLHj9TvZ1LtAyIdVc2dYXFHJmeKaK1iyBjQCRxy3
+ rzAVThpXORItJO06UWTeBO2a8iDjKWrQu1+fFkJ6vVutOepGgqaTFx/MsfztuNf2+N
+ V1CELjToakFHpe+JRkFCCcjdjk8dW0Rk2R0WqJpy4+JNRtpTetKJu4WpLWtehune/8
+ u/bNjpmGKEWv6selcxgSwrI5NW8ZbBbdnvriSS0fY42OQVD6e2C0QFd1oaDFH8CWLI
+ IkMKIwXVn5Qt/rAQ2KIEWws7KbJLeGqP4N2E2zrLGiCHjTA5/1nqSgN1TKDcaO0bmS
+ lgv3n92bNscbw==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oBYhH-0050La-Nj;
+ (envelope-from <mchehab@kernel.org>) id 1oBYhH-0050LR-L7;
  Wed, 13 Jul 2022 10:30:19 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Wed, 13 Jul 2022 10:30:06 +0100
-Message-Id: <4855438b4aea605421211d00bd281489a4a45503.1657703926.git.mchehab@kernel.org>
+Date: Wed, 13 Jul 2022 10:30:03 +0100
+Message-Id: <d75cf5bbd2169004e3ab9942652af0766de06e06.1657703926.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657703926.git.mchehab@kernel.org>
 References: <cover.1657703926.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 09/21] drm/i915/guc: Define CTB based TLB
- invalidation routines
+Subject: [Intel-gfx] [PATCH 06/21] drm/i915/gt: Batch TLB invalidations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,476 +55,439 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris.p.wilson@intel.com>, Borislav Petkov <bp@suse.de>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Abdiel Janulgue <abdiel.janulgue@linux.intel.com>,
+ Chris Wilson <chris.p.wilson@intel.com>, Dave Airlie <airlied@redhat.com>,
+ Tomas Winkler <tomas.winkler@intel.com>, Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, linux-media@vger.kernel.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+From: Chris Wilson <chris.p.wilson@intel.com>
 
-Add routines to interface with GuC firmware for TLB invalidation.
+Invalidate TLB in patch, in order to reduce performance regressions.
 
-Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Cc: Bruce Chang <yu.bruce.chang@intel.com>
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Chris Wilson <chris.p.wilson@intel.com>
+Currently, every caller performs a full barrier around a TLB
+invalidation, ignoring all other invalidations that may have already
+removed their PTEs from the cache. As this is a synchronous operation
+and can be quite slow, we cause multiple threads to contend on the TLB
+invalidate mutex blocking userspace.
+
+We only need to invalidate the TLB once after replacing our PTE to
+ensure that there is no possible continued access to the physical
+address before releasing our pages. By tracking a seqno for each full
+TLB invalidate we can quickly determine if one has been performed since
+rewriting the PTE, and only if necessary trigger one for ourselves.
+
+That helps to reduce the performance regression introduced by TLB
+invalidate logic.
+
+[mchehab: rebased to not require moving the code to a separate file]
+
+Cc: stable@vger.kernel.org
+Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
+Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
+Cc: Fei Yang <fei.yang@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 See [PATCH 00/21] at: https://lore.kernel.org/all/cover.1657703926.git.mchehab@kernel.org/
 
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  | 35 +++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        | 90 ++++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        | 13 +++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 24 ++++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  6 ++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 91 ++++++++++++++++++-
- 6 files changed, 253 insertions(+), 6 deletions(-)
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |  3 +-
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     | 21 +++++---
+ drivers/gpu/drm/i915/gt/intel_gt.c            | 53 ++++++++++++++-----
+ drivers/gpu/drm/i915/gt/intel_gt.h            | 12 ++++-
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      | 18 ++++++-
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  8 ++-
+ drivers/gpu/drm/i915/i915_vma.c               | 34 +++++++++---
+ drivers/gpu/drm/i915/i915_vma.h               |  1 +
+ drivers/gpu/drm/i915/i915_vma_resource.c      |  5 +-
+ drivers/gpu/drm/i915/i915_vma_resource.h      |  6 ++-
+ 10 files changed, 125 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-index 4ef9990ed7f8..2e39d8df4c82 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-@@ -134,6 +134,10 @@ enum intel_guc_action {
- 	INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC = 0x4601,
- 	INTEL_GUC_ACTION_CLIENT_SOFT_RESET = 0x5507,
- 	INTEL_GUC_ACTION_SET_ENG_UTIL_BUFF = 0x550A,
-+	INTEL_GUC_ACTION_NOTIFY_MEMORY_CAT_ERROR = 0x6000,
-+	INTEL_GUC_ACTION_PAGE_FAULT_NOTIFICATION = 0x6001,
-+	INTEL_GUC_ACTION_TLB_INVALIDATION = 0x7000,
-+	INTEL_GUC_ACTION_TLB_INVALIDATION_DONE = 0x7001,
- 	INTEL_GUC_ACTION_STATE_CAPTURE_NOTIFICATION = 0x8002,
- 	INTEL_GUC_ACTION_NOTIFY_FLUSH_LOG_BUFFER_TO_FILE = 0x8003,
- 	INTEL_GUC_ACTION_NOTIFY_CRASH_DUMP_POSTED = 0x8004,
-@@ -177,4 +181,35 @@ enum intel_guc_state_capture_event_status {
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 5cf36a130061..9f6b14ec189a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -335,7 +335,6 @@ struct drm_i915_gem_object {
+ #define I915_BO_READONLY          BIT(7)
+ #define I915_TILING_QUIRK_BIT     8 /* unknown swizzling; do not release! */
+ #define I915_BO_PROTECTED         BIT(9)
+-#define I915_BO_WAS_BOUND_BIT     10
+ 	/**
+ 	 * @mem_flags - Mutable placement-related flags
+ 	 *
+@@ -616,6 +615,8 @@ struct drm_i915_gem_object {
+ 		 * pages were last acquired.
+ 		 */
+ 		bool dirty:1;
++
++		u32 tlb;
+ 	} mm;
  
- #define INTEL_GUC_STATE_CAPTURE_EVENT_STATUS_MASK      0x000000FF
- 
-+#define INTEL_GUC_TLB_INVAL_TYPE_SHIFT 0
-+#define INTEL_GUC_TLB_INVAL_MODE_SHIFT 8
-+/* Flush PPC or SMRO caches along with TLB invalidation request */
-+#define INTEL_GUC_TLB_INVAL_FLUSH_CACHE (1 << 31)
-+
-+enum intel_guc_tlb_invalidation_type {
-+	INTEL_GUC_TLB_INVAL_GUC = 0x3,
-+};
-+
-+/*
-+ * 0: Heavy mode of Invalidation:
-+ * The pipeline of the engine(s) for which the invalidation is targeted to is
-+ * blocked, and all the in-flight transactions are guaranteed to be Globally
-+ * Observed before completing the TLB invalidation
-+ * 1: Lite mode of Invalidation:
-+ * TLBs of the targeted engine(s) are immediately invalidated.
-+ * In-flight transactions are NOT guaranteed to be Globally Observed before
-+ * completing TLB invalidation.
-+ * Light Invalidation Mode is to be used only when
-+ * it can be guaranteed (by SW) that the address translations remain invariant
-+ * for the in-flight transactions across the TLB invalidation. In other words,
-+ * this mode can be used when the TLB invalidation is intended to clear out the
-+ * stale cached translations that are no longer in use. Light Invalidation Mode
-+ * is much faster than the Heavy Invalidation Mode, as it does not wait for the
-+ * in-flight transactions to be GOd.
-+ */
-+enum intel_guc_tlb_inval_mode {
-+	INTEL_GUC_TLB_INVAL_MODE_HEAVY = 0x0,
-+	INTEL_GUC_TLB_INVAL_MODE_LITE = 0x1,
-+};
-+
- #endif /* _ABI_GUC_ACTIONS_ABI_H */
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index 2706a8c65090..5c59f9b144a3 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -855,6 +855,96 @@ int intel_guc_self_cfg64(struct intel_guc *guc, u16 key, u64 value)
- 	return __guc_self_cfg(guc, key, 2, value);
- }
- 
-+static int guc_send_invalidate_tlb(struct intel_guc *guc, u32 *action, u32 size)
-+{
-+	struct intel_guc_tlb_wait _wq, *wq = &_wq;
-+	DEFINE_WAIT_FUNC(wait, woken_wake_function);
-+	int err = 0;
-+	u32 seqno;
-+
-+	init_waitqueue_head(&_wq.wq);
-+
-+	if (xa_alloc_cyclic_irq(&guc->tlb_lookup, &seqno, wq,
-+				xa_limit_32b, &guc->next_seqno,
-+				GFP_ATOMIC | __GFP_NOWARN) < 0) {
-+		/* Under severe memory pressure? Serialise TLB allocations */
-+		xa_lock_irq(&guc->tlb_lookup);
-+		wq = xa_load(&guc->tlb_lookup, guc->serial_slot);
-+		wait_event_lock_irq(wq->wq,
-+				    !READ_ONCE(wq->status),
-+				    guc->tlb_lookup.xa_lock);
-+		/*
-+		 * Update wq->status under lock to ensure only one waiter can
-+		 * issue the tlb invalidation command using the serial slot at a
-+		 * time. The condition is set to false before releasing the lock
-+		 * so that other caller continue to wait until woken up again.
-+		 */
-+		wq->status = 1;
-+		xa_unlock_irq(&guc->tlb_lookup);
-+
-+		seqno = guc->serial_slot;
-+	}
-+
-+	action[1] = seqno;
-+
-+	add_wait_queue(&wq->wq, &wait);
-+
-+	err = intel_guc_send_busy_loop(guc, action, size, G2H_LEN_DW_INVALIDATE_TLB, true);
-+	if (err) {
-+		/*
-+		 * XXX: Failure of tlb invalidation is critical and would
-+		 * warrant a gt reset.
-+		 */
-+		goto out;
-+	}
-+/*
-+ * GuC has a timeout of 1ms for a tlb invalidation response from GAM. On a
-+ * timeout GuC drops the request and has no mechanism to notify the host about
-+ * the timeout. So keep a larger timeout that accounts for this individual
-+ * timeout and max number of outstanding invalidation requests that can be
-+ * queued in CT buffer.
-+ */
-+#define OUTSTANDING_GUC_TIMEOUT_PERIOD  (HZ)
-+	if (!wait_woken(&wait, TASK_UNINTERRUPTIBLE,
-+			OUTSTANDING_GUC_TIMEOUT_PERIOD)) {
-+		/*
-+		 * XXX: Failure of tlb invalidation is critical and would
-+		 * warrant a gt reset.
-+		 */
-+		drm_err(&guc_to_gt(guc)->i915->drm,
-+			 "tlb invalidation response timed out for seqno %u\n", seqno);
-+		err = -ETIME;
-+	}
-+out:
-+	remove_wait_queue(&wq->wq, &wait);
-+	if (seqno != guc->serial_slot)
-+		xa_erase_irq(&guc->tlb_lookup, seqno);
-+
-+	return err;
-+}
-+
-+/*
-+ * Guc TLB Invalidation: Invalidate the TLB's of GuC itself.
-+ */
-+int intel_guc_invalidate_tlb_guc(struct intel_guc *guc,
-+				 enum intel_guc_tlb_inval_mode mode)
-+{
-+	u32 action[] = {
-+		INTEL_GUC_ACTION_TLB_INVALIDATION,
-+		0,
-+		INTEL_GUC_TLB_INVAL_GUC << INTEL_GUC_TLB_INVAL_TYPE_SHIFT |
-+			mode << INTEL_GUC_TLB_INVAL_MODE_SHIFT |
-+			INTEL_GUC_TLB_INVAL_FLUSH_CACHE,
-+	};
-+
-+	if (!INTEL_GUC_SUPPORTS_TLB_INVALIDATION(guc)) {
-+		DRM_ERROR("Tlb invalidation: Operation not supported in this platform!\n");
-+		return 0;
-+	}
-+
-+	return guc_send_invalidate_tlb(guc, action, ARRAY_SIZE(action));
-+}
-+
- /**
-  * intel_guc_load_status - dump information about GuC load status
-  * @guc: the GuC
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index d0d99f178f2d..f82a121b0838 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -77,6 +77,10 @@ struct intel_guc {
- 	atomic_t outstanding_submission_g2h;
- 
- 	/** @interrupts: pointers to GuC interrupt-managing functions. */
-+	struct xarray tlb_lookup;
-+	u32 serial_slot;
-+	u32 next_seqno;
-+
  	struct {
- 		void (*reset)(struct intel_guc *guc);
- 		void (*enable)(struct intel_guc *guc);
-@@ -248,6 +252,11 @@ struct intel_guc {
- #endif
- };
- 
-+struct intel_guc_tlb_wait {
-+	struct wait_queue_head wq;
-+	u8 status;
-+} __aligned(4);
-+
- static inline struct intel_guc *log_to_guc(struct intel_guc_log *log)
- {
- 	return container_of(log, struct intel_guc, log);
-@@ -363,6 +372,9 @@ int intel_guc_allocate_and_map_vma(struct intel_guc *guc, u32 size,
- int intel_guc_self_cfg32(struct intel_guc *guc, u16 key, u32 value);
- int intel_guc_self_cfg64(struct intel_guc *guc, u16 key, u64 value);
- 
-+int intel_guc_invalidate_tlb_guc(struct intel_guc *guc,
-+				 enum intel_guc_tlb_inval_mode mode);
-+
- static inline bool intel_guc_is_supported(struct intel_guc *guc)
- {
- 	return intel_uc_fw_is_supported(&guc->fw);
-@@ -440,6 +452,7 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
- 					 const u32 *msg, u32 len);
- int intel_guc_error_capture_process_msg(struct intel_guc *guc,
- 					const u32 *msg, u32 len);
-+void intel_guc_tlb_invalidation_done(struct intel_guc *guc, u32 seqno);
- 
- struct intel_engine_cs *
- intel_guc_lookup_engine(struct intel_guc *guc, u8 guc_class, u8 instance);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index f01325cd1b62..c1ce542b7855 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -1023,7 +1023,7 @@ static int ct_process_request(struct intel_guc_ct *ct, struct ct_incoming_msg *r
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 6835279943df..8357dbdcab5c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -191,6 +191,18 @@ static void unmap_object(struct drm_i915_gem_object *obj, void *ptr)
+ 		vunmap(ptr);
  }
  
--static bool ct_process_incoming_requests(struct intel_guc_ct *ct)
-+static bool ct_process_incoming_requests(struct intel_guc_ct *ct, struct list_head *incoming)
++static void flush_tlb_invalidate(struct drm_i915_gem_object *obj)
++{
++	struct drm_i915_private *i915 = to_i915(obj->base.dev);
++	struct intel_gt *gt = to_gt(i915);
++
++	if (!obj->mm.tlb)
++		return;
++
++	intel_gt_invalidate_tlb(gt, obj->mm.tlb);
++	obj->mm.tlb = 0;
++}
++
+ struct sg_table *
+ __i915_gem_object_unset_pages(struct drm_i915_gem_object *obj)
  {
- 	unsigned long flags;
- 	struct ct_incoming_msg *request;
-@@ -1031,11 +1031,11 @@ static bool ct_process_incoming_requests(struct intel_guc_ct *ct)
- 	int err;
+@@ -216,14 +228,7 @@ __i915_gem_object_unset_pages(struct drm_i915_gem_object *obj)
+ 	__i915_gem_object_reset_page_iter(obj);
+ 	obj->mm.page_sizes.phys = obj->mm.page_sizes.sg = 0;
  
- 	spin_lock_irqsave(&ct->requests.lock, flags);
--	request = list_first_entry_or_null(&ct->requests.incoming,
-+	request = list_first_entry_or_null(incoming,
- 					   struct ct_incoming_msg, link);
- 	if (request)
- 		list_del(&request->link);
--	done = !!list_empty(&ct->requests.incoming);
-+	done = !!list_empty(incoming);
- 	spin_unlock_irqrestore(&ct->requests.lock, flags);
+-	if (test_and_clear_bit(I915_BO_WAS_BOUND_BIT, &obj->flags)) {
+-		struct drm_i915_private *i915 = to_i915(obj->base.dev);
+-		struct intel_gt *gt = to_gt(i915);
+-		intel_wakeref_t wakeref;
+-
+-		with_intel_gt_pm_if_awake(gt, wakeref)
+-			intel_gt_invalidate_tlbs(gt);
+-	}
++	flush_tlb_invalidate(obj);
  
- 	if (!request)
-@@ -1058,7 +1058,7 @@ static void ct_incoming_request_worker_func(struct work_struct *w)
- 	bool done;
- 
- 	do {
--		done = ct_process_incoming_requests(ct);
-+		done = ct_process_incoming_requests(ct, &ct->requests.incoming);
- 	} while (!done);
+ 	return pages;
  }
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 5c55a90672f4..f435e06125aa 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -38,8 +38,6 @@ static void __intel_gt_init_early(struct intel_gt *gt)
+ {
+ 	spin_lock_init(&gt->irq_lock);
  
-@@ -1078,14 +1078,30 @@ static int ct_handle_event(struct intel_guc_ct *ct, struct ct_incoming_msg *requ
- 	switch (action) {
- 	case INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_DONE:
- 	case INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE:
-+	case INTEL_GUC_ACTION_TLB_INVALIDATION_DONE:
- 		g2h_release_space(ct, request->size);
+-	mutex_init(&gt->tlb_invalidate_lock);
+-
+ 	INIT_LIST_HEAD(&gt->closed_vma);
+ 	spin_lock_init(&gt->closed_lock);
+ 
+@@ -50,6 +48,8 @@ static void __intel_gt_init_early(struct intel_gt *gt)
+ 	intel_gt_init_reset(gt);
+ 	intel_gt_init_requests(gt);
+ 	intel_gt_init_timelines(gt);
++	mutex_init(&gt->tlb.invalidate_lock);
++	seqcount_mutex_init(&gt->tlb.seqno, &gt->tlb.invalidate_lock);
+ 	intel_gt_pm_init_early(gt);
+ 
+ 	intel_uc_init_early(&gt->uc);
+@@ -770,6 +770,7 @@ void intel_gt_driver_late_release_all(struct drm_i915_private *i915)
+ 		intel_gt_fini_requests(gt);
+ 		intel_gt_fini_reset(gt);
+ 		intel_gt_fini_timelines(gt);
++		mutex_destroy(&gt->tlb.invalidate_lock);
+ 		intel_engines_free(gt);
  	}
-+	/* Handle tlb invalidation response in interrupt context */
-+	if (action == INTEL_GUC_ACTION_TLB_INVALIDATION_DONE) {
-+		const u32 *payload;
-+		u32 hxg_len, len;
-+
-+		hxg_len = request->size - GUC_CTB_MSG_MIN_LEN;
-+		len = hxg_len - GUC_HXG_MSG_MIN_LEN;
-+		if (unlikely(len < 1))
-+			return -EPROTO;
-+		payload = &hxg[GUC_HXG_MSG_MIN_LEN];
-+		intel_guc_tlb_invalidation_done(ct_to_guc(ct),  payload[0]);
-+		ct_free_msg(request);
-+		return 0;
-+	}
- 
- 	spin_lock_irqsave(&ct->requests.lock, flags);
- 	list_add_tail(&request->link, &ct->requests.incoming);
- 	spin_unlock_irqrestore(&ct->requests.lock, flags);
- 
- 	queue_work(system_unbound_wq, &ct->requests.worker);
-+
- 	return 0;
+ }
+@@ -908,7 +909,7 @@ get_reg_and_bit(const struct intel_engine_cs *engine, const bool gen8,
+ 	return rb;
  }
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index b3c9a9327f76..3edf567b3f65 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -22,6 +22,7 @@
- /* Payload length only i.e. don't include G2H header length */
- #define G2H_LEN_DW_SCHED_CONTEXT_MODE_SET	2
- #define G2H_LEN_DW_DEREGISTER_CONTEXT		1
-+#define G2H_LEN_DW_INVALIDATE_TLB		1
+-void intel_gt_invalidate_tlbs(struct intel_gt *gt)
++static void mmio_invalidate_full(struct intel_gt *gt)
+ {
+ 	static const i915_reg_t gen8_regs[] = {
+ 		[RENDER_CLASS]			= GEN8_RTCR,
+@@ -931,12 +932,6 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 	const i915_reg_t *regs;
+ 	unsigned int num = 0;
  
- #define GUC_CONTEXT_DISABLE		0
- #define GUC_CONTEXT_ENABLE		1
-@@ -431,4 +432,9 @@ enum intel_guc_recv_message {
- 	INTEL_GUC_RECV_MSG_EXCEPTION = BIT(30),
+-	if (I915_SELFTEST_ONLY(gt->awake == -ENODEV))
+-		return;
+-
+-	if (intel_gt_is_wedged(gt))
+-		return;
+-
+ 	if (GRAPHICS_VER(i915) == 12) {
+ 		regs = gen12_regs;
+ 		num = ARRAY_SIZE(gen12_regs);
+@@ -951,9 +946,6 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 			  "Platform does not implement TLB invalidation!"))
+ 		return;
+ 
+-	GEM_TRACE("\n");
+-
+-	mutex_lock(&gt->tlb_invalidate_lock);
+ 	intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
+ 
+ 	spin_lock_irq(&uncore->lock); /* serialise invalidate with GT reset */
+@@ -973,6 +965,8 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 		awake |= engine->mask;
+ 	}
+ 
++	GT_TRACE(gt, "invalidated engines %08x\n", awake);
++
+ 	/* Wa_2207587034:tgl,dg1,rkl,adl-s,adl-p */
+ 	if (awake &&
+ 	    (IS_TIGERLAKE(i915) ||
+@@ -1012,5 +1006,38 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
+ 	 * transitions.
+ 	 */
+ 	intel_uncore_forcewake_put_delayed(uncore, FORCEWAKE_ALL);
+-	mutex_unlock(&gt->tlb_invalidate_lock);
++}
++
++static bool tlb_seqno_passed(const struct intel_gt *gt, u32 seqno)
++{
++	u32 cur = intel_gt_tlb_seqno(gt);
++
++	/* Only skip if a *full* TLB invalidate barrier has passed */
++	return (s32)(cur - ALIGN(seqno, 2)) > 0;
++}
++
++void intel_gt_invalidate_tlb(struct intel_gt *gt, u32 seqno)
++{
++	intel_wakeref_t wakeref;
++
++	if (I915_SELFTEST_ONLY(gt->awake == -ENODEV))
++		return;
++
++	if (intel_gt_is_wedged(gt))
++		return;
++
++	if (tlb_seqno_passed(gt, seqno))
++		return;
++
++	with_intel_gt_pm_if_awake(gt, wakeref) {
++		mutex_lock(&gt->tlb.invalidate_lock);
++		if (tlb_seqno_passed(gt, seqno))
++			goto unlock;
++
++		mmio_invalidate_full(gt);
++
++		write_seqcount_invalidate(&gt->tlb.seqno);
++unlock:
++		mutex_unlock(&gt->tlb.invalidate_lock);
++	}
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
+index 82d6f248d876..40b06adf509a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+@@ -101,6 +101,16 @@ void intel_gt_info_print(const struct intel_gt_info *info,
+ 
+ void intel_gt_watchdog_work(struct work_struct *work);
+ 
+-void intel_gt_invalidate_tlbs(struct intel_gt *gt);
++static inline u32 intel_gt_tlb_seqno(const struct intel_gt *gt)
++{
++	return seqprop_sequence(&gt->tlb.seqno);
++}
++
++static inline u32 intel_gt_next_invalidate_tlb_full(const struct intel_gt *gt)
++{
++	return intel_gt_tlb_seqno(gt) | 1;
++}
++
++void intel_gt_invalidate_tlb(struct intel_gt *gt, u32 seqno);
+ 
+ #endif /* __INTEL_GT_H__ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index df708802889d..3804a583382b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -11,6 +11,7 @@
+ #include <linux/llist.h>
+ #include <linux/mutex.h>
+ #include <linux/notifier.h>
++#include <linux/seqlock.h>
+ #include <linux/spinlock.h>
+ #include <linux/types.h>
+ #include <linux/workqueue.h>
+@@ -83,7 +84,22 @@ struct intel_gt {
+ 	struct intel_uc uc;
+ 	struct intel_gsc gsc;
+ 
+-	struct mutex tlb_invalidate_lock;
++	struct {
++		/* Serialize global tlb invalidations */
++		struct mutex invalidate_lock;
++
++		/*
++		 * Batch TLB invalidations
++		 *
++		 * After unbinding the PTE, we need to ensure the TLB
++		 * are invalidated prior to releasing the physical pages.
++		 * But we only need one such invalidation for all unbinds,
++		 * so we track how many TLB invalidations have been
++		 * performed since unbind the PTE and only emit an extra
++		 * invalidate if no full barrier has been passed.
++		 */
++		seqcount_mutex_t seqno;
++	} tlb;
+ 
+ 	struct i915_wa_list wa_list;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+index d8b94d638559..2da6c82a8bd2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+@@ -206,8 +206,12 @@ void ppgtt_bind_vma(struct i915_address_space *vm,
+ void ppgtt_unbind_vma(struct i915_address_space *vm,
+ 		      struct i915_vma_resource *vma_res)
+ {
+-	if (vma_res->allocated)
+-		vm->clear_range(vm, vma_res->start, vma_res->vma_size);
++	if (!vma_res->allocated)
++		return;
++
++	vm->clear_range(vm, vma_res->start, vma_res->vma_size);
++	if (vma_res->tlb)
++		vma_invalidate_tlb(vm, *vma_res->tlb);
+ }
+ 
+ static unsigned long pd_count(u64 size, int shift)
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 646f419b2035..84a9ccbc5fc5 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -538,9 +538,6 @@ int i915_vma_bind(struct i915_vma *vma,
+ 				   bind_flags);
+ 	}
+ 
+-	if (bind_flags & I915_VMA_LOCAL_BIND)
+-		set_bit(I915_BO_WAS_BOUND_BIT, &vma->obj->flags);
+-
+ 	atomic_or(bind_flags, &vma->flags);
+ 	return 0;
+ }
+@@ -1311,6 +1308,19 @@ I915_SELFTEST_EXPORT int i915_vma_get_pages(struct i915_vma *vma)
+ 	return err;
+ }
+ 
++void vma_invalidate_tlb(struct i915_address_space *vm, u32 tlb)
++{
++	/*
++	 * Before we release the pages that were bound by this vma, we
++	 * must invalidate all the TLBs that may still have a reference
++	 * back to our physical address. It only needs to be done once,
++	 * so after updating the PTE to point away from the pages, record
++	 * the most recent TLB invalidation seqno, and if we have not yet
++	 * flushed the TLBs upon release, perform a full invalidation.
++	 */
++	WRITE_ONCE(tlb, intel_gt_next_invalidate_tlb_full(vm->gt));
++}
++
+ static void __vma_put_pages(struct i915_vma *vma, unsigned int count)
+ {
+ 	/* We allocate under vma_get_pages, so beware the shrinker */
+@@ -1942,7 +1952,12 @@ struct dma_fence *__i915_vma_evict(struct i915_vma *vma, bool async)
+ 		vma->vm->skip_pte_rewrite;
+ 	trace_i915_vma_unbind(vma);
+ 
+-	unbind_fence = i915_vma_resource_unbind(vma_res);
++	if (async)
++		unbind_fence = i915_vma_resource_unbind(vma_res,
++							&vma->obj->mm.tlb);
++	else
++		unbind_fence = i915_vma_resource_unbind(vma_res, NULL);
++
+ 	vma->resource = NULL;
+ 
+ 	atomic_and(~(I915_VMA_BIND_MASK | I915_VMA_ERROR | I915_VMA_GGTT_WRITE),
+@@ -1950,10 +1965,13 @@ struct dma_fence *__i915_vma_evict(struct i915_vma *vma, bool async)
+ 
+ 	i915_vma_detach(vma);
+ 
+-	if (!async && unbind_fence) {
+-		dma_fence_wait(unbind_fence, false);
+-		dma_fence_put(unbind_fence);
+-		unbind_fence = NULL;
++	if (!async) {
++		if (unbind_fence) {
++			dma_fence_wait(unbind_fence, false);
++			dma_fence_put(unbind_fence);
++			unbind_fence = NULL;
++		}
++		vma_invalidate_tlb(vma->vm, vma->obj->mm.tlb);
+ 	}
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 88ca0bd9c900..5048eed536da 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -213,6 +213,7 @@ bool i915_vma_misplaced(const struct i915_vma *vma,
+ 			u64 size, u64 alignment, u64 flags);
+ void __i915_vma_set_map_and_fenceable(struct i915_vma *vma);
+ void i915_vma_revoke_mmap(struct i915_vma *vma);
++void vma_invalidate_tlb(struct i915_address_space *vm, u32 tlb);
+ struct dma_fence *__i915_vma_evict(struct i915_vma *vma, bool async);
+ int __i915_vma_unbind(struct i915_vma *vma);
+ int __must_check i915_vma_unbind(struct i915_vma *vma);
+diff --git a/drivers/gpu/drm/i915/i915_vma_resource.c b/drivers/gpu/drm/i915/i915_vma_resource.c
+index 27c55027387a..5a67995ea5fe 100644
+--- a/drivers/gpu/drm/i915/i915_vma_resource.c
++++ b/drivers/gpu/drm/i915/i915_vma_resource.c
+@@ -223,10 +223,13 @@ i915_vma_resource_fence_notify(struct i915_sw_fence *fence,
+  * Return: A refcounted pointer to a dma-fence that signals when unbinding is
+  * complete.
+  */
+-struct dma_fence *i915_vma_resource_unbind(struct i915_vma_resource *vma_res)
++struct dma_fence *i915_vma_resource_unbind(struct i915_vma_resource *vma_res,
++					   u32 *tlb)
+ {
+ 	struct i915_address_space *vm = vma_res->vm;
+ 
++	vma_res->tlb = tlb;
++
+ 	/* Reference for the sw fence */
+ 	i915_vma_resource_get(vma_res);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_vma_resource.h b/drivers/gpu/drm/i915/i915_vma_resource.h
+index 5d8427caa2ba..06923d1816e7 100644
+--- a/drivers/gpu/drm/i915/i915_vma_resource.h
++++ b/drivers/gpu/drm/i915/i915_vma_resource.h
+@@ -67,6 +67,7 @@ struct i915_page_sizes {
+  * taken when the unbind is scheduled.
+  * @skip_pte_rewrite: During ggtt suspend and vm takedown pte rewriting
+  * needs to be skipped for unbind.
++ * @tlb: pointer for obj->mm.tlb, if async unbind. Otherwise, NULL
+  *
+  * The lifetime of a struct i915_vma_resource is from a binding request to
+  * the actual possible asynchronous unbind has completed.
+@@ -119,6 +120,8 @@ struct i915_vma_resource {
+ 	bool immediate_unbind:1;
+ 	bool needs_wakeref:1;
+ 	bool skip_pte_rewrite:1;
++
++	u32 *tlb;
  };
  
-+#define INTEL_GUC_SUPPORTS_TLB_INVALIDATION(guc) \
-+	((intel_guc_ct_enabled(&(guc)->ct)) && \
-+	 (intel_guc_submission_is_used(guc)) && \
-+	 (GRAPHICS_VER(guc_to_gt((guc))->i915) >= 12))
-+
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 40f726c61e95..6888ea1bc7c1 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1653,11 +1653,20 @@ static void __guc_reset_context(struct intel_context *ce, intel_engine_mask_t st
- 	intel_context_put(parent);
- }
+ bool i915_vma_resource_hold(struct i915_vma_resource *vma_res,
+@@ -131,7 +134,8 @@ struct i915_vma_resource *i915_vma_resource_alloc(void);
  
-+static void wake_up_tlb_invalidate(struct intel_guc_tlb_wait *wait)
-+{
-+	/* Barrier to ensure the store is observed by the woken thread */
-+	smp_store_mb(wait->status, 0);
-+	wake_up(&wait->wq);
-+}
-+
- void intel_guc_submission_reset(struct intel_guc *guc, intel_engine_mask_t stalled)
- {
-+	struct intel_guc_tlb_wait *wait;
- 	struct intel_context *ce;
- 	unsigned long index;
- 	unsigned long flags;
-+	unsigned long i;
+ void i915_vma_resource_free(struct i915_vma_resource *vma_res);
  
- 	if (unlikely(!guc_submission_initialized(guc))) {
- 		/* Reset called during driver load? GuC not yet initialised! */
-@@ -1683,6 +1692,13 @@ void intel_guc_submission_reset(struct intel_guc *guc, intel_engine_mask_t stall
+-struct dma_fence *i915_vma_resource_unbind(struct i915_vma_resource *vma_res);
++struct dma_fence *i915_vma_resource_unbind(struct i915_vma_resource *vma_res,
++					   u32 *tlb);
  
- 	/* GuC is blown away, drop all references to contexts */
- 	xa_destroy(&guc->context_lookup);
-+
-+	/*
-+	 * The full GT reset will have cleared the TLB caches and flushed the
-+	 * G2H message queue; we can release all the blocked waiters.
-+	 */
-+	xa_for_each(&guc->tlb_lookup, i, wait)
-+		wake_up_tlb_invalidate(wait);
- }
+ void __i915_vma_resource_init(struct i915_vma_resource *vma_res);
  
- static void guc_cancel_context_requests(struct intel_context *ce)
-@@ -1805,6 +1821,41 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
- static void destroyed_worker_func(struct work_struct *w);
- static void reset_fail_worker_func(struct work_struct *w);
- 
-+static int init_tlb_lookup(struct intel_guc *guc)
-+{
-+	struct intel_guc_tlb_wait *wait;
-+	int err;
-+
-+	xa_init_flags(&guc->tlb_lookup, XA_FLAGS_ALLOC);
-+
-+	wait = kzalloc(sizeof(*wait), GFP_KERNEL);
-+	if (!wait)
-+		return -ENOMEM;
-+
-+	init_waitqueue_head(&wait->wq);
-+	err = xa_alloc_cyclic_irq(&guc->tlb_lookup, &guc->serial_slot, wait,
-+				  xa_limit_32b, &guc->next_seqno, GFP_KERNEL);
-+	if (err == -ENOMEM) {
-+		kfree(wait);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
-+static void fini_tlb_lookup(struct intel_guc *guc)
-+{
-+	struct intel_guc_tlb_wait *wait;
-+
-+	wait = xa_load(&guc->tlb_lookup, guc->serial_slot);
-+	if (wait) {
-+		GEM_BUG_ON(wait->status);
-+		kfree(wait);
-+	}
-+
-+	xa_destroy(&guc->tlb_lookup);
-+}
-+
- /*
-  * Set up the memory resources to be shared with the GuC (via the GGTT)
-  * at firmware loading time.
-@@ -1812,20 +1863,31 @@ static void reset_fail_worker_func(struct work_struct *w);
- int intel_guc_submission_init(struct intel_guc *guc)
- {
- 	struct intel_gt *gt = guc_to_gt(guc);
-+	int ret;
- 
- 	if (guc->submission_initialized)
- 		return 0;
- 
-+	ret = init_tlb_lookup(guc);
-+	if (ret)
-+		return ret;
-+
- 	guc->submission_state.guc_ids_bitmap =
- 		bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID(guc), GFP_KERNEL);
--	if (!guc->submission_state.guc_ids_bitmap)
--		return -ENOMEM;
-+	if (!guc->submission_state.guc_ids_bitmap) {
-+		ret = -ENOMEM;
-+		goto err;
-+	}
- 
- 	guc->timestamp.ping_delay = (POLL_TIME_CLKS / gt->clock_frequency + 1) * HZ;
- 	guc->timestamp.shift = gpm_timestamp_shift(gt);
- 	guc->submission_initialized = true;
- 
- 	return 0;
-+
-+err:
-+	fini_tlb_lookup(guc);
-+	return ret;
- }
- 
- void intel_guc_submission_fini(struct intel_guc *guc)
-@@ -1836,6 +1898,7 @@ void intel_guc_submission_fini(struct intel_guc *guc)
- 	guc_flush_destroyed_contexts(guc);
- 	i915_sched_engine_put(guc->sched_engine);
- 	bitmap_free(guc->submission_state.guc_ids_bitmap);
-+	fini_tlb_lookup(guc);
- 	guc->submission_initialized = false;
- }
- 
-@@ -4027,6 +4090,30 @@ g2h_context_lookup(struct intel_guc *guc, u32 ctx_id)
- 	return ce;
- }
- 
-+static void wait_wake_outstanding_tlb_g2h(struct intel_guc *guc, u32 seqno)
-+{
-+	struct intel_guc_tlb_wait *wait;
-+	unsigned long flags;
-+
-+	xa_lock_irqsave(&guc->tlb_lookup, flags);
-+	wait = xa_load(&guc->tlb_lookup, seqno);
-+
-+	/* We received a response after the waiting task did exit with a timeout */
-+	if (unlikely(!wait))
-+		drm_dbg(&guc_to_gt(guc)->i915->drm,
-+			"Stale tlb invalidation response with seqno %d\n", seqno);
-+
-+	if (wait)
-+		wake_up_tlb_invalidate(wait);
-+
-+	xa_unlock_irqrestore(&guc->tlb_lookup, flags);
-+}
-+
-+void intel_guc_tlb_invalidation_done(struct intel_guc *guc, u32 seqno)
-+{
-+	wait_wake_outstanding_tlb_g2h(guc, seqno);
-+}
-+
- int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 					  const u32 *msg,
- 					  u32 len)
 -- 
 2.36.1
 
