@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAF4BC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 101FCC433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:30:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19AAF98A6C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9DB98A77;
 	Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C0C098A6F;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D794B98A6C;
  Wed, 13 Jul 2022 09:30:23 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 881C561C61;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5741061CAC;
+ Wed, 13 Jul 2022 09:30:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E4F2C341D1;
  Wed, 13 Jul 2022 09:30:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB669C34114;
- Wed, 13 Jul 2022 09:30:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657704621;
- bh=TwXaLs6Qq1k/ViDsjq1vtPJ62qR+0nfRAZMZIFfXwvY=;
+ s=k20201202; t=1657704622;
+ bh=wMNkL9BlFfZJJ7e12qDIh/CAGTODMlA3hMOonBBSBIA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lM43VL+56kTLfitdH7ZNh3bl3OKPYGv0CN/4i6cU/58LXkg0Z/TYeYJJm1XxLiPJK
- RzXf0EjLOIMAtQ/xVBzpVliGJQxoRj56TNc1jDCUshX9hD1Y5AWHzd4fPj/hlJHD6u
- 09s6sIo7fTDmu3Kl0lC6d49Tun9JOqaAmKlME7v+JBF6be2lZMcXyXl1qIa2Ccp/0K
- FkRfrCExEsG9zk07B9SR4HuHH8A3xDOMcpa4VzU+qOx+PUUFzY2/5EWZm7rdbtBExO
- YIClcqCUboOMsfJJ6yA1QnYdAgMBz9tU5Id+ERDyOHMyT6FdbnJLpnoRP2Yo1uOdYt
- pITCazZ/bKRaw==
+ b=kKsBel7mj3ls/9+FJ+M6yCLp7kQw/5gZ8Oo5Lx6pRk+sPzn9/OMRvmuqYB2JC3/RP
+ 1Eeff3/MjVgHS4owXL61rqiH6ltPLCn59woKSEy2LqneGPjJ7IgwDdfhchFoPm/7Xi
+ lMaJquH1VYmkll9JXP3L/hDMAF2ef2zqQZsdIj6HXRo/jZX8Y4zSYIlQKpkFrXoEbA
+ Njxr+TLK4PWhC+2O4rIJSnzrQYflxHAC3oHTw2ALP9xQ+z2migkW+KrqFpShl94vJr
+ 4XT0uidmQk0DHk2q9jrnluZlXlZk4fq0OQTeuRIy/COc2vWXalcxGrqCY1lzizPVfy
+ loL0/rQO+F48w==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oBYhH-0050LI-Is;
+ (envelope-from <mchehab@kernel.org>) id 1oBYhH-0050Ld-Od;
  Wed, 13 Jul 2022 10:30:19 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Wed, 13 Jul 2022 10:30:00 +0100
-Message-Id: <0a56680efc82f69d1651b513e0de077b441e866e.1657703926.git.mchehab@kernel.org>
+Date: Wed, 13 Jul 2022 10:30:07 +0100
+Message-Id: <39ff9de11bef9a30205fa340f89fa36de783be55.1657703926.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657703926.git.mchehab@kernel.org>
 References: <cover.1657703926.git.mchehab@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/21] drm/i915/gt: Invalidate TLB of the OA
- unit at TLB invalidations
+Subject: [Intel-gfx] [PATCH 10/21] drm/i915/guc: use kernel-doc for enum
+ intel_guc_tlb_inval_mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,63 +55,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+Cc: Borislav Petkov <bp@suse.de>,
+ Alan Previn <alan.previn.teres.alexis@intel.com>,
  David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- Chris Wilson <chris.p.wilson@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dave Airlie <airlied@redhat.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris.p.wilson@intel.com>
+Transform the comments for intel_guc_tlb_inval_mode into a
+kernel-doc markup.
 
-Ensure that the TLB of the OA unit is also invalidated
-on gen12 HW, as just invalidating the TLB of an engine is not
-enough.
-
-Cc: stable@vger.kernel.org
-Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
-Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
-Cc: Fei Yang <fei.yang@intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
-Acked-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 See [PATCH 00/21] at: https://lore.kernel.org/all/cover.1657703926.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gt/intel_gt.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index c4d43da84d8e..1d84418e8676 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -11,6 +11,7 @@
- #include "pxp/intel_pxp.h"
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+index 2e39d8df4c82..14e35a2f8306 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+@@ -190,15 +190,18 @@ enum intel_guc_tlb_invalidation_type {
+ 	INTEL_GUC_TLB_INVAL_GUC = 0x3,
+ };
  
- #include "i915_drv.h"
-+#include "i915_perf_oa_regs.h"
- #include "intel_context.h"
- #include "intel_engine_pm.h"
- #include "intel_engine_regs.h"
-@@ -969,6 +970,15 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 		awake |= engine->mask;
- 	}
- 
-+	/* Wa_2207587034:tgl,dg1,rkl,adl-s,adl-p */
-+	if (awake &&
-+	    (IS_TIGERLAKE(i915) ||
-+	     IS_DG1(i915) ||
-+	     IS_ROCKETLAKE(i915) ||
-+	     IS_ALDERLAKE_S(i915) ||
-+	     IS_ALDERLAKE_P(i915)))
-+		intel_uncore_write_fw(uncore, GEN12_OA_TLB_INV_CR, 1);
-+
- 	spin_unlock_irq(&uncore->lock);
- 
- 	for_each_engine_masked(engine, gt, awake, tmp) {
+-/*
+- * 0: Heavy mode of Invalidation:
++/**
++ * enum intel_guc_tlb_inval_mode - define the mode for TLB cache invlidation
++ *
++ * @INTEL_GUC_TLB_INVAL_MODE_HEAVY: Heavy Invalidation Mode.
+  * The pipeline of the engine(s) for which the invalidation is targeted to is
+  * blocked, and all the in-flight transactions are guaranteed to be Globally
+- * Observed before completing the TLB invalidation
+- * 1: Lite mode of Invalidation:
++ * Observed before completing the TLB invalidation.
++ * @INTEL_GUC_TLB_INVAL_MODE_LITE: Light Invalidation Mode.
+  * TLBs of the targeted engine(s) are immediately invalidated.
+  * In-flight transactions are NOT guaranteed to be Globally Observed before
+  * completing TLB invalidation.
++ *
+  * Light Invalidation Mode is to be used only when
+  * it can be guaranteed (by SW) that the address translations remain invariant
+  * for the in-flight transactions across the TLB invalidation. In other words,
 -- 
 2.36.1
 
