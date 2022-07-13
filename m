@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87527C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 08:13:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 929BDC43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 08:13:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33D84958AC;
-	Wed, 13 Jul 2022 08:12:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C965F95870;
+	Wed, 13 Jul 2022 08:12:43 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C832C95135;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA50F95199;
  Wed, 13 Jul 2022 08:12:34 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9451A61AE4;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8F90861ADA;
  Wed, 13 Jul 2022 08:12:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC64C341E5;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A428C341DF;
  Wed, 13 Jul 2022 08:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657699952;
- bh=PqPlgIAlFyMpP7L789BurP975nmnKIyBwIXdpVDg5yg=;
+ bh=T31SAS3JlGeHK+htzVIH6D505isXs1D+jvOQEca/D8U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=D0kKyHiXDCKIteitN7csA+HvvNev9nkF3luVYDfS3vKTOBTJHXPLH2gWhDqpo6YaA
- ABJ7gzwNzsP7txHseBd44Y7zcJzM7era82j2qwZwX+qsSbJfnUdHDX6jq2uokFfqZx
- 0/BiOJR0cUSJg9tAegb+8t8dm8AjC79fRyjWex06UiwwSM313tMaAApuMACvDhkX3G
- Qmx/qLguteARTZj0/z+Hrsgnq5Okd6QD3BwwAV45q6MPxm9PAJXQkKGzoUeUeeepHP
- 4MGvMB0C95WhRblKKjjDatW6TMA5rcIM45gHf5wHaVxO9SVzu0DM6/hLsF2dG5J+6J
- VMMM6m6Bg6S7Q==
+ b=EgtvalwqhGHEpuJtLV7PEXaOYDCqe4W67S3bjJhVItLwjx/Xh057scQxopjFe3oJB
+ AQSx5fjZA/9kDe8O1kU6DCAzRMx6IUuvfOabONqoXPSGHPHWWAjqyUCTxVIA2C3L6M
+ tX0efyuH05NeSCt01OZyK3RioVq7QUPA3fXvYsdmSwYfKxlIdVEAw4hR6eOd2ro1nr
+ tfMdXegirY+H5DBHE+bcXOri261yrc21wkFJr5qr5B4IjigzH2pH3oZlPvmXFBZ3HF
+ 4XsTRXnt0U361TZgaYS7f6VEuDbl3Co086rPlFQQdFP2UgErmB+OTST18srKbLd6f5
+ bRKVbxedUXq5A==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oBXTx-004zuE-TU;
+ (envelope-from <mchehab@kernel.org>) id 1oBXTx-004ztg-Nw;
  Wed, 13 Jul 2022 09:12:29 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Wed, 13 Jul 2022 09:12:17 +0100
-Message-Id: <f612d5d73c6972693a71140bb247e861a1670919.1657699522.git.mchehab@kernel.org>
+Date: Wed, 13 Jul 2022 09:12:09 +0100
+Message-Id: <395e3cf3bce06ad8e6c4ce0a6e713249a86f870a.1657699522.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657699522.git.mchehab@kernel.org>
 References: <cover.1657699522.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 29/39] docs: gpu: i915.rst: display: add
- kernel-doc markups
+Subject: [Intel-gfx] [PATCH v2 21/39] drm/i915: fix i915_gem_ttm_move.c DOC:
+ markup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,17 +55,18 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Jasmine Newsome <jasmine.newsome@intel.com>,
+ linux-kernel@vger.kernel.org, Matthew Auld <matthew.auld@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are several documented kAPI at the display side that
-aren't currently part of the docs. Add them, as this allows
-identifying issues with badly-formatted tags.
+The doc markup should not end with ":", as it would generate a
+warning on Sphinx while generating the cross-reference tag.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
@@ -73,70 +74,22 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v2 00/39] at: https://lore.kernel.org/all/cover.1657699522.git.mchehab@kernel.org/
 
- Documentation/gpu/i915.rst | 50 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index 4e59db1cfb00..2ad7941a79f2 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -100,6 +100,56 @@ Display FIFO Underrun Reporting
- .. kernel-doc:: drivers/gpu/drm/i915/display/intel_fifo_underrun.c
-    :internal:
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index 56217d324a9b..16dd4991d527 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -20,7 +20,7 @@
+ #include "gt/intel_migrate.h"
  
-+Atomic Modeset Support
-+----------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_atomic.c
-+
-+Display Power Domain
-+--------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_display_power.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_display_power_map.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_display_power_well.c
-+
-+Misc display functions
-+----------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_backlight.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_crtc.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_connector.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_dp.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_dpll.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_dpt.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_fb.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_fb_pin.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_gmbus.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_lvds.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_opregion.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_snps_phy.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_tc.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/skl_scaler.c
-+
-+
- Plane Configuration
- -------------------
- 
+ /**
+- * DOC: Selftest failure modes for failsafe migration:
++ * DOC: Selftest failure modes for failsafe migration
+  *
+  * For fail_gpu_migration, the gpu blit scheduled is always a clear blit
+  * rather than a copy blit, and then we force the failure paths as if
 -- 
 2.36.1
 
