@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9BB7C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:31:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B6EC43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:31:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 526E798A9E;
-	Wed, 13 Jul 2022 09:30:38 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C8FB98A83;
- Wed, 13 Jul 2022 09:30:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0DA98A96;
+	Wed, 13 Jul 2022 09:30:37 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3714A98A82;
+ Wed, 13 Jul 2022 09:30:26 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AC0F0B81D75;
+ by ams.source.kernel.org (Postfix) with ESMTPS id F1DF9B81D7A;
  Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 494E1C341DF;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6567CC341E0;
  Wed, 13 Jul 2022 09:30:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657704622;
- bh=FzHmmGEGNNUQo1E9IcdaPTJZyRSYl5vZePFi9GRAEHc=;
+ bh=MTo5LFJQmGswJidJuW/ez8S5JqY/AKBuALalK+cXQ8g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lIDUyc5sj0v2wkHK56P1equ4UXbgwyIAXhnE3oNV2uyRPpIj8R+5fPCLPA+GU1bZ5
- EFtt1JyvpN1R2WIVfgma2jTVSj8JlA6/0JattwdNRm32XFF9+Qu7kEe/faIq2mV4KK
- r8SxafBS3sF10yblxA6p/qvys6BaWG72hDVPmRorIFuKPUl1lo+Ta/X/dihpSsnrWU
- iruwCXI3+AaO0eiOFn2RilKWStlvCaeXwu2v/ljGgpB+LBB887/CdXlFliuKq7x2nO
- fF49RtdliWmCE+SFFcZXpOCCPEmbSrz4Z+bDDXw6q+TvEMOM9SVrII8Xe3AQNg90nD
- PuUjAF8ka2pPw==
+ b=i6VeyuVSXZZSy5+N68xJ7UWpZDSidffSrdw4xCYZWbZ1dHZz1Py5khbHhDZLWvr6O
+ 6DMNp8RJ0NKHZ3l9QN4O2WIrIduhDgmLtgo3Pag0KSkdB5kEU8k4bL1k/wmcZOxzTe
+ GLQ94XCBNRELc17vCSdYPiiCLjHu5xHZCBalbCkPzC85Z13M3wXjxI7EE5bVJcMvzA
+ kjCZJ2fK27RTma6tNZpFTPVrZrkPa4CtAiQ6tEQTXkDZYBI0qOiLTloF0VvkCEqF8o
+ Lt6wZhCMdT8rzT1qmB25wyhWM2WY27BnZ0AhU/PA1zqnRRX7Hk7hSEs4Z/4p5XwvMU
+ UQucqp0c2+uJg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oBYhH-0050M3-U5;
- Wed, 13 Jul 2022 10:30:19 +0100
+ (envelope-from <mchehab@kernel.org>) id 1oBYhI-0050MJ-0i;
+ Wed, 13 Jul 2022 10:30:20 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Wed, 13 Jul 2022 10:30:14 +0100
-Message-Id: <dc83c6c139c999c5ca70da91927468f3333f85f8.1657703926.git.mchehab@kernel.org>
+Date: Wed, 13 Jul 2022 10:30:18 +0100
+Message-Id: <51f5a4d4e209e27eaf82683d56e7747a183fb051.1657703926.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657703926.git.mchehab@kernel.org>
 References: <cover.1657703926.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 17/21] drm/i915: Add generic interface for tlb
- invalidation for XeHP
+Subject: [Intel-gfx] [PATCH 21/21] drm/i915/guc: document TLB cache
+ invalidation functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,169 +57,113 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- Chris Wilson <chris.p.wilson@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ linux-kernel@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+Add documentation for the kAPI functions that do TLB cache
+invalidation via GuC.
 
-Add an interface for GuC TLB actions, supporting both selective and
-full TLB invalidations. After this change, when GuC is enabled,
-tlb invalidations use GuC ct. Otherwise, use mmio interface.
-
-Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Cc: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-Cc: Fei Yang <fei.yang@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 See [PATCH 00/21] at: https://lore.kernel.org/all/cover.1657703926.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gt/intel_gt_regs.h |  8 +++
- drivers/gpu/drm/i915/gt/intel_tlb.c     | 78 ++++++++++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_tlb.h     |  1 +
- 3 files changed, 86 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c | 52 ++++++++++++++++++++++----
+ 1 file changed, 45 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 60d6eb5f245b..52508a9c23e5 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1054,6 +1054,14 @@
- 
- #define GEN12_GAM_DONE				_MMIO(0xcf68)
- 
-+#define XEHP_TLB_INV_DESC0			_MMIO(0xcf7c)
-+#define   XEHP_TLB_INV_DESC0_ADDR_LO		REG_GENMASK(31, 12)
-+#define   XEHP_TLB_INV_DESC0_ADDR_MASK		REG_GENMASK(8, 3)
-+#define   XEHP_TLB_INV_DESC0_G			REG_GENMASK(2, 1)
-+#define   XEHP_TLB_INV_DESC0_VALID		REG_BIT(0)
-+#define XEHP_TLB_INV_DESC1			_MMIO(0xcf80)
-+#define   XEHP_TLB_INV_DESC0_ADDR_HI		REG_GENMASK(31, 0)
-+
- #define GEN7_HALF_SLICE_CHICKEN1		_MMIO(0xe100) /* IVB GT1 + VLV */
- #define   GEN7_MAX_PS_THREAD_DEP		(8 << 12)
- #define   GEN7_SINGLE_SUBSCAN_DISPATCH_ENABLE	(1 << 10)
-diff --git a/drivers/gpu/drm/i915/gt/intel_tlb.c b/drivers/gpu/drm/i915/gt/intel_tlb.c
-index af8cae979489..15ed83226676 100644
---- a/drivers/gpu/drm/i915/gt/intel_tlb.c
-+++ b/drivers/gpu/drm/i915/gt/intel_tlb.c
-@@ -10,6 +10,7 @@
- #include "intel_gt_pm.h"
- #include "intel_gt_regs.h"
- #include "intel_tlb.h"
-+#include "uc/intel_guc.h"
- 
- struct reg_and_bit {
- 	i915_reg_t reg;
-@@ -159,11 +160,16 @@ void intel_gt_invalidate_tlb_full(struct intel_gt *gt, u32 seqno)
- 		return;
- 
- 	with_intel_gt_pm_if_awake(gt, wakeref) {
-+		struct intel_guc *guc = &gt->uc.guc;
-+
- 		mutex_lock(&gt->tlb.invalidate_lock);
- 		if (tlb_seqno_passed(gt, seqno))
- 			goto unlock;
- 
--		mmio_invalidate_full(gt);
-+		if (INTEL_GUC_SUPPORTS_TLB_INVALIDATION(guc))
-+			intel_guc_invalidate_tlb_full(guc, INTEL_GUC_TLB_INVAL_MODE_HEAVY);
-+		else
-+			mmio_invalidate_full(gt);
- 
- 		write_seqcount_invalidate(&gt->tlb.seqno);
- unlock:
-@@ -171,6 +177,76 @@ void intel_gt_invalidate_tlb_full(struct intel_gt *gt, u32 seqno)
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index 98260a7bc90b..173833bc3a62 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -923,7 +923,14 @@ static int guc_send_invalidate_tlb(struct intel_guc *guc, u32 *action, u32 size)
+ 	return err;
  }
  
-+static bool mmio_invalidate_range(struct intel_gt *gt, u64 start, u64 length)
-+{
-+	u32 address_mask = (ilog2(length) - ilog2(I915_GTT_PAGE_SIZE_4K));
-+	u64 vm_total = BIT_ULL(INTEL_INFO(gt->i915)->ppgtt_size);
-+	intel_wakeref_t wakeref;
-+	u32 dw0, dw1;
-+	int err;
-+
-+	GEM_BUG_ON(!IS_ALIGNED(start, I915_GTT_PAGE_SIZE_4K));
-+	GEM_BUG_ON(!IS_ALIGNED(length, I915_GTT_PAGE_SIZE_4K));
-+	GEM_BUG_ON(range_overflows(start, length, vm_total));
-+
-+	dw0 = FIELD_PREP(XEHP_TLB_INV_DESC0_ADDR_LO, (lower_32_bits(start) >> 12)) |
-+		FIELD_PREP(XEHP_TLB_INV_DESC0_ADDR_MASK, address_mask) |
-+		FIELD_PREP(XEHP_TLB_INV_DESC0_G, 0x3) |
-+		FIELD_PREP(XEHP_TLB_INV_DESC0_VALID, 0x1);
-+	dw1 = upper_32_bits(start);
-+
-+	err = 0;
-+	with_intel_gt_pm_if_awake(gt, wakeref) {
-+		struct intel_uncore *uncore = gt->uncore;
-+
-+		intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
-+
-+		mutex_lock(&gt->tlb.invalidate_lock);
-+		intel_uncore_write_fw(uncore, XEHP_TLB_INV_DESC1, dw1);
-+		intel_uncore_write_fw(uncore, XEHP_TLB_INV_DESC0, dw0);
-+		err = __intel_wait_for_register_fw(uncore,
-+						   XEHP_TLB_INV_DESC0,
-+						   XEHP_TLB_INV_DESC0_VALID,
-+						   0, 100, 10, NULL);
-+		mutex_unlock(&gt->tlb.invalidate_lock);
-+
-+		intel_uncore_forcewake_put_delayed(uncore, FORCEWAKE_ALL);
-+	}
-+
-+	if (err)
-+		drm_err_ratelimited(&gt->i915->drm,
-+				    "TLB invalidation response timed out\n");
-+
-+	return err == 0;
-+}
-+
-+bool intel_gt_invalidate_tlb_range(struct intel_gt *gt,
-+				   u64 start, u64 length)
-+{
-+	struct intel_guc *guc = &gt->uc.guc;
-+	intel_wakeref_t wakeref;
-+
-+	if (intel_gt_is_wedged(gt))
-+		return true;
-+
-+	if (!INTEL_GUC_SUPPORTS_TLB_INVALIDATION_SELECTIVE(guc))
-+		return false;
-+
-+	/*XXX: We are seeing timeouts on guc based tlb invalidations on XEHPSDV.
-+	 * Until we have a fix, use mmio
-+	 */
-+	if (IS_XEHPSDV(gt->i915))
-+		return mmio_invalidate_range(gt, start, length);
-+
-+	with_intel_gt_pm_if_awake(gt, wakeref) {
-+		intel_guc_invalidate_tlb_page_selective(guc,
-+							INTEL_GUC_TLB_INVAL_MODE_HEAVY,
-+							start, length);
-+	}
-+
-+	return true;
-+}
-+
- void intel_gt_init_tlb(struct intel_gt *gt)
+- /* Full TLB invalidation */
++/**
++ * intel_guc_invalidate_tlb_full - GuC full TLB invalidation
++ *
++ * @guc: the guc
++ * @mode: mode of TLB cache invalidation (heavy or lite)
++ *
++ * Use GuC to do a full TLB cache invalidation if supported.
++ */
+ int intel_guc_invalidate_tlb_full(struct intel_guc *guc,
+ 				  enum intel_guc_tlb_inval_mode mode)
  {
- 	mutex_init(&gt->tlb.invalidate_lock);
-diff --git a/drivers/gpu/drm/i915/gt/intel_tlb.h b/drivers/gpu/drm/i915/gt/intel_tlb.h
-index 46ce25bf5afe..32cc79b1d8a4 100644
---- a/drivers/gpu/drm/i915/gt/intel_tlb.h
-+++ b/drivers/gpu/drm/i915/gt/intel_tlb.h
-@@ -12,6 +12,7 @@
- #include "intel_gt_types.h"
+@@ -943,8 +950,17 @@ int intel_guc_invalidate_tlb_full(struct intel_guc *guc,
+ 	return guc_send_invalidate_tlb(guc, action, ARRAY_SIZE(action));
+ }
  
- void intel_gt_invalidate_tlb_full(struct intel_gt *gt, u32 seqno);
-+bool intel_gt_invalidate_tlb_range(struct intel_gt *gt, u64 start, u64 length);
+-/*
+- * Selective TLB Invalidation for Address Range:
++/**
++ * intel_guc_invalidate_tlb_page_selective - GuC selective TLB invalidation
++ *	for an address range
++ *
++ * @guc: the guc
++ * @mode: mode of TLB cache invalidation (heavy or lite)
++ * @start: range start
++ * @length: range length
++ *
++ * Use GuC to do a selective TLB invalidation if supported.
++ *
+  * TLB's in the Address Range is Invalidated across all engines.
+  */
+ int intel_guc_invalidate_tlb_page_selective(struct intel_guc *guc,
+@@ -978,8 +994,18 @@ int intel_guc_invalidate_tlb_page_selective(struct intel_guc *guc,
+ 	return guc_send_invalidate_tlb(guc, action, ARRAY_SIZE(action));
+ }
  
- void intel_gt_init_tlb(struct intel_gt *gt);
- void intel_gt_fini_tlb(struct intel_gt *gt);
+-/*
+- * Selective TLB Invalidation for Context:
++/**
++ * intel_guc_invalidate_tlb_page_selective_ctx - GuC selective TLB
++ *	invalidation for a context
++ *
++ * @guc: the guc
++ * @mode: mode of TLB cache invalidation (heavy or lite)
++ * @start: range start
++ * @length: range length
++ * @ctxid: context ID
++ *
++ * Use GuC to do a selective TLB invalidation on a context if supported.
++ *
+  * Invalidates all TLB's for a specific context across all engines.
+  */
+ int intel_guc_invalidate_tlb_page_selective_ctx(struct intel_guc *guc,
+@@ -1013,8 +1039,13 @@ int intel_guc_invalidate_tlb_page_selective_ctx(struct intel_guc *guc,
+ 	return guc_send_invalidate_tlb(guc, action, ARRAY_SIZE(action));
+ }
+ 
+-/*
+- * Guc TLB Invalidation: Invalidate the TLB's of GuC itself.
++/**
++ * intel_guc_invalidate_tlb_guc - GuC self TLB invalidation
++ *
++ * @guc: the guc
++ * @mode: mode of TLB cache invalidation (heavy or lite)
++ *
++ * Use GuC to invalidate the TLB's of GuC itself.
+  */
+ int intel_guc_invalidate_tlb_guc(struct intel_guc *guc,
+ 				 enum intel_guc_tlb_inval_mode mode)
+@@ -1035,6 +1066,13 @@ int intel_guc_invalidate_tlb_guc(struct intel_guc *guc,
+ 	return guc_send_invalidate_tlb(guc, action, ARRAY_SIZE(action));
+ }
+ 
++/**
++ * intel_guc_invalidate_tlb_all - GuC global TLB invalidation
++ *
++ * @guc: the guc
++ *
++ * Use GuC to do a complete TLB invalidation on all tables
++ */
+ int intel_guc_invalidate_tlb_all(struct intel_guc *guc)
+ {
+ 	u32 action[] = {
 -- 
 2.36.1
 
