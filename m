@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 036C5C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1B23C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:31:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 441A798A83;
-	Wed, 13 Jul 2022 09:30:32 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 343D798A70;
- Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEEB198A82;
+	Wed, 13 Jul 2022 09:30:31 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 581C498A72;
+ Wed, 13 Jul 2022 09:30:26 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8880B61CB6;
- Wed, 13 Jul 2022 09:30:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A05C341D3;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 97258B81D74;
+ Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57759C385A9;
  Wed, 13 Jul 2022 09:30:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657704622;
- bh=d7Ye7f/yZMeD0fzLWJnDFqz2oIBKUGw1N39MIHO+bsk=;
+ bh=YZ+rekclkz0PmGszpxR0kr32E1UilqxXVk+khwXJKBk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Yp/pZSEkoUvsGlC4rq7mlKo7cz2NpoAbkOwvGR8oKgWgtsy9Y0PYmJlYtjLh1w3iL
- Mh1wKOxxtP+OtWLAcjPRrPFjDKJDFr69KeSIN9wh+XG0JFNv66PSzS3wOZCNLYa2di
- hJ1AhfNhbgm2tMw5M4tBNjhTlL0b4LqziQhCSLpKcj68m9fshW+z26XHaSX0NWlr1z
- JY7+6wDu1u9TBhJwhEcBY+4W3w/BjiThWWS1FxilJIYUXJmyhNUr3T/hL3hZEuqCNr
- 8jZvfKp22fAha3A/Q8/IXLsURheYzJs/LvP4XE6dpAMFOq7h3mUtmLUgzthQAii3a7
- e8v6uoFpP5ddA==
+ b=D8IOZ3Ei1SBs13Sjy4Qij9irRpN3hW3b5vUuhYpTdLu9YQnrMZ+KvNs9AvdvMe6UI
+ NHuwsSDqWB7ri0Bx0sQy1ijNvoPVuEpGfcZ5r6byyZFgRjrEP3yLbfmWG5e9GcgHqw
+ 7ZvxwqkQ8W1a0Ad4N0MD+8Jkv+Ult97rVKirgOazolj+OCq67AiBex+zn1KiqYiByF
+ Q0Ka+07d8H8G70Mh19WMggzLLZ5Varl8kkO3Q+O0Vcdx5lC0b5nQMrTGCNmQVvcU2P
+ mKtdOGXdcUuyAeKlnp4T1QwuF+zAiHcmpLM2E8mynyFRN6v1K74ToaWjd/0oLykTUV
+ ji0jhwbdFgdrg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oBYhH-0050Lx-ST;
+ (envelope-from <mchehab@kernel.org>) id 1oBYhH-0050MB-Vc;
  Wed, 13 Jul 2022 10:30:19 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Wed, 13 Jul 2022 10:30:12 +0100
-Message-Id: <62c27558f7add68cc60fcf765e591f8886a195f9.1657703926.git.mchehab@kernel.org>
+Date: Wed, 13 Jul 2022 10:30:16 +0100
+Message-Id: <de44277b998031453b7d69d73dbbd07b52a138b9.1657703926.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657703926.git.mchehab@kernel.org>
 References: <cover.1657703926.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 15/21] drm/i915: Add platform macro for
- selective tlb flush
+Subject: [Intel-gfx] [PATCH 19/21] drm/i915/gt: document TLB cache
+ invalidation functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,68 +56,90 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Chris Wilson <chris.p.wilson@intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
+ Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+Add a description for the kAPI functions inside intel_tlb.c.
 
-Add support for selective TLB invalidation, which is a platform
-feature supported on XeHP.
-
-Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Cc: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 See [PATCH 00/21] at: https://lore.kernel.org/all/cover.1657703926.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/i915_drv.h          | 3 +++
- drivers/gpu/drm/i915/i915_pci.c          | 1 +
- drivers/gpu/drm/i915/intel_device_info.h | 1 +
- 3 files changed, 5 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_tlb.c | 36 +++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index f1f70257dbe0..73494960a3a8 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1312,6 +1312,9 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/gt/intel_tlb.c b/drivers/gpu/drm/i915/gt/intel_tlb.c
+index 15ed83226676..aa2e0086ae88 100644
+--- a/drivers/gpu/drm/i915/gt/intel_tlb.c
++++ b/drivers/gpu/drm/i915/gt/intel_tlb.c
+@@ -146,6 +146,18 @@ static void mmio_invalidate_full(struct intel_gt *gt)
+ 	intel_uncore_forcewake_put_delayed(uncore, FORCEWAKE_ALL);
+ }
  
- #define HAS_GT_UC(dev_priv)	(INTEL_INFO(dev_priv)->has_gt_uc)
++/**
++ * intel_gt_invalidate_tlb_full - do full TLB cache invalidation
++ * @gt: GT structure
++ * @seqno: sequence number
++ *
++ * Do a full TLB cache invalidation if the @seqno is bigger than the last
++ * full TLB cache invalidation.
++ *
++ * Note:
++ * The TLB cache invalidation logic depends on GEN-specific registers.
++ * It currently supports GEN8 to GEN12 and GuC-based TLB cache invalidation.
++ */
+ void intel_gt_invalidate_tlb_full(struct intel_gt *gt, u32 seqno)
+ {
+ 	intel_wakeref_t wakeref;
+@@ -220,6 +232,17 @@ static bool mmio_invalidate_range(struct intel_gt *gt, u64 start, u64 length)
+ 	return err == 0;
+ }
  
-+#define HAS_SELECTIVE_TLB_INVALIDATION(dev_priv) \
-+	(INTEL_INFO(dev_priv)->has_selective_tlb_invalidation)
-+
- #define HAS_POOLED_EU(dev_priv)	(INTEL_INFO(dev_priv)->has_pooled_eu)
++/**
++ * intel_gt_invalidate_tlb_range - do full TLB cache invalidation
++ * @gt: GT structure
++ * @start: range start
++ * @length: range length
++ *
++ * Do a selected TLB cache invalidation on a range pointed by @start
++ * with @length size.
++ *
++ * Only some GuC-based GPUs can do a selective cache invalidation.
++ */
+ bool intel_gt_invalidate_tlb_range(struct intel_gt *gt,
+ 				   u64 start, u64 length)
+ {
+@@ -247,12 +270,25 @@ bool intel_gt_invalidate_tlb_range(struct intel_gt *gt,
+ 	return true;
+ }
  
- #define HAS_GLOBAL_MOCS_REGISTERS(dev_priv)	(INTEL_INFO(dev_priv)->has_global_mocs)
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index aacc10f2e73f..30d945fe384b 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1022,6 +1022,7 @@ static const struct intel_device_info adl_p_info = {
- 	.has_reset_engine = 1, \
- 	.has_rps = 1, \
- 	.has_runtime_pm = 1, \
-+	.has_selective_tlb_invalidation = 1, \
- 	.ppgtt_size = 48, \
- 	.ppgtt_type = INTEL_PPGTT_FULL
++/**
++ * intel_gt_init_tlb - initialize TLB-specific vars
++ * @gt: GT structure
++ *
++ * TLB cache invalidation logic internally uses some resources that require
++ * initialization. Should be called before doing any TLB cache invalidation.
++ */
+ void intel_gt_init_tlb(struct intel_gt *gt)
+ {
+ 	mutex_init(&gt->tlb.invalidate_lock);
+ 	seqcount_mutex_init(&gt->tlb.seqno, &gt->tlb.invalidate_lock);
+ }
  
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 23bf230aa104..92a38b8f7c47 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -170,6 +170,7 @@ enum intel_ppgtt_type {
- 	func(has_rc6p); \
- 	func(has_rps); \
- 	func(has_runtime_pm); \
-+	func(has_selective_tlb_invalidation); \
- 	func(has_snoop); \
- 	func(has_coherent_ggtt); \
- 	func(unfenced_needs_alignment); \
++/**
++ * intel_gt_fini_tlb - initialize TLB-specific vars
++ * @gt: GT structure
++ *
++ * Frees any resources needed by TLB cache invalidation logic.
++ */
+ void intel_gt_fini_tlb(struct intel_gt *gt)
+ {
+ 	mutex_destroy(&gt->tlb.invalidate_lock);
 -- 
 2.36.1
 
