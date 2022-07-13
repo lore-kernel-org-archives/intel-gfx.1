@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5770ACCA479
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 036C5C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 09:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4769D98A70;
-	Wed, 13 Jul 2022 09:30:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 441A798A83;
+	Wed, 13 Jul 2022 09:30:32 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB69898A7B;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 343D798A70;
  Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2060B61CCD;
- Wed, 13 Jul 2022 09:30:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74B90C341E6;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8880B61CB6;
+ Wed, 13 Jul 2022 09:30:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A05C341D3;
  Wed, 13 Jul 2022 09:30:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1657704622;
- bh=CCKKzwB0qHXF+WGVUFGTqABjxYBM8eht5j02XIx4jVY=;
+ bh=d7Ye7f/yZMeD0fzLWJnDFqz2oIBKUGw1N39MIHO+bsk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uTJLFfDrWmXusPvlk/y7wR2q/VA5ySyre0cG0m02FfgFLLaJ5BrBmOK7FqmakpLJS
- xYVl9PR4l2pc/7fAeiOqKtV17Jx6+jBmlvDzKuRGhYHZyfZ1yaONRl9GyhIJv+USmx
- nOub+MnFujdOK7+c1oh21empX7bgoMedy0TclG2SLbMpSZGbu6P57Oaz6saHaYp8QW
- ZOMi1JMwjeYCR55Z9VEGP+aeUYlnozoMRLjNUjIa9pxNcQCrp3JeZf5bgSTeCpA2Fa
- 8UDVuTgFBEOfJXuxw7gg9JfHzm8HER+L562SdDQl8O4iLnZwg5+1vEyB8ybY9c8gnL
- YYenUXTz8VkUg==
+ b=Yp/pZSEkoUvsGlC4rq7mlKo7cz2NpoAbkOwvGR8oKgWgtsy9Y0PYmJlYtjLh1w3iL
+ Mh1wKOxxtP+OtWLAcjPRrPFjDKJDFr69KeSIN9wh+XG0JFNv66PSzS3wOZCNLYa2di
+ hJ1AhfNhbgm2tMw5M4tBNjhTlL0b4LqziQhCSLpKcj68m9fshW+z26XHaSX0NWlr1z
+ JY7+6wDu1u9TBhJwhEcBY+4W3w/BjiThWWS1FxilJIYUXJmyhNUr3T/hL3hZEuqCNr
+ 8jZvfKp22fAha3A/Q8/IXLsURheYzJs/LvP4XE6dpAMFOq7h3mUtmLUgzthQAii3a7
+ e8v6uoFpP5ddA==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oBYhI-0050MF-04;
- Wed, 13 Jul 2022 10:30:20 +0100
+ (envelope-from <mchehab@kernel.org>) id 1oBYhH-0050Lx-ST;
+ Wed, 13 Jul 2022 10:30:19 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Wed, 13 Jul 2022 10:30:17 +0100
-Message-Id: <73d51e0580ba98a466f951473902eda3cfa97053.1657703926.git.mchehab@kernel.org>
+Date: Wed, 13 Jul 2022 10:30:12 +0100
+Message-Id: <62c27558f7add68cc60fcf765e591f8886a195f9.1657703926.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657703926.git.mchehab@kernel.org>
 References: <cover.1657703926.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 20/21] drm/i915/guc: describe enum
- intel_guc_tlb_invalidation_type
+Subject: [Intel-gfx] [PATCH 15/21] drm/i915: Add platform macro for
+ selective tlb flush
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,47 +56,68 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Borislav Petkov <bp@suse.de>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a description for intel_guc_tlb_invalidation_type enum.
+From: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
 
+Add support for selective TLB invalidation, which is a platform
+feature supported on XeHP.
+
+Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+Cc: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 See [PATCH 00/21] at: https://lore.kernel.org/all/cover.1657703926.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/gpu/drm/i915/i915_drv.h          | 3 +++
+ drivers/gpu/drm/i915/i915_pci.c          | 1 +
+ drivers/gpu/drm/i915/intel_device_info.h | 1 +
+ 3 files changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-index 5c019856a269..e97065c62d28 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-@@ -187,6 +187,18 @@ enum intel_guc_state_capture_event_status {
- /* Flush PPC or SMRO caches along with TLB invalidation request */
- #define INTEL_GUC_TLB_INVAL_FLUSH_CACHE (1 << 31)
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index f1f70257dbe0..73494960a3a8 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -1312,6 +1312,9 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
  
-+/**
-+ * enum intel_guc_tlb_invalidation_type - type of TLB cache invalidation
-+ *
-+ * @INTEL_GUC_TLB_INVAL_FULL:
-+ *	Global TLB invalidation
-+ * @INTEL_GUC_TLB_INVAL_PAGE_SELECTIVE:
-+ *	Page-selective TLB cache invalidation
-+ * @INTEL_GUC_TLB_INVAL_PAGE_SELECTIVE_CTX:
-+ *	Context-selective TLB cache invalidation
-+ * @INTEL_GUC_TLB_INVAL_GUC:
-+ *	Invalidate TLB on GuC itself
-+ */
- enum intel_guc_tlb_invalidation_type {
- 	INTEL_GUC_TLB_INVAL_FULL = 0x0,
- 	INTEL_GUC_TLB_INVAL_PAGE_SELECTIVE = 0x1,
+ #define HAS_GT_UC(dev_priv)	(INTEL_INFO(dev_priv)->has_gt_uc)
+ 
++#define HAS_SELECTIVE_TLB_INVALIDATION(dev_priv) \
++	(INTEL_INFO(dev_priv)->has_selective_tlb_invalidation)
++
+ #define HAS_POOLED_EU(dev_priv)	(INTEL_INFO(dev_priv)->has_pooled_eu)
+ 
+ #define HAS_GLOBAL_MOCS_REGISTERS(dev_priv)	(INTEL_INFO(dev_priv)->has_global_mocs)
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index aacc10f2e73f..30d945fe384b 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1022,6 +1022,7 @@ static const struct intel_device_info adl_p_info = {
+ 	.has_reset_engine = 1, \
+ 	.has_rps = 1, \
+ 	.has_runtime_pm = 1, \
++	.has_selective_tlb_invalidation = 1, \
+ 	.ppgtt_size = 48, \
+ 	.ppgtt_type = INTEL_PPGTT_FULL
+ 
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 23bf230aa104..92a38b8f7c47 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -170,6 +170,7 @@ enum intel_ppgtt_type {
+ 	func(has_rc6p); \
+ 	func(has_rps); \
+ 	func(has_runtime_pm); \
++	func(has_selective_tlb_invalidation); \
+ 	func(has_snoop); \
+ 	func(has_coherent_ggtt); \
+ 	func(unfenced_needs_alignment); \
 -- 
 2.36.1
 
