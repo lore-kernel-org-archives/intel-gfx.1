@@ -4,46 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBD45C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 13:13:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40D35C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Jul 2022 13:38:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32E5D1130D9;
-	Wed, 13 Jul 2022 13:13:31 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49CCF112CCF
- for <intel-gfx@lists.freedesktop.org>; Wed, 13 Jul 2022 13:13:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657718008; x=1689254008;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=EzL/LA9oCpuI3NLTX11zmXXyg9T/iEf60/2sTKwwkaw=;
- b=OVgXn5AB6rPa4MpGnKAvOlds0ymHWht3uG45zdQVEk6LG3M2K9qVcOxH
- ByNgLgHFeie8QuO/rDy5ct3+wsGuRmlvQ3yZBSMzhicro8tfIWYouS6OE
- 9h6w2P20fwXIJ7S7VMv4R7yrH9UAiNn32LGExb47CRgL4OslqDZV/wv+E
- qheGQ80oPRvfAGB50b97ys5QLFRHD9xHOp3uXifb6PBIJWrhLDYQrk3ey
- TC/YRhuFdWV30lwcxihU9QRTU6ZqBOegKnqzM4HlO1/UtjxJP3HXVMjV7
- hzy99vOO8kteKMPEMGs5InSj74cPGsKsujQ59DkiVOgDk21RHrSxsS92d g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10406"; a="285950424"
-X-IronPort-AV: E=Sophos;i="5.92,267,1650956400"; d="scan'208";a="285950424"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2022 06:13:27 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,267,1650956400"; d="scan'208";a="622934966"
-Received: from priyanka-nuc7i7bnh.iind.intel.com ([10.145.162.209])
- by orsmga008.jf.intel.com with ESMTP; 13 Jul 2022 06:13:25 -0700
-From: priyanka.dandamudi@intel.com
-To: priyanka.dandamudi@intel.com, matthew.auld@intel.com,
- intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Jul 2022 18:32:09 +0530
-Message-Id: <20220713130209.2573233-3-priyanka.dandamudi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9833410E9EE;
+	Wed, 13 Jul 2022 13:38:41 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAD2B10E39F;
+ Wed, 13 Jul 2022 13:38:39 +0000 (UTC)
+Received: from hermes-devbox.fritz.box (82-71-8-225.dsl.in-addr.zen.co.uk
+ [82.71.8.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbeckett)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 576D666019B6;
+ Wed, 13 Jul 2022 14:38:38 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1657719518;
+ bh=s+i54G2qFMY7k4hZiW6XrnLWSTCsbPrc1QYLZP1Vpqk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=VhnZQq1tK/0oM/jV0oh3yvhbcDKYFbLCkh1hbuh1GxunyjZ1NKwkIVpMBDeqfrD3c
+ ZkhAn8Q7nGgZbVaAKcXjzsfumXQfZRcj6QJ9LHcJ6ft5SMxQ2PFS5ioFy+FxKu6GPU
+ cNBfTs+er73jsOkx3TtY1gy5+hoiQ235jMa8kkfQjU87ISXCT+ZqsvDTBvfcYB7quw
+ 9LS6WccB3TzZ8RXvU5gUjTPoXtQ7HEu/iKVQeSUhFLTy4AEqP7jVOhjJMT7iv9JFcI
+ /M42clRdfDQqTQB+r3VWe1rzrC6TQpSLwvar4GyfiAz+ZOayV9sYnA8IHzacyPLQkC
+ L2bf1jRp4tBDw==
+From: Robert Beckett <bob.beckett@collabora.com>
+To: dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Date: Wed, 13 Jul 2022 14:38:10 +0100
+Message-Id: <20220713133818.3699604-1-bob.beckett@collabora.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220713130209.2573233-1-priyanka.dandamudi@intel.com>
-References: <20220713130209.2573233-1-priyanka.dandamudi@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 2/2] drm/i915: Add lmem_bar_size modparam
+Subject: [Intel-gfx] [PATCH v4 0/8] drm/i915: ttm for internal
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,110 +52,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ kernel@collabora.com, Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Priyanka Dandamudi <priyanka.dandamudi@intel.com>
+This series refactors i915's internal buffer backend to use ttm.
+It uses ttm's pool allocator to allocate volatile pages in place of the
+old code which rolled its own via alloc_pages.
+This is continuing progress to align all backends on using ttm.
 
-For testing purposes, support forcing the lmem_bar_size through a new
-modparam. In CI we only have a limited number of configurations for DG2,
-but we still need to be reasonably sure we get a usable device (also
-verifying we report the correct values for things like
-probed_cpu_visible_size etc) with all the potential lmem_bar sizes that
-we might expect see in the wild.
+v2:	- commit message improvements to add detail
+	- fix i915_ttm_shrink to purge !is_shmem volatile buffers
+	- limit ttm pool allocator to using dma32 on i965G[M]
+	- fix mman selftest to always use smem buffers
+	- create new internal memory region
+	- make internal backend allocate from internal region
+	- Fixed various issues with tests and i915 ttm usage as a result
+	  of supporting regions other than lmem via ttm.
 
-v2: Update commit message and a minor modification.(Matt)
+v3:	- limit i915 ttm default cache_level selection to only trust
+	  HAS_SNOOP on DGFX.
 
-v3: Optimised lmem bar size code and modified code to resize
-bar maximum upto lmem_size instead of maximum supported size.(Nirmoy)
+v4:	- rebase to drm-tip and handle conflicts
 
-v4: Optimised lmem bar size code.(Nirmoy)
+Robert Beckett (8):
+  drm/i915/ttm: dont trample cache_level overrides during ttm move
+  drm/i915: limit ttm to dma32 for i965G[M]
+  drm/i915/ttm: only trust snooping for dgfx when deciding default
+    cache_level
+  drm/i915: add gen6 ppgtt dummy creation function
+  drm/i915: setup ggtt scratch page after memory regions
+  drm/i915: allow volatile buffers to use ttm pool allocator
+  drm/i915/gem: further fix mman selftest
+  drm/i915: internal buffers use ttm backend
 
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Nirmoy Das <nirmoy.das@intel.com>
+ drivers/gpu/drm/i915/gem/i915_gem_internal.c  | 187 +-----------------
+ drivers/gpu/drm/i915/gem/i915_gem_internal.h  |   5 -
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |   1 +
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |   1 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |   8 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  13 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |  17 +-
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c          |  43 +++-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          |  20 +-
+ drivers/gpu/drm/i915/gt/intel_gtt.h           |   1 +
+ drivers/gpu/drm/i915/i915_driver.c            |  16 +-
+ drivers/gpu/drm/i915/i915_pci.c               |   4 +-
+ drivers/gpu/drm/i915/intel_memory_region.c    |   8 +-
+ drivers/gpu/drm/i915/intel_memory_region.h    |   2 +
+ drivers/gpu/drm/i915/intel_region_ttm.c       |   7 +-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |   2 +-
+ 16 files changed, 114 insertions(+), 221 deletions(-)
 
-Signed-off-by: Priyanka Dandamudi <priyanka.dandamudi@intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_region_lmem.c | 34 ++++++++++++++++++---
- drivers/gpu/drm/i915/i915_params.c          |  2 ++
- drivers/gpu/drm/i915/i915_params.h          |  1 +
- 3 files changed, 32 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index 72491ba9e72f..5ee6982248d4 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -51,15 +51,39 @@ static void i915_resize_lmem_bar(struct drm_i915_private *i915, resource_size_t
- 	struct pci_bus *root = pdev->bus;
- 	struct resource *root_res;
- 	resource_size_t rebar_size;
-+	resource_size_t current_size;
- 	u32 pci_cmd;
- 	int i;
- 
--	rebar_size = roundup_pow_of_two(pci_resource_len(pdev, LMEM_BAR_NUM));
-+	current_size = roundup_pow_of_two(pci_resource_len(pdev, LMEM_BAR_NUM));
- 
--	if (rebar_size != roundup_pow_of_two(lmem_size))
--		rebar_size = lmem_size;
--	else
--		return;
-+	if (i915->params.lmem_bar_size) {
-+		u32 bar_sizes;
-+
-+		rebar_size = i915->params.lmem_bar_size *
-+			(resource_size_t)SZ_1M;
-+		bar_sizes = pci_rebar_get_possible_sizes(pdev,
-+							 LMEM_BAR_NUM);
-+
-+		if (rebar_size == current_size)
-+			return;
-+
-+		if (!(bar_sizes & BIT(pci_rebar_bytes_to_size(rebar_size))) ||
-+		    rebar_size >= roundup_pow_of_two(lmem_size)) {
-+			rebar_size = lmem_size;
-+
-+			drm_info(&i915->drm,
-+				 "Given bar size is not within supported size,setting it to default: %llu\n",
-+				 (u64)lmem_size >> 20);
-+		}
-+	} else {
-+		rebar_size = current_size;
-+
-+		if (rebar_size != roundup_pow_of_two(lmem_size))
-+			rebar_size = lmem_size;
-+		else
-+			return;
-+	}
- 
- 	/* Find out if root bus contains 64bit memory addressing */
- 	while (root->parent)
-diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index 701fbc98afa0..6fc475a5db61 100644
---- a/drivers/gpu/drm/i915/i915_params.c
-+++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -204,6 +204,8 @@ i915_param_named_unsafe(request_timeout_ms, uint, 0600,
- 
- i915_param_named_unsafe(lmem_size, uint, 0400,
- 			"Set the lmem size(in MiB) for each region. (default: 0, all memory)");
-+i915_param_named_unsafe(lmem_bar_size, uint, 0400,
-+			"Set the lmem bar size(in MiB).");
- 
- static __always_inline void _print_param(struct drm_printer *p,
- 					 const char *name,
-diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index b5e7ea45d191..2733cb6cfe09 100644
---- a/drivers/gpu/drm/i915/i915_params.h
-+++ b/drivers/gpu/drm/i915/i915_params.h
-@@ -74,6 +74,7 @@ struct drm_printer;
- 	param(char *, force_probe, CONFIG_DRM_I915_FORCE_PROBE, 0400) \
- 	param(unsigned int, request_timeout_ms, CONFIG_DRM_I915_REQUEST_TIMEOUT, CONFIG_DRM_I915_REQUEST_TIMEOUT ? 0600 : 0) \
- 	param(unsigned int, lmem_size, 0, 0400) \
-+	param(unsigned int, lmem_bar_size, 0, 0400) \
- 	/* leave bools at the end to not create holes */ \
- 	param(bool, enable_hangcheck, true, 0600) \
- 	param(bool, load_detect_test, false, 0600) \
 -- 
-2.27.0
+2.25.1
 
