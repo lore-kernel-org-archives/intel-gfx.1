@@ -4,89 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0967EC43334
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 23:05:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4543C433EF
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 23:09:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3018A10F986;
-	Thu, 14 Jul 2022 23:05:15 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3777F10F986
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 23:05:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1657839912;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=V3eV0HtQIeNgwSw4KYhB/lbHU6rdtwImxed2P/gkI6w=;
- b=b7GrAY1bxudQTeTRN2YoYJQn2W7LM6pl8dsYsu1DZsa1mY9MSImMjIg0shNc2+K/T7YKsz
- B6yqCdvzqYYW5gOL/yAbm0qXmiK53lmC6L+n8Z2VfVALr5qX0Fn44SHDghF24EXfROvCoG
- d6dSE01owBWB2d/Pt7WiZt6zYLgAiRs=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-528-FchOCgeaM3as5AKJ0g2vrQ-1; Thu, 14 Jul 2022 17:04:53 -0400
-X-MC-Unique: FchOCgeaM3as5AKJ0g2vrQ-1
-Received: by mail-qk1-f197.google.com with SMTP id
- l15-20020a05620a28cf00b006b46997c070so2012383qkp.20
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Jul 2022 14:04:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDD0C10FF94;
+	Thu, 14 Jul 2022 23:09:05 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDED710FF25;
+ Thu, 14 Jul 2022 23:09:04 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id y4so4272766edc.4;
+ Thu, 14 Jul 2022 16:09:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=usiaDZ3+mcCOdGF0hiI8uf9gPAbOUG80jqOg1kR3mEw=;
+ b=p7d2V2uQhBGsRRWHuwlCWx+fK13U3Kazk626LDZZUGxSW0NRD7ZQ0Qr/Ne+8GDR3JX
+ jZgkHCZaH7dcr637RaQgA0ccBqIKDJGLqZJ2lLszox/oSW15Ppy5XEtL/MxAGPZE+n7k
+ X8sF+uYvYWua/GEJA7yOQ/9us8em0dZhj2aoOpGuOXPeRWr3YrNshYyiO+7TGFJNc+gA
+ inSn3m6XgpoXQGbwZvHS/AQoqaWBcmrzt0CrcW/1037FtKEBozaVs3bsX/+suBrYCiwQ
+ YawrONGQQ8MUij5J63c4YIf59AXUW0XeFpA+8DQxM1ZCr7kjwvq0Q70iP5R26T8JAQrB
+ KTQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=V3eV0HtQIeNgwSw4KYhB/lbHU6rdtwImxed2P/gkI6w=;
- b=pBce+apZGFvBJktVv80k48eAp3ZUVLWgMq++bTcLWp5q67mUr0i+e/8PWVZG7AYbF1
- bohjOFYloBsmyKmv14z8N1dUxsrC07D5hQguZSp9hQWLXtGz2850JZgPTc2AuUr2UOx4
- XKH0NiZxENZ6vCoZYHbknf5PJ/hmM/DuJVtlnU5pkeeGzNBKwspr/DO3d5br5qVK6MZ2
- 85pEZxaCiLqq3BVuvGAXps7qaeiaq3yXZEYpfcmO99ufoH7KaNWyEIB3nQ2NdD936yPK
- P4NPaNxamAc1anj5xpSw/usF0J59Yo3DGna8SiX+y5yDxIgXqXVXoE3W+wWW5J1kmab0
- u/Hw==
-X-Gm-Message-State: AJIora9B0uyw04o+NZ1k9rHBlC/XsP6AhdDlZPeO9NB9r5yICjb9GhXR
- SwF9iUJITo1qhVUOxnGFI5Q90fifeMv7dhU0aIxp+9hayYyasDAuIIzeO8uMz9uscSAUlAtLp2L
- XSEP7vZI5TnEkhCKuMtg3etNUgZ7O
-X-Received: by 2002:a05:622a:58d:b0:317:ca0d:91a5 with SMTP id
- c13-20020a05622a058d00b00317ca0d91a5mr9655876qtb.601.1657832692141; 
- Thu, 14 Jul 2022 14:04:52 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1sbx+zK8/mPtD0D+YyNPAbK5LK8NiDtBFPc01KiEA2vmrSBhdBxGvlsaL94Yg7djHKtma5eHQ==
-X-Received: by 2002:a05:622a:58d:b0:317:ca0d:91a5 with SMTP id
- c13-20020a05622a058d00b00317ca0d91a5mr9655836qtb.601.1657832691869; 
- Thu, 14 Jul 2022 14:04:51 -0700 (PDT)
-Received: from [192.168.8.138] ([141.154.49.182])
- by smtp.gmail.com with ESMTPSA id
- k10-20020ac8474a000000b00304bc2acc25sm2306978qtp.6.2022.07.14.14.04.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Jul 2022 14:04:50 -0700 (PDT)
-Message-ID: <e99fa5b8ff05cbfe9e8db8c551acfed86d23f69e.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, 
- Karol Herbst <kherbst@redhat.com>, Daniel Dadap <ddadap@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, "Pan,  Xinhui" <Xinhui.Pan@amd.com>, "Rafael J
- . Wysocki" <rafael@kernel.org>, Mika Westerberg
- <mika.westerberg@linux.intel.com>, Lukas Wunner <lukas@wunner.de>, Mark
- Gross <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
-Date: Thu, 14 Jul 2022 17:04:49 -0400
-In-Reply-To: <20220712193910.439171-6-hdegoede@redhat.com>
-References: <20220712193910.439171-1-hdegoede@redhat.com>
- <20220712193910.439171-6-hdegoede@redhat.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=usiaDZ3+mcCOdGF0hiI8uf9gPAbOUG80jqOg1kR3mEw=;
+ b=blSIFcz6qR8zzUvIZPeZj2Kx8Jv2yvSZflGvFXmNtQEUQnPnz8XMQX4+nHgEcY9Qlv
+ Btjui3oExINFm4B3lzu6Y70GYkp0nosb2HjJCMjJj41D5qdwAZfXUnfYBzhtaaAi+Y+Z
+ t5CDTBlNM1SKju3YKcx00db5KCxjomV53sTaBiX6DfE8Umht3PoNJFh6pmM7lj1KuHpD
+ ZLuos8vxpprIkMQ97ZueNN0u2Ucm7ZNeYstG6zn2bzHDuDoeriGyxkxn/6ZFANIQ4X7F
+ yaVftSRLGvfeyPr18Bz5nUg3SeZNUMIpjG2bE5lnIxljieCa1VqAwE4YHQIg59Ws1nOJ
+ qDWg==
+X-Gm-Message-State: AJIora/zNeW4LaV8kd8WOf3LmyKYh/mS0Ij4BRiGmWuTXcj8Dc6VOzjg
+ kx9QnryLidlyIi0NAqgCSG2ElYN1aRlH01BP6g2T8XFV
+X-Google-Smtp-Source: AGRyM1uXlpXAN2IicBnnzFfzBcflF8VFT6ZA4YYUCPWYJaD2Tmxc9WAttOCWml6ZHj8EMsyYzWvVXrAcBrfxLdnTcEg=
+X-Received: by 2002:a05:6402:414c:b0:435:1e2a:2c7f with SMTP id
+ x12-20020a056402414c00b004351e2a2c7fmr15404449eda.132.1657840143181; Thu, 14
+ Jul 2022 16:09:03 -0700 (PDT)
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+References: <20220412225955.1802543-1-John.C.Harrison@Intel.com>
+ <20220412225955.1802543-2-John.C.Harrison@Intel.com>
+ <Yli4/8OIbjyRaQAK@mdroper-desk1.amr.corp.intel.com>
+In-Reply-To: <Yli4/8OIbjyRaQAK@mdroper-desk1.amr.corp.intel.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Fri, 15 Jul 2022 09:08:51 +1000
+Message-ID: <CAPM=9txdca1VnRpp-oNLXpBc2UWq3=ceeim5+Gw4N9tAriRY6A@mail.gmail.com>
+To: Matt Roper <matthew.d.roper@intel.com>, 
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v2 05/29] drm/nouveau: Don't register
- backlight when another backlight should be used
+Subject: Re: [Intel-gfx] [PATCH 1/1] drm/i915/guc: Update to GuC version
+ 70.1.1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,63 +67,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Len Brown <lenb@kernel.org>
+Cc: Intel Graphics Development <Intel-GFX@lists.freedesktop.org>,
+ dri-devel <DRI-Devel@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+On Fri, 15 Apr 2022 at 10:15, Matt Roper <matthew.d.roper@intel.com> wrote:
+>
+> On Tue, Apr 12, 2022 at 03:59:55PM -0700, John.C.Harrison@Intel.com wrote:
+> > From: John Harrison <John.C.Harrison@Intel.com>
+> >
+> > The latest GuC firmware drops the context descriptor pool in favour of
+> > passing all creation data in the create H2G. It also greatly simplifies
+> > the work queue and removes the process descriptor used for multi-LRC
+> > submission. So, remove all mention of LRC and process descriptors and
+> > update the registration code accordingly.
+> >
+> > Unfortunately, the new API also removes the ability to set default
+> > values for the scheduling policies at context registration time.
+> > Instead, a follow up H2G must be sent. The individual scheduling
+> > policy update H2G commands are also dropped in favour of a single KLV
+> > based H2G. So, change the update wrappers accordingly and call this
+> > during context registration..
+> >
+> > Of course, this second H2G per registration might fail due to being
+> > backed up. The registration code has a complicated state machine to
+> > cope with the actual registration call failing. However, if that works
+> > then there is no support for unwinding if a further call should fail.
+> > Unwinding would require sending a H2G to de-register - but that can't
+> > be done because the CTB is already backed up.
+> >
+> > So instead, add a new flag to say whether the context has a pending
+> > policy update. This is set if the policy H2G fails at registration
+> > time. The submission code checks for this flag and retries the policy
+> > update if set. If that call fails, the submission path early exists
+> > with a retry error. This is something that is already supported for
+> > other reasons.
+> >
+> > Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+> > Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+>
+> Applied to drm-intel-gt-next.  Thanks for the patch and review.
+>
 
-You also have permission to push this to drm-misc-whatever
+(cc'ing Linus and danvet, as a headsup, there is also a phoronix
+article where this was discovered).
 
-On Tue, 2022-07-12 at 21:38 +0200, Hans de Goede wrote:
-> Before this commit when we want userspace to use the acpi_video backlight
-> device we register both the GPU's native backlight device and acpi_video's
-> firmware acpi_video# backlight device. This relies on userspace preferring
-> firmware type backlight devices over native ones.
-> 
-> Registering 2 backlight devices for a single display really is
-> undesirable, don't register the GPU's native backlight device when
-> another backlight device should be used.
-> 
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-> ---
->  drivers/gpu/drm/nouveau/nouveau_backlight.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-> b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-> index a2141d3d9b1d..91c504c7b82c 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-> @@ -34,6 +34,8 @@
->  #include <linux/backlight.h>
->  #include <linux/idr.h>
->  
-> +#include <acpi/video.h>
-> +
->  #include "nouveau_drv.h"
->  #include "nouveau_reg.h"
->  #include "nouveau_encoder.h"
-> @@ -405,6 +407,11 @@ nouveau_backlight_init(struct drm_connector *connector)
->                 goto fail_alloc;
->         }
->  
-> +       if (!acpi_video_backlight_use_native()) {
-> +               NV_INFO(drm, "Skipping nv_backlight registration\n");
-> +               goto fail_alloc;
-> +       }
-> +
->         if (!nouveau_get_backlight_name(backlight_name, bl)) {
->                 NV_ERROR(drm, "Failed to retrieve a unique name for the
-> backlight interface\n");
->                 goto fail_alloc;
+Okay WTF.
 
--- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+This is in no way acceptable. This needs to be fixed in 5.19-rc ASAP.
 
+Once hardware is released and we remove the gate flag by default, you
+cannot just bump firmware versions blindly.
+
+The kernel needs to retain compatibility with all released firmwares
+since a device was declared supported.
+
+This needs to be reverted, and then 70 should be introduced with a
+fallback to 69 versions.
+
+Very disappointing, I expect this to get dealt with v.quickly.
+
+Dave.
