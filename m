@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16AEEC43334
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 12:07:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 690FAC43334
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Jul 2022 12:07:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC43F112A2D;
-	Thu, 14 Jul 2022 12:06:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B464E1129EE;
+	Thu, 14 Jul 2022 12:06:46 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CDF3112917;
- Thu, 14 Jul 2022 12:06:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DEBA112983;
+ Thu, 14 Jul 2022 12:06:34 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CC79161E98;
- Thu, 14 Jul 2022 12:06:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22ACC36AEC;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 048DD61E9B;
+ Thu, 14 Jul 2022 12:06:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D36C36AE3;
  Thu, 14 Jul 2022 12:06:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657800390;
- bh=WzYpG/QH8bwVkozSfvAs7xeKWEh19nsF2DzB8oRAbEA=;
+ s=k20201202; t=1657800391;
+ bh=yt90ppBxO/WNPx21IesnAkxXE1xMFUHh69ZWkMm8KMk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nhY8TlS0Jl1fj9ie5IEosRZiC9uYm/AUAvDcnMMdN7bKB6yZPbU1/vKW5FQjCal69
- y6LXkbWFDtVCkZQ3h7mLCvp9x/iyNI3XK5ZorK+aT79zC4yud0/QfOQTpykdjlwV43
- odnVFzYiWAHO6dprbxVfz24igbMQOl1CxKrZwjaQl1+C2nDfs5PX1p2TrT+P2LmZLT
- 5VP28Xok+/bZR9Li2oEhudFHq0zF8GyPovBy/wKkijHUVmMsyltl7vcywTQ0bLwMuB
- uaoJY7gEGM/CokUGlDSVMWjZHOiHyAkJTZmu/z8767TjWJ9SG6O01Lb9YuHUOFzNhu
- bdcx8qAjLpSKQ==
+ b=slRWeGHd9aN72f8GJZQMbd/Xm+p8HW3AHqRBx3GB7Imi1CPL/fYef3pioS+Fc7cXd
+ v3bv3gfACGSc4rXIRc89jzdXyt4EM5BtOXfATgO936C5HvgXWJadpjBvoM8NKETmwO
+ HPifawyR4foRJNr+FeyLQfEs1BYqOZW3wgJGLYibN+wmvN79x3ROwyF9B6Z5IIqilp
+ Fyk9r5VzUcY3TeABBUOgWS/Eae6C1FChXSvn2q2o4gcGrPZJqU8qaH0jizqXHx6GxL
+ bwdVaij1tratfSLT2pdFDkjs7Q9X4GRSz2kRVPD9LPbpe3gt1e8N0I5W4ibwG57nM+
+ Kg/FME30aEoVQ==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oBxbw-0059tL-5M;
+ (envelope-from <mchehab@kernel.org>) id 1oBxbw-0059t6-2O;
  Thu, 14 Jul 2022 13:06:28 +0100
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Thu, 14 Jul 2022 13:06:22 +0100
-Message-Id: <56ae0b7a5e823736a404dcd709fbf4a1e384ef4d.1657800199.git.mchehab@kernel.org>
+Date: Thu, 14 Jul 2022 13:06:18 +0100
+Message-Id: <eec639a0d38970d4ee621990eefed81e52fff309.1657800199.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1657800199.git.mchehab@kernel.org>
 References: <cover.1657800199.git.mchehab@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 17/21] drm/i915: Add generic interface for
- tlb invalidation for XeHP
+Subject: [Intel-gfx] [PATCH v2 13/21] drm/i915: Invalidate the TLBs on each
+ GT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,20 +57,23 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- Chris Wilson <chris.p.wilson@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Michael Cheng <michael.cheng@intel.com>,
+ Chris Wilson <chris.p.wilson@intel.com>, Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+From: Chris Wilson <chris.p.wilson@intel.com>
 
-Add an interface for GuC TLB actions, supporting both selective and
-full TLB invalidations. After this change, when GuC is enabled,
-tlb invalidations use GuC ct. Otherwise, use mmio interface.
+With multi-GT devices, the object may have been bound on each GT.
+Invalidate the TLBs across all GT before releasing the pages
+back to the system.
 
-Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Cc: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
 Cc: Fei Yang <fei.yang@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
@@ -77,149 +81,222 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v2 00/21] at: https://lore.kernel.org/all/cover.1657800199.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gt/intel_gt_regs.h |  8 +++
- drivers/gpu/drm/i915/gt/intel_tlb.c     | 78 ++++++++++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_tlb.h     |  1 +
- 3 files changed, 86 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object_types.h |  4 +++-
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c        | 13 ++++++++-----
+ drivers/gpu/drm/i915/gt/intel_engine.h           |  1 +
+ drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.h   |  3 ++-
+ drivers/gpu/drm/i915/gt/intel_gt_defines.h       | 11 +++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h         |  4 +++-
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c            |  4 ++--
+ drivers/gpu/drm/i915/i915_drv.h                  |  1 -
+ drivers/gpu/drm/i915/i915_vma.c                  | 14 +++++++++++---
+ drivers/gpu/drm/i915/i915_vma.h                  |  2 +-
+ 10 files changed, 42 insertions(+), 15 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_defines.h
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 60d6eb5f245b..52508a9c23e5 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1054,6 +1054,14 @@
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 9f6b14ec189a..3c1d0b750a67 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -17,6 +17,8 @@
+ #include "i915_selftest.h"
+ #include "i915_vma_resource.h"
  
- #define GEN12_GAM_DONE				_MMIO(0xcf68)
- 
-+#define XEHP_TLB_INV_DESC0			_MMIO(0xcf7c)
-+#define   XEHP_TLB_INV_DESC0_ADDR_LO		REG_GENMASK(31, 12)
-+#define   XEHP_TLB_INV_DESC0_ADDR_MASK		REG_GENMASK(8, 3)
-+#define   XEHP_TLB_INV_DESC0_G			REG_GENMASK(2, 1)
-+#define   XEHP_TLB_INV_DESC0_VALID		REG_BIT(0)
-+#define XEHP_TLB_INV_DESC1			_MMIO(0xcf80)
-+#define   XEHP_TLB_INV_DESC0_ADDR_HI		REG_GENMASK(31, 0)
++#include "gt/intel_gt_defines.h"
 +
- #define GEN7_HALF_SLICE_CHICKEN1		_MMIO(0xe100) /* IVB GT1 + VLV */
- #define   GEN7_MAX_PS_THREAD_DEP		(8 << 12)
- #define   GEN7_SINGLE_SUBSCAN_DISPATCH_ENABLE	(1 << 10)
-diff --git a/drivers/gpu/drm/i915/gt/intel_tlb.c b/drivers/gpu/drm/i915/gt/intel_tlb.c
-index af8cae979489..15ed83226676 100644
---- a/drivers/gpu/drm/i915/gt/intel_tlb.c
-+++ b/drivers/gpu/drm/i915/gt/intel_tlb.c
-@@ -10,6 +10,7 @@
- #include "intel_gt_pm.h"
- #include "intel_gt_regs.h"
- #include "intel_tlb.h"
-+#include "uc/intel_guc.h"
+ struct drm_i915_gem_object;
+ struct intel_fronbuffer;
+ struct intel_memory_region;
+@@ -616,7 +618,7 @@ struct drm_i915_gem_object {
+ 		 */
+ 		bool dirty:1;
  
- struct reg_and_bit {
- 	i915_reg_t reg;
-@@ -159,11 +160,16 @@ void intel_gt_invalidate_tlb_full(struct intel_gt *gt, u32 seqno)
- 		return;
+-		u32 tlb;
++		u32 tlb[I915_MAX_GT];
+ 	} mm;
  
- 	with_intel_gt_pm_if_awake(gt, wakeref) {
-+		struct intel_guc *guc = &gt->uc.guc;
-+
- 		mutex_lock(&gt->tlb.invalidate_lock);
- 		if (tlb_seqno_passed(gt, seqno))
- 			goto unlock;
+ 	struct {
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 1cd76cc5d9f3..4a6a2f2e8148 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -194,13 +194,16 @@ static void unmap_object(struct drm_i915_gem_object *obj, void *ptr)
+ static void flush_tlb_invalidate(struct drm_i915_gem_object *obj)
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+-	struct intel_gt *gt = to_gt(i915);
++	struct intel_gt *gt;
++	int id;
  
--		mmio_invalidate_full(gt);
-+		if (INTEL_GUC_SUPPORTS_TLB_INVALIDATION(guc))
-+			intel_guc_invalidate_tlb_full(guc, INTEL_GUC_TLB_INVAL_MODE_HEAVY);
-+		else
-+			mmio_invalidate_full(gt);
+-	if (!obj->mm.tlb)
+-		return;
++	for_each_gt(gt, i915, id) {
++		if (!obj->mm.tlb[id])
++			continue;
  
- 		write_seqcount_invalidate(&gt->tlb.seqno);
- unlock:
-@@ -171,6 +177,76 @@ void intel_gt_invalidate_tlb_full(struct intel_gt *gt, u32 seqno)
- 	}
+-	intel_gt_invalidate_tlb_full(gt, obj->mm.tlb);
+-	obj->mm.tlb = 0;
++		intel_gt_invalidate_tlb_full(gt, obj->mm.tlb[id]);
++		obj->mm.tlb[id] = 0;
++	}
  }
  
-+static bool mmio_invalidate_range(struct intel_gt *gt, u64 start, u64 length)
-+{
-+	u32 address_mask = (ilog2(length) - ilog2(I915_GTT_PAGE_SIZE_4K));
-+	u64 vm_total = BIT_ULL(INTEL_INFO(gt->i915)->ppgtt_size);
-+	intel_wakeref_t wakeref;
-+	u32 dw0, dw1;
-+	int err;
-+
-+	GEM_BUG_ON(!IS_ALIGNED(start, I915_GTT_PAGE_SIZE_4K));
-+	GEM_BUG_ON(!IS_ALIGNED(length, I915_GTT_PAGE_SIZE_4K));
-+	GEM_BUG_ON(range_overflows(start, length, vm_total));
-+
-+	dw0 = FIELD_PREP(XEHP_TLB_INV_DESC0_ADDR_LO, (lower_32_bits(start) >> 12)) |
-+		FIELD_PREP(XEHP_TLB_INV_DESC0_ADDR_MASK, address_mask) |
-+		FIELD_PREP(XEHP_TLB_INV_DESC0_G, 0x3) |
-+		FIELD_PREP(XEHP_TLB_INV_DESC0_VALID, 0x1);
-+	dw1 = upper_32_bits(start);
-+
-+	err = 0;
-+	with_intel_gt_pm_if_awake(gt, wakeref) {
-+		struct intel_uncore *uncore = gt->uncore;
-+
-+		intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
-+
-+		mutex_lock(&gt->tlb.invalidate_lock);
-+		intel_uncore_write_fw(uncore, XEHP_TLB_INV_DESC1, dw1);
-+		intel_uncore_write_fw(uncore, XEHP_TLB_INV_DESC0, dw0);
-+		err = __intel_wait_for_register_fw(uncore,
-+						   XEHP_TLB_INV_DESC0,
-+						   XEHP_TLB_INV_DESC0_VALID,
-+						   0, 100, 10, NULL);
-+		mutex_unlock(&gt->tlb.invalidate_lock);
-+
-+		intel_uncore_forcewake_put_delayed(uncore, FORCEWAKE_ALL);
-+	}
-+
-+	if (err)
-+		drm_err_ratelimited(&gt->i915->drm,
-+				    "TLB invalidation response timed out\n");
-+
-+	return err == 0;
-+}
-+
-+bool intel_gt_invalidate_tlb_range(struct intel_gt *gt,
-+				   u64 start, u64 length)
-+{
-+	struct intel_guc *guc = &gt->uc.guc;
-+	intel_wakeref_t wakeref;
-+
-+	if (intel_gt_is_wedged(gt))
-+		return true;
-+
-+	if (!INTEL_GUC_SUPPORTS_TLB_INVALIDATION_SELECTIVE(guc))
-+		return false;
-+
-+	/*XXX: We are seeing timeouts on guc based tlb invalidations on XEHPSDV.
-+	 * Until we have a fix, use mmio
-+	 */
-+	if (IS_XEHPSDV(gt->i915))
-+		return mmio_invalidate_range(gt, start, length);
-+
-+	with_intel_gt_pm_if_awake(gt, wakeref) {
-+		intel_guc_invalidate_tlb_page_selective(guc,
-+							INTEL_GUC_TLB_INVAL_MODE_HEAVY,
-+							start, length);
-+	}
-+
-+	return true;
-+}
-+
- void intel_gt_init_tlb(struct intel_gt *gt)
- {
- 	mutex_init(&gt->tlb.invalidate_lock);
-diff --git a/drivers/gpu/drm/i915/gt/intel_tlb.h b/drivers/gpu/drm/i915/gt/intel_tlb.h
-index 46ce25bf5afe..32cc79b1d8a4 100644
---- a/drivers/gpu/drm/i915/gt/intel_tlb.h
-+++ b/drivers/gpu/drm/i915/gt/intel_tlb.h
-@@ -12,6 +12,7 @@
+ struct sg_table *
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
+index 04e435bce79b..fe1dc55bf8f7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine.h
+@@ -18,6 +18,7 @@
  #include "intel_gt_types.h"
+ #include "intel_timeline.h"
+ #include "intel_workarounds.h"
++#include "uc/intel_guc_submission.h"
  
- void intel_gt_invalidate_tlb_full(struct intel_gt *gt, u32 seqno);
-+bool intel_gt_invalidate_tlb_range(struct intel_gt *gt, u64 start, u64 length);
+ struct drm_printer;
+ struct intel_context;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.h b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.h
+index 487b8a5520f1..8d41cf0c937a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.h
+@@ -11,8 +11,9 @@
+ #include "i915_active.h"
+ #include "intel_gt_buffer_pool_types.h"
  
- void intel_gt_init_tlb(struct intel_gt *gt);
- void intel_gt_fini_tlb(struct intel_gt *gt);
+-struct intel_gt;
++enum i915_map_type;
+ struct i915_request;
++struct intel_gt;
+ 
+ struct intel_gt_buffer_pool_node *
+ intel_gt_get_buffer_pool(struct intel_gt *gt, size_t size,
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_defines.h b/drivers/gpu/drm/i915/gt/intel_gt_defines.h
+new file mode 100644
+index 000000000000..7c711726d663
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/intel_gt_defines.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2019 Intel Corporation
++ */
++
++#ifndef __INTEL_GT_DEFINES__
++#define __INTEL_GT_DEFINES__
++
++#define I915_MAX_GT 4
++
++#endif
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index 3804a583382b..b857c3972251 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -19,7 +19,6 @@
+ #include "uc/intel_uc.h"
+ #include "intel_gsc.h"
+ 
+-#include "i915_vma.h"
+ #include "intel_engine_types.h"
+ #include "intel_gt_buffer_pool_types.h"
+ #include "intel_hwconfig.h"
+@@ -31,8 +30,11 @@
+ #include "intel_wakeref.h"
+ #include "pxp/intel_pxp_types.h"
+ 
++#include "intel_gt_defines.h"
++
+ struct drm_i915_private;
+ struct i915_ggtt;
++struct i915_vma;
+ struct intel_engine_cs;
+ struct intel_uncore;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+index 2da6c82a8bd2..f764d250e929 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+@@ -8,6 +8,7 @@
+ #include "gem/i915_gem_lmem.h"
+ 
+ #include "i915_trace.h"
++#include "intel_gt.h"
+ #include "intel_gtt.h"
+ #include "gen6_ppgtt.h"
+ #include "gen8_ppgtt.h"
+@@ -210,8 +211,7 @@ void ppgtt_unbind_vma(struct i915_address_space *vm,
+ 		return;
+ 
+ 	vm->clear_range(vm, vma_res->start, vma_res->vma_size);
+-	if (vma_res->tlb)
+-		vma_invalidate_tlb(vm, *vma_res->tlb);
++	vma_invalidate_tlb(vm, vma_res->tlb);
+ }
+ 
+ static unsigned long pd_count(u64 size, int shift)
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index d25647be25d1..f1f70257dbe0 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -711,7 +711,6 @@ struct drm_i915_private {
+ 	/*
+ 	 * i915->gt[0] == &i915->gt0
+ 	 */
+-#define I915_MAX_GT 4
+ 	struct intel_gt *gt[I915_MAX_GT];
+ 
+ 	struct kobject *sysfs_gt;
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index fe947d1456d5..5edc745dcc51 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -1309,8 +1309,14 @@ I915_SELFTEST_EXPORT int i915_vma_get_pages(struct i915_vma *vma)
+ 	return err;
+ }
+ 
+-void vma_invalidate_tlb(struct i915_address_space *vm, u32 tlb)
++void vma_invalidate_tlb(struct i915_address_space *vm, u32 *tlb)
+ {
++	struct intel_gt *gt;
++	int id;
++
++	if (!tlb)
++		return;
++
+ 	/*
+ 	 * Before we release the pages that were bound by this vma, we
+ 	 * must invalidate all the TLBs that may still have a reference
+@@ -1319,7 +1325,9 @@ void vma_invalidate_tlb(struct i915_address_space *vm, u32 tlb)
+ 	 * the most recent TLB invalidation seqno, and if we have not yet
+ 	 * flushed the TLBs upon release, perform a full invalidation.
+ 	 */
+-	WRITE_ONCE(tlb, intel_gt_next_invalidate_tlb_full(vm->gt));
++	for_each_gt(gt, vm->i915, id)
++		WRITE_ONCE(tlb[id],
++			   intel_gt_next_invalidate_tlb_full(vm->gt));
+ }
+ 
+ static void __vma_put_pages(struct i915_vma *vma, unsigned int count)
+@@ -1955,7 +1963,7 @@ struct dma_fence *__i915_vma_evict(struct i915_vma *vma, bool async)
+ 
+ 	if (async)
+ 		unbind_fence = i915_vma_resource_unbind(vma_res,
+-							&vma->obj->mm.tlb);
++							vma->obj->mm.tlb);
+ 	else
+ 		unbind_fence = i915_vma_resource_unbind(vma_res, NULL);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 5048eed536da..33a58f605d75 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -213,7 +213,7 @@ bool i915_vma_misplaced(const struct i915_vma *vma,
+ 			u64 size, u64 alignment, u64 flags);
+ void __i915_vma_set_map_and_fenceable(struct i915_vma *vma);
+ void i915_vma_revoke_mmap(struct i915_vma *vma);
+-void vma_invalidate_tlb(struct i915_address_space *vm, u32 tlb);
++void vma_invalidate_tlb(struct i915_address_space *vm, u32 *tlb);
+ struct dma_fence *__i915_vma_evict(struct i915_vma *vma, bool async);
+ int __i915_vma_unbind(struct i915_vma *vma);
+ int __must_check i915_vma_unbind(struct i915_vma *vma);
 -- 
 2.36.1
 
