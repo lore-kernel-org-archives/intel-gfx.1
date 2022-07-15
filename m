@@ -4,44 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C5EC433EF
-	for <intel-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:41:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2209CC43334
+	for <intel-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42B3210EC8D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B026E1120C0;
 	Sat, 16 Jul 2022 14:36:29 +0000 (UTC)
-X-Greylist: delayed 494 seconds by postgrey-1.36 at gabe;
- Fri, 15 Jul 2022 22:24:30 UTC
-Received: from relay3.hostedemail.com (smtprelay0015.hostedemail.com
- [216.40.44.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 521BB10E153
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 22:24:30 +0000 (UTC)
-Received: from omf13.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay12.hostedemail.com (Postfix) with ESMTP id 358A512095E;
- Fri, 15 Jul 2022 22:16:15 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
- omf13.hostedemail.com (Postfix) with ESMTPA id 01E912000D; 
- Fri, 15 Jul 2022 22:16:05 +0000 (UTC)
-Message-ID: <f6ab40860cd4f8079e6e169c7d6465f211b8dbd3.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>
-Date: Fri, 15 Jul 2022 15:16:05 -0700
-In-Reply-To: <YtHdp6ju3IfjF8Bq@intel.com>
-References: <cover.1657699522.git.mchehab@kernel.org>
- <002a8d51244a70572744de86cacbdae293e7d503.1657699522.git.mchehab@kernel.org>
- <YtHdp6ju3IfjF8Bq@intel.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.1-0ubuntu1 
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB84F10E05A
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 20:21:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657916467; x=1689452467;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=5pc+TiUxY7OghXokOzP+NiMI15i0AeGNMYYarm3GgoM=;
+ b=Nu6U4OpCfXP3fSfAgHcQb84dI+5e3ryITsD51JFlJSCi28JOsydx8lMj
+ caqnexDrjSwmQNav33NIY992FxWxvqOGjKAiM6l1/l2RpvKeyemNDFSC5
+ /k5BQ0B2l3xBExpexVDdWoh5IN13Z5ks5I5e6bfZfrjmegwroUDjpFESi
+ cPWirGqFQ7hwahBYp980sKfklz6eUqjqrnBRKy1VpkmKN3WrFf7xF1EMv
+ /ICRvIqrVCz4BYARsBuQtyxiKTzI1WsPiDuMkukgzWAEZJpiJK3z/CBMg
+ bqkoSeurkOpNX33ZeUU1kfYFq3ZXHshk9UKDd4PSNDfHIqAQmcSpySOze w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10409"; a="268914160"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="268914160"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2022 13:21:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="571661182"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.161])
+ by orsmga006.jf.intel.com with SMTP; 15 Jul 2022 13:21:05 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 15 Jul 2022 23:21:04 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 15 Jul 2022 23:20:39 +0300
+Message-Id: <20220715202044.11153-8-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220715202044.11153-1-ville.syrjala@linux.intel.com>
+References: <20220715202044.11153-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-X-Stat-Signature: 9shq7dagh5qa1dpwkohcwaxcpnds4xbk
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: 01E912000D
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX19aezajI8aTJN8t18DoGrRvtF8w07Xpt2A=
-X-HE-Tag: 1657923365-889008
-Subject: Re: [Intel-gfx] [PATCH v2 24/39] drm/i915: dvo_sil164.c: use SPDX
- header
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 07/12] drm/i915: Document the sets of bits in
+ the driver features block
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,86 +59,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2022-07-15 at 17:35 -0400, Rodrigo Vivi wrote:
-> On Wed, Jul 13, 2022 at 09:12:12AM +0100, Mauro Carvalho Chehab wrote:
-> > This file is licensed with MIT license.	Change its license text
-> > to use SPDX.
-> >=20
-> > Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
->=20
-> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Not exactly the MIT license as it's missing "or copyright holders"
->=20
-> > ---
-> >=20
-> > To avoid mailbombing on a large number of people, only mailing lists we=
-re C/C on the cover.
-> > See [PATCH v2 00/39] at: https://lore.kernel.org/all/cover.1657699522.g=
-it.mchehab@kernel.org/
-> >=20
-> >  drivers/gpu/drm/i915/display/dvo_sil164.c | 32 +++++------------------
-> >  1 file changed, 6 insertions(+), 26 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/i915/display/dvo_sil164.c b/drivers/gpu/dr=
-m/i915/display/dvo_sil164.c
-> > index 0dfa0a0209ff..12974f7c9dc1 100644
-> > --- a/drivers/gpu/drm/i915/display/dvo_sil164.c
-> > +++ b/drivers/gpu/drm/i915/display/dvo_sil164.c
-> > @@ -1,30 +1,10 @@
-> > -/*********************************************************************=
-*****
-> > +// SPDX-License-Identifier: MIT
-> > =20
-> > -Copyright =A9 2006 Dave Airlie
-> > -
-> > -All Rights Reserved.
-> > -
-> > -Permission is hereby granted, free of charge, to any person obtaining =
-a
-> > -copy of this software and associated documentation files (the
-> > -"Software"), to deal in the Software without restriction, including
-> > -without limitation the rights to use, copy, modify, merge, publish,
-> > -distribute, sub license, and/or sell copies of the Software, and to
-> > -permit persons to whom the Software is furnished to do so, subject to
-> > -the following conditions:
-> > -
-> > -The above copyright notice and this permission notice (including the
-> > -next paragraph) shall be included in all copies or substantial portion=
-s
-> > -of the Software.
-> > -
-> > -THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRES=
-S
-> > -OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> > -MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT=
-.
-> > -IN NO EVENT SHALL THE AUTHOR
+Add a few comment documenting the sets of bits in the driver
+features block. Might make it a bit easier to check against
+the spec.
 
-Missing "Authors or copyright holders"
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> > BE LIABLE FOR
-> > -ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRAC=
-T,
-> > -TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-> > -SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-> > -
-> > -**********************************************************************=
-****/
-> > +/*
-> > + * Copyright =A9 2006 Dave Airlie
-> > + *
-> > + * All Rights Reserved.
-> > + */
-> > =20
-> >  #include "intel_display_types.h"
-> >  #include "intel_dvo_dev.h"
-> > --=20
-> > 2.36.1
-> >=20
+diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+index 8bdb533b5304..c04937aa75b2 100644
+--- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
++++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+@@ -542,6 +542,7 @@ struct bdb_psr {
+ #define BDB_DRIVER_FEATURE_INT_SDVO_LVDS	3
+ 
+ struct bdb_driver_features {
++	/* Driver bits */
+ 	u8 boot_dev_algorithm:1;
+ 	u8 block_display_switch:1;
+ 	u8 allow_display_switch:1;
+@@ -556,6 +557,7 @@ struct bdb_driver_features {
+ 	u8 boot_mode_bpp;
+ 	u8 boot_mode_refresh;
+ 
++	/* Extended Driver Bits 1 */
+ 	u16 enable_lfp_primary:1;
+ 	u16 selective_mode_pruning:1;
+ 	u16 dual_frequency:1;
+@@ -571,6 +573,7 @@ struct bdb_driver_features {
+ 	u16 tv_hotplug:1;
+ 	u16 hdmi_config:2;
+ 
++	/* Driver Flags 1 */
+ 	u8 static_display:1;					/* 163+ */
+ 	u8 reserved2:7;
+ 
+@@ -578,8 +581,12 @@ struct bdb_driver_features {
+ 	u16 legacy_crt_max_y;
+ 	u8 legacy_crt_max_refresh;
+ 
++	/* Extended Driver Bits 2 */
+ 	u8 hdmi_termination;
++
+ 	u8 custom_vbt_version;					/* 165+ */
++
++	/* Driver Feature Flags */
+ 	u16 rmpm_enabled:1;					/* 165+ */
+ 	u16 s2ddt_enabled:1;					/* 165+ */
+ 	u16 dpst_enabled:1;					/* 165-227 */
+-- 
+2.35.1
 
