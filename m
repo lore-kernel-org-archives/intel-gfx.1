@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2520CC433EF
-	for <intel-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:39:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1FAC43334
+	for <intel-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:39:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6BDB10FC2A;
-	Sat, 16 Jul 2022 14:36:13 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBF1110E05A
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 20:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3EC610FBEA;
+	Sat, 16 Jul 2022 14:36:12 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53FC410E05A
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 20:21:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657916449; x=1689452449;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=4j28RukCXiEpY8CSrFBgWOqeel2ACwlGyczU3qO4QzI=;
- b=EcC5dUFzYRjsFI3+NDzGpK11iZ5h+FHD0n+2cDmco/BvA1Y9qWR7nSo2
- K3bCHW2lkXObfxYMXocuXJNhTTXRvDvayuPPf1w+Vl8WjURgw3Z72MAwa
- I5jxcwAIxIcT6B9lxsKu4nX3mt3KQ1+JpqI0NyI5k9vF19TpBzyVFgYur
- PqGdatA4t/d8cyqhZWIbgFhXN6hvI/Rbj8Zaaf1LdMxyJf5BDgfA2YsZo
- 1z5Mvpe18YhI8xfOFZ440ae8WAf4OFBjKcLVr3yQsyG5/3dGbWVGbwewA
- okk86SLhKrj+HFJ7gTd8Dsu7o4uOzXXYFPSuX9Te2qEAIcXzE8pgl/Ld/ A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10409"; a="347580205"
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="347580205"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 13:20:48 -0700
+ t=1657916474; x=1689452474;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=qukNDkZEkH65Xsf/hc+OP1MAKgiaJ3VWgkMm7f0zrHc=;
+ b=LXq/3MxdFNifmfysi1+PiJe2kXgucm4Lu0IGU9p22m1kINjKXV2L9jgN
+ vKVL3xLdYr1SY+6u+IQ0EUC43T7LWuAIxku+qiB0g2O68Od3ynbV09Kez
+ lDZpqbwJoHVl/3inyZVSxazVr7STRHtm7NDt5JLeK5Glb/m6QCdJEZ8FJ
+ Orwowi2auBgFAgTrYlW7Fymrw8GxuH6IvD1Wc8IZvzq69ISDNN6eRD/C1
+ /dSka0pVWH/5VeE7R7svr6o9r4lsYdY4a0yY2yb9OXDvIdZd5Ls0W00gr
+ lIdstZubLAKJpic22TdAyUzMB3apG4umblbrqvoOPkUv3zGyOcWligbN+ Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10409"; a="268914171"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="268914171"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2022 13:21:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="686090450"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="738789858"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.161])
- by FMSMGA003.fm.intel.com with SMTP; 15 Jul 2022 13:20:45 -0700
+ by fmsmga001.fm.intel.com with SMTP; 15 Jul 2022 13:21:11 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 15 Jul 2022 23:20:44 +0300
+ Fri, 15 Jul 2022 23:21:10 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Jul 2022 23:20:32 +0300
-Message-Id: <20220715202044.11153-1-ville.syrjala@linux.intel.com>
+Date: Fri, 15 Jul 2022 23:20:41 +0300
+Message-Id: <20220715202044.11153-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220715202044.11153-1-ville.syrjala@linux.intel.com>
+References: <20220715202044.11153-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/12] drm/i915: More VBT stuff
+Subject: [Intel-gfx] [PATCH 09/12] drm/i915: Define all possible VBT device
+ handles
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,33 +64,34 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Bunch of VBT work:
-- cleanup of version number comments
-- document more bits
-- rename a few misnamed things
-- warn if any port wants to use the VBT vswing tables
-- parse the new DP lane count limit
+We already have LFP1 and LFP2 device handles define. Just
+add all the rest as well.
 
-Ville Syrjälä (12):
-  drm/i915: Unify VBT version number comments
-  drm/i915: Add some more VBT version number comments
-  drm/i915: Properly define the DP redriver VBT bits
-  drm/i915: Define VBT eDP/DP max lane count bits
-  drm/i915: Add the VBT LTTPR transparent vs. non-transparent bits
-  drm/i915: Define VBT max HDMI FRL rate bits
-  drm/i915: Document the sets of bits in the driver features block
-  drm/i915: Define more VBT driver features block bits
-  drm/i915: Define all possible VBT device handles
-  drm/i915: Rename some VBT bits
-  drm/i915: WARN if a port should use VBT provided vswing tables
-  drm/i915: Parse DP/eDP max lane count from VBT
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
- drivers/gpu/drm/i915/display/intel_bios.c     |  20 ++
- drivers/gpu/drm/i915/display/intel_bios.h     |   1 +
- drivers/gpu/drm/i915/display/intel_dp.c       |  13 +-
- drivers/gpu/drm/i915/display/intel_vbt_defs.h | 333 ++++++++++--------
- 4 files changed, 222 insertions(+), 145 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+index 2feba1e69a6d..f56c869e106f 100644
+--- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
++++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
+@@ -197,6 +197,15 @@ struct bdb_general_features {
+ #define GPIO_PIN_ADD_DDC_I2C	0x06 /* "ADDCARD DDC/I2C GPIO pins" */
+ 
+ /* Device handle */
++#define DEVICE_HANDLE_CRT	0x0001
++#define DEVICE_HANDLE_EFP1	0x0004
++#define DEVICE_HANDLE_EFP2	0x0040
++#define DEVICE_HANDLE_EFP3	0x0020
++#define DEVICE_HANDLE_EFP4	0x0010 /* 194+ */
++#define DEVICE_HANDLE_EFP5	0x0002 /* 215+ */
++#define DEVICE_HANDLE_EFP6	0x0001 /* 217+ */
++#define DEVICE_HANDLE_EFP7	0x0100 /* 217+ */
++#define DEVICE_HANDLE_EFP8	0x0200 /* 217+ */
+ #define DEVICE_HANDLE_LFP1	0x0008
+ #define DEVICE_HANDLE_LFP2	0x0080
+ 
 -- 
 2.35.1
 
