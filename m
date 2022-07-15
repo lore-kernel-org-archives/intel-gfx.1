@@ -4,44 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1303C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jul 2022 08:26:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16E6FC433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jul 2022 08:38:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 594ED11B9B6;
-	Fri, 15 Jul 2022 08:26:25 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6313711B9B3;
- Fri, 15 Jul 2022 08:26:24 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B191C62054;
- Fri, 15 Jul 2022 08:26:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1574CC34115;
- Fri, 15 Jul 2022 08:26:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1657873581;
- bh=iFolp2jzrEerpXz5e6fXs3X5/rU+qvcxywsSCPc3mvM=;
- h=From:To:Cc:Subject:Date:From;
- b=Eg/kmP5xzo/enM6Exj402J70zyK1j+DLRtqwgjhGHusdYy0Mo9MVHVqpZ9P/N5ZQH
- 4nDDJaSioBjua+9INgDucPBL8E8v7Ps0ZH7dcrQJuNPM0OEJ1k12nEbX0p4UBqZ+gy
- EeNyFNBnBJf+PHI/TiLM+Wr8Gy94dJ4qg2k36ZqgX8Su8ebOzyJRRM5xHgX/btAHin
- lGzs959UIzNIW28j4D9TdvAiaeL8+FV0mpOvex/7o5aHG11jaJO0S1e1vgDZzpWwKO
- KbaLuTB5Fw/nyYnAMQePu+HL4tQ3x3KgWUF4pkiyE5z/syKxeRIsCfWoC3yLND2v6B
- AdDfxhnfYiB9g==
-Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oCGeP-005Phx-FY;
- Fri, 15 Jul 2022 09:26:17 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: 
-Date: Fri, 15 Jul 2022 09:26:16 +0100
-Message-Id: <2378da383d043de17172d928e59da0ec423cae76.1657873550.git.mchehab@kernel.org>
-X-Mailer: git-send-email 2.36.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A544810F453;
+	Fri, 15 Jul 2022 08:38:42 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AF6610F453
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 08:38:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657874321; x=1689410321;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=wBHYWM6mpWNsN0ZeSMCN0AUlKdZWPga+xbejXxx6jXA=;
+ b=EfqWYPPd8KGPAQ4DkOt3SzA5JPLdsuQuocVZIIKX+zQCgltBxi2a9L3p
+ ncYoMgpbvIU1JGZR26zkLDPPViVdR/Thkilmp6fyCGDBo3QvhhqIN4GYQ
+ RqntP0/YQ/+ormAfG9HKQZJKplxLJa3YEXxYo6DLRE5sYGfm2Q1Xx9dy5
+ Dh2AxKNC7XQsZuucLQvF8hb9nlXxXUWxTThwR2UXUEX3hR9pEcTMYbFBA
+ Ua8/SfM/1eU4fVd7w5Rqeu23LXgfQgPt2+jlv4hR4PsWA9FhAtW2lhGpR
+ W9f8/utbFBTD2gkdCmQ+6RhOSkWAHiGVVspBRqNNxdwkSaF/HPKzylX6p w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="311400240"
+X-IronPort-AV: E=Sophos;i="5.92,273,1650956400"; d="scan'208";a="311400240"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2022 01:38:40 -0700
+X-IronPort-AV: E=Sophos;i="5.92,273,1650956400"; d="scan'208";a="664110910"
+Received: from unknown (HELO intel.com) ([10.237.72.65])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2022 01:38:39 -0700
+Date: Fri, 15 Jul 2022 11:39:07 +0300
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: "Hogander, Jouni" <jouni.hogander@intel.com>
+Message-ID: <YtEnq9fpkVAEohbQ@intel.com>
+References: <20220714150755.154985-1-jose.souza@intel.com>
+ <20220714150755.154985-2-jose.souza@intel.com>
+ <dd78907477a8c19da80cbb1442c0688eb915a004.camel@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH RFC] drm/i915/gt: Retry RING_HEAD reset until it
- sticks
+In-Reply-To: <dd78907477a8c19da80cbb1442c0688eb915a004.camel@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/psr: Disable PSR before
+ disable pipe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,139 +59,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Chris Wilson <chris@chris-wilson.co.uk>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org,
- Matthew Auld <matthew.auld@intel.com>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris@chris-wilson.co.uk>
+On Fri, Jul 15, 2022 at 08:33:43AM +0300, Hogander, Jouni wrote:
+> On Thu, 2022-07-14 at 08:07 -0700, José Roberto de Souza wrote:
+> > The issue here was on for_each_intel_encoder_mask_with_psr() over the
+> > new_crtc_state encoder mask, so if the CRTC was being disabled mask
+> > would be zero and it would not have any chance to disable PSR.
+> >
+> > So here doing for_each_intel_encoder_mask_with_psr() over the
+> > old_crtc_state encoder mask and then using the new_crtc_state to
+> > check if PSR needs to be disabled.
 
-On Haswell, in particular, we see an issue where resets fails because
-the engine resumes from an incorrect RING_HEAD. Since the RING_HEAD
-doesn't point to the remaining requests to re-run, but may instead point
-into the uninitialised portion of the ring, the GPU may be then fed
-invalid instructions from a privileged context, oft pushing the GPU into
-an unrecoverable hang.
+Are we sure that using old_crtc_state mask is safe here?
+Because currently we would be basically mixing a usage of 
+encoder from old_crtc_state mask with new_crtc_state.
 
-If at first the write doesn't succeed, try, try again.
+If you mention a specific scenario, when this happens(i.e crtc
+is being disabled and new mask is 0) should we add a specific check 
+instructing us to use old_crtc_state mask only?
 
-References: https://gitlab.freedesktop.org/drm/intel/-/issues/5432
-Testcase: igt/i915_selftest/hangcheck
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
----
- .../gpu/drm/i915/gt/intel_ring_submission.c   | 44 +++++++++++++------
- drivers/gpu/drm/i915/i915_utils.h             | 10 +++++
- 2 files changed, 40 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index d5d6f1fadcae..cc53feb1f8ed 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -190,6 +190,7 @@ static bool stop_ring(struct intel_engine_cs *engine)
- static int xcs_resume(struct intel_engine_cs *engine)
- {
- 	struct intel_ring *ring = engine->legacy.ring;
-+	ktime_t kt;
- 
- 	ENGINE_TRACE(engine, "ring:{HEAD:%04x, TAIL:%04x}\n",
- 		     ring->head, ring->tail);
-@@ -228,9 +229,20 @@ static int xcs_resume(struct intel_engine_cs *engine)
- 	set_pp_dir(engine);
- 
- 	/* First wake the ring up to an empty/idle ring */
--	ENGINE_WRITE_FW(engine, RING_HEAD, ring->head);
-+	until_timeout_ns(kt, 2 * NSEC_PER_MSEC) {
-+		ENGINE_WRITE_FW(engine, RING_HEAD, ring->head);
-+		if (ENGINE_READ_FW(engine, RING_HEAD) == ring->head)
-+			break;
-+	}
-+
- 	ENGINE_WRITE_FW(engine, RING_TAIL, ring->head);
--	ENGINE_POSTING_READ(engine, RING_TAIL);
-+	if (ENGINE_READ_FW(engine, RING_HEAD) != ENGINE_READ_FW(engine, RING_TAIL)) {
-+		ENGINE_TRACE(engine, "failed to reset empty ring: [%x, %x]: %x\n",
-+			     ENGINE_READ_FW(engine, RING_HEAD),
-+			     ENGINE_READ_FW(engine, RING_TAIL),
-+			     ring->head);
-+		goto err;
-+	}
- 
- 	ENGINE_WRITE_FW(engine, RING_CTL,
- 			RING_CTL_SIZE(ring->size) | RING_VALID);
-@@ -239,12 +251,16 @@ static int xcs_resume(struct intel_engine_cs *engine)
- 	if (__intel_wait_for_register_fw(engine->uncore,
- 					 RING_CTL(engine->mmio_base),
- 					 RING_VALID, RING_VALID,
--					 5000, 0, NULL))
-+					 5000, 0, NULL)) {
-+		ENGINE_TRACE(engine, "failed to restart\n");
- 		goto err;
-+	}
- 
--	if (GRAPHICS_VER(engine->i915) > 2)
-+	if (GRAPHICS_VER(engine->i915) > 2) {
- 		ENGINE_WRITE_FW(engine,
- 				RING_MI_MODE, _MASKED_BIT_DISABLE(STOP_RING));
-+		ENGINE_POSTING_READ(engine, RING_MI_MODE);
-+	}
- 
- 	/* Now awake, let it get started */
- 	if (ring->tail != ring->head) {
-@@ -257,16 +273,16 @@ static int xcs_resume(struct intel_engine_cs *engine)
- 	return 0;
- 
- err:
--	drm_err(&engine->i915->drm,
--		"%s initialization failed; "
--		"ctl %08x (valid? %d) head %08x [%08x] tail %08x [%08x] start %08x [expected %08x]\n",
--		engine->name,
--		ENGINE_READ(engine, RING_CTL),
--		ENGINE_READ(engine, RING_CTL) & RING_VALID,
--		ENGINE_READ(engine, RING_HEAD), ring->head,
--		ENGINE_READ(engine, RING_TAIL), ring->tail,
--		ENGINE_READ(engine, RING_START),
--		i915_ggtt_offset(ring->vma));
-+	ENGINE_TRACE(engine,
-+		     "initialization failed; "
-+		     "ctl %08x (valid? %d) head %08x [%08x] tail %08x [%08x] start %08x [expected %08x]\n",
-+		     ENGINE_READ(engine, RING_CTL),
-+		     ENGINE_READ(engine, RING_CTL) & RING_VALID,
-+		     ENGINE_READ(engine, RING_HEAD), ring->head,
-+		     ENGINE_READ(engine, RING_TAIL), ring->tail,
-+		     ENGINE_READ(engine, RING_START),
-+		     i915_ggtt_offset(ring->vma));
-+	GEM_TRACE_DUMP();
- 	return -EIO;
- }
- 
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-index c10d68cdc3ca..717fb6b9cc15 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -256,6 +256,16 @@ wait_remaining_ms_from_jiffies(unsigned long timestamp_jiffies, int to_wait_ms)
- 	}
- }
- 
-+/**
-+ * until_timeout_ns - Keep retrying (busy spin) until the duration has passed
-+ * @end: temporary var to be used to track the spent time
-+ * @timeout_ns: Maximum timeout, in nanosseconds
-+ */
-+#define until_timeout_ns(end, timeout_ns) \
-+	for ((end) = ktime_get() + (timeout_ns); \
-+	     ktime_before(ktime_get(), (end)); \
-+	     cpu_relax())
-+
- /**
-  * __wait_for - magic wait macro
-  *
--- 
-2.36.1
+Because currently you might be touching some other scenarios as
+well, that is what I'm concerned about.
 
 
+Stan
+
+> >
+> > Cc: Jouni Högander <jouni.hogander@intel.com>
+> > Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> > Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_psr.c | 14 ++++++++------
+> >  1 file changed, 8 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_psr.c
+> > b/drivers/gpu/drm/i915/display/intel_psr.c
+> > index e6a870641cd25..98c3c8015a5c4 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+> > @@ -1863,7 +1863,9 @@ void intel_psr_pre_plane_update(struct
+> > intel_atomic_state *state,
+> >                               struct intel_crtc *crtc)
+> >  {
+> >       struct drm_i915_private *i915 = to_i915(state->base.dev);
+> > -     const struct intel_crtc_state *crtc_state =
+> > +     const struct intel_crtc_state *old_crtc_state =
+> > +             intel_atomic_get_old_crtc_state(state, crtc);
+> > +     const struct intel_crtc_state *new_crtc_state =
+> >               intel_atomic_get_new_crtc_state(state, crtc);
+> >       struct intel_encoder *encoder;
+> >
+> > @@ -1871,7 +1873,7 @@ void intel_psr_pre_plane_update(struct
+> > intel_atomic_state *state,
+> >               return;
+> >
+> >       for_each_intel_encoder_mask_with_psr(state->base.dev, encoder,
+> > -                                          crtc_state-
+> > >uapi.encoder_mask) {
+> > +                                          old_crtc_state-
+> > >uapi.encoder_mask) {
+> 
+> I would add comment here explaining why using encoder mask from
+> old_crtc_state, but using new_crtc_state inside the loop. It's up to
+> you:
+> 
+> Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
+> 
+> >               struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+> >               struct intel_psr *psr = &intel_dp->psr;
+> >               bool needs_to_disable = false;
+> > @@ -1884,10 +1886,10 @@ void intel_psr_pre_plane_update(struct
+> > intel_atomic_state *state,
+> >                * - All planes will go inactive
+> >                * - Changing between PSR versions
+> >                */
+> > -             needs_to_disable |=
+> > intel_crtc_needs_modeset(crtc_state);
+> > -             needs_to_disable |= !crtc_state->has_psr;
+> > -             needs_to_disable |= !crtc_state->active_planes;
+> > -             needs_to_disable |= crtc_state->has_psr2 != psr-
+> > >psr2_enabled;
+> > +             needs_to_disable |=
+> > intel_crtc_needs_modeset(new_crtc_state);
+> > +             needs_to_disable |= !new_crtc_state->has_psr;
+> > +             needs_to_disable |= !new_crtc_state->active_planes;
+> > +             needs_to_disable |= new_crtc_state->has_psr2 != psr-
+> > >psr2_enabled;
+> >
+> >               if (psr->enabled && needs_to_disable)
+> >                       intel_psr_disable_locked(intel_dp);
+> 
