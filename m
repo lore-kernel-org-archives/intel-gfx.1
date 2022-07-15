@@ -4,50 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D0F4C433EF
-	for <intel-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:36:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64CCCC43334
+	for <intel-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:36:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E44310EE21;
-	Sat, 16 Jul 2022 14:35:27 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20CD410E06A;
- Fri, 15 Jul 2022 14:54:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 636CF10EB43;
+	Sat, 16 Jul 2022 14:35:22 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 839A410E06A
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 14:38:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657896879; x=1689432879;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Tfm7fLXko0VFkVs2FaNKlVY+3KA6M9MeYDvTEl20a1g=;
- b=Skeit//PV/pRG9GOpW7UwqmLu/DphiHIGC9y4S+/7LfvDOjh9YF7Vbx5
- pryMAyRd5A9IqLkOWVZbs55w2DnEr2SndoDAdhU65K5hk0b2RjMKRwHXh
- ZiT7Gwf9I2TXFKbXFx/kJJ04WPhr2dwGRKRNCLdnjwVk/cBXqPZXGyA15
- jQNixJbOte4W6AQ6QVI6bCQYn90lnTrgKRLdfuPvYJIhi9VmmZDaXxfTO
- LEn14oTKt7lS4lR0fCsVbZSyBCH4sCti5kFZNSUM7gF/YKmZOzarB43VW
- w6EXVN0kpUwv40HIG0vnyyumKJZLOuC8LxJhM8MWwr19fPC+IlYP4c71r w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="284558051"
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="284558051"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 06:51:28 -0700
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="654340400"
-Received: from jgrajkow-mobl1.ger.corp.intel.com (HELO
- jhogande-mobl1.ger.corp.intel.com) ([10.252.38.223])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 06:51:26 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Jul 2022 16:49:58 +0300
-Message-Id: <20220715134958.2605746-4-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220715134958.2605746-1-jouni.hogander@intel.com>
-References: <20220715134958.2605746-1-jouni.hogander@intel.com>
+ t=1657895909; x=1689431909;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=OWW9Rkfc/B5tcg2dbdRjPkZm0q9gxcYXmK9hysgLlAg=;
+ b=WHfnG7Sbpt//RLpC8jKY2mxMMvXpgef4/jgJ3N1GZ+9MmHoYjSzNf9XE
+ 5QyiGbkUBsh+c46IXV6pXdvoKgvJ/1Z54cWFkokVuR5tvzaWs2dJUJsHg
+ zSk8GVU8Ou76Itgic/ycW/VFm4pLjF4zae17AI+F/8vqoxWH0A+kG0X1X
+ U9ABMImvFZnn7MBnHCgEBa7+V03G6t9sq3FOmux7xx4KA2FD6xFPfSTOR
+ FSnAT5QznSTAUB/slw+1g+ERi9uxjyQeBSuf1otXduOs7KUWDJRjYdGw8
+ TQ89iX2S6AAA/J7BpFfyJNY0Lwm1GW/rDSJpSxTeqds+hI61bzNsj+sKv Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="265584703"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="265584703"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2022 06:35:16 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="623860583"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orsmga008.jf.intel.com with ESMTP; 15 Jul 2022 06:35:16 -0700
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Fri, 15 Jul 2022 06:35:16 -0700
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Fri, 15 Jul 2022 06:35:15 -0700
+Received: from fmsmsx612.amr.corp.intel.com ([10.18.126.92]) by
+ fmsmsx612.amr.corp.intel.com ([10.18.126.92]) with mapi id 15.01.2308.027;
+ Fri, 15 Jul 2022 06:35:15 -0700
+From: "Souza, Jose" <jose.souza@intel.com>
+To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>, "Hogander, Jouni"
+ <jouni.hogander@intel.com>
+Thread-Topic: [PATCH 2/2] drm/i915/psr: Disable PSR before disable pipe
+Thread-Index: AQHYl5OH5b9tVPtv6EWR6pJQ2Rc3qK1/XxaAgAAzzICAAFK6AA==
+Date: Fri, 15 Jul 2022 13:35:15 +0000
+Message-ID: <21236956017a23c47350f7da0c175d5baa01b57a.camel@intel.com>
+References: <20220714150755.154985-1-jose.souza@intel.com>
+ <20220714150755.154985-2-jose.souza@intel.com>
+ <dd78907477a8c19da80cbb1442c0688eb915a004.camel@intel.com>
+ <YtEnq9fpkVAEohbQ@intel.com>
+In-Reply-To: <YtEnq9fpkVAEohbQ@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.1.200.100]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <606C7995DDF9DD4AA6CC507DFCCDDD26@intel.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/display: Use drm helper instead of
- own loop for damage clips
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/psr: Disable PSR before
+ disable pipe
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,56 +79,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use existing drm_atomic_helper_damage_merged from generic drm code
-instead of implementing own loop to iterate over damage_clips.
-
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 17 +++++------------
- 1 file changed, 5 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 5c95e24dc8d6..d44662f19b53 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1721,8 +1721,6 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 					     new_plane_state, i) {
- 		struct drm_rect src, damaged_area = { .x1 = 0, .y1 = -1,
- 						      .x2 = INT_MAX };
--		struct drm_atomic_helper_damage_iter iter;
--		struct drm_rect clip;
- 
- 		if (new_plane_state->uapi.crtc != crtc_state->uapi.crtc)
- 			continue;
-@@ -1770,20 +1768,15 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 		src = drm_plane_state_src(&new_plane_state->uapi);
- 		drm_rect_fp_to_int(&src, &src);
- 
--		drm_atomic_helper_damage_iter_init(&iter,
--						   &old_plane_state->uapi,
--						   &new_plane_state->uapi);
--		drm_atomic_for_each_plane_damage(&iter, &clip) {
--			if (drm_rect_intersect(&clip, &src))
--				clip_area_update(&damaged_area, &clip,
--						 &crtc_state->pipe_src);
--		}
--
--		if (damaged_area.y1 == -1)
-+		if (!drm_atomic_helper_damage_merged(&old_plane_state->uapi,
-+						     &new_plane_state->uapi, &damaged_area))
- 			continue;
- 
- 		damaged_area.y1 += new_plane_state->uapi.dst.y1 - src.y1;
- 		damaged_area.y2 += new_plane_state->uapi.dst.y1 - src.y1;
-+		damaged_area.x1 += new_plane_state->uapi.dst.x1 - src.x1;
-+		damaged_area.x2 += new_plane_state->uapi.dst.x1 - src.x1;
-+
- 		clip_area_update(&pipe_clip, &damaged_area, &crtc_state->pipe_src);
- 	}
- 
--- 
-2.25.1
-
+T24gRnJpLCAyMDIyLTA3LTE1IGF0IDExOjM5ICswMzAwLCBMaXNvdnNraXksIFN0YW5pc2xhdiB3
+cm90ZToNCj4gT24gRnJpLCBKdWwgMTUsIDIwMjIgYXQgMDg6MzM6NDNBTSArMDMwMCwgSG9nYW5k
+ZXIsIEpvdW5pIHdyb3RlOg0KPiA+IE9uIFRodSwgMjAyMi0wNy0xNCBhdCAwODowNyAtMDcwMCwg
+Sm9zw6kgUm9iZXJ0byBkZSBTb3V6YSB3cm90ZToNCj4gPiA+IFRoZSBpc3N1ZSBoZXJlIHdhcyBv
+biBmb3JfZWFjaF9pbnRlbF9lbmNvZGVyX21hc2tfd2l0aF9wc3IoKSBvdmVyIHRoZQ0KPiA+ID4g
+bmV3X2NydGNfc3RhdGUgZW5jb2RlciBtYXNrLCBzbyBpZiB0aGUgQ1JUQyB3YXMgYmVpbmcgZGlz
+YWJsZWQgbWFzaw0KPiA+ID4gd291bGQgYmUgemVybyBhbmQgaXQgd291bGQgbm90IGhhdmUgYW55
+IGNoYW5jZSB0byBkaXNhYmxlIFBTUi4NCj4gPiA+IA0KPiA+ID4gU28gaGVyZSBkb2luZyBmb3Jf
+ZWFjaF9pbnRlbF9lbmNvZGVyX21hc2tfd2l0aF9wc3IoKSBvdmVyIHRoZQ0KPiA+ID4gb2xkX2Ny
+dGNfc3RhdGUgZW5jb2RlciBtYXNrIGFuZCB0aGVuIHVzaW5nIHRoZSBuZXdfY3J0Y19zdGF0ZSB0
+bw0KPiA+ID4gY2hlY2sgaWYgUFNSIG5lZWRzIHRvIGJlIGRpc2FibGVkLg0KPiANCj4gQXJlIHdl
+IHN1cmUgdGhhdCB1c2luZyBvbGRfY3J0Y19zdGF0ZSBtYXNrIGlzIHNhZmUgaGVyZT8NCj4gQmVj
+YXVzZSBjdXJyZW50bHkgd2Ugd291bGQgYmUgYmFzaWNhbGx5IG1peGluZyBhIHVzYWdlIG9mIA0K
+PiBlbmNvZGVyIGZyb20gb2xkX2NydGNfc3RhdGUgbWFzayB3aXRoIG5ld19jcnRjX3N0YXRlLg0K
+PiANCj4gSWYgeW91IG1lbnRpb24gYSBzcGVjaWZpYyBzY2VuYXJpbywgd2hlbiB0aGlzIGhhcHBl
+bnMoaS5lIGNydGMNCj4gaXMgYmVpbmcgZGlzYWJsZWQgYW5kIG5ldyBtYXNrIGlzIDApIHNob3Vs
+ZCB3ZSBhZGQgYSBzcGVjaWZpYyBjaGVjayANCj4gaW5zdHJ1Y3RpbmcgdXMgdG8gdXNlIG9sZF9j
+cnRjX3N0YXRlIG1hc2sgb25seT8NCj4gDQoNClRoaXMgc2NlbmFyaW8gd2VyZSBuZXdfY3J0Y19z
+dGF0ZSBpcyBiZWluZyBkaXNhYmxlZChpZSBlbmNvZGVyX21hc2sgPSAwKSBpcyBoYW5kbGVkIGJ5
+IGludGVsX2NydGNfbmVlZHNfbW9kZXNldCgpIGNoZWNrLg0KVGhpcyBzYW1lIGNoZWNrIHdpbGwg
+aGFuZGxlIG1vcmUgY29tcGxpY2F0ZWQgY2FzZXMgbGlrZSBwaXBlIEEod2l0aCBQU1IpIG5vdyB3
+aWxsIGRyaXZlIGEgZGlmZmVyZW50IHBvcnQuLi4NCg0KPiBCZWNhdXNlIGN1cnJlbnRseSB5b3Ug
+bWlnaHQgYmUgdG91Y2hpbmcgc29tZSBvdGhlciBzY2VuYXJpb3MgYXMNCj4gd2VsbCwgdGhhdCBp
+cyB3aGF0IEknbSBjb25jZXJuZWQgYWJvdXQuDQo+IA0KPiANCj4gU3Rhbg0KPiANCj4gPiA+IA0K
+PiA+ID4gQ2M6IEpvdW5pIEjDtmdhbmRlciA8am91bmkuaG9nYW5kZXJAaW50ZWwuY29tPg0KPiA+
+ID4gQ2M6IFN0YW5pc2xhdiBMaXNvdnNraXkgPHN0YW5pc2xhdi5saXNvdnNraXlAaW50ZWwuY29t
+Pg0KPiA+ID4gU2lnbmVkLW9mZi1ieTogSm9zw6kgUm9iZXJ0byBkZSBTb3V6YSA8am9zZS5zb3V6
+YUBpbnRlbC5jb20+DQo+ID4gPiAtLS0NCj4gPiA+ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX3Bzci5jIHwgMTQgKysrKysrKystLS0tLS0NCj4gPiA+ICAxIGZpbGUgY2hhbmdl
+ZCwgOCBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQ0KPiA+ID4gDQo+ID4gPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0KPiA+ID4gYi9k
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jDQo+ID4gPiBpbmRleCBlNmE4
+NzA2NDFjZDI1Li45OGMzYzgwMTVhNWM0IDEwMDY0NA0KPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0KPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0KPiA+ID4gQEAgLTE4NjMsNyArMTg2Myw5IEBAIHZv
+aWQgaW50ZWxfcHNyX3ByZV9wbGFuZV91cGRhdGUoc3RydWN0DQo+ID4gPiBpbnRlbF9hdG9taWNf
+c3RhdGUgKnN0YXRlLA0KPiA+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0
+IGludGVsX2NydGMgKmNydGMpDQo+ID4gPiAgew0KPiA+ID4gICAgICAgc3RydWN0IGRybV9pOTE1
+X3ByaXZhdGUgKmk5MTUgPSB0b19pOTE1KHN0YXRlLT5iYXNlLmRldik7DQo+ID4gPiAtICAgICBj
+b25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSA9DQo+ID4gPiArICAgICBj
+b25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqb2xkX2NydGNfc3RhdGUgPQ0KPiA+ID4gKyAg
+ICAgICAgICAgICBpbnRlbF9hdG9taWNfZ2V0X29sZF9jcnRjX3N0YXRlKHN0YXRlLCBjcnRjKTsN
+Cj4gPiA+ICsgICAgIGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpuZXdfY3J0Y19zdGF0
+ZSA9DQo+ID4gPiAgICAgICAgICAgICAgIGludGVsX2F0b21pY19nZXRfbmV3X2NydGNfc3RhdGUo
+c3RhdGUsIGNydGMpOw0KPiA+ID4gICAgICAgc3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXI7
+DQo+ID4gPiANCj4gPiA+IEBAIC0xODcxLDcgKzE4NzMsNyBAQCB2b2lkIGludGVsX3Bzcl9wcmVf
+cGxhbmVfdXBkYXRlKHN0cnVjdA0KPiA+ID4gaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4g
+PiA+ICAgICAgICAgICAgICAgcmV0dXJuOw0KPiA+ID4gDQo+ID4gPiAgICAgICBmb3JfZWFjaF9p
+bnRlbF9lbmNvZGVyX21hc2tfd2l0aF9wc3Ioc3RhdGUtPmJhc2UuZGV2LCBlbmNvZGVyLA0KPiA+
+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNydGNfc3RhdGUt
+DQo+ID4gPiA+IHVhcGkuZW5jb2Rlcl9tYXNrKSB7DQo+ID4gPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgb2xkX2NydGNfc3RhdGUtDQo+ID4gPiA+IHVhcGkuZW5j
+b2Rlcl9tYXNrKSB7DQo+ID4gDQo+ID4gSSB3b3VsZCBhZGQgY29tbWVudCBoZXJlIGV4cGxhaW5p
+bmcgd2h5IHVzaW5nIGVuY29kZXIgbWFzayBmcm9tDQo+ID4gb2xkX2NydGNfc3RhdGUsIGJ1dCB1
+c2luZyBuZXdfY3J0Y19zdGF0ZSBpbnNpZGUgdGhlIGxvb3AuIEl0J3MgdXAgdG8NCj4gPiB5b3U6
+DQo+ID4gDQo+ID4gUmV2aWV3ZWQtYnk6IEpvdW5pIEjDtmdhbmRlciA8am91bmkuaG9nYW5kZXJA
+aW50ZWwuY29tPg0KPiA+IA0KPiA+ID4gICAgICAgICAgICAgICBzdHJ1Y3QgaW50ZWxfZHAgKmlu
+dGVsX2RwID0gZW5jX3RvX2ludGVsX2RwKGVuY29kZXIpOw0KPiA+ID4gICAgICAgICAgICAgICBz
+dHJ1Y3QgaW50ZWxfcHNyICpwc3IgPSAmaW50ZWxfZHAtPnBzcjsNCj4gPiA+ICAgICAgICAgICAg
+ICAgYm9vbCBuZWVkc190b19kaXNhYmxlID0gZmFsc2U7DQo+ID4gPiBAQCAtMTg4NCwxMCArMTg4
+NiwxMCBAQCB2b2lkIGludGVsX3Bzcl9wcmVfcGxhbmVfdXBkYXRlKHN0cnVjdA0KPiA+ID4gaW50
+ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gPiA+ICAgICAgICAgICAgICAgICogLSBBbGwgcGxh
+bmVzIHdpbGwgZ28gaW5hY3RpdmUNCj4gPiA+ICAgICAgICAgICAgICAgICogLSBDaGFuZ2luZyBi
+ZXR3ZWVuIFBTUiB2ZXJzaW9ucw0KPiA+ID4gICAgICAgICAgICAgICAgKi8NCj4gPiA+IC0gICAg
+ICAgICAgICAgbmVlZHNfdG9fZGlzYWJsZSB8PQ0KPiA+ID4gaW50ZWxfY3J0Y19uZWVkc19tb2Rl
+c2V0KGNydGNfc3RhdGUpOw0KPiA+ID4gLSAgICAgICAgICAgICBuZWVkc190b19kaXNhYmxlIHw9
+ICFjcnRjX3N0YXRlLT5oYXNfcHNyOw0KPiA+ID4gLSAgICAgICAgICAgICBuZWVkc190b19kaXNh
+YmxlIHw9ICFjcnRjX3N0YXRlLT5hY3RpdmVfcGxhbmVzOw0KPiA+ID4gLSAgICAgICAgICAgICBu
+ZWVkc190b19kaXNhYmxlIHw9IGNydGNfc3RhdGUtPmhhc19wc3IyICE9IHBzci0NCj4gPiA+ID4g
+cHNyMl9lbmFibGVkOw0KPiA+ID4gKyAgICAgICAgICAgICBuZWVkc190b19kaXNhYmxlIHw9DQo+
+ID4gPiBpbnRlbF9jcnRjX25lZWRzX21vZGVzZXQobmV3X2NydGNfc3RhdGUpOw0KPiA+ID4gKyAg
+ICAgICAgICAgICBuZWVkc190b19kaXNhYmxlIHw9ICFuZXdfY3J0Y19zdGF0ZS0+aGFzX3BzcjsN
+Cj4gPiA+ICsgICAgICAgICAgICAgbmVlZHNfdG9fZGlzYWJsZSB8PSAhbmV3X2NydGNfc3RhdGUt
+PmFjdGl2ZV9wbGFuZXM7DQo+ID4gPiArICAgICAgICAgICAgIG5lZWRzX3RvX2Rpc2FibGUgfD0g
+bmV3X2NydGNfc3RhdGUtPmhhc19wc3IyICE9IHBzci0NCj4gPiA+ID4gcHNyMl9lbmFibGVkOw0K
+PiA+ID4gDQo+ID4gPiAgICAgICAgICAgICAgIGlmIChwc3ItPmVuYWJsZWQgJiYgbmVlZHNfdG9f
+ZGlzYWJsZSkNCj4gPiA+ICAgICAgICAgICAgICAgICAgICAgICBpbnRlbF9wc3JfZGlzYWJsZV9s
+b2NrZWQoaW50ZWxfZHApOw0KPiA+IA0KDQo=
