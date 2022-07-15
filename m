@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0857CC43334
-	for <intel-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:40:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED606C43334
+	for <intel-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:40:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED3E010E94B;
-	Sat, 16 Jul 2022 14:36:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8650810FD27;
+	Sat, 16 Jul 2022 14:36:17 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17E2F10E05A
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 20:21:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC71010E05A
+ for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 20:21:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657916476; x=1689452476;
+ t=1657916470; x=1689452470;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=+x6N/1y2GPyfJ9ggeLyynjtmJvRTVjVHHbD80FkuSaA=;
- b=d8Y/XJw9SE1ZhjF4rQtFeFHrSv4BXNwx/EB7ox13ml6ckOeKPL/LFJED
- fryTS70ojJ+k0crJ9Ht76x/opF0ybDEB/0++CP/++JQF/BpA+uXOqMllA
- 68ANjwK8D8B3bx/qpKXhDRcCF37mJX2GYlu1oUhoCH5uWBR301AdBjJZW
- DNUXaDYdzZbeqPsa8EbmF9/EXEfR0V5Rr3G5zz60touRDyzmUfM4Temss
- MtazwVCmOvIWXb+HJvGvntuKK3i9RVIeE43EmsIeiYt49uIWQpGHH0SCi
- ErY7GvYSu0cXWlDqNFiryd/JNfH7E2VBIVidk3jR3QjibyaY3od/Vs5Me g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10409"; a="311560798"
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="311560798"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ bh=DVI1cyqqvLN01cDQ3aRAsTPZ19R3my/Ti4+Hg/cRbMw=;
+ b=QhXcYB0jbUEZUVCcSBfG788kfH/6C5jF3DLU5FMz+G+Qx7xFLEPbw0GD
+ Z2sNe6XubX2CkBGPnSbTcDYNGWihyvJOttSegY50NCbDASIW8m3yXdLax
+ lnuCePU4IyB9PtKFyyVuWWO1sjvX2YjxnsZNfj8znQNxkuk0RvPhsSzxl
+ hwG3C7rPo8xcxipQtWI9ogwkFAmCsSC+yPzyiyPeLR7WEGF32tOjUSG9u
+ BnZe6mQuF53UKs7dAgn4I+CyCDwrmmAgVDajsgbTxuOIB6xrhgtF0B2iv
+ w7MedicsV2GrboIXoI9ExGPIHJzpnohvCMEyCnV/NhovN/cth+vx9Wd+x Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10409"; a="311560792"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="311560792"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 13:21:15 -0700
+ 15 Jul 2022 13:21:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="686090669"
+X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="629234125"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.161])
- by FMSMGA003.fm.intel.com with SMTP; 15 Jul 2022 13:21:14 -0700
+ by orsmga001.jf.intel.com with SMTP; 15 Jul 2022 13:21:08 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 15 Jul 2022 23:21:13 +0300
+ Fri, 15 Jul 2022 23:21:07 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Jul 2022 23:20:42 +0300
-Message-Id: <20220715202044.11153-11-ville.syrjala@linux.intel.com>
+Date: Fri, 15 Jul 2022 23:20:40 +0300
+Message-Id: <20220715202044.11153-9-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220715202044.11153-1-ville.syrjala@linux.intel.com>
 References: <20220715202044.11153-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/12] drm/i915: Rename some VBT bits
+Subject: [Intel-gfx] [PATCH 08/12] drm/i915: Define more VBT driver features
+ block bits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,29 +64,52 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The allow vs. block display switch bits are named rather
-inconsistently. Fix it up.
+Define some additoonal bits in the driver features VBT block.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vbt_defs.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-index f56c869e106f..62183c6bdc10 100644
+index c04937aa75b2..2feba1e69a6d 100644
 --- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
 +++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-@@ -553,8 +553,8 @@ struct bdb_psr {
- struct bdb_driver_features {
- 	/* Driver bits */
- 	u8 boot_dev_algorithm:1;
--	u8 block_display_switch:1;
--	u8 allow_display_switch:1;
-+	u8 allow_display_switch_dvd:1;
-+	u8 allow_display_switch_dos:1;
- 	u8 hotplug_dvo:1;
- 	u8 dual_view_zoom:1;
- 	u8 int15h_hook:1;
+@@ -575,14 +575,19 @@ struct bdb_driver_features {
+ 
+ 	/* Driver Flags 1 */
+ 	u8 static_display:1;					/* 163+ */
+-	u8 reserved2:7;
++	u8 embedded_platform:1;					/* 163+ */
++	u8 display_subsystem_enable:1;				/* 163+ */
++	u8 reserved0:5;
+ 
+ 	u16 legacy_crt_max_x;
+ 	u16 legacy_crt_max_y;
+ 	u8 legacy_crt_max_refresh;
+ 
+ 	/* Extended Driver Bits 2 */
+-	u8 hdmi_termination;
++	u8 hdmi_termination:1;
++	u8 cea861d_hdmi_support:1;
++	u8 self_refresh_enable:1;
++	u8 reserved1:5;
+ 
+ 	u8 custom_vbt_version;					/* 165+ */
+ 
+@@ -598,9 +603,10 @@ struct bdb_driver_features {
+ 	u16 tbt_enabled:1;					/* 165+ */
+ 	u16 psr_enabled:1;					/* 165-227 */
+ 	u16 ips_enabled:1;					/* 165+ */
+-	u16 reserved3:1;
++	u16 dpfs_enabled:1;					/* 165+ */
+ 	u16 dmrrs_enabled:1;					/* 174-227 */
+-	u16 reserved4:2;
++	u16 adt_enabled:1;					/* ???-228 */
++	u16 hpd_wake:1;						/* 201-240 */
+ 	u16 pc_feature_valid:1;
+ } __packed;
+ 
 -- 
 2.35.1
 
