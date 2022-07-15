@@ -4,50 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C6A0CCA480
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 654B5C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:07:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3BC611A4A2;
-	Wed, 20 Jul 2022 14:07:34 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36BD511AD73;
- Tue, 28 Jun 2022 23:11:50 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
- [109.252.118.164])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5991411A6BF;
+	Wed, 20 Jul 2022 14:07:35 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32EBB10F34B;
+ Fri, 15 Jul 2022 00:53:35 +0000 (UTC)
+Received: from dimapc.. (109-252-119-232.nat.spd-mgts.ru [109.252.119.232])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id F409E66015BE;
- Wed, 29 Jun 2022 00:11:45 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 9D2B16601A58;
+ Fri, 15 Jul 2022 01:53:31 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1656457908;
- bh=BA41yYfLT+6vyzRskX6cnhL0zlM1lLgsIKATGMY5aeM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ZS/cW2rfL9Ygb/l35nyWmuYV3/6ynQOsxbTwnftEsGGSL+CV6X5iR3BiH0Baf2cUQ
- 8c3bWg8pxfzCivOLh+LdND7yk9jyyoGLDdl2Pon3cDspMYvvdnQM42yIcxbuHt/LdZ
- lkbyAFEv4eVhlK9GPp5PkIzmRZH73ALKqkhcTDLNKTbqQ9XdrdmWXnO3sGp/vqmw1h
- ZyVarCa2UvULBPKqtgJ6vNI1NToR5rP+LfAhPZ2qZlVNJrCzv1NPPS058AhUfhROoG
- IDY/2Zv20X+iWcV832GGsJcXQ4b9UQjL/wOTpzmovXmkAj0vFuOgMOH7rJZkakmZ+Z
- KwZ2Xj4IHgezA==
-Message-ID: <ce214fb9-c1bb-42db-a777-ccce15af388b@collabora.com>
-Date: Wed, 29 Jun 2022 02:11:42 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <49cc6f0c-e90e-8edd-52e7-4188620e2c28@arm.com>
- <f77c1c2d-d9f9-db00-906a-ec10b535621d@collabora.com>
- <CAF6AEGsQBcHbU6Ps5fp5v6ANaZwMAtig-3i-ekQzwG=7BBDNwA@mail.gmail.com>
+ s=mail; t=1657846414;
+ bh=dr1tdx4u+QvM7fiw6wlWFPP0AWqXDJCr42blBc4VyZo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Ro35pEWIBbDVr6SddC5oV5g2IzAdYCQ3y39D9s1jFkM7smnJyAgxodZSXxxyi3By8
+ vMPfDkSHreXz6dIrXY8zBhAWBr1SM9hPDKzcb1APoGPjVGznW4DbygpAPhmM4v4iqy
+ kNNVNMXe48miNTWrShOswaJRdmoyXxS+0Vc5FpskaDX7p6X/PMys3epI9Nmfk8p88w
+ W05tRtqheMg9fof74rfgYjOepSdS637dIAmjASMEhKQqWj6B1RlfwPWmspDEMsVozQ
+ 9wRaNESK5yw9FLxoEgVom8kYmxVCD9KC6cScU7I+CCyZasFjtY2KBGQMWY6R6v6p3h
+ 1UaDnXFpv8SQQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <CAF6AEGsQBcHbU6Ps5fp5v6ANaZwMAtig-3i-ekQzwG=7BBDNwA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>
+Date: Fri, 15 Jul 2022 03:52:44 +0300
+Message-Id: <20220715005244.42198-7-dmitry.osipenko@collabora.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
+References: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 20 Jul 2022 14:07:33 +0000
-Subject: Re: [Intel-gfx] [PATCH v6 00/22] Add generic memory shrinker to
- VirtIO-GPU and Panfrost DRM drivers
+Subject: [Intel-gfx] [PATCH v1 6/6] dma-buf: Remove internal lock
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,124 +76,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Gerd Hoffmann <kraxel@redhat.com>, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring <robh@kernel.org>,
- Daniel Stone <daniel@fooishbar.org>, Steven Price <steven.price@arm.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- "open list:VIRTIO GPU DRIVER" <virtualization@lists.linux-foundation.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Tomasz Figa <tfiga@chromium.org>, Qiang Yu <yuq825@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, Robin Murphy <robin.murphy@arm.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 6/28/22 19:48, Rob Clark wrote:
-> On Tue, Jun 28, 2022 at 5:51 AM Dmitry Osipenko
-> <dmitry.osipenko@collabora.com> wrote:
->>
->> On 6/28/22 15:31, Robin Murphy wrote:
->>> ----->8-----
->>> [   68.295951] ======================================================
->>> [   68.295956] WARNING: possible circular locking dependency detected
->>> [   68.295963] 5.19.0-rc3+ #400 Not tainted
->>> [   68.295972] ------------------------------------------------------
->>> [   68.295977] cc1/295 is trying to acquire lock:
->>> [   68.295986] ffff000008d7f1a0
->>> (reservation_ww_class_mutex){+.+.}-{3:3}, at: drm_gem_shmem_free+0x7c/0x198
->>> [   68.296036]
->>> [   68.296036] but task is already holding lock:
->>> [   68.296041] ffff80000c14b820 (fs_reclaim){+.+.}-{0:0}, at:
->>> __alloc_pages_slowpath.constprop.0+0x4d8/0x1470
->>> [   68.296080]
->>> [   68.296080] which lock already depends on the new lock.
->>> [   68.296080]
->>> [   68.296085]
->>> [   68.296085] the existing dependency chain (in reverse order) is:
->>> [   68.296090]
->>> [   68.296090] -> #1 (fs_reclaim){+.+.}-{0:0}:
->>> [   68.296111]        fs_reclaim_acquire+0xb8/0x150
->>> [   68.296130]        dma_resv_lockdep+0x298/0x3fc
->>> [   68.296148]        do_one_initcall+0xe4/0x5f8
->>> [   68.296163]        kernel_init_freeable+0x414/0x49c
->>> [   68.296180]        kernel_init+0x2c/0x148
->>> [   68.296195]        ret_from_fork+0x10/0x20
->>> [   68.296207]
->>> [   68.296207] -> #0 (reservation_ww_class_mutex){+.+.}-{3:3}:
->>> [   68.296229]        __lock_acquire+0x1724/0x2398
->>> [   68.296246]        lock_acquire+0x218/0x5b0
->>> [   68.296260]        __ww_mutex_lock.constprop.0+0x158/0x2378
->>> [   68.296277]        ww_mutex_lock+0x7c/0x4d8
->>> [   68.296291]        drm_gem_shmem_free+0x7c/0x198
->>> [   68.296304]        panfrost_gem_free_object+0x118/0x138
->>> [   68.296318]        drm_gem_object_free+0x40/0x68
->>> [   68.296334]        drm_gem_shmem_shrinker_run_objects_scan+0x42c/0x5b8
->>> [   68.296352]        drm_gem_shmem_shrinker_scan_objects+0xa4/0x170
->>> [   68.296368]        do_shrink_slab+0x220/0x808
->>> [   68.296381]        shrink_slab+0x11c/0x408
->>> [   68.296392]        shrink_node+0x6ac/0xb90
->>> [   68.296403]        do_try_to_free_pages+0x1dc/0x8d0
->>> [   68.296416]        try_to_free_pages+0x1ec/0x5b0
->>> [   68.296429]        __alloc_pages_slowpath.constprop.0+0x528/0x1470
->>> [   68.296444]        __alloc_pages+0x4e0/0x5b8
->>> [   68.296455]        __folio_alloc+0x24/0x60
->>> [   68.296467]        vma_alloc_folio+0xb8/0x2f8
->>> [   68.296483]        alloc_zeroed_user_highpage_movable+0x58/0x68
->>> [   68.296498]        __handle_mm_fault+0x918/0x12a8
->>> [   68.296513]        handle_mm_fault+0x130/0x300
->>> [   68.296527]        do_page_fault+0x1d0/0x568
->>> [   68.296539]        do_translation_fault+0xa0/0xb8
->>> [   68.296551]        do_mem_abort+0x68/0xf8
->>> [   68.296562]        el0_da+0x74/0x100
->>> [   68.296572]        el0t_64_sync_handler+0x68/0xc0
->>> [   68.296585]        el0t_64_sync+0x18c/0x190
->>> [   68.296596]
->>> [   68.296596] other info that might help us debug this:
->>> [   68.296596]
->>> [   68.296601]  Possible unsafe locking scenario:
->>> [   68.296601]
->>> [   68.296604]        CPU0                    CPU1
->>> [   68.296608]        ----                    ----
->>> [   68.296612]   lock(fs_reclaim);
->>> [   68.296622] lock(reservation_ww_class_mutex);
->>> [   68.296633]                                lock(fs_reclaim);
->>> [   68.296644]   lock(reservation_ww_class_mutex);
->>> [   68.296654]
->>> [   68.296654]  *** DEADLOCK ***
->>
->> This splat could be ignored for now. I'm aware about it, although
->> haven't looked closely at how to fix it since it's a kind of a lockdep
->> misreporting.
-> 
-> The lockdep splat could be fixed with something similar to what I've
-> done in msm, ie. basically just not acquire the lock in the finalizer:
-> 
-> https://patchwork.freedesktop.org/patch/489364/
-> 
-> There is one gotcha to watch for, as danvet pointed out
-> (scan_objects() could still see the obj in the LRU before the
-> finalizer removes it), but if scan_objects() does the
-> kref_get_unless_zero() trick, it is safe.
+The internal dma-buf lock isn't needed anymore because the updated
+locking specification claims that dma-buf reservation must be locked
+by importers, and thus, the internal data is already protected by the
+reservation lock. Remove the obsoleted internal lock.
 
-Nice, thank you!
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+---
+ drivers/dma-buf/dma-buf.c | 5 -----
+ include/linux/dma-buf.h   | 9 ---------
+ 2 files changed, 14 deletions(-)
 
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 37545ecb845a..4cc739537ebd 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -656,7 +656,6 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+ 
+ 	dmabuf->file = file;
+ 
+-	mutex_init(&dmabuf->lock);
+ 	INIT_LIST_HEAD(&dmabuf->attachments);
+ 
+ 	mutex_lock(&db_list.lock);
+@@ -1459,7 +1458,6 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
+ 		return -EINVAL;
+ 
+ 	dma_resv_lock(dmabuf->resv, NULL);
+-	mutex_lock(&dmabuf->lock);
+ 	if (dmabuf->vmapping_counter) {
+ 		dmabuf->vmapping_counter++;
+ 		BUG_ON(iosys_map_is_null(&dmabuf->vmap_ptr));
+@@ -1479,7 +1477,6 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	*map = dmabuf->vmap_ptr;
+ 
+ out_unlock:
+-	mutex_unlock(&dmabuf->lock);
+ 	dma_resv_unlock(dmabuf->resv);
+ 	return ret;
+ }
+@@ -1500,13 +1497,11 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
+ 
+ 	dma_resv_lock(dmabuf->resv, NULL);
+-	mutex_lock(&dmabuf->lock);
+ 	if (--dmabuf->vmapping_counter == 0) {
+ 		if (dmabuf->ops->vunmap)
+ 			dmabuf->ops->vunmap(dmabuf, map);
+ 		iosys_map_clear(&dmabuf->vmap_ptr);
+ 	}
+-	mutex_unlock(&dmabuf->lock);
+ 	dma_resv_unlock(dmabuf->resv);
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index da924a56d58f..abdd99042c77 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -326,15 +326,6 @@ struct dma_buf {
+ 	/** @ops: dma_buf_ops associated with this buffer object. */
+ 	const struct dma_buf_ops *ops;
+ 
+-	/**
+-	 * @lock:
+-	 *
+-	 * Used internally to serialize list manipulation, attach/detach and
+-	 * vmap/unmap. Note that in many cases this is superseeded by
+-	 * dma_resv_lock() on @resv.
+-	 */
+-	struct mutex lock;
+-
+ 	/**
+ 	 * @vmapping_counter:
+ 	 *
 -- 
-Best regards,
-Dmitry
+2.36.1
+
