@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E196EC43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:08:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7EE7CCA480
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:08:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D760F11B7BC;
-	Wed, 20 Jul 2022 14:08:24 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 111BF10E182;
- Wed, 29 Jun 2022 08:23:58 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-118-164.nat.spd-mgts.ru
- [109.252.118.164])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38A9811B8C8;
+	Wed, 20 Jul 2022 14:08:25 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2B411A6F4;
+ Fri, 15 Jul 2022 06:59:55 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-232.nat.spd-mgts.ru
+ [109.252.119.232])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 2C51C66018F6;
- Wed, 29 Jun 2022 09:23:54 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 7DF5F6601A3B;
+ Fri, 15 Jul 2022 07:59:51 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1656491036;
- bh=TKplUYktuy+fI9Fnwv5CbrVDB+CILHnu464IQXTpgjg=;
+ s=mail; t=1657868394;
+ bh=19qGkCc2cIXoMAA2hZZj9V2aaITk+ZrC7c+cT0h41YY=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Hh50EXmRXalD8uakgN300BfHpmjducw9bC+QVgu+5qZJ+/06XJI6vmnwyVunKHvTu
- UurO0sBxI/nVuIlAr3VXYn58dM1imSvobu55OFj091KfdlQDYptmB3FkuxkWooYgI5
- NpSItA+GHgY6jPnWQbmqoBN/FD6L4QqvRvJdrRvwozQKplNFqn5bxByj5x7N8ZzztY
- 1NGWfuHPh2QKNtJVxBm0HGaBnWhbCFAyCwSOa/+Zp73xpzBmDZHRMCEIF/ZeONMbYT
- XUq5kP9/+4sLtdAJWqQ7HViJKJJxcDwBrTJthLmqG4Pw4WwunvIZwT0lC3xjDWQAmJ
- 8GjaWihLHjnhA==
-Message-ID: <51d58fff-238e-33e9-20d0-0836b1197459@collabora.com>
-Date: Wed, 29 Jun 2022 11:23:51 +0300
+ b=j0I0uN1LjpBGty3wxdvM2KAjGZF9ug4hQElSe1mt+S/9szx5t+H2di6ibGmGpGXst
+ wJqP/dMeGtbccnj2osoKKCrkRE6+8wLOBaVgBNOEo/GBbDPLe1bYNZC5ltalcJ/o5Y
+ YInGEtLUCKwhn9dsrLDwPfLbVrgTdCd+K+zT4ixzjjv1kPg9eoH+1wKXtpb7kJJF9P
+ HwM7g/NCi2I1Zy+ngkHWGz4hffPHdHVJYbYDCHcqqott7p3KpvlDofORSYcxIa1BJA
+ 497iacGLeX+E5VO1y9Oho9JU4Sb6lu7rfJnAuI2chzPO7V3LdR3knQC2zJYw2y3PZo
+ +kaWVIYB+SXVw==
+Message-ID: <1ce233a2-36c9-3698-59f0-c4ff902bec60@collabora.com>
+Date: Fri, 15 Jul 2022 09:59:47 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
 Content-Language: en-US
-To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>,
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
  <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
@@ -48,12 +47,7 @@ To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>,
  Tomeu Vizoso <tomeu.vizoso@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Rob Clark <robdclark@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, Qiang Yu <yuq825@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
  <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
  Marek Szyprowski <m.szyprowski@samsung.com>,
@@ -62,17 +56,18 @@ To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-References: <20220526235040.678984-1-dmitry.osipenko@collabora.com>
- <20220526235040.678984-2-dmitry.osipenko@collabora.com>
- <d3fcb4ee-83ec-09b8-d1ef-0191512fda91@shipmail.org>
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>
+References: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
+ <20220715005244.42198-5-dmitry.osipenko@collabora.com>
+ <5ec9313e-8498-2838-0320-331c347ce905@amd.com>
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <d3fcb4ee-83ec-09b8-d1ef-0191512fda91@shipmail.org>
+In-Reply-To: <5ec9313e-8498-2838-0320-331c347ce905@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 20 Jul 2022 14:07:33 +0000
-Subject: Re: [Intel-gfx] [PATCH v6 01/22] drm/gem: Properly annotate WW
- context on drm_gem_lock_reservations() error
+Subject: Re: [Intel-gfx] [PATCH v1 4/6] dma-buf: Acquire wait-wound context
+ on attachment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,42 +80,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Dmitry Osipenko <digetx@gmail.com>,
+ spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
  kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 6/28/22 23:12, Thomas Hellström (Intel) wrote:
-> Hi,
-> 
-> On 5/27/22 01:50, Dmitry Osipenko wrote:
->> Use ww_acquire_fini() in the error code paths. Otherwise lockdep
->> thinks that lock is held when lock's memory is freed after the
->> drm_gem_lock_reservations() error. The WW needs to be annotated
->> as "freed"
-> 
-> s /WW/ww_acquire_context/ ?
-> s /"freed"/"released"/ ?
-> 
-> 
->> , which fixes the noisy "WARNING: held lock freed!" splat
->> of VirtIO-GPU driver with CONFIG_DEBUG_MUTEXES=y and enabled lockdep.
+On 7/15/22 09:50, Christian König wrote:
+> Am 15.07.22 um 02:52 schrieb Dmitry Osipenko:
+>> Intel i915 GPU driver uses wait-wound mutex to lock multiple GEMs on the
+>> attachment to the i915 dma-buf. In order to let all drivers utilize
+>> shared
+>> wait-wound context during attachment in a general way, make dma-buf
+>> core to
+>> acquire the ww context internally for the attachment operation and update
+>> i915 driver to use the importer's ww context instead of the internal one.
 >>
->> Cc: stable@vger.kernel.org
+>>  From now on all dma-buf exporters shall use the importer's ww context
+>> for
+>> the attachment operation.
+>>
+>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>> ---
+>>   drivers/dma-buf/dma-buf.c                     |  8 +++++-
+>>   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |  2 +-
+>>   .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +-
+>>   drivers/gpu/drm/i915/gem/i915_gem_object.h    |  6 ++---
+>>   drivers/gpu/drm/i915/i915_gem_evict.c         |  2 +-
+>>   drivers/gpu/drm/i915/i915_gem_ww.c            | 26 +++++++++++++++----
+>>   drivers/gpu/drm/i915/i915_gem_ww.h            | 15 +++++++++--
+>>   7 files changed, 47 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>> index 0ee588276534..37545ecb845a 100644
+>> --- a/drivers/dma-buf/dma-buf.c
+>> +++ b/drivers/dma-buf/dma-buf.c
+>> @@ -807,6 +807,8 @@ static struct sg_table * __map_dma_buf(struct
+>> dma_buf_attachment *attach,
+>>    * Optionally this calls &dma_buf_ops.attach to allow
+>> device-specific attach
+>>    * functionality.
+>>    *
+>> + * Exporters shall use ww_ctx acquired by this function.
+>> + *
+>>    * Returns:
+>>    *
+>>    * A pointer to newly created &dma_buf_attachment on success, or a
+>> negative
+>> @@ -822,6 +824,7 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf
+>> *dmabuf, struct device *dev,
+>>                   void *importer_priv)
+>>   {
+>>       struct dma_buf_attachment *attach;
+>> +    struct ww_acquire_ctx ww_ctx;
+>>       int ret;
+>>         if (WARN_ON(!dmabuf || !dev))
+>> @@ -841,7 +844,8 @@ dma_buf_dynamic_attach_unlocked(struct dma_buf
+>> *dmabuf, struct device *dev,
+>>       attach->importer_ops = importer_ops;
+>>       attach->importer_priv = importer_priv;
+>>   -    dma_resv_lock(dmabuf->resv, NULL);
+>> +    ww_acquire_init(&ww_ctx, &reservation_ww_class);
+>> +    dma_resv_lock(dmabuf->resv, &ww_ctx);
 > 
-> Can you dig up the commit in error and add a Fixes: Tag?
+> That won't work like this. The core property of a WW context is that you
+> need to unwind all the locks and re-quire them with the contended one
+> first.
 > 
-> Using that and "dim fixes" will also make the Cc: stable tag a bit more
-> verbose.
-> 
-> With that fixed,
-> 
-> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> When you statically lock the imported one here you can't do that any more.
 
-I'll update this patch, thank you for taking a look.
+You're right. I felt that something is missing here, but couldn't
+notice. I'll think more about this and enable
+CONFIG_DEBUG_WW_MUTEX_SLOWPATH. Thank you!
 
 -- 
 Best regards,
