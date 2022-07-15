@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85ED7C433EF
-	for <intel-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:41:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CC1EC43334
+	for <intel-gfx@archiver.kernel.org>; Sat, 16 Jul 2022 14:42:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 550991121F7;
-	Sat, 16 Jul 2022 14:36:34 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0B0410E05A
- for <intel-gfx@lists.freedesktop.org>; Fri, 15 Jul 2022 20:21:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AD9F10F19A;
+	Sat, 16 Jul 2022 14:36:35 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E607110E153;
+ Fri, 15 Jul 2022 22:13:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1657916461; x=1689452461;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=cTfNAmRouJct4IjPzaD+GeTQ52Zo3iHyBikJzUz0TcA=;
- b=FO2l5BHxjKwGH7TXA1WCepustrthNhD6xKHPIOiPN34jr+xL+xtYiR4D
- ZWJ6Po5qr3Aalzwho+Jm++40YCEg52ZbuhTr2vbJPHcpLcYg8/m3k51Kh
- ScNZ1OCvjFWUKF1T0o7DN/4SPHFoKiElDvYGT1VgObxmhGpuhNO+qsDEA
- cYcj6ub4wBuLZkKz434sBT8Y8uN4dyM5XHXDLFrDFx5D5liKNJC0Gl22r
- xIGndwyGQERd0ukrE8mmAz9ZiTgzjCOzZ7aczif5xhBnTmtA00acuMeVE
- QjvfD4Pa1tPlwmPb/O2zaMbaZu5Zb656hviCLzJZw+PY/lqHK+uS+Y8dp A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10409"; a="285919517"
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="285919517"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2022 13:21:01 -0700
+ t=1657923208; x=1689459208;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=g4fFp5ecwvNINqM2RksISMoMdqI1f5fQUGgvCXMkIEA=;
+ b=KGaaafoSa62cnOhvBVHHkCNIEbTP3mHqiq7oNUm/YVg8JtUEXRF3tZcy
+ xxP2bXjo0l5xHwDXBDI4UHMYPogxkRUfzWR5FDxTgWla4hd0IYKkUGpwY
+ Cymty/zN7QizSzQAZKVLHgWg3DoDeMgMgzJNibmCQwHcaN71fLYSInrdL
+ A7Of4pSMf2Y3WdWShpzzlgE62YUKhVVzXwz/3mmf1eCaVSLTGUbubAyLU
+ 1JBgFsgG2Xff2wVajqll1fVDNmERxO/7uI1WE40bRVQEyGUhQupJUATu2
+ B6UI/8Y6aJCUYwtAP5F4HYV355ZxoO7Gr/Kk0bzQa89T0OiTaSpmIR2cl w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10409"; a="347597744"
+X-IronPort-AV: E=Sophos;i="5.92,275,1650956400"; d="scan'208";a="347597744"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2022 15:13:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,274,1650956400"; d="scan'208";a="654484124"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.161])
- by fmsmga008.fm.intel.com with SMTP; 15 Jul 2022 13:20:59 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 15 Jul 2022 23:20:58 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Jul 2022 23:20:37 +0300
-Message-Id: <20220715202044.11153-6-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220715202044.11153-1-ville.syrjala@linux.intel.com>
-References: <20220715202044.11153-1-ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.92,275,1650956400"; d="scan'208";a="773134444"
+Received: from dbstims-dev.fm.intel.com ([10.1.27.167])
+ by orsmga005.jf.intel.com with ESMTP; 15 Jul 2022 15:13:26 -0700
+From: Zhanjun Dong <zhanjun.dong@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Fri, 15 Jul 2022 14:13:13 -0700
+Message-Id: <20220715211313.143645-1-zhanjun.dong@intel.com>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/12] drm/i915: Add the VBT LTTPR transparent
- vs. non-transparent bits
+Subject: [Intel-gfx] [PATCH] drm/i915/guc: Check for ct enabled while
+ waiting for response
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,33 +55,98 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Zhanjun Dong <zhanjun.dong@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+We are seeing error message of "No response for request". Some cases
+happened while waiting for response and reset/suspend action was triggered.
+In this case, no response is not an error, active requests will be
+cancelled.
 
-VBT gained a bit to indicate whether LTTPRs should use transparent
-or non-transparent mode. Dunno if we should actually look at this...
+This patch will handle this condition and change the error message into
+debug message.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Zhanjun Dong <zhanjun.dong@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vbt_defs.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 27 +++++++++++++++++------
+ 1 file changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-index d583bb085913..b15e29509fac 100644
---- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-+++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-@@ -408,7 +408,8 @@ struct child_device_config {
- 			u8 compression_enable:1;		/* 198+ */
- 			u8 compression_method_cps:1;		/* 198+ */
- 			u8 ganged_edp:1;			/* 202+ */
--			u8 reserved2:4;
-+			u8 lttpr_non_transparent:1;		/* 235+ */
-+			u8 reserved2:3;
- 			u8 compression_structure_index:4;	/* 198+ */
- 			u8 reserved3:4;
- 			u8 slave_port;				/* 202+ */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index f01325cd1b62..74194c11234d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -455,6 +455,7 @@ static int ct_write(struct intel_guc_ct *ct,
+ 
+ /**
+  * wait_for_ct_request_update - Wait for CT request state update.
++ * @ct:		pointer to CT
+  * @req:	pointer to pending request
+  * @status:	placeholder for status
+  *
+@@ -467,9 +468,10 @@ static int ct_write(struct intel_guc_ct *ct,
+  * *	0 response received (status is valid)
+  * *	-ETIMEDOUT no response within hardcoded timeout
+  */
+-static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
++static int wait_for_ct_request_update(struct intel_guc_ct *ct, struct ct_request *req, u32 *status)
+ {
+ 	int err;
++	bool ct_enabled;
+ 
+ 	/*
+ 	 * Fast commands should complete in less than 10us, so sample quickly
+@@ -481,12 +483,15 @@ static int wait_for_ct_request_update(struct ct_request *req, u32 *status)
+ #define GUC_CTB_RESPONSE_TIMEOUT_SHORT_MS 10
+ #define GUC_CTB_RESPONSE_TIMEOUT_LONG_MS 1000
+ #define done \
+-	(FIELD_GET(GUC_HXG_MSG_0_ORIGIN, READ_ONCE(req->status)) == \
++	(!(ct_enabled = intel_guc_ct_enabled(ct)) || \
++	 FIELD_GET(GUC_HXG_MSG_0_ORIGIN, READ_ONCE(req->status)) == \
+ 	 GUC_HXG_ORIGIN_GUC)
+ 	err = wait_for_us(done, GUC_CTB_RESPONSE_TIMEOUT_SHORT_MS);
+ 	if (err)
+ 		err = wait_for(done, GUC_CTB_RESPONSE_TIMEOUT_LONG_MS);
+ #undef done
++	if (!ct_enabled)
++		err = -ENODEV;
+ 
+ 	*status = req->status;
+ 	return err;
+@@ -703,11 +708,18 @@ static int ct_send(struct intel_guc_ct *ct,
+ 
+ 	intel_guc_notify(ct_to_guc(ct));
+ 
+-	err = wait_for_ct_request_update(&request, status);
++	err = wait_for_ct_request_update(ct, &request, status);
+ 	g2h_release_space(ct, GUC_CTB_HXG_MSG_MAX_LEN);
+ 	if (unlikely(err)) {
+-		CT_ERROR(ct, "No response for request %#x (fence %u)\n",
+-			 action[0], request.fence);
++		if (err == -ENODEV)
++			/* wait_for_ct_request_update returns -ENODEV on reset/suspend in progress.
++			 * In this case, output is debug rather than error info
++			 */
++			CT_DEBUG(ct, "Request %#x (fence %u) cancelled as CTB is disabled\n",
++				 action[0], request.fence);
++		else
++			CT_ERROR(ct, "No response for request %#x (fence %u)\n",
++				 action[0], request.fence);
+ 		goto unlink;
+ 	}
+ 
+@@ -771,8 +783,9 @@ int intel_guc_ct_send(struct intel_guc_ct *ct, const u32 *action, u32 len,
+ 
+ 	ret = ct_send(ct, action, len, response_buf, response_buf_size, &status);
+ 	if (unlikely(ret < 0)) {
+-		CT_ERROR(ct, "Sending action %#x failed (%pe) status=%#X\n",
+-			 action[0], ERR_PTR(ret), status);
++		if (ret != -ENODEV)
++			CT_ERROR(ct, "Sending action %#x failed (%pe) status=%#X\n",
++				 action[0], ERR_PTR(ret), status);
+ 	} else if (unlikely(ret)) {
+ 		CT_DEBUG(ct, "send action %#x returned %d (%#x)\n",
+ 			 action[0], ret, ret);
 -- 
-2.35.1
+2.36.0
 
