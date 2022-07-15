@@ -4,41 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7487BC433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jul 2022 08:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B50F9C433EF
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Jul 2022 09:27:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13C6E11AEE3;
-	Fri, 15 Jul 2022 08:54:44 +0000 (UTC)
-X-Greylist: delayed 1181 seconds by postgrey-1.36 at gabe;
- Fri, 15 Jul 2022 08:54:43 UTC
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [IPv6:2a01:488:42:1000:50ed:8234::])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E9CD1125A5;
- Fri, 15 Jul 2022 08:54:43 +0000 (UTC)
-Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1oCGmq-0007yL-4o; Fri, 15 Jul 2022 10:35:00 +0200
-Message-ID: <40101a14-ea44-1fd9-36ab-2048df2cb0e6@leemhuis.info>
-Date: Fri, 15 Jul 2022 10:34:59 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0100611BD01;
+	Fri, 15 Jul 2022 09:27:59 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B682D11BD0A;
+ Fri, 15 Jul 2022 09:27:57 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id AFD0FA66C9;
+ Fri, 15 Jul 2022 09:27:57 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: "regressions@lists.linux.dev" <regressions@lists.linux.dev>
-References: <20220412225955.1802543-1-John.C.Harrison@Intel.com>
- <20220412225955.1802543-2-John.C.Harrison@Intel.com>
- <Yli4/8OIbjyRaQAK@mdroper-desk1.amr.corp.intel.com>
- <CAPM=9txdca1VnRpp-oNLXpBc2UWq3=ceeim5+Gw4N9tAriRY6A@mail.gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-In-Reply-To: <CAPM=9txdca1VnRpp-oNLXpBc2UWq3=ceeim5+Gw4N9tAriRY6A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1657875283;
- 6d4fc315; 
-X-HE-SMSGID: 1oCGmq-0007yL-4o
-Subject: Re: [Intel-gfx] [PATCH 1/1] drm/i915/guc: Update to GuC version
- 70.1.1 #forregzbot
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mauro Carvalho Chehab" <mchehab@kernel.org>
+Date: Fri, 15 Jul 2022 09:27:57 -0000
+Message-ID: <165787727769.10565.17632077460140146451@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <2378da383d043de17172d928e59da0ec423cae76.1657873550.git.mchehab@kernel.org>
+In-Reply-To: <2378da383d043de17172d928e59da0ec423cae76.1657873550.git.mchehab@kernel.org>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/gt=3A_Retry_RING=5FHEAD_reset_until_it_sticks?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,96 +40,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <Intel-GFX@lists.freedesktop.org>,
- dri-devel <DRI-Devel@lists.freedesktop.org>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-[TLDR: I'm adding this regression report to the list of tracked
-regressions; all text from me you find below is based on a few templates
-paragraphs you might have encountered already already in similar form.]
+== Series Details ==
 
-Hi, this is your Linux kernel regression tracker.
+Series: drm/i915/gt: Retry RING_HEAD reset until it sticks
+URL   : https://patchwork.freedesktop.org/series/106377/
+State : warning
 
-On 15.07.22 01:08, Dave Airlie wrote:
-> On Fri, 15 Apr 2022 at 10:15, Matt Roper <matthew.d.roper@intel.com> wrote:
->>
->> On Tue, Apr 12, 2022 at 03:59:55PM -0700, John.C.Harrison@Intel.com wrote:
->>> From: John Harrison <John.C.Harrison@Intel.com>
->>>
->>> The latest GuC firmware drops the context descriptor pool in favour of
->>> passing all creation data in the create H2G. It also greatly simplifies
->>> the work queue and removes the process descriptor used for multi-LRC
->>> submission. So, remove all mention of LRC and process descriptors and
->>> update the registration code accordingly.
->>>
->>> Unfortunately, the new API also removes the ability to set default
->>> values for the scheduling policies at context registration time.
->>> Instead, a follow up H2G must be sent. The individual scheduling
->>> policy update H2G commands are also dropped in favour of a single KLV
->>> based H2G. So, change the update wrappers accordingly and call this
->>> during context registration..
->>>
->>> Of course, this second H2G per registration might fail due to being
->>> backed up. The registration code has a complicated state machine to
->>> cope with the actual registration call failing. However, if that works
->>> then there is no support for unwinding if a further call should fail.
->>> Unwinding would require sending a H2G to de-register - but that can't
->>> be done because the CTB is already backed up.
->>>
->>> So instead, add a new flag to say whether the context has a pending
->>> policy update. This is set if the policy H2G fails at registration
->>> time. The submission code checks for this flag and retries the policy
->>> update if set. If that call fails, the submission path early exists
->>> with a retry error. This is something that is already supported for
->>> other reasons.
->>>
->>> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
->>> Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
->>
->> Applied to drm-intel-gt-next.  Thanks for the patch and review.
->>
-> 
-> (cc'ing Linus and danvet, as a headsup, there is also a phoronix
-> article where this was discovered).
-> 
-> Okay WTF.
-> 
-> This is in no way acceptable. This needs to be fixed in 5.19-rc ASAP.
-> 
-> Once hardware is released and we remove the gate flag by default, you
-> cannot just bump firmware versions blindly.
-> 
-> The kernel needs to retain compatibility with all released firmwares
-> since a device was declared supported.
-> 
-> This needs to be reverted, and then 70 should be introduced with a
-> fallback to 69 versions.
-> 
-> Very disappointing, I expect this to get dealt with v.quickly.
+== Summary ==
 
-To be sure below issue doesn't fall through the cracks unnoticed, I'm
-adding it to regzbot, my Linux kernel regression tracking bot:
+Error: dim checkpatch failed
+8af7dbc6eea2 drm/i915/gt: Retry RING_HEAD reset until it sticks
+-:116: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'end' - possible side-effects?
+#116: FILE: drivers/gpu/drm/i915/i915_utils.h:264:
++#define until_timeout_ns(end, timeout_ns) \
++	for ((end) = ktime_get() + (timeout_ns); \
++	     ktime_before(ktime_get(), (end)); \
++	     cpu_relax())
 
-#regzbot ^introduced 2584b3549f4c4081
-#regzbot title
-#regzbot ignore-activity
+total: 0 errors, 0 warnings, 1 checks, 89 lines checked
 
-This isn't a regression? This issue or a fix for it are already
-discussed somewhere else? It was fixed already? You want to clarify when
-the regression started to happen? Or point out I got the title or
-something else totally wrong? Then just reply -- ideally with also
-telling regzbot about it, as explained here:
-https://linux-regtracking.leemhuis.info/tracked-regression/
 
-Reminder for developers: When fixing the issue, add 'Link:' tags
-pointing to the report (the mail this one replies to), as explained for
-in the Linux kernel's documentation; above webpage explains why this is
-important for tracked regressions.
-
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
-
-P.S.: As the Linux kernel's regression tracker I deal with a lot of
-reports and sometimes miss something important when writing mails like
-this. If that's the case here, don't hesitate to tell me in a public
-reply, it's in everyone's interest to set the public record straight.
