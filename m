@@ -4,65 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C672CCA483
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01229C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 14:09:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 925FB11B9EC;
-	Wed, 20 Jul 2022 14:08:53 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9749A10E5AB;
- Fri, 15 Jul 2022 00:53:19 +0000 (UTC)
-Received: from dimapc.. (109-252-119-232.nat.spd-mgts.ru [109.252.119.232])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 56DEA6601A44;
- Fri, 15 Jul 2022 01:53:15 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1657846397;
- bh=08a2nboQlEuWwlfAHFXkuoQn5obKyHZ/ZVFgCHrEt8s=;
- h=From:To:Cc:Subject:Date:From;
- b=VsAEIkbATEnA4Nbk3aERHQn8fLTLVUHNv8kWnssP/Qm3YXMVzWlFtWtdiMoahCGPS
- Kme2EsYIfptxjyFqr0HTYnhHM2YDrmur5rK32XO50Iv7OJMG9x+bqrwazS7dy309Hr
- 1b+7CYfqa5NrdY/U09oRNR6aOmNsc2mF6BOnsa/ZBo+gnufnonFAu467YUDfXNnyVT
- 2+7CcdCl1nQYdMBehjDmpbmWcCdsqMJ0HzNITuntSQayJH8o68ShuNneWHuMz+ft9f
- zsNlizMtyEmX65xBz2nEMDvbw5Q3Bpj+6ANqTt35ZjsRdjlP7HA6II7WWUrvegljIb
- rs2/bpj1V1R9Q==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>
-Date: Fri, 15 Jul 2022 03:52:38 +0300
-Message-Id: <20220715005244.42198-1-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.36.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6868B11B972;
+	Wed, 20 Jul 2022 14:09:01 +0000 (UTC)
+Received: from smtpbg.qq.com (biz-43-154-221-58.mail.qq.com [43.154.221.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7716B1120AB;
+ Tue, 19 Jul 2022 12:07:42 +0000 (UTC)
+X-QQ-mid: bizesmtp65t1658232442ts1nmbp7
+Received: from localhost.localdomain ( [171.223.96.21])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 19 Jul 2022 20:07:20 +0800 (CST)
+X-QQ-SSF: 01000000002000F0U000B00A0000000
+X-QQ-FEAT: 3auutXC5AV+cOmKb/kyVFRYpEkBj9pk0YN38xAWBRX2vjduB3o0pX5BXL9f11
+ iio/MpUwcAHR4nVFKa6lCgXdpC0GQzr6oCENhz/8zFiVEUDtO6xiHb92QdWnWjTrrgPoxBq
+ 44WwVHrvoasWDuB5uVCcLdZizf88muRTpgM2ZUVrS05HfV5KcRS72DdlCtEyG/+MUV23CBY
+ /43Z9gwgmTHDGT6TacYkq7x7mdAvIW6RwYsiyljEqQIotnQOJBzs13RP2/6fmPVM96fV5hZ
+ DHiw1d2pOtOs8HWLman7e4HjANUPJyk8GRpgGy0jyn13NIHrm95pzWfEfs/aVIzkimxuQLG
+ jfXztTDBkec51/GzuAg6Xc1fwSZYTrxqaWU9561ZHNEOHfj66byjgNKYBJ2RCuKOgSJtoIH
+ Ev8G9mlWhfo=
+X-QQ-GoodBg: 0
+From: Jason Wang <wangborong@cdjrlc.com>
+To: daniel@ffwll.ch
+Date: Sat, 16 Jul 2022 12:05:20 +0800
+Message-Id: <20220716040520.31676-1-wangborong@cdjrlc.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr6
 X-Mailman-Approved-At: Wed, 20 Jul 2022 14:07:33 +0000
-Subject: [Intel-gfx] [PATCH v1 0/6] Move all drivers to a common dma-buf
- locking convention
+Subject: [Intel-gfx] [PATCH] drm/i915/selftests: Fix comment typo
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,75 +48,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: Jason Wang <wangborong@cdjrlc.com>, michal.winiarski@intel.com,
+ airlied@linux.ie, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com, zhou1615@umn.edu
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Fix the double `wait' typo in comment.
 
-This series moves all drivers to a dynamic dma-buf locking specification.
-From now on all dma-buf importers are made responsible for holding
-dma-buf's reservation lock around all operations performed over dma-bufs.
-This common locking convention allows us to utilize reservation lock more
-broadly around kernel without fearing of potential dead locks.
+Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
+---
+ drivers/gpu/drm/i915/selftests/i915_request.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This patchset passes all i915 selftests. It was also tested using VirtIO,
-Panfrost, Lima and Tegra drivers. I tested cases of display+GPU,
-display+V4L and GPU+V4L dma-buf sharing, which covers majority of kernel
-drivers since rest of the drivers share same or similar code paths.
-
-This is a continuation of [1] where Christian König asked to factor out
-the dma-buf locking changes into separate series.
-
-[1] https://lore.kernel.org/dri-devel/20220526235040.678984-1-dmitry.osipenko@collabora.com/
-
-Dmitry Osipenko (6):
-  dma-buf: Add _unlocked postfix to function names
-  drm/gem: Take reservation lock for vmap/vunmap operations
-  dma-buf: Move all dma-bufs to dynamic locking specification
-  dma-buf: Acquire wait-wound context on attachment
-  media: videobuf2: Stop using internal dma-buf lock
-  dma-buf: Remove internal lock
-
- drivers/dma-buf/dma-buf.c                     | 198 +++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   4 +-
- drivers/gpu/drm/armada/armada_gem.c           |  14 +-
- drivers/gpu/drm/drm_client.c                  |   4 +-
- drivers/gpu/drm/drm_gem.c                     |  28 +++
- drivers/gpu/drm/drm_gem_cma_helper.c          |   6 +-
- drivers/gpu/drm/drm_gem_framebuffer_helper.c  |   6 +-
- drivers/gpu/drm/drm_gem_shmem_helper.c        |   6 +-
- drivers/gpu/drm/drm_prime.c                   |  12 +-
- drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   6 +-
- drivers/gpu/drm/exynos/exynos_drm_gem.c       |   2 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |  20 +-
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |   2 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |   6 +-
- .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  20 +-
- drivers/gpu/drm/i915/i915_gem_evict.c         |   2 +-
- drivers/gpu/drm/i915/i915_gem_ww.c            |  26 ++-
- drivers/gpu/drm/i915/i915_gem_ww.h            |  15 +-
- drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c     |   8 +-
- drivers/gpu/drm/qxl/qxl_object.c              |  17 +-
- drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
- drivers/gpu/drm/tegra/gem.c                   |  27 +--
- drivers/infiniband/core/umem_dmabuf.c         |  11 +-
- .../common/videobuf2/videobuf2-dma-contig.c   |  26 +--
- .../media/common/videobuf2/videobuf2-dma-sg.c |  23 +-
- .../common/videobuf2/videobuf2-vmalloc.c      |  17 +-
- .../platform/nvidia/tegra-vde/dmabuf-cache.c  |  12 +-
- drivers/misc/fastrpc.c                        |  12 +-
- drivers/xen/gntdev-dmabuf.c                   |  14 +-
- include/drm/drm_gem.h                         |   3 +
- include/linux/dma-buf.h                       |  49 ++---
- 32 files changed, 347 insertions(+), 257 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
+index c56a0c2cd2f7..ec05f578a698 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_request.c
++++ b/drivers/gpu/drm/i915/selftests/i915_request.c
+@@ -971,7 +971,7 @@ static struct i915_vma *empty_batch(struct drm_i915_private *i915)
+ 	if (err)
+ 		goto err;
+ 
+-	/* Force the wait wait now to avoid including it in the benchmark */
++	/* Force the wait now to avoid including it in the benchmark */
+ 	err = i915_vma_sync(vma);
+ 	if (err)
+ 		goto err_pin;
 -- 
-2.36.1
+2.35.1
 
