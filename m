@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12B9BC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9311CCA479
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2276FA9CC3;
-	Mon, 18 Jul 2022 06:38:58 +0000 (UTC)
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCF41A9CAE;
- Mon, 18 Jul 2022 06:38:51 +0000 (UTC)
-Received: by mail-il1-x12f.google.com with SMTP id v1so1930409ilg.4;
- Sun, 17 Jul 2022 23:38:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9AE2A9CFF;
+	Mon, 18 Jul 2022 06:39:00 +0000 (UTC)
+Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
+ [IPv6:2607:f8b0:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 159B1A9CFF;
+ Mon, 18 Jul 2022 06:38:55 +0000 (UTC)
+Received: by mail-il1-x135.google.com with SMTP id l11so3423409ilf.11;
+ Sun, 17 Jul 2022 23:38:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=6RBPMZ8G3w6XBnMU2q+nqilMr7VuIUKBgMzFm84FNO4=;
- b=dMlx/PfZHDfOhKla8BWhTdhmZAObj1zlvXRkKNcDWOogQR17a9ReCax17EE6+Psejl
- q19pmYaO4aaxti9unGx2T4DwCSxw6ybhpIrRXOuVtR1LcM+PozVE6ouNB+9SxyOehBq/
- Nmxcod+8T0FIOCNd3ChZ358DbxPGeyiRq1mJb1WzcI/YS9EhX9GSoHgynGdjJpKZBOEl
- gebLbUrEZfJ6djgOzB3ESrMdBRnsEHy2Qssdjaq+ZsQXHF9sLUPvsjxAP7PkjWNKv84B
- w+avu0cRj8otlLCj3GW+7RcJ33unlvKyauyur9yZobTgTiD26TYykDUKfAEKAMQQNQB4
- NxrA==
+ bh=MZ3Q5KVq+ZJLReu3DAK5foUVy/OiDsXtwGwiJj5P6rQ=;
+ b=YEGztQy6ga6KUkQrsvEfp8u/3M+3l98VGnRZQkPO0jMUYZjQg9qtUoFUBBC7rln+ZA
+ 8O4TnNNfSiTpTc0B8K5IQkZMH5SUxvcrTYpo2JFvT97bdAcIGgdvnEy66Z6cuA+k12hS
+ J9XwgngRgdee7snErWB86Ty0x94lH0uuqoeQ3xjXbCkx9JSlaKoPwvD78Qql7qCRH8h2
+ fGpIvpWWH67QZiUQHr+Wjpo90wiTzvHH9L17xD33r7Z800yDqcfgJbgXm2j92i5YRZ4Y
+ /3AjylCNPBUMYRwLzM1eKjljZHirzrMLU5TF61eVmZcBSpQMwEGtvgJ+I65gZH1kxWTM
+ r53g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=6RBPMZ8G3w6XBnMU2q+nqilMr7VuIUKBgMzFm84FNO4=;
- b=BvliUtqlVeKryaBHnAeePrI5XvMyaSTtjFx3sruMz4Ou5pT2s2CmXFxy3dwS12wRqC
- w0YHizTLQGACP2gSZPkabw4viFR5sODWIbl9iCFCB64crFDpwu7ksVOe8uiJ4Ev+7saW
- ZIv8B7HQhLxVeyzy+AGm55+Nv8HQN9cfW6fBxyJ1vkW2ap7dtlExTIguw9+OjLDaihBU
- BwcfPgUUT45mUtAqX1ARyjBkRlztj3Wwsno6HiO6C+o7j+n7UyjflLcYflJ6PovDe9ex
- b4WJp5mTkpULhao3BFjo6tyMrYwOgPT75aZPCkEeL5mn+0Eiozt+54WPIzOs7qV0UeH5
- /Ekg==
-X-Gm-Message-State: AJIora/349Z4p/bL7tq4DFYO02twVCunR9tr/X+Wd+GDUwByvVykIOOZ
- 9HfwgJz5HU79wA/vFOk8imE=
-X-Google-Smtp-Source: AGRyM1tIpJnQa5BX/f8539g3QLYRp6mF0vyZqnzqL6K6QRnlTehgAL0NDtRxEn90pRtF68ECzI7awQ==
-X-Received: by 2002:a05:6e02:1565:b0:2dc:dee5:c8a9 with SMTP id
- k5-20020a056e02156500b002dcdee5c8a9mr3426436ilu.71.1658126331093; 
- Sun, 17 Jul 2022 23:38:51 -0700 (PDT)
+ bh=MZ3Q5KVq+ZJLReu3DAK5foUVy/OiDsXtwGwiJj5P6rQ=;
+ b=fF8ocNX527QJglrO6p4LirO7879lW+mT6Iw5EJGzOxsMDwD8/gF9xt90CqcxmvOGKj
+ uPzgKcQf/cV2A86Wijg2Wv+J6vydXKAg45KP5UB5asc4Fk07Cd+EXshKwevGMb3U6rZ1
+ 6Aiym813Ndox6XIPi2NdyX8axjiRYku8TSqfcgvHuRIr4quV6DWXyc3Pmb28p9RSARlC
+ WH0Ci6qd1eTr/3iRuwc5psuMqh/c/by0SuBcYoGgQAP11Uk2llTxnHlyxQIN0D5TgwJR
+ 2Kh1SHiCyDRILyr+8jPi4fmh1gtzPhODuO4l4B6YY8a70w4tyIOlmtTnQw0Xe0hKABWt
+ yGsg==
+X-Gm-Message-State: AJIora99p1KpgACQNZUMw1mFwESLzWMk6eH9hgncFWaXctFcanC32NEA
+ jIYTjv55U6DLGFaKu0mLgtY=
+X-Google-Smtp-Source: AGRyM1vIkK9Fe645GPG4U3WPQcuvW5cRy7aJvr7ZHb17vBPzeb28JtrIcG2OKMPtUIwhFoZNrI9idw==
+X-Received: by 2002:a05:6e02:174d:b0:2dc:5fe0:eae1 with SMTP id
+ y13-20020a056e02174d00b002dc5fe0eae1mr12105485ill.235.1658126333307; 
+ Sun, 17 Jul 2022 23:38:53 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.49
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:50 -0700 (PDT)
+ Sun, 17 Jul 2022 23:38:52 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Date: Mon, 18 Jul 2022 00:36:11 -0600
-Message-Id: <20220718063641.9179-28-jim.cromie@gmail.com>
+Date: Mon, 18 Jul 2022 00:36:13 -0600
+Message-Id: <20220718063641.9179-30-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 25/39] drm_print: refine drm_debug_enabled
+Subject: [Intel-gfx] [PATCH v3 26/41] drm_print: refine drm_debug_enabled
  for jump-label
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,7 +131,7 @@ index 21b416af0be2..effb95b3c2bf 100644
  
  	va_start(args, format);
 diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index f8bb3e7158c6..3c16b00b6d21 100644
+index dfdd81c3287c..7631b5fb669e 100644
 --- a/include/drm/drm_print.h
 +++ b/include/drm/drm_print.h
 @@ -321,11 +321,39 @@ enum drm_debug_category {
