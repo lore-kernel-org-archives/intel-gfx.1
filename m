@@ -4,59 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33F71C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:41:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D55AC43334
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:46:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7696790271;
-	Mon, 18 Jul 2022 06:40:12 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7D78A9D99;
- Mon, 18 Jul 2022 06:39:30 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id d4so5550328ilc.8;
- Sun, 17 Jul 2022 23:39:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=H1xuCGeY8Sir917dDYr7SPlwJzEye6l0obwn9tK3MZ8=;
- b=I5mQXve6DLZL5MXFW1wEwbkcB4buLA3ilZozWw9NRVyr7gUGvPtBNfntmTp37RtYmf
- cLpiFeuOM7otD4mRdN97dc40WOjcwWdUAxA853jZBvJnyWBAp2fYxmZLkHsxwfDohMmY
- 7v3uUKJGuhHTcw3DVYXotysxWZj0UcJlDYAu/ZjfVE52fceQ77X7FcYkrREZCOqaV8B6
- tBcDoEhuhI/TttSLtsfavc5K8XFPTfOvns12kjJYXy9Kv81UCKkIuCPPbrQ96tAID3Ur
- AwuqLBkDX7s9jis9DMAbnjq2HJwsFJIBWZqjMYDfyjdOwKf7DsbDZgVxy5ukSjhlWSaI
- Z47g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=H1xuCGeY8Sir917dDYr7SPlwJzEye6l0obwn9tK3MZ8=;
- b=XghWG23x7Uu+7gW6pNIVn8xbql12TqHK75tOcII3JUi9U9rdFbf5nvpN9eTuRO7rMK
- QGIgTnS4n+uJOkJbhh5QowbWhYKubKLVZ38zmkoWf1CuFFxJZkBwar3aDuTy/66Qtpn5
- t1ZdW2A8a17+EggTZy1nBl53PgVe/GWMkvYxQBJWWqtmTUrMATOzPBJGcR8X0aZHFi9o
- vuGZ/Jsx+spNQBANTqN6LsssOEgc3R/8p22B0aPUETMW1MxxifYJlxeQGbniJSIAMY3i
- R7hdKWkS+N+TEK0j10P5uOIThZv2lalTe6z953+0Ir51Fqni1cvT0TggOuo9brUgd2yR
- H0Gg==
-X-Gm-Message-State: AJIora9nxrUztgd4rNWFNK1jQG1ZA+iFWEQ8hvYjd4RB97wUWHmm0NZV
- zUBlmuVYrVLwZWXYQFjGWLfc4jnoYI0=
-X-Google-Smtp-Source: AGRyM1tPvqJvcd2mEyY29eIkNWUdTXU4pzYiAn9mpxHZb9KiNf1F0tRSINUD1nfY5Td0oLpzcJFGOw==
-X-Received: by 2002:a92:c549:0:b0:2dc:949f:5514 with SMTP id
- a9-20020a92c549000000b002dc949f5514mr12401125ilj.301.1658126370443; 
- Sun, 17 Jul 2022 23:39:30 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:39:29 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com
-Date: Mon, 18 Jul 2022 00:36:40 -0600
-Message-Id: <20220718063641.9179-57-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
-References: <20220718063641.9179-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD1412AEF3;
+	Mon, 18 Jul 2022 06:46:18 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E3A5B12AED7;
+ Mon, 18 Jul 2022 06:46:14 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id DB227A7DFF;
+ Mon, 18 Jul 2022 06:46:14 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 40/41] nouveau-dbg: fixup lost prdbgs
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jim Cromie" <jim.cromie@gmail.com>
+Date: Mon, 18 Jul 2022 06:46:14 -0000
+Message-ID: <165812677486.9318.14761366204164899663@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220718063641.9179-1-jim.cromie@gmail.com>
+In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBE?=
+ =?utf-8?q?YNDBG=3A_opt-in_class=27d_debug_for_modules=2C_use_in_drm=2E?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,53 +40,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Undo the 1-line change that reduced count of prdbgs from 632 to 119.
+== Series Details ==
 
-ie: s/NV_SUBDEV_DBG_##l/NV_DBG_##l/
+Series: DYNDBG: opt-in class'd debug for modules, use in drm.
+URL   : https://patchwork.freedesktop.org/series/106427/
+State : failure
 
-So heres what happened: new symbol is 15 (or 10), and fails this macro
-test, so gets compiled out, and the dev_dbg is excluded.
+== Summary ==
 
-        if (CONFIG_NOUVEAU_DEBUG >= (l) && _subdev->debug >= (l))       \
-                dev_dbg(_subdev->device->dev, "%s: "f, _subdev->name, ##a); \
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/106427/revisions/1/mbox/ not applied
+Applying: dyndbg: fix static_branch manipulation
+Applying: dyndbg: fix module.dyndbg handling
+Applying: dyndbg: show both old and new in change-info
+Applying: dyndbg: reverse module walk in cat control
+Applying: dyndbg: reverse module.callsite walk in cat control
+Applying: dyndbg: use ESCAPE_SPACE for cat control
+Applying: dyndbg: let query-modname override actual module name
+Applying: dyndbg: add test_dynamic_debug module
+Applying: dyndbg: drop EXPORTed dynamic_debug_exec_queries
+Applying: dyndbg: add class_id to pr_debug callsites
+Applying: dyndbg: add __pr_debug_cls for testing
+Applying: dyndbg: add DECLARE_DYNDBG_CLASSMAP
+Applying: kernel/module: add __dyndbg_classes section
+Applying: dyndbg: add ddebug_attach_module_classes
+Applying: dyndbg: validate class FOO by checking with module
+Applying: dyndbg: add drm.debug style bitmap support
+Applying: dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes
+Applying: doc-dyndbg: describe "class CLASS_NAME" query support
+Applying: doc-dyndbg: edit dynamic-debug-howto for brevity, audience
+Applying: drm_print: condense enum drm_debug_category
+Applying: drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.
+Applying: drm_print: interpose drm_*dbg with forwarding macros
+Applying: drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/Kconfig
+M	drivers/gpu/drm/Makefile
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/Makefile
+Auto-merging drivers/gpu/drm/Kconfig
+CONFLICT (content): Merge conflict in drivers/gpu/drm/Kconfig
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0023 drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
-I could hack this, by hardcoding in (l + #base), but base is pretty
-distant to just toss into the macro.  At least, the base-ref should be
-a macro(&classmap) properly exposing it.
-
-OTOH, the whole CONFIG_NOUVEAU_DEBUG check could be reworked; given
-that trace is minumum recommended, theres not that many callsites
-elided (SPAM only iirc) at compile-time, and dyndbg means keeping them
-has "zero" run=cost (and 56 bytes per).  So this config item doesnt do
-much when DRM_USE_DYNAMIC_DEBUG=y.
-
-So this is a useful place to stop and take another look around, try to
-guess which trail to take..
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-index bf9c69f4fc3e..d5f6ca05d5fa 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-@@ -66,7 +66,7 @@ void nvkm_subdev_intr(struct nvkm_subdev *);
- 	if (CONFIG_NOUVEAU_DEBUG >= (l) && _subdev->debug >= (l))	\
- 		dev_dbg(_subdev->device->dev, "%s: "f, _subdev->name, ##a); \
- } while(0)
--#define nvkm_drmdbg_(s,l,f,a...) nvkm_drmdbg__((s), NV_SUBDEV_DBG_##l, dbg, f, ##a)
-+#define nvkm_drmdbg_(s,l,f,a...) nvkm_drmdbg__((s), NV_DBG_##l, dbg, f, ##a)
- #define nvkm_debug(s,f,a...) nvkm_drmdbg_((s), DEBUG, f, ##a)
- #define nvkm_trace(s,f,a...) nvkm_drmdbg_((s), TRACE, f, ##a)
- #define nvkm_spam(s,f,a...)  nvkm_drmdbg_((s),  SPAM, f, ##a)
--- 
-2.36.1
 
