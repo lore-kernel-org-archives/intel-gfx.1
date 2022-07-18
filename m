@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57737C433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3961FC43334
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 609BFA9CE8;
-	Mon, 18 Jul 2022 06:38:52 +0000 (UTC)
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C5F5A9C7E;
- Mon, 18 Jul 2022 06:38:42 +0000 (UTC)
-Received: by mail-io1-xd2b.google.com with SMTP id l24so8516952ion.13;
- Sun, 17 Jul 2022 23:38:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E1ECA9D16;
+	Mon, 18 Jul 2022 06:38:54 +0000 (UTC)
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [IPv6:2607:f8b0:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9A77A9CCA;
+ Mon, 18 Jul 2022 06:38:47 +0000 (UTC)
+Received: by mail-il1-x12b.google.com with SMTP id h16so5562324ila.2;
+ Sun, 17 Jul 2022 23:38:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=dMWqi6VMWK3OYoAYYaoTo9m6rW+kKw0BEQ3tbFi0+WA=;
- b=NlKJ0Al3ag1Jhf0hGu4Wm6GEDW0U1Ctt/erztLWJUbl7b7LDLTqnHoH6wqsOcxzIX1
- YRdvbHGjWWcnDQngq4Okk42W4NP9m9LG0bE7hvlhdJto2ks2jY0dOsux8k6iiK2ugimu
- fg+BJ/bsqS6F7NrVGgKaxT+Karyf+C6lq3ezf/hzijUIfcsCnmPL20OJNfJn5cEqYm5s
- zWZi2A356x1RQ4MHZg3p8yVKXIwIwRmMoIDko2jQIX/HZ/HEitlxwuVu/L1UwHGpD5Uj
- wbpA1MkfNIW5fQVwsf4S7tY9bNeAyzMulRAezSPpmtmPkrPGIhURnsql9u4qmQuayE35
- nhZg==
+ bh=smzB/k68xh/FUqryWbOBUBLDbn4KcKzhEOP/Gwd4FZo=;
+ b=ah2TZz5keynCDPjyhkGgnYVjD/qc6MmYD6vhncSoTTncxjPnxFCvzY7KxwxmtivoLW
+ pCnnvOsNmSyY8Ol9371D6otdo2TgPokbFHQ2WATaOb6NEsR+SiFbk6y2Pk6vrJwQj4id
+ Bt1g3bIyiCI39owjXvN7O1AcruFaTtWkW0IY5/5FeNyM1UEb4Se0d7OKjOsMeP7gEz/7
+ NOs0KhETf9lINi69BUTouUt5STjab4J6mxcqANq6c1FSpu0gO3vD6IuySuVhEbF/n68H
+ hAhkizEZocCkq3FCVtYAia7dUZLjg7b2WmKlrqlYHGfxH6b/njsJEoqWcQVv4rRX0KEI
+ CV6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=dMWqi6VMWK3OYoAYYaoTo9m6rW+kKw0BEQ3tbFi0+WA=;
- b=pQBYaf4glkS6mQ+L5WIOZ6chrBtgLIpLkNx2MFyIPpvnzgO868FwOwoTq8Uwslk8dm
- LZH/YSgHr7E9jlU80C/LAzY/NkONCt2Vmf+SY8bS+KMYK5WVO92XR2+h/YiUzsyB6xt8
- 21vXhw2ZE6T6SGXd83Iq/ehLPCbLulqeNCI+vyfUxYrBZWlQZFSKDSTJ7Uc/qsy5U4aQ
- /XATVkJH5An+cceIZwIqv5cRR6gpxJq+zw9JxQHGbSV+1QGkbUG60grthvVsicYhWuqO
- mxWAZ7qJ/gxxNqfCjFjMBPWNUML/NCOuPh4Ou5/6THWKT5AUt2iE03ZiqdXGmk8KDCXl
- Pr7w==
-X-Gm-Message-State: AJIora+9y1PGv6KEhbPw1/zXrDDLPvqRybqLFJDA+4O3Rjq+pNikLY62
- HYEeq6EulP8+8aYYROQN68E=
-X-Google-Smtp-Source: AGRyM1s8PQQUfjkEGsIYa/DQ21W8eXDUCQjydh5hQU7h/oaZBUdlotSDP9kAURVOWDQPuLcVgtmOsQ==
-X-Received: by 2002:a5d:950f:0:b0:672:4199:45c2 with SMTP id
- d15-20020a5d950f000000b00672419945c2mr11981349iom.161.1658126321753; 
- Sun, 17 Jul 2022 23:38:41 -0700 (PDT)
+ bh=smzB/k68xh/FUqryWbOBUBLDbn4KcKzhEOP/Gwd4FZo=;
+ b=KE7J4nbD4Rl2NFjHu+Q/YSO2h6ShGUp15CYKwG29gewcO/YT1GIfC6niVnNsNjnfsD
+ lY/qghHx24lmxyIX+KSn9BH3qOOuix41Jw6+7mADiqk+KQ+bfHbUp16awBRe835TvJ2D
+ oFFhbj2IWMPjsZEfDUSzvBLdAAFBmabtI/wGrothLWTKQqm2TFeY4kTNpisQhRQYi5LH
+ hpq5etEIXGrta3lbMDrTEpZ3YiRiykVVPfaIH5VD9QQRGGBJdfN2RmIRqQiQXowDoQ8C
+ jQ37Qd4ia292kTPLerFuokFIYGhWDqNR4p6oa0E4XLvJO5f+MjEj+6Fu/PaRdUJ7aqDZ
+ Grcw==
+X-Gm-Message-State: AJIora9fuaXlDUDC38Y+bLItdg0V2iDBp+hVs+qQ4DUuZUsYjuglBPrs
+ H5jTMo8VpzE9MzmXbdeTWLg=
+X-Google-Smtp-Source: AGRyM1sqMK5bl/L6uxE9zzl1H/ELATJwPDh1PJA+wiVwCUtsbWTUDfw6n+PWmZQ5IGlrzydsR+cCpw==
+X-Received: by 2002:a05:6e02:1c07:b0:2dc:e707:e49d with SMTP id
+ l7-20020a056e021c0700b002dce707e49dmr2168383ilh.190.1658126327071; 
+ Sun, 17 Jul 2022 23:38:47 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.40
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:41 -0700 (PDT)
+ Sun, 17 Jul 2022 23:38:46 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Date: Mon, 18 Jul 2022 00:36:04 -0600
-Message-Id: <20220718063641.9179-21-jim.cromie@gmail.com>
+Date: Mon, 18 Jul 2022 00:36:08 -0600
+Message-Id: <20220718063641.9179-25-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 20/41] drm_print: condense enum
- drm_debug_category
+Subject: [Intel-gfx] [PATCH v3 24/41] drm-print: add drm_dbg_driver to
+ improve namespace symmetry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,92 +76,44 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-enum drm_debug_category has 10 categories, but is initialized with
-bitmasks which require 10 bits of underlying storage.  By using
-natural enumeration, and moving the BIT(cat) into drm_debug_enabled(),
-the enum fits in 4 bits, allowing the category to be represented
-directly in pr_debug callsites, via the ddebug.class_id field.
+drm_print defines all of these:
+    drm_dbg_{core,kms,prime,atomic,vbl,lease,_dp,_drmres}
 
-While this slightly pessimizes the bit-test in drm_debug_enabled(),
-using dyndbg with JUMP_LABEL will avoid the function entirely.
+but not drm_dbg_driver itself, since it was the original drm_dbg.
 
-NOTE: this change forecloses the possibility of doing:
+To improve namespace symmetry, change the drm_dbg defn to
+drm_dbg_driver, and redef grandfathered name to symmetric one.
 
-  drm_dbg(DRM_UT_CORE|DRM_UT_KMS, "weird 2-cat experiment")
-
-but thats already strongly implied by the use of the enum itself; its
-not a normal enum if it can be 2 values simultaneously.
+This will help with nouveau, which uses its own stack of macros to
+construct calls to dev_info, dev_dbg, etc, for which adaptation means
+drm_dbg_##driver constructs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/drm/drm_print.h | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ include/drm/drm_print.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 22fabdeed297..b3b470440e46 100644
+index 2d2cef76b5c1..3aa5e9ea26f4 100644
 --- a/include/drm/drm_print.h
 +++ b/include/drm/drm_print.h
-@@ -279,49 +279,49 @@ enum drm_debug_category {
- 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
- 	 * drm_memory.c, ...
- 	 */
--	DRM_UT_CORE		= 0x01,
-+	DRM_UT_CORE,
- 	/**
- 	 * @DRM_UT_DRIVER: Used in the vendor specific part of the driver: i915,
- 	 * radeon, ... macro.
- 	 */
--	DRM_UT_DRIVER		= 0x02,
-+	DRM_UT_DRIVER,
- 	/**
- 	 * @DRM_UT_KMS: Used in the modesetting code.
- 	 */
--	DRM_UT_KMS		= 0x04,
-+	DRM_UT_KMS,
- 	/**
- 	 * @DRM_UT_PRIME: Used in the prime code.
- 	 */
--	DRM_UT_PRIME		= 0x08,
-+	DRM_UT_PRIME,
- 	/**
- 	 * @DRM_UT_ATOMIC: Used in the atomic code.
- 	 */
--	DRM_UT_ATOMIC		= 0x10,
-+	DRM_UT_ATOMIC,
- 	/**
- 	 * @DRM_UT_VBL: Used for verbose debug message in the vblank code.
- 	 */
--	DRM_UT_VBL		= 0x20,
-+	DRM_UT_VBL,
- 	/**
- 	 * @DRM_UT_STATE: Used for verbose atomic state debugging.
- 	 */
--	DRM_UT_STATE		= 0x40,
-+	DRM_UT_STATE,
- 	/**
- 	 * @DRM_UT_LEASE: Used in the lease code.
- 	 */
--	DRM_UT_LEASE		= 0x80,
-+	DRM_UT_LEASE,
- 	/**
- 	 * @DRM_UT_DP: Used in the DP code.
- 	 */
--	DRM_UT_DP		= 0x100,
-+	DRM_UT_DP,
- 	/**
- 	 * @DRM_UT_DRMRES: Used in the drm managed resources code.
- 	 */
--	DRM_UT_DRMRES		= 0x200,
-+	DRM_UT_DRMRES
- };
+@@ -467,7 +467,7 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
  
- static inline bool drm_debug_enabled(enum drm_debug_category category)
- {
--	return unlikely(__drm_debug & category);
-+	return unlikely(__drm_debug & BIT(category));
- }
+ #define drm_dbg_core(drm, fmt, ...)					\
+ 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_CORE, fmt, ##__VA_ARGS__)
+-#define drm_dbg(drm, fmt, ...)						\
++#define drm_dbg_driver(drm, fmt, ...)						\
+ 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
+ #define drm_dbg_kms(drm, fmt, ...)					\
+ 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_KMS, fmt, ##__VA_ARGS__)
+@@ -486,6 +486,7 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ #define drm_dbg_drmres(drm, fmt, ...)					\
+ 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRMRES, fmt, ##__VA_ARGS__)
+ 
++#define drm_dbg(drm, fmt, ...)	drm_dbg_driver(drm, fmt, ##__VA_ARGS__)
  
  /*
+  * printk based logging
 -- 
 2.36.1
 
