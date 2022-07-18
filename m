@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABA9DCCA479
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7944FCCA482
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0457889A5C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23BE989D5C;
 	Mon, 18 Jul 2022 06:39:49 +0000 (UTC)
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE709A9DA4;
- Mon, 18 Jul 2022 06:39:31 +0000 (UTC)
-Received: by mail-il1-x12f.google.com with SMTP id c16so4317778ils.7;
- Sun, 17 Jul 2022 23:39:31 -0700 (PDT)
+Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
+ [IPv6:2607:f8b0:4864:20::d34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 835F1A9D51;
+ Mon, 18 Jul 2022 06:39:06 +0000 (UTC)
+Received: by mail-io1-xd34.google.com with SMTP id z132so8570612iof.0;
+ Sun, 17 Jul 2022 23:39:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=UI797gthTzsKQz4UC9U2UIsi1BTd/WhNl6933XAQbZ4=;
- b=f43LFaj608ze6ozZk4VKeO33ZLWMOOojxLUmJ7LEeiD+4x56rjGnPebHrfk3Cho/OK
- hofvFaByKVFqNznKwkziLToWE6HdxehJVMLzhmThEvwEK2CPTsyDOZR+oEoig7yqF1Ho
- hk4FtIIZvizYVvkdbEzeMfj5Cejy86Y1fctUrGdt62G2e/+GwanKeTXqIAJoL/hJL84y
- ERtq/dRQUQGw76Q3Cn1FsT2D73SfSOaKukhDpdzq7Bi9nuUmlzvXcGm10V6WuX3y8bJ0
- D3vsv4HDU4cY/fFSa9Pq4MioSvTiKky264nmif2VFFf3Etl3Zn1x1GRgnoBQ6n14v6hA
- xdrA==
+ bh=tAc5RKv+WWvf0AVXeW96W8inWeyrC9o7+W9TGpSg+s8=;
+ b=T41UOSfr5lZEIWpQAaS5wPJSpTfGECrWWuK04stvcGE55cnvYz79E9iaNtqtlrfrK7
+ 6LO9uFZSEX5VoTsR6JSfqhupfudYXDnW1xYPtAmgx64Uzj493tCzoTWrVjnN/kIfa0Gh
+ 79L83YLKpsocA2NTbw5xBPNwqEN268pMRh3gzo9pInCZ0CnrnkCTGrlTCue6+KLMKJfV
+ X/4pLYf7OSuvxjWHzfvtxtkzt1DdKCLDSsexOBAEFGY7k1vMjhX7CQmaKo4IlDueq3m8
+ AZa5IFfAj5zFaOlqRP2fY7WAYOB6MqAQsS6mWI2z7m2xhU+QRav3SOhioPvzEA4+J2bH
+ k8FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=UI797gthTzsKQz4UC9U2UIsi1BTd/WhNl6933XAQbZ4=;
- b=Vq++sLqoSCWanLjQqFcLnsObzWHIpY0UV+4QXmVoHpbWOKSXzfWin8TtSlmXStB3cL
- yIZov/WsgRFOxIeQ+jjo7unGZ0qSzcIJCcAAtw9rcCdhLEcggH6+PTsaE9YZb0CC6ooF
- twFJmvvUPl90GYXTvcQwRA0kBsWA8DHQwv4K3qWxAiRvo0Ub/UMlUWT1z6k7ySntYL4u
- cw7eiMAOYEXCsBWFpqScxHmtSPd96xUWMa62yxQtvTqd1y8T1vFaRxqfcJSI7ao2gJ93
- j0g5Y+EyPgS/4krckqUjx3vaWkoPr7dAWnCjHkmeoC5PYbIljXs30IYYC190uCksbrMF
- HDGQ==
-X-Gm-Message-State: AJIora8w50K7OCEPWpx79lwLd2v9OT5dWIec7hXOv0irtvIGnDyq76WH
- q+k9VyzTd2dHqK/n0apJvvU=
-X-Google-Smtp-Source: AGRyM1uU/W7sVgBywmdq4f7AYm2RGP2Prq92TcUVVy64b1LhMl2lBnCzJZwu6YempPq+3WxxY1KE7g==
-X-Received: by 2002:a05:6e02:1583:b0:2d7:a75d:888f with SMTP id
- m3-20020a056e02158300b002d7a75d888fmr12678536ilu.13.1658126371511; 
- Sun, 17 Jul 2022 23:39:31 -0700 (PDT)
+ bh=tAc5RKv+WWvf0AVXeW96W8inWeyrC9o7+W9TGpSg+s8=;
+ b=kcFYHWNMKbTKEhTwsZzhM+MlRlq+aj7HL+hdpogMruXkxRtHXIQjFVoonZY4hPnBaI
+ jCFrZSeB0e6Qf2lySvfAMDIbfuRFMdbGe+GgvfC1y4kHHQnTlYYAFQHEt5jMJWg//Oha
+ EbPh+Xe3GJUB80rfG8cPYrJjzCtPOl0sFUNOnLhsp45FXKGcPlzTOfbS1YvvX/9Z2x0u
+ opELIh9bZ7pgVXDqK/2NVxE/JSC/+YhMaUvCQlWO5hbuUePO7g8sj7AvNp6K6+304nt7
+ RP2njhQIyNQzPuL4ge8yfOpDtsuoV4/65rxmWE2Vo19xVCj5qdBYvYxJvVlFuKt+l4ZP
+ YYqg==
+X-Gm-Message-State: AJIora84HZngp2uWTa4+1PnCasX/WtHtrg6lBwPpwtuewlU1JsfSzsC3
+ Eq6jDw3nKiMNQ8HrRGaRJu6/E0jgsYp9Lw==
+X-Google-Smtp-Source: AGRyM1udMIpq8y2lAhQpWCf6gPc8qavxoDPlwg1dl9cS6ERc/XqQr6o+UxluQjHkICE0+VqoCVtx2A==
+X-Received: by 2002:a5e:d508:0:b0:67b:dca2:af8 with SMTP id
+ e8-20020a5ed508000000b0067bdca20af8mr6756762iom.123.1658126345823; 
+ Sun, 17 Jul 2022 23:39:05 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.30
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:39:30 -0700 (PDT)
+ Sun, 17 Jul 2022 23:39:05 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Date: Mon, 18 Jul 2022 00:36:41 -0600
-Message-Id: <20220718063641.9179-58-jim.cromie@gmail.com>
+Date: Mon, 18 Jul 2022 00:36:22 -0600
+Message-Id: <20220718063641.9179-39-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 41/41] nouveau-dyndbg: wip subdev refine,
- breaks on use
+Subject: [Intel-gfx] [PATCH v3 31/41] dyndbg: add _DPRINTK_FLAGS_ENABLED
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,102 +70,91 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+ intel-gfx@lists.freedesktop.org, vincent.whitchurch@axis.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Change nvkm_subdev.debug to a ulong, so dyndbg can maybe use it.
+Distinguish the condition: _DPRINTK_FLAGS_ENABLED from the bit:
+_DPRINTK_FLAGS_PRINT, and re-define former in terms of latter, in
+preparation to add a 2nd bit: _DPRINTK_FLAGS_TRACE
 
-Move macro decl from nv-drm.c to subdev.c, and add a struct
-ddebug_classes_bitmap_param and a module_param_cb() that creates the
-sysfs-knob.
+Update JUMP_LABEL code block to check _DPRINTK_FLAGS_ENABLED symbol.
+Also add a 'K' to get new symbol _DPRINTK_FLAGS_PRINTK, in order to
+break any stale uses.
 
-Finally, in nvkm_subdev_ctor(), *attempt* to set dyndbg's pointer to
-the debug address, so that dyndbg can observe the underlying debug
-value, and make enable/disable decisions based upon it.
-
-But Im not getting the ctor called, so the ptr is NULL when refd.
-
+CC: vincent.whitchurch@axis.com
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../drm/nouveau/include/nvkm/core/subdev.h    |  2 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  7 ------
- drivers/gpu/drm/nouveau/nvkm/core/subdev.c    | 23 +++++++++++++++++++
- 3 files changed, 24 insertions(+), 8 deletions(-)
+ include/linux/dynamic_debug.h | 10 ++++++----
+ lib/dynamic_debug.c           |  8 ++++----
+ 2 files changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-index d5f6ca05d5fa..05807403fdd6 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-@@ -19,7 +19,7 @@ struct nvkm_subdev {
- 	enum nvkm_subdev_type type;
- 	int inst;
- 	char name[16];
--	u32 debug;
-+	unsigned long debug;
- 	struct list_head head;
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index b50bdd5c8184..38cfdd5c0bdc 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -32,7 +32,7 @@ struct _ddebug {
+ 	 * writes commands to <debugfs>/dynamic_debug/control
+ 	 */
+ #define _DPRINTK_FLAGS_NONE	0
+-#define _DPRINTK_FLAGS_PRINT	(1<<0) /* printk() a message using the format */
++#define _DPRINTK_FLAGS_PRINTK	(1 << 0) /* printk() a message using the format */
+ #define _DPRINTK_FLAGS_INCL_MODNAME	(1<<1)
+ #define _DPRINTK_FLAGS_INCL_FUNCNAME	(1<<2)
+ #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
+@@ -42,8 +42,10 @@ struct _ddebug {
+ 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
+ 	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID)
  
- 	void **pself;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 85b63b527877..d45c71ffc09e 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -90,13 +90,6 @@ DECLARE_DYNDBG_CLASSMAP(nv_cli_debug_verbose, DD_CLASS_TYPE_VERBOSE, 10,
- 			"NV_CLI_DBG_TRACE",
- 			"NV_CLI_DBG_SPAM");
++#define _DPRINTK_FLAGS_ENABLED		_DPRINTK_FLAGS_PRINTK
++
+ #if defined DEBUG
+-#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
++#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINTK
+ #else
+ #define _DPRINTK_FLAGS_DEFAULT 0
+ #endif
+@@ -191,10 +193,10 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
  
--DECLARE_DYNDBG_CLASSMAP(nv_subdev_debug_verbose, DD_CLASS_TYPE_VERBOSE, 15,
--			"NV_SUBDEV_DBG_OFF",
--			"NV_SUBDEV_DBG_INFO",
--			"NV_SUBDEV_DBG_DEBUG",
--			"NV_SUBDEV_DBG_TRACE",
--			"NV_SUBDEV_DBG_SPAM");
--
- MODULE_PARM_DESC(config, "option string to pass to driver core");
- static char *nouveau_config;
- module_param_named(config, nouveau_config, charp, 0400);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/core/subdev.c b/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-index a74b7acb6832..227871c3a749 100644
---- a/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-@@ -26,6 +26,27 @@
- #include <core/option.h>
- #include <subdev/mc.h>
+ #ifdef DEBUG
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) \
+-	likely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
++	likely(descriptor.flags & _DPRINTK_FLAGS_ENABLED)
+ #else
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) \
+-	unlikely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
++	unlikely(descriptor.flags & _DPRINTK_FLAGS_ENABLED)
+ #endif
  
-+#include <linux/dynamic_debug.h>
-+#include <linux/module.h>
-+
-+#define DEBUG
-+
-+DECLARE_DYNDBG_CLASSMAP(nv_subdev_debug_verbose, DD_CLASS_TYPE_VERBOSE, 15,
-+			"NV_SUBDEV_DBG_OFF",
-+			"NV_SUBDEV_DBG_INFO",
-+			"NV_SUBDEV_DBG_DEBUG",
-+			"NV_SUBDEV_DBG_TRACE",
-+			"NV_SUBDEV_DBG_SPAM");
-+
-+static struct ddebug_classes_bitmap_param nv_subdev_verbose = {
-+	.bits = NULL, // wants &_subdev->debug
-+	.flags = "p",
-+	.map = &nv_subdev_debug_verbose,
-+};
-+module_param_cb(debug_subdev, &param_ops_dyndbg_classes, &nv_subdev_verbose, 0600);
-+
-+
-+
- const char *
- nvkm_subdev_type[NVKM_SUBDEV_NR] = {
- #define NVKM_LAYOUT_ONCE(type,data,ptr,...) [type] = #ptr,
-@@ -180,6 +201,8 @@ nvkm_subdev_ctor(const struct nvkm_subdev_func *func, struct nvkm_device *device
- 	else
- 		strscpy(subdev->name, nvkm_subdev_type[type], sizeof(subdev->name));
- 	subdev->debug = nvkm_dbgopt(device->dbgopt, subdev->name);
-+	nv_subdev_verbose.bits = &subdev->debug;
-+	pr_debug("updated bitmap: %px\n", &nv_subdev_verbose.bits);
- 	list_add_tail(&subdev->head, &device->subdev);
+ #endif /* CONFIG_JUMP_LABEL */
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index dd27dc514aa3..2a46c642373a 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -89,7 +89,7 @@ static inline const char *trim_prefix(const char *path)
  }
  
+ static struct { unsigned flag:8; char opt_char; } opt_array[] = {
+-	{ _DPRINTK_FLAGS_PRINT, 'p' },
++	{ _DPRINTK_FLAGS_PRINTK, 'p' },
+ 	{ _DPRINTK_FLAGS_INCL_MODNAME, 'm' },
+ 	{ _DPRINTK_FLAGS_INCL_FUNCNAME, 'f' },
+ 	{ _DPRINTK_FLAGS_INCL_LINENO, 'l' },
+@@ -246,10 +246,10 @@ static int ddebug_change(const struct ddebug_query *query,
+ 			if (newflags == dp->flags)
+ 				continue;
+ #ifdef CONFIG_JUMP_LABEL
+-			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
+-				if (!(newflags & _DPRINTK_FLAGS_PRINT))
++			if (dp->flags & _DPRINTK_FLAGS_ENABLED) {
++				if (!(newflags & _DPRINTK_FLAGS_ENABLED))
+ 					static_branch_disable(&dp->key.dd_key_true);
+-			} else if (newflags & _DPRINTK_FLAGS_PRINT) {
++			} else if (newflags & _DPRINTK_FLAGS_ENABLED) {
+ 				static_branch_enable(&dp->key.dd_key_true);
+ 			}
+ #endif
 -- 
 2.36.1
 
