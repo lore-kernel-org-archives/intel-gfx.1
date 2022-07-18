@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 934CEC433EF
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:40:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 917BBC433EF
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Jul 2022 06:40:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 602E5A9D51;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 644A7A9D57;
 	Mon, 18 Jul 2022 06:39:12 +0000 (UTC)
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
- [IPv6:2607:f8b0:4864:20::d2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E614A9D0D;
- Mon, 18 Jul 2022 06:39:00 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id h145so8530727iof.9;
- Sun, 17 Jul 2022 23:39:00 -0700 (PDT)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8B9CA9D3E;
+ Mon, 18 Jul 2022 06:39:03 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id n138so7290180iod.4;
+ Sun, 17 Jul 2022 23:39:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=tAc5RKv+WWvf0AVXeW96W8inWeyrC9o7+W9TGpSg+s8=;
- b=cQr9k1H8iad5zjqxiurQQhAkK2EaCHXCH6lbPSj88lnOJCZy38rWuKztrtG0Mil0gt
- lnoCFsUORnKhi9gFzfkWONztPOZP7q9RyPTyl7Zmim1yGSZretD45e+wHTkEZAvW64kN
- cE0FfuGmRG7HLo4cAyDFscqIZytFoCbWz1UJZlUAUBW2xq47ju17n4Uu20QkEsDwNa2M
- Fu400RI0MEE3po+gsQ6uOwJ+tFs7gJLWLktSUtbU2bNHObOtXjhU3ks3GJb/H7zq0G1j
- T1oJTvJKAfp9k756DAbXtWYztN6DjJImxkwhO09PJNGvahk6E6eSham84iaeSCu1Q4BT
- LpuA==
+ bh=Fn4wAUPertAH2IA5+xSEy3cch5p5d8c17PURO4Ajqk0=;
+ b=lVEQWHyYITJ4+0uYGwdqAqAfCGK2lKAyEBowEO80UDUa+yolFh6p2B/oXUOlxcrFAH
+ asOb3GWPCUAYO0XH1AHvIO2lLLkqWHxmoYhzJ2X5q8d9KFcuPZpV/zd1WFyZt71ggc2+
+ aNVcJRuryddz7TzzoQCHl8i+Kold+tyg7PHVri56NVFpda8Umf1G1Vpxi6FVmtzwN5Wa
+ tvzagpyuQdKudrbhdIJW2CMLjvlpq/K7Iue0wQBAGo+OmeFVOBb5ptCmeex5NtKn/GRU
+ K2sRGcKYyfef6ZymA2lQ03b5Q8D5vS+YAprXMZJYUkQ4dR2jXAisUWYiebpQB+GLUUbb
+ TfPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=tAc5RKv+WWvf0AVXeW96W8inWeyrC9o7+W9TGpSg+s8=;
- b=4fnjJ7db4TQ6UIpYMdy0SPgru0nL5lk/Oh8oNHvH370SNxQBtxtytTtKSkUIi6vE5Z
- qexjv8bf2Dt2UiFcZVsLiiRrASZ0horF/k12G5VE8XPWvTzx0C0dM2j78l3EUoi2Ye3/
- d5uA0J2kHEec8zfrJAh7K+V2vRUB3ryXlyAubvLF+W6+iR4XrxEG7hfvFEu44AP80h4D
- UaK8OjbEE4kPJ5Iq7Hag+QScKK3XYMXNomyOkowroQ5Vvf23X7Pn+8pWwOT+nyPlNMYo
- 8RmGSCHFWFCH7huFydk4CAoUYhb500b4v32EOvG0AUsnN4s7PBo+IqChpyI4FkvPsBcv
- XDcw==
-X-Gm-Message-State: AJIora8o8yrWyIi2XFVOFtUjKpiCdvLFALLynhCNuLKRD3mDED2+E3Zg
- u1wTTV9lcfJ28Zf414ZQS3wKUgpsmTI=
-X-Google-Smtp-Source: AGRyM1s2PWYRu4hIiUytSMiCQx/5k9YsTGjdy2ZNBioTIxOhR1wYQD6VOkpplBhqGvxIw0TlSQNreA==
-X-Received: by 2002:a05:6602:154f:b0:67c:1de0:33b6 with SMTP id
- h15-20020a056602154f00b0067c1de033b6mr349852iow.87.1658126340225; 
- Sun, 17 Jul 2022 23:39:00 -0700 (PDT)
+ bh=Fn4wAUPertAH2IA5+xSEy3cch5p5d8c17PURO4Ajqk0=;
+ b=zqzOOm6jSf49mbklHa15I3YDIeYn/1iRkz+YztTU2rJfyveAg9f3yWSYpuQfP9KeSh
+ R+aoHaIO8iWLT0rZxfQKSv7ESkm1gKL8G2DfCiVwbhUUobUfh7PevmaePiDcufRiTP4p
+ BgVcAFo8OYfuroAjWX6dV+Vu11eAvoQwnQ2FhfIsQgBkCDwQ+c+WuJ3rEu5cOeLH9tkF
+ XXwgSQ/zTkm847wGHhSi9uKAfBpWmirAOlfiN4MvYs1eLY0R1PVFEpYtVojdLJ3Ajj4Z
+ YMK4Lm7IrhYlBrPy0jnDj5z+Q8G+hAOTtl+eJ9nb26r2zXQavfQkCvO7AP/utV/h3xFt
+ EC0w==
+X-Gm-Message-State: AJIora+JNZqIsvsQ+H9qbfbb4wMV0r1qzMbcsLK96Hz3O7DXJnFcMLlR
+ 18EEbe9YLwV5tbQ0NWU37NQ=
+X-Google-Smtp-Source: AGRyM1tykn1JmsOayzYo37PBCvpyIS8w2tA9wKnPxwe6SfwoeynLFqfjrZ6UFH7lrTWm4G74oRMSzQ==
+X-Received: by 2002:a02:a918:0:b0:33f:2a28:a2c6 with SMTP id
+ n24-20020a02a918000000b0033f2a28a2c6mr13822689jam.8.1658126342980; 
+ Sun, 17 Jul 2022 23:39:02 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.38.58
+ o12-20020a92a80c000000b002dcd35bb030sm2342604ilh.74.2022.07.17.23.39.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Jul 2022 23:38:59 -0700 (PDT)
+ Sun, 17 Jul 2022 23:39:02 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
-Date: Mon, 18 Jul 2022 00:36:18 -0600
-Message-Id: <20220718063641.9179-35-jim.cromie@gmail.com>
+Date: Mon, 18 Jul 2022 00:36:20 -0600
+Message-Id: <20220718063641.9179-37-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220718063641.9179-1-jim.cromie@gmail.com>
 References: <20220718063641.9179-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 29/39] dyndbg: add _DPRINTK_FLAGS_ENABLED
+Subject: [Intel-gfx] [PATCH v3 30/39] dyndbg: add _DPRINTK_FLAGS_TRACE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,86 +75,29 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, nouveau@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Distinguish the condition: _DPRINTK_FLAGS_ENABLED from the bit:
-_DPRINTK_FLAGS_PRINT, and re-define former in terms of latter, in
-preparation to add a 2nd bit: _DPRINTK_FLAGS_TRACE
-
-Update JUMP_LABEL code block to check _DPRINTK_FLAGS_ENABLED symbol.
-Also add a 'K' to get new symbol _DPRINTK_FLAGS_PRINTK, in order to
-break any stale uses.
+add new flag, and OR it into _DPRINTK_FLAGS_ENABLED definition
 
 CC: vincent.whitchurch@axis.com
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 10 ++++++----
- lib/dynamic_debug.c           |  8 ++++----
- 2 files changed, 10 insertions(+), 8 deletions(-)
+ include/linux/dynamic_debug.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index b50bdd5c8184..38cfdd5c0bdc 100644
+index 38cfdd5c0bdc..0752e6c21c6e 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -32,7 +32,7 @@ struct _ddebug {
- 	 * writes commands to <debugfs>/dynamic_debug/control
- 	 */
- #define _DPRINTK_FLAGS_NONE	0
--#define _DPRINTK_FLAGS_PRINT	(1<<0) /* printk() a message using the format */
-+#define _DPRINTK_FLAGS_PRINTK	(1 << 0) /* printk() a message using the format */
- #define _DPRINTK_FLAGS_INCL_MODNAME	(1<<1)
- #define _DPRINTK_FLAGS_INCL_FUNCNAME	(1<<2)
- #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
-@@ -42,8 +42,10 @@ struct _ddebug {
+@@ -42,7 +42,9 @@ struct _ddebug {
  	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
  	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID)
  
-+#define _DPRINTK_FLAGS_ENABLED		_DPRINTK_FLAGS_PRINTK
-+
+-#define _DPRINTK_FLAGS_ENABLED		_DPRINTK_FLAGS_PRINTK
++#define _DPRINTK_FLAGS_TRACE		(1 << 5)
++#define _DPRINTK_FLAGS_ENABLED		(_DPRINTK_FLAGS_PRINTK | \
++					 _DPRINTK_FLAGS_TRACE)
+ 
  #if defined DEBUG
--#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
-+#define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINTK
- #else
- #define _DPRINTK_FLAGS_DEFAULT 0
- #endif
-@@ -191,10 +193,10 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 
- #ifdef DEBUG
- #define DYNAMIC_DEBUG_BRANCH(descriptor) \
--	likely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
-+	likely(descriptor.flags & _DPRINTK_FLAGS_ENABLED)
- #else
- #define DYNAMIC_DEBUG_BRANCH(descriptor) \
--	unlikely(descriptor.flags & _DPRINTK_FLAGS_PRINT)
-+	unlikely(descriptor.flags & _DPRINTK_FLAGS_ENABLED)
- #endif
- 
- #endif /* CONFIG_JUMP_LABEL */
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index dd27dc514aa3..2a46c642373a 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -89,7 +89,7 @@ static inline const char *trim_prefix(const char *path)
- }
- 
- static struct { unsigned flag:8; char opt_char; } opt_array[] = {
--	{ _DPRINTK_FLAGS_PRINT, 'p' },
-+	{ _DPRINTK_FLAGS_PRINTK, 'p' },
- 	{ _DPRINTK_FLAGS_INCL_MODNAME, 'm' },
- 	{ _DPRINTK_FLAGS_INCL_FUNCNAME, 'f' },
- 	{ _DPRINTK_FLAGS_INCL_LINENO, 'l' },
-@@ -246,10 +246,10 @@ static int ddebug_change(const struct ddebug_query *query,
- 			if (newflags == dp->flags)
- 				continue;
- #ifdef CONFIG_JUMP_LABEL
--			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
--				if (!(newflags & _DPRINTK_FLAGS_PRINT))
-+			if (dp->flags & _DPRINTK_FLAGS_ENABLED) {
-+				if (!(newflags & _DPRINTK_FLAGS_ENABLED))
- 					static_branch_disable(&dp->key.dd_key_true);
--			} else if (newflags & _DPRINTK_FLAGS_PRINT) {
-+			} else if (newflags & _DPRINTK_FLAGS_ENABLED) {
- 				static_branch_enable(&dp->key.dd_key_true);
- 			}
- #endif
+ #define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINTK
 -- 
 2.36.1
 
