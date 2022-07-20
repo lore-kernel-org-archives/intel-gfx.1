@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55597C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4C1AC43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:34:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD40A8F43A;
-	Wed, 20 Jul 2022 15:33:24 +0000 (UTC)
-Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
- [IPv6:2607:f8b0:4864:20::d2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6F8C8F2CC;
- Wed, 20 Jul 2022 15:33:19 +0000 (UTC)
-Received: by mail-io1-xd2c.google.com with SMTP id n138so13301453iod.4;
- Wed, 20 Jul 2022 08:33:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7B38F4B2;
+	Wed, 20 Jul 2022 15:33:34 +0000 (UTC)
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A67708F452;
+ Wed, 20 Jul 2022 15:33:25 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id r70so13409667iod.10;
+ Wed, 20 Jul 2022 08:33:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=dMWqi6VMWK3OYoAYYaoTo9m6rW+kKw0BEQ3tbFi0+WA=;
- b=lnWdjme1YkRiNo3bVnr8kkI0ig6vUTf+spyUFQNrppJuHbWoTF5ssz56vhBoPahj4U
- z4IfnYCKn4P45IvqEeFV1boatsgWAQZdL1jKWkPxCnTuu7nr+mmN1N5XVyiEheQ8H7xq
- ThQ+2VinhgBSYe4L6XyaDkoxaGqkKAGXXuSKFXHNWNZGgAg7q57SHD/z9E6GZLTmqkO6
- /v1o6r42E+wd/M89uHke1nM5rul/noRcYh8DKmg/RS+QkEzDYtJ9wJ8uislB/HuYAJmo
- INDDX2D9zY7w0WNun7MPqP7fYcEc8PqsuB5ZKQyedaU9MmBpOPq/oKCLjNDMluFmRXFL
- 7GRA==
+ bh=pbfKjW8s+yNblg/2VqulB1BrQZpCCy3wi5VbG9v1p9Y=;
+ b=o32r4tJFgKSUOFwoLWC7z5OlcK3ssnISZS9CioxUmFMuQsjOydfrcvs9tNe3roJifX
+ Jvbu5IQuN6DT4/llIA5t2hgdt1GBSX+Cno2yy6gFzqeaf3a5k8877sKe8qPODj71Grm6
+ qKY3U3etTZ8Qr/nrDEl3ZU0IpKoL3MHL1AYBxpEIdSarBWKEATl/YeRlQj2xs9KTEa/1
+ Z56kmd7wtKdpFqzWdrckIhfKSif3R8bARHCFP+q1HCmiOL2YcC5CkBfveD7nSG8FEDA9
+ J3hFXMWWGlnV0oUk2Jp2bADkNj6qu/DtOMKNcPpKMJ1DyDJbG+uA02NmEMMHJbB5e811
+ 0j7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=dMWqi6VMWK3OYoAYYaoTo9m6rW+kKw0BEQ3tbFi0+WA=;
- b=Hsx3kbEe1GbTEorXJJLV7dM0bLeqPGvQEptDXvYNHqKVWjjG/V1ONtSCDDw36T0Jy4
- 76KetBtWRxHoVy+OYJTp7+4U48r5ZsIiMPLnyQ5cwhXK91nd72tJnuzldu9K0mA+YTof
- l5o7yjBlouKkYsyqpHBvmz8gHMJuv/1/Et0fSX2/ESJFj52W1K5gLNczJ8okNWf+ztp7
- Ofxe21lMxD8ApqXYQVu49iwQii2KZeNvvTglQMUEmoaI4A/JmaSYCqw1zUBSDItuIDd4
- 4oeenV81aeROneUjggPCEXtcVmPbez6UI5ji/gZa70420kXfBbIRTswy4+LEy8M3fJ1X
- IHDA==
-X-Gm-Message-State: AJIora9VDoc+9pSmdkrPHwv0gcH8f08WjgXBdAA5TdgdqZSJwPllip4B
- +UDFM8PUMebszPSeQQkMKZJULuKOyE0b4A==
-X-Google-Smtp-Source: AGRyM1s5eyEemFFnMY+HLHeBP5nJZ7Sgo54nMLWQL2IwyrGDYADLyFzl8TlvgaNrItlaUDMmHuzjhQ==
-X-Received: by 2002:a02:3f55:0:b0:33f:891e:46b8 with SMTP id
- c21-20020a023f55000000b0033f891e46b8mr19472115jaf.121.1658331199273; 
- Wed, 20 Jul 2022 08:33:19 -0700 (PDT)
+ bh=pbfKjW8s+yNblg/2VqulB1BrQZpCCy3wi5VbG9v1p9Y=;
+ b=QHsyceW57Jc4oq71FWW4hiPs76u1djCQgO6LSlSBiF00jJTTHrbcqoEpktPW1yYhH4
+ Jy9aIHsWv7zxXBg6bfazur+QmHlA2nQV4ti4OwvqCb9dWN4ME9p4IFsN6MZOD1ulPdUX
+ hP6BBntFeUL4MbXdT5Qpqth23H1RokFqFgJ6bRYUKjjH1x6VrWIuCxlo8zlVCSc1kMXC
+ HfvmWL3w9/u9HwjomxSB889gBOKTZ4nGIs4ninwDdrIekFjOV/S6iXEE06TXWgKJNgJs
+ 7ZGByxtucXk/VlsGS/LAurQIkdcdIPIXvvpcArWTmAymbjz+NUC2xf48CO7azsbAGxVT
+ ch6Q==
+X-Gm-Message-State: AJIora+pisQWsXWoB3IS7EQyYBWx8d3iKb47KX02AWxEvZeIFI+egdE9
+ b1kIl+mZ30YsZxDWHkKLgri71xluSo89fw==
+X-Google-Smtp-Source: AGRyM1tB3CTz3Fdl53ZZ6LAaNfhAcNKAJB9rD6NbJnUyDpParrGvyR8ECvEcAraD7Fq0UHGXY0O5EQ==
+X-Received: by 2002:a05:6638:4115:b0:33f:8715:cb15 with SMTP id
+ ay21-20020a056638411500b0033f8715cb15mr20018782jab.189.1658331204392; 
+ Wed, 20 Jul 2022 08:33:24 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.18
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:18 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:23 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:32:12 -0600
-Message-Id: <20220720153233.144129-21-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:32:17 -0600
+Message-Id: <20220720153233.144129-26-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 20/41] drm_print: condense enum
- drm_debug_category
+Subject: [Intel-gfx] [PATCH v4 25/41] drm-print: include dyndbg header
+ indirectly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,92 +77,39 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-enum drm_debug_category has 10 categories, but is initialized with
-bitmasks which require 10 bits of underlying storage.  By using
-natural enumeration, and moving the BIT(cat) into drm_debug_enabled(),
-the enum fits in 4 bits, allowing the category to be represented
-directly in pr_debug callsites, via the ddebug.class_id field.
+lkp robot told me:
 
-While this slightly pessimizes the bit-test in drm_debug_enabled(),
-using dyndbg with JUMP_LABEL will avoid the function entirely.
+  >> drivers/gpu/drm/drm_ioc32.c:989:2:
+  error: call to undeclared function '_dynamic_func_call_cls';
+  ISO C99 and later do not support implicit function declarations
+  [-Wimplicit-function-declaration]
 
-NOTE: this change forecloses the possibility of doing:
+           DRM_DEBUG("comm=\"%s\", pid=%d, dev=0x%lx, auth=%d, %s\n",
 
-  drm_dbg(DRM_UT_CORE|DRM_UT_KMS, "weird 2-cat experiment")
+Since that macro is defined in drm_print.h, include <dynamic_debug.h>
+there too, so that any uses have the definitions of all the macros in
+the callchain.
 
-but thats already strongly implied by the use of the enum itself; its
-not a normal enum if it can be 2 values simultaneously.
+This is done as a separate patch mostly to see how lkp sorts it;
+I'll probably squash it with HEAD~1
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/drm/drm_print.h | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ include/drm/drm_print.h | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 22fabdeed297..b3b470440e46 100644
+index 3aa5e9ea26f4..dfdd81c3287c 100644
 --- a/include/drm/drm_print.h
 +++ b/include/drm/drm_print.h
-@@ -279,49 +279,49 @@ enum drm_debug_category {
- 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
- 	 * drm_memory.c, ...
- 	 */
--	DRM_UT_CORE		= 0x01,
-+	DRM_UT_CORE,
- 	/**
- 	 * @DRM_UT_DRIVER: Used in the vendor specific part of the driver: i915,
- 	 * radeon, ... macro.
- 	 */
--	DRM_UT_DRIVER		= 0x02,
-+	DRM_UT_DRIVER,
- 	/**
- 	 * @DRM_UT_KMS: Used in the modesetting code.
- 	 */
--	DRM_UT_KMS		= 0x04,
-+	DRM_UT_KMS,
- 	/**
- 	 * @DRM_UT_PRIME: Used in the prime code.
- 	 */
--	DRM_UT_PRIME		= 0x08,
-+	DRM_UT_PRIME,
- 	/**
- 	 * @DRM_UT_ATOMIC: Used in the atomic code.
- 	 */
--	DRM_UT_ATOMIC		= 0x10,
-+	DRM_UT_ATOMIC,
- 	/**
- 	 * @DRM_UT_VBL: Used for verbose debug message in the vblank code.
- 	 */
--	DRM_UT_VBL		= 0x20,
-+	DRM_UT_VBL,
- 	/**
- 	 * @DRM_UT_STATE: Used for verbose atomic state debugging.
- 	 */
--	DRM_UT_STATE		= 0x40,
-+	DRM_UT_STATE,
- 	/**
- 	 * @DRM_UT_LEASE: Used in the lease code.
- 	 */
--	DRM_UT_LEASE		= 0x80,
-+	DRM_UT_LEASE,
- 	/**
- 	 * @DRM_UT_DP: Used in the DP code.
- 	 */
--	DRM_UT_DP		= 0x100,
-+	DRM_UT_DP,
- 	/**
- 	 * @DRM_UT_DRMRES: Used in the drm managed resources code.
- 	 */
--	DRM_UT_DRMRES		= 0x200,
-+	DRM_UT_DRMRES
- };
+@@ -31,6 +31,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/device.h>
+ #include <linux/debugfs.h>
++#include <linux/dynamic_debug.h>
  
- static inline bool drm_debug_enabled(enum drm_debug_category category)
- {
--	return unlikely(__drm_debug & category);
-+	return unlikely(__drm_debug & BIT(category));
- }
+ #include <drm/drm.h>
  
- /*
 -- 
 2.36.1
 
