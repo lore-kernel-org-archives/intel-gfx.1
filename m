@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD5BCC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55288CCA480
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A42538F244;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 653A68F239;
 	Wed, 20 Jul 2022 15:33:10 +0000 (UTC)
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
- [IPv6:2607:f8b0:4864:20::d35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A6628BA4B;
- Wed, 20 Jul 2022 15:33:03 +0000 (UTC)
-Received: by mail-io1-xd35.google.com with SMTP id u20so14550680iob.8;
- Wed, 20 Jul 2022 08:33:03 -0700 (PDT)
+Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
+ [IPv6:2607:f8b0:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23E0F8EF80;
+ Wed, 20 Jul 2022 15:33:06 +0000 (UTC)
+Received: by mail-il1-x12f.google.com with SMTP id i5so2085704ila.6;
+ Wed, 20 Jul 2022 08:33:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=xDusQunCB1rc2oGhl0qVh9zuKvB3DHnmYV8dCnPm/ic=;
- b=P0jrd2ZdNh7LTCtmbdsTPF0AI3MkYOuMbOZOXbhyKxFZ2aaoQzlOV9inbNl8Bf2FSn
- g0TfZZ+nlqo0AzUa5f7W146optWD/9WuAWEeNQOmaZOiIUi6e3kUDfErB66Ezwh35Jyo
- LVF5XE4jwWTCAK0MjCg8YLoSSxGXbaocL0uj8aInGJ02qoo8RZPD1n0jwaqfu9SdBaTA
- KRz6wL4eGGyMTk9VKzMMjbTPJwxnSFgGOdVQJAcoz958at5/TvDgOKSkuvOSsUB3Y5+y
- VXDfnBmS+AJ/KkR//+fOPDVnQU3ualQsIjEf6Pj//ut4izrsnf5a/5GiSfPUsXykMHE/
- DiXw==
+ bh=FoeJSfQYjtngvo4HHZBab6bwAds3V3lbp5eX2URtnSI=;
+ b=Y5HEVETahfPBl0XuDwNcpwbhDtxLka2FBUl1Z72oJMgVTwzrLu8aGTIJII/PLLLWOt
+ IEzaoJWuVneUEwYdvIn8hzksyGwpo8HcQB5gXRO3IWmdpJ5N6RgL/wzKfK0Ti6+E9FME
+ WW+N6YnAzvRTUnmgFu9UoAUHMQEn4GumKs6lF56PlnClB+//8PlihsT7Vj3XIPRL7K8z
+ P5oPirbf8NnIYbDQbM3fh+QLpAqOpHduxnBzkRch4+qnPvetAvWmLIq7kDtzM/+LlE/8
+ R9CKpQs7yTJYiJsgngEkktYlbXkNyagr3m3t7QKq1sjtM69CWpnosSkqjNlOi5YxBEUS
+ UtRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=xDusQunCB1rc2oGhl0qVh9zuKvB3DHnmYV8dCnPm/ic=;
- b=WqFPwpw0weSZEy+ZZczdfTW9TMphTuy6gneOk+T55YEv/mGlGR2B10/QRmDIfarz3x
- BK/Jf1UgFv2sLLQZWTw15OM8UwOIXL6uNnb3bCLoM3eUSx0kwQ9KUO1xZqLO9PjdJlNk
- rmeieKDTdNcNQbuuuF05TgEuENn5Yky1aacx54A54t9y2Opa4Tq7Td+Ik0vQ6yyXd11B
- Y5Fh4DrSpXD0rwmG/H3tpAMpMSKbECk42Lbn39G9E17hVDknYmpgKAPmITxZwYaIq/h/
- rUsOWpT0SW8qFmjuQGp/fbQ6rd1BbAC4kGSK+Idihgfxc7OFmGqGcrTuQHqCSYwPYsov
- AZcg==
-X-Gm-Message-State: AJIora/gTb4OituWHP7U928b5rqAu2gBTima3tZsQAdQ5qhCPj+PWg7V
- q5rNB3XOcFzcru3WwxszfHxX8JtWMon53Q==
-X-Google-Smtp-Source: AGRyM1tuMGq+3sar0nM5gDNBmt/Svrov9/g3d3HlCwThwf+7CSaw3w1b3XMrIbgkEmahCt9aT/nC2g==
-X-Received: by 2002:a05:6602:2cce:b0:67c:17ec:f1c1 with SMTP id
- j14-20020a0566022cce00b0067c17ecf1c1mr6413510iow.96.1658331182496; 
- Wed, 20 Jul 2022 08:33:02 -0700 (PDT)
+ bh=FoeJSfQYjtngvo4HHZBab6bwAds3V3lbp5eX2URtnSI=;
+ b=DUPJmqJOWcYKJdJEzp+/1sSbzV1yG8ws6Y9j6g3RV4S9JYHNt2di8RHwyykjKLr3XH
+ 2HqtYGHiNmeZmI6KOEtq6hN0KCB5z20i17zp3VniUanhyINGbAIPDSLS5s4qAapJ5Git
+ Ca8GtBUGb6H2yqggTWrO0Nn9oMoh0dx8ZJiXksI3KhuNATxH7OTFQmGJ6gMBGJOE+xoP
+ pa7iRwVCpvytgMUQwMm/2X0RV1j4qp3rAeXt17GYMrrfxNmf77HUMI4GlAMn90/siJBV
+ W565v4TW3OChMp8YbnMxXB+5O1YG9ZBFZtr68gE7FDE6Der/uxrnqi+/3B6s/GngPvLE
+ Iycg==
+X-Gm-Message-State: AJIora9fCkOSKkZ/KlVjf0rLux1MYBvsIEZsyqu9xEr1RmKGATwi2wix
+ w/40ygKQHoE8ZqvdcBy/xH4tw6xFy9Kudg==
+X-Google-Smtp-Source: AGRyM1vQFjF1U+du0qqojqZ58ujUSrOID0TD0O2Q+WyDu8O1EdEbRTeqyziPe+0d2bXVupAt9xeSyA==
+X-Received: by 2002:a05:6e02:1405:b0:2da:c72f:e3a7 with SMTP id
+ n5-20020a056e02140500b002dac72fe3a7mr19021150ilo.113.1658331184363; 
+ Wed, 20 Jul 2022 08:33:04 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.01
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:02 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:04 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:31:57 -0600
-Message-Id: <20220720153233.144129-6-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:31:59 -0600
+Message-Id: <20220720153233.144129-8-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 05/41] dyndbg: reverse module.callsite walk
- in cat control
+Subject: [Intel-gfx] [PATCH v4 07/41] dyndbg: let query-modname override
+ actual module name
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,76 +77,68 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Walk the module's vector of callsites backwards; ie N..0.  This
-"corrects" the backwards appearance of a module's prdbg vector when
-walked 0..N.  I think this is due to linker mechanics, which I'm
-inclined to treat as immutable, and the order is fixable in display.
+dyndbg's control-parser: ddebug_parse_query(), requires that search
+terms: module, func, file, lineno, are used only once in a query; a
+thing cannot be named both foo and bar.
 
-No functional changes.
+The cited commit added an overriding module modname, taken from the
+module loader, which is authoritative.  So it set query.module 1st,
+which disallowed its use in the query-string.
 
-Combined with previous commit, which reversed tables-list, we get:
+But now, its useful to allow a module-load to enable classes across a
+whole (or part of) a subsystem at once.
 
-  :#> head -n7 /proc/dynamic_debug/control
-  # filename:lineno [module]function flags format
-  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012"
-  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
-  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
-  init/main.c:1426 [main]run_init_process =_ "    %s\012"
-  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
-  init/main.c:1429 [main]run_init_process =_ "    %s\012"
+  # enable (dynamic-debug in) drm only
+  modprobe drm dyndbg="class DRM_UT_CORE +p"
 
+  # get drm_helper too
+  modprobe drm dyndbg="class DRM_UT_CORE module drm* +p"
+
+  # get everything that knows DRM_UT_CORE
+  modprobe drm dyndbg="class DRM_UT_CORE module * +p"
+
+  # also for boot-args:
+  drm.dyndbg="class DRM_UT_CORE module * +p"
+
+So convert the override into a default, by filling it only when/after
+the query-string omitted the module.
+
+NB: the query class FOO handling is forthcoming.
+
+Fixes: 8e59b5cfb9a6 dynamic_debug: add modname arg to exec_query callchain
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ lib/dynamic_debug.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 7fb99492c16f..8ff11977b8bd 100644
+index e5cbe603000c..5a849716220a 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -59,7 +59,7 @@ struct ddebug_query {
- 
- struct ddebug_iter {
- 	struct ddebug_table *table;
--	unsigned int idx;
-+	int idx;
- };
- 
- struct flag_settings {
-@@ -805,13 +805,12 @@ static struct _ddebug *ddebug_iter_first(struct ddebug_iter *iter)
- {
- 	if (list_empty(&ddebug_tables)) {
- 		iter->table = NULL;
--		iter->idx = 0;
- 		return NULL;
+@@ -385,10 +385,6 @@ static int ddebug_parse_query(char *words[], int nwords,
+ 		return -EINVAL;
  	}
- 	iter->table = list_entry(ddebug_tables.next,
- 				 struct ddebug_table, link);
--	iter->idx = 0;
--	return &iter->table->ddebugs[iter->idx];
-+	iter->idx = iter->table->num_ddebugs;
-+	return &iter->table->ddebugs[--iter->idx];
- }
  
- /*
-@@ -824,15 +823,16 @@ static struct _ddebug *ddebug_iter_next(struct ddebug_iter *iter)
- {
- 	if (iter->table == NULL)
- 		return NULL;
--	if (++iter->idx == iter->table->num_ddebugs) {
-+	if (--iter->idx < 0) {
- 		/* iterate to next table */
--		iter->idx = 0;
- 		if (list_is_last(&iter->table->link, &ddebug_tables)) {
- 			iter->table = NULL;
- 			return NULL;
- 		}
- 		iter->table = list_entry(iter->table->link.next,
- 					 struct ddebug_table, link);
-+		iter->idx = iter->table->num_ddebugs;
-+		--iter->idx;
+-	if (modname)
+-		/* support $modname.dyndbg=<multiple queries> */
+-		query->module = modname;
+-
+ 	for (i = 0; i < nwords; i += 2) {
+ 		char *keyword = words[i];
+ 		char *arg = words[i+1];
+@@ -429,6 +425,13 @@ static int ddebug_parse_query(char *words[], int nwords,
+ 		if (rc)
+ 			return rc;
  	}
- 	return &iter->table->ddebugs[iter->idx];
++	if (!query->module && modname)
++		/*
++		 * support $modname.dyndbg=<multiple queries>, when
++		 * not given in the query itself
++		 */
++		query->module = modname;
++
+ 	vpr_info_dq(query, "parsed");
+ 	return 0;
  }
 -- 
 2.36.1
