@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EE95C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:32:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 606C8CCA480
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FFA18DCA9;
-	Wed, 20 Jul 2022 15:32:55 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC2EC8E528;
- Wed, 20 Jul 2022 15:32:53 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id c16so8207717ils.7;
- Wed, 20 Jul 2022 08:32:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85E128F235;
+	Wed, 20 Jul 2022 15:33:07 +0000 (UTC)
+Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
+ [IPv6:2607:f8b0:4864:20::d2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE038F09E;
+ Wed, 20 Jul 2022 15:33:02 +0000 (UTC)
+Received: by mail-io1-xd2e.google.com with SMTP id q14so14513062iod.3;
+ Wed, 20 Jul 2022 08:33:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=cXOS454We3xvQC3yPmBTyPjVfKFZCejZgeG5/lQTXdI=;
- b=ekRplxKPr9YMoEYmRApNweeeIhQcC5MrlQVJ+KUu9kXfgcRGQkNO0g3NQRHfWMXlQ3
- wpWrdRez9eh4/cXJNFXY0fLta1afilrRPohGqDkDJNNibrMHIdFBdhRW2b2lPXBWduRU
- Cg7/TxQRM/1tFV1xzXgd0EITsQkfMO3u/zfu/d6QV2KjrN1agnD6xPVxlznTyMb4YMjm
- nk+z/64bL3hmEjCBgarh/O4D/KLsyHDi8fAawl4KXog/86G43/kLwPMM3L/f2xM1pJhk
- atj4QcSWG7P6+q1de9YI2jPPXf0arqmBdotDiOYtWEiMLKBMjkcZ9RZy9JsUHuC37Xca
- TwTA==
+ bh=bL9SmfHfMALFFeL2xDE9zET8U2WS92AMIVOZQAHdFgM=;
+ b=qNlA5xnrP3dY6ZBo7PXii+qRTIAByeqj28yVQuJCOT0ubi3TgCaT54kFQ00w14763y
+ wAI04ZYHMWXx1AqiwzLuT/7iWFXPHchbJXuiuo4IZuoI0cx/zkUKaeds1SR0g0UKMdnW
+ W/ojC57aQn8H6oMIs/L2zuomHNRkm6mOdzG/+QhA4uv8sIKN5cGULtJzpwNx/coAqujM
+ Z2rFmj2ElmewtytIxj5/LdfZ1z7pNZ80/688E2+qy05+cnsSfxYq2udliUp/rK9eDi1Y
+ AMNuwLNrIUNk2BRXDXdZHuBpsfuTpB0nK45sEuFItqYLgdX/g23nX79cK2s5Z6N2+hge
+ +UNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=cXOS454We3xvQC3yPmBTyPjVfKFZCejZgeG5/lQTXdI=;
- b=XbZNoQyN5dnY4L6+U1lLa0HfMYjc+3PLGqXYnkywMi7Wl7VjA416rkTjft2KlsVBoi
- m8KDdgQr/GL0DkPpPNrbUE00uu2kw0EpNODWOzQDJga3ILRgJUqUcxcyJhOxw6p+HO9c
- IpPp2yeGPcIH5sJzMqB47eq0eF/cdDBTuEuQclLkRUpDVfK4a9Ra4jxr4rnqcsk4kX9f
- O91zxgv8E66goa40MkvmTC3ADu6AO3IWSJdIwhlm9nS4aSM/U6UGDtABW9PZ9mkn00k6
- CfzU97/+csOgRBe+ait5K943PBdfX3vdnoVZIA0tFC81r+hg7fFQB+UKhwb248ZzQHY/
- RMNw==
-X-Gm-Message-State: AJIora9ngnaZ3RR61NseNIc5WiIAzpM1NjAIvzhAgMeu348kKd0YrldS
- u6EAMTopiyg6r+X+3hJFfds4RMXq4J78Lw==
-X-Google-Smtp-Source: AGRyM1tzmv8Ho8cjvNe9dpzvMOP92hZhwFSd86MmMHSUnRMbDcPpjIz/D7jRxfbzpFF+iNmQt5PqPg==
-X-Received: by 2002:a05:6e02:1bcb:b0:2dc:ec0e:9e7 with SMTP id
- x11-20020a056e021bcb00b002dcec0e09e7mr7731678ilv.213.1658331172773; 
- Wed, 20 Jul 2022 08:32:52 -0700 (PDT)
+ bh=bL9SmfHfMALFFeL2xDE9zET8U2WS92AMIVOZQAHdFgM=;
+ b=50cu1jeQvQ4kJdCIzgCUPzpK2PXpsVF4p1PdyQ3MeBu0Cf+8zT1NYhiWl56IrIKSu9
+ byqQnmJU+gU85sQmnPrrlHD2KJT/7MUfPMfaaWSOG96x4VxGNpCOyh8G+NdmSNsxkrE5
+ /QIBNV1G9qFfdNnnykgjN9Ngmbcha0RcwLlpayhNqnA/0ykfiSmNdjRrK3ZfNbWDbvos
+ Qv22YWZd4flBkTl1KnRE2TATQtMm7sbll3G8rjHiitJ2mcslqJOnrDO0IKDexb3J3U4N
+ AGRPEzhAoe1MpO5Sv2aI/y/LrReWX273ap5xxCPKn/pomf0NyANZx6fjFUYPOnmi4yss
+ zTXQ==
+X-Gm-Message-State: AJIora8mqEVfSmLROwXqAmVSG9NPOhNpCAHrxfx0teB2d87zVL7kfnVF
+ 3OL+DXz6qOVs8qnmf8A4gdUPd9eDXX2ypQ==
+X-Google-Smtp-Source: AGRyM1tlbO/lueDTuTgCkX1RNPYngfLRVWh/GzwKGNRrE6W6SM3+kIPn9XLId99oUoH5l1MLmGPI9Q==
+X-Received: by 2002:a05:6638:3801:b0:341:68f6:932 with SMTP id
+ i1-20020a056638380100b0034168f60932mr9091331jav.71.1658331181037; 
+ Wed, 20 Jul 2022 08:33:01 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.32.52
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:32:52 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:00 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:31:53 -0600
-Message-Id: <20220720153233.144129-2-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:31:56 -0600
+Message-Id: <20220720153233.144129-5-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 01/41] dyndbg: fix static_branch manipulation
+Subject: [Intel-gfx] [PATCH v4 04/41] dyndbg: reverse module walk in cat
+ control
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,71 +73,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, vincent.whitchurch@axis.com
+Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In https://lore.kernel.org/lkml/20211209150910.GA23668@axis.com/
+/proc/dynamic_debug/control walks the prdbg catalog in "reverse",
+fix this by adding new ddebug_tables to tail of list.
 
-Vincent's patch commented on, and worked around, a bug toggling
-static_branch's, when a 2nd PRINTK-ish flag was added.  The bug
-results in a premature static_branch_disable when the 1st of 2 flags
-was disabled.
+This puts init/main.c entries 1st, which looks intentional.
 
-The cited commit computed newflags, but then in the JUMP_LABEL block,
-failed to use that result, instead using just one of the terms in it.
-Using newflags instead made the code work properly.
+no functional changes.
 
-This is Vincents test-case, reduced.  It needs the 2nd flag to
-demonstrate the bug, but it's explanatory here.
-
-pt_test() {
-    echo 5 > /sys/module/dynamic_debug/verbose
-
-    site="module tcp" # just one callsite
-    echo " $site =_ " > /proc/dynamic_debug/control # clear it
-
-    # A B ~A ~B
-    for flg in +T +p "-T #broke here" -p; do
-	echo " $site $flg " > /proc/dynamic_debug/control
-    done;
-
-    # A B ~B ~A
-    for flg in +T +p "-p #broke here" -T; do
-	echo " $site $flg " > /proc/dynamic_debug/control
-    done
-}
-pt_test
-
-Fixes: 84da83a6ffc0 dyndbg: combine flags & mask into a struct, simplify with it
-CC: vincent.whitchurch@axis.com
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Acked-by: Jason Baron <jbaron@akamai.com>
 ---
-.drop @stable, no exposed bug.
-.add jbaron ack
----
- lib/dynamic_debug.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index dd7f56af9aed..a56c1286ffa4 100644
+index 8faf584f2f4b..7fb99492c16f 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -211,10 +211,11 @@ static int ddebug_change(const struct ddebug_query *query,
- 				continue;
- #ifdef CONFIG_JUMP_LABEL
- 			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
--				if (!(modifiers->flags & _DPRINTK_FLAGS_PRINT))
-+				if (!(newflags & _DPRINTK_FLAGS_PRINT))
- 					static_branch_disable(&dp->key.dd_key_true);
--			} else if (modifiers->flags & _DPRINTK_FLAGS_PRINT)
-+			} else if (newflags & _DPRINTK_FLAGS_PRINT) {
- 				static_branch_enable(&dp->key.dd_key_true);
-+			}
- #endif
- 			dp->flags = newflags;
- 			v4pr_info("changed %s:%d [%s]%s =%s\n",
+@@ -970,7 +970,7 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int n,
+ 	dt->ddebugs = tab;
+ 
+ 	mutex_lock(&ddebug_lock);
+-	list_add(&dt->link, &ddebug_tables);
++	list_add_tail(&dt->link, &ddebug_tables);
+ 	mutex_unlock(&ddebug_lock);
+ 
+ 	vpr_info("%3u debug prints in module %s\n", n, dt->mod_name);
 -- 
 2.36.1
 
