@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55288CCA480
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49F98CCA480
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 653A68F239;
-	Wed, 20 Jul 2022 15:33:10 +0000 (UTC)
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23E0F8EF80;
- Wed, 20 Jul 2022 15:33:06 +0000 (UTC)
-Received: by mail-il1-x12f.google.com with SMTP id i5so2085704ila.6;
- Wed, 20 Jul 2022 08:33:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB588F20D;
+	Wed, 20 Jul 2022 15:33:11 +0000 (UTC)
+Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
+ [IPv6:2607:f8b0:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB3A8F1E4;
+ Wed, 20 Jul 2022 15:33:07 +0000 (UTC)
+Received: by mail-il1-x12e.google.com with SMTP id l11so7321786ilf.11;
+ Wed, 20 Jul 2022 08:33:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=FoeJSfQYjtngvo4HHZBab6bwAds3V3lbp5eX2URtnSI=;
- b=Y5HEVETahfPBl0XuDwNcpwbhDtxLka2FBUl1Z72oJMgVTwzrLu8aGTIJII/PLLLWOt
- IEzaoJWuVneUEwYdvIn8hzksyGwpo8HcQB5gXRO3IWmdpJ5N6RgL/wzKfK0Ti6+E9FME
- WW+N6YnAzvRTUnmgFu9UoAUHMQEn4GumKs6lF56PlnClB+//8PlihsT7Vj3XIPRL7K8z
- P5oPirbf8NnIYbDQbM3fh+QLpAqOpHduxnBzkRch4+qnPvetAvWmLIq7kDtzM/+LlE/8
- R9CKpQs7yTJYiJsgngEkktYlbXkNyagr3m3t7QKq1sjtM69CWpnosSkqjNlOi5YxBEUS
- UtRQ==
+ bh=r/u3pzpNzNChEPNWjqUZH0DBLx6ctPNr/Z8rp47SNdY=;
+ b=h/fgtCJTtRbAXE+dLj7QlqKj0sKW7IDEIMmoGXVX6ngfgQVk1VgBxIiDi4O1i6kmxU
+ DvFiIFbNHteZbINYV2zKyiv/yiU1grfH7o3k5EMkWtrSzDVguzcjp8FfJc6FRc0ddLfJ
+ geVIHZxp/0McZL7skTAscUokpZ0OKQK1J/8kxlwAi/fT/Q1k89GWv31wgILZ8BN8pzon
+ tdbRi0oFxmhdntxJDUKlyXioEwh2m9YdG06zumjB8VHpj1rbi59YlspAYJQqGnCGZgSo
+ zAU3kP56UWMB3T7Wkv1Qyjxe0s+KQgafjuPAKeFpxcP/1vedBOU8mOeHyQw5pwouFfmj
+ 0liQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=FoeJSfQYjtngvo4HHZBab6bwAds3V3lbp5eX2URtnSI=;
- b=DUPJmqJOWcYKJdJEzp+/1sSbzV1yG8ws6Y9j6g3RV4S9JYHNt2di8RHwyykjKLr3XH
- 2HqtYGHiNmeZmI6KOEtq6hN0KCB5z20i17zp3VniUanhyINGbAIPDSLS5s4qAapJ5Git
- Ca8GtBUGb6H2yqggTWrO0Nn9oMoh0dx8ZJiXksI3KhuNATxH7OTFQmGJ6gMBGJOE+xoP
- pa7iRwVCpvytgMUQwMm/2X0RV1j4qp3rAeXt17GYMrrfxNmf77HUMI4GlAMn90/siJBV
- W565v4TW3OChMp8YbnMxXB+5O1YG9ZBFZtr68gE7FDE6Der/uxrnqi+/3B6s/GngPvLE
- Iycg==
-X-Gm-Message-State: AJIora9fCkOSKkZ/KlVjf0rLux1MYBvsIEZsyqu9xEr1RmKGATwi2wix
- w/40ygKQHoE8ZqvdcBy/xH4tw6xFy9Kudg==
-X-Google-Smtp-Source: AGRyM1vQFjF1U+du0qqojqZ58ujUSrOID0TD0O2Q+WyDu8O1EdEbRTeqyziPe+0d2bXVupAt9xeSyA==
-X-Received: by 2002:a05:6e02:1405:b0:2da:c72f:e3a7 with SMTP id
- n5-20020a056e02140500b002dac72fe3a7mr19021150ilo.113.1658331184363; 
- Wed, 20 Jul 2022 08:33:04 -0700 (PDT)
+ bh=r/u3pzpNzNChEPNWjqUZH0DBLx6ctPNr/Z8rp47SNdY=;
+ b=rInXLI/5W/YbADPoaKK6kM86wfFFLZU6+6Sx62wMrHsXyycQyllZYhfsT/+M5HuDTJ
+ qrhltheb3XkHxvmtmf6sPNGsVG8ef7cbbmxx5AD39BIC8859uI7B34es+X5xuKVE2uCT
+ W2/K5gRgMyZ3GsMU/R8OXbnoUIZ5HTAY432KE2q9S53huKV0ACM1wfe9CxkHMXfRZPP4
+ oAqgljAhdJnqMFPRSUaudpK8WExuLH6hrbRjceyxQVFI52oTf49ANlTP6I0RI5hdx0sG
+ Th74eTR+AKAUbOmnX+Jx4h/gNMYxkLI6ftBH3WHVqHUqmDUJBE16U7gyQNKqNllkdeMj
+ WxBQ==
+X-Gm-Message-State: AJIora8W19O9Gvrn4SnQLcfELwh6/O+BPIf1CBXoS8FbPiLWuv3Rndtv
+ pQBY666PLHo9GYcicxKy+5IMkEpNh5LXcg==
+X-Google-Smtp-Source: AGRyM1uJEe74QzEYr9HdOGSIXLPagTB7IKsTxO7mzYMiP5Ry926uMNSDSVrJuIT0rleTJW8rMEYd5Q==
+X-Received: by 2002:a92:c267:0:b0:2dd:678:8688 with SMTP id
+ h7-20020a92c267000000b002dd06788688mr3658270ild.278.1658331186253; 
+ Wed, 20 Jul 2022 08:33:06 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.03
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:04 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:05 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:31:59 -0600
-Message-Id: <20220720153233.144129-8-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:32:01 -0600
+Message-Id: <20220720153233.144129-10-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 07/41] dyndbg: let query-modname override
- actual module name
+Subject: [Intel-gfx] [PATCH v4 09/41] dyndbg: drop EXPORTed
+ dynamic_debug_exec_queries
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,69 +77,88 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-dyndbg's control-parser: ddebug_parse_query(), requires that search
-terms: module, func, file, lineno, are used only once in a query; a
-thing cannot be named both foo and bar.
+This exported fn is unused, and will not be needed. Lets dump it.
 
-The cited commit added an overriding module modname, taken from the
-module loader, which is authoritative.  So it set query.module 1st,
-which disallowed its use in the query-string.
+The export was added to let drm control pr_debugs, as part of using
+them to avoid drm_debug_enabled overheads.  But its better to just
+implement the drm.debug bitmap interface, then its available for
+everyone.
 
-But now, its useful to allow a module-load to enable classes across a
-whole (or part of) a subsystem at once.
-
-  # enable (dynamic-debug in) drm only
-  modprobe drm dyndbg="class DRM_UT_CORE +p"
-
-  # get drm_helper too
-  modprobe drm dyndbg="class DRM_UT_CORE module drm* +p"
-
-  # get everything that knows DRM_UT_CORE
-  modprobe drm dyndbg="class DRM_UT_CORE module * +p"
-
-  # also for boot-args:
-  drm.dyndbg="class DRM_UT_CORE module * +p"
-
-So convert the override into a default, by filling it only when/after
-the query-string omitted the module.
-
-NB: the query class FOO handling is forthcoming.
-
-Fixes: 8e59b5cfb9a6 dynamic_debug: add modname arg to exec_query callchain
+Fixes: a2d375eda771 ("dyndbg: refine export, rename to dynamic_debug_exec_queries()")
+Fixes: 4c0d77828d4f ("dyndbg: export ddebug_exec_queries")
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ include/linux/dynamic_debug.h |  9 ---------
+ lib/dynamic_debug.c           | 29 -----------------------------
+ 2 files changed, 38 deletions(-)
 
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index f30b01aa9fa4..8d9eec5f6d8b 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -55,9 +55,6 @@ struct _ddebug {
+ 
+ #if defined(CONFIG_DYNAMIC_DEBUG_CORE)
+ 
+-/* exported for module authors to exercise >control */
+-int dynamic_debug_exec_queries(const char *query, const char *modname);
+-
+ int ddebug_add_module(struct _ddebug *tab, unsigned int n,
+ 				const char *modname);
+ extern int ddebug_remove_module(const char *mod_name);
+@@ -221,12 +218,6 @@ static inline int ddebug_dyndbg_module_param_cb(char *param, char *val,
+ 				rowsize, groupsize, buf, len, ascii);	\
+ 	} while (0)
+ 
+-static inline int dynamic_debug_exec_queries(const char *query, const char *modname)
+-{
+-	pr_warn("kernel not built with CONFIG_DYNAMIC_DEBUG_CORE\n");
+-	return 0;
+-}
+-
+ #endif /* !CONFIG_DYNAMIC_DEBUG_CORE */
+ 
+ #endif
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index e5cbe603000c..5a849716220a 100644
+index 5a849716220a..e96dc216463b 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -385,10 +385,6 @@ static int ddebug_parse_query(char *words[], int nwords,
- 		return -EINVAL;
- 	}
- 
--	if (modname)
--		/* support $modname.dyndbg=<multiple queries> */
--		query->module = modname;
--
- 	for (i = 0; i < nwords; i += 2) {
- 		char *keyword = words[i];
- 		char *arg = words[i+1];
-@@ -429,6 +425,13 @@ static int ddebug_parse_query(char *words[], int nwords,
- 		if (rc)
- 			return rc;
- 	}
-+	if (!query->module && modname)
-+		/*
-+		 * support $modname.dyndbg=<multiple queries>, when
-+		 * not given in the query itself
-+		 */
-+		query->module = modname;
-+
- 	vpr_info_dq(query, "parsed");
- 	return 0;
+@@ -558,35 +558,6 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 	return nfound;
  }
+ 
+-/**
+- * dynamic_debug_exec_queries - select and change dynamic-debug prints
+- * @query: query-string described in admin-guide/dynamic-debug-howto
+- * @modname: string containing module name, usually &module.mod_name
+- *
+- * This uses the >/proc/dynamic_debug/control reader, allowing module
+- * authors to modify their dynamic-debug callsites. The modname is
+- * canonically struct module.mod_name, but can also be null or a
+- * module-wildcard, for example: "drm*".
+- */
+-int dynamic_debug_exec_queries(const char *query, const char *modname)
+-{
+-	int rc;
+-	char *qry; /* writable copy of query */
+-
+-	if (!query) {
+-		pr_err("non-null query/command string expected\n");
+-		return -EINVAL;
+-	}
+-	qry = kstrndup(query, PAGE_SIZE, GFP_KERNEL);
+-	if (!qry)
+-		return -ENOMEM;
+-
+-	rc = ddebug_exec_queries(qry, modname);
+-	kfree(qry);
+-	return rc;
+-}
+-EXPORT_SYMBOL_GPL(dynamic_debug_exec_queries);
+-
+ #define PREFIX_SIZE 64
+ 
+ static int remaining(int wrote)
 -- 
 2.36.1
 
