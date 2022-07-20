@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C56ECC433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:34:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55597C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:34:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF2E88F422;
-	Wed, 20 Jul 2022 15:33:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD40A8F43A;
+	Wed, 20 Jul 2022 15:33:24 +0000 (UTC)
 Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
  [IPv6:2607:f8b0:4864:20::d2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E00AC8F441;
- Wed, 20 Jul 2022 15:33:16 +0000 (UTC)
-Received: by mail-io1-xd2c.google.com with SMTP id v185so14533595ioe.11;
- Wed, 20 Jul 2022 08:33:16 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6F8C8F2CC;
+ Wed, 20 Jul 2022 15:33:19 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id n138so13301453iod.4;
+ Wed, 20 Jul 2022 08:33:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=4dDgtpEw8MKBMS31pj2gEm6m+ax4+WVBkcmAcIHRbQQ=;
- b=Yw03bSZK+wV5OQYXq53SMuF9R/QtrGvjrdaRjnnTAh8Q1/02gfQNwf+xhcFTBbx27K
- 6xpQ4UD83j5kdcFzmO2Akeo+g2TiBhQPsMQp92Bp6ZdDlRfjDhBkzcybf+BkvJWb+AmX
- XmVVJS9+boLU6Imb1kCFiP7gAEt1xWojPisNbcfJbRsloksAOi1ZPXXbRzu8oLUYpeli
- 1W/bBE5CAQQ7TO21vWCibz4ZCmGpSMbi83I9MFuj95PCLznfNkgsQluQ0OojosW10M4z
- Y0dG5R/ncRnIQYGK5RoKf8yzSppxBTGPtPSdTGWJmx3AfUaC1OS8ZrJOQwxB4+E7nOTq
- 9JUA==
+ bh=dMWqi6VMWK3OYoAYYaoTo9m6rW+kKw0BEQ3tbFi0+WA=;
+ b=lnWdjme1YkRiNo3bVnr8kkI0ig6vUTf+spyUFQNrppJuHbWoTF5ssz56vhBoPahj4U
+ z4IfnYCKn4P45IvqEeFV1boatsgWAQZdL1jKWkPxCnTuu7nr+mmN1N5XVyiEheQ8H7xq
+ ThQ+2VinhgBSYe4L6XyaDkoxaGqkKAGXXuSKFXHNWNZGgAg7q57SHD/z9E6GZLTmqkO6
+ /v1o6r42E+wd/M89uHke1nM5rul/noRcYh8DKmg/RS+QkEzDYtJ9wJ8uislB/HuYAJmo
+ INDDX2D9zY7w0WNun7MPqP7fYcEc8PqsuB5ZKQyedaU9MmBpOPq/oKCLjNDMluFmRXFL
+ 7GRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=4dDgtpEw8MKBMS31pj2gEm6m+ax4+WVBkcmAcIHRbQQ=;
- b=bkF+kejIuG2ywtPWH+Nu1sY5g7/mO1DxaskAIXaW8GQWUcvvCv/dmRkrJisPAn0cWF
- +1icEYmeEqktqxhuxg14oy5HWygisgmviHcnrshIraTF671LLgHJe5QXqfcEUsAUuE7P
- NA5umiNid63YFHHZjp7uktIe47OF3uEWCZkljrUw73WQFxp4Wpm9cdynol6/9dfWOzag
- eT23wW7Ia/nSs24WlwLjzDRzk0MjlFdacURYk8Mas+araiMAPEHU2Dx8yv1dmMmmtNLm
- yd53q/CLx8o2xfY1o4A08iDGnOtaUmrQN8cHUkw+uWhvvrvT4cxUxpnQMIaMPDBf1pvd
- wDJA==
-X-Gm-Message-State: AJIora8rOwvnkFST9i3pp5Z4/W6U0DpxWpAXlOfkosFzJrAXScJxVice
- lo16GpeGXAKS5R186MoJiGQDj5nNg/oacA==
-X-Google-Smtp-Source: AGRyM1t8XvNQM5MlAyYaZ8RGOrOvoJz//wy4UkJoSo3nD31ZbUDY54hP3fbdw7vQ8GUkieJeZf48fQ==
-X-Received: by 2002:a05:6602:2dc9:b0:67c:410:29f5 with SMTP id
- l9-20020a0566022dc900b0067c041029f5mr8612907iow.39.1658331196313; 
- Wed, 20 Jul 2022 08:33:16 -0700 (PDT)
+ bh=dMWqi6VMWK3OYoAYYaoTo9m6rW+kKw0BEQ3tbFi0+WA=;
+ b=Hsx3kbEe1GbTEorXJJLV7dM0bLeqPGvQEptDXvYNHqKVWjjG/V1ONtSCDDw36T0Jy4
+ 76KetBtWRxHoVy+OYJTp7+4U48r5ZsIiMPLnyQ5cwhXK91nd72tJnuzldu9K0mA+YTof
+ l5o7yjBlouKkYsyqpHBvmz8gHMJuv/1/Et0fSX2/ESJFj52W1K5gLNczJ8okNWf+ztp7
+ Ofxe21lMxD8ApqXYQVu49iwQii2KZeNvvTglQMUEmoaI4A/JmaSYCqw1zUBSDItuIDd4
+ 4oeenV81aeROneUjggPCEXtcVmPbez6UI5ji/gZa70420kXfBbIRTswy4+LEy8M3fJ1X
+ IHDA==
+X-Gm-Message-State: AJIora9VDoc+9pSmdkrPHwv0gcH8f08WjgXBdAA5TdgdqZSJwPllip4B
+ +UDFM8PUMebszPSeQQkMKZJULuKOyE0b4A==
+X-Google-Smtp-Source: AGRyM1s5eyEemFFnMY+HLHeBP5nJZ7Sgo54nMLWQL2IwyrGDYADLyFzl8TlvgaNrItlaUDMmHuzjhQ==
+X-Received: by 2002:a02:3f55:0:b0:33f:891e:46b8 with SMTP id
+ c21-20020a023f55000000b0033f891e46b8mr19472115jaf.121.1658331199273; 
+ Wed, 20 Jul 2022 08:33:19 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.15
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:15 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:18 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:32:09 -0600
-Message-Id: <20220720153233.144129-18-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:32:12 -0600
+Message-Id: <20220720153233.144129-21-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 17/41] dyndbg: test DECLARE_DYNDBG_CLASSMAP,
- sysfs nodes
+Subject: [Intel-gfx] [PATCH v4 20/41] drm_print: condense enum
+ drm_debug_category
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,225 +77,92 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Demonstrate use of DECLARE_DYNDBG_CLASSMAP macro, and expose them as
-sysfs-nodes for testing.
+enum drm_debug_category has 10 categories, but is initialized with
+bitmasks which require 10 bits of underlying storage.  By using
+natural enumeration, and moving the BIT(cat) into drm_debug_enabled(),
+the enum fits in 4 bits, allowing the category to be represented
+directly in pr_debug callsites, via the ddebug.class_id field.
 
-For each of the 4 class-map-types:
+While this slightly pessimizes the bit-test in drm_debug_enabled(),
+using dyndbg with JUMP_LABEL will avoid the function entirely.
 
-  - declare a class-map of that type,
-  - declare the enum corresponding to those class-names
-  - share _base across 0..30 range
-  - add a __pr_debug_cls() call for each class-name
-  - declare 2 sysnodes for each class-map
-    for 'p' flag, and future 'T' flag
+NOTE: this change forecloses the possibility of doing:
 
-These declarations create the following sysfs parameter interface:
+  drm_dbg(DRM_UT_CORE|DRM_UT_KMS, "weird 2-cat experiment")
 
-  :> pwd
-  /sys/module/test_dynamic_debug/parameters
-  :> ls
-  T_disjoint  T_levels  T_symbolic  T_verbosity  do_prints
-  p_disjoint  p_levels  p_symbolic  p_verbosity
-
-NOTES:
-
-The local wrapper macro is an api candidate, but there are already too
-many parameters.  OTOH, maybe related enum should be in there too,
-since it has _base inter-dependencies.
-
-The T_* params control the (future) T flag on the same class'd
-pr_debug callsites as their p* counterparts.  Using them will fail,
-until the dyndbg-trace patches are added in.
-
-:#> echo 1 > T_disjoint
-[   28.792489] dyndbg: disjoint: 0x1 > test_dynamic_debug.T_D2
-[   28.793848] dyndbg: query 0: "class D2_CORE +T" mod:*
-[   28.795086] dyndbg: split into words: "class" "D2_CORE" "+T"
-[   28.796467] dyndbg: op='+'
-[   28.797148] dyndbg: unknown flag 'T'
-[   28.798021] dyndbg: flags parse failed
-[   28.798947] dyndbg: processed 1 queries, with 0 matches, 1 errs
-[   28.800378] dyndbg: bit_0: -22 matches on class: D2_CORE -> 0x1
-[   28.801959] dyndbg: test_dynamic_debug.T_D2: updated 0x0 -> 0x1
-[   28.803974] dyndbg: total matches: -22
+but thats already strongly implied by the use of the enum itself; its
+not a normal enum if it can be 2 values simultaneously.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/test_dynamic_debug.c | 125 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 110 insertions(+), 15 deletions(-)
+ include/drm/drm_print.h | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index ba3882ca3e48..eac85e4e996a 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -10,57 +10,152 @@
- 
- #include <linux/module.h>
- 
--static void do_prints(void); /* device under test */
--
--/* run tests by reading or writing sysfs node */
-+/* run tests by reading or writing sysfs node: do_prints */
- 
-+static void do_prints(void); /* device under test */
- static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
- {
- 	do_prints();
- 	return 0;
- }
--
- static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
- {
- 	do_prints();
- 	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
- }
--
- static const struct kernel_param_ops param_ops_do_prints = {
- 	.set = param_set_do_prints,
- 	.get = param_get_do_prints,
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 22fabdeed297..b3b470440e46 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -279,49 +279,49 @@ enum drm_debug_category {
+ 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+ 	 * drm_memory.c, ...
+ 	 */
+-	DRM_UT_CORE		= 0x01,
++	DRM_UT_CORE,
+ 	/**
+ 	 * @DRM_UT_DRIVER: Used in the vendor specific part of the driver: i915,
+ 	 * radeon, ... macro.
+ 	 */
+-	DRM_UT_DRIVER		= 0x02,
++	DRM_UT_DRIVER,
+ 	/**
+ 	 * @DRM_UT_KMS: Used in the modesetting code.
+ 	 */
+-	DRM_UT_KMS		= 0x04,
++	DRM_UT_KMS,
+ 	/**
+ 	 * @DRM_UT_PRIME: Used in the prime code.
+ 	 */
+-	DRM_UT_PRIME		= 0x08,
++	DRM_UT_PRIME,
+ 	/**
+ 	 * @DRM_UT_ATOMIC: Used in the atomic code.
+ 	 */
+-	DRM_UT_ATOMIC		= 0x10,
++	DRM_UT_ATOMIC,
+ 	/**
+ 	 * @DRM_UT_VBL: Used for verbose debug message in the vblank code.
+ 	 */
+-	DRM_UT_VBL		= 0x20,
++	DRM_UT_VBL,
+ 	/**
+ 	 * @DRM_UT_STATE: Used for verbose atomic state debugging.
+ 	 */
+-	DRM_UT_STATE		= 0x40,
++	DRM_UT_STATE,
+ 	/**
+ 	 * @DRM_UT_LEASE: Used in the lease code.
+ 	 */
+-	DRM_UT_LEASE		= 0x80,
++	DRM_UT_LEASE,
+ 	/**
+ 	 * @DRM_UT_DP: Used in the DP code.
+ 	 */
+-	DRM_UT_DP		= 0x100,
++	DRM_UT_DP,
+ 	/**
+ 	 * @DRM_UT_DRMRES: Used in the drm managed resources code.
+ 	 */
+-	DRM_UT_DRMRES		= 0x200,
++	DRM_UT_DRMRES
  };
--
- module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
  
--static void do_alpha(void)
-+/*
-+ * Using the CLASSMAP api:
-+ * - classmaps must have corresponding enum
-+ * - enum symbols must match/correlate with class-name strings in the map.
-+ * - base must equal enum's 1st value
-+ * - multiple maps must set their base to share the 0-30 class_id space !!
-+ *   (build-bug-on tips welcome)
-+ * Additionally, here:
-+ * - tie together sysname, mapname, bitsname, flagsname
-+ */
-+#define DD_SYS_WRAP(_model, _flags)					\
-+	static unsigned long bits_##_model;				\
-+	static struct ddebug_classes_bitmap_param _flags##_model = {	\
-+		.bits = &bits_##_model,					\
-+		.flags = #_flags,					\
-+		.map = &map_##_model,					\
-+	};								\
-+	module_param_cb(_flags##_##_model, &param_ops_dyndbg_classes, &_flags##_model, 0600)
-+
-+/* numeric input, independent bits */
-+enum cat_disjoint {
-+	D2_CORE = 0,
-+	D2_DRIVER,
-+	D2_KMS,
-+	D2_PRIME,
-+	D2_ATOMIC,
-+	D2_VBL,
-+	D2_STATE,
-+	D2_LEASE,
-+	D2_DP,
-+	D2_DRMRES };
-+DECLARE_DYNDBG_CLASSMAP(map_disjoint, DD_CLASS_TYPE_DISJOINT, 0,
-+			"D2_CORE",
-+			"D2_DRIVER",
-+			"D2_KMS",
-+			"D2_PRIME",
-+			"D2_ATOMIC",
-+			"D2_VBL",
-+			"D2_STATE",
-+			"D2_LEASE",
-+			"D2_DP",
-+			"D2_DRMRES");
-+DD_SYS_WRAP(disjoint, p);
-+DD_SYS_WRAP(disjoint, T);
-+
-+/* symbolic input, independent bits */
-+enum cat_symbolic { LOW = 11, MID, HI };
-+DECLARE_DYNDBG_CLASSMAP(map_symbolic, DD_CLASS_TYPE_SYMBOLIC, 10,
-+			"LOW", "MID", "HI");
-+DD_SYS_WRAP(symbolic, p);
-+DD_SYS_WRAP(symbolic, T);
-+
-+/* numeric verbosity, V2 > V1 related */
-+enum cat_verbosity { V0 = 14, V1, V2, V3, V4, V5, V6, V7 };
-+DECLARE_DYNDBG_CLASSMAP(map_verbosity, DD_CLASS_TYPE_VERBOSE, 14,
-+		       "V0", "V1", "V2", "V3", "V4", "V5", "V6", "V7");
-+DD_SYS_WRAP(verbosity, p);
-+DD_SYS_WRAP(verbosity, T);
-+
-+/* symbolic verbosity */
-+enum cat_levels { L0 = 22, L1, L2, L3, L4, L5, L6, L7 };
-+DECLARE_DYNDBG_CLASSMAP(map_levels, DD_CLASS_TYPE_LEVELS, 22,
-+			"L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7");
-+DD_SYS_WRAP(levels, p);
-+DD_SYS_WRAP(levels, T);
-+
-+/* stand-in for all pr_debug etc */
-+#define prdbg(SYM) __pr_debug_cls(SYM, #SYM " msg\n")
-+
-+static void do_cats(void)
+ static inline bool drm_debug_enabled(enum drm_debug_category category)
  {
--	pr_debug("do alpha\n");
-+	pr_debug("doing categories\n");
-+
-+	prdbg(LOW);
-+	prdbg(MID);
-+	prdbg(HI);
-+
-+	prdbg(D2_CORE);
-+	prdbg(D2_DRIVER);
-+	prdbg(D2_KMS);
-+	prdbg(D2_PRIME);
-+	prdbg(D2_ATOMIC);
-+	prdbg(D2_VBL);
-+	prdbg(D2_STATE);
-+	prdbg(D2_LEASE);
-+	prdbg(D2_DP);
-+	prdbg(D2_DRMRES);
- }
--static void do_beta(void)
-+
-+static void do_levels(void)
- {
--	pr_debug("do beta\n");
-+	pr_debug("doing levels\n");
-+
-+	prdbg(V1);
-+	prdbg(V2);
-+	prdbg(V3);
-+	prdbg(V4);
-+	prdbg(V5);
-+	prdbg(V6);
-+	prdbg(V7);
-+
-+	prdbg(L1);
-+	prdbg(L2);
-+	prdbg(L3);
-+	prdbg(L4);
-+	prdbg(L5);
-+	prdbg(L6);
-+	prdbg(L7);
+-	return unlikely(__drm_debug & category);
++	return unlikely(__drm_debug & BIT(category));
  }
  
- static void do_prints(void)
- {
--	do_alpha();
--	do_beta();
-+	do_cats();
-+	do_levels();
- }
- 
- static int __init test_dynamic_debug_init(void)
- {
- 	pr_debug("init start\n");
--
- 	do_prints();
--
- 	pr_debug("init done\n");
- 	return 0;
- }
- 
- static void __exit test_dynamic_debug_exit(void)
- {
--	pr_debug("exiting\n");
-+	pr_debug("exited\n");
- }
- 
- module_init(test_dynamic_debug_init);
+ /*
 -- 
 2.36.1
 
