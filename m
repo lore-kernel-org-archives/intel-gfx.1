@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4C1AC43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:34:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C077C433EF
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:34:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7B38F4B2;
-	Wed, 20 Jul 2022 15:33:34 +0000 (UTC)
-Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
- [IPv6:2607:f8b0:4864:20::d29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A67708F452;
- Wed, 20 Jul 2022 15:33:25 +0000 (UTC)
-Received: by mail-io1-xd29.google.com with SMTP id r70so13409667iod.10;
- Wed, 20 Jul 2022 08:33:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1AFA8F4C9;
+	Wed, 20 Jul 2022 15:33:35 +0000 (UTC)
+Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
+ [IPv6:2607:f8b0:4864:20::d33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C2F68F24F;
+ Wed, 20 Jul 2022 15:33:23 +0000 (UTC)
+Received: by mail-io1-xd33.google.com with SMTP id y2so14536084ior.12;
+ Wed, 20 Jul 2022 08:33:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=pbfKjW8s+yNblg/2VqulB1BrQZpCCy3wi5VbG9v1p9Y=;
- b=o32r4tJFgKSUOFwoLWC7z5OlcK3ssnISZS9CioxUmFMuQsjOydfrcvs9tNe3roJifX
- Jvbu5IQuN6DT4/llIA5t2hgdt1GBSX+Cno2yy6gFzqeaf3a5k8877sKe8qPODj71Grm6
- qKY3U3etTZ8Qr/nrDEl3ZU0IpKoL3MHL1AYBxpEIdSarBWKEATl/YeRlQj2xs9KTEa/1
- Z56kmd7wtKdpFqzWdrckIhfKSif3R8bARHCFP+q1HCmiOL2YcC5CkBfveD7nSG8FEDA9
- J3hFXMWWGlnV0oUk2Jp2bADkNj6qu/DtOMKNcPpKMJ1DyDJbG+uA02NmEMMHJbB5e811
- 0j7Q==
+ bh=iJtOb8MGNrfDuJNUjp5ciUTwfOiM98w6evAABfdr9NA=;
+ b=CV6XhardL4XPy8yoKHeUOcBs43y9CCO3TftN3TwLU9lgP56a23QSLP1s9jX/Cjp39b
+ D9Us8JUW//+XHfJ4f1FJVNKeojeG7POBPcF/DNFeErHWaz4FA2dBwTVH2xWJjekm7IAK
+ msMG0LnlCYU4/ah+94TDTg4jXalcfXcTJutsUnbY11ruQfgjbXJWdXpPGlyGbnLthrwH
+ /w6L30kYWyWfVMazQME+GrLHscbP9bUzsLN/NfseTFICWFbWsXvdhEF336mYo/MiaAmF
+ KqScKdjYcR6n4Xsjpc9rKEW6PF1AadQdUz92xWXd8Rs1ef8hnHvivo+JZToyYzdARNC7
+ rRYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=pbfKjW8s+yNblg/2VqulB1BrQZpCCy3wi5VbG9v1p9Y=;
- b=QHsyceW57Jc4oq71FWW4hiPs76u1djCQgO6LSlSBiF00jJTTHrbcqoEpktPW1yYhH4
- Jy9aIHsWv7zxXBg6bfazur+QmHlA2nQV4ti4OwvqCb9dWN4ME9p4IFsN6MZOD1ulPdUX
- hP6BBntFeUL4MbXdT5Qpqth23H1RokFqFgJ6bRYUKjjH1x6VrWIuCxlo8zlVCSc1kMXC
- HfvmWL3w9/u9HwjomxSB889gBOKTZ4nGIs4ninwDdrIekFjOV/S6iXEE06TXWgKJNgJs
- 7ZGByxtucXk/VlsGS/LAurQIkdcdIPIXvvpcArWTmAymbjz+NUC2xf48CO7azsbAGxVT
- ch6Q==
-X-Gm-Message-State: AJIora+pisQWsXWoB3IS7EQyYBWx8d3iKb47KX02AWxEvZeIFI+egdE9
- b1kIl+mZ30YsZxDWHkKLgri71xluSo89fw==
-X-Google-Smtp-Source: AGRyM1tB3CTz3Fdl53ZZ6LAaNfhAcNKAJB9rD6NbJnUyDpParrGvyR8ECvEcAraD7Fq0UHGXY0O5EQ==
-X-Received: by 2002:a05:6638:4115:b0:33f:8715:cb15 with SMTP id
- ay21-20020a056638411500b0033f8715cb15mr20018782jab.189.1658331204392; 
- Wed, 20 Jul 2022 08:33:24 -0700 (PDT)
+ bh=iJtOb8MGNrfDuJNUjp5ciUTwfOiM98w6evAABfdr9NA=;
+ b=YUBM161OSoTc+P6bogk4Jsf5sxnFY8smDMdSwvBW7Eyt9hF9a2LjjUliR2RZtU2ctz
+ XyooF3yGLA//x6+A681uxSyZ2sr5dzo5zTsgTom54jy3VGx7lJv3auCrvoMErgxTzKFZ
+ EpKPdYQNUDeg3q8KWx7ErbFESUWPmIwo5hOjjO1jLQiWqf7xCficvzMEK6KFa5H2kDGU
+ f3s4qCtDAD5JiDnymDyCtcI1qPABwzFfYGYQt78YqOXmnTBEKVztsZtfIInR+wkJFJce
+ bDjceriWV3ZZ6BgYuYiifHcR8zmhBF1V2x7kYOIjBxWzK3BAArzbmJeuBZ645xPFFyRl
+ m2mg==
+X-Gm-Message-State: AJIora+rjEnGGwV0yCw//9sjNo7ecF46V1gN7W5ZxmO6mPuYO6wDcM9W
+ 20Gw3hYt7T+04ohRtp8SFSmaRoFlMYmBNg==
+X-Google-Smtp-Source: AGRyM1tuOpp3gxs9OmiC4WcpSMt9xxBIrl+T/ZLE+cjqr5PZdYOdeY3sZnxdGKRe1WvgraTKTcgcSA==
+X-Received: by 2002:a05:6602:490:b0:678:d781:446d with SMTP id
+ y16-20020a056602049000b00678d781446dmr18666295iov.115.1658331202340; 
+ Wed, 20 Jul 2022 08:33:22 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.23
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:23 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:22 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:32:17 -0600
-Message-Id: <20220720153233.144129-26-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:32:15 -0600
+Message-Id: <20220720153233.144129-24-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 25/41] drm-print: include dyndbg header
- indirectly
+Subject: [Intel-gfx] [PATCH v4 23/41] drm_print: wrap drm_*_dbg in dyndbg
+ descriptor factory macro
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,38 +77,94 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-lkp robot told me:
+For CONFIG_DRM_USE_DYNAMIC_DEBUG=y, wrap __drm_dbg() & __drm_dev_dbg()
+in one of dyndbg's Factory macros: _dynamic_func_call_no_desc().
 
-  >> drivers/gpu/drm/drm_ioc32.c:989:2:
-  error: call to undeclared function '_dynamic_func_call_cls';
-  ISO C99 and later do not support implicit function declarations
-  [-Wimplicit-function-declaration]
+This adds the callsite descriptor into the code, and an entry for each
+into /proc/dynamic_debug/control.
 
-           DRM_DEBUG("comm=\"%s\", pid=%d, dev=0x%lx, auth=%d, %s\n",
+  #> echo class DRM_UT_ATOMIC +p > /proc/dynamic_debug/control
 
-Since that macro is defined in drm_print.h, include <dynamic_debug.h>
-there too, so that any uses have the definitions of all the macros in
-the callchain.
-
-This is done as a separate patch mostly to see how lkp sorts it;
-I'll probably squash it with HEAD~1
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y/n is configurable because of the .data
+footprint cost of per-callsite control; 56 bytes/site * ~2k for i915,
+~4k callsites for amdgpu.  This is large enough that a kernel builder
+might not want it.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/drm/drm_print.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/Kconfig  | 12 ++++++++++++
+ drivers/gpu/drm/Makefile |  2 ++
+ include/drm/drm_print.h  | 12 ++++++++++++
+ 3 files changed, 26 insertions(+)
 
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index e88c497fa010..bb1fa20a8eb2 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -50,6 +50,18 @@ config DRM_DEBUG_MM
+ 
+ 	  If in doubt, say "N".
+ 
++config DRM_USE_DYNAMIC_DEBUG
++	bool "use dynamic debug to implement drm.debug"
++	default y
++	depends on DRM
++	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
++	depends on JUMP_LABEL
++	help
++	  Use dynamic-debug to avoid drm_debug_enabled() runtime overheads.
++	  Due to callsite counts in DRM drivers (~4k in amdgpu) and 56
++	  bytes per callsite, the .data costs can be substantial, and
++	  are therefore configurable.
++
+ config DRM_DEBUG_SELFTEST
+ 	tristate "kselftests for DRM"
+ 	depends on DRM
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 15fe3163f822..272de137d207 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -3,6 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+ 
++CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
++
+ drm-y       :=	drm_aperture.o drm_auth.o drm_cache.o \
+ 		drm_file.o drm_gem.o drm_ioctl.o \
+ 		drm_drv.o \
 diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 3aa5e9ea26f4..dfdd81c3287c 100644
+index c429c258c957..2d2cef76b5c1 100644
 --- a/include/drm/drm_print.h
 +++ b/include/drm/drm_print.h
-@@ -31,6 +31,7 @@
- #include <linux/seq_file.h>
- #include <linux/device.h>
- #include <linux/debugfs.h>
-+#include <linux/dynamic_debug.h>
+@@ -384,8 +384,14 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 	}								\
+ })
  
- #include <drm/drm.h>
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+ #define drm_dev_dbg(dev, cat, fmt, ...)				\
+ 	__drm_dev_dbg(dev, cat, fmt, ##__VA_ARGS__)
++#else
++#define drm_dev_dbg(dev, cat, fmt, ...)				\
++	_dynamic_func_call_no_desc(fmt, __drm_dev_dbg,			\
++				   dev, cat, fmt, ##__VA_ARGS__)
++#endif
+ 
+ /**
+  * DRM_DEV_DEBUG() - Debug output for generic drm code
+@@ -492,7 +498,13 @@ void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
+ __printf(1, 2)
+ void __drm_err(const char *format, ...);
+ 
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+ #define __drm_dbg(fmt, ...)		___drm_dbg(fmt, ##__VA_ARGS__)
++#else
++#define __drm_dbg(cat, fmt, ...)					\
++	_dynamic_func_call_no_desc(fmt, ___drm_dbg,			\
++				   cat, fmt, ##__VA_ARGS__)
++#endif
+ 
+ /* Macros to make printk easier */
  
 -- 
 2.36.1
