@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E797EC43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:35:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAB32C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:35:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34F3B8F4A8;
-	Wed, 20 Jul 2022 15:33:56 +0000 (UTC)
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
- [IPv6:2607:f8b0:4864:20::d35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91EBC8F49E;
- Wed, 20 Jul 2022 15:33:33 +0000 (UTC)
-Received: by mail-io1-xd35.google.com with SMTP id l24so14530008ion.13;
- Wed, 20 Jul 2022 08:33:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80DC68F485;
+	Wed, 20 Jul 2022 15:33:55 +0000 (UTC)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 749598F458;
+ Wed, 20 Jul 2022 15:33:30 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id n7so14537987ioo.7;
+ Wed, 20 Jul 2022 08:33:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=zLy9bGKDke7xD1kJ5ci1YEj/jyeVtbX9aQMBfETvouU=;
- b=moDvtXV3/A0GAHpixflC1n1IixIKOZZCoQmN/8cWz42wytzPboEtzLQj499OBOwCmw
- XzZl8MI96eHXyupZhthN8dpv0y2vu20yEp4QDz3ID4EUj8Fkf3furKwSwkx7sPBTRqtD
- MnYa/t8FWXRbUiU187HVqGmtBs3sasZ+fyq/+C2HvIw0rrUI+zEqwMel5G8XguOhoeBS
- 4qxcKcg+u0KBYCN5VxbKm/CTfQNJ7aEccaqyFVWnZU1d/x+276xmv9c45gRQlFMP4GXG
- cRNr3WdWvTArDcgbR28lJo3J5j5Qa7NQyz//OFeacLuge46pNN+DYFzevKS2js3tH6Di
- zWRQ==
+ bh=8gGCI0m8r004HoJxLqXDC1X1/A0StWSdDwFBgrxhMVw=;
+ b=pP2Ch0j9cYaoD7HNPrfmuREfrAWXaQ/J4R0E4D2FCLxzhANm3RSYZMrCA2VL0lwqZ1
+ 6YUt2PtWF++HKEmQiGU4jG8EXsPHNS/MZyoTrr96/Z60Tuw8iP6r+vakdLkWa2iOruFx
+ eGhhveZWTc0Ij4Uih1yDjplRus4eHzl6CVxeLQopygGNbP7ItPiZMix4ipZ1oH+PGsZd
+ ZQrMgFjhVOb5L12b+wX4vS1PFG8yiDKtPOWdVfxWmrrISDxdTUKwd4yxwhyviNzxtv/j
+ 1MYu+58fSB+/+rSHdYXCwpa9zav6gmoh+DEdfUfHJNRo1SZoB+ipyuToDUlY5g3nSbvh
+ pnyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=zLy9bGKDke7xD1kJ5ci1YEj/jyeVtbX9aQMBfETvouU=;
- b=ts/MgJlXbHbD7iD2zpP9yszTkiVMNkVMx1ouvOT9FT/lXPzgq0rjkXh/WJwosWAa5Y
- yQr3ouTVlRu6tDhwUrGzrJ80TKb6PHTHEgcIJv8BNA9EdYzGObDHu58XzT0v3v+VVYGH
- cJggpow0tcULmtmrTU6KcoL7N43S6IkXkiwNePExW941E5l/6ha97Fo5eftMNIH6H2pz
- WM+tS/xJlr+odF35N21STL1aka/3bxEUfV6e+hOOk296Tk6RlfFjTo8379AKloxuBFJV
- 4g3Sc3hxy0xG4I3gVnWausZsSLsTr0Hu55iThgXaOBLtRL0wk9ZPNdarFyNcHD8FQm+s
- W9Dw==
-X-Gm-Message-State: AJIora8oY5iQ3vdEWS+IBQT4lyeSvLVYGY3VoX2FpBHg3CjJ5kv8a7vC
- 3NKAUSWEo1zEIvo5O2ZdwCU0+BbhazSKcw==
-X-Google-Smtp-Source: AGRyM1u+G3Lk8AYSRCZRE2OFkf8dfVNWa8aN7ElueYh9toYFBRWhgpT7Xlwh4nt41yG8BpWGwnJnhA==
-X-Received: by 2002:a6b:4019:0:b0:669:3314:ebcb with SMTP id
- k25-20020a6b4019000000b006693314ebcbmr17819133ioa.197.1658331212473; 
- Wed, 20 Jul 2022 08:33:32 -0700 (PDT)
+ bh=8gGCI0m8r004HoJxLqXDC1X1/A0StWSdDwFBgrxhMVw=;
+ b=u90hGnkCnaVaDhpHjjnKhGmvQBRE/ek+gVPVaydiRCtn+4IWk2FokVp1/hzT5wM/e4
+ 11pWLdzWzVN02zwO663n7QYwAXhrTQZ3wOIjtfLRgpkLLqxF143Oqo8yOxD9xdJJoDNf
+ QsEnJBj1X7TfUJQmBE6VyZ1Xrx8sii55BHfb53uBeXOA5VIOhtOHCRIBaX1XBTHRCZhy
+ JdgMNKzja3ySUKpK6LRMLV7edhmEsViVbT5g+fNYCbFBEyopAoiK0KL6voNxdWmNQoy2
+ 8ZhIY7XkG0eqzMRHHV96auXtGIvhkZZO3eZFEh3nRg42+XpyKF8oWHmuBQnkDye2AXc/
+ 0JEg==
+X-Gm-Message-State: AJIora+Pt9NGJFCILfkpXDq7VEo11klK0Kb4XSUVBcvt19mtrFLKQAQA
+ gJAMO8QHlfN3XEgVeo+vmAmQLJzoW3yeTg==
+X-Google-Smtp-Source: AGRyM1sVONqIhEQFG3E677QRE/pGcJTLkuoZ3upVkJXGOH7vhJhdlmGLzNOMSl3UlnRvMRjl0NGIqw==
+X-Received: by 2002:a05:6602:180c:b0:67c:296:2561 with SMTP id
+ t12-20020a056602180c00b0067c02962561mr8284436ioh.173.1658331209529; 
+ Wed, 20 Jul 2022 08:33:29 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.31
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:32 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:29 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:32:25 -0600
-Message-Id: <20220720153233.144129-34-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:32:22 -0600
+Message-Id: <20220720153233.144129-31-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 33/41] dyndbg: add write-events-to-tracefs
- code
+Subject: [Intel-gfx] [PATCH v4 30/41] tracing/events: Add __vstring() and
+ __assign_vstr() helper macros
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,319 +73,211 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, vincent.whitchurch@axis.com
+Cc: Marek Lindner <mareklindner@neomailbox.ch>,
+ Antonio Quartulli <a@unstable.cc>, Eric Dumazet <edumazet@google.com>,
+ Gregory Greenman <gregory.greenman@intel.com>, Ingo Molnar <mingo@kernel.org>,
+ Sven Eckelmann <sven@narfation.org>, Leon Romanovsky <leon@kernel.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Mathias Nyman <mathias.nyman@intel.com>, Kalle Valo <kvalo@kernel.org>,
+ Hante Meuleman <hante.meuleman@broadcom.com>,
+ "Steven Rostedt \(Google\)" <rostedt@goodmis.org>, Bin Liu <b-liu@ti.com>,
+ Franky Lin <franky.lin@broadcom.com>, Arend van Spriel <aspriel@gmail.com>,
+ Simon Wunderlich <sw@simonwunderlich.de>, Jim Cromie <jim.cromie@gmail.com>,
+ Peter Chen <peter.chen@kernel.org>, Johannes Berg <johannes@sipsolutions.net>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-1st, internals:
+From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
 
-adds: ddebug_trace()
- uses trace_console() temporarily to issue printk:console event
- uses internal-ish __ftrace_trace_stack code:
-      4-context buffer stack, barriers per Steve Rostedt
+Steve's patch, carried til upstream.
 
-call it from new mid-layer funcs:
-  ddebug_printk() - ddebug_trace or vprintk (to syslog)
-  ddebug_dev_printk() - ddebug_trace or dev_printk_emit
+There's several places that open code the following logic:
 
-These handle both _DPRINTK_FLAGS_PRINTK and _DPRINTK_FLAGS_TRACE
-cases, allowing to vsnprintf the message once and use it for both,
-skipping past the KERN_DEBUG prefix for tracing.
+  TP_STRUCT__entry(__dynamic_array(char, msg, MSG_MAX)),
+  TP_fast_assign(vsnprintf(__get_str(msg), MSG_MAX, vaf->fmt, *vaf->va);)
 
-Finally, adjust the top-layer: __dynamic_{pr_debug,{,net,ib}dev_dbg),
-replacing printk/dev_printk_emit with ddebug_printk/ddebug_dev_printk.
+To load a string created by variable array va_list.
 
-Interface additions:
-  new 'T' flag decl in opt_array. existing code handles it like others.
-  document the new flag.
+The main issue with this approach is that "MSG_MAX" usage in the
+__dynamic_array() portion. That actually just reserves the MSG_MAX in the
+event, and even wastes space because there's dynamic meta data also saved
+in the event to denote the offset and size of the dynamic array. It would
+have been better to just use a static __array() field.
 
-To enable drm.debug ATOMIC messages to tracefs:
+Instead, create __vstring() and __assign_vstr() that work like __string
+and __assign_str() but instead of taking a destination string to copy,
+take a format string and a va_list pointer and fill in the values.
 
-  :#> echo class DRM_UT_ATOMIC +T > /proc/dynamic_debug/control
+It uses the helper:
 
-NB:
+ #define __trace_event_vstr_len(fmt, va)	\
+ ({						\
+	va_list __ap;				\
+	int __ret;				\
+						\
+	va_copy(__ap, *(va));			\
+	__ret = vsnprintf(NULL, 0, fmt, __ap);	\
+	va_end(__ap);				\
+						\
+	min(__ret, TRACE_EVENT_STR_MAX);	\
+ })
 
-This patch,~1,~2 are basically direct copies of:
-  https://lore.kernel.org/lkml/20200825153338.17061-1-vincent.whitchurch@axis.com/
+To figure out the length to store the string. It may be slightly slower as
+it needs to run the vsnprintf() twice, but it now saves space on the ring
+buffer.
 
-with a few differences:
+Link: https://lkml.kernel.org/r/20220705224749.053570613@goodmis.org
 
-- s/dynamic_/ddebug_/ on Vincent's additions, tighter naming.
-- __printf attrs on the _printk funcs.
-- reuses trace_console() event, not adding a new "printk:dyndbg" event.
-  later patches differentiate to new events.
-
-- a flags arg remains unchanged, adapt later to *descriptor.
-
-CC: vincent.whitchurch@axis.com
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Cc: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
+Cc: Ingo Molnar <mingo@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Kalle Valo <kvalo@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Arend van Spriel <aspriel@gmail.com>
+Cc: Franky Lin <franky.lin@broadcom.com>
+Cc: Hante Meuleman <hante.meuleman@broadcom.com>
+Cc: Gregory Greenman <gregory.greenman@intel.com>
+Cc: Peter Chen <peter.chen@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mathias Nyman <mathias.nyman@intel.com>
+Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>
+Cc: Bin Liu <b-liu@ti.com>
+Cc: Marek Lindner <mareklindner@neomailbox.ch>
+Cc: Simon Wunderlich <sw@simonwunderlich.de>
+Cc: Antonio Quartulli <a@unstable.cc>
+Cc: Sven Eckelmann <sven@narfation.org>
+Cc: Johannes Berg <johannes@sipsolutions.net>
+Cc: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 ---
- .../admin-guide/dynamic-debug-howto.rst       |   5 +-
- lib/dynamic_debug.c                           | 156 +++++++++++++++---
- 2 files changed, 133 insertions(+), 28 deletions(-)
+ include/linux/trace_events.h                 | 18 ++++++++++++++++++
+ include/trace/stages/stage1_struct_define.h  |  3 +++
+ include/trace/stages/stage2_data_offsets.h   |  3 +++
+ include/trace/stages/stage4_event_fields.h   |  3 +++
+ include/trace/stages/stage5_get_offsets.h    |  4 ++++
+ include/trace/stages/stage6_event_callback.h |  7 +++++++
+ 6 files changed, 38 insertions(+)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index faa22f77847a..45b6e5697c89 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -209,8 +209,9 @@ of the characters::
+diff --git a/include/linux/trace_events.h b/include/linux/trace_events.h
+index e6e95a9f07a5..b18759a673c6 100644
+--- a/include/linux/trace_events.h
++++ b/include/linux/trace_events.h
+@@ -916,6 +916,24 @@ perf_trace_buf_submit(void *raw_data, int size, int rctx, u16 type,
  
- The flags are::
+ #endif
  
--  p    enables the pr_debug() callsite.
--  _    enables no flags.
-+  p    callsite prints to syslog
-+  T    callsite issues a dyndbg:* trace-event
-+  _    enables no flags
- 
-   Decorator flags add to the message-prefix, in order:
-   t    Include thread ID, or <intr>
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 2a46c642373a..66f12b9127c7 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -36,6 +36,7 @@
- #include <linux/sched.h>
- #include <linux/device.h>
- #include <linux/netdevice.h>
-+#include <trace/events/printk.h>
- 
- #include <rdma/ib_verbs.h>
- 
-@@ -90,6 +91,7 @@ static inline const char *trim_prefix(const char *path)
- 
- static struct { unsigned flag:8; char opt_char; } opt_array[] = {
- 	{ _DPRINTK_FLAGS_PRINTK, 'p' },
-+	{ _DPRINTK_FLAGS_TRACE, 'T' },
- 	{ _DPRINTK_FLAGS_INCL_MODNAME, 'm' },
- 	{ _DPRINTK_FLAGS_INCL_FUNCNAME, 'f' },
- 	{ _DPRINTK_FLAGS_INCL_LINENO, 'l' },
-@@ -835,6 +837,98 @@ static inline char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
- 	return buf;
- }
- 
++#define TRACE_EVENT_STR_MAX	512
++
 +/*
-+ * This code is heavily based on __ftrace_trace_stack().
-+ *
-+ * Allow 4 levels of nesting: normal, softirq, irq, NMI.
++ * gcc warns that you can not use a va_list in an inlined
++ * function. But lets me make it into a macro :-/
 + */
-+#define DYNAMIC_TRACE_NESTING	4
++#define __trace_event_vstr_len(fmt, va)			\
++({							\
++	va_list __ap;					\
++	int __ret;					\
++							\
++	va_copy(__ap, *(va));				\
++	__ret = vsnprintf(NULL, 0, fmt, __ap) + 1;	\
++	va_end(__ap);					\
++							\
++	min(__ret, TRACE_EVENT_STR_MAX);		\
++})
 +
-+struct ddebug_trace_buf {
-+	char buf[256];
-+};
-+
-+struct ddebug_trace_bufs {
-+	struct ddebug_trace_buf bufs[DYNAMIC_TRACE_NESTING];
-+};
-+
-+static DEFINE_PER_CPU(struct ddebug_trace_bufs, ddebug_trace_bufs);
-+static DEFINE_PER_CPU(int, ddebug_trace_reserve);
-+
-+static void ddebug_trace(const char *fmt, va_list args)
-+{
-+	struct ddebug_trace_buf *buf;
-+	int bufidx;
-+	int len;
-+
-+	preempt_disable_notrace();
-+
-+	bufidx = __this_cpu_inc_return(ddebug_trace_reserve) - 1;
-+
-+	if (WARN_ON_ONCE(bufidx > DYNAMIC_TRACE_NESTING))
-+		goto out;
-+
-+	/* For the same reasons as in __ftrace_trace_stack(). */
-+	barrier();
-+
-+	buf = this_cpu_ptr(ddebug_trace_bufs.bufs) + bufidx;
-+
-+	len = vscnprintf(buf->buf, sizeof(buf->buf), fmt, args);
-+	trace_console(buf->buf, len);
-+
-+out:
-+	/* As above. */
-+	barrier();
-+	__this_cpu_dec(ddebug_trace_reserve);
-+	preempt_enable_notrace();
-+}
-+
-+__printf(2, 3)
-+static void ddebug_printk(unsigned int flags, const char *fmt, ...)
-+{
-+	if (flags & _DPRINTK_FLAGS_TRACE) {
-+		va_list args;
-+
-+		va_start(args, fmt);
-+		/*
-+		 * All callers include the KERN_DEBUG prefix to keep the
-+		 * vprintk case simple; strip it out for tracing.
-+		 */
-+		ddebug_trace(fmt + strlen(KERN_DEBUG), args);
-+		va_end(args);
-+	}
-+
-+	if (flags & _DPRINTK_FLAGS_PRINTK) {
-+		va_list args;
-+
-+		va_start(args, fmt);
-+		vprintk(fmt, args);
-+		va_end(args);
-+	}
-+}
-+
-+__printf(3, 4)
-+static void ddebug_dev_printk(unsigned int flags, const struct device *dev,
-+			      const char *fmt, ...)
-+{
-+
-+	if (flags & _DPRINTK_FLAGS_TRACE) {
-+		va_list args;
-+
-+		va_start(args, fmt);
-+		ddebug_trace(fmt, args);
-+		va_end(args);
-+	}
-+
-+	if (flags & _DPRINTK_FLAGS_PRINTK) {
-+		va_list args;
-+
-+		va_start(args, fmt);
-+		dev_vprintk_emit(LOGLEVEL_DEBUG, dev, fmt, args);
-+		va_end(args);
-+	}
-+}
-+
- void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...)
- {
- 	va_list args;
-@@ -849,16 +943,18 @@ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...)
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
+ #endif /* _LINUX_TRACE_EVENT_H */
  
--	printk(KERN_DEBUG "%s%pV", dynamic_emit_prefix(descriptor, buf), &vaf);
-+	ddebug_printk(descriptor->flags, KERN_DEBUG "%s%pV",
-+		      dynamic_emit_prefix(descriptor, buf), &vaf);
+ /*
+diff --git a/include/trace/stages/stage1_struct_define.h b/include/trace/stages/stage1_struct_define.h
+index a16783419687..1b7bab60434c 100644
+--- a/include/trace/stages/stage1_struct_define.h
++++ b/include/trace/stages/stage1_struct_define.h
+@@ -26,6 +26,9 @@
+ #undef __string_len
+ #define __string_len(item, src, len) __dynamic_array(char, item, -1)
  
- 	va_end(args);
- }
- EXPORT_SYMBOL(__dynamic_pr_debug);
++#undef __vstring
++#define __vstring(item, fmt, ap) __dynamic_array(char, item, -1)
++
+ #undef __bitmask
+ #define __bitmask(item, nr_bits) __dynamic_array(char, item, -1)
  
- void __dynamic_dev_dbg(struct _ddebug *descriptor,
--		      const struct device *dev, const char *fmt, ...)
-+		       const struct device *dev, const char *fmt, ...)
- {
- 	struct va_format vaf;
-+	unsigned int flags;
- 	va_list args;
+diff --git a/include/trace/stages/stage2_data_offsets.h b/include/trace/stages/stage2_data_offsets.h
+index 42fd1e8813ec..1b7a8f764fdd 100644
+--- a/include/trace/stages/stage2_data_offsets.h
++++ b/include/trace/stages/stage2_data_offsets.h
+@@ -32,6 +32,9 @@
+ #undef __string_len
+ #define __string_len(item, src, len) __dynamic_array(char, item, -1)
  
- 	BUG_ON(!descriptor);
-@@ -868,16 +964,18 @@ void __dynamic_dev_dbg(struct _ddebug *descriptor,
++#undef __vstring
++#define __vstring(item, fmt, ap) __dynamic_array(char, item, -1)
++
+ #undef __bitmask
+ #define __bitmask(item, nr_bits) __dynamic_array(unsigned long, item, -1)
  
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
-+	flags = descriptor->flags;
+diff --git a/include/trace/stages/stage4_event_fields.h b/include/trace/stages/stage4_event_fields.h
+index e80cdc397a43..c3790ec7a453 100644
+--- a/include/trace/stages/stage4_event_fields.h
++++ b/include/trace/stages/stage4_event_fields.h
+@@ -38,6 +38,9 @@
+ #undef __string_len
+ #define __string_len(item, src, len) __dynamic_array(char, item, -1)
  
- 	if (!dev) {
--		printk(KERN_DEBUG "(NULL device *): %pV", &vaf);
-+		ddebug_printk(flags, KERN_DEBUG "(NULL device *): %pV",
-+			      &vaf);
- 	} else {
- 		char buf[PREFIX_SIZE] = "";
++#undef __vstring
++#define __vstring(item, fmt, ap) __dynamic_array(char, item, -1)
++
+ #undef __bitmask
+ #define __bitmask(item, nr_bits) __dynamic_array(unsigned long, item, -1)
  
--		dev_printk_emit(LOGLEVEL_DEBUG, dev, "%s%s %s: %pV",
--				dynamic_emit_prefix(descriptor, buf),
--				dev_driver_string(dev), dev_name(dev),
--				&vaf);
-+		ddebug_dev_printk(flags, dev, "%s%s %s: %pV",
-+				  dynamic_emit_prefix(descriptor, buf),
-+				  dev_driver_string(dev), dev_name(dev),
-+				  &vaf);
- 	}
+diff --git a/include/trace/stages/stage5_get_offsets.h b/include/trace/stages/stage5_get_offsets.h
+index 7ee5931300e6..fba4c24ed9e6 100644
+--- a/include/trace/stages/stage5_get_offsets.h
++++ b/include/trace/stages/stage5_get_offsets.h
+@@ -39,6 +39,10 @@
+ #undef __string_len
+ #define __string_len(item, src, len) __dynamic_array(char, item, (len) + 1)
  
- 	va_end(args);
-@@ -890,6 +988,7 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
- 			  const struct net_device *dev, const char *fmt, ...)
- {
- 	struct va_format vaf;
-+	unsigned int flags;
- 	va_list args;
++#undef __vstring
++#define __vstring(item, fmt, ap) __dynamic_array(char, item,		\
++		      __trace_event_vstr_len(fmt, ap))
++
+ #undef __rel_dynamic_array
+ #define __rel_dynamic_array(type, item, len)				\
+ 	__item_length = (len) * sizeof(type);				\
+diff --git a/include/trace/stages/stage6_event_callback.h b/include/trace/stages/stage6_event_callback.h
+index e1724f73594b..0f51f6b3ab70 100644
+--- a/include/trace/stages/stage6_event_callback.h
++++ b/include/trace/stages/stage6_event_callback.h
+@@ -24,6 +24,9 @@
+ #undef __string_len
+ #define __string_len(item, src, len) __dynamic_array(char, item, -1)
  
- 	BUG_ON(!descriptor);
-@@ -899,22 +998,24 @@ void __dynamic_netdev_dbg(struct _ddebug *descriptor,
++#undef __vstring
++#define __vstring(item, fmt, ap) __dynamic_array(char, item, -1)
++
+ #undef __assign_str
+ #define __assign_str(dst, src)						\
+ 	strcpy(__get_str(dst), (src) ? (const char *)(src) : "(null)");
+@@ -35,6 +38,10 @@
+ 		__get_str(dst)[len] = '\0';				\
+ 	} while(0)
  
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
-+	flags = descriptor->flags;
++#undef __assign_vstr
++#define __assign_vstr(dst, fmt, va)					\
++	vsnprintf(__get_str(dst), TRACE_EVENT_STR_MAX, fmt, *(va))
++
+ #undef __bitmask
+ #define __bitmask(item, nr_bits) __dynamic_array(unsigned long, item, -1)
  
- 	if (dev && dev->dev.parent) {
- 		char buf[PREFIX_SIZE] = "";
- 
--		dev_printk_emit(LOGLEVEL_DEBUG, dev->dev.parent,
--				"%s%s %s %s%s: %pV",
--				dynamic_emit_prefix(descriptor, buf),
--				dev_driver_string(dev->dev.parent),
--				dev_name(dev->dev.parent),
--				netdev_name(dev), netdev_reg_state(dev),
--				&vaf);
-+		ddebug_dev_printk(flags, dev->dev.parent,
-+				   "%s%s %s %s%s: %pV",
-+				   dynamic_emit_prefix(descriptor, buf),
-+				   dev_driver_string(dev->dev.parent),
-+				   dev_name(dev->dev.parent),
-+				   netdev_name(dev), netdev_reg_state(dev),
-+				   &vaf);
- 	} else if (dev) {
--		printk(KERN_DEBUG "%s%s: %pV", netdev_name(dev),
--		       netdev_reg_state(dev), &vaf);
-+		ddebug_printk(flags, KERN_DEBUG "%s%s: %pV",
-+			       netdev_name(dev), netdev_reg_state(dev), &vaf);
- 	} else {
--		printk(KERN_DEBUG "(NULL net_device): %pV", &vaf);
-+		ddebug_printk(flags, KERN_DEBUG "(NULL net_device): %pV",
-+			       &vaf);
- 	}
- 
- 	va_end(args);
-@@ -930,26 +1031,29 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- {
- 	struct va_format vaf;
- 	va_list args;
-+	unsigned int flags;
- 
- 	va_start(args, fmt);
- 
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
-+	flags = descriptor->flags;
- 
- 	if (ibdev && ibdev->dev.parent) {
- 		char buf[PREFIX_SIZE] = "";
- 
--		dev_printk_emit(LOGLEVEL_DEBUG, ibdev->dev.parent,
--				"%s%s %s %s: %pV",
--				dynamic_emit_prefix(descriptor, buf),
--				dev_driver_string(ibdev->dev.parent),
--				dev_name(ibdev->dev.parent),
--				dev_name(&ibdev->dev),
--				&vaf);
-+		ddebug_dev_printk(flags, ibdev->dev.parent,
-+				  "%s%s %s %s: %pV",
-+				  dynamic_emit_prefix(descriptor, buf),
-+				  dev_driver_string(ibdev->dev.parent),
-+				  dev_name(ibdev->dev.parent),
-+				  dev_name(&ibdev->dev),
-+				  &vaf);
- 	} else if (ibdev) {
--		printk(KERN_DEBUG "%s: %pV", dev_name(&ibdev->dev), &vaf);
-+		ddebug_printk(flags, KERN_DEBUG "%s: %pV",
-+			      dev_name(&ibdev->dev), &vaf);
- 	} else {
--		printk(KERN_DEBUG "(NULL ib_device): %pV", &vaf);
-+		ddebug_printk(flags, KERN_DEBUG "(NULL ip_device): %pV", &vaf);
- 	}
- 
- 	va_end(args);
 -- 
 2.36.1
 
