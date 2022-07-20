@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41EB3C433EF
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5994FC43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 435118F23D;
-	Wed, 20 Jul 2022 15:33:13 +0000 (UTC)
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
- [IPv6:2607:f8b0:4864:20::d35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CA098EE21;
- Wed, 20 Jul 2022 15:33:08 +0000 (UTC)
-Received: by mail-io1-xd35.google.com with SMTP id l24so14528861ion.13;
- Wed, 20 Jul 2022 08:33:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96E488F10A;
+	Wed, 20 Jul 2022 15:33:11 +0000 (UTC)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 110338F05D;
+ Wed, 20 Jul 2022 15:33:01 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id v185so14532847ioe.11;
+ Wed, 20 Jul 2022 08:33:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=nhd8qJ7I05C4NfInmDTLZUmBRFQDnJsPcIiw+jpRsQw=;
- b=VqBSJlTpGMxp0Cn0j4L8emVMeBwdl7lPayGqja9UiJqhfzK9sgaRRTLONPpNRWgB1Z
- 5dQHfpdpbVuJWAH9z0UtcfwGSE26WxUObjIy5UIQAgEUNNai3gqyQgS9zMP4AP+4GH9V
- I94I2ig6fylnm6rV8/zjqIwUPjP3DTdptlAJ7u543VKhz62hnxmbRII82zebVDQiMYpy
- RI1NI3CQZHpAwE8ZpkaofmF2HdegLLmzHsRQIb3NW7VBbtZIsAQQ4F8IOt0slE/5LALj
- Co3eB1zbMfFTg/Uhs9k1OW1kZhQtSFUoTfb69nCvWqUtcgyMfMUTlh2D+BFLwurkiJfg
- +SLQ==
+ bh=JV345slmDZGXvnPNyaFUVDSwkXdPTptctgGFHiASs/s=;
+ b=Cged28OGRXoQFdGRASlOqYWRNOaewY7t+zRNZpGu9VrrfceOpM3sIas8x5Q+Wwj1V1
+ 2KI2jgulfMPwyqpYUH03Jg57RjgYs+7jLonTzC6Ls67HniXTYttlT4mAtgExpfNyMuiq
+ cnqZUkKugmbW3TQfEGMjw+WJkrvXpvaiUiEa13L1cqc+tBQb1jL8Z4wiw29KsXOL93Ks
+ OENX7IHbzGM/KVYcP0WwDmDzv7YxsJEnw9GXOIm3lp8U23cpzpzpsK0i7JPHjG254aY6
+ rvEpjxtSKkfN2QdA78xJOsjyfEvl4SROC0h6u6ccLA9c+noa8sQY6JkrrgWU7puEMc1J
+ hp3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=nhd8qJ7I05C4NfInmDTLZUmBRFQDnJsPcIiw+jpRsQw=;
- b=FtUGJRqsbxMU2BKxf4r/AX6yXizFsVsfvRSluVzCoYq3MGie1UMhDAY7OA1RgiHZGe
- xekLVD2YIRXKiUFbVyiIJ23/JJKEi2i8xc5/SJ2XTOKUQACtFnBNXF2ZStcjh56myqA7
- 8A71cr4xDCy1PdguiPulc6jdXEUudYPE98nUfWX/7IrERtC5YDEL6bOwiaj07Obac2Hz
- ljq1fveBRjSVjJ04gYUyHgthQyZ+Xq2PVxCKjO3DhT0J07EbTLFqRua+xWWrKKCn/pkT
- obS0tkpN+ZRzSKcynvbeF2iCQK2ckvKrCdMM6np8Oie2J/rHe4BVIqA7yuZXN3+tCaxh
- yUCw==
-X-Gm-Message-State: AJIora8kMP+NrvBlogoXG5LL9Q5lN1CoPhQbr2onW8nGc2bxyceBJ1BW
- Hsjt9wCqSqffNaPQzaGpMdcGLXjydAOYDg==
-X-Google-Smtp-Source: AGRyM1vmjWVK7Bm1qOBEmHIotttN2nZUGEOl0QuHVd0wPh0uTAGU5PKDQev0QbPKCNKGBlkJa+gS0w==
-X-Received: by 2002:a05:6638:2642:b0:33f:5172:e77 with SMTP id
- n2-20020a056638264200b0033f51720e77mr19654846jat.85.1658331187195; 
- Wed, 20 Jul 2022 08:33:07 -0700 (PDT)
+ bh=JV345slmDZGXvnPNyaFUVDSwkXdPTptctgGFHiASs/s=;
+ b=C6TU6OWfMTAQW6WHyvJ19n4ixn7zQhBngIrY0VZtBvZnwOeKQUc0XNaF+sMUbrhOGu
+ OW0mfI/QsL4R5FQueGf2Om9oII4lNrIUXDznWmVxH0Thc2yFcJSTqQeQUmBVAR4iOTlB
+ UNsSwGkK09UTDg4oNyEde77R8SrnKHQ2ZB0b71rcAz1n0OOZFk8KgY7b9D/ZksmTxdRf
+ /JCAIdwdFN9PbO1hSCwKx0egBQQRr0UkUSGj0CV/aHRJ4I1G0eIndXZeVWohLR3kGque
+ eWRn6F4JxjrpfyA3JXVtswgn6xs1shiS09+NkPZdM/07rdMHqfMlaz7iQwgExyZw3AE6
+ E0oQ==
+X-Gm-Message-State: AJIora+XFOMbAbCB1h1S+OBZwPpCMjrDu2isYKP4i902//6pM7qDZ7BA
+ 29ZNXVP97UCvOMNFCwU+5K6bnL+w9bR9hA==
+X-Google-Smtp-Source: AGRyM1sKzo/l6Hlcd+eZ9MtZ5QN3nRcl9UOMuucsXhVJV7BjNJhY3IXbw1MQqD+zQCLknaT2K5t79Q==
+X-Received: by 2002:a05:6602:26c7:b0:67b:72ef:b87b with SMTP id
+ g7-20020a05660226c700b0067b72efb87bmr18326012ioo.175.1658331180019; 
+ Wed, 20 Jul 2022 08:33:00 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.06
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.32.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:06 -0700 (PDT)
+ Wed, 20 Jul 2022 08:32:59 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:32:02 -0600
-Message-Id: <20220720153233.144129-11-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:31:55 -0600
+Message-Id: <20220720153233.144129-4-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 10/41] dyndbg: add class_id to pr_debug
- callsites
+Subject: [Intel-gfx] [PATCH v4 03/41] dyndbg: show both old and new in
+ change-info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,165 +77,45 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DRM issues ~10 exclusive categories of debug messages; to represent
-this directly in dyndbg, add a new field: struct _ddebug.class_id:5.
+print "old => new" flag values to the info("change") message.
 
-This gives us 32 classes, which is a practical usability limit
-with a bitmap interface:
-
-  #> echo 0x012345678 > /sys/module/drm/parameters/debug
-
-All existing callsites are initialized with _DPRINTK_CLASS_DFLT, which
-is 2^5-1.  This reserves 0-30 for use in new categorized/class'd
-pr_debugs, which fits perfectly with natural enums (ints: 0..N).
-
-Then extend the init macro: DEFINE_DYNAMIC_DEBUG_METADATA() with
-_CLS(cls, ...), and redef old name using extended name.
-
-And extend the factory macro callchain with _cls() versions to provide
-the callsite.class_id, with old-names passing _DPRINTK_CLASS_DFLT.
-
-This sets us up to create class'd prdebug callsites (class'd callsites
-are those with .class_id != _DPRINTK_CLASS_DFLT).
-
-No behavior change.
+no functional change.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 71 +++++++++++++++++++++++++++--------
- 1 file changed, 55 insertions(+), 16 deletions(-)
+ lib/dynamic_debug.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 8d9eec5f6d8b..d1429812be2e 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -6,6 +6,8 @@
- #include <linux/jump_label.h>
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index a56c1286ffa4..8faf584f2f4b 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -156,7 +156,7 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	struct ddebug_table *dt;
+ 	unsigned int newflags;
+ 	unsigned int nfound = 0;
+-	struct flagsbuf fbuf;
++	struct flagsbuf fbuf, nbuf;
+ 
+ 	/* search for matching ddebugs */
+ 	mutex_lock(&ddebug_lock);
+@@ -217,11 +217,12 @@ static int ddebug_change(const struct ddebug_query *query,
+ 				static_branch_enable(&dp->key.dd_key_true);
+ 			}
  #endif
- 
-+#include <linux/build_bug.h>
-+
- /*
-  * An instance of this structure is created in a special
-  * ELF section at every dynamic debug callsite.  At runtime,
-@@ -21,6 +23,9 @@ struct _ddebug {
- 	const char *filename;
- 	const char *format;
- 	unsigned int lineno:18;
-+#define CLS_BITS 5
-+	unsigned int class_id:CLS_BITS;
-+#define _DPRINTK_CLASS_DFLT		((1 << CLS_BITS) - 1)
- 	/*
- 	 * The flags field controls the behaviour at the callsite.
- 	 * The bits here are changed dynamically when the user
-@@ -84,7 +89,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 			 const struct ib_device *ibdev,
- 			 const char *fmt, ...);
- 
--#define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)		\
-+#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
- 	static struct _ddebug  __aligned(8)			\
- 	__section("__dyndbg") name = {				\
- 		.modname = KBUILD_MODNAME,			\
-@@ -93,8 +98,14 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 		.format = (fmt),				\
- 		.lineno = __LINE__,				\
- 		.flags = _DPRINTK_FLAGS_DEFAULT,		\
-+		.class_id = cls,				\
- 		_DPRINTK_KEY_INIT				\
--	}
-+	};							\
-+	BUILD_BUG_ON_MSG(cls > _DPRINTK_CLASS_DFLT,		\
-+			 "classid value overflow")
-+
-+#define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)		\
-+	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
- 
- #ifdef CONFIG_JUMP_LABEL
- 
-@@ -125,17 +136,34 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 
- #endif /* CONFIG_JUMP_LABEL */
- 
--#define __dynamic_func_call(id, fmt, func, ...) do {	\
--	DEFINE_DYNAMIC_DEBUG_METADATA(id, fmt);		\
--	if (DYNAMIC_DEBUG_BRANCH(id))			\
--		func(&id, ##__VA_ARGS__);		\
--} while (0)
--
--#define __dynamic_func_call_no_desc(id, fmt, func, ...) do {	\
--	DEFINE_DYNAMIC_DEBUG_METADATA(id, fmt);			\
-+/*
-+ * Factory macros: ($prefix)dynamic_func_call($suffix)
-+ *
-+ * Lower layer (with __ prefix) gets the callsite metadata, and wraps
-+ * the func inside a debug-branch/static-key construct.  Upper layer
-+ * (with _ prefix) does the UNIQUE_ID once, so that lower can ref the
-+ * name/label multiple times, and tie the elements together.
-+ * Multiple flavors:
-+ * (|_cls):	adds in _DPRINT_CLASS_DFLT as needed
-+ * (|_no_desc):	former gets callsite descriptor as 1st arg (for prdbgs)
-+ */
-+#define __dynamic_func_call_cls(id, cls, fmt, func, ...) do {	\
-+	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);	\
- 	if (DYNAMIC_DEBUG_BRANCH(id))				\
--		func(__VA_ARGS__);				\
-+		func(&id, ##__VA_ARGS__);			\
- } while (0)
-+#define __dynamic_func_call(id, fmt, func, ...)				\
-+	__dynamic_func_call_cls(id, _DPRINTK_CLASS_DFLT, fmt,		\
-+				func, ##__VA_ARGS__)
-+
-+#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) do {	\
-+	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);		\
-+	if (DYNAMIC_DEBUG_BRANCH(id))					\
-+		func(__VA_ARGS__);					\
-+} while (0)
-+#define __dynamic_func_call_no_desc(id, fmt, func, ...)			\
-+	__dynamic_func_call_cls_no_desc(id, _DPRINTK_CLASS_DFLT,	\
-+					fmt, func, ##__VA_ARGS__)
- 
- /*
-  * "Factory macro" for generating a call to func, guarded by a
-@@ -145,22 +173,33 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
-  * the varargs. Note that fmt is repeated in invocations of this
-  * macro.
-  */
-+#define _dynamic_func_call_cls(cls, fmt, func, ...)			\
-+	__dynamic_func_call_cls(__UNIQUE_ID(ddebug), cls, fmt, func, ##__VA_ARGS__)
- #define _dynamic_func_call(fmt, func, ...)				\
--	__dynamic_func_call(__UNIQUE_ID(ddebug), fmt, func, ##__VA_ARGS__)
-+	_dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
-+
- /*
-  * A variant that does the same, except that the descriptor is not
-  * passed as the first argument to the function; it is only called
-  * with precisely the macro's varargs.
-  */
--#define _dynamic_func_call_no_desc(fmt, func, ...)	\
--	__dynamic_func_call_no_desc(__UNIQUE_ID(ddebug), fmt, func, ##__VA_ARGS__)
-+#define _dynamic_func_call_cls_no_desc(cls, fmt, func, ...)		\
-+	__dynamic_func_call_cls_no_desc(__UNIQUE_ID(ddebug), cls, fmt,	\
-+					func, ##__VA_ARGS__)
-+#define _dynamic_func_call_no_desc(fmt, func, ...)			\
-+	_dynamic_func_call_cls_no_desc(_DPRINTK_CLASS_DFLT, fmt,	\
-+				       func, ##__VA_ARGS__)
-+
-+#define dynamic_pr_debug_cls(cls, fmt, ...)				\
-+	_dynamic_func_call_cls(cls, fmt, __dynamic_pr_debug,		\
-+			   pr_fmt(fmt), ##__VA_ARGS__)
- 
- #define dynamic_pr_debug(fmt, ...)				\
--	_dynamic_func_call(fmt,	__dynamic_pr_debug,		\
-+	_dynamic_func_call(fmt, __dynamic_pr_debug,		\
- 			   pr_fmt(fmt), ##__VA_ARGS__)
- 
- #define dynamic_dev_dbg(dev, fmt, ...)				\
--	_dynamic_func_call(fmt,__dynamic_dev_dbg, 		\
-+	_dynamic_func_call(fmt, __dynamic_dev_dbg, 		\
- 			   dev, fmt, ##__VA_ARGS__)
- 
- #define dynamic_netdev_dbg(dev, fmt, ...)			\
++			v4pr_info("changed %s:%d [%s]%s %s => %s\n",
++				  trim_prefix(dp->filename), dp->lineno,
++				  dt->mod_name, dp->function,
++				  ddebug_describe_flags(dp->flags, &fbuf),
++				  ddebug_describe_flags(newflags, &nbuf));
+ 			dp->flags = newflags;
+-			v4pr_info("changed %s:%d [%s]%s =%s\n",
+-				 trim_prefix(dp->filename), dp->lineno,
+-				 dt->mod_name, dp->function,
+-				 ddebug_describe_flags(dp->flags, &fbuf));
+ 		}
+ 	}
+ 	mutex_unlock(&ddebug_lock);
 -- 
 2.36.1
 
