@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 606C8CCA480
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98F75C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85E128F235;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B65D88F24C;
 	Wed, 20 Jul 2022 15:33:07 +0000 (UTC)
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
- [IPv6:2607:f8b0:4864:20::d2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE038F09E;
- Wed, 20 Jul 2022 15:33:02 +0000 (UTC)
-Received: by mail-io1-xd2e.google.com with SMTP id q14so14513062iod.3;
- Wed, 20 Jul 2022 08:33:02 -0700 (PDT)
+Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
+ [IPv6:2607:f8b0:4864:20::d2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27B618EE21;
+ Wed, 20 Jul 2022 15:33:05 +0000 (UTC)
+Received: by mail-io1-xd2b.google.com with SMTP id 125so14556038iou.6;
+ Wed, 20 Jul 2022 08:33:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=bL9SmfHfMALFFeL2xDE9zET8U2WS92AMIVOZQAHdFgM=;
- b=qNlA5xnrP3dY6ZBo7PXii+qRTIAByeqj28yVQuJCOT0ubi3TgCaT54kFQ00w14763y
- wAI04ZYHMWXx1AqiwzLuT/7iWFXPHchbJXuiuo4IZuoI0cx/zkUKaeds1SR0g0UKMdnW
- W/ojC57aQn8H6oMIs/L2zuomHNRkm6mOdzG/+QhA4uv8sIKN5cGULtJzpwNx/coAqujM
- Z2rFmj2ElmewtytIxj5/LdfZ1z7pNZ80/688E2+qy05+cnsSfxYq2udliUp/rK9eDi1Y
- AMNuwLNrIUNk2BRXDXdZHuBpsfuTpB0nK45sEuFItqYLgdX/g23nX79cK2s5Z6N2+hge
- +UNw==
+ bh=A6KV4Yr3V4yuuH339Tx2aFB9MqcN4deLUMaEAUIDYPE=;
+ b=ljJGguNYdzxwliGDHO25qtJ7jl001/i8YC68RT72qz6hZiDbL6evwhZErqKVX8ap4i
+ 8cnP+VAK+jzSk5q1AvyQ0TZug9W3sMz/28CISJhYvwbGCrVnQj4DlY1MPRQBxFo7TdNX
+ XhEaCPATtEsmuHS20InSzMW8DNgIAOgZwHOdUJYGWqlWP33gS9z6QUKoDOXtYmt5EhTQ
+ TOIO6w3+SUhMfE7/7tQUmzTfmhxEaZyIwIjPMwhdg5wd6m5fHnxYbsiyq+TgAiCz+7dH
+ w0e+huU9fkFmNIdlxpOyRnyuc9g1C9gougLJU4hiHTAeKw3Wl1ptJTsmyQhOBtlbNPle
+ 1Jtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=bL9SmfHfMALFFeL2xDE9zET8U2WS92AMIVOZQAHdFgM=;
- b=50cu1jeQvQ4kJdCIzgCUPzpK2PXpsVF4p1PdyQ3MeBu0Cf+8zT1NYhiWl56IrIKSu9
- byqQnmJU+gU85sQmnPrrlHD2KJT/7MUfPMfaaWSOG96x4VxGNpCOyh8G+NdmSNsxkrE5
- /QIBNV1G9qFfdNnnykgjN9Ngmbcha0RcwLlpayhNqnA/0ykfiSmNdjRrK3ZfNbWDbvos
- Qv22YWZd4flBkTl1KnRE2TATQtMm7sbll3G8rjHiitJ2mcslqJOnrDO0IKDexb3J3U4N
- AGRPEzhAoe1MpO5Sv2aI/y/LrReWX273ap5xxCPKn/pomf0NyANZx6fjFUYPOnmi4yss
- zTXQ==
-X-Gm-Message-State: AJIora8mqEVfSmLROwXqAmVSG9NPOhNpCAHrxfx0teB2d87zVL7kfnVF
- 3OL+DXz6qOVs8qnmf8A4gdUPd9eDXX2ypQ==
-X-Google-Smtp-Source: AGRyM1tlbO/lueDTuTgCkX1RNPYngfLRVWh/GzwKGNRrE6W6SM3+kIPn9XLId99oUoH5l1MLmGPI9Q==
-X-Received: by 2002:a05:6638:3801:b0:341:68f6:932 with SMTP id
- i1-20020a056638380100b0034168f60932mr9091331jav.71.1658331181037; 
- Wed, 20 Jul 2022 08:33:01 -0700 (PDT)
+ bh=A6KV4Yr3V4yuuH339Tx2aFB9MqcN4deLUMaEAUIDYPE=;
+ b=WuBs1Empqgf5ZwSiESeBRy5Sh23lwLWS3pdkSEa0UlnwefyBaU9gp+U8wMUergPbQk
+ V7z/COD551qeUtOHnsbkodvCGV5Pkri+qAXWZig5KsJxJKZUX6q7nmE3JzJgsAhfRzso
+ HXTYpN6oavaS9HRYGUACaik/CRzPeDtqliGfiofPGprgFnZEKArp4/kIvOMrXfWpmNvr
+ 3J1xoHhKjV25/DcaXfNG/YgZkuiLM/JJgAoGSQs1lRAeelehH768X329yQSQpspjDKam
+ Nhwf6Ivgjp3tAjlIG69SKne0aHtRVTgzWgIcjljH7tAOJ5Bnr1kr7SOji3Yv3+SguJKj
+ PkhA==
+X-Gm-Message-State: AJIora/Tg6RNiZilWZdOobebpDkyFglSTYGcNyLEHJxooNsCXwJNZZzJ
+ VfvOYNy6FrJcDJWTs6HkWPUlNQo7mIuN5g==
+X-Google-Smtp-Source: AGRyM1v7DUkk4EHmeKhjWlh5biZ93mNX5sA47PTufiNg61QMlCQIg8RbUGyENSV/FwOYHMvBT7b17g==
+X-Received: by 2002:a05:6638:1907:b0:33f:50c0:a870 with SMTP id
+ p7-20020a056638190700b0033f50c0a870mr19803125jal.154.1658331183445; 
+ Wed, 20 Jul 2022 08:33:03 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.00
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:00 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:03 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:31:56 -0600
-Message-Id: <20220720153233.144129-5-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:31:58 -0600
+Message-Id: <20220720153233.144129-7-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 04/41] dyndbg: reverse module walk in cat
+Subject: [Intel-gfx] [PATCH v4 06/41] dyndbg: use ESCAPE_SPACE for cat
  control
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,12 +77,17 @@ Cc: Jim Cromie <jim.cromie@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-/proc/dynamic_debug/control walks the prdbg catalog in "reverse",
-fix this by adding new ddebug_tables to tail of list.
+`cat control` currently does octal escape, so '\n' becomes "\012".
+Change this to display as "\n" instead, which reads much cleaner.
 
-This puts init/main.c entries 1st, which looks intentional.
-
-no functional changes.
+   :#> head -n7 /proc/dynamic_debug/control
+   # filename:lineno [module]function flags format
+   init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
+   init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
+   init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
+   init/main.c:1426 [main]run_init_process =_ "    %s\n"
+   init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
+   init/main.c:1429 [main]run_init_process =_ "    %s\n"
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
@@ -90,18 +95,18 @@ Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 8faf584f2f4b..7fb99492c16f 100644
+index 8ff11977b8bd..e5cbe603000c 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -970,7 +970,7 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int n,
- 	dt->ddebugs = tab;
+@@ -900,7 +900,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		   trim_prefix(dp->filename), dp->lineno,
+ 		   iter->table->mod_name, dp->function,
+ 		   ddebug_describe_flags(dp->flags, &flags));
+-	seq_escape(m, dp->format, "\t\r\n\"");
++	seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
+ 	seq_puts(m, "\"\n");
  
- 	mutex_lock(&ddebug_lock);
--	list_add(&dt->link, &ddebug_tables);
-+	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
- 
- 	vpr_info("%3u debug prints in module %s\n", n, dt->mod_name);
+ 	return 0;
 -- 
 2.36.1
 
