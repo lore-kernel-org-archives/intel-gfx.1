@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAB32C43334
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:35:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F27C43334
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:35:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80DC68F485;
-	Wed, 20 Jul 2022 15:33:55 +0000 (UTC)
-Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
- [IPv6:2607:f8b0:4864:20::d2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 749598F458;
- Wed, 20 Jul 2022 15:33:30 +0000 (UTC)
-Received: by mail-io1-xd2c.google.com with SMTP id n7so14537987ioo.7;
- Wed, 20 Jul 2022 08:33:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DDAE8F533;
+	Wed, 20 Jul 2022 15:34:01 +0000 (UTC)
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
+ [IPv6:2607:f8b0:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 707D48F05D;
+ Wed, 20 Jul 2022 15:33:19 +0000 (UTC)
+Received: by mail-il1-x131.google.com with SMTP id n13so902274ilk.1;
+ Wed, 20 Jul 2022 08:33:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=8gGCI0m8r004HoJxLqXDC1X1/A0StWSdDwFBgrxhMVw=;
- b=pP2Ch0j9cYaoD7HNPrfmuREfrAWXaQ/J4R0E4D2FCLxzhANm3RSYZMrCA2VL0lwqZ1
- 6YUt2PtWF++HKEmQiGU4jG8EXsPHNS/MZyoTrr96/Z60Tuw8iP6r+vakdLkWa2iOruFx
- eGhhveZWTc0Ij4Uih1yDjplRus4eHzl6CVxeLQopygGNbP7ItPiZMix4ipZ1oH+PGsZd
- ZQrMgFjhVOb5L12b+wX4vS1PFG8yiDKtPOWdVfxWmrrISDxdTUKwd4yxwhyviNzxtv/j
- 1MYu+58fSB+/+rSHdYXCwpa9zav6gmoh+DEdfUfHJNRo1SZoB+ipyuToDUlY5g3nSbvh
- pnyw==
+ bh=ZQNsw/QHjxS78Q0ly9fBWs7YaQPYN4So9Rs+zWabDt8=;
+ b=Opvt3qmcapcjI6pyZG/fYmsALKxZ42X9kLC9whTMxWkxXLoM5+K550tGB/uGus3Ft3
+ bdo5BeHY+y5e4k7g0qKwI60qX9ZEwzGrNVVjjUrk2cfKFatY1WX79rgI7Oy06I9lJY3/
+ IlAdZtyT5YzQJ8pOkailAtBhM3gSKStVpc1oZ1RVzntfomPK5c0qdE2t/M1NFcWLAN9P
+ //z2yeX+WU5EfVrry9th13b9SdfG3jbNMtFXGzqd74ay9oPXjEprxu6rAWkv2ZtVlVSZ
+ d48uEeCpnJZu4OdbsEvoBOkZVef6BeCMGqu7dyFb9a4XUc3g0DxaXcDiIfEyoib7N215
+ bW6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=8gGCI0m8r004HoJxLqXDC1X1/A0StWSdDwFBgrxhMVw=;
- b=u90hGnkCnaVaDhpHjjnKhGmvQBRE/ek+gVPVaydiRCtn+4IWk2FokVp1/hzT5wM/e4
- 11pWLdzWzVN02zwO663n7QYwAXhrTQZ3wOIjtfLRgpkLLqxF143Oqo8yOxD9xdJJoDNf
- QsEnJBj1X7TfUJQmBE6VyZ1Xrx8sii55BHfb53uBeXOA5VIOhtOHCRIBaX1XBTHRCZhy
- JdgMNKzja3ySUKpK6LRMLV7edhmEsViVbT5g+fNYCbFBEyopAoiK0KL6voNxdWmNQoy2
- 8ZhIY7XkG0eqzMRHHV96auXtGIvhkZZO3eZFEh3nRg42+XpyKF8oWHmuBQnkDye2AXc/
- 0JEg==
-X-Gm-Message-State: AJIora+Pt9NGJFCILfkpXDq7VEo11klK0Kb4XSUVBcvt19mtrFLKQAQA
- gJAMO8QHlfN3XEgVeo+vmAmQLJzoW3yeTg==
-X-Google-Smtp-Source: AGRyM1sVONqIhEQFG3E677QRE/pGcJTLkuoZ3upVkJXGOH7vhJhdlmGLzNOMSl3UlnRvMRjl0NGIqw==
-X-Received: by 2002:a05:6602:180c:b0:67c:296:2561 with SMTP id
- t12-20020a056602180c00b0067c02962561mr8284436ioh.173.1658331209529; 
- Wed, 20 Jul 2022 08:33:29 -0700 (PDT)
+ bh=ZQNsw/QHjxS78Q0ly9fBWs7YaQPYN4So9Rs+zWabDt8=;
+ b=km09cawWjRAef3X/xnWy+J4VDrmMmL1I/7uTGCXqqQ0n+kj4lVTtIat7+WY2uT1qX9
+ VWH/P3u7Kkt308WmzDRfYQ/0I6eHielpS4kpWmoIlfcN8PcwIxbW/Vy2zzcKfyGRXpKj
+ qKrEWecYx2yuYyiTJ9VMDwBQLBVgA2jSC6rLUipkcOu/r5GfneiR6xqWqzJv15vkzYin
+ /T+iruxIDG1NCqn0ZEMSrmWRFZeRQMBKilzXX4Y79wbBC3Tu+c0h/mor68jziIW34SPf
+ IeBAmCqX2t3HmX+DtJ8o+600HqW6T22QicUKG38cIT+dAC8EWjdxRKbcx4q+vSlD1opQ
+ bVIQ==
+X-Gm-Message-State: AJIora84Lly3VsPa81oxZR+XzHk9Tth20r+pM9/HGEOoZhljD/1kkQ+B
+ NgKGbnmVBo2E0WJgPDzxJd51YNoKnMMoQQ==
+X-Google-Smtp-Source: AGRyM1s9V9wrQKd+zwlRCnr7g9K80WQP58FX13sW80aI6u4zFwAFnH5XlMnC+tjUIjSBSlB/AUVCeg==
+X-Received: by 2002:a05:6e02:216c:b0:2dc:f5b9:7ed3 with SMTP id
+ s12-20020a056e02216c00b002dcf5b97ed3mr6507583ilv.0.1658331198187; 
+ Wed, 20 Jul 2022 08:33:18 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.28
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:29 -0700 (PDT)
+ Wed, 20 Jul 2022 08:33:17 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:32:22 -0600
-Message-Id: <20220720153233.144129-31-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:32:11 -0600
+Message-Id: <20220720153233.144129-20-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 30/41] tracing/events: Add __vstring() and
- __assign_vstr() helper macros
+Subject: [Intel-gfx] [PATCH v4 19/41] doc-dyndbg: edit dynamic-debug-howto
+ for brevity, audience
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,211 +73,381 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Marek Lindner <mareklindner@neomailbox.ch>,
- Antonio Quartulli <a@unstable.cc>, Eric Dumazet <edumazet@google.com>,
- Gregory Greenman <gregory.greenman@intel.com>, Ingo Molnar <mingo@kernel.org>,
- Sven Eckelmann <sven@narfation.org>, Leon Romanovsky <leon@kernel.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Chunfeng Yun <chunfeng.yun@mediatek.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Mathias Nyman <mathias.nyman@intel.com>, Kalle Valo <kvalo@kernel.org>,
- Hante Meuleman <hante.meuleman@broadcom.com>,
- "Steven Rostedt \(Google\)" <rostedt@goodmis.org>, Bin Liu <b-liu@ti.com>,
- Franky Lin <franky.lin@broadcom.com>, Arend van Spriel <aspriel@gmail.com>,
- Simon Wunderlich <sw@simonwunderlich.de>, Jim Cromie <jim.cromie@gmail.com>,
- Peter Chen <peter.chen@kernel.org>, Johannes Berg <johannes@sipsolutions.net>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
+Cc: Jim Cromie <jim.cromie@gmail.com>, linux-doc@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
+Rework/modernize docs:
 
-Steve's patch, carried til upstream.
+ - use /proc/dynamic_debug/control in examples
+   its *always* there (when dyndbg is config'd), even when <debugfs> is not.
+   drop <debugfs> talk, its a distraction here.
 
-There's several places that open code the following logic:
+ - alias ddcmd='echo $* > /proc/dynamic_debug/control
+   declutter, hide boilerplate, focus on args
 
-  TP_STRUCT__entry(__dynamic_array(char, msg, MSG_MAX)),
-  TP_fast_assign(vsnprintf(__get_str(msg), MSG_MAX, vaf->fmt, *vaf->va);)
+ - move Viewing before Controlling. read before write.
+   control file as Catalog.
 
-To load a string created by variable array va_list.
+ - focus on use by a system administrator
+   add an alias to make examples more readable
+   drop grep-101 lessons, admins know this.
 
-The main issue with this approach is that "MSG_MAX" usage in the
-__dynamic_array() portion. That actually just reserves the MSG_MAX in the
-event, and even wastes space because there's dynamic meta data also saved
-in the event to denote the offset and size of the dynamic array. It would
-have been better to just use a static __array() field.
+ - use init/main.c as 1st example, thread it thru doc where useful.
+   everybodys kernel boots, runs these.
 
-Instead, create __vstring() and __assign_vstr() that work like __string
-and __assign_str() but instead of taking a destination string to copy,
-take a format string and a va_list pointer and fill in the values.
+ - add *prdbg* api section
+   to the bottom of the file, its for developers more than admins.
+   move list of api functions there.
 
-It uses the helper:
+ - simplify - drop extra words, phrases, sentences.
 
- #define __trace_event_vstr_len(fmt, va)	\
- ({						\
-	va_list __ap;				\
-	int __ret;				\
-						\
-	va_copy(__ap, *(va));			\
-	__ret = vsnprintf(NULL, 0, fmt, __ap);	\
-	va_end(__ap);				\
-						\
-	min(__ret, TRACE_EVENT_STR_MAX);	\
- })
+ - add "decorator" flags line to unify "prefix", trim fmlt descriptions
 
-To figure out the length to store the string. It may be slightly slower as
-it needs to run the vsnprintf() twice, but it now saves space on the ring
-buffer.
+CC: linux-doc@vger.kernel.org
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 
-Link: https://lkml.kernel.org/r/20220705224749.053570613@goodmis.org
-
-Cc: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
-Cc: Ingo Molnar <mingo@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: Kalle Valo <kvalo@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Arend van Spriel <aspriel@gmail.com>
-Cc: Franky Lin <franky.lin@broadcom.com>
-Cc: Hante Meuleman <hante.meuleman@broadcom.com>
-Cc: Gregory Greenman <gregory.greenman@intel.com>
-Cc: Peter Chen <peter.chen@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mathias Nyman <mathias.nyman@intel.com>
-Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>
-Cc: Bin Liu <b-liu@ti.com>
-Cc: Marek Lindner <mareklindner@neomailbox.ch>
-Cc: Simon Wunderlich <sw@simonwunderlich.de>
-Cc: Antonio Quartulli <a@unstable.cc>
-Cc: Sven Eckelmann <sven@narfation.org>
-Cc: Johannes Berg <johannes@sipsolutions.net>
-Cc: Jim Cromie <jim.cromie@gmail.com>
-Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 ---
- include/linux/trace_events.h                 | 18 ++++++++++++++++++
- include/trace/stages/stage1_struct_define.h  |  3 +++
- include/trace/stages/stage2_data_offsets.h   |  3 +++
- include/trace/stages/stage4_event_fields.h   |  3 +++
- include/trace/stages/stage5_get_offsets.h    |  4 ++++
- include/trace/stages/stage6_event_callback.h |  7 +++++++
- 6 files changed, 38 insertions(+)
+fixup-doc: trailing colons for block headers, trim fedora numbers. Bagas
+---
+ .../admin-guide/dynamic-debug-howto.rst       | 235 +++++++++---------
+ 1 file changed, 117 insertions(+), 118 deletions(-)
 
-diff --git a/include/linux/trace_events.h b/include/linux/trace_events.h
-index e6e95a9f07a5..b18759a673c6 100644
---- a/include/linux/trace_events.h
-+++ b/include/linux/trace_events.h
-@@ -916,6 +916,24 @@ perf_trace_buf_submit(void *raw_data, int size, int rctx, u16 type,
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index d8954ab05c7b..faa22f77847a 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -5,30 +5,19 @@ Dynamic debug
+ Introduction
+ ============
  
- #endif
+-This document describes how to use the dynamic debug (dyndbg) feature.
++Dynamic debug allows you to dynamically enable/disable kernel
++debug-print code to obtain additional kernel information.
  
-+#define TRACE_EVENT_STR_MAX	512
+-Dynamic debug is designed to allow you to dynamically enable/disable
+-kernel code to obtain additional kernel information.  Currently, if
+-``CONFIG_DYNAMIC_DEBUG`` is set, then all ``pr_debug()``/``dev_dbg()`` and
+-``print_hex_dump_debug()``/``print_hex_dump_bytes()`` calls can be dynamically
+-enabled per-callsite.
++If ``/proc/dynamic_debug/control`` exists, your kernel has dynamic
++debug.  You'll need root access (sudo su) to use this.
+ 
+-If you do not want to enable dynamic debug globally (i.e. in some embedded
+-system), you may set ``CONFIG_DYNAMIC_DEBUG_CORE`` as basic support of dynamic
+-debug and add ``ccflags := -DDYNAMIC_DEBUG_MODULE`` into the Makefile of any
+-modules which you'd like to dynamically debug later.
++Dynamic debug provides:
+ 
+-If ``CONFIG_DYNAMIC_DEBUG`` is not set, ``print_hex_dump_debug()`` is just
+-shortcut for ``print_hex_dump(KERN_DEBUG)``.
++ * a Catalog of all *prdbgs* in your kernel.
++   ``cat /proc/dynamic_debug/control`` to see them.
+ 
+-For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
+-its ``prefix_str`` argument, if it is constant string; or ``hexdump``
+-in case ``prefix_str`` is built dynamically.
+-
+-Dynamic debug has even more useful features:
+-
+- * Simple query language allows turning on and off debugging
+-   statements by matching any combination of 0 or 1 of:
++ * a Simple query/command language to alter *prdbgs* by selecting on
++   any combination of 0 or 1 of:
+ 
+    - source filename
+    - function name
+@@ -37,107 +26,88 @@ Dynamic debug has even more useful features:
+    - format string
+    - class name (as known/declared by each module)
+ 
+- * Provides a debugfs control file: ``<debugfs>/dynamic_debug/control``
+-   which can be read to display the complete list of known debug
+-   statements, to help guide you
+-
+-Controlling dynamic debug Behaviour
+-===================================
+-
+-The behaviour of ``pr_debug()``/``dev_dbg()`` are controlled via writing to a
+-control file in the 'debugfs' filesystem. Thus, you must first mount
+-the debugfs filesystem, in order to make use of this feature.
+-Subsequently, we refer to the control file as:
+-``<debugfs>/dynamic_debug/control``. For example, if you want to enable
+-printing from source file ``svcsock.c``, line 1603 you simply do::
+-
+-  nullarbor:~ # echo 'file svcsock.c line 1603 +p' >
+-				<debugfs>/dynamic_debug/control
+-
+-If you make a mistake with the syntax, the write will fail thus::
+-
+-  nullarbor:~ # echo 'file svcsock.c wtf 1 +p' >
+-				<debugfs>/dynamic_debug/control
+-  -bash: echo: write error: Invalid argument
+-
+-Note, for systems without 'debugfs' enabled, the control file can be
+-found in ``/proc/dynamic_debug/control``.
+-
+ Viewing Dynamic Debug Behaviour
+ ===============================
+ 
+-You can view the currently configured behaviour of all the debug
+-statements via::
++You can view the currently configured behaviour in the *prdbg* catalog::
+ 
+-  nullarbor:~ # cat <debugfs>/dynamic_debug/control
++  :#> head -n7 /proc/dynamic_debug/control
+   # filename:lineno [module]function flags format
+-  net/sunrpc/svc_rdma.c:323 [svcxprt_rdma]svc_rdma_cleanup =_ "SVCRDMA Module Removed, deregister RPC RDMA transport\012"
+-  net/sunrpc/svc_rdma.c:341 [svcxprt_rdma]svc_rdma_init =_ "\011max_inline       : %d\012"
+-  net/sunrpc/svc_rdma.c:340 [svcxprt_rdma]svc_rdma_init =_ "\011sq_depth         : %d\012"
+-  net/sunrpc/svc_rdma.c:338 [svcxprt_rdma]svc_rdma_init =_ "\011max_requests     : %d\012"
+-  ...
++  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012
++  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
++  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
++  init/main.c:1426 [main]run_init_process =_ "    %s\012"
++  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
++  init/main.c:1429 [main]run_init_process =_ "    %s\012"
+ 
++The 3rd space-delimited column shows the current flags, preceded by
++a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
+ 
+-You can also apply standard Unix text manipulation filters to this
+-data, e.g.::
++Controlling dynamic debug Behaviour
++===================================
+ 
+-  nullarbor:~ # grep -i rdma <debugfs>/dynamic_debug/control  | wc -l
+-  62
++The behaviour of *prdbg* sites are controlled by writing
++query/commands to the control file.  Example::
+ 
+-  nullarbor:~ # grep -i tcp <debugfs>/dynamic_debug/control | wc -l
+-  42
++  # grease the interface
++  :#> alias ddcmd='echo $* > /proc/dynamic_debug/control'
+ 
+-The third column shows the currently enabled flags for each debug
+-statement callsite (see below for definitions of the flags).  The
+-default value, with no flags enabled, is ``=_``.  So you can view all
+-the debug statement callsites with any non-default flags::
++  :#> ddcmd '-p; module main func run* +p'
++  :#> grep =p /proc/dynamic_debug/control
++  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
++  init/main.c:1426 [main]run_init_process =p "    %s\012"
++  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
++  init/main.c:1429 [main]run_init_process =p "    %s\012"
+ 
+-  nullarbor:~ # awk '$3 != "=_"' <debugfs>/dynamic_debug/control
+-  # filename:lineno [module]function flags format
+-  net/sunrpc/svcsock.c:1603 [sunrpc]svc_send p "svc_process: st_sendto returned %d\012"
++Error messages go to console/syslog::
 +
-+/*
-+ * gcc warns that you can not use a va_list in an inlined
-+ * function. But lets me make it into a macro :-/
-+ */
-+#define __trace_event_vstr_len(fmt, va)			\
-+({							\
-+	va_list __ap;					\
-+	int __ret;					\
-+							\
-+	va_copy(__ap, *(va));				\
-+	__ret = vsnprintf(NULL, 0, fmt, __ap) + 1;	\
-+	va_end(__ap);					\
-+							\
-+	min(__ret, TRACE_EVENT_STR_MAX);		\
-+})
++  :#> ddcmd mode foo +p
++  dyndbg: unknown keyword "mode"
++  dyndbg: query parse failed
++  bash: echo: write error: Invalid argument
 +
- #endif /* _LINUX_TRACE_EVENT_H */
++If debugfs is also enabled and mounted, ``dynamic_debug/control`` is
++also under the mount-dir, typically ``/sys/kernel/debug/``.
  
- /*
-diff --git a/include/trace/stages/stage1_struct_define.h b/include/trace/stages/stage1_struct_define.h
-index a16783419687..1b7bab60434c 100644
---- a/include/trace/stages/stage1_struct_define.h
-+++ b/include/trace/stages/stage1_struct_define.h
-@@ -26,6 +26,9 @@
- #undef __string_len
- #define __string_len(item, src, len) __dynamic_array(char, item, -1)
+ Command Language Reference
+ ==========================
  
-+#undef __vstring
-+#define __vstring(item, fmt, ap) __dynamic_array(char, item, -1)
+-At the lexical level, a command comprises a sequence of words separated
++At the basic lexical level, a command is a sequence of words separated
+ by spaces or tabs.  So these are all equivalent::
+ 
+-  nullarbor:~ # echo -n 'file svcsock.c line 1603 +p' >
+-				<debugfs>/dynamic_debug/control
+-  nullarbor:~ # echo -n '  file   svcsock.c     line  1603 +p  ' >
+-				<debugfs>/dynamic_debug/control
+-  nullarbor:~ # echo -n 'file svcsock.c line 1603 +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd file svcsock.c line 1603 +p
++  :#> ddcmd "file svcsock.c line 1603 +p"
++  :#> ddcmd '  file   svcsock.c     line  1603 +p  '
+ 
+ Command submissions are bounded by a write() system call.
+ Multiple commands can be written together, separated by ``;`` or ``\n``::
+ 
+-  ~# echo "func pnpacpi_get_resources +p; func pnp_assign_mem +p" \
+-     > <debugfs>/dynamic_debug/control
+-
+-If your query set is big, you can batch them too::
+-
+-  ~# cat query-batch-file > <debugfs>/dynamic_debug/control
++  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
++  :#> ddcmd <<"EOC"
++  func pnpacpi_get_resources +p
++  func pnp_assign_mem +p
++  EOC
++  :#> cat query-batch-file > /proc/dynamic_debug/control
+ 
+-Another way is to use wildcards. The match rule supports ``*`` (matches
+-zero or more characters) and ``?`` (matches exactly one character). For
+-example, you can match all usb drivers::
++You can also use wildcards in each query term. The match rule supports
++``*`` (matches zero or more characters) and ``?`` (matches exactly one
++character). For example, you can match all usb drivers::
+ 
+-  ~# echo "file drivers/usb/* +p" > <debugfs>/dynamic_debug/control
++  :#> ddcmd file "drivers/usb/*" +p	# "" to suppress shell expansion
+ 
+-At the syntactical level, a command comprises a sequence of match
+-specifications, followed by a flags change specification::
++Syntactically, a command is pairs of keyword values, followed by a
++flags change or setting::
+ 
+   command ::= match-spec* flags-spec
+ 
+-The match-spec's are used to choose a subset of the known pr_debug()
+-callsites to which to apply the flags-spec.  Think of them as a query
+-with implicit ANDs between each pair.  Note that an empty list of
+-match-specs will select all debug statement callsites.
++The match-spec's select *prdbgs* from the catalog, upon which to apply
++the flags-spec, all constraints are ANDed together.  An absent keyword
++is the same as keyword "*".
+ 
+-A match specification comprises a keyword, which controls the
+-attribute of the callsite to be compared, and a value to compare
+-against.  Possible keywords are:::
 +
- #undef __bitmask
- #define __bitmask(item, nr_bits) __dynamic_array(char, item, -1)
++A match specification is a keyword, which selects the attribute of
++the callsite to be compared, and a value to compare against.  Possible
++keywords are:::
  
-diff --git a/include/trace/stages/stage2_data_offsets.h b/include/trace/stages/stage2_data_offsets.h
-index 42fd1e8813ec..1b7a8f764fdd 100644
---- a/include/trace/stages/stage2_data_offsets.h
-+++ b/include/trace/stages/stage2_data_offsets.h
-@@ -32,6 +32,9 @@
- #undef __string_len
- #define __string_len(item, src, len) __dynamic_array(char, item, -1)
+   match-spec ::= 'func' string |
+ 		 'file' string |
+@@ -213,6 +183,7 @@ class
  
-+#undef __vstring
-+#define __vstring(item, fmt, ap) __dynamic_array(char, item, -1)
+ 	class DRM_UT_KMS	# a DRM.debug category
+ 	class JUNK		# silent non-match
++	// class TLD_*		# NOTICE: no wildcard in class names
+ 
+ line
+     The given line number or range of line numbers is compared
+@@ -239,17 +210,16 @@ of the characters::
+ The flags are::
+ 
+   p    enables the pr_debug() callsite.
+-  f    Include the function name in the printed message
+-  l    Include line number in the printed message
+-  m    Include module name in the printed message
+-  t    Include thread ID in messages not generated from interrupt context
+-  _    No flags are set. (Or'd with others on input)
++  _    enables no flags.
+ 
+-For ``print_hex_dump_debug()`` and ``print_hex_dump_bytes()``, only ``p`` flag
+-have meaning, other flags ignored.
++  Decorator flags add to the message-prefix, in order:
++  t    Include thread ID, or <intr>
++  m    Include module name
++  f    Include the function name
++  l    Include line number
+ 
+-For display, the flags are preceded by ``=``
+-(mnemonic: what the flags are currently equal to).
++For ``print_hex_dump_debug()`` and ``print_hex_dump_bytes()``, only
++the ``p`` flag has meaning, other flags are ignored.
+ 
+ Note the regexp ``^[-+=][flmpt_]+$`` matches a flags specification.
+ To clear all flags at once, use ``=_`` or ``-flmpt``.
+@@ -324,7 +294,7 @@ For ``CONFIG_DYNAMIC_DEBUG`` kernels, any settings given at boot-time (or
+ enabled by ``-DDEBUG`` flag during compilation) can be disabled later via
+ the debugfs interface if the debug messages are no longer needed::
+ 
+-   echo "module module_name -p" > <debugfs>/dynamic_debug/control
++   echo "module module_name -p" > /proc/dynamic_debug/control
+ 
+ Examples
+ ========
+@@ -332,37 +302,31 @@ Examples
+ ::
+ 
+   // enable the message at line 1603 of file svcsock.c
+-  nullarbor:~ # echo -n 'file svcsock.c line 1603 +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'file svcsock.c line 1603 +p'
+ 
+   // enable all the messages in file svcsock.c
+-  nullarbor:~ # echo -n 'file svcsock.c +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'file svcsock.c +p'
+ 
+   // enable all the messages in the NFS server module
+-  nullarbor:~ # echo -n 'module nfsd +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'module nfsd +p'
+ 
+   // enable all 12 messages in the function svc_process()
+-  nullarbor:~ # echo -n 'func svc_process +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'func svc_process +p'
+ 
+   // disable all 12 messages in the function svc_process()
+-  nullarbor:~ # echo -n 'func svc_process -p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'func svc_process -p'
+ 
+   // enable messages for NFS calls READ, READLINK, READDIR and READDIR+.
+-  nullarbor:~ # echo -n 'format "nfsd: READ" +p' >
+-				<debugfs>/dynamic_debug/control
++  :#> ddcmd 'format "nfsd: READ" +p'
+ 
+   // enable messages in files of which the paths include string "usb"
+-  nullarbor:~ # echo -n 'file *usb* +p' > <debugfs>/dynamic_debug/control
++  :#> ddcmd 'file *usb* +p' > /proc/dynamic_debug/control
+ 
+   // enable all messages
+-  nullarbor:~ # echo -n '+p' > <debugfs>/dynamic_debug/control
++  :#> ddcmd '+p' > /proc/dynamic_debug/control
+ 
+   // add module, function to all enabled messages
+-  nullarbor:~ # echo -n '+mf' > <debugfs>/dynamic_debug/control
++  :#> ddcmd '+mf' > /proc/dynamic_debug/control
+ 
+   // boot-args example, with newlines and comments for readability
+   Kernel command line: ...
+@@ -375,3 +339,38 @@ Examples
+     dyndbg="file init/* +p #cmt ; func parse_one +p"
+     // enable pr_debugs in 2 functions in a module loaded later
+     pc87360.dyndbg="func pc87360_init_device +p; func pc87360_find +p"
 +
- #undef __bitmask
- #define __bitmask(item, nr_bits) __dynamic_array(unsigned long, item, -1)
- 
-diff --git a/include/trace/stages/stage4_event_fields.h b/include/trace/stages/stage4_event_fields.h
-index e80cdc397a43..c3790ec7a453 100644
---- a/include/trace/stages/stage4_event_fields.h
-+++ b/include/trace/stages/stage4_event_fields.h
-@@ -38,6 +38,9 @@
- #undef __string_len
- #define __string_len(item, src, len) __dynamic_array(char, item, -1)
- 
-+#undef __vstring
-+#define __vstring(item, fmt, ap) __dynamic_array(char, item, -1)
++Kernel Configuration
++====================
 +
- #undef __bitmask
- #define __bitmask(item, nr_bits) __dynamic_array(unsigned long, item, -1)
- 
-diff --git a/include/trace/stages/stage5_get_offsets.h b/include/trace/stages/stage5_get_offsets.h
-index 7ee5931300e6..fba4c24ed9e6 100644
---- a/include/trace/stages/stage5_get_offsets.h
-+++ b/include/trace/stages/stage5_get_offsets.h
-@@ -39,6 +39,10 @@
- #undef __string_len
- #define __string_len(item, src, len) __dynamic_array(char, item, (len) + 1)
- 
-+#undef __vstring
-+#define __vstring(item, fmt, ap) __dynamic_array(char, item,		\
-+		      __trace_event_vstr_len(fmt, ap))
++Dynamic Debug is enabled via kernel config items::
 +
- #undef __rel_dynamic_array
- #define __rel_dynamic_array(type, item, len)				\
- 	__item_length = (len) * sizeof(type);				\
-diff --git a/include/trace/stages/stage6_event_callback.h b/include/trace/stages/stage6_event_callback.h
-index e1724f73594b..0f51f6b3ab70 100644
---- a/include/trace/stages/stage6_event_callback.h
-+++ b/include/trace/stages/stage6_event_callback.h
-@@ -24,6 +24,9 @@
- #undef __string_len
- #define __string_len(item, src, len) __dynamic_array(char, item, -1)
- 
-+#undef __vstring
-+#define __vstring(item, fmt, ap) __dynamic_array(char, item, -1)
++  CONFIG_DYNAMIC_DEBUG=y	# build catalog, enables CORE
++  CONFIG_DYNAMIC_DEBUG_CORE=y	# enable mechanics only, skip catalog
 +
- #undef __assign_str
- #define __assign_str(dst, src)						\
- 	strcpy(__get_str(dst), (src) ? (const char *)(src) : "(null)");
-@@ -35,6 +38,10 @@
- 		__get_str(dst)[len] = '\0';				\
- 	} while(0)
- 
-+#undef __assign_vstr
-+#define __assign_vstr(dst, fmt, va)					\
-+	vsnprintf(__get_str(dst), TRACE_EVENT_STR_MAX, fmt, *(va))
++If you do not want to enable dynamic debug globally (i.e. in some embedded
++system), you may set ``CONFIG_DYNAMIC_DEBUG_CORE`` as basic support of dynamic
++debug and add ``ccflags := -DDYNAMIC_DEBUG_MODULE`` into the Makefile of any
++modules which you'd like to dynamically debug later.
 +
- #undef __bitmask
- #define __bitmask(item, nr_bits) __dynamic_array(unsigned long, item, -1)
- 
++
++Kernel *prdbg* API
++==================
++
++The following functions are cataloged and controllable when dynamic
++debug is enabled::
++
++  pr_debug()
++  dev_dbg()
++  print_hex_dump_debug()
++  print_hex_dump_bytes()
++
++Otherwise, they are off by default; ``ccflags += -DDEBUG`` or
++``#define DEBUG`` in a source file will enable them appropriately.
++
++If ``CONFIG_DYNAMIC_DEBUG`` is not set, ``print_hex_dump_debug()`` is
++just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
++
++For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
++its ``prefix_str`` argument, if it is constant string; or ``hexdump``
++in case ``prefix_str`` is built dynamically.
 -- 
 2.36.1
 
