@@ -4,63 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49F98CCA480
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D338CCA483
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Jul 2022 15:33:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB588F20D;
-	Wed, 20 Jul 2022 15:33:11 +0000 (UTC)
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB3A8F1E4;
- Wed, 20 Jul 2022 15:33:07 +0000 (UTC)
-Received: by mail-il1-x12e.google.com with SMTP id l11so7321786ilf.11;
- Wed, 20 Jul 2022 08:33:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A54C8F217;
+	Wed, 20 Jul 2022 15:33:09 +0000 (UTC)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DC0C8EDD5;
+ Wed, 20 Jul 2022 15:32:57 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id n7so14536512ioo.7;
+ Wed, 20 Jul 2022 08:32:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=r/u3pzpNzNChEPNWjqUZH0DBLx6ctPNr/Z8rp47SNdY=;
- b=h/fgtCJTtRbAXE+dLj7QlqKj0sKW7IDEIMmoGXVX6ngfgQVk1VgBxIiDi4O1i6kmxU
- DvFiIFbNHteZbINYV2zKyiv/yiU1grfH7o3k5EMkWtrSzDVguzcjp8FfJc6FRc0ddLfJ
- geVIHZxp/0McZL7skTAscUokpZ0OKQK1J/8kxlwAi/fT/Q1k89GWv31wgILZ8BN8pzon
- tdbRi0oFxmhdntxJDUKlyXioEwh2m9YdG06zumjB8VHpj1rbi59YlspAYJQqGnCGZgSo
- zAU3kP56UWMB3T7Wkv1Qyjxe0s+KQgafjuPAKeFpxcP/1vedBOU8mOeHyQw5pwouFfmj
- 0liQ==
+ bh=IPNh34U+sqtG6x3Rqc7e7njlWizKyk0P6OLkXAqGKGA=;
+ b=ZIYeJrysPQpFf3pGaSYo4BJNjXIEeR6rQRYbtMg6XTDQiIGgeVljsQF3GWdfbfIvTB
+ ziV30c0Z1FIoZMUKpHuhJwGMZL60U/YQqniGO7GvYSI4zZAUAPmgmoWwrH4VPoSAmJh7
+ i0c3bjLZlkkVeEK8KaGCq0nCPwYPdH6X/GfQzcwMtPrCf/DNGdaQHFvRSSlJHiQn2xT3
+ c3bhZ6N/mE6PRIyqSloJQ4VD+5LQBU+ucYrz/PCXsCvEjsr9LetwNQAg7+Ofxd2U7MGW
+ Fj8uufqjr9SXmUFYNVaT+DlAYlsCfaujD2BRhxm5GOiuUrSrLonSuwlEPDsjaa9DM+as
+ O5PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=r/u3pzpNzNChEPNWjqUZH0DBLx6ctPNr/Z8rp47SNdY=;
- b=rInXLI/5W/YbADPoaKK6kM86wfFFLZU6+6Sx62wMrHsXyycQyllZYhfsT/+M5HuDTJ
- qrhltheb3XkHxvmtmf6sPNGsVG8ef7cbbmxx5AD39BIC8859uI7B34es+X5xuKVE2uCT
- W2/K5gRgMyZ3GsMU/R8OXbnoUIZ5HTAY432KE2q9S53huKV0ACM1wfe9CxkHMXfRZPP4
- oAqgljAhdJnqMFPRSUaudpK8WExuLH6hrbRjceyxQVFI52oTf49ANlTP6I0RI5hdx0sG
- Th74eTR+AKAUbOmnX+Jx4h/gNMYxkLI6ftBH3WHVqHUqmDUJBE16U7gyQNKqNllkdeMj
- WxBQ==
-X-Gm-Message-State: AJIora8W19O9Gvrn4SnQLcfELwh6/O+BPIf1CBXoS8FbPiLWuv3Rndtv
- pQBY666PLHo9GYcicxKy+5IMkEpNh5LXcg==
-X-Google-Smtp-Source: AGRyM1uJEe74QzEYr9HdOGSIXLPagTB7IKsTxO7mzYMiP5Ry926uMNSDSVrJuIT0rleTJW8rMEYd5Q==
-X-Received: by 2002:a92:c267:0:b0:2dd:678:8688 with SMTP id
- h7-20020a92c267000000b002dd06788688mr3658270ild.278.1658331186253; 
- Wed, 20 Jul 2022 08:33:06 -0700 (PDT)
+ bh=IPNh34U+sqtG6x3Rqc7e7njlWizKyk0P6OLkXAqGKGA=;
+ b=qD5UnbAT3xqoSvRVOJqyo0Cvb94TeFbg3Mbyf0REfFRfZSyeogsxy+3gInaz0qCPou
+ 81tnHiJN1Iz+YW5oMkay2rjM1n7Yn6zTg8jyfIUmQ1vHQ2hoeNiTz5ZqxTXcJzppxAS/
+ u9Wm/QfmDia8csXT3RzDgY9M0j7Rb8Sgk91KhoSyIK5FW9IGQxwwwzUe+jBXcl+9GLiz
+ +FP9t9pMyXJFi3OC3+AM2gnkruipmmccXCsZd8NAeGvtaZtCfoTn/tVXfD9yBZSILAB/
+ 7Nqk3hon2eVh7W8EbZaEYCNKukkRyrid7fyywfJLIjJ5oA3zzNSPhl9jyI434qrMRjHf
+ 9ySw==
+X-Gm-Message-State: AJIora/XbMsFHOOcKnV+Z8oSjzIRGNDNnKZK3LwHtlPH2j9L7ff0pD/1
+ tacDdqvBb29XKU50+u33srhKY1QQhE3Xqg==
+X-Google-Smtp-Source: AGRyM1stJYq4q8rMxuTj7cBJdviq+nbyU7N4d+960oyxYVu6BYP4Zle7oLFZlR7a+jqT2vYKrud4Jw==
+X-Received: by 2002:a05:6638:1b09:b0:33f:6d9e:89d0 with SMTP id
+ cb9-20020a0566381b0900b0033f6d9e89d0mr20104525jab.113.1658331176135; 
+ Wed, 20 Jul 2022 08:32:56 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.33.05
+ q1-20020a92d401000000b002dcdb4bbe87sm4579581ilm.22.2022.07.20.08.32.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jul 2022 08:33:05 -0700 (PDT)
+ Wed, 20 Jul 2022 08:32:55 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  jbaron@akamai.com, gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch,
  seanpaul@chromium.org, robdclark@gmail.com
-Date: Wed, 20 Jul 2022 09:32:01 -0600
-Message-Id: <20220720153233.144129-10-jim.cromie@gmail.com>
+Date: Wed, 20 Jul 2022 09:31:54 -0600
+Message-Id: <20220720153233.144129-3-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220720153233.144129-1-jim.cromie@gmail.com>
 References: <20220720153233.144129-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 09/41] dyndbg: drop EXPORTed
- dynamic_debug_exec_queries
+Subject: [Intel-gfx] [PATCH v4 02/41] dyndbg: fix module.dyndbg handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,92 +72,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>
+Cc: Jim Cromie <jim.cromie@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This exported fn is unused, and will not be needed. Lets dump it.
+For CONFIG_DYNAMIC_DEBUG=N, the ddebug_dyndbg_module_param_cb()
+stub-fn is too permissive:
 
-The export was added to let drm control pr_debugs, as part of using
-them to avoid drm_debug_enabled overheads.  But its better to just
-implement the drm.debug bitmap interface, then its available for
-everyone.
+bash-5.1# modprobe drm JUNKdyndbg
+bash-5.1# modprobe drm dyndbgJUNK
+[   42.933220] dyndbg param is supported only in CONFIG_DYNAMIC_DEBUG builds
+[   42.937484] ACPI: bus type drm_connector registered
 
-Fixes: a2d375eda771 ("dyndbg: refine export, rename to dynamic_debug_exec_queries()")
-Fixes: 4c0d77828d4f ("dyndbg: export ddebug_exec_queries")
+This caused no ill effects, because unknown parameters are either
+ignored by default (with an "unknown parameter" warning, see below),
+or ignored because dyndbg allows its no-effect use on non-dyndbg builds.
+
+But since the code has an explicit feedback message, it should be
+issued accurately.  Fix with strcmp for exact param-name match.
+
+Reported-by: Rasmus Villemoes <linux@rasmusvillemoes.dk>
+Fixes: b48420c1d301 dynamic_debug: make dynamic-debug work for module initialization
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h |  9 ---------
- lib/dynamic_debug.c           | 29 -----------------------------
- 2 files changed, 38 deletions(-)
+ include/linux/dynamic_debug.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index f30b01aa9fa4..8d9eec5f6d8b 100644
+index dce631e678dd..f30b01aa9fa4 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -55,9 +55,6 @@ struct _ddebug {
- 
- #if defined(CONFIG_DYNAMIC_DEBUG_CORE)
- 
--/* exported for module authors to exercise >control */
--int dynamic_debug_exec_queries(const char *query, const char *modname);
--
- int ddebug_add_module(struct _ddebug *tab, unsigned int n,
- 				const char *modname);
- extern int ddebug_remove_module(const char *mod_name);
-@@ -221,12 +218,6 @@ static inline int ddebug_dyndbg_module_param_cb(char *param, char *val,
- 				rowsize, groupsize, buf, len, ascii);	\
- 	} while (0)
- 
--static inline int dynamic_debug_exec_queries(const char *query, const char *modname)
--{
--	pr_warn("kernel not built with CONFIG_DYNAMIC_DEBUG_CORE\n");
--	return 0;
--}
--
- #endif /* !CONFIG_DYNAMIC_DEBUG_CORE */
- 
- #endif
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 5a849716220a..e96dc216463b 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -558,35 +558,6 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 	return nfound;
- }
- 
--/**
-- * dynamic_debug_exec_queries - select and change dynamic-debug prints
-- * @query: query-string described in admin-guide/dynamic-debug-howto
-- * @modname: string containing module name, usually &module.mod_name
-- *
-- * This uses the >/proc/dynamic_debug/control reader, allowing module
-- * authors to modify their dynamic-debug callsites. The modname is
-- * canonically struct module.mod_name, but can also be null or a
-- * module-wildcard, for example: "drm*".
-- */
--int dynamic_debug_exec_queries(const char *query, const char *modname)
--{
--	int rc;
--	char *qry; /* writable copy of query */
--
--	if (!query) {
--		pr_err("non-null query/command string expected\n");
--		return -EINVAL;
--	}
--	qry = kstrndup(query, PAGE_SIZE, GFP_KERNEL);
--	if (!qry)
--		return -ENOMEM;
--
--	rc = ddebug_exec_queries(qry, modname);
--	kfree(qry);
--	return rc;
--}
--EXPORT_SYMBOL_GPL(dynamic_debug_exec_queries);
--
- #define PREFIX_SIZE 64
- 
- static int remaining(int wrote)
+@@ -201,7 +201,7 @@ static inline int ddebug_remove_module(const char *mod)
+ static inline int ddebug_dyndbg_module_param_cb(char *param, char *val,
+ 						const char *modname)
+ {
+-	if (strstr(param, "dyndbg")) {
++	if (!strcmp(param, "dyndbg")) {
+ 		/* avoid pr_warn(), which wants pr_fmt() fully defined */
+ 		printk(KERN_WARNING "dyndbg param is supported only in "
+ 			"CONFIG_DYNAMIC_DEBUG builds\n");
 -- 
 2.36.1
 
