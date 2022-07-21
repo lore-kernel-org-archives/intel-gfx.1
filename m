@@ -4,103 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B01E9C19F2A
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:39:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A3B5C19F2A
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:39:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 563F498CF5;
-	Thu,  4 Aug 2022 13:38:10 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE02E92D69;
- Sat, 23 Jul 2022 02:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D382398D0A;
+	Thu,  4 Aug 2022 13:38:11 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2072.outbound.protection.outlook.com [40.107.244.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2068A8EBB5;
+ Thu, 21 Jul 2022 21:25:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fuWlw5uEEspmsEeZe46/pB21QNsUFRLm7bKKUqhE0yEKyKAp/34tfUYonOsd7GFxCiVWH5OQsTjd/9EcdltwpRn1UIcpNGBo3CjN8VEu8Id3/mX8zI/cN/W7ihO+CJkISRnBARqBjMmAlC2kMLbo6U6lfWnopcp7GK+a7vz6KtxsoQiJ+/63IQEghdvW6cUv67UQtK5a9qX5LPaOF6uZk33iQ3FvXPA3qN4zKNRtcGl6ftg1AFGG6O1Jk/A4cVlx7z5J3lhqIUrFbU7OD/llYI26imf8hgJZKYvCtxlGNuTQJM4/vvVhH+q5MFgWbb0KjkGbhBVKOABZZ0hX5QIRvQ==
+ b=j5QzQ+DD6tVQrBul2FdieqLYfGaZ1Rd3LVjBEgf8Dy5NbCkOernOvYBMtr2lEy7KUg1X6Araj8RhdcnmUmLk6q1+Bd6wpZSGmsdEpd1lLJJeUkxDZR61uEi7Ad1aIKA0PUrOT3Rfu7V+/v0emRM/niOfAHBWBt9OqDy73Ebjnx4N/ObwgOZluHtH7E32NYL8BO9Wj3VayJtn5emohrYLbWnasCKSkAay8Avw+bzyldUMYWIaqvh6g69NTlaHLj1T0BR7IDs7YXsq/G4wO2TgMmyRxKB8YumaZPmPvCVX8gP9Q8KPfJS+/P5s09Y5Q7IPUsWPH8Ivx0jlZMFNrY+F7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vikqsyFr0cUNkzLiNnVEYY2PhcMznhk0zaOJOlwEqJw=;
- b=lY7L7vItQB9UR/UOVuG4wwhFWOTYJaWU8n+EGxVUg4ZsOrQoSRJ9A0j71twJdwWjy06rLpFQcWS9rVYiigFxf17RDOFsRYePHCwqu1e/MkI5kkzW3ckRuxuOPPPXxYJHlUflgis5h0rym1bEAgaEtZet0Zy8K8N4hv7Hu/0bPEtDpcwDfHgQ30WySAdKmJg4FhR649Ih6YmDLgMmFLooBelGqW4DcckVLhI0augSC6wbRn5VSFcbAHPV+FI/4g3B31xh3BavjtHDvua/YNlzfEi6lhynZ0PQQRDeiwMWKzdtOzJhxn1ZrvjpwfpDPo+7TwGkFpxspSnuT1QQSXoA2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.235) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
+ bh=M1C/0oNIsNZe/4LQMZJj3woOuUc+3we2d2WVgPqvFEo=;
+ b=iheCL+8nnNv+R7jZ5m0AFc32aAMfhPxoIVk4AKSBuh8O7knOeYW7R+xTXpCF+S4X6oxi8c12A+a6PdnCLLs6nb01/2NxL0ezj9WYJSXHThb582sH+HGJRcBn3HYa9kxffJ7zZTAxadvfV0L0Kxdhhqy18+4XPfs1A5G3ALJsJierO1PiHudPT7wu0y14Ve89OEX3y1hufaiKxpLb7Xy/NoYqeZLkvx5fCZVCXT0FCkKBNRwHxPgZaU36iAh53veTLCj2rLX8g3Zu0/XGIVO9EADxdPyAAi3jB/Ri40G4GBLVvKiz74xLyvN/a0VM7rod8eQPw3BLg1t7nE20yZ7/xA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vikqsyFr0cUNkzLiNnVEYY2PhcMznhk0zaOJOlwEqJw=;
- b=a+WzWoFB8F4vk6RH8zuvBedDSLX7VSdGfZMb86INxYXoOyRgXNmodJsj3q5A2vPUBYtvcGOGjpZZ+SQdmv6tTfG6t/LS3GEoddrikMBbtWfrKbvucm8oBhesdPXZPA6De2jOXdYHzERsil0kWslG+wjnrGsZTMgS6L6EKWKLdff+34ZQS1eQubl/wnChF42wd2SpIjoG8BbC/ZidTN5TKK5p0Y8ufHA1eU3yUIFuLmnV4BPDx1TCVNR+gXfAGq0gBcxtZkcCEqDIM0fNCh3PBuN34Msy9blCu3D+xMXvVxq70WTAkxTqiBtOAVGY7HX4cEt7G5CcFFpEd2KYlAhh/Q==
-Received: from BN0PR04CA0187.namprd04.prod.outlook.com (2603:10b6:408:e9::12)
- by SA1PR12MB6679.namprd12.prod.outlook.com (2603:10b6:806:252::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Sat, 23 Jul
- 2022 02:04:24 +0000
-Received: from BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e9:cafe::59) by BN0PR04CA0187.outlook.office365.com
- (2603:10b6:408:e9::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.15 via Frontend
- Transport; Sat, 23 Jul 2022 02:04:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.235)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.235 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.235; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (12.22.5.235) by
- BN8NAM11FT038.mail.protection.outlook.com (10.13.176.246) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.5458.17 via Frontend Transport; Sat, 23 Jul 2022 02:04:24 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- DRHQMAIL107.nvidia.com (10.27.9.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.32; Sat, 23 Jul 2022 02:04:23 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.26; Fri, 22 Jul 2022 19:04:23 -0700
-Received: from Asurada-Nvidia.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.986.26 via Frontend
- Transport; Fri, 22 Jul 2022 19:04:21 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: <kwankhede@nvidia.com>, <corbet@lwn.net>, <hca@linux.ibm.com>,
- <gor@linux.ibm.com>, <agordeev@linux.ibm.com>, <borntraeger@linux.ibm.com>,
- <svens@linux.ibm.com>, <zhenyuw@linux.intel.com>, <zhi.a.wang@intel.com>,
- <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <tvrtko.ursulin@linux.intel.com>,
- <airlied@linux.ie>, <daniel@ffwll.ch>, <farman@linux.ibm.com>,
- <mjrosato@linux.ibm.com>, <pasic@linux.ibm.com>, <vneethv@linux.ibm.com>,
- <oberpar@linux.ibm.com>, <freude@linux.ibm.com>, <akrowiak@linux.ibm.com>,
- <jjherne@linux.ibm.com>, <alex.williamson@redhat.com>, <cohuck@redhat.com>,
- <jgg@nvidia.com>, <kevin.tian@intel.com>, <hch@infradead.org>
-Date: Fri, 22 Jul 2022 19:02:54 -0700
-Message-ID: <20220723020256.30081-9-nicolinc@nvidia.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220723020256.30081-1-nicolinc@nvidia.com>
-References: <20220723020256.30081-1-nicolinc@nvidia.com>
+ bh=M1C/0oNIsNZe/4LQMZJj3woOuUc+3we2d2WVgPqvFEo=;
+ b=lUpd7drc82vh1YbPK4dP7dsYKiSKzKU+1oVFhXNlWUI7PoIaYaOPflpCukSWcyYUjST64aagtakPDQvEPHCl2VuPIql+ggq1yEvWeeQqHLOp6opZznIOTb2HHriL1HvQChoSMi+zNSSoCCC1itps1b3ql87ACtnoUIxmf4afuAxWDXbm9/cUcTC5W3+ApBOAG8DIbVfeYG3pKajy71wjfWnp0++8vyo50XbcJ3YyJxJy/JwdyG73eExTDnagh0yMdqktquUtcW2qo4H8qsQo3pYYq3rgi/6NHOh7nhthfnIOCfLwaFku0P+2jq0SwoZBD5FO63IsaJ0CQiEMzaJdfQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB2763.namprd12.prod.outlook.com (2603:10b6:5:48::16) by
+ MN2PR12MB4287.namprd12.prod.outlook.com (2603:10b6:208:1dd::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18; Thu, 21 Jul
+ 2022 21:24:57 +0000
+Received: from DM6PR12MB2763.namprd12.prod.outlook.com
+ ([fe80::d043:c95a:cf42:cff4]) by DM6PR12MB2763.namprd12.prod.outlook.com
+ ([fe80::d043:c95a:cf42:cff4%7]) with mapi id 15.20.5438.023; Thu, 21 Jul 2022
+ 21:24:57 +0000
+Message-ID: <641cb059-48f5-5f05-5ec2-610f1215391c@nvidia.com>
+Date: Thu, 21 Jul 2022 16:24:53 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>
+References: <20220712193910.439171-1-hdegoede@redhat.com>
+ <20220712193910.439171-2-hdegoede@redhat.com>
+From: Daniel Dadap <ddadap@nvidia.com>
+In-Reply-To: <20220712193910.439171-2-hdegoede@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DM6PR11CA0067.namprd11.prod.outlook.com
+ (2603:10b6:5:14c::44) To DM6PR12MB2763.namprd12.prod.outlook.com
+ (2603:10b6:5:48::16)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d623102a-1fc3-45ab-ffa2-08da6c4faa61
-X-MS-TrafficTypeDiagnostic: SA1PR12MB6679:EE_
+X-MS-Office365-Filtering-Correlation-Id: a4664dbb-b980-40bb-f23e-08da6b5f7617
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4287:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FzCFZ2U4Nn9FoB9ZXaV6n8D5mil5MuZkm0yi1LvijFA4jI7orIX/7wbu3vmHO5OeLP/JboD0gK+gtZEJ0Tn5J9yEM4zjbSvVlu60WqW9a6od+11ah0x4NQ53ky8zS0p5qKovYgkMMKdvGgEzbZKdwJVoCc5Rz5f0d6az1GYaCqaTF+paOLF/IFSIMBHrfKGsUJkxnphRbXTGjyIdZq3uAPO7ZHbF84kNlEZXKnPUgtBz/V+AUkuqdFU3M1k/EYF3Le/leqpUUpBxQgyjtC3GBjQYSyFxi1oJ4sJu0mP4SudH7LNwx+FHUH/eniWI2+m4k2QxZP0Mfr6gzIyVH3sozIlDX15MnbdhP2OhMFAXFwiP4yi/0leOlTx013X73m+8MkXLF7BNfgHR1bD5c9751NQkAsTTD0CApCrUfZaROfu1SrINzjqwjXIZxxRpVf2onaN2bYTcmxpEnFFktWWbE78QWODD4ARTr87df7jaPzSQ8OekJj6xwqadpZ7AczQ52+8sVvqOyJ1oFrxNQHUbbn6DZeCXwVsU3OIsuF0vDVUqHCmqlyUT77nFunqVNNniKNQpG9bJHu8ozHABzsC33GVbeTkn/igq7Ie2iwcWGKHjexDZwImch3FT2bSK6subRuVrB9Lf9OzFHtcLj38zwCCoQjLJc3NztjgSrYOJqLpnuA4sPSJSuXsdIlPY65sQj0Wn5jIVyV1yYiPvqIp6U/QOVhakBgxlIL/v6PDudr1AUdfTZeJnu53Oz2lITZuXCPRS619QYLaWwvOuYIeuKUnZ96M5TCVvYol8mUs3COQqCn/c1TlhRuIM7ILvYTZwnFngwBgmA1onOAliPqHWmZrfjwZROTfMWb2JhYaib2Rg9VqnrP7pv8JWsEkxcZ/3BZf/FlDnVsd0Yjqai+bOGQ==
-X-Forefront-Antispam-Report: CIP:12.22.5.235; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230016)(4636009)(396003)(39860400002)(346002)(376002)(136003)(46966006)(36840700001)(40470700004)(1076003)(186003)(336012)(8676002)(4326008)(70206006)(426003)(47076005)(70586007)(6666004)(7696005)(41300700001)(26005)(7406005)(2906002)(8936002)(40460700003)(2616005)(7416002)(86362001)(478600001)(5660300002)(82740400003)(921005)(36756003)(316002)(356005)(81166007)(110136005)(83380400001)(82310400005)(54906003)(36860700001)(40480700001)(2101003)(83996005)(36900700001);
+X-Microsoft-Antispam-Message-Info: 5a3faq4CSzsDftecNffk4fkjH07GO7rmYSCqVs+qIu0xMxGHahE1/+Hd0rlN7nAA6N96DD96szvxnGb4h8TdF+OfVwEcmvV/M2t3+E2lEbGho79uwpg+sEhyAwkjmaV+Ah2pV8IxL4sQ0hQlxxNUxmbXrmmRk+w19uQG0ZK80mnAlY7qiat7g9b5gKu3vmyJlqwG/GP6XhNtSztHmFNx68l8KraN5Uah6M40W87UXpQ/lldfj3qjSYuw4GspqFDv2yPXyj0oD7a8dTk/Bs8AiUV88cHwptjaSryNwhiiz4DJ5SWZk18WCBXp8rMBDYeegNITXreT21lpq3rKdBX3YideNw2Twih+G0yajUAdqqJGEFNrWJK2QBkVQyji7EKhpJ2W9Qn1MY9v+uKoZIFiWt/Kh62DDsxZzOTstsTP6o3FipokW0RFcCVyIr4gOaLxM6ARfUvJOX3jiDcij60vjRjyzIuW8Y7x0ZcDkxeCzWaOjnGsoKcj1yenfVgGkc2c1xzKsebMRfq8EGi3uNfrEnqlf/CnMlEz86R1PFmtL+DDjqK87ugu01eVheqav9ayeXjpwjdqNFMJ21lpYYm8Li9v939KYhiqhPqukm+Lc+iEqdZciU/mEn6k/kTxxGJHJV+/f28J/SUkqTGMSxRgN1r1Q+odgjZf4WX/UE1iurb2z7tug3hueKdDE3yCmD5lnMNHK3tlzzSjt9WIcyjm+mYUqSsFY0N1MEgvlDR7U8Rydf3b0BqJjzo0Tvwijl1yGpYKk0ObVkVECUarvof2BvRy0nuhqXaDPyVg9UyfgYfsE32DH3PC5DWr5NopGPHfFaSMjO0O8EUFWoT64sB6g5pK3wavE8A/FXD0bPXFUV0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2763.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(396003)(136003)(366004)(376002)(346002)(39860400002)(8936002)(36756003)(921005)(31696002)(5660300002)(54906003)(31686004)(7416002)(478600001)(186003)(2616005)(110136005)(83380400001)(316002)(41300700001)(6666004)(6506007)(8676002)(38100700002)(86362001)(6486002)(2906002)(6512007)(26005)(53546011)(66556008)(66476007)(4326008)(66946007)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dEhDVUNEQnFPSEZnc3kwdi80d2Y5SUlBUU14TGJaYlRXU09EZlg5NXkydTVv?=
+ =?utf-8?B?a0FvNFZBZG45MmhnV3M4b2tacW9NVmZmMkR4TTh1YnRpTnNPaEVNZEJIRjR5?=
+ =?utf-8?B?ZldDMGVkVklRV1NyNVA4UGloeEcrVVA1SlBNWXMwQmkvK2ptaWN1djVFSk9S?=
+ =?utf-8?B?NXZmaW1LUzF1ZTVMMFRtUGVUaTV1OE1adWZmRU5leE1zT0ZrdDNMeTVHOGJj?=
+ =?utf-8?B?VU8zYlZyU2pUT0FhbklpLzJtUDdHekU3d3JIVVBCaDc5cHIwbytySGdxSUZ4?=
+ =?utf-8?B?UzFpaDYwUGdDZktpMnhpWSt2VFVJcnpoUFR3N3BLYXozczBKM2NKc1dka2I5?=
+ =?utf-8?B?TCtKZGJYZW4yNm01dkxvOHdpOWVhaW1xdGl5eGdCTVZ2Y0xSR0lLYlh6VE1z?=
+ =?utf-8?B?VXNuNEQxSDZsNFl3M1lBcllQaFNNbjdiMnF0M0piS05XV1FXOGxQWFJPa1Rr?=
+ =?utf-8?B?UjhFZk03UFZzSTJMWmJmSldqK0J1cEdHMW0yL1BUL0tHT1RIZVFRRTZERlBu?=
+ =?utf-8?B?cEtPMkliSEtLY0M3M3lYRzF0UUI3dWJFMG5RMFN2SUZ6KytIbW52OEdDdk9M?=
+ =?utf-8?B?TW1BU2tXT0I3dHd3VVpvWWZzR0xWamg2MHBVczBqUFVQYWhwaXBXdkNNbHYx?=
+ =?utf-8?B?dWIxRXQwYXpLQ09KMW9YRjdDNllLV0dGM0d3Wkc1UmN4c0RnaDVaTExZcFk0?=
+ =?utf-8?B?UUVvcDVsRm82akZodmdYcXRVT3NuRjJOTEVxQ1VHMi9uZUtpUzJVTTJrcXdh?=
+ =?utf-8?B?VXRUS1ZmeGh5NE90SG5RTEt0djZKa2pUZHp3OUZvWnY0SkUwK1dPRFRXc0pL?=
+ =?utf-8?B?a2VqQlc1aWF6a0xjRTR1cm1WcTh0cHZFOGxkUnp1U3NJR2pzQjZheXY1TjRP?=
+ =?utf-8?B?aDU1TWJ5ZmltSDZJWkZnOXF4M2dwUEZYMVpKL2ZzNlZQc1cvUEl3aVdKUUc1?=
+ =?utf-8?B?Q2NBWE9TOE4xUUNYUVgyTkFFU2hsQ1ZOam1UVjl6MThPYmR1cThlZks1REVz?=
+ =?utf-8?B?SXYyM3V1NHd5R1N4dnNXWXJ3amxXMlFiMnpKNlkzdzRpbU1BUTVVK2h5OG12?=
+ =?utf-8?B?SHE2NmxkRnFCU2JnVkhlRVZ1dEFnK0N5ZTFuVDVmR3AwM2kyQjVWWWJnL1BR?=
+ =?utf-8?B?dEo3RHl2V1VpQnFSTnlYcmhDOWY1RHc5N1p2bE91azVxTnBMYmwvR2pZcUUy?=
+ =?utf-8?B?NzZpMG01QUc4Vy8wMlI4VTRzcXJiRE9mZUpwYm0xekl2cllPOHBLVTNPaDdt?=
+ =?utf-8?B?aUtWdlF6VzRHczV4b3hWc05NL1A1NGJMZnhpOG5ySitEVHAySkgxZlAvcitJ?=
+ =?utf-8?B?cDFzYWlMZG4yMHJtQWlKUnQ4T2ltR2c1VUtOT2l3dHFHb0VXSWpzOVZLOThN?=
+ =?utf-8?B?Q1dnMFEwVGZZemZUa0twSGVmN3lvU2ViNW5ZbnpwNSt4WkhMbmhVS0xKU0Qz?=
+ =?utf-8?B?clFqTUlEaDltL296aFd4YmY1bHp4eC90dW1iM3hCVkJIQnpoT0xxVWxtRTUr?=
+ =?utf-8?B?NXlZTnNkZ05KSFhQYW5zQWYzL05LT3ZVUkFDWVIzeWVBUlprMTJ6bTh5ZGp6?=
+ =?utf-8?B?M3ZiVmRVWU9hQ1BwZFZjSmxsLytVTk4vRVdCbXZPemJXZ3grWlh2TVBFcnBy?=
+ =?utf-8?B?T1RyNVdZNTUyWHlWb0crNWJoRTFlc1pSMzhZT1NYaGNJbHZTbjZpaTdTc081?=
+ =?utf-8?B?U2hsR0R5cDRqRjRBTExYclZwU21HaW84SDhQQXAyS2hONVJnaFhiOU43dTNk?=
+ =?utf-8?B?VlhEY1JIR2RKSklTQUpGMVhLTmlMWldjUWFRUnVtbVFSd1R0RXJjc0gvUkx5?=
+ =?utf-8?B?ME5xTmtob1AzRUQxektVRzNhQnI0SHUrbTZwblcvMlVvNGh0TlBIa0kwdEha?=
+ =?utf-8?B?dnpLWDc2b1FWbXFwd25VRkw1MWZHTnlSYWFYSlJ3dkg0V1VHWUQ0NjFYVHUy?=
+ =?utf-8?B?YmQyb2JPTTJBZE00cEtDMTZJNTBxTEZ1WnV6UlZVNVlTUjlzamV0YTY4VWgw?=
+ =?utf-8?B?WnBDU1Z2eTkzdCtFU0txR2JXR0JrUnpaY3BEbEJVZTBwcFE1VFVMZTFvdzhq?=
+ =?utf-8?B?Ulg1VW9HVzlESHhrem9CTzNhdHZhSUczVUNXbEVDZGI2cCtsU2NtbHFnakVT?=
+ =?utf-8?Q?Kbgmbf+ELgIXhwhBFjf9tlcCf?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2022 02:04:24.1393 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d623102a-1fc3-45ab-ffa2-08da6c4faa61
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4664dbb-b980-40bb-f23e-08da6b5f7617
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2763.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2022 21:24:57.6504 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.235];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6679
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7GKNVLwwbOCoWqCgtE2BSiW3jSQmYYdcT4r/t0cGVIA/XrPMSU3eL8W/03fog/1uzqwErYaBK2JXoAw68m7iyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4287
 X-Mailman-Approved-At: Thu, 04 Aug 2022 13:37:57 +0000
-Subject: [Intel-gfx] [PATCH v4 08/10] vfio: Rename user_iova of vfio_dma_rw()
+Subject: Re: [Intel-gfx] [PATCH v2 01/29] ACPI: video: Add
+ acpi_video_backlight_use_native() helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,68 +141,165 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, jchrist@linux.ibm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- terrence.xu@intel.com, intel-gvt-dev@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Len Brown <lenb@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Following the updated vfio_pin/unpin_pages(), use the simpler "iova".
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Tested-by: Terrence Xu <terrence.xu@intel.com>
-Tested-by: Eric Farman <farman@linux.ibm.com>
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
----
- drivers/vfio/vfio.c  | 6 +++---
- include/linux/vfio.h | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+On 7/12/22 14:38, Hans de Goede wrote:
+> ATM on x86 laptops where we want userspace to use the acpi_video backlight
+> device we often register both the GPU's native backlight device and
+> acpi_video's firmware acpi_video# backlight device. This relies on
+> userspace preferring firmware type backlight devices over native ones, but
+> registering 2 backlight devices for a single display really is undesirable.
+>
+> On x86 laptops where the native GPU backlight device should be used,
+> the registering of other backlight devices is avoided by their drivers
+> using acpi_video_get_backlight_type() and only registering their backlight
+> if the return value matches their type.
+>
+> acpi_video_get_backlight_type() uses
+> backlight_device_get_by_type(BACKLIGHT_RAW) to determine if a native
+> driver is available and will never return native if this returns
+> false. This means that the GPU's native backlight registering code
+> cannot just call acpi_video_get_backlight_type() to determine if it
+> should register its backlight, since acpi_video_get_backlight_type() will
+> never return native until the native backlight has already registered.
+>
+> To fix this add a new internal native function parameter to
+> acpi_video_get_backlight_type(), which when set to true will make
+> acpi_video_get_backlight_type() behave as if a native backlight has
+> already been registered.
+>
+> And add a new acpi_video_backlight_use_native() helper, which sets this
+> to true, for use in native GPU backlight code.
+>
+> Changes in v2:
+> - Replace adding a native parameter to acpi_video_get_backlight_type() with
+>    adding a new acpi_video_backlight_use_native() helper.
+>
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
+>   drivers/acpi/video_detect.c | 24 ++++++++++++++++++++----
+>   include/acpi/video.h        |  5 +++++
+>   2 files changed, 25 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+> index becc198e4c22..4346c990022d 100644
+> --- a/drivers/acpi/video_detect.c
+> +++ b/drivers/acpi/video_detect.c
+> @@ -17,8 +17,9 @@
+>    * Otherwise vendor specific drivers like thinkpad_acpi, asus-laptop,
+>    * sony_acpi,... can take care about backlight brightness.
+>    *
+> - * Backlight drivers can use acpi_video_get_backlight_type() to determine
+> - * which driver should handle the backlight.
+> + * Backlight drivers can use acpi_video_get_backlight_type() to determine which
+> + * driver should handle the backlight. RAW/GPU-driver backlight drivers must
+> + * use the acpi_video_backlight_use_native() helper for this.
+>    *
+>    * If CONFIG_ACPI_VIDEO is neither set as "compiled in" (y) nor as a module (m)
+>    * this file will not be compiled and acpi_video_get_backlight_type() will
+> @@ -548,9 +549,10 @@ static int acpi_video_backlight_notify(struct notifier_block *nb,
+>    * Arguably the native on win8 check should be done first, but that would
+>    * be a behavior change, which may causes issues.
+>    */
+> -enum acpi_backlight_type acpi_video_get_backlight_type(void)
+> +static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+>   {
+>   	static DEFINE_MUTEX(init_mutex);
+> +	static bool native_available;
+>   	static bool init_done;
+>   	static long video_caps;
+>   
+> @@ -570,6 +572,8 @@ enum acpi_backlight_type acpi_video_get_backlight_type(void)
+>   			backlight_notifier_registered = true;
+>   		init_done = true;
+>   	}
+> +	if (native)
+> +		native_available = true;
+>   	mutex_unlock(&init_mutex);
+>   
+>   	if (acpi_backlight_cmdline != acpi_backlight_undef)
+> @@ -581,13 +585,25 @@ enum acpi_backlight_type acpi_video_get_backlight_type(void)
+>   	if (!(video_caps & ACPI_VIDEO_BACKLIGHT))
+>   		return acpi_backlight_vendor;
+>   
+> -	if (acpi_osi_is_win8() && backlight_device_get_by_type(BACKLIGHT_RAW))
+> +	if (acpi_osi_is_win8() &&
+> +	    (native_available || backlight_device_get_by_type(BACKLIGHT_RAW)))
+>   		return acpi_backlight_native;
+>   
+>   	return acpi_backlight_video;
 
-diff --git a/drivers/vfio/vfio.c b/drivers/vfio/vfio.c
-index ffd1a492eea9..606a20b605ba 100644
---- a/drivers/vfio/vfio.c
-+++ b/drivers/vfio/vfio.c
-@@ -2012,13 +2012,13 @@ EXPORT_SYMBOL(vfio_unpin_pages);
-  * not a real device DMA, it is not necessary to pin the user space memory.
-  *
-  * @device [in]		: VFIO device
-- * @user_iova [in]	: base IOVA of a user space buffer
-+ * @iova [in]		: base IOVA of a user space buffer
-  * @data [in]		: pointer to kernel buffer
-  * @len [in]		: kernel buffer length
-  * @write		: indicate read or write
-  * Return error code on failure or 0 on success.
-  */
--int vfio_dma_rw(struct vfio_device *device, dma_addr_t user_iova, void *data,
-+int vfio_dma_rw(struct vfio_device *device, dma_addr_t iova, void *data,
- 		size_t len, bool write)
- {
- 	struct vfio_container *container;
-@@ -2034,7 +2034,7 @@ int vfio_dma_rw(struct vfio_device *device, dma_addr_t user_iova, void *data,
- 
- 	if (likely(driver && driver->ops->dma_rw))
- 		ret = driver->ops->dma_rw(container->iommu_data,
--					  user_iova, data, len, write);
-+					  iova, data, len, write);
- 	else
- 		ret = -ENOTTY;
- 	return ret;
-diff --git a/include/linux/vfio.h b/include/linux/vfio.h
-index 9e3b6abcf890..acefd663e63b 100644
---- a/include/linux/vfio.h
-+++ b/include/linux/vfio.h
-@@ -164,7 +164,7 @@ bool vfio_file_has_dev(struct file *file, struct vfio_device *device);
- int vfio_pin_pages(struct vfio_device *device, dma_addr_t iova,
- 		   int npage, int prot, unsigned long *phys_pfn);
- void vfio_unpin_pages(struct vfio_device *device, dma_addr_t iova, int npage);
--int vfio_dma_rw(struct vfio_device *device, dma_addr_t user_iova,
-+int vfio_dma_rw(struct vfio_device *device, dma_addr_t iova,
- 		void *data, size_t len, bool write);
- 
- /*
--- 
-2.17.1
 
+So I ran into a minor problem when testing the NVIDIA proprietary driver 
+against this change set, after checking 
+acpi_video_backlight_use_native() before registering the NVIDIA 
+proprietary driver's backlight handler. Namely, for the case where a 
+user installs the NVIDIA proprietary driver after the video.ko has 
+already registered its backlight handler, we end up with both the 
+firmware and native handlers registered simultaneously, since the ACPI 
+video driver no longer unregisters its backlight handler. In this state, 
+desktop environments end up preferring the registered but non-functional 
+firmware handler from video.ko. (Manually twiddling the sysfs interface 
+for the native NVIDIA handler works fine.) When rebooting the system 
+after installing the NVIDIA proprietary driver, it is able to register 
+its native handler before the delayed work to register the ACPI video 
+backlight handler fires, so we end up with only one (native) handler, 
+and userspace is happy.
+
+Maybe this will be moot later on, when the existing sysfs interface is 
+deprecated, and it probably isn't a huge deal, since a reboot fixes 
+things (I imagine installing an in-tree DRM/KMS driver on an already 
+running kernel isn't really a thing, which is why this isn't a problem 
+with the in-tree drivers), but would it make sense to unregister the 
+ACPI video backlight handler here before returning 
+acpi_backlight_native? That way, we'll briefly end up with zero 
+backlight handlers rather than briefly ending up with two of them. Not 
+sure if that's really any better, though.
+
+
+>   }
+> +
+> +enum acpi_backlight_type acpi_video_get_backlight_type(void)
+> +{
+> +	return __acpi_video_get_backlight_type(false);
+> +}
+>   EXPORT_SYMBOL(acpi_video_get_backlight_type);
+>   
+> +bool acpi_video_backlight_use_native(void)
+> +{
+> +	return __acpi_video_get_backlight_type(true) == acpi_backlight_native;
+> +}
+> +EXPORT_SYMBOL(acpi_video_backlight_use_native);
+> +
+>   /*
+>    * Set the preferred backlight interface type based on DMI info.
+>    * This function allows DMI blacklists to be implemented by external
+> diff --git a/include/acpi/video.h b/include/acpi/video.h
+> index db8548ff03ce..4705e339c252 100644
+> --- a/include/acpi/video.h
+> +++ b/include/acpi/video.h
+> @@ -56,6 +56,7 @@ extern void acpi_video_unregister(void);
+>   extern int acpi_video_get_edid(struct acpi_device *device, int type,
+>   			       int device_id, void **edid);
+>   extern enum acpi_backlight_type acpi_video_get_backlight_type(void);
+> +extern bool acpi_video_backlight_use_native(void);
+>   extern void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type);
+>   /*
+>    * Note: The value returned by acpi_video_handles_brightness_key_presses()
+> @@ -77,6 +78,10 @@ static inline enum acpi_backlight_type acpi_video_get_backlight_type(void)
+>   {
+>   	return acpi_backlight_vendor;
+>   }
+> +static inline bool acpi_video_backlight_use_native(void)
+> +{
+> +	return true;
+> +}
+>   static inline void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type)
+>   {
+>   }
