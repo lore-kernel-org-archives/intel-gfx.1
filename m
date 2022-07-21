@@ -4,104 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E70FC19F2B
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:38:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBCC5C19F2A
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:38:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84BDB98B93;
-	Thu,  4 Aug 2022 13:38:08 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2054.outbound.protection.outlook.com [40.107.95.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68E8792C61;
- Sat, 23 Jul 2022 02:04:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BzL4gafJK8lIXLnkW1kJLy5ETaOkbmz4DmvUM4+3wrjwS5S8x0iuhrY3Pmq8SYvxO9XtDYIXKz+jWGTTGwd3UwjBgCSZgs0rD4+csiItqTgyL4z8WIgoJa4agwV8wzcdLzvtkIRO36xiBcQ8b7vzU6TsmeFp7crzz4dGKe4laOS9pbEtU4/hXLGPwJfMGPK1k0wfyzEyHiAFU2e0mj+GqfQ1SUMkI+SpID8cyqzfYvv5R4zav6bDou5pRjQmUyxPLOQ1Bt4wSQaAE88AMgtEP54NHBlj5UjQsjxxCNsJ7W7typlMQCC/QUoGPe+ecZGPelb+XuVqb4kNgKGp+5aPUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XYGLl2xarAtEzZfa2ZaHDrupakUeBSyblRP8+JbV6hM=;
- b=JDMBaiGE7TWjtzcRR9zj1JDslsU9qsw6HFAeK3Rp7g+ZQxhoYKe58OZxqtWjWCANdmMA3DIsCdkK6q0KNjqUqizcVkClq6VVNoWOAw1xIWfri5c+xHFKKTwYHc1NMqRn6sINWvFnN5iVLEHrc6isfsdxf8jriCOsOWJqObUglwMuu1COYL9MPCpSZqfg9OVxAL1NSA3tNC1Ba0ZizKz8EfNP/oYlJlPshW129NCPTRjkXj0Mzx89hNvqLQzBd1uN0OHQjJUzR2U7d/m8rRnaIRzDGiVeEXMWX/KujhfmQ2SPHIvBJWFfQCZzUbPtOwpe8kyRudxrq3E2NAJhpcz90A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.236) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XYGLl2xarAtEzZfa2ZaHDrupakUeBSyblRP8+JbV6hM=;
- b=MqL8dKeM6SB94VmE2NmdS3g/teiRDxqJIym6YOuzYySKVQWIKDKJVWhudfeufVMrzdVd0TV3f+5HLlcL1ehBQGkiYyskLmefMfnFYIjy0bmAp0/xQ96ES5pH85ULt4ET0KzkUOfPpMGydQXSNtHQ7tqoCmtmLjELgawKKAGcjYGnKsq/scfDbHGRnrLBFfJpAct4XozBPgX3U+y72FVUYAGlVEnzddoRlLnV27cwtjZcIIKd0v1kIrb8cJFyhcGkvThg5WuoLVFuNSP3z59SwAji+TmqGYnL76S40RxlLBnJpOtiwfs6qmkv5djW/6mTThcvyIvQkrejU49LhEt2ww==
-Received: from DS7PR03CA0282.namprd03.prod.outlook.com (2603:10b6:5:3ad::17)
- by DM6PR12MB3388.namprd12.prod.outlook.com (2603:10b6:5:11b::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.19; Sat, 23 Jul
- 2022 02:04:13 +0000
-Received: from DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3ad:cafe::66) by DS7PR03CA0282.outlook.office365.com
- (2603:10b6:5:3ad::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.19 via Frontend
- Transport; Sat, 23 Jul 2022 02:04:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.236)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.236 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.236; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (12.22.5.236) by
- DM6NAM11FT033.mail.protection.outlook.com (10.13.172.221) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.5458.17 via Frontend Transport; Sat, 23 Jul 2022 02:04:13 +0000
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- DRHQMAIL109.nvidia.com (10.27.9.19) with Microsoft SMTP Server (TLS) id
- 15.0.1497.32; Sat, 23 Jul 2022 02:04:12 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.26; Fri, 22 Jul 2022 19:04:12 -0700
-Received: from Asurada-Nvidia.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.986.26 via Frontend
- Transport; Fri, 22 Jul 2022 19:04:11 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: <kwankhede@nvidia.com>, <corbet@lwn.net>, <hca@linux.ibm.com>,
- <gor@linux.ibm.com>, <agordeev@linux.ibm.com>, <borntraeger@linux.ibm.com>,
- <svens@linux.ibm.com>, <zhenyuw@linux.intel.com>, <zhi.a.wang@intel.com>,
- <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <tvrtko.ursulin@linux.intel.com>,
- <airlied@linux.ie>, <daniel@ffwll.ch>, <farman@linux.ibm.com>,
- <mjrosato@linux.ibm.com>, <pasic@linux.ibm.com>, <vneethv@linux.ibm.com>,
- <oberpar@linux.ibm.com>, <freude@linux.ibm.com>, <akrowiak@linux.ibm.com>,
- <jjherne@linux.ibm.com>, <alex.williamson@redhat.com>, <cohuck@redhat.com>,
- <jgg@nvidia.com>, <kevin.tian@intel.com>, <hch@infradead.org>
-Date: Fri, 22 Jul 2022 19:02:48 -0700
-Message-ID: <20220723020256.30081-3-nicolinc@nvidia.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220723020256.30081-1-nicolinc@nvidia.com>
-References: <20220723020256.30081-1-nicolinc@nvidia.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cdda2033-e12f-44fa-962d-08da6c4fa3ee
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3388:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qdNedtXhXkMhsZxYq11bTHzD0t/gRlMVrcsjGaBhMUUZg4ItqGC54M7GBcA2A4ieqO9cKQ9YjpFgCcwUCLShGgqZHyYdDE3F9axgkctt26cAK6HddDjLs5hF7JXkJEH5naJ4ONcvNv8BHiXbsMRlgMCchgqrKt1z9pUR8IY7QyPvTZHjTmJ0K71eXAH4SA+hvLuMjjpbMmZxo81axy5GKEA3JcE+C3XLTXkKGo+4N7gUU7ViiiAf2t3aAQC+hiaN0ZFRxzQXqF9BAJswzxW01mBtETzdT9gcLHYNlf6k0d88bKuxd9Px5HYHUrgSdObFOA/UqNWBfihGbGX6MMExd4OUG6kCYaGr8eI65P3PYO3YHObnSyeH/5qnQpPP+N+Ya+E7pHYMfAe+ZSTArwFA2BEBM8BFWL2Yg0yY1hFTeb6yK9/BHea95iIWzrEtfyVMvbzULHsFWK2emsKoUjwoqP1m6j90f4lYxTdtNz42Pm1At/4f6j6+XcvtXB75NolzxJdOonN5vlZf/nVKXnGrCr0v/HofUpYaJssH1VPMHUnN9iWafeGmk3SBp4+veTVHMiZgXGi7JJLh0VyPBTQLgYerbQGUiS+bQ1pbGCWBqCIYOoHNKGjDtoSoG6+iipZxKJaFy+yKnpsuNXJtei7PwhiePFTUR0ulZDhuqCstma1/TXoKcCH93vB10REyoWB6sIj1GuQOAD68fa5Q/FUoR8yRG8cjZ/EOiCZ8CDoaY5tQK60GrjMMYSferJpOOqzBLvgzmIwZfirus1qzrm55DQNFWWnzlKaFVXGcMze0APzEURvSDFAJ7Yl1bSEi73evWpS14YHzonoSvRU8/5IUFLmP0ppe24J+SmpXZfi6UE8uwbBwt/glAbWFxd1VZJCcSLdupT0wWc4bYtAm/HTREw==
-X-Forefront-Antispam-Report: CIP:12.22.5.236; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230016)(4636009)(39860400002)(136003)(346002)(396003)(376002)(46966006)(40470700004)(36840700001)(6666004)(41300700001)(47076005)(336012)(1076003)(426003)(478600001)(40480700001)(82310400005)(83380400001)(2616005)(36860700001)(7696005)(36756003)(5660300002)(8936002)(110136005)(2906002)(26005)(54906003)(316002)(186003)(356005)(81166007)(86362001)(70586007)(82740400003)(70206006)(40460700003)(921005)(7406005)(7416002)(4326008)(8676002)(36900700001)(83996005)(2101003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2022 02:04:13.3791 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cdda2033-e12f-44fa-962d-08da6c4fa3ee
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.236];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3388
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9923698BD3;
+	Thu,  4 Aug 2022 13:38:09 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7E7D10E2E6;
+ Thu, 21 Jul 2022 16:01:59 +0000 (UTC)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26LFhinO024568;
+ Thu, 21 Jul 2022 16:01:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : subject :
+ from : to : cc : date : in-reply-to : references : content-type :
+ mime-version : content-transfer-encoding; s=pp1;
+ bh=TaPE8p4zRacJwxm8CjbGhlNhxea5fkhzEN8EU5aQYyE=;
+ b=cBmM9Eqp4ZQsP2j0tXMM8GUwxATdykM3MV9wR/h9f64IG0oaQrLqvK/SmrUNMRuqMh7H
+ dWK0um6oD73AIPzzyFLZ3Y8OvWVl1U3IQbTxzb99SAGO8Fk1MN+hjgrraqjmeu7JKo2Q
+ NBOtHVA9pRF4xIV89WDY1cIIIGurnoDBDH3Py/tI5eTB/QCcF/a+TLkbiwAYg3ZR+2AP
+ E4oL+Z7WDVL0ayz0OdKz/TSqp/7hUej6Sr+vvuKX13WVJXBRPgYlmDlr7eWIquXPGi6y
+ aN1TBqAh3FVx+ROukA0r2dpf6ZYvT+02Pjdbij0PQCvh0OJ0/YeQZc+QyAo/2llrR2BK GA== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3hf9pp8ghk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Jul 2022 16:01:54 +0000
+Received: from m0098419.ppops.net (m0098419.ppops.net [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 26LFj2Zh029463;
+ Thu, 21 Jul 2022 16:01:53 GMT
+Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
+ [169.63.121.186])
+ by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3hf9pp8gh8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Jul 2022 16:01:53 +0000
+Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
+ by ppma03wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 26LFpggq032003;
+ Thu, 21 Jul 2022 16:01:52 GMT
+Received: from b03cxnp08026.gho.boulder.ibm.com
+ (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
+ by ppma03wdc.us.ibm.com with ESMTP id 3hbmy9gu1d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Jul 2022 16:01:52 +0000
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 26LG1pHj42336690
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 21 Jul 2022 16:01:51 GMT
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 683B26E054;
+ Thu, 21 Jul 2022 16:01:51 +0000 (GMT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D0E3D6E04E;
+ Thu, 21 Jul 2022 16:01:48 +0000 (GMT)
+Received: from farman-thinkpad-t470p (unknown [9.211.146.30])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu, 21 Jul 2022 16:01:48 +0000 (GMT)
+Message-ID: <d4b7abce8ef8646819d32fef57ea51e38cd53f1b.camel@linux.ibm.com>
+From: Eric Farman <farman@linux.ibm.com>
+To: Alex Williamson <alex.williamson@redhat.com>, Jason Gunthorpe
+ <jgg@nvidia.com>
+Date: Thu, 21 Jul 2022 12:01:47 -0400
+In-Reply-To: <20220720170457.39cda0d0.alex.williamson@redhat.com>
+References: <0-v4-681e038e30fd+78-vfio_unmap_notif_jgg@nvidia.com>
+ <1-v4-681e038e30fd+78-vfio_unmap_notif_jgg@nvidia.com>
+ <20220720134113.4225f9d6.alex.williamson@redhat.com>
+ <20220720200829.GW4609@nvidia.com>
+ <20220720170457.39cda0d0.alex.williamson@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5 (3.28.5-18.el8) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: j8vE10XrFQQgyuYkPEtpHYy1GdUqgbS6
+X-Proofpoint-ORIG-GUID: Vz-1MomDKDuiP-p2pkQwTSfVtBTRxQgG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-21_18,2022-07-20_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ adultscore=0 spamscore=0 malwarescore=0 mlxscore=0 lowpriorityscore=0
+ phishscore=0 bulkscore=0 mlxlogscore=999 suspectscore=0 impostorscore=0
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2206140000 definitions=main-2207210061
 X-Mailman-Approved-At: Thu, 04 Aug 2022 13:37:57 +0000
-Subject: [Intel-gfx] [PATCH v4 02/10] drm/i915/gvt: Replace roundup with
- DIV_ROUND_UP
+Subject: Re: [Intel-gfx] [PATCH v4 1/2] vfio: Replace the DMA unmapping
+ notifier with a callback
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,53 +103,112 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, jchrist@linux.ibm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- terrence.xu@intel.com, intel-gvt-dev@lists.freedesktop.org
+Cc: kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Christoph Hellwig <hch@lst.de>,
+ linux-s390@vger.kernel.org, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gvt-dev@lists.freedesktop.org,
+ Jason Herne <jjherne@linux.ibm.com>, Cornelia Huck <cohuck@redhat.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's a bit redundant for the maths here using roundup.
+On Wed, 2022-07-20 at 17:04 -0600, Alex Williamson wrote:
+> On Wed, 20 Jul 2022 17:08:29 -0300
+> Jason Gunthorpe <jgg@nvidia.com> wrote:
+> 
+> > On Wed, Jul 20, 2022 at 01:41:13PM -0600, Alex Williamson wrote:
+> >  
+> > > ie. we don't need the gfn, we only need the iova.  
+> > 
+> > Right, that makes sense
+> >  
+> > > However then I start to wonder why we're passing in 1 for the
+> > > number of
+> > > pages because this previously notifier, now callback is called
+> > > for the
+> > > entire vfio_dma range when we find any pinned pages.    
+> > 
+> > Well, it is doing this because it only ever pins one page.
+> 
+> Of course that page is not necessarily the page it unpins given the
+> contract misunderstanding below.
+>  
+> > The drivers are confused about what the contract is. vfio is
+> > calling
+> > the notifier with the entire IOVA range that is being unmapped and
+> > the
+> > drivers are expecting to receive notifications only for the IOVA
+> > they
+> > have actually pinned.
+> > 
+> > > Should ap and ccw implementations of .dma_unmap just be replaced
+> > > with a
+> > > BUG_ON(1)?  
+> > 
+> > The point of these callbacks is to halt concurrent DMA, and ccw
+> > does
+> > that today.
+> 
+> ccw essentially only checks whether the starting iova of the unmap is
+> currently mapped.  If not it does nothing, if it is it tries to reset
+> the device and unpin everything.  Chances are the first iova is not
+> the
+> one pinned, so we don't end up removing the pinned page and type1
+> will
+> eventually BUG_ON after a few tries.
+> 
+> > It looks like AP is missing a call to ap_aqic(), so it is
+> > probably double wrong.
+> 
+> Thankfully the type1 unpinning path can't be tricked into unpinning
+> something that wasn't pinned, so chances are the unpin call does
+> nothing, with a small risk that it unpins another driver's pinned
+> page,
+> which might not yet have been notified and could still be using the
+> page.  In the end, if ap did have a page pinned in the range, we'll
+> hit
+> the same BUG_ON as above.
+> 
+> > What I'd suggest is adding a WARN_ON that the dma->pfn_list is not
+> > empty and leave these functions alone.
+> 
+> The BUG_ON still exists in type1.
+> 
+> Eric, Matt, Tony, Halil, JasonH, any quick fixes here?  ccw looks
+> like
+> it would be pretty straightforward to test against a range rather
+> than
+> a single iova.
 
-Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-Tested-by: Terrence Xu <terrence.xu@intel.com>
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
----
- drivers/gpu/drm/i915/gvt/kvmgt.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+Agreed, ccw looks pretty easy. Should I send something to go before
+this series to make stable easier? (It's a trivial change in either
+direction, so either is fine to me.)
 
-diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index 4d32a2748958..2fee5695515a 100644
---- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-+++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -231,11 +231,9 @@ static void intel_gvt_cleanup_vgpu_type_groups(struct intel_gvt *gvt)
- static void gvt_unpin_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
- 		unsigned long size)
- {
--	int total_pages;
-+	int total_pages = DIV_ROUND_UP(size, PAGE_SIZE);
- 	int npage;
- 
--	total_pages = roundup(size, PAGE_SIZE) / PAGE_SIZE;
--
- 	for (npage = 0; npage < total_pages; npage++) {
- 		unsigned long cur_gfn = gfn + npage;
- 
-@@ -247,12 +245,11 @@ static void gvt_unpin_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
- static int gvt_pin_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
- 		unsigned long size, struct page **page)
- {
-+	int total_pages = DIV_ROUND_UP(size, PAGE_SIZE);
- 	unsigned long base_pfn = 0;
--	int total_pages;
- 	int npage;
- 	int ret;
- 
--	total_pages = roundup(size, PAGE_SIZE) / PAGE_SIZE;
- 	/*
- 	 * We pin the pages one-by-one to avoid allocating a big arrary
- 	 * on stack to hold pfns.
--- 
-2.17.1
+Eric
+
+>  
+> > Most likely AP should be fixed to call vfio_ap_irq_disable() and to
+> > check the q->saved_pfn against the IOVA.
+> 
+> Right, the q->saved_iova, perhaps calling vfio_ap_irq_disable() on
+> finding a matching queue.
+> 
+> > But I'm inclined to leave this as-is for this series given we are
+> > at
+> > rc7.
+> 
+> On the grounds that it's no worse, maybe, but given the changes
+> around this code hopefully we can submit fixes patches to stable if
+> the
+> backport isn't obvious and the BUG_ON in type1 is reachable.  Thanks,
+> 
+> Alex
+> 
 
