@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F9A4C433EF
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 12:52:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AE3BC43334
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Jul 2022 12:52:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89EB810EAE8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A9FC9018C;
 	Fri, 22 Jul 2022 12:52:17 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE148112F21;
- Fri, 22 Jul 2022 12:52:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07A0D10EAE8;
+ Fri, 22 Jul 2022 12:52:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658494326; x=1690030326;
+ t=1658494332; x=1690030332;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gV1f3pXRyRxJeSX8JRlGkq8JDzLneM6hAGT21tMbo3E=;
- b=micDE4SzcYQ+dorfwKgdUExn/nVC+rCX9fp7mqNY7oBH7r6DHLa3jBhW
- ItOGNRwlv3rIbx3adRgQhE+ZASDm7LYLF0SW+YI/IssaA9kf5fwGXf0ZP
- Es1snVmH85TLuRymWHUz3fghWJxML5dE1d2lQgmsAiaSAWqnWLaVdle9e
- qvEIEwxygMtBBTp1OMkBVFivHTCr+T2hep5sCb9noHxJM0Wbxr/opwa/a
- kf41GA//OmSQPeg0fMjTFfOkpaBwXtVxFEr1YHlwl/5Ja02x/Hw87OXm8
- ZPEg5c1YeXpZv1xj5cqRrclLVs/ITM34yiVIvriyzNTOYDi1aKyjucIe3 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10415"; a="288061173"
-X-IronPort-AV: E=Sophos;i="5.93,185,1654585200"; d="scan'208";a="288061173"
+ bh=BOmXzertM2j/5vD9o/un378VqgQtNa8qsUztsPD0aoI=;
+ b=C1pNgRQU++30IX6pO4cFUfOCU6Zk5G9xyxnK2F9uM6xxo55RUO97Ct0V
+ OwBE5PCBvIYpWPa/tf+gMnEdU4ndas4iVO8KOOc5/lc14CzbR+Qhyxedq
+ alKUE87WvUhkTGeh52MmaiQtCXmWQsF+T+NK/tRiOqUKfi6J4NkL5j6TC
+ HZISsuU92YWQSZ5aOq8DQHSGRZUgbssiBN56FPV/ayKTIaf9Nf/ftYaW3
+ GquM0Zll2Y9hfPHizzdrzjoxZKSJkm+OOFbI7gcgN0v6HO4/OWLsAxH2S
+ hkoNp0zV+SsWCHBVNXSKCZaCBT+1rqju8zysiJCBN+GiGpJruf5dqJxvU A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10415"; a="288061206"
+X-IronPort-AV: E=Sophos;i="5.93,185,1654585200"; d="scan'208";a="288061206"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2022 05:52:06 -0700
-X-IronPort-AV: E=Sophos;i="5.93,185,1654585200"; d="scan'208";a="626550944"
+ 22 Jul 2022 05:52:11 -0700
+X-IronPort-AV: E=Sophos;i="5.93,185,1654585200"; d="scan'208";a="626550977"
 Received: from lab-ah.igk.intel.com ([10.91.215.196])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2022 05:52:04 -0700
+ 22 Jul 2022 05:52:09 -0700
 From: Andrzej Hajda <andrzej.hajda@intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Arun R Murthy <arun.r.murthy@intel.com>
-Date: Fri, 22 Jul 2022 14:51:41 +0200
-Message-Id: <20220722125143.1604709-3-andrzej.hajda@intel.com>
+Date: Fri, 22 Jul 2022 14:51:43 +0200
+Message-Id: <20220722125143.1604709-5-andrzej.hajda@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220722125143.1604709-1-andrzej.hajda@intel.com>
 References: <20220722125143.1604709-1-andrzej.hajda@intel.com>
@@ -46,8 +46,8 @@ MIME-Version: 1.0
 Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
  80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 2/4] drm/i915/fbdev: suspend HPD before fbdev
- unregistration
+Subject: [Intel-gfx] [PATCH v6 4/4] drm/i915/fbdev: do not create fbdev if
+ HPD is suspended
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +65,31 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-HPD event after fbdev unregistration can cause registration of deferred
-fbdev which will not be unregistered later, causing use-after-free.
-To avoid it HPD handling should be suspended before fbdev unregistration.
+In case of deferred FB setup core can try to create new
+framebuffer. Disallow it if hpd_suspended flag is set.
 
-It should fix following GPF:
-[272.634530] general protection fault, probably for non-canonical address 0x6b6b6b6b6b6b6b6b: 0000 [#1] PREEMPT SMP NOPTI
-[272.634536] CPU: 0 PID: 6030 Comm: i915_selftest Tainted: G     U            5.18.0-rc5-CI_DRM_11603-g12dccf4f5eef+ #1
-[272.634541] Hardware name: Intel Corporation Raptor Lake Client Platform/RPL-S ADP-S DDR5 UDIMM CRB, BIOS RPLSFWI1.R00.2397.A01.2109300731 09/30/2021
-[272.634545] RIP: 0010:fb_do_apertures_overlap.part.14+0x26/0x60
-...
-[272.634582] Call Trace:
-[272.634583]  <TASK>
-[272.634585]  do_remove_conflicting_framebuffers+0x59/0xa0
-[272.634589]  remove_conflicting_framebuffers+0x2d/0xc0
-[272.634592]  remove_conflicting_pci_framebuffers+0xc8/0x110
-[272.634595]  drm_aperture_remove_conflicting_pci_framebuffers+0x52/0x70
-[272.634604]  i915_driver_probe+0x63a/0xdd0 [i915]
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/5329
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/5510
 Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbdev.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 221336178991f0..94ddc0f34fde64 100644
+index 94ddc0f34fde64..fb8dbd532b9e05 100644
 --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
 +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -573,7 +573,8 @@ void intel_fbdev_unregister(struct drm_i915_private *dev_priv)
- 	if (!ifbdev)
- 		return;
+@@ -210,6 +210,12 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 	struct drm_i915_gem_object *obj;
+ 	int ret;
  
--	cancel_work_sync(&dev_priv->fbdev_suspend_work);
-+	intel_fbdev_set_suspend(&dev_priv->drm, FBINFO_STATE_SUSPENDED, true);
++	mutex_lock(&ifbdev->hpd_lock);
++	ret = ifbdev->hpd_suspended ? -EAGAIN : 0;
++	mutex_unlock(&ifbdev->hpd_lock);
++	if (ret)
++		return ret;
 +
- 	if (!current_is_async())
- 		intel_fbdev_sync(ifbdev);
- 
-@@ -618,7 +619,7 @@ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous
- 	struct fb_info *info;
- 
- 	if (!ifbdev || !ifbdev->vma)
--		return;
-+		goto unlock;
- 
- 	info = ifbdev->helper.fbdev;
- 
-@@ -661,6 +662,7 @@ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous
- 	drm_fb_helper_set_suspend(&ifbdev->helper, state);
- 	console_unlock();
- 
-+unlock:
- 	intel_fbdev_hpd_set_suspend(dev_priv, state);
- }
- 
+ 	if (intel_fb &&
+ 	    (sizes->fb_width > intel_fb->base.width ||
+ 	     sizes->fb_height > intel_fb->base.height)) {
 -- 
 2.25.1
 
