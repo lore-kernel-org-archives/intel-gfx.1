@@ -4,66 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35279C19F2B
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:41:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EB60C19F2A
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:41:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FDB398BC1;
-	Thu,  4 Aug 2022 13:39:24 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC4C614AAE1;
- Mon, 25 Jul 2022 15:21:03 +0000 (UTC)
-Received: from dimapc.. (109-252-119-232.nat.spd-mgts.ru [109.252.119.232])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 2E5EC6601B0E;
- Mon, 25 Jul 2022 16:21:00 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1658762462;
- bh=va+2N1U6jZR9UG67k72ODpvUReFCq9AoJW3EC29fAyY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hF7ZR01ny2d7o7bYE+Z5dQKruldBmtrcJcYzRtqjWpjWhPHejJuJ8SbR06SZM2aPy
- PtNrndiN/nQSiU3QbPd3ctnZp4AsfylceLBLgZg1oSvV4c3Zv419RY/B4awMy5ey1W
- JdPdffAe80sYcNuJxp42Aie3X8uYUumDehJZnxPU9KVd3D21F8VXhUQFK+8ZkB1DWc
- KmrEP/xKl94kuJKiRYwnCEIPYClTew820OvW7bvO7YKu8UcodMFHHx5wzl7sk4al/K
- i0Wxa4jPFMqEzxfcD4BoG6SAy54UxKHYee5eOgxPvwHkUvoNdjeuL8fEHON/BKLhvt
- 80xKjVSm5X6kA==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>
-Date: Mon, 25 Jul 2022 18:18:39 +0300
-Message-Id: <20220725151839.31622-6-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
-References: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4C1398BF6;
+	Thu,  4 Aug 2022 13:39:30 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2076.outbound.protection.outlook.com [40.107.220.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E36292E8E;
+ Sat, 23 Jul 2022 02:04:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jbKTedd5kN4m7b+pZeNhvTHKXlXj4IZu9F8qAfIVBxsSO1hTfTNEAH20+ttMArFgTQ/VIwWym8T1Z8x8zZhApcBC4kac0Qfi0qEKtwCMy1ZyCnoKNu8kkImmyHqqhiFEaHEk19T9XcaXmqE5xU4P+1OrXmXrF/QYWdMBoH2Y0eZiyRlb6qqWvROROIUFRlcphlXAi51qpfsFRrdvZb4Ookszjb57hi5hlWrlXalF1w/Rvs61qfc5oFYRj4y4YCOCLgCyuRL4RWMFfkfaCS0n07S1/FO6JdbIS813+t0nFT/pMvEt8t/8i/xr9gJKOgZ2iMMMnXluButktHu6GgsNTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iNhJaDERNaeZNaiarqKaIGTiwrrjSzADzEYwD4oQDmg=;
+ b=SilDli/NwlgxWro2Vk7VcunXveFE2ni51vFBSvj5x2eHpIe42C5NBhg47bYoMMzibx1xt4rHLDHxX1pI8l/q7vtBgcExUzurHbIPtaJholOl/eSUnezhlaYq+HWzIjIQSUFpUTo8QX0mCkEQjLtkQGQA+w346Q7eWsOl8K7LQsg8Lbq4y0oHad7ZLfVuBhFzzGCnb0RB+2kyq9lesQphU0BY2bfsYYTHLTR0iMsnejChyIuOchkfW2AwbIFJkoH40MViouArxvVpRLzKcvTHtZFC6sl/X7GqETwNF0ZA1UBdMlu7K0eDuYQLnv5asa22++reZUYjA7ARf6y/ft4lrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 12.22.5.234) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iNhJaDERNaeZNaiarqKaIGTiwrrjSzADzEYwD4oQDmg=;
+ b=QDGUs8rxWYjPqSOe67W15uHpmtcMEMdMFHxVR8OKYLjXOu8wy7iNZeCwIapsxlEEJKEXv1xAECFCShHX/xfYs+aoDq8Wqv8ae9ugstB/fp44aSuy9C0jUI9Mtgj//V0jk98deOhnE4KKYjMxldi1R2gDkk4Ubm9VeHOSqTtputTO2y3v3iZ+3fZfFBND8TVTjYUxnzl5w8iwRVBEuBOfWz1TY1whoMoWCkGth724Kmk15f8aC1dnB6CMk30+Z8aHdyO10v0bu8JCbKSMO9orta2494y5i6UpcfRBP3totN/NKx6a+ZTq63jRjFS15I9MKfooova/Ek+04uwQAJDekw==
+Received: from BN8PR07CA0010.namprd07.prod.outlook.com (2603:10b6:408:ac::23)
+ by MN0PR12MB6080.namprd12.prod.outlook.com (2603:10b6:208:3c8::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Sat, 23 Jul
+ 2022 02:04:22 +0000
+Received: from BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ac:cafe::93) by BN8PR07CA0010.outlook.office365.com
+ (2603:10b6:408:ac::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.20 via Frontend
+ Transport; Sat, 23 Jul 2022 02:04:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.234)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 12.22.5.234 as permitted sender) receiver=protection.outlook.com;
+ client-ip=12.22.5.234; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (12.22.5.234) by
+ BN8NAM11FT018.mail.protection.outlook.com (10.13.176.89) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.5458.17 via Frontend Transport; Sat, 23 Jul 2022 02:04:22 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ DRHQMAIL101.nvidia.com (10.27.9.10) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.32; Sat, 23 Jul 2022 02:04:21 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.26; Fri, 22 Jul 2022 19:04:21 -0700
+Received: from Asurada-Nvidia.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server id 15.2.986.26 via Frontend
+ Transport; Fri, 22 Jul 2022 19:04:20 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: <kwankhede@nvidia.com>, <corbet@lwn.net>, <hca@linux.ibm.com>,
+ <gor@linux.ibm.com>, <agordeev@linux.ibm.com>, <borntraeger@linux.ibm.com>,
+ <svens@linux.ibm.com>, <zhenyuw@linux.intel.com>, <zhi.a.wang@intel.com>,
+ <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <tvrtko.ursulin@linux.intel.com>,
+ <airlied@linux.ie>, <daniel@ffwll.ch>, <farman@linux.ibm.com>,
+ <mjrosato@linux.ibm.com>, <pasic@linux.ibm.com>, <vneethv@linux.ibm.com>,
+ <oberpar@linux.ibm.com>, <freude@linux.ibm.com>, <akrowiak@linux.ibm.com>,
+ <jjherne@linux.ibm.com>, <alex.williamson@redhat.com>, <cohuck@redhat.com>,
+ <jgg@nvidia.com>, <kevin.tian@intel.com>, <hch@infradead.org>
+Date: Fri, 22 Jul 2022 19:02:53 -0700
+Message-ID: <20220723020256.30081-8-nicolinc@nvidia.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220723020256.30081-1-nicolinc@nvidia.com>
+References: <20220723020256.30081-1-nicolinc@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 844347d8-d46f-490a-29f4-08da6c4fa972
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6080:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: awsZ7OO3VuXIc0X735dPek7FvyiwhVlN1kIuBl3eZb10fuAaLXXfgCiqPy7iGhUYGWKSgFwkjnR5aZxkZ/bCmlKXOJDB71iQsNSCcbw+jLNSbZP+DF/gRCnauDeo6grup7MPlqkMg96Ci424UR7N4rWlQuqOpn2+JihGKqNCg+aqZlLpDdxYP1G9styGUD/Wk3B3+ToUig9lGqySTsJwIAu2MlpP8RAq+5kAZnrtJdYTb6QIvpbaCmt8MkipOePaBt8k2IgAPPVXKIDVrKxS1vngfYnD7Ql3zQ2yQOwWkUCsG0CVo6b+wCZxp2BoGKLGE1mC11ZVC0Eskf2KFztfQihYCAzZ66D5yueS/ZzDDaNGcKQq2flvj+njXUrtO99+RsfzFB+YAWqkjd6H8KHEMMq+5RrNzLOmcYD1CZMbQ9no7aFjjZYtXIXQeKpFK3QRFk9nJgoUeCLqM8yuctSjAQ3mMsFuMsGQVYV8T7DAp7SWlb+5IaoQWc2EXGFfNmA6nTkTllTK0wdzs9LAg2wVMbBaeExDDK1ngoDPQ7Ijccl8R8p8F70WMZRq5/A+PClhyal4d6iPDUbUYkT7SJNBe6vGPuK8LCTpM7V/N/L1bKXeSRRJhy0cGrT/1dmy085oB08EKAS2kqQZsEQ/eTsaID7Mrmw0qNpGw4uZs+AgiTD1XXCofrUL+qXS4Lv1X1GbV1AjKJLQKgf7YQJLgE8Q8GOMBgRGOiNGsB1SXkbIFWJw40iLoLAo1F4vAODuPTXLPmbkVURpjSBjC8z/nL+peCG0b3u38F0pWLV9fZwN2h1cnj6u5NGZgxyeirdbUWvJq31GnTAKJjF4kucgHGwFJxWejwD4P0m7WOpDazcevANvc503ZPXPvuaGWJZDFUK+Iv2NZpo+66poB/gzGZgelQ==
+X-Forefront-Antispam-Report: CIP:12.22.5.234; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(396003)(376002)(39860400002)(136003)(46966006)(36840700001)(40470700004)(83380400001)(921005)(7696005)(82310400005)(186003)(36756003)(40460700003)(82740400003)(81166007)(54906003)(316002)(36860700001)(8676002)(110136005)(4326008)(70586007)(70206006)(356005)(8936002)(86362001)(2616005)(478600001)(5660300002)(426003)(7406005)(30864003)(26005)(41300700001)(7416002)(1076003)(47076005)(336012)(2906002)(6666004)(40480700001)(36900700001)(83996005)(2101003);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2022 02:04:22.4894 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 844347d8-d46f-490a-29f4-08da6c4fa972
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.234];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6080
 X-Mailman-Approved-At: Thu, 04 Aug 2022 13:37:57 +0000
-Subject: [Intel-gfx] [PATCH v2 5/5] dma-buf: Remove internal lock
+Subject: [Intel-gfx] [PATCH v4 07/10] vfio/ccw: Change pa_pfn list to
+ pa_iova list
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,89 +114,372 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, jchrist@linux.ibm.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ terrence.xu@intel.com, intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The internal dma-buf lock isn't needed anymore because the updated
-locking specification claims that dma-buf reservation must be locked
-by importers, and thus, the internal data is already protected by the
-reservation lock. Remove the obsoleted internal lock.
+The vfio_ccw_cp code maintains both iova and its PFN list because the
+vfio_pin/unpin_pages API wanted pfn list. Since vfio_pin/unpin_pages()
+now accept "iova", change to maintain only pa_iova list and rename all
+"pfn_array" strings to "page_array", so as to simplify the code.
 
-Acked-by: Tomasz Figa <tfiga@chromium.org>
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Eric Farman <farman@linux.ibm.com>
+Tested-by: Eric Farman <farman@linux.ibm.com>
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 ---
- drivers/dma-buf/dma-buf.c | 5 -----
- include/linux/dma-buf.h   | 9 ---------
- 2 files changed, 14 deletions(-)
+ drivers/s390/cio/vfio_ccw_cp.c | 135 ++++++++++++++++-----------------
+ 1 file changed, 64 insertions(+), 71 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index bfdd551c7571..1d211ab400a1 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -656,7 +656,6 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+diff --git a/drivers/s390/cio/vfio_ccw_cp.c b/drivers/s390/cio/vfio_ccw_cp.c
+index a739262f988d..3854c3d573f5 100644
+--- a/drivers/s390/cio/vfio_ccw_cp.c
++++ b/drivers/s390/cio/vfio_ccw_cp.c
+@@ -18,11 +18,9 @@
+ #include "vfio_ccw_cp.h"
+ #include "vfio_ccw_private.h"
  
- 	dmabuf->file = file;
+-struct pfn_array {
+-	/* Starting guest physical I/O address. */
+-	unsigned long		pa_iova;
+-	/* Array that stores PFNs of the pages need to pin. */
+-	unsigned long		*pa_iova_pfn;
++struct page_array {
++	/* Array that stores pages need to pin. */
++	dma_addr_t		*pa_iova;
+ 	/* Array that receives PFNs of the pages pinned. */
+ 	unsigned long		*pa_pfn;
+ 	/* Number of pages pinned from @pa_iova. */
+@@ -37,53 +35,50 @@ struct ccwchain {
+ 	/* Count of the valid ccws in chain. */
+ 	int			ch_len;
+ 	/* Pinned PAGEs for the original data. */
+-	struct pfn_array	*ch_pa;
++	struct page_array	*ch_pa;
+ };
  
--	mutex_init(&dmabuf->lock);
- 	INIT_LIST_HEAD(&dmabuf->attachments);
+ /*
+- * pfn_array_alloc() - alloc memory for PFNs
+- * @pa: pfn_array on which to perform the operation
++ * page_array_alloc() - alloc memory for page array
++ * @pa: page_array on which to perform the operation
+  * @iova: target guest physical address
+  * @len: number of bytes that should be pinned from @iova
+  *
+- * Attempt to allocate memory for PFNs.
++ * Attempt to allocate memory for page array.
+  *
+- * Usage of pfn_array:
+- * We expect (pa_nr == 0) and (pa_iova_pfn == NULL), any field in
++ * Usage of page_array:
++ * We expect (pa_nr == 0) and (pa_iova == NULL), any field in
+  * this structure will be filled in by this function.
+  *
+  * Returns:
+- *         0 if PFNs are allocated
+- *   -EINVAL if pa->pa_nr is not initially zero, or pa->pa_iova_pfn is not NULL
++ *         0 if page array is allocated
++ *   -EINVAL if pa->pa_nr is not initially zero, or pa->pa_iova is not NULL
+  *   -ENOMEM if alloc failed
+  */
+-static int pfn_array_alloc(struct pfn_array *pa, u64 iova, unsigned int len)
++static int page_array_alloc(struct page_array *pa, u64 iova, unsigned int len)
+ {
+ 	int i;
  
- 	mutex_lock(&db_list.lock);
-@@ -1508,7 +1507,6 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
+-	if (pa->pa_nr || pa->pa_iova_pfn)
++	if (pa->pa_nr || pa->pa_iova)
  		return -EINVAL;
  
- 	dma_resv_lock(dmabuf->resv, NULL);
--	mutex_lock(&dmabuf->lock);
- 	if (dmabuf->vmapping_counter) {
- 		dmabuf->vmapping_counter++;
- 		BUG_ON(iosys_map_is_null(&dmabuf->vmap_ptr));
-@@ -1528,7 +1526,6 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	*map = dmabuf->vmap_ptr;
+-	pa->pa_iova = iova;
+-
+ 	pa->pa_nr = ((iova & ~PAGE_MASK) + len + (PAGE_SIZE - 1)) >> PAGE_SHIFT;
+ 	if (!pa->pa_nr)
+ 		return -EINVAL;
  
- out_unlock:
--	mutex_unlock(&dmabuf->lock);
- 	dma_resv_unlock(dmabuf->resv);
+-	pa->pa_iova_pfn = kcalloc(pa->pa_nr,
+-				  sizeof(*pa->pa_iova_pfn) +
+-				  sizeof(*pa->pa_pfn),
+-				  GFP_KERNEL);
+-	if (unlikely(!pa->pa_iova_pfn)) {
++	pa->pa_iova = kcalloc(pa->pa_nr,
++			      sizeof(*pa->pa_iova) + sizeof(*pa->pa_pfn),
++			      GFP_KERNEL);
++	if (unlikely(!pa->pa_iova)) {
+ 		pa->pa_nr = 0;
+ 		return -ENOMEM;
+ 	}
+-	pa->pa_pfn = pa->pa_iova_pfn + pa->pa_nr;
++	pa->pa_pfn = (unsigned long *)&pa->pa_iova[pa->pa_nr];
+ 
+-	pa->pa_iova_pfn[0] = pa->pa_iova >> PAGE_SHIFT;
++	pa->pa_iova[0] = iova;
+ 	pa->pa_pfn[0] = -1ULL;
+ 	for (i = 1; i < pa->pa_nr; i++) {
+-		pa->pa_iova_pfn[i] = pa->pa_iova_pfn[i - 1] + 1;
++		pa->pa_iova[i] = pa->pa_iova[i - 1] + PAGE_SIZE;
+ 		pa->pa_pfn[i] = -1ULL;
+ 	}
+ 
+@@ -91,30 +86,30 @@ static int pfn_array_alloc(struct pfn_array *pa, u64 iova, unsigned int len)
+ }
+ 
+ /*
+- * pfn_array_unpin() - Unpin user pages in memory
+- * @pa: pfn_array on which to perform the operation
++ * page_array_unpin() - Unpin user pages in memory
++ * @pa: page_array on which to perform the operation
+  * @vdev: the vfio device to perform the operation
+  * @pa_nr: number of user pages to unpin
+  *
+  * Only unpin if any pages were pinned to begin with, i.e. pa_nr > 0,
+  * otherwise only clear pa->pa_nr
+  */
+-static void pfn_array_unpin(struct pfn_array *pa,
+-			    struct vfio_device *vdev, int pa_nr)
++static void page_array_unpin(struct page_array *pa,
++			     struct vfio_device *vdev, int pa_nr)
+ {
+ 	int unpinned = 0, npage = 1;
+ 
+ 	while (unpinned < pa_nr) {
+-		unsigned long *first = &pa->pa_iova_pfn[unpinned];
+-		unsigned long *last = &first[npage];
++		dma_addr_t *first = &pa->pa_iova[unpinned];
++		dma_addr_t *last = &first[npage];
+ 
+ 		if (unpinned + npage < pa_nr &&
+-		    *first + npage == *last) {
++		    *first + npage * PAGE_SIZE == *last) {
+ 			npage++;
+ 			continue;
+ 		}
+ 
+-		vfio_unpin_pages(vdev, *first << PAGE_SHIFT, npage);
++		vfio_unpin_pages(vdev, *first, npage);
+ 		unpinned += npage;
+ 		npage = 1;
+ 	}
+@@ -123,30 +118,30 @@ static void pfn_array_unpin(struct pfn_array *pa,
+ }
+ 
+ /*
+- * pfn_array_pin() - Pin user pages in memory
+- * @pa: pfn_array on which to perform the operation
++ * page_array_pin() - Pin user pages in memory
++ * @pa: page_array on which to perform the operation
+  * @mdev: the mediated device to perform pin operations
+  *
+  * Returns number of pages pinned upon success.
+  * If the pin request partially succeeds, or fails completely,
+  * all pages are left unpinned and a negative error value is returned.
+  */
+-static int pfn_array_pin(struct pfn_array *pa, struct vfio_device *vdev)
++static int page_array_pin(struct page_array *pa, struct vfio_device *vdev)
+ {
+ 	int pinned = 0, npage = 1;
+ 	int ret = 0;
+ 
+ 	while (pinned < pa->pa_nr) {
+-		unsigned long *first = &pa->pa_iova_pfn[pinned];
+-		unsigned long *last = &first[npage];
++		dma_addr_t *first = &pa->pa_iova[pinned];
++		dma_addr_t *last = &first[npage];
+ 
+ 		if (pinned + npage < pa->pa_nr &&
+-		    *first + npage == *last) {
++		    *first + npage * PAGE_SIZE == *last) {
+ 			npage++;
+ 			continue;
+ 		}
+ 
+-		ret = vfio_pin_pages(vdev, *first << PAGE_SHIFT, npage,
++		ret = vfio_pin_pages(vdev, *first, npage,
+ 				     IOMMU_READ | IOMMU_WRITE,
+ 				     &pa->pa_pfn[pinned]);
+ 		if (ret < 0) {
+@@ -163,32 +158,30 @@ static int pfn_array_pin(struct pfn_array *pa, struct vfio_device *vdev)
+ 	return ret;
+ 
+ err_out:
+-	pfn_array_unpin(pa, vdev, pinned);
++	page_array_unpin(pa, vdev, pinned);
  	return ret;
  }
-@@ -1549,13 +1546,11 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
  
- 	dma_resv_lock(dmabuf->resv, NULL);
--	mutex_lock(&dmabuf->lock);
- 	if (--dmabuf->vmapping_counter == 0) {
- 		if (dmabuf->ops->vunmap)
- 			dmabuf->ops->vunmap(dmabuf, map);
- 		iosys_map_clear(&dmabuf->vmap_ptr);
- 	}
--	mutex_unlock(&dmabuf->lock);
- 	dma_resv_unlock(dmabuf->resv);
+ /* Unpin the pages before releasing the memory. */
+-static void pfn_array_unpin_free(struct pfn_array *pa, struct vfio_device *vdev)
++static void page_array_unpin_free(struct page_array *pa, struct vfio_device *vdev)
+ {
+-	pfn_array_unpin(pa, vdev, pa->pa_nr);
+-	kfree(pa->pa_iova_pfn);
++	page_array_unpin(pa, vdev, pa->pa_nr);
++	kfree(pa->pa_iova);
  }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index e7a6a8d28862..2f9fb7f3c835 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -326,15 +326,6 @@ struct dma_buf {
- 	/** @ops: dma_buf_ops associated with this buffer object. */
- 	const struct dma_buf_ops *ops;
  
--	/**
--	 * @lock:
--	 *
--	 * Used internally to serialize list manipulation, attach/detach and
--	 * vmap/unmap. Note that in many cases this is superseeded by
--	 * dma_resv_lock() on @resv.
--	 */
--	struct mutex lock;
--
- 	/**
- 	 * @vmapping_counter:
- 	 *
+-static bool pfn_array_iova_pinned(struct pfn_array *pa, unsigned long iova)
++static bool page_array_iova_pinned(struct page_array *pa, unsigned long iova)
+ {
+-	unsigned long iova_pfn = iova >> PAGE_SHIFT;
+ 	int i;
+ 
+ 	for (i = 0; i < pa->pa_nr; i++)
+-		if (pa->pa_iova_pfn[i] == iova_pfn)
++		if (pa->pa_iova[i] == iova)
+ 			return true;
+ 
+ 	return false;
+ }
+-/* Create the list of IDAL words for a pfn_array. */
+-static inline void pfn_array_idal_create_words(
+-	struct pfn_array *pa,
+-	unsigned long *idaws)
++/* Create the list of IDAL words for a page_array. */
++static inline void page_array_idal_create_words(struct page_array *pa,
++						unsigned long *idaws)
+ {
+ 	int i;
+ 
+@@ -204,7 +197,7 @@ static inline void pfn_array_idal_create_words(
+ 		idaws[i] = pa->pa_pfn[i] << PAGE_SHIFT;
+ 
+ 	/* Adjust the first IDAW, since it may not start on a page boundary */
+-	idaws[0] += pa->pa_iova & (PAGE_SIZE - 1);
++	idaws[0] += pa->pa_iova[0] & (PAGE_SIZE - 1);
+ }
+ 
+ static void convert_ccw0_to_ccw1(struct ccw1 *source, unsigned long len)
+@@ -236,18 +229,18 @@ static void convert_ccw0_to_ccw1(struct ccw1 *source, unsigned long len)
+ static long copy_from_iova(struct vfio_device *vdev, void *to, u64 iova,
+ 			   unsigned long n)
+ {
+-	struct pfn_array pa = {0};
++	struct page_array pa = {0};
+ 	u64 from;
+ 	int i, ret;
+ 	unsigned long l, m;
+ 
+-	ret = pfn_array_alloc(&pa, iova, n);
++	ret = page_array_alloc(&pa, iova, n);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = pfn_array_pin(&pa, vdev);
++	ret = page_array_pin(&pa, vdev);
+ 	if (ret < 0) {
+-		pfn_array_unpin_free(&pa, vdev);
++		page_array_unpin_free(&pa, vdev);
+ 		return ret;
+ 	}
+ 
+@@ -268,7 +261,7 @@ static long copy_from_iova(struct vfio_device *vdev, void *to, u64 iova,
+ 			break;
+ 	}
+ 
+-	pfn_array_unpin_free(&pa, vdev);
++	page_array_unpin_free(&pa, vdev);
+ 
+ 	return l;
+ }
+@@ -371,7 +364,7 @@ static struct ccwchain *ccwchain_alloc(struct channel_program *cp, int len)
+ 	chain->ch_ccw = (struct ccw1 *)data;
+ 
+ 	data = (u8 *)(chain->ch_ccw) + sizeof(*chain->ch_ccw) * len;
+-	chain->ch_pa = (struct pfn_array *)data;
++	chain->ch_pa = (struct page_array *)data;
+ 
+ 	chain->ch_len = len;
+ 
+@@ -555,7 +548,7 @@ static int ccwchain_fetch_direct(struct ccwchain *chain,
+ 	struct vfio_device *vdev =
+ 		&container_of(cp, struct vfio_ccw_private, cp)->vdev;
+ 	struct ccw1 *ccw;
+-	struct pfn_array *pa;
++	struct page_array *pa;
+ 	u64 iova;
+ 	unsigned long *idaws;
+ 	int ret;
+@@ -589,13 +582,13 @@ static int ccwchain_fetch_direct(struct ccwchain *chain,
+ 	}
+ 
+ 	/*
+-	 * Allocate an array of pfn's for pages to pin/translate.
++	 * Allocate an array of pages to pin/translate.
+ 	 * The number of pages is actually the count of the idaws
+ 	 * required for the data transfer, since we only only support
+ 	 * 4K IDAWs today.
+ 	 */
+ 	pa = chain->ch_pa + idx;
+-	ret = pfn_array_alloc(pa, iova, bytes);
++	ret = page_array_alloc(pa, iova, bytes);
+ 	if (ret < 0)
+ 		goto out_free_idaws;
+ 
+@@ -606,21 +599,21 @@ static int ccwchain_fetch_direct(struct ccwchain *chain,
+ 			goto out_unpin;
+ 
+ 		/*
+-		 * Copy guest IDAWs into pfn_array, in case the memory they
++		 * Copy guest IDAWs into page_array, in case the memory they
+ 		 * occupy is not contiguous.
+ 		 */
+ 		for (i = 0; i < idaw_nr; i++)
+-			pa->pa_iova_pfn[i] = idaws[i] >> PAGE_SHIFT;
++			pa->pa_iova[i] = idaws[i];
+ 	} else {
+ 		/*
+-		 * No action is required here; the iova addresses in pfn_array
+-		 * were initialized sequentially in pfn_array_alloc() beginning
++		 * No action is required here; the iova addresses in page_array
++		 * were initialized sequentially in page_array_alloc() beginning
+ 		 * with the contents of ccw->cda.
+ 		 */
+ 	}
+ 
+ 	if (ccw_does_data_transfer(ccw)) {
+-		ret = pfn_array_pin(pa, vdev);
++		ret = page_array_pin(pa, vdev);
+ 		if (ret < 0)
+ 			goto out_unpin;
+ 	} else {
+@@ -630,13 +623,13 @@ static int ccwchain_fetch_direct(struct ccwchain *chain,
+ 	ccw->cda = (__u32) virt_to_phys(idaws);
+ 	ccw->flags |= CCW_FLAG_IDA;
+ 
+-	/* Populate the IDAL with pinned/translated addresses from pfn */
+-	pfn_array_idal_create_words(pa, idaws);
++	/* Populate the IDAL with pinned/translated addresses from page */
++	page_array_idal_create_words(pa, idaws);
+ 
+ 	return 0;
+ 
+ out_unpin:
+-	pfn_array_unpin_free(pa, vdev);
++	page_array_unpin_free(pa, vdev);
+ out_free_idaws:
+ 	kfree(idaws);
+ out_init:
+@@ -742,7 +735,7 @@ void cp_free(struct channel_program *cp)
+ 	cp->initialized = false;
+ 	list_for_each_entry_safe(chain, temp, &cp->ccwchain_list, next) {
+ 		for (i = 0; i < chain->ch_len; i++) {
+-			pfn_array_unpin_free(chain->ch_pa + i, vdev);
++			page_array_unpin_free(chain->ch_pa + i, vdev);
+ 			ccwchain_cda_free(chain, i);
+ 		}
+ 		ccwchain_free(chain);
+@@ -918,7 +911,7 @@ bool cp_iova_pinned(struct channel_program *cp, u64 iova)
+ 
+ 	list_for_each_entry(chain, &cp->ccwchain_list, next) {
+ 		for (i = 0; i < chain->ch_len; i++)
+-			if (pfn_array_iova_pinned(chain->ch_pa + i, iova))
++			if (page_array_iova_pinned(chain->ch_pa + i, iova))
+ 				return true;
+ 	}
+ 
 -- 
-2.36.1
+2.17.1
 
