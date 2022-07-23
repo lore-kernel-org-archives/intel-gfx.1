@@ -4,84 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7809C19F2A
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:39:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BC58C19F2A
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:39:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4136C98D2B;
-	Thu,  4 Aug 2022 13:38:18 +0000 (UTC)
-Received: from mx0a-00190b01.pphosted.com (mx0a-00190b01.pphosted.com
- [IPv6:2620:100:9001:583::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDB9A14A264;
- Wed,  3 Aug 2022 20:13:12 +0000 (UTC)
-Received: from pps.filterd (m0050095.ppops.net [127.0.0.1])
- by m0050095.ppops.net-00190b01. (8.17.1.5/8.17.1.5) with ESMTP id
- 273K6ECw014461; Wed, 3 Aug 2022 21:13:08 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
- h=message-id : date :
- mime-version : subject : to : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=jan2016.eng;
- bh=kD8ss4llw9emi1q/V/qOWVYNBs8Bf2P/+bRbIeXTpIc=;
- b=aRyy5Ac0EJhd6yNjtIP1JinrWeLwFVweLx00myISLsbXlVkq6tioeCsD4ZYE1c8U2wO7
- HsI+lkhf3C6pmRVqiTZMhJTWxmJEOAxoPwSt3BC4WhkGHo4BY52JcJsAkXxfgJI6rJ42
- SzxGBtdS0MdHi8/59A4k/+ktLsm+gmXU38RlqobOqWDiFp4ReIg5R777gNc1AV8XChPs
- pc4ocZoP+Nicn69O99t44gO9v7UVucw5Dh6J2qRwOPLMTtDjlmXwjiH0o9n3NXeqV1QV
- uUP6wWJaWhV4YbUcFytWaC0sU/pEC2+JSeolCmA5a1TT66JABunlawrt0i47a2mTB+E0 vw== 
-Received: from prod-mail-ppoint3
- (a72-247-45-31.deploy.static.akamaitechnologies.com [72.247.45.31] (may be
- forged))
- by m0050095.ppops.net-00190b01. (PPS) with ESMTPS id 3hq1mj7urc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Aug 2022 21:13:08 +0100
-Received: from pps.filterd (prod-mail-ppoint3.akamai.com [127.0.0.1])
- by prod-mail-ppoint3.akamai.com (8.17.1.5/8.17.1.5) with ESMTP id
- 273K33ol029194; Wed, 3 Aug 2022 16:13:07 -0400
-Received: from prod-mail-relay18.dfw02.corp.akamai.com ([172.27.165.172])
- by prod-mail-ppoint3.akamai.com (PPS) with ESMTP id 3hnj5np10n-1;
- Wed, 03 Aug 2022 16:13:07 -0400
-Received: from [0.0.0.0] (unknown [172.27.119.138])
- by prod-mail-relay18.dfw02.corp.akamai.com (Postfix) with ESMTP id F26F19A;
- Wed,  3 Aug 2022 20:13:05 +0000 (GMT)
-Message-ID: <17628790-3905-460d-8734-981cfa8e7e51@akamai.com>
-Date: Wed, 3 Aug 2022 16:13:05 -0400
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEADF92660;
+	Thu,  4 Aug 2022 13:38:20 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBCD592CCD;
+ Sat, 23 Jul 2022 02:04:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nC0g7TsCj+jppLKRRWzHD2raGr3tRQ/F0VJZHoD2OlkFBS94WzkNvrtl3JGCVF2Gv/ykGFZzDM4Vs0hJLnv5K6H5n2yyTu0hsorq1ohnJNbQwAtL0f+EuwV2F73OImiHL7JPzgej5mTE4xTdKOKGjgUs1jvEeJrfpK1JmF/XXbE0OyoWN1TZkOgRJYDF5m3O3Vxe6OOkmd9cVhSIFHoMNZn23iyTYIIvlrjbMtmKgcmJpSkqy1zZcpHDjPn6NPyC8X/ytXgngAj7YgEYVq4ia+7wN+/ZfiLrTF6GmuoMSrSqqNUxq5KNC74Fxzp/JP5n+5QHqhjY38DN1PTpUGwtWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=penYKVGxjl1jd5IFx4LfrtdCcwzEeylJscCPqynjoNU=;
+ b=abFG6UjB/+OUGHipUep/0n5hMWQdJrAigqCE+9xMXuT0h8mskhyEBYQ/vnZ83Rjus/923lGjxjNnNGf4v1zjHzJ08+M2Bch5SydrHPe5+IOLiAZrGZmGwA2zZs6Gt1ilsQklmeFxA7tcjzj+UOugvmv4OLkyJve3i9NPGc+0CWKWXDwffFScr5znR3veXURLgM3dmwQxOV+uI5Z2EY3R5VXYYqFYyKc3Ew8nCG5IUVNrPeH/OYGKWlHu2+RB2CKQVT4FhPfIij5FlFilkZut9aupdQe+F94ndX5ubFBc3qVK3aGN7O3ur0sTIWcWTd+U/pLFRaZKnSOBGNKJykeROg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 12.22.5.234) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=penYKVGxjl1jd5IFx4LfrtdCcwzEeylJscCPqynjoNU=;
+ b=VhFQl85CTUj3ZVSsE0tq5tsU2x49B41EQUHu/LJiipI2pUyA55O2/P9XEzzBms/Tl6zYrXvrYfuqnj4K6BT2qoCqSofQaa3/UvE6oZQbIIdMKxGHEeIJ40P+vQ+b6szUtdXqi6fW245EAw+mNs7cJyNFZcH3h4HcwrD96X1JHugk56a4eSpESZVP1H/IfWxGPUfY9t89OuvmJ7y858qFWDfM9DHoPLF87FBgz8zhTd2qPJyd6LGWu3MnrDF85o7gnzSsaKtusSO+sskimRk6Rt7MrobQVC//s+pDOh07eM8MNpV38diBRVraCf3dzl/THhii30O+aZfxlgT5d9E12w==
+Received: from BN8PR07CA0030.namprd07.prod.outlook.com (2603:10b6:408:ac::43)
+ by PH7PR12MB6786.namprd12.prod.outlook.com (2603:10b6:510:1ac::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Sat, 23 Jul
+ 2022 02:04:16 +0000
+Received: from BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ac:cafe::35) by BN8PR07CA0030.outlook.office365.com
+ (2603:10b6:408:ac::43) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19 via Frontend
+ Transport; Sat, 23 Jul 2022 02:04:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.234)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 12.22.5.234 as permitted sender) receiver=protection.outlook.com;
+ client-ip=12.22.5.234; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (12.22.5.234) by
+ BN8NAM11FT018.mail.protection.outlook.com (10.13.176.89) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.5458.17 via Frontend Transport; Sat, 23 Jul 2022 02:04:15 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ DRHQMAIL101.nvidia.com (10.27.9.10) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.32; Sat, 23 Jul 2022 02:04:14 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.26; Fri, 22 Jul 2022 19:04:14 -0700
+Received: from Asurada-Nvidia.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server id 15.2.986.26 via Frontend
+ Transport; Fri, 22 Jul 2022 19:04:12 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: <kwankhede@nvidia.com>, <corbet@lwn.net>, <hca@linux.ibm.com>,
+ <gor@linux.ibm.com>, <agordeev@linux.ibm.com>, <borntraeger@linux.ibm.com>,
+ <svens@linux.ibm.com>, <zhenyuw@linux.intel.com>, <zhi.a.wang@intel.com>,
+ <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <tvrtko.ursulin@linux.intel.com>,
+ <airlied@linux.ie>, <daniel@ffwll.ch>, <farman@linux.ibm.com>,
+ <mjrosato@linux.ibm.com>, <pasic@linux.ibm.com>, <vneethv@linux.ibm.com>,
+ <oberpar@linux.ibm.com>, <freude@linux.ibm.com>, <akrowiak@linux.ibm.com>,
+ <jjherne@linux.ibm.com>, <alex.williamson@redhat.com>, <cohuck@redhat.com>,
+ <jgg@nvidia.com>, <kevin.tian@intel.com>, <hch@infradead.org>
+Date: Fri, 22 Jul 2022 19:02:49 -0700
+Message-ID: <20220723020256.30081-4-nicolinc@nvidia.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220723020256.30081-1-nicolinc@nvidia.com>
+References: <20220723020256.30081-1-nicolinc@nvidia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: jim.cromie@gmail.com, dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- intel-gvt-dev@lists.freedesktop.org,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Greg KH <gregkh@linuxfoundation.org>, Daniel Vetter
- <daniel.vetter@ffwll.ch>,
- Sean Paul <seanpaul@chromium.org>, robdclark@gmail.com
-References: <20220720153233.144129-1-jim.cromie@gmail.com>
- <CAJfuBxxPRj-u5S45pPfAEaE46ji0--MTVxryEAUPe1+1c1jgEw@mail.gmail.com>
-From: Jason Baron <jbaron@akamai.com>
-In-Reply-To: <CAJfuBxxPRj-u5S45pPfAEaE46ji0--MTVxryEAUPe1+1c1jgEw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-03_06,2022-08-02_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- bulkscore=0 spamscore=0
- malwarescore=0 suspectscore=0 adultscore=0 mlxscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2206140000
- definitions=main-2208030083
-X-Proofpoint-ORIG-GUID: YJDbZqBVShtN-ycveY6w8PPO7vF9drUE
-X-Proofpoint-GUID: YJDbZqBVShtN-ycveY6w8PPO7vF9drUE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-08-03_06,2022-08-02_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- phishscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 malwarescore=0 impostorscore=0 mlxscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2206140000
- definitions=main-2208030084
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 53928bd3-d69e-4944-809f-08da6c4fa529
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6786:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RkaBhx0YduWx2+qWH3bL1xwDSLzlRAeLKIGavvpjJWoW90V0zieCrJh3EgqpaM+18BmPhuAfJpIAvV8oFdLXqLbSTp/dd52oDaMTLfaplFTV6zsLy3rQKAsgLPmZUqwciDAhf7J6abSTTvKmUHM4DOUy6nlSrAMxCBtYMyqLEapqj6AO/lMJQDO8zQTKDS+UamXy/hyH1R6vdfI/m/55a2L4auqzSNrHgZCmWTTaMMu22ZpUDdKz9fW9L/q7dEcpXA0VugFw2uAAIPNVNeMM+ngXtYmpsTZMd5eJo2f+qAeQ5hCK6DHxKVrfz43QleVmi+mYMtbToIepkZCqVfNVXvvdNajDT6Pdu54sHDIWTLVyEzl+7axCct59dK3vTEA1pj8ej0lakcd8zGFv2gxj+R9c+irkqxwPXWhsy53wZdBGk4/jjYSS2NJOj1s2Tj6PAidgP3/uWGcvfFyFkjo2BB1/xfVjUSI3DleYz3uOBp6xtpUUzxxkmaHoVysyNKEu1Xr765UcClGOxvpKU+Hnf5Xb5NklyqU7niQpd+lM2OxLCqULvgbZjpzfXNmE/hewPyr2v/TaaRN4prd8MhNcBRken+fZkWZp3/RnqTZwfHxQSGYqJ1vWIJdS+xD3wZMfjvH/0w9v74yWeRSuNC2eM+2IZb9UKxXfeq0SndDbKlMN4+C1stYZZL2ZZqg6X3dNmqZZruTdRg4Xs64ll5MuFl3H8eufpkWzWr3d2sBAXqxGkXie4jEKxF1SNVg5F52sLsTxr6UsWaXu4hgEJFKiKcHoTmng5zDjc0cbqJwGygKhKoX1SbcV2CvjQbi9eBP5pZgpBaWEdM8E5h6K+I+kAmZe3iWtHx2nTdn1AtCScxShf0PZ8/k8FUO0hQYfKgeVrr2R30fDyGuNKZrWc5C3cg==
+X-Forefront-Antispam-Report: CIP:12.22.5.234; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(376002)(39860400002)(136003)(396003)(46966006)(40470700004)(36840700001)(40480700001)(316002)(36860700001)(356005)(81166007)(86362001)(921005)(70206006)(82740400003)(70586007)(7406005)(4326008)(8676002)(82310400005)(7416002)(478600001)(40460700003)(5660300002)(54906003)(110136005)(8936002)(2616005)(1076003)(186003)(83380400001)(6666004)(47076005)(426003)(336012)(41300700001)(26005)(7696005)(36756003)(2906002)(83996005)(2101003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2022 02:04:15.3804 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53928bd3-d69e-4944-809f-08da6c4fa529
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.234];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6786
 X-Mailman-Approved-At: Thu, 04 Aug 2022 13:37:57 +0000
-Subject: Re: [Intel-gfx] [PATCH v4 00/41] DYNDBG: opt-in class'd debug for
- modules, use in drm.
+Subject: [Intel-gfx] [PATCH v4 03/10] vfio/ap: Pass in physical address of
+ ind to ap_aqic()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,83 +114,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, jchrist@linux.ibm.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ terrence.xu@intel.com, intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+The ap_aqic() is called by vfio_ap_irq_enable() where it passes in a
+virt value that's casted from a physical address "h_nib". Inside the
+ap_aqic(), it does virt_to_phys() again.
 
+Since ap_aqic() needs a physical address, let's just pass in a pa of
+ind directly. So change the "ind" to "pa_ind".
 
-On 8/3/22 15:56, jim.cromie@gmail.com wrote:
-> On Wed, Jul 20, 2022 at 9:32 AM Jim Cromie <jim.cromie@gmail.com> wrote:
->>
-> 
->> Hi Jason, Greg, DRM-folk,
->>
->> This adds 'typed' "class FOO" support to dynamic-debug, where 'typed'
->> means either DISJOINT (like drm debug categories), or VERBOSE (like
->> nouveau debug-levels).  Use it in DRM modules: core, helpers, and in
->> drivers i915, amdgpu, nouveau.
->>
-> 
-> This revision fell over, on a conflict with something in drm-MUMBLE
-> 
-> Error: patch https://urldefense.com/v3/__https://patchwork.freedesktop.org/api/1.0/series/106427/revisions/2/mbox/__;!!GjvTz_vk!UCPl5Uf32cDVwwysMTfaLwoGLWomargFXuR8HjBA3xsUOjxXHXC5hneAkP4iWK91yc-LjjJxWW89-51Z$ 
-> not applied
-> Applying: dyndbg: fix static_branch manipulation
-> Applying: dyndbg: fix module.dyndbg handling
-> Applying: dyndbg: show both old and new in change-info
-> Applying: dyndbg: reverse module walk in cat control
-> Applying: dyndbg: reverse module.callsite walk in cat control
-> Applying: dyndbg: use ESCAPE_SPACE for cat control
-> Applying: dyndbg: let query-modname override actual module name
-> Applying: dyndbg: add test_dynamic_debug module
-> Applying: dyndbg: drop EXPORTed dynamic_debug_exec_queries
-> 
-> Jason,
-> those above are decent maintenance patches, particularly the drop export.
-> It would be nice to trim this unused api this cycle.
+Reviewed-by: Harald Freudenberger <freude@linux.ibm.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Tested-by: Eric Farman <farman@linux.ibm.com>
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+---
+ arch/s390/include/asm/ap.h        | 6 +++---
+ drivers/s390/crypto/ap_queue.c    | 2 +-
+ drivers/s390/crypto/vfio_ap_ops.c | 7 ++++---
+ 3 files changed, 8 insertions(+), 7 deletions(-)
 
-Hi Jim,
+diff --git a/arch/s390/include/asm/ap.h b/arch/s390/include/asm/ap.h
+index b515cfa62bd9..f508f5025e38 100644
+--- a/arch/s390/include/asm/ap.h
++++ b/arch/s390/include/asm/ap.h
+@@ -227,13 +227,13 @@ struct ap_qirq_ctrl {
+  * ap_aqic(): Control interruption for a specific AP.
+  * @qid: The AP queue number
+  * @qirqctrl: struct ap_qirq_ctrl (64 bit value)
+- * @ind: The notification indicator byte
++ * @pa_ind: Physical address of the notification indicator byte
+  *
+  * Returns AP queue status.
+  */
+ static inline struct ap_queue_status ap_aqic(ap_qid_t qid,
+ 					     struct ap_qirq_ctrl qirqctrl,
+-					     void *ind)
++					     phys_addr_t pa_ind)
+ {
+ 	unsigned long reg0 = qid | (3UL << 24);  /* fc 3UL is AQIC */
+ 	union {
+@@ -241,7 +241,7 @@ static inline struct ap_queue_status ap_aqic(ap_qid_t qid,
+ 		struct ap_qirq_ctrl qirqctrl;
+ 		struct ap_queue_status status;
+ 	} reg1;
+-	unsigned long reg2 = virt_to_phys(ind);
++	unsigned long reg2 = pa_ind;
+ 
+ 	reg1.qirqctrl = qirqctrl;
+ 
+diff --git a/drivers/s390/crypto/ap_queue.c b/drivers/s390/crypto/ap_queue.c
+index c48b0db824e3..a32457b4cbb8 100644
+--- a/drivers/s390/crypto/ap_queue.c
++++ b/drivers/s390/crypto/ap_queue.c
+@@ -34,7 +34,7 @@ static int ap_queue_enable_irq(struct ap_queue *aq, void *ind)
+ 
+ 	qirqctrl.ir = 1;
+ 	qirqctrl.isc = AP_ISC;
+-	status = ap_aqic(aq->qid, qirqctrl, ind);
++	status = ap_aqic(aq->qid, qirqctrl, virt_to_phys(ind));
+ 	switch (status.response_code) {
+ 	case AP_RESPONSE_NORMAL:
+ 	case AP_RESPONSE_OTHERWISE_CHANGED:
+diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+index bb1a1677c5c2..5781059d3ed2 100644
+--- a/drivers/s390/crypto/vfio_ap_ops.c
++++ b/drivers/s390/crypto/vfio_ap_ops.c
+@@ -154,7 +154,7 @@ static struct ap_queue_status vfio_ap_irq_disable(struct vfio_ap_queue *q)
+ 	int retries = 5;
+ 
+ 	do {
+-		status = ap_aqic(q->apqn, aqic_gisa, NULL);
++		status = ap_aqic(q->apqn, aqic_gisa, 0);
+ 		switch (status.response_code) {
+ 		case AP_RESPONSE_OTHERWISE_CHANGED:
+ 		case AP_RESPONSE_NORMAL:
+@@ -245,7 +245,8 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
+ 	struct kvm_s390_gisa *gisa;
+ 	int nisc;
+ 	struct kvm *kvm;
+-	unsigned long h_nib, g_pfn, h_pfn;
++	unsigned long g_pfn, h_pfn;
++	phys_addr_t h_nib;
+ 	int ret;
+ 
+ 	/* Verify that the notification indicator byte address is valid */
+@@ -290,7 +291,7 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
+ 	aqic_gisa.ir = 1;
+ 	aqic_gisa.gisa = (uint64_t)gisa >> 4;
+ 
+-	status = ap_aqic(q->apqn, aqic_gisa, (void *)h_nib);
++	status = ap_aqic(q->apqn, aqic_gisa, h_nib);
+ 	switch (status.response_code) {
+ 	case AP_RESPONSE_NORMAL:
+ 		/* See if we did clear older IRQ configuration */
+-- 
+2.17.1
 
-Agreed - I was thinking the same thing. Feel free to add
-Acked-by: Jason Baron <jbaron@akamai.com> to those first 9.
-
-
-
-> 
-> Applying: dyndbg: add class_id to pr_debug callsites
-> Applying: dyndbg: add __pr_debug_cls for testing
-> Applying: dyndbg: add DECLARE_DYNDBG_CLASSMAP
-> Applying: kernel/module: add __dyndbg_classes section
-> Applying: dyndbg: add ddebug_attach_module_classes
-> Applying: dyndbg: validate class FOO by checking with module
-> Applying: dyndbg: add drm.debug style bitmap support
-> Applying: dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes
-> Applying: doc-dyndbg: describe "class CLASS_NAME" query support
-> Applying: doc-dyndbg: edit dynamic-debug-howto for brevity, audience
-> Applying: drm_print: condense enum drm_debug_category
-> Applying: drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.
-> Applying: drm_print: interpose drm_*dbg with forwarding macros
-> Applying: drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro
-> Using index info to reconstruct a base tree...
-> M drivers/gpu/drm/Kconfig
-> M drivers/gpu/drm/Makefile
-> Falling back to patching base and 3-way merge...
-> Auto-merging drivers/gpu/drm/Makefile
-> Auto-merging drivers/gpu/drm/Kconfig
-> CONFLICT (content): Merge conflict in drivers/gpu/drm/Kconfig
-> error: Failed to merge in the changes.
-> 
-> 
-> Before I resend, I should sort out that possible conflict
-> which tree is patchwork applied upon ?
-> 
-> or was it just transient ? after 5.19 I rebased a copy onto drm-next/drm-next,
-> and there was nothing to fix - I will revisit presently..
-
-
-Not sure, if it's a minor conflict maybe Greg KH can sort it when
-he pulls it in? If not yeah might be important to rebase first...Greg?
-
-Thanks,
-
--Jason
