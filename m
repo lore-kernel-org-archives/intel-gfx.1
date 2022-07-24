@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59DDDC43334
-	for <intel-gfx@archiver.kernel.org>; Sun, 24 Jul 2022 08:25:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B873C43334
+	for <intel-gfx@archiver.kernel.org>; Sun, 24 Jul 2022 08:25:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 235F493829;
-	Sun, 24 Jul 2022 08:25:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05424BFBFE;
+	Sun, 24 Jul 2022 08:25:45 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68CCABFBFC
- for <intel-gfx@lists.freedesktop.org>; Sun, 24 Jul 2022 08:25:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 353C08BD13
+ for <intel-gfx@lists.freedesktop.org>; Sun, 24 Jul 2022 08:25:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658651120; x=1690187120;
+ t=1658651138; x=1690187138;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=q7UkJSFP8tnBcDGRtM+tZjMitNlV6lhVVZJ+l16R8xw=;
- b=BonpIuape3JU7CEcygOgS0hbpbYpt8pWumH2YFTrBQsOceJw8yUWaM2L
- AhSB+iSyaCHO1BcS3sraik31foK+YRApzD5DTeB+xThYyQm+GZQjNYA2e
- +VRxPCmKoHa2egnnDrH574Znu1U0LNHiZpdIJfBwm2M5bcbCbLIzhgz5+
- jSnsKX6re2YnSctFoM/L8/zzhjy/xDAJ4cD5Uok8TI6hVYcNBcAuYQQv8
- qb0jgV0yuVSiwW3RJwpm52mn/QDEfLLsAKuLE9pAbQ9aDb1NtxJYDyode
- ZvQbAKnE6150ikzT9I1iFPgXWk18fZBZtiF9EqZaj+9YURo9cRZ1gX1ke w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10417"; a="313268000"
-X-IronPort-AV: E=Sophos;i="5.93,190,1654585200"; d="scan'208";a="313268000"
+ bh=0H6lztA7XH1nNP7ZIcMOr8GfvbWwYo6zQodIY+xxV/k=;
+ b=Fv+hoNbwZdxJR7KEd5KZSjb/W08bA4+rQzZHEfWx3xiVTc7yT3jiGxhM
+ ewHV85LG+ms1Jxpm/e2u884dVWMhIlT5Vc0XI6Cbh6OJUSLgQImGfQtKL
+ 5U24lDi/tniFvxrr++QuA7wUi5ivy2i/iUxRK9BK9QTx7+mAS+53teXjy
+ XndTTEBn08sO8zG2HzpgtVkSpRzrJbjC2lkPG4RWVEH16Vk+7Li9fayYw
+ uKRedR3qL7y2umOd3FnvIs46mBht+TpIutrRhS+6/c8tFGKB4tw0xJvNG
+ QijOpiO8MYuVc092jc1HaTPnT9GeRZKgmtOaUxu8tmlc0w8IWcE1iK0Pd w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10417"; a="313268026"
+X-IronPort-AV: E=Sophos;i="5.93,190,1654585200"; d="scan'208";a="313268026"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2022 01:25:20 -0700
-X-IronPort-AV: E=Sophos;i="5.93,190,1654585200"; d="scan'208";a="657756350"
+ 24 Jul 2022 01:25:38 -0700
+X-IronPort-AV: E=Sophos;i="5.93,190,1654585200"; d="scan'208";a="657756459"
 Received: from twinkler-lnx.jer.intel.com ([10.12.87.143])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2022 01:25:17 -0700
+ 24 Jul 2022 01:25:34 -0700
 From: Tomas Winkler <tomas.winkler@intel.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sun, 24 Jul 2022 11:24:23 +0300
-Message-Id: <20220724082428.218628-10-tomas.winkler@intel.com>
+Date: Sun, 24 Jul 2022 11:24:28 +0300
+Message-Id: <20220724082428.218628-15-tomas.winkler@intel.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220724082428.218628-1-tomas.winkler@intel.com>
 References: <20220724082428.218628-1-tomas.winkler@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 09/14] mei: mkhi: add memory ready command
+Subject: [Intel-gfx] [PATCH v6 14/14] HAX: drm/i915: force INTEL_MEI_GSC on
+ for CI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,53 +64,31 @@ Cc: intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add GSC memory ready command.
-The command indicates to the firmware that extend operation
-memory was setup and the firmware may enter PXP mode.
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 
-CC: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+After the new config option is merged we'll enable it by default in the
+CI config, but for now just force it on via the i915 Kconfig so we can
+get pre-merge CI results for it.
+
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 ---
- drivers/misc/mei/mkhi.h | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/Kconfig.debug | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/misc/mei/mkhi.h b/drivers/misc/mei/mkhi.h
-index 27a9b476904e..056b76e73d40 100644
---- a/drivers/misc/mei/mkhi.h
-+++ b/drivers/misc/mei/mkhi.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0 */
- /*
-- * Copyright (c) 2003-2020, Intel Corporation. All rights reserved.
-+ * Copyright (c) 2003-2021, Intel Corporation. All rights reserved.
-  * Intel Management Engine Interface (Intel MEI) Linux driver
-  */
- 
-@@ -18,6 +18,13 @@
- 
- #define MCHI_GROUP_ID  0xA
- 
-+#define MKHI_GROUP_ID_GFX              0x30
-+#define MKHI_GFX_RESET_WARN_CMD_REQ    0x0
-+#define MKHI_GFX_MEMORY_READY_CMD_REQ  0x1
-+
-+/* Allow transition to PXP mode without approval */
-+#define MKHI_GFX_MEM_READY_PXP_ALLOWED  0x1
-+
- struct mkhi_rule_id {
- 	__le16 rule_type;
- 	u8 feature_id;
-@@ -42,4 +49,9 @@ struct mkhi_msg {
- 	u8 data[];
- } __packed;
- 
-+struct mkhi_gfx_mem_ready {
-+	struct mkhi_msg_hdr hdr;
-+	u32    flags;
-+} __packed;
-+
- #endif /* _MEI_MKHI_H_ */
+diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
+index e7fd3e76f8a2..be4ef485d6c1 100644
+--- a/drivers/gpu/drm/i915/Kconfig.debug
++++ b/drivers/gpu/drm/i915/Kconfig.debug
+@@ -48,6 +48,7 @@ config DRM_I915_DEBUG
+ 	select DRM_I915_DEBUG_RUNTIME_PM
+ 	select DRM_I915_SW_FENCE_DEBUG_OBJECTS
+ 	select DRM_I915_SELFTEST
++	select INTEL_MEI_GSC
+ 	select BROKEN # for prototype uAPI
+ 	default n
+ 	help
 -- 
 2.35.3
 
