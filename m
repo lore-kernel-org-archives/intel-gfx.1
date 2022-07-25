@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B8E1C19F2D
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACE33C19F2A
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:41:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 294A198D8C;
-	Thu,  4 Aug 2022 13:40:46 +0000 (UTC)
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 799DDC0C09
- for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 16:08:27 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id
- l14-20020a17090a72ce00b001f20ed3c55dso10692220pjk.5
- for <intel-gfx@lists.freedesktop.org>; Mon, 25 Jul 2022 09:08:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=FjmoqdU5kj6rAICx3+QzM5MmmkfRNlf/iMQ4fGtplDA=;
- b=qPSXGfwvhrycsBQOp8iY52tnh1KgXSyBQB+dY2Cc2tVNhSXPKkg6St7J8kQhqlxsEa
- 03/RDkLPFIsTansQAXIAeanSealDnebMm5Rkdeor7AxexibjsXRGN73FxGe+80khHHPT
- v8xnWy3f4sCauZhKga5d0yRHZMfto0sAsNxbMkAfxHPvxIQ0QMx7qXI5Yd72cemfFpCD
- ub1xtP7DT0g4876OlkgQbiBkH+IA9KU4VYPyvaX+x4qSh+CKsdH1qu+6TICYYOcHbB97
- U52lm5UEl9xUZTAXBGfNfpUs+Njp6xwD/4d+nSIA1+bpzWLsFtNt7MCE6xDG67zmiVWT
- cQ2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=FjmoqdU5kj6rAICx3+QzM5MmmkfRNlf/iMQ4fGtplDA=;
- b=I6KgNLlfx44WA2tTj9oO9/agkN1IDxbly5SEuQ5x9eVN5vZJc5OvgF0Md9H6pMgg11
- 1A30iyR1Jp8jchLoK85m/uvfGGl8EYV+PlHKI084T6f70TJPkMN5Pb/xZXLal6Afuzmv
- qNhYjkmCe9twwijd91DetyWyR4hqPEWz+ScoS+aBAqZ15bpNEvnDR7M6kcOYOlIpUSbH
- sQTkjKu1QCutPp3pGeIG+bgWa1NS9L5zJB6r6wX+PWsi1d+RPrlxZ/uXPMSZ3LUUHrDb
- RA3QuW5uw/msnxfiRljkkXoH5E0lsqxMYoBoedfNNSNgLL6CO0AP8aJzr3VTUDjXxNZ+
- rVng==
-X-Gm-Message-State: AJIora+5b1J4jZ94qhyjBmY9THTgRNflDG6Y8ku3Q/WYUPppzUUxi1Vy
- 4oIWhwwI/pjevM7qAEI//sZGPw==
-X-Google-Smtp-Source: AGRyM1unzHQqb8zVBUKEs6rrq19O/McmbA2bTcyfP51716abdNtaluRuKhI7j88I4xjSdpuIYIqcpg==
-X-Received: by 2002:a17:90b:4a12:b0:1ef:a8bb:b475 with SMTP id
- kk18-20020a17090b4a1200b001efa8bbb475mr15047889pjb.124.1658765306524; 
- Mon, 25 Jul 2022 09:08:26 -0700 (PDT)
-Received: from google.com (123.65.230.35.bc.googleusercontent.com.
- [35.230.65.123]) by smtp.gmail.com with ESMTPSA id
- e7-20020a17090301c700b0016bf2dc1724sm9463154plh.247.2022.07.25.09.08.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Jul 2022 09:08:25 -0700 (PDT)
-Date: Mon, 25 Jul 2022 16:08:21 +0000
-From: Sean Christopherson <seanjc@google.com>
-To: Maxim Levitsky <mlevitsk@redhat.com>
-Message-ID: <Yt6/9V0S9of7dueW@google.com>
-References: <20220427200314.276673-1-mlevitsk@redhat.com>
- <20220427200314.276673-5-mlevitsk@redhat.com>
- <YoZyWOh4NPA0uN5J@google.com>
- <5ed0d0e5a88bbee2f95d794dbbeb1ad16789f319.camel@redhat.com>
- <c22a18631c2067871b9ed8a9246ad58fa1ab8947.camel@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 914FA98D91;
+	Thu,  4 Aug 2022 13:40:47 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14C5112BF65;
+ Mon, 25 Jul 2022 15:21:01 +0000 (UTC)
+Received: from dimapc.. (109-252-119-232.nat.spd-mgts.ru [109.252.119.232])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id A10F76601B0F;
+ Mon, 25 Jul 2022 16:20:57 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1658762460;
+ bh=ltVX9yxN2eLAR73pPjOKlf/yqK0yb6euW/XcSTbBYAM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=CTwsk8aEqX+50X62kwJFBB/CE6E/MD5iC4xfhw3GxUr+dc77H5JZshR7xRYBmAMD+
+ 1Qec6YT59Q2KYEwuCkUwQ9jqyIWaj6/a9YPdxvW1s/SQQrGbTnDwyadKFKz+i88DRk
+ Jaim9EhjDDIoFinrsHuZ+I+c7tkX2lOqK6c6pgP3wYpTthwPo3WThAx8pF+05udLBb
+ +ogXXW9eNfnf4QYK2SVCEU4Vm73TnDmTK0iWaP9ri3pKNhE2Cn28ZtQh4cxBOHMvSF
+ uprncMxbKlAWxZQJcmSREHNf1LWHZ4W0HZ3T96R8zaMDoHUPp3ocrmVVZCMQsir5De
+ IQk7RsSeskUyw==
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>
+Date: Mon, 25 Jul 2022 18:18:38 +0300
+Message-Id: <20220725151839.31622-5-dmitry.osipenko@collabora.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
+References: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c22a18631c2067871b9ed8a9246ad58fa1ab8947.camel@redhat.com>
 X-Mailman-Approved-At: Thu, 04 Aug 2022 13:37:57 +0000
-Subject: Re: [Intel-gfx] [RFC PATCH v3 04/19] KVM: x86: mmu: allow to enable
- write tracking externally
+Subject: [Intel-gfx] [PATCH v2 4/5] media: videobuf2: Stop using internal
+ dma-buf lock
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,58 +77,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wanpeng Li <wanpengli@tencent.com>, kvm@vger.kernel.org,
- David Airlie <airlied@linux.ie>, Dave Hansen <dave.hansen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, "H. Peter Anvin" <hpa@zytor.com>,
- Brijesh Singh <brijesh.singh@amd.com>, Joerg Roedel <joro@8bytes.org>,
- x86@kernel.org, Ingo Molnar <mingo@redhat.com>,
- Tom Lendacky <thomas.lendacky@amd.com>, intel-gfx@lists.freedesktop.org,
- Borislav Petkov <bp@alien8.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, intel-gvt-dev@lists.freedesktop.org,
- Jim Mattson <jmattson@google.com>, linux-kernel@vger.kernel.org,
- Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ spice-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 20, 2022, Maxim Levitsky wrote:
-> On Sun, 2022-05-22 at 13:22 +0300, Maxim Levitsky wrote:
-> > On Thu, 2022-05-19 at 16:37 +0000, Sean Christopherson wrote:
-> > > On Wed, Apr 27, 2022, Maxim Levitsky wrote:
-> > > > @@ -5753,6 +5752,10 @@ int kvm_mmu_init_vm(struct kvm *kvm)
-> Now for nested AVIC, this is what I would like to do:
->  
-> - just like mmu, I prefer to register the write tracking notifier, when the
->   VM is created.
->
-> - just like mmu, write tracking should only be enabled when nested AVIC is
->   actually used first time, so that write tracking is not always enabled when
->   you just boot a VM with nested avic supported, since the VM might not use
->   nested at all.
->  
-> Thus I either need to use the __kvm_page_track_register_notifier too for AVIC
-> (and thus need to export it) or I need to have a boolean
-> (nested_avic_was_used_once) and register the write tracking notifier only
-> when false and do it not on VM creation but on first attempt to use nested
-> AVIC.
->  
-> Do you think this is worth it? I mean there is some value of registering the
-> notifier only when needed (this way it is not called for nothing) but it does
-> complicate things a bit.
+All drivers that use dma-bufs have been moved to the updated locking
+specification and now dma-buf reservation is guaranteed to be locked
+by importers during the mapping operations. There is no need to take
+the internal dma-buf lock anymore. Remove locking from the videobuf2
+memory allocators.
 
-Compared to everything else that you're doing in the nested AVIC code, refcounting
-the shared kvm_page_track_notifier_node object is a trivial amount of complexity.
+Acked-by: Tomasz Figa <tfiga@chromium.org>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+---
+ drivers/media/common/videobuf2/videobuf2-dma-contig.c | 11 +----------
+ drivers/media/common/videobuf2/videobuf2-dma-sg.c     | 11 +----------
+ drivers/media/common/videobuf2/videobuf2-vmalloc.c    | 11 +----------
+ 3 files changed, 3 insertions(+), 30 deletions(-)
 
-And on that topic, do you have performance numbers to justify using a single
-shared node?  E.g. if every table instance has its own notifier, then no additional
-refcounting is needed.  It's not obvious that a shared node will provide better
-performance, e.g. if there are only a handful of AVIC tables being shadowed, then
-a linear walk of all nodes is likely fast enough, and doesn't bring the risk of
-a write potentially being stalled due to having to acquire a VM-scoped mutex.
+diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+index de762dbdaf78..2c69bf0470e7 100644
+--- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
++++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+@@ -382,18 +382,12 @@ static struct sg_table *vb2_dc_dmabuf_ops_map(
+ 	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
+ {
+ 	struct vb2_dc_attachment *attach = db_attach->priv;
+-	/* stealing dmabuf mutex to serialize map/unmap operations */
+-	struct mutex *lock = &db_attach->dmabuf->lock;
+ 	struct sg_table *sgt;
+ 
+-	mutex_lock(lock);
+-
+ 	sgt = &attach->sgt;
+ 	/* return previously mapped sg table */
+-	if (attach->dma_dir == dma_dir) {
+-		mutex_unlock(lock);
++	if (attach->dma_dir == dma_dir)
+ 		return sgt;
+-	}
+ 
+ 	/* release any previous cache */
+ 	if (attach->dma_dir != DMA_NONE) {
+@@ -409,14 +403,11 @@ static struct sg_table *vb2_dc_dmabuf_ops_map(
+ 	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir,
+ 			    DMA_ATTR_SKIP_CPU_SYNC)) {
+ 		pr_err("failed to map scatterlist\n");
+-		mutex_unlock(lock);
+ 		return ERR_PTR(-EIO);
+ 	}
+ 
+ 	attach->dma_dir = dma_dir;
+ 
+-	mutex_unlock(lock);
+-
+ 	return sgt;
+ }
+ 
+diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+index 39e11600304a..e63e718c0bf7 100644
+--- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
++++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+@@ -424,18 +424,12 @@ static struct sg_table *vb2_dma_sg_dmabuf_ops_map(
+ 	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
+ {
+ 	struct vb2_dma_sg_attachment *attach = db_attach->priv;
+-	/* stealing dmabuf mutex to serialize map/unmap operations */
+-	struct mutex *lock = &db_attach->dmabuf->lock;
+ 	struct sg_table *sgt;
+ 
+-	mutex_lock(lock);
+-
+ 	sgt = &attach->sgt;
+ 	/* return previously mapped sg table */
+-	if (attach->dma_dir == dma_dir) {
+-		mutex_unlock(lock);
++	if (attach->dma_dir == dma_dir)
+ 		return sgt;
+-	}
+ 
+ 	/* release any previous cache */
+ 	if (attach->dma_dir != DMA_NONE) {
+@@ -446,14 +440,11 @@ static struct sg_table *vb2_dma_sg_dmabuf_ops_map(
+ 	/* mapping to the client with new direction */
+ 	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir, 0)) {
+ 		pr_err("failed to map scatterlist\n");
+-		mutex_unlock(lock);
+ 		return ERR_PTR(-EIO);
+ 	}
+ 
+ 	attach->dma_dir = dma_dir;
+ 
+-	mutex_unlock(lock);
+-
+ 	return sgt;
+ }
+ 
+diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+index 7831bf545874..41db707e43a4 100644
+--- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
++++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+@@ -267,18 +267,12 @@ static struct sg_table *vb2_vmalloc_dmabuf_ops_map(
+ 	struct dma_buf_attachment *db_attach, enum dma_data_direction dma_dir)
+ {
+ 	struct vb2_vmalloc_attachment *attach = db_attach->priv;
+-	/* stealing dmabuf mutex to serialize map/unmap operations */
+-	struct mutex *lock = &db_attach->dmabuf->lock;
+ 	struct sg_table *sgt;
+ 
+-	mutex_lock(lock);
+-
+ 	sgt = &attach->sgt;
+ 	/* return previously mapped sg table */
+-	if (attach->dma_dir == dma_dir) {
+-		mutex_unlock(lock);
++	if (attach->dma_dir == dma_dir)
+ 		return sgt;
+-	}
+ 
+ 	/* release any previous cache */
+ 	if (attach->dma_dir != DMA_NONE) {
+@@ -289,14 +283,11 @@ static struct sg_table *vb2_vmalloc_dmabuf_ops_map(
+ 	/* mapping to the client with new direction */
+ 	if (dma_map_sgtable(db_attach->dev, sgt, dma_dir, 0)) {
+ 		pr_err("failed to map scatterlist\n");
+-		mutex_unlock(lock);
+ 		return ERR_PTR(-EIO);
+ 	}
+ 
+ 	attach->dma_dir = dma_dir;
+ 
+-	mutex_unlock(lock);
+-
+ 	return sgt;
+ }
+ 
+-- 
+2.36.1
 
-> I can also stash this boolean (like 'bool registered;') into the 'struct
-> kvm_page_track_notifier_node',  and thus allow the
-> kvm_page_track_register_notifier to be called more that once -  then I can
-> also get rid of __kvm_page_track_register_notifier. 
-
-No, allowing redundant registration without proper refcounting leads to pain,
-e.g. X registers, Y registers, X unregisters, kaboom.
