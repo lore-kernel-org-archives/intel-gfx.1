@@ -4,48 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87D14C43334
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 09:27:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48F5AC43334
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Jul 2022 09:45:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52EC890BB4;
-	Mon, 25 Jul 2022 09:26:50 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B85B32BA8A;
- Mon, 25 Jul 2022 09:26:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658741197; x=1690277197;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=3/KYF6zMSfA8GMeQGkJ+lLvI5E2TF0sPmk9vV/KyNZw=;
- b=QZlh2QXPuCMleyMeGoF0n7bSJ2MaIolQnUpDXuDh/eHXzf15uVmeuxHN
- xdfOuJZeYy7ib8LX09KF+ggklssw+S1F6E+GEUIOpJ6shcftD0XFS8JGf
- QC2SMXG35iWcGW9GDlp9aK8n3sV8cJQ0tGoeGV7bgwXaGPmtX9+cRSfWg
- JJdwZLaQBl9+Pfplep3RYx/ZbNejIwXIfs8QZI+nZLtbPln12LxuitpF+
- i5uHrkmSQ6cFLI1P07Fyu3lEqom+QppgqSY2CO8gxmVrbUhOZagijv8qR
- ly/JcEgfXuR2yqO+12zovccx+3pFG5HzfdK3SF9Xo/OBWv98w9srsmJRj A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10418"; a="268047821"
-X-IronPort-AV: E=Sophos;i="5.93,192,1654585200"; d="scan'208";a="268047821"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2022 02:26:32 -0700
-X-IronPort-AV: E=Sophos;i="5.93,192,1654585200"; d="scan'208";a="926823860"
-Received: from abaruah-mobl.gar.corp.intel.com (HELO hades.ger.corp.intel.com)
- ([10.249.37.11])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2022 02:26:30 -0700
-From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 25 Jul 2022 12:25:26 +0300
-Message-Id: <20220725092528.1281487-6-gwan-gyeong.mun@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220725092528.1281487-1-gwan-gyeong.mun@intel.com>
-References: <20220725092528.1281487-1-gwan-gyeong.mun@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60B87932D3;
+	Mon, 25 Jul 2022 09:45:25 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 826BC932D3;
+ Mon, 25 Jul 2022 09:45:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 79D22A0169;
+ Mon, 25 Jul 2022 09:45:24 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 5/7] drm/i915: Check if the size is too big
- while creating shmem file
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gwan-gyeong Mun" <gwan-gyeong.mun@intel.com>
+Date: Mon, 25 Jul 2022 09:45:24 -0000
+Message-ID: <165874232447.20161.12767342000857293976@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220725092528.1281487-1-gwan-gyeong.mun@intel.com>
+In-Reply-To: <20220725092528.1281487-1-gwan-gyeong.mun@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Fixes_integer_overflow_or_integer_truncation_issues_in_page_loo?=
+ =?utf-8?q?kups=2C_ttm_place_configuration_and_scatterlist_creation_=28rev?=
+ =?utf-8?b?MTAp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,56 +42,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: thomas.hellstrom@linux.intel.com, jani.nikula@intel.com,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk, airlied@linux.ie,
- matthew.auld@intel.com, mchehab@kernel.org, nirmoy.das@intel.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The __shmem_file_setup() function returns -EINVAL if size is greater than
-MAX_LFS_FILESIZE. To handle the same error as other code that returns
--E2BIG when the size is too large, it add a code that returns -E2BIG when
-the size is larger than the size that can be handled.
+== Series Details ==
 
-v4: If BITS_PER_LONG is 32, size > MAX_LFS_FILESIZE is always false, so it
-    checks only when BITS_PER_LONG is 64.
+Series: Fixes integer overflow or integer truncation issues in page lookups, ttm place configuration and scatterlist creation (rev10)
+URL   : https://patchwork.freedesktop.org/series/104704/
+State : warning
 
-Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
-Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Reported-by: kernel test robot <lkp@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index 604e8829e8ea..d41569ca6999 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -541,6 +541,20 @@ static int __create_shmem(struct drm_i915_private *i915,
- 
- 	drm_gem_private_object_init(&i915->drm, obj, size);
- 
-+	/* XXX: The __shmem_file_setup() function returns -EINVAL if size is
-+	 * greater than MAX_LFS_FILESIZE.
-+	 * To handle the same error as other code that returns -E2BIG when
-+	 * the size is too large, we add a code that returns -E2BIG when the
-+	 * size is larger than the size that can be handled.
-+	 * If BITS_PER_LONG is 32, size > MAX_LFS_FILESIZE is always false,
-+	 * so we only needs to check when BITS_PER_LONG is 64.
-+	 * If BITS_PER_LONG is 32, E2BIG checks are processed when
-+	 * i915_gem_object_size_2big() is called before init_object() callback
-+	 * is called.
-+	 */
-+	if (BITS_PER_LONG == 64 && size > MAX_LFS_FILESIZE)
-+		return -E2BIG;
-+
- 	if (i915->mm.gemfs)
- 		filp = shmem_file_setup_with_mnt(i915->mm.gemfs, "i915", size,
- 						 flags);
--- 
-2.34.1
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
+
 
