@@ -4,47 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02AFDC19F2B
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 12:30:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01FF3C19F28
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 12:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA97FC5E6E;
-	Wed, 27 Jul 2022 12:30:13 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB81EC5D67;
- Wed, 27 Jul 2022 12:30:01 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 216C06118C;
- Wed, 27 Jul 2022 12:30:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9BDC433B5;
- Wed, 27 Jul 2022 12:30:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1658925000;
- bh=+RB6a52AG9Wuuej9xwxTPJsBVg63GQuYFqKk14nxsL8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kFS31LTGWtu6UsyHZFhoWgN+gAxEp6uDD8BAlgj113QA/7KmExjepcsOVktSS+Du4
- fT4I9aZU/g/TPNMUcpD89DD7h4M3ejCXieWgAGMUqKlt0TuOvSpCip8RRJcw/YhOMH
- 3o8TKjS0W1K5vmOF7Utyn22jlfBZfUKapGw+AJKD2vMPw9j70vYOd09Y3U1Z4gUsw7
- LP93q7TDhe4KkSs7h+mBOBaCcq/96RgFxqRwm2J+0HKqPvyb+PlNkzIPBASXOiHIp+
- n3gi0Vsp3fqQqarQHLlbu0H7e9AB1JhvSim4CmR8LdR+gJuu/ZG1n+IKBtEoH1KWdD
- LXY6TuKwwibnA==
-Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oGgAo-003xm9-6i;
- Wed, 27 Jul 2022 14:29:58 +0200
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: 
-Date: Wed, 27 Jul 2022 14:29:51 +0200
-Message-Id: <278a57a672edac75683f0818b292e95da583a5fe.1658924372.git.mchehab@kernel.org>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <cover.1658924372.git.mchehab@kernel.org>
-References: <cover.1658924372.git.mchehab@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 370CD95C2E;
+	Wed, 27 Jul 2022 12:57:01 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B06E18B659;
+ Wed, 27 Jul 2022 12:56:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1658926618; x=1690462618;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ZZz/K3MC/VTWwgoscj+ukc/J2fLhkf7sdFzroIufZjI=;
+ b=SbJZFL+w5iFnrOj0DM9q+fpl67fh4vDrObbOrOCDT8otJ3CdBxfAXAgf
+ exDXkYhgKuFfN2NDKcwOv6F+aVR6YM95mC9RtIWZ4WWH8Y0YOJQDhxA4f
+ 2Qrvl7ChsIPfldVa9CyH+5FTOl7YPHma1AhQ7MlFZzbMomz6E4IRR87eG
+ jszbQBUZlNhgiQsEFJWvnChDwmYUW+GKlM9pE3cvu/B/0wOHSX4B70T4p
+ A9GkmuLe9oR6S9X0P9hCiVj34CTR+DHVHp5guRB9JbYDNYwECIwAtB7S+
+ xUpShT6IK17L8G5/jrkfkE9Qrn5iDtN9G4IkuLPs63avOAT1vdmyAd/+3 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10420"; a="352219783"
+X-IronPort-AV: E=Sophos;i="5.93,195,1654585200"; d="scan'208";a="352219783"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2022 05:56:55 -0700
+X-IronPort-AV: E=Sophos;i="5.93,195,1654585200"; d="scan'208";a="927778582"
+Received: from ncouniha-mobl.ger.corp.intel.com (HELO [10.213.217.229])
+ ([10.213.217.229])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2022 05:56:52 -0700
+Message-ID: <d2337b73-ae34-3dd3-afa3-85c77dc2135e@linux.intel.com>
+Date: Wed, 27 Jul 2022 13:56:50 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 1/6] drm/i915/gt: Ignore TLB invalidations on
- idle engines
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
+References: <cover.1657800199.git.mchehab@kernel.org>
+ <9f535a97f32320a213a619a30c961ba44b595453.1657800199.git.mchehab@kernel.org>
+ <567823d5-57ba-30db-dd64-de609df4d8c5@linux.intel.com>
+ <20220727134836.7f7b5fab@maurocar-mobl2>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20220727134836.7f7b5fab@maurocar-mobl2>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v2 06/21] drm/i915/gt: Batch TLB
+ invalidations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,163 +64,124 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Chris Wilson <chris.p.wilson@intel.com>, Matthew Auld <matthew.auld@intel.com>,
- Dave Airlie <airlied@redhat.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, intel-gfx@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+Cc: stable@vger.kernel.org,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-media@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ linaro-mm-sig@lists.linaro.org, Chris Wilson <chris.p.wilson@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Dave Airlie <airlied@redhat.com>,
+ Tomas Winkler <tomas.winkler@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris.p.wilson@intel.com>
 
-Check if the device is powered down prior to any engine activity,
-as, on such cases, all the TLBs were already invalidated, so an
-explicit TLB invalidation is not needed, thus reducing the
-performance regression impact due to it.
+On 27/07/2022 12:48, Mauro Carvalho Chehab wrote:
+> On Wed, 20 Jul 2022 11:49:59 +0100
+> Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
+> 
+>> On 20/07/2022 08:13, Mauro Carvalho Chehab wrote:
+>>> On Mon, 18 Jul 2022 14:52:05 +0100
+>>> Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
+>>>    
+>>>>
+>>>> On 14/07/2022 13:06, Mauro Carvalho Chehab wrote:
+>>>>> From: Chris Wilson <chris.p.wilson@intel.com>
+>>>>>
+>>>>> Invalidate TLB in patch, in order to reduce performance regressions.
+>>>>
+>>>> "in batches"?
+>>>
+>>> Yeah. Will fix it.
+> 
+>>> +void vma_invalidate_tlb(struct i915_address_space *vm, u32 tlb)
+>>> +{
+>>> +	/*
+>>> +	 * Before we release the pages that were bound by this vma, we
+>>> +	 * must invalidate all the TLBs that may still have a reference
+>>> +	 * back to our physical address. It only needs to be done once,
+>>> +	 * so after updating the PTE to point away from the pages, record
+>>> +	 * the most recent TLB invalidation seqno, and if we have not yet
+>>> +	 * flushed the TLBs upon release, perform a full invalidation.
+>>> +	 */
+>>> +	WRITE_ONCE(tlb, intel_gt_next_invalidate_tlb_full(vm->gt));
+>>
+>> Shouldn't tlb be a pointer for this to make sense?
+> 
+> Oh, my mistake! Will fix at the next version.
+> 
+>>>    
+>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+>>>>> index d8b94d638559..2da6c82a8bd2 100644
+>>>>> --- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+>>>>> @@ -206,8 +206,12 @@ void ppgtt_bind_vma(struct i915_address_space *vm,
+>>>>>     void ppgtt_unbind_vma(struct i915_address_space *vm,
+>>>>>     		      struct i915_vma_resource *vma_res)
+>>>>>     {
+>>>>> -	if (vma_res->allocated)
+>>>>> -		vm->clear_range(vm, vma_res->start, vma_res->vma_size);
+>>>>> +	if (!vma_res->allocated)
+>>>>> +		return;
+>>>>> +
+>>>>> +	vm->clear_range(vm, vma_res->start, vma_res->vma_size);
+>>>>> +	if (vma_res->tlb)
+>>>>> +		vma_invalidate_tlb(vm, *vma_res->tlb);
+>>>>
+>>>> The patch is about more than batching? If there is a security hole in
+>>>> this area (unbind) with the current code?
+>>>
+>>> No, I don't think there's a security hole. The rationale for this is
+>>> not due to it.
+>>
+>> In this case obvious question is why are these changes in the patch
+>> which declares itself to be about batching invalidations? Because...
+> 
+> Because vma_invalidate_tlb() basically stores a TLB seqno, but the
+> actual invalidation is deferred to when the pages are unset, at
+> __i915_gem_object_unset_pages().
+> 
+> So, what happens is:
+> 
+> - on VMA sync mode, the need to invalidate TLB is marked at
+>    __vma_put_pages(), before VMA unbind;
+> - on async, this is deferred to happen at ppgtt_unbind_vma(), where
+>    it marks the need to invalidate TLBs.
+> 
+> On both cases, __i915_gem_object_unset_pages() is called later,
+> when the driver is ready to unmap the page.
 
-This becomes more significant with GuC, as it can only do so when
-the connection to the GuC is awake.
+Sorry still not clear to me why is the patch moving marking of the need 
+to invalidate (regardless if it a bit like today, or a seqno like in 
+this patch) from bind to unbind?
 
-Cc: stable@vger.kernel.org
-Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
-Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
-Cc: Fei Yang <fei.yang@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Acked-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
----
+What if the seqno was stored in i915_vma_bind, where the bit is set 
+today, and all the hunks which touch the unbind and evict would 
+disappear from the patch. What wouldn't work in that case, if anything?
 
-To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
-See [PATCH v3 0/6] at: https://lore.kernel.org/all/cover.1658924372.git.mchehab@kernel.org/
+Regards,
 
- drivers/gpu/drm/i915/gem/i915_gem_pages.c | 10 ++++++----
- drivers/gpu/drm/i915/gt/intel_gt.c        | 17 ++++++++++-------
- drivers/gpu/drm/i915/gt/intel_gt_pm.h     |  3 +++
- 3 files changed, 19 insertions(+), 11 deletions(-)
+Tvrtko
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-index 97c820eee115..6835279943df 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-@@ -6,14 +6,15 @@
- 
- #include <drm/drm_cache.h>
- 
-+#include "gt/intel_gt.h"
-+#include "gt/intel_gt_pm.h"
-+
- #include "i915_drv.h"
- #include "i915_gem_object.h"
- #include "i915_scatterlist.h"
- #include "i915_gem_lmem.h"
- #include "i915_gem_mman.h"
- 
--#include "gt/intel_gt.h"
--
- void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
- 				 struct sg_table *pages,
- 				 unsigned int sg_page_sizes)
-@@ -217,10 +218,11 @@ __i915_gem_object_unset_pages(struct drm_i915_gem_object *obj)
- 
- 	if (test_and_clear_bit(I915_BO_WAS_BOUND_BIT, &obj->flags)) {
- 		struct drm_i915_private *i915 = to_i915(obj->base.dev);
-+		struct intel_gt *gt = to_gt(i915);
- 		intel_wakeref_t wakeref;
- 
--		with_intel_runtime_pm_if_active(&i915->runtime_pm, wakeref)
--			intel_gt_invalidate_tlbs(to_gt(i915));
-+		with_intel_gt_pm_if_awake(gt, wakeref)
-+			intel_gt_invalidate_tlbs(gt);
- 	}
- 
- 	return pages;
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 68c2b0d8f187..c4d43da84d8e 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -12,6 +12,7 @@
- 
- #include "i915_drv.h"
- #include "intel_context.h"
-+#include "intel_engine_pm.h"
- #include "intel_engine_regs.h"
- #include "intel_ggtt_gmch.h"
- #include "intel_gt.h"
-@@ -924,6 +925,7 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 	struct drm_i915_private *i915 = gt->i915;
- 	struct intel_uncore *uncore = gt->uncore;
- 	struct intel_engine_cs *engine;
-+	intel_engine_mask_t awake, tmp;
- 	enum intel_engine_id id;
- 	const i915_reg_t *regs;
- 	unsigned int num = 0;
-@@ -947,26 +949,31 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 
- 	GEM_TRACE("\n");
- 
--	assert_rpm_wakelock_held(&i915->runtime_pm);
--
- 	mutex_lock(&gt->tlb_invalidate_lock);
- 	intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
- 
- 	spin_lock_irq(&uncore->lock); /* serialise invalidate with GT reset */
- 
-+	awake = 0;
- 	for_each_engine(engine, gt, id) {
- 		struct reg_and_bit rb;
- 
-+		if (!intel_engine_pm_is_awake(engine))
-+			continue;
-+
- 		rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
- 		if (!i915_mmio_reg_offset(rb.reg))
- 			continue;
- 
- 		intel_uncore_write_fw(uncore, rb.reg, rb.bit);
-+		awake |= engine->mask;
- 	}
- 
- 	spin_unlock_irq(&uncore->lock);
- 
--	for_each_engine(engine, gt, id) {
-+	for_each_engine_masked(engine, gt, awake, tmp) {
-+		struct reg_and_bit rb;
-+
- 		/*
- 		 * HW architecture suggest typical invalidation time at 40us,
- 		 * with pessimistic cases up to 100us and a recommendation to
-@@ -974,12 +981,8 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 		 */
- 		const unsigned int timeout_us = 100;
- 		const unsigned int timeout_ms = 4;
--		struct reg_and_bit rb;
- 
- 		rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
--		if (!i915_mmio_reg_offset(rb.reg))
--			continue;
--
- 		if (__intel_wait_for_register_fw(uncore,
- 						 rb.reg, rb.bit, 0,
- 						 timeout_us, timeout_ms,
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-index bc898df7a48c..a334787a4939 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-@@ -55,6 +55,9 @@ static inline void intel_gt_pm_might_put(struct intel_gt *gt)
- 	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
- 	     intel_gt_pm_put(gt), tmp = 0)
- 
-+#define with_intel_gt_pm_if_awake(gt, wf) \
-+	for (wf = intel_gt_pm_get_if_awake(gt); wf; intel_gt_pm_put_async(gt), wf = 0)
-+
- static inline int intel_gt_pm_wait_for_idle(struct intel_gt *gt)
- {
- 	return intel_wakeref_wait_for_idle(&gt->wakeref);
--- 
-2.36.1
-
+> 
+>> I am explaining why it looks to me that the patch is doing two things.
+>> Implementing batching _and_ adding invalidation points at VMA unbind
+>> sites, while so far we had it at backing store release only. Maybe I am
+>> wrong and perhaps I am too slow to pick up on the explanation here.
+>>
+>> So if the patch is doing two things please split it up.
+>>
+>> I am further confused by the invalidation call site in evict and in
+>> unbind - why there can't be one logical site since the logical sequence
+>> is evict -> unbind.
+> 
+> The invalidation happens only on one place: __i915_gem_object_unset_pages().
+> 
+> Despite its name, vma_invalidate_tlb() just marks the need of doing TLB
+> invalidation.
+> 
+> Regards,
+> Mauro
