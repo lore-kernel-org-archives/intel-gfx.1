@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E904C19F28
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 12:30:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9136BC04A68
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Jul 2022 12:30:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68B15C5D4F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDDBC5E4A;
 	Wed, 27 Jul 2022 12:30:10 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AEFBC5CBC;
- Wed, 27 Jul 2022 12:30:02 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1E4EC5D67;
+ Wed, 27 Jul 2022 12:30:03 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AC9CE61222;
- Wed, 27 Jul 2022 12:30:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89ECCC4347C;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 56EBCB82079;
+ Wed, 27 Jul 2022 12:30:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9734DC43143;
  Wed, 27 Jul 2022 12:30:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1658925000;
- bh=GQnU144pkObOuuSOogSq2lICybfwG6TF/c3AiwyFiLU=;
+ bh=Bnw95kKCUQrDufKC0VVSFnBSR2tCZOWA2za105c45Go=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iIUU+xwD3iVDACp1ZnSRc544KHgche8Xy0PlTjUYVBQ/hPu2sI9nV01zGlvR6HMmN
- 8hWPFzbcpPnfY/3wZ2V7Z7G/7sjFRxgnD51Z6gRBz+UDLaO5d7eAfieCMrIfB52K8t
- 0Rd0BnFe/tiNEdb/wpqyEwv8/B16/JtJbAS5Z18pEA5dsUo6Ca9/iYfYV87On/WBBZ
- EE+ZjOenfcBGZuIQA2CZVC+84I/4jyT/So3w9uUT8WJe7pZDJxo5wZ2e5epuQOwATl
- deUoe+Waz2xy4n/MqIsQDoa92AY78A3piVR7d9TPGNqbwD6iPDZYZRmd50WJQhjNCA
- jYVmNJCH3NoBA==
+ b=VdF5FWJ87oU8m4GpcVcn5AQmVa6fnLlbv/G8KNY1ksm9ejz0QGgPF02zIRHkwiyDM
+ s8XuQX17mD4u7aCJv6VFFSum9WoSb6AmaBQ3th2rqNNOWXJuZAF58QvBlV/kh6j4Yb
+ BuBu/YX9hNaoNz/wq0GC9/YwuPV+8zCmLQmsmPJTDprbMXz24x44zlUPLwR+GqPad1
+ bMHz64HE6H8HUkBmBFr/Mr6g59ClxjdudJ6ZV0SQMftFtjObfQcKVJ56kzhMPqZ/UD
+ Uy+AEwnaGjueKifx4GVnbs21YmVxyuv6aFt18Fo9IgZz7zjlzgZh04+Jki3MMEo8/2
+ Bgdza87u2BqCg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oGgAo-003xmL-B2;
+ (envelope-from <mchehab@kernel.org>) id 1oGgAo-003xmT-Du;
  Wed, 27 Jul 2022 14:29:58 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Wed, 27 Jul 2022 14:29:54 +0200
-Message-Id: <5aa86564b9ec5fe7fe605c1dd7de76855401ed73.1658924372.git.mchehab@kernel.org>
+Date: Wed, 27 Jul 2022 14:29:56 +0200
+Message-Id: <aa55eef7e63b8f3d0f69b525db2dd2eb87e9db6b.1658924372.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <cover.1658924372.git.mchehab@kernel.org>
 References: <cover.1658924372.git.mchehab@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 4/6] drm/i915/gt: Skip TLB invalidations once
- wedged
+Subject: [Intel-gfx] [PATCH v3 6/6] drm/i915/gt: describe the new tlb
+ parameter at i915_vma_resource
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,56 +55,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- Chris Wilson <chris.p.wilson@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dave Airlie <airlied@redhat.com>, stable@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris.p.wilson@intel.com>
+TLB cache invalidation can happen on two different situations:
 
-Skip all further TLB invalidations once the device is wedged and
-had been reset, as, on such cases, it can no longer process instructions
-on the GPU and the user no longer has access to the TLB's in each engine.
+1. synchronously, at __vma_put_pages();
+2. asynchronously.
 
-So, an attempt to do a TLB cache invalidation will produce a timeout.
+On the first case, TLB cache invalidation happens inside
+__vma_put_pages(). So, no need to do it later on.
 
-That helps to reduce the performance regression introduced by TLB
-invalidate logic.
+However, on the second case, the pages will keep in memory
+until __i915_vma_evict() is called.
 
-Cc: stable@vger.kernel.org
-Fixes: 7938d61591d3 ("drm/i915: Flush TLBs before releasing backing store")
-Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
-Cc: Fei Yang <fei.yang@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Acked-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+So, we need to store the TLB data at struct i915_vma_resource,
+in order to do a TLB cache invalidation before allowing
+userspace to re-use the same memory.
+
+So, i915_vma_resource_unbind() has gained a new parameter
+in order to store the TLB data at the second case.
+
+Document it.
+
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 0/6] at: https://lore.kernel.org/all/cover.1658924372.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gt/intel_gt.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/i915_vma_resource.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 1d84418e8676..5c55a90672f4 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -934,6 +934,9 @@ void intel_gt_invalidate_tlbs(struct intel_gt *gt)
- 	if (I915_SELFTEST_ONLY(gt->awake == -ENODEV))
- 		return;
- 
-+	if (intel_gt_is_wedged(gt))
-+		return;
-+
- 	if (GRAPHICS_VER(i915) == 12) {
- 		regs = gen12_regs;
- 		num = ARRAY_SIZE(gen12_regs);
+diff --git a/drivers/gpu/drm/i915/i915_vma_resource.c b/drivers/gpu/drm/i915/i915_vma_resource.c
+index 5a67995ea5fe..4fe09ea0a825 100644
+--- a/drivers/gpu/drm/i915/i915_vma_resource.c
++++ b/drivers/gpu/drm/i915/i915_vma_resource.c
+@@ -216,6 +216,10 @@ i915_vma_resource_fence_notify(struct i915_sw_fence *fence,
+ /**
+  * i915_vma_resource_unbind - Unbind a vma resource
+  * @vma_res: The vma resource to unbind.
++ * @tlb: pointer to vma->obj->mm.tlb associated with the resource
++ *	 to be stored at vma_res->tlb. When not-NULL, it will be used
++ *	 to do TLB cache invalidation before freeing a VMA resource.
++ *	 used only for async unbind.
+  *
+  * At this point this function does little more than publish a fence that
+  * signals immediately unless signaling is held back.
 -- 
 2.36.1
 
