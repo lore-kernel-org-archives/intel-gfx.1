@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE73C04A68
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 02:21:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BFE4C19F2B
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 02:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2758B10E1CB;
-	Thu, 28 Jul 2022 02:21:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4BC10F24E;
+	Thu, 28 Jul 2022 02:21:10 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0725B10FBAA;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89BD110F5D3;
  Thu, 28 Jul 2022 02:20:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658974834; x=1690510834;
+ t=1658974833; x=1690510833;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2GdU3fhwnw6td1wZSW6VL9gzg+bUE0qLqTPFd34Pc4k=;
- b=SGuTA2ofJ7Ps9W4A9NGyi0Ebs42RoI4qZJmfG8gXKouWpVKg+Xt1RwdN
- gK94jbjvY0/Aj0LzafYq9LemX20vk4kCfL/lOnR9NUei332WKjNkSZWrW
- X5rw7ne1OdJe+OgL/UWeX97vGDPT3Zfh3orNbss3hJn5VIvxT6Kj1lbyD
- eplffu5ZydDbnJzL9qae1EMWUCxm0opgOscBnHhxwELGr2J9uzDTsf403
- vOYIIzi00fPmHK7wgFtlAs9j2ouwcIZ5RU6Z7PWmWDDtJ88Y7p3t573wG
- CIv83fTdJRnlJyfrPRnji9luWfIeF6DEwM0I0qiI/H9qmmhXivh0i2GcK w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="285947587"
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="285947587"
+ bh=SSojqK2GyXHbKSZbPncQ1PTflfmTboY8RrqXqkKnc5E=;
+ b=a5SPejweIqwi2tPb+My8CzeRLgVaKEH0iYk4c5cLdWaxjLNgyqN87y5o
+ lt4gZvZ6ha/4TAPYg2/TtSWXpehbY1OafbRZEFr9uYzZ/GVScRt9l0d3T
+ ijsavUemC0Sr1+ietBCAVYcbz/CRKlQj6bXpd5WsyDcJLviIiZKaaVfkn
+ TZjy9W0q9BVhzWL+FHzLuQAHf97D3aRl1+opKb7j8Y4MyLnRfN3yi4sGK
+ XN4/I/DOLYDvLetyMVgQLrVQROIEoXA3TBd0l9rnNWcUvSvJ2yAyR1wUA
+ rkwvc9wWk/pDto4TqxmP0jypQz5Qn1rQxBS1K0Bd086RtAkyyqiI13P4L g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="285947584"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="285947584"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 19:20:29 -0700
+ 27 Jul 2022 19:20:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="600648478"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="600648468"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga002.jf.intel.com with ESMTP; 27 Jul 2022 19:20:28 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 27 Jul 2022 19:20:27 -0700
-Message-Id: <20220728022028.2190627-7-John.C.Harrison@Intel.com>
+Date: Wed, 27 Jul 2022 19:20:24 -0700
+Message-Id: <20220728022028.2190627-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220728022028.2190627-1-John.C.Harrison@Intel.com>
 References: <20220728022028.2190627-1-John.C.Harrison@Intel.com>
@@ -44,8 +44,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/7] drm/i915/guc: Make GuC log sizes runtime
- configurable
+Subject: [Intel-gfx] [PATCH 3/7] drm/i915/guc: Add GuC <-> kernel time stamp
+ translation information
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,498 +64,153 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The GuC log buffer sizes had to be configured statically at compile
-time. This can be quite troublesome when needing to get larger logs
-out of a released driver. So re-organise the code to allow a boot time
-module parameter override.
+It is useful to be able to match GuC events to kernel events when
+looking at the GuC log. That requires being able to convert GuC
+timestamps to kernel time. So, when dumping error captures and/or GuC
+logs, include a stamp in both time zones plus the clock frequency.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  53 ++----
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    |  14 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    | 176 +++++++++++++++++-
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |  42 +++--
- drivers/gpu/drm/i915/i915_params.c            |  12 ++
- drivers/gpu/drm/i915/i915_params.h            |   3 +
- 6 files changed, 226 insertions(+), 74 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h    |  2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c     | 19 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h     |  2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c |  2 ++
+ drivers/gpu/drm/i915/i915_gpu_error.c      | 12 ++++++++++++
+ drivers/gpu/drm/i915/i915_gpu_error.h      |  3 +++
+ 6 files changed, 40 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 60d6eb5f245b7..fc7979bd91db5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -1007,6 +1007,8 @@
+ #define   GEN11_LSN_UNSLCVC_GAFS_HALF_CL2_MAXALLOC	(1 << 9)
+ #define   GEN11_LSN_UNSLCVC_GAFS_HALF_SF_MAXALLOC	(1 << 7)
+ 
++#define GUCPMTIMESTAMP				_MMIO(0xc3e8)
++
+ #define __GEN9_RCS0_MOCS0			0xc800
+ #define GEN9_GFX_MOCS(i)			_MMIO(__GEN9_RCS0_MOCS0 + (i) * 4)
+ #define __GEN9_VCS0_MOCS0			0xc900
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index ab4aacc516aa4..01f2705cb94a3 100644
+index 2706a8c650900..ab4aacc516aa4 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -224,53 +224,22 @@ static u32 guc_ctl_feature_flags(struct intel_guc *guc)
+@@ -389,6 +389,25 @@ void intel_guc_write_params(struct intel_guc *guc)
+ 	intel_uncore_forcewake_put(uncore, FORCEWAKE_GT);
+ }
  
- static u32 guc_ctl_log_params_flags(struct intel_guc *guc)
++void intel_guc_dump_time_info(struct intel_guc *guc, struct drm_printer *p)
++{
++	struct intel_gt *gt = guc_to_gt(guc);
++	intel_wakeref_t wakeref;
++	u32 stamp = 0;
++	u64 ktime;
++
++	intel_device_info_print_runtime(RUNTIME_INFO(gt->i915), p);
++
++	with_intel_runtime_pm(&gt->i915->runtime_pm, wakeref)
++		stamp = intel_uncore_read(gt->uncore, GUCPMTIMESTAMP);
++	ktime = ktime_get_boottime_ns();
++
++	drm_printf(p, "Kernel timestamp: 0x%08llX [%llu]\n", ktime, ktime);
++	drm_printf(p, "GuC timestamp: 0x%08X [%u]\n", stamp, stamp);
++	drm_printf(p, "CS timestamp frequency: %u Hz, %u ns\n",
++		   gt->clock_frequency, gt->clock_period_ns);
++}
++
+ int intel_guc_init(struct intel_guc *guc)
  {
--	u32 offset = intel_guc_ggtt_offset(guc, guc->log.vma) >> PAGE_SHIFT;
--	u32 flags;
--
--	#if (((CRASH_BUFFER_SIZE) % SZ_1M) == 0)
--	#define LOG_UNIT SZ_1M
--	#define LOG_FLAG GUC_LOG_LOG_ALLOC_UNITS
--	#else
--	#define LOG_UNIT SZ_4K
--	#define LOG_FLAG 0
--	#endif
--
--	#if (((CAPTURE_BUFFER_SIZE) % SZ_1M) == 0)
--	#define CAPTURE_UNIT SZ_1M
--	#define CAPTURE_FLAG GUC_LOG_CAPTURE_ALLOC_UNITS
--	#else
--	#define CAPTURE_UNIT SZ_4K
--	#define CAPTURE_FLAG 0
--	#endif
--
--	BUILD_BUG_ON(!CRASH_BUFFER_SIZE);
--	BUILD_BUG_ON(!IS_ALIGNED(CRASH_BUFFER_SIZE, LOG_UNIT));
--	BUILD_BUG_ON(!DEBUG_BUFFER_SIZE);
--	BUILD_BUG_ON(!IS_ALIGNED(DEBUG_BUFFER_SIZE, LOG_UNIT));
--	BUILD_BUG_ON(!CAPTURE_BUFFER_SIZE);
--	BUILD_BUG_ON(!IS_ALIGNED(CAPTURE_BUFFER_SIZE, CAPTURE_UNIT));
--
--	BUILD_BUG_ON((CRASH_BUFFER_SIZE / LOG_UNIT - 1) >
--			(GUC_LOG_CRASH_MASK >> GUC_LOG_CRASH_SHIFT));
--	BUILD_BUG_ON((DEBUG_BUFFER_SIZE / LOG_UNIT - 1) >
--			(GUC_LOG_DEBUG_MASK >> GUC_LOG_DEBUG_SHIFT));
--	BUILD_BUG_ON((CAPTURE_BUFFER_SIZE / CAPTURE_UNIT - 1) >
--			(GUC_LOG_CAPTURE_MASK >> GUC_LOG_CAPTURE_SHIFT));
-+	struct intel_guc_log *log = &guc->log;
-+	u32 offset, flags;
-+
-+	GEM_BUG_ON(!log->sizes_initialised);
-+
-+	offset = intel_guc_ggtt_offset(guc, log->vma) >> PAGE_SHIFT;
+ 	struct intel_gt *gt = guc_to_gt(guc);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index a7acffbf15d1f..804133df1ac9b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -464,4 +464,6 @@ void intel_guc_load_status(struct intel_guc *guc, struct drm_printer *p);
  
- 	flags = GUC_LOG_VALID |
- 		GUC_LOG_NOTIFY_ON_HALF_FULL |
--		CAPTURE_FLAG |
--		LOG_FLAG |
--		((CRASH_BUFFER_SIZE / LOG_UNIT - 1) << GUC_LOG_CRASH_SHIFT) |
--		((DEBUG_BUFFER_SIZE / LOG_UNIT - 1) << GUC_LOG_DEBUG_SHIFT) |
--		((CAPTURE_BUFFER_SIZE / CAPTURE_UNIT - 1) << GUC_LOG_CAPTURE_SHIFT) |
-+		log->sizes[GUC_LOG_SECTIONS_DEBUG].flag |
-+		log->sizes[GUC_LOG_SECTIONS_CAPTURE].flag |
-+		(log->sizes[GUC_LOG_SECTIONS_CRASH].count << GUC_LOG_CRASH_SHIFT) |
-+		(log->sizes[GUC_LOG_SECTIONS_DEBUG].count << GUC_LOG_DEBUG_SHIFT) |
-+		(log->sizes[GUC_LOG_SECTIONS_CAPTURE].count << GUC_LOG_CAPTURE_SHIFT) |
- 		(offset << GUC_LOG_BUF_ADDR_SHIFT);
+ void intel_guc_write_barrier(struct intel_guc *guc);
  
--	#undef LOG_UNIT
--	#undef LOG_FLAG
--	#undef CAPTURE_UNIT
--	#undef CAPTURE_FLAG
--
- 	return flags;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index b54b7883320b1..d2ac53d4f3b6e 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -656,16 +656,17 @@ static void check_guc_capture_size(struct intel_guc *guc)
- 	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
- 	int min_size = guc_capture_output_min_size_est(guc);
- 	int spare_size = min_size * GUC_CAPTURE_OVERBUFFER_MULTIPLIER;
-+	u32 buffer_size = intel_guc_log_section_size_capture(&guc->log);
- 
- 	if (min_size < 0)
- 		drm_warn(&i915->drm, "Failed to calculate GuC error state capture buffer minimum size: %d!\n",
- 			 min_size);
--	else if (min_size > CAPTURE_BUFFER_SIZE)
-+	else if (min_size > buffer_size)
- 		drm_warn(&i915->drm, "GuC error state capture buffer is too small: %d < %d\n",
--			 CAPTURE_BUFFER_SIZE, min_size);
--	else if (spare_size > CAPTURE_BUFFER_SIZE)
-+			 buffer_size, min_size);
-+	else if (spare_size > buffer_size)
- 		drm_notice(&i915->drm, "GuC error state capture buffer maybe too small: %d < %d (min = %d)\n",
--			   CAPTURE_BUFFER_SIZE, spare_size, min_size);
-+			   buffer_size, spare_size, min_size);
- }
- 
- /*
-@@ -1294,7 +1295,8 @@ static void __guc_capture_process_output(struct intel_guc *guc)
- 
- 	log_buf_state = guc->log.buf_addr +
- 			(sizeof(struct guc_log_buffer_state) * GUC_CAPTURE_LOG_BUFFER);
--	src_data = guc->log.buf_addr + intel_guc_get_log_buffer_offset(GUC_CAPTURE_LOG_BUFFER);
-+	src_data = guc->log.buf_addr +
-+		   intel_guc_get_log_buffer_offset(&guc->log, GUC_CAPTURE_LOG_BUFFER);
- 
- 	/*
- 	 * Make a copy of the state structure, inside GuC log buffer
-@@ -1302,7 +1304,7 @@ static void __guc_capture_process_output(struct intel_guc *guc)
- 	 * from it multiple times.
- 	 */
- 	memcpy(&log_buf_state_local, log_buf_state, sizeof(struct guc_log_buffer_state));
--	buffer_size = intel_guc_get_log_buffer_size(GUC_CAPTURE_LOG_BUFFER);
-+	buffer_size = intel_guc_get_log_buffer_size(&guc->log, GUC_CAPTURE_LOG_BUFFER);
- 	read_offset = log_buf_state_local.read_ptr;
- 	write_offset = log_buf_state_local.sampled_write_ptr;
- 	full_count = log_buf_state_local.buffer_full_cnt;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-index 4722d4b18ed19..890b6853bd609 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-@@ -13,8 +13,158 @@
- #include "intel_guc_capture.h"
- #include "intel_guc_log.h"
- 
-+#if defined(CONFIG_DRM_I915_DEBUG_GUC)
-+#define GUC_LOG_DEFAULT_CRASH_BUFFER_SIZE	SZ_2M
-+#define GUC_LOG_DEFAULT_DEBUG_BUFFER_SIZE	SZ_16M
-+#define GUC_LOG_DEFAULT_CAPTURE_BUFFER_SIZE	SZ_4M
-+#elif defined(CONFIG_DRM_I915_DEBUG_GEM)
-+#define GUC_LOG_DEFAULT_CRASH_BUFFER_SIZE	SZ_1M
-+#define GUC_LOG_DEFAULT_DEBUG_BUFFER_SIZE	SZ_2M
-+#define GUC_LOG_DEFAULT_CAPTURE_BUFFER_SIZE	SZ_4M
-+#else
-+#define GUC_LOG_DEFAULT_CRASH_BUFFER_SIZE	SZ_8K
-+#define GUC_LOG_DEFAULT_DEBUG_BUFFER_SIZE	SZ_64K
-+#define GUC_LOG_DEFAULT_CAPTURE_BUFFER_SIZE	SZ_2M
-+#endif
-+
- static void guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log);
- 
-+struct guc_log_section {
-+	u32 max;
-+	u32 flag;
-+	u32 default_val;
-+	const char *name;
-+};
-+
-+static s32 scale_log_param(struct intel_guc_log *log, const struct guc_log_section *section,
-+			   s32 param)
-+{
-+	/* -1 means default */
-+	if (param < 0)
-+		return section->default_val;
-+
-+	/* Check for 32-bit overflow */
-+	if (param >= SZ_4K) {
-+		drm_err(&guc_to_gt(log_to_guc(log))->i915->drm, "Size too large for GuC %s log: %dMB!",
-+			section->name, param);
-+		return section->default_val;
-+	}
-+
-+	/* Param units are 1MB */
-+	return param * SZ_1M;
-+}
-+
-+static void _guc_log_init_sizes(struct intel_guc_log *log)
-+{
-+	struct intel_guc *guc = log_to_guc(log);
-+	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
-+	static const struct guc_log_section sections[GUC_LOG_SECTIONS_LIMIT] = {
-+		{
-+			GUC_LOG_CRASH_MASK >> GUC_LOG_CRASH_SHIFT,
-+			GUC_LOG_LOG_ALLOC_UNITS,
-+			GUC_LOG_DEFAULT_CRASH_BUFFER_SIZE,
-+			"crash dump"
-+		},
-+		{
-+			GUC_LOG_DEBUG_MASK >> GUC_LOG_DEBUG_SHIFT,
-+			GUC_LOG_LOG_ALLOC_UNITS,
-+			GUC_LOG_DEFAULT_DEBUG_BUFFER_SIZE,
-+			"debug",
-+		},
-+		{
-+			GUC_LOG_CAPTURE_MASK >> GUC_LOG_CAPTURE_SHIFT,
-+			GUC_LOG_CAPTURE_ALLOC_UNITS,
-+			GUC_LOG_DEFAULT_CAPTURE_BUFFER_SIZE,
-+			"capture",
-+		}
-+	};
-+	s32 params[GUC_LOG_SECTIONS_LIMIT] = {
-+		i915->params.guc_log_size_crash,
-+		i915->params.guc_log_size_debug,
-+		i915->params.guc_log_size_capture,
-+	};
-+	int i;
-+
-+	for (i = 0; i < GUC_LOG_SECTIONS_LIMIT; i++)
-+		log->sizes[i].bytes = scale_log_param(log, sections + i, params[i]);
-+
-+	/* If debug size > 1MB then bump default crash size to keep the same units */
-+	if (log->sizes[GUC_LOG_SECTIONS_DEBUG].bytes >= SZ_1M &&
-+	    (i915->params.guc_log_size_crash == -1) &&
-+	    GUC_LOG_DEFAULT_CRASH_BUFFER_SIZE < SZ_1M)
-+		log->sizes[GUC_LOG_SECTIONS_CRASH].bytes = SZ_1M;
-+
-+	/* Prepare the GuC API structure fields: */
-+	for (i = 0; i < GUC_LOG_SECTIONS_LIMIT; i++) {
-+		/* Convert to correct units */
-+		if ((log->sizes[i].bytes % SZ_1M) == 0) {
-+			log->sizes[i].units = SZ_1M;
-+			log->sizes[i].flag = sections[i].flag;
-+		} else {
-+			log->sizes[i].units = SZ_4K;
-+			log->sizes[i].flag = 0;
-+		}
-+
-+		if (!IS_ALIGNED(log->sizes[i].bytes, log->sizes[i].units))
-+			drm_err(&i915->drm, "Mis-aligned GuC log %s size: 0x%X vs 0x%X!",
-+				sections[i].name, log->sizes[i].bytes, log->sizes[i].units);
-+		log->sizes[i].count = log->sizes[i].bytes / log->sizes[i].units;
-+
-+		if (!log->sizes[i].count) {
-+			drm_err(&i915->drm, "Zero GuC log %s size!", sections[i].name);
-+		} else {
-+			/* Size is +1 unit */
-+			log->sizes[i].count--;
-+		}
-+
-+		/* Clip to field size */
-+		if (log->sizes[i].count > sections[i].max) {
-+			drm_err(&i915->drm, "GuC log %s size too large: %d vs %d!",
-+				sections[i].name, log->sizes[i].count + 1, sections[i].max + 1);
-+			log->sizes[i].count = sections[i].max;
-+		}
-+	}
-+
-+	if (log->sizes[GUC_LOG_SECTIONS_CRASH].units != log->sizes[GUC_LOG_SECTIONS_DEBUG].units) {
-+		drm_err(&i915->drm, "Unit mis-match for GuC log crash and debug sections: %d vs %d!",
-+			log->sizes[GUC_LOG_SECTIONS_CRASH].units,
-+			log->sizes[GUC_LOG_SECTIONS_DEBUG].units);
-+		log->sizes[GUC_LOG_SECTIONS_CRASH].units = log->sizes[GUC_LOG_SECTIONS_DEBUG].units;
-+		log->sizes[GUC_LOG_SECTIONS_CRASH].count = 0;
-+	}
-+
-+	log->sizes_initialised = true;
-+}
-+
-+static void guc_log_init_sizes(struct intel_guc_log *log)
-+{
-+	if (log->sizes_initialised)
-+		return;
-+
-+	_guc_log_init_sizes(log);
-+}
-+
-+static u32 intel_guc_log_section_size_crash(struct intel_guc_log *log)
-+{
-+	guc_log_init_sizes(log);
-+
-+	return log->sizes[GUC_LOG_SECTIONS_CRASH].bytes;
-+}
-+
-+static u32 intel_guc_log_section_size_debug(struct intel_guc_log *log)
-+{
-+	guc_log_init_sizes(log);
-+
-+	return log->sizes[GUC_LOG_SECTIONS_DEBUG].bytes;
-+}
-+
-+u32 intel_guc_log_section_size_capture(struct intel_guc_log *log)
-+{
-+	guc_log_init_sizes(log);
-+
-+	return log->sizes[GUC_LOG_SECTIONS_CAPTURE].bytes;
-+}
-+
- static u32 intel_guc_log_size(struct intel_guc_log *log)
- {
- 	/*
-@@ -38,7 +188,10 @@ static u32 intel_guc_log_size(struct intel_guc_log *log)
- 	 *  |         Capture logs          |
- 	 *  +===============================+ + CAPTURE_SIZE
- 	 */
--	return PAGE_SIZE + CRASH_BUFFER_SIZE + DEBUG_BUFFER_SIZE + CAPTURE_BUFFER_SIZE;
-+	return PAGE_SIZE +
-+		intel_guc_log_section_size_crash(log) +
-+		intel_guc_log_section_size_debug(log) +
-+		intel_guc_log_section_size_capture(log);
- }
- 
- /**
-@@ -165,7 +318,8 @@ static void guc_move_to_next_buf(struct intel_guc_log *log)
- 	smp_wmb();
- 
- 	/* All data has been written, so now move the offset of sub buffer. */
--	relay_reserve(log->relay.channel, log->vma->obj->base.size - CAPTURE_BUFFER_SIZE);
-+	relay_reserve(log->relay.channel, log->vma->obj->base.size -
-+					  intel_guc_log_section_size_capture(log));
- 
- 	/* Switch to the next sub buffer */
- 	relay_flush(log->relay.channel);
-@@ -210,15 +364,16 @@ bool intel_guc_check_log_buf_overflow(struct intel_guc_log *log,
- 	return overflow;
- }
- 
--unsigned int intel_guc_get_log_buffer_size(enum guc_log_buffer_type type)
-+unsigned int intel_guc_get_log_buffer_size(struct intel_guc_log *log,
-+					   enum guc_log_buffer_type type)
- {
- 	switch (type) {
- 	case GUC_DEBUG_LOG_BUFFER:
--		return DEBUG_BUFFER_SIZE;
-+		return intel_guc_log_section_size_debug(log);
- 	case GUC_CRASH_DUMP_LOG_BUFFER:
--		return CRASH_BUFFER_SIZE;
-+		return intel_guc_log_section_size_crash(log);
- 	case GUC_CAPTURE_LOG_BUFFER:
--		return CAPTURE_BUFFER_SIZE;
-+		return intel_guc_log_section_size_capture(log);
- 	default:
- 		MISSING_CASE(type);
- 	}
-@@ -226,7 +381,8 @@ unsigned int intel_guc_get_log_buffer_size(enum guc_log_buffer_type type)
- 	return 0;
- }
- 
--size_t intel_guc_get_log_buffer_offset(enum guc_log_buffer_type type)
-+size_t intel_guc_get_log_buffer_offset(struct intel_guc_log *log,
-+				       enum guc_log_buffer_type type)
- {
- 	enum guc_log_buffer_type i;
- 	size_t offset = PAGE_SIZE;/* for the log_buffer_states */
-@@ -234,7 +390,7 @@ size_t intel_guc_get_log_buffer_offset(enum guc_log_buffer_type type)
- 	for (i = GUC_DEBUG_LOG_BUFFER; i < GUC_MAX_LOG_BUFFER; ++i) {
- 		if (i == type)
- 			break;
--		offset += intel_guc_get_log_buffer_size(i);
-+		offset += intel_guc_get_log_buffer_size(log, i);
- 	}
- 
- 	return offset;
-@@ -285,7 +441,7 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- 		 */
- 		memcpy(&log_buf_state_local, log_buf_state,
- 		       sizeof(struct guc_log_buffer_state));
--		buffer_size = intel_guc_get_log_buffer_size(type);
-+		buffer_size = intel_guc_get_log_buffer_size(log, type);
- 		read_offset = log_buf_state_local.read_ptr;
- 		write_offset = log_buf_state_local.sampled_write_ptr;
- 		full_cnt = log_buf_state_local.buffer_full_cnt;
-@@ -400,7 +556,7 @@ static int guc_log_relay_create(struct intel_guc_log *log)
- 	  * Keep the size of sub buffers same as shared log buffer
- 	  * but GuC log-events excludes the error-state-capture logs
- 	  */
--	subbuf_size = log->vma->size - CAPTURE_BUFFER_SIZE;
-+	subbuf_size = log->vma->size - intel_guc_log_section_size_capture(log);
- 
- 	/*
- 	 * Store up to 8 snapshots, which is large enough to buffer sufficient
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
-index dc9715411d626..02127703be809 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.h
-@@ -15,20 +15,6 @@
- 
- struct intel_guc;
- 
--#if defined(CONFIG_DRM_I915_DEBUG_GUC)
--#define CRASH_BUFFER_SIZE	SZ_2M
--#define DEBUG_BUFFER_SIZE	SZ_16M
--#define CAPTURE_BUFFER_SIZE	SZ_4M
--#elif defined(CONFIG_DRM_I915_DEBUG_GEM)
--#define CRASH_BUFFER_SIZE	SZ_1M
--#define DEBUG_BUFFER_SIZE	SZ_2M
--#define CAPTURE_BUFFER_SIZE	SZ_4M
--#else
--#define CRASH_BUFFER_SIZE	SZ_8K
--#define DEBUG_BUFFER_SIZE	SZ_64K
--#define CAPTURE_BUFFER_SIZE	SZ_2M
--#endif
--
- /*
-  * While we're using plain log level in i915, GuC controls are much more...
-  * "elaborate"? We have a couple of bits for verbosity, separate bit for actual
-@@ -46,10 +32,30 @@ struct intel_guc;
- #define GUC_VERBOSITY_TO_LOG_LEVEL(x)	((x) + 2)
- #define GUC_LOG_LEVEL_MAX GUC_VERBOSITY_TO_LOG_LEVEL(GUC_LOG_VERBOSITY_MAX)
- 
-+enum {
-+	GUC_LOG_SECTIONS_CRASH,
-+	GUC_LOG_SECTIONS_DEBUG,
-+	GUC_LOG_SECTIONS_CAPTURE,
-+	GUC_LOG_SECTIONS_LIMIT
-+};
-+
- struct intel_guc_log {
- 	u32 level;
-+
-+	/* Allocation settings */
-+	struct {
-+		s32 bytes;	/* Size in bytes */
-+		s32 units;	/* GuC API units - 1MB or 4KB */
-+		s32 count;	/* Number of API units */
-+		u32 flag;	/* GuC API units flag */
-+	} sizes[GUC_LOG_SECTIONS_LIMIT];
-+	bool sizes_initialised;
-+
-+	/* Combined buffer allocation */
- 	struct i915_vma *vma;
- 	void *buf_addr;
-+
-+	/* RelayFS support */
- 	struct {
- 		bool buf_in_use;
- 		bool started;
-@@ -58,6 +64,7 @@ struct intel_guc_log {
- 		struct mutex lock;
- 		u32 full_count;
- 	} relay;
-+
- 	/* logging related stats */
- 	struct {
- 		u32 sampled_overflow;
-@@ -69,8 +76,9 @@ struct intel_guc_log {
- void intel_guc_log_init_early(struct intel_guc_log *log);
- bool intel_guc_check_log_buf_overflow(struct intel_guc_log *log, enum guc_log_buffer_type type,
- 				      unsigned int full_cnt);
--unsigned int intel_guc_get_log_buffer_size(enum guc_log_buffer_type type);
--size_t intel_guc_get_log_buffer_offset(enum guc_log_buffer_type type);
-+unsigned int intel_guc_get_log_buffer_size(struct intel_guc_log *log,
-+					   enum guc_log_buffer_type type);
-+size_t intel_guc_get_log_buffer_offset(struct intel_guc_log *log, enum guc_log_buffer_type type);
- int intel_guc_log_create(struct intel_guc_log *log);
- void intel_guc_log_destroy(struct intel_guc_log *log);
- 
-@@ -92,4 +100,6 @@ void intel_guc_log_info(struct intel_guc_log *log, struct drm_printer *p);
- int intel_guc_log_dump(struct intel_guc_log *log, struct drm_printer *p,
- 		       bool dump_load_err);
- 
-+u32 intel_guc_log_section_size_capture(struct intel_guc_log *log);
++void intel_guc_dump_time_info(struct intel_guc *guc, struct drm_printer *p);
 +
  #endif
-diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index 6fc475a5db615..06ca5b8221118 100644
---- a/drivers/gpu/drm/i915/i915_params.c
-+++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -171,6 +171,18 @@ i915_param_named(guc_log_level, int, 0400,
- 	"GuC firmware logging level. Requires GuC to be loaded. "
- 	"(-1=auto [default], 0=disable, 1..4=enable with verbosity min..max)");
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+index 991d4a02248dc..07d31ae32f765 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+@@ -764,6 +764,8 @@ int intel_guc_log_dump(struct intel_guc_log *log, struct drm_printer *p,
+ 	if (!obj)
+ 		return 0;
  
-+i915_param_named(guc_log_size_crash, int, 0400,
-+	"GuC firmware logging buffer size for crash dumps (in MB)"
-+	"(-1=auto [default], NB: max = 4, other restrictions apply)");
++	intel_guc_dump_time_info(guc, p);
 +
-+i915_param_named(guc_log_size_debug, int, 0400,
-+	"GuC firmware logging buffer size for debug logs (in MB)"
-+	"(-1=auto [default], NB: max = 16, other restrictions apply)");
-+
-+i915_param_named(guc_log_size_capture, int, 0400,
-+	"GuC error capture register dump buffer size (in MB)"
-+	"(-1=auto [default], NB: max = 4, other restrictions apply)");
-+
- i915_param_named_unsafe(guc_firmware_path, charp, 0400,
- 	"GuC firmware path to use instead of the default one");
+ 	map = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
+ 	if (IS_ERR(map)) {
+ 		DRM_DEBUG("Failed to pin object\n");
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 32e92651ef7c2..addba75252343 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -678,6 +678,7 @@ static void err_print_uc(struct drm_i915_error_state_buf *m,
  
-diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index 2733cb6cfe094..f684d1ab87078 100644
---- a/drivers/gpu/drm/i915/i915_params.h
-+++ b/drivers/gpu/drm/i915/i915_params.h
-@@ -61,6 +61,9 @@ struct drm_printer;
- 	param(int, invert_brightness, 0, 0600) \
- 	param(int, enable_guc, -1, 0400) \
- 	param(int, guc_log_level, -1, 0400) \
-+	param(int, guc_log_size_crash, -1, 0400) \
-+	param(int, guc_log_size_debug, -1, 0400) \
-+	param(int, guc_log_size_capture, -1, 0400) \
- 	param(char *, guc_firmware_path, NULL, 0400) \
- 	param(char *, huc_firmware_path, NULL, 0400) \
- 	param(char *, dmc_firmware_path, NULL, 0400) \
+ 	intel_uc_fw_dump(&error_uc->guc_fw, &p);
+ 	intel_uc_fw_dump(&error_uc->huc_fw, &p);
++	err_printf(m, "GuC timestamp: 0x%08x\n", error_uc->timestamp);
+ 	intel_gpu_error_print_vma(m, NULL, error_uc->guc_log);
+ }
+ 
+@@ -720,6 +721,8 @@ static void err_print_gt_global_nonguc(struct drm_i915_error_state_buf *m,
+ 	int i;
+ 
+ 	err_printf(m, "GT awake: %s\n", str_yes_no(gt->awake));
++	err_printf(m, "CS timestamp frequency: %u Hz, %d ns\n",
++		   gt->clock_frequency, gt->clock_period_ns);
+ 	err_printf(m, "EIR: 0x%08x\n", gt->eir);
+ 	err_printf(m, "PGTBL_ER: 0x%08x\n", gt->pgtbl_er);
+ 
+@@ -1675,6 +1678,13 @@ gt_record_uc(struct intel_gt_coredump *gt,
+ 	 */
+ 	error_uc->guc_fw.path = kstrdup(uc->guc.fw.path, ALLOW_FAIL);
+ 	error_uc->huc_fw.path = kstrdup(uc->huc.fw.path, ALLOW_FAIL);
++
++	/*
++	 * Save the GuC log and include a timestamp reference for converting the
++	 * log times to system times (in conjunction with the error->boottime and
++	 * gt->clock_frequency fields saved elsewhere).
++	 */
++	error_uc->timestamp = intel_uncore_read(gt->_gt->uncore, GUCPMTIMESTAMP);
+ 	error_uc->guc_log = create_vma_coredump(gt->_gt, uc->guc.log.vma,
+ 						"GuC log buffer", compress);
+ 
+@@ -1833,6 +1843,8 @@ static void gt_record_global_regs(struct intel_gt_coredump *gt)
+ static void gt_record_info(struct intel_gt_coredump *gt)
+ {
+ 	memcpy(&gt->info, &gt->_gt->info, sizeof(struct intel_gt_info));
++	gt->clock_frequency = gt->_gt->clock_frequency;
++	gt->clock_period_ns = gt->_gt->clock_period_ns;
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
+index 55a143b92d10e..d8a8b3d529e09 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.h
++++ b/drivers/gpu/drm/i915/i915_gpu_error.h
+@@ -150,6 +150,8 @@ struct intel_gt_coredump {
+ 	u32 gtt_cache;
+ 	u32 aux_err; /* gen12 */
+ 	u32 gam_done; /* gen12 */
++	u32 clock_frequency;
++	u32 clock_period_ns;
+ 
+ 	/* Display related */
+ 	u32 derrmr;
+@@ -164,6 +166,7 @@ struct intel_gt_coredump {
+ 		struct intel_uc_fw guc_fw;
+ 		struct intel_uc_fw huc_fw;
+ 		struct i915_vma_coredump *guc_log;
++		u32 timestamp;
+ 		bool is_guc_capture;
+ 	} *uc;
+ 
 -- 
 2.37.1
 
