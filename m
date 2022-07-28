@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45B2DC04A68
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:20:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D894C04A68
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:34:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF5610E800;
-	Thu, 28 Jul 2022 01:20:42 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F5E088EB5
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:20:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 795B910E13C;
+	Thu, 28 Jul 2022 01:34:43 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4194410EAA9
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658971235; x=1690507235;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=rMJTjhWhjcwMpGiWJTcqI2BLuTxW2Bf3ao0fLxFtcD0=;
- b=DXZXGdmEYZ2wGRNi6K+MTHkvrEhfH1pWZRuPWQDvJQeoAGvL9oIoHlax
- 1dPdbRI3AUPNT2Ghm/XEWPGzMwvG3V495EppJnsmgGJ1Ffyy7pwN7ABjj
- zshSwkPJKXitRg0/glG6gEjM1PuC6movq0CKOiAKxMtwvu7cFjXKkc1AE
- NVDYId8G0KeDN9no1sPKsRDUXTFF9smZ6r9qt5Z7LF10UihmITrLAML3S
- 7WxYH2D8GfiqjTp35aTualV4EZeLVsVAtIPvrShU0O8qmqo/U+tSEsKHV
- tIUn/BGnoYe/cFrUcS1wtJMRnHWWYgl2+xcdMpAiiulyLm9wEC/BW2UDl g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="271429456"
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="271429456"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:20:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="928026103"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by fmsmga005.fm.intel.com with ESMTP; 27 Jul 2022 18:20:33 -0700
-From: John.C.Harrison@Intel.com
+ t=1658972080; x=1690508080;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=8WpHVnasQDK4v5gttgENCO0cOC7BhyEooNEPe97hRz0=;
+ b=Cqyned5kb7bqekgDx3UwRciiigs9+S3AMpz8bk9B/B2WB2DVBVEvC8TZ
+ +7uUXD5OoSi6RCuaSueXhz+r9JNgPwsElnWN1nY8oXx4nA6/JowBzGxL+
+ G1mHVa822skGUGnVHwZnUhsfnXIouY590pFqkltbPGMfqUq3WBXZOD7DK
+ OkPCDALulXgx2hqxkCxwD5j5fgErxB5yRjPnzSbHgzFH1kvU0W7DwMczD
+ ld97s0QTRGT+93K/vsiP9anbZ7ZWZc1KdnDDJ8WBKhdNRf/Ho7Wb5wMyJ
+ rh5b8SQeiPy2AWfF4glEmEHg1OhVPI2ACFmO79eUCt2UjYNaqA0UiOc24 Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="374693652"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="374693652"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2022 18:34:39 -0700
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659456956"
+Received: from invictus.jf.intel.com ([10.165.21.205])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2022 18:34:39 -0700
+From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Jul 2022 18:20:32 -0700
-Message-Id: <20220728012032.1961620-1-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.37.1
+Date: Wed, 27 Jul 2022 18:34:01 -0700
+Message-Id: <20220728013420.3750388-5-radhakrishna.sripada@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
+References: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI] PR for new GuC v70.4.1 for DG2
+Subject: [Intel-gfx] [PATCH 04/23] drm/i915/mtl: Don't mask off CCS
+ according to DSS fusing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,23 +59,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The following changes since commit 150864a4d73e8c448eb1e2c68e65f07635fe1a66:
+From: Matt Roper <matthew.d.roper@intel.com>
 
-  amdgpu partially revert "amdgpu: update beige goby to release 22.20" (2022-07-25 14:16:04 -0400)
+Unlike the Xe_HP platforms, MTL only has a single CCS engine; the
+quad-based engine masking logic does not apply to this platform (or
+presumably any future platforms that only have 0 or 1 CCS).
 
-are available in the Git repository at:
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-  git://anongit.freedesktop.org/drm/drm-firmware dg2_guc_v70.4.1
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 37fa813af766..17e7f20bbb48 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -672,7 +672,7 @@ static void engine_mask_apply_compute_fuses(struct intel_gt *gt)
+ 	unsigned long ccs_mask;
+ 	unsigned int i;
+ 
+-	if (GRAPHICS_VER_FULL(i915) < IP_VER(12, 50))
++	if (hweight32(CCS_MASK(gt)) <= 1)
+ 		return;
+ 
+ 	ccs_mask = intel_slicemask_from_xehp_dssmask(info->sseu.compute_subslice_mask,
+-- 
+2.25.1
 
-for you to fetch changes up to a4235e0aa4d4753119fd81f582eef84addf3f4a1:
-
-  i915: Add GuC v70.4.1 for DG2 (2022-07-27 18:03:49 -0700)
-
-----------------------------------------------------------------
-John Harrison (1):
-      i915: Add GuC v70.4.1 for DG2
-
- WHENCE                  |   3 +++
- i915/dg2_guc_70.4.1.bin | Bin 0 -> 369600 bytes
- 2 files changed, 3 insertions(+)
- create mode 100644 i915/dg2_guc_70.4.1.bin
