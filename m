@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80B45C04A68
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 02:43:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D305C19F28
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 02:43:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89CEB10E271;
-	Thu, 28 Jul 2022 02:43:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B03610EA51;
+	Thu, 28 Jul 2022 02:43:27 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A78D610EA51;
- Thu, 28 Jul 2022 02:42:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31A4C10F0A9;
+ Thu, 28 Jul 2022 02:42:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658976147; x=1690512147;
+ t=1658976148; x=1690512148;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=E8B9qejhPS7QqWDfrnsVMTo6dJ/YDEkwJYeHMmIQxh0=;
- b=iVZGZ758/Po0SNuH+JVdET+BJN+xjk/fWa/5K/4xw67JSsW/8IFXxDgT
- 34rWMOJW1ORVRrln+mkQE1Be0V6apca5TOXhUe1BiPfEohqwmZLNg0NHT
- 7fUHhBtAfTA3RHE5tV1iaebUeMegq25OpkShbmCTOXyvZ7QnQ1mV3a44V
- ZT2uIHje3l6xB33C7cubeTEs8A7GD1v6/D8ZyRBezQ1OwBMhKgaGy6bJc
- T/eKMvQS9aWwe3ftsuGeDZqbrlsIm+Q97JkaGH+q5tYm7tqC/ocREibQB
- V+yC5e6TWgdYEVJic0MUT42RWU3zEZNR90e2KbkASXDGP2gktliJet8qz w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="271443540"
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="271443540"
+ bh=E3zw/8Ewz/98dvMQHULYaunVqKOfKMRyM4xLoBNF/uk=;
+ b=UqoSERA9e2zVL9al30NtcEG3atV6RLtHXxPcZ2fjxUz++NIDuFmFSrSI
+ gbtWab/V9S7HaC3d9nBQp8F0XlE/rEF8IkoRpNvsrJs2p0fUPUWiGkw/F
+ vD//90jFCGnueFpNRHR4Tstl3VJzomohbUE/cNyl3E1UTFiIu19Dkgtnd
+ nUXABlWKqLK53QKZgPDUlYZOV/JqaOu9N8lS0VkytQvY8MistHgwNZhXi
+ chsfMlS2mVYC1fraYvNwXoq5xpeMzftjfsv686XEuX9ryRDaSGB7oWNVm
+ C0PbtCHEMuf+JoOfMR+hMJtBQgGYdvDccMrkxoHPAPSke9uG0CkLvILmC g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="271443543"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="271443543"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Jul 2022 19:42:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="690096043"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="690096054"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by FMSMGA003.fm.intel.com with ESMTP; 27 Jul 2022 19:42:25 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 27 Jul 2022 19:42:26 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 27 Jul 2022 19:42:21 -0700
-Message-Id: <20220728024225.2363663-3-John.C.Harrison@Intel.com>
+Date: Wed, 27 Jul 2022 19:42:24 -0700
+Message-Id: <20220728024225.2363663-6-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220728024225.2363663-1-John.C.Harrison@Intel.com>
 References: <20220728024225.2363663-1-John.C.Harrison@Intel.com>
@@ -44,8 +44,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/6] drm/i915/guc: Fix issues with
- live_preempt_cancel
+Subject: [Intel-gfx] [PATCH 5/6] drm/i915/guc: Support larger contexts on
+ newer hardware
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,76 +64,51 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Matthew Brost <matthew.brost@intel.com>
 
-Having semaphores results in different behavior when a dependent request
-is cancelled. In the case of semaphores the request could be on the HW
-and complete successfully while without the request is held in the
-driver and the error from the dependent request is propagated. Fix
-live_preempt_cancel to take this behavior into account.
-
-Also update live_preempt_cancel to use new function intel_context_ban
-rather than intel_context_set_banned.
+The GuC needs a copy of a golden context for implementing watchdog
+resets (aka media resets). This context is larger on newer platforms.
+So adjust the size being allocated/copied accordingly.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_execlists.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-index 02fc97a0ab502..015f8cd3463e2 100644
---- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
-@@ -2087,7 +2087,7 @@ static int __cancel_active0(struct live_preempt_cancel *arg)
- 		goto out;
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index ba7541f3ca610..74cbe8eaf5318 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -464,7 +464,11 @@ static void fill_engine_enable_masks(struct intel_gt *gt,
+ }
  
--	intel_context_set_banned(rq->context);
-+	intel_context_ban(rq->context, rq);
- 	err = intel_engine_pulse(arg->engine);
- 	if (err)
- 		goto out;
-@@ -2146,7 +2146,7 @@ static int __cancel_active1(struct live_preempt_cancel *arg)
- 	if (err)
- 		goto out;
+ #define LR_HW_CONTEXT_SIZE (80 * sizeof(u32))
+-#define LRC_SKIP_SIZE (LRC_PPHWSP_SZ * PAGE_SIZE + LR_HW_CONTEXT_SIZE)
++#define XEHP_LR_HW_CONTEXT_SIZE (96 * sizeof(u32))
++#define LR_HW_CONTEXT_SZ(i915) (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50) ? \
++				    XEHP_LR_HW_CONTEXT_SIZE : \
++				    LR_HW_CONTEXT_SIZE)
++#define LRC_SKIP_SIZE(i915) (LRC_PPHWSP_SZ * PAGE_SIZE + LR_HW_CONTEXT_SZ(i915))
+ static int guc_prep_golden_context(struct intel_guc *guc)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
+@@ -525,7 +529,7 @@ static int guc_prep_golden_context(struct intel_guc *guc)
+ 		 * on all engines).
+ 		 */
+ 		ads_blob_write(guc, ads.eng_state_size[guc_class],
+-			       real_size - LRC_SKIP_SIZE);
++			       real_size - LRC_SKIP_SIZE(gt->i915));
+ 		ads_blob_write(guc, ads.golden_context_lrca[guc_class],
+ 			       addr_ggtt);
  
--	intel_context_set_banned(rq[1]->context);
-+	intel_context_ban(rq[1]->context, rq[1]);
- 	err = intel_engine_pulse(arg->engine);
- 	if (err)
- 		goto out;
-@@ -2229,7 +2229,7 @@ static int __cancel_queued(struct live_preempt_cancel *arg)
- 	if (err)
- 		goto out;
+@@ -599,7 +603,7 @@ static void guc_init_golden_context(struct intel_guc *guc)
+ 		}
  
--	intel_context_set_banned(rq[2]->context);
-+	intel_context_ban(rq[2]->context, rq[2]);
- 	err = intel_engine_pulse(arg->engine);
- 	if (err)
- 		goto out;
-@@ -2244,7 +2244,13 @@ static int __cancel_queued(struct live_preempt_cancel *arg)
- 		goto out;
- 	}
+ 		GEM_BUG_ON(ads_blob_read(guc, ads.eng_state_size[guc_class]) !=
+-			   real_size - LRC_SKIP_SIZE);
++			   real_size - LRC_SKIP_SIZE(gt->i915));
+ 		GEM_BUG_ON(ads_blob_read(guc, ads.golden_context_lrca[guc_class]) != addr_ggtt);
  
--	if (rq[1]->fence.error != 0) {
-+	/*
-+	 * The behavior between having semaphores and not is different. With
-+	 * semaphores the subsequent request is on the hardware and not cancelled
-+	 * while without the request is held in the driver and cancelled.
-+	 */
-+	if (intel_engine_has_semaphores(rq[1]->engine) &&
-+	    rq[1]->fence.error != 0) {
- 		pr_err("Normal inflight1 request did not complete\n");
- 		err = -EINVAL;
- 		goto out;
-@@ -2292,7 +2298,7 @@ static int __cancel_hostile(struct live_preempt_cancel *arg)
- 		goto out;
- 	}
- 
--	intel_context_set_banned(rq->context);
-+	intel_context_ban(rq->context, rq);
- 	err = intel_engine_pulse(arg->engine); /* force reset */
- 	if (err)
- 		goto out;
+ 		addr_ggtt += alloc_size;
 -- 
 2.37.1
 
