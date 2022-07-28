@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6888AC04A68
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:35:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45EEDC19F2B
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:35:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DF3810E6B2;
-	Thu, 28 Jul 2022 01:35:10 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C0A410E382
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E0FD10E6D9;
+	Thu, 28 Jul 2022 01:35:11 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 265AC10EDA7
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658972084; x=1690508084;
+ t=1658972080; x=1690508080;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=dnPsMD92MheCH9/NuofDzJ8kcl6rMdj0Gey7FB8xrf0=;
- b=b/vKc3iTeYgUCvRZlUIApN//k3WirFJsxrAmCVpqtfqHCI1kG4nQJ8rv
- G96G5hdgVLntcxVdEMkgn9tG2ahoySKuY3zjtLJlKM3vaWEky/Px4MaUR
- UNXNyI0WuDWd0wQE1gcGrS2gDMVcGCNk84bFrfuCSjr4X5NUGYX90ofSu
- NPT/7phl4yU9IWuajOF1oyYq2QHOAk71GP+pkHQEVoog0xb2PygjNqWc2
- 1wcpD3gD6pBIRJ+eLvrSQ7I0sd7gp+tqGjBYP21piurtdqi2mVifo/fBf
- yBHYBQ2tePKs93gBZjXGlmw66s8hOQ2HIzNp6WjmXbqj1zUmeQCx9SXeE g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="285937889"
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="285937889"
+ bh=KLxNBNEnEqPbFDwru/cc5997Cn9SvuIfubYs7zHDEUQ=;
+ b=bvwN9s0WXwG2zY1uvjvRv5XPF6JV1zbVeXIIZpmp1yQu7gQzIReCtry7
+ MSyqz9y31EQo9N8071liUQ7j1pK/x4Nnwg4NWmq8GiItkvkuPyo3l8Z3l
+ +Q1Sb0HDOoagOMJ/yf218zNKXoRQk96LrcskCfikmVPhtUmiABVTPJE8W
+ uqIPIuxg7m3SzlMTXxMFV4NLyO20PD1JE0FsjXHTuN0OgxtvhGDyi0Vny
+ f2ZGDF4nk1uBRxpXiqNgckqUqfD3nDdp3i4VMiJ8jCWOup7rbk/lBJSNP
+ biCxTdF1Y6YpUZrfiVzG4NNOkoFJkbvRP+KICgPb4rWMPkBHKl607CuWq A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="374693651"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="374693651"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:34:43 -0700
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659457049"
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2022 18:34:39 -0700
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659456951"
 Received: from invictus.jf.intel.com ([10.165.21.205])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:34:41 -0700
+ 27 Jul 2022 18:34:38 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Jul 2022 18:34:16 -0700
-Message-Id: <20220728013420.3750388-20-radhakrishna.sripada@intel.com>
+Date: Wed, 27 Jul 2022 18:34:00 -0700
+Message-Id: <20220728013420.3750388-4-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 References: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 19/23] drm/i915/display/mtl: Extend MBUS
- programming
+Subject: [Intel-gfx] [PATCH 03/23] drm/i915/mtl: MMIO range is now 4MB
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,46 +58,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: José Roberto de Souza <jose.souza@intel.com>
+From: Matt Roper <matthew.d.roper@intel.com>
 
-Display version 14 also supports MBUS joining just like ADL-P
-and also it don't need MBUS initialization, so extending ADL-P
-code paths to display version 14 and higher.
+Previously only dgfx platforms had a 4MB MMIO range, but starting with
+MTL we now use the larger range for all platforms.
 
-Bspec: 49213
-
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+Bspec: 63834, 63830
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_power.c | 2 +-
- drivers/gpu/drm/i915/i915_drv.h                    | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/intel_uncore.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index ccc3f78b1607..c0bc5c30cef3 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -1101,7 +1101,7 @@ static void icl_mbus_init(struct drm_i915_private *dev_priv)
- 	unsigned long abox_regs = INTEL_INFO(dev_priv)->display.abox_mask;
- 	u32 mask, val, i;
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index a852c471d1b3..e0a8a8cb2052 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -2232,14 +2232,15 @@ int intel_uncore_setup_mmio(struct intel_uncore *uncore, phys_addr_t phys_addr)
+ 	 * clobbering the GTT which we want ioremap_wc instead. Fortunately,
+ 	 * the register BAR remains the same size for all the earlier
+ 	 * generations up to Ironlake.
+-	 * For dgfx chips register range is expanded to 4MB.
++	 * For dgfx chips register range is expanded to 4MB, and this larger
++	 * range is also used for integrated gpus beginning with Meteor Lake.
+ 	 */
+-	if (GRAPHICS_VER(i915) < 5)
+-		mmio_size = 512 * 1024;
+-	else if (IS_DGFX(i915))
++	if (IS_DGFX(i915) || GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
+ 		mmio_size = 4 * 1024 * 1024;
+-	else
++	else if (GRAPHICS_VER(i915) >= 5)
+ 		mmio_size = 2 * 1024 * 1024;
++	else
++		mmio_size = 512 * 1024;
  
--	if (IS_ALDERLAKE_P(dev_priv))
-+	if (IS_ALDERLAKE_P(dev_priv) || DISPLAY_VER(dev_priv) >= 14)
- 		return;
- 
- 	mask = MBUS_ABOX_BT_CREDIT_POOL1_MASK |
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 5767bbba2260..6a876cd53228 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1360,7 +1360,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define HAS_D12_PLANE_MINIMIZATION(dev_priv) (IS_ROCKETLAKE(dev_priv) || \
- 					      IS_ALDERLAKE_S(dev_priv))
- 
--#define HAS_MBUS_JOINING(i915) (IS_ALDERLAKE_P(i915))
-+#define HAS_MBUS_JOINING(i915) (IS_ALDERLAKE_P(i915) || DISPLAY_VER(i915) >= 14)
- 
- #define HAS_3D_PIPELINE(i915)	(INTEL_INFO(i915)->has_3d_pipeline)
- 
+ 	uncore->regs = ioremap(phys_addr, mmio_size);
+ 	if (uncore->regs == NULL) {
 -- 
 2.25.1
 
