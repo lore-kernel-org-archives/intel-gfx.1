@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD67AC04A68
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 221E1C19F28
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:35:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 301D510EAA9;
-	Thu, 28 Jul 2022 01:35:13 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94EA010E13C
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4954210E867;
+	Thu, 28 Jul 2022 01:35:12 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B447810E0B7
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658972080; x=1690508080;
+ t=1658972084; x=1690508084;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/XpSebmd8Cj7kct8aDMFE1IMqBv1hSeU3hhFZr57KzU=;
- b=KMFuLE1O96wvGb5g7KFgzZ8ROqA6qccOibO18nwmxdDs9y2DZMY24t3D
- yvagFCayTrrAJ9n8qUTtjZ1IuhEjVYR74J13OaTgApDd/KYFDba8zbNXz
- gN3p+H2Xw3IR5g8oJ0YNsCpyjvkt9ShMeUKA+tJtu1okfzn8Gn0zNS2qB
- WT5URtitwAvp0rei5B9xAyCFZJaf3axC7qYAV3DwsfU4me0crL0og4Qac
- L427UFdJzEf6yMcuPWJOyaA/iUH/RcnX32LZOUuDcPNUmjMuoVuytK7JI
- ZFmtoB5peWF4dmVDtOtsnDIM3bl75wunMM9PNfTx8kSlDoKw4rSvIApG2 g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="374693656"
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="374693656"
+ bh=vlR8SoUAkmPD0jbMhnBrm6wqmzcea/BQ7PkWQPMOTmU=;
+ b=IUx5zdATJLRhJDU2iFmPLpsVRteJ+Z5vaNodGumxGASvp3c6X6qoHLcu
+ HUPBPFTv5c08QidpN3jfPzDjK2jkdsUI95nQEspH+aFau7OpVfSevm/Oe
+ Ur0hmd8rD0nN8m2JmyF/yJ7JLV9TgJwa0+PQClw0KHuFe6sOCLZNQXGri
+ WOmmglFc6NaCQ1dC0my6ceXmA950Oai/7brKemUa0pWxR7Wqbxq0emeYb
+ vUPbQomkmL3TeQCs6IcQNsq4JORugalyQpSjYGtrDtzjzN4FFC7mCUIVF
+ nHi/7GYatkX6WsJNCcFC+7g8ea5IekeCPnA47NtaKA4UOD/9XusuALai6 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="285937891"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="285937891"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:34:39 -0700
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659456990"
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2022 18:34:43 -0700
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659457058"
 Received: from invictus.jf.intel.com ([10.165.21.205])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:34:39 -0700
+ 27 Jul 2022 18:34:42 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Jul 2022 18:34:05 -0700
-Message-Id: <20220728013420.3750388-9-radhakrishna.sripada@intel.com>
+Date: Wed, 27 Jul 2022 18:34:17 -0700
+Message-Id: <20220728013420.3750388-21-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 References: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/23] drm/i915/mtl: Add VBT port and AUX_CH
- mapping
+Subject: [Intel-gfx] [PATCH 20/23] drm/i915/dmc: Load DMC on MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,77 +58,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@intel.com>
+From: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
 
-Add the proper VBT port,AUX_CH -> i915 port,AUX_CH mapping which just
-follows the ADL_P one.
+Adding support to load DMC v2.08 on MTL.
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dmc.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 51dde5bfd956..2971505bcf2a 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -2418,7 +2418,7 @@ static enum port dvo_port_to_port(struct drm_i915_private *i915,
- 		[PORT_TC4] = { DVO_PORT_HDMII, DVO_PORT_DPI, -1 },
- 	};
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index fa9ef591b885..9c4f442fa407 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -52,6 +52,11 @@
  
--	if (DISPLAY_VER(i915) == 13)
-+	if (DISPLAY_VER(i915) >= 13)
- 		return __dvo_port_to_port(ARRAY_SIZE(xelpd_port_mapping),
- 					  ARRAY_SIZE(xelpd_port_mapping[0]),
- 					  xelpd_port_mapping,
-@@ -3576,7 +3576,7 @@ enum aux_ch intel_bios_port_aux_ch(struct drm_i915_private *i915,
- 			aux_ch = AUX_CH_C;
- 		break;
- 	case DP_AUX_D:
--		if (DISPLAY_VER(i915) == 13)
-+		if (DISPLAY_VER(i915) >= 13)
- 			aux_ch = AUX_CH_D_XELPD;
- 		else if (IS_ALDERLAKE_S(i915))
- 			aux_ch = AUX_CH_USBC3;
-@@ -3586,7 +3586,7 @@ enum aux_ch intel_bios_port_aux_ch(struct drm_i915_private *i915,
- 			aux_ch = AUX_CH_D;
- 		break;
- 	case DP_AUX_E:
--		if (DISPLAY_VER(i915) == 13)
-+		if (DISPLAY_VER(i915) >= 13)
- 			aux_ch = AUX_CH_E_XELPD;
- 		else if (IS_ALDERLAKE_S(i915))
- 			aux_ch = AUX_CH_USBC4;
-@@ -3594,25 +3594,25 @@ enum aux_ch intel_bios_port_aux_ch(struct drm_i915_private *i915,
- 			aux_ch = AUX_CH_E;
- 		break;
- 	case DP_AUX_F:
--		if (DISPLAY_VER(i915) == 13)
-+		if (DISPLAY_VER(i915) >= 13)
- 			aux_ch = AUX_CH_USBC1;
- 		else
- 			aux_ch = AUX_CH_F;
- 		break;
- 	case DP_AUX_G:
--		if (DISPLAY_VER(i915) == 13)
-+		if (DISPLAY_VER(i915) >= 13)
- 			aux_ch = AUX_CH_USBC2;
- 		else
- 			aux_ch = AUX_CH_G;
- 		break;
- 	case DP_AUX_H:
--		if (DISPLAY_VER(i915) == 13)
-+		if (DISPLAY_VER(i915) >= 13)
- 			aux_ch = AUX_CH_USBC3;
- 		else
- 			aux_ch = AUX_CH_H;
- 		break;
- 	case DP_AUX_I:
--		if (DISPLAY_VER(i915) == 13)
-+		if (DISPLAY_VER(i915) >= 13)
- 			aux_ch = AUX_CH_USBC4;
- 		else
- 			aux_ch = AUX_CH_I;
+ #define DISPLAY_VER12_DMC_MAX_FW_SIZE	ICL_DMC_MAX_FW_SIZE
+ 
++#define MTL_DMC_PATH			DMC_PATH(mtl, 2, 08)
++#define MTL_DMC_VERSION_REQUIRED	DMC_VERSION(2, 8)
++#define MTL_DMC_MAX_FW_SIZE		0x10000
++MODULE_FIRMWARE(MTL_DMC_PATH);
++
+ #define DG2_DMC_PATH			DMC_PATH(dg2, 2, 06)
+ #define DG2_DMC_VERSION_REQUIRED	DMC_VERSION(2, 06)
+ MODULE_FIRMWARE(DG2_DMC_PATH);
+@@ -827,7 +832,11 @@ void intel_dmc_ucode_init(struct drm_i915_private *dev_priv)
+ 	 */
+ 	intel_dmc_runtime_pm_get(dev_priv);
+ 
+-	if (IS_DG2(dev_priv)) {
++	if (IS_METEORLAKE(dev_priv)) {
++		dmc->fw_path = MTL_DMC_PATH;
++		dmc->required_version = MTL_DMC_VERSION_REQUIRED;
++		dmc->max_fw_size = MTL_DMC_MAX_FW_SIZE;
++	} else if (IS_DG2(dev_priv)) {
+ 		dmc->fw_path = DG2_DMC_PATH;
+ 		dmc->required_version = DG2_DMC_VERSION_REQUIRED;
+ 		dmc->max_fw_size = DISPLAY_VER13_DMC_MAX_FW_SIZE;
 -- 
 2.25.1
 
