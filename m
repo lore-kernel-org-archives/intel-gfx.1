@@ -4,48 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D305C19F28
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 02:43:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BE60C04A68
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 02:45:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B03610EA51;
-	Thu, 28 Jul 2022 02:43:27 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31A4C10F0A9;
- Thu, 28 Jul 2022 02:42:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE7B910F0A9;
+	Thu, 28 Jul 2022 02:45:28 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E161C10F0A9;
+ Thu, 28 Jul 2022 02:45:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658976148; x=1690512148;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=E3zw/8Ewz/98dvMQHULYaunVqKOfKMRyM4xLoBNF/uk=;
- b=UqoSERA9e2zVL9al30NtcEG3atV6RLtHXxPcZ2fjxUz++NIDuFmFSrSI
- gbtWab/V9S7HaC3d9nBQp8F0XlE/rEF8IkoRpNvsrJs2p0fUPUWiGkw/F
- vD//90jFCGnueFpNRHR4Tstl3VJzomohbUE/cNyl3E1UTFiIu19Dkgtnd
- nUXABlWKqLK53QKZgPDUlYZOV/JqaOu9N8lS0VkytQvY8MistHgwNZhXi
- chsfMlS2mVYC1fraYvNwXoq5xpeMzftjfsv686XEuX9ryRDaSGB7oWNVm
- C0PbtCHEMuf+JoOfMR+hMJtBQgGYdvDccMrkxoHPAPSke9uG0CkLvILmC g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="271443543"
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="271443543"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 19:42:26 -0700
+ t=1658976327; x=1690512327;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=r5lOj3MAnEo5T7hm8Mf6yPLumcWQMxNQ0PCXlT+BoUI=;
+ b=e4dMJZRyHJ1NTN4gRDFyJkmw9f6fyc/rV57Pof13ObFTJ1iJfz0ZsjX/
+ ETeGh2ZNiDLwiYMshc5mAjkhlkgNr64yt83JTp+qsDHpRx060NePEjax9
+ 1eP5iBv5iws7xmOsddNpsFX8NwRvvY7z2naFqQuwgIrr0YgFmU4FPB+G7
+ a/LflZszZ/r5bIvphDieoWLclOLtOxynheiy8qkws/DtTRsEQigH2dY1x
+ XcOe18XcSIA2bW6r3N0xDZ+/x+BKq51/xTt2wOX0nURg7RcKPi2nFw9VG
+ qar3n/99akTxOjYW2Xqx7w69bK20RWr/7uO+3XaOfyz/ME2FQNOAs1DfS Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="275283440"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="275283440"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2022 19:45:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="690096054"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by FMSMGA003.fm.intel.com with ESMTP; 27 Jul 2022 19:42:26 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 27 Jul 2022 19:42:24 -0700
-Message-Id: <20220728024225.2363663-6-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20220728024225.2363663-1-John.C.Harrison@Intel.com>
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="742899137"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by fmsmga001.fm.intel.com with ESMTP; 27 Jul 2022 19:45:27 -0700
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Wed, 27 Jul 2022 19:45:26 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28 via Frontend Transport; Wed, 27 Jul 2022 19:45:26 -0700
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.107)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.28; Wed, 27 Jul 2022 19:45:25 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e3TYREyXoD8ABbZqcl4XeDv9hlMEN/pv6H4yh6GSeWw/gnujUrgQXOzVuHHhKhUdeW0hS3FDa5mVKLpESsYqQXNjlCCx+NEIASMdDZkPsGNgU8cXNhxAHC1pB/9DempV6aFDs5r633DqAxjb5w/hMY6eXFUaJPzEsDqODLIha4UDmM1xLwBxIRTiDjopJYbRhoUIprGTwvTGBBUc6J8LY7eFqwsvDUPWf3pjJIDwNTkO25qDFFVz8yg/HbJKdjmOEboEgLdLsRObPPPcHqghWFSpK1io8dYSnZXwYpezZGNP+X+tRzAAexn/4CqjFa2Kr4oefiDAtQXLjMbO1rsI+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MpGREcYDHXo8LzeldWXE2um/J//MTGAH8yprRFjFVFA=;
+ b=Kr7x2Vu7832KhUQ6wTOCYsPqPI//GnboDeIGfBxVBMtYvqnYuV1NylLhibNcODkXGvDq4xUibSRovVIEnmsFmTJ15x9CqYyDO06Leo62ZMoBajuC+1wgga3HgYeoVXukM2vbKMvlrUeBOyuCXatn6bD+md2UsbS0hWXwsa3Y4eKsnYv0khLOQtKABUH0sBL3ASYd+7wT8fllzeEDlrQXrKIg7BBi5YkO0JHSRGXJ1PgQkhQyD1nBKtLr79c2hdSOWo/4lbMNQVDUyjDjOah7qQ+RDJPcUonwZkp4gPQTUzTON9onMtW/lijZwn65TCzfkaRe5Wrmqjye3Vu3rtqTBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BY5PR11MB3911.namprd11.prod.outlook.com (2603:10b6:a03:18d::29)
+ by MWHPR11MB1376.namprd11.prod.outlook.com (2603:10b6:300:1d::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Thu, 28 Jul
+ 2022 02:45:23 +0000
+Received: from BY5PR11MB3911.namprd11.prod.outlook.com
+ ([fe80::516d:4bc0:8e7b:9a12]) by BY5PR11MB3911.namprd11.prod.outlook.com
+ ([fe80::516d:4bc0:8e7b:9a12%6]) with mapi id 15.20.5458.024; Thu, 28 Jul 2022
+ 02:45:23 +0000
+Message-ID: <ddcd8ff4-4439-a560-9901-51120e603da6@intel.com>
+Date: Wed, 27 Jul 2022 19:45:21 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Content-Language: en-GB
+To: <Intel-GFX@Lists.FreeDesktop.Org>
 References: <20220728024225.2363663-1-John.C.Harrison@Intel.com>
+ <20220728024225.2363663-3-John.C.Harrison@Intel.com>
+From: John Harrison <john.c.harrison@intel.com>
+In-Reply-To: <20220728024225.2363663-3-John.C.Harrison@Intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0003.namprd05.prod.outlook.com
+ (2603:10b6:a03:33b::8) To BY5PR11MB3911.namprd11.prod.outlook.com
+ (2603:10b6:a03:18d::29)
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/6] drm/i915/guc: Support larger contexts on
- newer hardware
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7ccfe3f4-c2b8-4cb6-f668-08da7043381e
+X-MS-TrafficTypeDiagnostic: MWHPR11MB1376:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pLA2z8qQwkAXMV/tQ7inHBbnlLYstb/Lsg3CcRmepZQ4RG/pzm3+36oEqVjl+3ZZeuV/AdxiU6/CCgDWpRH4ASbhzBhDLVXvi2/Qs4/jlcpQjC3arz1lFVWHQ4cZCpV/N+YD2IO9P42wSu0aE4UfMxzXP91/H/JPNsBnVfaDGiYBD4cswtjoVBc1eR5iN9z/TrjD7NMNJFsc6OuyF+wqGbNyfCYn8qCq8eqnYRC7DW5kqSvIy15rKRqbCuC28qiohzjObfSUFFoxi/xDdF/+2jmbRsa/1/5EPnfPGrOIoNY0q4Crm3l1LjGBZzdzokCCTta2+GXM6DEk2toA72ynK5l1uDYWkAwuWuJwN8CCO2XSLg84LWzIHSoqIgZNkKInEQ66YGinTn/bS1rEjSopE1wnN4zT8VwLOMIv/SrTCZ0vjucLcKyuKFV59YnCyYm2WP7eF+Y5KlhsSrszACQtHyxHltIHVECzUyWBV9SZKg2TTyCRB+yiy5LPiAHsrVH0w6p4yK9onrr9PuYyomsQzwF/Br68hHMI3Eh6TCV9bQhxqdcU+JwF/lCzH8rm4rQU29NX11bWCjsL4GjdtbyDv9E8XyKciqQjHNipDaROZblIX9HZHdEIhuukwFJ8hTkqQY8JLVKI7ZQ2cLjiDnTcApB/DImQM7z1bqsNVUH52ZLBD6XS+pOiETffNdaScUx5KVX3uTW0hkTCiBJqHAricJTOOX36IL2dIt+HlEtkD5FVCLpgWy1s2w3a20RMh4HGH4eloWGQmGWgmVBgIQlK9ViyLSFFjhsQoCMgK3YSBDcsvhl3RFe9yMfSh0nUu7biGd2kpB+6J82/pPN6kY/ikQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY5PR11MB3911.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(39860400002)(136003)(366004)(376002)(346002)(396003)(8676002)(450100002)(4326008)(66946007)(66556008)(82960400001)(6486002)(66476007)(5660300002)(2906002)(8936002)(38100700002)(2616005)(186003)(316002)(31696002)(478600001)(41300700001)(86362001)(6506007)(6512007)(53546011)(36756003)(26005)(107886003)(6916009)(83380400001)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dkhLWGpJNzVNc0ErZ0prZVRLOUhjQWJCV3NZN2ZVSmVtaFJVY2hIazN0ZGJI?=
+ =?utf-8?B?OHdmK3pKY3p3L2FuTzIzS2tESjJLVnpOME51QmM3dkgwYnJ4NDZ4UWtES3FG?=
+ =?utf-8?B?ektRYlFkR3IwSlM5bDFRQVpyc2tSclh1Q2VYMFljb2hXYnVvMi9xUGJtU0Mz?=
+ =?utf-8?B?UVpJaEtFMHN4Nkp6Lzd1b1loTkNmWHNZLzdQUmZWdWk4eVorakZUMVpiUjFM?=
+ =?utf-8?B?SHd0dXprOTltS2VMb2M0WmpCRWJnYVI0T01VZkgvWE1MeERUUzFJZTUrWC91?=
+ =?utf-8?B?cWZTd1A0STI3RURQdk5RSXJmRlV1eUg2RTROcGhsRDVwMmtod3NpWHJWdWFu?=
+ =?utf-8?B?RkpXYnFEZmdYZy9TNkRoa012VmhaWEZEV201dzY5dTJERkdpaWUxZTd5NDBk?=
+ =?utf-8?B?ZGhVc1VKRnFZYnZmUm5FVUpDSEdCVi9VUy94bHJWdGc5ZHV0UlF5clQ2RXVJ?=
+ =?utf-8?B?eC8xT3RBZUhkWFVraHpOYkV3Uzc1SnU4VlFiY3BiNDFRRUV4Zm85V2Jpb3Y5?=
+ =?utf-8?B?RnhObWNsVmlSTGVkNXdGaEx1eGw0ZDFJQ0ZUblR3Q2ErcXhLV1F4MUN3bGF5?=
+ =?utf-8?B?dmg1Vnl4OTNaV3lpVENzdVptbHJaL2lWYVR0MWZJVWpFSzlneFROTTF1Rmk2?=
+ =?utf-8?B?eW5HR25GZUw2Y0tmbVBsSFhaWWtyaXZVKzVNbnpwQTlDYmxqTkt4Ty9CRFY5?=
+ =?utf-8?B?dVdnbERrR3FHNmkxV3ZpZGJqYnRVREdSVW9mOTh4d2JFSnpLSW9Qd0tncmdh?=
+ =?utf-8?B?cXpiWFRFeStaNFFFRlRqVFlpVnhmTXYyTkE2blYyZTZtaTVyLzdOY09DMVZk?=
+ =?utf-8?B?Y2dkdHpWV2IvR29pbk8vN01walo5KzA4MU5MdmUwMUF4TERBSFpXZnJtSlo0?=
+ =?utf-8?B?ekZ1ZlJRZGlVcGNUV2x6RG1mN0xRQS8zZ25xQVNzcUptU3pzSVR4M2VSN0Fr?=
+ =?utf-8?B?SW9wWWc2YzVuV1pwczdJVGNYZTl3V2FnbGNlQnNyS1lVYkdvaFV3akt3Sll1?=
+ =?utf-8?B?dGowQ0xLYjFESzhFZ3laUDQySEFuK0FxcmhFbkIwRUxrUFJ4N3gvRmpORkxu?=
+ =?utf-8?B?VmMySzhBL2pmQ0tUYkl5SGE4c0ttRG5rOVJ6eHUwN1BMMFdRcVEyd2JyK1Qx?=
+ =?utf-8?B?L3Blb0Q5dW1LZlJzbFNUaFAwVHVpL0JuTi9nYmd5dXpFU0JOUjlqdnhyUi9H?=
+ =?utf-8?B?eWxaNktGWFlYR2VBdEFCSjI4ODJrWm1JK0hBS0FXYVg5ckJHKzZSRVdtbEpn?=
+ =?utf-8?B?djBHQjdadTJKaDhxaGRWZ21OaDNpUmF2Zk9LR05VSFFLK3gySXVtZFdJZldq?=
+ =?utf-8?B?QVI1bzhrc3lRcWVtdjdSSW5YQzduTXJuMnZibkZDZFB1V2JLbVlVM1dwRlFz?=
+ =?utf-8?B?TGFvTG81cE1lczA5YUVmcHBXc3h1VEY0Y2VTdmRxdEQ1TUh1c0hrN25JTVZn?=
+ =?utf-8?B?KzhHVEs0ZFg4MWZPT1hXM29nT0JHR3NPMnhrTzBaOVpvMFpjTzFuRk45V2Jl?=
+ =?utf-8?B?QWxjY0JWbEV2dlduSDNsc0VWTlZGL3dQVzArLzlHV2NobjZyb1RTV1lIZDYz?=
+ =?utf-8?B?c3E1alozZGx2UTFPSlhMUmpFTUhuMzVLNDZCd0RkSW5zc1NaUFVkMUpveWdn?=
+ =?utf-8?B?REVxb2NJc0x4YWthdGFkZkZyd3laZis4RnRLZWpKeUtQSWxxdE1ORCt6ME9F?=
+ =?utf-8?B?ekNoYjBVNkVaWnFRSDhhakRkeWp4bkFzTDFSMEsvVXNiTFVkbkFndHlnZThC?=
+ =?utf-8?B?ekMrVlh0MVBZclQ0QnJGZTFTaVBqYmppYzhDb3FleE45TmZKQkZRc3djMmEw?=
+ =?utf-8?B?bUdVMXBXZng0VE9oYXZudklvMktTL3piRHJvOXh3c1JPcU9STHVzRkpVK2Ix?=
+ =?utf-8?B?WTBpdEh3Sll4L1Zydm1EVERGYXFJSFY4K0xkVG4yU3dQVDJJbllYNWl0akR2?=
+ =?utf-8?B?NHNMbnRJV0pWM2VRZXJ0b2V4ODR5V0xpN3MyZEdYSDRHb3JMV0FpVjhYeGM2?=
+ =?utf-8?B?VHRrU0pEY0ZZaThyQTByZGczSkJja3lGZ0pVMlV2TUxxc1JvZzR3dWJ1eERQ?=
+ =?utf-8?B?dGpuSGU2aFE0YURBRXNaUldsZlRGNURYaGFEVEVPZTIwQ1VBejkxL0hoOFUz?=
+ =?utf-8?B?L3c4K0tNdGpJcGt2bGlNV2d4RzVENXdaT2o3ZzV4ak9GYlFHMjJmRmpvUjY5?=
+ =?utf-8?B?TGc9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ccfe3f4-c2b8-4cb6-f668-08da7043381e
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR11MB3911.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2022 02:45:23.3956 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: j8Pk2rxrn5fteNSZ9gp/Td93ypIUwby+m494T01VGP/FAk+4MGnglwQPTu/c54liCnbtSKgbuty7Uu/KlDYIsdY10kQiiuK8XZ3thcQMLUw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1376
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH 2/6] drm/i915/guc: Fix issues with
+ live_preempt_cancel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,53 +159,79 @@ Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Brost <matthew.brost@intel.com>
+On 7/27/2022 19:42, John.C.Harrison@Intel.com wrote:
+> From: Matthew Brost <matthew.brost@intel.com>
+>
+> Having semaphores results in different behavior when a dependent request
+> is cancelled. In the case of semaphores the request could be on the HW
+> and complete successfully while without the request is held in the
+> driver and the error from the dependent request is propagated. Fix
+> live_preempt_cancel to take this behavior into account.
+>
+> Also update live_preempt_cancel to use new function intel_context_ban
+> rather than intel_context_set_banned.
+>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 
-The GuC needs a copy of a golden context for implementing watchdog
-resets (aka media resets). This context is larger on newer platforms.
-So adjust the size being allocated/copied accordingly.
-
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-index ba7541f3ca610..74cbe8eaf5318 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
-@@ -464,7 +464,11 @@ static void fill_engine_enable_masks(struct intel_gt *gt,
- }
- 
- #define LR_HW_CONTEXT_SIZE (80 * sizeof(u32))
--#define LRC_SKIP_SIZE (LRC_PPHWSP_SZ * PAGE_SIZE + LR_HW_CONTEXT_SIZE)
-+#define XEHP_LR_HW_CONTEXT_SIZE (96 * sizeof(u32))
-+#define LR_HW_CONTEXT_SZ(i915) (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50) ? \
-+				    XEHP_LR_HW_CONTEXT_SIZE : \
-+				    LR_HW_CONTEXT_SIZE)
-+#define LRC_SKIP_SIZE(i915) (LRC_PPHWSP_SZ * PAGE_SIZE + LR_HW_CONTEXT_SZ(i915))
- static int guc_prep_golden_context(struct intel_guc *guc)
- {
- 	struct intel_gt *gt = guc_to_gt(guc);
-@@ -525,7 +529,7 @@ static int guc_prep_golden_context(struct intel_guc *guc)
- 		 * on all engines).
- 		 */
- 		ads_blob_write(guc, ads.eng_state_size[guc_class],
--			       real_size - LRC_SKIP_SIZE);
-+			       real_size - LRC_SKIP_SIZE(gt->i915));
- 		ads_blob_write(guc, ads.golden_context_lrca[guc_class],
- 			       addr_ggtt);
- 
-@@ -599,7 +603,7 @@ static void guc_init_golden_context(struct intel_guc *guc)
- 		}
- 
- 		GEM_BUG_ON(ads_blob_read(guc, ads.eng_state_size[guc_class]) !=
--			   real_size - LRC_SKIP_SIZE);
-+			   real_size - LRC_SKIP_SIZE(gt->i915));
- 		GEM_BUG_ON(ads_blob_read(guc, ads.golden_context_lrca[guc_class]) != addr_ggtt);
- 
- 		addr_ggtt += alloc_size;
--- 
-2.37.1
+> ---
+>   drivers/gpu/drm/i915/gt/selftest_execlists.c | 16 +++++++++++-----
+>   1 file changed, 11 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+> index 02fc97a0ab502..015f8cd3463e2 100644
+> --- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
+> +++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+> @@ -2087,7 +2087,7 @@ static int __cancel_active0(struct live_preempt_cancel *arg)
+>   		goto out;
+>   	}
+>   
+> -	intel_context_set_banned(rq->context);
+> +	intel_context_ban(rq->context, rq);
+>   	err = intel_engine_pulse(arg->engine);
+>   	if (err)
+>   		goto out;
+> @@ -2146,7 +2146,7 @@ static int __cancel_active1(struct live_preempt_cancel *arg)
+>   	if (err)
+>   		goto out;
+>   
+> -	intel_context_set_banned(rq[1]->context);
+> +	intel_context_ban(rq[1]->context, rq[1]);
+>   	err = intel_engine_pulse(arg->engine);
+>   	if (err)
+>   		goto out;
+> @@ -2229,7 +2229,7 @@ static int __cancel_queued(struct live_preempt_cancel *arg)
+>   	if (err)
+>   		goto out;
+>   
+> -	intel_context_set_banned(rq[2]->context);
+> +	intel_context_ban(rq[2]->context, rq[2]);
+>   	err = intel_engine_pulse(arg->engine);
+>   	if (err)
+>   		goto out;
+> @@ -2244,7 +2244,13 @@ static int __cancel_queued(struct live_preempt_cancel *arg)
+>   		goto out;
+>   	}
+>   
+> -	if (rq[1]->fence.error != 0) {
+> +	/*
+> +	 * The behavior between having semaphores and not is different. With
+> +	 * semaphores the subsequent request is on the hardware and not cancelled
+> +	 * while without the request is held in the driver and cancelled.
+> +	 */
+> +	if (intel_engine_has_semaphores(rq[1]->engine) &&
+> +	    rq[1]->fence.error != 0) {
+>   		pr_err("Normal inflight1 request did not complete\n");
+>   		err = -EINVAL;
+>   		goto out;
+> @@ -2292,7 +2298,7 @@ static int __cancel_hostile(struct live_preempt_cancel *arg)
+>   		goto out;
+>   	}
+>   
+> -	intel_context_set_banned(rq->context);
+> +	intel_context_ban(rq->context, rq);
+>   	err = intel_engine_pulse(arg->engine); /* force reset */
+>   	if (err)
+>   		goto out;
 
