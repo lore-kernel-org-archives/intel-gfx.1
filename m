@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 284DCC04A68
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:38:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B9CFC19F2B
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:38:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6777310E1B3;
-	Thu, 28 Jul 2022 01:38:06 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B70010E7D5
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24A8910E21B;
+	Thu, 28 Jul 2022 01:38:07 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78C5310EBC5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658972082; x=1690508082;
+ t=1658972080; x=1690508080;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9FHAUiAYF5UxwOswlyACt1a6tTKvc7wfKI3qIB3TB+k=;
- b=asxb9f/ao77IfpWsnfZuzRiqkeXxe25XwPKXWJyruZFGe0ibXXxgltsy
- y9rbL8Sf58TQTGgdKyWvb29w2W6UZHxol2m8RJ6jR5JV1K4bypG6N6/bZ
- x6iLZKAg0YxgzRXT3uKnksCjqZeZPNQDb8cLoa4GD6oykWcV3X/9wm02c
- jdtT4ziTYx6AGU83/H8JMGuUvRgjPYRLjJclIB95bha7n4pmC4uWULSOv
- 6fMwvtN+ZL2V3cE0k0F2O5A8AsWO7lc1JHTNvBGbL21TXlCbPij9lS3xF
- +yffIITSZRmXga/Yz4mXy/hla9KsCGJbMApan4A38VF1CIyO3lrk8uJ2b w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="271431763"
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="271431763"
+ bh=omI5brQ0gUJnZYrXRJ38q/CoNZUctSbCPPOl5vJwBcI=;
+ b=TjWGAFpEqmTai2nHNaFZ/YupPmVmf7zqXykq8hmWbyTqpn44ssBDgc7t
+ cjWfXeoifY9Af4634+wPsWSqbwEBRgKIfvbkNuVicCncStzTNfNpKRUpO
+ 8Z+ymDvJBVlAFHfERNpv+5TfailnthJikcifCfY02x7u07O9NmsT4RI2T
+ Gx6ZX7Oe2qMVwVWpRl0lcvQd8qvdTieTb6WSf/5hVHWjsttd9Ux9wFtIq
+ jeqfb2ig/6N22y/DpRCko+X4N8S1GWX+WG8g88jk6p7xJFREcWlFR5amd
+ V0grg+LY8QsLALdk85bxAQw7geAdLxngeamnIQxswt/lIilkzP/trPk9Z g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="374693655"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="374693655"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:34:41 -0700
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659457040"
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2022 18:34:39 -0700
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659456983"
 Received: from invictus.jf.intel.com ([10.165.21.205])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:34:41 -0700
+ 27 Jul 2022 18:34:39 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Jul 2022 18:34:15 -0700
-Message-Id: <20220728013420.3750388-19-radhakrishna.sripada@intel.com>
+Date: Wed, 27 Jul 2022 18:34:04 -0700
+Message-Id: <20220728013420.3750388-8-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 References: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 18/23] drm/i915/mtl: DBUF handling is same as
- adlp
+Subject: [Intel-gfx] [PATCH 07/23] drm/i915/mtl: Add gmbus and gpio support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,31 +58,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Meteorlake uses a similar DBUF programming as ADL-P.
-Reuse the call flow for meteorlake.
+Add tables to map the GMBUS pin pairs to GPIO registers and port to DDC.
+From spec we have registers GPIO_CTL[1-5] mapped to combo phys and
+GPIO_CTL[9-14] are mapped to TC ports.
 
-Bspec: 49255
+BSpec: 49306
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Original Author: Caz Yokoyama
+Original Author: Brian J Lovin
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/intel_pm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_gmbus.c | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_gmbus.h |  1 +
+ 2 files changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 58a3c72418a7..d73be4bbaaa3 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -4934,7 +4934,7 @@ static u8 skl_compute_dbuf_slices(struct intel_crtc *crtc, u8 active_pipes, bool
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+index a6ba7fb72339..542b8b2654be 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.c
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+@@ -116,6 +116,20 @@ static const struct gmbus_pin gmbus_pins_dg2[] = {
+ 	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIOJ },
+ };
  
- 	if (IS_DG2(dev_priv))
- 		return dg2_compute_dbuf_slices(pipe, active_pipes, join_mbus);
--	else if (IS_ALDERLAKE_P(dev_priv))
-+	else if (DISPLAY_VER(dev_priv) >= 14 || IS_ALDERLAKE_P(dev_priv))
- 		return adlp_compute_dbuf_slices(pipe, active_pipes, join_mbus);
- 	else if (DISPLAY_VER(dev_priv) == 12)
- 		return tgl_compute_dbuf_slices(pipe, active_pipes, join_mbus);
++static const struct gmbus_pin gmbus_pins_mtp[] = {
++	[GMBUS_PIN_1_BXT] = { "dpa", GPIOB },
++	[GMBUS_PIN_2_BXT] = { "dpb", GPIOC },
++	[GMBUS_PIN_3_BXT] = { "dpc", GPIOD },
++	[GMBUS_PIN_4_CNP] = { "dpd", GPIOE },
++	[GMBUS_PIN_5_MTP] = { "dpe", GPIOF },
++	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIOJ },
++	[GMBUS_PIN_10_TC2_ICP] = { "tc2", GPIOK },
++	[GMBUS_PIN_11_TC3_ICP] = { "tc3", GPIOL },
++	[GMBUS_PIN_12_TC4_ICP] = { "tc4", GPIOM },
++	[GMBUS_PIN_13_TC5_TGP] = { "tc5", GPION },
++	[GMBUS_PIN_14_TC6_TGP] = { "tc6", GPIOO },
++};
++
+ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *i915,
+ 					     unsigned int pin)
+ {
+@@ -128,6 +142,9 @@ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *i915,
+ 	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG1) {
+ 		pins = gmbus_pins_dg1;
+ 		size = ARRAY_SIZE(gmbus_pins_dg1);
++	} else if (INTEL_PCH_TYPE(i915) >= PCH_MTP) {
++		pins = gmbus_pins_mtp;
++		size = ARRAY_SIZE(gmbus_pins_mtp);
+ 	} else if (INTEL_PCH_TYPE(i915) >= PCH_ICP) {
+ 		pins = gmbus_pins_icp;
+ 		size = ARRAY_SIZE(gmbus_pins_icp);
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.h b/drivers/gpu/drm/i915/display/intel_gmbus.h
+index 8edc2e99cf53..20f704bd4e70 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.h
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.h
+@@ -24,6 +24,7 @@ struct i2c_adapter;
+ #define GMBUS_PIN_2_BXT		2
+ #define GMBUS_PIN_3_BXT		3
+ #define GMBUS_PIN_4_CNP		4
++#define GMBUS_PIN_5_MTP		5
+ #define GMBUS_PIN_9_TC1_ICP	9
+ #define GMBUS_PIN_10_TC2_ICP	10
+ #define GMBUS_PIN_11_TC3_ICP	11
 -- 
 2.25.1
 
