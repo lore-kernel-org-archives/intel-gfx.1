@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E71C1C04A68
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:34:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CA81C19F28
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C3C510E60E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B18D710E60F;
 	Thu, 28 Jul 2022 01:34:49 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED4EA10E6B2
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:40 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9713910E448
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658972080; x=1690508080;
+ t=1658972084; x=1690508084;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Uld+C7Mttz5MuhRIWxQl8WwFQqhJGqkaaXDBYP5tmGs=;
- b=cCwKMGphJ0ou1TysGX78DS6BCYHc5GeOgIWvG9qhnX1D+XkImOI+ci1K
- 2UwRL2KpbNFEpgE8fA3nyQvNhlF17wbXsmE504+wLj7cWILOgGMjdZjC4
- 7caBsSGcg7uGw5UPPTh1LeHOM+leRB5PqQwef58+oQ2Rbg7YD7SNS677b
- yykK7Toolc+Hpn/cB4OA3ITVfeed3Xs2Y8S2NxSiiQXO8GD9UY3osbR4u
- XEOUM7hUroUrmw3yTTdolxCZ7lQ3UHVD5gbcUkhsNXgDfamZ+FoESI2eG
- Sr4/NWBO7qTpmVohD5mBv/afXCZjS2aBeWhQl+U1WHQHI2a3t8YUX4Pzr g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="374693659"
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="374693659"
+ bh=suhis+qSURJODlnMBFqg/P0bBMYjCFA2jXa0ewQVMjw=;
+ b=H7k2X/eCn+UYs5UKDUDLjlu6UFcZUzK9Jz/rr7gerEw8bzOG/PhgNFBs
+ ApzinUJLEl5jcgPbRZabZ4uB+CZYUwy/i7aKmKRhZqacH0F7FNrEdF8/E
+ LEIcORez3Sn1AD6mHsY18dT19/o2aIS6lEPQLjPv262d4BcZfaqN/PK9x
+ gnYWq3+28iIIkC0CWpWtuTMJb0QBL2+BRPJRa9EY7oeRE17ogTwrijgBu
+ bzL1SkerwLg72p71q+wpdczopTPC9eiv4WJgYZEqIBIdeCzdiSrFPamir
+ hqw6ak1JlOKjLPRMYP4pRm17EDdMpTfQaMGolqlnC4ihRtCPeFTkolaVw Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="285937890"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="285937890"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:34:40 -0700
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659457004"
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2022 18:34:43 -0700
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659457063"
 Received: from invictus.jf.intel.com ([10.165.21.205])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:34:40 -0700
+ 27 Jul 2022 18:34:42 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Jul 2022 18:34:08 -0700
-Message-Id: <20220728013420.3750388-12-radhakrishna.sripada@intel.com>
+Date: Wed, 27 Jul 2022 18:34:18 -0700
+Message-Id: <20220728013420.3750388-22-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 References: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/23] drm/i915/mtl: Add DP AUX support on TypeC
- ports
+Subject: [Intel-gfx] [PATCH 21/23] drm/i915/dmc: MTL DMC debugfs entries
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,79 +58,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@intel.com>
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 
-On MTL TypeC ports the AUX_CH_CTL and AUX_CH_DATA addresses have
-changed wrt. previous platforms, adjust the code accordingly.
+MTL needs both Pipe A and Pipe B DMC to be loaded
+along with Main DMC. Patch also adds
+DMC debug register for MTL.
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+BSpec: 49788
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_aux.c | 45 ++++++++++++++++++++-
- 1 file changed, 44 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dmc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index 40c4bdd9cb26..10616e18dc18 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-@@ -637,6 +637,46 @@ static i915_reg_t tgl_aux_data_reg(struct intel_dp *intel_dp, int index)
- 	}
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index 9c4f442fa407..2fabb2760474 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -1005,7 +1005,7 @@ static int intel_dmc_debugfs_status_show(struct seq_file *m, void *unused)
+ 	seq_printf(m, "Pipe A fw loaded: %s\n",
+ 		   str_yes_no(dmc->dmc_info[DMC_FW_PIPEA].payload));
+ 	seq_printf(m, "Pipe B fw support: %s\n",
+-		   str_yes_no(IS_ALDERLAKE_P(i915)));
++		   str_yes_no(DISPLAY_VER(i915) >= 13));
+ 	seq_printf(m, "Pipe B fw loaded: %s\n",
+ 		   str_yes_no(dmc->dmc_info[DMC_FW_PIPEB].payload));
  
-+static i915_reg_t xelpdp_aux_ctl_reg(struct intel_dp *intel_dp)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	enum aux_ch aux_ch = dig_port->aux_ch;
-+
-+	switch (aux_ch) {
-+	case AUX_CH_A:
-+	case AUX_CH_B:
-+	case AUX_CH_USBC1:
-+	case AUX_CH_USBC2:
-+	case AUX_CH_USBC3:
-+	case AUX_CH_USBC4:
-+		return XELPDP_DP_AUX_CH_CTL(aux_ch);
-+	default:
-+		MISSING_CASE(aux_ch);
-+		return XELPDP_DP_AUX_CH_CTL(AUX_CH_A);
-+	}
-+}
-+
-+static i915_reg_t xelpdp_aux_data_reg(struct intel_dp *intel_dp, int index)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	enum aux_ch aux_ch = dig_port->aux_ch;
-+
-+	switch (aux_ch) {
-+	case AUX_CH_A:
-+	case AUX_CH_B:
-+	case AUX_CH_USBC1:
-+	case AUX_CH_USBC2:
-+	case AUX_CH_USBC3:
-+	case AUX_CH_USBC4:
-+		return XELPDP_DP_AUX_CH_DATA(aux_ch, index);
-+	default:
-+		MISSING_CASE(aux_ch);
-+		return XELPDP_DP_AUX_CH_DATA(AUX_CH_A, index);
-+	}
-+}
-+
- void intel_dp_aux_fini(struct intel_dp *intel_dp)
- {
- 	if (cpu_latency_qos_request_active(&intel_dp->pm_qos))
-@@ -652,7 +692,10 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
- 	struct intel_encoder *encoder = &dig_port->base;
- 	enum aux_ch aux_ch = dig_port->aux_ch;
- 
--	if (DISPLAY_VER(dev_priv) >= 12) {
-+	if (DISPLAY_VER(dev_priv) >= 14) {
-+		intel_dp->aux_ch_ctl_reg = xelpdp_aux_ctl_reg;
-+		intel_dp->aux_ch_data_reg = xelpdp_aux_data_reg;
-+	} else if (DISPLAY_VER(dev_priv) >= 12) {
- 		intel_dp->aux_ch_ctl_reg = tgl_aux_ctl_reg;
- 		intel_dp->aux_ch_data_reg = tgl_aux_data_reg;
- 	} else if (DISPLAY_VER(dev_priv) >= 9) {
+@@ -1029,9 +1029,9 @@ static int intel_dmc_debugfs_status_show(struct seq_file *m, void *unused)
+ 		 * reg for DC3CO debugging and validation,
+ 		 * but TGL DMC f/w is using DMC_DEBUG3 reg for DC3CO counter.
+ 		 */
+-		seq_printf(m, "DC3CO count: %d\n",
+-			   intel_de_read(i915, IS_DGFX(i915) ?
+-					 DG1_DMC_DEBUG3 : TGL_DMC_DEBUG3));
++		seq_printf(m, "DC3CO count: %d\n", intel_de_read(i915,
++			   (IS_DGFX(i915) || DISPLAY_VER(i915) >= 14) ?
++			    DG1_DMC_DEBUG3 : TGL_DMC_DEBUG3));
+ 	} else {
+ 		dc5_reg = IS_BROXTON(i915) ? BXT_DMC_DC3_DC5_COUNT :
+ 			SKL_DMC_DC3_DC5_COUNT;
 -- 
 2.25.1
 
