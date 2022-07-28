@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D60EC04A68
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:35:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A140AC19F28
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Jul 2022 01:35:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7495F10EBC5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43B2C10EB8A;
 	Thu, 28 Jul 2022 01:35:14 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEEC110E60E
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:44 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14BFD10E983
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Jul 2022 01:34:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1658972084; x=1690508084;
+ t=1658972081; x=1690508081;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+SBTR2Fk/u3ricaOJMImYAFMVi8w2tVLApupJUvVUnc=;
- b=YOb24f9XZ/JrGlY2gUFaB3RaCgLCrirbB5b9V50OARvw8JH2a1jJ2cpd
- M+dJtjNz5Onh4zDj8rj1xFId32T+uP+bUS6Jldydvs5aodHjHcE23kFHV
- jYox4pCIi/qeJIrwxc2C1oLk7w4UywmeyD/fwPjfGbetPn67MLCk48Idm
- rRaokobjo2J7C3Y3a8cW6bBgwvin13cUuOM1C+nFV3QtMTZibB6X+u1jQ
- qfrD/vZkVTDg7mWKzcwR6GOCwEoedgVEKSoPX/nLapnL86qK/+a1Q6sgV
- 44p3JD5L7PHxXd5ANHZdBV8Adyu9WGui73exlBcZxuWUvhvJ1AdyBSabI A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="285937892"
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="285937892"
+ bh=TXQ2nb4l8k2vyqTh4o9bS4QW83siFx1a/HS0Fvwi9D4=;
+ b=MOJLgHbBwU8KXb3iq2qJbmy7HuQ/eBUjsyGQr5fxTxdaUxsQvLYNBLKI
+ oB6cuE/aLVw07GUj49CT6+cd5JDbg9a69VpjncmTDlbhAfz2ckdjp96wG
+ NSNLrV58cZSOeqIGFOPz8z0fsIoC8KwNwWXmn5uHwiCySplvAjYLGCa0H
+ ij57W2StU3Nu4AcKRaUXWil5fhinAWUxRL6gyF7EB9zGToDXY4zbsNZ+M
+ v3fqtwapEE/2nZOHvBmvYgT9kFE4Fbbf5UZz+J53swiJj9K1wKAzBjJv0
+ AgAzB0jiJSTOGWIldx1qxHk7HHt0Zwelfxg+60H4M0jyu6DDROyPbWbma Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10421"; a="374693661"
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="374693661"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:34:43 -0700
-X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659457066"
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2022 18:34:40 -0700
+X-IronPort-AV: E=Sophos;i="5.93,196,1654585200"; d="scan'208";a="659457011"
 Received: from invictus.jf.intel.com ([10.165.21.205])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2022 18:34:42 -0700
+ 27 Jul 2022 18:34:40 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 Jul 2022 18:34:19 -0700
-Message-Id: <20220728013420.3750388-23-radhakrishna.sripada@intel.com>
+Date: Wed, 27 Jul 2022 18:34:10 -0700
+Message-Id: <20220728013420.3750388-14-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 References: <20220728013420.3750388-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 22/23] drm/i915/mtl: Update CHICKEN_TRANS*
- register addresses
+Subject: [Intel-gfx] [PATCH 13/23] drm/i915/mtl: memory latency data from
+ LATENCY_LPX_LPY for WM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,149 +59,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
+Since Xe LPD+, Memory latency data are in LATENCY_LPX_LPY registers
+instead of GT driver mailbox.
 
-In Display version 14, Transcoder Chicken Registers are moved from DPRZ to DRPOS
-to reduce register signal crossings for Unit Interface Optimization.
+Bspec: 64608
 
-This patch modifies the CHICKEN_TRANS macro to add a DISPLAY_VER check for
-calculating the correct platform offsets.
-
-(And also updates existing CHICKEN_TRANS occurrences to the new definition)
-
-Bspec: 34387, 50054
-Signed-off-by: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Original Author: Caz Yokoyama
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_display.c |  7 +++---
- drivers/gpu/drm/i915/display/intel_dp_mst.c  |  2 +-
- drivers/gpu/drm/i915/display/intel_psr.c     |  6 +++--
- drivers/gpu/drm/i915/i915_reg.h              | 25 +++++++++++++++-----
- 5 files changed, 29 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/i915_reg.h |   7 +++
+ drivers/gpu/drm/i915/intel_pm.c | 105 +++++++++++++++++++-------------
+ 2 files changed, 71 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index a4c8493f3ce7..26c99bfa5ec6 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -2854,7 +2854,7 @@ gen9_chicken_trans_reg_by_port(struct drm_i915_private *dev_priv,
- 	if (drm_WARN_ON(&dev_priv->drm, port < PORT_A || port > PORT_E))
- 		port = PORT_A;
- 
--	return CHICKEN_TRANS(trans[port]);
-+	return CHICKEN_TRANS(dev_priv, trans[port]);
- }
- 
- static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index bf170bd83ef7..9e6809d11b02 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -620,7 +620,7 @@ void intel_disable_transcoder(const struct intel_crtc_state *old_crtc_state)
- 		val &= ~PIPECONF_ENABLE;
- 
- 	if (DISPLAY_VER(dev_priv) >= 12)
--		intel_de_rmw(dev_priv, CHICKEN_TRANS(cpu_transcoder),
-+		intel_de_rmw(dev_priv, CHICKEN_TRANS(dev_priv, cpu_transcoder),
- 			     FECSTALL_DIS_DPTSTREAM_DPTTG, 0);
- 
- 	intel_de_write(dev_priv, reg, val);
-@@ -1839,7 +1839,7 @@ static void hsw_set_frame_start_delay(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
--	i915_reg_t reg = CHICKEN_TRANS(crtc_state->cpu_transcoder);
-+	i915_reg_t reg = CHICKEN_TRANS(dev_priv, crtc_state->cpu_transcoder);
- 	u32 val;
- 
- 	val = intel_de_read(dev_priv, reg);
-@@ -4127,7 +4127,8 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
- 	}
- 
- 	if (!transcoder_is_dsi(pipe_config->cpu_transcoder)) {
--		tmp = intel_de_read(dev_priv, CHICKEN_TRANS(pipe_config->cpu_transcoder));
-+		tmp = intel_de_read(dev_priv,
-+				    CHICKEN_TRANS(dev_priv, pipe_config->cpu_transcoder));
- 
- 		pipe_config->framestart_delay = REG_FIELD_GET(HSW_FRAME_START_DELAY_MASK, tmp) + 1;
- 	} else {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 14d2a64193b2..9c2c032c051c 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -591,7 +591,7 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
- 	drm_dp_update_payload_part2(&intel_dp->mst_mgr);
- 
- 	if (DISPLAY_VER(dev_priv) >= 12 && pipe_config->fec_enable)
--		intel_de_rmw(dev_priv, CHICKEN_TRANS(trans), 0,
-+		intel_de_rmw(dev_priv, CHICKEN_TRANS(dev_priv, trans), 0,
- 			     FECSTALL_DIS_DPTSTREAM_DPTTG);
- 
- 	intel_enable_transcoder(pipe_config);
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 98c3c8015a5c..532d5592c61e 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1139,7 +1139,8 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp,
- 
- 	if (intel_dp->psr.psr2_enabled) {
- 		if (DISPLAY_VER(dev_priv) == 9)
--			intel_de_rmw(dev_priv, CHICKEN_TRANS(cpu_transcoder), 0,
-+			intel_de_rmw(dev_priv,
-+				     CHICKEN_TRANS(dev_priv, cpu_transcoder), 0,
- 				     PSR2_VSC_ENABLE_PROG_HEADER |
- 				     PSR2_ADD_VERTICAL_LINE_COUNT);
- 
-@@ -1149,7 +1150,8 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp,
- 		 * cause issues if non-supported panels are used.
- 		 */
- 		if (IS_ALDERLAKE_P(dev_priv))
--			intel_de_rmw(dev_priv, CHICKEN_TRANS(cpu_transcoder), 0,
-+			intel_de_rmw(dev_priv,
-+				     CHICKEN_TRANS(dev_priv, cpu_transcoder), 0,
- 				     ADLP_1_BASED_X_GRANULARITY);
- 
- 		/* Wa_16011168373:adl-p */
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 2f9cbdd068e8..3e7dd389ba5b 100644
+index 6087d40eed70..23b50d671550 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5885,17 +5885,30 @@
- #define  SKL_PLANE1_STRETCH_MAX_X1	REG_FIELD_PREP(SKL_PLANE1_STRETCH_MAX_MASK, 3)
- #define CHICKEN_PIPESL_1(pipe) _MMIO_PIPE(pipe, _CHICKEN_PIPESL_1_A, _CHICKEN_PIPESL_1_B)
+@@ -8754,4 +8754,11 @@ enum skl_power_gate {
+ #define GEN12_STATE_ACK_DEBUG		_MMIO(0x20BC)
  
-+#define _MTL_CHICKEN_TRANS_A	0x604e0
-+#define _MTL_CHICKEN_TRANS_B	0x614e0
-+#define _MTL_CHICKEN_TRANS_C	0x624e0
-+#define _MTL_CHICKEN_TRANS_D	0x634e0
+ #define MTL_MEDIA_GSI_BASE		0x380000
 +
- #define _CHICKEN_TRANS_A	0x420c0
- #define _CHICKEN_TRANS_B	0x420c4
- #define _CHICKEN_TRANS_C	0x420c8
- #define _CHICKEN_TRANS_EDP	0x420cc
- #define _CHICKEN_TRANS_D	0x420d8
--#define CHICKEN_TRANS(trans)	_MMIO(_PICK((trans), \
--					    [TRANSCODER_EDP] = _CHICKEN_TRANS_EDP, \
--					    [TRANSCODER_A] = _CHICKEN_TRANS_A, \
--					    [TRANSCODER_B] = _CHICKEN_TRANS_B, \
--					    [TRANSCODER_C] = _CHICKEN_TRANS_C, \
--					    [TRANSCODER_D] = _CHICKEN_TRANS_D))
++#define MTL_LATENCY_LP0_LP1		_MMIO(0x45780)
++#define MTL_LATENCY_LP2_LP3		_MMIO(0x45784)
++#define MTL_LATENCY_LP4_LP5		_MMIO(0x45788)
++#define  MTL_LATENCY_LEVEL0_2_4_MASK	REG_GENMASK(12, 0)
++#define  MTL_LATENCY_LEVEL1_3_5_MASK	REG_GENMASK(28, 16)
 +
-+#define  CHICKEN_TRANS(dev_priv, trans) ((DISPLAY_VER(dev_priv) >= 14) ? \
-+					    _MMIO(_PICK((trans), \
-+						[TRANSCODER_A] = _MTL_CHICKEN_TRANS_A, \
-+						[TRANSCODER_B] = _MTL_CHICKEN_TRANS_B, \
-+						[TRANSCODER_C] = _MTL_CHICKEN_TRANS_C, \
-+						[TRANSCODER_D] = _MTL_CHICKEN_TRANS_D)) : \
-+					    _MMIO(_PICK((trans), \
-+						[TRANSCODER_EDP] = _CHICKEN_TRANS_EDP, \
-+						[TRANSCODER_A] = _CHICKEN_TRANS_A, \
-+						[TRANSCODER_B] = _CHICKEN_TRANS_B, \
-+						[TRANSCODER_C] = _CHICKEN_TRANS_C, \
-+						[TRANSCODER_D] = _CHICKEN_TRANS_D)))
+ #endif /* _I915_REG_H_ */
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index ef7553b494ea..fac565d23d57 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -2861,16 +2861,75 @@ static void ilk_compute_wm_level(const struct drm_i915_private *dev_priv,
+ 	result->enable = true;
+ }
+ 
++static void
++adjust_wm_latency(u16 wm[], int max_level, int read_latency,
++		  bool wm_lv_0_adjust_needed)
++{
++	int i, level;
 +
- #define  HSW_FRAME_START_DELAY_MASK	REG_GENMASK(28, 27)
- #define  HSW_FRAME_START_DELAY(x)	REG_FIELD_PREP(HSW_FRAME_START_DELAY_MASK, x)
- #define  VSC_DATA_SEL_SOFTWARE_CONTROL	REG_BIT(25) /* GLK */
++	/*
++	 * If a level n (n > 1) has a 0us latency, all levels m (m >= n)
++	 * need to be disabled. We make sure to sanitize the values out
++	 * of the punit to satisfy this requirement.
++	 */
++	for (level = 1; level <= max_level; level++) {
++		if (wm[level] == 0) {
++			for (i = level + 1; i <= max_level; i++)
++				wm[i] = 0;
++
++			max_level = level - 1;
++			break;
++		}
++	}
++
++	/*
++	 * WaWmMemoryReadLatency
++	 *
++	 * punit doesn't take into account the read latency so we need
++	 * to add proper adjustement to each valid level we retrieve
++	 * from the punit when level 0 response data is 0us.
++	 */
++	if (wm[0] == 0) {
++		for (level = 0; level <= max_level; level++)
++			wm[level] += read_latency;
++	}
++
++	/*
++	 * WA Level-0 adjustment for 16GB DIMMs: SKL+
++	 * If we could not get dimm info enable this WA to prevent from
++	 * any underrun. If not able to get Dimm info assume 16GB dimm
++	 * to avoid any underrun.
++	 */
++	if (wm_lv_0_adjust_needed)
++		wm[0] += 1;
++}
++
+ static void intel_read_wm_latency(struct drm_i915_private *dev_priv,
+ 				  u16 wm[])
+ {
+ 	struct intel_uncore *uncore = &dev_priv->uncore;
++	int max_level = ilk_wm_max_level(dev_priv);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 9) {
++	if (DISPLAY_VER(dev_priv) >= 14) {
+ 		u32 val;
+-		int ret, i;
+-		int level, max_level = ilk_wm_max_level(dev_priv);
++
++		val = intel_uncore_read(uncore, MTL_LATENCY_LP0_LP1);
++		wm[0] = REG_FIELD_GET(MTL_LATENCY_LEVEL0_2_4_MASK, val);
++		wm[1] = REG_FIELD_GET(MTL_LATENCY_LEVEL1_3_5_MASK, val);
++		val = intel_uncore_read(uncore, MTL_LATENCY_LP2_LP3);
++		wm[2] = REG_FIELD_GET(MTL_LATENCY_LEVEL0_2_4_MASK, val);
++		wm[3] = REG_FIELD_GET(MTL_LATENCY_LEVEL1_3_5_MASK, val);
++		val = intel_uncore_read(uncore, MTL_LATENCY_LP4_LP5);
++		wm[4] = REG_FIELD_GET(MTL_LATENCY_LEVEL0_2_4_MASK, val);
++		wm[5] = REG_FIELD_GET(MTL_LATENCY_LEVEL1_3_5_MASK, val);
++
++		adjust_wm_latency(wm, max_level, 6,
++				  dev_priv->dram_info.wm_lv_0_adjust_needed);
++	} else if (DISPLAY_VER(dev_priv) >= 9) {
++		int read_latency = DISPLAY_VER(dev_priv) >= 12 ? 3 : 2;
+ 		int mult = IS_DG2(dev_priv) ? 2 : 1;
++		u32 val;
++		int ret;
+ 
+ 		/* read the first set of memory latencies[0:3] */
+ 		val = 0; /* data0 to be programmed to 0 for first set */
+@@ -2909,44 +2968,8 @@ static void intel_read_wm_latency(struct drm_i915_private *dev_priv,
+ 		wm[7] = ((val >> GEN9_MEM_LATENCY_LEVEL_3_7_SHIFT) &
+ 				GEN9_MEM_LATENCY_LEVEL_MASK) * mult;
+ 
+-		/*
+-		 * If a level n (n > 1) has a 0us latency, all levels m (m >= n)
+-		 * need to be disabled. We make sure to sanitize the values out
+-		 * of the punit to satisfy this requirement.
+-		 */
+-		for (level = 1; level <= max_level; level++) {
+-			if (wm[level] == 0) {
+-				for (i = level + 1; i <= max_level; i++)
+-					wm[i] = 0;
+-
+-				max_level = level - 1;
+-
+-				break;
+-			}
+-		}
+-
+-		/*
+-		 * WaWmMemoryReadLatency
+-		 *
+-		 * punit doesn't take into account the read latency so we need
+-		 * to add proper adjustement to each valid level we retrieve
+-		 * from the punit when level 0 response data is 0us.
+-		 */
+-		if (wm[0] == 0) {
+-			u8 adjust = DISPLAY_VER(dev_priv) >= 12 ? 3 : 2;
+-
+-			for (level = 0; level <= max_level; level++)
+-				wm[level] += adjust;
+-		}
+-
+-		/*
+-		 * WA Level-0 adjustment for 16GB DIMMs: SKL+
+-		 * If we could not get dimm info enable this WA to prevent from
+-		 * any underrun. If not able to get Dimm info assume 16GB dimm
+-		 * to avoid any underrun.
+-		 */
+-		if (dev_priv->dram_info.wm_lv_0_adjust_needed)
+-			wm[0] += 1;
++		adjust_wm_latency(wm, max_level, read_latency,
++				  dev_priv->dram_info.wm_lv_0_adjust_needed);
+ 	} else if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv)) {
+ 		u64 sskpd = intel_uncore_read64(uncore, MCH_SSKPD);
+ 
 -- 
 2.25.1
 
