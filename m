@@ -4,48 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5044EC00144
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jul 2022 10:56:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE6FCC19F2C
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Jul 2022 16:16:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A920110E33C;
-	Fri, 29 Jul 2022 10:56:54 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3464910E33C;
- Fri, 29 Jul 2022 10:56:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659092210; x=1690628210;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=YqozbucN4JhRArJAEtYP27XVCXygQiee9qx1/WeH3+M=;
- b=HmW5SncBpxadALvZU/jBVmnuIwJMht+Cb63E/9wbYDL5BnynHPPaLZUz
- cobrLLtuI7OhhCKM5SoIaDZpz6WoLwsJA7tUehgFWSzi2gB5QWcykbs4f
- ODzq5yctwuAaY8ne7Ob5T6MbAu8lOu5Kb8uLHE6aZtOq4/jYUqTc9zf6y
- MMRUc9pkLcTolT0gNW7ZEIfX3kb8Qe2HNao0LAVSGW3FZtj5BQAXIEUj1
- G8XhX3eNvShwvlyojbwPsmdAbdvOZVWoSmULfew4Vay1JJ1ec6WBC4Lbj
- cOtxZ23kflq4A6DiCYHm3o9ZeUO1PFZZDZFXMQn8N7HfhVkoSdU5drebX A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10422"; a="289513619"
-X-IronPort-AV: E=Sophos;i="5.93,201,1654585200"; d="scan'208";a="289513619"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2022 03:56:49 -0700
-X-IronPort-AV: E=Sophos;i="5.93,201,1654585200"; d="scan'208";a="660189931"
-Received: from jkrzyszt-mobl1.ger.corp.intel.com (HELO jkrzyszt-mobl1.lan)
- ([10.251.212.244])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2022 03:56:47 -0700
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 29 Jul 2022 12:56:25 +0200
-Message-Id: <20220729105625.28269-2-janusz.krzysztofik@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220729105625.28269-1-janusz.krzysztofik@linux.intel.com>
-References: <20220729105625.28269-1-janusz.krzysztofik@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F91D10E0DC;
+	Fri, 29 Jul 2022 16:16:34 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F210510E0DC;
+ Fri, 29 Jul 2022 16:16:22 +0000 (UTC)
+Received: from sobremesa.fritz.box (unknown
+ [IPv6:2a02:8010:65b5:0:bbb0:f8ec:7bc9:dbe4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: alarumbe)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id A39A06601B84;
+ Fri, 29 Jul 2022 17:16:21 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1659111381;
+ bh=QDBNG5GYmsfWyjGjGSj+ZS05HXR9mQQdbyqEDYo56kg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=isUT1JzEXyRkSVf58Gjr8BhDkzLhrfkZ6YPuMlWMwFy3pvp3oxnAyMd1SMMvIUelE
+ G4fXEYj1JPcjiKnwm05263LOG4WMJJHqh2IUVWM1mAZhiXQGbO9JYvht4k+Bh2eYtd
+ b9Zx2MfOA1w3FRp8NPDafumrmAhEqgerzf3Ygn+ro2pghyx6ajLd8sGgqe2qVvsjAF
+ 9EdR7PzoZeDksGaYWKtS/TD2YHKfY6eVb4DhjaIM5KobpmHsLv/11Aq+BlzZMl0Ep2
+ 3+YkhCkLsCMibrT0hAkDTABguHlnR6OsboCaaHMnar3SfXBZalJ4ENTHUvXQmYDMoG
+ XSUSKRg9Ew4cQ==
+From: Adrian Larumbe <adrian.larumbe@collabora.com>
+To: daniel@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Date: Fri, 29 Jul 2022 17:16:12 +0100
+Message-Id: <20220729161612.2212512-3-adrian.larumbe@collabora.com>
+X-Mailer: git-send-email 2.37.0
+In-Reply-To: <20220729161612.2212512-1-adrian.larumbe@collabora.com>
+References: <20220729161612.2212512-1-adrian.larumbe@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RESUBMIT][PATCH 2/2] drm/i915/gem: Perform active
- shrinking from a background thread
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915: force getparam ioctl return bool
+ for HAS_CONTEXT_ISOLATION
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,261 +53,68 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>
+Cc: adrian.larumbe@collabora.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris@chris-wilson.co.uk>
+In a previous commit, the uAPI documentation for this param was updated
+to reflect the actual usage expected by Iris. Now make sure the driver
+does indeed return a boolean value rather than an engine bitmask.
 
-i915 is very greedy and will retain system pages for as long as the user
-requires them; once acquired they will be only returned when the object
-is freed. In order to respond to system memory pressure, i915 hooks into
-the shrinker subsystem, designed to prune the filesystem caches, to
-unbind and return system pages. However, we can only do so if the device
-is active at that moment, as we cannot resume the device from inside
-direct reclaim to unbind pages from the GPU, nor do we want to delay
-random processes with unbound waits trying to reclaim active pages. To
-workaround that quandary, what we avoided in direct reclaim we
-delegated to kswapd, as that is run from process context outside of
-direct reclaim and able to sleep and resume the device.
-
-In practice, kswapd also uses fs_reclaim_acquire() around its
-shrink_slab calls, prohibiting runtime resume. If we cannot wake the
-device from idle, we will retain system memory indefinitely.
-
-As we cannot take advantage of kswapd's decoupled process context to
-perform an active reclaim of bound pages, spawn our own kthread to wait
-under our wakeref. Similar to kswapd, there is no direct dependency on
-the background task to direct reclaim (other than failure to promptly
-return pages will implicitly result in oom), as such the task itself does
-not inherit the fs-reclaim context. A page reclaimed by i915 will
-typically not immediately be available for re-use, as it will require
-writeback, and so only a future allocation attempt may benefit.
-Concurrent page allocation attempts do not wait for either kswapd or our
-own swapper task.
-
-We mark our kthread as a memallocator (allowed to dip into memory
-reserves, but not allowed to trigger direct reclaim) and mark up
-the call to the shrinker with a fs_reclaim critical section. This
-should prevent us from accidentally abusing the background swapper task,
-and so the swapper kthread behaves like kswapd with the exception of
-being allowed to wake the device up, and being decoupled from the
-shrinker_rwsem.
-
-Reported-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Bug: https://gitlab.freedesktop.org/drm/intel/-/issues/6449
-Fixes: 178a30c90ac7 ("drm/i915: Unbind objects in shrinker only if device is runtime active")
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: stable@vger.kernel.org # v4.8+
-Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Signed-off-by: Adrian Larumbe <adrian.larumbe@collabora.com>
 ---
-Resubmit reason: drop RFC label.
+ drivers/gpu/drm/i915/gt/intel_engine_user.c | 14 ++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_engine_user.h |  1 +
+ drivers/gpu/drm/i915/i915_getparam.c        |  2 +-
+ 3 files changed, 16 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.c | 134 +++++++++++++++++--
- drivers/gpu/drm/i915/i915_drv.h              |  15 +++
- 2 files changed, 135 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-index 1030053571a2..bc6c1978e64a 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
-@@ -310,6 +310,113 @@ i915_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
- 	return count;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+index 46a174f8aa00..7bdee1c9d940 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+@@ -306,3 +306,17 @@ unsigned int intel_engines_has_context_isolation(struct drm_i915_private *i915)
+ 
+ 	return which;
  }
- 
-+static unsigned long run_swapper(struct drm_i915_private *i915,
-+				 unsigned long target,
-+				 unsigned long *nr_scanned)
++
++bool engines_context_isolated(struct drm_i915_private *i915)
 +{
-+	return i915_gem_shrink(NULL, i915,
-+			       target, nr_scanned,
-+			       I915_SHRINK_ACTIVE |
-+			       I915_SHRINK_BOUND |
-+			       I915_SHRINK_UNBOUND |
-+			       I915_SHRINK_WRITEBACK);
++	struct intel_engine_cs *engine;
++
++	if (!DRIVER_CAPS(i915)->has_logical_contexts)
++		return false;
++
++	for_each_uabi_engine(engine, i915)
++		if (!engine->default_state)
++			return false;
++
++	return true;
 +}
-+
-+static int swapper(void *arg)
-+{
-+	struct drm_i915_private *i915 = arg;
-+	atomic_long_t *target = &i915->mm.swapper.target;
-+	unsigned int noreclaim_state;
-+
-+	/*
-+	 * For us to be running the swapper implies that the system is under
-+	 * enough memory pressure to be swapping. At that point, we both want
-+	 * to ensure we make forward progress in order to reclaim pages from
-+	 * the device and not contribute further to direct reclaim pressure. We
-+	 * mark ourselves as a memalloc task in order to not trigger direct
-+	 * reclaim ourselves, but dip into the system memory reserves for
-+	 * shrinkers.
-+	 */
-+	noreclaim_state = memalloc_noreclaim_save();
-+
-+	do {
-+		intel_wakeref_t wakeref;
-+
-+		___wait_var_event(target,
-+				  atomic_long_read(target) ||
-+				  kthread_should_stop(),
-+				  TASK_IDLE, 0, 0, schedule());
-+		if (kthread_should_stop())
-+			break;
-+
-+		with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-+			unsigned long nr_scan = atomic_long_xchg(target, 0);
-+
-+			/*
-+			 * Now that we have woken up the device hierarchy,
-+			 * act as a normal shrinker. Our shrinker is primarily
-+			 * focussed on supporting direct reclaim (low latency,
-+			 * avoiding contention that may lead to more reclaim,
-+			 * or prevent that reclaim from making forward progress)
-+			 * and we wish to continue that good practice even
-+			 * here where we could accidentally sleep holding locks.
-+			 *
-+			 * Let lockdep know and warn us about any bad practice
-+			 * that may lead to high latency in direct reclaim, or
-+			 * anywhere else.
-+			 *
-+			 * While the swapper is active, direct reclaim from
-+			 * other threads will also be running in parallel
-+			 * through i915_gem_shrink(), scouring for idle pages.
-+			 */
-+			fs_reclaim_acquire(GFP_KERNEL);
-+			run_swapper(i915, nr_scan, &nr_scan);
-+			fs_reclaim_release(GFP_KERNEL);
-+		}
-+	} while (1);
-+
-+	memalloc_noreclaim_restore(noreclaim_state);
-+	return 0;
-+}
-+
-+static void start_swapper(struct drm_i915_private *i915)
-+{
-+	i915->mm.swapper.tsk = kthread_run(swapper, i915, "i915-swapd");
-+	if (IS_ERR(i915->mm.swapper.tsk))
-+		drm_err(&i915->drm,
-+			"Failed to launch swapper; memory reclaim may be degraded\n");
-+}
-+
-+static unsigned long kick_swapper(struct drm_i915_private *i915,
-+				  unsigned long nr_scan,
-+				  unsigned long *scanned)
-+{
-+	/* Run immediately under kswap if disabled */
-+	if (IS_ERR_OR_NULL(i915->mm.swapper.tsk))
-+		/*
-+		 * Note that as we are still inside kswapd, we are still
-+		 * inside a fs_reclaim context and cannot forcibly wake the
-+		 * device and so can only opportunitiscally reclaim bound
-+		 * memory.
-+		 */
-+		return run_swapper(i915, nr_scan, scanned);
-+
-+	if (!atomic_long_fetch_add(nr_scan, &i915->mm.swapper.target))
-+		wake_up_var(&i915->mm.swapper.target);
-+
-+	return 0;
-+}
-+
-+static void stop_swapper(struct drm_i915_private *i915)
-+{
-+	struct task_struct *tsk = fetch_and_zero(&i915->mm.swapper.tsk);
-+
-+	if (IS_ERR_OR_NULL(tsk))
-+		return;
-+
-+	kthread_stop(tsk);
-+}
-+
- static unsigned long
- i915_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
- {
-@@ -318,27 +425,22 @@ i915_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
- 	unsigned long freed;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.h b/drivers/gpu/drm/i915/gt/intel_engine_user.h
+index 3dc7e8ab9fbc..760167db07d5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_user.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_user.h
+@@ -15,6 +15,7 @@ struct intel_engine_cs *
+ intel_engine_lookup_user(struct drm_i915_private *i915, u8 class, u8 instance);
  
- 	sc->nr_scanned = 0;
--
- 	freed = i915_gem_shrink(NULL, i915,
- 				sc->nr_to_scan,
- 				&sc->nr_scanned,
- 				I915_SHRINK_BOUND |
- 				I915_SHRINK_UNBOUND);
--	if (sc->nr_scanned < sc->nr_to_scan && current_is_kswapd()) {
--		intel_wakeref_t wakeref;
-+	if (!sc->nr_scanned) /* nothing left to reclaim */
-+		return SHRINK_STOP;
+ unsigned int intel_engines_has_context_isolation(struct drm_i915_private *i915);
++bool engines_context_isolated(struct drm_i915_private *i915);
  
--		with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
--			freed += i915_gem_shrink(NULL, i915,
--						 sc->nr_to_scan - sc->nr_scanned,
--						 &sc->nr_scanned,
--						 I915_SHRINK_ACTIVE |
--						 I915_SHRINK_BOUND |
--						 I915_SHRINK_UNBOUND |
--						 I915_SHRINK_WRITEBACK);
--		}
--	}
-+	/* Pages still bound and system is failing with direct reclaim? */
-+	if (sc->nr_scanned < sc->nr_to_scan && current_is_kswapd())
-+		/* Defer high latency tasks to a background thread. */
-+		freed += kick_swapper(i915,
-+				      sc->nr_to_scan - sc->nr_scanned,
-+				      &sc->nr_scanned);
- 
--	return sc->nr_scanned ? freed : SHRINK_STOP;
-+	return freed;
- }
- 
- static int
-@@ -434,10 +536,14 @@ void i915_gem_driver_register__shrinker(struct drm_i915_private *i915)
- 	i915->mm.vmap_notifier.notifier_call = i915_gem_shrinker_vmap;
- 	drm_WARN_ON(&i915->drm,
- 		    register_vmap_purge_notifier(&i915->mm.vmap_notifier));
-+
-+	start_swapper(i915);
- }
- 
- void i915_gem_driver_unregister__shrinker(struct drm_i915_private *i915)
- {
-+	stop_swapper(i915);
-+
- 	drm_WARN_ON(&i915->drm,
- 		    unregister_vmap_purge_notifier(&i915->mm.vmap_notifier));
- 	drm_WARN_ON(&i915->drm,
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 3364a6e5169b..976983ab67a9 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -283,6 +283,21 @@ struct i915_gem_mm {
- 	/* shrinker accounting, also useful for userland debugging */
- 	u64 shrink_memory;
- 	u32 shrink_count;
-+
-+	/* background task for returning bound system pages */
-+	struct {
-+		struct task_struct *tsk; /* our kswapd equivalent */
-+
-+		/*
-+		 * Track the number of pages do_shrink_slab() has asked us
-+		 * to reclaim, and we have failed to find. This count of
-+		 * outstanding reclaims is passed to the swapper thread,
-+		 * which then blocks as it tries to achieve that goal.
-+		 * It is likely that the target overshoots due to the
-+		 * latency between our thread and kswapd making new requests.
-+		 */
-+		atomic_long_t target;
-+	} swapper;
- };
- 
- #define I915_IDLE_ENGINES_TIMEOUT (200) /* in ms */
+ void intel_engine_add_user(struct intel_engine_cs *engine);
+ void intel_engines_driver_register(struct drm_i915_private *i915);
+diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
+index 6fd15b39570c..dd31cc00c529 100644
+--- a/drivers/gpu/drm/i915/i915_getparam.c
++++ b/drivers/gpu/drm/i915/i915_getparam.c
+@@ -145,7 +145,7 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
+ 		value = 1;
+ 		break;
+ 	case I915_PARAM_HAS_CONTEXT_ISOLATION:
+-		value = intel_engines_has_context_isolation(i915);
++		value = engines_context_isolated(i915);
+ 		break;
+ 	case I915_PARAM_SLICE_MASK:
+ 		/* Not supported from Xe_HP onward; use topology queries */
 -- 
-2.25.1
+2.37.0
 
