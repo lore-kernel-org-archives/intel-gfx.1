@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30F1CC00144
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Aug 2022 14:01:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAC38C19F2A
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Aug 2022 14:01:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AD83C506A;
-	Mon,  1 Aug 2022 13:58:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ECFBC4A79;
+	Mon,  1 Aug 2022 13:58:46 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61015C3B32;
- Mon,  1 Aug 2022 13:53:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01C2DC1463;
+ Mon,  1 Aug 2022 13:53:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659361987; x=1690897987;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=CPvBQH1FedYAX9FU/4Wrfdczss9r4R9ly/4TTGjKkDE=;
- b=Es2eiMDnOMmLSYMZudEtppAaI1WTKRq+ei7O0M8YPMHEZx+lGeN7bJxp
- 24ILjzIgRaCeoYtxgsa3tE+3tccYlNK2YovFSrn2JzLCTFSdLxFx2bfGf
- V7RocZA3RfCc7h4cu9YYWv3smS8P21d1M/xNZ8iIw69HFgeI5kZniCbWu
- EftIwtI6IH5cEIpP69ZjH29WULLG3d2TM/w2ENNPptCeqJCVSLp19xTyZ
- wPbiMmXZhGOlzl8dZcyjW8pn3hnFhqngQsUkK6IGy2wsebg88PeyvPkmj
- IO3wXV0GTJrMCSCJprylieI/d5HETZwxIRD07ltEk4IR0fbcjLH8L+Aj6 w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10426"; a="289921050"
-X-IronPort-AV: E=Sophos;i="5.93,208,1654585200"; d="scan'208";a="289921050"
+ t=1659361985; x=1690897985;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=NcTbzlV5Dz72mTPe4hWZ3TsW91wDU7s6ZjMp0vIZFeA=;
+ b=PZBixtgqFJ1gHZHGp08MpRhuyH94xwnrBbszhkjdqwd0VjOLWfu9r8xq
+ AZ6DwGy6VilezpixjWOgrP4m6El4YaMqyldaupyHd1Twhe33aJyqCRdBA
+ crehTcrPywbdcMwgNQ3M56c1/tGUEMkLu9RT+NNtiJTONRB23BK0b5Ztl
+ 8K2sVpmVoaoa3Xo6YvNJ8Uw1YLq/ncEDIv1t3QbR4NLP7fLxicCxtLtac
+ 0C4L1zZcY9esC5/8VNhR6SHq4QYXy7NICTeSsF+UgrITJ4ONMNGl+6TWK
+ 7iFNmoXbtAHwXSmo1nDzMlXUoP7g5/+m8RhQwywZSR5Nhvju3DHDBUkcR Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10426"; a="289921043"
+X-IronPort-AV: E=Sophos;i="5.93,208,1654585200"; d="scan'208";a="289921043"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2022 06:53:07 -0700
-X-IronPort-AV: E=Sophos;i="5.93,208,1654585200"; d="scan'208";a="661157798"
+ 01 Aug 2022 06:53:03 -0700
+X-IronPort-AV: E=Sophos;i="5.93,208,1654585200"; d="scan'208";a="661157789"
 Received: from ideak-desk.fi.intel.com ([10.237.72.175])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2022 06:53:05 -0700
+ 01 Aug 2022 06:53:02 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon,  1 Aug 2022 16:52:59 +0300
-Message-Id: <20220801135259.3039679-3-imre.deak@intel.com>
+Date: Mon,  1 Aug 2022 16:52:57 +0300
+Message-Id: <20220801135259.3039679-1-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
-In-Reply-To: <20220801135259.3039679-1-imre.deak@intel.com>
-References: <20220801135259.3039679-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/amd/display: Fix static declaration
- follows non-static declaration compiler warn
+Subject: [Intel-gfx] [PATCH 1/3] drm/amd/display: Fix merge conflict
+ resolution in amdgpu_dm_plane.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,46 +54,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Liu <HaoPing.Liu@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
- intel-gfx@lists.freedesktop.org, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix the
+The API change introduced in
 
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:951:13: error: static declaration of ‘get_min_max_dc_plane_scaling’ follows non-static declaration
-  951 | static void get_min_max_dc_plane_scaling(struct drm_device *dev,
-      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.c:36:
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_plane.h:39:6: note: previous declaration of ‘get_min_max_dc_plane_scaling’ with type ‘void(struct drm_device *, struct drm_framebuffer *, int *, int *)’
-   39 | void get_min_max_dc_plane_scaling(struct drm_device *dev,
+commit 30c637151cfa ("drm/plane-helper: Export individual helpers")
 
-complier warning.
+was missed in the conflict resolution of
 
-Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Harry Wentland <Harry.Wentland@amd.com>
-Cc: Alan Liu <HaoPing.Liu@amd.com>
+commit d93a13bd75b9 ("Merge remote-tracking branch 'drm-misc/drm-misc-next' into drm-tip")
+
+fix this up.
+
+Fixes: d93a13bd75b9 ("Merge remote-tracking branch 'drm-misc/drm-misc-next' into drm-tip")
+Cc: Simon Ser <contact@emersion.fr>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-index 95168c2cfa6fa..eeeec391f4b53 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-@@ -36,10 +36,6 @@ int fill_dc_scaling_info(struct amdgpu_device *adev,
- 			 const struct drm_plane_state *state,
- 			 struct dc_scaling_info *scaling_info);
- 
--void get_min_max_dc_plane_scaling(struct drm_device *dev,
--				  struct drm_framebuffer *fb,
--				  int *min_downscale, int *max_upscale);
--
- int dm_plane_helper_check_state(struct drm_plane_state *state,
- 				struct drm_crtc_state *new_crtc_state);
- 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 8cd25b2ea0dca..5eb5d31e591de 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1562,7 +1562,7 @@ int dm_drm_plane_get_property(struct drm_plane *plane,
+ static const struct drm_plane_funcs dm_plane_funcs = {
+ 	.update_plane	= drm_atomic_helper_update_plane,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+-	.destroy	= drm_primary_helper_destroy,
++	.destroy	= drm_plane_helper_destroy,
+ 	.reset = dm_drm_plane_reset,
+ 	.atomic_duplicate_state = dm_drm_plane_duplicate_state,
+ 	.atomic_destroy_state = dm_drm_plane_destroy_state,
 -- 
 2.37.1
 
