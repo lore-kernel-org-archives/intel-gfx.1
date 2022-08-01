@@ -4,103 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3E5FC19F2A
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:38:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 729F3C19F2A
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 Aug 2022 13:38:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B347C97793;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A8198CF4;
 	Thu,  4 Aug 2022 13:38:05 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C98492E43;
- Sat, 23 Jul 2022 02:04:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E6j9Mg7mOKV1ygjiqMvoO5xiEuCAemtPnstmBlQ7rxyARhic3HELH7/Hb4E0Fp4BjnQxCLdEtH8JXPmXMGnXpqnwYs3JEvKiygShunF3/MfYjpACjDSFYs+sWpgI/Mkh6t9oLZnXMQe6GoXCpDUmebLa/m+ade4ZLR/ntrtGkNag8uOpzole62wyMVq+wtQaSGDJesajiBfvMcpGPKUKoNRGJFUn/o+4F/zffiaglDxd6RXtRABCWBbHoxCsizS3trIiao410JRY6kNLUkdvhKmkDwZPtBlsHvBjlebT1oFRdN5Y1Mk/ByfclzsGC3tsjjzYd9U3PS0HlokOvpkPKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+6Ueh5ZIRe1c7jfu0thPGJb699aApUXrGyC8jbWoOYY=;
- b=DIeyQyVQxPPGmOrI8i4FfSCWfpjmCz9IIKJURfTlkDg//ofjYQjbHwBR5oEUw4jP1/7i8b0O/q/OqiAzs3UT4W2aYc+X7JjW7+Efr8C2S8ydN4rtSZjcCtt0hZRTaaw32jJgld9Hcey7F89B3+m078sHjTA4fNnIcFepN4YdyjjDvA7y7XyCvSxoNIVL09f0jF5oH5F8urr/YTulX+91i4/qXgVLD7g5W9EgY1PYwxJda1tunBNg62IUkNRDT9X0iohVJJHdo/6NBLfnzZFysWvKTDt6SDIJ3ZLIAXDfChtbK1NqOLPVR8h7441Ba6/fjY8XlBgEBi5uiiw6YjPjfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 12.22.5.238) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+6Ueh5ZIRe1c7jfu0thPGJb699aApUXrGyC8jbWoOYY=;
- b=ek64Fae0kd0L0UxyrrFdy4DB1ZLrpITmSp1EhC5MS94R8zPod/t197Dba1GBeOEXXXFa5399ob34IJ68kmPshHyV7Oom7b1V42sQKgq3JdDnUokZAFNlBoSAFAZY3U8wK1S9z9tkpyBjJExCUNBoEkpHYzAJrOpuJVPYtRfpqtckgXVz0ePB4QFSVY4I48TfSGuxcVRpTOJKAE5qmRIDc2WJ2/MnFyrWzlg3bBwVHPia5eR6J4BLZ65iiWy3xjTFS+OneDGvK3pL5IK0ydkkIzQXUDtRMSmv85Ba0bgNDjTOtCwE3cUlJnvH11JjzsCnOrjf6IQ7MLpVH92ZWQAACg==
-Received: from BN9PR03CA0125.namprd03.prod.outlook.com (2603:10b6:408:fe::10)
- by DM5PR1201MB0201.namprd12.prod.outlook.com (2603:10b6:4:5b::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.21; Sat, 23 Jul
- 2022 02:04:21 +0000
-Received: from BN8NAM11FT030.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fe:cafe::ef) by BN9PR03CA0125.outlook.office365.com
- (2603:10b6:408:fe::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18 via Frontend
- Transport; Sat, 23 Jul 2022 02:04:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 12.22.5.238)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 12.22.5.238 as permitted sender) receiver=protection.outlook.com;
- client-ip=12.22.5.238; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (12.22.5.238) by
- BN8NAM11FT030.mail.protection.outlook.com (10.13.177.146) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.5458.17 via Frontend Transport; Sat, 23 Jul 2022 02:04:20 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- DRHQMAIL105.nvidia.com (10.27.9.14) with Microsoft SMTP Server (TLS) id
- 15.0.1497.32; Sat, 23 Jul 2022 02:04:20 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.26; Fri, 22 Jul 2022 19:04:19 -0700
-Received: from Asurada-Nvidia.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.986.26 via Frontend
- Transport; Fri, 22 Jul 2022 19:04:18 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: <kwankhede@nvidia.com>, <corbet@lwn.net>, <hca@linux.ibm.com>,
- <gor@linux.ibm.com>, <agordeev@linux.ibm.com>, <borntraeger@linux.ibm.com>,
- <svens@linux.ibm.com>, <zhenyuw@linux.intel.com>, <zhi.a.wang@intel.com>,
- <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <tvrtko.ursulin@linux.intel.com>,
- <airlied@linux.ie>, <daniel@ffwll.ch>, <farman@linux.ibm.com>,
- <mjrosato@linux.ibm.com>, <pasic@linux.ibm.com>, <vneethv@linux.ibm.com>,
- <oberpar@linux.ibm.com>, <freude@linux.ibm.com>, <akrowiak@linux.ibm.com>,
- <jjherne@linux.ibm.com>, <alex.williamson@redhat.com>, <cohuck@redhat.com>,
- <jgg@nvidia.com>, <kevin.tian@intel.com>, <hch@infradead.org>
-Date: Fri, 22 Jul 2022 19:02:52 -0700
-Message-ID: <20220723020256.30081-7-nicolinc@nvidia.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220723020256.30081-1-nicolinc@nvidia.com>
-References: <20220723020256.30081-1-nicolinc@nvidia.com>
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55CA718BA40
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Aug 2022 17:21:01 +0000 (UTC)
+Received: by mail-pl1-x635.google.com with SMTP id x23so2424337pll.7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 01 Aug 2022 10:21:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc;
+ bh=fCk/XHp8B9iXH6n1wItqgYGmM7fwmMYgI5yP8mbmH3U=;
+ b=IDqkq0RRB5/0q0fvX92do69q1cmAV0EFEgHWrW70RErB2+5n+m61no3QcSCeUCyUlx
+ uvEQW4vuCXpwC5S61++fwjKgE3nUx0FQnjgPU3XFVIVpP+LUmI7iynZ6/f65Ejd1AaC9
+ NvU5Y1vDmH5Dko03H7Y0arebgyzLqYB/j7gHew5AaaCS3ISq94S1W4PACPtorR2QfRd5
+ L14zFBc9ZRRBZUzZr469ACZiS9xJCL4dWXy4JX/+sw2KPfdGq2DlaXW85e1qylNvtxw6
+ awyxapPLGplyeVQ3VjeAEr8lvkfl6G5kgatCXsmSgZOAdBt2P5yKrAC5ZsxLZ1d6RHz1
+ lHLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+ bh=fCk/XHp8B9iXH6n1wItqgYGmM7fwmMYgI5yP8mbmH3U=;
+ b=OndkM3KPc7yO24RX30ExyxQgMz8VkNU6Fa7uLU+OKJnADrUrCqnkliR6qGihMsALns
+ 4J6LW1ZSGxl/NxDZOXZXE2w9PRMNeCqO/jgvzeRp8n1z4v9rkaT6WVCvFUuHNsKHsMlr
+ QtMxQZgWPuDChqH5fNoQ2D0Z7iEz4kyPRidp2ytmA8l4ExcQlR+Mjh+FH7NJja/dnIlc
+ 6TenXYO8qtpLutG6fzhx/BVuufsjmPtxh99l8Yi+5rmdlInVfDNJKblI0gMcfceVv5mI
+ 3r0/X7Ysj1dX6D33d2uHuwpPdD4aswPgprPlVwbcEUKZQRAXZJxhQhcpBIoKp4nxOktq
+ NEJw==
+X-Gm-Message-State: ACgBeo3s2n9QyPRGcBhQiP4Oj0xcBDO+PIz5KviIPQ2CSHSOSVRhwHxm
+ na35g0yMn3ypTd/tyBp0hFkGgg==
+X-Google-Smtp-Source: AA6agR72h6LzCvsibpvxaxXVJaAf1hKXItzbo4mmcP0PdraAjvoT0eodhuHPNH3+KjI/0w/NW86UyA==
+X-Received: by 2002:a17:90b:1c85:b0:1f1:d78a:512b with SMTP id
+ oo5-20020a17090b1c8500b001f1d78a512bmr20754163pjb.92.1659374460388; 
+ Mon, 01 Aug 2022 10:21:00 -0700 (PDT)
+Received: from google.com (7.104.168.34.bc.googleusercontent.com.
+ [34.168.104.7]) by smtp.gmail.com with ESMTPSA id
+ n3-20020a170902d2c300b0016bdf2220desm3355943plc.263.2022.08.01.10.20.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Aug 2022 10:20:58 -0700 (PDT)
+Date: Mon, 1 Aug 2022 17:20:51 +0000
+From: Sean Christopherson <seanjc@google.com>
+To: Maxim Levitsky <mlevitsk@redhat.com>
+Message-ID: <YugLc5LLPJkt89z6@google.com>
+References: <20220427200314.276673-1-mlevitsk@redhat.com>
+ <20220427200314.276673-5-mlevitsk@redhat.com>
+ <YoZyWOh4NPA0uN5J@google.com>
+ <5ed0d0e5a88bbee2f95d794dbbeb1ad16789f319.camel@redhat.com>
+ <c22a18631c2067871b9ed8a9246ad58fa1ab8947.camel@redhat.com>
+ <Yt6/9V0S9of7dueW@google.com>
+ <7c4cf32dca42ab84bdb427a9e4862dbf5509f961.camel@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 48d6bc7c-f711-46d4-fa52-08da6c4fa86f
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0201:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fCb0kdsVky5sIvtT0Cm/J+lz/4sjmUgErpLohUClDcF27afRHjHjdzc4JEKG+VFsys09C2aPAJUKZCeb9746R/A/Zj/l/Ok6W56imf8KZQS5mCwWolzwKvOj3zNxVC16kyB4aMWpaYzJn4PR8pjvz//ol+ZuOjNEaG6DFQXk8HlDSogN6xAIKalWdCbMrtcgfIqUCG1qaFzmEeH212xgtkP5qEoSkrBmts0MPGSG4RD9tba7H6N+kykphWNrWAVIZM3usrnjTrBI1ISbvvQOeDBvFDukZq/8//4kkZVXCCYMEfdymca8LrqLNM183Jbx5JsOVGx2nim90Sz5KYg9c+OzNNkPg8NEPArW3s83odKGGptE5PVsVUnqIP5tCG/xX7AjTWLzBZqIyOvZuPNaeHmNwCyt1Qb+D2k4xcyuq88Xor/oM9vFDY8HB2cKBzveEc5oAtr6AATL5b2BRxCpCIYueYjwiSM9oQfIN7lsJQn1iPKQePM7asxe4QAiLuBuPWRo3kan5ldLWCaJ1WmYyn8BpHnV3bUqLz0SrteB1eUzeKSTyNxL4aw6excodgUXzf1MCrvczsYhpqgnQiFc3st6OcytnorEURRC7sVWGSjIfZwRSxjD6xRiwNED/Gd4dgF0Cyp4DyZtrW9pL7CaqvzcC4wl+vl0Cbc4yvbjbwnob3v9sWy0vD3aZ8G7BK2/+WJeoq+mVBjzridRubFSLhlyfdLWewutEUtoqv9NIvwuKLYE6m3QfYdOqlYMNvG3dbBdvXQFyy1inmqf1dou+eXl8Lwrzy5BTZEj2WTmnuVMB6VVByyrQi1sC4d6M0J+iAoqTWUDtfwGJdPefmGwcFjlYJuFamcaAYBYoOecjJwIdmMgeo2Ae+nhBJ4IlthwHi785gQJsKF9P1jRGbLewA==
-X-Forefront-Antispam-Report: CIP:12.22.5.238; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:InfoNoRecords; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(346002)(39860400002)(136003)(396003)(46966006)(36840700001)(40470700004)(426003)(70586007)(5660300002)(8936002)(7416002)(7406005)(70206006)(4326008)(82310400005)(40480700001)(2906002)(8676002)(83380400001)(36860700001)(86362001)(356005)(1076003)(81166007)(82740400003)(26005)(478600001)(316002)(54906003)(36756003)(40460700003)(2616005)(110136005)(41300700001)(6666004)(7696005)(186003)(336012)(47076005)(921005)(83996005)(2101003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2022 02:04:20.8598 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48d6bc7c-f711-46d4-fa52-08da6c4fa86f
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[12.22.5.238];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT030.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0201
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7c4cf32dca42ab84bdb427a9e4862dbf5509f961.camel@redhat.com>
 X-Mailman-Approved-At: Thu, 04 Aug 2022 13:37:57 +0000
-Subject: [Intel-gfx] [PATCH v4 06/10] vfio/ap: Change saved_pfn to saved_iova
+Subject: Re: [Intel-gfx] [RFC PATCH v3 04/19] KVM: x86: mmu: allow to enable
+ write tracking externally
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,162 +77,103 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, jchrist@linux.ibm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- terrence.xu@intel.com, intel-gvt-dev@lists.freedesktop.org
+Cc: Wanpeng Li <wanpengli@tencent.com>, kvm@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, Dave Hansen <dave.hansen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Brijesh Singh <brijesh.singh@amd.com>, Joerg Roedel <joro@8bytes.org>,
+ x86@kernel.org, Ingo Molnar <mingo@redhat.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>, intel-gfx@lists.freedesktop.org,
+ Borislav Petkov <bp@alien8.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, intel-gvt-dev@lists.freedesktop.org,
+ Jim Mattson <jmattson@google.com>, linux-kernel@vger.kernel.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The vfio_ap_ops code maintains both nib address and its PFN, which
-is redundant, merely because vfio_pin/unpin_pages API wanted pfn.
-Since vfio_pin/unpin_pages() now accept "iova", change "saved_pfn"
-to "saved_iova" and remove pfn in the vfio_ap_validate_nib().
+On Thu, Jul 28, 2022, Maxim Levitsky wrote:
+> On Mon, 2022-07-25 at 16:08 +0000, Sean Christopherson wrote:
+> > On Wed, Jul 20, 2022, Maxim Levitsky wrote:
+> > And on that topic, do you have performance numbers to justify using a single
+> > shared node?  E.g. if every table instance has its own notifier, then no additional
+> > refcounting is needed. 
+> 
+> The thing is that KVM goes over the list of notifiers and calls them for
+> every write from the emulator in fact even just for mmio write, and when you
+> enable write tracking on a page, you just write protect the page and add a
+> mark in the page track array, which is roughly 
+> 
+> 'don't install spte, don't install mmio spte, but just emulate the page fault if it hits this page'
+> 
+> So adding more than a bare minimum to this list, seems just a bit wrong.
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Tony Krowiak <akrowiak@linux.ibm.com>
-Tested-by: Eric Farman <farman@linux.ibm.com>
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
----
- drivers/s390/crypto/vfio_ap_ops.c     | 42 +++++++++++----------------
- drivers/s390/crypto/vfio_ap_private.h |  4 +--
- 2 files changed, 19 insertions(+), 27 deletions(-)
+Hmm, I see what you're saying.  To some extent, having a minimal page tracker
+implementation is just that, an implementation detail.  But for better or worse,
+the existing API effectively pushes range checking to the callers.  I agree that
+breaking from that pattern would be odd.
 
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index 70f484668ca0..d7c38c82f694 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -112,7 +112,7 @@ static void vfio_ap_wait_for_irqclear(int apqn)
-  *
-  * Unregisters the ISC in the GIB when the saved ISC not invalid.
-  * Unpins the guest's page holding the NIB when it exists.
-- * Resets the saved_pfn and saved_isc to invalid values.
-+ * Resets the saved_iova and saved_isc to invalid values.
-  */
- static void vfio_ap_free_aqic_resources(struct vfio_ap_queue *q)
- {
-@@ -123,9 +123,9 @@ static void vfio_ap_free_aqic_resources(struct vfio_ap_queue *q)
- 		kvm_s390_gisc_unregister(q->matrix_mdev->kvm, q->saved_isc);
- 		q->saved_isc = VFIO_AP_ISC_INVALID;
- 	}
--	if (q->saved_pfn && !WARN_ON(!q->matrix_mdev)) {
--		vfio_unpin_pages(&q->matrix_mdev->vdev, q->saved_pfn << PAGE_SHIFT, 1);
--		q->saved_pfn = 0;
-+	if (q->saved_iova && !WARN_ON(!q->matrix_mdev)) {
-+		vfio_unpin_pages(&q->matrix_mdev->vdev, q->saved_iova, 1);
-+		q->saved_iova = 0;
- 	}
- }
- 
-@@ -189,27 +189,19 @@ static struct ap_queue_status vfio_ap_irq_disable(struct vfio_ap_queue *q)
-  *
-  * @vcpu: the object representing the vcpu executing the PQAP(AQIC) instruction.
-  * @nib: the location for storing the nib address.
-- * @g_pfn: the location for storing the page frame number of the page containing
-- *	   the nib.
-  *
-  * When the PQAP(AQIC) instruction is executed, general register 2 contains the
-  * address of the notification indicator byte (nib) used for IRQ notification.
-- * This function parses the nib from gr2 and calculates the page frame
-- * number for the guest of the page containing the nib. The values are
-- * stored in @nib and @g_pfn respectively.
-- *
-- * The g_pfn of the nib is then validated to ensure the nib address is valid.
-+ * This function parses and validates the nib from gr2.
-  *
-  * Return: returns zero if the nib address is a valid; otherwise, returns
-  *	   -EINVAL.
-  */
--static int vfio_ap_validate_nib(struct kvm_vcpu *vcpu, unsigned long *nib,
--				unsigned long *g_pfn)
-+static int vfio_ap_validate_nib(struct kvm_vcpu *vcpu, dma_addr_t *nib)
- {
- 	*nib = vcpu->run->s.regs.gprs[2];
--	*g_pfn = *nib >> PAGE_SHIFT;
- 
--	if (kvm_is_error_hva(gfn_to_hva(vcpu->kvm, *g_pfn)))
-+	if (kvm_is_error_hva(gfn_to_hva(vcpu->kvm, *nib >> PAGE_SHIFT)))
- 		return -EINVAL;
- 
- 	return 0;
-@@ -239,34 +231,34 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
- 						 int isc,
- 						 struct kvm_vcpu *vcpu)
- {
--	unsigned long nib;
- 	struct ap_qirq_ctrl aqic_gisa = {};
- 	struct ap_queue_status status = {};
- 	struct kvm_s390_gisa *gisa;
- 	int nisc;
- 	struct kvm *kvm;
--	unsigned long g_pfn, h_pfn;
-+	unsigned long h_pfn;
- 	phys_addr_t h_nib;
-+	dma_addr_t nib;
- 	int ret;
- 
- 	/* Verify that the notification indicator byte address is valid */
--	if (vfio_ap_validate_nib(vcpu, &nib, &g_pfn)) {
--		VFIO_AP_DBF_WARN("%s: invalid NIB address: nib=%#lx, g_pfn=%#lx, apqn=%#04x\n",
--				 __func__, nib, g_pfn, q->apqn);
-+	if (vfio_ap_validate_nib(vcpu, &nib)) {
-+		VFIO_AP_DBF_WARN("%s: invalid NIB address: nib=%pad, apqn=%#04x\n",
-+				 __func__, &nib, q->apqn);
- 
- 		status.response_code = AP_RESPONSE_INVALID_ADDRESS;
- 		return status;
- 	}
- 
--	ret = vfio_pin_pages(&q->matrix_mdev->vdev, g_pfn << PAGE_SHIFT, 1,
-+	ret = vfio_pin_pages(&q->matrix_mdev->vdev, nib, 1,
- 			     IOMMU_READ | IOMMU_WRITE, &h_pfn);
- 	switch (ret) {
- 	case 1:
- 		break;
- 	default:
- 		VFIO_AP_DBF_WARN("%s: vfio_pin_pages failed: rc=%d,"
--				 "nib=%#lx, g_pfn=%#lx, apqn=%#04x\n",
--				 __func__, ret, nib, g_pfn, q->apqn);
-+				 "nib=%pad, apqn=%#04x\n",
-+				 __func__, ret, &nib, q->apqn);
- 
- 		status.response_code = AP_RESPONSE_INVALID_ADDRESS;
- 		return status;
-@@ -296,12 +288,12 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
- 	case AP_RESPONSE_NORMAL:
- 		/* See if we did clear older IRQ configuration */
- 		vfio_ap_free_aqic_resources(q);
--		q->saved_pfn = g_pfn;
-+		q->saved_iova = nib;
- 		q->saved_isc = isc;
- 		break;
- 	case AP_RESPONSE_OTHERWISE_CHANGED:
- 		/* We could not modify IRQ setings: clear new configuration */
--		vfio_unpin_pages(&q->matrix_mdev->vdev, g_pfn << PAGE_SHIFT, 1);
-+		vfio_unpin_pages(&q->matrix_mdev->vdev, nib, 1);
- 		kvm_s390_gisc_unregister(kvm, isc);
- 		break;
- 	default:
-diff --git a/drivers/s390/crypto/vfio_ap_private.h b/drivers/s390/crypto/vfio_ap_private.h
-index abb59d59f81b..d912487175d3 100644
---- a/drivers/s390/crypto/vfio_ap_private.h
-+++ b/drivers/s390/crypto/vfio_ap_private.h
-@@ -99,13 +99,13 @@ struct ap_matrix_mdev {
-  * struct vfio_ap_queue - contains the data associated with a queue bound to the
-  *			  vfio_ap device driver
-  * @matrix_mdev: the matrix mediated device
-- * @saved_pfn: the guest PFN pinned for the guest
-+ * @saved_iova: the notification indicator byte (nib) address
-  * @apqn: the APQN of the AP queue device
-  * @saved_isc: the guest ISC registered with the GIB interface
-  */
- struct vfio_ap_queue {
- 	struct ap_matrix_mdev *matrix_mdev;
--	unsigned long saved_pfn;
-+	dma_addr_t saved_iova;
- 	int	apqn;
- #define VFIO_AP_ISC_INVALID 0xff
- 	unsigned char saved_isc;
--- 
-2.17.1
+> >  It's not obvious that a shared node will provide better performance, e.g.
+> >  if there are only a handful of AVIC tables being shadowed, then a linear
+> >  walk of all nodes is likely fast enough, and doesn't bring the risk of a
+> >  write potentially being stalled due to having to acquire a VM-scoped
+> >  mutex.
+> 
+> The thing is that if I register multiple notifiers, they all will be called anyway,
+> but yes I can use container_of, and discover which table the notifier belongs to,
+> instead of having a hash table where I lookup the GFN of the fault.
+> 
+> The above means practically that all the shadow physid tables will be in a linear
+> list of notifiers, so I could indeed avoid per vm mutex on the write tracking,
+> however for simplicity I probably will still need it because I do modify the page,
+> and having per physid table mutex complicates things.
+> 
+> Currently in my code the locking is very simple and somewhat dumb, but the performance
+> is very good because the code isn't executed often, most of the time the AVIC hardware
+> works alone without any VM exits.
 
+Yes, but because the code isn't executed often, pretty much any solution will
+provide good performance.
+
+> Once the code is accepted upstream, it's one of the things that can be improved.
+> 
+> Note though that I still need a hash table and a mutex because on each VM entry,
+> the guest can use a different physid table, so I need to lookup it, and create it,
+> if not found, which would require read/write of the hash table and thus a mutex.
+
+One of the points I'm trying to make is that a hash table isn't strictly required.
+E.g. if I understand the update rules correctly, I believe tables can be tracked
+via an RCU-protected list, with vCPUs taking a spinlock and doing synchronize_rcu()
+when adding/removing a table.  That would avoid having to take any "real" locks in
+the page track notifier.
+
+The VM-scoped mutex worries me as it will be a bottleneck if L1 is running multiple
+L2 VMs.  E.g. if L1 is frequently switching vmcs12 and thus avic_physical_id, then
+nested VMRUN will effectively get serialized.  That is mitigated to some extent by
+an RCU-protected list, as a sane L1 will use a single table for each L2, and so a
+vCPU will need to add/remove a table if and only if it's the first/last vCPU to
+start/stop running an L2 VM.
+
+> > > I can also stash this boolean (like 'bool registered;') into the 'struct
+> > > kvm_page_track_notifier_node',  and thus allow the
+> > > kvm_page_track_register_notifier to be called more that once -  then I can
+> > > also get rid of __kvm_page_track_register_notifier. 
+> > 
+> > No, allowing redundant registration without proper refcounting leads to pain,
+> > e.g. X registers, Y registers, X unregisters, kaboom.
+> > 
+> 
+> True, but then what about adding a refcount to 'struct kvm_page_track_notifier_node'
+> instead of a boolean, and allowing redundant registration?
+> Probably not worth it, in which case I am OK to add a refcount to my avic code.
+
+Ya, I would rather force AVIC to do the refcounting.  Existing users don't need a
+refcount, and doing the refcounting in AVIC code means kvm_page_track_notifier_node
+can WARN on redundant registration, i.e. can sanity check the AVIC code to some
+extent.
+
+> Or maybe just scrap the whole thing and just leave registration and
+> activation of the write tracking as two separate things? Honestly now that
+> looks like the most clean solution.
+
+It's the easiest, but IMO it's not the cleanest.  Allowing notifiers to be
+registered without tracking being enabled is undesirable, especially since we know
+we can prevent it.
