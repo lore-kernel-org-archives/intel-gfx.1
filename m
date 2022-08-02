@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CB19C00140
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Aug 2022 16:52:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3E1BC00140
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Aug 2022 16:52:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A3C191CFF;
-	Tue,  2 Aug 2022 16:52:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E341591CFC;
+	Tue,  2 Aug 2022 16:52:19 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48ED291CDC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 033E891D8E
  for <intel-gfx@lists.freedesktop.org>; Tue,  2 Aug 2022 16:52:06 +0000 (UTC)
 Received: from localhost.localdomain (unknown
  [IPv6:2a02:8010:65b5:0:bbb0:f8ec:7bc9:dbe4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: alarumbe)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 6E7B26601B45;
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id F148C6601BCB;
  Tue,  2 Aug 2022 17:52:04 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1659459124;
- bh=T3QaMsOBBIoUiTHeeJr1cLqtaqgb2RFWZktGk4pnDiE=;
+ s=mail; t=1659459125;
+ bh=4z/apoDs0JPg5eDilz7+9hmbfYpKbIzTT5ACGi5lo0I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SQ5301Rg/716pNWek/RfnxPtp0Vr2GDyqV8xezDW/7Xq8Ymz4CZip3EIjBWJ49zkp
- K1ZaI74yXxBuhakiXQPJU1/qlI0KrwrEp2r3TTHTjX+20EbMFe1GG4zoAv/iwI5cIK
- mG9yu7R6u2z6mQFx/wJZtv8/cw9tPCmHoKyETbuw2jm/2Mu8yfh2Job+V5CyfH8t39
- ZuJaa0KRTT0V93+CunKLyQICGFONQY7B24E9H6LetTK0Oj/qCXRXslIoKrp3gQh9Xq
- Btf3537PaidUBEBTGAfnRK+tX3fG5cG2PuA0JFZCwhgBOlICLJTeg1O2H0nxkAW3VM
- Js9aDqP8v/Ijw==
+ b=TfluHiWy/BSZXClN8+VkQctiQy8UOz2hiDtliF7QIAjgGaKvIg85TFVnTnE5VvJXk
+ /N3xLwG6c20aHEHOuOQjpziUDpSjBssTII4LODTvbK/6/JkkPhKYHciKm+Qo9MCDAc
+ UTQEf1sWpLCxZT853p+eyhSDptrZnB/EEQhLvcXsc7BrrKe5KJA9+I7k7Ep8bJFydd
+ VysQ3ySUw7/kRLhR/p4Bi8UjGxTsOmu3T1qG8McqPsrcisjdwMISZOHgIA8TF4N9/0
+ lLMc5Tr/yIf7ixRdpQy7sjNBMSRMfKZAMb1xH8R+mLKwGhQHeWoz6tTMKvL7rta21U
+ J3GaVKdzFku+A==
 From: Adrian Larumbe <adrian.larumbe@collabora.com>
 To: daniel@ffwll.ch, thomas.hellstrom@linux.intel.com,
  intel-gfx@lists.freedesktop.org
-Date: Tue,  2 Aug 2022 17:51:49 +0100
-Message-Id: <20220802165155.165576-2-adrian.larumbe@collabora.com>
+Date: Tue,  2 Aug 2022 17:51:52 +0100
+Message-Id: <20220802165155.165576-5-adrian.larumbe@collabora.com>
 X-Mailer: git-send-email 2.37.0
 In-Reply-To: <20220802165155.165576-1-adrian.larumbe@collabora.com>
 References: <20220802165155.165576-1-adrian.larumbe@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/7] drm/i915/ttm: dont trample cache_level
- overrides during ttm move
+Subject: [Intel-gfx] [PATCH 4/7] drm/i915/ttm: don't overwrite cache_dirty
+ after setting coherency
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,86 +58,53 @@ Cc: adrian.larumbe@collabora.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Robert Beckett <bob.beckett@collabora.com>
+When i915_gem_object_set_cache_level sets the GEM object's cache_dirty to
+true, in the case of TTM that will sometimes be overwritten when getting
+the object's pages, more specifically for shmem-placed objects for which
+its ttm structure has just been populated.
 
-Various places within the driver override the default chosen cache_level.
-Before ttm, these overrides were permanent until explicitly changed again
-or for the lifetime of the buffer.
+This wasn't an issue so far, even though intel_dpt_create was setting the
+object's cache level to 'none', regardless of the platform and memory
+placement of the framebuffer. However, commit b6f17c183a3e ("drm/i915/ttm:
+dont trample cache_level overrides during ttm move") makes sure the cache
+level set by older backends soon to be managed by TTM isn't altered after
+their TTM bo ttm structure is populated.
 
-TTM movement code came along and decided that it could make that
-decision at that time, which is usually well after object creation, so
-overrode the cache_level decision and reverted it back to its default
-decision.
+However this led to the 'obj->cache_dirty = true' set in
+i915_gem_object_set_cache_level and flush_write_domain to stick around
+rather than being reset inside i915_ttm_adjust_gem_after_move after calling
+ttm_tt_populate in __i915_ttm_get_pages, which eventually led to a warning
+in DGFX platforms.
 
-Add logic to indicate whether the caching mode has been set by anything
-other than the move logic. If so, assume that the code that overrode the
-defaults knows best and keep it.
+Make sure it's not set in DGFX platforms.
 
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Adrian Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.c       | 1 +
- drivers/gpu/drm/i915/gem/i915_gem_object_types.h | 1 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c          | 1 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c     | 9 ++++++---
- 4 files changed, 9 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index ccec4055fde3..966ac2d778d5 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -125,6 +125,7 @@ void i915_gem_object_set_cache_coherency(struct drm_i915_gem_object *obj,
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index 1674b0c5802b..341b60432a12 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -77,7 +77,7 @@ flush_write_domain(struct drm_i915_gem_object *obj, unsigned int flush_domains)
  
- 	obj->cache_level = cache_level;
-+	obj->ttm.cache_level_override = true;
+ 	case I915_GEM_DOMAIN_RENDER:
+ 		if (gpu_write_needs_clflush(obj))
+-			obj->cache_dirty = true;
++			obj->cache_dirty = !IS_DGFX(to_i915(obj->base.dev));
+ 		break;
+ 	}
  
- 	if (cache_level != I915_CACHE_NONE)
- 		obj->cache_coherent = (I915_BO_CACHE_COHERENT_FOR_READ |
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-index 5cf36a130061..14937cf1daaa 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-@@ -623,6 +623,7 @@ struct drm_i915_gem_object {
- 		struct i915_gem_object_page_iter get_io_page;
- 		struct drm_i915_gem_object *backup;
- 		bool created:1;
-+		bool cache_level_override:1;
- 	} ttm;
+@@ -275,7 +275,7 @@ int i915_gem_object_set_cache_level(struct drm_i915_gem_object *obj,
+ 	/* Always invalidate stale cachelines */
+ 	if (obj->cache_level != cache_level) {
+ 		i915_gem_object_set_cache_coherency(obj, cache_level);
+-		obj->cache_dirty = true;
++		obj->cache_dirty = !IS_DGFX(to_i915(obj->base.dev));
+ 	}
  
- 	/*
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 5a5cf332d8a5..0332d5214aab 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -1253,6 +1253,7 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
- 	i915_gem_object_init_memory_region(obj, mem);
- 	i915_ttm_adjust_domains_after_move(obj);
- 	i915_ttm_adjust_gem_after_move(obj);
-+	obj->ttm.cache_level_override = false;
- 	i915_gem_object_unlock(obj);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index 9a7e50534b84..042c2237e287 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -129,9 +129,12 @@ void i915_ttm_adjust_gem_after_move(struct drm_i915_gem_object *obj)
- 	obj->mem_flags |= i915_ttm_cpu_maps_iomem(bo->resource) ? I915_BO_FLAG_IOMEM :
- 		I915_BO_FLAG_STRUCT_PAGE;
- 
--	cache_level = i915_ttm_cache_level(to_i915(bo->base.dev), bo->resource,
--					   bo->ttm);
--	i915_gem_object_set_cache_coherency(obj, cache_level);
-+	if (!obj->ttm.cache_level_override) {
-+		cache_level = i915_ttm_cache_level(to_i915(bo->base.dev),
-+						   bo->resource, bo->ttm);
-+		i915_gem_object_set_cache_coherency(obj, cache_level);
-+		obj->ttm.cache_level_override = false;
-+	}
- }
- 
- /**
+ 	/* The cache-level will be applied when each vma is rebound. */
 -- 
 2.37.0
 
