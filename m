@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDECCC00140
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Aug 2022 16:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A05EAC3F6B0
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Aug 2022 16:52:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82D1491CEB;
-	Tue,  2 Aug 2022 16:52:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D4261132D5;
+	Tue,  2 Aug 2022 16:52:24 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2E3291D87
- for <intel-gfx@lists.freedesktop.org>; Tue,  2 Aug 2022 16:52:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5F9E91D9C
+ for <intel-gfx@lists.freedesktop.org>; Tue,  2 Aug 2022 16:52:07 +0000 (UTC)
 Received: from localhost.localdomain (unknown
  [IPv6:2a02:8010:65b5:0:bbb0:f8ec:7bc9:dbe4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: alarumbe)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 9A5596601BC9;
- Tue,  2 Aug 2022 17:52:04 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 52F766601BCD;
+ Tue,  2 Aug 2022 17:52:05 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1659459124;
- bh=viHurVi1TF7KNirHlTXiseAQ6ulwmbm1LNIhC1eU+8U=;
+ s=mail; t=1659459125;
+ bh=vabPT+LFauZv121pgzg4Gt6+tNl7px8WA5f9dTgjupg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cbkGmcl7F3lYxaKdZ0Q5OMq7++Ec6CKa4XuomoJ9QuDTBXWlLWjKxd6S9xZb6kvQz
- LnmLIm+RukjrjzX5XWmuJO7L05qlCG/KQbM8tcq72+WQ7GTzfNcMdJYsC4DLF8sPQ3
- l1uHfYYBU0uCQerzS6Ou73gl/bOalicSi/4Cx7mKHRmP0gzpDTJmO2eQypD7h8LZgt
- od/lLDiVNh9EjVGPeCL8LmvboaoGd91ovmmYDApQjLKj+EgtPFPSDSmU1A9/D7H8Cp
- oVpfnC9NjY0ncVCj2W7ojuk/ugg2C/1koj7pqtba/tpjP5s6stGsQJVSSimfp4PRAp
- sQuBJLc5QTCqQ==
+ b=VyX7sCC0cYfVJV0MyJSs+gekUwq5dt2BihQX/SS+AcIJZiAwOACPLWM87bYIQHTWm
+ ODVcCLaE4lX5uJUToIOUSALxvGICWqMyIYoaondF2AbEKl2U96HoRHnd5/z3+mrIiL
+ TVhdgNxRfHFupDmAiyTJCt4y/nen+3Vt/TKBLwKFr5hXXlhuMys/4EN2enjppXTu9n
+ Sppkpjfxs9IiCZ2UaA/esKT8ritcz/fo4kq1w3uaL71CYtQcTOEsvFjWIB+mCTlPkA
+ 1zb0E/XXPO7jljOQH3vfcD//AMamX8l/mL1PrX7oo+75fVeXAgsFTDaV1UnEnXVSj9
+ v1c2zBSLamGog==
 From: Adrian Larumbe <adrian.larumbe@collabora.com>
 To: daniel@ffwll.ch, thomas.hellstrom@linux.intel.com,
  intel-gfx@lists.freedesktop.org
-Date: Tue,  2 Aug 2022 17:51:50 +0100
-Message-Id: <20220802165155.165576-3-adrian.larumbe@collabora.com>
+Date: Tue,  2 Aug 2022 17:51:54 +0100
+Message-Id: <20220802165155.165576-7-adrian.larumbe@collabora.com>
 X-Mailer: git-send-email 2.37.0
 In-Reply-To: <20220802165155.165576-1-adrian.larumbe@collabora.com>
 References: <20220802165155.165576-1-adrian.larumbe@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/7] drm/i915: limit ttm to dma32 for i965G[M]
+Subject: [Intel-gfx] [PATCH 6/7] drm/i915: Add module param for enabling TTM
+ in sysmem region
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,38 +57,51 @@ Cc: adrian.larumbe@collabora.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Robert Beckett <bob.beckett@collabora.com>
+Introduces a new module parameter, 'use_pool_alloc', which defaults to
+'false'. Its goal is to make the driver fall back on TTM for setting up
+the system memory region, so that object allocation will be done through
+the TTM subsystem rather than shmem objects.
 
-i965G[M] cannot relocate objects above 4GiB.
-Ensure ttm uses dma32 on these systems.
+This commit only brings in the new kernel module param, which will be
+used by successive commits.
 
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Adrian Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/i915/intel_region_ttm.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_params.c | 6 ++++++
+ drivers/gpu/drm/i915/i915_params.h | 3 ++-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
-index 575d67bc6ffe..88b525f9bb2d 100644
---- a/drivers/gpu/drm/i915/intel_region_ttm.c
-+++ b/drivers/gpu/drm/i915/intel_region_ttm.c
-@@ -32,10 +32,15 @@
- int intel_region_ttm_device_init(struct drm_i915_private *dev_priv)
- {
- 	struct drm_device *drm = &dev_priv->drm;
-+	bool use_dma32 = false;
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index 6fc475a5db61..1af11f030ab1 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -207,6 +207,12 @@ i915_param_named_unsafe(lmem_size, uint, 0400,
+ i915_param_named_unsafe(lmem_bar_size, uint, 0400,
+ 			"Set the lmem bar size(in MiB).");
+ 
++i915_param_named_unsafe(use_pool_alloc, bool, 0600,
++	"Force the driver to use TTM's pool allocator API for smem objects. "
++	"This will cause TTM to take over BO allocation even in integrated platforms. "
++	"(default: false)");
 +
-+	/* i965g[m] cannot relocate objects above 4GiB. */
-+	if (IS_I965GM(dev_priv) || IS_I965G(dev_priv))
-+		use_dma32 = true;
++
+ static __always_inline void _print_param(struct drm_printer *p,
+ 					 const char *name,
+ 					 const char *type,
+diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
+index 2733cb6cfe09..992ee2a4947d 100644
+--- a/drivers/gpu/drm/i915/i915_params.h
++++ b/drivers/gpu/drm/i915/i915_params.h
+@@ -84,7 +84,8 @@ struct drm_printer;
+ 	param(bool, verbose_state_checks, true, 0) \
+ 	param(bool, nuclear_pageflip, false, 0400) \
+ 	param(bool, enable_dp_mst, true, 0600) \
+-	param(bool, enable_gvt, false, IS_ENABLED(CONFIG_DRM_I915_GVT) ? 0400 : 0)
++	param(bool, enable_gvt, false, IS_ENABLED(CONFIG_DRM_I915_GVT) ? 0400 : 0) \
++	param(bool, use_pool_alloc, false, 0600)
  
- 	return ttm_device_init(&dev_priv->bdev, i915_ttm_driver(),
- 			       drm->dev, drm->anon_inode->i_mapping,
--			       drm->vma_offset_manager, false, false);
-+			       drm->vma_offset_manager, false, use_dma32);
- }
- 
- /**
+ #define MEMBER(T, member, ...) T member;
+ struct i915_params {
 -- 
 2.37.0
 
