@@ -4,52 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84401C00140
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 13:52:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD4AC19F2D
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 14:28:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59752B58B2;
-	Fri,  5 Aug 2022 13:52:08 +0000 (UTC)
-X-Greylist: delayed 2261 seconds by postgrey-1.36 at gabe;
- Fri, 05 Aug 2022 13:51:59 UTC
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EB8218B7A7
- for <intel-gfx@lists.freedesktop.org>; Fri,  5 Aug 2022 13:51:59 +0000 (UTC)
-Received: from fsav117.sakura.ne.jp (fsav117.sakura.ne.jp [27.133.134.244])
- by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 275DE8AC068870;
- Fri, 5 Aug 2022 22:14:08 +0900 (JST)
- (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from www262.sakura.ne.jp (202.181.97.72)
- by fsav117.sakura.ne.jp (F-Secure/fsigk_smtp/550/fsav117.sakura.ne.jp);
- Fri, 05 Aug 2022 22:14:08 +0900 (JST)
-X-Virus-Status: clean(F-Secure/fsigk_smtp/550/fsav117.sakura.ne.jp)
-Received: from [192.168.1.9] (M106072142033.v4.enabler.ne.jp [106.72.142.33])
- (authenticated bits=0)
- by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 275DE7M4068866
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
- Fri, 5 Aug 2022 22:14:08 +0900 (JST)
- (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <4debe93c-5bfd-dd3b-f532-92df21c37713@I-love.SAKURA.ne.jp>
-Date: Fri, 5 Aug 2022 22:14:05 +0900
+	by gabe.freedesktop.org (Postfix) with ESMTP id EECC1B62E0;
+	Fri,  5 Aug 2022 14:27:52 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70B5C90F3D;
+ Fri,  5 Aug 2022 14:27:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1659709661; x=1691245661;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=6GEOCn/sZYHJkejV3tFNB7GfcnQMEHdpX5Y27y0A0dU=;
+ b=oBUEgtZgVHn5Z6jgsLYPWTXV7nwYh3aD2o6c1+JawQz70vEnDOirhk9h
+ xsDHdtmu47vgjJUcwr/yJlI7HZ5q19WjmlRPDUkmzNOK/bGz7sLLenn2H
+ 2jPDp7pcdxoM+IDGWeG1+/GM+MxF1Hdlfnga2juuUfS2ZzSvDNhqdup3+
+ UJlOkIh1iD3ASJifyknS9sNgvenJKSuZ/2O/eGw0B36SnHXFMiDBR5Kp7
+ SoPzT8njiYVMG153x/tML27yKLxZLDUyY8gAvD4HePhpr9oh9o2hQzEmR
+ 76s/gjau6Scbw9cv0CNB19QZnuR+UIYFZpqnt8OEHiDHNB3W1M2rmruMZ w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10430"; a="277131195"
+X-IronPort-AV: E=Sophos;i="5.93,216,1654585200"; d="scan'208";a="277131195"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2022 07:27:39 -0700
+X-IronPort-AV: E=Sophos;i="5.93,216,1654585200"; d="scan'208";a="600375524"
+Received: from jkrzyszt-mobl1.ger.corp.intel.com (HELO
+ jkrzyszt-mobl1.intranet) ([10.213.19.138])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2022 07:27:37 -0700
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: igt-dev@lists.freedesktop.org
+Date: Fri,  5 Aug 2022 16:27:14 +0200
+Message-Id: <20220805142716.185077-1-janusz.krzysztofik@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.0
-Content-Language: en-US
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-References: <bdf23a1c-0d89-c395-4a7a-2840ce5f639a@I-love.SAKURA.ne.jp>
- <98c6d61e-0c0f-e385-6100-6b7ebe6874b1@linux.intel.com>
- <c379bbe5-a416-7757-b0e3-1b767bb5a775@I-love.SAKURA.ne.jp>
- <703244a5-f2c9-adfb-892f-dd2353cf384e@linux.intel.com>
- <f15c7336-10fd-cd86-a95f-aec99154319b@I-love.SAKURA.ne.jp>
- <b21d9f1e-65e3-8f2f-a5c3-04bf866823e3@linux.intel.com>
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-In-Reply-To: <b21d9f1e-65e3-8f2f-a5c3-04bf866823e3@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] How to convert drivers/gpu/drm/i915/ to use local
- workqueue?
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH i-g-t 1/3] tests/gem_exec_fence: Fix wrong
+ engine checked for store_dword capability
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,23 +55,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
+Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2022/06/30 22:09, Tvrtko Ursulin wrote:
->>> On the i915 specifics, the caller in drivers/gpu/drm/i915/gt/selftest_execlists.c
->>> I am pretty sure can be removed. It is synchronized with the error capture side of
->>> things which is not required for the test to work.
->>>
->>> I can send a patch for that or you can, as you prefer?
->>
->> OK. Please send a patch for that, for that patch will go linux-next.git tree via
->> a tree for gpu/drm/i915 driver.
-> 
-> Patch sent. If I am right the easiest solution was just to remove the flush.
-> If I was wrong though I'll need to create a dedicated wq so we will see what
-> our automated CI will say.
+Commit ed7c8cfb67e3 ("tests/i915/gem_exec_fence: Add
+__for_each_physical_engine to utilize all engines."), while replacing
+depraciated for_each_physical_engine(e, fd) loop with
+__for_each_physical_engine(fd, e2) and gem_can_store_dword() inside that
+loop with gem_class_can_store_dword(), didn't switch to e2 consequently --
+eb_ring(e) argument of gem_can_store_dword() was replaced with e->class
+passed to gem_class_can_store_dword() instead of e2->class.  As a result,
+a batch that stores dword is now submitted to all engines, also those that
+don't support that operation.  Fix it.
 
-How was the result?
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+---
+ tests/i915/gem_exec_fence.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/i915/gem_exec_fence.c b/tests/i915/gem_exec_fence.c
+index 7ff7614dad..048870053a 100644
+--- a/tests/i915/gem_exec_fence.c
++++ b/tests/i915/gem_exec_fence.c
+@@ -331,7 +331,7 @@ static void test_fence_await(int fd, const intel_ctx_t *ctx,
+ 
+ 	i = 0;
+ 	for_each_ctx_engine(fd, ctx, e2) {
+-		if (!gem_class_can_store_dword(fd, e->class))
++		if (!gem_class_can_store_dword(fd, e2->class))
+ 			continue;
+ 
+ 		if (flags & NONBLOCK) {
+-- 
+2.25.1
 
