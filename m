@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B74A4C00140
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 22:00:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 041FAC00140
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 22:00:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57DBFADCF0;
-	Fri,  5 Aug 2022 21:55:41 +0000 (UTC)
-Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
- [IPv6:2607:f8b0:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B32B712B500;
- Fri,  5 Aug 2022 21:54:40 +0000 (UTC)
-Received: by mail-il1-x130.google.com with SMTP id p9so733087ilq.13;
- Fri, 05 Aug 2022 14:54:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A984AE8FE;
+	Fri,  5 Aug 2022 21:55:44 +0000 (UTC)
+Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
+ [IPv6:2607:f8b0:4864:20::d2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 183979FD56;
+ Fri,  5 Aug 2022 21:54:50 +0000 (UTC)
+Received: by mail-io1-xd2e.google.com with SMTP id i84so2859268ioa.6;
+ Fri, 05 Aug 2022 14:54:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=ZSrYcW0n+hMGbP13qtU8Pp8sbnMOwvc1NQla3G+MVBY=;
- b=pPw4i+VqbQa25X7qFM0wRNJ8nxyDnFuNDaCsDun2ttngNr71qRrGr4k8NyN7xsD80B
- 7OEIqPTiLY9pjqLlMqCA6IqcQ4HOo+XNP1ix9evPlP7vO7Y4Inyr2r4bjjSX+Y7R5zKj
- HBqzGMZzxBa4+4ptNMHk1htpzfhYtw+mflA0z/piZ8WMUwb2U1ZqHiU3Imd97+NRj9ky
- 9s+6OnPcOXDsdoVQnqcU89Epq/rxnhZWvYbGfrNLUGI18PpSQORnjRdXOq31ZhCtjElZ
- 5vcklUbLM0pu+LW/VNKLMAEWqRA+MegMEmVcJXzQkN1+nedaHwzujL6llty5ACx/1Dp4
- s4aw==
+ bh=38b4ptDDIvz2ddGSj5VKmEi/zh+RmsO1/UedvwI7WxU=;
+ b=DtJrrTM0KeU+8b/viLC94jltyJcFE60mrEuVXYQV1o++JUn4Ob+xUZE0y5y7tVW3cB
+ CbDi305LuxsU/K6tMe6B4AeLFT8aZhIvbuOGpEQYwmHa/VPMdPh+0b1Mmb7tbhnslq2l
+ NxbSbsWCdcYZG9PT7jg9bgZ8gupfdCfvM49RioZ+yd/sGMGxWUK+ug9RkciRZFCt2An8
+ nOBJMTq5Phw0oEkmUR/XOzwHkyWv89v62jV+rD7vQ7c/UgmiJofYtxToWqYxXFTyquF/
+ 59XiNq51Cf8UJiRb8IVQTDeiThvAFqbOJIrBr/oIN+HTOE6f39AVY64wFDRW8WffWdoh
+ uEjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=ZSrYcW0n+hMGbP13qtU8Pp8sbnMOwvc1NQla3G+MVBY=;
- b=6zH9RNvAcK068u9eqYAWq2/+lwr1TSnv/YaqXORzBUjokUEFDzdrrN91pgkra+DcuI
- 3qDx5MXhRnxQXxOWzVPO4JzD4L4MYvnnSLgyj2byEdikP2D8/705cDaQULXn1/t6y8d9
- WR/dJKpCHjz8gGlK/XWXB2AIg+hLKHEkPpGdPHFw4+GV04G2oSczJBgprBMoud+X72wa
- 1vRUWDpLVJ3a34HrlN9ZMa0+SWWi1okBJyxbleWNArOfmaKEccRmvlC4czKf/8Id5ZTx
- 0w6iI+emXYebTV9+0rFTgVH7lhtVkae5wp+Qy0woK8A7rppiSsQkQeTEkRr1EF30FbIL
- JZSQ==
-X-Gm-Message-State: ACgBeo1yXnV1KuievOcdB2zQE9UCNH5FB/vk/roGmexjB4VCv6rpgk4X
- GYYtpNU7y8TI6x66mqoXwTw=
-X-Google-Smtp-Source: AA6agR6G2mXKbweLP8JJH09ZIwf4toE4HNTDaPGGZAufMuf4+BUTj0JP+37VK2t41KmICClDFLB/DQ==
-X-Received: by 2002:a05:6e02:2164:b0:2de:e996:b8f with SMTP id
- s4-20020a056e02216400b002dee9960b8fmr4037903ilv.0.1659736480406; 
- Fri, 05 Aug 2022 14:54:40 -0700 (PDT)
+ bh=38b4ptDDIvz2ddGSj5VKmEi/zh+RmsO1/UedvwI7WxU=;
+ b=sefu2f0LSWzM4MSpYZHivLYmfr3bICt4Eb4Q18x6brjkjetFhz8wqkzOCKU7GPLHx8
+ kjAFifr3cKFEkWBxLQM8VgH42NxJ2GoMn0w6eF0ybHfyFjWmKWEYwwFMOtDo14NbQlRI
+ b5WNkQp9dBQ7+zxuKxG8hULKeXij0xRrBvLfQF913rapjOaJoF+2F+26Hq3CZ4oq0Rth
+ QzBB+gm66SyjWeiWFh4bZvkhLNqQmE7ob62hA9z64TtYeCcwaStel4ec+UbjamF7CShK
+ +nVRMXsej+3epNGw5ujaMw6fhjPI9gi8TImEXYeDlAHc2ld9IimNyOXgdHSUg0W2ckUS
+ oXDQ==
+X-Gm-Message-State: ACgBeo25PJwj24yf5tUwN1g8Njo77bPrCn2pssepTVrPPA0/v3kBIvCS
+ +PH+s5i1irVq3jYpwz0zWdI=
+X-Google-Smtp-Source: AA6agR621XKXrLQiWUu1/0axmxkoh81epfEoghE2k1YD0aYPKC9SfRWprmpI0qGAoNtVO0ewMEUPPQ==
+X-Received: by 2002:a6b:c3c3:0:b0:67f:f487:987e with SMTP id
+ t186-20020a6bc3c3000000b0067ff487987emr3625137iof.0.1659736489639; 
+ Fri, 05 Aug 2022 14:54:49 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.39
+ e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Aug 2022 14:54:40 -0700 (PDT)
+ Fri, 05 Aug 2022 14:54:49 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org
-Date: Fri,  5 Aug 2022 15:53:40 -0600
-Message-Id: <20220805215355.3509287-19-jim.cromie@gmail.com>
+Date: Fri,  5 Aug 2022 15:53:48 -0600
+Message-Id: <20220805215355.3509287-27-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
 References: <20220805215355.3509287-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 18/33] doc-dyndbg: describe "class
- CLASS_NAME" query support
+Subject: [Intel-gfx] [PATCH v5 26/33] drm-print.h: include dyndbg header
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,50 +78,39 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add an explanation of the new "class CLASS_NAME" syntax and meaning,
-noting that the module determines if CLASS_NAME applies to it.
+lkp robot told me:
+
+  >> drivers/gpu/drm/drm_ioc32.c:989:2:
+  error: call to undeclared function '_dynamic_func_call_cls';
+  ISO C99 and later do not support implicit function declarations
+  [-Wimplicit-function-declaration]
+
+           DRM_DEBUG("comm=\"%s\", pid=%d, dev=0x%lx, auth=%d, %s\n",
+
+Since that macro is defined in drm_print.h, and under DRM_USE_DYN*=y
+configs, invokes dyndbg-factory macros, include dynamic_debug.h from
+there too, so that those configs have the definitions of all the
+macros in the callchain.
+
+This is done as a separate patch mostly to see how lkp sorts it.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- Documentation/admin-guide/dynamic-debug-howto.rst | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ include/drm/drm_print.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index a89cfa083155..d8954ab05c7b 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -35,6 +35,7 @@ Dynamic debug has even more useful features:
-    - line number (including ranges of line numbers)
-    - module name
-    - format string
-+   - class name (as known/declared by each module)
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 2d2cef76b5c1..f8bb3e7158c6 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -31,6 +31,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/device.h>
+ #include <linux/debugfs.h>
++#include <linux/dynamic_debug.h>
  
-  * Provides a debugfs control file: ``<debugfs>/dynamic_debug/control``
-    which can be read to display the complete list of known debug
-@@ -142,6 +143,7 @@ against.  Possible keywords are:::
- 		 'file' string |
- 		 'module' string |
- 		 'format' string |
-+		 'class' string |
- 		 'line' line-range
+ #include <drm/drm.h>
  
-   line-range ::= lineno |
-@@ -203,6 +205,15 @@ format
- 	format "nfsd: SETATTR"  // a neater way to match a format with whitespace
- 	format 'nfsd: SETATTR'  // yet another way to match a format with whitespace
- 
-+class
-+    The given class_name is validated against each module, which may
-+    have declared a list of known class_names.  If the class_name is
-+    found for a module, callsite & class matching and adjustment
-+    proceeds.  Examples::
-+
-+	class DRM_UT_KMS	# a DRM.debug category
-+	class JUNK		# silent non-match
-+
- line
-     The given line number or range of line numbers is compared
-     against the line number of each ``pr_debug()`` callsite.  A single
 -- 
 2.37.1
 
