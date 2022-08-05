@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A070C19F2D
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:58:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E141C00140
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:58:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3BB6A8DC5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8230A8BDD;
 	Fri,  5 Aug 2022 21:55:22 +0000 (UTC)
-Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
- [IPv6:2607:f8b0:4864:20::d29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68E7CA16E9;
- Fri,  5 Aug 2022 21:54:53 +0000 (UTC)
-Received: by mail-io1-xd29.google.com with SMTP id v185so2832025ioe.11;
- Fri, 05 Aug 2022 14:54:53 -0700 (PDT)
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CA2A12AC3B;
+ Fri,  5 Aug 2022 21:54:36 +0000 (UTC)
+Received: by mail-io1-xd30.google.com with SMTP id z145so2842634iof.9;
+ Fri, 05 Aug 2022 14:54:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=MvvZaZyejoehIrFC0H4qDj9uQr4p5E/545dNTtoQgHQ=;
- b=fmm7BuKL86WTiFUqrM80q8fnvmCCxKQ+yfVo5u5GrNWEh1gPjy0ghMeQvxYOj0gvgN
- aIsy09O3Dx1evrp6fFuBHhveY8/HgH5P5ppwEDDOTdYgSMFgsvz1dPk7zwDSTd2oyY0J
- 3l1uXxEurXP9ikBeRlwZKtIzIhdTLmNbK/m9ymG9s44a/U7GLLoNaI0KFPcjTNcV9D1O
- xVUzqXQ+Mekqzt7vMUSAYC6lgHZkyOrAKirTTJDjeOTGA6dD7l/9LEgQjLDfwVMm+elK
- 3+uWixDadropzxSApgGocs25a+0Tqzx0o+X+uD12xDBCFI1EeDsPO3XEsF50kl+ysQfp
- 7Fvg==
+ bh=j+hykMqdbmYFr1NqjZ89GQdbT5beT8R+gHdILha2zJU=;
+ b=nxW91IqfGR0pfzM6UOrXM2Bhw3WEhj9ajlDXgcXsYmlnTjlxn0T7yhlldkgnIhKM+j
+ RJLXxFSrD18FQ8ZF30z+F0RgUeUsa36uV31o+nAybfTtVpGw2BI96WeVGDMbVuqYFqAb
+ sp1qL3/ZTTk0jDpmhrGA3cOrnrugx5C8rditN412Nf9EfVpVX1w/aqQukXyOpMiErs35
+ 2pZ45u9SIx8h3Dl3v2Xawk0btutGgC7zZjBY0ufPCCtEEOhbE/YZwzgvkxX+9Y4KQu1L
+ KvTn8HRgBx3ajWNnRxEt7BgDEZTxWXuJ6IO1CWIJUCVYTAEEF3w3sNhJEbSizD5RxSWw
+ gTjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=MvvZaZyejoehIrFC0H4qDj9uQr4p5E/545dNTtoQgHQ=;
- b=nlVsQfm0BmOrnw1vUDJXhpeuI/+uybzzmEz8QHVAs5McDT65PHhb3IyC5EmK2ooQoz
- z1S0yZZTh2kxPcyFuigfC7MaRGjZIXzlzhQwdBXd1DaAEHgnZD6IMQC0klht/jHguyAE
- 3SWLRTz/vzAhpt97jYMKNqEL3djI5cL8yGezVZxzrJD+nc03C5clIAeqAm1XZj1K6piB
- uwBLecv4h+k0Z7tCNWeNPazmS4KszWYDKK0RBmArluGs09R2vIxGxag+mT0eTuk6LpDw
- 1qeMvUadMPlDnAR3ADkue1M1NapHhXJyVRFFwkGyARcz0z8l4eCvFHpLOI9bvjA9b/Jx
- QcTQ==
-X-Gm-Message-State: ACgBeo3NSJ/jSvbHbFJRsVYqDit4gOX10JjrfB2XcDQFtjPaHwj0J6y/
- hxid7k8mErGDHowK6rlyCWM=
-X-Google-Smtp-Source: AA6agR4LQNNuWcd+Ya1Hiu/OdFHDikxjmg4O2JeCbTNPgEZO0+Mkpasd1ZrjCNDwbo7G5ke9Mk8F+A==
-X-Received: by 2002:a05:6638:441a:b0:342:91c9:ccf9 with SMTP id
- bp26-20020a056638441a00b0034291c9ccf9mr3855766jab.123.1659736493050; 
- Fri, 05 Aug 2022 14:54:53 -0700 (PDT)
+ bh=j+hykMqdbmYFr1NqjZ89GQdbT5beT8R+gHdILha2zJU=;
+ b=pOILTlLR4z86N/u5Oe6BBdL6pcXRKNp4qwbRm/nel1uyjFw2rgGML7f1wPpwTMwA4Y
+ YbI6H8A15IC1F0J4CNoap0gQJaLdjHbih9+FrdVE1YAOWnK5xaLw1DUj0tB8W4eCIMMi
+ lkmR5UL7wlDWUVEXh4HWRVNhMI8xZ9db4kk8XsMfo81JH3yH9L3djoWYJZooGGnzTUhY
+ 3qpweIJ6fUvCp6LAfGgmC+OfiavIAVkA85abmVF+5BIH/ZCuYk9uBPIBpcF2PZQYvOP7
+ IouY7wt9ZgQNJ7dyodhxYm6iqf+nWafpYqZXvJaowTlh/D/k37DF6w3rxA0KOwPw5TeP
+ nBiw==
+X-Gm-Message-State: ACgBeo0P0T0u/fGlrewaGvVLALLiVBunfmpX9jA4ExmegY1AeCt2qNGy
+ /O5p+/tsZ9d2859uQLnRThE=
+X-Google-Smtp-Source: AA6agR6QBWed0lyVvHYNugDvJfD10jdKNkK5mER4rDMRc0ISAOo3qbMRaABZaYmS8HwhAblDRLO9hQ==
+X-Received: by 2002:a05:6638:3d0d:b0:342:8b79:9484 with SMTP id
+ cl13-20020a0566383d0d00b003428b799484mr4118742jab.274.1659736475770; 
+ Fri, 05 Aug 2022 14:54:35 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.52
+ e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Aug 2022 14:54:52 -0700 (PDT)
+ Fri, 05 Aug 2022 14:54:35 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org
-Date: Fri,  5 Aug 2022 15:53:51 -0600
-Message-Id: <20220805215355.3509287-30-jim.cromie@gmail.com>
+Date: Fri,  5 Aug 2022 15:53:36 -0600
+Message-Id: <20220805215355.3509287-15-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
 References: <20220805215355.3509287-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 29/33] drm_print: prefer bare printk
- KERN_DEBUG on generic fn
+Subject: [Intel-gfx] [PATCH v5 14/33] dyndbg: add DECLARE_DYNDBG_CLASSMAP
+ macro
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,56 +79,192 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm_print.c calls pr_debug() just once, from __drm_printfn_debug(),
-which is a generic/service fn.  The callsite is compile-time enabled
-by DEBUG in both DYNAMIC_DEBUG=y/n builds.
+With DECLARE_DYNDBG_CLASSMAP modules can declare up to 31 classnames.
+By doing so, they authorize dyndbg to manipulate class'd prdbgs (ie:
+__pr_debug_cls, and soon drm_*dbg)
 
-For dyndbg builds, reverting this callsite back to bare printk is
-correcting a few anti-features:
+   :#> echo class DRM_UT_KMS +p > /proc/dynamic_debug/control
 
-1- callsite is generic, serves multiple drm users.
-   it is soft-wired on currently by #define DEBUG
-   could accidentally: #> echo -p > /proc/dynamic_debug/control
+The macro declares and initializes a static struct ddebug_class_map:
 
-2- optional "decorations" by dyndbg are unhelpful/misleading here,
-   they describe only the generic site, not end users
+ - maps approved class-names to class_ids used in module,
+   by array order. forex: DRM_UT_*
+ - class-name vals allow validation of "class FOO" queries
+   using macro is opt-in
+ - enum class_map_type - determines interface, behavior
 
-IOW, 1,2 are unhelpful at best, and possibly confusing.
+Each module has its own .class_id space, and only known class-names
+will be authorized for a manipulation.  Only DRM stuff should know this:
 
-reverting yields a nominal data and text shrink:
+  :#> echo class DRM_UT_CORE +p > control	# across all modules
 
-   text    data     bss     dec     hex filename
- 462583   36604   54592 553779   87333 /kernel/drivers/gpu/drm/drm.ko
- 462515   36532   54592 553639   872a7 -dirty/kernel/drivers/gpu/drm/drm.ko
+pr_debugs (with default class_id) are still controllable as before.
+
+DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, classes...) is::
+
+ _var: name of the static struct var. user passes to module_param_cb()
+       if they want a sysfs node.
+
+ _maptype: this is hard-coded to DD_CLASS_TYPE_DISJOINT_BITS for now.
+
+ _base: usually 0, it allows splitting 31 classes into subranges, so
+ 	that multiple classes / sysfs-nodes can share the module's
+ 	class-id space.
+
+ classes: list of class_name strings, these are mapped to class-ids
+ 	  starting at _base.  This class-names list must have a
+ 	  corresponding ENUM, with SYMBOLS that match the literals,
+ 	  and 1st enum val = _base.
+
+enum class_map_type has 4 values, on 2 factors::
+
+ - classes are disjoint/independent vs relative/x<y/verbosity.
+   disjoint is basis, verbosity by overlay.
+
+ - input NUMBERS vs [+-]CLASS_NAMES
+   uints, ideally hex.  vs  +DRM_UT_CORE,-DRM_UT_KMS
+
+DD_CLASS_TYPE_DISJOINT_BITS: classes are separate, one per bit.
+   expecting hex input. built for drm.debug, basis for other types.
+
+DD_CLASS_TYPE_DISJOINT_NAMES: input is a CSV of [+-]CLASS_NAMES,
+   classes are independent, like DISJOINT
+
+DD_CLASS_TYPE_LEVEL_NUM: input is numeric level, 0-N.
+   0 implies silence. use printk to break that.
+   relative levels applied on bitmaps.
+
+DD_CLASS_TYPE_LEVEL_NAMES: input is a CSV of [+-]CLASS_NAMES,
+   names like: ERR,WARNING,NOTICE,INFO,DEBUG
+   avoiding EMERG,ALERT,CRIT,ERR - no point.
+
+NOTES:
+
+The macro places the initialized struct ddebug_class_map into the
+__dyndbg_classes section.  That draws a 'orphan' warning which we
+handle in next commit.  The struct attributes are necessary:
+__aligned(8) stopped null-ptr derefs (why?), __used is needed by drm
+drivers, which declare class-maps, but don't also declare a
+sysfs-param, and thus dont ref the classmap; __used insures that the
+linkage is made, then the class-map is found at load-time.
+
+While its possible to handle both NAMES and NUMBERS in the same
+sys-interface, there is ambiguity to avoid, by disallowing them
+together.  Later, if ambiguities are resolved, 2 new enums can permit
+both inputs, on verbose & independent types separately, and authors
+can select the interface they like.
+
+The plan is to implement LEVELS in the callbacks, outside of
+ddebug_exec_query(), which for simplicity will treat the CLASSES in
+the map as disjoint.  The callbacks can see map-type, and apply ++/--
+loops (or bitops) to force the relative meanings across the
+class-bitmap.
+
+RFC: That leaves 2 issues:
+
+1. doing LEVELs in callbacks means that the native >control interface
+doesn't enforce the LEVELS relationship, so you could confusingly have
+V3 enabled, but V1 disabled.  OTOH, the control iface already allows
+infinite tweaking of the underlying callsites; sysfs node readback can
+only tell the user what they previously wrote.
+
+2. All dyndbg >control reduces to a query/command, includes +/-, which
+is at-root a kernel patching operation with +/- semantics.  And the
+_NAMES handling exposes it to the user, making it API-adjacent.
+
+And its not just >control where +/- gets used (which is settled), the
+new place is with sysfs-nodes exposing _*_NAMES classes, and here its
+subtly different.
+
+_DISJOINT_NAMES: is simple, independent
+_LEVEL_NAMES: masks-on bits 0 .. N-1, N..max off
+
+  # turn on L3,L2,L1 others off
+  echo +L3 > /sys/module/test_dynamic_debug/parameters/p_level_names
+
+  # turn on L2,L1 others off
+  echo -L3 > /sys/module/test_dynamic_debug/parameters/p_level_names
+
+IOW, the - changes the threshold-on bitpos by 1.
+
+Alternatively, we could treat the +/- as half-duplex, where -L3 turns
+off L>2 (and ignores L1), and +L2 would turn on L<=2 (and ignore others).
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+. revised DD_CLASS_TYPE_{DISJOINT,LEVEL}_* names
+. reorder-enum by necessity - _NAMES feature is extra.
+---
+ include/linux/dynamic_debug.h | 56 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index cb203d63b286..ec477c44a784 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -23,8 +23,6 @@
-  * Rob Clark <robdclark@gmail.com>
-  */
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index cb4696c91901..71cdc8612257 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -56,6 +56,62 @@ struct _ddebug {
+ #endif
+ } __attribute__((aligned(8)));
  
--#define DEBUG /* for pr_debug() */
--
- #include <linux/stdarg.h>
- 
- #include <linux/io.h>
-@@ -185,7 +183,8 @@ EXPORT_SYMBOL(__drm_printfn_info);
- 
- void __drm_printfn_debug(struct drm_printer *p, struct va_format *vaf)
- {
--	pr_debug("%s %pV", p->prefix, vaf);
-+	/* pr_debug callsite decorations are unhelpful here */
-+	printk(KERN_DEBUG "%s %pV", p->prefix, vaf);
- }
- EXPORT_SYMBOL(__drm_printfn_debug);
- 
++enum class_map_type {
++	DD_CLASS_TYPE_DISJOINT_BITS,
++	/**
++	 * DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, one per bit.
++	 * expecting hex input. Built for drm.debug, basis for other types.
++	 */
++	DD_CLASS_TYPE_LEVEL_NUM,
++	/**
++	 * DD_CLASS_TYPE_LEVEL_NUM: input is numeric level, 0-N.
++	 * N turns on just bits N-1 .. 0, so N=0 turns all bits off.
++	 */
++	DD_CLASS_TYPE_DISJOINT_NAMES,
++	/**
++	 * DD_CLASS_TYPE_DISJOINT_NAMES: input is a CSV of [+-]CLASS_NAMES,
++	 * classes are independent, like _DISJOINT_BITS.  Model user
++	 * would be /sys/module/drm/parameters/debug_categories.
++	 */
++	DD_CLASS_TYPE_LEVEL_NAMES,
++	/**
++	 * DD_CLASS_TYPE_LEVEL_NAMES: input is a CSV of [+-]CLASS_NAMES,
++	 * intended for names like: INFO,DEBUG,TRACE, with a module prefix
++	 * avoid EMERG,ALERT,CRIT,ERR,WARNING: they're not debug
++	 */
++};
++
++struct ddebug_class_map {
++	struct list_head link;
++	struct module *mod;
++	const char *mod_name;	/* needed for builtins */
++	const char **class_names;
++	const int length;
++	const int base;		/* index of 1st .class_id, allows split/shared space */
++	enum class_map_type map_type;
++};
++
++/**
++ * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
++ * @_var:   a struct ddebug_class_map, passed to module_param_cb
++ * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
++ * @_base:  offset of 1st class-name. splits .class_id space
++ * @classes: class-names used to control class'd prdbgs
++ */
++#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
++	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
++	static struct ddebug_class_map __aligned(8) __used		\
++		__section("__dyndbg_classes") _var = {			\
++		.mod = THIS_MODULE,					\
++		.mod_name = KBUILD_MODNAME,				\
++		.base = _base,						\
++		.map_type = _maptype,					\
++		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.class_names = _var##_classnames,			\
++	}
++#define NUM_TYPE_ARGS(eltype, ...)				\
++        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
++
+ /* encapsulate linker provided built-in (or module) dyndbg data */
+ struct _ddebug_info {
+ 	struct _ddebug *descs;
 -- 
 2.37.1
 
