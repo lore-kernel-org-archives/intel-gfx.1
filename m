@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18588C19F2D
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:57:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF241C25B0D
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:57:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA988A2FD3;
-	Fri,  5 Aug 2022 21:55:07 +0000 (UTC)
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
- [IPv6:2607:f8b0:4864:20::d2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD4812A6C6;
- Fri,  5 Aug 2022 21:54:48 +0000 (UTC)
-Received: by mail-io1-xd2e.google.com with SMTP id i84so2859211ioa.6;
- Fri, 05 Aug 2022 14:54:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E98212AC1F;
+	Fri,  5 Aug 2022 21:55:06 +0000 (UTC)
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC40A12A287;
+ Fri,  5 Aug 2022 21:54:38 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id v185so2831621ioe.11;
+ Fri, 05 Aug 2022 14:54:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=FP6JoOpcsPiu1BPTclm5wHedSoKs2JtHZ6xsyHOlop8=;
- b=N1R/s7ivLp2/sPuzJIiO6Ks8HehwdRFJkr6Ix3xbni0a4RyJKladqIy4RI8srW9uLk
- v4KvtBuxNNylYoh2PtZuFOgg4f4Pekwan09tnlfSzSYfh1XRXqNPFmr10gJ4zsCcSJ6J
- LkLEoiNQmZ22iMR4yqw+rvCVwPxf2QbNL13GPea2bhYURNf3ALZ4uoDkh9qEKi+Cy/r6
- Bqeua0HX7Fci9T3OnCo8Z17BcUlJVtrvRMnEuyfdqh5QeTORmdGWNDQrXknPUIYQ+bMc
- Cn+Mv0NjSC5763lvRbvr8YyYbNUt045OmK9+vY9oGIlb/+Aqe1JVyZFrjokzVYbFBzPP
- eH5Q==
+ bh=03YfOG/DYkz2iArGNb3db5n/xIxeb8G0N8JzLa+YgtM=;
+ b=Ef8WxDG6NyTqC1EZi34gpAEnT+rPZyUcpKaupYnsastTiTGt/Zml/WC2ZzmjZbPHJd
+ phHYyJnYLo6WNB7AlpKLXeN7qbGd1YhUzPvz54QZqQHrtKcLgdsPeyn5+iu9TjI7SjCc
+ Qt/6C50I1yy1ZjGFAU+VCo8OEqIPU+1me4r5nevY5orszEf7tJIjZit7XmergLU/BhIS
+ ORDvsxyCYrTMPQgMLi5PvpsAC4TmoxZwKTf11WtCzm1JE0tcK5kecwMswiOh5HEtMNgs
+ rPlk4sTnLuYzZlm/RO3Nt/CpOY5B3amJFFyJpZOUJOsMWYTIJo5Bn0xeyqAHZ46Benmm
+ PB+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=FP6JoOpcsPiu1BPTclm5wHedSoKs2JtHZ6xsyHOlop8=;
- b=cU70reOD7utQRonXKUvsIlx5T9UbpWXqGoTcObB2cQVoWtQExZBWLue2FJrbTm34e1
- esWIMtbQWCosU0kxz51BH5ivXpRB7Nx+qu/JvPSKKoXZ/SFzu0LNkVx9AMK0qRPJrZZj
- +v5cfF1fujtzhFoq6qnFySVNefJKQ6iqbdkCwT/AHsOH8pOfaUVNfagePEuxghA6iVdj
- DLx8OoTL4ARhAzE1ffQFQY5CE3HQOfllWV3f91jtXQgsPm6roKgjSBFBOrKNP+t6SxoB
- 9kZ64qqkSgh8+yRnSfyJCxYkQxBp0cDl+z2HmyRCqEOSgArmbML2HlqlVIpAhWQl3dbO
- ilOg==
-X-Gm-Message-State: ACgBeo2eDh1HrByaA0wyZKQg9U6oY2lq2Fk/nClHY27V7+t+JvXRCUST
- S9ZhFb/U7b3pJuiMxO9YvSQ=
-X-Google-Smtp-Source: AA6agR5c6sa3U4liyEUp27w1FLX//O1mPzIN5ouIQsElkrkNBQ9yLhyTyifLFyGhFGt6wUDWEt6vTA==
-X-Received: by 2002:a05:6638:2642:b0:33f:5172:e77 with SMTP id
- n2-20020a056638264200b0033f51720e77mr3882670jat.85.1659736487238; 
- Fri, 05 Aug 2022 14:54:47 -0700 (PDT)
+ bh=03YfOG/DYkz2iArGNb3db5n/xIxeb8G0N8JzLa+YgtM=;
+ b=H9j5ysJeydsvvaDAsiJGDC3i6p2gY42S1i2d8qEofn+0uLfwQz9aObXa6R2LRSP9et
+ D+4+nUKCNsAfm7m88ayQ7ZbYG98Kmxt5lVt1krpEyyWGNZCuW8QgmxerbJhgmaCuZc8M
+ 1wMRqdXYz3LrIyUNiWk7lk4o4CWddNz7ZpSrY3uVW4QDYuTklUVRsmpQJfTv/gJvBhsu
+ ZDdlawkW1oSsm+b9Pj5KEyEkAJeNhcmtJ2TKGkBa7Pz/1IrsRYYNxP3UBtk3y3M/XuFC
+ 7ypgoVuoTUMPcSZJguVlMNgH5L2SvkgulS3KTLOyVT5zqIc6IkRl5NjNXNecwLAt4pdF
+ 5afQ==
+X-Gm-Message-State: ACgBeo136hg02A1/SF1eNbVyX2Qp9xa5pTJ1MRyJytWYR2yTeAOQxnUu
+ WcyLxZjisf8DXC0UHZrHOf4SmVcmDNj5Sg==
+X-Google-Smtp-Source: AA6agR55/RU9MHoTbUutY3ptQmA/V1qzWroUOdNy6Xs+Ay1Qupqmyek5BzBPcr17ZMFLvPmsNZWM3A==
+X-Received: by 2002:a05:6638:d86:b0:341:4ece:3c4 with SMTP id
+ l6-20020a0566380d8600b003414ece03c4mr3708242jaj.235.1659736477900; 
+ Fri, 05 Aug 2022 14:54:37 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.46
+ e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Aug 2022 14:54:46 -0700 (PDT)
+ Fri, 05 Aug 2022 14:54:37 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org
-Date: Fri,  5 Aug 2022 15:53:46 -0600
-Message-Id: <20220805215355.3509287-25-jim.cromie@gmail.com>
+Date: Fri,  5 Aug 2022 15:53:38 -0600
+Message-Id: <20220805215355.3509287-17-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
 References: <20220805215355.3509287-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 24/33] drm_print: interpose drm_*dbg with
- forwarding macros
+Subject: [Intel-gfx] [PATCH v5 16/33] dyndbg: add
+ ddebug_attach_module_classes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,111 +79,99 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-change drm_dev_dbg & drm_dbg to macros, which forward to the renamed
-functions (with __ prefix added).
+Add ddebug_attach_module_classes(), call it from ddebug_add_module().
+It scans the classes/section its given, finds records where the
+module-name matches the module being added, and adds them to the
+module's maps list.  No locking here, since the record
+isn't yet linked into the ddebug_tables list.
 
-Those functions sit below the categorized layer of macros implementing
-the DRM debug.category API, and implement most of it.  These are good
-places to insert dynamic-debug jump-label mechanics, which will allow
-DRM to avoid the runtime cost of drm_debug_enabled().
+It is called indirectly from 2 sources:
 
-no functional changes.
+ - from load_module(), where it scans the module's __dyndbg_classes
+   section, which contains DYNAMIC_DEBUG_CLASSES definitions from just
+   the module.
 
-memory cost baseline: (unchanged)
-bash-5.1# drms_load
-[    9.220389] dyndbg:   1 debug prints in module drm
-[    9.224426] ACPI: bus type drm_connector registered
-[    9.302192] dyndbg:   2 debug prints in module ttm
-[    9.305033] dyndbg:   8 debug prints in module video
-[    9.627563] dyndbg: 127 debug prints in module i915
-[    9.721505] AMD-Vi: AMD IOMMUv2 functionality not available on this system - This is not a bug.
-[   10.091345] dyndbg: 2196 debug prints in module amdgpu
-[   10.106589] [drm] amdgpu kernel modesetting enabled.
-[   10.107270] amdgpu: CRAT table not found
-[   10.107926] amdgpu: Virtual CRAT table created for CPU
-[   10.108398] amdgpu: Topology: Add CPU node
-[   10.168507] dyndbg:   3 debug prints in module wmi
-[   10.329587] dyndbg:   3 debug prints in module nouveau
+ - from dynamic_debug_init(), where all DYNAMIC_DEBUG_CLASSES
+   definitions of each builtin module have been packed together.
+   This is why ddebug_attach_module_classes() checks module-name.
+
+NOTES
+
+Its (highly) likely that builtin classes will be ordered by module
+name (just like prdbg descriptors are in the __dyndbg section).  So
+the list can be replaced by a vector (ptr + length), which will work
+for loaded modules too.  This would imitate whats currently done for
+the _ddebug descriptors.
+
+That said, converting to vector,len is close to pointless; a small
+minority of modules will ever define a class-map, and almost all of
+them will have only 1 or 2 class-maps, so theres only a couple dozen
+pointers to save.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 10 +++++-----
- include/drm/drm_print.h     |  9 +++++++--
- 2 files changed, 12 insertions(+), 7 deletions(-)
+ lib/dynamic_debug.c | 34 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index ec32df35a3e3..29a29949ad0b 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -279,8 +279,8 @@ void drm_dev_printk(const struct device *dev, const char *level,
- }
- EXPORT_SYMBOL(drm_dev_printk);
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 0d6cb6b258bd..a3ace5866f1b 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -45,7 +45,7 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
+ extern struct ddebug_class_map __stop___dyndbg_classes[];
  
--void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
--		 const char *format, ...)
-+void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-+		   const char *format, ...)
- {
- 	struct va_format vaf;
- 	va_list args;
-@@ -301,9 +301,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ struct ddebug_table {
+-	struct list_head link;
++	struct list_head link, maps;
+ 	const char *mod_name;
+ 	unsigned int num_ddebugs;
+ 	struct _ddebug *ddebugs;
+@@ -921,6 +921,32 @@ static const struct proc_ops proc_fops = {
+ 	.proc_write = ddebug_proc_write
+ };
  
- 	va_end(args);
- }
--EXPORT_SYMBOL(drm_dev_dbg);
-+EXPORT_SYMBOL(__drm_dev_dbg);
- 
--void __drm_dbg(enum drm_debug_category category, const char *format, ...)
-+void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
- {
- 	struct va_format vaf;
- 	va_list args;
-@@ -320,7 +320,7 @@ void __drm_dbg(enum drm_debug_category category, const char *format, ...)
- 
- 	va_end(args);
- }
--EXPORT_SYMBOL(__drm_dbg);
-+EXPORT_SYMBOL(___drm_dbg);
- 
- void __drm_err(const char *format, ...)
- {
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 668273e36c2c..c429c258c957 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -335,7 +335,7 @@ __printf(3, 4)
- void drm_dev_printk(const struct device *dev, const char *level,
- 		    const char *format, ...);
- __printf(3, 4)
--void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-+void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- 		 const char *format, ...);
- 
- /**
-@@ -384,6 +384,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- 	}								\
- })
- 
-+#define drm_dev_dbg(dev, cat, fmt, ...)				\
-+	__drm_dev_dbg(dev, cat, fmt, ##__VA_ARGS__)
++static void ddebug_attach_module_classes(struct ddebug_table *dt,
++					 struct ddebug_class_map *classes,
++					 int num_classes)
++{
++	struct ddebug_class_map *cm;
++	int i, j, ct = 0;
 +
- /**
-  * DRM_DEV_DEBUG() - Debug output for generic drm code
-  *
-@@ -485,10 +488,12 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-  */
- 
- __printf(2, 3)
--void __drm_dbg(enum drm_debug_category category, const char *format, ...);
-+void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
- __printf(1, 2)
- void __drm_err(const char *format, ...);
- 
-+#define __drm_dbg(fmt, ...)		___drm_dbg(fmt, ##__VA_ARGS__)
++	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
 +
- /* Macros to make printk easier */
++		if (!strcmp(cm->mod_name, dt->mod_name)) {
++
++			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
++				  cm->mod_name, cm->base, cm->length, cm->map_type);
++
++			for (j = 0; j < cm->length; j++)
++				v3pr_info(" %d: %d %s\n", j + cm->base, j,
++					  cm->class_names[j]);
++
++			list_add(&cm->link, &dt->maps);
++			ct++;
++		}
++	}
++	if (ct)
++		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
++}
++
+ /*
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -953,6 +979,12 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
  
- #define _DRM_PRINTK(once, level, fmt, ...)				\
+ 	INIT_LIST_HEAD(&dt->link);
+ 
++	INIT_LIST_HEAD(&dt->link);
++	INIT_LIST_HEAD(&dt->maps);
++
++	if (classes && num_classes)
++		ddebug_attach_module_classes(dt, classes, num_classes);
++
+ 	mutex_lock(&ddebug_lock);
+ 	list_add_tail(&dt->link, &ddebug_tables);
+ 	mutex_unlock(&ddebug_lock);
 -- 
 2.37.1
 
