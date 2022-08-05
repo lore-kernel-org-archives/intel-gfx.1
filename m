@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F240BC00140
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:55:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF63DC00140
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:55:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 950A412ADE1;
-	Fri,  5 Aug 2022 21:54:37 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3C9412A843;
- Fri,  5 Aug 2022 21:54:23 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id z8so680261ile.0;
- Fri, 05 Aug 2022 14:54:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2806B12BAF9;
+	Fri,  5 Aug 2022 21:54:42 +0000 (UTC)
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF2FA12AC3B;
+ Fri,  5 Aug 2022 21:54:30 +0000 (UTC)
+Received: by mail-io1-xd30.google.com with SMTP id z145so2842471iof.9;
+ Fri, 05 Aug 2022 14:54:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=uAM2bHt8Z4xuRTvJFeLRexags7bboegRrLg3WgQNpl4=;
- b=GttURaGyNyjlXmWKacrpk22jV/0PvPsnt5RSXlSpOmWKIOS1FVVSqslXr8i7diNjqQ
- B8bkPGOWHdOKP350Spcfvc2YAsmiq/DcD5C1wo0gN9gkyB/bIob/YY66WXpxdtoM3lUZ
- adw/rX4gz+YhYkxP4A+dvAgGqGer5xJc0fzlLSxAvmp99IRcl8QU2Tw2cTyWIMWa3mbk
- +WLxYSAXcQKdm2uaaGJq1a4Ooltfmbb2XptYWsKw4nHWkF5LzoQn2PdHKR0NRyGelXun
- xlOcEXK3Sj29apYYZlO8KM9a8Mtb/H4JV9NYpZbd8JqlUhRtKjxvE8x7Bg+2g4wCPp3q
- fBfg==
+ bh=Ip7G03GeGcrZkSaeVkjkXUMKYERuJTa3x3HVuceUBd4=;
+ b=ewQ92O2vGpMAbSdWrB4+u6UhrXNZYJKTGukr+8UZtGaGb4+w6CiksOOQTQn87WyyNX
+ wo5Df7zH9JxqD9apdFkTFusfidPasfZsOIm6pyx9X5xz5MkMkiQceQcD8+OrEsEe9RhS
+ A/pMGk4fpmKBVUtxm/I+JRb9MVVLji8813bHcb+yg0LTm70CM2NjO4WqYWyNMS0o5FVo
+ fB7O4+WYEYPDWxjM7LUXepooHEFyr8/yW8cCxEcb7t4T8DscS66q6XO7tWCER3eaMdwf
+ DqJwCvy/6DcnFsXqXNmeL59eC/DLc4Qh/dr4dPn+9I8WggKs2QIEWX10y8x0RJXsd1Bm
+ L2wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=uAM2bHt8Z4xuRTvJFeLRexags7bboegRrLg3WgQNpl4=;
- b=XrHpivDLB9TC9FuZzWAMKXF976HXVkJQTEKdOI7Wr688nXF86X5zm2OYq4y07jLI7M
- Q0mb2Sxk2QIbG5KYHVNqp1RXtNZvlv3uguC4Fp6kAPohHXpIYvc1KOnlpSZ9Ene9sQnz
- rH1/BWadLaBEXsP2fYXIjwjhh0A2/Xa5S4wem+zyJfjaHh8qR23Zr5TtaVU86t1vL8j+
- c3+Jfp3vIMWC9LYFY0rtb0fZx0jsYoKGah1382r/31SFSYo1A4IhRUnYQtqUGU7X3S6m
- 6qhuQWpu3aPC4Skw235MUNPV5dxb8skfpYeL+chkcYvQOqn4scZEfrohMSocjuM2+4ck
- VoZA==
-X-Gm-Message-State: ACgBeo36FupzZ1PuYPhJLcxcA22lzOUzkxDSvl/1sdWmso8uWINNVLHr
- U7OMDu55WEN1TefsFesk9xM=
-X-Google-Smtp-Source: AA6agR7/BqFC2YyWdpPet7vO1o3I+g5zfP53AO5Z/UYQa5Q4GCzcWqQvhq1jsWqDvHh+aYBwIiWqsw==
-X-Received: by 2002:a05:6e02:194d:b0:2de:a54b:2e51 with SMTP id
- x13-20020a056e02194d00b002dea54b2e51mr3914987ilu.257.1659736463061; 
- Fri, 05 Aug 2022 14:54:23 -0700 (PDT)
+ bh=Ip7G03GeGcrZkSaeVkjkXUMKYERuJTa3x3HVuceUBd4=;
+ b=Ko/tlfU5WzQMtZrGvg+Ytbh7JJUL3h2Uw9ytuIvBD8Kl1tnY4JuVCq/19BPj1domLt
+ VyxYotFXtzn/ujJin56K+b1mOPn8jKcaLHKmn4BcS+IwNB8LbA1p7eO65/ugmN7HDYFB
+ z9IdWNnnrk+1OLoMdQSQ3ksVgkmnw8a6yC+dWcZEFj8oUFc89VnkBhGOFJfzpmbXZX2g
+ +l7o5Z6659/UjcEemKR/V7UC9+QmbFzS36X4YhCIEU4K1UhXJw94Ejgrky2rC5lheTZG
+ TVTvxhJn5mJs3T2hYnJ9fuZTllOfthkGxyBDRSIEoxuWzffqpoRsmWwuQrh448byJHyX
+ 3sVg==
+X-Gm-Message-State: ACgBeo3+zQpMLfFgKAyAqvjkTzibZ7xt+7uJ/tb1mV0D0pvEgk/Gymfi
+ ggs4ybEM47zGGQpUca41Wz4=
+X-Google-Smtp-Source: AA6agR5F2b8YYYl6aGI+QseCk+8Ms4jeiO8wtWEfnF2wD77In7NaA/BOIIRV1TpkHi0h0b1ACEo2YQ==
+X-Received: by 2002:a05:6638:4982:b0:342:39e0:1d44 with SMTP id
+ cv2-20020a056638498200b0034239e01d44mr3814986jab.213.1659736468516; 
+ Fri, 05 Aug 2022 14:54:28 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.22
+ e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Aug 2022 14:54:22 -0700 (PDT)
+ Fri, 05 Aug 2022 14:54:28 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org
-Date: Fri,  5 Aug 2022 15:53:26 -0600
-Message-Id: <20220805215355.3509287-5-jim.cromie@gmail.com>
+Date: Fri,  5 Aug 2022 15:53:29 -0600
+Message-Id: <20220805215355.3509287-8-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
 References: <20220805215355.3509287-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 04/33] dyndbg: reverse module walk in cat
- control
+Subject: [Intel-gfx] [PATCH v5 07/33] dyndbg: let query-modname override
+ actual module name
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,32 +79,70 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-/proc/dynamic_debug/control walks the prdbg catalog in "reverse",
-fix this by adding new ddebug_tables to tail of list.
+dyndbg's control-parser: ddebug_parse_query(), requires that search
+terms: module, func, file, lineno, are used only once in a query; a
+thing cannot be named both foo and bar.
 
-This puts init/main.c entries 1st, which looks more than coincidental.
+The cited commit added an overriding module modname, taken from the
+module loader, which is authoritative.  So it set query.module 1st,
+which disallowed its use in the query-string.
 
-no functional changes.
+But now, its useful to allow a module-load to enable classes across a
+whole (or part of) a subsystem at once.
 
+  # enable (dynamic-debug in) drm only
+  modprobe drm dyndbg="class DRM_UT_CORE +p"
+
+  # get drm_helper too
+  modprobe drm dyndbg="class DRM_UT_CORE module drm* +p"
+
+  # get everything that knows DRM_UT_CORE
+  modprobe drm dyndbg="class DRM_UT_CORE module * +p"
+
+  # also for boot-args:
+  drm.dyndbg="class DRM_UT_CORE module * +p"
+
+So convert the override into a default, by filling it only when/after
+the query-string omitted the module.
+
+NB: the query class FOO handling is forthcoming.
+
+Fixes: 8e59b5cfb9a6 dynamic_debug: add modname arg to exec_query callchain
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 Acked-by: Jason Baron <jbaron@akamai.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ lib/dynamic_debug.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 8faf584f2f4b..7fb99492c16f 100644
+index e5cbe603000c..5a849716220a 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -970,7 +970,7 @@ int ddebug_add_module(struct _ddebug *tab, unsigned int n,
- 	dt->ddebugs = tab;
+@@ -385,10 +385,6 @@ static int ddebug_parse_query(char *words[], int nwords,
+ 		return -EINVAL;
+ 	}
  
- 	mutex_lock(&ddebug_lock);
--	list_add(&dt->link, &ddebug_tables);
-+	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
- 
- 	vpr_info("%3u debug prints in module %s\n", n, dt->mod_name);
+-	if (modname)
+-		/* support $modname.dyndbg=<multiple queries> */
+-		query->module = modname;
+-
+ 	for (i = 0; i < nwords; i += 2) {
+ 		char *keyword = words[i];
+ 		char *arg = words[i+1];
+@@ -429,6 +425,13 @@ static int ddebug_parse_query(char *words[], int nwords,
+ 		if (rc)
+ 			return rc;
+ 	}
++	if (!query->module && modname)
++		/*
++		 * support $modname.dyndbg=<multiple queries>, when
++		 * not given in the query itself
++		 */
++		query->module = modname;
++
+ 	vpr_info_dq(query, "parsed");
+ 	return 0;
+ }
 -- 
 2.37.1
 
