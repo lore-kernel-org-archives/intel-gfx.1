@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 833F5C00140
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:55:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A313BC19F2D
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A25C9BBB8;
-	Fri,  5 Aug 2022 21:54:48 +0000 (UTC)
-Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
- [IPv6:2607:f8b0:4864:20::d32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1364112A6BA;
- Fri,  5 Aug 2022 21:54:27 +0000 (UTC)
-Received: by mail-io1-xd32.google.com with SMTP id q124so2869707iod.3;
- Fri, 05 Aug 2022 14:54:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48F089FFFD;
+	Fri,  5 Aug 2022 21:54:50 +0000 (UTC)
+Received: from mail-il1-x133.google.com (mail-il1-x133.google.com
+ [IPv6:2607:f8b0:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC1E12AC69;
+ Fri,  5 Aug 2022 21:54:31 +0000 (UTC)
+Received: by mail-il1-x133.google.com with SMTP id t15so1973145ilm.7;
+ Fri, 05 Aug 2022 14:54:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=8oKEUq0EPzmllL1JKxsnzcEjeLeYCN2EOuzsBk4Lakg=;
- b=Z7Y4gNIuk1bd9NXInzS3xECyNbs5yvKfMdNd5uDzQIsLhCynYm5Ml3+Sjl1BQce/pZ
- whGmKTeAEsMdzkvbdlOjpR5DZryQKK4T8BqruPO+aM6DxWQmY9nH3xMnR5StQzeyTz/M
- PUKTD3o/51KTbaw1xEXio290b6Zi3mtfpvQtfvwPntT7s9hixz1XTbbvf1jkmjD2fSLS
- Na3MZDoiawvqnfr1m8sQVoTnzdn7abqs/LnQ1K5BVaF94OQgZi/IJcF6A/YJ6xp7oEVm
- qhfOV8ABrOupE32VP9UD0HuGKXuDbgOdmQIcA9ZBwORPZ6VQP3FbpDBGPUnYdXZHJFc7
- nMeA==
+ bh=J3hK7bUI023BnYR4sokXeCwLdQ8v4VG+y38uaGcbPRI=;
+ b=o0oj1BOG1mKLXImOxNOgfmj9cP/l6Qyu/jfY/wwshKoUYop1cQrBtyQN0j4z2InP2d
+ qwYHy1eRLM2dXWxLxj0bvAOGCy7vsApXbPpiKcoNZb5vwbgKQMZGblwSDJrpUuOxBSql
+ 6jdJfflHBPBB3yDfsU2MiNl+5M8QlCkCXp/jNapCkAe5h9X3A9taawcLI5+KBDU4Pgbw
+ drO8zahX0S+OjowxQ/G3vX9mWjlqx4gRmRvdHwA5lw7p2/LaXX54fybIHXLrSs5Tv81F
+ 9R/DMjmA/gvF9mPSyQwZMrvOMpbu4503UBQUPPD+hnyFF+6VX0T7kUtw/tMFrXaUp1qh
+ i0Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=8oKEUq0EPzmllL1JKxsnzcEjeLeYCN2EOuzsBk4Lakg=;
- b=6XoIWe6gYYZ5EpadCMLbBZquT6Dj9FAEDRF8srgJDUXpK5ie4HIkwqGdhNC/V9AxTC
- GFtGSaEKOBJdQnf+zuxtQrSjcQh/UaScKxAIhMIzaOtjQZBjH9Ff+LaeoypgB27A+JCU
- fiPl8bcul9wHngDxL07YvpS/4AVX4uIFFSNw5kE0Rb+qrZOpfvPJcqaDJYSkpVmS5sE4
- eJMYYnkSVkPs3EPIQ/TGqXYL88qMJlIIERZ6VvaSIbfHwu7fGqxEmKXaUmdNi9mro30K
- yBVUsZvCLaZGlPUq68xVeTDATmZm/QJp1Stv9m6BRlGaieLxW12jBx2Mdrup2qHCoQk1
- 9MCg==
-X-Gm-Message-State: ACgBeo1I/zOjDrdAh4hmENC0O7kwl2P0VFXIv2LUpomwELQ5+tjdJGkT
- i2AyssGH67zvkK7ZVMEk+0Y=
-X-Google-Smtp-Source: AA6agR7UeYnK8xvl0wwhLHfYV68Yb0uAXZRnCcFJ+O9Xr14Frnao6jEA5Wnu7EbuD1TO+KC8WXNI1w==
-X-Received: by 2002:a05:6638:22cd:b0:341:6180:c86f with SMTP id
- j13-20020a05663822cd00b003416180c86fmr3991488jat.57.1659736466315; 
- Fri, 05 Aug 2022 14:54:26 -0700 (PDT)
+ bh=J3hK7bUI023BnYR4sokXeCwLdQ8v4VG+y38uaGcbPRI=;
+ b=vhieP4ocUzBQ478+hZfStorFJVXxq2oa78bxabZ+JYLZryQVVVdXtWUuc18vFKhHQb
+ MUqq7Bfo17ouldSTHodjlJ5siJ3nUlHwSwL7hw5mSSzthQKkrNDen2gShJ3k0ib0J/Jo
+ Zt/Kb6vdR5NdRmufJeeqU75ogZ9onf7Ni84XcO+lGz+iLJElTA6vKBDjtt/H2yM0qMDV
+ RX8EaIO4Z4pGD26r1eNliAE7xmk/c8uTuNChWlOSRL12/HxfxzIpuqQ/jj8FLv9qGkHH
+ O9sfxFzzkIANGZF61l3ullh7DnsAb1z0DMugWyWhVTX73xN+JpnotkjDo2i1f1NnmTw7
+ Z+iw==
+X-Gm-Message-State: ACgBeo1+u2QpGFfrf2Nbmk6l4bwqStm9XkZ5KkQe+CjfmyJFxjzj2XKc
+ wqpBymbPJySORiNhErTn5z4=
+X-Google-Smtp-Source: AA6agR6acEQ86Et7SlsRUNj2iJh1u88ZjLV2wi4n1jq1iPs7PuY06rR1utA1tbyb101yYRiXj1WsXQ==
+X-Received: by 2002:a05:6e02:1b84:b0:2de:c27c:600 with SMTP id
+ h4-20020a056e021b8400b002dec27c0600mr3990559ili.292.1659736469508; 
+ Fri, 05 Aug 2022 14:54:29 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.25
+ e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Aug 2022 14:54:26 -0700 (PDT)
+ Fri, 05 Aug 2022 14:54:29 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org
-Date: Fri,  5 Aug 2022 15:53:27 -0600
-Message-Id: <20220805215355.3509287-6-jim.cromie@gmail.com>
+Date: Fri,  5 Aug 2022 15:53:30 -0600
+Message-Id: <20220805215355.3509287-9-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
 References: <20220805215355.3509287-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 05/33] dyndbg: reverse module.callsite walk
- in cat control
+Subject: [Intel-gfx] [PATCH v5 08/33] dyndbg: add test_dynamic_debug module
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,78 +78,150 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Walk the module's vector of callsites backwards; ie N..0.  This
-"corrects" the backwards appearance of a module's prdbg vector when
-walked 0..N.  I think this is due to linker mechanics, which I'm
-inclined to treat as immutable, and the order is fixable in display.
+Provide a simple module to allow testing DYNAMIC_DEBUG behavior.  It
+calls do_prints() from module-init, and with a sysfs-node.
 
-No functional changes.
+  dmesg -C
+  dmesg -w &
+  modprobe test_dynamic_debug dyndbg=+p
+  echo 1 > /sys/module/dynamic_debug/parameters/verbose
 
-Combined with previous commit, which reversed tables-list, we get:
-
-  :#> head -n7 /proc/dynamic_debug/control
-  # filename:lineno [module]function flags format
-  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012"
-  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
-  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
-  init/main.c:1426 [main]run_init_process =_ "    %s\012"
-  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
-  init/main.c:1429 [main]run_init_process =_ "    %s\012"
+  cat /sys/module/test_dynamic_debug/parameters/do_prints
+  echo module test_dynamic_debug +mftl > /proc/dynamic_debug/control
+  echo junk > /sys/module/test_dynamic_debug/parameters/do_prints
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 Acked-by: Jason Baron <jbaron@akamai.com>
 ---
- lib/dynamic_debug.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ MAINTAINERS              |  2 ++
+ lib/Kconfig.debug        | 10 ++++++
+ lib/Makefile             |  1 +
+ lib/test_dynamic_debug.c | 70 ++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 83 insertions(+)
+ create mode 100644 lib/test_dynamic_debug.c
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 7fb99492c16f..8ff11977b8bd 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -59,7 +59,7 @@ struct ddebug_query {
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 64379c699903..a14fc4b6a10b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7093,6 +7093,8 @@ M:	Jason Baron <jbaron@akamai.com>
+ S:	Maintained
+ F:	include/linux/dynamic_debug.h
+ F:	lib/dynamic_debug.c
++M:	Jim Cromie <jim.cromie@gmail.com>
++F:	lib/test_dynamic_debug.c
  
- struct ddebug_iter {
- 	struct ddebug_table *table;
--	unsigned int idx;
-+	int idx;
- };
+ DYNAMIC INTERRUPT MODERATION
+ M:	Tal Gilboa <talgi@nvidia.com>
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 2e24db4bff19..ca5978e1d18a 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2529,6 +2529,16 @@ config TEST_STATIC_KEYS
  
- struct flag_settings {
-@@ -805,13 +805,12 @@ static struct _ddebug *ddebug_iter_first(struct ddebug_iter *iter)
- {
- 	if (list_empty(&ddebug_tables)) {
- 		iter->table = NULL;
--		iter->idx = 0;
- 		return NULL;
- 	}
- 	iter->table = list_entry(ddebug_tables.next,
- 				 struct ddebug_table, link);
--	iter->idx = 0;
--	return &iter->table->ddebugs[iter->idx];
-+	iter->idx = iter->table->num_ddebugs;
-+	return &iter->table->ddebugs[--iter->idx];
- }
+ 	  If unsure, say N.
  
- /*
-@@ -824,15 +823,16 @@ static struct _ddebug *ddebug_iter_next(struct ddebug_iter *iter)
- {
- 	if (iter->table == NULL)
- 		return NULL;
--	if (++iter->idx == iter->table->num_ddebugs) {
-+	if (--iter->idx < 0) {
- 		/* iterate to next table */
--		iter->idx = 0;
- 		if (list_is_last(&iter->table->link, &ddebug_tables)) {
- 			iter->table = NULL;
- 			return NULL;
- 		}
- 		iter->table = list_entry(iter->table->link.next,
- 					 struct ddebug_table, link);
-+		iter->idx = iter->table->num_ddebugs;
-+		--iter->idx;
- 	}
- 	return &iter->table->ddebugs[iter->idx];
- }
++config TEST_DYNAMIC_DEBUG
++	tristate "Test DYNAMIC_DEBUG"
++	depends on DYNAMIC_DEBUG
++	help
++	  This module registers a tracer callback to count enabled
++	  pr_debugs in a 'do_debugging' function, then alters their
++	  enablements, calls the function, and compares counts.
++
++	  If unsure, say N.
++
+ config TEST_KMOD
+ 	tristate "kmod stress tester"
+ 	depends on m
+diff --git a/lib/Makefile b/lib/Makefile
+index f99bf61f8bbc..9c316df868de 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -82,6 +82,7 @@ obj-$(CONFIG_TEST_SORT) += test_sort.o
+ obj-$(CONFIG_TEST_USER_COPY) += test_user_copy.o
+ obj-$(CONFIG_TEST_STATIC_KEYS) += test_static_keys.o
+ obj-$(CONFIG_TEST_STATIC_KEYS) += test_static_key_base.o
++obj-$(CONFIG_TEST_DYNAMIC_DEBUG) += test_dynamic_debug.o
+ obj-$(CONFIG_TEST_PRINTF) += test_printf.o
+ obj-$(CONFIG_TEST_SCANF) += test_scanf.o
+ obj-$(CONFIG_TEST_BITMAP) += test_bitmap.o
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+new file mode 100644
+index 000000000000..ba3882ca3e48
+--- /dev/null
++++ b/lib/test_dynamic_debug.c
+@@ -0,0 +1,70 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Kernel module for testing dynamic_debug
++ *
++ * Authors:
++ *      Jim Cromie	<jim.cromie@gmail.com>
++ */
++
++#define pr_fmt(fmt) "test_dd: " fmt
++
++#include <linux/module.h>
++
++static void do_prints(void); /* device under test */
++
++/* run tests by reading or writing sysfs node */
++
++static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
++{
++	do_prints();
++	return 0;
++}
++
++static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
++{
++	do_prints();
++	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
++}
++
++static const struct kernel_param_ops param_ops_do_prints = {
++	.set = param_set_do_prints,
++	.get = param_get_do_prints,
++};
++
++module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
++
++static void do_alpha(void)
++{
++	pr_debug("do alpha\n");
++}
++static void do_beta(void)
++{
++	pr_debug("do beta\n");
++}
++
++static void do_prints(void)
++{
++	do_alpha();
++	do_beta();
++}
++
++static int __init test_dynamic_debug_init(void)
++{
++	pr_debug("init start\n");
++
++	do_prints();
++
++	pr_debug("init done\n");
++	return 0;
++}
++
++static void __exit test_dynamic_debug_exit(void)
++{
++	pr_debug("exiting\n");
++}
++
++module_init(test_dynamic_debug_init);
++module_exit(test_dynamic_debug_exit);
++
++MODULE_AUTHOR("Jim Cromie <jim.cromie@gmail.com>");
++MODULE_LICENSE("GPL");
 -- 
 2.37.1
 
