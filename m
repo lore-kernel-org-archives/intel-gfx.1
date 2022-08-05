@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20643C19F2D
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BC61C19F2D
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BECA1A8DA8;
-	Fri,  5 Aug 2022 21:55:22 +0000 (UTC)
-Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
- [IPv6:2607:f8b0:4864:20::d34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE4EFA1A61;
- Fri,  5 Aug 2022 21:54:56 +0000 (UTC)
-Received: by mail-io1-xd34.google.com with SMTP id d139so2864275iof.4;
- Fri, 05 Aug 2022 14:54:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50319A71D1;
+	Fri,  5 Aug 2022 21:55:20 +0000 (UTC)
+Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
+ [IPv6:2607:f8b0:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D867012A443;
+ Fri,  5 Aug 2022 21:54:45 +0000 (UTC)
+Received: by mail-il1-x135.google.com with SMTP id l9so1989814ilq.1;
+ Fri, 05 Aug 2022 14:54:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=biCdDG3hgO3jLiBuVTkyAcrTfguva6XGgr+3k3kyQtA=;
- b=pHnMQq3haUq9GMLZ0ynr5l3syQtI6afCrVEI6lsWXN81GTRcVJy5Cn5+BSQeHOJ4o2
- 9gZqTfnSpDehgvg/rGF5irUFyjyxfzLmZUR+Eha8hJBP9DuHTmPK6X+ndg4HKd15q1JS
- sCS+iaTIxAIBXM/d/yqQOcV2Wic1kg1qjTsLdnMCK4uUQ46j9b2c41zHAShKJKRC7/8Q
- 0/bJav19LeFkkifQi2og+BnCOWIRgDfFEVmcyRgFXmKHggODr+d4k1vSrxLtT5YN9D9D
- 8xTVooc+6ro8Kz6O+2CSLdhD+hk1I2lefgilIfI61+huZYmAOZXha4ZiAn5QO/KRv+fP
- Q9dQ==
+ bh=1+1UJim8vhT48B81Hjf2bc/Sa3YkiMXKvAKc0hA3YOs=;
+ b=CrJgpQHbDBJ7RwTZKwsK2nXYyHhQp0KotTfA/P+uE/DFkz59bW5r74wG1/yBHFM/fk
+ lcds8RusyQGP77GIRAOgM2dvk6VIWnIniw1zZsRFshKADGXYoCQpm/0hO/TPURqFaPeK
+ +ib27KVmxXzoxn2ixUeAZuxrc6hFjetet7Tq1/5tjEgeaTMsI0liK2hjo37AIx2SbU/9
+ jwOEM5cmIGQwU+kEydBQxTnP2E27ovG3zbqjY9AtirFFHHnNPEV3ajSSBDPoNWfEuBGy
+ xnO8SRMMDG9CUNKvM6SXEhBXSsqjloGSEULNWC/P+dWD2UwRk2ywIDuekd2gTdrsHipJ
+ K7PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=biCdDG3hgO3jLiBuVTkyAcrTfguva6XGgr+3k3kyQtA=;
- b=t4+AiNf2V8BtAzoga7bI41pzMVVfdz9D7jA1sX+k/3dZHdKVqP/9OQEPmLEuWfqmmO
- Kz1YwMDCkik6VyoKwLSGn2y0tIgRowkzESVJxUDeJx9p/SCoF9wZglWTA7Me74C119Q6
- fj8U99kawyLB5jRgp7L01QACiMHt1zN4XM/UEE8Ep0Yk+W1w7aBR0DbXsJ3CmaDUn8jq
- 5ZGyIp6o8t/7G8cplsXnC6rQjZnofv5Chr/1RQMGM107Hc8G5IE9OBMX9wQbyGxg1pQ3
- GAjLzNo1aon87uGZjEwuzMfvwKSj8zIL3i775rrdxhYph2uihwbXn7dOfG9PhVw5XYOH
- iu3w==
-X-Gm-Message-State: ACgBeo3v+JgqqM38c89X+8jCZ3tMBXnbA76IhglCC5uhPtrksxNydGm3
- BQJ4y0Q9wLvmtYr4w0Q/x6U=
-X-Google-Smtp-Source: AA6agR7o9yyEcyXzO2ABPft0K9eQpztTLUpOdyg5+NkeVd4bjtaZXLFgtityexVYW5cT+1534AxQqQ==
-X-Received: by 2002:a6b:5f03:0:b0:67b:ef4d:e3ed with SMTP id
- t3-20020a6b5f03000000b0067bef4de3edmr3759281iob.45.1659736496145; 
- Fri, 05 Aug 2022 14:54:56 -0700 (PDT)
+ bh=1+1UJim8vhT48B81Hjf2bc/Sa3YkiMXKvAKc0hA3YOs=;
+ b=J/vzeNTak48c/VNefLwBWD1UZDGR9jz0VzTxQB90YJctDX0rM/xmhg8PHb5eyP2YKa
+ X+l/H/ru3fnuI4uojEJfJA1hXVrOglHYT9LyrLHaqv9BpxirhvJgoeVupgXcZjS+e14h
+ ztV9AMsj7iOYqBfcLUiuN4b8AkxoC0ky/kBn1UEnhgo61mMsVgdPpDU7J+37FY3ZHchi
+ ch0P5NcFLvnz3cOau0Wsg/eAkAIOpDrG8IP/tO7rdQ+jmPHRrwrhpzwG0NQDt8UHvjwG
+ Ks3cuyKFO8vFPZNOROHYnXHCl/QpRTvf6kwxQ5JOLOXqJGOlBR4TbxlcvKedF/QrcHkU
+ 6Dhg==
+X-Gm-Message-State: ACgBeo2LyHpyEoubKSa++4AQJRrVIgVNvjUVd5GjfhgzGNh7MgJpYpfg
+ /BTaDwfU5Vs9M8/WQatVbes=
+X-Google-Smtp-Source: AA6agR5abo0JydvBW85i/jxSa7Y77IIU9fCsUQEULS/JdZFW7H1qpJFVh6RC7t0e+zg9wp+RncUlNw==
+X-Received: by 2002:a05:6e02:17c7:b0:2de:ae1d:35a6 with SMTP id
+ z7-20020a056e0217c700b002deae1d35a6mr3837745ilu.123.1659736484992; 
+ Fri, 05 Aug 2022 14:54:44 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.55
+ e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Aug 2022 14:54:55 -0700 (PDT)
+ Fri, 05 Aug 2022 14:54:44 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org
-Date: Fri,  5 Aug 2022 15:53:54 -0600
-Message-Id: <20220805215355.3509287-33-jim.cromie@gmail.com>
+Date: Fri,  5 Aug 2022 15:53:44 -0600
+Message-Id: <20220805215355.3509287-23-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
 References: <20220805215355.3509287-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 32/33] nouveau: adapt NV_DEBUG,
- NV_ATOMIC to use DRM.debug
+Subject: [Intel-gfx] [PATCH v5 22/33] drm_print: condense enum
+ drm_debug_category
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,62 +79,92 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These 2 macros used drm_debug_enabled() on DRM_UT_{DRIVER,ATOMIC}
-respectively, replace those with drm_dbg_##cat invocations.
+enum drm_debug_category has 10 categories, but is initialized with
+bitmasks which require 10 bits of underlying storage.  By using
+natural enumeration, and moving the BIT(cat) into drm_debug_enabled(),
+the enum fits in 4 bits, allowing the category to be represented
+directly in pr_debug callsites, via the ddebug.class_id field.
 
-this results in new class'd prdbg callsites:
+While this slightly pessimizes the bit-test in drm_debug_enabled(),
+using dyndbg with JUMP_LABEL will avoid the function entirely.
 
-:#> grep nouveau /proc/dynamic_debug/control | grep class | wc
-    116    1130   15584
-:#> grep nouveau /proc/dynamic_debug/control | grep class | grep DRIVER | wc
-     74     704    9709
-:#> grep nouveau /proc/dynamic_debug/control | grep class | grep ATOMIC | wc
-     31     307    4237
-:#> grep nouveau /proc/dynamic_debug/control | grep class | grep KMS | wc
-     11     119    1638
+NOTE: this change forecloses the possibility of doing:
 
-the KMS entries are due to existing uses of drm_dbg_kms().
+  drm_dbg(DRM_UT_CORE|DRM_UT_KMS, "weird 2-cat experiment")
+
+but thats already strongly implied by the use of the enum itself; its
+not a normal enum if it can be 2 values simultaneously.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_drv.h | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ include/drm/drm_print.h | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drv.h b/drivers/gpu/drm/nouveau/nouveau_drv.h
-index b2a970aa9bf4..f266cd6b0405 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drv.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_drv.h
-@@ -39,6 +39,7 @@
-  */
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 22fabdeed297..b3b470440e46 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -279,49 +279,49 @@ enum drm_debug_category {
+ 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+ 	 * drm_memory.c, ...
+ 	 */
+-	DRM_UT_CORE		= 0x01,
++	DRM_UT_CORE,
+ 	/**
+ 	 * @DRM_UT_DRIVER: Used in the vendor specific part of the driver: i915,
+ 	 * radeon, ... macro.
+ 	 */
+-	DRM_UT_DRIVER		= 0x02,
++	DRM_UT_DRIVER,
+ 	/**
+ 	 * @DRM_UT_KMS: Used in the modesetting code.
+ 	 */
+-	DRM_UT_KMS		= 0x04,
++	DRM_UT_KMS,
+ 	/**
+ 	 * @DRM_UT_PRIME: Used in the prime code.
+ 	 */
+-	DRM_UT_PRIME		= 0x08,
++	DRM_UT_PRIME,
+ 	/**
+ 	 * @DRM_UT_ATOMIC: Used in the atomic code.
+ 	 */
+-	DRM_UT_ATOMIC		= 0x10,
++	DRM_UT_ATOMIC,
+ 	/**
+ 	 * @DRM_UT_VBL: Used for verbose debug message in the vblank code.
+ 	 */
+-	DRM_UT_VBL		= 0x20,
++	DRM_UT_VBL,
+ 	/**
+ 	 * @DRM_UT_STATE: Used for verbose atomic state debugging.
+ 	 */
+-	DRM_UT_STATE		= 0x40,
++	DRM_UT_STATE,
+ 	/**
+ 	 * @DRM_UT_LEASE: Used in the lease code.
+ 	 */
+-	DRM_UT_LEASE		= 0x80,
++	DRM_UT_LEASE,
+ 	/**
+ 	 * @DRM_UT_DP: Used in the DP code.
+ 	 */
+-	DRM_UT_DP		= 0x100,
++	DRM_UT_DP,
+ 	/**
+ 	 * @DRM_UT_DRMRES: Used in the drm managed resources code.
+ 	 */
+-	DRM_UT_DRMRES		= 0x200,
++	DRM_UT_DRMRES
+ };
  
- #include <linux/notifier.h>
-+#include <linux/dynamic_debug.h>
+ static inline bool drm_debug_enabled(enum drm_debug_category category)
+ {
+-	return unlikely(__drm_debug & category);
++	return unlikely(__drm_debug & BIT(category));
+ }
  
- #include <nvif/client.h>
- #include <nvif/device.h>
-@@ -264,13 +265,16 @@ void nouveau_drm_device_remove(struct drm_device *dev);
- #define NV_WARN(drm,f,a...) NV_PRINTK(warn, &(drm)->client, f, ##a)
- #define NV_INFO(drm,f,a...) NV_PRINTK(info, &(drm)->client, f, ##a)
- 
--#define NV_DEBUG(drm,f,a...) do {                                              \
--	if (drm_debug_enabled(DRM_UT_DRIVER))                                  \
--		NV_PRINTK(info, &(drm)->client, f, ##a);                       \
-+#define NV_DRMDBG(cat,c,f,a...) do {				\
-+	struct nouveau_cli *_cli = (c);				\
-+	drm_dbg_##cat(_cli->drm->dev, "%s: "f, _cli->name, ##a); \
- } while(0)
--#define NV_ATOMIC(drm,f,a...) do {                                             \
--	if (drm_debug_enabled(DRM_UT_ATOMIC))                                  \
--		NV_PRINTK(info, &(drm)->client, f, ##a);                       \
-+
-+#define NV_DEBUG(drm,f,a...) do {					\
-+	NV_DRMDBG(driver, &(drm)->client, f, ##a);			\
-+} while(0)
-+#define NV_ATOMIC(drm,f,a...) do {					\
-+	NV_DRMDBG(atomic, &(drm)->client, f, ##a);			\
- } while(0)
- 
- #define NV_PRINTK_ONCE(l,c,f,a...) NV_PRINTK(l##_once,c,f, ##a)
+ /*
 -- 
 2.37.1
 
