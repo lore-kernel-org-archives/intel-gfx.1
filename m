@@ -4,52 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C456C00140
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 09:45:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DA49C00140
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 10:42:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AE608BEA0;
-	Fri,  5 Aug 2022 09:45:46 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90A55112B0E
- for <intel-gfx@lists.freedesktop.org>; Fri,  5 Aug 2022 09:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77E87B426F;
+	Fri,  5 Aug 2022 10:22:56 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BCD514B9C8;
+ Fri,  5 Aug 2022 10:13:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659692734; x=1691228734;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=8dyXXsKnQQtPMuZkgBz8eFZd6ifydXVmfneiWD9oFeM=;
- b=B7WeSMKeldTPGIaiG5uCQGuW7z+VvQ9KHzNYoSrGThz2PagYMMm+WVYV
- 14AI1OQ1yIqyzaOyiSqTazrbtwDtn4hdPcV30fyIN2ZQvri+FGlfwx5tw
- F02efztEkkIppqxflCcHppdM/GCkfvsUhVYIYy1g39plRid7vzY0iEQ8o
- yU99a162hLLiEUhaG2QC6Gu5eJMRydc3pS3ZzRmMvo+Vl1Nnlur8WOKlb
- qJZtVHj+2S02l2mC24xgjnzoXqqxv3vzSMr3l0KEfcHU4wDuejcMCCASV
- UDGdDTCEZBp9y8lVZKsCJxVgNHYFMRWEGMH/SkbutBiSRfrZh2lpexPPZ Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10429"; a="288925780"
-X-IronPort-AV: E=Sophos;i="5.93,216,1654585200"; d="scan'208";a="288925780"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2022 02:45:33 -0700
-X-IronPort-AV: E=Sophos;i="5.93,216,1654585200"; d="scan'208";a="554058481"
-Received: from bfglenno-mobl.ger.corp.intel.com (HELO [10.213.238.183])
- ([10.213.238.183])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2022 02:45:32 -0700
-Message-ID: <e9e77415-2a26-c037-bb8e-d6c8b279b05d@linux.intel.com>
-Date: Fri, 5 Aug 2022 10:45:30 +0100
+ t=1659694427; x=1691230427;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=y2qcFNSZBKBBtV0jtnQ7wtTDeohfTyPNXKS+okFkS+E=;
+ b=i5dK1gnOrya8omZ2SbRuOkq20Wuo5OlMmoXnJEZAM3IX123Zfyr89K4m
+ JlzfM35Uw6dXmPAWltzJF91/tt5FskJSyNvZA8kF+67mCVbmV02NG3QC0
+ 9x1L9eeNis3YgSqoSXVB61Ba9mqjda77GjOYwFc5ivJ3mBu+qSO0PdBP4
+ I8HYmCjywyuy7bnQivLBCuXl0UA2a6CsRLAhQ0ry183HwPY947Q0BibeV
+ VNzlkntz2WV0xtEQbKOM726AuUOP5KMQPdUihFhuVDS2bnoU+8hf10s4f
+ UQpuqn388joe8dZAwgOjywfLUEuqIOEdldni0nP/cc3qi6plns2ifqOlP g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10429"; a="269942001"
+X-IronPort-AV: E=Sophos;i="5.93,216,1654585200"; d="scan'208";a="269942001"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2022 03:13:46 -0700
+X-IronPort-AV: E=Sophos;i="5.93,216,1654585200"; d="scan'208";a="631964182"
+Received: from jevargas-mobl3.amr.corp.intel.com (HELO localhost)
+ ([10.252.32.116])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2022 03:13:44 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  5 Aug 2022 13:13:34 +0300
+Message-Id: <20220805101334.925995-2-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220805101334.925995-1-jani.nikula@intel.com>
+References: <20220805101334.925995-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
- intel-gfx@lists.freedesktop.org
-References: <20220804232125.211449-1-umesh.nerlige.ramappa@intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <20220804232125.211449-1-umesh.nerlige.ramappa@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] i915/pmu: Wire GuC backend to per-client
- busyness
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [CI 2/2] drm/i915/bios: convert intel_bios_init_panel()
+ to drm_edid
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,346 +59,157 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Try to use struct drm_edid where possible, even if having to fall back
+to looking into struct edid down low via drm_edid_raw().
 
-On 05/08/2022 00:21, Umesh Nerlige Ramappa wrote:
-> From: John Harrison <John.C.Harrison@Intel.com>
-> 
-> GuC provides engine_id and last_switch_in ticks for an active context in
-> the pphwsp. The context image provides a 32 bit total ticks which is the
-> accumulated by the context (a.k.a. context[CTX_TIMESTAMP]). This
-> information is used to calculate the context busyness as follows:
-> 
-> If the engine_id is valid, then busyness is the sum of accumulated total
-> ticks and active ticks. Active ticks is calculated with current gt time
-> as reference.
-> 
-> If engine_id is invalid, busyness is equal to accumulated total ticks.
-> 
-> Since KMD (CPU) retrieves busyness data from 2 sources - GPU and GuC, a
-> potential race was highlighted in an earlier review that can lead to
-> double accounting of busyness. While the solution to this is a wip,
-> busyness is still usable for platforms running GuC submission.
-> 
-> Remaining work: Enable and test context busyness for
-> virtual_parent_context_ops and virtual_child_context_ops.
+v2: Rebase
 
-I meant track the IGT work in the jira internally. :)
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c | 19 ++++++++++---------
+ drivers/gpu/drm/i915/display/intel_bios.h |  4 ++--
+ drivers/gpu/drm/i915/display/intel_dp.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_lvds.c |  2 +-
+ 4 files changed, 14 insertions(+), 13 deletions(-)
 
-Otherwise:
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 51dde5bfd956..2fa296d8e69d 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -606,14 +606,14 @@ get_lfp_data_tail(const struct bdb_lvds_lfp_data *data,
+ 
+ static int opregion_get_panel_type(struct drm_i915_private *i915,
+ 				   const struct intel_bios_encoder_data *devdata,
+-				   const struct edid *edid)
++				   const struct drm_edid *drm_edid)
+ {
+ 	return intel_opregion_get_panel_type(i915);
+ }
+ 
+ static int vbt_get_panel_type(struct drm_i915_private *i915,
+ 			      const struct intel_bios_encoder_data *devdata,
+-			      const struct edid *edid)
++			      const struct drm_edid *drm_edid)
+ {
+ 	const struct bdb_lvds_options *lvds_options;
+ 
+@@ -638,12 +638,13 @@ static int vbt_get_panel_type(struct drm_i915_private *i915,
+ 
+ static int pnpid_get_panel_type(struct drm_i915_private *i915,
+ 				const struct intel_bios_encoder_data *devdata,
+-				const struct edid *edid)
++				const struct drm_edid *drm_edid)
+ {
+ 	const struct bdb_lvds_lfp_data *data;
+ 	const struct bdb_lvds_lfp_data_ptrs *ptrs;
+ 	const struct lvds_pnp_id *edid_id;
+ 	struct lvds_pnp_id edid_id_nodate;
++	const struct edid *edid = drm_edid_raw(drm_edid); /* FIXME */
+ 	int i, best = -1;
+ 
+ 	if (!edid)
+@@ -685,7 +686,7 @@ static int pnpid_get_panel_type(struct drm_i915_private *i915,
+ 
+ static int fallback_get_panel_type(struct drm_i915_private *i915,
+ 				   const struct intel_bios_encoder_data *devdata,
+-				   const struct edid *edid)
++				   const struct drm_edid *drm_edid)
+ {
+ 	return 0;
+ }
+@@ -699,13 +700,13 @@ enum panel_type {
+ 
+ static int get_panel_type(struct drm_i915_private *i915,
+ 			  const struct intel_bios_encoder_data *devdata,
+-			  const struct edid *edid)
++			  const struct drm_edid *drm_edid)
+ {
+ 	struct {
+ 		const char *name;
+ 		int (*get_panel_type)(struct drm_i915_private *i915,
+ 				      const struct intel_bios_encoder_data *devdata,
+-				      const struct edid *edid);
++				      const struct drm_edid *drm_edid);
+ 		int panel_type;
+ 	} panel_types[] = {
+ 		[PANEL_TYPE_OPREGION] = {
+@@ -728,7 +729,7 @@ static int get_panel_type(struct drm_i915_private *i915,
+ 	int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(panel_types); i++) {
+-		panel_types[i].panel_type = panel_types[i].get_panel_type(i915, devdata, edid);
++		panel_types[i].panel_type = panel_types[i].get_panel_type(i915, devdata, drm_edid);
+ 
+ 		drm_WARN_ON(&i915->drm, panel_types[i].panel_type > 0xf &&
+ 			    panel_types[i].panel_type != 0xff);
+@@ -3144,11 +3145,11 @@ void intel_bios_init(struct drm_i915_private *i915)
+ void intel_bios_init_panel(struct drm_i915_private *i915,
+ 			   struct intel_panel *panel,
+ 			   const struct intel_bios_encoder_data *devdata,
+-			   const struct edid *edid)
++			   const struct drm_edid *drm_edid)
+ {
+ 	init_vbt_panel_defaults(panel);
+ 
+-	panel->vbt.panel_type = get_panel_type(i915, devdata, edid);
++	panel->vbt.panel_type = get_panel_type(i915, devdata, drm_edid);
+ 
+ 	parse_panel_options(i915, panel);
+ 	parse_generic_dtd(i915, panel);
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+index e47582b0de0a..defea578a768 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -32,8 +32,8 @@
+ 
+ #include <linux/types.h>
+ 
++struct drm_edid;
+ struct drm_i915_private;
+-struct edid;
+ struct intel_bios_encoder_data;
+ struct intel_crtc_state;
+ struct intel_encoder;
+@@ -235,7 +235,7 @@ void intel_bios_init(struct drm_i915_private *dev_priv);
+ void intel_bios_init_panel(struct drm_i915_private *dev_priv,
+ 			   struct intel_panel *panel,
+ 			   const struct intel_bios_encoder_data *devdata,
+-			   const struct edid *edid);
++			   const struct drm_edid *drm_edid);
+ void intel_bios_fini_panel(struct intel_panel *panel);
+ void intel_bios_driver_remove(struct drm_i915_private *dev_priv);
+ bool intel_bios_is_valid_vbt(const void *buf, size_t size);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 8a3b2dbebe04..f9633fc90e10 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5265,7 +5265,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 	intel_connector->edid = drm_edid;
+ 
+ 	intel_bios_init_panel(dev_priv, &intel_connector->panel, encoder->devdata,
+-			      IS_ERR_OR_NULL(drm_edid) ? NULL : drm_edid_raw(drm_edid));
++			      IS_ERR(drm_edid) ? NULL : drm_edid);
+ 
+ 	intel_panel_add_edid_fixed_modes(intel_connector,
+ 					 intel_connector->panel.vbt.drrs_type != DRRS_TYPE_NONE,
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+index 98c07fd3bd3e..1f578a8ea919 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.c
++++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+@@ -973,7 +973,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
+ 	intel_connector->edid = drm_edid;
+ 
+ 	intel_bios_init_panel(dev_priv, &intel_connector->panel, NULL,
+-			      IS_ERR_OR_NULL(drm_edid) ? NULL : drm_edid_raw(drm_edid));
++			      IS_ERR(drm_edid) ? NULL : drm_edid);
+ 
+ 	/* Try EDID first */
+ 	intel_panel_add_edid_fixed_modes(intel_connector,
+-- 
+2.30.2
 
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-Also, can someone else please do the full review? I'm afraid with the 
-passage of time I forgot what little I knew about how GuC tracks this 
-data. :(
-
-Some nits and questions below.
-
-> v2: (Tvrtko)
-> - Use COPS_RUNTIME_ACTIVE_TOTAL
-> - Add code comment for the race
-> - Undo local variables initializations
-> 
-> v3:
-> - Add support for virtual engines based on
->    https://patchwork.freedesktop.org/series/105227/
-> 
-> v4:
-> - Update commit message with remaining work.
-> - Rebase
-> 
-> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-> ---
->   drivers/gpu/drm/i915/gt/intel_context.c       | 12 +++-
->   drivers/gpu/drm/i915/gt/intel_context.h       |  6 +-
->   drivers/gpu/drm/i915/gt/intel_context_types.h |  6 ++
->   drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |  5 ++
->   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 65 ++++++++++++++++++-
->   drivers/gpu/drm/i915/i915_drm_client.c        |  6 +-
->   6 files changed, 89 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-> index 654a092ed3d6..e2d70a9fdac0 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_context.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_context.c
-> @@ -576,16 +576,24 @@ void intel_context_bind_parent_child(struct intel_context *parent,
->   	child->parallel.parent = parent;
->   }
->   
-> -u64 intel_context_get_total_runtime_ns(const struct intel_context *ce)
-> +u64 intel_context_get_total_runtime_ns(struct intel_context *ce)
->   {
->   	u64 total, active;
->   
-> +	if (ce->ops->update_stats)
-> +		ce->ops->update_stats(ce);
-> +
->   	total = ce->stats.runtime.total;
->   	if (ce->ops->flags & COPS_RUNTIME_CYCLES)
->   		total *= ce->engine->gt->clock_period_ns;
->   
->   	active = READ_ONCE(ce->stats.active);
-> -	if (active)
-> +	/*
-> +	 * When COPS_RUNTIME_ACTIVE_TOTAL is set for ce->cops, the backend
-> +	 * already provides the total active time of the context, so skip this
-> +	 * calculation when this flag is set.
-> +	 */
-> +	if (active && !(ce->ops->flags & COPS_RUNTIME_ACTIVE_TOTAL))
->   		active = intel_context_clock() - active;
->   
->   	return total + active;
-> diff --git a/drivers/gpu/drm/i915/gt/intel_context.h b/drivers/gpu/drm/i915/gt/intel_context.h
-> index 8e2d70630c49..3d1d7436c1a4 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_context.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_context.h
-> @@ -58,7 +58,7 @@ static inline bool intel_context_is_parent(struct intel_context *ce)
->   	return !!ce->parallel.number_children;
->   }
->   
-> -static inline bool intel_context_is_pinned(struct intel_context *ce);
-> +static inline bool intel_context_is_pinned(const struct intel_context *ce);
->   
->   static inline struct intel_context *
->   intel_context_to_parent(struct intel_context *ce)
-> @@ -118,7 +118,7 @@ static inline int intel_context_lock_pinned(struct intel_context *ce)
->    * Returns: true if the context is currently pinned for use by the GPU.
->    */
->   static inline bool
-> -intel_context_is_pinned(struct intel_context *ce)
-> +intel_context_is_pinned(const struct intel_context *ce)
->   {
->   	return atomic_read(&ce->pin_count);
->   }
-> @@ -362,7 +362,7 @@ intel_context_clear_nopreempt(struct intel_context *ce)
->   	clear_bit(CONTEXT_NOPREEMPT, &ce->flags);
->   }
->   
-> -u64 intel_context_get_total_runtime_ns(const struct intel_context *ce);
-> +u64 intel_context_get_total_runtime_ns(struct intel_context *ce);
->   u64 intel_context_get_avg_runtime_ns(struct intel_context *ce);
->   
->   static inline u64 intel_context_clock(void)
-> diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-> index 04eacae1aca5..f7ff4c7d81c7 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-> @@ -38,6 +38,9 @@ struct intel_context_ops {
->   #define COPS_RUNTIME_CYCLES_BIT 1
->   #define COPS_RUNTIME_CYCLES BIT(COPS_RUNTIME_CYCLES_BIT)
->   
-> +#define COPS_RUNTIME_ACTIVE_TOTAL_BIT 2
-> +#define COPS_RUNTIME_ACTIVE_TOTAL BIT(COPS_RUNTIME_ACTIVE_TOTAL_BIT)
-> +
->   	int (*alloc)(struct intel_context *ce);
->   
->   	void (*revoke)(struct intel_context *ce, struct i915_request *rq,
-> @@ -56,6 +59,8 @@ struct intel_context_ops {
->   
->   	void (*sched_disable)(struct intel_context *ce);
->   
-> +	void (*update_stats)(struct intel_context *ce);
-> +
->   	void (*reset)(struct intel_context *ce);
->   	void (*destroy)(struct kref *kref);
->   
-> @@ -148,6 +153,7 @@ struct intel_context {
->   			struct ewma_runtime avg;
->   			u64 total;
->   			u32 last;
-> +			u64 start_gt_clk;
-
-Nit - put u64 next to u64 and u32 next to u32 to avoid holes.
-
->   			I915_SELFTEST_DECLARE(u32 num_underflow);
->   			I915_SELFTEST_DECLARE(u32 max_underflow);
->   		} runtime;
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> index 323b055e5db9..c7b54f1631b9 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> @@ -196,6 +196,11 @@ static inline u8 guc_class_to_engine_class(u8 guc_class)
->   	return guc_class_engine_class_map[guc_class];
->   }
->   
-> +/* Per context engine usage stats: */
-> +#define PPHWSP_GUC_CONTEXT_USAGE_STAMP_LO	(0x500 / sizeof(u32))
-> +#define PPHWSP_GUC_CONTEXT_USAGE_STAMP_HI	(PPHWSP_GUC_CONTEXT_USAGE_STAMP_LO + 1)
-> +#define PPHWSP_GUC_CONTEXT_USAGE_ENGINE_ID	(PPHWSP_GUC_CONTEXT_USAGE_STAMP_HI + 1)
-> +
->   /* Work item for submitting workloads into work queue of GuC. */
->   struct guc_wq_item {
->   	u32 header;
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> index 0d17da77e787..c9fefa254a7e 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> @@ -378,7 +378,7 @@ static inline void set_context_guc_id_invalid(struct intel_context *ce)
->   	ce->guc_id.id = GUC_INVALID_CONTEXT_ID;
->   }
->   
-> -static inline struct intel_guc *ce_to_guc(struct intel_context *ce)
-> +static inline struct intel_guc *ce_to_guc(const struct intel_context *ce)
-
-This is odd since the helper now takes away constness. I can't really 
-figure out why the change is needed?
-
->   {
->   	return &ce->engine->gt->uc.guc;
->   }
-> @@ -1376,13 +1376,16 @@ static void __update_guc_busyness_stats(struct intel_guc *guc)
->   	spin_unlock_irqrestore(&guc->timestamp.lock, flags);
->   }
->   
-> +static void __guc_context_update_clks(struct intel_context *ce);
->   static void guc_timestamp_ping(struct work_struct *wrk)
->   {
->   	struct intel_guc *guc = container_of(wrk, typeof(*guc),
->   					     timestamp.work.work);
->   	struct intel_uc *uc = container_of(guc, typeof(*uc), guc);
->   	struct intel_gt *gt = guc_to_gt(guc);
-> +	struct intel_context *ce;
->   	intel_wakeref_t wakeref;
-> +	unsigned long index;
->   	int srcu, ret;
->   
->   	/*
-> @@ -1396,6 +1399,10 @@ static void guc_timestamp_ping(struct work_struct *wrk)
->   	with_intel_runtime_pm(&gt->i915->runtime_pm, wakeref)
->   		__update_guc_busyness_stats(guc);
->   
-> +	/* adjust context stats for overflow */
-> +	xa_for_each(&guc->context_lookup, index, ce)
-> +		__guc_context_update_clks(ce);
-> +
->   	intel_gt_reset_unlock(gt, srcu);
->   
->   	mod_delayed_work(system_highpri_wq, &guc->timestamp.work,
-> @@ -1469,6 +1476,56 @@ void intel_guc_busyness_unpark(struct intel_gt *gt)
->   			 guc->timestamp.ping_delay);
->   }
->   
-> +static void __guc_context_update_clks(struct intel_context *ce)
-> +{
-> +	struct intel_guc *guc = ce_to_guc(ce);
-> +	struct intel_gt *gt = ce->engine->gt;
-> +	u32 *pphwsp, last_switch, engine_id;
-> +	u64 start_gt_clk, active;
-> +	unsigned long flags;
-> +	ktime_t unused;
-> +
-> +	spin_lock_irqsave(&guc->timestamp.lock, flags);
-> +
-> +	/*
-> +	 * GPU updates ce->lrc_reg_state[CTX_TIMESTAMP] when context is switched
-> +	 * out, however GuC updates PPHWSP offsets below. Hence KMD (CPU)
-> +	 * relies on GuC and GPU for busyness calculations. Due to this, A
-> +	 * potential race was highlighted in an earlier review that can lead to
-> +	 * double accounting of busyness. While the solution to this is a wip,
-> +	 * busyness is still usable for platforms running GuC submission.
-> +	 */
-> +	pphwsp = ((void *)ce->lrc_reg_state) - LRC_STATE_OFFSET;
-> +	last_switch = READ_ONCE(pphwsp[PPHWSP_GUC_CONTEXT_USAGE_STAMP_LO]);
-
-What about PPHWSP_GUC_CONTEXT_USAGE_STAMP_HI? I see it defined but isn't 
-used so is the timestmap 32 bit just ABI reserved 64 bits for future 
-proofing or something?
-
-Regards,
-
-Tvrtko
-
-> +	engine_id = READ_ONCE(pphwsp[PPHWSP_GUC_CONTEXT_USAGE_ENGINE_ID]);
-> +
-> +	guc_update_pm_timestamp(guc, &unused);
-> +
-> +	if (engine_id != 0xffffffff && last_switch) {
-> +		start_gt_clk = READ_ONCE(ce->stats.runtime.start_gt_clk);
-> +		__extend_last_switch(guc, &start_gt_clk, last_switch);
-> +		active = intel_gt_clock_interval_to_ns(gt, guc->timestamp.gt_stamp - start_gt_clk);
-> +		WRITE_ONCE(ce->stats.runtime.start_gt_clk, start_gt_clk);
-> +		WRITE_ONCE(ce->stats.active, active);
-> +	} else {
-> +		lrc_update_runtime(ce);
-> +	}
-> +
-> +	spin_unlock_irqrestore(&guc->timestamp.lock, flags);
-> +}
-> +
-> +static void guc_context_update_stats(struct intel_context *ce)
-> +{
-> +	if (!intel_context_pin_if_active(ce)) {
-> +		WRITE_ONCE(ce->stats.runtime.start_gt_clk, 0);
-> +		WRITE_ONCE(ce->stats.active, 0);
-> +		return;
-> +	}
-> +
-> +	__guc_context_update_clks(ce);
-> +	intel_context_unpin(ce);
-> +}
-> +
->   static inline bool
->   submission_disabled(struct intel_guc *guc)
->   {
-> @@ -2723,6 +2780,7 @@ static void guc_context_unpin(struct intel_context *ce)
->   {
->   	struct intel_guc *guc = ce_to_guc(ce);
->   
-> +	lrc_update_runtime(ce);
->   	unpin_guc_id(guc, ce);
->   	lrc_unpin(ce);
->   
-> @@ -3344,6 +3402,7 @@ static void remove_from_context(struct i915_request *rq)
->   }
->   
->   static const struct intel_context_ops guc_context_ops = {
-> +	.flags = COPS_RUNTIME_CYCLES | COPS_RUNTIME_ACTIVE_TOTAL,
->   	.alloc = guc_context_alloc,
->   
->   	.pre_pin = guc_context_pre_pin,
-> @@ -3360,6 +3419,8 @@ static const struct intel_context_ops guc_context_ops = {
->   
->   	.sched_disable = guc_context_sched_disable,
->   
-> +	.update_stats = guc_context_update_stats,
-> +
->   	.reset = lrc_reset,
->   	.destroy = guc_context_destroy,
->   
-> @@ -3593,6 +3654,7 @@ static int guc_virtual_context_alloc(struct intel_context *ce)
->   }
->   
->   static const struct intel_context_ops virtual_guc_context_ops = {
-> +	.flags = COPS_RUNTIME_CYCLES | COPS_RUNTIME_ACTIVE_TOTAL,
->   	.alloc = guc_virtual_context_alloc,
->   
->   	.pre_pin = guc_virtual_context_pre_pin,
-> @@ -3608,6 +3670,7 @@ static const struct intel_context_ops virtual_guc_context_ops = {
->   	.exit = guc_virtual_context_exit,
->   
->   	.sched_disable = guc_context_sched_disable,
-> +	.update_stats = guc_context_update_stats,
->   
->   	.destroy = guc_context_destroy,
->   
-> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-> index b09d1d386574..8d81119fff14 100644
-> --- a/drivers/gpu/drm/i915/i915_drm_client.c
-> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
-> @@ -147,11 +147,7 @@ void i915_drm_client_fdinfo(struct seq_file *m, struct file *f)
->   		   PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
->   	seq_printf(m, "drm-client-id:\t%u\n", client->id);
->   
-> -	/*
-> -	 * Temporarily skip showing client engine information with GuC submission till
-> -	 * fetching engine busyness is implemented in the GuC submission backend
-> -	 */
-> -	if (GRAPHICS_VER(i915) < 8 || intel_uc_uses_guc_submission(&i915->gt0.uc))
-> +	if (GRAPHICS_VER(i915) < 8)
->   		return;
->   
->   	for (i = 0; i < ARRAY_SIZE(uabi_class_names); i++)
