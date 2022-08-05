@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17250C00140
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:56:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 466E8C25B08
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 21:57:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67E5412A997;
-	Fri,  5 Aug 2022 21:55:01 +0000 (UTC)
-Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
- [IPv6:2607:f8b0:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA60D12BE31;
- Fri,  5 Aug 2022 21:54:44 +0000 (UTC)
-Received: by mail-il1-x129.google.com with SMTP id j20so1975534ila.6;
- Fri, 05 Aug 2022 14:54:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B68BA1D4C;
+	Fri,  5 Aug 2022 21:54:59 +0000 (UTC)
+Received: from mail-il1-x12c.google.com (mail-il1-x12c.google.com
+ [IPv6:2607:f8b0:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F004A12A9F5;
+ Fri,  5 Aug 2022 21:54:27 +0000 (UTC)
+Received: by mail-il1-x12c.google.com with SMTP id b12so1975509ils.9;
+ Fri, 05 Aug 2022 14:54:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc;
- bh=1y159ZhAT7UwYDHx836NbKz/sH4FGDT0eWA3LtOPK28=;
- b=aZpGJUfkVtvgVQOcA2F7tAMS9ukLmpQUh3ljHkf8mdLln5qcpZB9sw8JktDUOZUfin
- xLOZQjWOpSuON3eyAeAu0CbF/36kkedJfxlVb8EilpP8NgwuOHRUROHCZ53wKAtwcHW8
- Jeh/gyh1fxpZRMsteWVDc3LGjglz0Koq17XZfoMIqYlbNNK6YVVpFJPTcabGrF+zUxOl
- 3nDrv09wEZVtUo5DXADv4GIftR4TjYij61T53L1CgmlxQ6y0DTdbSvu7fQFGEmt/3xqZ
- sWUWbDNbwEpc/QRQVCatjqHnf92fBh0/OP4rLiZSj5g5A76MlyvGpiP8ydfP9zWcgESr
- ZWSQ==
+ bh=J+XMFiNX/q3LQYLLDUo59QkX1sLIyVqPUPsR4ifBrfo=;
+ b=a3pE4rSuZD6ro/cAPZ0Z73WjsYUoQsEAbwyUOAqkxPwqOML8IMtCRzyMMjE6ZCJJCH
+ 4scGqqJcV3JdotbBSmD47jk7lpKPscKlF7ejCkueKNDZc62M5x6RByzui6UXS/yrhEB/
+ Ma9VANyVI7k0Kt+62fIgtMkwlry0TtsgYx+JzzmG7zLU3gOw8u6v8GVHIOxS78S6ySuJ
+ yQedjpXdXviU2c0CtSvX8JSMMrEMC2fuCmCJ3zZs+/tekpoFMtppdOD1KBHt6WoE6wSl
+ TqyEco90VmD806y4HavPugyYKbr4gmKWihAk17UiplBB9FsIctcOWsPeNGNljMqQiUYj
+ Ds8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=1y159ZhAT7UwYDHx836NbKz/sH4FGDT0eWA3LtOPK28=;
- b=s+xlI+iVoyIsdUawJjzH7mMkP3TRjirhhHP4x+6zey4lz7dSGOG6schELxl1H8wL8v
- ARaiTtAPZp/kcyEwhGQk9H1WoFHaUACCuEJOZ3RfGonRm3lkucG5kun9S1LWb8mE/bph
- Crqi6HDCZgOoG5IuMkVWcCMcOfBmozMX45By2VuEZFY59u4W+T1g1HTSaBP5SM7xLchr
- 4Hcx01VhoJwDoHDi7X2Ygsa9EjOixNE9LaHpjch619f/9410TEsFEIMLLALLxOX+iFcD
- 5oR05GB/nuPX6vVF310WGw61vOkqTBwTf8TejOUcpBq/zmo956HlImhT7d/qxiSkuSPX
- QPbQ==
-X-Gm-Message-State: ACgBeo2fsLdFh14kNs0SQLK6pbvCe9P0eP9FieLhlYKve1EARtjVo8Rs
- PxYwsnCbNILZraq8epgTSK4=
-X-Google-Smtp-Source: AA6agR7d9MaevNi+wYrhfwwaCK505X33v/tWLIHGXSbOGLIz9cTvnFOlWaEafAqO2toexMXLdgER5Q==
-X-Received: by 2002:a05:6e02:194d:b0:2df:8893:90bb with SMTP id
- x13-20020a056e02194d00b002df889390bbmr2260522ilu.242.1659736483850; 
- Fri, 05 Aug 2022 14:54:43 -0700 (PDT)
+ bh=J+XMFiNX/q3LQYLLDUo59QkX1sLIyVqPUPsR4ifBrfo=;
+ b=7aTbFk4hg14t1a0IndEcopuxYWgX9lmehm5KDNBdgshEdbO7enEc/EzW5ejl5zUq+f
+ xf0O4dEp1LsU+7XkLy5Pb+7xVJc+xuHtwVQlkNk1LphE9XRIFdSeK9KrUl2KQLovAitx
+ CRuODPaQM6pWo2HzmiLXuPMg0GejuQ2KhJIO3HGlGGlHjH5f1+rCqHzD+44iOBy39tvW
+ vVqlH8ZpMO3CVOpzoc9oiRuk+FV+AXxrki6xyEbBBANpLK+Ifjl9oNPPc3Yl6PoqFrlN
+ 2njKoSDgs48E7TIADmw2NHgjg053BkElqEMCsfYVX2D8QAZ1NBIZnXYHe3HHcxxZf8XK
+ ai+w==
+X-Gm-Message-State: ACgBeo19oeODq/cdb2Z7K5F+SKRBKVrTZDYB6w3w4eWONEfbXrjYRxMr
+ uaQm93DDekEyRA8yFTSE8dHYPxm5INro2A==
+X-Google-Smtp-Source: AA6agR61kurKmG2CZ4QJXTnktlt/717WlcXUXKttKGA+qVbP2Lsxbsku+CON2rmb9ab1kZ1VnYNO8w==
+X-Received: by 2002:a05:6e02:180a:b0:2de:20c8:572 with SMTP id
+ a10-20020a056e02180a00b002de20c80572mr3819308ilv.213.1659736467233; 
+ Fri, 05 Aug 2022 14:54:27 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.42
+ e12-20020a056602044c00b0067c09fd0b53sm1765532iov.21.2022.08.05.14.54.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Aug 2022 14:54:43 -0700 (PDT)
+ Fri, 05 Aug 2022 14:54:26 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org
-Date: Fri,  5 Aug 2022 15:53:43 -0600
-Message-Id: <20220805215355.3509287-22-jim.cromie@gmail.com>
+Date: Fri,  5 Aug 2022 15:53:28 -0600
+Message-Id: <20220805215355.3509287-7-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
 References: <20220805215355.3509287-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 21/33] dyndbg: test DECLARE_DYNDBG_CLASSMAP,
- sysfs nodes
+Subject: [Intel-gfx] [PATCH v5 06/33] dyndbg: use ESCAPE_SPACE for cat
+ control
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,225 +79,37 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Demonstrate use of DECLARE_DYNDBG_CLASSMAP macro, and expose them as
-sysfs-nodes for testing.
+`cat control` currently does octal escape, so '\n' becomes "\012".
+Change this to display as "\n" instead, which reads much cleaner.
 
-For each of the 4 class-map-types:
-
-  - declare a class-map of that type,
-  - declare the enum corresponding to those class-names
-  - share _base across 0..30 range
-  - add a __pr_debug_cls() call for each class-name
-  - declare 2 sysnodes for each class-map
-    for 'p' flag, and future 'T' flag
-
-These declarations create the following sysfs parameter interface:
-
-  :#> pwd
-  /sys/module/test_dynamic_debug/parameters
-  :#> ls
-  T_disjoint_bits  T_disjoint_names  T_level_names  T_level_num  do_prints
-  p_disjoint_bits  p_disjoint_names  p_level_names  p_level_num
-
-NOTES:
-
-The local wrapper macro is an api candidate, but there are already too
-many parameters.  OTOH, maybe related enum should be in there too,
-since it has _base inter-dependencies.
-
-The T_* params control the (future) T flag on the same class'd
-pr_debug callsites as their p* counterparts.  Using them will fail,
-until the dyndbg-trace patches are added in.
-
-:#> echo 1 > T_disjoint
-[   28.792489] dyndbg: disjoint: 0x1 > test_dynamic_debug.T_D2
-[   28.793848] dyndbg: query 0: "class D2_CORE +T" mod:*
-[   28.795086] dyndbg: split into words: "class" "D2_CORE" "+T"
-[   28.796467] dyndbg: op='+'
-[   28.797148] dyndbg: unknown flag 'T'
-[   28.798021] dyndbg: flags parse failed
-[   28.798947] dyndbg: processed 1 queries, with 0 matches, 1 errs
-[   28.800378] dyndbg: bit_0: -22 matches on class: D2_CORE -> 0x1
-[   28.801959] dyndbg: test_dynamic_debug.T_D2: updated 0x0 -> 0x1
-[   28.803974] dyndbg: total matches: -22
+   :#> head -n7 /proc/dynamic_debug/control
+   # filename:lineno [module]function flags format
+   init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
+   init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
+   init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
+   init/main.c:1426 [main]run_init_process =_ "    %s\n"
+   init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
+   init/main.c:1429 [main]run_init_process =_ "    %s\n"
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Acked-by: Jason Baron <jbaron@akamai.com>
 ---
- lib/test_dynamic_debug.c | 125 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 110 insertions(+), 15 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index ba3882ca3e48..8dd250ad022b 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -10,57 +10,152 @@
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 8ff11977b8bd..e5cbe603000c 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -900,7 +900,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		   trim_prefix(dp->filename), dp->lineno,
+ 		   iter->table->mod_name, dp->function,
+ 		   ddebug_describe_flags(dp->flags, &flags));
+-	seq_escape(m, dp->format, "\t\r\n\"");
++	seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
+ 	seq_puts(m, "\"\n");
  
- #include <linux/module.h>
- 
--static void do_prints(void); /* device under test */
--
--/* run tests by reading or writing sysfs node */
-+/* run tests by reading or writing sysfs node: do_prints */
- 
-+static void do_prints(void); /* device under test */
- static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
- {
- 	do_prints();
  	return 0;
- }
--
- static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
- {
- 	do_prints();
- 	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
- }
--
- static const struct kernel_param_ops param_ops_do_prints = {
- 	.set = param_set_do_prints,
- 	.get = param_get_do_prints,
- };
--
- module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
- 
--static void do_alpha(void)
-+/*
-+ * Using the CLASSMAP api:
-+ * - classmaps must have corresponding enum
-+ * - enum symbols must match/correlate with class-name strings in the map.
-+ * - base must equal enum's 1st value
-+ * - multiple maps must set their base to share the 0-30 class_id space !!
-+ *   (build-bug-on tips welcome)
-+ * Additionally, here:
-+ * - tie together sysname, mapname, bitsname, flagsname
-+ */
-+#define DD_SYS_WRAP(_model, _flags)					\
-+	static unsigned long bits_##_model;				\
-+	static struct ddebug_class_param _flags##_model = {		\
-+		.bits = &bits_##_model,					\
-+		.flags = #_flags,					\
-+		.map = &map_##_model,					\
-+	};								\
-+	module_param_cb(_flags##_##_model, &param_ops_dyndbg_classes, &_flags##_model, 0600)
-+
-+/* numeric input, independent bits */
-+enum cat_disjoint_bits {
-+	D2_CORE = 0,
-+	D2_DRIVER,
-+	D2_KMS,
-+	D2_PRIME,
-+	D2_ATOMIC,
-+	D2_VBL,
-+	D2_STATE,
-+	D2_LEASE,
-+	D2_DP,
-+	D2_DRMRES };
-+DECLARE_DYNDBG_CLASSMAP(map_disjoint_bits, DD_CLASS_TYPE_DISJOINT_BITS, 0,
-+			"D2_CORE",
-+			"D2_DRIVER",
-+			"D2_KMS",
-+			"D2_PRIME",
-+			"D2_ATOMIC",
-+			"D2_VBL",
-+			"D2_STATE",
-+			"D2_LEASE",
-+			"D2_DP",
-+			"D2_DRMRES");
-+DD_SYS_WRAP(disjoint_bits, p);
-+DD_SYS_WRAP(disjoint_bits, T);
-+
-+/* symbolic input, independent bits */
-+enum cat_disjoint_names { LOW = 11, MID, HI };
-+DECLARE_DYNDBG_CLASSMAP(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
-+			"LOW", "MID", "HI");
-+DD_SYS_WRAP(disjoint_names, p);
-+DD_SYS_WRAP(disjoint_names, T);
-+
-+/* numeric verbosity, V2 > V1 related */
-+enum cat_level_num { V0 = 14, V1, V2, V3, V4, V5, V6, V7 };
-+DECLARE_DYNDBG_CLASSMAP(map_level_num, DD_CLASS_TYPE_LEVEL_NUM, 14,
-+		       "V0", "V1", "V2", "V3", "V4", "V5", "V6", "V7");
-+DD_SYS_WRAP(level_num, p);
-+DD_SYS_WRAP(level_num, T);
-+
-+/* symbolic verbosity */
-+enum cat_level_names { L0 = 22, L1, L2, L3, L4, L5, L6, L7 };
-+DECLARE_DYNDBG_CLASSMAP(map_level_names, DD_CLASS_TYPE_LEVEL_NAMES, 22,
-+			"L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7");
-+DD_SYS_WRAP(level_names, p);
-+DD_SYS_WRAP(level_names, T);
-+
-+/* stand-in for all pr_debug etc */
-+#define prdbg(SYM) __pr_debug_cls(SYM, #SYM " msg\n")
-+
-+static void do_cats(void)
- {
--	pr_debug("do alpha\n");
-+	pr_debug("doing categories\n");
-+
-+	prdbg(LOW);
-+	prdbg(MID);
-+	prdbg(HI);
-+
-+	prdbg(D2_CORE);
-+	prdbg(D2_DRIVER);
-+	prdbg(D2_KMS);
-+	prdbg(D2_PRIME);
-+	prdbg(D2_ATOMIC);
-+	prdbg(D2_VBL);
-+	prdbg(D2_STATE);
-+	prdbg(D2_LEASE);
-+	prdbg(D2_DP);
-+	prdbg(D2_DRMRES);
- }
--static void do_beta(void)
-+
-+static void do_levels(void)
- {
--	pr_debug("do beta\n");
-+	pr_debug("doing levels\n");
-+
-+	prdbg(V1);
-+	prdbg(V2);
-+	prdbg(V3);
-+	prdbg(V4);
-+	prdbg(V5);
-+	prdbg(V6);
-+	prdbg(V7);
-+
-+	prdbg(L1);
-+	prdbg(L2);
-+	prdbg(L3);
-+	prdbg(L4);
-+	prdbg(L5);
-+	prdbg(L6);
-+	prdbg(L7);
- }
- 
- static void do_prints(void)
- {
--	do_alpha();
--	do_beta();
-+	do_cats();
-+	do_levels();
- }
- 
- static int __init test_dynamic_debug_init(void)
- {
- 	pr_debug("init start\n");
--
- 	do_prints();
--
- 	pr_debug("init done\n");
- 	return 0;
- }
- 
- static void __exit test_dynamic_debug_exit(void)
- {
--	pr_debug("exiting\n");
-+	pr_debug("exited\n");
- }
- 
- module_init(test_dynamic_debug_init);
 -- 
 2.37.1
 
