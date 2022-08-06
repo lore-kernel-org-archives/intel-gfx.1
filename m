@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D86F2C19F2D
-	for <intel-gfx@archiver.kernel.org>; Sat,  6 Aug 2022 12:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC45C19F2D
+	for <intel-gfx@archiver.kernel.org>; Sat,  6 Aug 2022 12:34:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB4492BC43;
-	Sat,  6 Aug 2022 12:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37476BF42A;
+	Sat,  6 Aug 2022 12:33:25 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78C32C0E0E
- for <intel-gfx@lists.freedesktop.org>; Sat,  6 Aug 2022 12:27:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59ED7C17D9
+ for <intel-gfx@lists.freedesktop.org>; Sat,  6 Aug 2022 12:27:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659788851; x=1691324851;
+ t=1659788865; x=1691324865;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QzoLg/ajnaxTypbIKVOGrs2MiP/MOwh4tnnJf9T6PEM=;
- b=IONtCz+L8kBRYgNB3AEmOJELjX6sXLJOzLAQRWXOIVSkx6vW4ykdZH0p
- BLq3p8fAlip519hTU1UFAC03LVaWBD49bLw7SoZxUuSvzPKlC2Wlcd2uc
- WY616WHE8EQIMcN86qSmBABuy22gHYEkDEvOVnBkWT63kEvDrR7EwKP3g
- snE1vT6s9QsoJs4dSUNFQ3A5IdRFGawP7t8jHVy7G/V//Smq3/O53zaTh
- sgrtW2Yo6du0ZQqKjgBK0utQFC8qhOuPaNoz+ieayQE5a+ShswnkGR8NW
- qbNG1iqaRexvvVbYUD6yGSla4r4Gv4Cw8QUUYxSvGQI48xLChflv/uzs4 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10430"; a="376658386"
-X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="376658386"
+ bh=K2tZT1H2ogZXHBpSVcSZrSdJRzlES70VWA75XWdtY3U=;
+ b=asUKlGux2Y5Z4VLhZiIfizeyp0R/v65prFqk+1qmQYGbDzIFjDpp0aRg
+ cvL/36ej9Y5/LuzgXgRsjujNd/FWrmu3ern70w5xaHn0EmGDRLdixy+jI
+ py3wNvmkLtKDeUoTOUMXsVldZXIyf6a9NPz6PRyfiFD/pM2hkc7LbHnFN
+ C34alwNSdOTJQCQS1bpNvQYaVShnt3APYiHKwPnzxhopwQDmkQVwrXHzM
+ OHaeEK0xg5RpOFuN3tjX1Cp8CqAjyGmslcH/cC1Yg2My1F1Xl4lopLV2x
+ Ck4sgDiNdQWv+RlD9D4Ky6VP6986fd4UVYIh8hc3kfpWv+yBQ1wNdGU/y w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10430"; a="376658392"
+X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="376658392"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2022 05:27:30 -0700
-X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="632329058"
+ 06 Aug 2022 05:27:44 -0700
+X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="632329103"
 Received: from twinkler-lnx.jer.intel.com ([10.12.87.143])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2022 05:27:27 -0700
+ 06 Aug 2022 05:27:40 -0700
 From: Tomas Winkler <tomas.winkler@intel.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sat,  6 Aug 2022 15:26:26 +0300
-Message-Id: <20220806122636.43068-6-tomas.winkler@intel.com>
+Date: Sat,  6 Aug 2022 15:26:30 +0300
+Message-Id: <20220806122636.43068-10-tomas.winkler@intel.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220806122636.43068-1-tomas.winkler@intel.com>
 References: <20220806122636.43068-1-tomas.winkler@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 05/15] drm/i915/gsc: add GSC XeHP SDV
- platform definition
+Subject: [Intel-gfx] [PATCH v7 09/15] mei: bus: export common mkhi
+ definitions into a separate header
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,54 +64,127 @@ Cc: intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Alexander Usyskin <alexander.usyskin@intel.com>
+From: Vitaly Lubart <vitaly.lubart@intel.com>
 
-Define GSC on XeHP SDV (Intel(R) dGPU without display)
-
-XeHP SDV uses the same hardware settings as DG1, but uses polling
-instead of interrupts and runs the firmware in slow pace due to
-hardware limitations.
+Exported common mkhi definitions from bus-fixup.c into a separate
+header file mkhi.h for other driver usage.
 
 Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
 Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gsc.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/misc/mei/bus-fixup.c | 31 +------------------------
+ drivers/misc/mei/mkhi.h      | 45 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 46 insertions(+), 30 deletions(-)
+ create mode 100644 drivers/misc/mei/mkhi.h
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gsc.c b/drivers/gpu/drm/i915/gt/intel_gsc.c
-index 73498c2574c8..e1040c8f2fd3 100644
---- a/drivers/gpu/drm/i915/gt/intel_gsc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gsc.c
-@@ -56,6 +56,19 @@ static const struct gsc_def gsc_def_dg1[] = {
- 	}
- };
+diff --git a/drivers/misc/mei/bus-fixup.c b/drivers/misc/mei/bus-fixup.c
+index 24e91a9ea558..811c94ebf250 100644
+--- a/drivers/misc/mei/bus-fixup.c
++++ b/drivers/misc/mei/bus-fixup.c
+@@ -15,6 +15,7 @@
  
-+static const struct gsc_def gsc_def_xehpsdv[] = {
-+	{
-+		/* HECI1 not enabled on the device. */
-+	},
-+	{
-+		.name = "mei-gscfi",
-+		.bar = DG1_GSC_HECI2_BASE,
-+		.bar_size = GSC_BAR_LENGTH,
-+		.use_polling = true,
-+		.slow_firmware = true,
-+	}
-+};
+ #include "mei_dev.h"
+ #include "client.h"
++#include "mkhi.h"
+ 
+ #define MEI_UUID_NFC_INFO UUID_LE(0xd2de1625, 0x382d, 0x417d, \
+ 			0x48, 0xa4, 0xef, 0xab, 0xba, 0x8a, 0x12, 0x06)
+@@ -89,20 +90,6 @@ struct mei_os_ver {
+ 	u8  reserved2;
+ } __packed;
+ 
+-#define MKHI_FEATURE_PTT 0x10
+-
+-struct mkhi_rule_id {
+-	__le16 rule_type;
+-	u8 feature_id;
+-	u8 reserved;
+-} __packed;
+-
+-struct mkhi_fwcaps {
+-	struct mkhi_rule_id id;
+-	u8 len;
+-	u8 data[];
+-} __packed;
+-
+ struct mkhi_fw_ver_block {
+ 	u16 minor;
+ 	u8 major;
+@@ -115,22 +102,6 @@ struct mkhi_fw_ver {
+ 	struct mkhi_fw_ver_block ver[MEI_MAX_FW_VER_BLOCKS];
+ } __packed;
+ 
+-#define MKHI_FWCAPS_GROUP_ID 0x3
+-#define MKHI_FWCAPS_SET_OS_VER_APP_RULE_CMD 6
+-#define MKHI_GEN_GROUP_ID 0xFF
+-#define MKHI_GEN_GET_FW_VERSION_CMD 0x2
+-struct mkhi_msg_hdr {
+-	u8  group_id;
+-	u8  command;
+-	u8  reserved;
+-	u8  result;
+-} __packed;
+-
+-struct mkhi_msg {
+-	struct mkhi_msg_hdr hdr;
+-	u8 data[];
+-} __packed;
+-
+ #define MKHI_OSVER_BUF_LEN (sizeof(struct mkhi_msg_hdr) + \
+ 			    sizeof(struct mkhi_fwcaps) + \
+ 			    sizeof(struct mei_os_ver))
+diff --git a/drivers/misc/mei/mkhi.h b/drivers/misc/mei/mkhi.h
+new file mode 100644
+index 000000000000..27a9b476904e
+--- /dev/null
++++ b/drivers/misc/mei/mkhi.h
+@@ -0,0 +1,45 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (c) 2003-2020, Intel Corporation. All rights reserved.
++ * Intel Management Engine Interface (Intel MEI) Linux driver
++ */
 +
- static const struct gsc_def gsc_def_dg2[] = {
- 	{
- 		.name = "mei-gsc",
-@@ -107,6 +120,8 @@ static void gsc_init_one(struct drm_i915_private *i915,
- 
- 	if (IS_DG1(i915)) {
- 		def = &gsc_def_dg1[intf_id];
-+	} else if (IS_XEHPSDV(i915)) {
-+		def = &gsc_def_xehpsdv[intf_id];
- 	} else if (IS_DG2(i915)) {
- 		def = &gsc_def_dg2[intf_id];
- 	} else {
++#ifndef _MEI_MKHI_H_
++#define _MEI_MKHI_H_
++
++#include "mei_dev.h"
++
++#define MKHI_FEATURE_PTT 0x10
++
++#define MKHI_FWCAPS_GROUP_ID 0x3
++#define MKHI_FWCAPS_SET_OS_VER_APP_RULE_CMD 6
++#define MKHI_GEN_GROUP_ID 0xFF
++#define MKHI_GEN_GET_FW_VERSION_CMD 0x2
++
++#define MCHI_GROUP_ID  0xA
++
++struct mkhi_rule_id {
++	__le16 rule_type;
++	u8 feature_id;
++	u8 reserved;
++} __packed;
++
++struct mkhi_fwcaps {
++	struct mkhi_rule_id id;
++	u8 len;
++	u8 data[];
++} __packed;
++
++struct mkhi_msg_hdr {
++	u8  group_id;
++	u8  command;
++	u8  reserved;
++	u8  result;
++} __packed;
++
++struct mkhi_msg {
++	struct mkhi_msg_hdr hdr;
++	u8 data[];
++} __packed;
++
++#endif /* _MEI_MKHI_H_ */
 -- 
 2.37.1
 
