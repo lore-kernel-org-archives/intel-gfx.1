@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC45C19F2D
-	for <intel-gfx@archiver.kernel.org>; Sat,  6 Aug 2022 12:34:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E79C19F2D
+	for <intel-gfx@archiver.kernel.org>; Sat,  6 Aug 2022 12:34:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37476BF42A;
-	Sat,  6 Aug 2022 12:33:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5ADD91588;
+	Sat,  6 Aug 2022 12:34:03 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59ED7C17D9
- for <intel-gfx@lists.freedesktop.org>; Sat,  6 Aug 2022 12:27:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D521C1855
+ for <intel-gfx@lists.freedesktop.org>; Sat,  6 Aug 2022 12:28:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659788865; x=1691324865;
+ t=1659788883; x=1691324883;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=K2tZT1H2ogZXHBpSVcSZrSdJRzlES70VWA75XWdtY3U=;
- b=asUKlGux2Y5Z4VLhZiIfizeyp0R/v65prFqk+1qmQYGbDzIFjDpp0aRg
- cvL/36ej9Y5/LuzgXgRsjujNd/FWrmu3ern70w5xaHn0EmGDRLdixy+jI
- py3wNvmkLtKDeUoTOUMXsVldZXIyf6a9NPz6PRyfiFD/pM2hkc7LbHnFN
- C34alwNSdOTJQCQS1bpNvQYaVShnt3APYiHKwPnzxhopwQDmkQVwrXHzM
- OHaeEK0xg5RpOFuN3tjX1Cp8CqAjyGmslcH/cC1Yg2My1F1Xl4lopLV2x
- Ck4sgDiNdQWv+RlD9D4Ky6VP6986fd4UVYIh8hc3kfpWv+yBQ1wNdGU/y w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10430"; a="376658392"
-X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="376658392"
+ bh=zsgoLqqV5QFYuIJiDprROoW14JqTvFA+ucvSxcbJDQY=;
+ b=K+p2qalrp6pfo6/02ZQRQuT9YDMV6CZ2ScJ4PRNYaZPQbqdixoc+A/09
+ atAVOFwY0/bgk8EBP2jz6kkIBXuU/lVHnZmTS0FKjvfmYXg5hinPquXW1
+ 5rwe98a8l6voDbczJYr9GEAj66ir82nZqxI4tOoRT7WJ8+gY06c7foEGq
+ luq0P2og/b1SvbqTyHwhj6+HG5auBWuFHKDgGdxbfQ33gOA3FwJGp3fw0
+ G9dDBNwtnOHqRF/TNnndCRNwgUvURcwOamQh01qdrkt/vRxtzED81qeoe
+ K05KrpZqFoH4mLBkH71vifckFrngcrrfBfu/DV1s7AqDolfrpUgpFDbhX A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10430"; a="376658411"
+X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="376658411"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2022 05:27:44 -0700
-X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="632329103"
+ 06 Aug 2022 05:28:01 -0700
+X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="632329161"
 Received: from twinkler-lnx.jer.intel.com ([10.12.87.143])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2022 05:27:40 -0700
+ 06 Aug 2022 05:27:58 -0700
 From: Tomas Winkler <tomas.winkler@intel.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sat,  6 Aug 2022 15:26:30 +0300
-Message-Id: <20220806122636.43068-10-tomas.winkler@intel.com>
+Date: Sat,  6 Aug 2022 15:26:35 +0300
+Message-Id: <20220806122636.43068-15-tomas.winkler@intel.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220806122636.43068-1-tomas.winkler@intel.com>
 References: <20220806122636.43068-1-tomas.winkler@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 09/15] mei: bus: export common mkhi
- definitions into a separate header
+Subject: [Intel-gfx] [PATCH v7 14/15] drm/i915/gsc: allocate extended
+ operational memory in LMEM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,134 +57,225 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ intel-gfx@lists.freedesktop.org,
  Alexander Usyskin <alexander.usyskin@intel.com>, linux-kernel@vger.kernel.org,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, Tomas Winkler <tomas.winkler@intel.com>,
  Vitaly Lubart <vitaly.lubart@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vitaly Lubart <vitaly.lubart@intel.com>
+GSC requires more operational memory than available on chip.
+Reserve 4M of LMEM for GSC operation. The memory is provided to the
+GSC as struct resource to the auxiliary data of the child device.
 
-Exported common mkhi definitions from bus-fixup.c into a separate
-header file mkhi.h for other driver usage.
-
-Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- drivers/misc/mei/bus-fixup.c | 31 +------------------------
- drivers/misc/mei/mkhi.h      | 45 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 46 insertions(+), 30 deletions(-)
- create mode 100644 drivers/misc/mei/mkhi.h
+ drivers/gpu/drm/i915/gt/intel_gsc.c | 91 ++++++++++++++++++++++++++---
+ drivers/gpu/drm/i915/gt/intel_gsc.h |  3 +
+ 2 files changed, 87 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/misc/mei/bus-fixup.c b/drivers/misc/mei/bus-fixup.c
-index 24e91a9ea558..811c94ebf250 100644
---- a/drivers/misc/mei/bus-fixup.c
-+++ b/drivers/misc/mei/bus-fixup.c
-@@ -15,6 +15,7 @@
+diff --git a/drivers/gpu/drm/i915/gt/intel_gsc.c b/drivers/gpu/drm/i915/gt/intel_gsc.c
+index e1040c8f2fd3..162bea57fbb5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gsc.c
++++ b/drivers/gpu/drm/i915/gt/intel_gsc.c
+@@ -7,6 +7,7 @@
+ #include <linux/mei_aux.h>
+ #include "i915_drv.h"
+ #include "i915_reg.h"
++#include "gem/i915_gem_region.h"
+ #include "gt/intel_gsc.h"
+ #include "gt/intel_gt.h"
  
- #include "mei_dev.h"
- #include "client.h"
-+#include "mkhi.h"
+@@ -36,12 +37,68 @@ static int gsc_irq_init(int irq)
+ 	return irq_set_chip_data(irq, NULL);
+ }
  
- #define MEI_UUID_NFC_INFO UUID_LE(0xd2de1625, 0x382d, 0x417d, \
- 			0x48, 0xa4, 0xef, 0xab, 0xba, 0x8a, 0x12, 0x06)
-@@ -89,20 +90,6 @@ struct mei_os_ver {
- 	u8  reserved2;
- } __packed;
++static int
++gsc_ext_om_alloc(struct intel_gsc *gsc, struct intel_gsc_intf *intf, size_t size)
++{
++	struct intel_gt *gt = gsc_to_gt(gsc);
++	struct drm_i915_gem_object *obj;
++	void *vaddr;
++	int err;
++
++	obj = i915_gem_object_create_lmem(gt->i915, size, I915_BO_ALLOC_CONTIGUOUS);
++	if (IS_ERR(obj)) {
++		drm_err(&gt->i915->drm, "Failed to allocate gsc memory\n");
++		return PTR_ERR(obj);
++	}
++
++	err = i915_gem_object_pin_pages_unlocked(obj);
++	if (err) {
++		drm_err(&gt->i915->drm, "Failed to pin pages for gsc memory\n");
++		goto out_put;
++	}
++
++	vaddr = i915_gem_object_pin_map_unlocked(obj, i915_coherent_map_type(gt->i915, obj, true));
++	if (IS_ERR(vaddr)) {
++		err = PTR_ERR(vaddr);
++		drm_err(&gt->i915->drm, "Failed to map gsc memory\n");
++		goto out_unpin;
++	}
++
++	memset(vaddr, 0, obj->base.size);
++
++	i915_gem_object_unpin_map(obj);
++
++	intf->gem_obj = obj;
++
++	return 0;
++
++out_unpin:
++	i915_gem_object_unpin_pages(obj);
++out_put:
++	i915_gem_object_put(obj);
++	return err;
++}
++
++static void gsc_ext_om_destroy(struct intel_gsc_intf *intf)
++{
++	struct drm_i915_gem_object *obj = fetch_and_zero(&intf->gem_obj);
++
++	if (!obj)
++		return;
++
++	if (i915_gem_object_has_pinned_pages(obj))
++		i915_gem_object_unpin_pages(obj);
++
++	i915_gem_object_put(obj);
++}
++
+ struct gsc_def {
+ 	const char *name;
+ 	unsigned long bar;
+ 	size_t bar_size;
+ 	bool use_polling;
+ 	bool slow_firmware;
++	size_t lmem_size;
+ };
  
--#define MKHI_FEATURE_PTT 0x10
--
--struct mkhi_rule_id {
--	__le16 rule_type;
--	u8 feature_id;
--	u8 reserved;
--} __packed;
--
--struct mkhi_fwcaps {
--	struct mkhi_rule_id id;
--	u8 len;
--	u8 data[];
--} __packed;
--
- struct mkhi_fw_ver_block {
- 	u16 minor;
- 	u8 major;
-@@ -115,22 +102,6 @@ struct mkhi_fw_ver {
- 	struct mkhi_fw_ver_block ver[MEI_MAX_FW_VER_BLOCKS];
- } __packed;
+ /* gsc resources and definitions (HECI1 and HECI2) */
+@@ -74,6 +131,7 @@ static const struct gsc_def gsc_def_dg2[] = {
+ 		.name = "mei-gsc",
+ 		.bar = DG2_GSC_HECI1_BASE,
+ 		.bar_size = GSC_BAR_LENGTH,
++		.lmem_size = SZ_4M,
+ 	},
+ 	{
+ 		.name = "mei-gscfi",
+@@ -90,26 +148,32 @@ static void gsc_release_dev(struct device *dev)
+ 	kfree(adev);
+ }
  
--#define MKHI_FWCAPS_GROUP_ID 0x3
--#define MKHI_FWCAPS_SET_OS_VER_APP_RULE_CMD 6
--#define MKHI_GEN_GROUP_ID 0xFF
--#define MKHI_GEN_GET_FW_VERSION_CMD 0x2
--struct mkhi_msg_hdr {
--	u8  group_id;
--	u8  command;
--	u8  reserved;
--	u8  result;
--} __packed;
--
--struct mkhi_msg {
--	struct mkhi_msg_hdr hdr;
--	u8 data[];
--} __packed;
--
- #define MKHI_OSVER_BUF_LEN (sizeof(struct mkhi_msg_hdr) + \
- 			    sizeof(struct mkhi_fwcaps) + \
- 			    sizeof(struct mei_os_ver))
-diff --git a/drivers/misc/mei/mkhi.h b/drivers/misc/mei/mkhi.h
-new file mode 100644
-index 000000000000..27a9b476904e
---- /dev/null
-+++ b/drivers/misc/mei/mkhi.h
-@@ -0,0 +1,45 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2003-2020, Intel Corporation. All rights reserved.
-+ * Intel Management Engine Interface (Intel MEI) Linux driver
-+ */
+-static void gsc_destroy_one(struct intel_gsc_intf *intf)
++static void gsc_destroy_one(struct drm_i915_private *i915,
++			    struct intel_gsc *gsc, unsigned int intf_id)
+ {
++	struct intel_gsc_intf *intf = &gsc->intf[intf_id];
 +
-+#ifndef _MEI_MKHI_H_
-+#define _MEI_MKHI_H_
+ 	if (intf->adev) {
+ 		auxiliary_device_delete(&intf->adev->aux_dev);
+ 		auxiliary_device_uninit(&intf->adev->aux_dev);
+ 		intf->adev = NULL;
+ 	}
 +
-+#include "mei_dev.h"
+ 	if (intf->irq >= 0)
+ 		irq_free_desc(intf->irq);
+ 	intf->irq = -1;
 +
-+#define MKHI_FEATURE_PTT 0x10
++	gsc_ext_om_destroy(intf);
+ }
+ 
+-static void gsc_init_one(struct drm_i915_private *i915,
+-			 struct intel_gsc_intf *intf,
++static void gsc_init_one(struct drm_i915_private *i915, struct intel_gsc *gsc,
+ 			 unsigned int intf_id)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+ 	struct mei_aux_device *adev;
+ 	struct auxiliary_device *aux_dev;
+ 	const struct gsc_def *def;
++	struct intel_gsc_intf *intf = &gsc->intf[intf_id];
+ 	int ret;
+ 
+ 	intf->irq = -1;
+@@ -141,7 +205,7 @@ static void gsc_init_one(struct drm_i915_private *i915,
+ 	intf->irq = irq_alloc_desc(0);
+ 	if (intf->irq < 0) {
+ 		drm_err(&i915->drm, "gsc irq error %d\n", intf->irq);
+-		return;
++		goto fail;
+ 	}
+ 
+ 	ret = gsc_irq_init(intf->irq);
+@@ -155,6 +219,19 @@ static void gsc_init_one(struct drm_i915_private *i915,
+ 	if (!adev)
+ 		goto fail;
+ 
++	if (def->lmem_size) {
++		drm_dbg(&i915->drm, "setting up GSC lmem\n");
 +
-+#define MKHI_FWCAPS_GROUP_ID 0x3
-+#define MKHI_FWCAPS_SET_OS_VER_APP_RULE_CMD 6
-+#define MKHI_GEN_GROUP_ID 0xFF
-+#define MKHI_GEN_GET_FW_VERSION_CMD 0x2
++		if (gsc_ext_om_alloc(gsc, intf, def->lmem_size)) {
++			drm_err(&i915->drm, "setting up gsc extended operational memory failed\n");
++			kfree(adev);
++			goto fail;
++		}
 +
-+#define MCHI_GROUP_ID  0xA
++		adev->ext_op_mem.start = i915_gem_object_get_dma_address(intf->gem_obj, 0);
++		adev->ext_op_mem.end = adev->ext_op_mem.start + def->lmem_size;
++	}
 +
-+struct mkhi_rule_id {
-+	__le16 rule_type;
-+	u8 feature_id;
-+	u8 reserved;
-+} __packed;
-+
-+struct mkhi_fwcaps {
-+	struct mkhi_rule_id id;
-+	u8 len;
-+	u8 data[];
-+} __packed;
-+
-+struct mkhi_msg_hdr {
-+	u8  group_id;
-+	u8  command;
-+	u8  reserved;
-+	u8  result;
-+} __packed;
-+
-+struct mkhi_msg {
-+	struct mkhi_msg_hdr hdr;
-+	u8 data[];
-+} __packed;
-+
-+#endif /* _MEI_MKHI_H_ */
+ 	adev->irq = intf->irq;
+ 	adev->bar.parent = &pdev->resource[0];
+ 	adev->bar.start = def->bar + pdev->resource[0].start;
+@@ -188,7 +265,7 @@ static void gsc_init_one(struct drm_i915_private *i915,
+ 
+ 	return;
+ fail:
+-	gsc_destroy_one(intf);
++	gsc_destroy_one(i915, gsc, intf->id);
+ }
+ 
+ static void gsc_irq_handler(struct intel_gt *gt, unsigned int intf_id)
+@@ -229,7 +306,7 @@ void intel_gsc_init(struct intel_gsc *gsc, struct drm_i915_private *i915)
+ 		return;
+ 
+ 	for (i = 0; i < INTEL_GSC_NUM_INTERFACES; i++)
+-		gsc_init_one(i915, &gsc->intf[i], i);
++		gsc_init_one(i915, gsc, i);
+ }
+ 
+ void intel_gsc_fini(struct intel_gsc *gsc)
+@@ -241,5 +318,5 @@ void intel_gsc_fini(struct intel_gsc *gsc)
+ 		return;
+ 
+ 	for (i = 0; i < INTEL_GSC_NUM_INTERFACES; i++)
+-		gsc_destroy_one(&gsc->intf[i]);
++		gsc_destroy_one(gt->i915, gsc, i);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/intel_gsc.h b/drivers/gpu/drm/i915/gt/intel_gsc.h
+index 68582f912b21..fcac1775e9c3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gsc.h
++++ b/drivers/gpu/drm/i915/gt/intel_gsc.h
+@@ -20,11 +20,14 @@ struct mei_aux_device;
+ 
+ /**
+  * struct intel_gsc - graphics security controller
++ *
++ * @gem_obj: scratch memory GSC operations
+  * @intf : gsc interface
+  */
+ struct intel_gsc {
+ 	struct intel_gsc_intf {
+ 		struct mei_aux_device *adev;
++		struct drm_i915_gem_object *gem_obj;
+ 		int irq;
+ 		unsigned int id;
+ 	} intf[INTEL_GSC_NUM_INTERFACES];
 -- 
 2.37.1
 
