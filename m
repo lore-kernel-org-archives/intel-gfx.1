@@ -4,31 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3239EC00140
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Aug 2022 22:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 386F2C19F2D
+	for <intel-gfx@archiver.kernel.org>; Sat,  6 Aug 2022 12:33:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21ACD18B71C;
-	Fri,  5 Aug 2022 22:16:21 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id B7679112C8B;
- Fri,  5 Aug 2022 22:16:01 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id AABBAA010C;
- Fri,  5 Aug 2022 22:16:01 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E83BB18BEA1;
+	Sat,  6 Aug 2022 12:31:57 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83B8AC1754
+ for <intel-gfx@lists.freedesktop.org>; Sat,  6 Aug 2022 12:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1659788844; x=1691324844;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=pWwgBvD99brUZP1vpwghMCe5wodCT05WBigqNzyLWgg=;
+ b=NCiPnyOk7wOUjFYj0sImZc9RzYJ6mOiq6FU3a9V1IUWw38JMZvJuxxFL
+ g3NTgr07Ii5LXCwvHa0P5Kb1Ka5J6QrzhFCDSAqxlJSNXvS/Lw60papIJ
+ l3n4DtHx+Yhg50+snvwBBVAAiNYmkHSG5Ocw9kTsjpH03XHoIAfmn7O0/
+ wXLCep6UEkGNLjzAdR+bsbNpLfVKn4UyF4FG4QV/cvBwf995hpGLPpdfD
+ FlhN8udgP2UdS2iqt3r/z22DL1oS/rsUHXCUi2JHFTinNEasmMlGFs8X6
+ t2hbqFGBTo9ttQ0OzzSe/mzLj8KXbQr9SxBKigSLZe8lE6Y2AC7QOvmJI w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10430"; a="376658382"
+X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="376658382"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2022 05:27:23 -0700
+X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="632329045"
+Received: from twinkler-lnx.jer.intel.com ([10.12.87.143])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2022 05:27:19 -0700
+From: Tomas Winkler <tomas.winkler@intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Sat,  6 Aug 2022 15:26:24 +0300
+Message-Id: <20220806122636.43068-4-tomas.winkler@intel.com>
+X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20220806122636.43068-1-tomas.winkler@intel.com>
+References: <20220806122636.43068-1-tomas.winkler@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jim Cromie" <jim.cromie@gmail.com>
-Date: Fri, 05 Aug 2022 22:16:01 -0000
-Message-ID: <165973776166.21184.318929812502731361@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220805215355.3509287-1-jim.cromie@gmail.com>
-In-Reply-To: <20220805215355.3509287-1-jim.cromie@gmail.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBE?=
- =?utf-8?q?YNDBG=3A_opt-in_class=27d_debug_for_modules=2C_use_in_drm=2E_?=
- =?utf-8?b?KHJldjMp?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v7 03/15] mei: add slow_firmware flag to the mei
+ auxiliary device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,57 +57,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+ Alexander Usyskin <alexander.usyskin@intel.com>, linux-kernel@vger.kernel.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tomas Winkler <tomas.winkler@intel.com>,
+ Vitaly Lubart <vitaly.lubart@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Add slow_firmware flag to the mei auxiliary device info
+to inform the mei driver about slow underlying firmware.
+Such firmware will require to use larger operation timeouts.
 
-Series: DYNDBG: opt-in class'd debug for modules, use in drm. (rev3)
-URL   : https://patchwork.freedesktop.org/series/106427/
-State : failure
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ include/linux/mei_aux.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-== Summary ==
-
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/106427/revisions/3/mbox/ not applied
-Applying: dyndbg: fix static_branch manipulation
-Applying: dyndbg: fix module.dyndbg handling
-Applying: dyndbg: show both old and new in change-info
-Applying: dyndbg: reverse module walk in cat control
-Applying: dyndbg: reverse module.callsite walk in cat control
-Applying: dyndbg: use ESCAPE_SPACE for cat control
-Applying: dyndbg: let query-modname override actual module name
-Applying: dyndbg: add test_dynamic_debug module
-Applying: dyndbg: drop EXPORTed dynamic_debug_exec_queries
-Applying: dyndbg: cleanup local vars in ddebug_init
-Applying: dyndbg: create and use struct _ddebug_info
-Applying: dyndbg: add class_id to pr_debug callsites
-Applying: dyndbg: add __pr_debug_cls for testing
-Applying: dyndbg: add DECLARE_DYNDBG_CLASSMAP macro
-Applying: kernel/module: add __dyndbg_classes section
-Applying: dyndbg: add ddebug_attach_module_classes
-Applying: dyndbg: validate class FOO by checking with module
-Applying: doc-dyndbg: describe "class CLASS_NAME" query support
-Applying: doc-dyndbg: edit dynamic-debug-howto for brevity, audience
-Applying: dyndbg: add drm.debug style (drm/parameters/debug) bitmap support
-Applying: dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes
-Applying: drm_print: condense enum drm_debug_category
-Applying: drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.
-Applying: drm_print: interpose drm_*dbg with forwarding macros
-Applying: drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/Kconfig
-M	drivers/gpu/drm/Makefile
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/Makefile
-Auto-merging drivers/gpu/drm/Kconfig
-CONFLICT (content): Merge conflict in drivers/gpu/drm/Kconfig
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0025 drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-
+diff --git a/include/linux/mei_aux.h b/include/linux/mei_aux.h
+index a0cb587006d5..4894d8bf4159 100644
+--- a/include/linux/mei_aux.h
++++ b/include/linux/mei_aux.h
+@@ -12,11 +12,14 @@
+  * @aux_dev: - auxiliary device object
+  * @irq: interrupt driving the mei auxiliary device
+  * @bar: mmio resource bar reserved to mei auxiliary device
++ * @slow_firmware: The device has slow underlying firmware.
++ *                 Such firmware will require to use larger operation timeouts.
+  */
+ struct mei_aux_device {
+ 	struct auxiliary_device aux_dev;
+ 	int irq;
+ 	struct resource bar;
++	bool slow_firmware;
+ };
+ 
+ #define auxiliary_dev_to_mei_aux_dev(auxiliary_dev) \
+-- 
+2.37.1
 
