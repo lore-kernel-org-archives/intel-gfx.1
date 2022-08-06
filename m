@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E9ABC19F2D
-	for <intel-gfx@archiver.kernel.org>; Sat,  6 Aug 2022 12:34:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D86F2C19F2D
+	for <intel-gfx@archiver.kernel.org>; Sat,  6 Aug 2022 12:34:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75AD6BF744;
-	Sat,  6 Aug 2022 12:32:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB4492BC43;
+	Sat,  6 Aug 2022 12:33:49 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ADE2C1843
- for <intel-gfx@lists.freedesktop.org>; Sat,  6 Aug 2022 12:27:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78C32C0E0E
+ for <intel-gfx@lists.freedesktop.org>; Sat,  6 Aug 2022 12:27:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659788879; x=1691324879;
+ t=1659788851; x=1691324851;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Y3u5jOC8IeJ7utNu1Njm1hJr+jiF8NSG7COHmwHCdaQ=;
- b=SVyQ6gFsMxP5Dnq/ppvfQ+PeLOLcsjf4gz2jEC4XMV2WQErPjiyHJimQ
- AotaCPUJNtBuRIbSrWkXcfbu9bEU2upnsLdVNEJhd+YVT317iwB4fV+pA
- Tb1wJ3DAHchHJP3uAdjc4QpszN3rLAhq4Uv7sMFJOKbuy9UzzwF6bm7qz
- iLfoTAzZDOr0GqlR/ArjqJ3c7qNkHxnzXF5137yhaQ/NjhQOIpnRj3cEj
- DmSKZvd1b0b4VisF7xkUblPRIDj66PE7oDjy+LOCGw9vm2cvrAE7fOOhT
- icTY4nXNiT4QmszKZz0EmeIvVAbFDb3o4QAgOvr1sLWOJqFKu2CxQibrt A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10430"; a="376658409"
-X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="376658409"
+ bh=QzoLg/ajnaxTypbIKVOGrs2MiP/MOwh4tnnJf9T6PEM=;
+ b=IONtCz+L8kBRYgNB3AEmOJELjX6sXLJOzLAQRWXOIVSkx6vW4ykdZH0p
+ BLq3p8fAlip519hTU1UFAC03LVaWBD49bLw7SoZxUuSvzPKlC2Wlcd2uc
+ WY616WHE8EQIMcN86qSmBABuy22gHYEkDEvOVnBkWT63kEvDrR7EwKP3g
+ snE1vT6s9QsoJs4dSUNFQ3A5IdRFGawP7t8jHVy7G/V//Smq3/O53zaTh
+ sgrtW2Yo6du0ZQqKjgBK0utQFC8qhOuPaNoz+ieayQE5a+ShswnkGR8NW
+ qbNG1iqaRexvvVbYUD6yGSla4r4Gv4Cw8QUUYxSvGQI48xLChflv/uzs4 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10430"; a="376658386"
+X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="376658386"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2022 05:27:58 -0700
-X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="632329145"
+ 06 Aug 2022 05:27:30 -0700
+X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="632329058"
 Received: from twinkler-lnx.jer.intel.com ([10.12.87.143])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2022 05:27:54 -0700
+ 06 Aug 2022 05:27:27 -0700
 From: Tomas Winkler <tomas.winkler@intel.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sat,  6 Aug 2022 15:26:34 +0300
-Message-Id: <20220806122636.43068-14-tomas.winkler@intel.com>
+Date: Sat,  6 Aug 2022 15:26:26 +0300
+Message-Id: <20220806122636.43068-6-tomas.winkler@intel.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220806122636.43068-1-tomas.winkler@intel.com>
 References: <20220806122636.43068-1-tomas.winkler@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 13/15] mei: debugfs: add pxp mode to devstate
- in debugfs
+Subject: [Intel-gfx] [PATCH v7 05/15] drm/i915/gsc: add GSC XeHP SDV
+ platform definition
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,54 +64,54 @@ Cc: intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add pxp mode devstate to debugfs to monitor pxp state machine progress.
-This is useful to debug issues in scenarios in which the pxp state
-needs to be re-initialized, like during power transitions such as
-suspend/resume. With this debugfs the state could be monitored
-to ensure that pxp is in the ready state.
+From: Alexander Usyskin <alexander.usyskin@intel.com>
 
-CC: Vitaly Lubart <vitaly.lubart@intel.com>
+Define GSC on XeHP SDV (Intel(R) dGPU without display)
+
+XeHP SDV uses the same hardware settings as DG1, but uses polling
+instead of interrupts and runs the firmware in slow pace due to
+hardware limitations.
+
+Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
 Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- drivers/misc/mei/debugfs.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_gsc.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/misc/mei/debugfs.c b/drivers/misc/mei/debugfs.c
-index 1ce61e9e24fc..4074fec866a6 100644
---- a/drivers/misc/mei/debugfs.c
-+++ b/drivers/misc/mei/debugfs.c
-@@ -86,6 +86,20 @@ static int mei_dbgfs_active_show(struct seq_file *m, void *unused)
- }
- DEFINE_SHOW_ATTRIBUTE(mei_dbgfs_active);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gsc.c b/drivers/gpu/drm/i915/gt/intel_gsc.c
+index 73498c2574c8..e1040c8f2fd3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gsc.c
++++ b/drivers/gpu/drm/i915/gt/intel_gsc.c
+@@ -56,6 +56,19 @@ static const struct gsc_def gsc_def_dg1[] = {
+ 	}
+ };
  
-+static const char *mei_dev_pxp_mode_str(enum mei_dev_pxp_mode state)
-+{
-+#define MEI_PXP_MODE(state) case MEI_DEV_PXP_##state: return #state
-+	switch (state) {
-+	MEI_PXP_MODE(DEFAULT);
-+	MEI_PXP_MODE(INIT);
-+	MEI_PXP_MODE(SETUP);
-+	MEI_PXP_MODE(READY);
-+	default:
-+		return "unknown";
++static const struct gsc_def gsc_def_xehpsdv[] = {
++	{
++		/* HECI1 not enabled on the device. */
++	},
++	{
++		.name = "mei-gscfi",
++		.bar = DG1_GSC_HECI2_BASE,
++		.bar_size = GSC_BAR_LENGTH,
++		.use_polling = true,
++		.slow_firmware = true,
 +	}
-+#undef MEI_PXP_MODE
-+}
++};
 +
- static int mei_dbgfs_devstate_show(struct seq_file *m, void *unused)
- {
- 	struct mei_device *dev = m->private;
-@@ -112,6 +126,9 @@ static int mei_dbgfs_devstate_show(struct seq_file *m, void *unused)
- 	seq_printf(m, "pg:  %s, %s\n",
- 		   mei_pg_is_enabled(dev) ? "ENABLED" : "DISABLED",
- 		   mei_pg_state_str(mei_pg_state(dev)));
-+
-+	seq_printf(m, "pxp: %s\n", mei_dev_pxp_mode_str(dev->pxp_mode));
-+
- 	return 0;
- }
- DEFINE_SHOW_ATTRIBUTE(mei_dbgfs_devstate);
+ static const struct gsc_def gsc_def_dg2[] = {
+ 	{
+ 		.name = "mei-gsc",
+@@ -107,6 +120,8 @@ static void gsc_init_one(struct drm_i915_private *i915,
+ 
+ 	if (IS_DG1(i915)) {
+ 		def = &gsc_def_dg1[intf_id];
++	} else if (IS_XEHPSDV(i915)) {
++		def = &gsc_def_xehpsdv[intf_id];
+ 	} else if (IS_DG2(i915)) {
+ 		def = &gsc_def_dg2[intf_id];
+ 	} else {
 -- 
 2.37.1
 
