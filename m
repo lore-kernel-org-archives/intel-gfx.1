@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 395A4C19F2D
-	for <intel-gfx@archiver.kernel.org>; Sat,  6 Aug 2022 12:33:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3BE0C19F2D
+	for <intel-gfx@archiver.kernel.org>; Sat,  6 Aug 2022 12:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 090A8BF9A8;
-	Sat,  6 Aug 2022 12:32:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9E24BE89A;
+	Sat,  6 Aug 2022 12:32:38 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC509C17F5
- for <intel-gfx@lists.freedesktop.org>; Sat,  6 Aug 2022 12:27:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 247E1C175C
+ for <intel-gfx@lists.freedesktop.org>; Sat,  6 Aug 2022 12:27:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1659788868; x=1691324868;
+ t=1659788847; x=1691324847;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=q60lqOYoK0CC5fpK0MwwQkf5wpLEltQV3Cdq2brHiBM=;
- b=KNtN5m//VUix1mI7a0kbXWbkw3GOzXljiqZZpr85e36O11AFRsmjkF6c
- L6d7DU6ZDjVhrRbPaDCdck7X2xEAj4iFupIkdfZy7YfWQLiIhkH/pblfd
- juLzpmL+GJ62a0mBEXb2nkEjQ7rZldP8jPnClDhXU0PMowrH9ttC5lpgI
- KrOxgeMyl5MEOKQG2u5lLEwuNF9T9ThzHWlatcS/FpZpS4u5dM6YOaLkt
- sJJkWziIw1jm4f53HAsJWn65cguseyOJb6Z+jg2j1w2E3xrNKaF3vT/1O
- 4ZljB4cKP1mr3Lbpb7yoi4L617oPEpZJ7fJhdBM+XrN/pdc6AUKAokBPp g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10430"; a="376658393"
-X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="376658393"
+ bh=nVBgBDLHbjGfV5g+FvesOoxRPL0tZHzGa2+17l2dWGU=;
+ b=iQe6IY/gqYHsYYjZh4dhG3gklU5rBP2fo6aY1+4LkU7LT4I4xciXZC9+
+ XK1WjSkkmCwmvbwhNXvwbs4CsMRnqlL2Avc8gMOQpiW0tLej+Xaxu/FAM
+ u9jcSTParzc5qNFhK6cb46ZYQFl6XD5bgujdpr+XKi2aLk6QDcADZqy9V
+ n9vCY4C/bFNh/ayXCYIlfJzd0ndIPUYZBahFm/htQtFw8MnUaJRKYqG0C
+ xd5NsJdVgCiuNMWmaLu1+zgTit8vbi3DGXKcvQ9BoS4IvWAZ99zteU6VZ
+ 2LMOtc61J3V8e7oYYeIaFPO1cKIatX9PoEmE3WQc3CEeNM6UJQnPrypw0 w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10430"; a="376658384"
+X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="376658384"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2022 05:27:47 -0700
-X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="632329116"
+ 06 Aug 2022 05:27:26 -0700
+X-IronPort-AV: E=Sophos;i="5.93,217,1654585200"; d="scan'208";a="632329052"
 Received: from twinkler-lnx.jer.intel.com ([10.12.87.143])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2022 05:27:44 -0700
+ 06 Aug 2022 05:27:23 -0700
 From: Tomas Winkler <tomas.winkler@intel.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sat,  6 Aug 2022 15:26:31 +0300
-Message-Id: <20220806122636.43068-11-tomas.winkler@intel.com>
+Date: Sat,  6 Aug 2022 15:26:25 +0300
+Message-Id: <20220806122636.43068-5-tomas.winkler@intel.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220806122636.43068-1-tomas.winkler@intel.com>
 References: <20220806122636.43068-1-tomas.winkler@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 10/15] mei: mkhi: add memory ready command
+Subject: [Intel-gfx] [PATCH v7 04/15] drm/i915/gsc: add slow_firmware flag
+ to the gsc device definition
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,53 +64,39 @@ Cc: intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add GSC memory ready command.
-The command indicates to the firmware that extend operation
-memory was setup and the firmware may enter PXP mode.
+From: Alexander Usyskin <alexander.usyskin@intel.com>
 
-CC: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Add slow_firmware flag to the gsc device definition
+and pass it to mei auxiliary device, this instructs
+the driver to use longer operation timeouts.
+
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/misc/mei/mkhi.h | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_gsc.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/misc/mei/mkhi.h b/drivers/misc/mei/mkhi.h
-index 27a9b476904e..056b76e73d40 100644
---- a/drivers/misc/mei/mkhi.h
-+++ b/drivers/misc/mei/mkhi.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0 */
- /*
-- * Copyright (c) 2003-2020, Intel Corporation. All rights reserved.
-+ * Copyright (c) 2003-2021, Intel Corporation. All rights reserved.
-  * Intel Management Engine Interface (Intel MEI) Linux driver
-  */
+diff --git a/drivers/gpu/drm/i915/gt/intel_gsc.c b/drivers/gpu/drm/i915/gt/intel_gsc.c
+index e0236ff1d072..73498c2574c8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gsc.c
++++ b/drivers/gpu/drm/i915/gt/intel_gsc.c
+@@ -41,6 +41,7 @@ struct gsc_def {
+ 	unsigned long bar;
+ 	size_t bar_size;
+ 	bool use_polling;
++	bool slow_firmware;
+ };
  
-@@ -18,6 +18,13 @@
+ /* gsc resources and definitions (HECI1 and HECI2) */
+@@ -145,6 +146,7 @@ static void gsc_init_one(struct drm_i915_private *i915,
+ 	adev->bar.end = adev->bar.start + def->bar_size - 1;
+ 	adev->bar.flags = IORESOURCE_MEM;
+ 	adev->bar.desc = IORES_DESC_NONE;
++	adev->slow_firmware = def->slow_firmware;
  
- #define MCHI_GROUP_ID  0xA
- 
-+#define MKHI_GROUP_ID_GFX              0x30
-+#define MKHI_GFX_RESET_WARN_CMD_REQ    0x0
-+#define MKHI_GFX_MEMORY_READY_CMD_REQ  0x1
-+
-+/* Allow transition to PXP mode without approval */
-+#define MKHI_GFX_MEM_READY_PXP_ALLOWED  0x1
-+
- struct mkhi_rule_id {
- 	__le16 rule_type;
- 	u8 feature_id;
-@@ -42,4 +49,9 @@ struct mkhi_msg {
- 	u8 data[];
- } __packed;
- 
-+struct mkhi_gfx_mem_ready {
-+	struct mkhi_msg_hdr hdr;
-+	u32    flags;
-+} __packed;
-+
- #endif /* _MEI_MKHI_H_ */
+ 	aux_dev = &adev->aux_dev;
+ 	aux_dev->name = def->name;
 -- 
 2.37.1
 
