@@ -4,67 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D737C00140
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Aug 2022 11:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 222AEC00140
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Aug 2022 11:39:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6904498F84;
-	Mon,  8 Aug 2022 11:30:20 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9A7A976A5;
- Mon,  8 Aug 2022 11:28:33 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id kb8so16032064ejc.4;
- Mon, 08 Aug 2022 04:28:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc; bh=n0CAi9pds/V29zU7AxtYcUqo8kNQ6o6h5I9nksSIB5Y=;
- b=HmkiaYhVXxCh5T3W/Qn+x6LgKPShRn8pVmCHUrPiSCVUMXMBfnED+x+EFXeTwWzRa4
- o3r7x9SmZ5EBRF5k6bT24SrDXnSMX+w/n01eLZuGBTmke5oOynXYUbHusFvF//Xw8Ovi
- LIWXA4tE95IbPz6ZR8WWhOtykJv0uBeNCoOFcbH0j+DBr4CwHCoMw7QA8tT0TjKGabGf
- eYsTT2BmAIzM6idnMJYNr93nhSc+yNe2fsKnHM12W4kExPp5I0nL2G7IQq7HcuzESwjy
- UMDRL/HPxJmKwSZVmiX1WlmVLGiX9yzzwSDI+xWdGTGBXQVBYlhJzKHw+ZUF9rJlQqAl
- kgOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=n0CAi9pds/V29zU7AxtYcUqo8kNQ6o6h5I9nksSIB5Y=;
- b=2TslTLzEEuoh6XKLSX/tE5Mrs54vvjtoGfo5ztSlDAju23RSJVMHz+Xd1E96rs6pOB
- 7e68OW0JpEUDfizgDSenVo7sMJa8W2KCeADjFkppRnkt5Ges50CFCF4tEkkSbd6N+oYM
- SWt6gw5XxGx/x2G/WGDFdtsqGufd9HviencmS1ZZp3Opnt+NA3b1LPj2theQq3kP0CCk
- VrL0w86d7j/Cmbne2n/7OWBm+yn7vHRwb5nJQM5h41qjowblNO6b6SBGw53TvAdg6KjX
- 3Z90ZxDAB2kjyGsgZ7ygGrOzYmVYjelp5tNufahC4EGLNOXLPOMZaNIZLw7yttudeELi
- jmoA==
-X-Gm-Message-State: ACgBeo21Bzmr8EZ81088wvZ+wdMuJxb08GiEtf2qJMU1f+WHABCW0fYp
- UD1+iXvE2JrS7AC68hnpZD4NMWUSi+0=
-X-Google-Smtp-Source: AA6agR5CCGvOrNmkJeoroYuKc9EmH2tKz1aTOPz9R2NZDdpsd21ivvCte1eExyenis8aYhJYZm5uxQ==
-X-Received: by 2002:a17:907:6d23:b0:731:147f:9e32 with SMTP id
- sa35-20020a1709076d2300b00731147f9e32mr8609326ejc.280.1659958112105; 
- Mon, 08 Aug 2022 04:28:32 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:2de9:6498:3b4e:7aeb?
- ([2a02:908:1256:79a0:2de9:6498:3b4e:7aeb])
- by smtp.gmail.com with ESMTPSA id
- bd9-20020a056402206900b0043bbf79b3ebsm4479485edb.54.2022.08.08.04.28.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Aug 2022 04:28:31 -0700 (PDT)
-Message-ID: <c6fdc73d-8877-b261-6e46-0094d4bb4527@gmail.com>
-Date: Mon, 8 Aug 2022 13:28:30 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8161F99347;
+	Mon,  8 Aug 2022 11:38:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 266FF9AB10;
+ Mon,  8 Aug 2022 11:36:49 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 1D25CAADD1;
+ Mon,  8 Aug 2022 11:36:49 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1899592768169393316=="
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
-References: <20220725114240.4844-1-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20220725114240.4844-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v2 1/6] drm/ttm: Add new callbacks to ttm
- res mgr
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Date: Mon, 08 Aug 2022 11:36:49 -0000
+Message-ID: <165995860908.13154.10287999815000902424@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220808103054.3586074-1-imre.deak@intel.com>
+In-Reply-To: <20220808103054.3586074-1-imre.deak@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/d13=3A_Fix_unclaimed_accesses_while_loading_PIPEDMC-C/D?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,167 +40,323 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, luben.tuikov@amd.com, christian.koenig@amd.com,
- matthew.auld@intel.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 25.07.22 um 13:42 schrieb Arunpravin Paneer Selvam:
-> We are adding two new callbacks to ttm resource manager
-> function to handle intersection and compatibility of
-> placement and resources.
->
-> v2: move the amdgpu and ttm_range_manager changes to
->      separate patches (Christian)
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   drivers/gpu/drm/ttm/ttm_resource.c | 59 ++++++++++++++++++++++++++++++
->   include/drm/ttm/ttm_resource.h     | 39 ++++++++++++++++++++
->   2 files changed, 98 insertions(+)
->
-> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-> index 20f9adcc3235..4cd31d24c3e7 100644
-> --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
-> @@ -253,6 +253,65 @@ void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res)
->   }
->   EXPORT_SYMBOL(ttm_resource_free);
->   
-> +/**
-> + * ttm_resource_intersect - test for intersection
-> + *
-> + * @bdev: TTM device structure
-> + * @res: The resource to test
-> + * @place: The placement to test
-> + * @size: How many bytes the new allocation needs.
-> + *
-> + * Test if @res intersects with @place and @size. Used for testing if evictions
-> + * are valueable or not.
-> + *
-> + * Returns true if the res placement intersects with @place and @size.
-> + */
-> +bool ttm_resource_intersect(struct ttm_device *bdev,
-> +			    struct ttm_resource *res,
-> +			    const struct ttm_place *place,
-> +			    size_t size)
-> +{
-> +	struct ttm_resource_manager *man;
-> +
-> +	if (!res)
-> +		return false;
-> +
-> +	man = ttm_manager_type(bdev, res->mem_type);
-> +	if (!place || !man->func->intersect)
-> +		return true;
-> +
-> +	return man->func->intersect(man, res, place, size);
-> +}
-> +
-> +/**
-> + * ttm_resource_compatible - test for compatibility
-> + *
-> + * @bdev: TTM device structure
-> + * @res: The resource to test
-> + * @place: The placement to test
-> + * @size: How many bytes the new allocation needs.
-> + *
-> + * Test if @res compatible with @place and @size.
-> + *
-> + * Returns true if the res placement compatible with @place and @size.
-> + */
-> +bool ttm_resource_compatible(struct ttm_device *bdev,
-> +			     struct ttm_resource *res,
-> +			     const struct ttm_place *place,
-> +			     size_t size)
-> +{
-> +	struct ttm_resource_manager *man;
-> +
-> +	if (!res)
-> +		return false;
-> +
-> +	man = ttm_manager_type(bdev, res->mem_type);
-> +	if (!place || !man->func->compatible)
+--===============1899592768169393316==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Well that !place is probably misplaced here.
+== Series Details ==
 
-When no placement is given then that's either illegal or the resource is 
-never compatible.
+Series: drm/i915/d13: Fix unclaimed accesses while loading PIPEDMC-C/D
+URL   : https://patchwork.freedesktop.org/series/107059/
+State : success
 
-Maybe move that check up to the !res if and return false.
+== Summary ==
 
-> +		return true;
-> +
-> +	return man->func->compatible(man, res, place, size);
-> +}
-> +
->   static bool ttm_resource_places_compat(struct ttm_resource *res,
->   				       const struct ttm_place *places,
->   				       unsigned num_placement)
-> diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-> index ca89a48c2460..68042e165c40 100644
-> --- a/include/drm/ttm/ttm_resource.h
-> +++ b/include/drm/ttm/ttm_resource.h
-> @@ -88,6 +88,37 @@ struct ttm_resource_manager_func {
->   	void (*free)(struct ttm_resource_manager *man,
->   		     struct ttm_resource *res);
->   
-> +	/**
-> +	 * struct ttm_resource_manager_func member intersect
-> +	 *
-> +	 * @man: Pointer to a memory type manager.
-> +	 * @res: Pointer to a struct ttm_resource to be checked.
-> +	 * @place: Placement to check against.
-> +	 * @size: Size of the check.
-> +	 *
-> +	 * Test if @res intersects with @place + @size. Used to judge if
-> +	 * evictions are valueable or not.
-> +	 */
-> +	bool (*intersect)(struct ttm_resource_manager *man,
-> +			  struct ttm_resource *res,
-> +			  const struct ttm_place *place,
-> +			  size_t size);
-> +
-> +	/**
-> +	 * struct ttm_resource_manager_func member compatible
-> +	 *
-> +	 * @man: Pointer to a memory type manager.
-> +	 * @res: Pointer to a struct ttm_resource to be checked.
-> +	 * @place: Placement to check against.
-> +	 * @size: Size of the check.
-> +	 *
-> +	 * Test if @res compatible with @place + @size.
+CI Bug Log - changes from CI_DRM_11972 -> Patchwork_107059v1
+====================================================
 
-"Used to check of the need to move the backing store or not."
+Summary
+-------
 
-Apart from that looks good to me.
+  **SUCCESS**
 
-Regards,
-Christian.
+  No regressions found.
 
-> +	 */
-> +	bool (*compatible)(struct ttm_resource_manager *man,
-> +			   struct ttm_resource *res,
-> +			   const struct ttm_place *place,
-> +			   size_t size);
-> +
->   	/**
->   	 * struct ttm_resource_manager_func member debug
->   	 *
-> @@ -329,6 +360,14 @@ int ttm_resource_alloc(struct ttm_buffer_object *bo,
->   		       const struct ttm_place *place,
->   		       struct ttm_resource **res);
->   void ttm_resource_free(struct ttm_buffer_object *bo, struct ttm_resource **res);
-> +bool ttm_resource_intersect(struct ttm_device *bdev,
-> +			    struct ttm_resource *res,
-> +			    const struct ttm_place *place,
-> +			    size_t size);
-> +bool ttm_resource_compatible(struct ttm_device *bdev,
-> +			     struct ttm_resource *res,
-> +			     const struct ttm_place *place,
-> +			     size_t size);
->   bool ttm_resource_compat(struct ttm_resource *res,
->   			 struct ttm_placement *placement);
->   void ttm_resource_set_bo(struct ttm_resource *res,
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/index.html
 
+Participating hosts (38 -> 40)
+------------------------------
+
+  Additional (3): fi-kbl-soraka bat-dg2-8 bat-jsl-3 
+  Missing    (1): bat-jsl-1 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_107059v1:
+
+### IGT changes ###
+
+#### Suppressed ####
+
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
+
+  * igt@i915_module_load@load:
+    - {bat-dg2-10}:       [PASS][1] -> [DMESG-WARN][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-dg2-10/igt@i915_module_load@load.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-dg2-10/igt@i915_module_load@load.html
+
+  * igt@i915_module_load@reload:
+    - {bat-rpls-2}:       [DMESG-WARN][3] ([i915#5950]) -> [INCOMPLETE][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-rpls-2/igt@i915_module_load@reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-rpls-2/igt@i915_module_load@reload.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_107059v1 that come from known issues:
+
+### CI changes ###
+
+#### Issues hit ####
+
+  * boot:
+    - fi-kbl-soraka:      NOTRUN -> [FAIL][5] ([i915#6517])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/fi-kbl-soraka/boot.html
+
+  
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-hsw-g3258:       [PASS][6] -> [INCOMPLETE][7] ([i915#3303] / [i915#4785])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/fi-hsw-g3258/igt@i915_selftest@live@hangcheck.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/fi-hsw-g3258/igt@i915_selftest@live@hangcheck.html
+
+  * igt@runner@aborted:
+    - fi-bdw-5557u:       NOTRUN -> [FAIL][8] ([i915#4312])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/fi-bdw-5557u/igt@runner@aborted.html
+    - fi-hsw-g3258:       NOTRUN -> [FAIL][9] ([fdo#109271] / [i915#4312] / [i915#6246])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/fi-hsw-g3258/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_suspend@basic-s0@smem:
+    - {bat-adlm-1}:       [DMESG-WARN][10] ([i915#2867]) -> [PASS][11]
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - bat-dg1-6:          [DMESG-FAIL][12] ([i915#4494] / [i915#4957]) -> [PASS][13]
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-dg1-6/igt@i915_selftest@live@hangcheck.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-dg1-6/igt@i915_selftest@live@hangcheck.html
+
+  * igt@i915_selftest@live@requests:
+    - {bat-rpls-1}:       [DMESG-FAIL][14] ([i915#5087] / [i915#6257]) -> [PASS][15]
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-rpls-1/igt@i915_selftest@live@requests.html
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-rpls-1/igt@i915_selftest@live@requests.html
+
+  * igt@i915_selftest@live@slpc:
+    - {bat-rpls-1}:       [DMESG-FAIL][16] ([i915#6367]) -> [PASS][17]
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-rpls-1/igt@i915_selftest@live@slpc.html
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-rpls-1/igt@i915_selftest@live@slpc.html
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - fi-bdw-5557u:       [INCOMPLETE][18] ([i915#146]) -> [PASS][19]
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/fi-bdw-5557u/igt@i915_suspend@basic-s3-without-i915.html
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/fi-bdw-5557u/igt@i915_suspend@basic-s3-without-i915.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109295]: https://bugs.freedesktop.org/show_bug.cgi?id=109295
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
+  [i915#1155]: https://gitlab.freedesktop.org/drm/intel/issues/1155
+  [i915#146]: https://gitlab.freedesktop.org/drm/intel/issues/146
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
+  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
+  [i915#3003]: https://gitlab.freedesktop.org/drm/intel/issues/3003
+  [i915#3291]: https://gitlab.freedesktop.org/drm/intel/issues/3291
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
+  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
+  [i915#3595]: https://gitlab.freedesktop.org/drm/intel/issues/3595
+  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
+  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
+  [i915#4079]: https://gitlab.freedesktop.org/drm/intel/issues/4079
+  [i915#4083]: https://gitlab.freedesktop.org/drm/intel/issues/4083
+  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
+  [i915#4212]: https://gitlab.freedesktop.org/drm/intel/issues/4212
+  [i915#4215]: https://gitlab.freedesktop.org/drm/intel/issues/4215
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#4494]: https://gitlab.freedesktop.org/drm/intel/issues/4494
+  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#4785]: https://gitlab.freedesktop.org/drm/intel/issues/4785
+  [i915#4873]: https://gitlab.freedesktop.org/drm/intel/issues/4873
+  [i915#4957]: https://gitlab.freedesktop.org/drm/intel/issues/4957
+  [i915#5087]: https://gitlab.freedesktop.org/drm/intel/issues/5087
+  [i915#5190]: https://gitlab.freedesktop.org/drm/intel/issues/5190
+  [i915#5270]: https://gitlab.freedesktop.org/drm/intel/issues/5270
+  [i915#5274]: https://gitlab.freedesktop.org/drm/intel/issues/5274
+  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
+  [i915#5950]: https://gitlab.freedesktop.org/drm/intel/issues/5950
+  [i915#6246]: https://gitlab.freedesktop.org/drm/intel/issues/6246
+  [i915#6257]: https://gitlab.freedesktop.org/drm/intel/issues/6257
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#6517]: https://gitlab.freedesktop.org/drm/intel/issues/6517
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_11972 -> Patchwork_107059v1
+
+  CI-20190529: 20190529
+  CI_DRM_11972: ae25b9088f6c94a6f9cd12f747c3dacd8a161502 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6615: a98a66399db9939b16e1cb3b47055f400834affb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_107059v1: ae25b9088f6c94a6f9cd12f747c3dacd8a161502 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+58db22c6829c drm/i915/d13: Fix unclaimed accesses while loading PIPEDMC-C/D
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/index.html
+
+--===============1899592768169393316==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/d13: Fix unclaimed accesses while loading PIPEDMC-C/D</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/107059/">https://patchwork.freedesktop.org/series/107059/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_11972 -&gt; Patchwork_107059v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/index.html</p>
+<h2>Participating hosts (38 -&gt; 40)</h2>
+<p>Additional (3): fi-kbl-soraka bat-dg2-8 bat-jsl-3 <br />
+  Missing    (1): bat-jsl-1 </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_107059v1:</p>
+<h3>IGT changes</h3>
+<h4>Suppressed</h4>
+<p>The following results come from untrusted machines, tests, or statuses.<br />
+  They do not affect the overall result.</p>
+<ul>
+<li>
+<p>igt@i915_module_load@load:</p>
+<ul>
+<li>{bat-dg2-10}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-dg2-10/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-dg2-10/igt@i915_module_load@load.html">DMESG-WARN</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-rpls-2/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5950">i915#5950</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-rpls-2/igt@i915_module_load@reload.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_107059v1 that come from known issues:</p>
+<h3>CI changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>boot:<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/fi-kbl-soraka/boot.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6517">i915#6517</a>)</li>
+</ul>
+</li>
+</ul>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>fi-hsw-g3258:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/fi-hsw-g3258/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/fi-hsw-g3258/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3303">i915#3303</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4785">i915#4785</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>
+<p>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/fi-bdw-5557u/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</p>
+</li>
+<li>
+<p>fi-hsw-g3258:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/fi-hsw-g3258/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/6246">i915#6246</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s0@smem:</p>
+<ul>
+<li>{bat-adlm-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>bat-dg1-6:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-dg1-6/igt@i915_selftest@live@hangcheck.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4494">i915#4494</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4957">i915#4957</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-dg1-6/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>{bat-rpls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-rpls-1/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5087">i915#5087</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/6257">i915#6257</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-rpls-1/igt@i915_selftest@live@requests.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@slpc:</p>
+<ul>
+<li>{bat-rpls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/bat-rpls-1/igt@i915_selftest@live@slpc.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/bat-rpls-1/igt@i915_selftest@live@slpc.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s3-without-i915:</p>
+<ul>
+<li>fi-bdw-5557u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11972/fi-bdw-5557u/igt@i915_suspend@basic-s3-without-i915.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/146">i915#146</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107059v1/fi-bdw-5557u/igt@i915_suspend@basic-s3-without-i915.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_11972 -&gt; Patchwork_107059v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_11972: ae25b9088f6c94a6f9cd12f747c3dacd8a161502 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6615: a98a66399db9939b16e1cb3b47055f400834affb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_107059v1: ae25b9088f6c94a6f9cd12f747c3dacd8a161502 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>58db22c6829c drm/i915/d13: Fix unclaimed accesses while loading PIPEDMC-C/D</p>
+
+</body>
+</html>
+
+--===============1899592768169393316==--
