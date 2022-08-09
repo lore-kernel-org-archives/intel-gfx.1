@@ -4,92 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2680C19F2D
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Aug 2022 09:25:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1BEBC19F2D
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Aug 2022 09:52:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF92690DA7;
-	Tue,  9 Aug 2022 09:24:02 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0435C11226D;
- Tue,  9 Aug 2022 09:23:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6B7A8BFA4;
+	Tue,  9 Aug 2022 09:52:11 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48EEFCD9A8;
+ Tue,  9 Aug 2022 09:51:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1660038714; x=1691574714;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=kt6cq13tn3IzGFwp71JWjb3cIJw/uUPieHkxbYEFa5Y=;
+ b=KXxYpOJp78d9ITkpCurJ3PLjiKBVqlwNcM6ozVEOMLOMEI0otzlmeJLn
+ xKniYuEzY534/9WJ24x7aA9Qsbyo+WVyJXNM+kWSLZ+XFnUzgfDAlOWYU
+ kH6NuDy9/o0IjUOmaTwADyOVn7pOz72iJfWG/z9XTOKSxQDPN3y1U3Kb5
+ ZI66/D4EwT38N8iMxZwi9kYChNapOeC9lakcU0qpemK5vTcvsePaUIHOP
+ s6H41UemlKi4tg58Br1YLpYPfaYVpX4zxSHvb5xeiQCtJmMsRraw9Y3AL
+ wC8O1NABljTB9rmkh3y9RL4QuqSGooc7A+8FwciiC5VL7YUlgpYABL0ci g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10433"; a="277733234"
+X-IronPort-AV: E=Sophos;i="5.93,224,1654585200"; d="scan'208";a="277733234"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Aug 2022 02:51:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,224,1654585200"; d="scan'208";a="672829572"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmsmga004.fm.intel.com with ESMTP; 09 Aug 2022 02:51:53 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Tue, 9 Aug 2022 02:51:52 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28; Tue, 9 Aug 2022 02:51:52 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.28 via Frontend Transport; Tue, 9 Aug 2022 02:51:52 -0700
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.46) by
+ edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.28; Tue, 9 Aug 2022 02:51:51 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W5lKkbaJHUdb7gjAH8d3CWuaJmKq5+3Z5EdqHwjFt6pidsKMbtIEX21Lpc1FGCfw+3faJP66ewYNz6E5iUNXZbaf3pAKbsfwSPkVN0k6h+9vEKJeSRfrF7YkmiH0v6dURL17NL+mfuMYMbsm/l6yWhcs3oM3lTZSpU0q5EF+n1nOGeuWJfjUIeh5KTzpTTr6IaPi9gfdbMyKoYZ4+sPqff8Vk7X6VRda0qBP3YKJrdd9WMlHx2XWJBUHjIsCAdgMFBueWfzVCmZCTZ6EFqMek2CMrqEM+gPs2QeYBOkwVnrBjbPH75ouRpM/4XzixcbPQ0Yit70fG9wjdt3IJBtdzQ==
+ b=AfiU9I9VA+R1IwB7s9fDfrKRVBxAlaR/qCkUCt+pCqBE8JPgDrmYD7uMDBuonRRuikxl/0nMPUzisbjc3vTS+NgyvoRK0PUI5v5u3e5xYtZj4k4QWsp2gulBqb6Y4nyGqgkyZWQYOIZCw/ycOd9r0Kd+yxd1jMzwc+BQVFxTJIGjx1lInW42LdpWOwMw+SvkKI5+6n91Xu81a5zsT3pwHa2dwOvSTm8PhlZSh4IlV1u2BP02UFXcobokbClHwY63LPs1uh5pNfiWMioPzNNb1xD//yk1yOJc/GJYWR9fA64v2/Z5J3M+Yp1k3aZoN/4vpO/1baVb8icPH6Ejt2RBbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mH1z88cU1KioknbxoZoSI6DcQOJrItFETDvKaYpgLGs=;
- b=W0+RDNU6pytQGdYikTXpWG49Nz5aR38MbSXdqJqyVzHMmUVozTS4kVilNWnykSmF5i/a5ONMuS2Lhk1CKtcO1Hy6Pi4JtChKG6fNjVIIlq80hwMjE5UcikXkjeoikXuPIlQHujHTkv2ZS5/UMTP9C/JL7YfKFRtNMS1B8OImtuJwp43NyYmznmw2cUxhtuCppVj4hWWEpYnvyTVaP8t/P6tL7EUiJs/sx+8sE9bu9xcPAE7zy96tG7EPFWV5ig01dNRtI15xe3Vt4Y3j1hEIqFxPtEKvCVNjmF4ThlusOrsoq2seR65de8qJBNVzgxG/x3vJQ7VGc4DPAtzufpx+LQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mH1z88cU1KioknbxoZoSI6DcQOJrItFETDvKaYpgLGs=;
- b=SqsT47VOqQkOz6cSrNhAF7LYP7Eo2VXlR4zsn+KTKPOSFSNI4Ej8QN3KRZWjTqwMpjYkRLZl6P6xohZDNhbZ0K1z0Bp7h/Kv6476eMrtCApivgjreIpzECvw/wQmv4nwG2HZ7kBk0HCX7GJ9YiVjgtlsZNjyUcu3IDyy+Q5g3oA=
-Received: from MW4PR04CA0360.namprd04.prod.outlook.com (2603:10b6:303:8a::35)
- by CH0PR12MB5187.namprd12.prod.outlook.com (2603:10b6:610:ba::5) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=YZuw1VauFFINJw5GAGRhEAL6OV+G/oy1MT3Bh+V3xpY=;
+ b=oM/ojxcH2q1gX5b09VLRe6b6a3/WBQHxYsTykXFlf7tzStOggEzcFf309hf+ePckQoUq9p05NIVZPkq5BTtsmCHMvhKDI2yQfkcfJSJwJxRXvQqLsdQei1P3Ky+GnbCmySP8P97YWp933fMn06XfUHCbjyULQWdlq6BJH84S+31sViLqGdTZOTllU3fmruZ57JHbjHs/2ExhQWT2xVI2av1E8S2w6Q2Yhqxm3rV+unpA2KOdAXhGjH+eByTwmSEF0OCvy6/3U2FeI9TQYqTU0yjg3o+dok0LMoHFM1pO2RbABhwRlmPdZcpyNRXJt5+y/ame2ZMOuFQl9HWFv4NPJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MN0PR11MB6059.namprd11.prod.outlook.com (2603:10b6:208:377::9)
+ by SJ0PR11MB4958.namprd11.prod.outlook.com (2603:10b6:a03:2ae::24)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Tue, 9 Aug
- 2022 09:23:34 +0000
-Received: from CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::b2) by MW4PR04CA0360.outlook.office365.com
- (2603:10b6:303:8a::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.18 via Frontend
- Transport; Tue, 9 Aug 2022 09:23:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT042.mail.protection.outlook.com (10.13.174.250) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5504.14 via Frontend Transport; Tue, 9 Aug 2022 09:23:34 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Tue, 9 Aug 2022 04:23:27 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>
-Date: Tue, 9 Aug 2022 02:22:28 -0700
-Message-ID: <20220809092230.2808-4-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220809092230.2808-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20220809092230.2808-1-Arunpravin.PaneerSelvam@amd.com>
+ 2022 09:51:44 +0000
+Received: from MN0PR11MB6059.namprd11.prod.outlook.com
+ ([fe80::a968:40aa:6163:5c79]) by MN0PR11MB6059.namprd11.prod.outlook.com
+ ([fe80::a968:40aa:6163:5c79%6]) with mapi id 15.20.5504.014; Tue, 9 Aug 2022
+ 09:51:44 +0000
+Date: Tue, 9 Aug 2022 05:51:39 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Message-ID: <YvIuKw8KY6xMi0Fj@intel.com>
+References: <cover.1657699522.git.mchehab@kernel.org>
+ <0fac471eb7f6d365e9a7544071114292e08aa5ad.1657699522.git.mchehab@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <0fac471eb7f6d365e9a7544071114292e08aa5ad.1657699522.git.mchehab@kernel.org>
+X-ClientProxiedBy: BYAPR04CA0002.namprd04.prod.outlook.com
+ (2603:10b6:a03:40::15) To MN0PR11MB6059.namprd11.prod.outlook.com
+ (2603:10b6:208:377::9)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eae84a76-60a6-46db-7ac6-08da79e8d52c
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5187:EE_
+X-MS-Office365-Filtering-Correlation-Id: 927c4fc6-c943-40c3-72a4-08da79ecc43b
+X-MS-TrafficTypeDiagnostic: SJ0PR11MB4958:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3XBXK9zg+cYWufpeZKQjlZz8DYRhHFghXvcQ51JU89mm4vR9pIlN/FLDgqP6pPvKgfMWhU14jU9b8KY2uYml4myDc9tEvG8MZmIarMvlwQ3xdDTX1B+akzhm9/U9cN/qpJUQa/a7NYDhIDRsNxueyraxnwZXmE2C6Mx7iULDqGiJGxJoF/HQgdzEOrcX05LznrEHZAZCaBwRuRdyuePUmClLuDoVoWstuhXYvts7zU7kBBf4kN2F3oR1hlVhvrBW4pZH8Xp8hZ7N8Lh9pcZW8rCX+j5TSjL2b3BOUZQ49P1H3OjKP7xGfwYpd1rDIQ3MXyg8kHJq4pPb28G9XAKtjpeCnsb1i8quOEzs+9JyV/FDRyqEtQPqyKArrrIyLmZ+P9N7hhs2y6s3uOeO/Zl8zWK0i7/mq7jYGL4n8bi89ZP8M2L4/1vJM9RJ5AwdGae/agRtUia12fCrTnhxJ4smUdnhq7s68WbtWuGJvDaSMHk8LgNQ2k5ncHhk/BnSwwoU3pv0Ivl2VZgXGrXKIGXYpclJGxhO9Nx6CfhNKeicb4FZ+qdn4JqejXtMPesyE/t6Y3QnG9rJdmeJjbjJNYPYjOf8kpnFYQY8qV0FJW0O0np/uIsqS67mQTm36iPSWDiFUZIReWSTCuCGnleBTIveOrf0a8nkXv85mqozAU+P0IyHUMDAOG4Tg57rukx8MWIMTP1gyjOz6fkLqFYYzr51fjrPdv3rexEyE4foNpOe+RCrAChKs83H5qEqF+l6ba4lvTxjWfGhlzRnbOuoWZ7MHHzAEGHZzqkEUltmj/jl8rnIkmLAQ/KnCtU9bK65JIZsIoOUcVVDbGzBd5a1XqC41g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(136003)(376002)(346002)(39860400002)(396003)(40470700004)(46966006)(36840700001)(83380400001)(41300700001)(7696005)(70586007)(8676002)(4326008)(70206006)(40480700001)(316002)(1076003)(186003)(16526019)(336012)(426003)(110136005)(26005)(82740400003)(54906003)(47076005)(82310400005)(86362001)(36756003)(2906002)(2616005)(40460700003)(8936002)(81166007)(478600001)(356005)(36860700001)(5660300002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2022 09:23:34.0307 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eae84a76-60a6-46db-7ac6-08da79e8d52c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5187
-Subject: [Intel-gfx] [PATCH v5 4/6] drm/i915: Implement intersect/compatible
- functions
+X-Microsoft-Antispam-Message-Info: F4P3cuLI1EHZp76K5d9gTqiIGHgp75ez2GfpuSyAv9r9hNRaU8YMgTnbjt7djTyXDP+7PrM68qyCbOSM6jIXSYBS9F/ed3ljQbkeI7H3wfO+by1RqRLLLEq6hvBJQ8X0CubSlXdGWgT8obBk3KWadIdbV8M+E8Kl9ogEu+jfVguTWQbho8iKXPDVHNP6ny0Pa60PiKbWLacAWDLL9z3DEclMU6FZlFyKqS3gTVc3xsQjgnXSsn9M+F+QEGbgA4UQqTjybZC1WV8w+6nLfavfoW5SMbU/W+dd3QXYcbss6Z18q4Gf0ticSkvMBaeBE/M+d9kkuo6HthKHgRSJFDxTrpoVU1mG9TA2iv7/8/B8Z1uLWbPCoXrUoeXuCsGFUE26P5CHwai6hDvmQFlXfAJV+M6m/4XcZvtopDrBTMudWQLyByijUr5p4h8w6Ywg1Zxm6y1T21If75vFjkNEn4/uHY88XHLl30PXpmOSSmEsCoSKDrxSY8b41Ga/YZpjk1mTKlW0uemQt2H/mHN/7SNTrl+owoAIIHVjVzMNb+XeS3R7EcOXAZPRDLCebrqpAdmtrFUI+Xqphs2vLXkeF/+BVLxjbbOpZrpG02Cs/Nv4BWW11dlyYGv9F9sjtCnKEPYSig/bn/DksZ0NhlbLYBh9IOAsKPLxuffDX4SwrBhxFo/mAGAPM0JJfmHnXZf8+LilqGtOKmoqsWT5/SChV9iDXbIsW1qHgi4oWQz8FxV4NNbLu1k7KMMVIdS7EMMEp2foTmjZhdVoGVmJULMFy9BH7Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR11MB6059.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(39860400002)(396003)(136003)(376002)(366004)(346002)(36756003)(26005)(6512007)(6506007)(41300700001)(38100700002)(6666004)(966005)(6486002)(478600001)(83380400001)(86362001)(186003)(2616005)(82960400001)(8936002)(8676002)(2906002)(4326008)(66476007)(44832011)(66946007)(316002)(5660300002)(66556008)(6916009);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6g3y7KgYCU5+ibuFneTgwJHlHf8wJsTEO94kaxQqWr9uMR7cN/uMq/0c5Xkr?=
+ =?us-ascii?Q?Df0eEvo3DglG98pgMr/5R+RlzWFGAEs9rURBzqr0zBxNG3Yhk7I1sU8eukrV?=
+ =?us-ascii?Q?ad/VVzWh2bZKZSMDNH58aJVohK9kaOvQRxCFDqVJe/CtxkzETZ2C1rWniz51?=
+ =?us-ascii?Q?/BOwriwsv5fPePfZHYxFgI8Msz6SEqXGvo4liB8bsnwQw3jUzWtmIauRIw+t?=
+ =?us-ascii?Q?RccuiXYbMKyG3WnJC8xK607kn7tIfj96HWShicM1v2vNCZuef81S7ijDT7Aj?=
+ =?us-ascii?Q?mO/CeUoQwYSZQRmG/J+sZpHqNgMGGLsM1fAhpLirnqeafmr33dqB2e3Z0yTf?=
+ =?us-ascii?Q?tBIfx3KsBneCv4v6dbwBgiW2RMniW8lE8FgXaaXSmCMboXZbqNUJwWblw+aj?=
+ =?us-ascii?Q?xHIILKxojSr257tmgMRW1yRTYGG7LblixJFPAzhv4+pz+3Rlj6NdAAqtPRy/?=
+ =?us-ascii?Q?XZfN1AH3d1j1W22M/E9fJ3PGDNSjEFArsiC9vccwDAFNnONqMA7DOybLFvHb?=
+ =?us-ascii?Q?xjnU3I4Dl3Gzwt0oxUL3NFlsjYYE+iuJgexWp0VtvCtHyTORR+jzBLt0pUz4?=
+ =?us-ascii?Q?0lAhb49i4HbtICK/AzbdvLyvW4H00YurMW62Uosu9rW6EKd9N6iC6wWxElz0?=
+ =?us-ascii?Q?XPm7M/B9mNpnbRLuk3Bz/IpLc+4EWv4eYBycC6Qu6l6kzUIuLMlndb9TZK9F?=
+ =?us-ascii?Q?ySPJkgChi0p2gam26SJmreTNicHWmnHjPGvtPgZb1o/OVwkrcREepJYn4VMB?=
+ =?us-ascii?Q?54Pr7Ls86xcna0rw7C4tJ1nXII8Urzli0CW70QGVzovlJ2gFmClh9nlzDZOU?=
+ =?us-ascii?Q?Jnr9actryTDplV3sSIKoFpALR1R6Vk1oM7VH3YNTSWtuAjDrMLxC1CJkJJMd?=
+ =?us-ascii?Q?fMxRyXfjazCjJdX+Id510R4jal5sXKUX3ruH3UatMqZHwabPlVXkZ0sPQc/u?=
+ =?us-ascii?Q?GIPF8Vs4q9AdiumFCYS5VyKvllQLN33Uu1RtP9Zsuy2DXk0PhVQdRBp1wUaM?=
+ =?us-ascii?Q?D9F4Glp0mgXxLzAypTAgoyWEXKDdh70BaoxD9JT7e8Zo8YwMv/X/AEsMJFuJ?=
+ =?us-ascii?Q?j7Ya6gTOImKVCxfA6m9T1RGwkl9IEw5UPXvZ4S9eq5QN4oPOstB39WvPNOtZ?=
+ =?us-ascii?Q?dl4fw2RGYvsMCb4hcBi8XPxhZBa/pKDq2DF0qxf91/5kYRwEF7f8dfOHeTI6?=
+ =?us-ascii?Q?QmXHV8ACtaP1yWlQzpBMXJkGjElIBXi1HiuqUaHoZQSV1ik/cxIqq1qluwpz?=
+ =?us-ascii?Q?whRHyYjis9MGIBMYkctjMtMNABAmGUAzdLJnAoRsYn/IgnnIG6meWo43HCRp?=
+ =?us-ascii?Q?wyrb8xXfGRPCJJSMN1jsSdU42ocPf239HFLyugEodtrArhK32JXuNh0L3JXz?=
+ =?us-ascii?Q?JIngGkCp6qATzndlWxcWac3wURuUyhacu7ZXAPWZYc61+FsoP6X2xPVr7rKr?=
+ =?us-ascii?Q?8II3gJUWV5l597QtEYkqs1p8RUIUKvGwkzTw5G5CYrzlNEI70XmAkxozIvHo?=
+ =?us-ascii?Q?bP5Dw80GtioWHAfJmlneANum1cMwxlC9/QKeomXQidYgwqu/Q8IfE6LTwTrZ?=
+ =?us-ascii?Q?N1GZdUEZgoHo8OMvGlog0Zb95gx+bsDjMdP2Aie+NfWpIqyYwxCMB0PYgiSy?=
+ =?us-ascii?Q?bw=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 927c4fc6-c943-40c3-72a4-08da79ecc43b
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6059.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2022 09:51:44.3286 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Lxk7t9k5L5TKtX4gxNyHvBNpwdjkNF/6Xqee/9TXXcCrO9g6NLaZ4ODOoLszLcNiEJY7Ui6S9Lv/5liloqekBg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4958
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH v2 15/39] drm/i915:
+ intel_dp_link_training.c: fix kernel-doc markup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,176 +147,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- luben.tuikov@amd.com, christian.koenig@amd.com, matthew.auld@intel.com
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implemented a new intersect and compatible callback function
-fetching start offset from drm buddy allocator.
+On Wed, Jul 13, 2022 at 09:12:03AM +0100, Mauro Carvalho Chehab wrote:
+> The return code table is not properly marked, causing warnings
+> and being badly parsed by Sphinx:
+> 
+>     Documentation/gpu/i915:130: ./drivers/gpu/drm/i915/display/intel_dp_link_training.c:183: WARNING: Block quote ends without a blank line; unexpected unindent.
+>     Documentation/gpu/i915:130: ./drivers/gpu/drm/i915/display/intel_dp_link_training.c:186: WARNING: Definition list ends without a blank line; unexpected unindent.
+> 
+> Use table markups to fix it.
 
-v3: move the bits that are specific to buddy_man (Matthew)
-v4: consider the block size /range (Matthew)
+cool, I didn't know that
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 41 +----------
- drivers/gpu/drm/i915/i915_ttm_buddy_manager.c | 73 +++++++++++++++++++
- 2 files changed, 74 insertions(+), 40 deletions(-)
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 70e2ed4e99df..bf5fd6886ca0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -379,7 +379,6 @@ static bool i915_ttm_eviction_valuable(struct ttm_buffer_object *bo,
- 				       const struct ttm_place *place)
- {
- 	struct drm_i915_gem_object *obj = i915_ttm_to_gem(bo);
--	struct ttm_resource *res = bo->resource;
- 
- 	if (!obj)
- 		return false;
-@@ -396,45 +395,7 @@ static bool i915_ttm_eviction_valuable(struct ttm_buffer_object *bo,
- 	if (!i915_gem_object_evictable(obj))
- 		return false;
- 
--	switch (res->mem_type) {
--	case I915_PL_LMEM0: {
--		struct ttm_resource_manager *man =
--			ttm_manager_type(bo->bdev, res->mem_type);
--		struct i915_ttm_buddy_resource *bman_res =
--			to_ttm_buddy_resource(res);
--		struct drm_buddy *mm = bman_res->mm;
--		struct drm_buddy_block *block;
--
--		if (!place->fpfn && !place->lpfn)
--			return true;
--
--		GEM_BUG_ON(!place->lpfn);
--
--		/*
--		 * If we just want something mappable then we can quickly check
--		 * if the current victim resource is using any of the CPU
--		 * visible portion.
--		 */
--		if (!place->fpfn &&
--		    place->lpfn == i915_ttm_buddy_man_visible_size(man))
--			return bman_res->used_visible_size > 0;
--
--		/* Real range allocation */
--		list_for_each_entry(block, &bman_res->blocks, link) {
--			unsigned long fpfn =
--				drm_buddy_block_offset(block) >> PAGE_SHIFT;
--			unsigned long lpfn = fpfn +
--				(drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
--
--			if (place->fpfn < lpfn && place->lpfn > fpfn)
--				return true;
--		}
--		return false;
--	} default:
--		break;
--	}
--
--	return true;
-+	return ttm_bo_eviction_valuable(bo, place);
- }
- 
- static void i915_ttm_evict_flags(struct ttm_buffer_object *bo,
-diff --git a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-index a5109548abc0..56d017e4038b 100644
---- a/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-+++ b/drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-@@ -178,6 +178,77 @@ static void i915_ttm_buddy_man_free(struct ttm_resource_manager *man,
- 	kfree(bman_res);
- }
- 
-+static bool i915_ttm_buddy_man_intersects(struct ttm_resource_manager *man,
-+					  struct ttm_resource *res,
-+					  const struct ttm_place *place,
-+					  size_t size)
-+{
-+	struct i915_ttm_buddy_resource *bman_res = to_ttm_buddy_resource(res);
-+	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
-+	struct drm_buddy *mm = &bman->mm;
-+	struct drm_buddy_block *block;
-+
-+	if (!place->fpfn && !place->lpfn)
-+		return true;
-+
-+	GEM_BUG_ON(!place->lpfn);
-+
-+	/*
-+	 * If we just want something mappable then we can quickly check
-+	 * if the current victim resource is using any of the CPU
-+	 * visible portion.
-+	 */
-+	if (!place->fpfn &&
-+	    place->lpfn == i915_ttm_buddy_man_visible_size(man))
-+		return bman_res->used_visible_size > 0;
-+
-+	/* Check each drm buddy block individually */
-+	list_for_each_entry(block, &bman_res->blocks, link) {
-+		unsigned long fpfn =
-+			drm_buddy_block_offset(block) >> PAGE_SHIFT;
-+		unsigned long lpfn = fpfn +
-+			(drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
-+
-+		if (place->fpfn < lpfn && place->lpfn > fpfn)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
-+static bool i915_ttm_buddy_man_compatible(struct ttm_resource_manager *man,
-+					  struct ttm_resource *res,
-+					  const struct ttm_place *place,
-+					  size_t size)
-+{
-+	struct i915_ttm_buddy_resource *bman_res = to_ttm_buddy_resource(res);
-+	struct i915_ttm_buddy_manager *bman = to_buddy_manager(man);
-+	struct drm_buddy *mm = &bman->mm;
-+	struct drm_buddy_block *block;
-+
-+	if (!place->fpfn && !place->lpfn)
-+		return true;
-+
-+	GEM_BUG_ON(!place->lpfn);
-+
-+	if (!place->fpfn &&
-+	    place->lpfn == i915_ttm_buddy_man_visible_size(man))
-+		return bman_res->used_visible_size == res->num_pages;
-+
-+	/* Check each drm buddy block individually */
-+	list_for_each_entry(block, &bman_res->blocks, link) {
-+		unsigned long fpfn =
-+			drm_buddy_block_offset(block) >> PAGE_SHIFT;
-+		unsigned long lpfn = fpfn +
-+			(drm_buddy_block_size(mm, block) >> PAGE_SHIFT);
-+
-+		if (fpfn < place->fpfn || lpfn > place->lpfn)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
- static void i915_ttm_buddy_man_debug(struct ttm_resource_manager *man,
- 				     struct drm_printer *printer)
- {
-@@ -205,6 +276,8 @@ static void i915_ttm_buddy_man_debug(struct ttm_resource_manager *man,
- static const struct ttm_resource_manager_func i915_ttm_buddy_manager_func = {
- 	.alloc = i915_ttm_buddy_man_alloc,
- 	.free = i915_ttm_buddy_man_free,
-+	.intersects = i915_ttm_buddy_man_intersects,
-+	.compatible = i915_ttm_buddy_man_compatible,
- 	.debug = i915_ttm_buddy_man_debug,
- };
- 
--- 
-2.25.1
 
+> 
+> Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+> ---
+> 
+> To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
+> See [PATCH v2 00/39] at: https://lore.kernel.org/all/cover.1657699522.git.mchehab@kernel.org/
+> 
+>  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> index 9feaf1a589f3..23a269fcf6ca 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> @@ -177,12 +177,14 @@ static int intel_dp_init_lttpr(struct intel_dp *intel_dp, const u8 dpcd[DP_RECEI
+>   * transparent mode link training mode.
+>   *
+>   * Returns:
+> + * ====  =====================================================================
+>   *   >0  if LTTPRs were detected and the non-transparent LT mode was set. The
+>   *       DPRX capabilities are read out.
+>   *    0  if no LTTPRs or more than 8 LTTPRs were detected or in case of a
+>   *       detection failure and the transparent LT mode was set. The DPRX
+>   *       capabilities are read out.
+>   *   <0  Reading out the DPRX capabilities failed.
+> + * ====  =====================================================================
+>   */
+>  int intel_dp_init_lttpr_and_dprx_caps(struct intel_dp *intel_dp)
+>  {
+> -- 
+> 2.36.1
+> 
