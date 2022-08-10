@@ -4,30 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 001BFC19F2D
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Aug 2022 23:51:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A989C19F2D
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 00:25:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC1ACB87E7;
-	Tue,  9 Aug 2022 23:51:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3021DEDD9;
+	Wed, 10 Aug 2022 00:25:39 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7C0E9DE0E1;
- Tue,  9 Aug 2022 23:51:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 75A4ADEDB0;
+ Wed, 10 Aug 2022 00:25:30 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 6C49BA7E03;
- Tue,  9 Aug 2022 23:51:29 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5FB8FA0096;
+ Wed, 10 Aug 2022 00:25:30 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============6001699144402057757=="
+ boundary="===============6421111557068267756=="
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Juston Li" <justonli@google.com>
-Date: Tue, 09 Aug 2022 23:51:29 -0000
-Message-ID: <166008908941.12845.4631289189926478246@emeril.freedesktop.org>
+To: "Lyude Paul" <lyude@redhat.com>
+Date: Wed, 10 Aug 2022 00:25:30 -0000
+Message-ID: <166009113035.12353.15527477600249670625@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20220809225700.2002634-1-justonli@google.com>
-In-Reply-To: <20220809225700.2002634-1-justonli@google.com>
+References: <20220808235203.123892-1-lyude@redhat.com>
+In-Reply-To: <20220808235203.123892-1-lyude@redhat.com>
 Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/pxp=3A_don=27t_start_pxp_without_mei=5Fpxp_bind?=
+ =?utf-8?q?/display/dp=5Fmst=3A_Drop_Radeon_MST_support=2C_make_MST_atomic?=
+ =?utf-8?q?-only_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,20 +46,20 @@ Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6001699144402057757==
+--===============6421111557068267756==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: drm/i915/pxp: don't start pxp without mei_pxp bind
-URL   : https://patchwork.freedesktop.org/series/107099/
+Series: drm/display/dp_mst: Drop Radeon MST support, make MST atomic-only (rev2)
+URL   : https://patchwork.freedesktop.org/series/107073/
 State : success
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_11977 -> Patchwork_107099v1
+CI Bug Log - changes from CI_DRM_11977 -> Patchwork_107073v2
 ====================================================
 
 Summary
@@ -68,76 +69,121 @@ Summary
 
   No regressions found.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/index.html
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/index.html
 
-Participating hosts (42 -> 39)
+Participating hosts (42 -> 37)
 ------------------------------
 
-  Missing    (3): fi-ctg-p8600 fi-bdw-samus fi-hsw-4200u 
+  Missing    (5): fi-hsw-4200u bat-dg2-9 fi-ctg-p8600 bat-jsl-3 fi-bdw-samus 
 
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_107073v2:
+
+### IGT changes ###
+
+#### Suppressed ####
+
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
+
+  * igt@debugfs_test@read_all_entries:
+    - {bat-rpls-2}:       [PASS][1] -> [DMESG-WARN][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/bat-rpls-2/igt@debugfs_test@read_all_entries.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/bat-rpls-2/igt@debugfs_test@read_all_entries.html
+
+  
 Known issues
 ------------
 
-  Here are the changes found in Patchwork_107099v1 that come from known issues:
+  Here are the changes found in Patchwork_107073v2 that come from known issues:
 
 ### IGT changes ###
 
 #### Issues hit ####
 
-  * igt@i915_selftest@live@execlists:
-    - fi-bdw-gvtdvm:      [PASS][1] -> [INCOMPLETE][2] ([i915#2940])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/fi-bdw-gvtdvm/igt@i915_selftest@live@execlists.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/fi-bdw-gvtdvm/igt@i915_selftest@live@execlists.html
+  * igt@i915_selftest@live@hangcheck:
+    - fi-snb-2600:        [PASS][3] -> [INCOMPLETE][4] ([i915#3921])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/fi-snb-2600/igt@i915_selftest@live@hangcheck.html
 
   * igt@i915_selftest@live@requests:
-    - fi-blb-e6850:       [PASS][3] -> [DMESG-FAIL][4] ([i915#4528])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/fi-blb-e6850/igt@i915_selftest@live@requests.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/fi-blb-e6850/igt@i915_selftest@live@requests.html
+    - fi-blb-e6850:       [PASS][5] -> [DMESG-FAIL][6] ([i915#4528])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/fi-blb-e6850/igt@i915_selftest@live@requests.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/fi-blb-e6850/igt@i915_selftest@live@requests.html
 
-  * igt@runner@aborted:
-    - fi-bdw-gvtdvm:      NOTRUN -> [FAIL][5] ([i915#4312])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/fi-bdw-gvtdvm/igt@runner@aborted.html
+  * igt@kms_chamelium@common-hpd-after-suspend:
+    - fi-bdw-5557u:       NOTRUN -> [SKIP][7] ([fdo#109271] / [fdo#111827])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/fi-bdw-5557u/igt@kms_chamelium@common-hpd-after-suspend.html
 
   
 #### Possible fixes ####
 
-  * igt@gem_exec_suspend@basic-s0@smem:
-    - {bat-adlm-1}:       [DMESG-WARN][6] ([i915#2867]) -> [PASS][7] +1 similar issue
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html
+  * igt@gem_exec_suspend@basic-s3@smem:
+    - {bat-adlm-1}:       [DMESG-WARN][8] ([i915#2867]) -> [PASS][9]
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/bat-adlm-1/igt@gem_exec_suspend@basic-s3@smem.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/bat-adlm-1/igt@gem_exec_suspend@basic-s3@smem.html
+
+  
+#### Warnings ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - bat-dg1-5:          [DMESG-FAIL][10] ([i915#4494] / [i915#4957]) -> [DMESG-FAIL][11] ([i915#4957])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/bat-dg1-5/igt@i915_selftest@live@hangcheck.html
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/bat-dg1-5/igt@i915_selftest@live@hangcheck.html
 
   
   {name}: This element is suppressed. This means it is ignored when computing
           the status of the difference (SUCCESS, WARNING, or FAILURE).
 
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
   [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
-  [i915#2940]: https://gitlab.freedesktop.org/drm/intel/issues/2940
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#3921]: https://gitlab.freedesktop.org/drm/intel/issues/3921
+  [i915#4494]: https://gitlab.freedesktop.org/drm/intel/issues/4494
   [i915#4528]: https://gitlab.freedesktop.org/drm/intel/issues/4528
+  [i915#4957]: https://gitlab.freedesktop.org/drm/intel/issues/4957
   [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
-  [i915#6471]: https://gitlab.freedesktop.org/drm/intel/issues/6471
 
 
 Build changes
 -------------
 
-  * Linux: CI_DRM_11977 -> Patchwork_107099v1
+  * Linux: CI_DRM_11977 -> Patchwork_107073v2
 
   CI-20190529: 20190529
   CI_DRM_11977: 71776a3cc166e6400e713acdd2b03094120e1baa @ git://anongit.freedesktop.org/gfx-ci/linux
   IGT_6619: ec2ab8e3a151ce05bd2726319c528c2ab99e8a96 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_107099v1: 71776a3cc166e6400e713acdd2b03094120e1baa @ git://anongit.freedesktop.org/gfx-ci/linux
+  Patchwork_107073v2: 71776a3cc166e6400e713acdd2b03094120e1baa @ git://anongit.freedesktop.org/gfx-ci/linux
 
 
 ### Linux commits
 
-6cf2a4a7703f drm/i915/pxp: don't start pxp without mei_pxp bind
+36278c461712 drm/display/dp_mst: Move all payload info into the atomic state
+bc63574e60fa drm/radeon: Drop legacy MST support
+d6febec6c602 drm/display/dp_mst: Maintain time slot allocations when deleting payloads
+bf2bdda736b0 drm/display/dp_mst: Skip releasing payloads if last connected port isn't connected
+bb0243f1a496 drm/display/dp_mst: Drop all ports from topology on CSNs before queueing link address work
+55d383c46eef drm/display/dp_mst: Add helpers for serializing SST <-> MST transitions
+79354823c545 drm/nouveau/kms: Pull mst state in for all modesets
+6e79bd460773 drm/nouveau/kms: Cache DP encoders in nouveau_connector
+088373c522b0 drm/display/dp_mst: Fix modeset tracking in drm_dp_atomic_release_vcpi_slots()
+04abdc6435ef drm/display/dp_mst: Don't open code modeset checks for releasing time slots
+0dbb1df1c648 drm/display/dp_mst: Add nonblocking helpers for DP MST
+76f3f8878254 drm/display/dp_mst: Add helper for finding payloads in atomic MST state
+392e8f9645e9 drm/display/dp_mst: Add some missing kdocs for atomic MST structs
+9d929d819574 drm/display/dp_mst: Fix confusing docs for drm_dp_atomic_release_time_slots()
+bb4bce13609a drm/display/dp_mst: Call them time slots, not VCPI slots
+3e36f6eb4da0 drm/display/dp_mst: Rename drm_dp_mst_vcpi_allocation
+52cc4993511a drm/amdgpu/dm/mst: Rename get_payload_table()
+83534dafea6f drm/amdgpu/dc/mst: Rename dp_mst_stream_allocation(_table)
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/index.html
 
---===============6001699144402057757==
+--===============6421111557068267756==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -157,50 +203,69 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>drm/i915/pxp: don&#39;t start pxp without mei_pxp bind</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/107099/">https://patchwork.freedesktop.org/series/107099/</a></td></tr>
+<tr><td><b>Series:</b></td><td>drm/display/dp_mst: Drop Radeon MST support, make MST atomic-only (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/107073/">https://patchwork.freedesktop.org/series/107073/</a></td></tr>
 <tr><td><b>State:</b></td><td>success</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_11977 -&gt; Patchwork_107099v1</h1>
+    <h1>CI Bug Log - changes from CI_DRM_11977 -&gt; Patchwork_107073v2</h1>
 <h2>Summary</h2>
 <p><strong>SUCCESS</strong></p>
 <p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/index.html</p>
-<h2>Participating hosts (42 -&gt; 39)</h2>
-<p>Missing    (3): fi-ctg-p8600 fi-bdw-samus fi-hsw-4200u </p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/index.html</p>
+<h2>Participating hosts (42 -&gt; 37)</h2>
+<p>Missing    (5): fi-hsw-4200u bat-dg2-9 fi-ctg-p8600 bat-jsl-3 fi-bdw-samus </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_107073v2:</p>
+<h3>IGT changes</h3>
+<h4>Suppressed</h4>
+<p>The following results come from untrusted machines, tests, or statuses.<br />
+  They do not affect the overall result.</p>
+<ul>
+<li>igt@debugfs_test@read_all_entries:<ul>
+<li>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/bat-rpls-2/igt@debugfs_test@read_all_entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/bat-rpls-2/igt@debugfs_test@read_all_entries.html">DMESG-WARN</a></li>
+</ul>
+</li>
+</ul>
 <h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_107099v1 that come from known issues:</p>
+<p>Here are the changes found in Patchwork_107073v2 that come from known issues:</p>
 <h3>IGT changes</h3>
 <h4>Issues hit</h4>
 <ul>
 <li>
-<p>igt@i915_selftest@live@execlists:</p>
+<p>igt@i915_selftest@live@hangcheck:</p>
 <ul>
-<li>fi-bdw-gvtdvm:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/fi-bdw-gvtdvm/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/fi-bdw-gvtdvm/igt@i915_selftest@live@execlists.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2940">i915#2940</a>)</li>
+<li>fi-snb-2600:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/fi-snb-2600/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3921">i915#3921</a>)</li>
 </ul>
 </li>
 <li>
 <p>igt@i915_selftest@live@requests:</p>
 <ul>
-<li>fi-blb-e6850:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/fi-blb-e6850/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/fi-blb-e6850/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4528">i915#4528</a>)</li>
+<li>fi-blb-e6850:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/fi-blb-e6850/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/fi-blb-e6850/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4528">i915#4528</a>)</li>
 </ul>
 </li>
 <li>
-<p>igt@runner@aborted:</p>
+<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
 <ul>
-<li>fi-bdw-gvtdvm:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/fi-bdw-gvtdvm/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</li>
+<li>fi-bdw-5557u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/fi-bdw-5557u/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>)</li>
 </ul>
 </li>
 </ul>
 <h4>Possible fixes</h4>
 <ul>
-<li>igt@gem_exec_suspend@basic-s0@smem:<ul>
-<li>{bat-adlm-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107099v1/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> +1 similar issue</li>
+<li>igt@gem_exec_suspend@basic-s3@smem:<ul>
+<li>{bat-adlm-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/bat-adlm-1/igt@gem_exec_suspend@basic-s3@smem.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/bat-adlm-1/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@i915_selftest@live@hangcheck:<ul>
+<li>bat-dg1-5:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_11977/bat-dg1-5/igt@i915_selftest@live@hangcheck.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4494">i915#4494</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4957">i915#4957</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107073v2/bat-dg1-5/igt@i915_selftest@live@hangcheck.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4957">i915#4957</a>)</li>
 </ul>
 </li>
 </ul>
@@ -208,16 +273,33 @@ Content-Transfer-Encoding: 7bit
           the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_11977 -&gt; Patchwork_107099v1</li>
+<li>Linux: CI_DRM_11977 -&gt; Patchwork_107073v2</li>
 </ul>
 <p>CI-20190529: 20190529<br />
   CI_DRM_11977: 71776a3cc166e6400e713acdd2b03094120e1baa @ git://anongit.freedesktop.org/gfx-ci/linux<br />
   IGT_6619: ec2ab8e3a151ce05bd2726319c528c2ab99e8a96 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_107099v1: 71776a3cc166e6400e713acdd2b03094120e1baa @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+  Patchwork_107073v2: 71776a3cc166e6400e713acdd2b03094120e1baa @ git://anongit.freedesktop.org/gfx-ci/linux</p>
 <h3>Linux commits</h3>
-<p>6cf2a4a7703f drm/i915/pxp: don't start pxp without mei_pxp bind</p>
+<p>36278c461712 drm/display/dp_mst: Move all payload info into the atomic state<br />
+bc63574e60fa drm/radeon: Drop legacy MST support<br />
+d6febec6c602 drm/display/dp_mst: Maintain time slot allocations when deleting payloads<br />
+bf2bdda736b0 drm/display/dp_mst: Skip releasing payloads if last connected port isn't connected<br />
+bb0243f1a496 drm/display/dp_mst: Drop all ports from topology on CSNs before queueing link address work<br />
+55d383c46eef drm/display/dp_mst: Add helpers for serializing SST &lt;-&gt; MST transitions<br />
+79354823c545 drm/nouveau/kms: Pull mst state in for all modesets<br />
+6e79bd460773 drm/nouveau/kms: Cache DP encoders in nouveau_connector<br />
+088373c522b0 drm/display/dp_mst: Fix modeset tracking in drm_dp_atomic_release_vcpi_slots()<br />
+04abdc6435ef drm/display/dp_mst: Don't open code modeset checks for releasing time slots<br />
+0dbb1df1c648 drm/display/dp_mst: Add nonblocking helpers for DP MST<br />
+76f3f8878254 drm/display/dp_mst: Add helper for finding payloads in atomic MST state<br />
+392e8f9645e9 drm/display/dp_mst: Add some missing kdocs for atomic MST structs<br />
+9d929d819574 drm/display/dp_mst: Fix confusing docs for drm_dp_atomic_release_time_slots()<br />
+bb4bce13609a drm/display/dp_mst: Call them time slots, not VCPI slots<br />
+3e36f6eb4da0 drm/display/dp_mst: Rename drm_dp_mst_vcpi_allocation<br />
+52cc4993511a drm/amdgpu/dm/mst: Rename get_payload_table()<br />
+83534dafea6f drm/amdgpu/dc/mst: Rename dp_mst_stream_allocation(_table)</p>
 
 </body>
 </html>
 
---===============6001699144402057757==--
+--===============6421111557068267756==--
