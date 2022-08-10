@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0AA1C00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 13:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23B39C00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 13:20:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F05D12BFF1;
-	Wed, 10 Aug 2022 13:19:29 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43AF7B1C9C
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 13:18:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8774B0A40;
+	Wed, 10 Aug 2022 13:19:37 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B80BB05EF
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 13:19:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660137537; x=1691673537;
+ t=1660137555; x=1691673555;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pHI1WcKQYyXyh4FwjO8fz10BKjJjXlOVjMSqUat0vZ0=;
- b=UEQ+f0jDTD7ewP9Rjhdbs77cyxkKG1+xvlR6WZDXx0EeXon961uq5eDD
- zws4g8Uk38KMp+DLyE4yPNzCu97bczJy+Pf3uBh6ovv6pKgKQDshdh81B
- uNXst+u/dtFygb6QSzEewRjyhVTwBWSh5Ly1YCWcmOWEIxQe80MZZWZHi
- tAZ/zEIwAdW+Q8IJ3swNebyp1PONzYvmeqiork+McrWClW1U07FU618Hd
- GPqax8rIRvKoR55cZCCXyF5sv8kVErfTMilkLef4gwAbRuwHAPd+GGkvH
- f5dn9WdeJOdTw+HaYChN1Sw86cidkQcxhbp5qU1MCtYJ8BfA493CaNOhc g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10435"; a="355079192"
-X-IronPort-AV: E=Sophos;i="5.93,227,1654585200"; d="scan'208";a="355079192"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2022 06:18:55 -0700
-X-IronPort-AV: E=Sophos;i="5.93,227,1654585200"; d="scan'208";a="747425797"
+ bh=EF+nzwLBzbp/P1tCd/pcAmOrwW66WpETteg+IMjhjmE=;
+ b=KkORyGaJz4+GFdfMXpx2CmRZgAkv9y0cD6bxtfBOZJmu3cDp/yxrowX/
+ +PYQzizcU/4B6KqtiPa+n3r1WAyQEPRZpILTL0yAnnba/OM5kAT5utJXu
+ 8sbT146+iOszXSuncF+rVILhQ9++EDjMmV+Lj6mVoGGNE7jUws8iI1Isx
+ wrqzpbVu3KalUknnZjJfj7psacjml6U+um6aTiVCEepFRR+wgqVcYhxdh
+ MNeyAwVv/b+HtWYDfsxsjr6M+Zbi2/SMV60PECMtC9W1LbrV+cnS+oIZ0
+ vE/6gOJc5PhNitjX0Q+vePAWCiqM9+tNR8E9LsEZOaxQZY8WF6eAfx5ix Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10435"; a="292331646"
+X-IronPort-AV: E=Sophos;i="5.93,227,1654585200"; d="scan'208";a="292331646"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2022 06:19:14 -0700
+X-IronPort-AV: E=Sophos;i="5.93,227,1654585200"; d="scan'208";a="731491295"
 Received: from iefimov-mobl1.ccr.corp.intel.com (HELO localhost)
  ([10.252.49.172])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2022 06:18:53 -0700
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2022 06:19:13 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 10 Aug 2022 16:18:12 +0300
-Message-Id: <b6e088f7568e538490970423346639c4e46fc0d5.1660137416.git.jani.nikula@intel.com>
+Date: Wed, 10 Aug 2022 16:18:17 +0300
+Message-Id: <ded81a41a5a305f89eda7cde15a873183fdec073.1660137416.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1660137416.git.jani.nikula@intel.com>
 References: <cover.1660137416.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 08/15] drm/i915: move memory_regions to
- runtime info
+Subject: [Intel-gfx] [PATCH v2 13/15] drm/i915: move has_dsc to runtime info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,110 +63,90 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 If it's	modified runtime, it's runtime info.
 
-mock_gem_device() is the only one that modifies it. If that could be
-fixed, we wouldn't have to do this.
-
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h                  | 2 +-
- drivers/gpu/drm/i915/i915_pci.c                  | 6 +++---
- drivers/gpu/drm/i915/intel_device_info.c         | 2 +-
- drivers/gpu/drm/i915/intel_device_info.h         | 4 ++--
- drivers/gpu/drm/i915/selftests/mock_gem_device.c | 2 +-
- 5 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 2 +-
+ drivers/gpu/drm/i915/i915_pci.c           | 4 ++--
+ drivers/gpu/drm/i915/intel_device_info.c  | 3 ++-
+ drivers/gpu/drm/i915/intel_device_info.h  | 2 +-
+ 4 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 56d35aa5d023..16728234462f 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -1302,7 +1302,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index 43e1bbc1e303..bb5c5fa3f157 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -344,7 +344,7 @@ bool intel_dsc_source_support(const struct intel_crtc_state *crtc_state)
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
  
- #define HAS_IPC(dev_priv)		 (INTEL_INFO(dev_priv)->display.has_ipc)
+-	if (!INTEL_INFO(i915)->display.has_dsc)
++	if (!RUNTIME_INFO(i915)->has_dsc)
+ 		return false;
  
--#define HAS_REGION(i915, i) (INTEL_INFO(i915)->memory_regions & (i))
-+#define HAS_REGION(i915, i) (RUNTIME_INFO(i915)->memory_regions & (i))
- #define HAS_LMEM(i915) HAS_REGION(i915, REGION_LMEM)
- 
- /*
+ 	if (DISPLAY_VER(i915) >= 12)
 diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 33e6ef6f802f..80799229f725 100644
+index 3cbab3ead2ab..a8f29a98e208 100644
 --- a/drivers/gpu/drm/i915/i915_pci.c
 +++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -163,7 +163,7 @@
- 	.__runtime.page_sizes = I915_GTT_PAGE_SIZE_4K
+@@ -833,7 +833,7 @@ static const struct intel_device_info cml_gt2_info = {
+ 	ICL_COLORS, \
+ 	.display.dbuf.size = 2048, \
+ 	.display.dbuf.slice_mask = BIT(DBUF_S1) | BIT(DBUF_S2), \
+-	.display.has_dsc = 1, \
++	.__runtime.has_dsc = 1, \
+ 	.has_coherent_ggtt = false, \
+ 	.has_logical_ring_elsq = 1
  
- #define GEN_DEFAULT_REGIONS \
--	.memory_regions = REGION_SMEM | REGION_STOLEN_SMEM
-+	.__runtime.memory_regions = REGION_SMEM | REGION_STOLEN_SMEM
- 
- #define I830_FEATURES \
- 	GEN(2), \
-@@ -909,7 +909,7 @@ static const struct intel_device_info rkl_info = {
- };
- 
- #define DGFX_FEATURES \
--	.memory_regions = REGION_SMEM | REGION_LMEM | REGION_STOLEN_LMEM, \
-+	.__runtime.memory_regions = REGION_SMEM | REGION_LMEM | REGION_STOLEN_LMEM, \
- 	.has_llc = 0, \
- 	.has_pxp = 0, \
- 	.has_snoop = 1, \
-@@ -1128,7 +1128,7 @@ static const struct intel_device_info mtl_info = {
- 	.display.has_modular_fia = 1,
- 	.has_flat_ccs = 0,
- 	.has_snoop = 1,
--	.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
-+	.__runtime.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
- 	.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(CCS0),
- 	.require_force_probe = 1,
- };
+@@ -955,7 +955,7 @@ static const struct intel_device_info adl_s_info = {
+ 	.__runtime.has_dmc = 1,							\
+ 	.display.has_dp_mst = 1,						\
+ 	.display.has_dsb = 1,							\
+-	.display.has_dsc = 1,							\
++	.__runtime.has_dsc = 1,							\
+ 	.__runtime.fbc_mask = BIT(INTEL_FBC_A),					\
+ 	.display.has_fpga_dbg = 1,						\
+ 	.__runtime.has_hdcp = 1,						\
 diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 21a6ccd7c407..bb16b0ec4ed2 100644
+index b0b37e98b112..0a1f97b35f2b 100644
 --- a/drivers/gpu/drm/i915/intel_device_info.c
 +++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -109,7 +109,7 @@ void intel_device_info_print(const struct intel_device_info *info,
- 		drm_printf(p, "display version: %u\n", info->display.ver);
+@@ -128,6 +128,7 @@ void intel_device_info_print(const struct intel_device_info *info,
  
- 	drm_printf(p, "gt: %d\n", info->gt);
--	drm_printf(p, "memory-regions: %x\n", info->memory_regions);
-+	drm_printf(p, "memory-regions: %x\n", runtime->memory_regions);
- 	drm_printf(p, "page-sizes: %x\n", runtime->page_sizes);
- 	drm_printf(p, "platform: %s\n", intel_platform_name(info->platform));
- 	drm_printf(p, "ppgtt-size: %d\n", runtime->ppgtt_size);
+ 	drm_printf(p, "has_hdcp: %s\n", str_yes_no(runtime->has_hdcp));
+ 	drm_printf(p, "has_dmc: %s\n", str_yes_no(runtime->has_dmc));
++	drm_printf(p, "has_dsc: %s\n", str_yes_no(runtime->has_dsc));
+ 
+ 	drm_printf(p, "rawclk rate: %u kHz\n", runtime->rawclk_freq);
+ }
+@@ -408,7 +409,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
+ 
+ 		if (DISPLAY_VER(dev_priv) >= 10 &&
+ 		    (dfsm & GLK_DFSM_DISPLAY_DSC_DISABLE))
+-			info->display.has_dsc = 0;
++			runtime->has_dsc = 0;
+ 	}
+ 
+ 	if (GRAPHICS_VER(dev_priv) == 6 && i915_vtd_active(dev_priv)) {
 diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index fc1bee6bb185..1fd6e6e72680 100644
+index d94fc4ee3805..0e02b48121f5 100644
 --- a/drivers/gpu/drm/i915/intel_device_info.h
 +++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -225,6 +225,8 @@ struct intel_runtime_info {
- 	enum intel_ppgtt_type ppgtt_type;
- 	unsigned int ppgtt_size; /* log2, e.g. 31/32/48 bits */
+@@ -181,7 +181,6 @@ enum intel_ppgtt_type {
+ 	func(has_ddi); \
+ 	func(has_dp_mst); \
+ 	func(has_dsb); \
+-	func(has_dsc); \
+ 	func(has_fpga_dbg); \
+ 	func(has_gmch); \
+ 	func(has_hotplug); \
+@@ -241,6 +240,7 @@ struct intel_runtime_info {
  
-+	u32 memory_regions; /* regions supported by the HW */
-+
- 	bool has_pooled_eu;
+ 		bool has_hdcp;
+ 		bool has_dmc;
++		bool has_dsc;
+ 	};
+ };
  
- 	/* display */
-@@ -245,8 +247,6 @@ struct intel_device_info {
- 
- 	unsigned int dma_mask_size; /* available DMA address bits */
- 
--	u32 memory_regions; /* regions supported by the HW */
--
- 	u8 gt; /* GT number, 0 if undefined */
- 
- #define DEFINE_FLAG(name) u8 name:1
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index b23f11d24b97..2fc3472c414b 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -179,7 +179,7 @@ struct drm_i915_private *mock_gem_device(void)
- 		I915_GTT_PAGE_SIZE_64K |
- 		I915_GTT_PAGE_SIZE_2M;
- 
--	mkwrite_device_info(i915)->memory_regions = REGION_SMEM;
-+	RUNTIME_INFO(i915)->memory_regions = REGION_SMEM;
- 	intel_memory_regions_hw_probe(i915);
- 
- 	spin_lock_init(&i915->gpu_error.lock);
 -- 
 2.34.1
 
