@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDF62C00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 13:19:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40021C00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Aug 2022 13:20:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAB57B096D;
-	Wed, 10 Aug 2022 13:19:01 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27FD011BF66
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 13:18:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66091B05EF;
+	Wed, 10 Aug 2022 13:19:27 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B1E311BF66
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Aug 2022 13:19:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660137517; x=1691673517;
+ t=1660137543; x=1691673543;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jRz12an9hZjwQ69g/Ui5E8DH80sgcWKrJB43tA1zp6c=;
- b=D1IGgIudG/zUVSaAY1qLsYpbxB7sWzafV2b+m27S8+HBsUHW6TOYzCPF
- BnoELIz0kN91FjuNaLH0cFY2MIJO3TRuCTs1VeZxWfL84PX+SCvlCKakH
- FXKnoNfvcEj+D/g7S4/9tQ7UZs2cQZgkIScgGtSOLqIum10QsKamKwa+W
- IGc8/NnAZu5FLMleOit8JfyH1Zpp2sL/FqpHzKAqN+FvstL2Mug4RD3U0
- SKV2PBnjOkOaoUGwOqyp8wg1nY1NAsCq7OCIBFgZF26TNmlJwtxyhz6ZH
- HYszKYtotr52LLmjzo9ewFjnfwH4Z9iWMGZJP1i5UN9UljveVr9odXo0h g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10435"; a="291867816"
-X-IronPort-AV: E=Sophos;i="5.93,227,1654585200"; d="scan'208";a="291867816"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2022 06:18:35 -0700
-X-IronPort-AV: E=Sophos;i="5.93,227,1654585200"; d="scan'208";a="633774075"
+ bh=WXOoPHbMEkA7VDyFs9drn+w6m6lAv3Qxh6CmZPlpmw4=;
+ b=CR0H695T4ZBlVyi41JxrGR4Yl4ojTFu7anrSvsfYh86TFCMBYzmGN9nu
+ 3xwWFXyGglh4Lk/fw7oE5aj7Te19ttP3dWnVjQyGiDgNTJr9p2nHqeuy8
+ 5I+ANEn1tHpO0CWcXYo5wPrLybIgChufxRm5oRWeJ2jcgwJjQGkGNoUoR
+ 6wgazCUiusUtkEEmLlUzeWJL+ugZcCrEvNsPYhD/lOSzG5UGZAugbQOSe
+ bbo0flcmQ1mZ16r917jTIy7lBfVVzwjLzufHHI0lcFYMJIgC1P/hWWRHZ
+ 4ozPPMqZYgeO0f64sM3KiqO0slTa1tFt8W53VWkPPC4V9KloUTkbJTdsZ A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10435"; a="274131699"
+X-IronPort-AV: E=Sophos;i="5.93,227,1654585200"; d="scan'208";a="274131699"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2022 06:19:02 -0700
+X-IronPort-AV: E=Sophos;i="5.93,227,1654585200"; d="scan'208";a="932887633"
 Received: from iefimov-mobl1.ccr.corp.intel.com (HELO localhost)
  ([10.252.49.172])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2022 06:18:34 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2022 06:19:01 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 10 Aug 2022 16:18:07 +0300
-Message-Id: <ba0047d8c5e0351fa26e688150ab970d8469b4f2.1660137416.git.jani.nikula@intel.com>
+Date: Wed, 10 Aug 2022 16:18:14 +0300
+Message-Id: <05ead5fe23c4cdf17febca1a455c9641fc4e7ff9.1660137416.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1660137416.git.jani.nikula@intel.com>
 References: <cover.1660137416.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 03/15] drm/i915: move graphics.ver and
- graphics.rel to runtime info
+Subject: [Intel-gfx] [PATCH v2 10/15] drm/i915: move pipe_mask and
+ cpu_transcoder_mask to runtime info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,160 +64,347 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 If it's	modified runtime, it's runtime info.
 
-mock_gem_device() is the only one that modifies them. If that could be
-fixed, we wouldn't have to do this.
-
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h                |  6 +++---
- drivers/gpu/drm/i915/i915_pci.c                | 18 +++++++++---------
- drivers/gpu/drm/i915/intel_device_info.c       |  8 ++++----
- drivers/gpu/drm/i915/intel_device_info.h       |  3 ++-
- .../gpu/drm/i915/selftests/mock_gem_device.c   |  2 +-
- 5 files changed, 19 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.h |  4 +-
+ drivers/gpu/drm/i915/i915_drv.h              |  6 +-
+ drivers/gpu/drm/i915/i915_pci.c              | 66 ++++++++++----------
+ drivers/gpu/drm/i915/intel_device_info.c     | 24 +++----
+ drivers/gpu/drm/i915/intel_device_info.h     |  5 +-
+ 5 files changed, 53 insertions(+), 52 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index fa5371036239..e895277c4cd9 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -375,7 +375,7 @@ enum hpd_pin {
+ 
+ #define for_each_pipe(__dev_priv, __p) \
+ 	for ((__p) = 0; (__p) < I915_MAX_PIPES; (__p)++) \
+-		for_each_if(INTEL_INFO(__dev_priv)->display.pipe_mask & BIT(__p))
++		for_each_if(RUNTIME_INFO(__dev_priv)->pipe_mask & BIT(__p))
+ 
+ #define for_each_pipe_masked(__dev_priv, __p, __mask) \
+ 	for_each_pipe(__dev_priv, __p) \
+@@ -383,7 +383,7 @@ enum hpd_pin {
+ 
+ #define for_each_cpu_transcoder(__dev_priv, __t) \
+ 	for ((__t) = 0; (__t) < I915_MAX_TRANSCODERS; (__t)++)	\
+-		for_each_if (INTEL_INFO(__dev_priv)->display.cpu_transcoder_mask & BIT(__t))
++		for_each_if (RUNTIME_INFO(__dev_priv)->cpu_transcoder_mask & BIT(__t))
+ 
+ #define for_each_cpu_transcoder_masked(__dev_priv, __t, __mask) \
+ 	for_each_cpu_transcoder(__dev_priv, __t) \
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 086bbe8945d6..59c14d850a59 100644
+index 16728234462f..231bdb4dfa22 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -856,9 +856,9 @@ static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
+@@ -1264,7 +1264,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define HAS_PSR_HW_TRACKING(dev_priv) \
+ 	(INTEL_INFO(dev_priv)->display.has_psr_hw_tracking)
+ #define HAS_PSR2_SEL_FETCH(dev_priv)	 (DISPLAY_VER(dev_priv) >= 12)
+-#define HAS_TRANSCODER(dev_priv, trans)	 ((INTEL_INFO(dev_priv)->display.cpu_transcoder_mask & BIT(trans)) != 0)
++#define HAS_TRANSCODER(dev_priv, trans)	 ((RUNTIME_INFO(dev_priv)->cpu_transcoder_mask & BIT(trans)) != 0)
  
- #define IP_VER(ver, rel)		((ver) << 8 | (rel))
+ #define HAS_RC6(dev_priv)		 (INTEL_INFO(dev_priv)->has_rc6)
+ #define HAS_RC6p(dev_priv)		 (INTEL_INFO(dev_priv)->has_rc6p)
+@@ -1335,9 +1335,9 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define GT_FREQUENCY_MULTIPLIER 50
+ #define GEN9_FREQ_SCALER 3
  
--#define GRAPHICS_VER(i915)		(INTEL_INFO(i915)->graphics.ver)
--#define GRAPHICS_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->graphics.ver, \
--					       INTEL_INFO(i915)->graphics.rel)
-+#define GRAPHICS_VER(i915)		(RUNTIME_INFO(i915)->graphics.ver)
-+#define GRAPHICS_VER_FULL(i915)		IP_VER(RUNTIME_INFO(i915)->graphics.ver, \
-+					       RUNTIME_INFO(i915)->graphics.rel)
- #define IS_GRAPHICS_VER(i915, from, until) \
- 	(GRAPHICS_VER(i915) >= (from) && GRAPHICS_VER(i915) <= (until))
+-#define INTEL_NUM_PIPES(dev_priv) (hweight8(INTEL_INFO(dev_priv)->display.pipe_mask))
++#define INTEL_NUM_PIPES(dev_priv) (hweight8(RUNTIME_INFO(dev_priv)->pipe_mask))
+ 
+-#define HAS_DISPLAY(dev_priv) (INTEL_INFO(dev_priv)->display.pipe_mask != 0)
++#define HAS_DISPLAY(dev_priv) (RUNTIME_INFO(dev_priv)->pipe_mask != 0)
+ 
+ #define HAS_VRR(i915)	(DISPLAY_VER(i915) >= 11)
  
 diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 9fd788e147a3..5c60d81981d9 100644
+index a8878db550cd..8f61fae64003 100644
 --- a/drivers/gpu/drm/i915/i915_pci.c
 +++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -34,7 +34,7 @@
+@@ -168,8 +168,8 @@
+ #define I830_FEATURES \
+ 	GEN(2), \
+ 	.is_mobile = 1, \
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B), \
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B), \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B), \
+ 	.display.has_overlay = 1, \
+ 	.display.cursor_needs_physical = 1, \
+ 	.display.overlay_needs_physical = 1, \
+@@ -190,8 +190,8 @@
  
- #define PLATFORM(x) .platform = (x)
- #define GEN(x) \
--	.graphics.ver = (x), \
-+	.__runtime.graphics.ver = (x), \
- 	.media.ver = (x), \
- 	.display.ver = (x)
+ #define I845_FEATURES \
+ 	GEN(2), \
+-	.display.pipe_mask = BIT(PIPE_A), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A), \
++	.__runtime.pipe_mask = BIT(PIPE_A), \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A), \
+ 	.display.has_overlay = 1, \
+ 	.display.overlay_needs_physical = 1, \
+ 	.display.has_gmch = 1, \
+@@ -233,8 +233,8 @@ static const struct intel_device_info i865g_info = {
  
-@@ -919,7 +919,7 @@ static const struct intel_device_info rkl_info = {
- static const struct intel_device_info dg1_info = {
- 	GEN12_FEATURES,
- 	DGFX_FEATURES,
--	.graphics.rel = 10,
-+	.__runtime.graphics.rel = 10,
- 	PLATFORM(INTEL_DG1),
- 	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
- 	.require_force_probe = 1,
-@@ -1006,8 +1006,8 @@ static const struct intel_device_info adl_p_info = {
- 		      I915_GTT_PAGE_SIZE_2M
+ #define GEN3_FEATURES \
+ 	GEN(3), \
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B), \
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B), \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B), \
+ 	.display.has_gmch = 1, \
+ 	.gpu_reset_clobbers_display = true, \
+ 	.__runtime.platform_engine_mask = BIT(RCS0), \
+@@ -324,8 +324,8 @@ static const struct intel_device_info pnv_m_info = {
  
- #define XE_HP_FEATURES \
--	.graphics.ver = 12, \
--	.graphics.rel = 50, \
-+	.__runtime.graphics.ver = 12, \
-+	.__runtime.graphics.rel = 50, \
- 	XE_HP_PAGE_SIZES, \
- 	.dma_mask_size = 46, \
+ #define GEN4_FEATURES \
+ 	GEN(4), \
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B), \
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B), \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B), \
+ 	.display.has_hotplug = 1, \
+ 	.display.has_gmch = 1, \
+ 	.gpu_reset_clobbers_display = true, \
+@@ -378,8 +378,8 @@ static const struct intel_device_info gm45_info = {
+ 
+ #define GEN5_FEATURES \
+ 	GEN(5), \
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B), \
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B), \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B), \
+ 	.display.has_hotplug = 1, \
+ 	.__runtime.platform_engine_mask = BIT(RCS0) | BIT(VCS0), \
  	.has_3d_pipeline = 1, \
-@@ -1053,7 +1053,7 @@ static const struct intel_device_info xehpsdv_info = {
- 	XE_HP_FEATURES, \
- 	XE_HPM_FEATURES, \
- 	DGFX_FEATURES, \
--	.graphics.rel = 55, \
-+	.__runtime.graphics.rel = 55, \
- 	.media.rel = 55, \
- 	PLATFORM(INTEL_DG2), \
- 	.has_4tile = 1, \
-@@ -1096,7 +1096,7 @@ static const struct intel_device_info pvc_info = {
- 	XE_HPC_FEATURES,
- 	XE_HPM_FEATURES,
+@@ -409,8 +409,8 @@ static const struct intel_device_info ilk_m_info = {
+ 
+ #define GEN6_FEATURES \
+ 	GEN(6), \
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B), \
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B), \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B), \
+ 	.display.has_hotplug = 1, \
+ 	.__runtime.fbc_mask = BIT(INTEL_FBC_A), \
+ 	.__runtime.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0), \
+@@ -461,8 +461,8 @@ static const struct intel_device_info snb_m_gt2_info = {
+ 
+ #define GEN7_FEATURES  \
+ 	GEN(7), \
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | BIT(TRANSCODER_C), \
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C), \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | BIT(TRANSCODER_C), \
+ 	.display.has_hotplug = 1, \
+ 	.__runtime.fbc_mask = BIT(INTEL_FBC_A), \
+ 	.__runtime.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0), \
+@@ -517,8 +517,8 @@ static const struct intel_device_info ivb_q_info = {
+ 	GEN7_FEATURES,
+ 	PLATFORM(INTEL_IVYBRIDGE),
+ 	.gt = 2,
+-	.display.pipe_mask = 0, /* legal, last one wins */
+-	.display.cpu_transcoder_mask = 0,
++	.__runtime.pipe_mask = 0, /* legal, last one wins */
++	.__runtime.cpu_transcoder_mask = 0,
+ 	.has_l3_dpf = 1,
+ };
+ 
+@@ -526,8 +526,8 @@ static const struct intel_device_info vlv_info = {
+ 	PLATFORM(INTEL_VALLEYVIEW),
+ 	GEN(7),
+ 	.is_lp = 1,
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B),
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B),
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B),
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B),
+ 	.has_runtime_pm = 1,
+ 	.has_rc6 = 1,
+ 	.has_reset_engine = true,
+@@ -551,7 +551,7 @@ static const struct intel_device_info vlv_info = {
+ #define G75_FEATURES  \
+ 	GEN7_FEATURES, \
+ 	.__runtime.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0) | BIT(VECS0), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
+ 		BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP), \
+ 	.display.has_ddi = 1, \
+ 	.display.has_fpga_dbg = 1, \
+@@ -621,8 +621,8 @@ static const struct intel_device_info bdw_gt3_info = {
+ static const struct intel_device_info chv_info = {
+ 	PLATFORM(INTEL_CHERRYVIEW),
+ 	GEN(8),
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C),
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | BIT(TRANSCODER_C),
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C),
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | BIT(TRANSCODER_C),
+ 	.display.has_hotplug = 1,
+ 	.is_lp = 1,
+ 	.__runtime.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0) | BIT(VECS0),
+@@ -699,8 +699,8 @@ static const struct intel_device_info skl_gt4_info = {
+ 	.display.dbuf.slice_mask = BIT(DBUF_S1), \
+ 	.display.has_hotplug = 1, \
+ 	.__runtime.platform_engine_mask = BIT(RCS0) | BIT(VCS0) | BIT(BCS0) | BIT(VECS0), \
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C), \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
+ 		BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP) | \
+ 		BIT(TRANSCODER_DSI_A) | BIT(TRANSCODER_DSI_C), \
+ 	.has_3d_pipeline = 1, \
+@@ -810,7 +810,7 @@ static const struct intel_device_info cml_gt2_info = {
+ 	GEN9_FEATURES, \
+ 	GEN11_DEFAULT_PAGE_SIZES, \
+ 	.display.abox_mask = BIT(0), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
+ 		BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP) | \
+ 		BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1), \
+ 	.display.pipe_offsets = { \
+@@ -862,8 +862,8 @@ static const struct intel_device_info jsl_info = {
+ 	GEN11_FEATURES, \
+ 	GEN(12), \
+ 	.display.abox_mask = GENMASK(2, 1), \
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D), \
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D), \
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
+ 		BIT(TRANSCODER_C) | BIT(TRANSCODER_D) | \
+ 		BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1), \
+ 	.display.pipe_offsets = { \
+@@ -899,8 +899,8 @@ static const struct intel_device_info rkl_info = {
+ 	GEN12_FEATURES,
+ 	PLATFORM(INTEL_ROCKETLAKE),
+ 	.display.abox_mask = BIT(0),
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C),
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C),
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
+ 		BIT(TRANSCODER_C),
+ 	.display.has_hti = 1,
+ 	.display.has_psr_hw_tracking = 0,
+@@ -921,7 +921,7 @@ static const struct intel_device_info dg1_info = {
  	DGFX_FEATURES,
--	.graphics.rel = 60,
-+	.__runtime.graphics.rel = 60,
- 	.media.rel = 60,
- 	PLATFORM(INTEL_PONTEVECCHIO),
- 	.display = { 0 },
-@@ -1121,8 +1121,8 @@ static const struct intel_device_info mtl_info = {
- 	 * Real graphics IP version will be obtained from hardware GMD_ID
- 	 * register.  Value provided here is just for sanity checking.
- 	 */
--	.graphics.ver = 12,
--	.graphics.rel = 70,
-+	.__runtime.graphics.ver = 12,
-+	.__runtime.graphics.rel = 70,
- 	.media.ver = 13,
- 	PLATFORM(INTEL_METEORLAKE),
- 	.display.has_modular_fia = 1,
-@@ -1279,7 +1279,7 @@ bool i915_pci_resource_valid(struct pci_dev *pdev, int bar)
- 
- static bool intel_mmio_bar_valid(struct pci_dev *pdev, struct intel_device_info *intel_info)
- {
--	int gttmmaddr_bar = intel_info->graphics.ver == 2 ? GEN2_GTTMMADR_BAR : GTTMMADR_BAR;
-+	int gttmmaddr_bar = intel_info->__runtime.graphics.ver == 2 ? GEN2_GTTMMADR_BAR : GTTMMADR_BAR;
- 
- 	return i915_pci_resource_valid(pdev, gttmmaddr_bar);
- }
+ 	.__runtime.graphics.rel = 10,
+ 	PLATFORM(INTEL_DG1),
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
+ 	.require_force_probe = 1,
+ 	.__runtime.platform_engine_mask =
+ 		BIT(RCS0) | BIT(BCS0) | BIT(VECS0) |
+@@ -933,7 +933,7 @@ static const struct intel_device_info dg1_info = {
+ static const struct intel_device_info adl_s_info = {
+ 	GEN12_FEATURES,
+ 	PLATFORM(INTEL_ALDERLAKE_S),
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
+ 	.display.has_hti = 1,
+ 	.display.has_psr_hw_tracking = 0,
+ 	.__runtime.platform_engine_mask =
+@@ -963,7 +963,7 @@ static const struct intel_device_info adl_s_info = {
+ 	.display.has_ipc = 1,							\
+ 	.display.has_psr = 1,							\
+ 	.display.ver = 13,							\
+-	.display.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),	\
++	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),	\
+ 	.display.pipe_offsets = {						\
+ 		[TRANSCODER_A] = PIPE_A_OFFSET,					\
+ 		[TRANSCODER_B] = PIPE_B_OFFSET,					\
+@@ -986,7 +986,7 @@ static const struct intel_device_info adl_p_info = {
+ 	GEN12_FEATURES,
+ 	XE_LPD_FEATURES,
+ 	PLATFORM(INTEL_ALDERLAKE_P),
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
+ 			       BIT(TRANSCODER_C) | BIT(TRANSCODER_D) |
+ 			       BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1),
+ 	.display.has_cdclk_crawl = 1,
+@@ -1071,7 +1071,7 @@ static const struct intel_device_info xehpsdv_info = {
+ static const struct intel_device_info dg2_info = {
+ 	DG2_FEATURES,
+ 	XE_LPD_FEATURES,
+-	.display.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
+ 			       BIT(TRANSCODER_C) | BIT(TRANSCODER_D),
+ 	.require_force_probe = 1,
+ };
 diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 7793ce243981..15f5723a140f 100644
+index bb16b0ec4ed2..91ac149ad85a 100644
 --- a/drivers/gpu/drm/i915/intel_device_info.c
 +++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -92,11 +92,11 @@ void intel_device_info_print(const struct intel_device_info *info,
- 			     const struct intel_runtime_info *runtime,
- 			     struct drm_printer *p)
- {
--	if (info->graphics.rel)
--		drm_printf(p, "graphics version: %u.%02u\n", info->graphics.ver,
--			   info->graphics.rel);
-+	if (runtime->graphics.rel)
-+		drm_printf(p, "graphics version: %u.%02u\n", runtime->graphics.ver,
-+			   runtime->graphics.rel);
- 	else
--		drm_printf(p, "graphics version: %u\n", info->graphics.ver);
-+		drm_printf(p, "graphics version: %u\n", runtime->graphics.ver);
+@@ -363,35 +363,35 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
+ 		     !(sfuse_strap & SFUSE_STRAP_FUSE_LOCK))) {
+ 			drm_info(&dev_priv->drm,
+ 				 "Display fused off, disabling\n");
+-			info->display.pipe_mask = 0;
+-			info->display.cpu_transcoder_mask = 0;
++			runtime->pipe_mask = 0;
++			runtime->cpu_transcoder_mask = 0;
+ 			runtime->fbc_mask = 0;
+ 		} else if (fuse_strap & IVB_PIPE_C_DISABLE) {
+ 			drm_info(&dev_priv->drm, "PipeC fused off\n");
+-			info->display.pipe_mask &= ~BIT(PIPE_C);
+-			info->display.cpu_transcoder_mask &= ~BIT(TRANSCODER_C);
++			runtime->pipe_mask &= ~BIT(PIPE_C);
++			runtime->cpu_transcoder_mask &= ~BIT(TRANSCODER_C);
+ 		}
+ 	} else if (HAS_DISPLAY(dev_priv) && DISPLAY_VER(dev_priv) >= 9) {
+ 		u32 dfsm = intel_de_read(dev_priv, SKL_DFSM);
  
- 	if (info->media.rel)
- 		drm_printf(p, "media version: %u.%02u\n", info->media.ver, info->media.rel);
+ 		if (dfsm & SKL_DFSM_PIPE_A_DISABLE) {
+-			info->display.pipe_mask &= ~BIT(PIPE_A);
+-			info->display.cpu_transcoder_mask &= ~BIT(TRANSCODER_A);
++			runtime->pipe_mask &= ~BIT(PIPE_A);
++			runtime->cpu_transcoder_mask &= ~BIT(TRANSCODER_A);
+ 			runtime->fbc_mask &= ~BIT(INTEL_FBC_A);
+ 		}
+ 		if (dfsm & SKL_DFSM_PIPE_B_DISABLE) {
+-			info->display.pipe_mask &= ~BIT(PIPE_B);
+-			info->display.cpu_transcoder_mask &= ~BIT(TRANSCODER_B);
++			runtime->pipe_mask &= ~BIT(PIPE_B);
++			runtime->cpu_transcoder_mask &= ~BIT(TRANSCODER_B);
+ 		}
+ 		if (dfsm & SKL_DFSM_PIPE_C_DISABLE) {
+-			info->display.pipe_mask &= ~BIT(PIPE_C);
+-			info->display.cpu_transcoder_mask &= ~BIT(TRANSCODER_C);
++			runtime->pipe_mask &= ~BIT(PIPE_C);
++			runtime->cpu_transcoder_mask &= ~BIT(TRANSCODER_C);
+ 		}
+ 
+ 		if (DISPLAY_VER(dev_priv) >= 12 &&
+ 		    (dfsm & TGL_DFSM_PIPE_D_DISABLE)) {
+-			info->display.pipe_mask &= ~BIT(PIPE_D);
+-			info->display.cpu_transcoder_mask &= ~BIT(TRANSCODER_D);
++			runtime->pipe_mask &= ~BIT(PIPE_D);
++			runtime->cpu_transcoder_mask &= ~BIT(TRANSCODER_D);
+ 		}
+ 
+ 		if (dfsm & SKL_DFSM_DISPLAY_HDCP_DISABLE)
 diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 4f4d1d77925a..ce876f22f8cc 100644
+index 2084f568f7ea..f419848f52cb 100644
 --- a/drivers/gpu/drm/i915/intel_device_info.h
 +++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -203,6 +203,8 @@ struct ip_version {
- };
+@@ -233,6 +233,9 @@ struct intel_runtime_info {
  
- struct intel_runtime_info {
-+	struct ip_version graphics;
+ 	/* display */
+ 	struct {
++		u8 pipe_mask;
++		u8 cpu_transcoder_mask;
 +
- 	/*
- 	 * Platform mask is used for optimizing or-ed IS_PLATFORM calls into
- 	 * into single runtime conditionals, and also to provide groundwork
-@@ -224,7 +226,6 @@ struct intel_runtime_info {
- };
+ 		u8 num_sprites[I915_MAX_PIPES];
+ 		u8 num_scalers[I915_MAX_PIPES];
  
- struct intel_device_info {
--	struct ip_version graphics;
- 	struct ip_version media;
+@@ -257,8 +260,6 @@ struct intel_device_info {
+ 		u8 ver;
+ 		u8 rel;
  
- 	intel_engine_mask_t platform_engine_mask; /* Engines supported by the HW */
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index 9c31a16f8380..86456744431b 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -172,7 +172,7 @@ struct drm_i915_private *mock_gem_device(void)
- 	/* Using the global GTT may ask questions about KMS users, so prepare */
- 	drm_mode_config_init(&i915->drm);
+-		u8 pipe_mask;
+-		u8 cpu_transcoder_mask;
+ 		u8 abox_mask;
  
--	mkwrite_device_info(i915)->graphics.ver = -1;
-+	RUNTIME_INFO(i915)->graphics.ver = -1;
- 
- 	mkwrite_device_info(i915)->page_sizes =
- 		I915_GTT_PAGE_SIZE_4K |
+ 		struct {
 -- 
 2.34.1
 
