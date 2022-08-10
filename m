@@ -4,75 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9455FC00140
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 13:20:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06112C25B0E
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 13:20:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 168A0C6671;
-	Mon, 15 Aug 2022 13:20:01 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3256DB438D;
- Thu, 11 Aug 2022 15:30:58 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id z17so21740811wrq.4;
- Thu, 11 Aug 2022 08:30:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=9LdlmQyOWQmNUkI2XSzFvRVcY0yH+3vXNaOXUWwwOG4=;
- b=eV6FwIVuQpB9dHkFnLwSKjT4FEK0Dhbo6bQOrKzw9FkfJkh5Oa/iuWccmmSpSzWe97
- 42QbvmI8RqNNXVaHyDhu7vGFqpBEV+2F2HRrL2nr1elvXGTuS9XooJwD3YJ5E94OV8Tx
- MJkOkq6sZcpSukalpkstesF6L8viUq+OGxS5No+nWxyhPkC1EaMvRFwSnwZhfpx2HNQ6
- pF1bm0WsUfnBUf7xNmroMUFR9I7rg4M+ynn/WE/selpTONdzHKxccsUsCXJBd7xBz8Ap
- l+jAyYMMVg/OTe3TxF5I+9x9UR/flsUnsTz7D297O2Mh2UtG5HB3xzLO8t2t8ayyPy2i
- G22w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=9LdlmQyOWQmNUkI2XSzFvRVcY0yH+3vXNaOXUWwwOG4=;
- b=pA73LgM4YM5Oqh8yI6USD+boVmryw6n5X3rpLSEcsU4funqyzxS2oN0oeoa+FJM8Ax
- HTOYjuRjmeuoBh5uA+jjlpHwplFNn16Jr/yyW7c/Y1I3fU1REnYjFnZDfp1fK0akysOJ
- t7sMCnK8mG4EhNqwM8XNkiYrOtxMEkSGtc/O2BL4d+3pYQRehmvaP4tqar0QeT8qKsFq
- 8E1zERUBYozhXaWn9ijK7bZ+zXKtVFxm/WqwxAOnaPwOih3sXm0enBuTEICEje8I/FPQ
- ooZqY/nletstbQswG/GoGBdpz6I7uAVItAcZMr326fOkCLaPjju/7/2s5JjqcF5lm2gw
- Iu9Q==
-X-Gm-Message-State: ACgBeo3KdfpB9IoG6GEQ/5Syn5t+rCInGlV33cxJeTUsy/nurL1vDmyo
- 8j0cD8XSfbFdheRMC1zjkc6QEIRNncOT7w==
-X-Google-Smtp-Source: AA6agR5M9utedSYDnsS5LO6FAtzaxLGA2AV5HP+vrf8nPzln6D1eAiA97OrCyHA9QEQ+h+6JgnjaQA==
-X-Received: by 2002:a5d:5989:0:b0:221:7c34:3943 with SMTP id
- n9-20020a5d5989000000b002217c343943mr15731861wri.441.1660231856621; 
- Thu, 11 Aug 2022 08:30:56 -0700 (PDT)
-Received: from localhost.localdomain
- (host-79-27-108-198.retail.telecomitalia.it. [79.27.108.198])
- by smtp.gmail.com with ESMTPSA id
- m7-20020a056000008700b00222ed7ea203sm9805502wrx.100.2022.08.11.08.30.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Aug 2022 08:30:55 -0700 (PDT)
-From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59CCDC6735;
+	Mon, 15 Aug 2022 13:20:05 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 452F211AF05;
+ Wed, 10 Aug 2022 17:51:19 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
+ [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 498706601B74;
+ Wed, 10 Aug 2022 18:51:15 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1660153877;
+ bh=HM95QO1ihmxrRoGMUr0F+Qz7CNTldAjBH/THyIQ39H4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=LuroBJkVtgDZC40RN60BCwqTBeX1/dG7B3mCswEIs9tbyZgWERqJwMdAA0BJvx+Yi
+ sfmwr3ubE7K6qnyM7BsqDuk05nq2HQrELxrzmYVRDx+lBhSdyo2ZaOxmI3ppxm4SQy
+ JpgvY81/2vGBqZLfi+H5BQNWU1B+lBbo7KkAbmKv5hdiWcNpOuK1HNQPT4KYtA+zFQ
+ UvV8cx7ARkn/IWSsghHNowjBwu5Xk2B3DIXPORfcf7W+K3W+AFq08LkAljQxdtgzqr
+ diA+QMg1DK/klgylAOsMOpuy+tLIB55F3Olad8GSY8kTUZgbyjOLSESUoKQl+NadkO
+ Xr+sEl23yXDjQ==
+Message-ID: <9bc94ba9-6e82-2d87-8c8e-525f0264eac1@collabora.com>
+Date: Wed, 10 Aug 2022 20:51:12 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- John Harrison <John.C.Harrison@Intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Ira Weiny <ira.weiny@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 11 Aug 2022 17:30:41 +0200
-Message-Id: <20220811153041.12795-4-fmdefrancesco@gmail.com>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20220811153041.12795-1-fmdefrancesco@gmail.com>
-References: <20220811153041.12795-1-fmdefrancesco@gmail.com>
-MIME-Version: 1.0
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>
+References: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
+ <20220725151839.31622-4-dmitry.osipenko@collabora.com>
+ <6c8bded9-1809-608f-749a-5ee28b852d32@gmail.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <6c8bded9-1809-608f-749a-5ee28b852d32@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 15 Aug 2022 13:18:12 +0000
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/gem: Replace kmap() with
- kmap_local_page()
+Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH v2 3/5] dma-buf: Move all
+ dma-bufs to dynamic locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,98 +81,22 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-kmap() is being deprecated in favor of kmap_local_page().
+On 8/10/22 14:30, Christian König wrote:
+>> + *     - dma_buf_move_notify()
+> 
+> This one is called by the exporter, not the importer.
 
-There are two main problems with kmap(): (1) It comes with an overhead as
-mapping space is restricted and protected by a global lock for
-synchronization and (2) it also requires global TLB invalidation when the
-kmap’s pool wraps and it might block when the mapping space is fully
-utilized until a slot becomes available.
+Good catch, thank you!
 
-With kmap_local_page() the mappings are per thread, CPU local, can take
-page faults, and can be called from any context (including interrupts).
-It is faster than kmap() in kernels with HIGHMEM enabled. Furthermore,
-the tasks can be preempted and, when they are scheduled to run again, the
-kernel virtual addresses are restored and are still valid.
-
-Since its use in i915/gem is safe everywhere, it should be preferred.
-
-Therefore, replace kmap() with kmap_local_page() in i915/gem.
-
-Suggested-by: Ira Weiny <ira.weiny@intel.com>
-Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c          | 6 ++----
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 8 ++++----
- 2 files changed, 6 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index 4eed3dd90ba8..2bc6ab9964ff 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -640,16 +640,14 @@ i915_gem_object_create_shmem_from_data(struct drm_i915_private *dev_priv,
- 	do {
- 		unsigned int len = min_t(typeof(size), size, PAGE_SIZE);
- 		struct page *page;
--		void *pgdata, *vaddr;
-+		void *pgdata;
- 
- 		err = aops->write_begin(file, file->f_mapping, offset, len,
- 					&page, &pgdata);
- 		if (err < 0)
- 			goto fail;
- 
--		vaddr = kmap(page);
--		memcpy(vaddr, data, len);
--		kunmap(page);
-+		memcpy_to_page(page, 0, data, len);
- 
- 		err = aops->write_end(file, file->f_mapping, offset, len, len,
- 				      page, pgdata);
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index 3ced9948a331..bb25b50b5688 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -153,7 +153,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
- 	intel_gt_flush_ggtt_writes(to_gt(i915));
- 
- 	p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
--	cpu = kmap(p) + offset_in_page(offset);
-+	cpu = kmap_local_page(p) + offset_in_page(offset);
- 	drm_clflush_virt_range(cpu, sizeof(*cpu));
- 	if (*cpu != (u32)page) {
- 		pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
-@@ -171,7 +171,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
- 	}
- 	*cpu = 0;
- 	drm_clflush_virt_range(cpu, sizeof(*cpu));
--	kunmap(p);
-+	kunmap_local(cpu);
- 
- out:
- 	i915_gem_object_lock(obj, NULL);
-@@ -249,7 +249,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
- 		intel_gt_flush_ggtt_writes(to_gt(i915));
- 
- 		p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
--		cpu = kmap(p) + offset_in_page(offset);
-+		cpu = kmap_local_page(p) + offset_in_page(offset);
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
- 		if (*cpu != (u32)page) {
- 			pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
-@@ -267,7 +267,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
- 		}
- 		*cpu = 0;
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
--		kunmap(p);
-+		kunmap_local(cpu);
- 		if (err)
- 			return err;
- 
 -- 
-2.37.1
-
+Best regards,
+Dmitry
