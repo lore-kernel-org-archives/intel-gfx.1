@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CE18C00140
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 13:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9455FC00140
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 13:20:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66AE0B6CC6;
-	Mon, 15 Aug 2022 13:19:29 +0000 (UTC)
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6FF698C7E;
- Thu, 11 Aug 2022 15:30:48 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id l4so21711967wrm.13;
- Thu, 11 Aug 2022 08:30:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 168A0C6671;
+	Mon, 15 Aug 2022 13:20:01 +0000 (UTC)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3256DB438D;
+ Thu, 11 Aug 2022 15:30:58 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id z17so21740811wrq.4;
+ Thu, 11 Aug 2022 08:30:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc;
- bh=kbnOtrca+UKfTcKDYWH7RmzECZ4SW71xODW6/SpBFkQ=;
- b=ci+1jI/62tsyH/V1EY4ekoU++rhLYFviuU48qLgL8zl+T0l7ANtJqm2gXRiBqLa+ox
- qpWrBPuThrAOddUuiGN+Rl3hb4kmTH3XPRCVJlJ0+k5F4Mhaxe4swzOhfM8YFT0cNXq8
- LE/C074FR6731ZHOM7/u6OKvlMiGhMsulTGavvdqj9WQbjEbQo0jjI+mqsaAOvrNF0TJ
- GsFouHGa7OieG4d4u6E96D0rfM0b6lCbIjWtDAxgXdi4ApzaWNEOrR4wUzZ/7lMO1gPQ
- qmLZWsRWfqQjVeRd+vTxwIF36ZSbuE9cYssKv9B5kftZ3uLzpPIQehS1Zqnz3gijZuE8
- wnww==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=9LdlmQyOWQmNUkI2XSzFvRVcY0yH+3vXNaOXUWwwOG4=;
+ b=eV6FwIVuQpB9dHkFnLwSKjT4FEK0Dhbo6bQOrKzw9FkfJkh5Oa/iuWccmmSpSzWe97
+ 42QbvmI8RqNNXVaHyDhu7vGFqpBEV+2F2HRrL2nr1elvXGTuS9XooJwD3YJ5E94OV8Tx
+ MJkOkq6sZcpSukalpkstesF6L8viUq+OGxS5No+nWxyhPkC1EaMvRFwSnwZhfpx2HNQ6
+ pF1bm0WsUfnBUf7xNmroMUFR9I7rg4M+ynn/WE/selpTONdzHKxccsUsCXJBd7xBz8Ap
+ l+jAyYMMVg/OTe3TxF5I+9x9UR/flsUnsTz7D297O2Mh2UtG5HB3xzLO8t2t8ayyPy2i
+ G22w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc;
- bh=kbnOtrca+UKfTcKDYWH7RmzECZ4SW71xODW6/SpBFkQ=;
- b=zZkOZB9k+FIkXbA6FU3yYfKJifhbZLPa4CZQiiJEJblAaXVm7VDKq2AcsDH1EAssEW
- npuZJHRLXYFiF85lX0eUUpOeb7kIn7DC6Dj4IFeBDgI3/zrOmV1S7tT6HlQvWqXP456K
- wM430du7bQV0hLrJaj7gMz/1C5nzFM5Yr4e5UVqcqdKx4veS60mvqr3IjkpCL5JPHzsI
- 4mCzx/dL1NU580MvTRfndNqaSRfCL/1DFyyp+flHBP0KbsjM94FM4HJaXCE40QtS45kM
- t40IErDVEkQ9w4eOuAuLNXajmi9P4W78Wa8Lor1BDxtHPWpp13vn1ndq/sFyZgDk2XKJ
- ceYw==
-X-Gm-Message-State: ACgBeo2EO8u53pMQwZx1oRiaPpL8OU+db/CTxhqF6Rl5LSVS2GHQHMFr
- +ubvcqyxoaLq+8FNq0zxq7D61X570joWCQ==
-X-Google-Smtp-Source: AA6agR4cNBxlswbb37h1EmIOwy/5UEzDGylekvDiyaLDKDyZyyioSmf9PY0tAVvRvBnO5/uiENTDcQ==
-X-Received: by 2002:a5d:6687:0:b0:21e:d501:1b03 with SMTP id
- l7-20020a5d6687000000b0021ed5011b03mr20097422wru.387.1660231847121; 
- Thu, 11 Aug 2022 08:30:47 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=9LdlmQyOWQmNUkI2XSzFvRVcY0yH+3vXNaOXUWwwOG4=;
+ b=pA73LgM4YM5Oqh8yI6USD+boVmryw6n5X3rpLSEcsU4funqyzxS2oN0oeoa+FJM8Ax
+ HTOYjuRjmeuoBh5uA+jjlpHwplFNn16Jr/yyW7c/Y1I3fU1REnYjFnZDfp1fK0akysOJ
+ t7sMCnK8mG4EhNqwM8XNkiYrOtxMEkSGtc/O2BL4d+3pYQRehmvaP4tqar0QeT8qKsFq
+ 8E1zERUBYozhXaWn9ijK7bZ+zXKtVFxm/WqwxAOnaPwOih3sXm0enBuTEICEje8I/FPQ
+ ooZqY/nletstbQswG/GoGBdpz6I7uAVItAcZMr326fOkCLaPjju/7/2s5JjqcF5lm2gw
+ Iu9Q==
+X-Gm-Message-State: ACgBeo3KdfpB9IoG6GEQ/5Syn5t+rCInGlV33cxJeTUsy/nurL1vDmyo
+ 8j0cD8XSfbFdheRMC1zjkc6QEIRNncOT7w==
+X-Google-Smtp-Source: AA6agR5M9utedSYDnsS5LO6FAtzaxLGA2AV5HP+vrf8nPzln6D1eAiA97OrCyHA9QEQ+h+6JgnjaQA==
+X-Received: by 2002:a5d:5989:0:b0:221:7c34:3943 with SMTP id
+ n9-20020a5d5989000000b002217c343943mr15731861wri.441.1660231856621; 
+ Thu, 11 Aug 2022 08:30:56 -0700 (PDT)
 Received: from localhost.localdomain
  (host-79-27-108-198.retail.telecomitalia.it. [79.27.108.198])
  by smtp.gmail.com with ESMTPSA id
- m7-20020a056000008700b00222ed7ea203sm9805502wrx.100.2022.08.11.08.30.44
+ m7-20020a056000008700b00222ed7ea203sm9805502wrx.100.2022.08.11.08.30.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Aug 2022 08:30:45 -0700 (PDT)
+ Thu, 11 Aug 2022 08:30:55 -0700 (PDT)
 From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -62,14 +62,16 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
  Matthew Auld <matthew.auld@intel.com>, Ira Weiny <ira.weiny@intel.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Thu, 11 Aug 2022 17:30:38 +0200
-Message-Id: <20220811153041.12795-1-fmdefrancesco@gmail.com>
+Date: Thu, 11 Aug 2022 17:30:41 +0200
+Message-Id: <20220811153041.12795-4-fmdefrancesco@gmail.com>
 X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20220811153041.12795-1-fmdefrancesco@gmail.com>
+References: <20220811153041.12795-1-fmdefrancesco@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 15 Aug 2022 13:18:12 +0000
-Subject: [Intel-gfx] [PATCH 0/3] drm/i915: Replace kmap() with
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/gem: Replace kmap() with
  kmap_local_page()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,31 +101,82 @@ With kmap_local_page() the mappings are per thread, CPU local, can take
 page faults, and can be called from any context (including interrupts).
 It is faster than kmap() in kernels with HIGHMEM enabled. Furthermore,
 the tasks can be preempted and, when they are scheduled to run again, the
-kernel virtual addresses are restored and still valid.
+kernel virtual addresses are restored and are still valid.
 
-Since its use in drm/i915 is safe everywhere, it should be preferred.
+Since its use in i915/gem is safe everywhere, it should be preferred.
 
-Therefore, replace kmap() with kmap_local_page() in drm/i915.
-
-These changes should be tested in an 32 bits system, booting a kernel
-with HIGHMEM enabled. Unfortunately I have no i915 based hardware,
-therefore any help with testing would be greatly appreciated.
+Therefore, replace kmap() with kmap_local_page() in i915/gem.
 
 Suggested-by: Ira Weiny <ira.weiny@intel.com>
 Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c          | 6 ++----
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 8 ++++----
+ 2 files changed, 6 insertions(+), 8 deletions(-)
 
-Fabio M. De Francesco (3):
-  drm/i915: Replace kmap() with kmap_local_page()
-  drm/i915/gt: Replace kmap() with kmap_local_page()
-  drm/i915/gem: Replace kmap() with kmap_local_page()
-
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c          |  6 ++----
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c |  8 ++++----
- drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c       |  4 ++--
- drivers/gpu/drm/i915/gt/shmem_utils.c              | 11 ++++-------
- drivers/gpu/drm/i915/i915_gem.c                    |  8 ++++----
- 5 files changed, 16 insertions(+), 21 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index 4eed3dd90ba8..2bc6ab9964ff 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -640,16 +640,14 @@ i915_gem_object_create_shmem_from_data(struct drm_i915_private *dev_priv,
+ 	do {
+ 		unsigned int len = min_t(typeof(size), size, PAGE_SIZE);
+ 		struct page *page;
+-		void *pgdata, *vaddr;
++		void *pgdata;
+ 
+ 		err = aops->write_begin(file, file->f_mapping, offset, len,
+ 					&page, &pgdata);
+ 		if (err < 0)
+ 			goto fail;
+ 
+-		vaddr = kmap(page);
+-		memcpy(vaddr, data, len);
+-		kunmap(page);
++		memcpy_to_page(page, 0, data, len);
+ 
+ 		err = aops->write_end(file, file->f_mapping, offset, len, len,
+ 				      page, pgdata);
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index 3ced9948a331..bb25b50b5688 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -153,7 +153,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
+ 	intel_gt_flush_ggtt_writes(to_gt(i915));
+ 
+ 	p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
+-	cpu = kmap(p) + offset_in_page(offset);
++	cpu = kmap_local_page(p) + offset_in_page(offset);
+ 	drm_clflush_virt_range(cpu, sizeof(*cpu));
+ 	if (*cpu != (u32)page) {
+ 		pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
+@@ -171,7 +171,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
+ 	}
+ 	*cpu = 0;
+ 	drm_clflush_virt_range(cpu, sizeof(*cpu));
+-	kunmap(p);
++	kunmap_local(cpu);
+ 
+ out:
+ 	i915_gem_object_lock(obj, NULL);
+@@ -249,7 +249,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
+ 		intel_gt_flush_ggtt_writes(to_gt(i915));
+ 
+ 		p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
+-		cpu = kmap(p) + offset_in_page(offset);
++		cpu = kmap_local_page(p) + offset_in_page(offset);
+ 		drm_clflush_virt_range(cpu, sizeof(*cpu));
+ 		if (*cpu != (u32)page) {
+ 			pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
+@@ -267,7 +267,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
+ 		}
+ 		*cpu = 0;
+ 		drm_clflush_virt_range(cpu, sizeof(*cpu));
+-		kunmap(p);
++		kunmap_local(cpu);
+ 		if (err)
+ 			return err;
+ 
 -- 
 2.37.1
 
