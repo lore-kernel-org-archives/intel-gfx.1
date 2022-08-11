@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 091BEC25B06
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53BF5C19F2A
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:18:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EAF3B3C4F;
-	Thu, 11 Aug 2022 15:17:37 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C30A7B3C39
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 15:16:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FBF9B3EF4;
+	Thu, 11 Aug 2022 15:18:09 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3791B3E9F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 15:17:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660231003; x=1691767003;
+ t=1660231072; x=1691767072;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=MvSaRABcfAkewG7QTzJtjdafwg5Uguf0iQae4BAuw+o=;
- b=fowHrXclU/o5a0TvYi5+g+e36DHgbAILFMynii3qEVJiFlpHsYGzkzNg
- wS0v4yLaOlG8hTVxOPNFRWOYSEmkMpSV262gC4n8Pp5vRkMcCDn5J/7tJ
- gdScJwaCheBqcdEIBp6H9y+OzvDvmU1eawJCuq2EEWQLJMRBz7G+miFNZ
- a8Nnl5kFzBJx9ZCH9pyRPwUns9DppFWVi42QrsW9cyocGwZB6fjDnNhgx
- mgpPDK63nGhmsR/mN7nvgWtAbDyV889xkUmjXamTvWkbPIfbzAVg2LLCo
- 8d5j/iix9qUlB0ZbmyPethH/VEzWr2DEwQGwm5OEW8JdrkzMGepqXbTWP w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10436"; a="278320362"
-X-IronPort-AV: E=Sophos;i="5.93,230,1654585200"; d="scan'208";a="278320362"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2022 08:10:58 -0700
-X-IronPort-AV: E=Sophos;i="5.93,230,1654585200"; d="scan'208";a="665413348"
+ bh=LmvG+r9JqL9LH4ewPNjjmZTtVPO4X+SwMt2Jj8wGYQo=;
+ b=l+hoKxx7S/Pa4Z0uLA1DZfd4or7fHxHB3tYQ4uR406kugYH0eijEFEgL
+ AzpaZt3dq6qwwYGAGsHWpmmBCIWqvLTRRVsnbX6bJqxL3TSqeQMOmEH0z
+ yHId6ma8B5X6lHML39iHF/2jDlacEBhXzqm94iL8yQQH34AatGqxe96rT
+ Dzq99Vm9udeOAq16BsS8uEV1eEknq3saxF5YPerKpHhx6sC/4/Yob+oMR
+ 8HoGqUDGv8kvDy+jut7t88LbXaHs8TIWacWZHr02V/BDKXQ9XN3W2UclA
+ cev9U7Q+LW6WiYbboSOLSZTnEO126qHOlGUpyKUV5AN7t20syFd3XrT6F g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10436"; a="317335654"
+X-IronPort-AV: E=Sophos;i="5.93,230,1654585200"; d="scan'208";a="317335654"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2022 08:09:59 -0700
+X-IronPort-AV: E=Sophos;i="5.93,230,1654585200"; d="scan'208";a="608952959"
 Received: from gdogaru-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.48.102])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2022 08:10:56 -0700
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2022 08:09:57 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Aug 2022 18:07:50 +0300
-Message-Id: <218604faf636e176c3668f35e08f95b65c110d99.1660230121.git.jani.nikula@intel.com>
+Date: Thu, 11 Aug 2022 18:07:37 +0300
+Message-Id: <a636fbee2f8ef133eea875659344755b56aff9be.1660230121.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1660230121.git.jani.nikula@intel.com>
 References: <cover.1660230121.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 39/39] drm/i915: move and group properties under
- display.properties
+Subject: [Intel-gfx] [PATCH 26/39] drm/i915: move fbc to display.fbc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,123 +61,118 @@ Cc: jani.nikula@intel.com, lucas.demarchi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Move display related members under drm_i915_private display sub-struct.
+
+Pointers and arrays of pointers to structs that we defined are fine
+without a sub-struct wrapping.
+
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_atomic.c       | 8 ++++----
- drivers/gpu/drm/i915/display/intel_connector.c    | 8 ++++----
- drivers/gpu/drm/i915/display/intel_display_core.h | 6 ++++++
- drivers/gpu/drm/i915/i915_drv.h                   | 3 ---
- 4 files changed, 14 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/i9xx_plane.c          | 2 +-
+ drivers/gpu/drm/i915/display/intel_display_core.h  | 2 ++
+ drivers/gpu/drm/i915/display/intel_fbc.c           | 6 +++---
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 2 +-
+ drivers/gpu/drm/i915/i915_drv.h                    | 3 ---
+ 5 files changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
-index b94973b5633f..18f0a5ae3bac 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-@@ -62,9 +62,9 @@ int intel_digital_connector_atomic_get_property(struct drm_connector *connector,
- 	struct intel_digital_connector_state *intel_conn_state =
- 		to_intel_digital_connector_state(state);
- 
--	if (property == dev_priv->force_audio_property)
-+	if (property == dev_priv->display.properties.force_audio)
- 		*val = intel_conn_state->force_audio;
--	else if (property == dev_priv->broadcast_rgb_property)
-+	else if (property == dev_priv->display.properties.broadcast_rgb)
- 		*val = intel_conn_state->broadcast_rgb;
- 	else {
- 		drm_dbg_atomic(&dev_priv->drm,
-@@ -95,12 +95,12 @@ int intel_digital_connector_atomic_set_property(struct drm_connector *connector,
- 	struct intel_digital_connector_state *intel_conn_state =
- 		to_intel_digital_connector_state(state);
- 
--	if (property == dev_priv->force_audio_property) {
-+	if (property == dev_priv->display.properties.force_audio) {
- 		intel_conn_state->force_audio = val;
- 		return 0;
- 	}
- 
--	if (property == dev_priv->broadcast_rgb_property) {
-+	if (property == dev_priv->display.properties.broadcast_rgb) {
- 		intel_conn_state->broadcast_rgb = val;
- 		return 0;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-index 1dcc268927a2..6d5cbeb8df4d 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.c
-+++ b/drivers/gpu/drm/i915/display/intel_connector.c
-@@ -229,7 +229,7 @@ intel_attach_force_audio_property(struct drm_connector *connector)
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_property *prop;
- 
--	prop = dev_priv->force_audio_property;
-+	prop = dev_priv->display.properties.force_audio;
- 	if (prop == NULL) {
- 		prop = drm_property_create_enum(dev, 0,
- 					   "audio",
-@@ -238,7 +238,7 @@ intel_attach_force_audio_property(struct drm_connector *connector)
- 		if (prop == NULL)
- 			return;
- 
--		dev_priv->force_audio_property = prop;
-+		dev_priv->display.properties.force_audio = prop;
- 	}
- 	drm_object_attach_property(&connector->base, prop, 0);
+diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
+index 0f35f2facdfc..5afbe3e98ee8 100644
+--- a/drivers/gpu/drm/i915/display/i9xx_plane.c
++++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
+@@ -125,7 +125,7 @@ static struct intel_fbc *i9xx_plane_fbc(struct drm_i915_private *dev_priv,
+ 					enum i9xx_plane_id i9xx_plane)
+ {
+ 	if (i9xx_plane_has_fbc(dev_priv, i9xx_plane))
+-		return dev_priv->fbc[INTEL_FBC_A];
++		return dev_priv->display.fbc[INTEL_FBC_A];
+ 	else
+ 		return NULL;
  }
-@@ -256,7 +256,7 @@ intel_attach_broadcast_rgb_property(struct drm_connector *connector)
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_property *prop;
- 
--	prop = dev_priv->broadcast_rgb_property;
-+	prop = dev_priv->display.properties.broadcast_rgb;
- 	if (prop == NULL) {
- 		prop = drm_property_create_enum(dev, DRM_MODE_PROP_ENUM,
- 					   "Broadcast RGB",
-@@ -265,7 +265,7 @@ intel_attach_broadcast_rgb_property(struct drm_connector *connector)
- 		if (prop == NULL)
- 			return;
- 
--		dev_priv->broadcast_rgb_property = prop;
-+		dev_priv->display.properties.broadcast_rgb = prop;
- 	}
- 
- 	drm_object_attach_property(&connector->base, prop, 0);
 diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index a753f6d66714..41ebdbd741c0 100644
+index 861178f969bd..066e7ee0b8df 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_core.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -27,6 +27,7 @@
- #include "intel_pm_types.h"
+@@ -18,6 +18,7 @@
+ #include "intel_display.h"
+ #include "intel_dmc.h"
+ #include "intel_dpll_mgr.h"
++#include "intel_fbc.h"
+ #include "intel_global_state.h"
+ #include "intel_gmbus.h"
+ #include "intel_opregion.h"
+@@ -347,6 +348,7 @@ struct intel_display {
+ 	struct intel_audio audio;
+ 	struct intel_dmc dmc;
+ 	struct intel_dpll dpll;
++	struct intel_fbc *fbc[I915_MAX_FBCS];
+ 	struct intel_hotplug hotplug;
+ 	struct intel_opregion opregion;
+ 	struct intel_overlay *overlay;
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+index 7436b35f7ea0..5e8e29a4559f 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.c
++++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+@@ -59,7 +59,7 @@
  
- struct drm_i915_private;
-+struct drm_property;
- struct i915_audio_component;
- struct i915_hdcp_comp_master;
- struct intel_atomic_state;
-@@ -373,6 +374,11 @@ struct intel_display {
- 		struct mutex mutex;
- 	} pps;
+ #define for_each_intel_fbc(__dev_priv, __fbc, __fbc_id) \
+ 	for_each_fbc_id((__dev_priv), (__fbc_id)) \
+-		for_each_if((__fbc) = (__dev_priv)->fbc[(__fbc_id)])
++		for_each_if((__fbc) = (__dev_priv)->display.fbc[(__fbc_id)])
  
-+	struct {
-+		struct drm_property *broadcast_rgb;
-+		struct drm_property *force_audio;
-+	} properties;
-+
- 	struct {
- 		unsigned long mask;
- 	} quirks;
+ struct intel_fbc_funcs {
+ 	void (*activate)(struct intel_fbc *fbc);
+@@ -1720,7 +1720,7 @@ void intel_fbc_init(struct drm_i915_private *i915)
+ 		    i915->params.enable_fbc);
+ 
+ 	for_each_fbc_id(i915, fbc_id)
+-		i915->fbc[fbc_id] = intel_fbc_create(i915, fbc_id);
++		i915->display.fbc[fbc_id] = intel_fbc_create(i915, fbc_id);
+ }
+ 
+ /**
+@@ -1840,7 +1840,7 @@ void intel_fbc_debugfs_register(struct drm_i915_private *i915)
+ 	struct drm_minor *minor = i915->drm.primary;
+ 	struct intel_fbc *fbc;
+ 
+-	fbc = i915->fbc[INTEL_FBC_A];
++	fbc = i915->display.fbc[INTEL_FBC_A];
+ 	if (fbc)
+ 		intel_fbc_debugfs_add(fbc, minor->debugfs_root);
+ }
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 4d6a27757065..594cda11382d 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -1940,7 +1940,7 @@ static struct intel_fbc *skl_plane_fbc(struct drm_i915_private *dev_priv,
+ 	enum intel_fbc_id fbc_id = skl_fbc_id_for_pipe(pipe);
+ 
+ 	if (skl_plane_has_fbc(dev_priv, fbc_id, plane_id))
+-		return dev_priv->fbc[fbc_id];
++		return dev_priv->display.fbc[fbc_id];
+ 	else
+ 		return NULL;
+ }
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 1bf7b13fdeda..ca97437f0e44 100644
+index 0dc3983eba84..752eeccb94eb 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -317,9 +317,6 @@ struct drm_i915_private {
+@@ -40,7 +40,6 @@
+ #include "display/intel_display_core.h"
+ #include "display/intel_display_power.h"
+ #include "display/intel_dsb.h"
+-#include "display/intel_fbc.h"
+ #include "display/intel_frontbuffer.h"
  
- 	struct i915_gpu_error gpu_error;
+ #include "gem/i915_gem_context_types.h"
+@@ -284,8 +283,6 @@ struct drm_i915_private {
+ 	};
+ 	u32 pipestat_irq_mask[I915_MAX_PIPES];
  
--	struct drm_property *broadcast_rgb_property;
--	struct drm_property *force_audio_property;
+-	struct intel_fbc *fbc[I915_MAX_FBCS];
 -
- 	/*
- 	 * Shadows for CHV DPLL_MD regs to keep the state
- 	 * checker somewhat working in the presence hardware
+ 	bool preserve_bios_swizzle;
+ 
+ 	unsigned int fsb_freq, mem_freq, is_ddr3;
 -- 
 2.34.1
 
