@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F23AC19F2A
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:16:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 468E3C19F2A
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 15:17:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C8DB3E63;
-	Thu, 11 Aug 2022 15:16:40 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D43E3B3E49
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 15:16:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CAFB10F33C;
+	Thu, 11 Aug 2022 15:17:06 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 247B9B3E6C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 15:16:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660230985; x=1691766985;
+ t=1660231002; x=1691767002;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Iiz54igdWaDpD7tmEBZRUr8/0GtDEqPY6k7azRsOKco=;
- b=eRhBi4yBNUIUsXN3aBOxe15yhCrHo0U+Ei5ej+aJVVAAjz0ROLaRhA27
- /SG33fHkdFi/TiTl0a4KILfXjaTg8jO+Pei0yu9xXn7S9wv1SNEJyZ3ae
- qBLpkAtsWk8zOxdQekIdKvF6r7hOoa2LNsmzPUKFVH78uMZWg0gdRnVz3
- 8mTgZZxLLRwRhK5ZlBvozjBktKGlYzIfuS12YhZ3qKSi/kZNQQ/eO49Gm
- ddBae2ohWqXGP6DT6jjjF6WaiuHHTQQFpkJjuSY6F+w5YJeN8EFBOJ1Tr
- 45+Er8+MgxgRYDFY90HSd5Wo13HHjk1gjqR1tNR5vle0Cp8SbMomhj5iT A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10436"; a="278320246"
-X-IronPort-AV: E=Sophos;i="5.93,230,1654585200"; d="scan'208";a="278320246"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2022 08:10:35 -0700
-X-IronPort-AV: E=Sophos;i="5.93,230,1654585200"; d="scan'208";a="634259960"
+ bh=5YMxYjp74ZT1kJsoMYnk2eypomlyYNBh2Vu0eRV8Xf8=;
+ b=aN5FhUWKIlVbQ5VzO5QzAG2fJGxL2BH4GUEcjr9dUCLzO8ZCihR89CWJ
+ 37BN590olBbHXLN8bvueJpd0+i14JLiJVTT1qgNqgln/VaBp58Xfp5Xkc
+ lEP3KCCWWZjyxHlYaLggVxzuRyCZVpvBjcnysR997ppKCf1+yieD1jaKK
+ hkR+Nc65DqDSpmlDa/rLUL3U03HGMjSxUJ4YjlqNAaLp1VeHJcKitBTpY
+ zKbuBKhYpF/ZvmWKhe71p8Vve6mMc1bLBaYU8ANNDEIJinhVqpvEHTCcF
+ ZZlKtZJ+in8wt3f0CoqIhNF/DmdTSEaeUlqD/acB11oD0eUgncnNr0B5g A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10436"; a="292167804"
+X-IronPort-AV: E=Sophos;i="5.93,230,1654585200"; d="scan'208";a="292167804"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2022 08:10:53 -0700
+X-IronPort-AV: E=Sophos;i="5.93,230,1654585200"; d="scan'208";a="581703226"
 Received: from gdogaru-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.48.102])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2022 08:10:33 -0700
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2022 08:10:51 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Aug 2022 18:07:45 +0300
-Message-Id: <1ba74f3a30b1f5e7d1705eac6e4c6ee3b95d0d5a.1660230121.git.jani.nikula@intel.com>
+Date: Thu, 11 Aug 2022 18:07:49 +0300
+Message-Id: <cd0230c82ac6e5976cb0cad07e874b5cf58112b8.1660230121.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1660230121.git.jani.nikula@intel.com>
 References: <cover.1660230121.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 34/39] drm/i915: split gem quirks from display
- quirks
+Subject: [Intel-gfx] [PATCH 38/39] drm/i915: move atomic_helper under
+ display sub-struct
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,155 +62,108 @@ Cc: jani.nikula@intel.com, lucas.demarchi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The lone gem quirk is an outlier, not even handled by the common quirk
-code. Split it to a separate gem_quirks member.
+Move display related members under drm_i915_private display sub-struct.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_pages.c                | 2 +-
- drivers/gpu/drm/i915/gem/i915_gem_tiling.c               | 4 ++--
- drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c | 2 +-
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c       | 4 ++--
- drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c             | 2 +-
- drivers/gpu/drm/i915/i915_debugfs.c                      | 2 +-
- drivers/gpu/drm/i915/i915_drv.h                          | 4 +++-
- drivers/gpu/drm/i915/i915_gem.c                          | 2 +-
- 8 files changed, 12 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c      | 14 +++++++-------
+ drivers/gpu/drm/i915/display/intel_display_core.h |  6 ++++++
+ drivers/gpu/drm/i915/i915_drv.h                   |  5 -----
+ 3 files changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-index 8357dbdcab5c..e0b39463c1b0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-@@ -66,7 +66,7 @@ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
- 	shrinkable = i915_gem_object_is_shrinkable(obj);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index f80c7797176d..818f8ea52156 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7409,7 +7409,7 @@ static void intel_atomic_helper_free_state(struct drm_i915_private *dev_priv)
+ 	struct intel_atomic_state *state, *next;
+ 	struct llist_node *freed;
  
- 	if (i915_gem_object_is_tiled(obj) &&
--	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
-+	    i915->gem_quirks & GEM_QUIRK_PIN_SWIZZLED_PAGES) {
- 		GEM_BUG_ON(i915_gem_object_has_tiling_quirk(obj));
- 		i915_gem_object_set_tiling_quirk(obj);
- 		GEM_BUG_ON(!list_empty(&obj->mm.link));
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
-index 85518b28cd72..fd42b89b7162 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
-@@ -278,7 +278,7 @@ i915_gem_object_set_tiling(struct drm_i915_gem_object *obj,
- 	 */
- 	if (i915_gem_object_has_pages(obj) &&
- 	    obj->mm.madv == I915_MADV_WILLNEED &&
--	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
-+	    i915->gem_quirks & GEM_QUIRK_PIN_SWIZZLED_PAGES) {
- 		if (tiling == I915_TILING_NONE) {
- 			GEM_BUG_ON(!i915_gem_object_has_tiling_quirk(obj));
- 			i915_gem_object_clear_tiling_quirk(obj);
-@@ -458,7 +458,7 @@ i915_gem_get_tiling_ioctl(struct drm_device *dev, void *data,
- 	}
- 
- 	/* Hide bit 17 from the user -- see comment in i915_gem_set_tiling */
--	if (dev_priv->quirks & QUIRK_PIN_SWIZZLED_PAGES)
-+	if (dev_priv->gem_quirks & GEM_QUIRK_PIN_SWIZZLED_PAGES)
- 		args->phys_swizzle_mode = I915_BIT_6_SWIZZLE_UNKNOWN;
- 	else
- 		args->phys_swizzle_mode = args->swizzle_mode;
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-index 3cfc621ef363..9a6a6b5b722b 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-@@ -711,7 +711,7 @@ static bool bad_swizzling(struct drm_i915_private *i915)
+-	freed = llist_del_all(&dev_priv->atomic_helper.free_list);
++	freed = llist_del_all(&dev_priv->display.atomic_helper.free_list);
+ 	llist_for_each_entry_safe(state, next, freed, freed)
+ 		drm_atomic_state_put(&state->base);
+ }
+@@ -7417,7 +7417,7 @@ static void intel_atomic_helper_free_state(struct drm_i915_private *dev_priv)
+ static void intel_atomic_helper_free_state_worker(struct work_struct *work)
  {
- 	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
+ 	struct drm_i915_private *dev_priv =
+-		container_of(work, typeof(*dev_priv), atomic_helper.free_work);
++		container_of(work, typeof(*dev_priv), display.atomic_helper.free_work);
  
--	if (i915->quirks & QUIRK_PIN_SWIZZLED_PAGES)
-+	if (i915->gem_quirks & GEM_QUIRK_PIN_SWIZZLED_PAGES)
- 		return true;
+ 	intel_atomic_helper_free_state(dev_priv);
+ }
+@@ -7709,7 +7709,7 @@ intel_atomic_commit_ready(struct i915_sw_fence *fence,
+ 	case FENCE_FREE:
+ 		{
+ 			struct intel_atomic_helper *helper =
+-				&to_i915(state->base.dev)->atomic_helper;
++				&to_i915(state->base.dev)->display.atomic_helper;
  
- 	if (has_bit17_swizzle(ggtt->bit_6_swizzle_x) ||
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index 3ced9948a331..25bb3bd4c3fe 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -367,7 +367,7 @@ static int igt_partial_tiling(void *arg)
- 		unsigned int pitch;
- 		struct tile tile;
+ 			if (llist_add(&state->freed, &helper->free_list))
+ 				schedule_work(&helper->free_work);
+@@ -8699,8 +8699,8 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
+ 	if (ret)
+ 		goto cleanup_vga_client_pw_domain_dmc;
  
--		if (i915->quirks & QUIRK_PIN_SWIZZLED_PAGES)
-+		if (i915->gem_quirks & GEM_QUIRK_PIN_SWIZZLED_PAGES)
- 			/*
- 			 * The swizzling pattern is actually unknown as it
- 			 * varies based on physical address of each page.
-@@ -464,7 +464,7 @@ static int igt_smoke_tiling(void *arg)
- 	 * Remember to look at the st_seed if we see a flip-flop in BAT!
- 	 */
+-	init_llist_head(&i915->atomic_helper.free_list);
+-	INIT_WORK(&i915->atomic_helper.free_work,
++	init_llist_head(&i915->display.atomic_helper.free_list);
++	INIT_WORK(&i915->display.atomic_helper.free_work,
+ 		  intel_atomic_helper_free_state_worker);
  
--	if (i915->quirks & QUIRK_PIN_SWIZZLED_PAGES)
-+	if (i915->gem_quirks & GEM_QUIRK_PIN_SWIZZLED_PAGES)
- 		return 0;
+ 	intel_init_quirks(i915);
+@@ -8993,8 +8993,8 @@ void intel_modeset_driver_remove(struct drm_i915_private *i915)
+ 	flush_workqueue(i915->display.wq.flip);
+ 	flush_workqueue(i915->display.wq.modeset);
  
- 	obj = huge_gem_object(i915,
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-index 6ebda3d65086..cf4a326f5f48 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-@@ -727,7 +727,7 @@ static void detect_bit_6_swizzle(struct i915_ggtt *ggtt)
- 		 * bit17 dependent, and so we need to also prevent the pages
- 		 * from being moved.
- 		 */
--		i915->quirks |= QUIRK_PIN_SWIZZLED_PAGES;
-+		i915->gem_quirks |= GEM_QUIRK_PIN_SWIZZLED_PAGES;
- 		swizzle_x = I915_BIT_6_SWIZZLE_NONE;
- 		swizzle_y = I915_BIT_6_SWIZZLE_NONE;
- 	}
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index f5c6a0714d79..36cc05150249 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -411,7 +411,7 @@ static int i915_swizzle_info(struct seq_file *m, void *data)
- 	seq_printf(m, "bit6 swizzle for Y-tiling = %s\n",
- 		   swizzle_string(to_gt(dev_priv)->ggtt->bit_6_swizzle_y));
+-	flush_work(&i915->atomic_helper.free_work);
+-	drm_WARN_ON(&i915->drm, !llist_empty(&i915->atomic_helper.free_list));
++	flush_work(&i915->display.atomic_helper.free_work);
++	drm_WARN_ON(&i915->drm, !llist_empty(&i915->display.atomic_helper.free_list));
+ }
  
--	if (dev_priv->quirks & QUIRK_PIN_SWIZZLED_PAGES)
-+	if (dev_priv->gem_quirks & GEM_QUIRK_PIN_SWIZZLED_PAGES)
- 		seq_puts(m, "L-shaped memory detected\n");
+ /* part #2: call after irq uninstall */
+diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
+index 252da61f2c6a..a753f6d66714 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_core.h
++++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+@@ -7,6 +7,7 @@
+ #define __INTEL_DISPLAY_CORE_H__
  
- 	/* On BDW+, swizzling is not used. See detect_bit_6_swizzle() */
+ #include <linux/list.h>
++#include <linux/llist.h>
+ #include <linux/mutex.h>
+ #include <linux/types.h>
+ #include <linux/wait.h>
+@@ -270,6 +271,11 @@ struct intel_display {
+ 	} funcs;
+ 
+ 	/* Grouping using anonymous structs. Keep sorted. */
++	struct intel_atomic_helper {
++		struct llist_head free_list;
++		struct work_struct free_work;
++	} atomic_helper;
++
+ 	struct {
+ 		/* backlight registers and fields in struct intel_panel */
+ 		struct mutex lock;
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index f9170b45663f..22571f77dc71 100644
+index e529a9575a66..1bf7b13fdeda 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -87,10 +87,11 @@ struct vlv_s0ix_state;
+@@ -297,11 +297,6 @@ struct drm_i915_private {
  
- #define I915_COLOR_UNEVICTABLE (-1) /* a non-vma sharing the address space */
+ 	struct list_head global_obj_list;
  
-+#define GEM_QUIRK_PIN_SWIZZLED_PAGES	BIT(0)
-+
- #define QUIRK_LVDS_SSC_DISABLE (1<<1)
- #define QUIRK_INVERT_BRIGHTNESS (1<<2)
- #define QUIRK_BACKLIGHT_PRESENT (1<<3)
--#define QUIRK_PIN_SWIZZLED_PAGES (1<<5)
- #define QUIRK_INCREASE_T12_DELAY (1<<6)
- #define QUIRK_INCREASE_DDI_DISABLED_TIME (1<<7)
- #define QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK (1<<8)
-@@ -292,6 +293,7 @@ struct drm_i915_private {
- 	enum intel_pch pch_type;
- 	unsigned short pch_id;
+-	struct intel_atomic_helper {
+-		struct llist_head free_list;
+-		struct work_struct free_work;
+-	} atomic_helper;
+-
+ 	bool mchbar_need_disable;
  
-+	unsigned long gem_quirks;
- 	unsigned long quirks;
- 
- 	struct drm_atomic_state *modeset_restore_state;
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 0639ec7e5455..ccf8291a00e7 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1035,7 +1035,7 @@ i915_gem_madvise_ioctl(struct drm_device *dev, void *data,
- 
- 	if (i915_gem_object_has_pages(obj) &&
- 	    i915_gem_object_is_tiled(obj) &&
--	    i915->quirks & QUIRK_PIN_SWIZZLED_PAGES) {
-+	    i915->gem_quirks & GEM_QUIRK_PIN_SWIZZLED_PAGES) {
- 		if (obj->mm.madv == I915_MADV_WILLNEED) {
- 			GEM_BUG_ON(!i915_gem_object_has_tiling_quirk(obj));
- 			i915_gem_object_clear_tiling_quirk(obj);
+ 	struct intel_l3_parity l3_parity;
 -- 
 2.34.1
 
