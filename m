@@ -4,37 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE564C00140
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 13:20:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAF4AC25B06
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 13:20:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1C5C52F1;
-	Mon, 15 Aug 2022 13:20:08 +0000 (UTC)
-Received: from bg5.exmail.qq.com (bg4.exmail.qq.com [43.154.221.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51760BCD20;
- Sat, 13 Aug 2022 15:16:47 +0000 (UTC)
-X-QQ-mid: bizesmtp74t1660403795twerpap8
-Received: from localhost.localdomain ( [110.188.55.240])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Sat, 13 Aug 2022 23:16:28 +0800 (CST)
-X-QQ-SSF: 0100000000200080H000B00A0000020
-X-QQ-FEAT: DRnj/z+Sqac7eaaRnRxjohl0DEvoOesJDpkPKa5FAiUeCIb4HB4wRQobyKARc
- 2u+3PVZtiijWZKitdsaVoddTICob6JL/nXE4UWivOeUdM7x8N4dpy7bz7LH9RKmBLCJBW6K
- RREVCUsjGcsmpzf54Ur9zgspPaB8cgvxCEtbjJUdA+IvMCFeOj1VdCSrfJ8tRQ/HJZLXJRL
- bmoZTZYSRxZReH0vbmnl1tHXZ+r2nQJ2NObg92HN+G+NhbR6n7ysmYA6q0DMz7VNZN//p+L
- A9zKhfcPkMGYP4duw4yLuEFtH32np6SoL5RUnRdfRpCNiYrf4M/T45q9AmJzIXvRMNOF7Ay
- 21zLIE84pSggkGo3SrGIu/Fhf1mfUk16ICswMPbkYhRpq4hE6EmjWmdIoji8A==
-X-QQ-GoodBg: 0
-From: min tang <tangmin@cdjrlc.com>
-To: airlied@linux.ie,
-	daniel@ffwll.ch,
-	srinivas.pandruvada@linux.intel.com
-Date: Sat, 13 Aug 2022 23:16:16 +0800
-Message-Id: <20220813151616.4193-1-tangmin@cdjrlc.com>
-X-Mailer: git-send-email 2.17.1
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr6
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5156EBBA27;
+	Mon, 15 Aug 2022 13:20:09 +0000 (UTC)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CED8CB4352;
+ Thu, 11 Aug 2022 15:30:51 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id l22so21752788wrz.7;
+ Thu, 11 Aug 2022 08:30:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc;
+ bh=lsxU9RpxEtZA+Mk40O6yVmrf9Fu1AMs9ElIAZHptX+c=;
+ b=p8TKVMzq5DwZ3OnqS3RJd818yoMLzy+vFjFcKzlWiosox7p8z1M/5PW/gBrz2e7ZOq
+ RcCm2WazhJYvmqLcaMpSIbJowOeXPTikATddJwIFDDcXMr8NuVwx2A/6WmqWRNmnnSPW
+ kxyxTRS7cc3d9M84ZexCGh/qOj90dgR3qwfhD8P+cNePNgofGMJMpOeMNCzRj9fwiUjR
+ gxwLTFlId5B58kby9P2uQkwS5i9TlF/0qS/Y07//QrDxQYLLlxxo8q2Bi2H14qK4iLZX
+ RABxL/E2v0VJN6Xq/qw/FBepYmww8/tuh6n+VQg0D9qaCoReL5dJ8aBFnN8BWFtXqIYK
+ 4nGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+ bh=lsxU9RpxEtZA+Mk40O6yVmrf9Fu1AMs9ElIAZHptX+c=;
+ b=EI28wRVVT3aI5U0hUVb47qe9yW9db3awYEJBVq4BoiH/4VxWr9cbzQuydbBf5Rucbj
+ z9BzlXAp1Oj6uSB0YB5I4SIg+HcgxUZGji0P28idCvII2fA5ElOE8L1tiZiCPPO80+Vp
+ MkdLVPA8oyWAmZnbmYktHyWPRMpYIJnU0wVyueNzt16MLwlazW9z8uLR7UGzkiEw5V18
+ Xb/yAstoRepj11D4QrBnfGOv2mytaJZgS3XAx5uNHTg2rf9DCGLLJpSEY61zNxXiqaFq
+ nOIVUOXeuXHY25k8BoGV3+vs2+efvLMq9AmAWCa/NWL2B4LhmUkjpPBGOMyWpfZ4NSDJ
+ 9FiA==
+X-Gm-Message-State: ACgBeo23S5O3uwX2uk9ToFQ5vmXPqCM1odxUoXSP7+jnGhT6RrxQfxlZ
+ VeFEZQI4+vOnsMKZXLNi7+A=
+X-Google-Smtp-Source: AA6agR6B9bizQz9J53uYxM4sZolnfx+nbRLl41mveZTi8oUUOyyvs7b1h0H6QspWO+C/SmNj2BgX/A==
+X-Received: by 2002:adf:ea0a:0:b0:220:6222:ee48 with SMTP id
+ q10-20020adfea0a000000b002206222ee48mr19221413wrm.243.1660231850215; 
+ Thu, 11 Aug 2022 08:30:50 -0700 (PDT)
+Received: from localhost.localdomain
+ (host-79-27-108-198.retail.telecomitalia.it. [79.27.108.198])
+ by smtp.gmail.com with ESMTPSA id
+ m7-20020a056000008700b00222ed7ea203sm9805502wrx.100.2022.08.11.08.30.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Aug 2022 08:30:48 -0700 (PDT)
+From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ John Harrison <John.C.Harrison@Intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Ira Weiny <ira.weiny@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 11 Aug 2022 17:30:39 +0200
+Message-Id: <20220811153041.12795-2-fmdefrancesco@gmail.com>
+X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20220811153041.12795-1-fmdefrancesco@gmail.com>
+References: <20220811153041.12795-1-fmdefrancesco@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 15 Aug 2022 13:18:12 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/gt: Unneeded semicolon
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915: Replace kmap() with
+ kmap_local_page()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,60 +85,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: min tang <tangmin@cdjrlc.com>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, dan.carpenter@oracle.com
+Cc: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There is no semicolon after '}' in line 648.
+kmap() is being deprecated in favor of kmap_local_page().
 
-Signed-off-by: min tang <tangmin@cdjrlc.com>
+There are two main problems with kmap(): (1) It comes with an overhead as
+mapping space is restricted and protected by a global lock for
+synchronization and (2) it also requires global TLB invalidation when the
+kmap’s pool wraps and it might block when the mapping space is fully
+utilized until a slot becomes available.
+
+With kmap_local_page() the mappings are per thread, CPU local, can take
+page faults, and can be called from any context (including interrupts).
+It is faster than kmap() in kernels with HIGHMEM enabled. Furthermore,
+the tasks can be preempted and, when they are scheduled to run again, the
+kernel virtual addresses are restored and are still valid.
+
+Since its use in i915_gem.c is safe everywhere, it should be preferred.
+
+Therefore, replace kmap() with kmap_local_page() in i915_gem.c
+
+Suggested-by: Ira Weiny <ira.weiny@intel.com>
+Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
 ---
- drivers/gpu/drm/i915/gt/intel_migrate.c         | 2 +-
- tools/power/x86/intel-speed-select/hfi-events.c | 2 +-
- tools/testing/selftests/timers/nanosleep.c      | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_gem.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
-index 2c35324b5f68..a69b244f14d0 100644
---- a/drivers/gpu/drm/i915/gt/intel_migrate.c
-+++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
-@@ -645,7 +645,7 @@ static int scatter_list_length(struct scatterlist *sg)
- 	while (sg && sg_dma_len(sg)) {
- 		len += sg_dma_len(sg);
- 		sg = sg_next(sg);
--	};
-+	}
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 702e5b89be22..43effce60e1b 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -212,14 +212,14 @@ shmem_pread(struct page *page, int offset, int len, char __user *user_data,
+ 	char *vaddr;
+ 	int ret;
  
- 	return len;
- }
-diff --git a/tools/power/x86/intel-speed-select/hfi-events.c b/tools/power/x86/intel-speed-select/hfi-events.c
-index 761375062505..f0ed69721308 100644
---- a/tools/power/x86/intel-speed-select/hfi-events.c
-+++ b/tools/power/x86/intel-speed-select/hfi-events.c
-@@ -144,7 +144,7 @@ static int family_handler(struct nl_msg *msg, void *arg)
- 			continue;
- 		res->id = nla_get_u32(tb2[CTRL_ATTR_MCAST_GRP_ID]);
- 		break;
--	};
-+	}
+-	vaddr = kmap(page);
++	vaddr = kmap_local_page(page);
  
- 	return 0;
- }
-diff --git a/tools/testing/selftests/timers/nanosleep.c b/tools/testing/selftests/timers/nanosleep.c
-index 71b5441c2fd9..433a09676aeb 100644
---- a/tools/testing/selftests/timers/nanosleep.c
-+++ b/tools/testing/selftests/timers/nanosleep.c
-@@ -72,7 +72,7 @@ char *clockstring(int clockid)
- 		return "CLOCK_BOOTTIME_ALARM";
- 	case CLOCK_TAI:
- 		return "CLOCK_TAI";
--	};
-+	}
- 	return "UNKNOWN_CLOCKID";
- }
+ 	if (needs_clflush)
+ 		drm_clflush_virt_range(vaddr + offset, len);
  
+ 	ret = __copy_to_user(user_data, vaddr + offset, len);
+ 
+-	kunmap(page);
++	kunmap_local(vaddr);
+ 
+ 	return ret ? -EFAULT : 0;
+ }
+@@ -634,7 +634,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
+ 	char *vaddr;
+ 	int ret;
+ 
+-	vaddr = kmap(page);
++	vaddr = kmap_local_page(page);
+ 
+ 	if (needs_clflush_before)
+ 		drm_clflush_virt_range(vaddr + offset, len);
+@@ -643,7 +643,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
+ 	if (!ret && needs_clflush_after)
+ 		drm_clflush_virt_range(vaddr + offset, len);
+ 
+-	kunmap(page);
++	kunmap_local(vaddr);
+ 
+ 	return ret ? -EFAULT : 0;
+ }
 -- 
-2.17.1
+2.37.1
 
