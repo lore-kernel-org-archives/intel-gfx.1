@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86411C19F2D
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 05:02:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4953AC19F2D
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Aug 2022 05:39:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC63A133F;
-	Thu, 11 Aug 2022 05:01:27 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB7EA11A3
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 05:00:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD1F514B1B2;
+	Thu, 11 Aug 2022 05:39:11 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE11F12A61A
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Aug 2022 05:39:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660194028; x=1691730028;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ZHyEiSl0OKvhb4AgR6NaatiVZHh6ENhQctE+g5bS7Xc=;
- b=YnW7MRjXBSCwaJZxfGq5qankgh1gsd9kaQ79LkfRdnqPg9WgjmO6V0bB
- xqPXnu9em78B6RctOdBAqjQyxql70QcdQQljluWbV2If+8SpEgfURaq9W
- cwSq//fEUN1LRWwMTjtgFNMW1WBW0NjGYdG8Nq/NCJwhFDF46qYwP1/IF
- vravTew5np/i4ZjP8JDc4pFyykjdngAmddPBWzS48BE9PdMma0K75YF2U
- PSL3AN8IdBeFEXRust/tvqaZXp8XBFE7lf+CKH08Fqbh2jei54hkLXS7X
- 9uhRaYnEKfpV17h7LNicTBBrd/u0yffaGDOVW7QJ+IIX8ZKPZ/KKQ1oww Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10435"; a="291257746"
-X-IronPort-AV: E=Sophos;i="5.93,228,1654585200"; d="scan'208";a="291257746"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2022 22:00:20 -0700
-X-IronPort-AV: E=Sophos;i="5.93,228,1654585200"; d="scan'208";a="673553157"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2022 22:00:18 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+ t=1660196342; x=1691732342;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=/AamZfe+hwVAp/MT3Br5NO8EtbwnQdeLHzs2uflINn8=;
+ b=Wc6anQvL9JL36OE+qz2HUr2IEHmAZ86JO+kdEhEkwXCsOlj0mnmQ7tz9
+ aWHhqxNPUGF3TB+33iKZcdGTLMevjm1NxKzh9uBGm0BA9sowhJInlV+Pf
+ QXlZIJfOq27SQbZCvVBf2A6mrkWXb6TNBq5WsMUXdJzldICo9We2Mus2F
+ SOqh2/Fjn5EdhUO8tON9GS76mzRgj1hEB74NTpWtDrQ1DesVIaA0SYopO
+ gT9SmLgrsmFSGvsqLBRIdqUYi4Jof/oIVOVaBH0DUGgkp5QFWjwkRtc5d
+ aycTFTlcJACsjhMyIy5o8vXO4gcAtfXc1/p+OIi+hTp8DmWXuJV5GEdsA Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10435"; a="292521473"
+X-IronPort-AV: E=Sophos;i="5.93,228,1654585200"; d="scan'208";a="292521473"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2022 22:39:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,228,1654585200"; d="scan'208";a="665219565"
+Received: from sagar-optiplex-5060.iind.intel.com ([10.145.162.76])
+ by fmsmga008.fm.intel.com with ESMTP; 10 Aug 2022 22:39:00 -0700
+From: S A Muqthyar Ahmed <syed.abdul.muqthyar.ahmed@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 11 Aug 2022 10:29:42 +0530
-Message-Id: <20220811045945.2113431-2-ankit.k.nautiyal@intel.com>
+Date: Thu, 11 Aug 2022 11:09:47 +0530
+Message-Id: <20220811053947.3251999-1-syed.abdul.muqthyar.ahmed@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220811045945.2113431-1-ankit.k.nautiyal@intel.com>
-References: <20220811045945.2113431-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] drm/edid: Fix minimum bpc supported with
- DSC1.2 for HDMI sink
+Subject: [Intel-gfx] [PATCH v2] drm/i915/gem: reschedule relocations to
+ avoid timeouts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,40 +54,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: maarten.lankhorst@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-HF-VSDB/SCDB has bits to advertise support for 16, 12 and 10 bpc.
-If none of the bits are set, the minimum bpc supported with DSC is 8.
+Platforms with greater system memory will need to relocate more entries.
+It may lead to soft hangs.
 
-This patch corrects the min bpc supported to be 8, instead of 0.
+Adding cond_resched() for rescheduling process to avoid timeouts.
 
-Fixes: 76ee7b905678 ("drm/edid: Parse DSC1.2 cap fields from HFVSDB block")
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Suggested-by: Chris Wilson <chris.p.wilson@intel.com>
+Signed-off-by: S A Muqthyar Ahmed <syed.abdul.muqthyar.ahmed@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index bbc25e3b7220..cdf10279e1bd 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -5770,7 +5770,8 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 			else if (hf_scds[11] & DRM_EDID_DSC_10BPC)
- 				hdmi_dsc->bpc_supported = 10;
- 			else
--				hdmi_dsc->bpc_supported = 0;
-+				/* Supports min 8 BPC if DSC1.2 is supported*/
-+				hdmi_dsc->bpc_supported = 8;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index b7b2c14fd9e15e..25ab4b9e20049e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -1551,6 +1551,11 @@ static int eb_relocate_vma(struct i915_execbuffer *eb, struct eb_vma *ev)
+ 			}
+ 		} while (r++, --count);
+ 		urelocs += ARRAY_SIZE(stack);
++
++		if (need_resched()) {
++			reloc_cache_reset(&eb->reloc_cache, eb);
++			cond_resched();
++		}
+ 	} while (remain);
+ out:
+ 	reloc_cache_reset(&eb->reloc_cache, eb);
+@@ -1564,18 +1569,19 @@ eb_relocate_vma_slow(struct i915_execbuffer *eb, struct eb_vma *ev)
+ 	struct drm_i915_gem_relocation_entry *relocs =
+ 		u64_to_ptr(typeof(*relocs), entry->relocs_ptr);
+ 	unsigned int i;
+-	int err;
++	int err = 0;
  
- 			dsc_max_frl_rate = (hf_scds[12] & DRM_EDID_DSC_MAX_FRL_RATE_MASK) >> 4;
- 			drm_get_max_frl_rate(dsc_max_frl_rate, &hdmi_dsc->max_lanes,
+-	for (i = 0; i < entry->relocation_count; i++) {
++	for (i = 0; !err && i < entry->relocation_count; i++) {
+ 		u64 offset = eb_relocate_entry(eb, ev, &relocs[i]);
+ 
+-		if ((s64)offset < 0) {
++		if ((s64)offset < 0)
+ 			err = (int)offset;
+-			goto err;
++
++		if (need_resched()) {
++			reloc_cache_reset(&eb->reloc_cache, eb);
++			cond_resched();
+ 		}
+ 	}
+-	err = 0;
+-err:
+ 	reloc_cache_reset(&eb->reloc_cache, eb);
+ 	return err;
+ }
 -- 
 2.25.1
 
