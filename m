@@ -4,47 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1505CC25B0E
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 09:55:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17B82C00140
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Aug 2022 11:34:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90DB6AB4FF;
-	Fri, 12 Aug 2022 09:54:13 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 812E298CD9;
- Fri, 12 Aug 2022 09:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660298047; x=1691834047;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=olE+kcSLMFIzY0K6/Tm3ZPC6nm8PiVyXuhkfNx+snNY=;
- b=XTXH/LpEkcjBe5R41TnqDdLgqiD7RrLWkX1dt9+4aYCXhsoXwskbPWwe
- 0AtJXpdOTfdA/mDxPj6aD/+YIXZZl7JUG3ysNAAA+PPKJso1nd1/om8F+
- M9efx7dKKSz9h2UTcHJj+Nt//SlrUBeVHHDj4ss8ZwzyufGKg3E/+f6MN
- lCVy5ytjqjQZpPiqkrtxiZJ506ooSi1oAHfz0HklnsxpGGAR+I1+Wgz0R
- 8psGDhm954o4Q6oDCt+BJtPWicbZBhXdG6rK9acpBoJlmoO9Duob3QH+c
- nu9hpy0TZGtVWv5Of2+ClZOnVhpUMt8Lapb3Kt8wzJNlbmZ2B7+at+7KV w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10436"; a="292359349"
-X-IronPort-AV: E=Sophos;i="5.93,231,1654585200"; d="scan'208";a="292359349"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2022 02:54:07 -0700
-X-IronPort-AV: E=Sophos;i="5.93,231,1654585200"; d="scan'208";a="634588848"
-Received: from jkrzyszt-mobl1.ger.corp.intel.com (HELO jkrzyszt-mobl1.lan)
- ([10.213.22.182])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2022 02:54:03 -0700
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: igt-dev@lists.freedesktop.org
-Date: Fri, 12 Aug 2022 11:53:45 +0200
-Message-Id: <20220812095346.45379-2-janusz.krzysztofik@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220812095346.45379-1-janusz.krzysztofik@linux.intel.com>
-References: <20220812095346.45379-1-janusz.krzysztofik@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD6F90BE8;
+	Fri, 12 Aug 2022 11:34:15 +0000 (UTC)
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6439B8E930;
+ Fri, 12 Aug 2022 11:34:07 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id w19so1542929ejc.7;
+ Fri, 12 Aug 2022 04:34:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc; bh=2maBmCwKBmigg6muaEXXhf/Ng5GHmKY483ELQvBK7bw=;
+ b=WzmVA6wJmViKgJcjJ28fwTes4+4nkLVN3Mx6n7aAByQjaF1kqlO8c/DkZzzNbQ5PMJ
+ Q6QRifhtEywKPW0BRycraqPgJbNNV4Fkr0BDi9NwSjofj+/eExHcmIHXfmWBqj8nEM+V
+ SJ6yUML0yO8yFd9lLsoNczBtQtybcTMT4WUr1ptuUKBS3/Rda9YC3hjAtXIBeNWzrfQv
+ 8awekeP8HdFvSg9RwEt6hfJjxWj4IHX4MucvbIt4QDscDPd/6Xe/c8eYLuCx5yo9ewIX
+ pCKNLJxEdZn4+tUGCfNxm+c1cgbj7a+b8mhWZ+qT9Wu2+c+9oyIWqC1lkYhae0HgqZSg
+ TC0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=2maBmCwKBmigg6muaEXXhf/Ng5GHmKY483ELQvBK7bw=;
+ b=A7jY1idAC9750ssqeo5YGLPUPliyyYsxUykEwxWLUbo/yM5idnWAdlQKI6F8/UB9OX
+ yYJzaOqA6P4Wvq2p91JTHmqKW46zB/BFnrY4ZYHdws229czIA7+17yKlHGA3LRtk67Zv
+ eBL1CR8Sp9Nu3OLYBi0IfwW7vyQXpyWzONFIj5D+Z2pZz5aX5Wau2PuOOLdmHa9qfcfH
+ 0wTchpegQ2MsFmDlKjxIDUWBUD7dg6Zd6S2y+7wI0y3zLmUrhJdcJICmGz64CoS+blAQ
+ ltMQHTicMn/GYM/KhFl/rNyzl/dad/D9UH5F5hnSrmAUnFOn13RaSm9LBKa7V7os0tAD
+ /tJQ==
+X-Gm-Message-State: ACgBeo32I73lBrsanLs6dWfKYaNrYnXD77/TNhY/plcN5jVnbEkWvIsR
+ xTyv59uOSY2eknBm1KUOeQ0=
+X-Google-Smtp-Source: AA6agR7yLrz2JyTe8JHAoaW31lDloNP6q9ah/gkL0Xj0JLrU44S+nATJXnQ7Xvnv8KPuB3tTB73pJw==
+X-Received: by 2002:a17:906:eeca:b0:730:6880:c397 with SMTP id
+ wu10-20020a170906eeca00b007306880c397mr2352637ejb.593.1660304045907; 
+ Fri, 12 Aug 2022 04:34:05 -0700 (PDT)
+Received: from [192.168.178.21] (p57b0bd9f.dip0.t-ipconnect.de.
+ [87.176.189.159]) by smtp.gmail.com with ESMTPSA id
+ jj23-20020a170907985700b0073151ce7726sm696022ejc.100.2022.08.12.04.34.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 Aug 2022 04:34:05 -0700 (PDT)
+Message-ID: <93484389-1f79-b364-700f-60769fc5f8a5@gmail.com>
+Date: Fri, 12 Aug 2022 13:34:02 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+References: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
+ <20220725151839.31622-4-dmitry.osipenko@collabora.com>
+ <6c8bded9-1809-608f-749a-5ee28b852d32@gmail.com>
+ <562fbacf-3673-ff3c-23a1-124284b4456c@collabora.com>
+ <87724722-b9f3-a016-c25c-4b0415f2c37f@amd.com>
+ <0863cafa-c252-e194-3d23-ef640941e36e@collabora.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <0863cafa-c252-e194-3d23-ef640941e36e@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t v2 2/3] tests/gem_exec_fence: Exclude 0
- from use in store batches
+Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH v2 3/5] dma-buf: Move all
+ dma-bufs to dynamic locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,69 +80,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- Mauro Carvalho Chehab <mauro.carvalho.chehab@intel.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ Gerd Hoffmann <kraxel@redhat.com>, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, Sumit Semwal <sumit.semwal@linaro.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-rdma@vger.kernel.org,
+ Daniel Stone <daniel@fooishbar.org>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ spice-devel@lists.freedesktop.org, Chia-I Wu <olvaffe@gmail.com>,
+ linux-media@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, David Airlie <airlied@linux.ie>,
+ amd-gfx@lists.freedesktop.org, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When i = 0, condition out[i] == i will be true even if a batch supposed
-to store i in out[i] fails.  Don't use i = 0 in batches that store values
-in out[i].
 
-v2: still check for out[0] == 0 (Chris)
 
-Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
----
- tests/i915/gem_exec_fence.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+Am 10.08.22 um 20:53 schrieb Dmitry Osipenko:
+> On 8/10/22 21:25, Christian König wrote:
+>> Am 10.08.22 um 19:49 schrieb Dmitry Osipenko:
+>>> On 8/10/22 14:30, Christian König wrote:
+>>>> Am 25.07.22 um 17:18 schrieb Dmitry Osipenko:
+>>>>> This patch moves the non-dynamic dma-buf users over to the dynamic
+>>>>> locking specification. The strict locking convention prevents deadlock
+>>>>> situation for dma-buf importers and exporters.
+>>>>>
+>>>>> Previously the "unlocked" versions of the dma-buf API functions weren't
+>>>>> taking the reservation lock and this patch makes them to take the lock.
+>>>>>
+>>>>> Intel and AMD GPU drivers already were mapping imported dma-bufs under
+>>>>> the held lock, hence the "locked" variant of the functions are added
+>>>>> for them and the drivers are updated to use the "locked" versions.
+>>>> In general "Yes, please", but that won't be that easy.
+>>>>
+>>>> You not only need to change amdgpu and i915, but all drivers
+>>>> implementing the map_dma_buf(), unmap_dma_buf() callbacks.
+>>>>
+>>>> Auditing all that code is a huge bunch of work.
+>>> Hm, neither of drivers take the resv lock in map_dma_buf/unmap_dma_buf.
+>>> It's easy to audit them all and I did it. So either I'm missing
+>>> something or it doesn't take much time to check them all. Am I really
+>>> missing something?
+>> Ok, so this is only changing map/unmap now?
+> It also vmap/vunmap and attach/detach: In the previous patch I added the
+> _unlocked postfix to the func names and in this patch I made them all to
+> actually take the lock.
 
-diff --git a/tests/i915/gem_exec_fence.c b/tests/i915/gem_exec_fence.c
-index 048870053a..78d83460f7 100644
---- a/tests/i915/gem_exec_fence.c
-+++ b/tests/i915/gem_exec_fence.c
-@@ -334,6 +334,8 @@ static void test_fence_await(int fd, const intel_ctx_t *ctx,
- 		if (!gem_class_can_store_dword(fd, e2->class))
- 			continue;
- 
-+		i++;
-+
- 		if (flags & NONBLOCK) {
- 			igt_store_word(fd, ahnd, ctx, e2, spin->out_fence,
- 				       scratch, scratch_offset, i, i);
-@@ -345,8 +347,6 @@ static void test_fence_await(int fd, const intel_ctx_t *ctx,
- 				put_ahnd(ahnd);
- 			}
- 		}
--
--		i++;
- 	}
- 
- 	igt_spin_busywait_until_started(spin);
-@@ -356,7 +356,7 @@ static void test_fence_await(int fd, const intel_ctx_t *ctx,
- 	if ((flags & HANG) == 0) {
- 		/* Check for invalidly completing the task early */
- 		igt_assert(fence_busy(spin->out_fence));
--		for (int n = 0; n < i; n++)
-+		for (int n = 0; n <= i; n++)
- 			igt_assert_eq_u32(out[n], 0);
- 
- 		igt_spin_end(spin);
-@@ -366,8 +366,11 @@ static void test_fence_await(int fd, const intel_ctx_t *ctx,
- 
- 	gem_set_domain(fd, scratch, I915_GEM_DOMAIN_GTT, 0);
- 	igt_assert(!fence_busy(spin->out_fence));
--	while ((flags & HANG) == 0 && i--)
--		igt_assert_eq_u32(out[i], i);
-+	if ((flags & HANG) == 0) {
-+		do
-+			igt_assert_eq_u32(out[i], i);
-+		while (i--);
-+	}
- 	munmap(out, 4096);
- 
- 	igt_spin_free(fd, spin);
--- 
-2.25.1
+
+Take your patch "[PATCH v2 2/5] drm/gem: Take reservation lock for 
+vmap/vunmap operations" as a blueprint on how to approach it.
+
+E.g. one callback at a time and then document the result in the end.
+
+Regards,
+Christian.
+
+>
+>> In this case please separate this from the documentation change.
+> I'll factor out the doc in the v3.
+>
+>> I would also drop the _locked postfix from the function name, just
+>> having _unlocked on all functions which are supposed to be called with
+>> the lock held should be sufficient.
+> Noted for the v3.
+>
+>> Thanks for looking into this,
+>> Christian.
+> Thank you for the review.
+>
 
