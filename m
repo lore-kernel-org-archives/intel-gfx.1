@@ -4,71 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06112C25B0E
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 13:20:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE564C00140
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Aug 2022 13:20:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59CCDC6735;
-	Mon, 15 Aug 2022 13:20:05 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 452F211AF05;
- Wed, 10 Aug 2022 17:51:19 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
- [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 498706601B74;
- Wed, 10 Aug 2022 18:51:15 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1660153877;
- bh=HM95QO1ihmxrRoGMUr0F+Qz7CNTldAjBH/THyIQ39H4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=LuroBJkVtgDZC40RN60BCwqTBeX1/dG7B3mCswEIs9tbyZgWERqJwMdAA0BJvx+Yi
- sfmwr3ubE7K6qnyM7BsqDuk05nq2HQrELxrzmYVRDx+lBhSdyo2ZaOxmI3ppxm4SQy
- JpgvY81/2vGBqZLfi+H5BQNWU1B+lBbo7KkAbmKv5hdiWcNpOuK1HNQPT4KYtA+zFQ
- UvV8cx7ARkn/IWSsghHNowjBwu5Xk2B3DIXPORfcf7W+K3W+AFq08LkAljQxdtgzqr
- diA+QMg1DK/klgylAOsMOpuy+tLIB55F3Olad8GSY8kTUZgbyjOLSESUoKQl+NadkO
- Xr+sEl23yXDjQ==
-Message-ID: <9bc94ba9-6e82-2d87-8c8e-525f0264eac1@collabora.com>
-Date: Wed, 10 Aug 2022 20:51:12 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>
-References: <20220725151839.31622-1-dmitry.osipenko@collabora.com>
- <20220725151839.31622-4-dmitry.osipenko@collabora.com>
- <6c8bded9-1809-608f-749a-5ee28b852d32@gmail.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <6c8bded9-1809-608f-749a-5ee28b852d32@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1C5C52F1;
+	Mon, 15 Aug 2022 13:20:08 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg4.exmail.qq.com [43.154.221.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51760BCD20;
+ Sat, 13 Aug 2022 15:16:47 +0000 (UTC)
+X-QQ-mid: bizesmtp74t1660403795twerpap8
+Received: from localhost.localdomain ( [110.188.55.240])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Sat, 13 Aug 2022 23:16:28 +0800 (CST)
+X-QQ-SSF: 0100000000200080H000B00A0000020
+X-QQ-FEAT: DRnj/z+Sqac7eaaRnRxjohl0DEvoOesJDpkPKa5FAiUeCIb4HB4wRQobyKARc
+ 2u+3PVZtiijWZKitdsaVoddTICob6JL/nXE4UWivOeUdM7x8N4dpy7bz7LH9RKmBLCJBW6K
+ RREVCUsjGcsmpzf54Ur9zgspPaB8cgvxCEtbjJUdA+IvMCFeOj1VdCSrfJ8tRQ/HJZLXJRL
+ bmoZTZYSRxZReH0vbmnl1tHXZ+r2nQJ2NObg92HN+G+NhbR6n7ysmYA6q0DMz7VNZN//p+L
+ A9zKhfcPkMGYP4duw4yLuEFtH32np6SoL5RUnRdfRpCNiYrf4M/T45q9AmJzIXvRMNOF7Ay
+ 21zLIE84pSggkGo3SrGIu/Fhf1mfUk16ICswMPbkYhRpq4hE6EmjWmdIoji8A==
+X-QQ-GoodBg: 0
+From: min tang <tangmin@cdjrlc.com>
+To: airlied@linux.ie,
+	daniel@ffwll.ch,
+	srinivas.pandruvada@linux.intel.com
+Date: Sat, 13 Aug 2022 23:16:16 +0800
+Message-Id: <20220813151616.4193-1-tangmin@cdjrlc.com>
+X-Mailer: git-send-email 2.17.1
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr6
 X-Mailman-Approved-At: Mon, 15 Aug 2022 13:18:12 +0000
-Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH v2 3/5] dma-buf: Move all
- dma-bufs to dynamic locking specification
+Subject: [Intel-gfx] [PATCH] drm/i915/gt: Unneeded semicolon
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,22 +47,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+Cc: min tang <tangmin@cdjrlc.com>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, dan.carpenter@oracle.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 8/10/22 14:30, Christian König wrote:
->> + *     - dma_buf_move_notify()
-> 
-> This one is called by the exporter, not the importer.
+There is no semicolon after '}' in line 648.
 
-Good catch, thank you!
+Signed-off-by: min tang <tangmin@cdjrlc.com>
+---
+ drivers/gpu/drm/i915/gt/intel_migrate.c         | 2 +-
+ tools/power/x86/intel-speed-select/hfi-events.c | 2 +-
+ tools/testing/selftests/timers/nanosleep.c      | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index 2c35324b5f68..a69b244f14d0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -645,7 +645,7 @@ static int scatter_list_length(struct scatterlist *sg)
+ 	while (sg && sg_dma_len(sg)) {
+ 		len += sg_dma_len(sg);
+ 		sg = sg_next(sg);
+-	};
++	}
+ 
+ 	return len;
+ }
+diff --git a/tools/power/x86/intel-speed-select/hfi-events.c b/tools/power/x86/intel-speed-select/hfi-events.c
+index 761375062505..f0ed69721308 100644
+--- a/tools/power/x86/intel-speed-select/hfi-events.c
++++ b/tools/power/x86/intel-speed-select/hfi-events.c
+@@ -144,7 +144,7 @@ static int family_handler(struct nl_msg *msg, void *arg)
+ 			continue;
+ 		res->id = nla_get_u32(tb2[CTRL_ATTR_MCAST_GRP_ID]);
+ 		break;
+-	};
++	}
+ 
+ 	return 0;
+ }
+diff --git a/tools/testing/selftests/timers/nanosleep.c b/tools/testing/selftests/timers/nanosleep.c
+index 71b5441c2fd9..433a09676aeb 100644
+--- a/tools/testing/selftests/timers/nanosleep.c
++++ b/tools/testing/selftests/timers/nanosleep.c
+@@ -72,7 +72,7 @@ char *clockstring(int clockid)
+ 		return "CLOCK_BOOTTIME_ALARM";
+ 	case CLOCK_TAI:
+ 		return "CLOCK_TAI";
+-	};
++	}
+ 	return "UNKNOWN_CLOCKID";
+ }
+ 
 -- 
-Best regards,
-Dmitry
+2.17.1
+
