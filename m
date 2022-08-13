@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECD79C00140
-	for <intel-gfx@archiver.kernel.org>; Sat, 13 Aug 2022 01:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BB27C00140
+	for <intel-gfx@archiver.kernel.org>; Sat, 13 Aug 2022 01:10:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8C3EA9DD9;
-	Sat, 13 Aug 2022 01:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F55A12AC0E;
+	Sat, 13 Aug 2022 01:09:23 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6FE312A527;
- Sat, 13 Aug 2022 01:08:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C3CDA9BBE;
+ Sat, 13 Aug 2022 01:09:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660352938; x=1691888938;
+ t=1660352954; x=1691888954;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Zi/lCjUXpkF6B8O4jozC9jJ60/Hc8bXroWDXph0b3Rk=;
- b=ViCPWNMP3ue5yOOHm9MbUqVhAbqrd4dkAoknjB3NX5G73i52u2h4jout
- 6xSDwSkmTK10dNK2jMQSjaLg2fOeJ/tN07xr7CEguq73k8+iIYPg3ksBh
- j9vZ/ZYghbfK9z3qsRIQDSjVIGUog8Zf1cw5yNi+ueTPxSwxAMPizxqG4
- 3acy/LQZ4sMNC41oItp9yLLdAZq/6h5lA/Z2laaymjpsEXjPYVZJvhaC+
- mul8ojPstg7TkeOMwAOpjHrsK8IsbnrBROtPTH+yf53qhe2AWIqz+z46o
- HN923t8QFFshl8U1IjAvQ2Tg4M/a6aTP8qLYeF1Nm4P93AVrRA+MeUCxI g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10437"; a="289285867"
-X-IronPort-AV: E=Sophos;i="5.93,233,1654585200"; d="scan'208";a="289285867"
+ bh=uGkMdALCNhPir9OCf7HNUlcXk+ktqw6h9jb2//vd0mQ=;
+ b=JwwC1HvwD54pIIstFMRWMKu3ob2Y7L77ehqeDwOAQSgzTx8iFuc9PONQ
+ KdPovY82AL7eRMzIIsuH84KTxOCBkDW0UAPbBmpLiyTg1SDmgjWo3RX4H
+ mlhwDq4E4X5Zz3RzDexAlSV3g8RT6um/S+GeBKXnLVdqU9Rjahs6aMxrV
+ JZcFNPEahIC/5BSVOzXsbRSKqSvGIcfT/XLhBLcGhTQYGDMalMmhedUpE
+ aokD4WbIK2i1ctBUp2d/eSQpCOwH5TS5v/eU1Cx2XzCCGrJoc6c91EYtS
+ LnCnKiohrW+I+8biMslnRUgEmT0df0Ew9eyXQU9Iu3DjQEghWgOGzEgLC Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10437"; a="289285899"
+X-IronPort-AV: E=Sophos;i="5.93,233,1654585200"; d="scan'208";a="289285899"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2022 18:08:57 -0700
-X-IronPort-AV: E=Sophos;i="5.93,233,1654585200"; d="scan'208";a="666038333"
+ 12 Aug 2022 18:09:14 -0700
+X-IronPort-AV: E=Sophos;i="5.93,233,1654585200"; d="scan'208";a="666038387"
 Received: from akoska-mobl1.ger.corp.intel.com (HELO hades.ger.corp.intel.com)
  ([10.252.36.156])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2022 18:08:54 -0700
+ 12 Aug 2022 18:09:11 -0700
 From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat, 13 Aug 2022 04:08:50 +0300
-Message-Id: <20220813010857.4043956-2-gwan-gyeong.mun@intel.com>
+Date: Sat, 13 Aug 2022 04:08:55 +0300
+Message-Id: <20220813010857.4043956-7-gwan-gyeong.mun@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220813010857.4043956-1-gwan-gyeong.mun@intel.com>
 References: <20220813010857.4043956-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 1/8] overflow: Move and add few utility
- macros into overflow
+Subject: [Intel-gfx] [PATCH v6 6/8] drm/i915: Check if the size is too big
+ while creating shmem file
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,124 +66,51 @@ Cc: thomas.hellstrom@linux.intel.com, jani.nikula@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It moves overflows_type utility macro into overflow header from i915_utils
-header. The overflows_type can be used to catch the truncation between data
-types. And it adds safe_conversion() macro which performs a type conversion
-(cast) of an source value into a new variable, checking that the
-destination is large enough to hold the source value. And the functionality
-of overflows_type has been improved to handle the signbit.
-The is_unsigned_type macro has been added to check the sign bit of the
-built-in type.
+The __shmem_file_setup() function returns -EINVAL if size is greater than
+MAX_LFS_FILESIZE. To handle the same error as other code that returns
+-E2BIG when the size is too large, it add a code that returns -E2BIG when
+the size is larger than the size that can be handled.
 
-v3: Add is_type_unsigned() macro (Mauro)
-    Modify overflows_type() macro to consider signed data types (Mauro)
-    Fix the problem that safe_conversion() macro always returns true
-v4: Fix kernel-doc markups
-v6: Move macro addition location so that it can be used by other than drm
-    subsystem (Jani, Mauro, Andi)
-    Change is_type_unsigned to is_unsigned_type to have the same name form
-    as is_signed_type macro
+v4: If BITS_PER_LONG is 32, size > MAX_LFS_FILESIZE is always false, so it
+    checks only when BITS_PER_LONG is 64.
 
 Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Nirmoy Das <nirmoy.das@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
-Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org> (v5)
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 ---
- drivers/gpu/drm/i915/i915_utils.h |  5 +--
- include/linux/overflow.h          | 54 +++++++++++++++++++++++++++++++
- 2 files changed, 55 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-index c10d68cdc3ca..eb0ded23fa9c 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -32,6 +32,7 @@
- #include <linux/types.h>
- #include <linux/workqueue.h>
- #include <linux/sched/clock.h>
-+#include <linux/overflow.h>
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index 4cb35808e431..4a7a6d65fc7a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -541,6 +541,20 @@ static int __create_shmem(struct drm_i915_private *i915,
  
- #ifdef CONFIG_X86
- #include <asm/hypervisor.h>
-@@ -111,10 +112,6 @@ bool i915_error_injected(void);
- #define range_overflows_end_t(type, start, size, max) \
- 	range_overflows_end((type)(start), (type)(size), (type)(max))
+ 	drm_gem_private_object_init(&i915->drm, obj, size);
  
--/* Note we don't consider signbits :| */
--#define overflows_type(x, T) \
--	(sizeof(x) > sizeof(T) && (x) >> BITS_PER_TYPE(T))
--
- #define ptr_mask_bits(ptr, n) ({					\
- 	unsigned long __v = (unsigned long)(ptr);			\
- 	(typeof(ptr))(__v & -BIT(n));					\
-diff --git a/include/linux/overflow.h b/include/linux/overflow.h
-index f1221d11f8e5..462a03454377 100644
---- a/include/linux/overflow.h
-+++ b/include/linux/overflow.h
-@@ -35,6 +35,60 @@
- #define type_max(T) ((T)((__type_half_max(T) - 1) + __type_half_max(T)))
- #define type_min(T) ((T)((T)-type_max(T)-(T)1))
- 
-+/**
-+ * is_unsigned_type - helper for checking data type which is an unsigned data
-+ * type or not
-+ * @x: The data type to check
-+ *
-+ * Returns:
-+ * True if the data type is an unsigned data type, false otherwise.
-+ */
-+#define is_unsigned_type(x) ((typeof(x))-1 >= (typeof(x))0)
++	/* XXX: The __shmem_file_setup() function returns -EINVAL if size is
++	 * greater than MAX_LFS_FILESIZE.
++	 * To handle the same error as other code that returns -E2BIG when
++	 * the size is too large, we add a code that returns -E2BIG when the
++	 * size is larger than the size that can be handled.
++	 * If BITS_PER_LONG is 32, size > MAX_LFS_FILESIZE is always false,
++	 * so we only needs to check when BITS_PER_LONG is 64.
++	 * If BITS_PER_LONG is 32, E2BIG checks are processed when
++	 * i915_gem_object_size_2big() is called before init_object() callback
++	 * is called.
++	 */
++	if (BITS_PER_LONG == 64 && size > MAX_LFS_FILESIZE)
++		return -E2BIG;
 +
-+/**
-+ * overflows_type - helper for checking the truncation between data types
-+ * @x: Source for overflow type comparison
-+ * @T: Destination for overflow type comparison
-+ *
-+ * It compares the values and size of each data type between the first and
-+ * second argument to check whether truncation can occur when assigning the
-+ * first argument to the variable of the second argument.
-+ * Source and Destination can be used with or without sign bit.
-+ * Composite data structures such as union and structure are not considered.
-+ * Enum data types are not considered.
-+ * Floating point data types are not considered.
-+ *
-+ * Returns:
-+ * True if truncation can occur, false otherwise.
-+ */
-+#define overflows_type(x, T) \
-+	(is_unsigned_type(x) ? \
-+		is_unsigned_type(T) ? \
-+			(sizeof(x) > sizeof(T) && (x) >> BITS_PER_TYPE(T)) ? 1 : 0 \
-+			: (sizeof(x) >= sizeof(T) && (x) >> (BITS_PER_TYPE(T) - 1)) ? 1 : 0 \
-+	: is_unsigned_type(T) ? \
-+		((x) < 0) ? 1 : (sizeof(x) > sizeof(T) && (x) >> BITS_PER_TYPE(T)) ? 1 : 0 \
-+		: (sizeof(x) > sizeof(T)) ? \
-+			((x) < 0) ? (((x) * -1) >> BITS_PER_TYPE(T)) ? 1 : 0 \
-+				: ((x) >> BITS_PER_TYPE(T)) ? 1 : 0 \
-+			: 0)
-+
-+/**
-+ * safe_conversion - perform a type conversion (cast) of an source value into
-+ * a new variable, checking that the destination is large enough to hold the
-+ * source value.
-+ * @ptr: Destination pointer address
-+ * @value: Source value
-+ *
-+ * Returns:
-+ * If the value would overflow the destination, it returns false.
-+ */
-+#define safe_conversion(ptr, value) ({ \
-+	typeof(value) __v = (value); \
-+	typeof(ptr) __ptr = (ptr); \
-+	overflows_type(__v, *__ptr) ? 0 : ((*__ptr = (typeof(*__ptr))__v), 1); \
-+})
-+
- /*
-  * Avoids triggering -Wtype-limits compilation warning,
-  * while using unsigned data types to check a < 0.
+ 	if (i915->mm.gemfs)
+ 		filp = shmem_file_setup_with_mnt(i915->mm.gemfs, "i915", size,
+ 						 flags);
 -- 
 2.34.1
 
