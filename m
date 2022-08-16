@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0678C2BB41
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Aug 2022 09:37:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2223CC2BB41
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Aug 2022 09:37:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2368D11B585;
-	Tue, 16 Aug 2022 09:36:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D14818E677;
+	Tue, 16 Aug 2022 09:36:21 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 363F49AAE1;
- Tue, 16 Aug 2022 09:35:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF22298A5C;
+ Tue, 16 Aug 2022 09:36:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660642558; x=1692178558;
+ t=1660642564; x=1692178564;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=YbTZ5iIy9piEvqt+t49zjJcJD4S60yZwdImbMwTaINQ=;
- b=ijxZUTBliUFW3q50/Hg8GJLaaEqK2rcccq69c0nEBNBTT8tITFfYswSV
- wC7koQg0E/T6aALnACZrHcRg/2yWCUC7VHgi1FuppyqWxqI8OC341YQfh
- gEz9hICt0eyswFp1myL7a242UXlgzoNr7xeGKbItbvYKrRyOC7fvEXPwr
- HKa2Hy7JI1vqya7aK7yCxH8F6yCVHcIWoNmXeXmwZ1Orw6hlc1pUBb2sF
- tvQ8P0Qxt/mZJcvL5i+rLe5H9O/DlgHkWl6pPjLBLr0cdLhidtaEp7P8z
- mCjOs7LCYeHrFR2wxbdKwAiPMh9V0q9I214bvKSJjcccDuGrxqNLfQH1v A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10440"; a="279134743"
-X-IronPort-AV: E=Sophos;i="5.93,240,1654585200"; d="scan'208";a="279134743"
+ bh=RcVGSqDVgei8ibE/RZOfErIbENbpKkAHT9AfV6p7t+s=;
+ b=auTjm5ZOPYUQ60mlcut/vD0YK+lgYUcCZyfkWWwhsU5eBGmzl+3/9Aq8
+ /vF+OWCAjFnYlDa35L5U5dj9oxlpIEFHMVr1WzXQ8f8A/vs6HLEie9E+x
+ nDkdRGUixXsgO4sW7F76lQRzyp3v0Eiwt3RTB/9UF2rUa58d5l+/bW2Rt
+ xu4pxHZv25gkjRWLTypXMOPRwGDFzUc4ajLjOtxliS9peRtkchhdvKsql
+ 0mO0ohCVaFM3gmH1KLY5dCXaD16Rlr3L3IC58uLPjOF8YZJJcrrjpXq2u
+ DeQ9Ia/68yYSCn8O0DZ+4uyR5Y0+5Iw2Vd8pZCB0SMOWg/UK+EXLcjzTE g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10440"; a="279134761"
+X-IronPort-AV: E=Sophos;i="5.93,240,1654585200"; d="scan'208";a="279134761"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2022 02:35:58 -0700
-X-IronPort-AV: E=Sophos;i="5.93,240,1654585200"; d="scan'208";a="733231051"
+ 16 Aug 2022 02:36:03 -0700
+X-IronPort-AV: E=Sophos;i="5.93,240,1654585200"; d="scan'208";a="733231092"
 Received: from clbarnes-mobl.amr.corp.intel.com (HELO
  paris.amr.corp.intel.com) ([10.254.7.166])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2022 02:35:55 -0700
+ 16 Aug 2022 02:36:01 -0700
 From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 16 Aug 2022 18:35:22 +0900
-Message-Id: <20220816093525.184940-6-gwan-gyeong.mun@intel.com>
+Date: Tue, 16 Aug 2022 18:35:24 +0900
+Message-Id: <20220816093525.184940-8-gwan-gyeong.mun@intel.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220816093525.184940-1-gwan-gyeong.mun@intel.com>
 References: <20220816093525.184940-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 5/8] drm/i915: Check for integer truncation
- on the configuration of ttm place
+Subject: [Intel-gfx] [PATCH v7 7/8] drm/i915: Use error code as -E2BIG when
+ the size of gem ttm object is too large
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,98 +66,44 @@ Cc: thomas.hellstrom@linux.intel.com, jani.nikula@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There is an impedance mismatch between the first/last valid page
-frame number of ttm place in unsigned and our memory/page accounting in
-unsigned long.
-As the object size is under the control of userspace, we have to be prudent
-and catch the conversion errors.
-To catch the implicit truncation as we switch from unsigned long to
-unsigned, we use overflows_type check and report E2BIG or overflow_type
-prior to the operation.
-
-v3: Not to change execution inside a macro. (Mauro)
-    Add safe_conversion_gem_bug_on() macro and remove temporal
-    SAFE_CONVERSION() macro.
-v4: Fix unhandled GEM_BUG_ON() macro call from safe_conversion_gem_bug_on()
-v6: Fix to follow general use case for GEM_BUG_ON(). (Jani)
-v7: Fix to use WARN_ON() macro where GEM_BUG_ON() macro was used. (Jani)
+The ttm_bo_init_reserved() functions returns -ENOSPC if the size is too big
+to add vma. The direct function that returns -ENOSPC is drm_mm_insert_node_in_range().
+To handle the same error as other code returning -E2BIG when the size is
+too large, it converts return value to -E2BIG.
 
 Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Cc: Matthew Auld <matthew.auld@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com> (v2)
-Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org> (v3)
-Reported-by: kernel test robot <lkp@intel.com>
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com> (v5)
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c |  6 +++---
- drivers/gpu/drm/i915/intel_region_ttm.c | 17 ++++++++++++++---
- 2 files changed, 17 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 9f2be1892b6c..69805cbe850c 100644
+index 69805cbe850c..8a5589accdb2 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -140,14 +140,14 @@ i915_ttm_place_from_region(const struct intel_memory_region *mr,
- 	if (flags & I915_BO_ALLOC_CONTIGUOUS)
- 		place->flags |= TTM_PL_FLAG_CONTIGUOUS;
- 	if (offset != I915_BO_INVALID_OFFSET) {
--		place->fpfn = offset >> PAGE_SHIFT;
--		place->lpfn = place->fpfn + (size >> PAGE_SHIFT);
-+		WARN_ON(!safe_conversion(&place->fpfn, offset >> PAGE_SHIFT));
-+		WARN_ON(!safe_conversion(&place->lpfn, place->fpfn + (size >> PAGE_SHIFT)));
- 	} else if (mr->io_size && mr->io_size < mr->total) {
- 		if (flags & I915_BO_ALLOC_GPU_ONLY) {
- 			place->flags |= TTM_PL_FLAG_TOPDOWN;
- 		} else {
- 			place->fpfn = 0;
--			place->lpfn = mr->io_size >> PAGE_SHIFT;
-+			WARN_ON(!safe_conversion(&place->lpfn, mr->io_size >> PAGE_SHIFT));
- 		}
- 	}
- }
-diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
-index 575d67bc6ffe..c8c6c2e22e01 100644
---- a/drivers/gpu/drm/i915/intel_region_ttm.c
-+++ b/drivers/gpu/drm/i915/intel_region_ttm.c
-@@ -209,14 +209,23 @@ intel_region_ttm_resource_alloc(struct intel_memory_region *mem,
- 	if (flags & I915_BO_ALLOC_CONTIGUOUS)
- 		place.flags |= TTM_PL_FLAG_CONTIGUOUS;
- 	if (offset != I915_BO_INVALID_OFFSET) {
--		place.fpfn = offset >> PAGE_SHIFT;
--		place.lpfn = place.fpfn + (size >> PAGE_SHIFT);
-+		if (WARN_ON(!safe_conversion(&place.fpfn, offset >> PAGE_SHIFT))) {
-+			ret = -E2BIG;
-+			goto out;
-+		}
-+		if (WARN_ON(!safe_conversion(&place.lpfn, place.fpfn + (size >> PAGE_SHIFT)))) {
-+			ret = -E2BIG;
-+			goto out;
-+		}
- 	} else if (mem->io_size && mem->io_size < mem->total) {
- 		if (flags & I915_BO_ALLOC_GPU_ONLY) {
- 			place.flags |= TTM_PL_FLAG_TOPDOWN;
- 		} else {
- 			place.fpfn = 0;
--			place.lpfn = mem->io_size >> PAGE_SHIFT;
-+			if (WARN_ON(!safe_conversion(&place.lpfn, mem->io_size >> PAGE_SHIFT))) {
-+				ret = -E2BIG;
-+				goto out;
-+			}
- 		}
- 	}
- 
-@@ -224,6 +233,8 @@ intel_region_ttm_resource_alloc(struct intel_memory_region *mem,
- 	mock_bo.bdev = &mem->i915->bdev;
- 
- 	ret = man->func->alloc(man, &mock_bo, &place, &res);
+@@ -1249,6 +1249,17 @@ int __i915_gem_ttm_object_init(struct intel_memory_region *mem,
+ 	ret = ttm_bo_init_reserved(&i915->bdev, i915_gem_to_ttm(obj), bo_type,
+ 				   &i915_sys_placement, page_size >> PAGE_SHIFT,
+ 				   &ctx, NULL, NULL, i915_ttm_bo_destroy);
 +
-+out:
- 	if (ret == -ENOSPC)
- 		ret = -ENXIO;
- 	if (!ret)
++	/*
++	 * XXX: The ttm_bo_init_reserved() functions returns -ENOSPC if the size
++	 * is too big to add vma. The direct function that returns -ENOSPC is
++	 * drm_mm_insert_node_in_range(). To handle the same error as other code
++	 * that returns -E2BIG when the size is too large, it converts -ENOSPC to
++	 * -E2BIG.
++	 */
++	if (size >> PAGE_SHIFT > INT_MAX && ret == -ENOSPC)
++		ret = -E2BIG;
++
+ 	if (ret)
+ 		return i915_ttm_err_to_gem(ret);
+ 
 -- 
 2.37.1
 
