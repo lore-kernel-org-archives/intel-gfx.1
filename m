@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B9A8C32773
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Aug 2022 15:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A8B2C28B2B
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Aug 2022 15:38:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 330B094C55;
-	Tue, 16 Aug 2022 15:37:52 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95371113BF8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6191212AA17;
+	Tue, 16 Aug 2022 15:37:53 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D800B12AA61
  for <intel-gfx@lists.freedesktop.org>; Tue, 16 Aug 2022 15:37:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1660664255; x=1692200255;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=VCExacxdWUP4V/BC+9n4OY0AEAUDKb6+gvdpP6SUTSs=;
- b=bpQEsAmDDYMV30UMq4jYjAEBRacR4qQQ6iz6rMFBggqNFm/eIPCsu+Aq
- wqr047qklij80+o/mqC8OrT/kGeFXOkd1kzqlevRYKDWd/lLGV9ip130s
- Nn9aCpnlll00N4IZYTIeSSSV5BFLrAC33lKWzTPbflOTrqLdngEpVbZv3
- WhD+TwLMkVJH+6HFhfTMW7jibYPVgJNAhIdhDuJhhJvtE25J3CYo2TX55
- yBPGn1LClhD6Mgb+mm2impuxS7GCwXzwx2qFEPDk/2J5U0yDF2tLoi73F
- Z+a9KxWlYpT5uz2G6EeRhaOEEqZEaNIboQVElgtm+Y+ACCn30c1iVzq86 g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10441"; a="275308266"
-X-IronPort-AV: E=Sophos;i="5.93,241,1654585200"; d="scan'208";a="275308266"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2022 08:37:34 -0700
-X-IronPort-AV: E=Sophos;i="5.93,241,1654585200"; d="scan'208";a="635938151"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=vQOiRqr88tVWTOF/gbboZiBgxLV07RY+tRqmcUIK61Q=;
+ b=HOuRqxPAB0TaiAOtzQL2xTiyV4cuf1rDrpTKNXJJ4R5HGnMu9W2Inrj8
+ x8eojQezIAufw62pRvrlhMFG7csC+qiyEZVGWtZrc/UAvm+nkSZgf9u8c
+ WWAW7Sb1cgPf3vJsFvLrYNMiLvppToh9cPORe4/e+ueoCs23B9i2LKu6g
+ JfeT0kC62X6+wa3RjV8dpMVhF6cNPxfDvZ/kqYWGDyvhvCqFLzL4IYvDc
+ ISbDub8dA12p6haW1mxexUxeqGlmLzDP8JPi6o7FV944+dnz/XN2MG6o4
+ 3ljTj91Q/gQuwe06DoxKtLXhDOeKmb6BB9sMK2+FecoN3cJoAUOcemd6d g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10441"; a="293527884"
+X-IronPort-AV: E=Sophos;i="5.93,241,1654585200"; d="scan'208";a="293527884"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2022 08:37:26 -0700
+X-IronPort-AV: E=Sophos;i="5.93,241,1654585200"; d="scan'208";a="667159255"
 Received: from kinzelba-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.39.194])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2022 08:37:33 -0700
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Aug 2022 08:37:25 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 16 Aug 2022 18:37:21 +0300
-Message-Id: <8c462718bcc7b36a83e09d0a5eef058b6bc8b1a2.1660664162.git.jani.nikula@intel.com>
+Date: Tue, 16 Aug 2022 18:37:19 +0300
+Message-Id: <cover.1660664162.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1660664162.git.jani.nikula@intel.com>
-References: <cover.1660664162.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RESEND 2/3] drm/i915/dsi: fix dual-link DSI backlight
- and CABC ports for display 11+
+Subject: [Intel-gfx] [RESEND 0/3] drm/i915/dsi: fix DSI DCS backlight port
+ handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,64 +56,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, stable@vger.kernel.org
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The VBT dual-link DSI backlight and CABC still use ports A and C, both
-in Bspec and code, while display 11+ DSI only supports ports A and
-B. Assume port C actually means port B for display 11+ when parsing VBT.
+Hopefully fix a null pointer dereference in DSI DCS backlight handling.
 
-Bspec: 20154
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/6476
-Cc: stable@vger.kernel.org
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_bios.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Resend because patchwork got confused with the first submission, for
+some reason.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 51dde5bfd956..198a2f4920cc 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -1596,6 +1596,8 @@ static void parse_dsi_backlight_ports(struct drm_i915_private *i915,
- 				      struct intel_panel *panel,
- 				      enum port port)
- {
-+	enum port port_bc = DISPLAY_VER(i915) >= 11 ? PORT_B : PORT_C;
-+
- 	if (!panel->vbt.dsi.config->dual_link || i915->vbt.version < 197) {
- 		panel->vbt.dsi.bl_ports = BIT(port);
- 		if (panel->vbt.dsi.config->cabc_supported)
-@@ -1609,11 +1611,11 @@ static void parse_dsi_backlight_ports(struct drm_i915_private *i915,
- 		panel->vbt.dsi.bl_ports = BIT(PORT_A);
- 		break;
- 	case DL_DCS_PORT_C:
--		panel->vbt.dsi.bl_ports = BIT(PORT_C);
-+		panel->vbt.dsi.bl_ports = BIT(port_bc);
- 		break;
- 	default:
- 	case DL_DCS_PORT_A_AND_C:
--		panel->vbt.dsi.bl_ports = BIT(PORT_A) | BIT(PORT_C);
-+		panel->vbt.dsi.bl_ports = BIT(PORT_A) | BIT(port_bc);
- 		break;
- 	}
- 
-@@ -1625,12 +1627,12 @@ static void parse_dsi_backlight_ports(struct drm_i915_private *i915,
- 		panel->vbt.dsi.cabc_ports = BIT(PORT_A);
- 		break;
- 	case DL_DCS_PORT_C:
--		panel->vbt.dsi.cabc_ports = BIT(PORT_C);
-+		panel->vbt.dsi.cabc_ports = BIT(port_bc);
- 		break;
- 	default:
- 	case DL_DCS_PORT_A_AND_C:
- 		panel->vbt.dsi.cabc_ports =
--					BIT(PORT_A) | BIT(PORT_C);
-+					BIT(PORT_A) | BIT(port_bc);
- 		break;
- 	}
- }
+Jani Nikula (3):
+  drm/i915/dsi: filter invalid backlight and CABC ports
+  drm/i915/dsi: fix dual-link DSI backlight and CABC ports for display
+    11+
+  drm/i915/dsi: use VBT backlight and CABC port definitions directly
+
+ drivers/gpu/drm/i915/display/icl_dsi.c             |  7 +++++--
+ drivers/gpu/drm/i915/display/intel_bios.c          | 10 ++++++----
+ drivers/gpu/drm/i915/display/intel_dsi.h           |  3 ---
+ .../gpu/drm/i915/display/intel_dsi_dcs_backlight.c | 14 ++++++++------
+ drivers/gpu/drm/i915/display/vlv_dsi.c             |  7 +++++--
+ 5 files changed, 24 insertions(+), 17 deletions(-)
+
 -- 
 2.34.1
 
