@@ -4,70 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2F0EC28B2B
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Aug 2022 11:35:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D6EC32773
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Aug 2022 13:50:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 595E211BCE9;
-	Tue, 16 Aug 2022 11:35:36 +0000 (UTC)
-X-Greylist: delayed 360 seconds by postgrey-1.36 at gabe;
- Tue, 16 Aug 2022 11:35:27 UTC
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB50D11BCE9
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Aug 2022 11:35:27 +0000 (UTC)
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
- [209.85.160.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 2CF3F40AFB
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Aug 2022 11:29:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1660649366;
- bh=aSmJyx7D+51w1LpJgRV3eRqde7lEGdt1JKguqJZK45s=;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
- To:Cc:Content-Type;
- b=dHalwpEu3omyda1I5IGxIu/SF2e/Rlkw5HSK9Qm5loTF3VIaXu/+ZEWopawrWFG4i
- 58uPhncVGMD0b5ys9xrgG0sAM10fyjRyR+wgj4kKaqbT12LL3f+O4AMgRkEnwXOthR
- RD2TTc9wtvPjouJQqiQ5jHgMZ7jf4WFyVBKmlXFXeMp9mvQoArSVFDXBxHnYuLrBo+
- n8CrNiOv3Vo+swhyVQXGGK7/A+sfAp48JisyhgIw5xyKGU2CF4OCeMhSXFfPjn8uvN
- Qa3P2MIvFSQqtsMlY5HTLTOA9WM3bfof69WodCPx9/Uv7IvSdcvHU/saXF8Q2EbWNd
- PV3n+P9ojGGBw==
-Received: by mail-oa1-f70.google.com with SMTP id
- 586e51a60fabf-10e715ad38aso2476449fac.17
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Aug 2022 04:29:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=aSmJyx7D+51w1LpJgRV3eRqde7lEGdt1JKguqJZK45s=;
- b=y4Eg0b2hDmQBIZih4IATfprrvLKNea3C+NEBU/Us5DhCxJZpA+vzcEJMlSeQHrFPbv
- JtOw3LPzTWRMdTzDmTOvNydJrfz/T8UIp7HeeKw5pnxY11Dkf1G0axt2ht312VnZ1iEg
- eFY1TLd4jneeLDqqMiK+gs/Fub1UlTPtgv5pArNVPpaf/jneJxA8zZj0yPoJzcjv53+O
- DxkbcvpdUjYmuvvutil4+AODqxFRM1n9p5wR9o9YJdci/Qweo3n6X2sM86fJYyKqe8fJ
- ZuwLwo5PiuzcJX6Kdt6tp/VA+ngti2NKrwLwAZD9p8/+1C/xkqfhUp6v8OO1g9y9aMtt
- 4T4A==
-X-Gm-Message-State: ACgBeo3o2Q8H95oG7cBzFaXoRcXn5unsIsBbjjQJ0+VpyHLVQtLcjHqC
- 9C/13VaIYkto2/2Ylqz+Ex9e6kN+anFPm4/6Vsd9CPvfg6wZ+Abf5La87hvhQqqLjiivZFNd6t3
- S7mFh57g/w4f9ECbw7v76Ul2k0HKd7YBT7p36fopxJUY9HoKXjm3p/GAw+hicrw==
-X-Received: by 2002:a9d:f05:0:b0:637:1068:1081 with SMTP id
- 5-20020a9d0f05000000b0063710681081mr7028772ott.224.1660649364939; 
- Tue, 16 Aug 2022 04:29:24 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR40aLi1aejRJbmvKkK+SamiRZIPYXn99+43Y4C0pFABoznjtNDPzRNRT6iTGkRayNIBEZgpA6ErMuo6SjBRYzA=
-X-Received: by 2002:a9d:f05:0:b0:637:1068:1081 with SMTP id
- 5-20020a9d0f05000000b0063710681081mr7028758ott.224.1660649364645; Tue, 16 Aug
- 2022 04:29:24 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220816025217.618181-1-kai.heng.feng@canonical.com>
- <87leror4sl.fsf@intel.com>
-In-Reply-To: <87leror4sl.fsf@intel.com>
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Date: Tue, 16 Aug 2022 19:29:11 +0800
-Message-ID: <CAAd53p76ut7QRFdM4NjaRua=Hc4bu9_=7+Q_t8ExJysEAhJf=Q@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E163AD480;
+	Tue, 16 Aug 2022 13:49:22 +0000 (UTC)
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E44F1A5A97;
+ Tue, 16 Aug 2022 12:39:00 +0000 (UTC)
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+ t=1660653538;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=JLCOqrmDxlScPWlMM0m9RZxSSqsKrmtABPqJmneo9vE=;
+ b=lPvfMm6cXnmUBjJ+mYGDCPWs8YhvsFE1jDJeZQszcdhtyBjJkdfWhb2x/VmHT0nQ4nF9Kl
+ g7/0lqEmD2bJmvP5gcTXIp8L2cnjw2c4HYs3MQbo4hgMDv1dRmnOHjilgsZJ0zI4F9XxKO
+ lAzoq3CSGXd7EA6mS2cU+kimz1gfdXk=
 To: Jani Nikula <jani.nikula@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Switch TGL-H DP-IN to dGFX when
- it's supported
+Date: Tue, 16 Aug 2022 15:38:57 +0300
+Message-Id: <20220816123858.42489-1-arefev@swemel.ru>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 16 Aug 2022 13:49:17 +0000
+Subject: [Intel-gfx] [PATCH] i915-pmu: Add extra check engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,85 +41,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, rodrigo.vivi@intel.com,
- Zenghui Yu <yuzenghui@huawei.com>
+Cc: ldv-project@linuxtesting.org, David Airlie <airlied@linux.ie>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 16, 2022 at 4:06 PM Jani Nikula <jani.nikula@linux.intel.com> wrote:
->
-> On Tue, 16 Aug 2022, Kai-Heng Feng <kai.heng.feng@canonical.com> wrote:
-> > On mobile workstations like HP ZBook Fury G8, iGFX's DP-IN can switch to
-> > dGFX so external monitors are routed to dGFX, and more monitors can be
-> > supported as result.
-> >
-> > To switch the DP-IN to dGFX, the driver needs to invoke _DSM function 20
-> > on intel_dsm_guid2. This method is described in Intel document 632107.
->
-> Is this the policy decision that we want to unconditionally make,
-> though?
+Return value of a function 'intel_engine_lookup_user' is dereferenced at i915_pmu.c:708
+without checking for null, but it is usually checked for this function
 
-I believes so, so more external monitors can be supported at the same time.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Kai-Heng
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
+---
+ drivers/gpu/drm/i915/i915_pmu.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
->
-> BR,
-> Jani.
->
-> >
-> > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_acpi.c | 18 +++++++++++++++++-
-> >  1 file changed, 17 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_acpi.c b/drivers/gpu/drm/i915/display/intel_acpi.c
-> > index e78430001f077..3bd5930e2769b 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_acpi.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_acpi.c
-> > @@ -20,6 +20,7 @@ static const guid_t intel_dsm_guid =
-> >                 0xa8, 0x54, 0x0f, 0x13, 0x17, 0xb0, 0x1c, 0x2c);
-> >
-> >  #define INTEL_DSM_FN_GET_BIOS_DATA_FUNCS_SUPPORTED 0 /* No args */
-> > +#define INTEL_DSM_FN_DP_IN_SWITCH_TO_DGFX 20 /* No args */
-> >
-> >  static const guid_t intel_dsm_guid2 =
-> >       GUID_INIT(0x3e5b41c6, 0xeb1d, 0x4260,
-> > @@ -187,6 +188,7 @@ void intel_dsm_get_bios_data_funcs_supported(struct drm_i915_private *i915)
-> >       struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
-> >       acpi_handle dhandle;
-> >       union acpi_object *obj;
-> > +     int supported = 0;
-> >
-> >       dhandle = ACPI_HANDLE(&pdev->dev);
-> >       if (!dhandle)
-> > @@ -194,8 +196,22 @@ void intel_dsm_get_bios_data_funcs_supported(struct drm_i915_private *i915)
-> >
-> >       obj = acpi_evaluate_dsm(dhandle, &intel_dsm_guid2, INTEL_DSM_REVISION_ID,
-> >                               INTEL_DSM_FN_GET_BIOS_DATA_FUNCS_SUPPORTED, NULL);
-> > -     if (obj)
-> > +     if (obj) {
-> > +             if (obj->type == ACPI_TYPE_INTEGER)
-> > +                     supported = obj->integer.value;
-> > +
-> >               ACPI_FREE(obj);
-> > +     }
-> > +
-> > +     /* Tiger Lake H DP-IN Boot Time Switching from iGfx to dGfx */
-> > +     if (supported & BIT(20)) {
-> > +             obj = acpi_evaluate_dsm(dhandle, &intel_dsm_guid2,
-> > +                                     INTEL_DSM_REVISION_ID,
-> > +                                     INTEL_DSM_FN_DP_IN_SWITCH_TO_DGFX,
-> > +                                     NULL);
-> > +             if (obj)
-> > +                     ACPI_FREE(obj);
-> > +     }
-> >  }
-> >
-> >  /*
->
-> --
-> Jani Nikula, Intel Open Source Graphics Center
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 69c0fa20eba1..33db49ffac3d 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -704,8 +704,10 @@ static void i915_pmu_disable(struct perf_event *event)
+ 		 * Decrement the reference count and clear the enabled
+ 		 * bitmask when the last listener on an event goes away.
+ 		 */
+-		if (--engine->pmu.enable_count[sample] == 0)
+-			engine->pmu.enable &= ~BIT(sample);
++		if (engine != NULL) {
++		        if (--engine->pmu.enable_count[sample] == 0)
++			        engine->pmu.enable &= ~BIT(sample);
++		}
+ 	}
+ 
+ 	GEM_BUG_ON(bit >= ARRAY_SIZE(pmu->enable_count));
+-- 
+2.25.1
+
