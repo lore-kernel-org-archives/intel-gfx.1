@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 932E5C32773
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 19:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7657C32773
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 19:42:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A71DBA53A2;
-	Wed, 17 Aug 2022 19:40:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1D42A53EC;
+	Wed, 17 Aug 2022 19:41:06 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7941A534D
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 19:40:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB25A530F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 19:40:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660765223;
+ s=mimecast20190719; t=1660765242;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nAMc4JfLKYfg0/w7KMNfHryoYc6iVSVzopF6Uhg7wgM=;
- b=HtxA4wjf4yJpXIDZAIDLia4oBqsWg5og1dE0r/NgUabYN65UJPvzXHHDsrCflBO+xJScyJ
- yU2mRDsqU+Nrz6f4H2zUq/pCzShGPfwFILVSVcczLUVBWIJdMvZ+AX+7LvbsXhhVA1Posu
- 0IQ+GLrVDhsXgqtYLL+MZ8oRE4ZX3+c=
+ bh=Lwx8PaWh6vygwU1UFyt3KfAFGt9fHxhNC+ENd2udmJQ=;
+ b=MGq1JATpu7KR0b/Zdvo5U5wXjieM4jhOlOmZwOyZYMLwUAW8KUTsrg01x6VplFY9ZK64iw
+ HtJ4MUTdthzl17IOIaWPwsDDDWFLN5N+n+bazyUUWk9W5jOv+PI8hMKggwX+Zj5h1Ewi73
+ 9exJ9fsAuBGMnADdGox+P5GQs1hUs5o=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-31-fOfUeP-xOVqxVcJC9KYM2w-1; Wed, 17 Aug 2022 15:40:18 -0400
-X-MC-Unique: fOfUeP-xOVqxVcJC9KYM2w-1
+ us-mta-341-Ud7XGgcCPoq0YbT_jcJUOQ-1; Wed, 17 Aug 2022 15:40:39 -0400
+X-MC-Unique: Ud7XGgcCPoq0YbT_jcJUOQ-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 916A880231E;
- Wed, 17 Aug 2022 19:40:17 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2F9FE8032FB;
+ Wed, 17 Aug 2022 19:40:38 +0000 (UTC)
 Received: from emerald.redhat.com (unknown [10.22.18.168])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 2B4A5492C3B;
- Wed, 17 Aug 2022 19:40:17 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8FCB2492C3B;
+ Wed, 17 Aug 2022 19:40:37 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Date: Wed, 17 Aug 2022 15:38:40 -0400
-Message-Id: <20220817193847.557945-12-lyude@redhat.com>
+Date: Wed, 17 Aug 2022 15:38:43 -0400
+Message-Id: <20220817193847.557945-15-lyude@redhat.com>
 In-Reply-To: <20220817193847.557945-1-lyude@redhat.com>
 References: <20220817193847.557945-1-lyude@redhat.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [Intel-gfx] [RFC v4 11/17] drm/nouveau/kms: Cache DP encoders in
- nouveau_connector
+Subject: [Intel-gfx] [RFC v4 14/17] drm/display/dp_mst: Drop all ports from
+ topology on CSNs before queueing link address work
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,68 +62,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, Jani Nikula <jani.nikula@intel.com>,
- open list <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- Ben Skeggs <bskeggs@redhat.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Airlie <airlied@linux.ie>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Post-NV50, the only kind of encoder you'll find for DP connectors on Nvidia
-GPUs are SORs (serial output resources). Because SORs have fixed
-associations with their connectors, we can correctly assume that any DP
-connector on a nvidia GPU will have exactly one SOR encoder routed to it
-for DisplayPort.
+We want to start cutting down on all of the places that we use port
+validation, so that ports may be removed from the topology as quickly as
+possible to minimize the number of errors we run into as a result of being
+out of sync with the current topology status. This isn't a very typical
+scenario and I don't think I've ever even run into it - but since the next
+commit is going to make some changes to payload updates depending on their
+hotplug status I think it's a probably good idea to take precautions.
 
-Since we're going to need to be able to retrieve this fixed SOR DP encoder
-much more often as a result of hooking up MST helpers for tracking
-SST<->MST transitions in atomic states, let's simply cache this encoder in
-nouveau_connector for any DP connectors on the system to avoid looking it
-up each time. This isn't safe for NV50 since PIORs then come into play,
-however there's no code pre-NV50 that would need to look this up anyhow -
-so it's not really an issue.
+Let's do this with CSNs by moving some code around so that we only queue
+link address probing work at the end of handling all CSNs - allowing us to
+make sure we drop as many topology references as we can beforehand.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
+Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Sean Paul <sean@poorly.run>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_connector.c | 4 +++-
- drivers/gpu/drm/nouveau/nouveau_connector.h | 3 +++
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index 8100c75ee731..b8ee2173ca8f 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -1368,7 +1368,7 @@ nouveau_connector_create(struct drm_device *dev,
- 			return ERR_PTR(-ENOMEM);
- 		}
- 		drm_dp_aux_init(&nv_connector->aux);
--		fallthrough;
-+		break;
- 	default:
- 		funcs = &nouveau_connector_funcs;
- 		break;
-@@ -1431,6 +1431,8 @@ nouveau_connector_create(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 97e8f8a83ed4..a5460cadf2c8 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -2509,7 +2509,7 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_mst_branch *mstb,
+ 	return ret;
+ }
  
- 	switch (type) {
- 	case DRM_MODE_CONNECTOR_DisplayPort:
-+		nv_connector->dp_encoder = find_encoder(&nv_connector->base, DCB_OUTPUT_DP);
-+		fallthrough;
- 	case DRM_MODE_CONNECTOR_eDP:
- 		drm_dp_cec_register_connector(&nv_connector->aux, connector);
- 		break;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
-index 4bf0c703eee7..f4e17ff68bf9 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
-@@ -128,6 +128,9 @@ struct nouveau_connector {
+-static void
++static int
+ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
+ 			    struct drm_dp_connection_status_notify *conn_stat)
+ {
+@@ -2522,7 +2522,7 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
  
- 	struct drm_dp_aux aux;
+ 	port = drm_dp_get_port(mstb, conn_stat->port_number);
+ 	if (!port)
+-		return;
++		return 0;
  
-+	/* The fixed DP encoder for this connector, if there is one */
-+	struct nouveau_encoder *dp_encoder;
+ 	if (port->connector) {
+ 		if (!port->input && conn_stat->input_port) {
+@@ -2575,8 +2575,7 @@ drm_dp_mst_handle_conn_stat(struct drm_dp_mst_branch *mstb,
+ 
+ out:
+ 	drm_dp_mst_topology_put_port(port);
+-	if (dowork)
+-		queue_work(system_long_wq, &mstb->mgr->work);
++	return dowork;
+ }
+ 
+ static struct drm_dp_mst_branch *drm_dp_get_mst_branch_device(struct drm_dp_mst_topology_mgr *mgr,
+@@ -4060,7 +4059,7 @@ drm_dp_mst_process_up_req(struct drm_dp_mst_topology_mgr *mgr,
+ 	struct drm_dp_mst_branch *mstb = NULL;
+ 	struct drm_dp_sideband_msg_req_body *msg = &up_req->msg;
+ 	struct drm_dp_sideband_msg_hdr *hdr = &up_req->hdr;
+-	bool hotplug = false;
++	bool hotplug = false, dowork = false;
+ 
+ 	if (hdr->broadcast) {
+ 		const u8 *guid = NULL;
+@@ -4083,11 +4082,14 @@ drm_dp_mst_process_up_req(struct drm_dp_mst_topology_mgr *mgr,
+ 
+ 	/* TODO: Add missing handler for DP_RESOURCE_STATUS_NOTIFY events */
+ 	if (msg->req_type == DP_CONNECTION_STATUS_NOTIFY) {
+-		drm_dp_mst_handle_conn_stat(mstb, &msg->u.conn_stat);
++		dowork = drm_dp_mst_handle_conn_stat(mstb, &msg->u.conn_stat);
+ 		hotplug = true;
+ 	}
+ 
+ 	drm_dp_mst_topology_put_mstb(mstb);
 +
- 	int dithering_mode;
- 	int scaling_mode;
++	if (dowork)
++		queue_work(system_long_wq, &mgr->work);
+ 	return hotplug;
+ }
  
 -- 
 2.37.1
