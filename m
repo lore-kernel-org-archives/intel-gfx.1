@@ -4,80 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7B5DC25B08
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 17:56:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C959C25B08
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Aug 2022 18:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F379FA0BF6;
-	Wed, 17 Aug 2022 17:56:21 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1F1F94954
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 17:56:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660758967;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=u6ujo7+tHLDKQ50eag3ScQLxtrPDDWzfQledOoCebFc=;
- b=Em8OVTZnObQnCqRqZ9E9APvZOY+65nvDnGrImvn3QbU70m7C6EBnh0VlTXgHShU44WdhYK
- /KivNnGdZnpJyOXkxAlpU/zUEQJzNVzcruqRdj1ZI9fUvC7peR200a9QZCNy4snz4hKzm5
- b8+SRmXr5NNjYq57CcjuD2LBN5HcMuI=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-616-uYf5_9LTNnGOyCRUb96sdA-1; Wed, 17 Aug 2022 13:56:06 -0400
-X-MC-Unique: uYf5_9LTNnGOyCRUb96sdA-1
-Received: by mail-qk1-f198.google.com with SMTP id
- bm11-20020a05620a198b00b006bb2388ef0cso8080846qkb.5
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 10:56:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:user-agent:organization
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc;
- bh=u6ujo7+tHLDKQ50eag3ScQLxtrPDDWzfQledOoCebFc=;
- b=fUU2IT/uVm0p2hPZwAcqXudUmHJiOqiTwmLJfLTn79sOjnncwU46UC0lRl5XYmtK72
- IeNU5a8IitmAi08SeVi8F6CwDvaZvTcBOKdhVCj9mi3On2tQa4njqBYyHBcu0D0G4v+m
- /10f6iJaotVip53JjnRRK0YPf021qMsqG5Z/teq8wbmb3VQhFgyu/52PCZtlEbFFHG54
- UD4V96dp6q+yaOwhQeODz80XSYTTE+QSf1Hu77GFty92c3Vp7dBxSmSpNdYg/MX0Ko8r
- SZfcX8wuXd/Ne38YFkm1CqAu0yoMmfisBCnXrdg/xThqlbvaq8xQe/PbgZa+fc+yriE/
- J1AQ==
-X-Gm-Message-State: ACgBeo3Unwj7PFaHABLuNMDU8G1ZCB/FejLPAzvxjWRPHQtm7XU8EEA4
- 7hSYCS2z9b3CaQ/Pj+rr6H8pURYmFs8LNunrhIQFt4JK2qX4DhvmGdLG53NzfHNX3ZxCqErfibr
- xxKlRS+FoddZyKIwIhJ5smyc3KEsT
-X-Received: by 2002:a05:620a:269a:b0:6b5:b76c:11c9 with SMTP id
- c26-20020a05620a269a00b006b5b76c11c9mr19154888qkp.100.1660758966195; 
- Wed, 17 Aug 2022 10:56:06 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR6WDYz+MTlIuAdoJuBIJyS4ztL+6UVgG9kZwAFd70kTJFn9IH7U9Me8NmcInCl8uccQk42Qyg==
-X-Received: by 2002:a05:620a:269a:b0:6b5:b76c:11c9 with SMTP id
- c26-20020a05620a269a00b006b5b76c11c9mr19154869qkp.100.1660758965899; 
- Wed, 17 Aug 2022 10:56:05 -0700 (PDT)
-Received: from [192.168.8.138] (pool-100-0-245-4.bstnma.fios.verizon.net.
- [100.0.245.4]) by smtp.gmail.com with ESMTPSA id
- 20-20020a370914000000b006b8d1914504sm13417807qkj.22.2022.08.17.10.56.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Aug 2022 10:56:05 -0700 (PDT)
-Message-ID: <35d4da2537d53ade88528dda5668f5b5d2b21e49.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>, Mark Pearson
- <markpearson@lenovo.com>
-Date: Wed, 17 Aug 2022 13:56:03 -0400
-In-Reply-To: <CAAd53p4GoU6_ExWB=0b3_X7STd2Fnq764QpmzgOEwn3jdCUBxQ@mail.gmail.com>
-References: <20220816025217.618181-1-kai.heng.feng@canonical.com>
- <87leror4sl.fsf@intel.com>
- <CAAd53p76ut7QRFdM4NjaRua=Hc4bu9_=7+Q_t8ExJysEAhJf=Q@mail.gmail.com>
- <b8ebc447ea464371102df765882fc5010cc0c784.camel@redhat.com>
- <CAAd53p4GoU6_ExWB=0b3_X7STd2Fnq764QpmzgOEwn3jdCUBxQ@mail.gmail.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C65FA145D;
+	Wed, 17 Aug 2022 18:11:29 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50FDF113866
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 Aug 2022 18:11:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1660759871; x=1692295871;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=oMs94EIy9Q10heW6RL1IG9I3PVZDBI1Wj/RV8O3Rulg=;
+ b=e2y4zCunAhPQ6AkTQqHErDaOyKOscSnbUqJsuaScDX91dQNnKzkaBfM8
+ 1/mRqaV4+MkKtuHhsPW6kkKh/svpvRwTPAkoAarH0HB3BGRMPQHbsVxqk
+ 8SDt64HOrk2FE1xNJg00sBnQ2VVDLAWjCf17FbhZuPY1rNDTMvqDJDrQL
+ CJte36K9uU5v5YcKZw69A1WOJwfONVgsc4J7oYL/g0Wuf48OFHqxFiepG
+ jFoAN15riptZz2h10locpnNGX/Pczpd5jBBVBd8LyNYCzrfst0pL0HqGq
+ 5NgZznLlQD0vDUsG56Oz+UZqOb/aYxFn2ZR8OzqkY5qA3p0ZAu4z1TA3G Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10442"; a="293845938"
+X-IronPort-AV: E=Sophos;i="5.93,244,1654585200"; d="scan'208";a="293845938"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2022 11:11:09 -0700
+X-IronPort-AV: E=Sophos;i="5.93,244,1654585200"; d="scan'208";a="749804184"
+Received: from dfkeatle-mobl.ger.corp.intel.com (HELO [10.213.227.237])
+ ([10.213.227.237])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2022 11:11:08 -0700
+Message-ID: <8d5d0839-b8cf-6e27-1de0-38ed326149a5@intel.com>
+Date: Wed, 17 Aug 2022 19:11:06 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.12.0
+Content-Language: en-GB
+To: Anshuman Gupta <anshuman.gupta@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20220817150941.25447-1-anshuman.gupta@intel.com>
+ <20220817150941.25447-3-anshuman.gupta@intel.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20220817150941.25447-3-anshuman.gupta@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Switch TGL-H DP-IN to dGFX when
- it's supported
+Subject: Re: [Intel-gfx] [RFC 2/2] drm/i915/dgfx: Runtime resume the dgpu on
+ user fault
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,177 +61,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, rodrigo.vivi@intel.com,
- Zenghui Yu <yuzenghui@huawei.com>
+Cc: chris@chris-wilson.co.uk, rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Adding Mark Pearson from Lenovo to this, Mark for reference the original patch
-is here:
-
-https://patchwork.freedesktop.org/patch/497807/?series=107312&rev=1
-
-Comments from me down below
-
-On Wed, 2022-08-17 at 09:02 +0800, Kai-Heng Feng wrote:
-> On Wed, Aug 17, 2022 at 2:24 AM Lyude Paul <lyude@redhat.com> wrote:
-> > 
-> > On Tue, 2022-08-16 at 19:29 +0800, Kai-Heng Feng wrote:
-> > > On Tue, Aug 16, 2022 at 4:06 PM Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> > > > 
-> > > > On Tue, 16 Aug 2022, Kai-Heng Feng <kai.heng.feng@canonical.com> wrote:
-> > > > > On mobile workstations like HP ZBook Fury G8, iGFX's DP-IN can switch to
-> > > > > dGFX so external monitors are routed to dGFX, and more monitors can be
-> > > > > supported as result.
-> > > > > 
-> > > > > To switch the DP-IN to dGFX, the driver needs to invoke _DSM function 20
-> > > > > on intel_dsm_guid2. This method is described in Intel document 632107.
-> > 
-> > Is this documentation released anywhere? We've been wondering about these
-> > interfaces for quite a long time, and it would be good to know if there's docs
-> > for this we haven't really been seeing.
-> > 
-> > > > 
-> > > > Is this the policy decision that we want to unconditionally make,
-> > > > though?
-> > > 
-> > > I believes so, so more external monitors can be supported at the same time.
-> > > 
-> > > Kai-Heng
-> > 
-> > Is this for systems with dual Intel GPUs? I ask because if this affects
-> > Intel/Nvidia hybrid systems then this is a huge no from me. Nouveau is able to
-> > support these systems, but at a limited capacity. This would imply that we are
-> > making external displays work for users of the nvidia proprietary driver, at
-> > the expense making external display support for mainline kernel users
-> > substantially worse for people who are using the mainline kernel. Which isn't
-> > a choice we should be making, because nvidia's OOT driver is not a mainline
-> > kernel driver.
+On 17/08/2022 16:09, Anshuman Gupta wrote:
+> Runtime resume the dgpu(when gem object lies in lmem).
+> This will transition the dgpu graphics function to D0
+> state if it was in D3 in order to access the mmap memory
+> mappings.
 > 
-> Yes it's for Intel/NVIDIA hybrid systems.
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+> ---
+>   drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 25 +++++++++++++++++++------
+>   1 file changed, 19 insertions(+), 6 deletions(-)
 > 
-> The problem is that hardware vendor design the systems to use NVIDIA
-> for external displays, so using external displays on Intel are never
-> tested by the vendors.
-> I don't think that's any good either.
-> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> index b49823d599e7..1e9b07473a8f 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> @@ -1020,6 +1020,7 @@ static vm_fault_t vm_fault_ttm(struct vm_fault *vmf)
+>   	struct ttm_buffer_object *bo = area->vm_private_data;
+>   	struct drm_device *dev = bo->base.dev;
+>   	struct drm_i915_gem_object *obj;
+> +	intel_wakeref_t wakeref = 0;
+>   	vm_fault_t ret;
+>   	int idx;
+>   
+> @@ -1027,18 +1028,24 @@ static vm_fault_t vm_fault_ttm(struct vm_fault *vmf)
+>   	if (!obj)
+>   		return VM_FAULT_SIGBUS;
+>   
+> +	if (i915_gem_object_is_lmem(obj))
 
-Sigh, the constant forcing of nvidia hardware into laptops from vendors is
-seriously something I wish they would knock it off with considering they're
-basically the most difficult hardware vendor to work with.
+We shouldn't call this without first locking the object (see 
+bo_vm_reserve below), since it could be in the process of being moved to 
+system memory or vice versa. For example, below we check is_lmem() again 
+(this time with the lock held), which might return true, even though 
+here it returned false, which means we can now race against the 
+i915_gem_runtime_suspend() modifying the list as we add something.
 
-Anyway, if we -need- to route displays through the external GPU then we can.
-But I'd like to at least get convinced first that this is an actual necessity
-we should expect for multiple vendors, or the exception to the rule. Because
-if these laptops are capable of driving displays through Intel, at the moment
-not doing that is a huge downgrade in terms of functionality. -Especially- if
-these machines were already working in the field as-is. Probably worth noting
-I don't think I have yet to actually hear of any complaints about this being
-the case, and I'd like to also make sure this isn't a change being done for
-one or two vendors when most vendors aren't actually doing something like
-this.
+We ofc still need to audit all the kernel internal users that are 
+touching lmem though a CPU mapping, and making sure we have the right 
+pm_get/put wrapping those accesses.
 
-Note that for a lot of systems it won't -technically- be a big difference
-since the current situation in the market right now is that a lot of laptops
-will have all their external displays routed through the nvidia GPU and
-nowhere else. It's not great compared to just being able to use the well
-supported Intel GPU for everything though. And if we're controlling display
-routing through ACPI, that implies things aren't directly hooked up and
-someone went through the hassle of adding a display mux - which kind of seems
-like a waste of engineering effort and money if it can't actually be used for
-muxing between the two GPUs. Especially considering that up until very
-recently muxes had more or less been dropped from the majority of laptop
-vendors (I think Dell was an exception for this fwiw).
+> +		wakeref = intel_runtime_pm_get(&to_i915(obj->base.dev)->runtime_pm);
+> +
+>   	/* Sanity check that we allow writing into this object */
+>   	if (unlikely(i915_gem_object_is_readonly(obj) &&
+> -		     area->vm_flags & VM_WRITE))
+> -		return VM_FAULT_SIGBUS;
+> +		     area->vm_flags & VM_WRITE)) {
+> +		ret = VM_FAULT_SIGBUS;
+> +		goto out_rpm;
+> +	}
+>   
+>   	ret = ttm_bo_vm_reserve(bo, vmf);
+>   	if (ret)
+> -		return ret;
+> +		goto out_rpm;
+>   
+>   	if (obj->mm.madv != I915_MADV_WILLNEED) {
+>   		dma_resv_unlock(bo->base.resv);
+> -		return VM_FAULT_SIGBUS;
+> +		ret = VM_FAULT_SIGBUS;
+> +		goto out_rpm;
+>   	}
+>   
+>   	if (!i915_ttm_resource_mappable(bo->resource)) {
+> @@ -1062,7 +1069,8 @@ static vm_fault_t vm_fault_ttm(struct vm_fault *vmf)
+>   		if (err) {
+>   			drm_dbg(dev, "Unable to make resource CPU accessible\n");
+>   			dma_resv_unlock(bo->base.resv);
+> -			return VM_FAULT_SIGBUS;
+> +			ret = VM_FAULT_SIGBUS;
+> +			goto out_rpm;
+>   		}
+>   	}
+>   
+> @@ -1078,11 +1086,16 @@ static vm_fault_t vm_fault_ttm(struct vm_fault *vmf)
+>   		list_add(&obj->userfault_link, &to_gt(to_i915(obj->base.dev))->lmem_userfault_list);
+>   
+>   	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+> -		return ret;
+> +		goto out_rpm;
+>   
+>   	i915_ttm_adjust_lru(obj);
+>   
+>   	dma_resv_unlock(bo->base.resv);
+> +
+> +out_rpm:
+> +	if (wakeref)
+> +		intel_runtime_pm_put(&to_i915(obj->base.dev)->runtime_pm, wakeref);
 
-Mark, since you're from Lenovo can you help to confirm this as well?
+Do we need something like DRM_I915_USERFAULT_AUTOSUSPEND here?
 
-Also re: external displays not even working: so then how exactly does the BIOS
-handle this? Is the BIOS changing the routing to the nvidia GPU then switching
-it back right before the OS load? I assume something must have been done to
-make it so that external displays aren't just suddenly broken there.
-
-And re: gsp work being done soon: it's going to be a while unfortunately,
-there's a lot for us to catch up on so it's hard for me to give a precise
-date.
-
-> Kai-Heng
-> 
-> > 
-> > If this is just for Intel/Intel systems though that's probably fine, and it
-> > might also be fine for AMD systems.
-> > 
-> > > 
-> > > > 
-> > > > BR,
-> > > > Jani.
-> > > > 
-> > > > > 
-> > > > > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/i915/display/intel_acpi.c | 18 +++++++++++++++++-
-> > > > >  1 file changed, 17 insertions(+), 1 deletion(-)
-> > > > > 
-> > > > > diff --git a/drivers/gpu/drm/i915/display/intel_acpi.c b/drivers/gpu/drm/i915/display/intel_acpi.c
-> > > > > index e78430001f077..3bd5930e2769b 100644
-> > > > > --- a/drivers/gpu/drm/i915/display/intel_acpi.c
-> > > > > +++ b/drivers/gpu/drm/i915/display/intel_acpi.c
-> > > > > @@ -20,6 +20,7 @@ static const guid_t intel_dsm_guid =
-> > > > >                 0xa8, 0x54, 0x0f, 0x13, 0x17, 0xb0, 0x1c, 0x2c);
-> > > > > 
-> > > > >  #define INTEL_DSM_FN_GET_BIOS_DATA_FUNCS_SUPPORTED 0 /* No args */
-> > > > > +#define INTEL_DSM_FN_DP_IN_SWITCH_TO_DGFX 20 /* No args */
-> > > > > 
-> > > > >  static const guid_t intel_dsm_guid2 =
-> > > > >       GUID_INIT(0x3e5b41c6, 0xeb1d, 0x4260,
-> > > > > @@ -187,6 +188,7 @@ void intel_dsm_get_bios_data_funcs_supported(struct drm_i915_private *i915)
-> > > > >       struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
-> > > > >       acpi_handle dhandle;
-> > > > >       union acpi_object *obj;
-> > > > > +     int supported = 0;
-> > > > > 
-> > > > >       dhandle = ACPI_HANDLE(&pdev->dev);
-> > > > >       if (!dhandle)
-> > > > > @@ -194,8 +196,22 @@ void intel_dsm_get_bios_data_funcs_supported(struct drm_i915_private *i915)
-> > > > > 
-> > > > >       obj = acpi_evaluate_dsm(dhandle, &intel_dsm_guid2, INTEL_DSM_REVISION_ID,
-> > > > >                               INTEL_DSM_FN_GET_BIOS_DATA_FUNCS_SUPPORTED, NULL);
-> > > > > -     if (obj)
-> > > > > +     if (obj) {
-> > > > > +             if (obj->type == ACPI_TYPE_INTEGER)
-> > > > > +                     supported = obj->integer.value;
-> > > > > +
-> > > > >               ACPI_FREE(obj);
-> > > > > +     }
-> > > > > +
-> > > > > +     /* Tiger Lake H DP-IN Boot Time Switching from iGfx to dGfx */
-> > > > > +     if (supported & BIT(20)) {
-> > > > > +             obj = acpi_evaluate_dsm(dhandle, &intel_dsm_guid2,
-> > > > > +                                     INTEL_DSM_REVISION_ID,
-> > > > > +                                     INTEL_DSM_FN_DP_IN_SWITCH_TO_DGFX,
-> > > > > +                                     NULL);
-> > > > > +             if (obj)
-> > > > > +                     ACPI_FREE(obj);
-> > > > > +     }
-> > > > >  }
-> > > > > 
-> > > > >  /*
-> > > > 
-> > > > --
-> > > > Jani Nikula, Intel Open Source Graphics Center
-> > > 
-> > 
-> > --
-> > Cheers,
-> >  Lyude Paul (she/her)
-> >  Software Engineer at Red Hat
-> > 
-> 
-
--- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
-
+> +
+>   	return ret;
+>   }
+>   
