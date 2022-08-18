@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63EFFC00140
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:03:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEDAFC00140
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:04:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4BD610E496;
-	Thu, 18 Aug 2022 23:03:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FCE710E3FE;
+	Thu, 18 Aug 2022 23:03:39 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CBB510E230;
- Thu, 18 Aug 2022 23:03:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD6D10E07A;
+ Thu, 18 Aug 2022 23:03:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660863800; x=1692399800;
+ t=1660863807; x=1692399807;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=N8Q+WLhsCUblwiunyEuIZZyytVObmbhZ4jKc+xws3sQ=;
- b=btzdCoduiNbSee2tvUOiFX3m8QlsIr24yrRfuEyEWdnrjy0VmFNHgTfT
- Y12DbTimQd2MD/BWlxNg/pFoUb4pO0tqOgSYyt52xxgfUOciiWsAwhP59
- 9fHCRSGJjZwjdK6DNBv4oRJoPy6i4x+LhXqcuL9ZmT6ptfJLtw1tWXaBg
- MjmlXyFLkRVjPHi+AEvsLHVPiOTPImHy+X336Wlg47+qetUA5MHLcHIsn
- oIpIW1PCr6BYHUGdAXR67LFXCuCY8aXk1XO3JY7DIlcg/7Cb8uVh83FYR
- caQqgTFIYwnMVOKF2z0rRn3TD7UJfONCC3xte63J9zzwLru0V9UYJvyTv A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="293677556"
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="293677556"
+ bh=/NB+UoNEoX8bVqRbsn5l2zvCiRR1JPTN1FEZNzuR33E=;
+ b=V71HtvVnQAXbmWVcrMk6WXlncihTR3/pktJWcJT0CHnZ6Njiz+rsS41p
+ tTZ8+4Y9VvWblCH5o0Cy8Xu9ntz5TPZ1ifvfiovnr0L7W3Ly1WPglAzh+
+ 9WA66y4tatH40JNDdWJYS3szH7UBCwCdg7MKEufFuz+B22qmnszUywo97
+ kGmbkjYUu83cxKDmy0lqvbx15Smca9lkm1BViTWRrRARJUMbTZQg28E6t
+ u8sqB1RInlpVHKcEQtObqaqOb4YoLrhdz3z5+RZG9C2srKXHXFmELZeEu
+ OkO+pgUjw+ymYDe/6VWRGon+ohBmDymCAevahYfB6OV8xYJErn8aNQs42 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="293677584"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="293677584"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2022 16:03:20 -0700
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="641042855"
+ 18 Aug 2022 16:03:27 -0700
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="641042892"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2022 16:03:20 -0700
+ 18 Aug 2022 16:03:27 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Aug 2022 16:02:35 -0700
-Message-Id: <20220818230243.3921066-8-daniele.ceraolospurio@intel.com>
+Date: Thu, 18 Aug 2022 16:02:42 -0700
+Message-Id: <20220818230243.3921066-15-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220818230243.3921066-1-daniele.ceraolospurio@intel.com>
 References: <20220818230243.3921066-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 07/15] drm/i915/pxp: load the pxp module when
- we have a gsc-loaded huc
+Subject: [Intel-gfx] [PATCH v2 14/15] drm/i915/huc: define gsc-compatible
+ HuC fw for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,262 +61,139 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The mei_pxp module is required to send the command to load authenticate
-the HuC to the GSC even if pxp is not in use for protected content
-management.
+The fw name is different and we need to record the fact that the blob is
+gsc-loaded, so add a new macro to help.
+
+Note: A-step DG2 G10 does not support HuC loading via GSC and would
+require a separate firmware to be loaded the legacy way, but that's
+not a production stepping so we're not going to bother.
 
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Cc: Tony Ye <tony.ye@intel.com>
 Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                | 10 +++---
- drivers/gpu/drm/i915/pxp/intel_pxp.c         | 32 +++++++++++++-------
- drivers/gpu/drm/i915/pxp/intel_pxp.h         | 32 --------------------
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.h     |  8 +++++
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c |  8 ++++-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.h | 11 +++++--
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c     | 10 ++++--
- 7 files changed, 57 insertions(+), 54 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 64 ++++++++++++++----------
+ 1 file changed, 37 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 522ef9b4aff3..589823ad62ed 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -307,15 +307,17 @@ i915-y += \
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index cec6bf6bad3f..776b43d79772 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -74,35 +74,39 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+ 	fw_def(ALDERLAKE_P,  0, guc_def(adlp, 69, 0, 3)) \
+ 	fw_def(ALDERLAKE_S,  0, guc_def(tgl,  69, 0, 3))
  
- i915-y += i915_perf.o
- 
--# Protected execution platform (PXP) support
--i915-$(CONFIG_DRM_I915_PXP) += \
-+# Protected execution platform (PXP) support. Base support is required for HuC
-+i915-y += \
- 	pxp/intel_pxp.o \
-+	pxp/intel_pxp_tee.o
+-#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_def) \
+-	fw_def(ALDERLAKE_P,  0, huc_def(tgl,  7, 9, 3)) \
+-	fw_def(ALDERLAKE_S,  0, huc_def(tgl,  7, 9, 3)) \
+-	fw_def(DG1,          0, huc_def(dg1,  7, 9, 3)) \
+-	fw_def(ROCKETLAKE,   0, huc_def(tgl,  7, 9, 3)) \
+-	fw_def(TIGERLAKE,    0, huc_def(tgl,  7, 9, 3)) \
+-	fw_def(JASPERLAKE,   0, huc_def(ehl,  9, 0, 0)) \
+-	fw_def(ELKHARTLAKE,  0, huc_def(ehl,  9, 0, 0)) \
+-	fw_def(ICELAKE,      0, huc_def(icl,  9, 0, 0)) \
+-	fw_def(COMETLAKE,    5, huc_def(cml,  4, 0, 0)) \
+-	fw_def(COMETLAKE,    0, huc_def(kbl,  4, 0, 0)) \
+-	fw_def(COFFEELAKE,   0, huc_def(kbl,  4, 0, 0)) \
+-	fw_def(GEMINILAKE,   0, huc_def(glk,  4, 0, 0)) \
+-	fw_def(KABYLAKE,     0, huc_def(kbl,  4, 0, 0)) \
+-	fw_def(BROXTON,      0, huc_def(bxt,  2, 0, 0)) \
+-	fw_def(SKYLAKE,      0, huc_def(skl,  2, 0, 0))
+-
+-#define __MAKE_UC_FW_PATH(prefix_, name_, major_, minor_, patch_) \
++#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_dma_def, huc_gsc_def) \
++	fw_def(DG2,          0, huc_gsc_def(dg2,  7, 10, 0)) \
++	fw_def(ALDERLAKE_P,  0, huc_dma_def(tgl,  7, 9, 3)) \
++	fw_def(ALDERLAKE_S,  0, huc_dma_def(tgl,  7, 9, 3)) \
++	fw_def(DG1,          0, huc_dma_def(dg1,  7, 9, 3)) \
++	fw_def(ROCKETLAKE,   0, huc_dma_def(tgl,  7, 9, 3)) \
++	fw_def(TIGERLAKE,    0, huc_dma_def(tgl,  7, 9, 3)) \
++	fw_def(JASPERLAKE,   0, huc_dma_def(ehl,  9, 0, 0)) \
++	fw_def(ELKHARTLAKE,  0, huc_dma_def(ehl,  9, 0, 0)) \
++	fw_def(ICELAKE,      0, huc_dma_def(icl,  9, 0, 0)) \
++	fw_def(COMETLAKE,    5, huc_dma_def(cml,  4, 0, 0)) \
++	fw_def(COMETLAKE,    0, huc_dma_def(kbl,  4, 0, 0)) \
++	fw_def(COFFEELAKE,   0, huc_dma_def(kbl,  4, 0, 0)) \
++	fw_def(GEMINILAKE,   0, huc_dma_def(glk,  4, 0, 0)) \
++	fw_def(KABYLAKE,     0, huc_dma_def(kbl,  4, 0, 0)) \
++	fw_def(BROXTON,      0, huc_dma_def(bxt,  2, 0, 0)) \
++	fw_def(SKYLAKE,      0, huc_dma_def(skl,  2, 0, 0))
 +
-+i915-$(CONFIG_DRM_I915_PXP) += \
- 	pxp/intel_pxp_cmd.o \
- 	pxp/intel_pxp_debugfs.o \
- 	pxp/intel_pxp_irq.o \
- 	pxp/intel_pxp_pm.o \
--	pxp/intel_pxp_session.o \
--	pxp/intel_pxp_tee.o
-+	pxp/intel_pxp_session.o
++#define __MAKE_UC_FW_PATH(prefix_, name_, major_, minor_, patch_, postfix_) \
+ 	"i915/" \
+ 	__stringify(prefix_) name_ \
+ 	__stringify(major_) "." \
+ 	__stringify(minor_) "." \
+-	__stringify(patch_) ".bin"
++	__stringify(patch_) postfix_ ".bin"
  
- # Post-mortem debug and GPU hang state capture
- i915-$(CONFIG_DRM_I915_CAPTURE_ERROR) += i915_gpu_error.o
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 15311eaed848..b602a51c3692 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -103,19 +103,15 @@ static int create_vcs_context(struct intel_pxp *pxp)
+ #define MAKE_GUC_FW_PATH(prefix_, major_, minor_, patch_) \
+-	__MAKE_UC_FW_PATH(prefix_, "_guc_", major_, minor_, patch_)
++	__MAKE_UC_FW_PATH(prefix_, "_guc_", major_, minor_, patch_, "")
  
- static void destroy_vcs_context(struct intel_pxp *pxp)
- {
--	intel_engine_destroy_pinned_context(fetch_and_zero(&pxp->ce));
-+	if (pxp->ce)
-+		intel_engine_destroy_pinned_context(fetch_and_zero(&pxp->ce));
- }
- 
--void intel_pxp_init(struct intel_pxp *pxp)
-+static void pxp_init_full(struct intel_pxp *pxp)
- {
- 	struct intel_gt *gt = pxp_to_gt(pxp);
- 	int ret;
- 
--	if (!HAS_PXP(gt->i915))
--		return;
--
--	mutex_init(&pxp->tee_mutex);
--
- 	/*
- 	 * we'll use the completion to check if there is a termination pending,
- 	 * so we start it as completed and we reinit it when a termination
-@@ -124,8 +120,7 @@ void intel_pxp_init(struct intel_pxp *pxp)
- 	init_completion(&pxp->termination);
- 	complete_all(&pxp->termination);
- 
--	mutex_init(&pxp->arb_mutex);
--	INIT_WORK(&pxp->session_work, intel_pxp_session_work);
-+	intel_pxp_session_management_init(pxp);
- 
- 	ret = create_vcs_context(pxp);
- 	if (ret)
-@@ -143,11 +138,26 @@ void intel_pxp_init(struct intel_pxp *pxp)
- 	destroy_vcs_context(pxp);
- }
- 
--void intel_pxp_fini(struct intel_pxp *pxp)
-+void intel_pxp_init(struct intel_pxp *pxp)
- {
--	if (!intel_pxp_is_enabled(pxp))
-+	struct intel_gt *gt = pxp_to_gt(pxp);
+ #define MAKE_HUC_FW_PATH(prefix_, major_, minor_, bld_num_) \
+-	__MAKE_UC_FW_PATH(prefix_, "_huc_", major_, minor_, bld_num_)
++	__MAKE_UC_FW_PATH(prefix_, "_huc_", major_, minor_, bld_num_, "")
 +
-+	/* we rely on the mei PXP module */
-+	if (!IS_ENABLED(CONFIG_INTEL_MEI_PXP))
- 		return;
++#define MAKE_HUC_GSC_FW_PATH(prefix_, major_, minor_, bld_num_) \
++	__MAKE_UC_FW_PATH(prefix_, "_huc_", major_, minor_, bld_num_, "_gsc")
  
-+	/*
-+	 * If HuC is loaded by GSC but PXP is disabled, we can skip the init of
-+	 * the full PXP session/object management and just init the tee channel.
-+	 */
-+	if (HAS_PXP(gt->i915))
-+		pxp_init_full(pxp);
-+	else if (intel_huc_is_loaded_by_gsc(&gt->uc.huc) && intel_uc_uses_huc(&gt->uc))
-+		intel_pxp_tee_component_init(pxp);
-+}
+ /* All blobs need to be declared via MODULE_FIRMWARE() */
+ #define INTEL_UC_MODULE_FW(platform_, revid_, uc_) \
+@@ -110,26 +114,31 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+ 
+ INTEL_GUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_GUC_FW_PATH)
+ INTEL_GUC_FIRMWARE_DEFS_FALLBACK(INTEL_UC_MODULE_FW, MAKE_GUC_FW_PATH)
+-INTEL_HUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_HUC_FW_PATH)
++INTEL_HUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_HUC_FW_PATH, MAKE_HUC_GSC_FW_PATH)
+ 
+ /* The below structs and macros are used to iterate across the list of blobs */
+ struct __packed uc_fw_blob {
+ 	u8 major;
+ 	u8 minor;
++	bool loaded_via_gsc;
+ 	const char *path;
+ };
+ 
+-#define UC_FW_BLOB(major_, minor_, path_) \
+-	{ .major = major_, .minor = minor_, .path = path_ }
++#define UC_FW_BLOB(major_, minor_, gsc_, path_) \
++	{ .major = major_, .minor = minor_, .loaded_via_gsc = gsc_, .path = path_ }
+ 
+ #define GUC_FW_BLOB(prefix_, major_, minor_, patch_) \
+-	UC_FW_BLOB(major_, minor_, \
++	UC_FW_BLOB(major_, minor_, false, \
+ 		   MAKE_GUC_FW_PATH(prefix_, major_, minor_, patch_))
+ 
+ #define HUC_FW_BLOB(prefix_, major_, minor_, bld_num_) \
+-	UC_FW_BLOB(major_, minor_, \
++	UC_FW_BLOB(major_, minor_, false, \
+ 		   MAKE_HUC_FW_PATH(prefix_, major_, minor_, bld_num_))
+ 
++#define HUC_GSC_FW_BLOB(prefix_, major_, minor_, bld_num_) \
++	UC_FW_BLOB(major_, minor_, true, \
++		   MAKE_HUC_GSC_FW_PATH(prefix_, major_, minor_, bld_num_))
 +
-+void intel_pxp_fini(struct intel_pxp *pxp)
-+{
- 	pxp->arb_is_valid = false;
- 
- 	intel_pxp_tee_component_fini(pxp);
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 73847e535cab..2da309088c6d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -12,7 +12,6 @@
- struct intel_pxp;
- struct drm_i915_gem_object;
- 
--#ifdef CONFIG_DRM_I915_PXP
- struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp);
- bool intel_pxp_is_enabled(const struct intel_pxp *pxp);
- bool intel_pxp_is_active(const struct intel_pxp *pxp);
-@@ -32,36 +31,5 @@ int intel_pxp_key_check(struct intel_pxp *pxp,
- 			bool assign);
- 
- void intel_pxp_invalidate(struct intel_pxp *pxp);
--#else
--static inline void intel_pxp_init(struct intel_pxp *pxp)
--{
--}
--
--static inline void intel_pxp_fini(struct intel_pxp *pxp)
--{
--}
--
--static inline int intel_pxp_start(struct intel_pxp *pxp)
--{
--	return -ENODEV;
--}
--
--static inline bool intel_pxp_is_enabled(const struct intel_pxp *pxp)
--{
--	return false;
--}
--
--static inline bool intel_pxp_is_active(const struct intel_pxp *pxp)
--{
--	return false;
--}
--
--static inline int intel_pxp_key_check(struct intel_pxp *pxp,
--				      struct drm_i915_gem_object *obj,
--				      bool assign)
--{
--	return -ENODEV;
--}
--#endif
- 
- #endif /* __INTEL_PXP_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
-index 8b5793654844..8c292dc86f68 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
-@@ -27,6 +27,14 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir);
- static inline void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
- {
- }
-+
-+static inline void intel_pxp_irq_enable(struct intel_pxp *pxp)
-+{
-+}
-+
-+static inline void intel_pxp_irq_disable(struct intel_pxp *pxp)
-+{
-+}
- #endif
- 
- #endif /* __INTEL_PXP_IRQ_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index 92b00b4de240..8453e13e9120 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -137,7 +137,7 @@ static void pxp_terminate_complete(struct intel_pxp *pxp)
- 	complete_all(&pxp->termination);
- }
- 
--void intel_pxp_session_work(struct work_struct *work)
-+static void pxp_session_work(struct work_struct *work)
- {
- 	struct intel_pxp *pxp = container_of(work, typeof(*pxp), session_work);
- 	struct intel_gt *gt = pxp_to_gt(pxp);
-@@ -172,3 +172,9 @@ void intel_pxp_session_work(struct work_struct *work)
- 
- 	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
- }
-+
-+void intel_pxp_session_management_init(struct intel_pxp *pxp)
-+{
-+	mutex_init(&pxp->arb_mutex);
-+	INIT_WORK(&pxp->session_work, pxp_session_work);
-+}
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-index ba4c9d2b94b7..903ac52cffa1 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-@@ -8,8 +8,13 @@
- 
- #include <linux/types.h>
- 
--struct work_struct;
--
--void intel_pxp_session_work(struct work_struct *work);
-+struct intel_pxp;
- 
-+#ifdef CONFIG_DRM_I915_PXP
-+void intel_pxp_session_management_init(struct intel_pxp *pxp);
-+#else
-+static inline void intel_pxp_session_management_init(struct intel_pxp *pxp)
-+{
-+}
-+#endif
- #endif /* __INTEL_PXP_SESSION_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index 4b6f5655fab5..2c1fc49ecec1 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -97,7 +97,8 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
- 		return 0;
- 
- 	/* the component is required to fully start the PXP HW */
--	intel_pxp_init_hw(pxp);
-+	if (intel_pxp_is_enabled(pxp))
-+		intel_pxp_init_hw(pxp);
- 
- 	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
- 
-@@ -111,8 +112,9 @@ static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
- 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
- 	intel_wakeref_t wakeref;
- 
--	with_intel_runtime_pm_if_in_use(&i915->runtime_pm, wakeref)
--		intel_pxp_fini_hw(pxp);
-+	if (intel_pxp_is_enabled(pxp))
-+		with_intel_runtime_pm_if_in_use(&i915->runtime_pm, wakeref)
-+			intel_pxp_fini_hw(pxp);
- 
- 	mutex_lock(&pxp->tee_mutex);
- 	pxp->pxp_component = NULL;
-@@ -130,6 +132,8 @@ int intel_pxp_tee_component_init(struct intel_pxp *pxp)
- 	struct intel_gt *gt = pxp_to_gt(pxp);
- 	struct drm_i915_private *i915 = gt->i915;
- 
-+	mutex_init(&pxp->tee_mutex);
-+
- 	ret = component_add_typed(i915->drm.dev, &i915_pxp_tee_component_ops,
- 				  I915_COMPONENT_PXP);
- 	if (ret < 0) {
+ struct __packed uc_fw_platform_requirement {
+ 	enum intel_platform p;
+ 	u8 rev; /* first platform rev using this FW */
+@@ -158,7 +167,7 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
+ 		INTEL_GUC_FIRMWARE_DEFS_FALLBACK(MAKE_FW_LIST, GUC_FW_BLOB)
+ 	};
+ 	static const struct uc_fw_platform_requirement blobs_huc[] = {
+-		INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB)
++		INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB, HUC_GSC_FW_BLOB)
+ 	};
+ 	static const struct fw_blobs_by_type blobs_all[INTEL_UC_FW_NUM_TYPES] = {
+ 		[INTEL_UC_FW_TYPE_GUC] = { blobs_guc, ARRAY_SIZE(blobs_guc) },
+@@ -190,6 +199,7 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
+ 			uc_fw->wanted_path = blob->path;
+ 			uc_fw->major_ver_wanted = blob->major;
+ 			uc_fw->minor_ver_wanted = blob->minor;
++			uc_fw->loaded_via_gsc = blob->loaded_via_gsc;
+ 			break;
+ 		}
+ 	}
 -- 
 2.37.2
 
