@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03E48C28B2B
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:44:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE19EC00140
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:44:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75DF710E993;
-	Thu, 18 Aug 2022 23:43:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 043C110E925;
+	Thu, 18 Aug 2022 23:43:49 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEE8F10E22D;
- Thu, 18 Aug 2022 23:42:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE1710E536;
+ Thu, 18 Aug 2022 23:42:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660866150; x=1692402150;
+ t=1660866152; x=1692402152;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0f3s7kZPDS7+F8oYlXP6s6G+BXn33hxP3bZbP5oe0ZY=;
- b=BIiAJY2zTLR9kILUAlW846VghFVhoDI/JoKKqhtRHlR4B7bjHIODb7ux
- G/5h3hN72KbLURy/1Ny/FWWRm4G8k7DQYRYs8/nCrCNixb6mIlUQNC154
- vZnAqr4HXErS4D6hdQUKxXPuw4X8xwXSrgF81HizOqbrzid3maSW2g7UY
- m6MrNc2mgf5aV6qKi31AiRNLjANrAwNs63F687iSzzZWWcSsY3WR1h3pX
- PLjX9iZsq2gaBmaDbXEhGvvOaU91JklyAUuUFUf201DDE09rvCn9NsjKq
- x//cwDHrjTHjWvsTCd5qt5qQBfKWz1gGKaaRghRo40VazMBwq2yyYXSdS Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="275938513"
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="275938513"
+ bh=Eu7K5qTPnucX3SyoUhZKYrXZJKpcePF5Vk+KhXw/DGA=;
+ b=OpWth7sDvEvocxnR81AaDVbY5VU8XPhIqu6VTviCW9c+Z3p9/+AAS7KG
+ 1wkA0RPcCio/8Fi0DFrM/vgnuHXypQ5ziW5641dcyMvrKAmEdMJ2T/e/L
+ srW9SMtaB5FSwCaWBf1F04R6grzP9395sponZ0hrMXlj2oB9vs1mkd120
+ BJ0MKrktf+ACGlzz/7YLgA3EiuyzDXc4/qUKM2vj5dpV9PWoxlmHSXcoe
+ 46zxBWXpV8J9DPCK0ZjpX+MCI/D0waEJhnknkot/LKiE0DFewMJaL7F9T
+ OfJYpJxhDhcsewhYSbd/3q74a3YafbrVytFYx9EgwnTu74aL/5nfWGtVY g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="275938522"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="275938522"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2022 16:42:28 -0700
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="783953289"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="783953295"
 Received: from invictus.jf.intel.com ([10.165.21.205])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2022 16:42:28 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Aug 2022 16:41:47 -0700
-Message-Id: <20220818234202.451742-7-radhakrishna.sripada@intel.com>
+Date: Thu, 18 Aug 2022 16:41:52 -0700
+Message-Id: <20220818234202.451742-12-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
 References: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 06/21] drm/i915/mtl: Add PCH support
+Subject: [Intel-gfx] [PATCH v2 11/21] drm/i915/mtl: Add DP AUX support on
+ TypeC ports
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,72 +60,101 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add support for Meteorpoint(MTP) PCH used with Meteorlake.
+From: Imre Deak <imre.deak@intel.com>
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
+On MTL TypeC ports the AUX_CH_CTL and AUX_CH_DATA addresses have
+changed wrt. previous platforms, adjust the code accordingly.
+
+Signed-off-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/intel_pch.c | 9 ++++++++-
- drivers/gpu/drm/i915/intel_pch.h | 4 ++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp_aux.c | 45 ++++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_reg.h             |  9 +++++
+ 2 files changed, 53 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_pch.c b/drivers/gpu/drm/i915/intel_pch.c
-index 0fec25be146a..ba9843cb1b13 100644
---- a/drivers/gpu/drm/i915/intel_pch.c
-+++ b/drivers/gpu/drm/i915/intel_pch.c
-@@ -138,6 +138,11 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
- 		drm_WARN_ON(&dev_priv->drm, !IS_ALDERLAKE_S(dev_priv) &&
- 			    !IS_ALDERLAKE_P(dev_priv));
- 		return PCH_ADP;
-+	case INTEL_PCH_MTP_DEVICE_ID_TYPE:
-+	case INTEL_PCH_MTP2_DEVICE_ID_TYPE:
-+		drm_dbg_kms(&dev_priv->drm, "Found Meteor Lake PCH\n");
-+		drm_WARN_ON(&dev_priv->drm, !IS_METEORLAKE(dev_priv));
-+		return PCH_MTP;
- 	default:
- 		return PCH_NONE;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+index 40c4bdd9cb26..10616e18dc18 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+@@ -637,6 +637,46 @@ static i915_reg_t tgl_aux_data_reg(struct intel_dp *intel_dp, int index)
  	}
-@@ -166,7 +171,9 @@ intel_virt_detect_pch(const struct drm_i915_private *dev_priv,
- 	 * make an educated guess as to which PCH is really there.
- 	 */
+ }
  
--	if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv))
-+	if (IS_METEORLAKE(dev_priv))
-+		id = INTEL_PCH_MTP_DEVICE_ID_TYPE;
-+	else if (IS_ALDERLAKE_S(dev_priv) || IS_ALDERLAKE_P(dev_priv))
- 		id = INTEL_PCH_ADP_DEVICE_ID_TYPE;
- 	else if (IS_TIGERLAKE(dev_priv) || IS_ROCKETLAKE(dev_priv))
- 		id = INTEL_PCH_TGP_DEVICE_ID_TYPE;
-diff --git a/drivers/gpu/drm/i915/intel_pch.h b/drivers/gpu/drm/i915/intel_pch.h
-index 7c8ce9781d1a..32aff5a70d04 100644
---- a/drivers/gpu/drm/i915/intel_pch.h
-+++ b/drivers/gpu/drm/i915/intel_pch.h
-@@ -25,6 +25,7 @@ enum intel_pch {
- 	PCH_ICP,	/* Ice Lake/Jasper Lake PCH */
- 	PCH_TGP,	/* Tiger Lake/Mule Creek Canyon PCH */
- 	PCH_ADP,	/* Alder Lake PCH */
-+	PCH_MTP,	/* Meteor Lake PCH */
++static i915_reg_t xelpdp_aux_ctl_reg(struct intel_dp *intel_dp)
++{
++	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
++	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
++	enum aux_ch aux_ch = dig_port->aux_ch;
++
++	switch (aux_ch) {
++	case AUX_CH_A:
++	case AUX_CH_B:
++	case AUX_CH_USBC1:
++	case AUX_CH_USBC2:
++	case AUX_CH_USBC3:
++	case AUX_CH_USBC4:
++		return XELPDP_DP_AUX_CH_CTL(aux_ch);
++	default:
++		MISSING_CASE(aux_ch);
++		return XELPDP_DP_AUX_CH_CTL(AUX_CH_A);
++	}
++}
++
++static i915_reg_t xelpdp_aux_data_reg(struct intel_dp *intel_dp, int index)
++{
++	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
++	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
++	enum aux_ch aux_ch = dig_port->aux_ch;
++
++	switch (aux_ch) {
++	case AUX_CH_A:
++	case AUX_CH_B:
++	case AUX_CH_USBC1:
++	case AUX_CH_USBC2:
++	case AUX_CH_USBC3:
++	case AUX_CH_USBC4:
++		return XELPDP_DP_AUX_CH_DATA(aux_ch, index);
++	default:
++		MISSING_CASE(aux_ch);
++		return XELPDP_DP_AUX_CH_DATA(AUX_CH_A, index);
++	}
++}
++
+ void intel_dp_aux_fini(struct intel_dp *intel_dp)
+ {
+ 	if (cpu_latency_qos_request_active(&intel_dp->pm_qos))
+@@ -652,7 +692,10 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
+ 	struct intel_encoder *encoder = &dig_port->base;
+ 	enum aux_ch aux_ch = dig_port->aux_ch;
  
- 	/* Fake PCHs, functionality handled on the same PCI dev */
- 	PCH_DG1 = 1024,
-@@ -57,12 +58,15 @@ enum intel_pch {
- #define INTEL_PCH_ADP2_DEVICE_ID_TYPE		0x5180
- #define INTEL_PCH_ADP3_DEVICE_ID_TYPE		0x7A00
- #define INTEL_PCH_ADP4_DEVICE_ID_TYPE		0x5480
-+#define INTEL_PCH_MTP_DEVICE_ID_TYPE		0x7E00
-+#define INTEL_PCH_MTP2_DEVICE_ID_TYPE		0xAE00
- #define INTEL_PCH_P2X_DEVICE_ID_TYPE		0x7100
- #define INTEL_PCH_P3X_DEVICE_ID_TYPE		0x7000
- #define INTEL_PCH_QEMU_DEVICE_ID_TYPE		0x2900 /* qemu q35 has 2918 */
+-	if (DISPLAY_VER(dev_priv) >= 12) {
++	if (DISPLAY_VER(dev_priv) >= 14) {
++		intel_dp->aux_ch_ctl_reg = xelpdp_aux_ctl_reg;
++		intel_dp->aux_ch_data_reg = xelpdp_aux_data_reg;
++	} else if (DISPLAY_VER(dev_priv) >= 12) {
+ 		intel_dp->aux_ch_ctl_reg = tgl_aux_ctl_reg;
+ 		intel_dp->aux_ch_data_reg = tgl_aux_data_reg;
+ 	} else if (DISPLAY_VER(dev_priv) >= 9) {
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 234c17596c3a..04a269fa8717 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -3533,6 +3533,15 @@
+ 						       _XELPDP_USBC3_AUX_CH_CTL, \
+ 						       _XELPDP_USBC4_AUX_CH_CTL))
  
- #define INTEL_PCH_TYPE(dev_priv)		((dev_priv)->pch_type)
- #define INTEL_PCH_ID(dev_priv)			((dev_priv)->pch_id)
-+#define HAS_PCH_MTP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_MTP)
- #define HAS_PCH_DG2(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_DG2)
- #define HAS_PCH_ADP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_ADP)
- #define HAS_PCH_DG1(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_DG1)
++#define XELPDP_DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PICK(aux_ch, \
++						       _DPA_AUX_CH_DATA1, \
++						       _DPB_AUX_CH_DATA1, \
++						       0, /* port/aux_ch C is non-existent */ \
++						       _XELPDP_USBC1_AUX_CH_DATA1, \
++						       _XELPDP_USBC2_AUX_CH_DATA1, \
++						       _XELPDP_USBC3_AUX_CH_DATA1, \
++						       _XELPDP_USBC4_AUX_CH_DATA1) + (i) * 4)
++
+ #define   DP_AUX_CH_CTL_SEND_BUSY	    (1 << 31)
+ #define   DP_AUX_CH_CTL_DONE		    (1 << 30)
+ #define   DP_AUX_CH_CTL_INTERRUPT	    (1 << 29)
 -- 
 2.25.1
 
