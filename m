@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98D35C00140
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 10:38:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84305C00140
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 10:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9C8BCC5A1;
-	Thu, 18 Aug 2022 10:38:19 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DCC410E736
- for <intel-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 10:37:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCFE6CD38F;
+	Thu, 18 Aug 2022 10:49:06 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37BFFCD32F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 10:48:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660819050; x=1692355050;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=FxBZQkNfEO0y0DKxnv+1hbJ5VkfuAGcnALmzY9CbI/M=;
- b=RUVUN9ZARXaYtEhI7ol1XJMDWE/ayR3v+GAKWp1csAb3I9UXYsSKqAXd
- z78ZnsKNZ6bFRh4p1Ru5nNUxL9tU8C8yroXLuDSLsbx6xZjlroatsmkrN
- 082e08i63FkTs2XU2kim3RGoL8DRBEmnEuclSou1Ac0+R7YKkVO72eGB/
- dOqgDYSrpfaV92mo6OR/HCJXz61NNbMck6c6bM1cIf56fhdoC4MWyjD/l
- Cqtt4SmN5Rwjo4BHFogjVg8spV+xQkJtFLCl8uwEti8JsOJJ8PBvH7R1V
- orK8cEwH8/yUBHJdxWnXM8et+TU5qMZnwbvX8mCQlCZEiZHhrGDhSpTIY g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10442"; a="379019423"
-X-IronPort-AV: E=Sophos;i="5.93,246,1654585200"; d="scan'208";a="379019423"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2022 03:37:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,246,1654585200"; d="scan'208";a="584161140"
-Received: from kandpal.iind.intel.com ([10.190.239.32])
- by orsmga006.jf.intel.com with ESMTP; 18 Aug 2022 03:37:27 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Aug 2022 16:06:41 +0530
-Message-Id: <20220818103642.501756-3-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220818103642.501756-1-suraj.kandpal@intel.com>
-References: <20220818103642.501756-1-suraj.kandpal@intel.com>
+ t=1660819728; x=1692355728;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=rYsSXFd1w8iLxiYaLGy22Y2SCqGYk/YYsW1/aMDlZbc=;
+ b=ZE0MF7vPGlehfHMJ3pSq19JaA1tWBBMUKOH+8gXiFzibXX3E15KTLJAf
+ JTZNo0SoIhUumMGuZfx6D911WMyR/CCljNORp9ZgfZyw71N2F9nLpnqZL
+ fzJI+vLAZfH/Qgf3FHC0dId3zR+YXlEU/vLngyNXkTm1B3r8qP0tHH9yK
+ Ppp7l9KA/lwwA4OhuohJQ6w6qSeFrPA1nBvdnM0FqkCviddLet2Zr+NUx
+ v1X38iT1gX3SWUGjx8MV1v70RcIXzSQty7QgbRJxGnQfpYRzGZVTIBAso
+ arWJdiJKJJL64mEnyxx24oOIDNvWqeP0Pht4xIxiznjanX5AiJ2r65M0d A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10442"; a="279693399"
+X-IronPort-AV: E=Sophos;i="5.93,246,1654585200"; d="scan'208";a="279693399"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2022 03:48:47 -0700
+X-IronPort-AV: E=Sophos;i="5.93,246,1654585200"; d="scan'208";a="636775782"
+Received: from mwiniars-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.252.40.166])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2022 03:48:45 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <914a1ac6-202f-eca4-46dc-ac1899321182@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1655712106.git.jani.nikula@intel.com>
+ <a0422f0a8ac055f65b7922bcd3119b180a41e79e.1655712106.git.jani.nikula@intel.com>
+ <914a1ac6-202f-eca4-46dc-ac1899321182@linux.intel.com>
+Date: Thu, 18 Aug 2022 13:48:43 +0300
+Message-ID: <87zgg1omic.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915 : Changing intel_connector
- iterators
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 16/16] drm/i915: make device info a pointer
+ to static const data
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,121 +59,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ville.syrjala@intel.com, jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Changing intel_connector iterators as with writeback introduction
-not all drm_connector will be embedded within intel_connector.
+On Thu, 18 Aug 2022, Maarten Lankhorst <maarten.lankhorst@linux.intel.com> wrote:
+> Op 20-06-2022 om 10:49 schreef Jani Nikula:
+>> Now that the device info is no longer modified runtime, we don't need to
+>> make a copy of it, and we can convert i915->__info into a pointer to
+>> static const data. Also remove mkwrite_device_info().
+>>
+>> This does increase the text size slightly.
+>>
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>>
+>> ---
+>>
+>> An alternative is to keep copying device info, but casting away the
+>> const only once at the copy time, removing mkwrite_device_info().
+>> ---
+>>  drivers/gpu/drm/i915/i915_driver.c |  8 ++------
+>>  drivers/gpu/drm/i915/i915_drv.h    | 11 ++---------
+>>  2 files changed, 4 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+>> index 5969cc7805d3..9c9c492e97a8 100644
+>> --- a/drivers/gpu/drm/i915/i915_driver.c
+>> +++ b/drivers/gpu/drm/i915/i915_driver.c
+>> @@ -793,9 +793,6 @@ static void i915_welcome_messages(struct drm_i915_private *dev_priv)
+>>  static struct drm_i915_private *
+>>  i915_driver_create(struct pci_dev *pdev, const struct pci_device_id *ent)
+>>  {
+>> -	const struct intel_device_info *match_info =
+>> -		(struct intel_device_info *)ent->driver_data;
+>> -	struct intel_device_info *device_info;
+>>  	struct intel_runtime_info *runtime;
+>>  	struct drm_i915_private *i915;
+>>  
+>> @@ -809,9 +806,8 @@ i915_driver_create(struct pci_dev *pdev, const struct pci_device_id *ent)
+>>  	/* Device parameters start as a copy of module parameters. */
+>>  	i915_params_copy(&i915->params, &i915_modparams);
+>>  
+>> -	/* Setup the write-once "constant" device info */
+>> -	device_info = mkwrite_device_info(i915);
+>> -	memcpy(device_info, match_info, sizeof(*device_info));
+>> +	/* Static const device info. */
+>> +	i915->__info = (const struct intel_device_info *)ent->driver_data;
+>>  
+>>  	/* Initialize initial runtime info from static const data and pdev. */
+>>  	runtime = RUNTIME_INFO(i915);
+>> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+>> index 89472440947c..a2a57f07c5be 100644
+>> --- a/drivers/gpu/drm/i915/i915_drv.h
+>> +++ b/drivers/gpu/drm/i915/i915_drv.h
+>> @@ -380,7 +380,7 @@ struct drm_i915_private {
+>>  	/* i915 device parameters */
+>>  	struct i915_params params;
+>>  
+>> -	const struct intel_device_info __info; /* Use INTEL_INFO() to access. */
+>> +	const struct intel_device_info *__info; /* Use INTEL_INFO() to access. */
+>>  	struct intel_runtime_info __runtime; /* Use RUNTIME_INFO() to access. */
+>>  	struct intel_driver_caps caps;
+>>  
+>> @@ -848,7 +848,7 @@ static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
+>>  	GENMASK(INTEL_FRONTBUFFER_BITS_PER_PIPE * ((pipe) + 1) - 1, \
+>>  		INTEL_FRONTBUFFER_BITS_PER_PIPE * (pipe))
+>>  
+>> -#define INTEL_INFO(dev_priv)	(&(dev_priv)->__info)
+>> +#define INTEL_INFO(__i915)	(__i915->__info)
+>>  #define RUNTIME_INFO(dev_priv)	(&(dev_priv)->__runtime)
+>>  #define DRIVER_CAPS(dev_priv)	(&(dev_priv)->caps)
+>>  
+>> @@ -1432,13 +1432,6 @@ void i915_gem_driver_release(struct drm_i915_private *dev_priv);
+>>  
+>>  int i915_gem_open(struct drm_i915_private *i915, struct drm_file *file);
+>>  
+>> -/* intel_device_info.c */
+>> -static inline struct intel_device_info *
+>> -mkwrite_device_info(struct drm_i915_private *dev_priv)
+>> -{
+>> -	return (struct intel_device_info *)INTEL_INFO(dev_priv);
+>> -}
+>> -
+>>  static inline enum i915_map_type
+>>  i915_coherent_map_type(struct drm_i915_private *i915,
+>>  		       struct drm_i915_gem_object *obj, bool always_coherent)
+>
+> I think just moving around things is safest in this case. I believe
+> all should be moved to the new display sub-struct, but this is a start
+> of making that easier.
+>
+> For the series, except patch 5:
+>
+> Reviewed-by: Maarten Lankhort <maarten.lankhorst@linux.intel.com>
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.h  |  7 ++---
- .../drm/i915/display/intel_display_types.h    | 26 ++++++++++++++++++-
- .../drm/i915/display/intel_modeset_setup.c    | 11 +++++---
- 3 files changed, 35 insertions(+), 9 deletions(-)
+Thanks... but there's v2 starting at [1]. I don't recall any changes
+other than rebase and slight reordering of patches.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index 4e9f22954a41..3b9987b5f304 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -52,6 +52,7 @@ struct intel_crtc_state;
- struct intel_digital_port;
- struct intel_dp;
- struct intel_encoder;
-+struct intel_connector;
- struct intel_initial_plane_config;
- struct intel_load_detect_pipe;
- struct intel_plane;
-@@ -469,16 +470,12 @@ enum hpd_pin {
- 		for_each_if(intel_encoder_can_psr(intel_encoder))
- 
- #define for_each_intel_connector_iter(intel_connector, iter) \
--	while ((intel_connector = to_intel_connector(drm_connector_list_iter_next(iter))))
-+	while ((intel_connector = intel_connector_list_iter_next(iter)))
- 
- #define for_each_encoder_on_crtc(dev, __crtc, intel_encoder) \
- 	list_for_each_entry((intel_encoder), &(dev)->mode_config.encoder_list, base.head) \
- 		for_each_if((intel_encoder)->base.crtc == (__crtc))
- 
--#define for_each_connector_on_encoder(dev, __encoder, intel_connector) \
--	list_for_each_entry((intel_connector), &(dev)->mode_config.connector_list, base.head) \
--		for_each_if((intel_connector)->base.encoder == (__encoder))
--
- #define for_each_old_intel_plane_in_state(__state, plane, old_plane_state, __i) \
- 	for ((__i) = 0; \
- 	     (__i) < (__state)->base.dev->mode_config.num_total_plane && \
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 0e94bd430bcb..7a82b7acbaf2 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1497,12 +1497,14 @@ struct cxsr_latency {
- #define to_intel_atomic_state(x) container_of(x, struct intel_atomic_state, base)
- #define to_intel_crtc(x) container_of(x, struct intel_crtc, base)
- #define to_intel_crtc_state(x) container_of(x, struct intel_crtc_state, uapi)
--#define to_intel_connector(x) container_of(x, struct intel_connector, base)
-+#define to_intel_wb_connector(x) container_of(x, struct intel_wb_connector, base)
- #define to_intel_encoder(x) container_of(x, struct intel_encoder, base)
- #define to_intel_framebuffer(x) container_of(x, struct intel_framebuffer, base)
- #define to_intel_plane(x) container_of(x, struct intel_plane, base)
- #define to_intel_plane_state(x) container_of(x, struct intel_plane_state, uapi)
- #define intel_fb_obj(x) ((x) ? to_intel_bo((x)->obj[0]) : NULL)
-+#define to_intel_connector(x) (((x->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)) ?	\
-+				NULL : container_of(x, struct intel_connector, base))
- 
- struct intel_hdmi {
- 	i915_reg_t hdmi_reg;
-@@ -2068,4 +2070,26 @@ to_intel_frontbuffer(struct drm_framebuffer *fb)
- 	return fb ? to_intel_framebuffer(fb)->frontbuffer : NULL;
- }
- 
-+static inline struct intel_connector *
-+intel_connector_list_iter_next(struct drm_connector_list_iter *iter)
-+{
-+	struct drm_connector *connector;
-+	bool flag = true;
-+	/*
-+	 * Skipping connector that are Writeback connector as they will
-+	 * not be embedded in intel connector
-+	 */
-+	while (flag) {
-+		connector = drm_connector_list_iter_next(iter);
-+		if (connector && !to_intel_connector(connector))
-+			continue;
-+
-+		flag = false;
-+
-+		if (connector)
-+			return to_intel_connector(connector);
-+
-+	}
-+	return NULL;
-+}
- #endif /*  __INTEL_DISPLAY_TYPES_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-index f0e04d3904c6..20a5a9e33eca 100644
---- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-@@ -204,11 +204,16 @@ static bool intel_crtc_has_encoders(struct intel_crtc *crtc)
- 
- static struct intel_connector *intel_encoder_find_connector(struct intel_encoder *encoder)
- {
--	struct drm_device *dev = encoder->base.dev;
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	struct intel_connector *connector;
-+	struct drm_connector_list_iter conn_iter;
- 
--	for_each_connector_on_encoder(dev, &encoder->base, connector)
--		return connector;
-+	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
-+	for_each_intel_connector_iter(connector, &conn_iter) {
-+		if (&encoder->base == connector->base.encoder)
-+			return connector;
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
- 
- 	return NULL;
- }
+What's wrong with patch 5? I mean it does get modified runtime.
+
+BR,
+Jani.
+
+
+
+[1] https://lore.kernel.org/r/cover.1660137416.git.jani.nikula@intel.com
+
+
 -- 
-2.37.0
-
+Jani Nikula, Intel Open Source Graphics Center
