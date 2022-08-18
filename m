@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3620C00140
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:43:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53A91C00140
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:44:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4497C10EBA8;
-	Thu, 18 Aug 2022 23:43:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB5110E3EE;
+	Thu, 18 Aug 2022 23:43:12 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5192110E3EE;
- Thu, 18 Aug 2022 23:42:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F06B510E2BF;
+ Thu, 18 Aug 2022 23:42:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1660866151; x=1692402151;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=tbEtRN6dHvsMKxZq3oAz70k5dFqtVETWUR2Hrdut4Ag=;
- b=WSl4NvQvLS3bub2HB2FVkivTPaZo4WPjWbQ8Gq5vh+pQp7rPSB7YvaXJ
- MwKDD2Xs7QJaIbSEAukxHZCwySB9Xb6Kl6X66+FnQsjZqtxs9tLUIz2qh
- zIhZ9B+BfYk6izJjTiY7yciYB5EoQB41Na/X+Gb1AUQmRVVWZSTDqYoVb
- h4W37JUHdOiT5dRE56Pkyfj9IVa9xaRQLg27C3Ufl0RHYfwgpsMXJ9GxM
- sDEiF903xhh2W1neNWZvdsl9t+nHZHJ+SY911Kj2NfS8N99x5vmsa751P
- IFcX2lPcB0oqJpkUp3TVyk0+BtDAoE8u1izkuWP5VmGhVig6QR3K8Q4Eu g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="275938516"
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="275938516"
+ bh=oxp/KT3lcoH1nMx4gHY3iAIRxIofieLfnONlm/0JH8k=;
+ b=ELL5uynEmacOHGdlCyfWETZUIcDBoPXFNXyBNt/pF37rSWkUxPR1Yq3V
+ T0T6EBvNqsSB9/a9iHrum0WhFzNPbAsKo5TgpvjSFQbFK5o5rGkj20K7t
+ UYeTjbcTnPLHVC+LdZn2Zp5frqdocXak2RmGeo+eVgY7yy2j2SY3JhEe7
+ tkKFEvDWPWParnNJVtR/3s7KgTyBQ+IITyhbsUHifFkYGAGCERxQPfQqe
+ g+DElhM7xjMQDD3lcu88ckELUsFRMPee/o0SFUE/0X/ie4CB62mriKFk4
+ 0qwYp/ODvvT8T/hHEDYth3Nfuf6+qSgNDj3NePfbUt1TC5RjDV2nOTIc2 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="275938514"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="275938514"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2022 16:42:28 -0700
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="783953288"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="783953290"
 Received: from invictus.jf.intel.com ([10.165.21.205])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2022 16:42:28 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Aug 2022 16:41:46 -0700
-Message-Id: <20220818234202.451742-6-radhakrishna.sripada@intel.com>
+Date: Thu, 18 Aug 2022 16:41:48 -0700
+Message-Id: <20220818234202.451742-8-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
 References: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 05/21] drm/i915/mtl: Define engine context
- layouts
+Subject: [Intel-gfx] [PATCH v2 07/21] drm/i915/mtl: Add gmbus and gpio
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,90 +60,66 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+Add tables to map the GMBUS pin pairs to GPIO registers and port to DDC.
+From spec we have registers GPIO_CTL[1-5] mapped to native display phys and
+GPIO_CTL[9-14] are mapped to TC ports.
 
-The part of the media and blitter engine contexts that we care about for
-setting up an initial state are the same on MTL as they were on DG2
-(and PVC), so we need to update the driver conditions to re-use the DG2
-context table.
+BSpec: 49306
 
-For render/compute engines, the part of the context images are nearly
-the same, although the layout had a very slight change --- one POSH
-register was removed and the placement of some LRI/noops adjusted
-slightly to compensate.
-
-Bspec: 46261, 46260, 45585
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Original Author: Brian J Lovin
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 47 ++++++++++++++++++++++++++++-
- 1 file changed, 46 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_gmbus.c | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_gmbus.h |  1 +
+ 2 files changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index eec73c66406c..d3833cbaabcb 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -606,6 +606,49 @@ static const u8 dg2_rcs_offsets[] = {
- 	END
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+index a6ba7fb72339..542b8b2654be 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.c
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+@@ -116,6 +116,20 @@ static const struct gmbus_pin gmbus_pins_dg2[] = {
+ 	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIOJ },
  };
  
-+static const u8 mtl_rcs_offsets[] = {
-+       NOP(1),
-+       LRI(15, POSTED),
-+       REG16(0x244),
-+       REG(0x034),
-+       REG(0x030),
-+       REG(0x038),
-+       REG(0x03c),
-+       REG(0x168),
-+       REG(0x140),
-+       REG(0x110),
-+       REG(0x1c0),
-+       REG(0x1c4),
-+       REG(0x1c8),
-+       REG(0x180),
-+       REG16(0x2b4),
-+       REG(0x120),
-+       REG(0x124),
-+
-+       NOP(1),
-+       LRI(9, POSTED),
-+       REG16(0x3a8),
-+       REG16(0x28c),
-+       REG16(0x288),
-+       REG16(0x284),
-+       REG16(0x280),
-+       REG16(0x27c),
-+       REG16(0x278),
-+       REG16(0x274),
-+       REG16(0x270),
-+
-+       NOP(2),
-+       LRI(2, POSTED),
-+       REG16(0x5a8),
-+       REG16(0x5ac),
-+
-+       NOP(6),
-+       LRI(1, 0),
-+       REG(0x0c8),
-+
-+       END
++static const struct gmbus_pin gmbus_pins_mtp[] = {
++	[GMBUS_PIN_1_BXT] = { "dpa", GPIOB },
++	[GMBUS_PIN_2_BXT] = { "dpb", GPIOC },
++	[GMBUS_PIN_3_BXT] = { "dpc", GPIOD },
++	[GMBUS_PIN_4_CNP] = { "dpd", GPIOE },
++	[GMBUS_PIN_5_MTP] = { "dpe", GPIOF },
++	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIOJ },
++	[GMBUS_PIN_10_TC2_ICP] = { "tc2", GPIOK },
++	[GMBUS_PIN_11_TC3_ICP] = { "tc3", GPIOL },
++	[GMBUS_PIN_12_TC4_ICP] = { "tc4", GPIOM },
++	[GMBUS_PIN_13_TC5_TGP] = { "tc5", GPION },
++	[GMBUS_PIN_14_TC6_TGP] = { "tc6", GPIOO },
 +};
 +
- #undef END
- #undef REG16
- #undef REG
-@@ -624,7 +667,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
- 		   !intel_engine_has_relative_mmio(engine));
- 
- 	if (engine->flags & I915_ENGINE_HAS_RCS_REG_STATE) {
--		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
-+		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70))
-+			return mtl_rcs_offsets;
-+		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
- 			return dg2_rcs_offsets;
- 		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
- 			return xehp_rcs_offsets;
+ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *i915,
+ 					     unsigned int pin)
+ {
+@@ -128,6 +142,9 @@ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *i915,
+ 	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG1) {
+ 		pins = gmbus_pins_dg1;
+ 		size = ARRAY_SIZE(gmbus_pins_dg1);
++	} else if (INTEL_PCH_TYPE(i915) >= PCH_MTP) {
++		pins = gmbus_pins_mtp;
++		size = ARRAY_SIZE(gmbus_pins_mtp);
+ 	} else if (INTEL_PCH_TYPE(i915) >= PCH_ICP) {
+ 		pins = gmbus_pins_icp;
+ 		size = ARRAY_SIZE(gmbus_pins_icp);
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.h b/drivers/gpu/drm/i915/display/intel_gmbus.h
+index 8edc2e99cf53..20f704bd4e70 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.h
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.h
+@@ -24,6 +24,7 @@ struct i2c_adapter;
+ #define GMBUS_PIN_2_BXT		2
+ #define GMBUS_PIN_3_BXT		3
+ #define GMBUS_PIN_4_CNP		4
++#define GMBUS_PIN_5_MTP		5
+ #define GMBUS_PIN_9_TC1_ICP	9
+ #define GMBUS_PIN_10_TC2_ICP	10
+ #define GMBUS_PIN_11_TC3_ICP	11
 -- 
 2.25.1
 
