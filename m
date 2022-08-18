@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20366C00140
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 18:46:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32613C00140
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 18:46:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 750A110EAF3;
-	Thu, 18 Aug 2022 18:45:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D19F810EB9A;
+	Thu, 18 Aug 2022 18:45:08 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B05FA10EC8B
- for <intel-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:44:37 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E25810EE38
+ for <intel-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:44:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660848276;
+ s=mimecast20190719; t=1660848292;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YqEqzSG53aD58AoTXBk3s3SN9cZL717VoO9W1oD9K+k=;
- b=BxjxH4yDhakNHQTwR6BO6KkDRH6V6hB05oOi1e1KusfPm1URbTuatHV543uyRmSQVkFpVS
- XdG9AbLtGPlrX2aTGXfMLsmxJQ/RydrIGimUC77pVQcRpW1ISeNPtwkxJ4BIVOd43ZipAR
- aQl+29fGO/ueuBzsjWp1uWi4gizDeaA=
+ bh=G7V2u4sIjkI2Xs9voopkzPTMZS50TOb7aIMZ6gmEsAI=;
+ b=cd9lZ8rFu4x8MJblAC/1Gk56F3MFxOJ3jXCfpWyAogW96N3Z80JBaH2lHZVcxHIpgGoTu3
+ flBWBJfY7+wLXSTfbFZdxUD2ihp1gM11IEQ2LBfTe+YCQ1z3vYE+WAdi7aovDfYk75RZZj
+ SYZWzNEVcLyomWhEsdyZuVOGY2RvIlY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-652-n5trYiWlPwi-yILLi5ny7A-1; Thu, 18 Aug 2022 14:44:35 -0400
-X-MC-Unique: n5trYiWlPwi-yILLi5ny7A-1
+ us-mta-567-VMYTxMwENYmCADa_iIHefQ-1; Thu, 18 Aug 2022 14:44:47 -0400
+X-MC-Unique: VMYTxMwENYmCADa_iIHefQ-1
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 50A46811E75;
- Thu, 18 Aug 2022 18:44:34 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 098A518E0044;
+ Thu, 18 Aug 2022 18:44:46 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.20])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8223B403340;
- Thu, 18 Aug 2022 18:44:30 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6E39B492C3B;
+ Thu, 18 Aug 2022 18:44:42 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,15 +55,15 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Date: Thu, 18 Aug 2022 20:42:51 +0200
-Message-Id: <20220818184302.10051-21-hdegoede@redhat.com>
+Date: Thu, 18 Aug 2022 20:42:54 +0200
+Message-Id: <20220818184302.10051-24-hdegoede@redhat.com>
 In-Reply-To: <20220818184302.10051-1-hdegoede@redhat.com>
 References: <20220818184302.10051-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [Intel-gfx] [PATCH v3 20/31] platform/x86: apple-gmux: Stop calling
- acpi/video.h functions
+Subject: [Intel-gfx] [PATCH v3 23/31] platform/x86: asus-wmi: Drop DMI
+ chassis-type check from backlight handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,44 +84,58 @@ Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that acpi_video_get_backlight_type() has apple-gmux detection (using
-apple_gmux_present()), it is no longer necessary for the apple-gmux code
-to manually remove possibly conflicting drivers.
+Remove this check from the asus-wmi backlight handling:
 
-So remove the handling for this from the apple-gmux driver.
+	/* Some Asus desktop boards export an acpi-video backlight interface,
+	   stop this from showing up */
+	chassis_type = dmi_get_system_info(DMI_CHASSIS_TYPE);
+	if (chassis_type && !strcmp(chassis_type, "3"))
+		acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
+
+This acpi_video_set_dmi_backlight_type(acpi_backlight_vendor) call must be
+removed because other changes in this series change the native backlight
+drivers to no longer unconditionally register their backlight. Instead
+these drivers now do this check:
+
+        if (acpi_video_get_backlight_type(false) != acpi_backlight_native)
+                return 0; /* bail */
+
+So leaving this in place can break things on laptops with a broken
+DMI chassis-type, which would have GPU native brightness control before
+the addition of the acpi_video_get_backlight_type() != native check.
+
+Removing this should be ok now, since the ACPI video code has improved
+heuristics for this itself now (which includes a chassis-type check).
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/platform/x86/apple-gmux.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/platform/x86/asus-wmi.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index ffe98a18440b..ca33df7ea550 100644
---- a/drivers/platform/x86/apple-gmux.c
-+++ b/drivers/platform/x86/apple-gmux.c
-@@ -21,7 +21,6 @@
- #include <linux/delay.h>
- #include <linux/pci.h>
- #include <linux/vga_switcheroo.h>
--#include <acpi/video.h>
- #include <asm/io.h>
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index 89b604e04d7f..301166a5697d 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -3553,7 +3553,6 @@ static int asus_wmi_add(struct platform_device *pdev)
+ 	struct platform_driver *pdrv = to_platform_driver(pdev->dev.driver);
+ 	struct asus_wmi_driver *wdrv = to_asus_wmi_driver(pdrv);
+ 	struct asus_wmi *asus;
+-	const char *chassis_type;
+ 	acpi_status status;
+ 	int err;
+ 	u32 result;
+@@ -3635,12 +3634,6 @@ static int asus_wmi_add(struct platform_device *pdev)
+ 	if (asus->driver->quirks->wmi_force_als_set)
+ 		asus_wmi_set_als();
  
- /**
-@@ -694,7 +693,6 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 	 * backlight control and supports more levels than other options.
- 	 * Disable the other backlight choices.
- 	 */
--	acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
- 	apple_bl_unregister();
- 
- 	gmux_data->power_state = VGA_SWITCHEROO_ON;
-@@ -804,7 +802,6 @@ static void gmux_remove(struct pnp_dev *pnp)
- 	apple_gmux_data = NULL;
- 	kfree(gmux_data);
- 
--	acpi_video_register();
- 	apple_bl_register();
- }
+-	/* Some Asus desktop boards export an acpi-video backlight interface,
+-	   stop this from showing up */
+-	chassis_type = dmi_get_system_info(DMI_CHASSIS_TYPE);
+-	if (chassis_type && !strcmp(chassis_type, "3"))
+-		acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
+-
+ 	if (asus->driver->quirks->wmi_backlight_power)
+ 		acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
  
 -- 
 2.37.2
