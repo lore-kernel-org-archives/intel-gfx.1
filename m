@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8856C28B2B
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:43:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3620C00140
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:43:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93CD610E1BA;
-	Thu, 18 Aug 2022 23:42:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4497C10EBA8;
+	Thu, 18 Aug 2022 23:43:06 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02A0110E2ED;
- Thu, 18 Aug 2022 23:42:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5192110E3EE;
+ Thu, 18 Aug 2022 23:42:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1660866151; x=1692402151;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=w9x3LUIn4oimxR2CE7FJ8TX1PXrOjxZaZM7xDOB9638=;
- b=fcjcOFhz5bo4V1d6pIuiJ+a3ufir6UGGcqd+DiqaeXQyT8Am8H4Y/qok
- qmGJ4doT3zy821qVz7cQjuIeO6VcirMb/93MJ6waHQBuIPirAie8Ss2IL
- knyff3VrwCwurIYNGm8NdLzeZPy/clJ22rzeNVBgQZJj4eQq8sIc5wiaO
- Ws1O7JZThdRBJKz6W++EajgX9Aml+xG47tG+HdLLIhcWz2M8ei++8ZAwP
- EBuIy3hq5167E5SeEkXAuHjGNdvR5IGuNDU8OjoMQ6nS+GE1bHknQmbiX
- Bze0OiI8MSR9NHeRWAMSXWKHg84qqNfkID8tGqfJ9sWX1hRhZN35DwuNd g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="275938517"
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="275938517"
+ bh=tbEtRN6dHvsMKxZq3oAz70k5dFqtVETWUR2Hrdut4Ag=;
+ b=WSl4NvQvLS3bub2HB2FVkivTPaZo4WPjWbQ8Gq5vh+pQp7rPSB7YvaXJ
+ MwKDD2Xs7QJaIbSEAukxHZCwySB9Xb6Kl6X66+FnQsjZqtxs9tLUIz2qh
+ zIhZ9B+BfYk6izJjTiY7yciYB5EoQB41Na/X+Gb1AUQmRVVWZSTDqYoVb
+ h4W37JUHdOiT5dRE56Pkyfj9IVa9xaRQLg27C3Ufl0RHYfwgpsMXJ9GxM
+ sDEiF903xhh2W1neNWZvdsl9t+nHZHJ+SY911Kj2NfS8N99x5vmsa751P
+ IFcX2lPcB0oqJpkUp3TVyk0+BtDAoE8u1izkuWP5VmGhVig6QR3K8Q4Eu g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="275938516"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="275938516"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2022 16:42:28 -0700
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="783953293"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="783953288"
 Received: from invictus.jf.intel.com ([10.165.21.205])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2022 16:42:28 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Aug 2022 16:41:50 -0700
-Message-Id: <20220818234202.451742-10-radhakrishna.sripada@intel.com>
+Date: Thu, 18 Aug 2022 16:41:46 -0700
+Message-Id: <20220818234202.451742-6-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
 References: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 09/21] drm/i915/mtl: Add support for MTL in
- Display Init sequences
+Subject: [Intel-gfx] [PATCH v2 05/21] drm/i915/mtl: Define engine context
+ layouts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,47 +60,90 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The initialization sequence for Meteorlake reuses the sequence for
-icelake for most parts. Some changes viz. reset PICA handshake
-are added.
+From: Matt Roper <matthew.d.roper@intel.com>
 
-Bspec: 49189
+The part of the media and blitter engine contexts that we care about for
+setting up an initial state are the same on MTL as they were on DG2
+(and PVC), so we need to update the driver conditions to re-use the DG2
+context table.
 
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+For render/compute engines, the part of the context images are nearly
+the same, although the layout had a very slight change --- one POSH
+register was removed and the placement of some LRI/noops adjusted
+slightly to compensate.
+
+Bspec: 46261, 46260, 45585
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_power.c | 3 +++
- drivers/gpu/drm/i915/i915_reg.h                    | 3 ++-
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 47 ++++++++++++++++++++++++++++-
+ 1 file changed, 46 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index f7e8d1ff62cf..9c1fefb2da55 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -1382,6 +1382,9 @@ static void intel_pch_reset_handshake(struct drm_i915_private *dev_priv,
- 		reset_bits = RESET_PCH_HANDSHAKE_ENABLE;
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index eec73c66406c..d3833cbaabcb 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -606,6 +606,49 @@ static const u8 dg2_rcs_offsets[] = {
+ 	END
+ };
  
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		reset_bits |= MTL_RESET_PICA_HANDSHAKE_EN;
++static const u8 mtl_rcs_offsets[] = {
++       NOP(1),
++       LRI(15, POSTED),
++       REG16(0x244),
++       REG(0x034),
++       REG(0x030),
++       REG(0x038),
++       REG(0x03c),
++       REG(0x168),
++       REG(0x140),
++       REG(0x110),
++       REG(0x1c0),
++       REG(0x1c4),
++       REG(0x1c8),
++       REG(0x180),
++       REG16(0x2b4),
++       REG(0x120),
++       REG(0x124),
 +
- 	val = intel_de_read(dev_priv, reg);
++       NOP(1),
++       LRI(9, POSTED),
++       REG16(0x3a8),
++       REG16(0x28c),
++       REG16(0x288),
++       REG16(0x284),
++       REG16(0x280),
++       REG16(0x27c),
++       REG16(0x278),
++       REG16(0x274),
++       REG16(0x270),
++
++       NOP(2),
++       LRI(2, POSTED),
++       REG16(0x5a8),
++       REG16(0x5ac),
++
++       NOP(6),
++       LRI(1, 0),
++       REG(0x0c8),
++
++       END
++};
++
+ #undef END
+ #undef REG16
+ #undef REG
+@@ -624,7 +667,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		   !intel_engine_has_relative_mmio(engine));
  
- 	if (enable)
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 15a53cb5e1ee..e2e9932fa484 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5821,7 +5821,8 @@
- 							 _BW_BUDDY1_PAGE_MASK))
- 
- #define HSW_NDE_RSTWRN_OPT	_MMIO(0x46408)
--#define  RESET_PCH_HANDSHAKE_ENABLE	(1 << 4)
-+#define  MTL_RESET_PICA_HANDSHAKE_EN	REG_BIT(6)
-+#define  RESET_PCH_HANDSHAKE_ENABLE	REG_BIT(4)
- 
- #define GEN8_CHICKEN_DCPR_1			_MMIO(0x46430)
- #define   SKL_SELECT_ALTERNATE_DC_EXIT		REG_BIT(30)
+ 	if (engine->flags & I915_ENGINE_HAS_RCS_REG_STATE) {
+-		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70))
++			return mtl_rcs_offsets;
++		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
+ 			return dg2_rcs_offsets;
+ 		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
+ 			return xehp_rcs_offsets;
 -- 
 2.25.1
 
