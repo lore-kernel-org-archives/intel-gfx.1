@@ -4,66 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62711C00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 19:13:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51D3AC00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 19:13:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64174C35A7;
-	Wed, 24 Aug 2022 19:12:43 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 377A210E7B2
- for <intel-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 18:44:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660848298;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bGmxjTC329YfKDZQ5Je0yyDKIkqA4WAm4riI44+DPbM=;
- b=dagaJmWAJddtInbY0qDtDT0m71ixWqAI42lv2tJXO9ELmUg31yrIF0arSdHaUaJ2+YIfVa
- ueqhiR4JOAu8W0Q2eFVL7hAytBk3N2FeOMi6HjqSE3XNaLWVEVF8R7NPtPDMOsv8T3BJTg
- +vHf10LlMYbZ1xHVJabfv4h1XHsY2f0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-610-qPaX2vxOOvuKBZmIuP1l2A-1; Thu, 18 Aug 2022 14:44:55 -0400
-X-MC-Unique: qPaX2vxOOvuKBZmIuP1l2A-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E5CF01C0754D;
- Thu, 18 Aug 2022 18:44:53 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.39.192.20])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 31272400F36;
- Thu, 18 Aug 2022 18:44:50 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Ben Skeggs <bskeggs@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
-	Daniel Dadap <ddadap@nvidia.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Date: Thu, 18 Aug 2022 20:42:56 +0200
-Message-Id: <20220818184302.10051-26-hdegoede@redhat.com>
-In-Reply-To: <20220818184302.10051-1-hdegoede@redhat.com>
-References: <20220818184302.10051-1-hdegoede@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85D44C35DB;
+	Wed, 24 Aug 2022 19:13:09 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09EE310E226
+ for <intel-gfx@lists.freedesktop.org>; Thu, 18 Aug 2022 19:37:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1660851436; x=1692387436;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=VdfgzUSIFwHtf94QptomqothhzaZLWT1c9qmKe0lJUM=;
+ b=UMmKDBn1GEU2ap+gB52/NiK4vAtaH9XdJjDXyOqoSspFpjlZTE9OAruB
+ znStR+uNj6PFmbaZbqBLkg7LKCa4vinv4ZggpA5p69/V8lOT2UoYAFmQM
+ 2QsaGxJuMlbMfYqL42REGpRWg0qYVHiD6zVU0o8C0nDfe/tids9zidp2b
+ tab5f25uMXY7CNJ3hdVBpFGxr+Jhik7VBJS6Y97DEV3MFQG6xgeK1weI+
+ +0AzyFhE5b6xg0zxGEI559Ys1mynUeEXJqXTO9f8nrjND7rI0y+3qHlYC
+ QPYMYTJ5iHWHfKYXZh6RwOg37lmZSpjMPXNdM7ZXo67l6VKl30NlgBKLm Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="379149537"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="379149537"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2022 12:37:15 -0700
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="604364668"
+Received: from bnilawar-desk1.iind.intel.com ([10.145.169.158])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2022 12:37:12 -0700
+From: Badal Nilawar <badal.nilawar@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 19 Aug 2022 01:08:57 +0530
+Message-Id: <20220818193901.2974625-4-badal.nilawar@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220818193901.2974625-1-badal.nilawar@intel.com>
+References: <20220818193901.2974625-1-badal.nilawar@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [Intel-gfx] [PATCH v3 25/31] platform/x86: asus-wmi: Move
- acpi_backlight=native quirks to ACPI video_detect.c
+Subject: [Intel-gfx] [PATCH 3/7] drm/i915/hwmon: Power PL1 limit and TDP
+ setting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,111 +56,358 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, linux@roeck-us.net
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove the asus-wmi quirk_entry.wmi_backlight_native quirk-flag, which
-called acpi_video_set_dmi_backlight_type(acpi_backlight_native) and replace
-it with acpi/video_detect.c video_detect_dmi_table[] entries using the
-video_detect_force_native callback.
+From: Dale B Stimson <dale.b.stimson@intel.com>
 
-acpi_video_set_dmi_backlight_type() is troublesome because it may end up
-getting called after other backlight drivers have already called
-acpi_video_get_backlight_type() resulting in the other drivers
-already being registered even though they should not.
+Use i915 HWMON to display/modify dGfx power PL1 limit and TDP setting.
 
-Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+v2:
+  - Fix review comments (Ashutosh)
+  - Do not restore power1_max upon module unload/load sequence
+    because on production systems modules are always loaded
+    and not unloaded/reloaded (Ashutosh)
+  - Fix review comments (Jani)
+  - Remove endianness conversion (Ashutosh)
+v3: Add power1_rated_max (Ashutosh)
+v4:
+  - Use macro HWMON_CHANNEL_INFO to define power channel (Guenter)
+  - Update the date and kernel version in Documentation (Badal)
+v5: Use hwm_ prefix for static functions (Ashutosh)
+
+Cc: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Dale B Stimson <dale.b.stimson@intel.com>
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Signed-off-by: Riana Tauro <riana.tauro@intel.com>
+Signed-off-by: Badal Nilawar <badal.nilawar@intel.com>
+Acked-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/acpi/video_detect.c        |  8 ++++++++
- drivers/platform/x86/asus-nb-wmi.c | 14 --------------
- drivers/platform/x86/asus-wmi.c    |  3 ---
- drivers/platform/x86/asus-wmi.h    |  1 -
- 4 files changed, 8 insertions(+), 18 deletions(-)
+ .../ABI/testing/sysfs-driver-intel-i915-hwmon |  20 ++
+ drivers/gpu/drm/i915/i915_hwmon.c             | 175 +++++++++++++++++-
+ drivers/gpu/drm/i915/i915_reg.h               |  16 ++
+ drivers/gpu/drm/i915/intel_mchbar_regs.h      |   7 +
+ 4 files changed, 216 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index 1574ff837e31..a871ee69fcb2 100644
---- a/drivers/acpi/video_detect.c
-+++ b/drivers/acpi/video_detect.c
-@@ -564,6 +564,14 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 		DMI_MATCH(DMI_PRODUCT_NAME, "GA503"),
- 		},
- 	},
-+	{
-+	 .callback = video_detect_force_native,
-+	 /* Asus UX303UB */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
-+		},
-+	},
- 	/*
- 	 * Clevo NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2 have both a
- 	 * working native and video interface. However the default detection
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-index 810a94557a85..bbfed85051ee 100644
---- a/drivers/platform/x86/asus-nb-wmi.c
-+++ b/drivers/platform/x86/asus-nb-wmi.c
-@@ -97,11 +97,6 @@ static struct quirk_entry quirk_asus_x200ca = {
- 	.wmi_backlight_set_devstate = true,
+diff --git a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
+index 24c4b7477d51..9a2d10edfce8 100644
+--- a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
++++ b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
+@@ -5,3 +5,23 @@ Contact:	dri-devel@lists.freedesktop.org
+ Description:	RO. Current Voltage in millivolt.
+ 
+ 		Only supported for particular Intel i915 graphics platforms.
++
++What:		/sys/devices/.../hwmon/hwmon<i>/power1_max
++Date:		June 2022
++KernelVersion:	5.19
++Contact:	dri-devel@lists.freedesktop.org
++Description:	RW. Card reactive sustained  (PL1/Tau) power limit in microwatts.
++
++		The power controller will throttle the operating frequency
++		if the power averaged over a window (typically seconds)
++		exceeds this limit.
++
++		Only supported for particular Intel i915 graphics platforms.
++
++What:		/sys/devices/.../hwmon/hwmon<i>/power1_rated_max
++Date:		June 2022
++KernelVersion:	5.19
++Contact:	dri-devel@lists.freedesktop.org
++Description:	RO. Card default power limit (default TDP setting).
++
++		Only supported for particular Intel i915 graphics platforms.
+diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
+index 1893efe796a4..ccda7b690435 100644
+--- a/drivers/gpu/drm/i915/i915_hwmon.c
++++ b/drivers/gpu/drm/i915/i915_hwmon.c
+@@ -12,8 +12,22 @@
+ #include "intel_mchbar_regs.h"
+ #include "gt/intel_gt_regs.h"
+ 
++/*
++ * SF_* - scale factors for particular quantities according to hwmon spec.
++ * - power  - microwatts
++ */
++#define SF_POWER	1000000
++
++#define FIELD_SHIFT(__mask)				    \
++	(BUILD_BUG_ON_ZERO(!__builtin_constant_p(__mask)) + \
++		BUILD_BUG_ON_ZERO((__mask) == 0) +	    \
++		__bf_shf(__mask))
++
+ struct hwm_reg {
+ 	i915_reg_t gt_perf_status;
++	i915_reg_t pkg_power_sku_unit;
++	i915_reg_t pkg_power_sku;
++	i915_reg_t pkg_rapl_limit;
  };
  
--static struct quirk_entry quirk_asus_ux303ub = {
--	.wmi_backlight_native = true,
--	.wmi_backlight_set_devstate = true,
--};
--
- static struct quirk_entry quirk_asus_x550lb = {
- 	.wmi_backlight_set_devstate = true,
- 	.xusb2pr = 0x01D9,
-@@ -372,15 +367,6 @@ static const struct dmi_system_id asus_quirks[] = {
- 		},
- 		.driver_data = &quirk_asus_x200ca,
- 	},
--	{
--		.callback = dmi_matched,
--		.ident = "ASUSTeK COMPUTER INC. UX303UB",
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
--			DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
--		},
--		.driver_data = &quirk_asus_ux303ub,
--	},
- 	{
- 		.callback = dmi_matched,
- 		.ident = "ASUSTeK COMPUTER INC. UX330UAK",
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index 5cf9d9aff164..434249ac47a5 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -3634,9 +3634,6 @@ static int asus_wmi_add(struct platform_device *pdev)
- 	if (asus->driver->quirks->wmi_force_als_set)
- 		asus_wmi_set_als();
+ struct hwm_drvdata {
+@@ -27,10 +41,69 @@ struct i915_hwmon {
+ 	struct hwm_drvdata ddat;
+ 	struct mutex hwmon_lock;		/* counter overflow logic and rmw */
+ 	struct hwm_reg rg;
++	int scl_shift_power;
+ };
  
--	if (asus->driver->quirks->wmi_backlight_native)
--		acpi_video_set_dmi_backlight_type(acpi_backlight_native);
--
- 	if (asus->driver->quirks->xusb2pr)
- 		asus_wmi_set_xusb2pr(asus);
++static void
++hwm_locked_with_pm_intel_uncore_rmw(struct hwm_drvdata *ddat,
++				    i915_reg_t reg, u32 clear, u32 set)
++{
++	struct i915_hwmon *hwmon = ddat->hwmon;
++	struct intel_uncore *uncore = ddat->uncore;
++	intel_wakeref_t wakeref;
++
++	mutex_lock(&hwmon->hwmon_lock);
++
++	with_intel_runtime_pm(uncore->rpm, wakeref)
++		intel_uncore_rmw(uncore, reg, clear, set);
++
++	mutex_unlock(&hwmon->hwmon_lock);
++}
++
++/*
++ * This function's return type of u64 allows for the case where the scaling
++ * of the field taken from the 32-bit register value might cause a result to
++ * exceed 32 bits.
++ */
++static u64
++hwm_field_read_and_scale(struct hwm_drvdata *ddat, i915_reg_t rgadr,
++			 u32 field_msk, int field_shift,
++			 int nshift, u32 scale_factor)
++{
++	struct intel_uncore *uncore = ddat->uncore;
++	intel_wakeref_t wakeref;
++	u32 reg_value;
++
++	with_intel_runtime_pm(uncore->rpm, wakeref)
++		reg_value = intel_uncore_read(uncore, rgadr);
++
++	reg_value = (reg_value & field_msk) >> field_shift;
++
++	return mul_u64_u32_shr(reg_value, scale_factor, nshift);
++}
++
++static void
++hwm_field_scale_and_write(struct hwm_drvdata *ddat, i915_reg_t rgadr,
++			  u32 field_msk, int field_shift,
++			  int nshift, unsigned int scale_factor, long lval)
++{
++	u32 nval;
++	u32 bits_to_clear;
++	u32 bits_to_set;
++
++	/* Computation in 64-bits to avoid overflow. Round to nearest. */
++	nval = DIV_ROUND_CLOSEST_ULL((u64)lval << nshift, scale_factor);
++
++	bits_to_clear = field_msk;
++	bits_to_set = (nval << field_shift) & field_msk;
++
++	hwm_locked_with_pm_intel_uncore_rmw(ddat, rgadr,
++					    bits_to_clear, bits_to_set);
++}
++
+ static const struct hwmon_channel_info *hwm_info[] = {
+ 	HWMON_CHANNEL_INFO(in, HWMON_I_INPUT),
++	HWMON_CHANNEL_INFO(power, HWMON_P_MAX | HWMON_P_RATED_MAX),
+ 	NULL
+ };
  
-diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-index 30770e411301..f30252efe1db 100644
---- a/drivers/platform/x86/asus-wmi.h
-+++ b/drivers/platform/x86/asus-wmi.h
-@@ -29,7 +29,6 @@ struct quirk_entry {
- 	bool hotplug_wireless;
- 	bool scalar_panel_brightness;
- 	bool store_backlight_power;
--	bool wmi_backlight_native;
- 	bool wmi_backlight_set_devstate;
- 	bool wmi_force_als_set;
- 	bool use_kbd_dock_devid;
+@@ -64,6 +137,67 @@ hwm_in_read(struct hwm_drvdata *ddat, u32 attr, long *val)
+ 	}
+ }
+ 
++static umode_t
++hwm_power_is_visible(const struct hwm_drvdata *ddat, u32 attr, int chan)
++{
++	struct i915_hwmon *hwmon = ddat->hwmon;
++
++	switch (attr) {
++	case hwmon_power_max:
++		return i915_mmio_reg_valid(hwmon->rg.pkg_rapl_limit) ? 0664 : 0;
++	case hwmon_power_rated_max:
++		return i915_mmio_reg_valid(hwmon->rg.pkg_power_sku) ? 0444 : 0;
++	default:
++		return 0;
++	}
++}
++
++static int
++hwm_power_read(struct hwm_drvdata *ddat, u32 attr, int chan, long *val)
++{
++	struct i915_hwmon *hwmon = ddat->hwmon;
++
++	switch (attr) {
++	case hwmon_power_max:
++		*val = hwm_field_read_and_scale(ddat,
++						hwmon->rg.pkg_rapl_limit,
++						PKG_PWR_LIM_1,
++						FIELD_SHIFT(PKG_PWR_LIM_1),
++						hwmon->scl_shift_power,
++						SF_POWER);
++		return 0;
++	case hwmon_power_rated_max:
++		*val = hwm_field_read_and_scale(ddat,
++						hwmon->rg.pkg_power_sku,
++						PKG_PKG_TDP,
++						FIELD_SHIFT(PKG_PKG_TDP),
++						hwmon->scl_shift_power,
++						SF_POWER);
++		return 0;
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
++static int
++hwm_power_write(struct hwm_drvdata *ddat, u32 attr, int chan, long val)
++{
++	struct i915_hwmon *hwmon = ddat->hwmon;
++
++	switch (attr) {
++	case hwmon_power_max:
++		hwm_field_scale_and_write(ddat,
++					  hwmon->rg.pkg_rapl_limit,
++					  PKG_PWR_LIM_1,
++					  FIELD_SHIFT(PKG_PWR_LIM_1),
++					  hwmon->scl_shift_power,
++					  SF_POWER, val);
++		return 0;
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
+ static umode_t
+ hwm_is_visible(const void *drvdata, enum hwmon_sensor_types type,
+ 	       u32 attr, int channel)
+@@ -73,6 +207,8 @@ hwm_is_visible(const void *drvdata, enum hwmon_sensor_types type,
+ 	switch (type) {
+ 	case hwmon_in:
+ 		return hwm_in_is_visible(ddat, attr);
++	case hwmon_power:
++		return hwm_power_is_visible(ddat, attr, channel);
+ 	default:
+ 		return 0;
+ 	}
+@@ -87,6 +223,8 @@ hwm_read(struct device *dev, enum hwmon_sensor_types type, u32 attr,
+ 	switch (type) {
+ 	case hwmon_in:
+ 		return hwm_in_read(ddat, attr, val);
++	case hwmon_power:
++		return hwm_power_read(ddat, attr, channel, val);
+ 	default:
+ 		return -EOPNOTSUPP;
+ 	}
+@@ -96,7 +234,11 @@ static int
+ hwm_write(struct device *dev, enum hwmon_sensor_types type, u32 attr,
+ 	  int channel, long val)
+ {
++	struct hwm_drvdata *ddat = dev_get_drvdata(dev);
++
+ 	switch (type) {
++	case hwmon_power:
++		return hwm_power_write(ddat, attr, channel, val);
+ 	default:
+ 		return -EOPNOTSUPP;
+ 	}
+@@ -117,11 +259,40 @@ static void
+ hwm_get_preregistration_info(struct drm_i915_private *i915)
+ {
+ 	struct i915_hwmon *hwmon = i915->hwmon;
++	struct intel_uncore *uncore = &i915->uncore;
++	intel_wakeref_t wakeref;
++	u32 val_sku_unit;
+ 
+-	if (IS_DG1(i915) || IS_DG2(i915))
++	if (IS_DG1(i915) || IS_DG2(i915)) {
+ 		hwmon->rg.gt_perf_status = GEN12_RPSTAT1;
+-	else
++		hwmon->rg.pkg_power_sku_unit = PCU_PACKAGE_POWER_SKU_UNIT;
++		hwmon->rg.pkg_power_sku = INVALID_MMIO_REG;
++		hwmon->rg.pkg_rapl_limit = PCU_PACKAGE_RAPL_LIMIT;
++	} else {
+ 		hwmon->rg.gt_perf_status = INVALID_MMIO_REG;
++		hwmon->rg.pkg_power_sku_unit = INVALID_MMIO_REG;
++		hwmon->rg.pkg_power_sku = INVALID_MMIO_REG;
++		hwmon->rg.pkg_rapl_limit = INVALID_MMIO_REG;
++	}
++
++	with_intel_runtime_pm(uncore->rpm, wakeref) {
++		/*
++		 * The contents of register hwmon->rg.pkg_power_sku_unit do not change,
++		 * so read it once and store the shift values.
++		 *
++		 * For some platforms, this value is defined as available "for all
++		 * tiles", with the values consistent across all tiles.
++		 * In this case, use the tile 0 value for all.
++		 */
++		if (i915_mmio_reg_valid(hwmon->rg.pkg_power_sku_unit)) {
++			val_sku_unit = intel_uncore_read(uncore,
++							 hwmon->rg.pkg_power_sku_unit);
++		} else {
++			val_sku_unit = 0;
++		}
++
++		hwmon->scl_shift_power = REG_FIELD_GET(PKG_PWR_UNIT, val_sku_unit);
++	}
+ }
+ 
+ void i915_hwmon_register(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 50d7bfd541ad..78c7ce781c22 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -1866,6 +1866,22 @@
+ #define   POWER_LIMIT_1_MASK		REG_BIT(11)
+ #define   POWER_LIMIT_2_MASK		REG_BIT(12)
+ 
++/*
++ * *_PACKAGE_POWER_SKU - SKU power and timing parameters.
++ * Used herein as a 64-bit register.
++ * These masks are defined using GENMASK_ULL as REG_GENMASK is limited to u32
++ * and as GENMASK is "long" and therefore 32-bits on a 32-bit system.
++ * PKG_PKG_TDP, PKG_MIN_PWR, and PKG_MAX_PWR are scaled in the same way as
++ * PKG_PWR_LIM_*, above.
++ * PKG_MAX_WIN has sub-fields for x and y, and has the value: is 1.x * 2^y.
++ */
++#define   PKG_PKG_TDP			GENMASK_ULL(14, 0)
++#define   PKG_MIN_PWR			GENMASK_ULL(30, 16)
++#define   PKG_MAX_PWR			GENMASK_ULL(46, 32)
++#define   PKG_MAX_WIN			GENMASK_ULL(54, 48)
++#define     PKG_MAX_WIN_Y		GENMASK_ULL(54, 53)
++#define     PKG_MAX_WIN_X		GENMASK_ULL(52, 48)
++
+ #define CHV_CLK_CTL1			_MMIO(0x101100)
+ #define VLV_CLK_CTL2			_MMIO(0x101104)
+ #define   CLK_CTL2_CZCOUNT_30NS_SHIFT	28
+diff --git a/drivers/gpu/drm/i915/intel_mchbar_regs.h b/drivers/gpu/drm/i915/intel_mchbar_regs.h
+index 2aad2f0cc8db..4ba5f30b7901 100644
+--- a/drivers/gpu/drm/i915/intel_mchbar_regs.h
++++ b/drivers/gpu/drm/i915/intel_mchbar_regs.h
+@@ -189,6 +189,10 @@
+ #define  DG1_QCLK_RATIO_MASK			REG_GENMASK(9, 2)
+ #define  DG1_QCLK_REFERENCE			REG_BIT(10)
+ 
++#define PCU_PACKAGE_POWER_SKU_UNIT		_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5938)
++#define   PKG_PWR_UNIT				REG_GENMASK(3, 0)
++#define   PKG_TIME_UNIT				REG_GENMASK(19, 16)
++
+ #define GEN6_GT_PERF_STATUS			_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5948)
+ #define GEN6_RP_STATE_LIMITS			_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5994)
+ #define GEN6_RP_STATE_CAP			_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5998)
+@@ -196,6 +200,9 @@
+ #define   RP1_CAP_MASK				REG_GENMASK(15, 8)
+ #define   RPN_CAP_MASK				REG_GENMASK(23, 16)
+ 
++#define PCU_PACKAGE_RAPL_LIMIT			_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x59a0)
++#define   PKG_PWR_LIM_1				REG_GENMASK(14, 0)
++
+ /* snb MCH registers for priority tuning */
+ #define MCH_SSKPD				_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5d10)
+ #define   SSKPD_NEW_WM0_MASK_HSW		REG_GENMASK64(63, 56)
 -- 
-2.37.2
+2.25.1
 
