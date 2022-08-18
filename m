@@ -4,141 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB295C32772
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 12:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4941EC32772
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 12:24:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A01BF10ECB4;
-	Fri, 19 Aug 2022 12:23:59 +0000 (UTC)
-Received: from mail1.bemta33.messagelabs.com (mail1.bemta33.messagelabs.com
- [67.219.247.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F37BA10E1F1;
- Thu, 18 Aug 2022 20:26:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lenovo.com;
- s=Selector; t=1660854407; i=@lenovo.com;
- bh=uKwLxZyCE/LOpu2xeqALwBzA4nJQ4aAQh/0q5t3Fr8o=;
- h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
- In-Reply-To:Content-Type:Content-Transfer-Encoding;
- b=fBijKa0AFKaBiF9egCSqnCbJ5ZddhwJlMGC3WMF+NGAO2jgUVXVz/rbQCW419zO4B
- PEX89HiBi406CzRBn/Qw36jFBr7x8LikOQprPZNlHHBbY9HCLPjzfRk0KLSFBJ+p/q
- keueYpomaV/N3HVu2B+bip2UI0seysEk8ARkcD2kxgdQCErlKl5pC8KXCYkaRi7swQ
- a02idzHaIrWXNgEWQSed07EBLCfpN2xZtqPXfDlIpysoELyXDUGRCWNsK3wFqzBTxK
- gL4W6dm9Sr0meDrC/mQTOX3T8o9cyMzrL4sdbf9QCIeIFsvViHuHCZd+iszFcNTxFb
- tTfoawSbA3DVg==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprGLsWRWlGSWpSXmKPExsWSoS+Vq9u24F+
- SwZZtIha9504yWfzfNpHZ4srX92wWb45PZ7LoWr2TxWL2hM1MFssvr2e02LuQyeJf9zI2i8u7
- 5rBZTN3dz2qxf9Y1dovj/6osvv8DSt5cuoHdgd9jVkMvm8febwtYPFqOvGX1WLznJZPH9m8PW
- D3mnQz0uN99nMnj/b6rbB6fN8kFcEaxZuYl5VcksGasvH6WuaBXtWLnh8dMDYwb5boYuTgYBZ
- YyS7zbf4INwlnEKrF+9RQop5NJYlH3TDBHSGAOk8TWQ4uYIJwDTBJLXu5l7mLk5JAQOM4o0b3
- KHSLRySixe+sPqJaJTBLzX7azQjhPGCWezINxHjFKLPq6jAWkn1fAVuLvgQlgs1gEVCUW7mlh
- h4gLSpyc+QSsRlQgQqJ34h9GEFtYIFaifcorsDizgLjErSfzmUBsEQE/iUm3F4AtYBb4wyxxa
- N5OqDseM0l8+98PtoFNQFtiy5ZfbCA2p4CHxP39DawQkzQlWrf/Zoew5SW2v50DVi8koCzxq/
- 881KcKEjeOTWKDsBMkmqccZYSwJSWu3bzADmHLShw9O4cFwvaV2DB9P1RcX+Lgw29MELacxKn
- ec1C2vMTOjbdZJjDqzELy9Cwkz81Cct4sJOctYGRZxWidVJSZnlGSm5iZo2toYKBraGiia2ap
- a2RsppdYpZuoV1qsm5pYXKJrpJdYXqyXWlysV1yZm5yTopeXWrKJEZhEU4pc3+xgfL7ip94hR
- kkOJiVR3vqIf0lCfEn5KZUZicUZ8UWlOanFhxhlODiUJHib5gDlBItS01Mr0jJzgAkdJi3Bwa
- Mkwls1CSjNW1yQmFucmQ6ROsWoy3Fl2969zEIsefl5qVLivM1zgYoEQIoySvPgRsCyyyVGWSl
- hXkYGBgYhnoLUotzMElT5V4ziHIxKwrwiIFN4MvNK4Da9AjqCCeiIYxd/gxxRkoiQkmpg2rD0
- lIxKpVJJy8QpQt4Gd6SMZIP+qMj3bvSVPXNavfrmS2HHjdnbMlMb6iJYmm8ePaPAtT9AJfL+m
- mdcj0oaZF4ySeR5MerUzi+pSyjY1TNVhJer9OKOn0lGYQURca8fql39pPPOS9j0iYCb5LvCil
- WfHa61Z7zsKvtaMOtVbP79skvmiltniazXNVScq7z8ymr5V34Hpq64fnil2IxakbYztnZOt+r
- YrYI6y3b5zjX4lbdhJktirVn5oSveMxozzrkc6+BMj7Tl+fhw93fDGYW+tT1Tcp7Y+zTNMHu9
- yyTqptP0zEdn6y5FWCVaahdErW7bLV59rFqAKflsV42LweMPK71cJacanjb5oq7EUpyRaKjFX
- FScCACTpylnqQQAAA==
-X-Env-Sender: markpearson@lenovo.com
-X-Msg-Ref: server-6.tower-635.messagelabs.com!1660854404!26269!1
-X-Originating-IP: [104.47.26.109]
-X-SYMC-ESS-Client-Auth: mailfrom-relay-check=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.87.3; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 10821 invoked from network); 18 Aug 2022 20:26:46 -0000
-Received: from mail-sgaapc01lp2109.outbound.protection.outlook.com (HELO
- APC01-SG2-obe.outbound.protection.outlook.com) (104.47.26.109)
- by server-6.tower-635.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 18 Aug 2022 20:26:46 -0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A89610EC81;
+	Fri, 19 Aug 2022 12:24:03 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2055.outbound.protection.outlook.com [40.107.223.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE9910E3D1;
+ Thu, 18 Aug 2022 19:46:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bACtUakNOdzdc92sRnPuPBe+K3T335xZyq0txvYF1ckWcBjppugmhhbohqnynqyYxtZy6etDmdfq7dBTlMMkeeDMOVfC947KuD4lPWREUALjSN7wvjUMDBEfoLBRfwa/ELaPQ7TWIuGoabeLuQWy6XfSf5AmKwxzy5po0gYz20qPa4giZQpvTYNrr0QX82fAxs3JBdC03r5ES3et790A74PEBkEFA5CSV5OgAGlMQDEO3GjgZZO84sYA8F9Ri+8GicgI7sIYyaFPP/GdK4t3EIHZ6Tb2F+Cl9RAajVPi757T6b+ZmCWreSZv1p6d5KEI64QmbpJjCizVTOkxqdHTdQ==
+ b=JSdc3R4aTeh887dS/yhHWKnwrQhrR8Yon75X181AZzaQtnqrEfL3drnIIYLtlTeWilyl76RplzY+8rT3uhN69R6pqO1/BAmhcOSbGQShAoG+lAjDsJ3ZiMJQ7GjO5IKoWouioRZyNurzUnAUDk34FpVn6cLYEeAupe9vTI53iDM0ynZJ5hK3apgFCp4EALomNRulblD55BgZm75Px9o0HOoZ8xQRVva2taAph1WEguXF3poYahR4LATjONDFJP5DN2Vpkdlkl63tpqHfIZMbdvh3O6tdKjSm4GH3CYqt+LjMiiYjElekaSDFZ1vr9MVnTX7QONSvXlPr3Eg+pXlcDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uKwLxZyCE/LOpu2xeqALwBzA4nJQ4aAQh/0q5t3Fr8o=;
- b=lCFONGxy6PztIY0Fmwj0tbCVBfoq3nUw6vf/6fjLixnIbVmVKoCYNyT3yRHHq40On+64yrGezhwTSJLHmCM8YGz9sXUpElYu9XKKZ5dcYVw7uuh+bf3x7IvtATaeN+mPPco3RFN0PBoFC025jmRjOx6eHAbfYT+SbJpkfUsd+jy36+n00b85/JSKnxIdkwrZGgJHmTl6LbtHeqBQDKHQog+CsJfI1jsbteKm53IO4K27EIvWP1umj7NHSCSCKnDU5YBQPsPwIz3GLxZx+WtU2BVrQRqkCVq2Mecm3Xe1KNmKvbA9V4FvefYmRQBY0WjodHL3U2hrPIZd+XwoJnJw6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 104.232.225.6) smtp.rcpttodomain=redhat.com smtp.mailfrom=lenovo.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=lenovo.com;
- dkim=none (message not signed); arc=none
-Received: from SGBP274CA0006.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b0::18) by
- KL1PR0302MB5252.apcprd03.prod.outlook.com (2603:1096:820:4d::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.4; Thu, 18 Aug
- 2022 20:26:41 +0000
-Received: from SG2APC01FT0045.eop-APC01.prod.protection.outlook.com
- (2603:1096:4:b0:cafe::6d) by SGBP274CA0006.outlook.office365.com
- (2603:1096:4:b0::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.16 via Frontend
- Transport; Thu, 18 Aug 2022 20:26:41 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 104.232.225.6) smtp.mailfrom=lenovo.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=lenovo.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- lenovo.com discourages use of 104.232.225.6 as permitted sender)
-Received: from mail.lenovo.com (104.232.225.6) by
- SG2APC01FT0045.mail.protection.outlook.com (10.13.36.132) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5546.15 via Frontend Transport; Thu, 18 Aug 2022 20:26:41 +0000
-Received: from reswpmail01.lenovo.com (10.62.32.20) by mail.lenovo.com
- (10.62.123.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2375.28; Thu, 18 Aug
- 2022 16:26:39 -0400
-Received: from [10.38.97.152] (10.38.97.152) by reswpmail01.lenovo.com
- (10.62.32.20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2375.28; Thu, 18 Aug
- 2022 16:26:37 -0400
-Message-ID: <dafc2f05-c611-417e-be22-e8f1a4644f35@lenovo.com>
-Date: Thu, 18 Aug 2022 16:26:37 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Content-Language: en-US
-To: Lyude Paul <lyude@redhat.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>
-References: <20220816025217.618181-1-kai.heng.feng@canonical.com>
- <87leror4sl.fsf@intel.com>
- <CAAd53p76ut7QRFdM4NjaRua=Hc4bu9_=7+Q_t8ExJysEAhJf=Q@mail.gmail.com>
- <b8ebc447ea464371102df765882fc5010cc0c784.camel@redhat.com>
- <CAAd53p4GoU6_ExWB=0b3_X7STd2Fnq764QpmzgOEwn3jdCUBxQ@mail.gmail.com>
- <35d4da2537d53ade88528dda5668f5b5d2b21e49.camel@redhat.com>
-From: Mark Pearson <markpearson@lenovo.com>
-In-Reply-To: <35d4da2537d53ade88528dda5668f5b5d2b21e49.camel@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+ bh=ON4Yca3JdR1998TKBaVfnV2aMdPEgBvlHIlqv1Ynems=;
+ b=Ly5ErJtjSwZP0XG1Q1Cm1akcMvYj8L4WJqslJrzAH4GRkw+VWMorHVJMmTzEu6Y/I7Ugld/MGGamD5wmhyQXc9ojGPjDNKMCGDPlGy/TNyRhtFBjh2Cp1l2gfN2Uu0oHgmuzthXdFvQsWk3DJ6BCRsY32onIsm8SaQVLvvpiIEMOuRAymdOBOWNHErQxdt6tlZnVY6AWCfaXUrzkDcLzR0uQuHwDmpuHJtj5c4bHXlS865QfhRcZc8H52PrxeiUV0+y82wifIKPXeGHwgAa+gWUcLkyJTjbGOCXC/mR/wLJ5Wm39ahTT1qWm2BYxq20UNAg8NsaP+8V6dy/sulZORA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ON4Yca3JdR1998TKBaVfnV2aMdPEgBvlHIlqv1Ynems=;
+ b=PNss7KX0Oxqe+pGOSjV1rwozgmdGVz1MTPcs+bFXBfkWuNNFFx9Yzp+9P1d7PoJnkpCl82+SWvr3s5S9tYSZzvSBQohR6N5OJ2Jr4fTEjhIo3Pu6ls1dKRUI5DCM3QZiF/KOjzSsg1cEXC6G7E/KrBzMXNSUoNyZXsbxW5bLftOaPiqMagwgnIlHpcR43p53x3Xp9Of8JTOuC32XPeYCdT3hSyUD1Rx/vDN5W89r8BjZmeOZlfu7K2gKjl9B8vrMSI5N8H1wW3TpAGSkBeXGKhRZ6yBuuHZ5wA63jbqo+LjDPKYmm4oFnWn+PK/lPiQEyqpNckOeIXeMSsOtgjpknw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB2763.namprd12.prod.outlook.com (2603:10b6:5:48::16) by
+ BN6PR12MB1137.namprd12.prod.outlook.com (2603:10b6:404:1c::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5525.10; Thu, 18 Aug 2022 19:46:36 +0000
+Received: from DM6PR12MB2763.namprd12.prod.outlook.com
+ ([fe80::6012:2e0d:2697:8b02]) by DM6PR12MB2763.namprd12.prod.outlook.com
+ ([fe80::6012:2e0d:2697:8b02%3]) with mapi id 15.20.5546.016; Thu, 18 Aug 2022
+ 19:46:36 +0000
+To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>
+References: <20220818184302.10051-1-hdegoede@redhat.com>
+ <20220818184302.10051-20-hdegoede@redhat.com>
+From: Daniel Dadap <ddadap@nvidia.com>
+Message-ID: <6f5e3452-a18f-cde2-2cdd-cbf80d3b9f4b@nvidia.com>
+Date: Thu, 18 Aug 2022 14:46:31 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.1
+In-Reply-To: <20220818184302.10051-20-hdegoede@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.38.97.152]
-X-ClientProxiedBy: reswpmail01.lenovo.com (10.62.32.20) To
- reswpmail01.lenovo.com (10.62.32.20)
-X-EOPAttributedMessage: 0
+Content-Language: en-US
+X-ClientProxiedBy: DS7PR03CA0149.namprd03.prod.outlook.com
+ (2603:10b6:5:3b4::34) To DM6PR12MB2763.namprd12.prod.outlook.com
+ (2603:10b6:5:48::16)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 55983055-3855-44d5-c442-08da8157f61d
-X-MS-TrafficTypeDiagnostic: KL1PR0302MB5252:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a89fdbd-25ac-4d8d-7cfb-08da81525c04
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1137:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: j0t38cJrc7SzmPxIe8XGVbZ7b9pG/kT6d7kNfb4mYS9POXGgsXldjYBB9dp5CUR2RxrRlowssKJMU5wnH7qDPWW/+dpY5ILP90d6KPkPy+6D9Q454UjfUNoUfOuZCJMR4Z1xIWl6JRWsIC2QEeIPQ0pF95dKNg84TyoOHVtNYK7G8EMDBtM/GeUKmqf9vI2BKGnjTMtnn9GBURhDZfhtbMvidKa5m0qqKr11xCoubaG0szjzP6ZTg2M+4QIPg5JoOUdZys0XCYvfJQB30Mz9Td1DetYaANtRuhaznx0Lydqy++6BuQFyja56U09sfrh8zfIdzHno6feQCS7gjCAR0YRMBz2ocuJAK/FLYuKEwQpG/pmJ0FUT3aHgPhkThm2uqJCVTo5zBsHnqoTI6R8QMYPWe6jBOMi44hrtO9YFyiNUtvbm/vCN9BlCnZAf2sEXVfxP8Yr6uPHk0I6OabCHGQpldDdHbNJo8/5Me69r5+977gjRjEv9OBUL/9FM3zL7frJdg+y56+WRBEMLtV83AiLKqA/HGPK8AnkfjlyOYsj9x0AoIFVw38NIEestSIl/K7fH31dz8+sL8TSoQDt2wEem0VQO+KxpYMdV8d/LIGgUp9g9q58/xzDr/SBN2cqrpoOwu5fWfaeQtXcl1TJP75ZjZ9rv4l7wVkUFY9Ztd/eKtDzuWIeSv/t18/H0iMlzUacaJoRwOR0bby0SQT3fHDBQ6BJI19Jy1FMKegdmSIOtEzirPwPpAmhyaVHZuGJwuD1UpTPlFCkZsf0a7+5O5kJGRCyLC2ot2KtC7t+4U/wVdSl385UQIAFR1TANkuoel8mAYF7HAuGnBEo5PBydpa3IFehUln9OYlRdePsSdqI=
-X-Forefront-Antispam-Report: CIP:104.232.225.6; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.lenovo.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(136003)(346002)(39860400002)(396003)(84040400005)(36840700001)(40470700004)(46966006)(36860700001)(83380400001)(47076005)(16526019)(26005)(53546011)(2616005)(966005)(31686004)(478600001)(8676002)(316002)(36906005)(54906003)(110136005)(70586007)(41300700001)(16576012)(70206006)(40480700001)(5660300002)(2906002)(82310400005)(7416002)(36756003)(8936002)(4326008)(81166007)(356005)(336012)(426003)(186003)(82740400003)(82960400001)(40460700003)(31696002)(86362001)(3940600001)(43740500002)(36900700001);
- DIR:OUT; SFP:1102; 
-X-OriginatorOrg: lenovo.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2022 20:26:41.2474 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55983055-3855-44d5-c442-08da8157f61d
-X-MS-Exchange-CrossTenant-Id: 5c7d0b28-bdf8-410c-aa93-4df372b16203
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=5c7d0b28-bdf8-410c-aa93-4df372b16203; Ip=[104.232.225.6];
- Helo=[mail.lenovo.com]
-X-MS-Exchange-CrossTenant-AuthSource: SG2APC01FT0045.eop-APC01.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR0302MB5252
+X-Microsoft-Antispam-Message-Info: uqzH75NjJf0XIfef/Q8Fhre7fSOYNqpBSb7bOmyqMB9AkyKlIJeYDrx+129+pocd6gIkq17Q0c2G9VILEcksW02Z74svA5/TpiVDkPY6taUD78S6gwL/WO07i+iKbz8PpEuyVzP7vP0ZbExs4Op55xhyh+HNiaOU9r6mL6ikUeUWKn+cM/njoJACZxpkXOp8GYbs8pVDVwhRkMzINbNw6+Tv3sa1alF9AT/rNLMprevq5J6e1EvXIOmkhMCXmVWzOYH3NuWw2MxapSXiq6vVB70b8VubtK+xbUROG7k0Pm+hQFiZlWKQ3tDlHZgAhNBkx+2jCz1CGAWphD9kzeMx3FLYrt2DWLLV9rAFDWQlLzWheyl597jcEZTwRO7fHae2vv30a84JBKgFtOXO9F2/xzu+hPUnZl+i5S5Bg1SSe0yy1dggB1LipVI5ANTB5L1W0tjmsqTJo37Cn0+5v9pufe0hJ6JVehouaI9g3lFUyKbo9rW4upTDUCODkNMHf2zvboLtqPI3gX/Ed1Gm5paUsvzlwM1U0JLlkk3KSUihOgtmuHphaybXOzx6xlF24gwwSwkGk718TTuP5JZtLLexNwvD63wpzQICg+rBE+n4FG+dpq6YrX54UY0OYQlMAy3AyS8+FuSuvApD5+3due9hIgPxDzovV87cXKOFC/W1dYi4OoiQ1Cc/LDkV00KRWdP+sJyDB0/P/X/Z7F8AIbMd+ppyYFSavpguNf6kGFLmoi5hJfYoxiYXU1ixxRG6oRmSQtrDTbCMHuB3sbMlJMrFzJmLv1hf+JWKaD/yXG7Rv07EbX3hOuO2mLV0ZS/KJyPC
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2763.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(4636009)(346002)(136003)(39860400002)(376002)(396003)(366004)(110136005)(316002)(66476007)(4326008)(54906003)(66556008)(66946007)(2906002)(8676002)(8936002)(38100700002)(7416002)(31686004)(5660300002)(921005)(186003)(31696002)(41300700001)(86362001)(6486002)(6666004)(6506007)(26005)(6512007)(53546011)(36756003)(478600001)(83380400001)(2616005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z04rZHN6NDQ0V1U2UXJIaEl0RVJqV0ViMHF0RkdVeG5iekZHVGgyUkh2NlZz?=
+ =?utf-8?B?dlJsVUtZOFdPWU90QzlMYkJURE9QZ0dYOURiN2ZGaTZ1WmdaczdNQnRQYy84?=
+ =?utf-8?B?U0UrSFRSNWJrMjR5eW9CWVpqazA0SjFJVHErc1ZBTG82MEZHZHJyNk1ZTThU?=
+ =?utf-8?B?U3NITXpXbzlyd0VyeStjSk04UTUzNmN4Qk4xREo1dStidTBBTTBRZlJaRjVI?=
+ =?utf-8?B?c0VRdmFhNWg4b3hQNGR0M0I5djBaaGFSMjJNY2RGSTBKcVJyS1RUOEdGOThv?=
+ =?utf-8?B?MnRDbVgzMXg3MkRVQ3NvM3NSSUVyUVFuNnpyQzd3UElwbEdWTTFqdHhmNXRx?=
+ =?utf-8?B?cGpNeU5UTExncnoySk42Wjc3bE9ZZ08xTytpb01ZSklqYmdLYTNvUi9URFVx?=
+ =?utf-8?B?SXUwMUxuTTVsZ1dWQlVWRnlVdis3aDFmVVdNWURDUWZKWVFDWjZYWGZjUi84?=
+ =?utf-8?B?VFZmbjVINS8rOFA5UVdhUUFySEZNVWx3N3dua0dLT3ZLaU1CN2RIUkJMZ0Zr?=
+ =?utf-8?B?Tnl3Y0JtbGxLUXg0dVMwQnI1QUt5YlZiT3cvRlREeTZYUHZjRC9oYmd0NXdp?=
+ =?utf-8?B?eklvNW1xZzFZaTU3UTR4b3ZyTjBNVEIzU0J1aTJDY0s2NzU5QWN6MWNMb1N2?=
+ =?utf-8?B?Y25Tb24vZzNOdFFqcDZ5V2V6SkY2ZjZyMGJHTGVjODJRcVY2NHNMdDlTZUpD?=
+ =?utf-8?B?a3JpUWJNdXZuaHVMNzdlRVFkOGVkem5RajRFSTMyU1ZieUpNR3lYc2d3K1Mr?=
+ =?utf-8?B?Tm41bGk3N1FrMEloNS9RV1hSN0UyaTRoK1pVYndLSldrUXo5Q1B5T0RIelRN?=
+ =?utf-8?B?cWVuK0lsbFJ4dWNIclN6TGpoUTZrWkpmYWluRHFPUGx2RldnQzV2YlNNNVJP?=
+ =?utf-8?B?dWtjOElTbzJsa2c1L0piNVEwMWYwc2huY3ZQbDB4QnpFY0FBTDliRlg0ZENo?=
+ =?utf-8?B?UnVGTGM5YWEzWmZTcjVHZGdlNjVaYVZPcHB0N3ZpRmNRN3ZhZlpPbmUzeFgz?=
+ =?utf-8?B?bEZhbTZFVUNSSkIySWhEbndEYkIyWFdBVGtqOWg2TXJxbWpmZEJJc3M0SFQ3?=
+ =?utf-8?B?Y1JCcnFIT1c5bngxc0pyeGFtNExROWJEMEl4OUgzQWdsTEtkS3dPVHVyVGky?=
+ =?utf-8?B?bE1rMVpnZnJJT1hFY3F0WjNsREZEL25FT3d0QkMyZ0xKb0dmS2lDMWxaalpL?=
+ =?utf-8?B?QURidktJRS9NaVAzQithVUJ3SW83UzlSYXVuOE9TeFd0RlBoOFc4c2NqZEZy?=
+ =?utf-8?B?U1BBc1JpaWhKYnVJWlhHRytVSWk2bnJmcXdyKzlEbm4zRm5RbTJVdS9BUFlM?=
+ =?utf-8?B?cGpOUXdTazNkUXFoQXUzN1YzM0pxOXdsclJyR01oU3NWYzJOODFmSDB4WEcv?=
+ =?utf-8?B?b0pSYTR5Z0pMbkVOQzNUdHpwV2RTNFhRdnNrWEZIQjVJMElaYmhOWHZGcTRi?=
+ =?utf-8?B?SVB6M3U5enVFT1VMTFV1cFhLYkNjWS9xUkpaelRHTXh3QmsyMUl0dmpFKy9F?=
+ =?utf-8?B?VHNuQnlYblQ5YTdjK29MK3RGWk9zZGpOdSswNVM5R2N1TUJlNm9vRHR1ZUJ0?=
+ =?utf-8?B?a1FGUlFVTlhJRXJJaW85ckFVYXVpZERhd2Fwbkd5MHlHaThFZGVaZlgwU1N5?=
+ =?utf-8?B?YmdwUzQ3RFMvVEpiYWVqc1EvT3U5dlNpd2NRblhIUGJxN3k3TUJNYTJENFI1?=
+ =?utf-8?B?UCtaTFFPQWVtZ1J1c3pUTFA0Q3dVUVJZaXBCeGJPT3cwN2NRUkx0bytLTHNZ?=
+ =?utf-8?B?VDFncVQ2b0x5TVNvb1k0VkNLeGhFa2I1M1R6MjhwNEpaMlAzN2dxbFRxRmU0?=
+ =?utf-8?B?aTdMclpSY3huVGlYQmgzbXJrTWtKN3FzYVM0cVNiMCs5NFhmeDdXN0JLS3c5?=
+ =?utf-8?B?MFN3RFdLUGZad0pjYnlvQXhHVzFYc3JDYUtSdUF4SXFpWURuaTI4aDVqd29o?=
+ =?utf-8?B?bWlneXFYVnoxZWZzWFoydnlJdFJNTHpHejlYM25aajRVeVVmanNuY0Zqc2M0?=
+ =?utf-8?B?UUZOQjkxSm9rMW9XMm84NjIzRWdzcVJta1I1T1YveCt0bEhNSGJmVnhrZS9h?=
+ =?utf-8?B?NEtzL1U4czRrN2F3M2NsdHdEak1iWWx2WE9HbWRnaUpsT0dRSmFYYitLaWxs?=
+ =?utf-8?Q?Erg71vjosk81MxysH8pGAlMIE?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a89fdbd-25ac-4d8d-7cfb-08da81525c04
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2763.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2022 19:46:35.9008 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rFYlbPDP9gDUUNtdYZEbk3uEFA4CuOTWJF86ssWwQKOo1F8CJBvr3HkPy4CS73s2DrPjfuo3ldA4DKq3shpsWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1137
 X-Mailman-Approved-At: Fri, 19 Aug 2022 12:23:37 +0000
-Subject: Re: [Intel-gfx] [External] Re: [PATCH] drm/i915: Switch TGL-H DP-IN
- to dGFX when it's supported
+Subject: Re: [Intel-gfx] [PATCH v3 19/31] platform/x86:
+ nvidia-wmi-ec-backlight: Use acpi_video_get_backlight_type()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,109 +141,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Daniel
- Vetter <daniel@ffwll.ch>, rodrigo.vivi@intel.com,
- Zenghui Yu <yuzenghui@huawei.com>
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Len Brown <lenb@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On 8/18/22 1:42 PM, Hans de Goede wrote:
+> Add an acpi_video_get_backlight_type() == acpi_backlight_nvidia_wmi_ec
+> check. This will make nvidia-wmi-ec-backlight properly honor the user
+> selecting a different backlight driver through the acpi_backlight=...
+> kernel commandline option.
+>
+> Since the auto-detect code check for nvidia-wmi-ec-backlight in
+> drivers/acpi/video_detect.c already checks that the WMI advertised
+> brightness-source is the embedded controller, this new check makes it
+> unnecessary for nvidia_wmi_ec_backlight_probe() to check this itself.
+>
+> Suggested-by: Daniel Dadap <ddadap@nvidia.com>
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
+>   drivers/platform/x86/Kconfig                   |  1 +
+>   drivers/platform/x86/nvidia-wmi-ec-backlight.c | 14 +++-----------
+>   2 files changed, 4 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
+> index f2f98e942cf2..0cc5ac35fc57 100644
+> --- a/drivers/platform/x86/Kconfig
+> +++ b/drivers/platform/x86/Kconfig
+> @@ -93,6 +93,7 @@ config PEAQ_WMI
+>   
+>   config NVIDIA_WMI_EC_BACKLIGHT
+>   	tristate "EC Backlight Driver for Hybrid Graphics Notebook Systems"
+> +	depends on ACPI_VIDEO
+>   	depends on ACPI_WMI
+>   	depends on BACKLIGHT_CLASS_DEVICE
+>   	help
+> diff --git a/drivers/platform/x86/nvidia-wmi-ec-backlight.c b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
+> index e84e1d629b14..83d544180264 100644
+> --- a/drivers/platform/x86/nvidia-wmi-ec-backlight.c
+> +++ b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
+> @@ -10,6 +10,7 @@
+>   #include <linux/platform_data/x86/nvidia-wmi-ec-backlight.h>
+>   #include <linux/types.h>
+>   #include <linux/wmi.h>
+> +#include <acpi/video.h>
+>   
+>   /**
+>    * wmi_brightness_notify() - helper function for calling WMI-wrapped ACPI method
+> @@ -87,19 +88,10 @@ static int nvidia_wmi_ec_backlight_probe(struct wmi_device *wdev, const void *ct
+>   {
+>   	struct backlight_properties props = {};
+>   	struct backlight_device *bdev;
+> -	u32 source;
+>   	int ret;
+>   
+> -	ret = wmi_brightness_notify(wdev, WMI_BRIGHTNESS_METHOD_SOURCE,
+> -	                           WMI_BRIGHTNESS_MODE_GET, &source);
+> -	if (ret)
+> -		return ret;
+> -
+> -	/*
+> -	 * This driver is only to be used when brightness control is handled
+> -	 * by the EC; otherwise, the GPU driver(s) should control brightness.
+> -	 */
+> -	if (source != WMI_BRIGHTNESS_SOURCE_EC)
+> +	/* drivers/acpi/video_detect.c also checks that SOURCE == EC */
+> +	if (acpi_video_get_backlight_type() != acpi_backlight_nvidia_wmi_ec)
+>   		return -ENODEV;
+>   
+>   	/*
 
 
+Reviewed-by: Daniel Dadap <ddadap@nvidia.com>
 
-On 2022-08-17 13:56, Lyude Paul wrote:
-> Adding Mark Pearson from Lenovo to this, Mark for reference the original patch
-> is here:
-> 
-> https://patchwork.freedesktop.org/patch/497807/?series=107312&rev=1>> 
-> Comments from me down below
-> 
-> On Wed, 2022-08-17 at 09:02 +0800, Kai-Heng Feng wrote:
->> On Wed, Aug 17, 2022 at 2:24 AM Lyude Paul <lyude@redhat.com> wrote:
->>>
->>> On Tue, 2022-08-16 at 19:29 +0800, Kai-Heng Feng wrote:
->>>> On Tue, Aug 16, 2022 at 4:06 PM Jani Nikula <jani.nikula@linux.intel.com> wrote:
->>>>>
->>>>> On Tue, 16 Aug 2022, Kai-Heng Feng <kai.heng.feng@canonical.com> wrote:
->>>>>> On mobile workstations like HP ZBook Fury G8, iGFX's DP-IN can switch to
->>>>>> dGFX so external monitors are routed to dGFX, and more monitors can be
->>>>>> supported as result.
->>>>>>
->>>>>> To switch the DP-IN to dGFX, the driver needs to invoke _DSM function 20
->>>>>> on intel_dsm_guid2. This method is described in Intel document 632107.
->>>
->>> Is this documentation released anywhere? We've been wondering about these
->>> interfaces for quite a long time, and it would be good to know if there's docs
->>> for this we haven't really been seeing.
->>>
->>>>>
->>>>> Is this the policy decision that we want to unconditionally make,
->>>>> though?
->>>>
->>>> I believes so, so more external monitors can be supported at the same time.
->>>>
->>>> Kai-Heng
->>>
->>> Is this for systems with dual Intel GPUs? I ask because if this affects
->>> Intel/Nvidia hybrid systems then this is a huge no from me. Nouveau is able to
->>> support these systems, but at a limited capacity. This would imply that we are
->>> making external displays work for users of the nvidia proprietary driver, at
->>> the expense making external display support for mainline kernel users
->>> substantially worse for people who are using the mainline kernel. Which isn't
->>> a choice we should be making, because nvidia's OOT driver is not a mainline
->>> kernel driver.
->>
->> Yes it's for Intel/NVIDIA hybrid systems.
->>
->> The problem is that hardware vendor design the systems to use NVIDIA
->> for external displays, so using external displays on Intel are never
->> tested by the vendors.
->> I don't think that's any good either.
->>
-> 
-> Sigh, the constant forcing of nvidia hardware into laptops from vendors is
-> seriously something I wish they would knock it off with considering they're
-> basically the most difficult hardware vendor to work with.
-> 
-> Anyway, if we -need- to route displays through the external GPU then we can.
-> But I'd like to at least get convinced first that this is an actual necessity
-> we should expect for multiple vendors, or the exception to the rule. Because
-> if these laptops are capable of driving displays through Intel, at the moment
-> not doing that is a huge downgrade in terms of functionality. -Especially- if
-> these machines were already working in the field as-is. Probably worth noting
-> I don't think I have yet to actually hear of any complaints about this being
-> the case, and I'd like to also make sure this isn't a change being done for
-> one or two vendors when most vendors aren't actually doing something like
-> this.
-> 
-> Note that for a lot of systems it won't -technically- be a big difference
-> since the current situation in the market right now is that a lot of laptops
-> will have all their external displays routed through the nvidia GPU and
-> nowhere else. It's not great compared to just being able to use the well
-> supported Intel GPU for everything though. And if we're controlling display
-> routing through ACPI, that implies things aren't directly hooked up and
-> someone went through the hassle of adding a display mux - which kind of seems
-> like a waste of engineering effort and money if it can't actually be used for
-> muxing between the two GPUs. Especially considering that up until very
-> recently muxes had more or less been dropped from the majority of laptop
-> vendors (I think Dell was an exception for this fwiw).
-> 
-> Mark, since you're from Lenovo can you help to confirm this as well?
-
-I'll have to do some checking for this years models and get back to you
-I know on last years that we had a HW mux available on the P1. There
-wasn't one on the P17 (and I'm not sure about the P15).
-
-My understanding is the Intel display just wasn't available at all
-for external display on the P17 (and I do agree with your comments on
-the wiseness of this!). I believe it was hardwired with no way to switch
-it - we lost a sale from this, and if there had been an alternative we
-would have pursued it.
-I'll confirm with the HW/FW team.
-
-We also have lots of users on Legion gaming systems - but unfortunately I
-don't know what happens on those platforms as they're not in our Linux
-program.
-
-Mark
