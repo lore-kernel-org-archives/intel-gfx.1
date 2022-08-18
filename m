@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE19EC00140
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:44:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13B24C00140
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:45:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 043C110E925;
-	Thu, 18 Aug 2022 23:43:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 754C010E98F;
+	Thu, 18 Aug 2022 23:43:51 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE1710E536;
- Thu, 18 Aug 2022 23:42:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B34D710E277;
+ Thu, 18 Aug 2022 23:42:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660866152; x=1692402152;
+ t=1660866151; x=1692402151;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Eu7K5qTPnucX3SyoUhZKYrXZJKpcePF5Vk+KhXw/DGA=;
- b=OpWth7sDvEvocxnR81AaDVbY5VU8XPhIqu6VTviCW9c+Z3p9/+AAS7KG
- 1wkA0RPcCio/8Fi0DFrM/vgnuHXypQ5ziW5641dcyMvrKAmEdMJ2T/e/L
- srW9SMtaB5FSwCaWBf1F04R6grzP9395sponZ0hrMXlj2oB9vs1mkd120
- BJ0MKrktf+ACGlzz/7YLgA3EiuyzDXc4/qUKM2vj5dpV9PWoxlmHSXcoe
- 46zxBWXpV8J9DPCK0ZjpX+MCI/D0waEJhnknkot/LKiE0DFewMJaL7F9T
- OfJYpJxhDhcsewhYSbd/3q74a3YafbrVytFYx9EgwnTu74aL/5nfWGtVY g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="275938522"
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="275938522"
+ bh=xGQDS/i9Ej4d+vuzoYhYvXD0SDdxQY9cGkH9iMkRuCo=;
+ b=Uu03HMIetkzhjzdcjMzwV2oYDKj+8DZc5JzvkbVGo7Lk++ggBR3aBUPP
+ LCZiN4q6wNlKaz58LHSPOLYq/gvLnhUX79F4AyyauVGru8ZCTmpat12K9
+ BwWUm0TDjawPDM3c+Yiju5kG0HM3Cc8wzVz2BysNDZ0qdnqNdHT+IkmkF
+ tfAPgPhA6D215uXnTIfCSagGn97lIt1ogDtHIHYR8yuzRLb4FGOcMgH6f
+ DPu9mMJ7BnSfPTzMq+SX2bZSjDHcQXfEwrposmMMUjoWXvLDZ+3hehZsw
+ UOm9apfwldklTgejpwNYR7lKjXtM1/cMreLOe2NmBx+FOZ0OfszBD9JnV Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="275938519"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="275938519"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2022 16:42:28 -0700
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="783953295"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="783953291"
 Received: from invictus.jf.intel.com ([10.165.21.205])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2022 16:42:28 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Aug 2022 16:41:52 -0700
-Message-Id: <20220818234202.451742-12-radhakrishna.sripada@intel.com>
+Date: Thu, 18 Aug 2022 16:41:49 -0700
+Message-Id: <20220818234202.451742-9-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
 References: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 11/21] drm/i915/mtl: Add DP AUX support on
- TypeC ports
+Subject: [Intel-gfx] [PATCH v2 08/21] drm/i915/mtl: Add VBT port and AUX_CH
+ mapping
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,99 +62,77 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Imre Deak <imre.deak@intel.com>
 
-On MTL TypeC ports the AUX_CH_CTL and AUX_CH_DATA addresses have
-changed wrt. previous platforms, adjust the code accordingly.
+Add the proper VBT port,AUX_CH -> i915 port,AUX_CH mapping which just
+follows the ADL_P one.
 
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_aux.c | 45 ++++++++++++++++++++-
- drivers/gpu/drm/i915/i915_reg.h             |  9 +++++
- 2 files changed, 53 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_bios.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index 40c4bdd9cb26..10616e18dc18 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-@@ -637,6 +637,46 @@ static i915_reg_t tgl_aux_data_reg(struct intel_dp *intel_dp, int index)
- 	}
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 198a2f4920cc..81d6cfbd2615 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2420,7 +2420,7 @@ static enum port dvo_port_to_port(struct drm_i915_private *i915,
+ 		[PORT_TC4] = { DVO_PORT_HDMII, DVO_PORT_DPI, -1 },
+ 	};
  
-+static i915_reg_t xelpdp_aux_ctl_reg(struct intel_dp *intel_dp)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	enum aux_ch aux_ch = dig_port->aux_ch;
-+
-+	switch (aux_ch) {
-+	case AUX_CH_A:
-+	case AUX_CH_B:
-+	case AUX_CH_USBC1:
-+	case AUX_CH_USBC2:
-+	case AUX_CH_USBC3:
-+	case AUX_CH_USBC4:
-+		return XELPDP_DP_AUX_CH_CTL(aux_ch);
-+	default:
-+		MISSING_CASE(aux_ch);
-+		return XELPDP_DP_AUX_CH_CTL(AUX_CH_A);
-+	}
-+}
-+
-+static i915_reg_t xelpdp_aux_data_reg(struct intel_dp *intel_dp, int index)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	enum aux_ch aux_ch = dig_port->aux_ch;
-+
-+	switch (aux_ch) {
-+	case AUX_CH_A:
-+	case AUX_CH_B:
-+	case AUX_CH_USBC1:
-+	case AUX_CH_USBC2:
-+	case AUX_CH_USBC3:
-+	case AUX_CH_USBC4:
-+		return XELPDP_DP_AUX_CH_DATA(aux_ch, index);
-+	default:
-+		MISSING_CASE(aux_ch);
-+		return XELPDP_DP_AUX_CH_DATA(AUX_CH_A, index);
-+	}
-+}
-+
- void intel_dp_aux_fini(struct intel_dp *intel_dp)
- {
- 	if (cpu_latency_qos_request_active(&intel_dp->pm_qos))
-@@ -652,7 +692,10 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
- 	struct intel_encoder *encoder = &dig_port->base;
- 	enum aux_ch aux_ch = dig_port->aux_ch;
- 
--	if (DISPLAY_VER(dev_priv) >= 12) {
-+	if (DISPLAY_VER(dev_priv) >= 14) {
-+		intel_dp->aux_ch_ctl_reg = xelpdp_aux_ctl_reg;
-+		intel_dp->aux_ch_data_reg = xelpdp_aux_data_reg;
-+	} else if (DISPLAY_VER(dev_priv) >= 12) {
- 		intel_dp->aux_ch_ctl_reg = tgl_aux_ctl_reg;
- 		intel_dp->aux_ch_data_reg = tgl_aux_data_reg;
- 	} else if (DISPLAY_VER(dev_priv) >= 9) {
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 234c17596c3a..04a269fa8717 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3533,6 +3533,15 @@
- 						       _XELPDP_USBC3_AUX_CH_CTL, \
- 						       _XELPDP_USBC4_AUX_CH_CTL))
- 
-+#define XELPDP_DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PICK(aux_ch, \
-+						       _DPA_AUX_CH_DATA1, \
-+						       _DPB_AUX_CH_DATA1, \
-+						       0, /* port/aux_ch C is non-existent */ \
-+						       _XELPDP_USBC1_AUX_CH_DATA1, \
-+						       _XELPDP_USBC2_AUX_CH_DATA1, \
-+						       _XELPDP_USBC3_AUX_CH_DATA1, \
-+						       _XELPDP_USBC4_AUX_CH_DATA1) + (i) * 4)
-+
- #define   DP_AUX_CH_CTL_SEND_BUSY	    (1 << 31)
- #define   DP_AUX_CH_CTL_DONE		    (1 << 30)
- #define   DP_AUX_CH_CTL_INTERRUPT	    (1 << 29)
+-	if (DISPLAY_VER(i915) == 13)
++	if (DISPLAY_VER(i915) >= 13)
+ 		return __dvo_port_to_port(ARRAY_SIZE(xelpd_port_mapping),
+ 					  ARRAY_SIZE(xelpd_port_mapping[0]),
+ 					  xelpd_port_mapping,
+@@ -3578,7 +3578,7 @@ enum aux_ch intel_bios_port_aux_ch(struct drm_i915_private *i915,
+ 			aux_ch = AUX_CH_C;
+ 		break;
+ 	case DP_AUX_D:
+-		if (DISPLAY_VER(i915) == 13)
++		if (DISPLAY_VER(i915) >= 13)
+ 			aux_ch = AUX_CH_D_XELPD;
+ 		else if (IS_ALDERLAKE_S(i915))
+ 			aux_ch = AUX_CH_USBC3;
+@@ -3588,7 +3588,7 @@ enum aux_ch intel_bios_port_aux_ch(struct drm_i915_private *i915,
+ 			aux_ch = AUX_CH_D;
+ 		break;
+ 	case DP_AUX_E:
+-		if (DISPLAY_VER(i915) == 13)
++		if (DISPLAY_VER(i915) >= 13)
+ 			aux_ch = AUX_CH_E_XELPD;
+ 		else if (IS_ALDERLAKE_S(i915))
+ 			aux_ch = AUX_CH_USBC4;
+@@ -3596,25 +3596,25 @@ enum aux_ch intel_bios_port_aux_ch(struct drm_i915_private *i915,
+ 			aux_ch = AUX_CH_E;
+ 		break;
+ 	case DP_AUX_F:
+-		if (DISPLAY_VER(i915) == 13)
++		if (DISPLAY_VER(i915) >= 13)
+ 			aux_ch = AUX_CH_USBC1;
+ 		else
+ 			aux_ch = AUX_CH_F;
+ 		break;
+ 	case DP_AUX_G:
+-		if (DISPLAY_VER(i915) == 13)
++		if (DISPLAY_VER(i915) >= 13)
+ 			aux_ch = AUX_CH_USBC2;
+ 		else
+ 			aux_ch = AUX_CH_G;
+ 		break;
+ 	case DP_AUX_H:
+-		if (DISPLAY_VER(i915) == 13)
++		if (DISPLAY_VER(i915) >= 13)
+ 			aux_ch = AUX_CH_USBC3;
+ 		else
+ 			aux_ch = AUX_CH_H;
+ 		break;
+ 	case DP_AUX_I:
+-		if (DISPLAY_VER(i915) == 13)
++		if (DISPLAY_VER(i915) >= 13)
+ 			aux_ch = AUX_CH_USBC4;
+ 		else
+ 			aux_ch = AUX_CH_I;
 -- 
 2.25.1
 
