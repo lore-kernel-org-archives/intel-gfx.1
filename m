@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEDAFC00140
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:04:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 770C9C28B2B
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:04:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FCE710E3FE;
-	Thu, 18 Aug 2022 23:03:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EEBE10E07A;
+	Thu, 18 Aug 2022 23:03:40 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD6D10E07A;
- Thu, 18 Aug 2022 23:03:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 354FE10E3FE;
+ Thu, 18 Aug 2022 23:03:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660863807; x=1692399807;
+ t=1660863802; x=1692399802;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/NB+UoNEoX8bVqRbsn5l2zvCiRR1JPTN1FEZNzuR33E=;
- b=V71HtvVnQAXbmWVcrMk6WXlncihTR3/pktJWcJT0CHnZ6Njiz+rsS41p
- tTZ8+4Y9VvWblCH5o0Cy8Xu9ntz5TPZ1ifvfiovnr0L7W3Ly1WPglAzh+
- 9WA66y4tatH40JNDdWJYS3szH7UBCwCdg7MKEufFuz+B22qmnszUywo97
- kGmbkjYUu83cxKDmy0lqvbx15Smca9lkm1BViTWRrRARJUMbTZQg28E6t
- u8sqB1RInlpVHKcEQtObqaqOb4YoLrhdz3z5+RZG9C2srKXHXFmELZeEu
- OkO+pgUjw+ymYDe/6VWRGon+ohBmDymCAevahYfB6OV8xYJErn8aNQs42 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="293677584"
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="293677584"
+ bh=IT8TIbrmhx/FAf+6Oz3QnK3gGxovWYC/sPSA267QNRY=;
+ b=jKP5bPtR35rxvQXzpr6B8U8G5hsziRp5rM49E7akCVRw1I61vN9qD1Ql
+ ZQhzZF2+OBOOL24G5ip8QrnKuDOocLHYiP61Efj7lQtnN/u+0Tps3GRun
+ GdBsUTDO+KBIGFVCH38DKDNdDDeP9o0qgTa6zJYnNFdiLoyU/En0eshRj
+ 4AgXtDqsD38CNEfC324dIIo2qQWh2oSSn4TBtH1ZoolDX0mWo4TVk2GEx
+ n5RexOdUmGAfw3ZezkC0lkIhS8MguLYmRnEa3o/9ITZN4p/0oeeoHDOwy
+ i5GVhQKomTjC2hr5LQBcsugAOHYhlDLxowfycCtLqSD9uzUveG+3DNJl0 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="293677564"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="293677564"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2022 16:03:27 -0700
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="641042892"
+ 18 Aug 2022 16:03:22 -0700
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="641042866"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2022 16:03:27 -0700
+ 18 Aug 2022 16:03:21 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Aug 2022 16:02:42 -0700
-Message-Id: <20220818230243.3921066-15-daniele.ceraolospurio@intel.com>
+Date: Thu, 18 Aug 2022 16:02:36 -0700
+Message-Id: <20220818230243.3921066-9-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220818230243.3921066-1-daniele.ceraolospurio@intel.com>
 References: <20220818230243.3921066-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 14/15] drm/i915/huc: define gsc-compatible
- HuC fw for DG2
+Subject: [Intel-gfx] [PATCH v2 08/15] drm/i915/pxp: implement function for
+ sending tee stream command
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,143 +57,230 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tomas Winkler <tomas.winkler@intel.com>,
+ Vitaly Lubart <vitaly.lubart@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The fw name is different and we need to record the fact that the blob is
-gsc-loaded, so add a new macro to help.
+From: Vitaly Lubart <vitaly.lubart@intel.com>
 
-Note: A-step DG2 G10 does not support HuC loading via GSC and would
-require a separate firmware to be loaded the legacy way, but that's
-not a production stepping so we're not going to bother.
+Command to be sent via the stream interface are written to a local
+memory page, whose address is then provided to the GSC.
+The interface supports providing a full sg with multiple pages for both
+input and output messages, but since for now we only aim to support short
+and synchronous messages we can use a single page for both input and
+output.
 
+Note that the mei interface expects an sg of 4k pages, while our lmem pages
+are 64k. If we ever need to support more than 4k we'll need to convert.
+Added a TODO comment to the code to record this.
+
+Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Tony Ye <tony.ye@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 64 ++++++++++++++----------
- 1 file changed, 37 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c   | 114 ++++++++++++++++++++-
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.h   |   5 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_types.h |   6 ++
+ 3 files changed, 124 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index cec6bf6bad3f..776b43d79772 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -74,35 +74,39 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- 	fw_def(ALDERLAKE_P,  0, guc_def(adlp, 69, 0, 3)) \
- 	fw_def(ALDERLAKE_S,  0, guc_def(tgl,  69, 0, 3))
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index 2c1fc49ecec1..e0d09455a92e 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -7,6 +7,7 @@
  
--#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_def) \
--	fw_def(ALDERLAKE_P,  0, huc_def(tgl,  7, 9, 3)) \
--	fw_def(ALDERLAKE_S,  0, huc_def(tgl,  7, 9, 3)) \
--	fw_def(DG1,          0, huc_def(dg1,  7, 9, 3)) \
--	fw_def(ROCKETLAKE,   0, huc_def(tgl,  7, 9, 3)) \
--	fw_def(TIGERLAKE,    0, huc_def(tgl,  7, 9, 3)) \
--	fw_def(JASPERLAKE,   0, huc_def(ehl,  9, 0, 0)) \
--	fw_def(ELKHARTLAKE,  0, huc_def(ehl,  9, 0, 0)) \
--	fw_def(ICELAKE,      0, huc_def(icl,  9, 0, 0)) \
--	fw_def(COMETLAKE,    5, huc_def(cml,  4, 0, 0)) \
--	fw_def(COMETLAKE,    0, huc_def(kbl,  4, 0, 0)) \
--	fw_def(COFFEELAKE,   0, huc_def(kbl,  4, 0, 0)) \
--	fw_def(GEMINILAKE,   0, huc_def(glk,  4, 0, 0)) \
--	fw_def(KABYLAKE,     0, huc_def(kbl,  4, 0, 0)) \
--	fw_def(BROXTON,      0, huc_def(bxt,  2, 0, 0)) \
--	fw_def(SKYLAKE,      0, huc_def(skl,  2, 0, 0))
--
--#define __MAKE_UC_FW_PATH(prefix_, name_, major_, minor_, patch_) \
-+#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_dma_def, huc_gsc_def) \
-+	fw_def(DG2,          0, huc_gsc_def(dg2,  7, 10, 0)) \
-+	fw_def(ALDERLAKE_P,  0, huc_dma_def(tgl,  7, 9, 3)) \
-+	fw_def(ALDERLAKE_S,  0, huc_dma_def(tgl,  7, 9, 3)) \
-+	fw_def(DG1,          0, huc_dma_def(dg1,  7, 9, 3)) \
-+	fw_def(ROCKETLAKE,   0, huc_dma_def(tgl,  7, 9, 3)) \
-+	fw_def(TIGERLAKE,    0, huc_dma_def(tgl,  7, 9, 3)) \
-+	fw_def(JASPERLAKE,   0, huc_dma_def(ehl,  9, 0, 0)) \
-+	fw_def(ELKHARTLAKE,  0, huc_dma_def(ehl,  9, 0, 0)) \
-+	fw_def(ICELAKE,      0, huc_dma_def(icl,  9, 0, 0)) \
-+	fw_def(COMETLAKE,    5, huc_dma_def(cml,  4, 0, 0)) \
-+	fw_def(COMETLAKE,    0, huc_dma_def(kbl,  4, 0, 0)) \
-+	fw_def(COFFEELAKE,   0, huc_dma_def(kbl,  4, 0, 0)) \
-+	fw_def(GEMINILAKE,   0, huc_dma_def(glk,  4, 0, 0)) \
-+	fw_def(KABYLAKE,     0, huc_dma_def(kbl,  4, 0, 0)) \
-+	fw_def(BROXTON,      0, huc_dma_def(bxt,  2, 0, 0)) \
-+	fw_def(SKYLAKE,      0, huc_dma_def(skl,  2, 0, 0))
+ #include <drm/i915_pxp_tee_interface.h>
+ #include <drm/i915_component.h>
++#include "gem/i915_gem_region.h"
+ 
+ #include "i915_drv.h"
+ #include "intel_pxp.h"
+@@ -69,6 +70,47 @@ static int intel_pxp_tee_io_message(struct intel_pxp *pxp,
+ 	return ret;
+ }
+ 
++int intel_pxp_tee_stream_message(struct intel_pxp *pxp,
++				 u8 client_id, u32 fence_id,
++				 void *msg_in, size_t msg_in_len,
++				 void *msg_out, size_t msg_out_len)
++{
++	/* TODO: for bigger objects we need to use a sg of 4k pages */
++	const size_t max_msg_size = PAGE_SIZE;
++	struct drm_i915_private *i915 = pxp_to_gt(pxp)->i915;
++	struct i915_pxp_component *pxp_component = pxp->pxp_component;
++	unsigned int offset = 0;
++	struct scatterlist *sg;
++	int ret;
 +
-+#define __MAKE_UC_FW_PATH(prefix_, name_, major_, minor_, patch_, postfix_) \
- 	"i915/" \
- 	__stringify(prefix_) name_ \
- 	__stringify(major_) "." \
- 	__stringify(minor_) "." \
--	__stringify(patch_) ".bin"
-+	__stringify(patch_) postfix_ ".bin"
- 
- #define MAKE_GUC_FW_PATH(prefix_, major_, minor_, patch_) \
--	__MAKE_UC_FW_PATH(prefix_, "_guc_", major_, minor_, patch_)
-+	__MAKE_UC_FW_PATH(prefix_, "_guc_", major_, minor_, patch_, "")
- 
- #define MAKE_HUC_FW_PATH(prefix_, major_, minor_, bld_num_) \
--	__MAKE_UC_FW_PATH(prefix_, "_huc_", major_, minor_, bld_num_)
-+	__MAKE_UC_FW_PATH(prefix_, "_huc_", major_, minor_, bld_num_, "")
++	if (msg_in_len > max_msg_size || msg_out_len > max_msg_size)
++		return -ENOSPC;
 +
-+#define MAKE_HUC_GSC_FW_PATH(prefix_, major_, minor_, bld_num_) \
-+	__MAKE_UC_FW_PATH(prefix_, "_huc_", major_, minor_, bld_num_, "_gsc")
- 
- /* All blobs need to be declared via MODULE_FIRMWARE() */
- #define INTEL_UC_MODULE_FW(platform_, revid_, uc_) \
-@@ -110,26 +114,31 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- 
- INTEL_GUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_GUC_FW_PATH)
- INTEL_GUC_FIRMWARE_DEFS_FALLBACK(INTEL_UC_MODULE_FW, MAKE_GUC_FW_PATH)
--INTEL_HUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_HUC_FW_PATH)
-+INTEL_HUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_HUC_FW_PATH, MAKE_HUC_GSC_FW_PATH)
- 
- /* The below structs and macros are used to iterate across the list of blobs */
- struct __packed uc_fw_blob {
- 	u8 major;
- 	u8 minor;
-+	bool loaded_via_gsc;
- 	const char *path;
++	mutex_lock(&pxp->tee_mutex);
++
++	if (unlikely(!pxp_component || !pxp_component->ops->gsc_command)) {
++		ret = -ENODEV;
++		goto unlock;
++	}
++
++	GEM_BUG_ON(!pxp->stream_cmd.obj);
++
++	sg = i915_gem_object_get_sg_dma(pxp->stream_cmd.obj, 0, &offset);
++
++	memcpy(pxp->stream_cmd.vaddr, msg_in, msg_in_len);
++
++	ret = pxp_component->ops->gsc_command(pxp_component->tee_dev, client_id,
++					      fence_id, sg, msg_in_len, sg);
++	if (ret < 0)
++		drm_err(&i915->drm, "Failed to send PXP TEE gsc command\n");
++	else
++		memcpy(msg_out, pxp->stream_cmd.vaddr, msg_out_len);
++
++unlock:
++	mutex_unlock(&pxp->tee_mutex);
++	return ret;
++}
++
+ /**
+  * i915_pxp_tee_component_bind - bind function to pass the function pointers to pxp_tee
+  * @i915_kdev: pointer to i915 kernel device
+@@ -126,6 +168,66 @@ static const struct component_ops i915_pxp_tee_component_ops = {
+ 	.unbind = i915_pxp_tee_component_unbind,
  };
  
--#define UC_FW_BLOB(major_, minor_, path_) \
--	{ .major = major_, .minor = minor_, .path = path_ }
-+#define UC_FW_BLOB(major_, minor_, gsc_, path_) \
-+	{ .major = major_, .minor = minor_, .loaded_via_gsc = gsc_, .path = path_ }
- 
- #define GUC_FW_BLOB(prefix_, major_, minor_, patch_) \
--	UC_FW_BLOB(major_, minor_, \
-+	UC_FW_BLOB(major_, minor_, false, \
- 		   MAKE_GUC_FW_PATH(prefix_, major_, minor_, patch_))
- 
- #define HUC_FW_BLOB(prefix_, major_, minor_, bld_num_) \
--	UC_FW_BLOB(major_, minor_, \
-+	UC_FW_BLOB(major_, minor_, false, \
- 		   MAKE_HUC_FW_PATH(prefix_, major_, minor_, bld_num_))
- 
-+#define HUC_GSC_FW_BLOB(prefix_, major_, minor_, bld_num_) \
-+	UC_FW_BLOB(major_, minor_, true, \
-+		   MAKE_HUC_GSC_FW_PATH(prefix_, major_, minor_, bld_num_))
++static int alloc_streaming_command(struct intel_pxp *pxp)
++{
++	struct drm_i915_private *i915 = pxp_to_gt(pxp)->i915;
++	struct drm_i915_gem_object *obj = NULL;
++	void *cmd;
++	int err;
 +
- struct __packed uc_fw_platform_requirement {
- 	enum intel_platform p;
- 	u8 rev; /* first platform rev using this FW */
-@@ -158,7 +167,7 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
- 		INTEL_GUC_FIRMWARE_DEFS_FALLBACK(MAKE_FW_LIST, GUC_FW_BLOB)
- 	};
- 	static const struct uc_fw_platform_requirement blobs_huc[] = {
--		INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB)
-+		INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB, HUC_GSC_FW_BLOB)
- 	};
- 	static const struct fw_blobs_by_type blobs_all[INTEL_UC_FW_NUM_TYPES] = {
- 		[INTEL_UC_FW_TYPE_GUC] = { blobs_guc, ARRAY_SIZE(blobs_guc) },
-@@ -190,6 +199,7 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
- 			uc_fw->wanted_path = blob->path;
- 			uc_fw->major_ver_wanted = blob->major;
- 			uc_fw->minor_ver_wanted = blob->minor;
-+			uc_fw->loaded_via_gsc = blob->loaded_via_gsc;
- 			break;
- 		}
++	pxp->stream_cmd.obj = NULL;
++	pxp->stream_cmd.vaddr = NULL;
++
++	if (!IS_DGFX(i915))
++		return 0;
++
++	/* allocate lmem object of one page for PXP command memory and store it */
++	obj = i915_gem_object_create_lmem(i915, PAGE_SIZE, I915_BO_ALLOC_CONTIGUOUS);
++	if (IS_ERR(obj)) {
++		drm_err(&i915->drm, "Failed to allocate pxp streaming command!\n");
++		return PTR_ERR(obj);
++	}
++
++	err = i915_gem_object_pin_pages_unlocked(obj);
++	if (err) {
++		drm_err(&i915->drm, "Failed to pin gsc message page!\n");
++		goto out_put;
++	}
++
++	/* map the lmem into the virtual memory pointer */
++	cmd = i915_gem_object_pin_map_unlocked(obj, i915_coherent_map_type(i915, obj, true));
++	if (IS_ERR(cmd)) {
++		drm_err(&i915->drm, "Failed to map gsc message page!\n");
++		err = PTR_ERR(cmd);
++		goto out_unpin;
++	}
++
++	memset(cmd, 0, obj->base.size);
++
++	pxp->stream_cmd.obj = obj;
++	pxp->stream_cmd.vaddr = cmd;
++
++	return 0;
++
++out_unpin:
++	i915_gem_object_unpin_pages(obj);
++out_put:
++	i915_gem_object_put(obj);
++	return err;
++}
++
++static void free_streaming_command(struct intel_pxp *pxp)
++{
++	struct drm_i915_gem_object *obj = fetch_and_zero(&pxp->stream_cmd.obj);
++
++	if (!obj)
++		return;
++
++	i915_gem_object_unpin_map(obj);
++	i915_gem_object_unpin_pages(obj);
++	i915_gem_object_put(obj);
++}
++
+ int intel_pxp_tee_component_init(struct intel_pxp *pxp)
+ {
+ 	int ret;
+@@ -134,16 +236,24 @@ int intel_pxp_tee_component_init(struct intel_pxp *pxp)
+ 
+ 	mutex_init(&pxp->tee_mutex);
+ 
++	ret = alloc_streaming_command(pxp);
++	if (ret)
++		return ret;
++
+ 	ret = component_add_typed(i915->drm.dev, &i915_pxp_tee_component_ops,
+ 				  I915_COMPONENT_PXP);
+ 	if (ret < 0) {
+ 		drm_err(&i915->drm, "Failed to add PXP component (%d)\n", ret);
+-		return ret;
++		goto out_free;
  	}
+ 
+ 	pxp->pxp_component_added = true;
+ 
+ 	return 0;
++
++out_free:
++	free_streaming_command(pxp);
++	return ret;
+ }
+ 
+ void intel_pxp_tee_component_fini(struct intel_pxp *pxp)
+@@ -155,6 +265,8 @@ void intel_pxp_tee_component_fini(struct intel_pxp *pxp)
+ 
+ 	component_del(i915->drm.dev, &i915_pxp_tee_component_ops);
+ 	pxp->pxp_component_added = false;
++
++	free_streaming_command(pxp);
+ }
+ 
+ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp,
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+index c136053ce340..aeb3dfe7ce96 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.h
+@@ -14,4 +14,9 @@ void intel_pxp_tee_component_fini(struct intel_pxp *pxp);
+ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp,
+ 					 int arb_session_id);
+ 
++int intel_pxp_tee_stream_message(struct intel_pxp *pxp,
++				 u8 client_id, u32 fence_id,
++				 void *msg_in, size_t msg_in_len,
++				 void *msg_out, size_t msg_out_len);
++
+ #endif /* __INTEL_PXP_TEE_H__ */
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+index 7ce5f37ee12e..f74b1e11a505 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+@@ -53,6 +53,12 @@ struct intel_pxp {
+ 	/** @tee_mutex: protects the tee channel binding and messaging. */
+ 	struct mutex tee_mutex;
+ 
++	/** @stream_cmd: LMEM obj used to send stream PXP commands to the GSC */
++	struct {
++		struct drm_i915_gem_object *obj; /* contains PXP command memory */
++		void *vaddr; /* virtual memory for PXP command */
++	} stream_cmd;
++
+ 	/**
+ 	 * @hw_state_invalidated: if the HW perceives an attack on the integrity
+ 	 * of the encryption it will invalidate the keys and expect SW to
 -- 
 2.37.2
 
