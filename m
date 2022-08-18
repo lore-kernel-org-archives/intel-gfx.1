@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E40F3C00140
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:43:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8856C28B2B
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Aug 2022 23:43:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0B210E2BF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93CD610E1BA;
 	Thu, 18 Aug 2022 23:42:47 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD1A310E62B;
- Thu, 18 Aug 2022 23:42:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02A0110E2ED;
+ Thu, 18 Aug 2022 23:42:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660866153; x=1692402153;
+ t=1660866151; x=1692402151;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=37lE3FD1iHRf26LEpCBliMaodGJ8MIyIAzQNYCyiVEY=;
- b=A0/O04ESkAWhpoJ9VDipqOYSfl4KOmMNrFm33H0VhPI/fRvVm7Bx9qcU
- vUjE5qprOzdVw+mbbgkk1HsdsIotxhRakthqU+qt/JoVq/Dc8uZqbFJT6
- SadG4F7mQd2tm7uWuMdTYh8Os84u+Nev80w+knqCFvV0S/9s04Tao9tS/
- mo97+eaUvAMGNd3CfNsGahk5Y8KBj+gEdHSanCAUFvZX29tonCDfyPmej
- x1DuaiSkLs1snlLj23IO8A7P+XT6/cL+jkCWa1WYLM4irSeknJaaoeEKi
- gRS3EG1Ad37BWRBSjMVczHDzoLGLijl1rPcOPlGLEDSTORRHE+ozgs20g w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="275938529"
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="275938529"
+ bh=w9x3LUIn4oimxR2CE7FJ8TX1PXrOjxZaZM7xDOB9638=;
+ b=fcjcOFhz5bo4V1d6pIuiJ+a3ufir6UGGcqd+DiqaeXQyT8Am8H4Y/qok
+ qmGJ4doT3zy821qVz7cQjuIeO6VcirMb/93MJ6waHQBuIPirAie8Ss2IL
+ knyff3VrwCwurIYNGm8NdLzeZPy/clJ22rzeNVBgQZJj4eQq8sIc5wiaO
+ Ws1O7JZThdRBJKz6W++EajgX9Aml+xG47tG+HdLLIhcWz2M8ei++8ZAwP
+ EBuIy3hq5167E5SeEkXAuHjGNdvR5IGuNDU8OjoMQ6nS+GE1bHknQmbiX
+ Bze0OiI8MSR9NHeRWAMSXWKHg84qqNfkID8tGqfJ9sWX1hRhZN35DwuNd g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="275938517"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="275938517"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2022 16:42:29 -0700
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="783953306"
+ 18 Aug 2022 16:42:28 -0700
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="783953293"
 Received: from invictus.jf.intel.com ([10.165.21.205])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Aug 2022 16:42:28 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Aug 2022 16:42:02 -0700
-Message-Id: <20220818234202.451742-22-radhakrishna.sripada@intel.com>
+Date: Thu, 18 Aug 2022 16:41:50 -0700
+Message-Id: <20220818234202.451742-10-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
 References: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 21/21] drm/i915/mtl: Do not update GV point,
- mask value
+Subject: [Intel-gfx] [PATCH v2 09/21] drm/i915/mtl: Add support for MTL in
+ Display Init sequences
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,54 +60,47 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No need to update mask value/restrict because
-"Pcode only wants to use GV bandwidth value, not the mask value."
-for Display version greater than 14.
+The initialization sequence for Meteorlake reuses the sequence for
+icelake for most parts. Some changes viz. reset PICA handshake
+are added.
 
-Bspec: 646365
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Original Author: Caz Yokoyama
+Bspec: 49189
+
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/intel_pm.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display_power.c | 3 +++
+ drivers/gpu/drm/i915/i915_reg.h                    | 3 ++-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index d09e9e5f4481..47869fe964ba 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -3924,6 +3924,14 @@ void intel_sagv_pre_plane_update(struct intel_atomic_state *state)
- {
- 	struct drm_i915_private *i915 = to_i915(state->base.dev);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index f7e8d1ff62cf..9c1fefb2da55 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -1382,6 +1382,9 @@ static void intel_pch_reset_handshake(struct drm_i915_private *dev_priv,
+ 		reset_bits = RESET_PCH_HANDSHAKE_ENABLE;
+ 	}
  
-+	/*
-+	 * No need to update mask value/restrict because
-+	 * "Pcode only wants to use GV bandwidth value, not the mask value."
-+	 * for DISPLAY_VER() >= 14.
-+	 */
-+	if (DISPLAY_VER(i915) >= 14)
-+		return;
++	if (DISPLAY_VER(dev_priv) >= 14)
++		reset_bits |= MTL_RESET_PICA_HANDSHAKE_EN;
 +
- 	/*
- 	 * Just return if we can't control SAGV or don't have it.
- 	 * This is different from situation when we have SAGV but just can't
-@@ -3944,6 +3952,16 @@ void intel_sagv_post_plane_update(struct intel_atomic_state *state)
- {
- 	struct drm_i915_private *i915 = to_i915(state->base.dev);
+ 	val = intel_de_read(dev_priv, reg);
  
-+	/*
-+	 * No need to update mask value/restrict because
-+	 * "Pcode only wants to use GV bandwidth value, not the mask value."
-+	 * for DISPLAY_VER() >= 14.
-+	 *
-+	 * GV bandwidth will be set by intel_pmdemand_post_plane_update()
-+	 */
-+	if (DISPLAY_VER(i915) >= 14)
-+		return;
-+
- 	/*
- 	 * Just return if we can't control SAGV or don't have it.
- 	 * This is different from situation when we have SAGV but just can't
+ 	if (enable)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 15a53cb5e1ee..e2e9932fa484 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -5821,7 +5821,8 @@
+ 							 _BW_BUDDY1_PAGE_MASK))
+ 
+ #define HSW_NDE_RSTWRN_OPT	_MMIO(0x46408)
+-#define  RESET_PCH_HANDSHAKE_ENABLE	(1 << 4)
++#define  MTL_RESET_PICA_HANDSHAKE_EN	REG_BIT(6)
++#define  RESET_PCH_HANDSHAKE_ENABLE	REG_BIT(4)
+ 
+ #define GEN8_CHICKEN_DCPR_1			_MMIO(0x46430)
+ #define   SKL_SELECT_ALTERNATE_DC_EXIT		REG_BIT(30)
 -- 
 2.25.1
 
