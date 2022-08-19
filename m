@@ -4,52 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2841C32771
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 11:53:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34A91C32771
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Aug 2022 12:03:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3E0A10E3FA;
-	Fri, 19 Aug 2022 11:53:46 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2349D10E7CF
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Aug 2022 11:53:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D46D10E736;
+	Fri, 19 Aug 2022 12:03:02 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21A4310E736
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Aug 2022 12:02:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660910018; x=1692446018;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=tP/EDepom5nt10+TkvK8KnP/Z6f3lyt0kG18Dthc+3g=;
- b=aWJPG5aQG1kg4LAtaUB2scAGak6HY0BQYtTE9Aaf5dO+v5mRASaiDOPr
- zvWHK5Xq5bEcLIyc/mOIBugKfaNVDAG5lNIrtySaSjgnj2e3qmUk03BJP
- 60/LC7+bV9M94H4CfNO7xfpF6/XLEGKORdheXxE6QaEh4MCGl4T9uAV7+
- ltSsC/awhK5SgT1tMMPSPWIjfFuWavTFre8nIp7ZEjowQCwAZqQ3Lx3tJ
- Y2IH1d9ugR1q5XPkWb+x0h0s4GF2tkW/PkJWAaLWeeP4IgcdXZyOHbwMI
- HSNPRDMpcnXbTi8qRZvx3aFDCDx0FhtUYYdG9DNS7hRTOO/j6t+J3ShXF w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="291753316"
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="291753316"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2022 04:53:36 -0700
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="936194922"
-Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.9.30])
- ([10.213.9.30])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2022 04:53:35 -0700
-Message-ID: <3aeae2e6-ebe3-5241-bfa1-ee36a0d5ec94@intel.com>
-Date: Fri, 19 Aug 2022 13:53:33 +0200
+ t=1660910573; x=1692446573;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=38BU8rIke+P8eg7eA0Yg4KCt4c3XwFPk7gLMh1535Yk=;
+ b=JII+hqvLLkVTrXaGQ2M3R/PLqdsjwdQQu9aMJ3TX4wXVp1VR/CU2Sxjw
+ OHlCrzlpud5J0TIGNt1zqkWO+ML96VWBedbkZO6oOUF+FnvKlotTIZ0NW
+ bNwIyMGw5pGZnCuwcnQlp4WJ9EUlDShPWzdGm6DNlxOvYv8n5klBw7tIV
+ dknu80VNm33dx9BqhA/A/bdXlcP6T3jUf0V1x/5beD4+gVPr5sPDQ4Rzv
+ RGFjPwaw0DD0ZounOiQUeaohtG/Tqv6wuTn0lPuan2Xb8g9QBi9gKwRGd
+ xJzRagRdWvn8KUt5swuOkbVzMuqlqlAmr7hIcRlSr+BfTFulZtMtb7wdZ A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10443"; a="290565279"
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="290565279"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2022 05:02:52 -0700
+X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="668560557"
+Received: from jastrom-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.51.176])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2022 05:02:51 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 19 Aug 2022 15:02:33 +0300
+Message-Id: <cover.1660910433.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Firefox/91.0 Thunderbird/91.12.0
-Content-Language: en-US
-To: Juston Li <justonli@chromium.org>, intel-gfx@lists.freedesktop.org
-References: <20220818174205.2412730-1-justonli@chromium.org>
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <20220818174205.2412730-1-justonli@chromium.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v3] drm/i915/pxp: don't start pxp without
- mei_pxp bind
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v3 00/14] drm/i915: stop modifying "const"
+ device info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,76 +56,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alan.previn.teres.alexis@intel.com
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 18.08.2022 19:42, Juston Li wrote:
-> pxp will not start correctly until after mei_pxp bind completes and
-> intel_pxp_init_hw() is called.
-> Wait for the bind to complete before proceeding with startup.
-> 
-> This fixes a race condition during bootup where we observed a small
-> window for pxp commands to be sent, starting pxp before mei_pxp bind
-> completed.
-> 
-> Changes since v2:
-> - wait for pxp_component to bind instead of returning -EAGAIN (Daniele)
-> 
-> Changes since v1:
-> - check pxp_component instead of pxp_component_added (Daniele)
-> - pxp_component needs tee_mutex (Daniele)
-> - return -EAGAIN so caller knows to retry (Daniele)
-> 
-> Signed-off-by: Juston Li <justonli@chromium.org>
+v3 of https://patchwork.freedesktop.org/series/105358/
 
-In typical usage of component framework driver postpones initialization 
-till component is bound. In such case checking/waiting for component as 
-in this patch is not necessary and the code is more straightforward.
-I wonder how it behaves on component unbind.
-
-Anyway:
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
-
-Regards
-Andrzej
+Add a patch resolving guc time stamp logging related conflicts in the
+front, and remove the last two patches, for now, to avoid any
+potentially regressing functional changes. Leave them for later.
 
 
-> ---
->   drivers/gpu/drm/i915/pxp/intel_pxp.c | 15 +++++++++++++++
->   1 file changed, 15 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> index 15311eaed848..17109c513259 100644
-> --- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-> @@ -176,6 +176,18 @@ static void pxp_queue_termination(struct intel_pxp *pxp)
->   	spin_unlock_irq(&gt->irq_lock);
->   }
->   
-> +static bool pxp_component_bound(struct intel_pxp *pxp)
-> +{
-> +	bool bound = false;
-> +
-> +	mutex_lock(&pxp->tee_mutex);
-> +	if (pxp->pxp_component)
-> +		bound = true;
-> +	mutex_unlock(&pxp->tee_mutex);
-> +
-> +	return bound;
-> +}
-> +
->   /*
->    * the arb session is restarted from the irq work when we receive the
->    * termination completion interrupt
-> @@ -187,6 +199,9 @@ int intel_pxp_start(struct intel_pxp *pxp)
->   	if (!intel_pxp_is_enabled(pxp))
->   		return -ENODEV;
->   
-> +	if (wait_for(pxp_component_bound(pxp), 250))
-> +		return -ENXIO;
-> +
->   	mutex_lock(&pxp->arb_mutex);
->   
->   	if (pxp->arb_is_valid)
+Jani Nikula (14):
+  drm/i915/guc: remove runtime info printing from time stamp logging
+  drm/i915: combine device info printing into one
+  drm/i915: add initial runtime info into device info
+  drm/i915: move graphics.ver and graphics.rel to runtime info
+  drm/i915: move fbc_mask to runtime info
+  drm/i915: move page_sizes to runtime info
+  drm/i915: move ppgtt_type and ppgtt_size to runtime info
+  drm/i915: move has_pooled_eu to runtime info
+  drm/i915: move memory_regions to runtime info
+  drm/i915: move platform_engine_mask to runtime info
+  drm/i915: move pipe_mask and cpu_transcoder_mask to runtime info
+  drm/i915: move has_hdcp to runtime info
+  drm/i915: move has_dmc to runtime info
+  drm/i915: move has_dsc to runtime info
+
+ drivers/gpu/drm/i915/display/intel_display.h  |   4 +-
+ drivers/gpu/drm/i915/display/intel_fbc.c      |   6 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     |   4 +-
+ drivers/gpu/drm/i915/display/intel_vdsc.c     |   2 +-
+ .../drm/i915/display/skl_universal_plane.c    |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     |   2 +-
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |  18 +-
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         |   2 +-
+ drivers/gpu/drm/i915/gt/intel_sseu.c          |   5 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   2 -
+ drivers/gpu/drm/i915/i915_debugfs.c           |   3 +-
+ drivers/gpu/drm/i915/i915_driver.c            |  11 +-
+ drivers/gpu/drm/i915/i915_drv.h               |  24 +-
+ drivers/gpu/drm/i915/i915_gem.c               |   3 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c         |   3 +-
+ drivers/gpu/drm/i915/i915_pci.c               | 242 +++++++++---------
+ drivers/gpu/drm/i915/intel_device_info.c      |  71 ++---
+ drivers/gpu/drm/i915/intel_device_info.h      |  82 +++---
+ drivers/gpu/drm/i915/intel_uncore.c           |   2 +-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |   8 +-
+ 21 files changed, 256 insertions(+), 242 deletions(-)
+
+-- 
+2.34.1
 
