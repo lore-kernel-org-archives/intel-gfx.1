@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24C06C28D13
-	for <intel-gfx@archiver.kernel.org>; Sat, 20 Aug 2022 01:00:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F921C28D13
+	for <intel-gfx@archiver.kernel.org>; Sat, 20 Aug 2022 01:09:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BB0510E1B6;
-	Sat, 20 Aug 2022 00:59:02 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A83A410E1B6
- for <intel-gfx@lists.freedesktop.org>; Sat, 20 Aug 2022 00:58:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C16110E1D8;
+	Sat, 20 Aug 2022 01:08:53 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6697610E1B4;
+ Sat, 20 Aug 2022 01:08:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660957133; x=1692493133;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=mqyh4pO45SkTximprPm8fk6cUJa+0pHIMLoEcCC1ev4=;
- b=GQ9B3RFvXwHqWzVX/N7MTz+z+j6G0JjxS3GZxjnZUzNExcSLg8Z9BBC0
- dH7nF4AzTpaFuPkewa4kq8+ldEcXbwtgpdFsebVQH7Beyjavtfln3/J0e
- z4/mNIkmqxIVPYHZJ1XkOZP1suX7mOhHR7vDUUYy0NM5xgYK1QdEINHQ6
- tv0/rxQVtcXBu1dx1f83fPXRxTujYpOXJpQ4xAZjkMroDTZDEg2adwksE
- aGPhdT+LBgTUtkd07Ak346ySItPPclRA95UHCwBZ6Rzo4Rv4BV4AME8Hk
- OZG/NFoCSqshjWdn4zpJleL9bS9ipfJcceX8TeXiqhK+DqR5ZTErZjRsh Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10444"; a="294411886"
-X-IronPort-AV: E=Sophos;i="5.93,249,1654585200"; d="scan'208";a="294411886"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2022 17:58:53 -0700
-X-IronPort-AV: E=Sophos;i="5.93,249,1654585200"; d="scan'208";a="676626681"
-Received: from cdhirema-mobl.amr.corp.intel.com (HELO
- anushasr-mobl7.intel.com) ([10.212.188.51])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2022 17:58:52 -0700
-From: Anusha Srivatsa <anusha.srivatsa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 19 Aug 2022 17:58:21 -0700
-Message-Id: <20220820005822.102716-4-anusha.srivatsa@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220820005822.102716-1-anusha.srivatsa@intel.com>
-References: <20220820005822.102716-1-anusha.srivatsa@intel.com>
+ t=1660957727; x=1692493727;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=PLr5/3tCpPnGLlDUsLHRth9BFJTaSjYoSejIVV5Inec=;
+ b=Ngs6l4q9JVhNpSImTSzTXCtU96x2Ct3iw9RvuxCWLFXnwE6PfsuR5XgX
+ PEF3OqeaFnRjmJcbXDdFDTRHYk182lbEZIRliLFTsuJnXky9uaBD2ox9w
+ ofLnXLaeYGXR7nSSGaYz4QHrzOYWKfHHY4cC0syDYKdc7qm4G+SKTv/Bo
+ k+RThxRxv3FewUTlC1RUNKgyyCkGLw10dqqv0NajtDradrnd/e1GlsnKD
+ p0D0gJnfM4bH8qlRGRFk8a8PIM3QAghYXD0O5MRnpsfg03QFKlDdO1VeC
+ 1klEKk2ULA3XDrLDC/Ogj+ZTZJISAs7FgpN50qGLKawgJ8HYWyrqft7MT g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10444"; a="273529147"
+X-IronPort-AV: E=Sophos;i="5.93,249,1654585200"; d="scan'208";a="273529147"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2022 18:08:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,249,1654585200"; d="scan'208";a="711518807"
+Received: from vbelgaum-ubuntu.fm.intel.com ([10.1.27.27])
+ by fmsmga002.fm.intel.com with ESMTP; 19 Aug 2022 18:08:46 -0700
+From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Fri, 19 Aug 2022 18:08:32 -0700
+Message-Id: <20220820010832.15350-1-vinay.belgaumkar@intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915/display:
- s/intel_cdclk_can_crawl/intel_cdclk_crawl
+Subject: [Intel-gfx] [PATCH v3] drm/i915/guc/slpc: Allow SLPC to use
+ efficient frequency
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,123 +55,210 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Apart from checking if crawling can be performed,
-accommodate accessing in-flight cdclk state for any changes
-that are needed during commit phase.
+Host Turbo operates at efficient frequency when GT is not idle unless
+the user or workload has forced it to a higher level. Replicate the same
+behavior in SLPC by allowing the algorithm to use efficient frequency.
+We had disabled it during boot due to concerns that it might break
+kernel ABI for min frequency. However, this is not the case since
+SLPC will still abide by the (min,max) range limits.
 
-v2: Move crawling steps to a switch case (anusha)
-Cc: Matt Roper <matthew.d.roper@intel.com>
+With this change, min freq will be at efficient frequency level at init
+instead of fused min (RPn). If user chooses to reduce min freq below the
+efficient freq, we will turn off usage of efficient frequency and honor
+the user request. When a higher value is written, it will get toggled
+back again.
 
-Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+The patch also corrects the register which needs to be read for obtaining
+the correct efficient frequency for Gen9+.
+
+We see much better perf numbers with benchmarks like glmark2 with
+efficient frequency usage enabled as expected.
+
+v2: Address review comments (Rodrigo)
+v3: with efficient frequency being dynamic, it is possible that the req
+frequency may go beyond max freq. This will cause SLPC selftests to fail.
+Add a FIXME there to start the test with [RPn, RP0] instead and restore
+it afterwards.
+
+BugLink: https://gitlab.freedesktop.org/drm/intel/-/issues/5468
+
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 45 +++++++++++++---------
- 1 file changed, 26 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_rps.c         |  7 ++-
+ drivers/gpu/drm/i915/gt/selftest_slpc.c     |  9 +++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 66 ++++-----------------
+ drivers/gpu/drm/i915/intel_mchbar_regs.h    |  3 +
+ 4 files changed, 31 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index f98fd48fe905..7bba10635c5e 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -38,6 +38,7 @@
- #include "intel_psr.h"
- #include "vlv_sideband.h"
- 
-+#define ADLP_CDCLK_CRAWL(dev_priv, vco)	(HAS_CDCLK_CRAWL(dev_priv) && dev_priv->cdclk.hw.vco > 0 && vco > 0)
- /**
-  * DOC: CDCLK / RAWCLK
-  *
-@@ -1727,10 +1728,7 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 		return;
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index c7d381ad90cf..8c289a032103 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -1107,7 +1107,12 @@ void gen6_rps_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *c
+ 		caps->min_freq = (rp_state_cap >>  0) & 0xff;
+ 	} else {
+ 		caps->rp0_freq = (rp_state_cap >>  0) & 0xff;
+-		caps->rp1_freq = (rp_state_cap >>  8) & 0xff;
++		if (GRAPHICS_VER(i915) >= 10)
++			caps->rp1_freq = REG_FIELD_GET(RPE_MASK,
++						       intel_uncore_read(to_gt(i915)->uncore,
++						       GEN10_FREQ_INFO_REC));
++		else
++			caps->rp1_freq = (rp_state_cap >>  8) & 0xff;
+ 		caps->min_freq = (rp_state_cap >> 16) & 0xff;
  	}
  
--	if (HAS_CDCLK_CRAWL(dev_priv) && dev_priv->cdclk.hw.vco > 0 && vco > 0) {
--		if (dev_priv->cdclk.hw.vco != vco)
--			adlp_cdclk_pll_crawl(dev_priv, vco);
--	} else if (DISPLAY_VER(dev_priv) >= 11) {
-+	if (!ADLP_CDCLK_CRAWL(dev_priv, vco) && DISPLAY_VER(dev_priv) >= 11) {
- 		if (dev_priv->cdclk.hw.vco != 0 &&
- 		    dev_priv->cdclk.hw.vco != vco)
- 			icl_cdclk_pll_disable(dev_priv);
-@@ -1748,18 +1746,21 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+diff --git a/drivers/gpu/drm/i915/gt/selftest_slpc.c b/drivers/gpu/drm/i915/gt/selftest_slpc.c
+index ac29691e0b1a..f8a1d27df272 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_slpc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_slpc.c
+@@ -166,6 +166,15 @@ static int run_test(struct intel_gt *gt, int test_type)
+ 		return -EIO;
+ 	}
  
- 	waveform = cdclk_squash_waveform(dev_priv, cdclk);
- 
--	if (waveform && has_cdclk_squasher(dev_priv)) {
--		clock = vco / 2;
-+	if ((waveform && has_cdclk_squasher(dev_priv)) || ADLP_CDCLK_CRAWL(dev_priv, vco)) {
- 		for (i = 0; i < MAX_CDCLK_ACTIONS; i++) {
- 			switch (cdclk_steps[i].action) {
-+			case INTEL_CDCLK_CRAWL:
-+				adlp_cdclk_pll_crawl(dev_priv, vco);
-+				clock = cdclk;
-+				break;
- 			case INTEL_CDCLK_SQUASH:
- 				waveform =  cdclk_squash_waveform(dev_priv, cdclk_steps[i].cdclk);
- 				squash_ctl = CDCLK_SQUASH_ENABLE |
- 					     CDCLK_SQUASH_WINDOW_SIZE(0xf) | waveform;
- 				intel_de_write(dev_priv, CDCLK_SQUASH_CTL, squash_ctl);
-+				clock = vco / 2;
- 				break;
- 			case INTEL_CDCLK_NOOP:
--			case INTEL_CDCLK_CRAWL:
- 			case INTEL_CDCLK_MODESET:
- 				break;
- 			default:
-@@ -1956,10 +1957,11 @@ void intel_cdclk_uninit_hw(struct drm_i915_private *i915)
- 		skl_cdclk_uninit_hw(i915);
- }
- 
--static bool intel_cdclk_can_crawl(struct drm_i915_private *dev_priv,
--				  const struct intel_cdclk_config *a,
--				  const struct intel_cdclk_config *b)
-+static bool intel_cdclk_crawl(struct drm_i915_private *dev_priv,
-+			      const struct intel_cdclk_state *a,
-+			      struct intel_cdclk_state *b)
- {
-+	struct cdclk_step *cdclk_transition = b->steps;
- 	int a_div, b_div;
- 
- 	if (!HAS_CDCLK_CRAWL(dev_priv))
-@@ -1969,13 +1971,18 @@ static bool intel_cdclk_can_crawl(struct drm_i915_private *dev_priv,
- 	 * The vco and cd2x divider will change independently
- 	 * from each, so we disallow cd2x change when crawling.
- 	 */
--	a_div = DIV_ROUND_CLOSEST(a->vco, a->cdclk);
--	b_div = DIV_ROUND_CLOSEST(b->vco, b->cdclk);
-+	a_div = DIV_ROUND_CLOSEST(a->actual.vco, a->actual.cdclk);
-+	b_div = DIV_ROUND_CLOSEST(b->actual.vco, b->actual.cdclk);
- 
--	return a->vco != 0 && b->vco != 0 &&
--		a->vco != b->vco &&
--		a_div == b_div &&
--		a->ref == b->ref;
-+	cdclk_transition[0].action = INTEL_CDCLK_CRAWL;
-+	cdclk_transition[0].cdclk = b->actual.cdclk;
-+	cdclk_transition[1].action = INTEL_CDCLK_NOOP;
-+	cdclk_transition[1].cdclk = b->actual.cdclk;
++	/*
++	 * FIXME: With efficient frequency enabled, GuC can request
++	 * frequencies higher than the SLPC max. While this is fixed
++	 * in GuC, we level set these tests with RPn as min.
++	 */
++	err = slpc_set_min_freq(slpc, slpc->min_freq);
++	if (err)
++		return err;
 +
-+	return a->actual.vco != 0 && b->actual.vco != 0 &&
-+		a->actual.vco != b->actual.vco &&
-+ 		a_div == b_div && 
-+		a->actual.ref == b->actual.ref;
+ 	if (slpc->min_freq == slpc->rp0_freq) {
+ 		pr_err("Min/Max are fused to the same value\n");
+ 		return -EINVAL;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+index e1fa1f32f29e..9d49ccef03bb 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+@@ -137,17 +137,6 @@ static int guc_action_slpc_set_param(struct intel_guc *guc, u8 id, u32 value)
+ 	return ret > 0 ? -EPROTO : ret;
  }
  
- static bool intel_cdclk_squash(struct drm_i915_private *dev_priv,
-@@ -2781,9 +2788,9 @@ int intel_modeset_calc_cdclk(struct intel_atomic_state *state)
- 			       new_cdclk_state)) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "Can change cdclk via squasher\n");
--	} else if (intel_cdclk_can_crawl(dev_priv,
--					 &old_cdclk_state->actual,
--					 &new_cdclk_state->actual)) {
-+	} else if (intel_cdclk_crawl(dev_priv,
-+				     old_cdclk_state,
-+				     new_cdclk_state)) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "Can change cdclk via crawl\n");
- 	} else if (pipe != INVALID_PIPE) {
+-static int guc_action_slpc_unset_param(struct intel_guc *guc, u8 id)
+-{
+-	u32 request[] = {
+-		GUC_ACTION_HOST2GUC_PC_SLPC_REQUEST,
+-		SLPC_EVENT(SLPC_EVENT_PARAMETER_UNSET, 1),
+-		id,
+-	};
+-
+-	return intel_guc_send(guc, request, ARRAY_SIZE(request));
+-}
+-
+ static bool slpc_is_running(struct intel_guc_slpc *slpc)
+ {
+ 	return slpc_get_state(slpc) == SLPC_GLOBAL_STATE_RUNNING;
+@@ -201,16 +190,6 @@ static int slpc_set_param(struct intel_guc_slpc *slpc, u8 id, u32 value)
+ 	return ret;
+ }
+ 
+-static int slpc_unset_param(struct intel_guc_slpc *slpc,
+-			    u8 id)
+-{
+-	struct intel_guc *guc = slpc_to_guc(slpc);
+-
+-	GEM_BUG_ON(id >= SLPC_MAX_PARAM);
+-
+-	return guc_action_slpc_unset_param(guc, id);
+-}
+-
+ static int slpc_force_min_freq(struct intel_guc_slpc *slpc, u32 freq)
+ {
+ 	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+@@ -491,6 +470,16 @@ int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val)
+ 
+ 	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+ 
++		/* Ignore efficient freq if lower min freq is requested */
++		ret = slpc_set_param(slpc,
++				     SLPC_PARAM_IGNORE_EFFICIENT_FREQUENCY,
++				     val < slpc->rp1_freq);
++		if (unlikely(ret)) {
++			i915_probe_error(i915, "Failed to toggle efficient freq (%pe)\n",
++					 ERR_PTR(ret));
++			return ret;
++		}
++
+ 		ret = slpc_set_param(slpc,
+ 				     SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
+ 				     val);
+@@ -587,7 +576,9 @@ static int slpc_set_softlimits(struct intel_guc_slpc *slpc)
+ 		return ret;
+ 
+ 	if (!slpc->min_freq_softlimit) {
+-		slpc->min_freq_softlimit = slpc->min_freq;
++		ret = intel_guc_slpc_get_min_freq(slpc, &slpc->min_freq_softlimit);
++		if (unlikely(ret))
++			return ret;
+ 		slpc_to_gt(slpc)->defaults.min_freq = slpc->min_freq_softlimit;
+ 	} else if (slpc->min_freq_softlimit != slpc->min_freq) {
+ 		return intel_guc_slpc_set_min_freq(slpc,
+@@ -597,29 +588,6 @@ static int slpc_set_softlimits(struct intel_guc_slpc *slpc)
+ 	return 0;
+ }
+ 
+-static int slpc_ignore_eff_freq(struct intel_guc_slpc *slpc, bool ignore)
+-{
+-	int ret = 0;
+-
+-	if (ignore) {
+-		ret = slpc_set_param(slpc,
+-				     SLPC_PARAM_IGNORE_EFFICIENT_FREQUENCY,
+-				     ignore);
+-		if (!ret)
+-			return slpc_set_param(slpc,
+-					      SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
+-					      slpc->min_freq);
+-	} else {
+-		ret = slpc_unset_param(slpc,
+-				       SLPC_PARAM_IGNORE_EFFICIENT_FREQUENCY);
+-		if (!ret)
+-			return slpc_unset_param(slpc,
+-						SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ);
+-	}
+-
+-	return ret;
+-}
+-
+ static int slpc_use_fused_rp0(struct intel_guc_slpc *slpc)
+ {
+ 	/* Force SLPC to used platform rp0 */
+@@ -679,14 +647,6 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
+ 
+ 	slpc_get_rp_values(slpc);
+ 
+-	/* Ignore efficient freq and set min to platform min */
+-	ret = slpc_ignore_eff_freq(slpc, true);
+-	if (unlikely(ret)) {
+-		i915_probe_error(i915, "Failed to set SLPC min to RPn (%pe)\n",
+-				 ERR_PTR(ret));
+-		return ret;
+-	}
+-
+ 	/* Set SLPC max limit to RP0 */
+ 	ret = slpc_use_fused_rp0(slpc);
+ 	if (unlikely(ret)) {
+diff --git a/drivers/gpu/drm/i915/intel_mchbar_regs.h b/drivers/gpu/drm/i915/intel_mchbar_regs.h
+index 2aad2f0cc8db..ffc702b79579 100644
+--- a/drivers/gpu/drm/i915/intel_mchbar_regs.h
++++ b/drivers/gpu/drm/i915/intel_mchbar_regs.h
+@@ -196,6 +196,9 @@
+ #define   RP1_CAP_MASK				REG_GENMASK(15, 8)
+ #define   RPN_CAP_MASK				REG_GENMASK(23, 16)
+ 
++#define GEN10_FREQ_INFO_REC			_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5ef0)
++#define   RPE_MASK				REG_GENMASK(15, 8)
++
+ /* snb MCH registers for priority tuning */
+ #define MCH_SSKPD				_MMIO(MCHBAR_MIRROR_BASE_SNB + 0x5d10)
+ #define   SSKPD_NEW_WM0_MASK_HSW		REG_GENMASK64(63, 56)
 -- 
-2.25.1
+2.35.1
 
