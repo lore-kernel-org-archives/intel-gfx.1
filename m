@@ -4,55 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DE04C38145
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Aug 2022 03:25:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDECEC32792
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Aug 2022 03:35:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73D7B979B2;
-	Mon, 22 Aug 2022 03:25:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7259297AEE;
+	Mon, 22 Aug 2022 03:35:18 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9AD1979BE;
- Mon, 22 Aug 2022 03:25:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AA9C12AD69
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Aug 2022 03:35:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661138720; x=1692674720;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=Y3ovRiS85wDRnSLOM39XlOUg9tP6xmiL2hckOaC0WmA=;
- b=OcFuUsvKD07kEcoADjvzPxTqTdgJcG1LJ0Q2WY5uMbsXq90P96y9MHdB
- HIIJZj2Jx9qWqwiy51sgPlPKD5XjLUin5RLqMH5/LS7SzhiXENPJcMTD9
- GL8M5QHI9fqlicIyz6ODZpQFXdVTmM+mcZewVZSF71mpHUB2YIgEY2vAU
- ewzyuPMcfNdC3YwvMU/1CMMiDD3RzVs3TbCfAYUVxYauEvu3poUzHnvG4
- V7jCSt1RNfO8u7eEzDSnEWaTnFH58rzdGP+gW1Im6WD2ajJDvBjoD+VDK
- 6WIwePvbqWwdey9t1wUnF0kb2WyELRboiQ9sKQ5v94eStPI1ML3gHzMJa g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10446"; a="357293022"
-X-IronPort-AV: E=Sophos;i="5.93,254,1654585200"; 
- d="asc'?scan'208";a="357293022"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ t=1661139302; x=1692675302;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=GaK0B/m/eYkqqs4cevTkOaGeJ7vA06cbusmcTV5FwCQ=;
+ b=jU4ix5ioqJ/EeN0zXN6W3kPexga+Yjmgol8DbGutXhTycTOmnu4mS7hs
+ EuXT+w/WMidRws61Z8C3le9A/IIYmrYpTb0xMUlBwGk8ubP0mcORmzhpY
+ ZjvmB6le1YsDfVeujxUeM8hj1rqLaJ1xu+CcWrlntQaWdlYeI3gMBaVRa
+ pgEwgqvYdya6+s4ic2aykdTM6AHsEZarXThTq1O783Iyqw8F4dHQcjh9Y
+ UKSbEK1LQgOrSQpgKshMNz3odJ+xTn0ov5udS2R0D800eTn3+E2Kr5EOT
+ cWQbiMMUX6tPswVOcxFm3MIZZpVSfV9AZBdMuulVUnCVCGyflOTvHuPPx A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10446"; a="357294170"
+X-IronPort-AV: E=Sophos;i="5.93,254,1654585200"; d="scan'208";a="357294170"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2022 20:25:19 -0700
+ 21 Aug 2022 20:35:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,254,1654585200"; 
- d="asc'?scan'208";a="611884732"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.159.108])
- by fmsmga007.fm.intel.com with ESMTP; 21 Aug 2022 20:25:17 -0700
-Date: Mon, 22 Aug 2022 11:00:16 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>
-Message-ID: <20220822030016.GI1089@zhen-hp.sh.intel.com>
-References: <20220815023855.GF1089@zhen-hp.sh.intel.com>
- <YvrXnUnnot139qKL@intel.com>
- <20220816040508.GG1089@zhen-hp.sh.intel.com>
- <20220816044303.GH1089@zhen-hp.sh.intel.com>
- <116bdd80d399da39a6ba3f3d2f71a1f78e2b026f.camel@intel.com>
- <9f6e3433-5748-b7e4-bbc6-b0e47cb9d1c5@gmail.com>
- <875yipq2m2.fsf@intel.com> <87wnb5ocdl.fsf@intel.com>
- <bc33d83b5dd01bddd96ec787fa2b948a04cdd3b5.camel@intel.com>
+X-IronPort-AV: E=Sophos;i="5.93,254,1654585200"; d="scan'208";a="605156505"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by orsmga007.jf.intel.com with ESMTP; 21 Aug 2022 20:35:01 -0700
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Sun, 21 Aug 2022 20:35:01 -0700
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Sun, 21 Aug 2022 20:35:01 -0700
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.105)
+ by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.28; Sun, 21 Aug 2022 20:35:00 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nstNjaaZstXTEvoHTrXlQF4FTe25PdrXdtX5VJN6JJlF1WyLmaJturxs1RiPgXVHa70kDNpykKawAlo/m0/hvhFL4MY7GIK9Cu6xQQaiwN0vcMduB3M5UTvUNmMe45w0L7xsYS3yRih586mZeXlLCfET1EXoLCRooI5jteVX58BdFutNfdxyEzyNhYCCBcuOAb+sfmhE1IHyz6DVzLcA/2584xCZ7hCqncVq9LaPzI8RMDf57guT69B3d+GxiNn6O5CQasZ6TrIxlUsw81DzQ4rM9LeetBp4ZB06m0bE3/OX4T0sx5idte209sFWk1+2spfI/op/owCZlffGdjcC5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rlNMNxuDbNnG1AO38OqR361bMVYKl2+cVj4UbZR0E2w=;
+ b=Fcf/3hrX0wNEUQkxT/IaYEEwBHkJyQl5LBWVUv6dUHegbVoEj/kSl9gImrv6kHMV8SWLGYrwszYaEq1pkh6pmDRuXkNndRRq+JdXFHb+YN9FAOForfvI1yWDOciW/PUhDIn56wnTXXcMIbmIq2w69c7g6bXeDuvlIa90w/BKW2AD5hf9thcbHlim6Fom4WnZN4GLnmKL4ePKB/ZoHhjVB7WUWVgUF6g3cqyXuPha1LZwDDLiYZIozNjrBn+4x07xKeEfJ2i+KfPt2D0tA6r1stwNbrz/Rk92NbXblipuHrOGR/r1qkXd/tXiHg66c20tncz7xqJ3TjuiT4XP8YaAag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM6PR11MB3177.namprd11.prod.outlook.com (2603:10b6:5:c::28) by
+ SJ0PR11MB4958.namprd11.prod.outlook.com (2603:10b6:a03:2ae::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.21; Mon, 22 Aug
+ 2022 03:34:58 +0000
+Received: from DM6PR11MB3177.namprd11.prod.outlook.com
+ ([fe80::d48c:d05e:cd54:3ae1]) by DM6PR11MB3177.namprd11.prod.outlook.com
+ ([fe80::d48c:d05e:cd54:3ae1%5]) with mapi id 15.20.5546.022; Mon, 22 Aug 2022
+ 03:34:58 +0000
+From: "Murthy, Arun R" <arun.r.murthy@intel.com>
+To: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCHv3] drm/i915/display: add support for dual panel backlight
+Thread-Index: AQHYpxHxLhgyy+9ly0Cu9FgOeCjM2a2kZ+oAgBX6GwA=
+Date: Mon, 22 Aug 2022 03:34:58 +0000
+Message-ID: <DM6PR11MB3177FBBE02F3E7EA9F8312BBBA719@DM6PR11MB3177.namprd11.prod.outlook.com>
+References: <20220803082010.2952698-1-arun.r.murthy@intel.com>
+ <20220808035750.3111046-1-arun.r.murthy@intel.com>
+In-Reply-To: <20220808035750.3111046-1-arun.r.murthy@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.6.500.17
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 36019961-a72e-4bbc-5b0c-08da83ef49f4
+x-ms-traffictypediagnostic: SJ0PR11MB4958:EE_
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: NgI0n+rfEgiRTcWFiAAgJUs9m4PapT1ZTpl5t5iOVUxXmlAN3YtdYC9Z/jbe7bPOJCqxyHYcTq+3o20ol/wb+I5rV0Lksqtf8tunanxbmepO+QSQOa75QCZS/O6ryK6aHFtM1pPKX6HKisU4+hmMeWGu2Pg7AAuLZ2s+yXxLVDJSFCvEG1/K3/4iKs7CTJ1zjqIP27+cRQATinHi6fV+FfbyzpXmgUu9rd3Q0bMAnlYaRg3CjBQJy0plxWYYp22Phllte/pmyuV7MRsjD77OY4DegQHpGY1QR5y84/9P9CmD1LoO+GH1K7dnCLMrvfdm3Ckj3/q2Lcd1ij+Ft5b5OAj+X05S6Ez3tJbJat64NjLXUQrqZFM3QyXOnfCalJSzv/UaonOtpeRS0IRXvqB5yvqk0eXsgBaY1dkdoBBkhhPOi7OZ2BfT3qnkpQv1C8oLfYFLzozBoLlTfjLE+gtmApk3LnsNUbDzf0UvDjH0NdlUB9Qqu2TfPiPJ/dP/qW6L1sL2lwTpyWhkDqiLewNONHxqU6Nbxyj0wK+98F0jamTiW94+kXAIjv/L2zzVcVi3jDUAkgosvyRZJFpdiXLfZIEStaawqOHRW4AVpUxZoaIkq3/CCc5SKzQF3XfJjQ/KVGsqTtVYRtbtv8sLKqHfIwjgoRsKL2p1XHp4e3yAeNM8zTViL1FAmWZziQpmE3JToLeCOOkW/AFQpvBWaVXcE9QPtpKyeMy8e7xWF/W9MTTMX4fQmKwu7l7jF3T/czIJ9wEkE8MGPDvo3aFkmuVKJw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB3177.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(366004)(39860400002)(346002)(376002)(136003)(396003)(55016003)(38100700002)(38070700005)(83380400001)(66556008)(64756008)(66476007)(66446008)(76116006)(71200400001)(316002)(4326008)(6916009)(66946007)(8676002)(9686003)(26005)(33656002)(2906002)(6506007)(7696005)(86362001)(5660300002)(107886003)(55236004)(53546011)(186003)(82960400001)(41300700001)(478600001)(52536014)(122000001)(8936002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?3U87/tbvOt4mtLZHjNpxIMTuUL0JUktvnCQRwTvA10wWtxzcCRN4gj0Ft+fa?=
+ =?us-ascii?Q?Uz/7JuZCWuhWtpN3CmvBO5waNZi16eY4QnVg4QkeGNf9ck2qmjD80bbCAiF1?=
+ =?us-ascii?Q?mxefKdXk2kfu9skbQ4WGIvn6R4Oc5CxgphvxVVCq1M0h+N8KosRCZkEuphST?=
+ =?us-ascii?Q?DnZEuVEpsmRN1s/s5mmORSosAZBrISCe0tsEvFqeXhD96tfloJ9HKi4K1NMx?=
+ =?us-ascii?Q?o69LtUo8iWUYK70hJ6AIHSCE7DkQUM46N315xzj0po9NU9LFZ/nDjDp2suKh?=
+ =?us-ascii?Q?nSDuToo/zALeT3FAzmBRVzh0Iol+OCrDpbWKuHtICNo4+8flasQNezTt2lkW?=
+ =?us-ascii?Q?WORt9Ct4WTGaeEtGcKJdClIwrZAwiXXv7b2Pu507GH2zkezJn39F6itcrWCZ?=
+ =?us-ascii?Q?GP4QQ7bT5fjR2uGJ6XNBhxjrgwV5oTTj9pwrX/+RGjUBaeb+0Wd8DbEAq7Tg?=
+ =?us-ascii?Q?1h7sAq1dK4u5Rt34pGujobaUgyK9gPLyXxobgajbhxPM2ByJIfvnCxcwmDke?=
+ =?us-ascii?Q?/MfiQPbLa3NeqCUfIRBIyq0upnviCuMVnp3/pe7HoZtHJYkK9qwYQnhpT/vh?=
+ =?us-ascii?Q?2CNT9pDRaWPL4RET0KiO1IF/nHeqJT9yNVuqvTTPUgwwoZRrcDTfXwne/ivP?=
+ =?us-ascii?Q?h2mTcqf5y3kfiQfuKCUgYg2RQj46GvaRtEItIwxT3OsAEm2B1gSAca8zTzPJ?=
+ =?us-ascii?Q?PItTrMt2fjnqs7E3eqYHr/16SMh0SeslZMZFI7QPt7t9oMnSRcvJT8IZFzg/?=
+ =?us-ascii?Q?k3o/X0WaXXWK8dQ2WGr+il8LLOTQDH6579OeylT3hOUnQkWLFGUTs5wXByhf?=
+ =?us-ascii?Q?JJ3wbtfnb1/p6/X3ZlIGjukN5ApvTa6QPsBv0kIGxg1ExEK3LE7CukMI0HGA?=
+ =?us-ascii?Q?nCyv2yU+942H7gWNHbOABhctt7X8aWlcs4QS6NKyBPQcuEKh0l6eod5iyiiV?=
+ =?us-ascii?Q?9EvmEc+NnMfXb5Iy3vaPiS4gbpGC7lqPWX3l73evVVN/oHRrFjuAmzRJ8wu6?=
+ =?us-ascii?Q?NuXMRfwIQ+Qpaqz/2hMBP03a1KBdMR/0nJ5ojrjpofM7eyyxeN1YFcZIBgT2?=
+ =?us-ascii?Q?sxWjVFIb5/DckkbtS205LjvykNd1MI8AjC+bzrIKkCpNrMEQRTCXtbHzBJBy?=
+ =?us-ascii?Q?Ujto4dUWGIRPGO3s1HJ+MArLs9GE4JWj6m2Ua6xvrg3kJlU3wA4DNwLv4yk+?=
+ =?us-ascii?Q?P6pClbcMRceZiwmD48sv3grOLQqh4jQCZ4ZFH4jiHQvhDGS29e/B5mwJjy97?=
+ =?us-ascii?Q?bOcMynpNOKRMc1lh6TJgy/uxQ6jj9X0fh+/jLDiJyo9oF+0N+bP4duiCVOHd?=
+ =?us-ascii?Q?PcYPrsaOCP0jJ37O/OlxApkrct1SHub/UwG16joxXSkoftpav/4JlnGNNwub?=
+ =?us-ascii?Q?N450keqsG28pdy9dJd/JGVTWNeQPwqEepcTMAh5iMkLaqn7Qou5NsC/k8r7R?=
+ =?us-ascii?Q?EMpInFxE6FIxcxohBRkFVlYdH5n0Cq866LKMiRxckksAQOYv5QCCXwpVfB+Y?=
+ =?us-ascii?Q?W/Z2l32NKjkLe9RRR+6Dt3MiXg3lMh7jiITbKR297MoYnGObic+cdWBXpOqv?=
+ =?us-ascii?Q?6uhxxLYYPh0E1KYzfoMWnGmbl6KyJgLJRAJUG9+w?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="EecmvZxDifkbrwfl"
-Content-Disposition: inline
-In-Reply-To: <bc33d83b5dd01bddd96ec787fa2b948a04cdd3b5.camel@intel.com>
-Subject: Re: [Intel-gfx] [PULL] gvt-fixes
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3177.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36019961-a72e-4bbc-5b0c-08da83ef49f4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Aug 2022 03:34:58.6894 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: L71/0DpR5euC1cO+KwVKq7J5161QwRPBL11LdVPyJS4AjHcUB4cIxXMjSMJGTPYCV6Z7DAC+AP9gpZ/KNiA10A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4958
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCHv3] drm/i915/display: add support for dual
+ panel backlight
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,122 +149,100 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: "Nikula, Jani" <jani.nikula@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "colin.i.king@gmail.com" <colin.i.king@gmail.com>, "King,
- Colin" <colin.king@intel.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- "Lv, Zhiyuan" <zhiyuan.lv@intel.com>
+Cc: "Nikula, Jani" <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Gentle Reminder!
 
---EecmvZxDifkbrwfl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks and Regard,
+Arun R Murthy
+--------------------
 
-On 2022.08.18 15:43:32 +0000, Vivi, Rodrigo wrote:
-> On Thu, 2022-08-18 at 17:27 +0300, Jani Nikula wrote:
+> -----Original Message-----
+> From: Murthy, Arun R <arun.r.murthy@intel.com>
+> Sent: Monday, August 8, 2022 9:28 AM
+> To: intel-gfx@lists.freedesktop.org
+> Cc: Nikula, Jani <jani.nikula@intel.com>; Murthy, Arun R
+> <arun.r.murthy@intel.com>
+> Subject: [PATCHv3] drm/i915/display: add support for dual panel backlight
 >=20
->     On Thu, 18 Aug 2022, Jani Nikula <jani.nikula@intel.com> wrote:
+> The patch with commit 20f85ef89d94 ("drm/i915/backlight: use unique
+> backlight device names") already adds support for dual panel backlight bu=
+t
+> with error prints. Since the patch tried to create the backlight device w=
+ith the
+> same name and upon failure will try with a different name it leads to fai=
+lure
+> logs in dmesg inturn getting caught by CI.
 >=20
->         On Wed, 17 Aug 2022, "Colin King (gmail)" <colin.i.king@gmail.com>
->         wrote:
+> This patch alternately will check if the backlight class of same name exi=
+sts,
+> will use a different name.
 >=20
->             On 17/08/2022 21:07, Vivi, Rodrigo wrote:
+> v2: reworked on top of the patch commit 20f85ef89d94
+> ("drm/i915/backlight: use unique backlight device names")
+> v3: fixed the ref count leak(Jani N)
 >=20
->                 On Tue, 2022-08-16 at 12:43 +0800, Zhenyu Wang wrote:
+> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+> ---
+>  .../gpu/drm/i915/display/intel_backlight.c    | 26 +++++++++----------
+>  1 file changed, 12 insertions(+), 14 deletions(-)
 >=20
->                     On 2022.08.16 12:05:08 +0800, Zhenyu Wang wrote:
+> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c
+> b/drivers/gpu/drm/i915/display/intel_backlight.c
+> index 110fc98ec280..931446413372 100644
+> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+> @@ -971,26 +971,24 @@ int intel_backlight_device_register(struct
+> intel_connector *connector)
+>  	if (!name)
+>  		return -ENOMEM;
 >=20
->                         On 2022.08.15 19:32:45 -0400, Rodrigo Vivi wrote:
+> -	bd =3D backlight_device_register(name, connector->base.kdev,
+> connector,
+> -				       &intel_backlight_device_ops, &props);
+> -
+> -	/*
+> -	 * Using the same name independent of the drm device or connector
+> -	 * prevents registration of multiple backlight devices in the
+> -	 * driver. However, we need to use the default name for backward
+> -	 * compatibility. Use unique names for subsequent backlight devices
+> as a
+> -	 * fallback when the default name already exists.
+> -	 */
+> -	if (IS_ERR(bd) && PTR_ERR(bd) =3D=3D -EEXIST) {
+> +	bd =3D backlight_device_get_by_name(name);
+> +	if (bd) {
+> +		put_device(&bd->dev);
+> +		/*
+> +		 * Using the same name independent of the drm device or
+> connector
+> +		 * prevents registration of multiple backlight devices in the
+> +		 * driver. However, we need to use the default name for
+> backward
+> +		 * compatibility. Use unique names for subsequent backlight
+> devices as a
+> +		 * fallback when the default name already exists.
+> +		 */
+>  		kfree(name);
+>  		name =3D kasprintf(GFP_KERNEL, "card%d-%s-backlight",
+>  				 i915->drm.primary->index, connector-
+> >base.name);
+>  		if (!name)
+>  			return -ENOMEM;
+> -
+> -		bd =3D backlight_device_register(name, connector->base.kdev,
+> connector,
+> -					       &intel_backlight_device_ops,
+> &props);
+>  	}
+> +	bd =3D backlight_device_register(name, connector->base.kdev,
+> connector,
+> +				       &intel_backlight_device_ops, &props);
 >=20
->                             On Mon, Aug 15, 2022 at 10:38:55AM +0800, Zhe=
-nyu
->                             Wang wrote:
->=20
->                     oh, surprise! I just found Colin's email is actually
->                     defined in
->                     .mailmap,
->                     so all his commits in kernel are changed for @intel.c=
-om
->                     address as in
->                     mailmap...
->=20
->=20
->                 Colin, would you mind to get the Sign-off-by in the patch=
-es the
->                 same
->                 as your authorship so the tools don't get confused?
->                 (starting with modifying in tree this already merged patc=
-h)
->=20
->=20
->             Since my patches are generally trivial janitorial fixed done =
-in my
->             spare
->             time I'm going to get the .mailmap changed to use my gmail em=
-ail
->             address
->             rather than my Intel one (since I don't do kernel work in my
->             current role).
->=20
->             This should clean up the confusion. Apologies.
->=20
->=20
->         Everyone hold your horses.
->=20
->         I think our tooling should handle the mailmap stuff. The commit *=
-is*
->         fine, it's just that the when we check it, we let mailmap alter i=
-t. We
->         should check the commit without mailmap modifications.
->=20
->=20
->     In this case, it's actually not about Colin's Signed-off-by or mailmap
->     at all! Like the error message from dim says, "committer Signed-off-by
->     missing". Committer, not author!
->=20
->     $ git show -s tags/gvt-fixes-2022-08-15^ --pretty=3Dfuller
->     commit d6632370536d0b80be3bfc90dd67e1f693335a75
->     Author:     Colin Ian King <colin.king@intel.com>
->     AuthorDate: Tue Mar 15 20:24:49 2022 +0000
->     Commit:     Zhenyu Wang <zhenyuw@linux.intel.com>
->     CommitDate: Mon Aug 15 10:51:15 2022 +0800
->=20
->         drm/i915/reg: Fix spelling mistake "Unsupport" -> "Unsupported"
->       =20
->         There is a spelling mistake in a gvt_vgpu_err error message. Fix =
-it.
->       =20
->         Fixes: 695fbc08d80f ("drm/i915/gvt: replace the gvt_err with
->     gvt_vgpu_err")
->         Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
->         Signed-off-by: Zhi Wang <zhi.a.wang@intel.com>
->         Link: http://patchwork.freedesktop.org/patch/msgid/
->     20220315202449.2952845-1-colin.i.king@gmail.com
->         Reviewed-by: Zhi Wang <zhi.a.wang@intel.com>
->=20
->     Committed by Zhenyu, Signed-off-by Zhi. Maybe caused by rebase by Zhe=
-nyu
->     after being committed by Zhi?
->=20
->=20
-> Probably easier if you could rebase it again signing it then?
->
+>  	if (IS_ERR(bd)) {
+>  		drm_err(&i915->drm,
+> --
+> 2.25.1
 
-Oops, sorry about that, will re-send.
-
---EecmvZxDifkbrwfl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYwLxNQAKCRCxBBozTXgY
-J1pCAJ0dr1WihxRZVV1JCbzpo60XwfenPwCfWwFfRNnDHXX1Rs5W4Vrezv4YGnI=
-=f+mi
------END PGP SIGNATURE-----
-
---EecmvZxDifkbrwfl--
