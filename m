@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFBC5C28D13
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Aug 2022 10:55:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D307EC28D13
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Aug 2022 10:55:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EEA9112411;
-	Mon, 22 Aug 2022 10:55:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B45AE112417;
+	Mon, 22 Aug 2022 10:55:10 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B98591123A0
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Aug 2022 10:54:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0722011237C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Aug 2022 10:55:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661165694; x=1692701694;
+ t=1661165702; x=1692701702;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ZgDzaRnqBLrubKzrk+l9vKZDKsYoMNnp3wtwJHmya/g=;
- b=I2deYOUEH/YtfWehnQ0saaCjiadq7IXaMWIk0CUVeDwnKtwBXXqOnj18
- tdsZ0dl0X4+lOyFaJYlsID3OLfD+/opoirvjVAT8eIGl6WPcBjNASz0dL
- 0xtVLhfqadWLsvKPBg9A167MW78JfFpA8M3d0rbh6KAWCu1O6j5y/3gCC
- 1GySJo1oz6md7CmE91yrbODWEjMvRoFZVENTOLx7104TeFfDNGPqngv40
- 6spjuMHCiVkOOnF/xcWwO0OV2yDYLLOAGUtVSW+R1dcqatJpTeRr6tDRS
- LjlY+bXZXtKThaXW6Yroz7SXmxVvlfhrinRRmIm3WM85F0p+n9MiFFL6K g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10446"; a="280353979"
-X-IronPort-AV: E=Sophos;i="5.93,254,1654585200"; d="scan'208";a="280353979"
+ bh=1HyfYkmuO5+3Xe/OJlp96IIfwmkHxKg0Vliv2pWXfDk=;
+ b=cvw9hpwmBiBwfT0nPCicmh3WYx/rrEwqS/brYUg/R0QzqFzZX0gMvH3p
+ NjiCY+3PXPZae3NNtrIu1y1oDcwCIAh5sgsDPUwPHArUuUf3nLwXCYVp4
+ NriwGmE67TLpf5NMHFy31lYYdbgTruclqwkqtsyPHdIdaZ8z+C/UPI3zi
+ rxAH1iQeCsHRL3q/19+IjK/H/lY/spqO+/btDHDJo9kzxsZ4OpUrMTVQH
+ d9IReQk/uLWv/GVyZPMrHnI9q5lTxvYDykfZ56yx2usP7wj/jHpbyBl7T
+ GdwPR6/fP6+0UG2cDjl7d/m0EqsWQXBulTgaWkdj7QeDYgOjfRjtlIRd9 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10446"; a="280353995"
+X-IronPort-AV: E=Sophos;i="5.93,254,1654585200"; d="scan'208";a="280353995"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2022 03:54:54 -0700
-X-IronPort-AV: E=Sophos;i="5.93,254,1654585200"; d="scan'208";a="585474033"
+ 22 Aug 2022 03:55:01 -0700
+X-IronPort-AV: E=Sophos;i="5.93,254,1654585200"; d="scan'208";a="585474063"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2022 03:54:52 -0700
+ 22 Aug 2022 03:54:59 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 22 Aug 2022 16:24:22 +0530
-Message-Id: <20220822105426.3521960-2-ankit.k.nautiyal@intel.com>
+Date: Mon, 22 Aug 2022 16:24:25 +0530
+Message-Id: <20220822105426.3521960-5-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220822105426.3521960-1-ankit.k.nautiyal@intel.com>
 References: <20220822105426.3521960-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/5] drm/i915/dp: Add helper to check DSC1.2 for
- HDMI2.1 DFP
+Subject: [Intel-gfx] [PATCH 4/5] drm/i915/dp: Handle BPP where HDMI2.1 DFP
+ doesn't support DSC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,52 +59,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add helper function to check if Downstream HDMI 2.1 sink supports
-DSC1.2.
+Currently we use the highest input BPC supported by DP sink while using
+DSC.In cases where PCON with HDMI2.1 as branch device, if PCON supports
+DSC but HDMI2.1 sink does not supports DSC, The PCON tries to use same
+input BPC that is used between Source and the PCON without DSC, which
+might not work even with the maximum FRL rate supported by HDMI2.1
+sink.
+
+This patch calculates the max BPC that can be sufficient with either
+RGB or YCBCR420 format for the maximum FRL rate supported.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 90 ++++++++++++++++++++++++-
+ 1 file changed, 89 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 32292c0be2bd..fdf82373a22d 100644
+index 8ccbe591b9e2..f0a62f71904e 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -118,6 +118,15 @@ bool intel_dp_is_edp(struct intel_dp *intel_dp)
+@@ -117,6 +117,7 @@ bool intel_dp_is_edp(struct intel_dp *intel_dp)
+ 
  static void intel_dp_unset_edid(struct intel_dp *intel_dp);
  static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 dsc_max_bpc);
++static bool intel_dp_is_hdmi_2_1_sink(struct intel_dp *intel_dp);
  
-+static bool
-+is_dfp_hdmi_sink_dsc_1_2(struct intel_dp *intel_dp)
+ static bool
+ is_dfp_hdmi_sink_dsc_1_2(struct intel_dp *intel_dp)
+@@ -1455,6 +1456,74 @@ static int intel_dp_dsc_compute_params(struct intel_encoder *encoder,
+ 	return drm_dsc_compute_rc_parameters(vdsc_cfg);
+ }
+ 
++static int
++_intel_dp_pcon_hdmi21_get_bpp_nodsc(struct intel_dp *intel_dp,
++				    const struct drm_display_mode *adjusted_mode,
++				    int max_bpc, bool is_ycbcr420)
 +{
 +	struct intel_connector *intel_connector = intel_dp->attached_connector;
 +	struct drm_connector *connector = &intel_connector->base;
++	int i, num_bpc;
++	u8 dsc_bpc[3] = {0};
++	int req_rate_gbps;
++	int max_frl_rate = connector->display_info.hdmi.max_lanes *
++			   connector->display_info.hdmi.max_frl_rate_per_lane;
 +
-+	return connector->display_info.hdmi.dsc_cap.v_1p2;
++	/*
++	 * Currently DSC with Ycbcr420 is not supported. So for modes with Ycbcr420,
++	 * DSC will use RGB and support for RGB->YCBCR444->YCBCR420 conversion is
++	 * required from DP HDMI2.1 PCON.
++	 */
++	if (is_ycbcr420 && !(intel_dp->dfp.rgb_to_ycbcr || intel_dp->dfp.ycbcr_444_to_420))
++		return 0;
++
++	num_bpc = drm_dp_dsc_sink_supported_input_bpcs(intel_dp->dsc_dpcd,
++						       dsc_bpc);
++	for (i = 0; i < num_bpc; i++) {
++		if (dsc_bpc[i] > max_bpc)
++			continue;
++
++		req_rate_gbps = DIV_ROUND_UP(dsc_bpc[i] * 3 * adjusted_mode->clock, 1000000);
++
++		/* YCBCR420 reduces data rate by 2 */
++		if (is_ycbcr420)
++			req_rate_gbps /= 2;
++
++		if (req_rate_gbps < max_frl_rate)
++			return dsc_bpc[i] * 3;
++	}
++
++	return 0;
 +}
 +
- /* Is link rate UHBR and thus 128b/132b? */
- bool intel_dp_is_uhbr(const struct intel_crtc_state *crtc_state)
- {
-@@ -2393,7 +2402,7 @@ static int intel_dp_hdmi_sink_max_frl(struct intel_dp *intel_dp)
- 	rate_per_lane = connector->display_info.hdmi.max_frl_rate_per_lane;
- 	max_frl_rate = max_lanes * rate_per_lane;
++static int
++intel_dp_pcon_hdmi21_get_bpp_nodsc(struct intel_dp *intel_dp,
++				   struct intel_crtc_state *pipe_config,
++				   int max_bpc)
++{
++	const struct drm_display_mode *adjusted_mode =
++		&pipe_config->hw.adjusted_mode;
++	struct intel_connector *connector = intel_dp->attached_connector;
++	const struct drm_display_info *info = &connector->base.display_info;
++	bool is_ycbcr420 = drm_mode_is_420_only(info, adjusted_mode);
++	int pipe_bpp;
++
++	pipe_bpp = _intel_dp_pcon_hdmi21_get_bpp_nodsc(intel_dp, adjusted_mode,
++						       max_bpc, is_ycbcr420);
++	if (!pipe_bpp && !is_ycbcr420 && drm_mode_is_420_also(info, adjusted_mode)) {
++		is_ycbcr420 = true;
++		pipe_bpp = _intel_dp_pcon_hdmi21_get_bpp_nodsc(intel_dp, adjusted_mode,
++							       max_bpc, is_ycbcr420);
++	}
++
++	if (!pipe_bpp && is_ycbcr420) {
++		pipe_config->dp_dfp_config.rgb_to_ycbcr = true;
++		pipe_config->dp_dfp_config.ycbcr_444_to_420 = true;
++	}
++
++	return pipe_bpp;
++}
++
+ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				       struct intel_crtc_state *pipe_config,
+ 				       struct drm_connector_state *conn_state,
+@@ -1473,7 +1542,26 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
+ 		return -EINVAL;
  
--	if (connector->display_info.hdmi.dsc_cap.v_1p2) {
-+	if (is_dfp_hdmi_sink_dsc_1_2(intel_dp)) {
- 		max_dsc_lanes = connector->display_info.hdmi.dsc_cap.max_lanes;
- 		dsc_rate_per_lane = connector->display_info.hdmi.dsc_cap.max_frl_rate_per_lane;
- 		if (max_dsc_lanes && dsc_rate_per_lane)
-@@ -2605,7 +2614,7 @@ intel_dp_pcon_dsc_configure(struct intel_dp *intel_dp,
- 	if (!intel_connector)
- 		return;
- 	connector = &intel_connector->base;
--	hdmi_is_dsc_1_2 = connector->display_info.hdmi.dsc_cap.v_1p2;
-+	hdmi_is_dsc_1_2 = is_dfp_hdmi_sink_dsc_1_2(intel_dp);
+-	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
++	/*
++	 * In cases where PCON with HDMI2.1 as branch device, if PCON supports
++	 * DSC but HDMI2.1 sink does not supports DSC, The PCON tries to use same
++	 * input DSC bpc that is used between Source and PCON with Ycbcr420
++	 * format.
++	 * So use the max BPC that will be sufficient to show the mode in YCbcr420
++	 * without DSC from PCON->HDMI2.1
++	 */
++	if (intel_dp_is_hdmi_2_1_sink(intel_dp) &&
++	    !is_dfp_hdmi_sink_dsc_1_2(intel_dp)) {
++		pipe_bpp = intel_dp_pcon_hdmi21_get_bpp_nodsc(intel_dp, pipe_config,
++							      conn_state->max_requested_bpc);
++		if (!pipe_bpp) {
++			drm_dbg_kms(&dev_priv->drm,
++				    "No BPC possible to support the mode without HDMI2.1 DSC\n");
++			return -EINVAL;
++		}
++	} else {
++		pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
++	}
  
- 	if (!drm_dp_pcon_enc_is_dsc_1_2(intel_dp->pcon_dsc_dpcd) ||
- 	    !hdmi_is_dsc_1_2)
+ 	/* Min Input BPC for ICL+ is 8 */
+ 	if (pipe_bpp < 8 * 3) {
 -- 
 2.25.1
 
