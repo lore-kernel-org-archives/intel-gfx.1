@@ -4,36 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C8A1ECAAD4
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54229ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 097E410F1B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8507B10F1BA;
 	Mon, 29 Aug 2022 13:04:16 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82CE8A2048
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Aug 2022 20:33:19 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A98D09A825
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Aug 2022 17:14:40 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 41ED5B818AA;
- Mon, 22 Aug 2022 20:33:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89BE5C433D6;
- Mon, 22 Aug 2022 20:33:16 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EBE6E61228;
+ Mon, 22 Aug 2022 17:14:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3A3CC433D6;
+ Mon, 22 Aug 2022 17:14:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1661200397;
- bh=L7tlcpkYgc/ur8opmsWlrpLVUOyqqprbLLElkrBYdpQ=;
+ s=k20201202; t=1661188479;
+ bh=8JMXguDVXG8uFi0CJCWI3z+EkaH7bG9gajiyrhjsKOc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AnaIdOt77v6p9ZU3L/kcb4eyLiENDAhWGaPOtT9OonZwHrsWpPmeSxh4WQbRliWWT
- DLzgW0fKawo74lqnQDnRLvBzCAc5oECD9ADjJD9+be6XShynIzlZIWbqSoBy9gJUwr
- AIFRAdWrNlj1fqPQBx7IKQ4HoPGm86XtN2klx+a5lyI28yz1KEPQRkx1kDRePune22
- Zq3yG7JVL3USr+YZtr15yOdSVxSr3UPUW2XgRdcYI22BeCzcz56ZgaI+5emG+AhmGz
- ok6h87AZxwr1mmRhfUuXvcCC7nMXsaZ5MTI+5KYaCxsHvsqFuUv2Bzh451TcmjfVhS
- Wm8xzr09Hi1aA==
-Date: Mon, 22 Aug 2022 13:33:14 -0700
+ b=aMplWboStfFwf/eT+mviiW6wUAhLJ1M8HNtm0DemMgAlKe0AVygZFyGptW/4BUnbW
+ 7AZ///K9I3mpZ9HkTTbRkWI73UwjCdz9p/eQXf/vL8oyXDYO4wtdSumuSh8J1N52Mn
+ pDoifwzsEKfnV8/HaIyYcCWgZWI0p0kqIbvRUYTfTBeD63q/cv26sBv6EQUzBNzgX1
+ w7GbwQX6J2fm4gbCb6G65lt2LZGMvapM2CBg7c3SHcekfJgwnlN4jIAuFqSMfH/HA3
+ 8sGxvF2sJdddTe2BTEUgI3Iy4FWYFUQdu0gCdXJNyTnyLXvxlgcxKZJzqadQKM1OBg
+ LXIWaxE2RMy1Q==
+Date: Mon, 22 Aug 2022 10:14:37 -0700
 From: Nathan Chancellor <nathan@kernel.org>
 To: Lukasz Bartosik <lb@semihalf.com>
-Message-ID: <YwPoCqvQ02kUl9tP@dev-arch.thelio-3990X>
+Message-ID: <YwO5fW/5N16L1gz0@dev-arch.thelio-3990X>
 References: <20220201153354.11971-1-lukasz.bartosik@semihalf.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -54,16 +53,12 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, upstream@semihalf.com,
- intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: upstream@semihalf.com, intel-gfx@lists.freedesktop.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Hi all,
-
-Apologies in advance if you see this twice. I did not see the original
-make it to either lore.kernel.org or the freedesktop.org archives so I
-figured it might have been sent into the void.
 
 On Tue, Feb 01, 2022 at 04:33:54PM +0100, Lukasz Bartosik wrote:
 > From: Łukasz Bartosik <lb@semihalf.com>
@@ -157,8 +152,9 @@ compiler supports it), bi_next will be deterministically initialized to
 NULL, which means 'bi_next->num_planes = 0' will crash when the first if
 statement is not taken (i.e. 'i > num_groups - 1'). This was reported to
 us at [1] so it impacts real users (and I have been applying this change
-locally for six months). I see some discussion in this thread, was it
-ever resolved?
+locally for six months).
+
+I see some discussion in the thread, was it ever resolved?
 
 [1]: https://github.com/ClangBuiltLinux/linux/issues/1626
 
