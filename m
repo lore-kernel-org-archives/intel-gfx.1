@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BADB7C32772
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 11:30:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 166BDC32772
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 11:31:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 323BF11B2FA;
-	Tue, 23 Aug 2022 11:30:58 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3077F11AF07;
- Tue, 23 Aug 2022 11:30:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED4E11AF46;
+	Tue, 23 Aug 2022 11:31:12 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EDD011BC8E;
+ Tue, 23 Aug 2022 11:30:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661254251; x=1692790251;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=2HOoJcm20SZkyrXYw1/MfDsWZQF/it67HYYyFCWAIU8=;
- b=Bam4fZZsahjcQ5TKTB5OulL4aEvEuiJ0TMO3luvkqvDewAju8ckjfZwR
- 0FTtnHO9oW6TMAPR0uVRq56/RJ1Uiqw5zg2SqPzi7ilvd55otiJB0Gcg3
- oLaxZaCbovcd0v2aaRvMFLDqOUe0UQyxLUwgC2MltED4bJPT/plvZqDJW
- 3iGgnlSJxFzig3NR294TgVqujiRw8jfmgmd8L9bHj+PR5iz1YvBhZWXtF
- pPh+Fr3B2JwlCwDkCKxmj6XG+aFrFWrpat9KrrXx7nzWxGuKZBXxFfaTj
- NTdnuE9ECMiWFMZX0r51z7s13We2j9zamZ8TYDp2MFQEK9jeA7PKfsyOG A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="379953313"
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="379953313"
+ t=1661254258; x=1692790258;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=J4TaDGzj9N9JOB/TT+BPw7LVCm7qKt22L+Gg4k72Bfc=;
+ b=WpRcKjEE68TTSLDd+MYFk2bHeICfkvES55oIr7/SeoEhsH0xVaM2KZJf
+ W43wDns839cA4SJHQG/10IQ9rQiRqpm9zx9/gpNJlmovj6mJGPh3WmU+j
+ 9xtWGtN0INZ9bVpjWmYWIqw5zILEGuuM9Af8JmNt2kUGaEYEUy79egs2s
+ fJbDZUmuNRP9iOnDg0jLiKiQAUk/HY6b3aU1iQ+JZwpzmwGarvKgorjo8
+ n4uy/DEJ7TMlw6d7F1F343F9ybE6XeMz5wIJwm2ZOlu0pl7fBc9DLyWP1
+ lTdbcXMMUKfd2qSlfh6WoIEeJ+Tmgt+Ik+42nKIE5+NBwBpys5kINuuIP g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273415853"
+X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="273415853"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 04:30:48 -0700
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="669990847"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2022 04:30:58 -0700
+X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="669990898"
 Received: from fjohn-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.ger.corp.intel.com) ([10.249.42.156])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 04:30:46 -0700
+ 23 Aug 2022 04:30:56 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Aug 2022 14:29:16 +0300
-Message-Id: <20220823112920.352563-1-jouni.hogander@intel.com>
+Date: Tue, 23 Aug 2022 14:29:18 +0300
+Message-Id: <20220823112920.352563-3-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220823112920.352563-1-jouni.hogander@intel.com>
+References: <20220823112920.352563-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/4] Fixes for damage clips handling
+Subject: [Intel-gfx] [PATCH v2 2/4] drm/i915/display: Use original src in
+ psr2 sel fetch area calculation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,41 +60,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently damage clips handling is broken for planes when using big
-framebuffer + offset in case kms driver adjusts drm_plane_state.src
-coords. This is because damage clips are using coords relative to
-original coords from user-space.
+drm_plane_state->src is modified when offset is calculated:
 
-This patchset is fixing this by using original
-coords from user-space instead of drm_plane_state.src when iterating
-damage_clips.
+before calculation:
+src.x1 = 8192, src.y1 = 8192
 
-v2: Modify drm unit tests accordingly
+after calculation (pitch = 65536, cpp = 4, alignment = 262144)
+src.x1 = 8192, src.y1 = 0, offset = 0x20000000
 
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: José Roberto de Souza <jose.souza@intel.com>
-Cc: Mika Kahola <mika.kahola@intel.com>
-Cc: Maíra Canal <mairacanal@riseup.net>
+Damage clips are relative to original coodrdinates provided by
+user-space. To compare these against src coordinates we need to use
+original coordinates as provided by user-space. These can be obtained
+by using drm_plane_state_src.
 
-Jouni Högander (4):
-  drm: Use original src rect while initializing damage iterator
-  drm/i915/display: Use original src in psr2 sel fetch area calculation
-  drm/i915/display: Use drm helper instead of own loop for damage clips
-  drm/tests: Set also mock plane src_x, src_y, src_w and src_h
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/drm_damage_helper.c           | 11 ++++++----
- drivers/gpu/drm/i915/display/intel_psr.c      | 20 +++++++------------
- .../gpu/drm/tests/drm_damage_helper_test.c    |  5 +++++
- 3 files changed, 19 insertions(+), 17 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 98c3c8015a5c..16985de24019 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1767,7 +1767,8 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 			continue;
+ 		}
+ 
+-		drm_rect_fp_to_int(&src, &new_plane_state->uapi.src);
++		src = drm_plane_state_src(&new_plane_state->uapi);
++		drm_rect_fp_to_int(&src, &src);
+ 
+ 		drm_atomic_helper_damage_iter_init(&iter,
+ 						   &old_plane_state->uapi,
 -- 
 2.34.1
 
