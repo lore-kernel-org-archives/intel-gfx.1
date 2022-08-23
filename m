@@ -4,50 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEEC9C32792
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Aug 2022 23:47:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 440C1C28D13
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 00:04:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7DCEA6C0D;
-	Mon, 22 Aug 2022 23:47:08 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1283CA6BB7;
- Mon, 22 Aug 2022 23:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9192A74B0;
+	Tue, 23 Aug 2022 00:04:12 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30FBB93B1C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 00:03:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661212005; x=1692748005;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=3wply6lLS23NAlxls7wiHXwcJrxsDOjA6HxqGJL3QsQ=;
- b=i0cyQR1w5DMjam7r3B+R/cSqSLLtghwcdvhyKuIXQc5CRfOavIq48Bdj
- qvf+xX7YFgD7lRX4YTvsD3dargsM7r6AYX4EmxxdnlWhEG1r2KRvkmOXm
- oz2rGSFPMqnkBBa93W2/REleGdV8y5mbLbiKEvxcP4rEEYs6Ma3GcuF6b
- vsknIQhghinRKXxPnV4eIOHEXvQtJU3Rkq5ECisJ+y/kUQvng/4CnkCIC
- 0Iez9OnjTnYlIe3C5Hh5zb3fEfLaxqDVUOzJWTgozlF/oQEytctBucNP2
- B5BllUkbsoq9vKFfWSaT+JtYjqZ9AfafPm5Il7uZPXCIzfEs5sgCx+FTW g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="280519305"
-X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; 
- d="asc'?scan'208";a="280519305"
+ t=1661213024; x=1692749024;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=mJcwNeONFjEFJO3ODJXEr+V39byFQtUt1uJfbKKdqTE=;
+ b=PQxuDyiE81LoG8kXMgYtMed7mzZM1dvBRv+99p0SGyXzsdX9nmY8ywnv
+ uaoHL5GWUdx5HQoWssMe2WPyhT57rc+vjR8h2jNbYpfgs/7N+bPV/RJBd
+ LDL/tTDZBegPNjJdmFOqaggH0OJwZ/oI/5LH0JqZtFBMFwVdDuU6jb1Z+
+ ga1iMULCGZ4udnEWbBhiFQD77+wRSqKeLnAw1d2IAKJ98wJB5apN+mxB3
+ gi5wpJ+peWjmD7R2MzQQho9S8Pwz19C9YC4C+3hdTfxDycWGpLQGmFXR7
+ mBgklOJSN/LtvCMcXKXMVUPYiuRESa5CQZwwxuA65HQtKlyNrt3bPc/FZ Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273304826"
+X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="273304826"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2022 16:46:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; 
- d="asc'?scan'208";a="669769254"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.159.108])
- by fmsmga008.fm.intel.com with ESMTP; 22 Aug 2022 16:46:42 -0700
-Date: Tue, 23 Aug 2022 07:21:40 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Sean Christopherson <seanjc@google.com>
-Message-ID: <20220822232140.GL1089@zhen-hp.sh.intel.com>
-References: <bug-216388-28872@https.bugzilla.kernel.org/>
- <YwPB6W2tVIGWD7kD@google.com>
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Aug 2022 17:03:42 -0700
+X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="669775511"
+Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Aug 2022 17:03:42 -0700
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+ Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
+ Ashutosh Dixit <ashutosh.dixit@intel.com>
+Date: Tue, 23 Aug 2022 00:03:25 +0000
+Message-Id: <20220823000342.281222-3-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220823000342.281222-1-umesh.nerlige.ramappa@intel.com>
+References: <20220823000342.281222-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="YGTp3YEHyFTiE1eD"
-Content-Disposition: inline
-In-Reply-To: <YwPB6W2tVIGWD7kD@google.com>
-Subject: Re: [Intel-gfx] [Bug 216388] New: On Host, kernel errors in KVM,
- on guests, it shows CPU stalls
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 02/19] drm/i915/perf: Add OA formats for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,177 +57,167 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: kvm@vger.kernel.org, bugzilla-daemon@kernel.org,
- intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Add new OA formats for DG2. Some of the newer OA formats are not
+multples of 64 bytes and are not powers of 2. For those formats, adjust
+hw_tail accordingly when checking for new reports.
 
---YGTp3YEHyFTiE1eD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramampa@intel.com>
+---
+ drivers/gpu/drm/i915/i915_perf.c | 63 ++++++++++++++++++++------------
+ include/uapi/drm/i915_drm.h      |  6 +++
+ 2 files changed, 46 insertions(+), 23 deletions(-)
 
-On 2022.08.22 17:50:33 +0000, Sean Christopherson wrote:
-> +GVT folks
->
-> On Sun, Aug 21, 2022, bugzilla-daemon@kernel.org wrote:
-> > https://bugzilla.kernel.org/show_bug.cgi?id=3D216388
-> >=20
-> >             Bug ID: 216388
-> >            Summary: On Host, kernel errors in KVM, on guests, it shows =
-CPU
-> >                     stalls
-> >            Product: Virtualization
-> >            Version: unspecified
-> >     Kernel Version: 5.19.0 / 5.19.1 / 5.19.2
-> >           Hardware: All
-> >                 OS: Linux
-> >               Tree: Mainline
-> >             Status: NEW
-> >           Severity: high
-> >           Priority: P1
-> >          Component: kvm
-> >           Assignee: virtualization_kvm@kernel-bugs.osdl.org
-> >           Reporter: nanook@eskimo.com
-> >         Regression: No
-> >=20
-> > Created attachment 301614
-> >   --> https://bugzilla.kernel.org/attachment.cgi?id=3D301614&action=3De=
-dit
-> > The configuration file used to Comile this kernel.
-> >=20
-> > This behavior has persisted across 5.19.0, 5.19.1, and 5.19.2.  While t=
-he
-> > kernel I am taking this example from is tainted (owing to using Intel
-> > development drivers for GPU virtualization), it is also occurring on
-> > non-tainted kernels on servers with no development or third party modul=
-es
-> > installed.
-> >=20
-> > INFO: task CPU 2/KVM:2343 blocked for more than 1228 seconds.
-> > [207177.050049]       Tainted: G     U    I       5.19.2 #1
-> > [207177.050050] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disa=
-bles
-> > this message.
-> > [207177.050051] task:CPU 2/KVM       state:D stack:    0 pid: 2343 ppid=
-:     1
-> > flags:0x00000002
-> > [207177.050054] Call Trace:
-> > [207177.050055]  <TASK>
-> > [207177.050056]  __schedule+0x359/0x1400
-> > [207177.050060]  ? kvm_mmu_page_fault+0x1ee/0x980
-> > [207177.050062]  ? kvm_set_msr_common+0x31f/0x1060
-> > [207177.050065]  schedule+0x5f/0x100
-> > [207177.050066]  schedule_preempt_disabled+0x15/0x30
-> > [207177.050068]  __mutex_lock.constprop.0+0x4e2/0x750
-> > [207177.050070]  ? aa_file_perm+0x124/0x4f0
-> > [207177.050071]  __mutex_lock_slowpath+0x13/0x20
-> > [207177.050072]  mutex_lock+0x25/0x30
-> > [207177.050075]  intel_vgpu_emulate_mmio_read+0x5d/0x3b0 [kvmgt]
->=20
-> This isn't a KVM problem, it's a KVMGT problem (despite the name, KVMGT i=
-s very
-> much not KVM).
->=20
-> > [207177.050084]  intel_vgpu_rw+0xb8/0x1c0 [kvmgt]
-> > [207177.050091]  intel_vgpu_read+0x20d/0x250 [kvmgt]
-> > [207177.050097]  vfio_device_fops_read+0x1f/0x40
-> > [207177.050100]  vfs_read+0x9b/0x160
-> > [207177.050102]  __x64_sys_pread64+0x93/0xd0
-> > [207177.050104]  do_syscall_64+0x58/0x80
-> > [207177.050106]  ? kvm_on_user_return+0x84/0xe0
-> > [207177.050107]  ? fire_user_return_notifiers+0x37/0x70
-> > [207177.050109]  ? exit_to_user_mode_prepare+0x41/0x200
-> > [207177.050111]  ? syscall_exit_to_user_mode+0x1b/0x40
-> > [207177.050112]  ? do_syscall_64+0x67/0x80
-> > [207177.050114]  ? irqentry_exit+0x54/0x70
-> > [207177.050115]  ? sysvec_call_function_single+0x4b/0xa0
-> > [207177.050116]  entry_SYSCALL_64_after_hwframe+0x63/0xcd
-> > [207177.050118] RIP: 0033:0x7ff51131293f
-> > [207177.050119] RSP: 002b:00007ff4ddffa260 EFLAGS: 00000293 ORIG_RAX:
-> > 0000000000000011
-> > [207177.050121] RAX: ffffffffffffffda RBX: 00005599a6835420 RCX:
-> > 00007ff51131293f
-> > [207177.050122] RDX: 0000000000000004 RSI: 00007ff4ddffa2a8 RDI:
-> > 0000000000000027
-> > [207177.050123] RBP: 0000000000000004 R08: 0000000000000000 R09:
-> > 00000000ffffffff
-> > [207177.050124] R10: 0000000000065f10 R11: 0000000000000293 R12:
-> > 0000000000065f10
-> > [207177.050124] R13: 00005599a6835330 R14: 0000000000000004 R15:
-> > 0000000000065f10
-> > [207177.050126]  </TASK>
-> >=20
-> >      I am seeing this on Intel i7-6700k, i7-6850k, and i7-9700k platfor=
-ms.
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 735244a3aedd..c8331b549d31 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -306,7 +306,8 @@ static u32 i915_oa_max_sample_rate = 100000;
+ 
+ /* XXX: beware if future OA HW adds new report formats that the current
+  * code assumes all reports have a power-of-two size and ~(size - 1) can
+- * be used as a mask to align the OA tail pointer.
++ * be used as a mask to align the OA tail pointer. In some of the
++ * formats, R is used to denote reserved field.
+  */
+ static const struct i915_oa_format oa_formats[I915_OA_FORMAT_MAX] = {
+ 	[I915_OA_FORMAT_A13]	    = { 0, 64 },
+@@ -320,6 +321,10 @@ static const struct i915_oa_format oa_formats[I915_OA_FORMAT_MAX] = {
+ 	[I915_OA_FORMAT_A12]		    = { 0, 64 },
+ 	[I915_OA_FORMAT_A12_B8_C8]	    = { 2, 128 },
+ 	[I915_OA_FORMAT_A32u40_A4u32_B8_C8] = { 5, 256 },
++	[I915_OAR_FORMAT_A32u40_A4u32_B8_C8]    = { 5, 256 },
++	[I915_OA_FORMAT_A24u40_A14u32_B8_C8]    = { 5, 256 },
++	[I915_OAR_FORMAT_A36u64_B8_C8]		= { 1, 384 },
++	[I915_OA_FORMAT_A38u64_R2u64_B8_C8]	= { 1, 448 },
+ };
+ 
+ #define SAMPLE_OA_REPORT      (1<<0)
+@@ -467,6 +472,7 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
+ 	bool pollin;
+ 	u32 hw_tail;
+ 	u64 now;
++	u32 partial_report_size;
+ 
+ 	/* We have to consider the (unlikely) possibility that read() errors
+ 	 * could result in an OA buffer reset which might reset the head and
+@@ -476,10 +482,16 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
+ 
+ 	hw_tail = stream->perf->ops.oa_hw_tail_read(stream);
+ 
+-	/* The tail pointer increases in 64 byte increments,
+-	 * not in report_size steps...
++	/* The tail pointer increases in 64 byte increments, whereas report
++	 * sizes need not be integral multiples or 64 or powers of 2.
++	 * Compute potentially partially landed report in the OA buffer
+ 	 */
+-	hw_tail &= ~(report_size - 1);
++	partial_report_size = OA_TAKEN(hw_tail, stream->oa_buffer.tail);
++	partial_report_size %= report_size;
++
++	/* Subtract partial amount off the tail */
++	hw_tail = gtt_offset + ((hw_tail - partial_report_size) &
++				(stream->oa_buffer.vma->size - 1));
+ 
+ 	now = ktime_get_mono_fast_ns();
+ 
+@@ -601,6 +613,8 @@ static int append_oa_sample(struct i915_perf_stream *stream,
+ {
+ 	int report_size = stream->oa_buffer.format_size;
+ 	struct drm_i915_perf_record_header header;
++	int report_size_partial;
++	u8 *oa_buf_end;
+ 
+ 	header.type = DRM_I915_PERF_RECORD_SAMPLE;
+ 	header.pad = 0;
+@@ -614,7 +628,19 @@ static int append_oa_sample(struct i915_perf_stream *stream,
+ 		return -EFAULT;
+ 	buf += sizeof(header);
+ 
+-	if (copy_to_user(buf, report, report_size))
++	oa_buf_end = stream->oa_buffer.vaddr +
++		     stream->oa_buffer.vma->size;
++	report_size_partial = oa_buf_end - report;
++
++	if (report_size_partial < report_size) {
++		if(copy_to_user(buf, report, report_size_partial))
++			return -EFAULT;
++		buf += report_size_partial;
++
++		if(copy_to_user(buf, stream->oa_buffer.vaddr,
++				report_size - report_size_partial))
++			return -EFAULT;
++	} else if (copy_to_user(buf, report, report_size))
+ 		return -EFAULT;
+ 
+ 	(*offset) += header.size;
+@@ -684,8 +710,8 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 	 * all a power of two).
+ 	 */
+ 	if (drm_WARN_ONCE(&uncore->i915->drm,
+-			  head > OA_BUFFER_SIZE || head % report_size ||
+-			  tail > OA_BUFFER_SIZE || tail % report_size,
++			  head > stream->oa_buffer.vma->size ||
++			  tail > stream->oa_buffer.vma->size,
+ 			  "Inconsistent OA buffer pointers: head = %u, tail = %u\n",
+ 			  head, tail))
+ 		return -EIO;
+@@ -699,22 +725,6 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 		u32 ctx_id;
+ 		u32 reason;
+ 
+-		/*
+-		 * All the report sizes factor neatly into the buffer
+-		 * size so we never expect to see a report split
+-		 * between the beginning and end of the buffer.
+-		 *
+-		 * Given the initial alignment check a misalignment
+-		 * here would imply a driver bug that would result
+-		 * in an overrun.
+-		 */
+-		if (drm_WARN_ON(&uncore->i915->drm,
+-				(OA_BUFFER_SIZE - head) < report_size)) {
+-			drm_err(&uncore->i915->drm,
+-				"Spurious OA head ptr: non-integral report offset\n");
+-			break;
+-		}
+-
+ 		/*
+ 		 * The reason field includes flags identifying what
+ 		 * triggered this specific report (mostly timer
+@@ -4513,6 +4523,13 @@ static void oa_init_supported_formats(struct i915_perf *perf)
+ 		oa_format_add(perf, I915_OA_FORMAT_C4_B8);
+ 		break;
+ 
++	case INTEL_DG2:
++		oa_format_add(perf, I915_OAR_FORMAT_A32u40_A4u32_B8_C8);
++		oa_format_add(perf, I915_OA_FORMAT_A24u40_A14u32_B8_C8);
++		oa_format_add(perf, I915_OAR_FORMAT_A36u64_B8_C8);
++		oa_format_add(perf, I915_OA_FORMAT_A38u64_R2u64_B8_C8);
++		break;
++
+ 	default:
+ 		MISSING_CASE(platform);
+ 	}
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 094f6e377793..9168412e0da8 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2650,6 +2650,12 @@ enum drm_i915_oa_format {
+ 	I915_OA_FORMAT_A12_B8_C8,
+ 	I915_OA_FORMAT_A32u40_A4u32_B8_C8,
+ 
++	/* DG2 */
++	I915_OAR_FORMAT_A32u40_A4u32_B8_C8,
++	I915_OA_FORMAT_A24u40_A14u32_B8_C8,
++	I915_OAR_FORMAT_A36u64_B8_C8,
++	I915_OA_FORMAT_A38u64_R2u64_B8_C8,
++
+ 	I915_OA_FORMAT_MAX	    /* non-ABI */
+ };
+ 
+-- 
+2.25.1
 
-One recent regression fix on Comet Lake is https://patchwork.freedesktop.or=
-g/patch/496987/,
-it's on the way to 6.0-rc and would be pushed to 5.19 stable as well. But l=
-ooks this
-report impacts on more platforms? We'll double check.
-
-Thanks
-
-> >=20
-> >      This did not happen on 5.17 kernels, and 5.18 kernels never ran st=
-able
-> > enough on my platforms to actually run them for more than a few minutes.
-> >=20
-> >      Likewise 6.0-rc1 has not been stable enough to run in production. =
- After
-> > less than three hours running on my workstation it locked hard with eve=
-n the
-> > magic sys-request key being unresponsive and only power cycling the mac=
-hine got
-> > it back.
-> >=20
-> >      The operating system in use for the host on all machines is Ubuntu=
- 22.04.
-> >=20
-> >      Guests vary with Ubuntu 22.04 being the most common but also Mint,=
- Debian,
-> > Manjaro, Centos, Fedora, ScientificLinux, Zorin, and Windows being in u=
-se.
-> >=20
-> >      I see the same issue manifest on platforms running only Ubuntu gue=
-sts as
-> > with guests of varying operating systems. =20
-> >=20
-> >      The configuration file I used to compile this kernel is attached. =
- I
-> > compiled it with gcc 12.1.0.
-> >=20
-> >      This behavior does not manifest itself instantly, typically the ma=
-chine
-> > needs to be running 3-7 days before it does.  Once it does guests keep =
-stalling
-> > and restarting libvirtd does not help.  Only thing that seems to is a h=
-ard
-> > reboot of the physical host.  For this reason I believe the issue lies =
-strictly
-> > with the host and not the guests.
-> >=20
-> >      I have listed it as a severity of high since it is completely serv=
-ice
-> > interrupting.
-> >=20
-> > --=20
-> > You may reply to this email to add a comment.
-> >=20
-> > You are receiving this mail because:
-> > You are watching the assignee of the bug.
-
---YGTp3YEHyFTiE1eD
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCYwQPegAKCRCxBBozTXgY
-JwVzAJ9AGCbs4pALTV0EbDPc7WMK/2Ig9gCaA86BaIuoLjxNrPIGDl/B97DXroQ=
-=W/db
------END PGP SIGNATURE-----
-
---YGTp3YEHyFTiE1eD--
