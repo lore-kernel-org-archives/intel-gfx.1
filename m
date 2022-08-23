@@ -4,28 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C0E9C32792
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 09:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 595ABC32772
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 09:10:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A0F2B1D3D;
-	Tue, 23 Aug 2022 09:09:52 +0000 (UTC)
-X-Greylist: delayed 485 seconds by postgrey-1.36 at gabe;
- Tue, 23 Aug 2022 09:09:39 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E07B1D5C;
+	Tue, 23 Aug 2022 09:10:32 +0000 (UTC)
 Received: from mblankhorst.nl (mblankhorst.nl
  [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5038B1D3B
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 09:09:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CAD0B1D38
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 09:09:40 +0000 (UTC)
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Aug 2022 11:01:28 +0200
-Message-Id: <20220823090128.488008-5-maarten.lankhorst@linux.intel.com>
+Date: Tue, 23 Aug 2022 11:01:26 +0200
+Message-Id: <20220823090128.488008-3-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220823090128.488008-1-maarten.lankhorst@linux.intel.com>
 References: <20220823090128.488008-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915: Replace remaining display uncore
- references to use intel_de
+Subject: [Intel-gfx] [PATCH 2/4] drm/i915: Remove uncore from intel_tc.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,566 +38,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Use the intel_de macro's instead of referencing uncore directly.
+
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bw.c       |  8 ++--
- drivers/gpu/drm/i915/display/intel_crt.c      | 33 +++++++------
- drivers/gpu/drm/i915/display/intel_de.h       | 47 +++++++++++++++++++
- .../drm/i915/display/intel_display_power.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_dmc.c      |  6 +--
- drivers/gpu/drm/i915/display/intel_dp_aux.c   | 30 ++++++------
- drivers/gpu/drm/i915/display/intel_dpio_phy.c |  9 ++--
- drivers/gpu/drm/i915/display/intel_fbc.c      | 10 +---
- drivers/gpu/drm/i915/display/intel_gmbus.c    | 42 ++++++++---------
- drivers/gpu/drm/i915/display/intel_hdcp.c     |  6 +--
- drivers/gpu/drm/i915/display/intel_snps_phy.c | 11 ++---
- 11 files changed, 118 insertions(+), 86 deletions(-)
+ drivers/gpu/drm/i915/display/intel_tc.c | 55 ++++++++-----------------
+ 1 file changed, 18 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-index 8ecf4e3e2bc6..1ca588e31dc9 100644
---- a/drivers/gpu/drm/i915/display/intel_bw.c
-+++ b/drivers/gpu/drm/i915/display/intel_bw.c
-@@ -42,7 +42,7 @@ static int dg1_mchbar_read_qgv_point_info(struct drm_i915_private *dev_priv,
- 	u32 dclk_ratio, dclk_reference;
- 	u32 val;
- 
--	val = intel_uncore_read(&dev_priv->uncore, SA_PERF_STATUS_0_0_0_MCHBAR_PC);
-+	val = intel_de_read(dev_priv, SA_PERF_STATUS_0_0_0_MCHBAR_PC);
- 	dclk_ratio = REG_FIELD_GET(DG1_QCLK_RATIO_MASK, val);
- 	if (val & DG1_QCLK_REFERENCE)
- 		dclk_reference = 6; /* 6 * 16.666 MHz = 100 MHz */
-@@ -50,18 +50,18 @@ static int dg1_mchbar_read_qgv_point_info(struct drm_i915_private *dev_priv,
- 		dclk_reference = 8; /* 8 * 16.666 MHz = 133 MHz */
- 	sp->dclk = DIV_ROUND_UP((16667 * dclk_ratio * dclk_reference) + 500, 1000);
- 
--	val = intel_uncore_read(&dev_priv->uncore, SKL_MC_BIOS_DATA_0_0_0_MCHBAR_PCU);
-+	val = intel_de_read(dev_priv, SKL_MC_BIOS_DATA_0_0_0_MCHBAR_PCU);
- 	if (val & DG1_GEAR_TYPE)
- 		sp->dclk *= 2;
- 
- 	if (sp->dclk == 0)
- 		return -EINVAL;
- 
--	val = intel_uncore_read(&dev_priv->uncore, MCHBAR_CH0_CR_TC_PRE_0_0_0_MCHBAR);
-+	val = intel_de_read(dev_priv, MCHBAR_CH0_CR_TC_PRE_0_0_0_MCHBAR);
- 	sp->t_rp = REG_FIELD_GET(DG1_DRAM_T_RP_MASK, val);
- 	sp->t_rdpre = REG_FIELD_GET(DG1_DRAM_T_RDPRE_MASK, val);
- 
--	val = intel_uncore_read(&dev_priv->uncore, MCHBAR_CH0_CR_TC_PRE_0_0_0_MCHBAR_HIGH);
-+	val = intel_de_read(dev_priv, MCHBAR_CH0_CR_TC_PRE_0_0_0_MCHBAR_HIGH);
- 	sp->t_rcd = REG_FIELD_GET(DG1_DRAM_T_RCD_MASK, val);
- 	sp->t_ras = REG_FIELD_GET(DG1_DRAM_T_RAS_MASK, val);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index 6a3893c8ff22..5f64d1d600b7 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -679,7 +679,6 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
- {
- 	struct drm_device *dev = crt->base.base.dev;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
--	struct intel_uncore *uncore = &dev_priv->uncore;
- 	u32 save_bclrpat;
- 	u32 save_vtotal;
- 	u32 vtotal, vactive;
-@@ -700,9 +699,9 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
- 	pipeconf_reg = PIPECONF(pipe);
- 	pipe_dsl_reg = PIPEDSL(pipe);
- 
--	save_bclrpat = intel_uncore_read(uncore, bclrpat_reg);
--	save_vtotal = intel_uncore_read(uncore, vtotal_reg);
--	vblank = intel_uncore_read(uncore, vblank_reg);
-+	save_bclrpat = intel_de_read(dev_priv, bclrpat_reg);
-+	save_vtotal = intel_de_read(dev_priv, vtotal_reg);
-+	vblank = intel_de_read(dev_priv, vblank_reg);
- 
- 	vtotal = ((save_vtotal >> 16) & 0xfff) + 1;
- 	vactive = (save_vtotal & 0x7ff) + 1;
-@@ -711,23 +710,23 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
- 	vblank_end = ((vblank >> 16) & 0xfff) + 1;
- 
- 	/* Set the border color to purple. */
--	intel_uncore_write(uncore, bclrpat_reg, 0x500050);
-+	intel_de_write(dev_priv, bclrpat_reg, 0x500050);
- 
- 	if (DISPLAY_VER(dev_priv) != 2) {
--		u32 pipeconf = intel_uncore_read(uncore, pipeconf_reg);
--		intel_uncore_write(uncore,
-+		u32 pipeconf = intel_de_read(dev_priv, pipeconf_reg);
-+		intel_de_write(dev_priv,
- 				   pipeconf_reg,
- 				   pipeconf | PIPECONF_FORCE_BORDER);
--		intel_uncore_posting_read(uncore, pipeconf_reg);
-+		intel_de_posting_read(dev_priv, pipeconf_reg);
- 		/* Wait for next Vblank to substitue
- 		 * border color for Color info */
- 		intel_crtc_wait_for_next_vblank(intel_crtc_for_pipe(dev_priv, pipe));
--		st00 = intel_uncore_read8(uncore, _VGA_MSR_WRITE);
-+		st00 = intel_de_read8(dev_priv, _VGA_MSR_WRITE);
- 		status = ((st00 & (1 << 4)) != 0) ?
- 			connector_status_connected :
- 			connector_status_disconnected;
- 
--		intel_uncore_write(uncore, pipeconf_reg, pipeconf);
-+		intel_de_write(dev_priv, pipeconf_reg, pipeconf);
- 	} else {
- 		bool restore_vblank = false;
- 		int count, detect;
-@@ -741,7 +740,7 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
- 			u32 vsync_start = (vsync & 0xffff) + 1;
- 
- 			vblank_start = vsync_start;
--			intel_uncore_write(uncore,
-+			intel_de_write(dev_priv,
- 					   vblank_reg,
- 					   (vblank_start - 1) |
- 					   ((vblank_end - 1) << 16));
-@@ -756,9 +755,9 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
- 		/*
- 		 * Wait for the border to be displayed
- 		 */
--		while (intel_uncore_read(uncore, pipe_dsl_reg) >= vactive)
-+		while (intel_de_read(dev_priv, pipe_dsl_reg) >= vactive)
- 			;
--		while ((dsl = intel_uncore_read(uncore, pipe_dsl_reg)) <=
-+		while ((dsl = intel_de_read(dev_priv, pipe_dsl_reg)) <=
- 		       vsample)
- 			;
- 		/*
-@@ -769,14 +768,14 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
- 		do {
- 			count++;
- 			/* Read the ST00 VGA status register */
--			st00 = intel_uncore_read8(uncore, _VGA_MSR_WRITE);
-+			st00 = intel_de_read8(dev_priv, _VGA_MSR_WRITE);
- 			if (st00 & (1 << 4))
- 				detect++;
--		} while ((intel_uncore_read(uncore, pipe_dsl_reg) == dsl));
-+		} while ((intel_de_read(dev_priv, pipe_dsl_reg) == dsl));
- 
- 		/* restore vblank if necessary */
- 		if (restore_vblank)
--			intel_uncore_write(uncore, vblank_reg, vblank);
-+			intel_de_write(dev_priv, vblank_reg, vblank);
- 		/*
- 		 * If more than 3/4 of the scanline detected a monitor,
- 		 * then it is assumed to be present. This works even on i830,
-@@ -789,7 +788,7 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
- 	}
- 
- 	/* Restore previous settings */
--	intel_uncore_write(uncore, bclrpat_reg, save_bclrpat);
-+	intel_de_write(dev_priv, bclrpat_reg, save_bclrpat);
- 
- 	return status;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
-index d51e83a45dce..648b8778f0dc 100644
---- a/drivers/gpu/drm/i915/display/intel_de.h
-+++ b/drivers/gpu/drm/i915/display/intel_de.h
-@@ -17,6 +17,12 @@ intel_de_read(struct drm_i915_private *i915, i915_reg_t reg)
- 	return intel_uncore_read(&i915->uncore, reg);
- }
- 
-+static inline u8
-+intel_de_read8(struct drm_i915_private *i915, i915_reg_t reg)
-+{
-+	return intel_uncore_read8(&i915->uncore, reg);
-+}
-+
- static inline void
- intel_de_posting_read(struct drm_i915_private *i915, i915_reg_t reg)
- {
-@@ -42,6 +48,23 @@ intel_de_wait_for_register(struct drm_i915_private *i915, i915_reg_t reg,
- 	return intel_wait_for_register(&i915->uncore, reg, mask, value, timeout);
- }
- 
-+static inline int
-+intel_de_wait_for_register_fw(struct drm_i915_private *i915, i915_reg_t reg,
-+			      u32 mask, u32 value, unsigned int timeout)
-+{
-+	return intel_wait_for_register_fw(&i915->uncore, reg, mask, value, timeout);
-+}
-+
-+static inline int
-+__intel_de_wait_for_register(struct drm_i915_private *i915, i915_reg_t reg,
-+			     u32 mask, u32 value,
-+			     unsigned int fast_timeout_us,
-+			     unsigned int slow_timeout_ms, u32 *out_value)
-+{
-+	return __intel_wait_for_register(&i915->uncore, reg, mask, value,
-+					 fast_timeout_us, slow_timeout_ms, out_value);
-+}
-+
- static inline int
- intel_de_wait_for_set(struct drm_i915_private *i915, i915_reg_t reg,
- 		      u32 mask, unsigned int timeout)
-@@ -82,6 +105,30 @@ intel_de_write_fw(struct drm_i915_private *i915, i915_reg_t reg, u32 val)
- 	intel_uncore_write_fw(&i915->uncore, reg, val);
- }
- 
-+static inline void
-+intel_de_write_samevalue(struct drm_i915_private *i915, i915_reg_t reg)
-+{
-+	/*
-+	 * This is used by FBC to write the same value, protected against
-+	 * atomic commit using the uncore lock.
-+	 */
-+	spin_lock_irq(&i915->uncore.lock);
-+	intel_de_write_fw(i915, reg, intel_de_read_fw(i915, reg));
-+	spin_unlock_irq(&i915->uncore.lock);
-+}
-+
-+static inline u32
-+intel_de_read_notrace(struct drm_i915_private *i915, i915_reg_t reg)
-+{
-+	return intel_uncore_read_notrace(&i915->uncore, reg);
-+}
-+
-+static inline void
-+intel_de_write_notrace(struct drm_i915_private *i915, i915_reg_t reg, u32 val)
-+{
-+	intel_uncore_write_notrace(&i915->uncore, reg, val);
-+}
-+
- static inline int
- intel_de_pcode_write_timeout(struct drm_i915_private *i915, u32 mbox, u32 val,
- 			    int fast_timeout_us, int slow_timeout_ms)
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 3d2ac2c5b0d2..aff5c3ac3a36 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -1660,7 +1660,7 @@ static void icl_display_core_init(struct drm_i915_private *dev_priv,
- 	if (DISPLAY_VER(dev_priv) >= 12) {
- 		val = DCPR_CLEAR_MEMSTAT_DIS | DCPR_SEND_RESP_IMM |
- 		      DCPR_MASK_LPMODE | DCPR_MASK_MAXLATENCY_MEMUP_CLR;
--		intel_uncore_rmw(&dev_priv->uncore, GEN11_CHICKEN_DCPR_2, 0, val);
-+		intel_de_rmw(dev_priv, GEN11_CHICKEN_DCPR_2, 0, val);
- 	}
- 
- 	/* Wa_14011503030:xelpd */
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index 6c35212c3625..da7b67c8a283 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -433,9 +433,9 @@ void intel_dmc_load_program(struct drm_i915_private *dev_priv)
- 
- 	for (id = 0; id < DMC_FW_MAX; id++) {
- 		for (i = 0; i < dmc->dmc_info[id].dmc_fw_size; i++) {
--			intel_uncore_write_fw(&dev_priv->uncore,
--					      DMC_PROGRAM(dmc->dmc_info[id].start_mmioaddr, i),
--					      dmc->dmc_info[id].payload[i]);
-+			intel_de_write_fw(dev_priv,
-+					  DMC_PROGRAM(dmc->dmc_info[id].start_mmioaddr, i),
-+					  dmc->dmc_info[id].payload[i]);
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index 2bc119374555..db5cc008f78f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index 6773840f6cc7..4ee69821728d 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
 @@ -5,6 +5,7 @@
  
  #include "i915_drv.h"
- #include "i915_trace.h"
+ #include "i915_reg.h"
 +#include "intel_de.h"
+ #include "intel_display.h"
+ #include "intel_display_power_map.h"
  #include "intel_display_types.h"
- #include "intel_dp_aux.h"
- #include "intel_pps.h"
-@@ -41,7 +42,7 @@ intel_dp_aux_wait_done(struct intel_dp *intel_dp)
- 	u32 status;
- 	bool done;
- 
--#define C (((status = intel_uncore_read_notrace(&i915->uncore, ch_ctl)) & DP_AUX_CH_CTL_SEND_BUSY) == 0)
-+#define C (((status = intel_de_read_notrace(i915, ch_ctl)) & DP_AUX_CH_CTL_SEND_BUSY) == 0)
- 	done = wait_event_timeout(i915->gmbus_wait_queue, C,
- 				  msecs_to_jiffies_timeout(timeout_ms));
- 
-@@ -182,7 +183,6 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
- 	struct drm_i915_private *i915 =
- 			to_i915(dig_port->base.base.dev);
+@@ -119,11 +120,9 @@ assert_tc_cold_blocked(struct intel_digital_port *dig_port)
+ u32 intel_tc_port_get_lane_mask(struct intel_digital_port *dig_port)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
 -	struct intel_uncore *uncore = &i915->uncore;
- 	enum phy phy = intel_port_to_phy(i915, dig_port->base.port);
- 	bool is_tc_port = intel_phy_is_tc(i915, phy);
- 	i915_reg_t ch_ctl, ch_data[5];
-@@ -226,7 +226,7 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
+ 	u32 lane_mask;
  
- 	/* Try to wait for any previous AUX channel activity */
- 	for (try = 0; try < 3; try++) {
--		status = intel_uncore_read_notrace(uncore, ch_ctl);
-+		status = intel_de_read_notrace(i915, ch_ctl);
- 		if ((status & DP_AUX_CH_CTL_SEND_BUSY) == 0)
- 			break;
- 		msleep(1);
-@@ -235,7 +235,7 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
- 	trace_i915_reg_rw(false, ch_ctl, status, sizeof(status), true);
+-	lane_mask = intel_uncore_read(uncore,
+-				      PORT_TX_DFLEXDPSP(dig_port->tc_phy_fia));
++	lane_mask = intel_de_read(i915, PORT_TX_DFLEXDPSP(dig_port->tc_phy_fia));
  
- 	if (try == 3) {
--		const u32 status = intel_uncore_read(uncore, ch_ctl);
-+		const u32 status = intel_de_read(i915, ch_ctl);
- 
- 		if (status != intel_dp->aux_busy_last_status) {
- 			drm_WARN(&i915->drm, 1,
-@@ -265,23 +265,21 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
- 		for (try = 0; try < 5; try++) {
- 			/* Load the send data into the aux channel data registers */
- 			for (i = 0; i < send_bytes; i += 4)
--				intel_uncore_write(uncore,
--						   ch_data[i >> 2],
--						   intel_dp_aux_pack(send + i,
--								     send_bytes - i));
-+				intel_de_write(i915, ch_data[i >> 2],
-+					       intel_dp_aux_pack(send + i,
-+								 send_bytes - i));
- 
- 			/* Send the command and wait for it to complete */
--			intel_uncore_write(uncore, ch_ctl, send_ctl);
-+			intel_de_write(i915, ch_ctl, send_ctl);
- 
- 			status = intel_dp_aux_wait_done(intel_dp);
- 
- 			/* Clear done status and any errors */
--			intel_uncore_write(uncore,
--					   ch_ctl,
--					   status |
--					   DP_AUX_CH_CTL_DONE |
--					   DP_AUX_CH_CTL_TIME_OUT_ERROR |
--					   DP_AUX_CH_CTL_RECEIVE_ERROR);
-+			intel_de_write(i915, ch_ctl,
-+				       status |
-+				       DP_AUX_CH_CTL_DONE |
-+				       DP_AUX_CH_CTL_TIME_OUT_ERROR |
-+				       DP_AUX_CH_CTL_RECEIVE_ERROR);
- 
- 			/*
- 			 * DP CTS 1.2 Core Rev 1.1, 4.2.1.1 & 4.2.1.2
-@@ -352,7 +350,7 @@ intel_dp_aux_xfer(struct intel_dp *intel_dp,
- 		recv_bytes = recv_size;
- 
- 	for (i = 0; i < recv_bytes; i += 4)
--		intel_dp_aux_unpack(intel_uncore_read(uncore, ch_data[i >> 2]),
-+		intel_dp_aux_unpack(intel_de_read(i915, ch_data[i >> 2]),
- 				    recv + i, recv_bytes - i);
- 
- 	ret = recv_bytes;
-diff --git a/drivers/gpu/drm/i915/display/intel_dpio_phy.c b/drivers/gpu/drm/i915/display/intel_dpio_phy.c
-index cc6abe761f5e..220e5795482f 100644
---- a/drivers/gpu/drm/i915/display/intel_dpio_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpio_phy.c
-@@ -400,11 +400,10 @@ static void _bxt_ddi_phy_init(struct drm_i915_private *dev_priv,
- 	 * The flag should get set in 100us according to the HW team, but
- 	 * use 1ms due to occasional timeouts observed with that.
- 	 */
--	if (intel_wait_for_register_fw(&dev_priv->uncore,
--				       BXT_PORT_CL1CM_DW0(phy),
--				       PHY_RESERVED | PHY_POWER_GOOD,
--				       PHY_POWER_GOOD,
--				       1))
-+	if (intel_de_wait_for_register_fw(dev_priv,
-+					  BXT_PORT_CL1CM_DW0(phy),
-+					  PHY_RESERVED | PHY_POWER_GOOD,
-+					  PHY_POWER_GOOD, 1))
- 		drm_err(&dev_priv->drm, "timeout during PHY%d power on\n",
- 			phy);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index 7436b35f7ea0..3b772ebf7e39 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -323,10 +323,7 @@ static void i8xx_fbc_nuke(struct intel_fbc *fbc)
- 	enum i9xx_plane_id i9xx_plane = fbc_state->plane->i9xx_plane;
- 	struct drm_i915_private *dev_priv = fbc->i915;
- 
--	spin_lock_irq(&dev_priv->uncore.lock);
--	intel_de_write_fw(dev_priv, DSPADDR(i9xx_plane),
--			  intel_de_read_fw(dev_priv, DSPADDR(i9xx_plane)));
--	spin_unlock_irq(&dev_priv->uncore.lock);
-+	intel_de_write_samevalue(dev_priv, DSPADDR(i9xx_plane));
- }
- 
- static void i8xx_fbc_program_cfb(struct intel_fbc *fbc)
-@@ -359,10 +356,7 @@ static void i965_fbc_nuke(struct intel_fbc *fbc)
- 	enum i9xx_plane_id i9xx_plane = fbc_state->plane->i9xx_plane;
- 	struct drm_i915_private *dev_priv = fbc->i915;
- 
--	spin_lock_irq(&dev_priv->uncore.lock);
--	intel_de_write_fw(dev_priv, DSPSURF(i9xx_plane),
--			  intel_de_read_fw(dev_priv, DSPSURF(i9xx_plane)));
--	spin_unlock_irq(&dev_priv->uncore.lock);
-+	intel_de_write_samevalue(dev_priv, DSPSURF(i9xx_plane));
- }
- 
- static const struct intel_fbc_funcs i965_fbc_funcs = {
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
-index a6ba7fb72339..cd8eedff97d9 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-@@ -219,12 +219,11 @@ static void bxt_gmbus_clock_gating(struct drm_i915_private *dev_priv,
- static u32 get_reserved(struct intel_gmbus *bus)
+ 	drm_WARN_ON(&i915->drm, lane_mask == 0xffffffff);
+ 	assert_tc_cold_blocked(dig_port);
+@@ -135,11 +134,9 @@ u32 intel_tc_port_get_lane_mask(struct intel_digital_port *dig_port)
+ u32 intel_tc_port_get_pin_assignment_mask(struct intel_digital_port *dig_port)
  {
- 	struct drm_i915_private *i915 = bus->dev_priv;
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
 -	struct intel_uncore *uncore = &i915->uncore;
- 	u32 reserved = 0;
+ 	u32 pin_mask;
  
- 	/* On most chips, these bits must be preserved in software. */
- 	if (!IS_I830(i915) && !IS_I845G(i915))
--		reserved = intel_uncore_read_notrace(uncore, bus->gpio_reg) &
-+		reserved = intel_de_read_notrace(i915, bus->gpio_reg) &
- 			   (GPIO_DATA_PULLUP_DISABLE |
- 			    GPIO_CLOCK_PULLUP_DISABLE);
+-	pin_mask = intel_uncore_read(uncore,
+-				     PORT_TX_DFLEXPA1(dig_port->tc_phy_fia));
++	pin_mask = intel_de_read(i915, PORT_TX_DFLEXPA1(dig_port->tc_phy_fia));
  
-@@ -234,37 +233,36 @@ static u32 get_reserved(struct intel_gmbus *bus)
- static int get_clock(void *data)
+ 	drm_WARN_ON(&i915->drm, pin_mask == 0xffffffff);
+ 	assert_tc_cold_blocked(dig_port);
+@@ -185,7 +182,6 @@ void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
  {
- 	struct intel_gmbus *bus = data;
--	struct intel_uncore *uncore = &bus->dev_priv->uncore;
-+	struct drm_i915_private *i915 = bus->dev_priv;
- 	u32 reserved = get_reserved(bus);
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+ 	bool lane_reversal = dig_port->saved_port_bits & DDI_BUF_PORT_REVERSAL;
+-	struct intel_uncore *uncore = &i915->uncore;
+ 	u32 val;
  
--	intel_uncore_write_notrace(uncore,
-+	intel_de_write_notrace(i915,
- 				   bus->gpio_reg,
- 				   reserved | GPIO_CLOCK_DIR_MASK);
--	intel_uncore_write_notrace(uncore, bus->gpio_reg, reserved);
-+	intel_de_write_notrace(i915, bus->gpio_reg, reserved);
+ 	drm_WARN_ON(&i915->drm,
+@@ -193,8 +189,7 @@ void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
  
--	return (intel_uncore_read_notrace(uncore, bus->gpio_reg) &
-+	return (intel_de_read_notrace(i915, bus->gpio_reg) &
- 		GPIO_CLOCK_VAL_IN) != 0;
- }
+ 	assert_tc_cold_blocked(dig_port);
  
- static int get_data(void *data)
- {
- 	struct intel_gmbus *bus = data;
--	struct intel_uncore *uncore = &bus->dev_priv->uncore;
-+	struct drm_i915_private *i915 = bus->dev_priv;
- 	u32 reserved = get_reserved(bus);
+-	val = intel_uncore_read(uncore,
+-				PORT_TX_DFLEXDPMLE1(dig_port->tc_phy_fia));
++	val = intel_de_read(i915, PORT_TX_DFLEXDPMLE1(dig_port->tc_phy_fia));
+ 	val &= ~DFLEXDPMLE1_DPMLETC_MASK(dig_port->tc_phy_fia_idx);
  
--	intel_uncore_write_notrace(uncore,
--				   bus->gpio_reg,
--				   reserved | GPIO_DATA_DIR_MASK);
--	intel_uncore_write_notrace(uncore, bus->gpio_reg, reserved);
-+	intel_de_write_notrace(i915, bus->gpio_reg,
-+			       reserved | GPIO_DATA_DIR_MASK);
-+	intel_de_write_notrace(i915, bus->gpio_reg, reserved);
- 
--	return (intel_uncore_read_notrace(uncore, bus->gpio_reg) &
-+	return (intel_de_read_notrace(i915, bus->gpio_reg) &
- 		GPIO_DATA_VAL_IN) != 0;
- }
- 
- static void set_clock(void *data, int state_high)
- {
- 	struct intel_gmbus *bus = data;
--	struct intel_uncore *uncore = &bus->dev_priv->uncore;
-+	struct drm_i915_private *i915 = bus->dev_priv;
- 	u32 reserved = get_reserved(bus);
- 	u32 clock_bits;
- 
-@@ -274,16 +272,15 @@ static void set_clock(void *data, int state_high)
- 		clock_bits = GPIO_CLOCK_DIR_OUT | GPIO_CLOCK_DIR_MASK |
- 			     GPIO_CLOCK_VAL_MASK;
- 
--	intel_uncore_write_notrace(uncore,
--				   bus->gpio_reg,
--				   reserved | clock_bits);
--	intel_uncore_posting_read(uncore, bus->gpio_reg);
-+	intel_de_write_notrace(i915, bus->gpio_reg,
-+			       reserved | clock_bits);
-+	intel_de_posting_read(i915, bus->gpio_reg);
- }
- 
- static void set_data(void *data, int state_high)
- {
- 	struct intel_gmbus *bus = data;
--	struct intel_uncore *uncore = &bus->dev_priv->uncore;
-+	struct drm_i915_private *i915 = bus->dev_priv;
- 	u32 reserved = get_reserved(bus);
- 	u32 data_bits;
- 
-@@ -293,8 +290,8 @@ static void set_data(void *data, int state_high)
- 		data_bits = GPIO_DATA_DIR_OUT | GPIO_DATA_DIR_MASK |
- 			GPIO_DATA_VAL_MASK;
- 
--	intel_uncore_write_notrace(uncore, bus->gpio_reg, reserved | data_bits);
--	intel_uncore_posting_read(uncore, bus->gpio_reg);
-+	intel_de_write_notrace(i915, bus->gpio_reg, reserved | data_bits);
-+	intel_de_posting_read(i915, bus->gpio_reg);
- }
- 
- static int
-@@ -403,9 +400,8 @@ gmbus_wait_idle(struct drm_i915_private *dev_priv)
- 	add_wait_queue(&dev_priv->gmbus_wait_queue, &wait);
- 	intel_de_write_fw(dev_priv, GMBUS4, irq_enable);
- 
--	ret = intel_wait_for_register_fw(&dev_priv->uncore,
--					 GMBUS2, GMBUS_ACTIVE, 0,
--					 10);
-+	ret = intel_de_wait_for_register_fw(dev_priv,
-+					    GMBUS2, GMBUS_ACTIVE, 0, 10);
- 
- 	intel_de_write_fw(dev_priv, GMBUS4, 0);
- 	remove_wait_queue(&dev_priv->gmbus_wait_queue, &wait);
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index f819b29906bd..691d6d9a6854 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -310,9 +310,9 @@ static int intel_hdcp_load_keys(struct drm_i915_private *dev_priv)
+ 	switch (required_lanes) {
+@@ -215,8 +210,7 @@ void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
+ 		MISSING_CASE(required_lanes);
  	}
  
- 	/* Wait for the keys to load (500us) */
--	ret = __intel_wait_for_register(&dev_priv->uncore, HDCP_KEY_STATUS,
--					HDCP_KEY_LOAD_DONE, HDCP_KEY_LOAD_DONE,
--					10, 1, &val);
-+	ret = __intel_de_wait_for_register(dev_priv, HDCP_KEY_STATUS,
-+					   HDCP_KEY_LOAD_DONE, HDCP_KEY_LOAD_DONE,
-+					   10, 1, &val);
- 	if (ret)
- 		return ret;
- 	else if (!(val & HDCP_KEY_LOAD_STATUS))
-diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-index 0bdbedc67d7d..ba6a6d607c93 100644
---- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-@@ -53,8 +53,8 @@ void intel_snps_phy_update_psr_power_state(struct drm_i915_private *dev_priv,
- 
- 	val = REG_FIELD_PREP(SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR,
- 			     enable ? 2 : 3);
--	intel_uncore_rmw(&dev_priv->uncore, SNPS_PHY_TX_REQ(phy),
--			 SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR, val);
-+	intel_de_rmw(dev_priv, SNPS_PHY_TX_REQ(phy),
-+		     SNPS_PHY_TX_REQ_LN_DIS_PWR_STATE_PSR, val);
+-	intel_uncore_write(uncore,
+-			   PORT_TX_DFLEXDPMLE1(dig_port->tc_phy_fia), val);
++	intel_de_write(i915, PORT_TX_DFLEXDPMLE1(dig_port->tc_phy_fia), val);
  }
  
- void intel_snps_phy_set_signal_levels(struct intel_encoder *encoder,
-@@ -668,7 +668,7 @@ void intel_mpllb_enable(struct intel_encoder *encoder,
- 	 */
+ static void tc_port_fixup_legacy_flag(struct intel_digital_port *dig_port,
+@@ -245,13 +239,11 @@ static void tc_port_fixup_legacy_flag(struct intel_digital_port *dig_port,
+ static u32 icl_tc_port_live_status_mask(struct intel_digital_port *dig_port)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-	struct intel_uncore *uncore = &i915->uncore;
+ 	u32 isr_bit = i915->hotplug.pch_hpd[dig_port->base.hpd_pin];
+ 	u32 mask = 0;
+ 	u32 val;
  
- 	/* 5. Software sets DPLL_ENABLE [PLL Enable] to "1". */
--	intel_uncore_rmw(&dev_priv->uncore, enable_reg, 0, PLL_ENABLE);
-+	intel_de_rmw(dev_priv, enable_reg, 0, PLL_ENABLE);
+-	val = intel_uncore_read(uncore,
+-				PORT_TX_DFLEXDPSP(dig_port->tc_phy_fia));
++	val = intel_de_read(i915, PORT_TX_DFLEXDPSP(dig_port->tc_phy_fia));
+ 
+ 	if (val == 0xffffffff) {
+ 		drm_dbg_kms(&i915->drm,
+@@ -265,7 +257,7 @@ static u32 icl_tc_port_live_status_mask(struct intel_digital_port *dig_port)
+ 	if (val & TC_LIVE_STATE_TC(dig_port->tc_phy_fia_idx))
+ 		mask |= BIT(TC_PORT_DP_ALT);
+ 
+-	if (intel_uncore_read(uncore, SDEISR) & isr_bit)
++	if (intel_de_read(i915, SDEISR) & isr_bit)
+ 		mask |= BIT(TC_PORT_LEGACY);
+ 
+ 	/* The sink can be connected only in a single mode. */
+@@ -280,7 +272,6 @@ static u32 adl_tc_port_live_status_mask(struct intel_digital_port *dig_port)
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+ 	enum tc_port tc_port = intel_port_to_tc(i915, dig_port->base.port);
+ 	u32 isr_bit = i915->hotplug.pch_hpd[dig_port->base.hpd_pin];
+-	struct intel_uncore *uncore = &i915->uncore;
+ 	u32 val, mask = 0;
  
  	/*
- 	 * 9. Software sets SNPS_PHY_MPLLB_DIV dp_mpllb_force_en to "1". This
-@@ -713,14 +713,13 @@ void intel_mpllb_disable(struct intel_encoder *encoder)
+@@ -288,13 +279,13 @@ static u32 adl_tc_port_live_status_mask(struct intel_digital_port *dig_port)
+ 	 * registers in IOM. Note that this doesn't apply to PHY and FIA
+ 	 * registers.
  	 */
+-	val = intel_uncore_read(uncore, TCSS_DDI_STATUS(tc_port));
++	val = intel_de_read(i915, TCSS_DDI_STATUS(tc_port));
+ 	if (val & TCSS_DDI_STATUS_HPD_LIVE_STATUS_ALT)
+ 		mask |= BIT(TC_PORT_DP_ALT);
+ 	if (val & TCSS_DDI_STATUS_HPD_LIVE_STATUS_TBT)
+ 		mask |= BIT(TC_PORT_TBT_ALT);
  
- 	/* 2. Software programs DPLL_ENABLE [PLL Enable] to "0" */
--	intel_uncore_rmw(&i915->uncore, enable_reg, PLL_ENABLE, 0);
-+	intel_de_rmw(i915, enable_reg, PLL_ENABLE, 0);
+-	if (intel_uncore_read(uncore, SDEISR) & isr_bit)
++	if (intel_de_read(i915, SDEISR) & isr_bit)
+ 		mask |= BIT(TC_PORT_LEGACY);
  
- 	/*
- 	 * 4. Software programs SNPS_PHY_MPLLB_DIV dp_mpllb_force_en to "0".
- 	 * This will allow the PLL to stop running.
- 	 */
--	intel_uncore_rmw(&i915->uncore, SNPS_PHY_MPLLB_DIV(phy),
--			 SNPS_PHY_MPLLB_FORCE_EN, 0);
-+	intel_de_rmw(i915, SNPS_PHY_MPLLB_DIV(phy), SNPS_PHY_MPLLB_FORCE_EN, 0);
+ 	/* The sink can be connected only in a single mode. */
+@@ -325,11 +316,9 @@ static u32 tc_port_live_status_mask(struct intel_digital_port *dig_port)
+ static bool icl_tc_phy_status_complete(struct intel_digital_port *dig_port)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-	struct intel_uncore *uncore = &i915->uncore;
+ 	u32 val;
  
- 	/*
- 	 * 5. Software polls DPLL_ENABLE [PLL Lock] for PHY acknowledgment
+-	val = intel_uncore_read(uncore,
+-				PORT_TX_DFLEXDPPMS(dig_port->tc_phy_fia));
++	val = intel_de_read(i915, PORT_TX_DFLEXDPPMS(dig_port->tc_phy_fia));
+ 	if (val == 0xffffffff) {
+ 		drm_dbg_kms(&i915->drm,
+ 			    "Port %s: PHY in TCCOLD, assuming not complete\n",
+@@ -351,10 +340,9 @@ static bool adl_tc_phy_status_complete(struct intel_digital_port *dig_port)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+ 	enum tc_port tc_port = intel_port_to_tc(i915, dig_port->base.port);
+-	struct intel_uncore *uncore = &i915->uncore;
+ 	u32 val;
+ 
+-	val = intel_uncore_read(uncore, TCSS_DDI_STATUS(tc_port));
++	val = intel_de_read(i915, TCSS_DDI_STATUS(tc_port));
+ 	if (val == 0xffffffff) {
+ 		drm_dbg_kms(&i915->drm,
+ 			    "Port %s: PHY in TCCOLD, assuming not complete\n",
+@@ -379,11 +367,9 @@ static bool icl_tc_phy_take_ownership(struct intel_digital_port *dig_port,
+ 				      bool take)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-	struct intel_uncore *uncore = &i915->uncore;
+ 	u32 val;
+ 
+-	val = intel_uncore_read(uncore,
+-				PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia));
++	val = intel_de_read(i915, PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia));
+ 	if (val == 0xffffffff) {
+ 		drm_dbg_kms(&i915->drm,
+ 			    "Port %s: PHY in TCCOLD, can't %s ownership\n",
+@@ -396,8 +382,7 @@ static bool icl_tc_phy_take_ownership(struct intel_digital_port *dig_port,
+ 	if (take)
+ 		val |= DP_PHY_MODE_STATUS_NOT_SAFE(dig_port->tc_phy_fia_idx);
+ 
+-	intel_uncore_write(uncore,
+-			   PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia), val);
++	intel_de_write(i915, PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia), val);
+ 
+ 	return true;
+ }
+@@ -406,16 +391,15 @@ static bool adl_tc_phy_take_ownership(struct intel_digital_port *dig_port,
+ 				      bool take)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-	struct intel_uncore *uncore = &i915->uncore;
+ 	enum port port = dig_port->base.port;
+ 	u32 val;
+ 
+-	val = intel_uncore_read(uncore, DDI_BUF_CTL(port));
++	val = intel_de_read(i915, DDI_BUF_CTL(port));
+ 	if (take)
+ 		val |= DDI_BUF_CTL_TC_PHY_OWNERSHIP;
+ 	else
+ 		val &= ~DDI_BUF_CTL_TC_PHY_OWNERSHIP;
+-	intel_uncore_write(uncore, DDI_BUF_CTL(port), val);
++	intel_de_write(i915, DDI_BUF_CTL(port), val);
+ 
+ 	return true;
+ }
+@@ -433,11 +417,9 @@ static bool tc_phy_take_ownership(struct intel_digital_port *dig_port, bool take
+ static bool icl_tc_phy_is_owned(struct intel_digital_port *dig_port)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-	struct intel_uncore *uncore = &i915->uncore;
+ 	u32 val;
+ 
+-	val = intel_uncore_read(uncore,
+-				PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia));
++	val = intel_de_read(i915, PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia));
+ 	if (val == 0xffffffff) {
+ 		drm_dbg_kms(&i915->drm,
+ 			    "Port %s: PHY in TCCOLD, assume safe mode\n",
+@@ -451,11 +433,10 @@ static bool icl_tc_phy_is_owned(struct intel_digital_port *dig_port)
+ static bool adl_tc_phy_is_owned(struct intel_digital_port *dig_port)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-	struct intel_uncore *uncore = &i915->uncore;
+ 	enum port port = dig_port->base.port;
+ 	u32 val;
+ 
+-	val = intel_uncore_read(uncore, DDI_BUF_CTL(port));
++	val = intel_de_read(i915, DDI_BUF_CTL(port));
+ 	return val & DDI_BUF_CTL_TC_PHY_OWNERSHIP;
+ }
+ 
+@@ -877,7 +858,7 @@ tc_has_modular_fia(struct drm_i915_private *i915, struct intel_digital_port *dig
+ 
+ 	mutex_lock(&dig_port->tc_lock);
+ 	wakeref = tc_cold_block(dig_port, &domain);
+-	val = intel_uncore_read(&i915->uncore, PORT_TX_DFLEXDPSP(FIA1));
++	val = intel_de_read(i915, PORT_TX_DFLEXDPSP(FIA1));
+ 	tc_cold_unblock(dig_port, domain, wakeref);
+ 	mutex_unlock(&dig_port->tc_lock);
+ 
 -- 
 2.34.1
 
