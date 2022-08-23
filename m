@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F76C32774
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 00:05:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E1F7C28D13
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 00:05:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE7A12BAF4;
-	Tue, 23 Aug 2022 00:04:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F507A74CB;
+	Tue, 23 Aug 2022 00:04:24 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6B19A74B2
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 00:03:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 180B3A74BA
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 00:03:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661213024; x=1692749024;
+ t=1661213025; x=1692749025;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=WfWeqiwSRUh5RFH4zFjmdjL4CDTCtTwB+tzp2ty892g=;
- b=E8rvVQlqdNSHEkTyMwaLEkaHWdmsgb1F46iahPDnpSp72Ri0+IiRzRSq
- doBhHvv78wKeosXrk4W0Nl+3dgTvJilUMoIfuMErLpKRkX+7ULROjnN7Y
- 7LkQBmdbYBJc2m8e3YYSQg/nF4Vh0mQROuK4cCyjJ23D5cTN8wm0MSZki
- Rjl8zdlFhr5dnYOSAfwpbdR/Y8LgVWwG463MoRZN+f1eLDxRNkmfwcHRU
- zIxZRe8SyvHiUeSDwHLHtiSk216F5XT2qE4LhESUTHJn5lrxugT7+R3Vh
- usYIXT1A7onIoQpNH2Wy7Ia9esyg43yyr/pj4TCJPWhJcEa6Vr0T6Op1I A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273304832"
-X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="273304832"
+ bh=QPZaocg5Ip4Ulzr+Ms8gcf42Avb4ArE+SzQ4umx/h+M=;
+ b=LTm9+zgNAcSRtH/+3BdAtqhdHEWIi5oIcTtPXRWRjcJmbBjkmT8tUzyw
+ 6zPhTc+dzzMO084uQVffl+Pd9V2kNarzzoi8l+7TLblLIs0G/YQEGuwcr
+ eg7ZuTz5uVY9zZEtlE4FMdyKuI3xhUkR/Yuh8r8A0qQren9BPhyxrbtaT
+ djtUSnawM7SIp3Io/sV2uaEZOzCHRZS5YcZBVaKqx1LfZ3raXpBJ+KUFU
+ gMOnP5YZ4FPdjc2FuxwBHMfGO+aEOSySIOHcnVtRDPNcmN0N27A07bDR3
+ +seFkd9u9gDGMaoH7uGRgMnnsUJ3snWCPwP14e5Ym+cYRuvBcyEe/IKS9 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273304835"
+X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="273304835"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  22 Aug 2022 17:03:42 -0700
-X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="669775523"
+X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="669775533"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  22 Aug 2022 17:03:42 -0700
@@ -37,16 +37,15 @@ From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Tue, 23 Aug 2022 00:03:29 +0000
-Message-Id: <20220823000342.281222-7-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 23 Aug 2022 00:03:32 +0000
+Message-Id: <20220823000342.281222-10-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220823000342.281222-1-umesh.nerlige.ramappa@intel.com>
 References: <20220823000342.281222-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/19] drm/i915/perf: Use helpers to process
- reports w.r.t. OA buffer size
+Subject: [Intel-gfx] [PATCH 09/19] drm/i915/perf: Replace gt->perf.lock with
+ stream->lock for file ops
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,133 +61,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DG2 has a new feature to supports OA buffer sizes up to 128Mb by
-toggling a bit in OA_DEBUG. This would eventually be a user configurable
-parameter. Use OA buffer vma size in all calculations with some helpers.
+With multi-gt, user can access multiple OA buffers concurrently. Use
+stream->lock instead of gt->perf.lock to serialize file operations.
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 47 ++++++++++++++++++++++----------
- 1 file changed, 32 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c       | 31 ++++++++++++--------------
+ drivers/gpu/drm/i915/i915_perf_types.h |  5 +++++
+ 2 files changed, 19 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 6fc4f0d8fc5a..18cc9a311b7e 100644
+index a96085058942..b79321559684 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -385,6 +385,22 @@ static struct ctl_table_header *sysctl_header;
+@@ -3245,6 +3245,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	stream->poll_check_timer.function = oa_poll_check_timer_cb;
+ 	init_waitqueue_head(&stream->poll_wq);
+ 	spin_lock_init(&stream->oa_buffer.ptr_lock);
++	mutex_init(&stream->lock);
  
- static enum hrtimer_restart oa_poll_check_timer_cb(struct hrtimer *hrtimer);
+ 	return 0;
  
-+static inline u32 _oa_taken(struct i915_perf_stream * stream,
-+			       u32 tail, u32 head)
-+{
-+	u32 size = stream->oa_buffer.vma->size;
-+
-+	return tail >= head ? tail - head : size - (head - tail);
-+}
-+
-+static inline u32 _rewind_tail(struct i915_perf_stream * stream,
-+			       u32 relative_hw_tail, u32 rewind_delta)
-+{
-+	return rewind_delta > relative_hw_tail ?
-+	       stream->oa_buffer.vma->size - (rewind_delta - relative_hw_tail) :
-+	       relative_hw_tail - rewind_delta;
-+}
-+
- void i915_oa_config_release(struct kref *ref)
+@@ -3308,7 +3309,6 @@ static ssize_t i915_perf_read(struct file *file,
+ 			      loff_t *ppos)
  {
- 	struct i915_oa_config *oa_config =
-@@ -487,12 +503,14 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
- 	 * sizes need not be integral multiples or 64 or powers of 2.
- 	 * Compute potentially partially landed report in the OA buffer
- 	 */
--	partial_report_size = OA_TAKEN(hw_tail, stream->oa_buffer.tail);
-+	partial_report_size =
-+		_oa_taken(stream, hw_tail, stream->oa_buffer.tail);
- 	partial_report_size %= report_size;
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct intel_gt *gt = stream->engine->gt;
+ 	size_t offset = 0;
+ 	int ret;
  
- 	/* Subtract partial amount off the tail */
--	hw_tail = gtt_offset + ((hw_tail - partial_report_size) &
--				(stream->oa_buffer.vma->size - 1));
-+	hw_tail = gtt_offset + _rewind_tail(stream,
-+					    hw_tail - gtt_offset,
-+					    partial_report_size);
+@@ -3332,14 +3332,14 @@ static ssize_t i915_perf_read(struct file *file,
+ 			if (ret)
+ 				return ret;
  
- 	now = ktime_get_mono_fast_ns();
- 
-@@ -527,16 +545,16 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
- 		 * memory in the order they were written to.
- 		 * If not : (╯°□°）╯︵ ┻━┻
- 		 */
--		while (OA_TAKEN(tail, aged_tail) >= report_size) {
-+		while (_oa_taken(stream, tail, aged_tail) >= report_size) {
- 			u32 *report32 = (void *)(stream->oa_buffer.vaddr + tail);
- 
- 			if (report32[0] != 0 || report32[1] != 0)
- 				break;
- 
--			tail = (tail - report_size) & (OA_BUFFER_SIZE - 1);
-+			tail = _rewind_tail(stream, tail, report_size);
- 		}
- 
--		if (OA_TAKEN(hw_tail, tail) > report_size &&
-+		if (_oa_taken(stream, hw_tail, tail) > report_size &&
- 		    __ratelimit(&stream->perf->tail_pointer_race))
- 			DRM_NOTE("unlanded report(s) head=0x%x "
- 				 "tail=0x%x hw_tail=0x%x\n",
-@@ -547,8 +565,9 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
- 		stream->oa_buffer.aging_timestamp = now;
+-			mutex_lock(&gt->perf.lock);
++			mutex_lock(&stream->lock);
+ 			ret = stream->ops->read(stream, buf, count, &offset);
+-			mutex_unlock(&gt->perf.lock);
++			mutex_unlock(&stream->lock);
+ 		} while (!offset && !ret);
+ 	} else {
+-		mutex_lock(&gt->perf.lock);
++		mutex_lock(&stream->lock);
+ 		ret = stream->ops->read(stream, buf, count, &offset);
+-		mutex_unlock(&gt->perf.lock);
++		mutex_unlock(&stream->lock);
  	}
  
--	pollin = OA_TAKEN(stream->oa_buffer.tail - gtt_offset,
--			  stream->oa_buffer.head - gtt_offset) >= report_size;
-+	pollin = _oa_taken(stream,
-+			   stream->oa_buffer.tail,
-+			   stream->oa_buffer.head) >= report_size;
+ 	/* We allow the poll checking to sometimes report false positive EPOLLIN
+@@ -3386,9 +3386,6 @@ static enum hrtimer_restart oa_poll_check_timer_cb(struct hrtimer *hrtimer)
+  * &i915_perf_stream_ops->poll_wait to call poll_wait() with a wait queue that
+  * will be woken for new stream data.
+  *
+- * Note: The &gt->perf.lock mutex has been taken to serialize
+- * with any non-file-operation driver hooks.
+- *
+  * Returns: any poll events that are ready without sleeping
+  */
+ static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
+@@ -3427,12 +3424,11 @@ static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
+ static __poll_t i915_perf_poll(struct file *file, poll_table *wait)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct intel_gt *gt = stream->engine->gt;
+ 	__poll_t ret;
  
- 	spin_unlock_irqrestore(&stream->oa_buffer.ptr_lock, flags);
+-	mutex_lock(&gt->perf.lock);
++	mutex_lock(&stream->lock);
+ 	ret = i915_perf_poll_locked(stream, file, wait);
+-	mutex_unlock(&gt->perf.lock);
++	mutex_unlock(&stream->lock);
  
-@@ -679,11 +698,9 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
- 	int report_size = stream->oa_buffer.format_size;
- 	u8 *oa_buf_base = stream->oa_buffer.vaddr;
- 	u32 gtt_offset = i915_ggtt_offset(stream->oa_buffer.vma);
--	u32 mask = (OA_BUFFER_SIZE - 1);
- 	size_t start_offset = *offset;
- 	unsigned long flags;
--	u32 head, tail;
--	u32 taken;
-+	u32 head, tail, size;
- 	int ret = 0;
+ 	return ret;
+ }
+@@ -3531,9 +3527,6 @@ static long i915_perf_config_locked(struct i915_perf_stream *stream,
+  * @cmd: the ioctl request
+  * @arg: the ioctl data
+  *
+- * Note: The &gt->perf.lock mutex has been taken to serialize
+- * with any non-file-operation driver hooks.
+- *
+  * Returns: zero on success or a negative error code. Returns -EINVAL for
+  * an unknown ioctl request.
+  */
+@@ -3571,12 +3564,11 @@ static long i915_perf_ioctl(struct file *file,
+ 			    unsigned long arg)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct intel_gt *gt = stream->engine->gt;
+ 	long ret;
  
- 	if (drm_WARN_ON(&uncore->i915->drm, !stream->enabled))
-@@ -693,6 +710,7 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+-	mutex_lock(&gt->perf.lock);
++	mutex_lock(&stream->lock);
+ 	ret = i915_perf_ioctl_locked(stream, cmd, arg);
+-	mutex_unlock(&gt->perf.lock);
++	mutex_unlock(&stream->lock);
  
- 	head = stream->oa_buffer.head;
- 	tail = stream->oa_buffer.tail;
-+	size = stream->oa_buffer.vma->size;
+ 	return ret;
+ }
+@@ -3622,6 +3614,11 @@ static int i915_perf_release(struct inode *inode, struct file *file)
+ 	struct i915_perf *perf = stream->perf;
+ 	struct intel_gt *gt = stream->engine->gt;
  
- 	spin_unlock_irqrestore(&stream->oa_buffer.ptr_lock, flags);
- 
-@@ -711,16 +729,15 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
- 	 * all a power of two).
++	/*
++	 * Within this call, we know that the fd is being closed and we have no
++	 * other user of stream->lock. Use the perf lock to destroy the stream
++	 * here.
++	 */
+ 	mutex_lock(&gt->perf.lock);
+ 	i915_perf_destroy_locked(stream);
+ 	mutex_unlock(&gt->perf.lock);
+diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
+index e888bfab478f..dc9bfd8086cf 100644
+--- a/drivers/gpu/drm/i915/i915_perf_types.h
++++ b/drivers/gpu/drm/i915/i915_perf_types.h
+@@ -146,6 +146,11 @@ struct i915_perf_stream {
  	 */
- 	if (drm_WARN_ONCE(&uncore->i915->drm,
--			  head > stream->oa_buffer.vma->size ||
--			  tail > stream->oa_buffer.vma->size,
-+			  head > size || tail > size,
- 			  "Inconsistent OA buffer pointers: head = %u, tail = %u\n",
- 			  head, tail))
- 		return -EIO;
+ 	struct intel_engine_cs *engine;
  
- 
- 	for (/* none */;
--	     (taken = OA_TAKEN(tail, head));
--	     head = (head + report_size) & mask) {
-+	     _oa_taken(stream, tail, head);
-+	     head = (head + report_size) % size) {
- 		u8 *report = oa_buf_base + head;
- 		u32 *report32 = (void *)report;
- 		u32 ctx_id;
++	/*
++	 * Lock associated with operations on stream
++	 */
++	struct mutex lock;
++
+ 	/**
+ 	 * @sample_flags: Flags representing the `DRM_I915_PERF_PROP_SAMPLE_*`
+ 	 * properties given when opening a stream, representing the contents
 -- 
 2.25.1
 
