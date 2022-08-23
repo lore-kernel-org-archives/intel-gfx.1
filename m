@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02EF5C28D13
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 00:06:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF0F4C32792
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 00:07:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE01A74FE;
-	Tue, 23 Aug 2022 00:04:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79C0EA754D;
+	Tue, 23 Aug 2022 00:04:52 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D03A7A74B0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C987A74C2
  for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 00:03:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1661213025; x=1692749025;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=0A4fGUfiwzonFKHvPcJ0765aNDxvBToAAhy4Edcy9e0=;
- b=PCwnP1avTzOfoKDARS3P0xkx1p2FxmNfgdoDKjnRJcuF7cFBIklblbhA
- /2dx2H/tTgDwADYxjoJ8u3IN/4wE9YZZJ+X0Nwz/Iz6pNnElljvrlIo1b
- A1viQz57nnMpKteNaNwCtABVcLEkr6JqmEVWxvZArx5LpMG+R7JaQK2dc
- hY5KaGJn8y0Nqv+WrBc7uvetVwNdBpL7Z5tRAgVImDsSV8V3lmzXqdYTs
- GvxSQ+CnGsY2wbLJQAPqkVI4gEM/SEXT0jCuagTdmhlytL7C+VHzALtvq
- 8iki55Hw5ozRnDY/IySfkZW/xavtwQAWdEh9xHuRdljawr7XgGbOci0JN w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273304845"
-X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="273304845"
+ bh=MEItcs6gWbfTHv2Y4h3DBvV6+v7UVGqqVsNc91Q5Ezs=;
+ b=lCGQfwgJaBcjMWnRivlGsFCDcYWEJP60R7a0kM3kXlxRKNdq8Kgo+H7d
+ U/GFlJIbsXmm2k/W+KGZmbWUARh/JFgnDu98N3Ganj238Um7xq3pCQvXA
+ 1BKVP9eXOIY+KmxZHu3BF24CNY4WsbE1B2R69t1qF1Qg7sAiNyDbUDVAN
+ bSjmyLbH3x0oZZXcrHwEl92wlmCfJok/JGCxxUSjWiuCsYXC9UdkPz7ph
+ tFD5t/j6AU+W2jOHJj6oG2CLgOnA4iPmi6/t4f5+R/QS6nnTKbfZtoWUE
+ aCVZSHNTKKyYWl/SuA6CFZ10vrbFdvAaN7dOtyrYgCJZMiYGkT/4zAbxq g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273304842"
+X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="273304842"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  22 Aug 2022 17:03:42 -0700
-X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="669775559"
+X-IronPort-AV: E=Sophos;i="5.93,255,1654585200"; d="scan'208";a="669775554"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  22 Aug 2022 17:03:42 -0700
@@ -37,15 +37,14 @@ From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Tue, 23 Aug 2022 00:03:41 +0000
-Message-Id: <20220823000342.281222-19-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 23 Aug 2022 00:03:39 +0000
+Message-Id: <20220823000342.281222-17-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220823000342.281222-1-umesh.nerlige.ramappa@intel.com>
 References: <20220823000342.281222-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 18/19] drm/i915/guc: Support OA when
- Wa_16011777198 is enabled
+Subject: [Intel-gfx] [PATCH 16/19] drm/i915/perf: Apply Wa_18013179988
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,161 +60,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+OA reports in the OA buffer contain an OA timestamp field that helps
+user calculate delta between 2 OA reports. The calculation relies on the
+CS timestamp frequency to convert the timestamp value to nanoseconds.
+The CS timestamp frequency is a function of the CTC_SHIFT value in
+RPM_CONFIG0.
 
-There is a w/a to reset RCS/CCS before it goes into RC6. This breaks
-OA. Fix it by disabling RC6.
+In DG2, OA unit assumes that the CTC_SHIFT is 3, instead of using the
+actual value from RPM_CONFIG0. At the user level, this results in an
+error in calculating delta between 2 OA reports since the OA timestamp
+is not shifted in the same manner as CS timestamp.
 
-Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+To resolve this, return actual OA timestamp frequency to the user in
+i915_getparam_ioctl.
+
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 ---
- .../drm/i915/gt/uc/abi/guc_actions_slpc_abi.h |  9 ++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   | 45 +++++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h   |  2 +
- drivers/gpu/drm/i915/i915_perf.c              | 29 ++++++++++++
- 4 files changed, 85 insertions(+)
+ drivers/gpu/drm/i915/i915_getparam.c |  3 +++
+ drivers/gpu/drm/i915/i915_perf.c     | 30 ++++++++++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_perf.h     |  2 ++
+ include/uapi/drm/i915_drm.h          |  6 ++++++
+ 4 files changed, 39 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
-index 4c840a2639dc..811add10c30d 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
-@@ -128,6 +128,15 @@ enum slpc_media_ratio_mode {
- 	SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_TWO = 2,
- };
- 
-+enum slpc_gucrc_mode {
-+	SLPC_GUCRC_MODE_HW = 0,
-+	SLPC_GUCRC_MODE_GUCRC_NO_RC6 = 1,
-+	SLPC_GUCRC_MODE_GUCRC_STATIC_TIMEOUT = 2,
-+	SLPC_GUCRC_MODE_GUCRC_DYNAMIC_HYSTERESIS = 3,
-+
-+	SLPC_GUCRC_MODE_MAX,
-+};
-+
- enum slpc_event_id {
- 	SLPC_EVENT_RESET = 0,
- 	SLPC_EVENT_SHUTDOWN = 1,
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-index e1fa1f32f29e..23989f5452a7 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-@@ -642,6 +642,51 @@ static void slpc_get_rp_values(struct intel_guc_slpc *slpc)
- 		slpc->boost_freq = slpc->rp0_freq;
- }
- 
-+/**
-+ * intel_guc_slpc_override_gucrc_mode() - override GUCRC mode
-+ * @slpc: pointer to intel_guc_slpc.
-+ * @mode: new value of the mode.
-+ *
-+ * This function will override the GUCRC mode.
-+ *
-+ * Return: 0 on success, non-zero error code on failure.
-+ */
-+int intel_guc_slpc_override_gucrc_mode(struct intel_guc_slpc *slpc, u32 mode)
-+{
-+	int ret;
-+	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	intel_wakeref_t wakeref;
-+
-+	if (mode >= SLPC_GUCRC_MODE_MAX)
-+		return -EINVAL;
-+
-+	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
-+
-+	ret = slpc_set_param(slpc, SLPC_PARAM_PWRGATE_RC_MODE, mode);
-+	if (ret)
-+		drm_err(&i915->drm,
-+			"Override gucrc mode %d failed %d\n",
-+			mode, ret);
-+
-+	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
-+
-+	return ret;
-+}
-+
-+int intel_guc_slpc_unset_gucrc_mode(struct intel_guc_slpc *slpc)
-+{
-+	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	int ret = 0;
-+
-+	ret = slpc_unset_param(slpc, SLPC_PARAM_PWRGATE_RC_MODE);
-+	if (ret)
-+		drm_err(&i915->drm,
-+			"Unsetting gucrc mode failed %d\n",
-+			ret);
-+
-+	return ret;
-+}
-+
- /*
-  * intel_guc_slpc_enable() - Start SLPC
-  * @slpc: pointer to intel_guc_slpc.
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-index 82a98f78f96c..ccf483730d9d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-@@ -42,5 +42,7 @@ int intel_guc_slpc_set_media_ratio_mode(struct intel_guc_slpc *slpc, u32 val);
- void intel_guc_pm_intrmsk_enable(struct intel_gt *gt);
- void intel_guc_slpc_boost(struct intel_guc_slpc *slpc);
- void intel_guc_slpc_dec_waiters(struct intel_guc_slpc *slpc);
-+int intel_guc_slpc_unset_gucrc_mode(struct intel_guc_slpc *slpc);
-+int intel_guc_slpc_override_gucrc_mode(struct intel_guc_slpc *slpc, u32 mode);
- 
- #endif
+diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
+index 6fd15b39570c..cdb2208ecabd 100644
+--- a/drivers/gpu/drm/i915/i915_getparam.c
++++ b/drivers/gpu/drm/i915/i915_getparam.c
+@@ -175,6 +175,9 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
+ 	case I915_PARAM_PERF_REVISION:
+ 		value = i915_perf_ioctl_version();
+ 		break;
++	case I915_PARAM_OA_TIMESTAMP_FREQUENCY:
++		value = i915_perf_oa_timestamp_frequency(i915);
++		break;
+ 	default:
+ 		DRM_DEBUG("Unknown parameter %d\n", param->param);
+ 		return -EINVAL;
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 00371b4146d7..ad69c9674e80 100644
+index ce379ac88a60..00371b4146d7 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -208,6 +208,7 @@
- #include "gt/intel_lrc.h"
- #include "gt/intel_lrc_reg.h"
- #include "gt/intel_ring.h"
-+#include "gt/uc/intel_guc_slpc.h"
+@@ -3189,6 +3189,30 @@ get_sseu_config(struct intel_sseu *out_sseu,
+ 	return i915_gem_user_to_context_sseu(engine->gt, drm_sseu, out_sseu);
+ }
  
- #include "i915_drv.h"
- #include "i915_file_private.h"
-@@ -1660,6 +1661,16 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
- 
- 	free_oa_buffer(stream);
- 
-+	/*
-+	 * Wa_16011777198:dg2: Unset the override of GUCRC mode to enable rc6.
-+	 */
-+	if (intel_guc_slpc_is_used(&gt->uc.guc) &&
-+	    intel_uc_uses_guc_rc(&gt->uc) &&
-+	    (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_C0) ||
-+	     IS_DG2_GRAPHICS_STEP(gt->i915, G11, STEP_A0, STEP_B0)))
-+		drm_WARN_ON(&gt->i915->drm,
-+			    intel_guc_slpc_unset_gucrc_mode(&gt->uc.guc.slpc));
++/*
++ * OA timestamp frequency = CS timestamp frequency in most platforms. On some
++ * platforms OA unit ignores the CTC_SHIFT and the 2 timestamps differ. In such
++ * cases, return the adjusted CS timestamp frequency to the user.
++ */
++u32 i915_perf_oa_timestamp_frequency(struct drm_i915_private *i915)
++{
++	/* Wa_18013179988:dg2 */
++	if (IS_DG2(i915)) {
++		intel_wakeref_t wakeref;
++		u32 reg, shift;
 +
- 	intel_uncore_forcewake_put(stream->uncore, FORCEWAKE_ALL);
- 	intel_engine_pm_put(stream->engine);
- 
-@@ -3348,6 +3359,24 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
- 	intel_engine_pm_get(stream->engine);
- 	intel_uncore_forcewake_get(stream->uncore, FORCEWAKE_ALL);
- 
-+	/*
-+	 * Wa_16011777198:dg2: GuC resets render as part of the Wa. This causes
-+	 * OA to lose the configuration state. Prevent this by overriding GUCRC
-+	 * mode.
-+	 */
-+	if (intel_guc_slpc_is_used(&gt->uc.guc) &&
-+	    intel_uc_uses_guc_rc(&gt->uc) &&
-+	    (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_C0) ||
-+	     IS_DG2_GRAPHICS_STEP(gt->i915, G11, STEP_A0, STEP_B0))) {
-+		ret = intel_guc_slpc_override_gucrc_mode(&gt->uc.guc.slpc,
-+							 SLPC_GUCRC_MODE_GUCRC_NO_RC6);
-+		if (ret) {
-+			drm_dbg(&stream->perf->i915->drm,
-+				"Unable to override gucrc mode\n");
-+			goto err_config;
-+		}
++		with_intel_runtime_pm(to_gt(i915)->uncore->rpm, wakeref)
++			reg = intel_uncore_read(to_gt(i915)->uncore, RPM_CONFIG0);
++
++		shift = (reg & GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_MASK) >>
++			 GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_SHIFT;
++
++		return to_gt(i915)->clock_frequency << (3 - shift);
 +	}
 +
- 	ret = alloc_oa_buffer(stream);
- 	if (ret)
- 		goto err_oa_buf_alloc;
++	return to_gt(i915)->clock_frequency;
++}
++
+ /**
+  * i915_oa_stream_init - validate combined props for OA stream and init
+  * @stream: An i915 perf stream
+@@ -3913,8 +3937,10 @@ i915_perf_open_ioctl_locked(struct i915_perf *perf,
+ 
+ static u64 oa_exponent_to_ns(struct i915_perf *perf, int exponent)
+ {
+-	return intel_gt_clock_interval_to_ns(to_gt(perf->i915),
+-					     2ULL << exponent);
++	u64 nom = (2ULL << exponent) * NSEC_PER_SEC;
++	u32 den = i915_perf_oa_timestamp_frequency(perf->i915);
++
++	return div_u64(nom + den - 1, den);
+ }
+ 
+ static __always_inline bool
+diff --git a/drivers/gpu/drm/i915/i915_perf.h b/drivers/gpu/drm/i915/i915_perf.h
+index 1d1329e5af3a..f96e09a4af04 100644
+--- a/drivers/gpu/drm/i915/i915_perf.h
++++ b/drivers/gpu/drm/i915/i915_perf.h
+@@ -57,4 +57,6 @@ static inline void i915_oa_config_put(struct i915_oa_config *oa_config)
+ 	kref_put(&oa_config->ref, i915_oa_config_release);
+ }
+ 
++u32 i915_perf_oa_timestamp_frequency(struct drm_i915_private *i915);
++
+ #endif /* __I915_PERF_H__ */
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 9168412e0da8..18ada8ce1a58 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -749,6 +749,12 @@ typedef struct drm_i915_irq_wait {
+ /* Query if the kernel supports the I915_USERPTR_PROBE flag. */
+ #define I915_PARAM_HAS_USERPTR_PROBE 56
+ 
++/*
++ * Frequency of the timestamps in OA reports. This used to be the same as the CS
++ * timestamp frequency, but differs on some platforms.
++ */
++#define I915_PARAM_OA_TIMESTAMP_FREQUENCY 57
++
+ /* Must be kept compact -- no holes and well documented */
+ 
+ /**
 -- 
 2.25.1
 
