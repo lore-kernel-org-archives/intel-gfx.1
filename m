@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A62C32772
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 20:42:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0AABC32774
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 20:42:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C44E310E7B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E862110E7C1;
 	Tue, 23 Aug 2022 20:42:16 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13D6E10E766
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BBEA10E653
  for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 20:41:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1661287319; x=1692823319;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pZ/E4jKa3oSUS8vbF0v3/+QnLXpfcIwZZBhJVBTah+E=;
- b=ZmM4/oR+YngsNhJS6TyX2qh3+g5yeC5KxUI+kNUZ2rxfVG4Xaq3QTQwk
- o445jba/gd8TZ4Sh3+AZTNyqDJ4XQHJ7OYOkBAw5WBXrDt31iOH/95XUL
- v2XpP5qEI0pVz52RWz3CX6IFKrO7CzNLCKCtHm4atO2Ui50lFnJWkmNWs
- +rbP/ocApqwzqvFpXx//NTtLxiJiGsr78iaOYNI0AR6CqZVwOoZ6wm550
- 7kshVwNyA4LzfjDS0gbp01RjSGPMO9mL49kvCkAmVRL7LHmcyB/P7xq6/
- RXa6z2nc1dDTMJpdWKhNSSLDz0xYI6666/P3VdtZf/3PxouPMFcxOaDR9 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="319843587"
-X-IronPort-AV: E=Sophos;i="5.93,258,1654585200"; d="scan'208";a="319843587"
+ bh=2/QNaP9Rl3d4NEJRyL7oVkNht4S3czP1AICT68Gdx+U=;
+ b=Y5neDsjKWSVCUmjk9pBmkr4gQwjqDqDLzF5xHRHJaumvWhfMzp6cJS77
+ pNfQ308mirILh07pxE/Ezzt7tqB06L8WLnqx4XW5uvJzCgrf49WedNmNI
+ FDCy9cJDHXlNIwoBjpPvzjDVBqvkROfl68SgHivUWbSgk9kaTE6R0GRil
+ QCQ9U81SZuPelXutKHr5lcY6FKxitEMEy6t8DKN0/mx2d/JLGngPpXyWx
+ lP0N7aTcYGfRv4bRrTFoaJLnsZimYcPGG+iiZmpTuT90bXPsSbu+wnXEZ
+ PrvXVjQODInmUNwFq2lys4WU7523QKWEwsvZUr6m3f8wSlmGtkFfqccr8 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="274179295"
+X-IronPort-AV: E=Sophos;i="5.93,258,1654585200"; d="scan'208";a="274179295"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 13:41:58 -0700
-X-IronPort-AV: E=Sophos;i="5.93,258,1654585200"; d="scan'208";a="638815626"
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2022 13:41:59 -0700
+X-IronPort-AV: E=Sophos;i="5.93,258,1654585200"; d="scan'208";a="638815645"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 13:41:57 -0700
+ 23 Aug 2022 13:41:58 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Aug 2022 20:41:40 +0000
-Message-Id: <20220823204155.8178-5-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 23 Aug 2022 20:41:44 +0000
+Message-Id: <20220823204155.8178-9-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220823204155.8178-1-umesh.nerlige.ramappa@intel.com>
 References: <20220823204155.8178-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/19] drm/i915/perf: Determine gen12 oa ctx
- offset at runtime
+Subject: [Intel-gfx] [PATCH 08/19] drm/i915/perf: Move gt-specific data from
+ i915->perf to gt->perf
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,262 +59,428 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some SKUs of same gen12 platform may have different oactxctrl
-offsets. For gen12, determine oactxctrl offsets at runtime.
+Make perf part of gt as the OAG buffer is specific to a gt. The refactor
+eventually simplifies programming the right OA buffer and the right HW
+registers when supporting multiple gts.
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c         | 149 ++++++++++++++++++-----
- drivers/gpu/drm/i915/i915_perf_oa_regs.h |   2 +-
- 2 files changed, 120 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_types.h   |  3 +
+ drivers/gpu/drm/i915/gt/intel_sseu.c       |  4 +-
+ drivers/gpu/drm/i915/i915_perf.c           | 75 +++++++++++++---------
+ drivers/gpu/drm/i915/i915_perf_types.h     | 39 +++++------
+ drivers/gpu/drm/i915/selftests/i915_perf.c | 16 +++--
+ 5 files changed, 80 insertions(+), 57 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+index 4d56f7d5a3be..3d079d206cec 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
+@@ -20,6 +20,7 @@
+ #include "intel_gsc.h"
+ 
+ #include "i915_vma.h"
++#include "i915_perf_types.h"
+ #include "intel_engine_types.h"
+ #include "intel_gt_buffer_pool_types.h"
+ #include "intel_hwconfig.h"
+@@ -260,6 +261,8 @@ struct intel_gt {
+ 	/* sysfs defaults per gt */
+ 	struct gt_defaults defaults;
+ 	struct kobject *sysfs_defaults;
++
++	struct i915_perf_gt perf;
+ };
+ 
+ enum intel_gt_scratch_field {
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index c6d3050604c8..fcaf3c58b554 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -678,8 +678,8 @@ u32 intel_sseu_make_rpcs(struct intel_gt *gt,
+ 	 * If i915/perf is active, we want a stable powergating configuration
+ 	 * on the system. Use the configuration pinned by i915/perf.
+ 	 */
+-	if (i915->perf.exclusive_stream)
+-		req_sseu = &i915->perf.sseu;
++	if (gt->perf.exclusive_stream)
++		req_sseu = &gt->perf.sseu;
+ 
+ 	slices = hweight8(req_sseu->slice_mask);
+ 	subslices = hweight8(req_sseu->subslice_mask);
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 3526693d64fa..efa7eda83edd 100644
+index 3e3bda147c48..5dccb3ffffc5 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1363,6 +1363,67 @@ static int gen12_get_render_context_id(struct i915_perf_stream *stream)
- 	return 0;
- }
- 
-+#define MI_OPCODE(x) (((x) >> 23) & 0x3f)
-+#define IS_MI_LRI_CMD(x) (MI_OPCODE(x) == MI_OPCODE(MI_INSTR(0x22, 0)))
-+#define MI_LRI_LEN(x) (((x) & 0xff) + 1)
-+#define __valid_oactxctrl_offset(x) ((x) && (x) != U32_MAX)
-+static bool __find_reg_in_lri(u32 *state, u32 reg, u32 *offset)
-+{
-+	u32 idx = *offset;
-+	u32 len = MI_LRI_LEN(state[idx]) + idx;
-+
-+	idx++;
-+	for (; idx < len; idx += 2)
-+		if (state[idx] == reg)
-+			break;
-+
-+	*offset = idx;
-+	return state[idx] == reg;
-+}
-+
-+static u32 __context_image_offset(struct intel_context *ce, u32 reg)
-+{
-+	u32 offset, len = (ce->engine->context_size - PAGE_SIZE) / 4;
-+	u32 *state = ce->lrc_reg_state;
-+
-+	for (offset = 0; offset < len; ) {
-+		if (IS_MI_LRI_CMD(state[offset])) {
-+			if (__find_reg_in_lri(state, reg, &offset))
-+				break;
-+		} else {
-+			offset++;
-+		}
-+	}
-+
-+	return offset < len ? offset : U32_MAX;
-+}
-+
-+static int __set_oa_ctx_ctrl_offset(struct intel_context *ce)
-+{
-+	i915_reg_t reg = GEN12_OACTXCONTROL(ce->engine->mmio_base);
-+	struct i915_perf *perf = &ce->engine->i915->perf;
-+	u32 saved_offset = perf->ctx_oactxctrl_offset;
-+	u32 offset;
-+
-+	/* Do this only once. Failure is stored as offset of U32_MAX */
-+	if (saved_offset)
-+		return 0;
-+
-+	offset = __context_image_offset(ce, i915_mmio_reg_offset(reg));
-+	perf->ctx_oactxctrl_offset = offset;
-+
-+	drm_dbg(&ce->engine->i915->drm,
-+		"%s oa ctx control at 0x%08x dword offset\n",
-+		ce->engine->name, offset);
-+
-+	return __valid_oactxctrl_offset(offset) ? 0 : -ENODEV;
-+}
-+
-+static bool engine_supports_mi_query(struct intel_engine_cs *engine)
-+{
-+	return engine->class == RENDER_CLASS;
-+}
-+
- /**
-  * oa_get_render_ctx_id - determine and hold ctx hw id
-  * @stream: An i915-perf stream opened for OA metrics
-@@ -1382,6 +1443,17 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
- 	if (IS_ERR(ce))
- 		return PTR_ERR(ce);
- 
-+	if (engine_supports_mi_query(stream->engine)) {
-+		ret = __set_oa_ctx_ctrl_offset(ce);
-+		if (ret && !(stream->sample_flags & SAMPLE_OA_REPORT)) {
-+			intel_context_unpin(ce);
-+			drm_err(&stream->perf->i915->drm,
-+				"Enabling perf query failed for %s\n",
-+				stream->engine->name);
-+			return ret;
-+		}
-+	}
-+
- 	switch (GRAPHICS_VER(ce->engine->i915)) {
- 	case 7: {
- 		/*
-@@ -2412,10 +2484,11 @@ static int gen12_configure_oar_context(struct i915_perf_stream *stream,
- 	int err;
- 	struct intel_context *ce = stream->pinned_ctx;
- 	u32 format = stream->oa_buffer.format;
-+	u32 offset = stream->perf->ctx_oactxctrl_offset;
- 	struct flex regs_context[] = {
- 		{
- 			GEN8_OACTXCONTROL,
--			stream->perf->ctx_oactxctrl_offset + 1,
-+			offset + 1,
- 			active ? GEN8_OA_COUNTER_RESUME : 0,
- 		},
- 	};
-@@ -2440,15 +2513,18 @@ static int gen12_configure_oar_context(struct i915_perf_stream *stream,
- 		},
- 	};
- 
--	/* Modify the context image of pinned context with regs_context*/
--	err = intel_context_lock_pinned(ce);
--	if (err)
--		return err;
-+	/* Modify the context image of pinned context with regs_context */
-+	if (__valid_oactxctrl_offset(offset)) {
-+		err = intel_context_lock_pinned(ce);
-+		if (err)
-+			return err;
- 
--	err = gen8_modify_context(ce, regs_context, ARRAY_SIZE(regs_context));
--	intel_context_unlock_pinned(ce);
--	if (err)
--		return err;
-+		err = gen8_modify_context(ce, regs_context,
-+					  ARRAY_SIZE(regs_context));
-+		intel_context_unlock_pinned(ce);
-+		if (err)
-+			return err;
-+	}
- 
- 	/* Apply regs_lri using LRI with pinned context */
- 	return gen8_modify_self(ce, regs_lri, ARRAY_SIZE(regs_lri), active);
-@@ -2570,6 +2646,7 @@ lrc_configure_all_contexts(struct i915_perf_stream *stream,
- 			   const struct i915_oa_config *oa_config,
- 			   struct i915_active *active)
+@@ -1577,8 +1577,9 @@ free_noa_wait(struct i915_perf_stream *stream)
+ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
  {
-+	u32 ctx_oactxctrl = stream->perf->ctx_oactxctrl_offset;
- 	/* The MMIO offsets for Flex EU registers aren't contiguous */
- 	const u32 ctx_flexeu0 = stream->perf->ctx_flexeu0_offset;
- #define ctx_flexeuN(N) (ctx_flexeu0 + 2 * (N) + 1)
-@@ -2580,7 +2657,7 @@ lrc_configure_all_contexts(struct i915_perf_stream *stream,
- 		},
- 		{
- 			GEN8_OACTXCONTROL,
--			stream->perf->ctx_oactxctrl_offset + 1,
-+			ctx_oactxctrl + 1,
- 		},
- 		{ EU_PERF_CNTL0, ctx_flexeuN(0) },
- 		{ EU_PERF_CNTL1, ctx_flexeuN(1) },
-@@ -4551,6 +4628,37 @@ static void oa_init_supported_formats(struct i915_perf *perf)
+ 	struct i915_perf *perf = stream->perf;
++	struct intel_gt *gt = stream->engine->gt;
+ 
+-	BUG_ON(stream != perf->exclusive_stream);
++	BUG_ON(stream != gt->perf.exclusive_stream);
+ 
+ 	/*
+ 	 * Unset exclusive_stream first, it will be checked while disabling
+@@ -1586,7 +1587,7 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+ 	 *
+ 	 * See i915_oa_init_reg_state() and lrc_configure_all_contexts()
+ 	 */
+-	WRITE_ONCE(perf->exclusive_stream, NULL);
++	WRITE_ONCE(gt->perf.exclusive_stream, NULL);
+ 	perf->ops.disable_metric_set(stream);
+ 
+ 	free_oa_buffer(stream);
+@@ -2579,10 +2580,11 @@ oa_configure_all_contexts(struct i915_perf_stream *stream,
+ {
+ 	struct drm_i915_private *i915 = stream->perf->i915;
+ 	struct intel_engine_cs *engine;
++	struct intel_gt *gt = stream->engine->gt;
+ 	struct i915_gem_context *ctx, *cn;
+ 	int err;
+ 
+-	lockdep_assert_held(&stream->perf->lock);
++	lockdep_assert_held(&gt->perf.lock);
+ 
+ 	/*
+ 	 * The OA register config is setup through the context image. This image
+@@ -3103,6 +3105,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ {
+ 	struct drm_i915_private *i915 = stream->perf->i915;
+ 	struct i915_perf *perf = stream->perf;
++	struct intel_gt *gt;
+ 	int format_size;
+ 	int ret;
+ 
+@@ -3111,6 +3114,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 			"OA engine not specified\n");
+ 		return -EINVAL;
  	}
++	gt = props->engine->gt;
+ 
+ 	/*
+ 	 * If the sysfs metrics/ directory wasn't registered for some
+@@ -3141,7 +3145,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	 * counter reports and marshal to the appropriate client
+ 	 * we currently only allow exclusive access
+ 	 */
+-	if (perf->exclusive_stream) {
++	if (gt->perf.exclusive_stream) {
+ 		drm_dbg(&stream->perf->i915->drm,
+ 			"OA unit already in use\n");
+ 		return -EBUSY;
+@@ -3221,8 +3225,8 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 
+ 	stream->ops = &i915_oa_stream_ops;
+ 
+-	perf->sseu = props->sseu;
+-	WRITE_ONCE(perf->exclusive_stream, stream);
++	stream->engine->gt->perf.sseu = props->sseu;
++	WRITE_ONCE(gt->perf.exclusive_stream, stream);
+ 
+ 	ret = i915_perf_stream_enable_sync(stream);
+ 	if (ret) {
+@@ -3244,7 +3248,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	return 0;
+ 
+ err_enable:
+-	WRITE_ONCE(perf->exclusive_stream, NULL);
++	WRITE_ONCE(gt->perf.exclusive_stream, NULL);
+ 	perf->ops.disable_metric_set(stream);
+ 
+ 	free_oa_buffer(stream);
+@@ -3274,7 +3278,7 @@ void i915_oa_init_reg_state(const struct intel_context *ce,
+ 		return;
+ 
+ 	/* perf.exclusive_stream serialised by lrc_configure_all_contexts() */
+-	stream = READ_ONCE(engine->i915->perf.exclusive_stream);
++	stream = READ_ONCE(engine->gt->perf.exclusive_stream);
+ 	if (stream && GRAPHICS_VER(stream->perf->i915) < 12)
+ 		gen8_update_reg_state_unlocked(ce, stream);
+ }
+@@ -3303,7 +3307,7 @@ static ssize_t i915_perf_read(struct file *file,
+ 			      loff_t *ppos)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct i915_perf *perf = stream->perf;
++	struct intel_gt *gt = stream->engine->gt;
+ 	size_t offset = 0;
+ 	int ret;
+ 
+@@ -3327,14 +3331,14 @@ static ssize_t i915_perf_read(struct file *file,
+ 			if (ret)
+ 				return ret;
+ 
+-			mutex_lock(&perf->lock);
++			mutex_lock(&gt->perf.lock);
+ 			ret = stream->ops->read(stream, buf, count, &offset);
+-			mutex_unlock(&perf->lock);
++			mutex_unlock(&gt->perf.lock);
+ 		} while (!offset && !ret);
+ 	} else {
+-		mutex_lock(&perf->lock);
++		mutex_lock(&gt->perf.lock);
+ 		ret = stream->ops->read(stream, buf, count, &offset);
+-		mutex_unlock(&perf->lock);
++		mutex_unlock(&gt->perf.lock);
+ 	}
+ 
+ 	/* We allow the poll checking to sometimes report false positive EPOLLIN
+@@ -3381,7 +3385,7 @@ static enum hrtimer_restart oa_poll_check_timer_cb(struct hrtimer *hrtimer)
+  * &i915_perf_stream_ops->poll_wait to call poll_wait() with a wait queue that
+  * will be woken for new stream data.
+  *
+- * Note: The &perf->lock mutex has been taken to serialize
++ * Note: The &gt->perf.lock mutex has been taken to serialize
+  * with any non-file-operation driver hooks.
+  *
+  * Returns: any poll events that are ready without sleeping
+@@ -3422,12 +3426,12 @@ static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
+ static __poll_t i915_perf_poll(struct file *file, poll_table *wait)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct i915_perf *perf = stream->perf;
++	struct intel_gt *gt = stream->engine->gt;
+ 	__poll_t ret;
+ 
+-	mutex_lock(&perf->lock);
++	mutex_lock(&gt->perf.lock);
+ 	ret = i915_perf_poll_locked(stream, file, wait);
+-	mutex_unlock(&perf->lock);
++	mutex_unlock(&gt->perf.lock);
+ 
+ 	return ret;
+ }
+@@ -3526,7 +3530,7 @@ static long i915_perf_config_locked(struct i915_perf_stream *stream,
+  * @cmd: the ioctl request
+  * @arg: the ioctl data
+  *
+- * Note: The &perf->lock mutex has been taken to serialize
++ * Note: The &gt->perf.lock mutex has been taken to serialize
+  * with any non-file-operation driver hooks.
+  *
+  * Returns: zero on success or a negative error code. Returns -EINVAL for
+@@ -3566,12 +3570,12 @@ static long i915_perf_ioctl(struct file *file,
+ 			    unsigned long arg)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct i915_perf *perf = stream->perf;
++	struct intel_gt *gt = stream->engine->gt;
+ 	long ret;
+ 
+-	mutex_lock(&perf->lock);
++	mutex_lock(&gt->perf.lock);
+ 	ret = i915_perf_ioctl_locked(stream, cmd, arg);
+-	mutex_unlock(&perf->lock);
++	mutex_unlock(&gt->perf.lock);
+ 
+ 	return ret;
+ }
+@@ -3583,7 +3587,7 @@ static long i915_perf_ioctl(struct file *file,
+  * Frees all resources associated with the given i915 perf @stream, disabling
+  * any associated data capture in the process.
+  *
+- * Note: The &perf->lock mutex has been taken to serialize
++ * Note: The &gt->perf.lock mutex has been taken to serialize
+  * with any non-file-operation driver hooks.
+  */
+ static void i915_perf_destroy_locked(struct i915_perf_stream *stream)
+@@ -3615,10 +3619,11 @@ static int i915_perf_release(struct inode *inode, struct file *file)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+ 	struct i915_perf *perf = stream->perf;
++	struct intel_gt *gt = stream->engine->gt;
+ 
+-	mutex_lock(&perf->lock);
++	mutex_lock(&gt->perf.lock);
+ 	i915_perf_destroy_locked(stream);
+-	mutex_unlock(&perf->lock);
++	mutex_unlock(&gt->perf.lock);
+ 
+ 	/* Release the reference the perf stream kept on the driver. */
+ 	drm_dev_put(&perf->i915->drm);
+@@ -3651,7 +3656,7 @@ static const struct file_operations fops = {
+  * See i915_perf_ioctl_open() for interface details.
+  *
+  * Implements further stream config validation and stream initialization on
+- * behalf of i915_perf_open_ioctl() with the &perf->lock mutex
++ * behalf of i915_perf_open_ioctl() with the &gt->perf.lock mutex
+  * taken to serialize with any non-file-operation driver hooks.
+  *
+  * Note: at this point the @props have only been validated in isolation and
+@@ -4035,7 +4040,7 @@ static int read_properties_unlocked(struct i915_perf *perf,
+  * mutex to avoid an awkward lockdep with mmap_lock.
+  *
+  * Most of the implementation details are handled by
+- * i915_perf_open_ioctl_locked() after taking the &perf->lock
++ * i915_perf_open_ioctl_locked() after taking the &gt->perf.lock
+  * mutex for serializing with any non-file-operation driver hooks.
+  *
+  * Return: A newly opened i915 Perf stream file descriptor or negative
+@@ -4046,6 +4051,7 @@ int i915_perf_open_ioctl(struct drm_device *dev, void *data,
+ {
+ 	struct i915_perf *perf = &to_i915(dev)->perf;
+ 	struct drm_i915_perf_open_param *param = data;
++	struct intel_gt *gt;
+ 	struct perf_open_properties props;
+ 	u32 known_open_flags;
+ 	int ret;
+@@ -4072,9 +4078,11 @@ int i915_perf_open_ioctl(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(&perf->lock);
++	gt = props.engine->gt;
++
++	mutex_lock(&gt->perf.lock);
+ 	ret = i915_perf_open_ioctl_locked(perf, param, &props, file);
+-	mutex_unlock(&perf->lock);
++	mutex_unlock(&gt->perf.lock);
+ 
+ 	return ret;
+ }
+@@ -4090,6 +4098,7 @@ int i915_perf_open_ioctl(struct drm_device *dev, void *data,
+ void i915_perf_register(struct drm_i915_private *i915)
+ {
+ 	struct i915_perf *perf = &i915->perf;
++	struct intel_gt *gt = to_gt(i915);
+ 
+ 	if (!perf->i915)
+ 		return;
+@@ -4098,13 +4107,13 @@ void i915_perf_register(struct drm_i915_private *i915)
+ 	 * i915_perf_open_ioctl(); considering that we register after
+ 	 * being exposed to userspace.
+ 	 */
+-	mutex_lock(&perf->lock);
++	mutex_lock(&gt->perf.lock);
+ 
+ 	perf->metrics_kobj =
+ 		kobject_create_and_add("metrics",
+ 				       &i915->drm.primary->kdev->kobj);
+ 
+-	mutex_unlock(&perf->lock);
++	mutex_unlock(&gt->perf.lock);
  }
  
-+static void i915_perf_init_info(struct drm_i915_private *i915)
-+{
-+	struct i915_perf *perf = &i915->perf;
-+
-+	switch (GRAPHICS_VER(i915)) {
-+	case 8:
-+		perf->ctx_oactxctrl_offset = 0x120;
-+		perf->ctx_flexeu0_offset = 0x2ce;
-+		perf->gen8_valid_ctx_bit = BIT(25);
-+		break;
-+	case 9:
-+		perf->ctx_oactxctrl_offset = 0x128;
-+		perf->ctx_flexeu0_offset = 0x3de;
-+		perf->gen8_valid_ctx_bit = BIT(16);
-+		break;
-+	case 11:
-+		perf->ctx_oactxctrl_offset = 0x124;
-+		perf->ctx_flexeu0_offset = 0x78e;
-+		perf->gen8_valid_ctx_bit = BIT(16);
-+		break;
-+	case 12:
-+		/*
-+		 * Calculate offset at runtime in oa_pin_context for gen12 and
-+		 * cache the value in perf->ctx_oactxctrl_offset.
-+		 */
-+		break;
-+	default:
-+		MISSING_CASE(GRAPHICS_VER(i915));
-+	}
-+}
-+
  /**
-  * i915_perf_init - initialize i915-perf state on module bind
-  * @i915: i915 device instance
-@@ -4589,6 +4697,7 @@ void i915_perf_init(struct drm_i915_private *i915)
- 		 * execlist mode by default.
- 		 */
- 		perf->ops.read = gen8_oa_read;
-+		i915_perf_init_info(i915);
- 
- 		if (IS_GRAPHICS_VER(i915, 8, 9)) {
- 			perf->ops.is_valid_b_counter_reg =
-@@ -4608,18 +4717,6 @@ void i915_perf_init(struct drm_i915_private *i915)
- 			perf->ops.enable_metric_set = gen8_enable_metric_set;
- 			perf->ops.disable_metric_set = gen8_disable_metric_set;
- 			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
--
--			if (GRAPHICS_VER(i915) == 8) {
--				perf->ctx_oactxctrl_offset = 0x120;
--				perf->ctx_flexeu0_offset = 0x2ce;
--
--				perf->gen8_valid_ctx_bit = BIT(25);
--			} else {
--				perf->ctx_oactxctrl_offset = 0x128;
--				perf->ctx_flexeu0_offset = 0x3de;
--
--				perf->gen8_valid_ctx_bit = BIT(16);
--			}
- 		} else if (GRAPHICS_VER(i915) == 11) {
- 			perf->ops.is_valid_b_counter_reg =
- 				gen7_is_valid_b_counter_addr;
-@@ -4633,11 +4730,6 @@ void i915_perf_init(struct drm_i915_private *i915)
- 			perf->ops.enable_metric_set = gen8_enable_metric_set;
- 			perf->ops.disable_metric_set = gen11_disable_metric_set;
- 			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
--
--			perf->ctx_oactxctrl_offset = 0x124;
--			perf->ctx_flexeu0_offset = 0x78e;
--
--			perf->gen8_valid_ctx_bit = BIT(16);
- 		} else if (GRAPHICS_VER(i915) == 12) {
- 			perf->ops.is_valid_b_counter_reg =
- 				gen12_is_valid_b_counter_addr;
-@@ -4651,9 +4743,6 @@ void i915_perf_init(struct drm_i915_private *i915)
- 			perf->ops.enable_metric_set = gen12_enable_metric_set;
- 			perf->ops.disable_metric_set = gen12_disable_metric_set;
- 			perf->ops.oa_hw_tail_read = gen12_oa_hw_tail_read;
--
--			perf->ctx_flexeu0_offset = 0;
--			perf->ctx_oactxctrl_offset = 0x144;
- 		}
+@@ -4783,7 +4792,11 @@ void i915_perf_init(struct drm_i915_private *i915)
  	}
  
-diff --git a/drivers/gpu/drm/i915/i915_perf_oa_regs.h b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
-index f31c9f13a9fc..0ef3562ff4aa 100644
---- a/drivers/gpu/drm/i915/i915_perf_oa_regs.h
-+++ b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
-@@ -97,7 +97,7 @@
- #define  GEN12_OAR_OACONTROL_COUNTER_FORMAT_SHIFT 1
- #define  GEN12_OAR_OACONTROL_COUNTER_ENABLE       (1 << 0)
+ 	if (perf->ops.enable_metric_set) {
+-		mutex_init(&perf->lock);
++		struct intel_gt *gt;
++		int i;
++
++		for_each_gt(gt, i915, i)
++			mutex_init(&gt->perf.lock);
  
--#define GEN12_OACTXCONTROL _MMIO(0x2360)
-+#define GEN12_OACTXCONTROL(base) _MMIO((base) + 0x360)
- #define GEN12_OAR_OASTATUS _MMIO(0x2968)
+ 		/* Choose a representative limit */
+ 		oa_sample_rate_hard_limit = to_gt(i915)->clock_frequency / 2;
+diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
+index 05cb9a335a97..e888bfab478f 100644
+--- a/drivers/gpu/drm/i915/i915_perf_types.h
++++ b/drivers/gpu/drm/i915/i915_perf_types.h
+@@ -380,6 +380,26 @@ struct i915_oa_ops {
+ 	u32 (*oa_hw_tail_read)(struct i915_perf_stream *stream);
+ };
  
- /* Gen12 OAG unit */
++struct i915_perf_gt {
++	/*
++	 * Lock associated with anything below within this structure.
++	 */
++	struct mutex lock;
++
++	/**
++	 * @sseu: sseu configuration selected to run while perf is active,
++	 * applies to all contexts.
++	 */
++	struct intel_sseu sseu;
++
++	/*
++	 * @exclusive_stream: The stream currently using the OA unit. This is
++	 * sometimes accessed outside a syscall associated to its file
++	 * descriptor.
++	 */
++	struct i915_perf_stream *exclusive_stream;
++};
++
+ struct i915_perf {
+ 	struct drm_i915_private *i915;
+ 
+@@ -397,25 +417,6 @@ struct i915_perf {
+ 	 */
+ 	struct idr metrics_idr;
+ 
+-	/*
+-	 * Lock associated with anything below within this structure
+-	 * except exclusive_stream.
+-	 */
+-	struct mutex lock;
+-
+-	/*
+-	 * The stream currently using the OA unit. If accessed
+-	 * outside a syscall associated to its file
+-	 * descriptor.
+-	 */
+-	struct i915_perf_stream *exclusive_stream;
+-
+-	/**
+-	 * @sseu: sseu configuration selected to run while perf is active,
+-	 * applies to all contexts.
+-	 */
+-	struct intel_sseu sseu;
+-
+ 	/**
+ 	 * For rate limiting any notifications of spurious
+ 	 * invalid OA reports
+diff --git a/drivers/gpu/drm/i915/selftests/i915_perf.c b/drivers/gpu/drm/i915/selftests/i915_perf.c
+index 429c6d73b159..24dde5531423 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_perf.c
++++ b/drivers/gpu/drm/i915/selftests/i915_perf.c
+@@ -102,6 +102,12 @@ test_stream(struct i915_perf *perf)
+ 		I915_OA_FORMAT_A32u40_A4u32_B8_C8 : I915_OA_FORMAT_C4_B8,
+ 	};
+ 	struct i915_perf_stream *stream;
++	struct intel_gt *gt;
++
++	if (!props.engine)
++		return NULL;
++
++	gt = props.engine->gt;
+ 
+ 	if (!oa_config)
+ 		return NULL;
+@@ -116,12 +122,12 @@ test_stream(struct i915_perf *perf)
+ 
+ 	stream->perf = perf;
+ 
+-	mutex_lock(&perf->lock);
++	mutex_lock(&gt->perf.lock);
+ 	if (i915_oa_stream_init(stream, &param, &props)) {
+ 		kfree(stream);
+ 		stream =  NULL;
+ 	}
+-	mutex_unlock(&perf->lock);
++	mutex_unlock(&gt->perf.lock);
+ 
+ 	i915_oa_config_put(oa_config);
+ 
+@@ -130,11 +136,11 @@ test_stream(struct i915_perf *perf)
+ 
+ static void stream_destroy(struct i915_perf_stream *stream)
+ {
+-	struct i915_perf *perf = stream->perf;
++	struct intel_gt *gt = stream->engine->gt;
+ 
+-	mutex_lock(&perf->lock);
++	mutex_lock(&gt->perf.lock);
+ 	i915_perf_destroy_locked(stream);
+-	mutex_unlock(&perf->lock);
++	mutex_unlock(&gt->perf.lock);
+ }
+ 
+ static int live_sanitycheck(void *arg)
 -- 
 2.25.1
 
