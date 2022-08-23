@@ -4,44 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3839CC32792
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 12:22:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3D2FC32772
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 12:27:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67C1D10F076;
-	Tue, 23 Aug 2022 12:22:26 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96F0E10F076
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 12:22:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661257337; x=1692793337;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=KmirNLOP2u91VzCmITLcJrypkRnDxUluHR2e4h6ajIg=;
- b=UArLr89GFeSySRIyBa1PfVi5WkhKFAQph6Sh0cKrwoCeo0Pw7NmcLpMf
- 1rwCEhgIq0fNmbK8iJtDro7eQIgn0s964iywcp8+Q6gTuZBdCqTtgxPwR
- Oe5a26z8MuC/z7UTeR1VfVRscJkT5VZEYEbzhowmi1okaxV/8rWA82CcO
- N3PtLl2MpihDB3djdj6h8M4HZTu8QalgvwbMKjmS3wFORhTehoYwbO4Y/
- i9ka0mdLRzhWKwC6aXLpwaM8FX6ihB74MEgrxoL1+Ok3qXE3hSir8nm0R
- MeotPWiYPiygHXCZdygIJVwIj4JpEHxsLunRW2vqR2CKKFw5ChJObmauc Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="357649974"
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="357649974"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 05:22:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="609326736"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orsmga002.jf.intel.com with ESMTP; 23 Aug 2022 05:22:16 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Aug 2022 10:50:50 +0530
-Message-Id: <20220823052050.2249138-1-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE88110E797;
+	Tue, 23 Aug 2022 12:27:55 +0000 (UTC)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA47D10FE63
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 12:27:35 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id m3so13772463lfg.10
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 05:27:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc;
+ bh=BgLcHHZg3HSTNtp4Dxlfy0KbhwXSwqY9W/etQBzNVqE=;
+ b=ov4BhshY2+n13w/3iL+QFip5jxVitTTwGuwwQF+IcHQTKIUXOCNzLT5z2zfCpcA0t4
+ yxUbP1iSYGvz0+NPhRu+YgIx+DUpjZ7VRIBom8s1OeZH0Ui+XkI5nn+ogVM8Cg5ZSvyQ
+ W39lfdOQqUcFMFZgT2n/E8NQrhmDxmjyTyCdXRn1iqZ5A775M2lVQ5V8xzYvngDzimBN
+ ZkmvyU48X4Jj4x8LLaJ5QJ3R9OkCIdfIShRNHNS8m4UEDb0Bpve6adFOlRFzVsXO4yIM
+ isLXU4lt2I6izKdu+EeSxMlupLg59vin6TpTeEcnNCa9XaTxOf8/zlL1s8sir4Flcic/
+ Kwfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=BgLcHHZg3HSTNtp4Dxlfy0KbhwXSwqY9W/etQBzNVqE=;
+ b=atbdGePEMYmo/X8NRJZcE4IM3MinTyMtF7z7DNDP0l1SYlwzLXTw1iGdiTMlyqtYq4
+ NFnw7GIMZ/Q4lkH/dJZj7aCAynzAUDf7a7KBViGfs+41NiI00Yys3WIcxCbobOtGl+9v
+ Xpg9+IWl0/niBLNP+nrI4l9qtVbB1esmiqkIfQniI1hHP3Gg1XM3PcPl85Ibfyx6g5W0
+ xPHIERgbseKO17uEXNihQ0EQCZq9UJB00cUayYYR/xg7Ka4KsCUFDgA8e34vmurfGwY9
+ gT0lgKhs8u6ru0DAVNc5MVWLMUWdspbGv8674VqACsBOrSurb53zv/kaP1a90HW3VR61
+ lNRg==
+X-Gm-Message-State: ACgBeo3R8F6cFtYemzeWI+Y+stgATW9OUW+ljxbwIFEOxkA/jFg+PPqi
+ UAbDLkM3VYJt/ik8lLwh1VIB9GBzZo6Z5TBIobVrByEcxsMoUA==
+X-Google-Smtp-Source: AA6agR7MP3bEexz4RDvbjYHTimzHgYLg8lWwdBdRuVKjyuZhl1CKmSOrmBWUXOctNLvlogmxGvnTLvFgoaRlM0HO1zg=
+X-Received: by 2002:a05:6512:1312:b0:492:e14d:54d4 with SMTP id
+ x18-20020a056512131200b00492e14d54d4mr3665800lfu.469.1661257653853; Tue, 23
+ Aug 2022 05:27:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/display: Fix warning callstack for
- imbalance wakeref
+References: <20220815080907.3229449-1-jani.nikula@intel.com>
+In-Reply-To: <20220815080907.3229449-1-jani.nikula@intel.com>
+From: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Tue, 23 Aug 2022 13:27:06 +0100
+Message-ID: <CAM0jSHMb48D58NhZ_S8T2k69Pi2DKaeYAQr7D0_06Uqg+xWUFg@mail.gmail.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/utils: remove unused
+ KBps/MBps/GBps macros
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,44 +64,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While executing i915_selftest, wakeref imbalance warning is seen
-with i915_selftest failure.
+On Mon, 15 Aug 2022 at 09:09, Jani Nikula <jani.nikula@intel.com> wrote:
+>
+> Remove unused macros. If needed again, such macros belong in
+> <linux/units.h>.
+>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
-Currently when Driver is suspended, while doing unregister
-it is taking wakeref without resuming the device.
-This patch is resuming the device, if driver is already suspended
-and doing unregister process. It will check the suspend state and
-if driver is not resumed before taking wakeref then resume before
-it.
-
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
----
- drivers/gpu/drm/i915/i915_driver.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index deb8a8b76965..99d6df02dc67 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -948,6 +948,15 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- void i915_driver_remove(struct drm_i915_private *i915)
- {
-+	int ret;
-+	/*
-+	 * Resuming Device if already suspended to complete driver unregistration
-+	 */
-+	if (i915->runtime_pm.suspended && !atomic_read(&i915->runtime_pm.wakeref_count)) {
-+		ret = pm_runtime_get_sync(i915->runtime_pm.kdev);
-+		drm_WARN_ONCE(&i915->drm, ret < 0, "pm_runtime_get_sync() failed: %d\n", ret);
-+	}
-+
- 	disable_rpm_wakeref_asserts(&i915->runtime_pm);
- 
- 	i915_driver_unregister(i915);
--- 
-2.25.1
-
+> ---
+>  drivers/gpu/drm/i915/i915_utils.h | 4 ----
+>  1 file changed, 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+> index c10d68cdc3ca..6c14d13364bf 100644
+> --- a/drivers/gpu/drm/i915/i915_utils.h
+> +++ b/drivers/gpu/drm/i915/i915_utils.h
+> @@ -360,10 +360,6 @@ wait_remaining_ms_from_jiffies(unsigned long timestamp_jiffies, int to_wait_ms)
+>  #define KHz(x) (1000 * (x))
+>  #define MHz(x) KHz(1000 * (x))
+>
+> -#define KBps(x) (1000 * (x))
+> -#define MBps(x) KBps(1000 * (x))
+> -#define GBps(x) ((u64)1000 * MBps((x)))
+> -
+>  void add_taint_for_CI(struct drm_i915_private *i915, unsigned int taint);
+>  static inline void __add_taint_for_CI(unsigned int taint)
+>  {
+> --
+> 2.34.1
+>
