@@ -4,74 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27831C0502C
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72717ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5FE010F1D1;
-	Mon, 29 Aug 2022 13:04:21 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB6010E583;
- Wed, 24 Aug 2022 15:22:06 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
- [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 5F0606601E8F;
- Wed, 24 Aug 2022 16:22:02 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661354524;
- bh=0T3J2stygSQ46G6B6v9zKNnVQmlqX5H9hiMN/yLf2Co=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=C7kNvimP5fOeZ0pyknplgArACBn58oK40aC89jsu3KaqWXbcbY8TsmhOzQXGPZXJW
- HlOE9l3nkbpE4cq7o7VzS7BLHKZ7JbB/cOakl527Kh6ywLyq6Vl+/D6cQEe4Tgmdsa
- clxboeNEqjRMl0uZ8PhzGtLQXa+tn7p9f9fX0RM1Sox5gkFZodPnajK1NtmQiu0rUQ
- jCjwYKEH2ZVybOdU5ZggxwmEs9aj+6c4EZ1TaDGOCpNvzNJSTVyvlM7X8dNfWi6Qba
- 4ht1LFVkuybaOjoAhoDb5lNkC/scx8bwroiq2hCKb3C5T+0VaVlNIxY0x7+lIxFlrq
- hHP83HoyFxTWA==
-Message-ID: <76beb362-09c3-bbff-c50d-794a200cb641@collabora.com>
-Date: Wed, 24 Aug 2022 18:22:00 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB89B10F1CE;
+	Mon, 29 Aug 2022 13:04:19 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg4.exmail.qq.com [43.154.221.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C62DD10E363;
+ Tue, 23 Aug 2022 12:30:58 +0000 (UTC)
+X-QQ-mid: bizesmtp76t1661257851toe4j5vo
+Received: from localhost.localdomain ( [182.148.14.124])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 23 Aug 2022 20:30:50 +0800 (CST)
+X-QQ-SSF: 01000000002000C0D000B00A0000000
+X-QQ-FEAT: CR3LFp2JE4nuRAt3y5hdzUXJ8PhfvhAvvgiJTnr3AKnjupX57tUKbnJ0nioxQ
+ INW5jBmZbXBroGHF0+FEYjm+Rk6YHbz4FrAU5YpFmbpuSpYKZS6ApwnmGlzMOARuF0j/UOw
+ nRLvkO3uiRovj6Ws064ydTtHc8tAqJ9tsBRASqSkdbO6fAlFlHcbFKOp3tBkmSwwJLJ5a0H
+ D2sstLjSXAlo1ELaaTBRDnUQzEseU+sL7y6zDpjARhdyvUOZFg5l08+IbGsaFOBTeh9TXN+
+ MEeH8ltMBfZ5lRHkjNjzfgWdQgf3+HvrUqLJ1eAEr3zrdlOe8P3vtARqZ9NDivOhdHUaG8z
+ zHJi9D14E+JuUFc2R4HErlF7e0mSLpaLYMXBWUpzZoaqiVvGm+4zb586u+LgjdG7HzOkLd8
+X-QQ-GoodBg: 0
+From: Jilin Yuan <yuanjilin@cdjrlc.com>
+To: airlied@linux.ie,
+	daniel@ffwll.ch
+Date: Tue, 23 Aug 2022 20:30:44 +0800
+Message-Id: <20220823123044.24593-1-yuanjilin@cdjrlc.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
- <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>
-References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
- <20220824102248.91964-7-dmitry.osipenko@collabora.com>
- <17181951-1b40-cd39-48df-58b43cad117d@amd.com>
- <4af793fd-eccc-ad70-65c3-de78dced71f0@collabora.com>
- <b24017e9-e8e7-148e-951b-0f2a1dffdca7@amd.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <b24017e9-e8e7-148e-951b-0f2a1dffdca7@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr4
 X-Mailman-Approved-At: Mon, 29 Aug 2022 13:04:13 +0000
-Subject: Re: [Intel-gfx] [PATCH v3 6/9] dma-buf: Move dma-buf attachment to
- dynamic locking specification
+Subject: [Intel-gfx] [PATCH] drm/i915: fix repeated words in comments
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,47 +48,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
- dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org, Jilin Yuan <yuanjilin@cdjrlc.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 8/24/22 18:14, Christian König wrote:
-> Am 24.08.22 um 17:03 schrieb Dmitry Osipenko:
->> On 8/24/22 17:08, Christian König wrote:
->>> Am 24.08.22 um 12:22 schrieb Dmitry Osipenko:
->>>> Move dma-buf attachment API functions to the dynamic locking
->>>> specification.
->>>> The strict locking convention prevents deadlock situations for dma-buf
->>>> importers and exporters.
->>>>
->>>> Previously, the "unlocked" versions of the attachment API functions
->>>> weren't taking the reservation lock and this patch makes them to take
->>>> the lock.
->>> Didn't we concluded that we need to keep the attach and detach callbacks
->>> without the lock and only move the map/unmap callbacks over?
->>>
->>> Otherwise it won't be possible for drivers to lock multiple buffers if
->>> they have to shuffle things around for a specific attachment.
->> We did conclude that. The attach/detach dma-buf ops are unlocked, but
->> the map_dma_buf/unmap_dma_buf must be invoked under lock and
->> dma_buf_dynamic_attach_unlocked() maps dma-buf if either importer or
->> exporter can't handle the dynamic mapping [1].
-> 
-> Ah! You are confusing me over and over again with that :)
-> 
-> Ok in this case that here is fine, I just need to re-read the patch.
+ Delete the redundant word 'other'.
+ Delete the redundant word 'the'.
+ Delete the redundant word 'will'.
 
-It's indeed not trivial to review this patch, not sure if we can make it
-simpler. Maybe it's possible to factor out the changes related to
-dynamic mapping, or maybe it's not worthwhile..
+Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
+---
+ drivers/gpu/drm/i915/i915_gem_evict.c | 2 +-
+ drivers/gpu/drm/i915/i915_irq.c       | 4 ++--
+ drivers/gpu/drm/i915/i915_memcpy.h    | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-Anyways, thank you for helping with reviewing it :)
-
+diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
+index f025ee4fa526..028e509e1628 100644
+--- a/drivers/gpu/drm/i915/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/i915_gem_evict.c
+@@ -256,7 +256,7 @@ i915_gem_evict_something(struct i915_address_space *vm,
+ 	goto search_again;
+ 
+ found:
+-	/* drm_mm doesn't allow any other other operations while
++	/* drm_mm doesn't allow any other operations while
+ 	 * scanning, therefore store to-be-evicted objects on a
+ 	 * temporary list and take a reference for all before
+ 	 * calling unbind (which may remove the active reference
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index 73cebc6aa650..1e4a705bc5cc 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -65,7 +65,7 @@
+ 
+ /*
+  * Interrupt statistic for PMU. Increments the counter only if the
+- * interrupt originated from the the GPU so interrupts from a device which
++ * interrupt originated from the GPU so interrupts from a device which
+  * shares the interrupt line are not accounted.
+  */
+ static inline void pmu_irq_stats(struct drm_i915_private *i915,
+@@ -2175,7 +2175,7 @@ static irqreturn_t ilk_irq_handler(int irq, void *arg)
+ 	raw_reg_write(regs, DEIER, de_ier & ~DE_MASTER_IRQ_CONTROL);
+ 
+ 	/* Disable south interrupts. We'll only write to SDEIIR once, so further
+-	 * interrupts will will be stored on its back queue, and then we'll be
++	 * interrupts will be stored on its back queue, and then we'll be
+ 	 * able to process them after we restore SDEIER (as soon as we restore
+ 	 * it, we'll get an interrupt if SDEIIR still has something to process
+ 	 * due to its back queue). */
+diff --git a/drivers/gpu/drm/i915/i915_memcpy.h b/drivers/gpu/drm/i915/i915_memcpy.h
+index 3df063a3293b..126dfb4352f0 100644
+--- a/drivers/gpu/drm/i915/i915_memcpy.h
++++ b/drivers/gpu/drm/i915/i915_memcpy.h
+@@ -18,7 +18,7 @@ void i915_unaligned_memcpy_from_wc(void *dst, const void *src, unsigned long len
+ /* The movntdqa instructions used for memcpy-from-wc require 16-byte alignment,
+  * as well as SSE4.1 support. i915_memcpy_from_wc() will report if it cannot
+  * perform the operation. To check beforehand, pass in the parameters to
+- * to i915_can_memcpy_from_wc() - since we only care about the low 4 bits,
++ * i915_can_memcpy_from_wc() - since we only care about the low 4 bits,
+  * you only need to pass in the minor offsets, page-aligned pointers are
+  * always valid.
+  *
 -- 
-Best regards,
-Dmitry
+2.36.1
+
