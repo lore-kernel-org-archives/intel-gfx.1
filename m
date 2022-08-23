@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDB10C32772
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 10:18:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F41F3C32772
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 10:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9C67B2FFC;
-	Tue, 23 Aug 2022 10:18:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCD01B3008;
+	Tue, 23 Aug 2022 10:18:26 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 024E5B2FD9;
- Tue, 23 Aug 2022 10:17:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51D99B2FDE;
+ Tue, 23 Aug 2022 10:17:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661249876; x=1692785876;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=UOoUeBZGBezcH2/KZ3Ntl67gRI+FunItzjnXIPT1M5k=;
- b=AwFNwgYM1p+EBu6O52G2WYhYtoN8OCsMl1fwT2wlLi5MIUrGoRb04bcA
- nlkV7Y2TDJSBExNdnjkiDKl9Nbid6UhKaGsi1P2Qqxbgg/k5aZ2H189ut
- Cisn215bJwUOuVjw6EuoZXbD5jmDYYay3beKxExxwIUlj0bDPZ0GtgcxD
- uTzaebZ3x45208qDxEIpf2N9w04Fv3D9meKY7uuZT3F2pkU6dlbQsgAqc
- swo3HJtQn/8/8YWUBsnD9K94dliojR8TZryX+QUl8PyuX+Jb8lSz/k9c3
- XO8LpniCNId6jAp1QPrhsr9U9vlh+o1m6IRMbvbT2Dwr4IQA0cBhromaS w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273400709"
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="273400709"
+ t=1661249878; x=1692785878;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=uWNiR7M8bUT4JAhynBPIOlI6cvuOcXNpkpD1siwzhag=;
+ b=mL+SgThu6xW7P9gWPcJLHIg6r5/5L4lKn4SxuJFVadGpMRiQ0CDZ7saC
+ JUdXeX6/UkZ1XyoK89b3EGi1W8rvHMDJJzdDErE230PLf4T7q8fjSSAwN
+ L4e4W3zMO4kNSrnFiJHsmq0J6ql09f4K081+A+wKOU/WivaC2S3dV3zEP
+ Mk6KADA/lp5UiVhcyZC2vCAXjdmnO+utehQmeATCPVs26FJE4rnXmpJw1
+ r/WE7dYc9pIEEBUWBMDoQnn54uMJmV11gFSm6Oirwb6f/eX9rLv7UWvgt
+ 5gUCRzwZMbh55VpGRvKJhWTo4UNO7KRgxoQY2Uq8vShPWXc8UST+xwtK2 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273400739"
+X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="273400739"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 03:17:47 -0700
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="751639865"
+ 23 Aug 2022 03:17:57 -0700
+X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="751639913"
 Received: from jabish-mobl2.amr.corp.intel.com (HELO paris.amr.corp.intel.com)
  ([10.254.9.209])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 03:17:42 -0700
+ 23 Aug 2022 03:17:52 -0700
 From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Aug 2022 19:17:21 +0900
-Message-Id: <20220823101729.2098841-1-gwan-gyeong.mun@intel.com>
+Date: Tue, 23 Aug 2022 19:17:23 +0900
+Message-Id: <20220823101729.2098841-3-gwan-gyeong.mun@intel.com>
 X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20220823101729.2098841-1-gwan-gyeong.mun@intel.com>
+References: <20220823101729.2098841-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 0/8] Fixes integer overflow or integer
- truncation issues in page lookups,
- ttm place configuration and scatterlist creation
+Subject: [Intel-gfx] [PATCH v8 2/8] util_macros: Add exact_type macro to
+ catch type mis-match while compiling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,88 +67,67 @@ Cc: thomas.hellstrom@linux.intel.com, keescook@chromium.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch series fixes integer overflow or integer truncation issues in
-page lookups, ttm place configuration and scatterlist creation, etc.
-We need to check that we avoid integer overflows when looking up a page,
-and so fix all the instances where we have mistakenly used a plain integer
-instead of a more suitable long.
-And there is an impedance mismatch between the scatterlist API using
-unsigned int and our memory/page accounting in unsigned long. That is we
-may try to create a scatterlist for a large object that overflows returning
-a small table into which we try to fit very many pages. As the object size
-is under the control of userspace, we have to be prudent and catch the
-conversion errors. To catch the implicit truncation as we switch from
-unsigned long into the scatterlist's unsigned int, we use improved
-overflows_type check and report E2BIG prior to the operation. This is
-already used in our create ioctls to indicate if the uABI request is simply
-too large for the backing store. 
-And ttm place also has the same problem with scatterlist creation,
-and we fix the integer truncation problem with the way approached by
-scatterlist creation.
-And It corrects the error code to return -E2BIG when creating gem objects
-using ttm or shmem, if the size is too large in each case.
-In order to provide a common macro, it moves and adds a few utility macros
-into overflow/util_macros header
+It adds exact_type and exactly_pgoff_t macro to catch type mis-match while
+compiling. The existing typecheck() macro outputs build warnings, but the
+newly added exact_type() macro uses the BUILD_BUG_ON() macro to generate
+a build break when the types are different and can be used to detect
+explicit build errors.
 
-v8: Add check_assign() and remove safe_conversion() (Kees)
-    Replace safe_conversion() with check_assign() (Kees)
-    Fix overflows_type() to use gcc's built-in overflow function (Andrzej)
-    Add overflows_ptr() to allow overflow checking when assigning a value
-    into a pointer variable (G.G.)
-v7: Fix to use WARN_ON() macro where GEM_BUG_ON() macro was used. (Jani)
-v6: Move macro addition location so that it can be used by other than drm subsystem (Jani, Mauro, Andi)
-    Fix to follow general use case for GEM_BUG_ON(). (Jani)
-v5: Fix an alignment to match open parenthesis
-    Fix macros to be enclosed in parentheses for complex values
-    Fix too long line warning
-v4: Fix build warnins that reported by kernel test robot. (kernel test robot <lkp@intel.com>)
-    Add kernel-doc markups to the kAPI functions and macros (Mauoro)
-v3: Modify overflows_type() macro to consider signed data types and
-	add is_type_unsigned() macro (Mauro)
-    Make not use the same macro name on a function. (Mauro)
-    For kernel-doc, macros and functions are handled in the same namespace,
-    the same macro name on a function prevents ever adding documentation for it.
-    Not to change execution inside a macro. (Mauro)
-    Fix the problem that safe_conversion() macro always returns true (G.G)
-    Add safe_conversion_gem_bug_on() macro and remove temporal SAFE_CONVERSION() macro. (G.G.)
+v6: Move macro addition location so that it can be used by other than drm
+    subsystem (Jani, Mauro, Andi)
 
-Chris Wilson (3):
-  drm/i915/gem: Typecheck page lookups
-  drm/i915: Check for integer truncation on scatterlist creation
-  drm/i915: Remove truncation warning for large objects
+Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Nirmoy Das <nirmoy.das@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+---
+ include/linux/util_macros.h | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-Gwan-gyeong Mun (5):
-  overflow: Move and add few utility macros into overflow
-  util_macros: Add exact_type macro to catch type mis-match while
-    compiling
-  drm/i915: Check for integer truncation on the configuration of ttm
-    place
-  drm/i915: Check if the size is too big while creating shmem file
-  drm/i915: Use error code as -E2BIG when the size of gem ttm object is
-    too large
-
- drivers/gpu/drm/i915/gem/i915_gem_internal.c  |   6 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |   7 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.h    | 303 +++++++++++++++---
- drivers/gpu/drm/i915/gem/i915_gem_pages.c     |  27 +-
- drivers/gpu/drm/i915/gem/i915_gem_phys.c      |   4 +
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  19 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  23 +-
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c   |   5 +-
- .../drm/i915/gem/selftests/i915_gem_context.c |  12 +-
- .../drm/i915/gem/selftests/i915_gem_mman.c    |   8 +-
- .../drm/i915/gem/selftests/i915_gem_object.c  |   8 +-
- drivers/gpu/drm/i915/gvt/dmabuf.c             |   9 +-
- drivers/gpu/drm/i915/i915_gem.c               |  18 +-
- drivers/gpu/drm/i915/i915_scatterlist.h       |  11 +
- drivers/gpu/drm/i915/i915_user_extensions.c   |   2 +-
- drivers/gpu/drm/i915/i915_utils.h             |   6 +-
- drivers/gpu/drm/i915/i915_vma.c               |   8 +-
- drivers/gpu/drm/i915/intel_region_ttm.c       |  17 +-
- include/linux/overflow.h                      |  67 ++++
- include/linux/util_macros.h                   |  25 ++
- 20 files changed, 491 insertions(+), 94 deletions(-)
-
+diff --git a/include/linux/util_macros.h b/include/linux/util_macros.h
+index 72299f261b25..b6624b275257 100644
+--- a/include/linux/util_macros.h
++++ b/include/linux/util_macros.h
+@@ -2,6 +2,9 @@
+ #ifndef _LINUX_HELPER_MACROS_H_
+ #define _LINUX_HELPER_MACROS_H_
+ 
++#include <linux/types.h>
++#include <linux/bug.h>
++
+ #define __find_closest(x, a, as, op)					\
+ ({									\
+ 	typeof(as) __fc_i, __fc_as = (as) - 1;				\
+@@ -38,4 +41,26 @@
+  */
+ #define find_closest_descending(x, a, as) __find_closest(x, a, as, >=)
+ 
++/**
++ * exact_type - break compile if source type and destination value's type are
++ * not the same
++ * @T: Source type
++ * @n: Destination value
++ *
++ * It is a helper macro for a poor man's -Wconversion: only allow variables of
++ * an exact type. It determines whether the source type and destination value's
++ * type are the same while compiling, and it breaks compile if two types are
++ * not the same
++ */
++#define exact_type(T, n) \
++	BUILD_BUG_ON(!__builtin_constant_p(n) && !__builtin_types_compatible_p(T, typeof(n)))
++
++/**
++ * exactly_pgoff_t - helper to check if the type of a value is pgoff_t
++ * @n: value to compare pgoff_t type
++ *
++ * It breaks compile if the argument value's type is not pgoff_t type.
++ */
++#define exactly_pgoff_t(n) exact_type(pgoff_t, n)
++
+ #endif
 -- 
 2.37.1
 
