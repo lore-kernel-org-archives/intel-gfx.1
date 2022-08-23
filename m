@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4563C32772
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 10:19:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE6D5C32772
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 10:19:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 654D0B3013;
-	Tue, 23 Aug 2022 10:18:35 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14687B2FDA;
- Tue, 23 Aug 2022 10:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2F92B302C;
+	Tue, 23 Aug 2022 10:18:40 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30A0EB2FDE;
+ Tue, 23 Aug 2022 10:18:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661249876; x=1692785876;
+ t=1661249889; x=1692785889;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pHZpD5R55mDNFmQEydujAwEmg6PN38/zVmQNxisp2i4=;
- b=SqePmS2fmMlXnXSSAWmqjfjlUpp5nw9i9i5nfFEpIn3XKrKF2X2jykOD
- 8QLPLc32SRro2eJpU8muPB4eaqkQo4UnIH1hixfC1nA/o/DD4CMB4kvau
- EnHnRPaV6CH4ndOUKzR3FRJpvr0sjKLIpgm07Df4vn/SV68Cfa3KDJ+b9
- gl0s6GfKF59iFXFFiCQDdxtjSuduFOP7iCO9KtnxvS1XTW2J6cuIc4Jyg
- 74jT+xpLQGupS6c672MOs0d+izEnrTA0mEgj3irRSRRIzynwU/ytIq6eM
- JoMitCp7iMPQA1/kVBAxWUPRphvBujDy5FGzEKWlUtDDBF2cxpygiUydY g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273400724"
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="273400724"
+ bh=uZyR5G+AOydbxrOOok2HEUuikNWiFlgo84gXHP/S3TI=;
+ b=mvWFClhrIbPZy8kkk4Rz1w0V0IPIk7ASU+Psszyz/6skf+u844h15hA1
+ 3Jj/59LwSNJPefiPevWRG1gvnbm21VOOcho3iHzxHTOSDPPX+PgXtxXSL
+ HCR/As3hPYlejZur2bF6iUpf0X4cDur66eEO3szbeRfZFD05njUGHSDyO
+ +lIb8PP+J1gaYkkScV7RH9wtll45XDRf8VWaMKzE42IY7PdwylUTcUbPW
+ 6fDmQi/W/sjXgxmujVx6vkCo0+y8m17N8qUXORKPVYLw4Gxz/kYHdfi1g
+ Wy7jdZyQRGo40FAfqKrsikC1dLvH4ty7YmIrxHuQTQCtYOoIqeS4WuYDK w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="293647221"
+X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="293647221"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 03:17:52 -0700
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="751639883"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2022 03:18:08 -0700
+X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="751639951"
 Received: from jabish-mobl2.amr.corp.intel.com (HELO paris.amr.corp.intel.com)
  ([10.254.9.209])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 03:17:47 -0700
+ 23 Aug 2022 03:18:03 -0700
 From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Aug 2022 19:17:22 +0900
-Message-Id: <20220823101729.2098841-2-gwan-gyeong.mun@intel.com>
+Date: Tue, 23 Aug 2022 19:17:25 +0900
+Message-Id: <20220823101729.2098841-5-gwan-gyeong.mun@intel.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220823101729.2098841-1-gwan-gyeong.mun@intel.com>
 References: <20220823101729.2098841-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 1/8] overflow: Move and add few utility
- macros into overflow
+Subject: [Intel-gfx] [PATCH v8 4/8] drm/i915: Check for integer truncation
+ on scatterlist creation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,158 +67,223 @@ Cc: thomas.hellstrom@linux.intel.com, keescook@chromium.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It moves overflows_type utility macro into overflow header from i915_utils
-header. The overflows_type can be used to catch the truncaion (overflow)
-between different data types. And it adds check_assign() macro which
-performs an assigning source value into destination ptr along with an
-overflow check. overflow_type macro has been improved to handle the signbit
-by gcc's built-in overflow check function. And it adds overflows_ptr()
-helper macro for checking the overflows between a value and a pointer
-type/value.
+From: Chris Wilson <chris@chris-wilson.co.uk>
 
-v3: Add is_type_unsigned() macro (Mauro)
-    Modify overflows_type() macro to consider signed data types (Mauro)
-    Fix the problem that safe_conversion() macro always returns true
-v4: Fix kernel-doc markups
-v6: Move macro addition location so that it can be used by other than drm
-    subsystem (Jani, Mauro, Andi)
-    Change is_type_unsigned to is_unsigned_type to have the same name form
-    as is_signed_type macro
-v8: Add check_assign() and remove safe_conversion() (Kees)
-    Fix overflows_type() to use gcc's built-in overflow function (Andrzej)
-    Add overflows_ptr() to allow overflow checking when assigning a value
-    into a pointer variable (G.G.)
+There is an impedance mismatch between the scatterlist API using unsigned
+int and our memory/page accounting in unsigned long. That is we may try
+to create a scatterlist for a large object that overflows returning a
+small table into which we try to fit very many pages. As the object size
+is under control of userspace, we have to be prudent and catch the
+conversion errors.
 
+To catch the implicit truncation as we switch from unsigned long into the
+scatterlist's unsigned int, we use overflows_type check and report
+E2BIG prior to the operation. This is already used in our create ioctls to
+indicate if the uABI request is simply too large for the backing store.
+Failing that type check, we have a second check at sg_alloc_table time
+to make sure the values we are passing into the scatterlist API are not
+truncated.
+
+It uses pgoff_t for locals that are dealing with page indices, in this
+case, the page count is the limit of the page index.
+And it uses safe_conversion() macro which performs a type conversion (cast)
+of an integer value into a new variable, checking that the destination is
+large enough to hold the source value.
+
+v2: Move added i915_utils's macro into drm_util header (Jani N)
+v5: Fix macros to be enclosed in parentheses for complex values
+    Fix too long line warning
+v8: Replace safe_conversion() with check_assign() (Kees)
+
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
 Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Brian Welty <brian.welty@intel.com>
 Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Nirmoy Das <nirmoy.das@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-Cc: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
-Cc: Kees Cook <keescook@chromium.org>
-Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org> (v5)
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 ---
- drivers/gpu/drm/i915/i915_user_extensions.c |  2 +-
- drivers/gpu/drm/i915/i915_utils.h           |  5 +-
- include/linux/overflow.h                    | 67 +++++++++++++++++++++
- 3 files changed, 69 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_internal.c |  6 ++++--
+ drivers/gpu/drm/i915/gem/i915_gem_object.h   |  3 ---
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c     |  4 ++++
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c    |  5 ++++-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c      |  4 ++++
+ drivers/gpu/drm/i915/gem/i915_gem_userptr.c  |  5 ++++-
+ drivers/gpu/drm/i915/gvt/dmabuf.c            |  9 +++++----
+ drivers/gpu/drm/i915/i915_scatterlist.h      | 11 +++++++++++
+ 8 files changed, 36 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_user_extensions.c b/drivers/gpu/drm/i915/i915_user_extensions.c
-index c822d0aafd2d..0fb2fecbcaae 100644
---- a/drivers/gpu/drm/i915/i915_user_extensions.c
-+++ b/drivers/gpu/drm/i915/i915_user_extensions.c
-@@ -51,7 +51,7 @@ int i915_user_extensions(struct i915_user_extension __user *ext,
- 			return err;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_internal.c b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+index c698f95af15f..53fa27e1c950 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_internal.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+@@ -37,10 +37,13 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
+ 	struct sg_table *st;
+ 	struct scatterlist *sg;
+ 	unsigned int sg_page_sizes;
+-	unsigned int npages;
++	pgoff_t npages; /* restricted by sg_alloc_table */
+ 	int max_order;
+ 	gfp_t gfp;
  
- 		if (get_user(next, &ext->next_extension) ||
--		    overflows_type(next, ext))
-+		    overflows_ptr(next, ext))
- 			return -EFAULT;
- 
- 		ext = u64_to_user_ptr(next);
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-index c10d68cdc3ca..eb0ded23fa9c 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -32,6 +32,7 @@
- #include <linux/types.h>
- #include <linux/workqueue.h>
- #include <linux/sched/clock.h>
-+#include <linux/overflow.h>
- 
- #ifdef CONFIG_X86
- #include <asm/hypervisor.h>
-@@ -111,10 +112,6 @@ bool i915_error_injected(void);
- #define range_overflows_end_t(type, start, size, max) \
- 	range_overflows_end((type)(start), (type)(size), (type)(max))
- 
--/* Note we don't consider signbits :| */
--#define overflows_type(x, T) \
--	(sizeof(x) > sizeof(T) && (x) >> BITS_PER_TYPE(T))
--
- #define ptr_mask_bits(ptr, n) ({					\
- 	unsigned long __v = (unsigned long)(ptr);			\
- 	(typeof(ptr))(__v & -BIT(n));					\
-diff --git a/include/linux/overflow.h b/include/linux/overflow.h
-index f1221d11f8e5..4016f1378bcc 100644
---- a/include/linux/overflow.h
-+++ b/include/linux/overflow.h
-@@ -52,6 +52,73 @@ static inline bool __must_check __must_check_overflow(bool overflow)
- 	return unlikely(overflow);
- }
- 
-+/**
-+ * overflows_type - helper for checking the overflows between data types or
-+ *                  values
-+ *
-+ * @x: Source value or data type for overflow check
-+ * @T: Destination value or data type for overflow check
-+ *
-+ * It compares the values or data type between the first and second argument to
-+ * check whether overflow can occur when assigning the first argument to the
-+ * variable of the second argument. Source and Destination can be singned or
-+ * unsigned data types.
-+ *
-+ * Returns:
-+ * True if overflow can occur, false otherwise.
-+ */
-+#define overflows_type(x, T) __must_check_overflow(({	\
-+	typeof(T) v = 0;				\
-+	__builtin_add_overflow_p((x), v, v);		\
-+}))
++	if (check_assign(obj->base.size >> PAGE_SHIFT, &npages))
++		return -E2BIG;
 +
-+/**
-+ * overflows_ptr - helper for checking the overflows between a value and
-+ *                 a pointer type/value
-+ *
-+ * @x: Source value for overflow check
-+ * @T: Destination pointer type or value for overflow check
-+ *
-+ * gcc's built-in overflow check functions don't support checking between the
-+ * pointer type and non-pointer type. Therefore it compares the values and
-+ * size of each data type between the first and second argument to check whether
-+ * truncation can occur when assigning the first argument to the variable of the
-+ * second argument. It checks internally the ptr is a pointer type.
-+ *
-+ * Returns:
-+ * True if overflow can occur, false otherwise.
-+ */
-+#define overflows_ptr(x, T) __must_check_overflow(({	\
-+	typecheck_pointer(T);				\
-+	((x) < 0) ? 1 : (sizeof(x) > sizeof(T) && (x) >> BITS_PER_TYPE(T)) ? 1 : 0; \
-+}))
+ 	max_order = MAX_ORDER;
+ #ifdef CONFIG_SWIOTLB
+ 	if (is_swiotlb_active(obj->base.dev->dev)) {
+@@ -67,7 +70,6 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
+ 	if (!st)
+ 		return -ENOMEM;
+ 
+-	npages = obj->base.size / PAGE_SIZE;
+ 	if (sg_alloc_table(st, npages, GFP_KERNEL)) {
+ 		kfree(st);
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index 5da872afc4ba..0cf31adbfd41 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -26,9 +26,6 @@ enum intel_region_id;
+  * this and catch if we ever need to fix it. In the meantime, if you do
+  * spot such a local variable, please consider fixing!
+  *
+- * Aside from our own locals (for which we have no excuse!):
+- * - sg_table embeds unsigned int for nents
+- *
+  * We can check for invalidly typed locals with typecheck(), see for example
+  * i915_gem_object_get_sg().
+  */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+index 0d0e46dae559..88ba7266a3a5 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
+@@ -28,6 +28,10 @@ static int i915_gem_object_get_pages_phys(struct drm_i915_gem_object *obj)
+ 	void *dst;
+ 	int i;
+ 
++	/* Contiguous chunk, with a single scatterlist element */
++	if (overflows_type(obj->base.size, sg->length))
++		return -E2BIG;
 +
-+/**
-+ * check_assign - perform an assigning source value into destination ptr along
-+ *                with an overflow check.
-+ *
-+ * @value: Source value
-+ * @ptr: Destination pointer address, If the pointer type is not used,
-+ *       a warning message is output during build.
-+ *
-+ * It checks internally the ptr is a pointer type. And it uses gcc's built-in
-+ * overflow check function.
-+ * It does not use the check_*() wrapper functions, but directly uses gcc's
-+ * built-in overflow check function so that it can be used even when
-+ * the type of value and the type pointed to by ptr are different without build
-+ * warning messages.
-+ *
-+ * Returns:
-+ * If the value would overflow the destination, it returns true. If not return
-+ * false. When overflow does not occur, the assigning into ptr from value
-+ * succeeds. It follows the return policy as other check_*_overflow() functions
-+ * return non-zero as a failure.
-+ */
-+#define check_assign(value, ptr) __must_check_overflow(({	\
-+	typecheck_pointer(ptr); 		\
-+	__builtin_add_overflow(0, value, ptr);	\
-+}))
+ 	if (GEM_WARN_ON(i915_gem_object_needs_bit17_swizzle(obj)))
+ 		return -EINVAL;
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index f42ca1179f37..339b0a9cf2d0 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -193,13 +193,16 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	struct intel_memory_region *mem = obj->mm.region;
+ 	struct address_space *mapping = obj->base.filp->f_mapping;
+-	const unsigned long page_count = obj->base.size / PAGE_SIZE;
+ 	unsigned int max_segment = i915_sg_segment_size();
+ 	struct sg_table *st;
+ 	struct sgt_iter sgt_iter;
++	pgoff_t page_count;
+ 	struct page *page;
+ 	int ret;
+ 
++	if (check_assign(obj->base.size >> PAGE_SHIFT, &page_count))
++		return -E2BIG;
 +
- /*
-  * For simplicity and code hygiene, the fallback code below insists on
-  * a, b and *d having the same type (similar to the min() and max()
+ 	/*
+ 	 * Assert that the object is not currently in any GPU domain. As it
+ 	 * wasn't in the GTT, there shouldn't be any way it could have been in
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index 4148126e7b1b..d708c4c2a9bd 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -783,6 +783,10 @@ static int i915_ttm_get_pages(struct drm_i915_gem_object *obj)
+ {
+ 	struct ttm_place requested, busy[I915_TTM_MAX_PLACEMENTS];
+ 	struct ttm_placement placement;
++	pgoff_t num_pages;
++
++	if (check_assign(obj->base.size >> PAGE_SHIFT, &num_pages))
++		return -E2BIG;
+ 
+ 	GEM_BUG_ON(obj->mm.n_placements > I915_TTM_MAX_PLACEMENTS);
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+index 8423df021b71..48237e443863 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+@@ -128,13 +128,16 @@ static void i915_gem_object_userptr_drop_ref(struct drm_i915_gem_object *obj)
+ 
+ static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
+ {
+-	const unsigned long num_pages = obj->base.size >> PAGE_SHIFT;
+ 	unsigned int max_segment = i915_sg_segment_size();
+ 	struct sg_table *st;
+ 	unsigned int sg_page_sizes;
+ 	struct page **pvec;
++	pgoff_t num_pages; /* limited by sg_alloc_table_from_pages_segment */
+ 	int ret;
+ 
++	if (check_assign(obj->base.size >> PAGE_SHIFT, &num_pages))
++		return -E2BIG;
++
+ 	st = kmalloc(sizeof(*st), GFP_KERNEL);
+ 	if (!st)
+ 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
+index 01e54b45c5c1..bc6e823584ad 100644
+--- a/drivers/gpu/drm/i915/gvt/dmabuf.c
++++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
+@@ -42,8 +42,7 @@
+ 
+ #define GEN8_DECODE_PTE(pte) (pte & GENMASK_ULL(63, 12))
+ 
+-static int vgpu_gem_get_pages(
+-		struct drm_i915_gem_object *obj)
++static int vgpu_gem_get_pages(struct drm_i915_gem_object *obj)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(obj->base.dev);
+ 	struct intel_vgpu *vgpu;
+@@ -52,7 +51,10 @@ static int vgpu_gem_get_pages(
+ 	int i, j, ret;
+ 	gen8_pte_t __iomem *gtt_entries;
+ 	struct intel_vgpu_fb_info *fb_info;
+-	u32 page_num;
++	pgoff_t page_num;
++
++	if (check_assign(obj->base.size >> PAGE_SHIFT, &page_num))
++		return -E2BIG;
+ 
+ 	fb_info = (struct intel_vgpu_fb_info *)obj->gvt_info;
+ 	if (drm_WARN_ON(&dev_priv->drm, !fb_info))
+@@ -66,7 +68,6 @@ static int vgpu_gem_get_pages(
+ 	if (unlikely(!st))
+ 		return -ENOMEM;
+ 
+-	page_num = obj->base.size >> PAGE_SHIFT;
+ 	ret = sg_alloc_table(st, page_num, GFP_KERNEL);
+ 	if (ret) {
+ 		kfree(st);
+diff --git a/drivers/gpu/drm/i915/i915_scatterlist.h b/drivers/gpu/drm/i915/i915_scatterlist.h
+index 9ddb3e743a3e..1d1802beb42b 100644
+--- a/drivers/gpu/drm/i915/i915_scatterlist.h
++++ b/drivers/gpu/drm/i915/i915_scatterlist.h
+@@ -220,4 +220,15 @@ struct i915_refct_sgt *i915_rsgt_from_buddy_resource(struct ttm_resource *res,
+ 						     u64 region_start,
+ 						     u32 page_alignment);
+ 
++/* Wrap scatterlist.h to sanity check for integer truncation */
++typedef unsigned int __sg_size_t; /* see linux/scatterlist.h */
++#define sg_alloc_table(sgt, nents, gfp) \
++	overflows_type(nents, __sg_size_t) ? -E2BIG \
++		: ((sg_alloc_table)(sgt, (__sg_size_t)(nents), gfp))
++
++#define sg_alloc_table_from_pages_segment(sgt, pages, npages, offset, size, max_segment, gfp) \
++	overflows_type(npages, __sg_size_t) ? -E2BIG \
++		: ((sg_alloc_table_from_pages_segment)(sgt, pages, (__sg_size_t)(npages), offset, \
++						       size, max_segment, gfp))
++
+ #endif
 -- 
 2.37.1
 
