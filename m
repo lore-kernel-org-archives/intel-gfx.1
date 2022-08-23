@@ -4,50 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7542C32772
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 11:31:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 814DAC32772
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 11:40:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C32511B990;
-	Tue, 23 Aug 2022 11:31:29 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D717511A6B5;
- Tue, 23 Aug 2022 11:31:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661254265; x=1692790265;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=q+RysrBb1ykLU47KP6NsqGGk4VJcDn3GVM5qaCdIaVA=;
- b=DyA7ZkMNo5iUyy8zLjTAzwhCCDvQFyL9F3IAsjFqW4HnmfjnT3kGabIQ
- jrmnJzEroNNawoNqONTmuRCumzb9eRmV+aO7Y5snTKb86yEEmKeILzhER
- VYdFK6Uysh/eIj2TtZWeSSMbO3BRWe30cGlEb8VqXX0H9FP7nOnJF/UoQ
- Hx52Q2IxwMacYe1d8GMVrQi8RsVryOSYTmRqVN23DwCOJQ58tEwIE3lQj
- JDWWOu5ybrvzdC2dyNMIFXzSM32J28pqaQQDjWW1XwzIK3uwW7ZK5ewkF
- PRbF73495zorD2joiqC6CKbpNUoCVGFo8j/UC+qyhgkBee1vRWt9aSHHz A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273415877"
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="273415877"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 04:31:05 -0700
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="669990932"
-Received: from fjohn-mobl.ger.corp.intel.com (HELO
- jhogande-mobl1.ger.corp.intel.com) ([10.249.42.156])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 04:31:03 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Aug 2022 14:29:20 +0300
-Message-Id: <20220823112920.352563-5-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220823112920.352563-1-jouni.hogander@intel.com>
-References: <20220823112920.352563-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B66898D1B7;
+	Tue, 23 Aug 2022 11:40:20 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 018638BF56;
+ Tue, 23 Aug 2022 11:40:07 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id EC03EA7DFB;
+ Tue, 23 Aug 2022 11:40:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/4] drm/tests: Set also mock plane src_x,
- src_y, src_w and src_h
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Date: Tue, 23 Aug 2022 11:40:06 -0000
+Message-ID: <166125480693.2117.12895735968266917656@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <cover.1660910433.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1660910433.git.jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_stop_modifying_=22const=22_device_info_=28rev3?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,34 +41,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We need to set also src_x, src_y, src_w and src_h for the mock plane.
-After fix for drm_atomic_helper_damage_iter_init we are using these
-when iterating damage_clips.
+== Series Details ==
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/tests/drm_damage_helper_test.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Series: drm/i915: stop modifying "const" device info (rev3)
+URL   : https://patchwork.freedesktop.org/series/105358/
+State : warning
 
-diff --git a/drivers/gpu/drm/tests/drm_damage_helper_test.c b/drivers/gpu/drm/tests/drm_damage_helper_test.c
-index bf250bd08d7e..c608ae06f0e3 100644
---- a/drivers/gpu/drm/tests/drm_damage_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_damage_helper_test.c
-@@ -59,6 +59,11 @@ static int drm_damage_helper_init(struct kunit *test)
- static void set_plane_src(struct drm_plane_state *state, int x1, int y1, int x2,
- 			  int y2)
- {
-+	state->src_x = x1;
-+	state->src_y = y1;
-+	state->src_w = x2 - x1;
-+	state->src_h = y2 - y1;
-+
- 	state->src.x1 = x1;
- 	state->src.y1 = y1;
- 	state->src.x2 = x2;
--- 
-2.34.1
+== Summary ==
+
+Error: dim checkpatch failed
+b0d2dc3296d2 drm/i915/guc: remove runtime info printing from time stamp logging
+ca2ba90a7f98 drm/i915: combine device info printing into one
+ab44989bcb61 drm/i915: add initial runtime info into device info
+-:51: WARNING:REPEATED_WORD: Possible repeated word: 'into'
+#51: FILE: drivers/gpu/drm/i915/intel_device_info.h:208:
++	 * Platform mask is used for optimizing or-ed IS_PLATFORM calls into
++	 * into single runtime conditionals, and also to provide groundwork
+
+total: 0 errors, 1 warnings, 0 checks, 75 lines checked
+71e774dd9e8f drm/i915: move graphics.ver and graphics.rel to runtime info
+-:26: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
+#26: FILE: drivers/gpu/drm/i915/i915_drv.h:860:
++#define GRAPHICS_VER_FULL(i915)		IP_VER(RUNTIME_INFO(i915)->graphics.ver, \
++					       RUNTIME_INFO(i915)->graphics.rel)
+
+-:98: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
+#98: FILE: drivers/gpu/drm/i915/i915_pci.c:1283:
++	int gttmmaddr_bar = intel_info->__runtime.graphics.ver == 2 ? GEN2_GTTMMADR_BAR : GTTMMADR_BAR;
+
+total: 0 errors, 1 warnings, 1 checks, 110 lines checked
+99de4de7e04e drm/i915: move fbc_mask to runtime info
+61b6bc9097c5 drm/i915: move page_sizes to runtime info
+fcf384b10cc8 drm/i915: move ppgtt_type and ppgtt_size to runtime info
+0902f0150e0b drm/i915: move has_pooled_eu to runtime info
+4d5aeb8c0dde drm/i915: move memory_regions to runtime info
+04bd7c48a683 drm/i915: move platform_engine_mask to runtime info
+e4604743924d drm/i915: move pipe_mask and cpu_transcoder_mask to runtime info
+-:30: WARNING:SPACING: space prohibited between function name and open parenthesis '('
+#30: FILE: drivers/gpu/drm/i915/display/intel_display.h:386:
++		for_each_if (RUNTIME_INFO(__dev_priv)->cpu_transcoder_mask & BIT(__t))
+
+-:43: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#43: FILE: drivers/gpu/drm/i915/i915_drv.h:1267:
++#define HAS_TRANSCODER(dev_priv, trans)	 ((RUNTIME_INFO(dev_priv)->cpu_transcoder_mask & BIT(trans)) != 0)
+
+-:136: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#136: FILE: drivers/gpu/drm/i915/i915_pci.c:465:
++	.__runtime.cpu_transcoder_mask = BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | BIT(TRANSCODER_C), \
+
+total: 0 errors, 3 warnings, 0 checks, 285 lines checked
+3205ead7dc2a drm/i915: move has_hdcp to runtime info
+196f272a50df drm/i915: move has_dmc to runtime info
+6bb1a3f667f9 drm/i915: move has_dsc to runtime info
+
 
