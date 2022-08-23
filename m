@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19093C32792
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 11:31:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CC5BC32772
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 11:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC0211AF07;
-	Tue, 23 Aug 2022 11:31:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 813E011B09E;
+	Tue, 23 Aug 2022 11:31:20 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 012BC11AF46;
- Tue, 23 Aug 2022 11:30:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 532C511A6B5;
+ Tue, 23 Aug 2022 11:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661254256; x=1692790256;
+ t=1661254262; x=1692790262;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=dhcs9iy7LyjmqdjtvPN2uVgUJMjbzgk4nJ1LzrDMKr0=;
- b=HlRs15k0KQ9JSwZrxarnrpG6wZ2/lZWg0RQYzMarxmm78YwxmqajTOak
- IbLdOqeybOJkzUU026fu0mzsdBW4jwFP9OwzXGcuVA375f68KkgdEo+BP
- fa93RLv2eug8NJZ1k56oLSjRJAPq9zJzfZNLhfbQQQWIeiL8iVv2YUVlQ
- O5LGqtlqlmK7S+fdvnDASIK+NRDmPKTsjHtewVDxhpdWAvahCt5+bVhIv
- LnnOGx9ce4aYopKLnFWiz/qzRGeq/Ws+5pIFmCPNp/q/mL7kfnfvG4f/k
- z+VgS8iIwrPocsyizpix3V320MBD4Ejl6qnG3BdR/JHMH4RM+pKJS5VF0 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273415842"
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="273415842"
+ bh=RIVu2TPn4w7Z9DgnTG78XKczUccr+4MnnZ5D6WCpEPk=;
+ b=m5XYMaR8vYViAvxB08fkdOjF5TC/6QYT9GWHb5OunN2dijsAEQHYQFAy
+ k3OofW3/t3HD7X6DvYoVph1T2c5NdqX8LxEluWdt4HxH8goarMTCyaDKe
+ J0pBO1PH0JvmzpVjh503JbOQ9EI5WpEJkgRc3gFHAntwt4Y5u796EXjB/
+ ugFRXj8DqcK1SiePyKYjiziWf/uK+fEALmVPYxvpu32bycUGTwQygrUMo
+ koyU7FkVPVWPnlhWC/SStSj/6LF96l5K8ee8Rfn/VrOi88Od23E8eJvig
+ cXokAtJcQeOPuzevH6WeLXVNBTpG/Yk1Io1c4oiUJu1szkGmm20L5kaaZ A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10447"; a="273415863"
+X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="273415863"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 04:30:55 -0700
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="669990877"
+ 23 Aug 2022 04:31:02 -0700
+X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="669990921"
 Received: from fjohn-mobl.ger.corp.intel.com (HELO
  jhogande-mobl1.ger.corp.intel.com) ([10.249.42.156])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 04:30:54 -0700
+ 23 Aug 2022 04:31:00 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Aug 2022 14:29:17 +0300
-Message-Id: <20220823112920.352563-2-jouni.hogander@intel.com>
+Date: Tue, 23 Aug 2022 14:29:19 +0300
+Message-Id: <20220823112920.352563-4-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220823112920.352563-1-jouni.hogander@intel.com>
 References: <20220823112920.352563-1-jouni.hogander@intel.com>
@@ -46,8 +46,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/4] drm: Use original src rect while
- initializing damage iterator
+Subject: [Intel-gfx] [PATCH v2 3/4] drm/i915/display: Use drm helper instead
+ of own loop for damage clips
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,50 +63,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm_plane_state->src might be modified by the driver. This is done
-e.g. in i915 driver when there is bigger framebuffer than the plane
-and there is some offset within framebuffer. I915 driver calculates
-separate offset and adjusts src rect coords to be relative to this
-offset. Damage clips are still relative to original src coords
-provided by user-space.
-
-This patch ensures original coordinates provided by user-space are
-used when initiliazing damage iterator.
+Use existing drm_atomic_helper_damage_merged from generic drm code
+instead of implementing own loop to iterate over damage_clips.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/drm_damage_helper.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
-index 937b699ac2a8..d8b2955e88fd 100644
---- a/drivers/gpu/drm/drm_damage_helper.c
-+++ b/drivers/gpu/drm/drm_damage_helper.c
-@@ -224,6 +224,7 @@ drm_atomic_helper_damage_iter_init(struct drm_atomic_helper_damage_iter *iter,
- 				   const struct drm_plane_state *old_state,
- 				   const struct drm_plane_state *state)
- {
-+	struct drm_rect src;
- 	memset(iter, 0, sizeof(*iter));
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 16985de24019..0ce8076be000 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1721,8 +1721,6 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 					     new_plane_state, i) {
+ 		struct drm_rect src, damaged_area = { .x1 = 0, .y1 = -1,
+ 						      .x2 = INT_MAX };
+-		struct drm_atomic_helper_damage_iter iter;
+-		struct drm_rect clip;
  
- 	if (!state || !state->crtc || !state->fb || !state->visible)
-@@ -233,10 +234,12 @@ drm_atomic_helper_damage_iter_init(struct drm_atomic_helper_damage_iter *iter,
- 	iter->num_clips = drm_plane_get_damage_clips_count(state);
+ 		if (new_plane_state->uapi.crtc != crtc_state->uapi.crtc)
+ 			continue;
+@@ -1770,20 +1768,15 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 		src = drm_plane_state_src(&new_plane_state->uapi);
+ 		drm_rect_fp_to_int(&src, &src);
  
- 	/* Round down for x1/y1 and round up for x2/y2 to catch all pixels */
--	iter->plane_src.x1 = state->src.x1 >> 16;
--	iter->plane_src.y1 = state->src.y1 >> 16;
--	iter->plane_src.x2 = (state->src.x2 >> 16) + !!(state->src.x2 & 0xFFFF);
--	iter->plane_src.y2 = (state->src.y2 >> 16) + !!(state->src.y2 & 0xFFFF);
-+	src = drm_plane_state_src(state);
+-		drm_atomic_helper_damage_iter_init(&iter,
+-						   &old_plane_state->uapi,
+-						   &new_plane_state->uapi);
+-		drm_atomic_for_each_plane_damage(&iter, &clip) {
+-			if (drm_rect_intersect(&clip, &src))
+-				clip_area_update(&damaged_area, &clip,
+-						 &crtc_state->pipe_src);
+-		}
+-
+-		if (damaged_area.y1 == -1)
++		if (!drm_atomic_helper_damage_merged(&old_plane_state->uapi,
++						     &new_plane_state->uapi, &damaged_area))
+ 			continue;
+ 
+ 		damaged_area.y1 += new_plane_state->uapi.dst.y1 - src.y1;
+ 		damaged_area.y2 += new_plane_state->uapi.dst.y1 - src.y1;
++		damaged_area.x1 += new_plane_state->uapi.dst.x1 - src.x1;
++		damaged_area.x2 += new_plane_state->uapi.dst.x1 - src.x1;
 +
-+	iter->plane_src.x1 = src.x1 >> 16;
-+	iter->plane_src.y1 = src.y1 >> 16;
-+	iter->plane_src.x2 = (src.x2 >> 16) + !!(src.x2 & 0xFFFF);
-+	iter->plane_src.y2 = (src.y2 >> 16) + !!(src.y2 & 0xFFFF);
+ 		clip_area_update(&pipe_clip, &damaged_area, &crtc_state->pipe_src);
+ 	}
  
- 	if (!iter->clips || !drm_rect_equals(&state->src, &old_state->src)) {
- 		iter->clips = NULL;
 -- 
 2.34.1
 
