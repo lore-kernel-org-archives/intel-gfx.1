@@ -4,67 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAF88ECAAD4
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90DCEECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92FF710F1CF;
-	Mon, 29 Aug 2022 13:04:20 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A04BE10E35A;
- Wed, 24 Aug 2022 10:23:49 +0000 (UTC)
-Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 0F8CE6601E85;
- Wed, 24 Aug 2022 11:23:46 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661336628;
- bh=yJhLmWLiZYSaVVYpgyXfxz7ssZGXeWsgtJLIcgiYQhg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cR6l5P3hk+4DgOkFYE7b7ShOmufEVYIEoMuYmR+B9JRZEQsNkMZpX/Q4TdWCwG9bl
- cFJfBE7LTAU/dulmS8UMBFoANSxxnSMIJmzKS6FB+hRhsCHkIdD0B1pRMHBxPKR0G7
- r4WBQ7qlhYOt+yLYJUtQNXRlVSLGlIz4TAuMpuH3n8+Noir1uc2e4xAYEqI3am2nAQ
- EHEZ2qLLS2EftDL48KSS7NszxIdF0Yhb3xzLozhcYxohDD0rJmR3jDIAnaMuxdqknf
- t0ki3DbaaSr2wpBm5cBtA+ZWcRnEXaxdeDfx4giTF07TzpSUxfP2ECsMorl9Skhctm
- /MrCMtEyAzCFQ==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>
-Date: Wed, 24 Aug 2022 13:22:43 +0300
-Message-Id: <20220824102248.91964-5-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
-References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81CB810F1C5;
+	Mon, 29 Aug 2022 13:04:18 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg4.exmail.qq.com [43.155.65.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 486AB10E681;
+ Tue, 23 Aug 2022 12:28:26 +0000 (UTC)
+X-QQ-mid: bizesmtp83t1661257699tzwdgpjs
+Received: from localhost.localdomain ( [182.148.14.124])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 23 Aug 2022 20:28:17 +0800 (CST)
+X-QQ-SSF: 01000000002000C0D000B00A0000000
+X-QQ-FEAT: DRnj/z+Sqaf2Zp2vGdN0+GAC4bAixq9uAkJsGXqE8c1ZOp77y7v7oefrIZuTT
+ NsjlTF26dvCJjpO2u7sSaEfqIxPXG7I0CCqDNpOkhugzrU0zjQN9+5rySP7M8kKr/GvR1fu
+ Asq9fJECZUjhW9tz4PKI/AmdszlxMT8YXOwDTH06Pqhiy4xIi+UAoJ177ed2HMXopHFYyg3
+ tyn+N4wSGojewCTIzCHoZWRCBznI1dXA2k70um3sOPstl51EhT0LAbybJyrm9OKYkrGD5en
+ +9u2GO8Jas8mjUPsBUU/DM3vkvTlG0VGfM0VTt96ge9WkgC0Mr2qUpGk6ulOd0nvFB/HgYt
+ JcuKitQqvsC0pw71df5NfupRW6FWLCKmHpJfMDty01zGFb601mnLiV3VKObsgBPD2H/LOYE
+X-QQ-GoodBg: 0
+From: Jilin Yuan <yuanjilin@cdjrlc.com>
+To: airlied@linux.ie,
+	daniel@ffwll.ch
+Date: Tue, 23 Aug 2022 20:28:11 +0800
+Message-Id: <20220823122811.22525-1-yuanjilin@cdjrlc.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr4
 X-Mailman-Approved-At: Mon, 29 Aug 2022 13:04:13 +0000
-Subject: [Intel-gfx] [PATCH v3 4/9] dma-buf: Move
- dma_buf_vmap/vunmap_unlocked() to dynamic locking specification
+Subject: [Intel-gfx] [PATCH] drm/i915: fix repeated words in comments
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,89 +48,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
- dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, linux-media@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org, Jilin Yuan <yuanjilin@cdjrlc.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move dma_buf_vmap/vunmap_unlocked() functions to the dynamic locking
-specification by taking the reservation lock. All the affected drivers
-were prepared to this change by a previous drm/gem patch.
+ Delete the redundant word 'for'.
+ Delete the redundant word 'the'.
+ Delete the redundant word 'into'.
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
 ---
- drivers/dma-buf/dma-buf.c   | 8 ++++++++
- drivers/gpu/drm/drm_prime.c | 4 ++--
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_reg.h          | 2 +-
+ drivers/gpu/drm/i915/i915_request.c      | 2 +-
+ drivers/gpu/drm/i915/intel_device_info.h | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 34173aafe6c9..f358af401360 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1398,6 +1398,8 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
- 	if (WARN_ON(!dmabuf))
- 		return -EINVAL;
- 
-+	dma_resv_assert_held(dmabuf->resv);
-+
- 	if (!dmabuf->ops->vmap)
- 		return -EINVAL;
- 
-@@ -1440,7 +1442,9 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- {
- 	int ret;
- 
-+	dma_resv_lock(dmabuf->resv, NULL);
- 	ret = dma_buf_vmap(dmabuf, map);
-+	dma_resv_unlock(dmabuf->resv);
- 
- 	return ret;
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 4f5a51bb9e1e..c0c4f4acfbf9 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2534,7 +2534,7 @@
+  * HDMI/DP bits are g4x+
+  *
+  * WARNING: Bspec for hpd status bits on gen4 seems to be completely confused.
+- * Please check the detailed lore in the commit message for for experimental
++ * Please check the detailed lore in the commit message for experimental
+  * evidence.
+  */
+ /* Bspec says GM45 should match G4X/VLV/CHV, but reality disagrees */
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 73d5195146b0..9caf99a13c61 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -1735,7 +1735,7 @@ __i915_request_add_to_timeline(struct i915_request *rq)
  }
-@@ -1456,6 +1460,8 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
- 	if (WARN_ON(!dmabuf))
- 		return;
  
-+	dma_resv_assert_held(dmabuf->resv);
-+
- 	BUG_ON(iosys_map_is_null(&dmabuf->vmap_ptr));
- 	BUG_ON(dmabuf->vmapping_counter == 0);
- 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
-@@ -1480,7 +1486,9 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	if (WARN_ON(!dmabuf))
- 		return;
- 
-+	dma_resv_lock(dmabuf->resv, NULL);
- 	dma_buf_vunmap(dmabuf, map);
-+	dma_resv_unlock(dmabuf->resv);
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
- 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 7a7710158880..e9b7d3fa67f1 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -682,7 +682,7 @@ int drm_gem_dmabuf_vmap(struct dma_buf *dma_buf, struct iosys_map *map)
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
- 
--	return drm_gem_vmap_unlocked(obj, map);
-+	return drm_gem_vmap(obj, map);
- }
- EXPORT_SYMBOL(drm_gem_dmabuf_vmap);
- 
-@@ -698,7 +698,7 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map)
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
- 
--	drm_gem_vunmap_unlocked(obj, map);
-+	drm_gem_vunmap(obj, map);
- }
- EXPORT_SYMBOL(drm_gem_dmabuf_vunmap);
- 
+ /*
+- * NB: This function is not allowed to fail. Doing so would mean the the
++ * NB: This function is not allowed to fail. Doing so would mean the
+  * request is not being tracked for completion but the work itself is
+  * going to happen on the hardware. This would be a Bad Thing(tm).
+  */
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index e7d2cf7d65c8..70e092f2b63a 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -253,7 +253,7 @@ struct intel_device_info {
+ struct intel_runtime_info {
+ 	/*
+ 	 * Platform mask is used for optimizing or-ed IS_PLATFORM calls into
+-	 * into single runtime conditionals, and also to provide groundwork
++	 * single runtime conditionals, and also to provide groundwork
+ 	 * for future per platform, or per SKU build optimizations.
+ 	 *
+ 	 * Array can be extended when necessary if the corresponding
 -- 
-2.37.2
+2.36.1
 
