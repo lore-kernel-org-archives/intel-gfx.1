@@ -4,68 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06C1C32772
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 13:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1CA5C32772
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Aug 2022 13:28:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4923E11A262;
-	Tue, 23 Aug 2022 13:09:10 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D5F410FBAF
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 13:08:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24D2810E482;
+	Tue, 23 Aug 2022 13:28:08 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13BA210E345
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Aug 2022 13:27:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661260133; x=1692796133;
- h=resent-from:resent-date:resent-message-id:resent-to:from:
- to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=QahClYv1pZJbbhECWPINK9GtUPcR6K/6DFHK12jKTfs=;
- b=cPoLu/7UGhfQoYRz356oVivuN9z4TfD8tqovAAFdq67DDcrpStAIQ5cg
- eX0rtz3s7ZR3RcKciUl24FXicWOBpZcnGbWSAjLfGlI37fSjjfveL9ovw
- ZiAwgRIO1jOxh0qcH2UaxGkn0kYA/fiPKOjuvNOjsQbMcYIvVlTRGCqyV
- eSVXJ2aDDwwyFlDSbFfoGoayoSXKUmj7tPBx8PMMcI60Y9evIRc2D9NFZ
- YtrgcQ4UzR45O7F38SfT8BgZ8aiF4FerMPb7cfPracZ3PG5oHXeXS9B+K
- iGoXFl6LmaEd9qYZ4l4ou+qOllgf8JNl2k7lU5dkP50PeK7jRNztrVTpd Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="292426092"
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="292426092"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2022 06:08:52 -0700
-X-ExtLoopCount2: 2 from 10.237.72.59
-X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="670024864"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.59])
- by fmsmga008.fm.intel.com with SMTP; 23 Aug 2022 06:08:50 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 23 Aug 2022 16:08:50 +0300
-Resent-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Resent-Date: Tue, 23 Aug 2022 16:08:50 +0300
-Resent-Message-ID: <YwTRYmOFib+9kvsG@intel.com>
-Resent-To: intel-gfx@lists.freedesktop.org
-Received: from linux.intel.com [10.54.29.200]
- by stinkbox.stink.local with IMAP (fetchmail-6.4.27)
- for <vsyrjala@localhost> (single-drop); Thu, 18 Aug 2022 22:23:50 +0300 (EEST)
-Received: from orsmga001.jf.intel.com (orsmga001.jf.intel.com [10.7.209.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id 0C78D580C95
- for <ville.syrjala@linux.intel.com>; Thu, 18 Aug 2022 12:22:32 -0700 (PDT)
+ t=1661261278; x=1692797278;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=d3Yl2eBegttWzvSR8vJmPs5AwJW/A0JCT3h440akMXg=;
+ b=njNuWSchAlVRjNYSSlblvAMQkSC5r5RWrX5Y4u8kN0yKK1JTMk08FAzG
+ qZP2re2Su23cius9Gr3sCiYuLEa5pvmpxF8c4huj36kPzVWmx9m5yg92Z
+ OsvrlQwTd3RPOe/Lohrm5sQPuevb5H65KfwraV2V8zQphtEg6TrbJcLlM
+ XI3qoLYaTaeMuUHxcZeIj4diVhViqHug2VITluCgxR1My/gEEoxB8QCuK
+ hZEOwzVeY1LnTtv8g6xYm4LvYe/XghlQ3Y0h3JM4LWdiDzXLvOE8lWNbP
+ yk6vH09p1P7ONrlgjPgMGgBCueXU1WoXvjSuwkO3SmBHqDeMWXyqtd/bb A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="294968711"
+X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="294968711"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2022 06:27:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,247,1654585200"; d="scan'208";a="640984459"
+X-IronPort-AV: E=Sophos;i="5.93,257,1654585200"; d="scan'208";a="638655544"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.59])
- by orsmga001.jf.intel.com with SMTP; 18 Aug 2022 12:22:30 -0700
+ by orsmga008.jf.intel.com with SMTP; 23 Aug 2022 06:27:51 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 18 Aug 2022 22:22:29 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Aug 2022 22:22:23 +0300
-Message-Id: <20220818192223.29881-3-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220818192223.29881-1-ville.syrjala@linux.intel.com>
-References: <20220818192223.29881-1-ville.syrjala@linux.intel.com>
+ Tue, 23 Aug 2022 16:27:50 +0300
+Date: Tue, 23 Aug 2022 16:27:50 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <YwTV1oc0FK/RBsQ6@intel.com>
+References: <20220803052944.28069-1-animesh.manna@intel.com>
+ <87les5eoct.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915/bios: Use hardcoded fp_timing size
- for generating LFP data pointers
+In-Reply-To: <87les5eoct.fsf@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/pps: added get_pps_idx() hook as
+ part of pps_get_register() cleanup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,131 +61,130 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Wed, Aug 03, 2022 at 11:13:38AM +0300, Jani Nikula wrote:
+> On Wed, 03 Aug 2022, Animesh Manna <animesh.manna@intel.com> wrote:
+> > To support dual LFP two instances of pps added from display gen12 onwards.
+> > Few older platform like VLV also has dual pps support but handling is
+> > different. So added separate hook get_pps_idx() to formulate which pps
+> > instance to used for a soecific LFP on a specific platform.
+> >
+> > Simplified pps_get_register() which use get_pps_idx() hook to derive the
+> > pps instance and get_pps_idx() will be initialized at pps_init().
+> >
+> > Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_bios.c     |  5 ++++
+> >  drivers/gpu/drm/i915/display/intel_bios.h     |  1 +
+> >  .../drm/i915/display/intel_display_types.h    |  2 ++
+> >  drivers/gpu/drm/i915/display/intel_pps.c      | 25 ++++++++++++++-----
+> >  4 files changed, 27 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+> > index 51dde5bfd956..42315615a728 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_bios.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+> > @@ -611,6 +611,11 @@ static int opregion_get_panel_type(struct drm_i915_private *i915,
+> >  	return intel_opregion_get_panel_type(i915);
+> >  }
+> >  
+> > +bool intel_bios_is_lfp2(struct intel_encoder *encoder)
+> > +{
+> > +	return encoder->devdata && encoder->devdata->child.handle == DEVICE_HANDLE_LFP2;
+> > +}
+> 
+> AFAICS the encoder never really needs to know whether it's "lfp1" or
+> "lfp2". It needs to know the pps controller number.
+> 
+> > +
+> >  static int vbt_get_panel_type(struct drm_i915_private *i915,
+> >  			      const struct intel_bios_encoder_data *devdata,
+> >  			      const struct edid *edid)
+> > diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+> > index e47582b0de0a..aea72a87ea2c 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_bios.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_bios.h
+> > @@ -251,6 +251,7 @@ bool intel_bios_is_lspcon_present(const struct drm_i915_private *i915,
+> >  				  enum port port);
+> >  bool intel_bios_is_lane_reversal_needed(const struct drm_i915_private *i915,
+> >  					enum port port);
+> > +bool intel_bios_is_lfp2(struct intel_encoder *encoder);
+> >  enum aux_ch intel_bios_port_aux_ch(struct drm_i915_private *dev_priv, enum port port);
+> >  bool intel_bios_get_dsc_params(struct intel_encoder *encoder,
+> >  			       struct intel_crtc_state *crtc_state,
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> > index 0da9b208d56e..95f71a572b07 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> > @@ -1723,6 +1723,8 @@ struct intel_dp {
+> >  
+> >  	/* When we last wrote the OUI for eDP */
+> >  	unsigned long last_oui_write;
+> > +
+> > +	int (*get_pps_idx)(struct intel_dp *intel_dp);
+> 
+> Making this a function pointer should be a separate step. Please don't
+> try to do too many things at once. Rule of thumb, one change per patch.
+> 
+> Also, this should be placed near the other function pointer members in
+> struct intel_dp.
+> 
+> >  };
+> >  
+> >  enum lspcon_vendor {
+> > diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
+> > index 1b21a341962f..c9cdb302d318 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_pps.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_pps.c
+> > @@ -231,6 +231,17 @@ bxt_power_sequencer_idx(struct intel_dp *intel_dp)
+> >  	return backlight_controller;
+> >  }
+> >  
+> > +static int
+> > +gen12_power_sequencer_idx(struct intel_dp *intel_dp)
+> > +{
+> > +	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
+> > +
+> > +	if (intel_bios_is_lfp2(encoder))
+> > +		return 1;
+> 
+> This is actually not how this works. The bxt_power_sequencer_idx()
+> matches bspec 20149: "PWM and PPS are assumed to be aligned to be from
+> same block and not mismatch" i.e. the backlight controller id and the
+> pps id are the same. There are no requirements to map lfp# and pps
+> controller like this, even if it might be true in the common case.
+> 
+> The problem is we need the information *before* we call
+> intel_bios_init_panel().
+> 
+> It's a catch-22. We need the pps id to read the panel EDID, and we need
+> the panel EDID to choose the correct panel type in VBT, which we need to
+> get the pps id from the VBT.
+> 
+> This is highlighted in [1]. The 2nd eDP (which is not even physically
+> present, only in the VBT, *sigh*) screws up the PPS for the 1st during
+> init.
+> 
+> I think Ville had some ideas here.
 
-The current scheme for generating the LFP data table pointers
-(when the block including them is missing from the VBT) expects
-the 0xffff sequence to only appear in the fp_timing terminator
-entries. However some VBTs also have extra 0xffff sequences
-elsewhere in the LFP data. When looking for the terminators
-we may end up finding those extra sequeneces insted, which means
-we deduce the wrong size for the fp_timing table. The code
-then notices the inconsistent looking values and gives up on
-the generated data table pointers, preventing us from parsing
-the LFP data table entirely.
+What a mess.
 
-Let's give up on the "search for the terminators" approach
-and instead just hardcode the expected size for the fp_timing
-table.
+I guess for the panel_type!=255 cases we could just
+initialize the panel specific stuff earlier.
 
-We have enough sanity checks in place to make sure we
-shouldn't end up parsing total garbage even if that size
-should change in the future (although that seems unlikely
-as the fp_timing and dvo_timing tables have been declared
-obsolete as of VBT version 229).
+The hardest case to solve would be dual panel with
+panel_type==255. For that not sure we can much more than to
+read out the state of each PPS from the hardware and try to
+guess if one of the enabled ones corresponds to our current
+panel, and then try to do the EDID read(s).
 
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/6592
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_bios.c | 46 +++++++++--------------
- 1 file changed, 18 insertions(+), 28 deletions(-)
+Or maybe we could just take a shortcut and reject dual
+panel + panel_type=255 combos entirely. Or did we already
+run into such cases?
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index f1f861da9e93..f54a1843924e 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -337,18 +337,6 @@ static bool fixup_lfp_data_ptrs(const void *bdb, void *ptrs_block)
- 	return validate_lfp_data_ptrs(bdb, ptrs);
- }
- 
--static const void *find_fp_timing_terminator(const u8 *data, int size)
--{
--	int i;
--
--	for (i = 0; i < size - 1; i++) {
--		if (data[i] == 0xff && data[i+1] == 0xff)
--			return &data[i];
--	}
--
--	return NULL;
--}
--
- static int make_lfp_data_ptr(struct lvds_lfp_data_ptr_table *table,
- 			     int table_size, int total_size)
- {
-@@ -372,11 +360,22 @@ static void next_lfp_data_ptr(struct lvds_lfp_data_ptr_table *next,
- static void *generate_lfp_data_ptrs(struct drm_i915_private *i915,
- 				    const void *bdb)
- {
--	int i, size, table_size, block_size, offset;
--	const void *t0, *t1, *block;
-+	int i, size, table_size, block_size, offset, fp_timing_size;
- 	struct bdb_lvds_lfp_data_ptrs *ptrs;
-+	const void *block;
- 	void *ptrs_block;
- 
-+	/*
-+	 * The hardcoded fp_timing_size is only valid for
-+	 * modernish VBTs. All older VBTs definitely should
-+	 * include block 41 and thus we don't need to
-+	 * generate one.
-+	 */
-+	if (i915->vbt.version < 155)
-+		return NULL;
-+
-+	fp_timing_size = 38;
-+
- 	block = find_raw_section(bdb, BDB_LVDS_LFP_DATA);
- 	if (!block)
- 		return NULL;
-@@ -385,17 +384,8 @@ static void *generate_lfp_data_ptrs(struct drm_i915_private *i915,
- 
- 	block_size = get_blocksize(block);
- 
--	size = block_size;
--	t0 = find_fp_timing_terminator(block, size);
--	if (!t0)
--		return NULL;
--
--	size -= t0 - block - 2;
--	t1 = find_fp_timing_terminator(t0 + 2, size);
--	if (!t1)
--		return NULL;
--
--	size = t1 - t0;
-+	size = fp_timing_size + sizeof(struct lvds_dvo_timing) +
-+		sizeof(struct lvds_pnp_id);
- 	if (size * 16 > block_size)
- 		return NULL;
- 
-@@ -413,7 +403,7 @@ static void *generate_lfp_data_ptrs(struct drm_i915_private *i915,
- 	table_size = sizeof(struct lvds_dvo_timing);
- 	size = make_lfp_data_ptr(&ptrs->ptr[0].dvo_timing, table_size, size);
- 
--	table_size = t0 - block + 2;
-+	table_size = fp_timing_size;
- 	size = make_lfp_data_ptr(&ptrs->ptr[0].fp_timing, table_size, size);
- 
- 	if (ptrs->ptr[0].fp_timing.table_size)
-@@ -428,14 +418,14 @@ static void *generate_lfp_data_ptrs(struct drm_i915_private *i915,
- 		return NULL;
- 	}
- 
--	size = t1 - t0;
-+	size = fp_timing_size + sizeof(struct lvds_dvo_timing) +
-+		sizeof(struct lvds_pnp_id);
- 	for (i = 1; i < 16; i++) {
- 		next_lfp_data_ptr(&ptrs->ptr[i].fp_timing, &ptrs->ptr[i-1].fp_timing, size);
- 		next_lfp_data_ptr(&ptrs->ptr[i].dvo_timing, &ptrs->ptr[i-1].dvo_timing, size);
- 		next_lfp_data_ptr(&ptrs->ptr[i].panel_pnp_id, &ptrs->ptr[i-1].panel_pnp_id, size);
- 	}
- 
--	size = t1 - t0;
- 	table_size = sizeof(struct lvds_lfp_panel_name);
- 
- 	if (16 * (size + table_size) <= block_size) {
 -- 
-2.35.1
+Ville Syrj�l�
+Intel
