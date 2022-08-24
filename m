@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72ABBC00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:18:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AB9DC00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:19:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23C00B5245;
-	Wed, 24 Aug 2022 13:18:48 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBE39B513D
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:17:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3657EB5253;
+	Wed, 24 Aug 2022 13:18:49 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E764B51CB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:18:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661347051; x=1692883051;
+ t=1661347083; x=1692883083;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Uv8bOOmz43cbWxVXsCBubMTEPYECBAiY9I2VpAmEsCI=;
- b=mJnWMumEHnVP0883vmcUmFTRuTBlma589xE2MilQHcXpjv2nmlsX8jnM
- K7/50/RZ3raz1QSsPyyy8vl3RbTdDKKjUyoPtpRt+BDCMw+PLpeaf7SIr
- mMvXMpIN06fSkUKM2iai6Gb5wzsvoFIIPKjnRXHLnK1iQ363qVehWy0ur
- kPVRV4bD6+V+eNHuqxVlJ5VFHJdyplo6QP4w32xjP0T3bn90QuJ9LhSSG
- v2ZsCdiYrtrTmybuJn90B0qxNOQcUth7c1eBdD7dgTRrAE53hJxp8FO1e
- WHIC8naKatcD42vXK2dq3eiif4wwRjmO53Tec7JEpSNsRZluG3Sf98wVh g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="273714055"
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="273714055"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2022 06:17:31 -0700
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="735878096"
+ bh=8K8HuPk8kxV908jbzXJKvu9+GLwcnQb1ibIqxluYaGw=;
+ b=H7lHQXkH5ko1i6WAFzUjMg6OzfKefmhfzCquhN9g6jYjaHCRP3tz9xqC
+ 4NbLtSIDSnfEQ9Q5BcukSBPmKYZQhsB+VJ6YGXunwlt8ixIwPZasAu36I
+ AdJSeVIgcVzUO6Q2AXLkUyKxRujpzyi+z0VQxKIFoIeswlD3Qq89JzpWJ
+ yLBVNKFCd3d+vWBpOr2LRWbtNbTZJjG6X8XcbrkceemIWC063Ot8LNdZp
+ jCUYVcCtADoUArI/ee5NBzUqo33gK6cvoMnGY8/vAtUB4nkxZibNlPYDt
+ RlIPiiMyvnZ/E+m5tVxf9BeAhAvpZvtEiaTqfdvIFfKBDzNNnyCP3aOLs w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="380255180"
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="380255180"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2022 06:17:48 -0700
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="785624741"
 Received: from zlim2-mobl.gar.corp.intel.com (HELO localhost) ([10.252.52.23])
- by orsmga004-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:17:29 -0700
+ by orsmga005-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:17:46 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 24 Aug 2022 16:15:44 +0300
-Message-Id: <d67c632f6bc75f6ce562c28f3521404d30ed48f4.1661346845.git.jani.nikula@intel.com>
+Date: Wed, 24 Aug 2022 16:15:48 +0300
+Message-Id: <e90f1bb837b51d2bed19b3022531e712fa6e3591.1661346845.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1661346845.git.jani.nikula@intel.com>
 References: <cover.1661346845.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 18/38] drm/i915: move and group sagv under
- display.sagv
+Subject: [Intel-gfx] [PATCH v2 22/38] drm/i915: move backlight to
+ display.backlight
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,222 +61,176 @@ Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move display sagv related members under drm_i915_private display
+Move display backlight related members under drm_i915_private display
 sub-struct.
+
+Prefer adding anonymous sub-structs even for single members that aren't
+our own structs.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bw.c       | 10 ++---
- .../gpu/drm/i915/display/intel_display_core.h | 11 ++++++
- drivers/gpu/drm/i915/i915_drv.h               |  9 -----
- drivers/gpu/drm/i915/intel_pm.c               | 38 +++++++++----------
- 4 files changed, 35 insertions(+), 33 deletions(-)
+ .../gpu/drm/i915/display/intel_backlight.c    | 28 +++++++++----------
+ .../gpu/drm/i915/display/intel_display_core.h |  5 ++++
+ drivers/gpu/drm/i915/i915_driver.c            |  2 +-
+ drivers/gpu/drm/i915/i915_drv.h               |  3 --
+ 4 files changed, 20 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-index 79269d2c476b..4e60ad847eb0 100644
---- a/drivers/gpu/drm/i915/display/intel_bw.c
-+++ b/drivers/gpu/drm/i915/display/intel_bw.c
-@@ -346,9 +346,9 @@ static int icl_get_bw_info(struct drm_i915_private *dev_priv, const struct intel
- 	 * as it will fail and pointless anyway.
- 	 */
- 	if (qi.num_points == 1)
--		dev_priv->sagv_status = I915_SAGV_NOT_CONTROLLED;
-+		dev_priv->display.sagv.status = I915_SAGV_NOT_CONTROLLED;
- 	else
--		dev_priv->sagv_status = I915_SAGV_ENABLED;
-+		dev_priv->display.sagv.status = I915_SAGV_ENABLED;
+diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+index 354e2794ed92..f20f3c06ca96 100644
+--- a/drivers/gpu/drm/i915/display/intel_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+@@ -305,7 +305,7 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
+ 	if (!panel->backlight.present || !conn_state->crtc)
+ 		return;
  
- 	return 0;
- }
-@@ -456,9 +456,9 @@ static int tgl_get_bw_info(struct drm_i915_private *dev_priv, const struct intel
- 	 * as it will fail and pointless anyway.
- 	 */
- 	if (qi.num_points == 1)
--		dev_priv->sagv_status = I915_SAGV_NOT_CONTROLLED;
-+		dev_priv->display.sagv.status = I915_SAGV_NOT_CONTROLLED;
- 	else
--		dev_priv->sagv_status = I915_SAGV_ENABLED;
-+		dev_priv->display.sagv.status = I915_SAGV_ENABLED;
+-	mutex_lock(&dev_priv->backlight_lock);
++	mutex_lock(&dev_priv->display.backlight.lock);
  
- 	return 0;
+ 	drm_WARN_ON(&dev_priv->drm, panel->backlight.max == 0);
+ 
+@@ -321,7 +321,7 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
+ 	if (panel->backlight.enabled)
+ 		intel_panel_actually_set_backlight(conn_state, hw_level);
+ 
+-	mutex_unlock(&dev_priv->backlight_lock);
++	mutex_unlock(&dev_priv->display.backlight.lock);
  }
-@@ -485,7 +485,7 @@ static void dg2_get_bw_info(struct drm_i915_private *i915)
- 		bi->deratedbw[0] = deratedbw;
+ 
+ static void lpt_disable_backlight(const struct drm_connector_state *old_conn_state, u32 level)
+@@ -465,14 +465,14 @@ void intel_backlight_disable(const struct drm_connector_state *old_conn_state)
+ 		return;
  	}
  
--	i915->sagv_status = I915_SAGV_NOT_CONTROLLED;
-+	i915->display.sagv.status = I915_SAGV_NOT_CONTROLLED;
+-	mutex_lock(&dev_priv->backlight_lock);
++	mutex_lock(&dev_priv->display.backlight.lock);
+ 
+ 	if (panel->backlight.device)
+ 		panel->backlight.device->props.power = FB_BLANK_POWERDOWN;
+ 	panel->backlight.enabled = false;
+ 	panel->backlight.funcs->disable(old_conn_state, 0);
+ 
+-	mutex_unlock(&dev_priv->backlight_lock);
++	mutex_unlock(&dev_priv->display.backlight.lock);
  }
  
- static unsigned int icl_max_bw(struct drm_i915_private *dev_priv,
+ static void lpt_enable_backlight(const struct intel_crtc_state *crtc_state,
+@@ -815,11 +815,11 @@ void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
+ 
+ 	drm_dbg_kms(&dev_priv->drm, "pipe %c\n", pipe_name(pipe));
+ 
+-	mutex_lock(&dev_priv->backlight_lock);
++	mutex_lock(&dev_priv->display.backlight.lock);
+ 
+ 	__intel_backlight_enable(crtc_state, conn_state);
+ 
+-	mutex_unlock(&dev_priv->backlight_lock);
++	mutex_unlock(&dev_priv->display.backlight.lock);
+ }
+ 
+ #if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
+@@ -829,12 +829,12 @@ static u32 intel_panel_get_backlight(struct intel_connector *connector)
+ 	struct intel_panel *panel = &connector->panel;
+ 	u32 val = 0;
+ 
+-	mutex_lock(&dev_priv->backlight_lock);
++	mutex_lock(&dev_priv->display.backlight.lock);
+ 
+ 	if (panel->backlight.enabled)
+ 		val = panel->backlight.funcs->get(connector, intel_connector_get_pipe(connector));
+ 
+-	mutex_unlock(&dev_priv->backlight_lock);
++	mutex_unlock(&dev_priv->display.backlight.lock);
+ 
+ 	drm_dbg_kms(&dev_priv->drm, "get backlight PWM = %d\n", val);
+ 	return val;
+@@ -862,7 +862,7 @@ static void intel_panel_set_backlight(const struct drm_connector_state *conn_sta
+ 	if (!panel->backlight.present)
+ 		return;
+ 
+-	mutex_lock(&dev_priv->backlight_lock);
++	mutex_lock(&dev_priv->display.backlight.lock);
+ 
+ 	drm_WARN_ON(&dev_priv->drm, panel->backlight.max == 0);
+ 
+@@ -872,7 +872,7 @@ static void intel_panel_set_backlight(const struct drm_connector_state *conn_sta
+ 	if (panel->backlight.enabled)
+ 		intel_panel_actually_set_backlight(conn_state, hw_level);
+ 
+-	mutex_unlock(&dev_priv->backlight_lock);
++	mutex_unlock(&dev_priv->display.backlight.lock);
+ }
+ 
+ static int intel_backlight_device_update_status(struct backlight_device *bd)
+@@ -1591,11 +1591,11 @@ void intel_backlight_update(struct intel_atomic_state *state,
+ 	if (!panel->backlight.present)
+ 		return;
+ 
+-	mutex_lock(&dev_priv->backlight_lock);
++	mutex_lock(&dev_priv->display.backlight.lock);
+ 	if (!panel->backlight.enabled)
+ 		__intel_backlight_enable(crtc_state, conn_state);
+ 
+-	mutex_unlock(&dev_priv->backlight_lock);
++	mutex_unlock(&dev_priv->display.backlight.lock);
+ }
+ 
+ int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe)
+@@ -1620,9 +1620,9 @@ int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe)
+ 		return -ENODEV;
+ 
+ 	/* set level and max in panel struct */
+-	mutex_lock(&dev_priv->backlight_lock);
++	mutex_lock(&dev_priv->display.backlight.lock);
+ 	ret = panel->backlight.funcs->setup(connector, pipe);
+-	mutex_unlock(&dev_priv->backlight_lock);
++	mutex_unlock(&dev_priv->display.backlight.lock);
+ 
+ 	if (ret) {
+ 		drm_dbg_kms(&dev_priv->drm,
 diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index b3996af994be..4a184eac57c3 100644
+index 88e6bc61f5e6..cc54793ae9bf 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_core.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -247,6 +247,17 @@ struct intel_display {
- 		struct mutex mutex;
- 	} pps;
+@@ -218,6 +218,11 @@ struct intel_display {
+ 	} funcs;
  
+ 	/* Grouping using anonymous structs. Keep sorted. */
 +	struct {
-+		enum {
-+			I915_SAGV_UNKNOWN = 0,
-+			I915_SAGV_DISABLED,
-+			I915_SAGV_ENABLED,
-+			I915_SAGV_NOT_CONTROLLED
-+		} status;
++		/* backlight registers and fields in struct intel_panel */
++		struct mutex lock;
++	} backlight;
 +
-+		u32 block_time_us;
-+	} sagv;
-+
- 	/* Grouping using named structs. Keep sorted. */
- 	struct intel_audio audio;
- 	struct intel_dmc dmc;
+ 	struct {
+ 		struct intel_global_obj obj;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index e1f77b0973d7..3aedc33ded57 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -330,7 +330,7 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 
+ 	spin_lock_init(&dev_priv->irq_lock);
+ 	spin_lock_init(&dev_priv->gpu_error.lock);
+-	mutex_init(&dev_priv->backlight_lock);
++	mutex_init(&dev_priv->display.backlight.lock);
+ 
+ 	mutex_init(&dev_priv->sb_lock);
+ 	cpu_latency_qos_add_request(&dev_priv->sb_qos, PM_QOS_DEFAULT_VALUE);
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 1baaf1711b99..f505344f5c02 100644
+index 459814b98e7e..7496c1e22bf1 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -451,15 +451,6 @@ struct drm_i915_private {
- 	struct i915_suspend_saved_registers regfile;
- 	struct vlv_s0ix_state *vlv_s0ix_state;
+@@ -329,9 +329,6 @@ struct drm_i915_private {
  
--	enum {
--		I915_SAGV_UNKNOWN = 0,
--		I915_SAGV_DISABLED,
--		I915_SAGV_ENABLED,
--		I915_SAGV_NOT_CONTROLLED
--	} sagv_status;
+ 	bool preserve_bios_swizzle;
+ 
+-	/* backlight registers and fields in struct intel_panel */
+-	struct mutex backlight_lock;
 -
--	u32 sagv_block_time_us;
--
- 	struct dram_info {
- 		bool wm_lv_0_adjust_needed;
- 		u8 num_channels;
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 45300c4b433c..49208e6508d9 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -3669,7 +3669,7 @@ static bool
- intel_has_sagv(struct drm_i915_private *dev_priv)
- {
- 	return DISPLAY_VER(dev_priv) >= 9 && !IS_LP(dev_priv) &&
--		dev_priv->sagv_status != I915_SAGV_NOT_CONTROLLED;
-+		dev_priv->display.sagv.status != I915_SAGV_NOT_CONTROLLED;
- }
+ 	unsigned int fsb_freq, mem_freq, is_ddr3;
+ 	unsigned int skl_preferred_vco_freq;
  
- static u32
-@@ -3700,7 +3700,7 @@ intel_sagv_block_time(struct drm_i915_private *dev_priv)
- static void intel_sagv_init(struct drm_i915_private *i915)
- {
- 	if (!intel_has_sagv(i915))
--		i915->sagv_status = I915_SAGV_NOT_CONTROLLED;
-+		i915->display.sagv.status = I915_SAGV_NOT_CONTROLLED;
- 
- 	/*
- 	 * Probe to see if we have working SAGV control.
-@@ -3709,21 +3709,21 @@ static void intel_sagv_init(struct drm_i915_private *i915)
- 	if (DISPLAY_VER(i915) < 11)
- 		skl_sagv_disable(i915);
- 
--	drm_WARN_ON(&i915->drm, i915->sagv_status == I915_SAGV_UNKNOWN);
-+	drm_WARN_ON(&i915->drm, i915->display.sagv.status == I915_SAGV_UNKNOWN);
- 
--	i915->sagv_block_time_us = intel_sagv_block_time(i915);
-+	i915->display.sagv.block_time_us = intel_sagv_block_time(i915);
- 
- 	drm_dbg_kms(&i915->drm, "SAGV supported: %s, original SAGV block time: %u us\n",
--		    str_yes_no(intel_has_sagv(i915)), i915->sagv_block_time_us);
-+		    str_yes_no(intel_has_sagv(i915)), i915->display.sagv.block_time_us);
- 
- 	/* avoid overflow when adding with wm0 latency/etc. */
--	if (drm_WARN(&i915->drm, i915->sagv_block_time_us > U16_MAX,
-+	if (drm_WARN(&i915->drm, i915->display.sagv.block_time_us > U16_MAX,
- 		     "Excessive SAGV block time %u, ignoring\n",
--		     i915->sagv_block_time_us))
--		i915->sagv_block_time_us = 0;
-+		     i915->display.sagv.block_time_us))
-+		i915->display.sagv.block_time_us = 0;
- 
- 	if (!intel_has_sagv(i915))
--		i915->sagv_block_time_us = 0;
-+		i915->display.sagv.block_time_us = 0;
- }
- 
- /*
-@@ -3744,7 +3744,7 @@ static void skl_sagv_enable(struct drm_i915_private *dev_priv)
- 	if (!intel_has_sagv(dev_priv))
- 		return;
- 
--	if (dev_priv->sagv_status == I915_SAGV_ENABLED)
-+	if (dev_priv->display.sagv.status == I915_SAGV_ENABLED)
- 		return;
- 
- 	drm_dbg_kms(&dev_priv->drm, "Enabling SAGV\n");
-@@ -3759,14 +3759,14 @@ static void skl_sagv_enable(struct drm_i915_private *dev_priv)
- 	 */
- 	if (IS_SKYLAKE(dev_priv) && ret == -ENXIO) {
- 		drm_dbg(&dev_priv->drm, "No SAGV found on system, ignoring\n");
--		dev_priv->sagv_status = I915_SAGV_NOT_CONTROLLED;
-+		dev_priv->display.sagv.status = I915_SAGV_NOT_CONTROLLED;
- 		return;
- 	} else if (ret < 0) {
- 		drm_err(&dev_priv->drm, "Failed to enable SAGV\n");
- 		return;
- 	}
- 
--	dev_priv->sagv_status = I915_SAGV_ENABLED;
-+	dev_priv->display.sagv.status = I915_SAGV_ENABLED;
- }
- 
- static void skl_sagv_disable(struct drm_i915_private *dev_priv)
-@@ -3776,7 +3776,7 @@ static void skl_sagv_disable(struct drm_i915_private *dev_priv)
- 	if (!intel_has_sagv(dev_priv))
- 		return;
- 
--	if (dev_priv->sagv_status == I915_SAGV_DISABLED)
-+	if (dev_priv->display.sagv.status == I915_SAGV_DISABLED)
- 		return;
- 
- 	drm_dbg_kms(&dev_priv->drm, "Disabling SAGV\n");
-@@ -3791,14 +3791,14 @@ static void skl_sagv_disable(struct drm_i915_private *dev_priv)
- 	 */
- 	if (IS_SKYLAKE(dev_priv) && ret == -ENXIO) {
- 		drm_dbg(&dev_priv->drm, "No SAGV found on system, ignoring\n");
--		dev_priv->sagv_status = I915_SAGV_NOT_CONTROLLED;
-+		dev_priv->display.sagv.status = I915_SAGV_NOT_CONTROLLED;
- 		return;
- 	} else if (ret < 0) {
- 		drm_err(&dev_priv->drm, "Failed to disable SAGV (%d)\n", ret);
- 		return;
- 	}
- 
--	dev_priv->sagv_status = I915_SAGV_DISABLED;
-+	dev_priv->display.sagv.status = I915_SAGV_DISABLED;
- }
- 
- static void skl_sagv_pre_plane_update(struct intel_atomic_state *state)
-@@ -5560,8 +5560,8 @@ static void skl_compute_plane_wm(const struct intel_crtc_state *crtc_state,
- 	result->min_ddb_alloc = max(min_ddb_alloc, blocks) + 1;
- 	result->enable = true;
- 
--	if (DISPLAY_VER(dev_priv) < 12 && dev_priv->sagv_block_time_us)
--		result->can_sagv = latency >= dev_priv->sagv_block_time_us;
-+	if (DISPLAY_VER(dev_priv) < 12 && dev_priv->display.sagv.block_time_us)
-+		result->can_sagv = latency >= dev_priv->display.sagv.block_time_us;
- }
- 
- static void
-@@ -5595,8 +5595,8 @@ static void tgl_compute_sagv_wm(const struct intel_crtc_state *crtc_state,
- 	struct skl_wm_level *levels = plane_wm->wm;
- 	unsigned int latency = 0;
- 
--	if (dev_priv->sagv_block_time_us)
--		latency = dev_priv->sagv_block_time_us + dev_priv->display.wm.skl_latency[0];
-+	if (dev_priv->display.sagv.block_time_us)
-+		latency = dev_priv->display.sagv.block_time_us + dev_priv->display.wm.skl_latency[0];
- 
- 	skl_compute_plane_wm(crtc_state, plane, 0, latency,
- 			     wm_params, &levels[0],
 -- 
 2.34.1
 
