@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5750CC00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:22:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C1BC00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:23:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27FB8B56A6;
-	Wed, 24 Aug 2022 13:22:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C28CDB56C1;
+	Wed, 24 Aug 2022 13:22:58 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E474AB527E
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:19:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 339788A240
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:18:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661347170; x=1692883170;
+ t=1661347122; x=1692883122;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7vq40WMQEfpp9ziIDM3EfAVGPpQ/FSywXDeC47zT1MY=;
- b=i+PNWq8/nw5MWWm6kGwr+fiTbM5+VGf8cMxXeeANXZVzVk9Lpf0ym5Wi
- qYUQLhHaLfup8K35Q1SkVkl+lUG1DuFHLSDPyr3tRWAD3rIT2yh4I5uGx
- GikNmBlAfV7/uRDzdaAunSoutVH5QxyHuYzU9lupIn1BwtCgwdBAjyau0
- iJb9Ra3KcbcwT8xx6a4zHwzF3LyU3yryOYsdialNK47jxiLemY0GFuRI/
- CJ5ng9RwVVlQTZRH2JHjig4qclLqBjUnXfUILl84lCdTialtsi1L8KRrT
- f+J6UYM8HtPvXazHZ0v5tf9KVAPtxolC9r7LcThN8Tt/3q6MGwC2faB2C g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="274350797"
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="274350797"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ bh=p6ovfF3oN5dWV1DmrT6Fe8EDdpyLdp5e6Mnye05ndNs=;
+ b=OaFW2TNM/Nb1CGe8wZF+yqGRdplEZ/opG8DYQVc9w2fMlKYjHXtwfds2
+ kBKszjSJ1uJwfCe6XqoOl7UVmvJwWmC9d+Tp31/TuVj9O7rEmAul6BZ/7
+ Kdd7XIGpZUWAv3DMKGHkOCfHXXx5lhEBi7U5QXWjnT3BKL/3TXGKXSuud
+ SPVC/ZWApZr3R/xz0J7w90dwaylDHdwSySR+vvdUHzzqPsgsd6UfWuOC2
+ upxFHSA8ItOcQ4+4GdeSd9DQUsLq2Z0vN+qtvMp3Z8+B26YWUaRXoZgNe
+ erKNTpmZ2TzbR5/u07UETcPUXTnlZyvT+vfrShxqbk+dN+g0er27u0jc1 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="274350462"
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="274350462"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2022 06:18:12 -0700
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="639116028"
+ 24 Aug 2022 06:17:26 -0700
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="609754446"
 Received: from zlim2-mobl.gar.corp.intel.com (HELO localhost) ([10.252.52.23])
- by orsmga008-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:18:11 -0700
+ by orsmga002-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:17:24 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 24 Aug 2022 16:15:54 +0300
-Message-Id: <4cab8f374ff58c286966c5b6b9be61c2ac18bdea.1661346845.git.jani.nikula@intel.com>
+Date: Wed, 24 Aug 2022 16:15:43 +0300
+Message-Id: <e019fb538536d36bab28feaafe049e0b1726f2d9.1661346845.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1661346845.git.jani.nikula@intel.com>
 References: <cover.1661346845.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 28/38] drm/i915: move and group fdi members
- under display.fdi
+Subject: [Intel-gfx] [PATCH v2 17/38] drm/i915: move overlay to
+ display.overlay
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,110 +61,132 @@ Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move display fdi related members under drm_i915_private display
+Move display overlay related members under drm_i915_private display
 sub-struct.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crt.c          |  4 ++--
- drivers/gpu/drm/i915/display/intel_display_core.h |  5 +++++
- drivers/gpu/drm/i915/display/intel_fdi.c          | 10 +++++-----
- drivers/gpu/drm/i915/i915_drv.h                   |  3 ---
- 4 files changed, 12 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_core.h |  2 ++
+ drivers/gpu/drm/i915/display/intel_overlay.c      | 12 ++++++------
+ drivers/gpu/drm/i915/i915_drv.h                   |  4 ----
+ drivers/gpu/drm/i915/i915_getparam.c              |  2 +-
+ 4 files changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index 760b5788eb43..6c555555b7bf 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -1110,8 +1110,8 @@ void intel_crt_init(struct drm_i915_private *dev_priv)
- 		u32 fdi_config = FDI_RX_POLARITY_REVERSED_LPT |
- 				 FDI_RX_LINK_REVERSAL_OVERRIDE;
- 
--		dev_priv->fdi_rx_config = intel_de_read(dev_priv,
--							FDI_RX_CTL(PIPE_A)) & fdi_config;
-+		dev_priv->display.fdi.rx_config = intel_de_read(dev_priv,
-+								FDI_RX_CTL(PIPE_A)) & fdi_config;
- 	}
- 
- 	intel_crt_reset(&crt->base.base);
 diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index 1f25e22496db..0aeebf169ba6 100644
+index 96d085bf5229..b3996af994be 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_core.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -299,6 +299,11 @@ struct intel_display {
- 		struct work_struct suspend_work;
- 	} fbdev;
+@@ -32,6 +32,7 @@ struct intel_fbdev;
+ struct intel_fdi_funcs;
+ struct intel_hotplug_funcs;
+ struct intel_initial_plane_config;
++struct intel_overlay;
  
-+	struct {
-+		unsigned int pll_freq;
-+		u32 rx_config;
-+	} fdi;
-+
- 	struct {
- 		/*
- 		 * Base address of where the gmbus and gpio blocks are located
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
-index 03ad5f5c8417..f67dd4f05bab 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -210,14 +210,14 @@ void intel_fdi_pll_freq_update(struct drm_i915_private *i915)
- 		u32 fdi_pll_clk =
- 			intel_de_read(i915, FDI_PLL_BIOS_0) & FDI_PLL_FB_CLOCK_MASK;
+ struct intel_display_funcs {
+ 	/*
+@@ -251,6 +252,7 @@ struct intel_display {
+ 	struct intel_dmc dmc;
+ 	struct intel_dpll dpll;
+ 	struct intel_hotplug hotplug;
++	struct intel_overlay *overlay;
+ 	struct intel_wm wm;
+ };
  
--		i915->fdi_pll_freq = (fdi_pll_clk + 2) * 10000;
-+		i915->display.fdi.pll_freq = (fdi_pll_clk + 2) * 10000;
- 	} else if (IS_SANDYBRIDGE(i915) || IS_IVYBRIDGE(i915)) {
--		i915->fdi_pll_freq = 270000;
-+		i915->display.fdi.pll_freq = 270000;
- 	} else {
+diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
+index 79ed8bd04a07..6f26f7f91925 100644
+--- a/drivers/gpu/drm/i915/display/intel_overlay.c
++++ b/drivers/gpu/drm/i915/display/intel_overlay.c
+@@ -487,7 +487,7 @@ static int intel_overlay_release_old_vid(struct intel_overlay *overlay)
+ 
+ void intel_overlay_reset(struct drm_i915_private *dev_priv)
+ {
+-	struct intel_overlay *overlay = dev_priv->overlay;
++	struct intel_overlay *overlay = dev_priv->display.overlay;
+ 
+ 	if (!overlay)
  		return;
- 	}
+@@ -1113,7 +1113,7 @@ int intel_overlay_put_image_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_i915_gem_object *new_bo;
+ 	int ret;
  
--	drm_dbg(&i915->drm, "FDI PLL freq=%d\n", i915->fdi_pll_freq);
-+	drm_dbg(&i915->drm, "FDI PLL freq=%d\n", i915->display.fdi.pll_freq);
- }
+-	overlay = dev_priv->overlay;
++	overlay = dev_priv->display.overlay;
+ 	if (!overlay) {
+ 		drm_dbg(&dev_priv->drm, "userspace bug: no overlay\n");
+ 		return -ENODEV;
+@@ -1273,7 +1273,7 @@ int intel_overlay_attrs_ioctl(struct drm_device *dev, void *data,
+ 	struct intel_overlay *overlay;
+ 	int ret;
  
- int intel_fdi_link_freq(struct drm_i915_private *i915,
-@@ -226,7 +226,7 @@ int intel_fdi_link_freq(struct drm_i915_private *i915,
- 	if (HAS_DDI(i915))
- 		return pipe_config->port_clock; /* SPLL */
- 	else
--		return i915->fdi_pll_freq;
-+		return i915->display.fdi.pll_freq;
- }
+-	overlay = dev_priv->overlay;
++	overlay = dev_priv->display.overlay;
+ 	if (!overlay) {
+ 		drm_dbg(&dev_priv->drm, "userspace bug: no overlay\n");
+ 		return -ENODEV;
+@@ -1416,7 +1416,7 @@ void intel_overlay_setup(struct drm_i915_private *dev_priv)
+ 	update_polyphase_filter(overlay->regs);
+ 	update_reg_attrs(overlay, overlay->regs);
  
- int ilk_fdi_compute_config(struct intel_crtc *crtc,
-@@ -789,7 +789,7 @@ void hsw_fdi_link_train(struct intel_encoder *encoder,
- 		       FDI_RX_PWRDN_LANE1_VAL(2) | FDI_RX_PWRDN_LANE0_VAL(2) | FDI_RX_TP1_TO_TP2_48 | FDI_RX_FDI_DELAY_90);
+-	dev_priv->overlay = overlay;
++	dev_priv->display.overlay = overlay;
+ 	drm_info(&dev_priv->drm, "Initialized overlay support.\n");
+ 	return;
  
- 	/* Enable the PCH Receiver FDI PLL */
--	rx_ctl_val = dev_priv->fdi_rx_config | FDI_RX_ENHANCE_FRAME_ENABLE |
-+	rx_ctl_val = dev_priv->display.fdi.rx_config | FDI_RX_ENHANCE_FRAME_ENABLE |
- 		     FDI_RX_PLL_ENABLE |
- 		     FDI_DP_PORT_WIDTH(crtc_state->fdi_lanes);
- 	intel_de_write(dev_priv, FDI_RX_CTL(PIPE_A), rx_ctl_val);
+@@ -1428,7 +1428,7 @@ void intel_overlay_cleanup(struct drm_i915_private *dev_priv)
+ {
+ 	struct intel_overlay *overlay;
+ 
+-	overlay = fetch_and_zero(&dev_priv->overlay);
++	overlay = fetch_and_zero(&dev_priv->display.overlay);
+ 	if (!overlay)
+ 		return;
+ 
+@@ -1457,7 +1457,7 @@ struct intel_overlay_error_state {
+ struct intel_overlay_error_state *
+ intel_overlay_capture_error_state(struct drm_i915_private *dev_priv)
+ {
+-	struct intel_overlay *overlay = dev_priv->overlay;
++	struct intel_overlay *overlay = dev_priv->display.overlay;
+ 	struct intel_overlay_error_state *error;
+ 
+ 	if (!overlay || !overlay->active)
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index bc5506ad2ad6..8544ca84fed4 100644
+index f6c8c0f2f633..1baaf1711b99 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -290,7 +290,6 @@ struct drm_i915_private {
+@@ -83,7 +83,6 @@ struct intel_connector;
+ struct intel_dp;
+ struct intel_encoder;
+ struct intel_limit;
+-struct intel_overlay;
+ struct intel_overlay_error_state;
+ struct vlv_s0ix_state;
  
- 	unsigned int max_dotclk_freq;
- 	unsigned int hpll_freq;
--	unsigned int fdi_pll_freq;
- 	unsigned int czclk_freq;
+@@ -343,9 +342,6 @@ struct drm_i915_private {
  
- 	struct {
-@@ -362,8 +361,6 @@ struct drm_i915_private {
- 	struct drm_property *broadcast_rgb_property;
- 	struct drm_property *force_audio_property;
+ 	bool preserve_bios_swizzle;
  
--	u32 fdi_rx_config;
+-	/* overlay */
+-	struct intel_overlay *overlay;
 -
- 	/*
- 	 * Shadows for CHV DPLL_MD regs to keep the state
- 	 * checker somewhat working in the presence hardware
+ 	/* backlight registers and fields in struct intel_panel */
+ 	struct mutex backlight_lock;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
+index 6fd15b39570c..342c8ca6414e 100644
+--- a/drivers/gpu/drm/i915/i915_getparam.c
++++ b/drivers/gpu/drm/i915/i915_getparam.c
+@@ -36,7 +36,7 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
+ 		value = to_gt(i915)->ggtt->num_fences;
+ 		break;
+ 	case I915_PARAM_HAS_OVERLAY:
+-		value = !!i915->overlay;
++		value = !!i915->display.overlay;
+ 		break;
+ 	case I915_PARAM_HAS_BSD:
+ 		value = !!intel_engine_lookup_user(i915,
 -- 
 2.34.1
 
