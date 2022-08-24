@@ -4,63 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95197ECAAD4
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B447ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E500D10F1C4;
-	Mon, 29 Aug 2022 13:04:17 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA0110E322;
- Thu, 25 Aug 2022 21:27:33 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- k18-20020a05600c0b5200b003a5dab49d0bso3156433wmr.3; 
- Thu, 25 Aug 2022 14:27:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc;
- bh=gVyA5Z8on1cy579HoV3noOGIo3WqfSZOmskPQryMgtM=;
- b=eh/92dgXe0iyyY3sIgffq4zQH1CFGZMuz44bFe8eqZHrFui9w/sE6IF5yB6Fdl31m9
- q/giSA6K9TF82r9Z7/3a4lVAFzW09wfSy/165AHuuX16K0vRUPKCGD88QxiQrmNNKFx/
- PNqEaEBMyUErAL98l5VkqMECNhnqLIbgF9x4D6cHJgp36/cUymxzMzQQUJrrxSPR1sbt
- tHiJVRpf39VhrJtrS58T4jfliailuywTFaV0Thv6p9mpo8wn9z+7N1sXsoBeOU89UV5s
- QbzmqMrzJx9P96pqjjVEkAMxG/vEgHLJT3Oq/CqKdjvYxbHH4kMnlj0pz7TUi/E6SNFj
- m1bQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
- bh=gVyA5Z8on1cy579HoV3noOGIo3WqfSZOmskPQryMgtM=;
- b=7MHXnOUInU67yVrwyAI7CH6PPdmHoGKAhmYITd2kdKNx0vu+n1xt7HdXIXc+IeHuyZ
- NfDvBWXFOvEvnsJNF9PXIQkWGtfdsTmdj74iWJuR6qQkr6cub8vmC6SluUXuKDUj0n1M
- WXlqSo9eiH5PmO8R2UARQWUaYi5iM6GT8jYt1y7E3JJz5LyfhmEb4oLH+5oub6M01D0h
- bkzjZeDxmPpmePbU4Sj2/JEzydVlGJkXF+m8r4/1dlnXC81Qmi0L0uCT7d6FJDQKGpqj
- 1pPURzOmJUB+jPK944mYi0emcUsewbZxyUCLbZPhLyw3IHNl4ztMe6OI2fFOV+x7J5tg
- Q+pA==
-X-Gm-Message-State: ACgBeo204vrPLIz3k71sWnEvbyLDSZMft0hnazkZxBHPRL2QfxUZvrDJ
- UhrTQBK8dsyEBxGqdXTpsqM=
-X-Google-Smtp-Source: AA6agR6cucYg/Du4YLrUO/NU1z88fXBAfmGuIRfE4Qrrqd+tO0lSZk3dovhgHxZZ4bK1jgQbd4MAWw==
-X-Received: by 2002:a05:600c:198e:b0:3a5:d4a2:8896 with SMTP id
- t14-20020a05600c198e00b003a5d4a28896mr8967780wmq.140.1661462851646; 
- Thu, 25 Aug 2022 14:27:31 -0700 (PDT)
-Received: from kista.localnet (82-149-1-172.dynamic.telemach.net.
- [82.149.1.172]) by smtp.gmail.com with ESMTPSA id
- k1-20020a5d6e81000000b0021e8d205705sm242110wrz.51.2022.08.25.14.27.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Aug 2022 14:27:31 -0700 (PDT)
-From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-Date: Thu, 25 Aug 2022 23:27:29 +0200
-Message-ID: <22761203.6Emhk5qWAg@kista>
-In-Reply-To: <20220818210008.6721-1-wsa+renesas@sang-engineering.com>
-References: <20220818210008.6721-1-wsa+renesas@sang-engineering.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DAC710F1CA;
+	Mon, 29 Aug 2022 13:04:19 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFB7614AD6D;
+ Wed, 24 Aug 2022 10:23:39 +0000 (UTC)
+Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 518CA6601DAD;
+ Wed, 24 Aug 2022 11:23:35 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661336617;
+ bh=CWlyIap4cbi2NpOihsLARmOOwwjeknxOoSCWAV4ajqA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=b5Nhoxv/POic6NyUcUJ+k8TJIFTWE6IyZKn6URLO//apT9ls1oa4z+UZXjmyEWVC3
+ OeTVeyn5O9AEfBMx9lriWH9WPyRBZ0B9zqNw3idljg/60RttMUIFaVA40idf8uYr3A
+ Ft+9+RofHKd3c6TtR6WCHH3ChfOh/tn7hqLsuTjPeT2/LWMgDmVOKiZyy1BKEXmxjo
+ SwjS5PBNCp1FuKVYj1mF4V4LVCudFj6i8H1NB/DbxwhPUgf0/+DTVhQZSpxv15mZAT
+ bqY34qasjmnm6us3j8q+NNQtBJ7I9LP9++0Qr56mLRjlGqqn8RYdr93aaxYrRuZkQQ
+ Tk7ORvZan1c5Q==
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>
+Date: Wed, 24 Aug 2022 13:22:39 +0300
+Message-Id: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 29 Aug 2022 13:04:13 +0000
-Subject: Re: [Intel-gfx] [PATCH] gpu: move from strlcpy with unused retval
- to strscpy
+Subject: [Intel-gfx] [PATCH v3 0/9] Move all drivers to a common dma-buf
+ locking convention
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,61 +76,116 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Samuel Holland <samuel@sholland.org>,
- Russell King <linux@armlinux.org.uk>, amd-gfx@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
- linux-sunxi@lists.linux.dev, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jonas Karlman <jonas@kwiboo.se>,
- intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- linux-mediatek@lists.infradead.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Evan Quan <evan.quan@amd.com>, linux-arm-kernel@lists.infradead.org, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Sandy Huang <hjc@rock-chips.com>,
- Robert Foss <robert.foss@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Dne =C4=8Detrtek, 18. avgust 2022 ob 23:00:07 CEST je Wolfram Sang napisal(=
-a):
-> Follow the advice of the below link and prefer 'strscpy' in this
-> subsystem. Conversion is 1:1 because the return value is not used.
-> Generated by a coccinelle script.
->=20
-> Link:
-> https://lore.kernel.org/r/CAHk-=3DwgfRnXz0W3D37d01q3JFkr_i_uTL=3DV6A6G1oU=
-Zcprmk
-> nw@mail.gmail.com/ Signed-off-by: Wolfram Sang
-> <wsa+renesas@sang-engineering.com>
+Hello,
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+This series moves all drivers to a dynamic dma-buf locking specification.
+From now on all dma-buf importers are made responsible for holding
+dma-buf's reservation lock around all operations performed over dma-bufs
+in accordance to the locking specification. This allows us to utilize
+reservation lock more broadly around kernel without fearing of a potential
+deadlocks.
 
-Best regards,
-Jernej
+This patchset passes all i915 selftests. It was also tested using VirtIO,
+Panfrost, Lima, Tegra, udmabuf, AMDGPU and Nouveau drivers. I tested cases
+of display+GPU, display+V4L and GPU+V4L dma-buf sharing (where appropriate),
+which covers majority of kernel drivers since rest of the drivers share
+same or similar code paths.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/atom.c                   | 2 +-
->  drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c      | 2 +-
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c | 6 +++---
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c           | 2 +-
->  drivers/gpu/drm/display/drm_dp_helper.c             | 2 +-
->  drivers/gpu/drm/display/drm_dp_mst_topology.c       | 2 +-
->  drivers/gpu/drm/drm_mipi_dsi.c                      | 2 +-
->  drivers/gpu/drm/i2c/tda998x_drv.c                   | 2 +-
->  drivers/gpu/drm/i915/selftests/i915_perf.c          | 2 +-
->  drivers/gpu/drm/mediatek/mtk_hdmi_ddc.c             | 2 +-
->  drivers/gpu/drm/radeon/radeon_atombios.c            | 4 ++--
->  drivers/gpu/drm/radeon/radeon_combios.c             | 4 ++--
->  drivers/gpu/drm/rockchip/inno_hdmi.c                | 2 +-
->  drivers/gpu/drm/rockchip/rk3066_hdmi.c              | 2 +-
->  drivers/gpu/drm/sun4i/sun4i_hdmi_i2c.c              | 2 +-
->  15 files changed, 19 insertions(+), 19 deletions(-)
+Changelog:
 
+v3: - Factored out dma_buf_mmap_unlocked() and attachment functions
+      into aseparate patches, like was suggested by Christian König.
 
+    - Corrected and factored out dma-buf locking documentation into
+      a separate patch, like was suggested by Christian König.
+
+    - Intel driver dropped the reservation locking fews days ago from
+      its BO-release code path, but we need that locking for the imported
+      GEMs because in the end that code path unmaps the imported GEM.
+      So I added back the locking needed by the imported GEMs, updating
+      the "dma-buf attachment locking specification" patch appropriately.
+
+    - Tested Nouveau+Intel dma-buf import/export combo.
+
+    - Tested udmabuf import to i915/Nouveau/AMDGPU.
+
+    - Fixed few places in Etnaviv, Panfrost and Lima drivers that I missed
+      to switch to locked dma-buf vmapping in the drm/gem: Take reservation
+      lock for vmap/vunmap operations" patch. In a result invalidated the
+      Christian's r-b that he gave to v2.
+
+    - Added locked dma-buf vmap/vunmap functions that are needed for fixing
+      vmappping of Etnaviv, Panfrost and Lima drivers mentioned above.
+      I actually had this change stashed for the drm-shmem shrinker patchset,
+      but then realized that it's already needed by the dma-buf patches.
+      Also improved my tests to better cover these code paths.
+
+v2: - Changed locking specification to avoid problems with a cross-driver
+      ww locking, like was suggested by Christian König. Now the attach/detach
+      callbacks are invoked without the held lock and exporter should take the
+      lock.
+
+    - Added "locking convention" documentation that explains which dma-buf
+      functions and callbacks are locked/unlocked for importers and exporters,
+      which was requested by Christian König.
+
+    - Added ack from Tomasz Figa to the V4L patches that he gave to v1.
+
+Dmitry Osipenko (9):
+  dma-buf: Add _unlocked postfix to function names
+  dma-buf: Add locked variant of dma_buf_vmap/vunmap()
+  drm/gem: Take reservation lock for vmap/vunmap operations
+  dma-buf: Move dma_buf_vmap/vunmap_unlocked() to dynamic locking
+    specification
+  dma-buf: Move dma_buf_mmap_unlocked() to dynamic locking specification
+  dma-buf: Move dma-buf attachment to dynamic locking specification
+  dma-buf: Document dynamic locking convention
+  media: videobuf2: Stop using internal dma-buf lock
+  dma-buf: Remove internal lock
+
+ Documentation/driver-api/dma-buf.rst          |   6 +
+ drivers/dma-buf/dma-buf.c                     | 276 ++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |   4 +-
+ drivers/gpu/drm/armada/armada_gem.c           |  14 +-
+ drivers/gpu/drm/drm_client.c                  |   4 +-
+ drivers/gpu/drm/drm_gem.c                     |  24 ++
+ drivers/gpu/drm/drm_gem_dma_helper.c          |   6 +-
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c  |   6 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c        |   2 +-
+ drivers/gpu/drm/drm_gem_ttm_helper.c          |   9 +-
+ drivers/gpu/drm/drm_prime.c                   |  12 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c   |   4 +-
+ drivers/gpu/drm/exynos/exynos_drm_gem.c       |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   6 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |  12 +
+ .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  20 +-
+ drivers/gpu/drm/lima/lima_sched.c             |   4 +-
+ drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c     |   8 +-
+ drivers/gpu/drm/panfrost/panfrost_dump.c      |   4 +-
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c   |   6 +-
+ drivers/gpu/drm/qxl/qxl_object.c              |  17 +-
+ drivers/gpu/drm/qxl/qxl_prime.c               |   4 +-
+ drivers/gpu/drm/tegra/gem.c                   |  27 +-
+ drivers/infiniband/core/umem_dmabuf.c         |  11 +-
+ .../common/videobuf2/videobuf2-dma-contig.c   |  26 +-
+ .../media/common/videobuf2/videobuf2-dma-sg.c |  23 +-
+ .../common/videobuf2/videobuf2-vmalloc.c      |  17 +-
+ .../platform/nvidia/tegra-vde/dmabuf-cache.c  |  12 +-
+ drivers/misc/fastrpc.c                        |  12 +-
+ drivers/xen/gntdev-dmabuf.c                   |  14 +-
+ include/drm/drm_gem.h                         |   3 +
+ include/linux/dma-buf.h                       |  57 ++--
+ 32 files changed, 410 insertions(+), 242 deletions(-)
+
+-- 
+2.37.2
 
