@@ -4,98 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 150FAC00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 11:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDE1EC00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 12:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0089A10E6F9;
-	Wed, 24 Aug 2022 11:30:03 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC3614A642
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 11:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661339309;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cGfpUpDxvFpN6r02THk4JBCx3yQFLweaGRDNLoZQA9o=;
- b=Wh17cc89dAKmI4/DJZ/IG2YMkLZHPG1Wa7ylZKsVjbT0k6OUQSceoxV/OPEXG0Iq6qKFX6
- 92G0ABI3ypPi/PRk89nbV3OP44jJj8gb0ZG1Sv2Bd2vPrB9UW8weGRs5rshaR8vrdb4yFe
- cChfzm+mAd7663Bjr0yFqJ2bO8KOKlU=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-118-5X3XKcubOKSsOUrH0ok33w-1; Wed, 24 Aug 2022 07:08:28 -0400
-X-MC-Unique: 5X3XKcubOKSsOUrH0ok33w-1
-Received: by mail-ej1-f70.google.com with SMTP id
- sc3-20020a1709078a0300b0073d77f805b3so2954348ejc.22
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 04:08:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc;
- bh=cGfpUpDxvFpN6r02THk4JBCx3yQFLweaGRDNLoZQA9o=;
- b=zKdavQ5uBRgYYAy2GXPgJ+lAGj916G9enoZHTmmHJBPxT4Xincnnw7anrZ7IFn/EuY
- +7n0X/EUGRdI7kYiOijtW5l5OvjJzJvOrwfdjQgScKDYuGO+DD4nC5n+K30Rtp5FJ/ks
- CrOu6AvTJ62TBg5br1uGTuSb63iVtXwin2Bs1UTr8YvLQaWFgyrCV/A/z1Yb+QB4ByF4
- C+mI6H3qhefi/gxo042+i2IseTaknpz0I/rZQovKe2xMPbzwTZykYMMOmqKsi/05eIdA
- hwSG4svvGDtx9zDbEMzaq5rmW84JY6YqApTGGRJ9GSmDLAI2WKIVNHUcMg3Rjm6Z+jnB
- mNHQ==
-X-Gm-Message-State: ACgBeo2nZyF2eOrRoyyy290Lic9KZQendY5DX21SJME+6Xy5Ma/Y5KjP
- 3wTgvGuej+FlH196v/26B6ZC0Bj8PepktXdSOeyKGoDVMHfry2mB97yKdlbpsRU6SJKkRewhZ6v
- MY7ajaJsFV5/I+yoyhajmvhFa01TZ
-X-Received: by 2002:a05:6402:e98:b0:441:a982:45bc with SMTP id
- h24-20020a0564020e9800b00441a98245bcmr6950971eda.239.1661339306828; 
- Wed, 24 Aug 2022 04:08:26 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR6P/7PaITtSTdw1wLLBypj9uj/nk0N3QwkS9w0y+K1RLj+BScs0w2Xc3OndqaOvHU7KZQ6oZg==
-X-Received: by 2002:a05:6402:e98:b0:441:a982:45bc with SMTP id
- h24-20020a0564020e9800b00441a98245bcmr6950924eda.239.1661339306456; 
- Wed, 24 Aug 2022 04:08:26 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
- by smtp.gmail.com with ESMTPSA id
- kv22-20020a17090778d600b00730560156b0sm1047279ejc.50.2022.08.24.04.08.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Aug 2022 04:08:24 -0700 (PDT)
-Message-ID: <e56d7379-5f6f-9ae0-cd74-f570df990c1d@redhat.com>
-Date: Wed, 24 Aug 2022 13:08:23 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id E98C7B021D;
+	Wed, 24 Aug 2022 12:02:04 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CA4CAFBDD;
+ Wed, 24 Aug 2022 12:01:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1661342499; x=1692878499;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=JPlLhfg5aq7bXkWn527eoc+8KxHvsf2jkSv+nTJgdJ8=;
+ b=aPb67AvxIy3IGG7jpyq0K4X4FLUeOsS2utSLZrhNmKfR4zE0QlKWPlOH
+ n++ONZB7tViT3xjt/UknF8QcQ8GyZDMzne7saRu+aGG365gNb9zXj0IL4
+ rvbc7Hnrg+cgC1UPfKSKU6yHX9tgvKT6p2roINKcr+kW36IcUDVK1OgQw
+ 7PRx8nAyLKSZ2BpcBfSD0Z0sT6xr2zv7sEpIv3VTpep7RQLY51Y5cfcZg
+ BzD57J7TGgHVbPNgjLKnus9/8+iwgKGq9fSq4SvqiAGBMyRJnX0RVadk+
+ 1lcVTgUyXE9BW6mqloVo40n+WjmHQ7DIzX6PkV82G+LJv4xLTD+ztiJEd A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="292688605"
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="292688605"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2022 05:01:30 -0700
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="678018880"
+Received: from gaburges-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.12.186])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2022 05:01:17 -0700
+Date: Wed, 24 Aug 2022 15:01:14 +0300
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <YwYTCjA/Rhpd1n4A@jlahtine-mobl.ger.corp.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-To: Daniel Dadap <ddadap@nvidia.com>, Ben Skeggs <bskeggs@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Xinhui <Xinhui.Pan@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
- Andy Shevchenko <andy@kernel.org>
-References: <20220712193910.439171-1-hdegoede@redhat.com>
- <20220712193910.439171-2-hdegoede@redhat.com>
- <641cb059-48f5-5f05-5ec2-610f1215391c@nvidia.com>
- <20e4ffcf-2a3a-e671-5f98-1602b78df3cb@nvidia.com>
- <331ebd23-d2a4-bb33-5462-b9bd3284ab69@redhat.com>
- <5cfb26a2-ec7b-578e-dc01-79776dc7e0c9@nvidia.com>
- <94c69af4-5a30-0b80-fce1-64d01858d79b@redhat.com>
- <98cb14c9-6b9a-9410-98e3-24c31950597d@nvidia.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <98cb14c9-6b9a-9410-98e3-24c31950597d@nvidia.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v2 01/29] ACPI: video: Add
- acpi_video_backlight_use_native() helper
+Subject: [Intel-gfx] [PULL] drm-intel-gt-next
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,91 +55,239 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Daniel,
+Hi Dave & Daniel,
 
-On 8/17/22 22:18, Daniel Dadap wrote:
-> On 8/17/22 10:05 AM, Hans de Goede wrote:
+Here goes the first drm-intel-gt-next PR towards 6.1. Quite a small one.
 
-<snip>
+As primary things, there's the parallel support of GuC v69 and v70
+which already went in via -fixes, improvements to the TLB invalidation
+performance regressions, further DG2 enabling and improved debugging
+for GuC errors.
 
->>> One further potential difficulty that I anticipate is that not all dynamic mux systems use the EC backlight driver (or a similar, GPU-agnostic driver), and rather have whichever GPU happens to be connected at the time be responsible for the backlight. I had initially thought that supporting the EC backlight interface was a requirement for OEMs to implement dynamic mux support, but I recently learned this is not true in all cases. On Windows, this requires coordinating the backlight controls of the two GPU drivers across a mux switch, to load the state of the switched-away-from GPU and set it on the switched-to GPU. I imagine for these systems we may need to do some similar save/restore, probably managed by vga-switcheroo, but it would require having both GPU drivers register their own native backlight handlers (and possibly while one of them is not connected to the panel).
->> Right, systems where the backlight control basically gets muxed from one GPU to the other GPU together with the panel's video-data lines exist. Currently Linux already register both native GPU backlight handlers in this case. e.g. /sys/class/backlight/intel_backlight and /sys/class/backlight/nouveau_bl.
->>
->> Userspace (atleast GNOME) has code which checks which GPU is actually connected to the panel using the panel's drm connector's status on each GPU (only one of which should report connected) and then uses the backlight interface associated with the connected connector.
->>
->>> Dynamic mux switching isn't actually supported on Linux, yet, so we should be able to kick this particular can a little further down the road, but in the meantime we should probably start planning for how best to handle this sort of system under the "only one backlight handler per panel" model. Maybe the vga-switcheroo handler can register its own backlight handler, that then negotiates the actual backlight settings between the relevant GPU drivers, possibly through a new vga-switcheroo client callback. I'll have to think about this a bit more.
->> The "only one backlight handler per panel" model is actualy "only one backlight handler per panel"-connector since the new API uses drm properties on the drm connector object. With 2 GPUs both using their native backlight control there will be 2 connectors and userspace will/must use the one which is actually reporting that it is connected to the panel so this will work fine.
-> 
-> 
-> That is a useful distinction. Would it fall under userspace's reponsibility, then, to keep the brightness level synchronized across drm_connectors that share a panel via a mux when performing a switch?
+On top of that, locking simplification for freeing objects to avoid
+potential system freeze, addition of gt/gtN/.defaults (including freq
+to start), silencing some messages that are not errors.
 
-Yes typically the 2 different GPU drivers know nothing about the other GPU and I think it would be good to keep things that way. When switching userspace will see a disconnect on the panel connector on one GPU and then a connect on the connector on the other GPU at which point it knows that it should set the brightness on the now connected connector instead of on the old one.
+Regards, Joonas
 
-> I suppose it's a cleaner design to leave it up to userspace to select which backlight interface to manipulate.
+PS. I left a few commits out from top of drm-intel-gt-next as there is fixup
+needed for at least one. I will include those in the next PR.
 
-Ack.
+***
 
-> That is a harder decision for userspace to make with the existing design, which doesn't cleanly map sysfs backlight interfaces to individual connectors, but if the UAPI is going to change to a drm_connector property, backlight interfaces are obviously strongly correlated with the connectors.
+drm-intel-gt-next-2022-08-24:
 
-Right.
+UAPI Changes:
 
->  I'm not sure how easy it is for userspace to solve the problem of maintaining consistent brightness levels across a mux switch for an OLED panel, where there really isn't a concept of a "backlight" to speak of, but I suppose it wouldn't be any easier to do that in the kernel (e.g. with vga-switcheroo).
+- Create gt/gtN/.defaults/ for per gt sysfs defaults
 
-The OLED brightness is send over DP-aux to the panel AFAIK, so as long as both drivers export the raw range of the panel's setting and don't try to get smart and scale or whatever then their should be a 1:1 mapping. Ideally for something like this both drivers would be using some shared drm-helper code / library to talk to the backlight, thus guaranteeing that both drivers interpret the scale the same.
+  Create a gt/gtN/.defaults/ directory (similar to
+  engine/<engine-name>/.defaults/) to expose default parameter values for
+  each gt in sysfs. This allows userspace to restore default parameter values
+  after they have changed.
 
+Driver Changes:
 
->> If anything the nvidia-wmi-ec-backlight case is a but more tricky, the "only one backlight handler per panel" thing is actually more of a "only one backlight handler per laptop" rule which is intended for (to be written) drm helpers for the new properties to be able to get the handler from the backlight class in the non native case by just taking the first registered backlight handler.
->>
->> This means that in a dual GPU setup with nvidia-wmi-ec-backlight both GPU's panel connector objects will have their brightness properties pointing to / proxying the same backlight class device. Userspace should really be only writing to the one which is actually connected though. I guess we could even enforce this
->> in the kernel and reject brightness property writes on unconnected connectors.
->>
->>>> Please let me know if the proposed solution works for you and
->>>> if you want me to make ACPI_VIDEO_REGISTER_BACKLIGHT_DELAY a
->>>> module-option for the next version.
->>>
->>> I do think it should be workable, apart from the concern I mentioned above about knowing when to set the module option to disable the ACPI video backlight driver.
->> Note the option does not disable the ACPI video backlight driver. It disables the acpi_video code timing out and deciding to go ahead and register its backlight itself (providing that at the moment of timeout acpi_video_get_backlight_type() returns acpi_backlight_video). Any code (e.g. the nvidia binary driver) can still call acpi_video_register_backlight() itself to try and register even if the timeout handling has been disabled.
->>
->> The idea is that without the timeout the probe order looks like this:
->>
->> 1. acpi_video initializes, does not register backlight
->> 2. GPU driver initalizes, it either registers a native backlight handler;
->>     or it calls acpi_video_register_backlight()
->> 3. acpi_video_register_backlight() runs (if called) and calls:
->>     acpi_video_get_backlight_type()
->> 4.1 if acpi_video_get_backlight_type() returns acpi_backlight_video
->>     /sys/class/backlight/acpi_video# is/are registered
->> 4.2 if acpi_video_get_backlight_type() returns somerthing else, e.g.
->>     acpi_backlight_nvidia_wmi_ec, acpi_video_register_backlight()
->>     does nothing
->>
->>
->> The timeout is to ensure that 3. still happens, even if
->> there is no native GPU driver, because of e.g.
->> nomodeset on the kernel cmdline.
->>
->> With the nvidia binary driver, that driver can call
->> acpi_video_register_backlight() if necessary so the timeout
->> is not necessary.
->>
->> I'm currently preparing v3 of this patchset. I'll modify the
->> patch introducing the timeout to make it configurable
->> (with 0 disabling it completely).
-> 
-> 
-> Okay. That clarification makes sense. Would it be reasonable to disable the timeout by default on systems with Win8 or later _OSI?
+- Support GuC v69 in parallel to v70 (Daniele)
+- Improve TLB invalidation to limit performance regression (Chris, Mauro)
+- Expose per-gt RPS defaults in sysfs (Ashutosh)
+- Suppress OOM warning for shmemfs object allocation failure (Chris, Nirmoy)
+- Disable PCI resize on 32-bit machines (Nirmoy)
+- Update DG2 to GuC v70.4.1 (John)
+- Fix CCS data copying on DG2 during swapping (Matt A)
+- Add DG2 performance tuning setting recommended by spec (Matt R)
+- Add GuC <-> kernel time stamp translation information to error logs (John)
+- Record GuC CTB info in error logs (John)
 
-Hmm, there are Win8 or later systems which actually need acpi_video because the other method(s) to control the backlight don't work (we have a list of quirks for those) and more importantly there are Win8 or later systems where the video bios tables say: "Don't use the GPU for backlight control". We do need the acpi_video_register_backlight() call to happen on both those cases eventually. Also this will lead to 2 different code-paths making things more complicated, so no I don't think that that is a good idea.
+- Route semaphores to GuC for Gen12+ when enabled (Michal Wi, John)
+- Improve resilency to bug #3575: Handle reset timeouts under unrelated kernel hangs (Chris, Ashutosh)
+- Avoid system freeze by removing shared locking on freeing objects (Chris, Nirmoy)
+- Demote GuC error "No response for request" into debug when expected (Zhanjun)
+- Fix GuC capture size warning and bump the size (John)
+- Use streaming loads to speed up dumping the GuC log (Chris, John)
+- Don't abort on CTB_UNUSED status from GuC (John)
+- Don't send spurious policy update for GuC child contexts (Daniele)
+- Don't leak the CCS state (Matt A)
 
-Regards,
+- Prefer drm_err over pr_err (John)
+- Eliminate unused calc_ctrl_surf_instr_size (Matt A)
+- Add dedicated function for non-ctx register tuning settings (Matt R)
+- Style and typo fixes, documentation improvements (Jason Wang, Mauro)
+- Selftest improvements (Matt B, Rahul, John)
 
-Hans
+The following changes since commit 17cd10a44a8962860ff4ba351b2a290e752dbbde:
 
+  drm/i915: Add lmem_bar_size modparam (2022-07-13 17:47:51 +0100)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-gt-next-2022-08-24
+
+for you to fetch changes up to 5ece208ab05e4042c80ed1e6fe6d7ce236eee89b:
+
+  drm/i915/guc: Use streaming loads to speed up dumping the guc log (2022-08-17 10:07:03 -0700)
+
+----------------------------------------------------------------
+UAPI Changes:
+
+- Create gt/gtN/.defaults/ for per gt sysfs defaults
+
+  Create a gt/gtN/.defaults/ directory (similar to
+  engine/<engine-name>/.defaults/) to expose default parameter values for
+  each gt in sysfs. This allows userspace to restore default parameter values
+  after they have changed.
+
+Driver Changes:
+
+- Support GuC v69 in parallel to v70 (Daniele)
+- Improve TLB invalidation to limit performance regression (Chris, Mauro)
+- Expose per-gt RPS defaults in sysfs (Ashutosh)
+- Suppress OOM warning for shmemfs object allocation failure (Chris, Nirmoy)
+- Disable PCI resize on 32-bit machines (Nirmoy)
+- Update DG2 to GuC v70.4.1 (John)
+- Fix CCS data copying on DG2 during swapping (Matt A)
+- Add DG2 performance tuning setting recommended by spec (Matt R)
+- Add GuC <-> kernel time stamp translation information to error logs (John)
+- Record GuC CTB info in error logs (John)
+
+- Route semaphores to GuC for Gen12+ when enabled (Michal Wi, John)
+- Improve resilency to bug #3575: Handle reset timeouts under unrelated kernel hangs (Chris, Ashutosh)
+- Avoid system freeze by removing shared locking on freeing objects (Chris, Nirmoy)
+- Demote GuC error "No response for request" into debug when expected (Zhanjun)
+- Fix GuC capture size warning and bump the size (John)
+- Use streaming loads to speed up dumping the GuC log (Chris, John)
+- Don't abort on CTB_UNUSED status from GuC (John)
+- Don't send spurious policy update for GuC child contexts (Daniele)
+- Don't leak the CCS state (Matt A)
+
+- Prefer drm_err over pr_err (John)
+- Eliminate unused calc_ctrl_surf_instr_size (Matt A)
+- Add dedicated function for non-ctx register tuning settings (Matt R)
+- Style and typo fixes, documentation improvements (Jason Wang, Mauro)
+- Selftest improvements (Matt B, Rahul, John)
+
+----------------------------------------------------------------
+Alan Previn (1):
+      drm/i915/guc: Add a helper for log buffer size
+
+Ashutosh Dixit (2):
+      drm/i915/gt: Create gt/gtN/.defaults/ for per gt sysfs defaults
+      drm/i915/gt: Expose per-gt RPS defaults in sysfs
+
+Chris Wilson (8):
+      drm/i915/reset: Handle reset timeouts under unrelated kernel hangs
+      drm/i915: Suppress oom warning for shmemfs object allocation failure
+      drm/i915/gt: Ignore TLB invalidations on idle engines
+      drm/i915/gt: Invalidate TLB of the OA unit at TLB invalidations
+      drm/i915/gt: Skip TLB invalidations once wedged
+      drm/i915/gt: Batch TLB invalidations
+      drm/i915/gem: Remove shared locking on freeing objects
+      drm/i915/guc: Use streaming loads to speed up dumping the guc log
+
+Daniele Ceraolo Spurio (2):
+      drm/i915/guc: support v69 in parallel to v70
+      drm/i915/guc: Don't send policy update for child contexts.
+
+Harish Chegondi (1):
+      drm/i915/dg2: Add Wa_1509727124
+
+Jason Wang (2):
+      drm/i915/gt: Remove unneeded semicolon
+      drm/i915/selftests: Fix comment typo
+
+John Harrison (7):
+      drm/i915/guc: Don't use pr_err when not necessary
+      drm/i915/selftest: Cope with not having an RCS engine
+      drm/i915/guc: Don't abort on CTB_UNUSED status
+      drm/i915/dg2: Update DG2 to GuC v70.4.1
+      drm/i915/guc: Fix capture size warning and bump the size
+      drm/i915/guc: Add GuC <-> kernel time stamp translation information
+      drm/i915/guc: Record CTB info in error logs
+
+Matt Roper (2):
+      drm/i915/gt: Add dedicated function for non-ctx register tuning settings
+      drm/i915/dg2: Add additional tuning settings
+
+Matthew Auld (3):
+      drm/i915/ttm: don't leak the ccs state
+      drm/i915/ttm: remove calc_ctrl_surf_instr_size
+      drm/i915/ttm: fix CCS handling
+
+Matthew Brost (2):
+      drm/i915/guc: Fix issues with live_preempt_cancel
+      drm/i915/guc: Support larger contexts on newer hardware
+
+Mauro Carvalho Chehab (3):
+      drm/i915/gt: document with_intel_gt_pm_if_awake()
+      drm/i915/gt: describe the new tlb parameter at i915_vma_resource
+      drm/i915: pass a pointer for tlb seqno at vma_invalidate_tlb()
+
+Michał Winiarski (1):
+      drm/i915/guc: Route semaphores to GuC for Gen12+
+
+Nirmoy Das (1):
+      drm/i915: disable pci resize on 32-bit machine
+
+Rahul Kumar Singh (1):
+      drm/i915/guc: Add selftest for a hung GuC
+
+Zhanjun Dong (1):
+      drm/i915/guc: Check for ct enabled while waiting for response
+
+ drivers/gpu/drm/i915/gem/i915_gem_object.c         |  16 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object_types.h   |   3 +-
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c          |  25 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c          |   6 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h      |  11 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c                 |  77 +++-
+ drivers/gpu/drm/i915/gt/intel_gt.h                 |  12 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h              |  11 +
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h            |  11 +
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.c           |  10 +-
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.h           |   6 +
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c        |  34 ++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h           |  27 +-
+ drivers/gpu/drm/i915/gt/intel_migrate.c            | 104 +++---
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c              |   8 +-
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c        |   4 +
+ drivers/gpu/drm/i915/gt/intel_reset.c              |   6 +-
+ drivers/gpu/drm/i915/gt/intel_rps.c                |   2 +
+ drivers/gpu/drm/i915/gt/intel_workarounds.c        |  76 ++--
+ drivers/gpu/drm/i915/gt/selftest_execlists.c       |  16 +-
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c       |  12 +-
+ drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h   |   3 +
+ .../drm/i915/gt/uc/abi/guc_communication_ctb_abi.h |   8 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c             |  19 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h             |   7 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c         |  10 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c     |  40 ++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h     |   1 -
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c          |  45 ++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h        |  45 +++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c         |  79 +++--
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.h         |   4 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h         |   4 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c        |  12 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c  | 393 ++++++++++++++++-----
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c           |  68 +++-
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h           |   7 +
+ drivers/gpu/drm/i915/gt/uc/selftest_guc.c          |  37 +-
+ .../gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c    | 159 +++++++++
+ .../gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c    |  10 +-
+ drivers/gpu/drm/i915/i915_drv.h                    |   4 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c              |  67 +++-
+ drivers/gpu/drm/i915/i915_gpu_error.h              |  21 +-
+ drivers/gpu/drm/i915/i915_vma.c                    |  33 +-
+ drivers/gpu/drm/i915/i915_vma.h                    |   1 +
+ drivers/gpu/drm/i915/i915_vma_resource.c           |   9 +-
+ drivers/gpu/drm/i915/i915_vma_resource.h           |   6 +-
+ .../gpu/drm/i915/selftests/i915_live_selftests.h   |   1 +
+ drivers/gpu/drm/i915/selftests/i915_request.c      |   2 +-
+ 49 files changed, 1227 insertions(+), 345 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c
