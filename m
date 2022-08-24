@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18952C00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 12:18:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2594AC32796
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 12:19:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 556368B67D;
-	Wed, 24 Aug 2022 12:17:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C28C290C88;
+	Wed, 24 Aug 2022 12:17:36 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4A7D11AFC0
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:16:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7952AFCB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:16:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661343386;
+ s=mimecast20190719; t=1661343411;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=v18TLB6llBn21xZmtCkJxNxeUJMalL9uiv3Zdl8G6jE=;
- b=C9jgW3hZU79go29oMcgdTYzmIeg0h2FbGWujHl6MP92U0L3HQrCZM3x0PQIOEU+fDJ0UPY
- FMsCtIAWdQdezjTHBL3nRfluKTrD8SQc5qsvtLl0ZgBF6vKYDZyArJp6552yi5wNpyfwmu
- wppFYIHhxNssmLAqvrauAPoFanflAWk=
+ bh=VE9pvPAzjrHVXmz9RKnZkmNJ4tUOhjb5J/X48cd2x14=;
+ b=Ct2cJbbNLTqdfIVA0GOQ9jFeEmLbKrgqncDgD5HzK0ZT3iPcvOyGCdZXLTrhtsBvqyce+B
+ 5acV3l4pFulA5lZEwVbvm8KQGWvILCGEwCfxHMFhKnmEdWG/U/fT6SUHK+eMN6hXT1EQi4
+ WK64MHPJ4u/twiDVu4rsltrBa/9C6dY=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-204-KlunHvOzOR-vMnYGybvaHg-1; Wed, 24 Aug 2022 08:16:22 -0400
-X-MC-Unique: KlunHvOzOR-vMnYGybvaHg-1
+ us-mta-590-wvIWjtswNgKWklnVRVJznQ-1; Wed, 24 Aug 2022 08:16:47 -0400
+X-MC-Unique: wvIWjtswNgKWklnVRVJznQ-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF6EA294EDED;
- Wed, 24 Aug 2022 12:16:21 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 15CEC3C0D878;
+ Wed, 24 Aug 2022 12:16:46 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.193.103])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DEBCBC15BB3;
- Wed, 24 Aug 2022 12:16:17 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 28D91C15BB3;
+ Wed, 24 Aug 2022 12:16:42 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,15 +55,15 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Date: Wed, 24 Aug 2022 14:15:03 +0200
-Message-Id: <20220824121523.1291269-12-hdegoede@redhat.com>
+Date: Wed, 24 Aug 2022 14:15:09 +0200
+Message-Id: <20220824121523.1291269-18-hdegoede@redhat.com>
 In-Reply-To: <20220824121523.1291269-1-hdegoede@redhat.com>
 References: <20220824121523.1291269-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [Intel-gfx] [PATCH v4 11/31] drm/i915: Call
- acpi_video_register_backlight() (v2)
+Subject: [Intel-gfx] [PATCH v4 17/31] ACPI: video: Add Nvidia WMI EC
+ brightness control detection (v3)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,94 +78,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
  nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
  dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
  Len Brown <lenb@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On machins without an i915 opregion the acpi_video driver immediately
-probes the ACPI video bus and used to also immediately register
-acpi_video# backlight devices when supported.
+On some new laptop designs a new Nvidia specific WMI interface is present
+which gives info about panel brightness control and may allow controlling
+the brightness through this interface when the embedded controller is used
+for brightness control.
 
-Once the drm/kms driver then loaded later and possibly registered
-a native backlight device then the drivers/acpi/video_detect.c code
-unregistered the acpi_video0 device to avoid there being 2 backlight
-devices (when acpi_video_get_backlight_type()==native).
-
-This means that userspace used to briefly see 2 devices and the
-disappearing of acpi_video0 after a brief time confuses the systemd
-backlight level save/restore code, see e.g.:
-https://bbs.archlinux.org/viewtopic.php?id=269920
-
-To fix this the ACPI video code has been modified to make backlight class
-device registration a separate step, relying on the drm/kms driver to
-ask for the acpi_video backlight registration after it is done setting up
-its native backlight device.
-
-Add a call to the new acpi_video_register_backlight() after the i915 calls
-acpi_video_register() (after setting up the i915 opregion) so that the
-acpi_video backlight devices get registered on systems where the i915
-native backlight device is not registered.
+When this WMI interface is present and indicates that the EC is used,
+then this interface should be used for brightness control.
 
 Changes in v2:
--Only call acpi_video_register_backlight() when a panel is detected
+- Use the new shared nvidia-wmi-ec-backlight.h header for the
+  WMI firmware API definitions
+- ACPI_VIDEO can now be enabled on non X86 too,
+  adjust the Kconfig changes to match this.
 
+Changes in v3:
+- Use WMI_BRIGHTNESS_GUID define
+
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 8 ++++++++
- drivers/gpu/drm/i915/display/intel_panel.c   | 3 +++
- drivers/gpu/drm/i915/i915_drv.h              | 2 ++
- 3 files changed, 13 insertions(+)
+ drivers/acpi/Kconfig           |  1 +
+ drivers/acpi/video_detect.c    | 37 ++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/gma500/Kconfig |  2 ++
+ drivers/gpu/drm/i915/Kconfig   |  2 ++
+ include/acpi/video.h           |  1 +
+ 5 files changed, 43 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 6103b02c081f..2bb53efdb149 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -9088,6 +9088,14 @@ void intel_display_driver_register(struct drm_i915_private *i915)
- 	/* Must be done after probing outputs */
- 	intel_opregion_register(i915);
- 	acpi_video_register();
+diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig
+index 7802d8846a8d..44ad4b6bd234 100644
+--- a/drivers/acpi/Kconfig
++++ b/drivers/acpi/Kconfig
+@@ -212,6 +212,7 @@ config ACPI_VIDEO
+ 	tristate "Video"
+ 	depends on BACKLIGHT_CLASS_DEVICE
+ 	depends on INPUT
++	depends on ACPI_WMI || !X86
+ 	select THERMAL
+ 	help
+ 	  This driver implements the ACPI Extensions For Display Adapters
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index cc9d0d91e268..4dc7fb865083 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -32,6 +32,7 @@
+ #include <linux/dmi.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
++#include <linux/platform_data/x86/nvidia-wmi-ec-backlight.h>
+ #include <linux/types.h>
+ #include <linux/workqueue.h>
+ #include <acpi/video.h>
+@@ -75,6 +76,36 @@ find_video(acpi_handle handle, u32 lvl, void *context, void **rv)
+ 	return AE_OK;
+ }
+ 
++/* This depends on ACPI_WMI which is X86 only */
++#ifdef CONFIG_X86
++static bool nvidia_wmi_ec_supported(void)
++{
++	struct wmi_brightness_args args = {
++		.mode = WMI_BRIGHTNESS_MODE_GET,
++		.val = 0,
++		.ret = 0,
++	};
++	struct acpi_buffer buf = { (acpi_size)sizeof(args), &args };
++	acpi_status status;
++
++	status = wmi_evaluate_method(WMI_BRIGHTNESS_GUID, 0,
++				     WMI_BRIGHTNESS_METHOD_SOURCE, &buf, &buf);
++	if (ACPI_FAILURE(status))
++		return false;
++
 +	/*
-+	 * Only call this if i915 is driving the internal panel. If the internal
-+	 * panel is not driven by i915 then another GPU driver may still register
-+	 * a native backlight driver later and this should only be called after
-+	 * any native backlights have been registered.
++	 * If brightness is handled by the EC then nvidia-wmi-ec-backlight
++	 * should be used, else the GPU driver(s) should be used.
 +	 */
-+	if (i915->have_panel)
-+		acpi_video_register_backlight();
- 
- 	intel_audio_init(i915);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 237a40623dd7..4536c527f50c 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -646,8 +646,11 @@ intel_panel_mode_valid(struct intel_connector *connector,
- 
- int intel_panel_init(struct intel_connector *connector)
++	return args.ret == WMI_BRIGHTNESS_SOURCE_EC;
++}
++#else
++static bool nvidia_wmi_ec_supported(void)
++{
++	return false;
++}
++#endif
++
+ /* Force to use vendor driver when the ACPI device is known to be
+  * buggy */
+ static int video_detect_force_vendor(const struct dmi_system_id *d)
+@@ -541,6 +572,7 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
  {
-+	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_panel *panel = &connector->panel;
+ 	static DEFINE_MUTEX(init_mutex);
++	static bool nvidia_wmi_ec_present;
+ 	static bool native_available;
+ 	static bool init_done;
+ 	static long video_caps;
+@@ -553,6 +585,7 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+ 		acpi_walk_namespace(ACPI_TYPE_DEVICE, ACPI_ROOT_OBJECT,
+ 				    ACPI_UINT32_MAX, find_video, NULL,
+ 				    &video_caps, NULL);
++		nvidia_wmi_ec_present = nvidia_wmi_ec_supported();
+ 		init_done = true;
+ 	}
+ 	if (native)
+@@ -570,6 +603,10 @@ static enum acpi_backlight_type __acpi_video_get_backlight_type(bool native)
+ 	if (acpi_backlight_dmi != acpi_backlight_undef)
+ 		return acpi_backlight_dmi;
  
-+	dev_priv->have_panel = true;
++	/* Special cases such as nvidia_wmi_ec and apple gmux. */
++	if (nvidia_wmi_ec_present)
++		return acpi_backlight_nvidia_wmi_ec;
 +
- 	intel_backlight_init_funcs(panel);
+ 	/* On systems with ACPI video use either native or ACPI video. */
+ 	if (video_caps & ACPI_VIDEO_BACKLIGHT) {
+ 		/*
+diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
+index 0cff20265f97..807b989e3c77 100644
+--- a/drivers/gpu/drm/gma500/Kconfig
++++ b/drivers/gpu/drm/gma500/Kconfig
+@@ -7,6 +7,8 @@ config DRM_GMA500
+ 	select ACPI_VIDEO if ACPI
+ 	select BACKLIGHT_CLASS_DEVICE if ACPI
+ 	select INPUT if ACPI
++	select X86_PLATFORM_DEVICES if ACPI
++	select ACPI_WMI if ACPI
+ 	help
+ 	  Say yes for an experimental 2D KMS framebuffer driver for the
+ 	  Intel GMA500 (Poulsbo), Intel GMA600 (Moorestown/Oak Trail) and
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 7ae3b7d67fcf..3efce05d7b57 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -23,6 +23,8 @@ config DRM_I915
+ 	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
+ 	select BACKLIGHT_CLASS_DEVICE if ACPI
+ 	select INPUT if ACPI
++	select X86_PLATFORM_DEVICES if ACPI
++	select ACPI_WMI if ACPI
+ 	select ACPI_VIDEO if ACPI
+ 	select ACPI_BUTTON if ACPI
+ 	select SYNC_FILE
+diff --git a/include/acpi/video.h b/include/acpi/video.h
+index 0625806d3bbd..91578e77ac4e 100644
+--- a/include/acpi/video.h
++++ b/include/acpi/video.h
+@@ -48,6 +48,7 @@ enum acpi_backlight_type {
+ 	acpi_backlight_video,
+ 	acpi_backlight_vendor,
+ 	acpi_backlight_native,
++	acpi_backlight_nvidia_wmi_ec,
+ };
  
- 	drm_dbg_kms(connector->base.dev,
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 69ce6db6a7c1..14b0dcaf25c2 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -756,6 +756,8 @@ struct drm_i915_private {
- 
- 	bool ipc_enabled;
- 
-+	bool have_panel;
-+
- 	struct intel_audio_private audio;
- 
- 	struct i915_pmu pmu;
+ #if IS_ENABLED(CONFIG_ACPI_VIDEO)
 -- 
 2.37.2
 
