@@ -4,66 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C451C32793
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 12:21:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0750BC00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 12:21:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B37EB1EC3;
-	Wed, 24 Aug 2022 12:18:23 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B04538BAF9
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:17:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661343454;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZSViiSuhKNAdrLrYepEenjnf4H0dVHKO/KroQUbHaXc=;
- b=OOshX7GZysT7fhUNP5nVLDlGgrKum3UuQbdU+fQhhQRyQhQI6FSFRVLYHM832Jq8wI738+
- RZqxcGnfQBnQUeqnHh3QDkQzvPP2O2zqOvvtvlUxhyjFhbmD5v0wrtmH03pLJiwPZS1q3u
- ylFKit53wHzyOx1s/MCxohJV9FROPsY=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-615-to2AtxuzOZ6Gl5uI9NhjYg-1; Wed, 24 Aug 2022 08:17:30 -0400
-X-MC-Unique: to2AtxuzOZ6Gl5uI9NhjYg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD9A98041BE;
- Wed, 24 Aug 2022 12:17:28 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.39.193.103])
- by smtp.corp.redhat.com (Postfix) with ESMTP id EFFBCC15BBA;
- Wed, 24 Aug 2022 12:17:24 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Ben Skeggs <bskeggs@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
-	Daniel Dadap <ddadap@nvidia.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Date: Wed, 24 Aug 2022 14:15:19 +0200
-Message-Id: <20220824121523.1291269-28-hdegoede@redhat.com>
-In-Reply-To: <20220824121523.1291269-1-hdegoede@redhat.com>
-References: <20220824121523.1291269-1-hdegoede@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA89A70A1;
+	Wed, 24 Aug 2022 12:18:28 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 721E791097
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:17:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1661343479; x=1692879479;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=15xd5v5ZTTv9UU0AQ8KwQ76tFcgT8MOIB/7N6Qqk1yg=;
+ b=JThyV4Y3ewtPcPdE3ek42LjWu53Jx14Og41jNYCDj77YFaf4EoNyDgqK
+ f2b6K+Sur3gNqTXLFwo94oy0Zn8H9qSb/mOPIP1hGWl3op9Sr0qoklWOX
+ mdCNNGwnvPRMG9jp22kKNAaK4fhdUSlORQWy4jed9+73tQ1qByXfvciv/
+ BKuxrquooN1SSaTYTsoxxPey0hqJc9f2PLK9/PY+7V+3wgczcPddLgGSr
+ 2xAogp8L0kHEADgEAER+q5dnADo1UApsM6WH4A2fb1Ej0EjiSZad01FjF
+ +/j1jvy1soTCaqE6phf42IXQ5AIZ0odJzLHkgc5HJ5FFxqXE1O/fm5UVS A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="380239439"
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="380239439"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2022 05:17:58 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="612776037"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.59])
+ by fmsmga007.fm.intel.com with SMTP; 24 Aug 2022 05:17:55 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 24 Aug 2022 15:17:55 +0300
+Date: Wed, 24 Aug 2022 15:17:55 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Murthy, Arun R" <arun.r.murthy@intel.com>
+Message-ID: <YwYW826HW9xjjVnE@intel.com>
+References: <20220426120407.1334318-1-arun.r.murthy@intel.com>
+ <20220704161548.1343042-1-arun.r.murthy@intel.com>
+ <YwTOoCLIBf8KhjWB@intel.com>
+ <DM6PR11MB3177E2D112D3A3A589F650D8BA739@DM6PR11MB3177.namprd11.prod.outlook.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [Intel-gfx] [PATCH v4 27/31] ACPI: video: Remove
- acpi_video_set_dmi_backlight_type()
+In-Reply-To: <DM6PR11MB3177E2D112D3A3A589F650D8BA739@DM6PR11MB3177.namprd11.prod.outlook.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCHv3] drm/i915: Support Async Flip on Linear
+ buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,115 +63,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, intel-gfx <intel-gfx@lists.freedesktop.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-acpi_video_set_dmi_backlight_type() is troublesome because it may end
-up getting called after other backlight drivers have already called
-acpi_video_get_backlight_type() resulting in the other drivers
-already being registered even though they should not.
+On Wed, Aug 24, 2022 at 03:02:33AM +0000, Murthy, Arun R wrote:
+> > -----Original Message-----
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > Sent: Tuesday, August 23, 2022 6:27 PM
+> > To: Murthy, Arun R <arun.r.murthy@intel.com>
+> > Cc: intel-gfx@lists.freedesktop.org; Shankar, Uma <uma.shankar@intel.com>
+> > Subject: Re: [PATCHv3] drm/i915: Support Async Flip on Linear buffers
+> > 
+> > On Mon, Jul 04, 2022 at 09:45:48PM +0530, Arun R Murthy wrote:
+> > > Intel Gen do support Async Flip is supported on linear buffers. Since
+> > > we didn't had a use case, it was not enabled. Now that as part of
+> > > hybrid graphics for unsupported hardware pixel formats, its being
+> > > converted to linear memory and then flipped, hence enabling!
+> > > This patch enables support for async on linear buffer.
+> > >
+> > > v2: added use case
+> > > v3: enabled async on linear for pre Gen 12 as well
+> > 
+> > I didn't think it went all the way back to gen9?
+> > 
+> It's the same as other buffers. I have just added support for linear buffer in the present async flip path, so the platforms on which the async flip is supported will support linear buffer as well.
 
-In case of the acpi_video backlight, acpi_video_set_dmi_backlight_type()
-actually calls acpi_video_unregister_backlight() since that is often
-probed earlier, leading to userspace seeing the acpi_video0 class
-device being briefly available, leading to races in userspace where
-udev probe-rules try to access the device and it is already gone.
+I know what the patch does. But I don't think bspec agrees with it.
 
-All callers have been fixed to no longer call it, so remove
-acpi_video_set_dmi_backlight_type() now.
+> 
+> > Also we still don't seem to have any tests for this stuff...
+> 
+> There is an IGT patch in queue, once this patch is merged, the IGT patch will be floated.
 
-This means we now also no longer need acpi_video_unregister_backlight()
-for the remove acpi_video backlight after it was wrongly registered hack,
-so remove that too.
+Do the igt stuff first. Then you can at least get some CI results for
+this stuff.
 
-Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- drivers/acpi/acpi_video.c   | 10 ----------
- drivers/acpi/video_detect.c | 16 ----------------
- include/acpi/video.h        |  4 ----
- 3 files changed, 30 deletions(-)
-
-diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
-index d1e41f30c004..a7c3d11e0dac 100644
---- a/drivers/acpi/acpi_video.c
-+++ b/drivers/acpi/acpi_video.c
-@@ -2296,16 +2296,6 @@ void acpi_video_register_backlight(void)
- }
- EXPORT_SYMBOL(acpi_video_register_backlight);
- 
--void acpi_video_unregister_backlight(void)
--{
--	struct acpi_video_bus *video;
--
--	mutex_lock(&video_list_lock);
--	list_for_each_entry(video, &video_bus_head, entry)
--		acpi_video_bus_unregister_backlight(video);
--	mutex_unlock(&video_list_lock);
--}
--
- bool acpi_video_handles_brightness_key_presses(void)
- {
- 	return may_report_brightness_keys &&
-diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index 3861d4121172..67a0211c07b4 100644
---- a/drivers/acpi/video_detect.c
-+++ b/drivers/acpi/video_detect.c
-@@ -38,8 +38,6 @@
- #include <linux/workqueue.h>
- #include <acpi/video.h>
- 
--void acpi_video_unregister_backlight(void);
--
- static enum acpi_backlight_type acpi_backlight_cmdline = acpi_backlight_undef;
- static enum acpi_backlight_type acpi_backlight_dmi = acpi_backlight_undef;
- 
-@@ -817,17 +815,3 @@ bool acpi_video_backlight_use_native(void)
- 	return __acpi_video_get_backlight_type(true) == acpi_backlight_native;
- }
- EXPORT_SYMBOL(acpi_video_backlight_use_native);
--
--/*
-- * Set the preferred backlight interface type based on DMI info.
-- * This function allows DMI blacklists to be implemented by external
-- * platform drivers instead of putting a big blacklist in video_detect.c
-- */
--void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type)
--{
--	acpi_backlight_dmi = type;
--	/* Remove acpi-video backlight interface if it is no longer desired */
--	if (acpi_video_get_backlight_type() != acpi_backlight_video)
--		acpi_video_unregister_backlight();
--}
--EXPORT_SYMBOL(acpi_video_set_dmi_backlight_type);
-diff --git a/include/acpi/video.h b/include/acpi/video.h
-index dbd48cb8bd23..a275c35e5249 100644
---- a/include/acpi/video.h
-+++ b/include/acpi/video.h
-@@ -60,7 +60,6 @@ extern int acpi_video_get_edid(struct acpi_device *device, int type,
- 			       int device_id, void **edid);
- extern enum acpi_backlight_type acpi_video_get_backlight_type(void);
- extern bool acpi_video_backlight_use_native(void);
--extern void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type);
- /*
-  * Note: The value returned by acpi_video_handles_brightness_key_presses()
-  * may change over time and should not be cached.
-@@ -86,9 +85,6 @@ static inline bool acpi_video_backlight_use_native(void)
- {
- 	return true;
- }
--static inline void acpi_video_set_dmi_backlight_type(enum acpi_backlight_type type)
--{
--}
- static inline bool acpi_video_handles_brightness_key_presses(void)
- {
- 	return false;
 -- 
-2.37.2
-
+Ville Syrjälä
+Intel
