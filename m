@@ -4,38 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90DCEECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11558ECAAD4
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81CB810F1C5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBBDF10F1C8;
 	Mon, 29 Aug 2022 13:04:18 +0000 (UTC)
-Received: from bg5.exmail.qq.com (bg4.exmail.qq.com [43.155.65.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 486AB10E681;
- Tue, 23 Aug 2022 12:28:26 +0000 (UTC)
-X-QQ-mid: bizesmtp83t1661257699tzwdgpjs
-Received: from localhost.localdomain ( [182.148.14.124])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 23 Aug 2022 20:28:17 +0800 (CST)
-X-QQ-SSF: 01000000002000C0D000B00A0000000
-X-QQ-FEAT: DRnj/z+Sqaf2Zp2vGdN0+GAC4bAixq9uAkJsGXqE8c1ZOp77y7v7oefrIZuTT
- NsjlTF26dvCJjpO2u7sSaEfqIxPXG7I0CCqDNpOkhugzrU0zjQN9+5rySP7M8kKr/GvR1fu
- Asq9fJECZUjhW9tz4PKI/AmdszlxMT8YXOwDTH06Pqhiy4xIi+UAoJ177ed2HMXopHFYyg3
- tyn+N4wSGojewCTIzCHoZWRCBznI1dXA2k70um3sOPstl51EhT0LAbybJyrm9OKYkrGD5en
- +9u2GO8Jas8mjUPsBUU/DM3vkvTlG0VGfM0VTt96ge9WkgC0Mr2qUpGk6ulOd0nvFB/HgYt
- JcuKitQqvsC0pw71df5NfupRW6FWLCKmHpJfMDty01zGFb601mnLiV3VKObsgBPD2H/LOYE
-X-QQ-GoodBg: 0
-From: Jilin Yuan <yuanjilin@cdjrlc.com>
-To: airlied@linux.ie,
-	daniel@ffwll.ch
-Date: Tue, 23 Aug 2022 20:28:11 +0800
-Message-Id: <20220823122811.22525-1-yuanjilin@cdjrlc.com>
-X-Mailer: git-send-email 2.36.1
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95A94900BE;
+ Wed, 24 Aug 2022 15:03:48 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
+ [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 7B8806601E8F;
+ Wed, 24 Aug 2022 16:03:44 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661353426;
+ bh=ss7Re+WGJ6gPDf+07fuRLgmV2oF07ngUyzhkLngogMo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=oAR0YvOOYSafNUGMl1oNd0JDpIq3FDAHC3HSFM85TQLAtdUKWV9S7/KMulX1yzdJU
+ ynpYz4YtIeU371JqvKb8/c29/d8CPVp3PGsQrb8kJYYp7JpoSNHveANuXdDGoXqRHL
+ p9edkNfznNFe0vL1B7KsPf3EQ1iqD0q15Jh9BVqB7qaGinbAx23HtsmgAfze7Sezsa
+ 5eCHp4KjFs2i46CRc/qn7EZjWd/w/c9qg+8YOKS0kgwlBEA5uFkOiS4rzy8gfpu2eT
+ /NbO6kk31WXQ6hWLjRcZaGob2toZeqNH+aU5AQGrgKbdtAC0glWaondyOLmCNSr5lf
+ VJAAXcJe1ilqw==
+Message-ID: <4af793fd-eccc-ad70-65c3-de78dced71f0@collabora.com>
+Date: Wed, 24 Aug 2022 18:03:42 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>
+References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+ <20220824102248.91964-7-dmitry.osipenko@collabora.com>
+ <17181951-1b40-cd39-48df-58b43cad117d@amd.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <17181951-1b40-cd39-48df-58b43cad117d@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr4
 X-Mailman-Approved-At: Mon, 29 Aug 2022 13:04:13 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: fix repeated words in comments
+Subject: Re: [Intel-gfx] [PATCH v3 6/9] dma-buf: Move dma-buf attachment to
+ dynamic locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,61 +81,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Jilin Yuan <yuanjilin@cdjrlc.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
- Delete the redundant word 'for'.
- Delete the redundant word 'the'.
- Delete the redundant word 'into'.
+On 8/24/22 17:08, Christian König wrote:
+> Am 24.08.22 um 12:22 schrieb Dmitry Osipenko:
+>> Move dma-buf attachment API functions to the dynamic locking
+>> specification.
+>> The strict locking convention prevents deadlock situations for dma-buf
+>> importers and exporters.
+>>
+>> Previously, the "unlocked" versions of the attachment API functions
+>> weren't taking the reservation lock and this patch makes them to take
+>> the lock.
+> 
+> Didn't we concluded that we need to keep the attach and detach callbacks
+> without the lock and only move the map/unmap callbacks over?
+> 
+> Otherwise it won't be possible for drivers to lock multiple buffers if
+> they have to shuffle things around for a specific attachment.
 
-Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
----
- drivers/gpu/drm/i915/i915_reg.h          | 2 +-
- drivers/gpu/drm/i915/i915_request.c      | 2 +-
- drivers/gpu/drm/i915/intel_device_info.h | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+We did conclude that. The attach/detach dma-buf ops are unlocked, but
+the map_dma_buf/unmap_dma_buf must be invoked under lock and
+dma_buf_dynamic_attach_unlocked() maps dma-buf if either importer or
+exporter can't handle the dynamic mapping [1].
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 4f5a51bb9e1e..c0c4f4acfbf9 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2534,7 +2534,7 @@
-  * HDMI/DP bits are g4x+
-  *
-  * WARNING: Bspec for hpd status bits on gen4 seems to be completely confused.
-- * Please check the detailed lore in the commit message for for experimental
-+ * Please check the detailed lore in the commit message for experimental
-  * evidence.
-  */
- /* Bspec says GM45 should match G4X/VLV/CHV, but reality disagrees */
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 73d5195146b0..9caf99a13c61 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1735,7 +1735,7 @@ __i915_request_add_to_timeline(struct i915_request *rq)
- }
- 
- /*
-- * NB: This function is not allowed to fail. Doing so would mean the the
-+ * NB: This function is not allowed to fail. Doing so would mean the
-  * request is not being tracked for completion but the work itself is
-  * going to happen on the hardware. This would be a Bad Thing(tm).
-  */
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index e7d2cf7d65c8..70e092f2b63a 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -253,7 +253,7 @@ struct intel_device_info {
- struct intel_runtime_info {
- 	/*
- 	 * Platform mask is used for optimizing or-ed IS_PLATFORM calls into
--	 * into single runtime conditionals, and also to provide groundwork
-+	 * single runtime conditionals, and also to provide groundwork
- 	 * for future per platform, or per SKU build optimizations.
- 	 *
- 	 * Array can be extended when necessary if the corresponding
+[1]
+https://elixir.bootlin.com/linux/v6.0-rc2/source/drivers/dma-buf/dma-buf.c#L869
+
+Hence I re-arranged the dma_resv_lock() in
+dma_buf_dynamic_attach_unlocked() to move both pinning and mapping under
+the held lock.
+
 -- 
-2.36.1
-
+Best regards,
+Dmitry
