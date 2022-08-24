@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25B0DECAAD4
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77DF8ECAAD4
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2303310F1C1;
-	Mon, 29 Aug 2022 13:04:17 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E122114AFC9;
- Wed, 24 Aug 2022 10:23:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3B4B10F1BD;
+	Mon, 29 Aug 2022 13:04:16 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC6A311A531;
+ Wed, 24 Aug 2022 10:24:13 +0000 (UTC)
 Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id C3F656601E80;
- Wed, 24 Aug 2022 11:23:40 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id A9AE36601E7F;
+ Wed, 24 Aug 2022 11:23:48 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661336623;
- bh=tUHHyjnssBHNcpdFjbIByyIscqilylx0IKM9xE8tryg=;
+ s=mail; t=1661336631;
+ bh=bBPiDsDV8VShdB9ZtsiGZVkPLMJ84keUgctgg0zrhSA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ceoEL7FsiDBYxIntDQ9bDXvbnt/JLKZ6AMCy6e0vpUbd0eFio/l1TwA6Ag7PXcf9Y
- iX/rVcJCPx9VDhuWmiwxfPZKzz4jraaPIAfRL5MN97AezGKyrKqR1DM5AHCnYYMVnY
- 4+JxGMztg2bC5m0rQOobLiL9MSGweRqmGo1R/a+QEtnMU28KmvKio+qg6QlNlmTQLf
- Bpl/EwCBMN712kOzQL8jiLH5K3l5o/OVKwH5y7aj2Bd91r+oqHBYTTlxV/KRkXgncm
- GZusfsLTHpZSU5qsu2LnqkOpylQIFjx/c0ebnzACDY0FwZn3P7vgoFpE0QKirqBgZT
- rwUYIOLoRREvw==
+ b=JIhKt4lzNSoUC/gVVAg+P2BZTIZZfWC4j8cmZ96m9spViCUOHP9dhSzL9/TwHMFqo
+ MTL1a+pEkZHqam6VPg/TGjdRI6cjmTtHT3J2wR/VgKIz1/2FTiyCqnedrxarpJbRon
+ PjDbcSi39vlbNnMuWe4Xxek0HqedxV/W1+HbMYb8btuuknX9qbhxejZCbKsfYzxDeg
+ oM/OFKz9xE1rWQ9VV5hB49pv1q49DazwU2I1XPcrSlkRqNX99vp8QPqLCv1IrBjHRv
+ b7CBEceUTBLBPfRqP6/JOvxFvZEKyEqAOxXJiaUh6K3gSid1+JBtb4oOBcyMThzL6I
+ BS7ztXgJe5vKQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -56,16 +55,16 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
  Qiang Yu <yuq825@gmail.com>
-Date: Wed, 24 Aug 2022 13:22:41 +0300
-Message-Id: <20220824102248.91964-3-dmitry.osipenko@collabora.com>
+Date: Wed, 24 Aug 2022 13:22:44 +0300
+Message-Id: <20220824102248.91964-6-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
 References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 29 Aug 2022 13:04:13 +0000
-Subject: [Intel-gfx] [PATCH v3 2/9] dma-buf: Add locked variant of
- dma_buf_vmap/vunmap()
+Subject: [Intel-gfx] [PATCH v3 5/9] dma-buf: Move dma_buf_mmap_unlocked() to
+ dynamic locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,107 +86,42 @@ Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add locked variant of dma_buf_vmap/vunmap() that will be utilized by
-DRM drivers once vmap/unmap functions will be moved to the new locking
-convention.
+Move dma_buf_mmap_unlocked() function to the dynamic locking specification
+by taking the reservation lock. Neither of the today's drivers take the
+reservation lock within the mmap() callback, hence it's safe to enforce
+the locking.
 
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/dma-buf.c | 42 +++++++++++++++++++++++++++++++++++----
- include/linux/dma-buf.h   |  2 ++
- 2 files changed, 40 insertions(+), 4 deletions(-)
+ drivers/dma-buf/dma-buf.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 452a6a1f1e60..34173aafe6c9 100644
+index f358af401360..4556a12bd741 100644
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1373,7 +1373,7 @@ int dma_buf_mmap_unlocked(struct dma_buf *dmabuf, struct vm_area_struct *vma,
- EXPORT_SYMBOL_NS_GPL(dma_buf_mmap_unlocked, DMA_BUF);
- 
- /**
-- * dma_buf_vmap_unlocked - Create virtual mapping for the buffer object into kernel
-+ * dma_buf_vmap - Create virtual mapping for the buffer object into kernel
-  * address space. Same restrictions as for vmap and friends apply.
-  * @dmabuf:	[in]	buffer to vmap
-  * @map:	[out]	returns the vmap pointer
-@@ -1388,7 +1388,7 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_mmap_unlocked, DMA_BUF);
-  *
-  * Returns 0 on success, or a negative errno code otherwise.
-  */
--int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
-+int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
+@@ -1348,6 +1348,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_end_cpu_access, DMA_BUF);
+ int dma_buf_mmap_unlocked(struct dma_buf *dmabuf, struct vm_area_struct *vma,
+ 			  unsigned long pgoff)
  {
- 	struct iosys_map ptr;
- 	int ret = 0;
-@@ -1424,14 +1424,34 @@ int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	mutex_unlock(&dmabuf->lock);
- 	return ret;
- }
-+EXPORT_SYMBOL_NS_GPL(dma_buf_vmap, DMA_BUF);
-+
-+/**
-+ * dma_buf_vmap_unlocked - Create virtual mapping for the buffer object into kernel
-+ * address space. Same restrictions as for vmap and friends apply.
-+ * @dmabuf:	[in]	buffer to vmap
-+ * @map:	[out]	returns the vmap pointer
-+ *
-+ * Unlocked version of dma_buf_vmap()
-+ *
-+ * Returns 0 on success, or a negative errno code otherwise.
-+ */
-+int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
-+{
 +	int ret;
 +
-+	ret = dma_buf_vmap(dmabuf, map);
+ 	if (WARN_ON(!dmabuf || !vma))
+ 		return -EINVAL;
+ 
+@@ -1368,7 +1370,11 @@ int dma_buf_mmap_unlocked(struct dma_buf *dmabuf, struct vm_area_struct *vma,
+ 	vma_set_file(vma, dmabuf->file);
+ 	vma->vm_pgoff = pgoff;
+ 
+-	return dmabuf->ops->mmap(dmabuf, vma);
++	dma_resv_lock(dmabuf->resv, NULL);
++	ret = dmabuf->ops->mmap(dmabuf, vma);
++	dma_resv_unlock(dmabuf->resv);
 +
 +	return ret;
-+}
- EXPORT_SYMBOL_NS_GPL(dma_buf_vmap_unlocked, DMA_BUF);
- 
- /**
-- * dma_buf_vunmap_unlocked - Unmap a vmap obtained by dma_buf_vmap.
-+ * dma_buf_vunmap - Unmap a vmap obtained by dma_buf_vmap.
-  * @dmabuf:	[in]	buffer to vunmap
-  * @map:	[in]	vmap pointer to vunmap
-  */
--void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
-+void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
- {
- 	if (WARN_ON(!dmabuf))
- 		return;
-@@ -1448,6 +1468,20 @@ void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
- 	}
- 	mutex_unlock(&dmabuf->lock);
  }
-+EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap, DMA_BUF);
-+
-+/**
-+ * dma_buf_vunmap_unlocked - Unmap a vmap obtained by dma_buf_vmap.
-+ * @dmabuf:	[in]	buffer to vunmap
-+ * @map:	[in]	vmap pointer to vunmap
-+ */
-+void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
-+{
-+	if (WARN_ON(!dmabuf))
-+		return;
-+
-+	dma_buf_vunmap(dmabuf, map);
-+}
- EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
+ EXPORT_SYMBOL_NS_GPL(dma_buf_mmap_unlocked, DMA_BUF);
  
- #ifdef CONFIG_DEBUG_FS
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 9ab09569dec1..da2057569101 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -636,4 +636,6 @@ int dma_buf_mmap_unlocked(struct dma_buf *, struct vm_area_struct *,
- 			  unsigned long);
- int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
- void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
-+int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map);
-+void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map);
- #endif /* __DMA_BUF_H__ */
 -- 
 2.37.2
 
