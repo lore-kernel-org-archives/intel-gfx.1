@@ -4,47 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C58BEC00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:27:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99F99C32793
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:28:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8E6310FD49;
-	Wed, 24 Aug 2022 13:26:53 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B30DDB528D
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:18:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA98F112E94;
+	Wed, 24 Aug 2022 13:28:00 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFEB811AE1C;
+ Wed, 24 Aug 2022 13:26:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661347134; x=1692883134;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=QgnoXpGFdWhcWqU0H/EObR/GHrnKnCEDx223OsnHc20=;
- b=d4TUpoF+jC3mPYK6VRtWFiQUPKf6EvPy6sCiFQP/+UAefJsNCJOWfknz
- zm8MyjTf5M/0AODuAtZJkCmwAIO0uYK5TzWFPbWPN1WCxyvMJ2wHqmRcR
- PpWxQ/KLE5BOs50mTJ3eLPf+DpTzlfh0C66j5L6tp+ZfDQU+2OcnsDsDZ
- xJv+pPam5lRBjKWS0IoxarJb91eq6Ed8aWPLemolyXozaPz9wrZ6YUiXC
- h/gFkz0rKbaPVDH4pQFQKfu21+vhsec4lpcEN794vAE0rqxhGuWJcpVOy
- CnHCGkr5nGw57nb14EhGRAXwk9PpnRh0Lvd5FSitL7KjAFsXpT0Ep5s5s A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="355690697"
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="355690697"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2022 06:18:53 -0700
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="735878692"
+ t=1661347613; x=1692883613;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=MlySsLPdoAztoxuUnioJVpj6nmnJAiB2GUXpz6LMYIs=;
+ b=RY1plNbFNgJRjL8ia2wvt0G2iZlOvjhf94l2B+uh9Es80w21ZjZIbpl/
+ HV26kxiP90QC6czJfzoCzZ2R0WpfPwuy0mz70RL1ynbKGYg/ZTsg1i9Mg
+ JmVNqYb/FTi5wQKFv2HGE4mdSVLuFBg2PqdsxgdtB3YMEJpYiuNbqKaj6
+ NFbAvyu5ebFGpjiNQeT0Umft3tayFfuHjUfWeg/HM1pH7MSdC51/fViJ7
+ TDqkfnDAycSAxS5j1s+8yUcxh2q2kSGyrJvlPerfHIEdmUiixoGvEZKCg
+ 6vGHrer5W/gZues5lbaaw8fMgNfigjO/uzq0ekH3a77nW1cI8K0f0XO1p A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="357938868"
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="357938868"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2022 06:26:50 -0700
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="670503413"
 Received: from zlim2-mobl.gar.corp.intel.com (HELO localhost) ([10.252.52.23])
- by orsmga004-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:18:52 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 24 Aug 2022 16:16:04 +0300
-Message-Id: <cf7699f412b48bc5ea03e4ddbf862147919ce79d.1661346845.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1661346845.git.jani.nikula@intel.com>
-References: <cover.1661346845.git.jani.nikula@intel.com>
-MIME-Version: 1.0
+ by fmsmga008-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:26:43 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>, Daniel Dadap
+ <ddadap@nvidia.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Rafael J . Wysocki"
+ <rafael@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>, Andy
+ Shevchenko <andy@kernel.org>
+In-Reply-To: <7660855c-6307-a321-5250-cc8a51075bda@redhat.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 38/38] drm/i915: move and group properties
- under display.properties
+References: <20220824121523.1291269-1-hdegoede@redhat.com>
+ <20220824121523.1291269-12-hdegoede@redhat.com> <87y1vdizau.fsf@intel.com>
+ <7660855c-6307-a321-5250-cc8a51075bda@redhat.com>
+Date: Wed, 24 Aug 2022 16:26:40 +0300
+Message-ID: <87sfllixgv.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH v4 11/31] drm/i915: Call
+ acpi_video_register_backlight() (v2)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,131 +70,129 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Len Brown <lenb@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move display property related members under drm_i915_private display
-sub-struct.
+On Wed, 24 Aug 2022, Hans de Goede <hdegoede@redhat.com> wrote:
+> Hi,
+>
+> On 8/24/22 14:47, Jani Nikula wrote:
+>> On Wed, 24 Aug 2022, Hans de Goede <hdegoede@redhat.com> wrote:
+>>> On machins without an i915 opregion the acpi_video driver immediately
+>>> probes the ACPI video bus and used to also immediately register
+>>> acpi_video# backlight devices when supported.
+>>>
+>>> Once the drm/kms driver then loaded later and possibly registered
+>>> a native backlight device then the drivers/acpi/video_detect.c code
+>>> unregistered the acpi_video0 device to avoid there being 2 backlight
+>>> devices (when acpi_video_get_backlight_type()==native).
+>>>
+>>> This means that userspace used to briefly see 2 devices and the
+>>> disappearing of acpi_video0 after a brief time confuses the systemd
+>>> backlight level save/restore code, see e.g.:
+>>> https://bbs.archlinux.org/viewtopic.php?id=269920
+>>>
+>>> To fix this the ACPI video code has been modified to make backlight class
+>>> device registration a separate step, relying on the drm/kms driver to
+>>> ask for the acpi_video backlight registration after it is done setting up
+>>> its native backlight device.
+>>>
+>>> Add a call to the new acpi_video_register_backlight() after the i915 calls
+>>> acpi_video_register() (after setting up the i915 opregion) so that the
+>>> acpi_video backlight devices get registered on systems where the i915
+>>> native backlight device is not registered.
+>>>
+>>> Changes in v2:
+>>> -Only call acpi_video_register_backlight() when a panel is detected
+>>>
+>>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+>>> ---
+>>>  drivers/gpu/drm/i915/display/intel_display.c | 8 ++++++++
+>>>  drivers/gpu/drm/i915/display/intel_panel.c   | 3 +++
+>>>  drivers/gpu/drm/i915/i915_drv.h              | 2 ++
+>>>  3 files changed, 13 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+>>> index 6103b02c081f..2bb53efdb149 100644
+>>> --- a/drivers/gpu/drm/i915/display/intel_display.c
+>>> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+>>> @@ -9088,6 +9088,14 @@ void intel_display_driver_register(struct drm_i915_private *i915)
+>>>  	/* Must be done after probing outputs */
+>>>  	intel_opregion_register(i915);
+>>>  	acpi_video_register();
+>>> +	/*
+>>> +	 * Only call this if i915 is driving the internal panel. If the internal
+>>> +	 * panel is not driven by i915 then another GPU driver may still register
+>>> +	 * a native backlight driver later and this should only be called after
+>>> +	 * any native backlights have been registered.
+>>> +	 */
+>>> +	if (i915->have_panel)
+>>> +		acpi_video_register_backlight();
+>> 
+>> Apologies for procrastinating the review.
+>> 
+>> Please let's not add new flags like have_panel to i915; we're trying to
+>> clean it up instead.
+>> 
+>> The code here needs to iterate over the connectors to decide. Maybe
+>> better abstracted a function.
+>
+> So something like add a i915_have_panel() helper which iterates over all
+> the connectors and then of 1 of them is of the LVDS / eDP / DSI type
+> return true ?
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/display/intel_atomic.c       | 8 ++++----
- drivers/gpu/drm/i915/display/intel_connector.c    | 8 ++++----
- drivers/gpu/drm/i915/display/intel_display_core.h | 6 ++++++
- drivers/gpu/drm/i915/i915_drv.h                   | 3 ---
- 4 files changed, 14 insertions(+), 11 deletions(-)
+Or abstract the acpi_video_register_backlight() calling in a function
+that does the loop and calls if necessary.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
-index b94973b5633f..18f0a5ae3bac 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-@@ -62,9 +62,9 @@ int intel_digital_connector_atomic_get_property(struct drm_connector *connector,
- 	struct intel_digital_connector_state *intel_conn_state =
- 		to_intel_digital_connector_state(state);
- 
--	if (property == dev_priv->force_audio_property)
-+	if (property == dev_priv->display.properties.force_audio)
- 		*val = intel_conn_state->force_audio;
--	else if (property == dev_priv->broadcast_rgb_property)
-+	else if (property == dev_priv->display.properties.broadcast_rgb)
- 		*val = intel_conn_state->broadcast_rgb;
- 	else {
- 		drm_dbg_atomic(&dev_priv->drm,
-@@ -95,12 +95,12 @@ int intel_digital_connector_atomic_set_property(struct drm_connector *connector,
- 	struct intel_digital_connector_state *intel_conn_state =
- 		to_intel_digital_connector_state(state);
- 
--	if (property == dev_priv->force_audio_property) {
-+	if (property == dev_priv->display.properties.force_audio) {
- 		intel_conn_state->force_audio = val;
- 		return 0;
- 	}
- 
--	if (property == dev_priv->broadcast_rgb_property) {
-+	if (property == dev_priv->display.properties.broadcast_rgb) {
- 		intel_conn_state->broadcast_rgb = val;
- 		return 0;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-index 1dcc268927a2..6d5cbeb8df4d 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.c
-+++ b/drivers/gpu/drm/i915/display/intel_connector.c
-@@ -229,7 +229,7 @@ intel_attach_force_audio_property(struct drm_connector *connector)
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_property *prop;
- 
--	prop = dev_priv->force_audio_property;
-+	prop = dev_priv->display.properties.force_audio;
- 	if (prop == NULL) {
- 		prop = drm_property_create_enum(dev, 0,
- 					   "audio",
-@@ -238,7 +238,7 @@ intel_attach_force_audio_property(struct drm_connector *connector)
- 		if (prop == NULL)
- 			return;
- 
--		dev_priv->force_audio_property = prop;
-+		dev_priv->display.properties.force_audio = prop;
- 	}
- 	drm_object_attach_property(&connector->base, prop, 0);
- }
-@@ -256,7 +256,7 @@ intel_attach_broadcast_rgb_property(struct drm_connector *connector)
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_property *prop;
- 
--	prop = dev_priv->broadcast_rgb_property;
-+	prop = dev_priv->display.properties.broadcast_rgb;
- 	if (prop == NULL) {
- 		prop = drm_property_create_enum(dev, DRM_MODE_PROP_ENUM,
- 					   "Broadcast RGB",
-@@ -265,7 +265,7 @@ intel_attach_broadcast_rgb_property(struct drm_connector *connector)
- 		if (prop == NULL)
- 			return;
- 
--		dev_priv->broadcast_rgb_property = prop;
-+		dev_priv->display.properties.broadcast_rgb = prop;
- 	}
- 
- 	drm_object_attach_property(&connector->base, prop, 0);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index bf78b0fcbd11..9086a612365e 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -27,6 +27,7 @@
- #include "intel_pm_types.h"
- 
- struct drm_i915_private;
-+struct drm_property;
- struct i915_audio_component;
- struct i915_hdcp_comp_master;
- struct intel_atomic_state;
-@@ -371,6 +372,11 @@ struct intel_display {
- 		struct mutex mutex;
- 	} pps;
- 
-+	struct {
-+		struct drm_property *broadcast_rgb;
-+		struct drm_property *force_audio;
-+	} properties;
-+
- 	struct {
- 		unsigned long mask;
- 	} quirks;
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 0fee591c35b1..a845b4dfdbee 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -321,9 +321,6 @@ struct drm_i915_private {
- 
- 	struct i915_gpu_error gpu_error;
- 
--	struct drm_property *broadcast_rgb_property;
--	struct drm_property *force_audio_property;
--
- 	/*
- 	 * Shadows for CHV DPLL_MD regs to keep the state
- 	 * checker somewhat working in the presence hardware
+BR,
+Jani.
+
+
+>
+> Regards,
+>
+> Hans
+>
+>
+>
+>>>  	intel_audio_init(i915);
+>>>  
+>>> diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+>>> index 237a40623dd7..4536c527f50c 100644
+>>> --- a/drivers/gpu/drm/i915/display/intel_panel.c
+>>> +++ b/drivers/gpu/drm/i915/display/intel_panel.c
+>>> @@ -646,8 +646,11 @@ intel_panel_mode_valid(struct intel_connector *connector,
+>>>  
+>>>  int intel_panel_init(struct intel_connector *connector)
+>>>  {
+>>> +	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+>>>  	struct intel_panel *panel = &connector->panel;
+>>>  
+>>> +	dev_priv->have_panel = true;
+>>> +
+>>>  	intel_backlight_init_funcs(panel);
+>>>  
+>>>  	drm_dbg_kms(connector->base.dev,
+>>> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+>>> index 69ce6db6a7c1..14b0dcaf25c2 100644
+>>> --- a/drivers/gpu/drm/i915/i915_drv.h
+>>> +++ b/drivers/gpu/drm/i915/i915_drv.h
+>>> @@ -756,6 +756,8 @@ struct drm_i915_private {
+>>>  
+>>>  	bool ipc_enabled;
+>>>  
+>>> +	bool have_panel;
+>>> +
+>>>  	struct intel_audio_private audio;
+>>>  
+>>>  	struct i915_pmu pmu;
+>> 
+>
+
 -- 
-2.34.1
-
+Jani Nikula, Intel Open Source Graphics Center
