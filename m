@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 111C5C00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:16:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11269C00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:16:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41055B4FF3;
-	Wed, 24 Aug 2022 13:16:27 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA84612A25A
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:16:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4AAFB505D;
+	Wed, 24 Aug 2022 13:16:51 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9585B043F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:16:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661346970; x=1692882970;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=okNz+pG5B2jTwl4gj7qx9uHPIJdQoRodtkJ8v7TNm00=;
- b=eGlQ5bBXHoYRUeAldg2GDgGchKAYj4yxw8bRfY7FNLRp534FLq9ENQVn
- mprgyipx/xPzSylXz+hhzOdVI1w20ZJ7bJUGlASuvtQEzGsHeGi1Qg1ip
- QvxjibjdgWsvftPhRuk78HNW4Gb4Pk5j7Mcw7MBQBJjWV6incIuyRReAz
- YP7VmDPTUFxGPRUA6vw+r+1Y18+vvyxbAaNet1u4waR+9AyPcKJXSXSNU
- 43Uu18yQT2x4Va3WeFnSQjTsUrfl8ISYxMO5KFRh7uj846GGeHmAn9V2Q
- JYN5JK9I/NBX9seJ2sSS+Bj413zDpPNmFpXhghUy6srBBmcfBFxU9K5Vi w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="357935588"
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="357935588"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2022 06:16:09 -0700
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="639115315"
+ t=1661346986; x=1692882986;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=q/vI0JG7DktcBluYZ/mEdyG7aCKQNIhbpESZEh0qDOQ=;
+ b=ZvUhip12w61LNpXP5McgR9BDiJ6P9iSN6wepTyfIvYxqQMpK7F8x+Q3B
+ setp83pvyaT07i06rIOoRJ4/vI4BhAKDAAdWEE75rJ6pVOXl4UBd85uMt
+ RVMKkaXadGYvkjLj44i9WYUzrlISD+8dEDk9dp5alUeymJflhWd8/oxx2
+ WHteJTGLiz0kOyYBfViycqRCgMl/6G+BQ5wUqIGoSN7eo1U5JQ5EQqhya
+ tYYA+nvD89Zq70bdK9wW+p6gmsjQFx+Nsv+ZYjrG5dT59W/S8c8mHDBnI
+ 2pIAd9tI84gj9r8x4OTTa8fbRYML4xtXQY8TfKGrI08elJC27BL4zqqgk A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="280936006"
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="280936006"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2022 06:16:22 -0700
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="670499487"
 Received: from zlim2-mobl.gar.corp.intel.com (HELO localhost) ([10.252.52.23])
- by orsmga008-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:16:07 -0700
+ by fmsmga008-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:16:20 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 24 Aug 2022 16:15:26 +0300
-Message-Id: <cover.1661346845.git.jani.nikula@intel.com>
+Date: Wed, 24 Aug 2022 16:15:29 +0300
+Message-Id: <5bf7aada2c7f0500c5002fa089fb66a92019a301.1661346845.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1661346845.git.jani.nikula@intel.com>
+References: <cover.1661346845.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 00/38] drm/i915: add display sub-struct to
- drm_i915_private
+Subject: [Intel-gfx] [PATCH v2 03/38] drm/i915: move dpll_funcs to
+ display.funcs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,133 +57,124 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v2 of https://patchwork.freedesktop.org/series/107170/
+Move display dpll functions under drm_i915_private display sub-struct.
 
-Mostly just rebases, commit message updates and some trivial checkpatch
-fixes, and dropping the clock gating function move patch.
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+ .../gpu/drm/i915/display/intel_display_core.h |  4 ++++
+ drivers/gpu/drm/i915/display/intel_dpll.c     | 24 +++++++++----------
+ drivers/gpu/drm/i915/i915_drv.h               |  4 ----
+ 3 files changed, 16 insertions(+), 16 deletions(-)
 
-BR,
-Jani.
-
-Jani Nikula (38):
-  drm/i915: add display sub-struct to drm_i915_private
-  drm/i915: move cdclk_funcs to display.funcs
-  drm/i915: move dpll_funcs to display.funcs
-  drm/i915: move hotplug_funcs to display.funcs
-  drm/i915: move wm_disp funcs to display.funcs
-  drm/i915: move fdi_funcs to display.funcs
-  drm/i915: move color_funcs to display.funcs
-  drm/i915: move and group gmbus members under display.gmbus
-  drm/i915: move and group pps members under display.pps
-  drm/i915: move dmc to display.dmc
-  drm/i915: move and split audio under display.audio and display.funcs
-  drm/i915: move dpll under display.dpll
-  drm/i915: move and group fbdev under display.fbdev
-  drm/i915: move wm to display.wm
-  drm/i915: move and group hdcp under display.hdcp
-  drm/i915: move hotplug to display.hotplug
-  drm/i915: move overlay to display.overlay
-  drm/i915: move and group sagv under display.sagv
-  drm/i915: move and group max_bw and bw_obj under display.bw
-  drm/i915: move opregion to display.opregion
-  drm/i915: move and group cdclk under display.cdclk
-  drm/i915: move backlight to display.backlight
-  drm/i915: move mipi_mmio_base to display.dsi
-  drm/i915: move vbt to display.vbt
-  drm/i915: move fbc to display.fbc
-  drm/i915/vrr: drop window2_delay member from i915
-  drm/i915: move and group power related members under display.power
-  drm/i915: move and group fdi members under display.fdi
-  drm/i915: move fb_tracking under display sub-struct
-  drm/i915: move INTEL_FRONTBUFFER_* macros to intel_frontbuffer.h
-  drm/i915: move dbuf under display sub-struct
-  drm/i915: move and group modeset_wq and flip_wq under display.wq
-  drm/i915: split gem quirks from display quirks
-  drm/i915/quirks: abstract checking for display quirks
-  drm/i915/quirks: abstract quirks further by making quirk ids an enum
-  drm/i915: move quirks under display sub-struct
-  drm/i915: move atomic_helper under display sub-struct
-  drm/i915: move and group properties under display.properties
-
- drivers/gpu/drm/i915/display/g4x_dp.c         |   4 +-
- drivers/gpu/drm/i915/display/hsw_ips.c        |   2 +-
- drivers/gpu/drm/i915/display/i9xx_plane.c     |   2 +-
- drivers/gpu/drm/i915/display/icl_dsi.c        |  12 +-
- drivers/gpu/drm/i915/display/intel_atomic.c   |   8 +-
- drivers/gpu/drm/i915/display/intel_audio.c    | 102 ++---
- .../gpu/drm/i915/display/intel_backlight.c    |  41 +-
- drivers/gpu/drm/i915/display/intel_bios.c     | 216 ++++-----
- drivers/gpu/drm/i915/display/intel_bw.c       |  52 +--
- drivers/gpu/drm/i915/display/intel_cdclk.c    | 282 ++++++------
- drivers/gpu/drm/i915/display/intel_cdclk.h    |   4 +-
- drivers/gpu/drm/i915/display/intel_color.c    |  34 +-
- .../gpu/drm/i915/display/intel_connector.c    |   8 +-
- drivers/gpu/drm/i915/display/intel_crt.c      |   8 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |  33 +-
- drivers/gpu/drm/i915/display/intel_display.c  | 124 +++---
- .../gpu/drm/i915/display/intel_display_core.h | 416 ++++++++++++++++++
- .../drm/i915/display/intel_display_debugfs.c  |  60 +--
- .../drm/i915/display/intel_display_power.c    | 140 +++---
- .../i915/display/intel_display_power_map.c    |   4 +-
- .../i915/display/intel_display_power_well.c   |  78 ++--
- .../i915/display/intel_display_power_well.h   |  12 +-
- drivers/gpu/drm/i915/display/intel_dmc.c      |  52 +--
- drivers/gpu/drm/i915/display/intel_dp.c       |  10 +-
- drivers/gpu/drm/i915/display/intel_dp_aux.c   |   4 +-
- drivers/gpu/drm/i915/display/intel_dpio_phy.c |   2 +-
- drivers/gpu/drm/i915/display/intel_dpll.c     |  38 +-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 130 +++---
- drivers/gpu/drm/i915/display/intel_dsi.c      |   2 +-
- drivers/gpu/drm/i915/display/intel_fbc.c      |   6 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c    |  26 +-
- drivers/gpu/drm/i915/display/intel_fdi.c      |  18 +-
- .../gpu/drm/i915/display/intel_frontbuffer.c  |  56 +--
- .../gpu/drm/i915/display/intel_frontbuffer.h  |  18 +
- drivers/gpu/drm/i915/display/intel_gmbus.c    |  46 +-
- drivers/gpu/drm/i915/display/intel_hdcp.c     | 134 +++---
- drivers/gpu/drm/i915/display/intel_hotplug.c  | 116 ++---
- .../gpu/drm/i915/display/intel_lpe_audio.c    |  42 +-
- drivers/gpu/drm/i915/display/intel_lvds.c     |   4 +-
- .../drm/i915/display/intel_modeset_setup.c    |  14 +-
- drivers/gpu/drm/i915/display/intel_opregion.c |  42 +-
- drivers/gpu/drm/i915/display/intel_overlay.c  |  12 +-
- drivers/gpu/drm/i915/display/intel_panel.c    |   5 +-
- .../gpu/drm/i915/display/intel_pch_refclk.c   |   4 +-
- .../drm/i915/display/intel_plane_initial.c    |   2 +-
- drivers/gpu/drm/i915/display/intel_pps.c      |  51 +--
- drivers/gpu/drm/i915/display/intel_psr.c      |   2 +-
- drivers/gpu/drm/i915/display/intel_quirks.c   |  22 +-
- drivers/gpu/drm/i915/display/intel_quirks.h   |  14 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c     |  18 +-
- drivers/gpu/drm/i915/display/intel_tc.c       |   4 +-
- drivers/gpu/drm/i915/display/intel_vbt_defs.h |   8 +-
- drivers/gpu/drm/i915/display/intel_vrr.c      |  14 +-
- .../drm/i915/display/skl_universal_plane.c    |   2 +-
- drivers/gpu/drm/i915/display/vlv_dsi.c        |   4 +-
- drivers/gpu/drm/i915/display/vlv_dsi_regs.h   | 188 ++++----
- drivers/gpu/drm/i915/gem/i915_gem_pages.c     |   2 +-
- drivers/gpu/drm/i915/gem/i915_gem_tiling.c    |   4 +-
- .../i915/gem/selftests/i915_gem_client_blt.c  |   2 +-
- .../drm/i915/gem/selftests/i915_gem_mman.c    |   4 +-
- drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c  |   2 +-
- drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c |   4 +-
- drivers/gpu/drm/i915/gvt/handlers.c           |   4 +-
- drivers/gpu/drm/i915/i915_debugfs.c           |   4 +-
- drivers/gpu/drm/i915/i915_driver.c            |  16 +-
- drivers/gpu/drm/i915/i915_drv.h               | 407 +----------------
- drivers/gpu/drm/i915/i915_gem.c               |   4 +-
- drivers/gpu/drm/i915/i915_getparam.c          |   2 +-
- drivers/gpu/drm/i915/i915_irq.c               |  78 ++--
- drivers/gpu/drm/i915/i915_reg.h               |  16 +-
- drivers/gpu/drm/i915/intel_pm.c               | 260 +++++------
- drivers/gpu/drm/i915/intel_pm.h               |   4 +-
- 72 files changed, 1824 insertions(+), 1741 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_display_core.h
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
+index c185ab0428f8..f62b18477078 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_core.h
++++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+@@ -12,6 +12,7 @@ struct intel_atomic_state;
+ struct intel_cdclk_funcs;
+ struct intel_crtc;
+ struct intel_crtc_state;
++struct intel_dpll_funcs;
+ struct intel_initial_plane_config;
+ 
+ struct intel_display_funcs {
+@@ -38,6 +39,9 @@ struct intel_display {
+ 
+ 		/* Display CDCLK functions */
+ 		const struct intel_cdclk_funcs *cdclk;
++
++		/* Display pll funcs */
++		const struct intel_dpll_funcs *dpll;
+ 	} funcs;
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
+index 5262f16b45ac..87899702a522 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll.c
+@@ -1420,7 +1420,7 @@ int intel_dpll_crtc_compute_clock(struct intel_atomic_state *state,
+ 	if (!crtc_state->hw.enable)
+ 		return 0;
+ 
+-	ret = i915->dpll_funcs->crtc_compute_clock(state, crtc);
++	ret = i915->display.funcs.dpll->crtc_compute_clock(state, crtc);
+ 	if (ret) {
+ 		drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] Couldn't calculate DPLL settings\n",
+ 			    crtc->base.base.id, crtc->base.name);
+@@ -1446,10 +1446,10 @@ int intel_dpll_crtc_get_shared_dpll(struct intel_atomic_state *state,
+ 	if (!crtc_state->hw.enable)
+ 		return 0;
+ 
+-	if (!i915->dpll_funcs->crtc_get_shared_dpll)
++	if (!i915->display.funcs.dpll->crtc_get_shared_dpll)
+ 		return 0;
+ 
+-	ret = i915->dpll_funcs->crtc_get_shared_dpll(state, crtc);
++	ret = i915->display.funcs.dpll->crtc_get_shared_dpll(state, crtc);
+ 	if (ret) {
+ 		drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] Couldn't get a shared DPLL\n",
+ 			    crtc->base.base.id, crtc->base.name);
+@@ -1463,23 +1463,23 @@ void
+ intel_dpll_init_clock_hook(struct drm_i915_private *dev_priv)
+ {
+ 	if (IS_DG2(dev_priv))
+-		dev_priv->dpll_funcs = &dg2_dpll_funcs;
++		dev_priv->display.funcs.dpll = &dg2_dpll_funcs;
+ 	else if (DISPLAY_VER(dev_priv) >= 9 || HAS_DDI(dev_priv))
+-		dev_priv->dpll_funcs = &hsw_dpll_funcs;
++		dev_priv->display.funcs.dpll = &hsw_dpll_funcs;
+ 	else if (HAS_PCH_SPLIT(dev_priv))
+-		dev_priv->dpll_funcs = &ilk_dpll_funcs;
++		dev_priv->display.funcs.dpll = &ilk_dpll_funcs;
+ 	else if (IS_CHERRYVIEW(dev_priv))
+-		dev_priv->dpll_funcs = &chv_dpll_funcs;
++		dev_priv->display.funcs.dpll = &chv_dpll_funcs;
+ 	else if (IS_VALLEYVIEW(dev_priv))
+-		dev_priv->dpll_funcs = &vlv_dpll_funcs;
++		dev_priv->display.funcs.dpll = &vlv_dpll_funcs;
+ 	else if (IS_G4X(dev_priv))
+-		dev_priv->dpll_funcs = &g4x_dpll_funcs;
++		dev_priv->display.funcs.dpll = &g4x_dpll_funcs;
+ 	else if (IS_PINEVIEW(dev_priv))
+-		dev_priv->dpll_funcs = &pnv_dpll_funcs;
++		dev_priv->display.funcs.dpll = &pnv_dpll_funcs;
+ 	else if (DISPLAY_VER(dev_priv) != 2)
+-		dev_priv->dpll_funcs = &i9xx_dpll_funcs;
++		dev_priv->display.funcs.dpll = &i9xx_dpll_funcs;
+ 	else
+-		dev_priv->dpll_funcs = &i8xx_dpll_funcs;
++		dev_priv->display.funcs.dpll = &i8xx_dpll_funcs;
+ }
+ 
+ static bool i9xx_has_pps(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 3d0d3b08f272..5b7b4ff31420 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -90,7 +90,6 @@ struct intel_color_funcs;
+ struct intel_connector;
+ struct intel_crtc;
+ struct intel_dp;
+-struct intel_dpll_funcs;
+ struct intel_encoder;
+ struct intel_fbdev;
+ struct intel_fdi_funcs;
+@@ -516,9 +515,6 @@ struct drm_i915_private {
+ 	/* fdi display functions */
+ 	const struct intel_fdi_funcs *fdi_funcs;
+ 
+-	/* display pll funcs */
+-	const struct intel_dpll_funcs *dpll_funcs;
+-
+ 	/* Display internal color functions */
+ 	const struct intel_color_funcs *color_funcs;
+ 
 -- 
 2.34.1
 
