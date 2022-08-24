@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B70EC00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:17:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21672C32796
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:17:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 215C1B5123;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5F53B512A;
 	Wed, 24 Aug 2022 13:17:29 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AEC78D3D6
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:16:56 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF41F9B2AC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:16:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661347017; x=1692883017;
+ t=1661347010; x=1692883010;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ryYGw3QqcjcWcHBPhMjYKy66/olbhYToU0AVMkVP7s8=;
- b=PUvHngCfyOQ0jdyBieVE32G26LK2MV/EW8K18nrwZ8FOr7WLxBAhMEJu
- Joagsz6R6IxNj77RGvg77GeMa+BXvaa5+ySrcIknGwwp5vQsvpBJdS783
- dbD9H55HWLV6kodLG44xjE1X3t2sgxyhCHswoql6qHcd9etGl5WMmGeYC
- ifMNXb24SLE2K4INUIflu5kUW11ATJJZAoyPMadIgJgUkDYRLV5zY4V0P
- /PmmgoB6OjySaV420iE0TEFkn3nc9aQIK+jf0tSpPaQ8dthoRqL+e9QmC
- PnNLa/7oQHbydQ4FqDp3WKSlBv/KDK6/mUP/H/Io/01+bBNUCb+sTNwTo g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="280936153"
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="280936153"
+ bh=LjhgyyuaA050V9hY7cW+5zuCpKVLBRn0A+TldQyUEbE=;
+ b=NJZyH1JNMLgXIQcAOj2wy4sYi6nICnjPnp+4DZ9+LQgidMAdp3HNRRhP
+ SGMsFBfXVEHjDn8/9Ow9fPF/zKMPHPItpkiLttiui0qEDMwxc7WgNG9Wa
+ 4EbIXKnI6xCnF+lWvwrKNS6D4wQB1gy0t7SXf45EzRI2MXlZXqYYQYoCD
+ KnZLh9wSbnd+ya+puusNEb0Jts0G6U0o14kFAYxdQpKiabdPkvmKCX+kO
+ i9C70/5pXWQw01exYLyiHNuhMClrCqsZn/6s5UYLT9H2c1VYRBqmvxQ4R
+ 8Jv7r22Cw8wH7tIikeSGW/jkuwi5ECsLTjtscPFbs7pqIR2y70Tz06Afu w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="355690017"
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="355690017"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2022 06:16:49 -0700
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="678041930"
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2022 06:16:39 -0700
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="678041882"
 Received: from zlim2-mobl.gar.corp.intel.com (HELO localhost) ([10.252.52.23])
  by fmsmga004-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:16:46 -0700
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:16:37 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 24 Aug 2022 16:15:35 +0300
-Message-Id: <7ecc37045ab9eb22831517e5a59ca74edb31962f.1661346845.git.jani.nikula@intel.com>
+Date: Wed, 24 Aug 2022 16:15:33 +0300
+Message-Id: <36d6e9327582c94c1962c10ebd1581c3d15a5743.1661346845.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1661346845.git.jani.nikula@intel.com>
 References: <cover.1661346845.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 09/38] drm/i915: move and group pps members
- under display.pps
+Subject: [Intel-gfx] [PATCH v2 07/38] drm/i915: move color_funcs to
+ display.funcs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,295 +61,150 @@ Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move display PPS related members under drm_i915_private display
-sub-struct.
+Move display color functions under drm_i915_private display sub-struct.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- .../gpu/drm/i915/display/intel_display_core.h |  7 +++
- drivers/gpu/drm/i915/display/intel_pps.c      | 48 +++++++++----------
- drivers/gpu/drm/i915/i915_driver.c            |  2 +-
- drivers/gpu/drm/i915/i915_drv.h               |  5 --
- drivers/gpu/drm/i915/i915_reg.h               |  2 +-
- 5 files changed, 33 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/i915/display/intel_color.c    | 34 +++++++++----------
+ .../gpu/drm/i915/display/intel_display_core.h |  4 +++
+ drivers/gpu/drm/i915/i915_drv.h               |  4 ---
+ 3 files changed, 21 insertions(+), 21 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 9583d17e858d..ed98c732b24e 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -1167,22 +1167,22 @@ void intel_color_load_luts(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	dev_priv->color_funcs->load_luts(crtc_state);
++	dev_priv->display.funcs.color->load_luts(crtc_state);
+ }
+ 
+ void intel_color_commit_noarm(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	if (dev_priv->color_funcs->color_commit_noarm)
+-		dev_priv->color_funcs->color_commit_noarm(crtc_state);
++	if (dev_priv->display.funcs.color->color_commit_noarm)
++		dev_priv->display.funcs.color->color_commit_noarm(crtc_state);
+ }
+ 
+ void intel_color_commit_arm(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	dev_priv->color_funcs->color_commit_arm(crtc_state);
++	dev_priv->display.funcs.color->color_commit_arm(crtc_state);
+ }
+ 
+ static bool intel_can_preload_luts(const struct intel_crtc_state *new_crtc_state)
+@@ -1238,15 +1238,15 @@ int intel_color_check(struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	return dev_priv->color_funcs->color_check(crtc_state);
++	return dev_priv->display.funcs.color->color_check(crtc_state);
+ }
+ 
+ void intel_color_get_config(struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+ 
+-	if (dev_priv->color_funcs->read_luts)
+-		dev_priv->color_funcs->read_luts(crtc_state);
++	if (dev_priv->display.funcs.color->read_luts)
++		dev_priv->display.funcs.color->read_luts(crtc_state);
+ }
+ 
+ static bool need_plane_update(struct intel_plane *plane,
+@@ -2225,28 +2225,28 @@ void intel_color_init(struct intel_crtc *crtc)
+ 
+ 	if (HAS_GMCH(dev_priv)) {
+ 		if (IS_CHERRYVIEW(dev_priv)) {
+-			dev_priv->color_funcs = &chv_color_funcs;
++			dev_priv->display.funcs.color = &chv_color_funcs;
+ 		} else if (DISPLAY_VER(dev_priv) >= 4) {
+-			dev_priv->color_funcs = &i965_color_funcs;
++			dev_priv->display.funcs.color = &i965_color_funcs;
+ 		} else {
+-			dev_priv->color_funcs = &i9xx_color_funcs;
++			dev_priv->display.funcs.color = &i9xx_color_funcs;
+ 		}
+ 	} else {
+ 		if (DISPLAY_VER(dev_priv) >= 11)
+-			dev_priv->color_funcs = &icl_color_funcs;
++			dev_priv->display.funcs.color = &icl_color_funcs;
+ 		else if (DISPLAY_VER(dev_priv) == 10)
+-			dev_priv->color_funcs = &glk_color_funcs;
++			dev_priv->display.funcs.color = &glk_color_funcs;
+ 		else if (DISPLAY_VER(dev_priv) == 9)
+-			dev_priv->color_funcs = &skl_color_funcs;
++			dev_priv->display.funcs.color = &skl_color_funcs;
+ 		else if (DISPLAY_VER(dev_priv) == 8)
+-			dev_priv->color_funcs = &bdw_color_funcs;
++			dev_priv->display.funcs.color = &bdw_color_funcs;
+ 		else if (DISPLAY_VER(dev_priv) == 7) {
+ 			if (IS_HASWELL(dev_priv))
+-				dev_priv->color_funcs = &hsw_color_funcs;
++				dev_priv->display.funcs.color = &hsw_color_funcs;
+ 			else
+-				dev_priv->color_funcs = &ivb_color_funcs;
++				dev_priv->display.funcs.color = &ivb_color_funcs;
+ 		} else
+-			dev_priv->color_funcs = &ilk_color_funcs;
++			dev_priv->display.funcs.color = &ilk_color_funcs;
+ 	}
+ 
+ 	drm_crtc_enable_color_mgmt(&crtc->base,
 diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index cfce1dba9c5f..95334c28aed7 100644
+index afb1b0a73457..a9fcaedc78f6 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_core.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -99,6 +99,13 @@ struct intel_display {
+@@ -11,6 +11,7 @@
+ struct drm_i915_private;
+ struct intel_atomic_state;
+ struct intel_cdclk_funcs;
++struct intel_color_funcs;
+ struct intel_crtc;
+ struct intel_crtc_state;
+ struct intel_dpll_funcs;
+@@ -71,6 +72,9 @@ struct intel_display {
  
- 		wait_queue_head_t wait_queue;
- 	} gmbus;
+ 		/* fdi display functions */
+ 		const struct intel_fdi_funcs *fdi;
 +
-+	struct {
-+		u32 mmio_base;
-+
-+		/* protects panel power sequencer state */
-+		struct mutex mutex;
-+	} pps;
++		/* Display internal color functions */
++		const struct intel_color_funcs *color;
+ 	} funcs;
  };
  
- #endif /* __INTEL_DISPLAY_CORE_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-index 1b21a341962f..9a66e03aa2d6 100644
---- a/drivers/gpu/drm/i915/display/intel_pps.c
-+++ b/drivers/gpu/drm/i915/display/intel_pps.c
-@@ -28,7 +28,7 @@ intel_wakeref_t intel_pps_lock(struct intel_dp *intel_dp)
- 	 * See intel_pps_reset_all() why we need a power domain reference here.
- 	 */
- 	wakeref = intel_display_power_get(dev_priv, POWER_DOMAIN_DISPLAY_CORE);
--	mutex_lock(&dev_priv->pps_mutex);
-+	mutex_lock(&dev_priv->display.pps.mutex);
- 
- 	return wakeref;
- }
-@@ -38,7 +38,7 @@ intel_wakeref_t intel_pps_unlock(struct intel_dp *intel_dp,
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 
--	mutex_unlock(&dev_priv->pps_mutex);
-+	mutex_unlock(&dev_priv->display.pps.mutex);
- 	intel_display_power_put(dev_priv, POWER_DOMAIN_DISPLAY_CORE, wakeref);
- 
- 	return 0;
-@@ -163,7 +163,7 @@ vlv_power_sequencer_pipe(struct intel_dp *intel_dp)
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
- 	enum pipe pipe;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	/* We should never land here with regular DP ports */
- 	drm_WARN_ON(&dev_priv->drm, !intel_dp_is_edp(intel_dp));
-@@ -212,7 +212,7 @@ bxt_power_sequencer_idx(struct intel_dp *intel_dp)
- 	struct intel_connector *connector = intel_dp->attached_connector;
- 	int backlight_controller = connector->panel.vbt.backlight.controller;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	/* We should never land here with regular DP ports */
- 	drm_WARN_ON(&dev_priv->drm, !intel_dp_is_edp(intel_dp));
-@@ -282,7 +282,7 @@ vlv_initial_power_sequencer_setup(struct intel_dp *intel_dp)
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
- 	enum port port = dig_port->base.port;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	/* try to find a pipe with this port selected */
- 	/* first pick one where the panel is on */
-@@ -407,7 +407,7 @@ static bool edp_have_panel_power(struct intel_dp *intel_dp)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	if ((IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) &&
- 	    intel_dp->pps.pps_pipe == INVALID_PIPE)
-@@ -420,7 +420,7 @@ static bool edp_have_panel_vdd(struct intel_dp *intel_dp)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	if ((IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) &&
- 	    intel_dp->pps.pps_pipe == INVALID_PIPE)
-@@ -463,7 +463,7 @@ static void wait_panel_status(struct intel_dp *intel_dp,
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	i915_reg_t pp_stat_reg, pp_ctrl_reg;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	intel_pps_verify_state(intel_dp);
- 
-@@ -556,7 +556,7 @@ static  u32 ilk_get_pp_control(struct intel_dp *intel_dp)
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	u32 control;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	control = intel_de_read(dev_priv, _pp_ctrl_reg(intel_dp));
- 	if (drm_WARN_ON(&dev_priv->drm, !HAS_DDI(dev_priv) &&
-@@ -580,7 +580,7 @@ bool intel_pps_vdd_on_unlocked(struct intel_dp *intel_dp)
- 	i915_reg_t pp_stat_reg, pp_ctrl_reg;
- 	bool need_to_disable = !intel_dp->pps.want_panel_vdd;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	if (!intel_dp_is_edp(intel_dp))
- 		return false;
-@@ -657,7 +657,7 @@ static void intel_pps_vdd_off_sync_unlocked(struct intel_dp *intel_dp)
- 	u32 pp;
- 	i915_reg_t pp_stat_reg, pp_ctrl_reg;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	drm_WARN_ON(&dev_priv->drm, intel_dp->pps.want_panel_vdd);
- 
-@@ -748,7 +748,7 @@ void intel_pps_vdd_off_unlocked(struct intel_dp *intel_dp, bool sync)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	if (!intel_dp_is_edp(intel_dp))
- 		return;
-@@ -771,7 +771,7 @@ void intel_pps_on_unlocked(struct intel_dp *intel_dp)
- 	u32 pp;
- 	i915_reg_t pp_ctrl_reg;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	if (!intel_dp_is_edp(intel_dp))
- 		return;
-@@ -832,7 +832,7 @@ void intel_pps_off_unlocked(struct intel_dp *intel_dp)
- 	u32 pp;
- 	i915_reg_t pp_ctrl_reg;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	if (!intel_dp_is_edp(intel_dp))
- 		return;
-@@ -991,7 +991,7 @@ static void vlv_steal_power_sequencer(struct drm_i915_private *dev_priv,
- {
- 	struct intel_encoder *encoder;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	for_each_intel_dp(&dev_priv->drm, encoder) {
- 		struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-@@ -1021,7 +1021,7 @@ void vlv_pps_init(struct intel_encoder *encoder,
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	drm_WARN_ON(&dev_priv->drm, intel_dp->pps.active_pipe != INVALID_PIPE);
- 
-@@ -1064,7 +1064,7 @@ static void pps_vdd_init(struct intel_dp *intel_dp)
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	if (!edp_have_panel_vdd(intel_dp))
- 		return;
-@@ -1176,7 +1176,7 @@ static void pps_init_delays_bios(struct intel_dp *intel_dp,
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	if (!pps_delays_valid(&intel_dp->pps.bios_pps_delays))
- 		intel_pps_readout_hw_state(intel_dp, &intel_dp->pps.bios_pps_delays);
-@@ -1223,7 +1223,7 @@ static void pps_init_delays_spec(struct intel_dp *intel_dp,
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	/* Upper limits from eDP 1.3 spec. Note that we use the clunky units of
- 	 * our hw here, which are all in 100usec. */
-@@ -1246,7 +1246,7 @@ static void pps_init_delays(struct intel_dp *intel_dp)
- 	struct edp_power_seq cur, vbt, spec,
- 		*final = &intel_dp->pps.pps_delays;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	/* already initialized? */
- 	if (pps_delays_valid(final))
-@@ -1312,7 +1312,7 @@ static void pps_init_registers(struct intel_dp *intel_dp, bool force_disable_vdd
- 	enum port port = dp_to_dig_port(intel_dp)->base.port;
- 	const struct edp_power_seq *seq = &intel_dp->pps.pps_delays;
- 
--	lockdep_assert_held(&dev_priv->pps_mutex);
-+	lockdep_assert_held(&dev_priv->display.pps.mutex);
- 
- 	intel_pps_get_registers(intel_dp, &regs);
- 
-@@ -1487,11 +1487,11 @@ void intel_pps_unlock_regs_wa(struct drm_i915_private *dev_priv)
- void intel_pps_setup(struct drm_i915_private *i915)
- {
- 	if (HAS_PCH_SPLIT(i915) || IS_GEMINILAKE(i915) || IS_BROXTON(i915))
--		i915->pps_mmio_base = PCH_PPS_BASE;
-+		i915->display.pps.mmio_base = PCH_PPS_BASE;
- 	else if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
--		i915->pps_mmio_base = VLV_PPS_BASE;
-+		i915->display.pps.mmio_base = VLV_PPS_BASE;
- 	else
--		i915->pps_mmio_base = PPS_BASE;
-+		i915->display.pps.mmio_base = PPS_BASE;
- }
- 
- void assert_pps_unlocked(struct drm_i915_private *dev_priv, enum pipe pipe)
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 1332c70370a6..9e480015fccd 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -337,7 +337,7 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
- 
- 	mutex_init(&dev_priv->audio.mutex);
- 	mutex_init(&dev_priv->wm.wm_mutex);
--	mutex_init(&dev_priv->pps_mutex);
-+	mutex_init(&dev_priv->display.pps.mutex);
- 	mutex_init(&dev_priv->hdcp_comp_mutex);
- 
- 	i915_memcpy_init_early(dev_priv);
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index d75d253f9f99..381593905f4a 100644
+index aa57bb069c91..d7abbb1362f9 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -384,8 +384,6 @@ struct drm_i915_private {
- 	/* MMIO base address for MIPI regs */
- 	u32 mipi_mmio_base;
+@@ -85,7 +85,6 @@ struct intel_audio_funcs;
+ struct intel_cdclk_config;
+ struct intel_cdclk_state;
+ struct intel_cdclk_vals;
+-struct intel_color_funcs;
+ struct intel_connector;
+ struct intel_dp;
+ struct intel_encoder;
+@@ -485,9 +484,6 @@ struct drm_i915_private {
+ 	/* pm private clock gating functions */
+ 	const struct drm_i915_clock_gating_funcs *clock_gating_funcs;
  
--	u32 pps_mmio_base;
+-	/* Display internal color functions */
+-	const struct intel_color_funcs *color_funcs;
 -
- 	struct pci_dev *bridge_dev;
- 
- 	struct rb_root uabi_engines;
-@@ -422,9 +420,6 @@ struct drm_i915_private {
- 	/* backlight registers and fields in struct intel_panel */
- 	struct mutex backlight_lock;
- 
--	/* protects panel power sequencer state */
--	struct mutex pps_mutex;
--
- 	unsigned int fsb_freq, mem_freq, is_ddr3;
- 	unsigned int skl_preferred_vco_freq;
- 	unsigned int max_cdclk_freq;
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index bc896d3855b7..f6b26128e218 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2829,7 +2829,7 @@
- #define VLV_PPS_BASE			(VLV_DISPLAY_BASE + PPS_BASE)
- #define PCH_PPS_BASE			0xC7200
- 
--#define _MMIO_PPS(pps_idx, reg)		_MMIO(dev_priv->pps_mmio_base -	\
-+#define _MMIO_PPS(pps_idx, reg)		_MMIO(dev_priv->display.pps.mmio_base -	\
- 					      PPS_BASE + (reg) +	\
- 					      (pps_idx) * 0x100)
- 
+ 	/* PCH chipset type */
+ 	enum intel_pch pch_type;
+ 	unsigned short pch_id;
 -- 
 2.34.1
 
