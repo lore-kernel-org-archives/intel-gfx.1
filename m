@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA177C00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:20:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 151FBC00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 13:20:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBA96B536A;
-	Wed, 24 Aug 2022 13:19:14 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECCD1B51E7
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:18:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49971B540C;
+	Wed, 24 Aug 2022 13:20:14 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AEDFB538C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 13:19:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661347109; x=1692883109;
+ t=1661347175; x=1692883175;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2nlAwD3/AtGMzja/ZgkrfnhTtCQi0wA7FO3wNfuqN7Q=;
- b=K6gfSRYaGI+2NRtsRXwnFqkPIZBcvf+VrV7BoqKXzYCUR5YXy4tmY98j
- VlqQFpk+WBmjb8PSo0owepMbw+6GKAYN03xMU6OzzsXdDP/WeR7kpDM+C
- Zrd9uL/lJ/B4rAotLTZH5AWxJTQue/tBAmVvpvk4Vap/eZIJ1/HKJVVxe
- lkLxAbDgp26MsvGH7ubDykinpY1+jqB1VFSwMSXdstihRw9z04fAfBDWX
- rt9O8282ZCXDYsVJ0XcNFbBMz138qQd6kkIuVUp58dsaISszjSq/ATysN
- LPKtqOiwY57Xw+eJH+50bIJ6x3Hk+J2oZphd5d4fYcbfz0F6/GXAWUH7B w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="295244369"
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="295244369"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2022 06:18:28 -0700
-X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="699070550"
+ bh=Fm/f3x2Eq0t77/9zfrqKQvHAkKit8+rT0uQw4hcwfd8=;
+ b=epDzGIMOHtrqstihYQ3v91OGrPuLAKkNQK314UjI0LHJ51uRzBdOhmSX
+ +ZZqcGYpVODB2z4A8EDYOBYt+oqSMYrOfQYO+/qBWO0I8lpf4BPzKQirH
+ nFufJ+yrJtPSmGO3fPgOldUmtB1oGHaiITGBmDpGmgiJy5Mql35eUz1zz
+ 36KYnUjsN9sQV4CwksInhQ2qVuQ0Q+So/Y1IUWvXFnZ9uAEila6PuVLzM
+ aiYXJkayUXeyYtFNlXCdbv+HXGcc8Qh054tDdptiNUgvyVT062SpJ4gPB
+ RhcOdaeOYo6ULDra40tGEAH8/58mu/oq608QRWRNiqqSsLp6BU0086Z1P Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10448"; a="274350847"
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="274350847"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2022 06:18:21 -0700
+X-IronPort-AV: E=Sophos;i="5.93,260,1654585200"; d="scan'208";a="937905459"
 Received: from zlim2-mobl.gar.corp.intel.com (HELO localhost) ([10.252.52.23])
- by fmsmga003-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:18:27 -0700
+ by fmsmga005-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2022 06:18:19 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 24 Aug 2022 16:15:58 +0300
-Message-Id: <b38a6ad1869fa634298a8c6c51f5fd97638cbe1b.1661346845.git.jani.nikula@intel.com>
+Date: Wed, 24 Aug 2022 16:15:56 +0300
+Message-Id: <c899fd1ef2220564a876cd88c03e53c4c7b0168b.1661346845.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1661346845.git.jani.nikula@intel.com>
 References: <cover.1661346845.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 32/38] drm/i915: move and group modeset_wq
- and flip_wq under display.wq
+Subject: [Intel-gfx] [PATCH v2 30/38] drm/i915: move INTEL_FRONTBUFFER_*
+ macros to intel_frontbuffer.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,107 +61,100 @@ Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move display workqueue related members under drm_i915_private display
-sub-struct.
+The macros clearly don't belong in i915_drv.h. Move to
+intel_frontbuffer.h.
+
+Also split the BUILD_BUG_ON()s to intel_frontbuffer_track() to avoid
+depending on some other macros in the header.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c  | 20 +++++++++----------
- .../gpu/drm/i915/display/intel_display_core.h |  8 ++++++++
- drivers/gpu/drm/i915/i915_drv.h               |  5 -----
- 3 files changed, 18 insertions(+), 15 deletions(-)
+ .../gpu/drm/i915/display/intel_frontbuffer.c  |  2 ++
+ .../gpu/drm/i915/display/intel_frontbuffer.h  | 18 +++++++++++++++++
+ drivers/gpu/drm/i915/i915_drv.h               | 20 -------------------
+ 3 files changed, 20 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index b347165ac2cf..5fb027ff5246 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7812,12 +7812,12 @@ static int intel_atomic_commit(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.c b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+index 0d4cfbd8403e..d80e3e8a9b01 100644
+--- a/drivers/gpu/drm/i915/display/intel_frontbuffer.c
++++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+@@ -311,6 +311,8 @@ void intel_frontbuffer_track(struct intel_frontbuffer *old,
+ 	 */
+ 	BUILD_BUG_ON(INTEL_FRONTBUFFER_BITS_PER_PIPE * I915_MAX_PIPES >
+ 		     BITS_PER_TYPE(atomic_t));
++	BUILD_BUG_ON(INTEL_FRONTBUFFER_BITS_PER_PIPE * I915_MAX_PIPES > 32);
++	BUILD_BUG_ON(I915_MAX_PLANES > INTEL_FRONTBUFFER_BITS_PER_PIPE);
  
- 	i915_sw_fence_commit(&state->commit_ready);
- 	if (nonblock && state->modeset) {
--		queue_work(dev_priv->modeset_wq, &state->base.commit_work);
-+		queue_work(dev_priv->display.wq.modeset, &state->base.commit_work);
- 	} else if (nonblock) {
--		queue_work(dev_priv->flip_wq, &state->base.commit_work);
-+		queue_work(dev_priv->display.wq.flip, &state->base.commit_work);
- 	} else {
- 		if (state->modeset)
--			flush_workqueue(dev_priv->modeset_wq);
-+			flush_workqueue(dev_priv->display.wq.modeset);
- 		intel_atomic_commit_tail(state);
- 	}
+ 	if (old) {
+ 		drm_WARN_ON(old->obj->base.dev,
+diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.h b/drivers/gpu/drm/i915/display/intel_frontbuffer.h
+index ff0c37b079aa..3c474ed937fb 100644
+--- a/drivers/gpu/drm/i915/display/intel_frontbuffer.h
++++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.h
+@@ -25,6 +25,7 @@
+ #define __INTEL_FRONTBUFFER_H__
  
-@@ -8686,9 +8686,9 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
+ #include <linux/atomic.h>
++#include <linux/bits.h>
+ #include <linux/kref.h>
  
- 	intel_dmc_ucode_init(i915);
+ #include "gem/i915_gem_object_types.h"
+@@ -48,6 +49,23 @@ struct intel_frontbuffer {
+ 	struct rcu_head rcu;
+ };
  
--	i915->modeset_wq = alloc_ordered_workqueue("i915_modeset", 0);
--	i915->flip_wq = alloc_workqueue("i915_flip", WQ_HIGHPRI |
--					WQ_UNBOUND, WQ_UNBOUND_MAX_ACTIVE);
-+	i915->display.wq.modeset = alloc_ordered_workqueue("i915_modeset", 0);
-+	i915->display.wq.flip = alloc_workqueue("i915_flip", WQ_HIGHPRI |
-+						WQ_UNBOUND, WQ_UNBOUND_MAX_ACTIVE);
- 
- 	intel_mode_config_init(i915);
- 
-@@ -8995,8 +8995,8 @@ void intel_modeset_driver_remove(struct drm_i915_private *i915)
- 	if (!HAS_DISPLAY(i915))
- 		return;
- 
--	flush_workqueue(i915->flip_wq);
--	flush_workqueue(i915->modeset_wq);
-+	flush_workqueue(i915->display.wq.flip);
-+	flush_workqueue(i915->display.wq.modeset);
- 
- 	flush_work(&i915->atomic_helper.free_work);
- 	drm_WARN_ON(&i915->drm, !llist_empty(&i915->atomic_helper.free_list));
-@@ -9037,8 +9037,8 @@ void intel_modeset_driver_remove_noirq(struct drm_i915_private *i915)
- 
- 	intel_gmbus_teardown(i915);
- 
--	destroy_workqueue(i915->flip_wq);
--	destroy_workqueue(i915->modeset_wq);
-+	destroy_workqueue(i915->display.wq.flip);
-+	destroy_workqueue(i915->display.wq.modeset);
- 
- 	intel_fbc_cleanup(i915);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index b061deb21df1..31fd05a04bff 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -376,6 +376,14 @@ struct intel_display {
- 		u32 block_time_us;
- 	} sagv;
- 
-+	struct {
-+		/* ordered wq for modesets */
-+		struct workqueue_struct *modeset;
++/*
++ * Frontbuffer tracking bits. Set in obj->frontbuffer_bits while a gem bo is
++ * considered to be the frontbuffer for the given plane interface-wise. This
++ * doesn't mean that the hw necessarily already scans it out, but that any
++ * rendering (by the cpu or gpu) will land in the frontbuffer eventually.
++ *
++ * We have one bit per pipe and per scanout plane type.
++ */
++#define INTEL_FRONTBUFFER_BITS_PER_PIPE 8
++#define INTEL_FRONTBUFFER(pipe, plane_id) \
++	BIT((plane_id) + INTEL_FRONTBUFFER_BITS_PER_PIPE * (pipe));
++#define INTEL_FRONTBUFFER_OVERLAY(pipe) \
++	BIT(INTEL_FRONTBUFFER_BITS_PER_PIPE - 1 + INTEL_FRONTBUFFER_BITS_PER_PIPE * (pipe))
++#define INTEL_FRONTBUFFER_ALL_MASK(pipe) \
++	GENMASK(INTEL_FRONTBUFFER_BITS_PER_PIPE * ((pipe) + 1) - 1,	\
++		INTEL_FRONTBUFFER_BITS_PER_PIPE * (pipe))
 +
-+		/* unbound hipri wq for page flips/plane updates */
-+		struct workqueue_struct *flip;
-+	} wq;
-+
- 	/* Grouping using named structs. Keep sorted. */
- 	struct intel_audio audio;
- 	struct intel_dmc dmc;
+ void intel_frontbuffer_flip_prepare(struct drm_i915_private *i915,
+ 				    unsigned frontbuffer_bits);
+ void intel_frontbuffer_flip_complete(struct drm_i915_private *i915,
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 6ec48944772b..dcd95aed145c 100644
+index a119a604b4e2..df36b058d258 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -289,11 +289,6 @@ struct drm_i915_private {
- 	 */
- 	struct workqueue_struct *wq;
+@@ -487,26 +487,6 @@ static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
  
--	/* ordered wq for modesets */
--	struct workqueue_struct *modeset_wq;
--	/* unbound hipri wq for page flips/plane updates */
--	struct workqueue_struct *flip_wq;
+ #define I915_GTT_OFFSET_NONE ((u32)-1)
+ 
+-/*
+- * Frontbuffer tracking bits. Set in obj->frontbuffer_bits while a gem bo is
+- * considered to be the frontbuffer for the given plane interface-wise. This
+- * doesn't mean that the hw necessarily already scans it out, but that any
+- * rendering (by the cpu or gpu) will land in the frontbuffer eventually.
+- *
+- * We have one bit per pipe and per scanout plane type.
+- */
+-#define INTEL_FRONTBUFFER_BITS_PER_PIPE 8
+-#define INTEL_FRONTBUFFER(pipe, plane_id) ({ \
+-	BUILD_BUG_ON(INTEL_FRONTBUFFER_BITS_PER_PIPE * I915_MAX_PIPES > 32); \
+-	BUILD_BUG_ON(I915_MAX_PLANES > INTEL_FRONTBUFFER_BITS_PER_PIPE); \
+-	BIT((plane_id) + INTEL_FRONTBUFFER_BITS_PER_PIPE * (pipe)); \
+-})
+-#define INTEL_FRONTBUFFER_OVERLAY(pipe) \
+-	BIT(INTEL_FRONTBUFFER_BITS_PER_PIPE - 1 + INTEL_FRONTBUFFER_BITS_PER_PIPE * (pipe))
+-#define INTEL_FRONTBUFFER_ALL_MASK(pipe) \
+-	GENMASK(INTEL_FRONTBUFFER_BITS_PER_PIPE * ((pipe) + 1) - 1, \
+-		INTEL_FRONTBUFFER_BITS_PER_PIPE * (pipe))
 -
- 	/* pm private clock gating functions */
- 	const struct drm_i915_clock_gating_funcs *clock_gating_funcs;
- 
+ #define INTEL_INFO(dev_priv)	(&(dev_priv)->__info)
+ #define RUNTIME_INFO(dev_priv)	(&(dev_priv)->__runtime)
+ #define DRIVER_CAPS(dev_priv)	(&(dev_priv)->caps)
 -- 
 2.34.1
 
