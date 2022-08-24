@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFDDEC00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 12:18:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18952C00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 12:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC98811B554;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 556368B67D;
 	Wed, 24 Aug 2022 12:17:04 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7665914AE42
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:16:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4A7D11AFC0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 12:16:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661343394;
+ s=mimecast20190719; t=1661343386;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+6tHZYyrogyhGbIdsbwjzHRumcVlNmmYf2j+CeiUK6U=;
- b=Ef+dhKa6kFuc3AHM7BRdL/PgUjaKYPPtYzwRJqLxLnFAHy6g5tOIcFrjVaxY6/nvW9Mfwm
- aYAX+jgiEoGu6spBSdQcooiXcOWVQz2teTDX5Omc41bus+CGFXhozGpO7i6JwXdD52TFWl
- 8kVa2aN4uyeM3uG2oEJ/DdCw0SV17Lw=
+ bh=v18TLB6llBn21xZmtCkJxNxeUJMalL9uiv3Zdl8G6jE=;
+ b=C9jgW3hZU79go29oMcgdTYzmIeg0h2FbGWujHl6MP92U0L3HQrCZM3x0PQIOEU+fDJ0UPY
+ FMsCtIAWdQdezjTHBL3nRfluKTrD8SQc5qsvtLl0ZgBF6vKYDZyArJp6552yi5wNpyfwmu
+ wppFYIHhxNssmLAqvrauAPoFanflAWk=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-446-DDsAqTpaNFCB40fgRjquQw-1; Wed, 24 Aug 2022 08:16:31 -0400
-X-MC-Unique: DDsAqTpaNFCB40fgRjquQw-1
+ us-mta-204-KlunHvOzOR-vMnYGybvaHg-1; Wed, 24 Aug 2022 08:16:22 -0400
+X-MC-Unique: KlunHvOzOR-vMnYGybvaHg-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 00CA5380115A;
- Wed, 24 Aug 2022 12:16:30 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF6EA294EDED;
+ Wed, 24 Aug 2022 12:16:21 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.193.103])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 47598C15BB3;
- Wed, 24 Aug 2022 12:16:26 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id DEBCBC15BB3;
+ Wed, 24 Aug 2022 12:16:17 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,15 +55,15 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Date: Wed, 24 Aug 2022 14:15:05 +0200
-Message-Id: <20220824121523.1291269-14-hdegoede@redhat.com>
+Date: Wed, 24 Aug 2022 14:15:03 +0200
+Message-Id: <20220824121523.1291269-12-hdegoede@redhat.com>
 In-Reply-To: <20220824121523.1291269-1-hdegoede@redhat.com>
 References: <20220824121523.1291269-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [Intel-gfx] [PATCH v4 13/31] drm/amdgpu: Register ACPI video
- backlight when skipping amdgpu backlight registration
+Subject: [Intel-gfx] [PATCH v4 11/31] drm/i915: Call
+ acpi_video_register_backlight() (v2)
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,11 +84,14 @@ Cc: linux-acpi@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Typically the acpi_video driver will initialize before amdgpu, which
-used to cause /sys/class/backlight/acpi_video0 to get registered and then
-amdgpu would register its own amdgpu_bl# device later. After which
-the drivers/acpi/video_detect.c code unregistered the acpi_video0 device
-to avoid there being 2 backlight devices.
+On machins without an i915 opregion the acpi_video driver immediately
+probes the ACPI video bus and used to also immediately register
+acpi_video# backlight devices when supported.
+
+Once the drm/kms driver then loaded later and possibly registered
+a native backlight device then the drivers/acpi/video_detect.c code
+unregistered the acpi_video0 device to avoid there being 2 backlight
+devices (when acpi_video_get_backlight_type()==native).
 
 This means that userspace used to briefly see 2 devices and the
 disappearing of acpi_video0 after a brief time confuses the systemd
@@ -100,62 +103,69 @@ device registration a separate step, relying on the drm/kms driver to
 ask for the acpi_video backlight registration after it is done setting up
 its native backlight device.
 
-Add a call to the new acpi_video_register_backlight() when amdgpu skips
-registering its own backlight device because of either the firmware_flags
-or the acpi_video_get_backlight_type() return value. This ensures that
-if the acpi_video backlight device should be used, it will be available
-before the amdgpu drm_device gets registered with userspace.
+Add a call to the new acpi_video_register_backlight() after the i915 calls
+acpi_video_register() (after setting up the i915 opregion) so that the
+acpi_video backlight devices get registered on systems where the i915
+native backlight device is not registered.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Changes in v2:
+-Only call acpi_video_register_backlight() when a panel is detected
+
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/amd/amdgpu/atombios_encoders.c    | 9 +++++++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
- 2 files changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 8 ++++++++
+ drivers/gpu/drm/i915/display/intel_panel.c   | 3 +++
+ drivers/gpu/drm/i915/i915_drv.h              | 2 ++
+ 3 files changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-index b4e3cedceaf8..6be9ac2b9c5b 100644
---- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-@@ -184,11 +184,11 @@ void amdgpu_atombios_encoder_init_backlight(struct amdgpu_encoder *amdgpu_encode
- 		return;
- 
- 	if (!(adev->mode_info.firmware_flags & ATOM_BIOS_INFO_BL_CONTROLLED_BY_GPU))
--		return;
-+		goto register_acpi_backlight;
- 
- 	if (!acpi_video_backlight_use_native()) {
- 		drm_info(dev, "Skipping amdgpu atom DIG backlight registration\n");
--		return;
-+		goto register_acpi_backlight;
- 	}
- 
- 	pdata = kmalloc(sizeof(struct amdgpu_backlight_privdata), GFP_KERNEL);
-@@ -225,6 +225,11 @@ void amdgpu_atombios_encoder_init_backlight(struct amdgpu_encoder *amdgpu_encode
- error:
- 	kfree(pdata);
- 	return;
-+
-+register_acpi_backlight:
-+	/* Try registering an ACPI video backlight device instead. */
-+	acpi_video_register_backlight();
-+	return;
- }
- 
- void
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 706c67f4bda8..c450964f84d4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4037,6 +4037,8 @@ amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm)
- 
- 	if (!acpi_video_backlight_use_native()) {
- 		drm_info(adev_to_drm(dm->adev), "Skipping amdgpu DM backlight registration\n");
-+		/* Try registering an ACPI video backlight device instead. */
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 6103b02c081f..2bb53efdb149 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -9088,6 +9088,14 @@ void intel_display_driver_register(struct drm_i915_private *i915)
+ 	/* Must be done after probing outputs */
+ 	intel_opregion_register(i915);
+ 	acpi_video_register();
++	/*
++	 * Only call this if i915 is driving the internal panel. If the internal
++	 * panel is not driven by i915 then another GPU driver may still register
++	 * a native backlight driver later and this should only be called after
++	 * any native backlights have been registered.
++	 */
++	if (i915->have_panel)
 +		acpi_video_register_backlight();
- 		return;
- 	}
  
+ 	intel_audio_init(i915);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 237a40623dd7..4536c527f50c 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -646,8 +646,11 @@ intel_panel_mode_valid(struct intel_connector *connector,
+ 
+ int intel_panel_init(struct intel_connector *connector)
+ {
++	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+ 	struct intel_panel *panel = &connector->panel;
+ 
++	dev_priv->have_panel = true;
++
+ 	intel_backlight_init_funcs(panel);
+ 
+ 	drm_dbg_kms(connector->base.dev,
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 69ce6db6a7c1..14b0dcaf25c2 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -756,6 +756,8 @@ struct drm_i915_private {
+ 
+ 	bool ipc_enabled;
+ 
++	bool have_panel;
++
+ 	struct intel_audio_private audio;
+ 
+ 	struct i915_pmu pmu;
 -- 
 2.37.2
 
