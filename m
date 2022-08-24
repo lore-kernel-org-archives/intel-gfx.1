@@ -4,48 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFB2EC00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 17:53:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 932F2C00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 17:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0408DBEEF8;
-	Wed, 24 Aug 2022 17:53:07 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05C0B98E1A
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Aug 2022 14:55:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1660661727; x=1692197727;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=3gYLbpDoRpTBXgFoBNImOyzi8FIEbcaw7Q60YdDxtao=;
- b=aQhNg6KXxGoOm70D/Dq0ag3N0evbXv1seSRgNcH2Xi8ZWzTIaU0XtYby
- B16A1GOQ0JygfrGMZJr1TVYEnVBdPGZJVpe3xy0+xwF56jC+zT0++qEA9
- 4IANaB8EQQaucqUbATAxcCq2gqN5WU6Kdc38bF29uVu5VVV05dF+fW/y8
- EUNv//2b7/7Njcgf01wkUbHXNtxl6D2AwW4GKA3TJ9AjYHdg/D9szCdkj
- HpliQrPPNgTJegRKOH3Lvae49OeQ9bTWz2a6RHEIbC3vTZuKHtt+fdZZ+
- Sd2ORuLMlkw2KMTSkZJz4h7Bx0XV3kFwITmODqBcHaOFJb611v5DBkwr2 g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10441"; a="293515226"
-X-IronPort-AV: E=Sophos;i="5.93,241,1654585200"; d="scan'208";a="293515226"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2022 07:55:26 -0700
-X-IronPort-AV: E=Sophos;i="5.93,241,1654585200"; d="scan'208";a="667142460"
-Received: from kinzelba-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.39.194])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2022 07:55:25 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 16 Aug 2022 17:55:10 +0300
-Message-Id: <8b3765f1e1dc4d436b312016f72647e03ba49f94.1660661647.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1660661647.git.jani.nikula@intel.com>
-References: <cover.1660661647.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEAF9BF1C7;
+	Wed, 24 Aug 2022 17:55:41 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 20345BF27C;
+ Wed, 24 Aug 2022 17:55:17 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 107F8A882E;
+ Wed, 24 Aug 2022 17:55:17 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/dsi: use VBT backlight and CABC
- port definitions directly
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gwan-gyeong Mun" <gwan-gyeong.mun@intel.com>
+Date: Wed, 24 Aug 2022 17:55:17 -0000
+Message-ID: <166136371706.9871.7535967993340202530@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220813010857.4043956-1-gwan-gyeong.mun@intel.com>
+In-Reply-To: <20220813010857.4043956-1-gwan-gyeong.mun@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Fixes_integer_overflow_or_integer_truncation_issues_in_page?=
+ =?utf-8?q?_lookups=2C_ttm_place_configuration_and_scatterlist_creation?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,139 +41,148 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drop the intermediate values stored in intel_dsi and use the VBT values
-directly, now that they're conveniently stored in panel->vbt.
+== Series Details ==
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/icl_dsi.c             |  4 ----
- drivers/gpu/drm/i915/display/intel_dsi.h           |  3 ---
- .../gpu/drm/i915/display/intel_dsi_dcs_backlight.c | 14 ++++++++------
- drivers/gpu/drm/i915/display/vlv_dsi.c             |  4 ----
- 4 files changed, 8 insertions(+), 17 deletions(-)
+Series: Fixes integer overflow or integer truncation issues in page lookups, ttm place configuration and scatterlist creation
+URL   : https://patchwork.freedesktop.org/series/107231/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 885c74f60366..c089e392a041 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -2073,13 +2073,9 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
- 	if (drm_WARN_ON(&dev_priv->drm, intel_connector->panel.vbt.dsi.bl_ports & ~intel_dsi->ports))
- 		intel_connector->panel.vbt.dsi.bl_ports &= intel_dsi->ports;
- 
--	intel_dsi->dcs_backlight_ports = intel_connector->panel.vbt.dsi.bl_ports;
--
- 	if (drm_WARN_ON(&dev_priv->drm, intel_connector->panel.vbt.dsi.cabc_ports & ~intel_dsi->ports))
- 		intel_connector->panel.vbt.dsi.cabc_ports &= intel_dsi->ports;
- 
--	intel_dsi->dcs_cabc_ports = intel_connector->panel.vbt.dsi.cabc_ports;
--
- 	for_each_dsi_port(port, intel_dsi->ports) {
- 		struct intel_dsi_host *host;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi.h b/drivers/gpu/drm/i915/display/intel_dsi.h
-index eafef0a87fea..ce80bd8be519 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi.h
-+++ b/drivers/gpu/drm/i915/display/intel_dsi.h
-@@ -89,9 +89,6 @@ struct intel_dsi {
- 	u8 escape_clk_div;
- 	u8 dual_link;
- 
--	u16 dcs_backlight_ports;
--	u16 dcs_cabc_ports;
--
- 	/* RGB or BGR */
- 	bool bgr_enabled;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-index 1bc7118c56a2..20e466d843ce 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_dcs_backlight.c
-@@ -53,7 +53,7 @@ static u32 dcs_get_backlight(struct intel_connector *connector, enum pipe unused
- 	enum port port;
- 	size_t len = panel->backlight.max > U8_MAX ? 2 : 1;
- 
--	for_each_dsi_port(port, intel_dsi->dcs_backlight_ports) {
-+	for_each_dsi_port(port, panel->vbt.dsi.bl_ports) {
- 		dsi_device = intel_dsi->dsi_hosts[port]->device;
- 		mipi_dsi_dcs_read(dsi_device, MIPI_DCS_GET_DISPLAY_BRIGHTNESS,
- 				  &data, len);
-@@ -80,7 +80,7 @@ static void dcs_set_backlight(const struct drm_connector_state *conn_state, u32
- 		data[1] = level;
- 	}
- 
--	for_each_dsi_port(port, intel_dsi->dcs_backlight_ports) {
-+	for_each_dsi_port(port, panel->vbt.dsi.bl_ports) {
- 		dsi_device = intel_dsi->dsi_hosts[port]->device;
- 		mode_flags = dsi_device->mode_flags;
- 		dsi_device->mode_flags &= ~MIPI_DSI_MODE_LPM;
-@@ -93,12 +93,13 @@ static void dcs_set_backlight(const struct drm_connector_state *conn_state, u32
- static void dcs_disable_backlight(const struct drm_connector_state *conn_state, u32 level)
- {
- 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(to_intel_encoder(conn_state->best_encoder));
-+	struct intel_panel *panel = &to_intel_connector(conn_state->connector)->panel;
- 	struct mipi_dsi_device *dsi_device;
- 	enum port port;
- 
- 	dcs_set_backlight(conn_state, 0);
- 
--	for_each_dsi_port(port, intel_dsi->dcs_cabc_ports) {
-+	for_each_dsi_port(port, panel->vbt.dsi.cabc_ports) {
- 		u8 cabc = POWER_SAVE_OFF;
- 
- 		dsi_device = intel_dsi->dsi_hosts[port]->device;
-@@ -106,7 +107,7 @@ static void dcs_disable_backlight(const struct drm_connector_state *conn_state,
- 				   &cabc, sizeof(cabc));
- 	}
- 
--	for_each_dsi_port(port, intel_dsi->dcs_backlight_ports) {
-+	for_each_dsi_port(port, panel->vbt.dsi.bl_ports) {
- 		u8 ctrl = 0;
- 
- 		dsi_device = intel_dsi->dsi_hosts[port]->device;
-@@ -127,10 +128,11 @@ static void dcs_enable_backlight(const struct intel_crtc_state *crtc_state,
- 				 const struct drm_connector_state *conn_state, u32 level)
- {
- 	struct intel_dsi *intel_dsi = enc_to_intel_dsi(to_intel_encoder(conn_state->best_encoder));
-+	struct intel_panel *panel = &to_intel_connector(conn_state->connector)->panel;
- 	struct mipi_dsi_device *dsi_device;
- 	enum port port;
- 
--	for_each_dsi_port(port, intel_dsi->dcs_backlight_ports) {
-+	for_each_dsi_port(port, panel->vbt.dsi.bl_ports) {
- 		u8 ctrl = 0;
- 
- 		dsi_device = intel_dsi->dsi_hosts[port]->device;
-@@ -146,7 +148,7 @@ static void dcs_enable_backlight(const struct intel_crtc_state *crtc_state,
- 				   &ctrl, sizeof(ctrl));
- 	}
- 
--	for_each_dsi_port(port, intel_dsi->dcs_cabc_ports) {
-+	for_each_dsi_port(port, panel->vbt.dsi.cabc_ports) {
- 		u8 cabc = POWER_SAVE_MEDIUM;
- 
- 		dsi_device = intel_dsi->dsi_hosts[port]->device;
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index 35136d26e517..784ae52059d1 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -1936,13 +1936,9 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
- 	if (drm_WARN_ON(&dev_priv->drm, intel_connector->panel.vbt.dsi.bl_ports & ~intel_dsi->ports))
- 		intel_connector->panel.vbt.dsi.bl_ports &= intel_dsi->ports;
- 
--	intel_dsi->dcs_backlight_ports = intel_connector->panel.vbt.dsi.bl_ports;
--
- 	if (drm_WARN_ON(&dev_priv->drm, intel_connector->panel.vbt.dsi.cabc_ports & ~intel_dsi->ports))
- 		intel_connector->panel.vbt.dsi.cabc_ports &= intel_dsi->ports;
- 
--	intel_dsi->dcs_cabc_ports = intel_connector->panel.vbt.dsi.cabc_ports;
--
- 	/* Create a DSI host (and a device) for each port. */
- 	for_each_dsi_port(port, intel_dsi->ports) {
- 		struct intel_dsi_host *host;
--- 
-2.34.1
+== Summary ==
+
+Error: dim checkpatch failed
+460df0bcfa13 overflow: Move and add few utility macros into overflow
+-:92: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'x' - possible side-effects?
+#92: FILE: include/linux/overflow.h:64:
++#define overflows_type(x, T) \
++	(is_unsigned_type(x) ? \
++		is_unsigned_type(T) ? \
++			(sizeof(x) > sizeof(T) && (x) >> BITS_PER_TYPE(T)) ? 1 : 0 \
++			: (sizeof(x) >= sizeof(T) && (x) >> (BITS_PER_TYPE(T) - 1)) ? 1 : 0 \
++	: is_unsigned_type(T) ? \
++		((x) < 0) ? 1 : (sizeof(x) > sizeof(T) && (x) >> BITS_PER_TYPE(T)) ? 1 : 0 \
++		: (sizeof(x) > sizeof(T)) ? \
++			((x) < 0) ? (((x) * -1) >> BITS_PER_TYPE(T)) ? 1 : 0 \
++				: ((x) >> BITS_PER_TYPE(T)) ? 1 : 0 \
++			: 0)
+
+-:92: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'T' - possible side-effects?
+#92: FILE: include/linux/overflow.h:64:
++#define overflows_type(x, T) \
++	(is_unsigned_type(x) ? \
++		is_unsigned_type(T) ? \
++			(sizeof(x) > sizeof(T) && (x) >> BITS_PER_TYPE(T)) ? 1 : 0 \
++			: (sizeof(x) >= sizeof(T) && (x) >> (BITS_PER_TYPE(T) - 1)) ? 1 : 0 \
++	: is_unsigned_type(T) ? \
++		((x) < 0) ? 1 : (sizeof(x) > sizeof(T) && (x) >> BITS_PER_TYPE(T)) ? 1 : 0 \
++		: (sizeof(x) > sizeof(T)) ? \
++			((x) < 0) ? (((x) * -1) >> BITS_PER_TYPE(T)) ? 1 : 0 \
++				: ((x) >> BITS_PER_TYPE(T)) ? 1 : 0 \
++			: 0)
+
+total: 0 errors, 0 warnings, 2 checks, 77 lines checked
+91a685c0bab1 util_macros: Add exact_type macro to catch type mis-match while compiling
+017aaaad3505 drm/i915/gem: Typecheck page lookups
+-:141: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'n' - possible side-effects?
+#141: FILE: drivers/gpu/drm/i915/gem/i915_gem_object.h:413:
++#define i915_gem_object_page_iter_get_sg(obj, it, n, offset) ({ \
++	exactly_pgoff_t(n); \
++	__i915_gem_object_page_iter_get_sg(obj, it, n, offset); \
++})
+
+-:190: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'n' - possible side-effects?
+#190: FILE: drivers/gpu/drm/i915/gem/i915_gem_object.h:458:
++#define i915_gem_object_get_sg(obj, n, offset) ({ \
++	exactly_pgoff_t(n); \
++	__i915_gem_object_get_sg(obj, n, offset); \
++})
+
+-:239: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'n' - possible side-effects?
+#239: FILE: drivers/gpu/drm/i915/gem/i915_gem_object.h:503:
++#define i915_gem_object_get_sg_dma(obj, n, offset) ({ \
++	exactly_pgoff_t(n); \
++	__i915_gem_object_get_sg_dma(obj, n, offset); \
++})
+
+-:277: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'n' - possible side-effects?
+#277: FILE: drivers/gpu/drm/i915/gem/i915_gem_object.h:539:
++#define i915_gem_object_get_page(obj, n) ({ \
++	exactly_pgoff_t(n); \
++	__i915_gem_object_get_page(obj, n); \
++})
+
+-:314: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'n' - possible side-effects?
+#314: FILE: drivers/gpu/drm/i915/gem/i915_gem_object.h:574:
++#define i915_gem_object_get_dirty_page(obj, n) ({ \
++	exactly_pgoff_t(n); \
++	__i915_gem_object_get_dirty_page(obj, n); \
++})
+
+-:355: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'n' - possible side-effects?
+#355: FILE: drivers/gpu/drm/i915/gem/i915_gem_object.h:612:
++#define i915_gem_object_get_dma_address_len(obj, n, len) ({ \
++	exactly_pgoff_t(n); \
++	__i915_gem_object_get_dma_address_len(obj, n, len); \
++})
+
+-:392: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'n' - possible side-effects?
+#392: FILE: drivers/gpu/drm/i915/gem/i915_gem_object.h:647:
++#define i915_gem_object_get_dma_address(obj, n) ({ \
++	exactly_pgoff_t(n); \
++	__i915_gem_object_get_dma_address(obj, n); \
++})
+
+total: 0 errors, 0 warnings, 7 checks, 623 lines checked
+24eee53a7513 drm/i915: Check for integer truncation on scatterlist creation
+-:203: WARNING:NEW_TYPEDEFS: do not add new typedefs
+#203: FILE: drivers/gpu/drm/i915/i915_scatterlist.h:224:
++typedef unsigned int __sg_size_t; /* see linux/scatterlist.h */
+
+-:204: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#204: FILE: drivers/gpu/drm/i915/i915_scatterlist.h:225:
++#define sg_alloc_table(sgt, nents, gfp) \
++	overflows_type(nents, __sg_size_t) ? -E2BIG \
++		: ((sg_alloc_table)(sgt, (__sg_size_t)(nents), gfp))
+
+-:204: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'nents' - possible side-effects?
+#204: FILE: drivers/gpu/drm/i915/i915_scatterlist.h:225:
++#define sg_alloc_table(sgt, nents, gfp) \
++	overflows_type(nents, __sg_size_t) ? -E2BIG \
++		: ((sg_alloc_table)(sgt, (__sg_size_t)(nents), gfp))
+
+-:208: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#208: FILE: drivers/gpu/drm/i915/i915_scatterlist.h:229:
++#define sg_alloc_table_from_pages_segment(sgt, pages, npages, offset, size, max_segment, gfp) \
++	overflows_type(npages, __sg_size_t) ? -E2BIG \
++		: ((sg_alloc_table_from_pages_segment)(sgt, pages, (__sg_size_t)(npages), offset, \
++						       size, max_segment, gfp))
+
+-:208: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'npages' - possible side-effects?
+#208: FILE: drivers/gpu/drm/i915/i915_scatterlist.h:229:
++#define sg_alloc_table_from_pages_segment(sgt, pages, npages, offset, size, max_segment, gfp) \
++	overflows_type(npages, __sg_size_t) ? -E2BIG \
++		: ((sg_alloc_table_from_pages_segment)(sgt, pages, (__sg_size_t)(npages), offset, \
++						       size, max_segment, gfp))
+
+total: 2 errors, 1 warnings, 2 checks, 126 lines checked
+618b9a52bc0d drm/i915: Check for integer truncation on the configuration of ttm place
+-:68: ERROR:SPACING: space required after that ',' (ctx:VxV)
+#68: FILE: drivers/gpu/drm/i915/intel_region_ttm.c:213:
++			GEM_BUG_ON(!safe_conversion(&place.fpfn,offset >> PAGE_SHIFT));
+ 			                                       ^
+
+total: 1 errors, 0 warnings, 0 checks, 56 lines checked
+17ee656f7d2d drm/i915: Check if the size is too big while creating shmem file
+f755fc297eeb drm/i915: Use error code as -E2BIG when the size of gem ttm object is too large
+-:11: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#11: 
+to add vma. The direct function that returns -ENOSPC is drm_mm_insert_node_in_range().
+
+total: 0 errors, 1 warnings, 0 checks, 17 lines checked
+a21fee275524 drm/i915: Remove truncation warning for large objects
+
 
