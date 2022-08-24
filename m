@@ -4,92 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 753A8C00140
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 19:18:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D71BFC00140
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Aug 2022 19:27:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9023810F32A;
-	Wed, 24 Aug 2022 19:18:46 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 330A110E062;
- Sat, 20 Aug 2022 07:33:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hcKrwNTYsY1DZzj172uEBJjmFUgQo4oZlCIm1oZf8AcxKqnJ/zs/sshpAUySstJdZrAcVylI6lrEagxKT0xDjK56LT2hLQ5BeeeKOfBsuqPzU17YzTj3MxTPGO/jPxkTQdl+1h5KaqCSIJHzPBhpfqtLXJqZHmiTNg/IFsAZD2I1KRmQZWFfKEX+xgqXzgQRvNuSJ2piwEKcksZ+wSD0LOIjXrIM6+OYJ26SusE+j4ERh8LI8yBbJmt1RWOcDOpfytgjgKxBmEmDq4jlSPn1mqXwAbZC48IrYQ5V9ID7DRoYe/rUcb7W1JrshUqK70+S2lmlSZVnnjc9qVtW2wotBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xfXwmkGW5HiD76e+dCwUhrgXfAr6Rp3lvcDkQcZJ6sc=;
- b=TzBfUsv7ittrMBlHiWRt96BAxaCNBJgF4fp2mn6EkRVxrmPdgwnFVEQIXqq77Rxzj8jJuOmdAWY+rf7P9WW2ZIXBbRX5DyNJg2rhvdrWWrkxWm2CXvoCOikomvRVzsl5AlhLPT8xdiMlKcdldvFKOIxNMu3ulucLPOCNujS4haOdn7i0CIu7NZlyRWFdgCwX30L2w0jUwhFX3SIvirRFjZJbjEzL9Zj//kT3kG5/tp6aubtMWmoPjnBxpTf+9BsRPBljS3HRggqmyt1Joilftp3y8uJPfCIsABMMDYUmqViYk3bknT5ecaMLJqe0jE9+Dcuw4e0+cGiIrbHIikLfZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xfXwmkGW5HiD76e+dCwUhrgXfAr6Rp3lvcDkQcZJ6sc=;
- b=CsvgRvJXI8YBunBq963si30Zr63FoR10jXlPNeqCG6mOZhlb6oj/wGbUHTpK9GNJxZkgny4mzrdpJfcAEvZMULBKClJOcg30s16ldh4FL3mm6+YBl/2+WQw/cYL3t4G7RKdoqsJq6lDES0oJ8xF7wefmiVA5O8pXfc/YZyKhE+8=
-Received: from MW4PR03CA0006.namprd03.prod.outlook.com (2603:10b6:303:8f::11)
- by CY4PR1201MB0214.namprd12.prod.outlook.com (2603:10b6:910:25::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.16; Sat, 20 Aug
- 2022 07:33:34 +0000
-Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8f:cafe::e3) by MW4PR03CA0006.outlook.office365.com
- (2603:10b6:303:8f::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.20 via Frontend
- Transport; Sat, 20 Aug 2022 07:33:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5546.15 via Frontend Transport; Sat, 20 Aug 2022 07:33:33 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Sat, 20 Aug 2022 02:33:30 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>
-Date: Sat, 20 Aug 2022 00:33:00 -0700
-Message-ID: <20220820073304.178444-2-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220820073304.178444-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20220820073304.178444-1-Arunpravin.PaneerSelvam@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C98B0A9182;
+	Wed, 24 Aug 2022 19:27:54 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D743194A59;
+ Wed, 24 Aug 2022 19:27:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id CCA2CAA914;
+ Wed, 24 Aug 2022 19:27:23 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5609971030834425343=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 696c1b80-3a8d-42f1-ad09-08da827e49c6
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0214:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IS/PMycOmr4QsAamPUuK2quY9XqEzmP7dYqrOqIjnwxlFejJAI7XUqXDCJJ3Xl61Ss0LDCxqDesn2fqwphtsXCGhqRPPJGFAX18flNktYrjhYUqT/Wfcd05f9SxQJAy1GdzRA4xxBSGzKf8ixrGkI5qo19a20d1Vroo4CVGvimYzHdG/7EWknK0RDWxxBNgUkAKO5RCFNzOcfq01MQMxMbVdSrOKQ48XQ5GvZ1QAzUvM24gKVB++MfSEA0FGGFJDdjEAQORcU9B5GiftEQYQQu/+4dTdk8EOJksqe4iwzeDUHykCTSckVuHHsnk2t9X9UkplNhHic5AeiCWPsxPz58ibPsiupxKHcDyUIq/H7ei9G2R1slHcTeT4QLtdvyXNA2us0PQPJ/RP34REurb0Qulz8AhJOPY+QtbC9APIQQjTpNTGxwUpk5iQj1vShv5vDe5Fqc5dLWSOT0jQXSyV3pAIsWKQfcKJCaAbrcUkSKifHI5rgETIDny0WHLP03zNVGb0RUDEyYCBICKhJGCW7bLwaSeptv3SsL9wqRCyWZm10T32E6oqOlXXU5telJH1wBUG5o2XebYl1/iPUnyXfBK3MtQqVLP874T2ehPs5uQMbMx0CdtI/2XruwqHey8cnpd5/VU3bgneet4lBHtPljOKT+q9OweV6lBBcXBpvU4WtB8xsQOuu2AuRVCBLg9o3imnhXs09iSrO2qZasiSo4gUSQ9wNt/HvYuXhp7cRC0gX4ubTtIed45D3Q2n78opBhic/wP3IhXHH03FaUoTO0gO33w/lSnB0SWqpA3WAOjlrAl8VxY4xciUfQ5aGcyg
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230016)(4636009)(376002)(346002)(39860400002)(396003)(136003)(36840700001)(40470700004)(46966006)(6666004)(336012)(478600001)(70206006)(70586007)(8936002)(41300700001)(40460700003)(5660300002)(1076003)(8676002)(40480700001)(36860700001)(86362001)(4326008)(2906002)(426003)(16526019)(186003)(47076005)(81166007)(356005)(2616005)(54906003)(26005)(82740400003)(83380400001)(82310400005)(316002)(7696005)(36756003)(110136005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2022 07:33:33.9875 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 696c1b80-3a8d-42f1-ad09-08da827e49c6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0214
-Subject: [Intel-gfx] [PATCH v6 2/6] drm/ttm: Implement intersect/compatible
- functions
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gwan-gyeong Mun" <gwan-gyeong.mun@intel.com>
+Date: Wed, 24 Aug 2022 19:27:23 -0000
+Message-ID: <166136924379.9870.8867771583396460034@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220816093525.184940-1-gwan-gyeong.mun@intel.com>
+In-Reply-To: <20220816093525.184940-1-gwan-gyeong.mun@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgRml4?=
+ =?utf-8?q?es_integer_overflow_or_integer_truncation_issues_in_page_lookup?=
+ =?utf-8?q?s=2C_ttm_place_configuration_and_scatterlist_creation?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,74 +41,230 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- luben.tuikov@amd.com, christian.koenig@amd.com, matthew.auld@intel.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implemented a new intersect and compatible callback functions
-to ttm range manager fetching start offset from drm mm range
-allocator.
+--===============5609971030834425343==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/ttm/ttm_range_manager.c | 33 +++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/ttm/ttm_range_manager.c b/drivers/gpu/drm/ttm/ttm_range_manager.c
-index d91666721dc6..4cfef2b3514d 100644
---- a/drivers/gpu/drm/ttm/ttm_range_manager.c
-+++ b/drivers/gpu/drm/ttm/ttm_range_manager.c
-@@ -113,6 +113,37 @@ static void ttm_range_man_free(struct ttm_resource_manager *man,
- 	kfree(node);
- }
- 
-+static bool ttm_range_man_intersects(struct ttm_resource_manager *man,
-+				     struct ttm_resource *res,
-+				     const struct ttm_place *place,
-+				     size_t size)
-+{
-+	struct drm_mm_node *node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
-+	u32 num_pages = PFN_UP(size);
-+
-+	/* Don't evict BOs outside of the requested placement range */
-+	if (place->fpfn >= (node->start + num_pages) ||
-+	    (place->lpfn && place->lpfn <= node->start))
-+		return false;
-+
-+	return true;
-+}
-+
-+static bool ttm_range_man_compatible(struct ttm_resource_manager *man,
-+				     struct ttm_resource *res,
-+				     const struct ttm_place *place,
-+				     size_t size)
-+{
-+	struct drm_mm_node *node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
-+	u32 num_pages = PFN_UP(size);
-+
-+	if (node->start < place->fpfn ||
-+	    (place->lpfn && (node->start + num_pages) > place->lpfn))
-+		return false;
-+
-+	return true;
-+}
-+
- static void ttm_range_man_debug(struct ttm_resource_manager *man,
- 				struct drm_printer *printer)
- {
-@@ -126,6 +157,8 @@ static void ttm_range_man_debug(struct ttm_resource_manager *man,
- static const struct ttm_resource_manager_func ttm_range_manager_func = {
- 	.alloc = ttm_range_man_alloc,
- 	.free = ttm_range_man_free,
-+	.intersects = ttm_range_man_intersects,
-+	.compatible = ttm_range_man_compatible,
- 	.debug = ttm_range_man_debug
- };
- 
--- 
-2.25.1
+Series: Fixes integer overflow or integer truncation issues in page lookups, ttm place configuration and scatterlist creation
+URL   : https://patchwork.freedesktop.org/series/107318/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_12021 -> Patchwork_107318v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/index.html
+
+Participating hosts (37 -> 34)
+------------------------------
+
+  Additional (1): fi-kbl-soraka 
+  Missing    (4): bat-dg2-8 bat-dg2-10 fi-rkl-11600 bat-jsl-3 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_107318v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - bat-dg1-6:          [PASS][1] -> [DMESG-FAIL][2] ([i915#4494] / [i915#4957])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12021/bat-dg1-6/igt@i915_selftest@live@hangcheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/bat-dg1-6/igt@i915_selftest@live@hangcheck.html
+
+  * igt@runner@aborted:
+    - fi-hsw-4770:        NOTRUN -> [FAIL][3] ([fdo#109271] / [i915#4312] / [i915#5594] / [i915#6246])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/fi-hsw-4770/igt@runner@aborted.html
+    - fi-kbl-soraka:      NOTRUN -> [FAIL][4] ([i915#6219])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/fi-kbl-soraka/igt@runner@aborted.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_suspend@basic-s3@smem:
+    - {bat-rplp-1}:       [DMESG-WARN][5] ([i915#2867]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12021/bat-rplp-1/igt@gem_exec_suspend@basic-s3@smem.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/bat-rplp-1/igt@gem_exec_suspend@basic-s3@smem.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions:
+    - fi-bsw-kefka:       [FAIL][7] -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12021/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html
+
+  
+#### Warnings ####
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - fi-hsw-g3258:       [INCOMPLETE][9] ([i915#4817] / [i915#6598]) -> [INCOMPLETE][10] ([i915#6598])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12021/fi-hsw-g3258/igt@i915_suspend@basic-s3-without-i915.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/fi-hsw-g3258/igt@i915_suspend@basic-s3-without-i915.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#4494]: https://gitlab.freedesktop.org/drm/intel/issues/4494
+  [i915#4817]: https://gitlab.freedesktop.org/drm/intel/issues/4817
+  [i915#4957]: https://gitlab.freedesktop.org/drm/intel/issues/4957
+  [i915#5594]: https://gitlab.freedesktop.org/drm/intel/issues/5594
+  [i915#6219]: https://gitlab.freedesktop.org/drm/intel/issues/6219
+  [i915#6246]: https://gitlab.freedesktop.org/drm/intel/issues/6246
+  [i915#6257]: https://gitlab.freedesktop.org/drm/intel/issues/6257
+  [i915#6380]: https://gitlab.freedesktop.org/drm/intel/issues/6380
+  [i915#6598]: https://gitlab.freedesktop.org/drm/intel/issues/6598
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_12021 -> Patchwork_107318v1
+
+  CI-20190529: 20190529
+  CI_DRM_12021: 078959b4819e4e0ab8cf2965e7bfd98278c0b35d @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6636: 1298b5f0e1b3e010657ffba41d2e775fab028e08 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_107318v1: 078959b4819e4e0ab8cf2965e7bfd98278c0b35d @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+daa36a5708a4 drm/i915: Remove truncation warning for large objects
+ea5b72557899 drm/i915: Use error code as -E2BIG when the size of gem ttm object is too large
+be7935ba9db6 drm/i915: Check if the size is too big while creating shmem file
+c59302b9e88f drm/i915: Check for integer truncation on the configuration of ttm place
+900599b671ec drm/i915: Check for integer truncation on scatterlist creation
+f638dc9a27cd drm/i915/gem: Typecheck page lookups
+a9e09d773594 util_macros: Add exact_type macro to catch type mis-match while compiling
+a766d32c3c88 overflow: Move and add few utility macros into overflow
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/index.html
+
+--===============5609971030834425343==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fixes integer overflow or integer truncation issues in page lookups, ttm place configuration and scatterlist creation</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/107318/">https://patchwork.freedesktop.org/series/107318/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12021 -&gt; Patchwork_107318v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/index.html</p>
+<h2>Participating hosts (37 -&gt; 34)</h2>
+<p>Additional (1): fi-kbl-soraka <br />
+  Missing    (4): bat-dg2-8 bat-dg2-10 fi-rkl-11600 bat-jsl-3 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_107318v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>bat-dg1-6:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12021/bat-dg1-6/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/bat-dg1-6/igt@i915_selftest@live@hangcheck.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4494">i915#4494</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4957">i915#4957</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@runner@aborted:</p>
+<ul>
+<li>
+<p>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/fi-hsw-4770/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5594">i915#5594</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/6246">i915#6246</a>)</p>
+</li>
+<li>
+<p>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/fi-kbl-soraka/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6219">i915#6219</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s3@smem:</p>
+<ul>
+<li>{bat-rplp-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12021/bat-rplp-1/igt@gem_exec_suspend@basic-s3@smem.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/bat-rplp-1/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions:</p>
+<ul>
+<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12021/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html">FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@i915_suspend@basic-s3-without-i915:<ul>
+<li>fi-hsw-g3258:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12021/fi-hsw-g3258/igt@i915_suspend@basic-s3-without-i915.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4817">i915#4817</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/6598">i915#6598</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107318v1/fi-hsw-g3258/igt@i915_suspend@basic-s3-without-i915.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6598">i915#6598</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12021 -&gt; Patchwork_107318v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12021: 078959b4819e4e0ab8cf2965e7bfd98278c0b35d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6636: 1298b5f0e1b3e010657ffba41d2e775fab028e08 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_107318v1: 078959b4819e4e0ab8cf2965e7bfd98278c0b35d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>daa36a5708a4 drm/i915: Remove truncation warning for large objects<br />
+ea5b72557899 drm/i915: Use error code as -E2BIG when the size of gem ttm object is too large<br />
+be7935ba9db6 drm/i915: Check if the size is too big while creating shmem file<br />
+c59302b9e88f drm/i915: Check for integer truncation on the configuration of ttm place<br />
+900599b671ec drm/i915: Check for integer truncation on scatterlist creation<br />
+f638dc9a27cd drm/i915/gem: Typecheck page lookups<br />
+a9e09d773594 util_macros: Add exact_type macro to catch type mis-match while compiling<br />
+a766d32c3c88 overflow: Move and add few utility macros into overflow</p>
+
+</body>
+</html>
+
+--===============5609971030834425343==--
