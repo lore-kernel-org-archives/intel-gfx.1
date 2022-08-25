@@ -4,150 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3317C04AA5
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 08:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7843AC04AA5
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 08:49:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6383410E00C;
-	Thu, 25 Aug 2022 08:04:52 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCDCD10E00C;
- Thu, 25 Aug 2022 08:04:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FBC011381A;
+	Thu, 25 Aug 2022 08:49:54 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BCCB11371C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 08:49:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661414687; x=1692950687;
- h=message-id:date:subject:from:to:cc:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=cYYolpIBMQyx/xk+u3QStX/Ue3KKtYmNmKrwe5HXCkY=;
- b=YmSlonWbp3zMgF86e6Tfddn0toTLbVJdM3F7TTVeu22D76kreXc3sHr+
- cxFIApeQ6OARlhrW1jl9s0DLx8iJJ1z9euF6yy4px9KneQfhCbfwOXtJi
- CqE6WLEucEod2adq63ZshCKYh0wvJE/WSOrwQ1oQA84ZkylNQf/MDkFak
- tjLh8enev9STXdaX/G60stuN0mg6D3Qy8QVwuyyjIA7Nhmu+F3obu0HcI
- 20FKt4nT7oYBl9NL6vGdel6AgVsO9PZ2sJ46rv/9nKYBS/F6adQVis+0p
- 4WIb9QvVZqekPEaF/m5DSOuWft2wRalFiIao5bNSJAUZoN5goHlmZUSYl w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10449"; a="294178688"
-X-IronPort-AV: E=Sophos;i="5.93,262,1654585200"; d="scan'208";a="294178688"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2022 01:04:46 -0700
+ t=1661417388; x=1692953388;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=XgD6+I9M5mgiS4OaThmudi5Z4kK9hJ8gxph/68Q5YbU=;
+ b=aqApaKipfIjCjPChtBHfl8Jk/y3DxzO2xGTiyGeaEigBvlVVP2jl0x0L
+ LTFK/fpYy8rc+ZFPdviGMt/2eWD9vnuooLR2kN809eglKOHHDbbgG1VR6
+ ZZsPP+W/7+l5qdNm9p0y54AEVS3MoZFjb11qgCMian2fBxHW7hJMcMzXK
+ 6NNq2admpJWuyNoAXo3yy8BV3whnB6eGxREwm/Qq0jwEwDICdpn7EzxcL
+ kPQ/me45KN72As1gL/UmdO15zahHQQ0RspvvpRyT8DErZtXv39yLHZ3yx
+ +zb/ZOgd1U/Ps+HbNH8+JmGeGvoFqht9v3UpQ7zIfHXi6QFYg6BcCA0t/ g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10449"; a="292931797"
+X-IronPort-AV: E=Sophos;i="5.93,262,1654585200"; d="scan'208";a="292931797"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2022 01:49:47 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,262,1654585200"; d="scan'208";a="678364841"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by fmsmga004.fm.intel.com with ESMTP; 25 Aug 2022 01:04:41 -0700
-Received: from fmsmsx609.amr.corp.intel.com (10.18.126.89) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 25 Aug 2022 01:04:41 -0700
-Received: from fmsmsx602.amr.corp.intel.com (10.18.126.82) by
- fmsmsx609.amr.corp.intel.com (10.18.126.89) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 25 Aug 2022 01:04:41 -0700
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31 via Frontend Transport; Thu, 25 Aug 2022 01:04:41 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.173)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2375.31; Thu, 25 Aug 2022 01:04:40 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GK0IfiDwXXs48szJbVGvYuh0TFUzVjVFE+brhuqFhQUwEjkJH/q9CLbq8DC9E1ZcQ865nq5wpJn3vHTESjeR8dtln1rt4I+X+gKX86E7B49F9U/p9E9eJWykVBqC7qdYXku9X9zdB8eZysP+ueYVmsb6Q8johxybuJtjI96D0VbZPTgUmYR07Wji//BYXbMQpt0C6JQ5qTT9+R1/zW+WCA5EdfmxCAyvbt9fqkzvUwazDWjOprFWw+UGc/wE917JUxjTa91pjsN0dqCFPlbzyhwu0TkZWG6BMdVMkpOC9bMc5duyf8HOeyLlr1LCWrImM8fJUtXA1tm6HSX5vuRIhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mf4oXxdrAQjmisowjcy3kqixhkCJcocCg+ROr9DtN0k=;
- b=NbL7t+wbivjJ5IC8qo0NOqOt67jFEaoQikc2Y9oAmAHnoF5efeo+a1GflO0F4oFJVH9IWH2gyoFpapYs1Eq/vWO0OL6xUuk041DdnK7obq7Mol1G1q+gQ33kfzeBFf/5Te5ckl7qIaILkvBX3bIGJIdXS2v5M4q+RsPnMFPzpZ7vMXCm3+sJRU2vVVf3SW93o8h5eF8Qpksz9dK8Ug04L/z4Je20Hrzj9c49Ho7XiCmrLVGkizOO8vSV3q8UU0zeqOk2wOaoKFgg949ovORWqxKyz0ujesJSaNDMKI1J92X8cg+bwOW2OSLzyrwKNnxXyI1dkug9avogL+zn+IZotg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH0PR11MB5409.namprd11.prod.outlook.com (2603:10b6:610:d0::7)
- by PH7PR11MB6005.namprd11.prod.outlook.com (2603:10b6:510:1e0::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.22; Thu, 25 Aug
- 2022 08:04:39 +0000
-Received: from CH0PR11MB5409.namprd11.prod.outlook.com
- ([fe80::70e4:76ca:fc65:df73]) by CH0PR11MB5409.namprd11.prod.outlook.com
- ([fe80::70e4:76ca:fc65:df73%4]) with mapi id 15.20.5566.014; Thu, 25 Aug 2022
- 08:04:39 +0000
-Message-ID: <f9cc9317-044d-4f7e-a37c-a06df7262077@intel.com>
-Date: Thu, 25 Aug 2022 17:04:26 +0900
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Content-Language: en-US
-From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-To: <bgolaszewski@baylibre.com>
-References: <20220824084514.2261614-1-gwan-gyeong.mun@intel.com>
- <20220824084514.2261614-3-gwan-gyeong.mun@intel.com>
-In-Reply-To: <20220824084514.2261614-3-gwan-gyeong.mun@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BYAPR08CA0044.namprd08.prod.outlook.com
- (2603:10b6:a03:117::21) To CH0PR11MB5409.namprd11.prod.outlook.com
- (2603:10b6:610:d0::7)
+X-IronPort-AV: E=Sophos;i="5.93,262,1654585200"; d="scan'208";a="670891385"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.59])
+ by fmsmga008.fm.intel.com with SMTP; 25 Aug 2022 01:49:45 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 25 Aug 2022 11:49:45 +0300
+Date: Thu, 25 Aug 2022 11:49:45 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+Message-ID: <Ywc3qSi7WjopSsgG@intel.com>
+References: <20220617160730.10981-1-ville.syrjala@linux.intel.com>
+ <YwcqyKdjSdDZmx0c@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ae70a4a2-901b-403b-997d-08da86707568
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6005:EE_
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wusLjk8QoN+E8gZjtMfZzVPfBZgT5FBujrNLWlcMv6CCgTXZiaIzFcSyGiTdhkdyOpGCblWhhce2tW51xfltn24uHG3hsxbbIfx6dtnW8QqLu/nyPEvqDa2tfJrVLkLwBK9rCfjbFN56c6/W0utzWJj4/MDF3jqD51AV33kwGgiY5SKAHwHOEeLiqRKjeaQfUWluzgKjJ+zhr8gBaaHuKrI8Tf3OV++2u0Y0asNUE22Oq5AkeAdijPLlfzdXg/RXGJfltkKrqMrTLbfcnIz17pLYNA2+FjsPudrbL5M6HQPUoKgpflrsyMEhgPfuv4kwRC5ytfuUZYsTADWwrkJifFbOukuZ/E3M/l9r+RgZh5U+8u5wKf8xi9lTniddCEyFQ/foGUjOmS6tXqfV09TjI8y4HYWYzNsSN6zXn8ul2p1TlDvd/XK8FJXh8wDEElJAe+Q2RywB/XpPRsKA45zOOEdJ+lnyS7cELa6Q8perm3vSc9MchfFyKMUEeqQzyVu+YFr9LeFoxIFY3UGDEMSkBP8S/LgjbbDgmP/3mdgPAsMGhgTql5VUSPM0+eaN9cTbGxRBX24OzyTvhP9fK0p5f2gbmtr1/rWVqgn6PryCGkYv0Wpjp6dbekaAKeOVUKoBEbQ9iUfdUEkOBUgf6Ed8gMfoofIh2e2uTHi5BKuQMWL4aMtuo7Tu7h1cg8S2GrFcAvNJ7GkDhbC/+rnvelM6pScun8tBYsvyluoGTNzajkTqwLNQTrlWDX8QLazvSBh+0m4RNNSGzlUwMmSUpaxGrNG1rBqWte3O9hFSCm8RxLw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR11MB5409.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(396003)(376002)(136003)(366004)(346002)(39860400002)(31696002)(66476007)(38100700002)(8676002)(66556008)(4326008)(5660300002)(86362001)(6916009)(31686004)(82960400001)(36756003)(66946007)(186003)(26005)(6512007)(66574015)(53546011)(6506007)(2616005)(478600001)(6486002)(6666004)(316002)(41300700001)(7416002)(8936002)(2906002)(83380400001)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MDlPQkZ0M2JKa2FSd3RobWh6YmMxdy92ZTF2RW0zVWwzNFpvOUlMcjcwM0Nn?=
- =?utf-8?B?Qy9uYVZNakJpOHVQL2NhVFpRbmhCU01aSVIzV280Q3hOUFpySzNtdGdzMndG?=
- =?utf-8?B?MElvREEzSWh1dGNkNituSDVGY2tIampGSy9hVCtIa0tBOWdUUy9valh6TFRk?=
- =?utf-8?B?OXRzVEJucWkrKzJRcWdBUHVvQ1lQZERJYmdjelhnQlhZSCtaaFkvNHBGUXVH?=
- =?utf-8?B?UDc4d3M4Zk9wNC9IWHZkMEpROEphRHhPTDFMRndranA5TXkwQTNCd1MxWHBl?=
- =?utf-8?B?YkJ0cGs4S3dOS0lldDhkT003Nk5sdEo0TmcwM0VKczVwNDVWTE9OaVZ2SkY3?=
- =?utf-8?B?Sk9rcmZCUzNCV0NKV0tYWVdWWFdYUDZwQTVIVzFrbS9FS2ZMckpkTXZoaUE2?=
- =?utf-8?B?QmtzS2ltM0kwS0t1aDZ6azdiNERGMndVVWtVZHJoRktNMkhRV0NzTU1MZzhw?=
- =?utf-8?B?TmY2dDZMRHV6Q2N1SGZvVDJxeTZhVDJSNTM3OElkeUw0T3BTemhVMC9SK0NG?=
- =?utf-8?B?djBDK0lQYno1Z0grMEpHV0lNTlhKU1lxKzBPc1RWVk4xak11cGhiQVMrdm83?=
- =?utf-8?B?WWpDTlNKelp2VFV5UkNHRklqaEVFak9YV1ByZ3ZJREpndzFkbGk5WTlhb244?=
- =?utf-8?B?Z1M5UEZmNU11QnB2Zk5weGVOU0RobE1CMEc0Z1ZRZHc4MWs4N0R0VXZOb1Z0?=
- =?utf-8?B?NS9YZ3VORXBYazRsTTd5bDFYWmtRMDRzWWI3RGpUSVIzaWx1ajRCY2ZNVVBM?=
- =?utf-8?B?SUg5K1ZWS2dPcmFjWVcyYk9WdGh4NGJXY0lCbmNxejUrbGZXNE9WbDhjejU4?=
- =?utf-8?B?R09TZVNBNTNWZVdsUGN3SElTeDlaWFR6akRBVHBvT1pydU9sQkZFNDZJak5M?=
- =?utf-8?B?WS80dTlvL0pCU2tvTjNPVkU1WmQ3ekNMT0R0QVNKYzU3ME5KKzlNdkg5TmZZ?=
- =?utf-8?B?NEw2OC9UU0xhQzd4ZGVIdW1nLytEak9iME9LM1pqc091ejk1QXg1SG5RQ01G?=
- =?utf-8?B?aDBod0JtOERCR2x6b3cyMUtNWVpEYVAyRmwvTEs2d2daTzlqVHpPSUtGTVdR?=
- =?utf-8?B?eHUvaXowdFROQzByOTZmUlFZZ2VYUUg1OTRkb1JJUS9xV3RESmRETU1mSFlI?=
- =?utf-8?B?bnRXTVNyM0lFSitCb2dDdXd4MnZmZVd5RS9wRWxoNWs1RTVORlZydlpEWjR6?=
- =?utf-8?B?ZEl6NEdBTUx3Rk9jZHJ4THVoMEgxZkxUcDFINU14QkFvU0pqVzBiZDdyTXZi?=
- =?utf-8?B?MStoc3JhMXFBYitQVm81TG9YdVd3U1dpNldLMlErL1FLaGcwODloelZrMFd0?=
- =?utf-8?B?aklnUmplNHk1cXRsY2pyZWVSQWlJdUJwV3VXRzZHeHpRMkNsZXBQanFmN01Q?=
- =?utf-8?B?V1VEejJid3FTQ0g5Y3IvZ1FQT01LTlJtbTVibHRyemNPMmFyZDJieC85STFD?=
- =?utf-8?B?anhnUVNkUjNVWEFsUmdqbllMSmpOV0w4UVluSXM2VGFLeVl5amg4ZVltSlVX?=
- =?utf-8?B?L1RyL2RSUVAvOTNFMHdaYmkyNW04QSs1VUVvZTdhY1QwWWwxZHdkQjN2MmQy?=
- =?utf-8?B?cmg3cnRjcytjUFR0c1BGeXlFY0dwY2taSjhDQUV1OE1qYUNRMTlDcFJmaWNm?=
- =?utf-8?B?MHI5ZGdsdW0welZJSWRSQ21UUENZVXdUR0dpNFRIKzJBUUdMYU9WM1JOTkNl?=
- =?utf-8?B?OUZOL3ZNeGpSVkdDU2JjRDVqZU0rMEpvUEZmRk1DZTZqWnJaYTRicHNuSm9Q?=
- =?utf-8?B?SUhCbHFLSFZ2TS8xampvOUNLa0djby9DbGQ3WGNlT2FiTjBWTXZJWm5sWENv?=
- =?utf-8?B?am52VmxjR3VlRFR6eGJtNTFGU01Bdk9OM2dEVHlneFk5NVRTWWhnMkZ2c1VM?=
- =?utf-8?B?ZFRsQXZjYXlSOVFCNE0yTXFLYXREMUYxaFIzVmFGb1MrWmRtSE1sOGl1N2tW?=
- =?utf-8?B?WXlyV09OKzJmeitoWUFheDBleUhpV25lL3pYekFkVnpVVkF0NHpveUlFbWQy?=
- =?utf-8?B?bk1mR1hNWXNrZVRYSi9TSzFKR3ZvMmxlcTk5YmtkVTdhRFZNRXNnaFJ4Nkw3?=
- =?utf-8?B?MDVtRTVqVzNxR01VaE90UStYTWtBdEdlL21QS0NpZmpoSFRiMy9hbENJcEdi?=
- =?utf-8?B?NHBldmRydUlsY3NjZEFGUWx0L3A3WDJiUmtaN016bGJOZmUwNkFkdmw3dkt1?=
- =?utf-8?B?NFE9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae70a4a2-901b-403b-997d-08da86707568
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5409.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2022 08:04:39.3562 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8BKFuHE/j0tb+FXjd+GuPmaVf0j2r5oHTAvch/vvVsC9/UMne+qNIvLu3CttxbIrgSNvJWjptNyf73l4YAJc111r1MywerdDrcU59FWm86g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6005
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v9 2/8] util_macros: Add exact_type macro to
- catch type mis-match while compiling
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <YwcqyKdjSdDZmx0c@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Implement a bit of bw_state
+ readout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,81 +61,115 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: thomas.hellstrom@linux.intel.com, Kees Cook <keescook@chromium.org>,
- jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, airlied@linux.ie, matthew.auld@intel.com,
- andrzej.hajda@intel.com, daniel@ffwll.ch, akpm@linux-foundation.org,
- mchehab@kernel.org, nirmoy.das@intel.com
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Bartosz Golaszewski,
-
-would you mind taking a look at this patch?
-
-Thanks,
-G.G.
-
-On 8/24/22 5:45 PM, Gwan-gyeong Mun wrote:
-> It adds exact_type and exactly_pgoff_t macro to catch type mis-match while
-> compiling. The existing typecheck() macro outputs build warnings, but the
-> newly added exact_type() macro uses the BUILD_BUG_ON() macro to generate
-> a build break when the types are different and can be used to detect
-> explicit build errors.
+On Thu, Aug 25, 2022 at 10:54:48AM +0300, Lisovskiy, Stanislav wrote:
+> On Fri, Jun 17, 2022 at 07:07:30PM +0300, Ville Syrjala wrote:
+> > From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> > 
+> > We currently fail to reconstruct the bw related cdclk limits
+> > during readout, which triggers a  cdclk reclaculation during
+> > fastboot, which is then likely forces a full modeset anyway.
+> > Reconstruct some of the missing state so that we can skip
+> > the cdclk recomputation and thus have a higher chance for
+> > flicker free boot.
 > 
-> v6: Move macro addition location so that it can be used by other than drm
->      subsystem (Jani, Mauro, Andi)
+> Problem is that intel_bw_min_cdclk is using intel_bw_dbuf_min_cdclk,
+> which in turns relies that bw_state->dbuf_bw was already calculated,
+> however this is calculated in intel_bw_calc_min_cdclk, which is called
+> from intel_cdclk_atomic_check.
 > 
-> Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-> Cc: Thomas Hellstr√∂m <thomas.hellstrom@linux.intel.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Nirmoy Das <nirmoy.das@intel.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Andi Shyti <andi.shyti@linux.intel.com>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> ---
->   include/linux/util_macros.h | 25 +++++++++++++++++++++++++
->   1 file changed, 25 insertions(+)
+> So wondering will that work?
+
+Hmm. I guess we're more or less just missing a call to
+skl_crtc_calc_dbuf_bw(), but I don't have all that code paged
+in atm so might be missing something.
+
+So as is this is probably not a complete solution, but it did
+avoid the cdclk modeset on some machine I tested. I guess that
+one was a tgl and thus the maximum pipe read bandwidth stuff
+kicked in and populated things suffiiciently to avoid the full
+cdclk recalculation. I'll have to try this on some older machine
+to check how it behaves...
+
 > 
-> diff --git a/include/linux/util_macros.h b/include/linux/util_macros.h
-> index 72299f261b25..b6624b275257 100644
-> --- a/include/linux/util_macros.h
-> +++ b/include/linux/util_macros.h
-> @@ -2,6 +2,9 @@
->   #ifndef _LINUX_HELPER_MACROS_H_
->   #define _LINUX_HELPER_MACROS_H_
->   
-> +#include <linux/types.h>
-> +#include <linux/bug.h>
-> +
->   #define __find_closest(x, a, as, op)					\
->   ({									\
->   	typeof(as) __fc_i, __fc_as = (as) - 1;				\
-> @@ -38,4 +41,26 @@
->    */
->   #define find_closest_descending(x, a, as) __find_closest(x, a, as, >=)
->   
-> +/**
-> + * exact_type - break compile if source type and destination value's type are
-> + * not the same
-> + * @T: Source type
-> + * @n: Destination value
-> + *
-> + * It is a helper macro for a poor man's -Wconversion: only allow variables of
-> + * an exact type. It determines whether the source type and destination value's
-> + * type are the same while compiling, and it breaks compile if two types are
-> + * not the same
-> + */
-> +#define exact_type(T, n) \
-> +	BUILD_BUG_ON(!__builtin_constant_p(n) && !__builtin_types_compatible_p(T, typeof(n)))
-> +
-> +/**
-> + * exactly_pgoff_t - helper to check if the type of a value is pgoff_t
-> + * @n: value to compare pgoff_t type
-> + *
-> + * It breaks compile if the argument value's type is not pgoff_t type.
-> + */
-> +#define exactly_pgoff_t(n) exact_type(pgoff_t, n)
-> +
->   #endif
+> Stan
+> 
+> > 
+> > Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> > Signed-off-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_bw.c      | 9 ++++++---
+> >  drivers/gpu/drm/i915/display/intel_display.c | 7 +++++--
+> >  2 files changed, 11 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+> > index 79269d2c476b..30ffec63f9a3 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_bw.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_bw.c
+> > @@ -627,11 +627,14 @@ void intel_bw_crtc_update(struct intel_bw_state *bw_state,
+> >  		intel_bw_crtc_data_rate(crtc_state);
+> >  	bw_state->num_active_planes[crtc->pipe] =
+> >  		intel_bw_crtc_num_active_planes(crtc_state);
+> > +	bw_state->min_cdclk[crtc->pipe] =
+> > +		intel_bw_crtc_min_cdclk(crtc_state);
+> >  
+> > -	drm_dbg_kms(&i915->drm, "pipe %c data rate %u num active planes %u\n",
+> > -		    pipe_name(crtc->pipe),
+> > +	drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] data rate %u num active planes %u min cdclk %d kHz\n",
+> > +		    crtc->base.base.id, crtc->base.name,
+> >  		    bw_state->data_rate[crtc->pipe],
+> > -		    bw_state->num_active_planes[crtc->pipe]);
+> > +		    bw_state->num_active_planes[crtc->pipe],
+> > +		    bw_state->min_cdclk[crtc->pipe]);
+> >  }
+> >  
+> >  static unsigned int intel_bw_num_active_planes(struct drm_i915_private *dev_priv,
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> > index 90bd26431e31..b17b9493c68f 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > @@ -2498,6 +2498,7 @@ static void intel_crtc_disable_noatomic(struct intel_crtc *crtc,
+> >  
+> >  	bw_state->data_rate[pipe] = 0;
+> >  	bw_state->num_active_planes[pipe] = 0;
+> > +	bw_state->min_cdclk[pipe] = 0;
+> >  }
+> >  
+> >  /*
+> > @@ -9310,6 +9311,8 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
+> >  		to_intel_cdclk_state(dev_priv->cdclk.obj.state);
+> >  	struct intel_dbuf_state *dbuf_state =
+> >  		to_intel_dbuf_state(dev_priv->dbuf.obj.state);
+> > +	struct intel_bw_state *bw_state =
+> > +		to_intel_bw_state(dev_priv->bw_obj.state);
+> >  	enum pipe pipe;
+> >  	struct intel_crtc *crtc;
+> >  	struct intel_encoder *encoder;
+> > @@ -9425,8 +9428,6 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
+> >  	drm_connector_list_iter_end(&conn_iter);
+> >  
+> >  	for_each_intel_crtc(dev, crtc) {
+> > -		struct intel_bw_state *bw_state =
+> > -			to_intel_bw_state(dev_priv->bw_obj.state);
+> >  		struct intel_crtc_state *crtc_state =
+> >  			to_intel_crtc_state(crtc->base.state);
+> >  		struct intel_plane *plane;
+> > @@ -9490,6 +9491,8 @@ static void intel_modeset_readout_hw_state(struct drm_device *dev)
+> >  
+> >  		intel_bw_crtc_update(bw_state, crtc_state);
+> >  	}
+> > +
+> > +	cdclk_state->bw_min_cdclk = intel_bw_min_cdclk(dev_priv, bw_state);
+> >  }
+> >  
+> >  static void
+> > -- 
+> > 2.35.1
+> > 
+
+-- 
+Ville Syrj‰l‰
+Intel
