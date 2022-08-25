@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1567AC28D13
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:40:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EDCFC65C0D
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:40:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 854D410E446;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8408510E458;
 	Thu, 25 Aug 2022 14:39:13 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E49910E40B
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:38:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D17010E449
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:38:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661438305;
+ s=mimecast20190719; t=1661438336;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fOeeyd28x6dVZNNKvHRTje8vmuWuBbVTEorOa1h0ALg=;
- b=MYYytxyXXt8iuU7avtQW4YdDpD12J0Ae6txvstJ60OhpO/HKEUD8pDTw8u1jRpZvZ5/0P1
- HB/QnO7XMXe+hpIEClHisE5gMJtedy4hsnSsvnynX0CQClhCCssn25+x4z2/3YG8TPGXEE
- QrU4mpggZ8Gq9V5Hkku7Fa1/oZxp8Mw=
+ bh=YqEqzSG53aD58AoTXBk3s3SN9cZL717VoO9W1oD9K+k=;
+ b=KigfQpOAbJHUitzMd/cMNpR16xkAZi0v/KtICONxme9Fh16b6ycniW9oA1dCJtCg2qn8sk
+ oHf4deKjPep/1/AopEhdQM6e3gYdkEzgNCMAjggiPvtKwjUjWTmbXQbxZwsJmumImMWoqJ
+ PZigxR541JXe8KTja8u+nHJRkOm1OI8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-373-asw7y-rjPoacBS83BOnxkA-1; Thu, 25 Aug 2022 10:38:23 -0400
-X-MC-Unique: asw7y-rjPoacBS83BOnxkA-1
+ us-mta-581-A_UGX2UNP3SMZzAVsOMUuw-1; Thu, 25 Aug 2022 10:38:53 -0400
+X-MC-Unique: A_UGX2UNP3SMZzAVsOMUuw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CD0E804191;
- Thu, 25 Aug 2022 14:38:20 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FF7380A0B9;
+ Thu, 25 Aug 2022 14:38:52 +0000 (UTC)
 Received: from shalem.redhat.com (unknown [10.39.193.46])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 821822166B26;
- Thu, 25 Aug 2022 14:38:16 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 845422166B26;
+ Thu, 25 Aug 2022 14:38:48 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Ben Skeggs <bskeggs@redhat.com>,
 	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
@@ -55,15 +55,15 @@ To: Ben Skeggs <bskeggs@redhat.com>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
 	Andy Shevchenko <andy@kernel.org>
-Date: Thu, 25 Aug 2022 16:37:07 +0200
-Message-Id: <20220825143726.269890-13-hdegoede@redhat.com>
+Date: Thu, 25 Aug 2022 16:37:15 +0200
+Message-Id: <20220825143726.269890-21-hdegoede@redhat.com>
 In-Reply-To: <20220825143726.269890-1-hdegoede@redhat.com>
 References: <20220825143726.269890-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [Intel-gfx] [PATCH v5 12/31] drm/nouveau: Register ACPI video
- backlight when nv_backlight registration fails (v2)
+Subject: [Intel-gfx] [PATCH v5 20/31] platform/x86: apple-gmux: Stop calling
+ acpi/video.h functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,88 +84,43 @@ Cc: linux-acpi@vger.kernel.org, nouveau@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Typically the acpi_video driver will initialize before nouveau, which
-used to cause /sys/class/backlight/acpi_video0 to get registered and then
-nouveau would register its own nv_backlight device later. After which
-the drivers/acpi/video_detect.c code unregistered the acpi_video0 device
-to avoid there being 2 backlight devices.
+Now that acpi_video_get_backlight_type() has apple-gmux detection (using
+apple_gmux_present()), it is no longer necessary for the apple-gmux code
+to manually remove possibly conflicting drivers.
 
-This means that userspace used to briefly see 2 devices and the
-disappearing of acpi_video0 after a brief time confuses the systemd
-backlight level save/restore code, see e.g.:
-https://bbs.archlinux.org/viewtopic.php?id=269920
+So remove the handling for this from the apple-gmux driver.
 
-To fix this the ACPI video code has been modified to make backlight class
-device registration a separate step, relying on the drm/kms driver to
-ask for the acpi_video backlight registration after it is done setting up
-its native backlight device.
-
-Add a call to the new acpi_video_register_backlight() when native backlight
-device registration has failed / was skipped to ensure that there is a
-backlight device available before the drm_device gets registered with
-userspace.
-
-Changes in v2:
-- Add nouveau_acpi_video_register_backlight() wrapper to avoid unresolved
-  symbol errors on non X86
-
-Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_acpi.c      | 5 +++++
- drivers/gpu/drm/nouveau/nouveau_acpi.h      | 2 ++
- drivers/gpu/drm/nouveau/nouveau_backlight.c | 7 +++++++
- 3 files changed, 14 insertions(+)
+ drivers/platform/x86/apple-gmux.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.c b/drivers/gpu/drm/nouveau/nouveau_acpi.c
-index 1592c9cd7750..8cf096f841a9 100644
---- a/drivers/gpu/drm/nouveau/nouveau_acpi.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_acpi.c
-@@ -391,3 +391,8 @@ bool nouveau_acpi_video_backlight_use_native(void)
- {
- 	return acpi_video_backlight_use_native();
- }
-+
-+void nouveau_acpi_video_register_backlight(void)
-+{
-+	acpi_video_register_backlight();
-+}
-diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.h b/drivers/gpu/drm/nouveau/nouveau_acpi.h
-index 3c666c30dfca..e39dd8b94b8b 100644
---- a/drivers/gpu/drm/nouveau/nouveau_acpi.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_acpi.h
-@@ -12,6 +12,7 @@ void nouveau_unregister_dsm_handler(void);
- void nouveau_switcheroo_optimus_dsm(void);
- void *nouveau_acpi_edid(struct drm_device *, struct drm_connector *);
- bool nouveau_acpi_video_backlight_use_native(void);
-+void nouveau_acpi_video_register_backlight(void);
- #else
- static inline bool nouveau_is_optimus(void) { return false; };
- static inline bool nouveau_is_v1_dsm(void) { return false; };
-@@ -20,6 +21,7 @@ static inline void nouveau_unregister_dsm_handler(void) {}
- static inline void nouveau_switcheroo_optimus_dsm(void) {}
- static inline void *nouveau_acpi_edid(struct drm_device *dev, struct drm_connector *connector) { return NULL; }
- static inline bool nouveau_acpi_video_backlight_use_native(void) { return true; }
-+static inline void nouveau_acpi_video_register_backlight(void) {}
- #endif
+diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+index ffe98a18440b..ca33df7ea550 100644
+--- a/drivers/platform/x86/apple-gmux.c
++++ b/drivers/platform/x86/apple-gmux.c
+@@ -21,7 +21,6 @@
+ #include <linux/delay.h>
+ #include <linux/pci.h>
+ #include <linux/vga_switcheroo.h>
+-#include <acpi/video.h>
+ #include <asm/io.h>
  
- #endif
-diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-index d2b8f8c13db4..a614582779ca 100644
---- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-@@ -436,6 +436,13 @@ nouveau_backlight_init(struct drm_connector *connector)
+ /**
+@@ -694,7 +693,6 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 	 * backlight control and supports more levels than other options.
+ 	 * Disable the other backlight choices.
+ 	 */
+-	acpi_video_set_dmi_backlight_type(acpi_backlight_vendor);
+ 	apple_bl_unregister();
  
- fail_alloc:
- 	kfree(bl);
-+	/*
-+	 * If we get here we have an internal panel, but no nv_backlight,
-+	 * try registering an ACPI video backlight device instead.
-+	 */
-+	if (ret == 0)
-+		nouveau_acpi_video_register_backlight();
-+
- 	return ret;
+ 	gmux_data->power_state = VGA_SWITCHEROO_ON;
+@@ -804,7 +802,6 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 	apple_gmux_data = NULL;
+ 	kfree(gmux_data);
+ 
+-	acpi_video_register();
+ 	apple_bl_register();
  }
  
 -- 
