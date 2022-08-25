@@ -4,50 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 490A0ECAAD2
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 12:36:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AD19ECAAD4
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:04:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F7ED10F1A6;
-	Mon, 29 Aug 2022 12:36:53 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B82010F1AF
- for <intel-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 12:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661776611; x=1693312611;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:cc:subject:from:to:message-id:date;
- bh=qebT03Qrq42HQRtvSI2/pC/Pj8IBPhf64ZZNDRqMGE0=;
- b=ZH0iM8cGTtSqCrkeKsAsbfXZb+8ymngMh67dpnrs0onCR+zyZm7MIUPM
- HXEH5hVKwLtN6F9zj6zkCe00xBETwscOm5x8tEBEaQyp+GjyvCW7F4P1m
- G83ksZhIexva77eQGeIcIIpQXmz42m3vXRiZCxDX9BcD0bMQol0Vh4qKG
- HZoMzyCho1UB60Gq4pukNllbwA4NKQPxfFnIAdJozyPTES3eB4TTDYjZI
- KIYMLvULYAGD5QSFkv9gZCMfSA7m++l2i3pmar3W3l2/GNlZQdWgXNYoX
- OK4rFb31qJWmlvFASmC2mI8WqirYD/YqIROdi9UVRtuwuTHACHtmSaqOX A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="275284819"
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="275284819"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 05:36:50 -0700
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="679608984"
-Received: from ojmolloy-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.29.129])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 05:36:49 -0700
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7645E10F1AF;
+	Mon, 29 Aug 2022 13:04:14 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E80810E1ED;
+ Thu, 25 Aug 2022 12:55:39 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
+ [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 9EE1B6601DC3;
+ Thu, 25 Aug 2022 13:55:35 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661432138;
+ bh=8ivHC7JnTHAfG9ihlha3bu++8MKRkyY9YpxvJiw/v5A=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=BnLPmjiVEH4pa5B6MTFbNKfs40dmMNj8CIx/RwT09kuxL5i/LtGW4LvAUtP+LtZLa
+ Ne3G7ntS5elIx2uEXOi9TM/I0PKayAcOV7qxsuqa6Ccrgvt1kT6jj8htyGtaa+XJ1S
+ ErdKSqnINd+JDnKk7nUfzPcWP1/J2h/idt9HUwWVkx0dUKbnibZ3AXJem/5plydRQT
+ mV3Zsl9bewPF12cslSAL4xvqRDDjsO1+ijRRqEbVewsqR2KqHrNE8dvKvveU/RwNOe
+ kpxwemh83WVAwbJwgBdo/DgYklBQrXXZMCkA9uRFEnT8uWm5NNZ+uMqETXuzY6cmoU
+ Tl/TsRTeVUs3A==
+Message-ID: <bb1e159b-26f3-a158-0263-9e6b9cef0174@collabora.com>
+Date: Thu, 25 Aug 2022 15:55:32 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <166151127047.30041.6542517818263928436@emeril.freedesktop.org>
-References: <20220826092343.184568-1-joonas.lahtinen@linux.intel.com>
- <166151127047.30041.6542517818263928436@emeril.freedesktop.org>
-Subject: Re:  ✓ Fi.CI.BAT: success for drm/i915/guc: Remove log size module parameters (rev2)
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Patchwork <patchwork@emeril.freedesktop.org>,
- intel-gfx@lists.freedesktop.org
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID: <166177660532.4306.8572057115150620427@jlahtine-mobl.ger.corp.intel.com>
-User-Agent: alot/0.8.1
-Date: Mon, 29 Aug 2022 15:36:45 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>
+References: <20220824102248.91964-1-dmitry.osipenko@collabora.com>
+ <20220824102248.91964-7-dmitry.osipenko@collabora.com>
+ <055c3c05-ac4c-430e-f2b9-08f000acf435@gmail.com>
+ <25d6b7e7-bbcc-7613-42d1-13c2b9ab2937@collabora.com>
+ <e7576ab7-ff1e-e6da-b0fd-0315f1b37ed1@amd.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <e7576ab7-ff1e-e6da-b0fd-0315f1b37ed1@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 29 Aug 2022 13:04:13 +0000
+Subject: Re: [Intel-gfx] [Linaro-mm-sig] [PATCH v3 6/9] dma-buf: Move
+ dma-buf attachment to dynamic locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,160 +84,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: lima@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, Dmitry Osipenko <digetx@gmail.com>,
+ kernel@collabora.com, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Patchwork (2022-08-26 13:54:30)
-> Patch Details
->=20
-> Series:  drm/i915/guc: Remove log size module parameters (rev2)
-> URL:     https://patchwork.freedesktop.org/series/107780/
-> State:   success
-> Details: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107780v2/inde=
-x.html
->=20
-> CI Bug Log - changes from CI_DRM_12031 -> Patchwork_107780v2
->=20
-> Summary
->=20
-> SUCCESS
->=20
-> No regressions found.
+On 8/24/22 20:45, Christian König wrote:
+> Am 24.08.22 um 17:49 schrieb Dmitry Osipenko:
+>> On 8/24/22 18:24, Christian König wrote:
+>>> Am 24.08.22 um 12:22 schrieb Dmitry Osipenko:
+>>>> Move dma-buf attachment API functions to the dynamic locking
+>>>> specification.
+>>>> The strict locking convention prevents deadlock situations for dma-buf
+>>>> importers and exporters.
+>>>>
+>>>> Previously, the "unlocked" versions of the attachment API functions
+>>>> weren't taking the reservation lock and this patch makes them to take
+>>>> the lock.
+>>>>
+>>>> Intel and AMD GPU drivers already were mapping the attached dma-bufs
+>>>> under
+>>>> the held lock during attachment, hence these drivers are updated to use
+>>>> the locked functions.
+>>>>
+>>>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>>>> ---
+>>>>    drivers/dma-buf/dma-buf.c                  | 115
+>>>> ++++++++++++++-------
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |   4 +-
+>>>>    drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c |   8 +-
+>>>>    drivers/gpu/drm/i915/gem/i915_gem_object.c |  12 +++
+>>>>    include/linux/dma-buf.h                    |  20 ++--
+>>>>    5 files changed, 110 insertions(+), 49 deletions(-)
+>>>>
+>>>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>>>> index 4556a12bd741..f2a5a122da4a 100644
+>>>> --- a/drivers/dma-buf/dma-buf.c
+>>>> +++ b/drivers/dma-buf/dma-buf.c
+>>>> @@ -559,7 +559,7 @@ static struct file *dma_buf_getfile(struct dma_buf
+>>>> *dmabuf, int flags)
+>>>>     * 2. Userspace passes this file-descriptors to all drivers it wants
+>>>> this buffer
+>>>>     *    to share with: First the file descriptor is converted to a
+>>>> &dma_buf using
+>>>>     *    dma_buf_get(). Then the buffer is attached to the device using
+>>>> - *    dma_buf_attach().
+>>>> + *    dma_buf_attach_unlocked().
+>>> Now I get why this is confusing me so much.
+>>>
+>>> The _unlocked postfix implies that there is another function which
+>>> should be called with the locks already held, but this is not the case
+>>> for attach/detach (because they always need to grab the lock
+>>> themselves).
+>> That's correct. The attach/detach ops of exporter can take the lock
+>> (like i915 exporter does it), hence importer must not grab the lock
+>> around dma_buf_attach() invocation.
+>>
+>>> So I suggest to drop the _unlocked postfix for the attach/detach
+>>> functions. Another step would then be to unify attach/detach with
+>>> dynamic_attach/dynamic_detach when both have the same locking convention
+>>> anyway.
+>> It's not a problem to change the name, but it's unclear to me why we
+>> should do it. The _unlocked postfix tells importer that reservation must
+>> be unlocked and it must be unlocked in case of dma_buf_attach().
+>>
+>> Dropping the postfix will make dma_buf_attach() inconsistent with the
+>> rest of the _unlocked functions(?). Are you sure we need to rename it?
+> 
+> The idea of the postfix was to distinguish between two different
+> versions of the same function, e.g. dma_buf_vmap_unlocked() vs normal
+> dma_buf_vmap().
+> 
+> When we don't have those two types of the same function I don't think it
+> makes to much sense to keep that. We should just properly document which
+> functions expect what and that's what your documentation patch does.
 
-Pushed the patch. Thanks for the reviews.
+Thank you for the clarification. I'll change the names in v4 like you're
+suggesting, we can always improve naming later on if will be necessary.
 
-Regards, Joonas
-
->=20
-> External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107780v2/
-> index.html
->=20
-> Participating hosts (38 -> 37)
->=20
-> Additional (2): bat-adln-1 bat-dg1-5
-> Missing (3): fi-hsw-4770 bat-rpls-2 bat-dg2-10
->=20
-> Possible new issues
->=20
-> Here are the unknown changes that may have been introduced in
-> Patchwork_107780v2:
->=20
-> IGT changes
->=20
-> Suppressed
->=20
-> The following results come from untrusted machines, tests, or statuses.
-> They do not affect the overall result.
->=20
->   =E2=80=A2 igt@i915_pm_rps@basic-api:
->       =E2=96=A1 {bat-adln-1}: NOTRUN -> SKIP
->=20
-> Known issues
->=20
-> Here are the changes found in Patchwork_107780v2 that come from known iss=
-ues:
->=20
-> IGT changes
->=20
-> Issues hit
->=20
->   =E2=80=A2 igt@fbdev@read:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#2582) +4 similar issues
->   =E2=80=A2 igt@gem_mmap@basic:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#4083)
->   =E2=80=A2 igt@gem_tiled_fence_blits@basic:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#4077) +2 similar issues
->   =E2=80=A2 igt@gem_tiled_pread_basic:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#4079) +1 similar issue
->   =E2=80=A2 igt@i915_pm_backlight@basic-brightness:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#1155)
->   =E2=80=A2 igt@i915_pm_rps@basic-api:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#6621)
->   =E2=80=A2 igt@i915_selftest@live@gt_engines:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> INCOMPLETE (i915#4418)
->   =E2=80=A2 igt@i915_suspend@basic-s3-without-i915:
->=20
->       =E2=96=A1 fi-rkl-11600: PASS -> INCOMPLETE (i915#5982)
->   =E2=80=A2 igt@kms_addfb_basic@basic-x-tiled-legacy:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#4212) +7 similar issues
->   =E2=80=A2 igt@kms_addfb_basic@basic-y-tiled-legacy:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#4215)
->   =E2=80=A2 igt@kms_busy@basic:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#1845 / i915#4303)
->   =E2=80=A2 igt@kms_chamelium@hdmi-hpd-fast:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (fdo#111827) +7 similar issues
->   =E2=80=A2 igt@kms_force_connector_basic@force-load-detect:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (fdo#109285)
->   =E2=80=A2 igt@kms_pipe_crc_basic@nonblocking-crc:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#4078) +13 similar issues
->   =E2=80=A2 igt@kms_psr@sprite_plane_onoff:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#1072 / i915#4078) +3 simi=
-lar issues
->   =E2=80=A2 igt@kms_setmode@basic-clone-single-crtc:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#3555)
->   =E2=80=A2 igt@prime_vgem@basic-fence-flip:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#1845 / i915#3708)
->   =E2=80=A2 igt@prime_vgem@basic-fence-read:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#3708) +2 similar issues
->   =E2=80=A2 igt@prime_vgem@basic-gtt:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#3708 / i915#4077) +1 simi=
-lar issue
->   =E2=80=A2 igt@prime_vgem@basic-userptr:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> SKIP (i915#3708 / i915#4873)
->   =E2=80=A2 igt@runner@aborted:
->=20
->       =E2=96=A1 bat-dg1-5: NOTRUN -> FAIL (i915#4312 / i915#5257)
->=20
-> Possible fixes
->=20
->   =E2=80=A2 igt@i915_selftest@live@hangcheck:
->=20
->       =E2=96=A1 {fi-ehl-2}: INCOMPLETE (i915#5153) -> PASS
->=20
->       =E2=96=A1 {bat-dg2-11}: INCOMPLETE -> PASS
->=20
->   =E2=80=A2 igt@i915_selftest@live@requests:
->=20
->       =E2=96=A1 {bat-rpls-1}: INCOMPLETE (i915#4983 / i915#6257 / i915#63=
-80) -> PASS
->=20
-> {name}: This element is suppressed. This means it is ignored when computi=
-ng
-> the status of the difference (SUCCESS, WARNING, or FAILURE).
->=20
-> Build changes
->=20
->   =E2=80=A2 Linux: CI_DRM_12031 -> Patchwork_107780v2
->=20
-> CI-20190529: 20190529
-> CI_DRM_12031: 3a648e054afa78544f00531084cad2d3c18c5b9f @ git://
-> anongit.freedesktop.org/gfx-ci/linux
-> IGT_6636: 1298b5f0e1b3e010657ffba41d2e775fab028e08 @ https://
-> gitlab.freedesktop.org/drm/igt-gpu-tools.git
-> Patchwork_107780v2: 3a648e054afa78544f00531084cad2d3c18c5b9f @ git://
-> anongit.freedesktop.org/gfx-ci/linux
->=20
-> Linux commits
->=20
-> 86ecb944c399 drm/i915/guc: Remove log size module parameters
->=20
+-- 
+Best regards,
+Dmitry
