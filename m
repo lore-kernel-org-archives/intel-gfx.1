@@ -4,66 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2236C65C0F
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:41:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E574C28D13
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 14:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C26210E4F8;
-	Thu, 25 Aug 2022 14:40:22 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 653A710E59B
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:39:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661438357;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Y5AZRbtcocPlhsNgcUoq7owlZ1xT0HJ1/3Jh71n9qKs=;
- b=H+CPU8Rka1mww6I8xmmO8KVqdZP/vpmKZSLE2tp8qV5gnX3332uX2rQcO2onkJoGlyjzVu
- V4IibpR8dUX5U+aEDRP5FsX8qexXeSLw3vTKk3xRCgEEYAI9YuytH3ixDKCITOJAG1EO6E
- IhrVzCw/BG38cOJ6OnnkFwlRL1fu2NQ=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-544-ev_2jaOwM46UeVYjSVouQA-1; Thu, 25 Aug 2022 10:39:13 -0400
-X-MC-Unique: ev_2jaOwM46UeVYjSVouQA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7AC02185A794;
- Thu, 25 Aug 2022 14:39:12 +0000 (UTC)
-Received: from shalem.redhat.com (unknown [10.39.193.46])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B08FC2166B26;
- Thu, 25 Aug 2022 14:39:08 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Ben Skeggs <bskeggs@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>, Lyude <lyude@redhat.com>,
-	Daniel Dadap <ddadap@nvidia.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>, Mark Gross <markgross@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Date: Thu, 25 Aug 2022 16:37:20 +0200
-Message-Id: <20220825143726.269890-26-hdegoede@redhat.com>
-In-Reply-To: <20220825143726.269890-1-hdegoede@redhat.com>
-References: <20220825143726.269890-1-hdegoede@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8465E10E239;
+	Thu, 25 Aug 2022 14:48:18 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD45910E239
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 14:48:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1661438893; x=1692974893;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=Bxcfj15EA4On+ZizYl/NclYUnSWZECFeKGUNGdK+YL8=;
+ b=mTVZsg0mkPLQAYhzQ8HBPjAhvCtVxAUzonJ5ypDJz9h4Zu5th1NLN77G
+ eQesZVLcMyT/AOIclG8ZAsNVEttvEP97sEm65RWkq3Sw2AdmMM0qlqMZo
+ vRGV1pE/UvV7MdakxD8tXUoFSq0ebE3VAP77VsZ+3eNmACjzcxQIUvsTd
+ aWiiRIqq61oUyLu6fwtKL62oqgrqv9WxrOJY6gQE1JRe9utHzHhiQEwlF
+ Xa/pyCywL2h2XNhXdFBogxvhACKXiIW/pPoKJVSMbpeKviFiekeBI0Q8m
+ 0DGcj33PRMPmjPZQsblIUYfDCMOx5P6PW95hKEynuqOIkKbgAfbj5FAa5 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="277272164"
+X-IronPort-AV: E=Sophos;i="5.93,263,1654585200"; d="scan'208";a="277272164"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2022 07:48:12 -0700
+X-IronPort-AV: E=Sophos;i="5.93,263,1654585200"; d="scan'208";a="678485667"
+Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.149])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2022 07:48:10 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+In-Reply-To: <Ywdd+7ifzC7AknS7@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220616124137.3184371-1-jani.nikula@intel.com>
+ <Ywdd+7ifzC7AknS7@intel.com>
+Date: Thu, 25 Aug 2022 17:48:07 +0300
+Message-ID: <87sflkgz14.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [Intel-gfx] [PATCH v5 25/31] platform/x86: asus-wmi: Move
- acpi_backlight=native quirks to ACPI video_detect.c
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/glk: ECS Liva Q2 needs GLK HDMI
+ port timing quirk
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,111 +58,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@redhat.com>, Len Brown <lenb@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org,
+ Diego Santa Cruz <Diego.SantaCruz@spinetix.com>, stable@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove the asus-wmi quirk_entry.wmi_backlight_native quirk-flag, which
-called acpi_video_set_dmi_backlight_type(acpi_backlight_native) and replace
-it with acpi/video_detect.c video_detect_dmi_table[] entries using the
-video_detect_force_native callback.
+On Thu, 25 Aug 2022, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Thu, Jun 16, 2022 at 03:41:37PM +0300, Jani Nikula wrote:
+>> From: Diego Santa Cruz <Diego.SantaCruz@spinetix.com>
+>>=20
+>> The quirk added in upstream commit 90c3e2198777 ("drm/i915/glk: Add
+>> Quirk for GLK NUC HDMI port issues.") is also required on the ECS Liva
+>> Q2.
+>>=20
+>> Note: Would be nicer to figure out the extra delay required for the
+>> retimer without quirks, however don't know how to check for that.
+>>=20
+>> Cc: stable@vger.kernel.org
+>> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/1326
+>> Signed-off-by: Diego Santa Cruz <Diego.SantaCruz@spinetix.com>
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>
+> Seems fine. Although I do wonder whether we could directly identify the
+> bogus retimer chip via the dual mode adapter registers. I've asked for
+> that in the bug.
+>
+> Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-acpi_video_set_dmi_backlight_type() is troublesome because it may end up
-getting called after other backlight drivers have already called
-acpi_video_get_backlight_type() resulting in the other drivers
-already being registered even though they should not.
+Thanks, pushed to drm-intel-next. Let's follow up with cleanups if the
+folks in the bug ever reply.
 
-Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- drivers/acpi/video_detect.c        |  8 ++++++++
- drivers/platform/x86/asus-nb-wmi.c | 14 --------------
- drivers/platform/x86/asus-wmi.c    |  3 ---
- drivers/platform/x86/asus-wmi.h    |  1 -
- 4 files changed, 8 insertions(+), 18 deletions(-)
+BR,
+Jani.
 
-diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index d893313fe1a0..a09089e7fada 100644
---- a/drivers/acpi/video_detect.c
-+++ b/drivers/acpi/video_detect.c
-@@ -564,6 +564,14 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
- 		DMI_MATCH(DMI_PRODUCT_NAME, "GA503"),
- 		},
- 	},
-+	{
-+	 .callback = video_detect_force_native,
-+	 /* Asus UX303UB */
-+	 .matches = {
-+		DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
-+		},
-+	},
- 	/*
- 	 * Clevo NL5xRU and NL5xNU/TUXEDO Aura 15 Gen1 and Gen2 have both a
- 	 * working native and video interface. However the default detection
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-index 810a94557a85..bbfed85051ee 100644
---- a/drivers/platform/x86/asus-nb-wmi.c
-+++ b/drivers/platform/x86/asus-nb-wmi.c
-@@ -97,11 +97,6 @@ static struct quirk_entry quirk_asus_x200ca = {
- 	.wmi_backlight_set_devstate = true,
- };
- 
--static struct quirk_entry quirk_asus_ux303ub = {
--	.wmi_backlight_native = true,
--	.wmi_backlight_set_devstate = true,
--};
--
- static struct quirk_entry quirk_asus_x550lb = {
- 	.wmi_backlight_set_devstate = true,
- 	.xusb2pr = 0x01D9,
-@@ -372,15 +367,6 @@ static const struct dmi_system_id asus_quirks[] = {
- 		},
- 		.driver_data = &quirk_asus_x200ca,
- 	},
--	{
--		.callback = dmi_matched,
--		.ident = "ASUSTeK COMPUTER INC. UX303UB",
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
--			DMI_MATCH(DMI_PRODUCT_NAME, "UX303UB"),
--		},
--		.driver_data = &quirk_asus_ux303ub,
--	},
- 	{
- 		.callback = dmi_matched,
- 		.ident = "ASUSTeK COMPUTER INC. UX330UAK",
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index 5cf9d9aff164..434249ac47a5 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -3634,9 +3634,6 @@ static int asus_wmi_add(struct platform_device *pdev)
- 	if (asus->driver->quirks->wmi_force_als_set)
- 		asus_wmi_set_als();
- 
--	if (asus->driver->quirks->wmi_backlight_native)
--		acpi_video_set_dmi_backlight_type(acpi_backlight_native);
--
- 	if (asus->driver->quirks->xusb2pr)
- 		asus_wmi_set_xusb2pr(asus);
- 
-diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-index 30770e411301..f30252efe1db 100644
---- a/drivers/platform/x86/asus-wmi.h
-+++ b/drivers/platform/x86/asus-wmi.h
-@@ -29,7 +29,6 @@ struct quirk_entry {
- 	bool hotplug_wireless;
- 	bool scalar_panel_brightness;
- 	bool store_backlight_power;
--	bool wmi_backlight_native;
- 	bool wmi_backlight_set_devstate;
- 	bool wmi_force_als_set;
- 	bool use_kbd_dock_devid;
--- 
-2.37.2
+>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_quirks.c | 3 +++
+>>  1 file changed, 3 insertions(+)
+>>=20
+>> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/d=
+rm/i915/display/intel_quirks.c
+>> index c8488f5ebd04..e415cd7c0b84 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+>> @@ -191,6 +191,9 @@ static struct intel_quirk intel_quirks[] =3D {
+>>  	/* ASRock ITX*/
+>>  	{ 0x3185, 0x1849, 0x2212, quirk_increase_ddi_disabled_time },
+>>  	{ 0x3184, 0x1849, 0x2212, quirk_increase_ddi_disabled_time },
+>> +	/* ECS Liva Q2 */
+>> +	{ 0x3185, 0x1019, 0xa94d, quirk_increase_ddi_disabled_time },
+>> +	{ 0x3184, 0x1019, 0xa94d, quirk_increase_ddi_disabled_time },
+>>  };
+>>=20=20
+>>  void intel_init_quirks(struct drm_i915_private *i915)
+>> --=20
+>> 2.30.2
 
+--=20
+Jani Nikula, Intel Open Source Graphics Center
