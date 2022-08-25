@@ -4,87 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C365C04AA5
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 10:15:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCF84C04AA5
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Aug 2022 10:34:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FFBC10F6B5;
-	Thu, 25 Aug 2022 10:15:25 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B42A010FDC6
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Aug 2022 10:15:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1661422518;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zQ3qZtEYF9kIZvb5A1H9IxOTwvdPfHqi1+4CI8j2JWY=;
- b=bbzYhp7uYcqHKBc/qC2rD/yg6wDQQbbWk/8CFOmpH5fuSCV0aAWNMlII44t1a2YSvjj+Fz
- fSfqB2bTMne7JEAtBxRMDvdAjkoVFC+VUOLGrJNJG9L+dPw3whye52R4mY7fI29xHQbt7G
- n7m4WE1nlKF3AjallLbQmEwx1j8wFxQ=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-670-xTxwzBhYPk600_PZ2KOu_w-1; Wed, 24 Aug 2022 14:12:18 -0400
-X-MC-Unique: xTxwzBhYPk600_PZ2KOu_w-1
-Received: by mail-qk1-f197.google.com with SMTP id
- n15-20020a05620a294f00b006b5768a0ed0so15215999qkp.7
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 Aug 2022 11:12:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:user-agent:organization
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc;
- bh=zQ3qZtEYF9kIZvb5A1H9IxOTwvdPfHqi1+4CI8j2JWY=;
- b=cLXdy+v+f6Iie8zsolskEQvNPc5Po8QMiljS6luSLio25ZoATD5aGk5aa4/j/W9zEW
- h+3uiFKc8Ayg+FQBe40u/vxck5d41XIcpnCghOiW/uqYrrcQx/wp9bHz1fXJDa/RNCer
- kvpUMfqi4/8wzA/GF/FB0HpfaOqRypeS0eCWGiO3kLJq5HSrqeUSozBUWWgi8jodowr7
- GjlGVYPRn8qGGn5xaBfs28rDSCBwAEyxEJM3IQIGjp/iDsa04r9Wbj85odPe/LvBgnPh
- IGZZ2vLiI0ZoKkzcdJpf3A0cJ7jBLXehHhj8Gmg66Pw+NWvd4rEq2MLh0/6TZ1JVpBpU
- aGyg==
-X-Gm-Message-State: ACgBeo21HzKVu/01Jpry/ZLqWxKLMP2vBhgexW2xCyDYQyHF2FkeDJye
- AGl5Wmun0SMnNEblypuyPl/upOMKcaQbbidQ74ttQB3m+jG8rRSYHb3kZf6T1Zf6RtRYHHz5nUz
- 19vkezu5zcWmaHEHFAWeC7vqlOgHO
-X-Received: by 2002:a05:6214:27ee:b0:496:f17b:7459 with SMTP id
- jt14-20020a05621427ee00b00496f17b7459mr338523qvb.101.1661364737696; 
- Wed, 24 Aug 2022 11:12:17 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR4SOi3GajklItGmlUgJlLLhtanN0frscFinRBtNfwg/Jh8eIC0ruh9bVuC+aRmJv5zCKqZZxQ==
-X-Received: by 2002:a05:6214:27ee:b0:496:f17b:7459 with SMTP id
- jt14-20020a05621427ee00b00496f17b7459mr338488qvb.101.1661364737427; 
- Wed, 24 Aug 2022 11:12:17 -0700 (PDT)
-Received: from [192.168.8.139] (pool-100-0-245-4.bstnma.fios.verizon.net.
- [100.0.245.4]) by smtp.gmail.com with ESMTPSA id
- u4-20020a05620a454400b006bbe7ded98csm12598653qkp.112.2022.08.24.11.12.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Aug 2022 11:12:16 -0700 (PDT)
-Message-ID: <341368d96c5c3bdbcab48d48a0d9b702a930ea05.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: Hans de Goede <hdegoede@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, 
- Karol Herbst <kherbst@redhat.com>, Daniel Dadap <ddadap@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>, "Rafael J .
- Wysocki" <rafael@kernel.org>, Mika Westerberg
- <mika.westerberg@linux.intel.com>, Lukas Wunner <lukas@wunner.de>, Mark
- Gross <markgross@kernel.org>, Andy Shevchenko <andy@kernel.org>
-Date: Wed, 24 Aug 2022 14:12:15 -0400
-In-Reply-To: <20220824121523.1291269-32-hdegoede@redhat.com>
-References: <20220824121523.1291269-1-hdegoede@redhat.com>
- <20220824121523.1291269-32-hdegoede@redhat.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCAB8112FCD;
+	Thu, 25 Aug 2022 10:33:58 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C74AE112816;
+ Thu, 25 Aug 2022 10:33:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1661423632; x=1692959632;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=u1F9kxDvl54Z6vwhXK4TmrLacA/jjOv5oCSlTA4pI4Q=;
+ b=dq+Mte8hYAF5KzoG6qXmWB3Go2bEESbXkaSDyHMgz9WUcHFm7LiHIni5
+ 15tpuJ9BP6VikvvojQkNBds+ea6gvvPCcHMCxZduraj7t5NZmtoloY2LL
+ paTXDjAV4laF91gMI7+IHNg+gn7AOF7OTgsLHyy9tsCbpjrDr4sTSG4gO
+ FwbSrhNpcNHRLAXPhhA6RYNFUUOpAcP7WzcTU5KMaKU/I8DvqXdGhGSon
+ X0tzuuecURpBgT9ll4Vldetc+PMacQhnV9gH5lkepgonWSLj/Ng8jKoub
+ ixglsxz9R4uekZHMBiTgLN+guDQB6dLZ7BdxS8DsDdrvIRvBM/HLe2rq5 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10449"; a="273960065"
+X-IronPort-AV: E=Sophos;i="5.93,262,1654585200"; d="scan'208";a="273960065"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2022 03:33:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,262,1654585200"; d="scan'208";a="938278978"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by fmsmga005.fm.intel.com with ESMTP; 25 Aug 2022 03:33:52 -0700
+Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Thu, 25 Aug 2022 03:33:51 -0700
+Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
+ fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Thu, 25 Aug 2022 03:33:51 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Thu, 25 Aug 2022 03:33:51 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.176)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Thu, 25 Aug 2022 03:33:51 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LS2CuReNtj9RoEONzNe8GAlCi/ts4JQOiFhb2uN/6C0O0JzUZLCSAMnxqTOuSW+8Z1iSP7ziqLtegJSIZDX2I15prb6c44p/jCVb35Nz20+EbC1sb6lhWNZ8uJuzz/DZv1addqe78aY8NaB2JSmh207mlYKjn/Isq5Omxs/LFMjkzDZj0wUUfoYTpYYYK9XDECUaeWmUbdjEjEzu4T9g6MC8UGUw4egQKuFAEpCMeg1aSM35VuRymwBns6wpthXYKUkEqBGNnsTvf1ugaOfBMTZKDi+hYGw4g6ZDo9gwtFJvDf7/GQB4csr7zyyT5r5IPyTwDlPogTJ8ZPoLwlrOLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d/SpvRrTkmuP9Jhf6NGldyJD5elLOgQj89WleA8BzPQ=;
+ b=ODPjW6H1xBdNWGvKN8z7YUuBZ0IX7QINBGXQpRWOa+ObUYnR1RiM9YleWCalNhaNILalUI3jOlTX+C0VF7zPDgY1awHJnHzSFo9ITfM0ewLTy/gbQpCalHvs+O8RHgjFZm9t+AT8lpSSK+KzvUP07dI9r3F82gVWew5yjOV4+dQw5NNePeaVcGtHfGxjYONOTw8pfKUcsohCNKt0Cdrnw6wSc5HfuFPzMd8FCD1OWZi3KPpafPsrXceePTODbv6w16yCJmouIpWnAhgCya0mbGzGZdSvyW34ShSpsfdE+1R+W9q1NmDGBjzbitJfAodQuOuu5dgu9yunWEDKV3APBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM5PR11MB1897.namprd11.prod.outlook.com (2603:10b6:3:112::9) by
+ SN6PR11MB2686.namprd11.prod.outlook.com (2603:10b6:805:59::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5546.18; Thu, 25 Aug 2022 10:33:49 +0000
+Received: from DM5PR11MB1897.namprd11.prod.outlook.com
+ ([fe80::fc2f:babb:578c:f03e]) by DM5PR11MB1897.namprd11.prod.outlook.com
+ ([fe80::fc2f:babb:578c:f03e%6]) with mapi id 15.20.5566.015; Thu, 25 Aug 2022
+ 10:33:49 +0000
+Date: Thu, 25 Aug 2022 16:03:40 +0530
+From: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+To: Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ <intel-gfx@lists.freedesktop.org>
+Message-ID: <YwdQBIViVSqNQ0pv@bala-ubuntu>
+References: <20220818234202.451742-1-radhakrishna.sripada@intel.com>
+ <20220818234202.451742-6-radhakrishna.sripada@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20220818234202.451742-6-radhakrishna.sripada@intel.com>
+X-ClientProxiedBy: PN3PR01CA0002.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:95::22) To DM5PR11MB1897.namprd11.prod.outlook.com
+ (2603:10b6:3:112::9)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v4 31/31] drm/todo: Add entry about dealing
- with brightness control on devices with > 1 panel
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 51a77e27-4aae-4420-38b7-08da86854c23
+X-MS-TrafficTypeDiagnostic: SN6PR11MB2686:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zp1ZaJs+PwldX8EWOXTs38smry8owKuS+b3N0/L1sipCyb7Cgz33DJifqTefragG7edDVRqybB0gkfa0sM3RRtkx7xJbvgKBFt9Pt9DS0i3zK6qL3MGnKyECIE8r35E3Y/maXEl8wlJxDvrSuEF1oLMnDopyDNogzloaWKBUfNRpKhi1hIAp9GPPwa1U9ohITOiZsQ4A2sHoJHQoHPRdgM7jmKIO7QNDm7bqn4Q8O8CNqeyJ+DLhRzgZpW3qa7ssunYxiBMBgUKEKaukQ4hmcMpo9i7uJPIlH1AAKTKaseVingruxhFRuOWus2r8cCfi3PKEqR6JoeO0VRFGQJ+iDkLESwKZsrI4zoDOALAueo3KvrAeHHZ5gMEZvrUSMfNQItm6MnY69z/5JAu8cALgiDNw18u9Swc8me2Gepz6l9swMI3P4LJa7/ua3eKArFfy8LXvxxIGq6Yo4jtMYXf5FB8Lj8OXTe+IlYSeUvMg8mK8kz7gtzGQ+Q9ELHmEI7qmSUJOI/3nzaymLD5R06zeElBhWGWBxwPtDAfrSEZk1ZnOMswAIXA5+ttpqowX4GewojIH1JIElC8mhKS5+bEkwsp9MH/0X2p7TSaLUxFYt5sR3QTKf5IufB6uVn2qnwiqBigUqbGEE1rQlEGcnp1hniGaKGHgVLrrMlAj8a7vuEcDm+J826ktL5mDStAR2XwG
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR11MB1897.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(7916004)(39860400002)(396003)(366004)(346002)(376002)(136003)(6506007)(5660300002)(6486002)(186003)(8936002)(83380400001)(9686003)(41300700001)(2906002)(6666004)(26005)(316002)(44832011)(33716001)(478600001)(53546011)(8676002)(66946007)(450100002)(38100700002)(66476007)(4326008)(6512007)(66556008)(86362001)(82960400001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVRBVnlrdUFvZ3BCSXdnUzZFU3BjV2hhaU8yR1BNS2JJZjJRVmk3RTVZd05Q?=
+ =?utf-8?B?RDlzRHc1NnU5bkhpZEhqc3ZvYmVVc3JDczdpb21NNTRTNzB0cGJSeHRnaUFR?=
+ =?utf-8?B?a3NuY2ZVTnh2alpRMVprMFJIM3RKOTRWU2RYcENqWjNTYzQ1VWRYSk1BVmtG?=
+ =?utf-8?B?MzlpK0daS3dESmZrOHhZZmdkdEZLeXlFK1pjaGF4OVRqRFNKSVpJTktuUGFp?=
+ =?utf-8?B?ajB6S0pmSDRzS0hSN0d2Qm1SaHN4T3ZrWWdPK0s1emozK0FyZ2xSS3luUjhX?=
+ =?utf-8?B?NzFENm5NRzZOUXM3Q0R3aEMxai9Tc1Q1UnpmbUhjMmpBVzJCcVphZXh2YU9r?=
+ =?utf-8?B?U2t4V284cWhGMmNKNTBaOE9MaXMyeHhiRjRlWUg3REQrS0orNGNLcWRaeDlk?=
+ =?utf-8?B?OER3YWF5ZHlGWitqUHB5UVVJNldqT1J0QVJQWjhkRng0NXZhblkwY3N1RnNH?=
+ =?utf-8?B?eUNudWJBaWNRNnB2Y3dSejBGc0Y2YTFJb2dVeitaOUNpb0ZwUDZ6VnAxaS84?=
+ =?utf-8?B?T3NYcEkvRTJxNmdaZDR1VjFwVm16bU50WXU0bjN1cHlqTFVBYUxSM1lPc1dz?=
+ =?utf-8?B?d2RCY1BWdUJMRERXNVh1UTlGeVFsU1Jpek81WFBmeGFqY05hdjZ1MVg3Mk5z?=
+ =?utf-8?B?T1JwUEFjbEc5bTZUVHNFVkt3S1JpVkJwS3hNbE1kUzAvMXlQSFZHS282d3ZY?=
+ =?utf-8?B?ajh5MnZTN0M0Y1NUeVFCU3llRHA1U1ZrVXJSeTVkZUtJMlJXN29teEhXTXA2?=
+ =?utf-8?B?aSt2bytvcVVTQXdOb0E1SjQveEpFQ2lMUlYrQ1VQNE5kNGt3OEVab1luVnNy?=
+ =?utf-8?B?Ry8razBmSzhPYWRrYmNtL1QrRldpd04xSEZVNG9nK1U0TWF5dTkwQm5uRE5Y?=
+ =?utf-8?B?dGZsaTZXS1U0Zm5IYzlSWFAybGkwMTRZbDM1Mzh1QVhIQzN1elJUREpGNldK?=
+ =?utf-8?B?RFBYT3kzOVZCMmFjUGJja3EwZjl4ZXVPdGhtSDZGeitwQmhkQ1diQlBvbVlG?=
+ =?utf-8?B?RkdIUmZMUGdIbFI4dU9mcHdGUU5HeHo3YTZBVTROam1ISnAxT2d2elk3cUll?=
+ =?utf-8?B?MTU1d3gxck9kYUVBZExtOFZyTHRNTTViUTYwclh6K3U0aWs0VzRKbnluZ05B?=
+ =?utf-8?B?SVNlVlVUdFVoMFFzZnlENGlQSTRGb0hEV3BIT1hsYjc4OFJUbnl3NjhYNlJL?=
+ =?utf-8?B?bTljUFcwS3dwNmlzZWxON0pmTmU4QkZOc3FpUzJTazhBUmpDTlU1U1RuR0dK?=
+ =?utf-8?B?aVIzYjhSckxtREpWMDd4OGdkOGhrTm1jc3RseXkwTDB5b1oycTRSUmc3MXpx?=
+ =?utf-8?B?TWd4Ri9UeW1EYmFMWC9ZQ00wM3UvbjMyWmZNWFB2dHF2V005Vk5YaUozN3JL?=
+ =?utf-8?B?WmRnUEFMZ3UrK0Z6R3pHdmlnMVJITmErM1VpdThwc3hWNXhyWkpObVQzMkFY?=
+ =?utf-8?B?bUFWQ0RYaHdXWCtWSmZzRFBNeFpjVytTUEZTbWVBeHJEVnlGbUFHT2dtRjdR?=
+ =?utf-8?B?dytRcW9zNDV2WmVsWlpNeGhRWTVpTU1sckpWRC8rNkRXY3BkanFlQVp3d2NR?=
+ =?utf-8?B?dHdoQ0UvVWJQQlAwMk1uRmdCalhXeHhqb3VteG1nTThHMG5qUmdJM0V1b1d4?=
+ =?utf-8?B?SjNyZy9zdEV0WWdaanlFcGJGWVN2TCtHN0ZDSTN2SDN4RVZwalhxeWhsemVl?=
+ =?utf-8?B?SjFzMnZQTTRPSFA0cGRHYUZKR3k2VWZPaTNxcFRxallQUzQrNkhqM0JHVXRD?=
+ =?utf-8?B?cGkvUGV2aHdhTWQ1NHhrbks4cTYxZVZwWjdUbTdIdjJ3QjdNR3prN1V5aTFi?=
+ =?utf-8?B?ZUNGUWtoVkhaU2JObDdSdmRScjdlYXRzY3JadzloeGpFV2pXbmZZZlYwdlZk?=
+ =?utf-8?B?N1BPYXFRcGFuUXhPcVdlcHhQVUNuMFBaQWU0RElmRXRiTjhHVXhxTkdqSk9G?=
+ =?utf-8?B?NjdsL0wzRCthR3ExYmpOZ3g2S0I0VXJ0VWRKRDhqNS9xTGllcU5DTzBTZ0hu?=
+ =?utf-8?B?SG1ndUx2M3VIOS9VTUw4WGs3N0MrcG1wL2szOEViV0d0RktVZnI3dnJtTmls?=
+ =?utf-8?B?SHVPSi9SbS82QXprNFhKMlV5NVJvcXMwclBJVjlOZHBiYnBEc3NScFpwQTBI?=
+ =?utf-8?B?NnFCQnFBWmEveWxCT2VUaTZ2TEpGSUI2M3YzNXlXQmpMQUJJMkI4UVhSbjJB?=
+ =?utf-8?Q?uiF03KXyyOsyK1vyk/jrNtg=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51a77e27-4aae-4420-38b7-08da86854c23
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR11MB1897.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2022 10:33:49.4526 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QdDzdZ+pYe4pGBFOBaIPCJccGyP02mEfFaAFZE08fZCdRZtdtFtfz4O0dHtcHUgu88MjIm8gvKmiiWooGR9bBpikyxqFcOeZRp9dHWOLDcxZ8MOjcoI1xSPFOVE9/aab
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR11MB2686
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH v2 05/21] drm/i915/mtl: Define engine
+ context layouts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,110 +157,107 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Len Brown <lenb@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-
-On Wed, 2022-08-24 at 14:15 +0200, Hans de Goede wrote:
-> Add an entry summarizing the discussion about dealing with brightness
-> control on devices with more then 1 internal panel.
+On 18.08.2022 16:41, Radhakrishna Sripada wrote:
+> From: Matt Roper <matthew.d.roper@intel.com>
 > 
-> The original discussion can be found here:
-> https://lore.kernel.org/dri-devel/20220517152331.16217-1-hdegoede@redhat.com/
+> The part of the media and blitter engine contexts that we care about for
+> setting up an initial state are the same on MTL as they were on DG2
+> (and PVC), so we need to update the driver conditions to re-use the DG2
+> context table.
 > 
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> For render/compute engines, the part of the context images are nearly
+> the same, although the layout had a very slight change --- one POSH
+> register was removed and the placement of some LRI/noops adjusted
+> slightly to compensate.
+> 
+> Bspec: 46261, 46260, 45585
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+> Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 > ---
->  Documentation/gpu/todo.rst | 68 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 68 insertions(+)
+>  drivers/gpu/drm/i915/gt/intel_lrc.c | 47 ++++++++++++++++++++++++++++-
+>  1 file changed, 46 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> index 7634c27ac562..393d218e4a0c 100644
-> --- a/Documentation/gpu/todo.rst
-> +++ b/Documentation/gpu/todo.rst
-> @@ -679,6 +679,74 @@ Contact: Sam Ravnborg
+> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+> index eec73c66406c..d3833cbaabcb 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+> @@ -606,6 +606,49 @@ static const u8 dg2_rcs_offsets[] = {
+>  	END
+>  };
 >  
->  Level: Advanced
->  
-> +Brightness handling on devices with multiple internal panels
-> +============================================================
-> +
-> +On x86/ACPI devices there can be multiple backlight firmware interfaces:
-> +(ACPI) video, vendor specific and others. As well as direct/native (PWM)
-> +register programming by the KMS driver.
-> +
-> +To deal with this backlight drivers used on x86/ACPI call
-> +acpi_video_get_backlight_type() which has heuristics (+quirks) to select
-> +which backlight interface to use; and backlight drivers which do not match
-> +the returned type will not register themselves, so that only one backlight
-> +device gets registered (in a single GPU setup, see below).
-> +
-> +At the moment this more or less assumes that there will only
-> +be 1 (internal) panel on a system.
-> +
-> +On systems with 2 panels this may be a problem, depending on
-> +what interface acpi_video_get_backlight_type() selects:
-> +
-> +1. native: in this case the KMS driver is expected to know which backlight
-> +   device belongs to which output so everything should just work.
-> +2. video: this does support controlling multiple backlights, but some work
-> +   will need to be done to get the output <-> backlight device mapping
-> +
-> +The above assumes both panels will require the same backlight interface type.
-> +Things will break on systems with multiple panels where the 2 panels need
-> +a different type of control. E.g. one panel needs ACPI video backlight control,
-> +where as the other is using native backlight control. Currently in this case
-> +only one of the 2 required backlight devices will get registered, based on
-> +the acpi_video_get_backlight_type() return value.
-> +
-> +If this (theoretical) case ever shows up, then supporting this will need some
-> +work. A possible solution here would be to pass a device and connector-name
-> +to acpi_video_get_backlight_type() so that it can deal with this.
-> +
-> +Note in a way we already have a case where userspace sees 2 panels,
-> +in dual GPU laptop setups with a mux. On those systems we may see
-> +either 2 native backlight devices; or 2 native backlight devices.
-> +
-> +Userspace already has code to deal with this by detecting if the related
-> +panel is active (iow which way the mux between the GPU and the panels
-> +points) and then uses that backlight device. Userspace here very much
-> +assumes a single panel though. It picks only 1 of the 2 backlight devices
-> +and then only uses that one.
-> +
-> +Note that all userspace code (that I know off) is currently hardcoded
-> +to assume a single panel.
-> +
-> +Before the recent changes to not register multiple (e.g. video + native)
-> +/sys/class/backlight devices for a single panel (on a single GPU laptop),
-> +userspace would see multiple backlight devices all controlling the same
-> +backlight.
-> +
-> +To deal with this userspace had to always picks one preferred device under
-> +/sys/class/backlight and will ignore the others. So to support brightness
-> +control on multiple panels userspace will need to be updated too.
-> +
-> +There are plans to allow brightness control through the KMS API by adding
-> +a "display brightness" property to drm_connector objects for panels. This
-> +solves a number of issues with the /sys/class/backlight API, including not
-> +being able to map a sysfs backlight device to a specific connector. Any
-> +userspace changes to add support for brightness control on devices with
-> +multiple panels really should build on top of this new KMS property.
-> +
-> +Contact: Hans de Goede
-> +
-> +Level: Advanced
-> +
->  Outside DRM
->  ===========
->  
+> +static const u8 mtl_rcs_offsets[] = {
+> +       NOP(1),
+> +       LRI(15, POSTED),
+> +       REG16(0x244),
+> +       REG(0x034),
+> +       REG(0x030),
+> +       REG(0x038),
+> +       REG(0x03c),
+> +       REG(0x168),
+> +       REG(0x140),
+> +       REG(0x110),
+> +       REG(0x1c0),
+> +       REG(0x1c4),
+> +       REG(0x1c8),
+> +       REG(0x180),
+> +       REG16(0x2b4),
 
--- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+Inspecting Bspecs 46261 and 46260 indicates the following 2 registers
+are replaced by NOP for MTL. Can you check?
+> +       REG(0x120),
+> +       REG(0x124),
 
+> +
+> +       NOP(1),
+> +       LRI(9, POSTED),
+> +       REG16(0x3a8),
+> +       REG16(0x28c),
+> +       REG16(0x288),
+> +       REG16(0x284),
+> +       REG16(0x280),
+> +       REG16(0x27c),
+> +       REG16(0x278),
+> +       REG16(0x274),
+> +       REG16(0x270),
+> +
+> +       NOP(2),
+> +       LRI(2, POSTED),
+> +       REG16(0x5a8),
+> +       REG16(0x5ac),
+> +
+> +       NOP(6),
+> +       LRI(1, 0),
+> +       REG(0x0c8),
+> +
+> +       END
+> +};
+> +
+>  #undef END
+>  #undef REG16
+>  #undef REG
+> @@ -624,7 +667,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+>  		   !intel_engine_has_relative_mmio(engine));
+>  
+>  	if (engine->flags & I915_ENGINE_HAS_RCS_REG_STATE) {
+> -		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
+> +		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70))
+> +			return mtl_rcs_offsets;
+> +		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
+>  			return dg2_rcs_offsets;
+>  		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
+>  			return xehp_rcs_offsets;
+
+Similarly from Bpsec 45582, the same 2 registers indicated above is
+replaced by NOP even in Copy and Blitter engine contexts in MTL compared
+to DG2. So we have to create a new structure for MTL for Copy and Media
+engine contexts.
+
+Regards,
+Bala
+> -- 
+> 2.25.1
+> 
