@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BD68ECAAA2
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 03:05:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBA02ECAAA2
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 03:06:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC61F10E277;
-	Fri, 26 Aug 2022 03:05:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE9E10E2E9;
+	Fri, 26 Aug 2022 03:05:58 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2859610E277;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 913A710E28A;
  Fri, 26 Aug 2022 03:05:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1661483151; x=1693019151;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=M304JNgb5qG4NNSg6clasVBbbqNDJTqFibtZKGajxhY=;
- b=EM0UIZj6Q0salkmJtFSNkyfUis2zDPPP65dZE0AXi9eHviLXZ5YXJPsU
- QpIhnARXAwqvi+Z5/puYAgrxQbc5qcU98qe1cHaRQJIILWaNqAC08VMDs
- 5MUMnLYeg8cOXplmcDO8hXlFpgl2QHqBgcUFuSp4Byf22L/136gyGNM7A
- WyLmrcM1fqr7goJMZTCyTCfncXcmDwEjgFQ+qXMI/XUB9g5YQFOe23U96
- pqiZ40vW0xN8Fikvo9lfLOlDjb5oGABDtCFljJkJ1K3vXRpjtDVABPsSg
- o4KykVJ9hSCUCArGIbBfZtv8C5DNyKiYloACCPMDXOItKsk00OitgXkd6 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="281380680"
-X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="281380680"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Q+0eRE0kilE9RgjFt+igsvIpc0KvJebeCn733L5iEJ8=;
+ b=YUR/4RXFBqK0VlD1A5XDziOmjns3KzW8s4TZgAc8mQNnDErjhL+gkQEn
+ WZvk/uPdskBhm4nZ6V7Yz58FLSqy9daQ284k1yuTLnLHZ5xqBja7wNVXG
+ ttaXd04j0ReiCzqcE7M4WVP/+2OZCKHmWMycpXpRCSt6hOSCfFxlzaMFI
+ OTgqU4tXsPqmBhrM1OYzJc4SkDJG6yYxnmUoKMgtpZJdTbds67IpvaTu+
+ FU7gtSlHXf1/GfjeF+gmNVg83L3ELMhTIvzNH7qGw0aeaCWMpVsh0WeI/
+ OdakJJmScFdsPYOBBlDnayMILdXGS+zcgvre6T47VDQjhOf8JuI8kXF6y g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="281380684"
+X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="281380684"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Aug 2022 20:05:50 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="610421796"
+X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="610421805"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
  by orsmga002.jf.intel.com with ESMTP; 25 Aug 2022 20:05:50 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 25 Aug 2022 20:05:50 -0700
-Message-Id: <20220826030553.2611574-1-John.C.Harrison@Intel.com>
+Date: Thu, 25 Aug 2022 20:05:53 -0700
+Message-Id: <20220826030553.2611574-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220826030553.2611574-1-John.C.Harrison@Intel.com>
+References: <20220826030553.2611574-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/3] Drop version numbers from firmware files
+Subject: [Intel-gfx] [PATCH v2 3/3] drm/i915/uc: Enable version reduced
+ firmware files for newest platforms
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,33 +64,48 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Upstream direction is to include the bare minimum of version numbers
-in firmware files and to replace them in the repo rather than
-accumulating them. For HuC, that means going completely versionless.
-For GuC, the major version needs to be kept as that indicates a break
-in backwards compatibility with the KMD.
-
-v2: Fix a bunch of issues and add better documentation (some found in
-code review by Daniele, other through more thorough testing).
+Going forwards, the intention is for GuC firmware files to be named
+for their major version only and HuC firmware files to have no version
+number in the name at all. This patch adds those entries for DG1/2 and
+ADL-P/S.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-CC: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-
-John Harrison (3):
-  drm/i915/uc: Support for version reduced and multiple firmware files
-  drm/i915/uc: Add patch level version number support
-  drm/i915/uc: Enable version reduced firmware files for newest
-    platforms
-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  10 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |   8 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      | 468 ++++++++++++------
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h      |  39 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h  |   8 +-
- drivers/gpu/drm/i915/i915_gpu_error.c         |  16 +-
- 6 files changed, 358 insertions(+), 191 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 7c45c097d6845..d6e6fe10c5aca 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -72,11 +72,14 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+  * security fixes, etc. to be enabled.
+  */
+ #define INTEL_GUC_FIRMWARE_DEFS(fw_def, guc_maj, guc_mmp) \
+-	fw_def(DG2,          0, guc_mmp(dg2,  70, 4, 1)) \
++	fw_def(DG2,          0, guc_maj(dg2,  70, 4)) \
++	fw_def(ALDERLAKE_P,  0, guc_maj(adlp, 70, 1)) \
+ 	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 70, 1, 1)) \
+ 	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 69, 0, 3)) \
++	fw_def(ALDERLAKE_S,  0, guc_maj(tgl,  70, 1)) \
+ 	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  70, 1, 1)) \
+ 	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  69, 0, 3)) \
++	fw_def(DG1,          0, guc_maj(dg1,  70, 1)) \
+ 	fw_def(DG1,          0, guc_mmp(dg1,  70, 1, 1)) \
+ 	fw_def(ROCKETLAKE,   0, guc_mmp(tgl,  70, 1, 1)) \
+ 	fw_def(TIGERLAKE,    0, guc_mmp(tgl,  70, 1, 1)) \
+@@ -92,8 +95,11 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+ 	fw_def(SKYLAKE,      0, guc_mmp(skl,  70, 1, 1))
+ 
+ #define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_raw, huc_mmp) \
++	fw_def(ALDERLAKE_P,  0, huc_raw(tgl)) \
+ 	fw_def(ALDERLAKE_P,  0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(ALDERLAKE_S,  0, huc_raw(tgl)) \
+ 	fw_def(ALDERLAKE_S,  0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(DG1,          0, huc_raw(dg1)) \
+ 	fw_def(DG1,          0, huc_mmp(dg1,  7, 9, 3)) \
+ 	fw_def(ROCKETLAKE,   0, huc_mmp(tgl,  7, 9, 3)) \
+ 	fw_def(TIGERLAKE,    0, huc_mmp(tgl,  7, 9, 3)) \
 -- 
 2.37.2
 
