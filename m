@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83447ECAAD6
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 09:20:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EBFEECAAD2
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 09:20:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE6E10E7E3;
-	Fri, 26 Aug 2022 09:19:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05DF710E7EE;
+	Fri, 26 Aug 2022 09:19:55 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6802E10E7B3;
- Fri, 26 Aug 2022 09:19:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 587DD10E7D1;
+ Fri, 26 Aug 2022 09:19:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661505577; x=1693041577;
+ t=1661505583; x=1693041583;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=04l72mGa5RZDA9Jfx1Flib/jQulzbYfdi65CrNhdyTg=;
- b=bhOmZxoTatR5M5vjNTIvOavnmF90pOid46AGH6iLyPNSUj3/5XbSvzQ4
- PkQDa78fehCxV3276Yyj7qDGD4Iu2DE7RGgO63dCbm1jtri6yO9Xke1rD
- JAq/v0r4VSQipz0+IqYDjcmfJ91LiFO+5TjLbeFEfYYofChDdoNRUE65d
- oCVN0w+pv/XjItKBdmpY4VQRi31h/ojGKduTn/0BO8zC2swOhNKL/Y7iG
- RQky0+D2cDxSlYSe+gG34oskFVdm/bs5T7+J6v+cl4tI+3v4q1yCMBe7F
- y3Yr1NHclBV5GeOXCIp/uCGbEGrSHj8w8Pi209ZQEFZZ4HrBf5qrp66Ka Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="274217125"
-X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="274217125"
+ bh=vp0Urg4qiwUDn6AvML0AlsVHmP234UTFv+54S+inO7M=;
+ b=lCWGhVa+nGM4GuD2mSy+QFqmzZG+UN11OYenmqBp2gPKJhNtNM321Pge
+ 1SbmueaSlkglw7oPKcs+Qs0i2DbrpciVo61sI/HOnrMz+4M4Gy8BFFKxR
+ /fyvXc/krNsPwxnDVWv4urpajMdKC+bJwp1Y9PhExSjXPfJNIotWr4PZv
+ qIPYiNpL4dB5y5M2EHPm6v0wriUxJj3TYdavkUZmmetK9TcmsHbmz68vG
+ bzk7k0sWjWj8IAtCysv6RZH7CDK5hYvUr+NgCq/0Ueb+XZsrpJd2nrM1x
+ 9AKIPBjbkoQ3gmQRdUGCKVlEwPky+mh1b+RQhtzLJvgnvbIpbNP1NkN9G g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="274217132"
+X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="274217132"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2022 02:19:35 -0700
+ 26 Aug 2022 02:19:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="752816370"
+X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="752816388"
 Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
  ([10.237.72.65])
- by fmsmga001.fm.intel.com with ESMTP; 26 Aug 2022 02:19:33 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 26 Aug 2022 02:19:40 -0700
 From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 26 Aug 2022 12:20:16 +0300
-Message-Id: <20220826092019.23151-2-stanislav.lisovskiy@intel.com>
+Date: Fri, 26 Aug 2022 12:20:19 +0300
+Message-Id: <20220826092019.23151-5-stanislav.lisovskiy@intel.com>
 X-Mailer: git-send-email 2.24.1.485.gad05a3d8e5
 In-Reply-To: <20220826092019.23151-1-stanislav.lisovskiy@intel.com>
 References: <20220826092019.23151-1-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] drm: Add missing DP DSC extended capability
- definitions.
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915: Extract
+ drm_dp_atomic_find_vcpi_slots cycle to separate function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,64 +61,169 @@ Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Adding DP DSC register definitions, we might need for further
-DSC implementation, supporting MST and DP branch pass-through mode.
-
-v2: - Fixed checkpatch comment warning
-v3: - Removed function which is not yet used(Jani Nikula)
-
-Reviewed-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+We are using almost same code to loop through bpps while calling
+drm_dp_atomic_find_vcpi_slots - lets remove this duplication by
+introducing a new function intel_dp_mst_find_vcpi_slots_for_bpp
 
 Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 ---
- include/drm/display/drm_dp.h | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 85 +++++++++++----------
+ 1 file changed, 44 insertions(+), 41 deletions(-)
 
-diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-index 9e3aff7e68bb..0d05e3172f96 100644
---- a/include/drm/display/drm_dp.h
-+++ b/include/drm/display/drm_dp.h
-@@ -239,6 +239,9 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 630450bd22a2..b393c97f3fb8 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -44,10 +44,14 @@
+ #include "intel_hotplug.h"
+ #include "skl_scaler.h"
  
- #define DP_DSC_SUPPORT                      0x060   /* DP 1.4 */
- # define DP_DSC_DECOMPRESSION_IS_SUPPORTED  (1 << 0)
-+# define DP_DSC_PASS_THROUGH_IS_SUPPORTED   (1 << 1)
-+# define DP_DSC_DYNAMIC_PPS_UPDATE_SUPPORT_COMP_TO_COMP    (1 << 2)
-+# define DP_DSC_DYNAMIC_PPS_UPDATE_SUPPORT_UNCOMP_TO_COMP  (1 << 3)
+-static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+-					    struct intel_crtc_state *crtc_state,
+-					    struct drm_connector_state *conn_state,
+-					    struct link_config_limits *limits)
++static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
++						struct intel_crtc_state *crtc_state,
++						int max_bpp,
++						int min_bpp,
++						struct link_config_limits *limits,
++						struct drm_connector_state *conn_state,
++						int step,
++						bool dsc)
+ {
+ 	struct drm_atomic_state *state = crtc_state->uapi.state;
+ 	struct intel_dp_mst_encoder *intel_mst = enc_to_mst(encoder);
+@@ -57,26 +61,26 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
+-	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CONSTANT_N);
+ 	int bpp, slots = -EINVAL;
+ 	int ret = 0;
  
- #define DP_DSC_REV                          0x061
- # define DP_DSC_MAJOR_MASK                  (0xf << 0)
-@@ -277,12 +280,15 @@
+ 	crtc_state->lane_count = limits->max_lane_count;
+ 	crtc_state->port_clock = limits->max_rate;
  
- #define DP_DSC_BLK_PREDICTION_SUPPORT       0x066
- # define DP_DSC_BLK_PREDICTION_IS_SUPPORTED (1 << 0)
-+# define DP_DSC_RGB_COLOR_CONV_BYPASS_SUPPORT (1 << 1)
+-	for (bpp = limits->max_bpp; bpp >= limits->min_bpp; bpp -= 2 * 3) {
++	for (bpp = max_bpp; bpp >= min_bpp; bpp -= step) {
+ 		crtc_state->pipe_bpp = bpp;
  
- #define DP_DSC_MAX_BITS_PER_PIXEL_LOW       0x067   /* eDP 1.4 */
+ 		crtc_state->pbn = drm_dp_calc_pbn_mode(adjusted_mode->crtc_clock,
+-						       crtc_state->pipe_bpp,
+-						       false);
++						       dsc ? bpp << 4 : crtc_state->pipe_bpp,
++						       dsc);
  
- #define DP_DSC_MAX_BITS_PER_PIXEL_HI        0x068   /* eDP 1.4 */
- # define DP_DSC_MAX_BITS_PER_PIXEL_HI_MASK  (0x3 << 0)
- # define DP_DSC_MAX_BITS_PER_PIXEL_HI_SHIFT 8
-+# define DP_DSC_MAX_BPP_DELTA_VERSION_MASK  0x06
-+# define DP_DSC_MAX_BPP_DELTA_AVAILABILITY  0x08
+ 		slots = drm_dp_atomic_find_vcpi_slots(state, &intel_dp->mst_mgr,
+ 						      connector->port,
+ 						      crtc_state->pbn,
+-						      drm_dp_get_vc_payload_bw(&intel_dp->mst_mgr,
+-									       crtc_state->port_clock,
+-									       crtc_state->lane_count));
++						      !dsc ? drm_dp_get_vc_payload_bw(&intel_dp->mst_mgr,
++										   crtc_state->port_clock,
++										   crtc_state->lane_count)
++							   : 0);
+ 		if (slots == -EDEADLK)
+ 			return slots;
+ 		if (slots >= 0) {
+@@ -94,11 +98,32 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+ 	if (ret && slots >= 0)
+ 		slots = ret;
  
- #define DP_DSC_DEC_COLOR_FORMAT_CAP         0x069
- # define DP_DSC_RGB                         (1 << 0)
-@@ -344,11 +350,13 @@
- # define DP_DSC_24_PER_DP_DSC_SINK          (1 << 2)
+-	if (slots < 0) {
++	if (slots < 0)
+ 		drm_dbg_kms(&i915->drm, "failed finding vcpi slots:%d\n",
+ 			    slots);
++
++	return slots;
++}
++
++
++static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
++					    struct intel_crtc_state *crtc_state,
++					    struct drm_connector_state *conn_state,
++					    struct link_config_limits *limits)
++{
++	const struct drm_display_mode *adjusted_mode =
++		&crtc_state->hw.adjusted_mode;
++	struct intel_dp_mst_encoder *intel_mst = enc_to_mst(encoder);
++	struct intel_dp *intel_dp = &intel_mst->primary->dp;
++	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CONSTANT_N);
++	int slots = -EINVAL;
++
++	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, limits->max_bpp,
++						     limits->min_bpp, limits,
++						     conn_state, 2 * 3, false);
++
++	if (slots < 0)
+ 		return slots;
+-	}
  
- #define DP_DSC_BITS_PER_PIXEL_INC           0x06F
-+# define DP_DSC_RGB_YCbCr444_MAX_BPP_DELTA_MASK 0x1f
-+# define DP_DSC_RGB_YCbCr420_MAX_BPP_DELTA_MASK 0xe0
- # define DP_DSC_BITS_PER_PIXEL_1_16         0x0
- # define DP_DSC_BITS_PER_PIXEL_1_8          0x1
- # define DP_DSC_BITS_PER_PIXEL_1_4          0x2
- # define DP_DSC_BITS_PER_PIXEL_1_2          0x3
--# define DP_DSC_BITS_PER_PIXEL_1            0x4
-+# define DP_DSC_BITS_PER_PIXEL_1_1          0x4
+ 	intel_link_compute_m_n(crtc_state->pipe_bpp,
+ 			       crtc_state->lane_count,
+@@ -116,25 +141,21 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
+ 						struct drm_connector_state *conn_state,
+ 						struct link_config_limits *limits)
+ {
+-	struct drm_atomic_state *state = crtc_state->uapi.state;
+-	struct intel_dp_mst_encoder *intel_mst = enc_to_mst(encoder);
+-	struct intel_dp *intel_dp = &intel_mst->primary->dp;
+ 	struct intel_connector *connector =
+ 		to_intel_connector(conn_state->connector);
++	struct intel_dp_mst_encoder *intel_mst = enc_to_mst(encoder);
++	struct intel_dp *intel_dp = &intel_mst->primary->dp;
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
+ 	bool constant_n = drm_dp_has_quirk(&intel_dp->desc,
+ 					   DP_DPCD_QUIRK_CONSTANT_N);
+-	int bpp, slots = -EINVAL;
++	int slots = -EINVAL;
+ 	int i, num_bpc;
+ 	u8 dsc_bpc[3] = {0};
+ 	int min_bpp, max_bpp;
+ 	u8 dsc_max_bpc;
  
- #define DP_PSR_SUPPORT                      0x070   /* XXX 1.2? */
- # define DP_PSR_IS_SUPPORTED                1
+-	crtc_state->lane_count = limits->max_lane_count;
+-	crtc_state->port_clock = limits->max_rate;
+-
+ 	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
+ 	if (DISPLAY_VER(i915) >= 12)
+ 		dsc_max_bpc = min_t(u8, 12, conn_state->max_requested_bpc);
+@@ -155,29 +176,11 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
+ 	drm_dbg_kms(&i915->drm, "DSC Sink supported min bpp %d max bpp %d\n",
+ 		    min_bpp, max_bpp);
+ 
+-	for (bpp = max_bpp; bpp >= min_bpp; bpp -= 2 * 3) {
+-		crtc_state->pbn = drm_dp_calc_pbn_mode(adjusted_mode->crtc_clock,
+-						       bpp << 4,
+-						       true);
++	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, max_bpp, min_bpp,
++						     limits, conn_state, 2 * 3, true);
+ 
+-		slots = drm_dp_atomic_find_vcpi_slots(state, &intel_dp->mst_mgr,
+-						      connector->port,
+-						      crtc_state->pbn, 0);
+-
+-		drm_dbg_kms(&i915->drm, "Trying bpp %d got %d pbn %d slots\n",
+-			    bpp, crtc_state->pbn, slots);
+-
+-		if (slots == -EDEADLK)
+-			return slots;
+-		if (slots >= 0)
+-			break;
+-	}
+-
+-	if (slots < 0) {
+-		drm_dbg_kms(&i915->drm, "failed finding vcpi slots:%d\n",
+-			    slots);
++	if (slots < 0)
+ 		return slots;
+-	}
+ 
+ 	intel_link_compute_m_n(crtc_state->pipe_bpp,
+ 			       crtc_state->lane_count,
 -- 
 2.24.1.485.gad05a3d8e5
 
