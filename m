@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BFC1ECAAD4
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 14:20:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEA3BECAAD4
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 14:20:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F9B110E92A;
-	Fri, 26 Aug 2022 14:19:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F7B010E930;
+	Fri, 26 Aug 2022 14:20:04 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB26D10E927;
- Fri, 26 Aug 2022 14:19:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08C9810E932;
+ Fri, 26 Aug 2022 14:19:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661523590; x=1693059590;
+ t=1661523596; x=1693059596;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=c+pXcbsPx/rMzdeWU+Wdyx39q2fdykDrG2BhCL1DuEc=;
- b=STkbRpvXHaTMiOGD9XMWc1s5ZzMyyJgVcSqzDqP3+giRok9DCStux6H9
- DslMZV2d/QKecqAOJxzXAFN7bZsR1OSUt+vzJlA+JofHjnQjgI0f5uydO
- ILsyOM5cG7yYIzcQp/E2MznmB1ncQGg1rSqk7Z3blebcgZoDCkxG3U/UB
- JiOYh0go1q/nP5p6J4uZWTRikOw9pDyhpQgRBZCAGA+GmYzArYAsWKeZW
- wL9blf9p/SdZgi8PocBdGeJRxR7KdGI0mMmFcunTgbBRizZvUHe/lWNcV
- 6huXQpu9QLckZqAY/E3kSlbJeHcjMPRkVHIg5oYnlA8jtbq4qEFe7wBfP g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10451"; a="281485729"
-X-IronPort-AV: E=Sophos;i="5.93,265,1654585200"; d="scan'208";a="281485729"
+ bh=QFGZCnBk1me3JF1oaygoGELsobT7o3LQUFAm0hBAXJw=;
+ b=kD+9ltiaiVu9i2jfOoDIpwJHydPz1KwIwXy9H1Tq4D/ZLzLjc2fvVTQG
+ nVj95vYDQKFv0GiGO3GWnNllXZMaggJLUo7GoU+S3wsXWYK2ea1mWoEuV
+ N7J9suWhNj/qp662ugYo8fNe6qv9tuSq/mrRzX5ZetjdYdfBmtEgwXG1h
+ i4RY5fzeBGZGLwXsD9Ku9czX888S/y9laIaAo0WJeZiF2m66FaqYx3BCj
+ qjjWD7zTuVBq+HrPk3d5Ol58OpF3kiiiBEyUrjfWfdt0UKYCC3hQrc2Iq
+ rOHCbmw1JUka2SHZh/ERyc2mUVfe88GvEgsS6IkbkGASbj1KKOJ/L5zgA Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10451"; a="281485767"
+X-IronPort-AV: E=Sophos;i="5.93,265,1654585200"; d="scan'208";a="281485767"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2022 07:19:50 -0700
-X-IronPort-AV: E=Sophos;i="5.93,265,1654585200"; d="scan'208";a="587313659"
+ 26 Aug 2022 07:19:55 -0700
+X-IronPort-AV: E=Sophos;i="5.93,265,1654585200"; d="scan'208";a="587313694"
 Received: from lab-ah.igk.intel.com ([10.91.215.196])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2022 07:19:47 -0700
+ 26 Aug 2022 07:19:53 -0700
 From: Andrzej Hajda <andrzej.hajda@intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Arun R Murthy <arun.r.murthy@intel.com>, Imre Deak <imre.deak@intel.com>
-Date: Fri, 26 Aug 2022 16:19:27 +0200
-Message-Id: <20220826141929.189681-2-andrzej.hajda@intel.com>
+Date: Fri, 26 Aug 2022 16:19:29 +0200
+Message-Id: <20220826141929.189681-4-andrzej.hajda@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220826141929.189681-1-andrzej.hajda@intel.com>
 References: <20220826141929.189681-1-andrzej.hajda@intel.com>
@@ -46,8 +46,8 @@ MIME-Version: 1.0
 Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
  80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 1/3] drm/i915/hpd: suspend MST at the end of
- intel_modeset_driver_remove
+Subject: [Intel-gfx] [PATCH v7 3/3] drm/i915/fbdev: do not create fbdev if
+ HPD is suspended
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,71 +66,32 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-i915->hotplug.dig_port_work can be queued from intel_hpd_irq_handler
-called by IRQ handler or by intel_hpd_trigger_irq called from dp_mst.
-Since dp_mst is suspended after irq handler uninstall, a cleaner approach
-is to cancel hpd work after intel_dp_mst_suspend, otherwise we risk
-use-after-free.
+In case of deferred FB setup core can try to create new
+framebuffer. Disallow it if hpd_suspended flag is set.
 
-It should fix following WARNINGS:
-[283.405824] cpu_latency_qos_update_request called for unknown object
-[283.405866] WARNING: CPU: 2 PID: 240 at kernel/power/qos.c:296 cpu_latency_qos_update_request+0x2d/0x100
-[283.405912] CPU: 2 PID: 240 Comm: kworker/u64:9 Not tainted 5.18.0-rc6-Patchwork_103738v3-g1672d1c43e43+ #1
-[283.405915] Hardware name: Intel Corporation Raptor Lake Client Platform/RPL-S ADP-S DDR5 UDIMM CRB, BIOS RPLSFWI1.R00.2397.A01.2109300731 09/30/2021
-[283.405916] Workqueue: i915-dp i915_digport_work_func [i915]
-[283.406020] RIP: 0010:cpu_latency_qos_update_request+0x2d/0x100
-...
-[283.406040] Call Trace:
-[283.406041]  <TASK>
-[283.406044]  intel_dp_aux_xfer+0x60e/0x8e0 [i915]
-[283.406131]  ? finish_swait+0x80/0x80
-[283.406139]  intel_dp_aux_transfer+0xc5/0x2b0 [i915]
-[283.406218]  drm_dp_dpcd_access+0x79/0x130 [drm_display_helper]
-[283.406227]  drm_dp_dpcd_read+0xe2/0xf0 [drm_display_helper]
-[283.406233]  intel_dp_hpd_pulse+0x134/0x570 [i915]
-[283.406308]  ? __down_killable+0x70/0x140
-[283.406313]  i915_digport_work_func+0xba/0x150 [i915]
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/4586
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/5558
 Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
+Reviewed-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index a0f84cbe974fc3..524c4580ae6bc9 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -9000,6 +9000,13 @@ void intel_modeset_driver_remove(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index 2903b9cfa0f834..f287362dbdc68a 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -210,6 +210,12 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 	struct drm_i915_gem_object *obj;
+ 	int ret;
  
- 	flush_work(&i915->atomic_helper.free_work);
- 	drm_WARN_ON(&i915->drm, !llist_empty(&i915->atomic_helper.free_list));
++	mutex_lock(&ifbdev->hpd_lock);
++	ret = ifbdev->hpd_suspended ? -EAGAIN : 0;
++	mutex_unlock(&ifbdev->hpd_lock);
++	if (ret)
++		return ret;
 +
-+	/*
-+	 * MST topology needs to be suspended so we don't have any calls to
-+	 * fbdev after it's finalized. MST will be destroyed later as part of
-+	 * drm_mode_config_cleanup()
-+	 */
-+	intel_dp_mst_suspend(i915);
- }
- 
- /* part #2: call after irq uninstall */
-@@ -9014,13 +9021,6 @@ void intel_modeset_driver_remove_noirq(struct drm_i915_private *i915)
- 	 */
- 	intel_hpd_poll_fini(i915);
- 
--	/*
--	 * MST topology needs to be suspended so we don't have any calls to
--	 * fbdev after it's finalized. MST will be destroyed later as part of
--	 * drm_mode_config_cleanup()
--	 */
--	intel_dp_mst_suspend(i915);
--
- 	/* poll work can call into fbdev, hence clean that up afterwards */
- 	intel_fbdev_fini(i915);
- 
+ 	if (intel_fb &&
+ 	    (sizes->fb_width > intel_fb->base.width ||
+ 	     sizes->fb_height > intel_fb->base.height)) {
 -- 
 2.25.1
 
