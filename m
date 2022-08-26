@@ -4,48 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54FD3ECAAD1
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 03:06:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16971ECAAA2
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Aug 2022 03:28:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A09D10E2D9;
-	Fri, 26 Aug 2022 03:06:04 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C158410E277;
- Fri, 26 Aug 2022 03:05:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661483151; x=1693019151;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=e0hh901ut+FwwEKU3jcxMqzkgW2g8h5bEyxVqv1T5+E=;
- b=Kzd0hqE+cy0kIFQqmpCLauI0ppff3niFiUNtI6XNQ535m99lgZTjDM6c
- aIlQAJxJ6JGEYH4tzaUrjZLc25tdHJjXjautOKTiy3dtCSAEsWnuarho8
- 4PquxQBdDJVSwrMBdGtbtXVooDswwIPtNT37BQGzab8tEDUiFXWHVUju3
- 0zFLdzigYwBKDIKcJisbdlJ2TsRU0zRRsKVDVFw4+QCAjbtOxiJGeV5l/
- /rFJGOMcHClebHKCyGrpMcNuYw9js+adHT4qFKPW1K2sESqMUQY/p2IG2
- 0hM1ve2yy94mJkXdBALKg86MD4T6rGtRx2j7t/8K0ferb1Hgf+Qr23ZJS A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="281380683"
-X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="281380683"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2022 20:05:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,264,1654585200"; d="scan'208";a="610421802"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.134])
- by orsmga002.jf.intel.com with ESMTP; 25 Aug 2022 20:05:50 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 25 Aug 2022 20:05:52 -0700
-Message-Id: <20220826030553.2611574-3-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220826030553.2611574-1-John.C.Harrison@Intel.com>
-References: <20220826030553.2611574-1-John.C.Harrison@Intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D86E10E373;
+	Fri, 26 Aug 2022 03:28:00 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AD4B410E373;
+ Fri, 26 Aug 2022 03:27:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 34F42AADD6;
+ Fri, 26 Aug 2022 03:27:56 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/3] drm/i915/uc: Add patch level version
- number support
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: john.c.harrison@intel.com
+Date: Fri, 26 Aug 2022 03:27:56 -0000
+Message-ID: <166148447618.30042.13189453661933453038@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220826030553.2611574-1-John.C.Harrison@Intel.com>
+In-Reply-To: <20220826030553.2611574-1-John.C.Harrison@Intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Drop_version_numbers_from_firmware_files_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,210 +40,201 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+== Series Details ==
 
-With the move to un-versioned filenames, it becomes more difficult to
-know exactly what version of a given firmware is being used. So add
-the patch level version number to the debugfs output.
+Series: Drop version numbers from firmware files (rev3)
+URL   : https://patchwork.freedesktop.org/series/107340/
+State : warning
 
-Also, support matching by patch level when selecting code paths for
-firmware compatibility. While a patch level change cannot be backwards
-breaking, it is potentially possible that a new feature only works
-from a given patch level onwards (even though it was theoretically
-added in an earlier version that bumped the major or minor version).
+== Summary ==
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 10 +++---
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  6 ++--
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      | 36 ++++++++++++++-----
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h      |  6 ++++
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h  |  8 +++--
- 5 files changed, 47 insertions(+), 19 deletions(-)
+Error: dim checkpatch failed
+e1d3119cb4c3 drm/i915/uc: Support for version reduced and multiple firmware files
+-:171: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#171: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:74:
++#define INTEL_GUC_FIRMWARE_DEFS(fw_def, guc_maj, guc_mmp) \
++	fw_def(DG2,          0, guc_mmp(dg2,  70, 4, 1)) \
++	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 70, 1, 1)) \
++	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 69, 0, 3)) \
++	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  70, 1, 1)) \
++	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  69, 0, 3)) \
++	fw_def(DG1,          0, guc_mmp(dg1,  70, 1, 1)) \
++	fw_def(ROCKETLAKE,   0, guc_mmp(tgl,  70, 1, 1)) \
++	fw_def(TIGERLAKE,    0, guc_mmp(tgl,  70, 1, 1)) \
++	fw_def(JASPERLAKE,   0, guc_mmp(ehl,  70, 1, 1)) \
++	fw_def(ELKHARTLAKE,  0, guc_mmp(ehl,  70, 1, 1)) \
++	fw_def(ICELAKE,      0, guc_mmp(icl,  70, 1, 1)) \
++	fw_def(COMETLAKE,    5, guc_mmp(cml,  70, 1, 1)) \
++	fw_def(COMETLAKE,    0, guc_mmp(kbl,  70, 1, 1)) \
++	fw_def(COFFEELAKE,   0, guc_mmp(kbl,  70, 1, 1)) \
++	fw_def(GEMINILAKE,   0, guc_mmp(glk,  70, 1, 1)) \
++	fw_def(KABYLAKE,     0, guc_mmp(kbl,  70, 1, 1)) \
++	fw_def(BROXTON,      0, guc_mmp(bxt,  70, 1, 1)) \
++	fw_def(SKYLAKE,      0, guc_mmp(skl,  70, 1, 1))
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 04393932623c7..64c4e83153f47 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1868,7 +1868,7 @@ int intel_guc_submission_init(struct intel_guc *guc)
- 	if (guc->submission_initialized)
- 		return 0;
- 
--	if (guc->fw.file_selected.major_ver < 70) {
-+	if (GET_UC_VER(guc) < MAKE_UC_VER(70, 0, 0)) {
- 		ret = guc_lrc_desc_pool_create_v69(guc);
- 		if (ret)
- 			return ret;
-@@ -2303,7 +2303,7 @@ static int register_context(struct intel_context *ce, bool loop)
- 	GEM_BUG_ON(intel_context_is_child(ce));
- 	trace_intel_context_register(ce);
- 
--	if (guc->fw.file_selected.major_ver >= 70)
-+	if (GET_UC_VER(guc) >= MAKE_UC_VER(70, 0, 0))
- 		ret = register_context_v70(guc, ce, loop);
- 	else
- 		ret = register_context_v69(guc, ce, loop);
-@@ -2315,7 +2315,7 @@ static int register_context(struct intel_context *ce, bool loop)
- 		set_context_registered(ce);
- 		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
- 
--		if (guc->fw.file_selected.major_ver >= 70)
-+		if (GET_UC_VER(guc) >= MAKE_UC_VER(70, 0, 0))
- 			guc_context_policy_init_v70(ce, loop);
- 	}
- 
-@@ -2921,7 +2921,7 @@ static void __guc_context_set_preemption_timeout(struct intel_guc *guc,
- 						 u16 guc_id,
- 						 u32 preemption_timeout)
- {
--	if (guc->fw.file_selected.major_ver >= 70) {
-+	if (GET_UC_VER(guc) >= MAKE_UC_VER(70, 0, 0)) {
- 		struct context_policy policy;
- 
- 		__guc_context_policy_start_klv(&policy, guc_id);
-@@ -3186,7 +3186,7 @@ static int guc_context_alloc(struct intel_context *ce)
- static void __guc_context_set_prio(struct intel_guc *guc,
- 				   struct intel_context *ce)
- {
--	if (guc->fw.file_selected.major_ver >= 70) {
-+	if (GET_UC_VER(guc) >= MAKE_UC_VER(70, 0, 0)) {
- 		struct context_policy policy;
- 
- 		__guc_context_policy_start_klv(&policy, ce->guc_id.id);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index d965ac4832d60..abf4e142596d0 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -435,9 +435,11 @@ static void print_fw_ver(struct intel_uc *uc, struct intel_uc_fw *fw)
- {
- 	struct drm_i915_private *i915 = uc_to_gt(uc)->i915;
- 
--	drm_info(&i915->drm, "%s firmware %s version %u.%u\n",
-+	drm_info(&i915->drm, "%s firmware %s version %u.%u.%u\n",
- 		 intel_uc_fw_type_repr(fw->type), fw->file_selected.path,
--		 fw->file_selected.major_ver, fw->file_selected.minor_ver);
-+		 fw->file_selected.major_ver,
-+		 fw->file_selected.minor_ver,
-+		 fw->file_selected.patch_ver);
- }
- 
- static int __uc_init_hw(struct intel_uc *uc)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index 94cf2d4a46e6f..7c45c097d6845 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -447,10 +447,12 @@ static int check_gsc_manifest(const struct firmware *fw,
- 			      struct intel_uc_fw *uc_fw)
- {
- 	u32 *dw = (u32 *)fw->data;
--	u32 version = dw[HUC_GSC_VERSION_DW];
-+	u32 version_hi = dw[HUC_GSC_VERSION_HI_DW];
-+	u32 version_lo = dw[HUC_GSC_VERSION_LO_DW];
- 
--	uc_fw->file_selected.major_ver = FIELD_GET(HUC_GSC_MAJOR_VER_MASK, version);
--	uc_fw->file_selected.minor_ver = FIELD_GET(HUC_GSC_MINOR_VER_MASK, version);
-+	uc_fw->file_selected.major_ver = FIELD_GET(HUC_GSC_MAJOR_VER_HI_MASK, version_hi);
-+	uc_fw->file_selected.minor_ver = FIELD_GET(HUC_GSC_MINOR_VER_HI_MASK, version_hi);
-+	uc_fw->file_selected.patch_ver = FIELD_GET(HUC_GSC_PATCH_VER_LO_MASK, version_lo);
- 
- 	return 0;
- }
-@@ -512,6 +514,8 @@ static int check_ccs_header(struct drm_i915_private *i915,
- 						   css->sw_version);
- 	uc_fw->file_selected.minor_ver = FIELD_GET(CSS_SW_VERSION_UC_MINOR,
- 						   css->sw_version);
-+	uc_fw->file_selected.patch_ver = FIELD_GET(CSS_SW_VERSION_UC_PATCH,
-+						   css->sw_version);
- 
- 	if (uc_fw->type == INTEL_UC_FW_TYPE_GUC)
- 		uc_fw->private_data_size = css->private_data_size;
-@@ -1000,6 +1004,8 @@ size_t intel_uc_fw_copy_rsa(struct intel_uc_fw *uc_fw, void *dst, u32 max_len)
-  */
- void intel_uc_fw_dump(const struct intel_uc_fw *uc_fw, struct drm_printer *p)
- {
-+	u32 ver_sel, ver_want;
-+
- 	drm_printf(p, "%s firmware: %s\n",
- 		   intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path);
- 	if (uc_fw->file_selected.path != uc_fw->file_wanted.path)
-@@ -1007,13 +1013,25 @@ void intel_uc_fw_dump(const struct intel_uc_fw *uc_fw, struct drm_printer *p)
- 			   intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_wanted.path);
- 	drm_printf(p, "\tstatus: %s\n",
- 		   intel_uc_fw_status_repr(uc_fw->status));
--	if (uc_fw->file_wanted.major_ver)
--		drm_printf(p, "\tversion: wanted %u.%u, found %u.%u\n",
--			   uc_fw->file_wanted.major_ver, uc_fw->file_wanted.minor_ver,
--			   uc_fw->file_selected.major_ver, uc_fw->file_selected.minor_ver);
-+	ver_sel = MAKE_UC_VER(uc_fw->file_selected.major_ver,
-+			      uc_fw->file_selected.minor_ver,
-+			      uc_fw->file_selected.patch_ver);
-+	ver_want = MAKE_UC_VER(uc_fw->file_wanted.major_ver,
-+			       uc_fw->file_wanted.minor_ver,
-+			       uc_fw->file_wanted.patch_ver);
-+	if (ver_sel < ver_want)
-+		drm_printf(p, "\tversion: wanted %u.%u.%u, found %u.%u.%u\n",
-+			   uc_fw->file_wanted.major_ver,
-+			   uc_fw->file_wanted.minor_ver,
-+			   uc_fw->file_wanted.patch_ver,
-+			   uc_fw->file_selected.major_ver,
-+			   uc_fw->file_selected.minor_ver,
-+			   uc_fw->file_selected.patch_ver);
- 	else
--		drm_printf(p, "\tversion: found %u.%u\n",
--			   uc_fw->file_selected.major_ver, uc_fw->file_selected.minor_ver);
-+		drm_printf(p, "\tversion: found %u.%u.%u\n",
-+			   uc_fw->file_selected.major_ver,
-+			   uc_fw->file_selected.minor_ver,
-+			   uc_fw->file_selected.patch_ver);
- 	drm_printf(p, "\tuCode: %u bytes\n", uc_fw->ucode_size);
- 	drm_printf(p, "\tRSA: %u bytes\n", uc_fw->rsa_size);
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-index 344763c942e37..cb586f7df270b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-@@ -73,6 +73,7 @@ struct intel_uc_fw_file {
- 	const char *path;
- 	u16 major_ver;
- 	u16 minor_ver;
-+	u16 patch_ver;
- };
- 
- /*
-@@ -108,6 +109,11 @@ struct intel_uc_fw {
- 	bool loaded_via_gsc;
- };
- 
-+#define MAKE_UC_VER(maj, min, pat)	((pat) | ((min) << 8) | ((maj) << 16))
+-:171: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'fw_def' - possible side-effects?
+#171: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:74:
++#define INTEL_GUC_FIRMWARE_DEFS(fw_def, guc_maj, guc_mmp) \
++	fw_def(DG2,          0, guc_mmp(dg2,  70, 4, 1)) \
++	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 70, 1, 1)) \
++	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 69, 0, 3)) \
++	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  70, 1, 1)) \
++	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  69, 0, 3)) \
++	fw_def(DG1,          0, guc_mmp(dg1,  70, 1, 1)) \
++	fw_def(ROCKETLAKE,   0, guc_mmp(tgl,  70, 1, 1)) \
++	fw_def(TIGERLAKE,    0, guc_mmp(tgl,  70, 1, 1)) \
++	fw_def(JASPERLAKE,   0, guc_mmp(ehl,  70, 1, 1)) \
++	fw_def(ELKHARTLAKE,  0, guc_mmp(ehl,  70, 1, 1)) \
++	fw_def(ICELAKE,      0, guc_mmp(icl,  70, 1, 1)) \
++	fw_def(COMETLAKE,    5, guc_mmp(cml,  70, 1, 1)) \
++	fw_def(COMETLAKE,    0, guc_mmp(kbl,  70, 1, 1)) \
++	fw_def(COFFEELAKE,   0, guc_mmp(kbl,  70, 1, 1)) \
++	fw_def(GEMINILAKE,   0, guc_mmp(glk,  70, 1, 1)) \
++	fw_def(KABYLAKE,     0, guc_mmp(kbl,  70, 1, 1)) \
++	fw_def(BROXTON,      0, guc_mmp(bxt,  70, 1, 1)) \
++	fw_def(SKYLAKE,      0, guc_mmp(skl,  70, 1, 1))
+
+-:171: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'guc_mmp' - possible side-effects?
+#171: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:74:
++#define INTEL_GUC_FIRMWARE_DEFS(fw_def, guc_maj, guc_mmp) \
++	fw_def(DG2,          0, guc_mmp(dg2,  70, 4, 1)) \
++	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 70, 1, 1)) \
++	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 69, 0, 3)) \
++	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  70, 1, 1)) \
++	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  69, 0, 3)) \
++	fw_def(DG1,          0, guc_mmp(dg1,  70, 1, 1)) \
++	fw_def(ROCKETLAKE,   0, guc_mmp(tgl,  70, 1, 1)) \
++	fw_def(TIGERLAKE,    0, guc_mmp(tgl,  70, 1, 1)) \
++	fw_def(JASPERLAKE,   0, guc_mmp(ehl,  70, 1, 1)) \
++	fw_def(ELKHARTLAKE,  0, guc_mmp(ehl,  70, 1, 1)) \
++	fw_def(ICELAKE,      0, guc_mmp(icl,  70, 1, 1)) \
++	fw_def(COMETLAKE,    5, guc_mmp(cml,  70, 1, 1)) \
++	fw_def(COMETLAKE,    0, guc_mmp(kbl,  70, 1, 1)) \
++	fw_def(COFFEELAKE,   0, guc_mmp(kbl,  70, 1, 1)) \
++	fw_def(GEMINILAKE,   0, guc_mmp(glk,  70, 1, 1)) \
++	fw_def(KABYLAKE,     0, guc_mmp(kbl,  70, 1, 1)) \
++	fw_def(BROXTON,      0, guc_mmp(bxt,  70, 1, 1)) \
++	fw_def(SKYLAKE,      0, guc_mmp(skl,  70, 1, 1))
+
+-:191: ERROR:COMPLEX_MACRO: Macros with complex values should be enclosed in parentheses
+#191: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:94:
++#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_raw, huc_mmp) \
++	fw_def(ALDERLAKE_P,  0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(ALDERLAKE_S,  0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(DG1,          0, huc_mmp(dg1,  7, 9, 3)) \
++	fw_def(ROCKETLAKE,   0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(TIGERLAKE,    0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(JASPERLAKE,   0, huc_mmp(ehl,  9, 0, 0)) \
++	fw_def(ELKHARTLAKE,  0, huc_mmp(ehl,  9, 0, 0)) \
++	fw_def(ICELAKE,      0, huc_mmp(icl,  9, 0, 0)) \
++	fw_def(COMETLAKE,    5, huc_mmp(cml,  4, 0, 0)) \
++	fw_def(COMETLAKE,    0, huc_mmp(kbl,  4, 0, 0)) \
++	fw_def(COFFEELAKE,   0, huc_mmp(kbl,  4, 0, 0)) \
++	fw_def(GEMINILAKE,   0, huc_mmp(glk,  4, 0, 0)) \
++	fw_def(KABYLAKE,     0, huc_mmp(kbl,  4, 0, 0)) \
++	fw_def(BROXTON,      0, huc_mmp(bxt,  2, 0, 0)) \
++	fw_def(SKYLAKE,      0, huc_mmp(skl,  2, 0, 0))
+
+-:191: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'fw_def' - possible side-effects?
+#191: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:94:
++#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_raw, huc_mmp) \
++	fw_def(ALDERLAKE_P,  0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(ALDERLAKE_S,  0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(DG1,          0, huc_mmp(dg1,  7, 9, 3)) \
++	fw_def(ROCKETLAKE,   0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(TIGERLAKE,    0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(JASPERLAKE,   0, huc_mmp(ehl,  9, 0, 0)) \
++	fw_def(ELKHARTLAKE,  0, huc_mmp(ehl,  9, 0, 0)) \
++	fw_def(ICELAKE,      0, huc_mmp(icl,  9, 0, 0)) \
++	fw_def(COMETLAKE,    5, huc_mmp(cml,  4, 0, 0)) \
++	fw_def(COMETLAKE,    0, huc_mmp(kbl,  4, 0, 0)) \
++	fw_def(COFFEELAKE,   0, huc_mmp(kbl,  4, 0, 0)) \
++	fw_def(GEMINILAKE,   0, huc_mmp(glk,  4, 0, 0)) \
++	fw_def(KABYLAKE,     0, huc_mmp(kbl,  4, 0, 0)) \
++	fw_def(BROXTON,      0, huc_mmp(bxt,  2, 0, 0)) \
++	fw_def(SKYLAKE,      0, huc_mmp(skl,  2, 0, 0))
+
+-:191: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'huc_mmp' - possible side-effects?
+#191: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:94:
++#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_raw, huc_mmp) \
++	fw_def(ALDERLAKE_P,  0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(ALDERLAKE_S,  0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(DG1,          0, huc_mmp(dg1,  7, 9, 3)) \
++	fw_def(ROCKETLAKE,   0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(TIGERLAKE,    0, huc_mmp(tgl,  7, 9, 3)) \
++	fw_def(JASPERLAKE,   0, huc_mmp(ehl,  9, 0, 0)) \
++	fw_def(ELKHARTLAKE,  0, huc_mmp(ehl,  9, 0, 0)) \
++	fw_def(ICELAKE,      0, huc_mmp(icl,  9, 0, 0)) \
++	fw_def(COMETLAKE,    5, huc_mmp(cml,  4, 0, 0)) \
++	fw_def(COMETLAKE,    0, huc_mmp(kbl,  4, 0, 0)) \
++	fw_def(COFFEELAKE,   0, huc_mmp(kbl,  4, 0, 0)) \
++	fw_def(GEMINILAKE,   0, huc_mmp(glk,  4, 0, 0)) \
++	fw_def(KABYLAKE,     0, huc_mmp(kbl,  4, 0, 0)) \
++	fw_def(BROXTON,      0, huc_mmp(bxt,  2, 0, 0)) \
++	fw_def(SKYLAKE,      0, huc_mmp(skl,  2, 0, 0))
+
+-:295: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'major_' - possible side-effects?
+#295: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:183:
++#define GUC_FW_BLOB(prefix_, major_, minor_) \
++	UC_FW_BLOB_NEW(major_, minor_, 0, \
++		       MAKE_GUC_FW_PATH_MAJOR(prefix_, major_, minor_))
+
+-:295: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'minor_' - possible side-effects?
+#295: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:183:
++#define GUC_FW_BLOB(prefix_, major_, minor_) \
++	UC_FW_BLOB_NEW(major_, minor_, 0, \
++		       MAKE_GUC_FW_PATH_MAJOR(prefix_, major_, minor_))
+
+-:302: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'major_' - possible side-effects?
+#302: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:187:
++#define GUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
++	UC_FW_BLOB_OLD(major_, minor_, patch_, \
++		       MAKE_GUC_FW_PATH_MMP(prefix_, major_, minor_, patch_))
+
+-:302: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'minor_' - possible side-effects?
+#302: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:187:
++#define GUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
++	UC_FW_BLOB_OLD(major_, minor_, patch_, \
++		       MAKE_GUC_FW_PATH_MMP(prefix_, major_, minor_, patch_))
+
+-:302: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'patch_' - possible side-effects?
+#302: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:187:
++#define GUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
++	UC_FW_BLOB_OLD(major_, minor_, patch_, \
++		       MAKE_GUC_FW_PATH_MMP(prefix_, major_, minor_, patch_))
+
+-:309: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'major_' - possible side-effects?
+#309: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:194:
++#define HUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
++	UC_FW_BLOB_OLD(major_, minor_, patch_, \
++		       MAKE_HUC_FW_PATH_MMP(prefix_, major_, minor_, patch_))
+
+-:309: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'minor_' - possible side-effects?
+#309: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:194:
++#define HUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
++	UC_FW_BLOB_OLD(major_, minor_, patch_, \
++		       MAKE_HUC_FW_PATH_MMP(prefix_, major_, minor_, patch_))
+
+-:309: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'patch_' - possible side-effects?
+#309: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c:194:
++#define HUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
++	UC_FW_BLOB_OLD(major_, minor_, patch_, \
++		       MAKE_HUC_FW_PATH_MMP(prefix_, major_, minor_, patch_))
+
+total: 2 errors, 0 warnings, 12 checks, 766 lines checked
+d23062498c29 drm/i915/uc: Add patch level version number support
+-:172: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'uc' - possible side-effects?
+#172: FILE: drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h:113:
 +#define GET_UC_VER(uc)			(MAKE_UC_VER((uc)->fw.file_selected.major_ver, \
 +						     (uc)->fw.file_selected.minor_ver, \
 +						     (uc)->fw.file_selected.patch_ver))
-+
- #ifdef CONFIG_DRM_I915_DEBUG_GUC
- void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- 			       enum intel_uc_fw_status status);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h
-index b05e0e35b734c..f214d24fbcf0d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h
-@@ -83,8 +83,10 @@ struct uc_css_header {
- } __packed;
- static_assert(sizeof(struct uc_css_header) == 128);
- 
--#define HUC_GSC_VERSION_DW		44
--#define   HUC_GSC_MAJOR_VER_MASK	(0xFF << 0)
--#define   HUC_GSC_MINOR_VER_MASK	(0xFF << 16)
-+#define HUC_GSC_VERSION_HI_DW		44
-+#define   HUC_GSC_MAJOR_VER_HI_MASK	(0xFF << 0)
-+#define   HUC_GSC_MINOR_VER_HI_MASK	(0xFF << 16)
-+#define HUC_GSC_VERSION_LO_DW		45
-+#define   HUC_GSC_PATCH_VER_LO_MASK	(0xFF << 16)
- 
- #endif /* _INTEL_UC_FW_ABI_H */
--- 
-2.37.2
+
+total: 0 errors, 0 warnings, 1 checks, 146 lines checked
+86e2aca8b8fc drm/i915/uc: Enable version reduced firmware files for newest platforms
+
 
