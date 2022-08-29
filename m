@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E08EECAAA7
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 17:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1898DECAAA7
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 17:55:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DEEE10EABC;
-	Mon, 29 Aug 2022 17:54:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 835EE10EADD;
+	Mon, 29 Aug 2022 17:54:55 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4170310EAB7;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBDDE10EAB7;
  Mon, 29 Aug 2022 17:54:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1661795690; x=1693331690;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=HCiHs8vLMyexpVKSId1zABKKFE4uWnv5fRximSaW/fM=;
- b=GDXLNZX3L77tWg9KN6/pA+0j8tEx0o8C/XCvXhFSlmz7i9FdhF70MMQB
- frpvB+WUoxGPumfWtLVkSKwW4XBXKFqZ9yXQbSHMf4ywEV5Zn+b+ZEWJq
- ek1ppdbgFNlIYoLxHeJ6harxAlleyodIyTxrITyxALOcgndBIRuDeMbVm
- Lku9BxBevEFbdz4F3q6mIWpNjtLi4x0OCvLsQiWE/dXwPttJg8RSrvw4M
- q7yIjmnBsDv4H9nsC+fqVFLA4IBhXxCX6fC4RrF5a584wj2fUGWH4GqGj
- aUAKZnqyzFzFWSM4zVlsbs1nT+AK23qv8fXToVTD7vtvm6Wds1Bc10RYm Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="381246657"
-X-IronPort-AV: E=Sophos;i="5.93,273,1654585200"; d="scan'208";a="381246657"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=2xmxv+Pu0Imb/F5VhPn4tJRxhmiEbcsBbBEpzCtxCAo=;
+ b=jOYBbIlsGO6csjN7eHgDpDdaugEqABXThYz3nl+h9HP6wS4PnjXYQOKm
+ Q1md/TrXPE6IRH/5DO4Xu7KeeLlCaz00C3gLq89bcf6xg1sDvhtZUwAs2
+ ikciiGeUJRACDAGFOinMfZ5+N6unAleBH6mh/7Tp5w6gSsynCB9nh9v4U
+ js5GBKeDe/h4C5fwF+l7O0CoaKOE7QQFwvFUmvb5rdFik3WATuvJ+Ls+H
+ OxEz5KP1p+BO/TUvk+qqK55yBklA0DE8R6epwFgOVqpNH1aulcKq4/nfv
+ IRikGYhAIkbwqPFh+4C4uYqtuYxzF/sqSMegXMmEo5/c9Y28eD3PcAfVa w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="381246660"
+X-IronPort-AV: E=Sophos;i="5.93,273,1654585200"; d="scan'208";a="381246660"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 10:02:43 -0700
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="562297203"
+ 29 Aug 2022 10:02:44 -0700
+X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="562297212"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Aug 2022 10:02:43 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 29 Aug 2022 10:02:30 -0700
-Message-Id: <20220829170238.969875-1-matthew.d.roper@intel.com>
+Date: Mon, 29 Aug 2022 10:02:33 -0700
+Message-Id: <20220829170238.969875-4-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220829170238.969875-1-matthew.d.roper@intel.com>
+References: <20220829170238.969875-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/8] i915: Add "standalone media" support for MTL
+Subject: [Intel-gfx] [PATCH 3/8] drm/i915: Use managed allocations for extra
+ uncore objects
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,64 +60,40 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Starting with MTL, media functionality has moved into a new, second GT
-at the hardware level.  This new GT, referred to as "standalone media"
-in the spec, has its own GuC, power management/forcewake, etc.  The
-general non-engine GT registers for standalone media start at 0x380000,
-but otherwise use the same MMIO offsets as the primary GT.
+We're slowly transitioning the init-time kzalloc's of the driver over to
+DRM-managed allocations; let's make sure the uncore objects allocated
+for non-root GTs are thus allocated.
 
-Standalone media has a lot of similarity to the remote tiles
-present on platforms like xehpsdv and pvc, and our i915 implementation 
-can share much of the general "multi GT" infrastructure between the two
-types of platforms.  However there are a few notable differences
-we must deal with:
- - The 0x380000 offset only applies to the non-engine GT registers
-   (which the specs refer to as "GSI" registers).  The engine registers
-   remain at their usual locations (e.g., 0x1C0000 for VCS0).
- - Unlike platforms with remote tiles, all interrupt handling for
-   standalone media still happens via the primary GT.
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-
-Matt Roper (8):
-  drm/i915: Move locking and unclaimed check into
-    mmio_debug_{suspend,resume}
-  drm/i915: Only hook up uncore->debug for primary uncore
-  drm/i915: Use managed allocations for extra uncore objects
-  drm/i915: Prepare more multi-GT initialization
-  drm/i915: Rename and expose common GT early init routine
-  drm/i915/xelpmp: Expose media as another GT
-  drm/i915/mtl: Use primary GT's irq lock for media GT
-  drm/i915/mtl: Hook up interrupts for standalone media
-
- drivers/gpu/drm/i915/Makefile                 |  1 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 10 +--
- drivers/gpu/drm/i915/gt/intel_gt.c            | 88 ++++++++++++++-----
- drivers/gpu/drm/i915/gt/intel_gt.h            |  4 +-
- drivers/gpu/drm/i915/gt/intel_gt_irq.c        | 35 ++++++--
- drivers/gpu/drm/i915/gt/intel_gt_pm_irq.c     |  8 +-
- drivers/gpu/drm/i915/gt/intel_gt_regs.h       | 10 +++
- drivers/gpu/drm/i915/gt/intel_gt_types.h      |  5 +-
- drivers/gpu/drm/i915/gt/intel_rps.c           | 26 +++---
- drivers/gpu/drm/i915/gt/intel_sa_media.c      | 47 ++++++++++
- drivers/gpu/drm/i915/gt/intel_sa_media.h      | 15 ++++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        | 24 ++---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  4 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  4 +-
- drivers/gpu/drm/i915/i915_driver.c            |  6 +-
- drivers/gpu/drm/i915/i915_drv.h               |  5 ++
- drivers/gpu/drm/i915/i915_irq.c               |  4 +-
- drivers/gpu/drm/i915/i915_pci.c               | 15 ++++
- drivers/gpu/drm/i915/intel_device_info.h      | 19 ++++
- drivers/gpu/drm/i915/intel_uncore.c           | 80 +++++++++++------
- drivers/gpu/drm/i915/intel_uncore.h           | 23 ++++-
- drivers/gpu/drm/i915/pxp/intel_pxp.c          |  4 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.c      | 14 +--
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c  |  4 +-
- .../gpu/drm/i915/selftests/mock_gem_device.c  |  1 +
- 25 files changed, 340 insertions(+), 116 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gt/intel_sa_media.c
- create mode 100644 drivers/gpu/drm/i915/gt/intel_sa_media.h
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index a82b5e2e0d83..cf7aab7adb30 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -783,7 +783,7 @@ static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
+ 	if (!gt_is_root(gt)) {
+ 		struct intel_uncore *uncore;
+ 
+-		uncore = kzalloc(sizeof(*uncore), GFP_KERNEL);
++		uncore = drmm_kzalloc(&gt->i915->drm, sizeof(*uncore), GFP_KERNEL);
+ 		if (!uncore)
+ 			return -ENOMEM;
+ 
+@@ -808,10 +808,8 @@ intel_gt_tile_cleanup(struct intel_gt *gt)
+ {
+ 	intel_uncore_cleanup_mmio(gt->uncore);
+ 
+-	if (!gt_is_root(gt)) {
+-		kfree(gt->uncore);
++	if (!gt_is_root(gt))
+ 		kfree(gt);
+-	}
+ }
+ 
+ int intel_gt_probe_all(struct drm_i915_private *i915)
 -- 
 2.37.2
 
