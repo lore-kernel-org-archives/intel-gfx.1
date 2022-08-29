@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DEEFECAAD2
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:25:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E60DECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:25:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A27F810F2C5;
-	Mon, 29 Aug 2022 13:25:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36A2B10F2C7;
+	Mon, 29 Aug 2022 13:25:52 +0000 (UTC)
 Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
  [64.147.123.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC2A010F2C3;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 993DD10F299;
  Mon, 29 Aug 2022 13:25:48 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.west.internal (Postfix) with ESMTP id 86C652B06068;
- Mon, 29 Aug 2022 09:14:21 -0400 (EDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailnew.west.internal (Postfix) with ESMTP id C3CD12B0607D;
+ Mon, 29 Aug 2022 09:15:27 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Mon, 29 Aug 2022 09:14:24 -0400
+ by compute2.internal (MEProxy); Mon, 29 Aug 2022 09:15:30 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1661778861; x=
- 1661786061; bh=xUx69T5hX2fgzzekWs43tH6MuWLfYP/NBJA83S5iUhw=; b=n
- Hy/7HUsYkgrW14q8p1uy250uAZbY1KARPRC0O0Sy4Ypv/7S93iuq1fpjUdC/0sls
- LAeU1IZCq6vcxzfZdoNkycdvXaXfqhk5wefGc9e3SLhituyood978j4RjIWrqOkA
- bSyHJGOr9SvDjPXb+PRV/aZwyYIUWcV8zJCAsUWMXVy2/RlA56naS/1to2iIr5yS
- YmNLMB9PsKL4yFAfRqEI3NZLCAjBxmKA1DBnSMjRfGnX0HNOm0ZFR7GRVaA+gn2i
- i6ScUh6a7b7txa9sLSXmyew8l9b91Jr3FzfvAQBU+xV7UjO67bYN9FWgK51D7g68
- HShIg3o5jZOJC2BEdPl6g==
+ :reply-to:sender:subject:subject:to:to; s=fm3; t=1661778927; x=
+ 1661786127; bh=bQFyjpMNqkENbIjlSD35Zj5sFEYA6vUdCkuwZuqm7TI=; b=T
+ 9IkExrnDo9ILGrnq65wN97FCrtXIWEkeAbP7nG+06RyRiXlLSVe3R7e00njnxjxW
+ ihQ7N3hJahATrSjNUdUwxLJ/KsBVUDjsR0LCVAdPmE8DbuWPT/Cg1Gl32hPb2f26
+ CL+VqMnWH5A0hHYOTBqtn/d27OQN2g6B5v+Q3pFmZOQtA0H2RnhRRORhY08k0oGE
+ J25NC+YLvd+tMlnu3jILDJuRAhEmalcH4sA4335YDZavHGur3s5grORCWCLpbHxZ
+ 9l1yqbMR7z3zUAqS+qnCfb9kjs+PIlRFirN7otRAgE/53ijdKXHt9f98qaBejXEN
+ N71z0ZXNz+okkgR24LbIg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1661778861; x=
- 1661786061; bh=xUx69T5hX2fgzzekWs43tH6MuWLfYP/NBJA83S5iUhw=; b=E
- DrVv8npucDXn8znu1Xw/Cg/2kCDmlNTJEE3eTfRJclXfKCYQnzxRtsOLfzEuuS4x
- XXfM4kjKJGf3LKOAaQ+bBz5HfE7vECbPTItsx11CxozlX1WBUG2b/xjsW4ssKMq/
- 8I/7CpHL12sIjg6QkOUfzaQ3sSdKujcj97GpMVkpqgbHfdToyOaVV9oPioFqglFS
- 0fZ06H18MaffNnN+TLtt7hMZ2NVlbB8K7N0qb/88SriKuhwqb/93v0IzisdxgP9w
- RuxnfhS+kTgKr2OiTgw42X2gI7R7wdgB2C2PcPagKCleZknqE/PJObV8U8qvIlta
- 9T7YSwZJ/tLYlpFlt67MQ==
-X-ME-Sender: <xms:rLsMY7TmEoUHyS45jxIneTLsdHyxE3WYPGjqfp8ZKpkevX6f49NycQ>
- <xme:rLsMY8wOOLLBTGSjcTvEWSL95tgzBnJAgIGZ4RQ22Xi7W3LXox3AbgXtYAbJhA7px
- uaCzOuoE7WqmQPma38>
-X-ME-Received: <xmr:rLsMYw3tmcItMS1kRqvSl1WE8qgDuI7mw5-mMMZfUVyfDohhpndoIk3QkMQ6>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdekuddgieefucetufdoteggodetrfdotf
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1661778927; x=
+ 1661786127; bh=bQFyjpMNqkENbIjlSD35Zj5sFEYA6vUdCkuwZuqm7TI=; b=w
+ 8Xcr7VMECbXJcl7zuFEBY1iPiaxVXjWlcOy4VKZovQgyi17NMpiUYtj155sYq0LZ
+ N0edC6V1dOZAqqPSY2zHcS2D9PspSaBi3bp6u7JEi5u3DYjXWue66PIzdcNP/qmP
+ jGOer/3WtP+mnVQyHlQ8EwMLq+2QOCbsXEdXqk1Hehsa700xtF47tSQa+3p4nj1e
+ gnHEqXNuEZb8MeYGZuQMF6ZwWlIywbtt6Mp5fjkRVw7zBh2OVHL/hFRBEKz2I4Cz
+ 2lMcKoIJIoAdorEeLBNKDWvOl7fLCxEnTqQ+bns1HY0JLI/Seqhu7R2kEWxQbmai
+ fRDyRwrKoeVv/1kN8ccrw==
+X-ME-Sender: <xms:77sMY43svq0XTMq1D8GkJ4GfCAYLaDiRUO7V99tseGcbkZbgSywdZg>
+ <xme:77sMYzGCwyLJisatZYIdsUHAGwL2rjD_6ayJO7NjVcGULvf_I8sXmA9aj96zeXZLY
+ 0eXQmcR_sN1NRanB3s>
+X-ME-Received: <xmr:77sMYw7Nwu6JUynm4S3d-HW-k79s3C9MmmBgNyQuKXkXCDbSVub0kP90X0ab>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdekuddgieegucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
  cujfgurhephffvvefufffkofgjfhggtgfogfesthhqredtredtjeenucfhrhhomhepofgr
  gihimhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtf
  frrghtthgvrhhnpeefiedvfefggffgffehveejieffuddtgffhjefggeetieduvdeileet
- lefgveegtdenucevlhhushhtvghrufhiiigvpedvnecurfgrrhgrmhepmhgrihhlfhhroh
+ lefgveegtdenucevlhhushhtvghrufhiiigvpeegnecurfgrrhgrmhepmhgrihhlfhhroh
  hmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:rLsMY7AIYzm4Ddyi8g8R9FoVqQzEowf2RkxXwnP1DwjVdWuCtdNQ2Q>
- <xmx:rLsMY0iXfEc1pug-Am0oHC7CSPeOBPytfbDAT5H1UZl7MHe0Q0HB0g>
- <xmx:rLsMY_q1Pce8N8z3QFtfbaa51sDO2OqWiRjtgraGVWJPuaB_wlavKA>
- <xmx:rbsMY5YxW2_aVbf67Z9iOK1l18-CtXHyojGtoDT1NXYw9fP05iU7-guZF9k>
+X-ME-Proxy: <xmx:77sMYx1P9x52He3Mg77DiCCa-KCczGJ8Uie6pETXMrbzpzzbjBfsXA>
+ <xmx:77sMY7GBYLFVpwrTQn02RvcENGHBBdhagEqTRHIhP4LzT8EMDl3FLw>
+ <xmx:77sMY6_arsjgK6IndJoQaGAlCWk58Gvx3QPehDb6sgLfa9IYij1Jdg>
+ <xmx:77sMY1M0oB61Jo2868sQfv_B44QheY63yiqDOENEV2JABVK0vUAGIHnTFkU>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 29 Aug 2022 09:14:19 -0400 (EDT)
+ 29 Aug 2022 09:15:26 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
 To: Maxime Ripard <mripard@kernel.org>, Ben Skeggs <bskeggs@redhat.com>,
  David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
@@ -75,23 +75,24 @@ To: Maxime Ripard <mripard@kernel.org>, Ben Skeggs <bskeggs@redhat.com>,
  =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
  Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Date: Mon, 29 Aug 2022 15:11:35 +0200
-Message-Id: <20220728-rpi-analog-tv-properties-v2-21-459522d653a7@cerno.tech>
+Date: Mon, 29 Aug 2022 15:11:45 +0200
+Message-Id: <20220728-rpi-analog-tv-properties-v2-31-459522d653a7@cerno.tech>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.10.0-dev-65ba7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3800; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=MTZV8fIdkeaI3gBczvsnL6767uj0eKwoOw+fn2Eyp+g=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk8uxRWxrxndmPbOMnEY/o9m4c6jcZly8Ivhs2Zuejp2hea
- D7WfdpSyMIhxMciKKbLECJsviTs163UnG988mDmsTCBDGLg4BWAiSR6MDFvjroqr7pA2NDPrPO2rVH
- QqfA+fdt69P52FcWGcmhv/CTD8M7Xdvbdq8/cN91UC71Sw7mCM2cLc92+p8JbEy6Zq03nrOQE=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1413; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=qDLYBra+oWv7qr1ofEsAPnJEYg3c17J8Q720Wj/k2mc=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk8uxTUr6gwqegmf4jUmrupInBnsidH0hqHF5vePV/cONdk
+ 29zdHaUsDGJcDLJiiiwxwuZL4k7Net3JxjcPZg4rE8gQBi5OAZjIETOGf9p7mWTvl6jclM39d6qm90
+ TxRs2+DTfepCVap7b/PPSIR4aR4fiBWr6yQ9N+Xb7aP/NzffBEvtS6Tl67ookBZXEGQQfCWQA=
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 Content-Transfer-Encoding: quoted-printable
-Subject: [Intel-gfx] [PATCH v2 21/41] drm/modes: Introduce more named modes
+Subject: [Intel-gfx] [PATCH v2 31/41] drm/vc4: vec: Use TV Reset
+ implementation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,113 +115,44 @@ Cc: Dom Cobley <dom@raspberrypi.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we can easily extend the named modes list, let's add a few more=0D
-analog TV modes that were used in the wild, and some unit tests to make=0D
-sure it works as intended.=0D
+The analog TV properties created by the drm_mode_create_tv_properties() are=
+=0D
+not properly initialised at reset. Let's switch our implementation to call=
+=0D
+drm_atomic_helper_connector_tv_reset().=0D
 =0D
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>=0D
 =0D
-diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c=0D
-index 065dbfbd815e..7d769de4d31b 100644=0D
---- a/drivers/gpu/drm/drm_modes.c=0D
-+++ b/drivers/gpu/drm/drm_modes.c=0D
-@@ -2254,7 +2254,9 @@ struct drm_named_mode {=0D
- =0D
- static const struct drm_named_mode drm_named_modes[] =3D {=0D
- 	NAMED_MODE("NTSC", 13500, 720, 480, DRM_MODE_FLAG_INTERLACE, DRM_MODE_TV_=
-MODE_NTSC_M),=0D
-+	NAMED_MODE("NTSC_J", 13500, 720, 480, DRM_MODE_FLAG_INTERLACE, DRM_MODE_T=
-V_MODE_NTSC_J),=0D
- 	NAMED_MODE("PAL", 13500, 720, 576, DRM_MODE_FLAG_INTERLACE, DRM_MODE_TV_M=
-ODE_PAL_B),=0D
-+	NAMED_MODE("PAL_M", 13500, 720, 480, DRM_MODE_FLAG_INTERLACE, DRM_MODE_TV=
-_MODE_PAL_M),=0D
- };=0D
- =0D
- static int drm_mode_parse_cmdline_named_mode(const char *name,=0D
-diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gpu/=
-drm/tests/drm_client_modeset_test.c=0D
-index 4380cf670fb4..d6ecb5fbe159 100644=0D
---- a/drivers/gpu/drm/tests/drm_client_modeset_test.c=0D
-+++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c=0D
-@@ -140,6 +140,32 @@ static void drm_pick_cmdline_named_ntsc(struct kunit *=
-test)=0D
- 	KUNIT_EXPECT_TRUE(test, drm_mode_equal(drm_mode_analog_ntsc_480i(drm), mo=
-de));=0D
+diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c=
+=0D
+index fa85dd260742..ba6f81908923 100644=0D
+--- a/drivers/gpu/drm/vc4/vc4_vec.c=0D
++++ b/drivers/gpu/drm/vc4/vc4_vec.c=0D
+@@ -254,6 +254,12 @@ vc4_vec_connector_detect(struct drm_connector *connect=
+or, bool force)=0D
+ 	return connector_status_unknown;=0D
  }=0D
  =0D
-+static void drm_pick_cmdline_named_ntsc_j(struct kunit *test)=0D
++static void vc4_vec_connector_reset(struct drm_connector *connector)=0D
 +{=0D
-+	struct drm_client_modeset_test_priv *priv =3D test->priv;=0D
-+	struct drm_device *drm =3D priv->drm;=0D
-+	struct drm_connector *connector =3D &priv->connector;=0D
-+	struct drm_cmdline_mode *cmdline_mode =3D &connector->cmdline_mode;=0D
-+	struct drm_display_mode *mode;=0D
-+	const char *cmdline =3D "NTSC_J";=0D
-+	int ret;=0D
-+=0D
-+	KUNIT_ASSERT_TRUE(test,=0D
-+			  drm_mode_parse_command_line_for_connector(cmdline,=0D
-+								    connector,=0D
-+								    cmdline_mode));=0D
-+=0D
-+	mutex_lock(&drm->mode_config.mutex);=0D
-+	ret =3D drm_helper_probe_single_connector_modes(connector, 1920, 1080);=0D
-+	mutex_unlock(&drm->mode_config.mutex);=0D
-+	KUNIT_ASSERT_GT(test, ret, 0);=0D
-+=0D
-+	mode =3D drm_connector_pick_cmdline_mode(connector);=0D
-+	KUNIT_ASSERT_PTR_NE(test, mode, NULL);=0D
-+=0D
-+	KUNIT_EXPECT_TRUE(test, drm_mode_equal(drm_mode_analog_ntsc_480i(drm), mo=
-de));=0D
++	drm_atomic_helper_connector_reset(connector);=0D
++	drm_atomic_helper_connector_tv_reset(connector);=0D
 +}=0D
 +=0D
- static void drm_pick_cmdline_named_pal(struct kunit *test)=0D
+ static int vc4_vec_connector_get_modes(struct drm_connector *connector)=0D
  {=0D
- 	struct drm_client_modeset_test_priv *priv =3D test->priv;=0D
-@@ -166,10 +192,38 @@ static void drm_pick_cmdline_named_pal(struct kunit *=
-test)=0D
- 	KUNIT_EXPECT_TRUE(test, drm_mode_equal(drm_mode_analog_pal_576i(drm), mod=
-e));=0D
- }=0D
- =0D
-+static void drm_pick_cmdline_named_pal_m(struct kunit *test)=0D
-+{=0D
-+	struct drm_client_modeset_test_priv *priv =3D test->priv;=0D
-+	struct drm_device *drm =3D priv->drm;=0D
-+	struct drm_connector *connector =3D &priv->connector;=0D
-+	struct drm_cmdline_mode *cmdline_mode =3D &connector->cmdline_mode;=0D
-+	struct drm_display_mode *mode;=0D
-+	const char *cmdline =3D "PAL_M";=0D
-+	int ret;=0D
-+=0D
-+	KUNIT_ASSERT_TRUE(test,=0D
-+			  drm_mode_parse_command_line_for_connector(cmdline,=0D
-+								    connector,=0D
-+								    cmdline_mode));=0D
-+=0D
-+	mutex_lock(&drm->mode_config.mutex);=0D
-+	ret =3D drm_helper_probe_single_connector_modes(connector, 1920, 1080);=0D
-+	mutex_unlock(&drm->mode_config.mutex);=0D
-+	KUNIT_ASSERT_GT(test, ret, 0);=0D
-+=0D
-+	mode =3D drm_connector_pick_cmdline_mode(connector);=0D
-+	KUNIT_ASSERT_PTR_NE(test, mode, NULL);=0D
-+=0D
-+	KUNIT_EXPECT_TRUE(test, drm_mode_equal(drm_mode_analog_ntsc_480i(drm), mo=
-de));=0D
-+}=0D
-+=0D
- static struct kunit_case drm_pick_cmdline_tests[] =3D {=0D
- 	KUNIT_CASE(drm_pick_cmdline_res_1920_1080_60),=0D
- 	KUNIT_CASE(drm_pick_cmdline_named_ntsc),=0D
-+	KUNIT_CASE(drm_pick_cmdline_named_ntsc_j),=0D
- 	KUNIT_CASE(drm_pick_cmdline_named_pal),=0D
-+	KUNIT_CASE(drm_pick_cmdline_named_pal_m),=0D
- 	{}=0D
+ 	struct drm_connector_state *state =3D connector->state;=0D
+@@ -274,7 +280,7 @@ static int vc4_vec_connector_get_modes(struct drm_conne=
+ctor *connector)=0D
+ static const struct drm_connector_funcs vc4_vec_connector_funcs =3D {=0D
+ 	.detect =3D vc4_vec_connector_detect,=0D
+ 	.fill_modes =3D drm_helper_probe_single_connector_modes,=0D
+-	.reset =3D drm_atomic_helper_connector_reset,=0D
++	.reset =3D vc4_vec_connector_reset,=0D
+ 	.atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate_state,=
+=0D
+ 	.atomic_destroy_state =3D drm_atomic_helper_connector_destroy_state,=0D
  };=0D
- =0D
 =0D
 -- =0D
 b4 0.10.0-dev-65ba7=0D
