@@ -4,48 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BDCDECAAD2
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:19:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23354ECAAD2
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:20:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AAB810F2AE;
-	Mon, 29 Aug 2022 13:19:54 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AAC610F2A2
- for <intel-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 13:19:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661779190; x=1693315190;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=7dmx5H8+I6zn+FPChnROeC4YOxgMVIpBGDsodooS/ek=;
- b=VNbrNDSTrqUtD5eB/J8rXfl4qGkarqoB5PknKoGD33NSCQikkF2gv7xX
- jMd0sD9RAFaqH2R4FpUPeEo65saHoCGXnqy/V0IqBSmnqzftb2ED3QSyO
- qt4gyqB8l0KUtv7TQ6lWKvvS8M9gwzEtOMzODq2zL24fwWUQVV1telYqb
- YEk72wc2+1XJerardcIlaA0gVmIcQcqELTOA926NDSB8KMCUc+DOixuv+
- L2JDoxv0suhxYSNqCKA/EwkPmUH1cjl2Rg54wBFXv4sstBBHaKhccIh3M
- ou+FVFYx9iKAccpJ02PGBfLTB243kk1lTBHLSnwO6B0fYAzEL8+pgWqEW w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="275293793"
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="275293793"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 06:19:49 -0700
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="787075627"
-Received: from idecesar-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.53.198])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 06:19:47 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 29 Aug 2022 16:18:25 +0300
-Message-Id: <14b14f871e322419b10166c1bd8a5a956f5430c8.1661779055.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1661779055.git.jani.nikula@intel.com>
-References: <cover.1661779055.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A05310F1FA;
+	Mon, 29 Aug 2022 13:20:54 +0000 (UTC)
+Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
+ [64.147.123.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AB1110F2A1;
+ Mon, 29 Aug 2022 13:20:48 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailnew.west.internal (Postfix) with ESMTP id 590872B05FB1;
+ Mon, 29 Aug 2022 09:12:08 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Mon, 29 Aug 2022 09:12:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm3; t=1661778727; x=
+ 1661785927; bh=zJuhyh+MgUs2/ekVdAk6Kq0Wq9YXzzJHxtL6DSlw5Og=; b=k
+ zHKsj20k4Y1V8oAN8pdbv09/LtrrxTfu6xKOFoSAUycKY4JOCCduqUyHRsntS+et
+ IM7lsrOH6nm6Xvsq+47vfHBvEr0Y/tnvEYZ9AZRuwMvJKshBkHYwIr0rsrRUTbcy
+ eshM1LtLdsFXNWZpBPBNeZdII53z+surSm2v4H52XqXT2iPAxWt6XWWmZJ3Szayn
+ hKsvgPEb0g6q75CiYQFpjlWl5caWAQa+xouZv1UrhAnBpvEIVqPs1HqeTmm5ctzu
+ KkdCker+kfOnOswaCFFSnMdAle5IJ+9lEAoYCy0CvxFx97g3zMgFm1NVJ/uDFRSf
+ GihPrFbwQgqt0zuKmOTyw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1661778727; x=
+ 1661785927; bh=zJuhyh+MgUs2/ekVdAk6Kq0Wq9YXzzJHxtL6DSlw5Og=; b=c
+ ftMy0ztc0ShuXT+IqZw9bSUt5U+hyi2h7n8R0hLq8ouh5wBvh8zAu21pCESuKn8W
+ KI5HZPBSaCwI1wtEfCMioTeUGA3//z1fTeIsA6vwnhwzSG47jchavbSTLUm0p69H
+ oTKi93f3Wp6v1t5Ewnb3dxc1s4KmxA3XKGTmQvOpH1wBToONSX5LjiER/4YqMiDf
+ Ikccon49YxgN5GnbLTg6lQPa9MqR0IbVJnigiGqp2E6KD5OMq1IBDfNI45OuceV0
+ Hztcgf7kTuhCWGaiwZGHkAIsP0DZKSa8uAgTGz9FzqKlStgpybjelId3VGvucdxe
+ FyDKkY9hH8yEXd0jLm18w==
+X-ME-Sender: <xms:J7sMY6hePGuVxWxRIJZf5x4IelO5UrQZE1KNj52UndvMubdKz9l50g>
+ <xme:J7sMY7BZlSAoP7Jlz0pvtVMhqgH0jEDgKnUGYjmKfmkU1618vqMUbmr1k6OrMLBJu
+ F6SQxpxAlrqkE8zSr4>
+X-ME-Received: <xmr:J7sMYyGoy1MI4w7qVE_5xh8ryUd3XGNjtGygeAdimxebcdnaCsMWzjyI5YSW>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdekuddgieefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhephffvvefufffkofgjfhggtgfogfesthhqredtredtjeenucfhrhhomhepofgr
+ gihimhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtf
+ frrghtthgvrhhnpeefiedvfefggffgffehveejieffuddtgffhjefggeetieduvdeileet
+ lefgveegtdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+ hmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:J7sMYzSoE4gUKhbx6qxQke5xDHJoi9oBCWLtJLKUmN6VnB3lmSDmcQ>
+ <xmx:J7sMY3wasf2R1BwniKvBXezBWo1kO4LYyWBikwsprl5TBdP7aegbug>
+ <xmx:J7sMYx5LapU8G_AiAS-96RU9kahBV0ZTqVT_tDbpAR_YKoV0Yl-FUQ>
+ <xmx:J7sMY1r3QHlTqLj8Lj8A4i9kMzpuAwC4Y3QKcFSsN2qGNhFCk-pxfLO7L0c>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 29 Aug 2022 09:12:06 -0400 (EDT)
+From: Maxime Ripard <maxime@cerno.tech>
+To: Maxime Ripard <mripard@kernel.org>, Ben Skeggs <bskeggs@redhat.com>,
+ David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Date: Mon, 29 Aug 2022 15:11:15 +0200
+Message-Id: <20220728-rpi-analog-tv-properties-v2-1-459522d653a7@cerno.tech>
+X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 18/18] drm/i915: move and group properties
- under display.properties
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.10.0-dev-65ba7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1038; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=7wf09uYZmOlzEdMLSbfvbGYOI6J6pbrZA084PMpLFI8=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk8u+QCtJc+19tw1dnPLoUp63uAlPSLTZNOzt7jFLTp8xRp
+ vUd1HaUsDGJcDLJiiiwxwuZL4k7Net3JxjcPZg4rE8gQBi5OAZiIxwyGvwJi6fvdU59tEF2+1WaTqG
+ fLLKOP7P4v1x/7V8fsu+XSoRhGht/bauWCa76+r5Cz/DXnwv07FYkCMW2rF6967BCaNfWRFB8A
+X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: quoted-printable
+Subject: [Intel-gfx] [PATCH v2 01/41] drm/tests: Order Kunit tests in
+ Makefile
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,131 +105,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Maxime Ripard <maxime@cerno.tech>,
+ Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move display property related members under drm_i915_private display
-sub-struct.
-
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/display/intel_atomic.c       | 8 ++++----
- drivers/gpu/drm/i915/display/intel_connector.c    | 8 ++++----
- drivers/gpu/drm/i915/display/intel_display_core.h | 6 ++++++
- drivers/gpu/drm/i915/i915_drv.h                   | 3 ---
- 4 files changed, 14 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
-index b94973b5633f..18f0a5ae3bac 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-@@ -62,9 +62,9 @@ int intel_digital_connector_atomic_get_property(struct drm_connector *connector,
- 	struct intel_digital_connector_state *intel_conn_state =
- 		to_intel_digital_connector_state(state);
- 
--	if (property == dev_priv->force_audio_property)
-+	if (property == dev_priv->display.properties.force_audio)
- 		*val = intel_conn_state->force_audio;
--	else if (property == dev_priv->broadcast_rgb_property)
-+	else if (property == dev_priv->display.properties.broadcast_rgb)
- 		*val = intel_conn_state->broadcast_rgb;
- 	else {
- 		drm_dbg_atomic(&dev_priv->drm,
-@@ -95,12 +95,12 @@ int intel_digital_connector_atomic_set_property(struct drm_connector *connector,
- 	struct intel_digital_connector_state *intel_conn_state =
- 		to_intel_digital_connector_state(state);
- 
--	if (property == dev_priv->force_audio_property) {
-+	if (property == dev_priv->display.properties.force_audio) {
- 		intel_conn_state->force_audio = val;
- 		return 0;
- 	}
- 
--	if (property == dev_priv->broadcast_rgb_property) {
-+	if (property == dev_priv->display.properties.broadcast_rgb) {
- 		intel_conn_state->broadcast_rgb = val;
- 		return 0;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-index 1dcc268927a2..6d5cbeb8df4d 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.c
-+++ b/drivers/gpu/drm/i915/display/intel_connector.c
-@@ -229,7 +229,7 @@ intel_attach_force_audio_property(struct drm_connector *connector)
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_property *prop;
- 
--	prop = dev_priv->force_audio_property;
-+	prop = dev_priv->display.properties.force_audio;
- 	if (prop == NULL) {
- 		prop = drm_property_create_enum(dev, 0,
- 					   "audio",
-@@ -238,7 +238,7 @@ intel_attach_force_audio_property(struct drm_connector *connector)
- 		if (prop == NULL)
- 			return;
- 
--		dev_priv->force_audio_property = prop;
-+		dev_priv->display.properties.force_audio = prop;
- 	}
- 	drm_object_attach_property(&connector->base, prop, 0);
- }
-@@ -256,7 +256,7 @@ intel_attach_broadcast_rgb_property(struct drm_connector *connector)
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_property *prop;
- 
--	prop = dev_priv->broadcast_rgb_property;
-+	prop = dev_priv->display.properties.broadcast_rgb;
- 	if (prop == NULL) {
- 		prop = drm_property_create_enum(dev, DRM_MODE_PROP_ENUM,
- 					   "Broadcast RGB",
-@@ -265,7 +265,7 @@ intel_attach_broadcast_rgb_property(struct drm_connector *connector)
- 		if (prop == NULL)
- 			return;
- 
--		dev_priv->broadcast_rgb_property = prop;
-+		dev_priv->display.properties.broadcast_rgb = prop;
- 	}
- 
- 	drm_object_attach_property(&connector->base, prop, 0);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index bf78b0fcbd11..9086a612365e 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -27,6 +27,7 @@
- #include "intel_pm_types.h"
- 
- struct drm_i915_private;
-+struct drm_property;
- struct i915_audio_component;
- struct i915_hdcp_comp_master;
- struct intel_atomic_state;
-@@ -371,6 +372,11 @@ struct intel_display {
- 		struct mutex mutex;
- 	} pps;
- 
-+	struct {
-+		struct drm_property *broadcast_rgb;
-+		struct drm_property *force_audio;
-+	} properties;
-+
- 	struct {
- 		unsigned long mask;
- 	} quirks;
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 9dc1f2b19702..5eb6a5cd0c8c 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -321,9 +321,6 @@ struct drm_i915_private {
- 
- 	struct i915_gpu_error gpu_error;
- 
--	struct drm_property *broadcast_rgb_property;
--	struct drm_property *force_audio_property;
--
- 	/*
- 	 * Shadows for CHV DPLL_MD regs to keep the state
- 	 * checker somewhat working in the presence hardware
--- 
-2.34.1
-
+Since we've recently added a ton of tests, the list starts to be a bit=0D
+of a mess and creates unneeded conflicts.=0D
+=0D
+Let's order it alphabetically.=0D
+=0D
+Signed-off-by: Maxime Ripard <maxime@cerno.tech>=0D
+=0D
+diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makefil=
+e=0D
+index 91b70f7d2769..2d9f49b62ecb 100644=0D
+--- a/drivers/gpu/drm/tests/Makefile=0D
++++ b/drivers/gpu/drm/tests/Makefile=0D
+@@ -1,5 +1,13 @@=0D
+ # SPDX-License-Identifier: GPL-2.0=0D
+ =0D
+-obj-$(CONFIG_DRM_KUNIT_TEST) +=3D drm_format_helper_test.o drm_damage_help=
+er_test.o \=0D
+-	drm_cmdline_parser_test.o drm_rect_test.o drm_format_test.o drm_plane_hel=
+per_test.o \=0D
+-	drm_dp_mst_helper_test.o drm_framebuffer_test.o drm_buddy_test.o drm_mm_t=
+est.o=0D
++obj-$(CONFIG_DRM_KUNIT_TEST) +=3D \=0D
++	drm_buddy_test.o \=0D
++	drm_cmdline_parser_test.o \=0D
++	drm_damage_helper_test.o \=0D
++	drm_dp_mst_helper_test.o \=0D
++	drm_format_helper_test.o \=0D
++	drm_format_test.o \=0D
++	drm_framebuffer_test.o \=0D
++	drm_mm_test.o \=0D
++	drm_plane_helper_test.o \=0D
++	drm_rect_test.o=0D
+=0D
+-- =0D
+b4 0.10.0-dev-65ba7=0D
