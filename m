@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D14FECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:20:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83B97ECAAD4
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:21:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D254410F277;
-	Mon, 29 Aug 2022 13:20:54 +0000 (UTC)
-X-Greylist: delayed 524 seconds by postgrey-1.36 at gabe;
- Mon, 29 Aug 2022 13:20:48 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id A271010F26B;
+	Mon, 29 Aug 2022 13:20:58 +0000 (UTC)
 Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
  [64.147.123.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF4CA10F1FA;
- Mon, 29 Aug 2022 13:20:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C87D10F2C5;
+ Mon, 29 Aug 2022 13:20:49 +0000 (UTC)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.west.internal (Postfix) with ESMTP id 56DDA2B05F99;
- Mon, 29 Aug 2022 09:12:01 -0400 (EDT)
+ by mailnew.west.internal (Postfix) with ESMTP id 1333B2B0605B;
+ Mon, 29 Aug 2022 09:13:35 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Mon, 29 Aug 2022 09:12:04 -0400
+ by compute4.internal (MEProxy); Mon, 29 Aug 2022 09:13:38 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1661778720; x=1661785920; bh=Gt3QdRBpDL
- r3ksyKqNP7CtpGFcb0aPox+HlDnxbw8D0=; b=mNnmVQ1GDhKMjp+MGtQcms5wYE
- pMjLcUarKmKj/5FleiIsYAMZc8IvGVUXs3FiVP3hzLEsnSW4omqr1uKeTCVj1aBb
- lVo3g1QKkNZkOIoQkDSCSTYZlAVfLevqj7r04ntL4f2522G03G0VeUEVFza5QBz8
- ++pCcnUAhQQ8vmOpSEq5rnX7WcwJ9X05lJm4nvoPpT/tBMOBZUTVRr84vFy2g4HK
- 99EbHru7tPRJ3V2TBxIZUTrtmFHsHB7ea/5fQdxaD0okmNbjpYJsUYIubX+/BNIl
- QZhpXG45hNJJrFv3vId0cxgoaLE4AShBEwP1Fq+8tK5uKbe/+0nVqpg+ubWQ==
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm3; t=1661778815; x=
+ 1661786015; bh=3cA2OufWoWcBPPMmarJbJeQBU07cKTKh4Zqak42tigI=; b=d
+ fcn2HpCWlVWvu+ZDmYxNviyOJbpvJdb/sYJ199sfj/4zTzwqX3F3kDyz//ABqsXo
+ QevIYkHKvr6IS4GSCa8GWgmPx/oMwFGPl4AlHQD3KldhC6xmaidxTK7aIDUY2FpU
+ flWCO1wi140aovdzyz5hSXzeM/qvS7xwAwfXRdgbudGr7tAz0M+RentzR1vvL4fK
+ fVCg87KGfcA1N54Y3gqqfnPrIMQ10sBmtIl2eX8MFYrYpk3QIP/r9HoX4sw0tJ6N
+ HR+N2tu9TbdpYNOqEwsJQHYFz8nKz/vHNQ5eNDB0gfJPczKsqVrBl6oSFb7dQGss
+ 7v8cDuWC9/6J/123S9Ksw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; t=1661778720; x=1661785920; bh=Gt3QdRBpDLr3k
- syKqNP7CtpGFcb0aPox+HlDnxbw8D0=; b=Qz/z4QlR2w+X4vzoLj7wz6hFKIex/
- 4QejW6yPU5Qhy8vmPI/19tjYlYZZb04oICenR67hlDBrCCTqgmpK5qDLBiRZbWgv
- 0WjMvaPSiugNx/s6gtMojWpdmaA5vJ7xvbB7ITA2ea6XBryVX5nPjnWLFYZ3Zdgh
- XArNojGgDglpKXVGvJkjtLObKW+v13ZZRdCBX4DugjPbUNzoPUTCIDdC7frAQBXE
- ZqzpXHpGdbPGo5XH2jdUZyE4qH1rjUV/XRDWkQpv3OJbvBnmzuGA0bUDU2iWJOff
- q3a16/Jlp5V1WJPY0szNcRqsSvYJGLhgToXIOJYEByLAaSFL6F087wBsA==
-X-ME-Sender: <xms:H7sMYyQ6so3iVzfxfI3TEWh6LqvE1u65VfMi86SiJM-ECgGTv5FB2w>
- <xme:H7sMY3w1RY73zHca1p-BThlwrK1xDTkcR_Rx_I69zInglWiqpEZ8vx4VGM5FNmT4C
- 29GgRUru4flC9zGIUE>
-X-ME-Received: <xmr:H7sMY_2FNY_czGCvtiWDRmsDyZfNcfo3TqUOz7Eq6ALE1sRTe9k2uX2sacIx>
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1661778815; x=
+ 1661786015; bh=3cA2OufWoWcBPPMmarJbJeQBU07cKTKh4Zqak42tigI=; b=A
+ F8ztcmvlKScp5VD6dfscZkkYSH8pULe5JhGdlrn6D9tmou1xfNGuPyGsDapUuLfO
+ /L8Gndt+HjsZafQiZmNFdj52f+hC+4MOM/1TLqmTd/Kx6RkAFBnfdA/Si3G4bvhV
+ rXjRqc0RC8CwJ4et9/aqFiNNLRATcbyO/30ZJ5+dARQd4rqWwlglVrGpoK8z2gVy
+ 38E+g6SB6s1Inbeni/IvT3orEwQxm/4Y1GCm71Gzn5s2sAlGm9FKt5jCo+kJDTuU
+ TCvRzwecZ4o/jEis6VXvRuibvq7XHB+NfQE/de8Rk8sizcLhMZl/SVIuGqpkMKPg
+ C1WgQ2XKAVj2D8yOcpKyQ==
+X-ME-Sender: <xms:f7sMYwBYyxBXYPskpifZLcm_WtuDBb-CiIOd6pqk_YTNkQWOLq-P-Q>
+ <xme:f7sMYyiUmj-sFw-W8Q7ueECkOA1_KVODvauH8LzYEfpOT3GHMyMzs_8ZjOBoWAYnp
+ T-PNlJFhXBUJWzcJeg>
+X-ME-Received: <xmr:f7sMYzldLTLmEwpvhYBBOYcCkS84dksq-I8h8U6TknWjSldqLhYqGfO_rT4M>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdekuddgieefucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephffvvefufffkofggtgfogfesthhqredtredtjeenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpefhvdekffefkeehfeffjeefgeekgefhtddvudffgfefueffvdefueekvdek
- teelteenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivg
- eptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggt
- hh
-X-ME-Proxy: <xmx:H7sMY-DGSkBIGvBBp2VZbnDCpERAGGK0I0lV8xfFhidVwv9IvAsHrQ>
- <xmx:H7sMY7ixR2HIvyAoxrkONcClLdaGMBDQgNMOgeAEHL_8TtG7CqPU1A>
- <xmx:H7sMY6qXuLund067dOcgOWCiVwSSOvUoxqvph7DFyteMkA2lHLU0Iw>
- <xmx:ILsMY8b6kn6yWWLhiU6z6R90bSk0VCj7SB4HBA3MBuCc-O-hBgg-ObaaLsg>
+ cujfgurhephffvvefufffkofgjfhggtgfogfesthhqredtredtjeenucfhrhhomhepofgr
+ gihimhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtf
+ frrghtthgvrhhnpeefiedvfefggffgffehveejieffuddtgffhjefggeetieduvdeileet
+ lefgveegtdenucevlhhushhtvghrufhiiigvpeegnecurfgrrhgrmhepmhgrihhlfhhroh
+ hmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:f7sMY2xTgcLM6NuLd9q_7YHtmYGJrt5R0TUD1_gKnzQ0N4f5Y4DMag>
+ <xmx:f7sMY1RR180C4FEVfn2yxHnpq9b-VBDxFLFkbX0-9AL5rCSJ_RspwA>
+ <xmx:f7sMYxa1FWqvbo5UkkzfcXi6GUr5Ya3DjapW-mClEdBzbkY9DA-byw>
+ <xmx:f7sMYxLaJC9tEncZD5g9Tspw7nDRtDlUh2e3b1CtRGU3dWMrpMUTRtWkfy4>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 29 Aug 2022 09:11:59 -0400 (EDT)
+ 29 Aug 2022 09:13:34 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
 To: Maxime Ripard <mripard@kernel.org>, Ben Skeggs <bskeggs@redhat.com>,
  David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
@@ -76,21 +75,24 @@ To: Maxime Ripard <mripard@kernel.org>, Ben Skeggs <bskeggs@redhat.com>,
  =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
  Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Date: Mon, 29 Aug 2022 15:11:14 +0200
-Message-Id: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+Date: Mon, 29 Aug 2022 15:11:28 +0200
+Message-Id: <20220728-rpi-analog-tv-properties-v2-14-459522d653a7@cerno.tech>
 X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.10.0-dev-65ba7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7147; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=cqo2aafkzYcyJ3mBZFUeznciMg58A/nLuDpuY2DeYGU=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk8u+S6rEyb1q243cVn8ZipLMlM+lNbWEtE5pEJtS8mZL9y
- yePoKGVhEONikBVTZIkRNl8Sd2rW6042vnkwc1iZQIYwcHEKwETq5jIyfF5y9+/aiecEO+awz1sQ9r
- 3E/qPsDOlzXOzOK7gau15Ev2L4wzU9dZ+UR0Pcs8Y/9zLPxTz6niexI/3Q/OO8usUbQi4ksAAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3500; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=g78xF6eprUFyI1I3Lc8j/JkwaSEg8YsZvbc0EnOZ45M=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk8u+SntIuc3+vdVhvklq0t6iPJ8vjeinP9jYWK700fLs99
+ pfqoo5SFQYyLQVZMkSVG2HxJ3KlZrzvZ+ObBzGFlAhnCwMUpABMR2MDwm505M9T4i4pTmdgHn63Gea
+ G1lZaxIpt3mp7btLm6aWVuM8P/RPs5Lz69DDuo1bb40m3fmT1qnnO1W/mW/XOZpPIu+9dufgA=
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 Content-Transfer-Encoding: quoted-printable
-Subject: [Intel-gfx] [PATCH v2 00/41] drm: Analog TV Improvements
+Subject: [Intel-gfx] [PATCH v2 14/41] drm/modes: Move named modes parsing to
+ a separate function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,166 +115,125 @@ Cc: Dom Cobley <dom@raspberrypi.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,=0D
+The current construction of the named mode parsing doesn't allow to extend=
 =0D
-Here's a series aiming at improving the command line named modes support,=0D
-and more importantly how we deal with all the analog TV variants.=0D
+it easily. Let's move it to a separate function so we can add more=0D
+parameters and modes.=0D
 =0D
-The named modes support were initially introduced to allow to specify the=0D
-analog TV mode to be used.=0D
+Signed-off-by: Maxime Ripard <maxime@cerno.tech>=0D
 =0D
-However, this was causing multiple issues:=0D
+diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c=0D
+index 99a21e5cd00d..0636cb707544 100644=0D
+--- a/drivers/gpu/drm/drm_modes.c=0D
++++ b/drivers/gpu/drm/drm_modes.c=0D
+@@ -1909,6 +1909,9 @@ void drm_connector_list_update(struct drm_connector *=
+connector)=0D
+ }=0D
+ EXPORT_SYMBOL(drm_connector_list_update);=0D
+ =0D
++#define STR_STRICT_EQ(str, len, cmp) \=0D
++	((strlen(cmp) =3D=3D len) && !strncmp(str, cmp, len))=0D
++=0D
+ static int drm_mode_parse_cmdline_bpp(const char *str, char **end_ptr,=0D
+ 				      struct drm_cmdline_mode *mode)=0D
+ {=0D
+@@ -2208,6 +2211,52 @@ static const char * const drm_named_modes_whitelist[=
+] =3D {=0D
+ 	"PAL",=0D
+ };=0D
+ =0D
++static int drm_mode_parse_cmdline_named_mode(const char *name,=0D
++					     unsigned int name_end,=0D
++					     struct drm_cmdline_mode *cmdline_mode)=0D
++{=0D
++	unsigned int i;=0D
++=0D
++	if (!name_end)=0D
++		return 0;=0D
++=0D
++	/* If the name starts with a digit, it's not a named mode */=0D
++	if (isdigit(name[0]))=0D
++		return 0;=0D
++=0D
++	/*=0D
++	 * If there's an equal sign in the name, the command-line=0D
++	 * contains only an option and no mode.=0D
++	 */=0D
++	if (strnchr(name, name_end, '=3D'))=0D
++		return 0;=0D
++=0D
++	/* The connection status extras can be set without a mode. */=0D
++	if (STR_STRICT_EQ(name, name_end, "d") ||=0D
++	    STR_STRICT_EQ(name, name_end, "D") ||=0D
++	    STR_STRICT_EQ(name, name_end, "e"))=0D
++		return 0;=0D
++=0D
++	/*=0D
++	 * We're sure we're a named mode at that point, iterate over the=0D
++	 * list of modes we're aware of.=0D
++	 */=0D
++	for (i =3D 0; i < ARRAY_SIZE(drm_named_modes_whitelist); i++) {=0D
++		int ret;=0D
++=0D
++		ret =3D str_has_prefix(name, drm_named_modes_whitelist[i]);=0D
++		if (ret !=3D name_end)=0D
++			continue;=0D
++=0D
++		strcpy(cmdline_mode->name, drm_named_modes_whitelist[i]);=0D
++		cmdline_mode->specified =3D true;=0D
++=0D
++		return 1;=0D
++	}=0D
++=0D
++	return -EINVAL;=0D
++}=0D
++=0D
+ /**=0D
+  * drm_mode_parse_command_line_for_connector - parse command line modeline=
+ for connector=0D
+  * @mode_option: optional per connector mode option=0D
+@@ -2244,7 +2293,7 @@ bool drm_mode_parse_command_line_for_connector(const =
+char *mode_option,=0D
+ 	const char *bpp_ptr =3D NULL, *refresh_ptr =3D NULL, *extra_ptr =3D NULL;=
 =0D
-  * The mode name parsed on the command line was passed directly to the=0D
-    driver, which had to figure out which mode it was suppose to match;=0D
+ 	const char *options_ptr =3D NULL;=0D
+ 	char *bpp_end_ptr =3D NULL, *refresh_end_ptr =3D NULL;=0D
+-	int i, len, ret;=0D
++	int len, ret;=0D
+ =0D
+ 	memset(mode, 0, sizeof(*mode));=0D
+ 	mode->panel_orientation =3D DRM_MODE_PANEL_ORIENTATION_UNKNOWN;=0D
+@@ -2285,17 +2334,19 @@ bool drm_mode_parse_command_line_for_connector(cons=
+t char *mode_option,=0D
+ 		parse_extras =3D true;=0D
+ 	}=0D
+ =0D
+-	/* First check for a named mode */=0D
+-	for (i =3D 0; i < ARRAY_SIZE(drm_named_modes_whitelist); i++) {=0D
+-		ret =3D str_has_prefix(name, drm_named_modes_whitelist[i]);=0D
+-		if (ret =3D=3D mode_end) {=0D
+-			if (refresh_ptr)=0D
+-				return false; /* named + refresh is invalid */=0D
+ =0D
+-			strcpy(mode->name, drm_named_modes_whitelist[i]);=0D
+-			mode->specified =3D true;=0D
+-			break;=0D
+-		}=0D
++	if (mode_end) {=0D
++		ret =3D drm_mode_parse_cmdline_named_mode(name, mode_end, mode);=0D
++		if (ret < 0)=0D
++			return false;=0D
++=0D
++		/*=0D
++		 * Having a mode that starts by a letter (and thus is named)=0D
++		 * and an at-sign (used to specify a refresh rate) is=0D
++		 * disallowed.=0D
++		 */=0D
++		if (ret && refresh_ptr)=0D
++			return false;=0D
+ 	}=0D
+ =0D
+ 	/* No named mode? Check for a normal mode argument, e.g. 1024x768 */=0D
 =0D
-  * Figuring that out wasn't really easy, since the video=3D argument or wh=
-at=0D
-    the userspace might not even have a name in the first place, but=0D
-    instead could have passed a mode with the same timings;=0D
-=0D
-  * The fallback to matching on the timings was mostly working as long as=0D
-    we were supporting one 525 lines (most likely NSTC) and one 625 lines=0D
-    (PAL), but couldn't differentiate between two modes with the same=0D
-    timings (NTSC vs PAL-M vs NSTC-J for example);=0D
-=0D
-  * There was also some overlap with the tv mode property registered by=0D
-    drm_mode_create_tv_properties(), but named modes weren't interacting=0D
-    with that property at all.=0D
-=0D
-  * Even though that property was generic, its possible values were=0D
-    specific to each drivers, which made some generic support difficult.=0D
-=0D
-Thus, I chose to tackle in multiple steps:=0D
-=0D
-  * A new TV norm property was introduced, with generic values, each driver=
-=0D
-    reporting through a bitmask what standard it supports to the userspace;=
-=0D
-=0D
-  * This option was added to the command line parsing code to be able to=0D
-    specify it on the kernel command line, and new atomic_check and reset=0D
-    helpers were created to integrate properly into atomic KMS;=0D
-=0D
-  * The named mode parsing code is now creating a proper display mode for=0D
-    the given named mode, and the TV standard will thus be part of the=0D
-    connector state;=0D
-=0D
-  * Two drivers were converted and tested for now (vc4 and sun4i), with=0D
-    some backward compatibility code to translate the old TV mode to the=0D
-    new TV mode;=0D
-=0D
-Unit tests were created along the way.=0D
-=0D
-One can switch from NTSC to PAL now using (on vc4)=0D
-=0D
-modetest -M vc4  -s 53:720x480i -w 53:'tv norm':0=0D
-=0D
-modetest -M vc4 -s 53:720x480i -w 53:'tv norm':4=0D
-=0D
-Let me know what you think,=0D
-Maxime=0D
-=0D
-Changes from v1 (https://lore.kernel.org/dri-devel/20220728-rpi-analog-tv-p=
-roperties-v1-0-3d53ae722097@cerno.tech/):=0D
-  - Kept the older TV mode property as legacy so we can keep the old driver=
-s functional=0D
-  - Renamed the tv_norm property to tv_mode=0D
-  - Added a function to create PAL and NTSC compatible display modes=0D
-  - Added some helpers to instantiate a mock DRM device in Kunit=0D
-  - More Kunit tests=0D
-  - Removed the HD analog TV modes=0D
-  - Renamed some of the tests=0D
-  - Renamed some of the named modes=0D
-  - Fixed typos in commit logs=0D
-  - Added the various tags=0D
-=0D
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>=0D
-Cc: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>=0D
-Cc: "Noralf Tr=C3=B8nnes" <noralf@tronnes.org>=0D
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>=0D
-Cc: Dom Cobley <dom@raspberrypi.com>=0D
-Cc: Phil Elwell <phil@raspberrypi.com>=0D
-Cc: <dri-devel@lists.freedesktop.org>=0D
-=0D
----=0D
-Geert Uytterhoeven (1):=0D
-      drm/modes: parse_cmdline: Add support for named modes containing dash=
-es=0D
-=0D
-Mateusz Kwiatkowski (5):=0D
-      drm/vc4: vec: Refactor VEC TV mode setting=0D
-      drm/vc4: vec: Remove redundant atomic_mode_set=0D
-      drm/vc4: vec: Fix timings for VEC modes=0D
-      drm/vc4: vec: Fix definition of PAL-M mode=0D
-      drm/vc4: vec: Add support for more analog TV standards=0D
-=0D
-Maxime Ripard (35):=0D
-      drm/tests: Order Kunit tests in Makefile=0D
-      drm/tests: Add Kunit Helpers=0D
-      drm/atomic-helper: Rename drm_atomic_helper_connector_tv_reset to avo=
-id ambiguity=0D
-      drm/connector: Rename subconnector state variable=0D
-      drm/atomic: Add TV subconnector property to get/set_property=0D
-      drm/connector: Rename legacy TV property=0D
-      drm/connector: Only register TV mode property if present=0D
-      drm/connector: Rename drm_mode_create_tv_properties=0D
-      drm/connector: Add TV standard property=0D
-      drm/modes: Add a function to generate analog display modes=0D
-      drm/modes: Only consider bpp and refresh before options=0D
-      drm/client: Add some tests for drm_connector_pick_cmdline_mode()=0D
-      drm/modes: Move named modes parsing to a separate function=0D
-      drm/modes: Switch to named mode descriptors=0D
-      drm/modes: Fill drm_cmdline mode from named modes=0D
-      drm/connector: Add pixel clock to cmdline mode=0D
-      drm/connector: Add a function to lookup a TV mode by its name=0D
-      drm/modes: Introduce the tv_mode property as a command-line option=0D
-      drm/modes: Properly generate a drm_display_mode from a named mode=0D
-      drm/modes: Introduce more named modes=0D
-      drm/atomic-helper: Add a TV properties reset helper=0D
-      drm/atomic-helper: Add an analog TV atomic_check implementation=0D
-      drm/vc4: vec: Remove empty mode_fixup=0D
-      drm/vc4: vec: Convert to atomic helpers=0D
-      drm/vc4: vec: Switch for common modes=0D
-      drm/vc4: vec: Use TV Reset implementation=0D
-      drm/vc4: vec: Convert to the new TV mode property=0D
-      drm/sun4i: tv: Remove unused mode_valid=0D
-      drm/sun4i: tv: Convert to atomic hooks=0D
-      drm/sun4i: tv: Merge mode_set into atomic_enable=0D
-      drm/sun4i: tv: Remove useless function=0D
-      drm/sun4i: tv: Remove useless destroy function=0D
-      drm/sun4i: tv: Rename error label=0D
-      drm/sun4i: tv: Add missing reset assertion=0D
-      drm/sun4i: tv: Convert to the new TV mode property=0D
-=0D
- drivers/gpu/drm/drm_atomic_state_helper.c       | 115 ++++-=0D
- drivers/gpu/drm/drm_atomic_uapi.c               |   8 +=0D
- drivers/gpu/drm/drm_client_modeset.c            |   4 +=0D
- drivers/gpu/drm/drm_connector.c                 | 119 ++++-=0D
- drivers/gpu/drm/drm_modes.c                     | 638 ++++++++++++++++++++=
-+++-=0D
- drivers/gpu/drm/gud/gud_connector.c             |   8 +-=0D
- drivers/gpu/drm/i2c/ch7006_drv.c                |   6 +-=0D
- drivers/gpu/drm/i915/display/intel_tv.c         |   2 +-=0D
- drivers/gpu/drm/nouveau/dispnv04/tvnv17.c       |   6 +-=0D
- drivers/gpu/drm/sun4i/sun4i_tv.c                | 198 +++-----=0D
- drivers/gpu/drm/tests/Makefile                  |  16 +-=0D
- drivers/gpu/drm/tests/drm_client_modeset_test.c | 239 +++++++++=0D
- drivers/gpu/drm/tests/drm_cmdline_parser_test.c | 216 ++++++++=0D
- drivers/gpu/drm/tests/drm_kunit_helpers.c       |  54 ++=0D
- drivers/gpu/drm/tests/drm_kunit_helpers.h       |   9 +=0D
- drivers/gpu/drm/tests/drm_modes_test.c          | 131 +++++=0D
- drivers/gpu/drm/vc4/vc4_hdmi.c                  |   2 +-=0D
- drivers/gpu/drm/vc4/vc4_vec.c                   | 422 ++++++++++------=0D
- include/drm/drm_atomic_state_helper.h           |   4 +=0D
- include/drm/drm_connector.h                     | 165 +++++-=0D
- include/drm/drm_mode_config.h                   |  12 +-=0D
- include/drm/drm_modes.h                         |  17 +=0D
- 22 files changed, 2057 insertions(+), 334 deletions(-)=0D
----=0D
-base-commit: 8869fa666a9e6782c3c896c1fa57d65adca23249=0D
-change-id: 20220728-rpi-analog-tv-properties-0914dfcee460=0D
-=0D
-Best regards,=0D
 -- =0D
-Maxime Ripard <maxime@cerno.tech>=0D
+b4 0.10.0-dev-65ba7=0D
