@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DFB7ECAAD2
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:19:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21043ECAAD4
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:19:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA9310F2A3;
-	Mon, 29 Aug 2022 13:19:41 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82C0C10F28C
- for <intel-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 13:19:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B53D10F2A8;
+	Mon, 29 Aug 2022 13:19:43 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C281D10F298
+ for <intel-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 13:19:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661779168; x=1693315168;
+ t=1661779176; x=1693315176;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=tNqx0hrw4sIajT1RE0Aq4IL2pPRiBQIKxHVX+kObdBA=;
- b=MTeCX+S4von3qns4N1eReLHtbsRyFP5xpqX29yi3wy60SqH9eKHzav2q
- XdarkpbG7e5pZlGV4nVAqtadAdhq0Fdu8RAtBuKgzBglpbdwLsEtqvNCX
- uqR8aNjoeQd0tkQ1gIkc0kGaUhRfoGp2P2eOluTyo4ln+QK5NHLNRKCwT
- gUPAUK81V7qj7lil8iyGhxV4nHnWjqgA6gT3FvDPpi4xF8oJIf0mS89TE
- arQ8zVFS5y55Ri1NNYLp/EOM5nHjoJ5V4D7MxWN/PzEz+7XyYrus+jOKP
- qoYu5+u0AwjpePphmixDxwiT7ls02VT3mGzxiCyifsznPXEJKCybxrbUD w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="277903502"
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="277903502"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 06:19:28 -0700
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="753626563"
+ bh=T7RCtBxK/PCI7aaeRl8n8kfe4XIXIF9TLG/cM5B8eeo=;
+ b=GxvlnXjDK2/xn1KwalNghiIxTzjtQkhmZE0kDHkyGLHWwV5WKGzYhcvw
+ +j7oADx2uGKXkwknTjwoNPW56EhQukbtevsuJ5OHiREwHR/c1RS6qk8uR
+ Aq/Wc8DTzaQ7qdZ9LqON/7poeoGo9MnD5qAocwffAIYXgtzFPOLH397E0
+ tcsNZTPanuFQIaOQSjYqtMB6JpX8vOJ9MY0/7MoIFAuRCIaMBzTih7GIe
+ 3E+8kFb50H1twydCR6v3VU1lGsu9/C8ERSGkPzDWOoHX2Q+d/l1kor2r1
+ 8y+L6056moGrM3GGf+Vpd+fiqRbQtrLucadj84x2N4chHPqzHpNqyT0PL A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="381193128"
+X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="381193128"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2022 06:19:36 -0700
+X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="700576960"
 Received: from idecesar-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.53.198])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 06:19:27 -0700
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2022 06:19:35 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 29 Aug 2022 16:18:20 +0300
-Message-Id: <f34f7fb45510e880ce0cc16cb2fbba72fbe94a1d.1661779055.git.jani.nikula@intel.com>
+Date: Mon, 29 Aug 2022 16:18:22 +0300
+Message-Id: <60d8a20e1f8845b0bef53c2e32d524be888e426d.1661779055.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1661779055.git.jani.nikula@intel.com>
 References: <cover.1661779055.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 13/18] drm/i915: move and group modeset_wq
- and flip_wq under display.wq
+Subject: [Intel-gfx] [PATCH v3 15/18] drm/i915/quirks: abstract quirks
+ further by making quirk ids an enum
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,107 +62,133 @@ Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move display workqueue related members under drm_i915_private display
-sub-struct.
+Turn the quirk ids to enums instead of bits, and hide the masking inside
+intel_quirks.c. Define the enums in intel_quirks.h to declutter
+i915_drv.h while at it.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c  | 20 +++++++++----------
- .../gpu/drm/i915/display/intel_display_core.h |  8 ++++++++
- drivers/gpu/drm/i915/i915_drv.h               |  5 -----
- 3 files changed, 18 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/display/intel_quirks.c | 21 +++++++++++++--------
+ drivers/gpu/drm/i915/display/intel_quirks.h | 11 ++++++++++-
+ drivers/gpu/drm/i915/i915_drv.h             |  7 -------
+ 3 files changed, 23 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index b347165ac2cf..5fb027ff5246 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7812,12 +7812,12 @@ static int intel_atomic_commit(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index edc82d115434..41caeda795cb 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -9,12 +9,17 @@
+ #include "intel_display_types.h"
+ #include "intel_quirks.h"
  
- 	i915_sw_fence_commit(&state->commit_ready);
- 	if (nonblock && state->modeset) {
--		queue_work(dev_priv->modeset_wq, &state->base.commit_work);
-+		queue_work(dev_priv->display.wq.modeset, &state->base.commit_work);
- 	} else if (nonblock) {
--		queue_work(dev_priv->flip_wq, &state->base.commit_work);
-+		queue_work(dev_priv->display.wq.flip, &state->base.commit_work);
- 	} else {
- 		if (state->modeset)
--			flush_workqueue(dev_priv->modeset_wq);
-+			flush_workqueue(dev_priv->display.wq.modeset);
- 		intel_atomic_commit_tail(state);
- 	}
- 
-@@ -8686,9 +8686,9 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
- 
- 	intel_dmc_ucode_init(i915);
- 
--	i915->modeset_wq = alloc_ordered_workqueue("i915_modeset", 0);
--	i915->flip_wq = alloc_workqueue("i915_flip", WQ_HIGHPRI |
--					WQ_UNBOUND, WQ_UNBOUND_MAX_ACTIVE);
-+	i915->display.wq.modeset = alloc_ordered_workqueue("i915_modeset", 0);
-+	i915->display.wq.flip = alloc_workqueue("i915_flip", WQ_HIGHPRI |
-+						WQ_UNBOUND, WQ_UNBOUND_MAX_ACTIVE);
- 
- 	intel_mode_config_init(i915);
- 
-@@ -8995,8 +8995,8 @@ void intel_modeset_driver_remove(struct drm_i915_private *i915)
- 	if (!HAS_DISPLAY(i915))
- 		return;
- 
--	flush_workqueue(i915->flip_wq);
--	flush_workqueue(i915->modeset_wq);
-+	flush_workqueue(i915->display.wq.flip);
-+	flush_workqueue(i915->display.wq.modeset);
- 
- 	flush_work(&i915->atomic_helper.free_work);
- 	drm_WARN_ON(&i915->drm, !llist_empty(&i915->atomic_helper.free_list));
-@@ -9037,8 +9037,8 @@ void intel_modeset_driver_remove_noirq(struct drm_i915_private *i915)
- 
- 	intel_gmbus_teardown(i915);
- 
--	destroy_workqueue(i915->flip_wq);
--	destroy_workqueue(i915->modeset_wq);
-+	destroy_workqueue(i915->display.wq.flip);
-+	destroy_workqueue(i915->display.wq.modeset);
- 
- 	intel_fbc_cleanup(i915);
++static void intel_set_quirk(struct drm_i915_private *i915, enum intel_quirk_id quirk)
++{
++	i915->quirks |= BIT(quirk);
++}
++
+ /*
+  * Some machines (Lenovo U160) do not work with SSC on LVDS for some reason
+  */
+ static void quirk_ssc_force_disable(struct drm_i915_private *i915)
+ {
+-	i915->quirks |= QUIRK_LVDS_SSC_DISABLE;
++	intel_set_quirk(i915, QUIRK_LVDS_SSC_DISABLE);
+ 	drm_info(&i915->drm, "applying lvds SSC disable quirk\n");
  }
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index b061deb21df1..31fd05a04bff 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -376,6 +376,14 @@ struct intel_display {
- 		u32 block_time_us;
- 	} sagv;
  
-+	struct {
-+		/* ordered wq for modesets */
-+		struct workqueue_struct *modeset;
+@@ -24,14 +29,14 @@ static void quirk_ssc_force_disable(struct drm_i915_private *i915)
+  */
+ static void quirk_invert_brightness(struct drm_i915_private *i915)
+ {
+-	i915->quirks |= QUIRK_INVERT_BRIGHTNESS;
++	intel_set_quirk(i915, QUIRK_INVERT_BRIGHTNESS);
+ 	drm_info(&i915->drm, "applying inverted panel brightness quirk\n");
+ }
+ 
+ /* Some VBT's incorrectly indicate no backlight is present */
+ static void quirk_backlight_present(struct drm_i915_private *i915)
+ {
+-	i915->quirks |= QUIRK_BACKLIGHT_PRESENT;
++	intel_set_quirk(i915, QUIRK_BACKLIGHT_PRESENT);
+ 	drm_info(&i915->drm, "applying backlight present quirk\n");
+ }
+ 
+@@ -40,7 +45,7 @@ static void quirk_backlight_present(struct drm_i915_private *i915)
+  */
+ static void quirk_increase_t12_delay(struct drm_i915_private *i915)
+ {
+-	i915->quirks |= QUIRK_INCREASE_T12_DELAY;
++	intel_set_quirk(i915, QUIRK_INCREASE_T12_DELAY);
+ 	drm_info(&i915->drm, "Applying T12 delay quirk\n");
+ }
+ 
+@@ -50,13 +55,13 @@ static void quirk_increase_t12_delay(struct drm_i915_private *i915)
+  */
+ static void quirk_increase_ddi_disabled_time(struct drm_i915_private *i915)
+ {
+-	i915->quirks |= QUIRK_INCREASE_DDI_DISABLED_TIME;
++	intel_set_quirk(i915, QUIRK_INCREASE_DDI_DISABLED_TIME);
+ 	drm_info(&i915->drm, "Applying Increase DDI Disabled quirk\n");
+ }
+ 
+ static void quirk_no_pps_backlight_power_hook(struct drm_i915_private *i915)
+ {
+-	i915->quirks |= QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK;
++	intel_set_quirk(i915, QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK);
+ 	drm_info(&i915->drm, "Applying no pps backlight power quirk\n");
+ }
+ 
+@@ -217,7 +222,7 @@ void intel_init_quirks(struct drm_i915_private *i915)
+ 	}
+ }
+ 
+-bool intel_has_quirk(struct drm_i915_private *i915, unsigned long quirk)
++bool intel_has_quirk(struct drm_i915_private *i915, enum intel_quirk_id quirk)
+ {
+-	return i915->quirks & quirk;
++	return i915->quirks & BIT(quirk);
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index f5e399a6e7d3..10a4d163149f 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -10,7 +10,16 @@
+ 
+ struct drm_i915_private;
+ 
++enum intel_quirk_id {
++	QUIRK_BACKLIGHT_PRESENT,
++	QUIRK_INCREASE_DDI_DISABLED_TIME,
++	QUIRK_INCREASE_T12_DELAY,
++	QUIRK_INVERT_BRIGHTNESS,
++	QUIRK_LVDS_SSC_DISABLE,
++	QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK,
++};
 +
-+		/* unbound hipri wq for page flips/plane updates */
-+		struct workqueue_struct *flip;
-+	} wq;
-+
- 	/* Grouping using named structs. Keep sorted. */
- 	struct intel_audio audio;
- 	struct intel_dmc dmc;
+ void intel_init_quirks(struct drm_i915_private *i915);
+-bool intel_has_quirk(struct drm_i915_private *i915, unsigned long quirk);
++bool intel_has_quirk(struct drm_i915_private *i915, enum intel_quirk_id quirk);
+ 
+ #endif /* __INTEL_QUIRKS_H__ */
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 1a494933dd92..5aac06da3cc7 100644
+index 5aac06da3cc7..c486a1dcfb07 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -290,11 +290,6 @@ struct drm_i915_private {
- 	 */
- 	struct workqueue_struct *wq;
+@@ -90,13 +90,6 @@ struct vlv_s0ix_state;
  
--	/* ordered wq for modesets */
--	struct workqueue_struct *modeset_wq;
--	/* unbound hipri wq for page flips/plane updates */
--	struct workqueue_struct *flip_wq;
+ #define GEM_QUIRK_PIN_SWIZZLED_PAGES	BIT(0)
+ 
+-#define QUIRK_LVDS_SSC_DISABLE (1<<1)
+-#define QUIRK_INVERT_BRIGHTNESS (1<<2)
+-#define QUIRK_BACKLIGHT_PRESENT (1<<3)
+-#define QUIRK_INCREASE_T12_DELAY (1<<6)
+-#define QUIRK_INCREASE_DDI_DISABLED_TIME (1<<7)
+-#define QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK (1<<8)
 -
- 	/* pm private clock gating functions */
- 	const struct drm_i915_clock_gating_funcs *clock_gating_funcs;
- 
+ struct i915_suspend_saved_registers {
+ 	u32 saveDSPARB;
+ 	u32 saveSWF0[16];
 -- 
 2.34.1
 
