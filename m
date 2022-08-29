@@ -4,51 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD4A7ECAAD2
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:51:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD89CECAAD2
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3351D10F2D4;
-	Mon, 29 Aug 2022 13:51:11 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E9D510F2D4
- for <intel-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 13:51:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 018EA10F13C;
+	Mon, 29 Aug 2022 13:58:42 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C461710F13C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 13:58:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661781068; x=1693317068;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=pfwhbK82XIa2aOpk+Z07cQf1mNaAWCvsETmfS/b9PiA=;
- b=UW7/NEMVf21PifsOHjuHS4KaTuhWu7k8OGinHBz6SHdSA11m8czxzhFy
- lTEQCWsCtFmlyx7ECMXtjdkRW8xIGLX+bEGCe3vCsP0OztRvJ/h79ur16
- IrWVf3MlqWNGU36nnAopEdmbd7jPEWdxwfmnbRUb/sSmVdRMLe0JXRuw9
- iG1yrVM8IO2rITHqd0O8x3iFX/0k2ttfgeF+NkY5bq9Ok+tmlRPZSL2FT
- W228nLnDXZUeCugEALWnSJQHVlViBJhcYjzdgFPIsPiRD+MbSnmdhncji
- Dy15/R3VlNH8YwC5NHroTHu5e3JqRCrDkzvvbIio9Xd/4b8dCu9xiRgYI w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="275300120"
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="275300120"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 06:51:08 -0700
+ t=1661781517; x=1693317517;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=foAXf8sIUIu096dssSvjV0luk4lPIOMWX/ySGa35avo=;
+ b=lte5ZlC++bhyJ+gbUrXRj3meuvtsjglFTRUXhNLh5lM93bq8HaynI4fr
+ r7CDRWx9Ghq/O2puczGJaP3ZmOwgKpT45IC25Y5wRi7KOmVd/ZgSvuDkz
+ XUS5FgeQ6pnCgZbfhIswnTaV336k2hP16tV039eZO46BxhaLn/IqhlMXT
+ 7ZcBWmebWcjifwL+qAD4zjCl4LlGKC7IGW6S9+A9Unn+b322Rz6BZjC9G
+ g907awpCDEG2r0X7etA45/4Z4MZh1bczQEb5L5SYOVBdaUc4m90MgcCoq
+ Quuc96qtcQl0afxaBbBcGa4XiNEQJqIpbSPWCHs7gMgrXG+ER35Ikd+jD Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="292478732"
+X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="292478732"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2022 06:58:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="607450657"
+X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="672388235"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga007.jf.intel.com with SMTP; 29 Aug 2022 06:51:05 -0700
+ by fmsmga008.fm.intel.com with SMTP; 29 Aug 2022 06:58:34 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 29 Aug 2022 16:51:05 +0300
-Date: Mon, 29 Aug 2022 16:51:05 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Message-ID: <YwzESdqZthFGI9La@intel.com>
-References: <20220823090128.488008-1-maarten.lankhorst@linux.intel.com>
- <20220823090128.488008-5-maarten.lankhorst@linux.intel.com>
+ Mon, 29 Aug 2022 16:58:34 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 29 Aug 2022 16:58:34 +0300
+Message-Id: <20220829135834.8585-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220823090128.488008-5-maarten.lankhorst@linux.intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 4/4] drm/i915: Replace remaining display
- uncore references to use intel_de
+Subject: [Intel-gfx] [PATCH] drm/i915/bios: Copy the whole MIPI sequence
+ block
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,41 +57,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 23, 2022 at 11:01:28AM +0200, Maarten Lankhorst wrote:
-> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_bw.c       |  8 ++--
->  drivers/gpu/drm/i915/display/intel_crt.c      | 33 +++++++------
->  drivers/gpu/drm/i915/display/intel_de.h       | 47 +++++++++++++++++++
->  .../drm/i915/display/intel_display_power.c    |  2 +-
->  drivers/gpu/drm/i915/display/intel_dmc.c      |  6 +--
->  drivers/gpu/drm/i915/display/intel_dp_aux.c   | 30 ++++++------
->  drivers/gpu/drm/i915/display/intel_dpio_phy.c |  9 ++--
->  drivers/gpu/drm/i915/display/intel_fbc.c      | 10 +---
->  drivers/gpu/drm/i915/display/intel_gmbus.c    | 42 ++++++++---------
->  drivers/gpu/drm/i915/display/intel_hdcp.c     |  6 +--
->  drivers/gpu/drm/i915/display/intel_snps_phy.c | 11 ++---
->  11 files changed, 118 insertions(+), 86 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-> index 8ecf4e3e2bc6..1ca588e31dc9 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bw.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bw.c
-> @@ -42,7 +42,7 @@ static int dg1_mchbar_read_qgv_point_info(struct drm_i915_private *dev_priv,
->  	u32 dclk_ratio, dclk_reference;
->  	u32 val;
->  
-> -	val = intel_uncore_read(&dev_priv->uncore, SA_PERF_STATUS_0_0_0_MCHBAR_PC);
-> +	val = intel_de_read(dev_priv, SA_PERF_STATUS_0_0_0_MCHBAR_PC);
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Surely these aren't display engine registers? If we start (ab)using
-intel_de_*() for everything we may end up in a bigger mess for the
-upcoming forcewake thing...
+Turns out the MIPI sequence block version number and
+new block size fields are considered part of the block
+header and are not included in the reported new block size
+field itself. Bump up the block size appropriately so that
+we'll copy over the last five bytes of the block as well.
 
+For this particular machine those last five bytes included
+parts of the GPIO op for the backlight on sequence, causing
+the backlight no longer to turn back on:
+
+ 		Sequence 6 - MIPI_SEQ_BACKLIGHT_ON
+ 			Delay: 20000 us
+-			GPIO index 0, number 0, set 0 (0x00)
++			GPIO index 1, number 70, set 1 (0x01)
+
+Cc: stable@vger.kernel.org
+Fixes: e163cfb4c96d ("drm/i915/bios: Make copies of VBT data blocks")
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/6652
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 81d6cfbd2615..d493d04f4049 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -479,6 +479,13 @@ init_bdb_block(struct drm_i915_private *i915,
+ 
+ 	block_size = get_blocksize(block);
+ 
++	/*
++	 * Version number and new block size are considered
++	 * part of the header for MIPI sequenece block v3+.
++	 */
++	if (section_id == BDB_MIPI_SEQUENCE && *(const u8 *)block >= 3)
++		block_size += 5;
++
+ 	entry = kzalloc(struct_size(entry, data, max(min_size, block_size) + 3),
+ 			GFP_KERNEL);
+ 	if (!entry) {
 -- 
-Ville Syrj�l�
-Intel
+2.35.1
+
