@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFFE9ECAAD2
-	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D87DECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 29 Aug 2022 13:19:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE7210F299;
-	Mon, 29 Aug 2022 13:19:39 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2D9010F296
- for <intel-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 13:19:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E10010F2A4;
+	Mon, 29 Aug 2022 13:19:41 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 936B910F296
+ for <intel-gfx@lists.freedesktop.org>; Mon, 29 Aug 2022 13:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661779157; x=1693315157;
+ t=1661779173; x=1693315173;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gq17rQHqdCT8w9yqd+bgBlIdEdyB7i5nv3xsxW6PWnE=;
- b=nk7vUXXeHMAl/5tIA1U54tVq1iBFPvVRqA4oOpNmWXNeNQ/UAoNcmFoC
- vm40KATPxz8G65VMB3SExV8Z1e3o29RkjUL0zTiDpBx65XiYKqPLPbgW/
- gkIxymlpu+7xV70OP+pJv4x6LShvZgfQdCDUNBohKmAgwZiG3AqHA+CDc
- kRdEL/2rbBec9dzUPkllBJ/ZTtks0yitXCJnmn/0SfYdsRmL1or31TdEG
- joUmjDF0vJR2P3MeNH3mUQSY4GE1D6wRizqekORcohvOATdnZQoPtKr0C
- wlKHFbU8UaMPGp8pHranh/JznHISbbvpldMHLCUnrxEZPRg1WTN/ys1O0 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="277903471"
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="277903471"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 06:19:17 -0700
-X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="644413672"
+ bh=bnBlGOwiyaWXVhU5skrFGFeN4aIZyZkgz7aHak252yM=;
+ b=JYBaJLDAsrqAU3555Pi6NiOyaXI80O/aKM1nNN2oHg9CbY8x76D7S/ws
+ 3V6IE+h/oDoeYqfFx976QSNZuuyzT+Ck4iEG32+nLH0EYf2wYA7cQgIHA
+ vPE24ITByagHV7UKqscmICsct4obkzMiWdalaan2fp/OzhLY7NmEDb214
+ BvKrNMxqylMsEF0EB7ECg7zb5JjA2icPAWN4KKACulm83xiBbL+UhFBxN
+ 5tPcaxRELrniP3vYiC0hu3NVvjPvqbKibVn0PXAEsrgtr6D/A5UuzBm1x
+ b7zhzPwNVlxw2V66ZZqxTDCPjmMJLXw32LflxJrrm5oYBp6+6ewOK6UKf w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="381193115"
+X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="381193115"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2022 06:19:32 -0700
+X-IronPort-AV: E=Sophos;i="5.93,272,1654585200"; d="scan'208";a="700576946"
 Received: from idecesar-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.53.198])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2022 06:19:15 -0700
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2022 06:19:31 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 29 Aug 2022 16:18:17 +0300
-Message-Id: <b66fe7cf2c6f9e5b7bbfcaff40400492ac706721.1661779055.git.jani.nikula@intel.com>
+Date: Mon, 29 Aug 2022 16:18:21 +0300
+Message-Id: <74f954ca81a8068033141a15686dffd01ad9b0f9.1661779055.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1661779055.git.jani.nikula@intel.com>
 References: <cover.1661779055.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 10/18] drm/i915: move and group fdi members
- under display.fdi
+Subject: [Intel-gfx] [PATCH v3 14/18] drm/i915/quirks: abstract checking for
+ display quirks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,110 +62,163 @@ Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move display fdi related members under drm_i915_private display
-sub-struct.
+Add intel_has_quirk() for checking if a display quirk is present. Avoid
+accessing i915->quirks all over the place.
+
+v2: Rebase
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crt.c          |  4 ++--
- drivers/gpu/drm/i915/display/intel_display_core.h |  5 +++++
- drivers/gpu/drm/i915/display/intel_fdi.c          | 10 +++++-----
- drivers/gpu/drm/i915/i915_drv.h                   |  3 ---
- 4 files changed, 12 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_backlight.c | 9 +++++----
+ drivers/gpu/drm/i915/display/intel_ddi.c       | 3 ++-
+ drivers/gpu/drm/i915/display/intel_panel.c     | 5 +++--
+ drivers/gpu/drm/i915/display/intel_pps.c       | 3 ++-
+ drivers/gpu/drm/i915/display/intel_quirks.c    | 5 +++++
+ drivers/gpu/drm/i915/display/intel_quirks.h    | 5 ++++-
+ 6 files changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index 760b5788eb43..6c555555b7bf 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -1110,8 +1110,8 @@ void intel_crt_init(struct drm_i915_private *dev_priv)
- 		u32 fdi_config = FDI_RX_POLARITY_REVERSED_LPT |
- 				 FDI_RX_LINK_REVERSAL_OVERRIDE;
+diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+index f20f3c06ca96..11a1342d6d37 100644
+--- a/drivers/gpu/drm/i915/display/intel_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+@@ -18,6 +18,7 @@
+ #include "intel_panel.h"
+ #include "intel_pci_config.h"
+ #include "intel_pps.h"
++#include "intel_quirks.h"
  
--		dev_priv->fdi_rx_config = intel_de_read(dev_priv,
--							FDI_RX_CTL(PIPE_A)) & fdi_config;
-+		dev_priv->display.fdi.rx_config = intel_de_read(dev_priv,
-+								FDI_RX_CTL(PIPE_A)) & fdi_config;
+ /**
+  * scale - scale values from one range to another
+@@ -88,7 +89,7 @@ u32 intel_backlight_invert_pwm_level(struct intel_connector *connector, u32 val)
+ 		return val;
+ 
+ 	if (dev_priv->params.invert_brightness > 0 ||
+-	    dev_priv->quirks & QUIRK_INVERT_BRIGHTNESS) {
++	    intel_has_quirk(dev_priv, QUIRK_INVERT_BRIGHTNESS)) {
+ 		return panel->backlight.pwm_level_max - val + panel->backlight.pwm_level_min;
  	}
  
- 	intel_crt_reset(&crt->base.base);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index 1f25e22496db..0aeebf169ba6 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -299,6 +299,11 @@ struct intel_display {
- 		struct work_struct suspend_work;
- 	} fbdev;
+@@ -128,7 +129,7 @@ u32 intel_backlight_level_from_pwm(struct intel_connector *connector, u32 val)
+ 			 panel->backlight.max == 0 || panel->backlight.pwm_level_max == 0);
  
-+	struct {
-+		unsigned int pll_freq;
-+		u32 rx_config;
-+	} fdi;
+ 	if (dev_priv->params.invert_brightness > 0 ||
+-	    (dev_priv->params.invert_brightness == 0 && dev_priv->quirks & QUIRK_INVERT_BRIGHTNESS))
++	    (dev_priv->params.invert_brightness == 0 && intel_has_quirk(dev_priv, QUIRK_INVERT_BRIGHTNESS)))
+ 		val = panel->backlight.pwm_level_max - (val - panel->backlight.pwm_level_min);
+ 
+ 	return scale(val, panel->backlight.pwm_level_min, panel->backlight.pwm_level_max,
+@@ -1605,7 +1606,7 @@ int intel_backlight_setup(struct intel_connector *connector, enum pipe pipe)
+ 	int ret;
+ 
+ 	if (!connector->panel.vbt.backlight.present) {
+-		if (dev_priv->quirks & QUIRK_BACKLIGHT_PRESENT) {
++		if (intel_has_quirk(dev_priv, QUIRK_BACKLIGHT_PRESENT)) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "no backlight present per VBT, but present per quirk\n");
+ 		} else {
+@@ -1777,7 +1778,7 @@ void intel_backlight_init_funcs(struct intel_panel *panel)
+ 		if (intel_dp_aux_init_backlight_funcs(connector) == 0)
+ 			return;
+ 
+-		if (!(dev_priv->quirks & QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK))
++		if (!intel_has_quirk(dev_priv, QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK))
+ 			connector->panel.backlight.power = intel_pps_backlight_power;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index b7702c4581aa..f5416433826d 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -57,6 +57,7 @@
+ #include "intel_lspcon.h"
+ #include "intel_pps.h"
+ #include "intel_psr.h"
++#include "intel_quirks.h"
+ #include "intel_snps_phy.h"
+ #include "intel_sprite.h"
+ #include "intel_tc.h"
+@@ -631,7 +632,7 @@ void intel_ddi_disable_transcoder_func(const struct intel_crtc_state *crtc_state
+ 
+ 	intel_de_write(dev_priv, TRANS_DDI_FUNC_CTL(cpu_transcoder), ctl);
+ 
+-	if (dev_priv->quirks & QUIRK_INCREASE_DDI_DISABLED_TIME &&
++	if (intel_has_quirk(dev_priv, QUIRK_INCREASE_DDI_DISABLED_TIME) &&
+ 	    intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "Quirk Increase DDI disabled time\n");
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 43dbc5a3ec37..a1b4ef1ad917 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -37,13 +37,14 @@
+ #include "intel_display_types.h"
+ #include "intel_drrs.h"
+ #include "intel_panel.h"
++#include "intel_quirks.h"
+ 
+ bool intel_panel_use_ssc(struct drm_i915_private *i915)
+ {
+ 	if (i915->params.panel_use_ssc >= 0)
+ 		return i915->params.panel_use_ssc != 0;
+-	return i915->display.vbt.lvds_use_ssc
+-		&& !(i915->quirks & QUIRK_LVDS_SSC_DISABLE);
++	return i915->display.vbt.lvds_use_ssc &&
++		!intel_has_quirk(i915, QUIRK_LVDS_SSC_DISABLE);
+ }
+ 
+ const struct drm_display_mode *
+diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
+index 9a66e03aa2d6..21944f5bf3a8 100644
+--- a/drivers/gpu/drm/i915/display/intel_pps.c
++++ b/drivers/gpu/drm/i915/display/intel_pps.c
+@@ -12,6 +12,7 @@
+ #include "intel_dpll.h"
+ #include "intel_lvds.h"
+ #include "intel_pps.h"
++#include "intel_quirks.h"
+ 
+ static void vlv_steal_power_sequencer(struct drm_i915_private *dev_priv,
+ 				      enum pipe pipe);
+@@ -1202,7 +1203,7 @@ static void pps_init_delays_vbt(struct intel_dp *intel_dp,
+ 	 * just fails to power back on. Increasing the delay to 800ms
+ 	 * seems sufficient to avoid this problem.
+ 	 */
+-	if (dev_priv->quirks & QUIRK_INCREASE_T12_DELAY) {
++	if (intel_has_quirk(dev_priv, QUIRK_INCREASE_T12_DELAY)) {
+ 		vbt->t11_t12 = max_t(u16, vbt->t11_t12, 1300 * 10);
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "Increasing T12 panel delay as per the quirk to %d\n",
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index e415cd7c0b84..edc82d115434 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -216,3 +216,8 @@ void intel_init_quirks(struct drm_i915_private *i915)
+ 			intel_dmi_quirks[i].hook(i915);
+ 	}
+ }
 +
- 	struct {
- 		/*
- 		 * Base address of where the gmbus and gpio blocks are located
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
-index 03ad5f5c8417..f67dd4f05bab 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -210,14 +210,14 @@ void intel_fdi_pll_freq_update(struct drm_i915_private *i915)
- 		u32 fdi_pll_clk =
- 			intel_de_read(i915, FDI_PLL_BIOS_0) & FDI_PLL_FB_CLOCK_MASK;
++bool intel_has_quirk(struct drm_i915_private *i915, unsigned long quirk)
++{
++	return i915->quirks & quirk;
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index b0fcff142a56..f5e399a6e7d3 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -6,8 +6,11 @@
+ #ifndef __INTEL_QUIRKS_H__
+ #define __INTEL_QUIRKS_H__
  
--		i915->fdi_pll_freq = (fdi_pll_clk + 2) * 10000;
-+		i915->display.fdi.pll_freq = (fdi_pll_clk + 2) * 10000;
- 	} else if (IS_SANDYBRIDGE(i915) || IS_IVYBRIDGE(i915)) {
--		i915->fdi_pll_freq = 270000;
-+		i915->display.fdi.pll_freq = 270000;
- 	} else {
- 		return;
- 	}
++#include <linux/types.h>
++
+ struct drm_i915_private;
  
--	drm_dbg(&i915->drm, "FDI PLL freq=%d\n", i915->fdi_pll_freq);
-+	drm_dbg(&i915->drm, "FDI PLL freq=%d\n", i915->display.fdi.pll_freq);
- }
+-void intel_init_quirks(struct drm_i915_private *dev_priv);
++void intel_init_quirks(struct drm_i915_private *i915);
++bool intel_has_quirk(struct drm_i915_private *i915, unsigned long quirk);
  
- int intel_fdi_link_freq(struct drm_i915_private *i915,
-@@ -226,7 +226,7 @@ int intel_fdi_link_freq(struct drm_i915_private *i915,
- 	if (HAS_DDI(i915))
- 		return pipe_config->port_clock; /* SPLL */
- 	else
--		return i915->fdi_pll_freq;
-+		return i915->display.fdi.pll_freq;
- }
- 
- int ilk_fdi_compute_config(struct intel_crtc *crtc,
-@@ -789,7 +789,7 @@ void hsw_fdi_link_train(struct intel_encoder *encoder,
- 		       FDI_RX_PWRDN_LANE1_VAL(2) | FDI_RX_PWRDN_LANE0_VAL(2) | FDI_RX_TP1_TO_TP2_48 | FDI_RX_FDI_DELAY_90);
- 
- 	/* Enable the PCH Receiver FDI PLL */
--	rx_ctl_val = dev_priv->fdi_rx_config | FDI_RX_ENHANCE_FRAME_ENABLE |
-+	rx_ctl_val = dev_priv->display.fdi.rx_config | FDI_RX_ENHANCE_FRAME_ENABLE |
- 		     FDI_RX_PLL_ENABLE |
- 		     FDI_DP_PORT_WIDTH(crtc_state->fdi_lanes);
- 	intel_de_write(dev_priv, FDI_RX_CTL(PIPE_A), rx_ctl_val);
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 074679320056..a03b8e676a22 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -291,7 +291,6 @@ struct drm_i915_private {
- 
- 	unsigned int max_dotclk_freq;
- 	unsigned int hpll_freq;
--	unsigned int fdi_pll_freq;
- 	unsigned int czclk_freq;
- 
- 	struct {
-@@ -364,8 +363,6 @@ struct drm_i915_private {
- 	struct drm_property *broadcast_rgb_property;
- 	struct drm_property *force_audio_property;
- 
--	u32 fdi_rx_config;
--
- 	/*
- 	 * Shadows for CHV DPLL_MD regs to keep the state
- 	 * checker somewhat working in the presence hardware
+ #endif /* __INTEL_QUIRKS_H__ */
 -- 
 2.34.1
 
