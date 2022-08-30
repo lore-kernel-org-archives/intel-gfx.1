@@ -4,75 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6578ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 228F5ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67DE210E5A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF0310E678;
 	Tue,  6 Sep 2022 12:35:41 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63A8410E43B;
- Wed, 31 Aug 2022 15:40:15 +0000 (UTC)
-Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 3F03A6601DEE;
- Wed, 31 Aug 2022 16:40:11 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960414;
- bh=tOl8HnGHuspOaHfQ8kLvPjNpiAx+VJwtG1vjNitDsbY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kstPveCaJveRBMwtfiKH3ZEeiXoX62OYMZ2fGOLodxxp4RoJkGu4+wX+ZBBPsIclU
- jC6BGy95i//NUiQnoMQ4erjBSYOBC8Ru++SGHiCT/9wRglO2GVJFcSugeKpeAWgkxM
- 8JtLuUEtcNQZlNOXOMUPUT5Cj80Xq6sd33axeBXK+rmA+vwkNdDb0AUKjfB6EB3ptw
- KaBaYu80d/FuWGBMzslNdWxVAePKz+26arVlSAG7NZLi+VvCqcjfUUarsJM71hn2Xo
- jO/K0Hu5Ruk7Boo4ixyRth/yzAD1hmSV+/zWxE4Zq8LIZSxSuFlUqFURm8A50yCeS1
- ycL3RR0VL1zYw==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA9E310E023;
+ Tue, 30 Aug 2022 15:30:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202112;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=chx2UAus42BcKyfWBEZ/KdJ6l4ZWVBX1c4YKz57t5sI=; b=C8McFUMfxUhfpKRvR6kJvzOpMZ
+ 8yLOIXMLIqNfnGWFBbE92rzzTd5e1ESOFqcnvFhiS7F/4NUZn9qjCDQ8sVfHQVnZjyqFZpcQw+TFC
+ jT2HnEvO+BGxZlplv05frOEfqlQfoBE5HptP7jvMT7sq/tIho10lSU9kappKME27i3Ak7VWfgU8uM
+ KU+kFffgYbB9DLj7jqyu88BlMtY269uy6+0LzfMuHALVNzuou6ToiDFTnWx8fLhvYn3rUfpoyTdcL
+ VMwm7mckAbRQi/UUmmp9ciR7ZMD5jzvDyisqmfpsXBoO264JGj8s29mpgEBJ35ue5ZB1g9HlQbqz4
+ rMVh+B8A==;
+Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=57781)
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1oT3Bf-0001l4-JF; Tue, 30 Aug 2022 17:29:59 +0200
+Message-ID: <f18770de-a206-99c2-fde2-a793209833e6@tronnes.org>
+Date: Tue, 30 Aug 2022 17:29:56 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
+ Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Wed, 31 Aug 2022 18:37:55 +0300
-Message-Id: <20220831153757.97381-20-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-MIME-Version: 1.0
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-26-459522d653a7@cerno.tech>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-26-459522d653a7@cerno.tech>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
-Subject: [Intel-gfx] [PATCH v4 19/21] dma-buf: Document dynamic locking
- convention
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 26/41] drm/vc4: vec: Refactor VEC TV mode
+ setting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,117 +68,312 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add documentation for the dynamic locking convention. The documentation
-tells dma-buf API users when they should take the reservation lock and
-when not.
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- Documentation/driver-api/dma-buf.rst |  6 +++
- drivers/dma-buf/dma-buf.c            | 64 ++++++++++++++++++++++++++++
- 2 files changed, 70 insertions(+)
 
-diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-api/dma-buf.rst
-index 36a76cbe9095..622b8156d212 100644
---- a/Documentation/driver-api/dma-buf.rst
-+++ b/Documentation/driver-api/dma-buf.rst
-@@ -119,6 +119,12 @@ DMA Buffer ioctls
- 
- .. kernel-doc:: include/uapi/linux/dma-buf.h
- 
-+DMA-BUF locking convention
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+.. kernel-doc:: drivers/dma-buf/dma-buf.c
-+   :doc: locking convention
-+
- Kernel Functions and Structures Reference
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d9130486cb8f..97ce884fad76 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -794,6 +794,70 @@ static struct sg_table * __map_dma_buf(struct dma_buf_attachment *attach,
- 	return sg_table;
- }
- 
-+/**
-+ * DOC: locking convention
-+ *
-+ * In order to avoid deadlock situations between dma-buf exports and importers,
-+ * all dma-buf API users must follow the common dma-buf locking convention.
-+ *
-+ * Convention for importers
-+ *
-+ * 1. Importers must hold the dma-buf reservation lock when calling these
-+ *    functions:
-+ *
-+ *     - dma_buf_pin()
-+ *     - dma_buf_unpin()
-+ *     - dma_buf_map_attachment()
-+ *     - dma_buf_unmap_attachment()
-+ *     - dma_buf_vmap()
-+ *     - dma_buf_vunmap()
-+ *
-+ * 2. Importers must not hold the dma-buf reservation lock when calling these
-+ *    functions:
-+ *
-+ *     - dma_buf_attach()
-+ *     - dma_buf_dynamic_attach()
-+ *     - dma_buf_detach()
-+ *     - dma_buf_export(
-+ *     - dma_buf_fd()
-+ *     - dma_buf_get()
-+ *     - dma_buf_put()
-+ *     - dma_buf_mmap()
-+ *     - dma_buf_begin_cpu_access()
-+ *     - dma_buf_end_cpu_access()
-+ *     - dma_buf_map_attachment_unlocked()
-+ *     - dma_buf_unmap_attachment_unlocked()
-+ *     - dma_buf_vmap_unlocked()
-+ *     - dma_buf_vunmap_unlocked()
-+ *
-+ * Convention for exporters
-+ *
-+ * 1. These &dma_buf_ops callbacks are invoked with unlocked dma-buf
-+ *    reservation and exporter can take the lock:
-+ *
-+ *     - &dma_buf_ops.attach()
-+ *     - &dma_buf_ops.detach()
-+ *     - &dma_buf_ops.release()
-+ *     - &dma_buf_ops.begin_cpu_access()
-+ *     - &dma_buf_ops.end_cpu_access()
-+ *
-+ * 2. These &dma_buf_ops callbacks are invoked with locked dma-buf
-+ *    reservation and exporter can't take the lock:
-+ *
-+ *     - &dma_buf_ops.pin()
-+ *     - &dma_buf_ops.unpin()
-+ *     - &dma_buf_ops.map_dma_buf()
-+ *     - &dma_buf_ops.unmap_dma_buf()
-+ *     - &dma_buf_ops.mmap()
-+ *     - &dma_buf_ops.vmap()
-+ *     - &dma_buf_ops.vunmap()
-+ *
-+ * 3. Exporters must hold the dma-buf reservation lock when calling these
-+ *    functions:
-+ *
-+ *     - dma_buf_move_notify()
-+ */
-+
- /**
-  * dma_buf_dynamic_attach - Add the device to dma_buf's attachments list
-  * @dmabuf:		[in]	buffer to attach device to.
--- 
-2.37.2
+Den 29.08.2022 15.11, skrev Maxime Ripard:
+> From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+> 
+> 
+> 
+> Change the mode_set function pointer logic to declarative config0,
+> 
+> config1 and custom_freq fields, to make TV mode setting logic more
+> 
+> concise and uniform.
+> 
+> 
+> 
+> Signed-off-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> 
+> 
+> 
+> diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
+> 
+> index 72eee0cbb615..9a37c3fcc295 100644
+> 
+> --- a/drivers/gpu/drm/vc4/vc4_vec.c
+> 
+> +++ b/drivers/gpu/drm/vc4/vc4_vec.c
+> 
+> @@ -194,7 +194,9 @@ enum vc4_vec_tv_mode_id {
+> 
+>  
+> 
+>  struct vc4_vec_tv_mode {
+> 
+>  	const struct drm_display_mode *mode;
+> 
+> -	void (*mode_set)(struct vc4_vec *vec);
+> 
+> +	u32 config0;
+> 
+> +	u32 config1;
+> 
+> +	u32 custom_freq;
+> 
+>  };
+> 
+>  
+> 
+>  static const struct debugfs_reg32 vec_regs[] = {
+> 
+> @@ -224,34 +226,6 @@ static const struct debugfs_reg32 vec_regs[] = {
+> 
+>  	VC4_REG32(VEC_DAC_MISC),
+> 
+>  };
+> 
+>  
+> 
+> -static void vc4_vec_ntsc_mode_set(struct vc4_vec *vec)
+> 
+> -{
+> 
+> -	struct drm_device *drm = vec->connector.dev;
+> 
+> -	int idx;
+> 
+> -
+> 
+> -	if (!drm_dev_enter(drm, &idx))
+> 
+> -		return;
+> 
+> -
+> 
+> -	VEC_WRITE(VEC_CONFIG0, VEC_CONFIG0_NTSC_STD | VEC_CONFIG0_PDEN);
+> 
+> -	VEC_WRITE(VEC_CONFIG1, VEC_CONFIG1_C_CVBS_CVBS);
+> 
+> -
+> 
+> -	drm_dev_exit(idx);
+> 
+> -}
+> 
+> -
+> 
+> -static void vc4_vec_ntsc_j_mode_set(struct vc4_vec *vec)
+> 
+> -{
+> 
+> -	struct drm_device *drm = vec->connector.dev;
+> 
+> -	int idx;
+> 
+> -
+> 
+> -	if (!drm_dev_enter(drm, &idx))
+> 
+> -		return;
+> 
+> -
+> 
+> -	VEC_WRITE(VEC_CONFIG0, VEC_CONFIG0_NTSC_STD);
+> 
+> -	VEC_WRITE(VEC_CONFIG1, VEC_CONFIG1_C_CVBS_CVBS);
+> 
+> -
+> 
+> -	drm_dev_exit(idx);
+> 
+> -}
+> 
+> -
+> 
+>  static const struct drm_display_mode ntsc_mode = {
+> 
+>  	DRM_MODE("720x480", DRM_MODE_TYPE_DRIVER, 13500,
+> 
+>  		 720, 720 + 14, 720 + 14 + 64, 720 + 14 + 64 + 60, 0,
+> 
+> @@ -259,37 +233,6 @@ static const struct drm_display_mode ntsc_mode = {
+> 
+>  		 DRM_MODE_FLAG_INTERLACE)
+> 
+>  };
+> 
+>  
+> 
+> -static void vc4_vec_pal_mode_set(struct vc4_vec *vec)
+> 
+> -{
+> 
+> -	struct drm_device *drm = vec->connector.dev;
+> 
+> -	int idx;
+> 
+> -
+> 
+> -	if (!drm_dev_enter(drm, &idx))
+> 
+> -		return;
+> 
+> -
+> 
+> -	VEC_WRITE(VEC_CONFIG0, VEC_CONFIG0_PAL_BDGHI_STD);
+> 
+> -	VEC_WRITE(VEC_CONFIG1, VEC_CONFIG1_C_CVBS_CVBS);
+> 
+> -
+> 
+> -	drm_dev_exit(idx);
+> 
+> -}
+> 
+> -
+> 
+> -static void vc4_vec_pal_m_mode_set(struct vc4_vec *vec)
+> 
+> -{
+> 
+> -	struct drm_device *drm = vec->connector.dev;
+> 
+> -	int idx;
+> 
+> -
+> 
+> -	if (!drm_dev_enter(drm, &idx))
+> 
+> -		return;
+> 
+> -
+> 
+> -	VEC_WRITE(VEC_CONFIG0, VEC_CONFIG0_PAL_BDGHI_STD);
+> 
+> -	VEC_WRITE(VEC_CONFIG1,
+> 
+> -		  VEC_CONFIG1_C_CVBS_CVBS | VEC_CONFIG1_CUSTOM_FREQ);
+> 
+> -	VEC_WRITE(VEC_FREQ3_2, 0x223b);
+> 
+> -	VEC_WRITE(VEC_FREQ1_0, 0x61d1);
+> 
+> -
+> 
+> -	drm_dev_exit(idx);
+> 
+> -}
+> 
+> -
+> 
+>  static const struct drm_display_mode pal_mode = {
+> 
+>  	DRM_MODE("720x576", DRM_MODE_TYPE_DRIVER, 13500,
+> 
+>  		 720, 720 + 20, 720 + 20 + 64, 720 + 20 + 64 + 60, 0,
+> 
+> @@ -300,19 +243,24 @@ static const struct drm_display_mode pal_mode = {
+> 
+>  static const struct vc4_vec_tv_mode vc4_vec_tv_modes[] = {
+> 
+>  	[VC4_VEC_TV_MODE_NTSC] = {
+> 
+>  		.mode = &ntsc_mode,
+> 
+> -		.mode_set = vc4_vec_ntsc_mode_set,
+> 
+> +		.config0 = VEC_CONFIG0_NTSC_STD | VEC_CONFIG0_PDEN,
+> 
+> +		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
+> 
+>  	},
+> 
+>  	[VC4_VEC_TV_MODE_NTSC_J] = {
+> 
+>  		.mode = &ntsc_mode,
+> 
+> -		.mode_set = vc4_vec_ntsc_j_mode_set,
+> 
+> +		.config0 = VEC_CONFIG0_NTSC_STD,
+> 
+> +		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
+> 
+>  	},
+> 
+>  	[VC4_VEC_TV_MODE_PAL] = {
+> 
+>  		.mode = &pal_mode,
+> 
+> -		.mode_set = vc4_vec_pal_mode_set,
+> 
+> +		.config0 = VEC_CONFIG0_PAL_BDGHI_STD,
+> 
+> +		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
+> 
+>  	},
+> 
+>  	[VC4_VEC_TV_MODE_PAL_M] = {
+> 
+>  		.mode = &pal_mode,
+> 
+> -		.mode_set = vc4_vec_pal_m_mode_set,
+> 
+> +		.config0 = VEC_CONFIG0_PAL_BDGHI_STD,
+> 
+> +		.config1 = VEC_CONFIG1_C_CVBS_CVBS | VEC_CONFIG1_CUSTOM_FREQ,
+> 
+> +		.custom_freq = 0x223b61d1,
+> 
+>  	},
+> 
+>  };
+> 
+>  
+> 
+> @@ -470,7 +418,16 @@ static void vc4_vec_encoder_enable(struct drm_encoder *encoder,
+> 
+>  	/* Mask all interrupts. */
+> 
+>  	VEC_WRITE(VEC_MASK0, 0);
+> 
+>  
+> 
+> -	vec->tv_mode->mode_set(vec);
+> 
+> +	VEC_WRITE(VEC_CONFIG0, vec->tv_mode->config0);
+> 
+> +	VEC_WRITE(VEC_CONFIG1, vec->tv_mode->config1);
+> 
+> +
+> 
+> +	if (vec->tv_mode->custom_freq != 0) {
 
+Nit: '!= 0' is not necessary and not common either in kernel code.
+
+Reviewed-by: Noralf Trønnes <noralf@tronnes.org>
+
+> 
+> +		VEC_WRITE(VEC_FREQ3_2,
+> 
+> +			  (vec->tv_mode->custom_freq >> 16) &
+> 
+> +			  0xffff);
+> 
+> +		VEC_WRITE(VEC_FREQ1_0,
+> 
+> +			  vec->tv_mode->custom_freq & 0xffff);
+> 
+> +	}
+> 
+>  
+> 
+>  	VEC_WRITE(VEC_DAC_MISC,
+> 
+>  		  VEC_DAC_MISC_VID_ACT | VEC_DAC_MISC_DAC_RST_N);
+> 
+> 
+> 
