@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46B2AECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 09:34:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69E9EECAAA1
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Aug 2022 09:34:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C491210E029;
-	Tue, 30 Aug 2022 09:34:38 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A404F10E029
- for <intel-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 09:34:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A54A910E02E;
+	Tue, 30 Aug 2022 09:34:44 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0081610E029
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Aug 2022 09:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1661852073; x=1693388073;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=lHw4MmjmzWhv2HJ17HgYfpkprfYD0w+TuCeakv5N7+s=;
- b=T/Sanf1EO/PwBh3gbLYO0z8FnYebSjJL/Kmf6+dL7yvXzDkWteMq8NNK
- SW0+LzR4jic4QNrSHej4pmEV7xcBYTKslF6jclgaCJdCEO3i360rjHRm6
- 7kICsCD571W8datuSYFbtUACM/f0+eZpX2QNoCmCbhLTNG88yF9i/8KNQ
- 51wRAC0cmh5HbR+Qnw3hXhP8AH1Fn6BfE5ZXyA/V7/zMYGXEJjvfGW7uM
- PrRY3x2hqf//kDb60ynR/vhiTp6kFTYDoqBdM2308yUBFmiPO4mX5ERE1
- hdV4upI5QTKb/re1GI6bis/qACJof0W6m/xfKmej88xWYdZIvJJGSewhx Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="293875109"
-X-IronPort-AV: E=Sophos;i="5.93,274,1654585200"; d="scan'208";a="293875109"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2022 02:34:21 -0700
-X-IronPort-AV: E=Sophos;i="5.93,274,1654585200"; d="scan'208";a="641303290"
+ t=1661852077; x=1693388077;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=b4tKhL95xF1aKRCELJzKrs10vKJqRXk5tnncqYqPnJU=;
+ b=n8AS9nxuq7jyjbmhIznEb56LPo+4fwfhsfBBrsrnKO/u1zfIDMdZG825
+ cbANFYFi3umOV6553guGRNK1VqF5wHneWOa2eIDuP9FmynEKwk17U9BZW
+ XtRHIYOFQ4zZFv7k/JIBHqI4HjeqT+7mTpXG9FyVBKSkCTrNT2HKjctmA
+ fUK/U0dqBM1paXQTDFWgfuthnOnQu58YOz62B5dt2qh9epdl4tkVHv6J5
+ lVEfyl0cTqTIq+4xkQfxr1PD5vSbATgYIAB9sdlYo2dZ8peNrf4ebsC4S
+ Cx4/+rKOt+nA2dOjd3o8RVlJAuRSY/LC+bGqNaSH+KXyxawASmYpf9Ttj w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10454"; a="295132410"
+X-IronPort-AV: E=Sophos;i="5.93,274,1654585200"; d="scan'208";a="295132410"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2022 02:34:37 -0700
+X-IronPort-AV: E=Sophos;i="5.93,274,1654585200"; d="scan'208";a="679969527"
 Received: from amrabet-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.41.211])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2022 02:34:19 -0700
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2022 02:34:36 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 30 Aug 2022 12:34:07 +0300
-Message-Id: <20220830093411.1511040-1-jani.nikula@intel.com>
+Date: Tue, 30 Aug 2022 12:34:11 +0300
+Message-Id: <20220830093411.1511040-5-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220830093411.1511040-1-jani.nikula@intel.com>
+References: <20220830093411.1511040-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/5] drm/i915/crt: remove BUG_ON()
+Subject: [Intel-gfx] [PATCH v2 5/5] drm/i915/fence: replace BUG_ON() with
+ BUILD_BUG_ON()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,28 +63,50 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Avoid BUG_ON(). We don't have such checks on output type anywhere else
-either, so just remove.
+Avoid BUG_ON(). Since __i915_sw_fence_init() is always called via a
+wrapper macro, we can replace it with a compile time BUILD_BUG_ON().
 
-Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crt.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/i915/i915_sw_fence.c | 2 --
+ drivers/gpu/drm/i915/i915_sw_fence.h | 6 +++++-
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index 6a3893c8ff22..d766c506b235 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -643,8 +643,6 @@ static bool intel_crt_detect_ddc(struct drm_connector *connector)
- 	struct i2c_adapter *i2c;
- 	bool ret = false;
- 
--	BUG_ON(crt->base.type != INTEL_OUTPUT_ANALOG);
+diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
+index ae984c66c48a..6fc0d1b89690 100644
+--- a/drivers/gpu/drm/i915/i915_sw_fence.c
++++ b/drivers/gpu/drm/i915/i915_sw_fence.c
+@@ -241,8 +241,6 @@ void __i915_sw_fence_init(struct i915_sw_fence *fence,
+ 			  const char *name,
+ 			  struct lock_class_key *key)
+ {
+-	BUG_ON(!fn);
 -
- 	i2c = intel_gmbus_get_adapter(dev_priv, dev_priv->vbt.crt_ddc_pin);
- 	edid = intel_crt_get_edid(connector, i2c);
+ 	__init_waitqueue_head(&fence->wait, name, key);
+ 	fence->fn = fn;
+ #ifdef CONFIG_DRM_I915_SW_FENCE_CHECK_DAG
+diff --git a/drivers/gpu/drm/i915/i915_sw_fence.h b/drivers/gpu/drm/i915/i915_sw_fence.h
+index a7c603bc1b01..619fc5a22f0c 100644
+--- a/drivers/gpu/drm/i915/i915_sw_fence.h
++++ b/drivers/gpu/drm/i915/i915_sw_fence.h
+@@ -48,11 +48,15 @@ void __i915_sw_fence_init(struct i915_sw_fence *fence,
+ do {								\
+ 	static struct lock_class_key __key;			\
+ 								\
++	BUILD_BUG_ON((fn) == NULL);				\
+ 	__i915_sw_fence_init((fence), (fn), #fence, &__key);	\
+ } while (0)
+ #else
+ #define i915_sw_fence_init(fence, fn)				\
+-	__i915_sw_fence_init((fence), (fn), NULL, NULL)
++do {								\
++	BUILD_BUG_ON((fn) == NULL);				\
++	__i915_sw_fence_init((fence), (fn), NULL, NULL);	\
++} while (0)
+ #endif
  
+ void i915_sw_fence_reinit(struct i915_sw_fence *fence);
 -- 
 2.34.1
 
