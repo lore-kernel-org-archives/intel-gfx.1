@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 482C7ECAAD5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6DE5C6FA83
 	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:37:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B271710E69A;
-	Tue,  6 Sep 2022 12:37:41 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B27F10E1E4;
- Mon,  5 Sep 2022 07:35:18 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id 29so5095879edv.2;
- Mon, 05 Sep 2022 00:35:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=/sDanSkrLwd36MY8AyWYKOjcXxKpP3tgOSmTp+6QTpA=;
- b=D/bBnkuE93UwNwWjPCKQjpa3enQb+Sk7crUitNvT11RCoUTD1MApkmLPiuIK2sUgqJ
- bAdjS05gx0CiHnYRVMBYm0/WDjVbvF23aA4eT0RFe/i/vuE7d7C1TFwk0arifEV1PgUK
- GwKTtJz2NnWBJxRVx8r6/5+idCJ3UdvRDEe9afXkxTdjZ2R/43YAqisRJshgwGhVzYOf
- dCez6/QWlMAYS4m2r0URGkWY6gmPiY19KGn03Ajj8XzJ6V4EYN/wNaIobWVuQ9gbS1Zh
- H5zHbyi8PBS+I7MiyWHlG6zbUNR0647HM7YPjyQHIdA8X1jps/pECgr6sVL/Ai8l0m2j
- p1rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date;
- bh=/sDanSkrLwd36MY8AyWYKOjcXxKpP3tgOSmTp+6QTpA=;
- b=07LXlkLPnqZ/IEJSAPXWYhBQzc9wYD15D1d4JN8xpuWpCeMTi+DijURCPRrzKQNjA+
- zR7lhuF00UTiBK4l9LA1v2BHACwgZKknZO7R4sIsY9h60ng0BmIOkCv7tp08fOK4uo9i
- YvQwS5bHjxW2vKTfPLnxeoik+LKHg0sUXYLPMCc0UqH1VOngFnXQQDx6AJsUz4fguatM
- g2lBVBvjgK3ApQxT/4zVfk5P5wKd7Fvdkn1wJPhQpHA7nO9kDwPehCY82y1+zdrPM9jp
- MMqNNZisuZgNV8DkugPZq+8C+QeXNEuED9ua6Um20K+oYKo9QNe7cuTxhH1Pys5gSNJF
- 918A==
-X-Gm-Message-State: ACgBeo1GqQHa8OltONA8orddnS1TsoxLv+z8jam/iFvFvVXBRL9WALLi
- mVzq+prkNj+bIHWETn3RjMRnntXVSoEblmyvlB928SDJhcdugVG0aWI=
-X-Google-Smtp-Source: AA6agR41iyuJkZAANMHnLfL8buddmIIsx+cWKwI51aE5VjNWB3uDrqvsCwjulFFkiVv6eU+BBcwjlyGi514bcEIlYok=
-X-Received: by 2002:a50:ef03:0:b0:44e:82bf:28e6 with SMTP id
- m3-20020a50ef03000000b0044e82bf28e6mr3074811eds.270.1662363316620; Mon, 05
- Sep 2022 00:35:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 151EF10E69B;
+	Tue,  6 Sep 2022 12:37:42 +0000 (UTC)
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 918FE10E126;
+ Tue, 30 Aug 2022 15:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202112;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ZcvUU1EAXtTJzWhX0QKcblQnfz8rCARTSjamaFHiCSU=; b=K1pOL/7VuwXIcKrFnYe4r1r4tz
+ VcgJ5EA7GXFLnj1vXLCdZOGTds1+FYeb1zAO+mIDcwJJr5QfAJY7wXWfydGN18tmUCWtdepYk07XN
+ aVFSXq9tl8E9tl0i083anWFytp3zGwGPqXvtYp3gaPqZIruNMFZC6weAdPbrOSRFNrfmXR3mZc2N/
+ ucgNyZETk1Wn5WxBd/an71gTr54Ss8Y9RQp1wgzXjxSgd8Wv7+HsWh8Tei2XEiXelz2mktoDfEO5r
+ pEeW7DefxVWBgl+9h1m5KQRod3GYS/GVs2c4vWosuxGcTDjPU7/1H/TllOI9sEEbFkAHusLxgWHbz
+ E5G8PuCw==;
+Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=57591)
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1oT355-0006ei-4d; Tue, 30 Aug 2022 17:23:11 +0200
+Message-ID: <fbad203b-a508-f328-b43e-5a6012525794@tronnes.org>
+Date: Tue, 30 Aug 2022 17:23:02 +0200
 MIME-Version: 1.0
-References: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
- <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
-In-Reply-To: <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
-From: Zheng Hacker <hackerzheng666@gmail.com>
-Date: Mon, 5 Sep 2022 15:35:05 +0800
-Message-ID: <CAJedcCw1eJqjSK+yR7eQMDheNtH3Mjm+viwt00xAhnmrfpq2pw@mail.gmail.com>
-To: xmzyshypnc <1002992920@qq.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
+ Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-24-459522d653a7@cerno.tech>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-24-459522d653a7@cerno.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: fix double-free bug in
- split_2MB_gtt_entry.
+Subject: Re: [Intel-gfx] [PATCH v2 24/41] drm/vc4: vec: Remove empty
+ mode_fixup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,69 +68,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex000young@gmail.com, security@kernel.org,
- dri-devel@lists.freedesktop.org, airlied@linux.ie,
- Greg KH <gregkh@linuxfoundation.org>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, daniel@ffwll.ch, rodrigo.vivi@intel.com,
- intel-gvt-dev@lists.freedesktop.org
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi everyone,
-Now the letter is really plain-text now :)
-Thanks Greg
 
-Regards,
-Zheng Wang
 
-Zheng Hacker <hackerzheng666@gmail.com> =E4=BA=8E2022=E5=B9=B49=E6=9C=885=
-=E6=97=A5=E5=91=A8=E4=B8=80 12:47=E5=86=99=E9=81=93=EF=BC=9A
->
-> Hello everyone,
->
-> I'm Zheng Wang. I found a potential double-free bug in drivers/gpu/drm/i9=
-15/gvt/gtt.c. I haven't been replied for a long time. So I decided to send =
-it to more relavent supporters and developers to help to solve the problem.
->
-> Best regards,
-> Zheng Wang.
->
-> xmzyshypnc <1002992920@qq.com> =E4=BA=8E2022=E5=B9=B49=E6=9C=884=E6=97=A5=
-=E5=91=A8=E6=97=A5 20:32=E5=86=99=E9=81=93=EF=BC=9A
->>
->> There is a double-free security bug in split_2MB_gtt_entry.
->>
->> Here is a calling chain : ppgtt_populate_spt->ppgtt_populate_shadow_entr=
-y->split_2MB_gtt_entry. If intel_gvt_dma_map_guest_page failed, it will cal=
-l  ppgtt_invalidate_spt, which will finally call ppgtt_free_spt and kfree(s=
-pt). But the caller does not notice that, and it will call ppgtt_free_spt a=
-gain in error path.
->>
->> Fix this by returning the result of ppgtt_invalidate_spt to split_2MB_gt=
-t_entry.
->>
->> Signed-off-by: Zheng Wang <1002992920@qq.com>
->> ---
->>  drivers/gpu/drm/i915/gvt/gtt.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/g=
-tt.c
->> index ce0eb03709c3..9f14fded8c0c 100644
->> --- a/drivers/gpu/drm/i915/gvt/gtt.c
->> +++ b/drivers/gpu/drm/i915/gvt/gtt.c
->> @@ -1215,7 +1215,7 @@ static int split_2MB_gtt_entry(struct intel_vgpu *=
-vgpu,
->>                 ret =3D intel_gvt_dma_map_guest_page(vgpu, start_gfn + s=
-ub_index,
->>                                                    PAGE_SIZE, &dma_addr)=
-;
->>                 if (ret) {
->> -                       ppgtt_invalidate_spt(spt);
->> +                       ret =3D ppgtt_invalidate_spt(spt);
->>                         return ret;
->>                 }
->>                 sub_se.val64 =3D se->val64;
->> --
->> 2.25.1
->>
+Den 29.08.2022 15.11, skrev Maxime Ripard:
+> The mode_fixup hooks are deprecated, and the behaviour we implement is the
+> 
+> default one anyway. Let's remove it.
+> 
+> 
+> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> 
+
+Reviewed-by: Noralf Trønnes <noralf@tronnes.org>
