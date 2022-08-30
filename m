@@ -4,81 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6DE0ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A70DC54EE9
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C2A610E67C;
-	Tue,  6 Sep 2022 12:34:22 +0000 (UTC)
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A069B10E034;
- Wed, 31 Aug 2022 01:44:57 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id j14so7604684lfu.4;
- Tue, 30 Aug 2022 18:44:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:from:to:cc;
- bh=drG6RMH0zFREgohP7fUu6e8MBztAwMPOm+LE74724sA=;
- b=EFsFMp+canY/hKJink3xfIjzSIs5nK0ATMHsiNLvxO07lOyOzwsvad8rVyDd2wmSeg
- cWCjphxF3TSGFFDKqyBmATL/jehCiz7Ylb6ULQwm/mKEET2IUotRhOyHBInnuwebAx/W
- o98i4bzpAYKvvI2sU//Sa2wKHsHNlK0Ik4KVSfjlV5E7mJwynZVYZggwdjMG3KRyfVMo
- xPbIu9xAaQjWAcnqbsVBfJmmxCjJL8AJzz30l+qNOOOt1j+HNC9Xoq1+ko3At8FQwbwc
- GgYRNngTbp8HBenXcqfoYJexOO63aFwrEEDYhvuQd/DuP/2j454qxLb21o5XEYcIYyWs
- Dtmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:x-gm-message-state:from:to:cc;
- bh=drG6RMH0zFREgohP7fUu6e8MBztAwMPOm+LE74724sA=;
- b=a+9GKQ8x74vzchXjZqTcNUgtGaemIPuVs7S3SK/lrPtviFWj6C2cpBLfX3BImm9yA0
- /rc1j+C/M7DZMKwr+wLSV4zHkOYyz5Iz0k2oDbo9fZ/7E3nOHWn/LmqGVXQkLnHNuop7
- WIbedVKLV7nBu5ZsQIJNv9Y51+XVZNJEsHTDYdb4vVYiA1honmGvM2o1VrI9kMUP7Vhc
- s/ORtNOca6bnxWBx3iU5xouDkIwj7yraCwBbN0kY4NJLv/CYpQt8NZy7xtBXI7mzOl8I
- 8JT4Xr+ercV6pa4dB+LJhzPb/j4WDcT4VxVro59U65R0hAlSjCAqZGxmYZwSy1rOZGhd
- 0Ofw==
-X-Gm-Message-State: ACgBeo3+AdI7rwyaPkU2Wbq2xgeuBuVfyMdceHVqlGdwrTTKiPBsj9wh
- 7BV9l/bpFMGmshvddeMOZw0=
-X-Google-Smtp-Source: AA6agR5Z8V/gUf3Mh2HitGw7sMfYSuNjRXxRlM0XOW/4Yz6ST42Ov+CXOy5ZF8ScFy9ud/OgRIMt7A==
-X-Received: by 2002:ac2:4901:0:b0:494:88dc:7efc with SMTP id
- n1-20020ac24901000000b0049488dc7efcmr411746lfi.408.1661910295748; 
- Tue, 30 Aug 2022 18:44:55 -0700 (PDT)
-Received: from ?IPV6:2a02:a31a:a240:1700:d40b:b088:5bfe:3b81?
- ([2a02:a31a:a240:1700:d40b:b088:5bfe:3b81])
- by smtp.googlemail.com with ESMTPSA id
- g1-20020a0565123b8100b004948f583e6bsm42248lfv.138.2022.08.30.18.44.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Aug 2022 18:44:55 -0700 (PDT)
-From: Mateusz Kwiatkowski <kfyatek@gmail.com>
-X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
-Message-ID: <242d272b-5b79-986c-9aaf-64e62f6b37ff@gmail.com>
-Date: Wed, 31 Aug 2022 03:44:52 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3715310E688;
+	Tue,  6 Sep 2022 12:34:24 +0000 (UTC)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EC9710E0E5;
+ Tue, 30 Aug 2022 13:43:44 +0000 (UTC)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27UDRwnW023927;
+ Tue, 30 Aug 2022 13:43:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=YFAKHxu5wcKQ3UK0MPzzxJnNMBONFL5WOcAvofUE3bw=;
+ b=n6TYPcc2EEb678JhhWrpENhKY5a0ZXNQzGelXBS+3+lCPr6s82vmVAGoVmPROY9DPi4l
+ DpcmzJAoBJhHFKuWICXIo9zWlU3MC6AX4hY+dbOPzbkKzrOxqLakgTYWHn+o4QaMyx5e
+ FK1y098IJYEdFQQyoxp+2gha+P5MBYxRltL2UUwVeJv1Jduz6rkz7jt4ph4T9hW2KrFM
+ n1m+w65c70EdD06MRVgNz3GLhSSpQKf8yEtj29UIHN43WMl3OdHGhros9gfhp2LGpuIQ
+ unNhz9NT3XzwovWR6Iv9oG2WSL4WdfBcZSJMUXOhoqA/gM1qKJfY6xqzbOXgl5BGMblE Nw== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3j9kf68qdb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Aug 2022 13:43:30 +0000
+Received: from m0098417.ppops.net (m0098417.ppops.net [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 27UDSdlX026996;
+ Tue, 30 Aug 2022 13:43:29 GMT
+Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.11])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3j9kf68qce-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Aug 2022 13:43:29 +0000
+Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
+ by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 27UDaBTF031062;
+ Tue, 30 Aug 2022 13:43:27 GMT
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29]) by ppma03dal.us.ibm.com with ESMTP id 3j7awas13e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Aug 2022 13:43:27 +0000
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 27UDhQia5178046
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 30 Aug 2022 13:43:26 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9321F28059;
+ Tue, 30 Aug 2022 13:43:26 +0000 (GMT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B326028058;
+ Tue, 30 Aug 2022 13:43:24 +0000 (GMT)
+Received: from [9.160.64.167] (unknown [9.160.64.167])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
+ Tue, 30 Aug 2022 13:43:24 +0000 (GMT)
+Message-ID: <e81f5b86-f5ce-2a2b-bc05-5ef73fc318b5@linux.ibm.com>
+Date: Tue, 30 Aug 2022 09:43:24 -0400
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.0
-Content-Language: pl
-To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
- Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
- Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Kevin Tian <kevin.tian@intel.com>, Zhenyu Wang <zhenyuw@linux.intel.com>, 
+ Zhi Wang <zhi.a.wang@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-10-459522d653a7@cerno.tech>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-10-459522d653a7@cerno.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Eric Farman <farman@linux.ibm.com>,
+ Matthew Rosato <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Diana Craciun <diana.craciun@oss.nxp.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Cornelia Huck <cohuck@redhat.com>, Longfang Liu <liulongfang@huawei.com>,
+ Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>,
+ Eric Auger <eric.auger@redhat.com>, Kirti Wankhede <kwankhede@nvidia.com>,
+ Leon Romanovsky <leon@kernel.org>, Abhishek Sahu <abhsahu@nvidia.com>,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-s390@vger.kernel.org, kvm@vger.kernel.org
+References: <20220827171037.30297-1-kevin.tian@intel.com>
+ <20220827171037.30297-10-kevin.tian@intel.com>
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <20220827171037.30297-10-kevin.tian@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: IdluEtB4hu3CV0euTFXaRaPw-5HY7ylp
+X-Proofpoint-GUID: eVg-uI5lnP3oaIxLLf2Oml3yenLlz5VK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-08-30_08,2022-08-30_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 bulkscore=0
+ mlxlogscore=999 spamscore=0 phishscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2207270000 definitions=main-2208300067
 X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 10/41] drm/modes: Add a function to
- generate analog display modes
+Subject: Re: [Intel-gfx] [PATCH 09/15] vfio/ap: Use the new device life
+ cycle helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,75 +124,120 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
- Geert Uytterhoeven <geert@linux-m68k.org>, Phil Elwell <phil@raspberrypi.com>,
- linux-arm-kernel@lists.infradead.org
+Cc: Yi Liu <yi.l.liu@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+Reviewed-by: Tony Krowiak <akrowiak@linux.ibm.com>
 
-Wow. That's an enormous amount of effort put into this patch.
-
-But I'm tempted to say that this is actually overengineered quite a bit :D
-Considering that there's no way to access all these calculations from user
-space, and I can't imagine anybody using anything else than those standard
-480i/576i (and maybe 240p/288p) modes at 13.5 MHz any time soon... I'm not
-sure if we actually need all this.
-
-But anyway, I'm not the maintainer of this subsystem, so I'm not the one to
-decide.
-
-> +enum drm_mode_analog {
-> +    DRM_MODE_ANALOG_NTSC,
-> +    DRM_MODE_ANALOG_PAL,
-> +};
-
-Using "NTSC" and "PAL" to describe the 50Hz and 60Hz analog TV modes is common,
-but strictly speaking a misnomer. Those are color encoding systems, and your
-patchset fully supports lesser used, but standard encodings for those (e.g.
-PAL-M for 60Hz and SECAM for 50Hz). I'd propose switching to some more neutral
-naming scheme. Some ideas:
-
-- DRM_MODE_ANALOG_60_HZ / DRM_MODE_ANALOG_50_HZ (after standard refresh rate)
-- DRM_MODE_ANALOG_525_LINES / DRM_MODE_ANALOG_625_LINES (after standard line
-  count)
-- DRM_MODE_ANALOG_JM / DRM_MODE_ANALOG_BDGHIKLN (after corresponding ITU System
-  Letter Designations)
-
-> +#define NTSC_HFP_DURATION_TYP_NS    1500
-> +#define NTSC_HFP_DURATION_MIN_NS    1270
-> +#define NTSC_HFP_DURATION_MAX_NS    2220
-
-You've defined those min/typ/max ranges, but you're not using the "typ" field
-for anything other than hslen. The actual "typical" value is thus always the
-midpoint, which isn't necessarily the best choice.
-
-In particular, for the standard 720px wide modes at 13.5 MHz, hsync_start
-ends up being 735 for 480i and 734 for 576i, instead of 736 and 732 requested
-by BT.601. That's all obviously within tolerances, but the image ends up
-noticeably off-center (at least on modern TVs), especially in the 576i case.
-
-> +    htotal = params->line_duration_ns * pixel_clock_hz / NSEC_PER_SEC;
-
-You're multiplying an unsigned int and an unsigned long - both types are only
-required to be 32 bit, so this is likely to overflow. You need to use a cast to
-unsigned long long, and then call do_div() for 64-bit division.
-
-This actually overflowed on me on my Pi running ARM32 kernel, resulting in
-negative horizontal porch lengths, and drm_helper_probe_add_cmdline_mode()
-taking over the mode generation (badly), and a horrible mess on screen.
-
-> +    vfp = vfp_min + (porches_rem / 2);
-> +    vbp = porches - vfp;
-
-Relative position of the vertical sync within the VBI effectively moves the
-image up and down. Adding that (porches_rem / 2) moves the image up off center
-by that many pixels. I'd keep the VFP always at minimum to keep the image
-centered.
-
-Best regards,
-Mateusz Kwiatkowski
+On 8/27/22 1:10 PM, Kevin Tian wrote:
+> From: Yi Liu <yi.l.liu@intel.com>
+>
+> and manage available_instances inside @init/@release.
+>
+> Signed-off-by: Yi Liu <yi.l.liu@intel.com>
+> Signed-off-by: Kevin Tian <kevin.tian@intel.com>
+> ---
+>   drivers/s390/crypto/vfio_ap_ops.c | 50 ++++++++++++++++++-------------
+>   1 file changed, 29 insertions(+), 21 deletions(-)
+>
+> diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+> index 6c8c41fac4e1..803aadfd0876 100644
+> --- a/drivers/s390/crypto/vfio_ap_ops.c
+> +++ b/drivers/s390/crypto/vfio_ap_ops.c
+> @@ -684,42 +684,44 @@ static bool vfio_ap_mdev_filter_matrix(unsigned long *apm, unsigned long *aqm,
+>   			     AP_DOMAINS);
+>   }
+>   
+> -static int vfio_ap_mdev_probe(struct mdev_device *mdev)
+> +static int vfio_ap_mdev_init_dev(struct vfio_device *vdev)
+>   {
+> -	struct ap_matrix_mdev *matrix_mdev;
+> -	int ret;
+> +	struct ap_matrix_mdev *matrix_mdev =
+> +		container_of(vdev, struct ap_matrix_mdev, vdev);
+>   
+>   	if ((atomic_dec_if_positive(&matrix_dev->available_instances) < 0))
+>   		return -EPERM;
+>   
+> -	matrix_mdev = kzalloc(sizeof(*matrix_mdev), GFP_KERNEL);
+> -	if (!matrix_mdev) {
+> -		ret = -ENOMEM;
+> -		goto err_dec_available;
+> -	}
+> -	vfio_init_group_dev(&matrix_mdev->vdev, &mdev->dev,
+> -			    &vfio_ap_matrix_dev_ops);
+> -
+> -	matrix_mdev->mdev = mdev;
+> +	matrix_mdev->mdev = to_mdev_device(vdev->dev);
+>   	vfio_ap_matrix_init(&matrix_dev->info, &matrix_mdev->matrix);
+>   	matrix_mdev->pqap_hook = handle_pqap;
+>   	vfio_ap_matrix_init(&matrix_dev->info, &matrix_mdev->shadow_apcb);
+>   	hash_init(matrix_mdev->qtable.queues);
+>   
+> +	return 0;
+> +}
+> +
+> +static int vfio_ap_mdev_probe(struct mdev_device *mdev)
+> +{
+> +	struct ap_matrix_mdev *matrix_mdev;
+> +	int ret;
+> +
+> +	matrix_mdev = vfio_alloc_device(ap_matrix_mdev, vdev, &mdev->dev,
+> +					&vfio_ap_matrix_dev_ops);
+> +	if (IS_ERR(matrix_mdev))
+> +		return PTR_ERR(matrix_mdev);
+> +
+>   	ret = vfio_register_emulated_iommu_dev(&matrix_mdev->vdev);
+>   	if (ret)
+> -		goto err_list;
+> +		goto err_put_vdev;
+>   	dev_set_drvdata(&mdev->dev, matrix_mdev);
+>   	mutex_lock(&matrix_dev->mdevs_lock);
+>   	list_add(&matrix_mdev->node, &matrix_dev->mdev_list);
+>   	mutex_unlock(&matrix_dev->mdevs_lock);
+>   	return 0;
+>   
+> -err_list:
+> -	vfio_uninit_group_dev(&matrix_mdev->vdev);
+> -	kfree(matrix_mdev);
+> -err_dec_available:
+> -	atomic_inc(&matrix_dev->available_instances);
+> +err_put_vdev:
+> +	vfio_put_device(&matrix_mdev->vdev);
+>   	return ret;
+>   }
+>   
+> @@ -766,6 +768,12 @@ static void vfio_ap_mdev_unlink_fr_queues(struct ap_matrix_mdev *matrix_mdev)
+>   	}
+>   }
+>   
+> +static void vfio_ap_mdev_release_dev(struct vfio_device *vdev)
+> +{
+> +	vfio_free_device(vdev);
+> +	atomic_inc(&matrix_dev->available_instances);
+> +}
+> +
+>   static void vfio_ap_mdev_remove(struct mdev_device *mdev)
+>   {
+>   	struct ap_matrix_mdev *matrix_mdev = dev_get_drvdata(&mdev->dev);
+> @@ -779,9 +787,7 @@ static void vfio_ap_mdev_remove(struct mdev_device *mdev)
+>   	list_del(&matrix_mdev->node);
+>   	mutex_unlock(&matrix_dev->mdevs_lock);
+>   	mutex_unlock(&matrix_dev->guests_lock);
+> -	vfio_uninit_group_dev(&matrix_mdev->vdev);
+> -	kfree(matrix_mdev);
+> -	atomic_inc(&matrix_dev->available_instances);
+> +	vfio_put_device(&matrix_mdev->vdev);
+>   }
+>   
+>   static ssize_t name_show(struct mdev_type *mtype,
+> @@ -1794,6 +1800,8 @@ static const struct attribute_group vfio_queue_attr_group = {
+>   };
+>   
+>   static const struct vfio_device_ops vfio_ap_matrix_dev_ops = {
+> +	.init = vfio_ap_mdev_init_dev,
+> +	.release = vfio_ap_mdev_release_dev,
+>   	.open_device = vfio_ap_mdev_open_device,
+>   	.close_device = vfio_ap_mdev_close_device,
+>   	.ioctl = vfio_ap_mdev_ioctl,
