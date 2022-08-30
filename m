@@ -4,48 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC98FECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:26:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F851ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:33:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C21610E639;
-	Tue,  6 Sep 2022 12:26:43 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8FD710E639
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 12:26:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662467197; x=1694003197;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=mZhG+cVj2tSmP8vtPYZopiRXy+zOLfZRuUnK8iP9feo=;
- b=M6sR+6AGYNyTHHa78PLTUAGJorCf0T85dpMwe5MmU96EAkkVB1iyA5AR
- e1k8w8Ac0lASkclQ9bvzluGLkPnNGZEWHNOu8aZN/dXwtZbk9XqXpYmak
- hGmGak1z8xEXVu9UXrTQ9c2m13FkGHiQ1A/acpyOxZhqu7nF3jQWyNqAQ
- oVsRyS4QLVf5FTnRniyzf8Xf3R7NkUo9H267JRQl4rJrK/wBtM7rK+0r9
- hmAh5QxIXa+x8DgHsAlCYwLp1SZ+JiwFxiXZ2Tjidpinb6dl3fwYv8MwQ
- KKQkxmZXNW6Ie7NiJjEsVBopFEEbfqgu/sxXlCM/KDN53MuGeadwstLQC A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10461"; a="276972666"
-X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="276972666"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2022 05:26:37 -0700
-X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="682380711"
-Received: from unknown (HELO intel.com) ([10.237.72.65])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2022 05:26:35 -0700
-Date: Tue, 6 Sep 2022 15:27:17 +0300
-From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Message-ID: <Yxc8pcXwTMcEooBs@intel.com>
-References: <20220906102329.7073-1-stanislav.lisovskiy@intel.com>
- <Yxc1rvmwMuN9RzTo@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3BFE10E662;
+	Tue,  6 Sep 2022 12:33:49 +0000 (UTC)
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F33F810E384;
+ Tue, 30 Aug 2022 18:49:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202112;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2pwojP1tPkDYaoISIKgj4exxHoYsuGnV+Y70Sbw7xyw=; b=MepGmqDbrKqS3Vjv1YsrsBBHZV
+ KJHxBmAXJQ9D/ijMDSL2ctRCXrAnVjcR9nEFJntOQin3vrIvBs32NvAhP8O0FLTAaAD9TuiXcZh3Z
+ Q7769KUIiJ7De4ReuK+tYNuXRehe5bXiuC9eWvJm+qfT7OInvySrf8ks6kIfoBY6kp93x9zS8Bgug
+ cWCkcU/0Z1b2ibodxcSikeh4rtd4XXjfkUMlQqY3nztWMsVwfGqGxzt7tsGz947sXalDdNvx/+/zp
+ +nojSH7CA45+Fr44hj9Lrl71Ks061LTlA7p5KLgOnl/GS2uLiJ5Fgx1rFsC0ExKdIs/hsS0XhxX87
+ gpMWSCLw==;
+Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=63164)
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1oT6Ig-0005yu-Kf; Tue, 30 Aug 2022 20:49:26 +0200
+Message-ID: <575e58c3-a32f-54a6-6203-7a7e5a289a66@tronnes.org>
+Date: Tue, 30 Aug 2022 20:49:22 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
+ Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-23-459522d653a7@cerno.tech>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-23-459522d653a7@cerno.tech>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <Yxc1rvmwMuN9RzTo@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix
- intel_dp_atomic_find_vcpi_slots function
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 23/41] drm/atomic-helper: Add an analog
+ TV atomic_check implementation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,58 +68,193 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 06, 2022 at 02:57:34PM +0300, Ville Syrj‰l‰ wrote:
-> On Tue, Sep 06, 2022 at 01:23:29PM +0300, Stanislav Lisovskiy wrote:
-> > drm_dp_atomic_find_vcpi_slots no longer exists and needs
-> > to be used as drm_dp_atomic_find_time_slots.
-> > Also rename the function itself.
-> > 
-> > Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-> > Fixes: 7ae5ab441402 ("Extract drm_dp_atomic_find_vcpi_slots cycle to separate function")
+
+
+Den 29.08.2022 15.11, skrev Maxime Ripard:
+> The analog TV connector drivers share some atomic_check logic, and the new
 > 
-> The problem only exists in drm-tip. You need to revert the 
-> bad merge from rerere-cache and redo it.
+> TV standard property have created a bunch of new constraints that needs to
 > 
-> And please always test build drm-tip after solving merge conflicts!
-
-I would really like to figure out how it did end like that.
-
-Here is the sequence of what I've been doing:
-
-1) There was a series supposed to be merged which had this new
-   change already in place i.e using drm_dp_atomic_find_time_slots.
-2) Then using dim tools I started pushing according to workflow:
-   a) dim update-branches
-   b) dim checkout drm-intel-next
-   c) wget those series mbox and run dim apply-branch drm-intel-next
-      Got conflict: it was complaining about those changes around
-      drm_dp_atomic_find_time_slots and after some checking I figured
-      out that drm_dp_atomic_find_time_slots doesn't exist anymore.
-      Here probably was my bad, as I wrongly assumed that those changes
-      were probably reverted as it was also mentioned, that there was
-      regression because of those.
-      
-      So I resolved this conflict by putting drm_dp_atomic_find_vcpi_slots
-      back instead of drm_dp_atomic_find_time_slots _and_ actually
-      built it even.
-   
-   d) I run dim push-branch drm-intel-next, it did complain about merge
-      conflict again with drm-intel-next which I fixed and results were
-      pushed.
-      I should have build at this moment as well probably. 
- 
-      Then I noticed that this function drm_dp_atomic_find_vcpi_slots
-      doesn't exist in drm. So basically patches should have been pushed
-      as they were initially, but why the conflict appeared initially - that is my
-      question.
-
-Stan
-
+> be shared across drivers too.
 > 
-> -- 
-> Ville Syrj‰l‰
-> Intel
+> 
+> 
+> Let's create an atomic_check helper for those use cases.
+> 
+> 
+> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> 
+> 
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> 
+> index 0373c3dc824b..d64733c6aae3 100644
+> 
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> 
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> 
+> @@ -556,6 +556,42 @@ void drm_atomic_helper_connector_tv_reset(struct drm_connector *connector)
+> 
+>  }
+> 
+>  EXPORT_SYMBOL(drm_atomic_helper_connector_tv_reset);
+> 
+>  
+> 
+> +/**
+> 
+> + * @drm_atomic_helper_connector_tv_check: Validate an analog TV connector state
+> 
+> + * @connector: DRM Connector
+> 
+> + * @state: the DRM State object
+> 
+> + *
+> 
+> + * Checks the state object to see if the requested state is valid for an
+> 
+> + * analog TV connector.
+> 
+> + *
+> 
+> + * Returns:
+> 
+> + * Zero for success, a negative error code on error.
+> 
+> + */
+> 
+> +int drm_atomic_helper_connector_tv_check(struct drm_connector *connector,
+> 
+> +					 struct drm_atomic_state *state)
+> 
+> +{
+> 
+> +	struct drm_connector_state *old_conn_state =
+> 
+> +		drm_atomic_get_old_connector_state(state, connector);
+> 
+> +	struct drm_connector_state *new_conn_state =
+> 
+> +		drm_atomic_get_new_connector_state(state, connector);
+> 
+> +	struct drm_crtc_state *crtc_state;
+> 
+> +	struct drm_crtc *crtc;
+> 
+> +
+> 
+> +	crtc = new_conn_state->crtc;
+> 
+> +	if (!crtc)
+> 
+> +		return 0;
+> 
+> +
+> 
+> +	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+> 
+> +	if (!crtc_state)
+> 
+> +		return -EINVAL;
+> 
+> +
+> 
+> +	if (old_conn_state->tv.mode != new_conn_state->tv.mode)
+> 
+> +		crtc_state->mode_changed = true;
+> 
+
+If you can expand this check then I can use it in gud:
+
+	if (old_conn_state->tv.margins.left != new_conn_state->tv.margins.left ||
+	    old_conn_state->tv.margins.right != new_conn_state->tv.margins.right ||
+	    old_conn_state->tv.margins.top != new_conn_state->tv.margins.top ||
+	    old_conn_state->tv.margins.bottom !=
+new_conn_state->tv.margins.bottom ||
+	    old_conn_state->tv.mode != new_conn_state->tv.mode ||
+	    old_conn_state->tv.brightness != new_conn_state->tv.brightness ||
+	    old_conn_state->tv.contrast != new_conn_state->tv.contrast ||
+	    old_conn_state->tv.flicker_reduction !=
+new_conn_state->tv.flicker_reduction ||
+	    old_conn_state->tv.overscan != new_conn_state->tv.overscan ||
+	    old_conn_state->tv.saturation != new_conn_state->tv.saturation ||
+	    old_conn_state->tv.hue != new_conn_state->tv.hue)
+		crtc_state->connectors_changed = true;
+
+With that considered:
+
+Reviewed-by: Noralf Tr√∏nnes <noralf@tronnes.org>
+
+> +
+> 
+> +	return 0;
+> 
+> +}
+> 
+> +EXPORT_SYMBOL(drm_atomic_helper_connector_tv_check);
+> 
+> +
+> 
+>  /**
+> 
+>   * __drm_atomic_helper_connector_duplicate_state - copy atomic connector state
+> 
+>   * @connector: connector object
+> 
+> diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
+> 
+> index c8fbce795ee7..b9740edb2658 100644
+> 
+> --- a/include/drm/drm_atomic_state_helper.h
+> 
+> +++ b/include/drm/drm_atomic_state_helper.h
+> 
+> @@ -26,6 +26,7 @@
+> 
+>  
+> 
+>  #include <linux/types.h>
+> 
+>  
+> 
+> +struct drm_atomic_state;
+> 
+>  struct drm_bridge;
+> 
+>  struct drm_bridge_state;
+> 
+>  struct drm_crtc;
+> 
+> @@ -71,6 +72,8 @@ void __drm_atomic_helper_connector_reset(struct drm_connector *connector,
+> 
+>  					 struct drm_connector_state *conn_state);
+> 
+>  void drm_atomic_helper_connector_reset(struct drm_connector *connector);
+> 
+>  void drm_atomic_helper_connector_tv_reset(struct drm_connector *connector);
+> 
+> +int drm_atomic_helper_connector_tv_check(struct drm_connector *connector,
+> 
+> +					 struct drm_atomic_state *state);
+> 
+>  void drm_atomic_helper_connector_tv_margins_reset(struct drm_connector *connector);
+> 
+>  void
+> 
+>  __drm_atomic_helper_connector_duplicate_state(struct drm_connector *connector,
+> 
+> 
+> 
