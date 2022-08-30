@@ -4,76 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADF2EC54EE9
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:33:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2563ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:34:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AFC210E65E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD27C10E65F;
 	Tue,  6 Sep 2022 12:33:49 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBEAF10E44D;
- Wed, 31 Aug 2022 15:39:18 +0000 (UTC)
-Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 9C50866015A7;
- Wed, 31 Aug 2022 16:39:14 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960357;
- bh=mq+kKNWzsZPc/pkrHJnMglMwSZHTxBeTNMlcTvr2RPg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IbpT9B92ORuHHTOTdGcTYBd7AIS/+QWfCseHtdp0O+oQE1cgYTont1FrG7hZJSNuz
- oUsF3ZGj1p2as0ZxQN+dQQFRpSL87SbdRdB1ju7mIM4y+5dziqZ3e5DaJweV7YuOE/
- 1H320hsTsfF2G21JZ5DabpdmyJp9axAp7/fxwTkcYEovPsJBogm7F3Hd3eoDL/j9HE
- rJltme0+96fSPLeXGlAUHMm6XssCRo6w8eziTcT6DzM1MpOWsRo/392sOmqFsbmF3c
- A1py7rG+sPp7YAlUqD/27veLOxcAMqAStH7zkBrvbEuj59KSIjzMo6V7+p1IhljYvw
- 7EMJP9wiDeBIA==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF26E10E0B5;
+ Tue, 30 Aug 2022 19:27:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202112;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Jw/BMXkk2bSHu/Tn+I+6WJ+P0/BJrbEZIqETssOewfE=; b=FepPHpMH52mF3S0z0Dm1b4Eacx
+ 9+AXytqqf2FpuKYbi23zay3TpsN1Qa5Q9ZkzqxJjCttzr9TbuU3Y1j/0qcm5VAs+WPWFBSs8c7qjs
+ Ow5sr31xj7N3A3bvEX668fQGtcUvcKdM7cSj52sWE9TkD0gMAMWjUAfsp32+l7lCQ85m/Me1gusc1
+ Bijp7ApUsaRAyASgzl0JpYLAKf134opQ/OVT9w+laZNSwPdSYEqPkUXnZ6oc+o6ps0anvP72eR/Hi
+ lxMQf2MbxPx9Kg5GtUca4Efma7JwlR1CB4y7YhlP5O2HKvik27Ie2kJPKAzIuX4xEJIwxTGRSCnOv
+ X+uONqhA==;
+Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=64134)
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1oT6tW-0001t3-6u; Tue, 30 Aug 2022 21:27:30 +0200
+Message-ID: <8d99b275-d0c2-c7be-5abc-8db17f8792ad@tronnes.org>
+Date: Tue, 30 Aug 2022 21:27:22 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
+ Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Wed, 31 Aug 2022 18:37:37 +0300
-Message-Id: <20220831153757.97381-2-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-MIME-Version: 1.0
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-6-459522d653a7@cerno.tech>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-6-459522d653a7@cerno.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
-Subject: [Intel-gfx] [PATCH v4 01/21] dma-buf: Add unlocked variant of
- vmapping functions
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 06/41] drm/connector: Rename legacy TV
+ property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,92 +68,167 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add unlocked variant of dma_buf_vmap/vunmap() that will be utilized
-by drivers that don't take the reservation lock explicitly.
 
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- drivers/dma-buf/dma-buf.c | 38 ++++++++++++++++++++++++++++++++++++++
- include/linux/dma-buf.h   |  2 ++
- 2 files changed, 40 insertions(+)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 1c912255c5d6..5e4459bb1a6f 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1424,6 +1424,28 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vmap, DMA_BUF);
- 
-+/**
-+ * dma_buf_vmap_unlocked - Create virtual mapping for the buffer object into kernel
-+ * address space. Same restrictions as for vmap and friends apply.
-+ * @dmabuf:	[in]	buffer to vmap
-+ * @map:	[out]	returns the vmap pointer
-+ *
-+ * Unlocked version of dma_buf_vmap()
-+ *
-+ * Returns 0 on success, or a negative errno code otherwise.
-+ */
-+int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
-+{
-+	int ret;
-+
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	ret = dma_buf_vmap(dmabuf, map);
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_vmap_unlocked, DMA_BUF);
-+
- /**
-  * dma_buf_vunmap - Unmap a vmap obtained by dma_buf_vmap.
-  * @dmabuf:	[in]	buffer to vunmap
-@@ -1448,6 +1470,22 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap, DMA_BUF);
- 
-+/**
-+ * dma_buf_vunmap_unlocked - Unmap a vmap obtained by dma_buf_vmap.
-+ * @dmabuf:	[in]	buffer to vunmap
-+ * @map:	[in]	vmap pointer to vunmap
-+ */
-+void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map)
-+{
-+	if (WARN_ON(!dmabuf))
-+		return;
-+
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	dma_buf_vunmap(dmabuf, map);
-+	dma_resv_unlock(dmabuf->resv);
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_vunmap_unlocked, DMA_BUF);
-+
- #ifdef CONFIG_DEBUG_FS
- static int dma_buf_debug_show(struct seq_file *s, void *unused)
- {
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 71731796c8c3..8daa054dd7fe 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -632,4 +632,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
- 		 unsigned long);
- int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map);
- void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map);
-+int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
-+void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
- #endif /* __DMA_BUF_H__ */
--- 
-2.37.2
+Den 29.08.2022 15.11, skrev Maxime Ripard:
+> The current tv_mode has driver-specific values that don't allow to
+> 
+> easily share code using it, either at the userspace or kernel level.
+> 
+> 
+> 
+> Since we're going to introduce a new, generic, property that fit the
+> 
+> same purpose, let's rename this one to legacy_tv_mode to make it
+> 
+> obvious we should move away from it.
+> 
+> 
+> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> 
 
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> 
+> index 1d5e3cccb9e3..5cfad8b6ad83 100644
+> 
+> --- a/include/drm/drm_connector.h
+> 
+> +++ b/include/drm/drm_connector.h
+> 
+> @@ -695,7 +695,7 @@ struct drm_connector_tv_margins {
+> 
+>   * @select_subconnector: selected subconnector
+> 
+>   * @subconnector: detected subconnector
+> 
+>   * @margins: TV margins
+> 
+> - * @mode: TV mode
+> 
+> + * @legacy_mode: Legacy TV mode, driver specific value
+> 
+>   * @brightness: brightness in percent
+> 
+>   * @contrast: contrast in percent
+> 
+>   * @flicker_reduction: flicker reduction in percent
+> 
+> @@ -707,7 +707,7 @@ struct drm_tv_connector_state {
+> 
+>  	enum drm_mode_subconnector select_subconnector;
+> 
+>  	enum drm_mode_subconnector subconnector;
+> 
+>  	struct drm_connector_tv_margins margins;
+> 
+> -	unsigned int mode;
+> 
+> +	unsigned int legacy_mode;
+
+I suggest you do a build of the affected drivers after adding this patch
+to make sure you have changed all mode -> legacy_mode occurrences
+_before_ adding back mode in a later patch.
+
+A simple grep gave me these:
+
+drivers/gpu/drm/vc4/vc4_vec.c:
+vc4_vec_tv_modes[state->tv.mode].mode);
+drivers/gpu/drm/vc4/vc4_vec.c:  vec->tv_mode =
+&vc4_vec_tv_modes[conn_state->tv.mode];
+drivers/gpu/drm/vc4/vc4_vec.c:  vec_mode =
+&vc4_vec_tv_modes[conn_state->tv.mode];
+drivers/gpu/drm/i915/display/intel_tv.c:        int format =
+conn_state->tv.mode;
+drivers/gpu/drm/i915/display/intel_tv.c:
+connector->state->tv.mode = i;
+drivers/gpu/drm/i915/display/intel_tv.c:        if (old_state->tv.mode
+!= new_state->tv.mode ||
+drivers/gpu/drm/i915/display/intel_tv.c:        state->tv.mode =
+initial_mode;
+drivers/gpu/drm/i915/display/intel_tv.c:
+   state->tv.mode);
+drivers/gpu/drm/i915/display/intel_sdvo.c:      format_map = 1 <<
+conn_state->tv.mode;
+drivers/gpu/drm/i915/display/intel_sdvo.c:      format_map = 1 <<
+conn_state->tv.mode;
+drivers/gpu/drm/i915/display/intel_sdvo.c:                      if
+(state->tv.mode == intel_sdvo_connector->tv_format_supported[i]) {
+drivers/gpu/drm/i915/display/intel_sdvo.c:              state->tv.mode =
+intel_sdvo_connector->tv_format_supported[val];
+drivers/gpu/drm/i915/display/intel_sdvo.c:
+intel_sdvo_connector->base.base.state->tv.mode =
+intel_sdvo_connector->tv_format_supported[0];
+
+Not so easy to grep for is this in gud:
+
+static unsigned int *gud_connector_tv_state_val(u16 prop, struct
+drm_tv_connector_state *state)
+{
+	switch (prop) {
+...
+	case GUD_PROPERTY_TV_MODE:
+		return &state->mode;
+
+Noralf.
+
+> 
+>  	unsigned int brightness;
+> 
+>  	unsigned int contrast;
+> 
+>  	unsigned int flicker_reduction;
+> 
+> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+> 
+> index 6b5e01295348..35a827175c24 100644
+> 
+> --- a/include/drm/drm_mode_config.h
+> 
+> +++ b/include/drm/drm_mode_config.h
+> 
+> @@ -714,11 +714,13 @@ struct drm_mode_config {
+> 
+>  	 * between different TV connector types.
+> 
+>  	 */
+> 
+>  	struct drm_property *tv_select_subconnector_property;
+> 
+> +
+> 
+>  	/**
+> 
+> -	 * @tv_mode_property: Optional TV property to select
+> 
+> +	 * @legacy_tv_mode_property: Optional TV property to select
+> 
+>  	 * the output TV mode.
+> 
+>  	 */
+> 
+> -	struct drm_property *tv_mode_property;
+> 
+> +	struct drm_property *legacy_tv_mode_property;
+> 
+> +
+> 
+>  	/**
+> 
+>  	 * @tv_left_margin_property: Optional TV property to set the left
+> 
+>  	 * margin (expressed in pixels).
+> 
+> 
+> 
