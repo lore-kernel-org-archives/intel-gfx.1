@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B995ECAAD1
-	for <intel-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 21:51:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 471C3ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Wed, 31 Aug 2022 21:51:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C04510E51A;
-	Wed, 31 Aug 2022 21:51:07 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB8D10E3EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0676610E515;
+	Wed, 31 Aug 2022 21:51:10 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7410810E4F6;
  Wed, 31 Aug 2022 21:50:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1661982633; x=1693518633;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OhfoVFmAQIWkcNu0Wkax7GkHG7e4vmagjC97LX0fUjM=;
- b=ZycHDV7sj9omr7UBYEacP2aOiHHkwWEsQwWG8u+e+uvdYjYg3GqV0EBh
- v7AiT+y4xewDxh2j0mhZw6T1qFrdoER3tCNrhbaQxO7eahYd8aP175r7s
- 1LyrenoHctbPTbyrvyLLQNxhV0MV5FWWu1Z++Ja5WB6LrbUmIx8rkJUZv
- eLNsamjFHc19j8AosL/QobAyxlKfZBdsiQDMe5fkFG+XDBFnAxeayAZF5
- Q7tvvmMfFwquO4ypyfxGK8jg+pggkeoV6gpA6bkDBRJA55Q+5Al3fU/9r
- /IpLY+uFrp++9oUk9171kvdiD89x3V7JGUlZ8ggHtvtYIucIwzP5tKESz A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10456"; a="357270165"
-X-IronPort-AV: E=Sophos;i="5.93,279,1654585200"; d="scan'208";a="357270165"
+ bh=5qFkWI1M4EAjEBlzyf2YMFq2VMiN1UHbAprVMkxho4Q=;
+ b=R2r7Q4cq6PWJEtFh5GWHCGMT89azOfvrT2nfS7la7pTOm/ADDLIK/PSf
+ DH+0JGLxdEPQb/o5AHa4e1FEs2ljikKpjbvpNlAK0pCUCR2VtZu6LImtP
+ SOsBJ5KlwjiYuPZfoZnfeYXHTCWDNq0iWmYZGZJ1Opl4UD+pS4eU9Ajun
+ KhzI0gOmPseIL9xgnyvj34Ao1loHjkYyZYP1qnOMWlSEnR3GHuzkfSy9n
+ +qS+0bSfERGQydpfZQkf7hy2oX22z5fXV2YXS5HDY+fzEmSaz8+2nNPG3
+ rAnAllxh0O3a1Yp2nSbZJW0cDmoMQxmd/894Y4Gzv6LTdmHkpOdmciknF w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10456"; a="296833065"
+X-IronPort-AV: E=Sophos;i="5.93,279,1654585200"; d="scan'208";a="296833065"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2022 14:50:32 -0700
-X-IronPort-AV: E=Sophos;i="5.93,279,1654585200"; d="scan'208";a="940586231"
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2022 14:50:31 -0700
+X-IronPort-AV: E=Sophos;i="5.93,279,1654585200"; d="scan'208";a="940586220"
 Received: from invictus.jf.intel.com ([10.165.21.206])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  31 Aug 2022 14:50:31 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 31 Aug 2022 14:49:54 -0700
-Message-Id: <20220831214958.109753-8-radhakrishna.sripada@intel.com>
+Date: Wed, 31 Aug 2022 14:49:51 -0700
+Message-Id: <20220831214958.109753-5-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220831214958.109753-1-radhakrishna.sripada@intel.com>
 References: <20220831214958.109753-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 07/11] drm/i915/mtl: Add DP AUX support on
- TypeC ports
+Subject: [Intel-gfx] [PATCH v3 04/11] drm/i915/mtl: Define engine context
+ layouts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,101 +60,143 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@intel.com>
+From: Matt Roper <matthew.d.roper@intel.com>
 
-On MTL TypeC ports the AUX_CH_CTL and AUX_CH_DATA addresses have
-changed wrt. previous platforms, adjust the code accordingly.
+The part of the media and blitter engine contexts that we care about for
+setting up an initial state are the same on MTL as they were on DG2
+(and PVC), so we need to update the driver conditions to re-use the DG2
+context table.
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+For render/compute engines, the part of the context images are nearly
+the same, although the layout had a very slight change --- one POSH
+register was removed and the placement of some LRI/noops adjusted
+slightly to compensate.
+
+v2:
+ - Dg2, mtl xcs offsets slightly vary. Use a seperate offsets array(Bala)
+ - Drop unused registers in mtl rcs offsets.(Bala)
+
+Bspec: 46261, 46260, 45585
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_aux.c | 45 ++++++++++++++++++++-
- drivers/gpu/drm/i915/i915_reg.h             |  9 +++++
- 2 files changed, 53 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 81 ++++++++++++++++++++++++++++-
+ 1 file changed, 79 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index 98bd33645b43..48c375c65a41 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-@@ -637,6 +637,46 @@ static i915_reg_t tgl_aux_data_reg(struct intel_dp *intel_dp, int index)
- 	}
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 070cec4ff8a4..ecb030ee39cd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -264,6 +264,38 @@ static const u8 dg2_xcs_offsets[] = {
+ 	END
+ };
  
-+static i915_reg_t xelpdp_aux_ctl_reg(struct intel_dp *intel_dp)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	enum aux_ch aux_ch = dig_port->aux_ch;
++static const u8 mtl_xcs_offsets[] = {
++	NOP(1),
++	LRI(13, POSTED),
++	REG16(0x244),
++	REG(0x034),
++	REG(0x030),
++	REG(0x038),
++	REG(0x03c),
++	REG(0x168),
++	REG(0x140),
++	REG(0x110),
++	REG(0x1c0),
++	REG(0x1c4),
++	REG(0x1c8),
++	REG(0x180),
++	REG16(0x2b4),
 +
-+	switch (aux_ch) {
-+	case AUX_CH_A:
-+	case AUX_CH_B:
-+	case AUX_CH_USBC1:
-+	case AUX_CH_USBC2:
-+	case AUX_CH_USBC3:
-+	case AUX_CH_USBC4:
-+		return XELPDP_DP_AUX_CH_CTL(aux_ch);
-+	default:
-+		MISSING_CASE(aux_ch);
-+		return XELPDP_DP_AUX_CH_CTL(AUX_CH_A);
-+	}
-+}
++	NOP(1),
++	LRI(9, POSTED),
++	REG16(0x3a8),
++	REG16(0x28c),
++	REG16(0x288),
++	REG16(0x284),
++	REG16(0x280),
++	REG16(0x27c),
++	REG16(0x278),
++	REG16(0x274),
++	REG16(0x270),
 +
-+static i915_reg_t xelpdp_aux_data_reg(struct intel_dp *intel_dp, int index)
-+{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	enum aux_ch aux_ch = dig_port->aux_ch;
++	END
++};
 +
-+	switch (aux_ch) {
-+	case AUX_CH_A:
-+	case AUX_CH_B:
-+	case AUX_CH_USBC1:
-+	case AUX_CH_USBC2:
-+	case AUX_CH_USBC3:
-+	case AUX_CH_USBC4:
-+		return XELPDP_DP_AUX_CH_DATA(aux_ch, index);
-+	default:
-+		MISSING_CASE(aux_ch);
-+		return XELPDP_DP_AUX_CH_DATA(AUX_CH_A, index);
-+	}
-+}
-+
- void intel_dp_aux_fini(struct intel_dp *intel_dp)
- {
- 	if (cpu_latency_qos_request_active(&intel_dp->pm_qos))
-@@ -652,7 +692,10 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
- 	struct intel_encoder *encoder = &dig_port->base;
- 	enum aux_ch aux_ch = dig_port->aux_ch;
+ static const u8 gen8_rcs_offsets[] = {
+ 	NOP(1),
+ 	LRI(14, POSTED),
+@@ -606,6 +638,47 @@ static const u8 dg2_rcs_offsets[] = {
+ 	END
+ };
  
--	if (DISPLAY_VER(dev_priv) >= 12) {
-+	if (DISPLAY_VER(dev_priv) >= 14) {
-+		intel_dp->aux_ch_ctl_reg = xelpdp_aux_ctl_reg;
-+		intel_dp->aux_ch_data_reg = xelpdp_aux_data_reg;
-+	} else if (DISPLAY_VER(dev_priv) >= 12) {
- 		intel_dp->aux_ch_ctl_reg = tgl_aux_ctl_reg;
- 		intel_dp->aux_ch_data_reg = tgl_aux_data_reg;
- 	} else if (DISPLAY_VER(dev_priv) >= 9) {
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 42e26057f44a..18adfd8126a2 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3470,6 +3470,15 @@
- 						       _XELPDP_USBC3_AUX_CH_CTL, \
- 						       _XELPDP_USBC4_AUX_CH_CTL))
- 
-+#define XELPDP_DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PICK(aux_ch, \
-+						       _DPA_AUX_CH_DATA1, \
-+						       _DPB_AUX_CH_DATA1, \
-+						       0, /* port/aux_ch C is non-existent */ \
-+						       _XELPDP_USBC1_AUX_CH_DATA1, \
-+						       _XELPDP_USBC2_AUX_CH_DATA1, \
-+						       _XELPDP_USBC3_AUX_CH_DATA1, \
-+						       _XELPDP_USBC4_AUX_CH_DATA1) + (i) * 4)
++static const u8 mtl_rcs_offsets[] = {
++       NOP(1),
++       LRI(13, POSTED),
++       REG16(0x244),
++       REG(0x034),
++       REG(0x030),
++       REG(0x038),
++       REG(0x03c),
++       REG(0x168),
++       REG(0x140),
++       REG(0x110),
++       REG(0x1c0),
++       REG(0x1c4),
++       REG(0x1c8),
++       REG(0x180),
++       REG16(0x2b4),
 +
- #define   DP_AUX_CH_CTL_SEND_BUSY	    (1 << 31)
- #define   DP_AUX_CH_CTL_DONE		    (1 << 30)
- #define   DP_AUX_CH_CTL_INTERRUPT	    (1 << 29)
++       NOP(1),
++       LRI(9, POSTED),
++       REG16(0x3a8),
++       REG16(0x28c),
++       REG16(0x288),
++       REG16(0x284),
++       REG16(0x280),
++       REG16(0x27c),
++       REG16(0x278),
++       REG16(0x274),
++       REG16(0x270),
++
++       NOP(2),
++       LRI(2, POSTED),
++       REG16(0x5a8),
++       REG16(0x5ac),
++
++       NOP(6),
++       LRI(1, 0),
++       REG(0x0c8),
++
++       END
++};
++
+ #undef END
+ #undef REG16
+ #undef REG
+@@ -624,7 +697,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		   !intel_engine_has_relative_mmio(engine));
+ 
+ 	if (engine->flags & I915_ENGINE_HAS_RCS_REG_STATE) {
+-		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70))
++			return mtl_rcs_offsets;
++		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
+ 			return dg2_rcs_offsets;
+ 		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
+ 			return xehp_rcs_offsets;
+@@ -637,7 +712,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		else
+ 			return gen8_rcs_offsets;
+ 	} else {
+-		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70))
++			return mtl_xcs_offsets;
++		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
+ 			return dg2_xcs_offsets;
+ 		else if (GRAPHICS_VER(engine->i915) >= 12)
+ 			return gen12_xcs_offsets;
 -- 
 2.25.1
 
