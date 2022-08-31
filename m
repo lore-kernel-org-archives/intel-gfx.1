@@ -4,57 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A78B5C54EE9
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:37:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 372FBECAAA1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:37:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B24EE10E699;
-	Tue,  6 Sep 2022 12:37:41 +0000 (UTC)
-Received: from smtp.domeneshop.no (smtp.domeneshop.no
- [IPv6:2a01:5b40:0:3005::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E6ED10E1A8;
- Thu,  1 Sep 2022 19:35:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
- ; s=ds202112;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=HSmU8cbfTMrBaPDEft9ugvcLZ7df9DZiQiiVlzQT0Tw=; b=qLjy/48/HybrCZXhucwMbBtKJp
- 3TQbxLtZYMvSPYnBIV1FP4YMZdeVxZdeb8IrBeAhyjcHbR48eZ3cqwaUyKSRMM6DOQ9iZfJ2XCPD6
- av7PC77mmiFG6qUN0YW2TLxNBmhG/OHSuD5qut6FTgE9i/x1rSJzTI8Sc2eAma98W6N4XxH64KZyD
- nX//akYOhh3zihSmyGBz7pNFVaeuP5f+pGW5j4s9zWcQ2RNqzSMRDsGMOSZkpxU2nUJWqrKaD0MyS
- K6gTTOv8Lx+Cv8ibktpYIIY5h542j1BJDWvYwCzIYBQPXPj6+c9B6PKY4gZZIneg3dathxMx/k1tv
- 4FK26vCQ==;
-Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=52634)
- by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <noralf@tronnes.org>)
- id 1oTpyL-0002UR-US; Thu, 01 Sep 2022 21:35:29 +0200
-Message-ID: <24e09a29-6d04-3b1e-63ce-cd3c31d350e2@tronnes.org>
-Date: Thu, 1 Sep 2022 21:35:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
- Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
- Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79A7010E693;
+	Tue,  6 Sep 2022 12:37:37 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE8DD10E43B;
+ Wed, 31 Aug 2022 15:39:40 +0000 (UTC)
+Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id A21166601E0C;
+ Wed, 31 Aug 2022 16:39:36 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661960379;
+ bh=16kdBcfHr7NkG/hMSbFPB8YZTdoa/W2Tj8HhA5UXTjs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=UQ9/cdc9B3s4E74+susWuLftZGOe9hoHZXOuaq+uKHebd6RqDfyD4uZOcZ4eUx/w6
+ 0CWyq9wSVVasfOGGb1i7nfu7JaNsgnu2zSvoueu9cL19deO3APZlqF1MBzSPEjn29Q
+ EznMZUc+FB2ASK7KrH8/KAgv6ow/jmw2BrOJvQlQ615ZEpeTCoLT2Uxw+oiLBzrn81
+ 73HYf45rrsxen1wE0Y02kHxy6s+Nm7us1Q42Xb6PlNiJKK5Ao4FAOmplut6xL3G0HS
+ bSZmmetHKal+nDQaOH2uxr+yK0az1imcvGD4DQm9eJnuzxZkvpI93AsB6WWNBN/UR3
+ U1FSriyFPCXhg==
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
- Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Dom Cobley <dom@raspberrypi.com>
-References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
-From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 00/41] drm: Analog TV Improvements
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Wed, 31 Aug 2022 18:37:44 +0300
+Message-Id: <20220831153757.97381-9-dmitry.osipenko@collabora.com>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
+Subject: [Intel-gfx] [PATCH v4 08/21] drm/tegra: Prepare to dynamic dma-buf
+ locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,166 +85,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-sunxi@lists.linux.dev,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Prepare Tegra DRM driver to the common dynamic dma-buf locking convention
+by starting to use the unlocked versions of dma-buf API functions.
 
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+---
+ drivers/gpu/drm/tegra/gem.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-Den 29.08.2022 15.11, skrev Maxime Ripard:
-> Hi,
-> 
-> 
-> 
-> Here's a series aiming at improving the command line named modes support,
-> 
-> and more importantly how we deal with all the analog TV variants.
-> 
-> 
-> 
-> The named modes support were initially introduced to allow to specify the
-> 
-> analog TV mode to be used.
-> 
-> 
-> 
-> However, this was causing multiple issues:
-> 
-> 
-> 
->   * The mode name parsed on the command line was passed directly to the
-> 
->     driver, which had to figure out which mode it was suppose to match;
-> 
-> 
-> 
->   * Figuring that out wasn't really easy, since the video= argument or what
-> 
->     the userspace might not even have a name in the first place, but
-> 
->     instead could have passed a mode with the same timings;
-> 
-> 
-> 
->   * The fallback to matching on the timings was mostly working as long as
-> 
->     we were supporting one 525 lines (most likely NSTC) and one 625 lines
-> 
->     (PAL), but couldn't differentiate between two modes with the same
-> 
->     timings (NTSC vs PAL-M vs NSTC-J for example);
-> 
-> 
-> 
->   * There was also some overlap with the tv mode property registered by
-> 
->     drm_mode_create_tv_properties(), but named modes weren't interacting
-> 
->     with that property at all.
-> 
-> 
-> 
->   * Even though that property was generic, its possible values were
-> 
->     specific to each drivers, which made some generic support difficult.
-> 
-> 
-> 
-> Thus, I chose to tackle in multiple steps:
-> 
-> 
-> 
->   * A new TV norm property was introduced, with generic values, each driver
-> 
->     reporting through a bitmask what standard it supports to the userspace;
-> 
-> 
-> 
->   * This option was added to the command line parsing code to be able to
-> 
->     specify it on the kernel command line, and new atomic_check and reset
-> 
->     helpers were created to integrate properly into atomic KMS;
-> 
-> 
-> 
->   * The named mode parsing code is now creating a proper display mode for
-> 
->     the given named mode, and the TV standard will thus be part of the
-> 
->     connector state;
-> 
-> 
-> 
->   * Two drivers were converted and tested for now (vc4 and sun4i), with
-> 
->     some backward compatibility code to translate the old TV mode to the
-> 
->     new TV mode;
-> 
-> 
-> 
-> Unit tests were created along the way.
-> 
-> 
-> 
-> One can switch from NTSC to PAL now using (on vc4)
-> 
-> 
-> 
-> modetest -M vc4  -s 53:720x480i -w 53:'tv norm':0
-> 
-> 
-> 
-> modetest -M vc4 -s 53:720x480i -w 53:'tv norm':4
-> 
+diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+index 81991090adcc..b09b8ab40ae4 100644
+--- a/drivers/gpu/drm/tegra/gem.c
++++ b/drivers/gpu/drm/tegra/gem.c
+@@ -84,7 +84,7 @@ static struct host1x_bo_mapping *tegra_bo_pin(struct device *dev, struct host1x_
+ 			goto free;
+ 		}
+ 
+-		map->sgt = dma_buf_map_attachment(map->attach, direction);
++		map->sgt = dma_buf_map_attachment_unlocked(map->attach, direction);
+ 		if (IS_ERR(map->sgt)) {
+ 			dma_buf_detach(buf, map->attach);
+ 			err = PTR_ERR(map->sgt);
+@@ -160,7 +160,8 @@ static struct host1x_bo_mapping *tegra_bo_pin(struct device *dev, struct host1x_
+ static void tegra_bo_unpin(struct host1x_bo_mapping *map)
+ {
+ 	if (map->attach) {
+-		dma_buf_unmap_attachment(map->attach, map->sgt, map->direction);
++		dma_buf_unmap_attachment_unlocked(map->attach, map->sgt,
++						  map->direction);
+ 		dma_buf_detach(map->attach->dmabuf, map->attach);
+ 	} else {
+ 		dma_unmap_sgtable(map->dev, map->sgt, map->direction, 0);
+@@ -181,7 +182,7 @@ static void *tegra_bo_mmap(struct host1x_bo *bo)
+ 	if (obj->vaddr) {
+ 		return obj->vaddr;
+ 	} else if (obj->gem.import_attach) {
+-		ret = dma_buf_vmap(obj->gem.import_attach->dmabuf, &map);
++		ret = dma_buf_vmap_unlocked(obj->gem.import_attach->dmabuf, &map);
+ 		return ret ? NULL : map.vaddr;
+ 	} else {
+ 		return vmap(obj->pages, obj->num_pages, VM_MAP,
+@@ -197,7 +198,7 @@ static void tegra_bo_munmap(struct host1x_bo *bo, void *addr)
+ 	if (obj->vaddr)
+ 		return;
+ 	else if (obj->gem.import_attach)
+-		dma_buf_vunmap(obj->gem.import_attach->dmabuf, &map);
++		dma_buf_vunmap_unlocked(obj->gem.import_attach->dmabuf, &map);
+ 	else
+ 		vunmap(addr);
+ }
+@@ -461,7 +462,7 @@ static struct tegra_bo *tegra_bo_import(struct drm_device *drm,
+ 
+ 	get_dma_buf(buf);
+ 
+-	bo->sgt = dma_buf_map_attachment(attach, DMA_TO_DEVICE);
++	bo->sgt = dma_buf_map_attachment_unlocked(attach, DMA_TO_DEVICE);
+ 	if (IS_ERR(bo->sgt)) {
+ 		err = PTR_ERR(bo->sgt);
+ 		goto detach;
+@@ -479,7 +480,7 @@ static struct tegra_bo *tegra_bo_import(struct drm_device *drm,
+ 
+ detach:
+ 	if (!IS_ERR_OR_NULL(bo->sgt))
+-		dma_buf_unmap_attachment(attach, bo->sgt, DMA_TO_DEVICE);
++		dma_buf_unmap_attachment_unlocked(attach, bo->sgt, DMA_TO_DEVICE);
+ 
+ 	dma_buf_detach(buf, attach);
+ 	dma_buf_put(buf);
+@@ -508,8 +509,8 @@ void tegra_bo_free_object(struct drm_gem_object *gem)
+ 		tegra_bo_iommu_unmap(tegra, bo);
+ 
+ 	if (gem->import_attach) {
+-		dma_buf_unmap_attachment(gem->import_attach, bo->sgt,
+-					 DMA_TO_DEVICE);
++		dma_buf_unmap_attachment_unlocked(gem->import_attach, bo->sgt,
++						  DMA_TO_DEVICE);
+ 		drm_prime_gem_destroy(gem, NULL);
+ 	} else {
+ 		tegra_bo_free(gem->dev, bo);
+-- 
+2.37.2
 
-The property name has changed, this gives me PAL:
-
-$ modetest -M vc4 -s 45:720x576i -w 45:'TV mode':4
-
-
-I have finally found a workaround for my kernel hangs.
-
-Dom had a look at my kernel and found that the VideoCore was fine, and
-he said this:
-
-> That suggests cause of lockup was on arm side rather than VC side.
->
-> But it's hard to diagnose further. Once you've had a peripheral not
-> respond, the AXI bus locks up and no further operations are possible.
-> Usual causes of this are required clocks being stopped or domains
-> disabled and then trying to access the hardware.
->
-
-So when I got this on my 64-bit build:
-
-[  166.702171] SError Interrupt on CPU1, code 0x00000000bf000002 -- SError
-[  166.702187] CPU: 1 PID: 8 Comm: kworker/u8:0 Tainted: G        W
-    5.19.0-rc6-00096-gba7973977976-dirty #1
-[  166.702200] Hardware name: Raspberry Pi 4 Model B Rev 1.1 (DT)
-[  166.702206] Workqueue: events_freezable_power_ thermal_zone_device_check
-[  166.702231] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS
-BTYPE=--)
-[  166.702242] pc : regmap_mmio_read32le+0x10/0x28
-[  166.702261] lr : regmap_mmio_read+0x44/0x70
-...
-[  166.702606]  bcm2711_get_temp+0x58/0xb0 [bcm2711_thermal]
-
-I wondered if that reg read was stalled due to a clock being stopped.
-
-Lo and behold, disabling runtime pm and keeping the vec clock running
-all the time fixed it[1].
-
-I don't know what the problem is, but at least I can now test this patchset.
-
-[1] https://gist.github.com/notro/23b984e7fa05cfbda2db50a421cac065
-
-Noralf.
