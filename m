@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EE8EECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:37:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3BA0ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:37:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B71D610E692;
-	Tue,  6 Sep 2022 12:37:14 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE01010E43D;
- Wed, 31 Aug 2022 15:39:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E150B10E695;
+	Tue,  6 Sep 2022 12:37:37 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B85310E43F;
+ Wed, 31 Aug 2022 15:39:50 +0000 (UTC)
 Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id BB1846601DE8;
- Wed, 31 Aug 2022 16:39:17 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 172376601EAC;
+ Wed, 31 Aug 2022 16:39:46 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960360;
- bh=AwRlDUnXNPm7IrchqI1DhYwz6VGywo+kRbZaIUUsbws=;
+ s=mail; t=1661960389;
+ bh=gdOsnqn+hkC/PYCc3SOTg9WbAqCE6tugxLVX0sLlB6k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EA11+Tf1xGgFwhLzaB4zpIaDCRNIdmnnJHMUCOo8+cNcA1+1F0D9jn9Wul3MjrQdD
- E0MPm/kez2xbgU9fHHNKDQXMMW4h2mK4UsWjNtwn5C67YAnuBWpF+nC+PNcQOxHwe3
- HZNocGVRO7Gx+HhKqArjSV+MCgscVPZcopzRkhcwwjxgHqrrxXYu2HhbUNjqd4nBia
- cPLVBNFFXe1K8+Kx+80Y5D6dAd6wgcYCQv3I82150DNV6nMETDfoT+f3K4lppzovLS
- hUo/r0FpG/YF36umNf1y+HgWwYpDw+XlGpyjBOSHprJrXFUIrwKGfPk/NTQA99oiVM
- AV/jxqjw8iHiA==
+ b=WLF6bT+wDRofJAtDZk+i2VmH8A0ApZxbJPdBENc2WsfMj9DWX/4nsgRPP/X0h2cPc
+ Q+z/ITW7+8jBiClYSOevkqmQMj5ZY4DTpwBrki3X+EQRNLP2wzw8WK7zREcI2bDSNX
+ CD260pRQ/h3fXPMJUtuf2sIDljhle9yyNj7vamirWCHaWz+fe7J5lpxcHG6vWAGz9e
+ L6hRXO87US7+C6URv9MmyZHsXIk5YtbmEYykRTw+ak23HugSPYn+3S1zv1CSdV5eSd
+ YGI88Y9TXgnQiNuejbDWZszW0ZXlUt/kMba0/D//NaVvJm53xfBMrQT/MhpZ4I8oIk
+ bkkBH5QjZiXmw==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,17 +63,16 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Wed, 31 Aug 2022 18:37:38 +0300
-Message-Id: <20220831153757.97381-3-dmitry.osipenko@collabora.com>
+Date: Wed, 31 Aug 2022 18:37:47 +0300
+Message-Id: <20220831153757.97381-12-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
 References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
-Subject: [Intel-gfx] [PATCH v4 02/21] dma-buf: Add unlocked variant of
- attachment-mapping functions
+Subject: [Intel-gfx] [PATCH v4 11/21] misc: fastrpc: Prepare to dynamic
+ dma-buf locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,104 +94,38 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add unlocked variant of dma_buf_map/unmap_attachment() that will
-be used by drivers that don't take the reservation lock explicitly.
+Prepare fastrpc to the common dynamic dma-buf locking convention by
+starting to use the unlocked versions of dma-buf API functions.
 
-Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/dma-buf.c | 53 +++++++++++++++++++++++++++++++++++++++
- include/linux/dma-buf.h   |  6 +++++
- 2 files changed, 59 insertions(+)
+ drivers/misc/fastrpc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 5e4459bb1a6f..51fb69048853 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1099,6 +1099,34 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_map_attachment, DMA_BUF);
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 93ebd174d848..6fcfb2e9f7a7 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -310,8 +310,8 @@ static void fastrpc_free_map(struct kref *ref)
+ 				return;
+ 			}
+ 		}
+-		dma_buf_unmap_attachment(map->attach, map->table,
+-					 DMA_BIDIRECTIONAL);
++		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
++						  DMA_BIDIRECTIONAL);
+ 		dma_buf_detach(map->buf, map->attach);
+ 		dma_buf_put(map->buf);
+ 	}
+@@ -726,7 +726,7 @@ static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
+ 		goto attach_err;
+ 	}
  
-+/**
-+ * dma_buf_map_attachment_unlocked - Returns the scatterlist table of the attachment;
-+ * mapped into _device_ address space. Is a wrapper for map_dma_buf() of the
-+ * dma_buf_ops.
-+ * @attach:	[in]	attachment whose scatterlist is to be returned
-+ * @direction:	[in]	direction of DMA transfer
-+ *
-+ * Unlocked variant of dma_buf_map_attachment().
-+ */
-+struct sg_table *
-+dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
-+				enum dma_data_direction direction)
-+{
-+	struct sg_table *sg_table;
-+
-+	might_sleep();
-+
-+	if (WARN_ON(!attach || !attach->dmabuf))
-+		return ERR_PTR(-EINVAL);
-+
-+	dma_resv_lock(attach->dmabuf->resv, NULL);
-+	sg_table = dma_buf_map_attachment(attach, direction);
-+	dma_resv_unlock(attach->dmabuf->resv);
-+
-+	return sg_table;
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_map_attachment_unlocked, DMA_BUF);
-+
- /**
-  * dma_buf_unmap_attachment - unmaps and decreases usecount of the buffer;might
-  * deallocate the scatterlist associated. Is a wrapper for unmap_dma_buf() of
-@@ -1135,6 +1163,31 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *attach,
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_unmap_attachment, DMA_BUF);
- 
-+/**
-+ * dma_buf_unmap_attachment_unlocked - unmaps and decreases usecount of the buffer;might
-+ * deallocate the scatterlist associated. Is a wrapper for unmap_dma_buf() of
-+ * dma_buf_ops.
-+ * @attach:	[in]	attachment to unmap buffer from
-+ * @sg_table:	[in]	scatterlist info of the buffer to unmap
-+ * @direction:	[in]	direction of DMA transfer
-+ *
-+ * Unlocked variant of dma_buf_unmap_attachment().
-+ */
-+void dma_buf_unmap_attachment_unlocked(struct dma_buf_attachment *attach,
-+				       struct sg_table *sg_table,
-+				       enum dma_data_direction direction)
-+{
-+	might_sleep();
-+
-+	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
-+		return;
-+
-+	dma_resv_lock(attach->dmabuf->resv, NULL);
-+	dma_buf_unmap_attachment(attach, sg_table, direction);
-+	dma_resv_unlock(attach->dmabuf->resv);
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_unmap_attachment_unlocked, DMA_BUF);
-+
- /**
-  * dma_buf_move_notify - notify attachments that DMA-buf is moving
-  *
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 8daa054dd7fe..f11b5bbc2f37 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -627,6 +627,12 @@ int dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
- 			     enum dma_data_direction dir);
- int dma_buf_end_cpu_access(struct dma_buf *dma_buf,
- 			   enum dma_data_direction dir);
-+struct sg_table *
-+dma_buf_map_attachment_unlocked(struct dma_buf_attachment *attach,
-+				enum dma_data_direction direction);
-+void dma_buf_unmap_attachment_unlocked(struct dma_buf_attachment *attach,
-+				       struct sg_table *sg_table,
-+				       enum dma_data_direction direction);
- 
- int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
- 		 unsigned long);
+-	map->table = dma_buf_map_attachment(map->attach, DMA_BIDIRECTIONAL);
++	map->table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
+ 	if (IS_ERR(map->table)) {
+ 		err = PTR_ERR(map->table);
+ 		goto map_err;
 -- 
 2.37.2
 
