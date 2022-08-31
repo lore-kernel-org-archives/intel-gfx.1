@@ -4,73 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D585CC54EE9
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FC3AECAAA1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B03610E687;
-	Tue,  6 Sep 2022 12:34:24 +0000 (UTC)
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD7B710E44F;
- Mon,  5 Sep 2022 16:32:18 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id by6so9717067ljb.11;
- Mon, 05 Sep 2022 09:32:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:from:to:cc:subject:date;
- bh=8JQHR0mNkkvaucEp4HNFvrtWVwipxgdCyYirWkcxCuc=;
- b=Ee8/zXiC17K5Rmn0dM8r0JytBnfg1FnzFfKZcmoJMYt08MtgAEUEjpKH7+0UHsqlkK
- BZrCCHBnA1Je5o+/sxNlA3yrl0TxM37U7XpZXjbsaVxHKMl2x7PzYQchiiwPobO+z7V/
- tYJCFJd1YCvEbeeLM6BvAS/M1DUr6tpSFJVdgoRwA8WStFNY9E6PPHdk4RZZCOrggakT
- xyQ8/6DOwLr6S51gainQauwtIl7r4PsEHnn/94yga+F5jpf0cp7C0OxDPl+JWqQDMoGv
- UZySK3bX2kiLPPNYAc06FY4U1q0dxZf5LlWu/claShZQeiMPrvC2bab0MTV9I+5YA40i
- L12g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:x-gm-message-state:from:to:cc:subject:date;
- bh=8JQHR0mNkkvaucEp4HNFvrtWVwipxgdCyYirWkcxCuc=;
- b=EE4eyaTrT0YQ5eN2QI+aVkhSCvGriBL7Kr/8sPd5LUHF2br+9OTfonZPfwxDxAVCJm
- Ou+fkmKti7Sl8VWRdlmvWzMBQQ40JPCgZhwg5rfrFrVMxm3lpeqQIoRFbM/O3wMzFqOh
- Vmt9Cj1AAVFTD2UQ3N+lWH7hg3CgGmRRakbD4THiXGrOWClIying5TkVd1E1l30Q0DIK
- iwypk5HinwUNQQgjK5NUYHNrqeNwm+QR95UTKZVSojZfpLlsTl6wrqjRphpkwXVInUxY
- uUsgjjMLb+peTkl0EWHXHaCjHe7660+9i80xzuhgNN0bzBziyl1T0lTquxYU/IvDKioJ
- 11IA==
-X-Gm-Message-State: ACgBeo0+JGE2T9EPArA2/pYbDW2rCj0iDc2LbDFEAAc4IY/yYfK4imyc
- NU07X8EDG/nrN+IqipiwiEz15JwPPcrdbg==
-X-Google-Smtp-Source: AA6agR47yvdHHgnlIjy9Ip2njnz0g5/SwgXMzTGVjcmNgzpxzvtvdxNNmmfmzBYcTnu1KYoufiDMaA==
-X-Received: by 2002:a2e:88d2:0:b0:263:2c63:d784 with SMTP id
- a18-20020a2e88d2000000b002632c63d784mr11481762ljk.12.1662395536908; 
- Mon, 05 Sep 2022 09:32:16 -0700 (PDT)
-Received: from ?IPV6:2a02:a31a:a240:1700:9c45:8fa1:8ce7:8852?
- ([2a02:a31a:a240:1700:9c45:8fa1:8ce7:8852])
- by smtp.googlemail.com with ESMTPSA id
- q13-20020a056512210d00b004946a758d21sm1235189lfr.161.2022.09.05.09.32.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Sep 2022 09:32:16 -0700 (PDT)
-From: Mateusz Kwiatkowski <kfyatek@gmail.com>
-X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
-Message-ID: <6ac67d1f-e5b5-2687-372f-4146eed5cc5d@gmail.com>
-Date: Mon, 5 Sep 2022 18:32:14 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 125EB10E68D;
+	Tue,  6 Sep 2022 12:34:26 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D6F810E43B;
+ Wed, 31 Aug 2022 15:40:09 +0000 (UTC)
+Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id ECE2C6601DF6;
+ Wed, 31 Aug 2022 16:40:04 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661960407;
+ bh=tqdR/oZFKJHCKMAPiT2kfONL23uSAzfC/46PfISfXXw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Y0fbl/3rC8aDDsV0MV7a9HOp3kNjBbJX9SYbDtxmYtk8yjvc3rkHWo5M8ppTQpiKa
+ ZzUliICistENhQk2agFlqmQiTp9XBNKykfoC0xrSjlabl/sYIiptJ55Vd9WhuB5sHF
+ M0epvMhwyEmDbwWQB9RhA7iBFtTNh5z+Kg66Z9GjBDMpjKs7r06OoiiUn/FWcoOrZ7
+ PuA498YAz+IjOVSyibs7Gaqf/MxVpZRU7bCAUqLOVJRCxTQXuEcSR+Uo1YTTXj70x5
+ r85mxWtpRWHr89Anv7IJ3wzhus4eLyo4K7PY2M2YcPnS7HNoFcR7R4AzBZiWm3uVdY
+ IqAW+I5pxeilA==
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Wed, 31 Aug 2022 18:37:53 +0300
+Message-Id: <20220831153757.97381-18-dmitry.osipenko@collabora.com>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.1
-Content-Language: pl
-To: Maxime Ripard <maxime@cerno.tech>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-10-459522d653a7@cerno.tech>
- <242d272b-5b79-986c-9aaf-64e62f6b37ff@gmail.com>
- <CAMuHMdWq3aOO4-2AReDeaC2VBJb=QJF2dTMZP=DGmwCg6ZOffA@mail.gmail.com>
- <20220905133251.js26hxdosibx4r4i@houat>
-In-Reply-To: <20220905133251.js26hxdosibx4r4i@houat>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 10/41] drm/modes: Add a function to
- generate analog display modes
+Subject: [Intel-gfx] [PATCH v4 17/21] dma-buf: Move dma_buf_map_attachment()
+ to dynamic locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,62 +85,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
- Nouveau Dev <nouveau@lists.freedesktop.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Phil Elwell <phil@raspberrypi.com>, Emma Anholt <emma@anholt.net>,
- Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Ben Skeggs <bskeggs@redhat.com>, linux-sunxi@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+Move dma-buf attachment mapping functions to the dynamic locking
+specification by asserting that the reservation lock is held.
 
-W dniu 5.09.2022 o 15:32, Maxime Ripard pisze:
-> Hi,
->
-> On Wed, Aug 31, 2022 at 10:14:28AM +0200, Geert Uytterhoeven wrote:
->>>> +enum drm_mode_analog {
->>>> +    DRM_MODE_ANALOG_NTSC,
->>>> +    DRM_MODE_ANALOG_PAL,
->>>> +};
->>>
->>> Using "NTSC" and "PAL" to describe the 50Hz and 60Hz analog TV modes is common,
->>> but strictly speaking a misnomer. Those are color encoding systems, and your
->>> patchset fully supports lesser used, but standard encodings for those (e.g.
->>> PAL-M for 60Hz and SECAM for 50Hz). I'd propose switching to some more neutral
->>> naming scheme. Some ideas:
->>>
->>> - DRM_MODE_ANALOG_60_HZ / DRM_MODE_ANALOG_50_HZ (after standard refresh rate)
->>> - DRM_MODE_ANALOG_525_LINES / DRM_MODE_ANALOG_625_LINES (after standard line
->>>   count)
->>
->> IMHO these are bad names, as e.g. VGA640x480@60 is also analog, using
->> 60 Hz and 525 lines.  Add "TV" to the name?
->>
->>> - DRM_MODE_ANALOG_JM / DRM_MODE_ANALOG_BDGHIKLN (after corresponding ITU System
->>>   Letter Designations)
->>
->> Or DRM_MODE_ITU_*?
->> But given the long list of letters, this looks fragile to me.
->
-> Does it matter at all? It's an internal API that isn't exposed at all.
-> I'd rather have a common name that everyone can understand in this case
-> rather than a *perfect* name where most will scratch their head
-> wondering what it's about.
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+---
+ drivers/dma-buf/dma-buf.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-You may have a point. But in that case, maybe it'd make sense to at least add
-a short comment explaining what do you mean by "NTSC" and "PAL" in this context?
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 073942bf5ae9..8e928fe6e8df 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1037,8 +1037,7 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
+ 	if (WARN_ON(!attach || !attach->dmabuf))
+ 		return ERR_PTR(-EINVAL);
+ 
+-	if (dma_buf_attachment_is_dynamic(attach))
+-		dma_resv_assert_held(attach->dmabuf->resv);
++	dma_resv_assert_held(attach->dmabuf->resv);
+ 
+ 	if (attach->sgt) {
+ 		/*
+@@ -1053,7 +1052,6 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
+ 	}
+ 
+ 	if (dma_buf_is_dynamic(attach->dmabuf)) {
+-		dma_resv_assert_held(attach->dmabuf->resv);
+ 		if (!IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY)) {
+ 			r = attach->dmabuf->ops->pin(attach);
+ 			if (r)
+@@ -1142,15 +1140,11 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *attach,
+ 	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
+ 		return;
+ 
+-	if (dma_buf_attachment_is_dynamic(attach))
+-		dma_resv_assert_held(attach->dmabuf->resv);
++	dma_resv_assert_held(attach->dmabuf->resv);
+ 
+ 	if (attach->sgt == sg_table)
+ 		return;
+ 
+-	if (dma_buf_is_dynamic(attach->dmabuf))
+-		dma_resv_assert_held(attach->dmabuf->resv);
+-
+ 	__unmap_dma_buf(attach, sg_table, direction);
+ 
+ 	if (dma_buf_is_dynamic(attach->dmabuf) &&
+-- 
+2.37.2
 
-Best regards,
-Mateusz Kwiatkowski
