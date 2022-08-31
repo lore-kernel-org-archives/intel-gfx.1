@@ -4,58 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B83ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:34:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20C86ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:34:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C194410E66D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1BC510E670;
 	Tue,  6 Sep 2022 12:34:18 +0000 (UTC)
-Received: from smtp.domeneshop.no (smtp.domeneshop.no
- [IPv6:2a01:5b40:0:3005::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6367C10E35D;
- Tue, 30 Aug 2022 18:37:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
- ; s=ds202112;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jpEYN07ng1p1k4JMUOjV6laIOSRv7F+n3Ots9iXgaiI=; b=P5mpqSBO2bmeMCABz1L/7uZ1rK
- KXueoPKIqk3NZ/awAOvafdjGp/1wJnjdkkxFIcDfuVZWVFeyrdvtdinB23o/BX1y3uNPmPrcq+U+4
- 4u+p8NTm8pomQcLkfRhAYNp2J2QbywiIoQEEGpfTZOtAxsfvA9baPJwO3xplisnqFXdXZEP5GE5W2
- CKOqzs1/u9hN6RU0gp3IeYL7JIYUvlI7b8vjIhCYipEyxo960qBRd7XTSZmv4vt4eNRPbNKiQErGJ
- HQ3F9UJzCly7+02p26u/sjZ1OvXv/G0w5ZSOvV8CAjO92/jAJ87abobBMUPYEvEJbrShsdJ6NgX+l
- g1ayhYdA==;
-Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=62540)
- by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <noralf@tronnes.org>)
- id 1oT66c-0006sf-4N; Tue, 30 Aug 2022 20:36:58 +0200
-Message-ID: <24d5ee78-ccd1-1427-691b-152cb734a188@tronnes.org>
-Date: Tue, 30 Aug 2022 20:36:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
- Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
- Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 474E210E448;
+ Wed, 31 Aug 2022 15:40:12 +0000 (UTC)
+Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 1817B6601F08;
+ Wed, 31 Aug 2022 16:40:08 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1661960411;
+ bh=wM9CtxO7g+I2MDvrzT3LZe35Eb7d1xKXFtly+o9W8Ak=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=dnGv0uxhtNMBxsdvy3hH+pPM5/F2s6xH4ZhZcnNjO08lYkNBDqZm4iMB3nemHgWFB
+ xB/nRvHipZ2WOZ5Kqpkf56IU/2D3DvGF8Ukp4zZCKoG7ndRQ+r8cINug8sgCQnMTH7
+ saMR0YeItwmYev/7tzwNgcXa1oRjErFEjeAAZMZPlax5q8kI+a/wG7coEm1oVYHaeI
+ Kw0kAckg2QNpLnwZqNiSOQmKc+EGEjXs1gswAZIvlxq/ggU62BRAwq838pQ6IwjI/9
+ FK9xl6sHtEO4DnPpF7PMp4LzNmCD4DaNMXlGCvkAiyNSG8GlqH5e+cf1vhxAdtfnJB
+ cCB0V24HbPT+A==
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
- Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-29-459522d653a7@cerno.tech>
-From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-29-459522d653a7@cerno.tech>
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Wed, 31 Aug 2022 18:37:54 +0300
+Message-Id: <20220831153757.97381-19-dmitry.osipenko@collabora.com>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 29/41] drm/vc4: vec: Switch for common
- modes
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
+Subject: [Intel-gfx] [PATCH v4 18/21] dma-buf: Move dma_buf_mmap() to
+ dynamic locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,129 +86,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Move dma_buf_mmap() function to the dynamic locking specification by
+taking the reservation lock. Neither of the today's drivers take the
+reservation lock within the mmap() callback, hence it's safe to enforce
+the locking.
 
+Acked-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+---
+ drivers/dma-buf/dma-buf.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Den 29.08.2022 15.11, skrev Maxime Ripard:
-> Now that the core has a definition for the 525 and 625 lines analog TV
-> 
-> modes, let's switch to it for vc4.
-> 
-> 
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> 
-> 
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
-> 
-> index d1d40b69279e..63e4e617e321 100644
-> 
-> --- a/drivers/gpu/drm/vc4/vc4_vec.c
-> 
-> +++ b/drivers/gpu/drm/vc4/vc4_vec.c
-> 
-> @@ -224,38 +224,24 @@ static const struct debugfs_reg32 vec_regs[] = {
-> 
->  	VC4_REG32(VEC_DAC_MISC),
-> 
->  };
-> 
->  
-> 
-> -static const struct drm_display_mode ntsc_mode = {
-> 
-> -	DRM_MODE("720x480", DRM_MODE_TYPE_DRIVER, 13500,
-> 
-> -		 720, 720 + 14, 720 + 14 + 64, 720 + 14 + 64 + 60, 0,
-> 
-> -		 480, 480 + 7, 480 + 7 + 6, 525, 0,
-> 
-> -		 DRM_MODE_FLAG_INTERLACE)
-> 
-> -};
-> 
-> -
-> 
-> -static const struct drm_display_mode pal_mode = {
-> 
-> -	DRM_MODE("720x576", DRM_MODE_TYPE_DRIVER, 13500,
-> 
-> -		 720, 720 + 20, 720 + 20 + 64, 720 + 20 + 64 + 60, 0,
-> 
-> -		 576, 576 + 4, 576 + 4 + 6, 625, 0,
-> 
-> -		 DRM_MODE_FLAG_INTERLACE)
-> 
-> -};
-> 
-> -
-> 
->  static const struct vc4_vec_tv_mode vc4_vec_tv_modes[] = {
-> 
->  	[VC4_VEC_TV_MODE_NTSC] = {
-> 
-> -		.mode = &ntsc_mode,
-> 
-> +		.mode = &drm_mode_480i,
-> 
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 8e928fe6e8df..d9130486cb8f 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1389,6 +1389,8 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_end_cpu_access, DMA_BUF);
+ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
+ 		 unsigned long pgoff)
+ {
++	int ret;
++
+ 	if (WARN_ON(!dmabuf || !vma))
+ 		return -EINVAL;
+ 
+@@ -1409,7 +1411,11 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
+ 	vma_set_file(vma, dmabuf->file);
+ 	vma->vm_pgoff = pgoff;
+ 
+-	return dmabuf->ops->mmap(dmabuf, vma);
++	dma_resv_lock(dmabuf->resv, NULL);
++	ret = dmabuf->ops->mmap(dmabuf, vma);
++	dma_resv_unlock(dmabuf->resv);
++
++	return ret;
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_mmap, DMA_BUF);
+ 
+-- 
+2.37.2
 
-I can't find drm_mode_480i anywhere, maybe the compiler doesn't complain
-since you remove the reference in a later patch?
-
-Noralf.
-
->  		.config0 = VEC_CONFIG0_NTSC_STD | VEC_CONFIG0_PDEN,
-> 
->  		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
-> 
->  	},
-> 
->  	[VC4_VEC_TV_MODE_NTSC_J] = {
-> 
-> -		.mode = &ntsc_mode,
-> 
-> +		.mode = &drm_mode_480i,
-> 
->  		.config0 = VEC_CONFIG0_NTSC_STD,
-> 
->  		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
-> 
->  	},
-> 
->  	[VC4_VEC_TV_MODE_PAL] = {
-> 
-> -		.mode = &pal_mode,
-> 
-> +		.mode = &drm_mode_576i,
-> 
->  		.config0 = VEC_CONFIG0_PAL_BDGHI_STD,
-> 
->  		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
-> 
->  	},
-> 
->  	[VC4_VEC_TV_MODE_PAL_M] = {
-> 
-> -		.mode = &pal_mode,
-> 
-> +		.mode = &drm_mode_576i,
-> 
->  		.config0 = VEC_CONFIG0_PAL_BDGHI_STD,
-> 
->  		.config1 = VEC_CONFIG1_C_CVBS_CVBS | VEC_CONFIG1_CUSTOM_FREQ,
-> 
->  		.custom_freq = 0x223b61d1,
-> 
-> 
-> 
