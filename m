@@ -4,75 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A354EECAAD5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1E34ECAAA1
 	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 833FC10E65E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A6C10E65D;
 	Tue,  6 Sep 2022 12:35:36 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF0110E436;
- Wed, 31 Aug 2022 15:39:28 +0000 (UTC)
-Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 17BD46601DEC;
- Wed, 31 Aug 2022 16:39:24 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960367;
- bh=hr6PZ3PZkgZIDKEVGvhp21Gu2CuOWzIjLk/98UZ+6+w=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PbFxKLmk+yhPhvKt9j8QVXmIw3tFBmxIHwOaI1NCTabYelI/2jFQvI65VaYm3+s++
- MRIQEDt5ISJBMdrdoTQCXJgzNgOmJOLrfeGPdhTJXI2drR7V8ScO8bU5m2xKWENMeM
- 9OB1vZA4eP9ohRHPaXK5e9vk5hTztfkhkoiMzMlnBYgA1bJxheMaX18kZaPRgaKngO
- N2O1dlB9993AUt3rO2cNoIkWWagjiVkM5WGi7Nfy7fZGANwkCarb1aMEW3PPRaVxgU
- c+t34gdLxh0x2+bBu+C5rfWrjRIjNQH6njd1ho1cgESu7rOA4CoIpHnpNWDXKMt2YD
- oaM9pP9AD/2Ow==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3B9310E03D;
+ Wed, 31 Aug 2022 19:14:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202112;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=lFykXXuh414AMHOUrkjMCmREYuLQabBQPnrg6lAfPPY=; b=ZZ198Xf6PPUp/l53rhljFuGMcF
+ 4zuRseMWeZpoj311RIFnjrUYtADjn9wuJNnEsMO5CjZC+xEdH2c5qjeG0ILG3eq0DkS+/UAuBjtmA
+ lj9MawJD7bAGX1645naLEYPOhTdWjb1DKDqwDt5sCid+4EKbwJJ+m1nntHZqZTCOwtH2m0Y9w0pvq
+ ypgdce4iD49nSDTQOHr/OQAfe1DigWSkskMg6tndHXcqQjah9nFLMqXz3YF7rBpOLW1ZK9v7rG2Lt
+ fwCHewKIgkfbPSZuTdFO+kk9VvsODXV4OOvjxUHa5qpzXfN6R8L2vlOWdmejD3IUudqW/Bg3YIvS9
+ NvG7WR9A==;
+Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=57178)
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1oTTAj-0002O5-TA; Wed, 31 Aug 2022 21:14:45 +0200
+Message-ID: <dab9899b-b3e5-b99f-7219-9b5efa3a3591@tronnes.org>
+Date: Wed, 31 Aug 2022 21:14:36 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
+ Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Wed, 31 Aug 2022 18:37:40 +0300
-Message-Id: <20220831153757.97381-5-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
-Subject: [Intel-gfx] [PATCH v4 04/21] drm/prime: Prepare to dynamic dma-buf
- locking specification
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-18-459522d653a7@cerno.tech>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-18-459522d653a7@cerno.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 18/41] drm/connector: Add a function to
+ lookup a TV mode by its name
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,54 +68,138 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prepare DRM prime core to the common dynamic dma-buf locking convention
-by starting to use the unlocked versions of dma-buf API functions.
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- drivers/gpu/drm/drm_prime.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index eb09e86044c6..20e109a802ae 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -940,7 +940,7 @@ struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
- 
- 	get_dma_buf(dma_buf);
- 
--	sgt = dma_buf_map_attachment(attach, DMA_BIDIRECTIONAL);
-+	sgt = dma_buf_map_attachment_unlocked(attach, DMA_BIDIRECTIONAL);
- 	if (IS_ERR(sgt)) {
- 		ret = PTR_ERR(sgt);
- 		goto fail_detach;
-@@ -958,7 +958,7 @@ struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
- 	return obj;
- 
- fail_unmap:
--	dma_buf_unmap_attachment(attach, sgt, DMA_BIDIRECTIONAL);
-+	dma_buf_unmap_attachment_unlocked(attach, sgt, DMA_BIDIRECTIONAL);
- fail_detach:
- 	dma_buf_detach(dma_buf, attach);
- 	dma_buf_put(dma_buf);
-@@ -1056,7 +1056,7 @@ void drm_prime_gem_destroy(struct drm_gem_object *obj, struct sg_table *sg)
- 
- 	attach = obj->import_attach;
- 	if (sg)
--		dma_buf_unmap_attachment(attach, sg, DMA_BIDIRECTIONAL);
-+		dma_buf_unmap_attachment_unlocked(attach, sg, DMA_BIDIRECTIONAL);
- 	dma_buf = attach->dmabuf;
- 	dma_buf_detach(attach->dmabuf, attach);
- 	/* remove the reference */
--- 
-2.37.2
+Den 29.08.2022 15.11, skrev Maxime Ripard:
+> As part of the command line parsing rework coming in the next patches,
+> 
+> we'll need to lookup drm_connector_tv_mode values by their name, already
+> 
+> defined in drm_tv_mode_enum_list.
+> 
+> 
+> 
+> In order to avoid any code duplication, let's do a function that will
+> 
+> perform a lookup of a TV mode name and return its value.
+> 
+> 
+> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> 
+> 
+> 
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> 
+> index b1fcacd150e8..0fe01a1c20ad 100644
+> 
+> --- a/drivers/gpu/drm/drm_connector.c
+> 
+> +++ b/drivers/gpu/drm/drm_connector.c
+> 
+> @@ -1003,6 +1003,30 @@ static const struct drm_prop_enum_list drm_tv_mode_enum_list[] = {
+> 
+>  };
+> 
+>  DRM_ENUM_NAME_FN(drm_get_tv_mode_name, drm_tv_mode_enum_list)
+> 
+>  
+> 
+> +/**
+> 
+> + * drm_get_tv_mode_from_name - Translates a TV mode name into its enum value
+> 
+> + * @name: TV Mode name we want to convert
+> 
+> + * @len: Length of @name
+> 
+> + *
+> 
+> + * Translates @name into an enum drm_connector_tv_mode.
+> 
+> + *
+> 
+> + * Returns: the enum value on success, a negative errno otherwise.
+> 
+> + */
+> 
+> +int drm_get_tv_mode_from_name(const char *name, size_t len)
+> 
+> +{
+> 
+> +	unsigned int i;
+> 
+> +
+> 
+> +	for (i = 0; i < ARRAY_SIZE(drm_tv_mode_enum_list); i++) {
+> 
+> +		const struct drm_prop_enum_list *item = &drm_tv_mode_enum_list[i];
+> 
+> +
+> 
+> +		if (strlen(item->name) == len && !strncmp(item->name, name, len))
+> 
+> +			return item->type;
+> 
+> +	}
+> 
+> +
+> 
+> +	return -EINVAL;
+> 
+> +}
+> 
+> +EXPORT_SYMBOL(drm_get_tv_mode_from_name)
 
+Missing semicolon.
+
+Noralf.
+
+> 
+> +
+> 
+>  static const struct drm_prop_enum_list drm_tv_select_enum_list[] = {
+> 
+>  	{ DRM_MODE_SUBCONNECTOR_Automatic, "Automatic" }, /* DVI-I and TV-out */
+> 
+>  	{ DRM_MODE_SUBCONNECTOR_Composite, "Composite" }, /* TV-out */
+> 
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> 
+> index bb39d2bb806e..49d261977d4e 100644
+> 
+> --- a/include/drm/drm_connector.h
+> 
+> +++ b/include/drm/drm_connector.h
+> 
+> @@ -1943,6 +1943,8 @@ const char *drm_get_dp_subconnector_name(int val);
+> 
+>  const char *drm_get_content_protection_name(int val);
+> 
+>  const char *drm_get_hdcp_content_type_name(int val);
+> 
+>  
+> 
+> +int drm_get_tv_mode_from_name(const char *name, size_t len);
+> 
+> +
+> 
+>  int drm_mode_create_dvi_i_properties(struct drm_device *dev);
+> 
+>  void drm_connector_attach_dp_subconnector_property(struct drm_connector *connector);
+> 
+>  
+> 
+> 
+> 
