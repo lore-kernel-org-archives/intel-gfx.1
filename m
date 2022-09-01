@@ -4,55 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0A5EECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A9A6ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C71310E662;
-	Tue,  6 Sep 2022 12:35:41 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 518AD10E034;
- Mon,  5 Sep 2022 04:48:10 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id nc14so14636553ejc.4;
- Sun, 04 Sep 2022 21:48:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 771A510E67D;
+	Tue,  6 Sep 2022 12:35:42 +0000 (UTC)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDD610E33B;
+ Thu,  1 Sep 2022 22:00:39 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id bt10so724051lfb.1;
+ Thu, 01 Sep 2022 15:00:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=V84qcp9DlZSlObBKnnLO7DSo4j7RpB5UAIcq4lon1b0=;
- b=WAWvZqfpx/FUHk/V9RvVXeus18VpEaln451ZEnC5du6MR8RODpagI1k2ce2QPrj8iK
- lTp0T00ZeBK1zScY1clw225JFKIqo3HROg3cBcLT4E8QcWrtr3KGORcz4AzA0rdnapKZ
- 1kJRA0XWgBTIfuYPZMVyOrPZkng+qEqEkg+zzNkDRa6yipyWl5PQUa/s5ihANRj8v86Y
- fuRaaTZwsTgmVgppE0OPKrYnKLr/qJHQMbILBCk+jejYIAamhaJfHM5Z2JtmC+4zYS4B
- Z0oFzX2Sqyx63t5VaQwUXaF/5KfGjBPWKy9Pud1gV8M9VaOkwtYD1TqtsGMC/4ThCmA0
- i1rg==
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:from:to:cc;
+ bh=9ZOA/uLVkdbadD8sl+x2FgrUVnWNaT54IH6CMV7M0qU=;
+ b=LHm7XQKmoioehKLe+x8wv4sg51dxY3iK7GBIf0ie+fcfdWHmpj8uhKVo1qfStRYUDt
+ hYYwKyXLa6F8Vss8qsGXnhsSbaWjrIFZiJWH0w+6WT1drr8SW/5N5uWQUY13CtCu8RT7
+ XFGF/pp/ZAdp6alq7wI37+qWMkMsD15jW9A1A3zaqPv8x1Ugm06xru39RntLJn/t21Zd
+ Io+z1YLdKsVMwCmBwJgUdIXcFGDcNDdzsiH8DINgDlhluHlE98GV0dVvSpde0N5jFpG/
+ 4M6RwAzfFXYpV1BXP/VnjdTCqnFT6/utQ9dJtdN/u84FrH7SItMET/4Tm6x8CjaYhOPO
+ 0DtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=V84qcp9DlZSlObBKnnLO7DSo4j7RpB5UAIcq4lon1b0=;
- b=apYAfJuIGBhnXd8+5qIU/4vViNZfiidysX+N/wHJCaz8/A033A9gUz/wyAoATBT6Yh
- t9+3L9MOomfgZ8IwuY/JuXUEnTSMe9fEXNj3xQBF9Gvyftzwqipv12k5KfZ4ARZpStLy
- dGfWZaL4quiKrGuKylalEdxDcACtQdFvPHokhZJGDPNocN2jj4hXnTWfdtV5RA2KJk/P
- 560UaF2hvl5eiKiB/HkNJE5c/jTltxBl7Px18SgIn/s8U+a1pJhFYYYr9gKQveYHdKwI
- 4Q3l9voqc3GDTfsnpTHbK4LOZYvNXQpJ+G9lACElZRlc0fZ5CjA6BEOy5TERkXrgxH3L
- rkgA==
-X-Gm-Message-State: ACgBeo3wJqneGsZTepDKu9C9Ep9rZr/MvwoBctRo17qDA3imBnEPyY7j
- zAMud3aqqOGkPvkxOAoBNFkrq5QtGjrkOT/Lsp0=
-X-Google-Smtp-Source: AA6agR6YKvNJo8UV69kqLZfNJ8Yyz0p+ORxRwzRlHng2f2KrAkfUUplDmEIZovnnZYWz1GqQ1CvAG7Z/Ugmg1NWsiHo=
-X-Received: by 2002:a17:907:9706:b0:741:64ca:ae10 with SMTP id
- jg6-20020a170907970600b0074164caae10mr25937397ejc.364.1662353288532; Sun, 04
- Sep 2022 21:48:08 -0700 (PDT)
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:x-gm-message-state:from:to:cc;
+ bh=9ZOA/uLVkdbadD8sl+x2FgrUVnWNaT54IH6CMV7M0qU=;
+ b=gGQkfy3UtYK3mMTYfQWTCfVx/9Ze79mtVuNrVg+SoLNrcMtv/qC+b8FnzACzQWXN7/
+ dYn/jSOEjEhtJKRACSgXtD4gJmDPRweYdOoF04dE16pZo9oNKjTPN+h6u+OK200/lqcX
+ bYhkmhtDZVrj13FbTyKF5ZXWHu25uSLN0evBGsITjvAoXZMdI9hICrFj7hTzHARIdfQh
+ BWwV+g+mjBXG12WKto286WtTk9tN8vCCvmvlHaY0PJNf9g6VmPVWAPwu75KJiKyOyUxV
+ bEoWOcboL7fxkpEQ9mFTDh3gkg+SVBYtZBnr/r7dzHlYuC0+yNhFGQPE4ef6OE5Gg1TU
+ iC1A==
+X-Gm-Message-State: ACgBeo0jx+LmuBto2+1P/FjTOn/FoQa3M4YNG6cGBEPtpgj2lUfssZJd
+ Wyil5+G/0GV6hmi3FcFmN1s=
+X-Google-Smtp-Source: AA6agR4a/l8hP1u0P8WpD1zmFedHFbGPzszs2HMqNR8fDJ9LD3T/K1IWhmRhwuymqEvOv4w8sp3YdA==
+X-Received: by 2002:a05:6512:3503:b0:481:4470:4134 with SMTP id
+ h3-20020a056512350300b0048144704134mr11024002lfs.42.1662069637088; 
+ Thu, 01 Sep 2022 15:00:37 -0700 (PDT)
+Received: from ?IPV6:2a02:a31a:a240:1700:9c45:8fa1:8ce7:8852?
+ ([2a02:a31a:a240:1700:9c45:8fa1:8ce7:8852])
+ by smtp.googlemail.com with ESMTPSA id
+ w15-20020a2e160f000000b0025e4e7c016dsm25477ljd.16.2022.09.01.15.00.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 01 Sep 2022 15:00:36 -0700 (PDT)
+From: Mateusz Kwiatkowski <kfyatek@gmail.com>
+X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Message-ID: <30a9d7cd-d9ff-3177-ac6c-e7c1f966d89a@gmail.com>
+Date: Fri, 2 Sep 2022 00:00:33 +0200
 MIME-Version: 1.0
-References: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
-In-Reply-To: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
-From: Zheng Hacker <hackerzheng666@gmail.com>
-Date: Mon, 5 Sep 2022 12:47:57 +0800
-Message-ID: <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
-To: xmzyshypnc <1002992920@qq.com>
-Content-Type: multipart/alternative; boundary="0000000000004116c505e7e6c96a"
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: fix double-free bug in
- split_2MB_gtt_entry.
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.0
+Content-Language: pl
+To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
+ Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-9-459522d653a7@cerno.tech>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-9-459522d653a7@cerno.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 09/41] drm/connector: Add TV standard
+ property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,124 +91,118 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex000young@gmail.com, security@kernel.org,
- dri-devel@lists.freedesktop.org, airlied@linux.ie,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
- rodrigo.vivi@intel.com, intel-gvt-dev@lists.freedesktop.org
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Phil Elwell <phil@raspberrypi.com>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---0000000000004116c505e7e6c96a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Maxime,
 
-Hello everyone,
+W dniu 29.08.2022 o 15:11, Maxime Ripard pisze:
+> The TV mode property has been around for a while now to select and get the
+> current TV mode output on an analog TV connector.
+>
+> Despite that property name being generic, its content isn't and has been
+> driver-specific which makes it hard to build any generic behaviour on top
+> of it, both in kernel and user-space.
+>
+> Let's create a new bitmask tv norm property, that can contain any of the
+> analog TV standards currently supported by kernel drivers. Each driver can
+> then pass in a bitmask of the modes it supports.
 
-I'm Zheng Wang. I found a potential double-free bug
-in drivers/gpu/drm/i915/gvt/gtt.c. I haven't been replied for a long time.
-So I decided to send it to more relavent supporters and developers to help
-to solve the problem.
+This is not a bitmask property anymore, you've just changed it to an enum.
+The commit message is now misleading.
+
+> +static const struct drm_prop_enum_list drm_tv_mode_enum_list[] = {
+> +    { DRM_MODE_TV_MODE_NTSC_443, "NTSC-443" },
+> +    { DRM_MODE_TV_MODE_NTSC_J, "NTSC-J" },
+> +    { DRM_MODE_TV_MODE_NTSC_M, "NTSC-M" },
+> +    { DRM_MODE_TV_MODE_PAL_60, "PAL-60" },
+> +    { DRM_MODE_TV_MODE_PAL_B, "PAL-B" },
+> +    { DRM_MODE_TV_MODE_PAL_D, "PAL-D" },
+> +    { DRM_MODE_TV_MODE_PAL_G, "PAL-G" },
+> +    { DRM_MODE_TV_MODE_PAL_H, "PAL-H" },
+> +    { DRM_MODE_TV_MODE_PAL_I, "PAL-I" },
+> +    { DRM_MODE_TV_MODE_PAL_M, "PAL-M" },
+> +    { DRM_MODE_TV_MODE_PAL_N, "PAL-N" },
+> +    { DRM_MODE_TV_MODE_PAL_NC, "PAL-Nc" },
+> +    { DRM_MODE_TV_MODE_SECAM_60, "SECAM-60" },
+> +    { DRM_MODE_TV_MODE_SECAM_B, "SECAM-B" },
+> +    { DRM_MODE_TV_MODE_SECAM_D, "SECAM-D" },
+> +    { DRM_MODE_TV_MODE_SECAM_G, "SECAM-G" },
+> +    { DRM_MODE_TV_MODE_SECAM_K, "SECAM-K" },
+> +    { DRM_MODE_TV_MODE_SECAM_K1, "SECAM-K1" },
+> +    { DRM_MODE_TV_MODE_SECAM_L, "SECAM-L" },
+> +};
+
+I did not comment on it the last time, but this list looks a little bit random.
+
+Compared to the standards defined by V4L2, you also define SECAM-60 (a good
+thing to define, because why not), but don't define PAL-B1, PAL-D1, PAL-K,
+SECAM-H, SECAM-LC (whatever that is - probably just another name for SECAM-L,
+see my comment about PAL-Nc below), or NTSC-M-KR (a Korean variant of NTSC).
+
+Like I mentioned previously, I'm personally not a fan of including all those
+CCIR/ITU system variants, as they don't mean any difference to the output unless
+there is an RF modulator involved. But I get it that they have already been used
+and regressing probably wouldn't be a very good idea. But in that case keeping
+it consistent with the set of values used by V4L2 would be wise, I think.
+
+> +/**
+> + * drm_mode_create_tv_properties - create TV specific connector properties
+> + * @dev: DRM device
+> + * @supported_tv_modes: Bitmask of TV modes supported (See DRM_MODE_TV_MODE_*)
+> +
+> + * Called by a driver's TV initialization routine, this function creates
+> + * the TV specific connector properties for a given device.  Caller is
+> + * responsible for allocating a list of format names and passing them to
+> + * this routine.
+> + *
+> + * Returns:
+> + * 0 on success or a negative error code on failure.
+> + */
+> +int drm_mode_create_tv_properties(struct drm_device *dev,
+> +                  unsigned int supported_tv_modes)
+
+supported_tv_modes is supposed to be a bitmask of BIT(DRM_MODE_TV_MODE_*)
+(or (1<<DRM_MODE_TV_MODE_*)) rather than DRM_MODE_TV_MODE_* directly, but this
+is not said explicitly anywhere in this doc comment.
+
+> +    /**
+> +     * @DRM_MODE_TV_MODE_PAL_NC: Seems equivalent to
+> +     * @DRM_MODE_TV_MODE_PAL_N.
+> +     */
+> +    DRM_MODE_TV_MODE_PAL_NC,
+
+AFAIK, the entire reason that "PAL-Nc" is ever mentioned as something separate
+from PAL-N is a result of a misunderstanding or misreading of the CCIR/ITU
+documents. See also the posting signed as Alchaemist here:
+https://en.wikipedia.org/wiki/Talk:PAL#PAL-N_versus_PAL-Nc
+
+That being said, we probably want to keep it if we want to remaing compatible
+with the loads of software and drivers which enumerate those as separate
+systems. But from a technical standpoint, PAL-N and PAL-Nc (and N/PAL, PAL-CN
+etc.) are just different "spellings" referring to exactly the same system.
+
+> +    /**
+> +     * @DRM_MODE_TV_MODE_SECAM_K: CCIR System G together with the
+> +     * SECAM color system. Similar to @DRM_MODE_TV_MODE_SECAM_G but
+> +     * with different channels.
+> +     */
+> +    DRM_MODE_TV_MODE_SECAM_K,
+> +
+> +    /**
+> +     * @DRM_MODE_TV_MODE_SECAM_K1: CCIR System G together with the
+> +     * SECAM color system. Similar to @DRM_MODE_TV_MODE_SECAM_G and
+> +     * @DRM_MODE_TV_MODE_SECAM_K but with different channels.
+> +     */
+> +    DRM_MODE_TV_MODE_SECAM_K1,
+
+Typos: you meant CCIR Systems K and K1, not System G.
 
 Best regards,
-Zheng Wang.
-
-xmzyshypnc <1002992920@qq.com> =E4=BA=8E2022=E5=B9=B49=E6=9C=884=E6=97=A5=
-=E5=91=A8=E6=97=A5 20:32=E5=86=99=E9=81=93=EF=BC=9A
-
-> There is a double-free security bug in split_2MB_gtt_entry.
->
-> Here is a calling chain :
-> ppgtt_populate_spt->ppgtt_populate_shadow_entry->split_2MB_gtt_entry. If
-> intel_gvt_dma_map_guest_page failed, it will call  ppgtt_invalidate_spt,
-> which will finally call ppgtt_free_spt and kfree(spt). But the caller doe=
-s
-> not notice that, and it will call ppgtt_free_spt again in error path.
->
-> Fix this by returning the result of ppgtt_invalidate_spt to
-> split_2MB_gtt_entry.
->
-> Signed-off-by: Zheng Wang <1002992920@qq.com>
-> ---
->  drivers/gpu/drm/i915/gvt/gtt.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/gvt/gtt.c
-> b/drivers/gpu/drm/i915/gvt/gtt.c
-> index ce0eb03709c3..9f14fded8c0c 100644
-> --- a/drivers/gpu/drm/i915/gvt/gtt.c
-> +++ b/drivers/gpu/drm/i915/gvt/gtt.c
-> @@ -1215,7 +1215,7 @@ static int split_2MB_gtt_entry(struct intel_vgpu
-> *vgpu,
->                 ret =3D intel_gvt_dma_map_guest_page(vgpu, start_gfn +
-> sub_index,
->                                                    PAGE_SIZE, &dma_addr);
->                 if (ret) {
-> -                       ppgtt_invalidate_spt(spt);
-> +                       ret =3D ppgtt_invalidate_spt(spt);
->                         return ret;
->                 }
->                 sub_se.val64 =3D se->val64;
-> --
-> 2.25.1
->
->
-
---0000000000004116c505e7e6c96a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Hello everyone,<div><br><div>I&#39;m Zhen=
-g Wang. I found a potential double-free bug in=C2=A0drivers/gpu/drm/i915/gv=
-t/gtt.c. I haven&#39;t been replied for a long time. So I decided to send i=
-t to more relavent supporters and developers to help to solve=C2=A0the prob=
-lem.</div></div><div><br></div><div>Best regards,</div><div>Zheng Wang.</di=
-v></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr=
-">xmzyshypnc &lt;<a href=3D"mailto:1002992920@qq.com">1002992920@qq.com</a>=
-&gt; =E4=BA=8E2022=E5=B9=B49=E6=9C=884=E6=97=A5=E5=91=A8=E6=97=A5 20:32=E5=
-=86=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">There is a double-free security bug in split_2MB_gtt_entry.<br>
-<br>
-Here is a calling chain : ppgtt_populate_spt-&gt;ppgtt_populate_shadow_entr=
-y-&gt;split_2MB_gtt_entry. If intel_gvt_dma_map_guest_page failed, it will =
-call=C2=A0 ppgtt_invalidate_spt, which will finally call ppgtt_free_spt and=
- kfree(spt). But the caller does not notice that, and it will call ppgtt_fr=
-ee_spt again in error path.<br>
-<br>
-Fix this by returning the result of ppgtt_invalidate_spt to split_2MB_gtt_e=
-ntry.<br>
-<br>
-Signed-off-by: Zheng Wang &lt;<a href=3D"mailto:1002992920@qq.com" target=
-=3D"_blank">1002992920@qq.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/i915/gvt/gtt.c | 2 +-<br>
-=C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.=
-c<br>
-index ce0eb03709c3..9f14fded8c0c 100644<br>
---- a/drivers/gpu/drm/i915/gvt/gtt.c<br>
-+++ b/drivers/gpu/drm/i915/gvt/gtt.c<br>
-@@ -1215,7 +1215,7 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgp=
-u,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D intel_gvt_d=
-ma_map_guest_page(vgpu, start_gfn + sub_index,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PAGE_SIZE, &amp;dma_addr);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ret) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0ppgtt_invalidate_spt(spt);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0ret =3D ppgtt_invalidate_spt(spt);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 return ret;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 sub_se.val64 =3D se=
--&gt;val64;<br>
--- <br>
-2.25.1<br>
-<br>
-</blockquote></div></div>
-
---0000000000004116c505e7e6c96a--
+Mateusz Kwiatkowski
