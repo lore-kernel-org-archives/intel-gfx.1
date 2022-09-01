@@ -4,76 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00A67C54EE9
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 730C2ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76DB710E676;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 205BC10E675;
 	Tue,  6 Sep 2022 12:34:20 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04A2F10E43B;
- Wed, 31 Aug 2022 15:39:47 +0000 (UTC)
-Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id E84C66601DF5;
- Wed, 31 Aug 2022 16:39:42 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960385;
- bh=/oF5kgcekO75Xv0wAeHKpq3Pgp50WSiycM6oE7wSKRk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Sl51L1bR+Y9SxOT89Q/0nVkX+TLwDp7OcA2pgpm4I/3SumRue+tVnK1q3Vw+RbjOE
- Xl6atoNl+C31e92BVfqyqVAKhtHD6pK31qCu8j0Uno1FBRl+Xnj8l7hTvW36MZfXLi
- kMxfgy3gfal5jhWoFiCx8em30aMFpWCXq0oZzUxpaNj57iukLilYisYbjMXYFNRDzp
- tG9ew+QPiTBRtgqpD4xjf85rqFOoNtYODtXw+U5QgdYnxMPA+B0E74wOPuZ76PdATv
- levx+u2+qDHOjLZIoeA6U5Vu7faXHIfhzUMg9Cz0ga92kx/uZARd8jrxI2uVDGG2GD
- SZaDsJp2+o7cw==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43E2510E37B;
+ Thu,  1 Sep 2022 22:52:11 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id bn9so574973ljb.6;
+ Thu, 01 Sep 2022 15:52:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:from:to:cc;
+ bh=Dhwd+COjDW5ThjQ0eGNlcg2FwWXLsRihwwituLHXIZw=;
+ b=Qg20bj9HVOA0O2Dv7pbgLFpIerRd3OpfYftDq4iLQONPRjHm8OE5FicN0K1WL1v+S3
+ bISpN5k4Xg9gTk37HMqAreo6nvuLyU3JTBpgQLIjzDvBJIqAXMP5MfRK4NHoGkdf8jpo
+ 3glN34VMEDD6Gh+Zf1murR+o5lg06tWVopJIiQgpwbgHGnSUZUKhfMxhxUfv/PKpvsCf
+ qwtgF3sgpUqP0AbUb+d/a1esSHZ+I5KHKcW+5WE2OKOtNa+X+J/AAtNMS15RdoIDBSEy
+ T+m/BQNhtbsQ6WmcJD2FSngsG3cTf0OyGVh/5RtK7l/wyzsThnJPsLTNCVmQ7lejIS6h
+ shRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:x-gm-message-state:from:to:cc;
+ bh=Dhwd+COjDW5ThjQ0eGNlcg2FwWXLsRihwwituLHXIZw=;
+ b=Fd99hL1u+xo4KfogEckDrFppovOpq2htnG7hmysVP0dlV01lJjiWjUYuNGF0QlrtKB
+ CLP16JJUEg1jdcI4Kqx0mkk67JFzDp3qwecfs/w8ITXqpxJ112WLKmvUGhMjfSMjX1oU
+ q500eDp2jNCZGbZEln3nGh/wa3QEYjCBQmfQu2LrOamr5Xsci27L8qMavSs1OqV0BOe6
+ kB+jbIyV7yMIT/mtOxaZ0e5WtwMPXcPlLZSifBzD3nXFco6GLOHdrZHfk8NoRHJv82Bt
+ /kEGheXDwjMmKk5/J1iqN2hd4zecE7Txbwr8fyiiju8QqsFto5PmmvmSwoMJElOldUQE
+ qOjQ==
+X-Gm-Message-State: ACgBeo2IgvLFYuE+Zd+6FGvB4X5oxPh6fTGVFoYrI22c6L8pDDtseE9p
+ 8+GcWoZay2IpeamjalNsIYE=
+X-Google-Smtp-Source: AA6agR5VyqkvxxIZF1flgFAUFyuS1vlvIP1xurquBEUnw5mRA/4PMLSVlwqN/Hy1Kir2419wd9jhSA==
+X-Received: by 2002:a2e:bd0e:0:b0:268:c03b:cf56 with SMTP id
+ n14-20020a2ebd0e000000b00268c03bcf56mr1277850ljq.393.1662072729392; 
+ Thu, 01 Sep 2022 15:52:09 -0700 (PDT)
+Received: from ?IPV6:2a02:a31a:a240:1700:9c45:8fa1:8ce7:8852?
+ ([2a02:a31a:a240:1700:9c45:8fa1:8ce7:8852])
+ by smtp.googlemail.com with ESMTPSA id
+ w9-20020a2e1609000000b0025e15fe421bsm29224ljd.17.2022.09.01.15.52.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 01 Sep 2022 15:52:08 -0700 (PDT)
+From: Mateusz Kwiatkowski <kfyatek@gmail.com>
+X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Message-ID: <768daa58-d1cd-7e9d-4f6e-722f2b0afab9@gmail.com>
+Date: Fri, 2 Sep 2022 00:52:06 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.0
+Content-Language: pl
+To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
+ Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Wed, 31 Aug 2022 18:37:46 +0300
-Message-Id: <20220831153757.97381-11-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-MIME-Version: 1.0
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-20-459522d653a7@cerno.tech>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-20-459522d653a7@cerno.tech>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
-Subject: [Intel-gfx] [PATCH v4 10/21] RDMA/umem: Prepare to dynamic dma-buf
- locking specification
+Subject: Re: [Intel-gfx] [PATCH v2 20/41] drm/modes: Properly generate a
+ drm_display_mode from a named mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,49 +91,23 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Phil Elwell <phil@raspberrypi.com>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prepare InfiniBand drivers to the common dynamic dma-buf locking
-convention by starting to use the unlocked versions of dma-buf API
-functions.
+Hi Maxime,
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- drivers/infiniband/core/umem_dmabuf.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+> +        if (!named_mode->tv_mode)
+> +            continue;
 
-diff --git a/drivers/infiniband/core/umem_dmabuf.c b/drivers/infiniband/core/umem_dmabuf.c
-index 04c04e6d24c3..43b26bc12288 100644
---- a/drivers/infiniband/core/umem_dmabuf.c
-+++ b/drivers/infiniband/core/umem_dmabuf.c
-@@ -26,7 +26,8 @@ int ib_umem_dmabuf_map_pages(struct ib_umem_dmabuf *umem_dmabuf)
- 	if (umem_dmabuf->sgt)
- 		goto wait_fence;
- 
--	sgt = dma_buf_map_attachment(umem_dmabuf->attach, DMA_BIDIRECTIONAL);
-+	sgt = dma_buf_map_attachment_unlocked(umem_dmabuf->attach,
-+					      DMA_BIDIRECTIONAL);
- 	if (IS_ERR(sgt))
- 		return PTR_ERR(sgt);
- 
-@@ -102,8 +103,8 @@ void ib_umem_dmabuf_unmap_pages(struct ib_umem_dmabuf *umem_dmabuf)
- 		umem_dmabuf->last_sg_trim = 0;
- 	}
- 
--	dma_buf_unmap_attachment(umem_dmabuf->attach, umem_dmabuf->sgt,
--				 DMA_BIDIRECTIONAL);
-+	dma_buf_unmap_attachment_unlocked(umem_dmabuf->attach, umem_dmabuf->sgt,
-+					  DMA_BIDIRECTIONAL);
- 
- 	umem_dmabuf->sgt = NULL;
- }
--- 
-2.37.2
+As mentioned in the previous email replying to 19/41, this makes it impossible
+to specify DRM_MODE_TV_MODE_NTSC_443 as currently defined in the named mode
+successfully.
 
+Best regards,
+Mateusz Kwiatkowski
