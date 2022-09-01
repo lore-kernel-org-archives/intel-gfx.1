@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45452ECAAD2
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 06:01:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23683ECAAD1
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Sep 2022 06:01:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B24BB10E5AB;
-	Thu,  1 Sep 2022 06:01:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E095F10E5A6;
+	Thu,  1 Sep 2022 06:01:30 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 492D710E5A6
- for <intel-gfx@lists.freedesktop.org>; Thu,  1 Sep 2022 06:01:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D5610E5A5
+ for <intel-gfx@lists.freedesktop.org>; Thu,  1 Sep 2022 06:01:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662012087; x=1693548087;
+ t=1662012085; x=1693548085;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=AQ8fRJYCGfwdCQMd91PKti8jEIMCfNXdBLP0SpF3tVo=;
- b=W8/qK+ZB7x6gKb7zzv8rhLIHeZku24Yp+PGAR32JpKizmV9Kl/aIk9lF
- u2AXRUrfzkG1KKPjsPAKpbuqv/sNlE02CZnlBJo2kqWO60Z2Jr7UIauKb
- COJGNsZfq7t5psPvdTKRq/YaHuh0ecvlN5D7FznbNZcVGD4RAIsFvvR/b
- 06kzDDVDCHnf1HU7G0CgC2WxycDpwnNraCzeLYzb2e4N2Um/NbD9MV/q8
- V7MtoyuLJ25iQQezJ/N+1H9ENWjNNRaOTz6oDjILSNRV2Vv2PB0E74AAK
- aqMYS8bcQWf3Yicrdzr/GHVf1+PBwVKX1Q2CDPiC3PVBedNL+udPKB5Re w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10456"; a="381920240"
-X-IronPort-AV: E=Sophos;i="5.93,280,1654585200"; d="scan'208";a="381920240"
+ bh=k4N/YrjsB2EMTKQlgIulEL4noVYSnkMu1CkwCnxtrD0=;
+ b=F80wSwiGt8klvmUZTXgCgfziBHXmRKXBFbLpTHTw5iwYlknnfQ8kvNnF
+ c6lp8wdeL4pZqXwkX2YtWo3Xv/ZJn2tbJkTg6aSu3WL/+LkkcgjxJe+HD
+ RUoRpDnS44cAro81KDFOgyts/IbzGTTY86rdOBeKblmSfwFilinFW43rt
+ xnmEIo73kfcsD4WJ3ix5NHymCkfzJbifswY0lz3pRaAOhI9eUts6DoSzv
+ fWWazlolRR4gDlssf9WtgyZ9H+HQXH9S9MF4MEsoHeNQ6PPIUfQBV/2Aq
+ 6AHSewoR+RCPo+drEaezAAou1Q6nqN7vEGfndyghzNJjVZE7O3CgVZ1O7 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10456"; a="381920234"
+X-IronPort-AV: E=Sophos;i="5.93,280,1654585200"; d="scan'208";a="381920234"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2022 23:01:27 -0700
-X-IronPort-AV: E=Sophos;i="5.93,280,1654585200"; d="scan'208";a="754685681"
+ 31 Aug 2022 23:01:24 -0700
+X-IronPort-AV: E=Sophos;i="5.93,280,1654585200"; d="scan'208";a="754685657"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2022 23:01:25 -0700
+ 31 Aug 2022 23:01:23 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Sep 2022 11:30:56 +0530
-Message-Id: <20220901060101.1000290-5-ankit.k.nautiyal@intel.com>
+Date: Thu,  1 Sep 2022 11:30:55 +0530
+Message-Id: <20220901060101.1000290-4-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220901060101.1000290-1-ankit.k.nautiyal@intel.com>
 References: <20220901060101.1000290-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/9] drm/i915/display: Add new members to
- configure PCON color conversion
+Subject: [Intel-gfx] [PATCH v2 3/9] drm/i915/dp: Remove whitespace at the
+ end of function.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,47 +59,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The decision to use DFP output format conversion capabilities should be
-during compute_config phase.
-
-This patch adds new members to crtc_state to help configure the DFP
-output related conversions. Also adds a member to intel_dp to store
-ycbcr420 pass through capability.
-
-This will help to store only the format conversion capabilities of the
-DP device in intel_dp->dfp, and use crtc_state to compute and store the
-configuration for color/format conversion for a given mode.
+Remove extraline left after intel_dp_configure_protocol_converter.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 0da9b208d56e..065ed19a5dd3 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1311,6 +1311,12 @@ struct intel_crtc_state {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index a05b8b86e5c8..b6f62444b589 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2690,7 +2690,6 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
+ 			   str_enable_disable(tmp));
+ }
  
- 	/* for loading single buffered registers during vblank */
- 	struct drm_vblank_work vblank_work;
-+
-+	/* DP DFP color configuration */
-+	struct {
-+		bool rgb_to_ycbcr;
-+		bool ycbcr_444_to_420;
-+	} dp_dfp_config;
- };
- 
- enum intel_pipe_crc_source {
-@@ -1704,6 +1710,7 @@ struct intel_dp {
- 		int pcon_max_frl_bw;
- 		u8 max_bpc;
- 		bool ycbcr_444_to_420;
-+		bool ycbcr420_passthrough;
- 		bool rgb_to_ycbcr;
- 	} dfp;
- 
+-
+ bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp)
+ {
+ 	u8 dprx = 0;
 -- 
 2.25.1
 
