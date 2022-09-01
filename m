@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52DEAC54EE9
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:37:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A78B5C54EE9
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:37:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8145E10E696;
-	Tue,  6 Sep 2022 12:37:38 +0000 (UTC)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1DDA10E15B;
- Mon,  5 Sep 2022 06:11:17 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id b16so9947949edd.4;
- Sun, 04 Sep 2022 23:11:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date;
- bh=TOxGbAy2/OZKwJ9nVGZ0GlPbb7hcvaZ08+xyL+o4xuM=;
- b=P/RNRHPfxk589sRUV2jUSQ2pYGwFnYClt07V5tXQYH+u+yVAnCG9IXsvjyIFHkL4X4
- IsP3CXKPZEjK0izCyF2p4snAYK6cfmeAvl0cj7jQZ8WjhFsQfeaa2hK/5o2r6eiBCrX/
- ihaTbTv78PiysAWrOqUWwUYpazupk+9ci6Hg71bmaHFE3RcP4YI73AuJxsV/cX1+nNEZ
- o0JV5puFxO0CXNNfE5XJz8eBrarQ5f9398fcTrXZPMy7O4q0iIV9LPEd7i9lcYRsyaiv
- TxUGdGIXswj2NnMAfJgfn4tElxYtikBOA5mkLAyAwGpKGZuO04+2bvI3iQvBxFcULsuF
- dXuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=TOxGbAy2/OZKwJ9nVGZ0GlPbb7hcvaZ08+xyL+o4xuM=;
- b=vGmYIxH2QxxdbDoS2JCkRRFUuuYCupASYscGTIFu+l6vWBPChZugJGRafo1sSBKHLL
- lgoScm8hGyKmXXySBF6RFJ1+qySH2ctGZinK+hTXPJw0B1+rWJYf0VbiXVeuJSmWg5bE
- nrv8tEHh2rtgPs/6a/h7RW578i4EZWpCiq5xrbRDbiDM2jIV7a7YH9EbILYTbwSUfXGl
- d0ccLPOBMmBn90o0gwE7eMGBNxwhH4wBXPJ6Ml+boK+KX5tpBpHFmYVdnrQtEUQXpLoj
- qmIYiTP8cNss0lcor4QYLjvdVWY7YpNk4H37czV0uh2pA0+dDk+V+KSTCAcNqQvbFkgz
- vfDg==
-X-Gm-Message-State: ACgBeo3s619GDFFm5iFHYPmLiVw9qMthPiFQyYEiXTKhCNFrk7e+mCB9
- +RBFV5sFVaQgdwm8GOVfZbo4wVOsQmibO0eqcX4=
-X-Google-Smtp-Source: AA6agR4yAzdHez7/blZk6NYwiF92kJyUQkRjMuq5dEPkWOo26MOn5t5bRvhx0Ku08bELMi7XurlgR1oHdGlPYRnm5y8=
-X-Received: by 2002:a50:ef03:0:b0:44e:82bf:28e6 with SMTP id
- m3-20020a50ef03000000b0044e82bf28e6mr2863623eds.270.1662358276030; Sun, 04
- Sep 2022 23:11:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B24EE10E699;
+	Tue,  6 Sep 2022 12:37:41 +0000 (UTC)
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E6ED10E1A8;
+ Thu,  1 Sep 2022 19:35:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202112;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=HSmU8cbfTMrBaPDEft9ugvcLZ7df9DZiQiiVlzQT0Tw=; b=qLjy/48/HybrCZXhucwMbBtKJp
+ 3TQbxLtZYMvSPYnBIV1FP4YMZdeVxZdeb8IrBeAhyjcHbR48eZ3cqwaUyKSRMM6DOQ9iZfJ2XCPD6
+ av7PC77mmiFG6qUN0YW2TLxNBmhG/OHSuD5qut6FTgE9i/x1rSJzTI8Sc2eAma98W6N4XxH64KZyD
+ nX//akYOhh3zihSmyGBz7pNFVaeuP5f+pGW5j4s9zWcQ2RNqzSMRDsGMOSZkpxU2nUJWqrKaD0MyS
+ K6gTTOv8Lx+Cv8ibktpYIIY5h542j1BJDWvYwCzIYBQPXPj6+c9B6PKY4gZZIneg3dathxMx/k1tv
+ 4FK26vCQ==;
+Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=52634)
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1oTpyL-0002UR-US; Thu, 01 Sep 2022 21:35:29 +0200
+Message-ID: <24e09a29-6d04-3b1e-63ce-cd3c31d350e2@tronnes.org>
+Date: Thu, 1 Sep 2022 21:35:23 +0200
 MIME-Version: 1.0
-References: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
- <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
-In-Reply-To: <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
-From: Zheng Hacker <hackerzheng666@gmail.com>
-Date: Mon, 5 Sep 2022 14:11:04 +0800
-Message-ID: <CAJedcCz5GKSUt0hZUp3djX3tCq8v3=gPa-tZJJOSaj_fV2psyQ@mail.gmail.com>
-To: xmzyshypnc <1002992920@qq.com>
-Content-Type: multipart/alternative; boundary="00000000000088448105e7e7f2aa"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
+ Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Dom Cobley <dom@raspberrypi.com>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: fix double-free bug in
- split_2MB_gtt_entry.
+Subject: Re: [Intel-gfx] [PATCH v2 00/41] drm: Analog TV Improvements
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,145 +67,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex000young@gmail.com, security@kernel.org,
- dri-devel@lists.freedesktop.org, airlied@linux.ie,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
- rodrigo.vivi@intel.com, intel-gvt-dev@lists.freedesktop.org
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-sunxi@lists.linux.dev,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---00000000000088448105e7e7f2aa
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Resent the mail for the former letter contains html text.
 
-Regards,
+Den 29.08.2022 15.11, skrev Maxime Ripard:
+> Hi,
+> 
+> 
+> 
+> Here's a series aiming at improving the command line named modes support,
+> 
+> and more importantly how we deal with all the analog TV variants.
+> 
+> 
+> 
+> The named modes support were initially introduced to allow to specify the
+> 
+> analog TV mode to be used.
+> 
+> 
+> 
+> However, this was causing multiple issues:
+> 
+> 
+> 
+>   * The mode name parsed on the command line was passed directly to the
+> 
+>     driver, which had to figure out which mode it was suppose to match;
+> 
+> 
+> 
+>   * Figuring that out wasn't really easy, since the video= argument or what
+> 
+>     the userspace might not even have a name in the first place, but
+> 
+>     instead could have passed a mode with the same timings;
+> 
+> 
+> 
+>   * The fallback to matching on the timings was mostly working as long as
+> 
+>     we were supporting one 525 lines (most likely NSTC) and one 625 lines
+> 
+>     (PAL), but couldn't differentiate between two modes with the same
+> 
+>     timings (NTSC vs PAL-M vs NSTC-J for example);
+> 
+> 
+> 
+>   * There was also some overlap with the tv mode property registered by
+> 
+>     drm_mode_create_tv_properties(), but named modes weren't interacting
+> 
+>     with that property at all.
+> 
+> 
+> 
+>   * Even though that property was generic, its possible values were
+> 
+>     specific to each drivers, which made some generic support difficult.
+> 
+> 
+> 
+> Thus, I chose to tackle in multiple steps:
+> 
+> 
+> 
+>   * A new TV norm property was introduced, with generic values, each driver
+> 
+>     reporting through a bitmask what standard it supports to the userspace;
+> 
+> 
+> 
+>   * This option was added to the command line parsing code to be able to
+> 
+>     specify it on the kernel command line, and new atomic_check and reset
+> 
+>     helpers were created to integrate properly into atomic KMS;
+> 
+> 
+> 
+>   * The named mode parsing code is now creating a proper display mode for
+> 
+>     the given named mode, and the TV standard will thus be part of the
+> 
+>     connector state;
+> 
+> 
+> 
+>   * Two drivers were converted and tested for now (vc4 and sun4i), with
+> 
+>     some backward compatibility code to translate the old TV mode to the
+> 
+>     new TV mode;
+> 
+> 
+> 
+> Unit tests were created along the way.
+> 
+> 
+> 
+> One can switch from NTSC to PAL now using (on vc4)
+> 
+> 
+> 
+> modetest -M vc4  -s 53:720x480i -w 53:'tv norm':0
+> 
+> 
+> 
+> modetest -M vc4 -s 53:720x480i -w 53:'tv norm':4
+> 
 
-Zheng Wang
+The property name has changed, this gives me PAL:
 
-Zheng Hacker <hackerzheng666@gmail.com> =E4=BA=8E2022=E5=B9=B49=E6=9C=885=
-=E6=97=A5=E5=91=A8=E4=B8=80 12:47=E5=86=99=E9=81=93=EF=BC=9A
+$ modetest -M vc4 -s 45:720x576i -w 45:'TV mode':4
 
-> Hello everyone,
+
+I have finally found a workaround for my kernel hangs.
+
+Dom had a look at my kernel and found that the VideoCore was fine, and
+he said this:
+
+> That suggests cause of lockup was on arm side rather than VC side.
 >
-> I'm Zheng Wang. I found a potential double-free bug
-> in drivers/gpu/drm/i915/gvt/gtt.c. I haven't been replied for a long time=
-.
-> So I decided to send it to more relavent supporters and developers to hel=
-p
-> to solve the problem.
+> But it's hard to diagnose further. Once you've had a peripheral not
+> respond, the AXI bus locks up and no further operations are possible.
+> Usual causes of this are required clocks being stopped or domains
+> disabled and then trying to access the hardware.
 >
-> Best regards,
-> Zheng Wang.
->
-> xmzyshypnc <1002992920@qq.com> =E4=BA=8E2022=E5=B9=B49=E6=9C=884=E6=97=A5=
-=E5=91=A8=E6=97=A5 20:32=E5=86=99=E9=81=93=EF=BC=9A
->
->> There is a double-free security bug in split_2MB_gtt_entry.
->>
->> Here is a calling chain :
->> ppgtt_populate_spt->ppgtt_populate_shadow_entry->split_2MB_gtt_entry. If
->> intel_gvt_dma_map_guest_page failed, it will call  ppgtt_invalidate_spt,
->> which will finally call ppgtt_free_spt and kfree(spt). But the caller do=
-es
->> not notice that, and it will call ppgtt_free_spt again in error path.
->>
->> Fix this by returning the result of ppgtt_invalidate_spt to
->> split_2MB_gtt_entry.
->>
->> Signed-off-by: Zheng Wang <1002992920@qq.com>
->> ---
->>  drivers/gpu/drm/i915/gvt/gtt.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gvt/gtt.c
->> b/drivers/gpu/drm/i915/gvt/gtt.c
->> index ce0eb03709c3..9f14fded8c0c 100644
->> --- a/drivers/gpu/drm/i915/gvt/gtt.c
->> +++ b/drivers/gpu/drm/i915/gvt/gtt.c
->> @@ -1215,7 +1215,7 @@ static int split_2MB_gtt_entry(struct intel_vgpu
->> *vgpu,
->>                 ret =3D intel_gvt_dma_map_guest_page(vgpu, start_gfn +
->> sub_index,
->>                                                    PAGE_SIZE, &dma_addr)=
-;
->>                 if (ret) {
->> -                       ppgtt_invalidate_spt(spt);
->> +                       ret =3D ppgtt_invalidate_spt(spt);
->>                         return ret;
->>                 }
->>                 sub_se.val64 =3D se->val64;
->> --
->> 2.25.1
->>
->>
 
---00000000000088448105e7e7f2aa
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+So when I got this on my 64-bit build:
 
-<div dir=3D"ltr"><div>Resent the mail for the former letter contains html t=
-ext.<br></div><div><br></div><div>Regards,</div><div><br></div><div>Zheng W=
-ang</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_att=
-r">Zheng Hacker &lt;<a href=3D"mailto:hackerzheng666@gmail.com">hackerzheng=
-666@gmail.com</a>&gt; =E4=BA=8E2022=E5=B9=B49=E6=9C=885=E6=97=A5=E5=91=A8=
-=E4=B8=80 12:47=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gm=
-ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
-204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr">Hello everyone=
-,<div><br><div>I&#39;m Zheng Wang. I found a potential double-free bug in=
-=C2=A0drivers/gpu/drm/i915/gvt/gtt.c. I haven&#39;t been replied for a long=
- time. So I decided to send it to more relavent supporters and developers t=
-o help to solve=C2=A0the problem.</div></div><div><br></div><div>Best regar=
-ds,</div><div>Zheng Wang.</div></div><br><div class=3D"gmail_quote"><div di=
-r=3D"ltr" class=3D"gmail_attr">xmzyshypnc &lt;<a href=3D"mailto:1002992920@=
-qq.com">1002992920@qq.com</a>&gt; =E4=BA=8E2022=E5=B9=B49=E6=9C=884=E6=97=
-=A5=E5=91=A8=E6=97=A5 20:32=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex">There is a double-free security bug =
-in split_2MB_gtt_entry.<br>
-<br>
-Here is a calling chain : ppgtt_populate_spt-&gt;ppgtt_populate_shadow_entr=
-y-&gt;split_2MB_gtt_entry. If intel_gvt_dma_map_guest_page failed, it will =
-call=C2=A0 ppgtt_invalidate_spt, which will finally call ppgtt_free_spt and=
- kfree(spt). But the caller does not notice that, and it will call ppgtt_fr=
-ee_spt again in error path.<br>
-<br>
-Fix this by returning the result of ppgtt_invalidate_spt to split_2MB_gtt_e=
-ntry.<br>
-<br>
-Signed-off-by: Zheng Wang &lt;<a href=3D"mailto:1002992920@qq.com">10029929=
-20@qq.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/i915/gvt/gtt.c | 2 +-<br>
-=C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.=
-c<br>
-index ce0eb03709c3..9f14fded8c0c 100644<br>
---- a/drivers/gpu/drm/i915/gvt/gtt.c<br>
-+++ b/drivers/gpu/drm/i915/gvt/gtt.c<br>
-@@ -1215,7 +1215,7 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgp=
-u,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D intel_gvt_d=
-ma_map_guest_page(vgpu, start_gfn + sub_index,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PAGE_SIZE, &amp;dma_addr);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ret) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0ppgtt_invalidate_spt(spt);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0ret =3D ppgtt_invalidate_spt(spt);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 return ret;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 sub_se.val64 =3D se=
--&gt;val64;<br>
--- <br>
-2.25.1<br>
-<br>
-</blockquote></div></div>
-</blockquote></div></div>
+[  166.702171] SError Interrupt on CPU1, code 0x00000000bf000002 -- SError
+[  166.702187] CPU: 1 PID: 8 Comm: kworker/u8:0 Tainted: G        W
+    5.19.0-rc6-00096-gba7973977976-dirty #1
+[  166.702200] Hardware name: Raspberry Pi 4 Model B Rev 1.1 (DT)
+[  166.702206] Workqueue: events_freezable_power_ thermal_zone_device_check
+[  166.702231] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS
+BTYPE=--)
+[  166.702242] pc : regmap_mmio_read32le+0x10/0x28
+[  166.702261] lr : regmap_mmio_read+0x44/0x70
+...
+[  166.702606]  bcm2711_get_temp+0x58/0xb0 [bcm2711_thermal]
 
---00000000000088448105e7e7f2aa--
+I wondered if that reg read was stalled due to a clock being stopped.
+
+Lo and behold, disabling runtime pm and keeping the vec clock running
+all the time fixed it[1].
+
+I don't know what the problem is, but at least I can now test this patchset.
+
+[1] https://gist.github.com/notro/23b984e7fa05cfbda2db50a421cac065
+
+Noralf.
