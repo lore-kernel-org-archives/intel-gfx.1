@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A303C54EE9
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:53:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B170BC54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:53:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D4FE10E941;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED85710E945;
 	Fri,  2 Sep 2022 23:53:17 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0610A10E949
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A9C510E95D
  for <intel-gfx@lists.freedesktop.org>; Fri,  2 Sep 2022 23:53:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662162790; x=1693698790;
+ t=1662162789; x=1693698789;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=SAIcBvjkcuXKn2txIMkuBhV9Y3Ps6zt2P0JSmq+nmDE=;
- b=L9mFKOzrzFgGHvbJQfZyn9drolxjfT29GusKhjXPuGwZ57L2qfDWL3iL
- T1SBX8TFAmxu3Rb2+bBm+mU6uV0yakfvofREoqk10QPp9SmFQQF1JOLSN
- S/glVsE/Agm05xKxX3ZEqqBkxAXMXUkLJi0JTfIqjkcgQvOm76d5L2XAw
- 6bxA7A9AUJ2lhpe06Hvi9b4kGzyisggR0HMYWcVhS3At8VIkwL5u6eiSX
- VNxGoiG8l2Ie4JquJMKny1XqJSC6qrB/mHrUNSnGqEt2OMJJRS6moS4Ct
- RiXILWOY2EQUOq/rNps+TxDuNs2VkhJP8hsA2eb1NMT0U11Abkc2zI0ej g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="279125070"
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="279125070"
+ bh=thq8u1c52/M9QmklakHLtqLv2+8Vizk1BDZKFbqABnA=;
+ b=DVsUUKCN+XHV8/JpFGdfGvWx+Qvb1Y+pkAtL95nxjt0Fex9gnTLEJ6De
+ s3CdMUHcl8wblvumKEsHG9HKEI/O0CNyqT3QfgRGWJXT86QvSsVqO4njz
+ FYocXjDij/gNMvpRajU9Ni7+AC1oueEJH81diORVtZJij81uSXVNsJ38C
+ 5lmU9/nLuUDSsIrci5EC2QKula6qOTW61tbao0O3UQJb20K8BeJT+L4EZ
+ j8lzdK3XC2SCbG4nyt5NwwcUqqzPaN4gZ4qWSuUJMg7S/N+mn7ySxyYQn
+ tc3ULXmp46IaYzWiCOCXFj0m3LXOphylSqzAOOUuX4wQLVq2zFq8CWgk9 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="279125066"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="279125066"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Sep 2022 16:53:08 -0700
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="564135555"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="564135549"
 Received: from orsosgc001.jf.intel.com (HELO unerlige-ril.jf.intel.com)
  ([10.165.21.138])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Sep 2022 16:53:08 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Sep 2022 16:53:00 -0700
-Message-Id: <20220902235302.1112388-5-ashutosh.dixit@intel.com>
+Date: Fri,  2 Sep 2022 16:52:58 -0700
+Message-Id: <20220902235302.1112388-3-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220902235302.1112388-1-ashutosh.dixit@intel.com>
 References: <20220902235302.1112388-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/6] drm/i915/debugfs: Add perf_limit_reasons in
- debugfs
+Subject: [Intel-gfx] [PATCH 2/6] drm/i915: Rename and expose common GT early
+ init routine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,76 +60,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tilak Tangudu <tilak.tangudu@intel.com>
+From: Matt Roper <matthew.d.roper@intel.com>
 
-Add perf_limit_reasons in debugfs. Unlike the lower 16 perf_limit_reasons
-status bits, the upper 16 log bits remain set until cleared, thereby
-ensuring the throttling occurrence is not missed. The clear fop clears
-the upper 16 log bits, the get fop gets all 32 log and status bits.
+The common early GT init is needed for initialization of all GT types
+(root/primary, remote tile, standalone media).  Since standalone media
+(coming in the next patch) will be implemented in a separate file,
+rename and expose the function for use.
 
-Signed-off-by: Tilak Tangudu <tilak.tangudu@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Radhakrishna Sripada <Radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c | 27 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h               |  1 +
- 2 files changed, 28 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_gt.c | 6 +++---
+ drivers/gpu/drm/i915/gt/intel_gt.h | 1 +
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
-index 108b9e76c32e..5c95cba5e5df 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
-@@ -655,6 +655,32 @@ static bool rps_eval(void *data)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 5b4263c708cc..57a6488c0e14 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -35,7 +35,7 @@
+ #include "intel_uncore.h"
+ #include "shmem_utils.h"
  
- DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE(rps_boost);
- 
-+static int perf_limit_reasons_get(void *data, u64 *val)
-+{
-+	struct intel_gt *gt = data;
-+	intel_wakeref_t wakeref;
-+
-+	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
-+		*val = intel_uncore_read(gt->uncore, GT0_PERF_LIMIT_REASONS);
-+
-+	return 0;
-+}
-+
-+static int perf_limit_reasons_clear(void *data, u64 val)
-+{
-+	struct intel_gt *gt = data;
-+	intel_wakeref_t wakeref;
-+
-+	/* Clear the upper 16 log bits, the lower 16 status bits are read-only */
-+	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
-+		intel_uncore_rmw(gt->uncore, GT0_PERF_LIMIT_REASONS,
-+				 GT0_PERF_LIMIT_REASONS_LOG_MASK, 0);
-+
-+	return 0;
-+}
-+DEFINE_SIMPLE_ATTRIBUTE(perf_limit_reasons_fops, perf_limit_reasons_get,
-+			perf_limit_reasons_clear, "%llu\n");
-+
- void intel_gt_pm_debugfs_register(struct intel_gt *gt, struct dentry *root)
+-static void __intel_gt_init_early(struct intel_gt *gt)
++void intel_gt_common_init_early(struct intel_gt *gt)
  {
- 	static const struct intel_gt_debugfs_file files[] = {
-@@ -664,6 +690,7 @@ void intel_gt_pm_debugfs_register(struct intel_gt *gt, struct dentry *root)
- 		{ "forcewake_user", &forcewake_user_fops, NULL},
- 		{ "llc", &llc_fops, llc_eval },
- 		{ "rps_boost", &rps_boost_fops, rps_eval },
-+		{ "perf_limit_reasons", &perf_limit_reasons_fops, NULL },
- 	};
+ 	spin_lock_init(&gt->irq_lock);
  
- 	intel_gt_debugfs_register_files(root, files, ARRAY_SIZE(files), gt);
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 5e6239864c35..10126995e1f6 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1802,6 +1802,7 @@
- #define   POWER_LIMIT_4_MASK		REG_BIT(9)
- #define   POWER_LIMIT_1_MASK		REG_BIT(11)
- #define   POWER_LIMIT_2_MASK		REG_BIT(12)
-+#define   GT0_PERF_LIMIT_REASONS_LOG_MASK REG_GENMASK(31, 16)
+@@ -65,7 +65,7 @@ void intel_root_gt_init_early(struct drm_i915_private *i915)
+ 	gt->i915 = i915;
+ 	gt->uncore = &i915->uncore;
  
- #define CHV_CLK_CTL1			_MMIO(0x101100)
- #define VLV_CLK_CTL2			_MMIO(0x101104)
+-	__intel_gt_init_early(gt);
++	intel_gt_common_init_early(gt);
+ }
+ 
+ static int intel_gt_probe_lmem(struct intel_gt *gt)
+@@ -797,7 +797,7 @@ static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
+ 		gt->uncore = uncore;
+ 		gt->uncore->debug = mmio_debug;
+ 
+-		__intel_gt_init_early(gt);
++		intel_gt_common_init_early(gt);
+ 	}
+ 
+ 	intel_uncore_init_early(gt->uncore, gt);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
+index 4d8779529cc2..c9a359f35d0f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+@@ -44,6 +44,7 @@ static inline struct intel_gt *gsc_to_gt(struct intel_gsc *gsc)
+ 	return container_of(gsc, struct intel_gt, gsc);
+ }
+ 
++void intel_gt_common_init_early(struct intel_gt *gt);
+ void intel_root_gt_init_early(struct drm_i915_private *i915);
+ int intel_gt_assign_ggtt(struct intel_gt *gt);
+ int intel_gt_init_mmio(struct intel_gt *gt);
 -- 
 2.34.1
 
