@@ -4,146 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 885C2C6FA81
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 06:00:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75D82ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 06:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 825B010E746;
-	Fri,  2 Sep 2022 06:00:34 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AC7810E746
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Sep 2022 06:00:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE8910E74B;
+	Fri,  2 Sep 2022 06:04:31 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFC8810E74C;
+ Fri,  2 Sep 2022 06:04:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662098431; x=1693634431;
- h=from:to:subject:date:message-id:references:in-reply-to:
- content-transfer-encoding:mime-version;
- bh=r5/JWDHiNrdQsMWZ3kFIwEGxZksqCEWLBWlhWqDmloo=;
- b=YxA7h2DkrUe0do/jL174fVUTKEiECTai6aYKq7ttI1Tvp4WTXEmjAOi9
- TvApfw7tHevOuHBaXjNxhD9xQAejUV7oLDWqk7jct0OBZ2HGlo8OD1H34
- wQmwW8d3b4E/VNxTC4e8P8O+KaLp6xkR0gcu/+sCe1DzVBmWa4cbzghig
- WVNoVKQWwNcCdODZgk0iGOtsoUkfBn8AW7UTi4Srvlae/WHabKQPxCRpg
- WAFIZN9MFwlukngEhpeis4U5r1nWaX1ciyA+YE7CW0Fw6iyd/kg435qhT
- nplZI76AuaV7HN14SJ05sULtvhWZlhijZj+v/iAkvR0lmpRLZAcYgdCNu w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="297184876"
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="297184876"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2022 23:00:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="645995627"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by orsmga001.jf.intel.com with ESMTP; 01 Sep 2022 23:00:30 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 1 Sep 2022 23:00:30 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31 via Frontend Transport; Thu, 1 Sep 2022 23:00:30 -0700
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.171)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2375.31; Thu, 1 Sep 2022 23:00:29 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S/fbl85h9o6HvpuwvLTNpnZpVKRssLOfFV2Yi1dZoezr1SOtatctfbbLKAb7xRTpqY7nO9BS0b5cK9MClzAwnHQuRRVii0yg3RtagoBsEwAsqqoz3h8d78ze0/w76Cb4afNp3WNPbVLnsW0epcsaSksvouCEiXpjsJ5xMpAg38yDJA97cc++uKgfhjYmdTmESNyegY40GZ679jFVTzsp8KFOBfHWqXQ8ISzQYjIfxQpWeAtsXl/r3hfAl3j0x2Dfdz4S6UgOwBQWMhvk3VDqQFJVOyPT4/5sF9fMq0XKBUJJK6hmmfuGRT5OapqutnefES0X0lpCDo9n7TDfjvSv6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r5/JWDHiNrdQsMWZ3kFIwEGxZksqCEWLBWlhWqDmloo=;
- b=oYf9niPgRCy9I3FBktJpCNmO86IoPml3r8rUyiLbf825TozFmETcYZAws+tAySqmbP94MBxhtwOlE3EjTOPuZHJTCGCt98piUuX2JuDIxBezXRhvORDslJ0OEOLmYc8PgS53GHTlcS0+K293Ji/U8IxHHBpOBOpx+dq7/O1hhh1YUqkkTDT82en61aWX04RTjB85B4SDHnsBRzx01wMj04b96iPk6FUdzFFH3+f4BDAnKeutkwwENRCsLvoD07JwM/xXiI58wM5PK35+fvpn2VK2LM4IANkJJUupl4hiNMDYb7enkNkNo4dh/D/Updeb9/t1cTPzqR0AmK3VmDatGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
- (2603:10b6:301:51::10) by SN6PR11MB2557.namprd11.prod.outlook.com
- (2603:10b6:805:56::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.14; Fri, 2 Sep
- 2022 06:00:27 +0000
-Received: from MWHPR1101MB2157.namprd11.prod.outlook.com
- ([fe80::549e:abb2:40dc:6591]) by MWHPR1101MB2157.namprd11.prod.outlook.com
- ([fe80::549e:abb2:40dc:6591%9]) with mapi id 15.20.5588.014; Fri, 2 Sep 2022
- 06:00:27 +0000
-From: "Kahola, Mika" <mika.kahola@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Thread-Topic: [Intel-gfx] [PATCH v3 04/17] drm/i915/dsi: Extract {vlv,
- bxt}_get_pclk()
-Thread-Index: AQHYhM64xcWvHqKK20OpGsRVC/ta/K3MGN3w
-Date: Fri, 2 Sep 2022 06:00:27 +0000
-Message-ID: <MWHPR1101MB21571F79EF04DDE7AAB71782EF7A9@MWHPR1101MB2157.namprd11.prod.outlook.com>
-References: <20220620175210.28788-1-ville.syrjala@linux.intel.com>
- <20220620175210.28788-5-ville.syrjala@linux.intel.com>
-In-Reply-To: <20220620175210.28788-5-ville.syrjala@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3d291cd7-80f8-4db7-5f97-08da8ca86f75
-x-ms-traffictypediagnostic: SN6PR11MB2557:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Jf3MGu81jkoecL45ZB/9mhgDWf1WVRE9MotuVblcVqB6D3iL2UJmMIHetQtmkPtFRUiSOdhch5D6ClQ5hK85+jsynUKTNrSVQ3625GHfykf3jPTudRA2LI/6DddLag51/DsF4g5bA9zI6UH03UtNCnjX7fld3hV/pfzSmfXpEtgV3YaghW9P/GE2aFHdlwTtjxkjVyKLKFQLDIZbyj5BZU1uRYd2DJ+jZ5PQb3r1gYYxRUhow0gSKLBe3m2CooDY0smw7C9yKTARb+lfOkNYH1uRzQ6Ij+/L2pBFnOapLxrghwx8o2K4B1N79qygFFUo99yKDQ+Ce+z0Y8EIMPAVIAApfZpJPytaiBw5QQCQafhEpjwxV1+wv4qDt0nFeIGEYflomInbI6eDfbsznm4NtL2mxup3hgWKXvul/v5OTn0rcaCzLJZK/62oUGz9x6zNBbzcp/ARZ7Fe7MBMOEP2V5RQs4acmc76/Evc9HscMmuHpoEHJQ5MRlIZ/hiIdn7WPZswl55c2Tgvh7BtFXPjH9uhKq1FZVIdQ/FhKdMpovBly4WNzYTlWmZcPWIi9CbdLvVb7MU8q5mj+tJRnSH1dq0t+xJNk3X3YVtB8mT3/XnPqZMS1opWEvyVDnI6ibWROlc+p+PhNjy+5RzFySNi0TWEzh6ta9ol7f3jpyXX6W88nr0+QB8C2+9zladJ1n2ND03FmGUFAK63hiFuACDR2DWmll2KRWGE1hk4fOxLpUK66RizPfuuChtuj2rzxitIA5QhoHs+4Wnb7ztOEbI5vROp5nVWucOu6FpOwnr8I1I=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1101MB2157.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(136003)(346002)(376002)(396003)(366004)(39860400002)(86362001)(66574015)(8936002)(186003)(2906002)(52536014)(38070700005)(33656002)(122000001)(38100700002)(83380400001)(55016003)(71200400001)(110136005)(316002)(82960400001)(66556008)(66446008)(64756008)(66476007)(8676002)(66946007)(76116006)(7696005)(6506007)(26005)(53546011)(5660300002)(478600001)(9686003)(41300700001)(21314003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?czVOaTVRYzFJMCtYdnlxYTVNRjI1Wkg0SkZFaFJ6c2Nld1pmWENrb0RQRGd5?=
- =?utf-8?B?T1crU003aWc0dkxLckp4cnRqNms3R2ZHT1kveHdJRnRiNmJIWjlkWHl6ZzFQ?=
- =?utf-8?B?eDh3UWI4K0FFcCtnVVpEcFVySHl2b21KRVBlNVNNTHo5TzM3LysyREhiQU9k?=
- =?utf-8?B?bGh5cElkeUgraHppOEU3UENRUSttWXlSczZ4Z24xR1FnVkQvdW1iSlJvREtZ?=
- =?utf-8?B?VVMrREpCUVhrRmxxTFlHSm9LaTJ0a2FjR210VEFnSEJEWXpXcjRHUlE2SVlW?=
- =?utf-8?B?a0VrZWhIeDBNSEN4bUhVZUt3M1Y3cWVEdCtOQzJ4VjVrem9QSHhDMlB4RDF5?=
- =?utf-8?B?NjBtU2ltMUp1N3Y0a0VhRkhRSk95eCtkVUEwUmpGVHVNVllEd1IyRllDNUhD?=
- =?utf-8?B?U2RyZnM0WDBDL1lLRi81U0hFUHZIR3JLdHhtNCtqVDR5OVBwclNHczduOC8w?=
- =?utf-8?B?Q1ppNVkyTkFKMmJvSDAxd2dxMVJmMk9DaFkyM2o4Y21aRXJzdnRBYnpIckhy?=
- =?utf-8?B?VmdJZnFIWHlzbGN2OTcweURuOCt5L1c4RHhrNm5hNzNpa1lIc2NNU2k5Qlp5?=
- =?utf-8?B?YWVOUmJVRzl3YS85TmRFRWdaTG5iMTdpUmp2endrcnBRbGxhT1pZLzNERjV1?=
- =?utf-8?B?eXR2RmZVa0k1M05KMlZrU1lCcGlPMTJhUHc3eXN6bUlCY0RoeENESk5aZ2dk?=
- =?utf-8?B?eldIVlZsZzBiYXhla2pGdFY2QWxtSHJhS2JlYXhsZ2duOTJuZU9oTXJwOEMx?=
- =?utf-8?B?dWQ0VkxpcUw0M2R0UTAyS0lBVEh5ZFVLYW9ycitoUHBwVHJNalRmbUpXOS9Q?=
- =?utf-8?B?bTRJSkZtaEh1ZXVObTh4d0VMNUcyZ1F1VCtGQ2FuYVFZWG9rZWF2OHVkOWNy?=
- =?utf-8?B?U2xrbzNpTjdEWVNVaU1meC9RaCtrRVZrVnJkQmdxRWFPQVo3VVNLY1FNamZV?=
- =?utf-8?B?WlVCWlEwQ09VT3IrWFFSUEQ3TXFySi84L2RFMTVMUncxU3dmZUtPVTVGenlX?=
- =?utf-8?B?TndkUEFLemVkUksxYVhEc0t4V3ViZ0d6R2tsUmtPWFd2c0xLY1dBSUhZaEow?=
- =?utf-8?B?WndFNzNDMzVWNHUxUHlVU3E0b1VMVTFJQ2hhYTJFMlVkSnBXcG9xcndLc1Qv?=
- =?utf-8?B?cWVnR3dndjVMRXA0SU9walFvYmJ2RXovZ2VQRjU4bmtiM3VhUFNKMGhYaCtX?=
- =?utf-8?B?Z1RKWFI5U0VDc2dkM3lUa0cyaGlsZ2FZZUR5VEFQaTNiT2ZRKzQvOVRRNEJZ?=
- =?utf-8?B?VG0vTVdzMjBnVGxxald6eDZMTmZVdWlNU0dpQkp3eUpFYzBRVjU4WmxOMFFo?=
- =?utf-8?B?U0JiR1FUOGk0b2dYdXltYTV1bE8yY0orZGdvdFBkcUViVlNKQ1FxSnhhVmN1?=
- =?utf-8?B?SDdwKzdBc0NnTkVMMFRGVU50MjR5eWpEaThLVU56MmJRZlp5OTRlOC9GQ2dV?=
- =?utf-8?B?WTlmUk52Nk1sd3BMT2ExYVJuMDR4bGJyQXlSRTlMQVNKNFovUlkzTVprRzN2?=
- =?utf-8?B?Ri81NkdZd2cwWld4L09DSjg0TmxBK1BoNVQwUGt5a3BTdTV0Q3BMUGxLVXZw?=
- =?utf-8?B?Nk9oc1BaRWhVa29DN1ROWFZta3ZlN3luUmFTeGVBeDhFZ1E0bkxSZlJYZG1v?=
- =?utf-8?B?TTVIeUxXZDBaSDZYa0laUkFxcTlSR2dEbzF3OVdKU0NrTmxDT1ZnVExta2lw?=
- =?utf-8?B?ZWdidWR2d3RhWGk4STdZdmJWV1dKZldjejJzb1BvMzJzdVpWNlc4QWcyTk1I?=
- =?utf-8?B?TnlQWE5mTldML2tVYWZMNXY3QlY0RlAxMWhSNUJ1bHF6U0s5czhLejVTVTBE?=
- =?utf-8?B?aVlnd3dyWUZUUVRrczFoOEVFR0J0NUQ5UHZXQkN2Q0J0ekQ1OCtPZkIzdUcv?=
- =?utf-8?B?eWNPMHA1eFVSTDl3M2RrOE41MmM4NTVRWlRuSGlWOW8vY29sTW9FUGdOT2hF?=
- =?utf-8?B?cUJ4ZUtxNjhHVkdITVF5S2VqRVBaWVEwUjJzNzJ4Y2Y0c21tQ0NHRlJBSVBK?=
- =?utf-8?B?WmM1L2swUzVpUHowUWxaaFFFK1F5bFBhcW9ydC9EaVprRHdqWEUyUFhVYXNK?=
- =?utf-8?B?dFM1WDJDT1J4RlFFVHZyS24vYjc2OVZHSXp2ektyOXRlb0toa1VUVGRYSERm?=
- =?utf-8?Q?WvruOzHIt3di7rQwy9FPzS4gp?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ t=1662098665; x=1693634665;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=gmUcOfBnQLTERREqzTLoMffSxICvMnsBCERddzJzhuw=;
+ b=Dcs9y8g6E3V7NMJG8Fi2ATR2xu+KUf3+HPfH2LpMF9h/SyJjLJhTaolx
+ AQSvd87aS9m7GRl5nP3hcX//Vi7ZBCvnxtiTaWRTtAy4xV7G6Qi9JkXJi
+ qCMcsQ+Msru2e1q17/vGp48KmZRHB/Hbz5gT1WIorx7HaycEptxgFZtl+
+ X2TjTw98nB1cHxZF0Vn2NAb3WCuW+pob0Kp1WBjUPLaESOAjdQqFEJstw
+ 85RtowUmchAHss74Ygxjz9CFYZMQwpqJPHmIEs715HWROikHqoCQKv1AU
+ FFWvV8/6BRM0FKhGmLZkk2yE0vJ0lr5O3TEt+B4S0CKoDyr58o05WQGpI Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="282889128"
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="282889128"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2022 23:04:24 -0700
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="755144586"
+Received: from invictus.jf.intel.com ([10.165.21.188])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2022 23:04:24 -0700
+From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  1 Sep 2022 23:03:33 -0700
+Message-Id: <20220902060342.151824-3-radhakrishna.sripada@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
+References: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1101MB2157.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d291cd7-80f8-4db7-5f97-08da8ca86f75
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2022 06:00:27.8391 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6OskANm1TYJlRIheoVJItm+yQLu4YvcZyxVxj3gkxH82fa6BObuCx25BRF4fwAAfMvfMD/zylI4AV2Pxe8hRtw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR11MB2557
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v3 04/17] drm/i915/dsi: Extract {vlv,
- bxt}_get_pclk()
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v4 02/11] drm/i915: Read graphics/media/display
+ arch version from hw
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,110 +56,258 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBJbnRlbC1nZnggPGludGVsLWdm
-eC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIFZpbGxlDQo+IFN5
-cmphbGENCj4gU2VudDogTW9uZGF5LCBKdW5lIDIwLCAyMDIyIDg6NTIgUE0NCj4gVG86IGludGVs
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogW0ludGVsLWdmeF0gW1BBVENI
-IHYzIDA0LzE3XSBkcm0vaTkxNS9kc2k6IEV4dHJhY3Qge3ZsdiwgYnh0fV9nZXRfcGNsaygpDQo+
-IA0KPiBGcm9tOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29t
-Pg0KPiANCj4gRXh0cmFjdCB0aGUgc3RhdGUtPmZyZXEgY29tcHV0YXRpb24gZm9yIFZMVi9CWFQg
-RFNJIFBMTCBpbnRvIHNtYWxsIGhlbHBlcnMuIFdlDQo+IHdhbnQgdG8gdXNlIHRoZXNlIGR1cmlu
-ZyB0aGUgc3RhdGUgY29tcHV0YXRpb24gYXMgd2VsbC4NCj4gDQoNClJldmlld2VkLWJ5OiBNaWth
-IEthaG9sYSA8bWlrYS5rYWhvbGFAaW50ZWwuY29tPg0KDQo+IFNpZ25lZC1vZmYtYnk6IFZpbGxl
-IFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+DQo+IC0tLQ0KPiAgZHJp
-dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS92bHZfZHNpX3BsbC5jIHwgMTIxICsrKysrKysrKysr
-Ky0tLS0tLS0tLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDY4IGluc2VydGlvbnMoKyksIDUzIGRlbGV0
-aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-dmx2X2RzaV9wbGwuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvdmx2X2RzaV9w
-bGwuYw0KPiBpbmRleCA1ODk0YjAxMzgzNDMuLjI2MDZkYmYwOWNjYyAxMDA2NDQNCj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS92bHZfZHNpX3BsbC5jDQo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvdmx2X2RzaV9wbGwuYw0KPiBAQCAtMTEzLDYgKzExMyw2
-MSBAQCBzdGF0aWMgaW50IGRzaV9jYWxjX21ucChzdHJ1Y3QgZHJtX2k5MTVfcHJpdmF0ZQ0KPiAq
-ZGV2X3ByaXYsDQo+ICAJcmV0dXJuIDA7DQo+ICB9DQo+IA0KPiArc3RhdGljIGludCB2bHZfZHNp
-X3BjbGsoc3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIsDQo+ICsJCQlzdHJ1Y3QgaW50ZWxf
-Y3J0Y19zdGF0ZSAqY29uZmlnKQ0KPiArew0KPiArCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpk
-ZXZfcHJpdiA9IHRvX2k5MTUoZW5jb2Rlci0+YmFzZS5kZXYpOw0KPiArCXN0cnVjdCBpbnRlbF9k
-c2kgKmludGVsX2RzaSA9IGVuY190b19pbnRlbF9kc2koZW5jb2Rlcik7DQo+ICsJaW50IGJwcCA9
-IG1pcGlfZHNpX3BpeGVsX2Zvcm1hdF90b19icHAoaW50ZWxfZHNpLT5waXhlbF9mb3JtYXQpOw0K
-PiArCXUzMiBkc2lfY2xvY2s7DQo+ICsJdTMyIHBsbF9jdGwsIHBsbF9kaXY7DQo+ICsJdTMyIG0g
-PSAwLCBwID0gMCwgbjsNCj4gKwlpbnQgcmVmY2xrID0gSVNfQ0hFUlJZVklFVyhkZXZfcHJpdikg
-PyAxMDAwMDAgOiAyNTAwMDsNCj4gKwlpbnQgaTsNCj4gKw0KPiArCXBsbF9jdGwgPSBjb25maWct
-PmRzaV9wbGwuY3RybDsNCj4gKwlwbGxfZGl2ID0gY29uZmlnLT5kc2lfcGxsLmRpdjsNCj4gKw0K
-PiArCS8qIG1hc2sgb3V0IG90aGVyIGJpdHMgYW5kIGV4dHJhY3QgdGhlIFAxIGRpdmlzb3IgKi8N
-Cj4gKwlwbGxfY3RsICY9IERTSV9QTExfUDFfUE9TVF9ESVZfTUFTSzsNCj4gKwlwbGxfY3RsID0g
-cGxsX2N0bCA+PiAoRFNJX1BMTF9QMV9QT1NUX0RJVl9TSElGVCAtIDIpOw0KPiArDQo+ICsJLyog
-TjEgZGl2aXNvciAqLw0KPiArCW4gPSAocGxsX2RpdiAmIERTSV9QTExfTjFfRElWX01BU0spID4+
-IERTSV9QTExfTjFfRElWX1NISUZUOw0KPiArCW4gPSAxIDw8IG47IC8qIHJlZ2lzdGVyIGhhcyBs
-b2cyKE4xKSAqLw0KPiArDQo+ICsJLyogbWFzayBvdXQgdGhlIG90aGVyIGJpdHMgYW5kIGV4dHJh
-Y3QgdGhlIE0xIGRpdmlzb3IgKi8NCj4gKwlwbGxfZGl2ICY9IERTSV9QTExfTTFfRElWX01BU0s7
-DQo+ICsJcGxsX2RpdiA9IHBsbF9kaXYgPj4gRFNJX1BMTF9NMV9ESVZfU0hJRlQ7DQo+ICsNCj4g
-Kwl3aGlsZSAocGxsX2N0bCkgew0KPiArCQlwbGxfY3RsID0gcGxsX2N0bCA+PiAxOw0KPiArCQlw
-Kys7DQo+ICsJfQ0KPiArCXAtLTsNCj4gKw0KPiArCWlmICghcCkgew0KPiArCQlkcm1fZXJyKCZk
-ZXZfcHJpdi0+ZHJtLCAid3JvbmcgUDEgZGl2aXNvclxuIik7DQo+ICsJCXJldHVybiAwOw0KPiAr
-CX0NCj4gKw0KPiArCWZvciAoaSA9IDA7IGkgPCBBUlJBWV9TSVpFKGxmc3JfY29udmVydHMpOyBp
-KyspIHsNCj4gKwkJaWYgKGxmc3JfY29udmVydHNbaV0gPT0gcGxsX2RpdikNCj4gKwkJCWJyZWFr
-Ow0KPiArCX0NCj4gKw0KPiArCWlmIChpID09IEFSUkFZX1NJWkUobGZzcl9jb252ZXJ0cykpIHsN
-Cj4gKwkJZHJtX2VycigmZGV2X3ByaXYtPmRybSwgIndyb25nIG1fc2VlZCBwcm9ncmFtbWVkXG4i
-KTsNCj4gKwkJcmV0dXJuIDA7DQo+ICsJfQ0KPiArDQo+ICsJbSA9IGkgKyA2MjsNCj4gKw0KPiAr
-CWRzaV9jbG9jayA9IChtICogcmVmY2xrKSAvIChwICogbik7DQo+ICsNCj4gKwlyZXR1cm4gRElW
-X1JPVU5EX0NMT1NFU1QoZHNpX2Nsb2NrICogaW50ZWxfZHNpLT5sYW5lX2NvdW50LCBicHApOyB9
-DQo+ICsNCj4gIC8qDQo+ICAgKiBYWFg6IFRoZSBtdXhpbmcgYW5kIGdhdGluZyBpcyBoYXJkIGNv
-ZGVkIGZvciBub3cuIE5lZWQgdG8gYWRkIHN1cHBvcnQgZm9yDQo+ICAgKiBzaGFyaW5nIFBMTHMg
-d2l0aCB0d28gRFNJIG91dHB1dHMuDQo+IEBAIC0yNjIsMTMgKzMxNyw3IEBAIHUzMiB2bHZfZHNp
-X2dldF9wY2xrKHN0cnVjdCBpbnRlbF9lbmNvZGVyICplbmNvZGVyLA0KPiAgCQkgICAgIHN0cnVj
-dCBpbnRlbF9jcnRjX3N0YXRlICpjb25maWcpICB7DQo+ICAJc3RydWN0IGRybV9pOTE1X3ByaXZh
-dGUgKmRldl9wcml2ID0gdG9faTkxNShlbmNvZGVyLT5iYXNlLmRldik7DQo+IC0Jc3RydWN0IGlu
-dGVsX2RzaSAqaW50ZWxfZHNpID0gZW5jX3RvX2ludGVsX2RzaShlbmNvZGVyKTsNCj4gLQlpbnQg
-YnBwID0gbWlwaV9kc2lfcGl4ZWxfZm9ybWF0X3RvX2JwcChpbnRlbF9kc2ktPnBpeGVsX2Zvcm1h
-dCk7DQo+IC0JdTMyIGRzaV9jbG9jaywgcGNsazsNCj4gIAl1MzIgcGxsX2N0bCwgcGxsX2RpdjsN
-Cj4gLQl1MzIgbSA9IDAsIHAgPSAwLCBuOw0KPiAtCWludCByZWZjbGsgPSBJU19DSEVSUllWSUVX
-KGRldl9wcml2KSA/IDEwMDAwMCA6IDI1MDAwOw0KPiAtCWludCBpOw0KPiANCj4gIAlkcm1fZGJn
-X2ttcygmZGV2X3ByaXYtPmRybSwgIlxuIik7DQo+IA0KPiBAQCAtMjgwLDY1ICszMjksMzEgQEAg
-dTMyIHZsdl9kc2lfZ2V0X3BjbGsoc3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIsDQo+ICAJ
-Y29uZmlnLT5kc2lfcGxsLmN0cmwgPSBwbGxfY3RsICYgfkRTSV9QTExfTE9DSzsNCj4gIAljb25m
-aWctPmRzaV9wbGwuZGl2ID0gcGxsX2RpdjsNCj4gDQo+IC0JLyogbWFzayBvdXQgb3RoZXIgYml0
-cyBhbmQgZXh0cmFjdCB0aGUgUDEgZGl2aXNvciAqLw0KPiAtCXBsbF9jdGwgJj0gRFNJX1BMTF9Q
-MV9QT1NUX0RJVl9NQVNLOw0KPiAtCXBsbF9jdGwgPSBwbGxfY3RsID4+IChEU0lfUExMX1AxX1BP
-U1RfRElWX1NISUZUIC0gMik7DQo+ICsJcmV0dXJuIHZsdl9kc2lfcGNsayhlbmNvZGVyLCBjb25m
-aWcpOw0KPiArfQ0KPiANCj4gLQkvKiBOMSBkaXZpc29yICovDQo+IC0JbiA9IChwbGxfZGl2ICYg
-RFNJX1BMTF9OMV9ESVZfTUFTSykgPj4gRFNJX1BMTF9OMV9ESVZfU0hJRlQ7DQo+IC0JbiA9IDEg
-PDwgbjsgLyogcmVnaXN0ZXIgaGFzIGxvZzIoTjEpICovDQo+ICtzdGF0aWMgaW50IGJ4dF9kc2lf
-cGNsayhzdHJ1Y3QgaW50ZWxfZW5jb2RlciAqZW5jb2RlciwNCj4gKwkJCWNvbnN0IHN0cnVjdCBp
-bnRlbF9jcnRjX3N0YXRlICpjb25maWcpIHsNCj4gKwlzdHJ1Y3QgaW50ZWxfZHNpICppbnRlbF9k
-c2kgPSBlbmNfdG9faW50ZWxfZHNpKGVuY29kZXIpOw0KPiArCWludCBicHAgPSBtaXBpX2RzaV9w
-aXhlbF9mb3JtYXRfdG9fYnBwKGludGVsX2RzaS0+cGl4ZWxfZm9ybWF0KTsNCj4gKwl1MzIgZHNp
-X3JhdGlvLCBkc2lfY2xrOw0KPiANCj4gLQkvKiBtYXNrIG91dCB0aGUgb3RoZXIgYml0cyBhbmQg
-ZXh0cmFjdCB0aGUgTTEgZGl2aXNvciAqLw0KPiAtCXBsbF9kaXYgJj0gRFNJX1BMTF9NMV9ESVZf
-TUFTSzsNCj4gLQlwbGxfZGl2ID0gcGxsX2RpdiA+PiBEU0lfUExMX00xX0RJVl9TSElGVDsNCj4g
-Kwlkc2lfcmF0aW8gPSBjb25maWctPmRzaV9wbGwuY3RybCAmIEJYVF9EU0lfUExMX1JBVElPX01B
-U0s7DQo+ICsJZHNpX2NsayA9IChkc2lfcmF0aW8gKiBCWFRfUkVGX0NMT0NLX0tIWikgLyAyOw0K
-PiANCj4gLQl3aGlsZSAocGxsX2N0bCkgew0KPiAtCQlwbGxfY3RsID0gcGxsX2N0bCA+PiAxOw0K
-PiAtCQlwKys7DQo+IC0JfQ0KPiAtCXAtLTsNCj4gLQ0KPiAtCWlmICghcCkgew0KPiAtCQlkcm1f
-ZXJyKCZkZXZfcHJpdi0+ZHJtLCAid3JvbmcgUDEgZGl2aXNvclxuIik7DQo+IC0JCXJldHVybiAw
-Ow0KPiAtCX0NCj4gLQ0KPiAtCWZvciAoaSA9IDA7IGkgPCBBUlJBWV9TSVpFKGxmc3JfY29udmVy
-dHMpOyBpKyspIHsNCj4gLQkJaWYgKGxmc3JfY29udmVydHNbaV0gPT0gcGxsX2RpdikNCj4gLQkJ
-CWJyZWFrOw0KPiAtCX0NCj4gLQ0KPiAtCWlmIChpID09IEFSUkFZX1NJWkUobGZzcl9jb252ZXJ0
-cykpIHsNCj4gLQkJZHJtX2VycigmZGV2X3ByaXYtPmRybSwgIndyb25nIG1fc2VlZCBwcm9ncmFt
-bWVkXG4iKTsNCj4gLQkJcmV0dXJuIDA7DQo+IC0JfQ0KPiAtDQo+IC0JbSA9IGkgKyA2MjsNCj4g
-LQ0KPiAtCWRzaV9jbG9jayA9IChtICogcmVmY2xrKSAvIChwICogbik7DQo+IC0NCj4gLQlwY2xr
-ID0gRElWX1JPVU5EX0NMT1NFU1QoZHNpX2Nsb2NrICogaW50ZWxfZHNpLT5sYW5lX2NvdW50LCBi
-cHApOw0KPiAtDQo+IC0JcmV0dXJuIHBjbGs7DQo+ICsJcmV0dXJuIERJVl9ST1VORF9DTE9TRVNU
-KGRzaV9jbGsgKiBpbnRlbF9kc2ktPmxhbmVfY291bnQsIGJwcCk7DQo+ICB9DQo+IA0KPiAgdTMy
-IGJ4dF9kc2lfZ2V0X3BjbGsoc3RydWN0IGludGVsX2VuY29kZXIgKmVuY29kZXIsDQo+ICAJCSAg
-ICAgc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNvbmZpZykgIHsNCj4gKwlzdHJ1Y3QgZHJtX2k5
-MTVfcHJpdmF0ZSAqZGV2X3ByaXYgPSB0b19pOTE1KGVuY29kZXItPmJhc2UuZGV2KTsNCj4gIAl1
-MzIgcGNsazsNCj4gLQl1MzIgZHNpX2NsazsNCj4gLQl1MzIgZHNpX3JhdGlvOw0KPiAtCXN0cnVj
-dCBpbnRlbF9kc2kgKmludGVsX2RzaSA9IGVuY190b19pbnRlbF9kc2koZW5jb2Rlcik7DQo+IC0J
-c3RydWN0IGRybV9pOTE1X3ByaXZhdGUgKmRldl9wcml2ID0gdG9faTkxNShlbmNvZGVyLT5iYXNl
-LmRldik7DQo+IC0JaW50IGJwcCA9IG1pcGlfZHNpX3BpeGVsX2Zvcm1hdF90b19icHAoaW50ZWxf
-ZHNpLT5waXhlbF9mb3JtYXQpOw0KPiANCj4gIAljb25maWctPmRzaV9wbGwuY3RybCA9IGludGVs
-X2RlX3JlYWQoZGV2X3ByaXYsIEJYVF9EU0lfUExMX0NUTCk7DQo+IA0KPiAtCWRzaV9yYXRpbyA9
-IGNvbmZpZy0+ZHNpX3BsbC5jdHJsICYgQlhUX0RTSV9QTExfUkFUSU9fTUFTSzsNCj4gLQ0KPiAt
-CWRzaV9jbGsgPSAoZHNpX3JhdGlvICogQlhUX1JFRl9DTE9DS19LSFopIC8gMjsNCj4gLQ0KPiAt
-CXBjbGsgPSBESVZfUk9VTkRfQ0xPU0VTVChkc2lfY2xrICogaW50ZWxfZHNpLT5sYW5lX2NvdW50
-LCBicHApOw0KPiArCXBjbGsgPSBieHRfZHNpX3BjbGsoZW5jb2RlciwgY29uZmlnKTsNCj4gDQo+
-ICAJZHJtX2RiZygmZGV2X3ByaXYtPmRybSwgIkNhbGN1bGF0ZWQgcGNsaz0ldVxuIiwgcGNsayk7
-DQo+ICAJcmV0dXJuIHBjbGs7DQo+IC0tDQo+IDIuMzUuMQ0KDQo=
+From: Matt Roper <matthew.d.roper@intel.com>
+
+Going forward, the hardware teams no longer consider new platforms to
+have a "generation" in the way we've defined it for past platforms.
+Instead, each IP block (graphics, media, display) will have their own
+architecture major.minor versions and stepping ID's which should be read
+directly from a register in the MMIO space.  New hardware programming
+styles, features, and workarounds should be conditional solely on the
+architecture version, and should no longer be derived from the PCI
+device ID, revision ID, or platform-specific feature flags.
+
+Bspec: 63361, 64111
+
+v2:
+  - Move the IP version readout to intel_device_info.c
+  - Convert the macro into a function
+
+v3:
+  - Move subplatform init to runtime early init
+  - Cache runtime ver, release info to compare with hardware values.
+
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h  |  2 +
+ drivers/gpu/drm/i915/i915_driver.c       |  3 +-
+ drivers/gpu/drm/i915/i915_drv.h          |  2 +
+ drivers/gpu/drm/i915/i915_pci.c          |  1 +
+ drivers/gpu/drm/i915/i915_reg.h          |  7 +++
+ drivers/gpu/drm/i915/intel_device_info.c | 74 +++++++++++++++++++++++-
+ drivers/gpu/drm/i915/intel_device_info.h | 12 +++-
+ 7 files changed, 98 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index d414785003cc..579da62158c4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -39,6 +39,8 @@
+ #define FORCEWAKE_ACK_RENDER_GEN9		_MMIO(0xd84)
+ #define FORCEWAKE_ACK_MEDIA_GEN9		_MMIO(0xd88)
+ 
++#define GMD_ID_GRAPHICS				_MMIO(0xd8c)
++
+ #define MCFG_MCR_SELECTOR			_MMIO(0xfd0)
+ #define SF_MCR_SELECTOR				_MMIO(0xfd8)
+ #define GEN8_MCR_SELECTOR			_MMIO(0xfdc)
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 56a2bcddb2af..a1ab49521d19 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -323,7 +323,8 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 	if (i915_inject_probe_failure(dev_priv))
+ 		return -ENODEV;
+ 
+-	intel_device_info_subplatform_init(dev_priv);
++	intel_device_info_runtime_init_early(dev_priv);
++
+ 	intel_step_init(dev_priv);
+ 
+ 	intel_uncore_mmio_debug_init_early(&dev_priv->mmio_debug);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index f85a470397a5..405b59b8c05c 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -936,6 +936,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 
+ #define HAS_GMCH(dev_priv) (INTEL_INFO(dev_priv)->display.has_gmch)
+ 
++#define HAS_GMD_ID(i915)	INTEL_INFO(i915)->has_gmd_id
++
+ #define HAS_LSPCON(dev_priv) (IS_DISPLAY_VER(dev_priv, 9, 10))
+ 
+ #define HAS_L3_CCS_READ(i915) (INTEL_INFO(i915)->has_l3_ccs_read)
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index f6aaf938c53c..4672894f4bc1 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1129,6 +1129,7 @@ static const struct intel_device_info mtl_info = {
+ 	PLATFORM(INTEL_METEORLAKE),
+ 	.display.has_modular_fia = 1,
+ 	.has_flat_ccs = 0,
++	.has_gmd_id = 1,
+ 	.has_snoop = 1,
+ 	.__runtime.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
+ 	.__runtime.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(CCS0),
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 5e6239864c35..e02e461a4b5d 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -5798,6 +5798,11 @@
+ #define ICL_DSSM_CDCLK_PLL_REFCLK_19_2MHz	(1 << 29)
+ #define ICL_DSSM_CDCLK_PLL_REFCLK_38_4MHz	(2 << 29)
+ 
++#define GMD_ID_DISPLAY				_MMIO(0x510a0)
++#define   GMD_ID_ARCH_MASK			REG_GENMASK(31, 22)
++#define   GMD_ID_RELEASE_MASK			REG_GENMASK(21, 14)
++#define   GMD_ID_STEP				REG_GENMASK(5, 0)
++
+ /*GEN11 chicken */
+ #define _PIPEA_CHICKEN				0x70038
+ #define _PIPEB_CHICKEN				0x71038
+@@ -8298,4 +8303,6 @@ enum skl_power_gate {
+ #define  MTL_LATENCY_LEVEL_EVEN_MASK	REG_GENMASK(12, 0)
+ #define  MTL_LATENCY_LEVEL_ODD_MASK	REG_GENMASK(28, 16)
+ 
++#define MTL_MEDIA_GSI_BASE		0x380000
++
+ #endif /* _I915_REG_H_ */
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index 56f19683dd55..a5bafc9be1fa 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -29,6 +29,7 @@
+ 
+ #include "display/intel_cdclk.h"
+ #include "display/intel_de.h"
++#include "gt/intel_gt_regs.h"
+ #include "intel_device_info.h"
+ #include "i915_drv.h"
+ #include "i915_utils.h"
+@@ -231,7 +232,7 @@ static bool find_devid(u16 id, const u16 *p, unsigned int num)
+ 	return false;
+ }
+ 
+-void intel_device_info_subplatform_init(struct drm_i915_private *i915)
++static void intel_device_info_subplatform_init(struct drm_i915_private *i915)
+ {
+ 	const struct intel_device_info *info = INTEL_INFO(i915);
+ 	const struct intel_runtime_info *rinfo = RUNTIME_INFO(i915);
+@@ -288,6 +289,77 @@ void intel_device_info_subplatform_init(struct drm_i915_private *i915)
+ 	RUNTIME_INFO(i915)->platform_mask[pi] |= mask;
+ }
+ 
++static void ip_ver_read(struct drm_i915_private *i915, u32 offset, struct ip_version *ip)
++{
++	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
++	void __iomem *addr;
++	u32 val;
++	u8 ver = ip->ver;
++	u8 rel = ip->rel;
++
++	addr = pci_iomap_range(pdev, 0, offset, sizeof(u32));
++	if (drm_WARN_ON(&i915->drm, !addr))
++		return;
++
++	val = ioread32(addr);
++	pci_iounmap(pdev, addr);
++
++	ip->ver = REG_FIELD_GET(GMD_ID_ARCH_MASK, val);
++	ip->rel = REG_FIELD_GET(GMD_ID_RELEASE_MASK, val);
++	ip->step = REG_FIELD_GET(GMD_ID_STEP, val);
++
++	/* Sanity check against expected versions from device info */
++	if (ip->ver != ver || ip->rel > rel)
++		drm_dbg(&i915->drm,
++			"Hardware reports GMD IP version %u.%u but minimum expected is %u.%u\n",
++			ip->ver, ip->rel, ver, rel);
++}
++
++/**
++ * Setup the graphics version for the current device.  This must be done before
++ * any code that performs checks on GRAPHICS_VER or DISPLAY_VER, so this
++ * function should be called very early in the driver initialization sequence.
++ *
++ * Regular MMIO access is not yet setup at the point this function is called so
++ * we peek at the appropriate MMIO offset directly.  The GMD_ID register is
++ * part of an 'always on' power well by design, so we don't need to worry about
++ * forcewake while reading it.
++ */
++static void intel_ipver_early_init(struct drm_i915_private *i915)
++{
++	struct intel_runtime_info *runtime = RUNTIME_INFO(i915);
++
++	if (!HAS_GMD_ID(i915))
++		return;
++
++	ip_ver_read(i915, i915_mmio_reg_offset(GMD_ID_GRAPHICS),
++		    &runtime->graphics.version);
++	ip_ver_read(i915, i915_mmio_reg_offset(GMD_ID_DISPLAY),
++		    &runtime->display.version);
++	ip_ver_read(i915, MTL_MEDIA_GSI_BASE + i915_mmio_reg_offset(GMD_ID_GRAPHICS),
++		    &runtime->media.version);
++}
++
++/**
++ * intel_device_info_runtime_init_early - initialize early runtime info
++ * @i915: the i915 device
++ *
++ * Determine early intel_device_info fields at runtime.
++ *
++ * Use it when:
++ *   - Early init of certain runtime info fields are to be initialized
++ *
++ * This function needs to be called:
++ *   - before the MMIO has been setup as we are reading registers,
++ *   - before the PCH has been detected,
++ *   - before the first usage of the fields it can tweak.
++ */
++void intel_device_info_runtime_init_early(struct drm_i915_private *i915)
++{
++	intel_ipver_early_init(i915);
++	intel_device_info_subplatform_init(i915);
++}
++
+ /**
+  * intel_device_info_runtime_init - initialize runtime info
+  * @dev_priv: the i915 device
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index d36cf25f1d5f..4a938cb897d0 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -152,6 +152,7 @@ enum intel_ppgtt_type {
+ 	func(has_4tile); \
+ 	func(has_flat_ccs); \
+ 	func(has_global_mocs); \
++	func(has_gmd_id); \
+ 	func(has_gt_uc); \
+ 	func(has_heci_pxp); \
+ 	func(has_heci_gscfi); \
+@@ -197,9 +198,18 @@ enum intel_ppgtt_type {
+ struct ip_version {
+ 	u8 ver;
+ 	u8 rel;
++	u8 step;
+ };
+ 
+ struct intel_runtime_info {
++	/*
++	 * On modern platforms, the architecture major.minor version numbers
++	 * and stepping are read directly from the hardware rather than derived
++	 * from the PCI device and revision ID's.
++	 *
++	 * Note that the hardware gives us a single "graphics" number that
++	 * should represent render, compute, and copy behavior.
++	 */
+ 	struct {
+ 		struct ip_version version;
+ 	} graphics;
+@@ -305,7 +315,7 @@ struct intel_driver_caps {
+ 
+ const char *intel_platform_name(enum intel_platform platform);
+ 
+-void intel_device_info_subplatform_init(struct drm_i915_private *dev_priv);
++void intel_device_info_runtime_init_early(struct drm_i915_private *dev_priv);
+ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv);
+ 
+ void intel_device_info_print(const struct intel_device_info *info,
+-- 
+2.34.1
+
