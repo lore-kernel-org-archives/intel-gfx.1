@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07CD2C54EE9
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 06:05:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF3EAC54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 06:05:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C414810E75E;
-	Fri,  2 Sep 2022 06:04:40 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 458D610E74D;
- Fri,  2 Sep 2022 06:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C866510E764;
+	Fri,  2 Sep 2022 06:04:43 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CF4A10E74C;
+ Fri,  2 Sep 2022 06:04:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662098666; x=1693634666;
+ t=1662098667; x=1693634667;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7Rsgvmu1t0755NCFUMD0xdDdBVK5ST9pf8Fb3e7pbH8=;
- b=iuENmFHUbXv0WtmGcG0lLYHopjjnHEVA7C8jNJRl/D/fam0oT0OaeHz/
- nO9F1AI3wp79XhO80u5nYtw4HakJCs+4S2oQjdgUYvMzSVqAFgi15yA3n
- 5dkBCfYzob+DNUYlyu9+6ZnEMqOP127/C/Vti4HyVd++f6TaPNYY20FGE
- vO+yZKlRSdPjybeAcdSwoXmjuNU4hHW0FxY13avc11wAPQisTQ3NeP6l0
- 82gZu7X3HOg0FXs29eThOUcFfXssCYqIRJGN5AtPzO5KRGjLhqWipjoB+
- z+Ygcyv21WsMYraGQUsSMVn1fI/ziiU4S8T3bAgGmRkwDKKRRTiSunfgv w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="282889136"
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="282889136"
+ bh=A1K8GWFW02ywn8iV44dtnLnnsEAJZYB49wD77HNHnNI=;
+ b=X9xXhpZBIaocw2jqPIFphPKOfC0hmQr7tlWPZT7JVkcBV2yReAmoFCBg
+ icnmbWBWwxI9p27NptUPIUzHSByX9FVqMr8PD3ewY5I99KEmTLg+ZWyTL
+ BLRHpnKyb0DK99/myn4+/Nx/LI3bZRJjw69wO5pspJkNLIaIygDYl1K6p
+ wqjchcD7YHEJq/hGS9mlPtx6RYU9uE/M/hmCUx71H7tjc3vQjzFnbmYpN
+ uLAmJOmQK5H1wp5L4zgVaB8PFumilRjWvPfkASEbEfbNhFz8E/gzPaBkL
+ 9202Vi+JUmJ8kWDhi3EBcVdqWWHqWF/l5OQ7S4L2wVWY9/RKVb34cMlQL g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="359861290"
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="359861290"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Sep 2022 23:04:25 -0700
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="755144594"
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="755144611"
 Received: from invictus.jf.intel.com ([10.165.21.188])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2022 23:04:24 -0700
+ 01 Sep 2022 23:04:25 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Sep 2022 23:03:35 -0700
-Message-Id: <20220902060342.151824-5-radhakrishna.sripada@intel.com>
+Date: Thu,  1 Sep 2022 23:03:40 -0700
+Message-Id: <20220902060342.151824-10-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
 References: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 04/11] drm/i915/mtl: Define engine context
- layouts
+Subject: [Intel-gfx] [PATCH v4 09/11] drm/i915/mtl: Update MBUS_DBOX credits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,143 +60,126 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+Display version 14 platforms have different credits values
+compared to ADL-P. Update the credits based on pipe usage.
 
-The part of the media and blitter engine contexts that we care about for
-setting up an initial state are the same on MTL as they were on DG2
-(and PVC), so we need to update the driver conditions to re-use the DG2
-context table.
+v2: Simplify DBOX BW Credit definition(MattR)
 
-For render/compute engines, the part of the context images are nearly
-the same, although the layout had a very slight change --- one POSH
-register was removed and the placement of some LRI/noops adjusted
-slightly to compensate.
+Bspec: 49213
 
-v2:
- - Dg2, mtl xcs offsets slightly vary. Use a separate offsets array(Bala)
- - Drop unused registers in mtl rcs offsets.(Bala)
-
-Bspec: 46261, 46260, 45585
-Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Cc: Jose Roberto de Souza <jose.souza@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Original Author: Caz Yokoyama
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.c | 81 ++++++++++++++++++++++++++++-
- 1 file changed, 79 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_reg.h |  4 +++
+ drivers/gpu/drm/i915/intel_pm.c | 47 ++++++++++++++++++++++++++++++---
+ 2 files changed, 47 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 070cec4ff8a4..ecb030ee39cd 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -264,6 +264,38 @@ static const u8 dg2_xcs_offsets[] = {
- 	END
- };
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index d22fabe35a0c..f9237586ab4f 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -1125,8 +1125,12 @@
+ #define MBUS_DBOX_REGULATE_B2B_TRANSACTIONS_EN	REG_BIT(16) /* tgl+ */
+ #define MBUS_DBOX_BW_CREDIT_MASK		REG_GENMASK(15, 14)
+ #define MBUS_DBOX_BW_CREDIT(x)			REG_FIELD_PREP(MBUS_DBOX_BW_CREDIT_MASK, x)
++#define MBUS_DBOX_BW_4CREDITS_MTL		REG_FIELD_PREP(MBUS_DBOX_BW_CREDIT_MASK, 0x2)
++#define MBUS_DBOX_BW_8CREDITS_MTL		REG_FIELD_PREP(MBUS_DBOX_BW_CREDIT_MASK, 0x3)
+ #define MBUS_DBOX_B_CREDIT_MASK			REG_GENMASK(12, 8)
+ #define MBUS_DBOX_B_CREDIT(x)			REG_FIELD_PREP(MBUS_DBOX_B_CREDIT_MASK, x)
++#define MBUS_DBOX_I_CREDIT_MASK			REG_GENMASK(7, 5)
++#define MBUS_DBOX_I_CREDIT(x)			REG_FIELD_PREP(MBUS_DBOX_I_CREDIT_MASK, x)
+ #define MBUS_DBOX_A_CREDIT_MASK			REG_GENMASK(3, 0)
+ #define MBUS_DBOX_A_CREDIT(x)			REG_FIELD_PREP(MBUS_DBOX_A_CREDIT_MASK, x)
  
-+static const u8 mtl_xcs_offsets[] = {
-+	NOP(1),
-+	LRI(13, POSTED),
-+	REG16(0x244),
-+	REG(0x034),
-+	REG(0x030),
-+	REG(0x038),
-+	REG(0x03c),
-+	REG(0x168),
-+	REG(0x140),
-+	REG(0x110),
-+	REG(0x1c0),
-+	REG(0x1c4),
-+	REG(0x1c8),
-+	REG(0x180),
-+	REG16(0x2b4),
-+
-+	NOP(1),
-+	LRI(9, POSTED),
-+	REG16(0x3a8),
-+	REG16(0x28c),
-+	REG16(0x288),
-+	REG16(0x284),
-+	REG16(0x280),
-+	REG16(0x27c),
-+	REG16(0x278),
-+	REG16(0x274),
-+	REG16(0x270),
-+
-+	END
-+};
-+
- static const u8 gen8_rcs_offsets[] = {
- 	NOP(1),
- 	LRI(14, POSTED),
-@@ -606,6 +638,47 @@ static const u8 dg2_rcs_offsets[] = {
- 	END
- };
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index ebce6171ccef..b19a1ecb010e 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -8448,6 +8448,27 @@ void intel_dbuf_post_plane_update(struct intel_atomic_state *state)
+ 				new_dbuf_state->enabled_slices);
+ }
  
-+static const u8 mtl_rcs_offsets[] = {
-+       NOP(1),
-+       LRI(13, POSTED),
-+       REG16(0x244),
-+       REG(0x034),
-+       REG(0x030),
-+       REG(0x038),
-+       REG(0x03c),
-+       REG(0x168),
-+       REG(0x140),
-+       REG(0x110),
-+       REG(0x1c0),
-+       REG(0x1c4),
-+       REG(0x1c8),
-+       REG(0x180),
-+       REG16(0x2b4),
++static bool xelpdp_is_one_pipe_per_dbuf_bank(enum pipe pipe, u8 active_pipes)
++{
++	switch (pipe) {
++	case PIPE_A:
++	case PIPE_D:
++		if (is_power_of_2(active_pipes & (BIT(PIPE_A) | BIT(PIPE_D))))
++			return true;
++		break;
++	case PIPE_B:
++	case PIPE_C:
++		if (is_power_of_2(active_pipes & (BIT(PIPE_B) | BIT(PIPE_C))))
++			return true;
++		break;
++	default: /* to suppress compiler warning */
++		MISSING_CASE(pipe);
++		break;
++	}
 +
-+       NOP(1),
-+       LRI(9, POSTED),
-+       REG16(0x3a8),
-+       REG16(0x28c),
-+       REG16(0x288),
-+       REG16(0x284),
-+       REG16(0x280),
-+       REG16(0x27c),
-+       REG16(0x278),
-+       REG16(0x274),
-+       REG16(0x270),
++	return false;
++}
 +
-+       NOP(2),
-+       LRI(2, POSTED),
-+       REG16(0x5a8),
-+       REG16(0x5ac),
-+
-+       NOP(6),
-+       LRI(1, 0),
-+       REG(0x0c8),
-+
-+       END
-+};
-+
- #undef END
- #undef REG16
- #undef REG
-@@ -624,7 +697,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
- 		   !intel_engine_has_relative_mmio(engine));
+ void intel_mbus_dbox_update(struct intel_atomic_state *state)
+ {
+ 	struct drm_i915_private *i915 = to_i915(state->base.dev);
+@@ -8467,20 +8488,28 @@ void intel_mbus_dbox_update(struct intel_atomic_state *state)
+ 	     new_dbuf_state->active_pipes == old_dbuf_state->active_pipes))
+ 		return;
  
- 	if (engine->flags & I915_ENGINE_HAS_RCS_REG_STATE) {
--		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
-+		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70))
-+			return mtl_rcs_offsets;
-+		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
- 			return dg2_rcs_offsets;
- 		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
- 			return xehp_rcs_offsets;
-@@ -637,7 +712,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
- 		else
- 			return gen8_rcs_offsets;
- 	} else {
--		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
-+		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70))
-+			return mtl_xcs_offsets;
-+		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
- 			return dg2_xcs_offsets;
- 		else if (GRAPHICS_VER(engine->i915) >= 12)
- 			return gen12_xcs_offsets;
++	if (DISPLAY_VER(i915) >= 14)
++		val |= MBUS_DBOX_I_CREDIT(2);
++
+ 	if (DISPLAY_VER(i915) >= 12) {
+ 		val |= MBUS_DBOX_B2B_TRANSACTIONS_MAX(16);
+ 		val |= MBUS_DBOX_B2B_TRANSACTIONS_DELAY(1);
+ 		val |= MBUS_DBOX_REGULATE_B2B_TRANSACTIONS_EN;
+ 	}
+ 
+-	/* Wa_22010947358:adl-p */
+-	if (IS_ALDERLAKE_P(i915))
++	if (DISPLAY_VER(i915) >= 14)
++		val |= new_dbuf_state->joined_mbus ? MBUS_DBOX_A_CREDIT(12) :
++						     MBUS_DBOX_A_CREDIT(8);
++	else if (IS_ALDERLAKE_P(i915))
++		/* Wa_22010947358:adl-p */
+ 		val |= new_dbuf_state->joined_mbus ? MBUS_DBOX_A_CREDIT(6) :
+ 						     MBUS_DBOX_A_CREDIT(4);
+ 	else
+ 		val |= MBUS_DBOX_A_CREDIT(2);
+ 
+-	if (IS_ALDERLAKE_P(i915)) {
++	if (DISPLAY_VER(i915) >= 14) {
++		val |= MBUS_DBOX_B_CREDIT(0xA);
++	} else if (IS_ALDERLAKE_P(i915)) {
+ 		val |= MBUS_DBOX_BW_CREDIT(2);
+ 		val |= MBUS_DBOX_B_CREDIT(8);
+ 	} else if (DISPLAY_VER(i915) >= 12) {
+@@ -8492,10 +8521,20 @@ void intel_mbus_dbox_update(struct intel_atomic_state *state)
+ 	}
+ 
+ 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
++		u32 pipe_val = val;
++
+ 		if (!new_crtc_state->hw.active ||
+ 		    !intel_crtc_needs_modeset(new_crtc_state))
+ 			continue;
+ 
+-		intel_de_write(i915, PIPE_MBUS_DBOX_CTL(crtc->pipe), val);
++		if (DISPLAY_VER(i915) >= 14) {
++			if (xelpdp_is_one_pipe_per_dbuf_bank(crtc->pipe,
++							     new_dbuf_state->active_pipes))
++				pipe_val |= MBUS_DBOX_BW_8CREDITS_MTL;
++			else
++				pipe_val |= MBUS_DBOX_BW_4CREDITS_MTL;
++		}
++
++		intel_de_write(i915, PIPE_MBUS_DBOX_CTL(crtc->pipe), pipe_val);
+ 	}
+ }
 -- 
 2.34.1
 
