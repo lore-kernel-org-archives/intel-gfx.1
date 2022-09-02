@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0693C6FA81
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 06:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B90A3ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 06:05:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECB7010E74C;
-	Fri,  2 Sep 2022 06:04:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A90510E751;
+	Fri,  2 Sep 2022 06:04:37 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 549A610E746;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 060F110E746;
  Fri,  2 Sep 2022 06:04:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662098665; x=1693634665;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=/0g+hY/55cd1wWaJzgt2es7yGCL/x353A3GilhpUuWc=;
- b=WiuaSyCC58kYkazN0D+zWtZYG3KgOAZLTLkWLqoWk3Uw287Gi5kHYMIk
- cgPKmpo000wg9kzNQnPvqm8OL5BEDtHmwT/OoTjVOZ4jxF8A3KnexXF4z
- VQAr5mcBlyaDVETcf14u7k/+vPgP6T8MHSQJ5ZyF2Qwr/HU9WIqnxcdzv
- cFv7prHuf067EZcQukPGAbRT3dlXHBWyMe45ssX+9ouotZ9wliC5hxcPk
- H7rWczTWHLKU8bU4RTi+wPIQ5aYFrFyLEPwbasSmpqyJfx4ODRbyUjTvu
- 5+E+mqG45CxWUOk0l7+zcxd4W+5bkkEKhLifNFCtTn/d7/bX/T+4IRtEP g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="282889124"
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="282889124"
+ t=1662098666; x=1693634666;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=/7FXrWOQLXBEDZUY+/0/oUVyWMZQtOiyt80gOoUdmtg=;
+ b=KA89ZxwynX4jGQ9fX2zWGtrhgq2jVWkN9Oi59G9JOXuNMOJcPRcsH9BN
+ /ZFpdtbwpFedWciYWfJOkL1zde/OWqhUhFIti1tZa1nWzmnxLBpJLr3ow
+ rkOqqRlLEHdZLLCwyyx+SrQQ8mc4vpIk4kZwGrFxFp/o4yTROpsFJkaFq
+ +1h1gdKad6yakHaEHrj0UTXT3VATr3TdIorV5wAc2TNJtzDV3O0wY24eA
+ kbH5UyT4sGugdeBqAiHF0QE2d4NYPjSpmZEBilrSL6jx+11PsU1FaLNrX
+ Ky/x4Ec+G5E8QC1RbiOb0J/BoKf689mz/Bf+THlfXL9xakDPoSOKAPgB4 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="282889131"
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="282889131"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2022 23:04:24 -0700
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="755144579"
+ 01 Sep 2022 23:04:25 -0700
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="755144590"
 Received: from invictus.jf.intel.com ([10.165.21.188])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Sep 2022 23:04:24 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Sep 2022 23:03:31 -0700
-Message-Id: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
+Date: Thu,  1 Sep 2022 23:03:34 -0700
+Message-Id: <20220902060342.151824-4-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
+References: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 00/11] Initial Meteorlake Support
+Subject: [Intel-gfx] [PATCH v4 03/11] drm/i915: Parse and set stepping for
+ platforms with GMD
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,64 +61,103 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The PCI Id's and platform definition are posted earlier.
-This series adds handful of early enablement patches including
-support for display power wells, VBT and AUX Channel mapping,
-PCH and gmbus support, dbus, mbus, sagv and memory bandwidth support.
+From: José Roberto de Souza <jose.souza@intel.com>
 
-This series also add the support for a new way to read Graphics,
-Media and Display versions
+The GMD step field do not properly match the current stepping convention
+that we use(STEP_A0, STEP_A1, STEP_B0...).
 
-This is based out of the earlier series posted at [1]. Several
-of the patches from the earlier series got merged. This version is
-rebased on top of the earlier patches that got merged.
+One platform could have { arch = 12, rel = 70, step = 1 } and the
+actual stepping is STEP_B0 but without the translation of the step
+field would mean STEP_A1.
+That is why we will need to have gmd_to_intel_step tables for each IP.
 
-[1] https://patchwork.freedesktop.org/series/106786/
+v2:
+ - Pass the updated ip version structure
 
-Imre Deak (2):
-  drm/i915/mtl: Add display power wells
-  drm/i915/mtl: Add DP AUX support on TypeC ports
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/intel_step.c | 60 +++++++++++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
 
-José Roberto de Souza (1):
-  drm/i915: Parse and set stepping for platforms with GMD
-
-Madhumitha Tolakanahalli Pradeep (1):
-  drm/i915/mtl: Update CHICKEN_TRANS* register addresses
-
-Matt Roper (2):
-  drm/i915: Read graphics/media/display arch version from hw
-  drm/i915/mtl: Define engine context layouts
-
-Radhakrishna Sripada (5):
-  drm/i915: Move display and media IP version to runtime info
-  drm/i915/mtl: Add gmbus and gpio support
-  drm/i915/mtl: Obtain SAGV values from MMIO instead of GT pcode mailbox
-  drm/i915/mtl: Update MBUS_DBOX credits
-  drm/i915/mtl: Do not update GV point, mask value
-
- drivers/gpu/drm/i915/display/intel_bw.c       |  42 ++++++-
- drivers/gpu/drm/i915/display/intel_display.c  |  14 ++-
- .../i915/display/intel_display_power_map.c    | 115 +++++++++++++++++-
- .../i915/display/intel_display_power_well.c   |  44 +++++++
- .../i915/display/intel_display_power_well.h   |   4 +
- drivers/gpu/drm/i915/display/intel_dp_aux.c   |  53 +++++++-
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |   5 +-
- drivers/gpu/drm/i915/display/intel_gmbus.c    |  15 +++
- drivers/gpu/drm/i915/display/intel_gmbus.h    |   1 +
- drivers/gpu/drm/i915/display/intel_psr.c      |   6 +-
- drivers/gpu/drm/i915/gt/intel_gt_regs.h       |   2 +
- drivers/gpu/drm/i915/gt/intel_lrc.c           |  81 +++++++++++-
- drivers/gpu/drm/i915/i915_driver.c            |   3 +-
- drivers/gpu/drm/i915/i915_drv.h               |  16 +--
- drivers/gpu/drm/i915/i915_pci.c               |  39 +++---
- drivers/gpu/drm/i915/i915_reg.h               |  83 ++++++++++++-
- drivers/gpu/drm/i915/intel_device_info.c      | 102 ++++++++++++++--
- drivers/gpu/drm/i915/intel_device_info.h      |  27 ++--
- drivers/gpu/drm/i915/intel_dram.c             |  41 ++++++-
- drivers/gpu/drm/i915/intel_pm.c               |  73 ++++++++++-
- drivers/gpu/drm/i915/intel_step.c             |  60 +++++++++
- 21 files changed, 754 insertions(+), 72 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/intel_step.c b/drivers/gpu/drm/i915/intel_step.c
+index 42b3133d8387..14ea103d6dab 100644
+--- a/drivers/gpu/drm/i915/intel_step.c
++++ b/drivers/gpu/drm/i915/intel_step.c
+@@ -135,6 +135,48 @@ static const struct intel_step_info adlp_n_revids[] = {
+ 	[0x0] = { COMMON_GT_MEDIA_STEP(A0), .display_step = STEP_D0 },
+ };
+ 
++struct gmd_to_intel_step {
++	struct ip_version gmd;
++	enum intel_step step;
++};
++
++static const struct gmd_to_intel_step gmd_graphics_table[] = {
++	{ .gmd.ver = 12, .gmd.rel = 70, .gmd.step = 0, .step = STEP_A0 },
++	{ .gmd.ver = 12, .gmd.rel = 70, .gmd.step = 4, .step = STEP_B0 },
++	{ .gmd.ver = 12, .gmd.rel = 71, .gmd.step = 0, .step = STEP_A0 },
++	{ .gmd.ver = 12, .gmd.rel = 71, .gmd.step = 4, .step = STEP_B0 },
++	{ .gmd.ver = 12, .gmd.rel = 73, .gmd.step = 0, .step = STEP_A0 },
++	{ .gmd.ver = 12, .gmd.rel = 73, .gmd.step = 4, .step = STEP_B0 },
++};
++
++static const struct gmd_to_intel_step gmd_media_table[] = {
++	{ .gmd.ver = 13, .gmd.rel = 70, .gmd.step = 0, .step = STEP_A0 },
++	{ .gmd.ver = 13, .gmd.rel = 70, .gmd.step = 4, .step = STEP_B0 },
++};
++
++static const struct gmd_to_intel_step gmd_display_table[] = {
++	{ .gmd.ver = 14, .gmd.rel = 0, .gmd.step = 0, .step = STEP_A0 },
++	{ .gmd.ver = 14, .gmd.rel = 0, .gmd.step = 4, .step = STEP_B0 },
++};
++
++static u8 gmd_to_intel_step(struct drm_i915_private *i915,
++			    struct ip_version *gmd,
++			    const struct gmd_to_intel_step *table,
++			    int len)
++{
++	int i;
++
++	for (i = 0; i < len; i++) {
++		if (table[i].gmd.ver == gmd->ver &&
++		    table[i].gmd.rel == gmd->rel &&
++		    table[i].gmd.step == gmd->step)
++			return table[i].step;
++	}
++
++	drm_dbg(&i915->drm, "Using future steppings\n");
++	return STEP_FUTURE;
++}
++
+ static void pvc_step_init(struct drm_i915_private *i915, int pci_revid);
+ 
+ void intel_step_init(struct drm_i915_private *i915)
+@@ -144,6 +186,24 @@ void intel_step_init(struct drm_i915_private *i915)
+ 	int revid = INTEL_REVID(i915);
+ 	struct intel_step_info step = {};
+ 
++	if (HAS_GMD_ID(i915)) {
++		step.graphics_step = gmd_to_intel_step(i915,
++						       &RUNTIME_INFO(i915)->graphics.version,
++						       gmd_graphics_table,
++						       ARRAY_SIZE(gmd_graphics_table));
++		step.media_step = gmd_to_intel_step(i915,
++						    &RUNTIME_INFO(i915)->media.version,
++						    gmd_media_table,
++						    ARRAY_SIZE(gmd_media_table));
++		step.display_step = gmd_to_intel_step(i915,
++						      &RUNTIME_INFO(i915)->display.version,
++						      gmd_display_table,
++						      ARRAY_SIZE(gmd_display_table));
++		RUNTIME_INFO(i915)->step = step;
++
++		return;
++	}
++
+ 	if (IS_PONTEVECCHIO(i915)) {
+ 		pvc_step_init(i915, revid);
+ 		return;
 -- 
 2.34.1
 
