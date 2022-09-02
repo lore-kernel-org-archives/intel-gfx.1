@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40256ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:34:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5598C54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:34:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B634910E949;
-	Fri,  2 Sep 2022 23:33:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5651010E952;
+	Fri,  2 Sep 2022 23:33:26 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1865310E941;
- Fri,  2 Sep 2022 23:33:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45DAD10E93C;
+ Fri,  2 Sep 2022 23:33:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662161594; x=1693697594;
+ t=1662161593; x=1693697593;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8rR8ujyEhSOZEaqoso6tcd9j9dNMG32uVRVM74lX48A=;
- b=KeNNDnUCcxJZAPwl0ckeWQXBoIaGaunkqhBFQdKVRrI/DkzDeueS5Cjg
- BKl+d/449rWczdj2NYD3VgombEaCZyXfJmwVdu4+61Qu6Z92VjCvIYirn
- XIh/sHNkzRZHIbzmOgHkJgU0W1dsF0cOcMvRzUPbcH5pc326YzGWB3XTn
- vJg6Q1ZvGAjRi21VM/M2MlP+5j3o6vyhOnfIC23nLrg/FTVIeP+SOGH9U
- nKydiEAiLedR4qd7u6LsOPNHLQ6FQFQcLyCllzb6MdSyawp2Scl31CX8l
- fRKnONSFVDxyByCOAb+XBe1EcHcS6nKF6aVJUjrTqqMJKv4aZcTLcIt7u Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="360064667"
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="360064667"
+ bh=RmkDJYawMc/a1pglnZTCX5PQIkN9i4/ssq5IZQk2YXw=;
+ b=S2xz/ctGiWrDts94jApBMtA7mRxWSZ8yzjKIP1LZsCvWlx6J7xys8ir2
+ ZZrFJDfKz6SLIiebK0boYBJvG/cwzCTWYofGd+MgtYOH55FA/EHBy6tlM
+ Sn7dbWHQ9ymw/Adcuf5d5DVoovTuPmDNolnJBUEI33u2OZzJfyF1BRTvv
+ joZrJDyM/I0tbGRvY9XygA70KvebIugKMRk3XsPnt84LTRD9/ipEbw9kx
+ nn41pyf6XZnKuNRrDBWqeHuEhCyprBi7+s+xiubGOM0vtfToKkZ+KBwuj
+ RLvzNLAhYsEzzUp+XmBoH7jrONwkTS3tJyi4lbrSiMQko4/Ugm2chD4V4 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="360064660"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="360064660"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2022 16:33:13 -0700
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="941464207"
+ 02 Sep 2022 16:33:12 -0700
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="941464187"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Sep 2022 16:33:11 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Sep 2022 16:32:54 -0700
-Message-Id: <20220902233257.3088492-10-matthew.d.roper@intel.com>
+Date: Fri,  2 Sep 2022 16:32:47 -0700
+Message-Id: <20220902233257.3088492-3-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220902233257.3088492-1-matthew.d.roper@intel.com>
 References: <20220902233257.3088492-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 09/12] drm/i915/uncore: Add GSI offset to
- uncore
+Subject: [Intel-gfx] [PATCH v2 02/12] drm/i915: Only hook up uncore->debug
+ for primary uncore
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,175 +60,170 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-GT non-engine registers (referred to as "GSI" registers by the spec)
-have the same relative offsets on standalone media as they do on the
-primary GT, just with an additional "GSI offset" added to their MMIO
-address.  If we store this GSI offset in the standalone media's
-intel_uncore structure, it can be automatically applied to all GSI reg
-reads/writes that happen on that GT, allowing us to re-use our existing
-GT code with minimal changes.
+The original intent of intel_uncore_mmio_debug as described in commit
+0a9b26306d6a ("drm/i915: split out uncore_mmio_debug") was to be a
+singleton structure that could be shared between multiple GTs' uncore
+objects in a multi-tile system.  Somehow we went off track and
+started allocating separate instances of this structure for each GT,
+which defeats that original goal.
 
-Forcewake and shadowed register tables for the media GT (which will be
-added in a future patch) are listed as final addresses that already
-include the GSI offset, so we also need to add the GSI offset before
-doing lookups of registers in one of those tables.
+But in reality, there isn't even a need to share the mmio_debug between
+multiple GTs; on all modern platforms (i.e., everything after gen7)
+unclaimed register accesses are something that can only be detected for
+display registers.  There's no point in grabbing the debug spinlock and
+checking for unclaimed accesses on an uncore used by an xehpsdv or pvc
+remote tile GT, or the uncore used by a mtl standalone media GT since
+all of the display accesses go through the primary intel_uncore.
 
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+The simplest solution is to simply leave uncore->debug NULL on all
+intel_uncore instances except for the primary one.  This will allow us
+to avoid the pointless debug spinlock acquisition we've been doing on
+MMIO accesses coming in through these intel_uncores.
+
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c       | 17 ++++++++++++++---
- drivers/gpu/drm/i915/intel_device_info.h |  4 +++-
- drivers/gpu/drm/i915/intel_uncore.c      | 10 ++++++++--
- drivers/gpu/drm/i915/intel_uncore.h      | 22 ++++++++++++++++++++--
- 4 files changed, 45 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt.c  |  9 ---------
+ drivers/gpu/drm/i915/i915_driver.c  |  2 +-
+ drivers/gpu/drm/i915/intel_uncore.c | 23 ++++++++++++++++++-----
+ drivers/gpu/drm/i915/intel_uncore.h |  3 +--
+ 4 files changed, 20 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index fbb5e32979a4..a6ed11b933eb 100644
+index e4bac2431e41..a82b5e2e0d83 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -776,10 +776,20 @@ void intel_gt_driver_late_release_all(struct drm_i915_private *i915)
- 	}
- }
- 
--static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
-+/*
-+ * Note: the gsi_offset parameter here isn't used, but we want to keep the
-+ * function signature equivalent to gtdef->setup() so that it can be plugged
-+ * in when we enabled remote tiles in the future.
-+ */
-+static int intel_gt_tile_setup(struct intel_gt *gt,
-+			       phys_addr_t phys_addr,
-+			       u32 gsi_offset)
- {
+@@ -781,21 +781,13 @@ static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
  	int ret;
  
-+	/* GSI offset is only applicable for media GTs */
-+	drm_WARN_ON(&gt->i915->drm, gsi_offset);
-+
  	if (!gt_is_root(gt)) {
+-		struct intel_uncore_mmio_debug *mmio_debug;
  		struct intel_uncore *uncore;
  
-@@ -832,7 +842,7 @@ int intel_gt_probe_all(struct drm_i915_private *i915)
- 	gt->info.engine_mask = RUNTIME_INFO(i915)->platform_engine_mask;
+ 		uncore = kzalloc(sizeof(*uncore), GFP_KERNEL);
+ 		if (!uncore)
+ 			return -ENOMEM;
  
- 	drm_dbg(&i915->drm, "Setting up %s\n", gt->name);
--	ret = intel_gt_tile_setup(gt, phys_addr);
-+	ret = intel_gt_tile_setup(gt, phys_addr, 0);
- 	if (ret)
- 		return ret;
+-		mmio_debug = kzalloc(sizeof(*mmio_debug), GFP_KERNEL);
+-		if (!mmio_debug) {
+-			kfree(uncore);
+-			return -ENOMEM;
+-		}
+-
+ 		gt->uncore = uncore;
+-		gt->uncore->debug = mmio_debug;
  
-@@ -865,7 +875,8 @@ int intel_gt_probe_all(struct drm_i915_private *i915)
- 			goto err;
- 		}
+ 		__intel_gt_init_early(gt);
+ 	}
+@@ -817,7 +809,6 @@ intel_gt_tile_cleanup(struct intel_gt *gt)
+ 	intel_uncore_cleanup_mmio(gt->uncore);
  
--		ret = gtdef->setup(gt, phys_addr + gtdef->mapping_base);
-+		ret = gtdef->setup(gt, phys_addr + gtdef->mapping_base,
-+				   gtdef->gsi_offset);
- 		if (ret)
- 			goto err;
+ 	if (!gt_is_root(gt)) {
+-		kfree(gt->uncore->debug);
+ 		kfree(gt->uncore);
+ 		kfree(gt);
+ 	}
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 56a2bcddb2af..18acba1bc3b0 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -326,7 +326,7 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 	intel_device_info_subplatform_init(dev_priv);
+ 	intel_step_init(dev_priv);
  
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index b408ce384cd7..85e0ef0e91b1 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -254,8 +254,10 @@ struct intel_gt_definition {
- 	enum intel_gt_type type;
- 	char *name;
- 	int (*setup)(struct intel_gt *gt,
--		     phys_addr_t phys_addr);
-+		     phys_addr_t phys_addr,
-+		     u32 gsi_offset);
- 	u32 mapping_base;
-+	u32 gsi_offset;
- 	intel_engine_mask_t engine_mask;
- };
+-	intel_uncore_mmio_debug_init_early(&dev_priv->mmio_debug);
++	intel_uncore_mmio_debug_init_early(dev_priv);
  
+ 	spin_lock_init(&dev_priv->irq_lock);
+ 	spin_lock_init(&dev_priv->gpu_error.lock);
 diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 33bdcbc77ab2..ecb02421502d 100644
+index e717ea55484a..6841f76533f9 100644
 --- a/drivers/gpu/drm/i915/intel_uncore.c
 +++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -927,6 +927,9 @@ find_fw_domain(struct intel_uncore *uncore, u32 offset)
+@@ -44,14 +44,19 @@ fw_domains_get(struct intel_uncore *uncore, enum forcewake_domains fw_domains)
+ }
+ 
+ void
+-intel_uncore_mmio_debug_init_early(struct intel_uncore_mmio_debug *mmio_debug)
++intel_uncore_mmio_debug_init_early(struct drm_i915_private *i915)
  {
- 	const struct intel_forcewake_range *entry;
- 
-+	if (IS_GSI_REG(offset))
-+		offset += uncore->gsi_offset;
+-	spin_lock_init(&mmio_debug->lock);
+-	mmio_debug->unclaimed_mmio_check = 1;
++	spin_lock_init(&i915->mmio_debug.lock);
++	i915->mmio_debug.unclaimed_mmio_check = 1;
 +
- 	entry = BSEARCH(offset,
- 			uncore->fw_domains_table,
- 			uncore->fw_domains_table_entries,
-@@ -1142,6 +1145,9 @@ static bool is_shadowed(struct intel_uncore *uncore, u32 offset)
- 	if (drm_WARN_ON(&uncore->i915->drm, !uncore->shadowed_reg_table))
- 		return false;
++	i915->uncore.debug = &i915->mmio_debug;
+ }
  
-+	if (IS_GSI_REG(offset))
-+		offset += uncore->gsi_offset;
+ static void mmio_debug_suspend(struct intel_uncore *uncore)
+ {
++	if (!uncore->debug)
++		return;
 +
- 	return BSEARCH(offset,
- 		       uncore->shadowed_reg_table,
- 		       uncore->shadowed_reg_table_entries,
-@@ -1994,8 +2000,8 @@ static int __fw_domain_init(struct intel_uncore *uncore,
+ 	spin_lock(&uncore->debug->lock);
  
- 	d->uncore = uncore;
- 	d->wake_count = 0;
--	d->reg_set = uncore->regs + i915_mmio_reg_offset(reg_set);
--	d->reg_ack = uncore->regs + i915_mmio_reg_offset(reg_ack);
-+	d->reg_set = uncore->regs + i915_mmio_reg_offset(reg_set) + uncore->gsi_offset;
-+	d->reg_ack = uncore->regs + i915_mmio_reg_offset(reg_ack) + uncore->gsi_offset;
+ 	/* Save and disable mmio debugging for the user bypass */
+@@ -67,6 +72,9 @@ static bool check_for_unclaimed_mmio(struct intel_uncore *uncore);
  
- 	d->id = domain_id;
+ static void mmio_debug_resume(struct intel_uncore *uncore)
+ {
++	if (!uncore->debug)
++		return;
++
+ 	spin_lock(&uncore->debug->lock);
  
+ 	if (!--uncore->debug->suspend_count)
+@@ -1705,7 +1713,7 @@ unclaimed_reg_debug(struct intel_uncore *uncore,
+ 		    const bool read,
+ 		    const bool before)
+ {
+-	if (likely(!uncore->i915->params.mmio_debug))
++	if (likely(!uncore->i915->params.mmio_debug) || !uncore->debug)
+ 		return;
+ 
+ 	/* interrupts are disabled and re-enabled around uncore->lock usage */
+@@ -2267,7 +2275,6 @@ void intel_uncore_init_early(struct intel_uncore *uncore,
+ 	uncore->i915 = gt->i915;
+ 	uncore->gt = gt;
+ 	uncore->rpm = &gt->i915->runtime_pm;
+-	uncore->debug = &gt->i915->mmio_debug;
+ }
+ 
+ static void uncore_raw_init(struct intel_uncore *uncore)
+@@ -2578,6 +2585,9 @@ bool intel_uncore_unclaimed_mmio(struct intel_uncore *uncore)
+ {
+ 	bool ret;
+ 
++	if (!uncore->debug)
++		return false;
++
+ 	spin_lock_irq(&uncore->debug->lock);
+ 	ret = check_for_unclaimed_mmio(uncore);
+ 	spin_unlock_irq(&uncore->debug->lock);
+@@ -2590,6 +2600,9 @@ intel_uncore_arm_unclaimed_mmio_detection(struct intel_uncore *uncore)
+ {
+ 	bool ret = false;
+ 
++	if (drm_WARN_ON(&uncore->i915->drm, !uncore->debug))
++		return false;
++
+ 	spin_lock_irq(&uncore->debug->lock);
+ 
+ 	if (unlikely(uncore->debug->unclaimed_mmio_check <= 0))
 diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
-index 4acb78a03233..7f1d7903a8f3 100644
+index b1fa912a65e7..6100d0f4498a 100644
 --- a/drivers/gpu/drm/i915/intel_uncore.h
 +++ b/drivers/gpu/drm/i915/intel_uncore.h
-@@ -136,6 +136,16 @@ struct intel_uncore {
- 
- 	spinlock_t lock; /** lock is also taken in irq contexts. */
- 
-+	/*
-+	 * Do we need to apply an additional offset to reach the beginning
-+	 * of the basic non-engine GT registers (referred to as "GSI" on
-+	 * newer platforms, or "GT block" on older platforms)?  If so, we'll
-+	 * track that here and apply it transparently to registers in the
-+	 * appropriate range to maintain compatibility with our existing
-+	 * register definitions and GT code.
-+	 */
-+	u32 gsi_offset;
-+
- 	unsigned int flags;
- #define UNCORE_HAS_FORCEWAKE		BIT(0)
- #define UNCORE_HAS_FPGA_DBG_UNCLAIMED	BIT(1)
-@@ -294,19 +304,27 @@ intel_wait_for_register_fw(struct intel_uncore *uncore,
- 					    2, timeout_ms, NULL);
+@@ -210,8 +210,7 @@ intel_uncore_has_fifo(const struct intel_uncore *uncore)
+ 	return uncore->flags & UNCORE_HAS_FIFO;
  }
  
-+#define IS_GSI_REG(reg) ((reg) < 0x40000)
-+
- /* register access functions */
- #define __raw_read(x__, s__) \
- static inline u##x__ __raw_uncore_read##x__(const struct intel_uncore *uncore, \
- 					    i915_reg_t reg) \
- { \
--	return read##s__(uncore->regs + i915_mmio_reg_offset(reg)); \
-+	u32 offset = i915_mmio_reg_offset(reg); \
-+	if (IS_GSI_REG(offset)) \
-+		offset += uncore->gsi_offset; \
-+	return read##s__(uncore->regs + offset); \
- }
- 
- #define __raw_write(x__, s__) \
- static inline void __raw_uncore_write##x__(const struct intel_uncore *uncore, \
- 					   i915_reg_t reg, u##x__ val) \
- { \
--	write##s__(val, uncore->regs + i915_mmio_reg_offset(reg)); \
-+	u32 offset = i915_mmio_reg_offset(reg); \
-+	if (IS_GSI_REG(offset)) \
-+		offset += uncore->gsi_offset; \
-+	write##s__(val, uncore->regs + offset); \
- }
- __raw_read(8, b)
- __raw_read(16, w)
+-void
+-intel_uncore_mmio_debug_init_early(struct intel_uncore_mmio_debug *mmio_debug);
++void intel_uncore_mmio_debug_init_early(struct drm_i915_private *i915);
+ void intel_uncore_init_early(struct intel_uncore *uncore,
+ 			     struct intel_gt *gt);
+ int intel_uncore_setup_mmio(struct intel_uncore *uncore, phys_addr_t phys_addr);
 -- 
 2.37.2
 
