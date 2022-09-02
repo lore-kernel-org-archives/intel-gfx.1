@@ -4,76 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE215ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:34:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64245ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:34:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD69B10E661;
-	Tue,  6 Sep 2022 12:33:51 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 762A110E43B;
- Wed, 31 Aug 2022 15:39:56 +0000 (UTC)
-Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 68D6C6601EBA;
- Wed, 31 Aug 2022 16:39:52 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960395;
- bh=yuFPPZLpZu5HiT00pXyoIXNbNU+jh/z2zDqW9/uKf/o=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=N/B+b8bOYPtHEQfD37MFztmBLUQG1Fw59ElRW+eMzo5mBqnLPKKxtrTtpJ5b3A9Re
- TeoegHw8MNPuFRGxmerjQaX0cftS5KdDOB9bjKMJkW1d9QrMiRYxurgsUEY8dMXDlV
- gGytpQShxs12u0FLdR+l9TU5JAf3nC+nIGtzgJjObxtxJA5YlNZNeGstwA44tRjNIj
- LGz6cxeSNsncUszPcRWjDRSIZufs697VuN6aMG7EXTUJzbo5FFMYbEhJO0nPtrwhaa
- /H3pVyYysLeApxxArprlFRxS4YnCYkIqYz491f3i6b2n5C1Uoq4VSnPUybsmx9GWcd
- Z+ig7XvygSbGA==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD3410E660;
+	Tue,  6 Sep 2022 12:33:53 +0000 (UTC)
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52FBC10E7DA;
+ Fri,  2 Sep 2022 11:28:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202112;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=3P4G0s8jHHnMDuhy8+v0Q+ixmj390VbhdMQwj5y5Wjc=; b=bZtQWi7EyAVPLA42Rzf8cb5JdM
+ G/3PyoSsE4+TzQ45xyyuvyIG/+TEOpTWEC9Otb+gWl6o0joUn+Fb2soBCKyda0m/awdEZrUKc7uak
+ z51s4DGVhtB++KNaE9LcvK41LZ+PM5S/HiBly41wGr52SLb4ElQBdb5IssVAsOaMMzlyCEgKM7B4P
+ wiVGMqooxE9e6urqnga+WXRKxxZVYoGuxulJw2ZV1V29cJpJe+yW0s0LvhhpPHIehl5vgWFClYJI4
+ xk9vQt5rQTEuzB79xm1Vd+fefkG8uvdSATf2/klQmygxH9N0KRAJEPTZEgVWsKx0Q385qyG2Lyz62
+ t3IxvyDQ==;
+Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=64065)
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1oU4qX-0004pl-Pv; Fri, 02 Sep 2022 13:28:25 +0200
+Message-ID: <020d44e6-884b-a817-8265-3461638cac71@tronnes.org>
+Date: Fri, 2 Sep 2022 13:28:16 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
+ Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Wed, 31 Aug 2022 18:37:49 +0300
-Message-Id: <20220831153757.97381-14-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-MIME-Version: 1.0
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Dom Cobley <dom@raspberrypi.com>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+ <24e09a29-6d04-3b1e-63ce-cd3c31d350e2@tronnes.org>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+In-Reply-To: <24e09a29-6d04-3b1e-63ce-cd3c31d350e2@tronnes.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
-Subject: [Intel-gfx] [PATCH v4 13/21] media: videobuf2: Prepare to dynamic
- dma-buf locking specification
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 00/41] drm: Analog TV Improvements
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,138 +68,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-sunxi@lists.linux.dev,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prepare V4L2 memory allocators to the common dynamic dma-buf locking
-convention by starting to use the unlocked versions of dma-buf API
-functions.
 
-Acked-by: Tomasz Figa <tfiga@chromium.org>
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- drivers/media/common/videobuf2/videobuf2-dma-contig.c | 11 ++++++-----
- drivers/media/common/videobuf2/videobuf2-dma-sg.c     |  8 ++++----
- drivers/media/common/videobuf2/videobuf2-vmalloc.c    |  6 +++---
- 3 files changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-index 678b359717c4..79f4d8301fbb 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-@@ -101,7 +101,7 @@ static void *vb2_dc_vaddr(struct vb2_buffer *vb, void *buf_priv)
- 	if (buf->db_attach) {
- 		struct iosys_map map;
- 
--		if (!dma_buf_vmap(buf->db_attach->dmabuf, &map))
-+		if (!dma_buf_vmap_unlocked(buf->db_attach->dmabuf, &map))
- 			buf->vaddr = map.vaddr;
- 
- 		return buf->vaddr;
-@@ -711,7 +711,7 @@ static int vb2_dc_map_dmabuf(void *mem_priv)
- 	}
- 
- 	/* get the associated scatterlist for this buffer */
--	sgt = dma_buf_map_attachment(buf->db_attach, buf->dma_dir);
-+	sgt = dma_buf_map_attachment_unlocked(buf->db_attach, buf->dma_dir);
- 	if (IS_ERR(sgt)) {
- 		pr_err("Error getting dmabuf scatterlist\n");
- 		return -EINVAL;
-@@ -722,7 +722,8 @@ static int vb2_dc_map_dmabuf(void *mem_priv)
- 	if (contig_size < buf->size) {
- 		pr_err("contiguous chunk is too small %lu/%lu\n",
- 		       contig_size, buf->size);
--		dma_buf_unmap_attachment(buf->db_attach, sgt, buf->dma_dir);
-+		dma_buf_unmap_attachment_unlocked(buf->db_attach, sgt,
-+						  buf->dma_dir);
- 		return -EFAULT;
- 	}
- 
-@@ -750,10 +751,10 @@ static void vb2_dc_unmap_dmabuf(void *mem_priv)
- 	}
- 
- 	if (buf->vaddr) {
--		dma_buf_vunmap(buf->db_attach->dmabuf, &map);
-+		dma_buf_vunmap_unlocked(buf->db_attach->dmabuf, &map);
- 		buf->vaddr = NULL;
- 	}
--	dma_buf_unmap_attachment(buf->db_attach, sgt, buf->dma_dir);
-+	dma_buf_unmap_attachment_unlocked(buf->db_attach, sgt, buf->dma_dir);
- 
- 	buf->dma_addr = 0;
- 	buf->dma_sgt = NULL;
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-index fa69158a65b1..36ecdea8d707 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-@@ -309,7 +309,7 @@ static void *vb2_dma_sg_vaddr(struct vb2_buffer *vb, void *buf_priv)
- 
- 	if (!buf->vaddr) {
- 		if (buf->db_attach) {
--			ret = dma_buf_vmap(buf->db_attach->dmabuf, &map);
-+			ret = dma_buf_vmap_unlocked(buf->db_attach->dmabuf, &map);
- 			buf->vaddr = ret ? NULL : map.vaddr;
- 		} else {
- 			buf->vaddr = vm_map_ram(buf->pages, buf->num_pages, -1);
-@@ -565,7 +565,7 @@ static int vb2_dma_sg_map_dmabuf(void *mem_priv)
- 	}
- 
- 	/* get the associated scatterlist for this buffer */
--	sgt = dma_buf_map_attachment(buf->db_attach, buf->dma_dir);
-+	sgt = dma_buf_map_attachment_unlocked(buf->db_attach, buf->dma_dir);
- 	if (IS_ERR(sgt)) {
- 		pr_err("Error getting dmabuf scatterlist\n");
- 		return -EINVAL;
-@@ -594,10 +594,10 @@ static void vb2_dma_sg_unmap_dmabuf(void *mem_priv)
- 	}
- 
- 	if (buf->vaddr) {
--		dma_buf_vunmap(buf->db_attach->dmabuf, &map);
-+		dma_buf_vunmap_unlocked(buf->db_attach->dmabuf, &map);
- 		buf->vaddr = NULL;
- 	}
--	dma_buf_unmap_attachment(buf->db_attach, sgt, buf->dma_dir);
-+	dma_buf_unmap_attachment_unlocked(buf->db_attach, sgt, buf->dma_dir);
- 
- 	buf->dma_sgt = NULL;
- }
-diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-index 948152f1596b..7831bf545874 100644
---- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-+++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-@@ -376,7 +376,7 @@ static int vb2_vmalloc_map_dmabuf(void *mem_priv)
- 	struct iosys_map map;
- 	int ret;
- 
--	ret = dma_buf_vmap(buf->dbuf, &map);
-+	ret = dma_buf_vmap_unlocked(buf->dbuf, &map);
- 	if (ret)
- 		return -EFAULT;
- 	buf->vaddr = map.vaddr;
-@@ -389,7 +389,7 @@ static void vb2_vmalloc_unmap_dmabuf(void *mem_priv)
- 	struct vb2_vmalloc_buf *buf = mem_priv;
- 	struct iosys_map map = IOSYS_MAP_INIT_VADDR(buf->vaddr);
- 
--	dma_buf_vunmap(buf->dbuf, &map);
-+	dma_buf_vunmap_unlocked(buf->dbuf, &map);
- 	buf->vaddr = NULL;
- }
- 
-@@ -399,7 +399,7 @@ static void vb2_vmalloc_detach_dmabuf(void *mem_priv)
- 	struct iosys_map map = IOSYS_MAP_INIT_VADDR(buf->vaddr);
- 
- 	if (buf->vaddr)
--		dma_buf_vunmap(buf->dbuf, &map);
-+		dma_buf_vunmap_unlocked(buf->dbuf, &map);
- 
- 	kfree(buf);
- }
--- 
-2.37.2
+Den 01.09.2022 21.35, skrev Noralf Trønnes:
+> 
+> 
+> I have finally found a workaround for my kernel hangs.
+> 
+> Dom had a look at my kernel and found that the VideoCore was fine, and
+> he said this:
+> 
+>> That suggests cause of lockup was on arm side rather than VC side.
+>>
+>> But it's hard to diagnose further. Once you've had a peripheral not
+>> respond, the AXI bus locks up and no further operations are possible.
+>> Usual causes of this are required clocks being stopped or domains
+>> disabled and then trying to access the hardware.
+>>
+> 
+> So when I got this on my 64-bit build:
+> 
+> [  166.702171] SError Interrupt on CPU1, code 0x00000000bf000002 -- SError
+> [  166.702187] CPU: 1 PID: 8 Comm: kworker/u8:0 Tainted: G        W
+>     5.19.0-rc6-00096-gba7973977976-dirty #1
+> [  166.702200] Hardware name: Raspberry Pi 4 Model B Rev 1.1 (DT)
+> [  166.702206] Workqueue: events_freezable_power_ thermal_zone_device_check
+> [  166.702231] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS
+> BTYPE=--)
+> [  166.702242] pc : regmap_mmio_read32le+0x10/0x28
+> [  166.702261] lr : regmap_mmio_read+0x44/0x70
+> ...
+> [  166.702606]  bcm2711_get_temp+0x58/0xb0 [bcm2711_thermal]
+> 
+> I wondered if that reg read was stalled due to a clock being stopped.
+> 
+> Lo and behold, disabling runtime pm and keeping the vec clock running
+> all the time fixed it[1].
+> 
+> I don't know what the problem is, but at least I can now test this patchset.
+> 
+> [1] https://gist.github.com/notro/23b984e7fa05cfbda2db50a421cac065
+> 
 
+It turns out I didn't have to disable runtime pm:
+https://gist.github.com/notro/0adcfcb12460b54e54458afe11dc8ea2
+
+Noralf.
