@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A8F5C54EE9
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:34:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 425DDECAAA1
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:34:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18F5310E94D;
-	Fri,  2 Sep 2022 23:33:25 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A017510E943;
- Fri,  2 Sep 2022 23:33:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0A9C10E946;
+	Fri,  2 Sep 2022 23:33:29 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D94DF10E93F;
+ Fri,  2 Sep 2022 23:33:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662161594; x=1693697594;
+ t=1662161593; x=1693697593;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=uY+fJvshZNiD1fF0ohfl8G2A+0ye096XnRaY3AHjlgM=;
- b=SSfqaZjNGXIlfAWHz3pUEyDYoP1e/ODNAe9km5GZgVCRAJPe/3A61+zY
- F2lMM5ao39ypCp3aCKNi0hS3ZaNUykRhH/pjqtf00pTMChnkuSz4PzDpB
- fZeMn00UG7sRHkS0QoP/43jEoqWGu5bRkmd/Awc92yxcOhI6ui2Weggs8
- qtXsWzJorNSgtjFfUByEwRKr0Q/BOfbnufkhkDUz605we5HSNstRhniRy
- /183Yi9KcyPI7s0pmHq15HvhudDBT7omUkBm9kb7pHq9yc3EX4yK3+um2
- KVlpKCB2fjFmwk91lZ8JwL9l4pMMKkGeTf1NXt0lHU8ytONwVST3A2Itr A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="279123431"
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="279123431"
+ bh=BLoe0laufTTGLfAxSX6n2K8Sdet26QJIDBOeliX5q+4=;
+ b=EhEfJuIhoZ2ScTnrdDYMLHAYURiEobmotrAS4wFd4glJTGiBKFYBeR8+
+ w2hKwf7HtbIjN3kJxCsSjmAMUnbrI5uECi2mkJyPXrbYEW82AWphBCwA8
+ oUDlOj9sSenNFd5vhZihyPIXzKdPK/f+0aUvHeegCvufCVGhiRM8+sWTC
+ wX2MKi+sFYwuP0TFMF4PjgMV8XBWGLuaGlqOvlvPiHLb82FmPOrMBG7oS
+ 3qicF1bOiBilyQrgG6nVqqCZGG7vUdjbZfWfSJLNShubk/IEhfFU2XEYS
+ jxCp1DNEevgzAyyEwTJR6xMl3OoxU/RzR+mc/5FvRsMxskdO+m+bBBwKr g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="360064665"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="360064665"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2022 16:33:13 -0700
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="941464216"
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2022 16:33:12 -0700
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="941464198"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2022 16:33:12 -0700
+ 02 Sep 2022 16:33:11 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Sep 2022 16:32:57 -0700
-Message-Id: <20220902233257.3088492-13-matthew.d.roper@intel.com>
+Date: Fri,  2 Sep 2022 16:32:51 -0700
+Message-Id: <20220902233257.3088492-7-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220902233257.3088492-1-matthew.d.roper@intel.com>
 References: <20220902233257.3088492-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 12/12] drm/i915/mtl: Hook up interrupts for
- standalone media
+Subject: [Intel-gfx] [PATCH v2 06/12] drm/i915: Use a DRM-managed action to
+ release the PCI bridge device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,120 +60,60 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Top-level handling of standalone media interrupts will be processed as
-part of the primary GT's interrupt handler (since primary and media GTs
-share an MMIO space, unlike remote tile setups).  When we get down to
-the point of handling engine interrupts, we need to take care to lookup
-VCS and VECS engines in the media GT rather than the primary.
+As we start supporting multiple uncore structures in future patches, the
+MMIO cleanup (which make also get called mid-init if there's a failure)
+will become more complicated.  Moving to DRM-managed actions will help
+keep things simple.
 
-There are also a couple of additional "other" instance bits that
-correspond to the media GT's GuC and media GT's power management
-interrupts; we need to direct those to the media GT instance as well.
-
-Bspec: 45605
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_irq.c   | 19 +++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_regs.h  |  2 ++
- drivers/gpu/drm/i915/gt/intel_sa_media.c |  7 +++++++
- drivers/gpu/drm/i915/i915_drv.h          |  3 +++
- 4 files changed, 31 insertions(+)
+ drivers/gpu/drm/i915/i915_driver.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-index 0dfd0c42d00d..f26882fdc24c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-@@ -59,11 +59,17 @@ static void
- gen11_other_irq_handler(struct intel_gt *gt, const u8 instance,
- 			const u16 iir)
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 18acba1bc3b0..1f46dd1ffaf7 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -105,6 +105,12 @@ static const char irst_name[] = "INT3392";
+ 
+ static const struct drm_driver i915_drm_driver;
+ 
++static void i915_release_bridge_dev(struct drm_device *dev,
++				    void *bridge)
++{
++	pci_dev_put(bridge);
++}
++
+ static int i915_get_bridge_dev(struct drm_i915_private *dev_priv)
  {
-+	struct intel_gt *media_gt = gt->i915->media_gt;
+ 	int domain = pci_domain_nr(to_pci_dev(dev_priv->drm.dev)->bus);
+@@ -115,7 +121,9 @@ static int i915_get_bridge_dev(struct drm_i915_private *dev_priv)
+ 		drm_err(&dev_priv->drm, "bridge device not found\n");
+ 		return -EIO;
+ 	}
+-	return 0;
 +
- 	if (instance == OTHER_GUC_INSTANCE)
- 		return guc_irq_handler(&gt->uc.guc, iir);
-+	if (instance == OTHER_MEDIA_GUC_INSTANCE && media_gt)
-+		return guc_irq_handler(&media_gt->uc.guc, iir);
++	return drmm_add_action_or_reset(&dev_priv->drm, i915_release_bridge_dev,
++					dev_priv->bridge_dev);
+ }
  
- 	if (instance == OTHER_GTPM_INSTANCE)
- 		return gen11_rps_irq_handler(&gt->rps, iir);
-+	if (instance == OTHER_MEDIA_GTPM_INSTANCE && media_gt)
-+		return gen11_rps_irq_handler(&media_gt->rps, iir);
+ /* Allocate space for the MCH regs if needed, return nonzero on error */
+@@ -452,7 +460,6 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+ err_uncore:
+ 	intel_teardown_mchbar(dev_priv);
+ 	intel_uncore_fini_mmio(&dev_priv->uncore);
+-	pci_dev_put(dev_priv->bridge_dev);
  
- 	if (instance == OTHER_KCR_INSTANCE)
- 		return intel_pxp_irq_handler(&gt->pxp, iir);
-@@ -81,6 +87,18 @@ gen11_engine_irq_handler(struct intel_gt *gt, const u8 class,
+ 	return ret;
+ }
+@@ -465,7 +472,6 @@ static void i915_driver_mmio_release(struct drm_i915_private *dev_priv)
  {
- 	struct intel_engine_cs *engine;
- 
-+	/*
-+	 * Platforms with standalone media have their media engines in another
-+	 * GT.
-+	 */
-+	if (MEDIA_VER(gt->i915) >= 13 &&
-+	    (class == VIDEO_DECODE_CLASS || class == VIDEO_ENHANCEMENT_CLASS)) {
-+		if (!gt->i915->media_gt)
-+			goto err;
-+
-+		gt = gt->i915->media_gt;
-+	}
-+
- 	if (instance <= MAX_ENGINE_INSTANCE)
- 		engine = gt->engine_class[class][instance];
- 	else
-@@ -89,6 +107,7 @@ gen11_engine_irq_handler(struct intel_gt *gt, const u8 class,
- 	if (likely(engine))
- 		return intel_engine_cs_irq(engine, iir);
- 
-+err:
- 	WARN_ONCE(1, "unhandled engine interrupt class=0x%x, instance=0x%x\n",
- 		  class, instance);
+ 	intel_teardown_mchbar(dev_priv);
+ 	intel_uncore_fini_mmio(&dev_priv->uncore);
+-	pci_dev_put(dev_priv->bridge_dev);
  }
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index fb2c56777480..2275ee47da95 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1554,6 +1554,8 @@
- #define   OTHER_GTPM_INSTANCE			1
- #define   OTHER_KCR_INSTANCE			4
- #define   OTHER_GSC_INSTANCE			6
-+#define   OTHER_MEDIA_GUC_INSTANCE		16
-+#define   OTHER_MEDIA_GTPM_INSTANCE		17
  
- #define GEN11_IIR_REG_SELECTOR(x)		_MMIO(0x190070 + ((x) * 4))
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_sa_media.c b/drivers/gpu/drm/i915/gt/intel_sa_media.c
-index 5516e9c363a4..e8f3d18c12b8 100644
---- a/drivers/gpu/drm/i915/gt/intel_sa_media.c
-+++ b/drivers/gpu/drm/i915/gt/intel_sa_media.c
-@@ -36,5 +36,12 @@ int intel_sa_mediagt_setup(struct intel_gt *gt, phys_addr_t phys_addr,
- 	gt->uncore = uncore;
- 	gt->phys_addr = phys_addr;
- 
-+	/*
-+	 * For current platforms we can assume there's only a single
-+	 * media GT and cache it for quick lookup.
-+	 */
-+	drm_WARN_ON(&i915->drm, i915->media_gt);
-+	i915->media_gt = gt;
-+
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index d4b45c7e931d..5a21242a6706 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -365,6 +365,9 @@ struct drm_i915_private {
- 
- 	struct kobject *sysfs_gt;
- 
-+	/* Quick lookup of media GT (current platforms only have one) */
-+	struct intel_gt *media_gt;
-+
- 	struct {
- 		struct i915_gem_contexts {
- 			spinlock_t lock; /* locks list */
+ /**
 -- 
 2.37.2
 
