@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E14CC6FA82
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:34:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C196AC54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:34:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A4EB10E944;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A845E10E945;
 	Fri,  2 Sep 2022 23:33:22 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1500910E93B;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78C4A10E93D;
  Fri,  2 Sep 2022 23:33:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1662161593; x=1693697593;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QP/62W3/f2TqfdCnqaUd57b762HZIJDWu2jZP9nGWjk=;
- b=gRZD2LqPZMKow6UDpH+2Z2u2KNoq+GXx3s4LBEYKdOjJr9aZ0wTCBRdn
- yKasaCx7PGSEqp4zjzGu+/5RaJql03V8eBxmk5P26rYlcDspUxVp+os8H
- Hk4YNEyrzcCvYvVcYcNvveXG3vGyq6uT/9TMy7aYtt8jNPCm3QrnKRn/o
- cvqrjLyEQr87uZka0BZimW4Q6oYfSPjJi/ufrINVLDvPWJiomjBt4IgMV
- BfvsKOYbMc3S5zOb720SRFK5eFPSspeEy4HZmK6kQ2TEqfZHGFtZBoCo+
- An+Hmfc4X1xahCoYnM1rlQYxWtduybwV6hYc51K6fcC7hUYA5ygJ4tHNq A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="360064658"
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="360064658"
+ bh=OQxjNsVh+dPYkcIueVTx2hi/zWD88addn/6FfSaKlSY=;
+ b=l6p/EV4shbonPX15L0y5lfwuZBVJ2IK87MG70aSgvRXmuotXoHivzGw+
+ qNHoawOw1T/Sl3g6P2emmwqm6KfkES/QFzuxhzCH4kCYw3eLNygU8x/rI
+ qtkuvtN2shv1+rLLi0b9WJ6BQV2WCIqbEYClqmcQMyFJxfL4FNEgmX172
+ Kku8XKigINN6jKfyc4j9pLMBEMHcy1EUpx8W8UUWUlAQP9+6f1TEMk9iT
+ GDy0oHxeNnpnQj9hwwFXv/SzGgk2dPVYjp4gM8DJ3+KOsTbJE7UaIe7vL
+ E36h1daFkSL0hrYv2IqfOz3h89qwN9ycIszlDK5XBh/Y5eVndut167oIi w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="360064661"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="360064661"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Sep 2022 16:33:12 -0700
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="941464183"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="941464189"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Sep 2022 16:33:11 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Sep 2022 16:32:46 -0700
-Message-Id: <20220902233257.3088492-2-matthew.d.roper@intel.com>
+Date: Fri,  2 Sep 2022 16:32:48 -0700
+Message-Id: <20220902233257.3088492-4-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220902233257.3088492-1-matthew.d.roper@intel.com>
 References: <20220902233257.3088492-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 01/12] drm/i915: Move locking and unclaimed
- check into mmio_debug_{suspend, resume}
+Subject: [Intel-gfx] [PATCH v2 03/12] drm/i915: Use managed allocations for
+ extra uncore objects
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,91 +60,41 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Moving the locking for MMIO debug (and the final check for unclaimed
-accesses when resuming debug after a userspace-initiated forcewake) will
-make it simpler to completely skip MMIO debug handling on uncores that
-don't support it in future patches.
+We're slowly transitioning the init-time kzalloc's of the driver over to
+DRM-managed allocations; let's make sure the uncore objects allocated
+for non-root GTs are thus allocated.
 
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Reviewed-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/intel_uncore.c | 41 +++++++++++++++--------------
- 1 file changed, 21 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 9b81b2543ce2..e717ea55484a 100644
---- a/drivers/gpu/drm/i915/intel_uncore.c
-+++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -50,23 +50,33 @@ intel_uncore_mmio_debug_init_early(struct intel_uncore_mmio_debug *mmio_debug)
- 	mmio_debug->unclaimed_mmio_check = 1;
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index a82b5e2e0d83..cf7aab7adb30 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -783,7 +783,7 @@ static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
+ 	if (!gt_is_root(gt)) {
+ 		struct intel_uncore *uncore;
  
--static void mmio_debug_suspend(struct intel_uncore_mmio_debug *mmio_debug)
-+static void mmio_debug_suspend(struct intel_uncore *uncore)
+-		uncore = kzalloc(sizeof(*uncore), GFP_KERNEL);
++		uncore = drmm_kzalloc(&gt->i915->drm, sizeof(*uncore), GFP_KERNEL);
+ 		if (!uncore)
+ 			return -ENOMEM;
+ 
+@@ -808,10 +808,8 @@ intel_gt_tile_cleanup(struct intel_gt *gt)
  {
--	lockdep_assert_held(&mmio_debug->lock);
-+	spin_lock(&uncore->debug->lock);
+ 	intel_uncore_cleanup_mmio(gt->uncore);
  
- 	/* Save and disable mmio debugging for the user bypass */
--	if (!mmio_debug->suspend_count++) {
--		mmio_debug->saved_mmio_check = mmio_debug->unclaimed_mmio_check;
--		mmio_debug->unclaimed_mmio_check = 0;
-+	if (!uncore->debug->suspend_count++) {
-+		uncore->debug->saved_mmio_check = uncore->debug->unclaimed_mmio_check;
-+		uncore->debug->unclaimed_mmio_check = 0;
- 	}
-+
-+	spin_unlock(&uncore->debug->lock);
+-	if (!gt_is_root(gt)) {
+-		kfree(gt->uncore);
++	if (!gt_is_root(gt))
+ 		kfree(gt);
+-	}
  }
  
--static void mmio_debug_resume(struct intel_uncore_mmio_debug *mmio_debug)
-+static bool check_for_unclaimed_mmio(struct intel_uncore *uncore);
-+
-+static void mmio_debug_resume(struct intel_uncore *uncore)
- {
--	lockdep_assert_held(&mmio_debug->lock);
-+	spin_lock(&uncore->debug->lock);
-+
-+	if (!--uncore->debug->suspend_count)
-+		uncore->debug->unclaimed_mmio_check = uncore->debug->saved_mmio_check;
- 
--	if (!--mmio_debug->suspend_count)
--		mmio_debug->unclaimed_mmio_check = mmio_debug->saved_mmio_check;
-+	if (check_for_unclaimed_mmio(uncore))
-+		drm_info(&uncore->i915->drm,
-+			 "Invalid mmio detected during user access\n");
-+
-+	spin_unlock(&uncore->debug->lock);
- }
- 
- static const char * const forcewake_domain_names[] = {
-@@ -677,9 +687,7 @@ void intel_uncore_forcewake_user_get(struct intel_uncore *uncore)
- 	spin_lock_irq(&uncore->lock);
- 	if (!uncore->user_forcewake_count++) {
- 		intel_uncore_forcewake_get__locked(uncore, FORCEWAKE_ALL);
--		spin_lock(&uncore->debug->lock);
--		mmio_debug_suspend(uncore->debug);
--		spin_unlock(&uncore->debug->lock);
-+		mmio_debug_suspend(uncore);
- 	}
- 	spin_unlock_irq(&uncore->lock);
- }
-@@ -695,14 +703,7 @@ void intel_uncore_forcewake_user_put(struct intel_uncore *uncore)
- {
- 	spin_lock_irq(&uncore->lock);
- 	if (!--uncore->user_forcewake_count) {
--		spin_lock(&uncore->debug->lock);
--		mmio_debug_resume(uncore->debug);
--
--		if (check_for_unclaimed_mmio(uncore))
--			drm_info(&uncore->i915->drm,
--				 "Invalid mmio detected during user access\n");
--		spin_unlock(&uncore->debug->lock);
--
-+		mmio_debug_resume(uncore);
- 		intel_uncore_forcewake_put__locked(uncore, FORCEWAKE_ALL);
- 	}
- 	spin_unlock_irq(&uncore->lock);
+ int intel_gt_probe_all(struct drm_i915_private *i915)
 -- 
 2.37.2
 
