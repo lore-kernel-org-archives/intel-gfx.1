@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A46A8ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 06:05:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16498ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 06:06:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFC1610E76B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B98210E76A;
 	Fri,  2 Sep 2022 06:04:46 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80AB510E74E;
- Fri,  2 Sep 2022 06:04:26 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 658DC10E754;
+ Fri,  2 Sep 2022 06:04:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662098666; x=1693634666;
+ t=1662098667; x=1693634667;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=uOnTdk2UUFYaAefWqm4RvcrhOerqVytS5TLCTLDaD8A=;
- b=Wc2j2YJnin3HHRi+sns4wFX7gVnm4gqX3BfM5+OxwspYjTLpNYo+xUcM
- q+Z9ZOqWkIQJrRGV2zggW5TL1BnO/USn538L84SQJKroc31c0BPW8uoBu
- Jg4UItq+0l1xoguHwMcq5kAeHpymfGFkhhkFNp76KAPS0roIX5njIp/pO
- MkaXfajdBa+Rs260h73dqWDwXbFotDXqnpLw+TF5lx0VGfYQlE9oHfJhU
- fmsnGT+ftaMwQEUpa/RIrAWkadyrdlfPOZT/ojnqgk0wnI+AHrxMF6rBM
- Z53qUJgPvvzDPAwp0ffrFiknQLMUMjAFcxNbFCiDR+PQFjW7hnnl0FCnA Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="282889140"
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="282889140"
+ bh=UEnLlkYMBh2ZGTLuQG2PN31BAv8lBhpCAg+beq4sWAM=;
+ b=V2cjZgKPWKDdsl0r6JuVZsdMvTJKTKmPMqoLqjvvorTpXRlbzzjCV8VV
+ tYWsx2eHgNMCPPjaM2739lXcypz66DDLB6rwHUwa/mL/i0VdDd7N/pzPY
+ 4yowsb2JgM27Pb/OrMlFP3QbMkdVsD6UZtmdPWUibIpidObhJJuIpN1Cn
+ mav9/eokbQxZBXnJU/SnV0QgAKLphgS9QvoRbgWlSg2z4yUUcWuRsJdFj
+ WKPyT3cOe21Ok1NW3BDj8yIQiN99/Lc+z1Q2Uw+UehZ/4hv5Z1b3X79J0
+ 7ddUvOf63mbzKu5W2nyiNQSAaSbxues2KMNBkmC53etw4L3/EuZxVqrlE w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="359861291"
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="359861291"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2022 23:04:25 -0700
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="755144601"
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2022 23:04:26 -0700
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="755144613"
 Received: from invictus.jf.intel.com ([10.165.21.188])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2022 23:04:24 -0700
+ 01 Sep 2022 23:04:25 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Sep 2022 23:03:37 -0700
-Message-Id: <20220902060342.151824-7-radhakrishna.sripada@intel.com>
+Date: Thu,  1 Sep 2022 23:03:41 -0700
+Message-Id: <20220902060342.151824-11-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
 References: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 06/11] drm/i915/mtl: Add display power wells
+Subject: [Intel-gfx] [PATCH v4 10/11] drm/i915/mtl: Update CHICKEN_TRANS*
+ register addresses
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,310 +60,151 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@intel.com>
+From: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
 
-Add support for display power wells on MTL. The differences from XE_LPD:
-- The AUX HW block is moved to the PICA block, where the registers are on
-  an always-on power well and the functionality needs to be powered on/off
-  via the AUX_CH_CTL register: [1], [2]
-- The DDI IO power on/off programming sequence is moved to the PHY PLL
-  enable/disable sequence. [3], [4], [5]
+In Display version 14, Transcoder Chicken Registers have updated address.
+This patch performs checks to use the right register when required.
 
-Bspec: [1] 49233, [2] 65247, [3] 64568, [4] 65451, [5] 65450
+v2: Omit display version check in i915_reg.h(Jani)
 
-v2:
- - Update the comment in aux power well enable
- - Reuse the noop sync fn for aux sync.
- - Use REG_BIT for new register bit definitions
-
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+Bspec: 34387, 50054
+Cc: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- .../i915/display/intel_display_power_map.c    | 115 +++++++++++++++++-
- .../i915/display/intel_display_power_well.c   |  44 +++++++
- .../i915/display/intel_display_power_well.h   |   4 +
- drivers/gpu/drm/i915/display/intel_dp_aux.c   |   8 ++
- drivers/gpu/drm/i915/i915_reg.h               |  21 ++++
- 5 files changed, 191 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 14 ++++++++---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  |  5 +++-
+ drivers/gpu/drm/i915/display/intel_psr.c     |  6 +++--
+ drivers/gpu/drm/i915/i915_reg.h              | 25 +++++++++++++++-----
+ 4 files changed, 38 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-index 5ddd1b93751c..dc04afc6cc8f 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-@@ -1350,6 +1350,117 @@ static const struct i915_power_well_desc_list xelpd_power_wells[] = {
- 	I915_PW_DESCRIPTORS(xelpd_power_wells_main),
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index be7cff722196..a3d0d12084a9 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -618,7 +618,10 @@ void intel_disable_transcoder(const struct intel_crtc_state *old_crtc_state)
+ 	if (!IS_I830(dev_priv))
+ 		val &= ~PIPECONF_ENABLE;
  
-+/*
-+ * MTL is based on XELPD power domains with the exception of power gating for:
-+ * - DDI_IO (moved to PLL logic)
-+ * - AUX and AUX_IO functionality and register access for USBC1-4 (PICA always-on)
-+ */
-+#define XELPDP_PW_2_POWER_DOMAINS \
-+	XELPD_PW_B_POWER_DOMAINS, \
-+	XELPD_PW_C_POWER_DOMAINS, \
-+	XELPD_PW_D_POWER_DOMAINS, \
-+	POWER_DOMAIN_AUDIO_PLAYBACK, \
-+	POWER_DOMAIN_VGA, \
-+	POWER_DOMAIN_PORT_DDI_LANES_TC1, \
-+	POWER_DOMAIN_PORT_DDI_LANES_TC2, \
-+	POWER_DOMAIN_PORT_DDI_LANES_TC3, \
-+	POWER_DOMAIN_PORT_DDI_LANES_TC4
-+
-+I915_DECL_PW_DOMAINS(xelpdp_pwdoms_pw_2,
-+	XELPDP_PW_2_POWER_DOMAINS,
-+	POWER_DOMAIN_INIT);
-+
-+I915_DECL_PW_DOMAINS(xelpdp_pwdoms_dc_off,
-+	XELPDP_PW_2_POWER_DOMAINS,
-+	POWER_DOMAIN_AUDIO_MMIO,
-+	POWER_DOMAIN_MODESET,
-+	POWER_DOMAIN_AUX_A,
-+	POWER_DOMAIN_AUX_B,
-+	POWER_DOMAIN_INIT);
-+
-+I915_DECL_PW_DOMAINS(xelpdp_pwdoms_aux_tc1,
-+	POWER_DOMAIN_AUX_USBC1,
-+	POWER_DOMAIN_AUX_TBT1);
-+
-+I915_DECL_PW_DOMAINS(xelpdp_pwdoms_aux_tc2,
-+	POWER_DOMAIN_AUX_USBC2,
-+	POWER_DOMAIN_AUX_TBT2);
-+
-+I915_DECL_PW_DOMAINS(xelpdp_pwdoms_aux_tc3,
-+	POWER_DOMAIN_AUX_USBC3,
-+	POWER_DOMAIN_AUX_TBT3);
-+
-+I915_DECL_PW_DOMAINS(xelpdp_pwdoms_aux_tc4,
-+	POWER_DOMAIN_AUX_USBC4,
-+	POWER_DOMAIN_AUX_TBT4);
-+
-+static const struct i915_power_well_desc xelpdp_power_wells_main[] = {
-+	{
-+		.instances = &I915_PW_INSTANCES(
-+			I915_PW("DC_off", &xelpdp_pwdoms_dc_off,
-+				.id = SKL_DISP_DC_OFF),
-+		),
-+		.ops = &gen9_dc_off_power_well_ops,
-+	}, {
-+		.instances = &I915_PW_INSTANCES(
-+			I915_PW("PW_2", &xelpdp_pwdoms_pw_2,
-+				.hsw.idx = ICL_PW_CTL_IDX_PW_2,
-+				.id = SKL_DISP_PW_2),
-+		),
-+		.ops = &hsw_power_well_ops,
-+		.has_vga = true,
-+		.has_fuses = true,
-+	}, {
-+		.instances = &I915_PW_INSTANCES(
-+			I915_PW("PW_A", &xelpd_pwdoms_pw_a,
-+				.hsw.idx = XELPD_PW_CTL_IDX_PW_A),
-+		),
-+		.ops = &hsw_power_well_ops,
-+		.irq_pipe_mask = BIT(PIPE_A),
-+		.has_fuses = true,
-+	}, {
-+		.instances = &I915_PW_INSTANCES(
-+			I915_PW("PW_B", &xelpd_pwdoms_pw_b,
-+				.hsw.idx = XELPD_PW_CTL_IDX_PW_B),
-+		),
-+		.ops = &hsw_power_well_ops,
-+		.irq_pipe_mask = BIT(PIPE_B),
-+		.has_fuses = true,
-+	}, {
-+		.instances = &I915_PW_INSTANCES(
-+			I915_PW("PW_C", &xelpd_pwdoms_pw_c,
-+				.hsw.idx = XELPD_PW_CTL_IDX_PW_C),
-+		),
-+		.ops = &hsw_power_well_ops,
-+		.irq_pipe_mask = BIT(PIPE_C),
-+		.has_fuses = true,
-+	}, {
-+		.instances = &I915_PW_INSTANCES(
-+			I915_PW("PW_D", &xelpd_pwdoms_pw_d,
-+				.hsw.idx = XELPD_PW_CTL_IDX_PW_D),
-+		),
-+		.ops = &hsw_power_well_ops,
-+		.irq_pipe_mask = BIT(PIPE_D),
-+		.has_fuses = true,
-+	}, {
-+		.instances = &I915_PW_INSTANCES(
-+			I915_PW("AUX_A", &icl_pwdoms_aux_a, .xelpdp.aux_ch = AUX_CH_A),
-+			I915_PW("AUX_B", &icl_pwdoms_aux_b, .xelpdp.aux_ch = AUX_CH_B),
-+			I915_PW("AUX_TC1", &xelpdp_pwdoms_aux_tc1, .xelpdp.aux_ch = AUX_CH_USBC1),
-+			I915_PW("AUX_TC2", &xelpdp_pwdoms_aux_tc2, .xelpdp.aux_ch = AUX_CH_USBC2),
-+			I915_PW("AUX_TC3", &xelpdp_pwdoms_aux_tc3, .xelpdp.aux_ch = AUX_CH_USBC3),
-+			I915_PW("AUX_TC4", &xelpdp_pwdoms_aux_tc4, .xelpdp.aux_ch = AUX_CH_USBC4),
-+		),
-+		.ops = &xelpdp_aux_power_well_ops,
-+	},
-+};
-+
-+static const struct i915_power_well_desc_list xelpdp_power_wells[] = {
-+	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
-+	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
-+	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
-+};
-+
- static void init_power_well_domains(const struct i915_power_well_instance *inst,
- 				    struct i915_power_well *power_well)
+-	if (DISPLAY_VER(dev_priv) >= 12)
++	if (DISPLAY_VER(dev_priv) >= 14)
++		intel_de_rmw(dev_priv, MTL_CHICKEN_TRANS(cpu_transcoder),
++			     FECSTALL_DIS_DPTSTREAM_DPTTG, 0);
++	else if (DISPLAY_VER(dev_priv) >= 12)
+ 		intel_de_rmw(dev_priv, CHICKEN_TRANS(cpu_transcoder),
+ 			     FECSTALL_DIS_DPTSTREAM_DPTTG, 0);
+ 
+@@ -1838,7 +1841,9 @@ static void hsw_set_frame_start_delay(const struct intel_crtc_state *crtc_state)
  {
-@@ -1457,7 +1568,9 @@ int intel_display_power_map_init(struct i915_power_domains *power_domains)
- 		return 0;
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+-	i915_reg_t reg = CHICKEN_TRANS(crtc_state->cpu_transcoder);
++	enum transcoder transcoder = crtc_state->cpu_transcoder;
++	i915_reg_t reg = DISPLAY_VER(dev_priv) >= 14 ? MTL_CHICKEN_TRANS(transcoder) :
++			 CHICKEN_TRANS(transcoder);
+ 	u32 val;
+ 
+ 	val = intel_de_read(dev_priv, reg);
+@@ -4033,6 +4038,7 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	struct intel_display_power_domain_set power_domain_set = { };
++	i915_reg_t reg;
+ 	bool active;
+ 	u32 tmp;
+ 
+@@ -4124,7 +4130,9 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
  	}
  
--	if (DISPLAY_VER(i915) >= 13)
-+	if (DISPLAY_VER(i915) >= 14)
-+		return set_power_wells(power_domains, xelpdp_power_wells);
-+	else if (DISPLAY_VER(i915) >= 13)
- 		return set_power_wells(power_domains, xelpd_power_wells);
- 	else if (IS_DG1(i915))
- 		return set_power_wells(power_domains, dg1_power_wells);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-index 29cc05c04c65..9bf98a37204b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-@@ -1798,6 +1798,43 @@ tgl_tc_cold_off_power_well_is_enabled(struct drm_i915_private *dev_priv,
- 	return intel_power_well_refcount(power_well);
- }
+ 	if (!transcoder_is_dsi(pipe_config->cpu_transcoder)) {
+-		tmp = intel_de_read(dev_priv, CHICKEN_TRANS(pipe_config->cpu_transcoder));
++		reg = DISPLAY_VER(dev_priv) >= 14 ? MTL_CHICKEN_TRANS(pipe_config->cpu_transcoder) :
++			CHICKEN_TRANS(pipe_config->cpu_transcoder);
++		tmp = intel_de_read(dev_priv, reg);
  
-+static void xelpdp_aux_power_well_enable(struct drm_i915_private *dev_priv,
-+					 struct i915_power_well *power_well)
-+{
-+	enum aux_ch aux_ch = i915_power_well_instance(power_well)->xelpdp.aux_ch;
-+
-+	intel_de_rmw(dev_priv, XELPDP_DP_AUX_CH_CTL(aux_ch),
-+		     XELPDP_DP_AUX_CH_CTL_POWER_REQUEST,
-+		     XELPDP_DP_AUX_CH_CTL_POWER_REQUEST);
-+
-+	/*
-+	 * The power status flag cannot be used to determine whether aux
-+	 * power wells have finished powering up.  Instead we're
-+	 * expected to just wait a fixed 600us after raising the request
-+	 * bit.
-+	 */
-+	usleep_range(600, 1200);
-+}
-+
-+static void xelpdp_aux_power_well_disable(struct drm_i915_private *dev_priv,
-+					  struct i915_power_well *power_well)
-+{
-+	enum aux_ch aux_ch = i915_power_well_instance(power_well)->xelpdp.aux_ch;
-+
-+	intel_de_rmw(dev_priv, XELPDP_DP_AUX_CH_CTL(aux_ch),
-+		     XELPDP_DP_AUX_CH_CTL_POWER_REQUEST,
-+		     0);
-+	usleep_range(10, 30);
-+}
-+
-+static bool xelpdp_aux_power_well_enabled(struct drm_i915_private *dev_priv,
-+					  struct i915_power_well *power_well)
-+{
-+	enum aux_ch aux_ch = i915_power_well_instance(power_well)->xelpdp.aux_ch;
-+
-+	return intel_de_read(dev_priv, XELPDP_DP_AUX_CH_CTL(aux_ch)) &
-+		XELPDP_DP_AUX_CH_CTL_POWER_STATUS;
-+}
+ 		pipe_config->framestart_delay = REG_FIELD_GET(HSW_FRAME_START_DELAY_MASK, tmp) + 1;
+ 	} else {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 13abe2b2170e..298004cae5a5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -568,7 +568,10 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
+ 	drm_dp_add_payload_part2(&intel_dp->mst_mgr, &state->base,
+ 				 drm_atomic_get_mst_payload_state(mst_state, connector->port));
  
- const struct i915_power_well_ops i9xx_always_on_power_well_ops = {
- 	.sync_hw = i9xx_power_well_sync_hw_noop,
-@@ -1911,3 +1948,10 @@ const struct i915_power_well_ops tgl_tc_cold_off_ops = {
- 	.disable = tgl_tc_cold_off_power_well_disable,
- 	.is_enabled = tgl_tc_cold_off_power_well_is_enabled,
- };
-+
-+const struct i915_power_well_ops xelpdp_aux_power_well_ops = {
-+	.sync_hw = i9xx_power_well_sync_hw_noop,
-+	.enable = xelpdp_aux_power_well_enable,
-+	.disable = xelpdp_aux_power_well_disable,
-+	.is_enabled = xelpdp_aux_power_well_enabled,
-+};
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.h b/drivers/gpu/drm/i915/display/intel_display_power_well.h
-index 31a898176ebb..e13b521e322a 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.h
-@@ -80,6 +80,9 @@ struct i915_power_well_instance {
- 			 */
- 			u8 idx;
- 		} hsw;
-+		struct {
-+			u8 aux_ch;
-+		} xelpdp;
- 	};
- };
+-	if (DISPLAY_VER(dev_priv) >= 12 && pipe_config->fec_enable)
++	if (DISPLAY_VER(dev_priv) >= 14 && pipe_config->fec_enable)
++		intel_de_rmw(dev_priv, MTL_CHICKEN_TRANS(trans), 0,
++			     FECSTALL_DIS_DPTSTREAM_DPTTG);
++	else if (DISPLAY_VER(dev_priv) >= 12 && pipe_config->fec_enable)
+ 		intel_de_rmw(dev_priv, CHICKEN_TRANS(trans), 0,
+ 			     FECSTALL_DIS_DPTSTREAM_DPTTG);
  
-@@ -169,5 +172,6 @@ extern const struct i915_power_well_ops vlv_dpio_power_well_ops;
- extern const struct i915_power_well_ops icl_aux_power_well_ops;
- extern const struct i915_power_well_ops icl_ddi_power_well_ops;
- extern const struct i915_power_well_ops tgl_tc_cold_off_ops;
-+extern const struct i915_power_well_ops xelpdp_aux_power_well_ops;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 079b7d3d0c53..da2d0661b630 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1139,7 +1139,8 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp,
  
- #endif
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index f2ad1d09ab43..98bd33645b43 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-@@ -150,6 +150,7 @@ static u32 skl_get_aux_send_ctl(struct intel_dp *intel_dp,
- 				u32 unused)
- {
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	struct drm_i915_private *i915 =	to_i915(dig_port->base.base.dev);
- 	u32 ret;
+ 	if (intel_dp->psr.psr2_enabled) {
+ 		if (DISPLAY_VER(dev_priv) == 9)
+-			intel_de_rmw(dev_priv, CHICKEN_TRANS(cpu_transcoder), 0,
++			intel_de_rmw(dev_priv,
++				     CHICKEN_TRANS(cpu_transcoder), 0,
+ 				     PSR2_VSC_ENABLE_PROG_HEADER |
+ 				     PSR2_ADD_VERTICAL_LINE_COUNT);
  
- 	/*
-@@ -170,6 +171,13 @@ static u32 skl_get_aux_send_ctl(struct intel_dp *intel_dp,
- 	if (intel_tc_port_in_tbt_alt_mode(dig_port))
- 		ret |= DP_AUX_CH_CTL_TBT_IO;
+@@ -1149,7 +1150,8 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp,
+ 		 * cause issues if non-supported panels are used.
+ 		 */
+ 		if (IS_ALDERLAKE_P(dev_priv))
+-			intel_de_rmw(dev_priv, CHICKEN_TRANS(cpu_transcoder), 0,
++			intel_de_rmw(dev_priv,
++				     CHICKEN_TRANS(cpu_transcoder), 0,
+ 				     ADLP_1_BASED_X_GRANULARITY);
  
-+	/*
-+	 * Power request bit is already set during aux power well enable.
-+	 * Preserve the bit across aux transactions.
-+	 */
-+	if (DISPLAY_VER(i915) >= 14)
-+		ret |= XELPDP_DP_AUX_CH_CTL_POWER_REQUEST;
-+
- 	return ret;
- }
- 
+ 		/* Wa_16011168373:adl-p */
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index e02e461a4b5d..99b2cd2abca4 100644
+index f9237586ab4f..8be7685e8a3e 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -3451,6 +3451,25 @@
- #define DP_AUX_CH_CTL(aux_ch)	_MMIO_PORT(aux_ch, _DPA_AUX_CH_CTL, _DPB_AUX_CH_CTL)
- #define DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PORT(aux_ch, _DPA_AUX_CH_DATA1, _DPB_AUX_CH_DATA1) + (i) * 4) /* 5 registers */
+@@ -5717,17 +5717,30 @@
+ #define  SKL_PLANE1_STRETCH_MAX_X1	REG_FIELD_PREP(SKL_PLANE1_STRETCH_MAX_MASK, 3)
+ #define CHICKEN_PIPESL_1(pipe) _MMIO_PIPE(pipe, _CHICKEN_PIPESL_1_A, _CHICKEN_PIPESL_1_B)
  
-+#define _XELPDP_USBC1_AUX_CH_CTL	0x16F210
-+#define _XELPDP_USBC2_AUX_CH_CTL	0x16F410
-+#define _XELPDP_USBC3_AUX_CH_CTL	0x16F610
-+#define _XELPDP_USBC4_AUX_CH_CTL	0x16F810
++#define _MTL_CHICKEN_TRANS_A	0x604e0
++#define _MTL_CHICKEN_TRANS_B	0x614e0
++#define _MTL_CHICKEN_TRANS_C	0x624e0
++#define _MTL_CHICKEN_TRANS_D	0x634e0
 +
-+#define _XELPDP_USBC1_AUX_CH_DATA1	0x16F214
-+#define _XELPDP_USBC2_AUX_CH_DATA1	0x16F414
-+#define _XELPDP_USBC3_AUX_CH_DATA1	0x16F614
-+#define _XELPDP_USBC4_AUX_CH_DATA1	0x16F814
+ #define _CHICKEN_TRANS_A	0x420c0
+ #define _CHICKEN_TRANS_B	0x420c4
+ #define _CHICKEN_TRANS_C	0x420c8
+ #define _CHICKEN_TRANS_EDP	0x420cc
+ #define _CHICKEN_TRANS_D	0x420d8
+-#define CHICKEN_TRANS(trans)	_MMIO(_PICK((trans), \
+-					    [TRANSCODER_EDP] = _CHICKEN_TRANS_EDP, \
+-					    [TRANSCODER_A] = _CHICKEN_TRANS_A, \
+-					    [TRANSCODER_B] = _CHICKEN_TRANS_B, \
+-					    [TRANSCODER_C] = _CHICKEN_TRANS_C, \
+-					    [TRANSCODER_D] = _CHICKEN_TRANS_D))
 +
-+#define XELPDP_DP_AUX_CH_CTL(aux_ch)		_MMIO(_PICK(aux_ch, \
-+						       _DPA_AUX_CH_CTL, \
-+						       _DPB_AUX_CH_CTL, \
-+						       0, /* port/aux_ch C is non-existent */ \
-+						       _XELPDP_USBC1_AUX_CH_CTL, \
-+						       _XELPDP_USBC2_AUX_CH_CTL, \
-+						       _XELPDP_USBC3_AUX_CH_CTL, \
-+						       _XELPDP_USBC4_AUX_CH_CTL))
++#define  CHICKEN_TRANS(trans)		    _MMIO(_PICK((trans), \
++						[TRANSCODER_EDP] = _CHICKEN_TRANS_EDP, \
++						[TRANSCODER_A] = _CHICKEN_TRANS_A, \
++						[TRANSCODER_B] = _CHICKEN_TRANS_B, \
++						[TRANSCODER_C] = _CHICKEN_TRANS_C, \
++						[TRANSCODER_D] = _CHICKEN_TRANS_D))
 +
- #define   DP_AUX_CH_CTL_SEND_BUSY	    (1 << 31)
- #define   DP_AUX_CH_CTL_DONE		    (1 << 30)
- #define   DP_AUX_CH_CTL_INTERRUPT	    (1 << 29)
-@@ -3463,6 +3482,8 @@
- #define   DP_AUX_CH_CTL_RECEIVE_ERROR	    (1 << 25)
- #define   DP_AUX_CH_CTL_MESSAGE_SIZE_MASK    (0x1f << 20)
- #define   DP_AUX_CH_CTL_MESSAGE_SIZE_SHIFT   20
-+#define   XELPDP_DP_AUX_CH_CTL_POWER_REQUEST REG_BIT(19)
-+#define   XELPDP_DP_AUX_CH_CTL_POWER_STATUS  REG_BIT(18)
- #define   DP_AUX_CH_CTL_PRECHARGE_2US_MASK   (0xf << 16)
- #define   DP_AUX_CH_CTL_PRECHARGE_2US_SHIFT  16
- #define   DP_AUX_CH_CTL_AUX_AKSV_SELECT	    (1 << 15)
++#define  MTL_CHICKEN_TRANS(trans)	    _MMIO(_PICK((trans), \
++						[TRANSCODER_A] = _MTL_CHICKEN_TRANS_A, \
++						[TRANSCODER_B] = _MTL_CHICKEN_TRANS_B, \
++						[TRANSCODER_C] = _MTL_CHICKEN_TRANS_C, \
++						[TRANSCODER_D] = _MTL_CHICKEN_TRANS_D))
++
+ #define  HSW_FRAME_START_DELAY_MASK	REG_GENMASK(28, 27)
+ #define  HSW_FRAME_START_DELAY(x)	REG_FIELD_PREP(HSW_FRAME_START_DELAY_MASK, x)
+ #define  VSC_DATA_SEL_SOFTWARE_CONTROL	REG_BIT(25) /* GLK */
 -- 
 2.34.1
 
