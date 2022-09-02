@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B170BC54EE9
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CB9BC54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:53:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED85710E945;
-	Fri,  2 Sep 2022 23:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC42E10E94D;
+	Fri,  2 Sep 2022 23:53:18 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A9C510E95D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2FEC10E95C
  for <intel-gfx@lists.freedesktop.org>; Fri,  2 Sep 2022 23:53:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1662162789; x=1693698789;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=thq8u1c52/M9QmklakHLtqLv2+8Vizk1BDZKFbqABnA=;
- b=DVsUUKCN+XHV8/JpFGdfGvWx+Qvb1Y+pkAtL95nxjt0Fex9gnTLEJ6De
- s3CdMUHcl8wblvumKEsHG9HKEI/O0CNyqT3QfgRGWJXT86QvSsVqO4njz
- FYocXjDij/gNMvpRajU9Ni7+AC1oueEJH81diORVtZJij81uSXVNsJ38C
- 5lmU9/nLuUDSsIrci5EC2QKula6qOTW61tbao0O3UQJb20K8BeJT+L4EZ
- j8lzdK3XC2SCbG4nyt5NwwcUqqzPaN4gZ4qWSuUJMg7S/N+mn7ySxyYQn
- tc3ULXmp46IaYzWiCOCXFj0m3LXOphylSqzAOOUuX4wQLVq2zFq8CWgk9 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="279125066"
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="279125066"
+ bh=a3npPAdokQwys5dyPtAJ6QB7GUDYglIaH7yTiUnsqiY=;
+ b=PSsqo6RlRR/BdM/oZu8/PNO5W0b5kSxj6abBH5O+141B8BlNd6iBu5YO
+ wn+12doI89bG349Pz1jf/bidXChDiqZv5bKRa84YWjvXYzfa0BkWt7B6u
+ bx69+RbJLbEcDqyOSkF3rxxYrpkPcaGRUQ07MKTi8BqJ363XRrDvuiWn3
+ eeKvErJ4iKypLOCBq06IPpTDVpV5yA+5JPQ17X+nq2U7VeVj8CmfcbuQB
+ GmHBDM6VF5+GbpFy93E01f/iie9z3veu4pDBIAZbh5Dsq3k8yGZwH+0+R
+ 4Gm3C3LUzNCtAnAEPp0fZt+iIueNjlLlUo/WdQF7v5aCFEDz1aIjIOXz7 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="279125069"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="279125069"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Sep 2022 16:53:08 -0700
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="564135549"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="564135561"
 Received: from orsosgc001.jf.intel.com (HELO unerlige-ril.jf.intel.com)
  ([10.165.21.138])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Sep 2022 16:53:08 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Sep 2022 16:52:58 -0700
-Message-Id: <20220902235302.1112388-3-ashutosh.dixit@intel.com>
+Date: Fri,  2 Sep 2022 16:53:02 -0700
+Message-Id: <20220902235302.1112388-7-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220902235302.1112388-1-ashutosh.dixit@intel.com>
 References: <20220902235302.1112388-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/6] drm/i915: Rename and expose common GT early
- init routine
+Subject: [Intel-gfx] [PATCH 6/6] drm/i915/rps: Freq caps for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,63 +59,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+For MTL, when reading from HW, RP0, RP1 (actuall RPe) and RPn freq use an
+entirely different set of registers with different fields, bitwidths and
+units.
 
-The common early GT init is needed for initialization of all GT types
-(root/primary, remote tile, standalone media).  Since standalone media
-(coming in the next patch) will be implemented in a separate file,
-rename and expose the function for use.
-
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Radhakrishna Sripada <Radhakrishna.sripada@intel.com>
+Cc: Badal Nilawar <badal.nilawar@intel.com>
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c | 6 +++---
- drivers/gpu/drm/i915/gt/intel_gt.h | 1 +
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_rps.c | 20 ++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_reg.h     |  9 +++++++++
+ 2 files changed, 29 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 5b4263c708cc..57a6488c0e14 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -35,7 +35,7 @@
- #include "intel_uncore.h"
- #include "shmem_utils.h"
- 
--static void __intel_gt_init_early(struct intel_gt *gt)
-+void intel_gt_common_init_early(struct intel_gt *gt)
- {
- 	spin_lock_init(&gt->irq_lock);
- 
-@@ -65,7 +65,7 @@ void intel_root_gt_init_early(struct drm_i915_private *i915)
- 	gt->i915 = i915;
- 	gt->uncore = &i915->uncore;
- 
--	__intel_gt_init_early(gt);
-+	intel_gt_common_init_early(gt);
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index 579ae9ac089c..e7ab172698e3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -1085,6 +1085,23 @@ static u32 intel_rps_read_state_cap(struct intel_rps *rps)
+ 		return intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
  }
  
- static int intel_gt_probe_lmem(struct intel_gt *gt)
-@@ -797,7 +797,7 @@ static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
- 		gt->uncore = uncore;
- 		gt->uncore->debug = mmio_debug;
++static void
++mtl_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *caps)
++{
++	struct intel_uncore *uncore = rps_to_uncore(rps);
++	u32 rp_state_cap = rps_to_gt(rps)->type == GT_MEDIA ?
++				intel_uncore_read(uncore, MTL_MEDIAP_STATE_CAP) :
++				intel_uncore_read(uncore, MTL_RP_STATE_CAP);
++	u32 rpe = rps_to_gt(rps)->type == GT_MEDIA ?
++			intel_uncore_read(uncore, MTL_MPE_FREQUENCY) :
++			intel_uncore_read(uncore, MTL_GT_RPE_FREQUENCY);
++
++	/* MTL values are in units of 16.67 MHz */
++	caps->rp0_freq = REG_FIELD_GET(MTL_RP0_CAP_MASK, rp_state_cap);
++	caps->min_freq = REG_FIELD_GET(MTL_RPN_CAP_MASK, rp_state_cap);
++	caps->rp1_freq = REG_FIELD_GET(MTL_RPE_MASK, rpe);
++}
++
+ /**
+  * gen6_rps_get_freq_caps - Get freq caps exposed by HW
+  * @rps: the intel_rps structure
+@@ -1098,6 +1115,9 @@ void gen6_rps_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *c
+ 	struct drm_i915_private *i915 = rps_to_i915(rps);
+ 	u32 rp_state_cap;
  
--		__intel_gt_init_early(gt);
-+		intel_gt_common_init_early(gt);
- 	}
++	if (IS_METEORLAKE(i915))
++		return mtl_get_freq_caps(rps, caps);
++
+ 	rp_state_cap = intel_rps_read_state_cap(rps);
  
- 	intel_uncore_init_early(gt->uncore, gt);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
-index 4d8779529cc2..c9a359f35d0f 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.h
-@@ -44,6 +44,7 @@ static inline struct intel_gt *gsc_to_gt(struct intel_gsc *gsc)
- 	return container_of(gsc, struct intel_gt, gsc);
- }
+ 	/* static values from HW: RP0 > RP1 > RPn (min_freq) */
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 06d555321651..d78f9675aa57 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -1792,6 +1792,15 @@
+ #define XEHPSDV_RP_STATE_CAP	_MMIO(0x250014)
+ #define PVC_RP_STATE_CAP	_MMIO(0x281014)
  
-+void intel_gt_common_init_early(struct intel_gt *gt);
- void intel_root_gt_init_early(struct drm_i915_private *i915);
- int intel_gt_assign_ggtt(struct intel_gt *gt);
- int intel_gt_init_mmio(struct intel_gt *gt);
++#define MTL_RP_STATE_CAP	_MMIO(0x138000)
++#define MTL_MEDIAP_STATE_CAP	_MMIO(0x138020)
++#define   MTL_RP0_CAP_MASK	REG_GENMASK(8, 0)
++#define   MTL_RPN_CAP_MASK	REG_GENMASK(24, 16)
++
++#define MTL_GT_RPE_FREQUENCY	_MMIO(0x13800c)
++#define MTL_MPE_FREQUENCY	_MMIO(0x13802c)
++#define   MTL_RPE_MASK		REG_GENMASK(8, 0)
++
+ #define GT0_PERF_LIMIT_REASONS		_MMIO(0x1381a8)
+ #define   GT0_PERF_LIMIT_REASONS_MASK	0xde3
+ #define   PROCHOT_MASK			REG_BIT(1)
 -- 
 2.34.1
 
