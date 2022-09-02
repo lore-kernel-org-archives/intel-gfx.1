@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5598C54EE9
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:34:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E134ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:34:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5651010E952;
-	Fri,  2 Sep 2022 23:33:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92E4C10E950;
+	Fri,  2 Sep 2022 23:33:25 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45DAD10E93C;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9B6A10E93E;
  Fri,  2 Sep 2022 23:33:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1662161593; x=1693697593;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=RmkDJYawMc/a1pglnZTCX5PQIkN9i4/ssq5IZQk2YXw=;
- b=S2xz/ctGiWrDts94jApBMtA7mRxWSZ8yzjKIP1LZsCvWlx6J7xys8ir2
- ZZrFJDfKz6SLIiebK0boYBJvG/cwzCTWYofGd+MgtYOH55FA/EHBy6tlM
- Sn7dbWHQ9ymw/Adcuf5d5DVoovTuPmDNolnJBUEI33u2OZzJfyF1BRTvv
- joZrJDyM/I0tbGRvY9XygA70KvebIugKMRk3XsPnt84LTRD9/ipEbw9kx
- nn41pyf6XZnKuNRrDBWqeHuEhCyprBi7+s+xiubGOM0vtfToKkZ+KBwuj
- RLvzNLAhYsEzzUp+XmBoH7jrONwkTS3tJyi4lbrSiMQko4/Ugm2chD4V4 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="360064660"
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="360064660"
+ bh=NNi3JCx5EwE8a0L4CChLESDt3pmZPShkO5H2iOTYQvY=;
+ b=QvI27e6PgI52o/OIs341SN6gHT52+pA8I7mVRWY2yOrShg1qEFj6vZSg
+ /P3sFQ2mcUmakXNLQ6jerrQ45WBk1F7OzN5epm2dUy1CViGNxcS+iP3Zp
+ nY9yOzQ7XN2VV61Ow6S5gjyUV3CIxmMYQPE/EiSffBlNN5bHjOgxBQhCn
+ Jm34pUAEhl5wgPjDvaK4l3DaHkmUjGuAxSmkDWqbaXtGZhIHtFLRfZXew
+ HMHHH2Ifo0gm9cipHHXf47jJJsU8d6wGFgajtp314YkTjm93SDI0ZL0c1
+ 9hNHTqwJL30LgK2d05huqjE8xh9AdulDkBh7c8QF++9jWieUWODfScvXd Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="360064663"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="360064663"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Sep 2022 16:33:12 -0700
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="941464187"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="941464195"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Sep 2022 16:33:11 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Sep 2022 16:32:47 -0700
-Message-Id: <20220902233257.3088492-3-matthew.d.roper@intel.com>
+Date: Fri,  2 Sep 2022 16:32:50 -0700
+Message-Id: <20220902233257.3088492-6-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220902233257.3088492-1-matthew.d.roper@intel.com>
 References: <20220902233257.3088492-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 02/12] drm/i915: Only hook up uncore->debug
- for primary uncore
+Subject: [Intel-gfx] [PATCH v2 05/12] drm/i915: Rename and expose common GT
+ early init routine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,170 +60,61 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The original intent of intel_uncore_mmio_debug as described in commit
-0a9b26306d6a ("drm/i915: split out uncore_mmio_debug") was to be a
-singleton structure that could be shared between multiple GTs' uncore
-objects in a multi-tile system.  Somehow we went off track and
-started allocating separate instances of this structure for each GT,
-which defeats that original goal.
-
-But in reality, there isn't even a need to share the mmio_debug between
-multiple GTs; on all modern platforms (i.e., everything after gen7)
-unclaimed register accesses are something that can only be detected for
-display registers.  There's no point in grabbing the debug spinlock and
-checking for unclaimed accesses on an uncore used by an xehpsdv or pvc
-remote tile GT, or the uncore used by a mtl standalone media GT since
-all of the display accesses go through the primary intel_uncore.
-
-The simplest solution is to simply leave uncore->debug NULL on all
-intel_uncore instances except for the primary one.  This will allow us
-to avoid the pointless debug spinlock acquisition we've been doing on
-MMIO accesses coming in through these intel_uncores.
+The common early GT init is needed for initialization of all GT types
+(root/primary, remote tile, standalone media).  Since standalone media
+(coming in the next patch) will be implemented in a separate file,
+rename and expose the function for use.
 
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Reviewed-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c  |  9 ---------
- drivers/gpu/drm/i915/i915_driver.c  |  2 +-
- drivers/gpu/drm/i915/intel_uncore.c | 23 ++++++++++++++++++-----
- drivers/gpu/drm/i915/intel_uncore.h |  3 +--
- 4 files changed, 20 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt.c | 6 +++---
+ drivers/gpu/drm/i915/gt/intel_gt.h | 1 +
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index e4bac2431e41..a82b5e2e0d83 100644
+index 7b880dbed6ce..fbb5e32979a4 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -781,21 +781,13 @@ static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
- 	int ret;
+@@ -35,7 +35,7 @@
+ #include "intel_uncore.h"
+ #include "shmem_utils.h"
  
- 	if (!gt_is_root(gt)) {
--		struct intel_uncore_mmio_debug *mmio_debug;
- 		struct intel_uncore *uncore;
+-static void __intel_gt_init_early(struct intel_gt *gt)
++void intel_gt_common_init_early(struct intel_gt *gt)
+ {
+ 	spin_lock_init(&gt->irq_lock);
  
- 		uncore = kzalloc(sizeof(*uncore), GFP_KERNEL);
- 		if (!uncore)
- 			return -ENOMEM;
+@@ -65,7 +65,7 @@ void intel_root_gt_init_early(struct drm_i915_private *i915)
+ 	gt->i915 = i915;
+ 	gt->uncore = &i915->uncore;
  
--		mmio_debug = kzalloc(sizeof(*mmio_debug), GFP_KERNEL);
--		if (!mmio_debug) {
--			kfree(uncore);
--			return -ENOMEM;
--		}
--
+-	__intel_gt_init_early(gt);
++	intel_gt_common_init_early(gt);
+ }
+ 
+ static int intel_gt_probe_lmem(struct intel_gt *gt)
+@@ -789,7 +789,7 @@ static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
+ 
  		gt->uncore = uncore;
--		gt->uncore->debug = mmio_debug;
  
- 		__intel_gt_init_early(gt);
+-		__intel_gt_init_early(gt);
++		intel_gt_common_init_early(gt);
  	}
-@@ -817,7 +809,6 @@ intel_gt_tile_cleanup(struct intel_gt *gt)
- 	intel_uncore_cleanup_mmio(gt->uncore);
  
- 	if (!gt_is_root(gt)) {
--		kfree(gt->uncore->debug);
- 		kfree(gt->uncore);
- 		kfree(gt);
- 	}
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 56a2bcddb2af..18acba1bc3b0 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -326,7 +326,7 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
- 	intel_device_info_subplatform_init(dev_priv);
- 	intel_step_init(dev_priv);
- 
--	intel_uncore_mmio_debug_init_early(&dev_priv->mmio_debug);
-+	intel_uncore_mmio_debug_init_early(dev_priv);
- 
- 	spin_lock_init(&dev_priv->irq_lock);
- 	spin_lock_init(&dev_priv->gpu_error.lock);
-diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index e717ea55484a..6841f76533f9 100644
---- a/drivers/gpu/drm/i915/intel_uncore.c
-+++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -44,14 +44,19 @@ fw_domains_get(struct intel_uncore *uncore, enum forcewake_domains fw_domains)
+ 	intel_uncore_init_early(gt->uncore, gt);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
+index 4d8779529cc2..c9a359f35d0f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+@@ -44,6 +44,7 @@ static inline struct intel_gt *gsc_to_gt(struct intel_gsc *gsc)
+ 	return container_of(gsc, struct intel_gt, gsc);
  }
  
- void
--intel_uncore_mmio_debug_init_early(struct intel_uncore_mmio_debug *mmio_debug)
-+intel_uncore_mmio_debug_init_early(struct drm_i915_private *i915)
- {
--	spin_lock_init(&mmio_debug->lock);
--	mmio_debug->unclaimed_mmio_check = 1;
-+	spin_lock_init(&i915->mmio_debug.lock);
-+	i915->mmio_debug.unclaimed_mmio_check = 1;
-+
-+	i915->uncore.debug = &i915->mmio_debug;
- }
- 
- static void mmio_debug_suspend(struct intel_uncore *uncore)
- {
-+	if (!uncore->debug)
-+		return;
-+
- 	spin_lock(&uncore->debug->lock);
- 
- 	/* Save and disable mmio debugging for the user bypass */
-@@ -67,6 +72,9 @@ static bool check_for_unclaimed_mmio(struct intel_uncore *uncore);
- 
- static void mmio_debug_resume(struct intel_uncore *uncore)
- {
-+	if (!uncore->debug)
-+		return;
-+
- 	spin_lock(&uncore->debug->lock);
- 
- 	if (!--uncore->debug->suspend_count)
-@@ -1705,7 +1713,7 @@ unclaimed_reg_debug(struct intel_uncore *uncore,
- 		    const bool read,
- 		    const bool before)
- {
--	if (likely(!uncore->i915->params.mmio_debug))
-+	if (likely(!uncore->i915->params.mmio_debug) || !uncore->debug)
- 		return;
- 
- 	/* interrupts are disabled and re-enabled around uncore->lock usage */
-@@ -2267,7 +2275,6 @@ void intel_uncore_init_early(struct intel_uncore *uncore,
- 	uncore->i915 = gt->i915;
- 	uncore->gt = gt;
- 	uncore->rpm = &gt->i915->runtime_pm;
--	uncore->debug = &gt->i915->mmio_debug;
- }
- 
- static void uncore_raw_init(struct intel_uncore *uncore)
-@@ -2578,6 +2585,9 @@ bool intel_uncore_unclaimed_mmio(struct intel_uncore *uncore)
- {
- 	bool ret;
- 
-+	if (!uncore->debug)
-+		return false;
-+
- 	spin_lock_irq(&uncore->debug->lock);
- 	ret = check_for_unclaimed_mmio(uncore);
- 	spin_unlock_irq(&uncore->debug->lock);
-@@ -2590,6 +2600,9 @@ intel_uncore_arm_unclaimed_mmio_detection(struct intel_uncore *uncore)
- {
- 	bool ret = false;
- 
-+	if (drm_WARN_ON(&uncore->i915->drm, !uncore->debug))
-+		return false;
-+
- 	spin_lock_irq(&uncore->debug->lock);
- 
- 	if (unlikely(uncore->debug->unclaimed_mmio_check <= 0))
-diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
-index b1fa912a65e7..6100d0f4498a 100644
---- a/drivers/gpu/drm/i915/intel_uncore.h
-+++ b/drivers/gpu/drm/i915/intel_uncore.h
-@@ -210,8 +210,7 @@ intel_uncore_has_fifo(const struct intel_uncore *uncore)
- 	return uncore->flags & UNCORE_HAS_FIFO;
- }
- 
--void
--intel_uncore_mmio_debug_init_early(struct intel_uncore_mmio_debug *mmio_debug);
-+void intel_uncore_mmio_debug_init_early(struct drm_i915_private *i915);
- void intel_uncore_init_early(struct intel_uncore *uncore,
- 			     struct intel_gt *gt);
- int intel_uncore_setup_mmio(struct intel_uncore *uncore, phys_addr_t phys_addr);
++void intel_gt_common_init_early(struct intel_gt *gt);
+ void intel_root_gt_init_early(struct drm_i915_private *i915);
+ int intel_gt_assign_ggtt(struct intel_gt *gt);
+ int intel_gt_init_mmio(struct intel_gt *gt);
 -- 
 2.37.2
 
