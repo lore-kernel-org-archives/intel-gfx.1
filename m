@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EE7DC54EE9
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 06:05:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05F1EC54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 06:05:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8009310E754;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC9610E753;
 	Fri,  2 Sep 2022 06:04:37 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B297F10E751;
- Fri,  2 Sep 2022 06:04:26 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 856F010E74B;
+ Fri,  2 Sep 2022 06:04:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662098666; x=1693634666;
+ t=1662098665; x=1693634665;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=YsK7nfUez2ZCdCIoFuV2Su0HjWFflRwvQ8D9w9GchbA=;
- b=EkPGkbBEU9ejcRw/OhdIWmpd4YIpeGMxvy11n8e/JoYccyYntOcm/ahz
- VW1OKOBfWl4yKpXINtMvTa9l+dmKZzW6eKP3QLDReLTV3X/YEjNEu2Xuy
- +S+5HHmbeOtF4UT+sO7Hjrlej235X3DPxNOjnufyrjhmFPZRjUABKZU2o
- +P3YKBmVEKhn/5TrG/cRbvzCniudGDQ9ApSuLN31OlxvaR1t6jViOvSQ5
- yu39jR0Mg1H8KU8agR1xNWItYktwqbXQ4PG49KwYkYWqTHpyXyv41Gb6h
- aZKlfiGv1WUqa2mo4RsN8YFVs6OYrIvrmLysU7EITeGNdjtkyYhI5uLIh w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="359861285"
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="359861285"
+ bh=WJzz6ouL7jnK1J7IOkeNWGjSsZxMNRMspB17RcHxu8A=;
+ b=GTiiQpfrfl5+mgyB1RVAM2BTyGriRReDFLm1r2tEE8uNgVQQkrmt8n9f
+ +XeuK4YkIEXs/lUUFrwbo42ezwUmJWhLSNRTYiJ2kFUrrvEUYzcuFchvN
+ lH9E1qjIzf/matLfWXZWf88EVQIaahhQOT6OOYRivRLIt7AUK5rPQWxXY
+ 9E7HGR0A2kAU/qLtFAFn7gh3wNOj+i3aRhvMh5jFKAdqfeNFsoXAJU+sP
+ wVYhjDBIPa/7F02twVD00BJkQpkAYWSRKA0Q+/lqiBviZV5qjkgfFL3/Z
+ Qfmb+Cu/FQOt/H2x2GxEduD13XzS2Rr6bey3nZKz5ii5McaHjY6aW22K5 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="282889125"
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="282889125"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2022 23:04:25 -0700
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="755144597"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2022 23:04:24 -0700
+X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; d="scan'208";a="755144583"
 Received: from invictus.jf.intel.com ([10.165.21.188])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Sep 2022 23:04:24 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Sep 2022 23:03:36 -0700
-Message-Id: <20220902060342.151824-6-radhakrishna.sripada@intel.com>
+Date: Thu,  1 Sep 2022 23:03:32 -0700
+Message-Id: <20220902060342.151824-2-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
 References: <20220902060342.151824-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 05/11] drm/i915/mtl: Add gmbus and gpio
- support
+Subject: [Intel-gfx] [PATCH v4 01/11] drm/i915: Move display and media IP
+ version to runtime info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,68 +60,260 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add tables to map the GMBUS pin pairs to GPIO registers and port to DDC.
-From spec we have registers GPIO_CTL[1-5] mapped to native display phys and
-GPIO_CTL[9-12] are mapped to TC ports.
+Future platforms can read the IP version from a register and the
+IP version numbers need not be hard coded in device info. Move the
+ip version for media and display to runtime info.
+
+On platforms where hard coding of IP version is required, update
+the IP version in __runtime under device_info.
 
 v2:
- - Drop unused GPIO pins(MattR)
+ - Avoid name collision for ip versions(Jani)
 
-BSpec: 49306
-
+Suggested-by: Jani Nikula <jani.nikula@intel.com>
 Cc: Matt Roper <matthew.d.roper@intel.com>
-Original Author: Brian J Lovin
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_gmbus.c | 15 +++++++++++++++
- drivers/gpu/drm/i915/display/intel_gmbus.h |  1 +
- 2 files changed, 16 insertions(+)
+ drivers/gpu/drm/i915/i915_drv.h          | 14 ++++-----
+ drivers/gpu/drm/i915/i915_pci.c          | 38 ++++++++++++------------
+ drivers/gpu/drm/i915/intel_device_info.c | 28 ++++++++++-------
+ drivers/gpu/drm/i915/intel_device_info.h | 15 ++++++----
+ 4 files changed, 53 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
-index 6f6cfccad477..74443f57f62d 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-@@ -117,6 +117,18 @@ static const struct gmbus_pin gmbus_pins_dg2[] = {
- 	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIOJ },
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index c9cca165bf5d..f85a470397a5 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -469,19 +469,19 @@ static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
+ 
+ #define IP_VER(ver, rel)		((ver) << 8 | (rel))
+ 
+-#define GRAPHICS_VER(i915)		(RUNTIME_INFO(i915)->graphics.ver)
+-#define GRAPHICS_VER_FULL(i915)		IP_VER(RUNTIME_INFO(i915)->graphics.ver, \
+-					       RUNTIME_INFO(i915)->graphics.rel)
++#define GRAPHICS_VER(i915)		(RUNTIME_INFO(i915)->graphics.version.ver)
++#define GRAPHICS_VER_FULL(i915)		IP_VER(RUNTIME_INFO(i915)->graphics.version.ver, \
++					       RUNTIME_INFO(i915)->graphics.version.rel)
+ #define IS_GRAPHICS_VER(i915, from, until) \
+ 	(GRAPHICS_VER(i915) >= (from) && GRAPHICS_VER(i915) <= (until))
+ 
+-#define MEDIA_VER(i915)			(INTEL_INFO(i915)->media.ver)
+-#define MEDIA_VER_FULL(i915)		IP_VER(INTEL_INFO(i915)->media.ver, \
+-					       INTEL_INFO(i915)->media.rel)
++#define MEDIA_VER(i915)			(RUNTIME_INFO(i915)->media.version.ver)
++#define MEDIA_VER_FULL(i915)		IP_VER(RUNTIME_INFO(i915)->media.version.ver, \
++					       RUNTIME_INFO(i915)->media.version.rel)
+ #define IS_MEDIA_VER(i915, from, until) \
+ 	(MEDIA_VER(i915) >= (from) && MEDIA_VER(i915) <= (until))
+ 
+-#define DISPLAY_VER(i915)	(INTEL_INFO(i915)->display.ver)
++#define DISPLAY_VER(i915)	(RUNTIME_INFO(i915)->display.version.ver)
+ #define IS_DISPLAY_VER(i915, from, until) \
+ 	(DISPLAY_VER(i915) >= (from) && DISPLAY_VER(i915) <= (until))
+ 
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 26b25d9434d6..f6aaf938c53c 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -34,9 +34,9 @@
+ 
+ #define PLATFORM(x) .platform = (x)
+ #define GEN(x) \
+-	.__runtime.graphics.ver = (x), \
+-	.media.ver = (x), \
+-	.display.ver = (x)
++	.__runtime.graphics.version.ver = (x), \
++	.__runtime.media.version.ver = (x), \
++	.__runtime.display.version.ver = (x)
+ 
+ #define I845_PIPE_OFFSETS \
+ 	.display.pipe_offsets = { \
+@@ -740,7 +740,7 @@ static const struct intel_device_info bxt_info = {
+ static const struct intel_device_info glk_info = {
+ 	GEN9_LP_FEATURES,
+ 	PLATFORM(INTEL_GEMINILAKE),
+-	.display.ver = 10,
++	.__runtime.display.version.ver = 10,
+ 	.display.dbuf.size = 1024 - 4, /* 4 blocks for bypass path allocation */
+ 	GLK_COLORS,
+ };
+@@ -919,7 +919,7 @@ static const struct intel_device_info rkl_info = {
+ static const struct intel_device_info dg1_info = {
+ 	GEN12_FEATURES,
+ 	DGFX_FEATURES,
+-	.__runtime.graphics.rel = 10,
++	.__runtime.graphics.version.rel = 10,
+ 	PLATFORM(INTEL_DG1),
+ 	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),
+ 	.require_force_probe = 1,
+@@ -962,7 +962,7 @@ static const struct intel_device_info adl_s_info = {
+ 	.display.has_hotplug = 1,						\
+ 	.display.has_ipc = 1,							\
+ 	.display.has_psr = 1,							\
+-	.display.ver = 13,							\
++	.__runtime.display.version.ver = 13,							\
+ 	.__runtime.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C) | BIT(PIPE_D),	\
+ 	.display.pipe_offsets = {						\
+ 		[TRANSCODER_A] = PIPE_A_OFFSET,					\
+@@ -1006,8 +1006,8 @@ static const struct intel_device_info adl_p_info = {
+ 		I915_GTT_PAGE_SIZE_2M
+ 
+ #define XE_HP_FEATURES \
+-	.__runtime.graphics.ver = 12, \
+-	.__runtime.graphics.rel = 50, \
++	.__runtime.graphics.version.ver = 12, \
++	.__runtime.graphics.version.rel = 50, \
+ 	XE_HP_PAGE_SIZES, \
+ 	.dma_mask_size = 46, \
+ 	.has_3d_pipeline = 1, \
+@@ -1027,8 +1027,8 @@ static const struct intel_device_info adl_p_info = {
+ 	.__runtime.ppgtt_type = INTEL_PPGTT_FULL
+ 
+ #define XE_HPM_FEATURES \
+-	.media.ver = 12, \
+-	.media.rel = 50
++	.__runtime.media.version.ver = 12, \
++	.__runtime.media.version.rel = 50
+ 
+ __maybe_unused
+ static const struct intel_device_info xehpsdv_info = {
+@@ -1053,8 +1053,8 @@ static const struct intel_device_info xehpsdv_info = {
+ 	XE_HP_FEATURES, \
+ 	XE_HPM_FEATURES, \
+ 	DGFX_FEATURES, \
+-	.__runtime.graphics.rel = 55, \
+-	.media.rel = 55, \
++	.__runtime.graphics.version.rel = 55, \
++	.__runtime.media.version.rel = 55, \
+ 	PLATFORM(INTEL_DG2), \
+ 	.has_4tile = 1, \
+ 	.has_64k_pages = 1, \
+@@ -1097,8 +1097,8 @@ static const struct intel_device_info pvc_info = {
+ 	XE_HPC_FEATURES,
+ 	XE_HPM_FEATURES,
+ 	DGFX_FEATURES,
+-	.__runtime.graphics.rel = 60,
+-	.media.rel = 60,
++	.__runtime.graphics.version.rel = 60,
++	.__runtime.media.version.rel = 60,
+ 	PLATFORM(INTEL_PONTEVECCHIO),
+ 	.display = { 0 },
+ 	.has_flat_ccs = 0,
+@@ -1111,7 +1111,7 @@ static const struct intel_device_info pvc_info = {
+ 
+ #define XE_LPDP_FEATURES	\
+ 	XE_LPD_FEATURES,	\
+-	.display.ver = 14,	\
++	.__runtime.display.version.ver = 14,	\
+ 	.display.has_cdclk_crawl = 1, \
+ 	.__runtime.fbc_mask = BIT(INTEL_FBC_A) | BIT(INTEL_FBC_B)
+ 
+@@ -1123,9 +1123,9 @@ static const struct intel_device_info mtl_info = {
+ 	 * Real graphics IP version will be obtained from hardware GMD_ID
+ 	 * register.  Value provided here is just for sanity checking.
+ 	 */
+-	.__runtime.graphics.ver = 12,
+-	.__runtime.graphics.rel = 70,
+-	.media.ver = 13,
++	.__runtime.graphics.version.ver = 12,
++	.__runtime.graphics.version.rel = 70,
++	.__runtime.media.version.ver = 13,
+ 	PLATFORM(INTEL_METEORLAKE),
+ 	.display.has_modular_fia = 1,
+ 	.has_flat_ccs = 0,
+@@ -1281,7 +1281,7 @@ bool i915_pci_resource_valid(struct pci_dev *pdev, int bar)
+ 
+ static bool intel_mmio_bar_valid(struct pci_dev *pdev, struct intel_device_info *intel_info)
+ {
+-	int gttmmaddr_bar = intel_info->__runtime.graphics.ver == 2 ? GEN2_GTTMMADR_BAR : GTTMMADR_BAR;
++	int gttmmaddr_bar = intel_info->__runtime.graphics.version.ver == 2 ? GEN2_GTTMMADR_BAR : GTTMMADR_BAR;
+ 
+ 	return i915_pci_resource_valid(pdev, gttmmaddr_bar);
+ }
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index 0a1f97b35f2b..56f19683dd55 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -92,21 +92,29 @@ void intel_device_info_print(const struct intel_device_info *info,
+ 			     const struct intel_runtime_info *runtime,
+ 			     struct drm_printer *p)
+ {
+-	if (runtime->graphics.rel)
+-		drm_printf(p, "graphics version: %u.%02u\n", runtime->graphics.ver,
+-			   runtime->graphics.rel);
++	if (runtime->graphics.version.rel)
++		drm_printf(p, "graphics version: %u.%02u\n",
++			   runtime->graphics.version.ver,
++			   runtime->graphics.version.rel);
+ 	else
+-		drm_printf(p, "graphics version: %u\n", runtime->graphics.ver);
++		drm_printf(p, "graphics version: %u\n",
++			   runtime->graphics.version.ver);
+ 
+-	if (info->media.rel)
+-		drm_printf(p, "media version: %u.%02u\n", info->media.ver, info->media.rel);
++	if (runtime->media.version.rel)
++		drm_printf(p, "media version: %u.%02u\n",
++			   runtime->media.version.ver,
++			   runtime->media.version.rel);
+ 	else
+-		drm_printf(p, "media version: %u\n", info->media.ver);
++		drm_printf(p, "media version: %u\n",
++			   runtime->media.version.ver);
+ 
+-	if (info->display.rel)
+-		drm_printf(p, "display version: %u.%02u\n", info->display.ver, info->display.rel);
++	if (runtime->display.version.rel)
++		drm_printf(p, "display version: %u.%02u\n",
++			   runtime->display.version.ver,
++			   runtime->display.version.rel);
+ 	else
+-		drm_printf(p, "display version: %u\n", info->display.ver);
++		drm_printf(p, "display version: %u\n",
++			   runtime->display.version.ver);
+ 
+ 	drm_printf(p, "gt: %d\n", info->gt);
+ 	drm_printf(p, "memory-regions: %x\n", runtime->memory_regions);
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 6904ad03ca19..d36cf25f1d5f 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -200,7 +200,15 @@ struct ip_version {
  };
  
-+static const struct gmbus_pin gmbus_pins_mtp[] = {
-+	[GMBUS_PIN_1_BXT] = { "dpa", GPIOB },
-+	[GMBUS_PIN_2_BXT] = { "dpb", GPIOC },
-+	[GMBUS_PIN_3_BXT] = { "dpc", GPIOD },
-+	[GMBUS_PIN_4_CNP] = { "dpd", GPIOE },
-+	[GMBUS_PIN_5_MTP] = { "dpe", GPIOF },
-+	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIOJ },
-+	[GMBUS_PIN_10_TC2_ICP] = { "tc2", GPIOK },
-+	[GMBUS_PIN_11_TC3_ICP] = { "tc3", GPIOL },
-+	[GMBUS_PIN_12_TC4_ICP] = { "tc4", GPIOM },
-+};
-+
- static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *i915,
- 					     unsigned int pin)
- {
-@@ -129,6 +141,9 @@ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *i915,
- 	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG1) {
- 		pins = gmbus_pins_dg1;
- 		size = ARRAY_SIZE(gmbus_pins_dg1);
-+	} else if (INTEL_PCH_TYPE(i915) >= PCH_MTP) {
-+		pins = gmbus_pins_mtp;
-+		size = ARRAY_SIZE(gmbus_pins_mtp);
- 	} else if (INTEL_PCH_TYPE(i915) >= PCH_ICP) {
- 		pins = gmbus_pins_icp;
- 		size = ARRAY_SIZE(gmbus_pins_icp);
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.h b/drivers/gpu/drm/i915/display/intel_gmbus.h
-index 8edc2e99cf53..20f704bd4e70 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.h
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.h
-@@ -24,6 +24,7 @@ struct i2c_adapter;
- #define GMBUS_PIN_2_BXT		2
- #define GMBUS_PIN_3_BXT		3
- #define GMBUS_PIN_4_CNP		4
-+#define GMBUS_PIN_5_MTP		5
- #define GMBUS_PIN_9_TC1_ICP	9
- #define GMBUS_PIN_10_TC2_ICP	10
- #define GMBUS_PIN_11_TC3_ICP	11
+ struct intel_runtime_info {
+-	struct ip_version graphics;
++	struct {
++		struct ip_version version;
++	} graphics;
++	struct {
++		struct ip_version version;
++	} media;
++	struct {
++		struct ip_version version;
++	} display;
+ 
+ 	/*
+ 	 * Platform mask is used for optimizing or-ed IS_PLATFORM calls into
+@@ -246,8 +254,6 @@ struct intel_runtime_info {
+ };
+ 
+ struct intel_device_info {
+-	struct ip_version media;
+-
+ 	enum intel_platform platform;
+ 
+ 	unsigned int dma_mask_size; /* available DMA address bits */
+@@ -259,9 +265,6 @@ struct intel_device_info {
+ #undef DEFINE_FLAG
+ 
+ 	struct {
+-		u8 ver;
+-		u8 rel;
+-
+ 		u8 abox_mask;
+ 
+ 		struct {
 -- 
 2.34.1
 
