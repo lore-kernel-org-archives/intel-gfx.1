@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ACF2ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:33:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E62C54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Sep 2022 23:33:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F26DA10E93A;
-	Fri,  2 Sep 2022 23:33:16 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D617B10E93A;
- Fri,  2 Sep 2022 23:33:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87FA610E93E;
+	Fri,  2 Sep 2022 23:33:20 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6834610E93C;
+ Fri,  2 Sep 2022 23:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662161592; x=1693697592;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=/4pzuRReCi7fWAeJwlHI1gfgLMtSQMQWjvVrp5XdBeA=;
- b=WuzLvq+w/CXQnw6XyP4jBV1DSkvIg9hTJz8EaZVHqYUrt8uwbGOziN5n
- zidFIiVKj8yEb0B5mHvnug7SpihREq3lwYA8iP+OjshmW7nxK+1iSz87w
- IG4pslHHJOYLnz/fYZZLdrS8MJrbZGXo0NAuTdTWIX206hT+YjqWt/2Qa
- XrTZtRyFX3A4me+uQz7+S270MYqsiKZNTc65KfbTS9w7Et+fWO7RHAV3i
- hE6z6uxz2fopqTMvrg6COXnBoapewKbcN28jrUOLvvLI9BUIiCcKcv5IH
- Igh3W5s0paS+Y7mxZRNNb5K5Q+Ia6SYQKk24TDP781bceDoL9P2s//6bu A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="360064657"
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="360064657"
+ t=1662161594; x=1693697594;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=h7GEOK9MlrOioZFRBSZgaYnqTyURvVNjcR9vnoLOXCA=;
+ b=SIhMXwnmZfI03TO4v8FnHHYeNRfGYQd+4qHEv+376rgcF8Py8J2XGPir
+ dFJix9Owi8vjsMwOsqReCwjpwviRhqI7n5skG2yD+KUHJhly/q62kGK2m
+ qXfsG6Ma83r3/y8U8COY94qJ8kcXTJgv2kTVb6FCWdmuzDttLSJV5Vz00
+ QGUvMu/qBiIlOwkx8Y2gbUCdytz9BcEzezPVz23dvZJreGtBdBKaayTQ/
+ h8+oYuK/O5U8zYfiDNoEnLLlFVGEeGMhOZwM1EerOZchY6qBwtJsTDnL1
+ Jzr1o5gK3h/dVILVlPDz8V5VD47I7gksbrNFLoTZ1S4GGCypEUrHJYUOv g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10458"; a="279123430"
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="279123430"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2022 16:33:11 -0700
-X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="941464181"
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2022 16:33:13 -0700
+X-IronPort-AV: E=Sophos;i="5.93,285,1654585200"; d="scan'208";a="941464210"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Sep 2022 16:33:11 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Sep 2022 16:32:45 -0700
-Message-Id: <20220902233257.3088492-1-matthew.d.roper@intel.com>
+Date: Fri,  2 Sep 2022 16:32:55 -0700
+Message-Id: <20220902233257.3088492-11-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220902233257.3088492-1-matthew.d.roper@intel.com>
+References: <20220902233257.3088492-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 00/12] i915: Add "standalone media" support
- for MTL
+Subject: [Intel-gfx] [PATCH v2 10/12] drm/i915/xelpmp: Expose media as
+ another GT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,79 +61,191 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Starting with MTL, media functionality has moved into a new, second GT
-at the hardware level.  This new GT, referred to as "standalone media"
-in the spec, has its own GuC, power management/forcewake, etc.  The
-general non-engine GT registers for standalone media start at 0x380000,
-but otherwise use the same MMIO offsets as the primary GT.
-
-Standalone media has a lot of similarity to the remote tiles
-present on platforms like xehpsdv and pvc, and our i915 implementation
-can share much of the general "multi GT" infrastructure between the two
-types of platforms.  However there are a few notable differences
-we must deal with:
- - The 0x380000 offset only applies to the non-engine GT registers
-   (which the specs refer to as "GSI" registers).  The engine registers
-   remain at their usual locations (e.g., 0x1C0000 for VCS0).
- - Unlike platforms with remote tiles, all interrupt handling for
-   standalone media still happens via the primary GT.
-
+Xe_LPM+ platforms have "standalone media."  I.e., the media unit is
+designed as an additional GT with its own engine list, GuC, forcewake,
+etc.  Let's allow platforms to include media GTs in their device info.
 
 v2:
- - Added new patches to ensure each GT, not just the primary, is
-   handled properly during various init/suspend/resume/teardown flows.
- - Simplified GSI offset handling and split it into its own patch.
- - Correct gt->irq_lock assignment for media GT.
- - Fix jump target for intel_root_gt_init_early() errors.
+ - Simplify GSI register handling and split it out to a separate patch
+   for ease of review.  (Daniele)
 
-Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-
-Matt Roper (12):
-  drm/i915: Move locking and unclaimed check into
-    mmio_debug_{suspend,resume}
-  drm/i915: Only hook up uncore->debug for primary uncore
-  drm/i915: Use managed allocations for extra uncore objects
-  drm/i915: Prepare more multi-GT initialization
-  drm/i915: Rename and expose common GT early init routine
-  drm/i915: Use a DRM-managed action to release the PCI bridge device
-  drm/i915: Initialize MMIO access for each GT
-  drm/i915: Handle each GT on init/release and suspend/resume
-  drm/i915/uncore: Add GSI offset to uncore
-  drm/i915/xelpmp: Expose media as another GT
-  drm/i915/mtl: Use primary GT's irq lock for media GT
-  drm/i915/mtl: Hook up interrupts for standalone media
-
- drivers/gpu/drm/i915/Makefile                 |   1 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  10 +-
- drivers/gpu/drm/i915/gt/intel_gt.c            |  96 ++++++++++++----
- drivers/gpu/drm/i915/gt/intel_gt.h            |   4 +-
- drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  35 ++++--
- drivers/gpu/drm/i915/gt/intel_gt_pm_irq.c     |   8 +-
- drivers/gpu/drm/i915/gt/intel_gt_regs.h       |  10 ++
- drivers/gpu/drm/i915/gt/intel_gt_types.h      |   5 +-
- drivers/gpu/drm/i915/gt/intel_rps.c           |  26 ++---
- drivers/gpu/drm/i915/gt/intel_sa_media.c      |  47 ++++++++
- drivers/gpu/drm/i915/gt/intel_sa_media.h      |  15 +++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  24 ++--
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |   4 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |   4 +-
- drivers/gpu/drm/i915/i915_driver.c            | 105 ++++++++++++------
- drivers/gpu/drm/i915/i915_drv.h               |   5 +
- drivers/gpu/drm/i915/i915_irq.c               |   4 +-
- drivers/gpu/drm/i915/i915_pci.c               |  15 +++
- drivers/gpu/drm/i915/intel_device_info.h      |  19 ++++
- drivers/gpu/drm/i915/intel_uncore.c           |  83 +++++++++-----
- drivers/gpu/drm/i915/intel_uncore.h           |  28 ++++-
- drivers/gpu/drm/i915/pxp/intel_pxp.c          |   4 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.c      |  14 +--
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c  |   4 +-
- .../gpu/drm/i915/selftests/mock_gem_device.c  |   1 +
- 25 files changed, 424 insertions(+), 147 deletions(-)
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/Makefile            |  1 +
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h  |  8 +++++
+ drivers/gpu/drm/i915/gt/intel_sa_media.c | 39 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_sa_media.h | 15 +++++++++
+ drivers/gpu/drm/i915/i915_pci.c          | 15 +++++++++
+ drivers/gpu/drm/i915/intel_device_info.h |  1 +
+ drivers/gpu/drm/i915/intel_uncore.c      |  4 +++
+ 7 files changed, 83 insertions(+)
  create mode 100644 drivers/gpu/drm/i915/gt/intel_sa_media.c
  create mode 100644 drivers/gpu/drm/i915/gt/intel_sa_media.h
 
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 522ef9b4aff3..e83e4cd46968 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -123,6 +123,7 @@ gt-y += \
+ 	gt/intel_ring.o \
+ 	gt/intel_ring_submission.o \
+ 	gt/intel_rps.o \
++	gt/intel_sa_media.o \
+ 	gt/intel_sseu.o \
+ 	gt/intel_sseu_debugfs.o \
+ 	gt/intel_timeline.o \
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index d414785003cc..fb2c56777480 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -1578,4 +1578,12 @@
+ 
+ #define GEN12_SFC_DONE(n)			_MMIO(0x1cc000 + (n) * 0x1000)
+ 
++/*
++ * Standalone Media's non-engine GT registers are located at their regular GT
++ * offsets plus 0x380000.  This extra offset is stored inside the intel_uncore
++ * structure so that the existing code can be used for both GTs without
++ * modification.
++ */
++#define MTL_MEDIA_GSI_BASE			0x380000
++
+ #endif /* __INTEL_GT_REGS__ */
+diff --git a/drivers/gpu/drm/i915/gt/intel_sa_media.c b/drivers/gpu/drm/i915/gt/intel_sa_media.c
+new file mode 100644
+index 000000000000..8c5c519457cc
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/intel_sa_media.c
+@@ -0,0 +1,39 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2021 Intel Corporation
++ */
++
++#include <drm/drm_managed.h>
++
++#include "i915_drv.h"
++#include "gt/intel_gt.h"
++#include "gt/intel_sa_media.h"
++
++int intel_sa_mediagt_setup(struct intel_gt *gt, phys_addr_t phys_addr,
++			   u32 gsi_offset)
++{
++	struct drm_i915_private *i915 = gt->i915;
++	struct intel_uncore *uncore;
++
++	uncore = drmm_kzalloc(&i915->drm, sizeof(*uncore), GFP_KERNEL);
++	if (!uncore)
++		return -ENOMEM;
++
++	uncore->gsi_offset = gsi_offset;
++
++	intel_gt_common_init_early(gt);
++	intel_uncore_init_early(uncore, gt);
++
++	/*
++	 * Standalone media shares the general MMIO space with the primary
++	 * GT.  We'll re-use the primary GT's mapping.
++	 */
++	uncore->regs = i915->uncore.regs;
++	if (drm_WARN_ON(&i915->drm, uncore->regs == NULL))
++		return -EIO;
++
++	gt->uncore = uncore;
++	gt->phys_addr = phys_addr;
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/i915/gt/intel_sa_media.h b/drivers/gpu/drm/i915/gt/intel_sa_media.h
+new file mode 100644
+index 000000000000..3afb310de932
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/intel_sa_media.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2021 Intel Corporation
++ */
++#ifndef __INTEL_SA_MEDIA__
++#define __INTEL_SA_MEDIA__
++
++#include <linux/types.h>
++
++struct intel_gt;
++
++int intel_sa_mediagt_setup(struct intel_gt *gt, phys_addr_t phys_addr,
++			   u32 gsi_offset);
++
++#endif /* __INTEL_SA_MEDIA_H__ */
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 26b25d9434d6..18d3722331e4 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -26,6 +26,9 @@
+ #include <drm/drm_drv.h>
+ #include <drm/i915_pciids.h>
+ 
++#include "gt/intel_gt_regs.h"
++#include "gt/intel_sa_media.h"
++
+ #include "i915_driver.h"
+ #include "i915_drv.h"
+ #include "i915_pci.h"
+@@ -1115,6 +1118,17 @@ static const struct intel_device_info pvc_info = {
+ 	.display.has_cdclk_crawl = 1, \
+ 	.__runtime.fbc_mask = BIT(INTEL_FBC_A) | BIT(INTEL_FBC_B)
+ 
++static const struct intel_gt_definition xelpmp_extra_gt[] = {
++	{
++		.type = GT_MEDIA,
++		.name = "Standalone Media GT",
++		.setup = intel_sa_mediagt_setup,
++		.gsi_offset = MTL_MEDIA_GSI_BASE,
++		.engine_mask = BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
++	},
++	{}
++};
++
+ __maybe_unused
+ static const struct intel_device_info mtl_info = {
+ 	XE_HP_FEATURES,
+@@ -1128,6 +1142,7 @@ static const struct intel_device_info mtl_info = {
+ 	.media.ver = 13,
+ 	PLATFORM(INTEL_METEORLAKE),
+ 	.display.has_modular_fia = 1,
++	.extra_gt_list = xelpmp_extra_gt,
+ 	.has_flat_ccs = 0,
+ 	.has_snoop = 1,
+ 	.__runtime.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 85e0ef0e91b1..7b6d5341b34b 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -248,6 +248,7 @@ struct intel_runtime_info {
+ enum intel_gt_type {
+ 	GT_PRIMARY,
+ 	GT_TILE,
++	GT_MEDIA,
+ };
+ 
+ struct intel_gt_definition {
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index ecb02421502d..94fbc8cd986a 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -2271,6 +2271,10 @@ int intel_uncore_setup_mmio(struct intel_uncore *uncore, phys_addr_t phys_addr)
+ 
+ void intel_uncore_cleanup_mmio(struct intel_uncore *uncore)
+ {
++	/* The media GT re-uses the primary GT's register mapping */
++	if (uncore->gt->type == GT_MEDIA)
++		return;
++
+ 	iounmap(uncore->regs);
+ }
+ 
 -- 
 2.37.2
 
