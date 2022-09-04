@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21BBEECAAD5
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:49:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF111ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:49:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A35FD10E790;
-	Sun,  4 Sep 2022 21:43:58 +0000 (UTC)
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6AA310E25B;
- Sun,  4 Sep 2022 21:42:50 +0000 (UTC)
-Received: by mail-il1-x12e.google.com with SMTP id s3so1911241ilv.4;
- Sun, 04 Sep 2022 14:42:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70BD910E7FB;
+	Sun,  4 Sep 2022 21:43:59 +0000 (UTC)
+Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
+ [IPv6:2607:f8b0:4864:20::d35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 401C010E204;
+ Sun,  4 Sep 2022 21:42:38 +0000 (UTC)
+Received: by mail-io1-xd35.google.com with SMTP id r141so5678554iod.4;
+ Sun, 04 Sep 2022 14:42:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=FwCkCkIuXLu91UbfHdZYDrwIlB+NdbMmm6xvFEQjyUU=;
- b=RYCkLD0FCIpFqOKsWlElNLu5l8dGxBEngWLZ18ylxy41NG+Qaj5BZrfDLn5uvMF2xo
- VwhlrGgEcVvma9ILcXWr/GE6ZBBnf6OlwUb6biRCydxCUq3oKWxUcQ2J/MNFVAYtgIqI
- Xb9AS9cv7UVTnWGcrEevePRMFxuCn/ulpHIE9HVRP/TdyoUsfjS6AF5uOoRVUuWr8vqg
- 4VPmeMzC0eaHliSJUHUrAHWH8r+EM3TH96DE9T2refzCG1P0lmBG3updh9CAqjc0qY/W
- hrGlSxiGyrArtn+T2krt991mxFZxt+CbQR1NKOfrS5F4tEvIbplkb8gHJGHTFjrzcpA+
- KgHg==
+ bh=0Id8r2vYLmajWhF+0Lsomg5sSzhIk/Fv798x/2NCQJ8=;
+ b=nMgcsqv10t0jNSou/ChM9aj4Oe2Z78Qyt3lMIFBuZ+lquITOKuL5RF792lnxd7UxJ8
+ qpp+DhMKR6rD8Oc8zSCbZeoe0h9QjbpOO0YVftf9vHqXoRe8XPNetD5weW3YMiDh/hpz
+ X9RMWx9bzPZKcOgMLConc2T+c/6pPJAtaa/JQl2Ee4JRD9rij46vnjQIlGRlSmKUKYKq
+ Bepfrnuvr4KbA0CMM4R2ttIK4x2CvNrggANC7Rg2YtNXHsSx94pjtZ8bFBhm7X0MlxoT
+ SxodpVFGmtdB1b6dU/Q2eNKDiZA6RGYLKeiZvHON/fhARPCby/xRuXS2G7hj7UBtB+21
+ GNIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=FwCkCkIuXLu91UbfHdZYDrwIlB+NdbMmm6xvFEQjyUU=;
- b=1fRxhGI4H96blfyMW/2Egsruq480QTYpsUtUrP1eWGfCk7dH2E4gp+kXnWu8yNIxIR
- oFyCJcPxw+9JNFmgCuU3feXGDc26fVjSyTsTkRGVfq1DbDafmIHVW5kJUXe9EzMH3Ny8
- qicWoZXMqwGDUGA5bPTczHL8ImSbQAYgbH6PRV26a+r3wtZ2lOQNYAnW04eTiXx602O4
- VtTgVE+R++JCfzRbMSYH2/6hT1565UwUts5XdWWiIzsHj5aGaZDmJipwy2ppQpuLw2Zi
- cSPl26rvdm2+hLNqBqOmBOnSqnNBRhSXgsSojZ0LU0K/5941Yvcwjoolsu5IHjPVkKZE
- u5ow==
-X-Gm-Message-State: ACgBeo0uwgynqQpPIUF68iGdu1c6WJjm6ZWwRSgMBz2Xjoo1w803ZoRb
- YgsGDdFKSVAzaJXeBKIhpfw=
-X-Google-Smtp-Source: AA6agR6xgn/MlYOoGIi2AaB+WdvqdQ5gYdviqjuZlblXZSMV6/iv7FJf6NsVsV/Y3NPrVDl1/Xe7dA==
-X-Received: by 2002:a05:6e02:1909:b0:2f0:a558:7113 with SMTP id
- w9-20020a056e02190900b002f0a5587113mr4717553ilu.55.1662327770538; 
- Sun, 04 Sep 2022 14:42:50 -0700 (PDT)
+ bh=0Id8r2vYLmajWhF+0Lsomg5sSzhIk/Fv798x/2NCQJ8=;
+ b=BFmNrREv3OArjjjh/9NJbXnXe0OvKPtip9LGTGm5VGeQQsf54RgLu9DXg8A3arjGxF
+ W01Y7rw7pRfxuhNN2twxQcg91RvbOyIeJSiEnmAwWTd4sE8m4DDNmbNeDW9fH6tCIFi7
+ hKBFkCgVhomLbhHY5vkAPq9hJ5iNpy/6JhyVu1lkc1+tQuVkrjnX7DHa9NWEulEFrh/0
+ UtVNZPNTK6iKzF8OhE5bkr0Bpgn72itgy0JB29GqCiKXKia+UcdQsxo0ecLZQNXs5n7Q
+ 5r67A9xGIARFw29RtWtTdb1Y1aK7PpvodwBtgOJRmE1EkcXQvFwFAGsxSO+zZU7aB5Z4
+ FJcw==
+X-Gm-Message-State: ACgBeo1Ut+FLT86HoWnRLtXpkBTFqVIv980CL9aoOlL5KXPj5c2A0VGO
+ p3pMuDrzzR0W4FtJNg5btxo=
+X-Google-Smtp-Source: AA6agR6b4AaEEfOSIKL24Lu0tIv0q3qOCsBl00MyhLWPv9u8tITL7jjngdAbr9/9HEHOPy1kJLcPuw==
+X-Received: by 2002:a02:cc76:0:b0:34c:13cf:efc9 with SMTP id
+ j22-20020a02cc76000000b0034c13cfefc9mr10073340jaq.152.1662327757907; 
+ Sun, 04 Sep 2022 14:42:37 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.49
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:50 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:37 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:19 -0600
-Message-Id: <20220904214134.408619-43-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:06 -0600
+Message-Id: <20220904214134.408619-30-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 42/57] dyndbg: shrink lineno field by 2 bits
+Subject: [Intel-gfx] [PATCH v6 29/57] drm_print: prefer bare printk
+ KERN_DEBUG on generic fn
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,42 +79,56 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-struct _ddebug.lineno int:18 is bigger than we need:
+drm_print.c calls pr_debug() just once, from __drm_printfn_debug(),
+which is a generic/service fn.  The callsite is compile-time enabled
+by DEBUG in both DYNAMIC_DEBUG=y/n builds.
 
-  git ls-files | grep -P '\.c$' | xargs wc -l | sort -n | tail -n20
-  ...
-   22553 drivers/scsi/lpfc/lpfc_sli.c
-   28593 drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
-   46300 drivers/net/wireless/realtek/rtw88/rtw8822c_table.c
-   48725 drivers/net/wireless/realtek/rtw89/rtw8852a_table.c
- 1386670 total
- ...
+For dyndbg builds, reverting this callsite back to bare printk is
+correcting a few anti-features:
 
-All but one of the biggest of these are just .data tables, and have no
-code, so would never need a pr_debug().  drivers/scsi/lpfc/lpfc_sli.c,
-at ~22k lines, would be encodable with 15 bits, but lets just shrink
-to 16 bits for now.
+1- callsite is generic, serves multiple drm users.
+   it is soft-wired on currently by #define DEBUG
+   could accidentally: #> echo -p > /proc/dynamic_debug/control
 
-RFC: Is this tantamout to a "don't write files with >64kloc" policy ?
+2- optional "decorations" by dyndbg are unhelpful/misleading here,
+   they describe only the generic site, not end users
+
+IOW, 1,2 are unhelpful at best, and possibly confusing.
+
+reverting yields a nominal data and text shrink:
+
+   text    data     bss     dec     hex filename
+ 462583   36604   54592 553779   87333 /kernel/drivers/gpu/drm/drm.ko
+ 462515   36532   54592 553639   872a7 -dirty/kernel/drivers/gpu/drm/drm.ko
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_print.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index dcc0e8cc2ef0..c05148dab367 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -30,7 +30,7 @@ struct _ddebug {
- 	struct _ddebug_site *site;
- 	/* format is always needed, lineno shares word with flags */
- 	const char *format;
--	const unsigned lineno:18;
-+	const unsigned lineno:16;
- #define CLS_BITS 6
- 	unsigned int class_id:CLS_BITS;
- #define _DPRINTK_CLASS_DFLT		((1 << CLS_BITS) - 1)
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index cb203d63b286..ec477c44a784 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -23,8 +23,6 @@
+  * Rob Clark <robdclark@gmail.com>
+  */
+ 
+-#define DEBUG /* for pr_debug() */
+-
+ #include <linux/stdarg.h>
+ 
+ #include <linux/io.h>
+@@ -185,7 +183,8 @@ EXPORT_SYMBOL(__drm_printfn_info);
+ 
+ void __drm_printfn_debug(struct drm_printer *p, struct va_format *vaf)
+ {
+-	pr_debug("%s %pV", p->prefix, vaf);
++	/* pr_debug callsite decorations are unhelpful here */
++	printk(KERN_DEBUG "%s %pV", p->prefix, vaf);
+ }
+ EXPORT_SYMBOL(__drm_printfn_debug);
+ 
 -- 
 2.37.2
 
