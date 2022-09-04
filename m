@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5A18C6FA82
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F811C6FA82
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8CA10E389;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE5010E388;
 	Sun,  4 Sep 2022 21:43:46 +0000 (UTC)
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2F4E10E273;
- Sun,  4 Sep 2022 21:42:54 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id e7so3873386ilc.5;
- Sun, 04 Sep 2022 14:42:54 -0700 (PDT)
+Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
+ [IPv6:2607:f8b0:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82DCC10E23C;
+ Sun,  4 Sep 2022 21:42:40 +0000 (UTC)
+Received: by mail-il1-x132.google.com with SMTP id l6so3864134ilk.13;
+ Sun, 04 Sep 2022 14:42:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=H201e8MxjjTWEZ5tX/zGuFZYDJJzszurQVKd2l3pA3I=;
- b=D5hVd8nWFbqRRkXkdpXZg4jOmNIfneov3THSYEMdUbvWnNl8Ne1nblV6QviWBWEGUg
- 2zMyuA7+zIirnNTNheDbR8jO4BMAl558jaE/EZxKR7+4koCB4I8+25Qe/kL8kQDF2Sho
- 9kDP0guazA6Lb4dxbqmjP5mGHurmuwBcuEMnuT3go1J7kq5fY3n584tb1fc7uABf1zin
- bHRRoPHY51s4kfci15ECF8xV6cBQQdgXuN4xECAP+d7JlGSq0KHUrs/nvlXcdLRTejSg
- qoOn5DPm1HXTaLGGK4GTAQmXYSy4e+uxehju05I6ClOoAcojZ1q7+CbFrz/rCbP0Qb06
- zY5g==
+ bh=LAElKATTm6r2TIe9HchZuJ0iTvp0tkidaAAlkqZf57g=;
+ b=ioFXEtAboLLUIN/kNyc61L0HOu8/6UCEVPrRpVK/iZqDkjSxhy1lokEax7skm4mwOF
+ mCdRRCoU7224D2s+eeI9bmOsLLpeqbAXpSoc5ewN3Vnu4++5Y8MjvC45CARQ2eSUmtPM
+ vq67RMmjwELCYQ5rsDgJHAwkUX47ytKixYLVLxiRln+UZzGGvAk+2JB+Sw0belDPO48F
+ qDmzIHF6L9eAsm4bEnMCzLrXaEJmVUloL5mpLRJ14V94PQCg5aoimHZKHASnmIAq31fh
+ i6l/G06rgbvOyZ/eJK8nqcrZ4A1qC4+YiBem4FdzmsbXjDz5e2YWLpntsHdBPAZvrPbS
+ m72w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=H201e8MxjjTWEZ5tX/zGuFZYDJJzszurQVKd2l3pA3I=;
- b=XZkW/1LH0a8PA4OD7L5L1wCd8v+fbA0eo/ZHwjYlUcqm+7rWXs3LBfog9gAqSGl9lC
- LGmso6HwhKIorGzNGSGUbvOWEShFZf4y6TxftNfQw1JhpWOPeN4lY6aKCZloZAmjwRJA
- x4MdfLRAC61VDQR9e6YDML3l0yITQ4D2/6yisPjLxinQOFF0HpJhABcDGZ6iyhVn7Q0k
- FpP7nHHRb27dsZFPj14kXf9yKeKORqZH5H4WXdbfD59V8ZKIek6BybX7vPxn4UcOPh4C
- YJYjdyRc5x7/t7w0A8fvdvfxcwUW3hFhrEgvuQhZ5yPqISv1X11MLEgz105P+c+RpCpT
- 1Nyw==
-X-Gm-Message-State: ACgBeo0gTa1asBKdAAnv8dvnnavyII5dLOIbVdVeMu0H3cznC8PV4E+8
- AhLTXF/lSPjirpjUQ8pT9Y/dOXWRcZY=
-X-Google-Smtp-Source: AA6agR6fMqZIkP1YOEGKlykQp2j5uHw/5o/cVx4vJBZLBlUDQYIi3bLhanGx4QpvBqJmpIkwB4O4Nw==
-X-Received: by 2002:a05:6e02:19ca:b0:2df:68c:4a6d with SMTP id
- r10-20020a056e0219ca00b002df068c4a6dmr24133939ill.32.1662327774363; 
- Sun, 04 Sep 2022 14:42:54 -0700 (PDT)
+ bh=LAElKATTm6r2TIe9HchZuJ0iTvp0tkidaAAlkqZf57g=;
+ b=GDfycPn8+yINvKjuUGdJnHs54/rla4Cu2hKhoGxSUs/Dbt3ksFaiEKei6aAr0xDxEX
+ Mx006BZDlQgijFgtlNY2qji6OcUh7wVWPxk1Q9QJdCMv/0CcR5hbqxTNDEE3ICZQLxuI
+ 1nJAJqIvUD7NWrbiYKhgZeuthkZwI4zkYLLm9d3kRIPvZ+9JnEnLF91/IHiq8RPi71N2
+ qiBd2+AKCtUg6fmg27GDKyngZYh09PLl6ZNMjAt9IpWZOdhkAxT+dpSwuomj59XgiU9e
+ hotrAorg8v/r1e+BSdzvJSnxCACkh2PnL6SCUd1p/3s1BSByic/5EdO0Zwk/TCihAA6b
+ y34A==
+X-Gm-Message-State: ACgBeo39fiStQG1VowHi1IXVd0r9xCCOGbAPx09cgg4F/SJEQZTiLZ2R
+ gTj8g/HEGQVCV5hoMl5OwGU=
+X-Google-Smtp-Source: AA6agR4JZnvP+IfSOvpE/ZnPHvuTyE3m/D+cXn8a4t+7sZ/c+tnbIR9Wi8DqdENHAxq6VZVKf3h3Ew==
+X-Received: by 2002:a05:6e02:20c1:b0:2e9:f747:ad54 with SMTP id
+ 1-20020a056e0220c100b002e9f747ad54mr25614470ilq.144.1662327759838; 
+ Sun, 04 Sep 2022 14:42:39 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.53
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:54 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:39 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:23 -0600
-Message-Id: <20220904214134.408619-47-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:08 -0600
+Message-Id: <20220904214134.408619-32-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 46/57] dyndbg: drop site-> in add-module,
- more needed
+Subject: [Intel-gfx] [PATCH v6 31/57] nouveau: change nvkm_debug/trace to
+ use dev_dbg POC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,50 +79,71 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
----
- lib/dynamic_debug.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+These 2 macros formerly used dev_info, and they still check
+subdev->debug to gate the printing.  So dyndbg control is redundant
+ATM (and possibly confusing, since its off by default).
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 41c23ec979f4..059212df68f9 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1347,7 +1347,7 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	struct ddebug_table *dt;
- 	int i;
+prdbg count is up from 3, or from 65 (with VMM_DEBUG here)
+
+[    7.765379] dyndbg: 516 debug prints in module nouveau
+
+Its possible to control error, warn, info callsites too, but they're
+usually on, and the .data overheads on ~450 more callsites (56 bytes
+each) would just be wasted.
+
+$ for l in fatal error warn info debug trace spam; do
+      echo $l; ack nvkm_$l drivers/gpu |wc; done
+fatal
+      3      19     335
+error
+    289    1956   30651
+warn
+     84     513    8860
+info
+     14      88    1502
+debug
+    387    2339   40844
+trace
+     31     219    3368
+spam
+      1       7     123
+
+bash-5.1# echo $(( 516-65-387-31-1 ))
+32
+
+Thats approximate; not accounting #defines and doc/comment mentions.
+
+NOTE: this patch changes the log-level of the macro-issued messages
+from KERN_INFO to KERN_DEBUG.  Adding a .kern_lvl field to struct
+_ddebug could fix that.
+
+RFC: dyndbg & subdev->debug
+
+Separate class-maps for each subdev are possible; except for the
+coordinated use of _base, each is independent, including choice of
+DISJOINT or LEVELS, as long as class-names don't conflict.
+So theres some flexibility.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
+index 96113c8bee8c..065d07ccea87 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
+@@ -59,8 +59,8 @@ void nvkm_subdev_intr(struct nvkm_subdev *);
+ #define nvkm_error(s,f,a...) nvkm_printk((s), ERROR,    err, f, ##a)
+ #define nvkm_warn(s,f,a...)  nvkm_printk((s),  WARN, notice, f, ##a)
+ #define nvkm_info(s,f,a...)  nvkm_printk((s),  INFO,   info, f, ##a)
+-#define nvkm_debug(s,f,a...) nvkm_printk((s), DEBUG,   info, f, ##a)
+-#define nvkm_trace(s,f,a...) nvkm_printk((s), TRACE,   info, f, ##a)
++#define nvkm_debug(s,f,a...) nvkm_printk((s), DEBUG,    dbg, f, ##a)
++#define nvkm_trace(s,f,a...) nvkm_printk((s), TRACE,    dbg, f, ##a)
+ #define nvkm_spam(s,f,a...)  nvkm_printk((s),  SPAM,    dbg, f, ##a)
  
--	v3pr_info("add-module: %s.%d sites, start: %d\n", modname, di->num_descs, base);
-+	v3pr_info("add-module: %s %d/%d sites, start: %d\n", modname, di->num_descs, di->num_sites, base);
- 	if (!di->num_descs) {
- 		v3pr_info(" skip %s\n", modname);
- 		return 0;
-@@ -1375,19 +1375,20 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	if (di->classes && di->num_classes)
- 		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
- 
-+	//BUG_ON(di->num_descs != di->num_sites);
-+
- 	for (i = 0; i < di->num_descs; i++) {
- 
--		if (di->descs[i].site->_function != packed_sites[(*packed_base)]._function)
-+		if (di->sites[i]._function != packed_sites[(*packed_base)]._function)
-+
- 			memcpy((void *) &packed_sites[++(*packed_base)],
--			       (void *) di->descs[i].site, sizeof(struct _ddebug_site));
--		else
--			di->descs[i].site = &packed_sites[(*packed_base)];
-+			       (void *) &di->sites[i], sizeof(struct _ddebug_site));
- 
- 		di->descs[i]._index = i + base;
- 		di->descs[i]._map = *packed_base;
- 
--		v3pr_info(" %d %d %s.%s.%d - %d\n", i, *packed_base, modname,
--			  di->descs[i].site->_function, di->descs[i].lineno, *packed_base);
-+		v3pr_info(" %d %d %s.%s.%d\n", i, *packed_base, modname,
-+			  packed_sites[*packed_base]._function, di->descs[i].lineno);
- 	}
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
+ #define nvkm_error_ratelimited(s,f,a...) nvkm_printk((s), ERROR, err_ratelimited, f, ##a)
 -- 
 2.37.2
 
