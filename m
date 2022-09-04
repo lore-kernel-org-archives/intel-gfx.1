@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0B30ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:45:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72991ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:46:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0AE110E289;
-	Sun,  4 Sep 2022 21:42:58 +0000 (UTC)
-Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
- [IPv6:2607:f8b0:4864:20::d30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A509310E136;
- Sun,  4 Sep 2022 21:42:17 +0000 (UTC)
-Received: by mail-io1-xd30.google.com with SMTP id q81so5653590iod.9;
- Sun, 04 Sep 2022 14:42:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1ADD10E272;
+	Sun,  4 Sep 2022 21:42:54 +0000 (UTC)
+Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
+ [IPv6:2607:f8b0:4864:20::d2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A24CB10E12F;
+ Sun,  4 Sep 2022 21:42:27 +0000 (UTC)
+Received: by mail-io1-xd2a.google.com with SMTP id 62so5673985iov.5;
+ Sun, 04 Sep 2022 14:42:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=nL64tgfR3yuX9RW4VuAbZjo3bVMvuFZk7zY8MVD5bOI=;
- b=MCERlmgtJae24BInitcbNWrvVsK4E28qygPVO0EI6bkancXMheS04Tjo59+IeITlng
- jf5a49doi5XUUhgQrgt0RmWEG3xEjEu3z6ICYcIoTvGgQxKN8UUHK2ER+0LYVRq3FV20
- WucDDDHNaHkRRVFc33rm6kG1+UsezVvy9A3pW29Mq1niKl9lIkT8agZdaeX87NAWjUS1
- MYunE/FL5qWQueHrE71Nebq3OiS0fnNs9Cl3zzOr1/GBkEIemuvUKXl1uWUTCi/CRp7Y
- yFRVweG/UcdYXA9YY+/xnyx11VcNoG2ZRCFkTug07yb1tarb7cX3rZ4pliWCDznewiHQ
- YFdw==
+ bh=ka8KRcp96RIs3WOVwaYMps+w4bs0E4mB3tU6nT4x+Cw=;
+ b=GxYiBhtnCCLvIcjhtx8t6SNtIL7IN9FTRLpFWPEgQwmEChr7Li1YPuQJ9uzL52Yj6A
+ cgqwOnKPTkhyNLE0ZRZ71TysRmVMnqOnOuIZy+W7qyW1e5LLWRS5QYdy3aifvqzwysH4
+ 6lBOaERL6zccFDJfBmPhlj41W7qOzgatR/sLszHd+5qrcHenG/kiPqGelWghMXTumLSf
+ wFRbcjMRbogjvc9bqHIzD2/qSvsiQjcw0SYznzSLJ7jTTu+kn1HauuURN6n5y/Y3xzEP
+ XBYr4ufLmOy1cM38/VKtTZMrK2mJrrVShrlX+MdWlctqxmtxNnUASO0irSsXn081Wpp/
+ hmlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=nL64tgfR3yuX9RW4VuAbZjo3bVMvuFZk7zY8MVD5bOI=;
- b=E2fnTGHeOWHazwEJcmnuRK/jxnZbxhxzvXEwOFQgtqcaj0I6GQSdfazbbT0cYeMJ2E
- bJr+264LosdHj+4kC2XBpdvmKAfjxdqXZonSNzXkbv8GbFmkuImQr+KzZBUBJR6Qz7CI
- hvYRJB4P3Z8ldNDUdTQ+tVh0Tg2WjFWW8Nb8XmH+Y25eEqn6pcFsAb5shX8p3+oVwgpB
- BlYBCujnLqnYyCKwpOOAVIGG3S7KIEamiZhN2Uc4hmTXPBS6EY2bvCUo9jZnbz8TNOJB
- FZqz0hznhyJnUYmmaIbLgR/NJWB02qTjsDR4kCpfZlp9yMkwes0WNnsxGQjWkVOKyUrb
- p2bg==
-X-Gm-Message-State: ACgBeo0c8pN9+KmYS5+Sv2RXb+Sp4QLQFZ7+ZmPgGi24gnehAv6zJpEJ
- 4WjoW4f/antesxR2Rq8axo4=
-X-Google-Smtp-Source: AA6agR6mvknJtV6TiNBzpnOFVHbpLslD1LC4cvqoUjepqIcY8t7Gx+7cGEaleIov3kTIKLX0n/BTLQ==
-X-Received: by 2002:a05:6602:13c8:b0:68a:db5d:269d with SMTP id
- o8-20020a05660213c800b0068adb5d269dmr20950589iov.209.1662327736752; 
- Sun, 04 Sep 2022 14:42:16 -0700 (PDT)
+ bh=ka8KRcp96RIs3WOVwaYMps+w4bs0E4mB3tU6nT4x+Cw=;
+ b=gt/ZyEjc+0qs5vVFhShBDgaVAl+wy+FrRCyFKwhrxVvMD8cfx/JyGjU0Q/ATWkJf6t
+ HEJLk6N0okIBdXS9L9BPYAznT/ACtUxSwLhH5hU14/83MRj1SoTbjbXMNred5HdaoCAR
+ fMB4slgo1lyypjgTaVqCv4Io4ozYZ7e0p8779ZYvGV7Hlexo70ONOtVTWeLpz/KSr7j3
+ hc5ypeMFXWIzbQ/oRL5zC1tSGwX66h53sfYh1Ri5LtTOxlV5SgACMIUZByTZiaKW/SZ6
+ yvzF/K5SV1hffS4gtjREZ4AT3oyiNSBgRmqHgNMZcn4NtjbKf7HAIE25bP4fktIccQ1+
+ k7mA==
+X-Gm-Message-State: ACgBeo1gt/kXnJ+DTeKIGd5hVj9VSJD6vMehyS5WKqtZKQAc7G87DXjL
+ rs9X7BXAv43yPAJ/GM4jDr4=
+X-Google-Smtp-Source: AA6agR5AUEVpUfSPOxmk4wGZ/zK2tirYmhJ7zb9Jqld8zfrr8gDhVIB8ywXi+kyB8PgF4y+5mK88yQ==
+X-Received: by 2002:a6b:5f19:0:b0:688:2173:1ae3 with SMTP id
+ t25-20020a6b5f19000000b0068821731ae3mr21256805iob.12.1662327747322; 
+ Sun, 04 Sep 2022 14:42:27 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.15
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:16 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:27 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:40:44 -0600
-Message-Id: <20220904214134.408619-8-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:40:55 -0600
+Message-Id: <20220904214134.408619-19-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 07/57] dyndbg: let query-modname override
- actual module name
+Subject: [Intel-gfx] [PATCH v6 18/57] doc-dyndbg: describe "class
+ CLASS_NAME" query support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,70 +79,50 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-dyndbg's control-parser: ddebug_parse_query(), requires that search
-terms: module, func, file, lineno, are used only once in a query; a
-thing cannot be named both foo and bar.
+Add an explanation of the new "class CLASS_NAME" syntax and meaning,
+noting that the module determines if CLASS_NAME applies to it.
 
-The cited commit added an overriding module modname, taken from the
-module loader, which is authoritative.  So it set query.module 1st,
-which disallowed its use in the query-string.
-
-But now, its useful to allow a module-load to enable classes across a
-whole (or part of) a subsystem at once.
-
-  # enable (dynamic-debug in) drm only
-  modprobe drm dyndbg="class DRM_UT_CORE +p"
-
-  # get drm_helper too
-  modprobe drm dyndbg="class DRM_UT_CORE module drm* +p"
-
-  # get everything that knows DRM_UT_CORE
-  modprobe drm dyndbg="class DRM_UT_CORE module * +p"
-
-  # also for boot-args:
-  drm.dyndbg="class DRM_UT_CORE module * +p"
-
-So convert the override into a default, by filling it only when/after
-the query-string omitted the module.
-
-NB: the query class FOO handling is forthcoming.
-
-Fixes: 8e59b5cfb9a6 dynamic_debug: add modname arg to exec_query callchain
-Acked-by: Jason Baron <jbaron@akamai.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ Documentation/admin-guide/dynamic-debug-howto.rst | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index e5cbe603000c..5a849716220a 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -385,10 +385,6 @@ static int ddebug_parse_query(char *words[], int nwords,
- 		return -EINVAL;
- 	}
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index a89cfa083155..d8954ab05c7b 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -35,6 +35,7 @@ Dynamic debug has even more useful features:
+    - line number (including ranges of line numbers)
+    - module name
+    - format string
++   - class name (as known/declared by each module)
  
--	if (modname)
--		/* support $modname.dyndbg=<multiple queries> */
--		query->module = modname;
--
- 	for (i = 0; i < nwords; i += 2) {
- 		char *keyword = words[i];
- 		char *arg = words[i+1];
-@@ -429,6 +425,13 @@ static int ddebug_parse_query(char *words[], int nwords,
- 		if (rc)
- 			return rc;
- 	}
-+	if (!query->module && modname)
-+		/*
-+		 * support $modname.dyndbg=<multiple queries>, when
-+		 * not given in the query itself
-+		 */
-+		query->module = modname;
+  * Provides a debugfs control file: ``<debugfs>/dynamic_debug/control``
+    which can be read to display the complete list of known debug
+@@ -142,6 +143,7 @@ against.  Possible keywords are:::
+ 		 'file' string |
+ 		 'module' string |
+ 		 'format' string |
++		 'class' string |
+ 		 'line' line-range
+ 
+   line-range ::= lineno |
+@@ -203,6 +205,15 @@ format
+ 	format "nfsd: SETATTR"  // a neater way to match a format with whitespace
+ 	format 'nfsd: SETATTR'  // yet another way to match a format with whitespace
+ 
++class
++    The given class_name is validated against each module, which may
++    have declared a list of known class_names.  If the class_name is
++    found for a module, callsite & class matching and adjustment
++    proceeds.  Examples::
 +
- 	vpr_info_dq(query, "parsed");
- 	return 0;
- }
++	class DRM_UT_KMS	# a DRM.debug category
++	class JUNK		# silent non-match
++
+ line
+     The given line number or range of line numbers is compared
+     against the line number of each ``pr_debug()`` callsite.  A single
 -- 
 2.37.2
 
