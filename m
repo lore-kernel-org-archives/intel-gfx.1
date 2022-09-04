@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8510C6FA86
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:49:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DFA2ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:50:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E886710E8A2;
-	Sun,  4 Sep 2022 21:44:13 +0000 (UTC)
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3858D10E283;
- Sun,  4 Sep 2022 21:42:58 +0000 (UTC)
-Received: by mail-io1-xd2a.google.com with SMTP id y187so5724154iof.0;
- Sun, 04 Sep 2022 14:42:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C5CE10E26F;
+	Sun,  4 Sep 2022 21:44:15 +0000 (UTC)
+Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
+ [IPv6:2607:f8b0:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87C0D10E274;
+ Sun,  4 Sep 2022 21:42:55 +0000 (UTC)
+Received: by mail-il1-x12e.google.com with SMTP id m16so861619ilg.3;
+ Sun, 04 Sep 2022 14:42:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=0iGLn9xqCpcC4gcXCQSb7q1CfO8AItXp+UrSrC23ofg=;
- b=c4Kq7xloZvvHFQ9epBPNdcfT88slUONFGhsZx5MMGEMETHKqfUD9s2gzih6ALSi3wD
- RrSDXPBRasBgiwo4/u96iVTFZBqUgPsrGJ215FEXB49z7jnLyWi457WMuaGNd/EON1XH
- GyjBZNFnOS45dRu6gLJPWVkFsKVueCkOjPTRK+IINcSb2jbyp3YwEPuMkYNSzl/rirQM
- d5EwuNynlS8h4OY8pAJTaF7QeWBKZcUVuMJzzAnk0maYPeDvxCRYSxmx7XIOTzxGp1yV
- PLaexfCoB2wQoSDMH+kN17KC+TwYCpQd6YSNc7LXPW74NfB8khKnhZvXekFB8EQPRMeQ
- pFNw==
+ bh=jSafBWcpIkewykTpB/1313WvVuyh8yQZEmhBKVyM37c=;
+ b=kbrF6hjoM+H17g9j3Wc1/6pJQXLvRnZ3Vs2WK1V3kWoZOwTfI3zERDRkFgtpBOrFAe
+ aGn093m3smVeCRZc5LHalL7AoxbuS4AQdvZJaVIGnimvkEeM+rU3RRvd61Y/+6IWXHfl
+ kzGQAdJFvZEfilUjxUNjkQBoZrnnNuWzDxd3Yt6Ikt65YhKsu8QQofbdJP1Nb7Jw0VW5
+ kMVkkJh4rdB9IpjDMcRVjEMDMbxOf5ddpY8akTKF8dSThHmxapKpkB5IEwhZVzCE7tj7
+ 3JBKIi1e8jUIyR7UaiNXs4jjXjUOieSwp2MgZNZauf5xpbvtBGKzVaok6AF7eoTkzZnt
+ HL9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=0iGLn9xqCpcC4gcXCQSb7q1CfO8AItXp+UrSrC23ofg=;
- b=aGirrv5idrxju4T1Ra6aLfWXuLyB3C8gGa+ZR2liwgGB4Mohi10C60oL7fACKPaWOf
- l47dI8QQKqcVw0p5kQrjlBJ5uvYAeuJnMZrSUE4JZAvoxCZxT1L3Ui4V5v+r+SAhIO9T
- 9KgvqIpyyiJboLMTiOYRY7z6w5BeCAjZlgt0MyJdA31TmpAp7YLUeBDGLm5jRK/UfV5h
- 9Rp24FMHPUpOv+g0RNNOlI5a+2fWAxx4ujYy8sd9kd5RCYgCcrY0sQ6QoC81UjH2M7xj
- 3D5JhWOfaFafvI/1pQrP/0vCezMhGTcjgfMTrRI+yiyL1CVI+EqcOuEhRkkXwmdOGvft
- VabA==
-X-Gm-Message-State: ACgBeo2cOEWBgOcszjsVd2RwOwj6mdd36pX5t2AC7CYgLb2+Cs6pViNQ
- rA5Dk/+ZjtB3aPbGXwqQGH4=
-X-Google-Smtp-Source: AA6agR5hVc9DnYKL0ZIAQuzKxXKG0S5DufyPzrHmQJwD8MfDjPFuhObXx/a4iT1L7ykoRUbvzDY2Pw==
-X-Received: by 2002:a05:6638:1350:b0:349:f94d:5ea7 with SMTP id
- u16-20020a056638135000b00349f94d5ea7mr24681226jad.129.1662327777931; 
- Sun, 04 Sep 2022 14:42:57 -0700 (PDT)
+ bh=jSafBWcpIkewykTpB/1313WvVuyh8yQZEmhBKVyM37c=;
+ b=Ux/oBWXjiQp/BI2yIpYb8ZY4JoeRA+6gA3oNygkVgE7z3cr/8RtS6CYmllyluveauK
+ ry05MfXQHLvU6z7TpbUq/3MvnrMdkVfyxWgmP1tBvkOH4a10feMjLYd/eYEiuCTpK2Z+
+ UzTTL42qR3l8GEVFRAfefnsA0LEWgHjg6UGKuTUl6v/XshMpPngqp1Fu3x1wtJfPDyJ6
+ Un+tVq7MGZqD0F3R+CI8hKrqth75PoqKEXyNXQzM+YwY3kDAgL+5AiwDDHtRw57SPLJJ
+ nmIRyghRRQic0AnemNnOxQrvfEKjhixmbw65NflGxU/Yeo7AI8Fkqe5eMSmd9beBSEkP
+ hnhg==
+X-Gm-Message-State: ACgBeo1zDez6qKe9BIX7IXDnbNstS4LUnO4kDRy5CQpQjdw4eQOR8AQZ
+ Fjr/ZkOzwaAayIfn9wgAcGU=
+X-Google-Smtp-Source: AA6agR5AVD3WIg2eP3iWjFE39m5/nR6rpJNEPwSMnDilTle2doeCtgXvqbPXlS48tak7nK63rsd6XQ==
+X-Received: by 2002:a05:6e02:1b86:b0:2f1:76ec:4b91 with SMTP id
+ h6-20020a056e021b8600b002f176ec4b91mr848152ili.191.1662327775227; 
+ Sun, 04 Sep 2022 14:42:55 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.57
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:57 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:54 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:27 -0600
-Message-Id: <20220904214134.408619-51-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:24 -0600
+Message-Id: <20220904214134.408619-48-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 50/57] dyndbg: count unique callsites
+Subject: [Intel-gfx] [PATCH v6 47/57] dyndbg: demote iter->site in _init
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,53 +78,23 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Count de-duplicated callsites.  Since the _ddebug_site excludes
-lineno, all callsites in a function are identical, and this
-effectively counts functions in the module with callsites.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 91fe7fb5dda9..891d70d7fed4 100644
+index 059212df68f9..65b0a1025ddf 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1348,7 +1348,7 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 			       unsigned int *packed_base)
- {
- 	struct ddebug_table *dt;
--	int i;
-+	int i, num_funcs = 0;
+@@ -1547,7 +1547,7 @@ static int __init dynamic_debug_init(void)
+ 	}
+ 	iter = iter_mod_start = __start___dyndbg;
+ 	site = site_mod_start = __start___dyndbg_sites;
+-	modname = iter->site->_modname;
++	modname = site->_modname;
+ 	i = mod_sites = mod_ct = site_base = 0;
  
- 	v3pr_info("add-module: %s %d/%d sites, start: %d\n", modname, di->num_descs, di->num_sites, base);
- 	if (!di->num_descs) {
-@@ -1381,12 +1381,11 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	//BUG_ON(di->num_descs != di->num_sites);
- 
- 	for (i = 0; i < di->num_descs; i++) {
--
--		if (di->sites[i]._function != packed_sites[(*packed_base)]._function)
--
-+		if (di->sites[i]._function != packed_sites[(*packed_base)]._function) {
-+			num_funcs++;
- 			memcpy((void *) &packed_sites[++(*packed_base)],
- 			       (void *) &di->sites[i], sizeof(struct _ddebug_site));
--
-+		}
- 		di->descs[i]._index = i + base;
- 		di->descs[i]._map = *packed_base;
- 
-@@ -1397,7 +1396,7 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
- 
--	vpr_info("%3u debug prints in module %s\n", di->num_descs, modname);
-+	vpr_info("%3u debug prints in %d functions, in module %s\n", di->num_descs, num_funcs, modname);
- 	return 0;
- }
- 
+ 	for (; iter < __stop___dyndbg; iter++, site++, i++, mod_sites++) {
 -- 
 2.37.2
 
