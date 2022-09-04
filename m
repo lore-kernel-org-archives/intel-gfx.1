@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D75B4C6FA82
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D29F9C6FA82
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36FDD10E3C1;
-	Sun,  4 Sep 2022 21:43:54 +0000 (UTC)
-Received: from mail-il1-x136.google.com (mail-il1-x136.google.com
- [IPv6:2607:f8b0:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4219E10E269;
- Sun,  4 Sep 2022 21:42:53 +0000 (UTC)
-Received: by mail-il1-x136.google.com with SMTP id h14so3863974ilh.10;
- Sun, 04 Sep 2022 14:42:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB8710E3B3;
+	Sun,  4 Sep 2022 21:43:53 +0000 (UTC)
+Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
+ [IPv6:2607:f8b0:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62E6110E1C5;
+ Sun,  4 Sep 2022 21:42:57 +0000 (UTC)
+Received: by mail-il1-x129.google.com with SMTP id l16so3889251ilj.2;
+ Sun, 04 Sep 2022 14:42:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=Bp0ePs8qbV0UvEjRZpFwk6Hm/6e1kM/XXrwCCotNRwY=;
- b=XI+lDDMQn1sJTAtsYXCSCZllHbtd6NOelDveTu16Um2gjNpYLeMWEPdHoroi+WJR56
- k3PgFGFfbCQMOWVL4snzUZdVG+0cVnNUbfzxIKDLpC2iJQFgtJDx0CvxlhMkm+BuNHYM
- JOpIUa7zmX68L2U/aSqdB7PBn6ttAlQuheS/8IeqXuRiGsnhj+Lnu52QEV+kNwnXaeJD
- afRgsXfC7uf0JeApZ0fm2iin8GGl0CcHiwA1rJtoEcVABdqcneG5T6RL110N966WpM0o
- k1FblDutKG52QhJ9j7imv5ETtSUwiKKH84KtJRukZEMY244luC3ugPo7akWliqMbT+Gf
- LhEw==
+ bh=Ghge3Dg1q/uGEuUESUrEdkwsT+z6CpJtuRfuq34U0Ug=;
+ b=FLT5bN9bU1jESQsj9wEWPf6TBBHS0oph0LypFJwzq/K+zCkxyteteH2bTqZQBcNzRk
+ mSR3h7PMvUN4YMVkvnO87hK2EpNkCDlGSKyeeqjogwoe6lhs1W0j8NVv5K50LsJtZg06
+ R92M/cvFSPip9b/dMAktsgXw9ub1l1yxpBS3OvRLmDew3VfDVMnqQ0y++Z8JirN4wlxB
+ lJnxEt70v9wGz0k/jpVu8dHy7KvJOhLu72eHep8RD2rQzQKX8nJI5JvRr6ZFWV/vp1QA
+ rb8QvbLzf2xps15VlW8JMp2QgHnpXqCAJLTT4tXeVn3zK7n/t3dqhX+s0crDVymyRVVS
+ JLpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=Bp0ePs8qbV0UvEjRZpFwk6Hm/6e1kM/XXrwCCotNRwY=;
- b=fQFt+Q4dHKQgvnoSVAYteGUN9CYax16Q8acu9lpmfc4weWjQn2clhGIPE2XkJlbfNe
- P+llX3ckq11T38iNobA1lBffgtlWtyn1c+FNvDVMW/O8wmTT+lZHVrSqpSB/fXX+uauF
- Y4KOOSpHzpnvOanc2ACbCvSOXpBcNOpa+jRwJ5s9mz9tXWSyBsF1na+gfdacr3Opk4/f
- a4j4S7VOSt3907TIlY78yACAFv5SCef1Psjvt09iL/uSxuqDvhIN+hck/t5fkylefwDv
- dCt3l3q7+uQ5jvbF5dgVm4GxiHfFv+Jw4VTCMc84fxTW8PZEjRawAm/C9o9HanlRyoiP
- 1+8w==
-X-Gm-Message-State: ACgBeo1T/HESEO2dzt02xMhiH5NvwOwrmLEV2hIBrQdQg04bB8dW9aOo
- Vowk0d6AS+9/4X3wqxP52gI=
-X-Google-Smtp-Source: AA6agR6GJ3545nMVzxW2kytCo0sZT1XkmI6FXzQ5bdXfVdq6vQh7IQ0VQLKX9DkPjjjN1oLgs/PH0w==
-X-Received: by 2002:a92:dcc2:0:b0:2e4:38f2:a9f6 with SMTP id
- b2-20020a92dcc2000000b002e438f2a9f6mr24500432ilr.130.1662327772508; 
- Sun, 04 Sep 2022 14:42:52 -0700 (PDT)
+ bh=Ghge3Dg1q/uGEuUESUrEdkwsT+z6CpJtuRfuq34U0Ug=;
+ b=2vq/Sf2AYTWsYnnXigthBYr5v68eNsVG6irNp3hzww6JuTAzAcHicpYhyqSFYIc/PK
+ 3SYvGLsA4aIsRG2E09dUZ17h7cX8zEJwsnjp4H7E7PgXjKtO55O7CENuEKj1ei9HCW01
+ uSWGYpKpOKqaf1b86edVRk6JemkGoHyDA1N0QnoK22P9HS4Dc3LMsMHAjxhT2uLuO56M
+ 6DVZkmKb8H/DvCBSJVoQxH0iVmJ2boRG8oN88hiE+0Ch/FPcpefkpbHFiatLrDZ/3gun
+ WjorBdWQ70H23Sq1tXp9Onpu/LmONP5JJ0q4LGvYyBtj5FZeR8sTP9V62i4krRAJfrVH
+ lnKg==
+X-Gm-Message-State: ACgBeo0odY3/dXdk6DrlhTt6VMgeg5kZxafaDbnqMvURcUwu+Ys7nyQY
+ 8JIfm4JKC8k+LJRCRR/RzcWjq5zZ9lM=
+X-Google-Smtp-Source: AA6agR7yrIYfyzVDzlMev9fxaOVFcrN/YRY+eo0Bb7o+kB7gpv9wc7uwho5jDTzaHbxaUMbJjOU49g==
+X-Received: by 2002:a92:ad0d:0:b0:2e6:4294:bc45 with SMTP id
+ w13-20020a92ad0d000000b002e64294bc45mr24581884ilh.278.1662327777020; 
+ Sun, 04 Sep 2022 14:42:57 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.51
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:52 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:56 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:21 -0600
-Message-Id: <20220904214134.408619-45-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:26 -0600
+Message-Id: <20220904214134.408619-50-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 44/57] dyndbg: extend __ddebug_add_module
- proto to allow packing sites
+Subject: [Intel-gfx] [PATCH v6 49/57] dyndbg: add structs _ddebug_hdr,
+ _ddebug_site_hdr
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,90 +79,109 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In order to actually reclaim useful blocks of memory, we need to
-repack the vector of redundant site recs, not just detect the
-duplicates.  To allow this, extend __ddebug_add_module()s prototype by
-adding:
+Add new structs _ddebug_hdr and _ddebug_site_hdr, latter for symmetry.
 
-   struct _ddebug_site *packed_sites - address of empty "stack"
-   unsigned int *packed_base - index of Top-of-Stack
+The job of the struct _ddebug_hdr is to:
 
-This allows dynamic_debug_init() to tell __ddebug_add_module() where
-to push the unique site recs it finds while de-duplicating, and to
-communicate the new TOS back for the next iteration.
+Contain an _uplink member, which points up to the _ddebug_info
+record that keeps builtin and module's dyndbg state.  That record is
+init'd (by dynamic_debug_init for builtins, or find_module_sections
+for loadables).
 
-Since we know we are shrinking data, we can overwrite _ddebug_sites[],
-for both builtins, and loadable modules, via ddebug_add_module().
+Be declared in .gnu.linkonce.dyndbg section, which places it just
+before the __dyndbg section; a fixed relative offset.
 
-For ddebug_add_module(), which is called from kernel/module/main, the
-2 args: reuse the module.sites vector, with a 0 offset.  This will
-allow de-duplication of the local vector.
+This allows _ddebug_map_site(desc) to cheaply compute
+&descs[desc._index], &descs[0], then container_of() to get the header
+and its ._uplink, to the _ddebug_info, which gives access to
+->sites[desc->_map].
 
-No de-duplication is done yet, so no use of the stack.
+Structurally, the header has a single unnamed union (which exposes its
+field names upward) containing an embedded struct _ddebug{,_site}
+(this forces the size to be compatible with the array/section its
+destined for), shared with our new struct _ddebug_info * _uplink
+member, which is also inside an unnamed struct, to allow adding other
+fields later to use the remaining space.
+
+In dynamic_debug.c: ref the linker symbols for the headers, print them
+to confirm expected linkages; things look proper.  Add a header ref to
+struct _ddebug_info, to facilitate the validity checks.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ include/linux/dynamic_debug.h | 23 ++++++++++++++++++++++-
+ lib/dynamic_debug.c           |  9 +++++++++
+ 2 files changed, 31 insertions(+), 1 deletion(-)
 
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 268e903b7c4e..f23608c38a79 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -126,8 +126,29 @@ struct ddebug_class_map {
+ #define NUM_TYPE_ARGS(eltype, ...)				\
+         (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
+ 
+-/* encapsulate linker provided built-in (or module) dyndbg data */
++/* define header record, linker inserts it at descs[0] */
++struct _ddebug_hdr {
++	union {
++		struct _ddebug __;  /* force sizeof this */
++		struct {
++			struct _ddebug_info * _uplink;
++			/* space available */
++		};
++	};
++};
++/* here for symmetry, extra storage */
++struct _ddebug_site_hdr {
++	union {
++		struct _ddebug_site __;  /* force sizeof this */
++		struct {
++			struct _ddebug_info  * _uplink;
++		};
++	};
++};
++
++/* encapsulate linker provided built-in (or module) dyndbg vectors */
+ struct _ddebug_info {
++	struct _ddebug_hdr *hdr;
+ 	struct _ddebug *descs;
+ 	struct _ddebug_site *sites;
+ 	struct ddebug_class_map *classes;
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 506a7e2e59d6..1b57e43e9c31 100644
+index 65b0a1025ddf..91fe7fb5dda9 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1341,7 +1341,8 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt,
-  * and add it to the global list.
-  */
- static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
--			       const char *modname)
-+			       const char *modname, struct _ddebug_site *packed_sites,
-+			       unsigned int *packed_base)
- {
- 	struct ddebug_table *dt;
- 	int i;
-@@ -1390,7 +1391,8 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
+@@ -49,6 +49,9 @@ extern struct _ddebug_site __stop___dyndbg_sites[];
+ extern struct ddebug_class_map __start___dyndbg_classes[];
+ extern struct ddebug_class_map __stop___dyndbg_classes[];
  
- int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
--	return __ddebug_add_module(di, 0, modname);
-+	unsigned int packed_base = 0;
-+	return __ddebug_add_module(di, 0, modname, di->sites, &packed_base);
- }
- 
- /* helper for ddebug_dyndbg_(boot|module)_param_cb */
-@@ -1506,7 +1508,7 @@ static int __init dynamic_debug_init(void)
- {
- 	struct _ddebug *iter, *iter_mod_start;
- 	struct _ddebug_site *site, *site_mod_start;
--	int ret, i, mod_sites, mod_ct;
-+	int ret, i, mod_sites, mod_ct, site_base;
- 	const char *modname;
++extern struct _ddebug_hdr __dyndbg_header[];
++extern struct _ddebug_site_hdr __dyndbg_site_header[];
++
+ struct ddebug_table {
+ 	struct list_head link, maps;
+ 	const char *mod_name;
+@@ -1522,6 +1525,7 @@ static int __init dynamic_debug_init(void)
  	char *cmdline;
  
-@@ -1550,7 +1552,8 @@ static int __init dynamic_debug_init(void)
- 			di.num_descs = mod_sites;
- 			di.descs = iter_mod_start;
- 			di.sites = site_mod_start;
--			ret = __ddebug_add_module(&di, i - mod_sites, modname);
-+			ret = __ddebug_add_module(&di, i - mod_sites, modname,
-+						  __start___dyndbg_sites, &site_base);
- 			if (ret)
- 				goto out_err;
- 
-@@ -1563,11 +1566,13 @@ static int __init dynamic_debug_init(void)
- 	di.num_descs = mod_sites;
- 	di.descs = iter_mod_start;
- 	di.sites = site_mod_start;
--	ret = __ddebug_add_module(&di, i - mod_sites, modname);
-+	ret = __ddebug_add_module(&di, i - mod_sites, modname,
-+				  __start___dyndbg_sites, &site_base);
- 	if (ret)
- 		goto out_err;
- 
- 	ddebug_init_success = 1;
+ 	struct _ddebug_info di = {
++		.hdr = __dyndbg_header,
+ 		.descs = __start___dyndbg,
+ 		.sites = __start___dyndbg_sites,
+ 		.classes = __start___dyndbg_classes,
+@@ -1545,6 +1549,11 @@ static int __init dynamic_debug_init(void)
+ 		pr_err("unequal vectors: descs/sites %d/%d\n", di.num_descs, di.num_sites);
+ 		return 1;
+ 	}
 +
- 	vpr_info("%d prdebugs in %d modules, %d KiB in ddebug tables, %d kiB in __dyndbg section\n",
- 		 i, mod_ct, (int)((mod_ct * sizeof(struct ddebug_table)) >> 10),
- 		 (int)((i * sizeof(struct _ddebug)) >> 10));
++	/* these 2 print the same, until _TABLE is added */
++	v2pr_info("%px %px \n", __dyndbg_header, __dyndbg_site_header);
++	v2pr_info("%px %px \n", di.descs, di.sites);
++
+ 	iter = iter_mod_start = __start___dyndbg;
+ 	site = site_mod_start = __start___dyndbg_sites;
+ 	modname = site->_modname;
 -- 
 2.37.2
 
