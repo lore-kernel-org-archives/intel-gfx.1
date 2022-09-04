@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC49C6FA82
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCB22ECAAD5
 	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E55C10E3BD;
-	Sun,  4 Sep 2022 21:43:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5750F10E3C3;
+	Sun,  4 Sep 2022 21:43:55 +0000 (UTC)
 Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
  [IPv6:2607:f8b0:4864:20::d35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC1910E1C5;
- Sun,  4 Sep 2022 21:42:36 +0000 (UTC)
-Received: by mail-io1-xd35.google.com with SMTP id i77so5661068ioa.7;
- Sun, 04 Sep 2022 14:42:36 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C36F810E255;
+ Sun,  4 Sep 2022 21:42:49 +0000 (UTC)
+Received: by mail-io1-xd35.google.com with SMTP id r141so5678705iod.4;
+ Sun, 04 Sep 2022 14:42:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=AsutXgMDAJiXYIziQgoUHz04vuwS74Ufjn18RboeZlU=;
- b=Qw5u5kHlAuCdVRdp5boFr8w9l56DpQmLytG5X7x/gapi8SNDYyfHxGQ865EixG1rDF
- w+qm25s4Qx7V+r1LIT4Yojr69wswh53LgdFjuv5u8ss4N7Y3M6OvvXRH+gSQtLhrl51K
- 8MA7vqh1hp2ucRb7mbZmSegCHdgHh45ZtNYeJv2RuaJEfVrE7xjijSClBWTNNcJBAAfv
- QJ9VxUtPDKNoU59NHhpkj4z/UKL9NQ5pTTXZdMEXqLoRbGLT/+iXx3JIGAlyabOc3HOS
- z4XZEA/jjk7trB7VNHK/xQkhJcQcINVffpR5ej+XDbn5uk/XFMlCTA04L/CLoqDiCira
- /Okw==
+ bh=PMiB8rnsUQPju8onoOnVuDb8slfA1llOhn686i4QNvM=;
+ b=DhIMTIMuvABAe+Hzd9rSSdXTPFxO/+q5Cm+yD63nUFOoFZNB03XM5qcqbF65z2kAOS
+ pOUh728z1/u5qw1UKGnSRJFv2eNFfmUNZA9Pr33CoridKkhzO3KHRwUivKPaXWPPvzes
+ FIn2lGCuNdFOJuALDBDiHixeO3RwF3TScUe2Ec35/WnTE4/rWPnUBReM+TT+MGZi7UiP
+ 8A62RK0snL+KInTqxx0ss+pLhLEPD3uKBa3QC0t9/c7eRXT2KH3ogGVGBr2JOf5Y5Y/C
+ 0o98zKU/C2FCWYR/3SSsXNl5sS/BSOlPYUBKDAmomW9+bzVniS+aWFgMzIAaLAguaPjr
+ OsXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=AsutXgMDAJiXYIziQgoUHz04vuwS74Ufjn18RboeZlU=;
- b=sFWWZjI0HXNSu+i6lF0+hLYiDKjqTFQTcqHD60ys9ioqPkjwlkZXIUu88MRppn5t2h
- pClzqToViw2nhWpNJJTDCn/sRZKbAQLGXvOt0mQtW9qX6B0VaNRuqZa2q83Q6zcrA2IH
- tVYNay414TihItQv5i9TbVanArDrdX9c+aDAh3LMwlPHZ44dQoB3xjMjWDHMlent2BaE
- 6PRnAa25XPtqdEn6qKNYoCWfG17Tk9rcYAy0jXFBo8ntcwBFDOyJlV8jEeTqa1WAaU6l
- VwFIxJvTtuERrwvEt6m9yUkyb5Xd3GOmjJIh2UoZr1KXf2Ip3KQJDITMsAEs+/ehCluX
- udqQ==
-X-Gm-Message-State: ACgBeo06XFKCvuKt1y1p261/1kqxSXogaT4WDOpRb002VrQSwQTIw2zo
- iT9WcGyw3Nd1BEjDBollKAE=
-X-Google-Smtp-Source: AA6agR4XUVL8R/sQ1zC2uzGX3CzIouq5JH8v/iId7txQSE5EgJyUlziUe0GD5gnf+dO0fl8HHWQm8g==
-X-Received: by 2002:a02:740b:0:b0:349:bcdd:ca20 with SMTP id
- o11-20020a02740b000000b00349bcddca20mr25953249jac.110.1662327753065; 
- Sun, 04 Sep 2022 14:42:33 -0700 (PDT)
+ bh=PMiB8rnsUQPju8onoOnVuDb8slfA1llOhn686i4QNvM=;
+ b=Wnevqfh/GiQOMsA/kIrhUR7zDJxFtKkdCZCVaOSZas/kzdEL2Drb7mIVvR7rcHNuzr
+ 3OkbjoxGSmibOBsppUsEnSRh8Towh9VzxvV5kgzH17/bn/9ibtPUU/krZ7pA8D316bqY
+ Os+HXav8qG6BhG+dRBYq+NUrfiIWgPd4rTv2tsrdaZCYajYlcbsMG5IZzOBe/eA2SE6y
+ xMGzPONgoYpnloz3SarsfT3rYwndR9SSRNZu+Pb5Nn/ozCbQ9nOqCdJjTIE9yKDQRw3J
+ juBeL/P7SPsXE2+HbXilYyRY4//Ho9O5DjUpMMnzvCZtGanjGSCh41A5bGRsKcfFZEKe
+ QWzw==
+X-Gm-Message-State: ACgBeo07CCZiuZpASJexZMtqV6pMdaC4T3CqNyb31rxYNKMP5z4RPFcB
+ Hz3cALXcaZwvrAhCCBy9Azc=
+X-Google-Smtp-Source: AA6agR6INbA193jAVbdMDiyXOsWP4jHkkUZzNXaQ1TrC3Xmxtj8ovg2eyPEHbVIhKzd3D9P88Hc01A==
+X-Received: by 2002:a6b:7b41:0:b0:689:2648:9ce9 with SMTP id
+ m1-20020a6b7b41000000b0068926489ce9mr21451384iop.185.1662327769373; 
+ Sun, 04 Sep 2022 14:42:49 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.32
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:32 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:49 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:01 -0600
-Message-Id: <20220904214134.408619-25-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:18 -0600
+Message-Id: <20220904214134.408619-42-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 24/57] drm_print: interpose drm_*dbg with
- forwarding macros
+Subject: [Intel-gfx] [PATCH v6 41/57] dyndbg: split repeating columns to new
+ struct _ddebug_site
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,111 +79,346 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-change drm_dev_dbg & drm_dbg to macros, which forward to the renamed
-functions (with __ prefix added).
+Struct _ddebug has 3 RO-data fields: _module, _file, _function, which
+have significant repetition in the builtins: 4222 unique records /
+8920 callsites on a recent laptop build.  Thats just 47% unique, on
+24/56 of the unitary record.
 
-Those functions sit below the categorized layer of macros implementing
-the DRM debug.category API, and implement most of it.  These are good
-places to insert dynamic-debug jump-label mechanics, which will allow
-DRM to avoid the runtime cost of drm_debug_enabled().
+The quick path to excising this redundancy is:
+ 1- split the table in 2, link 1st to 2nd	(done here)
+ 2- de-duplicate the 2nd table.			(soon)
 
-no functional changes.
+So split struct _ddebug, move the 3 fields to a new struct
+_ddebug_site, and add a pointer from _ddebug to _debug_sites.  The
+lineno field stays in _ddebug, so all _sites in a fn are identical.
 
-memory cost baseline: (unchanged)
-bash-5.1# drms_load
-[    9.220389] dyndbg:   1 debug prints in module drm
-[    9.224426] ACPI: bus type drm_connector registered
-[    9.302192] dyndbg:   2 debug prints in module ttm
-[    9.305033] dyndbg:   8 debug prints in module video
-[    9.627563] dyndbg: 127 debug prints in module i915
-[    9.721505] AMD-Vi: AMD IOMMUv2 functionality not available on this system - This is not a bug.
-[   10.091345] dyndbg: 2196 debug prints in module amdgpu
-[   10.106589] [drm] amdgpu kernel modesetting enabled.
-[   10.107270] amdgpu: CRAT table not found
-[   10.107926] amdgpu: Virtual CRAT table created for CPU
-[   10.108398] amdgpu: Topology: Add CPU node
-[   10.168507] dyndbg:   3 debug prints in module wmi
-[   10.329587] dyndbg:   3 debug prints in module nouveau
+The new ptr from _ddebug -> _ddebug_site increases memory footprint,
+until step 2 is completed, at which point:
+
+  old = 56	  * 8920
+  new = (56-24+8) * 8920 + 24 * 4222
+IE:
+  DB<2> p 56 * 8920
+499520
+  DB<3> p 40*8920 + 24 * 4222
+458128
+
+Thats 41392 saved, or ~8.3%
+
+Further, the site pointer is just temporary scaffolding:
+
+ - descriptors are in a vector.
+ - new desc._idx field (from spare bits) can get us to 0.
+   set during _init, not by linker
+ - add a header record in front of vector (.gnu.linkonce.dyndbg*)
+   point it up to struct dyndbg_info
+ - dyndbg_info has .sites
+ - same desc._idx gets us sites[._idx]
+ - new desc._map field, gives sites[._map]
+   this allows de-duplication and packing.
+
+Once that is done, the savings increases:
+
+  DB<7> p  (56 * 8920) - (((56-24) *8920) + 24*4222)
+  112752 saved, or 22%
+
+STEP 1:
+
+dynamic_debug.h:
+
+This cuts struct _ddebug in half, renames the top-half to
+_ddebug_site, keeps __align(8) for both halves.  Adds a forward decl
+for a unified comment for both halves, and added _ddebug.site field to
+point at a site record.
+
+Rework DEFINE_DYNAMIC_DEBUG_METADATA_CLS macro to declare & initialize
+the 2 static/private struct vars together, and link them together.  It
+places each struct into its own section, so the linker packs 2
+parallel arrays, and links them like a ladder.
+
+struct _ddebug_info is extended to track _ddebug_site[] just like it
+does for _ddebug[] and _ddebug_classes[].
+
+The accessor macros desc_{module,filename,function} follow the
+field-moves with added '->site->' references, and return "_nope_" or
+"_na_" if the desc or site are null.  This makes those ptrs nullable,
+and their referents recoverable (nothing tries to use this yet).
+NB: the "_na_" is undone temporarily later, for dev shortcut.
+
+Also add const to lineno field.  It is set by compiler.
+
+In struct ddebug_table, add struct _ddebug_site *sites, to treat new
+vector just like the module's _ddebug[]s (its __dyndbg section, for
+loadable mods).  While we don't need it now, we will need it to
+de-scaffold (drop the _ddebug.site).
+
+dynamic_debug.c:
+
+extern declarations of the section start/end symbols named and
+initialized in vmlinux.lds.h
+
+dynamic_debug_init():
+
+Initialize global builtin_state from initialized cursor var.  Trying
+to do so statically gave:
+   "error: initializer element is not computable at load time"
+
+Check (num-descs == num-sites), and quit early otherwise.  This is an
+important precondition, w/o it, we cannot really continue confidently.
+
+I inadvertently created the situation by having __used on 1/2 of the
+_ddebug{,_site} pair created by DECLARE_DYNAMIC_DEBUG_METADATA; this
+created ~70/ extra site records.  This "worked", but was unnerving
+until I tracked it down.
+
+Add site iterator & site_mod_start marker, recapping iter/_mod_start.
+
+Inside the main loop, validate (site == iter->site).  This is the
+full/proper precondition for the expected section contents and
+inter-linkage; the (num-descs == num-sites) check is just a quick
+necessary-but-not-sufficient version of this.
+
+NOTE: this check could be a BUG_ON, esp as any mismatch should have
+been caught by the quick-check.  ATM it is just a pr_err; Id prefer to
+see errors rather than crashes.
+
+Demotes iter->site by replacing iter->site->_module by site->_module.
+This is a small step towards dropping it entirely.
+
+vmlinux.lds.h:
+
+add __dyndbg_sites section and start/end symbols, with the same
+align(8) and KEEP as used in the __dyndbg section.
+
+kernel/module/main.c:load_info():
+
+Initialize _ddebug_info.sites with new section address.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 10 +++++-----
- include/drm/drm_print.h     |  9 +++++++--
- 2 files changed, 12 insertions(+), 7 deletions(-)
+ include/asm-generic/vmlinux.lds.h |  3 +++
+ include/linux/dynamic_debug.h     | 37 +++++++++++++++++++++---------
+ kernel/module/main.c              |  2 ++
+ lib/dynamic_debug.c               | 38 +++++++++++++++++++++++--------
+ 4 files changed, 60 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index ec32df35a3e3..29a29949ad0b 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -279,8 +279,8 @@ void drm_dev_printk(const struct device *dev, const char *level,
- }
- EXPORT_SYMBOL(drm_dev_printk);
+diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+index 9b8bd5504ad9..1e7ee65e8591 100644
+--- a/include/asm-generic/vmlinux.lds.h
++++ b/include/asm-generic/vmlinux.lds.h
+@@ -351,6 +351,9 @@
+ 	__start___dyndbg = .;						\
+ 	KEEP(*(__dyndbg))						\
+ 	__stop___dyndbg = .;						\
++	__start___dyndbg_sites = .;					\
++	KEEP(*(__dyndbg_sites))						\
++	__stop___dyndbg_sites = .;					\
+ 	LIKELY_PROFILE()		       				\
+ 	BRANCH_PROFILE()						\
+ 	TRACE_PRINTKS()							\
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index e04f5b0a31e2..dcc0e8cc2ef0 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -9,20 +9,28 @@
+ #include <linux/build_bug.h>
  
--void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
--		 const char *format, ...)
-+void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-+		   const char *format, ...)
- {
- 	struct va_format vaf;
- 	va_list args;
-@@ -301,9 +301,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- 
- 	va_end(args);
- }
--EXPORT_SYMBOL(drm_dev_dbg);
-+EXPORT_SYMBOL(__drm_dev_dbg);
- 
--void __drm_dbg(enum drm_debug_category category, const char *format, ...)
-+void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
- {
- 	struct va_format vaf;
- 	va_list args;
-@@ -320,7 +320,7 @@ void __drm_dbg(enum drm_debug_category category, const char *format, ...)
- 
- 	va_end(args);
- }
--EXPORT_SYMBOL(__drm_dbg);
-+EXPORT_SYMBOL(___drm_dbg);
- 
- void __drm_err(const char *format, ...)
- {
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 668273e36c2c..c429c258c957 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -335,7 +335,7 @@ __printf(3, 4)
- void drm_dev_printk(const struct device *dev, const char *level,
- 		    const char *format, ...);
- __printf(3, 4)
--void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
-+void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- 		 const char *format, ...);
- 
- /**
-@@ -384,6 +384,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
- 	}								\
- })
- 
-+#define drm_dev_dbg(dev, cat, fmt, ...)				\
-+	__drm_dev_dbg(dev, cat, fmt, ##__VA_ARGS__)
-+
- /**
-  * DRM_DEV_DEBUG() - Debug output for generic drm code
-  *
-@@ -485,10 +488,12 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ /*
+- * An instance of this structure is created in a special
+- * ELF section at every dynamic debug callsite.  At runtime,
+- * the special section is treated as an array of these.
++ * A pair of these structs are created in 2 special ELF sections
++ * (__dyndbg, __dyndbg_sites) for every dynamic debug callsite.
++ * At runtime, the sections are treated as arrays.
   */
- 
- __printf(2, 3)
--void __drm_dbg(enum drm_debug_category category, const char *format, ...);
-+void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
- __printf(1, 2)
- void __drm_err(const char *format, ...);
- 
-+#define __drm_dbg(fmt, ...)		___drm_dbg(fmt, ##__VA_ARGS__)
+-struct _ddebug {
++struct _ddebug;
++struct _ddebug_site {
+ 	/*
+-	 * These fields are used to drive the user interface
+-	 * for selecting and displaying debug callsites.
++	 * These fields (and lineno) are used to:
++	 * - decorate log messages per _ddebug.flags
++	 * - select callsites for modification via >control
++	 * - display callsites & settings in `cat control`
+ 	 */
+ 	const char *_modname;
+ 	const char *_function;
+ 	const char *_filename;
++} __aligned(8);
 +
- /* Macros to make printk easier */
++struct _ddebug {
++	struct _ddebug_site *site;
++	/* format is always needed, lineno shares word with flags */
+ 	const char *format;
+-	unsigned int lineno:18;
++	const unsigned lineno:18;
+ #define CLS_BITS 6
+ 	unsigned int class_id:CLS_BITS;
+ #define _DPRINTK_CLASS_DFLT		((1 << CLS_BITS) - 1)
+@@ -58,7 +66,7 @@ struct _ddebug {
+ 		struct static_key_false dd_key_false;
+ 	} key;
+ #endif
+-} __attribute__((aligned(8)));
++} __aligned(8);
  
- #define _DRM_PRINTK(once, level, fmt, ...)				\
+ enum class_map_type {
+ 	DD_CLASS_TYPE_DISJOINT_BITS,
+@@ -118,8 +126,10 @@ struct ddebug_class_map {
+ /* encapsulate linker provided built-in (or module) dyndbg data */
+ struct _ddebug_info {
+ 	struct _ddebug *descs;
++	struct _ddebug_site *sites;
+ 	struct ddebug_class_map *classes;
+ 	unsigned int num_descs;
++	unsigned int num_sites;
+ 	unsigned int num_classes;
+ };
+ 
+@@ -137,6 +147,7 @@ struct ddebug_class_param {
+ int ddebug_add_module(struct _ddebug_info *dyndbg, const char *modname);
+ 
+ extern int ddebug_remove_module(const char *mod_name);
++
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
+ 
+@@ -164,11 +175,15 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 			 const char *fmt, ...);
+ 
+ #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
+-	static struct _ddebug  __aligned(8)			\
+-	__section("__dyndbg") name = {				\
++	static struct _ddebug_site  __aligned(8)		\
++	__section("__dyndbg_sites") name##_site = {		\
+ 		._modname = KBUILD_MODNAME,			\
+-		._function = __func__,				\
+ 		._filename = __FILE__,				\
++		._function = __func__,				\
++	};							\
++	static struct _ddebug  __aligned(8)			\
++	__section("__dyndbg") name = {				\
++		.site = &name##_site,				\
+ 		.format = (fmt),				\
+ 		.lineno = __LINE__,				\
+ 		.flags = _DPRINTK_FLAGS_DEFAULT,		\
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index 6aa6153aa6e0..5a80f18f8e4a 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -2113,6 +2113,8 @@ static int find_module_sections(struct module *mod, struct load_info *info)
+ 
+ 	info->dyndbg.descs = section_objs(info, "__dyndbg",
+ 					sizeof(*info->dyndbg.descs), &info->dyndbg.num_descs);
++	info->dyndbg.sites = section_objs(info, "__dyndbg_sites",
++					sizeof(*info->dyndbg.sites), &info->dyndbg.num_sites);
+ 	info->dyndbg.classes = section_objs(info, "__dyndbg_classes",
+ 					sizeof(*info->dyndbg.classes), &info->dyndbg.num_classes);
+ 
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 5a22708679a7..f1f354efed5a 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -44,6 +44,8 @@
+ 
+ extern struct _ddebug __start___dyndbg[];
+ extern struct _ddebug __stop___dyndbg[];
++extern struct _ddebug_site __start___dyndbg_sites[];
++extern struct _ddebug_site __stop___dyndbg_sites[];
+ extern struct ddebug_class_map __start___dyndbg_classes[];
+ extern struct ddebug_class_map __stop___dyndbg_classes[];
+ 
+@@ -52,6 +54,7 @@ struct ddebug_table {
+ 	const char *mod_name;
+ 	unsigned int num_ddebugs;
+ 	struct _ddebug *ddebugs;
++	struct _ddebug_site *sites;
+ };
+ 
+ struct ddebug_query {
+@@ -1487,20 +1490,27 @@ static int __init dynamic_debug_init_control(void)
+ 
+ 	return 0;
+ }
++fs_initcall(dynamic_debug_init_control);
++
++static struct _ddebug_info builtin_state;
+ 
+ static int __init dynamic_debug_init(void)
+ {
+ 	struct _ddebug *iter, *iter_mod_start;
++	struct _ddebug_site *site, *site_mod_start;
+ 	int ret, i, mod_sites, mod_ct;
+ 	const char *modname;
+ 	char *cmdline;
+ 
+ 	struct _ddebug_info di = {
+ 		.descs = __start___dyndbg,
++		.sites = __start___dyndbg_sites,
+ 		.classes = __start___dyndbg_classes,
+-		.num_descs = __stop___dyndbg - __start___dyndbg,
+-		.num_classes = __stop___dyndbg_classes - __start___dyndbg_classes,
++		.num_descs	= __stop___dyndbg		- __start___dyndbg,
++		.num_sites	= __stop___dyndbg_sites		- __start___dyndbg_sites,
++		.num_classes	= __stop___dyndbg_classes	- __start___dyndbg_classes,
+ 	};
++	builtin_state = di;
+ 
+ 	if (&__start___dyndbg == &__stop___dyndbg) {
+ 		if (IS_ENABLED(CONFIG_DYNAMIC_DEBUG)) {
+@@ -1511,28 +1521,40 @@ static int __init dynamic_debug_init(void)
+ 		ddebug_init_success = 1;
+ 		return 0;
+ 	}
+-
++	if (di.num_descs != di.num_sites) {
++		/* cant happen, unless site section has __used, desc does not */
++		pr_err("unequal vectors: descs/sites %d/%d\n", di.num_descs, di.num_sites);
++		return 1;
++	}
+ 	iter = iter_mod_start = __start___dyndbg;
+-	modname = iter->_modname;
++	site = site_mod_start = __start___dyndbg_sites;
++	modname = iter->site->_modname;
+ 	i = mod_sites = mod_ct = 0;
+ 
+-	for (; iter < __stop___dyndbg; iter++, i++, mod_sites++) {
++	for (; iter < __stop___dyndbg; iter++, site++, i++, mod_sites++) {
++
++		if (site != iter->site)
++			/* XXX: also cant happen, but lets see how it plays */
++			pr_err("linkage problem: site != iter->site\n");
+ 
+-		if (strcmp(modname, iter->_modname)) {
++		if (strcmp(modname, site->_modname)) {
+ 			mod_ct++;
+ 			di.num_descs = mod_sites;
+ 			di.descs = iter_mod_start;
++			di.sites = site_mod_start;
+ 			ret = __ddebug_add_module(&di, i - mod_sites, modname);
+ 			if (ret)
+ 				goto out_err;
+ 
+ 			mod_sites = 0;
+-			modname = iter->_modname;
++			modname = site->_modname;
+ 			iter_mod_start = iter;
++			site_mod_start = site;
+ 		}
+ 	}
+ 	di.num_descs = mod_sites;
+ 	di.descs = iter_mod_start;
++	di.sites = site_mod_start;
+ 	ret = __ddebug_add_module(&di, i - mod_sites, modname);
+ 	if (ret)
+ 		goto out_err;
+@@ -1566,5 +1588,3 @@ static int __init dynamic_debug_init(void)
+ /* Allow early initialization for boot messages via boot param */
+ early_initcall(dynamic_debug_init);
+ 
+-/* Debugfs setup must be done later */
+-fs_initcall(dynamic_debug_init_control);
 -- 
 2.37.2
 
