@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D1E2C6FA82
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85294C6FA82
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E581710E1C5;
-	Sun,  4 Sep 2022 21:43:30 +0000 (UTC)
-Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C86A810E1C4;
- Sun,  4 Sep 2022 21:42:43 +0000 (UTC)
-Received: by mail-il1-x12d.google.com with SMTP id s11so3868244ilt.7;
- Sun, 04 Sep 2022 14:42:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08C5A10E2D6;
+	Sun,  4 Sep 2022 21:43:34 +0000 (UTC)
+Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
+ [IPv6:2607:f8b0:4864:20::d34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8D6110E249;
+ Sun,  4 Sep 2022 21:42:47 +0000 (UTC)
+Received: by mail-io1-xd34.google.com with SMTP id b142so5642444iof.10;
+ Sun, 04 Sep 2022 14:42:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=TAwV35ZWZLIKqOElwfkhFfIbRXseVOLIKBiUUUQjUVQ=;
- b=YQSF24Us+VgO6MmkwBVVohgShZMcax7Tlk2S3GvdeKpX8+kDOiSv3UtwHdryBa/MfZ
- MVJvIEFu2ceZYdrJvC7LCgaG6cEGWWOo9rPDcMnnD+bMW23GiPRN5wZw8EBRiwT0rE4D
- tyIORau8tjxdkTvurYsJa1KKbPC7Xw24bYyvtnAHFUTaVJyVUi4XMOenzHqGO8vAeZLz
- IykguT8g4g+lANiwbVQH2BC/Z9FWb7/vEYDvWbQ9K6c9NLNB3P6ZPkHEEo1aJnLu/3DP
- so/ytamyrgwlaVUiFuKwgSUCvGgReaF3szmlQpVggMMm6ySVIhuDBYvRb9VRu2wy021f
- mxrg==
+ bh=F+IqvxQINaymRL+MafidUTbGzpHBkq2RsFapBWAQydg=;
+ b=N0zhsOBdmXSpqdVIM7Dax53vYiJTKsqF6x9qw6PLO/aFCYoOS0opwP1W/5aTypbefh
+ thcPTdmgHjCwAVeFNHFjBjHzjInzGS+YiXXOrz8p9PMclYRxe1LfcB0y1XUcNo/5BytA
+ YEnLhw/gfAr8rG8KozwOaV+lYe7NXyUjy4JmDGJ94WvqWQr15EnP0FR45EtCb9sixA2H
+ 5PVujoc2/62tw2Rf6QVixL1umMf0g4g0KWpbNPggi2SaHbsUt9ALitBx9exeU1qkh3CT
+ vHElW8wRlXwjNWiUeoUytlqPPgsAovjsIKN3Z9gCGdsWoXgjj0apzjKHP7jxrbSbW8d4
+ SIYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=TAwV35ZWZLIKqOElwfkhFfIbRXseVOLIKBiUUUQjUVQ=;
- b=GXnssqtqRnAF3GHkQWsyxXYaHG2kQ5OPiCWi7qXYHs9ADMxQkstc63Gpl6ksN4vDRU
- C3nMqV5EyeyM9azu4GyXVPdSTHYcrXskwy5+1vubqWxkc9grOC0LDoqFgZ9ePUb2gIhY
- yulCTtOQXQ62weE6LoxgqSKhih1JbvXQI9WS9DMsx/R/ZNpgaR1d0BNGdDRpi2XmR4xS
- TUTaaD1xCad9WIgtoSvVqYFkOwiJdus/zisB7mzcciLOPQy1GkqMSmRGFBlrwi3rJtM4
- ZZ/4K+LfWntWb6mpUXaVO0RdUpsw03Lyhe0b0gAUkHcS4n/9yg/CXGoqjQftynEAjlCW
- 3Wxg==
-X-Gm-Message-State: ACgBeo0xyQL6wrWRIKpox+rDp6Y5ETJWt40kRX7q1cpiCojJcut805Jq
- fla9S2MK1fz0gNVekuKBoo4=
-X-Google-Smtp-Source: AA6agR5dlZ+2mbjYaiVo07B1ri+ETbudxxDzknKKyObWsKY9ZVDTd1RmO8d48xns2r12tpVnSs9bbw==
-X-Received: by 2002:a05:6e02:12ed:b0:2eb:753e:cfb with SMTP id
- l13-20020a056e0212ed00b002eb753e0cfbmr12322927iln.14.1662327763512; 
- Sun, 04 Sep 2022 14:42:43 -0700 (PDT)
+ bh=F+IqvxQINaymRL+MafidUTbGzpHBkq2RsFapBWAQydg=;
+ b=KBhhIppzZLDDBhZp4G1PdJD6bUrHPaes7J1V9U+k8qA2nWTsJvKjGCgwZz3YjqZbid
+ WWpqTvnUAI3tXZLqo1pruFWgMviB/B8g0752Z8wygT0D3D6ZjP23hYAgaj9zjFEAKfev
+ BnkKMO2olp2zI6xNSHyqCQ/ZjmeX8J/v0y3E28W3w4pQA65VcvciNK2Ku2W5LXEVFnei
+ Pjr5nBmlV073T0XrvQ8buzS2ltTTQezZMNgj2fozKLszcyIPY4WzKyGeYIDxFK9dSkVN
+ a/WsRJDwYU709Raz13Nr4ic91jzqziV2pMpy3YyOqRYLNGJJ1j711Qw1/n2015RwdIFQ
+ /ORw==
+X-Gm-Message-State: ACgBeo2X5TQojNJ/pBaldW9GHEnZoxr9GLjmguvnZLWvFTTLYJFuZyMj
+ gZ69EV8CaUlAcunip8CpXy0=
+X-Google-Smtp-Source: AA6agR6wneRG7yCu0WnhzdrmY46L82HWUk9b8e+ZYvtbU/eRsNK3PLQqrk215dPJggzpSd7jRHChZQ==
+X-Received: by 2002:a5e:c319:0:b0:68b:2683:8e26 with SMTP id
+ a25-20020a5ec319000000b0068b26838e26mr17614839iok.129.1662327767546; 
+ Sun, 04 Sep 2022 14:42:47 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.42
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:43 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:47 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:12 -0600
-Message-Id: <20220904214134.408619-36-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:16 -0600
+Message-Id: <20220904214134.408619-40-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 35/57] dyndbg: add _DPRINTK_FLAGS_TRACE
+Subject: [Intel-gfx] [PATCH v6 39/57] dyndbg/drm: POC add tracebits
+ sysfs-knob
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,34 +75,56 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
- vincent.whitchurch@axis.com, linux@rasmusvillemoes.dk, seanpaul@chromium.org,
- joe@perches.com
+ linux@rasmusvillemoes.dk, seanpaul@chromium.org, joe@perches.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-add new flag, and OR it into _DPRINTK_FLAGS_ENABLED definition
+clone DRM.debug interface to DRM.tracebits: ie map bits to
+drm-debug-categories, except this interface enables messages to
+tracefs, not to syslog.
 
-CC: vincent.whitchurch@axis.com
+1- we reuse the class-map added previously.
+   this reflects the single source of both syslog/trace events
+
+2- add a 2nd struct ddebug_classes_bitmap_param
+   refs 1, reusing it.
+   flags = "T", to enable trace-events on this callsite.
+
+3- module_param_cb([2]) - does the sysfs part
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_print.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index ecd3379090c4..04f49df308a7 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -42,7 +42,9 @@ struct _ddebug {
- 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
- 	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID)
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index c50edbf443d3..75d0cecd7e86 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -45,6 +45,9 @@
+ unsigned long __drm_debug;
+ EXPORT_SYMBOL(__drm_debug);
  
--#define _DPRINTK_FLAGS_ENABLED		_DPRINTK_FLAGS_PRINTK
-+#define _DPRINTK_FLAGS_TRACE		(1 << 5)
-+#define _DPRINTK_FLAGS_ENABLED		(_DPRINTK_FLAGS_PRINTK | \
-+					 _DPRINTK_FLAGS_TRACE)
++unsigned long __drm_trace;
++EXPORT_SYMBOL(__drm_trace);
++
+ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+ "\t\tBit 0 (0x01)  will enable CORE messages (drm core code)\n"
+ "\t\tBit 1 (0x02)  will enable DRIVER messages (drm controller code)\n"
+@@ -77,6 +80,13 @@ static struct ddebug_class_param drm_debug_bitmap = {
+ 	.map = &drm_debug_classes,
+ };
+ module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
++
++static struct ddebug_class_param drm_trace_bitmap = {
++	.bits = &__drm_trace,
++	.flags = "T",
++	.map = &drm_debug_classes,
++};
++module_param_cb(tracecats, &param_ops_dyndbg_classes, &drm_trace_bitmap, 0600);
+ #endif
  
- #if defined DEBUG
- #define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINTK
+ void __drm_puts_coredump(struct drm_printer *p, const char *str)
 -- 
 2.37.2
 
