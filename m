@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7965BC6FA82
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:44:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EFF6C6FA82
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:44:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AC3410E265;
-	Sun,  4 Sep 2022 21:42:51 +0000 (UTC)
-Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
- [IPv6:2607:f8b0:4864:20::d34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF6210E13C;
- Sun,  4 Sep 2022 21:42:17 +0000 (UTC)
-Received: by mail-io1-xd34.google.com with SMTP id b142so5642068iof.10;
- Sun, 04 Sep 2022 14:42:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92E5710E248;
+	Sun,  4 Sep 2022 21:42:47 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED28A10E140;
+ Sun,  4 Sep 2022 21:42:22 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id e195so5690458iof.1;
+ Sun, 04 Sep 2022 14:42:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=ysIiIQDuG3NPX9ftczW4ZGg58gUBI4jeSANScS140gM=;
- b=APgxhuRWpHrA5EiAcM6bPTAJX5sVjnKO8ZXN2+OQbTnNZthJ6+91rd6qMlpfQu96tK
- kU7buxw62MArc4SqmHlqi7ZnRepiJzi2ZjfY0l2reZS4c+bENNXL+q4MBcG6kmRIBJDg
- zjOTRGcunIJUea9k7GCkxnFakIoXTx5p4Q3YZsvD2JZKGgVLIqCxlvTVr6lLWopOQ5jg
- tM6aObbyHfQt4hKC15wVu4dtKTl7xSjSAHhGJrPEG7cERNokHi0L0ifYgGVAskmds7W2
- JuY57ATFtM+4aknCtkIxF/AXoHBg+QwEAv3LIU8kjqNqvJGhCXZbCxBDuxpyjqad4Plp
- 4+iw==
+ bh=9SzKct1HE2F9SFFHU0qV3d4yTS+Vy3tZKPhpRiWkMoE=;
+ b=keVbDAqmRl0RyYCgYBZ9vpqCQmkMyk7el0JhW316fk9lzXS1Qp8s1NvY5dl+0KhmSp
+ ibqXTnOnHqVsgbVNxEqbtv43vgYRsJvWCMIHnYD2MdOnweaxtJ/6lJmRUKioxtauNnK3
+ MAOa5YY5NhAaVnZUHf9WjVTMmFZFR8zfXvqsn6ug0qyuxgGFFgrtJhQLojNKtMyGeGVu
+ +yc9Lpue47auQ2O1yq9JKZ+AL+lsysQCM4CP52NRtG4YNpaMNSOR2BmwDKNu/vEgwcNy
+ CzChZLaOzOawknlDJ4jxM+ihj0KwR+efhIg2T10h1eobX6skVdqLap7sQsWzIfHZi9ST
+ UvOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=ysIiIQDuG3NPX9ftczW4ZGg58gUBI4jeSANScS140gM=;
- b=xxAh/p4UZJBypJZqqY73gzFANse80LflCsSkIrGHz1qL8U4cp5wnl8bUt1E1kiGV6y
- A1jifzp7w17bodu9KiRao1VV9WZQKfJUpyeiHrbMtA79kZrFlc7O5YO2KxNficVSO2Uz
- /j4dJGycKHNyGQf80NQWqcKXyH+ahUrHYYmrvjWV7xm3kpeyhHd+ZyElvZHSufstD3N5
- euXn9H7Q/Z6kskf/1aT2GFZ0AuRiNy5hb+M1VrPEgzuXkdvc80m4+bj6ytbr92j+NYjo
- Z9PfXEZEpaCGCj7IZLDzJ2pdztM/KVjy7o9XZiqeb4sP/SzRbK2wh7EnSMEs8qyvmB7F
- ZJmQ==
-X-Gm-Message-State: ACgBeo1ZmE9n0Ohegy9JTFlPTNbiYVMJIO9ZQBccJ9RKoI146+YuoBui
- vYQVoyhHcBwH2OVXp5Lw+nDH5E9qb5M=
-X-Google-Smtp-Source: AA6agR6afjzcErCVofVv8IgSNBB83b3vDq9Bdzagkl5cWOw7B+80htmvEYKRocJbPU12He1vQEZnCg==
-X-Received: by 2002:a05:6602:2b81:b0:688:b897:13b8 with SMTP id
- r1-20020a0566022b8100b00688b89713b8mr21276933iov.43.1662327735766; 
- Sun, 04 Sep 2022 14:42:15 -0700 (PDT)
+ bh=9SzKct1HE2F9SFFHU0qV3d4yTS+Vy3tZKPhpRiWkMoE=;
+ b=MJqOY3vUCTIeirzHwFXaYmcvYDeo2kaKFQkPCgr6IxA9KYbxj1yTHGvoYvDQXVXicH
+ O2OBwLt4HVLvKKecAy4tlP6UotjtxervYfH79QIG4kC6s5qN+pj9p0KTk/C4Zkp3Khc2
+ HBMWaVqYpmT3Xn8xomjOmbZ8aRODLb4swQsIdec98bVRqlMs0ua02azLiyIL0uufpYA4
+ sb4v2boSQak0JaGSPc/nnI23xn0SJy5lNjw09/1VPRh6FIiSI/HvklWnuF/bkUfmG6zJ
+ GOeALwzjBcFlBH/LOZxxZu8xVSpTsnmLtxXtRlCgKabSsevWyEaEe6dNbuEEpoXpdI1N
+ qOxg==
+X-Gm-Message-State: ACgBeo3rCDzaEDobkh5nsxUUrdiZyFqtVzoufTE4BAf8D0NJmmXNVChy
+ LcNJmaRUCVgnMea7RkIxGYw=
+X-Google-Smtp-Source: AA6agR6jMolGXndfzGgA0ZvJd/LMfHAfLgpxQDVqtziCymaTm3c0Mj4mJvOTk/aEeCbTagH4y5NkEA==
+X-Received: by 2002:a5e:8407:0:b0:689:ff32:84d3 with SMTP id
+ h7-20020a5e8407000000b00689ff3284d3mr21836771ioj.180.1662327742655; 
+ Sun, 04 Sep 2022 14:42:22 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.15
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:15 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:22 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:40:43 -0600
-Message-Id: <20220904214134.408619-7-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:40:50 -0600
+Message-Id: <20220904214134.408619-14-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 06/57] dyndbg: use ESCAPE_SPACE for cat
- control
+Subject: [Intel-gfx] [PATCH v6 13/57] dyndbg: add __pr_debug_cls for testing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,37 +78,44 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-`cat control` currently does octal escape, so '\n' becomes "\012".
-Change this to display as "\n" instead, which reads much cleaner.
+For selftest purposes, add __pr_debug_cls(class, fmt, ...)
 
-   :#> head -n7 /proc/dynamic_debug/control
-   # filename:lineno [module]function flags format
-   init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
-   init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
-   init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
-   init/main.c:1426 [main]run_init_process =_ "    %s\n"
-   init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
-   init/main.c:1429 [main]run_init_process =_ "    %s\n"
+I didn't think we'd need to define this, since DRM effectively has it
+already in drm_dbg, drm_devdbg.  But test_dynamic_debug needs it in
+order to demonstrate all the moving parts.
 
-Acked-by: Jason Baron <jbaron@akamai.com>
+Note the __ prefix; its not intended for general use, at least until a
+need emerges.  ISTM the drm.debug model (macro wrappers inserting enum
+const 1st arg) is the baseline approach.
+
+That said, nouveau might want it for easy use in its debug macros. TBD.
+
+NB: it does require a builtin-constant class, __pr_debug_cls(i++, ...)
+is disallowed by compiler.
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/dynamic_debug.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 8ff11977b8bd..e5cbe603000c 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -900,7 +900,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 		   trim_prefix(dp->filename), dp->lineno,
- 		   iter->table->mod_name, dp->function,
- 		   ddebug_describe_flags(dp->flags, &flags));
--	seq_escape(m, dp->format, "\t\r\n\"");
-+	seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
- 	seq_puts(m, "\"\n");
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 633f4e463766..3c9690da44d9 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -221,6 +221,13 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 				   KERN_DEBUG, prefix_str, prefix_type,	\
+ 				   rowsize, groupsize, buf, len, ascii)
  
- 	return 0;
++/* for test only, generally expect drm.debug style macro wrappers */
++#define __pr_debug_cls(cls, fmt, ...) do {			\
++	BUILD_BUG_ON_MSG(!__builtin_constant_p(cls),		\
++			 "expecting constant class int/enum");	\
++	dynamic_pr_debug_cls(cls, fmt, ##__VA_ARGS__);		\
++	} while (0)
++
+ #else /* !CONFIG_DYNAMIC_DEBUG_CORE */
+ 
+ #include <linux/string.h>
 -- 
 2.37.2
 
