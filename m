@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0383ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:44:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A6D1C6FA86
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:44:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0FDC10E1A3;
-	Sun,  4 Sep 2022 21:42:34 +0000 (UTC)
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66A0E10E140;
- Sun,  4 Sep 2022 21:42:18 +0000 (UTC)
-Received: by mail-il1-x12e.google.com with SMTP id s3so1910938ilv.4;
- Sun, 04 Sep 2022 14:42:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D71AA10E1C3;
+	Sun,  4 Sep 2022 21:42:35 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E56D710E134;
+ Sun,  4 Sep 2022 21:42:13 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id c4so5673061iof.3;
+ Sun, 04 Sep 2022 14:42:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=a7DZCtJXdhSHu/g5l+Gfz3Grwf1u1lU78G+9NH5FV+4=;
- b=Jkkv7Uh7bMpbU+r6NlVBVYvbcfasFu4S18WrtPiOTovRP/fBU0eokGYClnWQb7wddC
- DJ2DbVzsV7l0UCuqjr+/R6KQlSzLD5J92WNj7XSoVVY8gqVI9s5+LywRHe/BNZ0ZDJCc
- DBl/2kKsA3D/oCquCqonuGQe5CgfatnSAtbCiKvVrFPbB6oGvCcBuFm2/uYygIQIwATx
- /9hnZoDjFPUZ988quw0t0Q6f4uHxj8Y7bfuMSk0/m2vgl7WvaETEtWFom2mBW8A8JJcp
- dzHb6d84REzzsRPCW3uadJ6MxO4TQxHz/Xw5lgx7Ma3qC+o1NzDn+smeH30H24e+PkJ2
- LgyQ==
+ bh=PbqFdyxSi0Pp6DU3HKsSvwhQJYj8Q2VNhxZwCrpnF6M=;
+ b=VsDvR0vs9q2FKCQfOJtjIj8FHz9/Z3bqLVP6coIdC18//1aR2LaIbaZwWf9Z6tEGfl
+ 5LATbVVqKiBlBcSVvzROupFX7UszhsGWDUy+bmPT1qGZcI1Zqa5qU39Qb2kqg4sRO0kw
+ fgQxDQpiLWZ85LuT4smVr3O+O5zuSTuXZnwG3Rv/A16MfL6bVIcM4HNldOSP2KESU/gT
+ V20+cxV8kGInvZOnWna6gEYV1K+GBUIItJpcmPhCpXQ4cyszHg26A0WRN3M3WtAN/wBm
+ medsQTQakd/d2p87LqtCTlPg3npIOQkOQZQTqCeT1ibwK4SGN1YC/clvc4rCKuFX7YAD
+ 0pxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=a7DZCtJXdhSHu/g5l+Gfz3Grwf1u1lU78G+9NH5FV+4=;
- b=7Yd6MdY9SyhBayB5zsxy1M56DH3c5LQ/I3q+YBW2yjYjzMlmonfXHaQU9YTGq0+y7T
- hy/luOgAhHf9764iobubPsypHscCtruM33duHOF02eDuX1hWS2szVhf91g71zK9uffwq
- 1MzF14MMq/teNPfp5/Vq5o8z62e6e1BBIG2w94j5nYb2CKwzZWlceQFjMkBd/QHb9P6W
- WmsvJfQdasF7RoclxD+oLTyQ1Aofi6uFeNGAj7MJJ3FLngfipFGOx3qHRbDb8ts1Wp5G
- 3hcWVfy+4xaIykYJsMatRrVRBNekW0s+5BT+Qns/2Ok8GOAAOsg+MsbfkBDtaxLY9fKy
- lpiA==
-X-Gm-Message-State: ACgBeo2nNfei7qrPCFb6Et6ihxlZEoTqYAD4ZcjijhMfqv+1Rogb9Qu4
- MC/4EH/23RKDoFvxUWpgdhb61v3Q9V4=
-X-Google-Smtp-Source: AA6agR7hw62bgxem2HOBZn5lz7k1Ka/rS42TkERRx352o8pyZNwU2vSuXFqs3ENfjD7w6M0xKnvuiQ==
-X-Received: by 2002:a92:cdae:0:b0:2f1:8d4e:403e with SMTP id
- g14-20020a92cdae000000b002f18d4e403emr4891ild.129.1662327737641; 
- Sun, 04 Sep 2022 14:42:17 -0700 (PDT)
+ bh=PbqFdyxSi0Pp6DU3HKsSvwhQJYj8Q2VNhxZwCrpnF6M=;
+ b=HY40IgpXerJiE61XL2fafyrwIwJWYmmPJOcG+1SFuYYJ7lH5wf4HpRIiy4peQBqWJN
+ 4d/K13pOs21qaIqr3YPiQXFTZFkVCNE+yWVEDPevaGkGn8m2QqXNc4ZO2oUpXS1IxANh
+ Dww1j/8aQkGqjCPdZWyFbKdpL0H5y6dDGy/l1Vw67FdCB5FCIgqUSG7zSB7WEx0IkQSL
+ AbM+cUCUsqoBhbe9KTLOcyWHtnxEApQUYtOsAOW9O38/YAT+qxA8VuloRTVikHwVFz5u
+ VY5o3CN/xODOI6DXaYRG5DzAqlEv4PGtGI9jGxa/gmszDB2CdOXje/1qBau9RZxUjtPt
+ Sotg==
+X-Gm-Message-State: ACgBeo0atqoXRP7cND5q6ZxogqgXDjnbXsRzQtzPajkkGHJheIHigEJG
+ f3Javx6UoBF6QJy7192G6OM=
+X-Google-Smtp-Source: AA6agR7fSTOVCWKQ249DqThxtdMK6mWi8uoaxMmg3jSWwtFYYJA/nulJNENKG3FHhy/TNLExju0ubQ==
+X-Received: by 2002:a05:6638:3385:b0:339:ea59:a31f with SMTP id
+ h5-20020a056638338500b00339ea59a31fmr23089435jav.55.1662327732789; 
+ Sun, 04 Sep 2022 14:42:12 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.16
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:17 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:12 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:40:45 -0600
-Message-Id: <20220904214134.408619-9-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:40:40 -0600
+Message-Id: <20220904214134.408619-4-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 08/57] dyndbg: add test_dynamic_debug module
+Subject: [Intel-gfx] [PATCH v6 03/57] dyndbg: show both old and new in
+ change-info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,150 +79,46 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Provide a simple module to allow testing DYNAMIC_DEBUG behavior.  It
-calls do_prints() from module-init, and with a sysfs-node.
+print "old => new" flag values to the info("change") message.
 
-  dmesg -C
-  dmesg -w &
-  modprobe test_dynamic_debug dyndbg=+p
-  echo 1 > /sys/module/dynamic_debug/parameters/verbose
-
-  cat /sys/module/test_dynamic_debug/parameters/do_prints
-  echo module test_dynamic_debug +mftl > /proc/dynamic_debug/control
-  echo junk > /sys/module/test_dynamic_debug/parameters/do_prints
+no functional change.
 
 Acked-by: Jason Baron <jbaron@akamai.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- MAINTAINERS              |  2 ++
- lib/Kconfig.debug        | 10 ++++++
- lib/Makefile             |  1 +
- lib/test_dynamic_debug.c | 70 ++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 83 insertions(+)
- create mode 100644 lib/test_dynamic_debug.c
+ lib/dynamic_debug.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 41762df1be0c..c4465981df31 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7222,6 +7222,8 @@ M:	Jason Baron <jbaron@akamai.com>
- S:	Maintained
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
-+M:	Jim Cromie <jim.cromie@gmail.com>
-+F:	lib/test_dynamic_debug.c
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index a56c1286ffa4..8faf584f2f4b 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -156,7 +156,7 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	struct ddebug_table *dt;
+ 	unsigned int newflags;
+ 	unsigned int nfound = 0;
+-	struct flagsbuf fbuf;
++	struct flagsbuf fbuf, nbuf;
  
- DYNAMIC INTERRUPT MODERATION
- M:	Tal Gilboa <talgi@nvidia.com>
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 183c37502119..5bf7897d9095 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2587,6 +2587,16 @@ config TEST_STATIC_KEYS
- 
- 	  If unsure, say N.
- 
-+config TEST_DYNAMIC_DEBUG
-+	tristate "Test DYNAMIC_DEBUG"
-+	depends on DYNAMIC_DEBUG
-+	help
-+	  This module registers a tracer callback to count enabled
-+	  pr_debugs in a 'do_debugging' function, then alters their
-+	  enablements, calls the function, and compares counts.
-+
-+	  If unsure, say N.
-+
- config TEST_KMOD
- 	tristate "kmod stress tester"
- 	depends on m
-diff --git a/lib/Makefile b/lib/Makefile
-index f0a855eed891..c893114029b8 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -83,6 +83,7 @@ obj-$(CONFIG_TEST_SORT) += test_sort.o
- obj-$(CONFIG_TEST_USER_COPY) += test_user_copy.o
- obj-$(CONFIG_TEST_STATIC_KEYS) += test_static_keys.o
- obj-$(CONFIG_TEST_STATIC_KEYS) += test_static_key_base.o
-+obj-$(CONFIG_TEST_DYNAMIC_DEBUG) += test_dynamic_debug.o
- obj-$(CONFIG_TEST_PRINTF) += test_printf.o
- obj-$(CONFIG_TEST_SCANF) += test_scanf.o
- obj-$(CONFIG_TEST_BITMAP) += test_bitmap.o
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-new file mode 100644
-index 000000000000..ba3882ca3e48
---- /dev/null
-+++ b/lib/test_dynamic_debug.c
-@@ -0,0 +1,70 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Kernel module for testing dynamic_debug
-+ *
-+ * Authors:
-+ *      Jim Cromie	<jim.cromie@gmail.com>
-+ */
-+
-+#define pr_fmt(fmt) "test_dd: " fmt
-+
-+#include <linux/module.h>
-+
-+static void do_prints(void); /* device under test */
-+
-+/* run tests by reading or writing sysfs node */
-+
-+static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
-+{
-+	do_prints();
-+	return 0;
-+}
-+
-+static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
-+{
-+	do_prints();
-+	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
-+}
-+
-+static const struct kernel_param_ops param_ops_do_prints = {
-+	.set = param_set_do_prints,
-+	.get = param_get_do_prints,
-+};
-+
-+module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
-+
-+static void do_alpha(void)
-+{
-+	pr_debug("do alpha\n");
-+}
-+static void do_beta(void)
-+{
-+	pr_debug("do beta\n");
-+}
-+
-+static void do_prints(void)
-+{
-+	do_alpha();
-+	do_beta();
-+}
-+
-+static int __init test_dynamic_debug_init(void)
-+{
-+	pr_debug("init start\n");
-+
-+	do_prints();
-+
-+	pr_debug("init done\n");
-+	return 0;
-+}
-+
-+static void __exit test_dynamic_debug_exit(void)
-+{
-+	pr_debug("exiting\n");
-+}
-+
-+module_init(test_dynamic_debug_init);
-+module_exit(test_dynamic_debug_exit);
-+
-+MODULE_AUTHOR("Jim Cromie <jim.cromie@gmail.com>");
-+MODULE_LICENSE("GPL");
+ 	/* search for matching ddebugs */
+ 	mutex_lock(&ddebug_lock);
+@@ -217,11 +217,12 @@ static int ddebug_change(const struct ddebug_query *query,
+ 				static_branch_enable(&dp->key.dd_key_true);
+ 			}
+ #endif
++			v4pr_info("changed %s:%d [%s]%s %s => %s\n",
++				  trim_prefix(dp->filename), dp->lineno,
++				  dt->mod_name, dp->function,
++				  ddebug_describe_flags(dp->flags, &fbuf),
++				  ddebug_describe_flags(newflags, &nbuf));
+ 			dp->flags = newflags;
+-			v4pr_info("changed %s:%d [%s]%s =%s\n",
+-				 trim_prefix(dp->filename), dp->lineno,
+-				 dt->mod_name, dp->function,
+-				 ddebug_describe_flags(dp->flags, &fbuf));
+ 		}
+ 	}
+ 	mutex_unlock(&ddebug_lock);
 -- 
 2.37.2
 
