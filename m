@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D29F9C6FA82
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC49C6FA82
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB8710E3B3;
-	Sun,  4 Sep 2022 21:43:53 +0000 (UTC)
-Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
- [IPv6:2607:f8b0:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62E6110E1C5;
- Sun,  4 Sep 2022 21:42:57 +0000 (UTC)
-Received: by mail-il1-x129.google.com with SMTP id l16so3889251ilj.2;
- Sun, 04 Sep 2022 14:42:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E55C10E3BD;
+	Sun,  4 Sep 2022 21:43:54 +0000 (UTC)
+Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
+ [IPv6:2607:f8b0:4864:20::d35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC1910E1C5;
+ Sun,  4 Sep 2022 21:42:36 +0000 (UTC)
+Received: by mail-io1-xd35.google.com with SMTP id i77so5661068ioa.7;
+ Sun, 04 Sep 2022 14:42:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=Ghge3Dg1q/uGEuUESUrEdkwsT+z6CpJtuRfuq34U0Ug=;
- b=FLT5bN9bU1jESQsj9wEWPf6TBBHS0oph0LypFJwzq/K+zCkxyteteH2bTqZQBcNzRk
- mSR3h7PMvUN4YMVkvnO87hK2EpNkCDlGSKyeeqjogwoe6lhs1W0j8NVv5K50LsJtZg06
- R92M/cvFSPip9b/dMAktsgXw9ub1l1yxpBS3OvRLmDew3VfDVMnqQ0y++Z8JirN4wlxB
- lJnxEt70v9wGz0k/jpVu8dHy7KvJOhLu72eHep8RD2rQzQKX8nJI5JvRr6ZFWV/vp1QA
- rb8QvbLzf2xps15VlW8JMp2QgHnpXqCAJLTT4tXeVn3zK7n/t3dqhX+s0crDVymyRVVS
- JLpg==
+ bh=AsutXgMDAJiXYIziQgoUHz04vuwS74Ufjn18RboeZlU=;
+ b=Qw5u5kHlAuCdVRdp5boFr8w9l56DpQmLytG5X7x/gapi8SNDYyfHxGQ865EixG1rDF
+ w+qm25s4Qx7V+r1LIT4Yojr69wswh53LgdFjuv5u8ss4N7Y3M6OvvXRH+gSQtLhrl51K
+ 8MA7vqh1hp2ucRb7mbZmSegCHdgHh45ZtNYeJv2RuaJEfVrE7xjijSClBWTNNcJBAAfv
+ QJ9VxUtPDKNoU59NHhpkj4z/UKL9NQ5pTTXZdMEXqLoRbGLT/+iXx3JIGAlyabOc3HOS
+ z4XZEA/jjk7trB7VNHK/xQkhJcQcINVffpR5ej+XDbn5uk/XFMlCTA04L/CLoqDiCira
+ /Okw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=Ghge3Dg1q/uGEuUESUrEdkwsT+z6CpJtuRfuq34U0Ug=;
- b=2vq/Sf2AYTWsYnnXigthBYr5v68eNsVG6irNp3hzww6JuTAzAcHicpYhyqSFYIc/PK
- 3SYvGLsA4aIsRG2E09dUZ17h7cX8zEJwsnjp4H7E7PgXjKtO55O7CENuEKj1ei9HCW01
- uSWGYpKpOKqaf1b86edVRk6JemkGoHyDA1N0QnoK22P9HS4Dc3LMsMHAjxhT2uLuO56M
- 6DVZkmKb8H/DvCBSJVoQxH0iVmJ2boRG8oN88hiE+0Ch/FPcpefkpbHFiatLrDZ/3gun
- WjorBdWQ70H23Sq1tXp9Onpu/LmONP5JJ0q4LGvYyBtj5FZeR8sTP9V62i4krRAJfrVH
- lnKg==
-X-Gm-Message-State: ACgBeo0odY3/dXdk6DrlhTt6VMgeg5kZxafaDbnqMvURcUwu+Ys7nyQY
- 8JIfm4JKC8k+LJRCRR/RzcWjq5zZ9lM=
-X-Google-Smtp-Source: AA6agR7yrIYfyzVDzlMev9fxaOVFcrN/YRY+eo0Bb7o+kB7gpv9wc7uwho5jDTzaHbxaUMbJjOU49g==
-X-Received: by 2002:a92:ad0d:0:b0:2e6:4294:bc45 with SMTP id
- w13-20020a92ad0d000000b002e64294bc45mr24581884ilh.278.1662327777020; 
- Sun, 04 Sep 2022 14:42:57 -0700 (PDT)
+ bh=AsutXgMDAJiXYIziQgoUHz04vuwS74Ufjn18RboeZlU=;
+ b=sFWWZjI0HXNSu+i6lF0+hLYiDKjqTFQTcqHD60ys9ioqPkjwlkZXIUu88MRppn5t2h
+ pClzqToViw2nhWpNJJTDCn/sRZKbAQLGXvOt0mQtW9qX6B0VaNRuqZa2q83Q6zcrA2IH
+ tVYNay414TihItQv5i9TbVanArDrdX9c+aDAh3LMwlPHZ44dQoB3xjMjWDHMlent2BaE
+ 6PRnAa25XPtqdEn6qKNYoCWfG17Tk9rcYAy0jXFBo8ntcwBFDOyJlV8jEeTqa1WAaU6l
+ VwFIxJvTtuERrwvEt6m9yUkyb5Xd3GOmjJIh2UoZr1KXf2Ip3KQJDITMsAEs+/ehCluX
+ udqQ==
+X-Gm-Message-State: ACgBeo06XFKCvuKt1y1p261/1kqxSXogaT4WDOpRb002VrQSwQTIw2zo
+ iT9WcGyw3Nd1BEjDBollKAE=
+X-Google-Smtp-Source: AA6agR4XUVL8R/sQ1zC2uzGX3CzIouq5JH8v/iId7txQSE5EgJyUlziUe0GD5gnf+dO0fl8HHWQm8g==
+X-Received: by 2002:a02:740b:0:b0:349:bcdd:ca20 with SMTP id
+ o11-20020a02740b000000b00349bcddca20mr25953249jac.110.1662327753065; 
+ Sun, 04 Sep 2022 14:42:33 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.56
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:56 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:32 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:26 -0600
-Message-Id: <20220904214134.408619-50-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:01 -0600
+Message-Id: <20220904214134.408619-25-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 49/57] dyndbg: add structs _ddebug_hdr,
- _ddebug_site_hdr
+Subject: [Intel-gfx] [PATCH v6 24/57] drm_print: interpose drm_*dbg with
+ forwarding macros
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,109 +79,111 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add new structs _ddebug_hdr and _ddebug_site_hdr, latter for symmetry.
+change drm_dev_dbg & drm_dbg to macros, which forward to the renamed
+functions (with __ prefix added).
 
-The job of the struct _ddebug_hdr is to:
+Those functions sit below the categorized layer of macros implementing
+the DRM debug.category API, and implement most of it.  These are good
+places to insert dynamic-debug jump-label mechanics, which will allow
+DRM to avoid the runtime cost of drm_debug_enabled().
 
-Contain an _uplink member, which points up to the _ddebug_info
-record that keeps builtin and module's dyndbg state.  That record is
-init'd (by dynamic_debug_init for builtins, or find_module_sections
-for loadables).
+no functional changes.
 
-Be declared in .gnu.linkonce.dyndbg section, which places it just
-before the __dyndbg section; a fixed relative offset.
-
-This allows _ddebug_map_site(desc) to cheaply compute
-&descs[desc._index], &descs[0], then container_of() to get the header
-and its ._uplink, to the _ddebug_info, which gives access to
-->sites[desc->_map].
-
-Structurally, the header has a single unnamed union (which exposes its
-field names upward) containing an embedded struct _ddebug{,_site}
-(this forces the size to be compatible with the array/section its
-destined for), shared with our new struct _ddebug_info * _uplink
-member, which is also inside an unnamed struct, to allow adding other
-fields later to use the remaining space.
-
-In dynamic_debug.c: ref the linker symbols for the headers, print them
-to confirm expected linkages; things look proper.  Add a header ref to
-struct _ddebug_info, to facilitate the validity checks.
+memory cost baseline: (unchanged)
+bash-5.1# drms_load
+[    9.220389] dyndbg:   1 debug prints in module drm
+[    9.224426] ACPI: bus type drm_connector registered
+[    9.302192] dyndbg:   2 debug prints in module ttm
+[    9.305033] dyndbg:   8 debug prints in module video
+[    9.627563] dyndbg: 127 debug prints in module i915
+[    9.721505] AMD-Vi: AMD IOMMUv2 functionality not available on this system - This is not a bug.
+[   10.091345] dyndbg: 2196 debug prints in module amdgpu
+[   10.106589] [drm] amdgpu kernel modesetting enabled.
+[   10.107270] amdgpu: CRAT table not found
+[   10.107926] amdgpu: Virtual CRAT table created for CPU
+[   10.108398] amdgpu: Topology: Add CPU node
+[   10.168507] dyndbg:   3 debug prints in module wmi
+[   10.329587] dyndbg:   3 debug prints in module nouveau
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 23 ++++++++++++++++++++++-
- lib/dynamic_debug.c           |  9 +++++++++
- 2 files changed, 31 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_print.c | 10 +++++-----
+ include/drm/drm_print.h     |  9 +++++++--
+ 2 files changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 268e903b7c4e..f23608c38a79 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -126,8 +126,29 @@ struct ddebug_class_map {
- #define NUM_TYPE_ARGS(eltype, ...)				\
-         (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index ec32df35a3e3..29a29949ad0b 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -279,8 +279,8 @@ void drm_dev_printk(const struct device *dev, const char *level,
+ }
+ EXPORT_SYMBOL(drm_dev_printk);
  
--/* encapsulate linker provided built-in (or module) dyndbg data */
-+/* define header record, linker inserts it at descs[0] */
-+struct _ddebug_hdr {
-+	union {
-+		struct _ddebug __;  /* force sizeof this */
-+		struct {
-+			struct _ddebug_info * _uplink;
-+			/* space available */
-+		};
-+	};
-+};
-+/* here for symmetry, extra storage */
-+struct _ddebug_site_hdr {
-+	union {
-+		struct _ddebug_site __;  /* force sizeof this */
-+		struct {
-+			struct _ddebug_info  * _uplink;
-+		};
-+	};
-+};
-+
-+/* encapsulate linker provided built-in (or module) dyndbg vectors */
- struct _ddebug_info {
-+	struct _ddebug_hdr *hdr;
- 	struct _ddebug *descs;
- 	struct _ddebug_site *sites;
- 	struct ddebug_class_map *classes;
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 65b0a1025ddf..91fe7fb5dda9 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -49,6 +49,9 @@ extern struct _ddebug_site __stop___dyndbg_sites[];
- extern struct ddebug_class_map __start___dyndbg_classes[];
- extern struct ddebug_class_map __stop___dyndbg_classes[];
+-void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+-		 const char *format, ...)
++void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
++		   const char *format, ...)
+ {
+ 	struct va_format vaf;
+ 	va_list args;
+@@ -301,9 +301,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
  
-+extern struct _ddebug_hdr __dyndbg_header[];
-+extern struct _ddebug_site_hdr __dyndbg_site_header[];
-+
- struct ddebug_table {
- 	struct list_head link, maps;
- 	const char *mod_name;
-@@ -1522,6 +1525,7 @@ static int __init dynamic_debug_init(void)
- 	char *cmdline;
+ 	va_end(args);
+ }
+-EXPORT_SYMBOL(drm_dev_dbg);
++EXPORT_SYMBOL(__drm_dev_dbg);
  
- 	struct _ddebug_info di = {
-+		.hdr = __dyndbg_header,
- 		.descs = __start___dyndbg,
- 		.sites = __start___dyndbg_sites,
- 		.classes = __start___dyndbg_classes,
-@@ -1545,6 +1549,11 @@ static int __init dynamic_debug_init(void)
- 		pr_err("unequal vectors: descs/sites %d/%d\n", di.num_descs, di.num_sites);
- 		return 1;
- 	}
+-void __drm_dbg(enum drm_debug_category category, const char *format, ...)
++void ___drm_dbg(enum drm_debug_category category, const char *format, ...)
+ {
+ 	struct va_format vaf;
+ 	va_list args;
+@@ -320,7 +320,7 @@ void __drm_dbg(enum drm_debug_category category, const char *format, ...)
+ 
+ 	va_end(args);
+ }
+-EXPORT_SYMBOL(__drm_dbg);
++EXPORT_SYMBOL(___drm_dbg);
+ 
+ void __drm_err(const char *format, ...)
+ {
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 668273e36c2c..c429c258c957 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -335,7 +335,7 @@ __printf(3, 4)
+ void drm_dev_printk(const struct device *dev, const char *level,
+ 		    const char *format, ...);
+ __printf(3, 4)
+-void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
++void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 		 const char *format, ...);
+ 
+ /**
+@@ -384,6 +384,9 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ 	}								\
+ })
+ 
++#define drm_dev_dbg(dev, cat, fmt, ...)				\
++	__drm_dev_dbg(dev, cat, fmt, ##__VA_ARGS__)
 +
-+	/* these 2 print the same, until _TABLE is added */
-+	v2pr_info("%px %px \n", __dyndbg_header, __dyndbg_site_header);
-+	v2pr_info("%px %px \n", di.descs, di.sites);
+ /**
+  * DRM_DEV_DEBUG() - Debug output for generic drm code
+  *
+@@ -485,10 +488,12 @@ void drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+  */
+ 
+ __printf(2, 3)
+-void __drm_dbg(enum drm_debug_category category, const char *format, ...);
++void ___drm_dbg(enum drm_debug_category category, const char *format, ...);
+ __printf(1, 2)
+ void __drm_err(const char *format, ...);
+ 
++#define __drm_dbg(fmt, ...)		___drm_dbg(fmt, ##__VA_ARGS__)
 +
- 	iter = iter_mod_start = __start___dyndbg;
- 	site = site_mod_start = __start___dyndbg_sites;
- 	modname = site->_modname;
+ /* Macros to make printk easier */
+ 
+ #define _DRM_PRINTK(once, level, fmt, ...)				\
 -- 
 2.37.2
 
