@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 279CDECAAD5
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:48:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21BBEECAAD5
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:49:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D59F10E778;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A35FD10E790;
 	Sun,  4 Sep 2022 21:43:58 +0000 (UTC)
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81D4610E2CB;
- Sun,  4 Sep 2022 21:43:05 +0000 (UTC)
-Received: by mail-io1-xd2b.google.com with SMTP id 62so5674429iov.5;
- Sun, 04 Sep 2022 14:43:05 -0700 (PDT)
+Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
+ [IPv6:2607:f8b0:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6AA310E25B;
+ Sun,  4 Sep 2022 21:42:50 +0000 (UTC)
+Received: by mail-il1-x12e.google.com with SMTP id s3so1911241ilv.4;
+ Sun, 04 Sep 2022 14:42:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=gc3CEPtxYjk29+Wh9qd9Uhba+Qcycq/xTeA557V/yJA=;
- b=pjBlhL+ATdSasCB8eiAlDBtg6VQZe3cAxxbzs1dn4fhsTGll1ZJKZVPkMR2mAe6vQD
- +1ZUleBqb9yFLUkLQLuRp4esV7jUMm+9nkPY8LhEgMfb+aZzAVC2mkPJrqbpGbEQhkRo
- beZ5FNifB5rdJxWg7R8D5bcVcnK7tDty4bpm3uL/kbFe0gGnoJy6MFouLJWvzkGtbSFw
- KbDqjScDXUcFQ9R/5Be0XLDU0graPMWJvrt9XQvpuQIZmHQO8jVZA6GPpMTQquJWxpzE
- uymD2AvAzBcc+9sFlbROngihXuT8MzFti5OGgYB/TVQyB52NFye/DNbIZ9Wq82jlh8uk
- kuiw==
+ bh=FwCkCkIuXLu91UbfHdZYDrwIlB+NdbMmm6xvFEQjyUU=;
+ b=RYCkLD0FCIpFqOKsWlElNLu5l8dGxBEngWLZ18ylxy41NG+Qaj5BZrfDLn5uvMF2xo
+ VwhlrGgEcVvma9ILcXWr/GE6ZBBnf6OlwUb6biRCydxCUq3oKWxUcQ2J/MNFVAYtgIqI
+ Xb9AS9cv7UVTnWGcrEevePRMFxuCn/ulpHIE9HVRP/TdyoUsfjS6AF5uOoRVUuWr8vqg
+ 4VPmeMzC0eaHliSJUHUrAHWH8r+EM3TH96DE9T2refzCG1P0lmBG3updh9CAqjc0qY/W
+ hrGlSxiGyrArtn+T2krt991mxFZxt+CbQR1NKOfrS5F4tEvIbplkb8gHJGHTFjrzcpA+
+ KgHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=gc3CEPtxYjk29+Wh9qd9Uhba+Qcycq/xTeA557V/yJA=;
- b=aDGqCwjdA+bWLEIBtyn+2NjY/j2CF/7TdOJRCEZHdERfGB1Z4A4segeRQ2oj/yeOSU
- k85aROVZZdqzYQ4k0oxHX5QDmTb+vvDOg5gjhTwDhDOkrqZ0ilce6rtU7IFgaRBc3+g6
- T0SgAZ1YdqOny+VsQwbmVrVir/RESYaLWFRfGCE9xYeeTzZ0UEPQSJZabuXwDGeWYQ/s
- BuRPDjXAx3tnFtn0lztTnYlpsmFwpbL6HrUsgFACFRo3HrMcC9FzjliMVF1QbsFYaRA3
- c0PD5G8dUyAb8xyq34R0CXkY8UhvL3ag6Mo5xYSrh3rWF5VhiodwEr7dA4ewyFGwPrN7
- dENg==
-X-Gm-Message-State: ACgBeo3efeaURAKS0u/8VUQMvjU/QZ3jJvddx9dF7mbbZhrjGq6izDQk
- t8w0H6xnZzUhN0I5tIyR9ow=
-X-Google-Smtp-Source: AA6agR62BzXzT17KlWx9uqQOlpAhM116jyafKxT3anpuAMgqBhik1FZ5pmVPGg2GE9QdKZVv5ooKrQ==
-X-Received: by 2002:a05:6638:24c2:b0:346:ce9e:3eff with SMTP id
- y2-20020a05663824c200b00346ce9e3effmr25894336jat.262.1662327784843; 
- Sun, 04 Sep 2022 14:43:04 -0700 (PDT)
+ bh=FwCkCkIuXLu91UbfHdZYDrwIlB+NdbMmm6xvFEQjyUU=;
+ b=1fRxhGI4H96blfyMW/2Egsruq480QTYpsUtUrP1eWGfCk7dH2E4gp+kXnWu8yNIxIR
+ oFyCJcPxw+9JNFmgCuU3feXGDc26fVjSyTsTkRGVfq1DbDafmIHVW5kJUXe9EzMH3Ny8
+ qicWoZXMqwGDUGA5bPTczHL8ImSbQAYgbH6PRV26a+r3wtZ2lOQNYAnW04eTiXx602O4
+ VtTgVE+R++JCfzRbMSYH2/6hT1565UwUts5XdWWiIzsHj5aGaZDmJipwy2ppQpuLw2Zi
+ cSPl26rvdm2+hLNqBqOmBOnSqnNBRhSXgsSojZ0LU0K/5941Yvcwjoolsu5IHjPVkKZE
+ u5ow==
+X-Gm-Message-State: ACgBeo0uwgynqQpPIUF68iGdu1c6WJjm6ZWwRSgMBz2Xjoo1w803ZoRb
+ YgsGDdFKSVAzaJXeBKIhpfw=
+X-Google-Smtp-Source: AA6agR6xgn/MlYOoGIi2AaB+WdvqdQ5gYdviqjuZlblXZSMV6/iv7FJf6NsVsV/Y3NPrVDl1/Xe7dA==
+X-Received: by 2002:a05:6e02:1909:b0:2f0:a558:7113 with SMTP id
+ w9-20020a056e02190900b002f0a5587113mr4717553ilu.55.1662327770538; 
+ Sun, 04 Sep 2022 14:42:50 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.43.04
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:43:04 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:50 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:34 -0600
-Message-Id: <20220904214134.408619-58-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:19 -0600
+Message-Id: <20220904214134.408619-43-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 57/57] dyndbg: fiddle with readback value on
- LEVEL_NAMES types
+Subject: [Intel-gfx] [PATCH v6 42/57] dyndbg: shrink lineno field by 2 bits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,32 +78,42 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-my test scripts were writing one val, reading back val+1
+struct _ddebug.lineno int:18 is bigger than we need:
 
-  echo L3 > p_level_names
-  cat p_level_names
-  L4
+  git ls-files | grep -P '\.c$' | xargs wc -l | sort -n | tail -n20
+  ...
+   22553 drivers/scsi/lpfc/lpfc_sli.c
+   28593 drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
+   46300 drivers/net/wireless/realtek/rtw88/rtw8822c_table.c
+   48725 drivers/net/wireless/realtek/rtw89/rtw8852a_table.c
+ 1386670 total
+ ...
 
-fix this w a -1 offset.
+All but one of the biggest of these are just .data tables, and have no
+code, so would never need a pr_debug().  drivers/scsi/lpfc/lpfc_sli.c,
+at ~22k lines, would be encodable with 15 bits, but lets just shrink
+to 16 bits for now.
+
+RFC: Is this tantamout to a "don't write files with >64kloc" policy ?
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/dynamic_debug.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 11fea1f818a7..7d458601a61b 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -830,6 +830,8 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
- 		return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", *dcp->bits);
- 
- 	case DD_CLASS_TYPE_LEVEL_NAMES:
-+		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl - 1);
-+
- 	case DD_CLASS_TYPE_LEVEL_NUM:
- 		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
- 	default:
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index dcc0e8cc2ef0..c05148dab367 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -30,7 +30,7 @@ struct _ddebug {
+ 	struct _ddebug_site *site;
+ 	/* format is always needed, lineno shares word with flags */
+ 	const char *format;
+-	const unsigned lineno:18;
++	const unsigned lineno:16;
+ #define CLS_BITS 6
+ 	unsigned int class_id:CLS_BITS;
+ #define _DPRINTK_CLASS_DFLT		((1 << CLS_BITS) - 1)
 -- 
 2.37.2
 
