@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD53CECAAD5
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:49:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 589FCC6FA82
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:49:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63D3F10EA52;
-	Sun,  4 Sep 2022 21:44:12 +0000 (UTC)
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
- [IPv6:2607:f8b0:4864:20::d2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFA0E10E2A9;
- Sun,  4 Sep 2022 21:43:02 +0000 (UTC)
-Received: by mail-io1-xd2f.google.com with SMTP id p187so5653229iod.8;
- Sun, 04 Sep 2022 14:43:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 985A310EA30;
+	Sun,  4 Sep 2022 21:44:14 +0000 (UTC)
+Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
+ [IPv6:2607:f8b0:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3709110E2C3;
+ Sun,  4 Sep 2022 21:43:04 +0000 (UTC)
+Received: by mail-il1-x12d.google.com with SMTP id s11so3868449ilt.7;
+ Sun, 04 Sep 2022 14:43:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=bXSeYH0zduNfWYtAn2/GFLXR9T03/2CnSS0WiVim3VQ=;
- b=Kz5c1apWMX0yddvgXTrt/BjoeN52CrK81vVC2ejDG94BrieUIvPuQxqUc9mOpTS/PP
- HWECHkoY/OGUf08e39Nmu5OrgrRhJWG04JFoAaPLsxT6JyFH/YDSudtSKAU+VFekFYsq
- Vod9PDrJCKlyWzWt7qenFWfsvqXS3nuOE+JpI9yW2OwLoVmYddOY5g5wBsTWGPdp/8D4
- T8EWSg90FSXg58mfxM0h4Ijo4DgetN371n10Vzcly6r5kLaSzcQu1NTLn9EFrrE/z+XJ
- JBzGq1uSt6X2fse4mVKP1vmF2LWn1W1sfDqy+6kqDBUE4JOdFjuhQGLvtnC0Saz04FMW
- fgLQ==
+ bh=enn6xVuYphe+hXVPoV5iWIYr1g8ASji6MTEr9zuj34c=;
+ b=MHZ+j5vq+DgcrRYUNssA/mQhOIh3IuE7Zq+aUJb41YdzWZC9PSDSIhOvEQ3TdCICX5
+ WTCvmLp7RobRHWpiQpug9Ise55wiJ4uYADB3QCMYatUnEHE8Jziwms0gNLdJzSy1SzKa
+ weVrPvvMaJPWqT6SfVFtUwOQv+sOyCuhrhi/oJW7xApjkbYa3ldckzG68imOVm76KV+m
+ Xwjrlq1ZQVkjBcKsJbOYdKGeSdp/d/LglobU+D8HgN3Kz9AvMJF9xfzvrS0x23RcYOMb
+ o7tMHOwXqEMULGc4tCi168zLZkAoPrmdiBkQzY7FRbs0xD1GH/Ij8ZhWMXzT0upfwrl7
+ rC4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=bXSeYH0zduNfWYtAn2/GFLXR9T03/2CnSS0WiVim3VQ=;
- b=FlIOT/nAibk5KswXBEb+JEIbIyqGQMw8vTZb90YgI+QhtB1FJap2M8NQ4xCT+H8fc7
- vOkP+90KgtTtUuvJJSPsFkZ+31nxmPR4JoVnbYiw6E4gLqyNeLk/KM7VMnA45vm0OTIi
- y7HaVKdmUe2SKy9Ie4RK8oKsxB6bFkcqk34gHmM9HuCTlzRiyeQD/JGMOu1GS68R0Iax
- kR6+YfDt/HVgxolRqVsvOHv7TwX7BABnREg10VfRAfnoq+/FkNjj3NQrgSHvEJc+QbM+
- TYsrzsFT0foDnemUqrQm372zpS1U5qt2WxDyd4Ax4FEBG6p7i6yYfB6+TGvrMLpYtiUr
- hfyw==
-X-Gm-Message-State: ACgBeo0m8EQXUyPxZZDTB+aw2hmpz/bWsWMDuj3jsy4Hu4n6N6XQwdlH
- UwtKkCnfW61Lfpyy6Ch7f/w=
-X-Google-Smtp-Source: AA6agR4F0Y5uoS0j9obmZc9hPIHDQS7tGY0siR2ILOqRr5ep1L+AxeY27R3APLGSgxbHOp+TIgipXA==
-X-Received: by 2002:a05:6638:40a8:b0:346:8e3c:8141 with SMTP id
- m40-20020a05663840a800b003468e3c8141mr24647914jam.107.1662327782109; 
- Sun, 04 Sep 2022 14:43:02 -0700 (PDT)
+ bh=enn6xVuYphe+hXVPoV5iWIYr1g8ASji6MTEr9zuj34c=;
+ b=YHy/g+p4i+dySmaQIpudLQT8jHEWUwQdRGMJ9Rxtj8TUOKM68ir+5lr1OnpZh3Gmlu
+ kAg6Bjgw4diVEJ6qZZNd9Rxu/A//N0+npAke+aBU6+KWSseUv146e+WfTEVhl6QQc01p
+ /fj9QLyqy9R9IkQTGMOnTjtAJ+y4nl2DggTri6C6+L9TFkOzapnJki5ZEu6iZ2AasQru
+ E6Sw4QJ9zZbJ8Rwe7pkHvi9m5XY591t5Zu/vUtgahtUm3r1YTySattbOcRDxHGixEkbT
+ 737UVIR2542eI5B8RynC7wmk0Z0jUuQVD7y10apkqqGweNKG4ZbLxf36MrglBJaGqdHs
+ uJrA==
+X-Gm-Message-State: ACgBeo0FwgrrrTn3ThrQH3cTq68/RwlSKiqLwpImHmCXZRGGWW0dlsNz
+ miNXYcdNqxAJ0b79cR4TTD4=
+X-Google-Smtp-Source: AA6agR5YpuT8Q9JQCumSZI1qIIDzfmGUPYBDoLNXJiZ6x9bW2LfTNC3WN5DzbhXOp2lE4bQ4o8fKCA==
+X-Received: by 2002:a05:6e02:1605:b0:2ed:be80:59ae with SMTP id
+ t5-20020a056e02160500b002edbe8059aemr7558764ilu.319.1662327783877; 
+ Sun, 04 Sep 2022 14:43:03 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.43.01
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.43.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:43:01 -0700 (PDT)
+ Sun, 04 Sep 2022 14:43:03 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:31 -0600
-Message-Id: <20220904214134.408619-55-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:33 -0600
+Message-Id: <20220904214134.408619-57-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 54/57] dyndbg: add .gnu.linkonce. & __dyndbg*
- sections in module.lds.h
+Subject: [Intel-gfx] [PATCH v6 56/57] dyndbg: work ddebug_map_site
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,56 +78,58 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For a long time now, loadable modules have tacitly linked the __dyndbg
-section into the .ko, as is observable in dmesg by enabling module.c's
-pr_debugs and loading a module.  Recently, __dyndbg_sites was added,
-following the original model.
+attempt container-of, broken, missing use of uplink... took that out.
 
-But now, we need to explicitly name those (__dyndbg, __dyndbg_sites)
-sections in order to place new .gnu.linkonce.dyndbg* sections in front
-of them.
+ptr computations are naive, and wrong.
 
-This gives us the properties we need for _ddebug_map_site() to drop
-the _ddebug.site pointer:
+Deeper prob is lack of _ddebug_vec, with header and descs in same struct.
+maybe.
 
-   fixed offset from &__dyndbg[N] to &__dyndbg[0]
-   container_of gets &header
-   header has ptr to __dyndbg_sites[]
-   __dyndbg_sites[_map] gives de-duplicated site recs
-
-NOTE
-
-HEAD~1 took headers off front of descs,sites and saved them into
-_ddebug_info, this puts the gnu.linkonce.* records into those vectors.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+builtin_state looks right in debugger
 ---
- include/asm-generic/module.lds.h | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ lib/dynamic_debug.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/include/asm-generic/module.lds.h b/include/asm-generic/module.lds.h
-index f210d5c1b78b..328c48dfc88c 100644
---- a/include/asm-generic/module.lds.h
-+++ b/include/asm-generic/module.lds.h
-@@ -4,7 +4,17 @@
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 194367bc13fb..11fea1f818a7 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -173,8 +173,25 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
+ 	return NULL;
+ }
  
- /*
-  * <asm/module.lds.h> can specify arch-specific sections for linking modules.
-- * Empty for the asm-generic header.
-+ *
-+ * For loadable modules with CONFIG_DYNAMIC_DEBUG, we need to keep the
-+ * 2 __dyndbg* ELF sections, which are loaded by module.c
-+ *
-+ * Pack the 2 __dyndbg* input sections with their respective
-+ * .gnu.linkonce. header records into 2 output sections, with those
-+ * header records in the 0th element.
-  */
-+SECTIONS {
-+__dyndbg_sites	: ALIGN(8) { *(.gnu.linkonce.dyndbg_site) *(__dyndbg_sites) }
-+__dyndbg	: ALIGN(8) { *(.gnu.linkonce.dyndbg)	  *(__dyndbg) }
-+}
+-static inline struct _ddebug_site * _ddebug_map_site(const struct _ddebug *desc)
++/*
++ * mapping from desc to site is multi-step:
++ * - _index back to &descs[0]
++ * - container-of to get header struct above
++ * - ._uplink field, pointing to _ddebug_info (for builtins, loadables)
++ * - di->sites[desc->_map]
++ */
++static struct _ddebug_site * _ddebug_map_site(const struct _ddebug *desc)
+ {
++	struct _ddebug_info *di;
++	struct _ddebug const *d0 = desc - desc->_index * sizeof(struct _ddebug);
++
++	di = (struct _ddebug_info *) d0;
++
++	v3pr_info("map_site idx:%d map:%d %s.%s  di:%px site:%px ds:%px\n",
++		  desc->_index, desc->_map,
++		  desc->site->_modname, desc->site->_function,
++		  di, desc->site, &di->sites[desc->_map]);
++
+ 	return desc->site;
+ }
+ #define _desc_field(desc, _fld)	(desc ? (_ddebug_map_site(desc)->_fld) : "_na_")
+@@ -866,7 +883,7 @@ static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
+ 	return buf;
+ }
  
- #endif /* __ASM_GENERIC_MODULE_LDS_H */
+-static inline char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
++char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
+ {
+ 	if (unlikely(desc->flags & _DPRINTK_FLAGS_INCL_ANY))
+ 		return __dynamic_emit_prefix(desc, buf);
 -- 
 2.37.2
 
