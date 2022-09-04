@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72991ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:46:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC2ABC6FA82
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:46:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1ADD10E272;
-	Sun,  4 Sep 2022 21:42:54 +0000 (UTC)
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A24CB10E12F;
- Sun,  4 Sep 2022 21:42:27 +0000 (UTC)
-Received: by mail-io1-xd2a.google.com with SMTP id 62so5673985iov.5;
- Sun, 04 Sep 2022 14:42:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8E9E10E2A6;
+	Sun,  4 Sep 2022 21:43:02 +0000 (UTC)
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8742310E184;
+ Sun,  4 Sep 2022 21:42:31 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id h78so5628307iof.13;
+ Sun, 04 Sep 2022 14:42:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=ka8KRcp96RIs3WOVwaYMps+w4bs0E4mB3tU6nT4x+Cw=;
- b=GxYiBhtnCCLvIcjhtx8t6SNtIL7IN9FTRLpFWPEgQwmEChr7Li1YPuQJ9uzL52Yj6A
- cgqwOnKPTkhyNLE0ZRZ71TysRmVMnqOnOuIZy+W7qyW1e5LLWRS5QYdy3aifvqzwysH4
- 6lBOaERL6zccFDJfBmPhlj41W7qOzgatR/sLszHd+5qrcHenG/kiPqGelWghMXTumLSf
- wFRbcjMRbogjvc9bqHIzD2/qSvsiQjcw0SYznzSLJ7jTTu+kn1HauuURN6n5y/Y3xzEP
- XBYr4ufLmOy1cM38/VKtTZMrK2mJrrVShrlX+MdWlctqxmtxNnUASO0irSsXn081Wpp/
- hmlg==
+ bh=4JXdBl/0qOwV/A52QqNijcawUGjQl7evE5vQaPe8I/Q=;
+ b=Q6wDNH7ni+pezhZQtqZpJ97lJZANkr1r1w8Q0HIYBSFAhwljRqOGh9Iv19Gf64+llB
+ frZm5l9a2D6+RrKMDxtJrGMvuFtfct+nV7wpbjJBApGvgbR/UCdA+edFFEWQV3yW5xZt
+ Abl341qIlvY+ti5hONgL6a+0BiJXwAUlG16pl8y98ByU4SwhFvt6k2mPawMY8CGIW+5o
+ XyF4e1Ssr9Pgjhu7rCIp5wA50OjjlhqxJNYWrilP5bH59brlOnduXsjVgJiJlrcuk94w
+ aC5b1ZZDeZyRlOAFIdmJz1af5ykZ0tqCvavdXbRILxmEHXgITfMxjOp5/9nTnIUykGr1
+ jaiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=ka8KRcp96RIs3WOVwaYMps+w4bs0E4mB3tU6nT4x+Cw=;
- b=gt/ZyEjc+0qs5vVFhShBDgaVAl+wy+FrRCyFKwhrxVvMD8cfx/JyGjU0Q/ATWkJf6t
- HEJLk6N0okIBdXS9L9BPYAznT/ACtUxSwLhH5hU14/83MRj1SoTbjbXMNred5HdaoCAR
- fMB4slgo1lyypjgTaVqCv4Io4ozYZ7e0p8779ZYvGV7Hlexo70ONOtVTWeLpz/KSr7j3
- hc5ypeMFXWIzbQ/oRL5zC1tSGwX66h53sfYh1Ri5LtTOxlV5SgACMIUZByTZiaKW/SZ6
- yvzF/K5SV1hffS4gtjREZ4AT3oyiNSBgRmqHgNMZcn4NtjbKf7HAIE25bP4fktIccQ1+
- k7mA==
-X-Gm-Message-State: ACgBeo1gt/kXnJ+DTeKIGd5hVj9VSJD6vMehyS5WKqtZKQAc7G87DXjL
- rs9X7BXAv43yPAJ/GM4jDr4=
-X-Google-Smtp-Source: AA6agR5AUEVpUfSPOxmk4wGZ/zK2tirYmhJ7zb9Jqld8zfrr8gDhVIB8ywXi+kyB8PgF4y+5mK88yQ==
-X-Received: by 2002:a6b:5f19:0:b0:688:2173:1ae3 with SMTP id
- t25-20020a6b5f19000000b0068821731ae3mr21256805iob.12.1662327747322; 
- Sun, 04 Sep 2022 14:42:27 -0700 (PDT)
+ bh=4JXdBl/0qOwV/A52QqNijcawUGjQl7evE5vQaPe8I/Q=;
+ b=7+gf0kl1xJaddSc95nfdoiTyR2GmNwBUnUKBtFT/HBWKLe90lwlXLq1qrsqR1Al5Ym
+ VBG+eEuFwpWDmsjvTXAnp23vg6c133EvjpgaHi/vi//55TrDBz0rgW/OrVLNhC99MQO3
+ 1+t7RkVNHyZdOqn/75+gYzGDB2yV4NVxySA1ZN2c0++GR8qCfYPnTVDMrLO4JoOnLyzH
+ Ysi8n2DQA8/gyCQSIWnRlGEvJYeZaCuFVBH8+oRZvOZMw3EetbMaa8Z6imqbiKXG0oV6
+ 67VIfXf88cQk6717aeUYdfNYS5mqUEntL86n4TOVFUVTmjdOHZiLPA553MD1E0OEyfNd
+ BgbQ==
+X-Gm-Message-State: ACgBeo3oGQebLplhmUKPx0pwUtAhO6+crPX0nWHnDUc/wH0FxMIeYV1q
+ B57woIS4YFy4x8RuuSNRtm4=
+X-Google-Smtp-Source: AA6agR4RtFxm49IqbK2hc+ajeSg5bxr0q7Z7xZNKzxnPnzjA/QHoeK8+UuSlF8s2NBv4jPh+uCHATQ==
+X-Received: by 2002:a02:9a16:0:b0:350:636f:af9a with SMTP id
+ b22-20020a029a16000000b00350636faf9amr4392137jal.191.1662327751171; 
+ Sun, 04 Sep 2022 14:42:31 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.26
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:27 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:30 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:40:55 -0600
-Message-Id: <20220904214134.408619-19-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:40:59 -0600
+Message-Id: <20220904214134.408619-23-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 18/57] doc-dyndbg: describe "class
- CLASS_NAME" query support
+Subject: [Intel-gfx] [PATCH v6 22/57] drm_print: condense enum
+ drm_debug_category
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,50 +79,92 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add an explanation of the new "class CLASS_NAME" syntax and meaning,
-noting that the module determines if CLASS_NAME applies to it.
+enum drm_debug_category has 10 categories, but is initialized with
+bitmasks which require 10 bits of underlying storage.  By using
+natural enumeration, and moving the BIT(cat) into drm_debug_enabled(),
+the enum fits in 4 bits, allowing the category to be represented
+directly in pr_debug callsites, via the ddebug.class_id field.
+
+While this slightly pessimizes the bit-test in drm_debug_enabled(),
+using dyndbg with JUMP_LABEL will avoid the function entirely.
+
+NOTE: this change forecloses the possibility of doing:
+
+  drm_dbg(DRM_UT_CORE|DRM_UT_KMS, "weird 2-cat experiment")
+
+but thats already strongly implied by the use of the enum itself; its
+not a normal enum if it can be 2 values simultaneously.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- Documentation/admin-guide/dynamic-debug-howto.rst | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ include/drm/drm_print.h | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index a89cfa083155..d8954ab05c7b 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -35,6 +35,7 @@ Dynamic debug has even more useful features:
-    - line number (including ranges of line numbers)
-    - module name
-    - format string
-+   - class name (as known/declared by each module)
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 22fabdeed297..b3b470440e46 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -279,49 +279,49 @@ enum drm_debug_category {
+ 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+ 	 * drm_memory.c, ...
+ 	 */
+-	DRM_UT_CORE		= 0x01,
++	DRM_UT_CORE,
+ 	/**
+ 	 * @DRM_UT_DRIVER: Used in the vendor specific part of the driver: i915,
+ 	 * radeon, ... macro.
+ 	 */
+-	DRM_UT_DRIVER		= 0x02,
++	DRM_UT_DRIVER,
+ 	/**
+ 	 * @DRM_UT_KMS: Used in the modesetting code.
+ 	 */
+-	DRM_UT_KMS		= 0x04,
++	DRM_UT_KMS,
+ 	/**
+ 	 * @DRM_UT_PRIME: Used in the prime code.
+ 	 */
+-	DRM_UT_PRIME		= 0x08,
++	DRM_UT_PRIME,
+ 	/**
+ 	 * @DRM_UT_ATOMIC: Used in the atomic code.
+ 	 */
+-	DRM_UT_ATOMIC		= 0x10,
++	DRM_UT_ATOMIC,
+ 	/**
+ 	 * @DRM_UT_VBL: Used for verbose debug message in the vblank code.
+ 	 */
+-	DRM_UT_VBL		= 0x20,
++	DRM_UT_VBL,
+ 	/**
+ 	 * @DRM_UT_STATE: Used for verbose atomic state debugging.
+ 	 */
+-	DRM_UT_STATE		= 0x40,
++	DRM_UT_STATE,
+ 	/**
+ 	 * @DRM_UT_LEASE: Used in the lease code.
+ 	 */
+-	DRM_UT_LEASE		= 0x80,
++	DRM_UT_LEASE,
+ 	/**
+ 	 * @DRM_UT_DP: Used in the DP code.
+ 	 */
+-	DRM_UT_DP		= 0x100,
++	DRM_UT_DP,
+ 	/**
+ 	 * @DRM_UT_DRMRES: Used in the drm managed resources code.
+ 	 */
+-	DRM_UT_DRMRES		= 0x200,
++	DRM_UT_DRMRES
+ };
  
-  * Provides a debugfs control file: ``<debugfs>/dynamic_debug/control``
-    which can be read to display the complete list of known debug
-@@ -142,6 +143,7 @@ against.  Possible keywords are:::
- 		 'file' string |
- 		 'module' string |
- 		 'format' string |
-+		 'class' string |
- 		 'line' line-range
+ static inline bool drm_debug_enabled(enum drm_debug_category category)
+ {
+-	return unlikely(__drm_debug & category);
++	return unlikely(__drm_debug & BIT(category));
+ }
  
-   line-range ::= lineno |
-@@ -203,6 +205,15 @@ format
- 	format "nfsd: SETATTR"  // a neater way to match a format with whitespace
- 	format 'nfsd: SETATTR'  // yet another way to match a format with whitespace
- 
-+class
-+    The given class_name is validated against each module, which may
-+    have declared a list of known class_names.  If the class_name is
-+    found for a module, callsite & class matching and adjustment
-+    proceeds.  Examples::
-+
-+	class DRM_UT_KMS	# a DRM.debug category
-+	class JUNK		# silent non-match
-+
- line
-     The given line number or range of line numbers is compared
-     against the line number of each ``pr_debug()`` callsite.  A single
+ /*
 -- 
 2.37.2
 
