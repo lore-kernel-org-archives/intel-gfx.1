@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF62ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D98DECAAD5
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E705D10E17A;
-	Sun,  4 Sep 2022 21:43:22 +0000 (UTC)
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CFC310E23F;
- Sun,  4 Sep 2022 21:42:42 +0000 (UTC)
-Received: by mail-il1-x12e.google.com with SMTP id m16so861477ilg.3;
- Sun, 04 Sep 2022 14:42:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8716D10E252;
+	Sun,  4 Sep 2022 21:43:23 +0000 (UTC)
+Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
+ [IPv6:2607:f8b0:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AAEF10E135;
+ Sun,  4 Sep 2022 21:42:23 +0000 (UTC)
+Received: by mail-il1-x12d.google.com with SMTP id s11so3868035ilt.7;
+ Sun, 04 Sep 2022 14:42:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=jC4v9G/jhIkV0IQnbp5Uklfh57U7QHhGGd6NNp2oJCQ=;
- b=JArjEmrzGNVVldZMbJ5jrf44JYpBIstZSf/RikgwsjBwJH+il6AO3P1IV8DJwWsj01
- wjyu3J9Voml6ApRZ9BbFJ9M9k7fiqw10KqjikCPJe1ZZgvidWnhx5sJWFvV6+ACmKVLG
- 04lpCLgNFAvsSYE1SjofxinrRx7C40uUtSYlD0/U1rAvxGK3g49Gp7iVxPuuo1UN1koT
- pE+CL1wi/k0+XzIAs5uudPeEblnnR/mJkz43hOcjYDEU+8Vb57yY9NqVAbA3oEUNEnUK
- b8swAPOctxMUkIWBM3RbRCtpkGuO1hVdC7f8myhppY8uQYK3DxWRAN3ZApquu4AfNZfN
- 3Law==
+ bh=xIjcpB1yObanMGjMFeMKYjIQWCM49hxUe0Q+YC489GU=;
+ b=MLaOUG1eQyDNFysR3kFQ1CuvqHjhT0aQXApMqF4gTtmKSNtSjX/I5UlLfKj7GXM5dJ
+ ERh08+wfPW/pY1uDfq/mQRn9W4pI+ZknWQk0O9BgR5Mk9AjPJWG5zDfHLcpmenzVQTzo
+ 579HyQFoNP2ls47VGJ5G3weYDitOixMG/+//9S/xiAYoLVVWBuJc+DV/rYYNjDLyRLfb
+ HNDjMkbf5rFexzATxXpZ556L2eM2E51BpzYlMdQx5ufJQGJ8cauf0lUEASuflYmkRnFq
+ wm3CJLRAjYbtQSKbcHHo9KjCQC9bF3ISuBv6sJ+vPDbFd2H4Yl4b8qIqAqmbssefUuAQ
+ LhwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=jC4v9G/jhIkV0IQnbp5Uklfh57U7QHhGGd6NNp2oJCQ=;
- b=d2wzXWSvPhFl0gnT21pA/RIrf1Vl8lPzmJkwUZyfNRSvN2piQdJTuHiQophaETAtO9
- X8eLhOgmhfHOlwdzjWkTxwIk3t/vSHPi5i+5mzh96dWc1Q7l+JU7B2s0TgXELqkPAbm1
- yMniV/ixT6buCRK4XjppVoZfx6NjXk/z4xpw++cmNPsvEinn9Bqv2P6WwB/Wm+OGtCPL
- 8rn/tUHxauOFUrEAfHyxrc7QC6mdQZF7vHel2CcnL3+xSw2LJFYjDUE5YbZtvF6bZtwE
- 3w3fL/5tgM68eaMrxBOhxdRS9gh2Q6uIQ5cw8faUXIIM73EXV5GM4EHQ+xYPRrVKY8tI
- wCzA==
-X-Gm-Message-State: ACgBeo3oMdlqp7w5gpelZI9LVTz+evgX46E+TMi9FTHy0MYIMT+EdCTr
- sFSw8ppU4MRGpg0sK1QtwoSicRut4hY=
-X-Google-Smtp-Source: AA6agR5aUJRUan3rD6naJWTJ2nKGrD7fI4wCyu4cKP7ShkwvcE9ugvvmti6Sq7eCe3uNSIs9c/N8tg==
-X-Received: by 2002:a05:6e02:dc3:b0:2ea:d7a4:a5f with SMTP id
- l3-20020a056e020dc300b002ead7a40a5fmr18266464ilj.308.1662327761570; 
- Sun, 04 Sep 2022 14:42:41 -0700 (PDT)
+ bh=xIjcpB1yObanMGjMFeMKYjIQWCM49hxUe0Q+YC489GU=;
+ b=dnyMjdQi4CDVcB0bDokE1qY0QNKe0Hx5/Q3cwNIUpaoORwakQh9sBdFrVirKxWnuop
+ b/QVYh3xw4X9ewj/SpZxQSH83hFV1lFKNAZAr7OlDZa152ULGN0n2DTapG3Pg7CbjOui
+ xKfZZZa7kZn8ERdtf37HIo0BaBswXQQhNr9g6qBPlSoP7uYGM1KAkKv6nYa5OvJjCLZq
+ WjuMv3jmHxv3HTd/btM1UK55LT6vqaodsTsUQdMklH53o3b3c0SaJOBVZdVMAMFA6/do
+ ZN3It2tIys9UssHYV+ehFMZkWetZUKeLMZbycURQ5MSsf8d/JnpxliWGDj7TW4dxRRA3
+ 964g==
+X-Gm-Message-State: ACgBeo2XKk06gCAQUkiDztQKyWOONyEwouZAdccgcNv3mifxw9T/IGjr
+ 5fwCXss9vVfv5j8altTQRts=
+X-Google-Smtp-Source: AA6agR67iR6BYXhMU24o7aSNMqzyMctDSZZTQcZ/yxizOCzV0f4LJSYbYSri4MSdNRuTGB/KPRJVfw==
+X-Received: by 2002:a05:6e02:15c9:b0:2e1:a5b6:7e25 with SMTP id
+ q9-20020a056e0215c900b002e1a5b67e25mr23241731ilu.185.1662327741691; 
+ Sun, 04 Sep 2022 14:42:21 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.40
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:41 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:21 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:10 -0600
-Message-Id: <20220904214134.408619-34-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:40:49 -0600
+Message-Id: <20220904214134.408619-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 33/57] nouveau: WIP add 2 LEVEL_NUM classmaps
- for CLI, SUBDEV
+Subject: [Intel-gfx] [PATCH v6 12/57] dyndbg: add class_id to pr_debug
+ callsites
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,243 +74,170 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
+Cc: Rasmus Villemoes <rasmus.villemoes@prevas.dk>,
+ Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
  linux@rasmusvillemoes.dk, seanpaul@chromium.org, joe@perches.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-clone the nvkm_printk,_,__ macro ladder into nvkm_drmdbg,_,__.
-And alter the debug, trace, spam macros to use the renamed ladder.
+DRM issues ~10 exclusive categories of debug messages; to represent
+this directly in dyndbg, add a new 6-bit field: struct _ddebug.class_id.
+This gives us 64 classes, which should be more than enough.
 
-This *sets-up* (not done yet) to remove the _subdev->debug >= (l)
-condition, once the bitmap-param is wired up correctly, and figured
-into dyndbg's jump-label enablement.  WIP.
+  #> echo 0x012345678 > /sys/module/drm/parameters/debug
 
-Then undo the 1-line change that reduced count of prdbgs from 632 to 119.
+All existing callsites are initialized with _DPRINTK_CLASS_DFLT, which
+is 2^6-1.  This reserves 0-62 for use in new categorized/class'd
+pr_debugs, which fits perfectly with natural enums (ints: 0..N).
 
-ie: s/NV_SUBDEV_DBG_##l/NV_DBG_##l/
+Thats done by extending the init macro: DEFINE_DYNAMIC_DEBUG_METADATA()
+with _CLS(cls, ...) suffix, and redefing old name using extended name.
 
-So heres what happened: new symbol is 15 (or 10), and fails this macro
-test, so gets compiled out, and the dev_dbg is excluded.
+Then extend the factory macro callchain with _cls() versions to provide
+the callsite.class_id, with old-names passing _DPRINTK_CLASS_DFLT.
 
-        if (CONFIG_NOUVEAU_DEBUG >= (l) && _subdev->debug >= (l))       \
-                dev_dbg(_subdev->device->dev, "%s: "f, _subdev->name, ##a); \
+This sets us up to create class'd prdebug callsites (class'd callsites
+are those with .class_id != _DPRINTK_CLASS_DFLT).
 
-I could hack this, by doing (l + base), but base is pretty distant.
+No behavior change.
 
-OTOH, the whole CONFIG_NOUVEAU_DEBUG check could be reworked; given
-that trace is minumum recommended, theres not that many callsites
-elided (SPAM only iirc) at compile-time, and dyndbg means keeping them
-has "zero" run-cost (and 56 bytes per callsite).  So this config item
-doesnt do much when DRM_USE_DYNAMIC_DEBUG=y.
-
-So this is a useful place to stop and look around, try to guess which
-trail to take..
-
-nouveau has additional debug variables to consider:
-
-drivers/gpu/drm/nouveau/include/nvkm/core/device.h
-131:	if (_device->debug >= (l))                                             \
-
-drivers/gpu/drm/nouveau/include/nvkm/core/client.h
-39:	if (_client->debug >= NV_DBG_##l)                                      \
-
-drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-54:	if (CONFIG_NOUVEAU_DEBUG >= (l) && _subdev->debug >= (l))              \
-
-This is another baby-step, that seems not to break, so lets get a
-snapshot.
-
-whats done here:
-
-In nouveau_drm.c, do DECLARE_DYNDBG_CLASSMAP(LEVEL_NUM type) 2x more,
-for cli and subdev, right after the drm DECLARE.  Adjust base for
-each, to share the 0..30 classid-space.
-
-These declare class-names: NV_CLI_DBG_* NV_SUBDEV_DBG_* accordingly.
-Note: class-name-space is flat and wide, so super-generic names like
-INFO should be prefixed; who could predict what a generic V3 does
-across all modules.
-
-s should be included
-
-adjusting the base to avoid each other, and the 0-10
-already mapped to drm-debug-categorys (just above this addition).
-
-In nvkm/core/debug.h, add enums to match the names, with initial
-values to match the bases.
-
-In nvkm/core/subdev.h, alter (recently added) nvkm_drmdbg_() to use
-NV_SUBDEV_DBG_* instead of NV_DBG_*.
-
-NB: in both classmaps, Ive left FATAL..WARN out, they're not really
-optional the way INFO..SPAM are; dyndbg shouldn't be able to turn them off.
-
-bash-5.1# modprobe nouveau
-[  966.107833] dyndbg:   3 debug prints in module wmi
-[  966.342188] dyndbg: class[0]: module:nouveau base:15 len:5 ty:1
-[  966.342873] dyndbg:  15: 0 NV_SUBDEV_DBG_OFF
-[  966.343352] dyndbg:  16: 1 NV_SUBDEV_DBG_INFO
-[  966.343912] dyndbg:  17: 2 NV_SUBDEV_DBG_DEBUG
-[  966.344443] dyndbg:  18: 3 NV_SUBDEV_DBG_TRACE
-[  966.344938] dyndbg:  19: 4 NV_SUBDEV_DBG_SPAM
-[  966.345402] dyndbg: class[1]: module:nouveau base:10 len:5 ty:1
-[  966.346011] dyndbg:  10: 0 NV_CLI_DBG_OFF
-[  966.346477] dyndbg:  11: 1 NV_CLI_DBG_INFO
-[  966.346989] dyndbg:  12: 2 NV_CLI_DBG_DEBUG
-[  966.347442] dyndbg:  13: 3 NV_CLI_DBG_TRACE
-[  966.347875] dyndbg:  14: 4 NV_CLI_DBG_SPAM
-[  966.348284] dyndbg: class[2]: module:nouveau base:0 len:10 ty:0
-[  966.348888] dyndbg:  0: 0 DRM_UT_CORE
-[  966.349310] dyndbg:  1: 1 DRM_UT_DRIVER
-[  966.349694] dyndbg:  2: 2 DRM_UT_KMS
-[  966.350083] dyndbg:  3: 3 DRM_UT_PRIME
-[  966.350482] dyndbg:  4: 4 DRM_UT_ATOMIC
-[  966.351016] dyndbg:  5: 5 DRM_UT_VBL
-[  966.351475] dyndbg:  6: 6 DRM_UT_STATE
-[  966.351899] dyndbg:  7: 7 DRM_UT_LEASE
-[  966.352309] dyndbg:  8: 8 DRM_UT_DP
-[  966.352678] dyndbg:  9: 9 DRM_UT_DRMRES
-[  966.353104] dyndbg: module:nouveau attached 3 classes
-[  966.353759] dyndbg: 119 debug prints in module nouveau
-
-NOTE: it was 632 with previous commit, switching NV_DEBUG to use
-NV_SUBDEV_DBG_DEBUG instead of NV_DBG_DEBUG may be the cause.
-
+cc: Rasmus Villemoes <rasmus.villemoes@prevas.dk>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../gpu/drm/nouveau/include/nvkm/core/debug.h | 16 +++++++++++++
- .../drm/nouveau/include/nvkm/core/subdev.h    | 17 ++++++++++----
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  7 ++++++
- drivers/gpu/drm/nouveau/nvkm/core/subdev.c    | 23 +++++++++++++++++++
- 4 files changed, 59 insertions(+), 4 deletions(-)
+ include/linux/dynamic_debug.h | 71 +++++++++++++++++++++++++++--------
+ 1 file changed, 55 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h b/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h
-index b4a9c7d991ca..6a155a23a3d1 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/core/debug.h
-@@ -9,4 +9,20 @@
- #define NV_DBG_TRACE    5
- #define NV_DBG_PARANOIA 6
- #define NV_DBG_SPAM     7
-+
-+enum nv_cli_dbg_verbose {
-+	NV_CLI_DBG_OFF = 10,
-+	NV_CLI_DBG_INFO,
-+	NV_CLI_DBG_DEBUG,
-+	NV_CLI_DBG_TRACE,
-+	NV_CLI_DBG_SPAM
-+};
-+enum nv_subdev_dbg_verbose {
-+	NV_SUBDEV_DBG_OFF = 15,
-+	NV_SUBDEV_DBG_INFO,
-+	NV_SUBDEV_DBG_DEBUG,
-+	NV_SUBDEV_DBG_TRACE,
-+	NV_SUBDEV_DBG_SPAM
-+};
-+
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 6a2001250da1..633f4e463766 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -6,6 +6,8 @@
+ #include <linux/jump_label.h>
  #endif
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-index 065d07ccea87..ce33c82e5c75 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/core/subdev.h
-@@ -2,6 +2,7 @@
- #ifndef __NVKM_SUBDEV_H__
- #define __NVKM_SUBDEV_H__
- #include <core/device.h>
-+#include <core/debug.h>
  
- enum nvkm_subdev_type {
- #define NVKM_LAYOUT_ONCE(t,s,p,...) t,
-@@ -18,7 +19,7 @@ struct nvkm_subdev {
- 	enum nvkm_subdev_type type;
- 	int inst;
- 	char name[16];
--	u32 debug;
-+	unsigned long debug;
- 	struct list_head head;
++#include <linux/build_bug.h>
++
+ /*
+  * An instance of this structure is created in a special
+  * ELF section at every dynamic debug callsite.  At runtime,
+@@ -21,6 +23,9 @@ struct _ddebug {
+ 	const char *filename;
+ 	const char *format;
+ 	unsigned int lineno:18;
++#define CLS_BITS 6
++	unsigned int class_id:CLS_BITS;
++#define _DPRINTK_CLASS_DFLT		((1 << CLS_BITS) - 1)
+ 	/*
+ 	 * The flags field controls the behaviour at the callsite.
+ 	 * The bits here are changed dynamically when the user
+@@ -88,7 +93,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 			 const struct ib_device *ibdev,
+ 			 const char *fmt, ...);
  
- 	void **pself;
-@@ -59,9 +60,17 @@ void nvkm_subdev_intr(struct nvkm_subdev *);
- #define nvkm_error(s,f,a...) nvkm_printk((s), ERROR,    err, f, ##a)
- #define nvkm_warn(s,f,a...)  nvkm_printk((s),  WARN, notice, f, ##a)
- #define nvkm_info(s,f,a...)  nvkm_printk((s),  INFO,   info, f, ##a)
--#define nvkm_debug(s,f,a...) nvkm_printk((s), DEBUG,    dbg, f, ##a)
--#define nvkm_trace(s,f,a...) nvkm_printk((s), TRACE,    dbg, f, ##a)
--#define nvkm_spam(s,f,a...)  nvkm_printk((s),  SPAM,    dbg, f, ##a)
+-#define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)		\
++#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
+ 	static struct _ddebug  __aligned(8)			\
+ 	__section("__dyndbg") name = {				\
+ 		.modname = KBUILD_MODNAME,			\
+@@ -97,8 +102,14 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 		.format = (fmt),				\
+ 		.lineno = __LINE__,				\
+ 		.flags = _DPRINTK_FLAGS_DEFAULT,		\
++		.class_id = cls,				\
+ 		_DPRINTK_KEY_INIT				\
+-	}
++	};							\
++	BUILD_BUG_ON_MSG(cls > _DPRINTK_CLASS_DFLT,		\
++			 "classid value overflow")
 +
-+#define nvkm_drmdbg__(s,l,p,f,a...) do {				\
-+	const struct nvkm_subdev *_subdev = (s);			\
-+	if (CONFIG_NOUVEAU_DEBUG >= (l) && _subdev->debug >= (l))	\
-+		dev_dbg(_subdev->device->dev, "%s: "f, _subdev->name, ##a); \
-+} while(0)
-+#define nvkm_drmdbg_(s,l,f,a...) nvkm_drmdbg__((s), NV_SUBDEV_DBG_##l, dbg, f, ##a)
-+#define nvkm_debug(s,f,a...) nvkm_drmdbg_((s), DEBUG, f, ##a)
-+#define nvkm_trace(s,f,a...) nvkm_drmdbg_((s), TRACE, f, ##a)
-+#define nvkm_spam(s,f,a...)  nvkm_drmdbg_((s),  SPAM, f, ##a)
++#define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)		\
++	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
  
- #define nvkm_error_ratelimited(s,f,a...) nvkm_printk((s), ERROR, err_ratelimited, f, ##a)
-+
- #endif
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index fd99ec0f4257..864750451dc8 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -83,6 +83,13 @@ DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
- 			"DRM_UT_DP",
- 			"DRM_UT_DRMRES");
+ #ifdef CONFIG_JUMP_LABEL
  
-+DECLARE_DYNDBG_CLASSMAP(nv_cli_debug_verbose, DD_CLASS_TYPE_LEVEL_NUM, 10,
-+			"NV_CLI_DBG_OFF",
-+			"NV_CLI_DBG_INFO",
-+			"NV_CLI_DBG_DEBUG",
-+			"NV_CLI_DBG_TRACE",
-+			"NV_CLI_DBG_SPAM");
-+
- MODULE_PARM_DESC(config, "option string to pass to driver core");
- static char *nouveau_config;
- module_param_named(config, nouveau_config, charp, 0400);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/core/subdev.c b/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-index a74b7acb6832..20cd99cce2a4 100644
---- a/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-@@ -26,6 +26,27 @@
- #include <core/option.h>
- #include <subdev/mc.h>
+@@ -129,17 +140,34 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
  
-+#include <linux/dynamic_debug.h>
-+#include <linux/module.h>
-+
-+#define DEBUG
-+
-+DECLARE_DYNDBG_CLASSMAP(nv_subdev_debug_verbose, DD_CLASS_TYPE_LEVEL_NAMES, 15,
-+			"NV_SUBDEV_DBG_OFF",
-+			"NV_SUBDEV_DBG_INFO",
-+			"NV_SUBDEV_DBG_DEBUG",
-+			"NV_SUBDEV_DBG_TRACE",
-+			"NV_SUBDEV_DBG_SPAM");
-+
-+static struct ddebug_class_param nv_subdev_verbose = {
-+	.bits = NULL, // wants &_subdev->debug
-+	.flags = "p",
-+	.map = &nv_subdev_debug_verbose,
-+};
-+module_param_cb(debug_subdev, &param_ops_dyndbg_classes, &nv_subdev_verbose, 0600);
-+
-+
-+
- const char *
- nvkm_subdev_type[NVKM_SUBDEV_NR] = {
- #define NVKM_LAYOUT_ONCE(type,data,ptr,...) [type] = #ptr,
-@@ -180,6 +201,8 @@ nvkm_subdev_ctor(const struct nvkm_subdev_func *func, struct nvkm_device *device
- 	else
- 		strscpy(subdev->name, nvkm_subdev_type[type], sizeof(subdev->name));
- 	subdev->debug = nvkm_dbgopt(device->dbgopt, subdev->name);
-+	nv_subdev_verbose.bits = &subdev->debug;
-+	pr_debug("updated bitmap: %px\n", &nv_subdev_verbose.bits);
- 	list_add_tail(&subdev->head, &device->subdev);
- }
+ #endif /* CONFIG_JUMP_LABEL */
  
+-#define __dynamic_func_call(id, fmt, func, ...) do {	\
+-	DEFINE_DYNAMIC_DEBUG_METADATA(id, fmt);		\
+-	if (DYNAMIC_DEBUG_BRANCH(id))			\
+-		func(&id, ##__VA_ARGS__);		\
+-} while (0)
+-
+-#define __dynamic_func_call_no_desc(id, fmt, func, ...) do {	\
+-	DEFINE_DYNAMIC_DEBUG_METADATA(id, fmt);			\
++/*
++ * Factory macros: ($prefix)dynamic_func_call($suffix)
++ *
++ * Lower layer (with __ prefix) gets the callsite metadata, and wraps
++ * the func inside a debug-branch/static-key construct.  Upper layer
++ * (with _ prefix) does the UNIQUE_ID once, so that lower can ref the
++ * name/label multiple times, and tie the elements together.
++ * Multiple flavors:
++ * (|_cls):	adds in _DPRINT_CLASS_DFLT as needed
++ * (|_no_desc):	former gets callsite descriptor as 1st arg (for prdbgs)
++ */
++#define __dynamic_func_call_cls(id, cls, fmt, func, ...) do {	\
++	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);	\
+ 	if (DYNAMIC_DEBUG_BRANCH(id))				\
+-		func(__VA_ARGS__);				\
++		func(&id, ##__VA_ARGS__);			\
+ } while (0)
++#define __dynamic_func_call(id, fmt, func, ...)				\
++	__dynamic_func_call_cls(id, _DPRINTK_CLASS_DFLT, fmt,		\
++				func, ##__VA_ARGS__)
++
++#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) do {	\
++	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);		\
++	if (DYNAMIC_DEBUG_BRANCH(id))					\
++		func(__VA_ARGS__);					\
++} while (0)
++#define __dynamic_func_call_no_desc(id, fmt, func, ...)			\
++	__dynamic_func_call_cls_no_desc(id, _DPRINTK_CLASS_DFLT,	\
++					fmt, func, ##__VA_ARGS__)
+ 
+ /*
+  * "Factory macro" for generating a call to func, guarded by a
+@@ -149,22 +177,33 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+  * the varargs. Note that fmt is repeated in invocations of this
+  * macro.
+  */
++#define _dynamic_func_call_cls(cls, fmt, func, ...)			\
++	__dynamic_func_call_cls(__UNIQUE_ID(ddebug), cls, fmt, func, ##__VA_ARGS__)
+ #define _dynamic_func_call(fmt, func, ...)				\
+-	__dynamic_func_call(__UNIQUE_ID(ddebug), fmt, func, ##__VA_ARGS__)
++	_dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
++
+ /*
+  * A variant that does the same, except that the descriptor is not
+  * passed as the first argument to the function; it is only called
+  * with precisely the macro's varargs.
+  */
+-#define _dynamic_func_call_no_desc(fmt, func, ...)	\
+-	__dynamic_func_call_no_desc(__UNIQUE_ID(ddebug), fmt, func, ##__VA_ARGS__)
++#define _dynamic_func_call_cls_no_desc(cls, fmt, func, ...)		\
++	__dynamic_func_call_cls_no_desc(__UNIQUE_ID(ddebug), cls, fmt,	\
++					func, ##__VA_ARGS__)
++#define _dynamic_func_call_no_desc(fmt, func, ...)			\
++	_dynamic_func_call_cls_no_desc(_DPRINTK_CLASS_DFLT, fmt,	\
++				       func, ##__VA_ARGS__)
++
++#define dynamic_pr_debug_cls(cls, fmt, ...)				\
++	_dynamic_func_call_cls(cls, fmt, __dynamic_pr_debug,		\
++			   pr_fmt(fmt), ##__VA_ARGS__)
+ 
+ #define dynamic_pr_debug(fmt, ...)				\
+-	_dynamic_func_call(fmt,	__dynamic_pr_debug,		\
++	_dynamic_func_call(fmt, __dynamic_pr_debug,		\
+ 			   pr_fmt(fmt), ##__VA_ARGS__)
+ 
+ #define dynamic_dev_dbg(dev, fmt, ...)				\
+-	_dynamic_func_call(fmt,__dynamic_dev_dbg, 		\
++	_dynamic_func_call(fmt, __dynamic_dev_dbg, 		\
+ 			   dev, fmt, ##__VA_ARGS__)
+ 
+ #define dynamic_netdev_dbg(dev, fmt, ...)			\
 -- 
 2.37.2
 
