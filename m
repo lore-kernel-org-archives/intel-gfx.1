@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD755ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C45FECAAD5
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:47:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F46F10E352;
-	Sun,  4 Sep 2022 21:43:37 +0000 (UTC)
-Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
- [IPv6:2607:f8b0:4864:20::d31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A4610E299;
- Sun,  4 Sep 2022 21:43:00 +0000 (UTC)
-Received: by mail-io1-xd31.google.com with SMTP id e195so5690947iof.1;
- Sun, 04 Sep 2022 14:43:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D627F10E181;
+	Sun,  4 Sep 2022 21:43:41 +0000 (UTC)
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 221A610E163;
+ Sun,  4 Sep 2022 21:42:36 +0000 (UTC)
+Received: by mail-io1-xd30.google.com with SMTP id q81so5653842iod.9;
+ Sun, 04 Sep 2022 14:42:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=HlXlcsu2RqT6fAUiV6NVhuDn1t0xR93nZ+jChKYhqUw=;
- b=aHV/k9J2PuitBnlhA4br73E9JnLl2gCBHHBTGdkL9KmqcRS5bomgzwR0OaqXBlVyql
- Mf+7Y+KsEOXcIs+D0+rNcc1xfUx+tf11ZEtL7jgmdcXn3KKcYRtVgMKv2QivMhgwGB6p
- qhysutFwua8FbpIFvlVp/S3j8MzU+FtQko8iiKsgLlooadXPLQQ21I6Q1NTrYJTip/4D
- 0VC0OYdPKhw0V3Mzu3DZ0R5yhcn852KcFxvjVL4Bi2PKi8TFHfnlMTt0MfuMqEB1W0cT
- r3SV72vbw59OuMsz2HCPNecCDPTzT4EzG4nBHs7LsaOq7fTjOvTkLYW8hBG4OuYPJt9E
- DnRw==
+ bh=JJmkd9QkaZyaFdemWU+lkrR5661ckSN9S5LOBM0abWI=;
+ b=Ekp5LSqCs4NIcDItFljM2WjOwt/efnWVaMW3yCqrqsUihOs5E0jY1gRnas7XeEnwXQ
+ mJczoHE301+UhR2sdrk2Z8XMrus7OmPoIHzPLx9pOfthkP14wtWEMeSmcVDFGWB/CtdJ
+ QoGwdbXBIatuJbFnjhsoLD7HBBwTwthzbbd/ephKZj4F869SAIYstaCw9X5XldSmfsj5
+ 425BY3FM/yceTIl0QRHpBbqSrZ3pLSgxz0QvSfOSxR2x3onovMe0LjQXpUS5rZwJQTDD
+ f0EEtc2lmFOrlMPRrbL5XtYdvoUv6FfCFWPMR8AZBn6i4YQ82dbzn0YVDauHfrda6dbp
+ qmPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=HlXlcsu2RqT6fAUiV6NVhuDn1t0xR93nZ+jChKYhqUw=;
- b=EDxselT83jQL0qvrXntF5Ga9xS5B4MhrHTX41w+0Z0egLvLhpKVKQjtJI6j4RUmEN6
- zm7m1Q/nRAu1qS2NVs6igBWslUjt2cf19vXQlSWNeeivxbeMeaLesWtJytOMreqR+OB0
- gmKrkcVhYhoNW3nmBUI+hZ7hiPa1k7TtG8hKUG0RIi5l0hCH0RCnADHKfxZI0l5pPGaz
- CPaVjzhl97RocA1Q/ET3pdDFlWQF2L/qa+SI5nzt4450P7KU+zrFvT4u84KGuEgTDilL
- aBiA0ue17F/dumpHTW1fqPSAPesSpmDfAFGGxGQ7XxML20O6xIC4/V20jMEosvxSolIW
- XSrQ==
-X-Gm-Message-State: ACgBeo2p0MHYh1TZAD6TsF1ZLTeM5M00TYpZy16CL0WhD5jZD9L8uCN5
- YXEQY4RbCxvQeMs8HP3tnkk=
-X-Google-Smtp-Source: AA6agR7vlI7R7BZjvt5nOZUe1nHbAjNSYfJLtX8tg1fOrQTMkIvWzLEFddRnIK11jzK+Lp9kCqNOZQ==
-X-Received: by 2002:a05:6638:22d1:b0:34f:5d31:5fe with SMTP id
- j17-20020a05663822d100b0034f5d3105femr6114929jat.185.1662327780173; 
- Sun, 04 Sep 2022 14:43:00 -0700 (PDT)
+ bh=JJmkd9QkaZyaFdemWU+lkrR5661ckSN9S5LOBM0abWI=;
+ b=7LYv/A3jHQI3iUfUepe58WbM44skBeBGRz7HqdPLwY6uaxVemy078FU2I7exh5Pxuy
+ 5GkLErj1XrjtW6v9LNcarzLXP3GkyTuqug85jSWPY9lfk0ioGWs2gk9uV5Sr0WS7er/Q
+ tcAKLkyVBCAjrR62BwQqGP54mi7zbL2f3NeGxupvlnum84dV/7hK5VsS+cuTl/PUSo3q
+ MdpZKG4WR9LkhXXJoQUEs+e4L3dUhZ+Wqs1xPn8ZY2Zs7ilUggHq61kTYOiMEEjwy88n
+ qgFpoVelJhwS3BWdyj/q73Q65BtMt4RShxLQYfG4vBNntKKKJIdBCXV0Eq1/hyMG8XDG
+ t3vA==
+X-Gm-Message-State: ACgBeo0wSxbc3Ad/JVRsKS9fTtKE/NF49wYniqNgaBS7EqTC9NBA1erq
+ IxhcnIBA2DYVN686adqpLXka5yPLk5E=
+X-Google-Smtp-Source: AA6agR6Y58eeN88K8D4OKhkCxT/e0VQuWiJ6m00+40bBTPAFdN9SV1gHrr39O9uhC7t16UdJ5cZYpQ==
+X-Received: by 2002:a05:6638:224:b0:350:6e7b:8e59 with SMTP id
+ f4-20020a056638022400b003506e7b8e59mr4269174jaq.237.1662327755824; 
+ Sun, 04 Sep 2022 14:42:35 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.59
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:59 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:35 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:29 -0600
-Message-Id: <20220904214134.408619-53-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:04 -0600
+Message-Id: <20220904214134.408619-28-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 52/57] dyndbg: add DEFINE_DYNAMIC_DEBUG_TABLE,
- use it tacitly RFC
+Subject: [Intel-gfx] [PATCH v6 27/57] drm-print: add drm_dbg_driver to
+ improve namespace symmetry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,84 +79,44 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This defines a new macro (tbd: tweak name) which is a special version
-of DEFINE_DYNAMIC_DEBUG_METADATA_CLS().  Unlike that macro, which
-declares callsites in pairs of desc/site recs.
+drm_print defines all of these:
+    drm_dbg_{core,kms,prime,atomic,vbl,lease,_dp,_drmres}
 
-This macro declares a pair of header records, which the linker script
-then places once (.gnu.linkonce.) into the front of the respective
-sections.  For builtins, the .linkonce gives us a single header
-preceding all ~3-5k callsites.
+but not drm_dbg_driver itself, since it was the original drm_dbg.
 
-It uses __unused, __weak, .gnu.linkonce to avoid trouble with multiple
-inclusions, and should not consume space when not linked to by a
-callsite in a loadable module.
+To improve namespace symmetry, change the drm_dbg defn to
+drm_dbg_driver, and redef grandfathered name to symmetric one.
 
-Atypically, this macro is also tacitly invoked in the header, which is
-indirectly included by printk.h.  This means 2 things: it mostly
-insures that source files will declare it at least once, and that
-multiple decls resolve to the identical storage address.
-
-I did this with the expectation that I could let the linker compute
-the offset and initialize ._index accordingly, but that resulted in
-some "linker cant compute" error.  Ive initialized it in
-__ddebug_add_module() instead.
+This will help with nouveau, which uses its own stack of macros to
+construct calls to dev_info, dev_dbg, etc, for which adaptation means
+drm_dbg_##driver constructs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ include/drm/drm_print.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index f23608c38a79..23d3d2882882 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -220,6 +220,32 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)		\
- 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index f8bb3e7158c6..dfdd81c3287c 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -468,7 +468,7 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
  
-+/*
-+ * DEFINE_DYNAMIC_DEBUG_TABLE(): This is a special version of
-+ * DEFINE_DYNAMIC_DEBUG_METADATA().  It creates a single pair of
-+ * header records, which the linker scripts place in front of their
-+ * respective sections.
-+ *
-+ * To allow for a robust runtime test in dynamic_debug_init(), the
-+ * pair of records is hardwired into a self-reference loop which can
-+ * be validated before the field is altered to support _ddebug_map_site()
-+ */
-+#define DEFINE_DYNAMIC_DEBUG_TABLE()					\
-+	/* forward decl, allowing loopback pointer */			\
-+	struct _ddebug_hdr __used __aligned(8)				\
-+		__section(".gnu.linkonce.dyndbg")			\
-+		_LINKONCE_dyndbg_header;				\
-+	struct _ddebug_site_hdr __used __aligned(8)			\
-+		__section(".gnu.linkonce.dyndbg_site")			\
-+		_LINKONCE_dyndbg_site_header = {			\
-+		._uplink = (void *) &_LINKONCE_dyndbg_header		\
-+	};								\
-+	struct _ddebug_hdr __used __aligned(8)				\
-+		__section(".gnu.linkonce.dyndbg")			\
-+		_LINKONCE_dyndbg_header = {				\
-+		._uplink = (void *) &_LINKONCE_dyndbg_site_header	\
-+	}
-+
- #ifdef CONFIG_JUMP_LABEL
+ #define drm_dbg_core(drm, fmt, ...)					\
+ 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_CORE, fmt, ##__VA_ARGS__)
+-#define drm_dbg(drm, fmt, ...)						\
++#define drm_dbg_driver(drm, fmt, ...)						\
+ 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
+ #define drm_dbg_kms(drm, fmt, ...)					\
+ 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_KMS, fmt, ##__VA_ARGS__)
+@@ -487,6 +487,7 @@ void __drm_dev_dbg(const struct device *dev, enum drm_debug_category category,
+ #define drm_dbg_drmres(drm, fmt, ...)					\
+ 	drm_dev_dbg((drm) ? (drm)->dev : NULL, DRM_UT_DRMRES, fmt, ##__VA_ARGS__)
  
- #ifdef DEBUG
-@@ -390,4 +416,12 @@ static inline int param_get_dyndbg_classes(char *buffer, const struct kernel_par
++#define drm_dbg(drm, fmt, ...)	drm_dbg_driver(drm, fmt, ##__VA_ARGS__)
  
- extern const struct kernel_param_ops param_ops_dyndbg_classes;
- 
-+#if ((defined(CONFIG_DYNAMIC_DEBUG) ||					\
-+      (defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))) \
-+     && defined(KBUILD_MODNAME) && !defined(NO_DYNAMIC_DEBUG_TABLE))
-+
-+/* transparently invoked, except when -DNO_DYNAMIC_DEBUG_TABLE */
-+DEFINE_DYNAMIC_DEBUG_TABLE();
-+#endif
-+
- #endif
+ /*
+  * printk based logging
 -- 
 2.37.2
 
