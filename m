@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C5CEC6FA86
-	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30B3BC6FA86
+	for <intel-gfx@archiver.kernel.org>; Sun,  4 Sep 2022 21:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF03510E2F5;
-	Sun,  4 Sep 2022 21:44:00 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C651E10E279;
- Sun,  4 Sep 2022 21:42:56 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id a9so3885645ilh.1;
- Sun, 04 Sep 2022 14:42:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75A0C10E973;
+	Sun,  4 Sep 2022 21:44:05 +0000 (UTC)
+Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
+ [IPv6:2607:f8b0:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE70710E26D;
+ Sun,  4 Sep 2022 21:42:53 +0000 (UTC)
+Received: by mail-il1-x12e.google.com with SMTP id m16so861593ilg.3;
+ Sun, 04 Sep 2022 14:42:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=58gChvxjBedxDU/dSXgKq8f75Aq/PMP0VWOkECUeGr8=;
- b=J2tQsdq2kkHf85Z9ASRTiHs9OI3ZDVILIcK9yZOObu9+KlrqqjVNIjRz1rl5rphOwC
- 2Qfnz0oI/RsX3V70MD8E8G/yZztrNm2ZfOZnCp9690q1IH4JJ+adDmarycETlY/12rhr
- Db+6+SqEctFD/7m0SrX4AuGqEeuaJOmohsGrTlCLPTPTc/eFNhQn9dKNl96NeOx5rxdC
- vum//49JpYe1Z4oGVnwyv1uBitMZ8t5aokHuE388ICOZLGyjaZC6ZUwl7qnvJ1ZVUgUl
- OCs0CimfeNixxoHVLc+cIByGyUxmeix8tj9SCyBEQkzsOFFYl2FMPL60Yd7P36fczO+9
- Pthw==
+ bh=2DUNNF4TyZPmUhIDyquoFTYgxu+2+I569ry9sz7h+V8=;
+ b=mQmCZeXOpRyxBBvjbWVrCXsXx7gHTM8N/UQTvxQw6KuXSPexo1h3FD1ucxeyNJT+xH
+ FCrl38VbY4XTggjAdID94f6qwWEzanDmr/mM2z9ppbD2bi++cdR0KFPdSDwIzMEdviuE
+ T7rb8LW++Dfbale5om0KJkTeWydx42PLJzEbIaIRUShArRNRdH3N5bm567jsKFUoVvyE
+ yNkTMgfq+82gXrYwwjc07JfVO8XbjrtDoDwJo5YA9vGk40vjd+duz80CzMwmFoM7NXkY
+ 5BL2wv2zhIlR6b9Vj7PAu5z7gJVid5GmJmcNvK4vsfDXHVxr7IqKWTFLJl2NVdYInAfp
+ DlOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=58gChvxjBedxDU/dSXgKq8f75Aq/PMP0VWOkECUeGr8=;
- b=40EF5BeWK2riML1AnsptLdQO1pAJ4GmMCO6f4hyXKhH5A1sfUXMGkN9Zk2v/tlrnED
- WhACTNdfVmmYswZ5PBpZOineVllPf57uN3yOPIApcP5VSvTh74SqtpLde4vc7c9QdeTv
- 3I88cCiLbVJkwsXYAqUVzEvfR8JqQUJg9zyShyFUMAAPJ98sdfaShY+OFUAELebydSA9
- 3sxe2b+7lGKjG80YZvWYDHEQW/kttlCDz9mHC7Wgz4gCEPU5z3gE7oBUcFqCXVHIecc5
- nU4ZIB+LQPkVVe4K+KtMPFfEybbtFg9y0pbIJcW+g2FF0wLwD0iT91tEc10F57EzRsEp
- ZEdA==
-X-Gm-Message-State: ACgBeo2DxxsLqoT1UUh4A1gNYDI7M3njNEjEXApkVpkaKH4cMr02TnK/
- g8wMpsKEYlqXYkzceJuhXEA=
-X-Google-Smtp-Source: AA6agR61bCYoBFhO606MrMj2e5JJ9ontZpH/7gcxtdHyPlYtKYvvYkTqL53A1Ak5xf1hQmk380rWDQ==
-X-Received: by 2002:a05:6e02:16cd:b0:2ea:e75b:f357 with SMTP id
- 13-20020a056e0216cd00b002eae75bf357mr19038138ilx.110.1662327776105; 
- Sun, 04 Sep 2022 14:42:56 -0700 (PDT)
+ bh=2DUNNF4TyZPmUhIDyquoFTYgxu+2+I569ry9sz7h+V8=;
+ b=P9UxYs+vdSRaDLgDMePw14aG49ApFnpkoZH047gxjVPTOYlmH9fPIHjjhOzWMHgUU6
+ 39r30woLq9JGhIpDDl2pumg9fNMhSsX4VQO0TmXtyiOGVny9M2qwV0JQENUvkYJSBV9v
+ 2fRkojIdmoZ8++TvgE9x2LVuqFzy8t4XMQYgokixj9PePcUkU0HJi53AfDVoE5NK5M+V
+ sOM22xLBWpQtZIG8AALI2qAHscuMCIZN3PCL3u+xwTwGFdElpieGC2u+BwmjfBdxMPuE
+ ZqBbgrSuMNP+AVeXk63CUzs8KdoTcXn6U+UXtT+nQz97FFePrw6orv/9cJQ3NUGgar0D
+ 5VHg==
+X-Gm-Message-State: ACgBeo1UM2ej9AQ1r/cYAEQvzuZt0x1m5xk6M7AX+vJn8GXzyCGfCrn0
+ PLAlxLc742leoyScudY8Yqk=
+X-Google-Smtp-Source: AA6agR7R7ppBFr3r3vC4WEGb4c102hUehmHvwf5LRPNlvppZUrjQH2NK84HPqLyTxmmaZ5tAXemtqA==
+X-Received: by 2002:a05:6e02:b2d:b0:2ec:b5eb:cd63 with SMTP id
+ e13-20020a056e020b2d00b002ecb5ebcd63mr9305275ilu.291.1662327773546; 
+ Sun, 04 Sep 2022 14:42:53 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.55
+ e12-20020a056602044c00b006889ea7be7bsm3727688iov.29.2022.09.04.14.42.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Sep 2022 14:42:55 -0700 (PDT)
+ Sun, 04 Sep 2022 14:42:53 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, gregkh@linuxfoundation.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Sun,  4 Sep 2022 15:41:25 -0600
-Message-Id: <20220904214134.408619-49-jim.cromie@gmail.com>
+Date: Sun,  4 Sep 2022 15:41:22 -0600
+Message-Id: <20220904214134.408619-46-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220904214134.408619-1-jim.cromie@gmail.com>
 References: <20220904214134.408619-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 48/57] dyndbg: add .gnu.linkonce slot in
- vmlinux.lds.h KEEPs
+Subject: [Intel-gfx] [PATCH v6 45/57] dyndbg: de-duplicate sites
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,43 +78,64 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add linker symbols and KEEPs for .gnu.linkonce.dyndbg and
-.gnu.linkonce.dyndbg_sites sections, placing them in front of their
-respective dyndbg and dyndbg_sites sections.
+In __ddebug_add_module(), detect repeated site records (by function
+name changes), and push changes onto the stack/vector passed in
+from dynamic_debug_init().
 
-This placement gives us a known relative offset (ie -1) from the start
-of the vector to the header, letting us use container_of to get it.
-The _index added previously allows determining &descs[0] from any
-desc[N].
-
-The .gnu.linkonce. collapses possible multiple declarations into a
-single allocation, with a single address.
-
-todo: will need similar for modules.lds.h
+For ddebug_add_module(), this transparently de-duplicates the local
+sites vector (passed in recently added stack-base, and offset 0).
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/asm-generic/vmlinux.lds.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ lib/dynamic_debug.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 1e7ee65e8591..20fdea9efd78 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -348,9 +348,13 @@
- 	__start___dyndbg_classes = .;					\
- 	KEEP(*(__dyndbg_classes))					\
- 	__stop___dyndbg_classes = .;					\
-+	__dyndbg_header = .;						\
-+	KEEP(*(.gnu.linkonce.dyndbg))					\
- 	__start___dyndbg = .;						\
- 	KEEP(*(__dyndbg))						\
- 	__stop___dyndbg = .;						\
-+	__dyndbg_site_header = .;					\
-+	KEEP(*(.gnu.linkonce.dyndbg_sites))				\
- 	__start___dyndbg_sites = .;					\
- 	KEEP(*(__dyndbg_sites))						\
- 	__stop___dyndbg_sites = .;					\
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 1b57e43e9c31..41c23ec979f4 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1347,7 +1347,7 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
+ 	struct ddebug_table *dt;
+ 	int i;
+ 
+-	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
++	v3pr_info("add-module: %s.%d sites, start: %d\n", modname, di->num_descs, base);
+ 	if (!di->num_descs) {
+ 		v3pr_info(" skip %s\n", modname);
+ 		return 0;
+@@ -1376,11 +1376,19 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
+ 		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
+ 
+ 	for (i = 0; i < di->num_descs; i++) {
+-		di->descs[i]._index = base + i;
+-		v3pr_info(" %d %d %s.%s.%d\n", i, base, modname,
+-			  di->descs[i].site->_function, di->descs[i].lineno);
+-	}
+ 
++		if (di->descs[i].site->_function != packed_sites[(*packed_base)]._function)
++			memcpy((void *) &packed_sites[++(*packed_base)],
++			       (void *) di->descs[i].site, sizeof(struct _ddebug_site));
++		else
++			di->descs[i].site = &packed_sites[(*packed_base)];
++
++		di->descs[i]._index = i + base;
++		di->descs[i]._map = *packed_base;
++
++		v3pr_info(" %d %d %s.%s.%d - %d\n", i, *packed_base, modname,
++			  di->descs[i].site->_function, di->descs[i].lineno, *packed_base);
++	}
+ 	mutex_lock(&ddebug_lock);
+ 	list_add_tail(&dt->link, &ddebug_tables);
+ 	mutex_unlock(&ddebug_lock);
+@@ -1539,7 +1547,7 @@ static int __init dynamic_debug_init(void)
+ 	iter = iter_mod_start = __start___dyndbg;
+ 	site = site_mod_start = __start___dyndbg_sites;
+ 	modname = iter->site->_modname;
+-	i = mod_sites = mod_ct = 0;
++	i = mod_sites = mod_ct = site_base = 0;
+ 
+ 	for (; iter < __stop___dyndbg; iter++, site++, i++, mod_sites++) {
+ 
 -- 
 2.37.2
 
