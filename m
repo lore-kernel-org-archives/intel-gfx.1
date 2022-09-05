@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54900ECAAD3
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 18:00:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 562C7ECAAD3
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 18:01:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79C1110E477;
-	Mon,  5 Sep 2022 18:00:18 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D486810E475
- for <intel-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 18:00:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DAC710E473;
+	Mon,  5 Sep 2022 18:01:33 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 507AD10E473
+ for <intel-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 18:01:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662400809; x=1693936809;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=WKlth4RbZIHmTwqHUAiO5golobKI/Cu5QJ7mEXpwfOA=;
- b=bPmkWVKo8U9zgMpZQQ3YM6mEL0vdFxFpYAgb8KEs0FbP3Gz5DYBoI2c6
- /+U+iRf9H79G+0mYEAPJdVTssYtSMNv+nO25CwDCBz+9liUv1pbEfoe2e
- qpkdNOdefkl+sNZScUXayHh6tX3QaKGHMv9kn9AtKpuu88Gd0c7ak408/
- iSZhbWlHiX+MSmzlichI00k+j9nBqTHnoIaXJvkx1kvFzd2G13926tk7J
- eMFAznzTHgTxvpUkO7NrjiE9flla8FnuSQDYx7hn4IRWad4UofBGACiaO
- 4ycds45F25t6+r4DIBtT/aHZK4jgqPS1Ao6Jc4hFzVVU12kW1BtV2im1Q g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10461"; a="295171029"
-X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="295171029"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2022 11:00:09 -0700
-X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="942178977"
-Received: from bnilawar-desk1.iind.intel.com ([10.145.169.158])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2022 11:00:07 -0700
-From: Badal Nilawar <badal.nilawar@intel.com>
+ t=1662400888; x=1693936888;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=TKutK7LT/8yUOPKfSI2/GCAMe6GBbB2cABKi5BA6xkU=;
+ b=VMvViunMVrKVPn5afFMvneOyJc6/0RKx6ViKJA+WQ4jMETF6CJemoalL
+ kk8d1IYqXVc8HEclI6nIWif/UCZc55lTW5qghv3Y13jsTSYmIskQHqFvq
+ eDIWSWcnFdKwSj9LYnfvWOn+2hPcb+4/da7uCe2e3mHUUGGkls8RwXd69
+ CEDAg8De5SP7kXIZR9aDr/b7Djwjf9PgJaQi0zpnq50NsgHjSa5fuCZW5
+ /U6IPa4RVroFxAhQ6aSrH8w+nfj5mWOSxPj4RdgQTOzO1nnupvIJcyQqL
+ nZmcwaqFl+heO9uK/qDiPyJEWrehYRCYTzr4qeqmBPNLXBA9/0/OzmK7q A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10461"; a="283427325"
+X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="283427325"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2022 11:01:27 -0700
+X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="675367491"
+Received: from smaciag-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.252.57.57])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2022 11:01:24 -0700
+From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  5 Sep 2022 23:32:17 +0530
-Message-Id: <20220905180219.1971119-4-badal.nilawar@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220905180219.1971119-1-badal.nilawar@intel.com>
-References: <20220905180219.1971119-1-badal.nilawar@intel.com>
+Date: Mon,  5 Sep 2022 21:01:03 +0300
+Message-Id: <cover.1662400767.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/5] drm/i915/xelpmp: Expose media as another GT
+Subject: [Intel-gfx] [PATCH 0/5] drm/i915: ipc and display sub-struct
+ refactoring
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,318 +56,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+This display sub-struct refactoring turned into ipc refactoring...
 
-Xe_LPM+ platforms have "standalone media."  I.e., the media unit is
-designed as an additional GT with its own engine list, GuC, forcewake,
-etc.  Let's allow platforms to include media GTs in their device info.
+Jani Nikula (5):
+  drm/i915/ipc: split out intel_ipc.[ch]
+  drm/i915/ipc: move IPC debugfs to intel_ipc.c
+  drm/i915/ipc: register debugfs only if IPC available
+  drm/i915/display: move IPC under display sub-struct
+  drm/i915/display: move hdport under display sub-struct
 
-Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/Makefile            |  1 +
- drivers/gpu/drm/i915/gt/intel_gt.c       | 12 ++++++--
- drivers/gpu/drm/i915/gt/intel_gt_regs.h  |  8 +++++
- drivers/gpu/drm/i915/gt/intel_sa_media.c | 39 ++++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_sa_media.h | 15 +++++++++
- drivers/gpu/drm/i915/i915_pci.c          | 15 +++++++++
- drivers/gpu/drm/i915/intel_device_info.h |  5 ++-
- drivers/gpu/drm/i915/intel_uncore.c      | 16 ++++++++--
- drivers/gpu/drm/i915/intel_uncore.h      | 20 ++++++++++--
- 9 files changed, 123 insertions(+), 8 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gt/intel_sa_media.c
- create mode 100644 drivers/gpu/drm/i915/gt/intel_sa_media.h
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   4 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |   9 +-
+ .../gpu/drm/i915/display/intel_display_core.h |  14 +++
+ .../drm/i915/display/intel_display_debugfs.c  |  55 +--------
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c |   4 +-
+ drivers/gpu/drm/i915/display/intel_ipc.c      | 116 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_ipc.h      |  18 +++
+ drivers/gpu/drm/i915/i915_driver.c            |   3 +-
+ drivers/gpu/drm/i915/i915_drv.h               |  10 --
+ drivers/gpu/drm/i915/intel_pm.c               |  47 +------
+ drivers/gpu/drm/i915/intel_pm.h               |   2 -
+ 12 files changed, 165 insertions(+), 118 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_ipc.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_ipc.h
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 522ef9b4aff3..e83e4cd46968 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -123,6 +123,7 @@ gt-y += \
- 	gt/intel_ring.o \
- 	gt/intel_ring_submission.o \
- 	gt/intel_rps.o \
-+	gt/intel_sa_media.o \
- 	gt/intel_sseu.o \
- 	gt/intel_sseu_debugfs.o \
- 	gt/intel_timeline.o \
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 57a6488c0e14..bfe77d01f747 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -776,10 +776,15 @@ void intel_gt_driver_late_release_all(struct drm_i915_private *i915)
- 	}
- }
- 
--static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
-+static int intel_gt_tile_setup(struct intel_gt *gt,
-+			       phys_addr_t phys_addr,
-+			       u32 gsi_offset)
- {
- 	int ret;
- 
-+	/* GSI offset is only applicable for media GTs */
-+	drm_WARN_ON(&gt->i915->drm, gsi_offset);
-+
- 	if (!gt_is_root(gt)) {
- 		struct intel_uncore_mmio_debug *mmio_debug;
- 		struct intel_uncore *uncore;
-@@ -840,7 +845,7 @@ int intel_gt_probe_all(struct drm_i915_private *i915)
- 	gt->info.engine_mask = RUNTIME_INFO(i915)->platform_engine_mask;
- 
- 	drm_dbg(&i915->drm, "Setting up %s\n", gt->name);
--	ret = intel_gt_tile_setup(gt, phys_addr);
-+	ret = intel_gt_tile_setup(gt, phys_addr, 0);
- 	if (ret)
- 		return ret;
- 
-@@ -873,7 +878,8 @@ int intel_gt_probe_all(struct drm_i915_private *i915)
- 			goto err;
- 		}
- 
--		ret = gtdef->setup(gt, phys_addr + gtdef->mapping_base);
-+		ret = gtdef->setup(gt, phys_addr + gtdef->mapping_base,
-+				   gtdef->gsi_offset);
- 		if (ret)
- 			goto err;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index d414785003cc..fb2c56777480 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1578,4 +1578,12 @@
- 
- #define GEN12_SFC_DONE(n)			_MMIO(0x1cc000 + (n) * 0x1000)
- 
-+/*
-+ * Standalone Media's non-engine GT registers are located at their regular GT
-+ * offsets plus 0x380000.  This extra offset is stored inside the intel_uncore
-+ * structure so that the existing code can be used for both GTs without
-+ * modification.
-+ */
-+#define MTL_MEDIA_GSI_BASE			0x380000
-+
- #endif /* __INTEL_GT_REGS__ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_sa_media.c b/drivers/gpu/drm/i915/gt/intel_sa_media.c
-new file mode 100644
-index 000000000000..8c5c519457cc
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/intel_sa_media.c
-@@ -0,0 +1,39 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2021 Intel Corporation
-+ */
-+
-+#include <drm/drm_managed.h>
-+
-+#include "i915_drv.h"
-+#include "gt/intel_gt.h"
-+#include "gt/intel_sa_media.h"
-+
-+int intel_sa_mediagt_setup(struct intel_gt *gt, phys_addr_t phys_addr,
-+			   u32 gsi_offset)
-+{
-+	struct drm_i915_private *i915 = gt->i915;
-+	struct intel_uncore *uncore;
-+
-+	uncore = drmm_kzalloc(&i915->drm, sizeof(*uncore), GFP_KERNEL);
-+	if (!uncore)
-+		return -ENOMEM;
-+
-+	uncore->gsi_offset = gsi_offset;
-+
-+	intel_gt_common_init_early(gt);
-+	intel_uncore_init_early(uncore, gt);
-+
-+	/*
-+	 * Standalone media shares the general MMIO space with the primary
-+	 * GT.  We'll re-use the primary GT's mapping.
-+	 */
-+	uncore->regs = i915->uncore.regs;
-+	if (drm_WARN_ON(&i915->drm, uncore->regs == NULL))
-+		return -EIO;
-+
-+	gt->uncore = uncore;
-+	gt->phys_addr = phys_addr;
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/i915/gt/intel_sa_media.h b/drivers/gpu/drm/i915/gt/intel_sa_media.h
-new file mode 100644
-index 000000000000..3afb310de932
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/intel_sa_media.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2021 Intel Corporation
-+ */
-+#ifndef __INTEL_SA_MEDIA__
-+#define __INTEL_SA_MEDIA__
-+
-+#include <linux/types.h>
-+
-+struct intel_gt;
-+
-+int intel_sa_mediagt_setup(struct intel_gt *gt, phys_addr_t phys_addr,
-+			   u32 gsi_offset);
-+
-+#endif /* __INTEL_SA_MEDIA_H__ */
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 26b25d9434d6..18d3722331e4 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -26,6 +26,9 @@
- #include <drm/drm_drv.h>
- #include <drm/i915_pciids.h>
- 
-+#include "gt/intel_gt_regs.h"
-+#include "gt/intel_sa_media.h"
-+
- #include "i915_driver.h"
- #include "i915_drv.h"
- #include "i915_pci.h"
-@@ -1115,6 +1118,17 @@ static const struct intel_device_info pvc_info = {
- 	.display.has_cdclk_crawl = 1, \
- 	.__runtime.fbc_mask = BIT(INTEL_FBC_A) | BIT(INTEL_FBC_B)
- 
-+static const struct intel_gt_definition xelpmp_extra_gt[] = {
-+	{
-+		.type = GT_MEDIA,
-+		.name = "Standalone Media GT",
-+		.setup = intel_sa_mediagt_setup,
-+		.gsi_offset = MTL_MEDIA_GSI_BASE,
-+		.engine_mask = BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
-+	},
-+	{}
-+};
-+
- __maybe_unused
- static const struct intel_device_info mtl_info = {
- 	XE_HP_FEATURES,
-@@ -1128,6 +1142,7 @@ static const struct intel_device_info mtl_info = {
- 	.media.ver = 13,
- 	PLATFORM(INTEL_METEORLAKE),
- 	.display.has_modular_fia = 1,
-+	.extra_gt_list = xelpmp_extra_gt,
- 	.has_flat_ccs = 0,
- 	.has_snoop = 1,
- 	.__runtime.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index b408ce384cd7..7b6d5341b34b 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -248,14 +248,17 @@ struct intel_runtime_info {
- enum intel_gt_type {
- 	GT_PRIMARY,
- 	GT_TILE,
-+	GT_MEDIA,
- };
- 
- struct intel_gt_definition {
- 	enum intel_gt_type type;
- 	char *name;
- 	int (*setup)(struct intel_gt *gt,
--		     phys_addr_t phys_addr);
-+		     phys_addr_t phys_addr,
-+		     u32 gsi_offset);
- 	u32 mapping_base;
-+	u32 gsi_offset;
- 	intel_engine_mask_t engine_mask;
- };
- 
-diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 9b81b2543ce2..faec6c1aad66 100644
---- a/drivers/gpu/drm/i915/intel_uncore.c
-+++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -1771,10 +1771,15 @@ __gen2_read(64)
- #undef GEN2_READ_FOOTER
- #undef GEN2_READ_HEADER
- 
-+#define IS_GSI_REG(reg) ((reg) < 0x40000)
-+
- #define GEN6_READ_HEADER(x) \
--	u32 offset = i915_mmio_reg_offset(reg); \
-+	u32 offset; \
- 	unsigned long irqflags; \
- 	u##x val = 0; \
-+	if (IS_GSI_REG(reg.reg)) \
-+		reg.reg += uncore->gsi_offset; \
-+	offset = i915_mmio_reg_offset(reg); \
- 	assert_rpm_wakelock_held(uncore->rpm); \
- 	spin_lock_irqsave(&uncore->lock, irqflags); \
- 	unclaimed_reg_debug(uncore, reg, true, true)
-@@ -1876,8 +1881,11 @@ __gen2_write(32)
- #undef GEN2_WRITE_HEADER
- 
- #define GEN6_WRITE_HEADER \
--	u32 offset = i915_mmio_reg_offset(reg); \
-+	u32 offset; \
- 	unsigned long irqflags; \
-+	if (IS_GSI_REG(reg.reg)) \
-+		reg.reg += uncore->gsi_offset; \
-+	offset = i915_mmio_reg_offset(reg); \
- 	trace_i915_reg_rw(true, reg, val, sizeof(val), trace); \
- 	assert_rpm_wakelock_held(uncore->rpm); \
- 	spin_lock_irqsave(&uncore->lock, irqflags); \
-@@ -2256,6 +2264,10 @@ int intel_uncore_setup_mmio(struct intel_uncore *uncore, phys_addr_t phys_addr)
- 
- void intel_uncore_cleanup_mmio(struct intel_uncore *uncore)
- {
-+	/* The media GT re-uses the primary GT's register mapping */
-+	if (uncore->gt->type == GT_MEDIA)
-+		return;
-+
- 	iounmap(uncore->regs);
- }
- 
-diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
-index b1fa912a65e7..b25efdd9560e 100644
---- a/drivers/gpu/drm/i915/intel_uncore.h
-+++ b/drivers/gpu/drm/i915/intel_uncore.h
-@@ -135,6 +135,16 @@ struct intel_uncore {
- 
- 	spinlock_t lock; /** lock is also taken in irq contexts. */
- 
-+	/*
-+	 * Do we need to apply an additional offset to reach the beginning
-+	 * of the basic non-engine GT registers (referred to as "GSI" on
-+	 * newer platforms, or "GT block" on older platforms)?  If so, we'll
-+	 * track that here and apply it transparently to registers in the
-+	 * appropriate range to maintain compatibility with our existing
-+	 * register definitions and GT code.
-+	 */
-+	u32 gsi_offset;
-+
- 	unsigned int flags;
- #define UNCORE_HAS_FORCEWAKE		BIT(0)
- #define UNCORE_HAS_FPGA_DBG_UNCLAIMED	BIT(1)
-@@ -299,14 +309,20 @@ intel_wait_for_register_fw(struct intel_uncore *uncore,
- static inline u##x__ __raw_uncore_read##x__(const struct intel_uncore *uncore, \
- 					    i915_reg_t reg) \
- { \
--	return read##s__(uncore->regs + i915_mmio_reg_offset(reg)); \
-+	u32 offset = i915_mmio_reg_offset(reg); \
-+	if (offset < 0x40000) \
-+		offset += uncore->gsi_offset; \
-+	return read##s__(uncore->regs + offset); \
- }
- 
- #define __raw_write(x__, s__) \
- static inline void __raw_uncore_write##x__(const struct intel_uncore *uncore, \
- 					   i915_reg_t reg, u##x__ val) \
- { \
--	write##s__(val, uncore->regs + i915_mmio_reg_offset(reg)); \
-+	u32 offset = i915_mmio_reg_offset(reg); \
-+	if (offset < 0x40000) \
-+		offset += uncore->gsi_offset; \
-+	write##s__(val, uncore->regs + offset); \
- }
- __raw_read(8, b)
- __raw_read(16, w)
 -- 
-2.25.1
+2.34.1
 
