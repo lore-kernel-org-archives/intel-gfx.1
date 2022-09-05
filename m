@@ -4,31 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32568ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 10:48:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9DFCECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 10:53:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA9310E2CB;
-	Mon,  5 Sep 2022 10:48:34 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6000810E2B5;
- Mon,  5 Sep 2022 10:48:25 +0000 (UTC)
-Received: from ip5b412258.dynamic.kabel-deutschland.de ([91.65.34.88]
- helo=diego.localnet) by gloria.sntech.de with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <heiko@sntech.de>)
- id 1oV96T-0005L3-MN; Mon, 05 Sep 2022 12:13:17 +0200
-From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
-To: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@intel.com>
-Date: Mon, 05 Sep 2022 12:13:17 +0200
-Message-ID: <11952780.MucGe3eQFb@diego>
-In-Reply-To: <429e4b3f905b070fb985ce7388b9637e2b4704dd.1662036058.git.jani.nikula@intel.com>
-References: <cover.1662036058.git.jani.nikula@intel.com>
- <429e4b3f905b070fb985ce7388b9637e2b4704dd.1662036058.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6626F10E28E;
+	Mon,  5 Sep 2022 10:53:40 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 017BA10E28E;
+ Mon,  5 Sep 2022 10:53:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662375217; x=1693911217;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=KLC/FW9KIe16SKVDU+/OtuamUatCXKhRTpO7Ttv3yrE=;
+ b=ka5Pf/1owUyE+PCLG1iRjz1gZpPJh+TfhBuUbf+G9KkrkhvFebJ1Hm1H
+ 7ZnHfrq/U/5d7EQrxgD9c3o0WOq2dNU29O58V4c8h2HopV0yB+xGHtVnz
+ AhyPbjDXDuD8YdxyLvUx97+oDtG3EtT5QnHyEZcbS0YRoqmWWFJyQqv29
+ 0aapjcLUShf8h+TNpvbWJ+zu0JBw7Ds2FAUeBTVyyYCfcuvANQIjEXOyN
+ RedeLB3lExjdbVMvGXlpS1gWklmCW6nTCNhvS8woPQthqD8V0c59RQxtD
+ VVIuABS0ZyHw3MHCJ8cjtODOx9lxYjEnQCkAxgyJwRxZx8yIZ+gF5tnIg A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10460"; a="358079231"
+X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="358079231"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2022 03:53:36 -0700
+X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="675242538"
+Received: from icoco-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.213.202.248])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2022 03:53:35 -0700
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon,  5 Sep 2022 11:53:29 +0100
+Message-Id: <20220905105329.41455-1-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-Subject: Re: [Intel-gfx] [PATCH 9/9] drm/rockchip: convert to using
- has_audio from display_info
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915: consider HAS_FLAT_CCS() in
+ needs_ccs_pages
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,67 +55,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Sandy Huang <hjc@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am Donnerstag, 1. September 2022, 14:47:11 CEST schrieb Jani Nikula:
-> Prefer the parsed results for has_audio in display info over calling
-> drm_detect_monitor_audio().
->=20
-> Cc: Sandy Huang <hjc@rock-chips.com>
-> Cc: Heiko St=FCbner <heiko@sntech.de>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Just move the HAS_FLAT_CCS() check into needs_ccs_pages. This also then
+fixes i915_ttm_memcpy_allowed() which was incorrectly reporting true on
+DG1, even though it doesn't have small-BAR or flat-CCS.
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+References: https://gitlab.freedesktop.org/drm/intel/-/issues/6605
+Fixes: efeb3caf4341 ("drm/i915/ttm: disallow CPU fallback mode for ccs pages")
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Nirmoy Das <nirmoy.das@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_object.c | 3 +++
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c    | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-> ---
->  drivers/gpu/drm/rockchip/cdn-dp-core.c | 4 ++--
->  drivers/gpu/drm/rockchip/inno_hdmi.c   | 3 ++-
->  2 files changed, 4 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/roc=
-kchip/cdn-dp-core.c
-> index f77bdf5f5168..50af9861553b 100644
-> --- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
-> +++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
-> @@ -272,10 +272,10 @@ static int cdn_dp_connector_get_modes(struct drm_co=
-nnector *connector)
->  		DRM_DEV_DEBUG_KMS(dp->dev, "got edid: width[%d] x height[%d]\n",
->  				  edid->width_cm, edid->height_cm);
-> =20
-> -		dp->sink_has_audio =3D drm_detect_monitor_audio(edid);
-> -
->  		drm_connector_update_edid_property(connector, edid);
->  		ret =3D drm_add_edid_modes(connector, edid);
-> +
-> +		dp->sink_has_audio =3D connector->display_info.has_audio;
->  	}
->  	mutex_unlock(&dp->lock);
-> =20
-> diff --git a/drivers/gpu/drm/rockchip/inno_hdmi.c b/drivers/gpu/drm/rockc=
-hip/inno_hdmi.c
-> index 87b2243ea23e..fadaa795fb3d 100644
-> --- a/drivers/gpu/drm/rockchip/inno_hdmi.c
-> +++ b/drivers/gpu/drm/rockchip/inno_hdmi.c
-> @@ -564,10 +564,11 @@ static int inno_hdmi_connector_get_modes(struct drm=
-_connector *connector)
-> =20
->  	edid =3D drm_get_edid(connector, hdmi->ddc);
->  	if (edid) {
-> -		hdmi->hdmi_data.sink_has_audio =3D drm_detect_monitor_audio(edid);
->  		drm_connector_update_edid_property(connector, edid);
->  		ret =3D drm_add_edid_modes(connector, edid);
->  		kfree(edid);
-> +
-> +		hdmi->hdmi_data.sink_has_audio =3D connector->display_info.has_audio;
->  	}
-> =20
->  	return ret;
->=20
-
-
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 389e9f157ca5..85482a04d158 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -723,6 +723,9 @@ bool i915_gem_object_needs_ccs_pages(struct drm_i915_gem_object *obj)
+ 	bool lmem_placement = false;
+ 	int i;
+ 
++	if (!HAS_FLAT_CCS(to_i915(obj->base.dev)))
++		return false;
++
+ 	for (i = 0; i < obj->mm.n_placements; i++) {
+ 		/* Compression is not allowed for the objects with smem placement */
+ 		if (obj->mm.placements[i]->type == INTEL_MEMORY_SYSTEM)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index bc9c432edffe..f64a3deb12fc 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -297,7 +297,7 @@ static struct ttm_tt *i915_ttm_tt_create(struct ttm_buffer_object *bo,
+ 		i915_tt->is_shmem = true;
+ 	}
+ 
+-	if (HAS_FLAT_CCS(i915) && i915_gem_object_needs_ccs_pages(obj))
++	if (i915_gem_object_needs_ccs_pages(obj))
+ 		ccs_pages = DIV_ROUND_UP(DIV_ROUND_UP(bo->base.size,
+ 						      NUM_BYTES_PER_CCS_BYTE),
+ 					 PAGE_SIZE);
+-- 
+2.37.3
 
