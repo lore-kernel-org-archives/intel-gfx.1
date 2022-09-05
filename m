@@ -4,75 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3BA0ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:37:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52DEAC54EE9
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:37:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E150B10E695;
-	Tue,  6 Sep 2022 12:37:37 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B85310E43F;
- Wed, 31 Aug 2022 15:39:50 +0000 (UTC)
-Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 172376601EAC;
- Wed, 31 Aug 2022 16:39:46 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960389;
- bh=gdOsnqn+hkC/PYCc3SOTg9WbAqCE6tugxLVX0sLlB6k=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WLF6bT+wDRofJAtDZk+i2VmH8A0ApZxbJPdBENc2WsfMj9DWX/4nsgRPP/X0h2cPc
- Q+z/ITW7+8jBiClYSOevkqmQMj5ZY4DTpwBrki3X+EQRNLP2wzw8WK7zREcI2bDSNX
- CD260pRQ/h3fXPMJUtuf2sIDljhle9yyNj7vamirWCHaWz+fe7J5lpxcHG6vWAGz9e
- L6hRXO87US7+C6URv9MmyZHsXIk5YtbmEYykRTw+ak23HugSPYn+3S1zv1CSdV5eSd
- YGI88Y9TXgnQiNuejbDWZszW0ZXlUt/kMba0/D//NaVvJm53xfBMrQT/MhpZ4I8oIk
- bkkBH5QjZiXmw==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Wed, 31 Aug 2022 18:37:47 +0300
-Message-Id: <20220831153757.97381-12-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8145E10E696;
+	Tue,  6 Sep 2022 12:37:38 +0000 (UTC)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1DDA10E15B;
+ Mon,  5 Sep 2022 06:11:17 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id b16so9947949edd.4;
+ Sun, 04 Sep 2022 23:11:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=TOxGbAy2/OZKwJ9nVGZ0GlPbb7hcvaZ08+xyL+o4xuM=;
+ b=P/RNRHPfxk589sRUV2jUSQ2pYGwFnYClt07V5tXQYH+u+yVAnCG9IXsvjyIFHkL4X4
+ IsP3CXKPZEjK0izCyF2p4snAYK6cfmeAvl0cj7jQZ8WjhFsQfeaa2hK/5o2r6eiBCrX/
+ ihaTbTv78PiysAWrOqUWwUYpazupk+9ci6Hg71bmaHFE3RcP4YI73AuJxsV/cX1+nNEZ
+ o0JV5puFxO0CXNNfE5XJz8eBrarQ5f9398fcTrXZPMy7O4q0iIV9LPEd7i9lcYRsyaiv
+ TxUGdGIXswj2NnMAfJgfn4tElxYtikBOA5mkLAyAwGpKGZuO04+2bvI3iQvBxFcULsuF
+ dXuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=TOxGbAy2/OZKwJ9nVGZ0GlPbb7hcvaZ08+xyL+o4xuM=;
+ b=vGmYIxH2QxxdbDoS2JCkRRFUuuYCupASYscGTIFu+l6vWBPChZugJGRafo1sSBKHLL
+ lgoScm8hGyKmXXySBF6RFJ1+qySH2ctGZinK+hTXPJw0B1+rWJYf0VbiXVeuJSmWg5bE
+ nrv8tEHh2rtgPs/6a/h7RW578i4EZWpCiq5xrbRDbiDM2jIV7a7YH9EbILYTbwSUfXGl
+ d0ccLPOBMmBn90o0gwE7eMGBNxwhH4wBXPJ6Ml+boK+KX5tpBpHFmYVdnrQtEUQXpLoj
+ qmIYiTP8cNss0lcor4QYLjvdVWY7YpNk4H37czV0uh2pA0+dDk+V+KSTCAcNqQvbFkgz
+ vfDg==
+X-Gm-Message-State: ACgBeo3s619GDFFm5iFHYPmLiVw9qMthPiFQyYEiXTKhCNFrk7e+mCB9
+ +RBFV5sFVaQgdwm8GOVfZbo4wVOsQmibO0eqcX4=
+X-Google-Smtp-Source: AA6agR4yAzdHez7/blZk6NYwiF92kJyUQkRjMuq5dEPkWOo26MOn5t5bRvhx0Ku08bELMi7XurlgR1oHdGlPYRnm5y8=
+X-Received: by 2002:a50:ef03:0:b0:44e:82bf:28e6 with SMTP id
+ m3-20020a50ef03000000b0044e82bf28e6mr2863623eds.270.1662358276030; Sun, 04
+ Sep 2022 23:11:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
-Subject: [Intel-gfx] [PATCH v4 11/21] misc: fastrpc: Prepare to dynamic
- dma-buf locking specification
+References: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
+ <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
+In-Reply-To: <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
+From: Zheng Hacker <hackerzheng666@gmail.com>
+Date: Mon, 5 Sep 2022 14:11:04 +0800
+Message-ID: <CAJedcCz5GKSUt0hZUp3djX3tCq8v3=gPa-tZJJOSaj_fV2psyQ@mail.gmail.com>
+To: xmzyshypnc <1002992920@qq.com>
+Content-Type: multipart/alternative; boundary="00000000000088448105e7e7f2aa"
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: fix double-free bug in
+ split_2MB_gtt_entry.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,47 +66,145 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+Cc: alex000young@gmail.com, security@kernel.org,
+ dri-devel@lists.freedesktop.org, airlied@linux.ie,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
+ rodrigo.vivi@intel.com, intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prepare fastrpc to the common dynamic dma-buf locking convention by
-starting to use the unlocked versions of dma-buf API functions.
+--00000000000088448105e7e7f2aa
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
----
- drivers/misc/fastrpc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Resent the mail for the former letter contains html text.
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 93ebd174d848..6fcfb2e9f7a7 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -310,8 +310,8 @@ static void fastrpc_free_map(struct kref *ref)
- 				return;
- 			}
- 		}
--		dma_buf_unmap_attachment(map->attach, map->table,
--					 DMA_BIDIRECTIONAL);
-+		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
-+						  DMA_BIDIRECTIONAL);
- 		dma_buf_detach(map->buf, map->attach);
- 		dma_buf_put(map->buf);
- 	}
-@@ -726,7 +726,7 @@ static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
- 		goto attach_err;
- 	}
- 
--	map->table = dma_buf_map_attachment(map->attach, DMA_BIDIRECTIONAL);
-+	map->table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
- 	if (IS_ERR(map->table)) {
- 		err = PTR_ERR(map->table);
- 		goto map_err;
--- 
-2.37.2
+Regards,
 
+Zheng Wang
+
+Zheng Hacker <hackerzheng666@gmail.com> =E4=BA=8E2022=E5=B9=B49=E6=9C=885=
+=E6=97=A5=E5=91=A8=E4=B8=80 12:47=E5=86=99=E9=81=93=EF=BC=9A
+
+> Hello everyone,
+>
+> I'm Zheng Wang. I found a potential double-free bug
+> in drivers/gpu/drm/i915/gvt/gtt.c. I haven't been replied for a long time=
+.
+> So I decided to send it to more relavent supporters and developers to hel=
+p
+> to solve the problem.
+>
+> Best regards,
+> Zheng Wang.
+>
+> xmzyshypnc <1002992920@qq.com> =E4=BA=8E2022=E5=B9=B49=E6=9C=884=E6=97=A5=
+=E5=91=A8=E6=97=A5 20:32=E5=86=99=E9=81=93=EF=BC=9A
+>
+>> There is a double-free security bug in split_2MB_gtt_entry.
+>>
+>> Here is a calling chain :
+>> ppgtt_populate_spt->ppgtt_populate_shadow_entry->split_2MB_gtt_entry. If
+>> intel_gvt_dma_map_guest_page failed, it will call  ppgtt_invalidate_spt,
+>> which will finally call ppgtt_free_spt and kfree(spt). But the caller do=
+es
+>> not notice that, and it will call ppgtt_free_spt again in error path.
+>>
+>> Fix this by returning the result of ppgtt_invalidate_spt to
+>> split_2MB_gtt_entry.
+>>
+>> Signed-off-by: Zheng Wang <1002992920@qq.com>
+>> ---
+>>  drivers/gpu/drm/i915/gvt/gtt.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gvt/gtt.c
+>> b/drivers/gpu/drm/i915/gvt/gtt.c
+>> index ce0eb03709c3..9f14fded8c0c 100644
+>> --- a/drivers/gpu/drm/i915/gvt/gtt.c
+>> +++ b/drivers/gpu/drm/i915/gvt/gtt.c
+>> @@ -1215,7 +1215,7 @@ static int split_2MB_gtt_entry(struct intel_vgpu
+>> *vgpu,
+>>                 ret =3D intel_gvt_dma_map_guest_page(vgpu, start_gfn +
+>> sub_index,
+>>                                                    PAGE_SIZE, &dma_addr)=
+;
+>>                 if (ret) {
+>> -                       ppgtt_invalidate_spt(spt);
+>> +                       ret =3D ppgtt_invalidate_spt(spt);
+>>                         return ret;
+>>                 }
+>>                 sub_se.val64 =3D se->val64;
+>> --
+>> 2.25.1
+>>
+>>
+
+--00000000000088448105e7e7f2aa
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Resent the mail for the former letter contains html t=
+ext.<br></div><div><br></div><div>Regards,</div><div><br></div><div>Zheng W=
+ang</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_att=
+r">Zheng Hacker &lt;<a href=3D"mailto:hackerzheng666@gmail.com">hackerzheng=
+666@gmail.com</a>&gt; =E4=BA=8E2022=E5=B9=B49=E6=9C=885=E6=97=A5=E5=91=A8=
+=E4=B8=80 12:47=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
+204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr">Hello everyone=
+,<div><br><div>I&#39;m Zheng Wang. I found a potential double-free bug in=
+=C2=A0drivers/gpu/drm/i915/gvt/gtt.c. I haven&#39;t been replied for a long=
+ time. So I decided to send it to more relavent supporters and developers t=
+o help to solve=C2=A0the problem.</div></div><div><br></div><div>Best regar=
+ds,</div><div>Zheng Wang.</div></div><br><div class=3D"gmail_quote"><div di=
+r=3D"ltr" class=3D"gmail_attr">xmzyshypnc &lt;<a href=3D"mailto:1002992920@=
+qq.com">1002992920@qq.com</a>&gt; =E4=BA=8E2022=E5=B9=B49=E6=9C=884=E6=97=
+=A5=E5=91=A8=E6=97=A5 20:32=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
+lid rgb(204,204,204);padding-left:1ex">There is a double-free security bug =
+in split_2MB_gtt_entry.<br>
+<br>
+Here is a calling chain : ppgtt_populate_spt-&gt;ppgtt_populate_shadow_entr=
+y-&gt;split_2MB_gtt_entry. If intel_gvt_dma_map_guest_page failed, it will =
+call=C2=A0 ppgtt_invalidate_spt, which will finally call ppgtt_free_spt and=
+ kfree(spt). But the caller does not notice that, and it will call ppgtt_fr=
+ee_spt again in error path.<br>
+<br>
+Fix this by returning the result of ppgtt_invalidate_spt to split_2MB_gtt_e=
+ntry.<br>
+<br>
+Signed-off-by: Zheng Wang &lt;<a href=3D"mailto:1002992920@qq.com">10029929=
+20@qq.com</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/i915/gvt/gtt.c | 2 +-<br>
+=C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.=
+c<br>
+index ce0eb03709c3..9f14fded8c0c 100644<br>
+--- a/drivers/gpu/drm/i915/gvt/gtt.c<br>
++++ b/drivers/gpu/drm/i915/gvt/gtt.c<br>
+@@ -1215,7 +1215,7 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgp=
+u,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D intel_gvt_d=
+ma_map_guest_page(vgpu, start_gfn + sub_index,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PAGE_SIZE, &amp;dma_addr);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ret) {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0ppgtt_invalidate_spt(spt);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0ret =3D ppgtt_invalidate_spt(spt);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 return ret;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 sub_se.val64 =3D se=
+-&gt;val64;<br>
+-- <br>
+2.25.1<br>
+<br>
+</blockquote></div></div>
+</blockquote></div></div>
+
+--00000000000088448105e7e7f2aa--
