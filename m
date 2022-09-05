@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E1D9ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 08:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF4ABECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 08:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93FCB10E238;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C87C310E239;
 	Mon,  5 Sep 2022 08:57:12 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B176910E218;
- Mon,  5 Sep 2022 08:57:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DB7410E218;
+ Mon,  5 Sep 2022 08:56:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662368222; x=1693904222;
+ t=1662368218; x=1693904218;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pOX3+j2FO8TLHuzwfvF6IdNOcGsO9OsgzO2ct+qiEWI=;
- b=eXAQtcSQHnljGxBwozl6XGc+J8Uyn/3GnHn1cXRoCz0exF9PU1Pq/11X
- N0M303d6GDNuDcybaRe4edGowPgaLlto0BKNrrG3ZvNnPmqigqQU0TDlZ
- 4Jf9YDIpfIS4lnGvD3++LefbdlFLlhlN9sUKL/urEEMZyy5kBN89cNKY6
- 1t67uXUQrwIZXtwiC7hRj/vm5NMG+yps5A6sW5XmTWUlCvjtTWFRB2HF8
- d9hZfiAWeTNUB58L5HHCotGcsN+/5KWhDOKRkItsLg+Yr59GsE6w/Fo6N
- fXe1TKskLujikrwpaz2/bla1zl1hIbBl1uxOwk8R7YJ5IpXvwIAJoZc3E g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10460"; a="296347062"
-X-IronPort-AV: E=Sophos;i="5.93,290,1654585200"; d="scan'208";a="296347062"
+ bh=NP7jOWoxj/+8owTZT/fMFTpmxQF4XEGENGrsUKzvkmM=;
+ b=E35w6Wp33Tr7HdDVz6K7lDlMxbuyAS2Qu7oIsiRof+pp2aT/Vvc19Zrf
+ 3dxTO4tuCkflz+jzCCw/OdqtWeKEFX1yPv3OhGrgd+WURU3G+CG/Sb0uw
+ XboIcUjEXzY5JycYXtzU6xqhG/BlMY7IEXUbqX670Tpc+djh7964t+n32
+ tE07CDGaJ652eEHZZ54d4T71vKrnQe+PEommWYgfooSzC0sAbUvS2xaGa
+ jgtPwcGCdwJgNMLAwlp6ojBwyH/xzjW4SGuyIfCuDC/6RZcuGRAIQB0g5
+ 15YmFfApZDfZobVkhugkaSEaFGbjDp8TbLxe3EpKC7dJqIGq2U28XWkCv Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10460"; a="296347051"
+X-IronPort-AV: E=Sophos;i="5.93,290,1654585200"; d="scan'208";a="296347051"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2022 01:57:02 -0700
+ 05 Sep 2022 01:56:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,290,1654585200"; d="scan'208";a="755961733"
+X-IronPort-AV: E=Sophos;i="5.93,290,1654585200"; d="scan'208";a="755961704"
 Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
  ([10.237.72.65])
- by fmsmga001.fm.intel.com with ESMTP; 05 Sep 2022 01:57:00 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 05 Sep 2022 01:56:56 -0700
 From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  5 Sep 2022 11:57:43 +0300
-Message-Id: <20220905085744.29637-4-stanislav.lisovskiy@intel.com>
+Date: Mon,  5 Sep 2022 11:57:41 +0300
+Message-Id: <20220905085744.29637-2-stanislav.lisovskiy@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220905085744.29637-1-stanislav.lisovskiy@intel.com>
 References: <20220905085744.29637-1-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/4] drm/i915: Extract
- drm_dp_atomic_find_vcpi_slots cycle to separate function
+Subject: [Intel-gfx] [PATCH 1/4] drm: Add missing DP DSC extended capability
+ definitions.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,111 +61,64 @@ Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We would be using almost same code to loop through bpps while calling
-drm_dp_atomic_find_vcpi_slots - lets remove this duplication by
-introducing a new function intel_dp_mst_find_vcpi_slots_for_bpp
+Adding DP DSC register definitions, we might need for further
+DSC implementation, supporting MST and DP branch pass-through mode.
 
-v2: Fix pbn_div calculation - shouldn't matter if its DSC or not.
+v2: - Fixed checkpatch comment warning
+v3: - Removed function which is not yet used(Jani Nikula)
 
 Reviewed-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+
 Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 52 +++++++++++++++------
- 1 file changed, 39 insertions(+), 13 deletions(-)
+ include/drm/display/drm_dp.h | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 24d6a287a6e3..79ac23495165 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -44,10 +44,14 @@
- #include "intel_hotplug.h"
- #include "skl_scaler.h"
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 6c0871164771..02c4b6f20478 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -239,6 +239,9 @@
  
--static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
--					    struct intel_crtc_state *crtc_state,
--					    struct drm_connector_state *conn_state,
--					    struct link_config_limits *limits)
-+static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
-+						struct intel_crtc_state *crtc_state,
-+						int max_bpp,
-+						int min_bpp,
-+						struct link_config_limits *limits,
-+						struct drm_connector_state *conn_state,
-+						int step,
-+						bool dsc)
- {
- 	struct drm_atomic_state *state = crtc_state->uapi.state;
- 	struct intel_dp_mst_encoder *intel_mst = enc_to_mst(encoder);
-@@ -58,7 +62,6 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	const struct drm_display_mode *adjusted_mode =
- 		&crtc_state->hw.adjusted_mode;
--	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CONSTANT_N);
- 	int bpp, slots = -EINVAL;
- 	int ret = 0;
+ #define DP_DSC_SUPPORT                      0x060   /* DP 1.4 */
+ # define DP_DSC_DECOMPRESSION_IS_SUPPORTED  (1 << 0)
++# define DP_DSC_PASS_THROUGH_IS_SUPPORTED   (1 << 1)
++# define DP_DSC_DYNAMIC_PPS_UPDATE_SUPPORT_COMP_TO_COMP    (1 << 2)
++# define DP_DSC_DYNAMIC_PPS_UPDATE_SUPPORT_UNCOMP_TO_COMP  (1 << 3)
  
-@@ -72,18 +75,20 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
- 	// TODO: Handle pbn_div changes by adding a new MST helper
- 	if (!mst_state->pbn_div) {
- 		mst_state->pbn_div = drm_dp_get_vc_payload_bw(&intel_dp->mst_mgr,
--							      limits->max_rate,
--							      limits->max_lane_count);
-+							      crtc_state->port_clock,
-+							      crtc_state->lane_count);
- 	}
+ #define DP_DSC_REV                          0x061
+ # define DP_DSC_MAJOR_MASK                  (0xf << 0)
+@@ -277,12 +280,15 @@
  
--	for (bpp = limits->max_bpp; bpp >= limits->min_bpp; bpp -= 2 * 3) {
-+	for (bpp = max_bpp; bpp >= min_bpp; bpp -= step) {
- 		crtc_state->pipe_bpp = bpp;
+ #define DP_DSC_BLK_PREDICTION_SUPPORT       0x066
+ # define DP_DSC_BLK_PREDICTION_IS_SUPPORTED (1 << 0)
++# define DP_DSC_RGB_COLOR_CONV_BYPASS_SUPPORT (1 << 1)
  
- 		crtc_state->pbn = drm_dp_calc_pbn_mode(adjusted_mode->crtc_clock,
--						       crtc_state->pipe_bpp,
--						       false);
-+						       dsc ? bpp << 4 : crtc_state->pipe_bpp,
-+						       dsc);
-+
- 		slots = drm_dp_atomic_find_time_slots(state, &intel_dp->mst_mgr,
--						      connector->port, crtc_state->pbn);
-+						      connector->port,
-+						      crtc_state->pbn);
- 		if (slots == -EDEADLK)
- 			return slots;
- 		if (slots >= 0) {
-@@ -101,11 +106,32 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
- 	if (ret && slots >= 0)
- 		slots = ret;
+ #define DP_DSC_MAX_BITS_PER_PIXEL_LOW       0x067   /* eDP 1.4 */
  
--	if (slots < 0) {
-+	if (slots < 0)
- 		drm_dbg_kms(&i915->drm, "failed finding vcpi slots:%d\n",
- 			    slots);
-+
-+	return slots;
-+}
-+
-+
-+static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
-+					    struct intel_crtc_state *crtc_state,
-+					    struct drm_connector_state *conn_state,
-+					    struct link_config_limits *limits)
-+{
-+	const struct drm_display_mode *adjusted_mode =
-+		&crtc_state->hw.adjusted_mode;
-+	struct intel_dp_mst_encoder *intel_mst = enc_to_mst(encoder);
-+	struct intel_dp *intel_dp = &intel_mst->primary->dp;
-+	bool constant_n = drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_CONSTANT_N);
-+	int slots = -EINVAL;
-+
-+	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, limits->max_bpp,
-+						     limits->min_bpp, limits,
-+						     conn_state, 2 * 3, false);
-+
-+	if (slots < 0)
- 		return slots;
--	}
+ #define DP_DSC_MAX_BITS_PER_PIXEL_HI        0x068   /* eDP 1.4 */
+ # define DP_DSC_MAX_BITS_PER_PIXEL_HI_MASK  (0x3 << 0)
+ # define DP_DSC_MAX_BITS_PER_PIXEL_HI_SHIFT 8
++# define DP_DSC_MAX_BPP_DELTA_VERSION_MASK  0x06
++# define DP_DSC_MAX_BPP_DELTA_AVAILABILITY  0x08
  
- 	intel_link_compute_m_n(crtc_state->pipe_bpp,
- 			       crtc_state->lane_count,
+ #define DP_DSC_DEC_COLOR_FORMAT_CAP         0x069
+ # define DP_DSC_RGB                         (1 << 0)
+@@ -344,11 +350,13 @@
+ # define DP_DSC_24_PER_DP_DSC_SINK          (1 << 2)
+ 
+ #define DP_DSC_BITS_PER_PIXEL_INC           0x06F
++# define DP_DSC_RGB_YCbCr444_MAX_BPP_DELTA_MASK 0x1f
++# define DP_DSC_RGB_YCbCr420_MAX_BPP_DELTA_MASK 0xe0
+ # define DP_DSC_BITS_PER_PIXEL_1_16         0x0
+ # define DP_DSC_BITS_PER_PIXEL_1_8          0x1
+ # define DP_DSC_BITS_PER_PIXEL_1_4          0x2
+ # define DP_DSC_BITS_PER_PIXEL_1_2          0x3
+-# define DP_DSC_BITS_PER_PIXEL_1            0x4
++# define DP_DSC_BITS_PER_PIXEL_1_1          0x4
+ 
+ #define DP_PSR_SUPPORT                      0x070   /* XXX 1.2? */
+ # define DP_PSR_IS_SUPPORTED                1
 -- 
 2.37.3
 
