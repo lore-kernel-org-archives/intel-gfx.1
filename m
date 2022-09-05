@@ -4,48 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D65DECAAD3
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 18:01:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C461C6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 18:30:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8532110E484;
-	Mon,  5 Sep 2022 18:01:50 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 070DC10E484
- for <intel-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 18:01:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662400906; x=1693936906;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=9igO1BUN2lTK54hX4agrq2zaqg44gZO4/XQH+3cKpW8=;
- b=H0vpGI8z1Z0Q9uPiJGmk9iLyqKxYb1HNSACNdAI92ywtbC79/p3xo520
- TqzGR4fsLY2/6emDAv5LdtJeblmZw0zXEKOlPaSOaR6G/FeFUdRuNdetx
- yZVoI35jQU0iZiq6a/ikLzPrGUjQidowP3esPXS8Aui22ogsuK0mFYbzH
- flgNrxpkAvYXuae8RVGVI7p7XTZkahVpFekodoCt0joM7Wxm3yxKeK0Np
- ihc3lne3y5TBebSCMeWqKtGx0pYKSaxPgE80xj8iOzGeK/MfX4Oz8w4WK
- gahhtDbgHNDv+IMa/siQvy2WKRc5TrQQcyntfEHUfhoPiIaonosiAdDLg Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10461"; a="295171301"
-X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="295171301"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2022 11:01:45 -0700
-X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="942179577"
-Received: from smaciag-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.252.57.57])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2022 11:01:44 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  5 Sep 2022 21:01:08 +0300
-Message-Id: <5e19a069ca8d6957e9509f2e81da7126409e6fdb.1662400767.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1662400767.git.jani.nikula@intel.com>
-References: <cover.1662400767.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91D6F10E4A4;
+	Mon,  5 Sep 2022 18:30:40 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4E1A910E49A;
+ Mon,  5 Sep 2022 18:30:37 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 44E0EA7DFC;
+ Mon,  5 Sep 2022 18:30:37 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/5] drm/i915/display: move hdport under display
- sub-struct
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Date: Mon, 05 Sep 2022 18:30:37 -0000
+Message-ID: <166240263725.1948.6678207693565586494@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <cover.1662400767.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1662400767.git.jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_ipc_and_display_sub-struct_refactoring?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,110 +40,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move display hdport related members under drm_i915_private display
-sub-struct.
+== Series Details ==
 
-Prefer adding anonymous sub-structs even for single members that aren't
-our own structs.
+Series: drm/i915: ipc and display sub-struct refactoring
+URL   : https://patchwork.freedesktop.org/series/108157/
+State : warning
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c          |  4 ++--
- drivers/gpu/drm/i915/display/intel_display.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_display_core.h | 10 ++++++++++
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c     |  4 ++--
- drivers/gpu/drm/i915/i915_drv.h                   |  8 --------
- 5 files changed, 15 insertions(+), 13 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index f5416433826d..266c379c1d98 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4130,8 +4130,8 @@ intel_ddi_max_lanes(struct intel_digital_port *dig_port)
- 
- static bool hti_uses_phy(struct drm_i915_private *i915, enum phy phy)
- {
--	return i915->hti_state & HDPORT_ENABLED &&
--	       i915->hti_state & HDPORT_DDI_USED(phy);
-+	return i915->display.hdport.hti_state & HDPORT_ENABLED &&
-+	       i915->display.hdport.hti_state & HDPORT_DDI_USED(phy);
- }
- 
- static enum hpd_pin xelpd_hpd_pin(struct drm_i915_private *dev_priv,
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 7834a47e0b4b..2160537fee73 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -8774,7 +8774,7 @@ int intel_modeset_init_nogem(struct drm_i915_private *i915)
- 	 * any display resources before we create our display outputs.
- 	 */
- 	if (INTEL_INFO(i915)->display.has_hti)
--		i915->hti_state = intel_de_read(i915, HDPORT_STATE);
-+		i915->display.hdport.hti_state = intel_de_read(i915, HDPORT_STATE);
- 
- 	/* Just disable it once at startup */
- 	intel_vga_disable(i915);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index 4c9a6b9c5512..eb013c153c48 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -355,6 +355,16 @@ struct intel_display {
- 		struct mutex comp_mutex;
- 	} hdcp;
- 
-+	struct {
-+		/*
-+		 * HTI (aka HDPORT) state read during initial hw readout.  Most
-+		 * platforms don't have HTI, so this will just stay 0.  Those
-+		 * that do will use this later to figure out which PLLs and PHYs
-+		 * are unavailable for driver usage.
-+		 */
-+		u32 hti_state;
-+	} hdport;
-+
- 	struct {
- 		bool enabled;
- 	} ipc;
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index d437fcf04bdd..8260f1168e8b 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -3169,10 +3169,10 @@ static void icl_update_active_dpll(struct intel_atomic_state *state,
- 
- static u32 intel_get_hti_plls(struct drm_i915_private *i915)
- {
--	if (!(i915->hti_state & HDPORT_ENABLED))
-+	if (!(i915->display.hdport.hti_state & HDPORT_ENABLED))
- 		return 0;
- 
--	return REG_FIELD_GET(HDPORT_DPLL_USED_MASK, i915->hti_state);
-+	return REG_FIELD_GET(HDPORT_DPLL_USED_MASK, i915->display.hdport.hti_state);
- }
- 
- static int icl_compute_combo_phy_dpll(struct intel_atomic_state *state,
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 1c95c75714da..ae63a8d71392 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -305,14 +305,6 @@ struct drm_i915_private {
- 
- 	struct intel_l3_parity l3_parity;
- 
--	/*
--	 * HTI (aka HDPORT) state read during initial hw readout.  Most
--	 * platforms don't have HTI, so this will just stay 0.  Those that do
--	 * will use this later to figure out which PLLs and PHYs are unavailable
--	 * for driver usage.
--	 */
--	u32 hti_state;
--
- 	/*
- 	 * edram size in MB.
- 	 * Cannot be determined by PCIID. You must always read a register.
--- 
-2.34.1
+Error: dim checkpatch failed
+9dbc6786b6df drm/i915/ipc: split out intel_ipc.[ch]
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:99: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#99: 
+new file mode 100644
+
+-:166: WARNING:SPDX_LICENSE_TAG: Improper SPDX comment style for 'drivers/gpu/drm/i915/display/intel_ipc.h', please use '/*' instead
+#166: FILE: drivers/gpu/drm/i915/display/intel_ipc.h:1:
++// SPDX-License-Identifier: MIT
+
+-:166: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#166: FILE: drivers/gpu/drm/i915/display/intel_ipc.h:1:
++// SPDX-License-Identifier: MIT
+
+total: 0 errors, 3 warnings, 0 checks, 233 lines checked
+19a0ebf31090 drm/i915/ipc: move IPC debugfs to intel_ipc.c
+d510b07d9964 drm/i915/ipc: register debugfs only if IPC available
+24998aaf8687 drm/i915/display: move IPC under display sub-struct
+c2d4e3412342 drm/i915/display: move hdport under display sub-struct
+
 
