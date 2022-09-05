@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C461C6FA83
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 18:30:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3682EECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 18:30:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91D6F10E4A4;
-	Mon,  5 Sep 2022 18:30:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0090610E4A6;
+	Mon,  5 Sep 2022 18:30:45 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4E1A910E49A;
- Mon,  5 Sep 2022 18:30:37 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 184D289DFB;
+ Mon,  5 Sep 2022 18:30:40 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 44E0EA7DFC;
- Mon,  5 Sep 2022 18:30:37 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 1440BA7DFC;
+ Mon,  5 Sep 2022 18:30:40 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jani Nikula" <jani.nikula@intel.com>
-Date: Mon, 05 Sep 2022 18:30:37 -0000
-Message-ID: <166240263725.1948.6678207693565586494@emeril.freedesktop.org>
+Date: Mon, 05 Sep 2022 18:30:40 -0000
+Message-ID: <166240264007.1951.10583677286061457999@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <cover.1662400767.git.jani.nikula@intel.com>
 In-Reply-To: <cover.1662400767.git.jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_ipc_and_display_sub-struct_refactoring?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_ipc_and_display_sub-struct_refactoring?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,28 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-9dbc6786b6df drm/i915/ipc: split out intel_ipc.[ch]
-Traceback (most recent call last):
-  File "scripts/spdxcheck.py", line 6, in <module>
-    from ply import lex, yacc
-ModuleNotFoundError: No module named 'ply'
--:99: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#99: 
-new file mode 100644
-
--:166: WARNING:SPDX_LICENSE_TAG: Improper SPDX comment style for 'drivers/gpu/drm/i915/display/intel_ipc.h', please use '/*' instead
-#166: FILE: drivers/gpu/drm/i915/display/intel_ipc.h:1:
-+// SPDX-License-Identifier: MIT
-
--:166: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
-#166: FILE: drivers/gpu/drm/i915/display/intel_ipc.h:1:
-+// SPDX-License-Identifier: MIT
-
-total: 0 errors, 3 warnings, 0 checks, 233 lines checked
-19a0ebf31090 drm/i915/ipc: move IPC debugfs to intel_ipc.c
-d510b07d9964 drm/i915/ipc: register debugfs only if IPC available
-24998aaf8687 drm/i915/display: move IPC under display sub-struct
-c2d4e3412342 drm/i915/display: move hdport under display sub-struct
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
