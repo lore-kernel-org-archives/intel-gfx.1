@@ -4,76 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C52FC54EE9
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61278ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8A8C10E68F;
-	Tue,  6 Sep 2022 12:35:42 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB6A10E43B;
- Wed, 31 Aug 2022 15:39:59 +0000 (UTC)
-Received: from dimapc.. (109-252-119-13.nat.spd-mgts.ru [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 8DA906601EAB;
- Wed, 31 Aug 2022 16:39:55 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1661960398;
- bh=ZApSbqO1FjV2w77zy5U4R3HD15M9STCl+wb5U44H4Z8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=g8zRYWTRNkBNWGT26wLdHkOjb+QLle2qMZB0VpEhsnVL5lE3kgZrv/iM6C2f9B4fd
- P9X6CMh7Cfz8ATl64IX7dIUtyuzW8+xjOGv1ZR0O3dG87VIJX3UMwxE5fmAUFzt4EB
- 7yIhl9XIUrKUBpbjdOuzYBHKoXnQDcON3d742kO+Z0m/+f92IoSv4zHVktRjLT7biX
- 0rRP6pvDVRfV6QX0rCrjPGEeC0fVEtmFk7LfGf5Z7ZRKxMxpqQ2EHi9kAhVYt0Mc4t
- TnUySs7YPa7DjGLVd7e3tdNShYLEIo6U173RqyLqrk/v+EebpiegL610LyUTF/vHcR
- ZDZKPaW5A7b0A==
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Clark <robdclark@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas_os@shipmail.org>,
- Qiang Yu <yuq825@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Lucas Stach <l.stach@pengutronix.de>,
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Wed, 31 Aug 2022 18:37:50 +0300
-Message-Id: <20220831153757.97381-15-dmitry.osipenko@collabora.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD97610E68E;
+	Tue,  6 Sep 2022 12:35:45 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D97F10E1F5;
+ Mon,  5 Sep 2022 07:46:22 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id e17so2597314edc.5;
+ Mon, 05 Sep 2022 00:46:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=Ns0e6BF5lsSCBTPKI8hcA6JQ2wSlm+RnddxbYzGwY78=;
+ b=RxePfGbUgFr9m1wzXfMcTyrFLm8VXH3Yjx/yfWE1dMrqrFq06nWkoMsCfSzy5EzaNc
+ zkvReGjw1pXYSieHpawZtsbp5SfsbV0sgEO025cH+8zNr0qXEeVAKzG+nVwKkxY+Y2z6
+ 8PZfmamY9BII8PaTZVTkWWMzy80ttmH0L0j8Kx9BpU3sAFm2gIhnqrN4WWAMpgODdvgs
+ RIWPxIUMJEyU3jyYOIWksqLB0g+IUVvJaiT/+vfXkhfHcEpFyqtgJHcd3LCsq0zrTm14
+ nRFXPkAFkOEywh8Q1ncIiuWym8mfHtpF/gGHXSB4J1ahZlYtmM3Y/XO88mosIj9W6eZG
+ Sy7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=Ns0e6BF5lsSCBTPKI8hcA6JQ2wSlm+RnddxbYzGwY78=;
+ b=pdmJS3v0AeH1Qsfaba6EF0jlNlLAgTpmkp0f3YHpOJtZj0+TqwljDphN1YJQmLSceS
+ gvQusVjyx8vPGI/qfGFxFeXripl168s+5LMbLgO23+mq4O/W4dR3inPd5sw0tAZOTS2W
+ vi5Z7GENMCjgrwPrjpkNdlVGQTCAjkC+r7rvuwgcZo6vLwmx0hEJfu/zqdN9vN3z82iQ
+ 9udYAeqBkSgi126+boi/phZX9i9tEc5XCWCUdqD9XmSxEy0B2Tzgc+pFOf+ngfjfvI2C
+ dyXt3nxGsvznvpKEyMQnKKEO0nw9RcRY8RLEI1v+U9X8Zwq7GifxHBNyAw5uo/QFo0JB
+ JTGQ==
+X-Gm-Message-State: ACgBeo2oZArDE/1YdKbbxLOuUjGrZvoCxbQEUgdByhJatZeTLyCrh64M
+ dsJDQ0nqu+1e/Xc/zlqMqRD/7jof+eZwBw4ttcs=
+X-Google-Smtp-Source: AA6agR5wybEqXz4dGsViNshife/UNSpksZhb2GioQ2olydywe0lOqHmE3AnukOX3V2PeaiKO4gRc+Yv2kqPhN/RGYDA=
+X-Received: by 2002:a05:6402:1f02:b0:445:f674:eac0 with SMTP id
+ b2-20020a0564021f0200b00445f674eac0mr41072891edb.370.1662363980652; Mon, 05
+ Sep 2022 00:46:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
-Subject: [Intel-gfx] [PATCH v4 14/21] media: tegra-vde: Prepare to dynamic
- dma-buf locking specification
+References: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
+ <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
+ <CAJedcCw1eJqjSK+yR7eQMDheNtH3Mjm+viwt00xAhnmrfpq2pw@mail.gmail.com>
+In-Reply-To: <CAJedcCw1eJqjSK+yR7eQMDheNtH3Mjm+viwt00xAhnmrfpq2pw@mail.gmail.com>
+From: Zheng Hacker <hackerzheng666@gmail.com>
+Date: Mon, 5 Sep 2022 15:46:09 +0800
+Message-ID: <CAJedcCweHjD78F7iydiq6Xc2iH=t_3m=H9JKnaCooToUk32FvQ@mail.gmail.com>
+To: xmzyshypnc <1002992920@qq.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: fix double-free bug in
+ split_2MB_gtt_entry.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,55 +67,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
- linux-media@vger.kernel.org
+Cc: alex000young@gmail.com, security@kernel.org,
+ dri-devel@lists.freedesktop.org, airlied@linux.ie,
+ Greg KH <gregkh@linuxfoundation.org>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, daniel@ffwll.ch, rodrigo.vivi@intel.com,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prepare Tegra video decoder driver to the common dynamic dma-buf
-locking convention by starting to use the unlocked versions of dma-buf
-API functions.
+I rewrote the letter. Hope it works.
 
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+There is a double-free security bug in split_2MB_gtt_entry.
+
+Here is a calling chain :
+ppgtt_populate_spt->ppgtt_populate_shadow_entry->split_2MB_gtt_entry.
+If intel_gvt_dma_map_guest_page failed, it will call
+ppgtt_invalidate_spt, which will finally call ppgtt_free_spt and
+kfree(spt). But the caller does not notice that, and it will call
+ppgtt_free_spt again in error path.
+
+Fix this by returning the result of ppgtt_invalidate_spt to split_2MB_gtt_entry.
+
+Signed-off-by: Zheng Wang
+
 ---
- drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gvt/gtt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c b/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
-index 69c346148070..1c5b94989aec 100644
---- a/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
-+++ b/drivers/media/platform/nvidia/tegra-vde/dmabuf-cache.c
-@@ -38,7 +38,7 @@ static void tegra_vde_release_entry(struct tegra_vde_cache_entry *entry)
- 	if (entry->vde->domain)
- 		tegra_vde_iommu_unmap(entry->vde, entry->iova);
- 
--	dma_buf_unmap_attachment(entry->a, entry->sgt, entry->dma_dir);
-+	dma_buf_unmap_attachment_unlocked(entry->a, entry->sgt, entry->dma_dir);
- 	dma_buf_detach(dmabuf, entry->a);
- 	dma_buf_put(dmabuf);
- 
-@@ -102,7 +102,7 @@ int tegra_vde_dmabuf_cache_map(struct tegra_vde *vde,
- 		goto err_unlock;
- 	}
- 
--	sgt = dma_buf_map_attachment(attachment, dma_dir);
-+	sgt = dma_buf_map_attachment_unlocked(attachment, dma_dir);
- 	if (IS_ERR(sgt)) {
- 		dev_err(dev, "Failed to get dmabufs sg_table\n");
- 		err = PTR_ERR(sgt);
-@@ -152,7 +152,7 @@ int tegra_vde_dmabuf_cache_map(struct tegra_vde *vde,
- err_free:
- 	kfree(entry);
- err_unmap:
--	dma_buf_unmap_attachment(attachment, sgt, dma_dir);
-+	dma_buf_unmap_attachment_unlocked(attachment, sgt, dma_dir);
- err_detach:
- 	dma_buf_detach(dmabuf, attachment);
- err_unlock:
--- 
-2.37.2
-
+diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
+index ce0eb03709c3..9f14fded8c0c 100644
+--- a/drivers/gpu/drm/i915/gvt/gtt.c
++++ b/drivers/gpu/drm/i915/gvt/gtt.c
+@@ -1215,7 +1215,7 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
+                ret = intel_gvt_dma_map_guest_page(vgpu, start_gfn + sub_index,
+                                                   PAGE_SIZE, &dma_addr);
+                if (ret) {
+-                       ppgtt_invalidate_spt(spt);
++                       ret = ppgtt_invalidate_spt(spt);
+                        return ret;
+                }
+                sub_se.val64 = se->val64;
+--
+2.25.1
