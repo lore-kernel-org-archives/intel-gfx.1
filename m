@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D18ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 17:45:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EECD3ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 18:00:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB5410E472;
-	Mon,  5 Sep 2022 17:45:09 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4096710E470
- for <intel-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 17:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97DF710E472;
+	Mon,  5 Sep 2022 18:00:09 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A66AB10E472
+ for <intel-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 18:00:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662399903; x=1693935903;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=jjxT245GBGLeprBEGGJz1lzVLrTcYsg5rQ7Hc+SUXhU=;
- b=J3rET/1YgCjytuAuVSy7iunqGDgSswwMInk8erqhzsTLsDORdxt0zzO/
- JE8noXnCsdI8Srf1DpJEWJPc7f0JVBs4onItZvZGUW2NA4L7yzsO5RCT/
- nbfcVN64un8SC6iLjfOANzx3ze4sotC3KShYN3I+rDUE+S8YKin8nVnmh
- /QI20jPJBdTWbonDhuNmEagQTEQkSVpuOr+FhWIAaVwy32o/tUZcaVWZ3
- CPLtCsjlZ53N4YiSdcUJ4POzzD1qDw1AXmv9lob+PnAAJDqBwhiy3tw1v
- XwvZpKH7TS6p0+51ng+PuVicwIWdoFjPgYy3m5bv4GIgcXrbF6qczscI4 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10461"; a="382729578"
-X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="382729578"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2022 10:45:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="643874982"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga008.jf.intel.com with SMTP; 05 Sep 2022 10:44:59 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 05 Sep 2022 20:44:59 +0300
-Date: Mon, 5 Sep 2022 20:44:59 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-Message-ID: <YxY1mznljBVkDHCw@intel.com>
-References: <20220905080500.213330-1-andrzej.hajda@intel.com>
- <YxXh+gGqGGahJc08@intel.com>
- <f9337b9b-4b06-cee8-4550-db7513b1a953@intel.com>
+ t=1662400804; x=1693936804;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=OAZEfDD3vZJHPDtuqa4JQxAEWes+QMszFA/CvZV6Dv4=;
+ b=lYY0O29S/YKnOgaFBh2/25IHoYWMSssxscA+Qlsej92cI2q96XQ/46zK
+ DWWz+hmA3R6rtRe/P9rJO4Hexp5u3KZnmJZtsQDkDajfFMbTJbH+YJ7oO
+ 4BP5m5Gs9Ygocu6nYa0bhdW74Pqvr97V0Pj/Q2i/ZTwYUMU3fDCfV4WB3
+ x2Y/UEpDnQ88P4TbnyNFQGHCXTG9BojQmz3sE0/Hd806RflnXqs0tpL/A
+ bhBUys2ban56iHhtbLQPQ17vX+wtQdTnXO/mHIcmHbc2/s5ZC7/rfA81v
+ rZ5tIPo6/EeDpsPSX6Z0oWKo7ukMZfOT9HG7qGogzpO+tyLcsX0movPmP g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10461"; a="295171015"
+X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="295171015"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2022 11:00:03 -0700
+X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="942178916"
+Received: from bnilawar-desk1.iind.intel.com ([10.145.169.158])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2022 11:00:02 -0700
+From: Badal Nilawar <badal.nilawar@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon,  5 Sep 2022 23:32:14 +0530
+Message-Id: <20220905180219.1971119-1-badal.nilawar@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f9337b9b-4b06-cee8-4550-db7513b1a953@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: do not reset PLANE_SURF on plane
- disable on older gens
+Subject: [Intel-gfx] [PATCH 0/5] i915: CAGF and RC6 changes for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,59 +53,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 05, 2022 at 07:02:40PM +0200, Andrzej Hajda wrote:
-> 
-> 
-> On 05.09.2022 13:48, Ville Syrjälä wrote:
-> > On Mon, Sep 05, 2022 at 10:05:00AM +0200, Andrzej Hajda wrote:
-> >> In case of ICL and older generations disabling plane and/or disabling
-> >> async update is always performed on vblank,
-> > It should only be broken on bdw-glk (see. need_async_flip_disable_wa).
-> 
-> On CFL it is reported every drmtip run:
-> https://intel-gfx-ci.01.org/tree/drm-tip/drmtip.html?testfilter=tiled-max-hw
-> https://intel-gfx-ci.01.org/tree/drm-tip/drmtip_1209/fi-cfl-8109u/igt@kms_big_fb@yf-tiled-max-hw-stride-32bpp-rotate-180-async-flip.html#dmesg-warnings402
-> https://intel-gfx-ci.01.org/tree/drm-tip/drmtip_1209/fi-cfl-8109u/igt@kms_big_fb@y-tiled-max-hw-stride-64bpp-rotate-180-async-flip.html#dmesg-warnings402
-> https://intel-gfx-ci.01.org/tree/drm-tip/drmtip_1209/fi-cfl-8109u/igt@kms_big_fb@y-tiled-max-hw-stride-32bpp-rotate-180-async-flip.html
-> https://intel-gfx-ci.01.org/tree/drm-tip/drmtip_1208/fi-cfl-8109u/igt@kms_big_fb@y-tiled-max-hw-stride-64bpp-rotate-180-async-flip.html
-> ...
-> On APL it is less frequent, probably due to other bugs preventing run of 
-> this test, last seen at:
-> https://intel-gfx-ci.01.org/tree/drm-tip/drmtip_1190/fi-apl-guc/igt@kms_big_fb@y-tiled-max-hw-stride-32bpp-rotate-180-async-flip.html
-> Similar for SKL:
-> https://intel-gfx-ci.01.org/tree/drm-tip/drmtip_1181/fi-skl-guc/igt@kms_big_fb@x-tiled-max-hw-stride-64bpp-rotate-180-async-flip.html
-> 
-> I am not sure if I correctly read the docs but [1] says that 9th bit of 
-> PLANE_CFG (Async Address Update Enable) is "not double buffered and the 
-> changes will apply immediately" only for ICL, JSL, LKF1.
+This series includes the code changes to get CAGF, RC State and 
+C6 Residency of MTL. The series depends on:
 
-It got broken in bdw and fixed again in icl.
+https://patchwork.freedesktop.org/series/107908/
 
-> So the change is not necessary in case of icl_plane_disable_arm.
-> 
-> [1]: https://gfxspecs.intel.com/Predator/Home/Index/7656
-> >
-> >> but if async update is enabled
-> >> PLANE_SURF register is updated asynchronously. Writing 0 to PLANE_SURF
-> >> when plane is still enabled can cause DMAR/PIPE errors.
-> >> On the other side PLANE_SURF is used to arm plane registers - we need to
-> >> write to it to trigger update on VBLANK, writting current value should
-> >> be safe - the buffer address is valid till vblank.
-> > I think you're effectively saying that somehow the async
-> > flip disable w/a is not kicking in sometimes.
-> 
-> I was not aware of existence of this w/a and I am little lost in 
-> figuring out how this w/a can prevent zeroing PLANE_SURF too early.
+We have included 3 patches from from the above series as part of this
+series in order for this series to compile. These are the first 3 patches
+authored by Matt Roper. Please do not review these first 3 patches. Only
+patch 4 and 5 needs review.
 
-When it works as designed it should:
-1. turn off the async flip bit
-2. wait for vblank so that gets latched
-3. do the sync plane update/disable normally
+Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+
+Badal Nilawar (2):
+  INTEL_DII: drm/i915/mtl: Modify CAGF functions for MTL
+  INTEL_DII: drm/i915/mtl: Add C6 residency support for MTL SAMedia
+
+Matt Roper (3):
+  drm/i915: Prepare more multi-GT initialization
+  drm/i915: Rename and expose common GT early init routine
+  drm/i915/xelpmp: Expose media as another GT
+
+ drivers/gpu/drm/i915/Makefile                 |  1 +
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  2 +-
+ drivers/gpu/drm/i915/gt/intel_gt.c            | 70 +++++++++++++++----
+ drivers/gpu/drm/i915/gt/intel_gt.h            |  2 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c | 56 +++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h       | 26 +++++++
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c   |  9 ++-
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      |  3 +
+ drivers/gpu/drm/i915/gt/intel_rc6.c           |  5 +-
+ drivers/gpu/drm/i915/gt/intel_rps.c           |  5 ++
+ drivers/gpu/drm/i915/gt/intel_sa_media.c      | 39 +++++++++++
+ drivers/gpu/drm/i915/gt/intel_sa_media.h      | 15 ++++
+ drivers/gpu/drm/i915/gt/selftest_rc6.c        |  9 ++-
+ drivers/gpu/drm/i915/i915_drv.h               |  2 +
+ drivers/gpu/drm/i915/i915_pci.c               | 15 ++++
+ drivers/gpu/drm/i915/i915_pmu.c               |  8 ++-
+ drivers/gpu/drm/i915/intel_device_info.h      | 19 +++++
+ drivers/gpu/drm/i915/intel_uncore.c           | 16 ++++-
+ drivers/gpu/drm/i915/intel_uncore.h           | 20 +++++-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |  1 +
+ 20 files changed, 301 insertions(+), 22 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_sa_media.c
+ create mode 100644 drivers/gpu/drm/i915/gt/intel_sa_media.h
 
 -- 
-Ville Syrjälä
-Intel
+2.25.1
+
