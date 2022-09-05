@@ -4,49 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EC6FECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 10:24:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF878ECAAD3
+	for <intel-gfx@archiver.kernel.org>; Mon,  5 Sep 2022 10:48:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AE0310E2A4;
-	Mon,  5 Sep 2022 10:24:38 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB88810E2A4
- for <intel-gfx@lists.freedesktop.org>; Mon,  5 Sep 2022 10:24:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662373471; x=1693909471;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=n+5RRYKmI4DJeYttzg8TR7h43HNluhBqmH+kj8zENFo=;
- b=hAUWYOrC54wXTQ4yQneL7+xfKbUmNbeuTMYad2j2eKRpygmUQprAm12Q
- GA76nmzWiZem/dTCk32o/iNp+1G8gGRy4sNQU/GnMXQOgSkHZqPL67Oca
- yvbiF7W67BvFxl8Rj6NzoXuuW5KyFVvAT57Jt/ZeCLqPwLX+4Uolest5X
- rwhnWqrQ1qP0fK0TxkjVZz3TFMUnuRxBlqZL2mciSOl3ePurVL+V5oRio
- xEfowpnbmLdDLPzedq2NREjGPWdUdJEFOENWeiR9kCcu7M/7DuzNvjlCj
- qCKqxwWAbMxz8zRvSE0vtP4T9eXi2Dyms1PwI+zL6Dla+TbC2iBnhDXHm A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10460"; a="296362041"
-X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="296362041"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2022 03:24:31 -0700
-X-IronPort-AV: E=Sophos;i="5.93,291,1654585200"; d="scan'208";a="675233995"
-Received: from gpliesch-mobl1.ger.corp.intel.com (HELO
- jhogande-mobl1.ger.corp.intel.com) ([10.251.221.245])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2022 03:24:30 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  5 Sep 2022 13:23:55 +0300
-Message-Id: <20220905102355.176622-3-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220905102355.176622-1-jouni.hogander@intel.com>
-References: <20220905102355.176622-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0A4E10E2C7;
+	Mon,  5 Sep 2022 10:48:33 +0000 (UTC)
+X-Greylist: delayed 2163 seconds by postgrey-1.36 at gabe;
+ Mon, 05 Sep 2022 10:48:23 UTC
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35A9310E2B5;
+ Mon,  5 Sep 2022 10:48:23 +0000 (UTC)
+Received: from ip5b412258.dynamic.kabel-deutschland.de ([91.65.34.88]
+ helo=diego.localnet) by gloria.sntech.de with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <heiko@sntech.de>)
+ id 1oV95T-0005Kp-Ed; Mon, 05 Sep 2022 12:12:15 +0200
+From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+To: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@intel.com>
+Date: Mon, 05 Sep 2022 12:12:14 +0200
+Message-ID: <3530081.XrmoMso0CX@diego>
+In-Reply-To: <bb733eccfb389533cc6e207689be845164a1ed91.1662036058.git.jani.nikula@intel.com>
+References: <cover.1662036058.git.jani.nikula@intel.com>
+ <bb733eccfb389533cc6e207689be845164a1ed91.1662036058.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915/psr: Disable PSR2 when SDP is sent
- on prior line
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+Subject: Re: [Intel-gfx] [PATCH 8/9] drm/rockchip: cdn-dp: call
+ drm_connector_update_edid_property() unconditionally
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,36 +43,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Sandy Huang <hjc@rock-chips.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Selective update doesn't work if SU start address is 0 and start/end
-SDP is configured to be sent prior to SU start/end lines. PSR2 has to be
-disabled in this case for Alder Lake.
+Am Donnerstag, 1. September 2022, 14:47:10 CEST schrieb Jani Nikula:
+> Calling drm_connector_update_edid_property() should be done
+> unconditionally instead of depending on the number of modes added. Also
+> match the call order in inno_hdmi and rk3066_hdmi.
+>=20
+> Cc: Sandy Huang <hjc@rock-chips.com>
+> Cc: Heiko St=FCbner <heiko@sntech.de>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-HSDES: 22012279113
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-Cc: Mika Kahola <mika.kahola@intel.com>
-Cc: José Roberto de Souza <jose.souza@intel.com>
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> ---
+>  drivers/gpu/drm/rockchip/cdn-dp-core.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/roc=
+kchip/cdn-dp-core.c
+> index c204e9b95c1f..f77bdf5f5168 100644
+> --- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
+> +++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
+> @@ -273,10 +273,9 @@ static int cdn_dp_connector_get_modes(struct drm_con=
+nector *connector)
+>  				  edid->width_cm, edid->height_cm);
+> =20
+>  		dp->sink_has_audio =3D drm_detect_monitor_audio(edid);
+> +
+> +		drm_connector_update_edid_property(connector, edid);
+>  		ret =3D drm_add_edid_modes(connector, edid);
+> -		if (ret)
+> -			drm_connector_update_edid_property(connector,
+> -								edid);
+>  	}
+>  	mutex_unlock(&dp->lock);
+> =20
+>=20
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 6f03bf16d6f4..90d7cdd743be 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -811,7 +811,8 @@ static bool _compute_psr2_sdp_prior_scanline_indication(struct intel_dp *intel_d
- 	if ((hblank_ns - req_ns) > 100)
- 		return true;
- 
--	if (DISPLAY_VER(dev_priv) < 13 || intel_dp->edp_dpcd[0] < DP_EDP_14b)
-+	/* Not supported <13 / Wa_22012279113:adl-p */
-+	if (DISPLAY_VER(dev_priv) <= 13 || intel_dp->edp_dpcd[0] < DP_EDP_14b)
- 		return false;
- 
- 	crtc_state->req_psr2_sdp_prior_scanline = true;
--- 
-2.34.1
+
+
 
