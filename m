@@ -4,60 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79995ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D585CC54EE9
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:35:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9173010E683;
-	Tue,  6 Sep 2022 12:34:23 +0000 (UTC)
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Mon, 29 Aug 2022 18:53:00 UTC
-Received: from smtp.domeneshop.no (smtp.domeneshop.no
- [IPv6:2a01:5b40:0:3005::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4047410E5B2;
- Mon, 29 Aug 2022 18:53:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
- ; s=ds202112;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=LIXwPXe6uDCw8puUWwXJwlt9Qctgfa7237R9Ay9Rr94=; b=lEkiEUddmC83T3gPlX9iC1HPqE
- SNqV0HNvj3WohDUJb3awRux40lCfk6tyQB/y/P0NkxAmJvnLotHmUwjl8aOOgP7Mq2i6NQQK+Qfzy
- aGX/MisxWkzuPdRvBFUrgVFV5Pp5E73ZOuHT2POkj46RBMOqXiYPFKcqFeqYAz83p2JMvS2jO7pEf
- 1Nfovc1pcY/rW+YbwdLiXSg03RCMaci4y5cXg2twznwbCvQHEeFLKuqBYsK06/LVq5t3DUgZOvADK
- 7zf9RrPQcFL/TgKO86KFtdoAnMH8IPBBc/k4+dp4YbP4PPdWhQGbwwkVcLgx7cXqgK+UELGvisvi2
- nlmQP40g==;
-Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=60573)
- by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <noralf@tronnes.org>)
- id 1oSjme-00079u-AJ; Mon, 29 Aug 2022 20:46:52 +0200
-Message-ID: <f6289e5d-98e3-1a0d-f514-136e2b7978c1@tronnes.org>
-Date: Mon, 29 Aug 2022 20:46:42 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B03610E687;
+	Tue,  6 Sep 2022 12:34:24 +0000 (UTC)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD7B710E44F;
+ Mon,  5 Sep 2022 16:32:18 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id by6so9717067ljb.11;
+ Mon, 05 Sep 2022 09:32:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:from:to:cc:subject:date;
+ bh=8JQHR0mNkkvaucEp4HNFvrtWVwipxgdCyYirWkcxCuc=;
+ b=Ee8/zXiC17K5Rmn0dM8r0JytBnfg1FnzFfKZcmoJMYt08MtgAEUEjpKH7+0UHsqlkK
+ BZrCCHBnA1Je5o+/sxNlA3yrl0TxM37U7XpZXjbsaVxHKMl2x7PzYQchiiwPobO+z7V/
+ tYJCFJd1YCvEbeeLM6BvAS/M1DUr6tpSFJVdgoRwA8WStFNY9E6PPHdk4RZZCOrggakT
+ xyQ8/6DOwLr6S51gainQauwtIl7r4PsEHnn/94yga+F5jpf0cp7C0OxDPl+JWqQDMoGv
+ UZySK3bX2kiLPPNYAc06FY4U1q0dxZf5LlWu/claShZQeiMPrvC2bab0MTV9I+5YA40i
+ L12g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:x-gm-message-state:from:to:cc:subject:date;
+ bh=8JQHR0mNkkvaucEp4HNFvrtWVwipxgdCyYirWkcxCuc=;
+ b=EE4eyaTrT0YQ5eN2QI+aVkhSCvGriBL7Kr/8sPd5LUHF2br+9OTfonZPfwxDxAVCJm
+ Ou+fkmKti7Sl8VWRdlmvWzMBQQ40JPCgZhwg5rfrFrVMxm3lpeqQIoRFbM/O3wMzFqOh
+ Vmt9Cj1AAVFTD2UQ3N+lWH7hg3CgGmRRakbD4THiXGrOWClIying5TkVd1E1l30Q0DIK
+ iwypk5HinwUNQQgjK5NUYHNrqeNwm+QR95UTKZVSojZfpLlsTl6wrqjRphpkwXVInUxY
+ uUsgjjMLb+peTkl0EWHXHaCjHe7660+9i80xzuhgNN0bzBziyl1T0lTquxYU/IvDKioJ
+ 11IA==
+X-Gm-Message-State: ACgBeo0+JGE2T9EPArA2/pYbDW2rCj0iDc2LbDFEAAc4IY/yYfK4imyc
+ NU07X8EDG/nrN+IqipiwiEz15JwPPcrdbg==
+X-Google-Smtp-Source: AA6agR47yvdHHgnlIjy9Ip2njnz0g5/SwgXMzTGVjcmNgzpxzvtvdxNNmmfmzBYcTnu1KYoufiDMaA==
+X-Received: by 2002:a2e:88d2:0:b0:263:2c63:d784 with SMTP id
+ a18-20020a2e88d2000000b002632c63d784mr11481762ljk.12.1662395536908; 
+ Mon, 05 Sep 2022 09:32:16 -0700 (PDT)
+Received: from ?IPV6:2a02:a31a:a240:1700:9c45:8fa1:8ce7:8852?
+ ([2a02:a31a:a240:1700:9c45:8fa1:8ce7:8852])
+ by smtp.googlemail.com with ESMTPSA id
+ q13-20020a056512210d00b004946a758d21sm1235189lfr.161.2022.09.05.09.32.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Sep 2022 09:32:16 -0700 (PDT)
+From: Mateusz Kwiatkowski <kfyatek@gmail.com>
+X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Message-ID: <6ac67d1f-e5b5-2687-372f-4146eed5cc5d@gmail.com>
+Date: Mon, 5 Sep 2022 18:32:14 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
- Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
- Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
- Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.1
+Content-Language: pl
+To: Maxime Ripard <maxime@cerno.tech>,
+ Geert Uytterhoeven <geert@linux-m68k.org>
 References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-1-459522d653a7@cerno.tech>
-From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-1-459522d653a7@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-10-459522d653a7@cerno.tech>
+ <242d272b-5b79-986c-9aaf-64e62f6b37ff@gmail.com>
+ <CAMuHMdWq3aOO4-2AReDeaC2VBJb=QJF2dTMZP=DGmwCg6ZOffA@mail.gmail.com>
+ <20220905133251.js26hxdosibx4r4i@houat>
+In-Reply-To: <20220905133251.js26hxdosibx4r4i@houat>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 01/41] drm/tests: Order Kunit tests in
- Makefile
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:45 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 10/41] drm/modes: Add a function to
+ generate analog display modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,106 +83,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
+ Nouveau Dev <nouveau@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Phil Elwell <phil@raspberrypi.com>, Emma Anholt <emma@anholt.net>,
+ Samuel Holland <samuel@sholland.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Ben Skeggs <bskeggs@redhat.com>, linux-sunxi@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
+ Philipp Zabel <p.zabel@pengutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Maxime,
 
+W dniu 5.09.2022 o 15:32, Maxime Ripard pisze:
+> Hi,
+>
+> On Wed, Aug 31, 2022 at 10:14:28AM +0200, Geert Uytterhoeven wrote:
+>>>> +enum drm_mode_analog {
+>>>> +    DRM_MODE_ANALOG_NTSC,
+>>>> +    DRM_MODE_ANALOG_PAL,
+>>>> +};
+>>>
+>>> Using "NTSC" and "PAL" to describe the 50Hz and 60Hz analog TV modes is common,
+>>> but strictly speaking a misnomer. Those are color encoding systems, and your
+>>> patchset fully supports lesser used, but standard encodings for those (e.g.
+>>> PAL-M for 60Hz and SECAM for 50Hz). I'd propose switching to some more neutral
+>>> naming scheme. Some ideas:
+>>>
+>>> - DRM_MODE_ANALOG_60_HZ / DRM_MODE_ANALOG_50_HZ (after standard refresh rate)
+>>> - DRM_MODE_ANALOG_525_LINES / DRM_MODE_ANALOG_625_LINES (after standard line
+>>>   count)
+>>
+>> IMHO these are bad names, as e.g. VGA640x480@60 is also analog, using
+>> 60 Hz and 525 lines.  Add "TV" to the name?
+>>
+>>> - DRM_MODE_ANALOG_JM / DRM_MODE_ANALOG_BDGHIKLN (after corresponding ITU System
+>>>   Letter Designations)
+>>
+>> Or DRM_MODE_ITU_*?
+>> But given the long list of letters, this looks fragile to me.
+>
+> Does it matter at all? It's an internal API that isn't exposed at all.
+> I'd rather have a common name that everyone can understand in this case
+> rather than a *perfect* name where most will scratch their head
+> wondering what it's about.
 
-Den 29.08.2022 15.11, skrev Maxime Ripard:
-> Since we've recently added a ton of tests, the list starts to be a bit
-> 
-> of a mess and creates unneeded conflicts.
-> 
-> 
-> 
-> Let's order it alphabetically.
-> 
-> 
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> 
-> 
-> 
+You may have a point. But in that case, maybe it'd make sense to at least add
+a short comment explaining what do you mean by "NTSC" and "PAL" in this context?
 
-Something has gone wrong with this patchset, there are double line endings.
-
-I looked at the patchwork version and it look all right there so I
-figured it might have fixed up the patches, but it failed:
-
-git apply -v --check
-/home/pi/tinydrm.gud-gadget/workdirs/tv_norm_gadget/500003.patch
-Checking patch drivers/gpu/drm/tests/Makefile...
-error: while searching for:
-# SPDX-License-Identifier: GPL-2.0?
-?
-obj-$(CONFIG_DRM_KUNIT_TEST) += drm_format_helper_test.o
-drm_damage_helper_test.o \?
-        drm_cmdline_parser_test.o drm_rect_test.o drm_format_test.o
-drm_plane_helper_test.o \?
-        drm_dp_mst_helper_test.o drm_framebuffer_test.o drm_buddy_test.o
-drm_mm_test.o?
-
-error: patch failed: drivers/gpu/drm/tests/Makefile:1
-error: drivers/gpu/drm/tests/Makefile: patch does not apply
-
-ERROR: Failed check apply patch
-
-pi@build-server:~/tinydrm.gud-gadget$ file
-workdirs/tv_norm_gadget/500003.patch
-workdirs/tv_norm_gadget/500003.patch: unified diff output, ASCII text,
-with CRLF, LF line terminators
-
-Noralf.
-
-> diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makefile
-> 
-> index 91b70f7d2769..2d9f49b62ecb 100644
-> 
-> --- a/drivers/gpu/drm/tests/Makefile
-> 
-> +++ b/drivers/gpu/drm/tests/Makefile
-> 
-> @@ -1,5 +1,13 @@
-> 
->  # SPDX-License-Identifier: GPL-2.0
-> 
->  
-> 
-> -obj-$(CONFIG_DRM_KUNIT_TEST) += drm_format_helper_test.o drm_damage_helper_test.o \
-> 
-> -	drm_cmdline_parser_test.o drm_rect_test.o drm_format_test.o drm_plane_helper_test.o \
-> 
-> -	drm_dp_mst_helper_test.o drm_framebuffer_test.o drm_buddy_test.o drm_mm_test.o
-> 
-> +obj-$(CONFIG_DRM_KUNIT_TEST) += \
-> 
-> +	drm_buddy_test.o \
-> 
-> +	drm_cmdline_parser_test.o \
-> 
-> +	drm_damage_helper_test.o \
-> 
-> +	drm_dp_mst_helper_test.o \
-> 
-> +	drm_format_helper_test.o \
-> 
-> +	drm_format_test.o \
-> 
-> +	drm_framebuffer_test.o \
-> 
-> +	drm_mm_test.o \
-> 
-> +	drm_plane_helper_test.o \
-> 
-> +	drm_rect_test.o
-> 
-> 
-> 
+Best regards,
+Mateusz Kwiatkowski
