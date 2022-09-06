@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED865ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 23:51:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E280C38145
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 23:51:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 146C110E0A9;
-	Tue,  6 Sep 2022 23:49:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D75010E0D1;
+	Tue,  6 Sep 2022 23:50:00 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 739DC10E09B;
- Tue,  6 Sep 2022 23:49:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B29E10E0A8;
+ Tue,  6 Sep 2022 23:49:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662508186; x=1694044186;
+ t=1662508187; x=1694044187;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CMOquIblwcmBq+LtJA9qQfr2YbFYK74stanUsvVWnow=;
- b=G74O1j1ldM2I6AdhuJCc+dS3X7FRHFAmJu++yLC0rB5elZb5/+yrgbYC
- b1hmM/kw7fVWowgQljrCLMy8pYjLtJ7Tmxs/BdGXzve0HsH2dCTmSJae/
- Z8kSZ4J07l34zU0Mpm25Wi0eznEgDrObE8g4iZ+xgvekz3KutxDGS9Btj
- 1kY+tRigRyA9L0QiFDLFDflLTGico3sKajZHOFAxAfkyUc8j8rwhxnOSd
- hYj6G8cgtP/ZufdKPMb0uKNV9Oj4r8ZRKJAuGWJHAXNBuJ0gkhpOeeTmK
- AmvuaNz7kH/i0h28Pw8RtzzwUSsXmbrNeuxZ6FxNe0qmaBsr+AMxseHDm g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="276477207"
-X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="276477207"
+ bh=4OQRzc6xPo93TjDpMhjkckerWuBRYQrx3ZB+xUWQw5I=;
+ b=ba9xyPlThsGOA2FwaKO2CeWqzTwGULWaV8E8Qxz+yok2kNwXOrsWySrn
+ d41WFni64LrdkdT7k39zNIqI3fbQngGv45NXrCLYHAkWn5MHrkKBR8xc8
+ pLKCkEetNJqaa7jvUGdN78HTcPQAiVQdHbEe4a0mY4gzk3ZQ/Q527DkvD
+ NotKhRNtEX1QZVSVeGNXf+sNCpTOXK3vh1uOSzDVvjb6ZbRofu1ehqIj2
+ NqLNitR8FZRmDMmmNJS0yqqfzJY8pJeOcqyOlOgA3jqSZU2naEA3zCmkT
+ iHJIqwQtd1ZQuE8KPO/w+7T9leLRp1v9IYYSfrMlfIT7OkFf0WaTeSlF0 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="276477212"
+X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="276477212"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Sep 2022 16:49:45 -0700
-X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="675920316"
+X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="675920328"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Sep 2022 16:49:45 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  6 Sep 2022 16:49:24 -0700
-Message-Id: <20220906234934.3655440-5-matthew.d.roper@intel.com>
+Date: Tue,  6 Sep 2022 16:49:28 -0700
+Message-Id: <20220906234934.3655440-9-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220906234934.3655440-1-matthew.d.roper@intel.com>
 References: <20220906234934.3655440-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 04/14] drm/i915: Drop intel_gt_tile_cleanup()
+Subject: [Intel-gfx] [PATCH v3 08/14] drm/i915: Initialize MMIO access for
+ each GT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,94 +60,119 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Unmapping of the MMIO range can be done as a DRM-managed action, which
-will take care of the unmapping on device teardown and error paths.
-This will also ensure proper ordering with respect to other DRM-managed
-actions that we'll be using to clean up non-primary GTs in upcoming
-patches.
+In a multi-GT system we need to initialize MMIO access for each GT, not
+just the primary GT.
 
-We have not yet enabled any non-root GTs in the driver yet, so the
-kfree() of the GT structure is effectively dead code.  When we do start
-enabling non-root GTs in upcoming patches, those are going to be using
-DRM-managed allocations tied to the device lifetime, so we don't need to
-explicitly free them (and kfree would be incorrect anyway).
-
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c  | 13 +------------
- drivers/gpu/drm/i915/intel_uncore.c | 13 +++++++------
- 2 files changed, 8 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/i915_driver.c  | 27 ++++++++++++++++++---------
+ drivers/gpu/drm/i915/intel_uncore.c |  5 ++++-
+ drivers/gpu/drm/i915/intel_uncore.h |  3 ++-
+ 3 files changed, 24 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index cf7aab7adb30..663a4798fb2e 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -803,15 +803,6 @@ static int intel_gt_tile_setup(struct intel_gt *gt, phys_addr_t phys_addr)
- 	return 0;
- }
- 
--static void
--intel_gt_tile_cleanup(struct intel_gt *gt)
--{
--	intel_uncore_cleanup_mmio(gt->uncore);
--
--	if (!gt_is_root(gt))
--		kfree(gt);
--}
--
- int intel_gt_probe_all(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 1f46dd1ffaf7..bb9ba1aed1bb 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -431,7 +431,8 @@ static void i915_driver_late_release(struct drm_i915_private *dev_priv)
+  */
+ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
  {
- 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
-@@ -858,10 +849,8 @@ void intel_gt_release_all(struct drm_i915_private *i915)
- 	struct intel_gt *gt;
- 	unsigned int id;
+-	int ret;
++	struct intel_gt *gt;
++	int ret, i;
  
--	for_each_gt(gt, i915, id) {
--		intel_gt_tile_cleanup(gt);
-+	for_each_gt(gt, i915, id)
- 		i915->gt[id] = NULL;
--	}
+ 	if (i915_inject_probe_failure(dev_priv))
+ 		return -ENODEV;
+@@ -440,17 +441,27 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = intel_uncore_init_mmio(&dev_priv->uncore);
+-	if (ret)
+-		return ret;
++	for_each_gt(gt, dev_priv, i) {
++		ret = intel_uncore_init_mmio(gt->uncore);
++		if (ret)
++			return ret;
++
++		ret = drmm_add_action_or_reset(&dev_priv->drm,
++					       intel_uncore_fini_mmio,
++					       gt->uncore);
++		if (ret)
++			return ret;
++	}
+ 
+ 	/* Try to make sure MCHBAR is enabled before poking at it */
+ 	intel_setup_mchbar(dev_priv);
+ 	intel_device_info_runtime_init(dev_priv);
+ 
+-	ret = intel_gt_init_mmio(to_gt(dev_priv));
+-	if (ret)
+-		goto err_uncore;
++	for_each_gt(gt, dev_priv, i) {
++		ret = intel_gt_init_mmio(gt);
++		if (ret)
++			goto err_uncore;
++	}
+ 
+ 	/* As early as possible, scrub existing GPU state before clobbering */
+ 	sanitize_gpu(dev_priv);
+@@ -459,7 +470,6 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+ 
+ err_uncore:
+ 	intel_teardown_mchbar(dev_priv);
+-	intel_uncore_fini_mmio(&dev_priv->uncore);
+ 
+ 	return ret;
+ }
+@@ -471,7 +481,6 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+ static void i915_driver_mmio_release(struct drm_i915_private *dev_priv)
+ {
+ 	intel_teardown_mchbar(dev_priv);
+-	intel_uncore_fini_mmio(&dev_priv->uncore);
  }
  
- void intel_gt_info_print(const struct intel_gt_info *info,
+ /**
 diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-index 6841f76533f9..2a32f8a65f34 100644
+index 2a32f8a65f34..452b3a31e965 100644
 --- a/drivers/gpu/drm/i915/intel_uncore.c
 +++ b/drivers/gpu/drm/i915/intel_uncore.c
-@@ -21,6 +21,7 @@
-  * IN THE SOFTWARE.
-  */
- 
-+#include <drm/drm_managed.h>
- #include <linux/pm_runtime.h>
- 
- #include "gt/intel_engine_regs.h"
-@@ -2232,6 +2233,11 @@ static int i915_pmic_bus_access_notifier(struct notifier_block *nb,
- 	return NOTIFY_OK;
- }
- 
-+static void uncore_unmap_mmio(struct drm_device *drm, void *regs)
-+{
-+	iounmap(regs);
-+}
-+
- int intel_uncore_setup_mmio(struct intel_uncore *uncore, phys_addr_t phys_addr)
- {
- 	struct drm_i915_private *i915 = uncore->i915;
-@@ -2260,12 +2266,7 @@ int intel_uncore_setup_mmio(struct intel_uncore *uncore, phys_addr_t phys_addr)
- 		return -EIO;
+@@ -2455,8 +2455,11 @@ void intel_uncore_prune_engine_fw_domains(struct intel_uncore *uncore,
  	}
- 
--	return 0;
--}
--
--void intel_uncore_cleanup_mmio(struct intel_uncore *uncore)
--{
--	iounmap(uncore->regs);
-+	return drmm_add_action_or_reset(&i915->drm, uncore_unmap_mmio, uncore->regs);
  }
  
- void intel_uncore_init_early(struct intel_uncore *uncore,
+-void intel_uncore_fini_mmio(struct intel_uncore *uncore)
++/* Called via drm-managed action */
++void intel_uncore_fini_mmio(struct drm_device *dev, void *data)
+ {
++	struct intel_uncore *uncore = data;
++
+ 	if (intel_uncore_has_forcewake(uncore)) {
+ 		iosf_mbi_punit_acquire();
+ 		iosf_mbi_unregister_pmic_bus_access_notifier_unlocked(
+diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
+index 6100d0f4498a..4acb78a03233 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.h
++++ b/drivers/gpu/drm/i915/intel_uncore.h
+@@ -33,6 +33,7 @@
+ 
+ #include "i915_reg_defs.h"
+ 
++struct drm_device;
+ struct drm_i915_private;
+ struct intel_runtime_pm;
+ struct intel_uncore;
+@@ -220,7 +221,7 @@ void intel_uncore_prune_engine_fw_domains(struct intel_uncore *uncore,
+ bool intel_uncore_unclaimed_mmio(struct intel_uncore *uncore);
+ bool intel_uncore_arm_unclaimed_mmio_detection(struct intel_uncore *uncore);
+ void intel_uncore_cleanup_mmio(struct intel_uncore *uncore);
+-void intel_uncore_fini_mmio(struct intel_uncore *uncore);
++void intel_uncore_fini_mmio(struct drm_device *dev, void *data);
+ void intel_uncore_suspend(struct intel_uncore *uncore);
+ void intel_uncore_resume_early(struct intel_uncore *uncore);
+ void intel_uncore_runtime_resume(struct intel_uncore *uncore);
 -- 
 2.37.2
 
