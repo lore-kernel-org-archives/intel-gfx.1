@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA65DC38145
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 19:52:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 237F2C54EE9
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 19:53:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E502510EA6F;
-	Tue,  6 Sep 2022 19:52:41 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAC9810EA65;
- Tue,  6 Sep 2022 19:52:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49F4710EA6D;
+	Tue,  6 Sep 2022 19:52:48 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 303FD10EA65;
+ Tue,  6 Sep 2022 19:52:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662493955; x=1694029955;
+ t=1662493957; x=1694029957;
  h=date:from:to:cc:subject:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0JkPYEHioOtGLJAxsT5kA+8eXjUWG3XSjrJRIH80fII=;
- b=Uf2BZRb+zdrPjdWwtcIjb4pA3E5yuykRoNit+KoZoJHytQEzg+rd5fHu
- 5XdirDxoWZuJHfAiuUhfAGEK0/zn82tT4MhBzGxc8ehZJ6nyxDhPpaokE
- g9DUW7SqnlGZxvfqmCVOCrYDrcP62mr24uH7HTsd6LqulrpQYSmvNzXH2
- tZw8Pb/+QpsOvyiIcZ6RUBks/cGvNak6juzHXQGk0sZHBh4ceEFCskasF
- fdNG1mwHaA5YG3w7cgezM5g9BfAdJgY3lSwo0JbsQHVMdbTdCnHVlwwVm
- RoM3Mvt44E2OqgWoIEMPQM07hYIyLgFYLYpaYMSy9OTb5Vdw6wBVG9Gq/ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="360637568"
-X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="360637568"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2022 12:52:33 -0700
+ bh=QXh+N8yFDnZSCWq7iaCGkV9oRPhO8WRuXHEx8NhlGzY=;
+ b=kuSSo0H9mnkkvMCozJPwPSyShICCeHb6jcHqx1zpQx1IR/YxjVkH2FTG
+ eYrvmA/l7o9LcADVXh7Zz/xuR68S2961yPAVOykIe8UwCFec3JH5bAcwH
+ lmMWSSiTQO6TvzaGj+yNYnX/WsMLGiY4EH1aWwbnpiEl7QOu3GfVlDyu0
+ l5/9vJN+96Mgi4mGG7EhXuqFgio94qkAMQwSI+EspF1WwBFUoUX7i5bTO
+ i0eYonJbpcxCm0pZSXD18mqmx4BxBaUAPpYKTS7b0Hy/BRj/hb34Poeq6
+ CrI95VNhpXQH5u5G3WMfE+Xba2WA0IKeXfPb2ONHE76dsCoC0MBZDv5vg w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="382987128"
+X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="382987128"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2022 12:52:35 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="717837480"
+X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="614216271"
 Received: from linux.intel.com ([10.54.29.200])
- by fmsmga002.fm.intel.com with ESMTP; 06 Sep 2022 12:52:32 -0700
+ by orsmga002.jf.intel.com with ESMTP; 06 Sep 2022 12:52:35 -0700
 Received: from maurocar-mobl2 (maurocar-mobl2.ger.corp.intel.com
  [10.252.44.186])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id CA236580583;
- Tue,  6 Sep 2022 12:52:30 -0700 (PDT)
-Date: Tue, 6 Sep 2022 21:17:47 +0200
+ by linux.intel.com (Postfix) with ESMTPS id DBFA3580583;
+ Tue,  6 Sep 2022 12:52:32 -0700 (PDT)
+Date: Tue, 6 Sep 2022 21:35:18 +0200
 From: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
 To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Message-ID: <20220906211740.6b92f23d@maurocar-mobl2>
-In-Reply-To: <YvIu/oCnkDbdLqou@intel.com>
+Message-ID: <20220906213509.6093e904@maurocar-mobl2>
+In-Reply-To: <YvIwkaYRbrd5+vtj@intel.com>
 References: <cover.1657699522.git.mchehab@kernel.org>
- <b3657e96ea87a5803ed27d1cc0d9fa44b2f164cf.1657699522.git.mchehab@kernel.org>
- <YvIu/oCnkDbdLqou@intel.com>
+ <d7d1f6d6516eb3a82041af1d5f40c2f550de40db.1657699522.git.mchehab@kernel.org>
+ <YvIwkaYRbrd5+vtj@intel.com>
 X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2 18/39] drm/i915: intel_pm.c: fix some
- ascii artwork at kernel-doc
+Subject: Re: [Intel-gfx] [PATCH v2 30/39] docs: gpu: i915.rst: gt: add more
+ kernel-doc markups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,47 +65,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: Jonathan Corbet <corbet@lwn.net>, David Airlie <airlied@linux.ie>,
+ intel-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 9 Aug 2022 05:55:10 -0400
+On Tue, 9 Aug 2022 06:01:53 -0400
 Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
 
-> On Wed, Jul 13, 2022 at 09:12:06AM +0100, Mauro Carvalho Chehab wrote:
-> > Preserving ascii artwork on kernel-docs is tricky, as it needs
-> > to respect both the Sphinx rules and be properly parsed by
-> > kernel-doc script.
-> > 
-> > The Sphinx syntax require code-blocks, which is:
-> > 
-> > 	::
-> > 
-> > followed by a blank line and indented lines.
-> > 
-> > But kernel-doc only works fine if the first and the last line
-> > are indented with the same amount of spaces.
-> > 
-> > Also, a "\" at the end means that the next line should be merged
-> > with the first one.  
-> 
-> my first reaction was: "do we really need those new empty ( ) blocks?"
-> 
-> Then I read this ;)
-
-Yeah, it is tricky to get it right, due to kernel-doc + Sphinx here.
-Also, I bet that this would be needed even for ReST files with
-C code on it, as it is likely the C domain encoding at Sphinx that
-handles continuation lines with "\" at the end...
-
-> 
-> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> 
-> > 
-> > Change the ascii artwork to be on code-blocks, starting all
-> > lines at the same characters and not ending with a backslash.
+> On Wed, Jul 13, 2022 at 09:12:18AM +0100, Mauro Carvalho Chehab wrote:
+> > There are several documented GT kAPI that aren't currently part
+> > of the docs. Add them, as this allows identifying issues with
+> > badly-formatted tags.
 > > 
 > > Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 > > ---
@@ -113,64 +87,98 @@ handles continuation lines with "\" at the end...
 > > To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 > > See [PATCH v2 00/39] at: https://lore.kernel.org/all/cover.1657699522.git.mchehab@kernel.org/
 > > 
-> >  drivers/gpu/drm/i915/intel_pm.c | 33 ++++++++++++++++++---------------
-> >  1 file changed, 18 insertions(+), 15 deletions(-)
+> >  Documentation/gpu/i915.rst | 43 +++++++++++++++++++++++++++++++++++++-
+> >  1 file changed, 42 insertions(+), 1 deletion(-)
 > > 
-> > diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-> > index f06babdb3a8c..d3393752b04b 100644
-> > --- a/drivers/gpu/drm/i915/intel_pm.c
-> > +++ b/drivers/gpu/drm/i915/intel_pm.c
-> > @@ -684,18 +684,20 @@ static const struct intel_watermark_params i845_wm_info = {
-> >   * FIFO is relatively small compared to the amount of data
-> >   * fetched.
-> >   *
-> > - * The FIFO level vs. time graph might look something like:
-> > + * The FIFO level vs. time graph might look something like::
-> >   *
-> > - *   |\   |\
-> > - *   | \  | \
-> > - * __---__---__ (- plane active, _ blanking)
-> > - * -> time
-> > + *   ^
-> > + *   |   |\   |\      (                          )
-> > + *   |   | \  | \     (                          )
-> > + *   |   __---__---__ (- plane active, _ blanking)
-> > + *   +-------------------> time
-> >   *
-> > - * or perhaps like this:
-> > + * or perhaps like this::
-> >   *
-> > - *   |\|\  |\|\
-> > - * __----__----__ (- plane active, _ blanking)
-> > - * -> time
-> > + *   ^
-> > + *   |     |\|\  |\|\   (                          )
-> > + *   |   __----__----__ (- plane active, _ blanking)
-> > + *   +-------------------> time
-> >   *
-> >   * Returns:
-> >   * The watermark in bytes
-> > @@ -731,13 +733,14 @@ static unsigned int intel_wm_method1(unsigned int pixel_rate,
-> >   * FIFO is relatively large compared to the amount of data
-> >   * fetched.
-> >   *
-> > - * The FIFO level vs. time graph might look something like:
-> > + * The FIFO level vs. time graph might look something like::
-> >   *
-> > - *    |\___       |\___
-> > - *    |    \___   |    \___
-> > - *    |        \  |        \
-> > - * __ --__--__--__--__--__--__ (- plane active, _ blanking)
-> > - * -> time
-> > + *   ^
-> > + *   |     |\___       |\___        (                          )
-> > + *   |     |    \___   |    \___    (                          )
-> > + *   |     |        \  |        \   (                          )
-> > + *   |  __ --__--__--__--__--__--__ (- plane active, _ blanking)
-> > + *   +---------------------------------> time
-> >   *
-> >   * Returns:
-> >   * The watermark in bytes
+> > diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+> > index 2ad7941a79f2..afd8c0e3c689 100644
+> > --- a/Documentation/gpu/i915.rst
+> > +++ b/Documentation/gpu/i915.rst
+> > @@ -149,7 +149,6 @@ Misc display functions
+> >  
+> >  .. kernel-doc:: drivers/gpu/drm/i915/display/skl_scaler.c
+> >  
+> > -
+> >  Plane Configuration
+> >  -------------------
+> >  
+> > @@ -308,6 +307,48 @@ Multicast/Replicated (MCR) Registers
+> >  .. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gt_mcr.c
+> >     :internal:
+> >  
+> > +GT engine
+> > +---------
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_engine_types.h
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_engine_pm.c
+> > +
+> > +GT context
+> > +----------
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_context.h  
+> 
+> why does the context deserves a separated section and the
+> many others below no?
+
+Good question. The patches adding stuff to i915.rst are the
+hardest ones to produce, in the sense that it is not easy to have
+a common criteria about when creating or not a new section.
+
+I tried to follow the same as other things for the same type, but
+it is hard to classify.
+
+The main point is that they should be somewhere there, in order to start
+producing errors when building the docs. Reorganizing those markups should
+be easily done once all files with kernel-docs gets added there.
+
+Anyway, I'll keep this under:
+
+	Other GT functionality
+
+Section. We can shift things later on as needed.
+
+> > +
+> > +Graphics Translation Tables
+> > +---------------------------
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_ggtt.c
+> > +
+> > +Other GT functionality
+> > +----------------------
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gsc.h
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gtt.c
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gtt.h  
+> 
+> Why aren't these gtt ones in the above block? why only
+> having the global gtt there?
+
+Makes sense. I'll place GTT together with GGTT.
+
+> 
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_migrate.c
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_mocs.h
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_rc6.c
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_reset.c
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_rps_types.h
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_rps.c
+> > +
+> > +.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_sseu.c
+> > +
+> >  Memory Management and Command Submission
+> >  ========================================
+> >  
 > > -- 
 > > 2.36.1
 > >   
