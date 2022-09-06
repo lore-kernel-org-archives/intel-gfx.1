@@ -4,60 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8FA7C6FA83
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70EFCECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93FFE10E4DA;
-	Mon, 12 Sep 2022 13:38:16 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D2A910E69B
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 14:22:40 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id w2so15453506edc.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 06 Sep 2022 07:22:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39FCA10E4DD;
+	Mon, 12 Sep 2022 13:38:17 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BF1010EA76;
+ Tue,  6 Sep 2022 20:04:36 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id w2so16681810edc.0;
+ Tue, 06 Sep 2022 13:04:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=ijOEOtFnOWbXwR0YWhOwnjAKpDCJ+VHojpuzR/RqPz0=;
- b=Qx2ASiZZZgxmGC51opD1+il8ubB2+Rd68+KXODOdee8UvSaOPKcNch9DHENWY6VwSX
- NM9oUFkw0it2zluxEOjNKytLWTQQXmPAfxT+3nQg0cYf1/pm914KKfB11klzzaKmElRa
- 8WVwnwBFMvuM3dv5Z8Zqgti9ipEMgq6cW5JF6AFaRqxu1BePNtSXj9xW7wCCUjK/IMaC
- Wfq236A2ZrsEbDXEbamxIiSOeGWJRpRg9nNz3/njOwmESoT/On1U1xAcNZCHEMKAQYTp
- Utqxx9dRydia+ZDk3UWvZFri5VIawLreJRLDWcHwT5vw7x3E9RJEhiKTJpUnoLkjvWbJ
- XC5A==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
+ bh=plI2ccCtxFfQQaA/IHicso25P4hNeiGkni4LSwxPbm4=;
+ b=Oa0+iWZ5DBGIMbtbaWYlC5APlU/wi67OB46kQ8Fked1WkqCJO7eSuYV4pXcpMtsrLh
+ h4m8ns9bM2EwwF1pb3EvhBxIuI6zX9ev0R6fn6dUX6ngsdv7SQcvBDNqWnFLGSyURMsG
+ 3t1udFKm1hYrJJ9BkltIYCn31OmFy6AZPUQ8/Sj6T1LlhFdQjhA57LTt7OJxR5vTJLKR
+ IuunwxnSMYyOBJoMqzyfHehMGdq3P/FdVikYQbvRTcieYwm9qSRwWDkFuVFhqCAaAZGj
+ eCCSN7KdX2r0rqA0gSJxLFOqvSdqphm5EeP5zTMWlKZ20BzoIgCkXDmhh8P46XPQ9TEb
+ YhLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=ijOEOtFnOWbXwR0YWhOwnjAKpDCJ+VHojpuzR/RqPz0=;
- b=I8UhLVvpcKxRywgpcWZOe4zNCYmJ624xBdjWC36cG6oYHZIFzd1+b7OXs02A/mf7SN
- GDGD2wKujwO9Dq7/N3E870ejHcC48vWffaVGI8OpqQ6Yx1ePApvuUFQqflzGzRrm5ple
- vCppmBtJtzFdQNOMKOodlfqT/1ytaKaqe2s8QmbnIekYrn6riNHUhfwQ+ExjuBKou41L
- aN7FpZ/3FT63eYWHUOjmWMT9fgIJkfq4/Tzdm2dkNVgob4mWnUHE1710FJx0hR9+84N2
- MNRdG8mZN21bZURuXMCpFImjEwLEE2F2HbW0qOhSgdJvIjcdWxpGBffpW0aYPWy7pPd/
- wzJg==
-X-Gm-Message-State: ACgBeo2TMBcUhZt8m+4YGX6HEjwhpA1NFHE0pUjpFGtn464POZVD7f06
- YZVGH9zdVpUJBYVuCKHkdSDBnioEPSQkYd5U8t2ZN4HzHLkv9A==
-X-Google-Smtp-Source: AA6agR7jnYtYye7Xf85qnDt//TSNB3TN13wIuTuN2mmcJDSmy3gq7IcBEUCxN3irj8LKYFyENu5PqJm+xbPUrGz8bBY=
-X-Received: by 2002:a05:6402:2751:b0:443:d90a:43d4 with SMTP id
- z17-20020a056402275100b00443d90a43d4mr49004504edd.368.1662474158540; Tue, 06
- Sep 2022 07:22:38 -0700 (PDT)
+ bh=plI2ccCtxFfQQaA/IHicso25P4hNeiGkni4LSwxPbm4=;
+ b=5o13LKN2PkvV/C9fZ56DE8aPboCVafCeagRc5KCDQGrIievs7C5BiKEAx4229tU7C1
+ LGNEbq++oGbdSwKjZylg8SHZzsVlPz7H1Egq0lPg8t/5ZPEEz9abCQTkoPUtXFUtHxAT
+ NQZBrAExsdiNzDxW1h4PLP3oAKGagLmtabN/jwXuD0Opj+WIjD+dnxuNS3h5UPX3mYq/
+ ouuudtPwFFP1sOGPjsVjby/0r38hRrAfQiDOiSoMRcT3t90DftPC8x5rbmMBLzxDgiyf
+ sNNJNFrSVCEcxLNjhw+kWw5XEbu6K4KaUIBqtc5HPrluHaK+WcGKCk0xMMZYs7FhUm/0
+ wteQ==
+X-Gm-Message-State: ACgBeo0qcwIj7Susj4vc9tFLGsohlan9NeknoTjT0jbw9IJj5gK4CoR+
+ WkbsmpiqDkAqMT7FO2Jm9Kk=
+X-Google-Smtp-Source: AA6agR6Kk9aCcEfrY5Ey5jOi/kWmdkQVgNAUGJ16H1QclaprIGEZQnyZQvab5nv2idHUjXMCwzagDQ==
+X-Received: by 2002:a05:6402:911:b0:44e:a5b4:74f7 with SMTP id
+ g17-20020a056402091100b0044ea5b474f7mr211765edz.249.1662494675009; 
+ Tue, 06 Sep 2022 13:04:35 -0700 (PDT)
+Received: from kista.localnet (82-149-1-172.dynamic.telemach.net.
+ [82.149.1.172]) by smtp.gmail.com with ESMTPSA id
+ i6-20020a170906850600b0073d9a0d0cbcsm7193709ejx.72.2022.09.06.13.04.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Sep 2022 13:04:33 -0700 (PDT)
+From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>, Ben Skeggs <bskeggs@redhat.com>,
+ David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ Noralf =?ISO-8859-1?Q?Tr=F8nnes?= <noralf@tronnes.org>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maxime Ripard <maxime@cerno.tech>
+Date: Tue, 06 Sep 2022 22:04:32 +0200
+Message-ID: <10138422.nUPlyArG6x@kista>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-36-459522d653a7@cerno.tech>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-36-459522d653a7@cerno.tech>
 MIME-Version: 1.0
-References: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
- <166246909164.8880.10585519190282207260@emeril.freedesktop.org>
-In-Reply-To: <166246909164.8880.10585519190282207260@emeril.freedesktop.org>
-From: Zheng Hacker <hackerzheng666@gmail.com>
-Date: Tue, 6 Sep 2022 22:22:27 +0800
-Message-ID: <CAJedcCwxOtYPLPmHbFrSXRMN_eeHNc7vQswhSebR-aE2MfTmfw@mail.gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] 
-	=?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
-	=?utf-8?q?rm/i915/gvt=3A_fix_double-free_bug_in_split=5F2MB=5Fgtt?=
-	=?utf-8?q?=5Fentry=2E?=
+Subject: Re: [Intel-gfx] [PATCH v2 36/41] drm/sun4i: tv: Merge mode_set into
+ atomic_enable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,41 +85,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Maxime Ripard <maxime@cerno.tech>,
+ Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Dne ponedeljek, 29. avgust 2022 ob 15:11:50 CEST je Maxime Ripard napisal(a):
+> Our mode_set implementation can be merged into our atomic_enable
+> implementation to simplify things, so let's do this.
 
-I think it may because I erase the email address in "sigh-off" line. I
-will send the original patch later.
+Are you sure this is a good thing in long term? What if user wants to change 
+mode? Unlikely, but why not.
 
-Regards.
-Zheng Wang
+Best regards,
+Jernej
 
-Patchwork <patchwork@emeril.freedesktop.org> =E4=BA=8E2022=E5=B9=B49=E6=9C=
-=886=E6=97=A5=E5=91=A8=E4=BA=8C 20:58=E5=86=99=E9=81=93=EF=BC=9A
->
-> =3D=3D Series Details =3D=3D
->
-> Series: drm/i915/gvt: fix double-free bug in split_2MB_gtt_entry.
-> URL   : https://patchwork.freedesktop.org/series/108188/
-> State : failure
->
-> =3D=3D Summary =3D=3D
->
-> Error: patch https://patchwork.freedesktop.org/api/1.0/series/108188/revi=
-sions/1/mbox/ not applied
-> Applying: drm/i915/gvt: fix double-free bug in split_2MB_gtt_entry.
-> error: patch failed: drivers/gpu/drm/i915/gvt/gtt.c:1215
-> error: drivers/gpu/drm/i915/gvt/gtt.c: patch does not apply
-> error: Did you hand edit your patch?
-> It does not apply to blobs recorded in its index.
-> hint: Use 'git am --show-current-patch=3Ddiff' to see the failed patch
-> Using index info to reconstruct a base tree...
-> Patch failed at 0001 drm/i915/gvt: fix double-free bug in split_2MB_gtt_e=
-ntry.
-> When you have resolved this problem, run "git am --continue".
-> If you prefer to skip this patch, run "git am --skip" instead.
-> To restore the original branch and stop patching, run "git am --abort".
->
->
+> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> 
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_tv.c
+> b/drivers/gpu/drm/sun4i/sun4i_tv.c
+> index f7aad995ab5b..3944da9a3c34 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_tv.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_tv.c
+> @@ -359,23 +359,13 @@ static void sun4i_tv_enable(struct drm_encoder
+> *encoder,
+ {
+>  	struct sun4i_tv *tv = drm_encoder_to_sun4i_tv(encoder);
+>  	struct sun4i_crtc *crtc = drm_crtc_to_sun4i_crtc(encoder->crtc);
+> -
+> -	DRM_DEBUG_DRIVER("Enabling the TV Output\n");
+> -
+> -	sunxi_engine_apply_color_correction(crtc->engine);
+> -
+> -	regmap_update_bits(tv->regs, SUN4I_TVE_EN_REG,
+> -			   SUN4I_TVE_EN_ENABLE,
+> -			   SUN4I_TVE_EN_ENABLE);
+> -}
+> -
+> -static void sun4i_tv_mode_set(struct drm_encoder *encoder,
+> -			      struct drm_display_mode *mode,
+> -			      struct drm_display_mode 
+*adjusted_mode)
+> -{
+> -	struct sun4i_tv *tv = drm_encoder_to_sun4i_tv(encoder);
+> +	struct drm_crtc_state *crtc_state =
+> +		drm_atomic_get_new_crtc_state(state, encoder->crtc);
+> +	struct drm_display_mode *mode = &crtc_state->mode;
+>  	const struct tv_mode *tv_mode = sun4i_tv_find_tv_by_mode(mode);
+>  
+> +	DRM_DEBUG_DRIVER("Enabling the TV Output\n");
+> +
+>  	/* Enable and map the DAC to the output */
+>  	regmap_update_bits(tv->regs, SUN4I_TVE_EN_REG,
+>  			   SUN4I_TVE_EN_DAC_MAP_MASK,
+> @@ -468,12 +458,17 @@ static void sun4i_tv_mode_set(struct drm_encoder
+> *encoder,
+> SUN4I_TVE_RESYNC_FIELD : 0));
+>  
+>  	regmap_write(tv->regs, SUN4I_TVE_SLAVE_REG, 0);
+> +
+> +	sunxi_engine_apply_color_correction(crtc->engine);
+> +
+> +	regmap_update_bits(tv->regs, SUN4I_TVE_EN_REG,
+> +			   SUN4I_TVE_EN_ENABLE,
+> +			   SUN4I_TVE_EN_ENABLE);
+>  }
+>  
+>  static const struct drm_encoder_helper_funcs sun4i_tv_helper_funcs = {
+>  	.atomic_disable	= sun4i_tv_disable,
+>  	.atomic_enable	= sun4i_tv_enable,
+> -	.mode_set	= sun4i_tv_mode_set,
+>  };
+>  
+>  static int sun4i_tv_comp_get_modes(struct drm_connector *connector)
+> 
+> -- 
+> b4 0.10.0-dev-65ba7
+
+
+
