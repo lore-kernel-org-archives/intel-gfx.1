@@ -4,58 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17976ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:37:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF9D6ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 12:38:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0ADF10E69D;
-	Tue,  6 Sep 2022 12:37:43 +0000 (UTC)
-Received: from smtp.domeneshop.no (smtp.domeneshop.no
- [IPv6:2a01:5b40:0:3005::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F7C710E275;
- Mon,  5 Sep 2022 10:18:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
- ; s=ds202112;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=nGjgsqGfJ0L+5KqUZMoJ4DGF2/kaGZuM3mOBrnObORY=; b=GuFH49lIq7dXPIMGs2vx4oc3BR
- e4YS/7YXDJgB9v/zgketZQx9j+ssn++8p5j5K3bgQHeAgYXYvDb4xMsOlhPfqz7vlqzPscXDqPiDp
- TuZk6qPEaf9gEEvSTnRfIOwWc95dRQfj//0k4w1VdwEkrGqBd9ai/8uZRyhuSxUeSOOObjAaIyW6B
- 2x5vmyH3jI24qzuKuKEcC/2jq+sAieA5uyVJr0iVO0oz10Maa9WzNwr34UsF7CYZqJWlbCMUkDiex
- HCn3YQ35Mqkh6eFmO3/78uayPkQngfVpngj7+TknlebgMGDtZ5dq9zlx9rs99wN7jTx7Ln6187TRI
- kHjBOxRA==;
-Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=59939)
- by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <noralf@tronnes.org>)
- id 1oV9BW-00065d-5J; Mon, 05 Sep 2022 12:18:30 +0200
-Message-ID: <ae5932bf-c34d-8e11-c71f-f470e03822e4@tronnes.org>
-Date: Mon, 5 Sep 2022 12:18:21 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E44410E6A7;
+	Tue,  6 Sep 2022 12:38:48 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D658D10E6A3
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 12:38:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662467921; x=1694003921;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=RJLixKzW72Y+pICKpMWQYDfvFSWybZRBXQ8EEKYt89k=;
+ b=EumLarqpk6AtwTnK4lZ/Wk00jSHmZ5r/fxFb/aZZvLndCP/gI7LejrGv
+ ly1G/YRqDgLydZxJmV9q4fsU9Gu08zCHpzkyyRdc9mmDDY6Hnrp22yVCb
+ y0pYLrw8Eq7FDyvX1uGSdTi9Qr2Vba3jI0r1zOz9y/LKikPqM5wHkKV5U
+ eB3Rq0P9Mx4fBQsAp/aZo+O5AQeINOOWpNBEEA2xEmDNshUBwK931ZPQ8
+ BjskqsVrcSNir602Ev4vuJIbjvbbrLx/JjrK1tthuoydNnnOKEQ6w1o5m
+ sMTdOv0+/9BT55Pkr4wjbWWRNjF/ihNnhhsDl3y2jBrB+pVdySYQ175i8 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="297365881"
+X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="297365881"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2022 05:38:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="703196489"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
+ by FMSMGA003.fm.intel.com with SMTP; 06 Sep 2022 05:38:38 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 06 Sep 2022 15:38:38 +0300
+Date: Tue, 6 Sep 2022 15:38:38 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+Message-ID: <Yxc/Trzzyp8WODhO@intel.com>
+References: <20220906102329.7073-1-stanislav.lisovskiy@intel.com>
+ <Yxc1rvmwMuN9RzTo@intel.com> <Yxc8pcXwTMcEooBs@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: Maxime Ripard <maxime@cerno.tech>, Maxime Ripard <mripard@kernel.org>,
- Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
- Chen-Yu Tsai <wens@csie.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
- Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-9-459522d653a7@cerno.tech>
-From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-9-459522d653a7@cerno.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 06 Sep 2022 12:33:46 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 09/41] drm/connector: Add TV standard
- property
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Yxc8pcXwTMcEooBs@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix
+ intel_dp_atomic_find_vcpi_slots function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,140 +61,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Sep 06, 2022 at 03:27:17PM +0300, Lisovskiy, Stanislav wrote:
+> On Tue, Sep 06, 2022 at 02:57:34PM +0300, Ville Syrjälä wrote:
+> > On Tue, Sep 06, 2022 at 01:23:29PM +0300, Stanislav Lisovskiy wrote:
+> > > drm_dp_atomic_find_vcpi_slots no longer exists and needs
+> > > to be used as drm_dp_atomic_find_time_slots.
+> > > Also rename the function itself.
+> > > 
+> > > Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> > > Fixes: 7ae5ab441402 ("Extract drm_dp_atomic_find_vcpi_slots cycle to separate function")
+> > 
+> > The problem only exists in drm-tip. You need to revert the 
+> > bad merge from rerere-cache and redo it.
+> > 
+> > And please always test build drm-tip after solving merge conflicts!
+> 
+> I would really like to figure out how it did end like that.
+> 
+> Here is the sequence of what I've been doing:
+> 
+> 1) There was a series supposed to be merged which had this new
+>    change already in place i.e using drm_dp_atomic_find_time_slots.
+> 2) Then using dim tools I started pushing according to workflow:
+>    a) dim update-branches
+>    b) dim checkout drm-intel-next
+>    c) wget those series mbox and run dim apply-branch drm-intel-next
+>       Got conflict: it was complaining about those changes around
+>       drm_dp_atomic_find_time_slots and after some checking I figured
+>       out that drm_dp_atomic_find_time_slots doesn't exist anymore.
+>       Here probably was my bad, as I wrongly assumed that those changes
+>       were probably reverted as it was also mentioned, that there was
+>       regression because of those.
+>       
+>       So I resolved this conflict by putting drm_dp_atomic_find_vcpi_slots
+>       back instead of drm_dp_atomic_find_time_slots _and_ actually
+>       built it even.
+>    
+>    d) I run dim push-branch drm-intel-next, it did complain about merge
+>       conflict again with drm-intel-next which I fixed and results were
+>       pushed.
+>       I should have build at this moment as well probably. 
 
+Yes. You didn't resolve the conflict correctly, thus the build failure.
 
-Den 29.08.2022 15.11, skrev Maxime Ripard:
-> The TV mode property has been around for a while now to select and get the
-> 
-> current TV mode output on an analog TV connector.
-> 
-> 
-> 
-> Despite that property name being generic, its content isn't and has been
-> 
-> driver-specific which makes it hard to build any generic behaviour on top
-> 
-> of it, both in kernel and user-space.
-> 
-> 
-> 
-> Let's create a new bitmask tv norm property, that can contain any of the
-> 
-> analog TV standards currently supported by kernel drivers. Each driver can
-> 
-> then pass in a bitmask of the modes it supports.
-> 
-> 
-> 
-> We'll then be able to phase out the older tv mode property.
-> 
-> 
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> 
-> 
-> 
-
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-
-> +/**
-> 
-> + * drm_mode_create_tv_properties - create TV specific connector properties
-> 
-> + * @dev: DRM device
-> 
-> + * @supported_tv_modes: Bitmask of TV modes supported (See DRM_MODE_TV_MODE_*)
-> 
-> +
-> 
-> + * Called by a driver's TV initialization routine, this function creates
-> 
-> + * the TV specific connector properties for a given device.  Caller is
-> 
-> + * responsible for allocating a list of format names and passing them to
-> 
-> + * this routine.
-> 
-> + *
-> 
-> + * Returns:
-> 
-> + * 0 on success or a negative error code on failure.
-> 
-> + */
-> 
-> +int drm_mode_create_tv_properties(struct drm_device *dev,
-> 
-> +				  unsigned int supported_tv_modes)
-> 
-> +{
-> 
-> +	struct drm_prop_enum_list tv_mode_list[DRM_MODE_TV_MODE_MAX];
-> 
-> +	struct drm_property *tv_mode;
-> 
-> +	unsigned int i, len = 0;
-> 
-> +
-> 
-
-Can you add a check here like in the legacy version:
-
-	if (dev->mode_config.tv_mode_property)
-		return 0;
-
-This way it's possible to call this multiple times. Like in drm/gud
-during connector init if there are multiple TV connectors or if a device
-with multiple IP blocks should show up.
-
-Noralf.
-
-> +	for (i = 0; i < DRM_MODE_TV_MODE_MAX; i++) {
-> 
-> +		if (!(supported_tv_modes & BIT(i)))
-> 
-> +			continue;
-> 
-> +
-> 
-> +		tv_mode_list[len].type = i;
-> 
-> +		tv_mode_list[len].name = drm_get_tv_mode_name(i);
-> 
-> +		len++;
-> 
-> +	}
-> 
-> +
-> 
-> +	tv_mode = drm_property_create_enum(dev, 0, "TV mode",
-> 
-> +					   tv_mode_list, len);
-> 
-> +	if (!tv_mode)
-> 
-> +		return -ENOMEM;
-> 
-> +
-> 
-> +	dev->mode_config.tv_mode_property = tv_mode;
-> 
-> +
-> 
-> +	return drm_mode_create_tv_properties_legacy(dev, 0, NULL);
-> 
-> +}
-> 
-> +EXPORT_SYMBOL(drm_mode_create_tv_properties);
-> 
+-- 
+Ville Syrjälä
+Intel
