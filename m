@@ -4,50 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EEF2C6FA83
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7683BC6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3658510E4AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 902D410E4AF;
 	Mon, 12 Sep 2022 13:38:11 +0000 (UTC)
-Received: from smtp.domeneshop.no (smtp.domeneshop.no
- [IPv6:2a01:5b40:0:3005::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE2110E579;
- Wed,  7 Sep 2022 10:56:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
- ; s=ds202112;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gfFBxOJICmmqA8f2KuQiBRQs6CbCUqHF+gIu6GKS/YE=; b=krrqg1yCKd+xtRbvYsYmAcLp9g
- kTJV09HIqnu1jNOY2OQfIj7BOCnuRPd3zyB9/JkqUXWv7+7vikHQFy2sYRt/HgvO8GJTc9ctUPFwc
- yi+/WL4BhpTNmDf6hxrA9S1NLCuavfdNOn4a/7QhblCcDz0yEIfV4FtG78OdlD1DFEsDZl/2S999l
- kZCDWbLSSEtG+qx/PW5CnSvPOQic3ra2vMhReX4nUVF5jYKZePMlQ/MfKflVh1jaEjZF5RMMlODbD
- bVzfNRipnNOJf/6Ou3OnFcfdnpOH6VvJhOdv7SlQtFAAWgKkFs3Gjt9D1P3px/jH+rolm+EeSdDiD
- EoaKoAgQ==;
-Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=52215)
- by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <noralf@tronnes.org>)
- id 1oVsjI-0000xR-Dw; Wed, 07 Sep 2022 12:56:24 +0200
-Message-ID: <d076bdfa-f6a6-9d32-c8bc-5d577fca057a@tronnes.org>
-Date: Wed, 7 Sep 2022 12:56:13 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: Maxime Ripard <maxime@cerno.tech>
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97E8710EA7E;
+ Tue,  6 Sep 2022 20:03:03 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id 29so11530534edv.2;
+ Tue, 06 Sep 2022 13:03:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
+ bh=F6ib7HMkD8OZCaZPl3GcVqEvWmm4ctxdEGHR+aqIKVc=;
+ b=ArRU4YWH8hE+2Z1UVe6QOKE5hPjwCYDsbvdE1/PUCWN56FAMQZ/4zqvMIxfOOB2keG
+ VETEDtrmessAghGKMzFBp8CyQVDdAQqU4x+gj9gaRUZoj5nIhCcQp0TbKqYFac2p/l7c
+ s8E+JhqrISyguo1blQmfoTPAnbUnCSoWPxO87AW5Jnu7jG9ZsEG2SFveoy3yVuaEmC/j
+ AJGJVNakAM7s7v3qVwNh9qCbZDvWMeFX5CX+Yh1J7gk3RyIO+elUjPVl8TzAtf+ajC+9
+ gJrzytdJaqd/ImlOWyICFY6pKT6Gkrs3MV9zjaV5uubNzgLGsQ1rDLq1Oj3ES5Fk9n3N
+ yT3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=F6ib7HMkD8OZCaZPl3GcVqEvWmm4ctxdEGHR+aqIKVc=;
+ b=8QL+g4PCMSfc6OyB3qBxs5pxN0YGjrt9tW8kDkAenlLX8B4H+5GtcK+dpP0AYP+0cM
+ GlkNCO85K0dKqOMn4pzVcewZ8CCNSQtThiYz0VrZOjoGpYzrNe/FspGU0dkSyKk85HaG
+ MXIluqfZHphwwz+PWrlVjsefCtFzrlHfgs9Oy9+Z8K4cDT4WpZGM6GcsVrY7FRZ1ZOqe
+ cLMF8R7UHATmfQnCSN36sO22I3OJtUCwb69iry2JS68UzUn8HuVU6G8qxZBO8S8fAgKN
+ SxG2I/P2XGcJFNPZWBzrfzvIz1juMKGTSKOot30nlyZRhwTJPVpTQPB8EQJ6e30I/7jp
+ sHtg==
+X-Gm-Message-State: ACgBeo3aK0bwEziimuFhATsBNHeaKqB/CLPTZ3d2DG4dOH17tZMNUSsC
+ xsUz6hOuSUNkfSHBpzrdxao=
+X-Google-Smtp-Source: AA6agR5gwvJ8nN16z0kDOnfFe8gSYaFolah5D1v/bfxdS5M65ePk383S/fOmy1b3my8s0GvcbJd5jQ==
+X-Received: by 2002:a05:6402:2499:b0:440:942a:40c2 with SMTP id
+ q25-20020a056402249900b00440942a40c2mr225612eda.37.1662494582166; 
+ Tue, 06 Sep 2022 13:03:02 -0700 (PDT)
+Received: from kista.localnet (82-149-1-172.dynamic.telemach.net.
+ [82.149.1.172]) by smtp.gmail.com with ESMTPSA id
+ b2-20020a1709062b4200b006fee7b5dff2sm7207555ejg.143.2022.09.06.13.03.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Sep 2022 13:03:01 -0700 (PDT)
+From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>, Ben Skeggs <bskeggs@redhat.com>,
+ David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ Noralf =?ISO-8859-1?Q?Tr=F8nnes?= <noralf@tronnes.org>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maxime Ripard <maxime@cerno.tech>
+Date: Tue, 06 Sep 2022 22:02:59 +0200
+Message-ID: <3192228.44csPzL39Z@kista>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-35-459522d653a7@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <24e09a29-6d04-3b1e-63ce-cd3c31d350e2@tronnes.org>
- <020d44e6-884b-a817-8265-3461638cac71@tronnes.org>
- <20220905145729.ln675jko3aw6sgzs@houat>
- <74c10e51-4034-a284-1a26-b7ba7fe45fbe@tronnes.org>
- <20220907095849.5v72atwuedl5iiva@houat>
-From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
-In-Reply-To: <20220907095849.5v72atwuedl5iiva@houat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <20220728-rpi-analog-tv-properties-v2-35-459522d653a7@cerno.tech>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 00/41] drm: Analog TV Improvements
+Subject: Re: [Intel-gfx] [PATCH v2 35/41] drm/sun4i: tv: Convert to atomic
+ hooks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,85 +85,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Phil Elwell <phil@raspberrypi.com>, Emma Anholt <emma@anholt.net>,
- Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Ben Skeggs <bskeggs@redhat.com>,
- linux-sunxi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
- intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
- Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Maxime Ripard <maxime@cerno.tech>,
  Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-
-Den 07.09.2022 11.58, skrev Maxime Ripard:
-> On Mon, Sep 05, 2022 at 05:17:18PM +0200, Noralf Trønnes wrote:
->> Den 05.09.2022 16.57, skrev Maxime Ripard:
->>> On Fri, Sep 02, 2022 at 01:28:16PM +0200, Noralf Trønnes wrote:
->>>>
->>>>
->>>> Den 01.09.2022 21.35, skrev Noralf Trønnes:
->>>>>
->>>>>
->>>>> I have finally found a workaround for my kernel hangs.
->>>>>
->>>>> Dom had a look at my kernel and found that the VideoCore was fine, and
->>>>> he said this:
->>>>>
->>>>>> That suggests cause of lockup was on arm side rather than VC side.
->>>>>>
->>>>>> But it's hard to diagnose further. Once you've had a peripheral not
->>>>>> respond, the AXI bus locks up and no further operations are possible.
->>>>>> Usual causes of this are required clocks being stopped or domains
->>>>>> disabled and then trying to access the hardware.
->>>>>>
->>>>>
->>>>> So when I got this on my 64-bit build:
->>>>>
->>>>> [  166.702171] SError Interrupt on CPU1, code 0x00000000bf000002 -- SError
->>>>> [  166.702187] CPU: 1 PID: 8 Comm: kworker/u8:0 Tainted: G        W
->>>>>     5.19.0-rc6-00096-gba7973977976-dirty #1
->>>>> [  166.702200] Hardware name: Raspberry Pi 4 Model B Rev 1.1 (DT)
->>>>> [  166.702206] Workqueue: events_freezable_power_ thermal_zone_device_check
->>>>> [  166.702231] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS
->>>>> BTYPE=--)
->>>>> [  166.702242] pc : regmap_mmio_read32le+0x10/0x28
->>>>> [  166.702261] lr : regmap_mmio_read+0x44/0x70
->>>>> ...
->>>>> [  166.702606]  bcm2711_get_temp+0x58/0xb0 [bcm2711_thermal]
->>>>>
->>>>> I wondered if that reg read was stalled due to a clock being stopped.
->>>>>
->>>>> Lo and behold, disabling runtime pm and keeping the vec clock running
->>>>> all the time fixed it[1].
->>>>>
->>>>> I don't know what the problem is, but at least I can now test this patchset.
->>>>>
->>>>> [1] https://gist.github.com/notro/23b984e7fa05cfbda2db50a421cac065
->>>>>
->>>>
->>>> It turns out I didn't have to disable runtime pm:
->>>> https://gist.github.com/notro/0adcfcb12460b54e54458afe11dc8ea2
->>>
->>> If the bcm2711_thermal IP needs that clock to be enabled, it should grab
->>> a reference itself, but it looks like even the device tree binding
->>> doesn't ask for one.
->>>
->>
->> The first thing I tried was to unload the bcm2711_thermal module before
->> running modeset and it still hung, so I don't think that's the problem.
+Dne ponedeljek, 29. avgust 2022 ob 15:11:49 CEST je Maxime Ripard napisal(a):
+> The sun4i TV driver still uses legacy enable and disable hook
+> implementation. Let's convert to the atomic variants.
 > 
-> Ack. Just to confirm, is this happening on mainline or on the downstream tree?
-> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
-It's mainline.
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Noralf.
+BTW, I suggest you merge fixes/cleanups, no need to drag them in this super 
+long series.
+
+Best regards,
+Jernej
+
+
