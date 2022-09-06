@@ -4,55 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF921C38145
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 19:53:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60F46C54EE9
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 19:53:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA78310EA71;
-	Tue,  6 Sep 2022 19:52:50 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78C9D10EA69;
- Tue,  6 Sep 2022 19:52:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDE6A10E1A2;
+	Tue,  6 Sep 2022 19:53:13 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C117E10EA73
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 19:53:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662493959; x=1694029959;
- h=date:from:to:cc:subject:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ogqkU6hwz+5RMxgjJdnuLelA2xSDzawITgx7hiHuXjg=;
- b=RQgOwPzjdnGSCmJQPgIdKwcsPPIw+uuagWHdV0FNUSEcVYFYbnKLg4If
- am02gItZ+5Gg3hNFuc+050YNflzkTWEWGLM/tpZWuXkl0A7S6fTLRDbXr
- U5vPHEbsmhDWF84NMw93vQzaW/2+7UNpurmjYgGRM+638HQVQSuk6YK6/
- C75bYwHuk/hGLFLwVSbrrdWw5QKsvzT36OaGZKWuVK9tVDhY5uaEMvP9q
- a2pTdiV3V1Op/ToSWYgaUhXT0XT+GsN6gMKgHxC/3RBp3f2NsnuI5MZSR
- GrMk+5RHA0h1X15RTjT150O1PBoAaEwkzeWgYAXZfOAAZVQyvVbTF3m/f A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="322869863"
-X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="322869863"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2022 12:52:38 -0700
+ t=1662493987; x=1694029987;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=4v+Pm50ahDEEEsIu4f6VlTKYZhnwA1uTgLko0zO81ug=;
+ b=HydqL+StLaOR5UkWOl7St8NavK7c1Dq7cN3lML+xDsD9kSSpuCB4TITd
+ kyu+rJZ+XpvNUiHWxKNC2bFNXmET0719iZ7BqxlpLsBwaf07BzfoUXQMf
+ TwepP8mjVtrvRGGBhJzxAoQ80PbBR2c/wzYjTC2lRAMsisgirsz4qOTt4
+ dnvDB2wfiXYsGP3oyqLRFf/KpRzR9XEcsmvcU0rlKrfdkDa++PYEpylGg
+ 5wVbjmeZfnduRJhneRkpnwUOaccriTtgq2NOibzC42WqBWRV2hYLfj5lB
+ /XoqINWQ7lf+w6Exmul22HRC7ngblD0DWjU6FjluOvN7xy3zoE8nli8gH g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="277084399"
+X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="277084399"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2022 12:53:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="675842746"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga008.fm.intel.com with ESMTP; 06 Sep 2022 12:52:38 -0700
-Received: from maurocar-mobl2 (maurocar-mobl2.ger.corp.intel.com
- [10.252.44.186])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id 14A6F580890;
- Tue,  6 Sep 2022 12:52:35 -0700 (PDT)
-Date: Tue, 6 Sep 2022 21:43:30 +0200
-From: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Message-ID: <20220906214323.3d3a0db4@maurocar-mobl2>
-In-Reply-To: <YvI1CbsIZIG7FVBP@intel.com>
-References: <cover.1657699522.git.mchehab@kernel.org>
- <5630ff7f2d5a99fc78b4fc2fa7e63649d23f226c.1657699522.git.mchehab@kernel.org>
- <YvI1CbsIZIG7FVBP@intel.com>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="859375287"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by fmsmga006.fm.intel.com with ESMTP; 06 Sep 2022 12:53:06 -0700
+Received: from fmsmsx608.amr.corp.intel.com (10.18.126.88) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 6 Sep 2022 12:53:05 -0700
+Received: from fmsmsx608.amr.corp.intel.com (10.18.126.88) by
+ fmsmsx608.amr.corp.intel.com (10.18.126.88) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 6 Sep 2022 12:53:05 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx608.amr.corp.intel.com (10.18.126.88) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Tue, 6 Sep 2022 12:53:05 -0700
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.177)
+ by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Tue, 6 Sep 2022 12:53:03 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J2dRt4+IbmZhC6H0ZWNDSoCnSbwBR5hU2Ujnud4xJOVqaL0tm98UUwqFAmw9YThY+0I+WNItTAXwLg1ABKAurLaXo+D5UxsqGrh865QcFCVtkEbHYTOquG0aLVd5ntLR54JbdY1vsWwHtRaFbEaJtnUYBpjrfJaBgbD/Dr1+LEdqCTih0oGHJ5OkGP5Lkp6WJXX9zc9vhuuPudsFnHebasB0neiEgMxZdYbqqRhSxveyMpfPM9ngUs9wbM7Hejd+Z3NxWVecjy7wnK2ukzBlGphF/WxF5pK7sknwXODuNOfNhbrAdrubmcKUw2pvUSpQIq+b1rinGe5t0GrajiqtyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=faOs7/aOKr+OPgXFhe5NkB4w7HdSfgz3dgtII3swv9A=;
+ b=cewMJkqBuTtzAI3CCitp3Wb/8YF5JnSkGq1sBObjAwphiIzsQ4ooDJt2EhuEfa0xCfgVvQsgtFXMXaJn/Ie4h6rwneoLldrIzsEKnkLGa77xL8kvc5JQv4Ac43JreBQeegOvN+Jm1hUDadAncKfjZvx3uqPuf2kLwiztxHbQYMGvGvV/CDXu8SAKo0ukbS+fi2/avWr13QyBUrxR3vNbX5PwIZ8py8PteaFuZoE9TD5otThYLAsdQbr5re5um4djUtKvWxpNpPNBX/6cIwKLHJvO/Zuiu5dDn2DwrZwoIZaZoD3l/TYnnfDSnTLPEIVcZE2TeUYBusrvy1tuYk+KaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM5PR11MB1562.namprd11.prod.outlook.com (2603:10b6:4:6::15) by
+ BN0PR11MB5741.namprd11.prod.outlook.com (2603:10b6:408:161::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10; Tue, 6 Sep
+ 2022 19:52:57 +0000
+Received: from DM5PR11MB1562.namprd11.prod.outlook.com
+ ([fe80::74ac:21b8:1f17:9bc4]) by DM5PR11MB1562.namprd11.prod.outlook.com
+ ([fe80::74ac:21b8:1f17:9bc4%5]) with mapi id 15.20.5588.018; Tue, 6 Sep 2022
+ 19:52:56 +0000
+Message-ID: <b04a9c3b-ec71-ffd0-e7cb-98b2901c32cc@intel.com>
+Date: Tue, 6 Sep 2022 22:52:52 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Content-Language: en-US
+To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
+ <intel-gfx@lists.freedesktop.org>
+References: <20220823204155.8178-1-umesh.nerlige.ramappa@intel.com>
+ <20220823204155.8178-8-umesh.nerlige.ramappa@intel.com>
+From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+In-Reply-To: <20220823204155.8178-8-umesh.nerlige.ramappa@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2 35/39] docs: gpu: i915.rst: add the
- remaining kernel-doc markup files
+X-ClientProxiedBy: FR0P281CA0135.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::7) To DM5PR11MB1562.namprd11.prod.outlook.com
+ (2603:10b6:4:6::15)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 990fcd5a-5c4d-4fe4-ab5d-08da904164de
+X-MS-TrafficTypeDiagnostic: BN0PR11MB5741:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CvUosWLWzbAX5B5H0usa4kNvIE+s0DtkYBknCWoeKLHW6lFlcejpLVhYMHqboe/RvsoqFOExRQafKOSF6izWxle5LZM/hU2a25NsAyy9OdO3kDZAXHS/ikSwduL58DMSHDy8MPrm1xrgMaOG2d3vpWonrcxM0ZdS9p4xVBVV/zQeoz0Equf+1pX/X0qU3W6i0s9fHSWHM0nmxIZrzpt7XS92Lwrp+WfZ3ZhzHD8SLEBJYlb4HMxMoB6vUb8urnsf5s10/cNAsZCdDOwy1fZnPs6cXDYd1NSoJwu0azcLZlSu700XpE76nFzuIEW7e7VTtqMa5AZFOesR+7wCXljfaCn6tVevCa6hpoq0pv0zWA77ErxGk31KEr3YgWHEKhJ7L8L1h04rDwp6XIy1wvZW6UYeIqIrFgEbfRob+13DqDYiHhkJDyciYO4hLeq5zFsLe5yjpEmJ/cosU0aXcgx3nFizDTD/46Us5Xe8nZATVUJh3wgBo3TuGzLkF/+RBnt2YIWfcUVg8f4c/L+k+1eY+VxOexpqcc0JRXcsyhUw/CynQMNlwZCsaIOKBf2CPNmdp794E1GoFYyRrdwRzpip+QklFIZjXe2guphviEoLkhgtLNwrBeKHkcrkwtFoWTQiWMHLXhA1aWZBbbOh12hjI9MdCV0EgImTKlFyaSnLAXAONZlWjXGLZ1MCIIjo2XIaKupVQ4Xu1te6ap7rLIcGd6rAPyBpeKOIs0CbOvHfFZEykS48kB/EDpxRDN5tgUO68Pq/EiW4SR+3qzVCONjQmru3GWz6mOIeb5fvOS1rV20=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR11MB1562.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(346002)(366004)(39860400002)(136003)(376002)(396003)(41300700001)(6512007)(6506007)(26005)(2616005)(6666004)(53546011)(107886003)(186003)(4326008)(66476007)(8936002)(2906002)(66946007)(5660300002)(83380400001)(66556008)(8676002)(86362001)(6486002)(316002)(478600001)(31696002)(31686004)(36756003)(82960400001)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVV3eHFrbXArOWlaOVZmSWlyckZZdnRhY3dBSnFwS1FJaTBDV0drTXlYSEgv?=
+ =?utf-8?B?UkdkQzdEM2RWOURCOHJOc0g2MzlPdDA2VHZhdHJiRCthU2pHZW9saXQ4ZCtB?=
+ =?utf-8?B?RzNhU215ZUQ5cWFIT21udi9XenhPbnVHeElzcm00czNKWm91V29DRzd3UWtx?=
+ =?utf-8?B?WVFkaHpZVEYza3VNOUk0SWEvZXdNZjhKOUd2K3A0dktOdFpzTjBnOXNsUG15?=
+ =?utf-8?B?alNGL3c5bXYwMW9INDZ2cHQ2Ry9zZDJJVDBiS1RGcXozZVZRb3h0b2pGOTlt?=
+ =?utf-8?B?MXZCbU12R0dEQnE3T1dwdzFTMHNDM3I5eFdCb041NS8wYUVvZTJUWDQ1Mnlm?=
+ =?utf-8?B?RlNCazh5UllmZXE4V1pmS1Y5ZGV4YjYyMTRWU2ZSY21uSytMdnVjZjRIMTFp?=
+ =?utf-8?B?ZkVxYm5RWGhBNDdHRVhRMVU3MFVXY3A5UEl4M3FsM3BUbDZzT0NVSTNFdzRV?=
+ =?utf-8?B?eHNTT0VDVGg4ekxWYkdLRnNET1pqK1QzZ2xUNzFIVmlXT1ltZWZ5TVVPQktn?=
+ =?utf-8?B?VHV1eXZhWWwvSm83TFVwcFNZWXJiekJnQ0czeHUyWjBick1TWVpqMmNlZzc2?=
+ =?utf-8?B?VHlUcTFCSVc0enFjQ05SV3RZRHZTVDI2MEp6RWRZN0ptbHhFSFVyNXpjU2d5?=
+ =?utf-8?B?SXZPWVU4Zng1bVJRNzM0NS8vR1pVbzNDRHovcHNrUnBGUEJlMHB6VEhtM0lh?=
+ =?utf-8?B?UzBOT2I3N1Y0Q3VFTXVpY1ZNVGVid0R2RC9Cd0c4QS9JRmF6eFdQOWFDTkZR?=
+ =?utf-8?B?eUF0dzZuQ0VTZmlPWllNQlZXRHlpQjBDLzdUUmFsOXcrTUxLeWxQL0FnaTVK?=
+ =?utf-8?B?Rlovam1CbHU2YTNaR1hsbi9xN3JhS2tkUlV0YUx6b2FGblVoQjFibHFMV1I3?=
+ =?utf-8?B?YzZ0SEh4c1ZiVTVoaVY3RmV5NU9JYlJGYlRJdVFMcDg3emQ4WGdIamhFQkRi?=
+ =?utf-8?B?RDEvRTArUFBpL216YW8wQmE3RXVSY3hvL3pBSnZCZ0Q1WjZMN0xURmZKaEYr?=
+ =?utf-8?B?UHFFMWlQZG9vV0dxSnpQYXJtWTl0Ylp2Q3JSQ3QvRE56NlArbml4Y2FHY09H?=
+ =?utf-8?B?bmVkT0x1QTJYOXJ0SnlxUGF6bEx4NFhjVFNvajJuOUFIOXFJS3BiWGZESktV?=
+ =?utf-8?B?U0VUa0dPV1BhVkZjb1JMNDRBVHFTdC9ra2w4M2Zjd3ljTkI1aUZtVEtFSFNp?=
+ =?utf-8?B?RU9ZYmpUZno0Tzg2UHlIamhmRXBlaWk4TXlDSFVrU1RRcjY5WVB1K3V0WWZW?=
+ =?utf-8?B?MTVWMUMyMmRVZys3Zk90eUZycTVpWWp3MEJ5eEZBUW9sYk5jRkwxUVFzYjA0?=
+ =?utf-8?B?eVdhUkhvNzc2SC9XYnhsbzd5OHFieWRwcncrTDZtdWtTNXBRK1hLM1huVk1o?=
+ =?utf-8?B?MCtmTTg5SGNBY0NEZTREbU5NdFRsN2s5R1crQnNkVnM4dGlqQytnb2s0Q1l1?=
+ =?utf-8?B?RHl1bXNJMUdYOXZKNmJhTUpEaEpMdlVhQmtOcUdhL3ZNZS9CeTVaTENrSU9H?=
+ =?utf-8?B?N2thd2hHc3FuNUZsWnhleTdCVGx5QkEyNWhYYS9SYnRMdXA1TDFGdjdCNlZO?=
+ =?utf-8?B?V2FkRHlhMWJsbHBpV3MzeWpVdWNrbmFyWk5xNktiL3pOdHpVZDdJa3JLdkNQ?=
+ =?utf-8?B?eFlWd0ZjeUFxSmRLMnFLc0Vyb0p6SkNKWm1PSzdMUTlyMkZIaWYxenVEVnBJ?=
+ =?utf-8?B?ZmtSalFySERubStOQUF4RjBPaWRUV1FCbkdrL1IzL3JsckVFQzhpU2N4NFoy?=
+ =?utf-8?B?Njlrc0REM0FpbFNlM2hUYlF5VnFIdm5jdDNzcGxvd25HQjFYOWdvMUpuNGU2?=
+ =?utf-8?B?UGVGWit4VFNuczJKakZzQ2xvQWtxemRFU01Jc0ZtVFpkSWZUWjZFcDBUdEU5?=
+ =?utf-8?B?NVBPK25reVZkN3hWZXRhdmxUNjY1ZHpaNFI0OHdQM2w1RnpLdTZhSWVaQUhF?=
+ =?utf-8?B?Q3paZ3NjeFpmU2dsM1phSEl0VThQbnRZeHMydEpoY1B0ZXhWQjFGcE5FOFBO?=
+ =?utf-8?B?ajZHOGM2Q0E1VDQwQTIxOVYxSmZ6YmpEQmlaMXRuZzFENWdZaEl6N2h1RGdo?=
+ =?utf-8?B?QWhHWEx2UTF3dWJ3a0VNZTkrTzRraEJGb2hnL0lkdzJ5RllIQjRoR1JsQkwz?=
+ =?utf-8?B?M2ZUWlh1QXk0OXduekxNYXQrVmdNd0lRUitSbUhzUTlkbENDUk10dDIwUm5W?=
+ =?utf-8?B?WHc9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 990fcd5a-5c4d-4fe4-ab5d-08da904164de
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR11MB1562.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 19:52:56.8434 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kJR8FzbOKRcCAlnxSZWdYGGE53aqqfDuehZVA8tQKgqB0jGDSf0vuXA1OFplVELRfOK6ylISvMu2xIG1xqnhd5UXN495otxdp2Kcc93jPTI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR11MB5741
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH 07/19] drm/i915/perf: Simply use stream->ctx
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,197 +159,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Corbet <corbet@lwn.net>, David Airlie <airlied@linux.ie>,
- intel-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 9 Aug 2022 06:20:57 -0400
-Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
+On 23/08/2022 23:41, Umesh Nerlige Ramappa wrote:
+> Earlier code used exclusive_stream to check for user passed context.
+> Simplify this by accessing stream->ctx.
+>
+> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+> ---
+>   drivers/gpu/drm/i915/i915_perf.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+> index bbf1c574f393..3e3bda147c48 100644
+> --- a/drivers/gpu/drm/i915/i915_perf.c
+> +++ b/drivers/gpu/drm/i915/i915_perf.c
+> @@ -801,7 +801,7 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+>   		 * switches since it's not-uncommon for periodic samples to
+>   		 * identify a switch before any 'context switch' report.
+>   		 */
+> -		if (!stream->perf->exclusive_stream->ctx ||
+> +		if (!stream->ctx ||
+>   		    stream->specific_ctx_id == ctx_id ||
+>   		    stream->oa_buffer.last_ctx_id == stream->specific_ctx_id ||
+>   		    reason & OAREPORT_REASON_CTX_SWITCH) {
+> @@ -810,7 +810,7 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+>   			 * While filtering for a single context we avoid
+>   			 * leaking the IDs of other contexts.
+>   			 */
+> -			if (stream->perf->exclusive_stream->ctx &&
+> +			if (stream->ctx &&
+>   			    stream->specific_ctx_id != ctx_id) {
+>   				report32[2] = INVALID_CTX_ID;
+>   			}
 
-> On Wed, Jul 13, 2022 at 09:12:23AM +0100, Mauro Carvalho Chehab wrote:
-> > There are other files with kernel-doc markups:
-> > 
-> > 	$ git grep -l "/\*\*" $(git ls-files|grep drivers/gpu/drm/i915/) >kernel-doc-files
-> > 	$ for i in $(cat kernel-doc-files); do if [ "$(git grep $i Documentation/)" == "" ]; then echo "$i"; fi; done >aaa
-> > 
-> > Add them to i915.rst as well.
-> > 
-> > Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-> > ---
-> > 
-> > To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
-> > See [PATCH v2 00/39] at: https://lore.kernel.org/all/cover.1657699522.git.mchehab@kernel.org/
-> > 
-> >  Documentation/gpu/i915.rst | 87 ++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 87 insertions(+)
-> > 
-> > diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-> > index 974754586be8..6bb50edc6d79 100644
-> > --- a/Documentation/gpu/i915.rst
-> > +++ b/Documentation/gpu/i915.rst
-> > @@ -13,6 +13,11 @@ Core Driver Infrastructure
-> >  This section covers core driver infrastructure used by both the display
-> >  and the GEM parts of the driver.
-> >  
-> > +Core driver
-> > +-----------
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_driver.c
-> > +
-> >  Runtime Power Management
-> >  ------------------------
-> >  
-> > @@ -29,6 +34,10 @@ Runtime Power Management
-> >  
-> >  .. kernel-doc:: drivers/gpu/drm/i915/intel_pm.c
-> >  
-> > +.. kernel-doc:: drivers/gpu/drm/i915/intel_wakeref.h
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_active.h  
-> 
-> not sure if this belongs to this group...
-> 
-> > +
-> >  Interrupt Handling
-> >  ------------------
-> >  
-> > @@ -44,6 +53,28 @@ Interrupt Handling
-> >  .. kernel-doc:: drivers/gpu/drm/i915/i915_irq.c
-> >     :functions: intel_runtime_pm_enable_interrupts
-> >  
-> > +Error handling
-> > +--------------
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_gpu_error.c  
-> 
-> not sure if this gt hang stuff deserves a separated section
-> alone and if the name is the best one....
-> 
-> > +
-> > +Memory Handling
-> > +---------------
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_vma_resource.h
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_vma_resource.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_vma.h
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_vma.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_mm.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/intel_memory_region.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_memcpy.c
-> > +
-> >  Intel GVT-g Guest Support(vGPU)  
-> 
->                             ^ missing space
-> 
-> >  -------------------------------
-> >  
-> > @@ -109,6 +140,54 @@ Workarounds
-> >  .. kernel-doc:: drivers/gpu/drm/i915/gt/intel_workarounds.c
-> >     :doc: Hardware workarounds
-> >  
-> > +32-bits compatible ioctl Logic
-> > +------------------------------
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_ioc32.c
-> > +
-> > +Scatterlist handling
-> > +--------------------
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_scatterlist.h
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_scatterlist.c
-> > +
-> > +i915 request
-> > +------------
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_request.h
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_request.c
-> > +
-> > +Ancillary routines  
-> 
-> maybe simply have an "Others" section and put everything
-> that has only one item like the gpu hang one?
 
-OK!
-
-> 
-> > +------------------
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_deps.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_deps.h
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/intel_device_info.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_params.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_sw_fence_work.h
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_syncmap.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/intel_pcode.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_reg_defs.h
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/intel_wopcm.h
-> > +
-> > +
-> > +PXP  
-> 
-> Protected Xe Path (PXP)
-> 
-> 
-> > +---
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-> > +
-> >  Display Hardware Handling
-> >  =========================
-> >  
-> > @@ -618,6 +697,12 @@ Protected Objects
-> >  Table Manager (TTM)
-> >  -------------------
-> >  
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/i915/intel_region_ttm.c
-> > +
-> >  .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> >  
-> >  .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm.h
-> > @@ -627,6 +712,8 @@ Table Manager (TTM)
-> >  Graphics Execution Manager (GEM)
-> >  --------------------------------
-> >  
-> > +.. kernel-doc:: drivers/gpu/drm/i915/i915_gem.c
-> > +
-> >  .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_create.c
-> >  
-> >  .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_domain.c  
-> 
-> in many cases I see only the .h or only the .c... why is that?
-> wouldn't be better already put both in all the cases?
-
-No. Adding kernel-doc files that doesn't contain any markups
-will produce warnings.
-
-We're working hard upstream to have a zero-warnings policy for
-documentation.
-
-Regards,
-Mauro
