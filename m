@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1B69C38145
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 23:51:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 449E1ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 23:51:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A042B10E0F8;
-	Tue,  6 Sep 2022 23:50:13 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2C3B10E0B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFB6210E101;
+	Tue,  6 Sep 2022 23:50:14 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEFE10E086;
  Tue,  6 Sep 2022 23:49:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1662508187; x=1694044187;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/498crcfNGInWAeOi/fFzrsC6IXbFWzJ27hWdmK5YDY=;
- b=Lyber6Mm1BA2yxudEAzqiUkbR2DjQb9OkDNabdH6lWUpTtzph0c+dD4V
- lLFFGyLyBelk41aKdpE0ZJA02YIjBrWrW/uThM0YobwNJO/k6OXshGzlC
- AiWso/SvGGe88NFcK3rDgk+asYA6/n66B44EhXUDBN6n8wrLSHtiCS4EY
- Lx2Hr9wCgGHTeumhyEMvRGoSdqf5AFUYcGNR4FkjDK+qyuNtI//GgblZ5
- IzTRIaPKyaZboZqgPTJF6iNywnKw6/cLYb+xP9OBIT9u7I3/bPoCEBH3U
- qLWR9D5g0q1qVd6Q5tIgzNO1PiCfbGVZuUxi85WzzSPKzYYW1dcOBpu7b Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="283734935"
-X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="283734935"
+ bh=2LrU+nWS+tyOmhQ7JLgbePfwgG3N/NnYoZfzL5b9MPY=;
+ b=WC3a040ztNZxccoBHh3YYtv6WkysVs4xeNaoCoVvq6COAcdMUPlQS8uQ
+ Kmo5W1Gy4zLT9AeD5SX+t70tRLBA1ROXc4wVq2M8MSewl6XQVLxy2bU22
+ 0B+XHSDwUarxTmqFrRreDEJQrwvQVLNcGyjqwvuYlP1rlX57aJw4t8zwO
+ 4dRuBr/6JLE6cViXlmfmkSl9gU8CwIEzZg58ULkgyyNFJnMPfz+vz4z0C
+ BRY8MoGOhegSYICp9E8y2Zwc0qDsLX6TzmGBft9V20svZvrg1CGHXN2bW
+ qF6+wGWejTn4wss9TNn+/YJ4AaENqGfhdP+0HJeCFuVcV7SqmH97C4Ash A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="276477213"
+X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="276477213"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Sep 2022 16:49:46 -0700
-X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="675920346"
+X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="675920331"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2022 16:49:46 -0700
+ 06 Sep 2022 16:49:45 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  6 Sep 2022 16:49:34 -0700
-Message-Id: <20220906234934.3655440-15-matthew.d.roper@intel.com>
+Date: Tue,  6 Sep 2022 16:49:29 -0700
+Message-Id: <20220906234934.3655440-10-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220906234934.3655440-1-matthew.d.roper@intel.com>
 References: <20220906234934.3655440-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 14/14] drm/i915/mtl: Hook up interrupts for
- standalone media
+Subject: [Intel-gfx] [PATCH v3 09/14] drm/i915: Handle each GT on
+ init/release and suspend/resume
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,120 +60,192 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Top-level handling of standalone media interrupts will be processed as
-part of the primary GT's interrupt handler (since primary and media GTs
-share an MMIO space, unlike remote tile setups).  When we get down to
-the point of handling engine interrupts, we need to take care to lookup
-VCS and VECS engines in the media GT rather than the primary.
+In preparation for enabling a second GT, there are a number of GT/uncore
+operations that happen during initialization or suspend flows that need
+to be performed on each GT, not just the primary,
 
-There are also a couple of additional "other" instance bits that
-correspond to the media GT's GuC and media GT's power management
-interrupts; we need to direct those to the media GT instance as well.
-
-Bspec: 45605
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_irq.c   | 19 +++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_regs.h  |  2 ++
- drivers/gpu/drm/i915/gt/intel_sa_media.c |  7 +++++++
- drivers/gpu/drm/i915/i915_drv.h          |  3 +++
- 4 files changed, 31 insertions(+)
+ drivers/gpu/drm/i915/i915_driver.c | 59 +++++++++++++++++++++---------
+ 1 file changed, 42 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-index 0dfd0c42d00d..f26882fdc24c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-@@ -59,11 +59,17 @@ static void
- gen11_other_irq_handler(struct intel_gt *gt, const u8 instance,
- 			const u16 iir)
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index bb9ba1aed1bb..e5c3cf5045d4 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -310,8 +310,13 @@ static void intel_detect_preproduction_hw(struct drm_i915_private *dev_priv)
+ 
+ static void sanitize_gpu(struct drm_i915_private *i915)
  {
-+	struct intel_gt *media_gt = gt->i915->media_gt;
+-	if (!INTEL_INFO(i915)->gpu_reset_clobbers_display)
+-		__intel_gt_reset(to_gt(i915), ALL_ENGINES);
++	if (!INTEL_INFO(i915)->gpu_reset_clobbers_display) {
++		struct intel_gt *gt;
++		unsigned int i;
 +
- 	if (instance == OTHER_GUC_INSTANCE)
- 		return guc_irq_handler(&gt->uc.guc, iir);
-+	if (instance == OTHER_MEDIA_GUC_INSTANCE && media_gt)
-+		return guc_irq_handler(&media_gt->uc.guc, iir);
- 
- 	if (instance == OTHER_GTPM_INSTANCE)
- 		return gen11_rps_irq_handler(&gt->rps, iir);
-+	if (instance == OTHER_MEDIA_GTPM_INSTANCE && media_gt)
-+		return gen11_rps_irq_handler(&media_gt->rps, iir);
- 
- 	if (instance == OTHER_KCR_INSTANCE)
- 		return intel_pxp_irq_handler(&gt->pxp, iir);
-@@ -81,6 +87,18 @@ gen11_engine_irq_handler(struct intel_gt *gt, const u8 class,
- {
- 	struct intel_engine_cs *engine;
- 
-+	/*
-+	 * Platforms with standalone media have their media engines in another
-+	 * GT.
-+	 */
-+	if (MEDIA_VER(gt->i915) >= 13 &&
-+	    (class == VIDEO_DECODE_CLASS || class == VIDEO_ENHANCEMENT_CLASS)) {
-+		if (!gt->i915->media_gt)
-+			goto err;
-+
-+		gt = gt->i915->media_gt;
++		for_each_gt(gt, i915, i)
++			__intel_gt_reset(gt, ALL_ENGINES);
 +	}
-+
- 	if (instance <= MAX_ENGINE_INSTANCE)
- 		engine = gt->engine_class[class][instance];
- 	else
-@@ -89,6 +107,7 @@ gen11_engine_irq_handler(struct intel_gt *gt, const u8 class,
- 	if (likely(engine))
- 		return intel_engine_cs_irq(engine, iir);
- 
-+err:
- 	WARN_ONCE(1, "unhandled engine interrupt class=0x%x, instance=0x%x\n",
- 		  class, instance);
  }
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index fb2c56777480..2275ee47da95 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1554,6 +1554,8 @@
- #define   OTHER_GTPM_INSTANCE			1
- #define   OTHER_KCR_INSTANCE			4
- #define   OTHER_GSC_INSTANCE			6
-+#define   OTHER_MEDIA_GUC_INSTANCE		16
-+#define   OTHER_MEDIA_GTPM_INSTANCE		17
  
- #define GEN11_IIR_REG_SELECTOR(x)		_MMIO(0x190070 + ((x) * 4))
+ /**
+@@ -730,6 +735,8 @@ static void i915_driver_hw_remove(struct drm_i915_private *dev_priv)
+ static void i915_driver_register(struct drm_i915_private *dev_priv)
+ {
+ 	struct drm_device *dev = &dev_priv->drm;
++	struct intel_gt *gt;
++	unsigned int i;
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_sa_media.c b/drivers/gpu/drm/i915/gt/intel_sa_media.c
-index 5516e9c363a4..e8f3d18c12b8 100644
---- a/drivers/gpu/drm/i915/gt/intel_sa_media.c
-+++ b/drivers/gpu/drm/i915/gt/intel_sa_media.c
-@@ -36,5 +36,12 @@ int intel_sa_mediagt_setup(struct intel_gt *gt, phys_addr_t phys_addr,
- 	gt->uncore = uncore;
- 	gt->phys_addr = phys_addr;
+ 	i915_gem_driver_register(dev_priv);
+ 	i915_pmu_register(dev_priv);
+@@ -749,7 +756,8 @@ static void i915_driver_register(struct drm_i915_private *dev_priv)
+ 	/* Depends on sysfs having been initialized */
+ 	i915_perf_register(dev_priv);
  
-+	/*
-+	 * For current platforms we can assume there's only a single
-+	 * media GT and cache it for quick lookup.
-+	 */
-+	drm_WARN_ON(&i915->drm, i915->media_gt);
-+	i915->media_gt = gt;
+-	intel_gt_driver_register(to_gt(dev_priv));
++	for_each_gt(gt, dev_priv, i)
++		intel_gt_driver_register(gt);
+ 
+ 	intel_display_driver_register(dev_priv);
+ 
+@@ -768,6 +776,9 @@ static void i915_driver_register(struct drm_i915_private *dev_priv)
+  */
+ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
+ {
++	struct intel_gt *gt;
++	unsigned int i;
 +
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index f010be8df851..5aff92e106ef 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -365,6 +365,9 @@ struct drm_i915_private {
+ 	i915_switcheroo_unregister(dev_priv);
  
- 	struct kobject *sysfs_gt;
+ 	intel_unregister_dsm_handler();
+@@ -777,7 +788,8 @@ static void i915_driver_unregister(struct drm_i915_private *dev_priv)
  
-+	/* Quick lookup of media GT (current platforms only have one) */
-+	struct intel_gt *media_gt;
-+
- 	struct {
- 		struct i915_gem_contexts {
- 			spinlock_t lock; /* locks list */
+ 	intel_display_driver_unregister(dev_priv);
+ 
+-	intel_gt_driver_unregister(to_gt(dev_priv));
++	for_each_gt(gt, dev_priv, i)
++		intel_gt_driver_unregister(gt);
+ 
+ 	i915_perf_unregister(dev_priv);
+ 	i915_pmu_unregister(dev_priv);
+@@ -799,6 +811,8 @@ static void i915_welcome_messages(struct drm_i915_private *dev_priv)
+ {
+ 	if (drm_debug_enabled(DRM_UT_DRIVER)) {
+ 		struct drm_printer p = drm_debug_printer("i915 device info:");
++		struct intel_gt *gt;
++		unsigned int i;
+ 
+ 		drm_printf(&p, "pciid=0x%04x rev=0x%02x platform=%s (subplatform=0x%x) gen=%i\n",
+ 			   INTEL_DEVID(dev_priv),
+@@ -811,7 +825,8 @@ static void i915_welcome_messages(struct drm_i915_private *dev_priv)
+ 		intel_device_info_print(INTEL_INFO(dev_priv),
+ 					RUNTIME_INFO(dev_priv), &p);
+ 		i915_print_iommu_status(dev_priv, &p);
+-		intel_gt_info_print(&to_gt(dev_priv)->info, &p);
++		for_each_gt(gt, dev_priv, i)
++			intel_gt_info_print(&gt->info, &p);
+ 	}
+ 
+ 	if (IS_ENABLED(CONFIG_DRM_I915_DEBUG))
+@@ -1230,13 +1245,15 @@ static int i915_drm_suspend_late(struct drm_device *dev, bool hibernation)
+ 	struct drm_i915_private *dev_priv = to_i915(dev);
+ 	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
+ 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
+-	int ret;
++	struct intel_gt *gt;
++	int ret, i;
+ 
+ 	disable_rpm_wakeref_asserts(rpm);
+ 
+ 	i915_gem_suspend_late(dev_priv);
+ 
+-	intel_uncore_suspend(&dev_priv->uncore);
++	for_each_gt(gt, dev_priv, i)
++		intel_uncore_suspend(gt->uncore);
+ 
+ 	intel_power_domains_suspend(dev_priv,
+ 				    get_suspend_mode(dev_priv, hibernation));
+@@ -1368,7 +1385,8 @@ static int i915_drm_resume_early(struct drm_device *dev)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(dev);
+ 	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
+-	int ret;
++	struct intel_gt *gt;
++	int ret, i;
+ 
+ 	/*
+ 	 * We have a resume ordering issue with the snd-hda driver also
+@@ -1422,9 +1440,10 @@ static int i915_drm_resume_early(struct drm_device *dev)
+ 		drm_err(&dev_priv->drm,
+ 			"Resume prepare failed: %d, continuing anyway\n", ret);
+ 
+-	intel_uncore_resume_early(&dev_priv->uncore);
+-
+-	intel_gt_check_and_clear_faults(to_gt(dev_priv));
++	for_each_gt(gt, dev_priv, i) {
++		intel_uncore_resume_early(gt->uncore);
++		intel_gt_check_and_clear_faults(gt);
++	}
+ 
+ 	intel_display_power_resume_early(dev_priv);
+ 
+@@ -1604,7 +1623,8 @@ static int intel_runtime_suspend(struct device *kdev)
+ {
+ 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
+ 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
+-	int ret;
++	struct intel_gt *gt;
++	int ret, i;
+ 
+ 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !HAS_RUNTIME_PM(dev_priv)))
+ 		return -ENODEV;
+@@ -1619,11 +1639,13 @@ static int intel_runtime_suspend(struct device *kdev)
+ 	 */
+ 	i915_gem_runtime_suspend(dev_priv);
+ 
+-	intel_gt_runtime_suspend(to_gt(dev_priv));
++	for_each_gt(gt, dev_priv, i)
++		intel_gt_runtime_suspend(gt);
+ 
+ 	intel_runtime_pm_disable_interrupts(dev_priv);
+ 
+-	intel_uncore_suspend(&dev_priv->uncore);
++	for_each_gt(gt, dev_priv, i)
++		intel_uncore_suspend(gt->uncore);
+ 
+ 	intel_display_power_suspend(dev_priv);
+ 
+@@ -1687,7 +1709,8 @@ static int intel_runtime_resume(struct device *kdev)
+ {
+ 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
+ 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
+-	int ret;
++	struct intel_gt *gt;
++	int ret, i;
+ 
+ 	if (drm_WARN_ON_ONCE(&dev_priv->drm, !HAS_RUNTIME_PM(dev_priv)))
+ 		return -ENODEV;
+@@ -1707,7 +1730,8 @@ static int intel_runtime_resume(struct device *kdev)
+ 
+ 	ret = vlv_resume_prepare(dev_priv, true);
+ 
+-	intel_uncore_runtime_resume(&dev_priv->uncore);
++	for_each_gt(gt, dev_priv, i)
++		intel_uncore_runtime_resume(gt->uncore);
+ 
+ 	intel_runtime_pm_enable_interrupts(dev_priv);
+ 
+@@ -1715,7 +1739,8 @@ static int intel_runtime_resume(struct device *kdev)
+ 	 * No point of rolling back things in case of an error, as the best
+ 	 * we can do is to hope that things will still work (and disable RPM).
+ 	 */
+-	intel_gt_runtime_resume(to_gt(dev_priv));
++	for_each_gt(gt, dev_priv, i)
++		intel_gt_runtime_resume(gt);
+ 
+ 	/*
+ 	 * On VLV/CHV display interrupts are part of the display
 -- 
 2.37.2
 
