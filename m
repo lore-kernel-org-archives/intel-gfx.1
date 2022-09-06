@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 502B1C38145
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 23:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B1CCC38145
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 23:50:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B39B510E0B4;
-	Tue,  6 Sep 2022 23:49:57 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98C9310E098;
- Tue,  6 Sep 2022 23:49:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8881E10E0C9;
+	Tue,  6 Sep 2022 23:49:58 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5651910E098;
+ Tue,  6 Sep 2022 23:49:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662508187; x=1694044187;
+ t=1662508186; x=1694044186;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Gx1g/bJxfXXLcWi5G/O65Z1VuWmCk9iDmou8Sp3Wlfg=;
- b=kSfqpTx6SVpDjNfGbwxvG0oYdKLCCZTmMcJAJP7mlvy4ybz1e4PzMR74
- JXvcDnUQIA19a+bUEGO3hB4hNDN0sgMU448HNY7kRuNY4wsDDmUacemS9
- stGZHFSL2h+4nxFOAfPh+0Qg+9bhzmXuNGiaAvwabqUp6zojDkJuz04dv
- avvklIj8vyiRF28aNHiffrvPlxUIi8z/NpBYhjllkhaYr7MqVtZaMiLt5
- 9ldsOCFcf5o8vQuSeEJE1NPZyNPKaGpQ9letwvAXBAbsamhMtI7yzu9DT
- dAyqQSFwwj4my5Cek6qjXt2gHFJv+JMPQub08MUazK7/LUuv1VrnJNb2G g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="276477215"
-X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="276477215"
+ bh=BLoe0laufTTGLfAxSX6n2K8Sdet26QJIDBOeliX5q+4=;
+ b=HW+dwm3anLqTNAiPT2TEWovmSdzLuIbNxz5GwgULLHo8XxPTugFfA+7B
+ oyg/IHyRSofG1gbzIrYaqKrlkbXMVbFhym/SynSQiQKF4Myl3S1+4LLXP
+ Eapk/CZhZq8J0qm/tji3fe3W9GL7hZWN+ymxWxCLToLfDxKkp+ipqtfGS
+ rA5ztfMRVWXCnE84bvccabyDxk9OTE3aZtvdhWnY5wS4tTuS2Z90MWmBW
+ mBfWfaIUzuDtHIJUQheCQBxhfDrcJa+Bo3285fT9vfUTrn5lY7s6Yt5sp
+ zHZog178smxXShijkR4hUQCjBTEufQRXEMgYScrTQgNuVCwlM/pCAdz8L g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="298053141"
+X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="298053141"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Sep 2022 16:49:46 -0700
-X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="675920337"
+X-IronPort-AV: E=Sophos;i="5.93,295,1654585200"; d="scan'208";a="675920325"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2022 16:49:46 -0700
+ 06 Sep 2022 16:49:45 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  6 Sep 2022 16:49:31 -0700
-Message-Id: <20220906234934.3655440-12-matthew.d.roper@intel.com>
+Date: Tue,  6 Sep 2022 16:49:27 -0700
+Message-Id: <20220906234934.3655440-8-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220906234934.3655440-1-matthew.d.roper@intel.com>
 References: <20220906234934.3655440-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 11/14] drm/i915/mtl: Add gsi_offset when
- emitting aux table invalidation
+Subject: [Intel-gfx] [PATCH v3 07/14] drm/i915: Use a DRM-managed action to
+ release the PCI bridge device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,113 +60,60 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The aux table invalidation registers are a bit unique --- they're
-engine-centric registers that reside in the GSI register space rather
-than within the engines' regular MMIO ranges.  That means that when
-issuing invalidation on engines in the standalone media GT, the GSI
-offset must be added to the regular MMIO offset for the invalidation
-registers.
+As we start supporting multiple uncore structures in future patches, the
+MMIO cleanup (which make also get called mid-init if there's a failure)
+will become more complicated.  Moving to DRM-managed actions will help
+keep things simple.
 
-Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 15 ++++++++++-----
- drivers/gpu/drm/i915/gt/gen8_engine_cs.h |  3 ++-
- drivers/gpu/drm/i915/gt/intel_lrc.c      |  9 ++++++---
- 3 files changed, 18 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/i915_driver.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 98645797962f..e49fa6fa6aee 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -165,10 +165,12 @@ static u32 preparser_disable(bool state)
- 	return MI_ARB_CHECK | 1 << 8 | state;
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 18acba1bc3b0..1f46dd1ffaf7 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -105,6 +105,12 @@ static const char irst_name[] = "INT3392";
+ 
+ static const struct drm_driver i915_drm_driver;
+ 
++static void i915_release_bridge_dev(struct drm_device *dev,
++				    void *bridge)
++{
++	pci_dev_put(bridge);
++}
++
+ static int i915_get_bridge_dev(struct drm_i915_private *dev_priv)
+ {
+ 	int domain = pci_domain_nr(to_pci_dev(dev_priv->drm.dev)->bus);
+@@ -115,7 +121,9 @@ static int i915_get_bridge_dev(struct drm_i915_private *dev_priv)
+ 		drm_err(&dev_priv->drm, "bridge device not found\n");
+ 		return -EIO;
+ 	}
+-	return 0;
++
++	return drmm_add_action_or_reset(&dev_priv->drm, i915_release_bridge_dev,
++					dev_priv->bridge_dev);
  }
  
--u32 *gen12_emit_aux_table_inv(u32 *cs, const i915_reg_t inv_reg)
-+u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv_reg)
+ /* Allocate space for the MCH regs if needed, return nonzero on error */
+@@ -452,7 +460,6 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+ err_uncore:
+ 	intel_teardown_mchbar(dev_priv);
+ 	intel_uncore_fini_mmio(&dev_priv->uncore);
+-	pci_dev_put(dev_priv->bridge_dev);
+ 
+ 	return ret;
+ }
+@@ -465,7 +472,6 @@ static void i915_driver_mmio_release(struct drm_i915_private *dev_priv)
  {
-+	u32 gsi_offset = gt->uncore->gsi_offset;
-+
- 	*cs++ = MI_LOAD_REGISTER_IMM(1) | MI_LRI_MMIO_REMAP_EN;
--	*cs++ = i915_mmio_reg_offset(inv_reg);
-+	*cs++ = i915_mmio_reg_offset(inv_reg) + gsi_offset;
- 	*cs++ = AUX_INV;
- 	*cs++ = MI_NOOP;
+ 	intel_teardown_mchbar(dev_priv);
+ 	intel_uncore_fini_mmio(&dev_priv->uncore);
+-	pci_dev_put(dev_priv->bridge_dev);
+ }
  
-@@ -254,7 +256,8 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
- 
- 		if (!HAS_FLAT_CCS(rq->engine->i915)) {
- 			/* hsdes: 1809175790 */
--			cs = gen12_emit_aux_table_inv(cs, GEN12_GFX_CCS_AUX_NV);
-+			cs = gen12_emit_aux_table_inv(rq->engine->gt,
-+						      cs, GEN12_GFX_CCS_AUX_NV);
- 		}
- 
- 		*cs++ = preparser_disable(false);
-@@ -313,9 +316,11 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 
- 	if (aux_inv) { /* hsdes: 1809175790 */
- 		if (rq->engine->class == VIDEO_DECODE_CLASS)
--			cs = gen12_emit_aux_table_inv(cs, GEN12_VD0_AUX_NV);
-+			cs = gen12_emit_aux_table_inv(rq->engine->gt,
-+						      cs, GEN12_VD0_AUX_NV);
- 		else
--			cs = gen12_emit_aux_table_inv(cs, GEN12_VE0_AUX_NV);
-+			cs = gen12_emit_aux_table_inv(rq->engine->gt,
-+						      cs, GEN12_VE0_AUX_NV);
- 	}
- 
- 	if (mode & EMIT_INVALIDATE)
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.h b/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
-index 32e3d2b831bb..e4d24c811dd6 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
-@@ -13,6 +13,7 @@
- #include "intel_gt_regs.h"
- #include "intel_gpu_commands.h"
- 
-+struct intel_gt;
- struct i915_request;
- 
- int gen8_emit_flush_rcs(struct i915_request *rq, u32 mode);
-@@ -45,7 +46,7 @@ u32 *gen8_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs);
- u32 *gen11_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs);
- u32 *gen12_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs);
- 
--u32 *gen12_emit_aux_table_inv(u32 *cs, const i915_reg_t inv_reg);
-+u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv_reg);
- 
- static inline u32 *
- __gen8_emit_pipe_control(u32 *batch, u32 flags0, u32 flags1, u32 offset)
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 070cec4ff8a4..08214683e130 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1278,7 +1278,8 @@ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
- 
- 	/* hsdes: 1809175790 */
- 	if (!HAS_FLAT_CCS(ce->engine->i915))
--		cs = gen12_emit_aux_table_inv(cs, GEN12_GFX_CCS_AUX_NV);
-+		cs = gen12_emit_aux_table_inv(ce->engine->gt,
-+					      cs, GEN12_GFX_CCS_AUX_NV);
- 
- 	/* Wa_16014892111 */
- 	if (IS_DG2(ce->engine->i915))
-@@ -1304,9 +1305,11 @@ gen12_emit_indirect_ctx_xcs(const struct intel_context *ce, u32 *cs)
- 	/* hsdes: 1809175790 */
- 	if (!HAS_FLAT_CCS(ce->engine->i915)) {
- 		if (ce->engine->class == VIDEO_DECODE_CLASS)
--			cs = gen12_emit_aux_table_inv(cs, GEN12_VD0_AUX_NV);
-+			cs = gen12_emit_aux_table_inv(ce->engine->gt,
-+						      cs, GEN12_VD0_AUX_NV);
- 		else if (ce->engine->class == VIDEO_ENHANCEMENT_CLASS)
--			cs = gen12_emit_aux_table_inv(cs, GEN12_VE0_AUX_NV);
-+			cs = gen12_emit_aux_table_inv(ce->engine->gt,
-+						      cs, GEN12_VE0_AUX_NV);
- 	}
- 
- 	return cs;
+ /**
 -- 
 2.37.2
 
