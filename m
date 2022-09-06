@@ -4,71 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB92AC6FA8A
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:39:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97EC8C6FA86
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2374510E530;
-	Mon, 12 Sep 2022 13:38:19 +0000 (UTC)
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA0B810EA96;
- Thu,  8 Sep 2022 11:31:39 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id z20so19515596ljq.3;
- Thu, 08 Sep 2022 04:31:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F74610E500;
+	Mon, 12 Sep 2022 13:38:18 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A46C10E173;
+ Tue,  6 Sep 2022 20:06:14 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id a70so472036edf.10;
+ Tue, 06 Sep 2022 13:06:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:from:to:cc:subject:date;
- bh=Pe/I+w+iO2pwgJXl8T4sC38en64C2l3oERN/xelPq20=;
- b=V4sxO+75nLSa4ntHYBDYJK7NyyItm+0ZuqLo4c8gxEblOEQGHihNxBzP1ywfeAMYWP
- A6gbXFUa+oFissD0CGGT9qZjiT57qAO/LcaelBX/nJDUId7ciewfaXSWVpw6M29eM72Z
- q0uRM6YPLLMRxsucdQdim3Ufr73pusbVeQPwM6bfhtQ87iWKRwLxmE3cBBQxY4H9VZIf
- pQM3O1hiKQXGJzsJvyphYtgmgFfp7lXMh65ITn1H0JW5pYN/LHrKWP/ORM0dXXFdRZOf
- 6SddjB7+yub2ELpu5aTF2EbiCg6LgO8CuZOMv2TnRuzKXVquW5W4obBFXEUnssRCyD4H
- ta2g==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
+ bh=Ck2CZ63xlROKRuum+VYM3RwNiQt6GcNFVn5yjUBlhbU=;
+ b=ga9QR8QkKm4EnEDibK+a4UuClq5Nes777nVtiyAuRinh0/Ie7mM1tSBVCLqEH1ugiO
+ IlouNRGGlGMh8PAy0X4s9054Xim8TCwe/VTCAwjrlTZXNA3deVSy1W+0kPuHUKF5mEwa
+ VTWo3H/ib5eNxXgdPa14jDUVTGHJ2tK67OXVAXeaI/dAT1e8V0IliyVBcbFMyNqRUK8J
+ Nl9Ll59iDrM4I1zhPVWBkq3EN3RcA+ihfnEWg5akxMCg2CZM9H0H54FiZ+VU7vHQEVyq
+ o1TomSxBabXQ1G2qK6IA+bOsodqiGTNWSOoMkVt0Vubj6i/Ya4sZOl9R2Aq5jCViRSCd
+ ZuHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:x-gm-message-state:from:to:cc:subject:date;
- bh=Pe/I+w+iO2pwgJXl8T4sC38en64C2l3oERN/xelPq20=;
- b=NtJLZb4uRW8yHAPfIPxN+OhxxLLr/OGzJseeOC5S76lHMmmx05WBC1VBnLe9mY9isC
- xIhqh04NmPUY2xQey2qE/KTIcJUvuDLKiUowS67D1D7kD7d/4VWkJ7kUEFmuunXDtUck
- WmbUNbWcF9xeHNm3zlJZtXigsZElNw8R9gFo89a0lqOFTld4ncsmV+GOh9JdKXJ+kZwA
- LO6vtkLWcEkJtHVuapgSkEBTIGTx6RmwDilHPw0e9SsdyTAbX5eeOpUKj+SysTph+bwA
- 1fX31tcJqrJMDndkmNnqhhh1bVaMlDxxbmNfrKOozyD75sorukQWBlLb/hqp7ymQhXxC
- 5hqw==
-X-Gm-Message-State: ACgBeo1yHExU/QHz1mSjUaehJ7MhXgCvGkUhnpGn0gzBvwY//PCKmc14
- odNWpIJtAx9ZOZipU5O8Keo=
-X-Google-Smtp-Source: AA6agR7hqDYt7a6c30Zzx2HM7qo0bpBArfiiaiAMashCn8pCJhXeqGkG5/jvmcd17AYfIZXNcSfBMg==
-X-Received: by 2002:a2e:b16c:0:b0:266:175c:cd54 with SMTP id
- a12-20020a2eb16c000000b00266175ccd54mr2425837ljm.278.1662636698015; 
- Thu, 08 Sep 2022 04:31:38 -0700 (PDT)
-Received: from [10.10.53.53] (81-18-220-16.static.chello.pl. [81.18.220.16])
- by smtp.googlemail.com with ESMTPSA id
- z20-20020a195e54000000b00497a879e552sm930968lfi.291.2022.09.08.04.31.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Sep 2022 04:31:37 -0700 (PDT)
-From: Mateusz Kwiatkowski <kfyatek@gmail.com>
-X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
-Message-ID: <aa510ec2-a72d-364b-424e-816872ab6923@gmail.com>
-Date: Thu, 8 Sep 2022 13:31:34 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Maxime Ripard <maxime@cerno.tech>, =?UTF-8?Q?Noralf_Tr=c3=b8nnes?=
- <noralf@tronnes.org>
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=Ck2CZ63xlROKRuum+VYM3RwNiQt6GcNFVn5yjUBlhbU=;
+ b=hr3tRtNkjrpztCc/LxaL2A007hkvE5oF411ymyNWlXPsJmnKj37Cef+5xsMiqxodUP
+ tTvCh0Y6oDpuUiTWNfF1BWvTrGIpUkefwrpNYREScYiqBii+ZztdbJ6knAgBMuZ9jv/K
+ yt24N/6KeND76rTukE3tprV/xcglMRbpd2cQQNUZ5Kk2ApUwmp/XUJLT4DpbV+sm5iuE
+ 9SnuYCpWzybC/r1+Cm3Pj3OYT4zAf5+6EQmsbjH5udKvLR4hlW7iwpbZ0L8HtsPhN+ql
+ jyiIVG3QqmPggybGYAd3cDnFLx9+yU5RhzIXFIygn4iU55fkgP5JpBNfr5/dnZPuWSuW
+ utIQ==
+X-Gm-Message-State: ACgBeo02rxhxuxHbYJw4ms/XlAasiMLQpCfBJPsDGzrbi/vLzdeqKPYG
+ bwwP/MtCXbeWVDlfQUN2hlo=
+X-Google-Smtp-Source: AA6agR7CUAhPy+9MFPuH6DzgDy2S60+/E2h57c49ihYMLFNyPbmAh/8ehJuHA/jwsSZISEkVJfO+GA==
+X-Received: by 2002:aa7:d803:0:b0:44e:af34:e47e with SMTP id
+ v3-20020aa7d803000000b0044eaf34e47emr233791edq.310.1662494773089; 
+ Tue, 06 Sep 2022 13:06:13 -0700 (PDT)
+Received: from kista.localnet (82-149-1-172.dynamic.telemach.net.
+ [82.149.1.172]) by smtp.gmail.com with ESMTPSA id
+ wl23-20020a170907311700b0073d645e6dd8sm7123443ejb.223.2022.09.06.13.06.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Sep 2022 13:06:12 -0700 (PDT)
+From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>, Ben Skeggs <bskeggs@redhat.com>,
+ David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
+ Noralf =?ISO-8859-1?Q?Tr=F8nnes?= <noralf@tronnes.org>,
+ Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maxime Ripard <maxime@cerno.tech>
+Date: Tue, 06 Sep 2022 22:06:10 +0200
+Message-ID: <1903427.PYKUYFuaPT@kista>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-37-459522d653a7@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-32-459522d653a7@cerno.tech>
- <199cf4b3-8ace-e047-3050-b810cf0c6b63@tronnes.org>
- <20220908112312.hlb7mzneuxnethhr@houat>
-In-Reply-To: <20220908112312.hlb7mzneuxnethhr@houat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <20220728-rpi-analog-tv-properties-v2-37-459522d653a7@cerno.tech>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 32/41] drm/vc4: vec: Convert to the new
- TV mode property
+Subject: Re: [Intel-gfx] [PATCH v2 37/41] drm/sun4i: tv: Remove useless
+ function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,59 +85,25 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Phil Elwell <phil@raspberrypi.com>, Emma Anholt <emma@anholt.net>,
- Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Ben Skeggs <bskeggs@redhat.com>,
- linux-sunxi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
- intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
- Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Maxime Ripard <maxime@cerno.tech>,
  Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
+ Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+Dne ponedeljek, 29. avgust 2022 ob 15:11:51 CEST je Maxime Ripard napisal(a):
+> The drm_connector_to_sun4i_tv() function isn't used anywhere in the driver,
+> so let's remove it.
+> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
-W dniu 08.09.2022 o 13:23, Maxime Ripard pisze:
-> Hi Noralf,
->
-> On Tue, Aug 30, 2022 at 09:01:08PM +0200, Noralf Trønnes wrote:
->>> +static const struct drm_prop_enum_list tv_mode_names[] = {
->>
->> Maybe call it legacy_tv_mode_enums?
->>
->>>
->>> +    { VC4_VEC_TV_MODE_NTSC, "NTSC", },
->>>
->>> +    { VC4_VEC_TV_MODE_NTSC_J, "NTSC-J", },
->>>
->>> +    { VC4_VEC_TV_MODE_PAL, "PAL", },
->>>
->>> +    { VC4_VEC_TV_MODE_PAL_M, "PAL-M", },
->>
->> If you use DRM_MODE_TV_MODE_* here you don't need to translate the value
->> using the switch statement in get/set property, you can use the value
->> directly to get/set tv.mode.
->
-> I'm sorry, I'm not quite sure what you mean by that. If we expose the
-> DRM_MODE_TV_MODE_* properties there, won't that change the values the
-> userspace will need to use to set that property?
-
-I'd just like to point out that if numerical values of these enums are your
-concern, then you're (or perhaps I am ;) already breaking this by adding new
-modes in patch 33/41 in this series.
-
-And the values (and names!) added by that patch (33/41) don't match those
-currently used by the downstream version
-(https://github.com/raspberrypi/linux/blob/rpi-5.15.y/drivers/gpu/drm/vc4/vc4_vec.c).
-If any userspace software is manipulating this property, it's most likely
-targeting the downstream code. But since you're not aiming for consistency with
-that, I was under the impression that compatibility isn't a concern.
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
 Best regards,
-Mateusz Kwiatkowski
+Jernej
+
+
