@@ -4,146 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7AE2ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 19:47:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F24AECAAA1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Sep 2022 19:49:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C298810E1A2;
-	Tue,  6 Sep 2022 19:47:05 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0798510EA60
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 19:47:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B051C10EA60;
+	Tue,  6 Sep 2022 19:49:03 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E49910EA66
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 19:48:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662493621; x=1694029621;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=ZqPwxyqX8qMJpyMSp9HkjjAszZLQqQGInfoX5AxIFDk=;
- b=GsT42UV82InivbucSwV57qhi7AWtGTZ+D+CY8nw+PjL5gVhrbPR1Dx7D
- JiVwgTQdlY1Ir09G4aUxAK86SNI/kFpc9ycJHANIYLUCv5tuf0EjIXcrp
- 6cmVqSWG0ZEyTqUWAv+0ci19qk5JaPflgJUr1y8M/d0EcFkmLBS633vyy
- S4uyZ0CeuxIprJZEwr272Xggpp5pJqQz/4LEq7KNNCWzZx5kmCuwFwqVI
- e6xYovd+asxNvVD+EOQ7j8fhjacilpyErxgyWO5HcJhxTrGGB1foKY4Ln
- C+HWguSPZOvGBorgRFgv1Mtip+SjnSSasbBtepSx8j1GwoITgu1c7n9nO Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="358404929"
-X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="358404929"
+ t=1662493739; x=1694029739;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=0BeFCK9ahwu+/n89sJu3K5b8//p0zC+gKwjHadhk5OI=;
+ b=gA3b6FZvKLGmdWYpKwerZOXBKyrdEGsFiekJtLrzL8W+Fr4Xr2pg9Ibg
+ SmxAYSVbOsAMKo0yzKbk/P8Y9V20q9c4X/6H20Y4hBq6HpJDLqUSCeaS+
+ V0zcfKV4uAae7dF9cv7AQHFHa5MbHv8mxUlvVuOfcYXJE3vP8hfu5tqCa
+ G4SznRys9544ZAAuiHuJ0Vkpk7HeLk3sPVrDF8WGx2g/hErzbPotakq2H
+ aFzDPcuNAT4CUgox9jYKoFk3xlLFJArOQ7yTYDi6in0l/nbAZWxgNvSYt
+ Uh9VQXo/yB77z36ayxRRCP3HWEfXfIOvwJHDC5z2axkFrBth0GPpzvhrl g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="276429483"
+X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="276429483"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2022 12:46:47 -0700
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2022 12:48:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="647348088"
+X-IronPort-AV: E=Sophos;i="5.93,294,1654585200"; d="scan'208";a="647348863"
 Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orsmga001.jf.intel.com with ESMTP; 06 Sep 2022 12:46:47 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ by orsmga001.jf.intel.com with ESMTP; 06 Sep 2022 12:48:57 -0700
+Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
  ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Tue, 6 Sep 2022 12:46:47 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ 15.1.2375.31; Tue, 6 Sep 2022 12:48:56 -0700
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Tue, 6 Sep 2022 12:46:46 -0700
+ 15.1.2375.31; Tue, 6 Sep 2022 12:48:56 -0700
 Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31 via Frontend Transport; Tue, 6 Sep 2022 12:46:46 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.175)
+ 15.1.2375.31 via Frontend Transport; Tue, 6 Sep 2022 12:48:56 -0700
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.177)
  by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2375.31; Tue, 6 Sep 2022 12:46:46 -0700
+ 15.1.2375.31; Tue, 6 Sep 2022 12:48:56 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ChbuA93i8+6yFwSYnC3EgPsI4ZHsXmf7mdkirlUmALRM0E3kYVmZvwKGmAx6Li7EsHr24j67niEQWwmt7mZQmadXnlyNYvD3CAcnMYSNVUGRyOVWHs489Y7KbP0IAB3y2v6A3x4wO9NB2aqkoCJCbiUr2rjuc/vqMXWyKAvzfYUTNGnmg3zMOhcx3F5sGe6vosWkK4hJQhKOt7e7ESqlGOZkJmuTHb62hzc9vWebu6BcWlfzT2PPnVZhh30mjIhTQ9I4OovoEcokT8wL0UIK/RejBI8knR0B1IcbNJsuxH2ZSNG7A0Vj1RC8Cnk7JMo4xNmWGkAcQjDBklPt2LY4Ww==
+ b=BCfusynyC5pXIzJ6kU2AWebwrBgbXbNCfimNMUIJ+MeB4iHTr38P5Vm+jW1GnbsZy8M6IkuQX7clvfKnn5rU0yukrK39IlUqocLIV/tVPjYFZm2ILqmVwnJPhBLZlyHB2TtNXomYtXcdSBAVNmFfzGfEvB0+u6U2I+8ZclOIk6FFnO/yFc9q1uOd47RX/K9Fn4kbbmErD5MVTjdA+Ui2iAupuUZ0pf7ELgsqTggI6Dv5vx1aEiPXKIGxWOYzztE0sQWtTDSO1XxosXqLO8K1DQ7RpTVwCGwqC3sV10ufsRQ6aeYEow3hcYFf8UG1nFYWIGhf2hcYAVTmitjuZSABZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QClEHNxrrDMXR+K9+apIqr2mT9Eqc5dcAthocI67xbE=;
- b=QJnTXvj4724xtRvZp65dw23Z7t5WufLjIceyjEBKNWpa65MWhxdUlFWFwmEbMO+9qh+nfEXyQye8Rm3JhpvBzC8t7vMSY3hQL3p7gEPCXE3HKUgN4gs7HOUUnVZzVIrkWfpqjf0R2XGhkbnXubyS1/EjnI5FLxV1TRhjfg+WPQnX8MULOKzhVteap/l59gk3fkOwroPVm3e4s2e6MTYoUzuyuoZKDPt6c9N56PjX8Cgs20ElFVxO6I9j4JYdSEdHOmN1tUmMHVzqBdCUMNXfnVGkTTAYeYbwIsHVnu/2FpjKRV1z6jTZJM2f0rvrk77mtv61MN9C/sH1JaYj7RBgEg==
+ bh=duLAOf+aO0+GhDkCLvBCX0ojb+eTpapSUW5f0tqxABA=;
+ b=iDGS/XVzmv51lGKLXGpK91R5ytgUX4Prtiy8yBMeBdVT1DdVylWi6hCEfzJDpBVfBPJTyjt6HGSnCgJ+lVrOu17P2d7tEMKVQTJZqCDHE3nGTUIjsyE+E4Tjte6q00sygUTmZiVpd8jnueycfyFrtJ3DE7B3fPmtIdunq7Hm+8KYNdyGIbjnvOPUqTA2ZCr39tyPw5g2G7VhKGdjbjac3ZaLphGPPk1WLceNEUEltpf+z0AZaAMJ2mqxG7AHVq45KgmYlfpSAV46bZhhVR2/EovpzQ3cWecLTrTVOq3MASp8xgmfg0TwMBHngDxuBtCgw6CoFNBu27zA0LCZXjZIdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM6PR11MB2987.namprd11.prod.outlook.com (2603:10b6:5:65::14) by
- BYAPR11MB2695.namprd11.prod.outlook.com (2603:10b6:a02:c0::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5566.16; Tue, 6 Sep 2022 19:46:39 +0000
-Received: from DM6PR11MB2987.namprd11.prod.outlook.com
- ([fe80::b1d3:4447:7415:8adc]) by DM6PR11MB2987.namprd11.prod.outlook.com
- ([fe80::b1d3:4447:7415:8adc%6]) with mapi id 15.20.5588.018; Tue, 6 Sep 2022
- 19:46:39 +0000
-Date: Tue, 6 Sep 2022 12:46:37 -0700
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Message-ID: <YxejnZCHt7nhKqRB@unerlige-ril>
+Received: from DM5PR11MB1562.namprd11.prod.outlook.com (2603:10b6:4:6::15) by
+ SA2PR11MB4873.namprd11.prod.outlook.com (2603:10b6:806:113::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.12; Tue, 6 Sep
+ 2022 19:48:54 +0000
+Received: from DM5PR11MB1562.namprd11.prod.outlook.com
+ ([fe80::74ac:21b8:1f17:9bc4]) by DM5PR11MB1562.namprd11.prod.outlook.com
+ ([fe80::74ac:21b8:1f17:9bc4%5]) with mapi id 15.20.5588.018; Tue, 6 Sep 2022
+ 19:48:54 +0000
+Message-ID: <00a6e452-9df1-04a0-1b91-056bf0bb1265@intel.com>
+Date: Tue, 6 Sep 2022 22:48:50 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.11.0
+Content-Language: en-US
+To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
+ <intel-gfx@lists.freedesktop.org>
 References: <20220823204155.8178-1-umesh.nerlige.ramappa@intel.com>
- <20220823204155.8178-3-umesh.nerlige.ramappa@intel.com>
- <7862e250-59b7-f966-820f-5e6ee7afc306@intel.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <7862e250-59b7-f966-820f-5e6ee7afc306@intel.com>
-X-ClientProxiedBy: SJ0PR05CA0118.namprd05.prod.outlook.com
- (2603:10b6:a03:334::33) To DM6PR11MB2987.namprd11.prod.outlook.com
- (2603:10b6:5:65::14)
+ <20220823204155.8178-5-umesh.nerlige.ramappa@intel.com>
+From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+In-Reply-To: <20220823204155.8178-5-umesh.nerlige.ramappa@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0061.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::9) To DM5PR11MB1562.namprd11.prod.outlook.com
+ (2603:10b6:4:6::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 43394f96-a828-4f09-981d-08da904083d1
-X-MS-TrafficTypeDiagnostic: BYAPR11MB2695:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1c6ec5e0-fd76-45ce-2bf4-08da9040d473
+X-MS-TrafficTypeDiagnostic: SA2PR11MB4873:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UYUnasosEcn53MX4TzibzM+BpWtU0X16s+4SJUFW6AZDjZjJIKAIcmClw0KY+/6F9IZrOPnT/AVeUEkygvojya6R1FKIoNJD2Ew78wAQhQcAZaIR/8YmuwpX/FWZ+9zERL/9tlGaZsJVrRR9fl/s07gzB+T/xTlAS+7X6o4olvWRZMaIEZYZeIf7rJbSslOjNKewz/317Dzjb7ul1zXm9mghMFvRVgCNgL46UvEOYi1Q25BgK6hD8tTy3qPVq253YKP4FWvevHAzK8NIHVmch0+1iTvI1qZ08Cvhph5RhSPfYm2LZhvXHGeCe9SxsHwPNafOSHaIkWl10J4v+aDvz5Eo+c+X3FgOkWB6tAshk7qXw0Kx5/AvzhhX08z58Nq+QoO6nyXOjZqXHTyTuetLico6vu4W3Tmz6spu+PFvIPp5EwUgGjiRYHG44nrt12woywkbgUU6gegb+kgmniyrSAdQhEwqV4rTkBr94jaY/UMQAx/FGsZa5CPcazdfTIp73AnS11YDNhBCnY2OOfwNqfygnVGDZ/xS5Sm2hP2UWkgJNn/C5qSGGf6gqvn6V/RORw89sjbAJXQNdrnJeTNeHtP7seUbykW5rV0g19Q3YK4ZiSMRj58bimOkSvOBK8Ty3FXuXI7UIV16xoXdsiwrZ29nXmV0V0nIBI4WpLOMxWZ4mw2vWZyL8dn3sMKZN/Cc5hDiLG1rPagAaFx2HUZdZIl+bhfIHeIcjzhh2SuRcrCOTvplzhfZ5Zusn0SMONxs
+X-Microsoft-Antispam-Message-Info: ROPGvyl1JeYmr6RsyX+Wrx6MveaM3hioRNMDbjcA2RKmIKP4N3eZ/hD1l9elDQQgEWmyJvlFqDBX5QsYCdPlNSRSt8Mt2MHNcr54KVGCKtQOxO0rKL5d3IL4jQEQNOgBiKNW9hvylr2PdlZfLFfrbdPZ0AQlcpiBSm4D15rlE0scnHstVkDyEo7bXEvC0bnDH4J4NBzvNE5JrOiVI/HJaDIQN5SGDPdNtUCujrIDQnS0lMIUCavZwHNSW8cMS7qa2cdo7zKJnshquzKtIV1rgnPbx1jOOhpsoE0PqiGp4fGLDvIDnk7WzDyMmZ9SWY7B6UatjPUUTNS3aoCoO8izzvOeNEzh2y87o8KOYzVG1x/z3wPNJRzX1SivofQlFqrbnpBouIrpSF+N4P4Xj2rzqDu0NX62geIU6pMOUJbHtVXkhN0x/zlukBd9u+mqXzhNptIYwMPAQ9Tw2Y0b+BINHgjWJguLderqLWWE2nfyglHj1KKqc3svsG/Ea4tDBkCP9PE4FJS6oOJl09IyXcwRBaBHTTDOhqp6BXthc8L5KkqngcaQO8KkBsC3HJ/Jkx+VaNt5yHPaJ38BRg28sqeJQ9M45oaL7WdGBGG5Ov52cJQJCzBCH+VBLikbnB7xn+oGpwlrCB8o0a1qNKM2TxqHNOAittSSyQbIXEl98//fIC98v7zv0ZQy11H/bcyBRTizL3euXcLF/26qqN7zyLsh84C3bjyhSAZIwuybqRJYDdN4JWq9rnTbB1rGNCTLPy4CAsicGVIFewU9B3QNavRFMeYTRxIQsQfidNX8A7/KC5I=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB2987.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(7916004)(366004)(136003)(346002)(396003)(376002)(39860400002)(33716001)(83380400001)(66946007)(6636002)(316002)(4326008)(478600001)(6486002)(66556008)(66476007)(8676002)(86362001)(6506007)(6512007)(186003)(9686003)(5660300002)(2906002)(6862004)(107886003)(8936002)(41300700001)(38100700002)(26005)(82960400001)(21314003);
+ IPV:NLI; SFV:NSPM; H:DM5PR11MB1562.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(366004)(396003)(346002)(136003)(376002)(39860400002)(66556008)(107886003)(36756003)(8676002)(4326008)(2906002)(31696002)(66946007)(5660300002)(31686004)(8936002)(83380400001)(316002)(6506007)(86362001)(478600001)(6666004)(66476007)(6486002)(41300700001)(186003)(38100700002)(26005)(6512007)(2616005)(82960400001)(53546011)(45980500001)(43740500002);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dWNGVFJJQWVPbmlkVFVhWEhBemxXdDk3aVhmOGFYZEZOZFB1R1Y5alhGM0Nt?=
- =?utf-8?B?MFZab2oxeGlaY0JJSVlZYzFTNVo4S2ZPay9MZ2ZCOEcvbFdXVHY0ZTk2QWI3?=
- =?utf-8?B?UCs4eWpuYitSMms4alRzOFFmK29VQk1LcTlKQmM2dFFUYzYrVWpQVGptaWVY?=
- =?utf-8?B?elErQjFrVHNoYnRhSWIxS0hDQlM5d3RjYzFKZVkxQjE4OG4wSDBPSFRKWnJq?=
- =?utf-8?B?NWYwSVkxMzluQ1lKRGdpV2QyNU5CWkwvTjNOam1yT2t1WE9oUFhsT0gvUFdO?=
- =?utf-8?B?Q2c1UlpmT0J4eVY2Q3pPczJxQWtTN1R4UDZCNk5mdGdPTWVhMW80THBvK0JL?=
- =?utf-8?B?K2JGNmlUeGxZWGhURDljNC9XMHErREpadTJIM1ZEK0tYS1Q0M0hjbEQrbE43?=
- =?utf-8?B?S3dObXAwQ2pOM21ZSkk5NXdNRTc5UnkwYU03K3l5dTZuSVlNVDNwdjl6NjdN?=
- =?utf-8?B?alcxMmI0b0IzcVhSQm1vSHJrWEpYYk12RndpdFVhRGYvN0x2SnRuTlB3VTQ2?=
- =?utf-8?B?K0VTQXY2K3d2WHJwSWVaUnpGNG1DOXVzcW8xQTQwUXpWRVlZZDBlU3ZGSWlV?=
- =?utf-8?B?dXZLR0VzdmRhNWdkWTlEVHdNMUpjV3FWQ1UrSm8xVWNpV3A4TXEzVU5DcTNB?=
- =?utf-8?B?dXpjLzJNNWxKeTRuZDM3NUZlOUY5UkovQXB2Z2JTNUs1bGpsOVV3MUlBTUYx?=
- =?utf-8?B?RG9sVTNESFh0TCtnb20ycXR0OTcrY2JGZzVGaTJzTVhHYm92VFJOQ25Pa1FP?=
- =?utf-8?B?TW5DYVJsYXd2ZTRsZEYydDl5VDlJUFBIMG41VFczR3RzeS9GeHpob2V0R2pU?=
- =?utf-8?B?L1U5RGM4VktUbitMR1ErbGRQY2l1V0ZPUnBhNy8rVEpLenk1RjFOM1U0M3hv?=
- =?utf-8?B?M3VrZkIvYy80UGhYNXFxYXJ6c3ZmajNLcVNuM2RxOFdBZ1RiY2srcWVSeEM5?=
- =?utf-8?B?bUU0YWZ5Z0NXQmdrdGIwKy81SHNKa2ZWV0pHR0Y3VGsvSGpOdWpaVlV0REZZ?=
- =?utf-8?B?S05HMGFhaEpCSWRuZUlibldGZkJ4WXN4NjBzeHpKNWlsWldzeXJLeUJadWQ5?=
- =?utf-8?B?RXlZWVg0bCtqNnlLNUJVSFNabE5HTkZlS0hTVFF2bmlGRTNpMFErVXdiV0cr?=
- =?utf-8?B?VWhLVE01a2NBbU9VL3B5QzZBVTFtZk1iaWdyakQ4RkZDN3VoSmRFenFGUUdX?=
- =?utf-8?B?N0FFdWVvSUNoY0R6cUlGVHVUUWJsZlNRWVMrTUtCU09tU0pIeWxuMmRHMjU2?=
- =?utf-8?B?TkhjRE1KNE50V3pnRVBYMkJ4Y3h1M09yVlU3RVBLWU1uQXB5T2l0NkpXbWRl?=
- =?utf-8?B?ZHJkSGNNT3R6ejloVGxQYm8yUUdzdUFhamdkTHNKa2wzazBxN0xCbTFkeFhU?=
- =?utf-8?B?NzdJZ3A1ZHRpUnYvdVpYQkhCZEJUUUVVSUw0R2tINjBjTDh6OFNzbHhNSXll?=
- =?utf-8?B?L2FtTTRZQXNzU2VRY2prcXRtQldVbm9waXFsYW1qMzFDRmlFM0pZSiswOGVw?=
- =?utf-8?B?QVV2K1dIaFh3MUVJL0xlb2t4Zi9vNzBnRjNhR3FsV29aY2NMSFY1RXl5aGpL?=
- =?utf-8?B?SjZQQjltWTRqNTZ0RE41dHpOR3BXMXRUekxpa3ZycXplY2liNUg4Q2Flbndj?=
- =?utf-8?B?N01WZUZhR0oyYVFFdHNKTlVpMTRQR3VOd2Z5bzZHRzROV0VCYThpenVvbnly?=
- =?utf-8?B?alV4cnl0M0J2eEdaZmdrYlZLQlp1MGptb1A2VWVRaHFwRTQzblU5V1RxUmhk?=
- =?utf-8?B?TW9BL2lIbThwQjI3WVRqVXpic016U3R6Zy95UmtiOER2NDJTcnc0RGNkaEFq?=
- =?utf-8?B?T0tQZlZiZnR4ZENBcjlnSElBNklrUk5VUnF5K2xHSVhyYlYvNlJkRjlyWjBP?=
- =?utf-8?B?MFhVcWRoUWtySmRZUkQyUUdZb0xBM0IrbUVKRFFoMzBDdkNSKzFPV0tmd0Zu?=
- =?utf-8?B?K0o0dTN6UHJvc0ZRZkVuNTdlMU9VaHc4eHBNMXBhU3JxVGVjc0JZNU50T1hk?=
- =?utf-8?B?ckdYN3JxRjVpTlBDY2RWRnAvam95S3NLZXI1amVyektEaitVTUFJdW1wYytV?=
- =?utf-8?B?c0lZRTdrUCtZME82ZUdlckJiZ0ZwRTVvVHhwVHdVRWE3ck9VMURzSGwxOWVC?=
- =?utf-8?B?WlRIZ3JTTWhIejVWeUZaTEdXTGk2Y3pjeFA3U1JBTUF2a25wc3QzMURqRSti?=
- =?utf-8?Q?+kKI9D6/hIiu9yIAiYf6uy8=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43394f96-a828-4f09-981d-08da904083d1
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2987.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dVFyQjBPN2x5WENRTVhVemZSemx5cGxiL1FVRGxZSEJ2UkkxbEcxc0lHNXNl?=
+ =?utf-8?B?Vkg0aUxERGQ4STlDVGdXZmJ2aHBEMzNYUUcvNTdvUi8vQlNlM01uOWFacElv?=
+ =?utf-8?B?K0V2RHlDN29vZWpjd3BRQ2tOYzV1U2t1U2NQTFZDd05wbTcyOTZkTGU3Q1RB?=
+ =?utf-8?B?Ull3UjJLYU9Mb0NpTTh4Vi95OHhxS1c3K2hmbkpNWGlJTDlEcE5VVWFTUmdN?=
+ =?utf-8?B?Y3lZeVBPY05yZFA1SzFack1sQXl4Zm54NXYrRWczYXIxZjdjSTEyVkIxMEl1?=
+ =?utf-8?B?cHZvOGx4RGxzd2tCMTZnT1RKcVBqdHpyODdtUVFSWFFUT2tFaWx6aW5vQjJG?=
+ =?utf-8?B?dk9IcUlCVUJaLzhVMnVTZnVobWVXYkxGSFVaLzNreXAvdDZWN0dhN0hhQ3lI?=
+ =?utf-8?B?NnE3K3M2UVFUYWkxc0R0cVBPb2ZyQWlIYzdJVSs5Nk4xOTN3YW1JYVZtVGRk?=
+ =?utf-8?B?ZE5NZzQxaFA0bEcydi9GN0VhUzJJMmhRTktMbWdzZzZ3Vzd5Wkl6VkJJNktC?=
+ =?utf-8?B?cDdYcVF5Wmk0Vi96NFdNM2dwell5OU45dGxXSlYwcVFZZHFHSXhiaG96dmFP?=
+ =?utf-8?B?aDNqMDg0dVllQWJKdnZmeTFSbVRWMi9Ea1JWeFF3ME1JZmRRUEJHYXZjSkZl?=
+ =?utf-8?B?RCtmblRmaGxEU05tV0tBcjVPTHVsZ0pqUFZjb3doMmU5VXc3K1VoZUVSaWFs?=
+ =?utf-8?B?eHlzb1FRYTBOR0lVUG9KNHN5a2FxNDZkSjhRZjF6WW1Ta0xiRERwV1BTVzIr?=
+ =?utf-8?B?TXk0U2FIaUlWUHZ4aVJLSXN5UlhReU5UeFNmWGZ2WmdzaXU0WDZsY3I0YjBG?=
+ =?utf-8?B?SENQM0VPLzJZY01rUWRsc0oxWFloNkRtSC9pdi9FdThlM2hxekhKcS94QkJn?=
+ =?utf-8?B?SEpFeW5UK3RIMy9UbEJkNWxQSEpzK0h4TjZzcTQzRmlWejJzWXIxNEllbHFG?=
+ =?utf-8?B?YnZvSmFHWDRDc3RiTTF5Ylo1OTErRnhFWEhpTzh5K2VyVmsrc3FQdFN0OVdm?=
+ =?utf-8?B?ME9TYk5rUmZQTTJLWmJTbEUwK3FFTGYwY2dLS1BkM0hmMHlMcEt0NzVvNFB1?=
+ =?utf-8?B?anZsNnVJWjJzaExFY3poWE53OW96YkM4dUJnWHF5Z1g0YlR3NENVRHUvZWxP?=
+ =?utf-8?B?c3BsOUp3SzFLdXVIZUh5dmMzQ0Y2YnpOakFCamFacTZEQVVuaHgrcG9BcGJw?=
+ =?utf-8?B?SkE5VGF5SUVhdnpjYVhLZEprUkpBanUrYkMzd05lS3FxOTFCUmZjVnBjS2ZM?=
+ =?utf-8?B?R1QzUTVZR3JqWmVFSlRJbENYM0d3dkZTUkNjbklEZGF6VVZQQVFxMnY1ZUl6?=
+ =?utf-8?B?Ukk0TjZnemhHbkVDdHltd1hhc3N2TmJsS0hSUUFaYVFIL2hLVDBDWHNkNHV4?=
+ =?utf-8?B?ZCtKU1EvTzJJaVBVUE5qNTRtQXA3czRDQWtrbXNmM1M4RVRacCtOQngvcTd0?=
+ =?utf-8?B?NkxxQjc5VlgzNlVaTGlvNHltRTVJUnpDSzRBbFM1ZkJjeUxCRS9EeE9aZmh1?=
+ =?utf-8?B?WnFmRnNLcHVPcHMyMlJWODcxZXlLNU1RWitlTlZPQ1FuU2h6VUpKeTkxcEgr?=
+ =?utf-8?B?cjVWMUJ0alJoamh5VmpaWjFFNTNidGZEaEtLQ2x0OGJvd3JTV2xkeEkwOVVn?=
+ =?utf-8?B?OGdNU29IMTBBMktQNG1namVOTGhlVm5qN2s3Tkhib0ppY1Y3NnM0Qmo2dDdt?=
+ =?utf-8?B?NzE1V1RCZ05FSlgxY29XbWt6UDd1eG1JTHh0Y1VlRER0eUJySHluMElHTVNQ?=
+ =?utf-8?B?emNRMTYzaFBub0dQdWJPb1ZOWXVEaHowdVQ5d05OaWZBQzFSVmZvcEZRdi9s?=
+ =?utf-8?B?dStCWVJJQlo2VkhnR3JyU05CSmEwMEN4azBoSWlUUFhSZjJaMDRZN2lYRmJD?=
+ =?utf-8?B?bUVZT1Awd24ycnNjTFhZWWZVMDlNUll5NTBiMXNFUnJjT3REK3V3SC9ENXpD?=
+ =?utf-8?B?RUNhYU1NWkRuelZ1d0dMYjNKMjVsL2FyOEVybGszSEorblA3cDd6U2xtOEQz?=
+ =?utf-8?B?TnVYUzlsZjhIYnNyblFmcVJTVjd6MmFLazk0cVpMMFpiQTdEWUIybkI5ZTRk?=
+ =?utf-8?B?aC9rRklWTStaUHpreWg3Z1JYT25UUDdOYktJUkszMjh3TVZ6ajNKR3RCLzZI?=
+ =?utf-8?B?VUlsRDlmOGtSRzJHWU1YeWZMMU9MeS95S3RaT3F5SnE3aDRjY2hSMmx6dWk0?=
+ =?utf-8?B?QkE9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c6ec5e0-fd76-45ce-2bf4-08da9040d473
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR11MB1562.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 19:46:39.1454 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 19:48:54.5314 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Plwro93BYGA65FZonuRE+NZJc8LUSe2YuEhMfFnDU9Nd9e/ryi6FoxfvUWmQgxjHlwqm9yzCh13nXgKNHIEvgXBgi+LZ5cVpp4t3D+NAhYg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR11MB2695
+X-MS-Exchange-CrossTenant-UserPrincipalName: fSm3N+PXbo7Xp4sVyjcnXN4Qtu2F3pHTyoaaXIcK2Q/xrWZ7wx6qAsAtBkUY1wQ+IYaHpNiJukf4V12vIcrzo3W1UJ8pMGAB96vBsx7Enoo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB4873
 X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH 02/19] drm/i915/perf: Add OA formats for DG2
+Subject: Re: [Intel-gfx] [PATCH 04/19] drm/i915/perf: Determine gen12 oa ctx
+ offset at runtime
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,196 +160,296 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 06, 2022 at 10:35:16PM +0300, Lionel Landwerlin wrote:
->On 23/08/2022 23:41, Umesh Nerlige Ramappa wrote:
->>Add new OA formats for DG2. Some of the newer OA formats are not
->>multples of 64 bytes and are not powers of 2. For those formats, adjust
->>hw_tail accordingly when checking for new reports.
->>
->>Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramampa@intel.com>
+On 23/08/2022 23:41, Umesh Nerlige Ramappa wrote:
+> Some SKUs of same gen12 platform may have different oactxctrl
+> offsets. For gen12, determine oactxctrl offsets at runtime.
 >
->Apart from the coding style issue :
+> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+> ---
+>   drivers/gpu/drm/i915/i915_perf.c         | 149 ++++++++++++++++++-----
+>   drivers/gpu/drm/i915/i915_perf_oa_regs.h |   2 +-
+>   2 files changed, 120 insertions(+), 31 deletions(-)
 >
->
->Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
->
->
->>---
->>  drivers/gpu/drm/i915/i915_perf.c | 63 ++++++++++++++++++++------------
->>  include/uapi/drm/i915_drm.h      |  6 +++
->>  2 files changed, 46 insertions(+), 23 deletions(-)
->>
->>diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
->>index 735244a3aedd..c8331b549d31 100644
->>--- a/drivers/gpu/drm/i915/i915_perf.c
->>+++ b/drivers/gpu/drm/i915/i915_perf.c
->>@@ -306,7 +306,8 @@ static u32 i915_oa_max_sample_rate = 100000;
->>  /* XXX: beware if future OA HW adds new report formats that the current
->>   * code assumes all reports have a power-of-two size and ~(size - 1) can
->>- * be used as a mask to align the OA tail pointer.
->>+ * be used as a mask to align the OA tail pointer. In some of the
->>+ * formats, R is used to denote reserved field.
->>   */
->>  static const struct i915_oa_format oa_formats[I915_OA_FORMAT_MAX] = {
->>  	[I915_OA_FORMAT_A13]	    = { 0, 64 },
->>@@ -320,6 +321,10 @@ static const struct i915_oa_format oa_formats[I915_OA_FORMAT_MAX] = {
->>  	[I915_OA_FORMAT_A12]		    = { 0, 64 },
->>  	[I915_OA_FORMAT_A12_B8_C8]	    = { 2, 128 },
->>  	[I915_OA_FORMAT_A32u40_A4u32_B8_C8] = { 5, 256 },
->>+	[I915_OAR_FORMAT_A32u40_A4u32_B8_C8]    = { 5, 256 },
->>+	[I915_OA_FORMAT_A24u40_A14u32_B8_C8]    = { 5, 256 },
->>+	[I915_OAR_FORMAT_A36u64_B8_C8]		= { 1, 384 },
->>+	[I915_OA_FORMAT_A38u64_R2u64_B8_C8]	= { 1, 448 },
->>  };
->>  #define SAMPLE_OA_REPORT      (1<<0)
->>@@ -467,6 +472,7 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
->>  	bool pollin;
->>  	u32 hw_tail;
->>  	u64 now;
->>+	u32 partial_report_size;
->>  	/* We have to consider the (unlikely) possibility that read() errors
->>  	 * could result in an OA buffer reset which might reset the head and
->>@@ -476,10 +482,16 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
->>  	hw_tail = stream->perf->ops.oa_hw_tail_read(stream);
->>-	/* The tail pointer increases in 64 byte increments,
->>-	 * not in report_size steps...
->>+	/* The tail pointer increases in 64 byte increments, whereas report
->>+	 * sizes need not be integral multiples or 64 or powers of 2.
->>+	 * Compute potentially partially landed report in the OA buffer
->>  	 */
->>-	hw_tail &= ~(report_size - 1);
->>+	partial_report_size = OA_TAKEN(hw_tail, stream->oa_buffer.tail);
->>+	partial_report_size %= report_size;
->>+
->>+	/* Subtract partial amount off the tail */
->>+	hw_tail = gtt_offset + ((hw_tail - partial_report_size) &
->>+				(stream->oa_buffer.vma->size - 1));
->>  	now = ktime_get_mono_fast_ns();
->>@@ -601,6 +613,8 @@ static int append_oa_sample(struct i915_perf_stream *stream,
->>  {
->>  	int report_size = stream->oa_buffer.format_size;
->>  	struct drm_i915_perf_record_header header;
->>+	int report_size_partial;
->>+	u8 *oa_buf_end;
->>  	header.type = DRM_I915_PERF_RECORD_SAMPLE;
->>  	header.pad = 0;
->>@@ -614,7 +628,19 @@ static int append_oa_sample(struct i915_perf_stream *stream,
->>  		return -EFAULT;
->>  	buf += sizeof(header);
->>-	if (copy_to_user(buf, report, report_size))
->>+	oa_buf_end = stream->oa_buffer.vaddr +
->>+		     stream->oa_buffer.vma->size;
->>+	report_size_partial = oa_buf_end - report;
->>+
->>+	if (report_size_partial < report_size) {
->>+		if(copy_to_user(buf, report, report_size_partial))
->>+			return -EFAULT;
->>+		buf += report_size_partial;
->>+
->>+		if(copy_to_user(buf, stream->oa_buffer.vaddr,
->>+				report_size - report_size_partial))
->>+			return -EFAULT;
->
->I think the coding style requires you to use if () not if()
->
+> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+> index 3526693d64fa..efa7eda83edd 100644
+> --- a/drivers/gpu/drm/i915/i915_perf.c
+> +++ b/drivers/gpu/drm/i915/i915_perf.c
+> @@ -1363,6 +1363,67 @@ static int gen12_get_render_context_id(struct i915_perf_stream *stream)
+>   	return 0;
+>   }
+>   
+> +#define MI_OPCODE(x) (((x) >> 23) & 0x3f)
+> +#define IS_MI_LRI_CMD(x) (MI_OPCODE(x) == MI_OPCODE(MI_INSTR(0x22, 0)))
+> +#define MI_LRI_LEN(x) (((x) & 0xff) + 1)
 
-Will fix.
 
->
->Just a suggestion : you could make this code deal with the partial bit 
->as the main bit of the function :
->
->
->oa_buf_end = stream->oa_buffer.vaddr +
->	     stream->oa_buffer.vma->size;
->
->report_size_partial = oa_buf_end - report;
->
->if (copy_to_user(buf, report, report_size_partial))
->	return -EFAULT;
->buf += report_size_partial;
+Maybe you want to put this in intel_gpu_commands.h
 
-This ^ may not work because append_oa_sample is appending exactly one 
-report to the user buffer, whereas the above may append more than one.
+
+> +#define __valid_oactxctrl_offset(x) ((x) && (x) != U32_MAX)
+> +static bool __find_reg_in_lri(u32 *state, u32 reg, u32 *offset)
+> +{
+> +	u32 idx = *offset;
+> +	u32 len = MI_LRI_LEN(state[idx]) + idx;
+> +
+> +	idx++;
+> +	for (; idx < len; idx += 2)
+> +		if (state[idx] == reg)
+> +			break;
+> +
+> +	*offset = idx;
+> +	return state[idx] == reg;
+> +}
+> +
+> +static u32 __context_image_offset(struct intel_context *ce, u32 reg)
+> +{
+> +	u32 offset, len = (ce->engine->context_size - PAGE_SIZE) / 4;
+> +	u32 *state = ce->lrc_reg_state;
+> +
+> +	for (offset = 0; offset < len; ) {
+> +		if (IS_MI_LRI_CMD(state[offset])) {
+
+I'm a bit concerned you might find other matches with this.
+
+Because let's say you run into a 3DSTATE_SUBSLICE_HASH_TABLE 
+instruction, you'll iterate the instruction dword by dword because you 
+don't know how to read its length and skip to the next one.
+
+Now some of the fields can be programmed from userspace to look like an 
+MI_LRI header, so you start to read data in the wrong way.
+
+
+Unfortunately I don't have a better solution. My only ask is that you 
+make __find_reg_in_lri() take the context image size in parameter so it 
+NEVER goes over the the context image.
+
+
+To limit the risk you should run this function only one at driver 
+initialization and store the found offset.
+
 
 Thanks,
-Umesh
 
->
->if (report_size_partial < report_size &&
->    copy_to_user(buf, stream->oa_buffer.vaddr,
->		report_size - report_size_partial))
->	return -EFAULT;
->buf += report_size - report_size_partial;
->
->
->>+	} else if (copy_to_user(buf, report, report_size))
->>  		return -EFAULT;
->>  	(*offset) += header.size;
->>@@ -684,8 +710,8 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
->>  	 * all a power of two).
->>  	 */
->>  	if (drm_WARN_ONCE(&uncore->i915->drm,
->>-			  head > OA_BUFFER_SIZE || head % report_size ||
->>-			  tail > OA_BUFFER_SIZE || tail % report_size,
->>+			  head > stream->oa_buffer.vma->size ||
->>+			  tail > stream->oa_buffer.vma->size,
->>  			  "Inconsistent OA buffer pointers: head = %u, tail = %u\n",
->>  			  head, tail))
->>  		return -EIO;
->>@@ -699,22 +725,6 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
->>  		u32 ctx_id;
->>  		u32 reason;
->>-		/*
->>-		 * All the report sizes factor neatly into the buffer
->>-		 * size so we never expect to see a report split
->>-		 * between the beginning and end of the buffer.
->>-		 *
->>-		 * Given the initial alignment check a misalignment
->>-		 * here would imply a driver bug that would result
->>-		 * in an overrun.
->>-		 */
->>-		if (drm_WARN_ON(&uncore->i915->drm,
->>-				(OA_BUFFER_SIZE - head) < report_size)) {
->>-			drm_err(&uncore->i915->drm,
->>-				"Spurious OA head ptr: non-integral report offset\n");
->>-			break;
->>-		}
->>-
->>  		/*
->>  		 * The reason field includes flags identifying what
->>  		 * triggered this specific report (mostly timer
->>@@ -4513,6 +4523,13 @@ static void oa_init_supported_formats(struct i915_perf *perf)
->>  		oa_format_add(perf, I915_OA_FORMAT_C4_B8);
->>  		break;
->>+	case INTEL_DG2:
->>+		oa_format_add(perf, I915_OAR_FORMAT_A32u40_A4u32_B8_C8);
->>+		oa_format_add(perf, I915_OA_FORMAT_A24u40_A14u32_B8_C8);
->>+		oa_format_add(perf, I915_OAR_FORMAT_A36u64_B8_C8);
->>+		oa_format_add(perf, I915_OA_FORMAT_A38u64_R2u64_B8_C8);
->>+		break;
->>+
->>  	default:
->>  		MISSING_CASE(platform);
->>  	}
->>diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
->>index 520ad2691a99..d20d723925b5 100644
->>--- a/include/uapi/drm/i915_drm.h
->>+++ b/include/uapi/drm/i915_drm.h
->>@@ -2650,6 +2650,12 @@ enum drm_i915_oa_format {
->>  	I915_OA_FORMAT_A12_B8_C8,
->>  	I915_OA_FORMAT_A32u40_A4u32_B8_C8,
->>+	/* DG2 */
->>+	I915_OAR_FORMAT_A32u40_A4u32_B8_C8,
->>+	I915_OA_FORMAT_A24u40_A14u32_B8_C8,
->>+	I915_OAR_FORMAT_A36u64_B8_C8,
->>+	I915_OA_FORMAT_A38u64_R2u64_B8_C8,
->>+
->>  	I915_OA_FORMAT_MAX	    /* non-ABI */
->>  };
->
->
+
+-Lionel
+
+
+> +			if (__find_reg_in_lri(state, reg, &offset))
+> +				break;
+> +		} else {
+> +			offset++;
+> +		}
+> +	}
+> +
+> +	return offset < len ? offset : U32_MAX;
+> +}
+> +
+> +static int __set_oa_ctx_ctrl_offset(struct intel_context *ce)
+> +{
+> +	i915_reg_t reg = GEN12_OACTXCONTROL(ce->engine->mmio_base);
+> +	struct i915_perf *perf = &ce->engine->i915->perf;
+> +	u32 saved_offset = perf->ctx_oactxctrl_offset;
+> +	u32 offset;
+> +
+> +	/* Do this only once. Failure is stored as offset of U32_MAX */
+> +	if (saved_offset)
+> +		return 0;
+> +
+> +	offset = __context_image_offset(ce, i915_mmio_reg_offset(reg));
+> +	perf->ctx_oactxctrl_offset = offset;
+> +
+> +	drm_dbg(&ce->engine->i915->drm,
+> +		"%s oa ctx control at 0x%08x dword offset\n",
+> +		ce->engine->name, offset);
+> +
+> +	return __valid_oactxctrl_offset(offset) ? 0 : -ENODEV;
+> +}
+> +
+> +static bool engine_supports_mi_query(struct intel_engine_cs *engine)
+> +{
+> +	return engine->class == RENDER_CLASS;
+> +}
+> +
+>   /**
+>    * oa_get_render_ctx_id - determine and hold ctx hw id
+>    * @stream: An i915-perf stream opened for OA metrics
+> @@ -1382,6 +1443,17 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
+>   	if (IS_ERR(ce))
+>   		return PTR_ERR(ce);
+>   
+> +	if (engine_supports_mi_query(stream->engine)) {
+> +		ret = __set_oa_ctx_ctrl_offset(ce);
+> +		if (ret && !(stream->sample_flags & SAMPLE_OA_REPORT)) {
+> +			intel_context_unpin(ce);
+> +			drm_err(&stream->perf->i915->drm,
+> +				"Enabling perf query failed for %s\n",
+> +				stream->engine->name);
+> +			return ret;
+> +		}
+> +	}
+> +
+>   	switch (GRAPHICS_VER(ce->engine->i915)) {
+>   	case 7: {
+>   		/*
+> @@ -2412,10 +2484,11 @@ static int gen12_configure_oar_context(struct i915_perf_stream *stream,
+>   	int err;
+>   	struct intel_context *ce = stream->pinned_ctx;
+>   	u32 format = stream->oa_buffer.format;
+> +	u32 offset = stream->perf->ctx_oactxctrl_offset;
+>   	struct flex regs_context[] = {
+>   		{
+>   			GEN8_OACTXCONTROL,
+> -			stream->perf->ctx_oactxctrl_offset + 1,
+> +			offset + 1,
+>   			active ? GEN8_OA_COUNTER_RESUME : 0,
+>   		},
+>   	};
+> @@ -2440,15 +2513,18 @@ static int gen12_configure_oar_context(struct i915_perf_stream *stream,
+>   		},
+>   	};
+>   
+> -	/* Modify the context image of pinned context with regs_context*/
+> -	err = intel_context_lock_pinned(ce);
+> -	if (err)
+> -		return err;
+> +	/* Modify the context image of pinned context with regs_context */
+> +	if (__valid_oactxctrl_offset(offset)) {
+> +		err = intel_context_lock_pinned(ce);
+> +		if (err)
+> +			return err;
+>   
+> -	err = gen8_modify_context(ce, regs_context, ARRAY_SIZE(regs_context));
+> -	intel_context_unlock_pinned(ce);
+> -	if (err)
+> -		return err;
+> +		err = gen8_modify_context(ce, regs_context,
+> +					  ARRAY_SIZE(regs_context));
+> +		intel_context_unlock_pinned(ce);
+> +		if (err)
+> +			return err;
+> +	}
+>   
+>   	/* Apply regs_lri using LRI with pinned context */
+>   	return gen8_modify_self(ce, regs_lri, ARRAY_SIZE(regs_lri), active);
+> @@ -2570,6 +2646,7 @@ lrc_configure_all_contexts(struct i915_perf_stream *stream,
+>   			   const struct i915_oa_config *oa_config,
+>   			   struct i915_active *active)
+>   {
+> +	u32 ctx_oactxctrl = stream->perf->ctx_oactxctrl_offset;
+>   	/* The MMIO offsets for Flex EU registers aren't contiguous */
+>   	const u32 ctx_flexeu0 = stream->perf->ctx_flexeu0_offset;
+>   #define ctx_flexeuN(N) (ctx_flexeu0 + 2 * (N) + 1)
+> @@ -2580,7 +2657,7 @@ lrc_configure_all_contexts(struct i915_perf_stream *stream,
+>   		},
+>   		{
+>   			GEN8_OACTXCONTROL,
+> -			stream->perf->ctx_oactxctrl_offset + 1,
+> +			ctx_oactxctrl + 1,
+>   		},
+>   		{ EU_PERF_CNTL0, ctx_flexeuN(0) },
+>   		{ EU_PERF_CNTL1, ctx_flexeuN(1) },
+> @@ -4551,6 +4628,37 @@ static void oa_init_supported_formats(struct i915_perf *perf)
+>   	}
+>   }
+>   
+> +static void i915_perf_init_info(struct drm_i915_private *i915)
+> +{
+> +	struct i915_perf *perf = &i915->perf;
+> +
+> +	switch (GRAPHICS_VER(i915)) {
+> +	case 8:
+> +		perf->ctx_oactxctrl_offset = 0x120;
+> +		perf->ctx_flexeu0_offset = 0x2ce;
+> +		perf->gen8_valid_ctx_bit = BIT(25);
+> +		break;
+> +	case 9:
+> +		perf->ctx_oactxctrl_offset = 0x128;
+> +		perf->ctx_flexeu0_offset = 0x3de;
+> +		perf->gen8_valid_ctx_bit = BIT(16);
+> +		break;
+> +	case 11:
+> +		perf->ctx_oactxctrl_offset = 0x124;
+> +		perf->ctx_flexeu0_offset = 0x78e;
+> +		perf->gen8_valid_ctx_bit = BIT(16);
+> +		break;
+> +	case 12:
+> +		/*
+> +		 * Calculate offset at runtime in oa_pin_context for gen12 and
+> +		 * cache the value in perf->ctx_oactxctrl_offset.
+> +		 */
+> +		break;
+> +	default:
+> +		MISSING_CASE(GRAPHICS_VER(i915));
+> +	}
+> +}
+> +
+>   /**
+>    * i915_perf_init - initialize i915-perf state on module bind
+>    * @i915: i915 device instance
+> @@ -4589,6 +4697,7 @@ void i915_perf_init(struct drm_i915_private *i915)
+>   		 * execlist mode by default.
+>   		 */
+>   		perf->ops.read = gen8_oa_read;
+> +		i915_perf_init_info(i915);
+>   
+>   		if (IS_GRAPHICS_VER(i915, 8, 9)) {
+>   			perf->ops.is_valid_b_counter_reg =
+> @@ -4608,18 +4717,6 @@ void i915_perf_init(struct drm_i915_private *i915)
+>   			perf->ops.enable_metric_set = gen8_enable_metric_set;
+>   			perf->ops.disable_metric_set = gen8_disable_metric_set;
+>   			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
+> -
+> -			if (GRAPHICS_VER(i915) == 8) {
+> -				perf->ctx_oactxctrl_offset = 0x120;
+> -				perf->ctx_flexeu0_offset = 0x2ce;
+> -
+> -				perf->gen8_valid_ctx_bit = BIT(25);
+> -			} else {
+> -				perf->ctx_oactxctrl_offset = 0x128;
+> -				perf->ctx_flexeu0_offset = 0x3de;
+> -
+> -				perf->gen8_valid_ctx_bit = BIT(16);
+> -			}
+>   		} else if (GRAPHICS_VER(i915) == 11) {
+>   			perf->ops.is_valid_b_counter_reg =
+>   				gen7_is_valid_b_counter_addr;
+> @@ -4633,11 +4730,6 @@ void i915_perf_init(struct drm_i915_private *i915)
+>   			perf->ops.enable_metric_set = gen8_enable_metric_set;
+>   			perf->ops.disable_metric_set = gen11_disable_metric_set;
+>   			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
+> -
+> -			perf->ctx_oactxctrl_offset = 0x124;
+> -			perf->ctx_flexeu0_offset = 0x78e;
+> -
+> -			perf->gen8_valid_ctx_bit = BIT(16);
+>   		} else if (GRAPHICS_VER(i915) == 12) {
+>   			perf->ops.is_valid_b_counter_reg =
+>   				gen12_is_valid_b_counter_addr;
+> @@ -4651,9 +4743,6 @@ void i915_perf_init(struct drm_i915_private *i915)
+>   			perf->ops.enable_metric_set = gen12_enable_metric_set;
+>   			perf->ops.disable_metric_set = gen12_disable_metric_set;
+>   			perf->ops.oa_hw_tail_read = gen12_oa_hw_tail_read;
+> -
+> -			perf->ctx_flexeu0_offset = 0;
+> -			perf->ctx_oactxctrl_offset = 0x144;
+>   		}
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/i915/i915_perf_oa_regs.h b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
+> index f31c9f13a9fc..0ef3562ff4aa 100644
+> --- a/drivers/gpu/drm/i915/i915_perf_oa_regs.h
+> +++ b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
+> @@ -97,7 +97,7 @@
+>   #define  GEN12_OAR_OACONTROL_COUNTER_FORMAT_SHIFT 1
+>   #define  GEN12_OAR_OACONTROL_COUNTER_ENABLE       (1 << 0)
+>   
+> -#define GEN12_OACTXCONTROL _MMIO(0x2360)
+> +#define GEN12_OACTXCONTROL(base) _MMIO((base) + 0x360)
+>   #define GEN12_OAR_OASTATUS _MMIO(0x2968)
+>   
+>   /* Gen12 OAG unit */
+
+
