@@ -4,75 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97EC8C6FA86
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:39:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26721C6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:39:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F74610E500;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78C6310E519;
 	Mon, 12 Sep 2022 13:38:18 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A46C10E173;
- Tue,  6 Sep 2022 20:06:14 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id a70so472036edf.10;
- Tue, 06 Sep 2022 13:06:14 -0700 (PDT)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67FFD10E69B
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Sep 2022 14:29:21 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id bj12so23643320ejb.13
+ for <intel-gfx@lists.freedesktop.org>; Tue, 06 Sep 2022 07:29:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=Ck2CZ63xlROKRuum+VYM3RwNiQt6GcNFVn5yjUBlhbU=;
- b=ga9QR8QkKm4EnEDibK+a4UuClq5Nes777nVtiyAuRinh0/Ie7mM1tSBVCLqEH1ugiO
- IlouNRGGlGMh8PAy0X4s9054Xim8TCwe/VTCAwjrlTZXNA3deVSy1W+0kPuHUKF5mEwa
- VTWo3H/ib5eNxXgdPa14jDUVTGHJ2tK67OXVAXeaI/dAT1e8V0IliyVBcbFMyNqRUK8J
- Nl9Ll59iDrM4I1zhPVWBkq3EN3RcA+ihfnEWg5akxMCg2CZM9H0H54FiZ+VU7vHQEVyq
- o1TomSxBabXQ1G2qK6IA+bOsodqiGTNWSOoMkVt0Vubj6i/Ya4sZOl9R2Aq5jCViRSCd
- ZuHQ==
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+ :from:to:cc:subject:date;
+ bh=g/TxYFN5refL1JRueXGtS4elzpHjLBYOwN0VGDuiVJU=;
+ b=VoHdf7KKaitRS51RJ4vcNT4a3Lb3o6qdHDDoqtwHmSjioy6m1h9UXU08zJFazCFY0g
+ GPnLBBm/IflQNUQ8Gf5XP7ZtYaQ2jChtNX+O9SeONIPfoYwsL1isxT6/j/t9NJwa5gNr
+ zd2v1ltUpf5W1EXf0qPCfD4FH09qs2mYg+RhjCs4ishB/EsIcOLjZ2FCtVlyXLztz00q
+ ZZYNK/Q23vnlr9HsiVNZXAV8XCQD9gcgnXZ9OrLR+q484TDxaXAGgVqtJRWGr+6aVuf4
+ a4BBVMj/3fBvyUAiM8DKqmlctxgntPjzkbYmYFJmdpKS9fftWvpLQdpFuiAax+ZWv5W/
+ ZOXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date;
- bh=Ck2CZ63xlROKRuum+VYM3RwNiQt6GcNFVn5yjUBlhbU=;
- b=hr3tRtNkjrpztCc/LxaL2A007hkvE5oF411ymyNWlXPsJmnKj37Cef+5xsMiqxodUP
- tTvCh0Y6oDpuUiTWNfF1BWvTrGIpUkefwrpNYREScYiqBii+ZztdbJ6knAgBMuZ9jv/K
- yt24N/6KeND76rTukE3tprV/xcglMRbpd2cQQNUZ5Kk2ApUwmp/XUJLT4DpbV+sm5iuE
- 9SnuYCpWzybC/r1+Cm3Pj3OYT4zAf5+6EQmsbjH5udKvLR4hlW7iwpbZ0L8HtsPhN+ql
- jyiIVG3QqmPggybGYAd3cDnFLx9+yU5RhzIXFIygn4iU55fkgP5JpBNfr5/dnZPuWSuW
- utIQ==
-X-Gm-Message-State: ACgBeo02rxhxuxHbYJw4ms/XlAasiMLQpCfBJPsDGzrbi/vLzdeqKPYG
- bwwP/MtCXbeWVDlfQUN2hlo=
-X-Google-Smtp-Source: AA6agR7CUAhPy+9MFPuH6DzgDy2S60+/E2h57c49ihYMLFNyPbmAh/8ehJuHA/jwsSZISEkVJfO+GA==
-X-Received: by 2002:aa7:d803:0:b0:44e:af34:e47e with SMTP id
- v3-20020aa7d803000000b0044eaf34e47emr233791edq.310.1662494773089; 
- Tue, 06 Sep 2022 13:06:13 -0700 (PDT)
-Received: from kista.localnet (82-149-1-172.dynamic.telemach.net.
- [82.149.1.172]) by smtp.gmail.com with ESMTPSA id
- wl23-20020a170907311700b0073d645e6dd8sm7123443ejb.223.2022.09.06.13.06.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Sep 2022 13:06:12 -0700 (PDT)
-From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>, Ben Skeggs <bskeggs@redhat.com>,
- David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
- Noralf =?ISO-8859-1?Q?Tr=F8nnes?= <noralf@tronnes.org>,
- Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Maxime Ripard <maxime@cerno.tech>
-Date: Tue, 06 Sep 2022 22:06:10 +0200
-Message-ID: <1903427.PYKUYFuaPT@kista>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-37-459522d653a7@cerno.tech>
-References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-37-459522d653a7@cerno.tech>
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=g/TxYFN5refL1JRueXGtS4elzpHjLBYOwN0VGDuiVJU=;
+ b=oGiExDR+9KB5kpHES+6yB81UOTlHYOkFObune4yyvLbJIlEa1UzEr9KRulpaeLuwFR
+ ORjFw1Bx8PvepZ7lfdJnjrbj6OQ7QHryvuhG+BnWtc+uEFyCjfsL2AKs9AzYr1tyJ3dy
+ MXNl2/HOxBlMgTYV4WR7oKsC8EDnSfb09pG8fFzeYEH9S1PiDJveR8zubS+NhjXSPy6A
+ 7RlJJgknZ2OHPG8gzfTJOTD6ugImZrJnWpe7eePp6HYx+9NyURnzN8F/GI/4OIxYHYNh
+ raCioYTah+lE4pxWBZkrGi0rmTiSDvVSCFB2btXRolJmUcFKQUYb0yC89Za1XBq84Yfx
+ Kfjw==
+X-Gm-Message-State: ACgBeo2/BMF+NqPqVMXUns01jHVuGY0f1ITz6zKDTFCNB3qfpIEoNjVL
+ gwbyF3eCfmaKP7aMHdD1SJpSslPd2kR8VfeOtEaUmkNkntXg4ZycIHA=
+X-Google-Smtp-Source: AA6agR6lgZ1jdli68iZmoLhcV+YPY65rAeqFYHg590bKZ1oVKp9SH55VrOguop1sC+u5e6juVaKG1LnWdlYUublu2f4=
+X-Received: by 2002:a17:907:b09:b0:76f:99cc:81cd with SMTP id
+ h9-20020a1709070b0900b0076f99cc81cdmr1371710ejl.530.1662474559627; Tue, 06
+ Sep 2022 07:29:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+References: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
+ <166246909164.8880.10585519190282207260@emeril.freedesktop.org>
+In-Reply-To: <166246909164.8880.10585519190282207260@emeril.freedesktop.org>
+From: Zheng Hacker <hackerzheng666@gmail.com>
+Date: Tue, 6 Sep 2022 22:29:07 +0800
+Message-ID: <CAJedcCyVV9ENDko36CHYK=QSn4qia59ShJuC3A99FDr1LKy5Fg@mail.gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 37/41] drm/sun4i: tv: Remove useless
- function
+Subject: Re: [Intel-gfx] 
+	=?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+	=?utf-8?q?rm/i915/gvt=3A_fix_double-free_bug_in_split=5F2MB=5Fgtt?=
+	=?utf-8?q?=5Fentry=2E?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,25 +68,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
- Geert Uytterhoeven <geert@linux-m68k.org>, Maxime Ripard <maxime@cerno.tech>,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Dne ponedeljek, 29. avgust 2022 ob 15:11:51 CEST je Maxime Ripard napisal(a):
-> The drm_connector_to_sun4i_tv() function isn't used anywhere in the driver,
-> so let's remove it.
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+From 18fc95d6a73f0af7e8947a1cb01a3a39f2e61c00 Mon Sep 17 00:00:00 2001
+From: xmzyshypnc <1002992920@qq.com>
+Date: Sun, 4 Sep 2022 20:20:56 +0800
+Subject: [PATCH] drm/i915/gvt: fix double-free bug in split_2MB_gtt_entry.
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+There is a double-free security bug in split_2MB_gtt_entry.
 
-Best regards,
-Jernej
+Here is a calling chain :
+ppgtt_populate_spt->ppgtt_populate_shadow_entry->split_2MB_gtt_entry.
+If intel_gvt_dma_map_guest_page failed, it will call
+ppgtt_invalidate_spt, which will finally call ppgtt_free_spt and
+kfree(spt). But the caller does not notice that, and it will call
+ppgtt_free_spt again in error path.
 
+Fix this by returning the result of ppgtt_invalidate_spt to split_2MB_gtt_entry.
 
+Signed-off-by: Zheng Wang <1002992920@qq.com>
+---
+ drivers/gpu/drm/i915/gvt/gtt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
+index ce0eb03709c3..9f14fded8c0c 100644
+--- a/drivers/gpu/drm/i915/gvt/gtt.c
++++ b/drivers/gpu/drm/i915/gvt/gtt.c
+@@ -1215,7 +1215,7 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
+        ret = intel_gvt_dma_map_guest_page(vgpu, start_gfn + sub_index,
+                           PAGE_SIZE, &dma_addr);
+        if (ret) {
+-           ppgtt_invalidate_spt(spt);
++           ret = ppgtt_invalidate_spt(spt);
+            return ret;
+        }
+        sub_se.val64 = se->val64;
+-- 
+2.25.1
