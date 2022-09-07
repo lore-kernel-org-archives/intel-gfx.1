@@ -4,49 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DF30ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58392C6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9371810E4CA;
-	Mon, 12 Sep 2022 13:38:14 +0000 (UTC)
-Received: from smtp.domeneshop.no (smtp.domeneshop.no
- [IPv6:2a01:5b40:0:3005::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3747E10EAA4;
- Thu,  8 Sep 2022 11:34:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
- ; s=ds202112;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=KYa/QVI6flq5lHnbp60VYWrYz3i2rBG7tpmdjbr7GZo=; b=GrcJ6yChNMl/rreZ16fGX+KLwn
- GFVb0Zw06qxRhOiTb+mf/0H71iJoRWlPa46/6OVe5vWf2kdgll6709VqoX+K1R8YB7/gyrYPobz3V
- JzCdNscyqgCXvumP4sFMyqb0pZqvlsNP5nYRXe5s14TPZ4tvRtavYU3jbWhEAQ6rYRdYGmQy7oGie
- HExkAsdTKp3hnJM0Ao/DTsVcygRVWsLVuBD9sBT5/Q9ggX6/Rdd8mB9lH7AiB+JgUcU6lgcT+jdiR
- I1SbdI754aUsyUV4yjCBOISLC9wcu4A1N8dVTW+n73EpmvEUNoG/HAwACaFUJgeOIrisfQO3bTsGt
- yh6BCRIw==;
-Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=62929)
- by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <noralf@tronnes.org>)
- id 1oWFnx-0005DR-KV; Thu, 08 Sep 2022 13:34:45 +0200
-Message-ID: <c6ef022d-1714-b0dd-472c-938614aefc06@tronnes.org>
-Date: Thu, 8 Sep 2022 13:34:38 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 392A710E4D1;
+	Mon, 12 Sep 2022 13:38:15 +0000 (UTC)
+X-Greylist: delayed 353 seconds by postgrey-1.36 at gabe;
+ Wed, 07 Sep 2022 10:42:37 UTC
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02B8210E546;
+ Wed,  7 Sep 2022 10:42:36 +0000 (UTC)
+Received: from [192.168.1.138] ([37.4.248.23]) by mrelayeu.kundenserver.de
+ (mreue010 [212.227.15.167]) with ESMTPSA (Nemesis) id
+ 1MBlgy-1odXvW2p1o-00CEBe; Wed, 07 Sep 2022 12:36:06 +0200
+Message-ID: <965de5c0-bc6a-7210-c946-b916ae2219fc@i2se.com>
+Date: Wed, 7 Sep 2022 12:36:03 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: Maxime Ripard <maxime@cerno.tech>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Maxime Ripard <maxime@cerno.tech>, =?UTF-8?Q?Noralf_Tr=c3=b8nnes?=
+ <noralf@tronnes.org>
 References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-32-459522d653a7@cerno.tech>
- <199cf4b3-8ace-e047-3050-b810cf0c6b63@tronnes.org>
- <20220908112312.hlb7mzneuxnethhr@houat>
-From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
-In-Reply-To: <20220908112312.hlb7mzneuxnethhr@houat>
-Content-Type: text/plain; charset=UTF-8
+ <24e09a29-6d04-3b1e-63ce-cd3c31d350e2@tronnes.org>
+ <020d44e6-884b-a817-8265-3461638cac71@tronnes.org>
+ <20220905145729.ln675jko3aw6sgzs@houat>
+From: Stefan Wahren <stefan.wahren@i2se.com>
+In-Reply-To: <20220905145729.ln675jko3aw6sgzs@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Provags-ID: V03:K1:raTGFr7ptnGZr2h9Jh6nKg1Z14xx0x8riNatR19Mgp3HoRXLPdX
+ FN+/gOxN9VXjXLIhXVkBpgujUpNMYSy+G4CQp211BQEbL4066eK8AZ57x7+Ryp53nqef83R
+ XG19WvSzjiVdclyB4a503Xj8phHhNIsA5aMzvA3iiMzzCLqNQD5cu7Y+WiuUERVXn8PvvlY
+ lI8tCye4pEPGe1CN/8vMQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:4njlfsGRC8s=:ocGf4vtKJR1Zun/4Yo9Gew
+ oV3WA6jbTihJu4RIdmFFuTHK3kktStgU7S9zvefX/Uhazuyps7stnTU2x3JqvoEXjhTdnVbHU
+ qwY1Q/WMxCFL6JR4wLPfSTPCGsmlEYphfk1SiH/Bcir2uS5YOQKO/mFmA8KX3O2nMy8am3g0E
+ KIwNisfJurVnvt/yAavIe3GeFCV60loPn0+iIKFNQjZ7SOqEXMuVhM6FELQr9qKGkKdEDa7Q1
+ A9wg9nmhVj/EtYbfJ2PNuClR30bKQg+3V2rYG/j/cGyi1p//mBN8Sy1DhZncYRcGdhhnz7Niq
+ 45qpsR6TOWOvz33/DJj/XtmOkMpXfWVjvBlCmSJygsmgSTz1fYJHLSBywB9Rin+rQtWHtoWj7
+ dJrU2wGnRqUzI9sLWTzRv2aKqAjgfJ2VGh6nRfI/KQM/bm6OwI9Kxw4Sysfjrg4Vzxbj+jaZW
+ X2yCy+xVoP8s5IvGrcmxqykNKk0QWUEy8GlDbk7akxSA2x8g9uz5XnFt6vKG2hW2MnxJ+3uF6
+ mFMuBh8idCuY4qTO0jbDtmJoZePoAwwD22L8dkdLaLuzds0uVnC9Xs8GhL8i4WFPKuv/9NQdW
+ VwRMyYQchqhbhhAZGPZFIEiQCxgMeb9Nv2+z6VDPT/DYjgBEuqnaDrsW/Tp2VJJWKpPuDDBUK
+ MELDZt551/OYOXwNUWK67qlinaEMnaW3TLzS4TlmnDUwn6wUAg8uBC2OIN5uDdBNTeZDhRR6z
+ SiMdl7zgJeN/5xOO4iQk/QT9URtagyTBr5s1KpbHjqpuemPNZnzFUfgbVuPiv5ZBJhOIsAIJg
+ 93udFi74Vi+UTGrEiD2nBU95bTZhg==
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 32/41] drm/vc4: vec: Convert to the new
- TV mode property
+Subject: Re: [Intel-gfx] [PATCH v2 00/41] drm: Analog TV Improvements
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,39 +76,67 @@ Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
  Dom Cobley <dom@raspberrypi.com>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
  Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
  Philipp Zabel <p.zabel@pengutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Maxime,
 
-
-Den 08.09.2022 13.23, skrev Maxime Ripard:
-> Hi Noralf,
-> 
-> On Tue, Aug 30, 2022 at 09:01:08PM +0200, Noralf Trønnes wrote:
->>> +static const struct drm_prop_enum_list tv_mode_names[] = {
+Am 05.09.22 um 16:57 schrieb Maxime Ripard:
+> On Fri, Sep 02, 2022 at 01:28:16PM +0200, Noralf Trønnes wrote:
 >>
->> Maybe call it legacy_tv_mode_enums?
->>
+>> Den 01.09.2022 21.35, skrev Noralf Trønnes:
 >>>
->>> +	{ VC4_VEC_TV_MODE_NTSC, "NTSC", },
+>>> I have finally found a workaround for my kernel hangs.
 >>>
->>> +	{ VC4_VEC_TV_MODE_NTSC_J, "NTSC-J", },
+>>> Dom had a look at my kernel and found that the VideoCore was fine, and
+>>> he said this:
 >>>
->>> +	{ VC4_VEC_TV_MODE_PAL, "PAL", },
+>>>> That suggests cause of lockup was on arm side rather than VC side.
+>>>>
+>>>> But it's hard to diagnose further. Once you've had a peripheral not
+>>>> respond, the AXI bus locks up and no further operations are possible.
+>>>> Usual causes of this are required clocks being stopped or domains
+>>>> disabled and then trying to access the hardware.
+>>>>
+>>> So when I got this on my 64-bit build:
 >>>
->>> +	{ VC4_VEC_TV_MODE_PAL_M, "PAL-M", },
->>
->> If you use DRM_MODE_TV_MODE_* here you don't need to translate the value
->> using the switch statement in get/set property, you can use the value
->> directly to get/set tv.mode.
-> 
-> I'm sorry, I'm not quite sure what you mean by that. If we expose the
-> DRM_MODE_TV_MODE_* properties there, won't that change the values the
-> userspace will need to use to set that property?
-> 
-
-You're right ofc, I forgot that the enum values are also UABI.
-
-Noralf.
+>>> [  166.702171] SError Interrupt on CPU1, code 0x00000000bf000002 -- SError
+>>> [  166.702187] CPU: 1 PID: 8 Comm: kworker/u8:0 Tainted: G        W
+>>>      5.19.0-rc6-00096-gba7973977976-dirty #1
+>>> [  166.702200] Hardware name: Raspberry Pi 4 Model B Rev 1.1 (DT)
+>>> [  166.702206] Workqueue: events_freezable_power_ thermal_zone_device_check
+>>> [  166.702231] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS
+>>> BTYPE=--)
+>>> [  166.702242] pc : regmap_mmio_read32le+0x10/0x28
+>>> [  166.702261] lr : regmap_mmio_read+0x44/0x70
+>>> ...
+>>> [  166.702606]  bcm2711_get_temp+0x58/0xb0 [bcm2711_thermal]
+>>>
+>>> I wondered if that reg read was stalled due to a clock being stopped.
+>>>
+>>> Lo and behold, disabling runtime pm and keeping the vec clock running
+>>> all the time fixed it[1].
+>>>
+>>> I don't know what the problem is, but at least I can now test this patchset.
+>>>
+>>> [1] https://gist.github.com/notro/23b984e7fa05cfbda2db50a421cac065
+>>>
+>> It turns out I didn't have to disable runtime pm:
+>> https://gist.github.com/notro/0adcfcb12460b54e54458afe11dc8ea2
+> If the bcm2711_thermal IP needs that clock to be enabled, it should grab
+> a reference itself, but it looks like even the device tree binding
+> doesn't ask for one.
+The missing clock in the device tree binding is expected, because 
+despite of the code there is not much information about the BCM2711 
+clock tree. But i'm skeptical that the AVS IP actually needs the VEC 
+clock, i think it's more likely that the VEC clock parent is changed and 
+that cause this issue. I could take care of the bcm2711 binding & driver 
+if i know which clock is really necessary.
+>
+> Maxime
+>
+> _______________________________________________
+> linux-arm-kernel mailing list
+> linux-arm-kernel@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
