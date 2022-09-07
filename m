@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7FC7C38145
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 09:11:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 672C4ECAAD3
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 09:11:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 403E010E486;
-	Wed,  7 Sep 2022 09:11:32 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE39E10E48C
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 09:11:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CDC910E4AB;
+	Wed,  7 Sep 2022 09:11:37 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF5310E48C
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 09:11:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662541867; x=1694077867;
+ t=1662541886; x=1694077886;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=N06GaF0++LmuPDusBMjTT7EEoKsMNXP/0NyU54q6Btk=;
- b=M91jdUJwQiLPkWDy61D3JLYSgpguJ85rpYA2IO4rh4NSM4F9aY7BI8ue
- hICS/E45mC2Dii7JnZP+iPiJ6SX19VKQvMgMLHNh0UAgjZxhp+OYB+Veh
- a5z3fU8bM4dec/7EMfE4JrRj4FmUqCnYfiltuZa0iXDQctaVwJv7M3Inj
- 9sbZFCWxny6hknyFAiZbg7VnKBB9gs2zw999FsN05tpkoXLwkOUOP9cxk
- JAEcR2AJzIXM5SuRkx2eJCwzWCBM5Xjllu7LJkjDab2qp2UDAy+0OZ3PT
- vOcQ355kaF9znwiPzq9j50RS+VGHway/AArMLcWP9/w5QLojb4zNLGVnp g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="298138056"
-X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="298138056"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2022 02:11:07 -0700
+ bh=z5MpD9gphBLC72GJYGXE8ff/wMlpFJZtU+s6AcQ+wB8=;
+ b=cl49vJcZGe4LQxnleSF4No78U+75RQhjpiH8vlKmlT4z0iU50wqfdGlJ
+ x/tBAv3eDxwbFqA28yDe0yxsNEb9TP5CcH02mpy4+v3jZDn2wOo0f7R/k
+ g65a5ic7T8DlVbA29EoquYFeZfKUR+KWazhKQzrZXMLp5KMMM9lu7cwYp
+ 6439EEoKmPt1SaPAB7fnG+rJNd1X1hpSiDSOtchcj1wQEiHP1G+eNkBy3
+ 3jw/94z/afcShTzwvIydVZ6oami8sBObdm1HpzSWBAPZQZhjMFJZ9/UVH
+ GNCZAad3kXczK8gMPuSX3xtl5FEhMB7AnKahonRsGIqPzjmdcRkrKXKkA w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="276562535"
+X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="276562535"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2022 02:11:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="756697162"
+X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="676093517"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga001.fm.intel.com with SMTP; 07 Sep 2022 02:11:04 -0700
+ by fmsmga008.fm.intel.com with SMTP; 07 Sep 2022 02:11:23 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 07 Sep 2022 12:11:04 +0300
+ Wed, 07 Sep 2022 12:11:22 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  7 Sep 2022 12:10:42 +0300
-Message-Id: <20220907091057.11572-3-ville.syrjala@linux.intel.com>
+Date: Wed,  7 Sep 2022 12:10:48 +0300
+Message-Id: <20220907091057.11572-9-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220907091057.11572-1-ville.syrjala@linux.intel.com>
 References: <20220907091057.11572-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 02/17] drm/i915: Shuffle some PLL code around
+Subject: [Intel-gfx] [PATCH v4 08/17] drm/i915: Compute clocks earlier
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,237 +64,43 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Shuffle some PLL functions around a bit to avoid ugle
-forward declarations later on. No functional changes.
+Do the DPLL computation before fastset checks. This should
+allow us to get rid of all that horrible fuzzy clock handling
+for fastsets. Who knows how many bugs there are caused by our
+state not actually matching what the hardware will generate.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 176 +++++++++---------
- 1 file changed, 88 insertions(+), 88 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index d437fcf04bdd..4594cd1f2be9 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -905,37 +905,6 @@ hsw_ddi_calculate_wrpll(int clock /* in Hz */,
- 	*r2_out = best.r2;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 4e8d30ff998b..a532c4d640ad 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2690,6 +2690,10 @@ static int intel_crtc_compute_config(struct intel_atomic_state *state,
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 	int ret;
  
--static int
--hsw_ddi_wrpll_compute_dpll(struct intel_atomic_state *state,
--			   struct intel_crtc *crtc)
--{
--	struct intel_crtc_state *crtc_state =
--		intel_atomic_get_new_crtc_state(state, crtc);
--	unsigned int p, n2, r2;
--
--	hsw_ddi_calculate_wrpll(crtc_state->port_clock * 1000, &r2, &n2, &p);
--
--	crtc_state->dpll_hw_state.wrpll =
--		WRPLL_PLL_ENABLE | WRPLL_REF_LCPLL |
--		WRPLL_DIVIDER_REFERENCE(r2) | WRPLL_DIVIDER_FEEDBACK(n2) |
--		WRPLL_DIVIDER_POST(p);
--
--	return 0;
--}
--
--static struct intel_shared_dpll *
--hsw_ddi_wrpll_get_dpll(struct intel_atomic_state *state,
--		       struct intel_crtc *crtc)
--{
--	struct intel_crtc_state *crtc_state =
--		intel_atomic_get_new_crtc_state(state, crtc);
--
--	return intel_find_shared_dpll(state, crtc,
--				      &crtc_state->dpll_hw_state,
--				      BIT(DPLL_ID_WRPLL2) |
--				      BIT(DPLL_ID_WRPLL1));
--}
--
- static int hsw_ddi_wrpll_get_freq(struct drm_i915_private *dev_priv,
- 				  const struct intel_shared_dpll *pll,
- 				  const struct intel_dpll_hw_state *pll_state)
-@@ -976,6 +945,37 @@ static int hsw_ddi_wrpll_get_freq(struct drm_i915_private *dev_priv,
- 	return (refclk * n / 10) / (p * r) * 2;
- }
- 
-+static int
-+hsw_ddi_wrpll_compute_dpll(struct intel_atomic_state *state,
-+			   struct intel_crtc *crtc)
-+{
-+	struct intel_crtc_state *crtc_state =
-+		intel_atomic_get_new_crtc_state(state, crtc);
-+	unsigned int p, n2, r2;
-+
-+	hsw_ddi_calculate_wrpll(crtc_state->port_clock * 1000, &r2, &n2, &p);
-+
-+	crtc_state->dpll_hw_state.wrpll =
-+		WRPLL_PLL_ENABLE | WRPLL_REF_LCPLL |
-+		WRPLL_DIVIDER_REFERENCE(r2) | WRPLL_DIVIDER_FEEDBACK(n2) |
-+		WRPLL_DIVIDER_POST(p);
-+
-+	return 0;
-+}
-+
-+static struct intel_shared_dpll *
-+hsw_ddi_wrpll_get_dpll(struct intel_atomic_state *state,
-+		       struct intel_crtc *crtc)
-+{
-+	struct intel_crtc_state *crtc_state =
-+		intel_atomic_get_new_crtc_state(state, crtc);
-+
-+	return intel_find_shared_dpll(state, crtc,
-+				      &crtc_state->dpll_hw_state,
-+				      BIT(DPLL_ID_WRPLL2) |
-+				      BIT(DPLL_ID_WRPLL1));
-+}
-+
- static int
- hsw_ddi_lcpll_compute_dpll(struct intel_crtc_state *crtc_state)
- {
-@@ -1618,43 +1618,6 @@ skl_ddi_calculate_wrpll(int clock /* in Hz */,
- 	return 0;
- }
- 
--static int skl_ddi_hdmi_pll_dividers(struct intel_crtc_state *crtc_state)
--{
--	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
--	struct skl_wrpll_params wrpll_params = {};
--	u32 ctrl1, cfgcr1, cfgcr2;
--	int ret;
--
--	/*
--	 * See comment in intel_dpll_hw_state to understand why we always use 0
--	 * as the DPLL id in this function.
--	 */
--	ctrl1 = DPLL_CTRL1_OVERRIDE(0);
--
--	ctrl1 |= DPLL_CTRL1_HDMI_MODE(0);
--
--	ret = skl_ddi_calculate_wrpll(crtc_state->port_clock * 1000,
--				      i915->display.dpll.ref_clks.nssc, &wrpll_params);
--	if (ret)
--		return ret;
--
--	cfgcr1 = DPLL_CFGCR1_FREQ_ENABLE |
--		DPLL_CFGCR1_DCO_FRACTION(wrpll_params.dco_fraction) |
--		wrpll_params.dco_integer;
--
--	cfgcr2 = DPLL_CFGCR2_QDIV_RATIO(wrpll_params.qdiv_ratio) |
--		DPLL_CFGCR2_QDIV_MODE(wrpll_params.qdiv_mode) |
--		DPLL_CFGCR2_KDIV(wrpll_params.kdiv) |
--		DPLL_CFGCR2_PDIV(wrpll_params.pdiv) |
--		wrpll_params.central_freq;
--
--	crtc_state->dpll_hw_state.ctrl1 = ctrl1;
--	crtc_state->dpll_hw_state.cfgcr1 = cfgcr1;
--	crtc_state->dpll_hw_state.cfgcr2 = cfgcr2;
--
--	return 0;
--}
--
- static int skl_ddi_wrpll_get_freq(struct drm_i915_private *i915,
- 				  const struct intel_shared_dpll *pll,
- 				  const struct intel_dpll_hw_state *pll_state)
-@@ -1726,6 +1689,43 @@ static int skl_ddi_wrpll_get_freq(struct drm_i915_private *i915,
- 	return dco_freq / (p0 * p1 * p2 * 5);
- }
- 
-+static int skl_ddi_hdmi_pll_dividers(struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+	struct skl_wrpll_params wrpll_params = {};
-+	u32 ctrl1, cfgcr1, cfgcr2;
-+	int ret;
-+
-+	/*
-+	 * See comment in intel_dpll_hw_state to understand why we always use 0
-+	 * as the DPLL id in this function.
-+	 */
-+	ctrl1 = DPLL_CTRL1_OVERRIDE(0);
-+
-+	ctrl1 |= DPLL_CTRL1_HDMI_MODE(0);
-+
-+	ret = skl_ddi_calculate_wrpll(crtc_state->port_clock * 1000,
-+				      i915->display.dpll.ref_clks.nssc, &wrpll_params);
++	ret = intel_dpll_crtc_compute_clock(state, crtc);
 +	if (ret)
 +		return ret;
 +
-+	cfgcr1 = DPLL_CFGCR1_FREQ_ENABLE |
-+		DPLL_CFGCR1_DCO_FRACTION(wrpll_params.dco_fraction) |
-+		wrpll_params.dco_integer;
-+
-+	cfgcr2 = DPLL_CFGCR2_QDIV_RATIO(wrpll_params.qdiv_ratio) |
-+		DPLL_CFGCR2_QDIV_MODE(wrpll_params.qdiv_mode) |
-+		DPLL_CFGCR2_KDIV(wrpll_params.kdiv) |
-+		DPLL_CFGCR2_PDIV(wrpll_params.pdiv) |
-+		wrpll_params.central_freq;
-+
-+	crtc_state->dpll_hw_state.ctrl1 = ctrl1;
-+	crtc_state->dpll_hw_state.cfgcr1 = cfgcr1;
-+	crtc_state->dpll_hw_state.cfgcr2 = cfgcr2;
-+
-+	return 0;
-+}
-+
- static int
- skl_ddi_dp_set_dpll_hw_state(struct intel_crtc_state *crtc_state)
- {
-@@ -2245,26 +2245,6 @@ static int bxt_ddi_set_dpll_hw_state(struct intel_crtc_state *crtc_state,
- 	return 0;
- }
+ 	ret = intel_crtc_compute_pipe_src(crtc_state);
+ 	if (ret)
+ 		return ret;
+@@ -6894,10 +6898,6 @@ static int intel_atomic_check(struct drm_device *dev,
+ 		if (intel_crtc_needs_modeset(new_crtc_state)) {
+ 			any_ms = true;
  
--static int
--bxt_ddi_dp_set_dpll_hw_state(struct intel_crtc_state *crtc_state)
--{
--	struct dpll clk_div = {};
+-			ret = intel_dpll_crtc_compute_clock(state, crtc);
+-			if (ret)
+-				goto fail;
 -
--	bxt_ddi_dp_pll_dividers(crtc_state, &clk_div);
--
--	return bxt_ddi_set_dpll_hw_state(crtc_state, &clk_div);
--}
--
--static int
--bxt_ddi_hdmi_set_dpll_hw_state(struct intel_crtc_state *crtc_state)
--{
--	struct dpll clk_div = {};
--
--	bxt_ddi_hdmi_pll_dividers(crtc_state, &clk_div);
--
--	return bxt_ddi_set_dpll_hw_state(crtc_state, &clk_div);
--}
--
- static int bxt_ddi_pll_get_freq(struct drm_i915_private *i915,
- 				const struct intel_shared_dpll *pll,
- 				const struct intel_dpll_hw_state *pll_state)
-@@ -2282,6 +2262,26 @@ static int bxt_ddi_pll_get_freq(struct drm_i915_private *i915,
- 	return chv_calc_dpll_params(i915->display.dpll.ref_clks.nssc, &clock);
- }
- 
-+static int
-+bxt_ddi_dp_set_dpll_hw_state(struct intel_crtc_state *crtc_state)
-+{
-+	struct dpll clk_div = {};
-+
-+	bxt_ddi_dp_pll_dividers(crtc_state, &clk_div);
-+
-+	return bxt_ddi_set_dpll_hw_state(crtc_state, &clk_div);
-+}
-+
-+static int
-+bxt_ddi_hdmi_set_dpll_hw_state(struct intel_crtc_state *crtc_state)
-+{
-+	struct dpll clk_div = {};
-+
-+	bxt_ddi_hdmi_pll_dividers(crtc_state, &clk_div);
-+
-+	return bxt_ddi_set_dpll_hw_state(crtc_state, &clk_div);
-+}
-+
- static int bxt_compute_dpll(struct intel_atomic_state *state,
- 			    struct intel_crtc *crtc,
- 			    struct intel_encoder *encoder)
+ 			intel_release_shared_dplls(state, crtc);
+ 			continue;
+ 		}
 -- 
 2.35.1
 
