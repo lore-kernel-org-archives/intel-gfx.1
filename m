@@ -4,76 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EDCBC6FA83
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EEF2C6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E8F10E49F;
-	Mon, 12 Sep 2022 13:38:10 +0000 (UTC)
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C56210E3B4;
- Sun, 11 Sep 2022 04:51:22 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id bq23so9610819lfb.7;
- Sat, 10 Sep 2022 21:51:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:from:to:cc:subject:date;
- bh=XIY+68P3U22mQGsLLoSSFcg2zg1iq6nyQPz8fLaQ0oE=;
- b=KMFPIZg72ybP/U7EjC2ScfiAUimjnENQw0GEyTYJzmkUU52crQ6OHlLskmExR7NsSs
- eMY9SN0NOGAqyKnlGcCLLgdOs6Zjmj+OE9PviAhQdducKwbYV9wzHgn/rbq+7bGUx559
- NodqqgwDI1U8LSxxaSKvzGyevZmw4d85G43k+/QUsDCmQzdS/01OO6nGrrgv4o8ywLAS
- oZGLMbfaTaDk8ekJkgsUnobyUQLa71UK+15ACp1hxK9r8APUX/VCok+93Z33A1EZsq93
- n9631zSD2uMvomFLsW6aMIbP145LN5a+TL/DXeuW565iBiQ7pgoEkG9EPtVOin1SV0ul
- 8gvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:x-gm-message-state:from:to:cc:subject:date;
- bh=XIY+68P3U22mQGsLLoSSFcg2zg1iq6nyQPz8fLaQ0oE=;
- b=OuuBk9NBZyuZJXyr6U2KQw87d7jI1EfvSBCJyKePEFbQLwlLLl4hpnIxceZBYkfyFe
- xp3WpSVMBb9bnKhbJ7eNSjR4PVlpRNKqbo1mLfodnw4S+dui1bZNa65QS7cWMq7eYYoE
- V9IOkwTwKEVTiK3ANfHBk+RLr9USqa4BQfNNBv/wJeL1YtX0iLZaVMUs43lfQCkq29fQ
- B9gZOG1KCCW65y/AdHDFp4fiAL3/RZqVCZdcOAeGloBu8JGYodaZ23OQoTW/W2zD8VTD
- 83mem5fhxQhskyt57r65QhrRw3DC0qe+VxwpgS/dAEFgqqJJXi1riYQUf8dsi1cWqgS8
- +u4Q==
-X-Gm-Message-State: ACgBeo1ggtkoLvu2OiunmkLZjwaMfGTpeEgRZmWJNgmypGjOI716b0QQ
- Cb8/R9DuWNOBg+x+MQ4rfgs=
-X-Google-Smtp-Source: AA6agR4HaTIFXR95Cv35IjLjzgwZoQn9BgzbhDxW7IP1eMizctu6PfCBylwC524DiMtSVr18MWoAFw==
-X-Received: by 2002:a05:6512:281a:b0:49a:4e46:34ff with SMTP id
- cf26-20020a056512281a00b0049a4e4634ffmr411587lfb.72.1662871880581; 
- Sat, 10 Sep 2022 21:51:20 -0700 (PDT)
-Received: from ?IPV6:2a02:a31a:a240:1700:e929:c054:a46d:3844?
- ([2a02:a31a:a240:1700:e929:c054:a46d:3844])
- by smtp.googlemail.com with ESMTPSA id
- 7-20020a2eb947000000b00268cfcf841asm46332ljs.56.2022.09.10.21.51.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 10 Sep 2022 21:51:20 -0700 (PDT)
-From: Mateusz Kwiatkowski <kfyatek@gmail.com>
-X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
-Message-ID: <c1d7ac5a-90bf-d6ea-ec77-ec7662482d2e@gmail.com>
-Date: Sun, 11 Sep 2022 06:51:18 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3658510E4AB;
+	Mon, 12 Sep 2022 13:38:11 +0000 (UTC)
+Received: from smtp.domeneshop.no (smtp.domeneshop.no
+ [IPv6:2a01:5b40:0:3005::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE2110E579;
+ Wed,  7 Sep 2022 10:56:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202112;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=gfFBxOJICmmqA8f2KuQiBRQs6CbCUqHF+gIu6GKS/YE=; b=krrqg1yCKd+xtRbvYsYmAcLp9g
+ kTJV09HIqnu1jNOY2OQfIj7BOCnuRPd3zyB9/JkqUXWv7+7vikHQFy2sYRt/HgvO8GJTc9ctUPFwc
+ yi+/WL4BhpTNmDf6hxrA9S1NLCuavfdNOn4a/7QhblCcDz0yEIfV4FtG78OdlD1DFEsDZl/2S999l
+ kZCDWbLSSEtG+qx/PW5CnSvPOQic3ra2vMhReX4nUVF5jYKZePMlQ/MfKflVh1jaEjZF5RMMlODbD
+ bVzfNRipnNOJf/6Ou3OnFcfdnpOH6VvJhOdv7SlQtFAAWgKkFs3Gjt9D1P3px/jH+rolm+EeSdDiD
+ EoaKoAgQ==;
+Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=52215)
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1oVsjI-0000xR-Dw; Wed, 07 Sep 2022 12:56:24 +0200
+Message-ID: <d076bdfa-f6a6-9d32-c8bc-5d577fca057a@tronnes.org>
+Date: Wed, 7 Sep 2022 12:56:13 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.2
-Content-Language: pl
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
 To: Maxime Ripard <maxime@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-10-459522d653a7@cerno.tech>
- <242d272b-5b79-986c-9aaf-64e62f6b37ff@gmail.com>
- <20220905133755.gcmmntg3wnecyqjq@houat>
- <10ce686a-d7c8-9ce4-3979-735ad8eab3b5@gmail.com>
- <20220907143421.4iopqwhp3yfircsh@houat>
- <dc1d9499-d4d5-1032-f39f-d4ac4cbb8412@gmail.com>
- <20220909135444.5oi6oh6nqwuke3jl@houat>
- <79ab3fef-fdaa-e191-d839-4af88191e672@gmail.com>
-In-Reply-To: <79ab3fef-fdaa-e191-d839-4af88191e672@gmail.com>
+ <24e09a29-6d04-3b1e-63ce-cd3c31d350e2@tronnes.org>
+ <020d44e6-884b-a817-8265-3461638cac71@tronnes.org>
+ <20220905145729.ln675jko3aw6sgzs@houat>
+ <74c10e51-4034-a284-1a26-b7ba7fe45fbe@tronnes.org>
+ <20220907095849.5v72atwuedl5iiva@houat>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+In-Reply-To: <20220907095849.5v72atwuedl5iiva@houat>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 10/41] drm/modes: Add a function to
- generate analog display modes
+Subject: Re: [Intel-gfx] [PATCH v2 00/41] drm: Analog TV Improvements
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,13 +71,74 @@ Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
  Dom Cobley <dom@raspberrypi.com>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
+ Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
  =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
  Philipp Zabel <p.zabel@pengutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> Yes, lines 0-23 is the entire blanking area. And the "back porch" in this
-> context is everything from the start of the sync pulse to the start of active
-> video. It's not just the equalizing pulses.
 
-I meant "from the end of the sync pulse", obviously. Sorry about the slipup.
+
+Den 07.09.2022 11.58, skrev Maxime Ripard:
+> On Mon, Sep 05, 2022 at 05:17:18PM +0200, Noralf Trønnes wrote:
+>> Den 05.09.2022 16.57, skrev Maxime Ripard:
+>>> On Fri, Sep 02, 2022 at 01:28:16PM +0200, Noralf Trønnes wrote:
+>>>>
+>>>>
+>>>> Den 01.09.2022 21.35, skrev Noralf Trønnes:
+>>>>>
+>>>>>
+>>>>> I have finally found a workaround for my kernel hangs.
+>>>>>
+>>>>> Dom had a look at my kernel and found that the VideoCore was fine, and
+>>>>> he said this:
+>>>>>
+>>>>>> That suggests cause of lockup was on arm side rather than VC side.
+>>>>>>
+>>>>>> But it's hard to diagnose further. Once you've had a peripheral not
+>>>>>> respond, the AXI bus locks up and no further operations are possible.
+>>>>>> Usual causes of this are required clocks being stopped or domains
+>>>>>> disabled and then trying to access the hardware.
+>>>>>>
+>>>>>
+>>>>> So when I got this on my 64-bit build:
+>>>>>
+>>>>> [  166.702171] SError Interrupt on CPU1, code 0x00000000bf000002 -- SError
+>>>>> [  166.702187] CPU: 1 PID: 8 Comm: kworker/u8:0 Tainted: G        W
+>>>>>     5.19.0-rc6-00096-gba7973977976-dirty #1
+>>>>> [  166.702200] Hardware name: Raspberry Pi 4 Model B Rev 1.1 (DT)
+>>>>> [  166.702206] Workqueue: events_freezable_power_ thermal_zone_device_check
+>>>>> [  166.702231] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS
+>>>>> BTYPE=--)
+>>>>> [  166.702242] pc : regmap_mmio_read32le+0x10/0x28
+>>>>> [  166.702261] lr : regmap_mmio_read+0x44/0x70
+>>>>> ...
+>>>>> [  166.702606]  bcm2711_get_temp+0x58/0xb0 [bcm2711_thermal]
+>>>>>
+>>>>> I wondered if that reg read was stalled due to a clock being stopped.
+>>>>>
+>>>>> Lo and behold, disabling runtime pm and keeping the vec clock running
+>>>>> all the time fixed it[1].
+>>>>>
+>>>>> I don't know what the problem is, but at least I can now test this patchset.
+>>>>>
+>>>>> [1] https://gist.github.com/notro/23b984e7fa05cfbda2db50a421cac065
+>>>>>
+>>>>
+>>>> It turns out I didn't have to disable runtime pm:
+>>>> https://gist.github.com/notro/0adcfcb12460b54e54458afe11dc8ea2
+>>>
+>>> If the bcm2711_thermal IP needs that clock to be enabled, it should grab
+>>> a reference itself, but it looks like even the device tree binding
+>>> doesn't ask for one.
+>>>
+>>
+>> The first thing I tried was to unload the bcm2711_thermal module before
+>> running modeset and it still hung, so I don't think that's the problem.
+> 
+> Ack. Just to confirm, is this happening on mainline or on the downstream tree?
+> 
+
+It's mainline.
+
+Noralf.
