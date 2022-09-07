@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1109C38145
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 09:35:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69DE3C38145
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 09:35:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 146FD10E4AF;
-	Wed,  7 Sep 2022 09:35:45 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 359AC10E4AF
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 09:35:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A88F610E4AB;
+	Wed,  7 Sep 2022 09:35:57 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5EC910E4AB
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 09:35:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662543341; x=1694079341;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=gEObj6+BTnT4eoV4mM2opLMxLEy2wUZSLU077V3z1O8=;
- b=AT87666gYiynWYmms3lWiHTyNOLjqx0Z2tsdOd3iflqMNnTldpxQQEO6
- abEyTU9AqsW/5mjWzQklEPRXAmK3MKkBn5hx4tt9wCNdAKMPK+jhlMihc
- ze3DNsbXmhqR5qUh8XPSV+9FYQcio1uISGYCsVoUPWyTJYoA+ZGgjHP0k
- XL+m6cPpoIfz8MccLy83eXuA2+IzRTljRT6UnKfHRKOutKAKZ+yqgvtmv
- 7GzrZJE/4VV82i9+HSBB6S+AwrfuR9+6WvqbbQa322Fxo4vpzi/i/MPIk
- +zjs6nZ5rgMDrkFwogAbdHVOQjfpxWmD5PY4zhq1l1ENoOO2R/aapZD8/ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="297612056"
-X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="297612056"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2022 02:35:39 -0700
+ t=1662543353; x=1694079353;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=hiIpi4yMpVMZIuNnmq01MnIs43E6ziN/uhTqdmGZu6Q=;
+ b=b1dZv2HaJ22mmYp+rtMJR3OJbrVhpoSLgfJKDbHlXA8eGTAHcsQxtoaL
+ W0Ueg6A89eLQNonFyJxzykfRIpIq40LTdm4hlMKHFzao4qJidUdXYXpXv
+ ZXYb+/W/98vdbl7Fk4JdxE5Y5X/NH/T9kxoWFRtG4TBD7o8MfOhokkKQl
+ Nlk0gg/fKJc/REBLyRGzfnMuoRh/nFULsoQCUB++CWdlkq4HjHTefOiCP
+ TgA/LhtEeHJ2lbpJJixLRaTzduPiSZq2viAeSATQbU605hnW5CT74nMM0
+ AFfELtJJqTlS3nj2p7dY7KEAF7MxRwMPdUJy0hEMBHo0/lwksT4tx1AtB w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="295561923"
+X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="295561923"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2022 02:35:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="644546305"
+X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="676101426"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga008.jf.intel.com with SMTP; 07 Sep 2022 02:35:37 -0700
+ by fmsmga008.fm.intel.com with SMTP; 07 Sep 2022 02:35:34 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 07 Sep 2022 12:35:37 +0300
+ Wed, 07 Sep 2022 12:35:34 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  7 Sep 2022 12:35:34 +0300
-Message-Id: <20220907093534.29004-2-ville.syrjala@linux.intel.com>
+Date: Wed,  7 Sep 2022 12:35:33 +0300
+Message-Id: <20220907093534.29004-1-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220907093534.29004-1-ville.syrjala@linux.intel.com>
-References: <20220907093534.29004-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915/bios: Add the "Disable compression
- for the Display Port/HDMI external display" bit
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/bios: Fix VBT ACPI DPMS bit
+ polarity
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,28 +62,27 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The child device block has gained a new bit for disabling
-compression for external displays. Seems stupid, but there it is.
+We have the ACPI vs. not ACPI DPMS bit polarity the
+wrong way around. Fix it.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vbt_defs.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-index 6119fb035357..a9f44abfc9fc 100644
+index d06b35f17c6a..6119fb035357 100644
 --- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
 +++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-@@ -418,7 +418,8 @@ struct child_device_config {
- 			u8 compression_method_cps:1;		/* 198+ */
- 			u8 ganged_edp:1;			/* 202+ */
- 			u8 lttpr_non_transparent:1;		/* 235+ */
--			u8 reserved2:3;
-+			u8 disable_compression_for_ext_disp:1;	/* 251+ */
-+			u8 reserved2:2;
- 			u8 compression_structure_index:4;	/* 198+ */
- 			u8 reserved3:4;
- 			u8 hdmi_max_frl_rate:4;			/* 237+ */
+@@ -491,7 +491,7 @@ struct bdb_general_definitions {
+ 	u8 crt_ddc_gmbus_pin;
+ 
+ 	/* DPMS bits */
+-	u8 dpms_acpi:1;
++	u8 dpms_non_acpi:1;
+ 	u8 skip_boot_crt_detect:1;
+ 	u8 dpms_aim:1;
+ 	u8 rsvd1:5; /* finish byte */
 -- 
 2.35.1
 
