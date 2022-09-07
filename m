@@ -4,61 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDBAC6FA83
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29F20C6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA4F910E4B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 350C310E4A0;
 	Mon, 12 Sep 2022 13:38:11 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA08010ED4D;
- Fri,  9 Sep 2022 17:36:56 +0000 (UTC)
-Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
- [109.252.119.13])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 0A45E6601FC6;
- Fri,  9 Sep 2022 18:36:51 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1662745015;
- bh=8xgN4e43LGiBPVdQ7GyKB5jQBCWxBspXnT50kSaZfdc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=E1pvbfsh4mhx8kHsaeEx5+wdORPcsEFHoldFIWWyXseblN1dtO3m2LKuSoqgihlSa
- mvxWcvwfAY63jSB7DnN7yOeJIhOmHYkexHRg9C30PT7fBMeLWfUKCiYOa08B86oCUs
- ccnMOiQ/eemk3IQI6BMX/oXA+OGKrl0rBatDrO8+JSqXCkTd/fI+qJU/40kfFMc89g
- t0gQ9aaRRLRYPyQEByTuKyml5hlPtBl1GC6RbbKtZL44FqTg2qeA3KCDga5aZ0jHda
- scJFjauo2KMswJRJK5d6rTZTggJc5SFIdfQTgNU1j3sp7y+V1qH4Ha2hAFB1s341R4
- qnfx/6JJNgQIg==
-Message-ID: <588ff12e-d030-0db0-e248-1afd0dee4ae1@collabora.com>
-Date: Fri, 9 Sep 2022 20:36:48 +0300
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD1F410E36D;
+ Wed,  7 Sep 2022 06:48:07 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id y3so28232401ejc.1;
+ Tue, 06 Sep 2022 23:48:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=BVuk17Av+bi2jPnkL9wfgDXhvd64IxzBdo6fgEYGs04=;
+ b=l+Ix4zgCkeWJQbwso5ymf9RKOOdyJP++7E7Hn7qNe8++KSvt+whxkZnLOMrQDs0DOx
+ 8Bnxfj3DRwnWqEyzdSyphQxdWMFT3V9Qs7b/tDHbUlIorwV6gri3bErqpuPWekLHhOlc
+ 95QccTtWJAE1QfDqOjrgxBl7o3tHfz3Xov6eefmcjs15qr03X6yCbHQUZzOjBwtnJ2Ce
+ v3MSn5FI8PTpUV7LwrFWYTCWsHEzEAT0OYOVxybHCEP0lYHSssUuWNBoYyY5Iuisb3F8
+ v4ZMnm1GSBiSXQSM4x8txzQJ+vXfmqGl5JiI3TvxUzzycXJ69jn0CXTzpi52Mui/bNAT
+ qL5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=BVuk17Av+bi2jPnkL9wfgDXhvd64IxzBdo6fgEYGs04=;
+ b=DqR3UPlSu/sIgY8//WzwsQOA6chppVmmmP1KmzrmRaknkFW4pS9flIwCR4WEHMhuAQ
+ JEtsX61oMPUy286E/vquHZd88QrWTt4pZp7Z7SgnWlhYdGTYrbO9QjcOJ5nh3LolQepM
+ tZieL0qdjvPa/JZRTgMws5EvwZVy4pD/3PlJYCJv+GYUkU6bzJ8uFJ+d8IoxPc+xahGf
+ Uh4gso6XfeLSW5lGfXA7P8obfMOvqVpY0m4nAX9mQBLRijJDL673B2uv5s0iDqE2Dkd2
+ pUxtj7JTOTY7cw0xLwCLyP2v1vq31ifLwWF8XDLfOHt7SYK/9koz90VuS3ehG9ruXhal
+ tCZQ==
+X-Gm-Message-State: ACgBeo2r1VLlCUNbN5F05A1mZr8ctEJMXGNwwJ1IBX5FywiCzHgaaVzJ
+ IfX+BKfux/VIriIH8AVqzxudk7vylSlmVH2jPHE=
+X-Google-Smtp-Source: AA6agR5oNcJ4xiLosx9c+PBGIQP4JwyWHajAGIDrk+o8018ZQ2ZLnOx2wULEGsptfZkH/pKAB98ijFHADY5kXzED1SI=
+X-Received: by 2002:a17:907:6d16:b0:731:17b5:699 with SMTP id
+ sa22-20020a1709076d1600b0073117b50699mr1428930ejc.23.1662533286189; Tue, 06
+ Sep 2022 23:48:06 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Content-Language: en-US
-To: "Ruhl, Michael J" <michael.j.ruhl@intel.com>,
- Dmitry Osipenko <digetx@gmail.com>, Jani Nikula
- <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
-References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
- <20220831153757.97381-7-dmitry.osipenko@collabora.com>
- <DM5PR11MB1324088635FDE00B0D957816C17B9@DM5PR11MB1324.namprd11.prod.outlook.com>
- <760b999f-b15d-102e-8bc7-c3e69f07f43f@gmail.com>
- <c89680d0-30ee-f5d7-be68-fa84458df04d@gmail.com>
- <DM5PR11MB1324EDC7A97DE98C2DC6EDA8C17A9@DM5PR11MB1324.namprd11.prod.outlook.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <DM5PR11MB1324EDC7A97DE98C2DC6EDA8C17A9@DM5PR11MB1324.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
+ <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
+ <CAJedcCw1eJqjSK+yR7eQMDheNtH3Mjm+viwt00xAhnmrfpq2pw@mail.gmail.com>
+ <CAJedcCweHjD78F7iydiq6Xc2iH=t_3m=H9JKnaCooToUk32FvQ@mail.gmail.com>
+ <YxWtfjfpNsoPUrgh@kroah.com>
+ <CAJedcCzMo51aiy=Dv7zn7VmL3gwkw7JgzwAPAB2Z27C9CnhoYA@mail.gmail.com>
+ <20220907030754.GU1089@zhen-hp.sh.intel.com>
+In-Reply-To: <20220907030754.GU1089@zhen-hp.sh.intel.com>
+From: Zheng Hacker <hackerzheng666@gmail.com>
+Date: Wed, 7 Sep 2022 14:47:54 +0800
+Message-ID: <CAJedcCwPKT8Zj8aPmXz=M3zG+xvCzyo4OspaPp4-LY+DgTfteA@mail.gmail.com>
+To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v4 06/21] drm/i915: Prepare to dynamic
- dma-buf locking specification
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: fix double-free bug in
+ split_2MB_gtt_entry.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,135 +73,114 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Gerd Hoffmann <kraxel@redhat.com>,
- "kernel@collabora.com" <kernel@collabora.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- Russell King <linux@armlinux.org.uk>, Daniel Stone <daniel@fooishbar.org>,
- Gustavo Padovan <gustavo.padovan@collabora.com>, Chia-I Wu <olvaffe@gmail.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>, "Gross,
- Jurgen" <jgross@suse.com>, David Airlie <airlied@linux.ie>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Tomi Valkeinen <tomba@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Tomasz Figa <tfiga@chromium.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Qiang Yu <yuq825@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>,
- Lucas Stach <l.stach@pengutronix.de>
+Cc: security@kernel.org, alex000young@gmail.com, airlied@linux.ie,
+ Greg KH <gregkh@linuxfoundation.org>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ xmzyshypnc <1002992920@qq.com>, daniel@ffwll.ch, rodrigo.vivi@intel.com,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 9/2/22 19:26, Ruhl, Michael J wrote:
->> 02.09.2022 13:31, Dmitry Osipenko пишет:
->>> 01.09.2022 17:02, Ruhl, Michael J пишет:
->>> ...
->>>>> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
->>>>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
->>>>> @@ -331,7 +331,19 @@ static void __i915_gem_free_objects(struct
->>>>> drm_i915_private *i915,
->>>>> 			continue;
->>>>> 		}
->>>>>
->>>>> +		/*
->>>>> +		 * dma_buf_unmap_attachment() requires reservation to be
->>>>> +		 * locked. The imported GEM shouldn't share reservation lock,
->>>>> +		 * so it's safe to take the lock.
->>>>> +		 */
->>>>> +		if (obj->base.import_attach)
->>>>> +			i915_gem_object_lock(obj, NULL);
->>>>
->>>> There is a lot of stuff going here.  Taking the lock may be premature...
->>>>
->>>>> 		__i915_gem_object_pages_fini(obj);
->>>>
->>>> The i915_gem_dmabuf.c:i915_gem_object_put_pages_dmabuf is where
->>>> unmap_attachment is actually called, would it make more sense to make
->>>> do the locking there?
->>>
->>> The __i915_gem_object_put_pages() is invoked with a held reservation
->>> lock, while freeing object is a special time when we know that GEM is
->>> unused.
->>>
->>> The __i915_gem_free_objects() was taking the lock two weeks ago until
->>> the change made Chris Wilson [1] reached linux-next.
->>>
->>> [1]
->>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-
->> next.git/commit/?id=2826d447fbd60e6a05e53d5f918bceb8c04e315c
->>>
->>> I don't think we can take the lock within
->>> i915_gem_object_put_pages_dmabuf(), it may/should deadlock other code
->> paths.
->>
->> On the other hand, we can check whether the GEM's refcount number is
->> zero in i915_gem_object_put_pages_dmabuf() and then take the lock if
->> it's zero.
->>
->> Also, seems it should be possible just to bail out from
->> i915_gem_object_put_pages_dmabuf() if refcount=0. The further
->> drm_prime_gem_destroy() will take care of unmapping. Perhaps this could
->> be the best option, I'll give it a test.
-> 
-> i915_gem_object_put_pages() is uses the SG, and the usage for
-> drm_prim_gem_destroy()
-> 
-> from __i915_gem_free_objects() doesn't use the SG because it has been "freed"
-> already, I am not sure if that would work...
-> 
-> Hmm.. with that in mind, maybe moving the base.import_attach check to 
-> __i915_gem_object_put_pages with your attach check?
+Hi Zhenyu,
 
-I see you meant __i915_gem_object_pages_fini() here.
+Very glad for your reply. I agree that the bug is hard to trigger in
+userspace. But it is possible to happen in some specific scene. For
+example, if calling pfn_valid failed, the bug will be triggered. And
+it did happened as the [1] commit description illustrates.
 
-> 	atomic_set(&obj->mm.pages_pin_count, 0);
-> 	if (obj->base.import)
-> 		i915_gem_object_lock(obj, NULL);
-> 
-> 	__i915_gem_object_put_pages(obj);
-> 
-> 	if (obj->base.import)
-> 		i915_gem_object_unlock(obj, NULL);
-> 	GEM_BUG_ON(i915_gem_object_has_pages(obj));
-> 
-> Pretty much one step up from the dmabuf interface, but we are guaranteed to
-> not have any pinned pages?
+As for the patch, I think your plan is the best. We need to free the
+spt only in bad case.
 
-Importer shouldn't hold pages outside of dma-buf API, otherwise it
-should be a bug.
+[1] https://github.com/torvalds/linux/commit/39b4cbadb9a95bf3f13ea102d6ec84=
+1940916ee2
 
-> The other caller of __i915_gem_object_pages_fini is the i915_ttm move_notify
-> which should not conflict (export side, not import side).
-> 
-> Since it appears that not locking during the clean up is desirable, trying to make sure take the lock
-> is taken at the last moment might be the right path?
+Regards,
+Zheng Wang
 
-Reducing the scope of locking usually is preferred more. Yours
-suggestion works okay, I couldn't spot any problems at least for a
-non-TTM code paths.
+Zhenyu Wang <zhenyuw@linux.intel.com> =E4=BA=8E2022=E5=B9=B49=E6=9C=887=E6=
+=97=A5=E5=91=A8=E4=B8=89 11:33=E5=86=99=E9=81=93=EF=BC=9A
 
-It's indeed a bit not nice that __i915_gem_object_pages_fini() is used
-by TTM, but should be safe for imported objects. Will be great if anyone
-from i915 maintainers could ack this variant.
-
--- 
-Best regards,
-Dmitry
+>
+> On 2022.09.06 19:36:56 +0800, Zheng Hacker wrote:
+> > Hi Greg,
+> >
+> > Alex has explained how we figured out the patch. We did analyze the
+> > code and found it possible to reach the vulnerability code. But we
+> > have no physical device in hand to test the driver. So we'd like to
+> > discuss with developers to see if the issue exists or not.
+> >
+> > Best regards,
+> > Zheng Wang.
+> >
+> > Greg KH <gregkh@linuxfoundation.org> ???2022???9???5????????? 16:04????=
+?????
+> > >
+> > > On Mon, Sep 05, 2022 at 03:46:09PM +0800, Zheng Hacker wrote:
+> > > > I rewrote the letter. Hope it works.
+> > > >
+> > > > There is a double-free security bug in split_2MB_gtt_entry.
+> > > >
+> > > > Here is a calling chain :
+> > > > ppgtt_populate_spt->ppgtt_populate_shadow_entry->split_2MB_gtt_entr=
+y.
+> > > > If intel_gvt_dma_map_guest_page failed, it will call
+> > > > ppgtt_invalidate_spt, which will finally call ppgtt_free_spt and
+> > > > kfree(spt). But the caller does not notice that, and it will call
+> > > > ppgtt_free_spt again in error path.
+> > > >
+>
+> It's a little mess in code so in theory it might be possible but
+> intel_gvt_dma_map_guest_page won't fail in practise...
+>
+> > > > Fix this by returning the result of ppgtt_invalidate_spt to split_2=
+MB_gtt_entry.
+> > > >
+>
+> I don't see why changing ret value can fix this issue, as it doesn't chan=
+ge
+> any behavior e.g caller of ppgtt_populate_spt to handle possible differen=
+t error return.
+>
+> As current code looks assuming that ppgtt_invalidate_spt would free spt i=
+n good case,
+> I think the real cleanup should split that assumption and handle free in =
+error case properly.
+>
+> > > > Signed-off-by: Zheng Wang
+>
+> This misses proper email address.
+>
+> thanks
+>
+> > > >
+> > > > ---
+> > > >  drivers/gpu/drm/i915/gvt/gtt.c | 2 +-
+> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/=
+gvt/gtt.c
+> > > > index ce0eb03709c3..9f14fded8c0c 100644
+> > > > --- a/drivers/gpu/drm/i915/gvt/gtt.c
+> > > > +++ b/drivers/gpu/drm/i915/gvt/gtt.c
+> > > > @@ -1215,7 +1215,7 @@ static int split_2MB_gtt_entry(struct intel_v=
+gpu *vgpu,
+> > > >                 ret =3D intel_gvt_dma_map_guest_page(vgpu, start_gf=
+n + sub_index,
+> > > >                                                    PAGE_SIZE, &dma_=
+addr);
+> > > >                 if (ret) {
+> > > > -                       ppgtt_invalidate_spt(spt);
+> > > > +                       ret =3D ppgtt_invalidate_spt(spt);
+> > > >                         return ret;
+> > >
+> > > But now you just lost the original error, shouldn't this succeed even=
+ if
+> > > intel_gvt_dma_map_guest_page() failed?
+> > >
+> > > And how are you causing intel_gvt_dma_map_guest_page() to fail in a r=
+eal
+> > > system?
+> > >
+> > > thanks,
+> > >
+> > > greg k-h
