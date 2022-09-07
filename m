@@ -4,73 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E356AC6FA83
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67F70C6FA86
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:39:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53EDA10E4DE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 067DF10E4DC;
 	Mon, 12 Sep 2022 13:38:17 +0000 (UTC)
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ABDF10E8CE;
- Wed,  7 Sep 2022 21:31:26 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id z23so17561543ljk.1;
- Wed, 07 Sep 2022 14:31:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:from:to:cc:subject:date;
- bh=ZfOYfQtThYd/KyFSNNpcBedgaTk1E4F3yRLEgfbAULY=;
- b=VRxQGzqTWKt5NLlk4/wdj2oLSzWbBr8RLMvN8dSsLKXanZhEt7wkBCuhODX+wBxFOB
- YTpixeZ69A3ll346PHc6UjYp+sEzIa6jvWfNAroxoqXtG5fVeMQheB6W+g903B1RFpz1
- Cq3FJ1B6nb2XHFOxcTYykeMACstiOgC0BbqUGmbqeBL8KimqxYHmULsWon3QTQym9BKH
- 4tn2ZzTYfcyZoD58/obnR57g9KQEGRzIJEUkqSJhjiK++7tIBUFFCrIZUPnUwja+oNgc
- CcQHsGOjipzC9jRFhpGz7LhorgQnalnrEH6Qtdhj0qE1s727C/8tslBuXXnbF6Tutr9I
- 97Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:x-gm-message-state:from:to:cc:subject:date;
- bh=ZfOYfQtThYd/KyFSNNpcBedgaTk1E4F3yRLEgfbAULY=;
- b=z9EcWzkgZH2pvKXKPCA4hLhdXiOiZHkB4iVgY79Xc4/wawnlAqGvJeZzy13NEbJouM
- v55jzfYhNNCiHA+iiuH+6+m2PxkRcWqpFYzkuHhqyxfv6tnSieLrmaEJoCEihqjIwCHe
- k5fXWt1PVrzE67iP9pq1WySTW94dvtY+mgA7+lSgDX2HaRTcYY7e74zS8bt//ZN/Xr06
- C3a9ziGlwqwAEFrl1kTGJTiVoyq+ZWQ4JhU+EXPNaGbdPgd5193Jq1xDPlMbz4Z1pMvQ
- aFoZKsrtulrTDkL8a5fYmauv1Xuu+T4vpU1gtCPfHl9fKJdAsD5Hk/Mq0oNrvwV7G1nk
- 6hjQ==
-X-Gm-Message-State: ACgBeo0jC/+qqE+O1Dirt+LdJJJlo3/P+JUEo8y5Hbk1ln0+rbkjkSel
- 6LP6Zc6waUZbhTmkDcuxUdE=
-X-Google-Smtp-Source: AA6agR63jg/DfvolpHhSn3tY0Cl+lM71H7YGuQTXytiA5QL42uEm7EIa+ryHFFQxZzUJpplqg82nJg==
-X-Received: by 2002:a2e:804a:0:b0:26b:66d3:4d51 with SMTP id
- p10-20020a2e804a000000b0026b66d34d51mr172137ljg.293.1662586284210; 
- Wed, 07 Sep 2022 14:31:24 -0700 (PDT)
-Received: from ?IPV6:2a02:a31a:a240:1700:e929:c054:a46d:3844?
- ([2a02:a31a:a240:1700:e929:c054:a46d:3844])
- by smtp.googlemail.com with ESMTPSA id
- p20-20020a2e9a94000000b0026acfe1b3b4sm549047lji.17.2022.09.07.14.31.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Sep 2022 14:31:23 -0700 (PDT)
-From: Mateusz Kwiatkowski <kfyatek@gmail.com>
-X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
-Message-ID: <dc1d9499-d4d5-1032-f39f-d4ac4cbb8412@gmail.com>
-Date: Wed, 7 Sep 2022 23:31:21 +0200
+Received: from mx0a-00190b01.pphosted.com (mx0a-00190b01.pphosted.com
+ [IPv6:2620:100:9001:583::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39F8110E81F;
+ Wed,  7 Sep 2022 18:19:32 +0000 (UTC)
+Received: from pps.filterd (m0050093.ppops.net [127.0.0.1])
+ by m0050093.ppops.net-00190b01. (8.17.1.5/8.17.1.5) with ESMTP id
+ 287HVasv032356; Wed, 7 Sep 2022 19:19:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=jan2016.eng;
+ bh=pAAAZ4N91jNAxfB3MZbN+Hr8QUu9dLU0om6B6c+CNPg=;
+ b=kID3whC70e5d0nnXBW/pBoM0ZjBRFC3o3xhYo79LDb0MDCpWmEI5oxPFBNdXHC5s7iPb
+ 1Z0zA4LlUr3OtlYHBCtrydA5cQZa0VGtIhiBDL7mAgUk96uJt8qJRGK77mq0qQQs+hJX
+ vyIWaW8qrtG/EJUO9bYdSUBv3hePttTeniUKSFE2/eUjas5chSEwPtAxUwCPq2whx8+3
+ 56JJ1OguZcXUnE1kCbwm2tVpdYxD2Is1kFAdcdNT1bpVFyMVPsh3zZk7JVfJIzVfx2xY
+ 0TDKFMv2Qheq7UITOoQOFSVg6sqJANzcw0ekxe8McZDk8UFAkaWRv2LfL8IPvORAnX69 JA== 
+Received: from prod-mail-ppoint5 (prod-mail-ppoint5.akamai.com [184.51.33.60]
+ (may be forged))
+ by m0050093.ppops.net-00190b01. (PPS) with ESMTPS id 3je07est5w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Sep 2022 19:19:28 +0100
+Received: from pps.filterd (prod-mail-ppoint5.akamai.com [127.0.0.1])
+ by prod-mail-ppoint5.akamai.com (8.17.1.5/8.17.1.5) with ESMTP id
+ 287HnKQD008298; Wed, 7 Sep 2022 11:19:27 -0700
+Received: from prod-mail-relay11.akamai.com ([172.27.118.250])
+ by prod-mail-ppoint5.akamai.com (PPS) with ESMTP id 3jc4w9xb0s-1;
+ Wed, 07 Sep 2022 11:19:27 -0700
+Received: from [0.0.0.0] (prod-ssh-gw01.bos01.corp.akamai.com [172.27.119.138])
+ by prod-mail-relay11.akamai.com (Postfix) with ESMTP id E7C512ED41;
+ Wed,  7 Sep 2022 18:19:26 +0000 (GMT)
+Message-ID: <2d3846cb-ff9a-3484-61a8-973799727d8f@akamai.com>
+Date: Wed, 7 Sep 2022 14:19:26 -0400
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.1
-Content-Language: pl
-To: Maxime Ripard <maxime@cerno.tech>
-References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-10-459522d653a7@cerno.tech>
- <242d272b-5b79-986c-9aaf-64e62f6b37ff@gmail.com>
- <20220905133755.gcmmntg3wnecyqjq@houat>
- <10ce686a-d7c8-9ce4-3979-735ad8eab3b5@gmail.com>
- <20220907143421.4iopqwhp3yfircsh@houat>
-In-Reply-To: <20220907143421.4iopqwhp3yfircsh@houat>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Jim Cromie <jim.cromie@gmail.com>, gregkh@linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20220904214134.408619-1-jim.cromie@gmail.com>
+ <20220904214134.408619-18-jim.cromie@gmail.com>
+From: Jason Baron <jbaron@akamai.com>
+In-Reply-To: <20220904214134.408619-18-jim.cromie@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-07_10,2022-09-07_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ mlxscore=0 mlxlogscore=999
+ suspectscore=0 phishscore=0 bulkscore=0 malwarescore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
+ definitions=main-2209070069
+X-Proofpoint-GUID: X8jGmyYHpuMt6qCmp30gNLbLd31u9Ys_
+X-Proofpoint-ORIG-GUID: X8jGmyYHpuMt6qCmp30gNLbLd31u9Ys_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-07_10,2022-09-07_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ lowpriorityscore=0
+ bulkscore=0 impostorscore=0 clxscore=1015 phishscore=0 mlxlogscore=999
+ spamscore=0 suspectscore=0 priorityscore=1501 mlxscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
+ definitions=main-2209070069
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 10/41] drm/modes: Add a function to
- generate analog display modes
+Subject: Re: [Intel-gfx] [PATCH v6 17/57] dyndbg: validate class FOO by
+ checking with module
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,117 +90,216 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Phil Elwell <phil@raspberrypi.com>, Emma Anholt <emma@anholt.net>,
- Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Ben Skeggs <bskeggs@redhat.com>,
- linux-sunxi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
- intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
- Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
+Cc: joe@perches.com, daniel.vetter@ffwll.ch, seanpaul@chromium.org,
+ linux@rasmusvillemoes.dk
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Maxime,
 
-W dniu 7.09.2022 o 16:34, Maxime Ripard pisze:
-> On Mon, Sep 05, 2022 at 06:44:42PM +0200, Mateusz Kwiatkowski wrote:
->> Hi Maxime,
->>
->> W dniu 5.09.2022 o 15:37, Maxime Ripard pisze:
->>>>> +    vfp = vfp_min + (porches_rem / 2);
->>>>> +    vbp = porches - vfp;
->>>>
->>>> Relative position of the vertical sync within the VBI effectively moves the
->>>> image up and down. Adding that (porches_rem / 2) moves the image up off center
->>>> by that many pixels. I'd keep the VFP always at minimum to keep the image
->>>> centered.
->>>
->>> And you would increase the back porch only then?
->>
->> Well, increasing vbp only gives a centered image with the default 480i/576i
->> resolutions. However, only ever changing vbp will cause the image to be always
->> at the bottom of the screen when the active line count is decreased (e.g.
->> setting the resolution to 720x480 but for 50Hz "PAL" - like many game consoles
->> did back in the day).
->>
->> I believe that the perfect solution would:
->>
->> - Use the canonical / standard-defined blanking line counts for the standard
->>   vertical resolutions (480/486/576)
->> - Increase vfp and vbp from there by the same number if a smaller number of
->>   active lines is specified, so that the resulting image is centered
->> - Likewise, decrease vfp and vbp by the same number if the active line number
->>   is larger and there is still leeway (this should allow for seamless handling
->>   of 480i vs. 486i for 60 Hz "NTSC")
->
-> I'm not sure I understand how that's any different than the code you
-> initially commented on.
->
-> I would start by taking the entire blanking area, remove the sync
-> period. We only have the two porches now, and I'm starting from the
-> minimum, adding as many pixels in both (unless it's not an even number,
-> in which case the backporch will have the extra pixel).
->
-> Isn't it the same thing?
-> [...]
-> Unless you only want me to consider the front porch maximum?
 
-I think you're confusing the "post-equalizing pulses" with the "vertical back
-porch" a little bit. The "vertical back porch" includes both the post-equalizing
-pulses and the entire rest of the VBI period, for the standard resolutions at
-least.
+On 9/4/22 17:40, Jim Cromie wrote:
+> Add module-to-class validation:
+> 
+>   #> echo class DRM_UT_KMS +p > /proc/dynamic_debug/control
+> 
+> If a query has "class FOO", then ddebug_find_valid_class(), called
+> from ddebug_change(), requires that FOO is known to module X,
+> otherwize the query is skipped entirely for X.  This protects each
+> module's class-space, other than the default:31.
+> 
+> The authors' choice of FOO is highly selective, giving isolation
+> and/or coordinated sharing of FOOs.  For example, only DRM modules
+> should know and respond to DRM_UT_KMS.
+> 
+> So this, combined with module's opt-in declaration of known classes,
+> effectively privatizes the .class_id space for each module (or
+> coordinated set of modules).
+> 
+> Notes:
+> 
+> For all "class FOO" queries, ddebug_find_valid_class() is called, it
+> returns the map matching the query, and sets valid_class via an
+> *outvar).
+> 
+> If no "class FOO" is supplied, valid_class = _CLASS_DFLT.  This
+> insures that legacy queries do not trample on new class'd callsites,
+> as they get added.
 
-The "canonical" modelines (at least for vc4's VEC, see the notes below):
 
-- (vfp==4, vsync==6, vbp==39) for 576i
-- (vfp==7, vsync==6, vbp==32) for 480i
-- (vfp==5, vsync==6, vbp==28) for 486i (full frame NTSC as originally specified)
+Hi Jim,
 
-The numbers for vfp don't exactly match the theoretical values, because:
+I'm wondering about the case where we have a callsite which is marked
+as 'class foo', but the query string is done by say module and file, so:
 
-- VEC actually adds a half-line pulse on top of VFP_ODD, and in the 625-line
-  mode also on top of VFP_EVEN (not always, but let's not dwell too much)
-- Conversely, VEC subtracts the half-line pulse from VSYNC_ODD and VSYNC_EVEN
-  in the 625-line mode
-- SMPTE S170M (see https://www.itu.int/rec/R-REC-BT.1700-0-200502-I/en) defines
-  that active picture for NTSC is on lines 21-263 and 283-525; 263 and 283 are
-  half-lines that are represented as full lines in the "486i" spec
-- SMPTE 314M, which is the spec for DV, defines the 480 active lines as lines
-  23-262 and 285-524; see Table 20 on page 26 in
-  https://last.hit.bme.hu/download/firtha/video/SMPTE/SMPTE-314M%20DV25-50.pdf;
-  this means that the standard 480i frame shaves off four topmost and two
-  bottommost lines (2 and 1 per field) of the 486i full frame
+# echo "module bar file foo.c +p" > /proc/dynamic_debug_control
 
-Note that the half-line pulses in vfp/vsync may be generated in a different way
-on encoders other than vc4's VEC. Maybe we should define some concrete
-semantics for vfp/vsync in analog TV modes, and compensate for that in the
-drivers. But anyway, that's a separate issue.
+With the proposed code, I think this ends up not enabling anything right?
+Because valid class is set to _DPRINTK_CLASS_DFLT and then:
+'dp->class_id != valid_class' is true?
 
-My point is that, to get a centered image, you can then proportionately add
-values to those "canonical" vfp/vbp values. For example if someone specifies
-720x480 frame, but 50 Hz PAL, you should set (vfp==52, vsync==6, vbp==87).
-Those extra vbp lines will be treated as a black bar at the top of the frame,
-and extra vfp lines will be at the bottom of the frame.
+This seems confusing to me as a user as this doesn't work like the
+other queries....so maybe we should only do the
+'dp->class_id != valid_class' check *if* query->class_string is set,
+see below.
 
-However if someone specifies e.g. 720x604, there's nothing more you could
-remove from vfp, so your only option is to reduce vbp compared to the standard
-mode, so you'll end up with (vfp==4, vsync==6, vbp==11). The image will not be
-centered, the topmost lines will get cropped out, but that's the best we can do
-and if someone is requesting such resolution, they most likely want to actually
-access the VBI to e.g. emit teletext.
 
-Your current code always starts at (vfp==5 or 6, vsync=6, vbp==6) and then
-increases both vfp and vbp proportionately. This puts vsync dead center in the
-VBI, which is not how it's supposed to be - and that in turn causes the image
-to be significantly shifted upwards.
 
-I hope this makes more sense to you now.
+> 
+> Also add a new column to control-file output, displaying non-default
+> class-name (when found) or the "unknown _id:", if it has not been
+> (correctly) declared with one of the declarator macros.
+> 
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+>  lib/dynamic_debug.c | 76 ++++++++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 68 insertions(+), 8 deletions(-)
+> 
+> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> index b71efd0b491d..db96ded78c3f 100644
+> --- a/lib/dynamic_debug.c
+> +++ b/lib/dynamic_debug.c
+> @@ -56,6 +56,7 @@ struct ddebug_query {
+>  	const char *module;
+>  	const char *function;
+>  	const char *format;
+> +	const char *class_string;
+>  	unsigned int first_lineno, last_lineno;
+>  };
+>  
+> @@ -136,15 +137,33 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+>  			fmtlen--;
+>  	}
+>  
+> -	v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u\n",
+> -		 msg,
+> -		 query->function ?: "",
+> -		 query->filename ?: "",
+> -		 query->module ?: "",
+> -		 fmtlen, query->format ?: "",
+> -		 query->first_lineno, query->last_lineno);
+> +	v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u class=%s\n",
+> +		  msg,
+> +		  query->function ?: "",
+> +		  query->filename ?: "",
+> +		  query->module ?: "",
+> +		  fmtlen, query->format ?: "",
+> +		  query->first_lineno, query->last_lineno, query->class_string);
+>  }
+>  
+> +static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
+> +							  const char *class_string, int *class_id)
+> +{
+> +	struct ddebug_class_map *map;
+> +	int idx;
+> +
+> +	list_for_each_entry(map, &dt->maps, link) {
+> +		idx = match_string(map->class_names, map->length, class_string);
+> +		if (idx >= 0) {
+> +			*class_id = idx + map->base;
+> +			return map;
+> +		}
+> +	}
+> +	*class_id = -ENOENT;
+> +	return NULL;
+> +}
+> +
+> +#define __outvar /* filled by callee */
+>  /*
+>   * Search the tables for _ddebug's which match the given `query' and
+>   * apply the `flags' and `mask' to them.  Returns number of matching
+> @@ -159,6 +178,8 @@ static int ddebug_change(const struct ddebug_query *query,
+>  	unsigned int newflags;
+>  	unsigned int nfound = 0;
+>  	struct flagsbuf fbuf, nbuf;
+> +	struct ddebug_class_map *map = NULL;
+> +	int __outvar valid_class;
+>  
+>  	/* search for matching ddebugs */
+>  	mutex_lock(&ddebug_lock);
+> @@ -169,9 +190,22 @@ static int ddebug_change(const struct ddebug_query *query,
+>  		    !match_wildcard(query->module, dt->mod_name))
+>  			continue;
+>  
+> +		if (query->class_string) {
+> +			map = ddebug_find_valid_class(dt, query->class_string, &valid_class);
+> +			if (!map)
+> +				continue;
 
-Best regards,
-Mateusz Kwiatkowski
+So remove the else here.
+
+> +		} else {
+> +			/* constrain query, do not touch class'd callsites */
+> +			valid_class = _DPRINTK_CLASS_DFLT;
+> +		}
+> +
+>  		for (i = 0; i < dt->num_ddebugs; i++) {
+>  			struct _ddebug *dp = &dt->ddebugs[i];
+>  
+> +			/* match site against query-class */
+> +			if (dp->class_id != valid_class)
+
+And then make this: if (query->class_string && (dp->class_id != valid_class))
+
+thoughts?
+
+
+> +				continue;
+> +>  			/* match against the source filename */
+>  			if (query->filename &&
+>  			    !match_wildcard(query->filename, dp->filename) &&
+> @@ -420,6 +454,8 @@ static int ddebug_parse_query(char *words[], int nwords,
+>  		} else if (!strcmp(keyword, "line")) {
+>  			if (parse_linerange(query, arg))
+>  				return -EINVAL;
+> +		} else if (!strcmp(keyword, "class")) {
+> +			rc = check_set(&query->class_string, arg, "class");
+>  		} else {
+>  			pr_err("unknown keyword \"%s\"\n", keyword);
+>  			return -EINVAL;
+> @@ -854,6 +890,20 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+>  	return dp;
+>  }
+>  
+> +#define class_in_range(class_id, map)					\
+> +	(class_id >= map->base && class_id < map->base + map->length)
+> +
+> +static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
+> +{
+> +	struct ddebug_class_map *map;
+> +
+> +	list_for_each_entry(map, &iter->table->maps, link)
+> +		if (class_in_range(dp->class_id, map))
+> +			return map->class_names[dp->class_id - map->base];
+> +
+> +	return NULL;
+> +}
+> +
+>  /*
+>   * Seq_ops show method.  Called several times within a read()
+>   * call from userspace, with ddebug_lock held.  Formats the
+> @@ -865,6 +915,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+>  	struct ddebug_iter *iter = m->private;
+>  	struct _ddebug *dp = p;
+>  	struct flagsbuf flags;
+> +	char const *class;
+>  
+>  	if (p == SEQ_START_TOKEN) {
+>  		seq_puts(m,
+> @@ -877,7 +928,16 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+>  		   iter->table->mod_name, dp->function,
+>  		   ddebug_describe_flags(dp->flags, &flags));
+>  	seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
+> -	seq_puts(m, "\"\n");
+> +	seq_puts(m, "\"");
+> +
+> +	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
+> +		class = ddebug_class_name(iter, dp);
+> +		if (class)
+> +			seq_printf(m, " class:%s", class);
+> +		else
+> +			seq_printf(m, " class unknown, _id:%d", dp->class_id);
+> +	}
+> +	seq_puts(m, "\n");
+>  
+>  	return 0;
+>  }
