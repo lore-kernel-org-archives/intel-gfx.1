@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54B59C54EE9
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 09:12:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36153C38145
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 09:12:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B4BF10E4A0;
-	Wed,  7 Sep 2022 09:12:01 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A537F10E4DD
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 09:11:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2C1010E4EE;
+	Wed,  7 Sep 2022 09:12:10 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8AF610E4A0
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 09:11:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662541914; x=1694077914;
+ t=1662541895; x=1694077895;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+2XLkszGUa0lv8wQrGJF6wesQDI/J957y011wm2IO3c=;
- b=oC+lRm/Ws8KSljlyOhFhGVEucSqZqYE4XkONglxAgdbH66ONU6TncRUp
- sPSrb+CU338/HdEBHVqzkjHogFtfVbi0PqcWh0HIujMu2dS+iLDORjslf
- iMjjud7Rw3PWqerM4NhVJEP9tUk2/wHAsCTgjbZHj5S7RV/yZnnBOw+nn
- 6Gmlmg8SD7qFiQK/fXfHnyjweTC3QFgFfMlHnANSessmKPDHLu+aA6G4+
- V0iL+EBPMeQAxDI0zg5z/YKYFiGyFf/cPzdzbJzu6WYwLdMa1WaRGvp9Y
- IP1NAFBNSxrvygC2vrmwhOfkAt5r2j7hHP/ZZlDSbGOI5/pQQ65l0E3MM Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="296822318"
-X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="296822318"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2022 02:11:53 -0700
+ bh=PiGsB+StZBRDRb/02KLsToLzQztDbsYPGTmRGIv2/58=;
+ b=DV3FY5H5x2KeWv9TvpB0h5zS9yciBSSx64s+fIGNOxmdzr7vCm0zI5G7
+ eU0Z0m7wZBDWnAj29GuSYJD7ncLB9dVuQWB1aM82RiS83PTH+BdqPJYVm
+ fYwJF11KeBPtKh+Dra63fUz0YkzRiWCbAq1N43/1kBRBW8B4TZjGaaJg5
+ e8RuQtk0R0KEl/GDfr9FIPWfzxOrDFNyatlLJkOqFizW9CaWU/VG2LwBG
+ ASdYDsi9dq7WdvKTZWKbMHxkkV/IDzNj3YRKTKbCSQ9atkeyUTBSAfln+
+ crip/rrEkTRqWXowPx+Sazcln0rJcJzKqne1FpNFIu3qnoio0XxbiaWQi g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="298138128"
+X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="298138128"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2022 02:11:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="610255239"
+X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="647561746"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga007.jf.intel.com with SMTP; 07 Sep 2022 02:11:51 -0700
+ by orsmga001.jf.intel.com with SMTP; 07 Sep 2022 02:11:32 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 07 Sep 2022 12:11:50 +0300
+ Wed, 07 Sep 2022 12:11:32 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  7 Sep 2022 12:10:57 +0300
-Message-Id: <20220907091057.11572-18-ville.syrjala@linux.intel.com>
+Date: Wed,  7 Sep 2022 12:10:51 +0300
+Message-Id: <20220907091057.11572-12-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220907091057.11572-1-ville.syrjala@linux.intel.com>
 References: <20220907091057.11572-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 17/17] drm/i915: Round TMDS clock to nearest
+Subject: [Intel-gfx] [PATCH v4 11/17] drm/i915: Set active dpll early for
+ icl+
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,43 +65,48 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Use round-to-nearest behavour when calculating the TMDS clock.
-Matches what we do for most other clock related things.
+To make the fastboot checks at least somewhat sensible let's mark
+the expected DPLL as the active one right after we finished the
+state computation. Otherwise intel_pipe_config_compare() will
+always be comparing things against NULL/0.
+
+TODO: This is still not really right. If the previous commit
+had to fall back to the other PLL then the comparisong will
+now fail. I guess intel_pipe_config_compare() should rather
+be comparing port_dplls[] instead. But to do that we really
+should just unify every platform to use the port_dplls[]
+approach whether they have any need for PLL fallbacks or not.
 
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 3 ++-
- drivers/gpu/drm/i915/display/intel_hdmi.c    | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 1b7d26b9e985..407afd5888ed 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4504,7 +4504,8 @@ int intel_crtc_dotclock(const struct intel_crtc_state *pipe_config)
- 		dotclock = intel_dotclock_calculate(pipe_config->port_clock,
- 						    &pipe_config->dp_m_n);
- 	else if (pipe_config->has_hdmi_sink && pipe_config->pipe_bpp > 24)
--		dotclock = pipe_config->port_clock * 24 / pipe_config->pipe_bpp;
-+		dotclock = DIV_ROUND_CLOSEST(pipe_config->port_clock * 24,
-+					     pipe_config->pipe_bpp);
- 	else
- 		dotclock = pipe_config->port_clock;
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index 48a51e196c5f..e5fb66a5dd02 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -3213,6 +3213,9 @@ static int icl_compute_combo_phy_dpll(struct intel_atomic_state *state,
  
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 09f85afeb2d4..7816b2a33fee 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -1892,7 +1892,7 @@ int intel_hdmi_tmds_clock(int clock, int bpc, bool ycbcr420_output)
- 	 *  1.5x for 12bpc
- 	 *  1.25x for 10bpc
- 	 */
--	return clock * bpc / 8;
-+	return DIV_ROUND_CLOSEST(clock * bpc, 8);
- }
+ 	icl_calc_dpll_state(dev_priv, &pll_params, &port_dpll->hw_state);
  
- static bool intel_hdmi_source_bpc_possible(struct drm_i915_private *i915, int bpc)
++	/* this is mainly for the fastset check */
++	icl_set_active_port_dpll(crtc_state, ICL_PORT_DPLL_DEFAULT);
++
+ 	crtc_state->port_clock = icl_ddi_combo_pll_get_freq(dev_priv, NULL,
+ 							    &port_dpll->hw_state);
+ 
+@@ -3301,6 +3304,9 @@ static int icl_compute_tc_phy_dplls(struct intel_atomic_state *state,
+ 	if (ret)
+ 		return ret;
+ 
++	/* this is mainly for the fastset check */
++	icl_set_active_port_dpll(crtc_state, ICL_PORT_DPLL_MG_PHY);
++
+ 	crtc_state->port_clock = icl_ddi_mg_pll_get_freq(dev_priv, NULL,
+ 							 &port_dpll->hw_state);
+ 
 -- 
 2.35.1
 
