@@ -4,51 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CD67C6FA86
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E356AC6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 553D610E4ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53EDA10E4DE;
 	Mon, 12 Sep 2022 13:38:17 +0000 (UTC)
-Received: from smtp.domeneshop.no (smtp.domeneshop.no
- [IPv6:2a01:5b40:0:3005::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0710210E1F0;
- Sat, 10 Sep 2022 15:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
- ; s=ds202112;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Z+umsEgE+0BVdH31f6mmvIugV/Oo08OxjxooJr5Ldk0=; b=oOkKlFJg/widSzLx1kmtByViA7
- iOPPJVXzhj9kBu4SsHbdIuC8ZvEUEWVuF7wtWK9NY1wDz3/5meiB92klu0LVN4Bm3K6+oo2Rbflxi
- xuhDbB9wgCuLMFKmNs4ZX3jsa8mX2XqIiqnuyGGBl4H6OSaQkIj1E6xZyyLBmYZurLWb31WizyZN+
- O1jWvr/yubX+SzsqQLAKgCgR+wLUiayc0HOm6lizgh1Gaac2vu0rqaQKPtH1p4tEG0/zz8AByiMgj
- D4a4FsKWEWTK3jJgeBqj7gHvccozD0WQKEeJ7+NlQMxDBWJ/bcK/RIwj9La/k/u+OIFQRI7btv70F
- 1Ec0jrnA==;
-Received: from [2a01:799:961:d200:4519:292a:25da:963a] (port=63245)
- by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <noralf@tronnes.org>)
- id 1oX2Uo-0006Kf-1D; Sat, 10 Sep 2022 17:34:14 +0200
-Message-ID: <03d5a161-9bc9-3d04-acda-2e5ca5a19d71@tronnes.org>
-Date: Sat, 10 Sep 2022 17:34:04 +0200
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ABDF10E8CE;
+ Wed,  7 Sep 2022 21:31:26 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id z23so17561543ljk.1;
+ Wed, 07 Sep 2022 14:31:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:from:to:cc:subject:date;
+ bh=ZfOYfQtThYd/KyFSNNpcBedgaTk1E4F3yRLEgfbAULY=;
+ b=VRxQGzqTWKt5NLlk4/wdj2oLSzWbBr8RLMvN8dSsLKXanZhEt7wkBCuhODX+wBxFOB
+ YTpixeZ69A3ll346PHc6UjYp+sEzIa6jvWfNAroxoqXtG5fVeMQheB6W+g903B1RFpz1
+ Cq3FJ1B6nb2XHFOxcTYykeMACstiOgC0BbqUGmbqeBL8KimqxYHmULsWon3QTQym9BKH
+ 4tn2ZzTYfcyZoD58/obnR57g9KQEGRzIJEUkqSJhjiK++7tIBUFFCrIZUPnUwja+oNgc
+ CcQHsGOjipzC9jRFhpGz7LhorgQnalnrEH6Qtdhj0qE1s727C/8tslBuXXnbF6Tutr9I
+ 97Ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:x-gm-message-state:from:to:cc:subject:date;
+ bh=ZfOYfQtThYd/KyFSNNpcBedgaTk1E4F3yRLEgfbAULY=;
+ b=z9EcWzkgZH2pvKXKPCA4hLhdXiOiZHkB4iVgY79Xc4/wawnlAqGvJeZzy13NEbJouM
+ v55jzfYhNNCiHA+iiuH+6+m2PxkRcWqpFYzkuHhqyxfv6tnSieLrmaEJoCEihqjIwCHe
+ k5fXWt1PVrzE67iP9pq1WySTW94dvtY+mgA7+lSgDX2HaRTcYY7e74zS8bt//ZN/Xr06
+ C3a9ziGlwqwAEFrl1kTGJTiVoyq+ZWQ4JhU+EXPNaGbdPgd5193Jq1xDPlMbz4Z1pMvQ
+ aFoZKsrtulrTDkL8a5fYmauv1Xuu+T4vpU1gtCPfHl9fKJdAsD5Hk/Mq0oNrvwV7G1nk
+ 6hjQ==
+X-Gm-Message-State: ACgBeo0jC/+qqE+O1Dirt+LdJJJlo3/P+JUEo8y5Hbk1ln0+rbkjkSel
+ 6LP6Zc6waUZbhTmkDcuxUdE=
+X-Google-Smtp-Source: AA6agR63jg/DfvolpHhSn3tY0Cl+lM71H7YGuQTXytiA5QL42uEm7EIa+ryHFFQxZzUJpplqg82nJg==
+X-Received: by 2002:a2e:804a:0:b0:26b:66d3:4d51 with SMTP id
+ p10-20020a2e804a000000b0026b66d34d51mr172137ljg.293.1662586284210; 
+ Wed, 07 Sep 2022 14:31:24 -0700 (PDT)
+Received: from ?IPV6:2a02:a31a:a240:1700:e929:c054:a46d:3844?
+ ([2a02:a31a:a240:1700:e929:c054:a46d:3844])
+ by smtp.googlemail.com with ESMTPSA id
+ p20-20020a2e9a94000000b0026acfe1b3b4sm549047lji.17.2022.09.07.14.31.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Sep 2022 14:31:23 -0700 (PDT)
+From: Mateusz Kwiatkowski <kfyatek@gmail.com>
+X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Message-ID: <dc1d9499-d4d5-1032-f39f-d4ac4cbb8412@gmail.com>
+Date: Wed, 7 Sep 2022 23:31:21 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: Stefan Wahren <stefan.wahren@i2se.com>, Maxime Ripard
- <maxime@cerno.tech>, Dom Cobley <dom@raspberrypi.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.1
+Content-Language: pl
+To: Maxime Ripard <maxime@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <24e09a29-6d04-3b1e-63ce-cd3c31d350e2@tronnes.org>
- <020d44e6-884b-a817-8265-3461638cac71@tronnes.org>
- <20220905145729.ln675jko3aw6sgzs@houat>
- <965de5c0-bc6a-7210-c946-b916ae2219fc@i2se.com>
- <eb06337b-d501-3ca7-0e50-eda3aec75683@tronnes.org>
-From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
-In-Reply-To: <eb06337b-d501-3ca7-0e50-eda3aec75683@tronnes.org>
+ <20220728-rpi-analog-tv-properties-v2-10-459522d653a7@cerno.tech>
+ <242d272b-5b79-986c-9aaf-64e62f6b37ff@gmail.com>
+ <20220905133755.gcmmntg3wnecyqjq@houat>
+ <10ce686a-d7c8-9ce4-3979-735ad8eab3b5@gmail.com>
+ <20220907143421.4iopqwhp3yfircsh@houat>
+In-Reply-To: <20220907143421.4iopqwhp3yfircsh@houat>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 00/41] drm: Analog TV Improvements
+Subject: Re: [Intel-gfx] [PATCH v2 10/41] drm/modes: Add a function to
+ generate analog display modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,135 +92,108 @@ Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
  linux-sunxi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
  intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Daniel Vetter <daniel@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
+ Dom Cobley <dom@raspberrypi.com>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
  Philipp Zabel <p.zabel@pengutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Maxime,
 
-
-Den 07.09.2022 18.44, skrev Noralf Trønnes:
-> 
-> 
-> Den 07.09.2022 12.36, skrev Stefan Wahren:
+W dniu 7.09.2022 o 16:34, Maxime Ripard pisze:
+> On Mon, Sep 05, 2022 at 06:44:42PM +0200, Mateusz Kwiatkowski wrote:
 >> Hi Maxime,
 >>
->> Am 05.09.22 um 16:57 schrieb Maxime Ripard:
->>> On Fri, Sep 02, 2022 at 01:28:16PM +0200, Noralf Trønnes wrote:
+>> W dniu 5.09.2022 o 15:37, Maxime Ripard pisze:
+>>>>> +    vfp = vfp_min + (porches_rem / 2);
+>>>>> +    vbp = porches - vfp;
 >>>>
->>>> Den 01.09.2022 21.35, skrev Noralf Trønnes:
->>>>>
->>>>> I have finally found a workaround for my kernel hangs.
->>>>>
->>>>> Dom had a look at my kernel and found that the VideoCore was fine, and
->>>>> he said this:
->>>>>
->>>>>> That suggests cause of lockup was on arm side rather than VC side.
->>>>>>
->>>>>> But it's hard to diagnose further. Once you've had a peripheral not
->>>>>> respond, the AXI bus locks up and no further operations are possible.
->>>>>> Usual causes of this are required clocks being stopped or domains
->>>>>> disabled and then trying to access the hardware.
->>>>>>
->>>>> So when I got this on my 64-bit build:
->>>>>
->>>>> [  166.702171] SError Interrupt on CPU1, code 0x00000000bf000002 --
->>>>> SError
->>>>> [  166.702187] CPU: 1 PID: 8 Comm: kworker/u8:0 Tainted: G        W
->>>>>      5.19.0-rc6-00096-gba7973977976-dirty #1
->>>>> [  166.702200] Hardware name: Raspberry Pi 4 Model B Rev 1.1 (DT)
->>>>> [  166.702206] Workqueue: events_freezable_power_
->>>>> thermal_zone_device_check
->>>>> [  166.702231] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS
->>>>> BTYPE=--)
->>>>> [  166.702242] pc : regmap_mmio_read32le+0x10/0x28
->>>>> [  166.702261] lr : regmap_mmio_read+0x44/0x70
->>>>> ...
->>>>> [  166.702606]  bcm2711_get_temp+0x58/0xb0 [bcm2711_thermal]
->>>>>
->>>>> I wondered if that reg read was stalled due to a clock being stopped.
->>>>>
->>>>> Lo and behold, disabling runtime pm and keeping the vec clock running
->>>>> all the time fixed it[1].
->>>>>
->>>>> I don't know what the problem is, but at least I can now test this
->>>>> patchset.
->>>>>
->>>>> [1] https://gist.github.com/notro/23b984e7fa05cfbda2db50a421cac065
->>>>>
->>>> It turns out I didn't have to disable runtime pm:
->>>> https://gist.github.com/notro/0adcfcb12460b54e54458afe11dc8ea2
->>> If the bcm2711_thermal IP needs that clock to be enabled, it should grab
->>> a reference itself, but it looks like even the device tree binding
->>> doesn't ask for one.
->> The missing clock in the device tree binding is expected, because
->> despite of the code there is not much information about the BCM2711
->> clock tree. But i'm skeptical that the AVS IP actually needs the VEC
->> clock, i think it's more likely that the VEC clock parent is changed and
->> that cause this issue. I could take care of the bcm2711 binding & driver
->> if i know which clock is really necessary.
-> 
-> Seems you're right, keeping the parent always enabled is enough:
-> 
-> 	clk_prepare_enable(clk_get_parent(vec->clock)); // pllc_per
-> 
-> I tried enabling just the grandparent clock as well, but that didn't help.
-> 
-> Without the clock hack it seems the hang occurs when switching between
-> NTSC and PAL, at most I've been able to do that 4-5 times before it hangs.
-> 
-> For a while it looked like fbdev/fbcon had a play in this, but then I
-> realised that it just gave me a NTSC mode to start from and to go back
-> to when qutting modetest.
-> 
+>>>> Relative position of the vertical sync within the VBI effectively moves the
+>>>> image up and down. Adding that (porches_rem / 2) moves the image up off center
+>>>> by that many pixels. I'd keep the VFP always at minimum to keep the image
+>>>> centered.
+>>>
+>>> And you would increase the back porch only then?
+>>
+>> Well, increasing vbp only gives a centered image with the default 480i/576i
+>> resolutions. However, only ever changing vbp will cause the image to be always
+>> at the bottom of the screen when the active line count is decreased (e.g.
+>> setting the resolution to 720x480 but for 50Hz "PAL" - like many game consoles
+>> did back in the day).
+>>
+>> I believe that the perfect solution would:
+>>
+>> - Use the canonical / standard-defined blanking line counts for the standard
+>>   vertical resolutions (480/486/576)
+>> - Increase vfp and vbp from there by the same number if a smaller number of
+>>   active lines is specified, so that the resulting image is centered
+>> - Likewise, decrease vfp and vbp by the same number if the active line number
+>>   is larger and there is still leeway (this should allow for seamless handling
+>>   of 480i vs. 486i for 60 Hz "NTSC")
+>
+> I'm not sure I understand how that's any different than the code you
+> initially commented on.
+>
+> I would start by taking the entire blanking area, remove the sync
+> period. We only have the two porches now, and I'm starting from the
+> minimum, adding as many pixels in both (unless it's not an even number,
+> in which case the backporch will have the extra pixel).
+>
+> Isn't it the same thing?
+> [...]
+> Unless you only want me to consider the front porch maximum?
 
-I've looked some more into this problem and I see that downstream is
-using a firmware clock for vec:
+I think you're confusing the "post-equalizing pulses" with the "vertical back
+porch" a little bit. The "vertical back porch" includes both the post-equalizing
+pulses and the entire rest of the VBI period, for the standard resolutions at
+least.
 
-clk: Move vec clock to clk-raspberrypi
-https://github.com/raspberrypi/linux/pull/4639
+The "canonical" modelines (at least for vc4's VEC, see the notes below):
 
-If I do the same my problem goes away.
+- (vfp==4, vsync==6, vbp==39) for 576i
+- (vfp==7, vsync==6, vbp==32) for 480i
+- (vfp==5, vsync==6, vbp==28) for 486i (full frame NTSC as originally specified)
 
-It's interesting to note that on downstream 5.10.103-v7l+ #1530,
-pllc_per is enabled even if tvout is not enabled:
+The numbers for vfp don't exactly match the theoretical values, because:
 
-$ sudo cat /sys/kernel/debug/clk/pllc_per/regdump
-cm = 0x00000000
-a2w = 0x00000004 (disable bit(8) is not set)
+- VEC actually adds a half-line pulse on top of VFP_ODD, and in the 625-line
+  mode also on top of VFP_EVEN (not always, but let's not dwell too much)
+- Conversely, VEC subtracts the half-line pulse from VSYNC_ODD and VSYNC_EVEN
+  in the 625-line mode
+- SMPTE S170M (see https://www.itu.int/rec/R-REC-BT.1700-0-200502-I/en) defines
+  that active picture for NTSC is on lines 21-263 and 283-525; 263 and 283 are
+  half-lines that are represented as full lines in the "486i" spec
+- SMPTE 314M, which is the spec for DV, defines the 480 active lines as lines
+  23-262 and 285-524; see Table 20 on page 26 in
+  https://last.hit.bme.hu/download/firtha/video/SMPTE/SMPTE-314M%20DV25-50.pdf;
+  this means that the standard 480i frame shaves off four topmost and two
+  bottommost lines (2 and 1 per field) of the 486i full frame
 
-It's when mainline vc4_vec disables this vec parent clock that the crash
-occurs.
+Note that the half-line pulses in vfp/vsync may be generated in a different way
+on encoders other than vc4's VEC. Maybe we should define some concrete
+semantics for vfp/vsync in analog TV modes, and compensate for that in the
+drivers. But anyway, that's a separate issue.
 
-Sidenote: Another downstream fw clock change with a vec reference[1]:
+My point is that, to get a centered image, you can then proportionately add
+values to those "canonical" vfp/vbp values. For example if someone specifies
+720x480 frame, but 50 Hz PAL, you should set (vfp==52, vsync==6, vbp==87).
+Those extra vbp lines will be treated as a black bar at the top of the frame,
+and extra vfp lines will be at the bottom of the frame.
 
+However if someone specifies e.g. 720x604, there's nothing more you could
+remove from vfp, so your only option is to reduce vbp compared to the standard
+mode, so you'll end up with (vfp==4, vsync==6, vbp==11). The image will not be
+centered, the topmost lines will get cropped out, but that's the best we can do
+and if someone is requesting such resolution, they most likely want to actually
+access the VBI to e.g. emit teletext.
 
-Another issue not related to the clock crash problem:
+Your current code always starts at (vfp==5 or 6, vsync=6, vbp==6) and then
+increases both vfp and vbp proportionately. This puts vsync dead center in the
+VBI, which is not how it's supposed to be - and that in turn causes the image
+to be significantly shifted upwards.
 
-I assumed that unloading the vc4 module would release the clocks, but
-this didn't happen.
+I hope this makes more sense to you now.
 
-When I looked at it I remembered that there's a catch in the DRM unplug
-machinery when it comes to unloading a driver and the DRM disable hooks.
-
-static void vc4_drm_unbind(struct device *dev)
-{
-	struct drm_device *drm = dev_get_drvdata(dev);
-
-	drm_dev_unplug(drm);
-	drm_atomic_helper_shutdown(drm);
-}
-
-Here the drm_device is first marked as unplugged and then the pipeline
-is disabled. Since vc4_vec_encoder_disable() is protected by
-drm_dev_enter() the VEC is not disabled, clocks are not released and PM
-is left on.
-
-In the drivers that I have written where the hardware is not expected to
-have gone away on device unbind (SPI), I've just left out the
-drm_dev_enter() check in the disable hook.
-
-Noralf.
-
-[1] https://github.com/raspberrypi/linux/pull/4706
+Best regards,
+Mateusz Kwiatkowski
