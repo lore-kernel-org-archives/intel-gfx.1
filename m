@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13B31C38145
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 15:59:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8671AC54EE9
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 15:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20CE210E7B9;
-	Wed,  7 Sep 2022 15:59:21 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFA910E7B9
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 15:59:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C498A10E7BC;
+	Wed,  7 Sep 2022 15:59:26 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94EAA10E7BC
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 15:59:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662566357; x=1694102357;
+ t=1662566361; x=1694102361;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=TyuRlis55UMm+cKEWzJQdtL+A9hqNaNXtqYaGsH3QG4=;
- b=TCEXCl8g0M6ALugucF5n9z6ZlTdIdgrmdcH21+Im6cV2Zt+XQjVhcRuL
- /0brC7jcGW5ALU8sT6QNqqAPw1yNa5+gGNJ8S4F3k/e7JLl6Zi65THC06
- dezhCQalJ4EcgEpFHdwvVXDdWE/zxLRTiYeA0Vm+3eCFjp9kDrt080kNz
- rz8A1BJB4em/LNa1UOFYLER6CWigWxoiZgwCvzAbNXGeJ7RWGdV5sR57S
- DSWdw2U+REFM0iR+fiVyl6Q7rKXOVe1OC1zxzBOz5KTEfrYXpdZK6R7qm
- ilgeUlIL4yh4Robr872KaaKGDR1yaGNEhcsefsVIc8iZIQ4lRhNTJpA9/ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10463"; a="297701137"
-X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="297701137"
+ bh=yfA4CNwJAJ4VUJ6uoZRsu0YLI1UJHJwg6/XHOvPCJnI=;
+ b=Qa3E1I68+CQHT4UcaAVPqw9QgDwwnE0x2lm/gOWRLfPEmKCrCTcm9HLs
+ oDR2NyMZYW2zt7Myb3aNTWaTDW/6eHSV/hqSWUZhbkmlFDiNMT6Z/EzA9
+ 8RC7UxhQQwUCyFZsDhlT0BxVUfSIoqztojcJLBQo6F2KvSTgDAmIjr7dx
+ EfKS6wCT8Lo2XgFXfGyh+8EfqJQP0JzkyjyPUjBs+KQm9Ufdtc2zESspk
+ hBfU8h8C8jIO23MI6RLyy1TsvkT0loZT8iqoMVcDJTt8vWPofy6rnbtAh
+ mfQkuglOsUeod3IBJEPwRnc01PBblp7GG/XBqFhRty8lYqvTstKNlUg0V Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10463"; a="296916787"
+X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="296916787"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2022 08:59:03 -0700
-X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="676247706"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2022 08:58:45 -0700
+X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="676247503"
 Received: from twinkler-lnx.jer.intel.com ([10.12.87.143])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2022 08:58:58 -0700
+ 07 Sep 2022 08:58:40 -0700
 From: Tomas Winkler <tomas.winkler@intel.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Wed,  7 Sep 2022 18:58:02 +0300
-Message-Id: <20220907155813.1427526-6-tomas.winkler@intel.com>
+Date: Wed,  7 Sep 2022 18:57:58 +0300
+Message-Id: <20220907155813.1427526-2-tomas.winkler@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220907155813.1427526-1-tomas.winkler@intel.com>
 References: <20220907155813.1427526-1-tomas.winkler@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 05/16] drm/i915/gsc: add GSC XeHP SDV
- platform definition
+Subject: [Intel-gfx] [PATCH v8 01/16] drm/i915/gsc: skip irq initialization
+ if using polling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,54 +64,63 @@ Cc: intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Alexander Usyskin <alexander.usyskin@intel.com>
+From: Vitaly Lubart <vitaly.lubart@intel.com>
 
-Define GSC on XeHP SDV (Intel(R) dGPU without display)
-
-XeHP SDV uses the same hardware settings as DG1, but uses polling
-instead of interrupts and runs the firmware in slow pace due to
-hardware limitations.
+Some platforms require the host to poll on the
+GSC registers instead of relaying on the interrupts.
+For those platforms, irq initialization should be skipped
 
 Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
 Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gsc.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_gsc.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_gsc.c b/drivers/gpu/drm/i915/gt/intel_gsc.c
-index 73498c2574c8..e1040c8f2fd3 100644
+index 0e494028b81d..e0236ff1d072 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gsc.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gsc.c
-@@ -56,6 +56,19 @@ static const struct gsc_def gsc_def_dg1[] = {
- 	}
+@@ -40,6 +40,7 @@ struct gsc_def {
+ 	const char *name;
+ 	unsigned long bar;
+ 	size_t bar_size;
++	bool use_polling;
  };
  
-+static const struct gsc_def gsc_def_xehpsdv[] = {
-+	{
-+		/* HECI1 not enabled on the device. */
-+	},
-+	{
-+		.name = "mei-gscfi",
-+		.bar = DG1_GSC_HECI2_BASE,
-+		.bar_size = GSC_BAR_LENGTH,
-+		.use_polling = true,
-+		.slow_firmware = true,
-+	}
-+};
-+
- static const struct gsc_def gsc_def_dg2[] = {
- 	{
- 		.name = "mei-gsc",
-@@ -107,6 +120,8 @@ static void gsc_init_one(struct drm_i915_private *i915,
+ /* gsc resources and definitions (HECI1 and HECI2) */
+@@ -117,6 +118,10 @@ static void gsc_init_one(struct drm_i915_private *i915,
+ 		return;
+ 	}
  
- 	if (IS_DG1(i915)) {
- 		def = &gsc_def_dg1[intf_id];
-+	} else if (IS_XEHPSDV(i915)) {
-+		def = &gsc_def_xehpsdv[intf_id];
- 	} else if (IS_DG2(i915)) {
- 		def = &gsc_def_dg2[intf_id];
- 	} else {
++	/* skip irq initialization */
++	if (def->use_polling)
++		goto add_device;
++
+ 	intf->irq = irq_alloc_desc(0);
+ 	if (intf->irq < 0) {
+ 		drm_err(&i915->drm, "gsc irq error %d\n", intf->irq);
+@@ -129,6 +134,7 @@ static void gsc_init_one(struct drm_i915_private *i915,
+ 		goto fail;
+ 	}
+ 
++add_device:
+ 	adev = kzalloc(sizeof(*adev), GFP_KERNEL);
+ 	if (!adev)
+ 		goto fail;
+@@ -182,10 +188,8 @@ static void gsc_irq_handler(struct intel_gt *gt, unsigned int intf_id)
+ 		return;
+ 	}
+ 
+-	if (gt->gsc.intf[intf_id].irq < 0) {
+-		drm_err_ratelimited(&gt->i915->drm, "GSC irq: irq not set");
++	if (gt->gsc.intf[intf_id].irq < 0)
+ 		return;
+-	}
+ 
+ 	ret = generic_handle_irq(gt->gsc.intf[intf_id].irq);
+ 	if (ret)
 -- 
 2.37.2
 
