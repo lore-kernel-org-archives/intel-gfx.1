@@ -4,49 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C91F1C6FA86
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C67C6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0002610E4D9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD1B10E4D3;
 	Mon, 12 Sep 2022 13:38:15 +0000 (UTC)
-Received: from smtp.domeneshop.no (smtp.domeneshop.no
- [IPv6:2a01:5b40:0:3005::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11E8A10E7D3;
- Wed,  7 Sep 2022 16:45:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
- ; s=ds202112;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9N6URuex089GHLCqcq5OwqFtSiBdOniUj0H5n1oTE7U=; b=CJU1sQi7bpE3/vdL5WN6zgzECp
- HHbmXjaIPD3FMzb3sar3e+/e26bryRNwv1KdQp0IoqozvMQr2DTCs0jssE29RdyuEJv/rK8lX2WJK
- w2o8NMpLEUrJk30eOPVkwTn6wxVW0kBbnnB7MtXliQTOvmqSHodwkDV+uwCs5gbOmF0eJBvZUDQ2z
- e2JcgdbF+68jArc56Os1nj6UK+Y6uy14uY/Jul33K5WJlLdVPkusBSWmxB8/5J+Jivi1yAAY2SqaJ
- uYShCgxeLJVticyfntOzrgiAdo8jbBv692avVuEnjNwP7CDEGvsUfDGMPAMFYNmIHjp8I7qWEiYf6
- MKMfxSqg==;
-Received: from [2a01:799:961:d200:cca0:57ac:c55d:a485] (port=53589)
- by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <noralf@tronnes.org>)
- id 1oVyAf-0000KB-VO; Wed, 07 Sep 2022 18:45:01 +0200
-Message-ID: <eb06337b-d501-3ca7-0e50-eda3aec75683@tronnes.org>
-Date: Wed, 7 Sep 2022 18:44:53 +0200
+X-Greylist: delayed 786 seconds by postgrey-1.36 at gabe;
+ Wed, 07 Sep 2022 14:23:33 UTC
+Received: from mx0b-00190b01.pphosted.com (mx0b-00190b01.pphosted.com
+ [IPv6:2620:100:9005:57f::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0092610E781;
+ Wed,  7 Sep 2022 14:23:33 +0000 (UTC)
+Received: from pps.filterd (m0122331.ppops.net [127.0.0.1])
+ by mx0b-00190b01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 287Ae2DX004867;
+ Wed, 7 Sep 2022 15:10:24 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=jan2016.eng;
+ bh=dTrQ7MrhUOBXmD1FAoFV49SHQ23WQ+8G8Ues2Ac95vs=;
+ b=JrTmxYf8FWbfxHDr5DJ5YHcUij8SHTIOJDAFlUrfwypriOmW2XL0P6e3wf45O9BK2fpG
+ Y5vF+kcnO9Vgff0crQGjxBn/hc5m/tGtl8147D/Ym+8kCX7CtBASFizUECnyAVh77Wyl
+ nFizkgO/bj/7zwhRIUS/KxL9iUIazsB9ndUM1v+hUCLq4sSASSNP1hl7FTI9L8Fx2aSq
+ LRn/7iAZq/fNajbU+51Q/1d8BL+BZgUMGF+yCZ2r+mWjwbkhTcdJ7LlppuonlfcKzTMS
+ hb+jbhdLZigm7yYKA8SGm4R7N3xjf9kU2UjaSCDEzpL03o8teUMeil0jg2hlEi2Z2QeR EQ== 
+Received: from prod-mail-ppoint7
+ (a72-247-45-33.deploy.static.akamaitechnologies.com [72.247.45.33] (may be
+ forged))
+ by mx0b-00190b01.pphosted.com (PPS) with ESMTPS id 3je9sdyb4q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Sep 2022 15:10:24 +0100
+Received: from pps.filterd (prod-mail-ppoint7.akamai.com [127.0.0.1])
+ by prod-mail-ppoint7.akamai.com (8.17.1.5/8.17.1.5) with ESMTP id
+ 287BTrkx021728; Wed, 7 Sep 2022 10:10:07 -0400
+Received: from prod-mail-relay18.dfw02.corp.akamai.com ([172.27.165.172])
+ by prod-mail-ppoint7.akamai.com (PPS) with ESMTP id 3jc28xwut6-1;
+ Wed, 07 Sep 2022 10:10:07 -0400
+Received: from [0.0.0.0] (unknown [172.27.119.138])
+ by prod-mail-relay18.dfw02.corp.akamai.com (Postfix) with ESMTP id 5EA52118;
+ Wed,  7 Sep 2022 14:10:06 +0000 (GMT)
+Message-ID: <92e3c2c4-4384-04ae-2016-ad9be8a3fc9b@akamai.com>
+Date: Wed, 7 Sep 2022 10:10:05 -0400
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: Stefan Wahren <stefan.wahren@i2se.com>, Maxime Ripard <maxime@cerno.tech>
-References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <24e09a29-6d04-3b1e-63ce-cd3c31d350e2@tronnes.org>
- <020d44e6-884b-a817-8265-3461638cac71@tronnes.org>
- <20220905145729.ln675jko3aw6sgzs@houat>
- <965de5c0-bc6a-7210-c946-b916ae2219fc@i2se.com>
-From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
-In-Reply-To: <965de5c0-bc6a-7210-c946-b916ae2219fc@i2se.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Jim Cromie <jim.cromie@gmail.com>, gregkh@linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20220904214134.408619-1-jim.cromie@gmail.com>
+ <20220904214134.408619-11-jim.cromie@gmail.com>
+From: Jason Baron <jbaron@akamai.com>
+In-Reply-To: <20220904214134.408619-11-jim.cromie@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-07_08,2022-09-07_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ spamscore=0 mlxscore=0
+ mlxlogscore=999 phishscore=0 suspectscore=0 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
+ definitions=main-2209070055
+X-Proofpoint-GUID: pQRCw3hmNV4Dnf3MrVmGF2JyV-FKuiJr
+X-Proofpoint-ORIG-GUID: pQRCw3hmNV4Dnf3MrVmGF2JyV-FKuiJr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-07_08,2022-09-07_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 adultscore=0
+ impostorscore=0 bulkscore=0 mlxlogscore=999 clxscore=1011 phishscore=0
+ lowpriorityscore=0 suspectscore=0 mlxscore=0 spamscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
+ definitions=main-2209070056
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 00/41] drm: Analog TV Improvements
+Subject: Re: [Intel-gfx] [PATCH v6 10/57] dyndbg: cleanup auto vars in
+ dynamic_debug_init
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,94 +93,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Phil Elwell <phil@raspberrypi.com>, Emma Anholt <emma@anholt.net>,
- Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Ben Skeggs <bskeggs@redhat.com>,
- linux-sunxi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
- intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
- Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
+Cc: joe@perches.com, daniel.vetter@ffwll.ch, seanpaul@chromium.org,
+ linux@rasmusvillemoes.dk
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
 
-Den 07.09.2022 12.36, skrev Stefan Wahren:
-> Hi Maxime,
+On 9/4/22 17:40, Jim Cromie wrote:
+> rework var-names for clarity, regularity
+> rename variables
+>   - n to mod_sites - it counts sites-per-module
+>   - entries to i - display only
+>   - iter_start to iter_mod_start - marks start of each module's subrange
+>   - modct to mod_ct - stylistic
 > 
-> Am 05.09.22 um 16:57 schrieb Maxime Ripard:
->> On Fri, Sep 02, 2022 at 01:28:16PM +0200, Noralf Trønnes wrote:
->>>
->>> Den 01.09.2022 21.35, skrev Noralf Trønnes:
->>>>
->>>> I have finally found a workaround for my kernel hangs.
->>>>
->>>> Dom had a look at my kernel and found that the VideoCore was fine, and
->>>> he said this:
->>>>
->>>>> That suggests cause of lockup was on arm side rather than VC side.
->>>>>
->>>>> But it's hard to diagnose further. Once you've had a peripheral not
->>>>> respond, the AXI bus locks up and no further operations are possible.
->>>>> Usual causes of this are required clocks being stopped or domains
->>>>> disabled and then trying to access the hardware.
->>>>>
->>>> So when I got this on my 64-bit build:
->>>>
->>>> [  166.702171] SError Interrupt on CPU1, code 0x00000000bf000002 --
->>>> SError
->>>> [  166.702187] CPU: 1 PID: 8 Comm: kworker/u8:0 Tainted: G        W
->>>>      5.19.0-rc6-00096-gba7973977976-dirty #1
->>>> [  166.702200] Hardware name: Raspberry Pi 4 Model B Rev 1.1 (DT)
->>>> [  166.702206] Workqueue: events_freezable_power_
->>>> thermal_zone_device_check
->>>> [  166.702231] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS
->>>> BTYPE=--)
->>>> [  166.702242] pc : regmap_mmio_read32le+0x10/0x28
->>>> [  166.702261] lr : regmap_mmio_read+0x44/0x70
->>>> ...
->>>> [  166.702606]  bcm2711_get_temp+0x58/0xb0 [bcm2711_thermal]
->>>>
->>>> I wondered if that reg read was stalled due to a clock being stopped.
->>>>
->>>> Lo and behold, disabling runtime pm and keeping the vec clock running
->>>> all the time fixed it[1].
->>>>
->>>> I don't know what the problem is, but at least I can now test this
->>>> patchset.
->>>>
->>>> [1] https://gist.github.com/notro/23b984e7fa05cfbda2db50a421cac065
->>>>
->>> It turns out I didn't have to disable runtime pm:
->>> https://gist.github.com/notro/0adcfcb12460b54e54458afe11dc8ea2
->> If the bcm2711_thermal IP needs that clock to be enabled, it should grab
->> a reference itself, but it looks like even the device tree binding
->> doesn't ask for one.
-> The missing clock in the device tree binding is expected, because
-> despite of the code there is not much information about the BCM2711
-> clock tree. But i'm skeptical that the AVS IP actually needs the VEC
-> clock, i think it's more likely that the VEC clock parent is changed and
-> that cause this issue. I could take care of the bcm2711 binding & driver
-> if i know which clock is really necessary.
+> new iterator var:
+>   - site - cursor parallel to iter
+>     1st step towards 'demotion' of iter->site, for removal later
+> 
+> treat vars as iters:
+>   - drop init at top
+>     init just above for-loop, in a textual block
+> 
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+>  lib/dynamic_debug.c | 33 +++++++++++++++++----------------
+>  1 file changed, 17 insertions(+), 16 deletions(-)
+> 
+> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> index e96dc216463b..2e8ebef3bd0d 100644
+> --- a/lib/dynamic_debug.c
+> +++ b/lib/dynamic_debug.c
+> @@ -1059,11 +1059,10 @@ static int __init dynamic_debug_init_control(void)
+>  
+>  static int __init dynamic_debug_init(void)
+>  {
+> -	struct _ddebug *iter, *iter_start;
+> -	const char *modname = NULL;
+> +	struct _ddebug *iter, *iter_mod_start;
+> +	int ret, i, mod_sites, mod_ct;
+> +	const char *modname;
+>  	char *cmdline;
+> -	int ret = 0;
+> -	int n = 0, entries = 0, modct = 0;
+>  
+>  	if (&__start___dyndbg == &__stop___dyndbg) {
+>  		if (IS_ENABLED(CONFIG_DYNAMIC_DEBUG)) {
+> @@ -1074,30 +1073,32 @@ static int __init dynamic_debug_init(void)
+>  		ddebug_init_success = 1;
+>  		return 0;
+>  	}
+> -	iter = __start___dyndbg;
+> +
+> +	iter = iter_mod_start = __start___dyndbg;
+>  	modname = iter->modname;
+> -	iter_start = iter;
+> -	for (; iter < __stop___dyndbg; iter++) {
+> -		entries++;
+> +	i = mod_sites = mod_ct = 0;
+> +
+> +	for (; iter < __stop___dyndbg; iter++, i++, mod_sites++) {
+> +
 
-Seems you're right, keeping the parent always enabled is enough:
+Just a small nit here - not sure why there's an extra blank line here?
+But either way:
 
-	clk_prepare_enable(clk_get_parent(vec->clock)); // pllc_per
+Acked-by: Jason Baron <jbaron@akamai.com>
 
-I tried enabling just the grandparent clock as well, but that didn't help.
 
-Without the clock hack it seems the hang occurs when switching between
-NTSC and PAL, at most I've been able to do that 4-5 times before it hangs.
-
-For a while it looked like fbdev/fbcon had a play in this, but then I
-realised that it just gave me a NTSC mode to start from and to go back
-to when qutting modetest.
-
-Noralf.
+>  		if (strcmp(modname, iter->modname)) {
+> -			modct++;
+> -			ret = ddebug_add_module(iter_start, n, modname);
+> +			mod_ct++;
+> +			ret = ddebug_add_module(iter_mod_start, mod_sites, modname);
+>  			if (ret)
+>  				goto out_err;
+> -			n = 0;
+> +
+> +			mod_sites = 0;
+>  			modname = iter->modname;
+> -			iter_start = iter;
+> +			iter_mod_start = iter;
+>  		}
+> -		n++;
+>  	}
+> -	ret = ddebug_add_module(iter_start, n, modname);
+> +	ret = ddebug_add_module(iter_mod_start, mod_sites, modname);
+>  	if (ret)
+>  		goto out_err;
+>  
+>  	ddebug_init_success = 1;
+>  	vpr_info("%d prdebugs in %d modules, %d KiB in ddebug tables, %d kiB in __dyndbg section\n",
+> -		 entries, modct, (int)((modct * sizeof(struct ddebug_table)) >> 10),
+> -		 (int)((entries * sizeof(struct _ddebug)) >> 10));
+> +		 i, mod_ct, (int)((mod_ct * sizeof(struct ddebug_table)) >> 10),
+> +		 (int)((i * sizeof(struct _ddebug)) >> 10));
+>  
+>  	/* now that ddebug tables are loaded, process all boot args
+>  	 * again to find and activate queries given in dyndbg params.
