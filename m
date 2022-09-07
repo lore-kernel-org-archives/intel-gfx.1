@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 245B0C6FA86
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 15:59:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40CA7C54EE9
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 16:00:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4283C10E7DD;
-	Wed,  7 Sep 2022 15:59:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE73A10E7C4;
+	Wed,  7 Sep 2022 16:00:06 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC9010E347
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 15:59:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE75410E7D3
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 15:59:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662566384; x=1694102384;
+ t=1662566395; x=1694102395;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=k8WXuqM2Btnztwxu+hZDAOvoXEutBVbE7ajm9wvLA1E=;
- b=WLj9P4G2pigsX2LTMfpISqXarm7sHbCUGn/P2mYWNX/WoyhQ89UPef5C
- VGrp3ffkX9vI3RNaNYkt3qi26Iku+kEBSMM45a++AWsEIpg4gmUbfNPCQ
- L3ghdL/vGRfEafNY8kZTfE2fStKN5OfHsIjAmCivtWTyn4LzR/LQzl4pK
- /YLOlTw5jZxCsS8z+xfpdJ/lmnJ++T3Kpvdr/hxtzI9R+pifd546BajAo
- SZJ/U42SZSIYz/P5EqUpXwCi5+5m8dk9rWxxOmIoZSB11GLnjZjFYv+w1
- KflVC2kjWP3y2RPDbr+e8LpQyw8qgfS+tnA2Q1Bu+uPBhYvTX2ybt892+ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10463"; a="297701445"
-X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="297701445"
+ bh=hO/ygtyyqutcViUvWsaXsvt/Qi8P3M4tyR8fhZGvumg=;
+ b=cOQL85ZLhuqAoSqkI6yBu/kjARemosYCYpcJA+SiNioVfizlrvQHGRqP
+ sl4MTsBq7SSInK6jMxkGYrZ8yn8AS7x+po8kJFFxghzbZVdf05QCSoJcG
+ VURnBMgwJk9kEYPFgpoUDf16kxvoEUByRGWafEuNfE5sdd8laA68RIbQm
+ 7W2CAAGPdiTFeFPJ6Y/KsD6CcM/Aa1/T4GDdvRr9v/L2hmrCn4fNILJSD
+ zs2kAdH22QO8trDKA/7N13t5NvKQEdNqd6VSisZNXxf8gtUdLc4SavCpO
+ 7zX4NxfHXN0PACR19uyGxcYa5hhb7g0i/RZmABoN9EfGGp6RizHcPaHvk Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10463"; a="297701571"
+X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="297701571"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2022 08:59:22 -0700
-X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="676248078"
+ 07 Sep 2022 08:59:34 -0700
+X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="676248208"
 Received: from twinkler-lnx.jer.intel.com ([10.12.87.143])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2022 08:59:18 -0700
+ 07 Sep 2022 08:59:30 -0700
 From: Tomas Winkler <tomas.winkler@intel.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Wed,  7 Sep 2022 18:58:07 +0300
-Message-Id: <20220907155813.1427526-11-tomas.winkler@intel.com>
+Date: Wed,  7 Sep 2022 18:58:10 +0300
+Message-Id: <20220907155813.1427526-14-tomas.winkler@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220907155813.1427526-1-tomas.winkler@intel.com>
 References: <20220907155813.1427526-1-tomas.winkler@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 10/16] mei: mkhi: add memory ready command
+Subject: [Intel-gfx] [PATCH v8 13/16] mei: drop ready bits check after start
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,45 +63,41 @@ Cc: intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add GSC memory ready command.
-The command indicates to the firmware that extend operation
-memory was setup and the firmware may enter PXP mode.
+From: Alexander Usyskin <alexander.usyskin@intel.com>
 
-CC: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+The check that hardware and host ready bits are set after start
+is redundant and may fail and disable driver if there is
+back-to-back link reset issued right after start.
+This happens during pxp mode transitions when firmware
+undergo reset. Remove these checks to eliminate such failures.
+
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 ---
- drivers/misc/mei/mkhi.h | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/misc/mei/init.c | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-diff --git a/drivers/misc/mei/mkhi.h b/drivers/misc/mei/mkhi.h
-index 43cadfb1b990..c9d0b2b9dfa0 100644
---- a/drivers/misc/mei/mkhi.h
-+++ b/drivers/misc/mei/mkhi.h
-@@ -30,6 +30,13 @@
- /* Allow transition to PXP mode without approval */
- #define MKHI_GFX_MEM_READY_PXP_ALLOWED  0x1
+diff --git a/drivers/misc/mei/init.c b/drivers/misc/mei/init.c
+index 1b4d5d7870b9..bac8852aad51 100644
+--- a/drivers/misc/mei/init.c
++++ b/drivers/misc/mei/init.c
+@@ -218,16 +218,6 @@ int mei_start(struct mei_device *dev)
+ 		goto err;
+ 	}
  
-+#define MKHI_GROUP_ID_GFX              0x30
-+#define MKHI_GFX_RESET_WARN_CMD_REQ    0x0
-+#define MKHI_GFX_MEMORY_READY_CMD_REQ  0x1
-+
-+/* Allow transition to PXP mode without approval */
-+#define MKHI_GFX_MEM_READY_PXP_ALLOWED  0x1
-+
- struct mkhi_rule_id {
- 	__le16 rule_type;
- 	u8 feature_id;
-@@ -54,4 +61,9 @@ struct mkhi_msg {
- 	u8 data[];
- } __packed;
- 
-+struct mkhi_gfx_mem_ready {
-+	struct mkhi_msg_hdr hdr;
-+	u32    flags;
-+} __packed;
-+
- #endif /* _MEI_MKHI_H_ */
+-	if (!mei_host_is_ready(dev)) {
+-		dev_err(dev->dev, "host is not ready.\n");
+-		goto err;
+-	}
+-
+-	if (!mei_hw_is_ready(dev)) {
+-		dev_err(dev->dev, "ME is not ready.\n");
+-		goto err;
+-	}
+-
+ 	if (!mei_hbm_version_is_supported(dev)) {
+ 		dev_dbg(dev->dev, "MEI start failed.\n");
+ 		goto err;
 -- 
 2.37.2
 
