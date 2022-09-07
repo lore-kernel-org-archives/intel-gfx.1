@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB02C6FA86
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 15:59:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B1B7C54EE9
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 15:59:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C99F10E7C3;
-	Wed,  7 Sep 2022 15:59:37 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 507CB10E7BD
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 15:59:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8605910E7C5;
+	Wed,  7 Sep 2022 15:59:40 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D36210E7BF
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 15:59:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662566368; x=1694102368;
+ t=1662566372; x=1694102372;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Iy/GwtvTwnOLfIT1uF2eHNyE186PGpbmZLR7bVd678Q=;
- b=NaOUXVT+8deBQEm0LX0FcpGPrbapZiXMsMqp/6TBw2KzYB+0hUXwhJy1
- +536YiOD3PYUzM5ihvHP60uRdENOf4vc7cNkfPw0PLbFZdJ8ff4CvOOcY
- xIhRarZjz8h0pjJadGTVAuCIDJOt0xuuHJufiCcwyyhuZM/wOYSf6SmGs
- JotYXDmHuufjkHx932jlFbj0HG2CYOtdmL6vzibUQC1qruSLwa/kxkue9
- HAB3e0g0v7t0aFuaEwD/9Ks3fsjAh4fKM2HijmXjoQaop/FNpB/6tQKxC
- i/9ub5RNIrvZ7kMuC58HWwC1ZlYSGLYJHxk9ZKAvTVSpY1qGIG5F2fvt8 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10463"; a="296916897"
-X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="296916897"
+ bh=2LoTcrDdIIjhQQzEoUzp6PWW1yQHSMcHmGudjZ75118=;
+ b=IqjNFZ99dP951dGUlXNqlNVYKjNFbie9MnwyvLFnuUz8XiBW8S83RkJ4
+ vg5f7ZuA2OIqOnUsK/MlBHaR0MsURh3rbCAGhGuyhaDLLx0jD+9bR0i4F
+ FPNUPfm+t6+gy/fZfH9MH9crUQ7LoJqSl4l7Mb2vy6fjRM+1M+UVApull
+ G1NuChHMNDxtLXD8oTedVn58vejoGonDRwGA6p7mL6K2Al4Lp9CoVQusQ
+ 2m/KKCaoQLS0E4ThPFqFCJH5uqvU4+6Fiic391D2h5Wszd3+7jXf7+6w8
+ vv+Zy4pK9Nj9elfOWbgRsU39H86f9u8XXqabpfBaKPwGD+VBPIKY89Ouy Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10463"; a="297701323"
+X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="297701323"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2022 08:58:53 -0700
-X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="676247614"
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2022 08:59:11 -0700
+X-IronPort-AV: E=Sophos;i="5.93,297,1654585200"; d="scan'208";a="676247865"
 Received: from twinkler-lnx.jer.intel.com ([10.12.87.143])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2022 08:58:49 -0700
+ 07 Sep 2022 08:59:07 -0700
 From: Tomas Winkler <tomas.winkler@intel.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Wed,  7 Sep 2022 18:58:00 +0300
-Message-Id: <20220907155813.1427526-4-tomas.winkler@intel.com>
+Date: Wed,  7 Sep 2022 18:58:04 +0300
+Message-Id: <20220907155813.1427526-8-tomas.winkler@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220907155813.1427526-1-tomas.winkler@intel.com>
 References: <20220907155813.1427526-1-tomas.winkler@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 03/16] mei: add slow_firmware flag to the mei
- auxiliary device
+Subject: [Intel-gfx] [PATCH v8 07/16] mei: gsc: wait for reset thread on stop
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,36 +63,38 @@ Cc: intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add slow_firmware flag to the mei auxiliary device info
-to inform the mei driver about slow underlying firmware.
-Such firmware will require to use larger operation timeouts.
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+
+Wait for reset work to complete before initiating
+stop reset flow sequence.
 
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- include/linux/mei_aux.h | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/misc/mei/init.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/mei_aux.h b/include/linux/mei_aux.h
-index a0cb587006d5..4894d8bf4159 100644
---- a/include/linux/mei_aux.h
-+++ b/include/linux/mei_aux.h
-@@ -12,11 +12,14 @@
-  * @aux_dev: - auxiliary device object
-  * @irq: interrupt driving the mei auxiliary device
-  * @bar: mmio resource bar reserved to mei auxiliary device
-+ * @slow_firmware: The device has slow underlying firmware.
-+ *                 Such firmware will require to use larger operation timeouts.
+diff --git a/drivers/misc/mei/init.c b/drivers/misc/mei/init.c
+index eb052005ca86..bc054baf496c 100644
+--- a/drivers/misc/mei/init.c
++++ b/drivers/misc/mei/init.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /*
+- * Copyright (c) 2012-2019, Intel Corporation. All rights reserved.
++ * Copyright (c) 2012-2022, Intel Corporation. All rights reserved.
+  * Intel Management Engine Interface (Intel MEI) Linux driver
   */
- struct mei_aux_device {
- 	struct auxiliary_device aux_dev;
- 	int irq;
- 	struct resource bar;
-+	bool slow_firmware;
- };
  
- #define auxiliary_dev_to_mei_aux_dev(auxiliary_dev) \
+@@ -320,6 +320,8 @@ void mei_stop(struct mei_device *dev)
+ 
+ 	mei_clear_interrupts(dev);
+ 	mei_synchronize_irq(dev);
++	/* to catch HW-initiated reset */
++	mei_cancel_work(dev);
+ 
+ 	mutex_lock(&dev->device_lock);
+ 
 -- 
 2.37.2
 
