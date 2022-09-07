@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 672C4ECAAD3
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 09:11:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB7D7ECAAD3
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Sep 2022 09:12:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CDC910E4AB;
-	Wed,  7 Sep 2022 09:11:37 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF5310E48C
- for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 09:11:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B4A310E490;
+	Wed,  7 Sep 2022 09:11:59 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E917D10E4A0
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Sep 2022 09:11:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662541886; x=1694077886;
+ t=1662541905; x=1694077905;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=z5MpD9gphBLC72GJYGXE8ff/wMlpFJZtU+s6AcQ+wB8=;
- b=cl49vJcZGe4LQxnleSF4No78U+75RQhjpiH8vlKmlT4z0iU50wqfdGlJ
- x/tBAv3eDxwbFqA28yDe0yxsNEb9TP5CcH02mpy4+v3jZDn2wOo0f7R/k
- g65a5ic7T8DlVbA29EoquYFeZfKUR+KWazhKQzrZXMLp5KMMM9lu7cwYp
- 6439EEoKmPt1SaPAB7fnG+rJNd1X1hpSiDSOtchcj1wQEiHP1G+eNkBy3
- 3jw/94z/afcShTzwvIydVZ6oami8sBObdm1HpzSWBAPZQZhjMFJZ9/UVH
- GNCZAad3kXczK8gMPuSX3xtl5FEhMB7AnKahonRsGIqPzjmdcRkrKXKkA w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="276562535"
-X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="276562535"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2022 02:11:25 -0700
+ bh=EbcvYY0O9mBTCYpJWtG4eNUsdr39HY7+8kRiILaAaGc=;
+ b=InQe18r89tGk7ClT0hWgFm6M1CbRRPMy7BkjYm1JKJMgT0EY1LZc3+i8
+ kWitZWCOhUW5jAvzC/ngMmMHzyF5FVsn/Y/rH6r2sU4ndDlyWbfQB6Avq
+ BNAouG/kEfQokJaQ6rIWitV/qgj5g+BDpXagkHZeTc0bxWvfJnFJm6Cg7
+ 5/ESRe49IEk05cuKx7QsiJZFb+6zrQy9gKLMyqqhm0M1aVe6Gg62g5PCU
+ 5b4tmy4RobQ5d78ErYvD9sVdVp6Lrad5d2Fknwm93Tt4pK5O79X/ofUW5
+ Rp6uiY+ga9O+0O5HW3P07AB6QFx262uDi0U2N4CA8pfum2Hiai45qjTwn Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10462"; a="383118277"
+X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="383118277"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2022 02:11:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="676093517"
+X-IronPort-AV: E=Sophos;i="5.93,296,1654585200"; d="scan'208";a="614416751"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga008.fm.intel.com with SMTP; 07 Sep 2022 02:11:23 -0700
+ by orsmga002.jf.intel.com with SMTP; 07 Sep 2022 02:11:42 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 07 Sep 2022 12:11:22 +0300
+ Wed, 07 Sep 2022 12:11:41 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  7 Sep 2022 12:10:48 +0300
-Message-Id: <20220907091057.11572-9-ville.syrjala@linux.intel.com>
+Date: Wed,  7 Sep 2022 12:10:54 +0300
+Message-Id: <20220907091057.11572-15-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220907091057.11572-1-ville.syrjala@linux.intel.com>
 References: <20220907091057.11572-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 08/17] drm/i915: Compute clocks earlier
+Subject: [Intel-gfx] [PATCH v4 14/17] drm/i915: Add
+ intel_panel_highest_mode()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,43 +65,62 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Do the DPLL computation before fastset checks. This should
-allow us to get rid of all that horrible fuzzy clock handling
-for fastsets. Who knows how many bugs there are caused by our
-state not actually matching what the hardware will generate.
+Add a function to get the fixed_mode with the highest clock.
+The plan is to use this for the link bw calculation on seamless
+DRRS panels so that we alwasy end up with the same link params
+regardless of the requested refresh rate. This will allow fastset
+to do seamless refresh rate changes based on userspace request
+instead of having to go for a full modeset.
+
+TODO: the function name isn't great
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_panel.c | 15 +++++++++++++++
+ drivers/gpu/drm/i915/display/intel_panel.h |  3 +++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 4e8d30ff998b..a532c4d640ad 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2690,6 +2690,10 @@ static int intel_crtc_compute_config(struct intel_atomic_state *state,
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	int ret;
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index d27a220def00..a3a3f9fe4342 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -114,6 +114,21 @@ intel_panel_downclock_mode(struct intel_connector *connector,
+ 	return best_mode;
+ }
  
-+	ret = intel_dpll_crtc_compute_clock(state, crtc);
-+	if (ret)
-+		return ret;
++const struct drm_display_mode *
++intel_panel_highest_mode(struct intel_connector *connector,
++			 const struct drm_display_mode *adjusted_mode)
++{
++	const struct drm_display_mode *fixed_mode, *best_mode = adjusted_mode;
 +
- 	ret = intel_crtc_compute_pipe_src(crtc_state);
- 	if (ret)
- 		return ret;
-@@ -6894,10 +6898,6 @@ static int intel_atomic_check(struct drm_device *dev,
- 		if (intel_crtc_needs_modeset(new_crtc_state)) {
- 			any_ms = true;
- 
--			ret = intel_dpll_crtc_compute_clock(state, crtc);
--			if (ret)
--				goto fail;
--
- 			intel_release_shared_dplls(state, crtc);
- 			continue;
- 		}
++	/* pick the fixed_mode that has the highest clock */
++	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
++		if (fixed_mode->clock > best_mode->clock)
++			best_mode = fixed_mode;
++	}
++
++	return best_mode;
++}
++
+ int intel_panel_get_modes(struct intel_connector *connector)
+ {
+ 	const struct drm_display_mode *fixed_mode;
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
+index b087c0c3cc6d..eff3ffd3d082 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.h
++++ b/drivers/gpu/drm/i915/display/intel_panel.h
+@@ -31,6 +31,9 @@ intel_panel_fixed_mode(struct intel_connector *connector,
+ const struct drm_display_mode *
+ intel_panel_downclock_mode(struct intel_connector *connector,
+ 			   const struct drm_display_mode *adjusted_mode);
++const struct drm_display_mode *
++intel_panel_highest_mode(struct intel_connector *connector,
++			 const struct drm_display_mode *adjusted_mode);
+ int intel_panel_get_modes(struct intel_connector *connector);
+ enum drrs_type intel_panel_drrs_type(struct intel_connector *connector);
+ enum drm_mode_status
 -- 
 2.35.1
 
