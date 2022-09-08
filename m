@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29F20C6FA83
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BACAAC6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 350C310E4A0;
-	Mon, 12 Sep 2022 13:38:11 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD1F410E36D;
- Wed,  7 Sep 2022 06:48:07 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id y3so28232401ejc.1;
- Tue, 06 Sep 2022 23:48:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E857610E4BA;
+	Mon, 12 Sep 2022 13:38:12 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE7B810E9BB;
+ Thu,  8 Sep 2022 09:09:53 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id t5so23289408edc.11;
+ Thu, 08 Sep 2022 02:09:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=BVuk17Av+bi2jPnkL9wfgDXhvd64IxzBdo6fgEYGs04=;
- b=l+Ix4zgCkeWJQbwso5ymf9RKOOdyJP++7E7Hn7qNe8++KSvt+whxkZnLOMrQDs0DOx
- 8Bnxfj3DRwnWqEyzdSyphQxdWMFT3V9Qs7b/tDHbUlIorwV6gri3bErqpuPWekLHhOlc
- 95QccTtWJAE1QfDqOjrgxBl7o3tHfz3Xov6eefmcjs15qr03X6yCbHQUZzOjBwtnJ2Ce
- v3MSn5FI8PTpUV7LwrFWYTCWsHEzEAT0OYOVxybHCEP0lYHSssUuWNBoYyY5Iuisb3F8
- v4ZMnm1GSBiSXQSM4x8txzQJ+vXfmqGl5JiI3TvxUzzycXJ69jn0CXTzpi52Mui/bNAT
- qL5g==
+ bh=lIbJZPrjKHbLawmYplyVNe7T2V7IAHLU3wOIAk3SPCY=;
+ b=RT+flP0e20Rx7yTxlmK9baTqcO82+tmfKOPfqBKdIRim1kuv2l5wG7AvUxae21EMrY
+ aPM3rLDM1YwhXFHONho8nS/0Ht2/vT6JQoosjBPJ7O8E8/1s+aEOhswoX5qNJJ/+1uBW
+ wDFjxZPtUi7ntvzOZokxfF1DhhsWJZwj4IpQdHMwteY37NIGSCmVecKvBKqSE3l0Cxnc
+ PgVv7aSHWME2t/yil0Kh6zQQ7fDmF5iGtbw7jZtdYWWLAD9xElcto3OZ76NCRCApSXnJ
+ oG6Vym5ika/fBRsJHYmEVbs9/gwbAgLSzOf5V5aRHq/a/Kp+91DiWZQ7jZ4ZBCuf9PR5
+ AN+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date;
- bh=BVuk17Av+bi2jPnkL9wfgDXhvd64IxzBdo6fgEYGs04=;
- b=DqR3UPlSu/sIgY8//WzwsQOA6chppVmmmP1KmzrmRaknkFW4pS9flIwCR4WEHMhuAQ
- JEtsX61oMPUy286E/vquHZd88QrWTt4pZp7Z7SgnWlhYdGTYrbO9QjcOJ5nh3LolQepM
- tZieL0qdjvPa/JZRTgMws5EvwZVy4pD/3PlJYCJv+GYUkU6bzJ8uFJ+d8IoxPc+xahGf
- Uh4gso6XfeLSW5lGfXA7P8obfMOvqVpY0m4nAX9mQBLRijJDL673B2uv5s0iDqE2Dkd2
- pUxtj7JTOTY7cw0xLwCLyP2v1vq31ifLwWF8XDLfOHt7SYK/9koz90VuS3ehG9ruXhal
- tCZQ==
-X-Gm-Message-State: ACgBeo2r1VLlCUNbN5F05A1mZr8ctEJMXGNwwJ1IBX5FywiCzHgaaVzJ
- IfX+BKfux/VIriIH8AVqzxudk7vylSlmVH2jPHE=
-X-Google-Smtp-Source: AA6agR5oNcJ4xiLosx9c+PBGIQP4JwyWHajAGIDrk+o8018ZQ2ZLnOx2wULEGsptfZkH/pKAB98ijFHADY5kXzED1SI=
-X-Received: by 2002:a17:907:6d16:b0:731:17b5:699 with SMTP id
- sa22-20020a1709076d1600b0073117b50699mr1428930ejc.23.1662533286189; Tue, 06
- Sep 2022 23:48:06 -0700 (PDT)
+ bh=lIbJZPrjKHbLawmYplyVNe7T2V7IAHLU3wOIAk3SPCY=;
+ b=vHaYjm0hYavoxq+k5KkTZaNBodbxGgmGJQKhujAKOHqRa3tPQ8VsNlxebdtG5zHh5s
+ kKPPV04lXij03u1x7bCf2u31MBbOr52TBI+xZlrh8aSCRIjaQGisUPuCoKZzzw3XIbB7
+ 19zacKoVslVBi1GMp/fHy7LwCVrf2rW9x5df+eh1xwGekJ+BZ8TFFrJmRYq/lKholHH1
+ ToEJjbROY9AgY/6Xyk1NmX7v0S41Zen+n4BKmYK65hmgmnEwvRJF+9z+ol0ZM//NNZUg
+ CpNFo6nn6mvRPTd6GrS813onSCb5TzQ80FbkozhhYbfC+L9P3C0vORnwBck6LMSh9Mc1
+ 2qcw==
+X-Gm-Message-State: ACgBeo2qSspVvaylUxUM48pP4c16eo3IhzN/Wh85uK8REwdQYrcsScot
+ skTef7mfF8dSUy+I1e8+Wybu3iWcVs7kqHOmQt8=
+X-Google-Smtp-Source: AA6agR4rF+e76GoR10h7poG0rnV0jc8VwRLn3xcHPhyxPnOYp5ls2vp7gGVf1IgI4ex50/LcAbEdsgjEEJYKKK4evkE=
+X-Received: by 2002:aa7:df87:0:b0:44e:2851:7e8d with SMTP id
+ b7-20020aa7df87000000b0044e28517e8dmr6390046edy.106.1662628192118; Thu, 08
+ Sep 2022 02:09:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
  <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
@@ -53,8 +53,8 @@ References: <tencent_E1BBF05904DFB73C478DCD592740AAE0780A@qq.com>
  <20220907030754.GU1089@zhen-hp.sh.intel.com>
 In-Reply-To: <20220907030754.GU1089@zhen-hp.sh.intel.com>
 From: Zheng Hacker <hackerzheng666@gmail.com>
-Date: Wed, 7 Sep 2022 14:47:54 +0800
-Message-ID: <CAJedcCwPKT8Zj8aPmXz=M3zG+xvCzyo4OspaPp4-LY+DgTfteA@mail.gmail.com>
+Date: Thu, 8 Sep 2022 17:09:40 +0800
+Message-ID: <CAJedcCxO_Rq0qMeLiHtY5+FuN1A1pDGsZd3gMtvUpm1xbAK3aA@mail.gmail.com>
 To: Zhenyu Wang <zhenyuw@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -83,23 +83,14 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Hi Zhenyu,
 
-Very glad for your reply. I agree that the bug is hard to trigger in
-userspace. But it is possible to happen in some specific scene. For
-example, if calling pfn_valid failed, the bug will be triggered. And
-it did happened as the [1] commit description illustrates.
-
-As for the patch, I think your plan is the best. We need to free the
-spt only in bad case.
-
-[1] https://github.com/torvalds/linux/commit/39b4cbadb9a95bf3f13ea102d6ec84=
-1940916ee2
+This issue has been open for a few days. Could you plz write a patch
+for that :) I'm not familiar with the logical code here.
 
 Regards,
 Zheng Wang
 
 Zhenyu Wang <zhenyuw@linux.intel.com> =E4=BA=8E2022=E5=B9=B49=E6=9C=887=E6=
 =97=A5=E5=91=A8=E4=B8=89 11:33=E5=86=99=E9=81=93=EF=BC=9A
-
 >
 > On 2022.09.06 19:36:56 +0800, Zheng Hacker wrote:
 > > Hi Greg,
