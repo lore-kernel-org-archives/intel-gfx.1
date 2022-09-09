@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 603BCC6FA89
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:38:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E3AECAAD3
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:38:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90FE310EC3F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84A7F10EC3E;
 	Fri,  9 Sep 2022 07:35:52 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7119C10EC00;
- Fri,  9 Sep 2022 07:34:59 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BF5710EC01;
+ Fri,  9 Sep 2022 07:35:00 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C363761F1D;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 947CEB82386;
  Fri,  9 Sep 2022 07:34:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5929DC43140;
- Fri,  9 Sep 2022 07:34:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BFDDC4314E;
+ Fri,  9 Sep 2022 07:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662708895;
- bh=LEEwLA3HnTZzfr9zSHnNeeHw98aU6/L5pK0OTNVwtts=;
+ s=k20201202; t=1662708894;
+ bh=kq+lyxbbDmby+IrOOuNakMyWg5dejrvPtASXMVHDoeg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=f7UGACSNbEtGu64yyT3G5y2LBC1n7hfW6Ujyc55KReD5ZTT/nOqEfjXURmybSPY3k
- AWF85KCDB5yLRHpEbhFvLwFJ2e767UOC4m6n8DRfjr00HAB41wkMXhnS9Z2ojMmC6D
- J0bZl/hCJfJYQGBgyGmLLkx3vn8hgJg3mNuUXHpq/kY524pHPi3+JOpcKxqvFr0zLk
- bZWTaEwhP9I6Wz1qi+6POuyC9AsQWI/fmS4oW1KYHjOwN//HzVFUdcLDB6GCUCMgJY
- yNJCHPeoPwHEI2fqjdYI/hYDAwmQ+sk+iLKCVTartfAwYj1AI+wZgFO01L2yA73wG3
- Cq1Q1UDLHGluA==
+ b=mQUwpDpqNpynKR2WFztM6f2/85fkEZf1uSmTET4mttU9Qjp60lQsmpbuHT55TANPx
+ GlF0HmaQmG4O9LUAVju5grZu3E8hCtikmN+13N+oBTvR1mfROF+OteRnvZD8iOOE2H
+ /goI6dUN+2zX4l8Nci7KQU0WdfHwvxL6VO3xkGSqUBrHqjPNd37u4P9NUM4TJc678Q
+ tyiWmBGawcacplt4caX30YBZMeRAuTEnOVbeKbSz9Xp49q/rKbLrJ+fEVMwyPCbwDv
+ ZQ+URXa5ArI3vvIbPKHvH2VR0r+FiTWkaDPcMJIgiMtp8rSvmzLJIAWvNCg4uCHDIZ
+ /DzDMuSNb4R5w==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oWYXH-007FHb-Cz;
- Fri, 09 Sep 2022 09:34:47 +0200
+ (envelope-from <mchehab@kernel.org>) id 1oWYXG-007FGF-3C;
+ Fri, 09 Sep 2022 09:34:46 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Fri,  9 Sep 2022 09:34:38 +0200
-Message-Id: <6b781d1506f1ac63869b0274893656ed5ba0e620.1662708705.git.mchehab@kernel.org>
+Date: Fri,  9 Sep 2022 09:34:17 +0200
+Message-Id: <68f62ba4393bffb40ffdeb2cb3ef1eed9bff1b5d.1662708705.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
 References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 31/37] docs: gpu: i915.rst: GEM/TTM: add more
- kernel-doc markups
+Subject: [Intel-gfx] [PATCH v3 10/37] drm/i915: i915_gpu_error.c: document
+ dump_flags
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,19 +56,19 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are several documented GEM/TTM kAPI that aren't currently part
-of the docs. Add them, as this allows identifying issues with
-badly-formatted tags.
+Kernel-doc dump_flags parameter is missing at i915_capture_error_state().
+Document it.
 
+Fixes: a6f0f9cf330a ("drm/i915/guc: Plumb GuC-capture into gpu_coredump")
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
@@ -76,58 +76,23 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
- Documentation/gpu/i915.rst | 38 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ drivers/gpu/drm/i915/i915_gpu_error.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index 4ce04a457ccc..545fe630557a 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -612,6 +612,44 @@ Protected Objects
- 
- .. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp_types.h
- 
-+Table Manager (TTM)
-+-------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+
-+Graphics Execution Manager (GEM)
-+--------------------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_create.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_domain.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_internal.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_lmem.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_object.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_object.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_object_types.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_region.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_region.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_wait.c
-+
- Microcontrollers
- ================
- 
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 9ea2fe34e7d3..c2350284f221 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -2148,7 +2148,8 @@ void i915_error_state_store(struct i915_gpu_coredump *error)
+  * i915_capture_error_state - capture an error record for later analysis
+  * @gt: intel_gt which originated the hang
+  * @engine_mask: hung engines
+- *
++ * @dump_flags: bitmap flags. When %CORE_DUMP_FLAG_IS_GUC_CAPTURE is used,
++ *	dump engine record registers and execlists.
+  *
+  * Should be called when an error is detected (either a hang or an error
+  * interrupt) to capture error state from the time of the error.  Fills
 -- 
 2.37.3
 
