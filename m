@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AA66C54EE9
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 03:05:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FD42ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 03:05:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D3510EA2D;
-	Fri,  9 Sep 2022 03:05:10 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C328310EA1E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D5A710E226;
+	Fri,  9 Sep 2022 03:05:15 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6CDA10E2EE;
  Fri,  9 Sep 2022 03:05:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1662692703; x=1694228703;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1Twck9BA6OHNULTPl1B/ow9Z+KAQ9ZqcK5vq27ZI7Z0=;
- b=e9CD+VI2DVlW4RE98clwsgYM+EULqfNZyj17gOZylH5FDGuNzkQKw6uZ
- UztueW95Dw6huXSFGs85KEWAI3oA1cgFU0gtMC2lw2wpAEZHNoWwAXqG9
- p1g2/DWXh3GoVgf4lRYvKU5E+i27f96fq0n4eoeEqKkFKwRle3Q+YWKnR
- xgg/15bP/ef8tcY8e9O+sBY7+ZKufpKUZ7jW4kL/di6g0KEm64jUGUwNW
- W+fJL5zT1DliXwMN3M8ewW2kd5PTdM8z2Ut862zZabYg1h1AGckGeLDKO
- FagVuXIOSHV8Dy209Jf+wMGgWEIll93Mqz9YFkgxOQVt50NimbVOMnaHH g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="277116701"
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="277116701"
+ bh=+yssjGnk2Zp3MQF/9zrQ2m7m/7YA8Wye4MlvVDEJ0Mk=;
+ b=Gha9aL4LXuMdiVX5vfE46y+O8fbZiIyi+fx8FkOGTS1LUIfoaC+7hCmV
+ OEECZWrgMKZZZ1rVW3qrLEtJDeERcITmJ+R62aJmjONzum7ZA92jcA58o
+ dKWTRYaDdu2JyVlIi6QlWcjTZjjAdCh5isCZ1uhVXBXibOwvHX6x9o3q7
+ boEc1n4pA5JZ7a53go2XjWQwQs/e8BZiP3z/mfNJqSSprPyGrZdrLOIEC
+ hbcDs4v7OdRB3Pg18l1qLb50Ngl6CVbPNY+gVdLz86+0oarqFhf9VtQ1E
+ X9u53XX1by+Hcwb6nJ+OnjKoDXgLTNrxyJ6Rj7MB68MU+HtdYY9IBkLHo A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="280409963"
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="280409963"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2022 20:05:00 -0700
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2022 20:04:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="740909141"
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="740908636"
 Received: from sqa-gate.sh.intel.com (HELO michael.clx.dev.tsp.org)
  ([10.239.48.212])
- by orsmga004.jf.intel.com with ESMTP; 08 Sep 2022 20:04:50 -0700
+ by orsmga004.jf.intel.com with ESMTP; 08 Sep 2022 20:03:54 -0700
 From: Kevin Tian <kevin.tian@intel.com>
 To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -62,15 +62,15 @@ To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, kvm@vger.kernel.org
-Date: Fri,  9 Sep 2022 18:22:41 +0800
-Message-Id: <20220909102247.67324-10-kevin.tian@intel.com>
+Date: Fri,  9 Sep 2022 18:22:35 +0800
+Message-Id: <20220909102247.67324-4-kevin.tian@intel.com>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20220909102247.67324-1-kevin.tian@intel.com>
 References: <20220909102247.67324-1-kevin.tian@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 09/15] vfio/ap: Use the new device life cycle
- helpers
+Subject: [Intel-gfx] [PATCH v3 03/15] vfio/mlx5: Use the new device life
+ cycle helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,116 +89,97 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Yi Liu <yi.l.liu@intel.com>
 
-and manage available_instances inside @init/@release.
+mlx5 has its own @init/@release for handling migration cap.
 
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 Signed-off-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Tony Krowiak <akrowiak@linux.ibm.com>
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/s390/crypto/vfio_ap_ops.c | 50 ++++++++++++++++++-------------
- 1 file changed, 29 insertions(+), 21 deletions(-)
+ drivers/vfio/pci/mlx5/main.c | 50 ++++++++++++++++++++++++++----------
+ 1 file changed, 36 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index 6c8c41fac4e1..803aadfd0876 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -684,42 +684,44 @@ static bool vfio_ap_mdev_filter_matrix(unsigned long *apm, unsigned long *aqm,
- 			     AP_DOMAINS);
- }
+diff --git a/drivers/vfio/pci/mlx5/main.c b/drivers/vfio/pci/mlx5/main.c
+index 759a5f5f7b3f..fd6ccb8454a2 100644
+--- a/drivers/vfio/pci/mlx5/main.c
++++ b/drivers/vfio/pci/mlx5/main.c
+@@ -585,8 +585,35 @@ static const struct vfio_log_ops mlx5vf_pci_log_ops = {
+ 	.log_read_and_clear = mlx5vf_tracker_read_and_clear,
+ };
  
--static int vfio_ap_mdev_probe(struct mdev_device *mdev)
-+static int vfio_ap_mdev_init_dev(struct vfio_device *vdev)
- {
--	struct ap_matrix_mdev *matrix_mdev;
--	int ret;
-+	struct ap_matrix_mdev *matrix_mdev =
-+		container_of(vdev, struct ap_matrix_mdev, vdev);
- 
- 	if ((atomic_dec_if_positive(&matrix_dev->available_instances) < 0))
- 		return -EPERM;
- 
--	matrix_mdev = kzalloc(sizeof(*matrix_mdev), GFP_KERNEL);
--	if (!matrix_mdev) {
--		ret = -ENOMEM;
--		goto err_dec_available;
--	}
--	vfio_init_group_dev(&matrix_mdev->vdev, &mdev->dev,
--			    &vfio_ap_matrix_dev_ops);
--
--	matrix_mdev->mdev = mdev;
-+	matrix_mdev->mdev = to_mdev_device(vdev->dev);
- 	vfio_ap_matrix_init(&matrix_dev->info, &matrix_mdev->matrix);
- 	matrix_mdev->pqap_hook = handle_pqap;
- 	vfio_ap_matrix_init(&matrix_dev->info, &matrix_mdev->shadow_apcb);
- 	hash_init(matrix_mdev->qtable.queues);
- 
++static int mlx5vf_pci_init_dev(struct vfio_device *core_vdev)
++{
++	struct mlx5vf_pci_core_device *mvdev = container_of(core_vdev,
++			struct mlx5vf_pci_core_device, core_device.vdev);
++	int ret;
++
++	ret = vfio_pci_core_init_dev(core_vdev);
++	if (ret)
++		return ret;
++
++	mlx5vf_cmd_set_migratable(mvdev, &mlx5vf_pci_mig_ops,
++				  &mlx5vf_pci_log_ops);
++
 +	return 0;
 +}
 +
-+static int vfio_ap_mdev_probe(struct mdev_device *mdev)
++static void mlx5vf_pci_release_dev(struct vfio_device *core_vdev)
 +{
-+	struct ap_matrix_mdev *matrix_mdev;
-+	int ret;
++	struct mlx5vf_pci_core_device *mvdev = container_of(core_vdev,
++			struct mlx5vf_pci_core_device, core_device.vdev);
 +
-+	matrix_mdev = vfio_alloc_device(ap_matrix_mdev, vdev, &mdev->dev,
-+					&vfio_ap_matrix_dev_ops);
-+	if (IS_ERR(matrix_mdev))
-+		return PTR_ERR(matrix_mdev);
++	mlx5vf_cmd_remove_migratable(mvdev);
++	vfio_pci_core_release_dev(core_vdev);
++}
 +
- 	ret = vfio_register_emulated_iommu_dev(&matrix_mdev->vdev);
+ static const struct vfio_device_ops mlx5vf_pci_ops = {
+ 	.name = "mlx5-vfio-pci",
++	.init = mlx5vf_pci_init_dev,
++	.release = mlx5vf_pci_release_dev,
+ 	.open_device = mlx5vf_pci_open_device,
+ 	.close_device = mlx5vf_pci_close_device,
+ 	.ioctl = vfio_pci_core_ioctl,
+@@ -604,22 +631,19 @@ static int mlx5vf_pci_probe(struct pci_dev *pdev,
+ 	struct mlx5vf_pci_core_device *mvdev;
+ 	int ret;
+ 
+-	mvdev = kzalloc(sizeof(*mvdev), GFP_KERNEL);
+-	if (!mvdev)
+-		return -ENOMEM;
+-	vfio_pci_core_init_device(&mvdev->core_device, pdev, &mlx5vf_pci_ops);
+-	mlx5vf_cmd_set_migratable(mvdev, &mlx5vf_pci_mig_ops,
+-				  &mlx5vf_pci_log_ops);
++	mvdev = vfio_alloc_device(mlx5vf_pci_core_device, core_device.vdev,
++				  &pdev->dev, &mlx5vf_pci_ops);
++	if (IS_ERR(mvdev))
++		return PTR_ERR(mvdev);
++
+ 	dev_set_drvdata(&pdev->dev, &mvdev->core_device);
+ 	ret = vfio_pci_core_register_device(&mvdev->core_device);
  	if (ret)
--		goto err_list;
-+		goto err_put_vdev;
- 	dev_set_drvdata(&mdev->dev, matrix_mdev);
- 	mutex_lock(&matrix_dev->mdevs_lock);
- 	list_add(&matrix_mdev->node, &matrix_dev->mdev_list);
- 	mutex_unlock(&matrix_dev->mdevs_lock);
+-		goto out_free;
++		goto out_put_vdev;
  	return 0;
  
--err_list:
--	vfio_uninit_group_dev(&matrix_mdev->vdev);
--	kfree(matrix_mdev);
--err_dec_available:
--	atomic_inc(&matrix_dev->available_instances);
-+err_put_vdev:
-+	vfio_put_device(&matrix_mdev->vdev);
+-out_free:
+-	mlx5vf_cmd_remove_migratable(mvdev);
+-	vfio_pci_core_uninit_device(&mvdev->core_device);
+-	kfree(mvdev);
++out_put_vdev:
++	vfio_put_device(&mvdev->core_device.vdev);
  	return ret;
  }
  
-@@ -766,6 +768,12 @@ static void vfio_ap_mdev_unlink_fr_queues(struct ap_matrix_mdev *matrix_mdev)
- 	}
+@@ -628,9 +652,7 @@ static void mlx5vf_pci_remove(struct pci_dev *pdev)
+ 	struct mlx5vf_pci_core_device *mvdev = mlx5vf_drvdata(pdev);
+ 
+ 	vfio_pci_core_unregister_device(&mvdev->core_device);
+-	mlx5vf_cmd_remove_migratable(mvdev);
+-	vfio_pci_core_uninit_device(&mvdev->core_device);
+-	kfree(mvdev);
++	vfio_put_device(&mvdev->core_device.vdev);
  }
  
-+static void vfio_ap_mdev_release_dev(struct vfio_device *vdev)
-+{
-+	vfio_free_device(vdev);
-+	atomic_inc(&matrix_dev->available_instances);
-+}
-+
- static void vfio_ap_mdev_remove(struct mdev_device *mdev)
- {
- 	struct ap_matrix_mdev *matrix_mdev = dev_get_drvdata(&mdev->dev);
-@@ -779,9 +787,7 @@ static void vfio_ap_mdev_remove(struct mdev_device *mdev)
- 	list_del(&matrix_mdev->node);
- 	mutex_unlock(&matrix_dev->mdevs_lock);
- 	mutex_unlock(&matrix_dev->guests_lock);
--	vfio_uninit_group_dev(&matrix_mdev->vdev);
--	kfree(matrix_mdev);
--	atomic_inc(&matrix_dev->available_instances);
-+	vfio_put_device(&matrix_mdev->vdev);
- }
- 
- static ssize_t name_show(struct mdev_type *mtype,
-@@ -1794,6 +1800,8 @@ static const struct attribute_group vfio_queue_attr_group = {
- };
- 
- static const struct vfio_device_ops vfio_ap_matrix_dev_ops = {
-+	.init = vfio_ap_mdev_init_dev,
-+	.release = vfio_ap_mdev_release_dev,
- 	.open_device = vfio_ap_mdev_open_device,
- 	.close_device = vfio_ap_mdev_close_device,
- 	.ioctl = vfio_ap_mdev_ioctl,
+ static const struct pci_device_id mlx5vf_pci_table[] = {
 -- 
 2.21.3
 
