@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6308FECAAD3
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:35:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 119C7ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:35:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB3A610EBF1;
-	Fri,  9 Sep 2022 07:34:59 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDF010EBEC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 590C510EBED;
+	Fri,  9 Sep 2022 07:35:01 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7C4610EBED;
  Fri,  9 Sep 2022 07:34:55 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 02B9861EDC;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2BCAD61EDB;
  Fri,  9 Sep 2022 07:34:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0070C43141;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51D1C43145;
  Fri,  9 Sep 2022 07:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1662708893;
- bh=2PT4bPREhrbF+AiByaJTTdJleitJm880geBkmK8/S7M=;
+ bh=0yDdul4ArmI1gn4+c8wJwKXVW2KLD89n35VfLmfAXes=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=r2gljyZ6GsQGljtEgR2NW0M5K7f4uzuO36jv0DkaEjmLUs6KPkXKE6nvocv/yeCP2
- keZeb9G7o1ZAB+Vxzf0ScDL4reOJKyeoxXOJJrMhwEIwY2SEuvroqsbN/SgZbvHdJD
- 0mVvgKpZxtfR+I75fakZ0umXZsKwuuaLKZF72UQMgcAQzgetx45vvmOp5Pcj/Ba7T1
- q5CP1sDTEUcbWcAdbatdhT5gly1gjtAGJ4MLu+7xI9Zlu83iVuw/Dmp69iOIAvvGZ8
- hiy0LXzUT5glFeLG4CP5S1dC4ixtFJ9OCAoeDnqMPOBzR38mfWk6vmKTzctpaHCaa+
- 4u1MovExF851g==
+ b=qKiTUO246Oprx6Kx6epvFKbjnmPJx7i1nxc+xp65WIWHc5b7qvO9F6siqz+NjJfSy
+ bdTAGPMjSQMBsb55u1Av8xlkadly6+5OI7VhkKRyNQstrf5AAus7zGCSy1SxWJAT00
+ GArg/Bbl7Oy50LC1yGzgD/4Tc6pVM5FAwG8yU5fmBFvd5/0QhNWRpBnmZ+tg4N3rV9
+ rLHJZt6h8BL/CGMVoIho94kzq45kW+wTmMaTe52BEilLlO57xqDIxWISMOX5zEsN0c
+ s0ZFtPEmgJB0kRmBhK8OGVuikaFER0ZHW6SY6LY7JEECcCF6z7RNWc0q45euhV6rFt
+ RAsCWl6KswcVA==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oWYXF-007FFz-RN;
+ (envelope-from <mchehab@kernel.org>) id 1oWYXF-007FG7-Ut;
  Fri, 09 Sep 2022 09:34:45 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Fri,  9 Sep 2022 09:34:13 +0200
-Message-Id: <47ab1115766067abbb168d082d875a00261c19e1.1662708705.git.mchehab@kernel.org>
+Date: Fri,  9 Sep 2022 09:34:15 +0200
+Message-Id: <0895b600a6c32c598564cd0fa8566efd42038ce7.1662708705.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
 References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 06/37] drm/i915: intel_wakeref.h: fix some
+Subject: [Intel-gfx] [PATCH v3 08/37] drm/i915: i915_gem_ttm_pm.c: fix
  kernel-doc markups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,22 +56,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Matthew Auld <matthew.auld@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Two documented functions don't match the kernel-doc comments,
-as reported by kernel-doc:
+The documentation for the flags field is missing there. It sounds
+that some last-time change converted some bools into flags, but
+the kernel-doc change didn't follow it.
 
-	drivers/gpu/drm/i915/intel_wakeref.h:117: warning: expecting prototype for intel_wakeref_get_if_in_use(). Prototype was for intel_wakeref_get_if_active() instead
-	drivers/gpu/drm/i915/intel_wakeref.h:149: warning: expecting prototype for intel_wakeref_put_flags(). Prototype was for __intel_wakeref_put() instead
+Fix those warnings:
 
-Fix them.
-
-Additionally, improve title for intel_wakeref_get_if_active().
+	drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c:135: warning: Function parameter or member 'flags' not described in 'i915_ttm_backup_region'
+	drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c:135: warning: Excess function parameter 'allow_gpu' description in 'i915_ttm_backup_region'
+	drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c:135: warning: Excess function parameter 'backup_pinned' description in 'i915_ttm_backup_region'
+	drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c:199: warning: Function parameter or member 'flags' not described in 'i915_ttm_restore_region'
+	drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c:199: warning: Excess function parameter 'allow_gpu' description in 'i915_ttm_restore_region'
 
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -79,31 +85,35 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/intel_wakeref.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_wakeref.h b/drivers/gpu/drm/i915/intel_wakeref.h
-index 4f4c2e15e736..63e539c9b1f3 100644
---- a/drivers/gpu/drm/i915/intel_wakeref.h
-+++ b/drivers/gpu/drm/i915/intel_wakeref.h
-@@ -104,7 +104,7 @@ __intel_wakeref_get(struct intel_wakeref *wf)
- }
- 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+index 07e49f22f2de..03256ebbeb5f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+@@ -128,8 +128,9 @@ void i915_ttm_recover_region(struct intel_memory_region *mr)
  /**
-- * intel_wakeref_get_if_in_use: Acquire the wakeref
-+ * intel_wakeref_get_if_active: Acquire the wakeref if active
-  * @wf: the wakeref
+  * i915_ttm_backup_region - Back up all objects of a region to smem.
+  * @mr: The memory region
+- * @allow_gpu: Whether to allow the gpu blitter for this backup.
+- * @backup_pinned: Backup also pinned objects.
++ * @flags: Bitmap field with the following flags:
++ *	%I915_TTM_BACKUP_ALLOW_GPU: allow the gpu blitter for this backup;
++ *	%I915_TTM_BACKUP_PINNED: backup also pinned objects.
   *
-  * Acquire a hold on the wakeref, but only if the wakeref is already
-@@ -130,7 +130,7 @@ intel_wakeref_might_get(struct intel_wakeref *wf)
- }
- 
+  * Loops over all objects of a region and either evicts them if they are
+  * evictable or backs them up using a backup object if they are pinned.
+@@ -193,7 +194,8 @@ static int i915_ttm_restore(struct i915_gem_apply_to_region *apply,
  /**
-- * intel_wakeref_put_flags: Release the wakeref
-+ * __intel_wakeref_put: Release the wakeref
-  * @wf: the wakeref
-  * @flags: control flags
+  * i915_ttm_restore_region - Restore backed-up objects of a region from smem.
+  * @mr: The memory region
+- * @allow_gpu: Whether to allow the gpu blitter to recover.
++ * @flags: Bitmap field with the following flags:
++ *	%I915_TTM_BACKUP_ALLOW_GPU: allow the gpu blitter for this backup;
   *
+  * Loops over all objects of a region and if they are backed-up, restores
+  * them from smem.
 -- 
 2.37.3
 
