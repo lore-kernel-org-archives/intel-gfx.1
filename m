@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25885ECAAD3
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:36:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F624C6FA89
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 003C310EC05;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA97B10EC04;
 	Fri,  9 Sep 2022 07:35:23 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B74E010EBF3;
- Fri,  9 Sep 2022 07:34:56 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06F5010EBFE;
+ Fri,  9 Sep 2022 07:34:59 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0EB3EB82369;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5DC9861F13;
+ Fri,  9 Sep 2022 07:34:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08182C4167A;
  Fri,  9 Sep 2022 07:34:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1200C433B5;
- Fri,  9 Sep 2022 07:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662708893;
- bh=7szzPgo5Al1vbp9b/g58tIrvIpeiqSElER3UxBNNgG0=;
+ s=k20201202; t=1662708895;
+ bh=hzUkiXC8poEW7PSNZ3y+1t01Krzj3+KpWCjMfiGyzFg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FYRM/uY0B5J5WSyiu09kxfg4/rSwbMKyeMMSdmmjZFXASo8YOWBwR1Q/viuMHNScB
- qlobC3vWzcLuhVSjqjzVU0PyuvfHmgW9zg9AJM7+oz0HEKAFnXHMsvIA/duT3bRmx7
- 6aPRlKrTvWWdw0cVgB/hE9d+q3fi/6SDSF8bBaXVQw/ZTdZPM0GJzLMm9NXcA+q8bj
- kokNZmHZ5aPSDy40uvY+O1UW0hdF7k3zLAGKw27mvuCfbnf5WmFpPmQGx6VuWv4C0u
- gGSlqeh3Q8gTl5rieeqRdGeUJYoURJiwzIAKjv6qHAhqvxdlSJS8hRs1wEAL8AQI7C
- M9/CCU/cjlRqA==
+ b=RrTp5RRjPFsW8KobeSqOT3qCsDklniuWOO3RlcN6JfhP1GTxLqLH/OKoed8eTiw2R
+ K2Q9jYA0ADLd0npLp+ph23TF5zPRaSzPqoGGXYN2r7fKrFGRwEN1pAA3UqU/8ggEOu
+ SVRX+foBR3AmbluFMwkehtrAjLCmiUCPU6mEQd/QHT1YpDQJ+kaPZFo4lkcnlz4yHF
+ luluW5YioSvX0k1uCw2jN+h3an+EQ6nqpWlEAZ0n1azlv7clkq0usC0cUmR1rg+fQ4
+ 6dMu7HJJ49MIYuYQhVgl7UBZ/Pawxqwb71D3DJXk7yUUUkDBjJNWq5qNc/JB6qfVeE
+ 44bHtOXqAKHHw==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oWYXF-007FFi-L3;
- Fri, 09 Sep 2022 09:34:45 +0200
+ (envelope-from <mchehab@kernel.org>) id 1oWYXH-007FHD-0n;
+ Fri, 09 Sep 2022 09:34:47 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Fri,  9 Sep 2022 09:34:09 +0200
-Message-Id: <7e3429ae63900ede4ac2c95f281e2e0221e6946f.1662708705.git.mchehab@kernel.org>
+Date: Fri,  9 Sep 2022 09:34:32 +0200
+Message-Id: <5289f6f591addc53604d35872bcc32d5fadf0a69.1662708705.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
 References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 02/37] drm/i915: display: fix kernel-doc
- markup warnings
+Subject: [Intel-gfx] [PATCH v3 25/37] drm/i915: i915_deps: use a shorter
+ title markup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,24 +56,17 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- Sean Paul <seanpaul@chromium.org>, Fernando Ramos <greenfoo@u92.eu>,
- Daniel Vetter <daniel@ffwll.ch>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are a couple of issues at i915 display kernel-doc markups:
-
-	drivers/gpu/drm/i915/display/intel_display_debugfs.c:2238: warning: Function parameter or member 'intel_connector' not described in 'intel_connector_debugfs_add'
-	drivers/gpu/drm/i915/display/intel_display_debugfs.c:2238: warning: Excess function parameter 'connector' description in 'intel_connector_debugfs_add'
-	drivers/gpu/drm/i915/display/intel_display_power.c:700: warning: expecting prototype for intel_display_power_put_async(). Prototype was for __intel_display_power_put_async() instead
-	drivers/gpu/drm/i915/display/intel_tc.c:807: warning: Function parameter or member 'work' not described in 'intel_tc_port_disconnect_phy_work'
-	drivers/gpu/drm/i915/display/intel_tc.c:807: warning: Excess function parameter 'dig_port' description in 'intel_tc_port_disconnect_phy_work'
-
-Those are due to wrong parameter of function name. Address them.
+The DOC: tag waits for a one-line short title for the doc
+section. Using multiple lines will produce a weird output.
+So, add a shorter description for the title, while keeping
+the current content below it.
 
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -81,50 +75,24 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/display/intel_display_debugfs.c | 2 +-
- drivers/gpu/drm/i915/display/intel_display_power.c   | 2 +-
- drivers/gpu/drm/i915/display/intel_tc.c              | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_deps.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 5dc364e9db49..e8433aa50905 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -2232,7 +2232,7 @@ DEFINE_SHOW_ATTRIBUTE(i915_current_bpc);
+diff --git a/drivers/gpu/drm/i915/i915_deps.c b/drivers/gpu/drm/i915/i915_deps.c
+index 297b8e4e42ee..df6af832e3f2 100644
+--- a/drivers/gpu/drm/i915/i915_deps.c
++++ b/drivers/gpu/drm/i915/i915_deps.c
+@@ -11,7 +11,9 @@
+ #include "i915_deps.h"
  
  /**
-  * intel_connector_debugfs_add - add i915 specific connector debugfs files
-- * @connector: pointer to a registered drm_connector
-+ * @intel_connector: pointer to a registered drm_connector
+- * DOC: Set of utilities to dynamically collect dependencies into a
++ * DOC: Utilities to collect dependencies for GT migration code
++ *
++ * Set of utilities to dynamically collect dependencies into a
+  * structure which is fed into the GT migration code.
   *
-  * Cleanup will be done by drm_connector_unregister() through a call to
-  * drm_debugfs_connector_remove().
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 1af1705d730d..b080d65d4461 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -686,7 +686,7 @@ intel_display_power_put_async_work(struct work_struct *work)
- }
- 
- /**
-- * intel_display_power_put_async - release a power domain reference asynchronously
-+ * __intel_display_power_put_async - release a power domain reference asynchronously
-  * @i915: i915 device instance
-  * @domain: power domain to reference
-  * @wakeref: wakeref acquired for the reference that is being released
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index e5af955b5600..10cda362537e 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -797,7 +797,7 @@ void intel_tc_port_lock(struct intel_digital_port *dig_port)
- 
- /**
-  * intel_tc_port_disconnect_phy_work: disconnect TypeC PHY from display port
-- * @dig_port: digital port
-+ * @work: workqueue struct
-  *
-  * Disconnect the given digital port from its TypeC PHY (handing back the
-  * control of the PHY to the TypeC subsystem). This will happen in a delayed
+  * Once we can do async unbinding, this is also needed to coalesce
 -- 
 2.37.3
 
