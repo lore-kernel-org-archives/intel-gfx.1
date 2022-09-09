@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 757F2ECAAD3
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B51C6FA89
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:37:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 770F610EC12;
-	Fri,  9 Sep 2022 07:35:28 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7899010EBEE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61FDE10EBFA;
+	Fri,  9 Sep 2022 07:35:32 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF9C10EBFD;
  Fri,  9 Sep 2022 07:34:58 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CE1BF61EF3;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 02306B8238B;
+ Fri,  9 Sep 2022 07:34:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75B39C4FF12;
  Fri,  9 Sep 2022 07:34:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48048C4314F;
- Fri,  9 Sep 2022 07:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662708894;
- bh=GE14tUIRSARvCfD6N+l719pwW/d67HBRQrGl3a2tYxc=;
+ s=k20201202; t=1662708895;
+ bh=4VHxSufjm7xKjm4fLVM1k5XlVY9FOQF8GqPlLaxsR/k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GNy6H2eVEKlOS13dWBx+RGyWavTbqrRJsPgnGsYanXpBD5apnWK13RcLb9PKWYfCc
- 5uFo4+5caZW1mo/WI9vBOfn5RG76PFVR+5Fv4fY/lGsimicaya0ncTdtcA0RamsK23
- 4FsabQycVkX3KWCUHWvzLs3a2Xqt6kENk80ervjKlxRw07dXPeeV7eDA1RNmQqrhXr
- FcB68AazngpLSnDrsk8/dJ0MRfXwOErKHTmlcle9ROSBlMwy0YoHLxl7ZF2nAL8xGZ
- QqclhjmkbAaf90DSjZPAqIMg8vdqFW4Z1+WvoPCp8/pGVEGKabZAGdcpN0ytp5tu4U
- 1+sl+hzaS6TNQ==
+ b=IjK72AabMheDNyecrDNS+2qJ37gQx3g/XAwHXh7MZuVJHUUrZCXHkbqVDv8sKXCgI
+ +LFBWaFuu+b3lfbV76KhgcMppf8ITiYS9aiX+KP1R4yHRf99EwQVlNn5qsKdB1oz4R
+ jhRwJ14C67YZLzcAbpc/yMEK5cGpCACKu8r9oeWuK4js1ryimC2OyuncKA/fRi9CXu
+ nUDmgaI/6lp57cyRd/1nH5ytlcns0d4pIBHGzSlp8y/fdsFSi+VSygj7Dw4Rs4i6z/
+ sRv4vCn2v+jJckkhBim6vwXGXx+71DCVjwvDHJIYIzswklM5LoKpS/9/rPZ+O03ooj
+ SXJw/7D8u+35g==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oWYXG-007FGJ-5O;
- Fri, 09 Sep 2022 09:34:46 +0200
+ (envelope-from <mchehab@kernel.org>) id 1oWYXH-007FHf-FB;
+ Fri, 09 Sep 2022 09:34:47 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Fri,  9 Sep 2022 09:34:18 +0200
-Message-Id: <98e26c9a5018fe335a45ea60388fde464a0bf9d4.1662708705.git.mchehab@kernel.org>
+Date: Fri,  9 Sep 2022 09:34:39 +0200
+Message-Id: <7ed6d74b75061fb2800e5a59f5282b224bd0621a.1662708705.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
 References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 11/37] drm/i915: document kernel-doc trivial
- issues
+Subject: [Intel-gfx] [PATCH v3 32/37] docs: gpu: i915.rst: add the remaining
+ kernel-doc markup files
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,130 +55,162 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
+ Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix those kernel-doc warnings:
-	drivers/gpu/drm/i915/intel_region_ttm.c:199: warning: Function parameter or member 'offset' not described in 'intel_region_ttm_resource_alloc'
-	drivers/gpu/drm/i915/i915_vma_resource.h:123: warning: Function parameter or member 'wakeref' not described in 'i915_vma_resource'
-	drivers/gpu/drm/i915/i915_vma.c:1703: warning: Function parameter or member 'vma' not described in 'i915_vma_destroy_locked'
-	drivers/gpu/drm/i915/i915_vma.c:751: warning: Function parameter or member 'ww' not described in 'i915_vma_insert'
-	drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c:159: warning: Function parameter or member 'gt' not described in 'intel_gt_fini_hwconfig'
-	drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c:146: warning: Function parameter or member 'gt' not described in 'intel_gt_init_hwconfig'
-	drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c:113: warning: expecting prototype for intel_guc_hwconfig_init(). Prototype was for guc_hwconfig_init() instead
-	drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c:113: warning: Function parameter or member 'gt' not described in 'guc_hwconfig_init'
-	drivers/gpu/drm/i915/gt/intel_engine_types.h:276: warning: Function parameter or member 'preempt_hang' not described in 'intel_engine_execlists'
+There are other files with kernel-doc markups:
 
-That are due undocumented parameters.
+	$ git grep -l "/\*\*" $(git ls-files|grep drivers/gpu/drm/i915/) >kernel-doc-files
+	$ for i in $(cat kernel-doc-files); do if [ "$(git grep $i Documentation/)" == "" ]; then echo "$i"; fi; done >aaa
 
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Add them to i915.rst as well.
+
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/gt/intel_engine_types.h    | 1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c | 5 ++++-
- drivers/gpu/drm/i915/i915_vma.c                 | 2 ++
- drivers/gpu/drm/i915/i915_vma_resource.h        | 1 +
- drivers/gpu/drm/i915/intel_region_ttm.c         | 3 ++-
- 5 files changed, 10 insertions(+), 2 deletions(-)
+ Documentation/gpu/i915.rst | 85 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 83 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-index 633a7e5dba3b..7c5ad9071fe7 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
-@@ -271,6 +271,7 @@ struct intel_engine_execlists {
- 	 */
- 	u8 csb_head;
+diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+index 545fe630557a..7f5cd01ed398 100644
+--- a/Documentation/gpu/i915.rst
++++ b/Documentation/gpu/i915.rst
+@@ -13,6 +13,11 @@ Core Driver Infrastructure
+ This section covers core driver infrastructure used by both the display
+ and the GEM parts of the driver.
  
-+	/* private: Used only in selftests */
- 	I915_SELFTEST_DECLARE(struct st_preempt_hang preempt_hang;)
- };
++Core driver
++-----------
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_driver.c
++
+ Runtime Power Management
+ ------------------------
  
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c
-index 4781fccc2687..76f7447302a6 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_hwconfig.c
-@@ -103,7 +103,8 @@ static bool has_table(struct drm_i915_private *i915)
- }
+@@ -29,6 +34,8 @@ Runtime Power Management
  
- /**
-- * intel_guc_hwconfig_init - Initialize the HWConfig
-+ * guc_hwconfig_init - Initialize the HWConfig
-+ * @gt: GT structure
-  *
-  * Retrieve the HWConfig table from the GuC and save it locally.
-  * It can then be queried on demand by other users later on.
-@@ -138,6 +139,7 @@ static int guc_hwconfig_init(struct intel_gt *gt)
+ .. kernel-doc:: drivers/gpu/drm/i915/intel_pm.c
  
- /**
-  * intel_gt_init_hwconfig - Initialize the HWConfig if available
-+ * @gt: GT structure
-  *
-  * Retrieve the HWConfig table if available on the current platform.
-  */
-@@ -151,6 +153,7 @@ int intel_gt_init_hwconfig(struct intel_gt *gt)
++.. kernel-doc:: drivers/gpu/drm/i915/intel_wakeref.h
++
+ Interrupt Handling
+ ------------------
  
- /**
-  * intel_gt_fini_hwconfig - Finalize the HWConfig
-+ * @gt: GT structure
-  *
-  * Free up the memory allocation holding the table.
-  */
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index f17c09ead7d7..946f26138381 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -731,6 +731,7 @@ bool i915_gem_valid_gtt_space(struct i915_vma *vma, unsigned long color)
- /**
-  * i915_vma_insert - finds a slot for the vma in its address space
-  * @vma: the vma
-+ * @ww: An optional struct i915_gem_ww_ctx
-  * @size: requested size in bytes (can be larger than the VMA)
-  * @alignment: required alignment
-  * @flags: mask of PIN_* flags to use
-@@ -1686,6 +1687,7 @@ static void release_references(struct i915_vma *vma, struct intel_gt *gt,
- /**
-  * i915_vma_destroy_locked - Remove all weak reference to the vma and put
-  * the initial reference.
-+ * @vma: VMA to destroy
-  *
-  * This function should be called when it's decided the vma isn't needed
-  * anymore. The caller must assure that it doesn't race with another lookup
-diff --git a/drivers/gpu/drm/i915/i915_vma_resource.h b/drivers/gpu/drm/i915/i915_vma_resource.h
-index e155f6f7af6f..02dd8bb89c0a 100644
---- a/drivers/gpu/drm/i915/i915_vma_resource.h
-+++ b/drivers/gpu/drm/i915/i915_vma_resource.h
-@@ -49,6 +49,7 @@ struct i915_page_sizes {
-  * @__subtree_last: Interval tree private member.
-  * @vm: non-refcounted pointer to the vm. This is for internal use only and
-  * this member is cleared after vm_resource unbind.
-+ * @wakeref: wakeref used for runtime PM reference.
-  * @mr: The memory region of the object pointed to by the vma.
-  * @ops: Pointer to the backend i915_vma_ops.
-  * @private: Bind backend private info.
-diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
-index 575d67bc6ffe..c2f87683236a 100644
---- a/drivers/gpu/drm/i915/intel_region_ttm.c
-+++ b/drivers/gpu/drm/i915/intel_region_ttm.c
-@@ -181,7 +181,8 @@ intel_region_ttm_resource_to_rsgt(struct intel_memory_region *mem,
- #ifdef CONFIG_DRM_I915_SELFTEST
- /**
-  * intel_region_ttm_resource_alloc - Allocate memory resources from a region
-- * @mem: The memory region,
-+ * @mem: The memory region
-+ * @offset: The range start
-  * @size: The requested size in bytes
-  * @flags: Allocation flags
-  *
+@@ -44,8 +51,25 @@ Interrupt Handling
+ .. kernel-doc:: drivers/gpu/drm/i915/i915_irq.c
+    :functions: intel_runtime_pm_enable_interrupts
+ 
+-Intel GVT-g Guest Support(vGPU)
+--------------------------------
++Memory Handling
++---------------
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_vma_resource.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_vma_resource.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_vma.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_vma.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_mm.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/intel_memory_region.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_memcpy.c
++
++Intel GVT-g Guest Support (vGPU)
++--------------------------------
+ 
+ .. kernel-doc:: drivers/gpu/drm/i915/i915_vgpu.c
+    :doc: Intel GVT-g guest support
+@@ -109,6 +133,55 @@ Workarounds
+ .. kernel-doc:: drivers/gpu/drm/i915/gt/intel_workarounds.c
+    :doc: Hardware workarounds
+ 
++Scatterlist handling
++--------------------
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_scatterlist.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_scatterlist.c
++
++i915 request
++------------
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_request.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_request.c
++
++Others
++------
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_ioc32.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_gpu_error.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_active.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_deps.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_deps.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/intel_device_info.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_params.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_sw_fence_work.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_syncmap.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/intel_pcode.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_reg_defs.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/intel_wopcm.h
++
++
++Protected Xe Path (PXP)
++-----------------------
++
++.. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++
+ Display Hardware Handling
+ =========================
+ 
+@@ -615,6 +688,12 @@ Protected Objects
+ Table Manager (TTM)
+ -------------------
+ 
++.. kernel-doc:: drivers/gpu/drm/i915/i915_ttm_buddy_manager.h
++
++.. kernel-doc:: drivers/gpu/drm/i915/i915_ttm_buddy_manager.c
++
++.. kernel-doc:: drivers/gpu/drm/i915/intel_region_ttm.c
++
+ .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+ 
+ .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_ttm.h
+@@ -624,6 +703,8 @@ Table Manager (TTM)
+ Graphics Execution Manager (GEM)
+ --------------------------------
+ 
++.. kernel-doc:: drivers/gpu/drm/i915/i915_gem.c
++
+ .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_create.c
+ 
+ .. kernel-doc:: drivers/gpu/drm/i915/gem/i915_gem_domain.c
 -- 
 2.37.3
 
