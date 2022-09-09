@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04E38C54EE9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCF3AECAAD5
 	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 00:17:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A06A10E8AE;
-	Fri,  9 Sep 2022 00:17:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA5810E8B2;
+	Fri,  9 Sep 2022 00:17:07 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B7BC10E87A;
- Fri,  9 Sep 2022 00:16:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B4CA10E877;
+ Fri,  9 Sep 2022 00:16:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662682612; x=1694218612;
+ t=1662682607; x=1694218607;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=MGjhivVnReDA5Gk7uWtX9cOLeuyItcQhxZGqtkbTO+M=;
- b=JJ+/LNjxcE1rsPJz9T5PHCt8yJ/OIULhh2DuXPiUWQh+cRV5oLjTMTgR
- UvewlG8nE3lmgq0hmwHXA3yo2AU9UViqmzecNHlDhj//Cmzh3XlJS4tEE
- w5qsmKKMyeZV50Wa7KT+r5vXs0Sag9T7fOdX8LXA/b1hgv1tw4LRG/nfb
- FvnuiYiYErdv2PY65t1OxmJ4w53nG5yReWgAA6kwttXqjzX0LTPCQNDoD
- wA3/pJUEtAJy7X6s4golLmpkEAVC1H5YocWv3sbdvE+X7bNvaMAh5kwJm
- x8/8m+Th+2mTHL8Cut1LOT2vOQ07jfPKUitoUbli55Vwgz2CBvkvUDHH9 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="294938876"
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="294938876"
+ bh=jVPJDYE1OEXM9qP4+4ULQFBCuOkARCM9Hz/8n16WdzM=;
+ b=OhaLvpg1fQx9HFpXb88Pi8pA11u5C+oCvc4TUgJz0BXUhHYoZSfn0Qk9
+ nrHpKj6yh2cOK3ChpUiX2BFWaOarmtc6g9ki8t4OqpuJP3GP0oiQn2OAf
+ 51TD1+t9Hbm5BwkLjF7593YndhfNF5Nhl88sf8VjW5iM0ZT0PAJgvimRD
+ Jc8fh3qikTzv32F04DZjz1VC/d7Ob+L9+WprsSZEJxI0xK0RA/PtFT604
+ /X7BNa/Wgqzn1molAzYir4ffgzfVmM8fjGve7mmTtq0XZdlQ5t18WFd6G
+ +BKnoTipGu2sSjvBYqpnAQeCg27vJS85JwbnWRd/MCtrP5/1cHJ5akzfi w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="294938859"
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="294938859"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2022 17:16:52 -0700
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="676933259"
+ 08 Sep 2022 17:16:46 -0700
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="676933236"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2022 17:16:52 -0700
+ 08 Sep 2022 17:16:46 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  8 Sep 2022 17:16:10 -0700
-Message-Id: <20220909001612.728451-14-daniele.ceraolospurio@intel.com>
+Date: Thu,  8 Sep 2022 17:16:06 -0700
+Message-Id: <20220909001612.728451-10-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220909001612.728451-1-daniele.ceraolospurio@intel.com>
 References: <20220909001612.728451-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 13/15] drm/i915/huc: better define HuC status
- getparam possible return values.
+Subject: [Intel-gfx] [PATCH v4 09/15] drm/i915/pxp: add huc authentication
+ and loading command
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,130 +56,189 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: Tomas Winkler <tomas.winkler@intel.com>,
+ Alan Previn <alan.previn.teres.alexis@intel.com>,
+ Vitaly Lubart <vitaly.lubart@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The current HuC status getparam return values are a bit confusing in
-regards to what happens in some scenarios. In particular, most of the
-error cases cause the ioctl to return an error, but a couple of them,
-INIT_FAIL and LOAD_FAIL, are not explicitly handled and neither is
-their expected return value documented; these 2 error cases therefore
-end up into the catch-all umbrella of the "HuC not loaded" case, with
-this case therefore including both some error scenarios and the load
-in progress one.
+From: Tomas Winkler <tomas.winkler@intel.com>
 
-The updates included in this patch change the handling so that all
-error cases behave the same way, i.e. return an errno code, and so
-that the HuC load in progress case is unambiguous.
+Add support for loading HuC via a pxp stream command.
 
-The patch also includes a small change to the FW init path to make sure
-we always transition to an error state if something goes wrong.
+V4:
+1. Remove unnecessary include in intel_pxp_huc.h (Jani)
+2. Adjust copyright year to 2022
 
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Tony Ye <tony.ye@intel.com>
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Acked-by: Tony Ye <tony.ye@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.c   |  1 +
- drivers/gpu/drm/i915/gt/uc/intel_huc.c   | 14 +++++++-------
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c |  1 -
- include/uapi/drm/i915_drm.h              | 16 ++++++++++++++++
- 4 files changed, 24 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/Makefile                 |  3 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_huc.c      | 69 +++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_huc.h      | 13 ++++
+ .../drm/i915/pxp/intel_pxp_tee_interface.h    | 23 ++++++-
+ 4 files changed, 106 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_huc.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_huc.h
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index 24451d000a6a..bfc5a8d3d603 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -441,6 +441,7 @@ int intel_guc_init(struct intel_guc *guc)
- err_fw:
- 	intel_uc_fw_fini(&guc->fw);
- out:
-+	intel_uc_fw_change_status(&guc->fw, INTEL_UC_FIRMWARE_INIT_FAIL);
- 	i915_probe_error(gt->i915, "failed with %d\n", ret);
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-index 13d93e69766f..529ddd1e9c06 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-@@ -285,6 +285,7 @@ int intel_huc_init(struct intel_huc *huc)
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 589823ad62ed..5bee787d3c2a 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -310,7 +310,8 @@ i915-y += i915_perf.o
+ # Protected execution platform (PXP) support. Base support is required for HuC
+ i915-y += \
+ 	pxp/intel_pxp.o \
+-	pxp/intel_pxp_tee.o
++	pxp/intel_pxp_tee.o \
++	pxp/intel_pxp_huc.o
  
- out:
-+	intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_INIT_FAIL);
- 	drm_info(&i915->drm, "HuC init failed with %d\n", err);
- 	return err;
- }
-@@ -404,13 +405,8 @@ bool intel_huc_is_authenticated(struct intel_huc *huc)
-  * This function reads status register to verify if HuC
-  * firmware was successfully loaded.
-  *
-- * Returns:
-- *  * -ENODEV if HuC is not present on this platform,
-- *  * -EOPNOTSUPP if HuC firmware is disabled,
-- *  * -ENOPKG if HuC firmware was not installed,
-- *  * -ENOEXEC if HuC firmware is invalid or mismatched,
-- *  * 0 if HuC firmware is not running,
-- *  * 1 if HuC firmware is authenticated and running.
-+ * The return values match what is expected for the I915_PARAM_HUC_STATUS
-+ * getparam.
-  */
- int intel_huc_check_status(struct intel_huc *huc)
- {
-@@ -423,6 +419,10 @@ int intel_huc_check_status(struct intel_huc *huc)
- 		return -ENOPKG;
- 	case INTEL_UC_FIRMWARE_ERROR:
- 		return -ENOEXEC;
-+	case INTEL_UC_FIRMWARE_INIT_FAIL:
-+		return -ENOMEM;
-+	case INTEL_UC_FIRMWARE_LOAD_FAIL:
-+		return -EIO;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index af425916cdf6..4792960d9c04 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -890,7 +890,6 @@ int intel_uc_fw_init(struct intel_uc_fw *uc_fw)
- out_unpin:
- 	i915_gem_object_unpin_pages(uc_fw->obj);
- out:
--	intel_uc_fw_change_status(uc_fw, INTEL_UC_FIRMWARE_INIT_FAIL);
- 	return err;
- }
- 
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 520ad2691a99..629198f1d8d8 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -645,6 +645,22 @@ typedef struct drm_i915_irq_wait {
-  */
- #define   I915_SCHEDULER_CAP_STATIC_PRIORITY_MAP	(1ul << 5)
- 
+ i915-$(CONFIG_DRM_I915_PXP) += \
+ 	pxp/intel_pxp_cmd.o \
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_huc.c b/drivers/gpu/drm/i915/pxp/intel_pxp_huc.c
+new file mode 100644
+index 000000000000..7ec36d94e758
+--- /dev/null
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_huc.c
+@@ -0,0 +1,69 @@
++// SPDX-License-Identifier: MIT
 +/*
-+ * Query the status of HuC load.
-+ *
-+ * The query can fail in the following scenarios with the listed error codes:
-+ *  -ENODEV if HuC is not present on this platform,
-+ *  -EOPNOTSUPP if HuC firmware usage is disabled,
-+ *  -ENOPKG if HuC firmware fetch failed,
-+ *  -ENOEXEC if HuC firmware is invalid or mismatched,
-+ *  -ENOMEM if i915 failed to prepare the FW objects for transfer to the uC,
-+ *  -EIO if the FW transfer or the FW authentication failed.
-+ *
-+ * If the IOCTL is successful, the returned parameter will be set to one of the
-+ * following values:
-+ *  * 0 if HuC firmware load is not complete,
-+ *  * 1 if HuC firmware is authenticated and running.
++ * Copyright(c) 2021-2022, Intel Corporation. All rights reserved.
 + */
- #define I915_PARAM_HUC_STATUS		 42
++
++#include "drm/i915_drm.h"
++#include "i915_drv.h"
++
++#include "gem/i915_gem_region.h"
++#include "gt/intel_gt.h"
++
++#include "intel_pxp.h"
++#include "intel_pxp_huc.h"
++#include "intel_pxp_tee.h"
++#include "intel_pxp_types.h"
++#include "intel_pxp_tee_interface.h"
++
++int intel_pxp_huc_load_and_auth(struct intel_pxp *pxp)
++{
++	struct intel_gt *gt = pxp_to_gt(pxp);
++	struct intel_huc *huc = &gt->uc.huc;
++	struct pxp_tee_start_huc_auth_in huc_in = {0};
++	struct pxp_tee_start_huc_auth_out huc_out = {0};
++	dma_addr_t huc_phys_addr;
++	u8 client_id = 0;
++	u8 fence_id = 0;
++	int err;
++
++	if (!pxp->pxp_component)
++		return -ENODEV;
++
++	huc_phys_addr = i915_gem_object_get_dma_address(huc->fw.obj, 0);
++
++	/* write the PXP message into the lmem (the sg list) */
++	huc_in.header.api_version = PXP_TEE_43_APIVER;
++	huc_in.header.command_id  = PXP_TEE_43_START_HUC_AUTH;
++	huc_in.header.status      = 0;
++	huc_in.header.buffer_len  = sizeof(huc_in.huc_base_address);
++	huc_in.huc_base_address   = huc_phys_addr;
++
++	err = intel_pxp_tee_stream_message(pxp, client_id, fence_id,
++					   &huc_in, sizeof(huc_in),
++					   &huc_out, sizeof(huc_out));
++	if (err < 0) {
++		drm_err(&gt->i915->drm,
++			"Failed to send HuC load and auth command to GSC [%d]!\n",
++			err);
++		return err;
++	}
++
++	/*
++	 * HuC does sometimes survive suspend/resume (it depends on how "deep"
++	 * a sleep state the device reaches) so we can end up here on resume
++	 * with HuC already loaded, in which case the GSC will return
++	 * PXP_STATUS_OP_NOT_PERMITTED. We can therefore consider the GuC
++	 * correctly transferred in this scenario; if the same error is ever
++	 * returned with HuC not loaded we'll still catch it when we check the
++	 * authentication bit later.
++	 */
++	if (huc_out.header.status != PXP_STATUS_SUCCESS &&
++	    huc_out.header.status != PXP_STATUS_OP_NOT_PERMITTED) {
++		drm_err(&gt->i915->drm,
++			"HuC load failed with GSC error = 0x%x\n",
++			huc_out.header.status);
++		return -EPROTO;
++	}
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_huc.h b/drivers/gpu/drm/i915/pxp/intel_pxp_huc.h
+new file mode 100644
+index 000000000000..e40847a91c39
+--- /dev/null
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_huc.h
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright(c) 2021-2022, Intel Corporation. All rights reserved.
++ */
++
++#ifndef __INTEL_PXP_HUC_H__
++#define __INTEL_PXP_HUC_H__
++
++struct intel_pxp;
++
++int intel_pxp_huc_load_and_auth(struct intel_pxp *pxp);
++
++#endif /* __INTEL_PXP_HUC_H__ */
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee_interface.h b/drivers/gpu/drm/i915/pxp/intel_pxp_tee_interface.h
+index 36e9b0868f5c..7edc1760f142 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee_interface.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee_interface.h
+@@ -1,6 +1,6 @@
+ /* SPDX-License-Identifier: MIT */
+ /*
+- * Copyright(c) 2020, Intel Corporation. All rights reserved.
++ * Copyright(c) 2020-2022, Intel Corporation. All rights reserved.
+  */
  
- /* Query whether DRM_I915_GEM_EXECBUFFER2 supports the ability to opt-out of
+ #ifndef __INTEL_PXP_TEE_INTERFACE_H__
+@@ -9,8 +9,20 @@
+ #include <linux/types.h>
+ 
+ #define PXP_TEE_APIVER 0x40002
++#define PXP_TEE_43_APIVER 0x00040003
+ #define PXP_TEE_ARB_CMDID 0x1e
+ #define PXP_TEE_ARB_PROTECTION_MODE 0x2
++#define PXP_TEE_43_START_HUC_AUTH   0x0000003A
++
++/*
++ * there are a lot of status codes for PXP, but we only define the ones we
++ * actually can handle in the driver. other failure codes will be printed to
++ * error msg for debug.
++ */
++enum pxp_status {
++	PXP_STATUS_SUCCESS = 0x0,
++	PXP_STATUS_OP_NOT_PERMITTED = 0x4013
++};
+ 
+ /* PXP TEE message header */
+ struct pxp_tee_cmd_header {
+@@ -33,4 +45,13 @@ struct pxp_tee_create_arb_out {
+ 	struct pxp_tee_cmd_header header;
+ } __packed;
+ 
++struct pxp_tee_start_huc_auth_in {
++	struct pxp_tee_cmd_header header;
++	__le64                    huc_base_address;
++};
++
++struct pxp_tee_start_huc_auth_out {
++	struct pxp_tee_cmd_header header;
++};
++
+ #endif /* __INTEL_PXP_TEE_INTERFACE_H__ */
 -- 
 2.37.2
 
