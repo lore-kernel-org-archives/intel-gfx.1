@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC3E9ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:36:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1405C6FA89
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:36:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35F4110EC22;
-	Fri,  9 Sep 2022 07:35:14 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D316E10EBED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 707C510EBFF;
+	Fri,  9 Sep 2022 07:35:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7756310EBF0;
  Fri,  9 Sep 2022 07:34:56 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9522761F1C;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2842B61F06;
  Fri,  9 Sep 2022 07:34:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25CD5C43165;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04D02C41679;
  Fri,  9 Sep 2022 07:34:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1662708895;
- bh=hMbCpBcT2vFUAUJkRSUmrCoccfdseZPeZQleafPjwmo=;
+ bh=PG03QmcHka2AyFlyVCR5a0ZblvOmwa8yxSxOZhSEnCE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gI6htIKsXFDNpNE4e3TBpBlAm3K38T+orpddKU8nqv5tjPsUhrvD3lHKiFYy58KbL
- 1Jd4TKu1Dau2XQiCeoJvXrwaUJ7H1Sbg7sjF1UVQ28KWrGOfqC0rwlKTFVB81Ztryf
- MUh9d3fZbpQopYPFIo6taBfLBDXUrP84/97KzY3pOt9JOoZ1HeC1ihPSNgvjt7tCSQ
- hiiE6VE5csG4uKYFDT8Pi15ZxJ/EF4gEk2FWb0PoFIT1kBtfwDHI28TtX+8HaRSQaS
- JeqfvF0FkkBIIF7QarRLbtM3fSvw0FCehb9ae1xxSPl4UOnC84PYguXzp3LQxchJ23
- NzOrFHe/satUQ==
+ b=a4mOUai+jhpefnN8loB6clqbGqam6cvIIc237RhgdGttp6OhMhcgAcrr+EZ6iql61
+ 1f2iBl5JSpdguBhfA5JYONUh/Ai0crRnye9iZ6NFt8D9m9WfVyfM/ty3mIm7cQ2O7/
+ MT7YimErhqspxWhfR+lecNxw9a6H/AYpQoLQk6uKezkLqjeWTsV+xXV9fzNsbiLtS4
+ OfECplz0OIZ2v68p2f0wGiFYVMMNaM2ps2DzqBdxezqX48GeuddljTOvFzcOzIBTnB
+ uZLEhFGIaFJc3if+SZPWAZl22xW1Y+W3KNQXMGCGfF4rmE4EKaNqyrJ6bl6xuOj/9D
+ glc2UdZpgnzzg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oWYXH-007FHL-4n;
- Fri, 09 Sep 2022 09:34:47 +0200
+ (envelope-from <mchehab@kernel.org>) id 1oWYXG-007FH9-VA;
+ Fri, 09 Sep 2022 09:34:46 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Fri,  9 Sep 2022 09:34:34 +0200
-Message-Id: <6d31414391976615b5c1818cafba066132c24e85.1662708705.git.mchehab@kernel.org>
+Date: Fri,  9 Sep 2022 09:34:31 +0200
+Message-Id: <1628f837d9ae5caae015f19648d19459fba6743d.1662708705.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
 References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 27/37] docs: gpu: i915.rst: gt: add more
+Subject: [Intel-gfx] [PATCH v3 24/37] drm/i915: i915_scatterlist.h: fix some
  kernel-doc markups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,86 +55,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are several documented GT kAPI that aren't currently part
-of the docs. Add them, as this allows identifying issues with
-badly-formatted tags.
+Building docs currently produces this warning:
 
+	Documentation/foo/i915:159: ./drivers/gpu/drm/i915/i915_scatterlist.h:73: WARNING: Inline strong start-string without end-string.
+
+That's because @foo evaluates into **foo**, and placing anything
+after it without spaces cause Sphinx to warn and do the wrong
+thing.. So, replace them by a different Sphinx-compatible tag.
+
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
- Documentation/gpu/i915.rst | 40 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 39 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_scatterlist.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index 2ad7941a79f2..b668f36fb0a3 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -149,7 +149,6 @@ Misc display functions
- 
- .. kernel-doc:: drivers/gpu/drm/i915/display/skl_scaler.c
- 
--
- Plane Configuration
- -------------------
- 
-@@ -308,6 +307,45 @@ Multicast/Replicated (MCR) Registers
- .. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-    :internal:
- 
-+GT engine
-+---------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_engine_types.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_engine_pm.c
-+
-+Graphics Translation Tables
-+---------------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_ggtt.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gtt.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gtt.h
-+
-+Other GT functionality
-+----------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_context.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gsc.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_migrate.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_mocs.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_rc6.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_reset.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_rps_types.h
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_rps.c
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_sseu.c
-+
- Memory Management and Command Submission
- ========================================
- 
+diff --git a/drivers/gpu/drm/i915/i915_scatterlist.h b/drivers/gpu/drm/i915/i915_scatterlist.h
+index 79b70ae2e766..ac77f2668544 100644
+--- a/drivers/gpu/drm/i915/i915_scatterlist.h
++++ b/drivers/gpu/drm/i915/i915_scatterlist.h
+@@ -70,7 +70,7 @@ static inline struct scatterlist *____sg_next(struct scatterlist *sg)
+  *
+  * Description:
+  *   If the entry is the last, return NULL; otherwise, step to the next
+- *   element in the array (@sg@+1). If that's a chain pointer, follow it;
++ *   element in the array (``sg@+1``). If that's a chain pointer, follow it;
+  *   otherwise just return the pointer to the current element.
+  **/
+ static inline struct scatterlist *__sg_next(struct scatterlist *sg)
 -- 
 2.37.3
 
