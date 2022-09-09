@@ -4,31 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E97BECAAD3
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 11:24:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEA49ECAAD3
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 11:24:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3745C10EC95;
-	Fri,  9 Sep 2022 11:24:29 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id F03A110EC95;
- Fri,  9 Sep 2022 11:24:24 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id BD74AAADD2;
- Fri,  9 Sep 2022 11:24:24 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA0E810EC8F;
+	Fri,  9 Sep 2022 11:24:49 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6014110EC8F
+ for <intel-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 11:24:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1662722685; x=1694258685;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Iyi6SWVGUZQMzZbyf2BE5aDg6OROdRNE+mRrbrl5P7M=;
+ b=L19488BRMAEbQ6iMu1rBwOQnlgWz3d3dgvWxHktrY6QldH6rGVm2Qnjn
+ 5gksQbff2RqpNXzKv9A7kND2dTE+vcWulFMd1fGkDmwgntgzdXuaFfN2y
+ pPG1/WZH9rXOejmlDwQWd40D5/iLnFatQYriUzWiHvgiwrLGj4ZmxkoBa
+ Cp840PTfTJDMo77lx5HNgFYAzft8Cq50JMz78ibI2PqINAnO+zhOvR8WC
+ 5tpdxIygIBBDEqaw6mujraNDl9OJOAzt9WRcB5kyX4bNEY5aJC12SxTHg
+ ZIidVO2tDBu1QDWoA0nH84zvJbboyUJ4VumqAztOX1ADziK6nsrm597KS A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="323661307"
+X-IronPort-AV: E=Sophos;i="5.93,303,1654585200"; d="scan'208";a="323661307"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2022 04:24:44 -0700
+X-IronPort-AV: E=Sophos;i="5.93,303,1654585200"; d="scan'208";a="592575428"
+Received: from srr4-3-linux-105-anshuma1.iind.intel.com ([10.223.74.179])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2022 04:24:42 -0700
+From: Anshuman Gupta <anshuman.gupta@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  9 Sep 2022 16:54:17 +0530
+Message-Id: <20220909112419.26901-1-anshuman.gupta@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Gwan-gyeong Mun" <gwan-gyeong.mun@intel.com>
-Date: Fri, 09 Sep 2022 11:24:24 -0000
-Message-ID: <166272266477.1364.1814190834041302984@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220909105913.752049-1-gwan-gyeong.mun@intel.com>
-In-Reply-To: <20220909105913.752049-1-gwan-gyeong.mun@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBG?=
- =?utf-8?q?ixes_integer_overflow_or_integer_truncation_issues_in_page_look?=
- =?utf-8?q?ups=2C_ttm_place_configuration_and_scatterlist_creation?=
+Subject: [Intel-gfx] [PATCH v3 0/2] DGFX mmap with rpm
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,45 +53,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: chris@chris-wilson.co.uk, rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+As per PCIe Spec Section 5.3.1.4.1
+When pcie function is in d3hot state, 
+Configuration and Message requests are the only TLPs accepted by a 
+Function in the D3hot state. All other received Requests must be 
+handled as Unsupported Requests, and all received Completions
+may optionally be handled as Unexpected Completions.
 
-Series: Fixes integer overflow or integer truncation issues in page lookups, ttm place configuration and scatterlist creation
-URL   : https://patchwork.freedesktop.org/series/108358/
-State : failure
+Therefore when gfx endpoint function is in d3 state, all pcie iomem
+transaction requires to transition the pcie function in D0 state.
 
-== Summary ==
+Implementation of handling i915_gem_object_pin_map will be handled in
+different series.
 
-Error: make failed
-  CALL    scripts/checksyscalls.sh
-  CALL    scripts/atomic/check-atomics.sh
-  DESCEND objtool
-  CHK     include/generated/compile.h
-  CC [M]  drivers/gpu/drm/i915/intel_memory_region.o
-In file included from <command-line>:
-drivers/gpu/drm/i915/selftests/intel_memory_region.c: In function ‘igt_lmem_create_with_ps’:
-././include/linux/compiler_types.h:334:35: error: expected ‘,’ before ‘)’ token
-          __same_type(t, typeof(n)))
-                                   ^
-./drivers/gpu/drm/i915/gem/i915_gem_object.h:630:2: note: in expansion of macro ‘assert_typable’
-  assert_typable(pgoff_t, n);   \
-  ^~~~~~~~~~~~~~
-drivers/gpu/drm/i915/selftests/intel_memory_region.c:851:11: note: in expansion of macro ‘i915_gem_object_get_dma_address’
-   daddr = i915_gem_object_get_dma_address(obj, 0);
-           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-scripts/Makefile.build:249: recipe for target 'drivers/gpu/drm/i915/intel_memory_region.o' failed
-make[4]: *** [drivers/gpu/drm/i915/intel_memory_region.o] Error 1
-scripts/Makefile.build:465: recipe for target 'drivers/gpu/drm/i915' failed
-make[3]: *** [drivers/gpu/drm/i915] Error 2
-scripts/Makefile.build:465: recipe for target 'drivers/gpu/drm' failed
-make[2]: *** [drivers/gpu/drm] Error 2
-scripts/Makefile.build:465: recipe for target 'drivers/gpu' failed
-make[1]: *** [drivers/gpu] Error 2
-Makefile:1853: recipe for target 'drivers' failed
-make: *** [drivers] Error 2
+Anshuman Gupta (2):
+  drm/i915: Refactor userfault_wakeref to re-use
+  drm/i915/dgfx: Release mmap on rpm suspend
 
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      | 20 ++++++--
+ drivers/gpu/drm/i915/gem/i915_gem_mman.h      |  1 +
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |  2 +-
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |  3 +-
+ drivers/gpu/drm/i915/gem/i915_gem_pm.c        |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       | 46 ++++++++++++++++---
+ drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c  |  1 -
+ drivers/gpu/drm/i915/gt/intel_gt.c            |  3 ++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h      |  6 +++
+ drivers/gpu/drm/i915/gt/intel_gtt.h           |  3 --
+ drivers/gpu/drm/i915/i915_driver.c            |  1 -
+ drivers/gpu/drm/i915/i915_gem.c               |  7 ++-
+ 12 files changed, 75 insertions(+), 20 deletions(-)
+
+-- 
+2.26.2
 
