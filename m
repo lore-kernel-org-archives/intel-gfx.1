@@ -4,52 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C978ECAAD3
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:30:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCA5CECAAD3
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60C3510EBEA;
-	Fri,  9 Sep 2022 07:30:01 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F41CF10EBEA
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Sep 2022 07:29:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662708599; x=1694244599;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=SXKWGBV6c6DpbHruM2BWNyNtgq+5dEbEokm/LSmaFjQ=;
- b=RZkikPgHbegmV2vzU2Ly5hXzo46yYlKeTKXGbaUS/HyBYWT91WeEJ0e8
- QdOy6PLpbMPg27m0lmRQWLGzdgy8aOyeGtys133yCMqHtadv1C2+sO9/d
- GzfIqsipAjNNbNMiwH9VbFo7y8DMdY3fAdQjg4cKms5ziZe3oaTmZT4Kn
- 0K8YPv/AgDHn+WEWL7ta8FqY5YGGWBNDE2CN4EhIPKtYM9PxvlYbB3+Oc
- xBSCe4f+yTe+qfvzehu+s5OQktY4IwD1ur8q3dLiym7CirNUINqHuh17/
- THJQL/cCXawJ8aE4YB3jFOUwAePsWFX2w/NREePaD2Ekoq14xnqd1u3+L g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="298756455"
-X-IronPort-AV: E=Sophos;i="5.93,302,1654585200"; d="scan'208";a="298756455"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2022 00:29:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,302,1654585200"; d="scan'208";a="704315275"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by FMSMGA003.fm.intel.com with SMTP; 09 Sep 2022 00:29:55 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 09 Sep 2022 10:29:55 +0300
-Date: Fri, 9 Sep 2022 10:29:55 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
-Message-ID: <Yxrrc33z38fvf22h@intel.com>
-References: <20220906174609.23494-1-ville.syrjala@linux.intel.com>
- <6e71f8d2-fd50-4550-5168-240c6f703c7f@linux.intel.com>
- <YxoGJrriiWt1r5uT@intel.com>
- <7280ab53-dfed-4b37-2bfc-b731010c5cd2@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C5FC10EBEF;
+	Fri,  9 Sep 2022 07:34:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D774410EBEA;
+ Fri,  9 Sep 2022 07:34:54 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5680F61ED3;
+ Fri,  9 Sep 2022 07:34:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 972D4C433C1;
+ Fri,  9 Sep 2022 07:34:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1662708893;
+ bh=G2Puq+EeJyOG6PvuKBad8D3KPunIGANj9MeaXhjb2RE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=R1ebWq7lwYyJeQu6Bsh+pKn2jSwIMQSOPuKeFj1+8BdP82GqOipZ3mThvIaggtuE8
+ DKXUpjoYfRF6lXPW0hPPnPIozpY4NX2jf/uSaorH16guHjc3wIGohruvxQ0yHYQthC
+ kwPmq+MmW56oQWSDl1nmGe6WVYawBi7ES49hxJs7xi7z95pzpQu5IbqgKxAG/90jXb
+ kUNv4GPGlXhy5Spf3D/arY72G3wnKoQL5x9MkQc7i3/0+lyUL8UXqP7kXSEXuNP/jb
+ ngRz/ZckwUQHJlTyCQ7+4PmeeTJ9IiqysmVhlg+Xxp7o2vRyvhIg42up/bZUVdMv4q
+ OEokxZXigajSA==
+Received: from mchehab by mail.kernel.org with local (Exim 4.95)
+ (envelope-from <mchehab@kernel.org>) id 1oWYXF-007FFf-JG;
+ Fri, 09 Sep 2022 09:34:45 +0200
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: 
+Date: Fri,  9 Sep 2022 09:34:08 +0200
+Message-Id: <752ce443ea141601cf59a1ad8a5130deed2feb4f.1662708705.git.mchehab@kernel.org>
+X-Mailer: git-send-email 2.37.3
+In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
+References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7280ab53-dfed-4b37-2bfc-b731010c5cd2@linux.intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Kick rcu harder to free objects
+Subject: [Intel-gfx] [PATCH v3 01/37] drm/i915: fix kernel-doc trivial
+ warnings on i915/*.[ch] files
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,40 +56,302 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 08, 2022 at 09:34:04PM +0200, Das, Nirmoy wrote:
-> 
-> On 9/8/2022 5:11 PM, Ville Syrjälä wrote:
-> > On Thu, Sep 08, 2022 at 04:32:56PM +0200, Das, Nirmoy wrote:
-> >> Hi Ville,
-> >>
-> >>
-> >> I fixed a similar issue in DII but I couldn't reproduce it in drm
-> >>
-> >> http://intel-gfx-pw.fi.intel.com/patch/228850/?series=15910&rev=2.
-> >>
-> >> I wonder if that fixes the problem you are facing then I can send that
-> >> to drm.
-> > CI can tell you. It has been complaining about this for ages
-> 
-> 
-> Could you please share a url/failed test name. I must be searching the 
-> wrong hw/test(https://intel-gfx-ci.01.org/tree/drm-tip/fi-ivb-3770.html).
+There are several trivial warnings there, due to trivial things:
+	- lack of function name at the kerneldoc markup;
+	- renamed functions;
+	- wrong parameter syntax.
 
-https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12102/fi-pnv-d510/igt@i915_selftest@live@requests.html
+Fix such warnings:
+	drivers/gpu/drm/i915/i915_active.h:66: warning: Function parameter or member 'active' not described in '__i915_active_fence_init'
+	drivers/gpu/drm/i915/i915_active.h:66: warning: Function parameter or member 'fence' not described in '__i915_active_fence_init'
+	drivers/gpu/drm/i915/i915_active.h:66: warning: Function parameter or member 'fn' not described in '__i915_active_fence_init'
+	drivers/gpu/drm/i915/i915_active.h:89: warning: Function parameter or member 'active' not described in 'i915_active_fence_set'
+	drivers/gpu/drm/i915/i915_active.h:89: warning: Function parameter or member 'rq' not described in 'i915_active_fence_set'
+	drivers/gpu/drm/i915/i915_active.h:102: warning: Function parameter or member 'active' not described in 'i915_active_fence_get'
+	drivers/gpu/drm/i915/i915_active.h:122: warning: Function parameter or member 'active' not described in 'i915_active_fence_isset'
+	drivers/gpu/drm/i915/i915_gem.c:443: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+	 * Reads data from the object referenced by handle.
+	drivers/gpu/drm/i915/i915_gem.c:532: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+	 * This is the fast pwrite path, where we copy the data directly from the
+	drivers/gpu/drm/i915/i915_gem.c:717: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+	 * Writes data to the object referenced by handle.
+	drivers/gpu/drm/i915/i915_gem.c:802: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+	 * Called when user space has done writes to this buffer
+	drivers/gpu/drm/i915/i915_pmu.h:22: warning: cannot understand function prototype: 'enum i915_pmu_tracked_events '
+	drivers/gpu/drm/i915/i915_pmu.h:33: warning: cannot understand function prototype: 'enum '
+	drivers/gpu/drm/i915/i915_pmu.h:42: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+	 * How many different events we track in the global PMU mask.
+	drivers/gpu/drm/i915/i915_request.h:177: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+	 * Request queue structure.
+	drivers/gpu/drm/i915/i915_request.h:473: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+	 * Returns true if seq1 is later than seq2.
+	drivers/gpu/drm/i915/i915_scatterlist.c:63: warning: Function parameter or member 'size' not described in 'i915_refct_sgt_init'
+	drivers/gpu/drm/i915/i915_scatterlist.h:153: warning: Incorrect use of kernel-doc format:          * release() - Free the memory of the struct i915_refct_sgt
+	drivers/gpu/drm/i915/i915_scatterlist.h:157: warning: Function parameter or member 'release' not described in 'i915_refct_sgt_ops'
+	drivers/gpu/drm/i915/i915_scatterlist.h:180: warning: Function parameter or member 'rsgt' not described in 'i915_refct_sgt_put'
+	drivers/gpu/drm/i915/i915_scatterlist.h:191: warning: Function parameter or member 'rsgt' not described in 'i915_refct_sgt_get'
+	drivers/gpu/drm/i915/i915_scatterlist.h:207: warning: Function parameter or member 'rsgt' not described in '__i915_refct_sgt_init'
+	drivers/gpu/drm/i915/i915_utils.h:291: warning: Function parameter or member 'OP' not described in '__wait_for'
+	drivers/gpu/drm/i915/i915_utils.h:291: warning: Function parameter or member 'COND' not described in '__wait_for'
+	drivers/gpu/drm/i915/i915_utils.h:291: warning: Function parameter or member 'US' not described in '__wait_for'
+	drivers/gpu/drm/i915/i915_utils.h:291: warning: Function parameter or member 'Wmin' not described in '__wait_for'
+	drivers/gpu/drm/i915/i915_utils.h:291: warning: Function parameter or member 'Wmax' not described in '__wait_for'
+	drivers/gpu/drm/i915/i915_vma_resource.h:88: warning: Incorrect use of kernel-doc format:          * struct i915_vma_bindinfo - Information needed for async bind
+	drivers/gpu/drm/i915/i915_vma_resource.h:123: warning: Function parameter or member 'bi' not described in 'i915_vma_resource'
 
-gen3 hits it nearly 100% of the time in the live selftests.
-IIRC it also looked like shard-snb has also hit it more
-sporadically in some tests.
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+---
 
-There's also at least one bug about it
-https://gitlab.freedesktop.org/drm/intel/-/issues/4528
-which I guess is why ci is able to ignore this, and that
-then has enabled all the humans to ignore it as well.
+To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
+See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
+ drivers/gpu/drm/i915/i915_active.h       | 14 +++++++-------
+ drivers/gpu/drm/i915/i915_gem.c          | 10 ++++++----
+ drivers/gpu/drm/i915/i915_pmu.h          |  6 +++---
+ drivers/gpu/drm/i915/i915_request.h      |  4 ++--
+ drivers/gpu/drm/i915/i915_scatterlist.c  |  2 +-
+ drivers/gpu/drm/i915/i915_scatterlist.h  | 10 +++++-----
+ drivers/gpu/drm/i915/i915_utils.h        |  2 +-
+ drivers/gpu/drm/i915/i915_vma_resource.h |  2 +-
+ 8 files changed, 26 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_active.h b/drivers/gpu/drm/i915/i915_active.h
+index 7eb44132183a..77c676ecc263 100644
+--- a/drivers/gpu/drm/i915/i915_active.h
++++ b/drivers/gpu/drm/i915/i915_active.h
+@@ -49,9 +49,9 @@ void i915_active_noop(struct dma_fence *fence, struct dma_fence_cb *cb);
+ 
+ /**
+  * __i915_active_fence_init - prepares the activity tracker for use
+- * @active - the active tracker
+- * @fence - initial fence to track, can be NULL
+- * @func - a callback when then the tracker is retired (becomes idle),
++ * @active: the active tracker
++ * @fence: initial fence to track, can be NULL
++ * @fn: a callback when then the tracker is retired (becomes idle),
+  *         can be NULL
+  *
+  * i915_active_fence_init() prepares the embedded @active struct for use as
+@@ -77,8 +77,8 @@ __i915_active_fence_set(struct i915_active_fence *active,
+ 
+ /**
+  * i915_active_fence_set - updates the tracker to watch the current fence
+- * @active - the active tracker
+- * @rq - the request to watch
++ * @active: the active tracker
++ * @rq: the request to watch
+  *
+  * i915_active_fence_set() watches the given @rq for completion. While
+  * that @rq is busy, the @active reports busy. When that @rq is signaled
+@@ -89,7 +89,7 @@ i915_active_fence_set(struct i915_active_fence *active,
+ 		      struct i915_request *rq);
+ /**
+  * i915_active_fence_get - return a reference to the active fence
+- * @active - the active tracker
++ * @active: the active tracker
+  *
+  * i915_active_fence_get() returns a reference to the active fence,
+  * or NULL if the active tracker is idle. The reference is obtained under RCU,
+@@ -111,7 +111,7 @@ i915_active_fence_get(struct i915_active_fence *active)
+ 
+ /**
+  * i915_active_fence_isset - report whether the active tracker is assigned
+- * @active - the active tracker
++ * @active: the active tracker
+  *
+  * i915_active_fence_isset() returns true if the active tracker is currently
+  * assigned to a fence. Due to the lazy retiring, that fence may be idle
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index bae857d5221d..f68fa0732363 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -439,7 +439,7 @@ i915_gem_gtt_pread(struct drm_i915_gem_object *obj,
+ }
+ 
+ /**
+- * Reads data from the object referenced by handle.
++ * i915_gem_pread_ioctl - Reads data from the object referenced by handle.
+  * @dev: drm device pointer
+  * @data: ioctl data blob
+  * @file: drm file pointer
+@@ -528,7 +528,8 @@ ggtt_write(struct io_mapping *mapping,
+ }
+ 
+ /**
+- * This is the fast pwrite path, where we copy the data directly from the
++ * i915_gem_gtt_pwrite_fast - This is the fast pwrite path, where we copy
++ *	the data directly from the
+  * user into the GTT, uncached.
+  * @obj: i915 GEM object
+  * @args: pwrite arguments structure
+@@ -713,7 +714,7 @@ i915_gem_shmem_pwrite(struct drm_i915_gem_object *obj,
+ }
+ 
+ /**
+- * Writes data to the object referenced by handle.
++ * i915_gem_pwrite_ioctl - Writes data to the object referenced by handle.
+  * @dev: drm device
+  * @data: ioctl data blob
+  * @file: drm file
+@@ -798,7 +799,8 @@ i915_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+ }
+ 
+ /**
+- * Called when user space has done writes to this buffer
++ * i915_gem_sw_finish_ioctl - Called when user space has done writes to
++ *	this buffer
+  * @dev: drm device
+  * @data: ioctl data blob
+  * @file: drm file
+diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
+index 449057648f39..c30f43319a78 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.h
++++ b/drivers/gpu/drm/i915/i915_pmu.h
+@@ -14,7 +14,7 @@
+ 
+ struct drm_i915_private;
+ 
+-/**
++/*
+  * Non-engine events that we need to track enabled-disabled transition and
+  * current state.
+  */
+@@ -25,7 +25,7 @@ enum i915_pmu_tracked_events {
+ 	__I915_PMU_TRACKED_EVENT_COUNT, /* count marker */
+ };
+ 
+-/**
++/*
+  * Slots used from the sampling timer (non-engine events) with some extras for
+  * convenience.
+  */
+@@ -37,7 +37,7 @@ enum {
+ 	__I915_NUM_PMU_SAMPLERS
+ };
+ 
+-/**
++/*
+  * How many different events we track in the global PMU mask.
+  *
+  * It is also used to know to needed number of event reference counters.
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index 47041ec68df8..66d6dee98525 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -172,7 +172,7 @@ enum {
+ 	I915_FENCE_FLAG_COMPOSITE,
+ };
+ 
+-/**
++/*
+  * Request queue structure.
+  *
+  * The request queue allows us to note sequence numbers that have been emitted
+@@ -468,7 +468,7 @@ i915_request_has_initial_breadcrumb(const struct i915_request *rq)
+ 	return test_bit(I915_FENCE_FLAG_INITIAL_BREADCRUMB, &rq->fence.flags);
+ }
+ 
+-/**
++/*
+  * Returns true if seq1 is later than seq2.
+  */
+ static inline bool i915_seqno_passed(u32 seq1, u32 seq2)
+diff --git a/drivers/gpu/drm/i915/i915_scatterlist.c b/drivers/gpu/drm/i915/i915_scatterlist.c
+index dcc081874ec8..f664c1ce02cf 100644
+--- a/drivers/gpu/drm/i915/i915_scatterlist.c
++++ b/drivers/gpu/drm/i915/i915_scatterlist.c
+@@ -56,7 +56,7 @@ static const struct i915_refct_sgt_ops rsgt_ops = {
+ /**
+  * i915_refct_sgt_init - Initialize a struct i915_refct_sgt with default ops
+  * @rsgt: The struct i915_refct_sgt to initialize.
+- * size: The size of the underlying memory buffer.
++ * @size: The size of the underlying memory buffer.
+  */
+ void i915_refct_sgt_init(struct i915_refct_sgt *rsgt, size_t size)
+ {
+diff --git a/drivers/gpu/drm/i915/i915_scatterlist.h b/drivers/gpu/drm/i915/i915_scatterlist.h
+index 9ddb3e743a3e..79b70ae2e766 100644
+--- a/drivers/gpu/drm/i915/i915_scatterlist.h
++++ b/drivers/gpu/drm/i915/i915_scatterlist.h
+@@ -149,7 +149,7 @@ bool i915_sg_trim(struct sg_table *orig_st);
+  */
+ struct i915_refct_sgt_ops {
+ 	/**
+-	 * release() - Free the memory of the struct i915_refct_sgt
++	 * @release: Free the memory of the struct i915_refct_sgt
+ 	 * @ref: struct kref that is embedded in the struct i915_refct_sgt
+ 	 */
+ 	void (*release)(struct kref *ref);
+@@ -159,7 +159,7 @@ struct i915_refct_sgt_ops {
+  * struct i915_refct_sgt - A refcounted scatter-gather table
+  * @kref: struct kref for refcounting
+  * @table: struct sg_table holding the scatter-gather table itself. Note that
+- * @table->sgl = NULL can be used to determine whether a scatter-gather table
++ * @table->sgl == NULL can be used to determine whether a scatter-gather table
+  * is present or not.
+  * @size: The size in bytes of the underlying memory buffer
+  * @ops: The operations structure.
+@@ -173,7 +173,7 @@ struct i915_refct_sgt {
+ 
+ /**
+  * i915_refct_sgt_put - Put a refcounted sg-table
+- * @rsgt the struct i915_refct_sgt to put.
++ * @rsgt: the struct i915_refct_sgt to put.
+  */
+ static inline void i915_refct_sgt_put(struct i915_refct_sgt *rsgt)
+ {
+@@ -183,7 +183,7 @@ static inline void i915_refct_sgt_put(struct i915_refct_sgt *rsgt)
+ 
+ /**
+  * i915_refct_sgt_get - Get a refcounted sg-table
+- * @rsgt the struct i915_refct_sgt to get.
++ * @rsgt: the struct i915_refct_sgt to get.
+  */
+ static inline struct i915_refct_sgt *
+ i915_refct_sgt_get(struct i915_refct_sgt *rsgt)
+@@ -195,7 +195,7 @@ i915_refct_sgt_get(struct i915_refct_sgt *rsgt)
+ /**
+  * __i915_refct_sgt_init - Initialize a refcounted sg-list with a custom
+  * operations structure
+- * @rsgt The struct i915_refct_sgt to initialize.
++ * @rsgt: The struct i915_refct_sgt to initialize.
+  * @size: Size in bytes of the underlying memory buffer.
+  * @ops: A customized operations structure in case the refcounted sg-list
+  * is embedded into another structure.
+diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+index 6c14d13364bf..85994298a74e 100644
+--- a/drivers/gpu/drm/i915/i915_utils.h
++++ b/drivers/gpu/drm/i915/i915_utils.h
+@@ -256,7 +256,7 @@ wait_remaining_ms_from_jiffies(unsigned long timestamp_jiffies, int to_wait_ms)
+ 	}
+ }
+ 
+-/**
++/*
+  * __wait_for - magic wait macro
+  *
+  * Macro to help avoid open coding check/wait/timeout patterns. Note that it's
+diff --git a/drivers/gpu/drm/i915/i915_vma_resource.h b/drivers/gpu/drm/i915/i915_vma_resource.h
+index 06923d1816e7..e155f6f7af6f 100644
+--- a/drivers/gpu/drm/i915/i915_vma_resource.h
++++ b/drivers/gpu/drm/i915/i915_vma_resource.h
+@@ -85,7 +85,7 @@ struct i915_vma_resource {
+ 	intel_wakeref_t wakeref;
+ 
+ 	/**
+-	 * struct i915_vma_bindinfo - Information needed for async bind
++	 * @bi: Information needed for async bind
+ 	 * only but that can be dropped after the bind has taken place.
+ 	 * Consider making this a separate argument to the bind_vma
+ 	 * op, coalescing with other arguments like vm, stash, cache_level
 -- 
-Ville Syrjälä
-Intel
+2.37.3
+
