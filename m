@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81E99ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 00:17:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41579C54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 00:18:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D71D610E8B9;
-	Fri,  9 Sep 2022 00:17:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64DFC10E8B6;
+	Fri,  9 Sep 2022 00:17:38 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7006F10E879;
- Fri,  9 Sep 2022 00:16:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A960210E87D;
+ Fri,  9 Sep 2022 00:16:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662682611; x=1694218611;
+ t=1662682614; x=1694218614;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NQeGmyz7e4snYk0JZGV+m6BDoQeWjJqULacBYmZ/P0Y=;
- b=AeJwAikWHy9hZ+cX5Ni6BBiWtxJ5D1/fAMoJXPfVQhhwAN8wg7NZ96I7
- dboc+k6/BGMtrpyygBLuCRThxJG3b7r0ugVSzMO9fIh0goRbqa9UaKm/4
- Kvo/wtk/oQRJn9wzzWv9/X4gfxs0nJF61QXsD0Ds4D2sc6hD1Whi35UfM
- 2YQg7OsnkGYkDGTctiGkEi7Aq4H9Fmk2ipyIIdJ7svUAJQlha5vbJE+ZC
- 8sCi52tp7dMW3cSoB5B+G7i5gOPwy7LzV/M9Iz6Gjw6eHSRj8eCKrxmD6
- WrfbyZF3d85VdG68SpqYV5iyWHkomgEsoflTKH6uvudCtZAZbQIJDALd3 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="294938873"
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="294938873"
+ bh=kr1LciugNNttTLX2Mwa/1HEeInKy09QHn+EpUr3G1aE=;
+ b=ERzLfDg8/DttNE4P5hb+70JeGcdUreCHxH1egedpZKfvJ0FFNOaUJ5JI
+ NzrUPnlrEAQGmZhRibBi0iUo9Tp1UmbhBliDt6MWAn4DnsGNiXJNk39OC
+ CE2S1JCRu4DezQUT2bQHWTHSEBAjD9tZDBCxR5KGiUrxS0q5G5mHdNM26
+ VE+if/iq0w3wsavWwVfnauwzHXqIuWg+Uvt/g7xwfc8h7f3n6sYY+AFdV
+ tVEYsFboFcV/TBCR61U4bwNkH7GJHpK6wXM7XVhg8CraeFaC3LI/cSqAC
+ P9z4TyVIwdhLujfWx/MBpVMDnlhN/bViOv4loiPGNj7gncD1a9qnPNHb3 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="294938885"
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="294938885"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2022 17:16:51 -0700
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="676933254"
+ 08 Sep 2022 17:16:54 -0700
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="676933267"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2022 17:16:51 -0700
+ 08 Sep 2022 17:16:54 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  8 Sep 2022 17:16:09 -0700
-Message-Id: <20220909001612.728451-13-daniele.ceraolospurio@intel.com>
+Date: Thu,  8 Sep 2022 17:16:12 -0700
+Message-Id: <20220909001612.728451-16-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220909001612.728451-1-daniele.ceraolospurio@intel.com>
 References: <20220909001612.728451-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 12/15] drm/i915/huc: stall media submission
- until HuC is loaded
+Subject: [Intel-gfx] [PATCH v4 15/15] HAX: drm/i915: force INTEL_MEI_GSC and
+ INTEL_MEI_PXP on for CI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,81 +56,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Wait on the fence to be signalled to avoid the submissions finding HuC
-not yet loaded.
+Both are required for HuC loading.
 
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Tony Ye <tony.ye@intel.com>
-Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_huc.h |  6 ++++++
- drivers/gpu/drm/i915/i915_request.c    | 24 ++++++++++++++++++++++++
- 2 files changed, 30 insertions(+)
+ drivers/gpu/drm/i915/Kconfig.debug | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.h b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
-index 915d281c1c72..52db03620c60 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_huc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
-@@ -81,6 +81,12 @@ static inline bool intel_huc_is_loaded_by_gsc(const struct intel_huc *huc)
- 	return huc->fw.loaded_via_gsc;
- }
- 
-+static inline bool intel_huc_wait_required(struct intel_huc *huc)
-+{
-+	return intel_huc_is_used(huc) && intel_huc_is_loaded_by_gsc(huc) &&
-+	       !intel_huc_is_authenticated(huc);
-+}
-+
- void intel_huc_load_status(struct intel_huc *huc, struct drm_printer *p);
- 
- #endif
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 62fad16a55e8..77f45a3cb01f 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1621,6 +1621,20 @@ i915_request_await_object(struct i915_request *to,
- 	return ret;
- }
- 
-+static void i915_request_await_huc(struct i915_request *rq)
-+{
-+	struct intel_huc *huc = &rq->context->engine->gt->uc.huc;
-+
-+	/* don't stall kernel submissions! */
-+	if (!rcu_access_pointer(rq->context->gem_context))
-+		return;
-+
-+	if (intel_huc_wait_required(huc))
-+		i915_sw_fence_await_sw_fence(&rq->submit,
-+					     &huc->delayed_load.fence,
-+					     &rq->submitq);
-+}
-+
- static struct i915_request *
- __i915_request_ensure_parallel_ordering(struct i915_request *rq,
- 					struct intel_timeline *timeline)
-@@ -1702,6 +1716,16 @@ __i915_request_add_to_timeline(struct i915_request *rq)
- 	struct intel_timeline *timeline = i915_request_timeline(rq);
- 	struct i915_request *prev;
- 
-+	/*
-+	 * Media workloads may require HuC, so stall them until HuC loading is
-+	 * complete. Note that HuC not being loaded when a user submission
-+	 * arrives can only happen when HuC is loaded via GSC and in that case
-+	 * we still expect the window between us starting to accept submissions
-+	 * and HuC loading completion to be small (a few hundred ms).
-+	 */
-+	if (rq->engine->class == VIDEO_DECODE_CLASS)
-+		i915_request_await_huc(rq);
-+
- 	/*
- 	 * Dependency tracking and request ordering along the timeline
- 	 * is special cased so that we can eliminate redundant ordering
+diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
+index e7fd3e76f8a2..a6576ffbc4dc 100644
+--- a/drivers/gpu/drm/i915/Kconfig.debug
++++ b/drivers/gpu/drm/i915/Kconfig.debug
+@@ -48,6 +48,8 @@ config DRM_I915_DEBUG
+ 	select DRM_I915_DEBUG_RUNTIME_PM
+ 	select DRM_I915_SW_FENCE_DEBUG_OBJECTS
+ 	select DRM_I915_SELFTEST
++	select INTEL_MEI_GSC
++	select INTEL_MEI_PXP
+ 	select BROKEN # for prototype uAPI
+ 	default n
+ 	help
 -- 
 2.37.2
 
