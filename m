@@ -4,75 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7683BC6FA83
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDBAC6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 902D410E4AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA4F910E4B5;
 	Mon, 12 Sep 2022 13:38:11 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97E8710EA7E;
- Tue,  6 Sep 2022 20:03:03 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id 29so11530534edv.2;
- Tue, 06 Sep 2022 13:03:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=F6ib7HMkD8OZCaZPl3GcVqEvWmm4ctxdEGHR+aqIKVc=;
- b=ArRU4YWH8hE+2Z1UVe6QOKE5hPjwCYDsbvdE1/PUCWN56FAMQZ/4zqvMIxfOOB2keG
- VETEDtrmessAghGKMzFBp8CyQVDdAQqU4x+gj9gaRUZoj5nIhCcQp0TbKqYFac2p/l7c
- s8E+JhqrISyguo1blQmfoTPAnbUnCSoWPxO87AW5Jnu7jG9ZsEG2SFveoy3yVuaEmC/j
- AJGJVNakAM7s7v3qVwNh9qCbZDvWMeFX5CX+Yh1J7gk3RyIO+elUjPVl8TzAtf+ajC+9
- gJrzytdJaqd/ImlOWyICFY6pKT6Gkrs3MV9zjaV5uubNzgLGsQ1rDLq1Oj3ES5Fk9n3N
- yT3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date;
- bh=F6ib7HMkD8OZCaZPl3GcVqEvWmm4ctxdEGHR+aqIKVc=;
- b=8QL+g4PCMSfc6OyB3qBxs5pxN0YGjrt9tW8kDkAenlLX8B4H+5GtcK+dpP0AYP+0cM
- GlkNCO85K0dKqOMn4pzVcewZ8CCNSQtThiYz0VrZOjoGpYzrNe/FspGU0dkSyKk85HaG
- MXIluqfZHphwwz+PWrlVjsefCtFzrlHfgs9Oy9+Z8K4cDT4WpZGM6GcsVrY7FRZ1ZOqe
- cLMF8R7UHATmfQnCSN36sO22I3OJtUCwb69iry2JS68UzUn8HuVU6G8qxZBO8S8fAgKN
- SxG2I/P2XGcJFNPZWBzrfzvIz1juMKGTSKOot30nlyZRhwTJPVpTQPB8EQJ6e30I/7jp
- sHtg==
-X-Gm-Message-State: ACgBeo3aK0bwEziimuFhATsBNHeaKqB/CLPTZ3d2DG4dOH17tZMNUSsC
- xsUz6hOuSUNkfSHBpzrdxao=
-X-Google-Smtp-Source: AA6agR5gwvJ8nN16z0kDOnfFe8gSYaFolah5D1v/bfxdS5M65ePk383S/fOmy1b3my8s0GvcbJd5jQ==
-X-Received: by 2002:a05:6402:2499:b0:440:942a:40c2 with SMTP id
- q25-20020a056402249900b00440942a40c2mr225612eda.37.1662494582166; 
- Tue, 06 Sep 2022 13:03:02 -0700 (PDT)
-Received: from kista.localnet (82-149-1-172.dynamic.telemach.net.
- [82.149.1.172]) by smtp.gmail.com with ESMTPSA id
- b2-20020a1709062b4200b006fee7b5dff2sm7207555ejg.143.2022.09.06.13.03.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Sep 2022 13:03:01 -0700 (PDT)
-From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>, Ben Skeggs <bskeggs@redhat.com>,
- David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Samuel Holland <samuel@sholland.org>, Karol Herbst <kherbst@redhat.com>,
- Noralf =?ISO-8859-1?Q?Tr=F8nnes?= <noralf@tronnes.org>,
- Emma Anholt <emma@anholt.net>, Daniel Vetter <daniel@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Maxime Ripard <maxime@cerno.tech>
-Date: Tue, 06 Sep 2022 22:02:59 +0200
-Message-ID: <3192228.44csPzL39Z@kista>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-35-459522d653a7@cerno.tech>
-References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-35-459522d653a7@cerno.tech>
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA08010ED4D;
+ Fri,  9 Sep 2022 17:36:56 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-13.nat.spd-mgts.ru
+ [109.252.119.13])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 0A45E6601FC6;
+ Fri,  9 Sep 2022 18:36:51 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1662745015;
+ bh=8xgN4e43LGiBPVdQ7GyKB5jQBCWxBspXnT50kSaZfdc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=E1pvbfsh4mhx8kHsaeEx5+wdORPcsEFHoldFIWWyXseblN1dtO3m2LKuSoqgihlSa
+ mvxWcvwfAY63jSB7DnN7yOeJIhOmHYkexHRg9C30PT7fBMeLWfUKCiYOa08B86oCUs
+ ccnMOiQ/eemk3IQI6BMX/oXA+OGKrl0rBatDrO8+JSqXCkTd/fI+qJU/40kfFMc89g
+ t0gQ9aaRRLRYPyQEByTuKyml5hlPtBl1GC6RbbKtZL44FqTg2qeA3KCDga5aZ0jHda
+ scJFjauo2KMswJRJK5d6rTZTggJc5SFIdfQTgNU1j3sp7y+V1qH4Ha2hAFB1s341R4
+ qnfx/6JJNgQIg==
+Message-ID: <588ff12e-d030-0db0-e248-1afd0dee4ae1@collabora.com>
+Date: Fri, 9 Sep 2022 20:36:48 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Content-Language: en-US
+To: "Ruhl, Michael J" <michael.j.ruhl@intel.com>,
+ Dmitry Osipenko <digetx@gmail.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>
+References: <20220831153757.97381-1-dmitry.osipenko@collabora.com>
+ <20220831153757.97381-7-dmitry.osipenko@collabora.com>
+ <DM5PR11MB1324088635FDE00B0D957816C17B9@DM5PR11MB1324.namprd11.prod.outlook.com>
+ <760b999f-b15d-102e-8bc7-c3e69f07f43f@gmail.com>
+ <c89680d0-30ee-f5d7-be68-fa84458df04d@gmail.com>
+ <DM5PR11MB1324EDC7A97DE98C2DC6EDA8C17A9@DM5PR11MB1324.namprd11.prod.outlook.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <DM5PR11MB1324EDC7A97DE98C2DC6EDA8C17A9@DM5PR11MB1324.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 35/41] drm/sun4i: tv: Convert to atomic
- hooks
+Subject: Re: [Intel-gfx] [PATCH v4 06/21] drm/i915: Prepare to dynamic
+ dma-buf locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,28 +71,135 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
- Geert Uytterhoeven <geert@linux-m68k.org>, Maxime Ripard <maxime@cerno.tech>,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ "kernel@collabora.com" <kernel@collabora.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Daniel Stone <daniel@fooishbar.org>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>, Chia-I Wu <olvaffe@gmail.com>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, "Gross,
+ Jurgen" <jgross@suse.com>, David Airlie <airlied@linux.ie>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Tomi Valkeinen <tomba@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Qiang Yu <yuq825@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>,
+ Lucas Stach <l.stach@pengutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Dne ponedeljek, 29. avgust 2022 ob 15:11:49 CEST je Maxime Ripard napisal(a):
-> The sun4i TV driver still uses legacy enable and disable hook
-> implementation. Let's convert to the atomic variants.
+On 9/2/22 19:26, Ruhl, Michael J wrote:
+>> 02.09.2022 13:31, Dmitry Osipenko пишет:
+>>> 01.09.2022 17:02, Ruhl, Michael J пишет:
+>>> ...
+>>>>> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
+>>>>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+>>>>> @@ -331,7 +331,19 @@ static void __i915_gem_free_objects(struct
+>>>>> drm_i915_private *i915,
+>>>>> 			continue;
+>>>>> 		}
+>>>>>
+>>>>> +		/*
+>>>>> +		 * dma_buf_unmap_attachment() requires reservation to be
+>>>>> +		 * locked. The imported GEM shouldn't share reservation lock,
+>>>>> +		 * so it's safe to take the lock.
+>>>>> +		 */
+>>>>> +		if (obj->base.import_attach)
+>>>>> +			i915_gem_object_lock(obj, NULL);
+>>>>
+>>>> There is a lot of stuff going here.  Taking the lock may be premature...
+>>>>
+>>>>> 		__i915_gem_object_pages_fini(obj);
+>>>>
+>>>> The i915_gem_dmabuf.c:i915_gem_object_put_pages_dmabuf is where
+>>>> unmap_attachment is actually called, would it make more sense to make
+>>>> do the locking there?
+>>>
+>>> The __i915_gem_object_put_pages() is invoked with a held reservation
+>>> lock, while freeing object is a special time when we know that GEM is
+>>> unused.
+>>>
+>>> The __i915_gem_free_objects() was taking the lock two weeks ago until
+>>> the change made Chris Wilson [1] reached linux-next.
+>>>
+>>> [1]
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-
+>> next.git/commit/?id=2826d447fbd60e6a05e53d5f918bceb8c04e315c
+>>>
+>>> I don't think we can take the lock within
+>>> i915_gem_object_put_pages_dmabuf(), it may/should deadlock other code
+>> paths.
+>>
+>> On the other hand, we can check whether the GEM's refcount number is
+>> zero in i915_gem_object_put_pages_dmabuf() and then take the lock if
+>> it's zero.
+>>
+>> Also, seems it should be possible just to bail out from
+>> i915_gem_object_put_pages_dmabuf() if refcount=0. The further
+>> drm_prime_gem_destroy() will take care of unmapping. Perhaps this could
+>> be the best option, I'll give it a test.
 > 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> i915_gem_object_put_pages() is uses the SG, and the usage for
+> drm_prim_gem_destroy()
+> 
+> from __i915_gem_free_objects() doesn't use the SG because it has been "freed"
+> already, I am not sure if that would work...
+> 
+> Hmm.. with that in mind, maybe moving the base.import_attach check to 
+> __i915_gem_object_put_pages with your attach check?
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+I see you meant __i915_gem_object_pages_fini() here.
 
-BTW, I suggest you merge fixes/cleanups, no need to drag them in this super 
-long series.
+> 	atomic_set(&obj->mm.pages_pin_count, 0);
+> 	if (obj->base.import)
+> 		i915_gem_object_lock(obj, NULL);
+> 
+> 	__i915_gem_object_put_pages(obj);
+> 
+> 	if (obj->base.import)
+> 		i915_gem_object_unlock(obj, NULL);
+> 	GEM_BUG_ON(i915_gem_object_has_pages(obj));
+> 
+> Pretty much one step up from the dmabuf interface, but we are guaranteed to
+> not have any pinned pages?
 
+Importer shouldn't hold pages outside of dma-buf API, otherwise it
+should be a bug.
+
+> The other caller of __i915_gem_object_pages_fini is the i915_ttm move_notify
+> which should not conflict (export side, not import side).
+> 
+> Since it appears that not locking during the clean up is desirable, trying to make sure take the lock
+> is taken at the last moment might be the right path?
+
+Reducing the scope of locking usually is preferred more. Yours
+suggestion works okay, I couldn't spot any problems at least for a
+non-TTM code paths.
+
+It's indeed a bit not nice that __i915_gem_object_pages_fini() is used
+by TTM, but should be safe for imported objects. Will be great if anyone
+from i915 maintainers could ack this variant.
+
+-- 
 Best regards,
-Jernej
-
-
+Dmitry
