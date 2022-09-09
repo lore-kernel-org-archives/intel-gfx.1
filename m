@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09340ECAAD3
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:36:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2711FECAAD5
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:36:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41B7310EC21;
-	Fri,  9 Sep 2022 07:35:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FF4E10EBF0;
+	Fri,  9 Sep 2022 07:35:14 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C059910EBF5;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E1C10EBEE;
  Fri,  9 Sep 2022 07:34:56 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id ED1F261EFA;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 92C2261EE8;
  Fri,  9 Sep 2022 07:34:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69C4C43160;
- Fri,  9 Sep 2022 07:34:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBCA1C43149;
+ Fri,  9 Sep 2022 07:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1662708894;
- bh=EBt7UgSghKjU0MjW/yi1iqfwnhUuumqiRNK1oK1Mhu0=;
+ bh=jQl58GjfNBu0f/gXOHTX8VoSkcp6l0MUV948MF+ogsA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KJ165+GXx180sU6O/tAmqV1j2afwyCLK576k9hhrzaEW/sL7FBEiaALdKGN1f5r4m
- YWV7NZ0uwXAkG7Rp/KU0bij8+ayuy7Zr34xn/lNoOWu89X5YxpEcVcCFLdqaUerBts
- bM1tddvHNpufkOpup8BvTQFGeKAaisa2PRg5jOduaAkE12zcjvFrQv/r217fEJ9UGQ
- 8DvmxcOSN0CiYHbHza7o/2W13xqpvx7lkDhOvpTgiPqaLMVSdJSmxA4L/0JLvvOkJb
- AGCKeV+/WM3LdFCIUidhj/2GC4RcBuRW6XF3P8HRDc3mqUQFeUGrcuTyBez12m9KST
- DRg+vCr361FDQ==
+ b=Ks/CD4x7yrJuVcANT2t3Af82tH0XCLCqaYE9cAIsy/IZTNWgX+Ze6eY72naIBT9BD
+ tv1cxlOhIbMBGkdQ55yTbf+BVRGqRkiNvw+mHvlTZtucJWvoFQfgX1OOyq6X8bQPf4
+ VkYEw2ip1Qf3XYtO1yv5eeROPuU7bsaNjRusm7SAhCcBu4IG3PlXWnDKxIAgFQyRaZ
+ 5IldPDV81jcEaMwyw4+kb+Cy9eEcHGDwZNQ/xn4rgox6NDM64HhHqHzmuDy9GyIfq6
+ PcO/2k0MIh90mLGjr+NyOv+LpfEd8FrZES5tZKD25UQSEP6XtVzfz7zl1ZUpa9bYBF
+ PMezXrEc0hCNQ==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oWYXG-007FGt-NL;
- Fri, 09 Sep 2022 09:34:46 +0200
+ (envelope-from <mchehab@kernel.org>) id 1oWYXF-007FG3-Sn;
+ Fri, 09 Sep 2022 09:34:45 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Fri,  9 Sep 2022 09:34:27 +0200
-Message-Id: <a0931ff4061eb54fc2e0ad754e16cc7c2a6170aa.1662708705.git.mchehab@kernel.org>
+Date: Fri,  9 Sep 2022 09:34:14 +0200
+Message-Id: <79c409fa6840fefd39dc057dc558c69807c65b3f.1662708705.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
 References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 20/37] drm/i915: dvo_ch7xxx.c: use SPDX header
+Subject: [Intel-gfx] [PATCH v3 07/37] drm/i915: i915_gem_ttm: fix a
+ kernel-doc markup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,67 +55,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Matthew Auld <matthew.auld@intel.com>,
  Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
+ Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This file is licensed with MIT license. Change its license text
-to use SPDX.
+Two new fields were added to __i915_gem_ttm_object_init() without
+their corresponding documentation.
 
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Document them.
+
+Fixes: 9b78b5dade2d ("drm/i915: add i915_gem_object_create_region_at()")
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/display/dvo_ch7xxx.c | 33 +++++------------------
- 1 file changed, 6 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/dvo_ch7xxx.c b/drivers/gpu/drm/i915/display/dvo_ch7xxx.c
-index 1c1fe1f29675..b4d94a565fdb 100644
---- a/drivers/gpu/drm/i915/display/dvo_ch7xxx.c
-+++ b/drivers/gpu/drm/i915/display/dvo_ch7xxx.c
-@@ -1,30 +1,9 @@
--/**************************************************************************
--
--Copyright © 2006 Dave Airlie
--
--All Rights Reserved.
--
--Permission is hereby granted, free of charge, to any person obtaining a
--copy of this software and associated documentation files (the
--"Software"), to deal in the Software without restriction, including
--without limitation the rights to use, copy, modify, merge, publish,
--distribute, sub license, and/or sell copies of the Software, and to
--permit persons to whom the Software is furnished to do so, subject to
--the following conditions:
--
--The above copyright notice and this permission notice (including the
--next paragraph) shall be included in all copies or substantial portions
--of the Software.
--
--THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
--OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
--MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
--IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
--ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
--TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
--SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--
--**************************************************************************/
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2006 Dave Airlie
-+ *
-+ * All Rights Reserved.
-+ */
- 
- #include "intel_display_types.h"
- #include "intel_dvo_dev.h"
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index f64a3deb12fc..f5fb06d74f13 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -1148,7 +1148,9 @@ void i915_ttm_bo_destroy(struct ttm_buffer_object *bo)
+  * __i915_gem_ttm_object_init - Initialize a ttm-backed i915 gem object
+  * @mem: The initial memory region for the object.
+  * @obj: The gem object.
++ * @offset: The range start.
+  * @size: Object size in bytes.
++ * @page_size: The requested page size in bytes for this object.
+  * @flags: gem object flags.
+  *
+  * Return: 0 on success, negative error code on failure.
 -- 
 2.37.3
 
