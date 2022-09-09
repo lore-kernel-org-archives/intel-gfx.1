@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F624C6FA89
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:36:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A42EECAAD5
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA97B10EC04;
-	Fri,  9 Sep 2022 07:35:23 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06F5010EBFE;
- Fri,  9 Sep 2022 07:34:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CE8A10EC06;
+	Fri,  9 Sep 2022 07:35:24 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 030A510EBF7;
+ Fri,  9 Sep 2022 07:34:57 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5DC9861F13;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0EF4361F01;
  Fri,  9 Sep 2022 07:34:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08182C4167A;
- Fri,  9 Sep 2022 07:34:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED200C43162;
+ Fri,  9 Sep 2022 07:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1662708895;
- bh=hzUkiXC8poEW7PSNZ3y+1t01Krzj3+KpWCjMfiGyzFg=;
+ bh=OQj7xNKrPxZCntEfi+IDU9jHaePLlrQmkx0xubCW65w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RrTp5RRjPFsW8KobeSqOT3qCsDklniuWOO3RlcN6JfhP1GTxLqLH/OKoed8eTiw2R
- K2Q9jYA0ADLd0npLp+ph23TF5zPRaSzPqoGGXYN2r7fKrFGRwEN1pAA3UqU/8ggEOu
- SVRX+foBR3AmbluFMwkehtrAjLCmiUCPU6mEQd/QHT1YpDQJ+kaPZFo4lkcnlz4yHF
- luluW5YioSvX0k1uCw2jN+h3an+EQ6nqpWlEAZ0n1azlv7clkq0usC0cUmR1rg+fQ4
- 6dMu7HJJ49MIYuYQhVgl7UBZ/Pawxqwb71D3DJXk7yUUUkDBjJNWq5qNc/JB6qfVeE
- 44bHtOXqAKHHw==
+ b=XUZUTnCLQDgrU1TO4ASIdCrANYO8rWT9cVjQ4g62F/rvVOsQQ9UeKpkzmvd6lnBeO
+ +H50EtzXk7NHoeS364/sNX0soUW9xHmbYo8VSSSgPbewjVv0v0y7oH7S/GWFUm0f4g
+ NR4r93O9d04l29H3YcQ0KO2jFGTSbVntW++DWahm0tD7qZPJk9XxepFIt3iXznYk4d
+ ZPvkBvsdmBQpgKNa2H8ZnYf2TbGNbSGVeYRs7EILJwuHr2cyULXMQVN20F9MhIE283
+ 9372nC3UuX/ZyBYc89oocDVYYmB7o7flwY7nnfHoRueEES89rEd/UnE32rZQ35C8qq
+ WiWjLp/luD2Tg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oWYXH-007FHD-0n;
- Fri, 09 Sep 2022 09:34:47 +0200
+ (envelope-from <mchehab@kernel.org>) id 1oWYXG-007FH5-T1;
+ Fri, 09 Sep 2022 09:34:46 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Fri,  9 Sep 2022 09:34:32 +0200
-Message-Id: <5289f6f591addc53604d35872bcc32d5fadf0a69.1662708705.git.mchehab@kernel.org>
+Date: Fri,  9 Sep 2022 09:34:30 +0200
+Message-Id: <9aa0810cbfbadc41ec712929dd20143911d7fe2d.1662708705.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
 References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 25/37] drm/i915: i915_deps: use a shorter
- title markup
+Subject: [Intel-gfx] [PATCH v3 23/37] drm/i915: i915_gem.c fix a kernel-doc
+ issue
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,10 +62,11 @@ Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The DOC: tag waits for a one-line short title for the doc
-section. Using multiple lines will produce a weird output.
-So, add a shorter description for the title, while keeping
-the current content below it.
+Prevent this Sphinx warning:
+
+	Documentation/foo/i915:728: ./drivers/gpu/drm/i915/i915_gem.c:447: WARNING: Inline emphasis start-string without end-string.
+
+By using @data to identify the data field, as expected by kernel-doc.
 
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -75,24 +75,22 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/i915_deps.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_deps.c b/drivers/gpu/drm/i915/i915_deps.c
-index 297b8e4e42ee..df6af832e3f2 100644
---- a/drivers/gpu/drm/i915/i915_deps.c
-+++ b/drivers/gpu/drm/i915/i915_deps.c
-@@ -11,7 +11,9 @@
- #include "i915_deps.h"
- 
- /**
-- * DOC: Set of utilities to dynamically collect dependencies into a
-+ * DOC: Utilities to collect dependencies for GT migration code
-+ *
-+ * Set of utilities to dynamically collect dependencies into a
-  * structure which is fed into the GT migration code.
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index f68fa0732363..2b5b2be91a24 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -444,7 +444,7 @@ i915_gem_gtt_pread(struct drm_i915_gem_object *obj,
+  * @data: ioctl data blob
+  * @file: drm file pointer
   *
-  * Once we can do async unbinding, this is also needed to coalesce
+- * On error, the contents of *data are undefined.
++ * On error, the contents of @data is undefined.
+  */
+ int
+ i915_gem_pread_ioctl(struct drm_device *dev, void *data,
 -- 
 2.37.3
 
