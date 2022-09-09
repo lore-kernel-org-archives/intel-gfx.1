@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67D0FECAAD3
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:36:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BE8EECAAD3
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:37:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C42F10EC0E;
-	Fri,  9 Sep 2022 07:35:25 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E1C010EBEB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C467A10EBFE;
+	Fri,  9 Sep 2022 07:35:27 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89A5B10EBFB;
  Fri,  9 Sep 2022 07:34:58 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A36C461EEA;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 192F4B8238D;
+ Fri,  9 Sep 2022 07:34:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85E8EC4FF13;
  Fri,  9 Sep 2022 07:34:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5E2C4315A;
- Fri,  9 Sep 2022 07:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662708894;
- bh=TwanRK/R0DaOUl8s+MGdP5tuX2z+kZ/zhcAXRv1Dj9g=;
+ s=k20201202; t=1662708895;
+ bh=I6eEapEOfzCQ9tPdvmEL+EtBLTgxim5EhgEQpdwxUDY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jpFhFI/0WDt4zOtGrQvIQ/qGgJF3aDOQ3GQDq9QEzvRnZ3f18UNZTlOlnnSkQFox9
- m9bjjDrfEm/oiOfWnOvUPca8WQQWIb31KV11PGpCbkUdavhbF9+mqqiLoQFo5gTQz+
- Su1YQaphf05icyQ9sBQRAATWA5+tHbFy40DvqEuiUgPOwctiLMGo8lCAD5F8NYBZKX
- KeIPH3vLyC44Qx/v91aypyr58R8v8eWEGcNtEWwAjti5K2jdWqCh4KL0STZ8l9VgQW
- 5Y6U2qZPkdjEQgH/wV5lxS3f/fc20/ctVKrQpfjmhSqaAAOb+Do0aWXYpXVq49+wLb
- 0KmN9N0zKETuw==
+ b=qiz0OKpEzmVY5Oo4ShbUm3VJmdK12O+Ws4BXh8mu+cp1oEGeDkr3ylvF1F8Jsztmg
+ 8amevWyBvvYdCS1upAUE+cXzj+6+8nvM6x0ocsthedrR36TI95m4MqWqlYinMDpoLM
+ bWJShnaeR3+tocSqWr7fKzOozHYAhpOGXIsU3cn60kekXlUBrmj6MtiXA89RQ3VQJT
+ XHjWtY/wDArMgMbZFcoHGxSx7zA2kdqD1vqgfxFwAVZDHpGVjDqZnnUYbmH527Kien
+ kfVJLPxfLTt4+/5Z5wsxiqjKvCMn38NWS3x6sB4uVIbU/3nZGrSYVI+aw4khwlnXjs
+ Fs6J4pGMjArUg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oWYXG-007FGZ-CP;
- Fri, 09 Sep 2022 09:34:46 +0200
+ (envelope-from <mchehab@kernel.org>) id 1oWYXH-007FHj-HP;
+ Fri, 09 Sep 2022 09:34:47 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Fri,  9 Sep 2022 09:34:22 +0200
-Message-Id: <0c993e585f1fbc26cdd86c1325fdfd7f7c969f10.1662708705.git.mchehab@kernel.org>
+Date: Fri,  9 Sep 2022 09:34:40 +0200
+Message-Id: <0da7c28a377a1fac9db524dbc8462731d922b39c.1662708705.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
 References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 15/37] drm/i915: intel_pm.c: fix some ascii
- artwork at kernel-doc
+Subject: [Intel-gfx] [PATCH v3 33/37] drm/i915 i915_gem_object_types.h:
+ document struct i915_lut_handle
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,31 +55,19 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Chris Wilson <chris.p.wilson@intel.com>,
  Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
+ Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Preserving ascii artwork on kernel-docs is tricky, as it needs
-to respect both the Sphinx rules and be properly parsed by
-kernel-doc script.
+commit d1b48c1e7184 ("drm/i915: Replace execbuf vma ht with an idr")
+added a rbtree list to allow searching for obj/ctx.
 
-The Sphinx syntax require code-blocks, which is:
-
-	::
-
-followed by a blank line and indented lines.
-
-But kernel-doc only works fine if the first and the last line
-are indented with the same amount of spaces.
-
-Also, a "\" at the end means that the next line should be merged
-with the first one.
-
-Change the ascii artwork to be on code-blocks, starting all
-lines at the same characters and not ending with a backslash.
+Document it.
 
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -89,64 +76,32 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/intel_pm.c | 33 ++++++++++++++++++---------------
- 1 file changed, 18 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object_types.h | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index eb9c54bbf51f..1f5e520a6728 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -683,18 +683,20 @@ static const struct intel_watermark_params i845_wm_info = {
-  * FIFO is relatively small compared to the amount of data
-  * fetched.
-  *
-- * The FIFO level vs. time graph might look something like:
-+ * The FIFO level vs. time graph might look something like::
-  *
-- *   |\   |\
-- *   | \  | \
-- * __---__---__ (- plane active, _ blanking)
-- * -> time
-+ *   ^
-+ *   |   |\   |\      (                          )
-+ *   |   | \  | \     (                          )
-+ *   |   __---__---__ (- plane active, _ blanking)
-+ *   +-------------------> time
-  *
-- * or perhaps like this:
-+ * or perhaps like this::
-  *
-- *   |\|\  |\|\
-- * __----__----__ (- plane active, _ blanking)
-- * -> time
-+ *   ^
-+ *   |     |\|\  |\|\   (                          )
-+ *   |   __----__----__ (- plane active, _ blanking)
-+ *   +-------------------> time
-  *
-  * Returns:
-  * The watermark in bytes
-@@ -730,13 +732,14 @@ static unsigned int intel_wm_method1(unsigned int pixel_rate,
-  * FIFO is relatively large compared to the amount of data
-  * fetched.
-  *
-- * The FIFO level vs. time graph might look something like:
-+ * The FIFO level vs. time graph might look something like::
-  *
-- *    |\___       |\___
-- *    |    \___   |    \___
-- *    |        \  |        \
-- * __ --__--__--__--__--__--__ (- plane active, _ blanking)
-- * -> time
-+ *   ^
-+ *   |     |\___       |\___        (                          )
-+ *   |     |    \___   |    \___    (                          )
-+ *   |     |        \  |        \   (                          )
-+ *   |  __ --__--__--__--__--__--__ (- plane active, _ blanking)
-+ *   +---------------------------------> time
-  *
-  * Returns:
-  * The watermark in bytes
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 9f6b14ec189a..35746cf268ea 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -21,9 +21,15 @@ struct drm_i915_gem_object;
+ struct intel_fronbuffer;
+ struct intel_memory_region;
+ 
+-/*
+- * struct i915_lut_handle tracks the fast lookups from handle to vma used
+- * for execbuf. Although we use a radixtree for that mapping, in order to
++/**
++ * struct i915_lut_handle - tracks the fast lookups from handle to vma used
++ * for execbuf.
++ *
++ * @obj_link: link to the object associated with the @handle.
++ * @ctx: context associated with the @handle.
++ * @handle: a rbtree handle to lookup context for specific obj/vma.
++ *
++ * Although we use a radixtree for that mapping, in order to
+  * remove them as the object or context is closed, we need a secondary list
+  * and a translation entry (i915_lut_handle).
+  */
 -- 
 2.37.3
 
