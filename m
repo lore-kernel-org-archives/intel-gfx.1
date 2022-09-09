@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B09CECAAA1
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:37:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C276ECAAD5
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:37:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F6C210EBEC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB35A10EBEE;
 	Fri,  9 Sep 2022 07:35:26 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6283510EBF9;
- Fri,  9 Sep 2022 07:34:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 965DE10EBFC;
+ Fri,  9 Sep 2022 07:34:58 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9AB5261EE7;
- Fri,  9 Sep 2022 07:34:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5607CC43155;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0D6A061F00;
+ Fri,  9 Sep 2022 07:34:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D070EC43164;
  Fri,  9 Sep 2022 07:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1662708894;
- bh=hPJyo0qjU0Uc3jjVEpQnaCCuGiOy/ZYgm+ayReL6nYY=;
+ bh=yzIzGGHPTm6VJftl0OQmqcW1xRbYLj9NPH5I+kib2H4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GUkrKoUMHBjKOBPut6em4vX1lYtFqP9w+WcFIiFbKNc95MAW+G+tmWTKDaVL19mDN
- V8oLKKtidcUEGlv+Uehoi9YDRMGK3r7ZQ4BcbjyOLtwdLz4+e7PfjjZdFOq/p/fw9h
- E1w4SViUYEOBFFW+1AOABlDUbP1HfzLN7ZWwP0lIUYTUoUJOw4UQIMdEAgT2qxY/gN
- 2P58UxPDi9kQ4Z+diPsU7yXInXotHyQhnxqY6W04Lje5KYS+x5vjBn5fDgbeJxwHz5
- XQudODSGzr9SybDQBfUeMsR2D4WJ3gHH7w/UxmtJkU+T8P6kzOV/m3OjZhyLRZ47p6
- RpQQtZXpnBvPw==
+ b=TlT4VDT9PtfPOMFs3TYk4gn7THT7edYxPaH21B5ec0E+Y3fGhD+lE+PWlaCYSRQL+
+ aXiHqH9DI9FW30G1M58H8JkLITDEdF4w8qpVy8CTfJnvDre173tqDD54P+fXiTWk6R
+ s3DtTxxxGISrcRiWfU4p44VOs0BoaKwMwQN/QkY73iV9J5TvEpjG1gDJSkHsUNK7dg
+ 5sQywv8ldkF/hEI3d3MyqnqZPqWPRwnnvTOUA+uekDN2q3C3EAueetS/0V3AUaNLh/
+ g6/WnY6KVYY/PckXToHyWTO/nk6N06BvExsD+x3xhqLHM1SmFXFx0MmCApXun5SWuz
+ POBl6vIZBdBEQ==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oWYXG-007FGV-Ay;
+ (envelope-from <mchehab@kernel.org>) id 1oWYXG-007FH1-Qp;
  Fri, 09 Sep 2022 09:34:46 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Fri,  9 Sep 2022 09:34:21 +0200
-Message-Id: <76f459e7da40f4415cd6136ac7f984c206561a04.1662708705.git.mchehab@kernel.org>
+Date: Fri,  9 Sep 2022 09:34:29 +0200
+Message-Id: <90bc7948a2366b7abc7945d7fd74d48c0df18bf4.1662708705.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
 References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 14/37] drm/i915: skl_scaler: fix return value
- kernel-doc markup
+Subject: [Intel-gfx] [PATCH v3 22/37] drm/i915: i915_vma_resource.c: fix
+ some kernel-doc markups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,18 +56,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The way it is, it produces this warning:
+Building docs currently produces two warnings:
 
-	Documentation/gpu/i915:150: ./drivers/gpu/drm/i915/display/skl_scaler.c:213: WARNING: Block quote ends without a blank line; unexpected unindent.
+    Documentation/foo/i915:71: ./drivers/gpu/drm/i915/i915_vma_resource.c:286: WARNING: Inline strong start-string without end-string.
+    Documentation/foo/i915:71: ./drivers/gpu/drm/i915/i915_vma_resource.c:370: WARNING: Inline strong start-string without end-string.
 
-Use list markups to suppress the warning.
+That's because @foo evaluates into **foo**, and placing anything
+after it without spaces cause Sphinx to warn and do the wrong
+thing.. So, replace them by a different Sphinx-compatible tag.
 
 Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -76,26 +79,31 @@ Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
- drivers/gpu/drm/i915/display/skl_scaler.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_vma_resource.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index 4092679be21e..59099f793d3e 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -208,9 +208,9 @@ int skl_update_scaler_crtc(struct intel_crtc_state *crtc_state)
-  * @crtc_state: crtc's scaler state
-  * @plane_state: atomic plane state to update
+diff --git a/drivers/gpu/drm/i915/i915_vma_resource.c b/drivers/gpu/drm/i915/i915_vma_resource.c
+index de1342dbfa12..e758e0530175 100644
+--- a/drivers/gpu/drm/i915/i915_vma_resource.c
++++ b/drivers/gpu/drm/i915/i915_vma_resource.c
+@@ -290,7 +290,7 @@ i915_vma_resource_color_adjust_range(struct i915_address_space *vm,
   *
-- * Return
-- *     0 - scaler_usage updated successfully
-- *    error - requested scaling cannot be supported or other error condition
-+ * Return:
-+ * * 0 - scaler_usage updated successfully
-+ * * error - requested scaling cannot be supported or other error condition
+  * The function needs to be called with the vm lock held.
+  *
+- * Return: Zero on success, -ERESTARTSYS if interrupted and @intr==true
++ * Return: Zero on success, -ERESTARTSYS if interrupted and ``intr==true``
   */
- int skl_update_scaler_plane(struct intel_crtc_state *crtc_state,
- 			    struct intel_plane_state *plane_state)
+ int i915_vma_resource_bind_dep_sync(struct i915_address_space *vm,
+ 				    u64 offset,
+@@ -374,7 +374,7 @@ void i915_vma_resource_bind_dep_sync_all(struct i915_address_space *vm)
+  * this means that during heavy memory pressure, we will sync in this
+  * function.
+  *
+- * Return: Zero on success, -ERESTARTSYS if interrupted and @intr==true
++ * Return: Zero on success, -ERESTARTSYS if interrupted and ``intr==true``
+  */
+ int i915_vma_resource_bind_dep_await(struct i915_address_space *vm,
+ 				     struct i915_sw_fence *sw_fence,
 -- 
 2.37.3
 
