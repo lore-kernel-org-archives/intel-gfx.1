@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86D13ECAAA1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A62ECAAD3
 	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 07:38:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E9DA10EC41;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B90BC10EC43;
 	Fri,  9 Sep 2022 07:35:53 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31E0010EC05;
- Fri,  9 Sep 2022 07:35:02 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0A9010EC17;
+ Fri,  9 Sep 2022 07:35:07 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A43D561F0A;
- Fri,  9 Sep 2022 07:35:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73D0BC433D7;
- Fri,  9 Sep 2022 07:35:01 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 3B836CE219C;
+ Fri,  9 Sep 2022 07:34:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1544FC4314B;
+ Fri,  9 Sep 2022 07:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1662708901;
- bh=mx5m4W9+rdgIoXtdj6jbmkTk0F02+LuCdNxfXOHm9IM=;
+ s=k20201202; t=1662708894;
+ bh=thjPSFNuiUfjV2+1KjjZL79wc6ddTsGOdo5Pa9Vne9c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=neYdglhMQDQLCT7D0utjejJwIG0jgf1mkOw1zGaOZb+DAoo5wET86qgH8etJlRac9
- Mbji4Ow248ahJkXdspRMD3VLAGT9VS46aalps+tSXbsoSQHwDqrtm98r9NI5aaei3n
- VtjXAaXGON19KsPuLjbOitce6oOQAsjgS99tN+zFT4b77HZtwFLa3ef/EAehdAGKn4
- K5stHLWtRxI3oqjezRo6+NBcroFNvawPjoFevKl5lJxBc8icCKV+H14cM/UchRsA8y
- 1El/3ybrDCl8eMOhKhQIktnHb9dTkBsgXMsYSL6BgdMtoHjux6TX0qSnXterXQRhx4
- Oqhi3J4LyXWsQ==
+ b=Bf3FKZ+QWxrlZBeC5S1N8oBhEHw5hHwmBIpUk162XUPvH7J2FOFiroSGyXIW4gjL2
+ fvIDjzpfagxuj0w7CI8kLKn7Z8Z7MgrZ2DDp74MuF9P3/yxYWMU9oYIZSTBfp/v2Pn
+ bECD4H6utkQM8yJZ72OX0EBpyLpR3guIWEJdv1DNvOp/so3HxOaFELewK6yFtFYhlt
+ Z3CGzQ3OL0CcyRAGcqHntTehewOPrHoX5FffolMGY/LKaf86Z021ez4UKlBBxztFTx
+ 3iboEQN6AghmMSb7CTh4y1XfXC+jQ4rMl58ECkRFoNrd0j0VHec4qi62vLlqRwzYpp
+ 0501SAq2cLURg==
 Received: from mchehab by mail.kernel.org with local (Exim 4.95)
- (envelope-from <mchehab@kernel.org>) id 1oWYXH-007FHr-LM;
- Fri, 09 Sep 2022 09:34:47 +0200
+ (envelope-from <mchehab@kernel.org>) id 1oWYXG-007FGB-0v;
+ Fri, 09 Sep 2022 09:34:46 +0200
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Fri,  9 Sep 2022 09:34:42 +0200
-Message-Id: <997567dcc2b5942afde093d92d0666948e66d83a.1662708705.git.mchehab@kernel.org>
+Date: Fri,  9 Sep 2022 09:34:16 +0200
+Message-Id: <f1e033282194693e66ffa35320b85a3f0cde6caa.1662708705.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <cover.1662708705.git.mchehab@kernel.org>
 References: <cover.1662708705.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 35/37] drm/i915: add descriptions for some
- RPM macros at intel_gt_pm.h
+Subject: [Intel-gfx] [PATCH v3 09/37] drm/i915: gem: add kernel-doc
+ description for some function parameters
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,136 +55,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- David Airlie <airlied@linux.ie>, Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Chris Wilson <chris.p.wilson@intel.com>, Maxime Ripard <mripard@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Jasmine Newsome <jasmine.newsome@intel.com>,
+ linux-kernel@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The intel_gt_pm.h file contains some convenient macros to be used
-in GT code in order to get/put runtime PM references and for
-checking them.
+There are some parameters missing at the kernel-doc markups on
+some gem files. Some of those are trivial enough to be added.
 
-Add descriptions based on the ones at intel_wakeref.h and
-intel_runtime_pm.c.
+Document them.
 
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
 Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
 ---
 
 To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
 See [PATCH v3 00/37] at: https://lore.kernel.org/all/cover.1662708705.git.mchehab@kernel.org/
 
- Documentation/gpu/i915.rst            |  2 ++
- drivers/gpu/drm/i915/gt/intel_gt_pm.h | 51 +++++++++++++++++++++++++++
- 2 files changed, 53 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_object.c   | 2 ++
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.h      | 1 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c | 2 ++
+ 3 files changed, 5 insertions(+)
 
-diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
-index 7f5cd01ed398..59c532fe0332 100644
---- a/Documentation/gpu/i915.rst
-+++ b/Documentation/gpu/i915.rst
-@@ -446,6 +446,8 @@ Graphics Translation Tables
- Other GT functionality
- ----------------------
- 
-+.. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gt_pm.h
-+
- .. kernel-doc:: drivers/gpu/drm/i915/gt/intel_context.h
- 
- .. kernel-doc:: drivers/gpu/drm/i915/gt/intel_gsc.h
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-index 6c9a46452364..7847e15d102e 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-@@ -11,21 +11,57 @@
- #include "intel_gt_types.h"
- #include "intel_wakeref.h"
- 
-+/**
-+ * intel_gt_pm_is_awake: Query whether the runtime PM is awake held
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 85482a04d158..35637e2f51f3 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -815,6 +815,8 @@ int i915_gem_object_wait_moving_fence(struct drm_i915_gem_object *obj,
+  * in an unknown_state. This means that userspace must NEVER be allowed to touch
+  * the pages, with either the GPU or CPU.
+  *
++ * @obj: The object to check its state.
 + *
-+ * @gt: pointer to the graphics engine
-+ *
-+ * Returns: true if a runtime pm reference is currently held and the GT is
-+ * awake.
-+ */
- static inline bool intel_gt_pm_is_awake(const struct intel_gt *gt)
- {
- 	return intel_wakeref_is_active(&gt->wakeref);
- }
- 
-+/**
-+ * intel_gt_pm_get: grab a runtime PM reference ensuring that GT is powered up
-+ * @gt: pointer to the graphics engine
-+ *
-+ * Any runtime pm reference obtained by this function must have a symmetric
-+ * call to intel_gt_pm_put() to release the reference again.
-+ *
-+ * Note that this is allowed to fail, in which case the runtime-pm wakeref
-+ * will be released and the acquisition unwound.
-+ */
- static inline void intel_gt_pm_get(struct intel_gt *gt)
- {
- 	intel_wakeref_get(&gt->wakeref);
- }
- 
-+/**
-+ * __intel_gt_pm_get: Acquire the runtime PM reference again
-+ * @gt: pointer to the graphics engine which contains the wakeref
-+ *
-+ * Increment the PM reference counter, only valid if it is already held by
-+ * the caller.
-+ *
-+ * See intel_gt_pm_get().
-+ */
- static inline void __intel_gt_pm_get(struct intel_gt *gt)
- {
- 	__intel_wakeref_get(&gt->wakeref);
- }
- 
-+/**
-+ * intel_gt_pm_get_if_awake: Acquire the runtime PM reference if active
-+ * @gt: pointer to the graphics engine which contains the PM reference
-+ *
-+ * Acquire a hold on the PM reference, but only if the GT is already
-+ * active.
-+ *
-+ * Returns: true if the wakeref was acquired, false otherwise.
-+ */
- static inline bool intel_gt_pm_get_if_awake(struct intel_gt *gt)
- {
- 	return intel_wakeref_get_if_active(&gt->wakeref);
-@@ -36,6 +72,14 @@ static inline void intel_gt_pm_might_get(struct intel_gt *gt)
- 	intel_wakeref_might_get(&gt->wakeref);
- }
- 
-+/**
-+ * intel_gt_pm_put: Release the runtime PM reference
-+ * @gt: pointer to the graphics engine which contains the PM reference
-+ *
-+ * Release our hold on the runtime PM for GT.
-+ *
-+ * It might power down the GT right away if this is the last reference.
-+ */
- static inline void intel_gt_pm_put(struct intel_gt *gt)
- {
- 	intel_wakeref_put(&gt->wakeref);
-@@ -51,6 +95,13 @@ static inline void intel_gt_pm_might_put(struct intel_gt *gt)
- 	intel_wakeref_might_put(&gt->wakeref);
- }
- 
-+/**
-+ * with_intel_gt_pm - get a GT reference ensuring that GT is powered up,
-+ *	run some code and then put the reference away.
-+ *
-+ * @gt: pointer to the gt
-+ * @tmp: pointer to a temporary wakeref.
-+ */
- #define with_intel_gt_pm(gt, tmp) \
- 	for (tmp = 1, intel_gt_pm_get(gt); tmp; \
- 	     intel_gt_pm_put(gt), tmp = 0)
+  * ONLY valid to be called after ensuring that all kernel fences have signalled
+  * (in particular the fence for moving/clearing the object).
+  */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.h b/drivers/gpu/drm/i915/gem/i915_gem_ttm.h
+index e4842b4296fc..64151f40098f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.h
+@@ -30,6 +30,7 @@ void i915_ttm_bo_destroy(struct ttm_buffer_object *bo);
+ /**
+  * i915_ttm_to_gem - Convert a struct ttm_buffer_object to an embedding
+  * struct drm_i915_gem_object.
++ * @bo: The ttm buffer object.
+  *
+  * Return: Pointer to the embedding struct ttm_buffer_object, or NULL
+  * if the object was not an i915 ttm object.
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index 9a7e50534b84..56217d324a9b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -237,6 +237,7 @@ static struct dma_fence *i915_ttm_accel_move(struct ttm_buffer_object *bo,
+  * @_src_iter: Storage space for the source kmap iterator.
+  * @dst_iter: Pointer to the destination kmap iterator.
+  * @src_iter: Pointer to the source kmap iterator.
++ * @num_pages: Number of pages to copy or to be cleared.
+  * @clear: Whether to clear instead of copy.
+  * @src_rsgt: Refcounted scatter-gather list of source memory.
+  * @dst_rsgt: Refcounted scatter-gather list of destination memory.
+@@ -541,6 +542,7 @@ __i915_ttm_move(struct ttm_buffer_object *bo,
+  * i915_ttm_move - The TTM move callback used by i915.
+  * @bo: The buffer object.
+  * @evict: Whether this is an eviction.
++ * @ctx: Pointer to a struct ttm_operation_ctx
+  * @dst_mem: The destination ttm resource.
+  * @hop: If we need multihop, what temporary memory type to move to.
+  *
 -- 
 2.37.3
 
