@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC37C6FA82
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 00:17:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DDA1C54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 00:17:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE0710E8A7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2217510E8AB;
 	Fri,  9 Sep 2022 00:17:04 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A7DA10E879;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00D2F10E87C;
  Fri,  9 Sep 2022 00:16:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662682605; x=1694218605;
+ t=1662682606; x=1694218606;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=3ee1TO/94UgBjY+J+pcNoPdoNYZquXUW2mHeg1EK+tw=;
- b=TqbM678A7paC6r3EwbaZKI1thpNertS9AAkqQaEYTqgW8KkJrIdm7A/J
- 5uP9qPWj17VqKJXJidbSHNOEugXojKojKXEoDGP0f3VpoN8xXjRHLmKR1
- CZl1/1iX1+K13jeTZu8OkJbQ5OSsjQ/9NKP4pJ1QX0g8gMmZBF+09jaEU
- kDnOXxZLCCwbMffRNYVxHMEXefXO2O87A1x/8ls1tXxpSELI8R7A53G/9
- tXtTQu0BmFnz+CYBz09lffIYuco+wEqrawsZt98JSBdbU1zv9OXMFeljR
- MbeuWV+itTIHpIhoXMXzx05N1gMsU/2ROk0OL1PKt2MbJJfVGus+SCQAq A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="294938829"
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="294938829"
+ bh=k/pvbPW3wwaX2jC/RyOHzw1x6ZqHDyTDvKOqsKADVME=;
+ b=c09tQ4OGXCs7iK7uvs5HjyWag1Fz3UoW5AGb5bh20b57JoyhC6fTA760
+ ZTfydIVh0LKdR6dKUkIbDHrn6PytapSY+J7o8C+rlmQh40WUzqjqu/CFE
+ u00fu4XU0VsalUqNFbl3L+fMJrpp4rB/pSLMuj2TiODe6UJkvflqKQjuq
+ uSIIzeboqoZSJNYSkT7NuDxpsLjkW5ElAAtG8iaiDcn7Q9zU0j4TsuhYg
+ A+mMaOVTbqbZF3e03Zo3mIqd/Bck9u+QJU4QosiRN/PRQH4v3OCFteaag
+ lHIp/jIvpWmOGJnXN22iSNPLBjWrHit4CVyW4zS+fuSIVQ7fIQfjl0Y2l g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="294938846"
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="294938846"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2022 17:16:36 -0700
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="676933175"
+ 08 Sep 2022 17:16:43 -0700
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="676933213"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2022 17:16:36 -0700
+ 08 Sep 2022 17:16:43 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  8 Sep 2022 17:15:59 -0700
-Message-Id: <20220909001612.728451-3-daniele.ceraolospurio@intel.com>
+Date: Thu,  8 Sep 2022 17:16:03 -0700
+Message-Id: <20220909001612.728451-7-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220909001612.728451-1-daniele.ceraolospurio@intel.com>
 References: <20220909001612.728451-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 02/15] mei: bus: enable sending gsc commands
+Subject: [Intel-gfx] [PATCH v4 06/15] mei: pxp: support matching with a gfx
+ discrete card
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,91 +56,66 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Tomas Winkler <tomas.winkler@intel.com>,
- Vitaly Lubart <vitaly.lubart@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, Tomas Winkler <tomas.winkler@intel.com>,
+ Vitaly Lubart <vitaly.lubart@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tomas Winkler <tomas.winkler@intel.com>
 
-GSC command is and extended header containing a scatter gather
-list and without a data buffer. Using MEI_CL_IO_SGL flag,
-the caller send the GSC command as a data and the function internally
-moves it to the extended header.
+With on-boards graphics card, both i915 and MEI
+are in the same device hierarchy with the same parent,
+while for discrete gfx card the MEI is its child device.
+Adjust the match function for that scenario
+by matching MEI parent device with i915.
+
+V2:
+ 1. More detailed commit message
+ 2. Check for dev is not null before it is accessed.
 
 Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Cc: Vitaly Lubart <vitaly.lubart@intel.com>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/misc/mei/bus.c     | 20 ++++++++++++++++++--
- drivers/misc/mei/mei_dev.h |  4 ++++
- 2 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/misc/mei/pxp/mei_pxp.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/misc/mei/bus.c b/drivers/misc/mei/bus.c
-index 46aa3554e97b..225f0b04c021 100644
---- a/drivers/misc/mei/bus.c
-+++ b/drivers/misc/mei/bus.c
-@@ -100,9 +100,18 @@ ssize_t __mei_cl_send(struct mei_cl *cl, const u8 *buf, size_t length, u8 vtag,
- 	cb->internal = !!(mode & MEI_CL_IO_TX_INTERNAL);
- 	cb->blocking = !!(mode & MEI_CL_IO_TX_BLOCKING);
- 	memcpy(cb->buf.data, buf, length);
-+	/* hack we point data to header */
-+	if (mode & MEI_CL_IO_SGL) {
-+		cb->ext_hdr = (struct mei_ext_hdr *)cb->buf.data;
-+		cb->buf.data = NULL;
-+		cb->buf.size = 0;
-+	}
+diff --git a/drivers/misc/mei/pxp/mei_pxp.c b/drivers/misc/mei/pxp/mei_pxp.c
+index 17c5d201603f..afc047627800 100644
+--- a/drivers/misc/mei/pxp/mei_pxp.c
++++ b/drivers/misc/mei/pxp/mei_pxp.c
+@@ -159,17 +159,24 @@ static int mei_pxp_component_match(struct device *dev, int subcomponent,
+ {
+ 	struct device *base = data;
  
- 	rets = mei_cl_write(cl, cb);
- 
-+	if (mode & MEI_CL_IO_SGL && rets == 0)
-+		rets = length;
++	if (!dev)
++		return 0;
 +
- out:
- 	mutex_unlock(&bus->device_lock);
+ 	if (!dev->driver || strcmp(dev->driver->name, "i915") ||
+ 	    subcomponent != I915_COMPONENT_PXP)
+ 		return 0;
  
-@@ -205,9 +214,16 @@ ssize_t __mei_cl_recv(struct mei_cl *cl, u8 *buf, size_t length, u8 *vtag,
- 		goto free;
- 	}
+ 	base = base->parent;
+-	if (!base)
++	if (!base) /* mei device */
+ 		return 0;
  
--	r_length = min_t(size_t, length, cb->buf_idx);
--	memcpy(buf, cb->buf.data, r_length);
-+	/* for the GSC type - copy the extended header to the buffer */
-+	if (cb->ext_hdr && cb->ext_hdr->type == MEI_EXT_HDR_GSC) {
-+		r_length = min_t(size_t, length, cb->ext_hdr->length * sizeof(u32));
-+		memcpy(buf, cb->ext_hdr, r_length);
-+	} else {
-+		r_length = min_t(size_t, length, cb->buf_idx);
-+		memcpy(buf, cb->buf.data, r_length);
-+	}
- 	rets = r_length;
-+
- 	if (vtag)
- 		*vtag = cb->vtag;
+-	base = base->parent;
+-	dev = dev->parent;
++	base = base->parent; /* pci device */
++	/* for dgfx */
++	if (base && dev == base)
++		return 1;
  
-diff --git a/drivers/misc/mei/mei_dev.h b/drivers/misc/mei/mei_dev.h
-index 31784bbc2d2a..8d8018428d9d 100644
---- a/drivers/misc/mei/mei_dev.h
-+++ b/drivers/misc/mei/mei_dev.h
-@@ -116,12 +116,16 @@ enum mei_cb_file_ops {
-  * @MEI_CL_IO_TX_INTERNAL: internal communication between driver and FW
-  *
-  * @MEI_CL_IO_RX_NONBLOCK: recv is non-blocking
-+ *
-+ * @MEI_CL_IO_SGL: send command with sgl list.
-  */
- enum mei_cl_io_mode {
- 	MEI_CL_IO_TX_BLOCKING = BIT(0),
- 	MEI_CL_IO_TX_INTERNAL = BIT(1),
++	/* for pch */
++	dev = dev->parent;
+ 	return (base && dev && dev == base);
+ }
  
- 	MEI_CL_IO_RX_NONBLOCK = BIT(2),
-+
-+	MEI_CL_IO_SGL         = BIT(3),
- };
- 
- /*
 -- 
 2.37.2
 
