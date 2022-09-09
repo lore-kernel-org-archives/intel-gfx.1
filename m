@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FD42ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 03:05:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE2AECAAD5
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 03:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D5A710E226;
-	Fri,  9 Sep 2022 03:05:15 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6CDA10E2EE;
- Fri,  9 Sep 2022 03:05:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21BCE10EA1E;
+	Fri,  9 Sep 2022 03:05:18 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B578A10E2EE;
+ Fri,  9 Sep 2022 03:05:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662692703; x=1694228703;
+ t=1662692707; x=1694228707;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+yssjGnk2Zp3MQF/9zrQ2m7m/7YA8Wye4MlvVDEJ0Mk=;
- b=Gha9aL4LXuMdiVX5vfE46y+O8fbZiIyi+fx8FkOGTS1LUIfoaC+7hCmV
- OEECZWrgMKZZZ1rVW3qrLEtJDeERcITmJ+R62aJmjONzum7ZA92jcA58o
- dKWTRYaDdu2JyVlIi6QlWcjTZjjAdCh5isCZ1uhVXBXibOwvHX6x9o3q7
- boEc1n4pA5JZ7a53go2XjWQwQs/e8BZiP3z/mfNJqSSprPyGrZdrLOIEC
- hbcDs4v7OdRB3Pg18l1qLb50Ngl6CVbPNY+gVdLz86+0oarqFhf9VtQ1E
- X9u53XX1by+Hcwb6nJ+OnjKoDXgLTNrxyJ6Rj7MB68MU+HtdYY9IBkLHo A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="280409963"
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="280409963"
+ bh=fTTvGXDm3y5vxlunNw3lM7XvdJmmRuB7BkP4htaMFu0=;
+ b=DimoGOW/BSiLPQQTphNJAdhedDL54wKgNDSspPZ1uZ5Vft58PNodLm1Q
+ vtJ3o5Zi4ncOgq+3WfffWcYrim3QlRPQs5b2HmsCwcKNFjGS4jrdmUPhi
+ DJ+X+Zi7b/Uk81hHVcVM2nIloXBv/VMesC4SSE2hyVaAySwk/mNoUcBUo
+ rLnTI3wbexZFsMx0/S1sQ+nPWlMm9gkEl9MDggY1pdqunV/SAEQ56aJN/
+ 7dpXFvSDO2HuCfE/5T8/BWN3so8VuQddbfBfs7ry+rZF5/4EfmPPfGz7X
+ kWUzyXv37ASnluebNNwVU0KsdgJYPzAapRXXDV1PrdoLGc9zLax9DZn+Q A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="361340925"
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="361340925"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2022 20:04:04 -0700
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2022 20:04:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="740908636"
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="740908979"
 Received: from sqa-gate.sh.intel.com (HELO michael.clx.dev.tsp.org)
  ([10.239.48.212])
- by orsmga004.jf.intel.com with ESMTP; 08 Sep 2022 20:03:54 -0700
+ by orsmga004.jf.intel.com with ESMTP; 08 Sep 2022 20:04:31 -0700
 From: Kevin Tian <kevin.tian@intel.com>
 To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -62,14 +62,14 @@ To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-s390@vger.kernel.org, kvm@vger.kernel.org
-Date: Fri,  9 Sep 2022 18:22:35 +0800
-Message-Id: <20220909102247.67324-4-kevin.tian@intel.com>
+Date: Fri,  9 Sep 2022 18:22:39 +0800
+Message-Id: <20220909102247.67324-8-kevin.tian@intel.com>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20220909102247.67324-1-kevin.tian@intel.com>
 References: <20220909102247.67324-1-kevin.tian@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 03/15] vfio/mlx5: Use the new device life
+Subject: [Intel-gfx] [PATCH v3 07/15] vfio/mbochs: Use the new device life
  cycle helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,97 +89,144 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Yi Liu <yi.l.liu@intel.com>
 
-mlx5 has its own @init/@release for handling migration cap.
+and manage avail_mbytes inside @init/@release.
 
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 Signed-off-by: Kevin Tian <kevin.tian@intel.com>
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/vfio/pci/mlx5/main.c | 50 ++++++++++++++++++++++++++----------
- 1 file changed, 36 insertions(+), 14 deletions(-)
+ samples/vfio-mdev/mbochs.c | 73 ++++++++++++++++++++++++--------------
+ 1 file changed, 46 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/vfio/pci/mlx5/main.c b/drivers/vfio/pci/mlx5/main.c
-index 759a5f5f7b3f..fd6ccb8454a2 100644
---- a/drivers/vfio/pci/mlx5/main.c
-+++ b/drivers/vfio/pci/mlx5/main.c
-@@ -585,8 +585,35 @@ static const struct vfio_log_ops mlx5vf_pci_log_ops = {
- 	.log_read_and_clear = mlx5vf_tracker_read_and_clear,
- };
- 
-+static int mlx5vf_pci_init_dev(struct vfio_device *core_vdev)
-+{
-+	struct mlx5vf_pci_core_device *mvdev = container_of(core_vdev,
-+			struct mlx5vf_pci_core_device, core_device.vdev);
-+	int ret;
-+
-+	ret = vfio_pci_core_init_dev(core_vdev);
-+	if (ret)
-+		return ret;
-+
-+	mlx5vf_cmd_set_migratable(mvdev, &mlx5vf_pci_mig_ops,
-+				  &mlx5vf_pci_log_ops);
-+
-+	return 0;
-+}
-+
-+static void mlx5vf_pci_release_dev(struct vfio_device *core_vdev)
-+{
-+	struct mlx5vf_pci_core_device *mvdev = container_of(core_vdev,
-+			struct mlx5vf_pci_core_device, core_device.vdev);
-+
-+	mlx5vf_cmd_remove_migratable(mvdev);
-+	vfio_pci_core_release_dev(core_vdev);
-+}
-+
- static const struct vfio_device_ops mlx5vf_pci_ops = {
- 	.name = "mlx5-vfio-pci",
-+	.init = mlx5vf_pci_init_dev,
-+	.release = mlx5vf_pci_release_dev,
- 	.open_device = mlx5vf_pci_open_device,
- 	.close_device = mlx5vf_pci_close_device,
- 	.ioctl = vfio_pci_core_ioctl,
-@@ -604,22 +631,19 @@ static int mlx5vf_pci_probe(struct pci_dev *pdev,
- 	struct mlx5vf_pci_core_device *mvdev;
- 	int ret;
- 
--	mvdev = kzalloc(sizeof(*mvdev), GFP_KERNEL);
--	if (!mvdev)
--		return -ENOMEM;
--	vfio_pci_core_init_device(&mvdev->core_device, pdev, &mlx5vf_pci_ops);
--	mlx5vf_cmd_set_migratable(mvdev, &mlx5vf_pci_mig_ops,
--				  &mlx5vf_pci_log_ops);
-+	mvdev = vfio_alloc_device(mlx5vf_pci_core_device, core_device.vdev,
-+				  &pdev->dev, &mlx5vf_pci_ops);
-+	if (IS_ERR(mvdev))
-+		return PTR_ERR(mvdev);
-+
- 	dev_set_drvdata(&pdev->dev, &mvdev->core_device);
- 	ret = vfio_pci_core_register_device(&mvdev->core_device);
- 	if (ret)
--		goto out_free;
-+		goto out_put_vdev;
+diff --git a/samples/vfio-mdev/mbochs.c b/samples/vfio-mdev/mbochs.c
+index 344c2901a82b..df95f25fbc0e 100644
+--- a/samples/vfio-mdev/mbochs.c
++++ b/samples/vfio-mdev/mbochs.c
+@@ -505,13 +505,14 @@ static int mbochs_reset(struct mdev_state *mdev_state)
  	return 0;
- 
--out_free:
--	mlx5vf_cmd_remove_migratable(mvdev);
--	vfio_pci_core_uninit_device(&mvdev->core_device);
--	kfree(mvdev);
-+out_put_vdev:
-+	vfio_put_device(&mvdev->core_device.vdev);
- 	return ret;
  }
  
-@@ -628,9 +652,7 @@ static void mlx5vf_pci_remove(struct pci_dev *pdev)
- 	struct mlx5vf_pci_core_device *mvdev = mlx5vf_drvdata(pdev);
+-static int mbochs_probe(struct mdev_device *mdev)
++static int mbochs_init_dev(struct vfio_device *vdev)
+ {
+-	int avail_mbytes = atomic_read(&mbochs_avail_mbytes);
++	struct mdev_state *mdev_state =
++		container_of(vdev, struct mdev_state, vdev);
++	struct mdev_device *mdev = to_mdev_device(vdev->dev);
+ 	const struct mbochs_type *type =
+ 		&mbochs_types[mdev_get_type_group_id(mdev)];
+-	struct device *dev = mdev_dev(mdev);
+-	struct mdev_state *mdev_state;
++	int avail_mbytes = atomic_read(&mbochs_avail_mbytes);
+ 	int ret = -ENOMEM;
  
- 	vfio_pci_core_unregister_device(&mvdev->core_device);
--	mlx5vf_cmd_remove_migratable(mvdev);
--	vfio_pci_core_uninit_device(&mvdev->core_device);
--	kfree(mvdev);
-+	vfio_put_device(&mvdev->core_device.vdev);
+ 	do {
+@@ -520,14 +521,9 @@ static int mbochs_probe(struct mdev_device *mdev)
+ 	} while (!atomic_try_cmpxchg(&mbochs_avail_mbytes, &avail_mbytes,
+ 				     avail_mbytes - type->mbytes));
+ 
+-	mdev_state = kzalloc(sizeof(struct mdev_state), GFP_KERNEL);
+-	if (mdev_state == NULL)
+-		goto err_avail;
+-	vfio_init_group_dev(&mdev_state->vdev, &mdev->dev, &mbochs_dev_ops);
+-
+ 	mdev_state->vconfig = kzalloc(MBOCHS_CONFIG_SPACE_SIZE, GFP_KERNEL);
+-	if (mdev_state->vconfig == NULL)
+-		goto err_mem;
++	if (!mdev_state->vconfig)
++		goto err_avail;
+ 
+ 	mdev_state->memsize = type->mbytes * 1024 * 1024;
+ 	mdev_state->pagecount = mdev_state->memsize >> PAGE_SHIFT;
+@@ -535,10 +531,7 @@ static int mbochs_probe(struct mdev_device *mdev)
+ 				    sizeof(struct page *),
+ 				    GFP_KERNEL);
+ 	if (!mdev_state->pages)
+-		goto err_mem;
+-
+-	dev_info(dev, "%s: %s, %d MB, %ld pages\n", __func__,
+-		 type->name, type->mbytes, mdev_state->pagecount);
++		goto err_vconfig;
+ 
+ 	mutex_init(&mdev_state->ops_lock);
+ 	mdev_state->mdev = mdev;
+@@ -553,19 +546,47 @@ static int mbochs_probe(struct mdev_device *mdev)
+ 	mbochs_create_config_space(mdev_state);
+ 	mbochs_reset(mdev_state);
+ 
++	dev_info(vdev->dev, "%s: %s, %d MB, %ld pages\n", __func__,
++		 type->name, type->mbytes, mdev_state->pagecount);
++	return 0;
++
++err_vconfig:
++	kfree(mdev_state->vconfig);
++err_avail:
++	atomic_add(type->mbytes, &mbochs_avail_mbytes);
++	return ret;
++}
++
++static int mbochs_probe(struct mdev_device *mdev)
++{
++	struct mdev_state *mdev_state;
++	int ret = -ENOMEM;
++
++	mdev_state = vfio_alloc_device(mdev_state, vdev, &mdev->dev,
++				       &mbochs_dev_ops);
++	if (IS_ERR(mdev_state))
++		return PTR_ERR(mdev_state);
++
+ 	ret = vfio_register_emulated_iommu_dev(&mdev_state->vdev);
+ 	if (ret)
+-		goto err_mem;
++		goto err_put_vdev;
+ 	dev_set_drvdata(&mdev->dev, mdev_state);
+ 	return 0;
+-err_mem:
+-	vfio_uninit_group_dev(&mdev_state->vdev);
++
++err_put_vdev:
++	vfio_put_device(&mdev_state->vdev);
++	return ret;
++}
++
++static void mbochs_release_dev(struct vfio_device *vdev)
++{
++	struct mdev_state *mdev_state =
++		container_of(vdev, struct mdev_state, vdev);
++
+ 	kfree(mdev_state->pages);
+ 	kfree(mdev_state->vconfig);
+-	kfree(mdev_state);
+-err_avail:
+-	atomic_add(type->mbytes, &mbochs_avail_mbytes);
+-	return ret;
++	vfio_free_device(vdev);
++	atomic_add(mdev_state->type->mbytes, &mbochs_avail_mbytes);
  }
  
- static const struct pci_device_id mlx5vf_pci_table[] = {
+ static void mbochs_remove(struct mdev_device *mdev)
+@@ -573,11 +594,7 @@ static void mbochs_remove(struct mdev_device *mdev)
+ 	struct mdev_state *mdev_state = dev_get_drvdata(&mdev->dev);
+ 
+ 	vfio_unregister_group_dev(&mdev_state->vdev);
+-	vfio_uninit_group_dev(&mdev_state->vdev);
+-	atomic_add(mdev_state->type->mbytes, &mbochs_avail_mbytes);
+-	kfree(mdev_state->pages);
+-	kfree(mdev_state->vconfig);
+-	kfree(mdev_state);
++	vfio_put_device(&mdev_state->vdev);
+ }
+ 
+ static ssize_t mbochs_read(struct vfio_device *vdev, char __user *buf,
+@@ -1397,6 +1414,8 @@ static struct attribute_group *mdev_type_groups[] = {
+ 
+ static const struct vfio_device_ops mbochs_dev_ops = {
+ 	.close_device = mbochs_close_device,
++	.init = mbochs_init_dev,
++	.release = mbochs_release_dev,
+ 	.read = mbochs_read,
+ 	.write = mbochs_write,
+ 	.ioctl = mbochs_ioctl,
 -- 
 2.21.3
 
