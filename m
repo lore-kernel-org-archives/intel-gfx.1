@@ -4,72 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C759BC6FA83
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 03:06:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B26CC54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Sep 2022 03:10:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E9E910EA37;
-	Fri,  9 Sep 2022 03:06:05 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0914D10EA2F;
- Fri,  9 Sep 2022 03:05:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 006F310EA33;
+	Fri,  9 Sep 2022 03:10:01 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B828910EA33;
+ Fri,  9 Sep 2022 03:09:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662692755; x=1694228755;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=PbZkT6ZZ7+I0M0O5egEk2E7n+Z432mjHEzIYI6vQUQU=;
- b=hGTQT4XVUe6UKEVkUKkbLCqm/VsZ8Dsaou4lBhWmA5UvDErWdK1ftg0n
- zet791oMi8Y9gwGeS2A12Bef4t6oOS/yGOCkwrBCKyLHMmhF1Ng6gmAXK
- Qq5jHK/I/RuVSeO76yF8NWUwL+N3W8ySB9aacIMlE5KWI1UaPwzhGLKmd
- yj+vzr1ApTpZnNIfRBuOxte/vZqy+8ohjvG0P0N8z6LdZN3OAfWzf4EiL
- kU4q56fDWFIA2seed4bUPil+pEfyWkztKaj+4YdRA/EFHrCKLmVhULUFK
- CT3Cn4ByNDwA50oqhVNalc86ZTImtqimUlcn1xYqzX5jNuaWMT8FTBT/j w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="359109891"
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="359109891"
+ t=1662692996; x=1694228996;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=4Awb1YAvF6t9fnp8xF6cV/7/oDz4aQFbr6PUW4OCQ/I=;
+ b=Kdba3wL+BxkQauB1gwvDdGUlJgxBJRATCcDJCcg/5SqrBFZNODNlbMFV
+ 8RCTXcOpr9sh2wqfMlnPWZGYVyLfpEwxAbo2x9DDLg2+mOP0+85zAxxlT
+ 22+pMFK/eGeqR7vtEeywFX8DFR4BNNKeFTlCRcD69rZQQ5bQDF2Sw0bat
+ la4jIg/NEFvmZeDfnfAZeGfkP7BYparAW7P1am1zRXczuyVrCE+UN4Es1
+ 3iNAGvvNSeCFW8uGOPLSezXCs9jeyzX3llXjS4NGt2c333mfBhJlvIohG
+ IOr1dQat9wa6XuV2lNVmrm+mIulfx7mPkcMNEcgNLKVQWWOtVRx9knk7f A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10464"; a="383678383"
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="383678383"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2022 20:05:54 -0700
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2022 20:09:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="740909360"
-Received: from sqa-gate.sh.intel.com (HELO michael.clx.dev.tsp.org)
- ([10.239.48.212])
- by orsmga004.jf.intel.com with ESMTP; 08 Sep 2022 20:05:45 -0700
-From: Kevin Tian <kevin.tian@intel.com>
-To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Eric Farman <farman@linux.ibm.com>,
- Matthew Rosato <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Peter Oberparleiter <oberpar@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Tony Krowiak <akrowiak@linux.ibm.com>,
- Jason Herne <jjherne@linux.ibm.com>,
- Harald Freudenberger <freude@linux.ibm.com>,
- Diana Craciun <diana.craciun@oss.nxp.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Cornelia Huck <cohuck@redhat.com>, Longfang Liu <liulongfang@huawei.com>,
- Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Eric Auger <eric.auger@redhat.com>,
- Kirti Wankhede <kwankhede@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
- Abhishek Sahu <abhsahu@nvidia.com>, Christoph Hellwig <hch@infradead.org>,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-s390@vger.kernel.org, kvm@vger.kernel.org
-Date: Fri,  9 Sep 2022 18:22:47 +0800
-Message-Id: <20220909102247.67324-16-kevin.tian@intel.com>
-X-Mailer: git-send-email 2.21.3
-In-Reply-To: <20220909102247.67324-1-kevin.tian@intel.com>
-References: <20220909102247.67324-1-kevin.tian@intel.com>
+X-IronPort-AV: E=Sophos;i="5.93,300,1654585200"; d="scan'208";a="740910287"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by orsmga004.jf.intel.com with ESMTP; 08 Sep 2022 20:09:55 -0700
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Thu, 8 Sep 2022 20:09:55 -0700
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Thu, 8 Sep 2022 20:09:52 -0700
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Thu, 8 Sep 2022 20:09:52 -0700
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.175)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Thu, 8 Sep 2022 20:09:49 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=K+2bgWVCR95Zw5GNevVIiK3s9BDVE+b+XwB/9kMOm2RJsBoOQKVTOs8vHfSXxK6HYNxkmjKW/0ZqxnbRqvoczV4KPKuQgVqFUem6LtEXKj+RTtl+gGPor7BVMOG6m3kHZLgoTk8sOtPcYkxmaGum0hy6pGYqWfTS5TD/haqi4OUJ22Mjrovkw8+xwctogtRulEXxxO9TI1gTDIGHgtLc4XYcFiTqdz/7FImKQM77MCq9hSOkMH/WSoRAbMvPYKxzgRkHW+ivOoTRxJ0QV6xKLO578tSsE3wF2jgbbtufKN9E0brCGIvn30vI7kZwz9VDpVWuyP549Z58nfU6sTDgfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4Awb1YAvF6t9fnp8xF6cV/7/oDz4aQFbr6PUW4OCQ/I=;
+ b=Go0RGd1Nw01dQC8Bo8NmX6qHfCMTT9OP5ra6PcEM7Ktf/ZdXBamfznrlLfYaR3i/kEn8PMEEMR+GI/xOI1hb5+/16O1wYNj/SSDbUsmyBMC/PNz8rIMKUFim0ocEk1Bg/e8G2qMsIzfDgSO7tTShBI8DkuX4Ilnfg62PMNktEian1x5jJ9hphM3u02TzaP5DsFytYz4r8K7gZDozZB9gEpCBA1eZGSz9QlHyDr9oeYh4hA6HPRCEZhajaNQzbqjmHuaFbmPz9heDxKUoXG5LciVXK+6OUupl3J9oD6lkO80QgyW8EpBHJjs2BPZtz6VVZyvzozzzj5yoPU2VeRvJJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from BN9PR11MB5276.namprd11.prod.outlook.com (2603:10b6:408:135::18)
+ by MN0PR11MB6181.namprd11.prod.outlook.com (2603:10b6:208:3c7::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Fri, 9 Sep
+ 2022 03:09:48 +0000
+Received: from BN9PR11MB5276.namprd11.prod.outlook.com
+ ([fe80::a435:3eff:aa83:73d7]) by BN9PR11MB5276.namprd11.prod.outlook.com
+ ([fe80::a435:3eff:aa83:73d7%5]) with mapi id 15.20.5612.014; Fri, 9 Sep 2022
+ 03:09:48 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Eric Auger <eric.auger@redhat.com>
+Thread-Topic: [PATCH v2 15/15] vfio: Add struct device to vfio_device
+Thread-Index: AQHYvdNJtymT/Xe4J0W2tfymtujF8K3VSQ2AgAAC0ICAAAYqgIAAMbyAgADzG4A=
+Date: Fri, 9 Sep 2022 03:09:48 +0000
+Message-ID: <BN9PR11MB5276FD68BBACD97741BAA1BB8C439@BN9PR11MB5276.namprd11.prod.outlook.com>
+References: <20220901143747.32858-1-kevin.tian@intel.com>
+ <20220901143747.32858-16-kevin.tian@intel.com>
+ <50d82b01-86a3-e6a3-06f7-7f98e60131eb@redhat.com>
+ <546463b8-54fa-2071-6a9a-e4087eb8bb2c@intel.com>
+ <4c9350cd-c2ce-dc84-9a29-210907d2a2a2@redhat.com> <Yxnh87ZIS2JwvN7D@ziepe.ca>
+In-Reply-To: <Yxnh87ZIS2JwvN7D@ziepe.ca>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR11MB5276:EE_|MN0PR11MB6181:EE_
+x-ms-office365-filtering-correlation-id: 28d81a11-2c50-4c02-4236-08da9210c0fd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: SV3J0vW4tka1DHd3c3AX819jEOVuHpLqFX4NM4ZeGSmtjMvdsFApM9f6z6zD2hnoJB0JockrDZRUAS9lmAG475vpJh6Qs6vO8EZ+5AfaY1VmDPDhz+ZT9vzTwXiPAehqZANW+TdjknjdevH4+aJaz+RYm6tjtxCtF8WxX6kURpu7bYa9lBnjSKVz5yjkj3dQINgVhFxYG1KF7lqp+ZTGO+8w3409ssUdH6WDJt/UzEfBurmv8ucHD/LKMI8Zfm8olx20RBNgd4nOABiz2VYoBVg5cEpA04UTKYPSokZ5tziaoJ8xnGb6FLcqYp9ctiqWRSxaX4YONjs8Ueaz0hfatx6e6f5ETKFNOkuGyoo07hc7UwAN5ZVN/tWhBB1EtUJ8Lfwzy0DSBsldEiZBfQdGePOCozelnWunhO/jvF7krxqi4UmNkHF+Fwb7VmhiiK2DyrVJ546AT6LB1za3kzO+E3wck+qsErbqfG58YHL//9HIG+8RSIABWxdT41Gnp4p/RpCUqWFe/xYXid84QQaJhG6eVMHWB+/dACNGgNsrArawgghYSznaP6Sij9n6FEocgnjyTy2DXC9wGpI/U+kekzbmA5U4IfBGwHsHb53MVqJ8TPrbJF8V0d5BxXoSuApDt5nfi03Nu2JC27enlp1kP5c3jJJMkKFvU2ZzCgWNIBGiOvgW3LMhSKp8svMDduxfzagAlNeBE/nUfpq8qWNcC+9wUFipxlHndThz/t+tZ23xE7guYfVk+WB8ES+qKeuaKn41rqa9B9p8rFWyOzRaOA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR11MB5276.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(396003)(366004)(346002)(376002)(39860400002)(136003)(66476007)(122000001)(55016003)(38070700005)(82960400001)(86362001)(38100700002)(66446008)(64756008)(4326008)(66946007)(76116006)(5660300002)(8676002)(7416002)(7406005)(66556008)(41300700001)(8936002)(52536014)(71200400001)(54906003)(478600001)(316002)(83380400001)(110136005)(186003)(33656002)(9686003)(26005)(2906002)(7696005)(6506007);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?L5tOBBiJFVqP9RMyh5L8zQdFFFLDy/sPYNUkzQzFkEQNCU487SoX04c71JKm?=
+ =?us-ascii?Q?EoVphOQufOR08aLiIwp9wMd3xixESFMuZhiF+ssN1SwqKFBnHqLIqsq676Py?=
+ =?us-ascii?Q?LzusEI8OZD77UcDUG99BSIwk/I04Qny/4HjoeaFsIxGKSqYaxwJf5FwCE4Cp?=
+ =?us-ascii?Q?Q7u5goKROC7Dz0U5IzRMptTJPlfVx9h6u6iifU3HYhEAiQENcPiBtVd27ug7?=
+ =?us-ascii?Q?ODCcQJBeLajxOT0elDeXNV2J13jR2k2Ooq/ZI7PyOg84tYzS8j/OsuDbLd5R?=
+ =?us-ascii?Q?RfpNT3RG36iN+2kWKSaboWsKIyyKxCRylE2TE+WutzdHyCT/yQyLXnxGpM3W?=
+ =?us-ascii?Q?q72fPZZeWQGCGPIOc5aS1f15YU3mIQge3Ia/+srhHsWUYY12d02jWzLEeITB?=
+ =?us-ascii?Q?DLqEXB+1Bd3Go+pEeG13an992jLdfDz612FA3qPWIBJ6CO6D3nSEDWLtccDs?=
+ =?us-ascii?Q?8oIt8VviYFnKt4fM9LblMzQQtVTEae1SeCC1EyJmBia6llupRdFn2lyMjKEV?=
+ =?us-ascii?Q?hCHfES15IiBI3nvMGf9izOH/GyG8Wo4norsyMOAgYbohs78zpH0t+gV+Oq7j?=
+ =?us-ascii?Q?KRIN2DFlt+etO6Zfe7Rj3H56EQzbHN+CwKphn8167H8UnNAkfhAae9j/rh5Y?=
+ =?us-ascii?Q?h3OWZsIq/UtWIzEAo+sbe1adF0s+MdI5CanCrLZhl3XAMUEUghxSZLHbFCm7?=
+ =?us-ascii?Q?kS2ggg4J7tiOYnj1zO72ayA9v7pvHYlz7Xl4VfJfm5BSSlH2jeIhwQwZEjSj?=
+ =?us-ascii?Q?Zwrnz5+2JkmiiCGS9kq8hmD/rbzwglnfpSChp9oJz8o1lq3fv6VdRbflXuYv?=
+ =?us-ascii?Q?mOF7oHJWXKzX6pnsgjZBZ7+yXhKv2Bx/ZI79yvUvf1Pu1tKjpw8WluqFgDUK?=
+ =?us-ascii?Q?4Zp6DGIPbf9KuJcgLt9x/JcS/3Txv80odHUqI2FmpRPpYN3J8hmILJAeauA4?=
+ =?us-ascii?Q?KJS+iSo3Tc3UXBJ66qcHEDsOicHLPkVlsWc46SlhMuHKPHJJrO5QbORCQ9JZ?=
+ =?us-ascii?Q?/DrileiUCvKoQPez2rJTrNtsFLRx4L7pxi/KVjt/K2wkAcA5q4v+1mLN6bKj?=
+ =?us-ascii?Q?CIMoQbwOZD8Xs3T7YLr4z5Ylqoan3CayeL3XRTc9EymBPiO2kFr3YsGQheH/?=
+ =?us-ascii?Q?5BzEIz7r21GhIwcym8BwJgx71kIn5ackdIqmWSvNgLBYbWvu+9xAjJWza9mH?=
+ =?us-ascii?Q?k3dOOLLEBBqjg+roLI2Zp2bFMVkr05fO4ece8VY7je+Utak6gPfrOZ6DlAQp?=
+ =?us-ascii?Q?OILR+RCi1t1G+bXoF4mjKIAQDG5Zp+b0PKtOWB2+ZjPcwj1mlzxY78RYY0CM?=
+ =?us-ascii?Q?/z4Nvndyn4M0x/iTjOA36uDeInFBU0wtyYGIEtEmGBLd4zMTqV5iFFVkHOWh?=
+ =?us-ascii?Q?+dssBjnRJRBAFFNMmCQay9fZzDBWJdS92ptqTXf1R1452qOvIZv7EGzsi+GJ?=
+ =?us-ascii?Q?3m1m0sK6hcic+3VrFsZZKAlbeOKTFbuazWe9ok1vB9oucjwdbyGAZTASy7mR?=
+ =?us-ascii?Q?/1z7ary5Cd2pzZIyX9u6wOS4KQKKHybIKuTAkDmzeVz2kykd72OqpCbAogZf?=
+ =?us-ascii?Q?vQ7RS2EVFWNtTVrwNZpTFj5E3pyYRi6kDDaYoTBw?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 15/15] vfio: Add struct device to vfio_device
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR11MB5276.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28d81a11-2c50-4c02-4236-08da9210c0fd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2022 03:09:48.0989 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Co8Xw052x/UdDhrHTDw+p2Qjs6yugZ3t2NmtJrLH/9Ketln1y9wJ205QHmwLshYcUNPmA3CRnnsC1q/mgE0N/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB6181
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH v2 15/15] vfio: Add struct device to
+ vfio_device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,273 +152,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yi Liu <yi.l.liu@intel.com>
+Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Kirti Wankhede <kwankhede@nvidia.com>, Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Diana Craciun <diana.craciun@oss.nxp.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Longfang Liu <liulongfang@huawei.com>,
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>, "Liu,
+ Yi L" <yi.l.liu@intel.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Leon Romanovsky <leon@kernel.org>, Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
+ Eric Farman <farman@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Harald Freudenberger <freude@linux.ibm.com>, "Vivi,
+ Rodrigo" <rodrigo.vivi@intel.com>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
+ Tony Krowiak <akrowiak@linux.ibm.com>, Yishai Hadas <yishaih@nvidia.com>,
+ Cornelia Huck <cohuck@redhat.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Abhishek Sahu <abhsahu@nvidia.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Yi Liu <yi.l.liu@intel.com>
+> From: Jason Gunthorpe
+> Sent: Thursday, September 8, 2022 8:37 PM
+>=20
+> On Thu, Sep 08, 2022 at 11:39:07AM +0200, Eric Auger wrote:
+>=20
+> > >> I am not totally clear about remaining 'struct device *dev;' in
+> > >> vfio_device struct. I see it used in some places. Is it supposed to
+> > >> disappear at some point?
+> > >
+> > > no, Eric. *dev will not disappear, it stores the dev pointet passed i=
+n by
+> > > caller of vfio_init_device().
+> >
+> > yeah I see but you have device->device.parent =3D device->dev;
+>=20
+> IIRC we have a number of these redundancies now, often the drivers
+> store another copy of the dev too.
+>=20
+> A significant use of dev is for printing things, what should be done
+> here is to create a subsystem wide vfio_warn/etc that takes in the
+> vfio_device, and then print properly from there. Now that we have a
+> struct device all the prints should also include the VFIO struct
+> device name, and then the PCI device perhaps in brackets.
+>=20
 
-and replace kref. With it a 'vfio-dev/vfioX' node is created under the
-sysfs path of the parent, indicating the device is bound to a vfio
-driver, e.g.:
-
-/sys/devices/pci0000\:6f/0000\:6f\:01.0/vfio-dev/vfio0
-
-It is also a preparatory step toward adding cdev for supporting future
-device-oriented uAPI.
-
-Add Documentation/ABI/testing/sysfs-devices-vfio-dev.
-
-Also take this chance to rename chardev 'vfio' to 'vfio-group' in
-/proc/devices.
-
-Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Yi Liu <yi.l.liu@intel.com>
-Signed-off-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
----
- .../ABI/testing/sysfs-devices-vfio-dev        |  8 +++
- MAINTAINERS                                   |  1 +
- drivers/vfio/vfio_main.c                      | 67 +++++++++++++++----
- include/linux/vfio.h                          |  6 +-
- 4 files changed, 67 insertions(+), 15 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-devices-vfio-dev
-
-diff --git a/Documentation/ABI/testing/sysfs-devices-vfio-dev b/Documentation/ABI/testing/sysfs-devices-vfio-dev
-new file mode 100644
-index 000000000000..e21424fd9666
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-devices-vfio-dev
-@@ -0,0 +1,8 @@
-+What:		 /sys/.../<device>/vfio-dev/vfioX/
-+Date:		 September 2022
-+Contact:	 Yi Liu <yi.l.liu@intel.com>
-+Description:
-+		 This directory is created when the device is bound to a
-+		 vfio driver. The layout under this directory matches what
-+		 exists for a standard 'struct device'. 'X' is a unique
-+		 index marking this device in vfio.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d30f26e07cd3..02c8f11b1c17 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21312,6 +21312,7 @@ R:	Cornelia Huck <cohuck@redhat.com>
- L:	kvm@vger.kernel.org
- S:	Maintained
- T:	git git://github.com/awilliam/linux-vfio.git
-+F:	Documentation/ABI/testing/sysfs-devices-vfio-dev
- F:	Documentation/driver-api/vfio.rst
- F:	drivers/vfio/
- F:	include/linux/vfio.h
-diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index 37cbd10f3faf..cd23d35c878c 100644
---- a/drivers/vfio/vfio_main.c
-+++ b/drivers/vfio/vfio_main.c
-@@ -49,6 +49,8 @@ static struct vfio {
- 	struct mutex			group_lock; /* locks group_list */
- 	struct ida			group_ida;
- 	dev_t				group_devt;
-+	struct class			*device_class;
-+	struct ida			device_ida;
- } vfio;
- 
- struct vfio_iommu_driver {
-@@ -485,12 +487,13 @@ static struct vfio_device *vfio_group_get_device(struct vfio_group *group,
-  * VFIO driver API
-  */
- /* Release helper called by vfio_put_device() */
--void vfio_device_release(struct kref *kref)
-+static void vfio_device_release(struct device *dev)
- {
- 	struct vfio_device *device =
--			container_of(kref, struct vfio_device, kref);
-+			container_of(dev, struct vfio_device, device);
- 
- 	vfio_release_device_set(device);
-+	ida_free(&vfio.device_ida, device->index);
- 
- 	/*
- 	 * kvfree() cannot be done here due to a life cycle mess in
-@@ -500,7 +503,6 @@ void vfio_device_release(struct kref *kref)
- 	 */
- 	device->ops->release(device);
- }
--EXPORT_SYMBOL_GPL(vfio_device_release);
- 
- /*
-  * Alloc and initialize vfio_device so it can be registered to vfio
-@@ -548,6 +550,13 @@ int vfio_init_device(struct vfio_device *device, struct device *dev,
- {
- 	int ret;
- 
-+	ret = ida_alloc_max(&vfio.device_ida, MINORMASK, GFP_KERNEL);
-+	if (ret < 0) {
-+		dev_dbg(dev, "Error to alloc index\n");
-+		return ret;
-+	}
-+
-+	device->index = ret;
- 	init_completion(&device->comp);
- 	device->dev = dev;
- 	device->ops = ops;
-@@ -558,11 +567,15 @@ int vfio_init_device(struct vfio_device *device, struct device *dev,
- 			goto out_uninit;
- 	}
- 
--	kref_init(&device->kref);
-+	device_initialize(&device->device);
-+	device->device.release = vfio_device_release;
-+	device->device.class = vfio.device_class;
-+	device->device.parent = device->dev;
- 	return 0;
- 
- out_uninit:
- 	vfio_release_device_set(device);
-+	ida_free(&vfio.device_ida, device->index);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(vfio_init_device);
-@@ -659,6 +672,7 @@ static int __vfio_register_dev(struct vfio_device *device,
- 		struct vfio_group *group)
- {
- 	struct vfio_device *existing_device;
-+	int ret;
- 
- 	if (IS_ERR(group))
- 		return PTR_ERR(group);
-@@ -675,16 +689,21 @@ static int __vfio_register_dev(struct vfio_device *device,
- 		dev_WARN(device->dev, "Device already exists on group %d\n",
- 			 iommu_group_id(group->iommu_group));
- 		vfio_device_put_registration(existing_device);
--		if (group->type == VFIO_NO_IOMMU ||
--		    group->type == VFIO_EMULATED_IOMMU)
--			iommu_group_remove_device(device->dev);
--		vfio_group_put(group);
--		return -EBUSY;
-+		ret = -EBUSY;
-+		goto err_out;
- 	}
- 
- 	/* Our reference on group is moved to the device */
- 	device->group = group;
- 
-+	ret = dev_set_name(&device->device, "vfio%d", device->index);
-+	if (ret)
-+		goto err_out;
-+
-+	ret = device_add(&device->device);
-+	if (ret)
-+		goto err_out;
-+
- 	/* Refcounting can't start until the driver calls register */
- 	refcount_set(&device->refcount, 1);
- 
-@@ -693,6 +712,12 @@ static int __vfio_register_dev(struct vfio_device *device,
- 	mutex_unlock(&group->device_lock);
- 
- 	return 0;
-+err_out:
-+	if (group->type == VFIO_NO_IOMMU ||
-+	    group->type == VFIO_EMULATED_IOMMU)
-+		iommu_group_remove_device(device->dev);
-+	vfio_group_put(group);
-+	return ret;
- }
- 
- int vfio_register_group_dev(struct vfio_device *device)
-@@ -779,6 +804,9 @@ void vfio_unregister_group_dev(struct vfio_device *device)
- 	list_del(&device->group_next);
- 	mutex_unlock(&group->device_lock);
- 
-+	/* Balances device_add in register path */
-+	device_del(&device->device);
-+
- 	if (group->type == VFIO_NO_IOMMU || group->type == VFIO_EMULATED_IOMMU)
- 		iommu_group_remove_device(device->dev);
- 
-@@ -2362,6 +2390,7 @@ static int __init vfio_init(void)
- 	int ret;
- 
- 	ida_init(&vfio.group_ida);
-+	ida_init(&vfio.device_ida);
- 	mutex_init(&vfio.group_lock);
- 	mutex_init(&vfio.iommu_drivers_lock);
- 	INIT_LIST_HEAD(&vfio.group_list);
-@@ -2377,12 +2406,20 @@ static int __init vfio_init(void)
- 	vfio.class = class_create(THIS_MODULE, "vfio");
- 	if (IS_ERR(vfio.class)) {
- 		ret = PTR_ERR(vfio.class);
--		goto err_class;
-+		goto err_group_class;
- 	}
- 
- 	vfio.class->devnode = vfio_devnode;
- 
--	ret = alloc_chrdev_region(&vfio.group_devt, 0, MINORMASK + 1, "vfio");
-+	/* /sys/class/vfio-dev/vfioX */
-+	vfio.device_class = class_create(THIS_MODULE, "vfio-dev");
-+	if (IS_ERR(vfio.device_class)) {
-+		ret = PTR_ERR(vfio.device_class);
-+		goto err_dev_class;
-+	}
-+
-+	ret = alloc_chrdev_region(&vfio.group_devt, 0, MINORMASK + 1,
-+				  "vfio-group");
- 	if (ret)
- 		goto err_alloc_chrdev;
- 
-@@ -2398,9 +2435,12 @@ static int __init vfio_init(void)
- err_driver_register:
- 	unregister_chrdev_region(vfio.group_devt, MINORMASK + 1);
- err_alloc_chrdev:
-+	class_destroy(vfio.device_class);
-+	vfio.device_class = NULL;
-+err_dev_class:
- 	class_destroy(vfio.class);
- 	vfio.class = NULL;
--err_class:
-+err_group_class:
- 	misc_deregister(&vfio_dev);
- 	return ret;
- }
-@@ -2412,8 +2452,11 @@ static void __exit vfio_cleanup(void)
- #ifdef CONFIG_VFIO_NOIOMMU
- 	vfio_unregister_iommu_driver(&vfio_noiommu_ops);
- #endif
-+	ida_destroy(&vfio.device_ida);
- 	ida_destroy(&vfio.group_ida);
- 	unregister_chrdev_region(vfio.group_devt, MINORMASK + 1);
-+	class_destroy(vfio.device_class);
-+	vfio.device_class = NULL;
- 	class_destroy(vfio.class);
- 	vfio.class = NULL;
- 	misc_deregister(&vfio_dev);
-diff --git a/include/linux/vfio.h b/include/linux/vfio.h
-index 3cf857b1eec7..ee399a768070 100644
---- a/include/linux/vfio.h
-+++ b/include/linux/vfio.h
-@@ -47,7 +47,8 @@ struct vfio_device {
- 	struct kvm *kvm;
- 
- 	/* Members below here are private, not for driver use */
--	struct kref kref;	/* object life cycle */
-+	unsigned int index;
-+	struct device device;	/* device.kref covers object life circle */
- 	refcount_t refcount;	/* user count on registered device*/
- 	unsigned int open_count;
- 	struct completion comp;
-@@ -178,10 +179,9 @@ struct vfio_device *_vfio_alloc_device(size_t size, struct device *dev,
- int vfio_init_device(struct vfio_device *device, struct device *dev,
- 		     const struct vfio_device_ops *ops);
- void vfio_free_device(struct vfio_device *device);
--void vfio_device_release(struct kref *kref);
- static inline void vfio_put_device(struct vfio_device *device)
- {
--	kref_put(&device->kref, vfio_device_release);
-+	put_device(&device->device);
- }
- 
- int vfio_register_group_dev(struct vfio_device *device);
--- 
-2.21.3
-
+Let me handle it in a separate patch (after this series).
