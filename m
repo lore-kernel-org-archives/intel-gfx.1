@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E320DC6FA82
-	for <intel-gfx@archiver.kernel.org>; Sat, 10 Sep 2022 14:39:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5433C6FA82
+	for <intel-gfx@archiver.kernel.org>; Sat, 10 Sep 2022 14:39:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4892D10E1E6;
-	Sat, 10 Sep 2022 14:38:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B80EC10E1E8;
+	Sat, 10 Sep 2022 14:39:08 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10A9410E1E4
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6208F10E1E4
  for <intel-gfx@lists.freedesktop.org>; Sat, 10 Sep 2022 14:38:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1662820728; x=1694356728;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=qGhB+V3zghSa97YuScVkE0tjlkW7TolISaaX736XKn4=;
- b=Uo5uJOAsJvBpe3G3M9HFbm5H5rj3XZ2b22Ph2Dirc1TtGDSMTPVnPygC
- zGQWm52+9uUwdu4XqJvQbBX5rAdm6Dbf5PU7+/BlDaW8laejwj021IosD
- 7aFmNlCscgzyVKkep5By7LKWvL47POBIdiU/sn/2QfJETWLrb8b8Rkvct
- GpRgTV/riDfEimzRzewy5W77oJoQ9hw2IXZ/880DnfPxV7qhTHEe5SBSA
- Ato+iozvDm3TbRxK1/b4wq3sknBAMOLQRFmDKc0W848vQmNJa4e19GPXQ
- zVKgBkYiE3bxGCxNsLwve0JneEEoYIcY0S3kpOoLIIQ0++5OHISPMuffG A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10466"; a="295231746"
-X-IronPort-AV: E=Sophos;i="5.93,306,1654585200"; d="scan'208";a="295231746"
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=pU9THDl/2DNNNXvu0VAEOm1tXYUdQqN5S52KYa5Cv2Y=;
+ b=aOlIK4G9aHimskP7eHAbG/ILkF8ItDw7ufOHAT1VN5yS4ALqIitwL7nL
+ rbSlWt9Z36dthLo2/h5WkmfJXGcJ7jh4An7DqXvWQ4BHpmti/zha6gOkK
+ ZlL9tPunwdWl/5HGqCHUpRKweXUKXfh/IwONJPKp3Ldn06AXrk42PPSJX
+ VcoBW8DtRtSM0b09bZaWglmHZL8Ruknh/9ie/SG8q/5R5APocvZkiv6Xm
+ UEC3SWoXScLtmiPpI/9FMZq/aHOVlibmiHc5WdGYmRXspK//Xtkj5bJ0V
+ AQY7UiLt8UiJFHWcN+RiAUEwqXGzSYYCKiLpVIVKvJ+BrIfFSweRLcRWw A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10466"; a="295231749"
+X-IronPort-AV: E=Sophos;i="5.93,306,1654585200"; d="scan'208";a="295231749"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Sep 2022 07:38:47 -0700
-X-IronPort-AV: E=Sophos;i="5.93,306,1654585200"; d="scan'208";a="566685277"
+X-IronPort-AV: E=Sophos;i="5.93,306,1654585200"; d="scan'208";a="566685280"
 Received: from orsosgc001.jf.intel.com (HELO unerlige-ril.jf.intel.com)
  ([10.165.21.138])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Sep 2022 07:38:47 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat, 10 Sep 2022 07:38:41 -0700
-Message-Id: <20220910143844.1755324-1-ashutosh.dixit@intel.com>
+Date: Sat, 10 Sep 2022 07:38:44 -0700
+Message-Id: <20220910143844.1755324-4-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220910143844.1755324-1-ashutosh.dixit@intel.com>
+References: <20220910143844.1755324-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/3] i915: freq caps and perf_limit_reasons
- changes for MTL
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/rps: Freq caps for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,24 +59,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since https://patchwork.freedesktop.org/series/107908/ is now merged,
-rebase this series on latest drm-tip and post a clean series.
+For MTL, when reading from HW, RP0, RP1 (actuall RPe) and RPn freq use an
+entirely different set of registers with different fields, bitwidths and
+units.
 
-Ashutosh Dixit (2):
-  drm/i915/mtl: PERF_LIMIT_REASONS changes for MTL
-  drm/i915/rps: Freq caps for MTL
+v2: Move MTL check into a separate function (Jani)
 
-Tilak Tangudu (1):
-  drm/i915/debugfs: Add perf_limit_reasons in debugfs
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Badal Nilawar <badal.nilawar@intel.com>
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_rps.c | 46 +++++++++++++++++++++++------
+ drivers/gpu/drm/i915/i915_reg.h     |  9 ++++++
+ 2 files changed, 46 insertions(+), 9 deletions(-)
 
- drivers/gpu/drm/i915/gt/intel_gt.c            |  6 +++
- drivers/gpu/drm/i915/gt/intel_gt.h            |  1 +
- drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c | 31 +++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c   |  6 +--
- drivers/gpu/drm/i915/gt/intel_rps.c           | 46 +++++++++++++++----
- drivers/gpu/drm/i915/i915_reg.h               | 11 +++++
- 6 files changed, 89 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index 6b86250c31ab..17b40b625e31 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -1085,15 +1085,25 @@ static u32 intel_rps_read_state_cap(struct intel_rps *rps)
+ 		return intel_uncore_read(uncore, GEN6_RP_STATE_CAP);
+ }
+ 
+-/**
+- * gen6_rps_get_freq_caps - Get freq caps exposed by HW
+- * @rps: the intel_rps structure
+- * @caps: returned freq caps
+- *
+- * Returned "caps" frequencies should be converted to MHz using
+- * intel_gpu_freq()
+- */
+-void gen6_rps_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *caps)
++static void
++mtl_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *caps)
++{
++	struct intel_uncore *uncore = rps_to_uncore(rps);
++	u32 rp_state_cap = rps_to_gt(rps)->type == GT_MEDIA ?
++				intel_uncore_read(uncore, MTL_MEDIAP_STATE_CAP) :
++				intel_uncore_read(uncore, MTL_RP_STATE_CAP);
++	u32 rpe = rps_to_gt(rps)->type == GT_MEDIA ?
++			intel_uncore_read(uncore, MTL_MPE_FREQUENCY) :
++			intel_uncore_read(uncore, MTL_GT_RPE_FREQUENCY);
++
++	/* MTL values are in units of 16.67 MHz */
++	caps->rp0_freq = REG_FIELD_GET(MTL_RP0_CAP_MASK, rp_state_cap);
++	caps->min_freq = REG_FIELD_GET(MTL_RPN_CAP_MASK, rp_state_cap);
++	caps->rp1_freq = REG_FIELD_GET(MTL_RPE_MASK, rpe);
++}
++
++static void
++__gen6_rps_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *caps)
+ {
+ 	struct drm_i915_private *i915 = rps_to_i915(rps);
+ 	u32 rp_state_cap;
+@@ -1128,6 +1138,24 @@ void gen6_rps_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *c
+ 	}
+ }
+ 
++/**
++ * gen6_rps_get_freq_caps - Get freq caps exposed by HW
++ * @rps: the intel_rps structure
++ * @caps: returned freq caps
++ *
++ * Returned "caps" frequencies should be converted to MHz using
++ * intel_gpu_freq()
++ */
++void gen6_rps_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *caps)
++{
++	struct drm_i915_private *i915 = rps_to_i915(rps);
++
++	if (IS_METEORLAKE(i915))
++		return mtl_get_freq_caps(rps, caps);
++	else
++		return __gen6_rps_get_freq_caps(rps, caps);
++}
++
+ static void gen6_rps_init(struct intel_rps *rps)
+ {
+ 	struct drm_i915_private *i915 = rps_to_i915(rps);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 38e895ad4b59..2101b6d6dae5 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -1792,6 +1792,15 @@
+ #define XEHPSDV_RP_STATE_CAP	_MMIO(0x250014)
+ #define PVC_RP_STATE_CAP	_MMIO(0x281014)
+ 
++#define MTL_RP_STATE_CAP	_MMIO(0x138000)
++#define MTL_MEDIAP_STATE_CAP	_MMIO(0x138020)
++#define   MTL_RP0_CAP_MASK	REG_GENMASK(8, 0)
++#define   MTL_RPN_CAP_MASK	REG_GENMASK(24, 16)
++
++#define MTL_GT_RPE_FREQUENCY	_MMIO(0x13800c)
++#define MTL_MPE_FREQUENCY	_MMIO(0x13802c)
++#define   MTL_RPE_MASK		REG_GENMASK(8, 0)
++
+ #define GT0_PERF_LIMIT_REASONS		_MMIO(0x1381a8)
+ #define   GT0_PERF_LIMIT_REASONS_MASK	0xde3
+ #define   PROCHOT_MASK			REG_BIT(0)
 -- 
 2.34.1
 
