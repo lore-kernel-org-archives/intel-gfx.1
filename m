@@ -4,114 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06EECECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75280C6FA83
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 13:38:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B46410E4BC;
-	Mon, 12 Sep 2022 13:38:13 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C570410E5CF;
- Thu,  8 Sep 2022 20:50:58 +0000 (UTC)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 288KKs9I027114;
- Thu, 8 Sep 2022 20:50:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : subject :
- from : to : cc : date : in-reply-to : references : content-type :
- content-transfer-encoding : mime-version; s=pp1;
- bh=+XL0OsCTyPo3KtrxghYjtT5oebYnjdUPYrKYApBZAio=;
- b=ZjGO66/T7Fli1IL8VImBRhMoCJWDO9sBOtjfQPloD+gNF6B2et/nuFABLsGIGX95a5h2
- 0D0eb3iUc1Jael4KytOcjgbNzj4Yf0Mr1AhxNaQJvoHsQ6DcqEKYYEoRwiyxK9wthW+w
- vt8XIfKw7SArfaS27k2jnJXlsU9F9t9hfrbhGwEubScrWDSWKHG8cBXLRZmPjF29D+Vy
- 1U1iIfrcKhTKWN+n/rCGvNuhXo6NriYe1PI6rhxK/MH9LlxYpHE6tpIXG2onbuS+Go14
- fQ81eEFcVzRCHTVVdfImNf2cowRH2sQ4XPLdFAClfRH4urlOG6TAiFAu2QvBO1S5/YAR Bw== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3jfqbq0u1p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 08 Sep 2022 20:50:48 +0000
-Received: from m0098410.ppops.net (m0098410.ppops.net [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 288KoleE027242;
- Thu, 8 Sep 2022 20:50:47 GMT
-Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
- [169.55.85.253])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3jfqbq0u0x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 08 Sep 2022 20:50:47 +0000
-Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
- by ppma01wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 288KLT9B004719;
- Thu, 8 Sep 2022 20:50:45 GMT
-Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
- [9.57.198.29]) by ppma01wdc.us.ibm.com with ESMTP id 3jbxj9tmxb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 08 Sep 2022 20:50:45 +0000
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 288KoiLm11141672
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 8 Sep 2022 20:50:44 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DB4BC112062;
- Thu,  8 Sep 2022 20:50:44 +0000 (GMT)
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0164B112061;
- Thu,  8 Sep 2022 20:50:42 +0000 (GMT)
-Received: from li-479af74c-31f9-11b2-a85c-e4ddee11713b.ibm.com (unknown
- [9.160.58.117]) by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu,  8 Sep 2022 20:50:42 +0000 (GMT)
-Message-ID: <847e98a82d8027ea9c6060467157fc697e1df7ce.camel@linux.ibm.com>
-From: Eric Farman <farman@linux.ibm.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>, Zhenyu Wang
- <zhenyuw@linux.intel.com>, "Wang, Zhi A" <zhi.a.wang@intel.com>, Jani
- Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, "Vivi, Rodrigo"
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Matthew
- Rosato <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>, Vineeth
- Vijayan <vneethv@linux.ibm.com>, Peter Oberparleiter
- <oberpar@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik
- <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, Christian
- Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle
- <svens@linux.ibm.com>, Tony Krowiak <akrowiak@linux.ibm.com>, Jason Herne
- <jjherne@linux.ibm.com>, Harald Freudenberger <freude@linux.ibm.com>,
- Diana Craciun <diana.craciun@oss.nxp.com>, Alex Williamson
- <alex.williamson@redhat.com>, Cornelia Huck <cohuck@redhat.com>, Longfang
- Liu <liulongfang@huawei.com>, Shameer Kolothum
- <shameerali.kolothum.thodi@huawei.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>,
- Eric Auger <eric.auger@redhat.com>, Kirti Wankhede <kwankhede@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, Abhishek Sahu <abhsahu@nvidia.com>,
- "intel-gvt-dev@lists.freedesktop.org"
- <intel-gvt-dev@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-s390@vger.kernel.org"
- <linux-s390@vger.kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>
-Date: Thu, 08 Sep 2022 16:50:42 -0400
-In-Reply-To: <BN9PR11MB527631B53DF92D47B18F42448C409@BN9PR11MB5276.namprd11.prod.outlook.com>
-References: <20220901143747.32858-1-kevin.tian@intel.com>
- <20220901143747.32858-14-kevin.tian@intel.com>
- <BN9PR11MB527631B53DF92D47B18F42448C409@BN9PR11MB5276.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4 (3.44.4-1.fc36) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA60110E4CB;
+	Mon, 12 Sep 2022 13:38:14 +0000 (UTC)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4D6E10E3AE;
+ Sun, 11 Sep 2022 04:32:51 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id w8so9556885lft.12;
+ Sat, 10 Sep 2022 21:32:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:from:to:cc:subject:date;
+ bh=eJ5+kSvRGx0e5DL23FMmsR32sATG84wn3pUtXfVNfJk=;
+ b=UzwIqo7BotutKHABezU/5M4r1hFosIJShwkvIMqCyzl5TtN9VYDKXW7hFWomPhiGph
+ Ym1yfhdW374PMwpW1PzT0+GQxyoj0se63YjLGw94N2hSZLa/vT+gtWArl6kk26PLdEw2
+ +SlenG2reH47juH0ULuJ70Gf02WSKtrR2KLFtjVbQ9twzPi2bgcpBZrX3OjcKYn0lwXZ
+ 2IqDSdbK+ycclzRuVBZeW7CMnb3SVXqXzqSEH4jsllcB7PexwSKS4xCFyxDhhOsLsJgl
+ RZ8+FTf+kdXOxVD/qjINJ/6P+5NUSOLgod5Ro4JMwXgX7O14od0BP7D0sF5hZAfjpql+
+ bhKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:x-gm-message-state:from:to:cc:subject:date;
+ bh=eJ5+kSvRGx0e5DL23FMmsR32sATG84wn3pUtXfVNfJk=;
+ b=rL0vQoyfPOBsTiILRRlJJH0qk7A4FtPuHI3Drvzl6aky+6ciQJAvtdG7OrcPazFezl
+ bk08wnIY+1yi0ZU915gcifC2o/GftNAR6wCYdEJv6uI5z+BWdgOXtt7BIVqOasnwe8oP
+ bU7Y41xyV/3xEuEEWkdrDRTVZg3bLk9yuU+8NV8F4mGDczus7tIZQY50Or1fBAINgfhd
+ 3KJUxSJ564podYY9WElTxn5i0xCNheneIuXYHMQ/Ho4RPZxe23/MC5s1e7b4C3n1ZQEu
+ LGq16NJzhiPZEUDhYIqcWJnjMpLOHNm+l8X1JQcmL0SkQHV1ZsdcGLzrhm6V52hNNTMs
+ yWyA==
+X-Gm-Message-State: ACgBeo2+LUvrei1jQOabnv3IXAmN1NmUVPJmpNsu/v0PDUs6hzr9Sgyy
+ XvLi/ScVqKCZmgYMrVwTsPY=
+X-Google-Smtp-Source: AA6agR5M1zbvVnaz19qs5aPClS3RbrwZxmnw+bU2659kQnERb5o7G/3kodQNdYL47ha1OqfWKOi8Kw==
+X-Received: by 2002:a05:6512:308d:b0:499:bd1a:d1bc with SMTP id
+ z13-20020a056512308d00b00499bd1ad1bcmr1536967lfd.274.1662870770059; 
+ Sat, 10 Sep 2022 21:32:50 -0700 (PDT)
+Received: from ?IPV6:2a02:a31a:a240:1700:e929:c054:a46d:3844?
+ ([2a02:a31a:a240:1700:e929:c054:a46d:3844])
+ by smtp.googlemail.com with ESMTPSA id
+ a17-20020a2eb551000000b00261a8e56fe4sm539994ljn.55.2022.09.10.21.32.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 10 Sep 2022 21:32:49 -0700 (PDT)
+From: Mateusz Kwiatkowski <kfyatek@gmail.com>
+X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Message-ID: <efb2e46d-28be-737c-caa9-5b271523bbbb@gmail.com>
+Date: Sun, 11 Sep 2022 06:32:47 +0200
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Aa0l0ppb7D2ChJgFMCnegFvsjWTbRnjb
-X-Proofpoint-GUID: rxXxdbWcCOPYp5gt9d9pD0KpfD9TDu2-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-08_12,2022-09-08_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- suspectscore=0 malwarescore=0 priorityscore=1501 mlxscore=0 spamscore=0
- clxscore=1011 bulkscore=0 adultscore=0 mlxlogscore=999 phishscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2207270000 definitions=main-2209080073
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.2
+Content-Language: pl
+To: Maxime Ripard <maxime@cerno.tech>
+References: <20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-9-459522d653a7@cerno.tech>
+ <30a9d7cd-d9ff-3177-ac6c-e7c1f966d89a@gmail.com>
+ <20220907121009.toizfolruuazcrns@houat>
+ <6639fb8f-e16c-1ef5-5978-c522f76c8ded@gmail.com>
+ <20220909094647.aahohiwtwbbeyzj3@houat>
+In-Reply-To: <20220909094647.aahohiwtwbbeyzj3@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 12 Sep 2022 13:38:08 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 13/15] vfio/ccw: Use the new device life
- cycle helpers
+Subject: Re: [Intel-gfx] [PATCH v2 09/41] drm/connector: Add TV standard
+ property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,359 +83,148 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Yi L" <yi.l.liu@intel.com>
+Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Phil Elwell <phil@raspberrypi.com>, Emma Anholt <emma@anholt.net>,
+ Samuel Holland <samuel@sholland.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Ben Skeggs <bskeggs@redhat.com>,
+ linux-sunxi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
+ intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
+ Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2022-09-08 at 07:19 +0000, Tian, Kevin wrote:
-> ping @Eric Farman.
->=20
-> ccw is the only tricky player in this series. Please help take a look
-> in case of
-> any oversight here.
+W dniu 9.09.2022 o 11:46, Maxime Ripard pisze:
+> On Wed, Sep 07, 2022 at 09:52:09PM +0200, Mateusz Kwiatkowski wrote:
+>> W dniu 7.09.2022 o 14:10, Maxime Ripard pisze:
+>>> Hi,
+>>>
+>>> On Fri, Sep 02, 2022 at 12:00:33AM +0200, Mateusz Kwiatkowski wrote:
+>>>> W dniu 29.08.2022 o 15:11, Maxime Ripard pisze:
+>>>>> The TV mode property has been around for a while now to select and get the
+>>>>> current TV mode output on an analog TV connector.
+>>>>>
+>>>>> Despite that property name being generic, its content isn't and has been
+>>>>> driver-specific which makes it hard to build any generic behaviour on top
+>>>>> of it, both in kernel and user-space.
+>>>>>
+>>>>> Let's create a new bitmask tv norm property, that can contain any of the
+>>>>> analog TV standards currently supported by kernel drivers. Each driver can
+>>>>> then pass in a bitmask of the modes it supports.
+>>>>
+>>>> This is not a bitmask property anymore, you've just changed it to an enum.
+>>>> The commit message is now misleading.
+>>>>
+>>>>> +static const struct drm_prop_enum_list drm_tv_mode_enum_list[] = {
+>>>>> +    { DRM_MODE_TV_MODE_NTSC_443, "NTSC-443" },
+>>>>> +    { DRM_MODE_TV_MODE_NTSC_J, "NTSC-J" },
+>>>>> +    { DRM_MODE_TV_MODE_NTSC_M, "NTSC-M" },
+>>>>> +    { DRM_MODE_TV_MODE_PAL_60, "PAL-60" },
+>>>>> +    { DRM_MODE_TV_MODE_PAL_B, "PAL-B" },
+>>>>> +    { DRM_MODE_TV_MODE_PAL_D, "PAL-D" },
+>>>>> +    { DRM_MODE_TV_MODE_PAL_G, "PAL-G" },
+>>>>> +    { DRM_MODE_TV_MODE_PAL_H, "PAL-H" },
+>>>>> +    { DRM_MODE_TV_MODE_PAL_I, "PAL-I" },
+>>>>> +    { DRM_MODE_TV_MODE_PAL_M, "PAL-M" },
+>>>>> +    { DRM_MODE_TV_MODE_PAL_N, "PAL-N" },
+>>>>> +    { DRM_MODE_TV_MODE_PAL_NC, "PAL-Nc" },
+>>>>> +    { DRM_MODE_TV_MODE_SECAM_60, "SECAM-60" },
+>>>>> +    { DRM_MODE_TV_MODE_SECAM_B, "SECAM-B" },
+>>>>> +    { DRM_MODE_TV_MODE_SECAM_D, "SECAM-D" },
+>>>>> +    { DRM_MODE_TV_MODE_SECAM_G, "SECAM-G" },
+>>>>> +    { DRM_MODE_TV_MODE_SECAM_K, "SECAM-K" },
+>>>>> +    { DRM_MODE_TV_MODE_SECAM_K1, "SECAM-K1" },
+>>>>> +    { DRM_MODE_TV_MODE_SECAM_L, "SECAM-L" },
+>>>>> +};
+>>>>
+>>>> I did not comment on it the last time, but this list looks a little bit random.
+>>>>
+>>>> Compared to the standards defined by V4L2, you also define SECAM-60 (a good
+>>>> thing to define, because why not), but don't define PAL-B1, PAL-D1, PAL-K,
+>>>> SECAM-H, SECAM-LC (whatever that is - probably just another name for SECAM-L,
+>>>> see my comment about PAL-Nc below), or NTSC-M-KR (a Korean variant of NTSC).
+>>>>
+>>>> Like I mentioned previously, I'm personally not a fan of including all those
+>>>> CCIR/ITU system variants, as they don't mean any difference to the output unless
+>>>> there is an RF modulator involved. But I get it that they have already been used
+>>>> and regressing probably wouldn't be a very good idea. But in that case keeping
+>>>> it consistent with the set of values used by V4L2 would be wise, I think.
+>>>
+>>> Ack. What would be the list of standards we'd absolutely need? NSTC-M,
+>>> NTSC-J, PAL-60, PAL-B, PAL-M, SECAM-60 and SECAM-B?
+>>
+>> The "essential list" IMO is NTSC, NTSC-J, NTSC-443, PAL, PAL-M, PAL-N and SECAM.
+>> Note that:
+>>
+>> - I intentionally propose "NTSC", "PAL" and "SECAM" without an ITU system
+>>   designation. If we only consider composite signals, there's no difference
+>>   between e.g. PAL-B, PAL-D and PAL-I, so it's better to label it as a generic
+>>   mode, IMO.
+>>
+>>   * PAL-M and PAL-N are different, because those unique color encodings were
+>>     only ever used with Systems M and N, respectively.
+>>
+>>   * NTSC-J is also different, because "System J" doesn't exist anywhere in ITU
+>>     documents. Japan technically uses System M with a non-standard black level.
+>>     But "NTSC-J" stuck as a universally recognized name for that variant.
+>>
+>> - I intentionally did not list PAL-60 or SECAM-60. TBH... PAL-60 is just
+>>   regular PAL paired with 480i60 modeline. Most if not all displays that
+>>   accept PAL-60 input will just label it as "PAL". If we are not introducing
+>>   strict modeline validation, then maybe separating PAL and PAL-60 isn't really
+>>   necessary? Same goes for SECAM vs. SECAM-60.
+>>  
+>>   ...and same goes for NTSC vs. NTSC-50 a.k.a NTSC-N, which is a very exotic
+>>   mode, but known to exist at least in the Atari ST world, see also:
+>>   https://en.wikipedia.org/wiki/NTSC#NTSC-N/NTSC50
+>>
+>> Combining PAL and PAL-60 into a single setting would complicate the vc4 driver
+>> a little bit, though, as the registers need to be set up differently for those.
+>>
+>> My feelings about the PAL-60 issue are not that strong, though. Merging PAL
+>> and PAL-60 in this context is just a loose suggestion, I won't even try to
+>> argue if you disagree.
+>
+> Ack
+>
+>>>>> +/**
+>>>>> + * drm_mode_create_tv_properties - create TV specific connector properties
+>>>>> + * @dev: DRM device
+>>>>> + * @supported_tv_modes: Bitmask of TV modes supported (See DRM_MODE_TV_MODE_*)
+>>>>> +
+>>>>> + * Called by a driver's TV initialization routine, this function creates
+>>>>> + * the TV specific connector properties for a given device.  Caller is
+>>>>> + * responsible for allocating a list of format names and passing them to
+>>>>> + * this routine.
+>>>>> + *
+>>>>> + * Returns:
+>>>>> + * 0 on success or a negative error code on failure.
+>>>>> + */
+>>>>> +int drm_mode_create_tv_properties(struct drm_device *dev,
+>>>>> +                  unsigned int supported_tv_modes)
+>>>>
+>>>> supported_tv_modes is supposed to be a bitmask of BIT(DRM_MODE_TV_MODE_*)
+>>>> (or (1<<DRM_MODE_TV_MODE_*)) rather than DRM_MODE_TV_MODE_* directly, but this
+>>>> is not said explicitly anywhere in this doc comment.
+>>>
+>>> The argument doc mentions that it's a "Bitmask of TV modes supported
+>>> (See DRM_MODE_TV_MODE_*)", how would you improve it?
+>>
+>> Maybe something like "Bitwise OR of BIT(DRM_MODE_TV_MODE_*) values"? Or maybe
+>> just add a little usage example?
+>
+> This is the way we're usually documenting it in DRM:
+> https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/drm_plane.c#L357
+> https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/drm_crtc.c#L861
+> https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/drm_blend.c#L546
+>
+> So I'd rather keep it consistent
+>
+> Maxime
 
-Apologies, I had started looking at v1 before I left on holiday, and
-only returned today.
-
->=20
-> > From: Tian, Kevin <kevin.tian@intel.com>
-> > Sent: Thursday, September 1, 2022 10:38 PM
-> >=20
-> > ccw is the only exception which cannot use vfio_alloc_device()
-> > because
-> > its private device structure is designed to serve both mdev and
-> > parent.
-> > Life cycle of the parent is managed by css_driver so
-> > vfio_ccw_private
-> > must be allocated/freed in css_driver probe/remove path instead of
-> > conforming to vfio core life cycle for mdev.
-> >=20
-> > Given that use a wait/completion scheme so the mdev remove path
-> > waits
-> > after vfio_put_device() until receiving a completion notification
-> > from
-> > @release. The completion indicates that all active references on
-> > vfio_device have been released.
-> >=20
-> > After that point although free of vfio_ccw_private is delayed to
-> > css_driver it's at least guaranteed to have no parallel reference
-> > on
-> > released vfio device part from other code paths.
-> >=20
-> > memset() in @probe is removed. vfio_device is either already
-> > cleared
-> > when probed for the first time or cleared in @release from last
-> > probe.
-> >=20
-> > The right fix is to introduce separate structures for mdev and
-> > parent,
-> > but this won't happen in short term per prior discussions.
-
-I did start looking at the above, while the mdev series is outstanding.
-Will try to get back to that sooner rather than later, but for the
-purposes of this series this patch looks/works fine to me.
-
-Reviewed-by: Eric Farman <farman@linux.ibm.com>
-
-> >=20
-> > Remove vfio_init/uninit_group_dev() as no user now.
-> >=20
-> > Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-> > Signed-off-by: Kevin Tian <kevin.tian@intel.com>
-> > Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> > ---
-> > =C2=A0drivers/s390/cio/vfio_ccw_ops.c=C2=A0=C2=A0=C2=A0=C2=A0 | 52
-> > +++++++++++++++++++++++++----
-> > =C2=A0drivers/s390/cio/vfio_ccw_private.h |=C2=A0 3 ++
-> > =C2=A0drivers/vfio/vfio_main.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 23 +++----------
-> > =C2=A0include/linux/vfio.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 --
-> > =C2=A04 files changed, 53 insertions(+), 28 deletions(-)
-> >=20
-> > diff --git a/drivers/s390/cio/vfio_ccw_ops.c
-> > b/drivers/s390/cio/vfio_ccw_ops.c
-> > index 4a806a2273b5..9f8486c0d3d3 100644
-> > --- a/drivers/s390/cio/vfio_ccw_ops.c
-> > +++ b/drivers/s390/cio/vfio_ccw_ops.c
-> > @@ -87,6 +87,15 @@ static struct attribute_group
-> > *mdev_type_groups[] =3D {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0NULL,
-> > =C2=A0};
-> >=20
-> > +static int vfio_ccw_mdev_init_dev(struct vfio_device *vdev)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct vfio_ccw_private *pri=
-vate =3D
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0container_of(vdev, struct vfio_ccw_private, vdev);
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0init_completion(&private->re=
-lease_comp);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return 0;
-> > +}
-> > +
-> > =C2=A0static int vfio_ccw_mdev_probe(struct mdev_device *mdev)
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct vfio_ccw_private=
- *private =3D dev_get_drvdata(mdev-
-> > > dev.parent);
-> > @@ -98,9 +107,9 @@ static int vfio_ccw_mdev_probe(struct
-> > mdev_device
-> > *mdev)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (atomic_dec_if_posit=
-ive(&private->avail) < 0)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0return -EPERM;
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0memset(&private->vdev, 0, si=
-zeof(private->vdev));
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_init_group_dev(&private=
-->vdev, &mdev->dev,
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 &vfio_ccw_dev_ops);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0ret =3D vfio_init_device(&pr=
-ivate->vdev, &mdev->dev,
-> > &vfio_ccw_dev_ops);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (ret)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0return ret;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0VFIO_CCW_MSG_EVENT(2, "=
-sch %x.%x.%04x: create\n",
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 private->sch->schid.cssid,
-> > @@ -109,16 +118,33 @@ static int vfio_ccw_mdev_probe(struct
-> > mdev_device *mdev)
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0ret =3D vfio_register_e=
-mulated_iommu_dev(&private->vdev);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (ret)
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0goto err_atomic;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0goto err_put_vdev;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0dev_set_drvdata(&mdev->=
-dev, private);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return 0;
-> >=20
-> > -err_atomic:
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_uninit_group_dev(&priva=
-te->vdev);
-> > +err_put_vdev:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_put_device(&private->vd=
-ev);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0atomic_inc(&private->av=
-ail);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return ret;
-> > =C2=A0}
-> >=20
-> > +static void vfio_ccw_mdev_release_dev(struct vfio_device *vdev)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct vfio_ccw_private *pri=
-vate =3D
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0container_of(vdev, struct vfio_ccw_private, vdev);
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * We cannot free vfio_ccw_p=
-rivate here because it includes
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * parent info which must be=
- free'ed by css driver.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Use a workaround by memse=
-t'ing the core device part and
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * then notifying the remove=
- path that all active
-> > references
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * to this device have been =
-released.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0memset(vdev, 0, sizeof(*vdev=
-));
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0complete(&private->release_c=
-omp);
-> > +}
-> > +
-> > =C2=A0static void vfio_ccw_mdev_remove(struct mdev_device *mdev)
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct vfio_ccw_private=
- *private =3D dev_get_drvdata(mdev-
-> > > dev.parent);
-> > @@ -130,7 +156,17 @@ static void vfio_ccw_mdev_remove(struct
-> > mdev_device *mdev)
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_unregister_group_d=
-ev(&private->vdev);
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_uninit_group_dev(&priva=
-te->vdev);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_put_device(&private->vd=
-ev);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Wait for all active refer=
-ences on mdev are released so
-> > it
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * is safe to defer kfree() =
-to a later point.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * TODO: the clean fix is to=
- split parent/mdev info from
-> > ccw
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * private structure so each=
- can be managed in its own life
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * cycle.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0wait_for_completion(&private=
-->release_comp);
-> > +
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0atomic_inc(&private->av=
-ail);
-> > =C2=A0}
-> >=20
-> > @@ -592,6 +628,8 @@ static void vfio_ccw_mdev_request(struct
-> > vfio_device
-> > *vdev, unsigned int count)
-> > =C2=A0}
-> >=20
-> > =C2=A0static const struct vfio_device_ops vfio_ccw_dev_ops =3D {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.init =3D vfio_ccw_mdev_init=
-_dev,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.release =3D vfio_ccw_mdev_r=
-elease_dev,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.open_device =3D vfio_c=
-cw_mdev_open_device,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.close_device =3D vfio_=
-ccw_mdev_close_device,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.read =3D vfio_ccw_mdev=
-_read,
-> > diff --git a/drivers/s390/cio/vfio_ccw_private.h
-> > b/drivers/s390/cio/vfio_ccw_private.h
-> > index cd24b7fada91..63d9202b29c7 100644
-> > --- a/drivers/s390/cio/vfio_ccw_private.h
-> > +++ b/drivers/s390/cio/vfio_ccw_private.h
-> > @@ -88,6 +88,7 @@ struct vfio_ccw_crw {
-> > =C2=A0 * @req_trigger: eventfd ctx for signaling userspace to return
-> > device
-> > =C2=A0 * @io_work: work for deferral process of I/O handling
-> > =C2=A0 * @crw_work: work for deferral process of CRW handling
-> > + * @release_comp: synchronization helper for vfio device release
-> > =C2=A0 */
-> > =C2=A0struct vfio_ccw_private {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct vfio_device vdev=
-;
-> > @@ -113,6 +114,8 @@ struct vfio_ccw_private {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct eventfd_ctx=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0*req_trigger;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct work_struct=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0io_work;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct work_struct=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0crw_work;
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct completion=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0release_comp;
-> > =C2=A0} __aligned(8);
-> >=20
-> > =C2=A0int vfio_ccw_sch_quiesce(struct subchannel *sch);
-> > diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-> > index c9d982131265..957d9f286550 100644
-> > --- a/drivers/vfio/vfio_main.c
-> > +++ b/drivers/vfio/vfio_main.c
-> > @@ -481,28 +481,13 @@ static struct vfio_device
-> > *vfio_group_get_device(struct vfio_group *group,
-> > =C2=A0/*
-> > =C2=A0 * VFIO driver API
-> > =C2=A0 */
-> > -void vfio_init_group_dev(struct vfio_device *device, struct device
-> > *dev,
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const=
- struct vfio_device_ops *ops)
-> > -{
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0init_completion(&device->com=
-p);
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0device->dev =3D dev;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0device->ops =3D ops;
-> > -}
-> > -EXPORT_SYMBOL_GPL(vfio_init_group_dev);
-> > -
-> > -void vfio_uninit_group_dev(struct vfio_device *device)
-> > -{
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_release_device_set(devi=
-ce);
-> > -}
-> > -EXPORT_SYMBOL_GPL(vfio_uninit_group_dev);
-> > -
-> > =C2=A0/* Release helper called by vfio_put_device() */
-> > =C2=A0void vfio_device_release(struct kref *kref)
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct vfio_device *dev=
-ice =3D
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-container_of(kref, struct vfio_device,
-> > kref);
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_uninit_group_dev(device=
-);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_release_device_set(devi=
-ce);
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/*
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * kvfree() cannot be d=
-one here due to a life cycle mess in
-> > @@ -560,7 +545,9 @@ int vfio_init_device(struct vfio_device
-> > *device, struct
-> > device *dev,
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int ret;
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_init_group_dev(device, =
-dev, ops);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0init_completion(&device->com=
-p);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0device->dev =3D dev;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0device->ops =3D ops;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (ops->init) {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0ret =3D ops->init(device);
-> > @@ -572,7 +559,7 @@ int vfio_init_device(struct vfio_device
-> > *device, struct
-> > device *dev,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return 0;
-> >=20
-> > =C2=A0out_uninit:
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_uninit_group_dev(device=
-);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0vfio_release_device_set(devi=
-ce);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return ret;
-> > =C2=A0}
-> > =C2=A0EXPORT_SYMBOL_GPL(vfio_init_device);
-> > diff --git a/include/linux/vfio.h b/include/linux/vfio.h
-> > index e1e9e8352903..f03447c8774d 100644
-> > --- a/include/linux/vfio.h
-> > +++ b/include/linux/vfio.h
-> > @@ -160,9 +160,6 @@ static inline void vfio_put_device(struct
-> > vfio_device
-> > *device)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0kref_put(&device->kref,=
- vfio_device_release);
-> > =C2=A0}
-> >=20
-> > -void vfio_init_group_dev(struct vfio_device *device, struct device
-> > *dev,
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const=
- struct vfio_device_ops *ops);
-> > -void vfio_uninit_group_dev(struct vfio_device *device);
-> > =C2=A0int vfio_register_group_dev(struct vfio_device *device);
-> > =C2=A0int vfio_register_emulated_iommu_dev(struct vfio_device *device);
-> > =C2=A0void vfio_unregister_group_dev(struct vfio_device *device);
-> > --
-> > 2.21.3
->=20
-
+Ack, OK then.
