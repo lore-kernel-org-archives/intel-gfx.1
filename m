@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 723C6ECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 11:18:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 940A1ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 11:18:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03CB310E3C7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8805010E3CD;
 	Mon, 12 Sep 2022 11:18:54 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F29D410E3A8
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 11:18:34 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A64D010E3BE
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 11:18:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662981514; x=1694517514;
+ t=1662981523; x=1694517523;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=55Oyi62kyFs7lmNJi2N2j6kjJLxDXancExEfFTdXHyE=;
- b=Fujx1rmsBToya5mQjpnng1YwJEMEAUmUy1TjMzziZB9My1Lf7FE0EiAV
- vSGlbgoKe1ToneoMr8jaBslaGaZgTKAZBHLhRFSCNbbs1LayAEunDCYrU
- Rebc64DIJk9WS+T+XqkJSIjgszGRbwd21bXtabKCOcCvCuA9cHSGzmhpE
- bTSWuweNb1wWD0itmLlqGRh5IpApVAhhX5w9GIw6QEO4BxoHffFlpPzhL
- l+e8no8xCzcaDiOIUn0muFHriMTqLGk/h7rV4qhM98Y/rxx/kbsGdVZps
- i3RdbiUg/vvlb3UZkrVECpo0pGXw6KroRPdMhKq5KDAOnU0cX+C7dhG9N Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="278232122"
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="278232122"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 04:18:34 -0700
+ bh=on6W24aqoXO1s3ZvRB7qJQFJDH0jYdAFO4/cRJgTWJo=;
+ b=S8W6w46Bn5q8Z4mWIOWR5+4//bOn79mG8GlPnYzEm7o70IQ7R5+k82F3
+ 2bMBhLEPwdKea6JAFL44gXTn+4xE/Lt9MVDYRkS+4sS8Jarr4dUsQklB+
+ M7pdz122c89LAfvIki44XiS1Q/u6f0xMT7zFyngqH0OXx3vKrIUWqUstA
+ gazU+X9+kZiHDhN9FwQ+qZWra4ooDBEnOIyMOQTkpnX452LNYYdlXfF15
+ 6jXEjXTPCSlmKd1/oizrgPUhYecC5QIShtxrWnOZt2vsNaDZkG+rmn5D+
+ YyfPKdHxU1oK2bDioHRwCdlmD+/TdRA0w1xH8mwlcudBbv4Kn+v1TCGJZ Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="297841609"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="297841609"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 04:18:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="758357739"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="719722858"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga001.fm.intel.com with SMTP; 12 Sep 2022 04:18:32 -0700
+ by fmsmga002.fm.intel.com with SMTP; 12 Sep 2022 04:18:41 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 12 Sep 2022 14:18:31 +0300
+ Mon, 12 Sep 2022 14:18:40 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Sep 2022 14:18:05 +0300
-Message-Id: <20220912111814.17466-7-ville.syrjala@linux.intel.com>
+Date: Mon, 12 Sep 2022 14:18:08 +0300
+Message-Id: <20220912111814.17466-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220912111814.17466-1-ville.syrjala@linux.intel.com>
 References: <20220912111814.17466-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/15] drm/i915: Extract
- intel_edp_backlight_setup()
+Subject: [Intel-gfx] [PATCH 09/15] drm/i915: Extract
+ intel_lvds_add_properties()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,93 +64,60 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Pull the eDP backlight setup ino its own function. No
-reason to pollute intel_edp_init_connector() with all
-the mundane details.
+Move the LVDS connector property setup to a dedicated
+function to depollute intel_lvds_init() a bit.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 51 +++++++++++++++----------
- 1 file changed, 30 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/i915/display/intel_lvds.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index a5eca5396fed..de5a4d2df78e 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5217,6 +5217,35 @@ intel_edp_add_properties(struct intel_dp *intel_dp)
- 						       fixed_mode->vdisplay);
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+index 6fef829e855b..7cadb548ad6c 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.c
++++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+@@ -814,6 +814,19 @@ static bool compute_is_dual_link_lvds(struct intel_lvds_encoder *lvds_encoder)
+ 	return (val & LVDS_CLKB_POWER_MASK) == LVDS_CLKB_POWER_UP;
  }
  
-+static void intel_edp_backlight_setup(struct intel_dp *intel_dp,
-+				      struct intel_connector *connector)
++static void intel_lvds_add_properties(struct drm_connector *connector)
 +{
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	enum pipe pipe = INVALID_PIPE;
++	u32 allowed_scalers;
 +
-+	if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915)) {
-+		/*
-+		 * Figure out the current pipe for the initial backlight setup.
-+		 * If the current pipe isn't valid, try the PPS pipe, and if that
-+		 * fails just assume pipe A.
-+		 */
-+		pipe = vlv_active_pipe(intel_dp);
++	allowed_scalers = BIT(DRM_MODE_SCALE_ASPECT) |
++		BIT(DRM_MODE_SCALE_FULLSCREEN) |
++		BIT(DRM_MODE_SCALE_CENTER);
 +
-+		if (pipe != PIPE_A && pipe != PIPE_B)
-+			pipe = intel_dp->pps.pps_pipe;
++	drm_connector_attach_scaling_mode_property(connector, allowed_scalers);
 +
-+		if (pipe != PIPE_A && pipe != PIPE_B)
-+			pipe = PIPE_A;
-+
-+		drm_dbg_kms(&i915->drm,
-+			    "[CONNECTOR:%d:%s] using pipe %c for initial backlight setup\n",
-+			    connector->base.base.id, connector->base.name,
-+			    pipe_name(pipe));
-+	}
-+
-+	intel_backlight_setup(connector, pipe);
++	connector->state->scaling_mode = DRM_MODE_SCALE_ASPECT;
 +}
 +
- static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 				     struct intel_connector *intel_connector)
- {
-@@ -5226,7 +5255,6 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 	struct drm_display_mode *fixed_mode;
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	bool has_dpcd;
--	enum pipe pipe = INVALID_PIPE;
- 	struct edid *edid;
+ /**
+  * intel_lvds_init - setup LVDS connectors on this device
+  * @dev_priv: i915 device
+@@ -833,7 +846,6 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
+ 	i915_reg_t lvds_reg;
+ 	u32 lvds;
+ 	u8 pin;
+-	u32 allowed_scalers;
  
- 	if (!intel_dp_is_edp(intel_dp))
-@@ -5301,28 +5329,9 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 	/* Skip init on machines we know falsely report LVDS */
+ 	if (dmi_check_system(intel_no_lvds)) {
+@@ -925,12 +937,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
  
- 	mutex_unlock(&dev->mode_config.mutex);
+ 	lvds_encoder->reg = lvds_reg;
  
--	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) {
--		/*
--		 * Figure out the current pipe for the initial backlight setup.
--		 * If the current pipe isn't valid, try the PPS pipe, and if that
--		 * fails just assume pipe A.
--		 */
--		pipe = vlv_active_pipe(intel_dp);
--
--		if (pipe != PIPE_A && pipe != PIPE_B)
--			pipe = intel_dp->pps.pps_pipe;
--
--		if (pipe != PIPE_A && pipe != PIPE_B)
--			pipe = PIPE_A;
--
--		drm_dbg_kms(&dev_priv->drm,
--			    "using pipe %c for initial backlight setup\n",
--			    pipe_name(pipe));
--	}
--
- 	intel_panel_init(intel_connector);
+-	/* create the scaling mode property */
+-	allowed_scalers = BIT(DRM_MODE_SCALE_ASPECT);
+-	allowed_scalers |= BIT(DRM_MODE_SCALE_FULLSCREEN);
+-	allowed_scalers |= BIT(DRM_MODE_SCALE_CENTER);
+-	drm_connector_attach_scaling_mode_property(connector, allowed_scalers);
+-	connector->state->scaling_mode = DRM_MODE_SCALE_ASPECT;
++	intel_lvds_add_properties(connector);
  
--	intel_backlight_setup(intel_connector, pipe);
-+	intel_edp_backlight_setup(intel_dp, intel_connector);
- 
- 	intel_edp_add_properties(intel_dp);
- 
+ 	intel_lvds_pps_get_hw_state(dev_priv, &lvds_encoder->init_pps);
+ 	lvds_encoder->init_lvds_val = lvds;
 -- 
 2.35.1
 
