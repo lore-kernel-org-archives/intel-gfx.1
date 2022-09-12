@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5877BECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 16:55:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EE81C6FA82
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 16:55:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B302C10E5FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6D2F10E605;
 	Mon, 12 Sep 2022 16:55:36 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A417F10E43E
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 16:54:57 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0020110E60C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 16:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663001697; x=1694537697;
+ t=1663001723; x=1694537723;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=E2Eqv2GRQZaHmyq+/Et8aFsQcowbDuGrB5OGeVvxeZI=;
- b=iaMzDCdlgrDhmZgb41gaSoIqQ8Yux7r0LSQcQ6sp6tyr2cCOME3tLdgd
- 5J7IV2iANqwnDvnJpBjxSHlWvwq3tNkx35wUxqsLGxDsBpwzqzV77Maoe
- 3yVikp5CWuqUtfa1BTT11SFfiFBlXHPvygNLSjtyONPrIF5ZgOdEM9STQ
- JI3WrYsj066I9s1yPaqKr/APHsbsJ5gzoxhNufh/YXHszEqOCO0ItQoVq
- oyimqJfmFqsMzKMmXw0gfPUVtTz+cQ+awRxduUC3akj7wumAskDaL5hRW
- Gfns9oHha67N0iRHdjUVnEcKNynNE65Jbs32p/VPKRugz8FM5a0qp/zd+ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="284937231"
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="284937231"
+ bh=MX7XZ8W8e6p3BGVvmpXkqfV4Xv8TXZjtMTU+TWNXz3g=;
+ b=mHjp1Gqr+0uBT8YWv7cJjMNv7ZeDvuVQf+wl74Kg17x3FCQhwNXY0lD6
+ lOWCr/D1CJO49+w9P4LxO8qpb6xY8+ZSQoqsnXNGrnR9jYjq5gli6WHsB
+ vIm12rbWyh7gBOUJZNF1RDJ9R8I6RLI5Q/4K4Yr0PZR2t+RZV+gJHnzX2
+ VIlfpRvPmyR6A/xwpu4ZJf0hhuo7axRFyXZUk97cgfQc+JGVcHYSaESd0
+ cesHOQva8pJ4UCcN67vXGreyFdTDKfo5sGVpDnM1BB3BAd9XwFiGEeDsI
+ VG+Z8yOgR6HYGV0uBfuTbVRINbegZxu+c8eEoOb3JQNpUSZVmkjxzVPin Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="359642306"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="359642306"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 09:54:55 -0700
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="593571578"
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 09:55:22 -0700
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="593571911"
 Received: from abijaz-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.58.140])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 09:54:54 -0700
+ 12 Sep 2022 09:55:20 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Sep 2022 19:54:25 +0300
-Message-Id: <a2edeefd1fef0c197837ae846169521d5ccb88ce.1662999695.git.jani.nikula@intel.com>
+Date: Mon, 12 Sep 2022 19:54:32 +0300
+Message-Id: <9a819e6b08be3805d1b5dc9b51e81ed4875ebb8a.1662999695.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1662999695.git.jani.nikula@intel.com>
 References: <cover.1662999695.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/15] drm/i915: reduce includes in
- intel_fifo_underrun.h
+Subject: [Intel-gfx] [PATCH 10/15] drm/i915/display: reduce includes in
+ g4x_dp.h includes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,24 +66,22 @@ Only include what's needed.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fifo_underrun.h | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/g4x_dp.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fifo_underrun.h b/drivers/gpu/drm/i915/display/intel_fifo_underrun.h
-index e04f22ac1f49..2e47d7d3c101 100644
---- a/drivers/gpu/drm/i915/display/intel_fifo_underrun.h
-+++ b/drivers/gpu/drm/i915/display/intel_fifo_underrun.h
-@@ -8,9 +8,8 @@
+diff --git a/drivers/gpu/drm/i915/display/g4x_dp.h b/drivers/gpu/drm/i915/display/g4x_dp.h
+index e1f50263a725..a38b3e1e01d3 100644
+--- a/drivers/gpu/drm/i915/display/g4x_dp.h
++++ b/drivers/gpu/drm/i915/display/g4x_dp.h
+@@ -8,7 +8,7 @@
  
  #include <linux/types.h>
  
--#include "intel_display.h"
--
- struct drm_i915_private;
-+enum pipe;
+-#include "i915_reg.h"
++#include "i915_reg_defs.h"
  
- bool intel_set_cpu_fifo_underrun_reporting(struct drm_i915_private *dev_priv,
- 					   enum pipe pipe, bool enable);
+ enum pipe;
+ enum port;
 -- 
 2.34.1
 
