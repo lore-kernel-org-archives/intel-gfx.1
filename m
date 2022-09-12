@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A3D9ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 11:18:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A8AECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 11:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD7E310E3B7;
-	Mon, 12 Sep 2022 11:18:39 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3C9410E3A8
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 11:18:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3244710E3BE;
+	Mon, 12 Sep 2022 11:18:51 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE47F10E3A8
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 11:18:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662981511; x=1694517511;
+ t=1662981506; x=1694517506;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=3MH8gegRdOgwkHoIcEqkqMqrqZmjQeDDIy5Qicgi8so=;
- b=gU0nEFvZBv+SvfwSx7heNPmMdxCNKa5sdcRI5fYowUVMm5nZTK2j0oyX
- 1vu+Y66fAFBqshdsjg8nETunsnhJytVGYXb8tQ/R/lv+4n+bAQDXcNUt/
- P5Gyx3KIvLnPTJ9977LUEVOgs6lh6hBnermVQ6rl2IvobltULpb590Dp+
- KlHPEQ4LSFkyRt+sfHoPvv6ECIWHRPNelFxSUMZTcU0zQJyi4w1ll4SdK
- uB4HjJZD5WsgC2ui5KX7NUzcvxFgo2NL0jdzSYdMHgCmtWNDgd75ZYWUB
- LZXualZu6YCWXxNdTbgjhg7MQ8vVdEMFfMVcwGmI3QH4VgEERd1WJJ9CE g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="324072019"
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="324072019"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 04:18:31 -0700
+ bh=Vr0L/xNTMQcN8ujNFjrBgsCu5SOCc6Xm2JyBRdo09JY=;
+ b=iQoTbnGcv+jquom1EweFX9pNlIccDz9aqL80pDgcGLgdiKPvhX50UZSS
+ 52NnOgZmR0/xkW7BfOxO3fL6YdVMKMgkfvuyXzlfN7HEn6NZa1OtIidPK
+ CUtqOMQVGlEGfV21bsIfMjbf4wMK6nI+VJwcsc5mh4REzRWrE2FKMPpb8
+ Jq/xTyknLDCuChXmxQzoaAlbu65BmiPQvld2o9lJZBZXjK1KLbnTGAoll
+ PrwSmepWhVV8mbbKvVhsI9MqQLwBvCNLoi4QKpUjUlq0nqAkp36qk58+f
+ pShdhAQVrq9FRNGN1LO9h312GJU7YRh4oO8C/DJhrQ3xoBtFCiuAzH5Vq Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="284860882"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="284860882"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 04:18:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="649213560"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="646415997"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga001.jf.intel.com with SMTP; 12 Sep 2022 04:18:29 -0700
+ by orsmga008.jf.intel.com with SMTP; 12 Sep 2022 04:18:23 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 12 Sep 2022 14:18:29 +0300
+ Mon, 12 Sep 2022 14:18:23 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Sep 2022 14:18:04 +0300
-Message-Id: <20220912111814.17466-6-ville.syrjala@linux.intel.com>
+Date: Mon, 12 Sep 2022 14:18:02 +0300
+Message-Id: <20220912111814.17466-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220912111814.17466-1-ville.syrjala@linux.intel.com>
 References: <20220912111814.17466-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/15] drm/i915: Pass intel_encoder to
- to_lvds_encoder()
+Subject: [Intel-gfx] [PATCH 03/15] drm/i915: Drop pointless 'budget' variable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,94 +63,73 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Most of our encoder type cast stuff already operates on
-intel_encoder rather than drm_encoder. Switch to_lvds_encoder()
-over as well.
+Just return the thing directly from the switch statement.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_lvds.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 22 +++++--------------
+ 1 file changed, 6 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 9aa38e8141b5..6fef829e855b 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -78,9 +78,9 @@ struct intel_lvds_encoder {
- 	struct intel_connector *attached_connector;
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index e5fb66a5dd02..60b3277a857b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -708,8 +708,6 @@ struct hsw_wrpll_rnp {
  
--static struct intel_lvds_encoder *to_lvds_encoder(struct drm_encoder *encoder)
-+static struct intel_lvds_encoder *to_lvds_encoder(struct intel_encoder *encoder)
+ static unsigned hsw_wrpll_get_budget_for_freq(int clock)
  {
--	return container_of(encoder, struct intel_lvds_encoder, base.base);
-+	return container_of(encoder, struct intel_lvds_encoder, base);
+-	unsigned budget;
+-
+ 	switch (clock) {
+ 	case 25175000:
+ 	case 25200000:
+@@ -742,21 +740,18 @@ static unsigned hsw_wrpll_get_budget_for_freq(int clock)
+ 	case 222750000:
+ 	case 296703000:
+ 	case 297000000:
+-		budget = 0;
+-		break;
++		return 0;
+ 	case 233500000:
+ 	case 245250000:
+ 	case 247750000:
+ 	case 253250000:
+ 	case 298000000:
+-		budget = 1500;
+-		break;
++		return 1500;
+ 	case 169128000:
+ 	case 169500000:
+ 	case 179500000:
+ 	case 202000000:
+-		budget = 2000;
+-		break;
++		return 2000;
+ 	case 256250000:
+ 	case 262500000:
+ 	case 270000000:
+@@ -766,18 +761,13 @@ static unsigned hsw_wrpll_get_budget_for_freq(int clock)
+ 	case 281250000:
+ 	case 286000000:
+ 	case 291750000:
+-		budget = 4000;
+-		break;
++		return 4000;
+ 	case 267250000:
+ 	case 268500000:
+-		budget = 5000;
+-		break;
++		return 5000;
+ 	default:
+-		budget = 1000;
+-		break;
++		return 1000;
+ 	}
+-
+-	return budget;
  }
  
- bool intel_lvds_port_enabled(struct drm_i915_private *dev_priv,
-@@ -103,7 +103,7 @@ static bool intel_lvds_get_hw_state(struct intel_encoder *encoder,
- 				    enum pipe *pipe)
- {
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
--	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(&encoder->base);
-+	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(encoder);
- 	intel_wakeref_t wakeref;
- 	bool ret;
- 
-@@ -123,7 +123,7 @@ static void intel_lvds_get_config(struct intel_encoder *encoder,
- 				  struct intel_crtc_state *pipe_config)
- {
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
--	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(&encoder->base);
-+	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(encoder);
- 	u32 tmp, flags = 0;
- 
- 	pipe_config->output_types |= BIT(INTEL_OUTPUT_LVDS);
-@@ -229,7 +229,7 @@ static void intel_pre_enable_lvds(struct intel_atomic_state *state,
- 				  const struct intel_crtc_state *pipe_config,
- 				  const struct drm_connector_state *conn_state)
- {
--	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(&encoder->base);
-+	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(encoder);
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
- 	const struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
-@@ -312,7 +312,7 @@ static void intel_enable_lvds(struct intel_atomic_state *state,
- 			      const struct drm_connector_state *conn_state)
- {
- 	struct drm_device *dev = encoder->base.dev;
--	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(&encoder->base);
-+	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(encoder);
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 
- 	intel_de_write(dev_priv, lvds_encoder->reg,
-@@ -334,7 +334,7 @@ static void intel_disable_lvds(struct intel_atomic_state *state,
- 			       const struct intel_crtc_state *old_crtc_state,
- 			       const struct drm_connector_state *old_conn_state)
- {
--	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(&encoder->base);
-+	struct intel_lvds_encoder *lvds_encoder = to_lvds_encoder(encoder);
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 
- 	intel_de_write(dev_priv, PP_CONTROL(0),
-@@ -413,7 +413,7 @@ static int intel_lvds_compute_config(struct intel_encoder *intel_encoder,
- {
- 	struct drm_i915_private *dev_priv = to_i915(intel_encoder->base.dev);
- 	struct intel_lvds_encoder *lvds_encoder =
--		to_lvds_encoder(&intel_encoder->base);
-+		to_lvds_encoder(intel_encoder);
- 	struct intel_connector *intel_connector =
- 		lvds_encoder->attached_connector;
- 	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
-@@ -775,7 +775,7 @@ bool intel_is_dual_link_lvds(struct drm_i915_private *dev_priv)
- {
- 	struct intel_encoder *encoder = intel_get_lvds_encoder(dev_priv);
- 
--	return encoder && to_lvds_encoder(&encoder->base)->is_dual_link;
-+	return encoder && to_lvds_encoder(encoder)->is_dual_link;
- }
- 
- static bool compute_is_dual_link_lvds(struct intel_lvds_encoder *lvds_encoder)
+ static void hsw_wrpll_update_rnp(u64 freq2k, unsigned int budget,
 -- 
 2.35.1
 
