@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68A88ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 12:02:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BBFBECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 12:07:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8356A10E42D;
-	Mon, 12 Sep 2022 12:02:48 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D59B10E3E4
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 12:02:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DDD310E3F2;
+	Mon, 12 Sep 2022 12:07:13 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7272610E3F2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 12:07:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662984162; x=1694520162;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=7lXWD5EwVmvoDHe3p3rwaFBmzx6syZeIuXK/bZs0DvM=;
- b=Jv84rocxbHfh0S+iw1EXcIte9J1W62PHVNI3Rln1GbVkekJBA/QbMVxm
- 0YX2dbohW8x2ZNZbXdn960TyAXp4eQJ9XLzCQ+X4/jz+VzjzqoG7cNz4F
- oPudr5XPc1u/5Gn18G+JUH4/2MFCaZvkrFAVKn8w7Q9/taIBZCMWHCPCd
- 7+2DUYQJias0bFtBLc/AqPBQaqPxr/xjpjvXJ6vK2iKm8AQ1OoYQYVcfG
- T1zJBtIGDzPPO94YILTJiPcnAQ1MEhxmBW8qmN6Hj65nSNDpC0tchNusX
- 8rx+u+SH8j1ov1MQkZXIkZNfN74B8ZzeX6ifvvX4AYr7Di6J0OnEC4hVz A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="384143280"
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="384143280"
+ t=1662984427; x=1694520427;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=ADV8qWK69BaN+/bkLwOhHK20phNQXP14rH2ZIvjX6cc=;
+ b=faXY48z9yhgHWJhWyzQT3e0kx7uRlv0TaN5oLIca2pUyzeN71qbdeW80
+ ACdrBAn183oVcwrfHloEevysxX2csJyIz9R6CeBkiBweaWuRjRj0EUEw7
+ s2vLLKFcJlSIzCrREXOXrQCHMwv3ltONhf7Mn0P6XUgKTDj51Tx+En6zX
+ muIzaVjutUPI2dJ6jjl4smwphwx9F+XO2niE9rRQKcUSWYD7Yk2x5GMJD
+ sSSHV5lZrXr13EEPBKVFiEeOXWSKTW2ZXiM+Ujwt1tAH4cEkx1a7u6l8N
+ rGe9tKywmCk6MCnsubdq76YeKJHqIhaGuGuijsGmRcHtjN6buoQ4NI4jM A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="284868628"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="284868628"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 05:02:41 -0700
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="678058705"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 05:07:06 -0700
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="678060334"
 Received: from abijaz-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.58.140])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 05:02:40 -0700
+ 12 Sep 2022 05:07:05 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20220912111814.17466-14-ville.syrjala@linux.intel.com>
+To: Andi Shyti <andi.shyti@linux.intel.com>, Badal Nilawar
+ <badal.nilawar@intel.com>
+In-Reply-To: <Yx8VnClBmyDHCd3C@alfio.lan>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220912111814.17466-1-ville.syrjala@linux.intel.com>
- <20220912111814.17466-14-ville.syrjala@linux.intel.com>
-Date: Mon, 12 Sep 2022 15:02:36 +0300
-Message-ID: <87fsgw6bs3.fsf@intel.com>
+References: <20220909025646.3397620-1-badal.nilawar@intel.com>
+ <Yx8VnClBmyDHCd3C@alfio.lan>
+Date: Mon, 12 Sep 2022 15:07:01 +0300
+Message-ID: <87czc06bkq.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH 13/15] drm/i915: Don't init eDP if we can't
- find a fixed mode
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 0/6] i915: CAGF and RC6 changes for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,84 +58,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 12 Sep 2022, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+On Mon, 12 Sep 2022, Andi Shyti <andi.shyti@linux.intel.com> wrote:
+> Hi Badal,
 >
-> In the unlikely case of not finding a fixed mode don't register
-> the eDP connector. I think there are some places where we'd oops
-> if we didn't have a fixed mode for eDP so presumable this doesn't
-> typically happen. But better safe than sorry.
+> you haven't Cc'ed anyone here... Please do CC the people
+> interested in the patches and dri-devel mailing list.
+>
+> If you don't mind, could you please resend the series either as a
+> V2, if you are going to change something, or as a RESEND, if you
+> will not change anything?
 
-I think this is fine as the first step. ISTR there are provisions in the
-DP spec for adding some default mode if all else fails, maybe we should
-look into adding something like that?
+Anyway some of the patches have been merged already so a rebase is in
+order.
 
-Guaranteeing we always have a fixed mode for eDP opens up possibilities
-for some further cleanup if we want. We have some "is edp and fixed
-mode" style conditions.
-
-Up to and including this patch in the series,
-
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
+BR,
+Jani.
 
 >
-> Also pimp the debugs with the encoder id+name. I think dumping
-> the encoder rather than the connector provides more information
-> here (eg. to match again the port information in the VBT).
+> Thanks,
+> Andi
 >
-> We can also drop the extra check from intel_edp_add_properties().
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 7b4ffb74c94c..8fe48634eb9d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -5197,9 +5197,6 @@ intel_edp_add_properties(struct intel_dp *intel_dp)
->=20=20
->  	intel_attach_scaling_mode_property(&connector->base);
->=20=20
-> -	if (!fixed_mode)
-> -		return;
-> -
->  	drm_connector_set_panel_orientation_with_quirk(&connector->base,
->  						       i915->display.vbt.orientation,
->  						       fixed_mode->hdisplay,
-> @@ -5272,7 +5269,8 @@ static bool intel_edp_init_connector(struct intel_d=
-p *intel_dp,
->  	if (!has_dpcd) {
->  		/* if this fails, presume the device is a ghost */
->  		drm_info(&dev_priv->drm,
-> -			 "failed to retrieve link info, disabling eDP\n");
-> +			 "[ENCODER:%d:%s] failed to retrieve link info, disabling eDP\n",
-> +			 encoder->base.base.id, encoder->base.name);
->  		goto out_vdd_off;
->  	}
->=20=20
-> @@ -5318,6 +5316,13 @@ static bool intel_edp_init_connector(struct intel_=
-dp *intel_dp,
->=20=20
->  	mutex_unlock(&dev->mode_config.mutex);
->=20=20
-> +	if (!intel_panel_preferred_fixed_mode(intel_connector)) {
-> +		drm_info(&dev_priv->drm,
-> +			 "[ENCODER:%d:%s] failed to find fixed mode for the panel, disabling =
-eDP\n",
-> +			 encoder->base.base.id, encoder->base.name);
-> +		goto out_vdd_off;
-> +	}
-> +
->  	intel_panel_init(intel_connector);
->=20=20
->  	intel_edp_backlight_setup(intel_dp, intel_connector);
+> On Fri, Sep 09, 2022 at 08:26:40AM +0530, Badal Nilawar wrote:
+>> This series includes the code changes to get CAGF, RC State and 
+>> C6 Residency of MTL. The series depends on:
+>> 
+>> https://patchwork.freedesktop.org/series/107908/
+>> 
+>> We have included 3 patches from from the above series as part of this
+>> series in order for this series to compile. These are the first 3 patches
+>> authored by Matt Roper. Please do not review these first 3 patches. Only
+>> patch 4 and 6 needs review.
+>> 
+>> v2: Included "Use GEN12 RPSTAT register" patch 
+>> 
+>> Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+>> 
+>> Badal Nilawar (2):
+>>   drm/i915/mtl: Modify CAGF functions for MTL
+>>   drm/i915/mtl: Add C6 residency support for MTL SAMedia
+>> 
+>> Don Hiatt (1):
+>>   drm/i915: Use GEN12 RPSTAT register
+>> 
+>> Matt Roper (3):
+>>   drm/i915: Prepare more multi-GT initialization
+>>   drm/i915: Rename and expose common GT early init routine
+>>   drm/i915/xelpmp: Expose media as another GT
+>> 
+>>  drivers/gpu/drm/i915/Makefile                 |  1 +
+>>  drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  2 +-
+>>  drivers/gpu/drm/i915/gt/intel_gt.c            | 70 +++++++++++++++----
+>>  drivers/gpu/drm/i915/gt/intel_gt.h            |  2 +-
+>>  drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c | 58 ++++++++++++++-
+>>  drivers/gpu/drm/i915/gt/intel_gt_regs.h       | 31 ++++++++
+>>  drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c   |  9 ++-
+>>  drivers/gpu/drm/i915/gt/intel_gt_types.h      |  3 +
+>>  drivers/gpu/drm/i915/gt/intel_rc6.c           |  5 +-
+>>  drivers/gpu/drm/i915/gt/intel_rps.c           | 22 +++++-
+>>  drivers/gpu/drm/i915/gt/intel_rps.h           |  1 +
+>>  drivers/gpu/drm/i915/gt/intel_sa_media.c      | 39 +++++++++++
+>>  drivers/gpu/drm/i915/gt/intel_sa_media.h      | 15 ++++
+>>  drivers/gpu/drm/i915/gt/selftest_rc6.c        |  9 ++-
+>>  drivers/gpu/drm/i915/i915_drv.h               |  2 +
+>>  drivers/gpu/drm/i915/i915_pci.c               | 15 ++++
+>>  drivers/gpu/drm/i915/i915_pmu.c               | 11 ++-
+>>  drivers/gpu/drm/i915/intel_device_info.h      | 19 +++++
+>>  drivers/gpu/drm/i915/intel_uncore.c           | 16 ++++-
+>>  drivers/gpu/drm/i915/intel_uncore.h           | 20 +++++-
+>>  .../gpu/drm/i915/selftests/mock_gem_device.c  |  1 +
+>>  21 files changed, 325 insertions(+), 26 deletions(-)
+>>  create mode 100644 drivers/gpu/drm/i915/gt/intel_sa_media.c
+>>  create mode 100644 drivers/gpu/drm/i915/gt/intel_sa_media.h
+>> 
+>> -- 
+>> 2.25.1
 
---=20
+-- 
 Jani Nikula, Intel Open Source Graphics Center
