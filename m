@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8CDCECAAD5
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 16:56:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5503C6FA82
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 17:00:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C8E010E1AB;
-	Mon, 12 Sep 2022 16:56:13 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45ADD10E448
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 16:55:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF67F10E114;
+	Mon, 12 Sep 2022 17:00:06 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5444510E0C1;
+ Mon, 12 Sep 2022 16:59:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663001730; x=1694537730;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=omX9dpA4Ig/j/QuLvcWfDjXxybzoxtIceAXx5Cx7rYU=;
- b=hSSB83N0rBbVeNb55tn3EyUtUr7Ol7iop99CQJctvRT/jd+yIK93iCds
- ma6pz4GT2hYO7eo6/YnxVVHWmJfKwOSfaR07/y3y3xwEdPvrxPq7VtRD1
- Uim2I/fYFQ/OrbnL0bQ9mtlB9DJ4MDo1BaKWosfsSpejm/q5Kq5zm0rTJ
- QCMxH/kTJyfXL7hs4kR7LE5wDP4p26XnB4ioVF4Zav6fJUbiEAPgBGtg2
- i3kGWoIGQqoxYO0x4I0dYkiYThlj9IeuIknH8egxX047I5LgHQiaCXPvn
- UYh8lQg8wxsiY21LMkLHaQIqfoLLddTavUwcUjWrtDgQJOKtAHde0l7dR w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="278309233"
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="278309233"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 09:55:29 -0700
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="616121051"
-Received: from abijaz-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.58.140])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 09:55:28 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Sep 2022 19:54:34 +0300
-Message-Id: <ac28c6d38aa6b99b3547861bd287576298fd30a1.1662999695.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1662999695.git.jani.nikula@intel.com>
-References: <cover.1662999695.git.jani.nikula@intel.com>
+ t=1663001998; x=1694537998;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=d1kGTyk2cN9Ovca/+x9Nb4cMgT7PK2UcJyHC3d94Rl4=;
+ b=VR0CthdsheagV1uF90GDbJgGfgcBvRUxOVYFUUWuidOdmSVu52LeDUHB
+ yZJU5Xe0QHMDGD3e1zIoxJtp+54+nv3Fzb97J9SwrUIgOAKnPrFYS6jlB
+ fZTVRcqzlCATZSYzt54FSwcC3d71AqrWIwSsMWNHQc1UFb3+ppwc2r7tb
+ UAZji9VO2OwYCI9wf0fT4WLaEQGYAUXBgKaIkoWCUjDtbkj1fTV2krba7
+ CbsWw9CQpKXW0iaxYnZmhpLQ/CoroEkUaZCZFzaL4KW7KacQSvSo+qNjS
+ TnM6B25d4gMVhNR/jNZ5tdcwIuormAfZj5vbpZEj/iMsjS3uVw37mmsif g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="359643568"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="359643568"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 09:59:57 -0700
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="678176042"
+Received: from mtabaka-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.252.57.56])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 09:59:56 -0700
+Date: Mon, 12 Sep 2022 18:59:53 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Message-ID: <Yx9liQu4JmnVmWVn@alfio.lan>
+References: <20220912-copy-engine-v1-0-ef92fd81758d@intel.com>
+ <20220912-copy-engine-v1-1-ef92fd81758d@intel.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 12/15] drm/i915/reg: move masked field helpers
- to i915_reg_defs.h
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220912-copy-engine-v1-1-ef92fd81758d@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v1 1/1] drm/i915: Skip applying copy engine
+ fuses
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,66 +58,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Andrzej Hajda <andrzej.hajda@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a more logical place for generic helpers.
+Hi Lucas,
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/i915_reg.h      | 13 -------------
- drivers/gpu/drm/i915/i915_reg_defs.h | 13 +++++++++++++
- 2 files changed, 13 insertions(+), 13 deletions(-)
+On Mon, Sep 12, 2022 at 09:19:38AM -0700, Lucas De Marchi wrote:
+> Support for reading the fuses to check what are the Link Copy engines
+> was added in commit ad5f74f34201 ("drm/i915/pvc: read fuses for link
+> copy engines"). However they were added unconditionally because the
+> FUSE3 register is present since graphics version 10.
+> 
+> However the bitfield with meml3 fuses only exists since graphics version
+> 12. Moreover, Link Copy engines are currently only available in PVC.
+> Tying additional copy engines to the meml3 fuses is not correct for
+> other platforms.
+> 
+> Make sure there is a check for  `12.60 <= ver < 12.70`. Later platforms
+> may extend this function later if it's needed to fuse off copy engines.
+> 
+> Currently it's harmless as the Link Copy engines are still not exported:
+> info->engine_mask only has BCS0 set and the register is only read for
+> platforms that do have it.
+> 
+> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> index 814f83b5fe59..1f7188129cd1 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> @@ -764,6 +764,10 @@ static void engine_mask_apply_copy_fuses(struct intel_gt *gt)
+>  	unsigned long meml3_mask;
+>  	unsigned long quad;
+>  
+> +	if (!(GRAPHICS_VER_FULL(i915) >= IP_VER(12, 60) &&
+> +	      GRAPHICS_VER_FULL(i915) < IP_VER(12, 70)))
+> +		return;
+> +
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 52462cbfdc66..3727fc1d5d61 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -171,19 +171,6 @@
- 					      INTEL_INFO(dev_priv)->display.cursor_offsets[PIPE_A] + \
- 					      DISPLAY_MMIO_BASE(dev_priv) + (reg))
- 
--#define __MASKED_FIELD(mask, value) ((mask) << 16 | (value))
--#define _MASKED_FIELD(mask, value) ({					   \
--	if (__builtin_constant_p(mask))					   \
--		BUILD_BUG_ON_MSG(((mask) & 0xffff0000), "Incorrect mask"); \
--	if (__builtin_constant_p(value))				   \
--		BUILD_BUG_ON_MSG((value) & 0xffff0000, "Incorrect value"); \
--	if (__builtin_constant_p(mask) && __builtin_constant_p(value))	   \
--		BUILD_BUG_ON_MSG((value) & ~(mask),			   \
--				 "Incorrect value for mask");		   \
--	__MASKED_FIELD(mask, value); })
--#define _MASKED_BIT_ENABLE(a)	({ typeof(a) _a = (a); _MASKED_FIELD(_a, _a); })
--#define _MASKED_BIT_DISABLE(a)	(_MASKED_FIELD((a), 0))
--
- #define GU_CNTL				_MMIO(0x101010)
- #define   LMEM_INIT			REG_BIT(7)
- 
-diff --git a/drivers/gpu/drm/i915/i915_reg_defs.h b/drivers/gpu/drm/i915/i915_reg_defs.h
-index 8f486f77609f..7536f1b72778 100644
---- a/drivers/gpu/drm/i915/i915_reg_defs.h
-+++ b/drivers/gpu/drm/i915/i915_reg_defs.h
-@@ -98,6 +98,19 @@
-  */
- #define REG_FIELD_GET64(__mask, __val)	((u64)FIELD_GET(__mask, __val))
- 
-+#define __MASKED_FIELD(mask, value) ((mask) << 16 | (value))
-+#define _MASKED_FIELD(mask, value) ({					   \
-+	if (__builtin_constant_p(mask))					   \
-+		BUILD_BUG_ON_MSG(((mask) & 0xffff0000), "Incorrect mask"); \
-+	if (__builtin_constant_p(value))				   \
-+		BUILD_BUG_ON_MSG((value) & 0xffff0000, "Incorrect value"); \
-+	if (__builtin_constant_p(mask) && __builtin_constant_p(value))	   \
-+		BUILD_BUG_ON_MSG((value) & ~(mask),			   \
-+				 "Incorrect value for mask");		   \
-+	__MASKED_FIELD(mask, value); })
-+#define _MASKED_BIT_ENABLE(a)	({ typeof(a) _a = (a); _MASKED_FIELD(_a, _a); })
-+#define _MASKED_BIT_DISABLE(a)	(_MASKED_FIELD((a), 0))
-+
- typedef struct {
- 	u32 reg;
- } i915_reg_t;
--- 
-2.34.1
+Isn't it easier if you wrote
 
+	if (GRAPHICS_VER_FULL(i915) < IP_VER(12, 60) ||
+	    GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
+		return;
+
+?
+
+You save a parenthesis and a negation '!'.
+
+Anyway, looks good:
+
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+
+Andi
+ 
+>  	meml3_mask = intel_uncore_read(gt->uncore, GEN10_MIRROR_FUSE3);
+>  	meml3_mask = REG_FIELD_GET(GEN12_MEML3_EN_MASK, meml3_mask);
+>  
+> 
+> -- 
+> b4 0.10.0-dev-df873
