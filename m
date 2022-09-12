@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41C5BECAAA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 11:19:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 365BFECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 11:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B855A10E3CF;
-	Mon, 12 Sep 2022 11:18:54 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7034010E3BE
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 11:18:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36A5A10E3A7;
+	Mon, 12 Sep 2022 11:19:19 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1A2610E3BE
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 11:18:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662981526; x=1694517526;
+ t=1662981529; x=1694517529;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=OGnNpRfTKYawipsk3m2WIdR0tcsBnMzOMpGgoR26II8=;
- b=mfwZb1DAJwrIeq7WaFi9tI+u01YLQwxLi61XD7H5Q8Lt4t80g88dzdWr
- T+XDhfDzeh+bNqaG4SvlJhsfxC+utEkDCbyc5HXtrwe5y6/OvGtuOsLaY
- H9X8eB0kS0i+vSuhNBCupfT9Wzyd3e0LP1d+pv9zAJFnuT90VpHhlD/Vy
- Vl3CBCR6IXmBzyGfRanYTJnAlhVGOCzu5SI1JyP9VsH/7dsb6FSrG3cQx
- 9V62GtP7I2UPn/u3wrRcabaCpGyDAekG52Hy6e9NUehInqtJThF7a2dfl
- iMpW2lH3GuyVbzmGY9Qe6gFVjIfJWU6xj6PKl1ybTTXb09esfOKdNaUpt Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="324072063"
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="324072063"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 04:18:45 -0700
+ bh=uCQtEIulLGSHAq5vBvDwsJglzj6lv48j6d+QuuVkqrg=;
+ b=UrstTDSO/oeGR0srInoDZuI3S8M1l+h3TEoY2/6aL+BWxu5pqF5mFJYZ
+ JPpeWOeFHR+86duo/3hB/lLu9C7xRihmxGTDBRzdmiknf7qOsl0XpBe5e
+ 78pWXKZOCiQ5is1lwd6jEstvHbg7TnlwWj4nenmETdmEuUEaNjpiVEGRz
+ 1WLVpIVvkDDaPRzCWfeMNV0RzfbxHCvzc33xvK6uisAT5q4AczZc+9E93
+ IAoz9GOLU+CRSVIyqKkY9+9BB9Dfcu85YxcOzh6FHcc7VcpVPcI7Qdt8d
+ yWuBvNQwQDPYfLrZUuQsKzDqvQj/cdCWLuQmUQBuMxGz1nKA9qj4xliP/ Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="296575666"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="296575666"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 04:18:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="618518529"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="705115852"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga007.fm.intel.com with SMTP; 12 Sep 2022 04:18:44 -0700
+ by FMSMGA003.fm.intel.com with SMTP; 12 Sep 2022 04:18:35 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 12 Sep 2022 14:18:43 +0300
+ Mon, 12 Sep 2022 14:18:34 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Sep 2022 14:18:09 +0300
-Message-Id: <20220912111814.17466-11-ville.syrjala@linux.intel.com>
+Date: Mon, 12 Sep 2022 14:18:06 +0300
+Message-Id: <20220912111814.17466-8-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220912111814.17466-1-ville.syrjala@linux.intel.com>
 References: <20220912111814.17466-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/15] drm/i915: Move eDP scaling_mode prop
- setup to the proper place
+Subject: [Intel-gfx] [PATCH 07/15] drm/i915: Extract
+ intel_tv_add_properties()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,56 +64,127 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We have an eDP specific intel_edp_add_properties() so move
-the eDP scaling_mode property setup there from
-intel_dp_add_properties().
+Pull all the TV connector property setup into its own neat function.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/display/intel_tv.c | 80 +++++++++++++------------
+ 1 file changed, 43 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index de5a4d2df78e..049228a09364 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5183,19 +5183,6 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *connect
- 	if (has_gamut_metadata_dip(dev_priv, port))
- 		drm_connector_attach_hdr_output_metadata_property(connector);
+diff --git a/drivers/gpu/drm/i915/display/intel_tv.c b/drivers/gpu/drm/i915/display/intel_tv.c
+index 9379f3463344..306d08482855 100644
+--- a/drivers/gpu/drm/i915/display/intel_tv.c
++++ b/drivers/gpu/drm/i915/display/intel_tv.c
+@@ -1869,6 +1869,48 @@ static const struct drm_encoder_funcs intel_tv_enc_funcs = {
+ 	.destroy = intel_encoder_destroy,
+ };
  
--	if (intel_dp_is_edp(intel_dp)) {
--		u32 allowed_scalers;
--
--		allowed_scalers = BIT(DRM_MODE_SCALE_ASPECT) | BIT(DRM_MODE_SCALE_FULLSCREEN);
--		if (!HAS_GMCH(dev_priv))
--			allowed_scalers |= BIT(DRM_MODE_SCALE_CENTER);
--
--		drm_connector_attach_scaling_mode_property(connector, allowed_scalers);
--
--		connector->state->scaling_mode = DRM_MODE_SCALE_ASPECT;
--
--	}
--
- 	if (HAS_VRR(dev_priv))
- 		drm_connector_attach_vrr_capable_property(connector);
- }
-@@ -5207,6 +5194,16 @@ intel_edp_add_properties(struct intel_dp *intel_dp)
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	const struct drm_display_mode *fixed_mode =
- 		intel_panel_preferred_fixed_mode(connector);
-+	u32 allowed_scalers;
++static void intel_tv_add_properties(struct drm_connector *connector)
++{
++	struct drm_i915_private *i915 = to_i915(connector->dev);
++	struct drm_connector_state *conn_state = connector->state;
++	const char *tv_format_names[ARRAY_SIZE(tv_modes)];
++	int i;
 +
-+	allowed_scalers = BIT(DRM_MODE_SCALE_ASPECT) |
-+		BIT(DRM_MODE_SCALE_FULLSCREEN);
-+	if (!HAS_GMCH(i915))
-+		allowed_scalers |= BIT(DRM_MODE_SCALE_CENTER);
++	/* BIOS margin values */
++	conn_state->tv.margins.left = 54;
++	conn_state->tv.margins.top = 36;
++	conn_state->tv.margins.right = 46;
++	conn_state->tv.margins.bottom = 37;
 +
-+	drm_connector_attach_scaling_mode_property(&connector->base, allowed_scalers);
++	conn_state->tv.mode = 0;
 +
-+	connector->base.state->scaling_mode = DRM_MODE_SCALE_ASPECT;
++	/* Create TV properties then attach current values */
++	for (i = 0; i < ARRAY_SIZE(tv_modes); i++) {
++		/* 1080p50/1080p60 not supported on gen3 */
++		if (DISPLAY_VER(i915) == 3 && tv_modes[i].oversample == 1)
++			break;
++
++		tv_format_names[i] = tv_modes[i].name;
++	}
++	drm_mode_create_tv_properties(&i915->drm, i, tv_format_names);
++
++	drm_object_attach_property(&connector->base,
++				   i915->drm.mode_config.tv_mode_property,
++				   conn_state->tv.mode);
++	drm_object_attach_property(&connector->base,
++				   i915->drm.mode_config.tv_left_margin_property,
++				   conn_state->tv.margins.left);
++	drm_object_attach_property(&connector->base,
++				   i915->drm.mode_config.tv_top_margin_property,
++				   conn_state->tv.margins.top);
++	drm_object_attach_property(&connector->base,
++				   i915->drm.mode_config.tv_right_margin_property,
++				   conn_state->tv.margins.right);
++	drm_object_attach_property(&connector->base,
++				   i915->drm.mode_config.tv_bottom_margin_property,
++				   conn_state->tv.margins.bottom);
++}
++
+ void
+ intel_tv_init(struct drm_i915_private *dev_priv)
+ {
+@@ -1878,9 +1920,6 @@ intel_tv_init(struct drm_i915_private *dev_priv)
+ 	struct intel_encoder *intel_encoder;
+ 	struct intel_connector *intel_connector;
+ 	u32 tv_dac_on, tv_dac_off, save_tv_dac;
+-	const char *tv_format_names[ARRAY_SIZE(tv_modes)];
+-	int i, initial_mode = 0;
+-	struct drm_connector_state *state;
  
- 	if (!fixed_mode)
+ 	if ((intel_de_read(dev_priv, TV_CTL) & TV_FUSE_STATE_MASK) == TV_FUSE_STATE_DISABLED)
  		return;
+@@ -1926,7 +1965,6 @@ intel_tv_init(struct drm_i915_private *dev_priv)
+ 
+ 	intel_encoder = &intel_tv->base;
+ 	connector = &intel_connector->base;
+-	state = connector->state;
+ 
+ 	/*
+ 	 * The documentation, for the older chipsets at least, recommend
+@@ -1963,41 +2001,9 @@ intel_tv_init(struct drm_i915_private *dev_priv)
+ 	intel_encoder->cloneable = 0;
+ 	intel_tv->type = DRM_MODE_CONNECTOR_Unknown;
+ 
+-	/* BIOS margin values */
+-	state->tv.margins.left = 54;
+-	state->tv.margins.top = 36;
+-	state->tv.margins.right = 46;
+-	state->tv.margins.bottom = 37;
+-
+-	state->tv.mode = initial_mode;
+-
+ 	drm_connector_helper_add(connector, &intel_tv_connector_helper_funcs);
+ 	connector->interlace_allowed = false;
+ 	connector->doublescan_allowed = false;
+ 
+-	/* Create TV properties then attach current values */
+-	for (i = 0; i < ARRAY_SIZE(tv_modes); i++) {
+-		/* 1080p50/1080p60 not supported on gen3 */
+-		if (DISPLAY_VER(dev_priv) == 3 &&
+-		    tv_modes[i].oversample == 1)
+-			break;
+-
+-		tv_format_names[i] = tv_modes[i].name;
+-	}
+-	drm_mode_create_tv_properties(dev, i, tv_format_names);
+-
+-	drm_object_attach_property(&connector->base, dev->mode_config.tv_mode_property,
+-				   state->tv.mode);
+-	drm_object_attach_property(&connector->base,
+-				   dev->mode_config.tv_left_margin_property,
+-				   state->tv.margins.left);
+-	drm_object_attach_property(&connector->base,
+-				   dev->mode_config.tv_top_margin_property,
+-				   state->tv.margins.top);
+-	drm_object_attach_property(&connector->base,
+-				   dev->mode_config.tv_right_margin_property,
+-				   state->tv.margins.right);
+-	drm_object_attach_property(&connector->base,
+-				   dev->mode_config.tv_bottom_margin_property,
+-				   state->tv.margins.bottom);
++	intel_tv_add_properties(connector);
+ }
 -- 
 2.35.1
 
