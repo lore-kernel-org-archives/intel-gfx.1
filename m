@@ -4,49 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB578C6FA83
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 11:19:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77E1BECAAD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Sep 2022 11:29:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF58E10E3D5;
-	Mon, 12 Sep 2022 11:19:40 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5477B10E3B8
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 11:19:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1320210E39B;
+	Mon, 12 Sep 2022 11:29:57 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E549010E39B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Sep 2022 11:29:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1662981550; x=1694517550;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=JyEgn+vxlDhvmkE8iLvZtJEcH1XBGrPhtUSf/M80JNE=;
- b=BDmiTuD7TD5WHpO4lOtH0A2yfXqEH3RyOsWTHyC4HP9MyNwh6weKKioB
- nIwVVAAYNpSR3kRSsXd7Ghqw67GhV6NhpERRjDh46eMmHKrYjhVnT6ATv
- ZZK9BzdPx5/cTVoYJlSmkkoYPVUm/GE5qHeRcB9Tdx+jZNq+AFi1nXXqE
- xZn12zjtQKR4t8ptP7cLxqWhVzI3ZDPgFihIobSzCJO4daGy2hz7cocoj
- 4ARynMnaaOwMSiwufn6Qr/0BDl4ALwQ+3DpAxmdKLj/l+IA/sjOUrd8E0
- MVD2EJ+NXdN1/220BEilbCtvo0iGVyRaEIn8mMz/zHqY3tVYbmiOw0t6l w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="298640812"
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="298640812"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 04:19:00 -0700
+ t=1662982191; x=1694518191;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=bQnlSKWcFEdezsDb4JsZmkfzRZ10B6CXDnRTFKYSlzs=;
+ b=iSqUnnGjIXHDStNAMjbdaFo/F+V5yXRSFHGHiybXZRFNJgEf9vgRAOA4
+ lLQhXnJ5G9lGcWlmFA5bPrCVjvqb5qCaEryZJlpcZqFK/fEUv2kUMk2vz
+ ONq9bzZJNwSftYwpKiNaNT3DCPWZyVFnCtaw1hZ0pTk/fJ8pJIx+gyepO
+ tyi4bkq2IMOSSDsFPdk3HCESShnKqiotNM9sVy/mfiNy8HKYrZBx4AikT
+ eaS+XSWlvQmLTrsg8KUaG7XSI/BHxlWLAj8q8ZB+1DnWlLRBRXfuY5vpV
+ GDdJY7/8NqsBT0poDJuEgub9YIXR7VcHzKWTjtYIPfGP0FcD7gfEzUJNc w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10467"; a="284862817"
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="284862817"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 04:29:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="649213715"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga001.jf.intel.com with SMTP; 12 Sep 2022 04:18:58 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 12 Sep 2022 14:18:57 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Sep 2022 14:18:14 +0300
-Message-Id: <20220912111814.17466-16-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220912111814.17466-1-ville.syrjala@linux.intel.com>
-References: <20220912111814.17466-1-ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.93,310,1654585200"; d="scan'208";a="611729851"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by orsmga007.jf.intel.com with ESMTP; 12 Sep 2022 04:29:51 -0700
+Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Mon, 12 Sep 2022 04:29:51 -0700
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Mon, 12 Sep 2022 04:29:50 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Mon, 12 Sep 2022 04:29:50 -0700
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.49) by
+ edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Mon, 12 Sep 2022 04:29:50 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GbaYjK1DAPymVQTaBEr+BDlpQcnmM+SHjwQr78y+3EGYQBK9KSvPQb/6YRK1H2opVIj1B5SMBSEt/YZUNHX+B7JfFAmleNybioamKkyIHt/kUsk4ZwDjLnybIzHGChsOpzjtcL1w4kxUY3fDeGgYkJF28HsGRWuJTuZj2oyPvnVub4B/ypOmvJjuSjyofDWuO8l2jNMKMODyyq5o7ZI7JmYz7BAqxpcS2Jn473/Ddde+DXvZ1123Oup5JYdpCu4z24UcZ6MXZ1/keapxPQ6dWGo2i9bzLa1KVT69+HUHuP789AchSxQjmeqCH849gXMWlnrf1qIy0+2pSeH7uO565g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=80JiEDoFTZwxCqI6yd/enJ4kEfOoaFKBD1/46JecYOQ=;
+ b=dljTD8gmzBK0LXGvZdSQwXDTaHO81qdCwMCjGOAGQrGnWqkPJqAybg/e1A5vRfIhGuEjZtqzEDBMcTGy32mi7i1Wrfx2QNuagJy6l/Ut2qaI9LNJtGcy9BwfqXPZWO6PqD3U0oTg+tgMilTQyu+u2MptyzSTHVeSGU7CtM1P+0WpFuBi+xRCV+Ovm/mooeXepoU2JZYcXIzdn9e0rGJ0x3KbLbgHybDf2hUfNclRYAz0T5++f6965Ea+DFUHxj4foRuw/N1pAskg0ZcmpMcBl/gf+q9hf5NWqr/Ihw6XIgJQyrIExQvRkt7zVJKv9Dl5HNg/7wTgUE8shAkgNnEktQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BN9PR11MB5530.namprd11.prod.outlook.com (2603:10b6:408:103::8)
+ by CO1PR11MB5057.namprd11.prod.outlook.com (2603:10b6:303:6c::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.19; Mon, 12 Sep
+ 2022 11:29:48 +0000
+Received: from BN9PR11MB5530.namprd11.prod.outlook.com
+ ([fe80::b8f7:e789:58d6:f0ee]) by BN9PR11MB5530.namprd11.prod.outlook.com
+ ([fe80::b8f7:e789:58d6:f0ee%7]) with mapi id 15.20.5612.022; Mon, 12 Sep 2022
+ 11:29:48 +0000
+Message-ID: <1ce34139-0b3f-6709-597f-e55437bccc0d@intel.com>
+Date: Mon, 12 Sep 2022 16:59:38 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Content-Language: en-US
+To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+References: <20220909025646.3397620-1-badal.nilawar@intel.com>
+ <20220909025646.3397620-5-badal.nilawar@intel.com>
+ <87k06c577l.wl-ashutosh.dixit@intel.com>
+From: "Nilawar, Badal" <badal.nilawar@intel.com>
+In-Reply-To: <87k06c577l.wl-ashutosh.dixit@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0142.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::27) To BN9PR11MB5530.namprd11.prod.outlook.com
+ (2603:10b6:408:103::8)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 15/15] drm/i915: s/intel_connector/connector/ in
- init code
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR11MB5530:EE_|CO1PR11MB5057:EE_
+X-MS-Office365-Filtering-Correlation-Id: 62f49347-b367-4788-5bd5-08da94b21977
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: is4PmXC31Px9vS0Xof/+rx1MNXzs0Kd64FOWO2fYgLaJ2ZWqClpHeCgHJ5v9txAYX2JkXF6iknoPb7gqkylnJ016XeYqV0uFQ/wa07v6R3h+JiaVU/8p5kYKu3lvSAh9CRJDpg1RHpwTVmBwPnoh1SobqTiXJ5iSvdVKeyndAOr82LgJw1pO0EEjQNhFqXa4cwWV7bV2NvbfagV89E66umrFi6Llaq/Xug/YwBm/uxaPWOyBT3NdVov4r0v/CTNjWC0Pg3GRyU1V6YBLF49+RP+Z6YtN4Rq/xulsgVoVJ9/6n3Aos2bvuzS7jo5FZ651svZaUaUxxqmulLP22ws/sQUDN/ocmZov4qQOGZCap2yuwG47778XO7xfq9G83fvRQhYNA5foZsJRjS5i1R5+qgMJQGeOU998roh4wKDtQlfCE5kCFOhFxp0OMV5EWZg2eGspZXIjz7M7DFwU6/UXkP1RWQoreNsyGOj6ckyFDzQpzgPYR+8kzChj2dRtVXNu7jK+EZ4/j8pCV92bjiMWU3qSeVMLW0ybvwEAD79D0t203z/nt/weQkfSjE2Y8cj6D9zkWQKwZps5RRgN7pkiRW578VjwJxs9ALZ4YJV7wKo4ertLdpW50fDD9F7Nwdl3jBOfulX127S+lsp8oenIV1EVV3k7IRxIL5n9e/37KDjHRnirv38jr1VgNtN4QOAxkvykc5VEzhKhI6RSgtURgH5iwDjcytFgblzrZSkmYgpjZrSla1cYZUK0Wy38yCM/QaS1QAXOiM5mQ5GCzhd8hdx4hhL5YDj3VsKX3kLNdyM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR11MB5530.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(346002)(39860400002)(136003)(376002)(396003)(366004)(31686004)(6506007)(4326008)(8676002)(316002)(6666004)(107886003)(37006003)(6636002)(53546011)(66476007)(66946007)(66556008)(186003)(83380400001)(6512007)(36756003)(2616005)(26005)(8936002)(5660300002)(2906002)(6862004)(86362001)(6486002)(41300700001)(38100700002)(31696002)(478600001)(82960400001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWFTN2dGZWFqbUFrY05iU0cyNDdCejVUaFJXNXFyWGNBbHZLR0xWck1Mak13?=
+ =?utf-8?B?YzdKSXRzTkZCOGZuQTFsQVExYlNZWjcwc1JKNTQ2d1NGUVB3cDdlL3lCTkxS?=
+ =?utf-8?B?Uks5eUJNTGxJdE91OFBsZFFROVJQOTBUWG1iNlJWTXlzc2hOR0twcU9RQWh4?=
+ =?utf-8?B?Tkl5TVBHeWE5dFlrYUdFeVE4ZlJHUzFsNStIeXpjS20xRURhbHVpeW5zdWxi?=
+ =?utf-8?B?MmhKSkcvbW5YNTRld0xvOUVDcVFPQkZRY1E5aUF1WDM1VmRPZUVMQXVWSmZ1?=
+ =?utf-8?B?L0pZRVB1R21rMjY0TXhrZktiWmdLM3I5dXRQSUEvMmxXQzlFUXBaeWtXc2hu?=
+ =?utf-8?B?aGxnQlVrMTBUNjZCaVY1N3hYT3lpWnpSUElsdG10ZFpHZHRHZnE4SmlBTkZU?=
+ =?utf-8?B?dWRNdUNvaHBtZzZCSlFnNjVwaEJhUjIwNk9nNXZyV0MrNEZlRXUzclNBVzdQ?=
+ =?utf-8?B?TSt0RG50QXRqQ3ZxT2kwRVVpQW1xK1R4UHRJZVR0aWY2TkdrYzZJRlJZeklD?=
+ =?utf-8?B?bW9uRmk4RFFrVklHNkRqbElJYzB2MEtUSzdTVHV2OVdiL2V0bVp5M3h1ZU9S?=
+ =?utf-8?B?T0RTVGk5Rk9mMi9kYUMyS1BZbHY1QVZVODgvVjYvSTVyRnc5di9EWDRNVnQ5?=
+ =?utf-8?B?d2dMUDdCSS90Vjczd1pvUWdnbWVGY0Z5Uis1NWdzaGRqTGg1NzJURUNUcWt4?=
+ =?utf-8?B?Z2R2M2l4NktBY1RaL25PaUpvVVhkUUdreW5QOXFnRXk4VTFaa0p1WUxPSGxH?=
+ =?utf-8?B?dmdHdGlvRnB2cmNWRm1IRmtvNUNkWXEwYXFiMGFqNUFtQXlLalF2UzBnSGd2?=
+ =?utf-8?B?aGU4R1VNRWJLdFhxd1dhS0FwcXpNVWQ3eWovNUVjd2RSejRVa0ZyZXN3eGJM?=
+ =?utf-8?B?L2tSTXZCNGpVR1hzTlVwVERncmRudSs0N3doTFBlWFgyODhRRURmZjFRSVdm?=
+ =?utf-8?B?dFk0YzlzYU5UNlU0UWxWUGl5Y29SRWRQNytEZ2x5QUU4djFrcitza1V1WjR1?=
+ =?utf-8?B?Mnh0eXNlMjdsR1E2dzJBOGdESmFNaWlYTXVhcVQzR2dyNnpjVm92UE5NUXl0?=
+ =?utf-8?B?aVowZzRBZHZnUVNvQzVtRzZlYzl1MWlEK0Z2cWt1SjZoajV1V0N5VXFFSk5H?=
+ =?utf-8?B?bzQzWFBFTmxVUkVOdEx3Wm5SUEpIeDNmcG1iM2s0Q2lOQnpjVkVGZHdLWEla?=
+ =?utf-8?B?emNiWUpnWFNrMFd4Z2JEcEZBV2JIT2Noc2JWb1JTUEJKYUFQTitSNnhwUlRR?=
+ =?utf-8?B?UkNXSmJWeWc5Tk9LM1ZRSnd2VC9MampGTFVZeTYvVzN4WHcrNGh0bW9tcnpi?=
+ =?utf-8?B?RGkxcHZPSUF6dU1KM1NrdzRLSmlINFUybU5VakVxR055QUNEV0l2UDQxdTJm?=
+ =?utf-8?B?UWliNVQxQU1JcTFySVJzRHBFeDVxTHl2ejNDcEtjd1ZhNE1LeFRtRGsyaFFB?=
+ =?utf-8?B?TmJKcnhnVmU2L2tiMFNqQlY5Q2g2SWs3UVZTYnUyNmVHdkdCaWgrcTRwS0Rq?=
+ =?utf-8?B?QkhLMTI2N2RsMFlqZ3hzV1ZqajBXZGM2cldLRzdudWU1SEJIODRsSDJUYWFn?=
+ =?utf-8?B?cGlyenZDZ3NHclV6SThueUt1R0w1WndoY1BwWW9aWTFwUTNrWkg2K2YwNkcy?=
+ =?utf-8?B?MTlSSTNZQ2JBV0lFSStENTdCZ1Vtck5jS2JvUklvYkRyZ2c5Q1huUWVSWjd0?=
+ =?utf-8?B?MFByTjJObG5FNFBMSnhUR1pmRU00MGk5SEN3c1RjdVQ2OVBVN3pNOVp4TFdv?=
+ =?utf-8?B?YmM0Nlh6SVpHN21yakFSOUJaODU1dUpiWjFmKzBDRHlRSmJpTSt5TUlOeGVn?=
+ =?utf-8?B?bFp1RHc4cjBWWnA4ZkNGNzU0d3Z4OEQ4TmFqWlJqVm82VVlLZk05cHc0NENK?=
+ =?utf-8?B?ZDRMQUlZUGc5eTV1dmlHY3lwWVpQdi9uRXNwam9YZFJjUCtqVjNnY3l4eEJK?=
+ =?utf-8?B?dzJDcDA0SU5nMWd2NUxMdElDandRN1BMOFBIaHZLSEJlK09WV2sreVhycHY2?=
+ =?utf-8?B?L1pTMXVrZXFDUnhUZVAyM2Y0NjRFN0NVUnB0MHg1RjNZU01McW9HU1lpbkJy?=
+ =?utf-8?B?akZYZnU4N05rUWlRVk1yM3A2T2U4TkN0c2hrbjEwQ1Z5UTcrMmJZTURvTXJM?=
+ =?utf-8?B?Zlo0NnJDNlVVem0wN0o0U1NORjBDWGtRRVBtMDk5d280TW45eXdQa2NkVlJn?=
+ =?utf-8?B?RlE9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62f49347-b367-4788-5bd5-08da94b21977
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR11MB5530.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2022 11:29:48.2438 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 481BFP8gyRC9K3l+2YOc/3HUWMPxRw48vFugyI1fQn+88T0gtXrAfLXoLFaTmJQxevphUYg4oLC+a46p61uP+Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5057
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH 4/6] drm/i915: Use GEN12 RPSTAT register
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,1212 +159,167 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-As we did with intel_encoder vs. encoder varaible names let's
-do a quick s/intel_connector/connector/ pass over the
-encoder/connector init functions. Cleans them up a little
-bit more at least.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/icl_dsi.c      | 48 +++++------
- drivers/gpu/drm/i915/display/intel_crt.c    | 29 +++----
- drivers/gpu/drm/i915/display/intel_dp.c     | 71 ++++++++--------
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 36 ++++----
- drivers/gpu/drm/i915/display/intel_dvo.c    | 29 ++++---
- drivers/gpu/drm/i915/display/intel_hdmi.c   | 31 ++++---
- drivers/gpu/drm/i915/display/intel_lvds.c   | 61 +++++++-------
- drivers/gpu/drm/i915/display/intel_sdvo.c   | 91 ++++++++++-----------
- drivers/gpu/drm/i915/display/intel_tv.c     | 21 +++--
- drivers/gpu/drm/i915/display/vlv_dsi.c      | 49 ++++++-----
- 10 files changed, 226 insertions(+), 240 deletions(-)
+On 10-09-2022 07:19, Dixit, Ashutosh wrote:
+> On Thu, 08 Sep 2022 19:56:44 -0700, Badal Nilawar wrote:
+>>
+>> From: Don Hiatt <don.hiatt@intel.com>
+>>
+>> On GEN12, use the correct GEN12 RPSTAT register mask/shift.
+>>
+>> HSD: 1409538411
+> 
+> I think let's remove this.
+Sure.
+> 
+>> Cc: Don Hiatt <donhiatt@gmail.com>
+>> Cc: Andi Shyti <andi.shyti@intel.com>
+>> Signed-off-by: Don Hiatt <don.hiatt@intel.com>
+>> Signed-off-by: Badal Nilawar <badal.nilawar@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c |  2 +-
+>>   drivers/gpu/drm/i915/gt/intel_gt_regs.h       |  5 +++++
+>>   drivers/gpu/drm/i915/gt/intel_rps.c           | 17 ++++++++++++++++-
+>>   drivers/gpu/drm/i915/gt/intel_rps.h           |  1 +
+>>   drivers/gpu/drm/i915/i915_pmu.c               |  3 +--
+>>   5 files changed, 24 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+>> index 108b9e76c32e..96c03a1258e1 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+>> @@ -380,7 +380,7 @@ void intel_gt_pm_frequency_dump(struct intel_gt *gt, struct drm_printer *p)
+>> 		rpinclimit = intel_uncore_read(uncore, GEN6_RP_UP_THRESHOLD);
+>> 		rpdeclimit = intel_uncore_read(uncore, GEN6_RP_DOWN_THRESHOLD);
+>>
+>> -		rpstat = intel_uncore_read(uncore, GEN6_RPSTAT1);
+>> +		rpstat = intel_rps_read_rpstat(rps);
+>> 		rpcurupei = intel_uncore_read(uncore, GEN6_RP_CUR_UP_EI) & GEN6_CURICONT_MASK;
+>> 		rpcurup = intel_uncore_read(uncore, GEN6_RP_CUR_UP) & GEN6_CURBSYTAVG_MASK;
+>> 		rpprevup = intel_uncore_read(uncore, GEN6_RP_PREV_UP) & GEN6_CURBSYTAVG_MASK;
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+>> index fb2c56777480..dac59c3e68db 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+>> +++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+>> @@ -1510,6 +1510,11 @@
+>>   #define VLV_RENDER_C0_COUNT			_MMIO(0x138118)
+>>   #define VLV_MEDIA_C0_COUNT			_MMIO(0x13811c)
+>>
+>> +#define GEN12_RPSTAT1				_MMIO(0x1381b4)
+>> +#define   GEN12_CAGF_SHIFT			11
+>> +#define   GEN12_CAGF_MASK			REG_GENMASK(19, 11)
+>> +#define   GEN12_VOLTAGE_MASK			REG_GENMASK(10, 0)
+> 
+> Let's remove GEN12_VOLTAGE_MASK, looks like it's not being used.
+Yes, not used. I will remove this.
+> 
+>> +
+>>   #define GEN11_GT_INTR_DW(x)			_MMIO(0x190018 + ((x) * 4))
+>>   #define   GEN11_CSME				(31)
+>>   #define   GEN11_GUNIT				(28)
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+>> index 6fadde4ee7bf..341f96f536e8 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_rps.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+>> @@ -2040,6 +2040,19 @@ void intel_rps_sanitize(struct intel_rps *rps)
+>> 		rps_disable_interrupts(rps);
+>>   }
+>>
+>> +u32 intel_rps_read_rpstat(struct intel_rps *rps)
+>> +{
+>> +	struct drm_i915_private *i915 = rps_to_i915(rps);
+>> +	u32 rpstat;
+>> +
+>> +	if (GRAPHICS_VER(i915) >= 12)
+>> +		rpstat = intel_uncore_read(rps_to_gt(rps)->uncore, GEN12_RPSTAT1);
+>> +	else
+>> +		rpstat = intel_uncore_read(rps_to_gt(rps)->uncore, GEN6_RPSTAT1);
+> 
+> Probably nit but how about something like this:
+> 
+> 	i915_reg_t rpstat;
+> 
+> 	if (GRAPHICS_VER(i915) >= 12)
+> 		rpstat = GEN12_RPSTAT1;
+> 	else
+> 		rpstat = GEN6_RPSTAT1;
+> 
+> 	return intel_uncore_read(rps_to_gt(rps)->uncore, rpstat);
+Ok
+>> +
+>> +	return rpstat;
+>> +}
+>> +
+>>   u32 intel_rps_get_cagf(struct intel_rps *rps, u32 rpstat)
+>>   {
+>> 	struct drm_i915_private *i915 = rps_to_i915(rps);
+>> @@ -2047,6 +2060,8 @@ u32 intel_rps_get_cagf(struct intel_rps *rps, u32 rpstat)
+>>
+>> 	if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
+>> 		cagf = (rpstat >> 8) & 0xff;
+>> +	else if (GRAPHICS_VER(i915) >= 12)
+>> +		cagf = (rpstat & GEN12_CAGF_MASK) >> GEN12_CAGF_SHIFT;
+>> 	else if (GRAPHICS_VER(i915) >= 9)
+>> 		cagf = (rpstat & GEN9_CAGF_MASK) >> GEN9_CAGF_SHIFT;
+>> 	else if (IS_HASWELL(i915) || IS_BROADWELL(i915))
+>> @@ -2071,7 +2086,7 @@ static u32 read_cagf(struct intel_rps *rps)
+>> 		freq = vlv_punit_read(i915, PUNIT_REG_GPU_FREQ_STS);
+>> 		vlv_punit_put(i915);
+>> 	} else if (GRAPHICS_VER(i915) >= 6) {
+>> -		freq = intel_uncore_read(uncore, GEN6_RPSTAT1);
+>> +		freq = intel_rps_read_rpstat(rps);
+>> 	} else {
+>> 		freq = intel_uncore_read(uncore, MEMSTAT_ILK);
+>> 	}
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_rps.h b/drivers/gpu/drm/i915/gt/intel_rps.h
+>> index 4509dfdc52e0..08bae6d97870 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_rps.h
+>> +++ b/drivers/gpu/drm/i915/gt/intel_rps.h
+>> @@ -47,6 +47,7 @@ u32 intel_rps_get_rp1_frequency(struct intel_rps *rps);
+>>   u32 intel_rps_get_rpn_frequency(struct intel_rps *rps);
+>>   u32 intel_rps_read_punit_req(struct intel_rps *rps);
+>>   u32 intel_rps_read_punit_req_frequency(struct intel_rps *rps);
+>> +u32 intel_rps_read_rpstat(struct intel_rps *rps);
+>>   void gen6_rps_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *caps);
+>>   void intel_rps_raise_unslice(struct intel_rps *rps);
+>>   void intel_rps_lower_unslice(struct intel_rps *rps);
+>> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+>> index 958b37123bf1..a24704ec2c18 100644
+>> --- a/drivers/gpu/drm/i915/i915_pmu.c
+>> +++ b/drivers/gpu/drm/i915/i915_pmu.c
+>> @@ -371,7 +371,6 @@ static void
+>>   frequency_sample(struct intel_gt *gt, unsigned int period_ns)
+>>   {
+>> 	struct drm_i915_private *i915 = gt->i915;
+>> -	struct intel_uncore *uncore = gt->uncore;
+>> 	struct i915_pmu *pmu = &i915->pmu;
+>> 	struct intel_rps *rps = &gt->rps;
+>>
+>> @@ -394,7 +393,7 @@ frequency_sample(struct intel_gt *gt, unsigned int period_ns)
+>> 		 * case we assume the system is running at the intended
+>> 		 * frequency. Fortunately, the read should rarely fail!
+>> 		 */
+>> -		val = intel_uncore_read_fw(uncore, GEN6_RPSTAT1);
+>> +		val = intel_rps_read_rpstat(rps);
+> 
+> Hmm, we got rid of _fw which the comment above refers to. Maybe we need a
+> fw flag to intel_rps_read_rpstat?
+Above function before reading rpstat it checks if gt is awake. So when 
+gt is awake shouldn't matter if we read GEN6_RPSTAT1 with forcewake.In 
+that case we can remove above comment.
+Let me know your thoughts on this.
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 2213d88daf38..33e945c1b5e8 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1983,8 +1983,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
- 	struct drm_device *dev = &dev_priv->drm;
- 	struct intel_dsi *intel_dsi;
- 	struct intel_encoder *encoder;
--	struct intel_connector *intel_connector;
--	struct drm_connector *connector;
-+	struct intel_connector *connector;
- 	enum port port;
- 
- 	if (!intel_bios_is_dsi_present(dev_priv, &port))
-@@ -1994,15 +1993,14 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
- 	if (!intel_dsi)
- 		return;
- 
--	intel_connector = intel_connector_alloc();
--	if (!intel_connector) {
-+	connector = intel_connector_alloc();
-+	if (!connector) {
- 		kfree(intel_dsi);
- 		return;
- 	}
- 
- 	encoder = &intel_dsi->base;
--	intel_dsi->attached_connector = intel_connector;
--	connector = &intel_connector->base;
-+	intel_dsi->attached_connector = connector;
- 
- 	/* register DSI encoder with DRM subsystem */
- 	drm_encoder_init(dev, &encoder->base, &gen11_dsi_encoder_funcs,
-@@ -2029,40 +2027,42 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
- 	encoder->is_clock_enabled = gen11_dsi_is_clock_enabled;
- 
- 	/* register DSI connector with DRM subsystem */
--	drm_connector_init(dev, connector, &gen11_dsi_connector_funcs,
-+	drm_connector_init(dev, &connector->base,
-+			   &gen11_dsi_connector_funcs,
- 			   DRM_MODE_CONNECTOR_DSI);
--	drm_connector_helper_add(connector, &gen11_dsi_connector_helper_funcs);
--	connector->display_info.subpixel_order = SubPixelHorizontalRGB;
--	intel_connector->get_hw_state = intel_connector_get_hw_state;
-+	drm_connector_helper_add(&connector->base,
-+				 &gen11_dsi_connector_helper_funcs);
-+	connector->base.display_info.subpixel_order = SubPixelHorizontalRGB;
-+	connector->get_hw_state = intel_connector_get_hw_state;
- 
- 	/* attach connector to encoder */
--	intel_connector_attach_encoder(intel_connector, encoder);
-+	intel_connector_attach_encoder(connector, encoder);
- 
--	intel_bios_init_panel(dev_priv, &intel_connector->panel, NULL, NULL);
-+	intel_bios_init_panel(dev_priv, &connector->panel, NULL, NULL);
- 
- 	mutex_lock(&dev->mode_config.mutex);
--	intel_panel_add_vbt_lfp_fixed_mode(intel_connector);
-+	intel_panel_add_vbt_lfp_fixed_mode(connector);
- 	mutex_unlock(&dev->mode_config.mutex);
- 
--	if (!intel_panel_preferred_fixed_mode(intel_connector)) {
-+	if (!intel_panel_preferred_fixed_mode(connector)) {
- 		drm_err(&dev_priv->drm, "DSI fixed mode info missing\n");
- 		goto err;
- 	}
- 
--	intel_panel_init(intel_connector);
-+	intel_panel_init(connector);
- 
--	intel_backlight_setup(intel_connector, INVALID_PIPE);
-+	intel_backlight_setup(connector, INVALID_PIPE);
- 
--	if (intel_connector->panel.vbt.dsi.config->dual_link)
-+	if (connector->panel.vbt.dsi.config->dual_link)
- 		intel_dsi->ports = BIT(PORT_A) | BIT(PORT_B);
- 	else
- 		intel_dsi->ports = BIT(port);
- 
--	if (drm_WARN_ON(&dev_priv->drm, intel_connector->panel.vbt.dsi.bl_ports & ~intel_dsi->ports))
--		intel_connector->panel.vbt.dsi.bl_ports &= intel_dsi->ports;
-+	if (drm_WARN_ON(&dev_priv->drm, connector->panel.vbt.dsi.bl_ports & ~intel_dsi->ports))
-+		connector->panel.vbt.dsi.bl_ports &= intel_dsi->ports;
- 
--	if (drm_WARN_ON(&dev_priv->drm, intel_connector->panel.vbt.dsi.cabc_ports & ~intel_dsi->ports))
--		intel_connector->panel.vbt.dsi.cabc_ports &= intel_dsi->ports;
-+	if (drm_WARN_ON(&dev_priv->drm, connector->panel.vbt.dsi.cabc_ports & ~intel_dsi->ports))
-+		connector->panel.vbt.dsi.cabc_ports &= intel_dsi->ports;
- 
- 	for_each_dsi_port(port, intel_dsi->ports) {
- 		struct intel_dsi_host *host;
-@@ -2081,12 +2081,12 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
- 
- 	icl_dphy_param_init(intel_dsi);
- 
--	icl_dsi_add_properties(intel_connector);
-+	icl_dsi_add_properties(connector);
- 	return;
- 
- err:
--	drm_connector_cleanup(connector);
-+	drm_connector_cleanup(&connector->base);
- 	drm_encoder_cleanup(&encoder->base);
- 	kfree(intel_dsi);
--	kfree(intel_connector);
-+	kfree(connector);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index 9400af950691..383d4ade1b22 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -991,9 +991,8 @@ static const struct drm_encoder_funcs intel_crt_enc_funcs = {
- 
- void intel_crt_init(struct drm_i915_private *dev_priv)
- {
--	struct drm_connector *connector;
-+	struct intel_connector *connector;
- 	struct intel_crt *crt;
--	struct intel_connector *intel_connector;
- 	i915_reg_t adpa_reg;
- 	u32 adpa;
- 
-@@ -1025,21 +1024,22 @@ void intel_crt_init(struct drm_i915_private *dev_priv)
- 	if (!crt)
- 		return;
- 
--	intel_connector = intel_connector_alloc();
--	if (!intel_connector) {
-+	connector = intel_connector_alloc();
-+	if (!connector) {
- 		kfree(crt);
- 		return;
- 	}
- 
--	connector = &intel_connector->base;
--	crt->connector = intel_connector;
--	drm_connector_init(&dev_priv->drm, &intel_connector->base,
--			   &intel_crt_connector_funcs, DRM_MODE_CONNECTOR_VGA);
-+	crt->connector = connector;
-+
-+	drm_connector_init(&dev_priv->drm, &connector->base,
-+			   &intel_crt_connector_funcs,
-+			   DRM_MODE_CONNECTOR_VGA);
- 
- 	drm_encoder_init(&dev_priv->drm, &crt->base.base, &intel_crt_enc_funcs,
- 			 DRM_MODE_ENCODER_DAC, "CRT");
- 
--	intel_connector_attach_encoder(intel_connector, &crt->base);
-+	intel_connector_attach_encoder(connector, &crt->base);
- 
- 	crt->base.type = INTEL_OUTPUT_ANALOG;
- 	crt->base.cloneable = BIT(INTEL_OUTPUT_DVO) | BIT(INTEL_OUTPUT_HDMI);
-@@ -1049,7 +1049,7 @@ void intel_crt_init(struct drm_i915_private *dev_priv)
- 		crt->base.pipe_mask = ~0;
- 
- 	if (DISPLAY_VER(dev_priv) != 2)
--		connector->interlace_allowed = true;
-+		connector->base.interlace_allowed = true;
- 
- 	crt->adpa_reg = adpa_reg;
- 
-@@ -1059,9 +1059,9 @@ void intel_crt_init(struct drm_i915_private *dev_priv)
- 	    !dmi_check_system(intel_spurious_crt_detect)) {
- 		crt->base.hpd_pin = HPD_CRT;
- 		crt->base.hotplug = intel_encoder_hotplug;
--		intel_connector->polled = DRM_CONNECTOR_POLL_HPD;
-+		connector->polled = DRM_CONNECTOR_POLL_HPD;
- 	} else {
--		intel_connector->polled = DRM_CONNECTOR_POLL_CONNECT;
-+		connector->polled = DRM_CONNECTOR_POLL_CONNECT;
- 	}
- 
- 	if (HAS_DDI(dev_priv)) {
-@@ -1093,9 +1093,10 @@ void intel_crt_init(struct drm_i915_private *dev_priv)
- 		crt->base.get_hw_state = intel_crt_get_hw_state;
- 		crt->base.enable = intel_enable_crt;
- 	}
--	intel_connector->get_hw_state = intel_connector_get_hw_state;
-+	connector->get_hw_state = intel_connector_get_hw_state;
- 
--	drm_connector_helper_add(connector, &intel_crt_connector_helper_funcs);
-+	drm_connector_helper_add(&connector->base,
-+				 &intel_crt_connector_helper_funcs);
- 
- 	/*
- 	 * TODO: find a proper way to discover whether we need to set the the
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index fa9931656383..814d4065910e 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5233,11 +5233,10 @@ static void intel_edp_backlight_setup(struct intel_dp *intel_dp,
- }
- 
- static bool intel_edp_init_connector(struct intel_dp *intel_dp,
--				     struct intel_connector *intel_connector)
-+				     struct intel_connector *connector)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	struct drm_device *dev = &dev_priv->drm;
--	struct drm_connector *connector = &intel_connector->base;
- 	struct drm_display_mode *fixed_mode;
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	bool has_dpcd;
-@@ -5275,18 +5274,18 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 	}
- 
- 	mutex_lock(&dev->mode_config.mutex);
--	edid = drm_get_edid(connector, &intel_dp->aux.ddc);
-+	edid = drm_get_edid(&connector->base, &intel_dp->aux.ddc);
- 	if (!edid) {
- 		/* Fallback to EDID from ACPI OpRegion, if any */
--		edid = intel_opregion_get_edid(intel_connector);
-+		edid = intel_opregion_get_edid(connector);
- 		if (edid)
- 			drm_dbg_kms(&dev_priv->drm,
- 				    "[CONNECTOR:%d:%s] Using OpRegion EDID\n",
--				    connector->base.id, connector->name);
-+				    connector->base.base.id, connector->base.name);
- 	}
- 	if (edid) {
--		if (drm_add_edid_modes(connector, edid)) {
--			drm_connector_update_edid_property(connector, edid);
-+		if (drm_add_edid_modes(&connector->base, edid)) {
-+			drm_connector_update_edid_property(&connector->base, edid);
- 		} else {
- 			kfree(edid);
- 			edid = ERR_PTR(-EINVAL);
-@@ -5294,38 +5293,38 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 	} else {
- 		edid = ERR_PTR(-ENOENT);
- 	}
--	intel_connector->edid = edid;
-+	connector->edid = edid;
- 
--	intel_bios_init_panel(dev_priv, &intel_connector->panel,
-+	intel_bios_init_panel(dev_priv, &connector->panel,
- 			      encoder->devdata, IS_ERR(edid) ? NULL : edid);
- 
--	intel_panel_add_edid_fixed_modes(intel_connector,
--					 intel_connector->panel.vbt.drrs_type != DRRS_TYPE_NONE,
--					 intel_vrr_is_capable(intel_connector));
-+	intel_panel_add_edid_fixed_modes(connector,
-+					 connector->panel.vbt.drrs_type != DRRS_TYPE_NONE,
-+					 intel_vrr_is_capable(connector));
- 
- 	/* MSO requires information from the EDID */
- 	intel_edp_mso_init(intel_dp);
- 
- 	/* multiply the mode clock and horizontal timings for MSO */
--	list_for_each_entry(fixed_mode, &intel_connector->panel.fixed_modes, head)
--		intel_edp_mso_mode_fixup(intel_connector, fixed_mode);
-+	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head)
-+		intel_edp_mso_mode_fixup(connector, fixed_mode);
- 
- 	/* fallback to VBT if available for eDP */
--	if (!intel_panel_preferred_fixed_mode(intel_connector))
--		intel_panel_add_vbt_lfp_fixed_mode(intel_connector);
-+	if (!intel_panel_preferred_fixed_mode(connector))
-+		intel_panel_add_vbt_lfp_fixed_mode(connector);
- 
- 	mutex_unlock(&dev->mode_config.mutex);
- 
--	if (!intel_panel_preferred_fixed_mode(intel_connector)) {
-+	if (!intel_panel_preferred_fixed_mode(connector)) {
- 		drm_info(&dev_priv->drm,
- 			 "[ENCODER:%d:%s] failed to find fixed mode for the panel, disabling eDP\n",
- 			 encoder->base.base.id, encoder->base.name);
- 		goto out_vdd_off;
- 	}
- 
--	intel_panel_init(intel_connector);
-+	intel_panel_init(connector);
- 
--	intel_edp_backlight_setup(intel_dp, intel_connector);
-+	intel_edp_backlight_setup(intel_dp, connector);
- 
- 	intel_edp_add_properties(intel_dp);
- 
-@@ -5364,9 +5363,8 @@ static void intel_dp_modeset_retry_work_fn(struct work_struct *work)
- 
- bool
- intel_dp_init_connector(struct intel_digital_port *dig_port,
--			struct intel_connector *intel_connector)
-+			struct intel_connector *connector)
- {
--	struct drm_connector *connector = &intel_connector->base;
- 	struct intel_dp *intel_dp = &dig_port->dp;
- 	struct intel_encoder *encoder = &dig_port->base;
- 	struct drm_device *dev = encoder->base.dev;
-@@ -5376,7 +5374,7 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
- 	int type;
- 
- 	/* Initialize the work for modeset in case of link train failure */
--	INIT_WORK(&intel_connector->modeset_retry_work,
-+	INIT_WORK(&connector->modeset_retry_work,
- 		  intel_dp_modeset_retry_work_fn);
- 
- 	if (drm_WARN(dev, dig_port->max_lanes < 1,
-@@ -5391,7 +5389,7 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
- 
- 	/* Preserve the current hw state. */
- 	intel_dp->DP = intel_de_read(dev_priv, intel_dp->output_reg);
--	intel_dp->attached_connector = intel_connector;
-+	intel_dp->attached_connector = connector;
- 
- 	if (intel_dp_is_port_edp(dev_priv, port)) {
- 		/*
-@@ -5422,24 +5420,26 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
- 		    type == DRM_MODE_CONNECTOR_eDP ? "eDP" : "DP",
- 		    encoder->base.base.id, encoder->base.name);
- 
--	drm_connector_init(dev, connector, &intel_dp_connector_funcs, type);
--	drm_connector_helper_add(connector, &intel_dp_connector_helper_funcs);
-+	drm_connector_init(dev, &connector->base,
-+			   &intel_dp_connector_funcs, type);
-+	drm_connector_helper_add(&connector->base,
-+				 &intel_dp_connector_helper_funcs);
- 
- 	if (!HAS_GMCH(dev_priv))
--		connector->interlace_allowed = true;
-+		connector->base.interlace_allowed = true;
- 
--	intel_connector->polled = DRM_CONNECTOR_POLL_HPD;
-+	connector->polled = DRM_CONNECTOR_POLL_HPD;
- 
- 	intel_dp_aux_init(intel_dp);
- 
--	intel_connector_attach_encoder(intel_connector, encoder);
-+	intel_connector_attach_encoder(connector, encoder);
- 
- 	if (HAS_DDI(dev_priv))
--		intel_connector->get_hw_state = intel_ddi_connector_get_hw_state;
-+		connector->get_hw_state = intel_ddi_connector_get_hw_state;
- 	else
--		intel_connector->get_hw_state = intel_connector_get_hw_state;
-+		connector->get_hw_state = intel_connector_get_hw_state;
- 
--	if (!intel_edp_init_connector(intel_dp, intel_connector)) {
-+	if (!intel_edp_init_connector(intel_dp, connector)) {
- 		intel_dp_aux_fini(intel_dp);
- 		goto fail;
- 	}
-@@ -5449,13 +5449,12 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
- 	intel_dp_reset_max_link_params(intel_dp);
- 
- 	/* init MST on ports that can support it */
--	intel_dp_mst_encoder_init(dig_port,
--				  intel_connector->base.base.id);
-+	intel_dp_mst_encoder_init(dig_port, connector->base.base.id);
- 
--	intel_dp_add_properties(intel_dp, connector);
-+	intel_dp_add_properties(intel_dp, &connector->base);
- 
- 	if (is_hdcp_supported(dev_priv, port) && !intel_dp_is_edp(intel_dp)) {
--		int ret = intel_dp_hdcp_init(dig_port, intel_connector);
-+		int ret = intel_dp_hdcp_init(dig_port, connector);
- 		if (ret)
- 			drm_dbg_kms(&dev_priv->drm,
- 				    "HDCP init failed, skipping.\n");
-@@ -5479,7 +5478,7 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
- 	return true;
- 
- fail:
--	drm_connector_cleanup(connector);
-+	drm_connector_cleanup(&connector->base);
- 
- 	return false;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index d98657a61527..5f95b2cb9efe 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -825,54 +825,54 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
- 	struct drm_device *dev = dig_port->base.base.dev;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
--	struct intel_connector *intel_connector;
--	struct drm_connector *connector;
-+	struct intel_connector *connector;
- 	enum pipe pipe;
- 	int ret;
- 
--	intel_connector = intel_connector_alloc();
--	if (!intel_connector)
-+	connector = intel_connector_alloc();
-+	if (!connector)
- 		return NULL;
- 
--	intel_connector->get_hw_state = intel_dp_mst_get_hw_state;
--	intel_connector->mst_port = intel_dp;
--	intel_connector->port = port;
-+	connector->get_hw_state = intel_dp_mst_get_hw_state;
-+	connector->mst_port = intel_dp;
-+	connector->port = port;
- 	drm_dp_mst_get_port_malloc(port);
- 
--	connector = &intel_connector->base;
--	ret = drm_connector_init(dev, connector, &intel_dp_mst_connector_funcs,
-+	ret = drm_connector_init(dev, &connector->base,
-+				 &intel_dp_mst_connector_funcs,
- 				 DRM_MODE_CONNECTOR_DisplayPort);
- 	if (ret) {
- 		drm_dp_mst_put_port_malloc(port);
--		intel_connector_free(intel_connector);
-+		intel_connector_free(connector);
- 		return NULL;
- 	}
- 
--	drm_connector_helper_add(connector, &intel_dp_mst_connector_helper_funcs);
-+	drm_connector_helper_add(&connector->base,
-+				 &intel_dp_mst_connector_helper_funcs);
- 
- 	for_each_pipe(dev_priv, pipe) {
- 		struct intel_encoder *encoder =
- 			&intel_dp->mst_encoders[pipe]->base;
- 
--		ret = drm_connector_attach_encoder(&intel_connector->base,
-+		ret = drm_connector_attach_encoder(&connector->base,
- 						   &encoder->base);
- 		if (ret)
- 			goto err;
- 	}
- 
--	ret = intel_dp_mst_add_properties(intel_dp, connector, pathprop);
-+	ret = intel_dp_mst_add_properties(intel_dp, &connector->base, pathprop);
- 	if (ret)
- 		goto err;
- 
--	ret = intel_dp_hdcp_init(dig_port, intel_connector);
-+	ret = intel_dp_hdcp_init(dig_port, connector);
- 	if (ret)
--		drm_dbg_kms(&dev_priv->drm, "[%s:%d] HDCP MST init failed, skipping.\n",
--			    connector->name, connector->base.id);
-+		drm_dbg_kms(&dev_priv->drm, "CONNECTOR[%d:%s] HDCP MST init failed, skipping.\n",
-+			    connector->base.base.id, connector->base.name);
- 
--	return connector;
-+	return &connector->base;
- 
- err:
--	drm_connector_cleanup(connector);
-+	drm_connector_cleanup(&connector->base);
- 	return NULL;
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
-index d3532e51843c..6aa8a45629db 100644
---- a/drivers/gpu/drm/i915/display/intel_dvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_dvo.c
-@@ -393,7 +393,7 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
- {
- 	struct intel_encoder *encoder;
- 	struct intel_dvo *intel_dvo;
--	struct intel_connector *intel_connector;
-+	struct intel_connector *connector;
- 	int i;
- 	int encoder_type = DRM_MODE_ENCODER_NONE;
- 
-@@ -401,13 +401,13 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
- 	if (!intel_dvo)
- 		return;
- 
--	intel_connector = intel_connector_alloc();
--	if (!intel_connector) {
-+	connector = intel_connector_alloc();
-+	if (!connector) {
- 		kfree(intel_dvo);
- 		return;
- 	}
- 
--	intel_dvo->attached_connector = intel_connector;
-+	intel_dvo->attached_connector = connector;
- 
- 	encoder = &intel_dvo->base;
- 
-@@ -417,11 +417,10 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
- 	encoder->get_config = intel_dvo_get_config;
- 	encoder->compute_config = intel_dvo_compute_config;
- 	encoder->pre_enable = intel_dvo_pre_enable;
--	intel_connector->get_hw_state = intel_dvo_connector_get_hw_state;
-+	connector->get_hw_state = intel_dvo_connector_get_hw_state;
- 
- 	/* Now, try to find a controller */
- 	for (i = 0; i < ARRAY_SIZE(intel_dvo_devices); i++) {
--		struct drm_connector *connector = &intel_connector->base;
- 		const struct intel_dvo_device *dvo = &intel_dvo_devices[i];
- 		struct i2c_adapter *i2c;
- 		int gpio;
-@@ -497,27 +496,27 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
- 
- 		switch (dvo->type) {
- 		case INTEL_DVO_CHIP_TMDS:
--			intel_connector->polled = DRM_CONNECTOR_POLL_CONNECT |
-+			connector->polled = DRM_CONNECTOR_POLL_CONNECT |
- 				DRM_CONNECTOR_POLL_DISCONNECT;
--			drm_connector_init(&dev_priv->drm, connector,
-+			drm_connector_init(&dev_priv->drm, &connector->base,
- 					   &intel_dvo_connector_funcs,
- 					   DRM_MODE_CONNECTOR_DVII);
- 			encoder_type = DRM_MODE_ENCODER_TMDS;
- 			break;
- 		case INTEL_DVO_CHIP_LVDS_NO_FIXED:
- 		case INTEL_DVO_CHIP_LVDS:
--			drm_connector_init(&dev_priv->drm, connector,
-+			drm_connector_init(&dev_priv->drm, &connector->base,
- 					   &intel_dvo_connector_funcs,
- 					   DRM_MODE_CONNECTOR_LVDS);
- 			encoder_type = DRM_MODE_ENCODER_LVDS;
- 			break;
- 		}
- 
--		drm_connector_helper_add(connector,
-+		drm_connector_helper_add(&connector->base,
- 					 &intel_dvo_connector_helper_funcs);
--		connector->display_info.subpixel_order = SubPixelHorizontalRGB;
-+		connector->base.display_info.subpixel_order = SubPixelHorizontalRGB;
- 
--		intel_connector_attach_encoder(intel_connector, encoder);
-+		intel_connector_attach_encoder(connector, encoder);
- 		if (dvo->type == INTEL_DVO_CHIP_LVDS) {
- 			/*
- 			 * For our LVDS chipsets, we should hopefully be able
-@@ -527,9 +526,9 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
- 			 * headers, likely), so for now, just get the current
- 			 * mode being output through DVO.
- 			 */
--			intel_panel_add_encoder_fixed_mode(intel_connector, encoder);
-+			intel_panel_add_encoder_fixed_mode(connector, encoder);
- 
--			intel_panel_init(intel_connector);
-+			intel_panel_init(connector);
- 
- 			intel_dvo->panel_wants_dither = true;
- 		}
-@@ -538,5 +537,5 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
- 	}
- 
- 	kfree(intel_dvo);
--	kfree(intel_connector);
-+	kfree(connector);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 4d57d6193142..8d1043503a1a 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2923,9 +2923,8 @@ void intel_infoframe_init(struct intel_digital_port *dig_port)
- }
- 
- void intel_hdmi_init_connector(struct intel_digital_port *dig_port,
--			       struct intel_connector *intel_connector)
-+			       struct intel_connector *connector)
- {
--	struct drm_connector *connector = &intel_connector->base;
- 	struct intel_hdmi *intel_hdmi = &dig_port->hdmi;
- 	struct intel_encoder *encoder = &dig_port->base;
- 	struct drm_device *dev = encoder->base.dev;
-@@ -2950,32 +2949,32 @@ void intel_hdmi_init_connector(struct intel_digital_port *dig_port,
- 	intel_hdmi->ddc_bus = intel_hdmi_ddc_pin(encoder);
- 	ddc = intel_gmbus_get_adapter(dev_priv, intel_hdmi->ddc_bus);
- 
--	drm_connector_init_with_ddc(dev, connector,
-+	drm_connector_init_with_ddc(dev, &connector->base,
- 				    &intel_hdmi_connector_funcs,
- 				    DRM_MODE_CONNECTOR_HDMIA,
- 				    ddc);
--	drm_connector_helper_add(connector, &intel_hdmi_connector_helper_funcs);
--
--	connector->interlace_allowed = true;
--	connector->stereo_allowed = true;
-+	drm_connector_helper_add(&connector->base,
-+				 &intel_hdmi_connector_helper_funcs);
- 
-+	connector->base.interlace_allowed = true;
-+	connector->base.stereo_allowed = true;
- 	if (DISPLAY_VER(dev_priv) >= 10)
--		connector->ycbcr_420_allowed = true;
-+		connector->base.ycbcr_420_allowed = true;
- 
--	intel_connector->polled = DRM_CONNECTOR_POLL_HPD;
-+	connector->polled = DRM_CONNECTOR_POLL_HPD;
- 
- 	if (HAS_DDI(dev_priv))
--		intel_connector->get_hw_state = intel_ddi_connector_get_hw_state;
-+		connector->get_hw_state = intel_ddi_connector_get_hw_state;
- 	else
--		intel_connector->get_hw_state = intel_connector_get_hw_state;
-+		connector->get_hw_state = intel_connector_get_hw_state;
- 
--	intel_hdmi_add_properties(intel_hdmi, connector);
-+	intel_hdmi_add_properties(intel_hdmi, &connector->base);
- 
--	intel_connector_attach_encoder(intel_connector, encoder);
--	intel_hdmi->attached_connector = intel_connector;
-+	intel_connector_attach_encoder(connector, encoder);
-+	intel_hdmi->attached_connector = connector;
- 
- 	if (is_hdcp_supported(dev_priv, port)) {
--		int ret = intel_hdcp_init(intel_connector, dig_port,
-+		int ret = intel_hdcp_init(connector, dig_port,
- 					  &intel_hdmi_hdcp_shim);
- 		if (ret)
- 			drm_dbg_kms(&dev_priv->drm,
-@@ -2992,7 +2991,7 @@ void intel_hdmi_init_connector(struct intel_digital_port *dig_port,
- 		               (temp & ~0xf) | 0xd);
- 	}
- 
--	cec_fill_conn_info_from_drm(&conn_info, connector);
-+	cec_fill_conn_info_from_drm(&conn_info, &connector->base);
- 
- 	intel_hdmi->cec_notifier =
- 		cec_notifier_conn_register(dev->dev, port_identifier(port),
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 251282ef2d90..5a0292b44e2c 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -829,8 +829,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	struct drm_device *dev = &dev_priv->drm;
- 	struct intel_lvds_encoder *lvds_encoder;
- 	struct intel_encoder *encoder;
--	struct intel_connector *intel_connector;
--	struct drm_connector *connector;
-+	struct intel_connector *connector;
- 	struct edid *edid;
- 	i915_reg_t lvds_reg;
- 	u32 lvds;
-@@ -876,17 +875,17 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	if (!lvds_encoder)
- 		return;
- 
--	intel_connector = intel_connector_alloc();
--	if (!intel_connector) {
-+	connector = intel_connector_alloc();
-+	if (!connector) {
- 		kfree(lvds_encoder);
- 		return;
- 	}
- 
--	lvds_encoder->attached_connector = intel_connector;
-+	lvds_encoder->attached_connector = connector;
- 
- 	encoder = &lvds_encoder->base;
--	connector = &intel_connector->base;
--	drm_connector_init(dev, &intel_connector->base, &intel_lvds_connector_funcs,
-+	drm_connector_init(dev, &connector->base,
-+			   &intel_lvds_connector_funcs,
- 			   DRM_MODE_CONNECTOR_LVDS);
- 
- 	drm_encoder_init(dev, &encoder->base, &intel_lvds_enc_funcs,
-@@ -905,9 +904,9 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	encoder->get_config = intel_lvds_get_config;
- 	encoder->update_pipe = intel_backlight_update;
- 	encoder->shutdown = intel_lvds_shutdown;
--	intel_connector->get_hw_state = intel_connector_get_hw_state;
-+	connector->get_hw_state = intel_connector_get_hw_state;
- 
--	intel_connector_attach_encoder(intel_connector, encoder);
-+	intel_connector_attach_encoder(connector, encoder);
- 
- 	encoder->type = INTEL_OUTPUT_LVDS;
- 	encoder->power_domain = POWER_DOMAIN_PORT_OTHER;
-@@ -918,12 +917,13 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	else
- 		encoder->pipe_mask = ~0;
- 
--	drm_connector_helper_add(connector, &intel_lvds_connector_helper_funcs);
--	connector->display_info.subpixel_order = SubPixelHorizontalRGB;
-+	drm_connector_helper_add(&connector->base,
-+				 &intel_lvds_connector_helper_funcs);
-+	connector->base.display_info.subpixel_order = SubPixelHorizontalRGB;
- 
- 	lvds_encoder->reg = lvds_reg;
- 
--	intel_lvds_add_properties(connector);
-+	intel_lvds_add_properties(&connector->base);
- 
- 	intel_lvds_pps_get_hw_state(dev_priv, &lvds_encoder->init_pps);
- 	lvds_encoder->init_lvds_val = lvds;
-@@ -942,15 +942,14 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	 */
- 	mutex_lock(&dev->mode_config.mutex);
- 	if (vga_switcheroo_handler_flags() & VGA_SWITCHEROO_CAN_SWITCH_DDC)
--		edid = drm_get_edid_switcheroo(connector,
--				    intel_gmbus_get_adapter(dev_priv, pin));
-+		edid = drm_get_edid_switcheroo(&connector->base,
-+					       intel_gmbus_get_adapter(dev_priv, pin));
- 	else
--		edid = drm_get_edid(connector,
-+		edid = drm_get_edid(&connector->base,
- 				    intel_gmbus_get_adapter(dev_priv, pin));
- 	if (edid) {
--		if (drm_add_edid_modes(connector, edid)) {
--			drm_connector_update_edid_property(connector,
--								edid);
-+		if (drm_add_edid_modes(&connector->base, edid)) {
-+			drm_connector_update_edid_property(&connector->base, edid);
- 		} else {
- 			kfree(edid);
- 			edid = ERR_PTR(-EINVAL);
-@@ -958,37 +957,37 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	} else {
- 		edid = ERR_PTR(-ENOENT);
- 	}
--	intel_connector->edid = edid;
-+	connector->edid = edid;
- 
--	intel_bios_init_panel(dev_priv, &intel_connector->panel, NULL,
-+	intel_bios_init_panel(dev_priv, &connector->panel, NULL,
- 			      IS_ERR(edid) ? NULL : edid);
- 
- 	/* Try EDID first */
--	intel_panel_add_edid_fixed_modes(intel_connector,
--					 intel_connector->panel.vbt.drrs_type != DRRS_TYPE_NONE,
-+	intel_panel_add_edid_fixed_modes(connector,
-+					 connector->panel.vbt.drrs_type != DRRS_TYPE_NONE,
- 					 false);
- 
- 	/* Failed to get EDID, what about VBT? */
--	if (!intel_panel_preferred_fixed_mode(intel_connector))
--		intel_panel_add_vbt_lfp_fixed_mode(intel_connector);
-+	if (!intel_panel_preferred_fixed_mode(connector))
-+		intel_panel_add_vbt_lfp_fixed_mode(connector);
- 
- 	/*
- 	 * If we didn't get a fixed mode from EDID or VBT, try checking
- 	 * if the panel is already turned on.  If so, assume that
- 	 * whatever is currently programmed is the correct mode.
- 	 */
--	if (!intel_panel_preferred_fixed_mode(intel_connector))
--		intel_panel_add_encoder_fixed_mode(intel_connector, encoder);
-+	if (!intel_panel_preferred_fixed_mode(connector))
-+		intel_panel_add_encoder_fixed_mode(connector, encoder);
- 
- 	mutex_unlock(&dev->mode_config.mutex);
- 
- 	/* If we still don't have a mode after all that, give up. */
--	if (!intel_panel_preferred_fixed_mode(intel_connector))
-+	if (!intel_panel_preferred_fixed_mode(connector))
- 		goto failed;
- 
--	intel_panel_init(intel_connector);
-+	intel_panel_init(connector);
- 
--	intel_backlight_setup(intel_connector, INVALID_PIPE);
-+	intel_backlight_setup(connector, INVALID_PIPE);
- 
- 	lvds_encoder->is_dual_link = compute_is_dual_link_lvds(lvds_encoder);
- 	drm_dbg_kms(&dev_priv->drm, "detected %s-link lvds configuration\n",
-@@ -1000,9 +999,9 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 
- failed:
- 	drm_dbg_kms(&dev_priv->drm, "No LVDS modes found, disabling.\n");
--	drm_connector_cleanup(connector);
-+	drm_connector_cleanup(&connector->base);
- 	drm_encoder_cleanup(&encoder->base);
- 	kfree(lvds_encoder);
--	intel_connector_free(intel_connector);
-+	intel_connector_free(connector);
- 	return;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 01c69da81f3d..e4ae5395bc00 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2673,28 +2673,26 @@ intel_sdvo_get_slave_addr(struct drm_i915_private *dev_priv,
- }
- 
- static int
--intel_sdvo_connector_init(struct intel_sdvo_connector *connector,
--			  struct intel_sdvo *encoder)
-+intel_sdvo_connector_init(struct intel_connector *connector,
-+			  struct intel_encoder *encoder)
- {
--	struct drm_connector *drm_connector;
- 	int ret;
- 
--	drm_connector = &connector->base.base;
--	ret = drm_connector_init(encoder->base.base.dev,
--			   drm_connector,
--			   &intel_sdvo_connector_funcs,
--			   connector->base.base.connector_type);
-+	ret = drm_connector_init(encoder->base.dev,
-+				 &connector->base,
-+				 &intel_sdvo_connector_funcs,
-+				 connector->base.connector_type);
- 	if (ret < 0)
- 		return ret;
- 
--	drm_connector_helper_add(drm_connector,
-+	drm_connector_helper_add(&connector->base,
- 				 &intel_sdvo_connector_helper_funcs);
- 
--	connector->base.base.display_info.subpixel_order = SubPixelHorizontalRGB;
--	connector->base.base.interlace_allowed = true;
--	connector->base.get_hw_state = intel_sdvo_connector_get_hw_state;
-+	connector->base.display_info.subpixel_order = SubPixelHorizontalRGB;
-+	connector->base.interlace_allowed = true;
-+	connector->get_hw_state = intel_sdvo_connector_get_hw_state;
- 
--	intel_connector_attach_encoder(&connector->base, &encoder->base);
-+	intel_connector_attach_encoder(connector, encoder);
- 
- 	return 0;
- }
-@@ -2736,9 +2734,8 @@ static bool
- intel_sdvo_dvi_init(struct intel_sdvo *intel_sdvo, int device)
- {
- 	struct intel_encoder *encoder = &intel_sdvo->base;
--	struct drm_connector *connector;
--	struct intel_connector *intel_connector;
- 	struct intel_sdvo_connector *intel_sdvo_connector;
-+	struct intel_connector *connector;
- 
- 	DRM_DEBUG_KMS("initialising DVI device %d\n", device);
- 
-@@ -2754,8 +2751,7 @@ intel_sdvo_dvi_init(struct intel_sdvo *intel_sdvo, int device)
- 		intel_sdvo_connector->output_flag = SDVO_OUTPUT_TMDS1;
- 	}
- 
--	intel_connector = &intel_sdvo_connector->base;
--	connector = &intel_connector->base;
-+	connector = &intel_sdvo_connector->base;
- 	if (intel_sdvo_get_hotplug_support(intel_sdvo) &
- 		intel_sdvo_connector->output_flag) {
- 		intel_sdvo->hotplug_active |= intel_sdvo_connector->output_flag;
-@@ -2763,21 +2759,22 @@ intel_sdvo_dvi_init(struct intel_sdvo *intel_sdvo, int device)
- 		 * Some SDVO devices have one-shot hotplug interrupts.
- 		 * Ensure that they get re-enabled when an interrupt happens.
- 		 */
--		intel_connector->polled = DRM_CONNECTOR_POLL_HPD;
-+		connector->polled = DRM_CONNECTOR_POLL_HPD;
- 		encoder->hotplug = intel_sdvo_hotplug;
- 		intel_sdvo_enable_hotplug(encoder);
- 	} else {
--		intel_connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
-+		connector->polled = DRM_CONNECTOR_POLL_CONNECT |
-+			DRM_CONNECTOR_POLL_DISCONNECT;
- 	}
- 	encoder->base.encoder_type = DRM_MODE_ENCODER_TMDS;
--	connector->connector_type = DRM_MODE_CONNECTOR_DVID;
-+	connector->base.connector_type = DRM_MODE_CONNECTOR_DVID;
- 
- 	if (intel_sdvo_is_hdmi_connector(intel_sdvo, device)) {
--		connector->connector_type = DRM_MODE_CONNECTOR_HDMIA;
-+		connector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
- 		intel_sdvo_connector->is_hdmi = true;
- 	}
- 
--	if (intel_sdvo_connector_init(intel_sdvo_connector, intel_sdvo) < 0) {
-+	if (intel_sdvo_connector_init(connector, encoder) < 0) {
- 		kfree(intel_sdvo_connector);
- 		return false;
- 	}
-@@ -2792,9 +2789,8 @@ static bool
- intel_sdvo_tv_init(struct intel_sdvo *intel_sdvo, int type)
- {
- 	struct intel_encoder *encoder = &intel_sdvo->base;
--	struct drm_connector *connector;
--	struct intel_connector *intel_connector;
- 	struct intel_sdvo_connector *intel_sdvo_connector;
-+	struct intel_connector *connector;
- 
- 	DRM_DEBUG_KMS("initialising TV type %d\n", type);
- 
-@@ -2802,15 +2798,14 @@ intel_sdvo_tv_init(struct intel_sdvo *intel_sdvo, int type)
- 	if (!intel_sdvo_connector)
- 		return false;
- 
--	intel_connector = &intel_sdvo_connector->base;
--	connector = &intel_connector->base;
-+	connector = &intel_sdvo_connector->base;
- 	encoder->base.encoder_type = DRM_MODE_ENCODER_TVDAC;
--	connector->connector_type = DRM_MODE_CONNECTOR_SVIDEO;
-+	connector->base.connector_type = DRM_MODE_CONNECTOR_SVIDEO;
- 
- 	intel_sdvo->controlled_output |= type;
- 	intel_sdvo_connector->output_flag = type;
- 
--	if (intel_sdvo_connector_init(intel_sdvo_connector, intel_sdvo) < 0) {
-+	if (intel_sdvo_connector_init(connector, encoder) < 0) {
- 		kfree(intel_sdvo_connector);
- 		return false;
- 	}
-@@ -2824,7 +2819,7 @@ intel_sdvo_tv_init(struct intel_sdvo *intel_sdvo, int type)
- 	return true;
- 
- err:
--	intel_connector_destroy(connector);
-+	intel_connector_destroy(&connector->base);
- 	return false;
- }
- 
-@@ -2832,9 +2827,8 @@ static bool
- intel_sdvo_analog_init(struct intel_sdvo *intel_sdvo, int device)
- {
- 	struct intel_encoder *encoder = &intel_sdvo->base;
--	struct drm_connector *connector;
--	struct intel_connector *intel_connector;
- 	struct intel_sdvo_connector *intel_sdvo_connector;
-+	struct intel_connector *connector;
- 
- 	DRM_DEBUG_KMS("initialising analog device %d\n", device);
- 
-@@ -2842,11 +2836,10 @@ intel_sdvo_analog_init(struct intel_sdvo *intel_sdvo, int device)
- 	if (!intel_sdvo_connector)
- 		return false;
- 
--	intel_connector = &intel_sdvo_connector->base;
--	connector = &intel_connector->base;
--	intel_connector->polled = DRM_CONNECTOR_POLL_CONNECT;
-+	connector = &intel_sdvo_connector->base;
-+	connector->polled = DRM_CONNECTOR_POLL_CONNECT;
- 	encoder->base.encoder_type = DRM_MODE_ENCODER_DAC;
--	connector->connector_type = DRM_MODE_CONNECTOR_VGA;
-+	connector->base.connector_type = DRM_MODE_CONNECTOR_VGA;
- 
- 	if (device == 0) {
- 		intel_sdvo->controlled_output |= SDVO_OUTPUT_RGB0;
-@@ -2856,7 +2849,7 @@ intel_sdvo_analog_init(struct intel_sdvo *intel_sdvo, int device)
- 		intel_sdvo_connector->output_flag = SDVO_OUTPUT_RGB1;
- 	}
- 
--	if (intel_sdvo_connector_init(intel_sdvo_connector, intel_sdvo) < 0) {
-+	if (intel_sdvo_connector_init(connector, encoder) < 0) {
- 		kfree(intel_sdvo_connector);
- 		return false;
- 	}
-@@ -2869,9 +2862,8 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
- {
- 	struct intel_encoder *encoder = &intel_sdvo->base;
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
--	struct drm_connector *connector;
--	struct intel_connector *intel_connector;
- 	struct intel_sdvo_connector *intel_sdvo_connector;
-+	struct intel_connector *connector;
- 
- 	DRM_DEBUG_KMS("initialising LVDS device %d\n", device);
- 
-@@ -2879,10 +2871,9 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
- 	if (!intel_sdvo_connector)
- 		return false;
- 
--	intel_connector = &intel_sdvo_connector->base;
--	connector = &intel_connector->base;
-+	connector = &intel_sdvo_connector->base;
- 	encoder->base.encoder_type = DRM_MODE_ENCODER_LVDS;
--	connector->connector_type = DRM_MODE_CONNECTOR_LVDS;
-+	connector->base.connector_type = DRM_MODE_CONNECTOR_LVDS;
- 
- 	if (device == 0) {
- 		intel_sdvo->controlled_output |= SDVO_OUTPUT_LVDS0;
-@@ -2892,7 +2883,7 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
- 		intel_sdvo_connector->output_flag = SDVO_OUTPUT_LVDS1;
- 	}
- 
--	if (intel_sdvo_connector_init(intel_sdvo_connector, intel_sdvo) < 0) {
-+	if (intel_sdvo_connector_init(connector, encoder) < 0) {
- 		kfree(intel_sdvo_connector);
- 		return false;
- 	}
-@@ -2900,28 +2891,28 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
- 	if (!intel_sdvo_create_enhance_property(intel_sdvo, intel_sdvo_connector))
- 		goto err;
- 
--	intel_bios_init_panel(i915, &intel_connector->panel, NULL, NULL);
-+	intel_bios_init_panel(i915, &connector->panel, NULL, NULL);
- 
- 	/*
- 	 * Fetch modes from VBT. For SDVO prefer the VBT mode since some
- 	 * SDVO->LVDS transcoders can't cope with the EDID mode.
- 	 */
--	intel_panel_add_vbt_sdvo_fixed_mode(intel_connector);
-+	intel_panel_add_vbt_sdvo_fixed_mode(connector);
- 
--	if (!intel_panel_preferred_fixed_mode(intel_connector)) {
--		intel_ddc_get_modes(connector, &intel_sdvo->ddc);
--		intel_panel_add_edid_fixed_modes(intel_connector, false, false);
-+	if (!intel_panel_preferred_fixed_mode(connector)) {
-+		intel_ddc_get_modes(&connector->base, &intel_sdvo->ddc);
-+		intel_panel_add_edid_fixed_modes(connector, false, false);
- 	}
- 
--	intel_panel_init(intel_connector);
-+	intel_panel_init(connector);
- 
--	if (!intel_panel_preferred_fixed_mode(intel_connector))
-+	if (!intel_panel_preferred_fixed_mode(connector))
- 		goto err;
- 
- 	return true;
- 
- err:
--	intel_connector_destroy(connector);
-+	intel_connector_destroy(&connector->base);
- 	return false;
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_tv.c b/drivers/gpu/drm/i915/display/intel_tv.c
-index 8235f91f58c5..c28323db7d63 100644
---- a/drivers/gpu/drm/i915/display/intel_tv.c
-+++ b/drivers/gpu/drm/i915/display/intel_tv.c
-@@ -1915,10 +1915,9 @@ void
- intel_tv_init(struct drm_i915_private *dev_priv)
- {
- 	struct drm_device *dev = &dev_priv->drm;
--	struct drm_connector *connector;
- 	struct intel_tv *intel_tv;
- 	struct intel_encoder *encoder;
--	struct intel_connector *intel_connector;
-+	struct intel_connector *connector;
- 	u32 tv_dac_on, tv_dac_off, save_tv_dac;
- 
- 	if ((intel_de_read(dev_priv, TV_CTL) & TV_FUSE_STATE_MASK) == TV_FUSE_STATE_DISABLED)
-@@ -1957,14 +1956,13 @@ intel_tv_init(struct drm_i915_private *dev_priv)
- 		return;
- 	}
- 
--	intel_connector = intel_connector_alloc();
--	if (!intel_connector) {
-+	connector = intel_connector_alloc();
-+	if (!connector) {
- 		kfree(intel_tv);
- 		return;
- 	}
- 
- 	encoder = &intel_tv->base;
--	connector = &intel_connector->base;
- 
- 	/*
- 	 * The documentation, for the older chipsets at least, recommend
-@@ -1976,9 +1974,9 @@ intel_tv_init(struct drm_i915_private *dev_priv)
- 	 *
- 	 * More recent chipsets favour HDMI rather than integrated S-Video.
- 	 */
--	intel_connector->polled = DRM_CONNECTOR_POLL_CONNECT;
-+	connector->polled = DRM_CONNECTOR_POLL_CONNECT;
- 
--	drm_connector_init(dev, connector, &intel_tv_connector_funcs,
-+	drm_connector_init(dev, &connector->base, &intel_tv_connector_funcs,
- 			   DRM_MODE_CONNECTOR_SVIDEO);
- 
- 	drm_encoder_init(dev, &encoder->base, &intel_tv_enc_funcs,
-@@ -1990,9 +1988,9 @@ intel_tv_init(struct drm_i915_private *dev_priv)
- 	encoder->enable = intel_enable_tv;
- 	encoder->disable = intel_disable_tv;
- 	encoder->get_hw_state = intel_tv_get_hw_state;
--	intel_connector->get_hw_state = intel_connector_get_hw_state;
-+	connector->get_hw_state = intel_connector_get_hw_state;
- 
--	intel_connector_attach_encoder(intel_connector, encoder);
-+	intel_connector_attach_encoder(connector, encoder);
- 
- 	encoder->type = INTEL_OUTPUT_TVOUT;
- 	encoder->power_domain = POWER_DOMAIN_PORT_OTHER;
-@@ -2001,7 +1999,8 @@ intel_tv_init(struct drm_i915_private *dev_priv)
- 	encoder->cloneable = 0;
- 	intel_tv->type = DRM_MODE_CONNECTOR_Unknown;
- 
--	drm_connector_helper_add(connector, &intel_tv_connector_helper_funcs);
-+	drm_connector_helper_add(&connector->base,
-+				 &intel_tv_connector_helper_funcs);
- 
--	intel_tv_add_properties(connector);
-+	intel_tv_add_properties(&connector->base);
- }
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index 58b5b3cfc540..974f8674f862 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -1848,8 +1848,7 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
- 	struct drm_device *dev = &dev_priv->drm;
- 	struct intel_dsi *intel_dsi;
- 	struct intel_encoder *encoder;
--	struct intel_connector *intel_connector;
--	struct drm_connector *connector;
-+	struct intel_connector *connector;
- 	struct drm_display_mode *current_mode;
- 	enum port port;
- 	enum pipe pipe;
-@@ -1869,16 +1868,14 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
- 	if (!intel_dsi)
- 		return;
- 
--	intel_connector = intel_connector_alloc();
--	if (!intel_connector) {
-+	connector = intel_connector_alloc();
-+	if (!connector) {
- 		kfree(intel_dsi);
- 		return;
- 	}
- 
- 	encoder = &intel_dsi->base;
--	intel_dsi->attached_connector = intel_connector;
--
--	connector = &intel_connector->base;
-+	intel_dsi->attached_connector = connector;
- 
- 	drm_encoder_init(dev, &encoder->base, &intel_dsi_funcs,
- 			 DRM_MODE_ENCODER_DSI, "DSI %c", port_name(port));
-@@ -1894,7 +1891,7 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
- 	encoder->update_pipe = intel_backlight_update;
- 	encoder->shutdown = intel_dsi_shutdown;
- 
--	intel_connector->get_hw_state = intel_connector_get_hw_state;
-+	connector->get_hw_state = intel_connector_get_hw_state;
- 
- 	encoder->port = port;
- 	encoder->type = INTEL_OUTPUT_DSI;
-@@ -1914,18 +1911,18 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
- 
- 	intel_dsi->panel_power_off_time = ktime_get_boottime();
- 
--	intel_bios_init_panel(dev_priv, &intel_connector->panel, NULL, NULL);
-+	intel_bios_init_panel(dev_priv, &connector->panel, NULL, NULL);
- 
--	if (intel_connector->panel.vbt.dsi.config->dual_link)
-+	if (connector->panel.vbt.dsi.config->dual_link)
- 		intel_dsi->ports = BIT(PORT_A) | BIT(PORT_C);
- 	else
- 		intel_dsi->ports = BIT(port);
- 
--	if (drm_WARN_ON(&dev_priv->drm, intel_connector->panel.vbt.dsi.bl_ports & ~intel_dsi->ports))
--		intel_connector->panel.vbt.dsi.bl_ports &= intel_dsi->ports;
-+	if (drm_WARN_ON(&dev_priv->drm, connector->panel.vbt.dsi.bl_ports & ~intel_dsi->ports))
-+		connector->panel.vbt.dsi.bl_ports &= intel_dsi->ports;
- 
--	if (drm_WARN_ON(&dev_priv->drm, intel_connector->panel.vbt.dsi.cabc_ports & ~intel_dsi->ports))
--		intel_connector->panel.vbt.dsi.cabc_ports &= intel_dsi->ports;
-+	if (drm_WARN_ON(&dev_priv->drm, connector->panel.vbt.dsi.cabc_ports & ~intel_dsi->ports))
-+		connector->panel.vbt.dsi.cabc_ports &= intel_dsi->ports;
- 
- 	/* Create a DSI host (and a device) for each port. */
- 	for_each_dsi_port(port, intel_dsi->ports) {
-@@ -1963,36 +1960,38 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
- 	intel_dsi_vbt_gpio_init(intel_dsi,
- 				intel_dsi_get_hw_state(encoder, &pipe));
- 
--	drm_connector_init(dev, connector, &intel_dsi_connector_funcs,
-+	drm_connector_init(dev, &connector->base,
-+			   &intel_dsi_connector_funcs,
- 			   DRM_MODE_CONNECTOR_DSI);
- 
--	drm_connector_helper_add(connector, &intel_dsi_connector_helper_funcs);
-+	drm_connector_helper_add(&connector->base,
-+				 &intel_dsi_connector_helper_funcs);
- 
--	connector->display_info.subpixel_order = SubPixelHorizontalRGB; /*XXX*/
-+	connector->base.display_info.subpixel_order = SubPixelHorizontalRGB; /*XXX*/
- 
--	intel_connector_attach_encoder(intel_connector, encoder);
-+	intel_connector_attach_encoder(connector, encoder);
- 
- 	mutex_lock(&dev->mode_config.mutex);
--	intel_panel_add_vbt_lfp_fixed_mode(intel_connector);
-+	intel_panel_add_vbt_lfp_fixed_mode(connector);
- 	mutex_unlock(&dev->mode_config.mutex);
- 
--	if (!intel_panel_preferred_fixed_mode(intel_connector)) {
-+	if (!intel_panel_preferred_fixed_mode(connector)) {
- 		drm_dbg_kms(&dev_priv->drm, "no fixed mode\n");
- 		goto err_cleanup_connector;
- 	}
- 
--	intel_panel_init(intel_connector);
-+	intel_panel_init(connector);
- 
--	intel_backlight_setup(intel_connector, INVALID_PIPE);
-+	intel_backlight_setup(connector, INVALID_PIPE);
- 
--	vlv_dsi_add_properties(intel_connector);
-+	vlv_dsi_add_properties(connector);
- 
- 	return;
- 
- err_cleanup_connector:
--	drm_connector_cleanup(&intel_connector->base);
-+	drm_connector_cleanup(&connector->base);
- err:
- 	drm_encoder_cleanup(&encoder->base);
- 	kfree(intel_dsi);
--	kfree(intel_connector);
-+	kfree(connector);
- }
--- 
-2.35.1
-
+Regards,
+Badal Nilawar
+> 
+>> 		if (val)
+>> 			val = intel_rps_get_cagf(rps, val);
+>> 		else
+>> --
+>> 2.25.1
+>>
