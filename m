@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B663ECAAD8
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 16:11:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2408C54EE9
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 16:11:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 748A710E4A5;
-	Tue, 13 Sep 2022 16:11:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7D8C10E72D;
+	Tue, 13 Sep 2022 16:11:21 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DDBA10E4A5
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Sep 2022 16:11:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7BDC10E42E
+ for <intel-gfx@lists.freedesktop.org>; Tue, 13 Sep 2022 16:11:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663085470; x=1694621470;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=P1Tk+5OF+EMmFJtPu6vCaK0R4LeIwSNcMSGSAJqVwLg=;
- b=THXkV1VdNKNiQX/dpb9wkJDBFZFoEiNNhTzW4EO4FhwljenmLpd26d7q
- iVqY6tUaCTtLO++9CrtHQUIL+l27wRRPExg+j2PCmhmO4b+TfAsqCHSom
- r7E50/ZfINUQc4/+q1wF8zzQFvuWOTgDqRLc2jyG0KQuHHQdxcdsYmMv4
- ExGQ5pS+Z5vKR8fAer92iT7vEwjc/rSziPK59p2vy85ZNT5ac9v7UYwHl
- UyeLkwx+/H+na0p0AUoaXlCP33yGQOXB6rPTPH/veTbmKc0NgmMRGQcZe
- gRgpWGRlkgEsWOI8KQeecjGLtR2pUOs9RTnzM89ic2lq3NtM61Yrozynx A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="299518447"
-X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="299518447"
+ t=1663085473; x=1694621473;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Yaey0IE2oUXDl4I0l0MjD1vrj5/mjlpbVy+C7hQhou4=;
+ b=H2N4NyrpNOaHzx+zUqsf+OnwVlawVE9sGTnqKP4gd1/I+5/xi+RQZoCt
+ JoIhCMJxzTPGDEbT130Q1OIFCjWfB3pbb6AistRorh/IElE3Ghz6QklQc
+ okZCoUYAm97XHQyAsPD+XHLHixd8P7SXCUzi6D/05Uy8AMDm/RlxoNjIk
+ k9re0LWY6XRolv20LBEwQZPpIAGIMBEN/W5z2VuLVMdnQhiQSKVaeScSJ
+ lNAzIIYzOntNZZj2qKQyyVdn2xTMtWpe4wvMKRtc5yzTSZFx4TkfUrp0j
+ u4GPbgP163pchpJ0kewlaUITwLytW9q43jYWCGbNlSS13Iju3HJ/GgRUH g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="299518473"
+X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="299518473"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2022 09:11:09 -0700
-X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="678631597"
+ 13 Sep 2022 09:11:13 -0700
+X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="678631609"
 Received: from jkrzyszt-mobl1.ger.corp.intel.com (HELO jkrzyszt-mobl1.lan)
  ([10.213.10.213])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2022 09:11:07 -0700
+ 13 Sep 2022 09:11:11 -0700
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Sep 2022 18:10:37 +0200
-Message-Id: <20220913161039.155964-1-janusz.krzysztofik@linux.intel.com>
+Date: Tue, 13 Sep 2022 18:10:39 +0200
+Message-Id: <20220913161039.155964-3-janusz.krzysztofik@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220913161039.155964-1-janusz.krzysztofik@linux.intel.com>
+References: <20220913161039.155964-1-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] drm/i915/gem: Really move
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/gem: Really move
  i915_gem_context.link under ref protection
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,6 +62,8 @@ Cc: drm-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Chris Wilson <chris@chris-wilson.co.uk>
+
 i915_perf assumes that it can use the i915_gem_context reference to
 protect its i915->gem.contexts.list iteration. However, this requires
 that we do not remove the context from the list until after we drop the
@@ -67,12 +71,9 @@ final reference and release the struct. If, as currently, we remove the
 context from the list during context_close(), the link.next pointer may
 be poisoned while we are holding the context reference and cause a GPF:
 
-[ 4070.573157] i915 0000:00:02.0: [drm:i915_perf_open_ioctl [i915]] filtering on ctx_id=0x
-1fffff ctx_id_mask=0x1fffff
-[ 4070.574881] general protection fault, probably for non-canonical address 0xdead00000000
-0100: 0000 [#1] PREEMPT SMP
-[ 4070.574897] CPU: 1 PID: 284392 Comm: amd_performance Tainted: G            E     5.17.9
- #180
+[ 4070.573157] i915 0000:00:02.0: [drm:i915_perf_open_ioctl [i915]] filtering on ctx_id=0x1fffff ctx_id_mask=0x1fffff
+[ 4070.574881] general protection fault, probably for non-canonical address 0xdead000000000100: 0000 [#1] PREEMPT SMP
+[ 4070.574897] CPU: 1 PID: 284392 Comm: amd_performance Tainted: G            E     5.17.9 #180
 [ 4070.574903] Hardware name: Intel Corporation NUC7i5BNK/NUC7i5BNB, BIOS BNKBL357.86A.0052.2017.0918.1346 09/18/2017
 [ 4070.574907] RIP: 0010:oa_configure_all_contexts.isra.0+0x222/0x350 [i915]
 [ 4070.574982] Code: 08 e8 32 6e 10 e1 4d 8b 6d 50 b8 ff ff ff ff 49 83 ed 50 f0 41 0f c1 04 24 83 f8 01 0f 84 e3 00 00 00 85 c0 0f 8e fa 00 00 00 <49> 8b 45 50 48 8d 70 b0 49 8d 45 50 48 39 44 24 10 0f 85 34 fe ff
@@ -113,23 +114,149 @@ be poisoned while we are holding the context reference and cause a GPF:
 [ 4070.575507] Modules linked in: nls_ascii(E) nls_cp437(E) vfat(E) fat(E) i915(E) x86_pkg_temp_thermal(E) intel_powerclamp(E) crct10dif_pclmul(E) crc32_pclmul(E) crc32c_intel(E) aesni_intel(E) crypto_simd(E) intel_gtt(E) cryptd(E) ttm(E) rapl(E) intel_cstate(E) drm_kms_helper(E) cfbfillrect(E) syscopyarea(E) cfbimgblt(E) intel_uncore(E) sysfillrect(E) mei_me(E) sysimgblt(E) i2c_i801(E) fb_sys_fops(E) mei(E) intel_pch_thermal(E) i2c_smbus(E) cfbcopyarea(E) video(E) button(E) efivarfs(E) autofs4(E)
 [ 4070.575549] ---[ end trace 0000000000000000 ]---
 
-However, there is a risk of triggering kernel warning on contexts list not
-empty at driver release time if we deleagate that task to a worker for
-i915_gem_context_release_work(), unless that work is flushed first.
-Unfortunately, it is not flushed on driver release.  Fix it.
-
-Chris Wilson (1):
-  drm/i915/gem: Really move i915_gem_context.link under ref protection
-
-Janusz Krzysztofik (1):
-  drm/i915/gem: Flush contexts on driver release
-
+Reported-by: Mark Janes <mark.janes@intel.com>
+Closes: https://gitlab.freedesktop.org/drm/intel/issues/6222
+References: a4e7ccdac38e ("drm/i915: Move context management under GEM")
+Fixes: f8246cf4d9a9 ("drm/i915/gem: Drop free_work for GEM contexts")
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: <stable@vger.kernel.org> # v5.12+
+---
  drivers/gpu/drm/i915/gem/i915_gem_context.c | 14 +++++++-------
- drivers/gpu/drm/i915/i915_gem.c             |  3 ++-
  drivers/gpu/drm/i915/i915_perf.c            | 18 ++++++++++--------
  drivers/gpu/drm/i915/i915_sysfs.c           |  8 ++++----
- 4 files changed, 23 insertions(+), 20 deletions(-)
+ 3 files changed, 21 insertions(+), 19 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index dabdfe09f5e51..9d7142ab63c05 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1133,7 +1133,6 @@ static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx,
+ 			err = ERR_PTR(ret);
+ 			goto free_engines;
+ 		}
+-
+ 	}
+ 
+ 	return e;
+@@ -1265,10 +1264,15 @@ static void i915_gem_context_release_work(struct work_struct *work)
+ 	struct i915_gem_context *ctx = container_of(work, typeof(*ctx),
+ 						    release_work);
+ 	struct i915_address_space *vm;
++	unsigned long flags;
+ 
+ 	trace_i915_context_free(ctx);
+ 	GEM_BUG_ON(!i915_gem_context_is_closed(ctx));
+ 
++	spin_lock_irqsave(&ctx->i915->gem.contexts.lock, flags);
++	list_del(&ctx->link);
++	spin_unlock_irqrestore(&ctx->i915->gem.contexts.lock, flags);
++
+ 	if (ctx->syncobj)
+ 		drm_syncobj_put(ctx->syncobj);
+ 
+@@ -1521,10 +1525,6 @@ static void context_close(struct i915_gem_context *ctx)
+ 
+ 	ctx->file_priv = ERR_PTR(-EBADF);
+ 
+-	spin_lock(&ctx->i915->gem.contexts.lock);
+-	list_del(&ctx->link);
+-	spin_unlock(&ctx->i915->gem.contexts.lock);
+-
+ 	client = ctx->client;
+ 	if (client) {
+ 		spin_lock(&client->ctx_lock);
+@@ -1717,9 +1717,9 @@ static void gem_context_register(struct i915_gem_context *ctx,
+ 	list_add_tail_rcu(&ctx->client_link, &ctx->client->ctx_list);
+ 	spin_unlock(&ctx->client->ctx_lock);
+ 
+-	spin_lock(&i915->gem.contexts.lock);
++	spin_lock_irq(&i915->gem.contexts.lock);
+ 	list_add_tail(&ctx->link, &i915->gem.contexts.list);
+-	spin_unlock(&i915->gem.contexts.lock);
++	spin_unlock_irq(&i915->gem.contexts.lock);
+ }
+ 
+ int i915_gem_context_open(struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index f3c23fe9ad9ce..83bb71466f8f0 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -2379,24 +2379,26 @@ oa_configure_all_contexts(struct i915_perf_stream *stream,
+ 	 * context. Contexts idle at the time of reconfiguration are not
+ 	 * trapped behind the barrier.
+ 	 */
+-	spin_lock(&i915->gem.contexts.lock);
++	spin_lock_irq(&i915->gem.contexts.lock);
+ 	list_for_each_entry_safe(ctx, cn, &i915->gem.contexts.list, link) {
+ 		if (!kref_get_unless_zero(&ctx->ref))
+ 			continue;
+ 
+-		spin_unlock(&i915->gem.contexts.lock);
++		spin_unlock_irq(&i915->gem.contexts.lock);
+ 
+-		err = gen8_configure_context(ctx, regs, num_regs);
+-		if (err) {
+-			i915_gem_context_put(ctx);
+-			return err;
++		if (!i915_gem_context_is_closed(ctx)) {
++			err = gen8_configure_context(ctx, regs, num_regs);
++			if (err) {
++				i915_gem_context_put(ctx);
++				return err;
++			}
+ 		}
+ 
+-		spin_lock(&i915->gem.contexts.lock);
++		spin_lock_irq(&i915->gem.contexts.lock);
+ 		list_safe_reset_next(ctx, cn, link);
+ 		i915_gem_context_put(ctx);
+ 	}
+-	spin_unlock(&i915->gem.contexts.lock);
++	spin_unlock_irq(&i915->gem.contexts.lock);
+ 
+ 	/*
+ 	 * After updating all other contexts, we need to modify ourselves.
+diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
+index 1e27502108313..40c7671fc0591 100644
+--- a/drivers/gpu/drm/i915/i915_sysfs.c
++++ b/drivers/gpu/drm/i915/i915_sysfs.c
+@@ -77,12 +77,12 @@ i915_l3_read(struct file *filp, struct kobject *kobj,
+ 	count = min_t(size_t, GEN7_L3LOG_SIZE - offset, count);
+ 	memset(buf, 0, count);
+ 
+-	spin_lock(&i915->gem.contexts.lock);
++	spin_lock_irq(&i915->gem.contexts.lock);
+ 	if (i915->l3_parity.remap_info[slice])
+ 		memcpy(buf,
+ 		       i915->l3_parity.remap_info[slice] + offset / sizeof(u32),
+ 		       count);
+-	spin_unlock(&i915->gem.contexts.lock);
++	spin_unlock_irq(&i915->gem.contexts.lock);
+ 
+ 	return count;
+ }
+@@ -110,7 +110,7 @@ i915_l3_write(struct file *filp, struct kobject *kobj,
+ 	if (!remap_info)
+ 		return -ENOMEM;
+ 
+-	spin_lock(&i915->gem.contexts.lock);
++	spin_lock_irq(&i915->gem.contexts.lock);
+ 
+ 	if (i915->l3_parity.remap_info[slice]) {
+ 		freeme = remap_info;
+@@ -126,7 +126,7 @@ i915_l3_write(struct file *filp, struct kobject *kobj,
+ 	list_for_each_entry(ctx, &i915->gem.contexts.list, link)
+ 		ctx->remap_slice |= BIT(slice);
+ 
+-	spin_unlock(&i915->gem.contexts.lock);
++	spin_unlock_irq(&i915->gem.contexts.lock);
+ 	kfree(freeme);
+ 
+ 	/*
 -- 
 2.25.1
 
