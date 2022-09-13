@@ -4,47 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 684AEC54EE9
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC37ECAAD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B3EA10E65B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0F4C10E65A;
 	Mon, 19 Sep 2022 13:29:29 +0000 (UTC)
-X-Greylist: delayed 940 seconds by postgrey-1.36 at gabe;
- Tue, 13 Sep 2022 03:04:32 UTC
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C467310E103;
- Tue, 13 Sep 2022 03:04:32 +0000 (UTC)
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.57])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4MRSXq12JyzHntV;
- Tue, 13 Sep 2022 10:46:51 +0800 (CST)
-Received: from cgs.huawei.com (10.244.148.83) by
- kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Tue, 13 Sep 2022 10:48:50 +0800
-From: Gaosheng Cui <cuigaosheng1@huawei.com>
-To: <evan.quan@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <patrik.r.jakobsson@gmail.com>,
- <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <tvrtko.ursulin@linux.intel.com>,
- <zackr@vmware.com>, <linux-graphics-maintainer@vmware.com>,
- <lijo.lazar@amd.com>, <matthew.brost@intel.com>, <John.C.Harrison@Intel.com>, 
- <daniele.ceraolospurio@intel.com>, <cuigaosheng1@huawei.com>
-Date: Tue, 13 Sep 2022 10:48:45 +0800
-Message-ID: <20220913024847.552254-5-cuigaosheng1@huawei.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220913024847.552254-1-cuigaosheng1@huawei.com>
-References: <20220913024847.552254-1-cuigaosheng1@huawei.com>
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A86F10E660;
+ Tue, 13 Sep 2022 23:19:14 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id EF6C5B810DB;
+ Tue, 13 Sep 2022 23:19:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD805C433C1;
+ Tue, 13 Sep 2022 23:19:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1663111151;
+ bh=6khS5XPU33uH8kkng189ibUp6LbN758Z6u5O1YtiFGA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GkBVk6Oj0bb1wf0nvQXq3/tf9PvLhEyyK6fPNyUDl2itwvz1JtSpSvWCdE+T03FbG
+ ivmD9Hf/JFIp4Ek9eSUvcendL7CvbrBidPmGhUlsQUMP/9U3o6KWXGNLed/XewuQE1
+ PEnYfLS77abuxruBI5fi3T7/ylzY7NxK+qxch/NRHuoubzOrFALyA7FF1JpgdNIsWd
+ HMQGT79k4SsA0Ail2gUjxdLi83kTmzkhhupBtQZoGblQrcEM0lti9KkB8K93wLWFwh
+ e18zCvBnSrBlxNl8l8rAyUSB4AiBnr1z2nMdCdSv9wJxalnPTti55tXmvnz8gyEcMu
+ EEK5rQrIag/5Q==
+Date: Tue, 13 Sep 2022 16:19:09 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nathan Huckleberry <nhuck@google.com>
+Message-ID: <YyEP7W/yZAyhNtTX@dev-arch.thelio-3990X>
+References: <20220913205531.155046-1-nhuck@google.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.244.148.83]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- kwepemi500012.china.huawei.com (7.221.188.12)
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Mon, 19 Sep 2022 13:29:09 +0000
-Subject: [Intel-gfx] [PATCH 4/6] drm/gma500: remove unused declarations in
- psb_intel_drv.h
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220913205531.155046-1-nhuck@google.com>
+X-Mailman-Approved-At: Mon, 19 Sep 2022 13:29:10 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix return type of mode_valid
+ function hook
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,44 +53,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>, llvm@lists.linux.dev,
+ Dan Carpenter <error27@gmail.com>, David Airlie <airlied@linux.ie>,
+ Tom Rix <trix@redhat.com>, intel-gfx@lists.freedesktop.org,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-psb_intel_sdvo_supports_hotplug(), psb_intel_sdvo_set_hotplug()
-and psb_intel_sdvo_find() have been removed since
-commit 871c60156dbe ("drm/gma500: Remove dead code"),
-so remove them.
+On Tue, Sep 13, 2022 at 01:55:27PM -0700, Nathan Huckleberry wrote:
+> All of the functions used for intel_dvo_dev_ops.mode_valid have a return
+> type of enum drm_mode_status, but the mode_valid field in the struct
+> definition has a return type of int.
+> 
+> The mismatched return type breaks forward edge kCFI since the underlying
+> function definitions do not match the function hook definition.
+> 
+> The return type of the mode_valid field should be changed from int to
+> enum drm_mode_status.
+> 
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Link: https://github.com/ClangBuiltLinux/linux/issues/1703
+> Cc: llvm@lists.linux.dev
+> Signed-off-by: Nathan Huckleberry <nhuck@google.com>
 
-Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
----
- drivers/gpu/drm/gma500/psb_intel_drv.h | 5 -----
- 1 file changed, 5 deletions(-)
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
 
-diff --git a/drivers/gpu/drm/gma500/psb_intel_drv.h b/drivers/gpu/drm/gma500/psb_intel_drv.h
-index 8ccba116821b..8a1111fe714b 100644
---- a/drivers/gpu/drm/gma500/psb_intel_drv.h
-+++ b/drivers/gpu/drm/gma500/psb_intel_drv.h
-@@ -197,8 +197,6 @@ extern void psb_intel_lvds_set_brightness(struct drm_device *dev, int level);
- extern void oaktrail_lvds_init(struct drm_device *dev,
- 			   struct psb_intel_mode_device *mode_dev);
- extern void oaktrail_wait_for_INTR_PKT_SENT(struct drm_device *dev);
--extern void oaktrail_dsi_init(struct drm_device *dev,
--			   struct psb_intel_mode_device *mode_dev);
- struct gma_i2c_chan *oaktrail_lvds_i2c_init(struct drm_device *dev);
- extern void mid_dsi_init(struct drm_device *dev,
- 		    struct psb_intel_mode_device *mode_dev, int dsi_num);
-@@ -219,9 +217,6 @@ extern struct drm_crtc *psb_intel_get_crtc_from_pipe(struct drm_device *dev,
- 						 int pipe);
- extern struct drm_connector *psb_intel_sdvo_find(struct drm_device *dev,
- 					     int sdvoB);
--extern int psb_intel_sdvo_supports_hotplug(struct drm_connector *connector);
--extern void psb_intel_sdvo_set_hotplug(struct drm_connector *connector,
--				   int enable);
- extern int intelfb_probe(struct drm_device *dev);
- extern int intelfb_remove(struct drm_device *dev,
- 			  struct drm_framebuffer *fb);
--- 
-2.25.1
-
+> ---
+>  drivers/gpu/drm/i915/display/intel_dvo_dev.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dvo_dev.h b/drivers/gpu/drm/i915/display/intel_dvo_dev.h
+> index d96c3cc46e50..50205f064d93 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dvo_dev.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dvo_dev.h
+> @@ -75,8 +75,8 @@ struct intel_dvo_dev_ops {
+>  	 *
+>  	 * \return MODE_OK if the mode is valid, or another MODE_* otherwise.
+>  	 */
+> -	int (*mode_valid)(struct intel_dvo_device *dvo,
+> -			  struct drm_display_mode *mode);
+> +	enum drm_mode_status (*mode_valid)(struct intel_dvo_device *dvo,
+> +					   struct drm_display_mode *mode);
+>  
+>  	/*
+>  	 * Callback for preparing mode changes on an output
+> -- 
+> 2.37.2.789.g6183377224-goog
+> 
