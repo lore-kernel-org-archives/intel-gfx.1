@@ -4,67 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05326C54EE9
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8750ECAAD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FFC210E63F;
-	Mon, 19 Sep 2022 13:29:12 +0000 (UTC)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E64610ED62;
- Fri, 16 Sep 2022 15:21:48 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id u9so50247928ejy.5;
- Fri, 16 Sep 2022 08:21:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date;
- bh=FAZ1nZoda0LvxFO03fEct6+OY7sOs5EIJLDowUOvXx4=;
- b=i3EM54wqEUd4S0hEjrVzr83R6YfecGIo0DsXnpvu9Xi5oB1vfFa8ZVBK2Is2icTZWm
- X5hso/7NBeg9mGUsZNtQzLp7jv/OTgknKbmhMgB4znO6wmSipfbNDVNKwdd/spAXbwL4
- yVQWrtWpdhgdoaYh5zmlRXLyokBMUZXmQlOnKfqultK8EcRuQ5lTU9qONFYronuMziCP
- La1Rml9QYllS1G3sqFsNVEpqcaF3HSK2nY1c5Wpgt8fVVo6YBLBTBCUkP+xZHDWYy2Ds
- SzQjOdH8HgLucw29Hg2ugKqSYNh6Ewx+S0j0u+0N/4IHqbsTwuk8ffu8qg4/Z0N2pqzS
- gv8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date;
- bh=FAZ1nZoda0LvxFO03fEct6+OY7sOs5EIJLDowUOvXx4=;
- b=G3etyNsrrcAt0Yh+d8zpBeQo/UPQ7uCTTju4B/8wCrR/utmJJcUOIp1vhJGxRM2vat
- +N0nzSeqoo9fLsDwMaem5HebJ9mgd8Ib4yeRUgzejhfQ/EbfZJAVLz68TiuKWX9BrljT
- +g/mF1cwgrcbuhsA7ioBzEGtm9gkMU0r+6c3RQsCFFdp7NrQkZmc0RNfstkhinM/1Eyc
- v6qDfyMHXfsv9wX/ZkeJEtsOwaYKm8eWYwXnnft4ejOvYyMUBVMjcTlx7ieyCLKb+qu3
- 8SyG05Jh9j0cpG6QCEaavTsZicWes2QH2pxVy/PtahOEW0SUoM5JfXYR/KXzca6KfXab
- uYWg==
-X-Gm-Message-State: ACrzQf0YZM/RAzbKYi0hINBz6CnMJ/fmfy5UQgVbQA38Ul+YLYckTxMX
- 8aJI3YPRvdgr/oAOWE27iSQVkRrBvI/KOIeXVkI=
-X-Google-Smtp-Source: AMsMyM7VdObrUWQ3oMSH0uIBXnSpYn73/MNnHRJRFIMKRcnMR0VWDex5xXR94UsnsJLt5amN0/PYib0/nXhnk1LrGNk=
-X-Received: by 2002:a17:906:8a77:b0:780:a02d:ca4a with SMTP id
- hy23-20020a1709068a7700b00780a02dca4amr2762440ejc.488.1663341707544; Fri, 16
- Sep 2022 08:21:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A30B210E640;
+	Mon, 19 Sep 2022 13:29:13 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 526B410E15E;
+ Tue, 13 Sep 2022 02:48:55 +0000 (UTC)
+Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.53])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MRSVq4MRbzmVNS;
+ Tue, 13 Sep 2022 10:45:07 +0800 (CST)
+Received: from cgs.huawei.com (10.244.148.83) by
+ kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Tue, 13 Sep 2022 10:48:50 +0800
+From: Gaosheng Cui <cuigaosheng1@huawei.com>
+To: <evan.quan@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <patrik.r.jakobsson@gmail.com>,
+ <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <tvrtko.ursulin@linux.intel.com>,
+ <zackr@vmware.com>, <linux-graphics-maintainer@vmware.com>,
+ <lijo.lazar@amd.com>, <matthew.brost@intel.com>, <John.C.Harrison@Intel.com>, 
+ <daniele.ceraolospurio@intel.com>, <cuigaosheng1@huawei.com>
+Date: Tue, 13 Sep 2022 10:48:44 +0800
+Message-ID: <20220913024847.552254-4-cuigaosheng1@huawei.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220913024847.552254-1-cuigaosheng1@huawei.com>
+References: <20220913024847.552254-1-cuigaosheng1@huawei.com>
 MIME-Version: 1.0
-References: <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
- <CAJedcCw1eJqjSK+yR7eQMDheNtH3Mjm+viwt00xAhnmrfpq2pw@mail.gmail.com>
- <CAJedcCweHjD78F7iydiq6Xc2iH=t_3m=H9JKnaCooToUk32FvQ@mail.gmail.com>
- <YxWtfjfpNsoPUrgh@kroah.com>
- <CAJedcCzMo51aiy=Dv7zn7VmL3gwkw7JgzwAPAB2Z27C9CnhoYA@mail.gmail.com>
- <20220907030754.GU1089@zhen-hp.sh.intel.com>
- <CAJedcCxO_Rq0qMeLiHtY5+FuN1A1pDGsZd3gMtvUpm1xbAK3aA@mail.gmail.com>
- <Yxmzj2nCoTKurCY8@kroah.com>
- <CAJedcCwVC6Rg+wF7h6GhFvL6BGkKV=DS9Mo9fOf-gfDAk9VqPg@mail.gmail.com>
- <CAJedcCxRQ4h-ChNsD4OWpDMUJd3JNaQrvD=uVKxMpYONGFUgzA@mail.gmail.com>
- <YyQzDlM5n7mOLh5Q@kroah.com>
-In-Reply-To: <YyQzDlM5n7mOLh5Q@kroah.com>
-From: Zheng Hacker <hackerzheng666@gmail.com>
-Date: Fri, 16 Sep 2022 23:21:35 +0800
-Message-ID: <CAJedcCy-beMX=ytszAWMu28FH0qGKCsLC=0bJPL_Tmh35wigKw@mail.gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 19 Sep 2022 13:29:10 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: fix double-free bug in
- split_2MB_gtt_entry.
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.244.148.83]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ kwepemi500012.china.huawei.com (7.221.188.12)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Mon, 19 Sep 2022 13:29:09 +0000
+Subject: [Intel-gfx] [PATCH 3/6] drm/radeon: remove unused declarations for
+ radeon
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,71 +55,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "alex000young@gmail.com" <alex000young@gmail.com>,
- "security@kernel.org" <security@kernel.org>,
- "airlied@linux.ie" <airlied@linux.ie>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- xmzyshypnc <1002992920@qq.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi greg,
+radeon_combios_get_ext_tmds_info() has been removed since
+commit fcec570b27a4 ("drm/radeon/kms: add support for
+external tmds on legacy boards").
 
-Thanks for pointing that out. Working on it now :)
+radeon_mst has been removed since
+commit 01ad1d9c2888 ("drm/radeon: Drop legacy MST support").
 
-Best wishes,
-Zheng Wang
+r600_hdmi_acr() has been removed since
+commit 64424d6e45ae ("radeon/audio: consolidate update_acr()
+functions (v2)").
 
-Greg KH <gregkh@linuxfoundation.org> =E4=BA=8E2022=E5=B9=B49=E6=9C=8816=E6=
-=97=A5=E5=91=A8=E4=BA=94 16:25=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Fri, Sep 16, 2022 at 02:39:21PM +0800, Zheng Hacker wrote:
-> > >From 8d95c1399e3ff345500a575e21254a73b0c89144 Mon Sep 17 00:00:00 2001
-> > From: xmzyshypnc <1002992920@qq.com>
-> > Date: Fri, 16 Sep 2022 14:37:48 +0800
-> > Subject: [PATCH] drm/i915/gvt: fix double-free bug in split_2MB_gtt_ent=
-ry
-> >
-> > There is a double-free security bug in split_2MB_gtt_entry.
-> >
-> > Here is a calling chain :
-> > ppgtt_populate_spt->ppgtt_populate_shadow_entry->split_2MB_gtt_entry.
-> > If intel_gvt_dma_map_guest_page failed, it will call
-> > ppgtt_invalidate_spt, which will finally call ppgtt_free_spt and
-> > kfree(spt). But the caller does not notice that, and it will call
-> > ppgtt_free_spt again in error path.
-> >
-> > Fix this by only freeing spt in ppgtt_invalidate_spt in good case.
-> >
-> > Signed-off-by: xmzyshypnc <1002992920@qq.com>
-> > ---
-> >  drivers/gpu/drm/i915/gvt/gtt.c | 16 +++++++++-------
-> >  1 file changed, 9 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/=
-gtt.c
-> > index 9f14fded8c0c..31d2a8d56384 100644
-> > --- a/drivers/gpu/drm/i915/gvt/gtt.c
-> > +++ b/drivers/gpu/drm/i915/gvt/gtt.c
-> > @@ -959,7 +959,7 @@ static inline int ppgtt_put_spt(struct
-> > intel_vgpu_ppgtt_spt *spt)
-> >   return atomic_dec_return(&spt->refcount);
-> >  }
-> >
-> > -static int ppgtt_invalidate_spt(struct intel_vgpu_ppgtt_spt *spt);
-> > +static int ppgtt_invalidate_spt(struct intel_vgpu_ppgtt_spt *sptm,
-> > int is_error);
->
-> Your patch is whitespace damaged and linewrapped and can not be applied,
-> and can only barely read :(
->
-> Please fix up your email client to not do this so that the change can be
-> properly reviewed and accepted if correct.
->
-> thanks,
->
-> greg k-h
+So remove the declarations for them from header file.
+
+Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
+---
+ drivers/gpu/drm/radeon/radeon.h      | 3 ---
+ drivers/gpu/drm/radeon/radeon_mode.h | 1 -
+ 2 files changed, 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index 08f83bf2c330..166c18d62f6d 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -116,7 +116,6 @@ extern int radeon_use_pflipirq;
+ extern int radeon_bapm;
+ extern int radeon_backlight;
+ extern int radeon_auxch;
+-extern int radeon_mst;
+ extern int radeon_uvd;
+ extern int radeon_vce;
+ extern int radeon_si_support;
+@@ -2950,8 +2949,6 @@ struct radeon_hdmi_acr {
+ 
+ };
+ 
+-extern struct radeon_hdmi_acr r600_hdmi_acr(uint32_t clock);
+-
+ extern u32 r6xx_remap_render_backend(struct radeon_device *rdev,
+ 				     u32 tiling_pipe_num,
+ 				     u32 max_rb_num,
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 6a6a73204226..9f5be416454f 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -874,7 +874,6 @@ extern struct radeon_encoder_tv_dac *
+ radeon_atombios_get_tv_dac_info(struct radeon_encoder *encoder);
+ extern struct radeon_encoder_lvds *
+ radeon_combios_get_lvds_info(struct radeon_encoder *encoder);
+-extern void radeon_combios_get_ext_tmds_info(struct radeon_encoder *encoder);
+ extern struct radeon_encoder_tv_dac *
+ radeon_combios_get_tv_dac_info(struct radeon_encoder *encoder);
+ extern struct radeon_encoder_primary_dac *
+-- 
+2.25.1
+
