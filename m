@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A816ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 00:59:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1425CC6FA83
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 00:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8043310E4EF;
-	Tue, 13 Sep 2022 00:58:29 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C605110E4B9;
- Tue, 13 Sep 2022 00:58:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14EA610E4F3;
+	Tue, 13 Sep 2022 00:58:30 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CBDF10E3A0;
+ Tue, 13 Sep 2022 00:57:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663030687; x=1694566687;
+ t=1663030679; x=1694566679;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hKbW9ff0aBDvrFUeVRKw9h+o+OrlrKfeeKBkxwugU4c=;
- b=CRAWePvgpEMLSpsCiZZZZdDLdMfPwl3cyvbmHxAM9AMZ+X7JAqgC4W8Z
- a9qA3YOnkslKagBtIiQFDxIlLPymaUV86/rWpCHSQlIEfGZlF4HbDqGPV
- En/YEa/eFRFRLvVhhjC+6YoO+f93S5fq3kLkCmSEWEJJrlwCRhvbSQXXW
- ZcPtDt8lLu/aW1gGQYPNOVPPEPpXR9slK62EH02e/d4V78Np/C3QLyR+P
- /FueMJcjmXRkioLT3tTqz7Ca4WNBZM03tgFwdPKz8gbPDq3e3Xjp3bcaz
- ruH7l3sjSqGs3EYXj95edfQW/xj5i2gg+Wav9gRKPRjyLTn0A/0Ufl3v9 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="295592208"
-X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="295592208"
+ bh=O/Bqo0dDXwIrDqTzmNoW54NOn8kIhC/lbYb7+ZtzTSU=;
+ b=V2FiYbxawBgn0Uvd7a8lteRVv/xwAHBVUdq2Wb7m0I2Rb0vFPwiyb0ev
+ bOomr0ZRggrN4gdwsBwADsFE/mphv3H8Y1WXD168uCtndWk8XmW9ylw+8
+ RO6cIIIQ9gyC6MmAL8oJhXyHJnMB5CeIkfkpOFBWFu6WVVKneyYUrdxSS
+ ++yRIuytr8UJ9fruK1T4z7hISxOjnDyHwtV8n8N1ESJN7katUo6X7Fv31
+ XPmUCysnPX5/DApCSB9r3INsAPoILyi+hI0buF9H8o5QaLU7IuYZyLENl
+ fgwUIWAbPyUIWzMOT/rQGrWfPPAvkmgp5V3GZKiaL7noiCasCTPS2GR4V Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="281024401"
+X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="281024401"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 17:58:07 -0700
-X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="758593583"
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 17:57:58 -0700
+X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="758593524"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 17:58:07 -0700
+ 12 Sep 2022 17:57:58 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Sep 2022 17:57:38 -0700
-Message-Id: <20220913005739.798337-15-daniele.ceraolospurio@intel.com>
+Date: Mon, 12 Sep 2022 17:57:27 -0700
+Message-Id: <20220913005739.798337-4-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220913005739.798337-1-daniele.ceraolospurio@intel.com>
 References: <20220913005739.798337-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 14/15] drm/i915/huc: define gsc-compatible
- HuC fw for DG2
+Subject: [Intel-gfx] [PATCH v5 03/15] mei: adjust extended header kdocs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,123 +55,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Tomas Winkler <tomas.winkler@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The fw name is different and we need to record the fact that the blob is
-gsc-loaded, so add a new macro to help.
+From: Tomas Winkler <tomas.winkler@intel.com>
 
-Note: A-step DG2 G10 does not support HuC loading via GSC and would
-require a separate firmware to be loaded the legacy way, but that's
-not a production stepping so we're not going to bother.
+Fix kdoc for struct mei_ext_hdr and mei_ext_begin().
 
-v2: rebase on new fw fetch logic
-
+Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Tony Ye <tony.ye@intel.com>
-Acked-by: Tony Ye <tony.ye@intel.com>
-Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
+V4: New in the series
+V5: Rebase
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index 4792960d9c04..09e06ac8bcf1 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -91,7 +91,8 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- 	fw_def(BROXTON,      0, guc_mmp(bxt,  70, 1, 1)) \
- 	fw_def(SKYLAKE,      0, guc_mmp(skl,  70, 1, 1))
- 
--#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_raw, huc_mmp) \
-+#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_raw, huc_mmp, huc_gsc) \
-+	fw_def(DG2,          0, huc_gsc(dg2)) \
- 	fw_def(ALDERLAKE_P,  0, huc_mmp(tgl,  7, 9, 3)) \
- 	fw_def(ALDERLAKE_S,  0, huc_mmp(tgl,  7, 9, 3)) \
- 	fw_def(DG1,          0, huc_mmp(dg1,  7, 9, 3)) \
-@@ -137,6 +138,9 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- #define MAKE_HUC_FW_PATH_BLANK(prefix_) \
- 	__MAKE_UC_FW_PATH_BLANK(prefix_, "_huc")
- 
-+#define MAKE_HUC_FW_PATH_GSC(prefix_) \
-+	__MAKE_UC_FW_PATH_BLANK(prefix_, "_huc_gsc")
-+
- #define MAKE_HUC_FW_PATH_MMP(prefix_, major_, minor_, patch_) \
- 	__MAKE_UC_FW_PATH_MMP(prefix_, "_huc_", major_, minor_, patch_)
- 
-@@ -149,7 +153,7 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- 	MODULE_FIRMWARE(uc_);
- 
- INTEL_GUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_GUC_FW_PATH_MAJOR, MAKE_GUC_FW_PATH_MMP)
--INTEL_HUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_HUC_FW_PATH_BLANK, MAKE_HUC_FW_PATH_MMP)
-+INTEL_HUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_HUC_FW_PATH_BLANK, MAKE_HUC_FW_PATH_MMP, MAKE_HUC_FW_PATH_GSC)
- 
- /*
-  * The next expansion of the table macros (in __uc_fw_auto_select below) provides
-@@ -164,6 +168,7 @@ struct __packed uc_fw_blob {
- 	u8 major;
- 	u8 minor;
- 	u8 patch;
-+	bool loaded_via_gsc;
- };
- 
- #define UC_FW_BLOB_BASE(major_, minor_, patch_, path_) \
-@@ -172,16 +177,16 @@ struct __packed uc_fw_blob {
- 	.patch = patch_, \
- 	.path = path_,
- 
--#define UC_FW_BLOB_NEW(major_, minor_, patch_, path_) \
-+#define UC_FW_BLOB_NEW(major_, minor_, patch_, gsc_, path_) \
- 	{ UC_FW_BLOB_BASE(major_, minor_, patch_, path_) \
--	  .legacy = false }
-+	  .legacy = false, .loaded_via_gsc = gsc_ }
- 
- #define UC_FW_BLOB_OLD(major_, minor_, patch_, path_) \
- 	{ UC_FW_BLOB_BASE(major_, minor_, patch_, path_) \
- 	  .legacy = true }
- 
- #define GUC_FW_BLOB(prefix_, major_, minor_) \
--	UC_FW_BLOB_NEW(major_, minor_, 0, \
-+	UC_FW_BLOB_NEW(major_, minor_, 0, false, \
- 		       MAKE_GUC_FW_PATH_MAJOR(prefix_, major_, minor_))
- 
- #define GUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
-@@ -189,12 +194,15 @@ struct __packed uc_fw_blob {
- 		       MAKE_GUC_FW_PATH_MMP(prefix_, major_, minor_, patch_))
- 
- #define HUC_FW_BLOB(prefix_) \
--	UC_FW_BLOB_NEW(0, 0, 0, MAKE_HUC_FW_PATH_BLANK(prefix_))
-+	UC_FW_BLOB_NEW(0, 0, 0, false, MAKE_HUC_FW_PATH_BLANK(prefix_))
- 
- #define HUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
- 	UC_FW_BLOB_OLD(major_, minor_, patch_, \
- 		       MAKE_HUC_FW_PATH_MMP(prefix_, major_, minor_, patch_))
- 
-+#define HUC_FW_BLOB_GSC(prefix_) \
-+	UC_FW_BLOB_NEW(0, 0, 0, true, MAKE_HUC_FW_PATH_GSC(prefix_))
-+
- struct __packed uc_fw_platform_requirement {
- 	enum intel_platform p;
- 	u8 rev; /* first platform rev using this FW */
-@@ -220,7 +228,7 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
- 		INTEL_GUC_FIRMWARE_DEFS(MAKE_FW_LIST, GUC_FW_BLOB, GUC_FW_BLOB_MMP)
- 	};
- 	static const struct uc_fw_platform_requirement blobs_huc[] = {
--		INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB, HUC_FW_BLOB_MMP)
-+		INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB, HUC_FW_BLOB_MMP, HUC_FW_BLOB_GSC)
- 	};
- 	static const struct fw_blobs_by_type blobs_all[INTEL_UC_FW_NUM_TYPES] = {
- 		[INTEL_UC_FW_TYPE_GUC] = { blobs_guc, ARRAY_SIZE(blobs_guc) },
-@@ -266,6 +274,7 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
- 		uc_fw->file_wanted.path = blob->path;
- 		uc_fw->file_wanted.major_ver = blob->major;
- 		uc_fw->file_wanted.minor_ver = blob->minor;
-+		uc_fw->loaded_via_gsc = blob->loaded_via_gsc;
- 		break;
- 	}
- 
+ drivers/misc/mei/hw.h | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/misc/mei/hw.h b/drivers/misc/mei/hw.h
+index 70d405c67f0e..319418ddf4fb 100644
+--- a/drivers/misc/mei/hw.h
++++ b/drivers/misc/mei/hw.h
+@@ -247,8 +247,7 @@ enum mei_ext_hdr_type {
+  * struct mei_ext_hdr - extend header descriptor (TLV)
+  * @type: enum mei_ext_hdr_type
+  * @length: length excluding descriptor
+- * @ext_payload: payload of the specific extended header
+- * @hdr: place holder for actual header
++ * @data: the extended header payload
+  */
+ struct mei_ext_hdr {
+ 	u8 type;
+@@ -287,12 +286,11 @@ struct mei_ext_hdr_vtag {
+  * Extended header iterator functions
+  */
+ /**
+- * mei_ext_hdr - extended header iterator begin
++ * mei_ext_begin - extended header iterator begin
+  *
+  * @meta: meta header of the extended header list
+  *
+- * Return:
+- *     The first extended header
++ * Return: The first extended header
+  */
+ static inline struct mei_ext_hdr *mei_ext_begin(struct mei_ext_meta_hdr *meta)
+ {
 -- 
 2.37.2
 
