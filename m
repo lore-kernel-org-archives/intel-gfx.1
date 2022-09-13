@@ -4,33 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DCDCECAAD3
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 684AEC54EE9
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68B8C10E657;
-	Mon, 19 Sep 2022 13:29:27 +0000 (UTC)
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Mon, 19 Sep 2022 10:33:27 UTC
-Received: from out30-56.freemail.mail.aliyun.com
- (out30-56.freemail.mail.aliyun.com [115.124.30.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58DB910E5F9;
- Mon, 19 Sep 2022 10:33:27 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R121e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046050;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=14; SR=0;
- TI=SMTPD_---0VQBUflC_1663583287; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VQBUflC_1663583287) by smtp.aliyun-inc.com;
- Mon, 19 Sep 2022 18:28:17 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: zhenyuw@linux.intel.com
-Date: Mon, 19 Sep 2022 18:28:05 +0800
-Message-Id: <20220919102805.20891-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B3EA10E65B;
+	Mon, 19 Sep 2022 13:29:29 +0000 (UTC)
+X-Greylist: delayed 940 seconds by postgrey-1.36 at gabe;
+ Tue, 13 Sep 2022 03:04:32 UTC
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C467310E103;
+ Tue, 13 Sep 2022 03:04:32 +0000 (UTC)
+Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.57])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4MRSXq12JyzHntV;
+ Tue, 13 Sep 2022 10:46:51 +0800 (CST)
+Received: from cgs.huawei.com (10.244.148.83) by
+ kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Tue, 13 Sep 2022 10:48:50 +0800
+From: Gaosheng Cui <cuigaosheng1@huawei.com>
+To: <evan.quan@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <patrik.r.jakobsson@gmail.com>,
+ <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <tvrtko.ursulin@linux.intel.com>,
+ <zackr@vmware.com>, <linux-graphics-maintainer@vmware.com>,
+ <lijo.lazar@amd.com>, <matthew.brost@intel.com>, <John.C.Harrison@Intel.com>, 
+ <daniele.ceraolospurio@intel.com>, <cuigaosheng1@huawei.com>
+Date: Tue, 13 Sep 2022 10:48:45 +0800
+Message-ID: <20220913024847.552254-5-cuigaosheng1@huawei.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220913024847.552254-1-cuigaosheng1@huawei.com>
+References: <20220913024847.552254-1-cuigaosheng1@huawei.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.244.148.83]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ kwepemi500012.china.huawei.com (7.221.188.12)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 19 Sep 2022 13:29:09 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/gvt: Fix kernel-doc
+Subject: [Intel-gfx] [PATCH 4/6] drm/gma500: remove unused declarations in
+ psb_intel_drv.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,35 +57,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
- intel-gfx@lists.freedesktop.org, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- rodrigo.vivi@intel.com, intel-gvt-dev@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drivers/gpu/drm/i915/gvt/cfg_space.c:258: warning: expecting prototype for intel_vgpu_emulate_cfg_read(). Prototype was for intel_vgpu_emulate_cfg_write() instead.
+psb_intel_sdvo_supports_hotplug(), psb_intel_sdvo_set_hotplug()
+and psb_intel_sdvo_find() have been removed since
+commit 871c60156dbe ("drm/gma500: Remove dead code"),
+so remove them.
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2217
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
 ---
- drivers/gpu/drm/i915/gvt/cfg_space.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/gma500/psb_intel_drv.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/cfg_space.c b/drivers/gpu/drm/i915/gvt/cfg_space.c
-index eef3bba8a41b..5e8bc2d8a638 100644
---- a/drivers/gpu/drm/i915/gvt/cfg_space.c
-+++ b/drivers/gpu/drm/i915/gvt/cfg_space.c
-@@ -244,7 +244,7 @@ static void emulate_pci_bar_write(struct intel_vgpu *vgpu, unsigned int offset,
- }
- 
- /**
-- * intel_vgpu_emulate_cfg_read - emulate vGPU configuration space write
-+ * intel_vgpu_emulate_cfg_write() - emulate vGPU configuration space write
-  * @vgpu: target vgpu
-  * @offset: offset
-  * @p_data: write data ptr
+diff --git a/drivers/gpu/drm/gma500/psb_intel_drv.h b/drivers/gpu/drm/gma500/psb_intel_drv.h
+index 8ccba116821b..8a1111fe714b 100644
+--- a/drivers/gpu/drm/gma500/psb_intel_drv.h
++++ b/drivers/gpu/drm/gma500/psb_intel_drv.h
+@@ -197,8 +197,6 @@ extern void psb_intel_lvds_set_brightness(struct drm_device *dev, int level);
+ extern void oaktrail_lvds_init(struct drm_device *dev,
+ 			   struct psb_intel_mode_device *mode_dev);
+ extern void oaktrail_wait_for_INTR_PKT_SENT(struct drm_device *dev);
+-extern void oaktrail_dsi_init(struct drm_device *dev,
+-			   struct psb_intel_mode_device *mode_dev);
+ struct gma_i2c_chan *oaktrail_lvds_i2c_init(struct drm_device *dev);
+ extern void mid_dsi_init(struct drm_device *dev,
+ 		    struct psb_intel_mode_device *mode_dev, int dsi_num);
+@@ -219,9 +217,6 @@ extern struct drm_crtc *psb_intel_get_crtc_from_pipe(struct drm_device *dev,
+ 						 int pipe);
+ extern struct drm_connector *psb_intel_sdvo_find(struct drm_device *dev,
+ 					     int sdvoB);
+-extern int psb_intel_sdvo_supports_hotplug(struct drm_connector *connector);
+-extern void psb_intel_sdvo_set_hotplug(struct drm_connector *connector,
+-				   int enable);
+ extern int intelfb_probe(struct drm_device *dev);
+ extern int intelfb_remove(struct drm_device *dev,
+ 			  struct drm_framebuffer *fb);
 -- 
-2.20.1.7.g153144c
+2.25.1
 
