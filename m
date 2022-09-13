@@ -4,51 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76FBFC6FA8A
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 21:11:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5BDEECAAD8
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 21:27:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8795E10E5F3;
-	Tue, 13 Sep 2022 21:11:01 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88F1C10E4D2;
- Tue, 13 Sep 2022 21:10:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663103425; x=1694639425;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=YxBtV5YY6b5bfIkmJaBCFvUH5c55OUu4E+al2oM3z0Q=;
- b=J1uKg/LqLOK8Jx0ouv+haqYQWnmewg4pkxMUyzTcnW6ECgefKY1C7XqJ
- glQpg8BqpP28jfNEaT1ZFR3UvYXqbIV5xt26EyO4vTwED55PGAeTzAt9d
- KsU6RK1qSO7GJSZ6Hs4nVj3Mw0rIVYz2bwaW58seU6dWxdX7eSgIDM4Cv
- 1VcFUN+Hks8v1neaXnq0z4TtC7bOGl6Ti4O1mMCpFAorbiq558FISgH9t
- k9loWdeCxOokoCV/ZoCkiqohaPhxiHHE9is0b0vdfMXf2Epmtj18CqbOA
- AJUfZDC81yd+ogFk4XJSqoid/ot1md8urtNH2WzAY418SOJ8OxTxJcDXV A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="384556960"
-X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="384556960"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2022 14:10:24 -0700
-X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="685023940"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.143])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2022 14:10:24 -0700
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Gustavo Sousa <gustavo.sousa@intel.com>
-Date: Tue, 13 Sep 2022 14:09:57 -0700
-Message-Id: <20220908-if-ladder-v2-2-7a7b15545c93@intel.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20220908-if-ladder-v2-0-7a7b15545c93@intel.com>
-References: <20220908-if-ladder-v2-0-7a7b15545c93@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B609C10E554;
+	Tue, 13 Sep 2022 21:27:35 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3AE8810E554;
+ Tue, 13 Sep 2022 21:27:31 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id EF1F5AA914;
+ Tue, 13 Sep 2022 21:27:30 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7451083089759085618=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.10.0-dev-bbe61
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/3] drm/i915/gt: Extract per-platform
- function for frequency read
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Anshuman Gupta" <anshuman.gupta@intel.com>
+Date: Tue, 13 Sep 2022 21:27:30 -0000
+Message-ID: <166310445095.21296.11121853278640570094@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220913152714.16541-1-anshuman.gupta@intel.com>
+In-Reply-To: <20220913152714.16541-1-anshuman.gupta@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgREdG?=
+ =?utf-8?q?X_mmap_with_rpm_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,234 +40,208 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of calling read_clock_frequency() to walk the if/else ladder
-per platform, move the ladder to intel_gt_init_clock_frequency() and
-use one function per branch.
+--===============7451083089759085618==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-With the new logic, it's now clear the call to
-gen9_get_crystal_clock_freq() was just dead code, as gen9 is handled by
-another function and there is no version 10. Remove that function and
-the caller.
+== Series Details ==
 
-v2: Correctly handle intel_gt_check_clock_frequency() that also calls
-the function to read clock frequency (Gustavo)
+Series: DGFX mmap with rpm (rev5)
+URL   : https://patchwork.freedesktop.org/series/107400/
+State : success
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Gustavo Sousa <gustavo.sousa@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-index 93608c9349fd..3f656d3dba9a 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-@@ -26,26 +26,6 @@ static u32 read_reference_ts_freq(struct intel_uncore *uncore)
- 	return base_freq + frac_freq;
- }
- 
--static u32 gen9_get_crystal_clock_freq(struct intel_uncore *uncore,
--				       u32 rpm_config_reg)
--{
--	u32 f19_2_mhz = 19200000;
--	u32 f24_mhz = 24000000;
--	u32 crystal_clock =
--		(rpm_config_reg & GEN9_RPM_CONFIG0_CRYSTAL_CLOCK_FREQ_MASK) >>
--		GEN9_RPM_CONFIG0_CRYSTAL_CLOCK_FREQ_SHIFT;
--
--	switch (crystal_clock) {
--	case GEN9_RPM_CONFIG0_CRYSTAL_CLOCK_FREQ_19_2_MHZ:
--		return f19_2_mhz;
--	case GEN9_RPM_CONFIG0_CRYSTAL_CLOCK_FREQ_24_MHZ:
--		return f24_mhz;
--	default:
--		MISSING_CASE(crystal_clock);
--		return 0;
--	}
--}
--
- static u32 gen11_get_crystal_clock_freq(struct intel_uncore *uncore,
- 					u32 rpm_config_reg)
- {
-@@ -72,95 +52,106 @@ static u32 gen11_get_crystal_clock_freq(struct intel_uncore *uncore,
- 	}
- }
- 
--static u32 read_clock_frequency(struct intel_uncore *uncore)
-+static u32 gen11_read_clock_frequency(struct intel_uncore *uncore)
- {
--	u32 f12_5_mhz = 12500000;
--	u32 f19_2_mhz = 19200000;
--	u32 f24_mhz = 24000000;
-+	u32 ctc_reg = intel_uncore_read(uncore, CTC_MODE);
-+	u32 freq = 0;
- 
--	if (GRAPHICS_VER(uncore->i915) >= 11) {
--		u32 ctc_reg = intel_uncore_read(uncore, CTC_MODE);
--		u32 freq = 0;
-+	/*
-+	 * Note that on gen11+, the clock frequency may be reconfigured.
-+	 * We do not, and we assume nobody else does.
-+	 *
-+	 * First figure out the reference frequency. There are 2 ways
-+	 * we can compute the frequency, either through the
-+	 * TIMESTAMP_OVERRIDE register or through RPM_CONFIG. CTC_MODE
-+	 * tells us which one we should use.
-+	 */
-+	if ((ctc_reg & CTC_SOURCE_PARAMETER_MASK) == CTC_SOURCE_DIVIDE_LOGIC) {
-+		freq = read_reference_ts_freq(uncore);
-+	} else {
-+		u32 c0 = intel_uncore_read(uncore, RPM_CONFIG0);
-+
-+		freq = gen11_get_crystal_clock_freq(uncore, c0);
- 
- 		/*
--		 * First figure out the reference frequency. There are 2 ways
--		 * we can compute the frequency, either through the
--		 * TIMESTAMP_OVERRIDE register or through RPM_CONFIG. CTC_MODE
--		 * tells us which one we should use.
--		 */
--		if ((ctc_reg & CTC_SOURCE_PARAMETER_MASK) == CTC_SOURCE_DIVIDE_LOGIC) {
--			freq = read_reference_ts_freq(uncore);
--		} else {
--			u32 c0 = intel_uncore_read(uncore, RPM_CONFIG0);
--
--			if (GRAPHICS_VER(uncore->i915) >= 11)
--				freq = gen11_get_crystal_clock_freq(uncore, c0);
--			else
--				freq = gen9_get_crystal_clock_freq(uncore, c0);
--
--			/*
--			 * Now figure out how the command stream's timestamp
--			 * register increments from this frequency (it might
--			 * increment only every few clock cycle).
--			 */
--			freq >>= 3 - ((c0 & GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_MASK) >>
--				      GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_SHIFT);
--		}
--
--		return freq;
--	} else if (GRAPHICS_VER(uncore->i915) >= 9) {
--		u32 ctc_reg = intel_uncore_read(uncore, CTC_MODE);
--		u32 freq = 0;
--
--		if ((ctc_reg & CTC_SOURCE_PARAMETER_MASK) == CTC_SOURCE_DIVIDE_LOGIC) {
--			freq = read_reference_ts_freq(uncore);
--		} else {
--			freq = IS_GEN9_LP(uncore->i915) ? f19_2_mhz : f24_mhz;
--
--			/*
--			 * Now figure out how the command stream's timestamp
--			 * register increments from this frequency (it might
--			 * increment only every few clock cycle).
--			 */
--			freq >>= 3 - ((ctc_reg & CTC_SHIFT_PARAMETER_MASK) >>
--				      CTC_SHIFT_PARAMETER_SHIFT);
--		}
--
--		return freq;
--	} else if (GRAPHICS_VER(uncore->i915) >= 5) {
--		/*
--		 * PRMs say:
--		 *
--		 *     "The PCU TSC counts 10ns increments; this timestamp
--		 *      reflects bits 38:3 of the TSC (i.e. 80ns granularity,
--		 *      rolling over every 1.5 hours).
-+		 * Now figure out how the command stream's timestamp
-+		 * register increments from this frequency (it might
-+		 * increment only every few clock cycle).
- 		 */
--		return f12_5_mhz;
-+		freq >>= 3 - ((c0 & GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_MASK) >>
-+			      GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_SHIFT);
-+	}
-+
-+	return freq;
-+}
-+
-+static u32 gen9_read_clock_frequency(struct intel_uncore *uncore)
-+{
-+	u32 ctc_reg = intel_uncore_read(uncore, CTC_MODE);
-+	u32 freq = 0;
-+
-+	if ((ctc_reg & CTC_SOURCE_PARAMETER_MASK) == CTC_SOURCE_DIVIDE_LOGIC) {
-+		freq = read_reference_ts_freq(uncore);
- 	} else {
-+		freq = IS_GEN9_LP(uncore->i915) ? 19200000 : 24000000;
-+
- 		/*
--		 * PRMs say:
--		 *
--		 *     "The value in this register increments once every 16
--		 *      hclks." (through the “Clocking Configuration”
--		 *      (“CLKCFG”) MCHBAR register)
-+		 * Now figure out how the command stream's timestamp
-+		 * register increments from this frequency (it might
-+		 * increment only every few clock cycle).
- 		 */
--		return RUNTIME_INFO(uncore->i915)->rawclk_freq * 1000 / 16;
-+		freq >>= 3 - ((ctc_reg & CTC_SHIFT_PARAMETER_MASK) >>
-+			      CTC_SHIFT_PARAMETER_SHIFT);
- 	}
-+
-+	return freq;
- }
- 
--void intel_gt_init_clock_frequency(struct intel_gt *gt)
-+static u32 gen5_read_clock_frequency(struct intel_uncore *uncore)
- {
- 	/*
--	 * Note that on gen11+, the clock frequency may be reconfigured.
--	 * We do not, and we assume nobody else does.
-+	 * PRMs say:
-+	 *
-+	 *     "The PCU TSC counts 10ns increments; this timestamp
-+	 *      reflects bits 38:3 of the TSC (i.e. 80ns granularity,
-+	 *      rolling over every 1.5 hours).
- 	 */
-+	return 12500000;
-+}
-+
-+static u32 gen2_read_clock_frequency(struct intel_uncore *uncore)
-+{
-+	/*
-+	 * PRMs say:
-+	 *
-+	 *     "The value in this register increments once every 16
-+	 *      hclks." (through the “Clocking Configuration”
-+	 *      (“CLKCFG”) MCHBAR register)
-+	 */
-+	return RUNTIME_INFO(uncore->i915)->rawclk_freq * 1000 / 16;
-+}
-+
-+static u32 read_clock_frequency(struct intel_uncore *uncore)
-+{
-+	if (GRAPHICS_VER(uncore->i915) >= 11)
-+		return gen11_read_clock_frequency(uncore);
-+	else if (GRAPHICS_VER(uncore->i915) >= 9)
-+		return gen9_read_clock_frequency(uncore);
-+	else if (GRAPHICS_VER(uncore->i915) >= 5)
-+		return gen5_read_clock_frequency(uncore);
-+	else
-+		return gen2_read_clock_frequency(uncore);
-+}
-+
-+void intel_gt_init_clock_frequency(struct intel_gt *gt)
-+{
- 	gt->clock_frequency = read_clock_frequency(gt->uncore);
--	if (gt->clock_frequency)
--		gt->clock_period_ns = intel_gt_clock_interval_to_ns(gt, 1);
- 
- 	/* Icelake appears to use another fixed frequency for CTX_TIMESTAMP */
- 	if (GRAPHICS_VER(gt->i915) == 11)
- 		gt->clock_period_ns = NSEC_PER_SEC / 13750000;
-+	else if (gt->clock_frequency)
-+		gt->clock_period_ns = intel_gt_clock_interval_to_ns(gt, 1);
- 
- 	GT_TRACE(gt,
- 		 "Using clock frequency: %dkHz, period: %dns, wrap: %lldms\n",
+CI Bug Log - changes from CI_DRM_12131 -> Patchwork_107400v5
+====================================================
 
--- 
-b4 0.10.0-dev-bbe61
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/index.html
+
+Participating hosts (44 -> 40)
+------------------------------
+
+  Missing    (4): fi-ctg-p8600 bat-dg2-8 bat-dg2-11 fi-bdw-samus 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_107400v5 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@requests:
+    - fi-blb-e6850:       [PASS][1] -> [DMESG-FAIL][2] ([i915#4528])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12131/fi-blb-e6850/igt@i915_selftest@live@requests.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-blb-e6850/igt@i915_selftest@live@requests.html
+
+  * igt@kms_chamelium@common-hpd-after-suspend:
+    - fi-hsw-g3258:       NOTRUN -> [SKIP][3] ([fdo#109271] / [fdo#111827])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-hsw-g3258/igt@kms_chamelium@common-hpd-after-suspend.html
+    - fi-pnv-d510:        NOTRUN -> [SKIP][4] ([fdo#109271])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-pnv-d510/igt@kms_chamelium@common-hpd-after-suspend.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-hsw-g3258:       [INCOMPLETE][5] ([i915#3303] / [i915#4785]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12131/fi-hsw-g3258/igt@i915_selftest@live@hangcheck.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-hsw-g3258/igt@i915_selftest@live@hangcheck.html
+
+  * igt@i915_selftest@live@requests:
+    - fi-pnv-d510:        [DMESG-FAIL][7] ([i915#4528]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12131/fi-pnv-d510/igt@i915_selftest@live@requests.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-pnv-d510/igt@i915_selftest@live@requests.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:
+    - fi-bsw-kefka:       [FAIL][9] ([i915#6298]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12131/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#3303]: https://gitlab.freedesktop.org/drm/intel/issues/3303
+  [i915#4528]: https://gitlab.freedesktop.org/drm/intel/issues/4528
+  [i915#4785]: https://gitlab.freedesktop.org/drm/intel/issues/4785
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#5828]: https://gitlab.freedesktop.org/drm/intel/issues/5828
+  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_12131 -> Patchwork_107400v5
+
+  CI-20190529: 20190529
+  CI_DRM_12131: 3c82566040d2d01a9e98f740d8de4a9e18116818 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6653: 4f927248ebbf11f03f4c1ea2254f011e7575322f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_107400v5: 3c82566040d2d01a9e98f740d8de4a9e18116818 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+48871c389bc0 drm/i915/dgfx: Release mmap on rpm suspend
+1f64a7aeb215 drm/i915: Refactor userfault_wakeref to re-use
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/index.html
+
+--===============7451083089759085618==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>DGFX mmap with rpm (rev5)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/107400/">https://patchwork.freedesktop.org/series/107400/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12131 -&gt; Patchwork_107400v5</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/index.html</p>
+<h2>Participating hosts (44 -&gt; 40)</h2>
+<p>Missing    (4): fi-ctg-p8600 bat-dg2-8 bat-dg2-11 fi-bdw-samus </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_107400v5 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>fi-blb-e6850:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12131/fi-blb-e6850/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-blb-e6850/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4528">i915#4528</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
+<ul>
+<li>
+<p>fi-hsw-g3258:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-hsw-g3258/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>)</p>
+</li>
+<li>
+<p>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-pnv-d510/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>fi-hsw-g3258:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12131/fi-hsw-g3258/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3303">i915#3303</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4785">i915#4785</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-hsw-g3258/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12131/fi-pnv-d510/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4528">i915#4528</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-pnv-d510/igt@i915_selftest@live@requests.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:</p>
+<ul>
+<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12131/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107400v5/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12131 -&gt; Patchwork_107400v5</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12131: 3c82566040d2d01a9e98f740d8de4a9e18116818 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6653: 4f927248ebbf11f03f4c1ea2254f011e7575322f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_107400v5: 3c82566040d2d01a9e98f740d8de4a9e18116818 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>48871c389bc0 drm/i915/dgfx: Release mmap on rpm suspend<br />
+1f64a7aeb215 drm/i915: Refactor userfault_wakeref to re-use</p>
+
+</body>
+</html>
+
+--===============7451083089759085618==--
