@@ -4,45 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F3DAECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 01:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E75EAECAAA1
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 01:13:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 414E210E378;
-	Tue, 13 Sep 2022 01:09:18 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF1510E17B;
- Tue, 13 Sep 2022 01:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663031340; x=1694567340;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=phQ5F35loAZv7FcQ1IHcxPB8sB/OOUkosXZF4U/EOhs=;
- b=kaG+fpuCfhj+59W74TSjXcbhHNqM44+6kLGotLksz8dUgtTlEHBDCaga
- x8GyhU1OUEhwd7Uo8UvE/iKZ3Xcncm7OIbLcfAsRB3OPceYZIG8aLo7ZB
- u+ASkAzxjwLost1s+sEx+zpoX3Qo3PL/9/HNUDnFEp+2SWb1XZolKRVjB
- T0I+/nyrD9C7YfgHJwd20fumrSBsxvSWgHhS8YJLIjTbbvz3zL+YSXGEP
- 0ApZURB30FQGR4Gd7cn+lE9zIKt/pRFiAiltG1qHDn6DO0HnFBKAYyM54
- ktaOFVey9mdtoQ1S8SyRM8LQcTVz1/rKBTMrGPnAlJn6buqMwbZO40yhh w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="298010156"
-X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="298010156"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 18:08:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="678341563"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.151])
- by fmsmga008.fm.intel.com with ESMTP; 12 Sep 2022 18:08:59 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Mon, 12 Sep 2022 18:09:28 -0700
-Message-Id: <20220913010929.2734885-1-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 391C110E05D;
+	Tue, 13 Sep 2022 01:13:20 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5D8C710E05D;
+ Tue, 13 Sep 2022 01:13:14 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 547B0AAA91;
+ Tue, 13 Sep 2022 01:13:14 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/1] Fix 'remove log size module parameters'
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Date: Tue, 13 Sep 2022 01:13:14 -0000
+Message-ID: <166303159432.21294.1667293156612439069@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <cover.1662999695.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1662999695.git.jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_header_cleanups_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,25 +40,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+== Series Details ==
 
-The patch 'remove log size module parameters' broke loading the kernel
-when not compiling for debug. Fix it.
+Series: drm/i915: header cleanups (rev2)
+URL   : https://patchwork.freedesktop.org/series/93777/
+State : warning
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+== Summary ==
 
+Error: dim checkpatch failed
+5507d6540b9e drm/i915/gmbus: move GPIO enum to gmbus
+855c0fd1a265 drm/i915: reduce includes in intel_connector.h
+9be9ae1ddda3 drm/i915: reduce includes in intel_fifo_underrun.h
+a75ba0cee8c8 drm/i915: un-inline icl_hdr_plane_mask() to simplify includes
+cce28c76520c drm/i915/dpio: un-inline the vlv phy/channel mapping functions
+b9c868ec648a drm/i915/dpio: move dpio_channel and dpio_phy enums to intel_dpio_phy.h
+074dd7be5839 drm/i915: reduce includes in intel_display_power.h
+1b48a50fcd22 drm/i915/display: reduce the includes in intel_dvo_dev.h
+899a1851365d drm/i915/display: reduce includes in intel_hdmi.h
+625b062ea145 drm/i915/display: reduce includes in g4x_dp.h includes
+7642f05fe510 drm/i915/irq: make gen2_irq_init()/gen2_irq_reset() static
+c8f1bad1e357 drm/i915/reg: move masked field helpers to i915_reg_defs.h
+-:43: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'mask' - possible side-effects?
+#43: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:102:
++#define _MASKED_FIELD(mask, value) ({					   \
++	if (__builtin_constant_p(mask))					   \
++		BUILD_BUG_ON_MSG(((mask) & 0xffff0000), "Incorrect mask"); \
++	if (__builtin_constant_p(value))				   \
++		BUILD_BUG_ON_MSG((value) & 0xffff0000, "Incorrect value"); \
++	if (__builtin_constant_p(mask) && __builtin_constant_p(value))	   \
++		BUILD_BUG_ON_MSG((value) & ~(mask),			   \
++				 "Incorrect value for mask");		   \
++	__MASKED_FIELD(mask, value); })
 
-John Harrison (1):
-  drm/i915/guc: Fix release build bug in 'remove log size module
-    parameters'
+-:43: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'value' - possible side-effects?
+#43: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:102:
++#define _MASKED_FIELD(mask, value) ({					   \
++	if (__builtin_constant_p(mask))					   \
++		BUILD_BUG_ON_MSG(((mask) & 0xffff0000), "Incorrect mask"); \
++	if (__builtin_constant_p(value))				   \
++		BUILD_BUG_ON_MSG((value) & 0xffff0000, "Incorrect value"); \
++	if (__builtin_constant_p(mask) && __builtin_constant_p(value))	   \
++		BUILD_BUG_ON_MSG((value) & ~(mask),			   \
++				 "Incorrect value for mask");		   \
++	__MASKED_FIELD(mask, value); })
 
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 25 +---------------------
- 1 file changed, 1 insertion(+), 24 deletions(-)
+total: 0 errors, 0 warnings, 2 checks, 38 lines checked
+9ac4c205c0cf drm/i915/reg: move pick even and pick to reg defs
+-:50: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__a' - possible side-effects?
+#50: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:120:
++#define _PICK_EVEN(__index, __a, __b) ((__a) + (__index) * ((__b) - (__a)))
 
--- 
-2.37.3
+total: 0 errors, 0 warnings, 1 checks, 42 lines checked
+211b335dbe49 drm/i915: split out intel_display_reg_defs.h
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:52: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#52: 
+new file mode 100644
+
+-:102: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#102: FILE: drivers/gpu/drm/i915/display/intel_display_reg_defs.h:46:
++#define _MMIO_TRANS2(tran, reg)		_MMIO(INTEL_INFO(dev_priv)->display.trans_offsets[(tran)] - \
+
+-:103: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#103: FILE: drivers/gpu/drm/i915/display/intel_display_reg_defs.h:47:
++					      INTEL_INFO(dev_priv)->display.trans_offsets[TRANSCODER_A] + \
+
+-:105: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#105: FILE: drivers/gpu/drm/i915/display/intel_display_reg_defs.h:49:
++#define _MMIO_CURSOR2(pipe, reg)	_MMIO(INTEL_INFO(dev_priv)->display.cursor_offsets[(pipe)] - \
+
+-:106: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#106: FILE: drivers/gpu/drm/i915/display/intel_display_reg_defs.h:50:
++					      INTEL_INFO(dev_priv)->display.cursor_offsets[PIPE_A] + \
+
+total: 0 errors, 5 warnings, 0 checks, 176 lines checked
+08bcce40276d drm/i915: stop including i915_irq.h from i915_trace.h
+
 
