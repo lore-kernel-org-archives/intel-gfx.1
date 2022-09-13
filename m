@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24F64ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 00:59:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E38CEC6FA83
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 00:59:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8082A10E4E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C44810E4E6;
 	Tue, 13 Sep 2022 00:58:20 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2122C10E146;
- Tue, 13 Sep 2022 00:58:00 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6F110E4B4;
+ Tue, 13 Sep 2022 00:58:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663030680; x=1694566680;
+ t=1663030685; x=1694566685;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=dSn5ENyM/L0bRTdqhMg5nc4FwQpC6jS9Ez8tZ0Ah7sM=;
- b=WK2GQT0mcr81yx+TeEarV3zKrHVReIDtGm8z07kYmsVW5Nj007OKTFao
- xUEYyTD757rvdlMDbp7JohVxg2ZeJVfaXuE8IrHF0BwS9Tldm66Smj5xT
- 80/2aBbosvs9mY8OQH89jDwLyf9xu2v3pqsejaJn3rgIYpLZMtcPoTCQr
- fTsho3g4ZGFMG6Y+3Vm30ezojLixv0jehdbOcDaubYI7SHi1W1NOivof2
- caWQNKwhikZQA0BgVNXejQslDAPkgwDzLOx189uEeD9QrRIKdZL3lyxS3
- UzyYVAqn6BrunbiOisgHIadtQX9Xsb7tPXDSsle3zB6e/uxZ0JzPkKdor Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="281024403"
-X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="281024403"
+ bh=JJJ0tSweTe1xb0ZQATxfSnpm/XigrKdIC8bl5YUXtuM=;
+ b=fibu6ad0e0G+FOTFrUeHmRCk9ZBQHVsRgGKYyYpdhKObiODQymfylkZ8
+ 7SoMum6Of0vK/9PAPZ4ReA+3p9vrS7MrWgdBjqv6YNBX7y+0htS1d8klc
+ T+N1PK021Mx9VQAWIlXB/dyNpIqUrJrs+mprUUhEfP4cDyI6Jeg85ci6E
+ pOEokD4WTbmbKygfTEPJ+vTEc6k6PAPde1z7gtZpOPPCjHPTBIA7ddReK
+ SGFhEkkOudYADHfmKraQC4cJy1lHm0G3MP9uwgjwcecT4MU7Y9BhX6ZYl
+ h9sm1zgxNaD7y2UNnrRMjJFPdypm8mKnkEzJMyb5bMDT3sQ09dD+ssaoh g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="295592201"
+X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="295592201"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 17:57:59 -0700
-X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="758593532"
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2022 17:58:04 -0700
+X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="758593563"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 17:57:59 -0700
+ 12 Sep 2022 17:58:04 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Sep 2022 17:57:28 -0700
-Message-Id: <20220913005739.798337-5-daniele.ceraolospurio@intel.com>
+Date: Mon, 12 Sep 2022 17:57:34 -0700
+Message-Id: <20220913005739.798337-11-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220913005739.798337-1-daniele.ceraolospurio@intel.com>
 References: <20220913005739.798337-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 04/15] mei: bus: extend bus API to support
- command streamer API
+Subject: [Intel-gfx] [PATCH v5 10/15] drm/i915/dg2: setup HuC loading via GSC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,208 +56,241 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Tomas Winkler <tomas.winkler@intel.com>,
+Cc: Tomas Winkler <tomas.winkler@intel.com>,
+ Alan Previn <alan.previn.teres.alexis@intel.com>,
  Vitaly Lubart <vitaly.lubart@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vitaly Lubart <vitaly.lubart@intel.com>
+The GSC will perform both the load and the authentication, so we just
+need to check the auth bit after the GSC has replied.
+Since we require the PXP module to load the HuC, the earliest we can
+trigger the load is during the pxp_bind operation.
 
-Add mei bus API for sending gsc commands: mei_cldev_send_gsc_command()
+Note that GSC-loaded HuC survives GT reset, so we need to just mark it
+as ready when we re-init the GT HW.
 
-The GSC commands are originated in the graphics stack
-and are in form of SGL DMA buffers.
-The GSC commands are synchronous, the response is received
-in the same call on the out sg list buffers.
-The function setups pointers for in and out sg lists in the
-mei sgl extended header and sends it to the firmware.
+V2: move setting of HuC fw error state to the failure path of the HuC
+auth function, so it covers both the legacy and new auth flows
+V4:
+1. Fix typo in the commit message
+2. style fix in intel_huc_wait_for_auth_complete()
 
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
 Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
-V2:
- 1. More detailed commit message
- 2. Fix typo in the comments
-V3-4:Rebase
-V5:
-1. Use forward declaration instead of
-   #include <linux/scatterlist.h> in mei_cl_bus.h
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c    | 41 +++++++++++++++--------
+ drivers/gpu/drm/i915/gt/uc/intel_huc.h    |  2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c | 34 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h |  1 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c  | 14 +++++++-
+ 5 files changed, 77 insertions(+), 15 deletions(-)
 
- drivers/misc/mei/bus.c     | 126 +++++++++++++++++++++++++++++++++++++
- include/linux/mei_cl_bus.h |   6 ++
- 2 files changed, 132 insertions(+)
-
-diff --git a/drivers/misc/mei/bus.c b/drivers/misc/mei/bus.c
-index 225f0b04c021..1fbe127ff633 100644
---- a/drivers/misc/mei/bus.c
-+++ b/drivers/misc/mei/bus.c
-@@ -13,6 +13,7 @@
- #include <linux/slab.h>
- #include <linux/mutex.h>
- #include <linux/interrupt.h>
-+#include <linux/scatterlist.h>
- #include <linux/mei_cl_bus.h>
- 
- #include "mei_dev.h"
-@@ -838,6 +839,131 @@ int mei_cldev_disable(struct mei_cl_device *cldev)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+index 3bb8838e325a..f0188931d8e4 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+@@ -125,6 +125,28 @@ void intel_huc_fini(struct intel_huc *huc)
+ 	intel_uc_fw_fini(&huc->fw);
  }
- EXPORT_SYMBOL_GPL(mei_cldev_disable);
  
-+/**
-+ * mei_cldev_send_gsc_command - sends a gsc command, by sending
-+ * a gsl mei message to gsc and receiving reply from gsc
-+ *
-+ * @cldev: me client device
-+ * @client_id: client id to send the command to
-+ * @fence_id: fence id to send the command to
-+ * @sg_in: scatter gather list containing addresses for rx message buffer
-+ * @total_in_len: total length of data in 'in' sg, can be less than the sum of buffers sizes
-+ * @sg_out: scatter gather list containing addresses for tx message buffer
-+ *
-+ * Return:
-+ *  * written size in bytes
-+ *  * < 0 on error
-+ */
-+ssize_t mei_cldev_send_gsc_command(struct mei_cl_device *cldev,
-+				   u8 client_id, u32 fence_id,
-+				   struct scatterlist *sg_in,
-+				   size_t total_in_len,
-+				   struct scatterlist *sg_out)
++int intel_huc_wait_for_auth_complete(struct intel_huc *huc)
 +{
-+	struct mei_cl *cl;
-+	struct mei_device *bus;
-+	ssize_t ret = 0;
++	struct intel_gt *gt = huc_to_gt(huc);
++	int ret;
 +
-+	struct mei_ext_hdr_gsc_h2f *ext_hdr;
-+	size_t buf_sz = sizeof(struct mei_ext_hdr_gsc_h2f);
-+	int sg_out_nents, sg_in_nents;
-+	int i;
-+	struct scatterlist *sg;
-+	struct mei_ext_hdr_gsc_f2h rx_msg;
-+	unsigned int sg_len;
++	ret = __intel_wait_for_register(gt->uncore,
++					huc->status.reg,
++					huc->status.mask,
++					huc->status.value,
++					2, 50, NULL);
 +
-+	if (!cldev || !sg_in || !sg_out)
-+		return -EINVAL;
-+
-+	cl = cldev->cl;
-+	bus = cldev->bus;
-+
-+	dev_dbg(bus->dev, "client_id %u, fence_id %u\n", client_id, fence_id);
-+
-+	if (!bus->hbm_f_gsc_supported)
-+		return -EOPNOTSUPP;
-+
-+	sg_out_nents = sg_nents(sg_out);
-+	sg_in_nents = sg_nents(sg_in);
-+	/* at least one entry in tx and rx sgls must be present */
-+	if (sg_out_nents <= 0 || sg_in_nents <= 0)
-+		return -EINVAL;
-+
-+	buf_sz += (sg_out_nents + sg_in_nents) * sizeof(struct mei_gsc_sgl);
-+	ext_hdr = kzalloc(buf_sz, GFP_KERNEL);
-+	if (!ext_hdr)
-+		return -ENOMEM;
-+
-+	/* construct the GSC message */
-+	ext_hdr->hdr.type = MEI_EXT_HDR_GSC;
-+	ext_hdr->hdr.length = buf_sz / sizeof(u32); /* length is in dw */
-+
-+	ext_hdr->client_id = client_id;
-+	ext_hdr->addr_type = GSC_ADDRESS_TYPE_PHYSICAL_SGL;
-+	ext_hdr->fence_id = fence_id;
-+	ext_hdr->input_address_count = sg_in_nents;
-+	ext_hdr->output_address_count = sg_out_nents;
-+	ext_hdr->reserved[0] = 0;
-+	ext_hdr->reserved[1] = 0;
-+
-+	/* copy in-sgl to the message */
-+	for (i = 0, sg = sg_in; i < sg_in_nents; i++, sg++) {
-+		ext_hdr->sgl[i].low = lower_32_bits(sg_dma_address(sg));
-+		ext_hdr->sgl[i].high = upper_32_bits(sg_dma_address(sg));
-+		sg_len = min_t(unsigned int, sg_dma_len(sg), PAGE_SIZE);
-+		ext_hdr->sgl[i].length = (sg_len <= total_in_len) ? sg_len : total_in_len;
-+		total_in_len -= ext_hdr->sgl[i].length;
++	if (ret) {
++		drm_err(&gt->i915->drm, "HuC: Firmware not verified %d\n", ret);
++		intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_LOAD_FAIL);
++		return ret;
 +	}
 +
-+	/* copy out-sgl to the message */
-+	for (i = sg_in_nents, sg = sg_out; i < sg_in_nents + sg_out_nents; i++, sg++) {
-+		ext_hdr->sgl[i].low = lower_32_bits(sg_dma_address(sg));
-+		ext_hdr->sgl[i].high = upper_32_bits(sg_dma_address(sg));
-+		sg_len = min_t(unsigned int, sg_dma_len(sg), PAGE_SIZE);
-+		ext_hdr->sgl[i].length = sg_len;
-+	}
-+
-+	/* send the message to GSC */
-+	ret = __mei_cl_send(cl, (u8 *)ext_hdr, buf_sz, 0, MEI_CL_IO_SGL);
-+	if (ret < 0) {
-+		dev_err(bus->dev, "__mei_cl_send failed, returned %zd\n", ret);
-+		goto end;
-+	}
-+	if (ret != buf_sz) {
-+		dev_err(bus->dev, "__mei_cl_send returned %zd instead of expected %zd\n",
-+			ret, buf_sz);
-+		ret = -EIO;
-+		goto end;
-+	}
-+
-+	/* receive the reply from GSC, note that at this point sg_in should contain the reply */
-+	ret = __mei_cl_recv(cl, (u8 *)&rx_msg, sizeof(rx_msg), NULL, MEI_CL_IO_SGL, 0);
-+
-+	if (ret != sizeof(rx_msg)) {
-+		dev_err(bus->dev, "__mei_cl_recv returned %zd instead of expected %zd\n",
-+			ret, sizeof(rx_msg));
-+		if (ret >= 0)
-+			ret = -EIO;
-+		goto end;
-+	}
-+
-+	/* check rx_msg.client_id and rx_msg.fence_id match the ones we send */
-+	if (rx_msg.client_id != client_id || rx_msg.fence_id != fence_id) {
-+		dev_err(bus->dev, "received client_id/fence_id  %u/%u  instead of %u/%u sent\n",
-+			rx_msg.client_id, rx_msg.fence_id, client_id, fence_id);
-+		ret = -EFAULT;
-+		goto end;
-+	}
-+
-+	dev_dbg(bus->dev, "gsc command: successfully written %u bytes\n",  rx_msg.written);
-+	ret = rx_msg.written;
-+
-+end:
-+	kfree(ext_hdr);
-+	return ret;
++	intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_RUNNING);
++	drm_info(&gt->i915->drm, "HuC authenticated\n");
++	return 0;
 +}
-+EXPORT_SYMBOL_GPL(mei_cldev_send_gsc_command);
 +
  /**
-  * mei_cl_device_find - find matching entry in the driver id table
-  *
-diff --git a/include/linux/mei_cl_bus.h b/include/linux/mei_cl_bus.h
-index df1fab44ea5c..fd6e0620658d 100644
---- a/include/linux/mei_cl_bus.h
-+++ b/include/linux/mei_cl_bus.h
-@@ -11,6 +11,7 @@
+  * intel_huc_auth() - Authenticate HuC uCode
+  * @huc: intel_huc structure
+@@ -161,27 +183,18 @@ int intel_huc_auth(struct intel_huc *huc)
+ 	}
  
- struct mei_cl_device;
- struct mei_device;
-+struct scatterlist;
+ 	/* Check authentication status, it should be done by now */
+-	ret = __intel_wait_for_register(gt->uncore,
+-					huc->status.reg,
+-					huc->status.mask,
+-					huc->status.value,
+-					2, 50, NULL);
+-	if (ret) {
+-		DRM_ERROR("HuC: Firmware not verified %d\n", ret);
++	ret = intel_huc_wait_for_auth_complete(huc);
++	if (ret)
+ 		goto fail;
+-	}
  
- typedef void (*mei_cldev_cb_t)(struct mei_cl_device *cldev);
+-	intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_RUNNING);
+-	drm_info(&gt->i915->drm, "HuC authenticated\n");
+ 	return 0;
  
-@@ -116,6 +117,11 @@ void mei_cldev_set_drvdata(struct mei_cl_device *cldev, void *data);
- int mei_cldev_enable(struct mei_cl_device *cldev);
- int mei_cldev_disable(struct mei_cl_device *cldev);
- bool mei_cldev_enabled(const struct mei_cl_device *cldev);
-+ssize_t mei_cldev_send_gsc_command(struct mei_cl_device *cldev,
-+				   u8 client_id, u32 fence_id,
-+				   struct scatterlist *sg_in,
-+				   size_t total_in_len,
-+				   struct scatterlist *sg_out);
+ fail:
+ 	i915_probe_error(gt->i915, "HuC: Authentication failed %d\n", ret);
+-	intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_LOAD_FAIL);
+ 	return ret;
+ }
  
- void *mei_cldev_dma_map(struct mei_cl_device *cldev, u8 buffer_id, size_t size);
- int mei_cldev_dma_unmap(struct mei_cl_device *cldev);
+-static bool huc_is_authenticated(struct intel_huc *huc)
++bool intel_huc_is_authenticated(struct intel_huc *huc)
+ {
+ 	struct intel_gt *gt = huc_to_gt(huc);
+ 	intel_wakeref_t wakeref;
+@@ -223,7 +236,7 @@ int intel_huc_check_status(struct intel_huc *huc)
+ 		break;
+ 	}
+ 
+-	return huc_is_authenticated(huc);
++	return intel_huc_is_authenticated(huc);
+ }
+ 
+ void intel_huc_update_auth_status(struct intel_huc *huc)
+@@ -231,7 +244,7 @@ void intel_huc_update_auth_status(struct intel_huc *huc)
+ 	if (!intel_uc_fw_is_loadable(&huc->fw))
+ 		return;
+ 
+-	if (huc_is_authenticated(huc))
++	if (intel_huc_is_authenticated(huc))
+ 		intel_uc_fw_change_status(&huc->fw,
+ 					  INTEL_UC_FIRMWARE_RUNNING);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.h b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+index d7e25b6e879e..51f9d96a3ca3 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+@@ -26,8 +26,10 @@ void intel_huc_init_early(struct intel_huc *huc);
+ int intel_huc_init(struct intel_huc *huc);
+ void intel_huc_fini(struct intel_huc *huc);
+ int intel_huc_auth(struct intel_huc *huc);
++int intel_huc_wait_for_auth_complete(struct intel_huc *huc);
+ int intel_huc_check_status(struct intel_huc *huc);
+ void intel_huc_update_auth_status(struct intel_huc *huc);
++bool intel_huc_is_authenticated(struct intel_huc *huc);
+ 
+ static inline int intel_huc_sanitize(struct intel_huc *huc)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
+index 9d6ab1e01639..4f246416db17 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
+@@ -3,9 +3,43 @@
+  * Copyright © 2014-2019 Intel Corporation
+  */
+ 
++#include "gt/intel_gsc.h"
+ #include "gt/intel_gt.h"
++#include "intel_huc.h"
+ #include "intel_huc_fw.h"
+ #include "i915_drv.h"
++#include "pxp/intel_pxp_huc.h"
++
++int intel_huc_fw_load_and_auth_via_gsc(struct intel_huc *huc)
++{
++	int ret;
++
++	if (!intel_huc_is_loaded_by_gsc(huc))
++		return -ENODEV;
++
++	if (!intel_uc_fw_is_loadable(&huc->fw))
++		return -ENOEXEC;
++
++	/*
++	 * If we abort a suspend, HuC might still be loaded when the mei
++	 * component gets re-bound and this function called again. If so, just
++	 * mark the HuC as loaded.
++	 */
++	if (intel_huc_is_authenticated(huc)) {
++		intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_RUNNING);
++		return 0;
++	}
++
++	GEM_WARN_ON(intel_uc_fw_is_loaded(&huc->fw));
++
++	ret = intel_pxp_huc_load_and_auth(&huc_to_gt(huc)->pxp);
++	if (ret)
++		return ret;
++
++	intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_TRANSFERRED);
++
++	return intel_huc_wait_for_auth_complete(huc);
++}
+ 
+ /**
+  * intel_huc_fw_upload() - load HuC uCode to device via DMA transfer
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h
+index 12f264ee3e0b..db42e238b45f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h
+@@ -8,6 +8,7 @@
+ 
+ struct intel_huc;
+ 
++int intel_huc_fw_load_and_auth_via_gsc(struct intel_huc *huc);
+ int intel_huc_fw_upload(struct intel_huc *huc);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index e0d09455a92e..00433f59e2c8 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -14,6 +14,7 @@
+ #include "intel_pxp_session.h"
+ #include "intel_pxp_tee.h"
+ #include "intel_pxp_tee_interface.h"
++#include "intel_pxp_huc.h"
+ 
+ static inline struct intel_pxp *i915_dev_to_pxp(struct device *i915_kdev)
+ {
+@@ -126,13 +127,24 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+ {
+ 	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
+ 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
++	struct intel_uc *uc = &pxp_to_gt(pxp)->uc;
+ 	intel_wakeref_t wakeref;
++	int ret = 0;
+ 
+ 	mutex_lock(&pxp->tee_mutex);
+ 	pxp->pxp_component = data;
+ 	pxp->pxp_component->tee_dev = tee_kdev;
+ 	mutex_unlock(&pxp->tee_mutex);
+ 
++	if (intel_uc_uses_huc(uc) && intel_huc_is_loaded_by_gsc(&uc->huc)) {
++		with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
++			/* load huc via pxp */
++			ret = intel_huc_fw_load_and_auth_via_gsc(&uc->huc);
++			if (ret < 0)
++				drm_err(&i915->drm, "failed to load huc via gsc %d\n", ret);
++		}
++	}
++
+ 	/* if we are suspended, the HW will be re-initialized on resume */
+ 	wakeref = intel_runtime_pm_get_if_in_use(&i915->runtime_pm);
+ 	if (!wakeref)
+@@ -144,7 +156,7 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+ 
+ 	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
 -- 
 2.37.2
 
