@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51753ECAAD8
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 21:11:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F249C54EE9
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 21:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 479B910E563;
-	Tue, 13 Sep 2022 21:10:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64ED110E565;
+	Tue, 13 Sep 2022 21:11:01 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67E5A10E4BB;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE51310E4E3;
  Tue, 13 Sep 2022 21:10:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1663103425; x=1694639425;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=V5JySg4WAWwsX1d7PgQ2qLO49zwDB7nqWFztjdXhDEc=;
- b=ho899gZVvHoLmfekRuvzpdlUOfohpyUMcnmeXF3aDweqww4mXzZZQ6Qo
- jv1EHYC/nBANB/WOd+tPY7Fx+bz3UHeioTQgczbrg1IM12WJp0O6iaeOC
- MM63OMhfUsyxtBnSu40ieRY5saQduvCcEUD3BUcaVqU/rtdqIe8TRU0bN
- OQPNRuum22kSwXV5hW6Wp9rsqL/4Tqna2Bu+h0x/ozKSSWCwtjgMcRZVJ
- ZN6GvWtwob4D5sGsyXrYz6B9A6FdPREpceFQcO9PxTduNNuHDcaKXCL2q
- /8iIUzyosiXlWP4dMsrE/JLll90+SF1u8pSrxz++aA5967p4uNsT9XHCI g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="384556958"
-X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="384556958"
+ bh=TN5pYqDSvZT6HUbR63hRR463c4rwk7ONQsgovidS+dg=;
+ b=fBh+sIOHlkKb3jEPupJclnppNq9hQPwdNsuH4h+jozo4QCa0MR8Gl0KN
+ 0TC1RPMFnq1oeHAq+HH28U2sP0PJYdXngND30Kca02F2uvOiJS7OEXbMc
+ SmxzsWuqO2OUk692yepyIQovPtSY31zWrz8g2/1IhAHGE154ZRxPimy0r
+ t3Ccgk70gvjd6e/vmBmOLFaS4+CmFNI5eYvLGAFH27DjtETcpKxM0NoU+
+ hc11gjRYfLlkD1Ctv6v2kfgIukDd2NCGNp70HlHFRpTvyxrLeYaCPx6+/
+ FrSyERspdfzDzMR0jxAAPRlBPEUbW0wxcO7N/8KeLLOchJdgSe7J9Q0N1 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="384556961"
+X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="384556961"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Sep 2022 14:10:24 -0700
-X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="685023937"
+X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="685023944"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.143])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2022 14:10:23 -0700
+ 13 Sep 2022 14:10:24 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Gustavo Sousa <gustavo.sousa@intel.com>
-Date: Tue, 13 Sep 2022 14:09:56 -0700
-Message-Id: <20220908-if-ladder-v2-1-7a7b15545c93@intel.com>
+Date: Tue, 13 Sep 2022 14:09:58 -0700
+Message-Id: <20220908-if-ladder-v2-3-7a7b15545c93@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220908-if-ladder-v2-0-7a7b15545c93@intel.com>
 References: <20220908-if-ladder-v2-0-7a7b15545c93@intel.com>
@@ -47,8 +47,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.10.0-dev-bbe61
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/3] drm/i915: Invert if/else ladder for
- frequency read
+Subject: [Intel-gfx] [PATCH v2 3/3] drm/i915: Invert if/else ladder for
+ stolen init
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,132 +69,78 @@ Continue converting the driver to the convention of last version first,
 extending it to the future platforms. Now, any GRAPHICS_VER >= 11 will
 be handled by the first branch.
 
-With the new ranges it's easier to see what platform a branch started to
-be taken. Besides the >= 11 change, the branch taken for GRAPHICS_VER == 10
-is also different, but currently there is no such platform in i915.
-
+Reviewed-by: Gustavo Sousa <gustavo.sousa@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-index d5d1b04dbcad..93608c9349fd 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-@@ -78,77 +78,74 @@ static u32 read_clock_frequency(struct intel_uncore *uncore)
- 	u32 f19_2_mhz = 19200000;
- 	u32 f24_mhz = 24000000;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index 4f4c9461a23b..acc561c0f0aa 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -430,48 +430,29 @@ static int i915_gem_init_stolen(struct intel_memory_region *mem)
+ 	reserved_base = stolen_top;
+ 	reserved_size = 0;
  
--	if (GRAPHICS_VER(uncore->i915) <= 4) {
--		/*
--		 * PRMs say:
--		 *
--		 *     "The value in this register increments once every 16
--		 *      hclks." (through the “Clocking Configuration”
--		 *      (“CLKCFG”) MCHBAR register)
--		 */
--		return RUNTIME_INFO(uncore->i915)->rawclk_freq * 1000 / 16;
--	} else if (GRAPHICS_VER(uncore->i915) <= 8) {
--		/*
--		 * PRMs say:
--		 *
--		 *     "The PCU TSC counts 10ns increments; this timestamp
--		 *      reflects bits 38:3 of the TSC (i.e. 80ns granularity,
--		 *      rolling over every 1.5 hours).
--		 */
--		return f12_5_mhz;
--	} else if (GRAPHICS_VER(uncore->i915) <= 9) {
-+	if (GRAPHICS_VER(uncore->i915) >= 11) {
- 		u32 ctc_reg = intel_uncore_read(uncore, CTC_MODE);
- 		u32 freq = 0;
- 
-+		/*
-+		 * First figure out the reference frequency. There are 2 ways
-+		 * we can compute the frequency, either through the
-+		 * TIMESTAMP_OVERRIDE register or through RPM_CONFIG. CTC_MODE
-+		 * tells us which one we should use.
-+		 */
- 		if ((ctc_reg & CTC_SOURCE_PARAMETER_MASK) == CTC_SOURCE_DIVIDE_LOGIC) {
- 			freq = read_reference_ts_freq(uncore);
- 		} else {
--			freq = IS_GEN9_LP(uncore->i915) ? f19_2_mhz : f24_mhz;
-+			u32 c0 = intel_uncore_read(uncore, RPM_CONFIG0);
-+
-+			if (GRAPHICS_VER(uncore->i915) >= 11)
-+				freq = gen11_get_crystal_clock_freq(uncore, c0);
-+			else
-+				freq = gen9_get_crystal_clock_freq(uncore, c0);
- 
- 			/*
- 			 * Now figure out how the command stream's timestamp
- 			 * register increments from this frequency (it might
- 			 * increment only every few clock cycle).
- 			 */
--			freq >>= 3 - ((ctc_reg & CTC_SHIFT_PARAMETER_MASK) >>
--				      CTC_SHIFT_PARAMETER_SHIFT);
-+			freq >>= 3 - ((c0 & GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_MASK) >>
-+				      GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_SHIFT);
- 		}
- 
- 		return freq;
--	} else if (GRAPHICS_VER(uncore->i915) <= 12) {
-+	} else if (GRAPHICS_VER(uncore->i915) >= 9) {
- 		u32 ctc_reg = intel_uncore_read(uncore, CTC_MODE);
- 		u32 freq = 0;
- 
--		/*
--		 * First figure out the reference frequency. There are 2 ways
--		 * we can compute the frequency, either through the
--		 * TIMESTAMP_OVERRIDE register or through RPM_CONFIG. CTC_MODE
--		 * tells us which one we should use.
--		 */
- 		if ((ctc_reg & CTC_SOURCE_PARAMETER_MASK) == CTC_SOURCE_DIVIDE_LOGIC) {
- 			freq = read_reference_ts_freq(uncore);
- 		} else {
--			u32 c0 = intel_uncore_read(uncore, RPM_CONFIG0);
--
--			if (GRAPHICS_VER(uncore->i915) >= 11)
--				freq = gen11_get_crystal_clock_freq(uncore, c0);
--			else
--				freq = gen9_get_crystal_clock_freq(uncore, c0);
-+			freq = IS_GEN9_LP(uncore->i915) ? f19_2_mhz : f24_mhz;
- 
- 			/*
- 			 * Now figure out how the command stream's timestamp
- 			 * register increments from this frequency (it might
- 			 * increment only every few clock cycle).
- 			 */
--			freq >>= 3 - ((c0 & GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_MASK) >>
--				      GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_SHIFT);
-+			freq >>= 3 - ((ctc_reg & CTC_SHIFT_PARAMETER_MASK) >>
-+				      CTC_SHIFT_PARAMETER_SHIFT);
- 		}
- 
- 		return freq;
-+	} else if (GRAPHICS_VER(uncore->i915) >= 5) {
-+		/*
-+		 * PRMs say:
-+		 *
-+		 *     "The PCU TSC counts 10ns increments; this timestamp
-+		 *      reflects bits 38:3 of the TSC (i.e. 80ns granularity,
-+		 *      rolling over every 1.5 hours).
-+		 */
-+		return f12_5_mhz;
-+	} else {
-+		/*
-+		 * PRMs say:
-+		 *
-+		 *     "The value in this register increments once every 16
-+		 *      hclks." (through the “Clocking Configuration”
-+		 *      (“CLKCFG”) MCHBAR register)
-+		 */
-+		return RUNTIME_INFO(uncore->i915)->rawclk_freq * 1000 / 16;
+-	switch (GRAPHICS_VER(i915)) {
+-	case 2:
+-	case 3:
+-		break;
+-	case 4:
+-		if (!IS_G4X(i915))
+-			break;
+-		fallthrough;
+-	case 5:
+-		g4x_get_stolen_reserved(i915, uncore,
++	if (GRAPHICS_VER(i915) >= 11) {
++		icl_get_stolen_reserved(i915, uncore,
+ 					&reserved_base, &reserved_size);
+-		break;
+-	case 6:
+-		gen6_get_stolen_reserved(i915, uncore,
+-					 &reserved_base, &reserved_size);
+-		break;
+-	case 7:
+-		if (IS_VALLEYVIEW(i915))
+-			vlv_get_stolen_reserved(i915, uncore,
+-						&reserved_base, &reserved_size);
+-		else
+-			gen7_get_stolen_reserved(i915, uncore,
+-						 &reserved_base, &reserved_size);
+-		break;
+-	case 8:
+-	case 9:
++	} else if (GRAPHICS_VER(i915) >= 8) {
+ 		if (IS_LP(i915))
+ 			chv_get_stolen_reserved(i915, uncore,
+ 						&reserved_base, &reserved_size);
+ 		else
+ 			bdw_get_stolen_reserved(i915, uncore,
+ 						&reserved_base, &reserved_size);
+-		break;
+-	default:
+-		MISSING_CASE(GRAPHICS_VER(i915));
+-		fallthrough;
+-	case 11:
+-	case 12:
+-		icl_get_stolen_reserved(i915, uncore,
+-					&reserved_base,
+-					&reserved_size);
+-		break;
++	} else if (GRAPHICS_VER(i915) >= 7) {
++		if (IS_VALLEYVIEW(i915))
++			vlv_get_stolen_reserved(i915, uncore,
++						&reserved_base, &reserved_size);
++		else
++			gen7_get_stolen_reserved(i915, uncore,
++						 &reserved_base, &reserved_size);
++	} else if (GRAPHICS_VER(i915) >= 6) {
++		gen6_get_stolen_reserved(i915, uncore,
++					 &reserved_base, &reserved_size);
++	} else if (GRAPHICS_VER(i915) >= 5 || IS_G4X(i915)) {
++		g4x_get_stolen_reserved(i915, uncore,
++					&reserved_base, &reserved_size);
  	}
--
--	MISSING_CASE("Unknown gen, unable to read command streamer timestamp frequency\n");
--	return 0;
- }
  
- void intel_gt_init_clock_frequency(struct intel_gt *gt)
+ 	/*
 
 -- 
 b4 0.10.0-dev-bbe61
