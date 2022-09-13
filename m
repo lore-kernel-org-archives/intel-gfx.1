@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C541C54EE9
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:30:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1376ECAAD8
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:30:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 882BA10E1CF;
-	Tue, 13 Sep 2022 19:29:48 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63CE010E30C;
- Tue, 13 Sep 2022 19:29:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9855B10E368;
+	Tue, 13 Sep 2022 19:29:59 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72C5210E1CF;
+ Tue, 13 Sep 2022 19:29:44 +0000 (UTC)
 Received: from dimapc.. (109-252-122-187.nat.spd-mgts.ru [109.252.122.187])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 0C6266602016;
- Tue, 13 Sep 2022 20:29:28 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 0550E6601FFD;
+ Tue, 13 Sep 2022 20:29:37 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1663097373;
- bh=K63vy2u1HxYl22uNLPWg20VUMf8HQCw+tVGLFD5Os78=;
+ s=mail; t=1663097383;
+ bh=KXnLT1zxHK6U6noEjkHRO2Mfpv2Yq4iTZhk9Iiw0LNk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VRDMXUhvInsuU0o+/dVRNdq4yqC2CrlDEE4qdoez1LR7hFtr3ikFIwro6CZ1v+qGW
- Z5egwx4pBkHmsoV1P9H+Cf0DRw7WXGUspRfp9/KT28NOm/JBErtdyJm42ksMyWNiKa
- NcpZAKAGdROl6+bm1Vek4OuZ/xmpE+i8XaB0WhSwTfOnWeMCYLn0Szc4eQcKxJ501r
- CS4ssY8Ejgu3yQWUWqjvn6qkqXyL2P3LS7DKE1KPLjLrSvNarhmocMEEICPf5Vau8x
- CXniAqMUsEEuiK4cfwfRu1yKgx9EfVaiO8Zx6txad3aOSSi1t+iWhG0ji40RMoMHrV
- U5ZTkLCDOup0w==
+ b=PQyGcACbXOTNIgk0irg1P6NcYmxhJujzFOXE6Ef69JU5AzWwVFi7exXLF2mnvwUiB
+ U6eAiHHbYb+Hxz0eHy+lpvBCT4eIvX0QaZ8+u6Rm/T+IkVvmFYnZJcPRS5hfBJKdNA
+ NEmTX/AUUCVZH7BKy8T/A0CORL8IZ6KLqa6Abrihbt9xQSZ9BMBOyaNjiBJjkyJXuh
+ n7tVhmliMWXj3IQ2im87fTlaYDbNTjLjQ33VTpcqARrbt3JYHn/df0U0UAxtjzLAaL
+ 9qy9nFA1JqFjSN8LOlgO2lVU8Xe9SAtAqJZnBk7uMKM5QtiavHcl6uzt3Z/oHiN9sG
+ 0PYhKji8YIX4g==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,16 +65,16 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Date: Tue, 13 Sep 2022 22:27:51 +0300
-Message-Id: <20220913192757.37727-16-dmitry.osipenko@collabora.com>
+Date: Tue, 13 Sep 2022 22:27:53 +0300
+Message-Id: <20220913192757.37727-18-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
 References: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 15/21] dma-buf: Move dma_buf_vmap() to
- dynamic locking specification
+Subject: [Intel-gfx] [PATCH v5 17/21] dma-buf: Move dma_buf_map_attachment()
+ to dynamic locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,37 +96,54 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move dma_buf_vmap/vunmap_unlocked() functions to the dynamic locking
+Move dma-buf attachment mapping functions to the dynamic locking
 specification by asserting that the reservation lock is held.
 
-Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/dma-buf.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/dma-buf/dma-buf.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 50db7571dc4b..80fd6ccc88c6 100644
+index b406f42d1ebe..8873315d6edc 100644
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1450,6 +1450,8 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
- 	if (WARN_ON(!dmabuf))
- 		return -EINVAL;
+@@ -1038,8 +1038,7 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
+ 	if (WARN_ON(!attach || !attach->dmabuf))
+ 		return ERR_PTR(-EINVAL);
  
-+	dma_resv_assert_held(dmabuf->resv);
-+
- 	if (!dmabuf->ops->vmap)
- 		return -EINVAL;
+-	if (dma_buf_attachment_is_dynamic(attach))
+-		dma_resv_assert_held(attach->dmabuf->resv);
++	dma_resv_assert_held(attach->dmabuf->resv);
  
-@@ -1510,6 +1512,8 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
- 	if (WARN_ON(!dmabuf))
+ 	if (attach->sgt) {
+ 		/*
+@@ -1054,7 +1053,6 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
+ 	}
+ 
+ 	if (dma_buf_is_dynamic(attach->dmabuf)) {
+-		dma_resv_assert_held(attach->dmabuf->resv);
+ 		if (!IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY)) {
+ 			r = attach->dmabuf->ops->pin(attach);
+ 			if (r)
+@@ -1143,15 +1141,11 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *attach,
+ 	if (WARN_ON(!attach || !attach->dmabuf || !sg_table))
  		return;
  
-+	dma_resv_assert_held(dmabuf->resv);
-+
- 	BUG_ON(iosys_map_is_null(&dmabuf->vmap_ptr));
- 	BUG_ON(dmabuf->vmapping_counter == 0);
- 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
+-	if (dma_buf_attachment_is_dynamic(attach))
+-		dma_resv_assert_held(attach->dmabuf->resv);
++	dma_resv_assert_held(attach->dmabuf->resv);
+ 
+ 	if (attach->sgt == sg_table)
+ 		return;
+ 
+-	if (dma_buf_is_dynamic(attach->dmabuf))
+-		dma_resv_assert_held(attach->dmabuf->resv);
+-
+ 	__unmap_dma_buf(attach, sg_table, direction);
+ 
+ 	if (dma_buf_is_dynamic(attach->dmabuf) &&
 -- 
 2.37.3
 
