@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB39C54EE9
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 18:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B31A7C54EE9
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 18:35:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3000E10E19C;
-	Tue, 13 Sep 2022 18:34:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC1210E1C1;
+	Tue, 13 Sep 2022 18:34:36 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2DB010E134;
- Tue, 13 Sep 2022 18:34:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3660810E19C;
+ Tue, 13 Sep 2022 18:34:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663094058; x=1694630058;
+ t=1663094059; x=1694630059;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7yYnFOrS4HSHIllQvgQMbGld9BHHnqz8SXGmK/ZIzkQ=;
- b=Q8Nuq27nLqOYOD0tlMSsmNLTrVMlDQGRYNAbZCwt9eP0Pqi4qKIosU9m
- j/rKowA06J9OGpMNMxiY4OF/ZU+exPplfOVYVhbmaBFJIF9F4+ubPBqKe
- mv5vU4M/5kKK5XUVHthpOLwlaPTf7rEA1yKT6GUETqG3f2ddoi+q/B6wT
- hJs5x2HHeRRRJxGobpxwUll/kKe1JnqPvJfSKDTG2xE8sFD2/q9MjGkSM
- A9EcfmhrHMfzOvvf8E1IGtnyIbdDBeUV8YKLBUUNx+zslnejFDMoCz+G/
- errCNCEsGKP4zpjSoDn010YIbw+PHTPk7CYE4WmCBHyuq1tIlswmrZlBn g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="281235521"
-X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="281235521"
+ bh=TCrihI33FEvkXnVpKU2p1Zl8qC/kafRtjKmsn5+RZUI=;
+ b=BBW6dz1LTnES2sEGk/RBMlxnyo5wWlBImEk+x7SF5nxU7k4YjV0hKvC0
+ JV0kZgvViPQTjpaHHkkD7VQ+qp/VaZ3hsjcn5YfzhOD+Yuc9gX0rUrFJY
+ eW+RkT+chns9B5OxiS94k+echjvT7zaI7nGBJ/NYn43vohcX0mTifvSFz
+ Ae9u/x664kZue40Zvji7VI7AtPULpTyAFwH7jXvyRJ2fnqdYmwZB7yLUb
+ ViKRXqM93ZOfZDIqdDAJDHMDpRLLyogGnRglGbuDbfJZgpYSMbk5p0oq7
+ l1KDRWUaCsYLM0aMvKRrtxJTeCElRrywmQaESVmt2tQf0Gj1D67ylACG4 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="281235528"
+X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="281235528"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Sep 2022 11:34:17 -0700
-X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="647045101"
+X-IronPort-AV: E=Sophos;i="5.93,313,1654585200"; d="scan'208";a="647045104"
 Received: from invictus.jf.intel.com ([10.165.21.134])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Sep 2022 11:34:17 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 13 Sep 2022 11:33:37 -0700
-Message-Id: <20220913183341.908028-2-radhakrishna.sripada@intel.com>
+Date: Tue, 13 Sep 2022 11:33:39 -0700
+Message-Id: <20220913183341.908028-4-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220913183341.908028-1-radhakrishna.sripada@intel.com>
 References: <20220913183341.908028-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 1/5] drm/i915: Read graphics/media/display
- arch version from hw
+Subject: [Intel-gfx] [PATCH v5 3/5] drm/i915/mtl: Define engine context
+ layouts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,253 +62,145 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Matt Roper <matthew.d.roper@intel.com>
 
-Going forward, the hardware teams no longer consider new platforms to
-have a "generation" in the way we've defined it for past platforms.
-Instead, each IP block (graphics, media, display) will have their own
-architecture major.minor versions and stepping ID's which should be read
-directly from a register in the MMIO space.  New hardware programming
-styles, features, and workarounds should be conditional solely on the
-architecture version, and should no longer be derived from the PCI
-device ID, revision ID, or platform-specific feature flags.
+The part of the media and blitter engine contexts that we care about for
+setting up an initial state are the same on MTL as they were on DG2
+(and PVC), so we need to update the driver conditions to re-use the DG2
+context table.
 
-Bspec: 63361, 64111
+For render/compute engines, the part of the context images are nearly
+the same, although the layout had a very slight change --- one POSH
+register was removed and the placement of some LRI/noops adjusted
+slightly to compensate.
 
 v2:
-  - Move the IP version readout to intel_device_info.c
-  - Convert the macro into a function
-
+ - Dg2, mtl xcs offsets slightly vary. Use a separate offsets array(Bala)
+ - Drop unused registers in mtl rcs offsets.(Bala)
+ - Add missing nop in xcs offsets(Bala)
 v3:
-  - Move subplatform init to runtime early init
-  - Cache runtime ver, release info to compare with hardware values.
-  - Use IP_VER for snaity check(MattR)
+ - Fix the spacing for nop in xcs offset(MattR)
 
+Bspec: 46261, 46260, 45585
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_regs.h  |  2 +
- drivers/gpu/drm/i915/i915_driver.c       |  3 +-
- drivers/gpu/drm/i915/i915_drv.h          |  2 +
- drivers/gpu/drm/i915/i915_pci.c          |  1 +
- drivers/gpu/drm/i915/i915_reg.h          |  7 +++
- drivers/gpu/drm/i915/intel_device_info.c | 74 +++++++++++++++++++++++-
- drivers/gpu/drm/i915/intel_device_info.h | 12 +++-
- 7 files changed, 98 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_lrc.c | 82 ++++++++++++++++++++++++++++-
+ 1 file changed, 80 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 2275ee47da95..2d2044f2ed9d 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -39,6 +39,8 @@
- #define FORCEWAKE_ACK_RENDER_GEN9		_MMIO(0xd84)
- #define FORCEWAKE_ACK_MEDIA_GEN9		_MMIO(0xd88)
- 
-+#define GMD_ID_GRAPHICS				_MMIO(0xd8c)
-+
- #define MCFG_MCR_SELECTOR			_MMIO(0xfd0)
- #define SF_MCR_SELECTOR				_MMIO(0xfd8)
- #define GEN8_MCR_SELECTOR			_MMIO(0xfdc)
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index c459eb362c47..e86798eaecb6 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -337,7 +337,8 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
- 	if (i915_inject_probe_failure(dev_priv))
- 		return -ENODEV;
- 
--	intel_device_info_subplatform_init(dev_priv);
-+	intel_device_info_runtime_init_early(dev_priv);
-+
- 	intel_step_init(dev_priv);
- 
- 	intel_uncore_mmio_debug_init_early(dev_priv);
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 9f9372931fd2..bec48cb0efef 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -940,6 +940,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 
- #define HAS_GMCH(dev_priv) (INTEL_INFO(dev_priv)->display.has_gmch)
- 
-+#define HAS_GMD_ID(i915)	INTEL_INFO(i915)->has_gmd_id
-+
- #define HAS_LSPCON(dev_priv) (IS_DISPLAY_VER(dev_priv, 9, 10))
- 
- #define HAS_L3_CCS_READ(i915) (INTEL_INFO(i915)->has_l3_ccs_read)
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 77e7df21f539..cace897e1db1 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1143,6 +1143,7 @@ static const struct intel_device_info mtl_info = {
- 	.display.has_modular_fia = 1,
- 	.extra_gt_list = xelpmp_extra_gt,
- 	.has_flat_ccs = 0,
-+	.has_gmd_id = 1,
- 	.has_snoop = 1,
- 	.__runtime.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
- 	.__runtime.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(CCS0),
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 09752a7217f8..0ab5fe70b482 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5828,6 +5828,11 @@
- #define ICL_DSSM_CDCLK_PLL_REFCLK_19_2MHz	(1 << 29)
- #define ICL_DSSM_CDCLK_PLL_REFCLK_38_4MHz	(2 << 29)
- 
-+#define GMD_ID_DISPLAY				_MMIO(0x510a0)
-+#define   GMD_ID_ARCH_MASK			REG_GENMASK(31, 22)
-+#define   GMD_ID_RELEASE_MASK			REG_GENMASK(21, 14)
-+#define   GMD_ID_STEP				REG_GENMASK(5, 0)
-+
- /*GEN11 chicken */
- #define _PIPEA_CHICKEN				0x70038
- #define _PIPEB_CHICKEN				0x71038
-@@ -8345,4 +8350,6 @@ enum skl_power_gate {
- #define   MTL_TRAS_MASK			REG_GENMASK(16, 8)
- #define   MTL_TRDPRE_MASK		REG_GENMASK(7, 0)
- 
-+#define MTL_MEDIA_GSI_BASE		0x380000
-+
- #endif /* _I915_REG_H_ */
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 1434dc33cf49..68c58e38fe62 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -29,6 +29,7 @@
- 
- #include "display/intel_cdclk.h"
- #include "display/intel_de.h"
-+#include "gt/intel_gt_regs.h"
- #include "intel_device_info.h"
- #include "i915_drv.h"
- #include "i915_utils.h"
-@@ -231,7 +232,7 @@ static bool find_devid(u16 id, const u16 *p, unsigned int num)
- 	return false;
- }
- 
--void intel_device_info_subplatform_init(struct drm_i915_private *i915)
-+static void intel_device_info_subplatform_init(struct drm_i915_private *i915)
- {
- 	const struct intel_device_info *info = INTEL_INFO(i915);
- 	const struct intel_runtime_info *rinfo = RUNTIME_INFO(i915);
-@@ -288,6 +289,77 @@ void intel_device_info_subplatform_init(struct drm_i915_private *i915)
- 	RUNTIME_INFO(i915)->platform_mask[pi] |= mask;
- }
- 
-+static void ip_ver_read(struct drm_i915_private *i915, u32 offset, struct ip_version *ip)
-+{
-+	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
-+	void __iomem *addr;
-+	u32 val;
-+	u8 ver = ip->ver;
-+	u8 rel = ip->rel;
-+
-+	addr = pci_iomap_range(pdev, 0, offset, sizeof(u32));
-+	if (drm_WARN_ON(&i915->drm, !addr))
-+		return;
-+
-+	val = ioread32(addr);
-+	pci_iounmap(pdev, addr);
-+
-+	ip->ver = REG_FIELD_GET(GMD_ID_ARCH_MASK, val);
-+	ip->rel = REG_FIELD_GET(GMD_ID_RELEASE_MASK, val);
-+	ip->step = REG_FIELD_GET(GMD_ID_STEP, val);
-+
-+	/* Sanity check against expected versions from device info */
-+	if (IP_VER(ip->ver, ip->rel) < IP_VER(ver, rel))
-+		drm_dbg(&i915->drm,
-+			"Hardware reports GMD IP version %u.%u but minimum expected is %u.%u\n",
-+			ip->ver, ip->rel, ver, rel);
-+}
-+
-+/**
-+ * Setup the graphics version for the current device.  This must be done before
-+ * any code that performs checks on GRAPHICS_VER or DISPLAY_VER, so this
-+ * function should be called very early in the driver initialization sequence.
-+ *
-+ * Regular MMIO access is not yet setup at the point this function is called so
-+ * we peek at the appropriate MMIO offset directly.  The GMD_ID register is
-+ * part of an 'always on' power well by design, so we don't need to worry about
-+ * forcewake while reading it.
-+ */
-+static void intel_ipver_early_init(struct drm_i915_private *i915)
-+{
-+	struct intel_runtime_info *runtime = RUNTIME_INFO(i915);
-+
-+	if (!HAS_GMD_ID(i915))
-+		return;
-+
-+	ip_ver_read(i915, i915_mmio_reg_offset(GMD_ID_GRAPHICS),
-+		    &runtime->graphics.ip);
-+	ip_ver_read(i915, i915_mmio_reg_offset(GMD_ID_DISPLAY),
-+		    &runtime->display.ip);
-+	ip_ver_read(i915, MTL_MEDIA_GSI_BASE + i915_mmio_reg_offset(GMD_ID_GRAPHICS),
-+		    &runtime->media.ip);
-+}
-+
-+/**
-+ * intel_device_info_runtime_init_early - initialize early runtime info
-+ * @i915: the i915 device
-+ *
-+ * Determine early intel_device_info fields at runtime.
-+ *
-+ * Use it when:
-+ *   - Early init of certain runtime info fields are to be initialized
-+ *
-+ * This function needs to be called:
-+ *   - before the MMIO has been setup as we are reading registers,
-+ *   - before the PCH has been detected,
-+ *   - before the first usage of the fields it can tweak.
-+ */
-+void intel_device_info_runtime_init_early(struct drm_i915_private *i915)
-+{
-+	intel_ipver_early_init(i915);
-+	intel_device_info_subplatform_init(i915);
-+}
-+
- /**
-  * intel_device_info_runtime_init - initialize runtime info
-  * @dev_priv: the i915 device
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 09b18910d3ab..e3aa88d33d63 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -153,6 +153,7 @@ enum intel_ppgtt_type {
- 	func(has_4tile); \
- 	func(has_flat_ccs); \
- 	func(has_global_mocs); \
-+	func(has_gmd_id); \
- 	func(has_gt_uc); \
- 	func(has_heci_pxp); \
- 	func(has_heci_gscfi); \
-@@ -198,9 +199,18 @@ enum intel_ppgtt_type {
- struct ip_version {
- 	u8 ver;
- 	u8 rel;
-+	u8 step;
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 08214683e130..8fe6aa01c7bd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -264,6 +264,39 @@ static const u8 dg2_xcs_offsets[] = {
+ 	END
  };
  
- struct intel_runtime_info {
-+	/*
-+	 * On modern platforms, the architecture major.minor version numbers
-+	 * and stepping are read directly from the hardware rather than derived
-+	 * from the PCI device and revision ID's.
-+	 *
-+	 * Note that the hardware gives us a single "graphics" number that
-+	 * should represent render, compute, and copy behavior.
-+	 */
- 	struct {
- 		struct ip_version ip;
- 	} graphics;
-@@ -309,7 +319,7 @@ struct intel_driver_caps {
++static const u8 mtl_xcs_offsets[] = {
++	NOP(1),
++	LRI(13, POSTED),
++	REG16(0x244),
++	REG(0x034),
++	REG(0x030),
++	REG(0x038),
++	REG(0x03c),
++	REG(0x168),
++	REG(0x140),
++	REG(0x110),
++	REG(0x1c0),
++	REG(0x1c4),
++	REG(0x1c8),
++	REG(0x180),
++	REG16(0x2b4),
++	NOP(4),
++
++	NOP(1),
++	LRI(9, POSTED),
++	REG16(0x3a8),
++	REG16(0x28c),
++	REG16(0x288),
++	REG16(0x284),
++	REG16(0x280),
++	REG16(0x27c),
++	REG16(0x278),
++	REG16(0x274),
++	REG16(0x270),
++
++	END
++};
++
+ static const u8 gen8_rcs_offsets[] = {
+ 	NOP(1),
+ 	LRI(14, POSTED),
+@@ -606,6 +639,47 @@ static const u8 dg2_rcs_offsets[] = {
+ 	END
+ };
  
- const char *intel_platform_name(enum intel_platform platform);
++static const u8 mtl_rcs_offsets[] = {
++       NOP(1),
++       LRI(13, POSTED),
++       REG16(0x244),
++       REG(0x034),
++       REG(0x030),
++       REG(0x038),
++       REG(0x03c),
++       REG(0x168),
++       REG(0x140),
++       REG(0x110),
++       REG(0x1c0),
++       REG(0x1c4),
++       REG(0x1c8),
++       REG(0x180),
++       REG16(0x2b4),
++
++       NOP(1),
++       LRI(9, POSTED),
++       REG16(0x3a8),
++       REG16(0x28c),
++       REG16(0x288),
++       REG16(0x284),
++       REG16(0x280),
++       REG16(0x27c),
++       REG16(0x278),
++       REG16(0x274),
++       REG16(0x270),
++
++       NOP(2),
++       LRI(2, POSTED),
++       REG16(0x5a8),
++       REG16(0x5ac),
++
++       NOP(6),
++       LRI(1, 0),
++       REG(0x0c8),
++
++       END
++};
++
+ #undef END
+ #undef REG16
+ #undef REG
+@@ -624,7 +698,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		   !intel_engine_has_relative_mmio(engine));
  
--void intel_device_info_subplatform_init(struct drm_i915_private *dev_priv);
-+void intel_device_info_runtime_init_early(struct drm_i915_private *dev_priv);
- void intel_device_info_runtime_init(struct drm_i915_private *dev_priv);
- 
- void intel_device_info_print(const struct intel_device_info *info,
+ 	if (engine->flags & I915_ENGINE_HAS_RCS_REG_STATE) {
+-		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70))
++			return mtl_rcs_offsets;
++		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
+ 			return dg2_rcs_offsets;
+ 		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 50))
+ 			return xehp_rcs_offsets;
+@@ -637,7 +713,9 @@ static const u8 *reg_offsets(const struct intel_engine_cs *engine)
+ 		else
+ 			return gen8_rcs_offsets;
+ 	} else {
+-		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
++		if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70))
++			return mtl_xcs_offsets;
++		else if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 55))
+ 			return dg2_xcs_offsets;
+ 		else if (GRAPHICS_VER(engine->i915) >= 12)
+ 			return gen12_xcs_offsets;
 -- 
 2.34.1
 
