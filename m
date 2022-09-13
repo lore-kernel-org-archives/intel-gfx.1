@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E38CEC6FA83
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 00:59:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDFDBC6FA82
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 00:59:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C44810E4E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACBB410E4EB;
 	Tue, 13 Sep 2022 00:58:20 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6F110E4B4;
- Tue, 13 Sep 2022 00:58:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3958B10E4B2;
+ Tue, 13 Sep 2022 00:58:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663030685; x=1694566685;
+ t=1663030686; x=1694566686;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JJJ0tSweTe1xb0ZQATxfSnpm/XigrKdIC8bl5YUXtuM=;
- b=fibu6ad0e0G+FOTFrUeHmRCk9ZBQHVsRgGKYyYpdhKObiODQymfylkZ8
- 7SoMum6Of0vK/9PAPZ4ReA+3p9vrS7MrWgdBjqv6YNBX7y+0htS1d8klc
- T+N1PK021Mx9VQAWIlXB/dyNpIqUrJrs+mprUUhEfP4cDyI6Jeg85ci6E
- pOEokD4WTbmbKygfTEPJ+vTEc6k6PAPde1z7gtZpOPPCjHPTBIA7ddReK
- SGFhEkkOudYADHfmKraQC4cJy1lHm0G3MP9uwgjwcecT4MU7Y9BhX6ZYl
- h9sm1zgxNaD7y2UNnrRMjJFPdypm8mKnkEzJMyb5bMDT3sQ09dD+ssaoh g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="295592201"
-X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="295592201"
+ bh=yZmdm0u4FAYeWbhxxipshqFrlxKNy2jjeZaddOh01Ls=;
+ b=fmrbHNSDAJ7Xl4SnPk01tIzmfrC1XBZ7u7qm3X3MpOyw6mdFpDmlR8Up
+ 4y3hbqxIBCioaRSPGyT+/jKIh5FwKUfoo1XMBT9zVZzDvcTPd5IgzwGQS
+ hYt4ih+c6a3eAn7Fy+wWAWjQ/5hrunxgeOc4cD41eW3hnCBXpo1fyqucl
+ fEDhGqktNfaFbqsgwaVmjKgT1CWalTkKKJcmgh1wKFROLf9pX3n7RYo1B
+ ORYM6WrVGooLtX2rOAWTUvwGwS4bsEhpa5fzAoSGHR9mmuHNJoK6rqtLp
+ 3eY7blPYY3vJQBrcMTKmHT1MT95IF3sXF8nSiIRtIq+BBhcwj/Ib7G+YA A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10468"; a="295592206"
+X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="295592206"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 17:58:04 -0700
-X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="758593563"
+ 12 Sep 2022 17:58:06 -0700
+X-IronPort-AV: E=Sophos;i="5.93,311,1654585200"; d="scan'208";a="758593576"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2022 17:58:04 -0700
+ 12 Sep 2022 17:58:06 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Sep 2022 17:57:34 -0700
-Message-Id: <20220913005739.798337-11-daniele.ceraolospurio@intel.com>
+Date: Mon, 12 Sep 2022 17:57:36 -0700
+Message-Id: <20220913005739.798337-13-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220913005739.798337-1-daniele.ceraolospurio@intel.com>
 References: <20220913005739.798337-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 10/15] drm/i915/dg2: setup HuC loading via GSC
+Subject: [Intel-gfx] [PATCH v5 12/15] drm/i915/huc: stall media submission
+ until HuC is loaded
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,241 +56,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tomas Winkler <tomas.winkler@intel.com>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- Vitaly Lubart <vitaly.lubart@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The GSC will perform both the load and the authentication, so we just
-need to check the auth bit after the GSC has replied.
-Since we require the PXP module to load the HuC, the earliest we can
-trigger the load is during the pxp_bind operation.
-
-Note that GSC-loaded HuC survives GT reset, so we need to just mark it
-as ready when we re-init the GT HW.
-
-V2: move setting of HuC fw error state to the failure path of the HuC
-auth function, so it covers both the legacy and new auth flows
-V4:
-1. Fix typo in the commit message
-2. style fix in intel_huc_wait_for_auth_complete()
+Wait on the fence to be signalled to avoid the submissions finding HuC
+not yet loaded.
 
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
+Cc: Tony Ye <tony.ye@intel.com>
 Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Acked-by: Tony Ye <tony.ye@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_huc.c    | 41 +++++++++++++++--------
- drivers/gpu/drm/i915/gt/uc/intel_huc.h    |  2 ++
- drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c | 34 +++++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h |  1 +
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c  | 14 +++++++-
- 5 files changed, 77 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_huc.h |  6 ++++++
+ drivers/gpu/drm/i915/i915_request.c    | 24 ++++++++++++++++++++++++
+ 2 files changed, 30 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-index 3bb8838e325a..f0188931d8e4 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-@@ -125,6 +125,28 @@ void intel_huc_fini(struct intel_huc *huc)
- 	intel_uc_fw_fini(&huc->fw);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.h b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+index 915d281c1c72..52db03620c60 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+@@ -81,6 +81,12 @@ static inline bool intel_huc_is_loaded_by_gsc(const struct intel_huc *huc)
+ 	return huc->fw.loaded_via_gsc;
  }
  
-+int intel_huc_wait_for_auth_complete(struct intel_huc *huc)
++static inline bool intel_huc_wait_required(struct intel_huc *huc)
 +{
-+	struct intel_gt *gt = huc_to_gt(huc);
-+	int ret;
-+
-+	ret = __intel_wait_for_register(gt->uncore,
-+					huc->status.reg,
-+					huc->status.mask,
-+					huc->status.value,
-+					2, 50, NULL);
-+
-+	if (ret) {
-+		drm_err(&gt->i915->drm, "HuC: Firmware not verified %d\n", ret);
-+		intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_LOAD_FAIL);
-+		return ret;
-+	}
-+
-+	intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_RUNNING);
-+	drm_info(&gt->i915->drm, "HuC authenticated\n");
-+	return 0;
++	return intel_huc_is_used(huc) && intel_huc_is_loaded_by_gsc(huc) &&
++	       !intel_huc_is_authenticated(huc);
 +}
 +
- /**
-  * intel_huc_auth() - Authenticate HuC uCode
-  * @huc: intel_huc structure
-@@ -161,27 +183,18 @@ int intel_huc_auth(struct intel_huc *huc)
- 	}
+ void intel_huc_load_status(struct intel_huc *huc, struct drm_printer *p);
  
- 	/* Check authentication status, it should be done by now */
--	ret = __intel_wait_for_register(gt->uncore,
--					huc->status.reg,
--					huc->status.mask,
--					huc->status.value,
--					2, 50, NULL);
--	if (ret) {
--		DRM_ERROR("HuC: Firmware not verified %d\n", ret);
-+	ret = intel_huc_wait_for_auth_complete(huc);
-+	if (ret)
- 		goto fail;
--	}
- 
--	intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_RUNNING);
--	drm_info(&gt->i915->drm, "HuC authenticated\n");
- 	return 0;
- 
- fail:
- 	i915_probe_error(gt->i915, "HuC: Authentication failed %d\n", ret);
--	intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_LOAD_FAIL);
+ #endif
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 62fad16a55e8..77f45a3cb01f 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -1621,6 +1621,20 @@ i915_request_await_object(struct i915_request *to,
  	return ret;
  }
  
--static bool huc_is_authenticated(struct intel_huc *huc)
-+bool intel_huc_is_authenticated(struct intel_huc *huc)
- {
- 	struct intel_gt *gt = huc_to_gt(huc);
- 	intel_wakeref_t wakeref;
-@@ -223,7 +236,7 @@ int intel_huc_check_status(struct intel_huc *huc)
- 		break;
- 	}
- 
--	return huc_is_authenticated(huc);
-+	return intel_huc_is_authenticated(huc);
- }
- 
- void intel_huc_update_auth_status(struct intel_huc *huc)
-@@ -231,7 +244,7 @@ void intel_huc_update_auth_status(struct intel_huc *huc)
- 	if (!intel_uc_fw_is_loadable(&huc->fw))
- 		return;
- 
--	if (huc_is_authenticated(huc))
-+	if (intel_huc_is_authenticated(huc))
- 		intel_uc_fw_change_status(&huc->fw,
- 					  INTEL_UC_FIRMWARE_RUNNING);
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.h b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
-index d7e25b6e879e..51f9d96a3ca3 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_huc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
-@@ -26,8 +26,10 @@ void intel_huc_init_early(struct intel_huc *huc);
- int intel_huc_init(struct intel_huc *huc);
- void intel_huc_fini(struct intel_huc *huc);
- int intel_huc_auth(struct intel_huc *huc);
-+int intel_huc_wait_for_auth_complete(struct intel_huc *huc);
- int intel_huc_check_status(struct intel_huc *huc);
- void intel_huc_update_auth_status(struct intel_huc *huc);
-+bool intel_huc_is_authenticated(struct intel_huc *huc);
- 
- static inline int intel_huc_sanitize(struct intel_huc *huc)
- {
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
-index 9d6ab1e01639..4f246416db17 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
-@@ -3,9 +3,43 @@
-  * Copyright © 2014-2019 Intel Corporation
-  */
- 
-+#include "gt/intel_gsc.h"
- #include "gt/intel_gt.h"
-+#include "intel_huc.h"
- #include "intel_huc_fw.h"
- #include "i915_drv.h"
-+#include "pxp/intel_pxp_huc.h"
-+
-+int intel_huc_fw_load_and_auth_via_gsc(struct intel_huc *huc)
++static void i915_request_await_huc(struct i915_request *rq)
 +{
-+	int ret;
++	struct intel_huc *huc = &rq->context->engine->gt->uc.huc;
 +
-+	if (!intel_huc_is_loaded_by_gsc(huc))
-+		return -ENODEV;
++	/* don't stall kernel submissions! */
++	if (!rcu_access_pointer(rq->context->gem_context))
++		return;
 +
-+	if (!intel_uc_fw_is_loadable(&huc->fw))
-+		return -ENOEXEC;
-+
-+	/*
-+	 * If we abort a suspend, HuC might still be loaded when the mei
-+	 * component gets re-bound and this function called again. If so, just
-+	 * mark the HuC as loaded.
-+	 */
-+	if (intel_huc_is_authenticated(huc)) {
-+		intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_RUNNING);
-+		return 0;
-+	}
-+
-+	GEM_WARN_ON(intel_uc_fw_is_loaded(&huc->fw));
-+
-+	ret = intel_pxp_huc_load_and_auth(&huc_to_gt(huc)->pxp);
-+	if (ret)
-+		return ret;
-+
-+	intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_TRANSFERRED);
-+
-+	return intel_huc_wait_for_auth_complete(huc);
++	if (intel_huc_wait_required(huc))
++		i915_sw_fence_await_sw_fence(&rq->submit,
++					     &huc->delayed_load.fence,
++					     &rq->submitq);
 +}
- 
- /**
-  * intel_huc_fw_upload() - load HuC uCode to device via DMA transfer
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h
-index 12f264ee3e0b..db42e238b45f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h
-@@ -8,6 +8,7 @@
- 
- struct intel_huc;
- 
-+int intel_huc_fw_load_and_auth_via_gsc(struct intel_huc *huc);
- int intel_huc_fw_upload(struct intel_huc *huc);
- 
- #endif
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index e0d09455a92e..00433f59e2c8 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -14,6 +14,7 @@
- #include "intel_pxp_session.h"
- #include "intel_pxp_tee.h"
- #include "intel_pxp_tee_interface.h"
-+#include "intel_pxp_huc.h"
- 
- static inline struct intel_pxp *i915_dev_to_pxp(struct device *i915_kdev)
- {
-@@ -126,13 +127,24 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
- {
- 	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
- 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
-+	struct intel_uc *uc = &pxp_to_gt(pxp)->uc;
- 	intel_wakeref_t wakeref;
-+	int ret = 0;
- 
- 	mutex_lock(&pxp->tee_mutex);
- 	pxp->pxp_component = data;
- 	pxp->pxp_component->tee_dev = tee_kdev;
- 	mutex_unlock(&pxp->tee_mutex);
- 
-+	if (intel_uc_uses_huc(uc) && intel_huc_is_loaded_by_gsc(&uc->huc)) {
-+		with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-+			/* load huc via pxp */
-+			ret = intel_huc_fw_load_and_auth_via_gsc(&uc->huc);
-+			if (ret < 0)
-+				drm_err(&i915->drm, "failed to load huc via gsc %d\n", ret);
-+		}
-+	}
 +
- 	/* if we are suspended, the HW will be re-initialized on resume */
- 	wakeref = intel_runtime_pm_get_if_in_use(&i915->runtime_pm);
- 	if (!wakeref)
-@@ -144,7 +156,7 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+ static struct i915_request *
+ __i915_request_ensure_parallel_ordering(struct i915_request *rq,
+ 					struct intel_timeline *timeline)
+@@ -1702,6 +1716,16 @@ __i915_request_add_to_timeline(struct i915_request *rq)
+ 	struct intel_timeline *timeline = i915_request_timeline(rq);
+ 	struct i915_request *prev;
  
- 	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
- 
--	return 0;
-+	return ret;
- }
- 
- static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
++	/*
++	 * Media workloads may require HuC, so stall them until HuC loading is
++	 * complete. Note that HuC not being loaded when a user submission
++	 * arrives can only happen when HuC is loaded via GSC and in that case
++	 * we still expect the window between us starting to accept submissions
++	 * and HuC loading completion to be small (a few hundred ms).
++	 */
++	if (rq->engine->class == VIDEO_DECODE_CLASS)
++		i915_request_await_huc(rq);
++
+ 	/*
+ 	 * Dependency tracking and request ordering along the timeline
+ 	 * is special cased so that we can eliminate redundant ordering
 -- 
 2.37.2
 
