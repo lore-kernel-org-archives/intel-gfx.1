@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C5E7C54EE9
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:30:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A08C6FA82
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Sep 2022 19:30:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9365210E305;
-	Tue, 13 Sep 2022 19:29:32 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54A0E10E262;
- Tue, 13 Sep 2022 19:28:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF6CD10E311;
+	Tue, 13 Sep 2022 19:29:37 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EDD110E28E;
+ Tue, 13 Sep 2022 19:29:20 +0000 (UTC)
 Received: from dimapc.. (109-252-122-187.nat.spd-mgts.ru [109.252.122.187])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id AD63C6601FF3;
- Tue, 13 Sep 2022 20:28:42 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 2D9E26602002;
+ Tue, 13 Sep 2022 20:29:14 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1663097327;
- bh=Ov9ZX8VHbwHToZzjcmjiNJ0jjSTvXmYhNQje1p3xR4A=;
+ s=mail; t=1663097359;
+ bh=pCSmC3VPtA7CuegS38L6lty54ziB9yvQFvfJf8KB1ik=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=B15XfPU8GnbNZTWw0ofEzetFD2TYK/dvVkvVuf4RuLMJpUHzPq/xgl6TXqcXjgt0Z
- XTFDGo84L236dwoYZCRiv+vafDk8fgnojykiEOav8siMVIpL3ZUyhmHKVEU3S369PC
- fV+/WR+9JVBJ7aA3hL994exGkNH5NumoWi9vcQD2f2u0DvXjS6R+giO3AFTqYJbu3V
- lssn1YpIxPNNjrZYB2Ibbv0e6G8W9EYd0RiV7B/MGqIwRhmPCBWlBsumRO3nucaEnC
- LJvB2vQrwHK5lgZJlZaSRClarOX8DtCbe1o9VWo93d+i2U94FxF6QraolQnNxupDGZ
- kRHWjffst9Dww==
+ b=YarCkar20kAqG3+1VkRt6R2uAtYr8CG7tRx1a1T8+zB7m/UTSW7eAZK5DQJypvU/D
+ 08tcY9EiseRoSDRJuc3NNPXvBx95BTJwZyUMZHpqIFxYCBCyV4TouAOh/URDQn5gmt
+ Q1A9b54CsLGVqE+GX3GjFOD1MM4NCMpU3VJ6UmBRk4EWvtJn/v9SwrDH0usOWMH9WY
+ Zo4wHy881VyHL8qtdjbahxbfNQhmB95faFl8YXOgeDzWs/hqbMKX/OvXlZS3d29tw7
+ o5+gD9Kt/8jyM2rVqpOaIQAYhaSldsRGqeH2E5IjD5fcs7zqBFu8glSW/TqTlBv9Pc
+ MjDH0B5C7kQDg==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -65,15 +64,15 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Date: Tue, 13 Sep 2022 22:27:41 +0300
-Message-Id: <20220913192757.37727-6-dmitry.osipenko@collabora.com>
+Date: Tue, 13 Sep 2022 22:27:48 +0300
+Message-Id: <20220913192757.37727-13-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
 References: <20220913192757.37727-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 05/21] drm/armada: Prepare to dynamic dma-buf
+Subject: [Intel-gfx] [PATCH v5 12/21] xen/gntdev: Prepare to dynamic dma-buf
  locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,41 +95,49 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prepare Armada driver to the common dynamic dma-buf locking convention
+Prepare gntdev driver to the common dynamic dma-buf locking convention
 by starting to use the unlocked versions of dma-buf API functions.
 
+Acked-by: Juergen Gross <jgross@suse.com>
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/armada/armada_gem.c | 8 ++++----
+ drivers/xen/gntdev-dmabuf.c | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/armada/armada_gem.c b/drivers/gpu/drm/armada/armada_gem.c
-index 5430265ad458..26d10065d534 100644
---- a/drivers/gpu/drm/armada/armada_gem.c
-+++ b/drivers/gpu/drm/armada/armada_gem.c
-@@ -66,8 +66,8 @@ void armada_gem_free_object(struct drm_gem_object *obj)
- 	if (dobj->obj.import_attach) {
- 		/* We only ever display imported data */
- 		if (dobj->sgt)
--			dma_buf_unmap_attachment(dobj->obj.import_attach,
--						 dobj->sgt, DMA_TO_DEVICE);
-+			dma_buf_unmap_attachment_unlocked(dobj->obj.import_attach,
-+							  dobj->sgt, DMA_TO_DEVICE);
- 		drm_prime_gem_destroy(&dobj->obj, NULL);
- 	}
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 940e5e9e8a54..4440e626b797 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -600,7 +600,7 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
  
-@@ -539,8 +539,8 @@ int armada_gem_map_import(struct armada_gem_object *dobj)
- {
- 	int ret;
+ 	gntdev_dmabuf->u.imp.attach = attach;
  
--	dobj->sgt = dma_buf_map_attachment(dobj->obj.import_attach,
--					   DMA_TO_DEVICE);
-+	dobj->sgt = dma_buf_map_attachment_unlocked(dobj->obj.import_attach,
-+						    DMA_TO_DEVICE);
- 	if (IS_ERR(dobj->sgt)) {
- 		ret = PTR_ERR(dobj->sgt);
- 		dobj->sgt = NULL;
+-	sgt = dma_buf_map_attachment(attach, DMA_BIDIRECTIONAL);
++	sgt = dma_buf_map_attachment_unlocked(attach, DMA_BIDIRECTIONAL);
+ 	if (IS_ERR(sgt)) {
+ 		ret = ERR_CAST(sgt);
+ 		goto fail_detach;
+@@ -658,7 +658,7 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
+ fail_end_access:
+ 	dmabuf_imp_end_foreign_access(gntdev_dmabuf->u.imp.refs, count);
+ fail_unmap:
+-	dma_buf_unmap_attachment(attach, sgt, DMA_BIDIRECTIONAL);
++	dma_buf_unmap_attachment_unlocked(attach, sgt, DMA_BIDIRECTIONAL);
+ fail_detach:
+ 	dma_buf_detach(dma_buf, attach);
+ fail_free_obj:
+@@ -708,8 +708,8 @@ static int dmabuf_imp_release(struct gntdev_dmabuf_priv *priv, u32 fd)
+ 	attach = gntdev_dmabuf->u.imp.attach;
+ 
+ 	if (gntdev_dmabuf->u.imp.sgt)
+-		dma_buf_unmap_attachment(attach, gntdev_dmabuf->u.imp.sgt,
+-					 DMA_BIDIRECTIONAL);
++		dma_buf_unmap_attachment_unlocked(attach, gntdev_dmabuf->u.imp.sgt,
++						  DMA_BIDIRECTIONAL);
+ 	dma_buf = attach->dmabuf;
+ 	dma_buf_detach(attach->dmabuf, attach);
+ 	dma_buf_put(dma_buf);
 -- 
 2.37.3
 
