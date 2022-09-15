@@ -4,30 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CFEBC32771
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Sep 2022 23:13:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBAC5C32771
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Sep 2022 23:27:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61F3E10E2F3;
-	Thu, 15 Sep 2022 23:13:40 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5E34510E2F5;
- Thu, 15 Sep 2022 23:13:26 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 5A93CA73C7;
- Thu, 15 Sep 2022 23:13:26 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8A8C10EC10;
+	Thu, 15 Sep 2022 23:27:04 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F189310EC16;
+ Thu, 15 Sep 2022 23:27:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663284421; x=1694820421;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=PYtD+E/vSPis7wOIecLUjsBiB0SZeZOJgiCiWGSMUo4=;
+ b=DK3wpy7eDRPHG0jjiv2kW2wZigxoOVvADEUisoTBCQkIIULf3gNcjgcm
+ /OJ2AwkWNRm6g7NAuHfFdI4GGf2hsoXrNlCxKwMuDlYE5rVGe/riXE2mt
+ xC2kC1c1aSTtXlIWNu5hDOxKHg497BMEvr82Z6pjOuekzQoPyky2sui32
+ hvNDbsfRCnNFRz4LOjCwcFUgRaxZXsIrUM/XWyIb+pJHlz7adXQp+/TSd
+ AsfC3qKV4g3ET9ux7WIVEKYj8PjKl2itOelnMN/7gSAve0g/XCib6xzrq
+ jpQc3Z3DMyRUEhvdnyRv+ewV+ud/EV1nPr64YGYOixBAdqnC+Tb0BhVP6 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10471"; a="299689110"
+X-IronPort-AV: E=Sophos;i="5.93,319,1654585200"; d="scan'208";a="299689110"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2022 16:27:00 -0700
+X-IronPort-AV: E=Sophos;i="5.93,319,1654585200"; d="scan'208";a="685923305"
+Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2022 16:26:59 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 15 Sep 2022 16:26:53 -0700
+Message-Id: <20220915232654.3283095-4-matthew.d.roper@intel.com>
+X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20220915232654.3283095-1-matthew.d.roper@intel.com>
+References: <20220915232654.3283095-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Lucas De Marchi" <lucas.demarchi@intel.com>
-Date: Thu, 15 Sep 2022 23:13:26 -0000
-Message-ID: <166328360636.11973.9333874308379341335@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220915-stolen-v1-0-117c5f295bb2@intel.com>
-In-Reply-To: <20220915-stolen-v1-0-117c5f295bb2@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915=3A_Improvements_to_stolen_memory_setup_=28rev2=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 3/4] drm/i915: Make GEM suspend all GTs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,21 +55,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Series: drm/i915: Improvements to stolen memory setup (rev2)
-URL   : https://patchwork.freedesktop.org/series/108620/
-State : warning
+Walk all GTs when suspending.
 
-== Summary ==
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_pm.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-Error: dim sparse failed
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
+index 2c80cc8362b6..e5bfb6be9f7a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pm.c
+@@ -22,6 +22,9 @@
+ 
+ void i915_gem_suspend(struct drm_i915_private *i915)
+ {
++	struct intel_gt *gt;
++	unsigned int i;
++
+ 	GEM_TRACE("%s\n", dev_name(i915->drm.dev));
+ 
+ 	intel_wakeref_auto(&to_gt(i915)->userfault_wakeref, 0);
+@@ -36,7 +39,8 @@ void i915_gem_suspend(struct drm_i915_private *i915)
+ 	 * state. Fortunately, the kernel_context is disposable and we do
+ 	 * not rely on its state.
+ 	 */
+-	intel_gt_suspend_prepare(to_gt(i915));
++	for_each_gt(gt, i915, i)
++		intel_gt_suspend_prepare(gt);
+ 
+ 	i915_gem_drain_freed_objects(i915);
+ }
+@@ -131,7 +135,9 @@ void i915_gem_suspend_late(struct drm_i915_private *i915)
+ 		&i915->mm.purge_list,
+ 		NULL
+ 	}, **phase;
++	struct intel_gt *gt;
+ 	unsigned long flags;
++	unsigned int i;
+ 	bool flush = false;
+ 
+ 	/*
+@@ -154,7 +160,8 @@ void i915_gem_suspend_late(struct drm_i915_private *i915)
+ 	 * machine in an unusable condition.
+ 	 */
+ 
+-	intel_gt_suspend_late(to_gt(i915));
++	for_each_gt(gt, i915, i)
++		intel_gt_suspend_late(gt);
+ 
+ 	spin_lock_irqsave(&i915->mm.obj_lock, flags);
+ 	for (phase = phases; *phase; phase++) {
+-- 
+2.37.3
 
