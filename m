@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 918BEC32771
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Sep 2022 23:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE314C32771
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Sep 2022 23:27:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B209510EC18;
-	Thu, 15 Sep 2022 23:27:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F29E10EC1D;
+	Thu, 15 Sep 2022 23:27:13 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E8C410EC10;
- Thu, 15 Sep 2022 23:27:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F13410EC17;
+ Thu, 15 Sep 2022 23:27:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663284420; x=1694820420;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=azKNFrdb4/EHtrrnoscy4apA69ozS+tLfVexlPXPy0g=;
- b=LLVPtKvMcPthp54HCiiSMh6KqQ3BzBPadE35j4GD96e+hZ0+A4M817Nt
- Ay4o+hlVjls+OKy8UfsYBUhZvRFzwElw0ip9+1XnXmgD8fpXgei5NKmzm
- 16uiayqbdxO5MOO4UvBwVZ5Bg4dfmzSAxIZmY0MKs/qPN78oXmprkXMRn
- J7pqecvjB55Z3ubJV1YIzBbYTO7Fg1aIJw9YcuNoLsl5185bfn6leZg1r
- jY9uTd3fZ2vo58pmcSbWWG/wHO4Nt4ZG8PiIaOU5sH/2XFIVBsH+Vf6hY
- bOph3yFnIWosIcGhmxZp7uCokyQgEK35J/U6RWjwj4CTRf06/rUT8PWXR A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10471"; a="299689107"
-X-IronPort-AV: E=Sophos;i="5.93,319,1654585200"; d="scan'208";a="299689107"
+ t=1663284421; x=1694820421;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=tFlfD40hLtY3YkEKxAQn2mbJw+x4pC16bMSk3bOwU8s=;
+ b=ahmnJ1A/xXHpWkX4zPKL04FvkENmExnG4KDc9GZf2ZbrmywxgB+H+sa0
+ m2xVQ5iqaQGMODucUJdKyLwNPqR3K7ryJUWgrNuK5T/dyJ87/QAchYO0+
+ pL4uf65fYfQPCIoaCfqF/03rjuRYX9x/0V/cHTHS2020qU0cGxAnS1pdk
+ 9ODgdrdHQmaRIfkHZv6obQG2WswC8Da6QFFHi3WjHkMb6bxam/wboDi3u
+ sVx7P48g6XT75Q1EQW8As3K9k0SPJWDS+G7wxBleTROItGguteJynEkBe
+ Ljye9wMFPVOPKAr/VzdMO914wHDBKRQAf8m7kjyVoFOxfdplIzMtRO5Y6 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10471"; a="299689111"
+X-IronPort-AV: E=Sophos;i="5.93,319,1654585200"; d="scan'208";a="299689111"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2022 16:26:59 -0700
-X-IronPort-AV: E=Sophos;i="5.93,319,1654585200"; d="scan'208";a="685923296"
+ 15 Sep 2022 16:27:00 -0700
+X-IronPort-AV: E=Sophos;i="5.93,319,1654585200"; d="scan'208";a="685923308"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Sep 2022 16:26:59 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Sep 2022 16:26:50 -0700
-Message-Id: <20220915232654.3283095-1-matthew.d.roper@intel.com>
+Date: Thu, 15 Sep 2022 16:26:54 -0700
+Message-Id: <20220915232654.3283095-5-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20220915232654.3283095-1-matthew.d.roper@intel.com>
+References: <20220915232654.3283095-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/4] Further multi-gt handling
+Subject: [Intel-gfx] [PATCH v2 4/4] drm/i915: Handle all GTs on driver
+ (un)load paths
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,33 +60,133 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that MTL is going to start providing two GTs, there are a few more
-places in the driver that need to iterate over each GT instead of
-operating directly on gt0.  Also some more deliberate cleanup is needed,
-in cases where we fail GT/engine initialization after the first GT has
-been fully setup.
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+This, along with the changes already landed in commit 1c66a12ab431
+("drm/i915: Handle each GT on init/release and suspend/resume") makes
+engines from all GTs actually known to the driver.
+
+To accomplish this we need to sprinkle a lot of for_each_gt calls around
+but is otherwise pretty un-eventuful.
 
 v2:
- - Drop unnecessary helper function.  (Janusz)
- - Consolidate some adjacent GT loops (Daniele)
+ - Consolidate adjacent GT loops in a couple places.  (Daniele)
 
 Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/i915_driver.c |  3 ++-
+ drivers/gpu/drm/i915/i915_gem.c    | 43 +++++++++++++++++++++---------
+ 2 files changed, 33 insertions(+), 13 deletions(-)
 
-Chris Wilson (1):
-  drm/i915/gt: Cleanup partial engine discovery failures
-
-Tvrtko Ursulin (3):
-  drm/i915: Make GEM resume all engines
-  drm/i915: Make GEM suspend all GTs
-  drm/i915: Handle all GTs on driver (un)load paths
-
- drivers/gpu/drm/i915/gem/i915_gem_pm.c    | 33 ++++++++++++++---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c |  7 +++-
- drivers/gpu/drm/i915/i915_driver.c        |  3 +-
- drivers/gpu/drm/i915/i915_gem.c           | 43 ++++++++++++++++-------
- 4 files changed, 68 insertions(+), 18 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index c459eb362c47..9d1fc2477f80 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1661,7 +1661,8 @@ static int intel_runtime_suspend(struct device *kdev)
+ 
+ 		intel_runtime_pm_enable_interrupts(dev_priv);
+ 
+-		intel_gt_runtime_resume(to_gt(dev_priv));
++		for_each_gt(gt, dev_priv, i)
++			intel_gt_runtime_resume(gt);
+ 
+ 		enable_rpm_wakeref_asserts(rpm);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index f18cc6270b2b..e936e67f3411 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -1128,6 +1128,8 @@ void i915_gem_drain_workqueue(struct drm_i915_private *i915)
+ 
+ int i915_gem_init(struct drm_i915_private *dev_priv)
+ {
++	struct intel_gt *gt;
++	unsigned int i;
+ 	int ret;
+ 
+ 	/* We need to fallback to 4K pages if host doesn't support huge gtt. */
+@@ -1158,9 +1160,11 @@ int i915_gem_init(struct drm_i915_private *dev_priv)
+ 	 */
+ 	intel_init_clock_gating(dev_priv);
+ 
+-	ret = intel_gt_init(to_gt(dev_priv));
+-	if (ret)
+-		goto err_unlock;
++	for_each_gt(gt, dev_priv, i) {
++		ret = intel_gt_init(gt);
++		if (ret)
++			goto err_unlock;
++	}
+ 
+ 	return 0;
+ 
+@@ -1173,8 +1177,13 @@ int i915_gem_init(struct drm_i915_private *dev_priv)
+ err_unlock:
+ 	i915_gem_drain_workqueue(dev_priv);
+ 
+-	if (ret != -EIO)
+-		intel_uc_cleanup_firmwares(&to_gt(dev_priv)->uc);
++	if (ret != -EIO) {
++		for_each_gt(gt, dev_priv, i) {
++			intel_gt_driver_remove(gt);
++			intel_gt_driver_release(gt);
++			intel_uc_cleanup_firmwares(&gt->uc);
++		}
++	}
+ 
+ 	if (ret == -EIO) {
+ 		/*
+@@ -1182,10 +1191,12 @@ int i915_gem_init(struct drm_i915_private *dev_priv)
+ 		 * as wedged. But we only want to do this when the GPU is angry,
+ 		 * for all other failure, such as an allocation failure, bail.
+ 		 */
+-		if (!intel_gt_is_wedged(to_gt(dev_priv))) {
+-			i915_probe_error(dev_priv,
+-					 "Failed to initialize GPU, declaring it wedged!\n");
+-			intel_gt_set_wedged(to_gt(dev_priv));
++		for_each_gt(gt, dev_priv, i) {
++			if (!intel_gt_is_wedged(gt)) {
++				i915_probe_error(dev_priv,
++						"Failed to initialize GPU, declaring it wedged!\n");
++				intel_gt_set_wedged(gt);
++			}
+ 		}
+ 
+ 		/* Minimal basic recovery for KMS */
+@@ -1213,10 +1224,14 @@ void i915_gem_driver_unregister(struct drm_i915_private *i915)
+ 
+ void i915_gem_driver_remove(struct drm_i915_private *dev_priv)
+ {
++	struct intel_gt *gt;
++	unsigned int i;
++
+ 	intel_wakeref_auto_fini(&to_gt(dev_priv)->userfault_wakeref);
+ 
+ 	i915_gem_suspend_late(dev_priv);
+-	intel_gt_driver_remove(to_gt(dev_priv));
++	for_each_gt(gt, dev_priv, i)
++		intel_gt_driver_remove(gt);
+ 	dev_priv->uabi_engines = RB_ROOT;
+ 
+ 	/* Flush any outstanding unpin_work. */
+@@ -1227,9 +1242,13 @@ void i915_gem_driver_remove(struct drm_i915_private *dev_priv)
+ 
+ void i915_gem_driver_release(struct drm_i915_private *dev_priv)
+ {
+-	intel_gt_driver_release(to_gt(dev_priv));
++	struct intel_gt *gt;
++	unsigned int i;
+ 
+-	intel_uc_cleanup_firmwares(&to_gt(dev_priv)->uc);
++	for_each_gt(gt, dev_priv, i) {
++		intel_gt_driver_release(gt);
++		intel_uc_cleanup_firmwares(&gt->uc);
++	}
+ 
+ 	i915_gem_drain_freed_objects(dev_priv);
+ 
 -- 
 2.37.3
 
