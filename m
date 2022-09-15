@@ -4,135 +4,199 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00DA5C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 20:56:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 859F0C32771
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Sep 2022 22:46:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA97310E031;
-	Thu, 29 Sep 2022 20:56:10 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42F7B10E00C;
- Thu, 29 Sep 2022 20:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC09A10E187;
+	Thu, 15 Sep 2022 22:46:47 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5744710E187
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Sep 2022 22:46:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664484966; x=1696020966;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=Gz8vo1nRZmkO+SbD8huE1pYE5nOFGqNmowPzPQ6lcRg=;
- b=GMFVXItQPIeAi+91m/yFokHcC3lLgxNVwu1kKaovbFAeoBhQkYyeTSkr
- Y7GKDovmx/Vgfn1XvbEVZoSV3g4MJyWvKBfyf/DXG0I9+/8OKoRRoo8IZ
- fNUcVI6H5X2Mqp7sdHjZ2QLOlDT0rDYmg3LWSaQlTRh6+y11x1HxuKEug
- 6R9BL3f6ZLI7/aZp007r5HU4kDbd4w48HL8hETAp0hJx+jRNMa2Tgilns
- N2VA0Qz5bcmalk0F/elAxPq2Tyr82qcXJF93RC5fYDjsibdkEEur4AZY7
- s/CFTYEBHuXXybn3ZERX/B5l81wbSGPMBXwZuioZJVdww4gk/QUNTCeD2 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10485"; a="281732884"
-X-IronPort-AV: E=Sophos;i="5.93,356,1654585200"; d="scan'208";a="281732884"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2022 13:55:50 -0700
+ t=1663282002; x=1694818002;
+ h=resent-from:resent-date:resent-message-id:resent-to:from:
+ to:subject:date:message-id:in-reply-to:references:
+ content-transfer-encoding:list-id:list-unsubscribe:
+ list-archive:list-post:list-help:list-subscribe:cc:
+ mime-version; bh=sr3bi5Ho2nJ9xxOamW7sASuDnJhDYQxpiFWbAFVoyyM=;
+ b=HxQik1iTBv8i9rfTVO02M1R8MZuVKOqPWvWtAlDvNUFLHIagJ+7rtqag
+ DbvdTz/G+b/A3gAoDmx6Gmxex3fjg0H7QmOsXDRVY8Hsc5mDFRNWNVWhZ
+ 9R4gRUNhsTEUeDId2NnryfmfdANnHAthBPvTvBGIqry6v2hZAmJnuSWHJ
+ Vvg4nUs4nFjcX5SOyG3BcQ+T/5aOYTau4mxH/hkfzBJxCfemnfp4ws6Sw
+ NmzDW0yamyZ1+3ESFd6Fg4C6jX97OpcY9Y71vDBO8+4m6tLo9NIayYC68
+ 3hlvKu/jylHadyUOLVoWXLj+ZD0fUs43LKmm3+GsgQyv4d2XUMcyBgfU8 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10471"; a="325123017"
+X-IronPort-AV: E=Sophos;i="5.93,319,1654585200"; d="scan'208";a="325123017"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2022 15:46:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10485"; a="624729066"
-X-IronPort-AV: E=Sophos;i="5.93,356,1654585200"; d="scan'208";a="624729066"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by fmsmga007.fm.intel.com with ESMTP; 29 Sep 2022 13:55:50 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.93,319,1654585200"; d="scan'208";a="721194819"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by fmsmga002.fm.intel.com with ESMTP; 15 Sep 2022 15:46:41 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 29 Sep 2022 13:55:49 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ 15.1.2375.31; Thu, 15 Sep 2022 15:46:41 -0700
+Received: from fmsmsx602.amr.corp.intel.com (10.18.126.82) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31 via Frontend Transport; Thu, 29 Sep 2022 13:55:49 -0700
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.108)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ 15.1.2375.31; Thu, 15 Sep 2022 15:46:40 -0700
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Thu, 15 Sep 2022 15:46:40 -0700
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com (104.47.73.176)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2375.31; Thu, 29 Sep 2022 13:55:49 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JiuWc4BLl8XhPXBd8JzJx1ktOsxzAmqw0lattGOvwvA3PSmZLJkyYsuLzXCXc+KqeHR4jYXDl6PZ6BuwDUzQpdKnfkYCxGTNxCzada/TnUmrITG9mcWsKWjvduKQ7/TLkTJV5tKnkISbqfkGvtEFChSiZ89asc+bqxXHNUGuqSi9BeZYjhQtrci5ISY9IWaX2ySVFwSTGtNxDccGAla6XbFy1MvNm1upoDGG8+rVPfI4I/il3AYW1A1DSLnmrEBsP9yrxWRMFz3/ngf59IFKu3CwlSf82I86UijKGMY2eZfgUec7kZQwMuBoz025fQXXHD8sKCKAVct9bueLvuiH5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ 15.1.2375.31; Thu, 15 Sep 2022 15:46:40 -0700
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=fail;
+ b=DY7f9jkiOp2vhapHhoSk+N8u8EyOW54nb0yf/hlNezNvPcpxsabVEx8faFDB/O/ZaUb+DipAEtoi2Kne7Gh1N9NTe90sMHg0Gzn/gKheBPEyorHTPxaggUxriPtGgGw3apMjlADsxa0cNMkTfWr9SdfSpi7xE4oTdj1fadcYXEIbUQMGHBux87s5+TGpsULTymaapMOkWEBW3NOcWtLxzu/a7xtd+xI+m5gCNDVs6z6YB2Goj+yLGHMFsBIJuHGYTY1L7qmO3vKoPC/5Y8sCXxnW1qnbRdmlyDH170Sfttfzm4RwC6gRIw0/JCxQ3ne1i9FcF4dKqC3opGwkODUCrA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qY++ifomLVPdr6RV11xdWzW2VEbjR8LZIP1QM0zowdo=;
- b=lXl3RbODkSmD4NtOCk0g3D7BeC7jFWWy7kLglP3tiIK56yadQzL4vuw1Etm3dttQC1nK6joD/Dr5Ea/ehvgZOHDoqZ+sCxS84gYjQnafaxRDDaVpZdzEsae+muHuUZKmRhsG5m2cJ8qs2E0Ej5xEHWgXJOmU967mqfoFhFxK7+VVgAlVl0e6SvDrm+cuHqWUbm5VVYUvfubYrQ/+uXiGzVP0ed8FSGy5f+IwY/OprBzk3pF2oHeT+DN0smlSHisuTUDOxDjOxpq1dar3IJ55G/dB3YnDneU4lERxfmRy3SvhriXQfBAmLKAZQdumGPfROTjV7SPha/OxTU/Pder1QA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
+ bh=FbequxvUAZpzT6tmI7raxTxBpVy9HS5eOiTkdj6MAac=;
+ b=AliSdpQNxIToZcl9NsF62CRKcEIpUdfw6Z8dkEwOr6RESQSi0z4HIAwjIW1bU8i1pcREiHa/rXmxZT4J+/mtyNiM/nBJ90IKJ5N/GHW4OGFdWfLaEeKNWZX6XByMfFd25DrKnMxle9vkvDVLS82ioAEDI8Z+5lRHr6t++reD5ko6NvAsRXXqs3649T8V23DpicQJU8RutK4pcvs0Kok20TLG1+F4Tx7dhaza5OBd/spnKgfthi/n4NCQindsOpaKw1okzFXOqUTtLbH8TXF22JkDSMySuD0eh5w5P5YuaWlGAS4L9k32D0xjcJYw3thbz4EMLs6PhKYp6LBIoioW9w==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=none; dmarc=none
+ action=none header.from=intel.com; dkim=error (no key for signature);
+ arc=fail (41)
+Authentication-Results: dkim=error (no key for signature)
  header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MWHPR11MB1632.namprd11.prod.outlook.com (2603:10b6:301:11::11)
- by SN7PR11MB6558.namprd11.prod.outlook.com (2603:10b6:806:26e::15)
+Received: from CY5PR11MB6139.namprd11.prod.outlook.com (2603:10b6:930:29::17)
+ by PH7PR11MB7001.namprd11.prod.outlook.com (2603:10b6:510:208::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.19; Thu, 29 Sep
- 2022 20:55:47 +0000
-Received: from MWHPR11MB1632.namprd11.prod.outlook.com
- ([fe80::29f8:1b74:685c:6198]) by MWHPR11MB1632.namprd11.prod.outlook.com
- ([fe80::29f8:1b74:685c:6198%8]) with mapi id 15.20.5676.017; Thu, 29 Sep 2022
- 20:55:47 +0000
-Date: Thu, 29 Sep 2022 13:55:45 -0700
-From: Matt Roper <matthew.d.roper@intel.com>
-To: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Message-ID: <YzYGUa3FT5HnxEBY@mdroper-desk1.amr.corp.intel.com>
-References: <20220929114658.145287-1-aravind.iddamsetty@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220929114658.145287-1-aravind.iddamsetty@intel.com>
-X-ClientProxiedBy: SJ0PR03CA0371.namprd03.prod.outlook.com
- (2603:10b6:a03:3a1::16) To MWHPR11MB1632.namprd11.prod.outlook.com
- (2603:10b6:301:11::11)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Thu, 15 Sep
+ 2022 22:46:38 +0000
+Received: from CY5PR11MB6139.namprd11.prod.outlook.com
+ ([fe80::b80a:cf49:9118:24e7]) by CY5PR11MB6139.namprd11.prod.outlook.com
+ ([fe80::b80a:cf49:9118:24e7%6]) with mapi id 15.20.5612.022; Thu, 15 Sep 2022
+ 22:46:38 +0000
+Resent-From: Lucas De Marchi <lucas.demarchi@intel.com>
+Resent-Date: Thu, 15 Sep 2022 15:46:36 -0700
+Resent-Message-ID: <20220915224636.hvstyxcheg7ipy2f@ldmartin-desk2.lan>
+Resent-To: <intel-gfx@lists.freedesktop.org>
+X-Google-Smtp-Source: AMsMyM6aP8RN3Ja4QQSsfrJ5ZgD/LGCzJKDvLWdrBmLU8vDJSfJdXGZgYClICeEkJxV5V/EZqRFN
+X-Received: by 2002:a05:6a00:1d9b:b0:541:1894:d5db with SMTP id
+ z27-20020a056a001d9b00b005411894d5dbmr1931521pfw.78.1663279719106; 
+ Thu, 15 Sep 2022 15:08:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1663279719; cv=none;
+ d=google.com; s=arc-20160816;
+ b=DWPezIxk41u96gFs7ksFd79m7nJn5pfR7xHCIdoIdmAzZhHjLQpV+k/MEha6gQWkhS
+ kR4wBNPK3fFZ2EE6nM3348didIZTrEG7Th5VNo6K1TlXhCiywA/VB03ttliyvpIfbd97
+ Gg4jZtNdrkW+EhEpt+jjnW9iCkf/RF+2oVkMOamd5i/CppDvbPBUoMP/cMTAksQkTFv0
+ aloaoPjv7ei1c3GvItbW7bZh4UJziWmwwFp9v6Ur8qa9CJHoQ4TMkQBCwFDUIJ65G40R
+ PMcZlpNPF0e9/upDUJ9FI7OQTGbKZ0bSLn9q5IJOVWOYBYZD0zJP8hKhgIbt9XWNgxon
+ wT6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20160816; 
+ h=sender:errors-to:cc:list-subscribe:list-help:list-post:list-archive
+ :list-unsubscribe:list-id:precedence:content-transfer-encoding
+ :mime-version:references:in-reply-to:message-id:date:subject:to:from
+ :dkim-signature:delivered-to;
+ bh=FbequxvUAZpzT6tmI7raxTxBpVy9HS5eOiTkdj6MAac=;
+ b=JKYt9JiaL0lN0Ph/kOAddB5C16RBy0xp+W7kbi7xEuXxdc/6Mn+CuJxMnFOHN4UJX4
+ YdzkSiL+M3GCor1JYEOJJMYjQeRygaEiIt9M2LtsBQgerH4bAaKsofcm528BnxT0JwQ/
+ 7Vl+j2WhYqKxo1CsWYO2R+QwWNer0Iz13XX4S8SqlWfBD6FqGddqtg5uDHCt5LaAN/zw
+ VbfwIRyYvkNqYWILytRTLA0jj5TkVYVNw+LP+mUtvBnDCcuEJbLfU1eYCOFEyCTG2M7U
+ k2LE/TAI9jNtYtv7bpGUmGgYHBPYUBbvCwRDai0xLPmNPiDIeY1cbsIvQRZ/p86fXYQY
+ 0k+Q==
+ARC-Authentication-Results: i=1; mx.google.com;
+ dkim=fail header.i=@intel.com header.s=Intel header.b=nyle1ywa;
+ spf=pass (google.com: best guess record for domain of
+ dri-devel-bounces@lists.freedesktop.org designates 131.252.210.177 as
+ permitted sender) smtp.mailfrom=dri-devel-bounces@lists.freedesktop.org; 
+ dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=intel.com
+Authentication-Results: mx.google.com;
+ dkim=fail header.i=@intel.com header.s=Intel header.b=nyle1ywa;
+ spf=pass (google.com: best guess record for domain of
+ dri-devel-bounces@lists.freedesktop.org designates 131.252.210.177 as
+ permitted sender) smtp.mailfrom=dri-devel-bounces@lists.freedesktop.org; 
+ dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=intel.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663279709; x=1694815709;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=sr3bi5Ho2nJ9xxOamW7sASuDnJhDYQxpiFWbAFVoyyM=;
+ b=nyle1ywa/vrcuIGlICk3ABiTaJgEsQZw2RxYDXctCKWXsAvMkeX7X1YO
+ AAPZu7LNDr3eXAVahpnp4l1zeAd7MFO1aAt3SU2r6vk8ADX7kdZRZdi3Q
+ +aWjGKj1exj8yHKbdjk5S8P+RkNX7QHR7nfSIABlrb2SmqLyYzFOzftCl
+ HilfXJV/3V0MSb9+HMB/pC1+w3MO73GLt+4yOBi4hkS8y01pVaMh8bxBK
+ O7G/9sLUaFWERrVpycymUy7mW04jz+BtkUf5sdZYOgaj+dKjMYPsT3XC4
+ zucFMqCEN9pLxeXe42vc4WiBcHj2sxZt0WESqeCJejFx01cbrbHUqRmQL Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10471"; a="281880472"
+X-IronPort-AV: E=Sophos;i="5.93,319,1654585200"; d="scan'208";a="281880472"
+X-IronPort-AV: E=Sophos;i="5.93,319,1654585200"; d="scan'208";a="650650698"
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: gfx-internal-devel@eclists.intel.com
+Date: Thu, 15 Sep 2022 15:07:45 -0700
+Message-Id: <20220915220745.411958-1-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20220915-stolen-v1-3-117c5f295bb2@intel.com>
+References: <20220915-stolen-v1-3-117c5f295bb2@intel.com>
+Content-Transfer-Encoding: 8bit
+X-BeenThere: dri-devel@lists.freedesktop.org
+X-Mailman-Version: 2.1.29
+Precedence: list
+X-TUID: GjlyAktLfJ/r
+Content-Type: text/plain
+X-ClientProxiedBy: BYAPR01CA0050.prod.exchangelabs.com (2603:10b6:a03:94::27)
+ To CY5PR11MB6139.namprd11.prod.outlook.com
+ (2603:10b6:930:29::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWHPR11MB1632:EE_|SN7PR11MB6558:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5732b09-fbdd-426d-3f53-08daa25cfc1b
+X-MS-TrafficTypeDiagnostic: CY5PR11MB6139:EE_|PH7PR11MB7001:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73425cae-e90a-47c6-1806-08da976c2687
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yr537kIocfFe983ZA/6/emBglV2CgRJVJ/IIYs8jW7Bs4SCw+Y915L8MpA6W4YjRrqcd9yNltMRwEvdmNruwVR/1SmMBJpIhIx6gxvNV47M7IXr/Y3RyjIMmAc3LQn7GBLcmjnai4/IqzCyvn1NFy49T7+JJFLmM/BoBEfnuDM93alL9EI2ARRTd4ZiOQlLiRX0NVH5pIaYw3lJzBFhPVafYkFgrUcFAKetsDKPlITjrqEhF2t42kLCJrJ3+m/YacX9egQ0t+CR5gtAPBjVXEpU61wt2cm2SCNmGWT8EQoP3hDWl1JlCQRuz8YL3hl8H3of8nGCoHuo5F3Pfa541CI44+6m6ict9SBupoj1q+omzQxpGqkluDs636Soq8PEcvZrP5shYYh7GxVbvkUmF4GzQ9fS3Oc9zY3YywphQjoxdUszuWmPz3AD/7cnF0Gumoz4MjW1WhqeRJUZ7IWk1dIk6FD/M8oSVWHGzEzFWuM11cKJXAculq+Z2h7LoeGgZ1ZPzE5JxuWKlFYPP7Edk9ZCYxjuWwh2F4QV/xjVguq4bEb/zEQ3epAW9mVOc7I/atawPJxrA5Puc6Da1Wvvnc/bRhWp+HvLRNNB+yGlDZYheHg65apICBfZoI+w3li6i65AXIgmglxmddr8qy88093z9uMpMGIaW/dk1dgtEVaGxF+aMlLhD4VYB/NfyBE3a5soITX1uhGWsolcRaLe1qg==
+X-Microsoft-Antispam-Message-Info: jQMlvNTK5GFvwr98XmyO5UiJD8I7mYHePwCpWjc3ASChtgg7CBPtoF5HvJC+PWMSO3XiRUtE018v0Be9Xelw7qAGhIwQkY2M6xxQODpxfUa1ISU8hpr4ezqYDkQYf2cYKDvOyDs8B6kF8sbisK72SqNATYCTI/8ryDNY+nXlBlLM+DlNV0T7c8yv0VTP0tGnBA7sWNh7NhkYBB0EaMt9olR5c4lSVwiOarlr1amrgs5fMn8h+sH7adcQ8VgCseiss+2nxPO38zltzGp4VMYtGNVz6slFjzREt/1VT+s0fybzRbaOGfkR8ozb0YivPolAqQEVm+u1uCzS0TQ26QfDBo8BLNLhtY/PrVaLoiZRuU6hEfsjH1VtcUrY76tJ5F4HE1FdDNEMdp88rsYf8WickJFsw7nJBPmx8t9GqhdVOZJ/BkrBsxlK/8yvi1CfShx5O/AxmPnTbJ25KaUd4WySm2tZdUxQ/iFfLOhKw8cATJaB8HsaBfJqlY824SFJYDtc8AaeMH7l9zHJsZ0EitsVrRN6app0pJiFiMPAfg5POFdXJI2MR++/8XqeKgmqL+5oYAwbxofJg/zAupaylFgewLNjc5eK0M8aZCJ1WKKpT04Kj5I9LGFQmO5km2/monCDZEmHC0QiesKHJFpn0Zgt8iAI9cOFFBC38poj3t9EGXI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR11MB1632.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(39860400002)(376002)(396003)(346002)(366004)(136003)(451199015)(6506007)(26005)(6512007)(478600001)(83380400001)(2906002)(8936002)(6862004)(54906003)(66476007)(316002)(6636002)(6486002)(66556008)(186003)(8676002)(5660300002)(41300700001)(4326008)(66946007)(82960400001)(86362001)(38100700002);
+ IPV:NLI; SFV:NSPM; H:CY5PR11MB6139.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(376002)(39860400002)(136003)(346002)(366004)(396003)(451199015)(16670700002)(82960400001)(8936002)(6512007)(38100700002)(83380400001)(34206002)(26005)(86362001)(1076003)(478600001)(66946007)(6506007)(4326008)(66476007)(186003)(66556008)(6486002)(36756003)(19810500001)(2616005)(6666004)(5660300002)(8676002)(2906002)(316002)(9036002)(41300700001);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?3pq+JGxjJr3vk3ObontLUCRGZh+bhKrWLiBGbgrznJT28jrjtCHuUGAUH0+U?=
- =?us-ascii?Q?s7VBwMb/ME8CU+VmHrjAN98bYnrPvbzVjDlMTJnhGf6VoZwk39OJ+VPHt2Sm?=
- =?us-ascii?Q?P5uL7L5z5F/h/l+lk2jVyjZXma/SXzHTObEwoU3UMz9frtUjm9tROGELOQFn?=
- =?us-ascii?Q?8w5vrQRaXZBumx+NvIh5yXyVZxDh8zJQ28VRog7fiwDOAOGIhOavm71SoPoJ?=
- =?us-ascii?Q?UC6wZaibTnLmF2QixDXSOiMiuXNNoU/h7wywXkhL5Uvsj/risyFK0lVldamT?=
- =?us-ascii?Q?kCtHl9yZKorjE925j4PcRmX+82BiuBIu+mzTWLXAxb8aFGoD9UZEv8+1rR9c?=
- =?us-ascii?Q?77j+WsuiL/gL9ZQFfFWl4gWmtnsoFsydlsEc8jKbo6Je91HjNvFIE5JN9o+6?=
- =?us-ascii?Q?5lIQgDPsQh92Fwhzpp13uMgtpt7OpUNc9GukpGTUQsODid3DwhmQIEnuSoSI?=
- =?us-ascii?Q?1iMC0OSmXDLJXlhdpAcgWQHfSui6av8TO+qDSzH5TX9K9iC3yTeh/KMLszLq?=
- =?us-ascii?Q?aX2U8EtxZEz4/G4UtWEAYb/ipQZVv7mxHNjLThseJWKykuc7taubdLyOFa5q?=
- =?us-ascii?Q?nM2OqpJJISRLByo3ka1mr7C8piGF6GgwnYS371kO4Jom7p1IqyLlyOuF6y3C?=
- =?us-ascii?Q?TIutczm7bp3ORNplCs5nPSrM6RTwVb/mEnPFwuXr+WPiIc3JKs4A8+VmXXar?=
- =?us-ascii?Q?nyQ1dYSDhb4U4kX0zSJKgYyZpg/PTNQ1rDWTs8YBfBQegHj1mqd9+pD5sPBK?=
- =?us-ascii?Q?h8Zv96SPGFH3KH/vAqa6kyhbRHjCfl/DBFaDfMWRxM1pVCrxfmSz1CGG/720?=
- =?us-ascii?Q?cTrF0++mtHAm9s9ImrIJG+8QoSiGRRBxzx7USnSJzp2HbyBiE7O3OO/EF9uP?=
- =?us-ascii?Q?7Jh3kVQcaUqQoVTB7CDjGh9Z0xnxWVsYBd5M1ZouUCJ1bKcYHc32D42TrUvr?=
- =?us-ascii?Q?LiCAwO7wngSYxEu1mLaoGhQfszKzcoDvj905paCsiYjlyr8eZh/gu6GOU0Ne?=
- =?us-ascii?Q?EltzoJMRmdgtQ9Lcnv/XM8IhhIQbkx7D5CMfnU7nv9E4EfhSv0VcyrXQu9xJ?=
- =?us-ascii?Q?CPBQPFYp8Y21+/UDBHwtSR89N23PRSJwrEt799/TkX/gadaiJMgGLbiFnQZl?=
- =?us-ascii?Q?muy54AhaikIMlgNl8oNYFV3BaQw2nJDPKYXCqTK6L+ebVR26V4QXFR15baPF?=
- =?us-ascii?Q?an52owbG+jygIBs+0wH0WsN009HST4LwYKvN+N+IHWPBTxCWbg012gEiYN0o?=
- =?us-ascii?Q?EdBoGNUtsKOwT16mo4ZgyQv1TAPrfCZvhEkVBTQ9Ww62nZSJxkqlDjzsD09V?=
- =?us-ascii?Q?+VIO++GeHtWC2TaWScvcqEuGRk+DpObwK1k78T7divferlFb+3BDfc7i2leA?=
- =?us-ascii?Q?EyAAnNO0YwpHp0H2vd7QOZAqNjyW8+uJVlNu2hQBvDrAJJ8tapOzHpg/l0Zp?=
- =?us-ascii?Q?fJlYc9LQg/V5i9oRUYWz55JnQTwEoxpBM9oVxHo0z0o/u7IjtaKQZU3X7fEk?=
- =?us-ascii?Q?EyvkT1hr2dCSyNrCqR1PlgZd5TvTWmQ9woqBvrRRusmv0dW6OcD81vtXJmWS?=
- =?us-ascii?Q?tLt29eFWJ739VYZ6djADVLCH9WVJKwM2/DUoG+wPLX0KjPT/PbcoI9vMm9OA?=
- =?us-ascii?Q?NA=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5732b09-fbdd-426d-3f53-08daa25cfc1b
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1632.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?x95Kf+kg/GrBXzpzCbgwrbAb+p33B94/pCMlGbBvrASxSFVCs2xwF9eZZJBu?=
+ =?us-ascii?Q?zHRKuC8xwAEg3oC51kIc+n9MNyIMlcyTxtDDU4bQultw0A8yjhO6P82HnxXH?=
+ =?us-ascii?Q?IWHd84U22+Re8ZqjYJpVq+meMOPMdfWS58gvNMVv94sm55QBY7GIe4SKkR+h?=
+ =?us-ascii?Q?KAoe60xX1jBNB0U3hqyNtF8jZjuH3tJ3JSx63iMo8WdEugmxPMF+W+eYcajL?=
+ =?us-ascii?Q?GahqylbvnHw/tYNlNbplY+aUIzRSSz6wsyjQCeqFZyZ3b+SdrxAD474lIyhE?=
+ =?us-ascii?Q?OGfL2mFbbxdfazSz3Jnsnt7pUZ5sc+K1x+Cd6MsKhp24qSLNz2eENjDG6OlZ?=
+ =?us-ascii?Q?2XPY9jLNA0U5nLnHaC00WSBW6gMJSfGp71P1Tn/dZ6Qe9Oh9vd3gRnFlKq2H?=
+ =?us-ascii?Q?DMABcDak5AHA+KS/6qg6xAFkRZr0sEa7QX9by2TZam24Uw/bPaDn8t5cQtwO?=
+ =?us-ascii?Q?C8PQSFP+HD/rEirB8DTghTM8v8UYbBsLZncDn7EHErbvob47+rDkpL7+2ft2?=
+ =?us-ascii?Q?anbXXdvQ+9IPj27ItWIzObdVa71+KVGRO+Sg1f5+1/7hfxSfAJM3tmrDqyxI?=
+ =?us-ascii?Q?VUJ3a94wcGhNF+9q35W+aV/Q3pYKjs2ccWF7jf+MRdqvtUmjM05WzsOIPLnN?=
+ =?us-ascii?Q?TcKb5EIE3LUiUsHVZyZ6Dl5wTwGc0dy1NPsSxyoyeVu28wkBM2/aV4++ghid?=
+ =?us-ascii?Q?uQat3q2r+MVxJ4EbXKuUaWhhifymS+4CQrbATRBgT4iSgzCA8NdznAUeL8PA?=
+ =?us-ascii?Q?ZCwnlBo4ZOOl6SD1dtvjEAfnYfsItWWubC128V8CZBSafFOa0e89X0165vvn?=
+ =?us-ascii?Q?2EeHiRAziuwe1QXt3LB8JRRxcd9kXDaWVmgUIV4XSsulxjyz5Pw2lBBauYDt?=
+ =?us-ascii?Q?X8i5YfJ+gjVFhkB0zpbe3Ymmed+MCW7Qnq3+axCk/M0NiadE7V37YAsUNtvU?=
+ =?us-ascii?Q?N9RscpLawkfMoeHLGDSmTDNpittfT2XUVZifhzH2cs1VvI7BEtE2kP8dY4TA?=
+ =?us-ascii?Q?lXmh5QBB3FDjfLPgMoBDe8eMEpGDpEticAPcOd2wnWicm6PHEiwvwpB93RTh?=
+ =?us-ascii?Q?xHlhhhEnb4UBjIgTJXXDt/zQIma8uB7YaVc0oweUcGm7fyYoYTqAg9TNhUPI?=
+ =?us-ascii?Q?MYAFq6VV0JTCRKz6+Jskk6BHJVo1q+bwR29TRJn4LrjJFA/dpYzU8mBBWrNR?=
+ =?us-ascii?Q?d/mhlaPImBm2aTcbwN+9wToQrdaq8hIo+70RjhjsLqwEsowjnPKsHqnrY8C8?=
+ =?us-ascii?Q?pTBXOU7ceM/kdgk2uvVhnnQ3AroqhquFAAvu89JJ3W6suSgvq3IpLxlogKjW?=
+ =?us-ascii?Q?e70YR4OgqZivuOfZY3rh3BrUAYm8H0APyZvgZNaXqqhBsJyT8Etgy91D+ay5?=
+ =?us-ascii?Q?zNjlJUjbOwSN+3bi1wsYs305JUyBW+YxIeYAAz6J9ECyVrZcT5iTdXeL2vSz?=
+ =?us-ascii?Q?6lnSoWOJEfTAzj8vuDFzufOZnwcEFerarfvSywt6FLAlnzdXjMAHc9+RjUiP?=
+ =?us-ascii?Q?lZahlUP42cG6nSef+0uP2mmBTpVc4tvfKjgDAfMMkcngQqsUsDoTg+5bApW1?=
+ =?us-ascii?Q?0joihb8CwzcGN5VbY7apF5vxsFZJscTZjaN3ZHJgDMhJ19MDZ2NQYGHLDQIp?=
+ =?us-ascii?Q?Fw=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73425cae-e90a-47c6-1806-08da976c2687
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6139.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2022 20:55:47.7931 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2022 22:46:38.6558 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BlHGtmBzukujAZLnPhhu9lnKacM/RUUu9uWE+AWwbXiSecLHjwaqcyDGd8R7itpgRK2bG2XetIvyX4+1JnAUfS3FeJskBBSYXQ0Amgn5V+8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6558
+X-MS-Exchange-CrossTenant-UserPrincipalName: a2mpm3h14yZQluIQYB61BJvrUe36QeJiff+ypmK8TIbkLpuz+kyFzj7kU1qVAlAlgbj89K5kK0wlXc/Pm+UH4c8Fapilcx7GSI4cAvZciZ4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7001
 X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v5] drm/i915/mtl: enable local stolen memory
+Subject: [Intel-gfx] [PATCH v1.1] drm/i915: Split i915_gem_init_stolen()
 X-BeenThere: intel-gfx@lists.freedesktop.org
-X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Intel graphics driver community testing & development
  <intel-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
@@ -142,272 +206,236 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 29, 2022 at 05:16:58PM +0530, Aravind Iddamsetty wrote:
-> As an integrated GPU, MTL does not have local memory and HAS_LMEM()
-> returns false.  However the platform's stolen memory is presented via
-> BAR2 (i.e., the BAR we traditionally consider to be the GMADR on IGFX)
-> and should be managed by the driver the same way that local memory is
-> on dgpu platforms (which includes setting the "lmem" bit on page table
-> entries).  We use the term "local stolen memory" to refer to this
-> model.
-> 
-> The major difference from the traditional BAR2 (GMADR) is that
-> the stolen area is mapped via the BAR2 while in the former BAR2 is an
-> aperture into the GTT VA through which access are made into stolen area.
-> 
-> BSPEC: 53098, 63830
-> 
-> v2:
-> 1. dropped is_dsm_invalid, updated valid_stolen_size check from Lucas
-> (Jani, Lucas)
-> 2. drop lmembar_is_igpu_stolen
-> 3. revert to referring GFXMEM_BAR as GEN12_LMEM_BAR (Lucas)
-> 
-> v3:(Jani)
-> 1. rename get_mtl_gms_size to mtl_get_gms_size
-> 2. define register for MMIO address
-> 
-> v4:(Matt)
-> 1. Use REG_FIELD_GET to read GMS value
-> 2. replace the calculations with SZ_256M/SZ_8M
-> 
-> v5: Include more details to commit message on how it is different from
-> earlier platforms (Anshuman)
-> 
-> Cc: Matt Roper <matthew.d.roper@intel.com>
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> 
-> Signed-off-by: CQ Tang <cq.tang@intel.com>
-> Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-> Original-author: CQ Tang
+Add some helpers: adjust_stolen(), request_smem_stolen_() and
+init_reserved_stolen() that are now called by i915_gem_init_stolen() to
+initialize each part of the Data Stolen Memory region. Main goal is to
+split the reserved part, also known as WOPCM, as its calculation changes
+often per platform.
 
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+No change in behavior.
 
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 83 ++++++++++++++++++----
->  drivers/gpu/drm/i915/gt/intel_ggtt.c       |  2 +-
->  drivers/gpu/drm/i915/i915_drv.h            |  3 +
->  drivers/gpu/drm/i915/i915_reg.h            |  4 ++
->  4 files changed, 76 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> index c5a4035c99cd..910086974454 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-> @@ -77,9 +77,9 @@ void i915_gem_stolen_remove_node(struct drm_i915_private *i915,
->  	mutex_unlock(&i915->mm.stolen_lock);
->  }
->  
-> -static bool valid_stolen_size(struct resource *dsm)
-> +static bool valid_stolen_size(struct drm_i915_private *i915, struct resource *dsm)
->  {
-> -	return dsm->start != 0 && dsm->end > dsm->start;
-> +	return (dsm->start != 0 || HAS_BAR2_SMEM_STOLEN(i915)) && dsm->end > dsm->start;
->  }
->  
->  static int adjust_stolen(struct drm_i915_private *i915,
-> @@ -88,7 +88,7 @@ static int adjust_stolen(struct drm_i915_private *i915,
->  	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
->  	struct intel_uncore *uncore = ggtt->vm.gt->uncore;
->  
-> -	if (!valid_stolen_size(dsm))
-> +	if (!valid_stolen_size(i915, dsm))
->  		return -EINVAL;
->  
->  	/*
-> @@ -135,7 +135,7 @@ static int adjust_stolen(struct drm_i915_private *i915,
->  		}
->  	}
->  
-> -	if (!valid_stolen_size(dsm))
-> +	if (!valid_stolen_size(i915, dsm))
->  		return -EINVAL;
->  
->  	return 0;
-> @@ -149,8 +149,11 @@ static int request_smem_stolen(struct drm_i915_private *i915,
->  	/*
->  	 * With stolen lmem, we don't need to request system memory for the
->  	 * address range since it's local to the gpu.
-> +	 *
-> +	 * Starting MTL, in IGFX devices the stolen memory is exposed via
-> +	 * BAR2 and shall be considered similar to stolen lmem.
->  	 */
-> -	if (HAS_LMEM(i915))
-> +	if (HAS_LMEM(i915) || HAS_BAR2_SMEM_STOLEN(i915))
->  		return 0;
->  
->  	/*
-> @@ -385,8 +388,6 @@ static void icl_get_stolen_reserved(struct drm_i915_private *i915,
->  
->  	drm_dbg(&i915->drm, "GEN6_STOLEN_RESERVED = 0x%016llx\n", reg_val);
->  
-> -	*base = reg_val & GEN11_STOLEN_RESERVED_ADDR_MASK;
-> -
->  	switch (reg_val & GEN8_STOLEN_RESERVED_SIZE_MASK) {
->  	case GEN8_STOLEN_RESERVED_1M:
->  		*size = 1024 * 1024;
-> @@ -404,6 +405,12 @@ static void icl_get_stolen_reserved(struct drm_i915_private *i915,
->  		*size = 8 * 1024 * 1024;
->  		MISSING_CASE(reg_val & GEN8_STOLEN_RESERVED_SIZE_MASK);
->  	}
-> +
-> +	if (HAS_BAR2_SMEM_STOLEN(i915))
-> +		/* the base is initialized to stolen top so subtract size to get base */
-> +		*base -= *size;
-> +	else
-> +		*base = reg_val & GEN11_STOLEN_RESERVED_ADDR_MASK;
->  }
->  
->  /*
-> @@ -833,6 +840,29 @@ static const struct intel_memory_region_ops i915_region_stolen_lmem_ops = {
->  	.init_object = _i915_gem_object_stolen_init,
->  };
->  
-> +static int mtl_get_gms_size(struct intel_uncore *uncore)
-> +{
-> +	u16 ggc, gms;
-> +
-> +	ggc = intel_uncore_read16(uncore, GGC);
-> +
-> +	/* check GGMS, should be fixed 0x3 (8MB) */
-> +	if ((ggc & GGMS_MASK) != GGMS_MASK)
-> +		return -EIO;
-> +
-> +	/* return valid GMS value, -EIO if invalid */
-> +	gms = REG_FIELD_GET(GMS_MASK, ggc);
-> +	switch (gms) {
-> +	case 0x0 ... 0x04:
-> +		return gms * 32;
-> +	case 0xf0 ... 0xfe:
-> +		return (gms - 0xf0 + 1) * 4;
-> +	default:
-> +		MISSING_CASE(gms);
-> +		return -EIO;
-> +	}
-> +}
-> +
->  struct intel_memory_region *
->  i915_gem_stolen_lmem_setup(struct drm_i915_private *i915, u16 type,
->  			   u16 instance)
-> @@ -843,6 +873,7 @@ i915_gem_stolen_lmem_setup(struct drm_i915_private *i915, u16 type,
->  	struct intel_memory_region *mem;
->  	resource_size_t io_start, io_size;
->  	resource_size_t min_page_size;
-> +	int ret;
->  
->  	if (WARN_ON_ONCE(instance))
->  		return ERR_PTR(-ENODEV);
-> @@ -850,12 +881,8 @@ i915_gem_stolen_lmem_setup(struct drm_i915_private *i915, u16 type,
->  	if (!i915_pci_resource_valid(pdev, GEN12_LMEM_BAR))
->  		return ERR_PTR(-ENXIO);
->  
-> -	/* Use DSM base address instead for stolen memory */
-> -	dsm_base = intel_uncore_read64(uncore, GEN12_DSMBASE) & GEN12_BDSM_MASK;
-> -	if (IS_DG1(uncore->i915)) {
-> +	if (HAS_BAR2_SMEM_STOLEN(i915) || IS_DG1(i915)) {
->  		lmem_size = pci_resource_len(pdev, GEN12_LMEM_BAR);
-> -		if (WARN_ON(lmem_size < dsm_base))
-> -			return ERR_PTR(-ENODEV);
->  	} else {
->  		resource_size_t lmem_range;
->  
-> @@ -864,13 +891,39 @@ i915_gem_stolen_lmem_setup(struct drm_i915_private *i915, u16 type,
->  		lmem_size *= SZ_1G;
->  	}
->  
-> -	dsm_size = lmem_size - dsm_base;
-> -	if (pci_resource_len(pdev, GEN12_LMEM_BAR) < lmem_size) {
-> +	if (HAS_BAR2_SMEM_STOLEN(i915)) {
-> +		/*
-> +		 * MTL dsm size is in GGC register.
-> +		 * Also MTL uses offset to DSMBASE in ptes, so i915
-> +		 * uses dsm_base = 0 to setup stolen region.
-> +		 */
-> +		ret = mtl_get_gms_size(uncore);
-> +		if (ret < 0) {
-> +			drm_err(&i915->drm, "invalid MTL GGC register setting\n");
-> +			return ERR_PTR(ret);
-> +		}
-> +
-> +		dsm_base = 0;
-> +		dsm_size = (resource_size_t)(ret * SZ_1M);
-> +
-> +		GEM_BUG_ON(pci_resource_len(pdev, GEN12_LMEM_BAR) != SZ_256M);
-> +		GEM_BUG_ON((dsm_size + SZ_8M) > lmem_size);
-> +	} else {
-> +		/* Use DSM base address instead for stolen memory */
-> +		dsm_base = intel_uncore_read64(uncore, GEN12_DSMBASE);
-> +		if (WARN_ON(lmem_size < dsm_base))
-> +			return ERR_PTR(-ENODEV);
-> +		dsm_size = lmem_size - dsm_base;
-> +	}
-> +
-> +	io_size = dsm_size;
-> +	if (pci_resource_len(pdev, GEN12_LMEM_BAR) < dsm_size) {
->  		io_start = 0;
->  		io_size = 0;
-> +	} else if (HAS_BAR2_SMEM_STOLEN(i915)) {
-> +		io_start = pci_resource_start(pdev, GEN12_LMEM_BAR) + SZ_8M;
->  	} else {
->  		io_start = pci_resource_start(pdev, GEN12_LMEM_BAR) + dsm_base;
-> -		io_size = dsm_size;
->  	}
->  
->  	min_page_size = HAS_64K_PAGES(i915) ? I915_GTT_PAGE_SIZE_64K :
-> diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> index 30cf5c3369d9..b31fe0fb013f 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> @@ -931,7 +931,7 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
->  	unsigned int size;
->  	u16 snb_gmch_ctl;
->  
-> -	if (!HAS_LMEM(i915)) {
-> +	if (!HAS_LMEM(i915) && !HAS_BAR2_SMEM_STOLEN(i915)) {
->  		if (!i915_pci_resource_valid(pdev, GTT_APERTURE_BAR))
->  			return -ENXIO;
->  
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> index 84a2f6b16f57..90ed8e6db2fe 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -974,6 +974,9 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
->  
->  #define HAS_ONE_EU_PER_FUSE_BIT(i915)	(INTEL_INFO(i915)->has_one_eu_per_fuse_bit)
->  
-> +#define HAS_BAR2_SMEM_STOLEN(i915) (!HAS_LMEM(i915) && \
-> +				    GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
-> +
->  /* intel_device_info.c */
->  static inline struct intel_device_info *
->  mkwrite_device_info(struct drm_i915_private *dev_priv)
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index 5003a5ffbc6a..2126e441199d 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -7967,6 +7967,10 @@ enum skl_power_gate {
->  							   _ICL_PIPE_DSS_CTL2_PB, \
->  							   _ICL_PIPE_DSS_CTL2_PC)
->  
-> +#define GGC				_MMIO(0x108040)
-> +#define   GMS_MASK			REG_GENMASK(15, 8)
-> +#define   GGMS_MASK			REG_GENMASK(7, 6)
-> +
->  #define GEN12_GSMBASE			_MMIO(0x108100)
->  #define GEN12_DSMBASE			_MMIO(0x1080C0)
->  #define   GEN12_BDSM_MASK		REG_GENMASK64(63, 20)
-> -- 
-> 2.25.1
-> 
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 143 ++++++++++++---------
+ 1 file changed, 85 insertions(+), 58 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index c34065fe2ecc..6279eed3cdf3 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -77,22 +77,26 @@ void i915_gem_stolen_remove_node(struct drm_i915_private *i915,
+ 	mutex_unlock(&i915->mm.stolen_lock);
+ }
+ 
+-static int i915_adjust_stolen(struct drm_i915_private *i915,
+-			      struct resource *dsm)
++static bool valid_stolen_size(struct resource *dsm)
++{
++	return dsm->start != 0 && dsm->end > dsm->start;
++}
++
++static int adjust_stolen(struct drm_i915_private *i915,
++			 struct resource *dsm)
+ {
+ 	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
+ 	struct intel_uncore *uncore = ggtt->vm.gt->uncore;
+-	struct resource *r;
+ 
+-	if (dsm->start == 0 || dsm->end <= dsm->start)
++	if (!valid_stolen_size(dsm))
+ 		return -EINVAL;
+ 
+ 	/*
++	 * Make sure we don't clobber the GTT if it's within stolen memory
++	 *
+ 	 * TODO: We have yet too encounter the case where the GTT wasn't at the
+ 	 * end of stolen. With that assumption we could simplify this.
+ 	 */
+-
+-	/* Make sure we don't clobber the GTT if it's within stolen memory */
+ 	if (GRAPHICS_VER(i915) <= 4 &&
+ 	    !IS_G33(i915) && !IS_PINEVIEW(i915) && !IS_G4X(i915)) {
+ 		struct resource stolen[2] = {*dsm, *dsm};
+@@ -131,10 +135,20 @@ static int i915_adjust_stolen(struct drm_i915_private *i915,
+ 		}
+ 	}
+ 
++	if (!valid_stolen_size(dsm))
++		return -EINVAL;
++
++	return 0;
++}
++
++static int request_smem_stolen(struct drm_i915_private *i915,
++			       struct resource *dsm)
++{
++	struct resource *r;
++
+ 	/*
+-	 * With stolen lmem, we don't need to check if the address range
+-	 * overlaps with the non-stolen system memory range, since lmem is local
+-	 * to the gpu.
++	 * With stolen lmem, we don't need to request if the address range
++	 * since lmem is local to the gpu.
+ 	 */
+ 	if (HAS_LMEM(i915))
+ 		return 0;
+@@ -392,39 +406,22 @@ static void icl_get_stolen_reserved(struct drm_i915_private *i915,
+ 	}
+ }
+ 
+-static int i915_gem_init_stolen(struct intel_memory_region *mem)
++/*
++ * Initialize i915->dsm_reserved to contain the reserved space within the Data
++ * Stolen Memory. This is a range on the top of DSM that is reserved, not to
++ * be used by driver, so must be excluded from the region passed to the
++ * allocator later. In the spec this is also called as WOPCM.
++ *
++ * Our expectation is that the reserved space is at the top of the stolen
++ * region, as it has been the case for every platform, and *never* at the
++ * bottom, so the calculation here can be simplified.
++ */
++static int init_reserved_stolen(struct drm_i915_private *i915)
+ {
+-	struct drm_i915_private *i915 = mem->i915;
+ 	struct intel_uncore *uncore = &i915->uncore;
+ 	resource_size_t reserved_base, stolen_top;
+-	resource_size_t reserved_total, reserved_size;
+-
+-	mutex_init(&i915->mm.stolen_lock);
+-
+-	if (intel_vgpu_active(i915)) {
+-		drm_notice(&i915->drm,
+-			   "%s, disabling use of stolen memory\n",
+-			   "iGVT-g active");
+-		return 0;
+-	}
+-
+-	if (i915_vtd_active(i915) && GRAPHICS_VER(i915) < 8) {
+-		drm_notice(&i915->drm,
+-			   "%s, disabling use of stolen memory\n",
+-			   "DMAR active");
+-		return 0;
+-	}
+-
+-	if (resource_size(&mem->region) == 0)
+-		return 0;
+-
+-	if (i915_adjust_stolen(i915, &mem->region))
+-		return 0;
+-
+-	GEM_BUG_ON(i915->dsm.start == 0);
+-	GEM_BUG_ON(i915->dsm.end <= i915->dsm.start);
+-
+-	i915->dsm = mem->region;
++	resource_size_t reserved_size;
++	int ret = 0;
+ 
+ 	stolen_top = i915->dsm.end + 1;
+ 	reserved_base = stolen_top;
+@@ -455,17 +452,16 @@ static int i915_gem_init_stolen(struct intel_memory_region *mem)
+ 					&reserved_base, &reserved_size);
+ 	}
+ 
+-	/*
+-	 * Our expectation is that the reserved space is at the top of the
+-	 * stolen region and *never* at the bottom. If we see !reserved_base,
+-	 * it likely means we failed to read the registers correctly.
+-	 */
++	/* No reserved stolen */
++	if (reserved_base == stolen_top)
++		goto bail_out;
++
+ 	if (!reserved_base) {
+ 		drm_err(&i915->drm,
+ 			"inconsistent reservation %pa + %pa; ignoring\n",
+ 			&reserved_base, &reserved_size);
+-		reserved_base = stolen_top;
+-		reserved_size = 0;
++		ret = -EINVAL;
++		goto bail_out;
+ 	}
+ 
+ 	i915->dsm_reserved =
+@@ -475,19 +471,55 @@ static int i915_gem_init_stolen(struct intel_memory_region *mem)
+ 		drm_err(&i915->drm,
+ 			"Stolen reserved area %pR outside stolen memory %pR\n",
+ 			&i915->dsm_reserved, &i915->dsm);
++		ret = -EINVAL;
++		goto bail_out;
++	}
++
++	return 0;
++
++bail_out:
++	i915->dsm_reserved =
++		(struct resource)DEFINE_RES_MEM(reserved_base, 0);
++
++	return ret;
++}
++
++static int i915_gem_init_stolen(struct intel_memory_region *mem)
++{
++	struct drm_i915_private *i915 = mem->i915;
++
++	mutex_init(&i915->mm.stolen_lock);
++
++	if (intel_vgpu_active(i915)) {
++		drm_notice(&i915->drm,
++			   "%s, disabling use of stolen memory\n",
++			   "iGVT-g active");
++		return 0;
++	}
++
++	if (i915_vtd_active(i915) && GRAPHICS_VER(i915) < 8) {
++		drm_notice(&i915->drm,
++			   "%s, disabling use of stolen memory\n",
++			   "DMAR active");
+ 		return 0;
+ 	}
+ 
++	if (adjust_stolen(i915, &mem->region))
++		return 0;
++
++	if (request_smem_stolen(i915, &mem->region))
++		return 0;
++
++	i915->dsm = mem->region;
++
++	if (init_reserved_stolen(i915))
++		return 0;
++
+ 	/* Exclude the reserved region from driver use */
+-	mem->region.end = reserved_base - 1;
++	mem->region.end = i915->dsm_reserved.start - 1;
+ 	mem->io_size = min(mem->io_size, resource_size(&mem->region));
+ 
+-	/* It is possible for the reserved area to end before the end of stolen
+-	 * memory, so just consider the start. */
+-	reserved_total = stolen_top - reserved_base;
+-
+-	i915->stolen_usable_size =
+-		resource_size(&i915->dsm) - reserved_total;
++	i915->stolen_usable_size = resource_size(&mem->region);
+ 
+ 	drm_dbg(&i915->drm,
+ 		"Memory reserved for graphics device: %lluK, usable: %lluK\n",
+@@ -759,11 +791,6 @@ static int init_stolen_lmem(struct intel_memory_region *mem)
+ 	if (GEM_WARN_ON(resource_size(&mem->region) == 0))
+ 		return -ENODEV;
+ 
+-	/*
+-	 * TODO: For stolen lmem we mostly just care about populating the dsm
+-	 * related bits and setting up the drm_mm allocator for the range.
+-	 * Perhaps split up i915_gem_init_stolen() for this.
+-	 */
+ 	err = i915_gem_init_stolen(mem);
+ 	if (err)
+ 		return err;
 -- 
-Matt Roper
-Graphics Software Engineer
-VTT-OSGC Platform Enablement
-Intel Corporation
+2.37.3
+
