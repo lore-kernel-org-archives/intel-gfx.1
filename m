@@ -4,56 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F9D7ECAAD3
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F04CC6FA90
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47A6C10E64F;
-	Mon, 19 Sep 2022 13:29:25 +0000 (UTC)
-Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
- [IPv6:2607:f8b0:4864:20::649])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94E1910E233
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Sep 2022 00:46:06 +0000 (UTC)
-Received: by mail-pl1-x649.google.com with SMTP id
- s16-20020a170902ea1000b00176cf52a348so11356937plg.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 14 Sep 2022 17:46:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date; bh=o0TKZg1V+iwVMAhcvK219IOXYb7az/U83DvEghII4Dw=;
- b=ixIlbiWjYVB7lleKcOS25U/195trOCFFYYTNY2ArRn6K/NXN4jKkbx8xqVv40XOYwc
- gzOAoHFIZ5nYNTfyaobW0eR/pRWG25686m9JNJWBrr+6XN1RIF81EpUMZ2WjcMFCwhSm
- 8Gb5q+USrZHuvbc4jRv89+/+mSkgNgiHosn5pQFsAnbd1C2Dv7ogkJvH1mC5lGrL+dPr
- bnDcostykRNUl2cropFFiaYmIcz4a5CirfMwmfwgNqHM/EqMlJz/pmNv4Ugl2f1MNawE
- jIGBZhIlX4HrU621pf9P/4CGXhHLBZxK7w0Dp2p+dDVn1hB+Jl5575zzcLF/aRyRy4zu
- UhiQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id F080110E64E;
+	Mon, 19 Sep 2022 13:29:24 +0000 (UTC)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04BBF10E3FF;
+ Fri, 16 Sep 2022 15:54:56 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id bj12so50294872ejb.13;
+ Fri, 16 Sep 2022 08:54:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date;
+ bh=EuWFWN26twjl6pnBL7u1oZiY5YRuiq7q1++u96G3pgY=;
+ b=EoQJiVAYTrd4M3+DKqSvM9nCwEIljCqrB31LX/Mf3YTd9IN1mXiqpwdfmYb1HmzhSF
+ hBXK9YQ4RNqyZzeDWzGuAExSL8cI7LfiyjoHgtvsnZmoTCP0xOrpNd+c46PDGFtKDrft
+ arPkvo2nWfkQBevvVRQORFApZ7E1ncEhBKau6WEfbADES93CreFsNJaTUq2Cb3uUhb1G
+ MoF0+YsZKJ04z84ZAfyGHcwhZIYZEMzvjx+l2SfhjkDO4OLQpIXjsNG684fnZ9HP5Y2z
+ PBq0MP9cq0SS8L/cQGrLrtmJHJZCn04wDe3dVYkHhYn68gk8mi9PfgIMl7NNv8ut9uTM
+ jIzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date;
- bh=o0TKZg1V+iwVMAhcvK219IOXYb7az/U83DvEghII4Dw=;
- b=fGKHhCJLKBGh0sljZ9VUrrl1kFtnHMYIsTXBFroxWv7lH6Myd8LusTAMEM61PGvZSK
- 6wCam2YxooRBY6jrGRW5e3iMi6FmG7vePc/F3ig3eauw66yqaWIMbb+3BXM0P58Y7Rni
- UtriwIOVXyQSOwQH7DndO+ZFspILzEfWN5W7dW/9mnq0wdPl344tgiI+NnLcJDjrLljC
- 3Y5vY05jpaWW8fInH7DMfjV656MuIrMi3OxtxUXIiXT7UKk3y+mwLhIdlPXRC98rh7HP
- 38aKe1QhE2useQuE8y59wRhhVIVnvolDmC1mvrvjMyMYf8g1w4so/+nO/19MqgBIym03
- HlxQ==
-X-Gm-Message-State: ACrzQf0mjB47Mr/TqLPiZ7Hp58elG+vLMA1A1nW6xqjnW47RqEplZX61
- hACg8IdjbO3XCQs++Z8qieVB4BSOcEBswMA=
-X-Google-Smtp-Source: AMsMyM7cpjC0UvYeAkGaQWcCbIFCVaxS58PZrp3VQQ5nzbzNbiesGmVdHmcPLBDxn84TmNTXrfnoS9iOMdHYeok=
-X-Received: from pceballos.c.googlers.com
- ([fda3:e722:ac3:cc00:24:72f4:c0a8:128c])
- (user=pceballos job=sendgmr) by 2002:a17:90a:5aa2:b0:200:30aa:c773 with SMTP
- id n31-20020a17090a5aa200b0020030aac773mr7466200pji.182.1663202766080; Wed,
- 14 Sep 2022 17:46:06 -0700 (PDT)
-Date: Thu, 15 Sep 2022 00:46:01 +0000
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.37.2.789.g6183377224-goog
-Message-ID: <20220915004601.320198-1-pceballos@google.com>
-From: Pablo Ceballos <pceballos@google.com>
-To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date;
+ bh=EuWFWN26twjl6pnBL7u1oZiY5YRuiq7q1++u96G3pgY=;
+ b=HcXQpTwiHBqNTnMrXCjjuDw9e+nX3KykB/IxW0pAnODYhlqcEUmTWiEeXt7/XIJeXw
+ cQA/gX9uZyrzxj5NVUTkpoMAS/Fc3F0SC1bLN6dE5ynt+Q1C7E+ZC2ZKs/okPRg5zRej
+ FsZaXXH26tMVjTSUrEIXoZ3fI9nkkfI33t3pjXhVKGlPXiZzsKhuKR90LdqCK+eL+iGj
+ KRVFhsdh1ST9tFnr0KwhA20H7kkdweGRyKMVbF3gbWAO+OO/qffcpLCElIbt5QWZJWAw
+ LfRIBeMAl3NXVGJb6QxhU8unSHF1h48G1wvSKnngeS8ZDUyjT1Vz3ssw/Uqj6Kj3xpfL
+ ax6Q==
+X-Gm-Message-State: ACrzQf2Oc3xat3DRYbnOE76F7g5MtFVmX7zktPKDSfqEILXYP9kXSXcM
+ n5B17LvfS1o4sL/sQg1g8UfRDyT0ryutbMdrYjspTHxfJsv1oDz0
+X-Google-Smtp-Source: AMsMyM5S2RFtr9n8n8rdNH6foyfaJk78kYuOTBmn+L2hXS5/Y0XV9NEVfOYZSy1QOWTfM/qwcuFWq3lkxQaCptutRsM=
+X-Received: by 2002:a17:906:8a77:b0:780:a02d:ca4a with SMTP id
+ hy23-20020a1709068a7700b00780a02dca4amr2848192ejc.488.1663343694459; Fri, 16
+ Sep 2022 08:54:54 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
+ <CAJedcCw1eJqjSK+yR7eQMDheNtH3Mjm+viwt00xAhnmrfpq2pw@mail.gmail.com>
+ <CAJedcCweHjD78F7iydiq6Xc2iH=t_3m=H9JKnaCooToUk32FvQ@mail.gmail.com>
+ <YxWtfjfpNsoPUrgh@kroah.com>
+ <CAJedcCzMo51aiy=Dv7zn7VmL3gwkw7JgzwAPAB2Z27C9CnhoYA@mail.gmail.com>
+ <20220907030754.GU1089@zhen-hp.sh.intel.com>
+ <CAJedcCxO_Rq0qMeLiHtY5+FuN1A1pDGsZd3gMtvUpm1xbAK3aA@mail.gmail.com>
+ <Yxmzj2nCoTKurCY8@kroah.com>
+ <CAJedcCwVC6Rg+wF7h6GhFvL6BGkKV=DS9Mo9fOf-gfDAk9VqPg@mail.gmail.com>
+ <CAJedcCxRQ4h-ChNsD4OWpDMUJd3JNaQrvD=uVKxMpYONGFUgzA@mail.gmail.com>
+ <YyQzDlM5n7mOLh5Q@kroah.com>
+In-Reply-To: <YyQzDlM5n7mOLh5Q@kroah.com>
+From: Zheng Hacker <hackerzheng666@gmail.com>
+Date: Fri, 16 Sep 2022 23:54:42 +0800
+Message-ID: <CAJedcCzt_1ZRV5egMLdoFVZ4hBDE+nDu9fLkBuGY0A=uYicvQA@mail.gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Mon, 19 Sep 2022 13:29:09 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/display/lspcon: Increase LSPCON mode
- settle timeout
+X-Mailman-Approved-At: Mon, 19 Sep 2022 13:29:10 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: fix double-free bug in
+ split_2MB_gtt_entry.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,35 +75,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Javier Martinez Canillas <javierm@redhat.com>, linux-kernel@vger.kernel.org,
- Maxime Ripard <maxime@cerno.tech>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Pablo Ceballos <pceballos@google.com>
+Cc: "alex000young@gmail.com" <alex000young@gmail.com>,
+ "security@kernel.org" <security@kernel.org>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ xmzyshypnc <1002992920@qq.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On some devices the Parade PS175 takes more than 400ms to settle in PCON
-mode.
+From afe79848cb74cc8e45ab426d13fa2394c87e0422 Mon Sep 17 00:00:00 2001
+From: xmzyshypnc <1002992920@qq.com>
+Date: Fri, 16 Sep 2022 23:48:23 +0800
+Subject: [PATCH] drm/i915/gvt: fix double-free bug in split_2MB_gtt_entry
 
-Signed-off-by: Pablo Ceballos <pceballos@google.com>
+There is a double-free security bug in split_2MB_gtt_entry.
+
+Here is a calling chain :
+ppgtt_populate_spt->ppgtt_populate_shadow_entry->split_2MB_gtt_entry.
+
+If intel_gvt_dma_map_guest_page failed, it will call
+ppgtt_invalidate_spt, which will finally call ppgtt_free_spt and
+kfree(spt). But the caller does not notice that, and it will call
+ppgtt_free_spt again in error path.
+
+Fix this by only freeing spt in ppgtt_invalidate_spt in good case.
+
+Signed-off-by: Zheng Wang <hackerzheng666@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_lspcon.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gvt/gtt.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c b/drivers/gpu/drm/i915/display/intel_lspcon.c
-index 15d59de8810e..b4cbade13ee5 100644
---- a/drivers/gpu/drm/i915/display/intel_lspcon.c
-+++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
-@@ -166,7 +166,7 @@ static enum drm_lspcon_mode lspcon_wait_mode(struct intel_lspcon *lspcon,
- 	drm_dbg_kms(&i915->drm, "Waiting for LSPCON mode %s to settle\n",
- 		    lspcon_mode_name(mode));
- 
--	wait_for((current_mode = lspcon_get_current_mode(lspcon)) == mode, 400);
-+	wait_for((current_mode = lspcon_get_current_mode(lspcon)) == mode, 800);
- 	if (current_mode != mode)
- 		drm_err(&i915->drm, "LSPCON mode hasn't settled\n");
- 
+diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
+index ce0eb03709c3..550519f0acca 100644
+--- a/drivers/gpu/drm/i915/gvt/gtt.c
++++ b/drivers/gpu/drm/i915/gvt/gtt.c
+@@ -959,7 +959,7 @@ static inline int ppgtt_put_spt(struct
+intel_vgpu_ppgtt_spt *spt)
+    return atomic_dec_return(&spt->refcount);
+ }
+
+-static int ppgtt_invalidate_spt(struct intel_vgpu_ppgtt_spt *spt);
++static int ppgtt_invalidate_spt(struct intel_vgpu_ppgtt_spt *spt, int
+is_error);
+
+ static int ppgtt_invalidate_spt_by_shadow_entry(struct intel_vgpu *vgpu,
+        struct intel_gvt_gtt_entry *e)
+@@ -995,7 +995,7 @@ static int
+ppgtt_invalidate_spt_by_shadow_entry(struct intel_vgpu *vgpu,
+                ops->get_pfn(e));
+        return -ENXIO;
+    }
+-   return ppgtt_invalidate_spt(s);
++   return ppgtt_invalidate_spt(s, 0);
+ }
+
+ static inline void ppgtt_invalidate_pte(struct intel_vgpu_ppgtt_spt *spt,
+@@ -1016,7 +1016,7 @@ static inline void ppgtt_invalidate_pte(struct
+intel_vgpu_ppgtt_spt *spt,
+    intel_gvt_dma_unmap_guest_page(vgpu, pfn << PAGE_SHIFT);
+ }
+
+-static int ppgtt_invalidate_spt(struct intel_vgpu_ppgtt_spt *spt)
++static int ppgtt_invalidate_spt(struct intel_vgpu_ppgtt_spt *spt, int is_error)
+ {
+    struct intel_vgpu *vgpu = spt->vgpu;
+    struct intel_gvt_gtt_entry e;
+@@ -1059,9 +1059,11 @@ static int ppgtt_invalidate_spt(struct
+intel_vgpu_ppgtt_spt *spt)
+        }
+    }
+
+-   trace_spt_change(spt->vgpu->id, "release", spt,
++   if (!is_error) {
++       trace_spt_change(spt->vgpu->id, "release", spt,
+             spt->guest_page.gfn, spt->shadow_page.type);
+-   ppgtt_free_spt(spt);
++       ppgtt_free_spt(spt);
++   }
+    return 0;
+ fail:
+    gvt_vgpu_err("fail: shadow page %p shadow entry 0x%llx type %d\n",
+@@ -1215,7 +1217,7 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
+        ret = intel_gvt_dma_map_guest_page(vgpu, start_gfn + sub_index,
+                           PAGE_SIZE, &dma_addr);
+        if (ret) {
+-           ppgtt_invalidate_spt(spt);
++           ppgtt_invalidate_spt(spt, 1);
+            return ret;
+        }
+        sub_se.val64 = se->val64;
+@@ -1393,7 +1395,7 @@ static int
+ppgtt_handle_guest_entry_removal(struct intel_vgpu_ppgtt_spt *spt,
+            ret = -ENXIO;
+            goto fail;
+        }
+-       ret = ppgtt_invalidate_spt(s);
++       ret = ppgtt_invalidate_spt(s, 0);
+        if (ret)
+            goto fail;
+    } else {
 -- 
-2.37.2.789.g6183377224-goog
-
+2.25.1
