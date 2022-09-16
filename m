@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 799DEC54EE9
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Sep 2022 10:06:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5792FC54EE9
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Sep 2022 10:06:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92D8F10E358;
-	Fri, 16 Sep 2022 10:06:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C97D810E365;
+	Fri, 16 Sep 2022 10:06:16 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9E410E358;
- Fri, 16 Sep 2022 10:06:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFD410E24E;
+ Fri, 16 Sep 2022 10:05:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663322765; x=1694858765;
+ t=1663322758; x=1694858758;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iAtujI/X+HtVu3N2st1GeqMvEyEDBpCkDypcwfxtGN8=;
- b=YjCjk6Qb7KvWrsYzsMtEDPQSCVmyRFQR+3ivtzMj1zv3S8LHHAQ1CEEN
- yjCoC/3H3OTL7wjFdzi489DK7/UdRYyL9y/9sj5YVH9CDbgUG+KxV30nq
- GcF0tcT2cIyWaRCnlJLAK7FLGZDYPZ/lOhkrugcgYS9zu4aVwBqbgCcLl
- jMx1wLk/O42IVl1LlgOweuVbQgrtjx+xzEUBSaYyxKTvsHztCXA4c06DJ
- a63ekqVcbDShSa1oPnjNMudFbyioPmudcWUR8ULaSSBfFM97yU3U/xwxJ
- 625nbsmnyzfJe9I0ZPiPIAHQ5td+J/Id/jhJBlMISM7q6/Ux2Nex4E6sL Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10471"; a="360698706"
-X-IronPort-AV: E=Sophos;i="5.93,320,1654585200"; d="scan'208";a="360698706"
+ bh=6DHGceXRsrEIhrBXnrzVVtRwGuSN/qiddBCEPNwRHmY=;
+ b=htQsOA58qCBWjqR5NQgL5op/UZgbWKebHvdxTqDtTp71AGvGC+KXbQfm
+ xBVw4pKYoQIxI1zmV88kmp1dYjcjGSFuvxPUShuI8Zd8qsY1XCU7pJNzI
+ Ik4nEYu7xsJdWWVcDOi/ZE/k92IvhPSYTxO1Oy0/n1hcpe2qpx/MrO4WN
+ BcTvbtR908E+cZRNWr+57mgwfTJEGN4QQpGc8Tv4hsNJ1cbU6juOQlSSf
+ g0L2XDFdQIvpKq0JNNgFTA3dWI3PBEyJIGBhz9TESesRjsUB1yZVExeYW
+ QKwPzSyz7HvgV0zt4Hcn7cXxDopZW252PvZfFqc1c2dSLi2kOpD5mzFeW A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10471"; a="360698682"
+X-IronPort-AV: E=Sophos;i="5.93,320,1654585200"; d="scan'208";a="360698682"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2022 03:06:05 -0700
-X-IronPort-AV: E=Sophos;i="5.93,320,1654585200"; d="scan'208";a="793051733"
+ 16 Sep 2022 03:05:58 -0700
+X-IronPort-AV: E=Sophos;i="5.93,320,1654585200"; d="scan'208";a="793051693"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2022 03:06:03 -0700
+ 16 Sep 2022 03:05:56 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Fri, 16 Sep 2022 15:35:51 +0530
-Message-Id: <20220916100551.2531750-5-ankit.k.nautiyal@intel.com>
+Date: Fri, 16 Sep 2022 15:35:48 +0530
+Message-Id: <20220916100551.2531750-2-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220916100551.2531750-1-ankit.k.nautiyal@intel.com>
 References: <20220916100551.2531750-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/4] drm/edid: Avoid multiple log lines for
- HFVSDB parsing
+Subject: [Intel-gfx] [PATCH v2 1/4] drm/edid: Fix minimum bpc supported with
+ DSC1.2 for HDMI sink
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,75 +60,38 @@ Cc: intel-gfx@lists.freedesktop.org, maarten.lankhorst@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace multiple log lines with a single log line at the end of
-parsing HF-VSDB. Also use drm_dbg_kms instead of DRM_DBG_KMS, and
-add log for DSC1.2 support.
+HF-VSDB/SCDB has bits to advertise support for 16, 12 and 10 bpc.
+If none of the bits are set, the minimum bpc supported with DSC is 8.
 
-v2: Fixed the formatting issues in the logging (Jani).
+This patch corrects the min bpc supported to be 8, instead of 0.
+
+Fixes: 76ee7b905678 ("drm/edid: Parse DSC1.2 cap fields from HFVSDB block")
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+
+v2: s/DSC1.2/DSC 1.2
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 27bdbdf6d345..1c61e3af79c6 100644
+index 4005dab6147d..ebe02cf7cd95 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -5830,6 +5830,9 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 	struct drm_display_info *display = &connector->display_info;
- 	struct drm_hdmi_info *hdmi = &display->hdmi;
- 	struct drm_hdmi_dsc_cap *hdmi_dsc = &hdmi->dsc_cap;
-+	int max_tmds_clock = 0;
-+	u8 max_frl_rate = 0;
-+	bool dsc_support = false;
+@@ -5819,7 +5819,8 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 			else if (hf_scds[11] & DRM_EDID_DSC_10BPC)
+ 				hdmi_dsc->bpc_supported = 10;
+ 			else
+-				hdmi_dsc->bpc_supported = 0;
++				/* Supports min 8 BPC if DSC 1.2 is supported*/
++				hdmi_dsc->bpc_supported = 8;
  
- 	display->has_hdmi_infoframe = true;
- 
-@@ -5849,14 +5852,13 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 	 */
- 
- 	if (hf_scds[5]) {
--		/* max clock is 5000 KHz times block value */
--		u32 max_tmds_clock = hf_scds[5] * 5000;
- 		struct drm_scdc *scdc = &hdmi->scdc;
- 
-+		/* max clock is 5000 KHz times block value */
-+		max_tmds_clock = hf_scds[5] * 5000;
-+
- 		if (max_tmds_clock > 340000) {
- 			display->max_tmds_clock = max_tmds_clock;
--			DRM_DEBUG_KMS("HF-VSDB: max TMDS clock %d kHz\n",
--				display->max_tmds_clock);
- 		}
- 
- 		if (scdc->supported) {
-@@ -5869,9 +5871,6 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 	}
- 
- 	if (hf_scds[7]) {
--		u8 max_frl_rate;
--
--		DRM_DEBUG_KMS("hdmi_21 sink detected. parsing edid\n");
- 		max_frl_rate = (hf_scds[7] & DRM_EDID_MAX_FRL_RATE_MASK) >> 4;
- 		drm_get_max_frl_rate(max_frl_rate, &hdmi->max_lanes,
- 				     &hdmi->max_frl_rate_per_lane);
-@@ -5879,8 +5878,14 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 
- 	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
- 
--	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11])
-+	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
- 		drm_parse_dsc_info(hdmi_dsc, hf_scds);
-+		dsc_support = true;
-+	}
-+
-+	drm_dbg_kms(connector->dev,
-+		    "HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
-+		    max_tmds_clock, str_yes_no(max_frl_rate), str_yes_no(dsc_support));
- }
- 
- static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
+ 			dsc_max_frl_rate = (hf_scds[12] & DRM_EDID_DSC_MAX_FRL_RATE_MASK) >> 4;
+ 			drm_get_max_frl_rate(dsc_max_frl_rate, &hdmi_dsc->max_lanes,
 -- 
 2.25.1
 
