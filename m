@@ -4,80 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA14ECAAD3
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42EF3C54EE9
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF0A810E655;
-	Mon, 19 Sep 2022 13:29:26 +0000 (UTC)
-Received: from mx0a-00190b01.pphosted.com (mx0a-00190b01.pphosted.com
- [IPv6:2620:100:9001:583::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7219210E172;
- Mon, 12 Sep 2022 20:17:12 +0000 (UTC)
-Received: from pps.filterd (m0050095.ppops.net [127.0.0.1])
- by m0050095.ppops.net-00190b01. (8.17.1.5/8.17.1.5) with ESMTP id
- 28CGn0s1000316; Mon, 12 Sep 2022 21:17:03 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=jan2016.eng;
- bh=PPtZHmCIQVuM9YXzLPNtRwdGAqaP/tT/4KH6zim4BTk=;
- b=J0a0BInST46lwTEIr0aqv3RDPnHNzZzbc/gn++frBD8awWms+RF0UxiEe2dSINuE/0Ul
- xA9klHjTwJu/NOFKI+q3hwjlk4r+pWtVammua4QSu6FgXqxvSki5PX/gtYg0laUE5tFw
- RKhQwNGCyyow5pczu6GvQEPB22usQC9T+vn0YgSKPSSRumn/GeHDmTzZ+Mg5ykATKjDs
- WPHJa4fC/c/4CyQsb8BbVntxkB/D9yqcFmH40HSv6v4g5419glK47rJrmlZeozCs8pnr
- 1S9MN1H9Kj3IqyHtQLeEUkp7/4Zgi4dVE4F21z9UqOnJMy5Xu/9/DU/fyFlasyPi8Zjm Zg== 
-Received: from prod-mail-ppoint7
- (a72-247-45-33.deploy.static.akamaitechnologies.com [72.247.45.33] (may be
- forged))
- by m0050095.ppops.net-00190b01. (PPS) with ESMTPS id 3jgk46s9gq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Sep 2022 21:17:03 +0100
-Received: from pps.filterd (prod-mail-ppoint7.akamai.com [127.0.0.1])
- by prod-mail-ppoint7.akamai.com (8.17.1.5/8.17.1.5) with ESMTP id
- 28CIUslV017697; Mon, 12 Sep 2022 16:17:02 -0400
-Received: from prod-mail-relay18.dfw02.corp.akamai.com ([172.27.165.172])
- by prod-mail-ppoint7.akamai.com (PPS) with ESMTP id 3jgnxvdfbx-1;
- Mon, 12 Sep 2022 16:17:02 -0400
-Received: from [0.0.0.0] (unknown [172.27.119.138])
- by prod-mail-relay18.dfw02.corp.akamai.com (Postfix) with ESMTP id 38EF1FA;
- Mon, 12 Sep 2022 20:17:01 +0000 (GMT)
-Message-ID: <0d9f644f-3d60-02c3-7ce0-01296757e181@akamai.com>
-Date: Mon, 12 Sep 2022 16:17:00 -0400
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6874010E652;
+	Mon, 19 Sep 2022 13:29:27 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4FE010E5C5;
+ Sun, 18 Sep 2022 17:18:13 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id lc7so59648529ejb.0;
+ Sun, 18 Sep 2022 10:18:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date;
+ bh=g4F1o3OxSkwyGTECuVsvCx/NyKOfCc+oSSw810FYyjo=;
+ b=QRI+Gv16BKwthqTnKwPsBDdooKTjM+DS7nip1lJfY2cXjnp9bXM7B5srbbWQfzwvZq
+ 6b1hFUUW2uA2q7mXcES+P3JE+k3JfuUqCcJRGBX+G3zNRSGmbwor7FWwVqwXsO8fCOW3
+ CMClGqb+UufxwVMtPsNAMA6LAST4e4eAXpGMWMmVbg6/aoRbs4MdD4niSj91wYjGx65R
+ NvioDgl8yvTaTtRrImg3+XY3r2Znk8hn9RBeSy4RCCfz40n8EuAguPScGLGLdT23kZtT
+ f70JjP9kpn27sTJAwxM5Ua9R9sprHO8iWhmq+2KpidhCdijl1q92a66hURyO9Vq+5puo
+ RJkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date;
+ bh=g4F1o3OxSkwyGTECuVsvCx/NyKOfCc+oSSw810FYyjo=;
+ b=pEmTkVOnq8h/Me4L/1gyqLqvDeWEeVz7gRlQKg97uHrZc+ldrwRUBmZKr5ZjHoo3Vg
+ DcasgtafFVmOdh9tR3/gAIjMKkqRxkRda6ON05eROet9gSmMmFuQMje6U4/by5VXApFK
+ 0DuJQIBTKANR3hCJ0VsttIIPxd1+bM1GcuVPe5hdAoLUVi3irw7k+MvHPUJyxtItBxUV
+ mmnjCnbO5N/XyzNM2ZfMpRW0DHEpuq/OhSpx+mD6pya+orKdq047zDe7xf/hrgIsC8DH
+ i+GDbZ2sOG8nprPEkHl/fAN1ffAygX3e507QTST4rnzghf1gSHDD4T/iTBJHDRYuoJws
+ Wrqw==
+X-Gm-Message-State: ACrzQf3sAoKVE66e65ULPtxUXi3QkeOqimUrY8zr7UXVj7ap5ddYaTOj
+ 0YM1AUZlvZxf47jRSLAz+YLAlVI5FHAkZ8Zstko=
+X-Google-Smtp-Source: AMsMyM475ieyAlM9tDvO7b8MM84jCL/RawZkh8FJpEdvGHaOF7Cv/ooAmlyexeixIRJWEQmCGIcJ4jH/Wuv3bq0DKao=
+X-Received: by 2002:a17:907:3f09:b0:780:330d:d907 with SMTP id
+ hq9-20020a1709073f0900b00780330dd907mr10763664ejc.23.1663521492233; Sun, 18
+ Sep 2022 10:18:12 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: jim.cromie@gmail.com
-References: <20220904214134.408619-1-jim.cromie@gmail.com>
- <20220904214134.408619-18-jim.cromie@gmail.com>
- <2d3846cb-ff9a-3484-61a8-973799727d8f@akamai.com>
- <CAJfuBxzM=KKPbcks-aQLAJM0QVd5sjL-CucYbyFbeG5sgoCVjg@mail.gmail.com>
-From: Jason Baron <jbaron@akamai.com>
-In-Reply-To: <CAJfuBxzM=KKPbcks-aQLAJM0QVd5sjL-CucYbyFbeG5sgoCVjg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-12_14,2022-09-12_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- malwarescore=0 adultscore=0
- phishscore=0 bulkscore=0 mlxscore=0 mlxlogscore=999 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
- definitions=main-2209120067
-X-Proofpoint-ORIG-GUID: NWqNNT8JvyIz1ZmPTHNe_ca5jdhHGLod
-X-Proofpoint-GUID: NWqNNT8JvyIz1ZmPTHNe_ca5jdhHGLod
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-12_14,2022-09-12_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 bulkscore=0
- phishscore=0 mlxlogscore=999 spamscore=0 priorityscore=1501 suspectscore=0
- mlxscore=0 impostorscore=0 adultscore=0 clxscore=1015 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
- definitions=main-2209120068
+References: <CAJedcCweHjD78F7iydiq6Xc2iH=t_3m=H9JKnaCooToUk32FvQ@mail.gmail.com>
+ <YxWtfjfpNsoPUrgh@kroah.com>
+ <CAJedcCzMo51aiy=Dv7zn7VmL3gwkw7JgzwAPAB2Z27C9CnhoYA@mail.gmail.com>
+ <20220907030754.GU1089@zhen-hp.sh.intel.com>
+ <CAJedcCxO_Rq0qMeLiHtY5+FuN1A1pDGsZd3gMtvUpm1xbAK3aA@mail.gmail.com>
+ <Yxmzj2nCoTKurCY8@kroah.com>
+ <CAJedcCwVC6Rg+wF7h6GhFvL6BGkKV=DS9Mo9fOf-gfDAk9VqPg@mail.gmail.com>
+ <CAJedcCxRQ4h-ChNsD4OWpDMUJd3JNaQrvD=uVKxMpYONGFUgzA@mail.gmail.com>
+ <YyQzDlM5n7mOLh5Q@kroah.com>
+ <CAJedcCzt_1ZRV5egMLdoFVZ4hBDE+nDu9fLkBuGY0A=uYicvQA@mail.gmail.com>
+ <YyWOh+jGvmSdrHqz@kroah.com>
+In-Reply-To: <YyWOh+jGvmSdrHqz@kroah.com>
+From: Zheng Hacker <hackerzheng666@gmail.com>
+Date: Mon, 19 Sep 2022 01:17:59 +0800
+Message-ID: <CAJedcCwzgELQquRLc2deXt+E4X2D2-NMLERpE1z3sy21bTdddw@mail.gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 19 Sep 2022 13:29:10 +0000
-Subject: Re: [Intel-gfx] [PATCH v6 17/57] dyndbg: validate class FOO by
- checking with module
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: fix double-free bug in
+ split_2MB_gtt_entry.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,277 +77,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Greg KH <gregkh@linuxfoundation.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Sean Paul <seanpaul@chromium.org>, dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Joe Perches <joe@perches.com>,
- intel-gvt-dev@lists.freedesktop.org
+Cc: "alex000young@gmail.com" <alex000young@gmail.com>,
+ "security@kernel.org" <security@kernel.org>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ xmzyshypnc <1002992920@qq.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+I'll try using another mail client like Mutt later. :)
 
+Regards,
+Zheng Wang
 
-On 9/9/22 16:44, jim.cromie@gmail.com wrote:
-> On Wed, Sep 7, 2022 at 12:19 PM Jason Baron <jbaron@akamai.com> wrote:
->>
->>
->>
->> On 9/4/22 17:40, Jim Cromie wrote:
->>> Add module-to-class validation:
->>>
->>>   #> echo class DRM_UT_KMS +p > /proc/dynamic_debug/control
->>>
->>> If a query has "class FOO", then ddebug_find_valid_class(), called
->>> from ddebug_change(), requires that FOO is known to module X,
->>> otherwize the query is skipped entirely for X.  This protects each
->>> module's class-space, other than the default:31.
->>>
->>> The authors' choice of FOO is highly selective, giving isolation
->>> and/or coordinated sharing of FOOs.  For example, only DRM modules
->>> should know and respond to DRM_UT_KMS.
->>>
->>> So this, combined with module's opt-in declaration of known classes,
->>> effectively privatizes the .class_id space for each module (or
->>> coordinated set of modules).
->>>
->>> Notes:
->>>
->>> For all "class FOO" queries, ddebug_find_valid_class() is called, it
->>> returns the map matching the query, and sets valid_class via an
->>> *outvar).
->>>
->>> If no "class FOO" is supplied, valid_class = _CLASS_DFLT.  This
->>> insures that legacy queries do not trample on new class'd callsites,
->>> as they get added.
->>
->>
->> Hi Jim,
->>
->> I'm wondering about the case where we have a callsite which is marked
->> as 'class foo', but the query string is done by say module and file, so:
->>
->> # echo "module bar file foo.c +p" > /proc/dynamic_debug_control
->>
->> With the proposed code, I think this ends up not enabling anything right?
-> 
-> correct - the only way to enable :    pr_debug_cls(CL_FOO, " ...")
-> is
->    echo class CL_FOO +p > control
-> 
-> 1st, existing dyndbg query uses, whether ad-hoc or scripted,
-> were not written in anticipation of new / classified subsystems.
-> 
-> 2nd, new class users dont want to sit in coach. no damn legroom.
-> 
-> 3rd, consider DRM, which already has drm.debug
-> ie:  /sys/module/drm/parameters/debug
-> and prefers it, at least by inertia.
-> protecting these new class'd callsites (3-5k of them)
-> from casual (unintended) manipulations of the kernel-wide
-> dyndbg state seems prudent, and a usability win.
-> 
-> Not everyone will use module bar, requiring "class foo"
-> guarantees that changes are intentional.
-> 
-
-I sort of get that your trying to protect these from unintended toggling,
-but I would say it's that's not really new with these statements,
-prr_debug() come and go before and I'm not aware of this is an issue.
-And in any case, a query can be modified.
-
-I think what bugs me is now query stuff works differently. Previously,
-all the query strings - 'module', 'file', 'line', 'format', were
-used as additional selectors, but now we have this new one 'class'
-that works differently as it's requited for pr_debug_cls() statements.
-
-> 
-> 
->> Because valid class is set to _DPRINTK_CLASS_DFLT and then:
->> 'dp->class_id != valid_class' is true?
->>
->> This seems confusing to me as a user as this doesn't work like the
->> other queries....so maybe we should only do the
->> 'dp->class_id != valid_class' check *if* query->class_string is set,
->> see below.
->>
-> 
-> Could you clarify whether you think this is a logic error
-> or a frame-of-reference difference as elaborated above ?
-
-'frame-of-reference' I'm questioning the how 'class' works as mentioned
-above not the implementation.
-
-Thanks,
-
--Jason
-
-> 
-> ISTM theres a place for a well-worded paragraph in doc
-> about the class distinction, perhaps a whole for-authors section.
-> 
-> 
-> 
->>
->>
->>>
->>> Also add a new column to control-file output, displaying non-default
->>> class-name (when found) or the "unknown _id:", if it has not been
->>> (correctly) declared with one of the declarator macros.
->>>
->>> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
->>> ---
->>>  lib/dynamic_debug.c | 76 ++++++++++++++++++++++++++++++++++++++++-----
->>>  1 file changed, 68 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
->>> index b71efd0b491d..db96ded78c3f 100644
->>> --- a/lib/dynamic_debug.c
->>> +++ b/lib/dynamic_debug.c
->>> @@ -56,6 +56,7 @@ struct ddebug_query {
->>>       const char *module;
->>>       const char *function;
->>>       const char *format;
->>> +     const char *class_string;
->>>       unsigned int first_lineno, last_lineno;
->>>  };
->>>
->>> @@ -136,15 +137,33 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
->>>                       fmtlen--;
->>>       }
->>>
->>> -     v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u\n",
->>> -              msg,
->>> -              query->function ?: "",
->>> -              query->filename ?: "",
->>> -              query->module ?: "",
->>> -              fmtlen, query->format ?: "",
->>> -              query->first_lineno, query->last_lineno);
->>> +     v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u class=%s\n",
->>> +               msg,
->>> +               query->function ?: "",
->>> +               query->filename ?: "",
->>> +               query->module ?: "",
->>> +               fmtlen, query->format ?: "",
->>> +               query->first_lineno, query->last_lineno, query->class_string);
->>>  }
->>>
->>> +static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
->>> +                                                       const char *class_string, int *class_id)
->>> +{
->>> +     struct ddebug_class_map *map;
->>> +     int idx;
->>> +
->>> +     list_for_each_entry(map, &dt->maps, link) {
->>> +             idx = match_string(map->class_names, map->length, class_string);
->>> +             if (idx >= 0) {
->>> +                     *class_id = idx + map->base;
->>> +                     return map;
->>> +             }
->>> +     }
->>> +     *class_id = -ENOENT;
->>> +     return NULL;
->>> +}
->>> +
->>> +#define __outvar /* filled by callee */
->>>  /*
->>>   * Search the tables for _ddebug's which match the given `query' and
->>>   * apply the `flags' and `mask' to them.  Returns number of matching
->>> @@ -159,6 +178,8 @@ static int ddebug_change(const struct ddebug_query *query,
->>>       unsigned int newflags;
->>>       unsigned int nfound = 0;
->>>       struct flagsbuf fbuf, nbuf;
->>> +     struct ddebug_class_map *map = NULL;
->>> +     int __outvar valid_class;
->>>
->>>       /* search for matching ddebugs */
->>>       mutex_lock(&ddebug_lock);
->>> @@ -169,9 +190,22 @@ static int ddebug_change(const struct ddebug_query *query,
->>>                   !match_wildcard(query->module, dt->mod_name))
->>>                       continue;
->>>
->>> +             if (query->class_string) {
->>> +                     map = ddebug_find_valid_class(dt, query->class_string, &valid_class);
->>> +                     if (!map)
->>> +                             continue;
->>
->> So remove the else here.
->>
->>> +             } else {
->>> +                     /* constrain query, do not touch class'd callsites */
->>> +                     valid_class = _DPRINTK_CLASS_DFLT;
->>> +             }
->>> +
->>>               for (i = 0; i < dt->num_ddebugs; i++) {
->>>                       struct _ddebug *dp = &dt->ddebugs[i];
->>>
->>> +                     /* match site against query-class */
->>> +                     if (dp->class_id != valid_class)
->>
->> And then make this: if (query->class_string && (dp->class_id != valid_class))
->>
->> thoughts?
->>
->>
->>> +                             continue;
->>> +>                    /* match against the source filename */
->>>                       if (query->filename &&
->>>                           !match_wildcard(query->filename, dp->filename) &&
->>> @@ -420,6 +454,8 @@ static int ddebug_parse_query(char *words[], int nwords,
->>>               } else if (!strcmp(keyword, "line")) {
->>>                       if (parse_linerange(query, arg))
->>>                               return -EINVAL;
->>> +             } else if (!strcmp(keyword, "class")) {
->>> +                     rc = check_set(&query->class_string, arg, "class");
->>>               } else {
->>>                       pr_err("unknown keyword \"%s\"\n", keyword);
->>>                       return -EINVAL;
->>> @@ -854,6 +890,20 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
->>>       return dp;
->>>  }
->>>
->>> +#define class_in_range(class_id, map)                                        \
->>> +     (class_id >= map->base && class_id < map->base + map->length)
->>> +
->>> +static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
->>> +{
->>> +     struct ddebug_class_map *map;
->>> +
->>> +     list_for_each_entry(map, &iter->table->maps, link)
->>> +             if (class_in_range(dp->class_id, map))
->>> +                     return map->class_names[dp->class_id - map->base];
->>> +
->>> +     return NULL;
->>> +}
->>> +
->>>  /*
->>>   * Seq_ops show method.  Called several times within a read()
->>>   * call from userspace, with ddebug_lock held.  Formats the
->>> @@ -865,6 +915,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
->>>       struct ddebug_iter *iter = m->private;
->>>       struct _ddebug *dp = p;
->>>       struct flagsbuf flags;
->>> +     char const *class;
->>>
->>>       if (p == SEQ_START_TOKEN) {
->>>               seq_puts(m,
->>> @@ -877,7 +928,16 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
->>>                  iter->table->mod_name, dp->function,
->>>                  ddebug_describe_flags(dp->flags, &flags));
->>>       seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
->>> -     seq_puts(m, "\"\n");
->>> +     seq_puts(m, "\"");
->>> +
->>> +     if (dp->class_id != _DPRINTK_CLASS_DFLT) {
->>> +             class = ddebug_class_name(iter, dp);
->>> +             if (class)
->>> +                     seq_printf(m, " class:%s", class);
->>> +             else
->>> +                     seq_printf(m, " class unknown, _id:%d", dp->class_id);
->>> +     }
->>> +     seq_puts(m, "\n");
->>>
->>>       return 0;
->>>  }
+Greg KH <gregkh@linuxfoundation.org> =E4=BA=8E2022=E5=B9=B49=E6=9C=8817=E6=
+=97=A5=E5=91=A8=E5=85=AD 17:07=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Fri, Sep 16, 2022 at 11:54:42PM +0800, Zheng Hacker wrote:
+> > >From afe79848cb74cc8e45ab426d13fa2394c87e0422 Mon Sep 17 00:00:00 2001
+> > From: xmzyshypnc <1002992920@qq.com>
+> > Date: Fri, 16 Sep 2022 23:48:23 +0800
+> > Subject: [PATCH] drm/i915/gvt: fix double-free bug in split_2MB_gtt_ent=
+ry
+> >
+> > There is a double-free security bug in split_2MB_gtt_entry.
+> >
+> > Here is a calling chain :
+> > ppgtt_populate_spt->ppgtt_populate_shadow_entry->split_2MB_gtt_entry.
+> >
+> > If intel_gvt_dma_map_guest_page failed, it will call
+> > ppgtt_invalidate_spt, which will finally call ppgtt_free_spt and
+> > kfree(spt). But the caller does not notice that, and it will call
+> > ppgtt_free_spt again in error path.
+> >
+> > Fix this by only freeing spt in ppgtt_invalidate_spt in good case.
+> >
+> > Signed-off-by: Zheng Wang <hackerzheng666@gmail.com>
+> > ---
+> >  drivers/gpu/drm/i915/gvt/gtt.c | 16 +++++++++-------
+> >  1 file changed, 9 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/=
+gtt.c
+> > index ce0eb03709c3..550519f0acca 100644
+> > --- a/drivers/gpu/drm/i915/gvt/gtt.c
+> > +++ b/drivers/gpu/drm/i915/gvt/gtt.c
+> > @@ -959,7 +959,7 @@ static inline int ppgtt_put_spt(struct
+> > intel_vgpu_ppgtt_spt *spt)
+> >     return atomic_dec_return(&spt->refcount);
+> >  }
+> >
+> > -static int ppgtt_invalidate_spt(struct intel_vgpu_ppgtt_spt *spt);
+> > +static int ppgtt_invalidate_spt(struct intel_vgpu_ppgtt_spt *spt, int
+> > is_error);
+> >
+> >  static int ppgtt_invalidate_spt_by_shadow_entry(struct intel_vgpu *vgp=
+u,
+> >         struct intel_gvt_gtt_entry *e)
+> > @@ -995,7 +995,7 @@ static int
+> > ppgtt_invalidate_spt_by_shadow_entry(struct intel_vgpu *vgpu,
+>
+> Still line-wrapped and whitespace broken :(
+>
