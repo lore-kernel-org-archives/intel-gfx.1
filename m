@@ -4,42 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93426ECAAD3
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CD93ECAAD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:29:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BFA310E648;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF09A10E64A;
 	Mon, 19 Sep 2022 13:29:23 +0000 (UTC)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1375510E15E;
- Tue, 13 Sep 2022 03:05:14 +0000 (UTC)
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.57])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4MRSVX75kKz14QZn;
- Tue, 13 Sep 2022 10:44:52 +0800 (CST)
-Received: from cgs.huawei.com (10.244.148.83) by
- kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Tue, 13 Sep 2022 10:48:48 +0800
-From: Gaosheng Cui <cuigaosheng1@huawei.com>
-To: <evan.quan@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <patrik.r.jakobsson@gmail.com>,
- <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <tvrtko.ursulin@linux.intel.com>,
- <zackr@vmware.com>, <linux-graphics-maintainer@vmware.com>,
- <lijo.lazar@amd.com>, <matthew.brost@intel.com>, <John.C.Harrison@Intel.com>, 
- <daniele.ceraolospurio@intel.com>, <cuigaosheng1@huawei.com>
-Date: Tue, 13 Sep 2022 10:48:41 +0800
-Message-ID: <20220913024847.552254-1-cuigaosheng1@huawei.com>
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
+ [IPv6:2607:f8b0:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30D0E10E052;
+ Sun, 18 Sep 2022 22:07:48 +0000 (UTC)
+Received: by mail-pf1-x429.google.com with SMTP id 9so15234378pfz.12;
+ Sun, 18 Sep 2022 15:07:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date;
+ bh=oAZa73Ms9QVpxhmjRkhl/oIipHOwLafi4P86QyHcFa0=;
+ b=JEqFXyJwbJqlQ1qM4Gt7ZjSBcNjtwpvDggFsPm5D4V0iTzm7x5O/OLEiX2y1gkvfi3
+ gBzFqyPlL801WgcyDu9JWXbrzmemvUutUINjW0Lf7zTpYvCCJkMPbAptr0sIPbyRiVhW
+ 6wWxPRvSYQYYaIwdSvq/F4dgq26b9JUkye7k5mVBqwvUw1QtBcAZDDvH0lqRTHR/9pL9
+ 8ZvIeVAhaTi645806bbFpTPkjcvkk/KfuUDVGcXn3jIz96y2db72BkM1m3UrHWUaxqzJ
+ Xq2vV+BtZfA+HIbcewUbkKwNz4mrhyYNdn/EvYUJVgO3lps7R5f4LZGWNTJIRfftXyd6
+ ORjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=oAZa73Ms9QVpxhmjRkhl/oIipHOwLafi4P86QyHcFa0=;
+ b=IHeMo0gM7OpXfcSsJ8YiNBXogKEKHjgsbSGW0MORbxY0rohQiFXAIeGsQLEzh0GSKn
+ dQidQ5o3mZ21apKRMSUsWzQCcyW86epyT2ELapBctnDKcFmSq5eVCvXp7V22li+H6+rj
+ MTMCtcNr66kMd141zaI21F8iMyNWX5sfLZKbEmSrlk1/tpPtW4TiURO1WZ4N1Tx30QLx
+ 1tieGZ1eTqIPxLjZpcFa2hJ5JYIQU4HhwM/V8/j2j0/uL4MWycqYty8jN6dZi9TW2TzG
+ bYRCLtpvUXzXg0kH7U4aDoV57a9M+XRMjv09AMfrkYJqKU3rYdMtFsA/NC22XNzhivdL
+ 1j3A==
+X-Gm-Message-State: ACrzQf26ujbc02KykRTAYwMiiHkQm6ZUxT61i7mCPL0pYp97zxwYLylP
+ vNz2k3+8oA5uVwq8dGy7Xug=
+X-Google-Smtp-Source: AMsMyM5OITmrhfBXTIMTtYY7kFUoTNgOex+iRyyFQjgfDBr5qfnfxKk5sWU8UnYONKmIlJmDfiU69A==
+X-Received: by 2002:aa7:8759:0:b0:540:aad4:b13e with SMTP id
+ g25-20020aa78759000000b00540aad4b13emr15687055pfo.13.1663538867560; 
+ Sun, 18 Sep 2022 15:07:47 -0700 (PDT)
+Received: from localhost.localdomain (lily-optiplex-3070.dynamic.ucsd.edu.
+ [2607:f720:1300:3033::1:4dd]) by smtp.googlemail.com with ESMTPSA id
+ u10-20020a170902e80a00b00176b63535ccsm19061232plg.193.2022.09.18.15.07.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 18 Sep 2022 15:07:46 -0700 (PDT)
+From: Li Zhong <floridsleeves@gmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Date: Sun, 18 Sep 2022 15:07:31 -0700
+Message-Id: <20220918220731.1026200-1-floridsleeves@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.244.148.83]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- kwepemi500012.china.huawei.com (7.221.188.12)
-X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 19 Sep 2022 13:29:09 +0000
-Subject: [Intel-gfx] [PATCH 0/6] Remove unused declarations for gpu/drm
+Subject: [Intel-gfx] [PATCH v1] drivers/gpu/drm/i915/gt: Check the return
+ value of i915_active_acquire()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,32 +71,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: airlied@linux.ie, sumit.semwal@linaro.org,
+ Li Zhong <floridsleeves@gmail.com>, daniel@ffwll.ch, rodrigo.vivi@intel.com,
+ airlied@redhat.com, christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series contains a few cleanup patches, to remove unused
-declarations which have been removed. Thanks!
+i915_active_acquire() could return error when the acquire fails. Check
+and return the error code.
 
-Gaosheng Cui (6):
-  drm/vmwgfx: remove unused vmw_bo_is_vmw_bo() declaration
-  drm/radeon/r600_cs: remove r600_cs_legacy_get_tiling_conf()
-    declaration
-  drm/radeon: remove unused declarations for radeon
-  drm/gma500: remove unused declarations in psb_intel_drv.h
-  drm/amd/pm: remove unused declarations in hardwaremanager.h
-  drm/i915: remove unused i915_gem_lmem_obj_ops declaration
+Signed-off-by: Li Zhong <floridsleeves@gmail.com>
+---
+ drivers/gpu/drm/i915/gt/intel_timeline.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h | 2 --
- drivers/gpu/drm/gma500/psb_intel_drv.h                 | 5 -----
- drivers/gpu/drm/i915/gem/i915_gem_lmem.h               | 2 --
- drivers/gpu/drm/radeon/r600_cs.c                       | 2 --
- drivers/gpu/drm/radeon/radeon.h                        | 3 ---
- drivers/gpu/drm/radeon/radeon_mode.h                   | 1 -
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.h                    | 1 -
- 7 files changed, 16 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
+index b9640212d659..d8333ab64574 100644
+--- a/drivers/gpu/drm/i915/gt/intel_timeline.c
++++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
+@@ -211,7 +211,10 @@ int intel_timeline_pin(struct intel_timeline *tl, struct i915_gem_ww_ctx *ww)
+ 	GT_TRACE(tl->gt, "timeline:%llx using HWSP offset:%x\n",
+ 		 tl->fence_context, tl->hwsp_offset);
+ 
+-	i915_active_acquire(&tl->active);
++	err = i915_active_acquire(&tl->active);
++	if (err)
++		return err;
++
+ 	if (atomic_fetch_inc(&tl->pin_count)) {
+ 		i915_active_release(&tl->active);
+ 		__i915_vma_unpin(tl->hwsp_ggtt);
 -- 
 2.25.1
 
