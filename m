@@ -4,49 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E061C54EE9
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 08:35:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DE85C54EE9
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 08:35:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39DBA10E5D6;
-	Mon, 19 Sep 2022 08:34:56 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 773C610E5AF;
- Mon, 19 Sep 2022 08:34:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663576489; x=1695112489;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=gvitbWxJbKVPz6HHjo9mSVxRRPK2yahVp85eTBd7yNA=;
- b=ONkNMPHXM03WklHFA5NWiXlH+rZ97yryHU0aQtGB5BcHEcy9yQLTY524
- zZdpu+utqUWBPsioMQPIy+Qy1d0sHQrhmBVT+dNx/ftLo4kf0sF3jt20h
- ReGY+84dPVMf/D9LoCJgJvj8rbLug8KXd5HJWd13Wa5HrsWi3m6mk6LTA
- W3wsPBT5DroFQzBlu9yXN05l12jWjz+2VLtk+9KeiGGuqhx9vLP0WEcAO
- 3Bm7tS+fifNnSe6zvITIiP5bAf+Ov2tvG0NjWFVskmk3nwkMt78QFo/iJ
- ZmRPu23yyBHg2IbCNkg8k8t6FhuFkDNmKxqBAdlUm3O/V3WSLX8kyOOs2 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10474"; a="300161460"
-X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="300161460"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 01:34:48 -0700
-X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="595995204"
-Received: from jjohns2-mobl2.amr.corp.intel.com (HELO localhost)
- ([10.252.57.205])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 01:34:44 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Li Zhong <floridsleeves@gmail.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20220918220731.1026200-1-floridsleeves@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220918220731.1026200-1-floridsleeves@gmail.com>
-Date: Mon, 19 Sep 2022 11:34:29 +0300
-Message-ID: <877d1zrcdm.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C51410E5D8;
+	Mon, 19 Sep 2022 08:35:08 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1D7BF10E5AF;
+ Mon, 19 Sep 2022 08:34:52 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 19D4DA363D;
+ Mon, 19 Sep 2022 08:34:52 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v1] drivers/gpu/drm/i915/gt: Check the
- return value of i915_active_acquire()
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+Date: Mon, 19 Sep 2022 08:34:52 -0000
+Message-ID: <166357649210.28333.252228133925208243@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220919075326.1848294-1-suraj.kandpal@intel.com>
+In-Reply-To: <20220919075326.1848294-1-suraj.kandpal@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Enable_Pipewriteback_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,46 +40,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, sumit.semwal@linaro.org,
- Li Zhong <floridsleeves@gmail.com>, daniel@ffwll.ch, rodrigo.vivi@intel.com,
- airlied@redhat.com, christian.koenig@amd.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 18 Sep 2022, Li Zhong <floridsleeves@gmail.com> wrote:
-> i915_active_acquire() could return error when the acquire fails. Check
-> and return the error code.
+== Series Details ==
 
-The commit message should explain why you don't need to do further error
-handling. Or do you?
+Series: Enable Pipewriteback (rev5)
+URL   : https://patchwork.freedesktop.org/series/107440/
+State : warning
 
-Side note, the distribution list is excessive.
+== Summary ==
 
-BR,
-Jani.
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
-> Signed-off-by: Li Zhong <floridsleeves@gmail.com>
-> ---
->  drivers/gpu/drm/i915/gt/intel_timeline.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/gt/intel_timeline.c b/drivers/gpu/drm/i915/gt/intel_timeline.c
-> index b9640212d659..d8333ab64574 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_timeline.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_timeline.c
-> @@ -211,7 +211,10 @@ int intel_timeline_pin(struct intel_timeline *tl, struct i915_gem_ww_ctx *ww)
->  	GT_TRACE(tl->gt, "timeline:%llx using HWSP offset:%x\n",
->  		 tl->fence_context, tl->hwsp_offset);
->  
-> -	i915_active_acquire(&tl->active);
-> +	err = i915_active_acquire(&tl->active);
-> +	if (err)
-> +		return err;
-> +
->  	if (atomic_fetch_inc(&tl->pin_count)) {
->  		i915_active_release(&tl->active);
->  		__i915_vma_unpin(tl->hwsp_ggtt);
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
