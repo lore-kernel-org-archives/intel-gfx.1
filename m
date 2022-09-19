@@ -4,30 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6313CECAAD3
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 12:34:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2346AC54EE9
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 13:06:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41F2810E040;
-	Mon, 19 Sep 2022 12:34:19 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 457C710E041;
- Mon, 19 Sep 2022 12:34:15 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 3D4E2A0BCB;
- Mon, 19 Sep 2022 12:34:15 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0293872877357732076=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBB010E629;
+	Mon, 19 Sep 2022 13:06:20 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C59810E629
+ for <intel-gfx@lists.freedesktop.org>; Mon, 19 Sep 2022 13:06:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663592778; x=1695128778;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=8uR1DIl629wAttBQxWmXo0RDnnfEuMjoxRHKk6f+C48=;
+ b=Z8qOYkg/HpGlp7CAazEYr9R2V+BlKdF83d0I5CgWy4+akWWbbopdZ3Ha
+ dcPzXPfJ3NJB6fnQW72vCCMEtYBmWanMW1dPSCxCObDk79UYc7uIQnp8j
+ Yb0HAhkyumGAvfw35fGGuxSlQ2tqeJ7UlCIK819MPxXttb01NR/m0e/V/
+ m7O8PpS9FFB/Y6F3keRdyTKzScWTm75FVYzNCrupsxSTFmpqIiiS3HXXr
+ izrP7lpMW6GQiTLYIG+78QOQIXQGLkLTB95kJRcUO5FxiRPGNdZt+Y4+l
+ 3Om3AFihBZLFuRLYQRIAuFjL1U9IxKwmc6nJQkYmG+b3iVZ+n8z500kda Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10475"; a="286438312"
+X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="286438312"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2022 06:06:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="863553245"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
+ by fmsmga006.fm.intel.com with ESMTP; 19 Sep 2022 06:06:15 -0700
+From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 19 Sep 2022 18:35:04 +0530
+Message-Id: <20220919130505.1984383-3-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220919130505.1984383-1-suraj.kandpal@intel.com>
+References: <20220919130505.1984383-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Badal Nilawar" <badal.nilawar@intel.com>
-Date: Mon, 19 Sep 2022 12:34:15 -0000
-Message-ID: <166359085521.28332.3701413171561146871@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220919115906.1264041-1-badal.nilawar@intel.com>
-In-Reply-To: <20220919115906.1264041-1-badal.nilawar@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgaTkx?=
- =?utf-8?q?5=3A_CAGF_and_RC6_changes_for_MTL_=28rev4=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v6 2/3] drm/i915 : Changing intel_connector
+ iterators
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,210 +56,150 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0293872877357732076==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-== Series Details ==
+Changing intel_connector iterators as with writeback introduction
+not all drm_connector will be embedded within intel_connector.
 
-Series: i915: CAGF and RC6 changes for MTL (rev4)
-URL   : https://patchwork.freedesktop.org/series/108156/
-State : success
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_acpi.c     |  7 ++++-
+ drivers/gpu/drm/i915/display/intel_display.h  |  7 ++---
+ .../drm/i915/display/intel_display_types.h    | 26 ++++++++++++++++++-
+ .../drm/i915/display/intel_modeset_setup.c    | 16 +++++++++---
+ 4 files changed, 46 insertions(+), 10 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/display/intel_acpi.c b/drivers/gpu/drm/i915/display/intel_acpi.c
+index 9df78e7caa2b..912fe5c2ffe5 100644
+--- a/drivers/gpu/drm/i915/display/intel_acpi.c
++++ b/drivers/gpu/drm/i915/display/intel_acpi.c
+@@ -349,8 +349,13 @@ void intel_acpi_video_register(struct drm_i915_private *i915)
+ 	 */
+ 	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
+ 	drm_for_each_connector_iter(connector, &conn_iter) {
+-		struct intel_panel *panel = &to_intel_connector(connector)->panel;
++		struct intel_panel *panel;
++		struct intel_connector *intel_connector =
++					to_intel_connector(connector);
+ 
++		if (!intel_connector)
++			continue;
++		panel = &intel_connector->panel;
+ 		if (panel->backlight.funcs && !panel->backlight.device) {
+ 			acpi_video_register_backlight();
+ 			break;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index a1ed9c82e2ed..102bf7d47ccc 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -52,6 +52,7 @@ struct intel_crtc_state;
+ struct intel_digital_port;
+ struct intel_dp;
+ struct intel_encoder;
++struct intel_connector;
+ struct intel_initial_plane_config;
+ struct intel_load_detect_pipe;
+ struct intel_plane;
+@@ -469,16 +470,12 @@ enum hpd_pin {
+ 		for_each_if(intel_encoder_can_psr(intel_encoder))
+ 
+ #define for_each_intel_connector_iter(intel_connector, iter) \
+-	while ((intel_connector = to_intel_connector(drm_connector_list_iter_next(iter))))
++	while ((intel_connector = intel_connector_list_iter_next(iter)))
+ 
+ #define for_each_encoder_on_crtc(dev, __crtc, intel_encoder) \
+ 	list_for_each_entry((intel_encoder), &(dev)->mode_config.encoder_list, base.head) \
+ 		for_each_if((intel_encoder)->base.crtc == (__crtc))
+ 
+-#define for_each_connector_on_encoder(dev, __encoder, intel_connector) \
+-	list_for_each_entry((intel_connector), &(dev)->mode_config.connector_list, base.head) \
+-		for_each_if((intel_connector)->base.encoder == (__encoder))
+-
+ #define for_each_old_intel_plane_in_state(__state, plane, old_plane_state, __i) \
+ 	for ((__i) = 0; \
+ 	     (__i) < (__state)->base.dev->mode_config.num_total_plane && \
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 633cacd79074..a2d294929a64 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1498,12 +1498,14 @@ struct cxsr_latency {
+ #define to_intel_atomic_state(x) container_of(x, struct intel_atomic_state, base)
+ #define to_intel_crtc(x) container_of(x, struct intel_crtc, base)
+ #define to_intel_crtc_state(x) container_of(x, struct intel_crtc_state, uapi)
+-#define to_intel_connector(x) container_of(x, struct intel_connector, base)
++#define to_intel_wb_connector(x) container_of(x, struct intel_wb_connector, base)
+ #define to_intel_encoder(x) container_of(x, struct intel_encoder, base)
+ #define to_intel_framebuffer(x) container_of(x, struct intel_framebuffer, base)
+ #define to_intel_plane(x) container_of(x, struct intel_plane, base)
+ #define to_intel_plane_state(x) container_of(x, struct intel_plane_state, uapi)
+ #define intel_fb_obj(x) ((x) ? to_intel_bo((x)->obj[0]) : NULL)
++#define to_intel_connector(x) (((x->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)) ?	\
++				NULL : container_of(x, struct intel_connector, base))
+ 
+ struct intel_hdmi {
+ 	i915_reg_t hdmi_reg;
+@@ -2069,4 +2071,26 @@ to_intel_frontbuffer(struct drm_framebuffer *fb)
+ 	return fb ? to_intel_framebuffer(fb)->frontbuffer : NULL;
+ }
+ 
++static inline struct intel_connector *
++intel_connector_list_iter_next(struct drm_connector_list_iter *iter)
++{
++	struct drm_connector *connector;
++	bool flag = true;
++	/*
++	 * Skipping connector that are Writeback connector as they will
++	 * not be embedded in intel connector
++	 */
++	while (flag) {
++		connector = drm_connector_list_iter_next(iter);
++		if (connector && !to_intel_connector(connector))
++			continue;
++
++		flag = false;
++
++		if (connector)
++			return to_intel_connector(connector);
++
++	}
++	return NULL;
++}
+ #endif /*  __INTEL_DISPLAY_TYPES_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+index cbfabd58b75a..e1a90331c230 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+@@ -205,12 +205,22 @@ static bool intel_crtc_has_encoders(struct intel_crtc *crtc)
+ 
+ static struct intel_connector *intel_encoder_find_connector(struct intel_encoder *encoder)
+ {
+-	struct drm_device *dev = encoder->base.dev;
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_connector *connector;
++	struct drm_connector_list_iter conn_iter;
++	bool found_connector = false;
+ 
+-	for_each_connector_on_encoder(dev, &encoder->base, connector)
+-		return connector;
++	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
++	for_each_intel_connector_iter(connector, &conn_iter) {
++		if (&encoder->base == connector->base.encoder) {
++			found_connector = true;
++			break;
++		}
++	}
++	drm_connector_list_iter_end(&conn_iter);
+ 
++	if (found_connector)
++		return connector;
+ 	return NULL;
+ }
+ 
+-- 
+2.25.1
 
-CI Bug Log - changes from CI_DRM_12154 -> Patchwork_108156v4
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/index.html
-
-Participating hosts (44 -> 42)
-------------------------------
-
-  Additional (1): bat-dg2-11 
-  Missing    (3): fi-ctg-p8600 fi-bdw-samus bat-jsl-1 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_108156v4 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_chamelium@common-hpd-after-suspend:
-    - fi-pnv-d510:        NOTRUN -> [SKIP][1] ([fdo#109271])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/fi-pnv-d510/igt@kms_chamelium@common-hpd-after-suspend.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions:
-    - fi-bsw-kefka:       [PASS][2] -> [FAIL][3] ([i915#6298])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12154/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_suspend@basic-s3@smem:
-    - {bat-adlm-1}:       [DMESG-WARN][4] ([i915#2867]) -> [PASS][5]
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12154/bat-adlm-1/igt@gem_exec_suspend@basic-s3@smem.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/bat-adlm-1/igt@gem_exec_suspend@basic-s3@smem.html
-
-  * igt@i915_selftest@live@requests:
-    - fi-pnv-d510:        [DMESG-FAIL][6] ([i915#4528]) -> [PASS][7]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12154/fi-pnv-d510/igt@i915_selftest@live@requests.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/fi-pnv-d510/igt@i915_selftest@live@requests.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#1155]: https://gitlab.freedesktop.org/drm/intel/issues/1155
-  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
-  [i915#3291]: https://gitlab.freedesktop.org/drm/intel/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
-  [i915#3595]: https://gitlab.freedesktop.org/drm/intel/issues/3595
-  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
-  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
-  [i915#4079]: https://gitlab.freedesktop.org/drm/intel/issues/4079
-  [i915#4083]: https://gitlab.freedesktop.org/drm/intel/issues/4083
-  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
-  [i915#4212]: https://gitlab.freedesktop.org/drm/intel/issues/4212
-  [i915#4213]: https://gitlab.freedesktop.org/drm/intel/issues/4213
-  [i915#4215]: https://gitlab.freedesktop.org/drm/intel/issues/4215
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4528]: https://gitlab.freedesktop.org/drm/intel/issues/4528
-  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
-  [i915#4873]: https://gitlab.freedesktop.org/drm/intel/issues/4873
-  [i915#5190]: https://gitlab.freedesktop.org/drm/intel/issues/5190
-  [i915#5274]: https://gitlab.freedesktop.org/drm/intel/issues/5274
-  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
-  [i915#6621]: https://gitlab.freedesktop.org/drm/intel/issues/6621
-  [i915#6850]: https://gitlab.freedesktop.org/drm/intel/issues/6850
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12154 -> Patchwork_108156v4
-
-  CI-20190529: 20190529
-  CI_DRM_12154: 3525875cb7903ed98c5b99d4f9d8b0b16b1d7f3f @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6656: 24100c4e181c50e3678aeca9c641b8a43555ad73 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_108156v4: 3525875cb7903ed98c5b99d4f9d8b0b16b1d7f3f @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-43fd5a769d7e drm/i915/mtl: Add C6 residency support for MTL SAMedia
-d7a628ed39de drm/i915/mtl: Modify CAGF functions for MTL
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/index.html
-
---===============0293872877357732076==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>i915: CAGF and RC6 changes for MTL (rev4)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/108156/">https://patchwork.freedesktop.org/series/108156/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12154 -&gt; Patchwork_108156v4</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/index.html</p>
-<h2>Participating hosts (44 -&gt; 42)</h2>
-<p>Additional (1): bat-dg2-11 <br />
-  Missing    (3): fi-ctg-p8600 fi-bdw-samus bat-jsl-1 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_108156v4 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
-<ul>
-<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/fi-pnv-d510/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions:</p>
-<ul>
-<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12154/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s3@smem:</p>
-<ul>
-<li>{bat-adlm-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12154/bat-adlm-1/igt@gem_exec_suspend@basic-s3@smem.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/bat-adlm-1/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@requests:</p>
-<ul>
-<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12154/fi-pnv-d510/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4528">i915#4528</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108156v4/fi-pnv-d510/igt@i915_selftest@live@requests.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12154 -&gt; Patchwork_108156v4</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12154: 3525875cb7903ed98c5b99d4f9d8b0b16b1d7f3f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6656: 24100c4e181c50e3678aeca9c641b8a43555ad73 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_108156v4: 3525875cb7903ed98c5b99d4f9d8b0b16b1d7f3f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>43fd5a769d7e drm/i915/mtl: Add C6 residency support for MTL SAMedia<br />
-d7a628ed39de drm/i915/mtl: Modify CAGF functions for MTL</p>
-
-</body>
-</html>
-
---===============0293872877357732076==--
