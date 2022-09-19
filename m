@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0027DECAAA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 20:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 903D4ECAAD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 20:17:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD52610E101;
-	Mon, 19 Sep 2022 20:16:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92D0210E101;
+	Mon, 19 Sep 2022 20:17:58 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5602610E101;
- Mon, 19 Sep 2022 20:16:20 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BAA4C10E0FF;
+ Mon, 19 Sep 2022 20:17:54 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 4DD8FAADD7;
- Mon, 19 Sep 2022 20:16:20 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id B6C51AADD7;
+ Mon, 19 Sep 2022 20:17:54 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Zheng Hacker" <hackerzheng666@gmail.com>
-Date: Mon, 19 Sep 2022 20:16:20 -0000
-Message-ID: <166361858028.28333.5175264098782847386@emeril.freedesktop.org>
+To: "Zheng Wang" <zyytlz.wz@163.com>
+Date: Mon, 19 Sep 2022 20:17:54 -0000
+Message-ID: <166361867474.28331.12098831465238353876@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
-In-Reply-To: <CAJedcCxVW++iH49UFZp9ruUuTcNubWCH6Wsqe11K4COB3E8msg@mail.gmail.com>
+References: <tencent_ED24158E83CB9885E8BDD173EB5896B51906@qq.com>
+In-Reply-To: <tencent_ED24158E83CB9885E8BDD173EB5896B51906@qq.com>
 Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
  =?utf-8?q?rm/i915/gvt=3A_fix_double-free_bug_in_split=5F2MB=5Fgtt=5Fentry?=
- =?utf-8?q?=2E?=
+ =?utf-8?q?_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,13 +48,13 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/gvt: fix double-free bug in split_2MB_gtt_entry.
-URL   : https://patchwork.freedesktop.org/series/108736/
+Series: drm/i915/gvt: fix double-free bug in split_2MB_gtt_entry (rev2)
+URL   : https://patchwork.freedesktop.org/series/108732/
 State : failure
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/108736/revisions/1/mbox/ not applied
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/108732/revisions/2/mbox/ not applied
 Patch is empty.
 When you have resolved this problem, run "git am --continue".
 If you prefer to skip this patch, run "git am --skip" instead.
