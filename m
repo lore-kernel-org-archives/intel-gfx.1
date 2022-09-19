@@ -4,48 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05962ECAAD3
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 08:11:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3E91C54EE9
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Sep 2022 08:34:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8604910E5AE;
-	Mon, 19 Sep 2022 08:11:14 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A134C10E5AE
- for <intel-gfx@lists.freedesktop.org>; Mon, 19 Sep 2022 08:11:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663575070; x=1695111070;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=RBB/bQ28ZNXTUUBGSOYn5fqkNg1UQWDihfEKNR07ic8=;
- b=m5O2EOTzPlSuPhvuPuChNWSKDpnPUGdlWF2s3vaujnJ2x2F0TzJvjzVp
- 0HGnWeAhT7FVxoWhArFrBWNlwIKz14jNX1X5yC92cps4uYPBAkL25PK/G
- 80BDjzZk4AJg6PPANg5KQTF6dE7ll3KyZmd4AQKBI/0RIYryQ60OREDCx
- Nk6AAqp1yxR8EDOjVdPFdE9Ql9PI6L8+T7dEHzOMfE0bzRBPWzi9k3o5E
- oKgzK2GvWbC6YtN9NBWLaFE3Qflcpnk/6hQVOi2o/wVGRkOM8/a9F2N2u
- fzpl4zbChufPx6M2Zp+QBSwHMdnqXXIM1DKXBD4zQrSaJCNdEUgDgVKji Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10474"; a="299328999"
-X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="299328999"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 01:11:10 -0700
-X-IronPort-AV: E=Sophos;i="5.93,327,1654585200"; d="scan'208";a="686878939"
-Received: from jjohns2-mobl2.amr.corp.intel.com (HELO localhost)
- ([10.252.57.205])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2022 01:11:08 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-In-Reply-To: <20220916152638.u3rnatqrq52x5d32@ldmartin-desk2.lan>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220916082642.3451961-1-jani.nikula@intel.com>
- <20220916152638.u3rnatqrq52x5d32@ldmartin-desk2.lan>
-Date: Mon, 19 Sep 2022 11:10:53 +0300
-Message-ID: <87edw7rdgy.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F05310E5AF;
+	Mon, 19 Sep 2022 08:34:53 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 845D210E5D5;
+ Mon, 19 Sep 2022 08:34:49 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 66B09A363D;
+ Mon, 19 Sep 2022 08:34:49 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: fix device info for devices
- without display
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+Date: Mon, 19 Sep 2022 08:34:49 -0000
+Message-ID: <166357648938.28332.6177750249625188642@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220919075326.1848294-1-suraj.kandpal@intel.com>
+In-Reply-To: <20220919075326.1848294-1-suraj.kandpal@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Enable_Pipewriteback_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,117 +40,179 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 16 Sep 2022, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
-> On Fri, Sep 16, 2022 at 11:26:42AM +0300, Jani Nikula wrote:
->>Commit 00c6cbfd4e8a ("drm/i915: move pipe_mask and cpu_transcoder_mask
->>to runtime info") moved the pipe_mask member from struct
->>intel_device_info to intel_runtime_info, but overlooked some of our
->>platforms initializing device info .display = {}. This is significant,
->>as pipe_mask is the single point of truth for a device having a display
->>or not; the platforms in question left pipe_mask to whatever was set for
->>the platforms they "inherit" from in the complex macro scheme we have.
->>
->>Add new NO_DISPLAY macro initializing .__runtime.pipe_mask = 0, which
->>will cause the device info .display sub-struct to be zeroed in
->>intel_device_info_runtime_init(). A better solution (or simply audit of
->>proper use of HAS_DISPLAY() checks) is required before moving forward
->>with [1].
->>
->>Also clear all the display related members in runtime info if there's no
->>display. The latter is a bit tedious, but it's for completeness at this
->>time, to ensure similar functionality as before.
->>
->>[1] https://lore.kernel.org/r/dfda1bf67f02ceb07c280b7a13216405fd1f7a34.1660137416.git.jani.nikula@intel.com
->>
->>Fixes: 00c6cbfd4e8a ("drm/i915: move pipe_mask and cpu_transcoder_mask to runtime info")
->>Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->>Cc: Maarten Lankhort <maarten.lankhorst@linux.intel.com>
->>Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->>---
->> drivers/gpu/drm/i915/i915_pci.c          | 11 ++++++-----
->> drivers/gpu/drm/i915/intel_device_info.c |  6 ++++++
->> 2 files changed, 12 insertions(+), 5 deletions(-)
->>
->>diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
->>index 77e7df21f539..cd4487a1d3be 100644
->>--- a/drivers/gpu/drm/i915/i915_pci.c
->>+++ b/drivers/gpu/drm/i915/i915_pci.c
->>@@ -41,6 +41,8 @@
->> 	.__runtime.media.ip.ver = (x), \
->> 	.__runtime.display.ip.ver = (x)
->>
->>+#define NO_DISPLAY .__runtime.pipe_mask = 0
->>+
->> #define I845_PIPE_OFFSETS \
->> 	.display.pipe_offsets = { \
->> 		[TRANSCODER_A] = PIPE_A_OFFSET,	\
->>@@ -519,9 +521,8 @@ static const struct intel_device_info ivb_m_gt2_info = {
->> static const struct intel_device_info ivb_q_info = {
->> 	GEN7_FEATURES,
->> 	PLATFORM(INTEL_IVYBRIDGE),
->>+	NO_DISPLAY,
->> 	.gt = 2,
->>-	.__runtime.pipe_mask = 0, /* legal, last one wins */
->>-	.__runtime.cpu_transcoder_mask = 0,
->> 	.has_l3_dpf = 1,
->> };
->>
->>@@ -1039,7 +1040,7 @@ static const struct intel_device_info xehpsdv_info = {
->> 	XE_HPM_FEATURES,
->> 	DGFX_FEATURES,
->> 	PLATFORM(INTEL_XEHPSDV),
->>-	.display = { },
->>+	NO_DISPLAY,
->> 	.has_64k_pages = 1,
->> 	.needs_compact_pt = 1,
->> 	.has_media_ratio_mode = 1,
->>@@ -1081,7 +1082,7 @@ static const struct intel_device_info dg2_info = {
->>
->> static const struct intel_device_info ats_m_info = {
->> 	DG2_FEATURES,
->>-	.display = { 0 },
->>+	NO_DISPLAY,
->> 	.require_force_probe = 1,
->> 	.tuning_thread_rr_after_dep = 1,
->> };
->>@@ -1103,7 +1104,7 @@ static const struct intel_device_info pvc_info = {
->> 	.__runtime.graphics.ip.rel = 60,
->> 	.__runtime.media.ip.rel = 60,
->> 	PLATFORM(INTEL_PONTEVECCHIO),
->>-	.display = { 0 },
->>+	NO_DISPLAY,
->> 	.has_flat_ccs = 0,
->> 	.__runtime.platform_engine_mask =
->> 		BIT(BCS0) |
->>diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
->>index 1434dc33cf49..20575eb77ea7 100644
->>--- a/drivers/gpu/drm/i915/intel_device_info.c
->>+++ b/drivers/gpu/drm/i915/intel_device_info.c
->>@@ -433,8 +433,14 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
->> 		dev_priv->drm.driver_features &= ~(DRIVER_MODESET |
->> 						   DRIVER_ATOMIC);
->> 		memset(&info->display, 0, sizeof(info->display));
->>+
->>+		runtime->cpu_transcoder_mask = 0;
->> 		memset(runtime->num_sprites, 0, sizeof(runtime->num_sprites));
->> 		memset(runtime->num_scalers, 0, sizeof(runtime->num_scalers));
->>+		runtime->fbc_mask = 0;
->>+		runtime->has_hdcp = false;
->>+		runtime->has_dmc = false;
->>+		runtime->has_dsc = false;
->
-> why are these not inside __runtime.display?
+== Series Details ==
 
-The short answer, because there isn't one. It's an anonymous struct for
-now.
+Series: Enable Pipewriteback (rev5)
+URL   : https://patchwork.freedesktop.org/series/107440/
+State : warning
 
-BR,
-Jani.
+== Summary ==
+
+Error: dim checkpatch failed
+2ca799c55f17 drm/i915: Define WD trancoder for i915
+-:69: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#69: FILE: drivers/gpu/drm/i915/i915_reg.h:3710:
++
++
+
+total: 0 errors, 0 warnings, 1 checks, 194 lines checked
+ee9ce8f433d3 drm/i915 : Changing intel_connector iterators
+-:57: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'x' - possible side-effects?
+#57: FILE: drivers/gpu/drm/i915/display/intel_display_types.h:1507:
++#define to_intel_connector(x) (((x->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)) ?	\
++				NULL : container_of(x, struct intel_connector, base))
+
+-:57: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'x' may be better as '(x)' to avoid precedence issues
+#57: FILE: drivers/gpu/drm/i915/display/intel_display_types.h:1507:
++#define to_intel_connector(x) (((x->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)) ?	\
++				NULL : container_of(x, struct intel_connector, base))
+
+-:85: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
+#85: FILE: drivers/gpu/drm/i915/display/intel_display_types.h:2093:
++
++	}
+
+total: 0 errors, 0 warnings, 3 checks, 101 lines checked
+e608edbc4cb8 drm/i915: Enabling WD Transcoder
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 11, in <module>
+    import git
+ModuleNotFoundError: No module named 'git'
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 11, in <module>
+    import git
+ModuleNotFoundError: No module named 'git'
+-:144: WARNING:LONG_LINE: line length of 112 exceeds 100 columns
+#144: FILE: drivers/gpu/drm/i915/display/intel_display.c:1582:
++static void intel_enable_writeback_capture(struct intel_atomic_state *state,struct intel_crtc_state *crtc_state)
+
+-:144: ERROR:SPACING: space required after that ',' (ctx:VxV)
+#144: FILE: drivers/gpu/drm/i915/display/intel_display.c:1582:
++static void intel_enable_writeback_capture(struct intel_atomic_state *state,struct intel_crtc_state *crtc_state)
+                                                                            ^
+
+-:203: ERROR:OPEN_BRACE: that open brace { should be on the previous line
+#203: FILE: drivers/gpu/drm/i915/display/intel_display.c:7599:
++		if ((new_crtc_state->output_types & BIT(INTEL_OUTPUT_WD)))
++		{
+
+-:319: ERROR:TRAILING_WHITESPACE: trailing whitespace
+#319: FILE: drivers/gpu/drm/i915/display/intel_display_types.h:2085:
++^I * An intel_connector entity is not created for a writeback $
+
+-:559: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#559: 
+new file mode 100644
+
+-:597: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "!job"
+#597: FILE: drivers/gpu/drm/i915/display/intel_wd.c:34:
++	if (job == NULL) {
+
+-:634: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#634: FILE: drivers/gpu/drm/i915/display/intel_wd.c:71:
++		DRM_ERROR("unsupported pixel format %x!\n",
++			pixel_format);
+
+-:712: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#712: FILE: drivers/gpu/drm/i915/display/intel_wd.c:149:
++	intel_de_write(i915, WD_STREAMCAP_CTL(intel_wd->trans),
++			*tmp);
+
+-:735: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#735: FILE: drivers/gpu/drm/i915/display/intel_wd.c:172:
++		memcpy(pipe_config, intel_crtc->config,
++			sizeof(*pipe_config));
+
+-:786: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#786: FILE: drivers/gpu/drm/i915/display/intel_wd.c:223:
++	wakeref = intel_display_power_get_if_enabled(dev_priv,
++				encoder->power_domain);
+
+-:827: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#827: FILE: drivers/gpu/drm/i915/display/intel_wd.c:264:
++		drm_dbg_kms(&i915->drm, "Invalid framebuffer size %ux%u\n",
++				fb->width, fb->height);
+
+-:834: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#834: FILE: drivers/gpu/drm/i915/display/intel_wd.c:271:
++		drm_dbg_kms(&i915->drm, "Unsupported framebuffer format %08x\n",
++				fb->format->format);
+
+-:875: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#875: FILE: drivers/gpu/drm/i915/display/intel_wd.c:312:
++static bool intel_fastset_dis(struct intel_encoder *encoder,
++		struct intel_crtc_state *pipe_config)
+
+-:929: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#929: FILE: drivers/gpu/drm/i915/display/intel_wd.c:366:
++	drm_encoder_helper_add(drm_enc,
++			&wd_encoder_helper_funcs);
+
+-:944: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#944: FILE: drivers/gpu/drm/i915/display/intel_wd.c:381:
++	err = drm_writeback_connector_init_with_encoder(&i915->drm,
++		wb_conn, drm_enc, &wb_connector_funcs,
+
+-:962: WARNING:RETURN_VOID: void function return statements are not generally useful
+#962: FILE: drivers/gpu/drm/i915/display/intel_wd.c:399:
++	return;
++}
+
+-:1008: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1008: FILE: drivers/gpu/drm/i915/display/intel_wd.c:445:
++	intel_de_write(dev_priv, WD_SURF(intel_wd->trans),
++			i915_ggtt_offset(intel_wd->vma));
+
+-:1019: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1019: FILE: drivers/gpu/drm/i915/display/intel_wd.c:456:
++		tmp = intel_de_read(dev_priv,
++				WD_STREAMCAP_CTL(intel_wd->trans));
+
+-:1108: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1108: FILE: drivers/gpu/drm/i915/display/intel_wd.c:545:
++		if (intel_de_wait_for_set(dev_priv, PIPECONF(intel_wd->trans),
++				WD_TRANS_ACTIVE, 10))
+
+-:1130: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1130: FILE: drivers/gpu/drm/i915/display/intel_wd.c:567:
++	ret = intel_wd_setup_transcoder(intel_wd, pipe_config,
++		conn_state, job);
+
+-:1179: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1179: FILE: drivers/gpu/drm/i915/display/intel_wd.c:616:
++void intel_wd_enable_capture(struct intel_crtc_state *pipe_config,
++		struct drm_connector_state *conn_state)
+
+-:1196: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1196: FILE: drivers/gpu/drm/i915/display/intel_wd.c:633:
++	intel_wd_capture(intel_wd, pipe_config,
++			conn_state, job);
+
+-:1201: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1201: FILE: drivers/gpu/drm/i915/display/intel_wd.c:638:
++void intel_wd_set_vblank_event(struct intel_atomic_state *state, struct intel_crtc *intel_crtc,
++			struct intel_crtc_state *intel_crtc_state)
+
+-:1241: CHECK:BRACES: Blank lines aren't necessary after an open brace '{'
+#1241: FILE: drivers/gpu/drm/i915/display/intel_wd.c:678:
++	for_each_intel_encoder(&i915->drm, encoder) {
++
+
+-:1306: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1306: FILE: drivers/gpu/drm/i915/display/intel_wd.h:43:
++void intel_wd_enable_capture(struct intel_crtc_state *pipe_config,
++			struct drm_connector_state *conn_state);
+
+-:1309: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#1309: FILE: drivers/gpu/drm/i915/display/intel_wd.h:46:
++void intel_wd_set_vblank_event(struct intel_atomic_state *state, struct intel_crtc *crtc,
++			struct intel_crtc_state *crtc_state);
+
+total: 3 errors, 3 warnings, 20 checks, 1260 lines checked
 
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
