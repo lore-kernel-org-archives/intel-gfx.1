@@ -4,54 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C45C32771
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 07:43:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4B13C6FA90
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 07:47:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F084010E31F;
-	Wed, 21 Sep 2022 07:43:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6863A10E350;
+	Wed, 21 Sep 2022 07:47:25 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6D0B10E31F
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Sep 2022 07:43:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBE4810E3BB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Sep 2022 07:47:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663746210; x=1695282210;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=V+ySt9OqSbkCWlhu3IVh2aAVe7nzsdiigrVb7ptlyBE=;
- b=ARR3c8BrP3Q2n0YGzq/OAPwV9P4as+xsCprphyeaFQB3AEs9/ayDhBmI
- d6rC9jyRYsZFObLKkl0gOF9EsEriBP61G+isF/3Ipfq9ptTa3EJeW1Br7
- yM5TTWZ/ZKkZYxOdMXqILLbMQY6YG1PvUYHJUwnzzioKAJu+1qskCbKx/
- 1p3iatpVcmMgDQUm8mbSjh8jsBv7oM41Xvc+Xc/oq5ACZ87swLFTW0LVa
- R8ViSrnc4fwbxvACCafrUZoVsIqCzhg0D2oCeXLG8j5s2QmVwNEu5cm1R
- YBHkQ/vf8LVpFXjfmfeBgF/QCn8DRGMedKWwVvMGiRmC0D8wrxEmfN8Y+ A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10476"; a="298649019"
-X-IronPort-AV: E=Sophos;i="5.93,332,1654585200"; d="scan'208";a="298649019"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ t=1663746441; x=1695282441;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=NoIEHGfzgC3blRRDU4FatuCogOrj2/ggU6q7UI7u2sU=;
+ b=ils33BoqD851A/rm7k5QFHIKcPTf3aNTgftP7Sx/Ku8odd9pDGdMT4Ff
+ yoMlg89XKmu/Q24ZWOdB4XeFIetwR4rAY5nXYfpc97z4n1lzFDTCRD/1a
+ rT2DYT1RlLKtUOyurkDZQalX6QiVxdtqFD9sGfk2vzVH6dTnfXewFMKpY
+ R/tB/03OpaDnHNR1nbm99GPLDo2yV111vt1UTXTVfmtqQoglt6jhWEbza
+ AXJ+jPyz+ta6m15PFsymUT8VMEf+t9hFdDmiJE96smrgZ7eQNRercmm8w
+ EnHDA7x66Vm4EvECRBss4ZLmaO6zUl5ySGT3DqZv3IDvv/SS8p55oBcpK g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10476"; a="298649966"
+X-IronPort-AV: E=Sophos;i="5.93,332,1654585200"; d="scan'208";a="298649966"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2022 00:43:30 -0700
-X-IronPort-AV: E=Sophos;i="5.93,332,1654585200"; d="scan'208";a="687764650"
-Received: from jrcarrol-mobl.ger.corp.intel.com (HELO [10.213.205.22])
- ([10.213.205.22])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2022 00:43:29 -0700
-Message-ID: <9ec2aa09-5cc2-4bdf-e17e-7770721deb06@linux.intel.com>
-Date: Wed, 21 Sep 2022 08:43:27 +0100
+ 21 Sep 2022 00:47:21 -0700
+X-IronPort-AV: E=Sophos;i="5.93,332,1654585200"; d="scan'208";a="708336983"
+Received: from fyang16-desk.jf.intel.com ([10.24.96.243])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2022 00:47:21 -0700
+From: fei.yang@intel.com
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 21 Sep 2022 00:48:59 -0700
+Message-Id: <20220921074901.3651252-2-fei.yang@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220921074901.3651252-1-fei.yang@intel.com>
+References: <20220921074901.3651252-1-fei.yang@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Content-Language: en-US
-To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-References: <20220825132118.784407-1-badal.nilawar@intel.com>
- <20220825132118.784407-5-badal.nilawar@intel.com>
- <ec4dd4de-5e3a-5c4b-e318-f5afc4644d0a@linux.intel.com>
- <87edw5d164.wl-ashutosh.dixit@intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <87edw5d164.wl-ashutosh.dixit@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH 4/7] drm/i915/hwmon: Show device level
- energy usage
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/4] drm/i915/xehpsdv: Define GuC Based full TLB
+ invalidation routine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,53 +56,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
 
-On 21/09/2022 01:24, Dixit, Ashutosh wrote:
-> On Tue, 13 Sep 2022 01:50:08 -0700, Tvrtko Ursulin wrote:
->>
-> 
-> Hi Tvrtko,
-> 
->> On 25/08/2022 14:21, Badal Nilawar wrote:
->>> From: Dale B Stimson <dale.b.stimson@intel.com>
->>>
->>> diff --git a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
->>> index 9a2d10edfce8..03d71c6869d3 100644
->>> --- a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
->>> +++ b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
->>> @@ -25,3 +25,11 @@ Contact:	dri-devel@lists.freedesktop.org
->>>    Description:	RO. Card default power limit (default TDP setting).
->>> 			Only supported for particular Intel i915 graphics
->>> platforms.
->>> +
->>> +What:		/sys/devices/.../hwmon/hwmon<i>/energy1_input
->>> +Date:		June 2022
->>> +KernelVersion:	5.19
->>
->> Date and kernel version will need updating throughout I think.
->>
->> But why I am here actually is to ask if there are plans to make
->> intel_gpu_top support this? It would be nice to have since it reports power
->> for integrated.
-> 
-> There were no plans but now Riana has an IGT patch series which exposes a
-> unified inteface for rapl/hwmon (igfx/dgfx):
-> 
-> https://patchwork.freedesktop.org/series/108185/
-> 
-> So perhaps we can either have intel_gpu_top use this IGT lib or if it
-> doesn't, copy some functions to intel_gpu_top.
+The GuC firmware has defined the interface for TLB invalidation, This
+patch makes use of the interface.
 
-Looks promising and would be nice yeah.
+Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+Acked-by: Matthew Brost <matthew.brost@intel.com>
+Singed-off-by: Fei Yang <fei.yang@intel.com>
+---
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |  1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        | 20 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  2 ++
+ 3 files changed, 23 insertions(+)
 
-On the practicalities, first thing which comes to mind that probably it 
-would need to be a separate library like igt_perf and igt_device_scan, 
-since so far we have avoided linking intel_gpu_top with the whole lib_igt.
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+index 111e740105ee..a45e8225a17d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+@@ -188,6 +188,7 @@ enum intel_guc_state_capture_event_status {
+ #define INTEL_GUC_TLB_INVAL_FLUSH_CACHE (1 << 31)
+ 
+ enum intel_guc_tlb_invalidation_type {
++	INTEL_GUC_TLB_INVAL_FULL = 0x0,
+ 	INTEL_GUC_TLB_INVAL_GUC = 0x3,
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+index 6bef7adf933d..925b6c9af491 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+@@ -937,6 +937,26 @@ static int guc_send_invalidate_tlb(struct intel_guc *guc, u32 *action, u32 size)
+ 	return err;
+ }
+ 
++ /* Full TLB invalidation */
++int intel_guc_invalidate_tlb_full(struct intel_guc *guc,
++				  enum intel_guc_tlb_inval_mode mode)
++{
++	u32 action[] = {
++		INTEL_GUC_ACTION_TLB_INVALIDATION,
++		0,
++		INTEL_GUC_TLB_INVAL_FULL << INTEL_GUC_TLB_INVAL_TYPE_SHIFT |
++			mode << INTEL_GUC_TLB_INVAL_MODE_SHIFT |
++			INTEL_GUC_TLB_INVAL_FLUSH_CACHE,
++	};
++
++	if (!INTEL_GUC_SUPPORTS_TLB_INVALIDATION(guc)) {
++		DRM_ERROR("Tlb invalidation: Operation not supported in this platform!\n");
++		return 0;
++	}
++
++	return guc_send_invalidate_tlb(guc, action, ARRAY_SIZE(action));
++}
++
+ /*
+  * Guc TLB Invalidation: Invalidate the TLB's of GuC itself.
+  */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index ed802ae24368..421cf33168d2 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -377,6 +377,8 @@ int intel_guc_allocate_and_map_vma(struct intel_guc *guc, u32 size,
+ int intel_guc_self_cfg32(struct intel_guc *guc, u16 key, u32 value);
+ int intel_guc_self_cfg64(struct intel_guc *guc, u16 key, u64 value);
+ 
++int intel_guc_invalidate_tlb_full(struct intel_guc *guc,
++				  enum intel_guc_tlb_inval_mode mode);
+ int intel_guc_invalidate_tlb_guc(struct intel_guc *guc,
+ 				 enum intel_guc_tlb_inval_mode mode);
+ 
+-- 
+2.25.1
 
-Regards,
-
-Tvrtko
