@@ -4,30 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DD0AC6FA82
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 02:26:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17AC9C6FA82
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Sep 2022 03:26:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0947110E1D3;
-	Wed, 21 Sep 2022 02:26:52 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 34D2A10E1D3;
- Wed, 21 Sep 2022 02:26:49 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2C73BA73C7;
- Wed, 21 Sep 2022 02:26:49 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2759807715223835094=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95AA110E00F;
+	Wed, 21 Sep 2022 03:26:27 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA05310E00F;
+ Wed, 21 Sep 2022 03:26:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663730785; x=1695266785;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9ETz8DH3H4/HeRd8+BSdQlsqNT1RZim1617u6QY2zWI=;
+ b=jyqNlYa1txBGBfiNjk3qQBjjvkG/Ir1wFgST1hwtbQgKzFukFLbAWTe+
+ cPMfSqtTQRZY0CSFGDytxtySw2wvvkrwCvK4vGELBBqk6wZ6dHN2uqUEX
+ t0VHO+0vXcMM+4xH7kZp4HGl1cz3okwmcZE/Zn1ITwUTi+vQGZX3w7Q8Y
+ H9Oe+QNUBp1eK5r56LZpub9ZJ+jBkn2HPzgHdFjOHVPyvPJTnO54nk4Kh
+ HKMVsOn3Lk0J0qDx/d3R4A5YSL2vtUwmkGUyrV0EV77UNG9ut0gYeGyTs
+ AJ3U/Btds+3O/RZofPBqMXAYq0cqqtubMg23/89iBgqYd0/wuPIUhEu12 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10476"; a="286956991"
+X-IronPort-AV: E=Sophos;i="5.93,332,1654585200"; d="scan'208";a="286956991"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2022 20:26:23 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,332,1654585200"; d="scan'208";a="761574092"
+Received: from sqa-gate.sh.intel.com (HELO michael.clx.dev.tsp.org)
+ ([10.239.48.212])
+ by fmsmga001.fm.intel.com with ESMTP; 20 Sep 2022 20:26:15 -0700
+From: Kevin Tian <kevin.tian@intel.com>
+To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Eric Farman <farman@linux.ibm.com>,
+ Matthew Rosato <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
+ Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Jason Herne <jjherne@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Diana Craciun <diana.craciun@oss.nxp.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Cornelia Huck <cohuck@redhat.com>, Longfang Liu <liulongfang@huawei.com>,
+ Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Eric Auger <eric.auger@redhat.com>,
+ Kirti Wankhede <kwankhede@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
+ Abhishek Sahu <abhsahu@nvidia.com>, Christoph Hellwig <hch@infradead.org>,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-s390@vger.kernel.org, kvm@vger.kernel.org
+Date: Wed, 21 Sep 2022 18:43:46 +0800
+Message-Id: <20220921104401.38898-1-kevin.tian@intel.com>
+X-Mailer: git-send-email 2.21.3
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-Date: Wed, 21 Sep 2022 02:26:49 -0000
-Message-ID: <166372720914.11601.15794090877437214823@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220919130505.1984383-1-suraj.kandpal@intel.com>
-In-Reply-To: <20220919130505.1984383-1-suraj.kandpal@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgRW5h?=
- =?utf-8?q?ble_Pipewriteback_=28rev9=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v4 00/15] Tidy up vfio_device life cycle
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,223 +80,122 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Yi Liu <yi.l.liu@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2759807715223835094==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+The idea is to let vfio core manage the vfio_device life cycle instead
+of duplicating the logic cross drivers. Besides cleaner code in driver
+side this also allows adding struct device to vfio_device as the first
+step toward adding cdev uAPI in the future. Another benefit is that
+user can now look at sysfs to decide whether a device is bound to
+vfio [1], e.g.:
 
-== Series Details ==
+	/sys/devices/pci0000\:6f/0000\:6f\:01.0/vfio-dev/vfio0
 
-Series: Enable Pipewriteback (rev9)
-URL   : https://patchwork.freedesktop.org/series/107440/
-State : success
+Though most drivers can fit the new model naturally:
 
-== Summary ==
+ - vfio_alloc_device() to allocate and initialize vfio_device
+ - vfio_put_device() to release vfio_device
+ - dev_ops->init() for driver private initialization
+ - dev_ops->release() for driver private cleanup
 
-CI Bug Log - changes from CI_DRM_12162 -> Patchwork_107440v9
-====================================================
+vfio-ccw is the only exception due to a life cycle mess that its private
+structure mixes both parent and mdev info hence must be alloc/freed
+outside of the life cycle of vfio device.
 
-Summary
--------
+Per prior discussions this won't be fixed in short term by IBM folks [2].
 
-  **SUCCESS**
+Instead of waiting this series introduces a few tricks to move forward:
 
-  No regressions found.
+ - vfio_init_device() to initialize a pre-allocated device structure;
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/index.html
+ - require *EVERY* driver to implement @release and free vfio_device
+   inside. Then vfio-ccw can use a completion mechanism to delay the
+   free to css driver;
 
-Participating hosts (44 -> 42)
-------------------------------
+The second trick is not a real burden to other drivers because they
+all require a @release for private cleanup anyway. Later once the ccw
+mess is fixed a simple cleanup can be done by moving free from @release
+to vfio core.
 
-  Additional (1): fi-tgl-dsi 
-  Missing    (3): fi-icl-u2 fi-bdw-samus fi-tgl-u2 
+Thanks
+Kevin
 
-Known issues
-------------
+[1] https://listman.redhat.com/archives/libvir-list/2022-August/233482.html
+[2] https://lore.kernel.org/all/0ee29bd6583f17f0ee4ec0769fa50e8ea6703623.camel@linux.ibm.com/
 
-  Here are the changes found in Patchwork_107440v9 that come from known issues:
+v4:
+ - fix use-after-free issue in @release of mtty/mbochs and also change
+   mdpy/ap to free vfio-device as the last thing in @release (Alex)
+ - revert the rename from 'vfio' to 'vfio_group' in procfs (Alex) 
 
-### IGT changes ###
+v3:
+ - https://lore.kernel.org/lkml/20220909102247.67324-1-kevin.tian@intel.com/
+ - rebase to vfio-next after resolving conflicts with Yishai's series
+ - add missing fixes for two checkpatch errors
+ - fix grammar issues (Eric Auger)
+ - add more r-b's
 
-#### Issues hit ####
+v2:
+ - https://lore.kernel.org/lkml/20220901143747.32858-1-kevin.tian@intel.com/
+ - rebase to 6.0-rc3
+ - fix build warnings (lkp)
+ - patch1: remove unnecessary forward reference (Jason)
+ - patch10: leave device_set released by vfio core (Jason)
+ - patch13: add Suggested-by
+ - patch15: add ABI file sysfs-devices-vfio-dev (Alex)
+ - patch15: rename 'vfio' to 'vfio_group' in procfs (Jason)
 
-  * igt@i915_selftest@live@hangcheck:
-    - fi-hsw-4770:        [PASS][1] -> [INCOMPLETE][2] ([i915#4785])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12162/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
+v1: https://lore.kernel.org/lkml/20220827171037.30297-1-kevin.tian@intel.com/
 
-  * igt@i915_suspend@basic-s3-without-i915:
-    - fi-bdw-5557u:       [PASS][3] -> [INCOMPLETE][4] ([i915#146] / [i915#6712])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12162/fi-bdw-5557u/igt@i915_suspend@basic-s3-without-i915.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/fi-bdw-5557u/igt@i915_suspend@basic-s3-without-i915.html
+Kevin Tian (6):
+  vfio: Add helpers for unifying vfio_device life cycle
+  drm/i915/gvt: Use the new device life cycle helpers
+  vfio/platform: Use the new device life cycle helpers
+  vfio/amba: Use the new device life cycle helpers
+  vfio/ccw: Use the new device life cycle helpers
+  vfio: Rename vfio_device_put() and vfio_device_try_get()
 
-  * igt@runner@aborted:
-    - fi-hsw-4770:        NOTRUN -> [FAIL][5] ([fdo#109271] / [i915#4312] / [i915#5594] / [i915#6246])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/fi-hsw-4770/igt@runner@aborted.html
+Yi Liu (9):
+  vfio/pci: Use the new device life cycle helpers
+  vfio/mlx5: Use the new device life cycle helpers
+  vfio/hisi_acc: Use the new device life cycle helpers
+  vfio/mdpy: Use the new device life cycle helpers
+  vfio/mtty: Use the new device life cycle helpers
+  vfio/mbochs: Use the new device life cycle helpers
+  vfio/ap: Use the new device life cycle helpers
+  vfio/fsl-mc: Use the new device life cycle helpers
+  vfio: Add struct device to vfio_device
 
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_suspend@basic-s0@smem:
-    - {bat-adlm-1}:       [DMESG-WARN][6] ([i915#2867]) -> [PASS][7]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12162/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html
-
-  * igt@i915_selftest@live@reset:
-    - {bat-rpls-1}:       [DMESG-FAIL][8] ([i915#4983]) -> [PASS][9]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12162/bat-rpls-1/igt@i915_selftest@live@reset.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/bat-rpls-1/igt@i915_selftest@live@reset.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:
-    - fi-bsw-kefka:       [FAIL][10] ([i915#6298]) -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12162/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#146]: https://gitlab.freedesktop.org/drm/intel/issues/146
-  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
-  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
-  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4785]: https://gitlab.freedesktop.org/drm/intel/issues/4785
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#5122]: https://gitlab.freedesktop.org/drm/intel/issues/5122
-  [i915#5257]: https://gitlab.freedesktop.org/drm/intel/issues/5257
-  [i915#5278]: https://gitlab.freedesktop.org/drm/intel/issues/5278
-  [i915#5594]: https://gitlab.freedesktop.org/drm/intel/issues/5594
-  [i915#6246]: https://gitlab.freedesktop.org/drm/intel/issues/6246
-  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
-  [i915#6712]: https://gitlab.freedesktop.org/drm/intel/issues/6712
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12162 -> Patchwork_107440v9
-
-  CI-20190529: 20190529
-  CI_DRM_12162: 1d049fe35537d9239f350ab1b728b5c0dda5907c @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6659: 1becf700a737a7a98555a0cfbe8566355377afb2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_107440v9: 1d049fe35537d9239f350ab1b728b5c0dda5907c @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-21eae8e7e462 drm/i915: Enabling WD Transcoder
-e9d0f9eda842 drm/i915 : Changing intel_connector iterators
-0ca8f93389fb drm/i915: Define WD trancoder for i915
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/index.html
-
---===============2759807715223835094==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ .../ABI/testing/sysfs-devices-vfio-dev        |   8 +
+ MAINTAINERS                                   |   1 +
+ drivers/gpu/drm/i915/gvt/gvt.h                |   5 +-
+ drivers/gpu/drm/i915/gvt/kvmgt.c              |  52 ++++--
+ drivers/gpu/drm/i915/gvt/vgpu.c               |  33 ++--
+ drivers/s390/cio/vfio_ccw_ops.c               |  52 +++++-
+ drivers/s390/cio/vfio_ccw_private.h           |   3 +
+ drivers/s390/crypto/vfio_ap_ops.c             |  50 +++---
+ drivers/vfio/fsl-mc/vfio_fsl_mc.c             |  85 +++++----
+ .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    |  80 ++++-----
+ drivers/vfio/pci/mlx5/main.c                  |  50 ++++--
+ drivers/vfio/pci/vfio_pci.c                   |  20 +--
+ drivers/vfio/pci/vfio_pci_core.c              |  23 ++-
+ drivers/vfio/platform/vfio_amba.c             |  72 ++++++--
+ drivers/vfio/platform/vfio_platform.c         |  66 +++++--
+ drivers/vfio/platform/vfio_platform_common.c  |  71 +++-----
+ drivers/vfio/platform/vfio_platform_private.h |  18 +-
+ drivers/vfio/vfio_main.c                      | 164 +++++++++++++++---
+ include/linux/vfio.h                          |  28 ++-
+ include/linux/vfio_pci_core.h                 |   6 +-
+ samples/vfio-mdev/mbochs.c                    |  73 +++++---
+ samples/vfio-mdev/mdpy.c                      |  81 +++++----
+ samples/vfio-mdev/mtty.c                      |  67 ++++---
+ 23 files changed, 728 insertions(+), 380 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-devices-vfio-dev
 
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
+base-commit: f39856aacb078c1c93acef011a37121b17d54fe0
+-- 
+2.21.3
 
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Enable Pipewriteback (rev9)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/107440/">https://patchwork.freedesktop.org/series/107440/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12162 -&gt; Patchwork_107440v9</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/index.html</p>
-<h2>Participating hosts (44 -&gt; 42)</h2>
-<p>Additional (1): fi-tgl-dsi <br />
-  Missing    (3): fi-icl-u2 fi-bdw-samus fi-tgl-u2 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_107440v9 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12162/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4785">i915#4785</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_suspend@basic-s3-without-i915:</p>
-<ul>
-<li>fi-bdw-5557u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12162/fi-bdw-5557u/igt@i915_suspend@basic-s3-without-i915.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/fi-bdw-5557u/igt@i915_suspend@basic-s3-without-i915.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/146">i915#146</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/6712">i915#6712</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/fi-hsw-4770/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5594">i915#5594</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/6246">i915#6246</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s0@smem:</p>
-<ul>
-<li>{bat-adlm-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12162/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@reset:</p>
-<ul>
-<li>{bat-rpls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12162/bat-rpls-1/igt@i915_selftest@live@reset.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/bat-rpls-1/igt@i915_selftest@live@reset.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:</p>
-<ul>
-<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12162/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107440v9/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12162 -&gt; Patchwork_107440v9</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12162: 1d049fe35537d9239f350ab1b728b5c0dda5907c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6659: 1becf700a737a7a98555a0cfbe8566355377afb2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_107440v9: 1d049fe35537d9239f350ab1b728b5c0dda5907c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>21eae8e7e462 drm/i915: Enabling WD Transcoder<br />
-e9d0f9eda842 drm/i915 : Changing intel_connector iterators<br />
-0ca8f93389fb drm/i915: Define WD trancoder for i915</p>
-
-</body>
-</html>
-
---===============2759807715223835094==--
