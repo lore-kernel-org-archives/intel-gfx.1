@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DB92C6FA82
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 17:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1FEAC54EE9
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 17:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B15A10E20A;
-	Thu, 22 Sep 2022 17:14:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B240710E211;
+	Thu, 22 Sep 2022 17:14:35 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id BFD7B10E1C5;
- Thu, 22 Sep 2022 17:14:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 985F910E1F0;
+ Thu, 22 Sep 2022 17:14:23 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B61AEAADE7;
- Thu, 22 Sep 2022 17:14:20 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 94C99AA0EA;
+ Thu, 22 Sep 2022 17:14:23 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Bo Liu" <liubo03@inspur.com>
-Date: Thu, 22 Sep 2022 17:14:20 -0000
-Message-ID: <166386686074.19671.10773635462347048689@emeril.freedesktop.org>
+Date: Thu, 22 Sep 2022 17:14:23 -0000
+Message-ID: <166386686360.19673.11226837789946995896@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20220922083601.3236-1-liubo03@inspur.com>
 In-Reply-To: <20220922083601.3236-1-liubo03@inspur.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiB3YXJuaW5nIGZvciBk?=
- =?utf-8?q?rm/i915=3A_Fix_double_word_in_comments?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_Fix_double_word_in_comments?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
