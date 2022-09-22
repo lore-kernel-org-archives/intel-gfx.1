@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99DF4C6FA86
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 09:37:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 896FDC6FA86
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 09:43:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00BAD10EA85;
-	Thu, 22 Sep 2022 09:37:10 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBA5B10EA8D
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 09:37:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D91A10E26B;
+	Thu, 22 Sep 2022 09:43:16 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0A3C10E14B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 09:43:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663839426; x=1695375426;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=7gyvgtlWZWPdY2HAOZWMHNvyrcx9AjAPrLLRCh6JAxw=;
- b=gKTjNzRprDW/S+FwEhq4LfJaFgckVDkfp4qigAPI4kXWL6DNkvxRBmGM
- CCMhB/CemyQuTHoM/9oilvL72XZJLV/JuqckqFfL4DZ7LWHShvJttl3O5
- X8V+TYM+YSQVS7t0H86cRU4083cU7Vlf8OSoLCkvEOEpBfx0lCXHHcbcV
- 6/wMhvDxcc8/YKq+5g+eyNhO7EcfqUENWH7Z/0v8A2cqttTh22oAkbnn/
- yUd1Npfw4oHCBWQsUKiXfLi6sB4dJ6bP6vUxBfOv6naFO5RpsFzR1DobY
- EXvn5lwToYnIYmdqNWJ5dVepfFBIoML6hONBbKHIDOhwVz/Lm329s927G Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10477"; a="287331030"
-X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="287331030"
+ t=1663839792; x=1695375792;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=utDcrjrktkWZhqChRwWXqTMyRuJn4Ni4iGUia2Jc4A8=;
+ b=YmyUVuut1SRJPQ0CL/GzIoxzgcD1oRm4K4STBVaoEVHty5TKZl5lccgS
+ +m/u6EyXueCO6ClaSZKOHv0L2/z6CgUXl8WPkbjhAPIglgbnWvTkYqnW+
+ Sp4IK9hInrQgPCe9GmLLi2lLE6xd1+MbnhjMvX90Ql0oREOyeRo3cESdv
+ 9xobD1Y6PZ5KIhFDDMFyvo4FVZGSwV9jIeNyWs3p6Wte+wX7xVHnsXC7u
+ 6pGwFFaaSaKUH3vtYqMYMGca3iyvx/XHlS2d8bhbXuvFaFN04ikaKVUeY
+ RmE4xSnFtDKVFQS0JzBEDJV/4DT9CfuE6Y6OwhM6t8p7t4FOoYxwK91qz w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10477"; a="386540836"
+X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="386540836"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2022 02:37:06 -0700
-X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="650451862"
-Received: from emurphy-mobl.ger.corp.intel.com (HELO [10.213.205.83])
- ([10.213.205.83])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2022 02:37:04 -0700
-Message-ID: <27158ebf-24e4-c519-13a5-f3d91a539ea2@linux.intel.com>
-Date: Thu, 22 Sep 2022 10:37:02 +0100
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2022 02:43:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="650453822"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
+ by orsmga008.jf.intel.com with SMTP; 22 Sep 2022 02:43:09 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 22 Sep 2022 12:43:09 +0300
+Date: Thu, 22 Sep 2022 12:43:09 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <YywuLfoS2XMxUasw@intel.com>
+References: <20220916165206.1499-1-ville.syrjala@linux.intel.com>
+ <20220916165206.1499-3-ville.syrjala@linux.intel.com>
+ <9731fffc60162a34b7790bb08792fc55593e4ca2.camel@coelho.fi>
+ <YywdAq6eYfTEppUC@intel.com> <87leqb7px7.fsf@intel.com>
+ <Yywsrhy2MJKRI76v@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-US
-To: "Das, Nirmoy" <nirmoy.das@linux.intel.com>,
- Nirmoy Das <nirmoy.das@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20220908200706.25773-1-nirmoy.das@intel.com>
- <2cd5568f-e63c-1ae3-6aa9-809be360a397@linux.intel.com>
- <a7dcfcb7-f068-d821-9321-bba80b44ff36@linux.intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <a7dcfcb7-f068-d821-9321-bba80b44ff36@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915: Fix a potential UAF at device
- unload
+In-Reply-To: <Yywsrhy2MJKRI76v@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915: Mark FBC B gone if pipe B is
+ gone
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,58 +64,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: matthew.auld@intel.com, Chris Wilson <chris.p.wilson@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 21/09/2022 16:53, Das, Nirmoy wrote:
+On Thu, Sep 22, 2022 at 12:36:46PM +0300, Ville Syrj�l� wrote:
+> On Thu, Sep 22, 2022 at 11:51:16AM +0300, Jani Nikula wrote:
+> > On Thu, 22 Sep 2022, Ville Syrj�l� <ville.syrjala@linux.intel.com> wrote:
+> > > On Thu, Sep 22, 2022 at 11:18:55AM +0300, Luca Coelho wrote:
+> > >> On Fri, 2022-09-16 at 19:52 +0300, Ville Syrjala wrote:
+> > >> > From: Ville Syrj�l� <ville.syrjala@linux.intel.com>
+> > >> > 
+> > >> > If pipe B is fused off we also shouldn't have FBC B.
+> > >> > 
+> > >> > Signed-off-by: Ville Syrj�l� <ville.syrjala@linux.intel.com>
+> > >> > ---
+> > >> >  drivers/gpu/drm/i915/intel_device_info.c | 1 +
+> > >> >  1 file changed, 1 insertion(+)
+> > >> > 
+> > >> > diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+> > >> > index 1434dc33cf49..fbefebc023f1 100644
+> > >> > --- a/drivers/gpu/drm/i915/intel_device_info.c
+> > >> > +++ b/drivers/gpu/drm/i915/intel_device_info.c
+> > >> > @@ -394,6 +394,7 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
+> > >> >  		if (dfsm & SKL_DFSM_PIPE_B_DISABLE) {
+> > >> >  			runtime->pipe_mask &= ~BIT(PIPE_B);
+> > >> >  			runtime->cpu_transcoder_mask &= ~BIT(TRANSCODER_B);
+> > >> > +			runtime->fbc_mask &= ~BIT(INTEL_FBC_B);
+> > >> >  		}
+> > >> >  		if (dfsm & SKL_DFSM_PIPE_C_DISABLE) {
+> > >> >  			runtime->pipe_mask &= ~BIT(PIPE_C);
+> > >> 
+> > >> I don't know (yet) what exactly this does, but it makes sense if you
+> > >> think of consistency: we already do that for PIPE_A.
+> > >
+> > > It's basically saying the entire pipe is fused off, so anything
+> > > living inside that pipe should also be fused off.
+> > >
+> > >> 
+> > >> But what about PIPE_C and PIPE_D? Wouldn't it make sense to do the same
+> > >> thing for them as well?
+> > >
+> > > There is no FBC engine on those pipes (we don't even have
+> > > the INTEL_FBC_C+ enum values defined), at least for now.
+> > 
+> > A future proof way would be to add
+> > 
+> > 	runtime->fbc_mask &= runtime->pipe_mask;
 > 
-> On 9/9/2022 10:55 AM, Tvrtko Ursulin wrote:
->>
->> On 08/09/2022 21:07, Nirmoy Das wrote:
->>> i915_gem_drain_freed_objects() might not be enough to
->>> free all the objects and RCU delayed work might get
->>> scheduled after the i915 device struct gets freed.
->>>
->>> Call i915_gem_drain_workqueue() to catch all RCU delayed work.
->>>
->>> Suggested-by: Chris Wilson <chris.p.wilson@intel.com>
->>> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
->>> ---
->>>   drivers/gpu/drm/i915/i915_gem.c | 2 +-
->>>   1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/i915_gem.c 
->>> b/drivers/gpu/drm/i915/i915_gem.c
->>> index 0f49ec9d494a..e8a053eaaa89 100644
->>> --- a/drivers/gpu/drm/i915/i915_gem.c
->>> +++ b/drivers/gpu/drm/i915/i915_gem.c
->>> @@ -1254,7 +1254,7 @@ void i915_gem_init_early(struct 
->>> drm_i915_private *dev_priv)
->>>     void i915_gem_cleanup_early(struct drm_i915_private *dev_priv)
->>>   {
->>> -    i915_gem_drain_freed_objects(dev_priv);
->>> +    i915_gem_drain_workqueue(dev_priv);
->>>       GEM_BUG_ON(!llist_empty(&dev_priv->mm.free_list));
->>>       GEM_BUG_ON(atomic_read(&dev_priv->mm.free_count));
->>>       drm_WARN_ON(&dev_priv->drm, dev_priv->mm.shrink_count);
->>
->>
->> Help me spot the place where RCU free worker schedules itself back to 
->> free more objects - if I got the rationale here right?
-> (Sorry for late reply, was on leave last week.)
+> Dunno if I entirely like the extra assumption that the enums match.
+
+Well, I guess I already did that partially in eg. skl_fbc_id_for_pipe()
+though that one does allow for a difference in bias at least.
+
+> Also would need to make sure we don't accidentally screw up any
+> old platforms where FBC is not tied to a specific pipe, but I
+> guess we should never have pipe A fused off on those w/o
+> the entire display engine fused off as well.
 > 
-> I had to clarify this with Chris. So when driver frees a obj, it does 
-> dma_resv_fini() which will drop reference
+> > 
+> > after all the fuse handling. Would also fix any misconfiguration in
+> > i915_pci.c.
+> > 
+> > 
+> > BR,
+> > Jani.
+> > 
+> > 
+> > -- 
+> > Jani Nikula, Intel Open Source Graphics Center
 > 
-> for all the fences in it and a fence might  reference to an object and 
-> upon release of that fence can trigger a  release reference to an object.
+> -- 
+> Ville Syrj�l�
+> Intel
 
-Hmm I couldn't find that in code but never mind. It's just a stronger 
-version of the same flushing and it's not on a path where speed matters 
-so feel free to go with it.
-
-Regards,
-
-Tvrtko
+-- 
+Ville Syrj�l�
+Intel
