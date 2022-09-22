@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C87C54EE9
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 22:10:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 852B1ECAAD8
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 22:10:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0ABD10E496;
-	Thu, 22 Sep 2022 22:10:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A956710E476;
+	Thu, 22 Sep 2022 22:10:35 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E826610E476;
- Thu, 22 Sep 2022 22:10:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD9210E476;
+ Thu, 22 Sep 2022 22:10:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663884631; x=1695420631;
+ t=1663884629; x=1695420629;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9zoWJzO5D2gYU0QnS9giATlxGX6+CUJXisLpX26rsNk=;
- b=gQaMHEtfTQApg9tg7iFZj2KqoR7AVU3tvPUssBleQA9OWJFJaQYju8rV
- hQl1nOFrcXW0JAMhwLOgq81cB9w+jOUDLOtNZUIa/hu65OMOMaYsHgA+a
- mr6++TSuqd9zBX3F4R4BYT/obl+5qTwgZYvgSai9F3FKZ0LZYats5WuSN
- NNbQaFJQHlyJeJKpe8mnprmdPxzECA8c0gRM8xourIT3xicQ1Nk3e8NKA
- blgn/CDiBqTc5HkLgjtyAsrm6FEm3rsYR4WhSjpTMwQVo8qPsQsTxtDnV
- 7Lp5xNNXsnnlP2xIgqy7dzsdhR9+O4x2y88Dh8aFVsA87l4Ar/vASpstZ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10478"; a="280815516"
-X-IronPort-AV: E=Sophos;i="5.93,337,1654585200"; d="scan'208";a="280815516"
+ bh=RYwxRZruxrDAGthgoYb/+OShSUr1Fx8Keq5fyLpmU8U=;
+ b=aCMhU2G5+yXHYSmxnGUAqk3bcacCHJJZdvu42uBUlE6l8uawi2emQ5ub
+ IX/0AlbrF/FEq30SEmIGbtsrT77VJOnw7MydtWNyIqAVd6B5Ynp2RO8cd
+ ek13I35akgQrZmLugL6/80yPFMXb2oCBOHW5m1bwLsqExEvutvFF2RAeY
+ YRdRMCc+aNSkco8NkrXo3t0/atiZ5cEgb72hwVwOg+AXNlTx4YcDIWY43
+ 98GCEyxHL+y9PhpWHKFrn3DZD6WbEw8wVfB2lXZAV1B6/7b69QJjTJAZ8
+ 7Dr0Q2G6czdqqBHUIOlSGp04gkqIDnLVn0Z7FiWB/PVwSk6J9TBzgjBQa A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10478"; a="280815502"
+X-IronPort-AV: E=Sophos;i="5.93,337,1654585200"; d="scan'208";a="280815502"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2022 15:10:31 -0700
-X-IronPort-AV: E=Sophos;i="5.93,337,1654585200"; d="scan'208";a="682416259"
+ 22 Sep 2022 15:10:29 -0700
+X-IronPort-AV: E=Sophos;i="5.93,337,1654585200"; d="scan'208";a="682416243"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2022 15:10:31 -0700
+ 22 Sep 2022 15:10:29 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 22 Sep 2022 15:11:16 -0700
-Message-Id: <20220922221117.458087-7-daniele.ceraolospurio@intel.com>
+Date: Thu, 22 Sep 2022 15:11:13 -0700
+Message-Id: <20220922221117.458087-4-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220922221117.458087-1-daniele.ceraolospurio@intel.com>
 References: <20220922221117.458087-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/7] drm/i915/guc: define media GT GuC send regs
+Subject: [Intel-gfx] [PATCH 3/7] drm/i915/uc: use different ggtt pin offsets
+ for uc loads
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,72 +61,73 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The media GT shares the G-unit with the root GT, so a second set of
-communication registers is required for the media GuC.
+Our current FW loading process is the same for all FWs:
+
+- Pin FW to GGTT at the start of the ggtt->uc_fw node
+- Load the FW
+- Unpin
+
+This worked because we didn't have a case where 2 FWs would be loaded on
+the same GGTT at the same time. On MTL, however, this can happend if both
+GTs are reset at the same time, so we can't pin everything in the same
+spot and we need to use separate offset. For simplicity, instead of
+calculating the exact required size, we reserve a 2MB slot for each fw.
 
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
+Cc: John Harrison <john.c.harrison@intel.com>
 Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.c     | 14 ++++++++++----
- drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h |  2 ++
- 2 files changed, 12 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index bac06e3d6f2c..b0beab44b34c 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -156,7 +156,8 @@ static void gen11_disable_guc_interrupts(struct intel_guc *guc)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index b91ad4aede1f..d6ca772e9f4b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -666,16 +666,33 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
+ 	return err;
+ }
  
- void intel_guc_init_early(struct intel_guc *guc)
++/*
++ * The reserved GGTT space is ~18 MBs. All our blobs are well below 1MB, so for
++ * safety we reserve 2MB each.
++ */
++#define INTEL_UC_RSVD_GGTT_PER_FW SZ_2M
+ static u32 uc_fw_ggtt_offset(struct intel_uc_fw *uc_fw)
  {
--	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	struct drm_i915_private *i915 = gt->i915;
- 
- 	intel_uc_fw_init_early(&guc->fw, INTEL_UC_FW_TYPE_GUC);
- 	intel_guc_ct_init_early(&guc->ct);
-@@ -168,12 +169,17 @@ void intel_guc_init_early(struct intel_guc *guc)
- 	mutex_init(&guc->send_mutex);
- 	spin_lock_init(&guc->irq_lock);
- 	if (GRAPHICS_VER(i915) >= 11) {
--		guc->notify_reg = GEN11_GUC_HOST_INTERRUPT;
- 		guc->interrupts.reset = gen11_reset_guc_interrupts;
- 		guc->interrupts.enable = gen11_enable_guc_interrupts;
- 		guc->interrupts.disable = gen11_disable_guc_interrupts;
--		guc->send_regs.base =
--			i915_mmio_reg_offset(GEN11_SOFT_SCRATCH(0));
-+		if (gt->type == GT_MEDIA) {
-+			guc->notify_reg = MEDIA_GUC_HOST_INTERRUPT;
-+			guc->send_regs.base = i915_mmio_reg_offset(MEDIA_SOFT_SCRATCH(0));
-+		} else {
-+			guc->notify_reg = GEN11_GUC_HOST_INTERRUPT;
-+			guc->send_regs.base = i915_mmio_reg_offset(GEN11_SOFT_SCRATCH(0));
-+		}
+-	struct i915_ggtt *ggtt = __uc_fw_to_gt(uc_fw)->ggtt;
++	struct intel_gt *gt = __uc_fw_to_gt(uc_fw);
++	struct i915_ggtt *ggtt = gt->ggtt;
+ 	struct drm_mm_node *node = &ggtt->uc_fw;
++	u32 offset = uc_fw->type * INTEL_UC_RSVD_GGTT_PER_FW;
 +
- 		guc->send_regs.count = GEN11_SOFT_SCRATCH_COUNT;
++	/*
++	 * To keep the math simple, we use 8MB for the root tile and 8MB for
++	 * the media one.
++	 */
++	BUILD_BUG_ON(INTEL_UC_FW_NUM_TYPES * INTEL_UC_RSVD_GGTT_PER_FW > SZ_8M);
++	if (gt->type == GT_MEDIA)
++		offset += SZ_8M;
  
- 	} else {
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
-index a7092f711e9c..9915de32e894 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
-@@ -36,6 +36,7 @@
- #define SOFT_SCRATCH_COUNT		16
+ 	GEM_BUG_ON(!drm_mm_node_allocated(node));
+ 	GEM_BUG_ON(upper_32_bits(node->start));
+ 	GEM_BUG_ON(upper_32_bits(node->start + node->size - 1));
++	GEM_BUG_ON(offset + uc_fw->obj->base.size > node->size);
++	GEM_BUG_ON(uc_fw->obj->base.size > INTEL_UC_RSVD_GGTT_PER_FW);
  
- #define GEN11_SOFT_SCRATCH(n)		_MMIO(0x190240 + (n) * 4)
-+#define MEDIA_SOFT_SCRATCH(n)		_MMIO(0x190310 + (n) * 4)
- #define GEN11_SOFT_SCRATCH_COUNT	4
+-	return lower_32_bits(node->start);
++	return lower_32_bits(node->start + offset);
+ }
  
- #define UOS_RSA_SCRATCH(i)		_MMIO(0xc200 + (i) * 4)
-@@ -101,6 +102,7 @@
- #define GUC_SEND_INTERRUPT		_MMIO(0xc4c8)
- #define   GUC_SEND_TRIGGER		  (1<<0)
- #define GEN11_GUC_HOST_INTERRUPT	_MMIO(0x1901f0)
-+#define MEDIA_GUC_HOST_INTERRUPT	_MMIO(0x190304)
+ static void uc_fw_bind_ggtt(struct intel_uc_fw *uc_fw)
+@@ -690,7 +707,6 @@ static void uc_fw_bind_ggtt(struct intel_uc_fw *uc_fw)
+ 	dummy->bi.pages = obj->mm.pages;
  
- #define GEN12_GUC_SEM_INTR_ENABLES	_MMIO(0xc71c)
- #define   GUC_SEM_INTR_ROUTE_TO_GUC	BIT(31)
+ 	GEM_BUG_ON(!i915_gem_object_has_pinned_pages(obj));
+-	GEM_BUG_ON(dummy->node_size > ggtt->uc_fw.size);
+ 
+ 	/* uc_fw->obj cache domains were not controlled across suspend */
+ 	if (i915_gem_object_has_struct_page(obj))
 -- 
 2.37.3
 
