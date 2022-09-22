@@ -4,84 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93FC0C54EE9
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 14:31:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6625C54EE9
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Sep 2022 14:33:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55CD110EBE1;
-	Thu, 22 Sep 2022 14:31:32 +0000 (UTC)
-Received: from wnew4-smtp.messagingengine.com (wnew4-smtp.messagingengine.com
- [64.147.123.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5115410EBD2;
- Thu, 22 Sep 2022 14:31:22 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.west.internal (Postfix) with ESMTP id C17A62B059FF;
- Thu, 22 Sep 2022 10:31:16 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 22 Sep 2022 10:31:21 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1663857076; x=1663864276; bh=PSbckky/vf
- b6Oou4WEkAhmKsf55tE8D3S2rXFHNq4Mc=; b=HGoqwoZvN5V1Bba2VsSkL1rKHB
- zzHhgOFiEXIYie2ux3QVC5bRMjRCIRoo7saBpWhfLLKG1PCfTaMqbHlqAyth8t9f
- erVN4v1oVDLfBp8Yt0AkPWINC+O/4Ez3k8QOcaIq6dcMvQIBM+nsloTbaw8Yg865
- Vb6s4bdVeBQZoZd+TPFsU9G2XdcWhixNlH03VlQqODYZuvTuN8mgkThLziL80p2H
- d8sA1eGCmVSVtrBaP8YB9VcCZEYVVQ07/y5iK7NoPjzWr02NlTD3cLSVToi3NaNf
- u6yi5g3xw1KIPRRx+PTpY9hH88rQw2K/byZ2NRbALvQt3sJYGh1fIygKC+KA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; t=1663857076; x=1663864276; bh=PSbckky/vfb6Oou4WEkAhmKsf55t
- E8D3S2rXFHNq4Mc=; b=EqRicMT6rXUrxACQB7sJ7Vn98PONe7nvEhPFjWYmJY3m
- x3wJ+RifaVHBdCFgoGCEirF0HUMh8x9e41uvIDPpxHWhDGheapsFWg4g8+mRw7sS
- mZJpcuf+q4Bai0e16oQxM7Z9nnXjd3bt31T/VbHDGhiz5oniIAgxOJFftX2WSzIf
- 2YakhiYuv2OSw3JNIIb1Ex0J+KtNhahBVvQetXtF3EMPYhEGeGH1eF7/4RWEaDov
- C3PYwKcu5lY7eW8hrXe/M9f9rxY17GV9fOmVMQvWwmkgkr+w2kzXcWjXfR1D9Dkf
- eUivdGbaz9UJTCQlxvwle4WpB6nqI9kaD61+zGzCkQ==
-X-ME-Sender: <xms:tHEsY0P8MIR-y_shJ-dBS2WnOnT8geuXjN8qp_CabMuKUDqjUaQ77w>
- <xme:tHEsY6-2OTtPFAS5rG53ypbgppqlJvUPCpQDehpWpQA1PvBYy2ZR9FOB4o8hAjMsU
- J1MUmzt27M-czrHILc>
-X-ME-Received: <xmr:tHEsY7RaaDSBL28ABWcivoHWziI6snsJXiZ5TyqIy2WYuTxKl0sUHDhmmTs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeefgedgudejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeeljeeugfegveetleevkeetffegudevieetieeugeeugeeivddtjeejvdef
- feetgfenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivg
- eptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggt
- hh
-X-ME-Proxy: <xmx:tHEsY8vCvwx2DZ256SxSgp_intgabWEygnDecU5FyNZKQybbzkkfmA>
- <xmx:tHEsY8cWEJAiXAGcc3ToVFo3EMPl-4kBUNfV8h80zA_Xe_adsa4tZA>
- <xmx:tHEsYw0Zq92dWuHSoJs34d6okYPvG74ERNbB5383o2rpawMnzHBdJQ>
- <xmx:tHEsYx_NBJib2gwM_4xIH3jNFjHKllkRDEyvqroL8YHIhHuP78gSPY4YXEw>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 22 Sep 2022 10:31:14 -0400 (EDT)
-Date: Thu, 22 Sep 2022 16:31:12 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Emma Anholt <emma@anholt.net>, Karol Herbst <kherbst@redhat.com>,
- Samuel Holland <samuel@sholland.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel@ffwll.ch>, Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Chen-Yu Tsai <wens@csie.org>
-Message-ID: <20220922143112.urvqqdino6zqqbsu@houat>
-References: <20220728-rpi-analog-tv-properties-v2-0-f733a0ed9f90@cerno.tech>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7A7F10EBD2;
+	Thu, 22 Sep 2022 14:33:00 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F07FE10EBD2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Sep 2022 14:32:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663857175; x=1695393175;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=m3pm8j8sjDCyD0NKtvlugpaOmIuk/uPCsXoNrCvRSek=;
+ b=BbCcSk+iloshsIfT8kU/eDq1+sUq1VuXv5hEKxEjM83mJ971+W3d74ei
+ Fh9F8+gTTm9GIK17u7FPXoa2bd/XFPWSX1wOEbYptGZkKJl8LgEW24WM8
+ cLG+pBXrteX0eguH+JDUch4OpOGnGoWrqThVXGQrE/fXIZaQiad41GVRq
+ 835qPrkhFVWAm6EGzLbkYCLiLsC19I31gyty6dhWvVOQJjuJ1YYIwjhFV
+ j/Zz8r2KcXLiNDMa+K52mQifrsp30gcEaWro4YSa5qeA2tlfaVSYwCQPA
+ UkrUbUFzXWEe84BWWOO8mUeufAOiqp5ANIVMyCHHR9LvS0vaZQJ14GjFF g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10478"; a="386598655"
+X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="386598655"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2022 07:32:54 -0700
+X-IronPort-AV: E=Sophos;i="5.93,335,1654585200"; d="scan'208";a="948612683"
+Received: from rtauro-desk.iind.intel.com ([10.190.239.41])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2022 07:32:52 -0700
+From: Riana Tauro <riana.tauro@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 22 Sep 2022 20:02:09 +0530
+Message-Id: <20220922143209.535323-2-riana.tauro@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220922143209.535323-1-riana.tauro@intel.com>
+References: <20220922143209.535323-1-riana.tauro@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gei6k2mhrbbihx2s"
-Content-Disposition: inline
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-0-f733a0ed9f90@cerno.tech>
-Subject: Re: [Intel-gfx] [PATCH v2 00/33] drm: Analog TV Improvements
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/1] drm/i915/guc/slpc: Add SLPC selftest
+ live_slpc_power
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,142 +56,183 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
- Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+A fundamental assumption is that at lower frequencies,
+not only do we run slower, but we save power compared to
+higher frequencies.
+live_slpc_power checks if running at low frequency saves power
 
---gei6k2mhrbbihx2s
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Riana Tauro <riana.tauro@intel.com>
+---
+ drivers/gpu/drm/i915/gt/selftest_slpc.c | 116 ++++++++++++++++++++++--
+ 1 file changed, 107 insertions(+), 9 deletions(-)
 
-Hi,
+diff --git a/drivers/gpu/drm/i915/gt/selftest_slpc.c b/drivers/gpu/drm/i915/gt/selftest_slpc.c
+index f8a1d27df272..f22f091d2844 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_slpc.c
++++ b/drivers/gpu/drm/i915/gt/selftest_slpc.c
+@@ -11,7 +11,8 @@
+ enum test_type {
+ 	VARY_MIN,
+ 	VARY_MAX,
+-	MAX_GRANTED
++	MAX_GRANTED,
++	SLPC_POWER,
+ };
+ 
+ static int slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 freq)
+@@ -41,6 +42,42 @@ static int slpc_set_max_freq(struct intel_guc_slpc *slpc, u32 freq)
+ 	return ret;
+ }
+ 
++static int slpc_set_freq(struct intel_gt *gt, u32 freq)
++{
++	int err;
++	struct intel_guc_slpc *slpc = &gt->uc.guc.slpc;
++
++	err = slpc_set_max_freq(slpc, freq);
++	if (err) {
++		pr_err("Unable to update max freq");
++		return err;
++	}
++
++	err = slpc_set_min_freq(slpc, freq);
++	if (err) {
++		pr_err("Unable to update min freq");
++		return err;
++	}
++
++	return intel_rps_read_actual_frequency(&gt->rps);
++}
++
++static u64 measure_slpc_power_at(struct intel_gt *gt, int *freq)
++{
++	u64 x[5];
++	int i;
++
++	*freq = slpc_set_freq(gt, *freq);
++	for (i = 0; i < 5; i++)
++		x[i] = __measure_power(5);
++	*freq = (*freq + intel_rps_read_actual_frequency(&gt->rps)) / 2;
++
++	/* A simple triangle filter for better result stability */
++	sort(x, 5, sizeof(*x), cmp_u64, NULL);
++
++	return div_u64(x[1] + 2 * x[2] + x[3], 4);
++}
++
+ static int vary_max_freq(struct intel_guc_slpc *slpc, struct intel_rps *rps,
+ 			 u32 *max_act_freq)
+ {
+@@ -113,6 +150,52 @@ static int vary_min_freq(struct intel_guc_slpc *slpc, struct intel_rps *rps,
+ 	return err;
+ }
+ 
++static int slpc_power(struct intel_gt *gt, struct intel_engine_cs *engine)
++{
++	struct intel_guc_slpc *slpc = &gt->uc.guc.slpc;
++	struct {
++		u64 power;
++		int freq;
++	} min, max;
++	int err = 0;
++
++	/*
++	 * Our fundamental assumption is that running at lower frequency
++	 * actually saves power. Let's see if our RAPL measurement support
++	 * that theory.
++	 */
++	if (!librapl_supported(gt->i915))
++		return 0;
++
++	min.freq = slpc->min_freq;
++	min.power =  measure_slpc_power_at(gt, &min.freq);
++
++	max.freq = slpc->rp0_freq;
++	max.power = measure_slpc_power_at(gt, &max.freq);
++
++	pr_info("%s: min:%llumW @ %uMHz, max:%llumW @ %uMHz\n",
++		engine->name,
++		min.power, min.freq,
++		max.power, max.freq);
++
++	if (10 * min.freq >= 9 * max.freq) {
++		pr_notice("Could not control frequency, ran at [%uMHz, %uMhz]\n",
++			  min.freq, max.freq);
++	}
++
++	if (11 * min.power > 10 * max.power) {
++		pr_err("%s: did not conserve power when setting lower frequency!\n",
++		       engine->name);
++		err = -EINVAL;
++	}
++
++	/* Restore min/max frequencies */
++	slpc_set_max_freq(slpc, slpc->rp0_freq);
++	slpc_set_min_freq(slpc, slpc->min_freq);
++
++	return err;
++}
++
+ static int max_granted_freq(struct intel_guc_slpc *slpc, struct intel_rps *rps, u32 *max_act_freq)
+ {
+ 	struct intel_gt *gt = rps_to_gt(rps);
+@@ -233,17 +316,23 @@ static int run_test(struct intel_gt *gt, int test_type)
+ 
+ 			err = max_granted_freq(slpc, rps, &max_act_freq);
+ 			break;
++
++		case SLPC_POWER:
++			err = slpc_power(gt, engine);
++			break;
+ 		}
+ 
+-		pr_info("Max actual frequency for %s was %d\n",
+-			engine->name, max_act_freq);
++		if (test_type != SLPC_POWER) {
++			pr_info("Max actual frequency for %s was %d\n",
++				engine->name, max_act_freq);
+ 
+-		/* Actual frequency should rise above min */
+-		if (max_act_freq <= slpc_min_freq) {
+-			pr_err("Actual freq did not rise above min\n");
+-			pr_err("Perf Limit Reasons: 0x%x\n",
+-			       intel_uncore_read(gt->uncore, GT0_PERF_LIMIT_REASONS));
+-			err = -EINVAL;
++			/* Actual frequency should rise above min */
++			if (max_act_freq <= slpc_min_freq) {
++				pr_err("Actual freq did not rise above min\n");
++				pr_err("Perf Limit Reasons: 0x%x\n",
++				       intel_uncore_read(gt->uncore, GT0_PERF_LIMIT_REASONS));
++				err = -EINVAL;
++			}
+ 		}
+ 
+ 		igt_spinner_end(&spin);
+@@ -292,12 +381,21 @@ static int live_slpc_max_granted(void *arg)
+ 	return run_test(gt, MAX_GRANTED);
+ }
+ 
++static int live_slpc_power(void *arg)
++{
++	struct drm_i915_private *i915 = arg;
++	struct intel_gt *gt = to_gt(i915);
++
++	return run_test(gt, SLPC_POWER);
++}
++
+ int intel_slpc_live_selftests(struct drm_i915_private *i915)
+ {
+ 	static const struct i915_subtest tests[] = {
+ 		SUBTEST(live_slpc_vary_max),
+ 		SUBTEST(live_slpc_vary_min),
+ 		SUBTEST(live_slpc_max_granted),
++		SUBTEST(live_slpc_power),
+ 	};
+ 
+ 	if (intel_gt_is_wedged(to_gt(i915)))
+-- 
+2.25.1
 
-On Thu, Sep 22, 2022 at 04:25:17PM +0200, Maxime Ripard wrote:
-> Here's a series aiming at improving the command line named modes support,
-> and more importantly how we deal with all the analog TV variants.
->=20
-> The named modes support were initially introduced to allow to specify the
-> analog TV mode to be used.
->=20
-> However, this was causing multiple issues:
->=20
->   * The mode name parsed on the command line was passed directly to the
->     driver, which had to figure out which mode it was suppose to match;
->=20
->   * Figuring that out wasn't really easy, since the video=3D argument or =
-what
->     the userspace might not even have a name in the first place, but
->     instead could have passed a mode with the same timings;
->=20
->   * The fallback to matching on the timings was mostly working as long as
->     we were supporting one 525 lines (most likely NSTC) and one 625 lines
->     (PAL), but couldn't differentiate between two modes with the same
->     timings (NTSC vs PAL-M vs NSTC-J for example);
->=20
->   * There was also some overlap with the tv mode property registered by
->     drm_mode_create_tv_properties(), but named modes weren't interacting
->     with that property at all.
->=20
->   * Even though that property was generic, its possible values were
->     specific to each drivers, which made some generic support difficult.
->=20
-> Thus, I chose to tackle in multiple steps:
->=20
->   * A new TV mode property was introduced, with generic values, each driv=
-er
->     reporting through a bitmask what standard it supports to the userspac=
-e;
->=20
->   * This option was added to the command line parsing code to be able to
->     specify it on the kernel command line, and new atomic_check and reset
->     helpers were created to integrate properly into atomic KMS;
->=20
->   * The named mode parsing code is now creating a proper display mode for
->     the given named mode, and the TV standard will thus be part of the
->     connector state;
->=20
->   * Two drivers were converted and tested for now (vc4 and sun4i), with
->     some backward compatibility code to translate the old TV mode to the
->     new TV mode;
->=20
-> Unit tests were created along the way.
->=20
-> One can switch from NTSC to PAL now using (on vc4)
->=20
-> modetest -M vc4  -s 53:720x480i -w 53:'TV mode':1 # NTSC
-> modetest -M vc4  -s 53:720x576i -w 53:'TV mode':4 # PAL
->=20
-> Let me know what you think,
-> Maxime
->=20
-> To: David Airlie <airlied@linux.ie>
-> To: Daniel Vetter <daniel@ffwll.ch>
-> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> To: Maxime Ripard <mripard@kernel.org>
-> To: Thomas Zimmermann <tzimmermann@suse.de>
-> To: Emma Anholt <emma@anholt.net>
-> To: Jani Nikula <jani.nikula@linux.intel.com>
-> To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> To: Ben Skeggs <bskeggs@redhat.com>
-> To: Karol Herbst <kherbst@redhat.com>
-> To: Lyude Paul <lyude@redhat.com>
-> To: Chen-Yu Tsai <wens@csie.org>
-> To: Jernej Skrabec <jernej.skrabec@gmail.com>
-> To: Samuel Holland <samuel@sholland.org>
-> Cc: Geert Uytterhoeven <geert@linux-m68k.org>
-> Cc: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
-> Cc: "Noralf Tr=F8nnes" <noralf@tronnes.org>
-> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: Dom Cobley <dom@raspberrypi.com>
-> Cc: Phil Elwell <phil@raspberrypi.com>
-> Cc: <dri-devel@lists.freedesktop.org>
-> Cc: linux-kernel@vger.kernel.org
-> Cc: intel-gfx@lists.freedesktop.org
-> Cc: nouveau@lists.freedesktop.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-sunxi@lists.linux.dev
-> Cc: Hans de Goede <hdegoede@redhat.com>
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
->=20
-> ---
-> Changes in v3:
-> - Applied some of the fixes to vc4 and sun4i
-> - Renamed the old TV mode property to legacy_mode
-> - Fixed a bunch of bisection errors
-> - Removed most of the redundant TV modes
-> - Added a new None TV mode to not fall back on NTSC by mistake
-> - Fixed the mode generation function to match better what is expected
-> - Added some logging to the mode generation function
-> - Split the improvements to the named mode parsing logic into separate pa=
-tches
-> - Added more checks to the TV atomic_check helper
-> - Link to v2: https://lore.kernel.org/dri-devel/20220728-rpi-analog-tv-pr=
-operties-v2-0-459522d653a7@cerno.tech/
-
-Sorry, this is obviously the v3...
-
-Maxime
-
---gei6k2mhrbbihx2s
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYyxxsAAKCRDj7w1vZxhR
-xTkfAP9I//dgydbADcLgZF9kVBixM1r07WIE9jCMphXvmq+M6wEAtmc47sVQX/IN
-TCKBLIqKTj6E21CFHFgGQefJ8rXkqQo=
-=oVDB
------END PGP SIGNATURE-----
-
---gei6k2mhrbbihx2s--
