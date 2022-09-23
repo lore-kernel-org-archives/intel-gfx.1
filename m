@@ -4,71 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DFD5C6FA82
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 08:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AE1DC6FA82
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 08:08:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EAEF10E4C6;
-	Fri, 23 Sep 2022 08:06:15 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D49010E4C9;
- Fri, 23 Sep 2022 08:06:10 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D8075219EA;
- Fri, 23 Sep 2022 08:06:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1663920368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=W32O2yVRih3gwoLv5jL3J0R/1OnRljKFS2FDN0VocOE=;
- b=Pl+SdTc+QcZJWIEU7QfsDd9fWk+tzpEKp98gH4KLelmFYEfxGSkZDcpoW93NPCiQEEZlRA
- 1/U+svWsV7gEff7FfI+aU0ZK3lquksmd+Ub4khv76ZN+gNsorAqcgk9Fm61CGQm67HM4gW
- 7yVWAAJIOCnqk4Gn3Ot22Qei23yZeEc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1663920368;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=W32O2yVRih3gwoLv5jL3J0R/1OnRljKFS2FDN0VocOE=;
- b=NEpLtuMet7hLasS4xxYkCmyMQfFFoYvb6ECDUGdet0SLgusoImC7tJ/mUOcja0Sxt59rAE
- jJ3Ap0C7aW+8EYDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 56F2E13AA5;
- Fri, 23 Sep 2022 08:06:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MOJIFPBoLWNLfwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Fri, 23 Sep 2022 08:06:08 +0000
-Message-ID: <73cd87f9-655a-5510-f3f7-e552dcefdf0d@suse.de>
-Date: Fri, 23 Sep 2022 10:06:07 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF5410E172;
+	Fri, 23 Sep 2022 08:08:34 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7C0010E172
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 08:08:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1663920509; x=1695456509;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=qYAu+SoLcP3TUl/iaV0LbDgbxLNyQl00mFY8T3k4upA=;
+ b=lUWtwU7dpbpunTKkxiA8UDNBc2LrVc4MgUDmSz3sdH8UUhmXAl7r498l
+ UZedHoXWJoVjuOwK8+GGVhKENUB2LSrCRpyW1+T4p8Ecy47xDMrpSm7pn
+ caHyc9OEYdG92rD36VRNDVRMnndzdrsYHayc6hb6apNzyUy325BAEFE0y
+ Nh4Ahj4zCNOZh7PlkXLRm2gbh8MCrbPutkcM43ZMP1OOML2bOro+yx2/N
+ drsAeFjYXcNytUWQo7VrOsHpbjk27bjkDxOQnyChl//dxg+Lg2kHB8Cm/
+ jT8AVZA/ynChfRhgWtzypMphGJ5kU+XlC00DpYcY5xU/14ULbtJfVlcHL w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10478"; a="326870143"
+X-IronPort-AV: E=Sophos;i="5.93,337,1654585200"; d="scan'208";a="326870143"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2022 01:08:29 -0700
+X-IronPort-AV: E=Sophos;i="5.93,337,1654585200"; d="scan'208";a="597788784"
+Received: from unknown (HELO intel.com) ([10.237.72.65])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2022 01:08:27 -0700
+Date: Fri, 23 Sep 2022 11:09:15 +0300
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Mika Kahola <mika.kahola@intel.com>
+Message-ID: <Yy1pq0DmegnkVdNn@intel.com>
+References: <20220907081543.92268-1-mika.kahola@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-US
-To: Maxime Ripard <maxime@cerno.tech>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Ben Skeggs <bskeggs@redhat.com>,
- David Airlie <airlied@linux.ie>, Maxime Ripard <mripard@kernel.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Emma Anholt <emma@anholt.net>, Karol Herbst <kherbst@redhat.com>,
- Samuel Holland <samuel@sholland.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Chen-Yu Tsai <wens@csie.org>
-References: <20220728-rpi-analog-tv-properties-v2-0-f733a0ed9f90@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-1-f733a0ed9f90@cerno.tech>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-1-f733a0ed9f90@cerno.tech>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------009tUO10dHwudn8iU0mykD8M"
-Subject: Re: [Intel-gfx] [PATCH v2 01/33] drm/tests: Order Kunit tests in
- Makefile
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220907081543.92268-1-mika.kahola@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/mtl: Extend PSR support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,101 +56,138 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Phil Elwell <phil@raspberrypi.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------009tUO10dHwudn8iU0mykD8M
-Content-Type: multipart/mixed; boundary="------------c3qicYVAnU4Lh99nFLW5qyTI";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Maxime Ripard <maxime@cerno.tech>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Ben Skeggs <bskeggs@redhat.com>,
- David Airlie <airlied@linux.ie>, Maxime Ripard <mripard@kernel.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Emma Anholt <emma@anholt.net>, Karol Herbst <kherbst@redhat.com>,
- Samuel Holland <samuel@sholland.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Chen-Yu Tsai <wens@csie.org>
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-sunxi@lists.linux.dev, Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
-Message-ID: <73cd87f9-655a-5510-f3f7-e552dcefdf0d@suse.de>
-Subject: Re: [PATCH v2 01/33] drm/tests: Order Kunit tests in Makefile
-References: <20220728-rpi-analog-tv-properties-v2-0-f733a0ed9f90@cerno.tech>
- <20220728-rpi-analog-tv-properties-v2-1-f733a0ed9f90@cerno.tech>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-1-f733a0ed9f90@cerno.tech>
+On Wed, Sep 07, 2022 at 11:15:43AM +0300, Mika Kahola wrote:
+> From: José Roberto de Souza <jose.souza@intel.com>
+> 
+> Meteorlake and display 14 platform don't have any PSR differences
+> when comparing to Alderlake-P display, so it was only necessary to
+> extend some checks to properly program hardware.
+> 
+> BSpec: 55229, 49196
 
---------------c3qicYVAnU4Lh99nFLW5qyTI
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-DQoNCkFtIDIyLjA5LjIyIHVtIDE2OjI1IHNjaHJpZWIgTWF4aW1lIFJpcGFyZDoNCj4gU2lu
-Y2Ugd2UndmUgcmVjZW50bHkgYWRkZWQgYSB0b24gb2YgdGVzdHMsIHRoZSBsaXN0IHN0YXJ0
-cyB0byBiZSBhIGJpdA0KPiBvZiBhIG1lc3MgYW5kIGNyZWF0ZXMgdW5uZWVkZWQgY29uZmxp
-Y3RzLg0KPiANCj4gTGV0J3Mgb3JkZXIgaXQgYWxwaGFiZXRpY2FsbHkuDQo+IA0KPiBTaWdu
-ZWQtb2ZmLWJ5OiBNYXhpbWUgUmlwYXJkIDxtYXhpbWVAY2Vybm8udGVjaD4NCg0KQWNrZWQt
-Ynk6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KDQo+IA0KPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3Rlc3RzL01ha2VmaWxlIGIvZHJpdmVycy9n
-cHUvZHJtL3Rlc3RzL01ha2VmaWxlDQo+IGluZGV4IDkxYjcwZjdkMjc2OS4uMmQ5ZjQ5YjYy
-ZWNiIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdGVzdHMvTWFrZWZpbGUNCj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL3Rlc3RzL01ha2VmaWxlDQo+IEBAIC0xLDUgKzEsMTMg
-QEANCj4gICAjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wDQo+ICAgDQo+IC1v
-YmotJChDT05GSUdfRFJNX0tVTklUX1RFU1QpICs9IGRybV9mb3JtYXRfaGVscGVyX3Rlc3Qu
-byBkcm1fZGFtYWdlX2hlbHBlcl90ZXN0Lm8gXA0KPiAtCWRybV9jbWRsaW5lX3BhcnNlcl90
-ZXN0Lm8gZHJtX3JlY3RfdGVzdC5vIGRybV9mb3JtYXRfdGVzdC5vIGRybV9wbGFuZV9oZWxw
-ZXJfdGVzdC5vIFwNCj4gLQlkcm1fZHBfbXN0X2hlbHBlcl90ZXN0Lm8gZHJtX2ZyYW1lYnVm
-ZmVyX3Rlc3QubyBkcm1fYnVkZHlfdGVzdC5vIGRybV9tbV90ZXN0Lm8NCj4gK29iai0kKENP
-TkZJR19EUk1fS1VOSVRfVEVTVCkgKz0gXA0KPiArCWRybV9idWRkeV90ZXN0Lm8gXA0KPiAr
-CWRybV9jbWRsaW5lX3BhcnNlcl90ZXN0Lm8gXA0KPiArCWRybV9kYW1hZ2VfaGVscGVyX3Rl
-c3QubyBcDQo+ICsJZHJtX2RwX21zdF9oZWxwZXJfdGVzdC5vIFwNCj4gKwlkcm1fZm9ybWF0
-X2hlbHBlcl90ZXN0Lm8gXA0KPiArCWRybV9mb3JtYXRfdGVzdC5vIFwNCj4gKwlkcm1fZnJh
-bWVidWZmZXJfdGVzdC5vIFwNCj4gKwlkcm1fbW1fdGVzdC5vIFwNCj4gKwlkcm1fcGxhbmVf
-aGVscGVyX3Rlc3QubyBcDQo+ICsJZHJtX3JlY3RfdGVzdC5vDQo+IA0KDQotLSANClRob21h
-cyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpTVVNFIFNvZnR3YXJl
-IFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCk1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVy
-ZywgR2VybWFueQ0KKEhSQiAzNjgwOSwgQUcgTsO8cm5iZXJnKQ0KR2VzY2jDpGZ0c2bDvGhy
-ZXI6IEl2byBUb3Rldg0K
-
---------------c3qicYVAnU4Lh99nFLW5qyTI--
-
---------------009tUO10dHwudn8iU0mykD8M
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmMtaO8FAwAAAAAACgkQlh/E3EQov+B0
-hw/+LQ747nt5mB/33pcmDcLYpCscgMBYQNTV/Sz4gO0OeWb5p2GydGSx3oBbGoigBcPktrGYfbQ7
-ZOIMPQNHdVeUy73nL5nCvyVjiLM1YkwrD8JtwgS8YxBzTkiv6noQz3RgQJECkMFJToW+sjEZOofR
-cm9NVEiN6uvC3746K+O8/Tk4vQjqgWjUWmcjliRuao7r8SbLvPHDz3HaB3DajOw9kltJqiOw6QNq
-mbxSz2+ovZbk1Pt51M/PZnMBLhI0T/K0Haz8A6voMM6xj1ROGWF4svTDiXJj7bWjZ+s3orvKmNl2
-lkSDGXSQWD1tAzkkNGE+hiRD0chELIFyx53L8n49cIkGq3GvN/04cMDpRdNFTTYdgSqibjx+0Sd3
-nBCcThQ4O0ONL4HQ/yIHdz9eZy6zLAuSU0XgtFwfSeLvayhTOnukJPKXsUpOJ7RrnUDhmZkCpgnz
-P4U2lIzrnum0eNvk1LQuUIfcurPAeHj5uwhq8gGraWv2r0IOqlaAzM9TXiCfBnqgvzLORbx7o3w/
-pEZp8kX9deCUF2H1EQ5XIJFqQNtwI/lyfXNL9q18zb0AvfR8uxOVselZE+3H6igyDYEOAty6XrTb
-Fc/23cwmvW3diIDAL6z4+hAKVLKR8UOc+OjB1DUfBF1FbOFfjGAkp+F4R2aWq017QCQwphE31vX/
-Xvw=
-=fZ0n
------END PGP SIGNATURE-----
-
---------------009tUO10dHwudn8iU0mykD8M--
+> 
+> Cc: Mika Kahola <mika.kahola@intel.com>
+> Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+> Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_psr.c | 31 +++++++++++++++---------
+>  drivers/gpu/drm/i915/i915_reg.h          |  5 ++++
+>  2 files changed, 25 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+> index 079b7d3d0c53..4170017969c9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+> @@ -515,7 +515,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+>  
+>  	val |= psr_compute_idle_frames(intel_dp) << EDP_PSR2_IDLE_FRAME_SHIFT;
+>  
+> -	if (!IS_ALDERLAKE_P(dev_priv))
+> +	if (DISPLAY_VER(dev_priv) <= 13 && !IS_ALDERLAKE_P(dev_priv))
+>  		val |= EDP_SU_TRACK_ENABLE;
+>  
+>  	if (DISPLAY_VER(dev_priv) >= 10 && DISPLAY_VER(dev_priv) <= 12)
+> @@ -598,7 +598,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+>  static bool
+>  transcoder_has_psr2(struct drm_i915_private *dev_priv, enum transcoder trans)
+>  {
+> -	if (IS_ALDERLAKE_P(dev_priv))
+> +	if (IS_ALDERLAKE_P(dev_priv) || DISPLAY_VER(dev_priv) >= 14)
+>  		return trans == TRANSCODER_A || trans == TRANSCODER_B;
+>  	else if (DISPLAY_VER(dev_priv) >= 12)
+>  		return trans == TRANSCODER_A;
+> @@ -678,7 +678,7 @@ dc3co_is_pipe_port_compatible(struct intel_dp *intel_dp,
+>  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+>  	enum port port = dig_port->base.port;
+>  
+> -	if (IS_ALDERLAKE_P(dev_priv))
+> +	if (IS_ALDERLAKE_P(dev_priv) || DISPLAY_VER(dev_priv) >= 14)
+>  		return pipe <= PIPE_B && port <= PORT_B;
+>  	else
+>  		return pipe == PIPE_A && port == PORT_A;
+> @@ -777,11 +777,11 @@ static bool psr2_granularity_check(struct intel_dp *intel_dp,
+>  		return intel_dp->psr.su_y_granularity == 4;
+>  
+>  	/*
+> -	 * adl_p has 1 line granularity. For other platforms with SW tracking we
+> -	 * can adjust the y coordinates to match sink requirement if multiple of
+> -	 * 4.
+> +	 * adl_p and display 14+ platforms has 1 line granularity.
+> +	 * For other platforms with SW tracking we can adjust the y coordinates
+> +	 * to match sink requirement if multiple of 4.
+>  	 */
+> -	if (IS_ALDERLAKE_P(dev_priv))
+> +	if (IS_ALDERLAKE_P(dev_priv) || DISPLAY_VER(dev_priv) >= 14)
+>  		y_granularity = intel_dp->psr.su_y_granularity;
+>  	else if (intel_dp->psr.su_y_granularity <= 2)
+>  		y_granularity = 4;
+> @@ -864,7 +864,8 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
+>  	 * resolution requires DSC to be enabled, priority is given to DSC
+>  	 * over PSR2.
+>  	 */
+> -	if (crtc_state->dsc.compression_enable) {
+> +	if (crtc_state->dsc.compression_enable &&
+> +	    (DISPLAY_VER(dev_priv) <= 13 && !IS_ALDERLAKE_P(dev_priv))) {
+>  		drm_dbg_kms(&dev_priv->drm,
+>  			    "PSR2 cannot be enabled since DSC is enabled\n");
+>  		return false;
+> @@ -1457,7 +1458,7 @@ static u32 man_trk_ctl_enable_bit_get(struct drm_i915_private *dev_priv)
+>  
+>  static u32 man_trk_ctl_single_full_frame_bit_get(struct drm_i915_private *dev_priv)
+>  {
+> -	return IS_ALDERLAKE_P(dev_priv) ?
+> +	return IS_ALDERLAKE_P(dev_priv) || DISPLAY_VER(dev_priv) >= 14 ?
+>  	       ADLP_PSR2_MAN_TRK_CTL_SF_SINGLE_FULL_FRAME :
+>  	       PSR2_MAN_TRK_CTL_SF_SINGLE_FULL_FRAME;
+>  }
+> @@ -1610,7 +1611,7 @@ static void psr2_man_trk_ctl_calc(struct intel_crtc_state *crtc_state,
+>  	if (clip->y1 == -1)
+>  		goto exit;
+>  
+> -	if (IS_ALDERLAKE_P(dev_priv)) {
+> +	if (IS_ALDERLAKE_P(dev_priv) || DISPLAY_VER(dev_priv) >= 14) {
+>  		val |= ADLP_PSR2_MAN_TRK_CTL_SU_REGION_START_ADDR(clip->y1);
+>  		val |= ADLP_PSR2_MAN_TRK_CTL_SU_REGION_END_ADDR(clip->y2 - 1);
+>  	} else {
+> @@ -1647,7 +1648,15 @@ static void intel_psr2_sel_fetch_pipe_alignment(const struct intel_crtc_state *c
+>  						struct drm_rect *pipe_clip)
+>  {
+>  	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+> -	const u16 y_alignment = crtc_state->su_y_granularity;
+> +	const struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
+> +	u16 y_alignment;
+> +
+> +	/* ADLP aligns the SU region to vdsc slice height in case dsc is enabled */
+> +	if (crtc_state->dsc.compression_enable &&
+> +	    (IS_ALDERLAKE_P(dev_priv) || DISPLAY_VER(dev_priv) >= 14))
+> +		y_alignment = vdsc_cfg->slice_height;
+> +	else
+> +		y_alignment = crtc_state->su_y_granularity;
+>  
+>  	pipe_clip->y1 -= pipe_clip->y1 % y_alignment;
+>  	if (pipe_clip->y2 % y_alignment)
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> index c413eec3373f..260d9b680a73 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -8292,6 +8292,11 @@ enum skl_power_gate {
+>  #define GEN12_CULLBIT2			_MMIO(0x7030)
+>  #define GEN12_STATE_ACK_DEBUG		_MMIO(0x20BC)
+>  
+> +#define _MTL_CLKGATE_DIS_TRANS_A			0x604E8
+> +#define _MTL_CLKGATE_DIS_TRANS_B			0x614E8
+> +#define MTL_CLKGATE_DIS_TRANS(trans)			_MMIO_TRANS2(trans, _MTL_CLKGATE_DIS_TRANS_A)
+> +#define  MTL_CLKGATE_DIS_TRANS_DMASC_GATING_DIS		REG_BIT(7)
+> +
+>  #define MTL_LATENCY_LP0_LP1		_MMIO(0x45780)
+>  #define MTL_LATENCY_LP2_LP3		_MMIO(0x45784)
+>  #define MTL_LATENCY_LP4_LP5		_MMIO(0x45788)
+> -- 
+> 2.34.1
+> 
