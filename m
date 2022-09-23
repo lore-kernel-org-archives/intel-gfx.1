@@ -4,52 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72141C6FA82
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 16:07:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A79E9C6FA82
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 16:19:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6266910E59F;
-	Fri, 23 Sep 2022 16:07:57 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2996F10E59A;
- Fri, 23 Sep 2022 16:07:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663949273; x=1695485273;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=lpCoHOC+HY7u/tahegELh+GpEr6/xGXSlU37ko+qvfw=;
- b=Q4r7GDBvqs3y8fU3luHG3Rs1+4NepuOTsda1tO83L+bPbOyDZ3j/6fzN
- an/JX+iRNQRAZcK4K3zCxhEfgw4V9fmfKWrIFSB77WbWjvRC/m0J0vS9U
- b9Y+0vl//v9IBDZH3sL2Pi3NA2IXR3DlIqCg18d8j6g52tmKic7v6iiyr
- 2aHKJV++88dnhlh0TFfhzIfBGyxhqv7Icrntvmsoao6uVHUsVDjh4tfYr
- 4DlhZoD4+cthxli3dIOW32ztV42459mgDslT+ZKkL11+JQrAQJTPf8KGv
- xAEVhr9O+N7UZ4Sgs3bhgO7up8kMXOD71bCFjn45grnyMZTt4q40ctYPj Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10479"; a="301507768"
-X-IronPort-AV: E=Sophos;i="5.93,339,1654585200"; d="scan'208";a="301507768"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2022 09:06:32 -0700
-X-IronPort-AV: E=Sophos;i="5.93,339,1654585200"; d="scan'208";a="597911847"
-Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.6.20])
- ([10.213.6.20])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2022 09:06:30 -0700
-Message-ID: <b96aed3b-4164-e5ea-5c2b-f975ae5ad1b7@intel.com>
-Date: Fri, 23 Sep 2022 18:06:28 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C8E310E59A;
+	Fri, 23 Sep 2022 16:19:07 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9AEA610E59A;
+ Fri, 23 Sep 2022 16:19:01 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 93CE3A0099;
+ Fri, 23 Sep 2022 16:19:01 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3897494533242742368=="
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.3.0
-Content-Language: en-US
-To: intel-gfx@lists.freedesktop.org, igt-dev@lists.freedesktop.org
-References: <20220922081353.1759082-1-andrzej.hajda@intel.com>
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <20220922081353.1759082-1-andrzej.hajda@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH i-g-t] tests/i915/gem_ctx_persistence:
- adjust saturated-hostile test timeout
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
+Date: Fri, 23 Sep 2022 16:19:01 -0000
+Message-ID: <166394994157.30120.5929844662143671725@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20220923142934.29528-1-tvrtko.ursulin@linux.intel.com>
+In-Reply-To: <20220923142934.29528-1-tvrtko.ursulin@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Stop_using_flush=5Fscheduled=5Fwork_on_driver_remove?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,59 +40,181 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============3897494533242742368==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: drm/i915: Stop using flush_scheduled_work on driver remove
+URL   : https://patchwork.freedesktop.org/series/108970/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_12175 -> Patchwork_108970v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/index.html
+
+Participating hosts (46 -> 44)
+------------------------------
+
+  Missing    (2): fi-icl-u2 fi-tgl-dsi 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_108970v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:
+    - fi-bsw-kefka:       [PASS][1] -> [FAIL][2] ([i915#6298])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12175/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_suspend@basic-s0@smem:
+    - {bat-rplp-1}:       [DMESG-WARN][3] ([i915#2867]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12175/bat-rplp-1/igt@gem_exec_suspend@basic-s0@smem.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/bat-rplp-1/igt@gem_exec_suspend@basic-s0@smem.html
+    - {bat-adlm-1}:       [DMESG-WARN][5] ([i915#2867]) -> [PASS][6] +1 similar issue
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12175/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-hsw-4770:        [DMESG-FAIL][7] -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12175/fi-hsw-4770/igt@i915_selftest@live@gt_heartbeat.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/fi-hsw-4770/igt@i915_selftest@live@gt_heartbeat.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#5828]: https://gitlab.freedesktop.org/drm/intel/issues/5828
+  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
+  [i915#6818]: https://gitlab.freedesktop.org/drm/intel/issues/6818
 
 
-On 22.09.2022 10:13, Andrzej Hajda wrote:
-> GPU occasionally can hang during saturated-hostile test. Detection of
-> such case and reset can take up to 5 seconds. While at it fix typo in
-> definition of RESET_TIMEOUT_MS.
->
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/1551
-> Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+Build changes
+-------------
 
-Please ignore the patch, it has been superseded by:
-https://patchwork.freedesktop.org/patch/504450/
+  * Linux: CI_DRM_12175 -> Patchwork_108970v1
 
-Regards
-Andrzej
+  CI-20190529: 20190529
+  CI_DRM_12175: a916f2c47c5965886be7a023eb78e67470237fe3 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_6662: dcb1d7a8822e62935f4fe3f2e6a04caaee669369 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_108970v1: a916f2c47c5965886be7a023eb78e67470237fe3 @ git://anongit.freedesktop.org/gfx-ci/linux
 
-> ---
->   tests/i915/gem_ctx_persistence.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/tests/i915/gem_ctx_persistence.c b/tests/i915/gem_ctx_persistence.c
-> index 50196edb19f..603fdd84438 100644
-> --- a/tests/i915/gem_ctx_persistence.c
-> +++ b/tests/i915/gem_ctx_persistence.c
-> @@ -46,7 +46,8 @@
->   #include "intel_allocator.h"
->   #include "sw_sync.h"
->   
-> -#define RESET_TIMEOUT_MS 2 * MSEC_PER_SEC; /* default: 640ms */
-> +#define RESET_TIMEOUT_MS (2 * MSEC_PER_SEC) /* default: 640ms */
-> +#define RESET_TIMEOUT_GPU_HANG_MS (10000 * MSEC_PER_SEC)
->   static unsigned long reset_timeout_ms = RESET_TIMEOUT_MS;
->   #define NSEC_PER_MSEC (1000 * 1000ull)
->   
-> @@ -370,7 +371,7 @@ static void test_nohangcheck_hostile(int i915, const intel_ctx_cfg_t *cfg)
->   	igt_require(__enable_hangcheck(dir, false));
->   
->   	for_each_ctx_cfg_engine(i915, cfg, e) {
-> -		int64_t timeout = 10000 * NSEC_PER_MSEC;
-> +		int64_t timeout = RESET_TIMEOUT_GPU_HANG_MS;
->   		const intel_ctx_t *ctx = intel_ctx_create(i915, cfg);
->   		uint64_t ahnd = get_reloc_ahnd(i915, ctx->id);
->   		igt_spin_t *spin;
-> @@ -951,7 +952,7 @@ test_saturated_hostile_all(int i915, const intel_ctx_t *base_ctx,
->   	intel_ctx_destroy(i915, ctx);
->   
->   	/* Hostile request requires a GPU reset to terminate */
-> -	igt_assert_eq(wait_for_status(spin->out_fence, reset_timeout_ms), -EIO);
-> +	igt_assert_eq(wait_for_status(spin->out_fence, RESET_TIMEOUT_GPU_HANG_MS), -EIO);
->   
->   	/* All other spinners should be left unharmed */
->   	gem_quiescent_gpu(i915);
 
+### Linux commits
+
+36d2561cb127 drm/i915: Stop using flush_scheduled_work on driver remove
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/index.html
+
+--===============3897494533242742368==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Stop using flush_scheduled_work on driver remove</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/108970/">https://patchwork.freedesktop.org/series/108970/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12175 -&gt; Patchwork_108970v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/index.html</p>
+<h2>Participating hosts (46 -&gt; 44)</h2>
+<p>Missing    (2): fi-icl-u2 fi-tgl-dsi </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_108970v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:<ul>
+<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12175/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s0@smem:</p>
+<ul>
+<li>
+<p>{bat-rplp-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12175/bat-rplp-1/igt@gem_exec_suspend@basic-s0@smem.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/bat-rplp-1/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a></p>
+</li>
+<li>
+<p>{bat-adlm-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12175/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> +1 similar issue</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12175/fi-hsw-4770/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_108970v1/fi-hsw-4770/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12175 -&gt; Patchwork_108970v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12175: a916f2c47c5965886be7a023eb78e67470237fe3 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_6662: dcb1d7a8822e62935f4fe3f2e6a04caaee669369 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_108970v1: a916f2c47c5965886be7a023eb78e67470237fe3 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>36d2561cb127 drm/i915: Stop using flush_scheduled_work on driver remove</p>
+
+</body>
+</html>
+
+--===============3897494533242742368==--
