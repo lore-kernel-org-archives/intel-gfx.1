@@ -4,46 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C7F2C6FA82
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 11:01:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BAFCC6FA8E
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Sep 2022 11:01:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63DF110E8A3;
-	Fri, 23 Sep 2022 11:01:20 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D94410E8C1
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Sep 2022 11:00:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EDE610E8A5;
+	Fri, 23 Sep 2022 11:01:21 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8940D10E852;
+ Fri, 23 Sep 2022 11:00:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1663930854; x=1695466854;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=4DgZQq3Kq/9q3+vrL28Mwdn1dqd7brZKAZKyT56FQRw=;
- b=NtMbFm8nTHIbvlLHA0LXPFgvtFo+27cNOR1D/wABB3A+ZEvp4QWMHXf2
- a7OmnQ3aHBaafO3M5BbB/huvFvdOKybDjeL6miZpo8XB8bMo5TZyORF+M
- D3miD+Jn2Qlqccj58Jp1m9MLGFQpZ5Rjceewsm/NrTmHfmTHaa9sRHQXK
- s9RxMkvT2BAQNG8EbxMarETDYoRBiYSFLpYN/8zfkJ4obYJQhaYc3prNV
- pesGza6TBqH0AQPHTm9fxRYzHkqeTxLrotzMTTf9r7cJlmp5JRDXgyexj
- 864vljbpmuqXHcmfh+DcT8tugEzxj0M7a56MJjSzVtH1tNlkR8wnOAx8E Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10478"; a="386858213"
-X-IronPort-AV: E=Sophos;i="5.93,339,1654585200"; d="scan'208";a="386858213"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2022 04:00:53 -0700
-X-IronPort-AV: E=Sophos;i="5.93,339,1654585200"; d="scan'208";a="653363754"
-Received: from rtauro-desk.iind.intel.com ([10.190.239.41])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2022 04:00:51 -0700
-From: Riana Tauro <riana.tauro@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 23 Sep 2022 16:30:41 +0530
-Message-Id: <20220923110043.789178-2-riana.tauro@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220923110043.789178-1-riana.tauro@intel.com>
-References: <20220923110043.789178-1-riana.tauro@intel.com>
+ t=1663930859; x=1695466859;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Oh/2jbnJUIYU2lX82cH9xbHClZolpriMoBQA7OEFGQo=;
+ b=YrboYZj6fFA9un1KKDzZEJJtlvTA/WlmKXi7d9inX5fdENNmo4q/gF4Y
+ oyv0JphDSf3TyxXdJk4U4RG/KgSF1PlBNOpvFgJL23PenkBDYJB/jMC5R
+ 5b0+cKugdCXJorZ6tYw1dAWU1Aa8mzTqSPzyECqcGjYXlfpZxQ9wvJNdJ
+ Z+TJ+ESDvAuFFq19suEt6o7El9/FZzPESK3cM0NLg9nTFE/LW/YE6Ro+5
+ 5oIqfu6pVEHE7YGrC4WW/gHfUFCMZ+gdPZABEtY+yCnRLdapn8wSCmG6O
+ P5HKp8cuN3RH+YT9cgwPNaydBV38pMRNem5Pzb9wfhkge9ESH93lZEK2t w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10478"; a="300552302"
+X-IronPort-AV: E=Sophos;i="5.93,339,1654585200"; d="scan'208";a="300552302"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2022 04:00:58 -0700
+X-IronPort-AV: E=Sophos;i="5.93,339,1654585200"; d="scan'208";a="620176090"
+Received: from ccislaru-mobl.ger.corp.intel.com (HELO [10.213.225.140])
+ ([10.213.225.140])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2022 04:00:57 -0700
+Message-ID: <161f5a01-e6e0-f249-045f-bc2f9c0f2a1d@linux.intel.com>
+Date: Fri, 23 Sep 2022 12:00:55 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: "Das, Nirmoy" <nirmoy.das@linux.intel.com>, Intel-gfx@lists.freedesktop.org
+References: <20220630125716.50835-1-tvrtko.ursulin@linux.intel.com>
+ <6f789a18-76be-ebc6-a20a-fa63963e9498@linux.intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <6f789a18-76be-ebc6-a20a-fa63963e9498@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915/guc/slpc: Run SLPC selftests on
- all tiles
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/selftests: Remove
+ flush_scheduled_work() from live_execlists
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,93 +62,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Run slpc selftests on all tiles
 
-Signed-off-by: Riana Tauro <riana.tauro@intel.com>
----
- drivers/gpu/drm/i915/gt/selftest_slpc.c | 45 ++++++++++++++++++++-----
- 1 file changed, 37 insertions(+), 8 deletions(-)
+On 23/09/2022 11:32, Das, Nirmoy wrote:
+> Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_slpc.c b/drivers/gpu/drm/i915/gt/selftest_slpc.c
-index f8a1d27df272..928f74718881 100644
---- a/drivers/gpu/drm/i915/gt/selftest_slpc.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_slpc.c
-@@ -270,26 +270,50 @@ static int run_test(struct intel_gt *gt, int test_type)
- static int live_slpc_vary_min(void *arg)
- {
- 	struct drm_i915_private *i915 = arg;
--	struct intel_gt *gt = to_gt(i915);
-+	struct intel_gt *gt;
-+	unsigned int i;
-+	int ret;
-+
-+	for_each_gt(gt, i915, i) {
-+		ret = run_test(gt, VARY_MIN);
-+		if (ret)
-+			return ret;
-+	}
- 
--	return run_test(gt, VARY_MIN);
-+	return ret;
- }
- 
- static int live_slpc_vary_max(void *arg)
- {
- 	struct drm_i915_private *i915 = arg;
--	struct intel_gt *gt = to_gt(i915);
-+	struct intel_gt *gt;
-+	unsigned int i;
-+	int ret;
-+
-+	for_each_gt(gt, i915, i) {
-+		ret = run_test(gt, VARY_MAX);
-+		if (ret)
-+			return ret;
-+	}
- 
--	return run_test(gt, VARY_MAX);
-+	return ret;
- }
- 
- /* check if pcode can grant RP0 */
- static int live_slpc_max_granted(void *arg)
- {
- 	struct drm_i915_private *i915 = arg;
--	struct intel_gt *gt = to_gt(i915);
-+	struct intel_gt *gt;
-+	unsigned int i;
-+	int ret;
-+
-+	for_each_gt(gt, i915, i) {
-+		ret = run_test(gt, MAX_GRANTED);
-+		if (ret)
-+			return ret;
-+	}
- 
--	return run_test(gt, MAX_GRANTED);
-+	return ret;
- }
- 
- int intel_slpc_live_selftests(struct drm_i915_private *i915)
-@@ -300,8 +324,13 @@ int intel_slpc_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(live_slpc_max_granted),
- 	};
- 
--	if (intel_gt_is_wedged(to_gt(i915)))
--		return 0;
-+	struct intel_gt *gt;
-+	unsigned int i;
-+
-+	for_each_gt(gt, i915, i) {
-+		if (intel_gt_is_wedged(gt))
-+			return 0;
-+	}
- 
- 	return i915_live_subtests(tests, i915);
- }
--- 
-2.25.1
+Thanks!
 
+Pushed now. Should land with 6.2.
+
+Regards,
+
+Tvrtko
+
+> On 6/30/2022 2:57 PM, Tvrtko Ursulin wrote:
+>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>
+>> There are ongoing efforts to remove usages of flush_scheduled_work() from
+>> drivers in order to avoid several cases of potentential problems when
+>> flushing is done from certain contexts.
+>>
+>> Remove the call from the live_execlists selftest. Its purpose was to be
+>> thorough and sync with the execlists capture state handling, but that is
+>> not strictly required for the test to function and can be removed.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>> Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+>> ---
+>>   drivers/gpu/drm/i915/gt/selftest_execlists.c | 2 --
+>>   1 file changed, 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c 
+>> b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+>> index 09f8cd2d0e2c..e62d089257ae 100644
+>> --- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
+>> +++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+>> @@ -85,8 +85,6 @@ static int wait_for_reset(struct intel_engine_cs 
+>> *engine,
+>>               break;
+>>       } while (time_before(jiffies, timeout));
+>> -    flush_scheduled_work();
+>> -
+>>       if (rq->fence.error != -EIO) {
+>>           pr_err("%s: hanging request %llx:%lld not reset\n",
+>>                  engine->name,
