@@ -4,15 +4,15 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A81C07E9D
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 10:41:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEF0EC07E9D
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Sep 2022 10:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 767CB10E2CE;
-	Mon, 26 Sep 2022 10:41:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E18F910E67E;
+	Mon, 26 Sep 2022 10:41:57 +0000 (UTC)
 Received: from smtp.domeneshop.no (smtp.domeneshop.no
  [IPv6:2a01:5b40:0:3005::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7462F10E1E4;
- Sun, 25 Sep 2022 15:58:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27B1810E626;
+ Sat, 24 Sep 2022 15:59:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
  ; s=ds202112;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -20,18 +20,18 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=sDUzqos38NTHKjqKIbjlgYCo7KMd6hyJQ5kwVtvn2uY=; b=aUOU3kpP1xZAGZ3dK/FPnPmN44
- IFB5fkqB+7/gDaDlxHDtUFNwExLm2Y82UixoykTgQQFV7UJ6zCaI0TRAb016BK+MWPxFKYT87rEuu
- A1bemkbLrV1sxM+2rSTYFVMhsHyHGsq8Rf5UKYL8o5L/v38Oko/QwO4yL+3vCtNEhQg8MU+JZMiPA
- EVy0sNCfGvxloaFKqVVe04oxeKvT4KDyGC/4SyyWNp2P84LU3a9mSkwuvbNZUIkVWdQ0IQJa+7xOQ
- D6+Uxr3m1gcVDNPJI6COfxOM261GO67oHOOTfGyHSXgD0+10bhAg/cDRWDQBl5062iEgkhFEBsL6J
- km1Dw7Vw==;
-Received: from [2a01:799:961:d200:f09d:f08a:eb68:87b1] (port=49636)
+ bh=gke1xkRA1odUNLi752wozPY1nxpo4Wxt1raghouEVIE=; b=g+UqWr0Hjr75d9JzjXlJ9cNb+q
+ CqyP1COZTgtf31kRw/PtV71ZFXx4q4xpkA9XuzvO6vBeR+bqKq0vnO7uxmJoUH+x01kD8ueU+4ivC
+ uU3Jz7yZk/F7Q9lL6YXSFpyfpmwXygkLOH3bjOnpO71KuxFmykWyX4Z4qPGaZ+JpGh1HJ0lERgSde
+ 9ylF2DWGXxyfvJtKlSDR7w9IX0UO06zn/bOg6gONftEhNs1pLsCjHjXd6g/HrT/Z3IG8ZNYfrVChL
+ 5ljNYNfB6/NFKX+ez+0ZiFKr9gZluEbTFEP1zkjJtI/aIglmCR5ioFbvBfPA556C4H7xo33eC195p
+ +pPzb7KQ==;
+Received: from [2a01:799:961:d200:8cf6:761:40ec:1ff7] (port=53381)
  by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.92) (envelope-from <noralf@tronnes.org>)
- id 1ocU1u-0001pc-49; Sun, 25 Sep 2022 17:58:54 +0200
-Message-ID: <b5fcb40b-fe9a-c634-902f-35808adfca68@tronnes.org>
-Date: Sun, 25 Sep 2022 17:58:45 +0200
+ id 1oc7YV-00026z-1A; Sat, 24 Sep 2022 17:59:03 +0200
+Message-ID: <6215f030-32a4-41a0-ec1b-1b06ca4444e1@tronnes.org>
+Date: Sat, 24 Sep 2022 17:59:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.1
@@ -48,12 +48,14 @@ To: Maxime Ripard <maxime@cerno.tech>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Chen-Yu Tsai <wens@csie.org>
 References: <20220728-rpi-analog-tv-properties-v2-0-f733a0ed9f90@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v2-28-f733a0ed9f90@cerno.tech>
 From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v2-0-f733a0ed9f90@cerno.tech>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v2-28-f733a0ed9f90@cerno.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 26 Sep 2022 10:40:33 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 00/33] drm: Analog TV Improvements
+Subject: Re: [Intel-gfx] [PATCH v2 28/33] drm/vc4: vec: Fix definition of
+ PAL-M mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,90 +83,15 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
 Den 22.09.2022 16.25, skrev Maxime Ripard:
-> Hi,
+> From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
 > 
-> Here's a series aiming at improving the command line named modes support,
-> and more importantly how we deal with all the analog TV variants.
+> PAL-M is a Brazilian analog TV standard that uses a PAL-style chroma
+> subcarrier at 3.575611[888111] MHz on top of 525-line (480i60) timings.
+> This commit makes the driver actually use the proper VEC preset for this
+> mode instead of just changing PAL subcarrier frequency.
 > 
-> The named modes support were initially introduced to allow to specify the
-> analog TV mode to be used.
+> Signed-off-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 > 
-> However, this was causing multiple issues:
-> 
->   * The mode name parsed on the command line was passed directly to the
->     driver, which had to figure out which mode it was suppose to match;
-> 
->   * Figuring that out wasn't really easy, since the video= argument or what
->     the userspace might not even have a name in the first place, but
->     instead could have passed a mode with the same timings;
-> 
->   * The fallback to matching on the timings was mostly working as long as
->     we were supporting one 525 lines (most likely NSTC) and one 625 lines
->     (PAL), but couldn't differentiate between two modes with the same
->     timings (NTSC vs PAL-M vs NSTC-J for example);
-> 
->   * There was also some overlap with the tv mode property registered by
->     drm_mode_create_tv_properties(), but named modes weren't interacting
->     with that property at all.
-> 
->   * Even though that property was generic, its possible values were
->     specific to each drivers, which made some generic support difficult.
-> 
-> Thus, I chose to tackle in multiple steps:
-> 
->   * A new TV mode property was introduced, with generic values, each driver
->     reporting through a bitmask what standard it supports to the userspace;
-> 
->   * This option was added to the command line parsing code to be able to
->     specify it on the kernel command line, and new atomic_check and reset
->     helpers were created to integrate properly into atomic KMS;
-> 
->   * The named mode parsing code is now creating a proper display mode for
->     the given named mode, and the TV standard will thus be part of the
->     connector state;
-> 
->   * Two drivers were converted and tested for now (vc4 and sun4i), with
->     some backward compatibility code to translate the old TV mode to the
->     new TV mode;
-> 
-> Unit tests were created along the way.
-> 
-> One can switch from NTSC to PAL now using (on vc4)
-> 
-> modetest -M vc4  -s 53:720x480i -w 53:'TV mode':1 # NTSC
-> modetest -M vc4  -s 53:720x576i -w 53:'TV mode':4 # PAL
-> 
-> Let me know what you think,
-> Maxime
 
-<snip>
-
->  drivers/gpu/drm/drm_atomic_state_helper.c       | 128 ++++-
->  drivers/gpu/drm/drm_atomic_uapi.c               |   8 +
->  drivers/gpu/drm/drm_client_modeset.c            |   4 +
->  drivers/gpu/drm/drm_connector.c                 | 111 +++-
->  drivers/gpu/drm/drm_modes.c                     | 658 +++++++++++++++++++++++-
->  drivers/gpu/drm/gud/gud_connector.c             |  12 +-
->  drivers/gpu/drm/i2c/ch7006_drv.c                |   6 +-
->  drivers/gpu/drm/i915/display/intel_tv.c         |   5 +-
->  drivers/gpu/drm/nouveau/dispnv04/tvnv17.c       |   6 +-
->  drivers/gpu/drm/sun4i/sun4i_tv.c                | 148 ++----
->  drivers/gpu/drm/tests/Makefile                  |  16 +-
->  drivers/gpu/drm/tests/drm_client_modeset_test.c | 239 +++++++++
->  drivers/gpu/drm/tests/drm_cmdline_parser_test.c |  67 +++
->  drivers/gpu/drm/tests/drm_kunit_helpers.c       |  54 ++
->  drivers/gpu/drm/tests/drm_kunit_helpers.h       |   9 +
->  drivers/gpu/drm/tests/drm_modes_test.c          | 136 +++++
->  drivers/gpu/drm/vc4/vc4_hdmi.c                  |   2 +-
->  drivers/gpu/drm/vc4/vc4_vec.c                   | 339 ++++++++++--
->  include/drm/drm_atomic_state_helper.h           |   4 +
->  include/drm/drm_connector.h                     |  92 +++-
->  include/drm/drm_mode_config.h                   |  12 +-
->  include/drm/drm_modes.h                         |  17 +
-
-These also needs updating:
-
-Documentation/gpu/kms-properties.csv
-Documentation/fb/modedb.rst
-
-Noralf.
+Acked-by: Noralf Trønnes <noralf@tronnes.org>
