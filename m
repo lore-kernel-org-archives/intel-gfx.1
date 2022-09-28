@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C872C54EE9
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 00:40:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F35AC54EE9
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 00:40:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE0B510E1FB;
-	Wed, 28 Sep 2022 00:40:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F7F510E1FD;
+	Wed, 28 Sep 2022 00:40:37 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68E2F10E1EA
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 00:40:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5B9710E1F3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 00:40:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664325622; x=1695861622;
+ t=1664325627; x=1695861627;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=B8vmtbme1lXewbL2MoZiWCGuLiVxQbJGPTX5bmO5UYs=;
- b=Uv1H/O6KbGF710fRC1GBnwVz8LJaobfSx02u+L2ZuFsquEcRpcFM2XnC
- 6WBmwOO+alFJuaMWBUvgmEYmql8SjmxGOd8b/ouYNZaMaQJ2a/nCgvdpq
- XJghAaS7rO4fwZtWrodGf9nzYVD1N/+7aYH2lMKFTLef55lQxIlx0gZPp
- RAQt6B7lnUgTLiM9AtKkVGsqWR3R65qVK8kyx4+bT9vQ5oGA+1QfdpJzw
- 8syOzhku9SteCYF/C5v/0r46lXlnbrxpsBugv/9GUWDl33ox4puioEjZJ
- mCym7n9StUeHyCAaKwffnD93gd9+eJL22yVJ7+86t1fVGh20JKkYlZHaU A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="387752058"
-X-IronPort-AV: E=Sophos;i="5.93,350,1654585200"; d="scan'208";a="387752058"
+ bh=wCQxwfrzT4D4vRybXR7U19+c9Bd5Ew1qbVsejGWj3MM=;
+ b=eLXRAgSvZMbkdW0+T4GmsWjH4i1ujEa6V0utjQslAfVfh1wgdYx/lDBV
+ zk0hBvjUcMq6IfIdCOOgizRIxuJXaCDUQ1O6GX54Vnk9B71IBi5cZYVll
+ Vmhc6961IFBEzYpMocWNwwQChP/IhqpXq39LOZdcZZk2uifFNA3PI0nlL
+ JEseKMIqWXyO6Wsk2GEHXfdb3pn3WPyzAtkVuDWqjLAT3NT87F2DGUOtz
+ zwx9aGgDZCp1IQiB9rYYR5ZCs+V/l3m3oFKS0pwqqDNLCZIHJn9aUigDy
+ D2/XMAW2LgHmEtIshCLEn+oZbwZ58WcFGXmE73zEw7YP6C2P/ZF6V/Npb g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="387752089"
+X-IronPort-AV: E=Sophos;i="5.93,350,1654585200"; d="scan'208";a="387752089"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2022 17:40:22 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="572841165"
-X-IronPort-AV: E=Sophos;i="5.93,350,1654585200"; d="scan'208";a="572841165"
+ 27 Sep 2022 17:40:27 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="572841196"
+X-IronPort-AV: E=Sophos;i="5.93,350,1654585200"; d="scan'208";a="572841196"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2022 17:40:21 -0700
+ 27 Sep 2022 17:40:27 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 27 Sep 2022 17:41:34 -0700
-Message-Id: <20220928004145.745803-5-daniele.ceraolospurio@intel.com>
+Date: Tue, 27 Sep 2022 17:41:44 -0700
+Message-Id: <20220928004145.745803-15-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220928004145.745803-1-daniele.ceraolospurio@intel.com>
 References: <20220928004145.745803-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 04/15] mei: bus: extend bus API to support command
- streamer API
+Subject: [Intel-gfx] [CI 14/15] drm/i915/huc: define gsc-compatible HuC fw
+ for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,195 +60,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vitaly Lubart <vitaly.lubart@intel.com>
+The fw name is different and we need to record the fact that the blob is
+gsc-loaded, so add a new macro to help.
 
-Add mei bus API for sending gsc commands: mei_cldev_send_gsc_command()
+Note: A-step DG2 G10 does not support HuC loading via GSC and would
+require a separate firmware to be loaded the legacy way, but that's
+not a production stepping so we're not going to bother.
 
-The GSC commands are originated in the graphics stack
-and are in form of SGL DMA buffers.
-The GSC commands are synchronous, the response is received
-in the same call on the out sg list buffers.
-The function setups pointers for in and out sg lists in the
-mei sgl extended header and sends it to the firmware.
+v2: rebase on new fw fetch logic
 
-Signed-off-by: Vitaly Lubart <vitaly.lubart@intel.com>
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Tony Ye <tony.ye@intel.com>
+Acked-by: Tony Ye <tony.ye@intel.com>
+Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/misc/mei/bus.c     | 126 +++++++++++++++++++++++++++++++++++++
- include/linux/mei_cl_bus.h |   6 ++
- 2 files changed, 132 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/misc/mei/bus.c b/drivers/misc/mei/bus.c
-index 225f0b04c021..1fbe127ff633 100644
---- a/drivers/misc/mei/bus.c
-+++ b/drivers/misc/mei/bus.c
-@@ -13,6 +13,7 @@
- #include <linux/slab.h>
- #include <linux/mutex.h>
- #include <linux/interrupt.h>
-+#include <linux/scatterlist.h>
- #include <linux/mei_cl_bus.h>
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 9fae911026d5..de2843dc1307 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -93,7 +93,8 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+ 	fw_def(BROXTON,      0, guc_mmp(bxt,  70, 1, 1)) \
+ 	fw_def(SKYLAKE,      0, guc_mmp(skl,  70, 1, 1))
  
- #include "mei_dev.h"
-@@ -838,6 +839,131 @@ int mei_cldev_disable(struct mei_cl_device *cldev)
- }
- EXPORT_SYMBOL_GPL(mei_cldev_disable);
+-#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_raw, huc_mmp) \
++#define INTEL_HUC_FIRMWARE_DEFS(fw_def, huc_raw, huc_mmp, huc_gsc) \
++	fw_def(DG2,          0, huc_gsc(dg2)) \
+ 	fw_def(ALDERLAKE_P,  0, huc_raw(tgl)) \
+ 	fw_def(ALDERLAKE_P,  0, huc_mmp(tgl,  7, 9, 3)) \
+ 	fw_def(ALDERLAKE_S,  0, huc_raw(tgl)) \
+@@ -141,6 +142,9 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+ #define MAKE_HUC_FW_PATH_BLANK(prefix_) \
+ 	__MAKE_UC_FW_PATH_BLANK(prefix_, "_huc")
  
-+/**
-+ * mei_cldev_send_gsc_command - sends a gsc command, by sending
-+ * a gsl mei message to gsc and receiving reply from gsc
-+ *
-+ * @cldev: me client device
-+ * @client_id: client id to send the command to
-+ * @fence_id: fence id to send the command to
-+ * @sg_in: scatter gather list containing addresses for rx message buffer
-+ * @total_in_len: total length of data in 'in' sg, can be less than the sum of buffers sizes
-+ * @sg_out: scatter gather list containing addresses for tx message buffer
-+ *
-+ * Return:
-+ *  * written size in bytes
-+ *  * < 0 on error
-+ */
-+ssize_t mei_cldev_send_gsc_command(struct mei_cl_device *cldev,
-+				   u8 client_id, u32 fence_id,
-+				   struct scatterlist *sg_in,
-+				   size_t total_in_len,
-+				   struct scatterlist *sg_out)
-+{
-+	struct mei_cl *cl;
-+	struct mei_device *bus;
-+	ssize_t ret = 0;
++#define MAKE_HUC_FW_PATH_GSC(prefix_) \
++	__MAKE_UC_FW_PATH_BLANK(prefix_, "_huc_gsc")
 +
-+	struct mei_ext_hdr_gsc_h2f *ext_hdr;
-+	size_t buf_sz = sizeof(struct mei_ext_hdr_gsc_h2f);
-+	int sg_out_nents, sg_in_nents;
-+	int i;
-+	struct scatterlist *sg;
-+	struct mei_ext_hdr_gsc_f2h rx_msg;
-+	unsigned int sg_len;
-+
-+	if (!cldev || !sg_in || !sg_out)
-+		return -EINVAL;
-+
-+	cl = cldev->cl;
-+	bus = cldev->bus;
-+
-+	dev_dbg(bus->dev, "client_id %u, fence_id %u\n", client_id, fence_id);
-+
-+	if (!bus->hbm_f_gsc_supported)
-+		return -EOPNOTSUPP;
-+
-+	sg_out_nents = sg_nents(sg_out);
-+	sg_in_nents = sg_nents(sg_in);
-+	/* at least one entry in tx and rx sgls must be present */
-+	if (sg_out_nents <= 0 || sg_in_nents <= 0)
-+		return -EINVAL;
-+
-+	buf_sz += (sg_out_nents + sg_in_nents) * sizeof(struct mei_gsc_sgl);
-+	ext_hdr = kzalloc(buf_sz, GFP_KERNEL);
-+	if (!ext_hdr)
-+		return -ENOMEM;
-+
-+	/* construct the GSC message */
-+	ext_hdr->hdr.type = MEI_EXT_HDR_GSC;
-+	ext_hdr->hdr.length = buf_sz / sizeof(u32); /* length is in dw */
-+
-+	ext_hdr->client_id = client_id;
-+	ext_hdr->addr_type = GSC_ADDRESS_TYPE_PHYSICAL_SGL;
-+	ext_hdr->fence_id = fence_id;
-+	ext_hdr->input_address_count = sg_in_nents;
-+	ext_hdr->output_address_count = sg_out_nents;
-+	ext_hdr->reserved[0] = 0;
-+	ext_hdr->reserved[1] = 0;
-+
-+	/* copy in-sgl to the message */
-+	for (i = 0, sg = sg_in; i < sg_in_nents; i++, sg++) {
-+		ext_hdr->sgl[i].low = lower_32_bits(sg_dma_address(sg));
-+		ext_hdr->sgl[i].high = upper_32_bits(sg_dma_address(sg));
-+		sg_len = min_t(unsigned int, sg_dma_len(sg), PAGE_SIZE);
-+		ext_hdr->sgl[i].length = (sg_len <= total_in_len) ? sg_len : total_in_len;
-+		total_in_len -= ext_hdr->sgl[i].length;
-+	}
-+
-+	/* copy out-sgl to the message */
-+	for (i = sg_in_nents, sg = sg_out; i < sg_in_nents + sg_out_nents; i++, sg++) {
-+		ext_hdr->sgl[i].low = lower_32_bits(sg_dma_address(sg));
-+		ext_hdr->sgl[i].high = upper_32_bits(sg_dma_address(sg));
-+		sg_len = min_t(unsigned int, sg_dma_len(sg), PAGE_SIZE);
-+		ext_hdr->sgl[i].length = sg_len;
-+	}
-+
-+	/* send the message to GSC */
-+	ret = __mei_cl_send(cl, (u8 *)ext_hdr, buf_sz, 0, MEI_CL_IO_SGL);
-+	if (ret < 0) {
-+		dev_err(bus->dev, "__mei_cl_send failed, returned %zd\n", ret);
-+		goto end;
-+	}
-+	if (ret != buf_sz) {
-+		dev_err(bus->dev, "__mei_cl_send returned %zd instead of expected %zd\n",
-+			ret, buf_sz);
-+		ret = -EIO;
-+		goto end;
-+	}
-+
-+	/* receive the reply from GSC, note that at this point sg_in should contain the reply */
-+	ret = __mei_cl_recv(cl, (u8 *)&rx_msg, sizeof(rx_msg), NULL, MEI_CL_IO_SGL, 0);
-+
-+	if (ret != sizeof(rx_msg)) {
-+		dev_err(bus->dev, "__mei_cl_recv returned %zd instead of expected %zd\n",
-+			ret, sizeof(rx_msg));
-+		if (ret >= 0)
-+			ret = -EIO;
-+		goto end;
-+	}
-+
-+	/* check rx_msg.client_id and rx_msg.fence_id match the ones we send */
-+	if (rx_msg.client_id != client_id || rx_msg.fence_id != fence_id) {
-+		dev_err(bus->dev, "received client_id/fence_id  %u/%u  instead of %u/%u sent\n",
-+			rx_msg.client_id, rx_msg.fence_id, client_id, fence_id);
-+		ret = -EFAULT;
-+		goto end;
-+	}
-+
-+	dev_dbg(bus->dev, "gsc command: successfully written %u bytes\n",  rx_msg.written);
-+	ret = rx_msg.written;
-+
-+end:
-+	kfree(ext_hdr);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(mei_cldev_send_gsc_command);
-+
- /**
-  * mei_cl_device_find - find matching entry in the driver id table
-  *
-diff --git a/include/linux/mei_cl_bus.h b/include/linux/mei_cl_bus.h
-index df1fab44ea5c..fd6e0620658d 100644
---- a/include/linux/mei_cl_bus.h
-+++ b/include/linux/mei_cl_bus.h
-@@ -11,6 +11,7 @@
+ #define MAKE_HUC_FW_PATH_MMP(prefix_, major_, minor_, patch_) \
+ 	__MAKE_UC_FW_PATH_MMP(prefix_, "_huc_", major_, minor_, patch_)
  
- struct mei_cl_device;
- struct mei_device;
-+struct scatterlist;
+@@ -153,7 +157,7 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+ 	MODULE_FIRMWARE(uc_);
  
- typedef void (*mei_cldev_cb_t)(struct mei_cl_device *cldev);
+ INTEL_GUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_GUC_FW_PATH_MAJOR, MAKE_GUC_FW_PATH_MMP)
+-INTEL_HUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_HUC_FW_PATH_BLANK, MAKE_HUC_FW_PATH_MMP)
++INTEL_HUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_HUC_FW_PATH_BLANK, MAKE_HUC_FW_PATH_MMP, MAKE_HUC_FW_PATH_GSC)
  
-@@ -116,6 +117,11 @@ void mei_cldev_set_drvdata(struct mei_cl_device *cldev, void *data);
- int mei_cldev_enable(struct mei_cl_device *cldev);
- int mei_cldev_disable(struct mei_cl_device *cldev);
- bool mei_cldev_enabled(const struct mei_cl_device *cldev);
-+ssize_t mei_cldev_send_gsc_command(struct mei_cl_device *cldev,
-+				   u8 client_id, u32 fence_id,
-+				   struct scatterlist *sg_in,
-+				   size_t total_in_len,
-+				   struct scatterlist *sg_out);
+ /*
+  * The next expansion of the table macros (in __uc_fw_auto_select below) provides
+@@ -168,6 +172,7 @@ struct __packed uc_fw_blob {
+ 	u8 major;
+ 	u8 minor;
+ 	u8 patch;
++	bool loaded_via_gsc;
+ };
  
- void *mei_cldev_dma_map(struct mei_cl_device *cldev, u8 buffer_id, size_t size);
- int mei_cldev_dma_unmap(struct mei_cl_device *cldev);
+ #define UC_FW_BLOB_BASE(major_, minor_, patch_, path_) \
+@@ -176,16 +181,16 @@ struct __packed uc_fw_blob {
+ 	.patch = patch_, \
+ 	.path = path_,
+ 
+-#define UC_FW_BLOB_NEW(major_, minor_, patch_, path_) \
++#define UC_FW_BLOB_NEW(major_, minor_, patch_, gsc_, path_) \
+ 	{ UC_FW_BLOB_BASE(major_, minor_, patch_, path_) \
+-	  .legacy = false }
++	  .legacy = false, .loaded_via_gsc = gsc_ }
+ 
+ #define UC_FW_BLOB_OLD(major_, minor_, patch_, path_) \
+ 	{ UC_FW_BLOB_BASE(major_, minor_, patch_, path_) \
+ 	  .legacy = true }
+ 
+ #define GUC_FW_BLOB(prefix_, major_, minor_) \
+-	UC_FW_BLOB_NEW(major_, minor_, 0, \
++	UC_FW_BLOB_NEW(major_, minor_, 0, false, \
+ 		       MAKE_GUC_FW_PATH_MAJOR(prefix_, major_, minor_))
+ 
+ #define GUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
+@@ -193,12 +198,15 @@ struct __packed uc_fw_blob {
+ 		       MAKE_GUC_FW_PATH_MMP(prefix_, major_, minor_, patch_))
+ 
+ #define HUC_FW_BLOB(prefix_) \
+-	UC_FW_BLOB_NEW(0, 0, 0, MAKE_HUC_FW_PATH_BLANK(prefix_))
++	UC_FW_BLOB_NEW(0, 0, 0, false, MAKE_HUC_FW_PATH_BLANK(prefix_))
+ 
+ #define HUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
+ 	UC_FW_BLOB_OLD(major_, minor_, patch_, \
+ 		       MAKE_HUC_FW_PATH_MMP(prefix_, major_, minor_, patch_))
+ 
++#define HUC_FW_BLOB_GSC(prefix_) \
++	UC_FW_BLOB_NEW(0, 0, 0, true, MAKE_HUC_FW_PATH_GSC(prefix_))
++
+ struct __packed uc_fw_platform_requirement {
+ 	enum intel_platform p;
+ 	u8 rev; /* first platform rev using this FW */
+@@ -224,7 +232,7 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
+ 		INTEL_GUC_FIRMWARE_DEFS(MAKE_FW_LIST, GUC_FW_BLOB, GUC_FW_BLOB_MMP)
+ 	};
+ 	static const struct uc_fw_platform_requirement blobs_huc[] = {
+-		INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB, HUC_FW_BLOB_MMP)
++		INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB, HUC_FW_BLOB_MMP, HUC_FW_BLOB_GSC)
+ 	};
+ 	static const struct fw_blobs_by_type blobs_all[INTEL_UC_FW_NUM_TYPES] = {
+ 		[INTEL_UC_FW_TYPE_GUC] = { blobs_guc, ARRAY_SIZE(blobs_guc) },
+@@ -272,6 +280,7 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
+ 		uc_fw->file_wanted.path = blob->path;
+ 		uc_fw->file_wanted.major_ver = blob->major;
+ 		uc_fw->file_wanted.minor_ver = blob->minor;
++		uc_fw->loaded_via_gsc = blob->loaded_via_gsc;
+ 		found = true;
+ 		break;
+ 	}
 -- 
 2.37.3
 
