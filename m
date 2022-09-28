@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C3D4C32771
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 10:45:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5794CC32771
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 10:45:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A35C510E413;
-	Wed, 28 Sep 2022 10:44:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70BD610E41E;
+	Wed, 28 Sep 2022 10:44:56 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1819710E408
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDD9310E408
  for <intel-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 10:44:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664361892; x=1695897892;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=NJ41/D5AnqzmYpqL05CMjlG7/LL2tMAPxwQBBnDsIqU=;
- b=X28TI3ucM1Vyq/pKVm3GShOg32SJandAGGxIXnT2KDbBDG2XGloKpDS8
- PRr7zwew0G8CX/Z2O1cRDQGisiAYU82FwRPMVBvfgRzzbl3yrOgr7WhVt
- FbnU8rm0A45lNQom8RpaTLRUM6fpJnLSfOkBviuiCq8TeqrPwOj3gTVg2
- oEv+1vu3tz//KfN/QTPekJki8DR7QWXQaon45P6b71Vdv+62n73+oANqv
- luYALNm5uQvwGteByDr3JFIMlUoFGilwNbefEE5wm0MToje9qAX+sTCGx
- eb0mzmwgBdaEyLoLGJnx4GlQhi3ir5wXJOQKrjoSzOippNIaflPLhm1Ha Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="387851398"
-X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="387851398"
+ t=1664361893; x=1695897893;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=eByzmWDXENzSVIPy0qQ6JxqRo5WKr+iLiVAbQ0vcV+g=;
+ b=CvmSuHFpYVd+ln5lXPLLXbCn7IBFTBh1xvHSw4got4niN8Fs37n2o2mj
+ 5/eBa6WFIKVs7of6iNV0J3BW688pMi9LcvGmI8dIS5g38LffC0deUszHo
+ y7cLBHRm3/PI3BlBkytNSxq1HQ/Sg3hR5ZtNy+kBQ2boTxoiPXsM6DGng
+ EBqO33bcr2ZIp2h5mTcYf5iI1H3XsAQTnm7WwCmpHGEfiB0lvEI4g1/Fd
+ bsY7XQuBczp9F90H6E+WmGoDe/L6awaaaE1f499ODjs2kZ+Rzg8B2RIPk
+ Cx0dIJ7qaVVmkyrrQuEndGmDnCJEaQAUBnQH4ac2TU4kFD+tqwM7DTX20 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="387851440"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="387851440"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2022 03:44:37 -0700
+ 28 Sep 2022 03:44:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="624106465"
-X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="624106465"
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="624106484"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="624106484"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga007.fm.intel.com with SMTP; 28 Sep 2022 03:44:35 -0700
+ by fmsmga007.fm.intel.com with SMTP; 28 Sep 2022 03:44:46 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 28 Sep 2022 13:44:34 +0300
+ Wed, 28 Sep 2022 13:44:45 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 Sep 2022 13:44:30 +0300
-Message-Id: <20220928104434.29586-1-ville.syrjala@linux.intel.com>
+Date: Wed, 28 Sep 2022 13:44:34 +0300
+Message-Id: <20220928104434.29586-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220928104434.29586-1-ville.syrjala@linux.intel.com>
+References: <20220928104434.29586-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/4] drm/i915: Per-crtc/connector DRRS debugfs
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915: Fix locking in DRRS debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,21 +64,44 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Chang DRRS debugfs to be per-crtc/connector.
+Grab the crtc mutex so that looking at the crtc state is
+actually safe.
 
-Test-with: 20220928060601.12941-2-ville.syrjala@linux.intel.com
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_drrs.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Ville Syrjälä (4):
-  drm/i915: Move DRRS debugfs next to the implementation
-  drm/i915: Make the DRRS debugfs contents more consistent
-  drm/i915: Make DRRS debugfs per-crtc/connector
-  drm/i915: Fix locking in DRRS debugfs
-
- .../drm/i915/display/intel_display_debugfs.c  |  98 +---------------
- drivers/gpu/drm/i915/display/intel_drrs.c     | 108 ++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_drrs.h     |   2 +
- 3 files changed, 113 insertions(+), 95 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
+index a5d6682475d1..2b94a62ef65a 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.c
++++ b/drivers/gpu/drm/i915/display/intel_drrs.c
+@@ -301,8 +301,14 @@ void intel_crtc_drrs_init(struct intel_crtc *crtc)
+ static int intel_drrs_debugfs_status_show(struct seq_file *m, void *unused)
+ {
+ 	struct intel_crtc *crtc = m->private;
+-	const struct intel_crtc_state *crtc_state =
+-		to_intel_crtc_state(crtc->base.state);
++	const struct intel_crtc_state *crtc_state;
++	int ret;
++
++	ret = drm_modeset_lock_single_interruptible(&crtc->base.mutex);
++	if (ret)
++		return ret;
++
++	crtc_state = to_intel_crtc_state(crtc->base.state);
+ 
+ 	mutex_lock(&crtc->drrs.mutex);
+ 
+@@ -321,6 +327,8 @@ static int intel_drrs_debugfs_status_show(struct seq_file *m, void *unused)
+ 
+ 	mutex_unlock(&crtc->drrs.mutex);
+ 
++	drm_modeset_unlock(&crtc->base.mutex);
++
+ 	return 0;
+ }
+ 
 -- 
 2.35.1
 
