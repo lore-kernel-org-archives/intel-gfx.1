@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 991E6C6FA82
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:18:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFB26C04A95
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:18:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 714BE10E81C;
-	Wed, 28 Sep 2022 19:18:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 340A610E826;
+	Wed, 28 Sep 2022 19:18:15 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B48CB10E7F7;
- Wed, 28 Sep 2022 19:17:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABFA710E7F8;
+ Wed, 28 Sep 2022 19:17:53 +0000 (UTC)
 Received: from dimapc.. (unknown [109.252.125.248])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 949A1660229E;
- Wed, 28 Sep 2022 20:17:36 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 8875866022A0;
+ Wed, 28 Sep 2022 20:17:49 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1664392659;
- bh=Ov9ZX8VHbwHToZzjcmjiNJ0jjSTvXmYhNQje1p3xR4A=;
+ s=mail; t=1664392672;
+ bh=RCM7cbGa0hbU3izrAQh1wOIWATDaV8057tfGw8XuSMQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Xv086R1T/0SNW9rNMVHYydPsVk9FOFHIvNspgVZg9rv87+CZtMR9Mz4ZvDQb9kG4k
- sEyjJ50AUlJRjMZD3ityhqglwACB++iw0PhnTGc2+ANIr41yiE5qkRWgalIVpaS1tJ
- SC7xaXbWXpX+tMlw/3P8bB0DUJaHlXwQlU/s9hHejPs6GlcPTfeHhHGZqJgvnNtzX3
- 6t3yjBaJHkZgi/yjYUS9/9bE/Lg3kGHSySkfvjTsfhWqFiSzf0MeKDNezyEUfXq9PW
- zK6lTDnHFGMQjk1ft8IKSH+mX36FeP3/ZNpvSa0sbYTzD5nzQ5Q4SlL68h7IFT7TKp
- wm9SXsob5cm0A==
+ b=GWrc/OGwMEkATqkV9fFBn9Lv0V2xa2g53CnBd7McVCOFILkxQafwDMxOde5NsMoX0
+ VUwFPwGFknt6VN5GwQJ+ZBgp+faMC0JKSCRpkCjohCfuR4xE3YhBXKJ1zl4HHraLmB
+ rGS9efU5NaF9V5rKhv4U4mnrwiROVKScS8X4LRKbBXD6QqHojHlCR2B4Mz6WinR3uV
+ nigJS+bBO352mzA4zqkQoj14ynMhRZumJOgfYAMy/R+jgJUnDdQcSjB9uNcLNUTNj5
+ du5q5ipSvdyWS80M0vP36BJAN+bZ36rf44kQ4Cm15tWtkZw0gC9hTy2ABeu70xn6Ku
+ sLfqtzxjXU7pg==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -65,16 +65,16 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Date: Wed, 28 Sep 2022 22:15:44 +0300
-Message-Id: <20220928191600.5874-6-dmitry.osipenko@collabora.com>
+Date: Wed, 28 Sep 2022 22:15:48 +0300
+Message-Id: <20220928191600.5874-10-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
 References: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 05/21] drm/armada: Prepare to dynamic dma-buf
- locking specification
+Subject: [Intel-gfx] [PATCH v6 09/21] drm/etnaviv: Prepare to dynamic
+ dma-buf locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,41 +96,28 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prepare Armada driver to the common dynamic dma-buf locking convention
+Prepare Etnaviv driver to the common dynamic dma-buf locking convention
 by starting to use the unlocked versions of dma-buf API functions.
 
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/armada/armada_gem.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/armada/armada_gem.c b/drivers/gpu/drm/armada/armada_gem.c
-index 5430265ad458..26d10065d534 100644
---- a/drivers/gpu/drm/armada/armada_gem.c
-+++ b/drivers/gpu/drm/armada/armada_gem.c
-@@ -66,8 +66,8 @@ void armada_gem_free_object(struct drm_gem_object *obj)
- 	if (dobj->obj.import_attach) {
- 		/* We only ever display imported data */
- 		if (dobj->sgt)
--			dma_buf_unmap_attachment(dobj->obj.import_attach,
--						 dobj->sgt, DMA_TO_DEVICE);
-+			dma_buf_unmap_attachment_unlocked(dobj->obj.import_attach,
-+							  dobj->sgt, DMA_TO_DEVICE);
- 		drm_prime_gem_destroy(&dobj->obj, NULL);
- 	}
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+index 3fa2da149639..7031db145a77 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+@@ -65,7 +65,7 @@ static void etnaviv_gem_prime_release(struct etnaviv_gem_object *etnaviv_obj)
+ 	struct iosys_map map = IOSYS_MAP_INIT_VADDR(etnaviv_obj->vaddr);
  
-@@ -539,8 +539,8 @@ int armada_gem_map_import(struct armada_gem_object *dobj)
- {
- 	int ret;
+ 	if (etnaviv_obj->vaddr)
+-		dma_buf_vunmap(etnaviv_obj->base.import_attach->dmabuf, &map);
++		dma_buf_vunmap_unlocked(etnaviv_obj->base.import_attach->dmabuf, &map);
  
--	dobj->sgt = dma_buf_map_attachment(dobj->obj.import_attach,
--					   DMA_TO_DEVICE);
-+	dobj->sgt = dma_buf_map_attachment_unlocked(dobj->obj.import_attach,
-+						    DMA_TO_DEVICE);
- 	if (IS_ERR(dobj->sgt)) {
- 		ret = PTR_ERR(dobj->sgt);
- 		dobj->sgt = NULL;
+ 	/* Don't drop the pages for imported dmabuf, as they are not
+ 	 * ours, just free the array we allocated:
 -- 
 2.37.3
 
