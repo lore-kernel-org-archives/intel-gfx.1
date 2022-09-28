@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C032C6FA82
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 10:00:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D35BC32771
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 10:44:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76CC410E3B1;
-	Wed, 28 Sep 2022 09:59:59 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 043D310E3C4
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 09:59:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E0C910E41A;
+	Wed, 28 Sep 2022 10:44:54 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB15510E417
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 10:44:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664359196; x=1695895196;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=u6u/IcyvLoALRGBGpylK/sG2eO2gNOCiovWdzUDbyrQ=;
- b=GkRWQdNRWrn9bvTQBBd7MTUKd9LuAWLAj/mqp34/rPb7QQOntwyCrhgA
- /iSMisOyy8G9jSVsfgl0rQBS1zS7vzPKw3Yo55YRkNP3N87MpwoBYcCkl
- OT/YTsMKkB4NvQGRTheh2/1AqgJ4FNvOElJsJTcQS/jIF9AAZtHGYtrCY
- 6/5AXhNJwa91i5aVRsJtrmxxaOMMv8OAhE2uYrr2AQiW+U30g/aTH7gmn
- NDpS+bMvtbyqCrgKYxXAFTC9YR7UAgYjoXIkepQKRs/grmSHB0klWaRCw
- S8e8cYVu41kHroOYKmZXoBI5buGiiCSz2lo1nH2Cg8A/nisK08H+14BWw g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="299160105"
-X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="299160105"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2022 02:59:51 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="599517629"
-X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="599517629"
-Received: from jkrzyszt-mobl1.ger.corp.intel.com ([10.213.5.184])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2022 02:59:49 -0700
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Date: Wed, 28 Sep 2022 11:59:46 +0200
-Message-ID: <5842226.alqRGMn8q6@jkrzyszt-mobl1.ger.corp.intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <22b0b220-8da8-ec94-87f5-3ddcd1c39d4a@linux.intel.com>
-References: <20220928085826.243721-1-janusz.krzysztofik@linux.intel.com>
- <22b0b220-8da8-ec94-87f5-3ddcd1c39d4a@linux.intel.com>
+ t=1664361891; x=1695897891;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=L57NRIV2G6ObdIxPyEx478mg7M0YQSSmDJBdJERCGGU=;
+ b=PQjEs0H523jhURCeq4iH8oUtlGdEXVZoiRWbs4npyoEGx63LrBz/utLY
+ WRyhD9/akdBBaXGYM6GFM4EHqfIjUNnLPoCVKTkPZy3pxFIpZkf1/4VTO
+ ++xslqn3dFU/2Eyzl6ZFdOvxOEy2QGSm/FoQr5H8H4uexrdIQCDUJjyMM
+ DRsQb1HyTs6kEWd8gkJDU/s6rH/3AxbPKs2YdLva6LiZC3XRErJ9nuvah
+ PxJg5CsE+bAVL5vJ3ewE++klI0LZsS2uwZcvRcvWseguq/8NWNsRFgnip
+ fRztz5RREUkKB0mVzf2gdKFg1iuf0MYdzaVO5i9+7f001RKJlQwL39r/P g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="387851407"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="387851407"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2022 03:44:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="624106468"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="624106468"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
+ by fmsmga007.fm.intel.com with SMTP; 28 Sep 2022 03:44:38 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 28 Sep 2022 13:44:37 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 28 Sep 2022 13:44:31 +0300
+Message-Id: <20220928104434.29586-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220928104434.29586-1-ville.syrjala@linux.intel.com>
+References: <20220928104434.29586-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Subject: Re: [Intel-gfx] [core-for-CI][PATCH v2 0/2] iommu: Remove iova cpu
- hotplugging flushing
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/4] drm/i915: Move DRRS debugfs next to the
+ implementation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,131 +60,281 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wednesday, 28 September 2022 11:22:21 CEST Tvrtko Ursulin wrote:
-> 
-> On 28/09/2022 09:58, Janusz Krzysztofik wrote:
-> > Manual revert of commit f598a497bc7d ("iova: Add CPU hotplug handler to
-> > flush rcaches").  It is trying to instantiate a cpuhp notifier from inside
-> > a cpuhp callback.  That code replaced intel_iommu implementation of
-> > flushing per-IOVA domain CPU rcaches which used a single instance of cpuhp
-> > held for the module lifetime.
-> > 
-> > v2: Restore formerly reverted commit ac9a5d522bb8 "iommu/dma: Fix race
-> >      condition during iova_domain initialization" after we have this more
-> >      effective fix applied.  The former occurred not sufficient and is no
-> >      longer needed once we have the latter in place.
-> > 
-> > Note: I'm no longer CCing IOMMU nor mainstream, they have been already
-> >        warned.
-> 
-> Will that also fix the one below?
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-AFAICS, that one is supposed to be resolved by commit a349ffcb4daf 
-("iommu/vt-d: Fix recursive lock issue in iommu_flush_dev_iotlb()").
+Move the DRRS debugfs stuff next to the actual implementation
+so that it's easier to deal with the whole.
 
-Thanks,
-Janusz
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ .../drm/i915/display/intel_display_debugfs.c  |  96 +---------------
+ drivers/gpu/drm/i915/display/intel_drrs.c     | 106 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_drrs.h     |   1 +
+ 3 files changed, 108 insertions(+), 95 deletions(-)
 
-> 
-> <4> [18.297089] ================================
-> <4> [18.297090] WARNING: inconsistent lock state
-> <4> [18.297092] 6.0.0-rc2-CI_DINF_262-g320305923c88+ #1 Not tainted
-> <4> [18.297095] --------------------------------
-> <4> [18.297096] inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
-> <4> [18.297098] swapper/0/0 [HC0[0]:SC1[1]:HE1:SE0] takes:
-> <4> [18.297101] ffff8881030ed678 (&domain->lock){+.?.}-{2:2}, at: 
-iommu_flush_dev_iotlb.part.61+0x23/0x80
-> <4> [18.297108] {SOFTIRQ-ON-W} state was registered at:
-> <4> [18.297110]   lock_acquire+0xd3/0x310
-> <4> [18.297113]   _raw_spin_lock+0x2a/0x40
-> <4> [18.297116]   domain_update_iommu_cap+0x20b/0x2c0
-> <4> [18.297118]   intel_iommu_attach_device+0x5bd/0x860
-> <4> [18.297121]   __iommu_attach_device+0x18/0xe0
-> <4> [18.297124]   bus_iommu_probe+0x1f3/0x2d0
-> <4> [18.297126]   bus_set_iommu+0x82/0xd0
-> <4> [18.297129]   intel_iommu_init+0xe45/0x102a
-> <4> [18.297132]   pci_iommu_init+0x9/0x31
-> <4> [18.297135]   do_one_initcall+0x53/0x2f0
-> <4> [18.297138]   kernel_init_freeable+0x18f/0x1e1
-> <4> [18.297140]   kernel_init+0x11/0x120
-> <4> [18.297143]   ret_from_fork+0x1f/0x30
-> <4> [18.297145] irq event stamp: 512712
-> <4> [18.297147] hardirqs last  enabled at (512712): [<ffffffff81b59254>] 
-_raw_spin_unlock_irqrestore+0x54/0x70
-> <4> [18.297151] hardirqs last disabled at (512711): [<ffffffff81b58ffb>] 
-_raw_spin_lock_irqsave+0x4b/0x50
-> <4> [18.297155] softirqs last  enabled at (512700): [<ffffffff81e00323>] 
-__do_softirq+0x323/0x48e
-> <4> [18.297158] softirqs last disabled at (512705): [<ffffffff810c16a8>] 
-irq_exit_rcu+0xb8/0xe0
-> <4> [18.297162]
-> other info that might help us debug this:
-> <4> [18.297164]  Possible unsafe locking scenario:
-> <4> [18.297166]        CPU0
-> <4> [18.297168]        ----
-> <4> [18.297169]   lock(&domain->lock);
-> <4> [18.297171]   <Interrupt>
-> <4> [18.297172]     lock(&domain->lock);
-> <4> [18.297174]
->   *** DEADLOCK ***
-> <4> [18.297176] 1 lock held by swapper/0/0:
-> <4> [18.297177]  #0: ffffc90000003ea8 ((&cookie->fq_timer)){+.-.}-{0:0}, at: 
-call_timer_fn+0x0/0x2c0
-> <4> [18.297183]
-> stack backtrace:
-> <4> [18.297185] CPU: 0 PID: 0 Comm: swapper/0 Not tainted 6.0.0-rc2-
-CI_DINF_262-g320305923c88+ #1
-> <4> [18.297189] Hardware name: ASUS System Product Name/ROG STRIX B660-I 
-GAMING WIFI, BIOS 0415 09/29/2021
-> <4> [18.297192] Call Trace:
-> <4> [18.297193]  <IRQ>
-> <4> [18.297195]  dump_stack_lvl+0x56/0x7f
-> <4> [18.297198]  mark_lock.part.47+0x8d1/0xdb0
-> <4> [18.297200]  ? qi_submit_sync+0x3c8/0x650
-> <4> [18.297203]  __lock_acquire+0x861/0xb90
-> <4> [18.297205]  lock_acquire+0xd3/0x310
-> <4> [18.297207]  ? iommu_flush_dev_iotlb.part.61+0x23/0x80
-> <4> [18.297211]  ? iommu_dma_map_sg+0x400/0x400
-> <4> [18.297213]  _raw_spin_lock+0x2a/0x40
-> <4> [18.297215]  ? iommu_flush_dev_iotlb.part.61+0x23/0x80
-> <4> [18.297218]  iommu_flush_dev_iotlb.part.61+0x23/0x80
-> <4> [18.297220]  intel_flush_iotlb_all+0x95/0x110
-> <4> [18.297223]  fq_flush_iotlb+0x1d/0x30
-> <4> [18.297225]  fq_flush_timeout+0x28/0xc0
-> <4> [18.297227]  ? iommu_dma_map_sg+0x400/0x400
-> <4> [18.297229]  ? iommu_dma_map_sg+0x400/0x400
-> <4> [18.297231]  call_timer_fn+0x9c/0x2c0
-> <4> [18.297234]  run_timer_softirq+0x548/0x570
-> <4> [18.297237]  __do_softirq+0xda/0x48e
-> <4> [18.297240]  irq_exit_rcu+0xb8/0xe0
-> <4> [18.297242]  sysvec_apic_timer_interrupt+0x9e/0xc0
-> <4> [18.297245]  </IRQ>
-> 
-> Regards,
-> 
-> Tvrtko
-> 
-> > 
-> > 
-> > Chris Wilson (1):
-> >    iommu: Remove iova cpu hotplugging flushing
-> > 
-> > Janusz Krzysztofik (1):
-> >    Restore "iommu/dma: Fix race condition during iova_domain
-> >      initialization"
-> > 
-> >   drivers/iommu/dma-iommu.c  | 17 +++++++++++++----
-> >   drivers/iommu/iova.c       | 28 ----------------------------
-> >   include/linux/cpuhotplug.h |  1 -
-> >   include/linux/iova.h       |  1 -
-> >   4 files changed, 13 insertions(+), 34 deletions(-)
-> > 
-> 
-
-
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index c5f47df0f362..df5a217d46ce 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -1023,52 +1023,6 @@ static int i915_ddb_info(struct seq_file *m, void *unused)
+ 	return 0;
+ }
+ 
+-static int i915_drrs_status(struct seq_file *m, void *unused)
+-{
+-	struct drm_i915_private *dev_priv = node_to_i915(m->private);
+-	struct drm_connector_list_iter conn_iter;
+-	struct intel_connector *connector;
+-	struct intel_crtc *crtc;
+-
+-	drm_connector_list_iter_begin(&dev_priv->drm, &conn_iter);
+-	for_each_intel_connector_iter(connector, &conn_iter) {
+-		seq_printf(m, "[CONNECTOR:%d:%s] DRRS type: %s\n",
+-			   connector->base.base.id, connector->base.name,
+-			   intel_drrs_type_str(intel_panel_drrs_type(connector)));
+-	}
+-	drm_connector_list_iter_end(&conn_iter);
+-
+-	seq_puts(m, "\n");
+-
+-	for_each_intel_crtc(&dev_priv->drm, crtc) {
+-		const struct intel_crtc_state *crtc_state =
+-			to_intel_crtc_state(crtc->base.state);
+-
+-		seq_printf(m, "[CRTC:%d:%s]:\n",
+-			   crtc->base.base.id, crtc->base.name);
+-
+-		mutex_lock(&crtc->drrs.mutex);
+-
+-		/* DRRS Supported */
+-		seq_printf(m, "\tDRRS Enabled: %s\n",
+-			   str_yes_no(crtc_state->has_drrs));
+-
+-		seq_printf(m, "\tDRRS Active: %s\n",
+-			   str_yes_no(intel_drrs_is_active(crtc)));
+-
+-		seq_printf(m, "\tBusy_frontbuffer_bits: 0x%X\n",
+-			   crtc->drrs.busy_frontbuffer_bits);
+-
+-		seq_printf(m, "\tDRRS refresh rate: %s\n",
+-			   crtc->drrs.refresh_rate == DRRS_REFRESH_RATE_LOW ?
+-			   "low" : "high");
+-
+-		mutex_unlock(&crtc->drrs.mutex);
+-	}
+-
+-	return 0;
+-}
+-
+ static bool
+ intel_lpsp_power_well_enabled(struct drm_i915_private *i915,
+ 			      enum i915_power_well_id power_well_id)
+@@ -1567,53 +1521,6 @@ static const struct file_operations i915_cur_wm_latency_fops = {
+ 	.write = cur_wm_latency_write
+ };
+ 
+-static int i915_drrs_ctl_set(void *data, u64 val)
+-{
+-	struct drm_i915_private *dev_priv = data;
+-	struct drm_device *dev = &dev_priv->drm;
+-	struct intel_crtc *crtc;
+-
+-	for_each_intel_crtc(dev, crtc) {
+-		struct intel_crtc_state *crtc_state;
+-		struct drm_crtc_commit *commit;
+-		int ret;
+-
+-		ret = drm_modeset_lock_single_interruptible(&crtc->base.mutex);
+-		if (ret)
+-			return ret;
+-
+-		crtc_state = to_intel_crtc_state(crtc->base.state);
+-
+-		if (!crtc_state->hw.active ||
+-		    !crtc_state->has_drrs)
+-			goto out;
+-
+-		commit = crtc_state->uapi.commit;
+-		if (commit) {
+-			ret = wait_for_completion_interruptible(&commit->hw_done);
+-			if (ret)
+-				goto out;
+-		}
+-
+-		drm_dbg(&dev_priv->drm,
+-			"Manually %sactivating DRRS\n", val ? "" : "de");
+-
+-		if (val)
+-			intel_drrs_activate(crtc_state);
+-		else
+-			intel_drrs_deactivate(crtc_state);
+-
+-out:
+-		drm_modeset_unlock(&crtc->base.mutex);
+-		if (ret)
+-			return ret;
+-	}
+-
+-	return 0;
+-}
+-
+-DEFINE_SIMPLE_ATTRIBUTE(i915_drrs_ctl_fops, NULL, i915_drrs_ctl_set, "%llu\n");
+-
+ static ssize_t
+ i915_fifo_underrun_reset_write(struct file *filp,
+ 			       const char __user *ubuf,
+@@ -1687,7 +1594,6 @@ static const struct drm_info_list intel_display_debugfs_list[] = {
+ 	{"i915_shared_dplls_info", i915_shared_dplls_info, 0},
+ 	{"i915_dp_mst_info", i915_dp_mst_info, 0},
+ 	{"i915_ddb_info", i915_ddb_info, 0},
+-	{"i915_drrs_status", i915_drrs_status, 0},
+ 	{"i915_lpsp_status", i915_lpsp_status, 0},
+ };
+ 
+@@ -1702,7 +1608,6 @@ static const struct {
+ 	{"i915_dp_test_data", &i915_displayport_test_data_fops},
+ 	{"i915_dp_test_type", &i915_displayport_test_type_fops},
+ 	{"i915_dp_test_active", &i915_displayport_test_active_fops},
+-	{"i915_drrs_ctl", &i915_drrs_ctl_fops},
+ 	{"i915_edp_psr_debug", &i915_edp_psr_debug_fops},
+ };
+ 
+@@ -1724,6 +1629,7 @@ void intel_display_debugfs_register(struct drm_i915_private *i915)
+ 				 minor->debugfs_root, minor);
+ 
+ 	intel_dmc_debugfs_register(i915);
++	intel_drrs_debugfs_register(i915);
+ 	intel_fbc_debugfs_register(i915);
+ 	intel_hpd_debugfs_register(i915);
+ 	skl_watermark_ipc_debugfs_register(i915);
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
+index 7da4a9cbe4ba..030a3566538a 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.c
++++ b/drivers/gpu/drm/i915/display/intel_drrs.c
+@@ -297,3 +297,109 @@ void intel_crtc_drrs_init(struct intel_crtc *crtc)
+ 	mutex_init(&crtc->drrs.mutex);
+ 	crtc->drrs.cpu_transcoder = INVALID_TRANSCODER;
+ }
++
++static int intel_drrs_debugfs_status_show(struct seq_file *m, void *unused)
++{
++	struct drm_i915_private *i915 = m->private;
++	struct drm_connector_list_iter conn_iter;
++	struct intel_connector *connector;
++	struct intel_crtc *crtc;
++
++	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
++	for_each_intel_connector_iter(connector, &conn_iter) {
++		seq_printf(m, "[CONNECTOR:%d:%s] DRRS type: %s\n",
++			   connector->base.base.id, connector->base.name,
++			   intel_drrs_type_str(intel_panel_drrs_type(connector)));
++	}
++	drm_connector_list_iter_end(&conn_iter);
++
++	seq_puts(m, "\n");
++
++	for_each_intel_crtc(&i915->drm, crtc) {
++		const struct intel_crtc_state *crtc_state =
++			to_intel_crtc_state(crtc->base.state);
++
++		seq_printf(m, "[CRTC:%d:%s]:\n",
++			   crtc->base.base.id, crtc->base.name);
++
++		mutex_lock(&crtc->drrs.mutex);
++
++		/* DRRS Supported */
++		seq_printf(m, "\tDRRS Enabled: %s\n",
++			   str_yes_no(crtc_state->has_drrs));
++
++		seq_printf(m, "\tDRRS Active: %s\n",
++			   str_yes_no(intel_drrs_is_active(crtc)));
++
++		seq_printf(m, "\tBusy_frontbuffer_bits: 0x%X\n",
++			   crtc->drrs.busy_frontbuffer_bits);
++
++		seq_printf(m, "\tDRRS refresh rate: %s\n",
++			   crtc->drrs.refresh_rate == DRRS_REFRESH_RATE_LOW ?
++			   "low" : "high");
++
++		mutex_unlock(&crtc->drrs.mutex);
++	}
++
++	return 0;
++}
++
++DEFINE_SHOW_ATTRIBUTE(intel_drrs_debugfs_status);
++
++static int intel_drrs_debugfs_ctl_set(void *data, u64 val)
++{
++	struct drm_i915_private *i915 = data;
++	struct intel_crtc *crtc;
++
++	for_each_intel_crtc(&i915->drm, crtc) {
++		struct intel_crtc_state *crtc_state;
++		struct drm_crtc_commit *commit;
++		int ret;
++
++		ret = drm_modeset_lock_single_interruptible(&crtc->base.mutex);
++		if (ret)
++			return ret;
++
++		crtc_state = to_intel_crtc_state(crtc->base.state);
++
++		if (!crtc_state->hw.active ||
++		    !crtc_state->has_drrs)
++			goto out;
++
++		commit = crtc_state->uapi.commit;
++		if (commit) {
++			ret = wait_for_completion_interruptible(&commit->hw_done);
++			if (ret)
++				goto out;
++		}
++
++		drm_dbg(&i915->drm,
++			"Manually %sactivating DRRS\n", val ? "" : "de");
++
++		if (val)
++			intel_drrs_activate(crtc_state);
++		else
++			intel_drrs_deactivate(crtc_state);
++
++out:
++		drm_modeset_unlock(&crtc->base.mutex);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++DEFINE_SIMPLE_ATTRIBUTE(intel_drrs_debugfs_ctl_fops,
++			NULL, intel_drrs_debugfs_ctl_set, "%llu\n");
++
++void intel_drrs_debugfs_register(struct drm_i915_private *i915)
++{
++	struct drm_minor *minor = i915->drm.primary;
++
++	debugfs_create_file("i915_drrs_status", 0444, minor->debugfs_root,
++			    i915, &intel_drrs_debugfs_status_fops);
++
++	debugfs_create_file("i915_drrs_ctl", 0644, minor->debugfs_root,
++			    i915, &intel_drrs_debugfs_ctl_fops);
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.h b/drivers/gpu/drm/i915/display/intel_drrs.h
+index 3ad1be1ad9c1..052055988341 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.h
++++ b/drivers/gpu/drm/i915/display/intel_drrs.h
+@@ -24,5 +24,6 @@ void intel_drrs_invalidate(struct drm_i915_private *dev_priv,
+ void intel_drrs_flush(struct drm_i915_private *dev_priv,
+ 		      unsigned int frontbuffer_bits);
+ void intel_crtc_drrs_init(struct intel_crtc *crtc);
++void intel_drrs_debugfs_register(struct drm_i915_private *i915);
+ 
+ #endif /* __INTEL_DRRS_H__ */
+-- 
+2.35.1
 
