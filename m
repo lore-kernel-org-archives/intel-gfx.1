@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6267C04A95
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:18:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D636CC32771
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 19:18:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 216B010E830;
-	Wed, 28 Sep 2022 19:18:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B67110E829;
+	Wed, 28 Sep 2022 19:18:20 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51F7710E812;
- Wed, 28 Sep 2022 19:17:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0503610E81E;
+ Wed, 28 Sep 2022 19:17:57 +0000 (UTC)
 Received: from dimapc.. (unknown [109.252.125.248])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 2A7FE66022A4;
- Wed, 28 Sep 2022 20:17:43 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id C14EC660229B;
+ Wed, 28 Sep 2022 20:17:52 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1664392666;
- bh=GhuscwhnN1rEaoy5OISonfRJMlLjonYkZBtE9HRenG4=;
+ s=mail; t=1664392675;
+ bh=d4kuxWWfCXJ7AC6vJtgzZbHEhy+iIaxiq8Yot3IE+C4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OJ0U+lamcF7LAddINuNf8cOQJ6z488e1xmvZSzIBtAdooc9ejQKN1iOM6EpYG/Pvn
- DHUYNxXnyn+f76zW23i7uyafHIag0C8HOvy251NAKrnQVwPAISJdCq2ThCdpXC/zNS
- e8qFiuDFpSelR3jk4Iii6DeXPPDYqsRiJumS9bu2UvqQaspWJmmc2PIUWMkU5bPbh9
- wMivJyU03uUy4nS+949BJXA0PM0kK8aKrhMKfud436cM+QjV/0DwnKuXXXycNjyP+K
- TT43ksow+oqssic0fahMiXRGT7HKPk8QIpZTUKXYnlU0KcLT4mhEy+LDCSizU1rXhE
- oTUFLWlt8O+cw==
+ b=QZUn3sS5mpeJ9rfZUxDSPGBk76y+42iVQT5pycyiUXbtxp+NhtOuwIlDaz4IMCQbS
+ Lz/feTWmHNHuGgGIy8AraB53nuUo4WaNWh+BdyMeiWoBmcbMAJJbEDO3stkWA/2poR
+ sfHokuDEq9J8MFyLYqOxKOhBeqKfLZH+jEChDaDOC71g11aQ6hP4tccgs4zFbqaI1a
+ 23xNQyE7z2SBq9vYcxs3sg1j1b47sw+5AOEPtpEnUaY3VHlSyCwp+6t61WXa1qxCnM
+ 05T44ryddZ4zczXyU11rMxHidWBznkTP9BAcJ8bxZ1U95utkAna/j9KV51Uf2INJ06
+ goNyAV6XXzwnA==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,16 +64,16 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Date: Wed, 28 Sep 2022 22:15:46 +0300
-Message-Id: <20220928191600.5874-8-dmitry.osipenko@collabora.com>
+Date: Wed, 28 Sep 2022 22:15:49 +0300
+Message-Id: <20220928191600.5874-11-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
 References: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 07/21] drm/omapdrm: Prepare to dynamic
- dma-buf locking specification
+Subject: [Intel-gfx] [PATCH v6 10/21] RDMA/umem: Prepare to dynamic dma-buf
+ locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,37 +95,41 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prepare OMAP DRM driver to the common dynamic dma-buf locking convention
-by starting to use the unlocked versions of dma-buf API functions.
+Prepare InfiniBand drivers to the common dynamic dma-buf locking
+convention by starting to use the unlocked versions of dma-buf API
+functions.
 
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/infiniband/core/umem_dmabuf.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c b/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
-index 393f82e26927..8e194dbc9506 100644
---- a/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
-+++ b/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
-@@ -125,7 +125,7 @@ struct drm_gem_object *omap_gem_prime_import(struct drm_device *dev,
+diff --git a/drivers/infiniband/core/umem_dmabuf.c b/drivers/infiniband/core/umem_dmabuf.c
+index 04c04e6d24c3..43b26bc12288 100644
+--- a/drivers/infiniband/core/umem_dmabuf.c
++++ b/drivers/infiniband/core/umem_dmabuf.c
+@@ -26,7 +26,8 @@ int ib_umem_dmabuf_map_pages(struct ib_umem_dmabuf *umem_dmabuf)
+ 	if (umem_dmabuf->sgt)
+ 		goto wait_fence;
  
- 	get_dma_buf(dma_buf);
+-	sgt = dma_buf_map_attachment(umem_dmabuf->attach, DMA_BIDIRECTIONAL);
++	sgt = dma_buf_map_attachment_unlocked(umem_dmabuf->attach,
++					      DMA_BIDIRECTIONAL);
+ 	if (IS_ERR(sgt))
+ 		return PTR_ERR(sgt);
  
--	sgt = dma_buf_map_attachment(attach, DMA_TO_DEVICE);
-+	sgt = dma_buf_map_attachment_unlocked(attach, DMA_TO_DEVICE);
- 	if (IS_ERR(sgt)) {
- 		ret = PTR_ERR(sgt);
- 		goto fail_detach;
-@@ -142,7 +142,7 @@ struct drm_gem_object *omap_gem_prime_import(struct drm_device *dev,
- 	return obj;
+@@ -102,8 +103,8 @@ void ib_umem_dmabuf_unmap_pages(struct ib_umem_dmabuf *umem_dmabuf)
+ 		umem_dmabuf->last_sg_trim = 0;
+ 	}
  
- fail_unmap:
--	dma_buf_unmap_attachment(attach, sgt, DMA_TO_DEVICE);
-+	dma_buf_unmap_attachment_unlocked(attach, sgt, DMA_TO_DEVICE);
- fail_detach:
- 	dma_buf_detach(dma_buf, attach);
- 	dma_buf_put(dma_buf);
+-	dma_buf_unmap_attachment(umem_dmabuf->attach, umem_dmabuf->sgt,
+-				 DMA_BIDIRECTIONAL);
++	dma_buf_unmap_attachment_unlocked(umem_dmabuf->attach, umem_dmabuf->sgt,
++					  DMA_BIDIRECTIONAL);
+ 
+ 	umem_dmabuf->sgt = NULL;
+ }
 -- 
 2.37.3
 
