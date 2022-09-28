@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A69DC54EE9
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 00:41:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67F16C07E9D
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 00:41:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D35B110E1EA;
-	Wed, 28 Sep 2022 00:41:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F53C10E20A;
+	Wed, 28 Sep 2022 00:41:13 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24AD010E1F3
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 00:40:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC0510E1F5
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 00:40:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664325621; x=1695861621;
+ t=1664325628; x=1695861628;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=pPxxCpQfb59LZ/smw1siW1Hp/IKwju0hdiEVRjtRuHY=;
- b=naJyHgDy6h6TgD8qDyPe/YMvvNtsEuyAr/WVhQbx+T6AmdXnGDNQGjx7
- ANS6Sq1JE2ELcyTo2PN9rE+8GuUloEiZJaadyK5M35znh79+zg9wNOaVq
- Rie+pnAJE53vzLKdVmKtKmW3UMtrTJgVpwijHvFYbXG+i/V7AkNQbB7w6
- gndrajBDkRsJlOJivRmruGJezpS1CuEQNN+V78fbIG8GBNyG2HnEr7oXU
- behBDw8V+AYdJ298bbNmOGUhMA0CHB0CvTESYb8U93MyFyfSCt9necVkK
- K63WtgRYIB7nGzl3xI2wJcd8kL0KgmKwwfzzx8tVLIoKG4udDU9JuVGGs g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="387752047"
-X-IronPort-AV: E=Sophos;i="5.93,350,1654585200"; d="scan'208";a="387752047"
+ bh=iioKuYXtdfMXCsR8ZcK53oTyYLK0lhGFNLxLbSZ37Wc=;
+ b=EQe0WT+vvVbyuwtSyPNt4uiFsdtMHVpaplqCPLF1A/027tR0JiBI9pVm
+ eEnuS5PCM2+qVMY6DEaG8NbywobZCs+wMkRfJS4ZTQLSpSD/LEwVtckt4
+ O2fa3z+bDx/HAJx2wQOU0P6p37wvRFH2DwZl+gMBm9wDZc0THh1tSS2Yl
+ rjSmPfj3LhXnZcUX5jK0mDD7azJOVPJeNFHHRkRCXGqZk7vJfbhmPoUOm
+ xAlZpe/9ZlR47G6HG/hfbYenYMYoCVxISKfcJbj4AeoJS8SjSdj7y66zt
+ X9CeeJcgfgl52LVefhZfqOdukgYkkzPHvT5ZGEt6uCrD0wgL35VDt1lPo A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="387752095"
+X-IronPort-AV: E=Sophos;i="5.93,350,1654585200"; d="scan'208";a="387752095"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2022 17:40:20 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="572841159"
-X-IronPort-AV: E=Sophos;i="5.93,350,1654585200"; d="scan'208";a="572841159"
+ 27 Sep 2022 17:40:28 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="572841197"
+X-IronPort-AV: E=Sophos;i="5.93,350,1654585200"; d="scan'208";a="572841197"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2022 17:40:20 -0700
+ 27 Sep 2022 17:40:27 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 27 Sep 2022 17:41:32 -0700
-Message-Id: <20220928004145.745803-3-daniele.ceraolospurio@intel.com>
+Date: Tue, 27 Sep 2022 17:41:45 -0700
+Message-Id: <20220928004145.745803-16-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220928004145.745803-1-daniele.ceraolospurio@intel.com>
 References: <20220928004145.745803-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 02/15] mei: bus: enable sending gsc commands
+Subject: [Intel-gfx] [CI 15/15] HAX: drm/i915: force INTEL_MEI_GSC and
+ INTEL_MEI_PXP on for CI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,86 +60,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tomas Winkler <tomas.winkler@intel.com>
+Both are required for HuC loading.
 
-GSC command is and extended header containing a scatter gather
-list and without a data buffer. Using MEI_CL_IO_SGL flag,
-the caller send the GSC command as a data and the function internally
-moves it to the extended header.
-
-Signed-off-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Vitaly Lubart <vitaly.lubart@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/misc/mei/bus.c     | 20 ++++++++++++++++++--
- drivers/misc/mei/mei_dev.h |  4 ++++
- 2 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/Kconfig.debug | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/misc/mei/bus.c b/drivers/misc/mei/bus.c
-index 46aa3554e97b..225f0b04c021 100644
---- a/drivers/misc/mei/bus.c
-+++ b/drivers/misc/mei/bus.c
-@@ -100,9 +100,18 @@ ssize_t __mei_cl_send(struct mei_cl *cl, const u8 *buf, size_t length, u8 vtag,
- 	cb->internal = !!(mode & MEI_CL_IO_TX_INTERNAL);
- 	cb->blocking = !!(mode & MEI_CL_IO_TX_BLOCKING);
- 	memcpy(cb->buf.data, buf, length);
-+	/* hack we point data to header */
-+	if (mode & MEI_CL_IO_SGL) {
-+		cb->ext_hdr = (struct mei_ext_hdr *)cb->buf.data;
-+		cb->buf.data = NULL;
-+		cb->buf.size = 0;
-+	}
- 
- 	rets = mei_cl_write(cl, cb);
- 
-+	if (mode & MEI_CL_IO_SGL && rets == 0)
-+		rets = length;
-+
- out:
- 	mutex_unlock(&bus->device_lock);
- 
-@@ -205,9 +214,16 @@ ssize_t __mei_cl_recv(struct mei_cl *cl, u8 *buf, size_t length, u8 *vtag,
- 		goto free;
- 	}
- 
--	r_length = min_t(size_t, length, cb->buf_idx);
--	memcpy(buf, cb->buf.data, r_length);
-+	/* for the GSC type - copy the extended header to the buffer */
-+	if (cb->ext_hdr && cb->ext_hdr->type == MEI_EXT_HDR_GSC) {
-+		r_length = min_t(size_t, length, cb->ext_hdr->length * sizeof(u32));
-+		memcpy(buf, cb->ext_hdr, r_length);
-+	} else {
-+		r_length = min_t(size_t, length, cb->buf_idx);
-+		memcpy(buf, cb->buf.data, r_length);
-+	}
- 	rets = r_length;
-+
- 	if (vtag)
- 		*vtag = cb->vtag;
- 
-diff --git a/drivers/misc/mei/mei_dev.h b/drivers/misc/mei/mei_dev.h
-index 31784bbc2d2a..8d8018428d9d 100644
---- a/drivers/misc/mei/mei_dev.h
-+++ b/drivers/misc/mei/mei_dev.h
-@@ -116,12 +116,16 @@ enum mei_cb_file_ops {
-  * @MEI_CL_IO_TX_INTERNAL: internal communication between driver and FW
-  *
-  * @MEI_CL_IO_RX_NONBLOCK: recv is non-blocking
-+ *
-+ * @MEI_CL_IO_SGL: send command with sgl list.
-  */
- enum mei_cl_io_mode {
- 	MEI_CL_IO_TX_BLOCKING = BIT(0),
- 	MEI_CL_IO_TX_INTERNAL = BIT(1),
- 
- 	MEI_CL_IO_RX_NONBLOCK = BIT(2),
-+
-+	MEI_CL_IO_SGL         = BIT(3),
- };
- 
- /*
+diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
+index 93dfb7ed9705..df87570dd54d 100644
+--- a/drivers/gpu/drm/i915/Kconfig.debug
++++ b/drivers/gpu/drm/i915/Kconfig.debug
+@@ -40,6 +40,8 @@ config DRM_I915_DEBUG
+ 	select DRM_I915_DEBUG_RUNTIME_PM
+ 	select DRM_I915_SW_FENCE_DEBUG_OBJECTS
+ 	select DRM_I915_SELFTEST
++	select INTEL_MEI_GSC
++	select INTEL_MEI_PXP
+ 	select BROKEN # for prototype uAPI
+ 	default n
+ 	help
 -- 
 2.37.3
 
