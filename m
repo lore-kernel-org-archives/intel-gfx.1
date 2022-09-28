@@ -4,50 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AC4CC32771
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 08:51:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E973EC32771
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 08:59:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A22F10E366;
-	Wed, 28 Sep 2022 08:51:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE96A10E3C3;
+	Wed, 28 Sep 2022 08:59:10 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4456E10E37A;
- Wed, 28 Sep 2022 08:51:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA35F10E366
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 08:59:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664355071; x=1695891071;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=eltQSsd00+eTulXtPk3YMa9SYpcWVAR8VjdLyZ6mqho=;
- b=TX6LxgvBl9PoKJlK3CM8KVaicM2epzP5Uzmej/+pz8zOG4RqFioMK0Zb
- tzxx4niOiQOzzOnb94tyVyU/oh6EkdMZVqIZnV/2qpNgV3T9snzG2j1q2
- ykVjc6occI0KIWM7fZnG31g77yOUwAxNgpy7J6MRkPbVmVLh4v8hSdGSa
- O6Yq/bQwQel1LG5e8iJSCURanGXEVRl6DZLF4wv2KWYDtsv+a9LteVs22
- 10jgfEA0ciSuZuNMKAkeFiX/6HoCqcbg85TEX8oXGDN/jLh97k44Qbfw6
- +rN+2mpTUphV7TbXkMZFsbVhkSX8JkyfJcFeygHQJiIoOd0NZIfe9GQAr Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="303029446"
-X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="303029446"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ t=1664355546; x=1695891546;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=27w9w4hVNJiuDZ9dvk2T9A7YheSJolGmdLIv7utThMM=;
+ b=dqPQuQ9HrhHYvtaHpXYQn+tDb9P3efHF1urRjQGrJlhtlTez5RVgv/Yj
+ ldY4I/dxKGUT2MVsx6A844sZFTdu3fYL92O+FtoKDfVUcdBu62ZlCO686
+ nTAziq+7TMKLVi7i+hg/aFLcsEXR43GZs6DYOY6iyWdkmZcvGDvCoZW94
+ b3U3NNw1g2G6fpWhxYUd66rwOJ/KG+T1Nr0vLudNbezkxsREPb40MN0wq
+ FGYY23pvcl/kFehgDcya33p+e59SBJk3U7RcE8Z7oT+Sc1IPPgNiI+9Td
+ 6OWf8GMuS5KJlNT6qqpRijlQpfr2YXLw7DmJTCTyZpLwyRysf50EmBM1t A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="303030954"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="303030954"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2022 01:51:10 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="866895387"
-X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="866895387"
-Received: from novermar-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.61.30])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2022 01:51:03 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20220928081300.101516-6-gwan-gyeong.mun@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220928081300.101516-1-gwan-gyeong.mun@intel.com>
- <20220928081300.101516-6-gwan-gyeong.mun@intel.com>
-Date: Wed, 28 Sep 2022 11:51:00 +0300
-Message-ID: <87edvvzxu3.fsf@intel.com>
+ 28 Sep 2022 01:59:00 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="690319981"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="690319981"
+Received: from jkrzyszt-mobl1.ger.corp.intel.com ([10.213.5.184])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2022 01:58:58 -0700
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Date: Wed, 28 Sep 2022 10:58:26 +0200
+Message-Id: <20220928085826.243721-3-janusz.krzysztofik@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220928085826.243721-1-janusz.krzysztofik@linux.intel.com>
+References: <20220928085826.243721-1-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v13 5/9] drm/i915: Check for integer
- truncation on scatterlist creation
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [core-for-CI][PATCH v2 2/2] Restore "iommu/dma: Fix
+ race condition during iova_domain initialization"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,54 +57,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: gustavoars@kernel.org, trix@redhat.com, dlatypov@google.com,
- llvm@lists.linux.dev, linux@rasmusvillemoes.dk,
- dri-devel@lists.freedesktop.org, chris@chris-wilson.co.uk,
- linux-hardening@vger.kernel.org, andrzej.hajda@intel.com,
- linux-sparse@vger.kernel.org, matthew.auld@intel.com, airlied@redhat.com,
- thomas.hellstrom@linux.intel.com, keescook@chromium.org, nathan@kernel.org,
- mchehab@kernel.org, ndesaulniers@google.com, linux-kernel@vger.kernel.org,
- daniel@ffwll.ch, vitor@massaru.org, luc.vanoostenryck@gmail.com,
- nirmoy.das@intel.com
+Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 28 Sep 2022, Gwan-gyeong Mun <gwan-gyeong.mun@intel.com> wrote:
-> diff --git a/drivers/gpu/drm/i915/i915_scatterlist.h b/drivers/gpu/drm/i915/i915_scatterlist.h
-> index 9ddb3e743a3e..1d1802beb42b 100644
-> --- a/drivers/gpu/drm/i915/i915_scatterlist.h
-> +++ b/drivers/gpu/drm/i915/i915_scatterlist.h
-> @@ -220,4 +220,15 @@ struct i915_refct_sgt *i915_rsgt_from_buddy_resource(struct ttm_resource *res,
->  						     u64 region_start,
->  						     u32 page_alignment);
->  
-> +/* Wrap scatterlist.h to sanity check for integer truncation */
-> +typedef unsigned int __sg_size_t; /* see linux/scatterlist.h */
-> +#define sg_alloc_table(sgt, nents, gfp) \
-> +	overflows_type(nents, __sg_size_t) ? -E2BIG \
-> +		: ((sg_alloc_table)(sgt, (__sg_size_t)(nents), gfp))
-> +
-> +#define sg_alloc_table_from_pages_segment(sgt, pages, npages, offset, size, max_segment, gfp) \
-> +	overflows_type(npages, __sg_size_t) ? -E2BIG \
-> +		: ((sg_alloc_table_from_pages_segment)(sgt, pages, (__sg_size_t)(npages), offset, \
-> +						       size, max_segment, gfp))
-> +
->  #endif
+This reverts commit bc79ef6d5a223ea59acf874f0493b79c835b17d4 that
+reverted commit ac9a5d522bb80be50ea84965699e1c8257d745ce.  That revert is
+no longer needed with "iommu: Remove iova cpu hotplugging flushing" in
+place that breaks more instances of the same lockdep loop.
 
-No. I don't think we should shadow sg_alloc_table() and
-sg_alloc_table_from_pages_segment().
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+---
+ drivers/iommu/dma-iommu.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-Either get this in scatterlist.h (preferred) or prefix with i915_ or
-whatever to indicate it's our local thing.
-
-i915_scatterlist.h already has too much scatterlist "namespace" abuse
-that I'd rather see gone than violated more.
-
-
-BR,
-Jani.
-
-
-
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index 9616b473e4c7e..17dd683b2fcea 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -65,6 +65,7 @@ struct iommu_dma_cookie {
+ 
+ 	/* Domain for flush queue callback; NULL if flush queue not in use */
+ 	struct iommu_domain		*fq_domain;
++	struct mutex			mutex;
+ };
+ 
+ static DEFINE_STATIC_KEY_FALSE(iommu_deferred_attach_enabled);
+@@ -311,6 +312,7 @@ int iommu_get_dma_cookie(struct iommu_domain *domain)
+ 	if (!domain->iova_cookie)
+ 		return -ENOMEM;
+ 
++	mutex_init(&domain->iova_cookie->mutex);
+ 	return 0;
+ }
+ 
+@@ -561,26 +563,33 @@ static int iommu_dma_init_domain(struct iommu_domain *domain, dma_addr_t base,
+ 	}
+ 
+ 	/* start_pfn is always nonzero for an already-initialised domain */
++	mutex_lock(&cookie->mutex);
+ 	if (iovad->start_pfn) {
+ 		if (1UL << order != iovad->granule ||
+ 		    base_pfn != iovad->start_pfn) {
+ 			pr_warn("Incompatible range for DMA domain\n");
+-			return -EFAULT;
++			ret = -EFAULT;
++			goto done_unlock;
+ 		}
+ 
+-		return 0;
++		ret = 0;
++		goto done_unlock;
+ 	}
+ 
+ 	init_iova_domain(iovad, 1UL << order, base_pfn);
+ 	ret = iova_domain_init_rcaches(iovad);
+ 	if (ret)
+-		return ret;
++		goto done_unlock;
+ 
+ 	/* If the FQ fails we can simply fall back to strict mode */
+ 	if (domain->type == IOMMU_DOMAIN_DMA_FQ && iommu_dma_init_fq(domain))
+ 		domain->type = IOMMU_DOMAIN_DMA;
+ 
+-	return iova_reserve_iommu_regions(dev, domain);
++	ret = iova_reserve_iommu_regions(dev, domain);
++
++done_unlock:
++	mutex_unlock(&cookie->mutex);
++	return ret;
+ }
+ 
+ /**
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.25.1
+
