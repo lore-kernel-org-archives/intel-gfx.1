@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5794CC32771
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 10:45:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B457C32771
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 10:45:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70BD610E41E;
-	Wed, 28 Sep 2022 10:44:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA5410E421;
+	Wed, 28 Sep 2022 10:44:58 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDD9310E408
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 10:44:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D45ED10E432
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Sep 2022 10:44:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664361893; x=1695897893;
+ t=1664361891; x=1695897891;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=eByzmWDXENzSVIPy0qQ6JxqRo5WKr+iLiVAbQ0vcV+g=;
- b=CvmSuHFpYVd+ln5lXPLLXbCn7IBFTBh1xvHSw4got4niN8Fs37n2o2mj
- 5/eBa6WFIKVs7of6iNV0J3BW688pMi9LcvGmI8dIS5g38LffC0deUszHo
- y7cLBHRm3/PI3BlBkytNSxq1HQ/Sg3hR5ZtNy+kBQ2boTxoiPXsM6DGng
- EBqO33bcr2ZIp2h5mTcYf5iI1H3XsAQTnm7WwCmpHGEfiB0lvEI4g1/Fd
- bsY7XQuBczp9F90H6E+WmGoDe/L6awaaaE1f499ODjs2kZ+Rzg8B2RIPk
- Cx0dIJ7qaVVmkyrrQuEndGmDnCJEaQAUBnQH4ac2TU4kFD+tqwM7DTX20 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="387851440"
-X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="387851440"
+ bh=48Dctm1U23RUEZZ6NbZsjXWj8XB49KiQgu+HTX8sY3U=;
+ b=ATwMrl2MuHKRnfn/04AQ3/RWHrbApIzVKapGoDeR+Z1qTqfUlCXVcpY7
+ 8Odn35bprEEXWw0RGsQ03n9nKgcGY5qVinMvG0Yqs7R2gEUqsRVaB61lW
+ aJawPdVM1tBjRoAj/8ql3qiQfwb3tn9rO47PleKxzFZlAukHxpyVJvbtV
+ EIH78DmgK5gMoTQ/5Zh267DfSHUTrfyJRWcf7Fp1V+MPjNC5kbDgylqMS
+ HDo3OHnQUE1JC9mCIsQ8a4la9PeKmQy1uzZTbCX6Jh9N6MZFXeTRQckZh
+ gcNl6MsJ3oUSZgabwt76oqgSv9ii94PogmzdlkQQ5e1Kv73Ld+TbxCTHg Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="387851415"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="387851415"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2022 03:44:48 -0700
+ 28 Sep 2022 03:44:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="624106484"
-X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="624106484"
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="624106470"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="624106470"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga007.fm.intel.com with SMTP; 28 Sep 2022 03:44:46 -0700
+ by fmsmga007.fm.intel.com with SMTP; 28 Sep 2022 03:44:40 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 28 Sep 2022 13:44:45 +0300
+ Wed, 28 Sep 2022 13:44:40 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 Sep 2022 13:44:34 +0300
-Message-Id: <20220928104434.29586-5-ville.syrjala@linux.intel.com>
+Date: Wed, 28 Sep 2022 13:44:32 +0300
+Message-Id: <20220928104434.29586-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220928104434.29586-1-ville.syrjala@linux.intel.com>
 References: <20220928104434.29586-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915: Fix locking in DRRS debugfs
+Subject: [Intel-gfx] [PATCH 2/4] drm/i915: Make the DRRS debugfs contents
+ more consistent
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,43 +65,46 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Grab the crtc mutex so that looking at the crtc state is
-actually safe.
+The stuff in the DRRS debugs is currently a hodgepode mix
+of camelcase, lowercase, spaces, undescores, you name it.
+Convert over to a reasonably common style.
+
+Also move the busy bits thing to be the last sine it's
+generally the least interesting thing in there.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_drrs.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_drrs.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
-index a5d6682475d1..2b94a62ef65a 100644
+index 030a3566538a..3639d8aa71c9 100644
 --- a/drivers/gpu/drm/i915/display/intel_drrs.c
 +++ b/drivers/gpu/drm/i915/display/intel_drrs.c
-@@ -301,8 +301,14 @@ void intel_crtc_drrs_init(struct intel_crtc *crtc)
- static int intel_drrs_debugfs_status_show(struct seq_file *m, void *unused)
- {
- 	struct intel_crtc *crtc = m->private;
--	const struct intel_crtc_state *crtc_state =
--		to_intel_crtc_state(crtc->base.state);
-+	const struct intel_crtc_state *crtc_state;
-+	int ret;
+@@ -325,19 +325,19 @@ static int intel_drrs_debugfs_status_show(struct seq_file *m, void *unused)
+ 		mutex_lock(&crtc->drrs.mutex);
+ 
+ 		/* DRRS Supported */
+-		seq_printf(m, "\tDRRS Enabled: %s\n",
++		seq_printf(m, "\tDRRS enabled: %s\n",
+ 			   str_yes_no(crtc_state->has_drrs));
+ 
+-		seq_printf(m, "\tDRRS Active: %s\n",
++		seq_printf(m, "\tDRRS active: %s\n",
+ 			   str_yes_no(intel_drrs_is_active(crtc)));
+ 
+-		seq_printf(m, "\tBusy_frontbuffer_bits: 0x%X\n",
+-			   crtc->drrs.busy_frontbuffer_bits);
+-
+ 		seq_printf(m, "\tDRRS refresh rate: %s\n",
+ 			   crtc->drrs.refresh_rate == DRRS_REFRESH_RATE_LOW ?
+ 			   "low" : "high");
+ 
++		seq_printf(m, "\tDRRS busy frontbuffer bits: 0x%X\n",
++			   crtc->drrs.busy_frontbuffer_bits);
 +
-+	ret = drm_modeset_lock_single_interruptible(&crtc->base.mutex);
-+	if (ret)
-+		return ret;
-+
-+	crtc_state = to_intel_crtc_state(crtc->base.state);
- 
- 	mutex_lock(&crtc->drrs.mutex);
- 
-@@ -321,6 +327,8 @@ static int intel_drrs_debugfs_status_show(struct seq_file *m, void *unused)
- 
- 	mutex_unlock(&crtc->drrs.mutex);
- 
-+	drm_modeset_unlock(&crtc->base.mutex);
-+
- 	return 0;
- }
+ 		mutex_unlock(&crtc->drrs.mutex);
+ 	}
  
 -- 
 2.35.1
