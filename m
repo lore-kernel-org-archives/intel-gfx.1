@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E60CCC32771
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 08:14:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 518BEC6FA82
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Sep 2022 08:14:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3986E10E308;
-	Wed, 28 Sep 2022 08:14:15 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92D1310E31C;
- Wed, 28 Sep 2022 08:14:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA99210E328;
+	Wed, 28 Sep 2022 08:14:30 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E72510E319;
+ Wed, 28 Sep 2022 08:14:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664352842; x=1695888842;
+ t=1664352860; x=1695888860;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=a15giGE9U8MfRV7QFZGLrBfnIa+lhGBT+wMMe9HhDqQ=;
- b=YnKCx76k9XwrYRXmUbX+bPh43d+tfws/uiXAtVWl+4fNo8Jlc9H7Uxab
- P2AtDBxBw8Imxe2NkOPriHtF7sMUryLRwV3CFrN3XzNCW7lun5BanEsY0
- OYrewe1xiJVJVVAf++rBanfsSJMIiuCX25sq3FyE9DVB5anI0Gwdm3lFp
- EikPR0W/+elY7IihBO5uGYQcYlIkNzO6H+VVrhcadYqTh5LZtWJtoMqw1
- oOMuZ0iFG3u6V3JV2DwGbWr7hjRhIBsEd22Jk/sjkQJktOyMnMUhc1va5
- Nf/qJpAib9/f8DUbSG+1iMO+dJ28wzWEg+xjLtf7urlAu/qLwdJVaq8d9 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="303022679"
-X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="303022679"
+ bh=EcU7AaNW1bRj3YDi/xCjAHSsB7dr/NE8Y5qtQn5y8Vc=;
+ b=Zt2yshqjeBpZdcipRmde9dABXkWlDGO2DJwer9qdQnVPTA3aDe7vO3+g
+ FtmttIFqO4v3+XzFOkW7RNXGia4FhT20lQkG8AQdBHoXt3fCC6Lc0QrNv
+ RaMVl1hQ/WJJ+uhWA5p2sklRpM4nT/r5S4NjndvMxdYfH2AZ9cIBX4bJm
+ 7b7/DFfwRQV/J+D5KXd5SXycbzDJJakwLd2ZNqVWAPSav8k2E9lqd04QI
+ XovLqcga/x/A3Y/5MCDsB2RB8+cqJEUVsfNa56xi0FcK+ACr4+p2lKmV0
+ 9yhkIU/bz5kxkzU18Sfsp1LTWeFGOAlfzCYZ4X/gvGcw00f+KvZFFE5sp Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="301516331"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="301516331"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2022 01:13:42 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="621836209"
-X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="621836209"
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2022 01:14:19 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10483"; a="621836368"
+X-IronPort-AV: E=Sophos;i="5.93,351,1654585200"; d="scan'208";a="621836368"
 Received: from maciejos-mobl.ger.corp.intel.com (HELO
  paris.ger.corp.intel.com) ([10.249.147.47])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2022 01:13:32 -0700
+ 28 Sep 2022 01:14:10 -0700
 From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 28 Sep 2022 11:12:53 +0300
-Message-Id: <20220928081300.101516-3-gwan-gyeong.mun@intel.com>
+Date: Wed, 28 Sep 2022 11:12:57 +0300
+Message-Id: <20220928081300.101516-7-gwan-gyeong.mun@intel.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220928081300.101516-1-gwan-gyeong.mun@intel.com>
 References: <20220928081300.101516-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v13 2/9] overflow: Introduce check_assign() and
- check_assign_user_ptr()
+Subject: [Intel-gfx] [PATCH v13 6/9] drm/i915: Check for integer truncation
+ on the configuration of ttm place
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,139 +71,99 @@ Cc: gustavoars@kernel.org, trix@redhat.com, dlatypov@google.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add check_assign() macro which performs an assigning source value into
-destination pointer along with an overflow check and
-check_assign_user_ptr() macro which performs an assigning source value into
-destination pointer type variable along with an overflow check. If an
-explicit overflow check is required while assigning to a user-space ptr,
-assign_user_ptr() can be used instead of u64_to_user_ptr() to assign
-integers into __user pointers along with an overflow check.
+There is an impedance mismatch between the first/last valid page
+frame number of ttm place in unsigned and our memory/page accounting in
+unsigned long.
+As the object size is under the control of userspace, we have to be prudent
+and catch the conversion errors.
+To catch the implicit truncation as we switch from unsigned long to
+unsigned, we use overflows_type check and report E2BIG or overflow_type
+prior to the operation.
 
-v3: Add is_type_unsigned() macro (Mauro)
-    Modify overflows_type() macro to consider signed data types (Mauro)
-    Fix the problem that safe_conversion() macro always returns true
-v4: Fix kernel-doc markups
-v6: Move macro addition location so that it can be used by other than drm
-    subsystem (Jani, Mauro, Andi)
-    Change is_type_unsigned to is_unsigned_type to have the same name form
-    as is_signed_type macro
-v8: Add check_assign() and remove safe_conversion() (Kees)
-    Fix overflows_type() to use gcc's built-in overflow function (Andrzej)
-    Add overflows_ptr() to allow overflow checking when assigning a value
-    into a pointer variable (G.G.)
-v9: Fix overflows_type() to use __builtin_add_overflow() instead of
-    __builtin_add_overflow_p() (Andrzej)
-    Fix overflows_ptr() to use overflows_type() with the unsigned long type
-    (Andrzej)
-v10: Remove a redundant type checking for a pointer. (Andrzej)
-     Use updated check_add_overflow macro instead of __builtin_add_overflow
-     (G.G)
-     Add check_assign_user_ptr() macro and drop overflows_ptr() macro(Kees)
-v11: Fix incorrect type assignment between different address spaces caused
-     by the wrong use of __user macro. (kernel test robot)
-     Update macro description (G.G)
-v12: Remove overflows_type() macro here. updated overflows_type() macro
-     will be added in a subsequent patch (G.G)
+v3: Not to change execution inside a macro. (Mauro)
+    Add safe_conversion_gem_bug_on() macro and remove temporal
+    SAFE_CONVERSION() macro.
+v4: Fix unhandled GEM_BUG_ON() macro call from safe_conversion_gem_bug_on()
+v6: Fix to follow general use case for GEM_BUG_ON(). (Jani)
+v7: Fix to use WARN_ON() macro where GEM_BUG_ON() macro was used. (Jani)
+v8: Replace safe_conversion() with check_assign() (Kees)
 
 Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
 Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Nirmoy Das <nirmoy.das@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-Cc: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
-Cc: Kees Cook <keescook@chromium.org>
-Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org> (v5)
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com> (v9)
-Acked-by: Kees Cook <keescook@chromium.org>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com> (v2)
+Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org> (v3)
 Reported-by: kernel test robot <lkp@intel.com>
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com> (v5)
 ---
- drivers/gpu/drm/i915/i915_user_extensions.c |  6 +--
- include/linux/overflow.h                    | 44 +++++++++++++++++++++
- 2 files changed, 47 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c |  6 +++---
+ drivers/gpu/drm/i915/intel_region_ttm.c | 17 ++++++++++++++---
+ 2 files changed, 17 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_user_extensions.c b/drivers/gpu/drm/i915/i915_user_extensions.c
-index c822d0aafd2d..80ec8390b0d8 100644
---- a/drivers/gpu/drm/i915/i915_user_extensions.c
-+++ b/drivers/gpu/drm/i915/i915_user_extensions.c
-@@ -50,11 +50,11 @@ int i915_user_extensions(struct i915_user_extension __user *ext,
- 		if (err)
- 			return err;
- 
--		if (get_user(next, &ext->next_extension) ||
--		    overflows_type(next, ext))
-+		if (get_user(next, &ext->next_extension))
- 			return -EFAULT;
- 
--		ext = u64_to_user_ptr(next);
-+		if (check_assign_user_ptr(next, ext))
-+			return -EFAULT;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index 8d7c392d335c..d33f06b95c48 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -140,14 +140,14 @@ i915_ttm_place_from_region(const struct intel_memory_region *mr,
+ 	if (flags & I915_BO_ALLOC_CONTIGUOUS)
+ 		place->flags |= TTM_PL_FLAG_CONTIGUOUS;
+ 	if (offset != I915_BO_INVALID_OFFSET) {
+-		place->fpfn = offset >> PAGE_SHIFT;
+-		place->lpfn = place->fpfn + (size >> PAGE_SHIFT);
++		WARN_ON(check_assign(offset >> PAGE_SHIFT, &place->fpfn));
++		WARN_ON(check_assign(place->fpfn + (size >> PAGE_SHIFT), &place->lpfn));
+ 	} else if (mr->io_size && mr->io_size < mr->total) {
+ 		if (flags & I915_BO_ALLOC_GPU_ONLY) {
+ 			place->flags |= TTM_PL_FLAG_TOPDOWN;
+ 		} else {
+ 			place->fpfn = 0;
+-			place->lpfn = mr->io_size >> PAGE_SHIFT;
++			WARN_ON(check_assign(mr->io_size >> PAGE_SHIFT, &place->lpfn));
+ 		}
+ 	}
+ }
+diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
+index 575d67bc6ffe..37a964b20b36 100644
+--- a/drivers/gpu/drm/i915/intel_region_ttm.c
++++ b/drivers/gpu/drm/i915/intel_region_ttm.c
+@@ -209,14 +209,23 @@ intel_region_ttm_resource_alloc(struct intel_memory_region *mem,
+ 	if (flags & I915_BO_ALLOC_CONTIGUOUS)
+ 		place.flags |= TTM_PL_FLAG_CONTIGUOUS;
+ 	if (offset != I915_BO_INVALID_OFFSET) {
+-		place.fpfn = offset >> PAGE_SHIFT;
+-		place.lpfn = place.fpfn + (size >> PAGE_SHIFT);
++		if (WARN_ON(check_assign(offset >> PAGE_SHIFT, &place.fpfn))) {
++			ret = -E2BIG;
++			goto out;
++		}
++		if (WARN_ON(check_assign(place.fpfn + (size >> PAGE_SHIFT), &place.lpfn))) {
++			ret = -E2BIG;
++			goto out;
++		}
+ 	} else if (mem->io_size && mem->io_size < mem->total) {
+ 		if (flags & I915_BO_ALLOC_GPU_ONLY) {
+ 			place.flags |= TTM_PL_FLAG_TOPDOWN;
+ 		} else {
+ 			place.fpfn = 0;
+-			place.lpfn = mem->io_size >> PAGE_SHIFT;
++			if (WARN_ON(check_assign(mem->io_size >> PAGE_SHIFT, &place.lpfn))) {
++				ret = -E2BIG;
++				goto out;
++			}
+ 		}
  	}
  
- 	return 0;
-diff --git a/include/linux/overflow.h b/include/linux/overflow.h
-index 19dfdd74835e..8ccbfa46f0ed 100644
---- a/include/linux/overflow.h
-+++ b/include/linux/overflow.h
-@@ -5,6 +5,7 @@
- #include <linux/compiler.h>
- #include <linux/limits.h>
- #include <linux/const.h>
-+#include <linux/types.h>
+@@ -224,6 +233,8 @@ intel_region_ttm_resource_alloc(struct intel_memory_region *mem,
+ 	mock_bo.bdev = &mem->i915->bdev;
  
- /*
-  * We need to compute the minimum and maximum values representable in a given
-@@ -127,6 +128,49 @@ static inline bool __must_check __must_check_overflow(bool overflow)
- 	(*_d >> _to_shift) != _a);					\
- }))
- 
-+/**
-+ * check_assign - perform an assigning source value into destination pointer
-+ *                along with an overflow check.
-+ *
-+ * @value: source value
-+ * @ptr: Destination pointer address
-+ *
-+ * Returns:
-+ * If the value would overflow the destination, it returns true. If not return
-+ * false. When overflow does not occur, the assigning into destination from
-+ * value succeeds. It follows the return policy as other check_*_overflow()
-+ * functions return non-zero as a failure.
-+ */
-+#define check_assign(value, ptr) __must_check_overflow(({	\
-+	check_add_overflow(0, value, ptr);			\
-+}))
+ 	ret = man->func->alloc(man, &mock_bo, &place, &res);
 +
-+/**
-+ * check_assign_user_ptr - perform an assigning source value into destination
-+ *                         pointer type variable along with an overflow check
-+ *
-+ * @value: source value; a source value is expected to have a value of a size
-+ *         that can be stored in a pointer-type variable.
-+ * @ptr: destination pointer type variable
-+ *
-+ * u64_to_user_ptr can be used in the kernel to avoid warnings about integers
-+ * and pointers of different sizes. But u64_to_user_ptr is not performing the
-+ * checking of overflow. If you need an explicit overflow check while
-+ * assigning, check_assign_user_ptr() can be used to assign integers into
-+ * pointers along with an overflow check. If ptr is not a pointer type,
-+ * a warning message outputs while compiling.
-+ *
-+ * Returns:
-+ * If the value would overflow the destination, it returns true. If not return
-+ * false. When overflow does not occur, the assigning into ptr from value
-+ * succeeds. It follows the return policy as other check_*_overflow() functions
-+ * return non-zero as a failure.
-+ */
-+#define check_assign_user_ptr(value, ptr) __must_check_overflow(({		\
-+	uintptr_t kptr;								\
-+	check_assign(value, &kptr) ? 1 : (({ ptr = (void __user *)kptr; }), 0);	\
-+}))
-+
- /**
-  * size_mul() - Calculate size_t multiplication with saturation at SIZE_MAX
-  *
++out:
+ 	if (ret == -ENOSPC)
+ 		ret = -ENXIO;
+ 	if (!ret)
 -- 
 2.37.1
 
