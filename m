@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 390D3C04A95
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 07:15:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E453C07E9D
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 07:15:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0B9D10E973;
-	Thu, 29 Sep 2022 07:15:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 427DB10E993;
+	Thu, 29 Sep 2022 07:15:40 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2F9310E919
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Sep 2022 07:15:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 045C710E919
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Sep 2022 07:15:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664435725; x=1695971725;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=FdpaKsLr7HMhDeV1ojrH9mUx/st1ViZSahdK3hRkGME=;
- b=TZUTdYPTK1JtpRQjtKuVoya4uv4U9GoBR17egXgK2Iyt3BpZVqfmzV7T
- TqnT3mVCyCFj5JVCFkGqlnr2SQBwKJAEmVb80/pqGdBR7EjarResiX71r
- Xrqj3Lfd5pwkGfHQL34ZKMrwibIWH0DIfTUvuao23cRGVjNhQCAgUqTcN
- wsg6ALvrkqYO21Th9yie2WSWeJQMPhQ7UdzvpCNsgCfCDZ+l+yfblCNu7
- Fi4mSJL9zYTWS0pNYHrQT6ne2bTCcLxzE3fjpfbBN9CZTv64RTnK/Ls5L
- pbBPDrvYZRpYwJf1W2n/LFNgK7uiPt6uYMpkVXZ2Za6xL/Qu5VVHENM8c Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10484"; a="303302674"
-X-IronPort-AV: E=Sophos;i="5.93,354,1654585200"; d="scan'208";a="303302674"
+ t=1664435734; x=1695971734;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=QZNzWkKHnxfUjIWUOFjq1wjat9BJmHhUVcYmZ8d3tmM=;
+ b=iEMcVbYw+j4BOriWk+Ru6iDQtINAd1AI6lJILCCgM/rop3CMZqoWrpVB
+ 6sYN9yFc4XmAD2hoJoM4l8SMd/thKNTRxAGWtYBcTnUtNRFvzguxdbKIx
+ 45vB1/W0kIH3znb6Wj44LGna18h2BYqjCw1dLVxtpptDIjJXc/F5NuCbw
+ IgqXkWRhj2dKbVBlkD2Ky+Lt1SGwT2II0ny326d1PkTdQd45HolUcMAhZ
+ Xt6JkbWKBCwSs/5eIt/Zg8D3EBV6GWti4XJq19Z6FQLdVLbe5hdY0tFH0
+ 6rf69XDZ1FViEEQWbuB2J6EfGKHtZJuI8IAqDz/w9LcFBFepEh/sUu+v3 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10484"; a="303302723"
+X-IronPort-AV: E=Sophos;i="5.93,354,1654585200"; d="scan'208";a="303302723"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2022 00:15:24 -0700
+ 29 Sep 2022 00:15:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10484"; a="867274381"
-X-IronPort-AV: E=Sophos;i="5.93,354,1654585200"; d="scan'208";a="867274381"
+X-IronPort-AV: E=McAfee;i="6500,9779,10484"; a="867274429"
+X-IronPort-AV: E=Sophos;i="5.93,354,1654585200"; d="scan'208";a="867274429"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga006.fm.intel.com with SMTP; 29 Sep 2022 00:15:22 -0700
+ by fmsmga006.fm.intel.com with SMTP; 29 Sep 2022 00:15:31 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 29 Sep 2022 10:15:21 +0300
+ Thu, 29 Sep 2022 10:15:30 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 29 Sep 2022 10:15:11 +0300
-Message-Id: <20220929071521.26612-1-ville.syrjala@linux.intel.com>
+Date: Thu, 29 Sep 2022 10:15:14 +0300
+Message-Id: <20220929071521.26612-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220929071521.26612-1-ville.syrjala@linux.intel.com>
+References: <20220929071521.26612-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/10] drm/i915: Prep work for finishing
- (de)gamma readout
+Subject: [Intel-gfx] [PATCH 03/10] drm/i915: Simplify the
+ intel_color_init_hooks() if ladder
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,36 +65,36 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Add another layer of LUT blobs in order to make gamma
-state readout/check possible on ilk-skl. As a bonus we
-can also simplify the glk degamma vs. csc mess.
+Get rid of the funny hsw vs. ivb extra indentation level in
+intel_color_init_hooks().
 
-The actual state readout/checker stuff that we're
-currently missing will follow later.
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_color.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-Ville Syrjälä (10):
-  drm/i915: Remove PLL asserts from .load_luts()
-  drm/i915: Split up intel_color_init()
-  drm/i915: Simplify the intel_color_init_hooks() if ladder
-  drm/i915: Clean up intel_color_init_hooks()
-  drm/i915: Change glk_load_degamma_lut() calling convention
-  drm/i915: Make ilk_load_luts() deal with degamma
-  drm/i915: Introduce crtc_state->{pre,post}_csc_lut
-  drm/i915: Assert {pre,post}_csc_lut were assigned sensibly
-  drm/i915: Get rid of glk_load_degamma_lut_linear()
-  drm/i915: Stop loading linear degammma LUT on glk needlessly
-
- drivers/gpu/drm/i915/display/intel_atomic.c   |   8 +
- drivers/gpu/drm/i915/display/intel_color.c    | 356 ++++++++++--------
- drivers/gpu/drm/i915/display/intel_color.h    |   6 +-
- drivers/gpu/drm/i915/display/intel_crtc.c     |   3 +-
- .../drm/i915/display/intel_crtc_state_dump.c  |  10 +-
- drivers/gpu/drm/i915/display/intel_display.c  |   9 +-
- .../gpu/drm/i915/display/intel_display_core.h |   5 +
- .../drm/i915/display/intel_display_types.h    |   4 +
- .../drm/i915/display/intel_modeset_setup.c    |   6 +
- 9 files changed, 251 insertions(+), 156 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index ddfe7c257a72..ce8a4be9b292 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -2238,12 +2238,11 @@ void intel_color_init_hooks(struct drm_i915_private *dev_priv)
+ 			dev_priv->display.funcs.color = &skl_color_funcs;
+ 		else if (DISPLAY_VER(dev_priv) == 8)
+ 			dev_priv->display.funcs.color = &bdw_color_funcs;
+-		else if (DISPLAY_VER(dev_priv) == 7) {
+-			if (IS_HASWELL(dev_priv))
+-				dev_priv->display.funcs.color = &hsw_color_funcs;
+-			else
+-				dev_priv->display.funcs.color = &ivb_color_funcs;
+-		} else
++		else if (IS_HASWELL(dev_priv))
++			dev_priv->display.funcs.color = &hsw_color_funcs;
++		else if (DISPLAY_VER(dev_priv) == 7)
++			dev_priv->display.funcs.color = &ivb_color_funcs;
++		else
+ 			dev_priv->display.funcs.color = &ilk_color_funcs;
+ 	}
+ }
 -- 
 2.35.1
 
