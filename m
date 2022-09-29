@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8435C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 16:33:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00278C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Sep 2022 16:33:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4D7189A5C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B4E689444;
 	Thu, 29 Sep 2022 16:32:31 +0000 (UTC)
 Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
  [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6857510EAFD;
- Thu, 29 Sep 2022 16:32:18 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id C6527580807;
- Thu, 29 Sep 2022 12:32:17 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Thu, 29 Sep 2022 12:32:17 -0400
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2E9710EADD;
+ Thu, 29 Sep 2022 16:32:00 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 10B3D5807D7;
+ Thu, 29 Sep 2022 12:32:00 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Thu, 29 Sep 2022 12:32:00 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; t=1664469137; x=
- 1664476337; bh=EYCtbKpuvjjLCC1qBA8o+tpUH/WDA4qWX6nARImzmaw=; b=f
- LEEwcpXHIzEyxS5XBU0+n/aNcTKWrgZBahBso+J7E5xxkYDD/KChSYkk1Y2j+eBx
- tH/v1d0NPT5MbyDUuJdHrFxtYpkD4POtL1VBVrE+OkrW9FXxrhTKWf+zlMQNDKel
- XA4S/rH3ior2Sd25H7ZD2pxNOzSB1qXM76p/nUt0L1Twjq+mr2qnsjDH6W4gUrbT
- pZYkIfMndi8/iACHV3hYm1jiCw1a/42rs9zhlbdQZxqfIn9HIizjjpNxBJ0bzzbq
- 5bCuhWI6HtL8Bu+EEwr9vnpTTNqxSoJSUQ458Qj//VX7dAoK5d+xPdi5uHnZeJ+3
- /HYKtywFJ41d/umkRdptQ==
+ :reply-to:sender:subject:subject:to:to; s=fm2; t=1664469120; x=
+ 1664476320; bh=KbyDa4XSKwXHnM7mBLOeZBJTIz/aOgpTOnOhJxYoW9c=; b=V
+ wZj5v+sCa6tj55evpBfZZqhB1bPvotUXBgHtD66k2zblZlSo0OwRDN5zLpwOLVtN
+ g33vGxIq2gITHJ/0kd7dmeJCZzUSQglxQj3LjiScutcoYj5Lcx3iADsFUpwN0BK3
+ TMFYmh4QvacjEn8Rh+AHGIXSaV62gAAH1Muti62gIb4FWus2C9F7FCqwke+W+zha
+ YgWWQgzBoF5jNf+YNSH6EOBMsQaPmJgbAhQOGwbn6Hnh9lXzGjoIeHJ+s/QFGNR1
+ ydjfQ6NJUePd8e591ByvslHPqP+WX5a+437ILQqHk52o3CPotTHk8C0OVO+LVMtj
+ 1+qGTKNb9Q1+4HrKh0/1g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1664469137; x=
- 1664476337; bh=EYCtbKpuvjjLCC1qBA8o+tpUH/WDA4qWX6nARImzmaw=; b=v
- MMMxKTT4xnfTtvzJklblIN25PbrjGQJdwCIr1tEYr07GLjeUp6FKW74KKDVAxYMG
- 6zOqlhChXGQXHwbINDPjiYvu4KS71IEFfSAVR+w7w3YH2OadWI+w16/FFGLxDkg3
- ZM4LZNmKSfy6hVAx+KwuQFf3PsER70+nPGjMExFOVsQosx/L3xVehYaWlmsjO7Am
- Fv/K+b0N3NypoOcD36tyox2Cl6velqW884WRLi3YojTvKUuRtuSSse0OptC1fJlQ
- ArmjMeud3CTEZR34pW4toMzV/j/4lAa0vlqBuDXvwoMDDbL6Wn9ZXpIVEPrrYgTP
- 70qVcxVpo4YuRniB4eWnQ==
-X-ME-Sender: <xms:kcg1Y19SP0kJQLngwk8qMcf3pMuV4jtfUvNRqRXYgbAKmnn-LNZc_w>
- <xme:kcg1Y5uIga1Aqm9WynrHSdqbqOCYLcdginr742z-6e5FTXWnwg-cFKNB_AtM3Gp1J
- q0U2X-4iPHBqo6Nnfc>
-X-ME-Received: <xmr:kcg1YzDEJpHPCBFNpQbEfPRiZvE-46HTRUZ6m4AmzM9uQzL-KV_GE0is8NP6>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehtddguddtfecutefuodetggdotefrod
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1664469120; x=
+ 1664476320; bh=KbyDa4XSKwXHnM7mBLOeZBJTIz/aOgpTOnOhJxYoW9c=; b=E
+ p704SI9xPm09XcjeR3CLgbzgCGrIhYtL2uyJDf5gXnsZqILrDsZpz/WfBKMSFSTl
+ O/QJC99un6ZSc6ND6xU6t/0717cm/Yg7xl1FHHABgZajGzorcK5gBWz6hkIKQPoC
+ InseZLM4yjeOH/zgOoLwqgBk5Px3355ljjrtWv8n2WTqjsmd/eNlt+gxbqEa2Qv/
+ Q10V709SamELJ23TtzisXXilg+iJVbX/imyCBlFp8L1MWusERK18ENZ8o9Wm8Irg
+ 9vwKhT0sSFI5Q2J9ES980QJ0hoZBbJSX+DquyaCjh79M+rPIrCyxvDQKlOriT1jc
+ 9Ydielpf3ZUxWaClP6G6A==
+X-ME-Sender: <xms:f8g1Y_RlbC4HicX6DiStgIZMN8bxij3C1Su7Z3Xwnlz9OtvYHY2Wog>
+ <xme:f8g1Ywy9pgR_X7cqsCVdroSEjdb4fPuiLlRh7xlinJ_k1rLJgT06_4Zo8mOfMsTEb
+ BOj7GBHw1MM9iRVzpw>
+X-ME-Received: <xmr:f8g1Y02eR2_aJ7hVrHVVhbgAtAFBVvcju-51T2opzoqw27yinRJq1w1Csr38>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehtddguddtvdcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefhfffuggfgtgfkfhgjvfevofesthekredtredtjeenucfhrhhomhepofgr
+ enucfjughrpefhfffugggtgffkfhgjvfevofesthekredtredtjeenucfhrhhomhepofgr
  gihimhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtf
- frrghtthgvrhhnpedvgfevjefhtdetveevhfelieeuueetgfdvgeevkeegudejffegfffg
- tedtleelhfenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhroh
+ frrghtthgvrhhnpeduudduhfevjeetfeegvdffvdevvdejudegudekjeehtdelhfffveet
+ hfejledtveenucevlhhushhtvghrufhiiigvpeehnecurfgrrhgrmhepmhgrihhlfhhroh
  hmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:kcg1Y5cU6GLGtdeABC3xaPWBWRwG7Rkw3-JlS9ePlBZ6jhEqeXfvRw>
- <xmx:kcg1Y6MyyMjmpwWiEOzdJ9LARb8vAbpBfAh8cpu018Wy1mItaG_YEw>
- <xmx:kcg1Y7md5uPtV49CTggwSW5ow7sMe5Cd4Er4uBu9sIrQU6ThY166Mg>
- <xmx:kcg1Y_bZtAfIJ1rqx3WBpMuwW8jOMUWezZDykYEc1XwkhO2zqoTczA>
+X-ME-Proxy: <xmx:f8g1Y_AAl7Mr6rYMupbYN8zlcEFNHHt9hx01CuFoziokkaogBuoCnA>
+ <xmx:f8g1Y4jKplt-Viojic_HkLPmMzf8FnTJd3NUFxucbtiwY1V0QALJdw>
+ <xmx:f8g1YzoIQQb4JSREtoUpAL9_08EYsZG9ez_GFaElMInmFw75WfqMiw>
+ <xmx:gMg1Y2MTw-Jx1m5-hLaFoPfJGIXYozAk5qmbHL0PQFHNA3s0eLRxJQ>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Sep 2022 12:32:17 -0400 (EDT)
+ 29 Sep 2022 12:31:59 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Thu, 29 Sep 2022 18:31:23 +0200
+Date: Thu, 29 Sep 2022 18:31:14 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20220728-rpi-analog-tv-properties-v4-29-60d38873f782@cerno.tech>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20220728-rpi-analog-tv-properties-v4-20-60d38873f782@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v4-0-60d38873f782@cerno.tech>
 In-Reply-To: <20220728-rpi-analog-tv-properties-v4-0-60d38873f782@cerno.tech>
 To: Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
@@ -82,15 +82,15 @@ To: Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.11.0-dev-7da52
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6916; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=wP84AdCzkoI1RDMSbNe0Fx/nLdPMd0LKH5QXvUqUkNk=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMmmJzzmiN+Y8qrlW3p0v/bx2+Ef+oKv3JyV78ny677bj/vt
- lyeqd5SyMIhxMciKKbLECJsviTs163UnG988mDmsTCBDGLg4BWAi3qEM/9TyWwzjHabtf/869vHsE9
- r3wjlU45WjM/656nI4pUTJ9TAyHONb2LoiJpq9jNNgtauNgkr2avW9Ft4xz/lZVBb87pFkBAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8119; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=o0HYKxrc1d0sfrp2aQO83/TXH+hG7s1cgZxhISSBCa0=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMmmJ9zPsXuaS1hpv2d5vUHjr//RuCuPRP/E5Smx3N6x0dKU
+ hW1SRykLgxgXg6yYIkuMsPmSuFOzXney8c2DmcPKBDKEgYtTACbCbc7w36Us9dQ6rz27LlW6ntHNTb
+ 1cvn7qs9WTtFVu7QnZsI8/U5Dhn41MEMPlin3ic50LU3e2ljX2zG8JyVj94PVN/XKbjMdePAA=
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
-Subject: [Intel-gfx] [PATCH v4 29/30] drm/vc4: vec: Add support for more
- analog TV standards
+Subject: [Intel-gfx] [PATCH v4 20/30] drm/modes: Introduce the tv_mode
+ property as a command-line option
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,212 +107,223 @@ Cc: Dom Cobley <dom@raspberrypi.com>, Dave Stevenson <dave.stevenson@raspberrypi
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Our new tv mode option allows to specify the TV mode from a property.
+However, it can still be useful, for example to avoid any boot time
+artifact, to set that property directly from the kernel command line.
 
-Add support for the following composite output modes (all of them are
-somewhat more obscure than the previously defined ones):
+Let's add some code to allow it, and some unit tests to exercise that code.
 
-- NTSC_443 - NTSC-style signal with the chroma subcarrier shifted to
-  4.43361875 MHz (the PAL subcarrier frequency). Never used for
-  broadcasting, but sometimes used as a hack to play NTSC content in PAL
-  regions (e.g. on VCRs).
-- PAL_N - PAL with alternative chroma subcarrier frequency,
-  3.58205625 MHz. Used as a broadcast standard in Argentina, Paraguay
-  and Uruguay to fit 576i50 with colour in 6 MHz channel raster.
-- PAL60 - 480i60 signal with PAL-style color at normal European PAL
-  frequency. Another non-standard, non-broadcast mode, used in similar
-  contexts as NTSC_443. Some displays support one but not the other.
-- SECAM - French frequency-modulated analog color standard; also have
-  been broadcast in Eastern Europe and various parts of Africa and Asia.
-  Uses the same 576i50 timings as PAL.
-
-Also added some comments explaining color subcarrier frequency
-registers.
-
-Acked-by: Noralf Trønnes <noralf@tronnes.org>
-Signed-off-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
----
- drivers/gpu/drm/vc4/vc4_vec.c | 84 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 83 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
-index b342dc9cf69c..8d37d7ba9b2a 100644
---- a/drivers/gpu/drm/vc4/vc4_vec.c
-+++ b/drivers/gpu/drm/vc4/vc4_vec.c
-@@ -46,6 +46,7 @@
- #define VEC_CONFIG0_YDEL(x)		((x) << 26)
- #define VEC_CONFIG0_CDEL_MASK		GENMASK(25, 24)
- #define VEC_CONFIG0_CDEL(x)		((x) << 24)
-+#define VEC_CONFIG0_SECAM_STD		BIT(21)
- #define VEC_CONFIG0_PBPR_FIL		BIT(18)
- #define VEC_CONFIG0_CHROMA_GAIN_MASK	GENMASK(17, 16)
- #define VEC_CONFIG0_CHROMA_GAIN_UNITY	(0 << 16)
-@@ -76,6 +77,27 @@
- #define VEC_SOFT_RESET			0x10c
- #define VEC_CLMP0_START			0x144
- #define VEC_CLMP0_END			0x148
+---
+Changes in v4:
+- Add Documentation of the command-line option to modedb.rst
+---
+ Documentation/fb/modedb.rst                     |  2 +
+ drivers/gpu/drm/drm_modes.c                     | 35 +++++++++++--
+ drivers/gpu/drm/tests/drm_cmdline_parser_test.c | 67 +++++++++++++++++++++++++
+ include/drm/drm_connector.h                     |  5 ++
+ 4 files changed, 106 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/fb/modedb.rst b/Documentation/fb/modedb.rst
+index 4d2411e32ebb..5d6361a77f3c 100644
+--- a/Documentation/fb/modedb.rst
++++ b/Documentation/fb/modedb.rst
+@@ -65,6 +65,8 @@ Valid options are::
+   - reflect_y (boolean): Perform an axial symmetry on the Y axis
+   - rotate (integer): Rotate the initial framebuffer by x
+     degrees. Valid values are 0, 90, 180 and 270.
++  - tv_mode: Analog TV mode. One of "NTSC", "NTSC-443", "NTSC-J", "PAL",
++    "PAL-M", "PAL-N", or "SECAM".
+   - panel_orientation, one of "normal", "upside_down", "left_side_up", or
+     "right_side_up". For KMS drivers only, this sets the "panel orientation"
+     property on the kms connector as hint for kms users.
+diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+index 068c78d54db2..c9b62e30e303 100644
+--- a/drivers/gpu/drm/drm_modes.c
++++ b/drivers/gpu/drm/drm_modes.c
+@@ -2133,6 +2133,29 @@ static int drm_mode_parse_panel_orientation(const char *delim,
+ 	return 0;
+ }
+ 
++static int drm_mode_parse_tv_mode(const char *delim,
++				  struct drm_cmdline_mode *mode)
++{
++	const char *value;
++	int ret;
 +
-+/*
-+ * These set the color subcarrier frequency
-+ * if VEC_CONFIG1_CUSTOM_FREQ is enabled.
-+ *
-+ * VEC_FREQ1_0 contains the most significant 16-bit half-word,
-+ * VEC_FREQ3_2 contains the least significant 16-bit half-word.
-+ * 0x80000000 seems to be equivalent to the pixel clock
-+ * (which itself is the VEC clock divided by 8).
-+ *
-+ * Reference values (with the default pixel clock of 13.5 MHz):
-+ *
-+ * NTSC  (3579545.[45] Hz)     - 0x21F07C1F
-+ * PAL   (4433618.75 Hz)       - 0x2A098ACB
-+ * PAL-M (3575611.[888111] Hz) - 0x21E6EFE3
-+ * PAL-N (3582056.25 Hz)       - 0x21F69446
-+ *
-+ * NOTE: For SECAM, it is used as the Dr center frequency,
-+ * regardless of whether VEC_CONFIG1_CUSTOM_FREQ is enabled or not;
-+ * that is specified as 4406250 Hz, which corresponds to 0x29C71C72.
-+ */
- #define VEC_FREQ3_2			0x180
- #define VEC_FREQ1_0			0x184
- 
-@@ -118,6 +140,14 @@
- 
- #define VEC_INTERRUPT_CONTROL		0x190
- #define VEC_INTERRUPT_STATUS		0x194
++	if (*delim != '=')
++		return -EINVAL;
 +
-+/*
-+ * Db center frequency for SECAM; the clock for this is the same as for
-+ * VEC_FREQ3_2/VEC_FREQ1_0, which is used for Dr center frequency.
-+ *
-+ * This is specified as 4250000 Hz, which corresponds to 0x284BDA13.
-+ * That is also the default value, so no need to set it explicitly.
-+ */
- #define VEC_FCW_SECAM_B			0x198
- #define VEC_SECAM_GAIN_VAL		0x19c
- 
-@@ -197,6 +227,10 @@ enum vc4_vec_tv_mode_id {
- 	VC4_VEC_TV_MODE_NTSC_J,
- 	VC4_VEC_TV_MODE_PAL,
- 	VC4_VEC_TV_MODE_PAL_M,
-+	VC4_VEC_TV_MODE_NTSC_443,
-+	VC4_VEC_TV_MODE_PAL_60,
-+	VC4_VEC_TV_MODE_PAL_N,
-+	VC4_VEC_TV_MODE_SECAM,
++	value = delim + 1;
++	delim = strchr(value, ',');
++	if (!delim)
++		delim = value + strlen(value);
++
++	ret = drm_get_tv_mode_from_name(value, delim - value);
++	if (ret < 0)
++		return ret;
++
++	mode->tv_mode = ret;
++
++	return 0;
++}
++
+ static int drm_mode_parse_cmdline_options(const char *str,
+ 					  bool freestanding,
+ 					  const struct drm_connector *connector,
+@@ -2202,6 +2225,9 @@ static int drm_mode_parse_cmdline_options(const char *str,
+ 		} else if (!strncmp(option, "panel_orientation", delim - option)) {
+ 			if (drm_mode_parse_panel_orientation(delim, mode))
+ 				return -EINVAL;
++		} else if (!strncmp(option, "tv_mode", delim - option)) {
++			if (drm_mode_parse_tv_mode(delim, mode))
++				return -EINVAL;
+ 		} else {
+ 			return -EINVAL;
+ 		}
+@@ -2230,20 +2256,22 @@ struct drm_named_mode {
+ 	unsigned int xres;
+ 	unsigned int yres;
+ 	unsigned int flags;
++	unsigned int tv_mode;
  };
  
- struct vc4_vec_tv_mode {
-@@ -239,6 +273,12 @@ static const struct vc4_vec_tv_mode vc4_vec_tv_modes[] = {
- 		.config0 = VEC_CONFIG0_NTSC_STD | VEC_CONFIG0_PDEN,
- 		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
+-#define NAMED_MODE(_name, _pclk, _x, _y, _flags)	\
++#define NAMED_MODE(_name, _pclk, _x, _y, _flags, _mode)	\
+ 	{						\
+ 		.name = _name,				\
+ 		.pixel_clock_khz = _pclk,		\
+ 		.xres = _x,				\
+ 		.yres = _y,				\
+ 		.flags = _flags,			\
++		.tv_mode = _mode,			\
+ 	}
+ 
+ static const struct drm_named_mode drm_named_modes[] = {
+-	NAMED_MODE("NTSC", 13500, 720, 480, DRM_MODE_FLAG_INTERLACE),
+-	NAMED_MODE("PAL", 13500, 720, 576, DRM_MODE_FLAG_INTERLACE),
++	NAMED_MODE("NTSC", 13500, 720, 480, DRM_MODE_FLAG_INTERLACE, DRM_MODE_TV_MODE_NTSC),
++	NAMED_MODE("PAL", 13500, 720, 576, DRM_MODE_FLAG_INTERLACE, DRM_MODE_TV_MODE_PAL),
+ };
+ 
+ static int drm_mode_parse_cmdline_named_mode(const char *name,
+@@ -2292,6 +2320,7 @@ static int drm_mode_parse_cmdline_named_mode(const char *name,
+ 		cmdline_mode->xres = mode->xres;
+ 		cmdline_mode->yres = mode->yres;
+ 		cmdline_mode->interlace = !!(mode->flags & DRM_MODE_FLAG_INTERLACE);
++		cmdline_mode->tv_mode = mode->tv_mode;
+ 		cmdline_mode->specified = true;
+ 
+ 		return 1;
+diff --git a/drivers/gpu/drm/tests/drm_cmdline_parser_test.c b/drivers/gpu/drm/tests/drm_cmdline_parser_test.c
+index 34790e7a3760..3e711b83b823 100644
+--- a/drivers/gpu/drm/tests/drm_cmdline_parser_test.c
++++ b/drivers/gpu/drm/tests/drm_cmdline_parser_test.c
+@@ -927,6 +927,14 @@ static const struct drm_cmdline_invalid_test drm_cmdline_invalid_tests[] = {
+ 		.name = "invalid_option",
+ 		.cmdline = "720x480,test=42",
  	},
 +	{
-+		.mode = DRM_MODE_TV_MODE_NTSC_443,
-+		.config0 = VEC_CONFIG0_NTSC_STD,
-+		.config1 = VEC_CONFIG1_C_CVBS_CVBS | VEC_CONFIG1_CUSTOM_FREQ,
-+		.custom_freq = 0x2a098acb,
-+	},
- 	{
- 		.mode = DRM_MODE_TV_MODE_NTSC_J,
- 		.config0 = VEC_CONFIG0_NTSC_STD,
-@@ -254,6 +294,17 @@ static const struct vc4_vec_tv_mode vc4_vec_tv_modes[] = {
- 		.config0 = VEC_CONFIG0_PAL_M_STD,
- 		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
- 	},
-+	{
-+		.mode = DRM_MODE_TV_MODE_PAL_N,
-+		.config0 = VEC_CONFIG0_PAL_N_STD,
-+		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
++		.name = "invalid_tv_option",
++		.cmdline = "720x480i,tv_mode=invalid",
 +	},
 +	{
-+		.mode = DRM_MODE_TV_MODE_SECAM,
-+		.config0 = VEC_CONFIG0_SECAM_STD,
-+		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
-+		.custom_freq = 0x29c71c72,
++		.name = "truncated_tv_option",
++		.cmdline = "720x480i,tv_mode=NTS",
 +	},
  };
  
- static inline const struct vc4_vec_tv_mode *
-@@ -273,9 +324,13 @@ vc4_vec_tv_mode_lookup(unsigned int mode)
+ static void drm_cmdline_invalid_desc(const struct drm_cmdline_invalid_test *t,
+@@ -937,6 +945,64 @@ static void drm_cmdline_invalid_desc(const struct drm_cmdline_invalid_test *t,
  
- static const struct drm_prop_enum_list tv_mode_names[] = {
- 	{ VC4_VEC_TV_MODE_NTSC, "NTSC", },
-+	{ VC4_VEC_TV_MODE_NTSC_443, "NTSC-443", },
- 	{ VC4_VEC_TV_MODE_NTSC_J, "NTSC-J", },
- 	{ VC4_VEC_TV_MODE_PAL, "PAL", },
-+	{ VC4_VEC_TV_MODE_PAL_60, "PAL-60", },
- 	{ VC4_VEC_TV_MODE_PAL_M, "PAL-M", },
-+	{ VC4_VEC_TV_MODE_PAL_N, "PAL-N", },
-+	{ VC4_VEC_TV_MODE_SECAM, "SECAM", },
+ KUNIT_ARRAY_PARAM(drm_cmdline_invalid, drm_cmdline_invalid_tests, drm_cmdline_invalid_desc);
+ 
++struct drm_cmdline_tv_option_test {
++	const char *name;
++	const char *cmdline;
++	struct drm_display_mode *(*mode_fn)(struct drm_device *dev);
++	enum drm_connector_tv_mode tv_mode;
++};
++
++static void drm_test_cmdline_tv_options(struct kunit *test)
++{
++	const struct drm_cmdline_tv_option_test *params = test->param_value;
++	const struct drm_display_mode *expected_mode = params->mode_fn(NULL);
++	struct drm_cmdline_mode mode = { };
++
++	KUNIT_EXPECT_TRUE(test, drm_mode_parse_command_line_for_connector(params->cmdline,
++									  &no_connector, &mode));
++	KUNIT_EXPECT_TRUE(test, mode.specified);
++	KUNIT_EXPECT_EQ(test, mode.xres, expected_mode->hdisplay);
++	KUNIT_EXPECT_EQ(test, mode.yres, expected_mode->vdisplay);
++	KUNIT_EXPECT_EQ(test, mode.tv_mode, params->tv_mode);
++
++	KUNIT_EXPECT_FALSE(test, mode.refresh_specified);
++
++	KUNIT_EXPECT_FALSE(test, mode.bpp_specified);
++
++	KUNIT_EXPECT_FALSE(test, mode.rb);
++	KUNIT_EXPECT_FALSE(test, mode.cvt);
++	KUNIT_EXPECT_EQ(test, mode.interlace, !!(expected_mode->flags & DRM_MODE_FLAG_INTERLACE));
++	KUNIT_EXPECT_FALSE(test, mode.margins);
++	KUNIT_EXPECT_EQ(test, mode.force, DRM_FORCE_UNSPECIFIED);
++}
++
++#define TV_OPT_TEST(_opt, _cmdline, _mode_fn)		\
++	{						\
++		.name = #_opt,				\
++		.cmdline = _cmdline,			\
++		.mode_fn = _mode_fn,			\
++		.tv_mode = DRM_MODE_TV_MODE_ ## _opt,	\
++	}
++
++static const struct drm_cmdline_tv_option_test drm_cmdline_tv_option_tests[] = {
++	TV_OPT_TEST(NTSC, "720x480i,tv_mode=NTSC", drm_mode_analog_ntsc_480i),
++	TV_OPT_TEST(NTSC_443, "720x480i,tv_mode=NTSC-443", drm_mode_analog_ntsc_480i),
++	TV_OPT_TEST(NTSC_J, "720x480i,tv_mode=NTSC-J", drm_mode_analog_ntsc_480i),
++	TV_OPT_TEST(PAL, "720x576i,tv_mode=PAL", drm_mode_analog_pal_576i),
++	TV_OPT_TEST(PAL_M, "720x480i,tv_mode=PAL-M", drm_mode_analog_ntsc_480i),
++	TV_OPT_TEST(PAL_N, "720x576i,tv_mode=PAL-N", drm_mode_analog_pal_576i),
++	TV_OPT_TEST(SECAM, "720x576i,tv_mode=SECAM", drm_mode_analog_pal_576i),
++};
++
++static void drm_cmdline_tv_option_desc(const struct drm_cmdline_tv_option_test *t,
++				       char *desc)
++{
++	sprintf(desc, "%s", t->name);
++}
++KUNIT_ARRAY_PARAM(drm_cmdline_tv_option,
++		  drm_cmdline_tv_option_tests,
++		  drm_cmdline_tv_option_desc);
++
+ static struct kunit_case drm_cmdline_parser_tests[] = {
+ 	KUNIT_CASE(drm_test_cmdline_force_d_only),
+ 	KUNIT_CASE(drm_test_cmdline_force_D_only_dvi),
+@@ -977,6 +1043,7 @@ static struct kunit_case drm_cmdline_parser_tests[] = {
+ 	KUNIT_CASE(drm_test_cmdline_freestanding_force_e_and_options),
+ 	KUNIT_CASE(drm_test_cmdline_panel_orientation),
+ 	KUNIT_CASE_PARAM(drm_test_cmdline_invalid, drm_cmdline_invalid_gen_params),
++	KUNIT_CASE_PARAM(drm_test_cmdline_tv_options, drm_cmdline_tv_option_gen_params),
+ 	{}
  };
  
- static enum drm_connector_status
-@@ -330,6 +385,10 @@ vc4_vec_connector_set_property(struct drm_connector *connector,
- 		state->tv.mode = DRM_MODE_TV_MODE_NTSC;
- 		break;
- 
-+	case VC4_VEC_TV_MODE_NTSC_443:
-+		state->tv.mode = DRM_MODE_TV_MODE_NTSC_443;
-+		break;
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index a33f24a76738..51d79c2a8e92 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1368,6 +1368,11 @@ struct drm_cmdline_mode {
+ 	 * @tv_margins: TV margins to apply to the mode.
+ 	 */
+ 	struct drm_connector_tv_margins tv_margins;
 +
- 	case VC4_VEC_TV_MODE_NTSC_J:
- 		state->tv.mode = DRM_MODE_TV_MODE_NTSC_J;
- 		break;
-@@ -342,6 +401,14 @@ vc4_vec_connector_set_property(struct drm_connector *connector,
- 		state->tv.mode = DRM_MODE_TV_MODE_PAL_M;
- 		break;
++	/**
++	 * @tv_mode: TV mode standard. See DRM_MODE_TV_MODE_*.
++	 */
++	enum drm_connector_tv_mode tv_mode;
+ };
  
-+	case VC4_VEC_TV_MODE_PAL_N:
-+		state->tv.mode = DRM_MODE_TV_MODE_PAL_N;
-+		break;
-+
-+	case VC4_VEC_TV_MODE_SECAM:
-+		state->tv.mode = DRM_MODE_TV_MODE_SECAM;
-+		break;
-+
- 	default:
- 		return -EINVAL;
- 	}
-@@ -365,6 +432,10 @@ vc4_vec_connector_get_property(struct drm_connector *connector,
- 		*val = VC4_VEC_TV_MODE_NTSC;
- 		break;
- 
-+	case DRM_MODE_TV_MODE_NTSC_443:
-+		*val = VC4_VEC_TV_MODE_NTSC_443;
-+		break;
-+
- 	case DRM_MODE_TV_MODE_NTSC_J:
- 		*val = VC4_VEC_TV_MODE_NTSC_J;
- 		break;
-@@ -377,6 +448,14 @@ vc4_vec_connector_get_property(struct drm_connector *connector,
- 		*val = VC4_VEC_TV_MODE_PAL_M;
- 		break;
- 
-+	case DRM_MODE_TV_MODE_PAL_N:
-+		*val = VC4_VEC_TV_MODE_PAL_N;
-+		break;
-+
-+	case DRM_MODE_TV_MODE_SECAM:
-+		*val = VC4_VEC_TV_MODE_SECAM;
-+		break;
-+
- 	default:
- 		return -EINVAL;
- 	}
-@@ -664,9 +743,12 @@ static int vc4_vec_bind(struct device *dev, struct device *master, void *data)
- 
- 	ret = drm_mode_create_tv_properties(drm,
- 					    BIT(DRM_MODE_TV_MODE_NTSC) |
-+					    BIT(DRM_MODE_TV_MODE_NTSC_443) |
- 					    BIT(DRM_MODE_TV_MODE_NTSC_J) |
- 					    BIT(DRM_MODE_TV_MODE_PAL) |
--					    BIT(DRM_MODE_TV_MODE_PAL_M));
-+					    BIT(DRM_MODE_TV_MODE_PAL_M) |
-+					    BIT(DRM_MODE_TV_MODE_PAL_N) |
-+					    BIT(DRM_MODE_TV_MODE_SECAM));
- 	if (ret)
- 		return ret;
- 
+ /**
 
 -- 
 b4 0.11.0-dev-7da52
