@@ -4,73 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7A1CC433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 21:31:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2A9FC433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 21:34:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30D0510EDBA;
-	Fri, 30 Sep 2022 21:31:51 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A83810EDB0
- for <intel-gfx@lists.freedesktop.org>; Fri, 30 Sep 2022 21:31:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1664573507;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=7MZyE4q4pUK9exbRcIZDL/JbobrwIaDD99sfovICQ4I=;
- b=Dy4fDLGrhU4x/HdAFAAywLi8FlRZDm9pK0+cPfdxqqixiGQ0y/ANYJPWg2V5Tud26W/1hI
- kQQHzdazQO61C1GY2vRLi+QPhe3xsSNRGlu1ULTFrUSSX1TEmeKQlZrbyq/+A1NzjrkewD
- n2RqBmQi6vA/ec6m2GJpbWupXBP9gUo=
-Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
- [209.85.166.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-498-5I0FCrUcO9yKDKSaF14gqQ-1; Fri, 30 Sep 2022 17:31:44 -0400
-X-MC-Unique: 5I0FCrUcO9yKDKSaF14gqQ-1
-Received: by mail-il1-f197.google.com with SMTP id
- h9-20020a056e021b8900b002f19c2a1836so4380536ili.23
- for <intel-gfx@lists.freedesktop.org>; Fri, 30 Sep 2022 14:31:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:organization:references
- :in-reply-to:message-id:subject:cc:to:from:date:x-gm-message-state
- :from:to:cc:subject:date;
- bh=7MZyE4q4pUK9exbRcIZDL/JbobrwIaDD99sfovICQ4I=;
- b=6nAbqglosfGxl3XbLoYmPKfDLy2RW0BYbJZjBkpKfcRPPeBQPw0iySFETQ4k/2Q9XQ
- Dig4Bq4JFALdJksLB1wYt0ZtLJZqfCp6aTu7lDg1+DXVhKnGEnaRasyI56BbKl82rR9A
- L0RK/8Kw1ZzyCwjB9XK/6akeoBeCEBIYs7dg0JYFOA/a2vNjQKxFnSexXFO69aVpBgmq
- zCoNRHJg6rZasQUVXYXwP1aNfpd9kLxc1LRPJ+DFQHt7cNLyLkUrOoROvICG9fFTN5yn
- AiVexvh1UCf2UC6V16XKLX7gRHIigUzIDYoSRg56F3pHUB0Ins7ni2XvifVbfL5SlhVq
- 6zJA==
-X-Gm-Message-State: ACrzQf1ZwF2mdF+nhl4ai3+m6VqjER+1amz1pkwwPP8nmA1wHQSyxTMP
- WOPMC7SPqJsf/xcQAkmfvffPLL6fUGwk4UP/AkRjXlOUG4yeLselF+4OYMC0S/TZ/aFtp8X3U5C
- 9YfmjL9UaeUF8OscviNXki2SdfB34
-X-Received: by 2002:a05:6638:4416:b0:35a:3cca:4db3 with SMTP id
- bp22-20020a056638441600b0035a3cca4db3mr5665321jab.0.1664573503687; 
- Fri, 30 Sep 2022 14:31:43 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM5cqLb3noeJWS0YhPhgS37XjFCTWP2XxFR9rFh11+Uu4oQtCWPM3VbBWg5g6mGXkpdAVP6H6g==
-X-Received: by 2002:a05:6638:4416:b0:35a:3cca:4db3 with SMTP id
- bp22-20020a056638441600b0035a3cca4db3mr5665306jab.0.1664573503392; 
- Fri, 30 Sep 2022 14:31:43 -0700 (PDT)
-Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
- l15-20020a02cd8f000000b0034c107ac9bbsm1343303jap.8.2022.09.30.14.31.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Sep 2022 14:31:42 -0700 (PDT)
-Date: Fri, 30 Sep 2022 15:31:39 -0600
-From: Alex Williamson <alex.williamson@redhat.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Message-ID: <20220930153139.0d60652b.alex.williamson@redhat.com>
-In-Reply-To: <0-v1-013609965fe8+9d-vfio_gvt_unregister_jgg@nvidia.com>
-References: <0-v1-013609965fe8+9d-vfio_gvt_unregister_jgg@nvidia.com>
-Organization: Red Hat
+	by gabe.freedesktop.org (Postfix) with ESMTP id B441B10EDB0;
+	Fri, 30 Sep 2022 21:34:22 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 269BC10EDB0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Sep 2022 21:34:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1664573660; x=1696109660;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=WHk4+EB73YDaWZQBMK77JK3/cz/xdjwaVz4VrHhjK5I=;
+ b=hPApwdMD83BoE+m1yIkm+ek59SxjWS6FAfMfOtbdd7HmfAXQLYxm7ymF
+ CehWPjz/jX3epPrInLQt25SDjuBAQv2tk18KC+ydSTA6CxtOsBLnA4RFs
+ k3jQo1/fuhjtKdPbo0DgEpr8WdWGYO10queor8W/gbosl/5i3HRmaxP37
+ qivEePV2YCpkopycNbbNzT80lWVeQ3lc2Cn7G6IOkplA7g+AiBwr3KZY9
+ 5SWWzNgUhjmTL1EXU3qR54Am0UH/XjWFN2ZzP9R3yKjGIBpmopTpIefxw
+ 4YyKHxsImPBFqF2d5W0RVC2yNAMSlOSAwg3WnFZ71wbRXetG+MqoAd8o7 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="366343598"
+X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="366343598"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2022 14:34:19 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="625132449"
+X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="625132449"
+Received: from daqualls-mobl.amr.corp.intel.com (HELO
+ anushasr-mobl7.intel.com) ([10.212.202.93])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2022 14:34:19 -0700
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 30 Sep 2022 14:34:12 -0700
+Message-Id: <20220930213412.161283-2-anusha.srivatsa@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220930213412.161283-1-anusha.srivatsa@intel.com>
+References: <20220930213412.161283-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: Add missing
- vfio_unregister_group_dev() call
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/display: Add CDCLK Support for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,48 +57,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, stable@vger.kernel.org,
- intel-gvt-dev@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 29 Sep 2022 14:48:35 -0300
-Jason Gunthorpe <jgg@nvidia.com> wrote:
+As per bSpec MTL has 38.4 MHz Reference clock.
+MTL does support squasher like DG2 but only for lower
+frequencies. Change the has_cdclk_squasher()
+helper to reflect this.
 
-> When converting to directly create the vfio_device the mdev driver has to
-> put a vfio_register_emulated_iommu_dev() in the probe() and a pairing
-> vfio_unregister_group_dev() in the remove.
-> 
-> This was missed for gvt, add it.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 978cf586ac35 ("drm/i915/gvt: convert to use vfio_register_emulated_iommu_dev")
-> Reported-by: Alex Williamson <alex.williamson@redhat.com>
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-> ---
->  drivers/gpu/drm/i915/gvt/kvmgt.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> Should go through Alex's tree.
+v2: Revert to using bxt_get_cdclk()
 
-Applied to vfio next branch for v6.1.  Thanks for the quick fix!
+BSpec: 65243
+Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 25 ++++++++++++++++++++--
+ 1 file changed, 23 insertions(+), 2 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index f7bc1013b149..b467aade750a 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -1222,7 +1222,7 @@ static void skl_cdclk_uninit_hw(struct drm_i915_private *dev_priv)
  
-> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-> index 41bba40feef8f4..9003145adb5a93 100644
-> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-> @@ -1615,6 +1615,7 @@ static void intel_vgpu_remove(struct mdev_device *mdev)
->  	if (WARN_ON_ONCE(vgpu->attached))
->  		return;
->  
-> +	vfio_unregister_group_dev(&vgpu->vfio_device);
->  	vfio_put_device(&vgpu->vfio_device);
->  }
->  
-> 
-> base-commit: c72e0034e6d4c36322d958b997d11d2627c6056c
+ static bool has_cdclk_squasher(struct drm_i915_private *i915)
+ {
+-	return IS_DG2(i915);
++	return DISPLAY_VER(i915) >= 14 || IS_DG2(i915);
+ }
+ 
+ struct intel_cdclk_vals {
+@@ -1350,6 +1350,16 @@ static const struct intel_cdclk_vals dg2_cdclk_table[] = {
+ 	{}
+ };
+ 
++static const struct intel_cdclk_vals mtl_cdclk_table[] = {
++	{ .refclk = 38400, .cdclk = 172800, .divider = 2, .ratio = 16, .waveform = 0xad5a },
++	{ .refclk = 38400, .cdclk = 192000, .divider = 2, .ratio = 16, .waveform = 0xb6b6 },
++	{ .refclk = 38400, .cdclk = 307200, .divider = 2, .ratio = 16, .waveform = 0x0000 },
++	{ .refclk = 38400, .cdclk = 480000, .divider = 2, .ratio = 25, .waveform = 0x0000 },
++	{ .refclk = 38400, .cdclk = 556800, .divider = 2, .ratio = 29, .waveform = 0x0000 },
++	{ .refclk = 38400, .cdclk = 652800, .divider = 2, .ratio = 34, .waveform = 0x0000 },
++	{}
++};
++
+ static int bxt_calc_cdclk(struct drm_i915_private *dev_priv, int min_cdclk)
+ {
+ 	const struct intel_cdclk_vals *table = dev_priv->display.cdclk.table;
+@@ -3138,6 +3148,13 @@ u32 intel_read_rawclk(struct drm_i915_private *dev_priv)
+ 	return freq;
+ }
+ 
++static const struct intel_cdclk_funcs mtl_cdclk_funcs = {
++	.get_cdclk = bxt_get_cdclk,
++	.set_cdclk = bxt_set_cdclk,
++	.modeset_calc_cdclk = bxt_modeset_calc_cdclk,
++	.calc_voltage_level = tgl_calc_voltage_level,
++};
++
+ static const struct intel_cdclk_funcs tgl_cdclk_funcs = {
+ 	.get_cdclk = bxt_get_cdclk,
+ 	.set_cdclk = bxt_set_cdclk,
+@@ -3273,7 +3290,11 @@ static const struct intel_cdclk_funcs i830_cdclk_funcs = {
+  */
+ void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
+ {
+-	if (IS_DG2(dev_priv)) {
++
++	if (IS_METEORLAKE(dev_priv)) {
++		dev_priv->display.funcs.cdclk = &mtl_cdclk_funcs;
++		dev_priv->display.cdclk.table = mtl_cdclk_table;
++	} else if (IS_DG2(dev_priv)) {
+ 		dev_priv->display.funcs.cdclk = &tgl_cdclk_funcs;
+ 		dev_priv->display.cdclk.table = dg2_cdclk_table;
+ 	} else if (IS_ALDERLAKE_P(dev_priv)) {
+-- 
+2.25.1
 
