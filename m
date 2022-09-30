@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 324A6C433F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 02:33:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05D57C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Sep 2022 04:19:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6705310E624;
-	Fri, 30 Sep 2022 02:33:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3353D10EB1A;
+	Fri, 30 Sep 2022 04:19:29 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id D4A3410E61D;
- Fri, 30 Sep 2022 02:33:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id A62E310EB1A;
+ Fri, 30 Sep 2022 04:19:26 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id CA672AAA91;
- Fri, 30 Sep 2022 02:33:37 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 9B455AADD8;
+ Fri, 30 Sep 2022 04:19:26 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============2722827544529864424=="
+ boundary="===============5885852167398286082=="
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Alan Previn" <alan.previn.teres.alexis@intel.com>
-Date: Fri, 30 Sep 2022 02:33:37 -0000
-Message-ID: <166450521779.23343.2550225600462867410@emeril.freedesktop.org>
+To: "Badal Nilawar" <badal.nilawar@intel.com>
+Date: Fri, 30 Sep 2022 04:19:26 -0000
+Message-ID: <166451156660.23343.13011744997165618945@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20220930010507.108296-1-alan.previn.teres.alexis@intel.com>
-In-Reply-To: <20220930010507.108296-1-alan.previn.teres.alexis@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgRml4?=
- =?utf-8?q?_Guc-Err-Capture_sizing_warning?=
+References: <20220927055020.3499420-1-badal.nilawar@intel.com>
+In-Reply-To: <20220927055020.3499420-1-badal.nilawar@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLklHVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Add_HWMON_support_=28rev8=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,20 +45,20 @@ Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2722827544529864424==
+--===============5885852167398286082==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: Fix Guc-Err-Capture sizing warning
-URL   : https://patchwork.freedesktop.org/series/109276/
+Series: drm/i915: Add HWMON support (rev8)
+URL   : https://patchwork.freedesktop.org/series/104278/
 State : success
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_12202 -> Patchwork_109276v1
+CI Bug Log - changes from CI_DRM_12185_full -> Patchwork_104278v8_full
 ====================================================
 
 Summary
@@ -68,66 +68,39 @@ Summary
 
   No regressions found.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109276v1/index.html
+  
 
-Participating hosts (47 -> 43)
+Participating hosts (12 -> 9)
 ------------------------------
 
-  Missing    (4): fi-ctg-p8600 bat-dg2-9 fi-bdw-samus fi-hsw-4200u 
+  Missing    (3): shard-rkl shard-dg1 shard-tglu 
 
-Known issues
-------------
 
-  Here are the changes found in Patchwork_109276v1 that come from known issues:
+Changes
+-------
 
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:
-    - fi-bsw-kefka:       [PASS][1] -> [FAIL][2] ([i915#6298])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12202/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109276v1/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@gt_pm:
-    - {bat-rpls-2}:       [DMESG-FAIL][3] ([i915#4258]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12202/bat-rpls-2/igt@i915_selftest@live@gt_pm.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109276v1/bat-rpls-2/igt@i915_selftest@live@gt_pm.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#4258]: https://gitlab.freedesktop.org/drm/intel/issues/4258
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
-  [i915#6257]: https://gitlab.freedesktop.org/drm/intel/issues/6257
-  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
+  No changes found
 
 
 Build changes
 -------------
 
-  * Linux: CI_DRM_12202 -> Patchwork_109276v1
+  * CI: CI-20190529 -> None
+  * IGT: IGT_6663 -> IGTPW_7800
+  * Linux: CI_DRM_12185 -> Patchwork_104278v8
 
   CI-20190529: 20190529
-  CI_DRM_12202: 0b9f0501c9541cf79fdfb43a7760360a81453d88 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_6670: d618e9865fe5cbaf511ca43503abad442605d0a5 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_109276v1: 0b9f0501c9541cf79fdfb43a7760360a81453d88 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-aa3aa2f83b0c drm/i915/guc: Fix GuC error capture sizing estimation and reporting
+  CI_DRM_12185: ae6a4bb62f9524823ef5b00552e27231f7936da3 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGTPW_7800: https://intel-gfx-ci.01.org/tree/drm-tip/IGTPW_7800/index.html
+  IGT_6663: 5e232c77cd762147e0882c337a984121fabb1c75 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_104278v8: ae6a4bb62f9524823ef5b00552e27231f7936da3 @ git://anongit.freedesktop.org/gfx-ci/linux
+  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109276v1/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_104278v8/index.html
 
---===============2722827544529864424==
+--===============5885852167398286082==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -147,53 +120,37 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>Fix Guc-Err-Capture sizing warning</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/109276/">https://patchwork.freedesktop.org/series/109276/</a></td></tr>
+<tr><td><b>Series:</b></td><td>drm/i915: Add HWMON support (rev8)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/104278/">https://patchwork.freedesktop.org/series/104278/</a></td></tr>
 <tr><td><b>State:</b></td><td>success</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109276v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109276v1/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_104278v8/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_104278v8/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_12202 -&gt; Patchwork_109276v1</h1>
+    <h1>CI Bug Log - changes from CI_DRM_12185_full -&gt; Patchwork_104278v8_full</h1>
 <h2>Summary</h2>
 <p><strong>SUCCESS</strong></p>
 <p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109276v1/index.html</p>
-<h2>Participating hosts (47 -&gt; 43)</h2>
-<p>Missing    (4): fi-ctg-p8600 bat-dg2-9 fi-bdw-samus fi-hsw-4200u </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_109276v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:<ul>
-<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12202/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109276v1/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@gt_pm:<ul>
-<li>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12202/bat-rpls-2/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4258">i915#4258</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109276v1/bat-rpls-2/igt@i915_selftest@live@gt_pm.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Participating hosts (12 -&gt; 9)</h2>
+<p>Missing    (3): shard-rkl shard-dg1 shard-tglu </p>
+<h2>Changes</h2>
+<p>No changes found</p>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_12202 -&gt; Patchwork_109276v1</li>
+<li>CI: CI-20190529 -&gt; None</li>
+<li>IGT: IGT_6663 -&gt; IGTPW_7800</li>
+<li>Linux: CI_DRM_12185 -&gt; Patchwork_104278v8</li>
 </ul>
 <p>CI-20190529: 20190529<br />
-  CI_DRM_12202: 0b9f0501c9541cf79fdfb43a7760360a81453d88 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_6670: d618e9865fe5cbaf511ca43503abad442605d0a5 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_109276v1: 0b9f0501c9541cf79fdfb43a7760360a81453d88 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>aa3aa2f83b0c drm/i915/guc: Fix GuC error capture sizing estimation and reporting</p>
+  CI_DRM_12185: ae6a4bb62f9524823ef5b00552e27231f7936da3 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGTPW_7800: https://intel-gfx-ci.01.org/tree/drm-tip/IGTPW_7800/index.html<br />
+  IGT_6663: 5e232c77cd762147e0882c337a984121fabb1c75 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_104278v8: ae6a4bb62f9524823ef5b00552e27231f7936da3 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit</p>
 
 </body>
 </html>
 
---===============2722827544529864424==--
+--===============5885852167398286082==--
