@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9512FC433F5
-	for <intel-gfx@archiver.kernel.org>; Sat,  1 Oct 2022 00:47:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E0BEC433F5
+	for <intel-gfx@archiver.kernel.org>; Sat,  1 Oct 2022 00:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2848810EDF8;
-	Sat,  1 Oct 2022 00:46:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C19710EDFD;
+	Sat,  1 Oct 2022 00:46:35 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 666BE10E49A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D161310EDF3;
  Sat,  1 Oct 2022 00:46:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1664585183; x=1696121183;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ETFBzxia7PYQiQmClNGw3g/LnwleYkSloKnVrQYIFGo=;
- b=RGLiTsP7XHyHy51yHHBBGTuNp9v/09Bfo2NFFHSnu39jCVsYv7u4iWGc
- 0qquuKkSIu3FT1ipeMv9yqKa8DhMV3HfCW8jrQ4QmzNGryxIZEqMT2XUD
- cc47cTFpltHmQJhENraywx+1iqbQsT3i95G5Vf6Yy1H+zhK7GkusssaNP
- BxIgxtzpkUfFGdviRmhjbzDYPDUezVDp07OSI9v1wvZpTNmkY8qATPLx4
- i3bUxMv1oHnTN7DRLAgin7LMyjWTYxMWCAU2cNQDynBpEawMjmLbWbVhl
- w0nJEF3B4nQK9cBouweTp86V1XK2DvfpdYMPLl1/jDaMSsBKSM0cM2W7c Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="388607929"
-X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="388607929"
+ bh=MWmYQejfGrh/T2TU2UgZu/SEYh2twhb2uhi56qcGliQ=;
+ b=FRAEus8YPgwcdGbXo9/SU5k6BeEudxZHsZNCJAFpZ7YppUdhTHR9B5Ak
+ g2V9qTtNmSFc7qf9Exw+25xKDdUWLfD5799yKhkbCphLOz5CKfexnCqQ0
+ IOjyfZZq5ZrDYYXDgfUtJmGiOSMJ6wLhIWmv3d0ZFXITdPFuY9MgUTl9I
+ G38OcQ1QJkH9Ib5shH0d3NEF9h2FfqnWlglsZDjt7z044MEckuUpXLCBi
+ wCOqtTJWhb2odd7fgt7n3yJ/txyVPZT78QV4AyPdHHswxI5ehOMIolDOi
+ 4TBMs6mVA3dfdNiwLIjCCxhy/x8CabMA6+O46usWshpsWIzMpSCHfcZgn A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="388607936"
+X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="388607936"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Sep 2022 17:46:12 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="685477619"
-X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="685477619"
+X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="685477629"
+X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="685477629"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Sep 2022 17:46:09 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 30 Sep 2022 17:45:39 -0700
-Message-Id: <20221001004550.3031431-4-matthew.d.roper@intel.com>
+Date: Fri, 30 Sep 2022 17:45:42 -0700
+Message-Id: <20221001004550.3031431-7-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221001004550.3031431-1-matthew.d.roper@intel.com>
 References: <20221001004550.3031431-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 03/14] drm/i915/gt: Drop a few unused
- register definitions
+Subject: [Intel-gfx] [PATCH v2 06/14] drm/i915/xehp: Check for faults on
+ primary GAM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,65 +61,136 @@ Cc: ravi.kumar.vodapalli@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's drop a few register definitions that are unused anywhere in the
-driver today.  Since the referenced offsets are part of what is now
-considered a multicast register region, the current definitions would
-not be correct for use on any future platform.
+On Xe_HP the fault registers are now in a multicast register range.
+However as part of the GAM these registers follow special rules and we
+need only read from the "primary" GAM's instance to get the information
+we need.  So a single intel_gt_mcr_read_any() (which will automatically
+steer to the primary GAM) is sufficient; we don't need to loop over each
+instance of the MCR register.
 
+v2:
+ - Update more instances of fault registers.  (Bala)
+
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_regs.h | 17 -----------------
- 1 file changed, 17 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt.c    | 52 +++++++++++++++++++++++----
+ drivers/gpu/drm/i915/i915_gpu_error.c | 12 +++++--
+ 2 files changed, 55 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 68f45a748712..3a50e8e966aa 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -454,13 +454,6 @@
- #define   GEN11_BLEND_EMB_FIX_DISABLE_IN_RCC	REG_BIT(11)
- #define   GEN12_DISABLE_CPS_AWARE_COLOR_PIPE	REG_BIT(9)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 445e171940fa..e14f159ad9fc 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -270,7 +270,11 @@ intel_gt_clear_error_registers(struct intel_gt *gt,
+ 				   I915_MASTER_ERROR_INTERRUPT);
+ 	}
  
--/* GEN9 chicken */
--#define SLICE_ECO_CHICKEN0			_MMIO(0x7308)
--#define   PIXEL_MASK_CAMMING_DISABLE		(1 << 14)
--
--#define GEN9_SLICE_COMMON_ECO_CHICKEN0		_MMIO(0x7308)
--#define   DISABLE_PIXEL_MASK_CAMMING		(1 << 14)
--
- #define GEN9_SLICE_COMMON_ECO_CHICKEN1		_MMIO(0x731c)
- #define XEHP_SLICE_COMMON_ECO_CHICKEN1		_MMIO(0x731c)
- #define   MSC_MSAA_REODER_BUF_BYPASS_DISABLE	REG_BIT(14)
-@@ -967,11 +960,6 @@
- #define GEN7_L3LOG(slice, i)			_MMIO(0xb070 + (slice) * 0x200 + (i) * 4)
- #define   GEN7_L3LOG_SIZE			0x80
+-	if (GRAPHICS_VER(i915) >= 12) {
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
++		intel_gt_mcr_multicast_rmw(gt, XEHP_RING_FAULT_REG,
++					   RING_FAULT_VALID, 0);
++		intel_gt_mcr_read_any(gt, XEHP_RING_FAULT_REG);
++	} else if (GRAPHICS_VER(i915) >= 12) {
+ 		rmw_clear(uncore, GEN12_RING_FAULT_REG, RING_FAULT_VALID);
+ 		intel_uncore_posting_read(uncore, GEN12_RING_FAULT_REG);
+ 	} else if (GRAPHICS_VER(i915) >= 8) {
+@@ -308,17 +312,49 @@ static void gen6_check_faults(struct intel_gt *gt)
+ 	}
+ }
  
--#define GEN10_SCRATCH_LNCF2			_MMIO(0xb0a0)
--#define   PMFLUSHDONE_LNICRSDROP		(1 << 20)
--#define   PMFLUSH_GAPL3UNBLOCK			(1 << 21)
--#define   PMFLUSHDONE_LNEBLK			(1 << 22)
--
- #define XEHP_L3NODEARBCFG			_MMIO(0xb0b4)
- #define   XEHP_LNESPARE				REG_BIT(19)
++static void xehp_check_faults(struct intel_gt *gt)
++{
++	u32 fault;
++
++	/*
++	 * Although the fault register now lives in an MCR register range,
++	 * the GAM registers are special and we only truly need to read
++	 * the "primary" GAM instance rather than handling each instance
++	 * individually.  intel_gt_mcr_read_any() will automatically steer
++	 * toward the primary instance.
++	 */
++	fault = intel_gt_mcr_read_any(gt, XEHP_RING_FAULT_REG);
++	if (fault & RING_FAULT_VALID) {
++		u32 fault_data0, fault_data1;
++		u64 fault_addr;
++
++		fault_data0 = intel_gt_mcr_read_any(gt, XEHP_FAULT_TLB_DATA0);
++		fault_data1 = intel_gt_mcr_read_any(gt, XEHP_FAULT_TLB_DATA1);
++
++		fault_addr = ((u64)(fault_data1 & FAULT_VA_HIGH_BITS) << 44) |
++			     ((u64)fault_data0 << 12);
++
++		drm_dbg(&gt->i915->drm, "Unexpected fault\n"
++			"\tAddr: 0x%08x_%08x\n"
++			"\tAddress space: %s\n"
++			"\tEngine ID: %d\n"
++			"\tSource ID: %d\n"
++			"\tType: %d\n",
++			upper_32_bits(fault_addr), lower_32_bits(fault_addr),
++			fault_data1 & FAULT_GTT_SEL ? "GGTT" : "PPGTT",
++			GEN8_RING_FAULT_ENGINE_ID(fault),
++			RING_FAULT_SRCID(fault),
++			RING_FAULT_FAULT_TYPE(fault));
++	}
++}
++
+ static void gen8_check_faults(struct intel_gt *gt)
+ {
+ 	struct intel_uncore *uncore = gt->uncore;
+ 	i915_reg_t fault_reg, fault_data0_reg, fault_data1_reg;
+ 	u32 fault;
  
-@@ -986,9 +974,6 @@
- #define   L3_HIGH_PRIO_CREDITS(x)		(((x) >> 1) << 14)
- #define   L3_PRIO_CREDITS_MASK			((0x1f << 19) | (0x1f << 14))
+-	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 50)) {
+-		fault_reg = XEHP_RING_FAULT_REG;
+-		fault_data0_reg = XEHP_FAULT_TLB_DATA0;
+-		fault_data1_reg = XEHP_FAULT_TLB_DATA1;
+-	} else if (GRAPHICS_VER(gt->i915) >= 12) {
++	if (GRAPHICS_VER(gt->i915) >= 12) {
+ 		fault_reg = GEN12_RING_FAULT_REG;
+ 		fault_data0_reg = GEN12_FAULT_TLB_DATA0;
+ 		fault_data1_reg = GEN12_FAULT_TLB_DATA1;
+@@ -358,7 +394,9 @@ void intel_gt_check_and_clear_faults(struct intel_gt *gt)
+ 	struct drm_i915_private *i915 = gt->i915;
  
--#define GEN10_L3_CHICKEN_MODE_REGISTER		_MMIO(0xb114)
--#define   GEN11_I2M_WRITE_DISABLE		(1 << 28)
--
- #define GEN8_L3SQCREG4				_MMIO(0xb118)
- #define   GEN11_LQSC_CLEAN_EVICT_DISABLE	(1 << 6)
- #define   GEN8_LQSC_RO_PERF_DIS			(1 << 27)
-@@ -1191,8 +1176,6 @@
- #define SARB_CHICKEN1				_MMIO(0xe90c)
- #define   COMP_CKN_IN				REG_GENMASK(30, 29)
+ 	/* From GEN8 onwards we only have one 'All Engine Fault Register' */
+-	if (GRAPHICS_VER(i915) >= 8)
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
++		xehp_check_faults(gt);
++	else if (GRAPHICS_VER(i915) >= 8)
+ 		gen8_check_faults(gt);
+ 	else if (GRAPHICS_VER(i915) >= 6)
+ 		gen6_check_faults(gt);
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 9ea2fe34e7d3..f2d53edcd2ee 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -1221,7 +1221,10 @@ static void engine_record_registers(struct intel_engine_coredump *ee)
+ 	if (GRAPHICS_VER(i915) >= 6) {
+ 		ee->rc_psmi = ENGINE_READ(engine, RING_PSMI_CTL);
  
--#define GEN7_HALF_SLICE_CHICKEN1_GT2		_MMIO(0xf100)
--
- #define GEN7_ROW_CHICKEN2_GT2			_MMIO(0xf4f4)
- #define   DOP_CLOCK_GATING_DISABLE		(1 << 0)
- #define   PUSH_CONSTANT_DEREF_DISABLE		(1 << 8)
+-		if (GRAPHICS_VER(i915) >= 12)
++		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
++			ee->fault_reg = intel_gt_mcr_read_any(engine->gt,
++							      XEHP_RING_FAULT_REG);
++		else if (GRAPHICS_VER(i915) >= 12)
+ 			ee->fault_reg = intel_uncore_read(engine->uncore,
+ 							  GEN12_RING_FAULT_REG);
+ 		else if (GRAPHICS_VER(i915) >= 8)
+@@ -1820,7 +1823,12 @@ static void gt_record_global_regs(struct intel_gt_coredump *gt)
+ 	if (GRAPHICS_VER(i915) == 7)
+ 		gt->err_int = intel_uncore_read(uncore, GEN7_ERR_INT);
+ 
+-	if (GRAPHICS_VER(i915) >= 12) {
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
++		gt->fault_data0 = intel_gt_mcr_read_any((struct intel_gt *)gt->_gt,
++							XEHP_FAULT_TLB_DATA0);
++		gt->fault_data1 = intel_gt_mcr_read_any((struct intel_gt *)gt->_gt,
++							XEHP_FAULT_TLB_DATA1);
++	} else if (GRAPHICS_VER(i915) >= 12) {
+ 		gt->fault_data0 = intel_uncore_read(uncore,
+ 						    GEN12_FAULT_TLB_DATA0);
+ 		gt->fault_data1 = intel_uncore_read(uncore,
 -- 
 2.37.3
 
