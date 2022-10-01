@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66CB9C433FE
-	for <intel-gfx@archiver.kernel.org>; Sat,  1 Oct 2022 00:47:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B4E7C433F5
+	for <intel-gfx@archiver.kernel.org>; Sat,  1 Oct 2022 00:47:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DF2310E4A7;
-	Sat,  1 Oct 2022 00:46:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C51610EDF9;
+	Sat,  1 Oct 2022 00:46:34 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 392C210E498;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABB5510EDEF;
  Sat,  1 Oct 2022 00:46:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1664585183; x=1696121183;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wG9M37JMzdOyGt6f7SIFaWSQwjRiBvFNFXo8NFbhogw=;
- b=V+C1joKzuIyWidBcRFAgoYxhmnx6qkEIUwM/7ti2dKcUGT+GYrMIiini
- IUmSNX9dAzygsJT/3TY+S4UKIgI0gJg5sYrkyfnKKQQcl57CCd0xG0NNL
- 9BUyJnU7VWlWrLkGSEFMheFojBBse5wSJE2kofNnO1MwctDKR8ASS/LJz
- ANO1tO2V8VCbQDPM9dAJqnq/m/XCHJJxU2IEsid87htT3lnbi2qEohwxU
- hrdfYbn96GpcDwJjA35uU9yX7To1ThS/geOdEWMN11DwNqGgA0HERAAFy
- BHOw6G7r8+SubOcyoDf+z0+erbIh1Gkgcir0cLK2ntK6Tk6sIpvm6e4U3 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="388607930"
-X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="388607930"
+ bh=b+aD2yjtf2KCOHCVbis/LUePOyrBmUrSGGajN7t0jOc=;
+ b=aZSKxyI8Adm/ay0Q8ED9qRVXHmrQAVpbZ302UywzzmY1anGVDTR4fDdU
+ Rbh5no4nraeN+nhr10DS0nbAgTdWjZLsKXZybWzM5azYJdi25zGIPaPj/
+ DRu8lgqo+lEULA4HXSF1Fn9VnvJMIcHCLbGGVDpY5hlUhwmaYIrfIiXHc
+ JzYynPunG6PmMt3U71A/FWBASeQa9boKa8FfbkyHUxlMFEKYcaNzZ2CVD
+ pbm6cOf5cpwVoLDbqZ99RymyD4l9OUukXodwS4dJvKzW8YzqEOzZmZoRx
+ 72sc/zc3eo3Em826y39KK3bSVu9MZYruybYqasRzb2QRlF7fptMpqbWuV w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="388607935"
+X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="388607935"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Sep 2022 17:46:12 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="685477662"
-X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="685477662"
+X-IronPort-AV: E=McAfee;i="6500,9779,10486"; a="685477622"
+X-IronPort-AV: E=Sophos;i="5.93,359,1654585200"; d="scan'208";a="685477622"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2022 17:46:10 -0700
+ 30 Sep 2022 17:46:09 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 30 Sep 2022 17:45:50 -0700
-Message-Id: <20221001004550.3031431-15-matthew.d.roper@intel.com>
+Date: Fri, 30 Sep 2022 17:45:40 -0700
+Message-Id: <20221001004550.3031431-5-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221001004550.3031431-1-matthew.d.roper@intel.com>
 References: <20221001004550.3031431-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 14/14] drm/i915/mtl: Add multicast steering
- for media GT
+Subject: [Intel-gfx] [PATCH v2 04/14] drm/i915/gt: Correct prefix on a few
+ registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,116 +61,108 @@ Cc: ravi.kumar.vodapalli@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-MTL's media GT only has a single type of steering ("OAADDRM") which
-selects between media slice 0 and media slice 1.  We'll always steer to
-media slice 0 unless it is fused off (which is the case when VD0, VE0,
-and SFC0 are all reported as unavailable).
+We have a few registers that have existed for several hardware
+generations, but are only used by the driver on Xe_HP and beyond.  In
+cases where the Xe_HP version of the register is now replicated and uses
+multicast behavior, but earlier generations were singleton, let's change
+the register prefix to "XEHP_" to help clarify that we're using the
+newer multicast form of the register.
 
-Bspec: 67789
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_mcr.c      | 19 +++++++++++++++++--
- drivers/gpu/drm/i915/gt/intel_gt_types.h    |  1 +
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 18 +++++++++++++++++-
- 3 files changed, 35 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h     |  8 ++++----
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 10 +++++-----
+ 2 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-index a1fa71b47831..a580723bdd04 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-@@ -42,6 +42,7 @@ static const char * const intel_steering_types[] = {
- 	"LNCF",
- 	"GAM",
- 	"DSS",
-+	"OADDRM",
- 	"INSTANCE 0",
- };
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 3a50e8e966aa..86757dd22c13 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -486,7 +486,7 @@
  
-@@ -129,6 +130,12 @@ static const struct intel_mmio_range mtl3d_dss_steering_table[] = {
- 	{ 0x00DE80, 0x00E8FF },		/* DSS (0xE000-0xE0FF reserved) */
- };
+ #define GEN8_RC6_CTX_INFO			_MMIO(0x8504)
  
-+static const struct intel_mmio_range xelpmp_oaddrm_steering_table[] = {
-+	{ 0x393200, 0x39323F },
-+	{ 0x393400, 0x3934FF },
-+};
-+
-+
- void intel_gt_mcr_init(struct intel_gt *gt)
- {
- 	struct drm_i915_private *i915 = gt->i915;
-@@ -151,8 +158,9 @@ void intel_gt_mcr_init(struct intel_gt *gt)
- 			drm_warn(&i915->drm, "mslice mask all zero!\n");
- 	}
+-#define GEN12_SQCM				_MMIO(0x8724)
++#define XEHP_SQCM				_MMIO(0x8724)
+ #define   EN_32B_ACCESS				REG_BIT(30)
  
--	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70) &&
--	    gt->type == GT_PRIMARY) {
-+	if (MEDIA_VER(i915) >= 13 && gt->type == GT_MEDIA) {
-+		gt->steering_table[OADDRM] = xelpmp_oaddrm_steering_table;
-+	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70)) {
- 		fuse = REG_FIELD_GET(GT_L3_EXC_MASK,
- 				     intel_uncore_read(gt->uncore, XEHP_FUSE4));
+ #define HSW_IDICR				_MMIO(0x9008)
+@@ -989,7 +989,7 @@
+ #define GEN11_SCRATCH2				_MMIO(0xb140)
+ #define   GEN11_COHERENT_PARTIAL_WRITE_MERGE_ENABLE	(1 << 19)
  
-@@ -479,6 +487,13 @@ static void get_nonterminated_steering(struct intel_gt *gt,
- 		*group = 0;
- 		*instance = 0;
- 		break;
-+	case OADDRM:
-+		if ((VDBOX_MASK(gt) | VEBOX_MASK(gt) | gt->info.sfc_mask) & BIT(0))
-+			*group = 0;
-+		else
-+			*group = 1;
-+		*instance = 0;
-+		break;
- 	default:
- 		MISSING_CASE(type);
- 		*group = 0;
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index 77ecbd6be331..5d049e0c66f5 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -61,6 +61,7 @@ enum intel_steering_type {
- 	LNCF,
- 	GAM,
- 	DSS,
-+	OADDRM,
+-#define GEN11_L3SQCREG5				_MMIO(0xb158)
++#define XEHP_L3SQCREG5				_MMIO(0xb158)
+ #define   L3_PWM_TIMER_INIT_VAL_MASK		REG_GENMASK(9, 0)
  
- 	/*
- 	 * On some platforms there are multiple types of MCR registers that
+ #define MLTICTXCTL				_MMIO(0xb170)
+@@ -1053,7 +1053,7 @@
+ #define GEN12_COMPCTX_TLB_INV_CR		_MMIO(0xcf04)
+ #define XEHP_COMPCTX_TLB_INV_CR			_MMIO(0xcf04)
+ 
+-#define GEN12_MERT_MOD_CTRL			_MMIO(0xcf28)
++#define XEHP_MERT_MOD_CTRL			_MMIO(0xcf28)
+ #define RENDER_MOD_CTRL				_MMIO(0xcf2c)
+ #define COMP_MOD_CTRL				_MMIO(0xcf30)
+ #define VDBX_MOD_CTRL				_MMIO(0xcf34)
+@@ -1155,7 +1155,7 @@
+ #define EU_PERF_CNTL1				_MMIO(0xe558)
+ #define EU_PERF_CNTL5				_MMIO(0xe55c)
+ 
+-#define GEN12_HDC_CHICKEN0			_MMIO(0xe5f0)
++#define XEHP_HDC_CHICKEN0			_MMIO(0xe5f0)
+ #define   LSC_L1_FLUSH_CTL_3D_DATAPORT_FLUSH_EVENTS_MASK	REG_GENMASK(13, 11)
+ #define ICL_HDC_MODE				_MMIO(0xe5f4)
+ 
 diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 9be048da7fb3..744d83e5bb1f 100644
+index 7c237eeeac85..7bb878581d00 100644
 --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
 +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1595,12 +1595,28 @@ mtl_3d_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 	}
- }
- 
-+static void
-+mtl_media_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
-+{
-+	/*
-+	 * Unlike older platforms, we no longer setup implicit steering here;
-+	 * all MCR accesses are explicitly steered.
-+	 */
-+	if (drm_debug_enabled(DRM_UT_DRIVER)) {
-+		struct drm_printer p = drm_debug_printer("MCR Steering:");
-+
-+		intel_gt_mcr_report_steering(&p, gt, false);
-+	}
-+}
-+
- static void
- gt_init_workarounds(struct intel_gt *gt, struct i915_wa_list *wal)
+@@ -569,7 +569,7 @@ static void dg2_ctx_gt_tuning_init(struct intel_engine_cs *engine,
+ 				   struct i915_wa_list *wal)
  {
- 	struct drm_i915_private *i915 = gt->i915;
+ 	wa_masked_en(wal, CHICKEN_RASTER_2, TBIMR_FAST_CLIP);
+-	wa_write_clr_set(wal, GEN11_L3SQCREG5, L3_PWM_TIMER_INIT_VAL_MASK,
++	wa_write_clr_set(wal, XEHP_L3SQCREG5, L3_PWM_TIMER_INIT_VAL_MASK,
+ 			 REG_FIELD_PREP(L3_PWM_TIMER_INIT_VAL_MASK, 0x7f));
+ 	wa_add(wal,
+ 	       XEHP_FF_MODE2,
+@@ -1514,7 +1514,7 @@ dg2_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+ 	 * recommended tuning settings documented in the bspec's
+ 	 * performance guide section.
+ 	 */
+-	wa_write_or(wal, GEN12_SQCM, EN_32B_ACCESS);
++	wa_write_or(wal, XEHP_SQCM, EN_32B_ACCESS);
  
--	if (IS_METEORLAKE(i915) && gt->type == GT_PRIMARY)
-+	if (IS_METEORLAKE(i915) && gt->type == GT_MEDIA)
-+		mtl_media_gt_workarounds_init(gt, wal);
-+	else if (IS_METEORLAKE(i915) && gt->type == GT_PRIMARY)
- 		mtl_3d_gt_workarounds_init(gt, wal);
- 	else if (IS_PONTEVECCHIO(i915))
- 		pvc_gt_workarounds_init(gt, wal);
+ 	/* Wa_14015795083 */
+ 	wa_write_clr(wal, GEN8_MISCCPCTL, GEN12_DOP_CLOCK_GATE_RENDER_ENABLE);
+@@ -2170,7 +2170,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 		 * Wa_22010960976:dg2
+ 		 * Wa_14013347512:dg2
+ 		 */
+-		wa_masked_dis(wal, GEN12_HDC_CHICKEN0,
++		wa_masked_dis(wal, XEHP_HDC_CHICKEN0,
+ 			      LSC_L1_FLUSH_CTL_3D_DATAPORT_FLUSH_EVENTS_MASK);
+ 	}
+ 
+@@ -2223,7 +2223,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 	if (IS_DG2_GRAPHICS_STEP(engine->i915, G10, STEP_A0, STEP_B0) ||
+ 	    IS_DG2_GRAPHICS_STEP(engine->i915, G11, STEP_A0, STEP_B0)) {
+ 		/* Wa_14012362059:dg2 */
+-		wa_write_or(wal, GEN12_MERT_MOD_CTRL, FORCE_MISS_FTLB);
++		wa_write_or(wal, XEHP_MERT_MOD_CTRL, FORCE_MISS_FTLB);
+ 	}
+ 
+ 	if (IS_DG2_GRAPHICS_STEP(i915, G11, STEP_B0, STEP_FOREVER) ||
+@@ -2764,7 +2764,7 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 		}
+ 
+ 		/* Wa_14012362059:xehpsdv */
+-		wa_write_or(wal, GEN12_MERT_MOD_CTRL, FORCE_MISS_FTLB);
++		wa_write_or(wal, XEHP_MERT_MOD_CTRL, FORCE_MISS_FTLB);
+ 
+ 		/* Wa_14014368820:xehpsdv */
+ 		wa_write_or(wal, GEN12_GAMCNTRL_CTRL, INVALIDATION_BROADCAST_MODE_DIS |
 -- 
 2.37.3
 
