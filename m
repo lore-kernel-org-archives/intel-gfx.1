@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93A27C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Oct 2022 06:13:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81633C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Oct 2022 06:13:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E2C310E20A;
-	Mon,  3 Oct 2022 06:13:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96B0D10E054;
+	Mon,  3 Oct 2022 06:13:23 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA7F10E054;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C65A710E20D;
  Mon,  3 Oct 2022 06:13:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1664777597; x=1696313597;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=C5fMyO6FVu/m/lLU81PvzcOkqJUxEYSJo/Td0OtnL9c=;
- b=nDGjCKr+Zsgjvc/aznD2fYMVoo0thp7Pfx/901Vd1STFR3uUuzkS4gam
- juhF07wRLXz1iIdpPoffJodif4COGX2Ju72tR3xJIal0nAIn0QeeUbni+
- FhwAivdXdZX4GvQogsSmgAzXcSxKJkL96IfQDpBzRD9WvcLkMed05JXs9
- OjSW4A/bP5xZLkREdCdBEErTchCUEJR4sF0sXoyuoY8mwTref6yiymyLw
- 2q0MM31RG9DdW/8x2cOTCWvdcw7SXsNNY6ZbjQq6paFwWLu7bK2TUIFSh
- bGIlW5INloUtcaMM3lHFkpe8tPWGKsHEBd+XZxTPjPJwr+tYAOwZ32k6T Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10488"; a="300159056"
-X-IronPort-AV: E=Sophos;i="5.93,364,1654585200"; d="scan'208";a="300159056"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=5pRc9fl7Jvq+w6enyBWyu5ncUIvkF6GLh3hF8UcQB2c=;
+ b=Ox3LxiegB7AMx7lxH3psJXo9YouNgTk1ToD30SfT+67ioA03tekJzayA
+ kRfN8Egq99RSOvn/XIZ3fYitPmumAF6AQpHX3FICKEeLoRg8QFj2Vd/yw
+ JKoApCm6OGoIeKIBEZ0bxWJD/vGZ/nSI+DZ0UYNZ79+eIR8/wtID39wvj
+ EGWzzxCziPuEOoS6AQyRbvWQ+ZOUqQFNs4cl/BbFOOUmWOHoXZNJAPFyu
+ F3WCIBVNxCXTmiJxPhApNXrmBj7qfKl6aY98BiuQF5W7CUMUBBpQJ1v0l
+ yH9Mk4xNKCjfUyqjRMjkVXVcuj7xdPqFa329bJJj1JiBt9/E3Lr1nVgut A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10488"; a="300159062"
+X-IronPort-AV: E=Sophos;i="5.93,364,1654585200"; d="scan'208";a="300159062"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2022 23:13:16 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10488"; a="574516784"
-X-IronPort-AV: E=Sophos;i="5.93,364,1654585200"; d="scan'208";a="574516784"
+ 02 Oct 2022 23:13:17 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10488"; a="574516806"
+X-IronPort-AV: E=Sophos;i="5.93,364,1654585200"; d="scan'208";a="574516806"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 02 Oct 2022 23:13:16 -0700
+ 02 Oct 2022 23:13:17 -0700
 From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Sun,  2 Oct 2022 23:12:28 -0700
-Message-Id: <20221003061245.12716-1-niranjana.vishwanathapura@intel.com>
+Date: Sun,  2 Oct 2022 23:12:32 -0700
+Message-Id: <20221003061245.12716-5-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
+In-Reply-To: <20221003061245.12716-1-niranjana.vishwanathapura@intel.com>
+References: <20221003061245.12716-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 00/17] drm/i915/vm_bind: Add VM_BIND
- functionality
+Subject: [Intel-gfx] [PATCH v2 04/17] drm/i915/vm_bind: Add support to
+ create persistent vma
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,95 +63,154 @@ Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DRM_I915_GEM_VM_BIND/UNBIND ioctls allows UMD to bind/unbind GEM
-buffer objects (BOs) or sections of a BOs at specified GPU virtual
-addresses on a specified address space (VM). Multiple mappings can map
-to the same physical pages of an object (aliasing). These mappings (also
-referred to as persistent mappings) will be persistent across multiple
-GPU submissions (execbuf calls) issued by the UMD, without user having
-to provide a list of all required mappings during each submission (as
-required by older execbuf mode).
+Add i915_vma_instance_persistent() to create persistent vmas.
+Persistent vmas will use i915_gtt_view to support partial binding.
 
-This patch series support VM_BIND version 1, as described by the param
-I915_PARAM_VM_BIND_VERSION.
+vma_lookup is tied to segment of the object instead of section
+of VA space. Hence, it do not support aliasing. ie., multiple
+mappings (at different VA) point to the same gtt_view of object.
+Skip vma_lookup for persistent vmas to support aliasing.
 
-Add new execbuf3 ioctl (I915_GEM_EXECBUFFER3) which only works in
-vm_bind mode. The vm_bind mode only works with this new execbuf3 ioctl.
-The new execbuf3 ioctl will not have any execlist support and all the
-legacy support like relocations etc., are removed.
+v2: Remove unused I915_VMA_PERSISTENT definition,
+    update validity check in i915_vma_compare(),
+    remove unwanted is_persistent check in release_references().
 
-TODOs:
-* Support out fence for VM_UNBIND ioctl.
-* Async VM_UNBIND support.
-* Optimizations.
-
-NOTEs:
-* It is based on below VM_BIND design+uapi rfc.
-  Documentation/gpu/rfc/i915_vm_bind.rst
-
-* The IGT RFC series is posted as,
-  [PATCH i-g-t v2 0/8] vm_bind: Add VM_BIND validation support
-
-v2: Address various review comments
-
+Acked-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/i915_vma.c       | 36 +++++++++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_vma.h       | 17 ++++++++++++-
+ drivers/gpu/drm/i915/i915_vma_types.h |  6 +++++
+ 3 files changed, 56 insertions(+), 3 deletions(-)
 
-Niranjana Vishwanathapura (17):
-  drm/i915/vm_bind: Expose vm lookup function
-  drm/i915/vm_bind: Add __i915_sw_fence_await_reservation()
-  drm/i915/vm_bind: Expose i915_gem_object_max_page_size()
-  drm/i915/vm_bind: Add support to create persistent vma
-  drm/i915/vm_bind: Implement bind and unbind of object
-  drm/i915/vm_bind: Support for VM private BOs
-  drm/i915/vm_bind: Add support to handle object evictions
-  drm/i915/vm_bind: Support persistent vma activeness tracking
-  drm/i915/vm_bind: Add out fence support
-  drm/i915/vm_bind: Abstract out common execbuf functions
-  drm/i915/vm_bind: Use common execbuf functions in execbuf path
-  drm/i915/vm_bind: Implement I915_GEM_EXECBUFFER3 ioctl
-  drm/i915/vm_bind: Update i915_vma_verify_bind_complete()
-  drm/i915/vm_bind: Expose i915_request_await_bind()
-  drm/i915/vm_bind: Handle persistent vmas in execbuf3
-  drm/i915/vm_bind: userptr dma-resv changes
-  drm/i915/vm_bind: Add uapi for user to enable vm_bind_mode
-
- drivers/gpu/drm/i915/Makefile                 |   3 +
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |  20 +-
- drivers/gpu/drm/i915/gem/i915_gem_context.h   |   3 +
- drivers/gpu/drm/i915/gem/i915_gem_create.c    |  67 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   6 +
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 516 +----------
- .../gpu/drm/i915/gem/i915_gem_execbuffer3.c   | 867 ++++++++++++++++++
- .../drm/i915/gem/i915_gem_execbuffer_common.c | 666 ++++++++++++++
- .../drm/i915/gem/i915_gem_execbuffer_common.h |  74 ++
- drivers/gpu/drm/i915/gem/i915_gem_ioctls.h    |   2 +
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |   3 +
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |   2 +
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |   3 +
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |   3 +
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c   |  17 +
- drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h   |  30 +
- .../drm/i915/gem/i915_gem_vm_bind_object.c    | 439 +++++++++
- drivers/gpu/drm/i915/gt/intel_gtt.c           |  18 +
- drivers/gpu/drm/i915/gt/intel_gtt.h           |  27 +
- drivers/gpu/drm/i915/i915_driver.c            |   4 +
- drivers/gpu/drm/i915/i915_drv.h               |   2 +
- drivers/gpu/drm/i915/i915_gem_gtt.c           |  39 +
- drivers/gpu/drm/i915/i915_gem_gtt.h           |   3 +
- drivers/gpu/drm/i915/i915_getparam.c          |   3 +
- drivers/gpu/drm/i915/i915_sw_fence.c          |  28 +-
- drivers/gpu/drm/i915/i915_sw_fence.h          |  23 +-
- drivers/gpu/drm/i915/i915_vma.c               | 116 ++-
- drivers/gpu/drm/i915/i915_vma.h               |  57 +-
- drivers/gpu/drm/i915/i915_vma_types.h         |  39 +
- include/uapi/drm/i915_drm.h                   | 281 +++++-
- 30 files changed, 2842 insertions(+), 519 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_execbuffer_common.c
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_execbuffer_common.h
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index f17c09ead7d7..f9da8010021f 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -109,7 +109,8 @@ static void __i915_vma_retire(struct i915_active *ref)
+ static struct i915_vma *
+ vma_create(struct drm_i915_gem_object *obj,
+ 	   struct i915_address_space *vm,
+-	   const struct i915_gtt_view *view)
++	   const struct i915_gtt_view *view,
++	   bool skip_lookup_cache)
+ {
+ 	struct i915_vma *pos = ERR_PTR(-E2BIG);
+ 	struct i915_vma *vma;
+@@ -196,6 +197,9 @@ vma_create(struct drm_i915_gem_object *obj,
+ 		__set_bit(I915_VMA_GGTT_BIT, __i915_vma_flags(vma));
+ 	}
+ 
++	if (skip_lookup_cache)
++		goto skip_rb_insert;
++
+ 	rb = NULL;
+ 	p = &obj->vma.tree.rb_node;
+ 	while (*p) {
+@@ -220,6 +224,7 @@ vma_create(struct drm_i915_gem_object *obj,
+ 	rb_link_node(&vma->obj_node, rb, p);
+ 	rb_insert_color(&vma->obj_node, &obj->vma.tree);
+ 
++skip_rb_insert:
+ 	if (i915_vma_is_ggtt(vma))
+ 		/*
+ 		 * We put the GGTT vma at the start of the vma-list, followed
+@@ -299,7 +304,34 @@ i915_vma_instance(struct drm_i915_gem_object *obj,
+ 
+ 	/* vma_create() will resolve the race if another creates the vma */
+ 	if (unlikely(!vma))
+-		vma = vma_create(obj, vm, view);
++		vma = vma_create(obj, vm, view, false);
++
++	GEM_BUG_ON(!IS_ERR(vma) && i915_vma_compare(vma, vm, view));
++	return vma;
++}
++
++/**
++ * i915_vma_create_persistent - create a persistent VMA
++ * @obj: parent &struct drm_i915_gem_object to be mapped
++ * @vm: address space in which the mapping is located
++ * @view: additional mapping requirements
++ *
++ * Creates a persistent vma.
++ *
++ * Returns the vma, or an error pointer.
++ */
++struct i915_vma *
++i915_vma_create_persistent(struct drm_i915_gem_object *obj,
++			   struct i915_address_space *vm,
++			   const struct i915_gtt_view *view)
++{
++	struct i915_vma *vma;
++
++	GEM_BUG_ON(!kref_read(&vm->ref));
++
++	vma = vma_create(obj, vm, view, true);
++	if (!IS_ERR(vma))
++		i915_vma_set_persistent(vma);
+ 
+ 	GEM_BUG_ON(!IS_ERR(vma) && i915_vma_compare(vma, vm, view));
+ 	return vma;
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index aecd9c64486b..c5378ec2f70a 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -44,6 +44,10 @@ struct i915_vma *
+ i915_vma_instance(struct drm_i915_gem_object *obj,
+ 		  struct i915_address_space *vm,
+ 		  const struct i915_gtt_view *view);
++struct i915_vma *
++i915_vma_create_persistent(struct drm_i915_gem_object *obj,
++			   struct i915_address_space *vm,
++			   const struct i915_gtt_view *view);
+ 
+ void i915_vma_unpin_and_release(struct i915_vma **p_vma, unsigned int flags);
+ #define I915_VMA_RELEASE_MAP BIT(0)
+@@ -138,6 +142,16 @@ static inline u32 i915_ggtt_pin_bias(struct i915_vma *vma)
+ 	return i915_vm_to_ggtt(vma->vm)->pin_bias;
+ }
+ 
++static inline bool i915_vma_is_persistent(const struct i915_vma *vma)
++{
++	return test_bit(I915_VMA_PERSISTENT_BIT, __i915_vma_flags(vma));
++}
++
++static inline void i915_vma_set_persistent(struct i915_vma *vma)
++{
++	set_bit(I915_VMA_PERSISTENT_BIT, __i915_vma_flags(vma));
++}
++
+ static inline struct i915_vma *i915_vma_get(struct i915_vma *vma)
+ {
+ 	i915_gem_object_get(vma->obj);
+@@ -164,7 +178,8 @@ i915_vma_compare(struct i915_vma *vma,
+ {
+ 	ptrdiff_t cmp;
+ 
+-	GEM_BUG_ON(view && !i915_is_ggtt_or_dpt(vm));
++	GEM_BUG_ON(view && !(i915_is_ggtt_or_dpt(vm) ||
++			     i915_vma_is_persistent(vma)));
+ 
+ 	cmp = ptrdiff(vma->vm, vm);
+ 	if (cmp)
+diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
+index ec0f6c9f57d0..3144d71a0c3e 100644
+--- a/drivers/gpu/drm/i915/i915_vma_types.h
++++ b/drivers/gpu/drm/i915/i915_vma_types.h
+@@ -264,6 +264,12 @@ struct i915_vma {
+ #define I915_VMA_SCANOUT_BIT	17
+ #define I915_VMA_SCANOUT	((int)BIT(I915_VMA_SCANOUT_BIT))
+ 
++/**
++ * I915_VMA_PERSISTENT_BIT:
++ * The vma is persistent (created with VM_BIND call).
++ */
++#define I915_VMA_PERSISTENT_BIT	19
++
+ 	struct i915_active active;
+ 
+ #define I915_VMA_PAGES_BIAS 24
 -- 
 2.21.0.rc0.32.g243a4c7e27
 
