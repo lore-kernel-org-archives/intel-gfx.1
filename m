@@ -4,49 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42298C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 10:51:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0E61C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 10:51:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A87AA10E545;
-	Tue,  4 Oct 2022 10:51:41 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B572810E544
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Oct 2022 10:51:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D186910E54E;
+	Tue,  4 Oct 2022 10:51:50 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 794F310E545;
+ Tue,  4 Oct 2022 10:51:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664880693; x=1696416693;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Pt/olNz85jVKyftkd3e8XYEU02TptBaB8oJTwFAhSm0=;
- b=W0OodPpiZjtoNUMlWaaxVJfM1D1ZckcsgfmOtUp7jbLKJ4vFjNamQRL5
- F4Xa61Z1tr4oTBOVUXOkjN1MaLvkYgTm7wcEu9sVeOHUlZRAP0QZz+x5U
- DpVMPZy/HwSRu91oQNCTSMHf4Mu39DYruyFbbQWwMIglXNM/3S5qdAipg
- Eo5QPmGc7cR7TR100bQ0itXOmTmc0aj232fP1l+lklMxPp/PvZYgXiXyu
- OgQk5sQ7rpmgMM+MrKRpfx/XUyKyXOYUgEznBs3E7e5ubgCwIprGBKcse
- VJKEJ+kcxWXPozhSQDE31EwKyOURjZsI25Y+zqxujP3jb7qpJ9UGk2GXt w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="366977486"
-X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="366977486"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2022 03:51:33 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="749333609"
-X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="749333609"
-Received: from ngverso-mobl2.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.252.7.149])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2022 03:51:32 -0700
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  4 Oct 2022 11:51:20 +0100
-Message-Id: <20221004105121.203149-4-matthew.auld@intel.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221004105121.203149-1-matthew.auld@intel.com>
-References: <20221004105121.203149-1-matthew.auld@intel.com>
+ t=1664880697; x=1696416697;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Wf4AL/Kd9gwegdWH/d2nO8BQC2TAOjmjZOTjkmozJi8=;
+ b=fHS9a01oECfj7tN4yhTlCAv8Qf19FZ3wpukxppEKmhy/f+SJ8+GpzTrZ
+ VRzhnRlWy38GfnEBTLfEf+jituq4LoZ8BaUCOPAc6z9yf+Nyar4+DHkTv
+ YOsn/J+XVvMyO9U8WLUBZ+mW/xs7/TRxAne1H4HZqxl3N5fzyxyeRz8At
+ +AYt1yptzj95aWJGYFIs76Lqfu1LSRysKGgVju4HoDuF0PtcysndO6AVc
+ Jr4+xYP+EbbCxjIvhJgvK6X69Z/qFkbgGd/WDnHSgU0mcSUgjTujoXjOf
+ EeuD1HJiyhDQ6Zwym1GJ8aPkLqYmKnGIHypRPDxRmvBKneG2DisS+Pllr A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="304423275"
+X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="304423275"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2022 03:51:18 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="712970001"
+X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="712970001"
+Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.252.22.232])
+ ([10.252.22.232])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2022 03:51:17 -0700
+Message-ID: <1bb6c4f7-002a-2c5b-f32e-4cd8e6baa907@linux.intel.com>
+Date: Tue, 4 Oct 2022 12:51:14 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 4/5] drm/i915/display: consider DG2_RC_CCS_CC
- when migrating buffers
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+Content-Language: en-US
+To: Matthew Auld <matthew.auld@intel.com>, igt-dev@lists.freedesktop.org
+References: <20221003172456.97522-1-matthew.auld@intel.com>
+ <20221003172456.97522-3-matthew.auld@intel.com>
+From: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
+In-Reply-To: <20221003172456.97522-3-matthew.auld@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH i-g-t 3/4] tests/i915/query: sanity check
+ reported GTT alignment
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,74 +62,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nirmoy Das <nirmoy.das@intel.com>, Jianshui Yu <jianshui.yu@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For these types of display buffers, we need to able to CPU access some
-part of the backing memory in prepare_plane_clear_colors(). As a result
-we need to ensure we always place in the mappable part of lmem, which
-becomes necessary on small-bar systems.
+Hi Matt,
 
-v2(Nirmoy & Ville):
- - Add some commentary for why we need to CPU access the buffer.
- - Split out the other changes, so we just consider the display change
-   here.
-v3:
- - Handle this in the dpt path.
+On 10/3/2022 7:24 PM, Matthew Auld wrote:
+> Ensure the kernel is reporting "normal" values here, based on our
+> current expectations.
+>
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+> Cc: Nirmoy Das <nirmoy.das@intel.com>
+> ---
+>   tests/i915/i915_query.c | 12 ++++++++++--
+>   1 file changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/tests/i915/i915_query.c b/tests/i915/i915_query.c
+> index b92d7593..bff073d2 100644
+> --- a/tests/i915/i915_query.c
+> +++ b/tests/i915/i915_query.c
+> @@ -581,8 +581,6 @@ static void test_query_regions_garbage_items(int fd)
+>   		struct drm_i915_memory_region_info info = regions->regions[i];
+>   		int j;
+>   
+> -		igt_assert_eq_u32(info.rsvd0, 0);
+> -
+>   		/*
+>   		 * rsvd1[0] : probed_cpu_visible_size
+>   		 * rsvd1[1] : unallocated_cpu_visible_size
+> @@ -640,6 +638,8 @@ static void upload(int fd, struct igt_list_head *handles, uint32_t num_handles)
+>   	free(exec);
+>   }
+>   
+> +/** XXX: remove once we sync the uapi header */
+> +#define gtt_alignment rsvd0
 
-Fixes: eb1c535f0d69 ("drm/i915: turn on small BAR support")
-Reported-by: Jianshui Yu <jianshui.yu@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Nirmoy Das <nirmoy.das@intel.com>
----
- drivers/gpu/drm/i915/display/intel_fb_pin.c | 24 +++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+Nit: use page PAGE_SIZE instead of 4096 in below
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-index 5031ee5695dd..1aa42862a2c4 100644
---- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-@@ -50,7 +50,18 @@ intel_pin_fb_obj_dpt(struct drm_framebuffer *fb,
- 			continue;
- 
- 		if (HAS_LMEM(dev_priv)) {
--			ret = i915_gem_object_migrate(obj, &ww, INTEL_REGION_LMEM_0);
-+			unsigned int flags = obj->flags;
-+
-+			/*
-+			 * For this type of buffer we need to able to read from the CPU
-+			 * the clear color value found in the buffer, hence we need to
-+			 * ensure it is always in the mappable part of lmem, if this is
-+			 * a small-bar device.
-+			 */
-+			if (intel_fb_rc_ccs_cc_plane(fb) >= 0)
-+				flags &= ~I915_BO_ALLOC_GPU_ONLY;
-+			ret = __i915_gem_object_migrate(obj, &ww, INTEL_REGION_LMEM_0,
-+							flags);
- 			if (ret)
- 				continue;
- 		}
-@@ -154,8 +165,17 @@ intel_pin_and_fence_fb_obj(struct drm_framebuffer *fb,
- 	ret = i915_gem_object_lock(obj, &ww);
- 	if (!ret && phys_cursor)
- 		ret = i915_gem_object_attach_phys(obj, alignment);
--	else if (!ret && HAS_LMEM(dev_priv))
-+	else if (!ret && HAS_LMEM(dev_priv)) {
-+		/*
-+		 * For this type of ccs buffer we need to able to read from the
-+		 * CPU the clear color value found in the buffer, which might
-+		 * require moving to the mappable part of lmem first, but here
-+		 * we should be using dpt for this.
-+		 */
-+		WARN_ON_ONCE(intel_fb_rc_ccs_cc_plane(fb) >= 0);
-+
- 		ret = i915_gem_object_migrate(obj, &ww, INTEL_REGION_LMEM_0);
-+	}
- 	if (!ret)
- 		ret = i915_gem_object_pin_pages(obj);
- 	if (ret)
--- 
-2.37.3
+Otherwise the series is Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
 
+>   static void test_query_regions_sanity_check(int fd)
+>   {
+>   	struct drm_i915_query_memory_regions *regions;
+> @@ -666,6 +666,11 @@ static void test_query_regions_sanity_check(int fd)
+>   		struct drm_i915_gem_memory_class_instance r1 = info.region;
+>   		int j;
+>   
+> +		if (info.gtt_alignment) {
+> +			igt_assert_lte_u64(4096, info.gtt_alignment);
+> +			igt_assert(is_power_of_two(info.gtt_alignment));
+> +		}
+> +
+>   		if (r1.memory_class == I915_MEMORY_CLASS_SYSTEM) {
+>   			igt_assert_eq(r1.memory_instance, 0);
+>   			found_system = true;
+> @@ -676,6 +681,9 @@ static void test_query_regions_sanity_check(int fd)
+>   			igt_assert(info.unallocated_cpu_visible_size == 0 ||
+>   				   info.unallocated_cpu_visible_size ==
+>   				   info.unallocated_size);
+> +
+> +			igt_assert(info.gtt_alignment == 0 ||
+> +				   info.gtt_alignment == 4096);
+>   		} else {
+>   			igt_assert(info.probed_cpu_visible_size <= info.probed_size);
+>   			igt_assert(info.unallocated_size <= info.probed_size);
