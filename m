@@ -4,49 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45FCBC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 17:53:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A446C43219
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 19:28:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D1F210E072;
-	Tue,  4 Oct 2022 17:53:06 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C197E10E072;
- Tue,  4 Oct 2022 17:53:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664905982; x=1696441982;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=q6EpAzeaREMD6X3gyCf0BKwJue0LMO9WqhXpb/0sZyA=;
- b=kLhEH0fgQpO7HnhgsOR9bLPhxPY2XDaaXzCQFMlVATqXoATGajQqLUUU
- jcS5v8s5JxNJT6jq4mQC7rLu3ZkO+O+YTGymLWIHjLq45CbwSJ7MMbNTc
- 8AXFwgab8DpvDSVy0F0NSDXBTxWe6x4FZIGlWfNxwA4kirt3B++fo1Y5G
- pp78nr9qPgdkX3Mq7r23wlmUJx5mc/cnbiH/8/ANDXa8yA4y99xYmWyN1
- HoQgyVbsCWoIydUFKMKXLKKNcBU1x/+/JPfF1N6HlpxV0Tv9aFUuo4QH4
- Co+EVIJyJ4gZoftlw6ZADZB8r/+8wGgYGPq1s1d7vFv5tVThwTRerRuW9 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10490"; a="303959526"
-X-IronPort-AV: E=Sophos;i="5.95,158,1661842800"; d="scan'208";a="303959526"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2022 10:38:31 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10490"; a="657211821"
-X-IronPort-AV: E=Sophos;i="5.95,158,1661842800"; d="scan'208";a="657211821"
-Received: from pvarla-mobl4.gar.corp.intel.com (HELO localhost)
- ([10.252.39.104])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2022 10:38:27 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Pablo Ceballos <pceballos@google.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>
-In-Reply-To: <20220915004601.320198-1-pceballos@google.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20220915004601.320198-1-pceballos@google.com>
-Date: Tue, 04 Oct 2022 20:38:24 +0300
-Message-ID: <87ilkzsd4f.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5196610E0CF;
+	Tue,  4 Oct 2022 19:28:15 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 141EE10E0CF;
+ Tue,  4 Oct 2022 19:28:12 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 8CFCFA00FD;
+ Tue,  4 Oct 2022 19:28:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display/lspcon: Increase LSPCON
- mode settle timeout
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matthew Auld" <matthew.auld@intel.com>
+Date: Tue, 04 Oct 2022 19:28:11 -0000
+Message-ID: <166491169154.14072.10232218442190396227@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20221004131916.233474-1-matthew.auld@intel.com>
+In-Reply-To: <20221004131916.233474-1-matthew.auld@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5Bv5=2C1/5=5D_drm/i915=3A_remove_the_?=
+ =?utf-8?q?TODO_in_pin=5Fand=5Ffence=5Ffb=5Fobj?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,43 +41,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Maxime Ripard <maxime@cerno.tech>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sam Ravnborg <sam@ravnborg.org>, Pablo Ceballos <pceballos@google.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 15 Sep 2022, Pablo Ceballos <pceballos@google.com> wrote:
-> On some devices the Parade PS175 takes more than 400ms to settle in PCON
-> mode.
+== Series Details ==
 
-Got any bug report with more info, or any other details to back this up?
-This is kind of thin. What's the 800 ms based on?
+Series: series starting with [v5,1/5] drm/i915: remove the TODO in pin_and_fence_fb_obj
+URL   : https://patchwork.freedesktop.org/series/109389/
+State : warning
 
-BR,
-Jani.
+== Summary ==
+
+Error: dim checkpatch failed
+bc460e1488f8 drm/i915: remove the TODO in pin_and_fence_fb_obj
+59ce3062aac5 drm/i915/display: handle migration for dpt
+-:39: WARNING:BLOCK_COMMENT_STYLE: Block comments should align the * on each line
+#39: FILE: drivers/gpu/drm/i915/display/intel_fb_pin.c:37:
++	 * below, so this vm must never be async.
++	*/
+
+total: 0 errors, 1 warnings, 0 checks, 72 lines checked
+75f6b6d81df4 drm/i915: allow control over the flags when migrating
+91b718df89fd drm/i915/display: consider DG2_RC_CCS_CC when migrating buffers
+dcc38cf36004 drm/i915: check memory is mappable in read_from_page
 
 
->
-> Signed-off-by: Pablo Ceballos <pceballos@google.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_lspcon.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c b/drivers/gpu/drm/i915/display/intel_lspcon.c
-> index 15d59de8810e..b4cbade13ee5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_lspcon.c
-> +++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
-> @@ -166,7 +166,7 @@ static enum drm_lspcon_mode lspcon_wait_mode(struct intel_lspcon *lspcon,
->  	drm_dbg_kms(&i915->drm, "Waiting for LSPCON mode %s to settle\n",
->  		    lspcon_mode_name(mode));
->  
-> -	wait_for((current_mode = lspcon_get_current_mode(lspcon)) == mode, 400);
-> +	wait_for((current_mode = lspcon_get_current_mode(lspcon)) == mode, 800);
->  	if (current_mode != mode)
->  		drm_err(&i915->drm, "LSPCON mode hasn't settled\n");
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
