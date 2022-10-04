@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1B08C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 10:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F27EC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 10:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C12410E548;
-	Tue,  4 Oct 2022 10:51:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEBAA10E549;
+	Tue,  4 Oct 2022 10:51:41 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B503810E052
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Oct 2022 10:51:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29D9410E544
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Oct 2022 10:51:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664880690; x=1696416690;
+ t=1664880695; x=1696416695;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Cxe/cw4cmJ77bLEMhfktcBVvBegBLw4/eprfTyK/Eu8=;
- b=fV6ZwjGZ9Luq1Jm38k7dkfv4lGG1Vjw3D02uExIaCXBkC+BbsWGJMd5W
- Cao718zRY/2TI7TObaI6jYHaYBned8SF+2zAteao6NnD3HsIBfYn8tz5H
- SWDvbjjvH0pAxIM/AYp85HCAIsCaFDGKpfRB0Yjry7xbqMwNpkv5Lz7ae
- ZS+SQYKfYdmr/6UvQtcebE4IZpR5GjuZHgcYcLuStd4uvnz8aIq1DQhnR
- SpNT8gir1KB02MLG3asjH5BQmCK8cFq7/UfyXDe5iyx8LnCH97jc5PpM9
- 6i+36acfQxnDsPWYz9O/lLWYUYU0gzSUJm9nLBsG6ibv96V3FWurqB6ns Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="366977477"
-X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="366977477"
+ bh=InUwIC4mexdj2gLWxRfZtMGzvVeH7r0t2mNdYFsHTwk=;
+ b=QTWb3hq3y/08khqfl78YrdVIjAo4ZWZYhNcSCHF/LVLfFPV44B3OLguf
+ cUlyJRwylH9iPv7O5h5WbAnw74dZS0hLfreqpp15KOEpNy6q1ThIkGX+S
+ s7n35DPtOgUkFHA1XEUIme1RM0o1olimMSg1EUNt6/mz9wtbPiQodJtza
+ En99hKSKO4X77bXzGocaEbRHyxUWWwZj5twT/TlGunAIZx3FEXPmj75EH
+ N24zf5KuMRFwCt9zfbwCPOltPYrpK6vGx45Tjl4TGb59HNRSWyAGA5xSb
+ aiZB8fvwsDYyVuk4iLLg+UstigBlyAyGOm8euMX+lPczp/GPloi8ECxOb A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="366977489"
+X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="366977489"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2022 03:51:30 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="749333595"
-X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="749333595"
+ 04 Oct 2022 03:51:34 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="749333617"
+X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="749333617"
 Received: from ngverso-mobl2.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.7.149])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2022 03:51:29 -0700
+ 04 Oct 2022 03:51:33 -0700
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  4 Oct 2022 11:51:18 +0100
-Message-Id: <20221004105121.203149-2-matthew.auld@intel.com>
+Date: Tue,  4 Oct 2022 11:51:21 +0100
+Message-Id: <20221004105121.203149-5-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221004105121.203149-1-matthew.auld@intel.com>
 References: <20221004105121.203149-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 2/5] drm/i915/display: handle migration for
- dpt
+Subject: [Intel-gfx] [PATCH v5 5/5] drm/i915: check memory is mappable in
+ read_from_page
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,100 +63,51 @@ Cc: Nirmoy Das <nirmoy.das@intel.com>, Jianshui Yu <jianshui.yu@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On platforms like DG2, it looks like the dpt path here is missing the
-migrate-to-lmem step on discrete platforms.
+On small-bar systems we could be given something non-mappable here,
+which leads to nasty oops. Make this nicer by checking if the resource
+is mappable or not, and return an error otherwise.
 
-v2:
-  - Move the vma_pin() under the for_i915_gem_ww(), otherwise the
-    object can be moved after dropping the lock and then doing the pin.
+v2: drop GEM_BUG_ON(flags & I915_BO_ALLOC_GPU_ONLY)
 
-Fixes: 33e7a975103c ("drm/i915/xelpd: First stab at DPT support")
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
 Cc: Jianshui Yu <jianshui.yu@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fb_pin.c | 51 +++++++++++++--------
- 1 file changed, 33 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-index 0cd9e8cb078b..5031ee5695dd 100644
---- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-@@ -26,10 +26,17 @@ intel_pin_fb_obj_dpt(struct drm_framebuffer *fb,
- 	struct drm_device *dev = fb->dev;
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_i915_gem_object *obj = intel_fb_obj(fb);
-+	struct i915_gem_ww_ctx ww;
- 	struct i915_vma *vma;
- 	u32 alignment;
- 	int ret;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 369006c5317f..62495d5d0038 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -444,6 +444,16 @@ i915_gem_object_read_from_page_iomap(struct drm_i915_gem_object *obj, u64 offset
+ 	io_mapping_unmap(src_map);
+ }
  
-+	/*
-+	 * We are not syncing against the binding (and potential migrations)
-+	 * below, so this vm must never be async.
-+	*/
-+	GEM_WARN_ON(vm->bind_async_flags);
++static bool object_has_mappable_iomem(struct drm_i915_gem_object *obj)
++{
++	GEM_BUG_ON(!i915_gem_object_has_iomem(obj));
 +
- 	if (WARN_ON(!i915_gem_object_is_framebuffer(obj)))
- 		return ERR_PTR(-EINVAL);
- 
-@@ -37,29 +44,37 @@ intel_pin_fb_obj_dpt(struct drm_framebuffer *fb,
- 
- 	atomic_inc(&dev_priv->gpu_error.pending_fb_pin);
- 
--	ret = i915_gem_object_lock_interruptible(obj, NULL);
--	if (!ret) {
-+	for_i915_gem_ww(&ww, ret, true) {
-+		ret = i915_gem_object_lock(obj, &ww);
-+		if (ret)
-+			continue;
++	if (IS_DGFX(to_i915(obj->base.dev)))
++		return i915_ttm_resource_mappable(i915_gem_to_ttm(obj)->resource);
 +
-+		if (HAS_LMEM(dev_priv)) {
-+			ret = i915_gem_object_migrate(obj, &ww, INTEL_REGION_LMEM_0);
-+			if (ret)
-+				continue;
-+		}
++	return true;
++}
 +
- 		ret = i915_gem_object_set_cache_level(obj, I915_CACHE_NONE);
--		i915_gem_object_unlock(obj);
--	}
--	if (ret) {
--		vma = ERR_PTR(ret);
--		goto err;
--	}
-+		if (ret)
-+			continue;
+ /**
+  * i915_gem_object_read_from_page - read data from the page of a GEM object
+  * @obj: GEM object to read from
+@@ -466,7 +476,7 @@ int i915_gem_object_read_from_page(struct drm_i915_gem_object *obj, u64 offset,
  
--	vma = i915_vma_instance(obj, vm, view);
--	if (IS_ERR(vma))
--		goto err;
-+		vma = i915_vma_instance(obj, vm, view);
-+		if (IS_ERR(vma)) {
-+			ret = PTR_ERR(vma);
-+			continue;
-+		}
- 
--	if (i915_vma_misplaced(vma, 0, alignment, 0)) {
--		ret = i915_vma_unbind_unlocked(vma);
--		if (ret) {
--			vma = ERR_PTR(ret);
--			goto err;
-+		if (i915_vma_misplaced(vma, 0, alignment, 0)) {
-+			ret = i915_vma_unbind(vma);
-+			if (ret)
-+				continue;
- 		}
--	}
- 
--	ret = i915_vma_pin(vma, 0, alignment, PIN_GLOBAL);
-+		ret = i915_vma_pin_ww(vma, &ww, 0, alignment, PIN_GLOBAL);
-+		if (ret)
-+			continue;
-+	}
- 	if (ret) {
- 		vma = ERR_PTR(ret);
- 		goto err;
+ 	if (i915_gem_object_has_struct_page(obj))
+ 		i915_gem_object_read_from_page_kmap(obj, offset, dst, size);
+-	else if (i915_gem_object_has_iomem(obj))
++	else if (i915_gem_object_has_iomem(obj) && object_has_mappable_iomem(obj))
+ 		i915_gem_object_read_from_page_iomap(obj, offset, dst, size);
+ 	else
+ 		return -ENODEV;
 -- 
 2.37.3
 
