@@ -4,52 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0E61C433F5
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 10:51:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 531BEC433F5
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Oct 2022 10:52:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D186910E54E;
-	Tue,  4 Oct 2022 10:51:50 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 794F310E545;
- Tue,  4 Oct 2022 10:51:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A678510E556;
+	Tue,  4 Oct 2022 10:52:17 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 537E710E052;
+ Tue,  4 Oct 2022 10:52:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664880697; x=1696416697;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Wf4AL/Kd9gwegdWH/d2nO8BQC2TAOjmjZOTjkmozJi8=;
- b=fHS9a01oECfj7tN4yhTlCAv8Qf19FZ3wpukxppEKmhy/f+SJ8+GpzTrZ
- VRzhnRlWy38GfnEBTLfEf+jituq4LoZ8BaUCOPAc6z9yf+Nyar4+DHkTv
- YOsn/J+XVvMyO9U8WLUBZ+mW/xs7/TRxAne1H4HZqxl3N5fzyxyeRz8At
- +AYt1yptzj95aWJGYFIs76Lqfu1LSRysKGgVju4HoDuF0PtcysndO6AVc
- Jr4+xYP+EbbCxjIvhJgvK6X69Z/qFkbgGd/WDnHSgU0mcSUgjTujoXjOf
- EeuD1HJiyhDQ6Zwym1GJ8aPkLqYmKnGIHypRPDxRmvBKneG2DisS+Pllr A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="304423275"
-X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="304423275"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2022 03:51:18 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="712970001"
-X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="712970001"
-Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.252.22.232])
- ([10.252.22.232])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2022 03:51:17 -0700
-Message-ID: <1bb6c4f7-002a-2c5b-f32e-4cd8e6baa907@linux.intel.com>
-Date: Tue, 4 Oct 2022 12:51:14 +0200
+ t=1664880735; x=1696416735;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=GsLBEQ+iiyq0tqzhsDbPlBVlnya42aOoxzUP/81MpLo=;
+ b=L5uFUZFjiPQmh5nBWG07O43wNuwKoqGJU1AOzZiXX5KRmZwPGOZ2GGnb
+ PoF8H8Qlj9ZNJ/hurlVaDXiTTPOS/uxtQ7Dj1J4S70qGjsjkrYth7im4O
+ 9FZ1Gjdh4OZTBUi11oGlLEQSIWDUPVqox/+QZwCi0C+dWXl5EHRLmwVzh
+ 8HvqsRxNZ4VYw4iRdcS06R1kQskyp0vf9s9nTyFQr/ZS3Ragq3wcjwITV
+ Hfdfl+zHFVN8DYT0qM3oM6IGd3y1L41qlEA2PcK56AaKXopCUU8HmU2qi
+ xDpjxnyzRhpwPfXxefFDNPYYLkzohrVXkLqettYBIJ0MDAJQMhUJDvGaK w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="286070571"
+X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="286070571"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2022 03:52:14 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10489"; a="686506525"
+X-IronPort-AV: E=Sophos;i="5.93,367,1654585200"; d="scan'208";a="686506525"
+Received: from pvarla-mobl4.gar.corp.intel.com (HELO localhost)
+ ([10.252.39.104])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2022 03:52:11 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+In-Reply-To: <20221004102837.12181-1-jirislaby@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20221004102837.12181-1-jirislaby@kernel.org>
+Date: Tue, 04 Oct 2022 13:52:08 +0300
+Message-ID: <87mtabuahz.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Content-Language: en-US
-To: Matthew Auld <matthew.auld@intel.com>, igt-dev@lists.freedesktop.org
-References: <20221003172456.97522-1-matthew.auld@intel.com>
- <20221003172456.97522-3-matthew.auld@intel.com>
-From: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
-In-Reply-To: <20221003172456.97522-3-matthew.auld@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH i-g-t 3/4] tests/i915/query: sanity check
- reported GTT alignment
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/display: fix randconfig build
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,69 +58,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Nirmoy Das <nirmoy.das@intel.com>
+Cc: "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ Martin =?utf-8?Q?Li=C5=A1ka?= <mliska@suse.cz>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Matt,
-
-On 10/3/2022 7:24 PM, Matthew Auld wrote:
-> Ensure the kernel is reporting "normal" values here, based on our
-> current expectations.
+On Tue, 04 Oct 2022, "Jiri Slaby (SUSE)" <jirislaby@kernel.org> wrote:
+> When DRM_I915=3Dy and BACKLIGHT_CLASS_DEVICE=3Dm, the build fails:
+> ld: drivers/gpu/drm/i915/display/intel_backlight.o: in function `intel_ba=
+cklight_device_register':
+> intel_backlight.c:(.text+0x5587): undefined reference to `backlight_devic=
+e_get_by_name'
 >
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-> Cc: Nirmoy Das <nirmoy.das@intel.com>
+> ld: drivers/gpu/drm/i915/display/intel_backlight.o: in function `intel_ba=
+cklight_device_unregister':
+> intel_backlight.c:(.text+0x576e): undefined reference to `backlight_devic=
+e_unregister'
+>
+> To fix this, use IS_REACHABLE(), not IS_ENABLED() in backlight. That is,
+> with the above config, backlight support is disabled.
+
+So I don't want this. I'll take a patch that fixes the dependencies to
+block DRM_I915=3Dy and BACKLIGHT_CLASS_DEVICE=3Dm. Nobody wants that combo,
+and IMO using IS_REACHABLE() is a workaround to hide a broken config
+under the carpet.
+
+The right thing to do is
+
+config DRM_I915
+	depends on BACKLIGHT_CLASS_DEVICE || BACKLIGHT_CLASS_DEVICE=3Dn.
+
+We're selecting BACKLIGHT_CLASS_DEVICE because almost everyone else is
+too, and a combo of selecting and depending leads to circular
+dependencies. But depending is the right fix.
+
+Documentation/kbuild/kconfig-language.rst:
+
+  Note:
+	select should be used with care. select will force
+	a symbol to a value without visiting the dependencies.
+	By abusing select you are able to select a symbol FOO even
+	if FOO depends on BAR that is not set.
+	In general use select only for non-visible symbols
+	(no prompts anywhere) and for symbols with no dependencies.
+	That will limit the usefulness but on the other hand avoid
+	the illegal configurations all over.
+
+
+BR,
+Jani.
+
+>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Reported-by: Martin Li=C5=A1ka <mliska@suse.cz>
+> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
 > ---
->   tests/i915/i915_query.c | 12 ++++++++++--
->   1 file changed, 10 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_backlight.c | 2 +-
+>  drivers/gpu/drm/i915/display/intel_backlight.h | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/tests/i915/i915_query.c b/tests/i915/i915_query.c
-> index b92d7593..bff073d2 100644
-> --- a/tests/i915/i915_query.c
-> +++ b/tests/i915/i915_query.c
-> @@ -581,8 +581,6 @@ static void test_query_regions_garbage_items(int fd)
->   		struct drm_i915_memory_region_info info = regions->regions[i];
->   		int j;
->   
-> -		igt_assert_eq_u32(info.rsvd0, 0);
-> -
->   		/*
->   		 * rsvd1[0] : probed_cpu_visible_size
->   		 * rsvd1[1] : unallocated_cpu_visible_size
-> @@ -640,6 +638,8 @@ static void upload(int fd, struct igt_list_head *handles, uint32_t num_handles)
->   	free(exec);
->   }
->   
-> +/** XXX: remove once we sync the uapi header */
-> +#define gtt_alignment rsvd0
+> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu=
+/drm/i915/display/intel_backlight.c
+> index beba39a38c87..c1ba68796b6d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+> @@ -825,7 +825,7 @@ void intel_backlight_enable(const struct intel_crtc_s=
+tate *crtc_state,
+>  	mutex_unlock(&dev_priv->display.backlight.lock);
+>  }
+>=20=20
+> -#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
+> +#if IS_REACHABLE(CONFIG_BACKLIGHT_CLASS_DEVICE)
+>  static u32 intel_panel_get_backlight(struct intel_connector *connector)
+>  {
+>  	struct drm_i915_private *dev_priv =3D to_i915(connector->base.dev);
+> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.h b/drivers/gpu=
+/drm/i915/display/intel_backlight.h
+> index 339643f63897..207fe1c613d8 100644
+> --- a/drivers/gpu/drm/i915/display/intel_backlight.h
+> +++ b/drivers/gpu/drm/i915/display/intel_backlight.h
+> @@ -36,7 +36,7 @@ u32 intel_backlight_invert_pwm_level(struct intel_conne=
+ctor *connector, u32 leve
+>  u32 intel_backlight_level_to_pwm(struct intel_connector *connector, u32 =
+level);
+>  u32 intel_backlight_level_from_pwm(struct intel_connector *connector, u3=
+2 val);
+>=20=20
+> -#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
+> +#if IS_REACHABLE(CONFIG_BACKLIGHT_CLASS_DEVICE)
+>  int intel_backlight_device_register(struct intel_connector *connector);
+>  void intel_backlight_device_unregister(struct intel_connector *connector=
+);
+>  #else /* CONFIG_BACKLIGHT_CLASS_DEVICE */
 
-Nit: use page PAGE_SIZE instead of 4096 in below
-
-Otherwise the series is Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
-
->   static void test_query_regions_sanity_check(int fd)
->   {
->   	struct drm_i915_query_memory_regions *regions;
-> @@ -666,6 +666,11 @@ static void test_query_regions_sanity_check(int fd)
->   		struct drm_i915_gem_memory_class_instance r1 = info.region;
->   		int j;
->   
-> +		if (info.gtt_alignment) {
-> +			igt_assert_lte_u64(4096, info.gtt_alignment);
-> +			igt_assert(is_power_of_two(info.gtt_alignment));
-> +		}
-> +
->   		if (r1.memory_class == I915_MEMORY_CLASS_SYSTEM) {
->   			igt_assert_eq(r1.memory_instance, 0);
->   			found_system = true;
-> @@ -676,6 +681,9 @@ static void test_query_regions_sanity_check(int fd)
->   			igt_assert(info.unallocated_cpu_visible_size == 0 ||
->   				   info.unallocated_cpu_visible_size ==
->   				   info.unallocated_size);
-> +
-> +			igt_assert(info.gtt_alignment == 0 ||
-> +				   info.gtt_alignment == 4096);
->   		} else {
->   			igt_assert(info.probed_cpu_visible_size <= info.probed_size);
->   			igt_assert(info.unallocated_size <= info.probed_size);
+--=20
+Jani Nikula, Intel Open Source Graphics Center
