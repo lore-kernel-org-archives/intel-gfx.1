@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BD5AC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 21:37:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 460EFC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 21:37:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C047E10E8C8;
-	Thu,  6 Oct 2022 21:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5A5410E8CB;
+	Thu,  6 Oct 2022 21:37:19 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E269810E690;
- Thu,  6 Oct 2022 21:37:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A67410E680;
+ Thu,  6 Oct 2022 21:37:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665092228; x=1696628228;
+ t=1665092229; x=1696628229;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5UTb/TnjHD7y+QjIhw1Y0Cm6p2dYRgBpUzguIeUiCJ4=;
- b=lB1hw3seB5gR759tWzMnrJeh1EYL02gIE8pog3TAN3NqeCCG22kkS36q
- xwj1Y/RcBNW4/2y1IOiLm75ISQOpnkVQKqZa7BBtz5qniWt23IxQsL9HF
- WYgTrZVFWD2wJT92L8WjHcLx52k3VGwtyAfuxOOgMCW2o1BKC24kxnbep
- YO90ELTEOn5/EC1w9RBCccBMZMpgOZoTUItFczDWiOn5nq09g1/6Ct6cY
- gXatLirwcphQXFwP+Q13pOUboLStHUz/v023tJU2GWJnN0I2J+ySlo8dm
- cCABgp1rnnGhp7p8LCDJCpI/iZFqWkdgPAyec33qm0pVpAYJTRHfwHVB2 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="283945772"
-X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="283945772"
+ bh=fKNINJziH14mrq6rqONZzOQjt8pAMg4W1LNSjeeIw8g=;
+ b=maypy4+6+iSMRP4NGxa+CnI/GxMt3m94GOKrKDuVPrg5+9sl0OjvFKqG
+ 8nyx8eU+hBW7+oPz/tLTF1yz1E4t7sMmZiEjgE17cp8CJZaDAk3kekhIh
+ GFmkjdXCT3qP3yml59JwoHEh3jDtkeaIv0e+Qfs61VFN2LRSO1exbk6l+
+ brDWWJcvkip+0kidhuua/1/t9CACJ10blVWsFkoFmqeKqTNN3iVPP3AWz
+ sGNqfR5T0pONHRInk8FOV9v3Pgh+HVdp1X3iZmLdOh6ZWsGoE+WuqPhFn
+ Tc5iQduC6own0xCWJx5l5zip/qPsYXwGZECeoP4tNP4sHXi31Ks2KPikQ Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="283945775"
+X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="283945775"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2022 14:37:08 -0700
+ 06 Oct 2022 14:37:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="627176769"
-X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="627176769"
+X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="627176775"
+X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="627176775"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.188])
- by fmsmga007.fm.intel.com with ESMTP; 06 Oct 2022 14:37:07 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 06 Oct 2022 14:37:08 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu,  6 Oct 2022 14:38:11 -0700
-Message-Id: <20221006213813.1563435-3-John.C.Harrison@Intel.com>
+Date: Thu,  6 Oct 2022 14:38:13 -0700
+Message-Id: <20221006213813.1563435-5-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221006213813.1563435-1-John.C.Harrison@Intel.com>
 References: <20221006213813.1563435-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 2/4] drm/i915: Fix compute pre-emption w/a to
- apply to compute engines
+Subject: [Intel-gfx] [PATCH v5 4/4] drm/i915: Improve long running compute
+ w/a for GuC submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,96 +59,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, DRI-Devel@Lists.FreeDesktop.Org,
- Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>,
- Ramalingam C <ramalingam.c@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+Cc: Michal Mrozek <michal.mrozek@intel.com>, DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-An earlier patch added support for compute engines. However, it missed
-enabling the anti-pre-emption w/a for the new engine class. So move
-the 'compute capable' flag earlier and use it for the pre-emption w/a
-test.
+A workaround was added to the driver to allow compute workloads to run
+'forever' by disabling pre-emption on the RCS engine for Gen12.
+It is not totally unbound as the heartbeat will kick in eventually
+and cause a reset of the hung engine.
 
-Fixes: c674c5b9342e ("drm/i915/xehp: CCS should use RCS setup functions")
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Jason Ekstrand <jason@jlekstrand.net>
-Cc: "Michał Winiarski" <michal.winiarski@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-Cc: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
-Cc: Stuart Summers <stuart.summers@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Ramalingam C <ramalingam.c@intel.com>
-Cc: Akeem G Abodunrin <akeem.g.abodunrin@intel.com>
+However, this does not work well in GuC submission mode. In GuC mode,
+the pre-emption timeout is how GuC detects hung contexts and triggers
+a per engine reset. Thus, disabling the timeout means also losing all
+per engine reset ability. A full GT reset will still occur when the
+heartbeat finally expires, but that is a much more destructive and
+undesirable mechanism.
+
+The purpose of the workaround is actually to give compute tasks longer
+to reach a pre-emption point after a pre-emption request has been
+issued. This is necessary because Gen12 does not support mid-thread
+pre-emption and compute tasks can have long running threads.
+
+So, rather than disabling the timeout completely, just set it to a
+'long' value.
+
+v2: Review feedback from Tvrtko - must hard code the 'long' value
+instead of determining it algorithmically. So make it an extra CONFIG
+definition. Also, remove the execlist centric comment from the
+existing pre-emption timeout CONFIG option given that it applies to
+more than just execlists.
+
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com> (v1)
+Acked-by: Michal Mrozek <michal.mrozek@intel.com>
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 24 +++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/Kconfig.profile      | 26 +++++++++++++++++++----
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c |  9 ++++++--
+ 2 files changed, 29 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/Kconfig.profile b/drivers/gpu/drm/i915/Kconfig.profile
+index 39328567c2007..7cc38d25ee5c8 100644
+--- a/drivers/gpu/drm/i915/Kconfig.profile
++++ b/drivers/gpu/drm/i915/Kconfig.profile
+@@ -57,10 +57,28 @@ config DRM_I915_PREEMPT_TIMEOUT
+ 	default 640 # milliseconds
+ 	help
+ 	  How long to wait (in milliseconds) for a preemption event to occur
+-	  when submitting a new context via execlists. If the current context
+-	  does not hit an arbitration point and yield to HW before the timer
+-	  expires, the HW will be reset to allow the more important context
+-	  to execute.
++	  when submitting a new context. If the current context does not hit
++	  an arbitration point and yield to HW before the timer expires, the
++	  HW will be reset to allow the more important context to execute.
++
++	  This is adjustable via
++	  /sys/class/drm/card?/engine/*/preempt_timeout_ms
++
++	  May be 0 to disable the timeout.
++
++	  The compiled in default may get overridden at driver probe time on
++	  certain platforms and certain engines which will be reflected in the
++	  sysfs control.
++
++config DRM_I915_PREEMPT_TIMEOUT_COMPUTE
++	int "Preempt timeout for compute engines (ms, jiffy granularity)"
++	default 7500 # milliseconds
++	help
++	  How long to wait (in milliseconds) for a preemption event to occur
++	  when submitting a new context to a compute capable engine. If the
++	  current context does not hit an arbitration point and yield to HW
++	  before the timer expires, the HW will be reset to allow the more
++	  important context to execute.
+ 
+ 	  This is adjustable via
+ 	  /sys/class/drm/card?/engine/*/preempt_timeout_ms
 diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 8f16955f0821e..fcbccd8d244e9 100644
+index fcbccd8d244e9..c1257723d1949 100644
 --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -486,6 +486,17 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
- 	engine->logical_mask = BIT(logical_instance);
- 	__sprint_engine_name(engine);
- 
-+	if ((engine->class == COMPUTE_CLASS && !RCS_MASK(engine->gt) &&
-+	     __ffs(CCS_MASK(engine->gt)) == engine->instance) ||
-+	     engine->class == RENDER_CLASS)
-+		engine->flags |= I915_ENGINE_FIRST_RENDER_COMPUTE;
-+
-+	/* features common between engines sharing EUs */
-+	if (engine->class == RENDER_CLASS || engine->class == COMPUTE_CLASS) {
-+		engine->flags |= I915_ENGINE_HAS_RCS_REG_STATE;
-+		engine->flags |= I915_ENGINE_HAS_EU_PRIORITY;
-+	}
-+
- 	engine->props.heartbeat_interval_ms =
- 		CONFIG_DRM_I915_HEARTBEAT_INTERVAL;
- 	engine->props.max_busywait_duration_ns =
-@@ -498,20 +509,9 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
+@@ -508,9 +508,14 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
+ 	engine->props.timeslice_duration_ms =
  		CONFIG_DRM_I915_TIMESLICE_DURATION;
  
- 	/* Override to uninterruptible for OpenCL workloads. */
--	if (GRAPHICS_VER(i915) == 12 && engine->class == RENDER_CLASS)
-+	if (GRAPHICS_VER(i915) == 12 && (engine->flags & I915_ENGINE_HAS_RCS_REG_STATE))
- 		engine->props.preempt_timeout_ms = 0;
+-	/* Override to uninterruptible for OpenCL workloads. */
++	/*
++	 * Mid-thread pre-emption is not available in Gen12. Unfortunately,
++	 * some compute workloads run quite long threads. That means they get
++	 * reset due to not pre-empting in a timely manner. So, bump the
++	 * pre-emption timeout value to be much higher for compute engines.
++	 */
+ 	if (GRAPHICS_VER(i915) == 12 && (engine->flags & I915_ENGINE_HAS_RCS_REG_STATE))
+-		engine->props.preempt_timeout_ms = 0;
++		engine->props.preempt_timeout_ms = CONFIG_DRM_I915_PREEMPT_TIMEOUT_COMPUTE;
  
--	if ((engine->class == COMPUTE_CLASS && !RCS_MASK(engine->gt) &&
--	     __ffs(CCS_MASK(engine->gt)) == engine->instance) ||
--	     engine->class == RENDER_CLASS)
--		engine->flags |= I915_ENGINE_FIRST_RENDER_COMPUTE;
--
--	/* features common between engines sharing EUs */
--	if (engine->class == RENDER_CLASS || engine->class == COMPUTE_CLASS) {
--		engine->flags |= I915_ENGINE_HAS_RCS_REG_STATE;
--		engine->flags |= I915_ENGINE_HAS_EU_PRIORITY;
--	}
--
  	/* Cap properties according to any system limits */
  #define CLAMP_PROP(field) \
- 	do { \
 -- 
 2.37.3
 
