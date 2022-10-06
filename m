@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3170C433F5
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 16:32:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAEF5C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 16:32:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CED710E650;
-	Thu,  6 Oct 2022 16:32:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D334D10E470;
+	Thu,  6 Oct 2022 16:32:28 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDEEC10E470
- for <intel-gfx@lists.freedesktop.org>; Thu,  6 Oct 2022 16:32:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3D5E10E470
+ for <intel-gfx@lists.freedesktop.org>; Thu,  6 Oct 2022 16:32:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665073939; x=1696609939;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Oy8gXIrU+t3C4ecOsFKK4F72hseOo2fprafS/1DEQmU=;
- b=lexfSnTX3U0ONoVQvowe1BoFdeqJ20C0rS5s13DDMz3XilSqqnpg0nGp
- hU2ID0QDpYHR7BIGxJSpDjDLGzbFgtwXhjgcYQHIXjzz3sineYGknTU+d
- dzNO4x+GlcwWuOdvxcmNlwcL3DBhdUQ2MXSWXw78VDlnSjmLQKg3/KfVv
- tOPFxoaHCZC89TxN95z2HYHvQYJVhDf0zoXaDn9sYZ3D3hF89prHA3qmX
- uhh60Va3C6QOtQIysZ8keOziqsUwuyHwB7JkrjItMnNKZMDXdbZ80txTE
- wJhUsCg9LQzGUo2xwuykndZGZFdEMYetsGFupoP3JmL+0/9j6zP/OO1DC g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="303473841"
-X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="303473841"
+ t=1665073943; x=1696609943;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=L9ZyTcC1BlO7GhKxXPhwCT3XWRMPZgCsi5MmJj9QlAo=;
+ b=Ey74MUNdPHwr+u+JyCElD9sCSfMcFMEfnLT1hmJryEodCldXcaHeEv5e
+ xo5EL+0/ZphCJxDPnDYJF+C5pk6lqEw8iBHYilBJOcIGgGLps4q+EO247
+ cmhnscMqXRy0M7/iMn4kGLwC+H5MzNR2SZEKQUPgV0VoxAbTSO1QCIRpG
+ DMtWkpX9YESxKbmLKaVtM8Ks61jaXflh/jlMtEer6CSWPPE9og5Iz2skF
+ OQ+fKFrm2r+xoVSfhNDmYkZe1j+UDSFzUWHc+deee+YeD32Z8+IQ8dGm0
+ SBOBYtTA3ZHtMU+ViF+TPu77xlYZe8Nl3I2aCrpMpu/5RodUsvIt+dQw0 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="303473870"
+X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="303473870"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2022 09:32:19 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="799951417"
-X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="799951417"
+ 06 Oct 2022 09:32:23 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="799951461"
+X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="799951461"
 Received: from lab-ah.igk.intel.com ([10.91.215.196])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2022 09:32:17 -0700
+ 06 Oct 2022 09:32:21 -0700
 From: Andrzej Hajda <andrzej.hajda@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  6 Oct 2022 18:31:56 +0200
-Message-Id: <20221006163200.2803722-1-andrzej.hajda@intel.com>
+Date: Thu,  6 Oct 2022 18:31:58 +0200
+Message-Id: <20221006163200.2803722-3-andrzej.hajda@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221006163200.2803722-1-andrzej.hajda@intel.com>
+References: <20221006163200.2803722-1-andrzej.hajda@intel.com>
 MIME-Version: 1.0
 Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
  80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/4] Simplify uncore register updates
+Subject: [Intel-gfx] [PATCH v2 2/4] drm/i915/display: Use intel_uncore alias
+ if defined
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,43 +64,74 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patchset should not modify behaviour of the code (except patch 3).
-It just replaces sequence of uncore read/modify/write with single call.
-Moreover it replaces nested pointers with alias if there is one.
-All patches except 3rd, were generated using coccinelle (quite ugly)
-and adjusted in some cases by hand.
+Alias is shorter and more readable.
 
-v2:
-- addressed comments by Andi, Jani and lkp,
-- despite Jani objections Ive left 1st patch with hope he will change his mind,
-  if not it can be safely ignored :),
-- converted few more read/modifiy/write sequences in last patch,
-- style adjustements to make checkpatch happy.
+Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/i915_irq.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-Regards
-Andrzej
-
-
-Andrzej Hajda (4):
-  drm/i915/display: Use drm_device alias if defined
-  drm/i915/display: Use intel_uncore alias if defined
-  drm/i915: make intel_uncore_rmw() write unconditionally
-  drm/i915: use proper helper for register updates
-
- drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +-
- drivers/gpu/drm/i915/display/intel_display.c  |   3 +-
- .../drm/i915/display/intel_display_debugfs.c  |   2 +-
- drivers/gpu/drm/i915/display/intel_hotplug.c  |   2 +-
- drivers/gpu/drm/i915/display/intel_lvds.c     |  13 +-
- drivers/gpu/drm/i915/display/intel_opregion.c |   2 +-
- drivers/gpu/drm/i915/display/intel_tc.c       |   9 +-
- drivers/gpu/drm/i915/display/vlv_dsi.c        |   2 +-
- drivers/gpu/drm/i915/i915_irq.c               | 237 +++++++-----------
- drivers/gpu/drm/i915/intel_pm.c               |  60 ++---
- drivers/gpu/drm/i915/intel_uncore.h           |   8 +-
- drivers/gpu/drm/i915/vlv_suspend.c            |  28 +--
- 12 files changed, 133 insertions(+), 237 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index 87cb05b3b6ceab..6cbdefadd09180 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -3020,7 +3020,7 @@ static void vlv_display_irq_reset(struct drm_i915_private *dev_priv)
+ 		intel_uncore_write(uncore, DPINVGTT, DPINVGTT_STATUS_MASK_VLV);
+ 
+ 	i915_hotplug_interrupt_update_locked(dev_priv, 0xffffffff, 0);
+-	intel_uncore_write(uncore, PORT_HOTPLUG_STAT, intel_uncore_read(&dev_priv->uncore, PORT_HOTPLUG_STAT));
++	intel_uncore_write(uncore, PORT_HOTPLUG_STAT, intel_uncore_read(uncore, PORT_HOTPLUG_STAT));
+ 
+ 	i9xx_pipestat_irq_reset(dev_priv);
+ 
+@@ -3118,7 +3118,7 @@ static void gen8_irq_reset(struct drm_i915_private *dev_priv)
+ {
+ 	struct intel_uncore *uncore = &dev_priv->uncore;
+ 
+-	gen8_master_intr_disable(dev_priv->uncore.regs);
++	gen8_master_intr_disable(uncore->regs);
+ 
+ 	gen8_gt_irq_reset(to_gt(dev_priv));
+ 	gen8_display_irq_reset(dev_priv);
+@@ -3250,7 +3250,7 @@ static void cherryview_irq_reset(struct drm_i915_private *dev_priv)
+ {
+ 	struct intel_uncore *uncore = &dev_priv->uncore;
+ 
+-	intel_uncore_write(&dev_priv->uncore, GEN8_MASTER_IRQ, 0);
++	intel_uncore_write(uncore, GEN8_MASTER_IRQ, 0);
+ 	intel_uncore_posting_read(&dev_priv->uncore, GEN8_MASTER_IRQ);
+ 
+ 	gen8_gt_irq_reset(to_gt(dev_priv));
+@@ -4110,8 +4110,8 @@ static void i915_irq_postinstall(struct drm_i915_private *dev_priv)
+ 	struct intel_uncore *uncore = &dev_priv->uncore;
+ 	u32 enable_mask;
+ 
+-	intel_uncore_write(&dev_priv->uncore, EMR, ~(I915_ERROR_PAGE_TABLE |
+-			  I915_ERROR_MEMORY_REFRESH));
++	intel_uncore_write(uncore, EMR, ~(I915_ERROR_PAGE_TABLE |
++					  I915_ERROR_MEMORY_REFRESH));
+ 
+ 	/* Unmask the interrupts that we always want on. */
+ 	dev_priv->irq_mask =
+@@ -4206,7 +4206,7 @@ static void i965_irq_reset(struct drm_i915_private *dev_priv)
+ 	struct intel_uncore *uncore = &dev_priv->uncore;
+ 
+ 	i915_hotplug_interrupt_update(dev_priv, 0xffffffff, 0);
+-	intel_uncore_write(&dev_priv->uncore, PORT_HOTPLUG_STAT, intel_uncore_read(&dev_priv->uncore, PORT_HOTPLUG_STAT));
++	intel_uncore_write(uncore, PORT_HOTPLUG_STAT, intel_uncore_read(uncore, PORT_HOTPLUG_STAT));
+ 
+ 	i9xx_pipestat_irq_reset(dev_priv);
+ 
+@@ -4233,7 +4233,7 @@ static void i965_irq_postinstall(struct drm_i915_private *dev_priv)
+ 		error_mask = ~(I915_ERROR_PAGE_TABLE |
+ 			       I915_ERROR_MEMORY_REFRESH);
+ 	}
+-	intel_uncore_write(&dev_priv->uncore, EMR, error_mask);
++	intel_uncore_write(uncore, EMR, error_mask);
+ 
+ 	/* Unmask the interrupts that we always want on. */
+ 	dev_priv->irq_mask =
 -- 
 2.34.1
 
