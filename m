@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5622C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 21:37:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 903DAC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Oct 2022 21:37:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F187A10E680;
-	Thu,  6 Oct 2022 21:37:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6ED10E8C7;
+	Thu,  6 Oct 2022 21:37:17 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D8E810E680;
- Thu,  6 Oct 2022 21:37:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EBBC10E4FF;
+ Thu,  6 Oct 2022 21:37:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665092228; x=1696628228;
+ t=1665092229; x=1696628229;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8s37tWQkbbK+fCc1XRl6PRq6Xmge2wX0e8g875rY3iQ=;
- b=ast+3lMtBP00kmp7pBKHNXY0Qd3ELNpXgyY8sTOqyeVH1us2bl9e94RA
- jHVtayLH3qf33w+S4rqO9mcFoIDzeApz2AsJUgy10abJpCODGxY2sRD6X
- BaZ7GlYZhzD+t3VmKRVJ9HTBWiOiKl47rnukk+eDQOLJq5nywefBUnCiz
- hUxWkdy6fhIdy2PXh895L4Zl2Pyyx2YroiGPH+ZZa4pU87G7pLxcQz1sK
- lDmr89j8eyplWKkDTtgt/GVSCkTnA0PoNH75SPRsLB/41NI5eNH7ki2/1
- wGQq/mismwYSPbUL/rs87QQhk+7DXqwtsL2lKOPXhuQTd/seeN+bY/rhV g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="283945770"
-X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="283945770"
+ bh=16e4dab4lV5mo9Wxt1/9MaR9zOyTsfTE2RXghu4YBms=;
+ b=mSx1Ry8A85va10JLtJ9d3595eG4QjsiNPkGifpvXr3n5CqW64Xs/KwRT
+ 8SE7cfJmaZC1Sxbh0q+jwH1275pInY8RUQTJJmvA6ZJkqfxw0/RrzA0na
+ O5wl/Ao15I7o5uDV1351jvkXiIh2DwkFJYHftsv+sSOj+eSVJthgT1jrg
+ JrHEraA0pxwUFyREV0ouDqobs13OwlYuFvgLD7/BciuOPzPKn5+dxUutI
+ AWNiRc38eeRx12I//ZBcTd8SfcXjz+s3C6EgN8hm8p315PH5r24Ho8UAI
+ Z6zMyXRUkhcAnzrfcMvsBqvDQbD+cUlpioYpn/K8NpCR6tmn5azuNoJkz A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="283945773"
+X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="283945773"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2022 14:37:07 -0700
+ 06 Oct 2022 14:37:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="627176760"
-X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="627176760"
+X-IronPort-AV: E=McAfee;i="6500,9779,10492"; a="627176772"
+X-IronPort-AV: E=Sophos;i="5.95,164,1661842800"; d="scan'208";a="627176772"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.188])
- by fmsmga007.fm.intel.com with ESMTP; 06 Oct 2022 14:37:07 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 06 Oct 2022 14:37:08 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu,  6 Oct 2022 14:38:10 -0700
-Message-Id: <20221006213813.1563435-2-John.C.Harrison@Intel.com>
+Date: Thu,  6 Oct 2022 14:38:12 -0700
+Message-Id: <20221006213813.1563435-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221006213813.1563435-1-John.C.Harrison@Intel.com>
 References: <20221006213813.1563435-1-John.C.Harrison@Intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 1/4] drm/i915/guc: Limit scheduling
- properties to avoid overflow
+Subject: [Intel-gfx] [PATCH v5 3/4] drm/i915: Make the heartbeat play nice
+ with long pre-emption timeouts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,287 +65,95 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-GuC converts the pre-emption timeout and timeslice quantum values into
-clock ticks internally. That significantly reduces the point of 32bit
-overflow. On current platforms, worst case scenario is approximately
-110 seconds. Rather than allowing the user to set higher values and
-then get confused by early timeouts, add limits when setting these
-values.
+Compute workloads are inherently not pre-emptible for long periods on
+current hardware. As a workaround for this, the pre-emption timeout
+for compute capable engines was disabled. This is undesirable with GuC
+submission as it prevents per engine reset of hung contexts. Hence the
+next patch will re-enable the timeout but bumped up by an order of
+magnitude.
 
-v2: Add helper functions for clamping (review feedback from Tvrtko).
-v3: Add a bunch of BUG_ON range checks in addition to the checks
-already in the clamping functions (Tvrtko)
+However, the heartbeat might not respect that. Depending upon current
+activity, a pre-emption to the heartbeat pulse might not even be
+attempted until the last heartbeat period. Which means that only one
+period is granted for the pre-emption to occur. With the aforesaid
+bump, the pre-emption timeout could be significantly larger than this
+heartbeat period.
+
+So adjust the heartbeat code to take the pre-emption timeout into
+account. When it reaches the final (high priority) period, it now
+ensures the delay before hitting reset is bigger than the pre-emption
+timeout.
+
+v2: Fix for selftests which adjust the heartbeat period manually.
+v3: Add FIXME comment about selftests. Add extra FIXME comment and
+drm_notices when setting heartbeat to a non-default value (review
+feedback from Tvrtko)
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com> (v1)
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine.h        |  6 ++
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 69 +++++++++++++++++++
- drivers/gpu/drm/i915/gt/sysfs_engines.c       | 25 ++++---
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   | 21 ++++++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  8 +++
- 5 files changed, 119 insertions(+), 10 deletions(-)
+ .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine.h b/drivers/gpu/drm/i915/gt/intel_engine.h
-index 04e435bce79bd..cbc8b857d5f7a 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine.h
-+++ b/drivers/gpu/drm/i915/gt/intel_engine.h
-@@ -348,4 +348,10 @@ intel_engine_get_hung_context(struct intel_engine_cs *engine)
- 	return engine->hung_ce;
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+index a3698f611f457..9a527e1f5be65 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+@@ -22,9 +22,37 @@
  
-+u64 intel_clamp_heartbeat_interval_ms(struct intel_engine_cs *engine, u64 value);
-+u64 intel_clamp_max_busywait_duration_ns(struct intel_engine_cs *engine, u64 value);
-+u64 intel_clamp_preempt_timeout_ms(struct intel_engine_cs *engine, u64 value);
-+u64 intel_clamp_stop_timeout_ms(struct intel_engine_cs *engine, u64 value);
-+u64 intel_clamp_timeslice_duration_ms(struct intel_engine_cs *engine, u64 value);
-+
- #endif /* _INTEL_RINGBUFFER_H_ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 2ddcad497fa30..8f16955f0821e 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -512,6 +512,26 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
- 		engine->flags |= I915_ENGINE_HAS_EU_PRIORITY;
- 	}
+ static bool next_heartbeat(struct intel_engine_cs *engine)
+ {
++	struct i915_request *rq;
+ 	long delay;
  
-+	/* Cap properties according to any system limits */
-+#define CLAMP_PROP(field) \
-+	do { \
-+		u64 clamp = intel_clamp_##field(engine, engine->props.field); \
-+		if (clamp != engine->props.field) { \
-+			drm_notice(&engine->i915->drm, \
-+				   "Warning, clamping %s to %lld to prevent overflow\n", \
-+				   #field, clamp); \
-+			engine->props.field = clamp; \
-+		} \
-+	} while (0)
+ 	delay = READ_ONCE(engine->props.heartbeat_interval_ms);
 +
-+	CLAMP_PROP(heartbeat_interval_ms);
-+	CLAMP_PROP(max_busywait_duration_ns);
-+	CLAMP_PROP(preempt_timeout_ms);
-+	CLAMP_PROP(stop_timeout_ms);
-+	CLAMP_PROP(timeslice_duration_ms);
++	rq = engine->heartbeat.systole;
 +
-+#undef CLAMP_PROP
-+
- 	engine->defaults = engine->props; /* never to change again */
- 
- 	engine->context_size = intel_engine_context_size(gt, engine->class);
-@@ -534,6 +554,55 @@ static int intel_engine_setup(struct intel_gt *gt, enum intel_engine_id id,
- 	return 0;
- }
- 
-+u64 intel_clamp_heartbeat_interval_ms(struct intel_engine_cs *engine, u64 value)
-+{
-+	value = min_t(u64, value, jiffies_to_msecs(MAX_SCHEDULE_TIMEOUT));
-+
-+	return value;
-+}
-+
-+u64 intel_clamp_max_busywait_duration_ns(struct intel_engine_cs *engine, u64 value)
-+{
-+	value = min(value, jiffies_to_nsecs(2));
-+
-+	return value;
-+}
-+
-+u64 intel_clamp_preempt_timeout_ms(struct intel_engine_cs *engine, u64 value)
-+{
 +	/*
-+	 * NB: The GuC API only supports 32bit values. However, the limit is further
-+	 * reduced due to internal calculations which would otherwise overflow.
++	 * FIXME: The final period extension is disabled if the period has been
++	 * modified from the default. This is to prevent issues with certain
++	 * selftests which override the value and expect specific behaviour.
++	 * Once the selftests have been updated to either cope with variable
++	 * heartbeat periods (or to override the pre-emption timeout as well,
++	 * or just to add a selftest specific override of the extension), the
++	 * generic override can be removed.
 +	 */
-+	if (intel_guc_submission_is_wanted(&engine->gt->uc.guc))
-+		value = min_t(u64, value, guc_policy_max_preempt_timeout_ms());
++	if (rq && rq->sched.attr.priority >= I915_PRIORITY_BARRIER &&
++	    delay == engine->defaults.heartbeat_interval_ms) {
++		long longer;
 +
-+	value = min_t(u64, value, jiffies_to_msecs(MAX_SCHEDULE_TIMEOUT));
++		/*
++		 * The final try is at the highest priority possible. Up until now
++		 * a pre-emption might not even have been attempted. So make sure
++		 * this last attempt allows enough time for a pre-emption to occur.
++		 */
++		longer = READ_ONCE(engine->props.preempt_timeout_ms) * 2;
++		longer = intel_clamp_heartbeat_interval_ms(engine, longer);
++		if (longer > delay)
++			delay = longer;
++	}
 +
-+	return value;
-+}
+ 	if (!delay)
+ 		return false;
+ 
+@@ -288,6 +316,17 @@ int intel_engine_set_heartbeat(struct intel_engine_cs *engine,
+ 	if (!delay && !intel_engine_has_preempt_reset(engine))
+ 		return -ENODEV;
+ 
++	/* FIXME: Remove together with equally marked hack in next_heartbeat. */
++	if (delay != engine->defaults.heartbeat_interval_ms &&
++	    delay < 2 * engine->props.preempt_timeout_ms) {
++		if (intel_engine_uses_guc(engine))
++			drm_notice(&engine->i915->drm, "%s heartbeat interval adjusted to a non-default value which may downgrade individual engine resets to full GPU resets!\n",
++				   engine->name);
++		else
++			drm_notice(&engine->i915->drm, "%s heartbeat interval adjusted to a non-default value which may cause engine resets to target innocent contexts!\n",
++				   engine->name);
++	}
 +
-+u64 intel_clamp_stop_timeout_ms(struct intel_engine_cs *engine, u64 value)
-+{
-+	value = min_t(u64, value, jiffies_to_msecs(MAX_SCHEDULE_TIMEOUT));
-+
-+	return value;
-+}
-+
-+u64 intel_clamp_timeslice_duration_ms(struct intel_engine_cs *engine, u64 value)
-+{
-+	/*
-+	 * NB: The GuC API only supports 32bit values. However, the limit is further
-+	 * reduced due to internal calculations which would otherwise overflow.
-+	 */
-+	if (intel_guc_submission_is_wanted(&engine->gt->uc.guc))
-+		value = min_t(u64, value, guc_policy_max_exec_quantum_ms());
-+
-+	value = min_t(u64, value, jiffies_to_msecs(MAX_SCHEDULE_TIMEOUT));
-+
-+	return value;
-+}
-+
- static void __setup_engine_capabilities(struct intel_engine_cs *engine)
- {
- 	struct drm_i915_private *i915 = engine->i915;
-diff --git a/drivers/gpu/drm/i915/gt/sysfs_engines.c b/drivers/gpu/drm/i915/gt/sysfs_engines.c
-index 9670310562029..f2d9858d827c2 100644
---- a/drivers/gpu/drm/i915/gt/sysfs_engines.c
-+++ b/drivers/gpu/drm/i915/gt/sysfs_engines.c
-@@ -144,7 +144,7 @@ max_spin_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	       const char *buf, size_t count)
- {
- 	struct intel_engine_cs *engine = kobj_to_engine(kobj);
--	unsigned long long duration;
-+	unsigned long long duration, clamped;
- 	int err;
+ 	intel_engine_pm_get(engine);
  
- 	/*
-@@ -168,7 +168,8 @@ max_spin_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	if (err)
- 		return err;
- 
--	if (duration > jiffies_to_nsecs(2))
-+	clamped = intel_clamp_max_busywait_duration_ns(engine, duration);
-+	if (duration != clamped)
- 		return -EINVAL;
- 
- 	WRITE_ONCE(engine->props.max_busywait_duration_ns, duration);
-@@ -203,7 +204,7 @@ timeslice_store(struct kobject *kobj, struct kobj_attribute *attr,
- 		const char *buf, size_t count)
- {
- 	struct intel_engine_cs *engine = kobj_to_engine(kobj);
--	unsigned long long duration;
-+	unsigned long long duration, clamped;
- 	int err;
- 
- 	/*
-@@ -218,7 +219,8 @@ timeslice_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	if (err)
- 		return err;
- 
--	if (duration > jiffies_to_msecs(MAX_SCHEDULE_TIMEOUT))
-+	clamped = intel_clamp_timeslice_duration_ms(engine, duration);
-+	if (duration != clamped)
- 		return -EINVAL;
- 
- 	WRITE_ONCE(engine->props.timeslice_duration_ms, duration);
-@@ -256,7 +258,7 @@ stop_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	   const char *buf, size_t count)
- {
- 	struct intel_engine_cs *engine = kobj_to_engine(kobj);
--	unsigned long long duration;
-+	unsigned long long duration, clamped;
- 	int err;
- 
- 	/*
-@@ -272,7 +274,8 @@ stop_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	if (err)
- 		return err;
- 
--	if (duration > jiffies_to_msecs(MAX_SCHEDULE_TIMEOUT))
-+	clamped = intel_clamp_stop_timeout_ms(engine, duration);
-+	if (duration != clamped)
- 		return -EINVAL;
- 
- 	WRITE_ONCE(engine->props.stop_timeout_ms, duration);
-@@ -306,7 +309,7 @@ preempt_timeout_store(struct kobject *kobj, struct kobj_attribute *attr,
- 		      const char *buf, size_t count)
- {
- 	struct intel_engine_cs *engine = kobj_to_engine(kobj);
--	unsigned long long timeout;
-+	unsigned long long timeout, clamped;
- 	int err;
- 
- 	/*
-@@ -322,7 +325,8 @@ preempt_timeout_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	if (err)
- 		return err;
- 
--	if (timeout > jiffies_to_msecs(MAX_SCHEDULE_TIMEOUT))
-+	clamped = intel_clamp_preempt_timeout_ms(engine, timeout);
-+	if (timeout != clamped)
- 		return -EINVAL;
- 
- 	WRITE_ONCE(engine->props.preempt_timeout_ms, timeout);
-@@ -362,7 +366,7 @@ heartbeat_store(struct kobject *kobj, struct kobj_attribute *attr,
- 		const char *buf, size_t count)
- {
- 	struct intel_engine_cs *engine = kobj_to_engine(kobj);
--	unsigned long long delay;
-+	unsigned long long delay, clamped;
- 	int err;
- 
- 	/*
-@@ -379,7 +383,8 @@ heartbeat_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	if (err)
- 		return err;
- 
--	if (delay >= jiffies_to_msecs(MAX_SCHEDULE_TIMEOUT))
-+	clamped = intel_clamp_heartbeat_interval_ms(engine, delay);
-+	if (delay != clamped)
- 		return -EINVAL;
- 
- 	err = intel_engine_set_heartbeat(engine, delay);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index e7a7fb450f442..968ebd79dce70 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -327,6 +327,27 @@ struct guc_update_scheduling_policy {
- 
- #define GLOBAL_POLICY_DEFAULT_DPC_PROMOTE_TIME_US 500000
- 
-+/*
-+ * GuC converts the timeout to clock ticks internally. Different platforms have
-+ * different GuC clocks. Thus, the maximum value before overflow is platform
-+ * dependent. Current worst case scenario is about 110s. So, the spec says to
-+ * limit to 100s to be safe.
-+ */
-+#define GUC_POLICY_MAX_EXEC_QUANTUM_US		(100 * 1000 * 1000UL)
-+#define GUC_POLICY_MAX_PREEMPT_TIMEOUT_US	(100 * 1000 * 1000UL)
-+
-+static inline u32 guc_policy_max_exec_quantum_ms(void)
-+{
-+	BUILD_BUG_ON(GUC_POLICY_MAX_EXEC_QUANTUM_US >= UINT_MAX);
-+	return GUC_POLICY_MAX_EXEC_QUANTUM_US / 1000;
-+}
-+
-+static inline u32 guc_policy_max_preempt_timeout_ms(void)
-+{
-+	BUILD_BUG_ON(GUC_POLICY_MAX_PREEMPT_TIMEOUT_US >= UINT_MAX);
-+	return GUC_POLICY_MAX_PREEMPT_TIMEOUT_US / 1000;
-+}
-+
- struct guc_policies {
- 	u32 submission_queue_depth[GUC_MAX_ENGINE_CLASSES];
- 	/* In micro seconds. How much time to allow before DPC processing is
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 693b07a977893..c433d35ae41ae 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -2430,6 +2430,10 @@ static int guc_context_policy_init_v70(struct intel_context *ce, bool loop)
- 	int ret;
- 
- 	/* NB: For both of these, zero means disabled. */
-+	GEM_BUG_ON(overflows_type(engine->props.timeslice_duration_ms * 1000,
-+				  execution_quantum));
-+	GEM_BUG_ON(overflows_type(engine->props.preempt_timeout_ms * 1000,
-+				  preemption_timeout));
- 	execution_quantum = engine->props.timeslice_duration_ms * 1000;
- 	preemption_timeout = engine->props.preempt_timeout_ms * 1000;
- 
-@@ -2463,6 +2467,10 @@ static void guc_context_policy_init_v69(struct intel_engine_cs *engine,
- 		desc->policy_flags |= CONTEXT_POLICY_FLAG_PREEMPT_TO_IDLE_V69;
- 
- 	/* NB: For both of these, zero means disabled. */
-+	GEM_BUG_ON(overflows_type(engine->props.timeslice_duration_ms * 1000,
-+				  desc->execution_quantum));
-+	GEM_BUG_ON(overflows_type(engine->props.preempt_timeout_ms * 1000,
-+				  desc->preemption_timeout));
- 	desc->execution_quantum = engine->props.timeslice_duration_ms * 1000;
- 	desc->preemption_timeout = engine->props.preempt_timeout_ms * 1000;
- }
+ 	err = mutex_lock_interruptible(&ce->timeline->mutex);
 -- 
 2.37.3
 
