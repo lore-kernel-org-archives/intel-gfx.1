@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E92C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 18:15:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3797AC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 18:15:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D628E10E6D8;
-	Mon, 10 Oct 2022 18:15:07 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E23D10E6D5
- for <intel-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 18:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 930AD10E6D5;
+	Mon, 10 Oct 2022 18:15:14 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BC4610E6C9
+ for <intel-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 18:14:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665425677; x=1696961677;
+ t=1665425678; x=1696961678;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=ANnqzMZFUKwWmwNgg2VinokEtJEXBivAoemdsiCEZK8=;
- b=OKeOrYSomQ1YW0Kf0LlH3QzmxRqbjXVtCXUxmENNoEg1kNkt0/vO60Qs
- cT/xEGpN29up/v2UFSm0pnrBzqvjPT+H++1+z6QV0Em53KScv4zwgxHZL
- 2HAZtXQT923UjY32wIE6XPSEC3neG1IZxBWkaPXy7UavEf4rfQExEU7Bp
- iTuZ6FBs0UsZQmbOSJGlpH+qRHE36lZ5VaRY2dh1HCsaBPjW+3jhQNNW/
- kATbOyKUwHzz9tuY3bDgw66q+s04kK20iTMhdB4clVO94u0khNfFuERzw
- 3hrAAIOF4wxc6+UIbzya7ROxyLroA2d5peA9Tz3GDCHoYZiOvqSRaZO9n A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="301909905"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="301909905"
+ bh=Trv08wtV+/dc1BCY535i1NYObvrVDrfoXrEIeEV7/Ho=;
+ b=iHts47Um1Oofuz0YLlHQYiRnHE26k7T+1a1jOqcowAtp6R1gp0nnS3Cc
+ enVvumAox0lnKXUC687zWO+VEur/g1XEY9J3wfASXqEcEiw5f46BszN7y
+ +FsVp7YtMuxFDAzp2vT6ltMBcHLz+Vx6S7HtmWP0ptvX6pURzFRcJVKKQ
+ 8pcdqyzp4zhkdarYMLfjoVzQ77C1ggvLjzaINa5X+kr+69MeQXcdA3iSh
+ ywr1mxUfb7+p3TWbNWbrhlmFBFVilyi+Zxd5EJA+Bo0EvJnBIXpLwT2ta
+ Mpn+a4cSDzUGgjb3wgTexO7zZZhbRoZr6wifHyZOwkZuu7AnqL4y6tNqg w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="368439667"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="368439667"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 11:14:36 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603820282"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603820282"
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2022 11:14:37 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603820307"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603820307"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 11:14:36 -0700
+ 10 Oct 2022 11:14:37 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Mon, 10 Oct 2022 18:14:26 +0000
-Message-Id: <20221010181434.513477-9-umesh.nerlige.ramappa@intel.com>
+Date: Mon, 10 Oct 2022 18:14:33 +0000
+Message-Id: <20221010181434.513477-16-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221010181434.513477-1-umesh.nerlige.ramappa@intel.com>
 References: <20221010181434.513477-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 08/16] drm/i915/perf: Replace gt->perf.lock
- with stream->lock for file ops
+Subject: [Intel-gfx] [PATCH v3 15/16] drm/i915/perf: complete programming
+ whitelisting for XEHPSDV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,133 +62,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With multi-gt, user can access multiple OA buffers concurrently. Use
-stream->lock instead of gt->perf.lock to serialize file operations.
+From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+We have an additional register to select which slices contribute to
+OAG/OAG counter increments.
+
+Signed-off-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c       | 31 ++++++++++++--------------
- drivers/gpu/drm/i915/i915_perf_types.h |  5 +++++
- 2 files changed, 19 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h          |  2 ++
+ drivers/gpu/drm/i915/i915_pci.c          |  1 +
+ drivers/gpu/drm/i915/i915_perf.c         | 13 +++++++++++++
+ drivers/gpu/drm/i915/intel_device_info.h |  1 +
+ 4 files changed, 17 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index ccd54ff54002..992ca7b0aea0 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -904,6 +904,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 
+ #define HAS_OA_BPC_REPORTING(dev_priv) \
+ 	(INTEL_INFO(dev_priv)->has_oa_bpc_reporting)
++#define HAS_OA_SLICE_CONTRIB_LIMITS(dev_priv) \
++	(INTEL_INFO(dev_priv)->has_oa_slice_contrib_limits)
+ 
+ /*
+  * Set this flag, when platform requires 64K GTT page sizes or larger for
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 6b25e4cb6221..f5de5ae0b800 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1023,6 +1023,7 @@ static const struct intel_device_info adl_p_info = {
+ 	.has_logical_ring_elsq = 1, \
+ 	.has_mslice_steering = 1, \
+ 	.has_oa_bpc_reporting = 1, \
++	.has_oa_slice_contrib_limits = 1, \
+ 	.has_rc6 = 1, \
+ 	.has_reset_engine = 1, \
+ 	.has_rps = 1, \
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 446c9c97c3a4..3961e9c9e97b 100644
+index ae7efe8a831e..c9ab7eaa15ea 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -3229,6 +3229,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
- 	stream->poll_check_timer.function = oa_poll_check_timer_cb;
- 	init_waitqueue_head(&stream->poll_wq);
- 	spin_lock_init(&stream->oa_buffer.ptr_lock);
-+	mutex_init(&stream->lock);
+@@ -4258,6 +4258,11 @@ static const struct i915_range gen12_oa_b_counters[] = {
+ 	{}
+ };
  
- 	return 0;
- 
-@@ -3292,7 +3293,6 @@ static ssize_t i915_perf_read(struct file *file,
- 			      loff_t *ppos)
- {
- 	struct i915_perf_stream *stream = file->private_data;
--	struct intel_gt *gt = stream->engine->gt;
- 	size_t offset = 0;
- 	int ret;
- 
-@@ -3316,14 +3316,14 @@ static ssize_t i915_perf_read(struct file *file,
- 			if (ret)
- 				return ret;
- 
--			mutex_lock(&gt->perf.lock);
-+			mutex_lock(&stream->lock);
- 			ret = stream->ops->read(stream, buf, count, &offset);
--			mutex_unlock(&gt->perf.lock);
-+			mutex_unlock(&stream->lock);
- 		} while (!offset && !ret);
- 	} else {
--		mutex_lock(&gt->perf.lock);
-+		mutex_lock(&stream->lock);
- 		ret = stream->ops->read(stream, buf, count, &offset);
--		mutex_unlock(&gt->perf.lock);
-+		mutex_unlock(&stream->lock);
- 	}
- 
- 	/* We allow the poll checking to sometimes report false positive EPOLLIN
-@@ -3370,9 +3370,6 @@ static enum hrtimer_restart oa_poll_check_timer_cb(struct hrtimer *hrtimer)
-  * &i915_perf_stream_ops->poll_wait to call poll_wait() with a wait queue that
-  * will be woken for new stream data.
-  *
-- * Note: The &gt->perf.lock mutex has been taken to serialize
-- * with any non-file-operation driver hooks.
-- *
-  * Returns: any poll events that are ready without sleeping
-  */
- static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
-@@ -3411,12 +3408,11 @@ static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
- static __poll_t i915_perf_poll(struct file *file, poll_table *wait)
- {
- 	struct i915_perf_stream *stream = file->private_data;
--	struct intel_gt *gt = stream->engine->gt;
- 	__poll_t ret;
- 
--	mutex_lock(&gt->perf.lock);
-+	mutex_lock(&stream->lock);
- 	ret = i915_perf_poll_locked(stream, file, wait);
--	mutex_unlock(&gt->perf.lock);
-+	mutex_unlock(&stream->lock);
- 
- 	return ret;
- }
-@@ -3515,9 +3511,6 @@ static long i915_perf_config_locked(struct i915_perf_stream *stream,
-  * @cmd: the ioctl request
-  * @arg: the ioctl data
-  *
-- * Note: The &gt->perf.lock mutex has been taken to serialize
-- * with any non-file-operation driver hooks.
-- *
-  * Returns: zero on success or a negative error code. Returns -EINVAL for
-  * an unknown ioctl request.
-  */
-@@ -3555,12 +3548,11 @@ static long i915_perf_ioctl(struct file *file,
- 			    unsigned long arg)
- {
- 	struct i915_perf_stream *stream = file->private_data;
--	struct intel_gt *gt = stream->engine->gt;
- 	long ret;
- 
--	mutex_lock(&gt->perf.lock);
-+	mutex_lock(&stream->lock);
- 	ret = i915_perf_ioctl_locked(stream, cmd, arg);
--	mutex_unlock(&gt->perf.lock);
-+	mutex_unlock(&stream->lock);
- 
- 	return ret;
- }
-@@ -3606,6 +3598,11 @@ static int i915_perf_release(struct inode *inode, struct file *file)
- 	struct i915_perf *perf = stream->perf;
- 	struct intel_gt *gt = stream->engine->gt;
- 
-+	/*
-+	 * Within this call, we know that the fd is being closed and we have no
-+	 * other user of stream->lock. Use the perf lock to destroy the stream
-+	 * here.
-+	 */
- 	mutex_lock(&gt->perf.lock);
- 	i915_perf_destroy_locked(stream);
- 	mutex_unlock(&gt->perf.lock);
-diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
-index e888bfab478f..dc9bfd8086cf 100644
---- a/drivers/gpu/drm/i915/i915_perf_types.h
-+++ b/drivers/gpu/drm/i915/i915_perf_types.h
-@@ -146,6 +146,11 @@ struct i915_perf_stream {
- 	 */
- 	struct intel_engine_cs *engine;
- 
-+	/*
-+	 * Lock associated with operations on stream
-+	 */
-+	struct mutex lock;
++static const struct i915_range xehp_oa_b_counters[] = {
++	{ .start = 0xdc48, .end = 0xdc48 },	/* OAA_ENABLE_REG */
++	{ .start = 0xdd00, .end = 0xdd48 },	/* OAG_LCE0_0 - OAA_LENABLE_REG */
++};
 +
- 	/**
- 	 * @sample_flags: Flags representing the `DRM_I915_PERF_PROP_SAMPLE_*`
- 	 * properties given when opening a stream, representing the contents
+ static const struct i915_range gen7_oa_mux_regs[] = {
+ 	{ .start = 0x91b8, .end = 0x91cc },	/* OA_PERFCNT[1-2], OA_PERFMATRIX */
+ 	{ .start = 0x9800, .end = 0x9888 },	/* MICRO_BP0_0 - NOA_WRITE */
+@@ -4332,6 +4337,12 @@ static bool gen12_is_valid_b_counter_addr(struct i915_perf *perf, u32 addr)
+ 	return reg_in_range_table(addr, gen12_oa_b_counters);
+ }
+ 
++static bool xehp_is_valid_b_counter_addr(struct i915_perf *perf, u32 addr)
++{
++	return reg_in_range_table(addr, xehp_oa_b_counters) ||
++		reg_in_range_table(addr, gen12_oa_b_counters);
++}
++
+ static bool gen12_is_valid_mux_addr(struct i915_perf *perf, u32 addr)
+ {
+ 	return reg_in_range_table(addr, gen12_oa_mux_regs);
+@@ -4844,6 +4855,8 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
+ 		} else if (GRAPHICS_VER(i915) == 12) {
+ 			perf->ops.is_valid_b_counter_reg =
++				HAS_OA_SLICE_CONTRIB_LIMITS(i915) ?
++				xehp_is_valid_b_counter_addr :
+ 				gen12_is_valid_b_counter_addr;
+ 			perf->ops.is_valid_mux_reg =
+ 				gen12_is_valid_mux_addr;
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 1f7a842cd408..9975f736bc41 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -165,6 +165,7 @@ enum intel_ppgtt_type {
+ 	func(has_media_ratio_mode); \
+ 	func(has_mslice_steering); \
+ 	func(has_oa_bpc_reporting); \
++	func(has_oa_slice_contrib_limits); \
+ 	func(has_one_eu_per_fuse_bit); \
+ 	func(has_pxp); \
+ 	func(has_rc6); \
 -- 
 2.25.1
 
