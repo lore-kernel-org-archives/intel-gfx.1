@@ -4,47 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF754C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 07:01:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FD22C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 07:44:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5174610E6F1;
-	Mon, 10 Oct 2022 06:59:16 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A424910E658;
- Mon, 10 Oct 2022 06:58:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FAC910E45E;
+	Mon, 10 Oct 2022 07:44:35 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E401D10E1A1;
+ Mon, 10 Oct 2022 07:44:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665385136; x=1696921136;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=UdFRBGiV2rMxY+gv996UFFw/9RjlCYbXs6bsxifVBVI=;
- b=c52KCOql+7f1tqmQtOhFDQE1d54YqZGGfO5VU7V9k8TT/csxkNerWPpE
- DJnzyKblF+SRcialRcqeuqWTB35NsXqLGgPVck+TbO6survt1uAc/ByCw
- SXm4DU74zCPrNQzM/fPPkw9V4JY0cAtjeNcG1C9W5crEYvsa3YUP5J9E4
- UoBUzBxqisrU1KCw0Ak9b+ApRWgQqkQt5LmejYpfl64wBRhC4LTlKGF4T
- MB+NARwDlbfcie59xT8cbmY5oolhgl6RxqLpOoHGNwVA+eENRis07o2oy
- 5YNNnP1Z60ke0ZvZRcuqE9qfZND+BxnuahQhzT1zEwK2BPAM8pbWfI2Hu A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="305753010"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="305753010"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2022 23:58:56 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="576947155"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="576947155"
-Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 09 Oct 2022 23:58:55 -0700
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Sun,  9 Oct 2022 23:58:18 -0700
-Message-Id: <20221010065826.32037-10-niranjana.vishwanathapura@intel.com>
-X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
-In-Reply-To: <20221010065826.32037-1-niranjana.vishwanathapura@intel.com>
-References: <20221010065826.32037-1-niranjana.vishwanathapura@intel.com>
+ t=1665387870; x=1696923870;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=+xYBzkJJbEswt3Udi7rw2jLreR3Vwbfut7+yRDH0aa4=;
+ b=CdCZn7exU3SnmOeflO9kW5I5gYmvZn0XMkEKRu+M7IqRbsC2wqDf5Q11
+ isfSVNjZcpwppXXWt7A5kfKLFtDWFGLl6YgmkM0CUhExGiX6ZzcGs1Ymj
+ PYfvll/K3io1Bo9f7U1G8ijrsdhg4+ne+2zubFCPkDmTVOoYi4oilEvVO
+ 6uNuHXbXj1T5F1K9xlpV1vyoBnKiTpWL4bmLmispvMjgXYoH5WYwTNuAs
+ 0kB6qZXLXXBayUeARs56mS/i13mBXXkuUfAoDJYUOTGKvKxd+cBLBDI09
+ plIJg/FdC6+QNZjZcA7XRLib2Zmsui9yqXRx3cErIQkjBjBft3x2OHNkf Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="304153211"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="304153211"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2022 00:44:30 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="603628611"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603628611"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.10.52])
+ ([10.213.10.52])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2022 00:44:23 -0700
+Message-ID: <10268aa0-6d76-2635-79f8-f450f11e01d0@intel.com>
+Date: Mon, 10 Oct 2022 09:44:20 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.3.1
+Content-Language: en-US
+To: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20221005121159.340245-1-thomas.hellstrom@linux.intel.com>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20221005121159.340245-1-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 09/17] drm/i915/vm_bind: Add out fence support
+Subject: Re: [Intel-gfx] [PATCH RESEND] drm/i915: Fix display problems after
+ resume
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,292 +64,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
- matthew.auld@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com
+Cc: Kevin Boulain <kevinboulain@gmail.com>,
+ David de Sousa <davidesousa@gmail.com>, stable@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add support for handling out fence for vm_bind call.
+On 05.10.2022 14:11, Thomas Hellström wrote:
+> Commit 39a2bd34c933 ("drm/i915: Use the vma resource as argument for gtt
+> binding / unbinding") introduced a regression that due to the vma resource
+> tracking of the binding state, dpt ptes were not correctly repopulated.
+> Fix this by clearing the vma resource state before repopulating.
+> The state will subsequently be restored by the bind_vma operation.
+> 
+> Fixes: 39a2bd34c933 ("drm/i915: Use the vma resource as argument for gtt binding / unbinding")
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Link: https://patchwork.freedesktop.org/patch/msgid/20220912121957.31310-1-thomas.hellstrom@linux.intel.com
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v5.18+
+> Reported-and-tested-by: Kevin Boulain <kevinboulain@gmail.com>
+> Tested-by: David de Sousa <davidesousa@gmail.com>
+> ---
+>   drivers/gpu/drm/i915/gt/intel_ggtt.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+> index b31fe0fb013f..5c67e49aacf6 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+> @@ -1275,10 +1275,16 @@ bool i915_ggtt_resume_vm(struct i915_address_space *vm)
+>   			atomic_read(&vma->flags) & I915_VMA_BIND_MASK;
+>   
+>   		GEM_BUG_ON(!was_bound);
+> -		if (!retained_ptes)
+> +		if (!retained_ptes) {
+> +			/*
+> +			 * Clear the bound flags of the vma resource to allow
+> +			 * ptes to be repopulated.
+> +			 */
+> +			vma->resource->bound_flags = 0;
 
-v2: Reset vma->vm_bind_fence.syncobj to NULL at the end
-    of vm_bind call.
+Personally I would put this at suspend path, if possible.
+Anyway:
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 
-Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h   |  4 +
- .../drm/i915/gem/i915_gem_vm_bind_object.c    | 82 +++++++++++++++++++
- drivers/gpu/drm/i915/i915_vma.c               |  7 +-
- drivers/gpu/drm/i915/i915_vma_types.h         |  7 ++
- include/uapi/drm/i915_drm.h                   | 63 +++++++++++++-
- 5 files changed, 158 insertions(+), 5 deletions(-)
+Regards
+Andrzej
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
-index 36262a6357b5..b70e900e35ab 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
-@@ -8,6 +8,7 @@
- 
- #include <linux/types.h>
- 
-+struct dma_fence;
- struct drm_device;
- struct drm_file;
- struct i915_address_space;
-@@ -23,4 +24,7 @@ int i915_gem_vm_unbind_ioctl(struct drm_device *dev, void *data,
- 
- void i915_gem_vm_unbind_all(struct i915_address_space *vm);
- 
-+void i915_vm_bind_signal_fence(struct i915_vma *vma,
-+			       struct dma_fence * const fence);
-+
- #endif /* __I915_GEM_VM_BIND_H */
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-index c435d49af2c8..526d3a6bf671 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-@@ -7,6 +7,8 @@
- 
- #include <linux/interval_tree_generic.h>
- 
-+#include <drm/drm_syncobj.h>
-+
- #include "gem/i915_gem_context.h"
- #include "gem/i915_gem_vm_bind.h"
- 
-@@ -100,6 +102,76 @@ static void i915_gem_vm_bind_remove(struct i915_vma *vma, bool release_obj)
- 		i915_gem_object_put(vma->obj);
- }
- 
-+static int i915_vm_bind_add_fence(struct drm_file *file, struct i915_vma *vma,
-+				  u32 handle, u64 point)
-+{
-+	struct drm_syncobj *syncobj;
-+
-+	syncobj = drm_syncobj_find(file, handle);
-+	if (!syncobj) {
-+		DRM_DEBUG("Invalid syncobj handle provided\n");
-+		return -ENOENT;
-+	}
-+
-+	/*
-+	 * For timeline syncobjs we need to preallocate chains for
-+	 * later signaling.
-+	 */
-+	if (point) {
-+		vma->vm_bind_fence.chain_fence = dma_fence_chain_alloc();
-+		if (!vma->vm_bind_fence.chain_fence) {
-+			drm_syncobj_put(syncobj);
-+			return -ENOMEM;
-+		}
-+	} else {
-+		vma->vm_bind_fence.chain_fence = NULL;
-+	}
-+	vma->vm_bind_fence.syncobj = syncobj;
-+	vma->vm_bind_fence.value = point;
-+
-+	return 0;
-+}
-+
-+static void i915_vm_bind_put_fence(struct i915_vma *vma)
-+{
-+	if (!vma->vm_bind_fence.syncobj)
-+		return;
-+
-+	drm_syncobj_put(vma->vm_bind_fence.syncobj);
-+	dma_fence_chain_free(vma->vm_bind_fence.chain_fence);
-+	vma->vm_bind_fence.syncobj = NULL;
-+}
-+
-+/**
-+ * i915_vm_bind_signal_fence() - Add fence to vm_bind syncobj
-+ * @vma: vma mapping requiring signaling
-+ * @fence: fence to be added
-+ *
-+ * Associate specified @fence with the @vma's syncobj to be
-+ * signaled after the @fence work completes.
-+ */
-+void i915_vm_bind_signal_fence(struct i915_vma *vma,
-+			       struct dma_fence * const fence)
-+{
-+	struct drm_syncobj *syncobj = vma->vm_bind_fence.syncobj;
-+
-+	if (!syncobj)
-+		return;
-+
-+	if (vma->vm_bind_fence.chain_fence) {
-+		drm_syncobj_add_point(syncobj,
-+				      vma->vm_bind_fence.chain_fence,
-+				      fence, vma->vm_bind_fence.value);
-+		/*
-+		 * The chain's ownership is transferred to the
-+		 * timeline.
-+		 */
-+		vma->vm_bind_fence.chain_fence = NULL;
-+	} else {
-+		drm_syncobj_replace_fence(syncobj, fence);
-+	}
-+}
-+
- static int i915_gem_vm_unbind_vma(struct i915_address_space *vm,
- 				  struct drm_i915_gem_vm_unbind *va)
- {
-@@ -237,6 +309,13 @@ static int i915_gem_vm_bind_obj(struct i915_address_space *vm,
- 		goto unlock_vm;
- 	}
- 
-+	if (va->fence.flags & I915_TIMELINE_FENCE_SIGNAL) {
-+		ret = i915_vm_bind_add_fence(file, vma, va->fence.handle,
-+					     va->fence.value);
-+		if (ret)
-+			goto put_vma;
-+	}
-+
- 	pin_flags = va->start | PIN_OFFSET_FIXED | PIN_USER | PIN_VALIDATE;
- 
- 	for_i915_gem_ww(&ww, ret, true) {
-@@ -258,6 +337,9 @@ static int i915_gem_vm_bind_obj(struct i915_address_space *vm,
- 		i915_gem_object_get(vma->obj);
- 	}
- 
-+	if (va->fence.flags & I915_TIMELINE_FENCE_SIGNAL)
-+		i915_vm_bind_put_fence(vma);
-+put_vma:
- 	if (ret)
- 		i915_vma_destroy(vma);
- unlock_vm:
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 88c09e885fec..cb8e718ec46e 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -29,6 +29,7 @@
- #include "display/intel_frontbuffer.h"
- #include "gem/i915_gem_lmem.h"
- #include "gem/i915_gem_tiling.h"
-+#include "gem/i915_gem_vm_bind.h"
- #include "gt/intel_engine.h"
- #include "gt/intel_engine_heartbeat.h"
- #include "gt/intel_gt.h"
-@@ -1572,8 +1573,12 @@ int i915_vma_pin_ww(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- err_vma_res:
- 	i915_vma_resource_free(vma_res);
- err_fence:
--	if (work)
-+	if (work) {
-+		if (i915_vma_is_persistent(vma))
-+			i915_vm_bind_signal_fence(vma, &work->base.dma);
-+
- 		dma_fence_work_commit_imm(&work->base);
-+	}
- err_rpm:
- 	if (wakeref)
- 		intel_runtime_pm_put(&vma->vm->i915->runtime_pm, wakeref);
-diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
-index d32c72e8d242..2c740500ac1b 100644
---- a/drivers/gpu/drm/i915/i915_vma_types.h
-+++ b/drivers/gpu/drm/i915/i915_vma_types.h
-@@ -308,6 +308,13 @@ struct i915_vma {
- 	/* @vm_rebind_link: link to vm_rebind_list and protected by vm_rebind_lock */
- 	struct list_head vm_rebind_link; /* Link in vm_rebind_list */
- 
-+	/** Timeline fence for vm_bind completion notification */
-+	struct {
-+		struct dma_fence_chain *chain_fence;
-+		struct drm_syncobj *syncobj;
-+		u64 value;
-+	} vm_bind_fence;
-+
- 	/** Interval tree structures for persistent vma */
- 
- 	/** @rb: node for the interval tree of vm for persistent vmas */
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 16b815875e4f..61b1500866f9 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -1527,6 +1527,41 @@ struct drm_i915_gem_execbuffer2 {
- #define i915_execbuffer2_get_context_id(eb2) \
- 	((eb2).rsvd1 & I915_EXEC_CONTEXT_ID_MASK)
- 
-+/**
-+ * struct drm_i915_gem_timeline_fence - An input or output timeline fence.
-+ *
-+ * The operation will wait for input fence to signal.
-+ *
-+ * The returned output fence will be signaled after the completion of the
-+ * operation.
-+ */
-+struct drm_i915_gem_timeline_fence {
-+	/** @handle: User's handle for a drm_syncobj to wait on or signal. */
-+	__u32 handle;
-+
-+	/**
-+	 * @flags: Supported flags are:
-+	 *
-+	 * I915_TIMELINE_FENCE_WAIT:
-+	 * Wait for the input fence before the operation.
-+	 *
-+	 * I915_TIMELINE_FENCE_SIGNAL:
-+	 * Return operation completion fence as output.
-+	 */
-+	__u32 flags;
-+#define I915_TIMELINE_FENCE_WAIT            (1 << 0)
-+#define I915_TIMELINE_FENCE_SIGNAL          (1 << 1)
-+#define __I915_TIMELINE_FENCE_UNKNOWN_FLAGS (-(I915_TIMELINE_FENCE_SIGNAL << 1))
-+
-+	/**
-+	 * @value: A point in the timeline.
-+	 * Value must be 0 for a binary drm_syncobj. A Value of 0 for a
-+	 * timeline drm_syncobj is invalid as it turns a drm_syncobj into a
-+	 * binary one.
-+	 */
-+	__u64 value;
-+};
-+
- struct drm_i915_gem_pin {
- 	/** Handle of the buffer to be pinned. */
- 	__u32 handle;
-@@ -3817,8 +3852,18 @@ struct drm_i915_gem_vm_bind {
- 	 */
- 	__u64 flags;
- 
--	/** @rsvd: Reserved, MBZ */
--	__u64 rsvd[2];
-+	/**
-+	 * @fence: Timeline fence for bind completion signaling.
-+	 *
-+	 * Timeline fence is of format struct drm_i915_gem_timeline_fence.
-+	 *
-+	 * It is an out fence, hence using I915_TIMELINE_FENCE_WAIT flag
-+	 * is invalid, and an error will be returned.
-+	 *
-+	 * If I915_TIMELINE_FENCE_SIGNAL flag is not set, then out fence
-+	 * is not requested and binding is completed synchronously.
-+	 */
-+	struct drm_i915_gem_timeline_fence fence;
- 
- 	/**
- 	 * @extensions: Zero-terminated chain of extensions.
-@@ -3865,8 +3910,18 @@ struct drm_i915_gem_vm_unbind {
- 	 */
- 	__u64 flags;
- 
--	/** @rsvd2: Reserved, MBZ */
--	__u64 rsvd2[2];
-+	/**
-+	 * @fence: Timeline fence for unbind completion signaling.
-+	 *
-+	 * Timeline fence is of format struct drm_i915_gem_timeline_fence.
-+	 *
-+	 * It is an out fence, hence using I915_TIMELINE_FENCE_WAIT flag
-+	 * is invalid, and an error will be returned.
-+	 *
-+	 * If I915_TIMELINE_FENCE_SIGNAL flag is not set, then out fence
-+	 * is not requested and unbinding is completed synchronously.
-+	 */
-+	struct drm_i915_gem_timeline_fence fence;
- 
- 	/**
- 	 * @extensions: Zero-terminated chain of extensions.
--- 
-2.21.0.rc0.32.g243a4c7e27
+
+>   			vma->ops->bind_vma(vm, NULL, vma->resource,
+>   					   obj ? obj->cache_level : 0,
+>   					   was_bound);
+> +		}
+>   		if (obj) { /* only used during resume => exclusive access */
+>   			write_domain_objs |= fetch_and_zero(&obj->write_domain);
+>   			obj->read_domains |= I915_GEM_DOMAIN_GTT;
 
