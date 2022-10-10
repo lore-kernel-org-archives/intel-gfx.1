@@ -4,86 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E6D9C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 12:11:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E07EC433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 12:11:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8AE10E144;
-	Mon, 10 Oct 2022 12:10:57 +0000 (UTC)
-Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
- [64.147.123.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3A3110E4B2;
- Mon, 10 Oct 2022 12:10:52 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.west.internal (Postfix) with ESMTP id 9AEDA2B067AA;
- Mon, 10 Oct 2022 08:10:47 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Mon, 10 Oct 2022 08:10:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1665403847; x=
- 1665411047; bh=h6MDYVkUrCUpK3ETe9fcuN2TM8Pd074coaFYvzfkf3s=; b=X
- 8TTYRqTCQS2QJhsYN7GvvAJRh7lJ7Anah3pR2RReFaL/R+5luKeopHOSW0w6nJCC
- wEDZF+lFROGCYFiFLWRbYuNAlFBotirqVeewpXjYbElZQ8E8k5KPJZDpxxL+8o7P
- m14oe5QNJyBDCN2UhEX41FSQ14j2V2TLtp7O9cFS9aS7GuDs/ejSz3oo9Entho4t
- gzrvbg4H8gRWrgpJLH0mg8UpA2HgJSvg5Wkf9tidJBKGGP8SFUy3Hzs1uHRVTjel
- 2mgZhegx/CmyQOCuFz+Nw4kihKjUipqWx2JADrbKtx24XNa0J0gODEpgjc9r/9aX
- xUe3E87GwsKevIT7iqzbw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1665403847; x=
- 1665411047; bh=h6MDYVkUrCUpK3ETe9fcuN2TM8Pd074coaFYvzfkf3s=; b=H
- PpyDxQ+0ZEygAo/SXVkKH7PGtx5TPR0HqlATUtyCUxdQdC3h8ctBbDzxmbHVjc+i
- nRH3i5GtxCMz2a8oTcpUscBfrrTgP/Dj8pVAlyWSnGakoXRBAmC9Fg6nxGMH2g4a
- wcw/ZS/oZyxaicAtMS5cohDJOr/37IIqrD1kdQg1kCPOgAkATaNedK/cJLfGDyXD
- XgHzYdCZ+yAQxJi0zFRJP7+rvjQ290H1l9hzZoa9hCwtp3Q6cFCsanyQ1ItdC3OE
- 9mBzpBTAxmOCOG5NoebuKEHAaNR9sJUnU6WS/m/VD9vOf3jbdy8vtlcddHawV1Yh
- UK0qVaRdd2pRBHdt4bviA==
-X-ME-Sender: <xms:xQtEY9ZqrX6ifLo6Uh1Pyk-C6WQKbR6hgrOtvLDxIYYHLxR6cqee6A>
- <xme:xQtEY0bdEBf3f3gAPzO4ZztjUZCBvdHAFBWPjOgj-vXHoNyowVTfwYGcMEai8OJkG
- 7IVdpspdyTzVFMgRsM>
-X-ME-Received: <xmr:xQtEY_9y46DdXsGqz3rxNTqtSbPjzoj6tuBxt3QrbtWfwpnhxYvw1gJ-Ma3V>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeejgedggeefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforgig
- ihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrf
- grthhtvghrnhepueeigefghfffffeifeehudeiuedvteegueefffevgfetvdffheehkeff
- vedufeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
- epmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:xQtEY7p8IERGoTKuQJ72GS68rLEkGr8D_8-OhO9De8DfkXIa5vCB2w>
- <xmx:xQtEY4r7n7X0UTKUO3laEFPGecThTwGQEAZFNiWKWRhvoTEhaQ-weg>
- <xmx:xQtEYxSyOiGzUuzutWeAtvZioN4TcrsBGPdorJiYKgwBDqZl6fV0lQ>
- <xmx:xwtEYwF-Dwf_OHKQz8Xh1M1zUNqYz1MchTlaPg-7bWhc07gzqysHGEKu99Q>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 10 Oct 2022 08:10:44 -0400 (EDT)
-From: Maxime Ripard <maxime@cerno.tech>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Samuel Holland <samuel@sholland.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Ben Skeggs <bskeggs@redhat.com>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Chen-Yu Tsai <wens@csie.org>, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Emma Anholt <emma@anholt.net>, Karol Herbst <kherbst@redhat.com>,
- Lyude Paul <lyude@redhat.com>, Maxime Ripard <maxime@cerno.tech>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Date: Mon, 10 Oct 2022 14:10:36 +0200
-Message-Id: <166540374295.183315.10600855236256660249.b4-ty@cerno.tech>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20220728-rpi-analog-tv-properties-v4-2-60d38873f782@cerno.tech>
-References: <20220728-rpi-analog-tv-properties-v4-0-60d38873f782@cerno.tech>
- <20220728-rpi-analog-tv-properties-v4-2-60d38873f782@cerno.tech>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A05C410E4BF;
+	Mon, 10 Oct 2022 12:11:04 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30E7210E144
+ for <intel-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 12:10:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1665403856; x=1696939856;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=+7iCPWnmbJAUOTEWx6U878iQD9S3SDNSufytTDUJa4k=;
+ b=bN7WyZ2e8XGXlgf/RNMFzYU4h5kUdz9SmaQ+0fbrpyGy4SoyXjDYu1qP
+ kGwO9BCZsdAkTtqHSDL7YESTIEcl0mlsID3/RqDnEF0KKhJN7jqXWI1bD
+ WQra5dCsYdsbUYZHUlRMxqtlnlhheoTumYypi0JnNzc52Dqgg3mD+22fW
+ LT/vcXJGCYasqYnaAKU/ycxaDpceh4yTID6lL0oz428wTkhJ0SnJ25f78
+ 1E3w1scnNigF6+YR4rrZWepus1Qr1Lu7cUtHmVX64CTeMZ94a7GrjJ6wD
+ AbDbosp14xikWOWI2wh2KwhGekgVJnOJGdw/r43bxI4uRCf6F9rYVTlDe Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="305804670"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="305804670"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2022 05:10:55 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="871080489"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="871080489"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.10.52])
+ ([10.213.10.52])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2022 05:10:54 -0700
+Message-ID: <a7d4b6a9-0da9-1dbb-43ff-36506c02eaef@intel.com>
+Date: Mon, 10 Oct 2022 14:10:52 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] (subset) [PATCH v4 02/30] drm/tests: Order Kunit
- tests in Makefile
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.3.1
+Content-Language: en-US
+To: Vinod Govindapillai <vinod.govindapillai@intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20221010083447.139768-1-vinod.govindapillai@intel.com>
+ <20221010083447.139768-3-vinod.govindapillai@intel.com>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20221010083447.139768-3-vinod.govindapillai@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v2 2/2] drm/i915/display: debugfs entry to
+ control ignore long hpd flag
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,27 +65,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?q?Noralf=20Tr=EF=BF=BD=EF=BF=BDnnes?= <noralf@tronnes.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, linux-sunxi@lists.linux.dev,
- Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 29 Sep 2022 18:30:56 +0200, Maxime Ripard wrote:
-> Since we've recently added a ton of tests, the list starts to be a bit
-> of a mess and creates unneeded conflicts.
+On 10.10.2022 10:34, Vinod Govindapillai wrote:
+> Knob to control ignoring the long hpds. Set this to true will
+> start ignoring the long HPDs generated by the displays. Useful
+> for use cases like CI systems where we dont expect to disconnect
+> the panels.
 > 
-> Let's order it alphabetically.
+> v2: Address patch styling comments (Jani Nikula)
 > 
-> 
+> Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 
-Applied to drm/drm-misc (drm-misc-next).
 
-Thanks!
-Maxime
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+
+Regards
+Andrzej
+
+> ---
+>   drivers/gpu/drm/i915/display/intel_hotplug.c | 25 ++++++++++++++++++++
+>   1 file changed, 25 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
+> index 352a1b53b63e..45c67f0f1c9f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hotplug.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
+> @@ -936,6 +936,29 @@ static const struct file_operations i915_hpd_short_storm_ctl_fops = {
+>   	.write = i915_hpd_short_storm_ctl_write,
+>   };
+>   
+> +static int i915_ignore_long_hpd_set(void *data, u64 val)
+> +{
+> +	struct drm_i915_private *i915 = data;
+> +
+> +	drm_dbg_kms(&i915->drm, "Ignoring long HPDs: %s\n", str_yes_no(val));
+> +
+> +	i915->display.hotplug.ignore_long_hpd = val;
+> +
+> +	return 0;
+> +}
+> +
+> +static int i915_ignore_long_hpd_get(void *data, u64 *val)
+> +{
+> +	struct drm_i915_private *i915 = data;
+> +
+> +	*val = i915->display.hotplug.ignore_long_hpd;
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_SIMPLE_ATTRIBUTE(i915_ignore_long_hpd_fops, i915_ignore_long_hpd_get,
+> +			i915_ignore_long_hpd_set, "%llu\n");
+> +
+>   void intel_hpd_debugfs_register(struct drm_i915_private *i915)
+>   {
+>   	struct drm_minor *minor = i915->drm.primary;
+> @@ -944,4 +967,6 @@ void intel_hpd_debugfs_register(struct drm_i915_private *i915)
+>   			    i915, &i915_hpd_storm_ctl_fops);
+>   	debugfs_create_file("i915_hpd_short_storm_ctl", 0644, minor->debugfs_root,
+>   			    i915, &i915_hpd_short_storm_ctl_fops);
+> +	debugfs_create_file("i915_ignore_long_hpd", 0644, minor->debugfs_root,
+> +			    i915, &i915_ignore_long_hpd_fops);
+>   }
+
