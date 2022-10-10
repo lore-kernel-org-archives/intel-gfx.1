@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C56E4C433F5
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 18:14:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64AE0C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 18:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0027D10E6B7;
-	Mon, 10 Oct 2022 18:14:44 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA32910E6D9
+	by gabe.freedesktop.org (Postfix) with ESMTP id A711E10E6BC;
+	Mon, 10 Oct 2022 18:14:45 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D47B10E6C4
  for <intel-gfx@lists.freedesktop.org>; Mon, 10 Oct 2022 18:14:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1665425677; x=1696961677;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=EiG7y2mNkmcIZo24nc1z2FovK9JX3IgrM+eH0bulPmo=;
- b=b3z0oj+LWtAScUuUxfOrnuPiNZN2oZxCNyt6r5hF/60zo2W5zS89LUsY
- qFVW7Y6UCiDJH4x4EDL2x70HDKm+VMhd0Q02CZjknxlOBIGFLylq6volD
- rfb9RCY/clstT/4rJlilxMdtjsUDDkHfzH/saeksh6Ct/KhZcAQJC2Ovh
- qLhSUpLQsslvbp7nWraxa3mKcy4moEpsWCrpeMjcqGJYiIJ7zOgD6fR16
- uSHyVWOiDt65rsIh+WbKhFjqYM6DkcrCRifOTaR6zl2jmfz2Mn8HQZH6T
- rZZJ8lWRvyr+PmVp3uExkcAPRXDh/Ji7mQIkxsbp8ZsfW74LdYQpZpbY5 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="368439656"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="368439656"
+ bh=d8wcRRq9QkgznB/BZxgorrckMEA+svvX+I1oXD8gw3A=;
+ b=jE+Q17zkzYpNMFemciw0L5Svti1951DfwCf08J9lji9uz9rO/vLrUz/6
+ AajCjkxVT3oikMRzesq3XbCEGNHS8Im6UcMM8qDMzSAXo97pHkBQOcVr+
+ nrMUB65f33ei9hZtJ6A8cw+elEXXHiPsdwwvwKbdPRsKrREzMIyReNnYs
+ CRRRxlgbhjBXWJ+kn5bkaEZcvr+6jd63MhxKlmrNVUCfgfE4lDe0dWfxL
+ il4TOQohbQkbnUs2m9QcVe3LcTaCKEo2zjxEUBUiB71ew1Gl8E7A6oCmB
+ 2Biog0TS5c37eIEXOh2VSZcCMcvn6dC5koyZZ8fDlozU2YwtD0Uhwl/8P A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="301909904"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="301909904"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Oct 2022 11:14:36 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603820286"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603820286"
+X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="603820265"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="603820265"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2022 11:14:36 -0700
+ 10 Oct 2022 11:14:35 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Mon, 10 Oct 2022 18:14:27 +0000
-Message-Id: <20221010181434.513477-10-umesh.nerlige.ramappa@intel.com>
+Date: Mon, 10 Oct 2022 18:14:21 +0000
+Message-Id: <20221010181434.513477-4-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221010181434.513477-1-umesh.nerlige.ramappa@intel.com>
 References: <20221010181434.513477-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 09/16] drm/i915/perf: Use gt-specific ggtt
- for OA and noa-wait buffers
+Subject: [Intel-gfx] [PATCH v3 03/16] drm/i915/perf: Fix noa wait
+ predication for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,77 +62,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-User passes uabi engine class and instance to the perf OA interface. Use
-gt corresponding to the engine to pin the buffers to the right ggtt.
+Predication for batch buffer commands changed in XEHPSDV.
+MI_BATCH_BUFFER_START predicates based on MI_SET_PREDICATE_RESULT
+register. The MI_SET_PREDICATE_RESULT register can only be modified
+with MI_SET_PREDICATE command. When configured, the MI_SET_PREDICATE
+command sets MI_SET_PREDICATE_RESULT based on bit 0 of
+MI_PREDICATE_RESULT_2. Use this to configure predication in noa_wait.
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_regs.h |  1 +
+ drivers/gpu/drm/i915/i915_perf.c            | 24 +++++++++++++++++----
+ 2 files changed, 21 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_regs.h b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+index fe1a0d5fd4b1..ee3efd06ee54 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+@@ -201,6 +201,7 @@
+ #define RING_CONTEXT_STATUS_PTR(base)		_MMIO((base) + 0x3a0)
+ #define RING_CTX_TIMESTAMP(base)		_MMIO((base) + 0x3a8) /* gen8+ */
+ #define RING_PREDICATE_RESULT(base)		_MMIO((base) + 0x3b8)
++#define MI_PREDICATE_RESULT_2_ENGINE(base)	_MMIO((base) + 0x3bc)
+ #define RING_FORCE_TO_NONPRIV(base, i)		_MMIO(((base) + 0x4D0) + (i) * 4)
+ #define   RING_FORCE_TO_NONPRIV_DENY		REG_BIT(30)
+ #define   RING_FORCE_TO_NONPRIV_ADDRESS_MASK	REG_GENMASK(25, 2)
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 3961e9c9e97b..2f9e18ee0aab 100644
+index 41e9f620ee31..cd57b5836386 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1750,6 +1750,7 @@ static void gen12_init_oa_buffer(struct i915_perf_stream *stream)
- static int alloc_oa_buffer(struct i915_perf_stream *stream)
- {
- 	struct drm_i915_private *i915 = stream->perf->i915;
-+	struct intel_gt *gt = stream->engine->gt;
- 	struct drm_i915_gem_object *bo;
- 	struct i915_vma *vma;
- 	int ret;
-@@ -1769,11 +1770,22 @@ static int alloc_oa_buffer(struct i915_perf_stream *stream)
- 	i915_gem_object_set_cache_coherency(bo, I915_CACHE_LLC);
+@@ -286,6 +286,7 @@ static u32 i915_perf_stream_paranoid = true;
+ #define OAREPORT_REASON_CTX_SWITCH     (1<<3)
+ #define OAREPORT_REASON_CLK_RATIO      (1<<5)
  
- 	/* PreHSW required 512K alignment, HSW requires 16M */
--	vma = i915_gem_object_ggtt_pin(bo, NULL, 0, SZ_16M, 0);
-+	vma = i915_vma_instance(bo, &gt->ggtt->vm, NULL);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
- 		goto err_unref;
- 	}
-+
-+	/*
-+	 * PreHSW required 512K alignment.
-+	 * HSW and onwards, align to requested size of OA buffer.
-+	 */
-+	ret = i915_vma_pin(vma, 0, SZ_16M, PIN_GLOBAL | PIN_HIGH);
-+	if (ret) {
-+		drm_err(&gt->i915->drm, "Failed to pin OA buffer %d\n", ret);
-+		goto err_unref;
-+	}
-+
- 	stream->oa_buffer.vma = vma;
++#define HAS_MI_SET_PREDICATE(i915) (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
  
- 	stream->oa_buffer.vaddr =
-@@ -1823,6 +1835,7 @@ static u32 *save_restore_register(struct i915_perf_stream *stream, u32 *cs,
- static int alloc_noa_wait(struct i915_perf_stream *stream)
- {
- 	struct drm_i915_private *i915 = stream->perf->i915;
-+	struct intel_gt *gt = stream->engine->gt;
- 	struct drm_i915_gem_object *bo;
- 	struct i915_vma *vma;
- 	const u64 delay_ticks = 0xffffffffffffffff -
-@@ -1863,12 +1876,16 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
- 	 * multiple OA config BOs will have a jump to this address and it
- 	 * needs to be fixed during the lifetime of the i915/perf stream.
+ /* For sysctl proc_dointvec_minmax of i915_oa_max_sample_rate
+  *
+@@ -1762,6 +1763,9 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 		DELTA_TARGET,
+ 		N_CS_GPR
+ 	};
++	i915_reg_t mi_predicate_result = HAS_MI_SET_PREDICATE(i915) ?
++					  MI_PREDICATE_RESULT_2_ENGINE(base) :
++					  MI_PREDICATE_RESULT_1(RENDER_RING_BASE);
+ 
+ 	bo = i915_gem_object_create_internal(i915, 4096);
+ 	if (IS_ERR(bo)) {
+@@ -1799,7 +1803,7 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 			stream, cs, true /* save */, CS_GPR(i),
+ 			INTEL_GT_SCRATCH_FIELD_PERF_CS_GPR + 8 * i, 2);
+ 	cs = save_restore_register(
+-		stream, cs, true /* save */, MI_PREDICATE_RESULT_1(RENDER_RING_BASE),
++		stream, cs, true /* save */, mi_predicate_result,
+ 		INTEL_GT_SCRATCH_FIELD_PERF_PREDICATE_RESULT_1, 1);
+ 
+ 	/* First timestamp snapshot location. */
+@@ -1853,7 +1857,10 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
  	 */
--	vma = i915_gem_object_ggtt_pin_ww(bo, &ww, NULL, 0, 0, PIN_HIGH);
-+	vma = i915_vma_instance(bo, &gt->ggtt->vm, NULL);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
- 		goto out_ww;
- 	}
- 
-+	ret = i915_vma_pin_ww(vma, &ww, 0, 0, PIN_GLOBAL | PIN_HIGH);
-+	if (ret)
-+		goto out_ww;
+ 	*cs++ = MI_LOAD_REGISTER_REG | (3 - 2);
+ 	*cs++ = i915_mmio_reg_offset(CS_GPR(JUMP_PREDICATE));
+-	*cs++ = i915_mmio_reg_offset(MI_PREDICATE_RESULT_1(RENDER_RING_BASE));
++	*cs++ = i915_mmio_reg_offset(mi_predicate_result);
 +
- 	batch = cs = i915_gem_object_pin_map(bo, I915_MAP_WB);
- 	if (IS_ERR(batch)) {
- 		ret = PTR_ERR(batch);
++	if (HAS_MI_SET_PREDICATE(i915))
++		*cs++ = MI_SET_PREDICATE | 1;
+ 
+ 	/* Restart from the beginning if we had timestamps roll over. */
+ 	*cs++ = (GRAPHICS_VER(i915) < 8 ?
+@@ -1863,6 +1870,9 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	*cs++ = i915_ggtt_offset(vma) + (ts0 - batch) * 4;
+ 	*cs++ = 0;
+ 
++	if (HAS_MI_SET_PREDICATE(i915))
++		*cs++ = MI_SET_PREDICATE;
++
+ 	/*
+ 	 * Now add the diff between to previous timestamps and add it to :
+ 	 *      (((1 * << 64) - 1) - delay_ns)
+@@ -1890,7 +1900,10 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	 */
+ 	*cs++ = MI_LOAD_REGISTER_REG | (3 - 2);
+ 	*cs++ = i915_mmio_reg_offset(CS_GPR(JUMP_PREDICATE));
+-	*cs++ = i915_mmio_reg_offset(MI_PREDICATE_RESULT_1(RENDER_RING_BASE));
++	*cs++ = i915_mmio_reg_offset(mi_predicate_result);
++
++	if (HAS_MI_SET_PREDICATE(i915))
++		*cs++ = MI_SET_PREDICATE | 1;
+ 
+ 	/* Predicate the jump.  */
+ 	*cs++ = (GRAPHICS_VER(i915) < 8 ?
+@@ -1900,13 +1913,16 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	*cs++ = i915_ggtt_offset(vma) + (jump - batch) * 4;
+ 	*cs++ = 0;
+ 
++	if (HAS_MI_SET_PREDICATE(i915))
++		*cs++ = MI_SET_PREDICATE;
++
+ 	/* Restore registers. */
+ 	for (i = 0; i < N_CS_GPR; i++)
+ 		cs = save_restore_register(
+ 			stream, cs, false /* restore */, CS_GPR(i),
+ 			INTEL_GT_SCRATCH_FIELD_PERF_CS_GPR + 8 * i, 2);
+ 	cs = save_restore_register(
+-		stream, cs, false /* restore */, MI_PREDICATE_RESULT_1(RENDER_RING_BASE),
++		stream, cs, false /* restore */, mi_predicate_result,
+ 		INTEL_GT_SCRATCH_FIELD_PERF_PREDICATE_RESULT_1, 1);
+ 
+ 	/* And return to the ring. */
 -- 
 2.25.1
 
