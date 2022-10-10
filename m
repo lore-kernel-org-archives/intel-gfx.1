@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C226DC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 07:00:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99BD4C433F5
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Oct 2022 07:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F4AF10E69A;
-	Mon, 10 Oct 2022 06:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97A9110E681;
+	Mon, 10 Oct 2022 06:59:05 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70B2710E661;
- Mon, 10 Oct 2022 06:58:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD1410E636;
+ Mon, 10 Oct 2022 06:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665385137; x=1696921137;
+ t=1665385135; x=1696921135;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=fU42VHNoOl028ubSg8XFKWy+Cy8DQiAU0hPeoObavls=;
- b=XEM075GJyRKOelGYIxpQwaH1tJPBrhULtHRO7oqMFfMgv7EpsUMsLRDw
- juScnTppbn4waK6ayUYb2E7iEeQAto4YQeB1fpWQ1/B35XhgU2NWOt1Jo
- PHWMafvIDDXpMZ0edgVxp5qXPyfIvdHDa7h5NlPl10KbX4reBHsE0Of9y
- PHjnnMymzyDmSE1iE/ub9rplGN2hjfICKEoCrjspV4CROivqtmPcVirub
- 6OZgI8oT/CrvV8ANxAFu4GdCQJAsOOeouPtpQQ8UehjhKCdy7j1shVUxh
- wtOnpqIzL35CRXHfmoKGgFc/0W/RJnpbqVHfC0XrkWriFtRXwaNMn7Acw w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="305753019"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="305753019"
+ bh=LqE2KR2HDu2qvirjCpQOpzqAkDDPpiuUNW7Mc6d3vF4=;
+ b=PZWXtCmZMsDB96pEseeICjM2TmR7nQQrctv+m8HHiHnrYRIUQzrkalTS
+ 5vJC5frBak//KwikQh+8mW7pa5uxwWm9ofua1xxxinoZa0sBtGXn5LSke
+ NdA+E9PPZtxg8oJNZHVIDhqa3yr2gzuzfl02lWo2etQ6BPKcp/OWHmL9Z
+ s7vUiabdYWMXsN2ToZQAus9rKLetZpd3usQ5cCwLmHBNkFGJko3rQKuEg
+ ZsQj5DoyMnn34lCfhbEuChQxGFRe5100y81QRNcP+G7v3BlnPHGZnYOJI
+ +0MTZ9kNDgsPBDQ25WNRnKc5cEn3EWmtCFTSQnZlxo+LIhJbcYS5mFKmh w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="305753002"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="305753002"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2022 23:58:57 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="576947169"
-X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="576947169"
+ 09 Oct 2022 23:58:55 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10495"; a="576947146"
+X-IronPort-AV: E=Sophos;i="5.95,173,1661842800"; d="scan'208";a="576947146"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA;
- 09 Oct 2022 23:58:56 -0700
+ 09 Oct 2022 23:58:54 -0700
 From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Sun,  9 Oct 2022 23:58:21 -0700
-Message-Id: <20221010065826.32037-13-niranjana.vishwanathapura@intel.com>
+Date: Sun,  9 Oct 2022 23:58:15 -0700
+Message-Id: <20221010065826.32037-7-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
 In-Reply-To: <20221010065826.32037-1-niranjana.vishwanathapura@intel.com>
 References: <20221010065826.32037-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 12/17] drm/i915/vm_bind: Implement
- I915_GEM_EXECBUFFER3 ioctl
+Subject: [Intel-gfx] [PATCH v3 06/17] drm/i915/vm_bind: Support for VM
+ private BOs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,740 +63,404 @@ Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement new execbuf3 ioctl (I915_GEM_EXECBUFFER3) which only
-works in vm_bind mode. The vm_bind mode only works with
-this new execbuf3 ioctl.
+Each VM creates a root_obj and shares it with all of its private objects
+to use it as dma_resv object. This has a performance advantage as it
+requires a single dma_resv object update for all private BOs vs list of
+dma_resv objects update for shared BOs, in the execbuf path.
 
-The new execbuf3 ioctl will not have any list of objects to validate
-bind as all required objects binding would have been requested by the
-userspace before submitting the execbuf3.
+VM private BOs can be only mapped on specified VM and cannot be dmabuf
+exported. Also, they are supported only in vm_bind mode.
 
-Legacy features like relocations etc are not supported by execbuf3.
-
-v2: Add more input validity checks.
-v3: batch_address is a VA (not an array) if num_batches=1,
-    minor cleanup
+v2: Pad struct drm_i915_gem_create_ext_vm_private for 64bit alignment,
+    add input validity checks.
+v3: Create root_obj only for ppgtt.
 
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                 |   1 +
- .../gpu/drm/i915/gem/i915_gem_execbuffer3.c   | 580 ++++++++++++++++++
- drivers/gpu/drm/i915/gem/i915_gem_ioctls.h    |   2 +
- drivers/gpu/drm/i915/i915_driver.c            |   1 +
- include/uapi/drm/i915_drm.h                   |  61 ++
- 5 files changed, 645 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 16 +++++-
+ drivers/gpu/drm/i915/gem/i915_gem_create.c    | 49 ++++++++++++++++++-
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |  6 +++
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  4 ++
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |  3 ++
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |  3 ++
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |  3 ++
+ .../drm/i915/gem/i915_gem_vm_bind_object.c    |  9 ++++
+ drivers/gpu/drm/i915/gt/intel_gtt.c           |  3 ++
+ drivers/gpu/drm/i915/gt/intel_gtt.h           |  2 +
+ drivers/gpu/drm/i915/i915_vma.c               |  1 +
+ drivers/gpu/drm/i915/i915_vma_types.h         |  2 +
+ include/uapi/drm/i915_drm.h                   | 33 +++++++++++++
+ 13 files changed, 131 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 3564307699ea..94520b79e7e7 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -150,6 +150,7 @@ gem-y += \
- 	gem/i915_gem_domain.o \
- 	gem/i915_gem_execbuffer_common.o \
- 	gem/i915_gem_execbuffer.o \
-+	gem/i915_gem_execbuffer3.o \
- 	gem/i915_gem_internal.o \
- 	gem/i915_gem_object.o \
- 	gem/i915_gem_lmem.o \
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
-new file mode 100644
-index 000000000000..1f38f658066a
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
-@@ -0,0 +1,580 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 793345cbf99e..5ea7064805f3 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -83,6 +83,7 @@
+ 
+ #include "i915_file_private.h"
+ #include "i915_gem_context.h"
++#include "i915_gem_internal.h"
+ #include "i915_trace.h"
+ #include "i915_user_extensions.h"
+ 
+@@ -1795,6 +1796,7 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_i915_private *i915 = to_i915(dev);
+ 	struct drm_i915_gem_vm_control *args = data;
+ 	struct drm_i915_file_private *file_priv = file->driver_priv;
++	struct drm_i915_gem_object *obj;
+ 	struct i915_ppgtt *ppgtt;
+ 	u32 id;
+ 	int err;
+@@ -1817,15 +1819,27 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev, void *data,
+ 			goto err_put;
+ 	}
+ 
++	obj = i915_gem_object_create_internal(i915, PAGE_SIZE);
++	if (IS_ERR(obj)) {
++		err = PTR_ERR(obj);
++		goto err_put;
++	}
 +
-+#include <linux/dma-resv.h>
-+#include <linux/uaccess.h>
++	ppgtt->vm.root_obj = obj;
++	ppgtt->vm.vm_bind_mode = true;
 +
-+#include <drm/drm_syncobj.h>
-+
-+#include "gt/intel_context.h"
-+#include "gt/intel_gpu_commands.h"
-+#include "gt/intel_gt.h"
-+
-+#include "i915_drv.h"
+ 	err = xa_alloc(&file_priv->vm_xa, &id, &ppgtt->vm,
+ 		       xa_limit_32b, GFP_KERNEL);
+ 	if (err)
+-		goto err_put;
++		goto err_root_obj_put;
+ 
+ 	GEM_BUG_ON(id == 0); /* reserved for invalid/unassigned ppgtt */
+ 	args->vm_id = id;
+ 	return 0;
+ 
++err_root_obj_put:
++	if (ppgtt->vm.root_obj)
++		i915_gem_object_put(ppgtt->vm.root_obj);
+ err_put:
+ 	i915_vm_put(&ppgtt->vm);
+ 	return err;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+index 5c6e396ab74d..694d4638ac8b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+@@ -11,6 +11,7 @@
+ #include "pxp/intel_pxp.h"
+ 
+ #include "i915_drv.h"
 +#include "i915_gem_context.h"
-+#include "i915_gem_execbuffer_common.h"
-+#include "i915_gem_ioctls.h"
-+#include "i915_gem_vm_bind.h"
-+#include "i915_trace.h"
-+
-+#define __EXEC3_ENGINE_PINNED		BIT_ULL(32)
-+#define __EXEC3_INTERNAL_FLAGS		(~0ull << 32)
-+
-+/* Catch emission of unexpected errors for CI! */
-+#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
-+#undef EINVAL
-+#define EINVAL ({ \
-+	DRM_DEBUG_DRIVER("EINVAL at %s:%d\n", __func__, __LINE__); \
-+	22; \
-+})
-+#endif
-+
-+/**
-+ * DOC: User command execution with execbuf3 ioctl
-+ *
-+ * A VM in VM_BIND mode will not support older execbuf mode of binding.
-+ * The execbuf ioctl handling in VM_BIND mode differs significantly from the
-+ * older execbuf2 ioctl (See struct drm_i915_gem_execbuffer2).
-+ * Hence, a new execbuf3 ioctl has been added to support VM_BIND mode. (See
-+ * struct drm_i915_gem_execbuffer3). The execbuf3 ioctl will not accept any
-+ * execlist. Hence, no support for implicit sync.
-+ *
-+ * The new execbuf3 ioctl only works in VM_BIND mode and the VM_BIND mode only
-+ * works with execbuf3 ioctl for submission.
-+ *
-+ * The execbuf3 ioctl directly specifies the batch addresses instead of as
-+ * object handles as in execbuf2 ioctl. The execbuf3 ioctl will also not
-+ * support many of the older features like in/out/submit fences, fence array,
-+ * default gem context etc. (See struct drm_i915_gem_execbuffer3).
-+ *
-+ * In VM_BIND mode, VA allocation is completely managed by the user instead of
-+ * the i915 driver. Hence all VA assignment, eviction are not applicable in
-+ * VM_BIND mode. Also, for determining object activeness, VM_BIND mode will not
-+ * be using the i915_vma active reference tracking. It will instead check the
-+ * dma-resv object's fence list for that.
-+ *
-+ * So, a lot of code supporting execbuf2 ioctl, like relocations, VA evictions,
-+ * vma lookup table, implicit sync, vma active reference tracking etc., are not
-+ * applicable for execbuf3 ioctl.
-+ */
-+
-+/**
-+ * struct i915_execbuffer - execbuf struct for execbuf3
-+ * @i915: reference to the i915 instance we run on
-+ * @file: drm file reference
-+ * args: execbuf3 ioctl structure
-+ * @gt: reference to the gt instance ioctl submitted for
-+ * @context: logical state for the request
-+ * @gem_context: callers context
-+ * @requests: requests to be build
-+ * @composite_fence: used for excl fence in dma_resv objects when > 1 BB submitted
-+ * @ww: i915_gem_ww_ctx instance
-+ * @num_batches: number of batches submitted
-+ * @batch_addresses: addresses corresponds to the submitted batches
-+ * @batches: references to the i915_vmas corresponding to the batches
-+ */
-+struct i915_execbuffer {
-+	struct drm_i915_private *i915;
-+	struct drm_file *file;
-+	struct drm_i915_gem_execbuffer3 *args;
-+
-+	struct intel_gt *gt;
-+	struct intel_context *context;
-+	struct i915_gem_context *gem_context;
-+
-+	struct i915_request *requests[MAX_ENGINE_INSTANCE + 1];
-+	struct dma_fence *composite_fence;
-+
-+	struct i915_gem_ww_ctx ww;
-+
-+	unsigned int num_batches;
-+	u64 batch_addresses[MAX_ENGINE_INSTANCE + 1];
-+	struct i915_vma *batches[MAX_ENGINE_INSTANCE + 1];
-+
-+	struct eb_fence *fences;
-+	u64 num_fences;
-+};
-+
-+static void eb_unpin_engine(struct i915_execbuffer *eb);
-+
-+static int eb_select_context(struct i915_execbuffer *eb)
-+{
-+	struct i915_gem_context *ctx;
-+
-+	ctx = i915_gem_context_lookup(eb->file->driver_priv, eb->args->ctx_id);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	if (!ctx->vm->vm_bind_mode) {
-+		i915_gem_context_put(ctx);
-+		return -EOPNOTSUPP;
-+	}
-+
-+	eb->gem_context = ctx;
-+	return 0;
-+}
-+
-+static struct i915_vma *
-+eb_find_vma(struct i915_address_space *vm, u64 addr)
-+{
-+	u64 va;
-+
-+	lockdep_assert_held(&vm->vm_bind_lock);
-+
-+	va = gen8_noncanonical_addr(addr & PIN_OFFSET_MASK);
-+	return i915_gem_vm_bind_lookup_vma(vm, va);
-+}
-+
-+static int eb_lookup_vma_all(struct i915_execbuffer *eb)
-+{
-+	unsigned int i, current_batch = 0;
-+	struct i915_vma *vma;
-+
-+	for (i = 0; i < eb->num_batches; i++) {
-+		vma = eb_find_vma(eb->context->vm, eb->batch_addresses[i]);
-+		if (!vma)
-+			return -EINVAL;
-+
-+		eb->batches[current_batch] = vma;
-+		++current_batch;
-+	}
-+
-+	return 0;
-+}
-+
-+static void eb_release_vma_all(struct i915_execbuffer *eb)
-+{
-+	eb_unpin_engine(eb);
-+}
-+
-+/*
-+ * Using two helper loops for the order of which requests / batches are created
-+ * and added the to backend. Requests are created in order from the parent to
-+ * the last child. Requests are added in the reverse order, from the last child
-+ * to parent. This is done for locking reasons as the timeline lock is acquired
-+ * during request creation and released when the request is added to the
-+ * backend. To make lockdep happy (see intel_context_timeline_lock) this must be
-+ * the ordering.
-+ */
-+#define for_each_batch_create_order(_eb) \
-+	for (unsigned int i = 0; i < (_eb)->num_batches; ++i)
-+
-+static int eb_move_to_gpu(struct i915_execbuffer *eb)
-+{
-+	/* Unconditionally flush any chipset caches (for streaming writes). */
-+	intel_gt_chipset_flush(eb->gt);
-+
-+	return 0;
-+}
-+
-+static int eb_request_submit(struct i915_execbuffer *eb,
-+			     struct i915_request *rq,
-+			     struct i915_vma *batch,
-+			     u64 batch_len)
-+{
-+	struct intel_engine_cs *engine = rq->context->engine;
-+	int err;
-+
-+	if (intel_context_nopreempt(rq->context))
-+		__set_bit(I915_FENCE_FLAG_NOPREEMPT, &rq->fence.flags);
-+
-+	/*
-+	 * After we completed waiting for other engines (using HW semaphores)
-+	 * then we can signal that this request/batch is ready to run. This
-+	 * allows us to determine if the batch is still waiting on the GPU
-+	 * or actually running by checking the breadcrumb.
-+	 */
-+	if (engine->emit_init_breadcrumb) {
-+		err = engine->emit_init_breadcrumb(rq);
-+		if (err)
-+			return err;
-+	}
-+
-+	return engine->emit_bb_start(rq, batch->node.start, batch_len, 0);
-+}
-+
-+static int eb_submit(struct i915_execbuffer *eb)
-+{
-+	int err;
-+
-+	err = eb_move_to_gpu(eb);
-+
-+	for_each_batch_create_order(eb) {
-+		if (!eb->requests[i])
-+			break;
-+
-+		trace_i915_request_queue(eb->requests[i], 0);
-+		if (!err)
-+			err = eb_request_submit(eb, eb->requests[i],
-+						eb->batches[i],
-+						eb->batches[i]->size);
-+	}
-+
-+	return err;
-+}
-+
-+static int eb_pin_engine(struct i915_execbuffer *eb, bool throttle)
-+{
-+	int err;
-+
-+	GEM_BUG_ON(eb->args->flags & __EXEC3_ENGINE_PINNED);
-+
-+	err = i915_eb_pin_engine(eb->context, &eb->ww, throttle,
-+				 eb->file->filp->f_flags & O_NONBLOCK);
-+	if (err)
-+		return err;
-+
-+	eb->args->flags |= __EXEC3_ENGINE_PINNED;
-+	return 0;
-+}
-+
-+static void eb_unpin_engine(struct i915_execbuffer *eb)
-+{
-+	if (!(eb->args->flags & __EXEC3_ENGINE_PINNED))
-+		return;
-+
-+	eb->args->flags &= ~__EXEC3_ENGINE_PINNED;
-+
-+	i915_eb_unpin_engine(eb->context);
-+}
-+
-+static int eb_select_engine(struct i915_execbuffer *eb)
-+{
-+	struct intel_context *ce;
-+	unsigned int idx;
-+	int err;
-+
-+	if (!i915_gem_context_user_engines(eb->gem_context))
-+		return -EINVAL;
-+
-+	idx = eb->args->engine_idx;
-+	ce = i915_gem_context_get_engine(eb->gem_context, idx);
-+	if (IS_ERR(ce))
-+		return PTR_ERR(ce);
-+
-+	eb->num_batches = ce->parallel.number_children + 1;
-+
-+	err = i915_eb_select_engine(ce);
-+	if (err)
-+		goto err;
-+
-+	eb->context = ce;
-+	eb->gt = ce->engine->gt;
-+
-+	/*
-+	 * Make sure engine pool stays alive even if we call intel_context_put
-+	 * during ww handling. The pool is destroyed when last pm reference
-+	 * is dropped, which breaks our -EDEADLK handling.
-+	 */
-+	return 0;
-+
-+err:
-+	intel_context_put(ce);
-+	return err;
-+}
-+
-+static void eb_put_engine(struct i915_execbuffer *eb)
-+{
-+	i915_eb_put_engine(eb->context);
-+}
-+
-+static int add_timeline_fence_array(struct i915_execbuffer *eb)
-+{
-+	struct drm_i915_gem_timeline_fence __user *user_fences;
-+	struct eb_fence *f;
-+	u64 nfences;
-+
-+	nfences = eb->args->fence_count;
-+	if (!nfences)
-+		return 0;
-+
-+	/* Check multiplication overflow for access_ok() and kvmalloc_array() */
-+	BUILD_BUG_ON(sizeof(size_t) > sizeof(unsigned long));
-+	if (nfences > min_t(unsigned long,
-+			    ULONG_MAX / sizeof(*user_fences),
-+			    SIZE_MAX / sizeof(*f)) - eb->num_fences)
-+		return -EINVAL;
-+
-+	user_fences = u64_to_user_ptr(eb->args->timeline_fences);
-+	if (!access_ok(user_fences, nfences * sizeof(*user_fences)))
-+		return -EFAULT;
-+
-+	f = krealloc(eb->fences,
-+		     (eb->num_fences + nfences) * sizeof(*f),
-+		     __GFP_NOWARN | GFP_KERNEL);
-+	if (!f)
-+		return -ENOMEM;
-+
-+	eb->fences = f;
-+	f += eb->num_fences;
-+
-+	BUILD_BUG_ON(~(ARCH_KMALLOC_MINALIGN - 1) &
-+		     ~__I915_TIMELINE_FENCE_UNKNOWN_FLAGS);
-+
-+	while (nfences--) {
-+		struct drm_i915_gem_timeline_fence user_fence;
-+		bool wait, signal;
-+		int ret;
-+
-+		if (__copy_from_user(&user_fence,
-+				     user_fences++,
-+				     sizeof(user_fence)))
-+			return -EFAULT;
-+
-+		if (user_fence.flags & __I915_TIMELINE_FENCE_UNKNOWN_FLAGS)
-+			return -EINVAL;
-+
-+		wait = user_fence.flags & I915_EXEC_FENCE_WAIT;
-+		signal = user_fence.flags & I915_EXEC_FENCE_SIGNAL;
-+		ret = i915_eb_add_timeline_fence(eb->file, user_fence.handle,
-+						 user_fence.value, f, wait,
-+						 signal);
-+		if (ret < 0)
-+			return ret;
-+		else if (!ret)
-+			continue;
-+
-+		f++;
-+		eb->num_fences++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int parse_timeline_fences(struct i915_execbuffer *eb)
-+{
-+	return add_timeline_fence_array(eb);
-+}
-+
-+static int parse_batch_addresses(struct i915_execbuffer *eb)
-+{
-+	struct drm_i915_gem_execbuffer3 *args = eb->args;
-+
-+	if (eb->num_batches == 1) {
-+		eb->batch_addresses[0] = args->batch_address;
-+	} else {
-+		u64 __user *batch_addr = u64_to_user_ptr(args->batch_address);
-+
-+		if (copy_from_user(eb->batch_addresses, batch_addr,
-+				   sizeof(batch_addr[0]) * eb->num_batches))
-+			return -EFAULT;
-+	}
-+
-+	return 0;
-+}
-+
-+static int eb_composite_fence_create(struct i915_execbuffer *eb)
-+{
-+	struct dma_fence *fence;
-+
-+	fence = i915_eb_composite_fence_create(eb->requests, eb->num_batches,
-+					       eb->context);
-+	if (IS_ERR(fence))
-+		return PTR_ERR(fence);
-+
-+	eb->composite_fence = fence;
-+
-+	return 0;
-+}
-+
-+static int eb_fences_add(struct i915_execbuffer *eb, struct i915_request *rq)
-+{
-+	int err;
-+
-+	if (unlikely(eb->gem_context->syncobj)) {
-+		struct dma_fence *fence;
-+
-+		fence = drm_syncobj_fence_get(eb->gem_context->syncobj);
-+		err = i915_request_await_dma_fence(rq, fence);
-+		dma_fence_put(fence);
-+		if (err)
-+			return err;
-+	}
-+
-+	if (eb->fences) {
-+		err = i915_eb_await_fence_array(eb->fences, eb->num_fences, rq);
-+		if (err)
-+			return err;
-+	}
-+
-+	if (intel_context_is_parallel(eb->context)) {
-+		err = eb_composite_fence_create(eb);
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
-+static int eb_requests_create(struct i915_execbuffer *eb)
-+{
-+	int err;
-+
-+	for_each_batch_create_order(eb) {
-+		/* Allocate a request for this batch buffer nice and early. */
-+		eb->requests[i] =
-+			i915_request_create(i915_eb_find_context(eb->context,
-+								 i));
-+		if (IS_ERR(eb->requests[i])) {
-+			err = PTR_ERR(eb->requests[i]);
-+			eb->requests[i] = NULL;
-+			return err;
-+		}
-+
-+		/*
-+		 * Only the first request added (committed to backend) has to
-+		 * take the in fences into account as all subsequent requests
-+		 * will have fences inserted inbetween them.
-+		 */
-+		if (i + 1 == eb->num_batches) {
-+			err = eb_fences_add(eb, eb->requests[i]);
-+			if (err)
-+				return err;
-+		}
-+
-+		if (eb->batches[i])
-+			eb->requests[i]->batch_res =
-+				i915_vma_resource_get(eb->batches[i]->resource);
-+	}
-+
-+	return 0;
-+}
-+
-+static int
-+i915_gem_do_execbuffer(struct drm_device *dev,
-+		       struct drm_file *file,
-+		       struct drm_i915_gem_execbuffer3 *args)
-+{
-+	struct drm_i915_private *i915 = to_i915(dev);
-+	struct i915_execbuffer eb;
-+	bool throttle = true;
-+	int err;
-+
-+	BUILD_BUG_ON(__EXEC3_INTERNAL_FLAGS & ~__I915_EXEC3_UNKNOWN_FLAGS);
-+
-+	eb.i915 = i915;
-+	eb.file = file;
-+	eb.args = args;
-+
-+	eb.fences = NULL;
-+	eb.num_fences = 0;
-+
-+	memset(eb.requests, 0, sizeof(struct i915_request *) *
-+	       ARRAY_SIZE(eb.requests));
-+	eb.composite_fence = NULL;
-+
-+	err = parse_timeline_fences(&eb);
-+	if (err)
-+		return err;
-+
-+	err = eb_select_context(&eb);
-+	if (unlikely(err))
-+		goto err_fences;
-+
-+	err = eb_select_engine(&eb);
-+	if (unlikely(err))
-+		goto err_context;
-+
-+	err = parse_batch_addresses(&eb);
-+	if (unlikely(err))
-+		goto err_engine;
-+
-+	mutex_lock(&eb.context->vm->vm_bind_lock);
-+
-+	err = eb_lookup_vma_all(&eb);
-+	if (err) {
-+		eb_release_vma_all(&eb);
-+		goto err_vm_bind_lock;
-+	}
-+
-+	i915_gem_ww_ctx_init(&eb.ww, true);
-+
-+retry_validate:
-+	err = eb_pin_engine(&eb, throttle);
-+	if (err)
-+		goto err_validate;
-+
-+	/* only throttle once, even if we didn't need to throttle */
-+	throttle = false;
-+
-+err_validate:
-+	if (err == -EDEADLK) {
-+		eb_release_vma_all(&eb);
-+		err = i915_gem_ww_ctx_backoff(&eb.ww);
-+		if (!err)
-+			goto retry_validate;
-+	}
-+	if (err)
-+		goto err_vma;
-+
-+	ww_acquire_done(&eb.ww.ctx);
-+
-+	err = eb_requests_create(&eb);
-+	if (err) {
-+		if (eb.requests[0])
-+			goto err_request;
-+		else
-+			goto err_vma;
-+	}
-+
-+	err = eb_submit(&eb);
-+
-+err_request:
-+	i915_eb_requests_get(eb.requests, eb.num_batches);
-+	err = i915_eb_requests_add(eb.requests, eb.num_batches, eb.context,
-+				   eb.gem_context->sched, err);
-+
-+	if (eb.fences)
-+		i915_eb_signal_fence_array(eb.fences, eb.num_fences,
-+					   eb.composite_fence ?
-+					   eb.composite_fence :
-+					   &eb.requests[0]->fence);
-+
-+	if (unlikely(eb.gem_context->syncobj)) {
-+		drm_syncobj_replace_fence(eb.gem_context->syncobj,
-+					  eb.composite_fence ?
-+					  eb.composite_fence :
-+					  &eb.requests[0]->fence);
-+	}
-+
-+	if (eb.composite_fence)
-+		dma_fence_put(eb.composite_fence);
-+
-+	i915_eb_requests_put(eb.requests, eb.num_batches);
-+
-+err_vma:
-+	eb_release_vma_all(&eb);
-+	WARN_ON(err == -EDEADLK);
-+	i915_gem_ww_ctx_fini(&eb.ww);
-+err_vm_bind_lock:
-+	mutex_unlock(&eb.context->vm->vm_bind_lock);
-+err_engine:
-+	eb_put_engine(&eb);
-+err_context:
-+	i915_gem_context_put(eb.gem_context);
-+err_fences:
-+	i915_eb_put_fence_array(eb.fences, eb.num_fences);
-+	return err;
-+}
-+
-+int
-+i915_gem_execbuffer3_ioctl(struct drm_device *dev, void *data,
-+			   struct drm_file *file)
-+{
-+	struct drm_i915_gem_execbuffer3 *args = data;
-+	int err;
-+
-+	/* Reserved fields must be 0 */
-+	if (args->rsvd || args->extensions)
-+		return -EINVAL;
-+
-+	if (args->flags & __I915_EXEC3_UNKNOWN_FLAGS)
-+		return -EINVAL;
-+
-+	err = i915_gem_do_execbuffer(dev, file, args);
-+
-+	args->flags &= ~__I915_EXEC3_UNKNOWN_FLAGS;
-+	return err;
-+}
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ioctls.h b/drivers/gpu/drm/i915/gem/i915_gem_ioctls.h
-index 28d6526e32ab..b7a1e9725a84 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ioctls.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ioctls.h
-@@ -18,6 +18,8 @@ int i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
- 			      struct drm_file *file);
- int i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
- 			       struct drm_file *file);
-+int i915_gem_execbuffer3_ioctl(struct drm_device *dev, void *data,
-+			       struct drm_file *file);
- int i915_gem_get_aperture_ioctl(struct drm_device *dev, void *data,
- 				struct drm_file *file);
- int i915_gem_get_caching_ioctl(struct drm_device *dev, void *data,
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index c3a9a5031cdb..f65761f9ac77 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1855,6 +1855,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(I915_GEM_INIT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_EXECBUFFER, drm_invalid_op, DRM_AUTH),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_EXECBUFFER2_WR, i915_gem_execbuffer2_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(I915_GEM_EXECBUFFER3, i915_gem_execbuffer3_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_PIN, i915_gem_reject_pin_ioctl, DRM_AUTH|DRM_ROOT_ONLY),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_UNPIN, i915_gem_reject_pin_ioctl, DRM_AUTH|DRM_ROOT_ONLY),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_BUSY, i915_gem_busy_ioctl, DRM_RENDER_ALLOW),
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 61b1500866f9..33b28a61ffa3 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -472,6 +472,7 @@ typedef struct _drm_i915_sarea {
- #define DRM_I915_GEM_CREATE_EXT		0x3c
- #define DRM_I915_GEM_VM_BIND		0x3d
- #define DRM_I915_GEM_VM_UNBIND		0x3e
-+#define DRM_I915_GEM_EXECBUFFER3	0x3f
- /* Must be kept compact -- no holes */
- 
- #define DRM_IOCTL_I915_INIT		DRM_IOW( DRM_COMMAND_BASE + DRM_I915_INIT, drm_i915_init_t)
-@@ -538,6 +539,7 @@ typedef struct _drm_i915_sarea {
- #define DRM_IOCTL_I915_GEM_VM_DESTROY	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_VM_DESTROY, struct drm_i915_gem_vm_control)
- #define DRM_IOCTL_I915_GEM_VM_BIND	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_BIND, struct drm_i915_gem_vm_bind)
- #define DRM_IOCTL_I915_GEM_VM_UNBIND	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_UNBIND, struct drm_i915_gem_vm_unbind)
-+#define DRM_IOCTL_I915_GEM_EXECBUFFER3	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_EXECBUFFER3, struct drm_i915_gem_execbuffer3)
- 
- /* Allow drivers to submit batchbuffers directly to hardware, relying
-  * on the security mechanisms provided by hardware.
-@@ -1562,6 +1564,65 @@ struct drm_i915_gem_timeline_fence {
- 	__u64 value;
+ #include "i915_gem_create.h"
+ #include "i915_trace.h"
+ #include "i915_user_extensions.h"
+@@ -251,6 +252,7 @@ struct create_ext {
+ 	unsigned int n_placements;
+ 	unsigned int placement_mask;
+ 	unsigned long flags;
++	u32 vm_id;
  };
  
+ static void repr_placements(char *buf, size_t size,
+@@ -400,9 +402,32 @@ static int ext_set_protected(struct i915_user_extension __user *base, void *data
+ 	return 0;
+ }
+ 
++static int ext_set_vm_private(struct i915_user_extension __user *base,
++			      void *data)
++{
++	struct drm_i915_gem_create_ext_vm_private ext;
++	struct create_ext *ext_data = data;
++
++	if (copy_from_user(&ext, base, sizeof(ext)))
++		return -EFAULT;
++
++	/* Reserved fields must be 0 */
++	if (ext.rsvd)
++		return -EINVAL;
++
++	/* vm_id 0 is reserved */
++	if (!ext.vm_id)
++		return -ENOENT;
++
++	ext_data->vm_id = ext.vm_id;
++
++	return 0;
++}
++
+ static const i915_user_extension_fn create_extensions[] = {
+ 	[I915_GEM_CREATE_EXT_MEMORY_REGIONS] = ext_set_placements,
+ 	[I915_GEM_CREATE_EXT_PROTECTED_CONTENT] = ext_set_protected,
++	[I915_GEM_CREATE_EXT_VM_PRIVATE] = ext_set_vm_private,
+ };
+ 
+ /**
+@@ -418,6 +443,7 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_i915_private *i915 = to_i915(dev);
+ 	struct drm_i915_gem_create_ext *args = data;
+ 	struct create_ext ext_data = { .i915 = i915 };
++	struct i915_address_space *vm = NULL;
+ 	struct drm_i915_gem_object *obj;
+ 	int ret;
+ 
+@@ -431,6 +457,12 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		return ret;
+ 
++	if (ext_data.vm_id) {
++		vm = i915_gem_vm_lookup(file->driver_priv, ext_data.vm_id);
++		if (unlikely(!vm))
++			return -ENOENT;
++	}
++
+ 	if (!ext_data.n_placements) {
+ 		ext_data.placements[0] =
+ 			intel_memory_region_by_type(i915, INTEL_MEMORY_SYSTEM);
+@@ -457,8 +489,21 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
+ 						ext_data.placements,
+ 						ext_data.n_placements,
+ 						ext_data.flags);
+-	if (IS_ERR(obj))
+-		return PTR_ERR(obj);
++	if (IS_ERR(obj)) {
++		ret = PTR_ERR(obj);
++		goto vm_put;
++	}
++
++	if (vm) {
++		obj->base.resv = vm->root_obj->base.resv;
++		obj->priv_root = i915_gem_object_get(vm->root_obj);
++		i915_vm_put(vm);
++	}
+ 
+ 	return i915_gem_publish(obj, file, &args->size, &args->handle);
++vm_put:
++	if (vm)
++		i915_vm_put(vm);
++
++	return ret;
+ }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index f5062d0c6333..6433173c3e84 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -218,6 +218,12 @@ struct dma_buf *i915_gem_prime_export(struct drm_gem_object *gem_obj, int flags)
+ 	struct drm_i915_gem_object *obj = to_intel_bo(gem_obj);
+ 	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+ 
++	if (obj->priv_root) {
++		drm_dbg(obj->base.dev,
++			"Exporting VM private objects is not allowed\n");
++		return ERR_PTR(-EINVAL);
++	}
++
+ 	exp_info.ops = &i915_dmabuf_ops;
+ 	exp_info.size = gem_obj->size;
+ 	exp_info.flags = flags;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 9fb9f6faafd8..4673e0812277 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -864,6 +864,10 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
+ 		if (unlikely(!obj))
+ 			return ERR_PTR(-ENOENT);
+ 
++		/* VM private objects are not supported here */
++		if (obj->priv_root)
++			return ERR_PTR(-EINVAL);
++
+ 		/*
+ 		 * If the user has opted-in for protected-object tracking, make
+ 		 * sure the object encryption can be used.
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 62495d5d0038..b799c53ac4b1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -108,6 +108,9 @@ void i915_gem_object_init(struct drm_i915_gem_object *obj,
+  */
+ void __i915_gem_object_fini(struct drm_i915_gem_object *obj)
+ {
++	if (obj->priv_root && !obj->ttm.created)
++		i915_gem_object_put(obj->priv_root);
++
+ 	mutex_destroy(&obj->mm.get_page.lock);
+ 	mutex_destroy(&obj->mm.get_dma_page.lock);
+ 	dma_resv_fini(&obj->base._resv);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index d0d6772e6f36..b77bf0e07fe1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -242,6 +242,9 @@ struct drm_i915_gem_object {
+ 
+ 	const struct drm_i915_gem_object_ops *ops;
+ 
++	/* For VM private BO, points to root_obj in VM. NULL otherwise */
++	struct drm_i915_gem_object *priv_root;
++
+ 	struct {
+ 		/**
+ 		 * @vma.lock: protect the list/tree of vmas
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index d63f30efd631..233d670a91de 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -1200,6 +1200,9 @@ void i915_ttm_bo_destroy(struct ttm_buffer_object *bo)
+ 	mutex_destroy(&obj->ttm.get_io_page.lock);
+ 
+ 	if (obj->ttm.created) {
++		if (obj->priv_root)
++			i915_gem_object_put(obj->priv_root);
++
+ 		/*
+ 		 * We freely manage the shrinker LRU outide of the mm.pages life
+ 		 * cycle. As a result when destroying the object we should be
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
+index 1ed57eaa8d79..8e3e6ceb9442 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
+@@ -86,6 +86,7 @@ static void i915_gem_vm_bind_remove(struct i915_vma *vma, bool release_obj)
+ 	lockdep_assert_held(&vma->vm->vm_bind_lock);
+ 
+ 	list_del_init(&vma->vm_bind_link);
++	list_del_init(&vma->non_priv_vm_bind_link);
+ 	i915_vm_bind_it_remove(vma, &vma->vm->va);
+ 
+ 	/* Release object */
+@@ -215,6 +216,11 @@ static int i915_gem_vm_bind_obj(struct i915_address_space *vm,
+ 	if (ret)
+ 		goto put_obj;
+ 
++	if (obj->priv_root && obj->priv_root != vm->root_obj) {
++		ret = -EINVAL;
++		goto put_obj;
++	}
++
+ 	ret = mutex_lock_interruptible(&vm->vm_bind_lock);
+ 	if (ret)
+ 		goto put_obj;
+@@ -238,6 +244,9 @@ static int i915_gem_vm_bind_obj(struct i915_address_space *vm,
+ 
+ 		list_add_tail(&vma->vm_bind_link, &vm->vm_bound_list);
+ 		i915_vm_bind_it_insert(vma, &vm->va);
++		if (!obj->priv_root)
++			list_add_tail(&vma->non_priv_vm_bind_link,
++				      &vm->non_priv_vm_bind_list);
+ 
+ 		/* Hold object reference until vm_unbind */
+ 		i915_gem_object_get(vma->obj);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
+index 339f2f8f1e46..422394f8fb40 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
+@@ -177,6 +177,8 @@ int i915_vm_lock_objects(struct i915_address_space *vm,
+ void i915_address_space_fini(struct i915_address_space *vm)
+ {
+ 	drm_mm_takedown(&vm->mm);
++	if (vm->root_obj)
++		i915_gem_object_put(vm->root_obj);
+ 	GEM_BUG_ON(!RB_EMPTY_ROOT(&vm->va.rb_root));
+ 	mutex_destroy(&vm->vm_bind_lock);
+ }
+@@ -292,6 +294,7 @@ void i915_address_space_init(struct i915_address_space *vm, int subclass)
+ 	INIT_LIST_HEAD(&vm->vm_bind_list);
+ 	INIT_LIST_HEAD(&vm->vm_bound_list);
+ 	mutex_init(&vm->vm_bind_lock);
++	INIT_LIST_HEAD(&vm->non_priv_vm_bind_list);
+ }
+ 
+ void *__px_vaddr(struct drm_i915_gem_object *p)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index ba2542eed59f..4ae5734f7d6b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -267,6 +267,8 @@ struct i915_address_space {
+ 	struct list_head vm_bound_list;
+ 	/* @va: tree of persistent vmas */
+ 	struct rb_root_cached va;
++	struct list_head non_priv_vm_bind_list;
++	struct drm_i915_gem_object *root_obj;
+ 
+ 	/**
+ 	 * @vm_bind_mode: flag to indicate vm_bind method of binding
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 90becd78d621..5d3d67a4bf47 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -240,6 +240,7 @@ vma_create(struct drm_i915_gem_object *obj,
+ 	mutex_unlock(&vm->mutex);
+ 
+ 	INIT_LIST_HEAD(&vma->vm_bind_link);
++	INIT_LIST_HEAD(&vma->non_priv_vm_bind_link);
+ 	return vma;
+ 
+ err_unlock:
+diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
+index db786d2d1530..b8176cca58c0 100644
+--- a/drivers/gpu/drm/i915/i915_vma_types.h
++++ b/drivers/gpu/drm/i915/i915_vma_types.h
+@@ -297,6 +297,8 @@ struct i915_vma {
+ 
+ 	/** @vm_bind_link: node for the vm_bind related lists of vm */
+ 	struct list_head vm_bind_link;
++	/* @non_priv_vm_bind_link: Link in non-private persistent VMA list */
++	struct list_head non_priv_vm_bind_link;
+ 
+ 	/** Interval tree structures for persistent vma */
+ 
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 3527715a1165..16b815875e4f 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -3617,9 +3617,13 @@ struct drm_i915_gem_create_ext {
+ 	 *
+ 	 * For I915_GEM_CREATE_EXT_PROTECTED_CONTENT usage see
+ 	 * struct drm_i915_gem_create_ext_protected_content.
++	 *
++	 * For I915_GEM_CREATE_EXT_VM_PRIVATE usage see
++	 * struct drm_i915_gem_create_ext_vm_private.
+ 	 */
+ #define I915_GEM_CREATE_EXT_MEMORY_REGIONS 0
+ #define I915_GEM_CREATE_EXT_PROTECTED_CONTENT 1
++#define I915_GEM_CREATE_EXT_VM_PRIVATE 2
+ 	__u64 extensions;
+ };
+ 
+@@ -3737,6 +3741,35 @@ struct drm_i915_gem_create_ext_protected_content {
+ /* ID of the protected content session managed by i915 when PXP is active */
+ #define I915_PROTECTED_CONTENT_DEFAULT_SESSION 0xf
+ 
 +/**
-+ * struct drm_i915_gem_execbuffer3 - Structure for DRM_I915_GEM_EXECBUFFER3
-+ * ioctl.
++ * struct drm_i915_gem_create_ext_vm_private - Extension to make the object
++ * private to the specified VM.
 + *
-+ * DRM_I915_GEM_EXECBUFFER3 ioctl only works in VM_BIND mode and VM_BIND mode
-+ * only works with this ioctl for submission.
-+ * See I915_VM_CREATE_FLAGS_USE_VM_BIND.
++ * See struct drm_i915_gem_create_ext.
++ *
++ * By default, BOs can be mapped on multiple VMs and can also be dma-buf
++ * exported. Hence these BOs are referred to as Shared BOs.
++ * During each execbuf3 submission, the request fence must be added to the
++ * dma-resv fence list of all shared BOs mapped on the VM.
++ *
++ * Unlike Shared BOs, these VM private BOs can only be mapped on the VM they
++ * are private to and can't be dma-buf exported. All private BOs of a VM share
++ * the dma-resv object. Hence during each execbuf3 submission, they need only
++ * one dma-resv fence list updated. Thus, the fast path (where required
++ * mappings are already bound) submission latency is O(1) w.r.t the number of
++ * VM private BOs.
 + */
-+struct drm_i915_gem_execbuffer3 {
-+	/**
-+	 * @ctx_id: Context id
-+	 *
-+	 * Only contexts with user engine map are allowed.
-+	 */
-+	__u32 ctx_id;
++struct drm_i915_gem_create_ext_vm_private {
++	/** @base: Extension link. See struct i915_user_extension. */
++	struct i915_user_extension base;
 +
-+	/**
-+	 * @engine_idx: Engine index
-+	 *
-+	 * An index in the user engine map of the context specified by @ctx_id.
-+	 */
-+	__u32 engine_idx;
-+
-+	/**
-+	 * @batch_address: Batch gpu virtual address/es.
-+	 *
-+	 * For normal submission, it is the gpu virtual address of the batch
-+	 * buffer. For parallel submission, it is a pointer to an array of
-+	 * batch buffer gpu virtual addresses with array size equal to the
-+	 * number of (parallel) engines involved in that submission (See
-+	 * struct i915_context_engines_parallel_submit).
-+	 */
-+	__u64 batch_address;
-+
-+	/** @flags: Currently reserved, MBZ */
-+	__u64 flags;
-+#define __I915_EXEC3_UNKNOWN_FLAGS (~0)
-+
-+	/** @fence_count: Number of fences in @timeline_fences array. */
-+	__u64 fence_count;
-+
-+	/**
-+	 * @timeline_fences: Pointer to an array of timeline fences.
-+	 *
-+	 * Timeline fences are of format struct drm_i915_gem_timeline_fence.
-+	 */
-+	__u64 timeline_fences;
++	/** @vm_id: Id of the VM to which Object is private */
++	__u32 vm_id;
 +
 +	/** @rsvd: Reserved, MBZ */
-+	__u64 rsvd;
-+
-+	/**
-+	 * @extensions: Zero-terminated chain of extensions.
-+	 *
-+	 * For future extensions. See struct i915_user_extension.
-+	 */
-+	__u64 extensions;
++	__u32 rsvd;
 +};
 +
- struct drm_i915_gem_pin {
- 	/** Handle of the buffer to be pinned. */
- 	__u32 handle;
+ /**
+  * struct drm_i915_gem_vm_bind - VA to object mapping to bind.
+  *
 -- 
 2.21.0.rc0.32.g243a4c7e27
 
