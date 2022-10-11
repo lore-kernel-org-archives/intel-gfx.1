@@ -4,81 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0B23C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:56:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B95AFC43217
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:56:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D87D10EE0A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B20110EE0B;
 	Mon, 17 Oct 2022 19:56:30 +0000 (UTC)
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08C9510E853;
- Sun, 16 Oct 2022 18:52:30 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id x18so11657306ljm.1;
- Sun, 16 Oct 2022 11:52:30 -0700 (PDT)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EA7B10E376;
+ Tue, 11 Oct 2022 20:45:36 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-1364357a691so10852252fac.7; 
+ Tue, 11 Oct 2022 13:45:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:reply-to:subject:user-agent:mime-version:date:message-id:from
- :from:to:cc:subject:date:message-id:reply-to;
- bh=L86zD4BE93sh72AeYReVIs01pAGXwZm6n1nhGapyqcU=;
- b=jkI8DFEtgd0iCPaVQhi7Teq9cyV9bjBA6KsEnb7GUTna6b0BCJ/q3e9KvJTJf+/pgH
- bOyBG8HxOgeA28keCz7WDK6bQaw7GOkXH38myfIhMm2tpSxgrZdyI6XUM9ar6yQrC5Ms
- sCyq/IboT6MblZ6+kbcRoePAU15ZfWyjW9NaE7+PyxSjlHZmcd0O57VpL4B6zvy9BJQ4
- yDvNX8fmFfeQ+q4Z+cyH8RJrVTMfh4jdZXQoTrGFsps4dRmokcopF3y1cpyx6H1ooDEE
- 2UdfpED3Y926o9lCJrnqalYZX9xpISArgJbvfGj4LmoZspT7d+8owSUqeiZ4q0h0HBmW
- Cgcg==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :references:in-reply-to:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yk/YC/vwhdA4SmlGq4Gb2K6GBPNqKnbli+wPdxVsRl0=;
+ b=loYkHW4XCXD6gN3aQbD2PtMDX6dVUFR4bxTbXpA23pxkHtruKY/rumyNwQi2SKYcKX
+ GImappNH+hyJqFQZOYR8FcsDkFBdrrYDaCJ2xgTajT3eGpcdO9azjspMy5gqvqUXpUDK
+ /YyA1eyxcMThdyQk04m6QSZjD2bBG5IDt5esqj0ZDi/CD2OmfMZfa/EDxoYZNj7TvmXo
+ 0+DKsXVEy5i5Ie92oceuxyh8HK27GrhfElbCLXGYqzpDEUzdapONLWeL/GAam/ebyOPV
+ 0v4+Zlvu1wD0014NfcOVWDWDCMC/4ZR885eqzChDPSoSVjTPHP+TdcHChJVXm4Xyc58D
+ mzlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:reply-to:subject:user-agent:mime-version:date:message-id:from
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=L86zD4BE93sh72AeYReVIs01pAGXwZm6n1nhGapyqcU=;
- b=yPLTOXfw/MpBx3raMn0xNtLxWUd5/w5hwR9j0wvB+ECW9FoARKbVKhSyThtze7kRQb
- HxHS4qmWqlzY2+8Klfk7whsAHOC8z8yCh8XQX1cPCxbttlTnsc3HplWvmw81zeUMmF6s
- iXf+XEC+pF9IXFSPyjFmEfGNsKoGy9v+uaDoqZ/UK/V/9zsLmcKr/1HgT0vpiAILBSRr
- ePegdbhBpkUu/+YORngCSm41uvklK4G2p7ktyos2taBkpRpzSD41bG6RojZX17D4WVgw
- 25do+IsNlPU2XGzat0HmvcjEKCAb6i07OfwhpI5N/iYn/ubFkufyKp0NQM4JOMinOmbf
- LKtA==
-X-Gm-Message-State: ACrzQf2qlA8GxOzfsTJR0n2thb9sIib5XOWx7tVmI3LaOZ13ahVRiw/i
- 97C/AAinP0homiaPa9UeW1g=
-X-Google-Smtp-Source: AMsMyM7Jz5dVg4MMw9epFOAljLEqm7fvWmI8tG8aPvCSkAkxqmjN6SH6pvd/9hhDRCoi+A0Wf3pFPw==
-X-Received: by 2002:a2e:2e05:0:b0:26f:c234:3335 with SMTP id
- u5-20020a2e2e05000000b0026fc2343335mr2768156lju.76.1665946349247; 
- Sun, 16 Oct 2022 11:52:29 -0700 (PDT)
-Received: from ?IPV6:2a02:a31a:a240:1700:64bb:87df:aad7:a9f0?
- ([2a02:a31a:a240:1700:64bb:87df:aad7:a9f0])
- by smtp.googlemail.com with ESMTPSA id
- q8-20020a056512210800b0049d3614463dsm1143112lfr.77.2022.10.16.11.52.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 16 Oct 2022 11:52:28 -0700 (PDT)
-From: Mateusz Kwiatkowski <kfyatek@gmail.com>
-X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
-Message-ID: <c1949248-fb40-682c-492e-bafbd915cee3@gmail.com>
-Date: Sun, 16 Oct 2022 20:52:26 +0200
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :references:in-reply-to:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yk/YC/vwhdA4SmlGq4Gb2K6GBPNqKnbli+wPdxVsRl0=;
+ b=8QNyZaHI5Zw33ih1JMBsB5kTFCVsro1zbaSYqFQSKpnWBeu+18waUjgcnRAFly+hN1
+ o/3M35hVVlSIzV6iArvKutSAmAAVkZLS7ts3QfVHbj50vhJMSO5EnEkutKzoFJyi8saa
+ JMpYfhgLoE/texmDeZkSGISQi+yt5F2yEB5zDWL25E11cuIqPyLitnG+imZ4dmPuxu8W
+ mUfCiE1pFFWSS4U+QpXfzBgZ4M++yBzTDvK4Rk/xxyADXNSCN83iEkm24I/F4hRZXK02
+ c0JmXG5+VcpYfU0hkyMk0kBwqzzUHatRhj7UiZtW5Uv2s/bemVNBC6IlCRQQR04eX84D
+ hFrg==
+X-Gm-Message-State: ACrzQf3VVxmLfCLFryhNtVdUhcsGNtQpNlgJhYSY+dP2Mr4swRL47Fzg
+ lS7PnNnDgMy+5aeGVaPc/SJLeVDSk4nyY5tDZJY=
+X-Google-Smtp-Source: AMsMyM4eCv5ypQ4ONMv0BAL3aePyZkoRRh+DKTwk9L4CXbyI0un2AuGl6d5pqupKKXwTvJW9TCSnPTX3iUD0/uSZp5o=
+X-Received: by 2002:a05:6870:b68c:b0:132:b864:2aa2 with SMTP id
+ cy12-20020a056870b68c00b00132b8642aa2mr608499oab.130.1665521135691; Tue, 11
+ Oct 2022 13:45:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-To: Maxime Ripard <maxime@cerno.tech>, Karol Herbst <kherbst@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Lyude Paul <lyude@redhat.com>, Maxime Ripard <mripard@kernel.org>,
- Emma Anholt <emma@anholt.net>, Chen-Yu Tsai <wens@csie.org>,
- Samuel Holland <samuel@sholland.org>, Ben Skeggs <bskeggs@redhat.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>
-References: <20220728-rpi-analog-tv-properties-v5-0-d841cc64fe4b@cerno.tech>
- <20220728-rpi-analog-tv-properties-v5-20-d841cc64fe4b@cerno.tech>
-Content-Language: pl
-In-Reply-To: <20220728-rpi-analog-tv-properties-v5-20-d841cc64fe4b@cerno.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: by 2002:a05:6838:7e8b:0:0:0:0 with HTTP; Tue, 11 Oct 2022 13:45:35
+ -0700 (PDT)
+In-Reply-To: <87wn96yggd.fsf@intel.com>
+References: <20221006222146.2375217-1-jani.nikula@intel.com>
+ <GLSKJR.CU4DWLJQSTHT2@gmail.com> <87wn96yggd.fsf@intel.com>
+From: Matthieu CHARETTE <matthieu.charette@gmail.com>
+Date: Tue, 11 Oct 2022 22:45:35 +0200
+Message-ID: <CA+FNwmJRZ-5BwuXykp3R6tQagQgunMC9EhfL9CRyi+Ff47TXhA@mail.gmail.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 17 Oct 2022 19:56:17 +0000
-Subject: Re: [Intel-gfx] [PATCH v5 20/22] drm/vc4: vec: Convert to the new
- TV mode property
+Subject: Re: [Intel-gfx] [PATCH] drm/edid/firmware: stop using throwaway
+ platform device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,107 +72,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: kfyatek+publicgit@gmail.com
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Phil Elwell <phil@raspberrypi.com>,
- Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+Currently the EDID is requested during the resume. But since it's
+requested too early, this means before the filesystem is mounted, the
+firmware request fails. This make the DRM driver crash when resuming.
+This kind of issue should be prevented by the firmware caching process
+which cache every firmware requested for the next resume. But since we
+are using a temporary device, the firmware isn't cached on suspend
+since the device doesn't work anymore.
+When using a non temporary device to get the EDID, the firmware will
+be cached on suspend for the next resume. So requesting the firmware
+during resume will succeed.
+But if the firmware has never been requested since the boot, this
+means that the monitor isn't plugged since the boot. The kernel will
+not be caching the EDID. So if we plug the monitor while the machine
+is suspended. The resume will fail to load the firmware. And the DRM
+driver will crash.
+So basically, your fix should solve the issue except for the case
+where the monitor hasn't been plugged since boot and is plugged while
+the machine is suspended.
+I hope I was clear. Tell me if I wasn't. I'm not really good at explaining.
 
->  static int vc4_vec_connector_get_modes(struct drm_connector *connector)
->  {
-> -	struct drm_connector_state *state = connector->state;
->  	struct drm_display_mode *mode;
->  
-> -	mode = drm_mode_duplicate(connector->dev,
-> -				  vc4_vec_tv_modes[state->tv.legacy_mode].mode);
-> +	mode = drm_mode_analog_ntsc_480i(connector->dev);
->  	if (!mode) {
->  		DRM_ERROR("Failed to create a new display mode\n");
->  		return -ENOMEM;
->  	}
->  
-> +	mode->type |= DRM_MODE_TYPE_PREFERRED;
->  	drm_mode_probed_add(connector, mode);
->  
-> -	return 1;
-> +	mode = drm_mode_analog_pal_576i(connector->dev);
-> +	if (!mode) {
-> +		DRM_ERROR("Failed to create a new display mode\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	drm_mode_probed_add(connector, mode);
-> +
-> +	return 2;
-> +}
+Matthieu
 
-Referencing those previous discussions:
-- https://lore.kernel.org/dri-devel/0255f7c6-0484-6456-350d-cf24f3fee5d6@tronnes.org/
-- https://lore.kernel.org/dri-devel/c8f8015a-75da-afa8-ca7f-b2b134cacd16@gmail.com/
-
-Unconditionally setting the 480i mode as DRM_MODE_TYPE_PREFERRED causes Xorg
-(at least on current Raspberry Pi OS) to display garbage when
-video=Composite1:PAL is specified on the command line, so I'm afraid this won't
-do.
-
-As I see it, there are three viable solutions for this issue:
-
-a) Somehow query the video= command line option from this function, and set
-   DRM_MODE_TYPE_PREFERRED appropriately. This would break the abstraction
-   provided by global DRM code, but should work fine.
-
-b) Modify drm_helper_probe_add_cmdline_mode() so that it sets
-   DRM_MODE_TYPE_PREFERRED in addition to DRM_MODE_TYPE_USERDEF. This seems
-   pretty robust, but affects the entire DRM subsystem, which may break
-   userspace in different ways.
-
-   - Maybe this could be mitigated by adding some additional conditions, e.g.
-     setting the PREFERRED flag only if no modes are already flagged as such
-     and/or only if the cmdline mode is a named one (~= analog TV mode)
-
-c) Forcing userspace (Xorg / Raspberry Pi OS) to get fixed and honor the USERDEF
-   flag.
-
-Either way, hardcoding 480i as PREFERRED does not seem right.
-
-Note: this also applies to the sun4i version (patch 22/22).
-
-> @@ -366,13 +472,16 @@ static void vc4_vec_encoder_enable(struct drm_encoder *encoder,
->  	struct drm_connector *connector = &vec->connector;
->  	struct drm_connector_state *conn_state =
->  		drm_atomic_get_new_connector_state(state, connector);
-> -	const struct vc4_vec_tv_mode *tv_mode =
-> -		&vc4_vec_tv_modes[conn_state->tv.legacy_mode];
-> +	const struct vc4_vec_tv_mode *tv_mode;
->  	int idx, ret;
->  
->  	if (!drm_dev_enter(drm, &idx))
->  		return;
->  
-> +	tv_mode = vc4_vec_tv_mode_lookup(conn_state->tv.mode);
-> +	if (!tv_mode)
-> +		goto err_dev_exit;
-> +
->  	ret = pm_runtime_get_sync(&vec->pdev->dev);
->  	if (ret < 0) {
->  		DRM_ERROR("Failed to retain power domain: %d\n", ret);
-
-If this (!tv_mode) condition is somehow triggered, the power management goes
-somewhat crazy. vc4_vec_encoder_enable() cannot return an error, so when
-vc4_vec_encoder_disable() is eventually called after a failed enable, it hangs
-in pm_runtime_put() for quite a bit.
-
-At least I think that's what's happening. Anyway, to solve this, I'd propose
-this thing below:
-
-Best regards,
-Mateusz Kwiatkowski
-
+On 10/11/22, Jani Nikula <jani.nikula@intel.com> wrote:
+> On Tue, 11 Oct 2022, Matthieu CHARETTE <matthieu.charette@gmail.com> wrot=
+e:
+>> It should fix the issue. Meanwhile, the system will still crash if a
+>> new monitor is plugged while the machine is suspended. We might need to
+>> precache the EDID to prevent that.
+>
+> Please elaborate.
+>
+> BR,
+> Jani.
+>
+>
+>>
+>> Matthieu
+>>
+>> On Fri, Oct 7 2022 at 01:21:46 AM +0300, Jani Nikula
+>> <jani.nikula@intel.com> wrote:
+>>> We've used a temporary platform device for firmware EDID loading since
+>>> it was introduced in commit da0df92b5731 ("drm: allow loading an EDID
+>>> as
+>>> firmware to override broken monitor"), but there's no explanation why.
+>>>
+>>> Do we need to?
+>>>
+>>> Maybe this fixes the suspend/resume issue?
+>>>
+>>> (Yes, I'll rewrite the commit message if this is the way to go ;)
+>>>
+>>> References:
+>>> https://lore.kernel.org/r/20220727074152.43059-1-matthieu.charette@gmai=
+l.com
+>>> Cc: Matthieu CHARETTE <matthieu.charette@gmail.com>
+>>> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>>> ---
+>>>  drivers/gpu/drm/drm_edid_load.c | 11 +----------
+>>>  1 file changed, 1 insertion(+), 10 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_edid_load.c
+>>> b/drivers/gpu/drm/drm_edid_load.c
+>>> index 37d8ba3ddb46..fbae12130234 100644
+>>> --- a/drivers/gpu/drm/drm_edid_load.c
+>>> +++ b/drivers/gpu/drm/drm_edid_load.c
+>>> @@ -182,18 +182,9 @@ static void *edid_load(struct drm_connector
+>>> *connector, const char *name,
+>>>  		fwdata =3D generic_edid[builtin];
+>>>  		fwsize =3D sizeof(generic_edid[builtin]);
+>>>  	} else {
+>>> -		struct platform_device *pdev;
+>>>  		int err;
+>>>
+>>> -		pdev =3D platform_device_register_simple(connector_name, -1, NULL,
+>>> 0);
+>>> -		if (IS_ERR(pdev)) {
+>>> -			DRM_ERROR("Failed to register EDID firmware platform device "
+>>> -				  "for connector \"%s\"\n", connector_name);
+>>> -			return ERR_CAST(pdev);
+>>> -		}
+>>> -
+>>> -		err =3D request_firmware(&fw, name, &pdev->dev);
+>>> -		platform_device_unregister(pdev);
+>>> +		err =3D request_firmware(&fw, name, connector->dev->dev);
+>>>  		if (err) {
+>>>  			DRM_ERROR("Requesting EDID firmware \"%s\" failed (err=3D%d)\n",
+>>>  				  name, err);
+>>> --
+>>> 2.34.1
+>>>
+>>
+>>
+>
+> --
+> Jani Nikula, Intel Open Source Graphics Center
+>
