@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26EDAC433F5
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 13:51:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB788C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 13:51:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BBB010E811;
-	Tue, 11 Oct 2022 13:50:56 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 186FA10E809;
- Tue, 11 Oct 2022 13:50:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC1B710E81A;
+	Tue, 11 Oct 2022 13:51:01 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85A1310E811;
+ Tue, 11 Oct 2022 13:50:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665496237; x=1697032237;
+ t=1665496251; x=1697032251;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=c6Tm8ROmkBkyXGCN5Mp8KFngtlbFuEUFNf96/STHrHw=;
- b=QIP9IvTCAIjUwbZr71fjw9vUDH3oFM9xR2tv1sBi+wMBybTTpm96nTgL
- pSaj/3+LPL2zmb7Dp/prPblOI7ubxC11RpPPX7OBUOUqRSrxBxJU1T1Y7
- 5GyCXXz/wANvHvsYO6i1de6stiaeTWt1ehurW8a3JU75jOHDhXGKHTjqz
- 8JDvc9Azul7HB6knObDwRlcwt4K1k4qoU8Z/PKCnv4a44Pgpz/kYMt/JQ
- br1BM7+zuvGOVj3ZhZOZt9E1hn0cq4NoNS9b+Qe6fidUFcu9F0b/7GdPm
- pW30YY5Skgw6M0pbmMXDnWBprInoEBxy5TTizfG3E+c0XEGRW/PjtlwHB Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="306130212"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="306130212"
+ bh=K61E72QSNlFNlNSvvNUjevsrfzx00WTudHHB4eE5SfE=;
+ b=KMnBkIHHBzznantPYV5QWLcT2ne27z/OxN55cn1A4+iXjCaoijAjmfIk
+ GNEWZVnb1VyxnpjAY45by+U0ryRufxKCMJhSSjY2psIKFR5oQPYcS3L15
+ 4sf/0NUyi+fXhipI77WIc5wYQtZH6L/9zlqKgiBz3HW5FSts/x8J1LqaK
+ nRjXgEhqYnzap89qLb1doElJgwljoYrXKvdwtfP8YtQMpvGbgP+LgfRAo
+ Vz+5yp4UUrd7BFQT9W0izqAOPu4gug+DhlREGyOW8eZgkcurv6Op0qtrp
+ 49qOubUKBPyvfTMikMMxwRM1ATGQJO5kg8612zB4bb5CGtzD9WPXjTl8S Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="284234565"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="284234565"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 06:50:36 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="626363914"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="626363914"
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2022 06:50:50 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="626364001"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="626364001"
 Received: from milawils-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.40.183])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 06:50:35 -0700
+ 11 Oct 2022 06:50:48 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Tue, 11 Oct 2022 16:49:43 +0300
-Message-Id: <b68842462d58ca3c550049a95687f0ead81d615c.1665496046.git.jani.nikula@intel.com>
+Date: Tue, 11 Oct 2022 16:49:46 +0300
+Message-Id: <de3f22db32feed871901408c52d0dc3a513bf686.1665496046.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1665496046.git.jani.nikula@intel.com>
 References: <cover.1665496046.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 09/15] drm/edid: detach debugfs EDID override
- from EDID property update
+Subject: [Intel-gfx] [PATCH 12/15] drm/edid: use struct drm_edid for
+ override/firmware EDID
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,163 +63,237 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Having the EDID override debugfs directly update the EDID property is
-problematic. The update is partial only. The driver has no way of
-knowing it's been updated. Mode list is not updated. It's an
-inconsistent state.
+There's a lot going on here, but the main thing is switching the
+firmware EDID loader to use struct drm_edid. Unfortunately, it's
+difficult to reasonably split to smaller pieces.
 
-Detach debugfs EDID override from the property update completely. Only
-set and reset a separate override EDID copy from debugfs, and have it
-take effect only at detect (via EDID read). The copy is at
-connector->edid_override.
+Convert the EDID loader to struct drm_edid. There's a functional change
+in validation; it no longer tries to fix errors or filter invalid
+blocks. It's stricter in this sense. Hopefully this will not be an
+issue.
 
-This also brings override EDID closer to firmware EDID in behaviour.
-
-Add validation of the override EDID which we completely lacked.
-
-Note that IGT already forces a detect whenever tests update the override
-EDID.
+As a by-product, this change also allows HF-EEODB extended EDIDs to be
+passed via override/firmware EDID.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c  | 56 ++++++++++++-------------------------
- include/drm/drm_connector.h | 11 +++++---
- 2 files changed, 25 insertions(+), 42 deletions(-)
+ drivers/gpu/drm/drm_edid.c      | 32 ++++++------
+ drivers/gpu/drm/drm_edid_load.c | 86 +++++++--------------------------
+ include/drm/drm_edid.h          |  4 +-
+ 3 files changed, 36 insertions(+), 86 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index c3cf942186b7..0f2898badd51 100644
+index 2c66a901474d..935bdf4e6269 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -2207,8 +2207,8 @@ static struct edid *drm_get_override_edid(struct drm_connector *connector,
- {
- 	struct edid *override = NULL;
+@@ -2202,21 +2202,16 @@ static void connector_bad_edid(struct drm_connector *connector,
+ }
  
--	if (connector->override_edid)
--		override = drm_edid_duplicate(connector->edid_blob_ptr->data);
-+	if (connector->edid_override)
-+		override = drm_edid_duplicate(connector->edid_override->edid);
+ /* Get override or firmware EDID */
+-static struct edid *drm_get_override_edid(struct drm_connector *connector,
+-					  size_t *alloc_size)
++static const struct drm_edid *drm_edid_override_get(struct drm_connector *connector)
+ {
+-	struct edid *override = NULL;
++	const struct drm_edid *override = NULL;
+ 
+ 	if (connector->edid_override)
+-		override = drm_edid_duplicate(connector->edid_override->edid);
++		override = drm_edid_dup(connector->edid_override);
  
  	if (!override)
- 		override = drm_load_edid_firmware(connector);
-@@ -2223,10 +2223,10 @@ static struct edid *drm_get_override_edid(struct drm_connector *connector,
- /* For debugfs edid_override implementation */
- int drm_edid_override_show(struct drm_connector *connector, struct seq_file *m)
- {
--	struct drm_property_blob *edid = connector->edid_blob_ptr;
-+	const struct drm_edid *drm_edid = connector->edid_override;
+ 		override = drm_edid_load_firmware(connector);
  
--	if (connector->override_edid && edid)
--		seq_write(m, edid->data, edid->length);
-+	if (drm_edid)
-+		seq_write(m, drm_edid->edid, drm_edid->size);
- 
- 	return 0;
- }
-@@ -2235,32 +2235,33 @@ int drm_edid_override_show(struct drm_connector *connector, struct seq_file *m)
- int drm_edid_override_set(struct drm_connector *connector, const void *edid,
- 			  size_t size)
- {
--	int ret;
-+	drm_edid_free(connector->edid_override);
- 
--	if (size < EDID_LENGTH || edid_size(edid) > size)
-+	connector->edid_override = drm_edid_alloc(edid, size);
-+	if (!drm_edid_valid(connector->edid_override)) {
-+		drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] EDID override invalid\n",
-+			    connector->base.id, connector->name);
-+		drm_edid_free(connector->edid_override);
-+		connector->edid_override = NULL;
- 		return -EINVAL;
+-	/* FIXME: Get alloc size from deeper down the stack */
+-	if (!IS_ERR_OR_NULL(override) && alloc_size)
+-		*alloc_size = edid_size(override);
 -
--	connector->override_edid = false;
+ 	return IS_ERR(override) ? NULL : override;
+ }
+ 
+@@ -2277,14 +2272,14 @@ int drm_edid_override_reset(struct drm_connector *connector)
+  */
+ int drm_edid_override_connector_update(struct drm_connector *connector)
+ {
+-	struct edid *override;
++	const struct drm_edid *override;
+ 	int num_modes = 0;
+ 
+-	override = drm_get_override_edid(connector, NULL);
++	override = drm_edid_override_get(connector);
+ 	if (override) {
+-		drm_connector_update_edid_property(connector, override);
+-		num_modes = drm_add_edid_modes(connector, override);
+-		kfree(override);
++		num_modes = drm_edid_connector_update(connector, override);
++
++		drm_edid_free(override);
+ 
+ 		DRM_DEBUG_KMS("[CONNECTOR:%d:%s] adding %d modes via fallback override/firmware EDID\n",
+ 			      connector->base.id, connector->name, num_modes);
+@@ -2335,12 +2330,19 @@ static struct edid *_drm_do_get_edid(struct drm_connector *connector,
+ {
+ 	enum edid_block_status status;
+ 	int i, num_blocks, invalid_blocks = 0;
++	const struct drm_edid *override;
+ 	struct edid *edid, *new;
+ 	size_t alloc_size = EDID_LENGTH;
+ 
+-	edid = drm_get_override_edid(connector, &alloc_size);
+-	if (edid)
++	override = drm_edid_override_get(connector);
++	if (override) {
++		alloc_size = override->size;
++		edid = kmemdup(override->edid, alloc_size, GFP_KERNEL);
++		drm_edid_free(override);
++		if (!edid)
++			return NULL;
+ 		goto ok;
 +	}
  
- 	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] EDID override set\n",
- 		    connector->base.id, connector->name);
+ 	edid = kmalloc(alloc_size, GFP_KERNEL);
+ 	if (!edid)
+diff --git a/drivers/gpu/drm/drm_edid_load.c b/drivers/gpu/drm/drm_edid_load.c
+index bc6b96abd1b3..248f0685c33e 100644
+--- a/drivers/gpu/drm/drm_edid_load.c
++++ b/drivers/gpu/drm/drm_edid_load.c
+@@ -159,22 +159,12 @@ static const u8 generic_edid[GENERIC_EDIDS][128] = {
+ 	},
+ };
  
--	ret = drm_connector_update_edid_property(connector, edid);
--	if (!ret)
--		connector->override_edid = true;
--
--	return ret;
-+	return 0;
- }
- 
- /* For debugfs edid_override implementation */
- int drm_edid_override_reset(struct drm_connector *connector)
- {
--	connector->override_edid = false;
--
- 	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] EDID override reset\n",
- 		    connector->base.id, connector->name);
- 
--	return drm_connector_update_edid_property(connector, NULL);
-+	drm_edid_free(connector->edid_override);
-+	connector->edid_override = NULL;
-+
-+	return 0;
- }
- 
- /**
-@@ -6634,23 +6635,6 @@ int drm_edid_connector_update(struct drm_connector *connector,
- {
- 	int count;
- 
--	/*
--	 * FIXME: Reconcile the differences in override_edid handling between
--	 * this and drm_connector_update_edid_property().
--	 *
--	 * If override_edid is set, and the EDID passed in here originates from
--	 * drm_edid_read() and friends, it will be the override EDID, and there
--	 * are no issues. drm_connector_update_edid_property() ignoring requests
--	 * to set the EDID dates back to a time when override EDID was not
--	 * handled at the low level EDID read.
--	 *
--	 * The only way the EDID passed in here can be different from the
--	 * override EDID is when a driver passes in an EDID that does *not*
--	 * originate from drm_edid_read() and friends, or passes in a stale
--	 * cached version. This, in turn, is a question of when an override EDID
--	 * set via debugfs should take effect.
--	 */
--
- 	count = _drm_edid_connector_update(connector, drm_edid);
- 
- 	_drm_update_tile_info(connector, drm_edid);
-@@ -6665,10 +6649,6 @@ EXPORT_SYMBOL(drm_edid_connector_update);
- static int _drm_connector_update_edid_property(struct drm_connector *connector,
- 					       const struct drm_edid *drm_edid)
- {
--	/* ignore requests to set edid when overridden */
--	if (connector->override_edid)
+-static int edid_size(const u8 *edid, int data_size)
+-{
+-	if (data_size < EDID_LENGTH)
 -		return 0;
 -
- 	/*
- 	 * Set the display info, using edid if available, otherwise resetting
- 	 * the values to defaults. This duplicates the work done in
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index b1b2df48d42c..09a7d7f23e4a 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1550,12 +1550,15 @@ struct drm_connector {
- 	struct drm_cmdline_mode cmdline_mode;
- 	/** @force: a DRM_FORCE_<foo> state for forced mode sets */
- 	enum drm_connector_force force;
-+
- 	/**
--	 * @override_edid: has the EDID been overwritten through debugfs for
--	 * testing? Do not modify outside of drm_edid_override_set() and
--	 * drm_edid_override_reset().
-+	 * @edid_override: Override EDID set via debugfs.
-+	 *
-+	 * Do not modify or access outside of the drm_edid_override_* family of
-+	 * functions.
- 	 */
--	bool override_edid;
-+	const struct drm_edid *edid_override;
-+
- 	/** @epoch_counter: used to detect any other changes in connector, besides status */
- 	u64 epoch_counter;
+-	return (edid[0x7e] + 1) * EDID_LENGTH;
+-}
+-
+-static void *edid_load(struct drm_connector *connector, const char *name)
++static const struct drm_edid *edid_load(struct drm_connector *connector, const char *name)
+ {
+ 	const struct firmware *fw = NULL;
+ 	const u8 *fwdata;
+-	u8 *edid;
++	const struct drm_edid *drm_edid;
+ 	int fwsize, builtin;
+-	int i, valid_extensions = 0;
+-	bool print_bad_edid = !connector->bad_edid_counter || drm_debug_enabled(DRM_UT_KMS);
  
+ 	builtin = match_string(generic_edid_name, GENERIC_EDIDS, name);
+ 	if (builtin >= 0) {
+@@ -203,69 +193,26 @@ static void *edid_load(struct drm_connector *connector, const char *name)
+ 		fwsize = fw->size;
+ 	}
+ 
+-	if (edid_size(fwdata, fwsize) != fwsize) {
+-		DRM_ERROR("Size of EDID firmware \"%s\" is invalid "
+-			  "(expected %d, got %d\n", name,
+-			  edid_size(fwdata, fwsize), (int)fwsize);
+-		edid = ERR_PTR(-EINVAL);
+-		goto out;
+-	}
+-
+-	edid = kmemdup(fwdata, fwsize, GFP_KERNEL);
+-	if (edid == NULL) {
+-		edid = ERR_PTR(-ENOMEM);
+-		goto out;
+-	}
+-
+-	if (!drm_edid_block_valid(edid, 0, print_bad_edid,
+-				  &connector->edid_corrupt)) {
+-		connector->bad_edid_counter++;
+-		DRM_ERROR("Base block of EDID firmware \"%s\" is invalid ",
+-		    name);
+-		kfree(edid);
+-		edid = ERR_PTR(-EINVAL);
+-		goto out;
+-	}
+-
+-	for (i = 1; i <= edid[0x7e]; i++) {
+-		if (i != valid_extensions + 1)
+-			memcpy(edid + (valid_extensions + 1) * EDID_LENGTH,
+-			    edid + i * EDID_LENGTH, EDID_LENGTH);
+-		if (drm_edid_block_valid(edid + i * EDID_LENGTH, i,
+-					 print_bad_edid,
+-					 NULL))
+-			valid_extensions++;
+-	}
+-
+-	if (valid_extensions != edid[0x7e]) {
+-		u8 *new_edid;
++	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] Loaded %s firmware EDID \"%s\"\n",
++		    connector->base.id, connector->name,
++		    builtin >= 0 ? "built-in" : "external", name);
+ 
+-		edid[EDID_LENGTH-1] += edid[0x7e] - valid_extensions;
+-		DRM_INFO("Found %d valid extensions instead of %d in EDID data "
+-		    "\"%s\" for connector \"%s\"\n", valid_extensions,
+-		    edid[0x7e], name, connector->name);
+-		edid[0x7e] = valid_extensions;
+-
+-		new_edid = krealloc(edid, (valid_extensions + 1) * EDID_LENGTH,
+-				    GFP_KERNEL);
+-		if (new_edid)
+-			edid = new_edid;
++	drm_edid = drm_edid_alloc(fwdata, fwsize);
++	if (!drm_edid_valid(drm_edid)) {
++		drm_err(connector->dev, "Invalid firmware EDID \"%s\"\n", name);
++		drm_edid_free(drm_edid);
++		drm_edid = ERR_PTR(-EINVAL);
+ 	}
+ 
+-	DRM_INFO("Got %s EDID base block and %d extension%s from "
+-	    "\"%s\" for connector \"%s\"\n", (builtin >= 0) ? "built-in" :
+-	    "external", valid_extensions, valid_extensions == 1 ? "" : "s",
+-	    name, connector->name);
+-
+-out:
+ 	release_firmware(fw);
+-	return edid;
++
++	return drm_edid;
+ }
+ 
+-struct edid *drm_edid_load_firmware(struct drm_connector *connector)
++const struct drm_edid *drm_edid_load_firmware(struct drm_connector *connector)
+ {
+ 	char *edidname, *last, *colon, *fwstr, *edidstr, *fallback = NULL;
+-	struct edid *edid;
++	const struct drm_edid *drm_edid;
+ 
+ 	if (edid_firmware[0] == '\0')
+ 		return ERR_PTR(-ENOENT);
+@@ -308,8 +255,9 @@ struct edid *drm_edid_load_firmware(struct drm_connector *connector)
+ 	if (*last == '\n')
+ 		*last = '\0';
+ 
+-	edid = edid_load(connector, edidname);
++	drm_edid = edid_load(connector, edidname);
++
+ 	kfree(fwstr);
+ 
+-	return edid;
++	return drm_edid;
+ }
+diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+index dc7467d25cd8..8138613f4e4e 100644
+--- a/include/drm/drm_edid.h
++++ b/include/drm/drm_edid.h
+@@ -388,11 +388,11 @@ int drm_av_sync_delay(struct drm_connector *connector,
+ 		      const struct drm_display_mode *mode);
+ 
+ #ifdef CONFIG_DRM_LOAD_EDID_FIRMWARE
+-struct edid *drm_edid_load_firmware(struct drm_connector *connector);
++const struct drm_edid *drm_edid_load_firmware(struct drm_connector *connector);
+ int __drm_set_edid_firmware_path(const char *path);
+ int __drm_get_edid_firmware_path(char *buf, size_t bufsize);
+ #else
+-static inline struct edid *
++static inline const struct drm_edid *
+ drm_edid_load_firmware(struct drm_connector *connector)
+ {
+ 	return ERR_PTR(-ENOENT);
 -- 
 2.34.1
 
