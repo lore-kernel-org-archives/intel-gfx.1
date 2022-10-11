@@ -4,30 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7E47C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 15:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE18EC433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 15:39:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14BEF10E380;
-	Tue, 11 Oct 2022 15:30:53 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0CCD510E31D;
- Tue, 11 Oct 2022 15:30:45 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 07242A7DFF;
- Tue, 11 Oct 2022 15:30:45 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 023ED10E380;
+	Tue, 11 Oct 2022 15:39:46 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67CF910E380;
+ Tue, 11 Oct 2022 15:39:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1665502781; x=1697038781;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Rt5TN++QcPZFbsjfvyDFQ96+McN98i7Ji8Gsdhl57AU=;
+ b=niOu+zNzFuZ2FiU4YBLqX0FvUG8vscU4Yexa9rzdZp8tXIOxVuyRwefO
+ 3Ph6Z/VQLWm8RKn6z+wVdZHGJ2hif/hfcv5pmUl5j1fQmgU8LUeegTNYr
+ R/+sK8oLFt8y/8bp+feDqS1XBRRXMWj/qYbK8lqj4IEID/74uuQ0Jz6o1
+ hl+9fye0C2JGTTPzhQoJ7YytiM+VUckt6Cws6nCaFtlAMlJXzC8YPoxXt
+ SQuwI2ivBEzKZB/IfDCLXhCv4GJW/EZ4r3XJVu8t7D3kVNYekqwOCjLaF
+ peeHUEWt7dTkSu961skI5fxnUOjhU8oh4ruMugNoVs7fakPIJZc7hhNrZ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="305591637"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="305591637"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2022 08:39:31 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="768839296"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="768839296"
+Received: from invictus.jf.intel.com ([10.165.21.201])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2022 08:39:31 -0700
+From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 11 Oct 2022 08:38:51 -0700
+Message-Id: <20221011153851.3781507-2-radhakrishna.sripada@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221011153851.3781507-1-radhakrishna.sripada@intel.com>
+References: <20221011153851.3781507-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Date: Tue, 11 Oct 2022 15:30:45 -0000
-Message-ID: <166550224502.5540.2806676396397940683@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <cover.1665496046.git.jani.nikula@intel.com>
-In-Reply-To: <cover.1665496046.git.jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/edid=3A_EDID_override_refactoring_and_fixes?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 2/2] drm/i915: Use graphics ver,
+ rel info for media on old platforms
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,21 +58,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Platforms prior to MTL do not have a separate media and graphics version.
+On platforms where GMD id is not supported, reuse the graphics ip version,
+release info for media.
 
-Series: drm/edid: EDID override refactoring and fixes
-URL   : https://patchwork.freedesktop.org/series/109579/
-State : warning
+The rest of the IP graphics, display versions would be copied during driver
+creation.
 
-== Summary ==
+While at it warn if GMD is not used for platforms greater than gen12.
 
-Error: dim sparse failed
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+v2:
+ - Use simple assignment to copy contents of the structure(JaniN)
 
+Fixes: c2c7075225ef ("drm/i915: Read graphics/media/display arch version from hw")
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+---
+ drivers/gpu/drm/i915/intel_device_info.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index 37267c662dc6..1dc1fb29a776 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -329,8 +329,16 @@ static void intel_ipver_early_init(struct drm_i915_private *i915)
+ {
+ 	struct intel_runtime_info *runtime = RUNTIME_INFO(i915);
+ 
+-	if (!HAS_GMD_ID(i915))
++	if (!HAS_GMD_ID(i915)) {
++		drm_WARN_ON(&i915->drm, RUNTIME_INFO(i915)->graphics.ip.ver > 12);
++		/*
++		 * On older platforms, graphics and media share the same ip
++		 * version and release.
++		 */
++		RUNTIME_INFO(i915)->media.ip =
++			RUNTIME_INFO(i915)->graphics.ip;
+ 		return;
++	}
+ 
+ 	ip_ver_read(i915, i915_mmio_reg_offset(GMD_ID_GRAPHICS),
+ 		    &runtime->graphics.ip);
+-- 
+2.34.1
 
