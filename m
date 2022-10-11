@@ -4,50 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68B7BC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 17:03:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE757C433F5
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 17:31:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 013BE10E98B;
-	Tue, 11 Oct 2022 17:03:50 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD7BA10E984
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Oct 2022 17:03:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665507826; x=1697043826;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=nWY28pNHCVeh7B/N5+GhS8WmWlc1KQbFVjMlyM/+gHI=;
- b=dHpo5eWOpWCrAptQqUJuYABqoKEd1xXeeoOXkT81q9mO8b/pGd9ZfqdN
- semBWdRTuUwKNJTYlt0d9VpjgorZrQrvAQ3hfyfymZlztvlrsb+UyFBCl
- 3FqLhB+00O/gKsGnQltWl6UMYtqTUecGI3lFK4JEdr++YX+WY//UvRUM2
- 8/6Yyr3LpZpSr1L7ipO+HUVtKyyos3ZHAVm07V6zLyeHMgCmA84MDy9tE
- NDz5xbMDlcOjUlrahW+n6QRecFQCaBmDnBtmdgEaRxlkY7HsVDl8M7RDZ
- Bz5VVDZUlCQTRy6hTREV214TXVfKb7mNqfnUkywNFovAU7kVJU+91M6iS g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="305624027"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="305624027"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 10:01:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="621475826"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="621475826"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga007.jf.intel.com with SMTP; 11 Oct 2022 10:01:01 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 11 Oct 2022 20:01:00 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 11 Oct 2022 20:00:02 +0300
-Message-Id: <20221011170011.17198-14-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221011170011.17198-1-ville.syrjala@linux.intel.com>
-References: <20221011170011.17198-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 065DB10E837;
+	Tue, 11 Oct 2022 17:31:58 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7847610E835;
+ Tue, 11 Oct 2022 17:31:53 +0000 (UTC)
+Received: from [192.168.2.145] (109-252-119-114.nat.spd-mgts.ru
+ [109.252.119.114])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id BECC86602358;
+ Tue, 11 Oct 2022 18:31:47 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1665509511;
+ bh=FbjwvyBn8Jk5nWNvSwUKiVg917Dtcke8nkTgpCuxGHg=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=j9FFZ8t9+K/yyb3uyYTMRMmOZwbPmrFNo2nLiwt+NaQZrbzcY4YA8uPgvq9KqKyKu
+ qfSxAQSs3xdybENOLmYyju3gm2jzJes8ytBnen1UmrG70xGfL9X93PKjnudy4jAGU9
+ gl+8JqZyTgX4VAz30gatLmK/w1aZ0uiSfREFVnx4BKEjtHICZB25vE8HLEsmHDTqCu
+ yIpeJVFLrAb6mYjYFS9OIEMj1EcqLBHaz1mjNnYKGPhtHbHH9fs9DzhtYGqeU92wP3
+ bGYgN3stcLAlbVz256MpW1wDubM6bGRxeP+1wxa5ae3PSGyqaSwxKah/5yl/VkpzQm
+ rYhgIy9tlB8RA==
+Message-ID: <fd3baeeb-2277-768c-e0d1-f3adcecb848a@collabora.com>
+Date: Tue, 11 Oct 2022 20:31:45 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robdclark@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas_os@shipmail.org>,
+ Qiang Yu <yuq825@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Ruhl Michael J <michael.j.ruhl@intel.com>
+References: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20220928191600.5874-1-dmitry.osipenko@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 13/22] drm/i915/audio: Split "ELD valid" vs.
- audio PD on hsw+
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v6 00/21] Move all drivers to a common
+ dma-buf locking convention
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,64 +87,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Takashi Iwai <tiwai@suse.de>
+Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Dmitry Osipenko <digetx@gmail.com>, kernel@collabora.com,
+ linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On 9/28/22 22:15, Dmitry Osipenko wrote:
+> Hello,
+> 
+> This series moves all drivers to a dynamic dma-buf locking specification.
+> From now on all dma-buf importers are made responsible for holding
+> dma-buf's reservation lock around all operations performed over dma-bufs
+> in accordance to the locking specification. This allows us to utilize
+> reservation lock more broadly around kernel without fearing of a potential
+> deadlocks.
+> 
+> This patchset passes all i915 selftests. It was also tested using VirtIO,
+> Panfrost, Lima, Tegra, udmabuf, AMDGPU and Nouveau drivers. I tested cases
+> of display+GPU, display+V4L and GPU+V4L dma-buf sharing (where appropriate),
+> which covers majority of kernel drivers since rest of the drivers share
+> same or similar code paths.
 
-On the older platforms the audio presence detect bit is in
-the port register, so it gets written outside audio codec hooks
-and is this separate from the ELD valid toggling. Split the
-operations into two steps on hsw+ to be more consistent with
-both the other platforms and the spec. Also according to the
-spec we might need some vblank waits between the two which
-definitely needs them done separately.
+All the non-drm patches have been acked by the respective maintainers.
+I'm now feeling comfortable to take this series into drm-misc-next and
+going to do it later this week.
 
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_audio.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+If anyone have more comments to add, then please do it now. It won't be
+possible to drop out patches from drm-misc once they will be merged. All
+further changes will have to be made on top of the applied patches.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index 1b928d283b8d..0a1ba10fc20d 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -479,9 +479,12 @@ static void hsw_audio_codec_disable(struct intel_encoder *encoder,
- 		     intel_crtc_has_dp_encoder(old_crtc_state) ?
- 		     AUD_CONFIG_N_VALUE_INDEX : 0);
- 
--	/* Disable audio presence detect, invalidate ELD */
-+	/* Invalidate ELD */
-+	intel_de_rmw(i915, HSW_AUD_PIN_ELD_CP_VLD,
-+		     AUDIO_ELD_VALID(cpu_transcoder), 0);
-+
-+	/* Disable audio presence detect */
- 	intel_de_rmw(i915, HSW_AUD_PIN_ELD_CP_VLD,
--		     AUDIO_ELD_VALID(cpu_transcoder) |
- 		     AUDIO_OUTPUT_ENABLE(cpu_transcoder), 0);
- 
- 	mutex_unlock(&i915->display.audio.mutex);
-@@ -612,10 +615,13 @@ static void hsw_audio_codec_enable(struct intel_encoder *encoder,
- 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP))
- 		enable_audio_dsc_wa(encoder, crtc_state);
- 
--	/* Enable audio presence detect, invalidate ELD */
-+	/* Enable audio presence detect */
- 	intel_de_rmw(i915, HSW_AUD_PIN_ELD_CP_VLD,
--		     AUDIO_ELD_VALID(cpu_transcoder),
--		     AUDIO_OUTPUT_ENABLE(cpu_transcoder));
-+		     0, AUDIO_OUTPUT_ENABLE(cpu_transcoder));
-+
-+	/* Invalidate ELD */
-+	intel_de_rmw(i915, HSW_AUD_PIN_ELD_CP_VLD,
-+		     AUDIO_ELD_VALID(cpu_transcoder), 0);
- 
- 	/*
- 	 * FIXME: We're supposed to wait for vblank here, but we have vblanks
+Thanks to all who reviewed this patchset!
+
 -- 
-2.35.1
+Best regards,
+Dmitry
 
