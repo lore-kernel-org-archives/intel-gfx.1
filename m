@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72C7EC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 13:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECBE8C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Oct 2022 13:51:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43D9B10E813;
-	Tue, 11 Oct 2022 13:50:53 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E1A510E806;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B26F10E818;
+	Tue, 11 Oct 2022 13:50:54 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E51A10E809;
  Tue, 11 Oct 2022 13:50:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1665496242; x=1697032242;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zNwf05FhKmcrOEbMBDvdE2koUEIsuZUmdKzdhh+5e5Y=;
- b=AUMIIP7oIvmm2FY5pXssDW3CPecfnWYh4eglcGbPQLC++/luF4kLB85f
- nY0RgqNytxc3/h6gBQ9Y/OV5b2XoZ8af4esdbJ6qhtLZSKboogcgRLAXF
- holw1qlxvjYmcn35AihtaurnfZS1AHot6iv4oPS7lxaEQ6Rxm/usqLWQK
- FAFLsD3TDZmcBzqGbh+ayci0MMaMJ4U78GDLKE13z7uqZE0s7b5BOIa0t
- +/GCiNeYll8J6PguPxz1MPiGFA94lvka0qlrbmWPbGTqRYdCa8T4OTwHD
- aM0KaiUlqzWek8FOLbUNrPfSYfNkcwxojB9kDosLZT5XZRRbi8PGgPl7w g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="368670039"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="368670039"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 06:50:41 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="604150588"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="604150588"
+ bh=TwOLcq1XDn2YBqn6/FK6pFP8tNmyXVsmyGyLDbytSnw=;
+ b=npcmCnKp+2gdjftbBGMM7LLviue8Cn6tSRvA/qKXEA66RAXCQ+Q+ZW1J
+ NZVHizPxmwpvZU1lCyD6l6KaK7WPoLUUy+VD/wBV4F1hnbHDs76UrVdJm
+ ept2L2NlNKi/ncYFFezbTOUHVgoGjiKUzAv4j/BFdCMtqqsij9zYlXEEH
+ DO8YpLqwUg3IJVp5UG8oFEZnwIXeTtOesGwKC1DzFEXmgWZVRA4QcHOm6
+ DDwYZw9rCGOQAHogNMMpdR4ACG1lvJkgGZWhCt6ijHp85+NCHGvEugCa8
+ j0RlL53hjnMHCfKNT2HyO5ZcUpG3yBozCQtQaX5SnUWkN9fiQtRaX558p g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="304494530"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="304494530"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2022 06:50:23 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="659539861"
+X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="659539861"
 Received: from milawils-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.40.183])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 06:50:39 -0700
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2022 06:50:22 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Tue, 11 Oct 2022 16:49:44 +0300
-Message-Id: <e4580510282e9f88c73ea10bab34ba502dae1bb9.1665496046.git.jani.nikula@intel.com>
+Date: Tue, 11 Oct 2022 16:49:40 +0300
+Message-Id: <768e11394c1689f19da20eb55ac2c883d5613428.1665496046.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1665496046.git.jani.nikula@intel.com>
 References: <cover.1665496046.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/15] drm/edid/firmware: drop redundant
- connector_name variable/parameter
+Subject: [Intel-gfx] [PATCH 06/15] drm/edid: rename
+ drm_add_override_edid_modes() to drm_edid_override_connector_update()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,85 +63,75 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Stop passing around something that's readily available in
-connector->name.
+Follow the naming of both EDID override functions as well as
+drm_edid_connector_update(). This also matches better what the function
+does; a combination of EDID property update and add modes. Indeed it
+should later be converted to call drm_edid_connector_update().
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid_load.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/drm_edid.c         | 6 +++---
+ drivers/gpu/drm/drm_probe_helper.c | 2 +-
+ include/drm/drm_edid.h             | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid_load.c b/drivers/gpu/drm/drm_edid_load.c
-index 37d8ba3ddb46..13cdbfb991eb 100644
---- a/drivers/gpu/drm/drm_edid_load.c
-+++ b/drivers/gpu/drm/drm_edid_load.c
-@@ -167,8 +167,7 @@ static int edid_size(const u8 *edid, int data_size)
- 	return (edid[0x7e] + 1) * EDID_LENGTH;
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 1ada36e0d826..8baa46dc2537 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -2227,7 +2227,7 @@ int drm_edid_override_reset(struct drm_connector *connector)
  }
  
--static void *edid_load(struct drm_connector *connector, const char *name,
--			const char *connector_name)
-+static void *edid_load(struct drm_connector *connector, const char *name)
+ /**
+- * drm_add_override_edid_modes - add modes from override/firmware EDID
++ * drm_edid_override_connector_update - add modes from override/firmware EDID
+  * @connector: connector we're probing
+  *
+  * Add modes from the override/firmware EDID, if available. Only to be used from
+@@ -2237,7 +2237,7 @@ int drm_edid_override_reset(struct drm_connector *connector)
+  *
+  * Return: The number of modes added or 0 if we couldn't find any.
+  */
+-int drm_add_override_edid_modes(struct drm_connector *connector)
++int drm_edid_override_connector_update(struct drm_connector *connector)
  {
- 	const struct firmware *fw = NULL;
- 	const u8 *fwdata;
-@@ -185,10 +184,10 @@ static void *edid_load(struct drm_connector *connector, const char *name,
- 		struct platform_device *pdev;
- 		int err;
+ 	struct edid *override;
+ 	int num_modes = 0;
+@@ -2254,7 +2254,7 @@ int drm_add_override_edid_modes(struct drm_connector *connector)
  
--		pdev = platform_device_register_simple(connector_name, -1, NULL, 0);
-+		pdev = platform_device_register_simple(connector->name, -1, NULL, 0);
- 		if (IS_ERR(pdev)) {
- 			DRM_ERROR("Failed to register EDID firmware platform device "
--				  "for connector \"%s\"\n", connector_name);
-+				  "for connector \"%s\"\n", connector->name);
- 			return ERR_CAST(pdev);
- 		}
+ 	return num_modes;
+ }
+-EXPORT_SYMBOL(drm_add_override_edid_modes);
++EXPORT_SYMBOL(drm_edid_override_connector_update);
  
-@@ -244,7 +243,7 @@ static void *edid_load(struct drm_connector *connector, const char *name,
- 		edid[EDID_LENGTH-1] += edid[0x7e] - valid_extensions;
- 		DRM_INFO("Found %d valid extensions instead of %d in EDID data "
- 		    "\"%s\" for connector \"%s\"\n", valid_extensions,
--		    edid[0x7e], name, connector_name);
-+		    edid[0x7e], name, connector->name);
- 		edid[0x7e] = valid_extensions;
+ typedef int read_block_fn(void *context, u8 *buf, unsigned int block, size_t len);
  
- 		new_edid = krealloc(edid, (valid_extensions + 1) * EDID_LENGTH,
-@@ -256,7 +255,7 @@ static void *edid_load(struct drm_connector *connector, const char *name,
- 	DRM_INFO("Got %s EDID base block and %d extension%s from "
- 	    "\"%s\" for connector \"%s\"\n", (builtin >= 0) ? "built-in" :
- 	    "external", valid_extensions, valid_extensions == 1 ? "" : "s",
--	    name, connector_name);
-+	    name, connector->name);
+diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+index 69b0b2b9cc1c..2fc21df709bc 100644
+--- a/drivers/gpu/drm/drm_probe_helper.c
++++ b/drivers/gpu/drm/drm_probe_helper.c
+@@ -367,7 +367,7 @@ static int drm_helper_probe_get_modes(struct drm_connector *connector)
+ 	 * override/firmware EDID.
+ 	 */
+ 	if (count == 0 && connector->status == connector_status_connected)
+-		count = drm_add_override_edid_modes(connector);
++		count = drm_edid_override_connector_update(connector);
  
- out:
- 	release_firmware(fw);
-@@ -265,7 +264,6 @@ static void *edid_load(struct drm_connector *connector, const char *name,
+ 	return count;
+ }
+diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+index 429735b91f63..05380681a4fb 100644
+--- a/include/drm/drm_edid.h
++++ b/include/drm/drm_edid.h
+@@ -577,7 +577,7 @@ struct edid *drm_get_edid_switcheroo(struct drm_connector *connector,
+ 				     struct i2c_adapter *adapter);
+ struct edid *drm_edid_duplicate(const struct edid *edid);
+ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid);
+-int drm_add_override_edid_modes(struct drm_connector *connector);
++int drm_edid_override_connector_update(struct drm_connector *connector);
  
- struct edid *drm_load_edid_firmware(struct drm_connector *connector)
- {
--	const char *connector_name = connector->name;
- 	char *edidname, *last, *colon, *fwstr, *edidstr, *fallback = NULL;
- 	struct edid *edid;
- 
-@@ -288,7 +286,7 @@ struct edid *drm_load_edid_firmware(struct drm_connector *connector)
- 	while ((edidname = strsep(&edidstr, ","))) {
- 		colon = strchr(edidname, ':');
- 		if (colon != NULL) {
--			if (strncmp(connector_name, edidname, colon - edidname))
-+			if (strncmp(connector->name, edidname, colon - edidname))
- 				continue;
- 			edidname = colon + 1;
- 			break;
-@@ -310,7 +308,7 @@ struct edid *drm_load_edid_firmware(struct drm_connector *connector)
- 	if (*last == '\n')
- 		*last = '\0';
- 
--	edid = edid_load(connector, edidname, connector_name);
-+	edid = edid_load(connector, edidname);
- 	kfree(fwstr);
- 
- 	return edid;
+ u8 drm_match_cea_mode(const struct drm_display_mode *to_match);
+ bool drm_detect_hdmi_monitor(const struct edid *edid);
 -- 
 2.34.1
 
