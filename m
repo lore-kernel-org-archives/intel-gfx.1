@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA2A2C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Oct 2022 22:27:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0A47C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Oct 2022 22:28:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3125A10E1D2;
-	Wed, 12 Oct 2022 22:27:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAEA610E149;
+	Wed, 12 Oct 2022 22:28:00 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A057110E149
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 Oct 2022 22:27:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40A4C10E1CC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Oct 2022 22:27:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665613666; x=1697149666;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=4Wa0ylZbtImnCXB8dnwBnSmL7tE0BAhoL4K5tottBPg=;
- b=IQJwjbi3CONw3cmnpQVhaShUxHxXkcBlwF5mH8pJGodiSWuyPl8VanKn
- mjgNsG9lhBOEv1p7taHhk8T1eomrrbNPJiYbYEYW38ku9a3v1CncY8Ahh
- 1mxTUp8v9yVJifOFKdK7jo3rQqR/Asr3WgS9qFYL4LsoHvFAX0OEym+c1
- ekNn/tQpT5IY4M8SZyOVCJ7Qy2mET8gZGScgFwD05mg0x5N2PtRtKkrzH
- MGu2CMg51dHTVB/25+tPsB67yq/C/l0WgBMUmC32mKloUcNzVBflJGBGQ
- xm5CMJGYzXPyLShxFXZVn+1/t45DMUFgE3ngZvMFSQktleWoHgpgmyemi g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="305983956"
-X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="305983956"
+ t=1665613667; x=1697149667;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=LKa8xEu2kt29oumvTiSbWgVwoup4BlirQcKxvwTygKw=;
+ b=b9GjFIKF7k7NwNlohdme0BLihmVjT8WJT7YdiWT2/bn7lheVgBDbKT2I
+ aj+43vAlaqUXvx7W9dKGr3p0XlngZupmnjxNn2myAbR9TamYZwS+ZRNjO
+ NK9hsb7QdI4rsACWE3L/8K2jDKjxteAdvxt2EZzjahWpr20zkuRroHXZF
+ B5+NuvYiibKz/MKThqLcQl2EsH52E32ZBgNCZ6mIjYYFDw8AMcAJR1Eyz
+ km8c/2FppCH8eA0Q0dyLQ239LVyYYhCbzvppL8kUiKuPYR882lpulKwX5
+ jtX3cY+qvVRkBER14cRQe8GKp9IsUaKci2QUJPUK5E/8uC+M3u+p78IYY A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="305983960"
+X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="305983960"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2022 15:27:45 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="660097636"
-X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="660097636"
+ 12 Oct 2022 15:27:46 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="660097645"
+X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="660097645"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2022 15:27:45 -0700
+ 12 Oct 2022 15:27:46 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Wed, 12 Oct 2022 22:27:23 +0000
-Message-Id: <20221012222739.27296-1-umesh.nerlige.ramappa@intel.com>
+Date: Wed, 12 Oct 2022 22:27:26 +0000
+Message-Id: <20221012222739.27296-4-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221012222739.27296-1-umesh.nerlige.ramappa@intel.com>
+References: <20221012222739.27296-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 00/16] Add DG2 OA support
+Subject: [Intel-gfx] [PATCH v4 03/16] drm/i915/perf: Fix noa wait
+ predication for DG2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,94 +62,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add OA format support for DG2 and various fixes for DG2.
+Predication for batch buffer commands changed in XEHPSDV.
+MI_BATCH_BUFFER_START predicates based on MI_SET_PREDICATE_RESULT
+register. The MI_SET_PREDICATE_RESULT register can only be modified
+with MI_SET_PREDICATE command. When configured, the MI_SET_PREDICATE
+command sets MI_SET_PREDICATE_RESULT based on bit 0 of
+MI_PREDICATE_RESULT_2. Use this to configure predication in noa_wait.
 
-This series has 2 uapi changes listed below:
-
-1) drm/i915/perf: Add OAG and OAR formats for DG2
-
-DG2 has new OA formats defined that can be selected by the
-user. The UMD changes that are consumed by GPUvis are:
-https://patchwork.freedesktop.org/patch/504456/?series=107633&rev=5
-
-2) drm/i915/perf: Apply Wa_18013179988
-
-DG2 has a bug where the OA timestamp does not tick at the CS timestamp
-frequency. Instead it ticks at a multiple that is determined from the
-CTC_SHIFT value in RPM_CONFIG. Since the timestamp is used by UMD to
-make sense of all the counters in the report, expose the OA timestamp
-frequency to the user. The interface is generic and applies to all
-platforms. On platforms where the bug is not present, this returns the
-CS timestamp frequency. UMD specific changes consumed by GPUvis are:
-https://patchwork.freedesktop.org/patch/504464/?series=107633&rev=5
-
-v2:
-- Add review comments
-- Update uapi changes in cover letter
-- Drop patches for non-production platforms
-drm/i915/perf: Use helpers to process reports w.r.t. OA buffer size
-drm/i915/perf: Add Wa_16010703925:dg2
-
-- Drop 64-bit OA format changes for now
-drm/i915/perf: Parse 64bit report header formats correctly
-drm/i915/perf: Add Wa_1608133521:dg2
-
-v3:
-- Add review comments to patches 02, 04, 05, 14
-- Drop Acks
-
-v4:
-- Add review comments to patch 04
-- Update R-bs
-- Add MR links to patches 02 and 12
-
-Test-with: 20220923195224.283045-1-umesh.nerlige.ramappa@intel.com
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_regs.h |  1 +
+ drivers/gpu/drm/i915/i915_perf.c            | 24 +++++++++++++++++----
+ 2 files changed, 21 insertions(+), 4 deletions(-)
 
-Lionel Landwerlin (1):
-  drm/i915/perf: complete programming whitelisting for XEHPSDV
-
-Umesh Nerlige Ramappa (14):
-  drm/i915/perf: Fix OA filtering logic for GuC mode
-  drm/i915/perf: Add 32-bit OAG and OAR formats for DG2
-  drm/i915/perf: Fix noa wait predication for DG2
-  drm/i915/perf: Determine gen12 oa ctx offset at runtime
-  drm/i915/perf: Enable bytes per clock reporting in OA
-  drm/i915/perf: Simply use stream->ctx
-  drm/i915/perf: Move gt-specific data from i915->perf to gt->perf
-  drm/i915/perf: Replace gt->perf.lock with stream->lock for file ops
-  drm/i915/perf: Use gt-specific ggtt for OA and noa-wait buffers
-  drm/i915/perf: Store a pointer to oa_format in oa_buffer
-  drm/i915/perf: Add Wa_1508761755:dg2
-  drm/i915/perf: Apply Wa_18013179988
-  drm/i915/perf: Save/restore EU flex counters across reset
-  drm/i915/perf: Enable OA for DG2
-
-Vinay Belgaumkar (1):
-  drm/i915/guc: Support OA when Wa_16011777198 is enabled
-
- drivers/gpu/drm/i915/gt/intel_engine_regs.h   |   1 +
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |   4 +
- drivers/gpu/drm/i915/gt/intel_gt_regs.h       |   1 +
- drivers/gpu/drm/i915/gt/intel_gt_types.h      |   3 +
- drivers/gpu/drm/i915/gt/intel_lrc.h           |   2 +
- drivers/gpu/drm/i915/gt/intel_sseu.c          |   4 +-
- .../drm/i915/gt/uc/abi/guc_actions_slpc_abi.h |   9 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |   8 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   |  66 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h   |   2 +
- drivers/gpu/drm/i915/i915_drv.h               |   5 +
- drivers/gpu/drm/i915/i915_getparam.c          |   3 +
- drivers/gpu/drm/i915/i915_pci.c               |   2 +
- drivers/gpu/drm/i915/i915_perf.c              | 579 ++++++++++++++----
- drivers/gpu/drm/i915/i915_perf.h              |   2 +
- drivers/gpu/drm/i915/i915_perf_oa_regs.h      |   6 +-
- drivers/gpu/drm/i915/i915_perf_types.h        |  47 +-
- drivers/gpu/drm/i915/intel_device_info.h      |   2 +
- drivers/gpu/drm/i915/selftests/i915_perf.c    |  16 +-
- include/uapi/drm/i915_drm.h                   |  10 +
- 20 files changed, 631 insertions(+), 141 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_regs.h b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+index fe1a0d5fd4b1..ee3efd06ee54 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+@@ -201,6 +201,7 @@
+ #define RING_CONTEXT_STATUS_PTR(base)		_MMIO((base) + 0x3a0)
+ #define RING_CTX_TIMESTAMP(base)		_MMIO((base) + 0x3a8) /* gen8+ */
+ #define RING_PREDICATE_RESULT(base)		_MMIO((base) + 0x3b8)
++#define MI_PREDICATE_RESULT_2_ENGINE(base)	_MMIO((base) + 0x3bc)
+ #define RING_FORCE_TO_NONPRIV(base, i)		_MMIO(((base) + 0x4D0) + (i) * 4)
+ #define   RING_FORCE_TO_NONPRIV_DENY		REG_BIT(30)
+ #define   RING_FORCE_TO_NONPRIV_ADDRESS_MASK	REG_GENMASK(25, 2)
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 2b772a6b1cd6..e68666b44a72 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -286,6 +286,7 @@ static u32 i915_perf_stream_paranoid = true;
+ #define OAREPORT_REASON_CTX_SWITCH     (1<<3)
+ #define OAREPORT_REASON_CLK_RATIO      (1<<5)
+ 
++#define HAS_MI_SET_PREDICATE(i915) (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
+ 
+ /* For sysctl proc_dointvec_minmax of i915_oa_max_sample_rate
+  *
+@@ -1760,6 +1761,9 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 		DELTA_TARGET,
+ 		N_CS_GPR
+ 	};
++	i915_reg_t mi_predicate_result = HAS_MI_SET_PREDICATE(i915) ?
++					  MI_PREDICATE_RESULT_2_ENGINE(base) :
++					  MI_PREDICATE_RESULT_1(RENDER_RING_BASE);
+ 
+ 	bo = i915_gem_object_create_internal(i915, 4096);
+ 	if (IS_ERR(bo)) {
+@@ -1797,7 +1801,7 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 			stream, cs, true /* save */, CS_GPR(i),
+ 			INTEL_GT_SCRATCH_FIELD_PERF_CS_GPR + 8 * i, 2);
+ 	cs = save_restore_register(
+-		stream, cs, true /* save */, MI_PREDICATE_RESULT_1(RENDER_RING_BASE),
++		stream, cs, true /* save */, mi_predicate_result,
+ 		INTEL_GT_SCRATCH_FIELD_PERF_PREDICATE_RESULT_1, 1);
+ 
+ 	/* First timestamp snapshot location. */
+@@ -1851,7 +1855,10 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	 */
+ 	*cs++ = MI_LOAD_REGISTER_REG | (3 - 2);
+ 	*cs++ = i915_mmio_reg_offset(CS_GPR(JUMP_PREDICATE));
+-	*cs++ = i915_mmio_reg_offset(MI_PREDICATE_RESULT_1(RENDER_RING_BASE));
++	*cs++ = i915_mmio_reg_offset(mi_predicate_result);
++
++	if (HAS_MI_SET_PREDICATE(i915))
++		*cs++ = MI_SET_PREDICATE | 1;
+ 
+ 	/* Restart from the beginning if we had timestamps roll over. */
+ 	*cs++ = (GRAPHICS_VER(i915) < 8 ?
+@@ -1861,6 +1868,9 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	*cs++ = i915_ggtt_offset(vma) + (ts0 - batch) * 4;
+ 	*cs++ = 0;
+ 
++	if (HAS_MI_SET_PREDICATE(i915))
++		*cs++ = MI_SET_PREDICATE;
++
+ 	/*
+ 	 * Now add the diff between to previous timestamps and add it to :
+ 	 *      (((1 * << 64) - 1) - delay_ns)
+@@ -1888,7 +1898,10 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	 */
+ 	*cs++ = MI_LOAD_REGISTER_REG | (3 - 2);
+ 	*cs++ = i915_mmio_reg_offset(CS_GPR(JUMP_PREDICATE));
+-	*cs++ = i915_mmio_reg_offset(MI_PREDICATE_RESULT_1(RENDER_RING_BASE));
++	*cs++ = i915_mmio_reg_offset(mi_predicate_result);
++
++	if (HAS_MI_SET_PREDICATE(i915))
++		*cs++ = MI_SET_PREDICATE | 1;
+ 
+ 	/* Predicate the jump.  */
+ 	*cs++ = (GRAPHICS_VER(i915) < 8 ?
+@@ -1898,13 +1911,16 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	*cs++ = i915_ggtt_offset(vma) + (jump - batch) * 4;
+ 	*cs++ = 0;
+ 
++	if (HAS_MI_SET_PREDICATE(i915))
++		*cs++ = MI_SET_PREDICATE;
++
+ 	/* Restore registers. */
+ 	for (i = 0; i < N_CS_GPR; i++)
+ 		cs = save_restore_register(
+ 			stream, cs, false /* restore */, CS_GPR(i),
+ 			INTEL_GT_SCRATCH_FIELD_PERF_CS_GPR + 8 * i, 2);
+ 	cs = save_restore_register(
+-		stream, cs, false /* restore */, MI_PREDICATE_RESULT_1(RENDER_RING_BASE),
++		stream, cs, false /* restore */, mi_predicate_result,
+ 		INTEL_GT_SCRATCH_FIELD_PERF_PREDICATE_RESULT_1, 1);
+ 
+ 	/* And return to the ring. */
 -- 
 2.25.1
 
