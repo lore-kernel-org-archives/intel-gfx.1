@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CD5AC43217
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Oct 2022 22:28:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6EEBC433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Oct 2022 22:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4C110E1B4;
-	Wed, 12 Oct 2022 22:28:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E52510E231;
+	Wed, 12 Oct 2022 22:28:09 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4510C10E2D4
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A107310E2DC
  for <intel-gfx@lists.freedesktop.org>; Wed, 12 Oct 2022 22:27:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1665613668; x=1697149668;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=CCOkJCW5FoZfJ8iiswDSj4bmz6TbttXoZ9oNZbJVBwQ=;
- b=LL8IaFSq0WNoOsH7bYJXWWCDdhDgzsGYaTUnM9/nxTbGRy3xYlt5eb6E
- /3cVp7XdHd1Xq5tF/XVm9Cyo8EeKJla+AqRfCkcVv6xnu4r+jEBOeecOD
- CibhpFWOgQKG7obY/dVm8hQM7zgHXOotHOdvtf9v57ptcArlOC4YCXfr8
- nACqyuR8Pl4fmto1cT6sT6TlnC1E3eUy/XdzC/ncLtre+hq4XG28NDmxt
- InGnsCECrgFp0litISuXhjJLDO3jqqnrMjMu0ddF9LAmw97g7XXgix2+1
- tU92ASvC8n+litAN6QBgQJdu3syQVzP6OX0qekU1ac+5EzEufCc5dhm/z w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="305983968"
-X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="305983968"
+ bh=3NP/e+Ypz/2SX2LI0tz92dpnAtma4hOW15d2oD+r7fM=;
+ b=FWnMbHd8DKH1YjUiV4sM2H1zdEQWIxiUiZ2k79omrN/8RUeqtb+iv0RO
+ 1Ofnywngaz/od0aYH4xOGjUkALyfu/94ftCqSsYh1kkbuYIADjKh7UJeV
+ 262D9XgdusQRA756JWsWk0pP1vpR7/RSm8/usVIgjTtRjwMXI3uMSpIYL
+ 8qbAK4vqxPUCOjoNQFCnwtFWeQTDXx6SqdfZaqdJdWennuP0bHAntAKsZ
+ x4hkWCJc9R6l1FiKdSFBX0WlZGSA+SIMZf4j1ghN2gsGrtctMw0T2OTTg
+ zkqYGB1SoziWXjh5Q7FRppJBY5jzIX9UJxO7wAGlv6q1JYA9YPZak8Cbu Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="305983971"
+X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="305983971"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2022 15:27:46 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="660097661"
-X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="660097661"
+ 12 Oct 2022 15:27:47 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="660097670"
+X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="660097670"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2022 15:27:46 -0700
+ 12 Oct 2022 15:27:47 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Wed, 12 Oct 2022 22:27:31 +0000
-Message-Id: <20221012222739.27296-9-umesh.nerlige.ramappa@intel.com>
+Date: Wed, 12 Oct 2022 22:27:34 +0000
+Message-Id: <20221012222739.27296-12-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221012222739.27296-1-umesh.nerlige.ramappa@intel.com>
 References: <20221012222739.27296-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 08/16] drm/i915/perf: Replace gt->perf.lock
- with stream->lock for file ops
+Subject: [Intel-gfx] [PATCH v4 11/16] drm/i915/perf: Add Wa_1508761755:dg2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,133 +61,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With multi-gt, user can access multiple OA buffers concurrently. Use
-stream->lock instead of gt->perf.lock to serialize file operations.
+Disable Clock gating in EU when gathering the events so that EU events
+are not lost.
+
+v2: Fix checkpatch issues
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c       | 31 ++++++++++++--------------
- drivers/gpu/drm/i915/i915_perf_types.h |  5 +++++
- 2 files changed, 19 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h |  1 +
+ drivers/gpu/drm/i915/i915_perf.c        | 23 +++++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 7f79bbf97828..7be0327ca8dc 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -1140,6 +1140,7 @@
+ #define   GEN12_DISABLE_EARLY_READ		REG_BIT(14)
+ #define   GEN12_ENABLE_LARGE_GRF_MODE		REG_BIT(12)
+ #define   GEN12_PUSH_CONST_DEREF_HOLD_DIS	REG_BIT(8)
++#define   GEN12_DISABLE_DOP_GATING              REG_BIT(0)
+ 
+ #define RT_CTRL					_MMIO(0xe530)
+ #define   DIS_NULL_QUERY			REG_BIT(10)
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index b544a5ff8eb2..ac7579cb3586 100644
+index fdf4088eca7b..b725f204f496 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -3235,6 +3235,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
- 	stream->poll_check_timer.function = oa_poll_check_timer_cb;
- 	init_waitqueue_head(&stream->poll_wq);
- 	spin_lock_init(&stream->oa_buffer.ptr_lock);
-+	mutex_init(&stream->lock);
- 
- 	return 0;
- 
-@@ -3298,7 +3299,6 @@ static ssize_t i915_perf_read(struct file *file,
- 			      loff_t *ppos)
- {
- 	struct i915_perf_stream *stream = file->private_data;
--	struct intel_gt *gt = stream->engine->gt;
- 	size_t offset = 0;
+@@ -2779,6 +2779,18 @@ gen12_enable_metric_set(struct i915_perf_stream *stream,
+ 	u32 sqcnt1;
  	int ret;
  
-@@ -3322,14 +3322,14 @@ static ssize_t i915_perf_read(struct file *file,
- 			if (ret)
- 				return ret;
- 
--			mutex_lock(&gt->perf.lock);
-+			mutex_lock(&stream->lock);
- 			ret = stream->ops->read(stream, buf, count, &offset);
--			mutex_unlock(&gt->perf.lock);
-+			mutex_unlock(&stream->lock);
- 		} while (!offset && !ret);
- 	} else {
--		mutex_lock(&gt->perf.lock);
-+		mutex_lock(&stream->lock);
- 		ret = stream->ops->read(stream, buf, count, &offset);
--		mutex_unlock(&gt->perf.lock);
-+		mutex_unlock(&stream->lock);
- 	}
- 
- 	/* We allow the poll checking to sometimes report false positive EPOLLIN
-@@ -3376,9 +3376,6 @@ static enum hrtimer_restart oa_poll_check_timer_cb(struct hrtimer *hrtimer)
-  * &i915_perf_stream_ops->poll_wait to call poll_wait() with a wait queue that
-  * will be woken for new stream data.
-  *
-- * Note: The &gt->perf.lock mutex has been taken to serialize
-- * with any non-file-operation driver hooks.
-- *
-  * Returns: any poll events that are ready without sleeping
-  */
- static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
-@@ -3417,12 +3414,11 @@ static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
- static __poll_t i915_perf_poll(struct file *file, poll_table *wait)
- {
- 	struct i915_perf_stream *stream = file->private_data;
--	struct intel_gt *gt = stream->engine->gt;
- 	__poll_t ret;
- 
--	mutex_lock(&gt->perf.lock);
-+	mutex_lock(&stream->lock);
- 	ret = i915_perf_poll_locked(stream, file, wait);
--	mutex_unlock(&gt->perf.lock);
-+	mutex_unlock(&stream->lock);
- 
- 	return ret;
- }
-@@ -3521,9 +3517,6 @@ static long i915_perf_config_locked(struct i915_perf_stream *stream,
-  * @cmd: the ioctl request
-  * @arg: the ioctl data
-  *
-- * Note: The &gt->perf.lock mutex has been taken to serialize
-- * with any non-file-operation driver hooks.
-- *
-  * Returns: zero on success or a negative error code. Returns -EINVAL for
-  * an unknown ioctl request.
-  */
-@@ -3561,12 +3554,11 @@ static long i915_perf_ioctl(struct file *file,
- 			    unsigned long arg)
- {
- 	struct i915_perf_stream *stream = file->private_data;
--	struct intel_gt *gt = stream->engine->gt;
- 	long ret;
- 
--	mutex_lock(&gt->perf.lock);
-+	mutex_lock(&stream->lock);
- 	ret = i915_perf_ioctl_locked(stream, cmd, arg);
--	mutex_unlock(&gt->perf.lock);
-+	mutex_unlock(&stream->lock);
- 
- 	return ret;
- }
-@@ -3612,6 +3604,11 @@ static int i915_perf_release(struct inode *inode, struct file *file)
- 	struct i915_perf *perf = stream->perf;
- 	struct intel_gt *gt = stream->engine->gt;
- 
 +	/*
-+	 * Within this call, we know that the fd is being closed and we have no
-+	 * other user of stream->lock. Use the perf lock to destroy the stream
-+	 * here.
++	 * Wa_1508761755:xehpsdv, dg2
++	 * EU NOA signals behave incorrectly if EU clock gating is enabled.
++	 * Disable thread stall DOP gating and EU DOP gating.
 +	 */
- 	mutex_lock(&gt->perf.lock);
- 	i915_perf_destroy_locked(stream);
- 	mutex_unlock(&gt->perf.lock);
-diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
-index e888bfab478f..dc9bfd8086cf 100644
---- a/drivers/gpu/drm/i915/i915_perf_types.h
-+++ b/drivers/gpu/drm/i915/i915_perf_types.h
-@@ -146,6 +146,11 @@ struct i915_perf_stream {
- 	 */
- 	struct intel_engine_cs *engine;
- 
-+	/*
-+	 * Lock associated with operations on stream
-+	 */
-+	struct mutex lock;
++	if (IS_XEHPSDV(i915) || IS_DG2(i915)) {
++		intel_uncore_write(uncore, GEN8_ROW_CHICKEN,
++				   _MASKED_BIT_ENABLE(STALL_DOP_GATING_DISABLE));
++		intel_uncore_write(uncore, GEN7_ROW_CHICKEN2,
++				   _MASKED_BIT_ENABLE(GEN12_DISABLE_DOP_GATING));
++	}
 +
- 	/**
- 	 * @sample_flags: Flags representing the `DRM_I915_PERF_PROP_SAMPLE_*`
- 	 * properties given when opening a stream, representing the contents
+ 	intel_uncore_write(uncore, GEN12_OAG_OA_DEBUG,
+ 			   /* Disable clk ratio reports, like previous Gens. */
+ 			   _MASKED_BIT_ENABLE(GEN12_OAG_OA_DEBUG_DISABLE_CLK_RATIO_REPORTS |
+@@ -2857,6 +2869,17 @@ static void gen12_disable_metric_set(struct i915_perf_stream *stream)
+ 	struct drm_i915_private *i915 = stream->perf->i915;
+ 	u32 sqcnt1;
+ 
++	/*
++	 * Wa_1508761755:xehpsdv, dg2
++	 * Enable thread stall DOP gating and EU DOP gating.
++	 */
++	if (IS_XEHPSDV(i915) || IS_DG2(i915)) {
++		intel_uncore_write(uncore, GEN8_ROW_CHICKEN,
++				   _MASKED_BIT_DISABLE(STALL_DOP_GATING_DISABLE));
++		intel_uncore_write(uncore, GEN7_ROW_CHICKEN2,
++				   _MASKED_BIT_DISABLE(GEN12_DISABLE_DOP_GATING));
++	}
++
+ 	/* Reset all contexts' slices/subslices configurations. */
+ 	gen12_configure_all_contexts(stream, NULL, NULL);
+ 
 -- 
 2.25.1
 
