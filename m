@@ -4,80 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56E79C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:57:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 783AEC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:57:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 419F010EE1F;
-	Mon, 17 Oct 2022 19:56:44 +0000 (UTC)
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA5110E85C;
- Sun, 16 Oct 2022 19:46:54 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id h8so11718522lja.11;
- Sun, 16 Oct 2022 12:46:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C0F210EE20;
+	Mon, 17 Oct 2022 19:56:45 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 591FD10E1C9;
+ Wed, 12 Oct 2022 17:16:37 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id
+ az22-20020a05600c601600b003c6b72797fdso1647321wmb.5; 
+ Wed, 12 Oct 2022 10:16:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:reply-to:subject:user-agent:mime-version:date:message-id:from
- :from:to:cc:subject:date:message-id:reply-to;
- bh=rdVj1UN0o7hBjGsw3GcLX/7HhNhpR9GEsvnCZKA7nWc=;
- b=eVN1P5+2pEF2Kv5B+7kulfpYcRS0ij67wC56op/K7MTJ9oxjts1NiTMiIXhKUDDNWi
- pClfrmUFwjCqFPiUh9t2aylgpS617BHukulA8IRkFt9jDfyhzBKacR80dEuWIW7uIlru
- /7BkEkGFXjpHuS1qNFxkES8QosHRpMbXUy57JWaDtK7v16WG53LkwTEneJfdabTIa/BN
- tiKFs3N7vSqtH+nQdskgF32wMLK/xbHFx7HwRH0BnJoukpb40vsXARUD3MnEbG+bDYhz
- DATYteNjfpgFflZS3rzy15d+9+CYLsfO1pfLasECYyV6UjYiuhHDXbmsrtY0P6dvd6aq
- O6Bw==
+ h=mime-version:references:in-reply-to:message-id:cc:to:subject:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=nfv8Emkdemptja7sqhf+nCS18RTGuj08h8amedIiRFo=;
+ b=FuRwTo9shnYA86gVY2kkAPUji0ZSorVuPOMXWESKh2mVpdFT5lK5Pu9DTZa/nMGWM0
+ dYBBRi5HW//1ngTtq4Di/HCEMqQb1H4ykUsQOjVzBTVwNGZ/prVb8B4GVk6o0isoREqj
+ 9Rw/LNTcP4QiKN5zZ1zHvLQ6T9o9k/JQZUJpsAcx0Gyx6nshlmPY/eDkg5YGEI3lWjqd
+ KinEZ9GLBoCTFhrjYU3BqcPiydHKCQlit6UOu4s9uD9YHoi5oLbT51nS/B9L1rF032Cd
+ y5ichoaH4vUb8OI/Sa+Z2JMpeGZergkck1TYmqklKr2jFvRIwG8JL8uqq9gpDPEiGf0u
+ 5lww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:reply-to:subject:user-agent:mime-version:date:message-id:from
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rdVj1UN0o7hBjGsw3GcLX/7HhNhpR9GEsvnCZKA7nWc=;
- b=jHxQk0q+sooBlrRG1DhZPjOrvyMB1v3jY+GyuWkprNcpOsyzcXd4XjgiItxg1+WccL
- UDDI3dLho2O0r169a2dszPQPA+d50X/F/qw+yEfICGVgRhprJUYzZ522gw+sxgV72PzE
- YEgufqmOp7PJBbUVSZTz15CHPNkOScbiUs4Dn3pykS/dzQAgqNA0HMOlcGDMZKwazONb
- q4sppxt3l05FZ/phdD6NPGF45cj8zxNQ1r3zPhNE7ydc0P6XHb/DQtRz9P52VtjH43hC
- 6mJU0JjTntXvW8c42sOUQs97xnWV8M9oCl981rMgr+fOqaihTv+pXQLVvySgy9x9buuQ
- 9feg==
-X-Gm-Message-State: ACrzQf2L0fbLSrb1FiztBZnt481Zt3z8lgFutKGvP0fjJViVE1ep3ZIB
- bd2bv13QnoW5AGvgCdQR+tE=
-X-Google-Smtp-Source: AMsMyM4GQhxxpcYSAKIRWoVA3HWWO1eDjPQvlqSV0CxKc0sMPg+zXfwUuwDFiB7tEbVlutMrJsz5sg==
-X-Received: by 2002:a05:651c:198a:b0:26f:b54d:e239 with SMTP id
- bx10-20020a05651c198a00b0026fb54de239mr2691447ljb.421.1665949612500; 
- Sun, 16 Oct 2022 12:46:52 -0700 (PDT)
-Received: from ?IPV6:2a02:a31a:a240:1700:64bb:87df:aad7:a9f0?
- ([2a02:a31a:a240:1700:64bb:87df:aad7:a9f0])
- by smtp.googlemail.com with ESMTPSA id
- k14-20020ac2456e000000b004948378080csm1141576lfm.290.2022.10.16.12.46.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 16 Oct 2022 12:46:51 -0700 (PDT)
-From: Mateusz Kwiatkowski <kfyatek@gmail.com>
-X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
-Message-ID: <93bf9fcc-c645-b042-011f-8f1fc957af48@gmail.com>
-Date: Sun, 16 Oct 2022 21:46:49 +0200
+ h=mime-version:references:in-reply-to:message-id:cc:to:subject:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=nfv8Emkdemptja7sqhf+nCS18RTGuj08h8amedIiRFo=;
+ b=KM1x5dn+fF/c2X0IvHV/7RvsFQOAEqTPsv3SWI0pREmA5i7XoXW9gmmyfAYFfuCaps
+ EcxD6OkG3NQTgu2zGP7P8d8nfidOUxwd1JxtdM+SsgD1Vb1zabuOTua0iKHTdFDgC82P
+ zDmkhynz/BBTCopvXUc9iihZqiyBK9XuKFI25UQQHbMLtvajLrh+gKe3pkQC3NAWe1jy
+ ZaE6O4YDmLmPTelCQEAmhaHquhqkOJvT5kHlhGcPjOdhULSkWaiofnXu/23Ez0k7dpP3
+ bB23OUpM7VtN1SYO6QEC4NF+luMuZR2B2fESe7ukm05VAT5SN3M1y68bFdwToQPDjtlw
+ fe/A==
+X-Gm-Message-State: ACrzQf1hwZAnkTbgaQB/6pDTogcvDjC83qdTmbsyX9AOeC33g3/wcg7Y
+ mcW0ZlIL+b420tBxV0Z0Kos=
+X-Google-Smtp-Source: AMsMyM6ZK7P2+4ybLieVaGIvLxOiuzMnfFa0H0Qh58ZMYatdysNofUI+fFhyRXj1jk8keEiYm8kNiw==
+X-Received: by 2002:a05:600c:524a:b0:3b5:290:1a7c with SMTP id
+ fc10-20020a05600c524a00b003b502901a7cmr3550691wmb.75.1665594995662; 
+ Wed, 12 Oct 2022 10:16:35 -0700 (PDT)
+Received: from [192.168.0.181] (82-64-129-2.subs.proxad.net. [82.64.129.2])
+ by smtp.gmail.com with ESMTPSA id
+ c3-20020a05600c0a4300b003b4fdbb6319sm2497563wmq.21.2022.10.12.10.16.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Oct 2022 10:16:35 -0700 (PDT)
+Date: Wed, 12 Oct 2022 19:16:29 +0200
+From: Matthieu CHARETTE <matthieu.charette@gmail.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-Id: <HBHNJR.ME9DMISWT3961@gmail.com>
+In-Reply-To: <87v8opwiqw.fsf@intel.com>
+References: <20221006222146.2375217-1-jani.nikula@intel.com>
+ <GLSKJR.CU4DWLJQSTHT2@gmail.com> <87wn96yggd.fsf@intel.com>
+ <CA+FNwmJRZ-5BwuXykp3R6tQagQgunMC9EhfL9CRyi+Ff47TXhA@mail.gmail.com>
+ <87v8opwiqw.fsf@intel.com>
+X-Mailer: geary/40.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-To: Maxime Ripard <maxime@cerno.tech>, Karol Herbst <kherbst@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@linux.ie>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Lyude Paul <lyude@redhat.com>, Maxime Ripard <mripard@kernel.org>,
- Emma Anholt <emma@anholt.net>, Chen-Yu Tsai <wens@csie.org>,
- Samuel Holland <samuel@sholland.org>, Ben Skeggs <bskeggs@redhat.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>
-References: <20220728-rpi-analog-tv-properties-v5-0-d841cc64fe4b@cerno.tech>
- <20220728-rpi-analog-tv-properties-v5-21-d841cc64fe4b@cerno.tech>
-Content-Language: pl
-In-Reply-To: <20220728-rpi-analog-tv-properties-v5-21-d841cc64fe4b@cerno.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 17 Oct 2022 19:56:17 +0000
-Subject: [Intel-gfx] [PATCH] drm/vc4: vec: Add support for PAL-60
+Content-Type: text/plain; charset=us-ascii; format=flowed
+X-Mailman-Approved-At: Mon, 17 Oct 2022 19:56:18 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/edid/firmware: stop using throwaway
+ platform device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,146 +75,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: kfyatek+publicgit@gmail.com
-Cc: Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Phil Elwell <phil@raspberrypi.com>,
- Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add support for the PAL-60 mode. Because there is no separate TV mode
-property value for PAL-60, this requires matching the settings based on
-the modeline in addition to just that property alone.
+By crash, I mean that an error is returned here: 
+https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git/+/refs/heads/master/drivers/gpu/drm/drm_edid_load.c#195
+I don't really know what happens next, but on my machine the built-in 
+screen and the external remains dark. Also the kernel seems to freeze. 
+I suspect a kernel panic, but I'm not sure. Anyway, the error is 
+definitely not well handled, and a fix would be great.
+Also, request_firmware() will crash if called for the first time on the 
+resume path because the file system isn't reachable on the resume 
+process. And no cache is available for this firmware. So I guess that 
+in this case, request_firmware() returns an error.
+Suspend-plug-resume case is not my priority nether as long as it 
+doesn't make the system crash (Which is currently the case).
 
-Signed-off-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
----
-This patch depends on patch
-'[PATCH v5 21/22] drm/vc4: vec: Add support for more analog TV standards'
-submitted by Maxime Ripard
-(https://lore.kernel.org/dri-devel/20220728-rpi-analog-tv-properties-v5-21-d841cc64fe4b@cerno.tech/).
+On Wed, Oct 12 2022 at 11:25:59 AM +0300, Jani Nikula 
+<jani.nikula@intel.com> wrote:
+> On Tue, 11 Oct 2022, Matthieu CHARETTE <matthieu.charette@gmail.com> 
+> wrote:
+>>  Currently the EDID is requested during the resume. But since it's
+>>  requested too early, this means before the filesystem is mounted, 
+>> the
+>>  firmware request fails. This make the DRM driver crash when 
+>> resuming.
+>>  This kind of issue should be prevented by the firmware caching 
+>> process
+>>  which cache every firmware requested for the next resume. But since 
+>> we
+>>  are using a temporary device, the firmware isn't cached on suspend
+>>  since the device doesn't work anymore.
+>>  When using a non temporary device to get the EDID, the firmware will
+>>  be cached on suspend for the next resume. So requesting the firmware
+>>  during resume will succeed.
+>>  But if the firmware has never been requested since the boot, this
+>>  means that the monitor isn't plugged since the boot. The kernel will
+>>  not be caching the EDID. So if we plug the monitor while the machine
+>>  is suspended. The resume will fail to load the firmware. And the DRM
+>>  driver will crash.
+>>  So basically, your fix should solve the issue except for the case
+>>  where the monitor hasn't been plugged since boot and is plugged 
+>> while
+>>  the machine is suspended.
+>>  I hope I was clear. Tell me if I wasn't. I'm not really good at 
+>> explaining.
+> 
+> That was a pretty good explanation. The only thing I'm missing is what
+> the failure mode is exactly when you claim the driver will crash. Why
+> would request_firmware() "crash" if called for the first time on the
+> resume path?
+> 
+> I'm not sure I care much about not being able to load the firmware 
+> EDID
+> in the suspend-plug-resume case (as this can be remedied with a
+> subsequent modeset), but obviously any errors need to be handled
+> gracefully, without crashing.
+> 
+> BR,
+> Jani.
+> 
+> 
+> --
+> Jani Nikula, Intel Open Source Graphics Center
 
-To Maxime: if you decide to post v6, feel free to include this in your patchset
-instead if you want.
----
- drivers/gpu/drm/vc4/vc4_vec.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
-index 88b4330bfa39..bbc41e502cc3 100644
---- a/drivers/gpu/drm/vc4/vc4_vec.c
-+++ b/drivers/gpu/drm/vc4/vc4_vec.c
-@@ -235,6 +235,7 @@ enum vc4_vec_tv_mode_id {
- 
- struct vc4_vec_tv_mode {
- 	unsigned int mode;
-+	u16 expected_htotal;
- 	u32 config0;
- 	u32 config1;
- 	u32 custom_freq;
-@@ -270,37 +271,52 @@ static const struct debugfs_reg32 vec_regs[] = {
- static const struct vc4_vec_tv_mode vc4_vec_tv_modes[] = {
- 	{
- 		.mode = DRM_MODE_TV_MODE_NTSC,
-+		.expected_htotal = 858,
- 		.config0 = VEC_CONFIG0_NTSC_STD | VEC_CONFIG0_PDEN,
- 		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
- 	},
- 	{
- 		.mode = DRM_MODE_TV_MODE_NTSC_443,
-+		.expected_htotal = 858,
- 		.config0 = VEC_CONFIG0_NTSC_STD,
- 		.config1 = VEC_CONFIG1_C_CVBS_CVBS | VEC_CONFIG1_CUSTOM_FREQ,
- 		.custom_freq = 0x2a098acb,
- 	},
- 	{
- 		.mode = DRM_MODE_TV_MODE_NTSC_J,
-+		.expected_htotal = 858,
- 		.config0 = VEC_CONFIG0_NTSC_STD,
- 		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
- 	},
- 	{
- 		.mode = DRM_MODE_TV_MODE_PAL,
-+		.expected_htotal = 864,
- 		.config0 = VEC_CONFIG0_PAL_BDGHI_STD,
- 		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
- 	},
-+	{
-+		/* PAL-60 */
-+		.mode = DRM_MODE_TV_MODE_PAL,
-+		.expected_htotal = 858,
-+		.config0 = VEC_CONFIG0_PAL_M_STD,
-+		.config1 = VEC_CONFIG1_C_CVBS_CVBS | VEC_CONFIG1_CUSTOM_FREQ,
-+		.custom_freq = 0x2a098acb,
-+	},
- 	{
- 		.mode = DRM_MODE_TV_MODE_PAL_M,
-+		.expected_htotal = 858,
- 		.config0 = VEC_CONFIG0_PAL_M_STD,
- 		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
- 	},
- 	{
- 		.mode = DRM_MODE_TV_MODE_PAL_N,
-+		.expected_htotal = 864,
- 		.config0 = VEC_CONFIG0_PAL_N_STD,
- 		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
- 	},
- 	{
- 		.mode = DRM_MODE_TV_MODE_SECAM,
-+		.expected_htotal = 864,
- 		.config0 = VEC_CONFIG0_SECAM_STD,
- 		.config1 = VEC_CONFIG1_C_CVBS_CVBS,
- 		.custom_freq = 0x29c71c72,
-@@ -308,14 +324,15 @@ static const struct vc4_vec_tv_mode vc4_vec_tv_modes[] = {
- };
- 
- static inline const struct vc4_vec_tv_mode *
--vc4_vec_tv_mode_lookup(unsigned int mode)
-+vc4_vec_tv_mode_lookup(unsigned int mode, u16 htotal)
- {
- 	unsigned int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(vc4_vec_tv_modes); i++) {
- 		const struct vc4_vec_tv_mode *tv_mode = &vc4_vec_tv_modes[i];
- 
--		if (tv_mode->mode == mode)
-+		if (tv_mode->mode == mode &&
-+		    tv_mode->expected_htotal == htotal)
- 			return tv_mode;
- 	}
- 
-@@ -394,6 +411,7 @@ vc4_vec_connector_set_property(struct drm_connector *connector,
- 		break;
- 
- 	case VC4_VEC_TV_MODE_PAL:
-+	case VC4_VEC_TV_MODE_PAL_60:
- 		state->tv.mode = DRM_MODE_TV_MODE_PAL;
- 		break;
- 
-@@ -551,13 +569,16 @@ static void vc4_vec_encoder_enable(struct drm_encoder *encoder,
- 	struct drm_connector *connector = &vec->connector;
- 	struct drm_connector_state *conn_state =
- 		drm_atomic_get_new_connector_state(state, connector);
-+	struct drm_display_mode *adjusted_mode =
-+		&encoder->crtc->state->adjusted_mode;
- 	const struct vc4_vec_tv_mode *tv_mode;
- 	int idx, ret;
- 
- 	if (!drm_dev_enter(drm, &idx))
- 		return;
- 
--	tv_mode = vc4_vec_tv_mode_lookup(conn_state->tv.mode);
-+	tv_mode = vc4_vec_tv_mode_lookup(conn_state->tv.mode,
-+					 adjusted_mode->htotal);
- 	if (!tv_mode)
- 		goto err_dev_exit;
- 
-
-base-commit: e16415e3ddae9abb14a00793554a162403f9af6d
--- 
-2.34.1
 
