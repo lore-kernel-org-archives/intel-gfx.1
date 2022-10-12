@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 957C0C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Oct 2022 15:22:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD10EC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Oct 2022 15:25:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B3DB10E56F;
-	Wed, 12 Oct 2022 15:22:22 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 763BC10E550;
- Wed, 12 Oct 2022 15:22:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61D0710E335;
+	Wed, 12 Oct 2022 15:25:07 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E42A610E335
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Oct 2022 15:25:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665588135; x=1697124135;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=iP8jiMGeDBm3ohY9fT4xIo19p94Zj1s9oDSDxNckFt8=;
- b=KOY/dpCrIwg9s5CkDvesXqmZACHV98S8XvRqin8n7p8FKZeANIoVuAmC
- I/w4yp3Nsyf7HNNtwFyx7rVpnx3/JMHYfbTlZFWdU03pJo5mmzg1Ioa1v
- QAmXG1OmszmSyinvGuh3Cz/Jt6QJyEp7r2NffTlxC27uQg7NfqlC2yMUX
- rB+SdH+gIvN06Kn6CcqYg9Md2Y6cvcfFTK1OcLEV98QP0UkxclXr8vrm5
- aKuoku0ZbZp3wm9z4OalmjoUt/XLSnQBl4Cme9OI6vYkMbxNAZLwB9547
- 4NTDultVY/L7H37sUJmB3SyrMF4h3toInC0J66ivSnUdja4X2nFrBEVk5 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="305879789"
-X-IronPort-AV: E=Sophos;i="5.95,179,1661842800"; d="scan'208";a="305879789"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2022 08:21:50 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="629145636"
-X-IronPort-AV: E=Sophos;i="5.95,179,1661842800"; d="scan'208";a="629145636"
-Received: from nvishwa1-desk.sc.intel.com (HELO nvishwa1-DESK) ([172.25.29.76])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2022 08:21:49 -0700
-Date: Wed, 12 Oct 2022 08:21:22 -0700
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Auld <matthew.auld@intel.com>
-Message-ID: <20221012152122.GA26976@nvishwa1-DESK>
-References: <20221010065826.32037-1-niranjana.vishwanathapura@intel.com>
- <20221010065826.32037-13-niranjana.vishwanathapura@intel.com>
- <5aed1778-ae6f-58fe-625e-45e7195c2616@intel.com>
+ t=1665588300; x=1697124300;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=J96iJiOgvpZjp+IXk53aoSmdSOyt1r6ZixNQ0Ov4MpA=;
+ b=Hg6P/NS/LoqYzJAPgSISnXEqQlfe4ThMrsAYcavP3xN1qFis1adlr5d0
+ UuOyUefaZW2LBp2snsgX85nA7kHtH7hbMQXZHNJrDUgSwqqKxXS/kkb0K
+ WIAmVxqtjrV1k8rxUB7iFbxfy0Qx0+vUj38IwGIU8Ke7celeRhfjYcpJ+
+ UcBbF2iHsjzjU1/9+9f9otZhntE6+hy/Tao255LnQp23AKTGoIuZqWl5/
+ BjZKQ9gdOTGR/mseDcvENOMgO2BLeVIqYvszR2azGqDtUN69YZodpXuXd
+ NXvUGoEv9hIGx9y7IK1TQCRNaMdoF1HAv7jPTZyw9qxSnsGmuPH6deehV g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="285204653"
+X-IronPort-AV: E=Sophos;i="5.95,179,1661842800"; d="scan'208";a="285204653"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2022 08:25:00 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="871949291"
+X-IronPort-AV: E=Sophos;i="5.95,179,1661842800"; d="scan'208";a="871949291"
+Received: from jhpuonti-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.40.226])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2022 08:24:59 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20221011170011.17198-21-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20221011170011.17198-1-ville.syrjala@linux.intel.com>
+ <20221011170011.17198-21-ville.syrjala@linux.intel.com>
+Date: Wed, 12 Oct 2022 18:25:02 +0300
+Message-ID: <87mta1t67l.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5aed1778-ae6f-58fe-625e-45e7195c2616@intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: [Intel-gfx] [PATCH v3 12/17] drm/i915/vm_bind: Implement
- I915_GEM_EXECBUFFER3 ioctl
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 20/22] drm/i915/audio: Hook up ELD into the
+ state checker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,124 +61,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- thomas.hellstrom@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com
+Cc: Takashi Iwai <tiwai@suse.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 12, 2022 at 11:32:18AM +0100, Matthew Auld wrote:
->On 10/10/2022 07:58, Niranjana Vishwanathapura wrote:
->>Implement new execbuf3 ioctl (I915_GEM_EXECBUFFER3) which only
->>works in vm_bind mode. The vm_bind mode only works with
->>this new execbuf3 ioctl.
->>
->>The new execbuf3 ioctl will not have any list of objects to validate
->>bind as all required objects binding would have been requested by the
->>userspace before submitting the execbuf3.
->>
->>Legacy features like relocations etc are not supported by execbuf3.
->>
->>v2: Add more input validity checks.
->>v3: batch_address is a VA (not an array) if num_batches=1,
->>     minor cleanup
->>
->>Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
->>Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
->>---
->>  drivers/gpu/drm/i915/Makefile                 |   1 +
->>  .../gpu/drm/i915/gem/i915_gem_execbuffer3.c   | 580 ++++++++++++++++++
->>  drivers/gpu/drm/i915/gem/i915_gem_ioctls.h    |   2 +
->>  drivers/gpu/drm/i915/i915_driver.c            |   1 +
->>  include/uapi/drm/i915_drm.h                   |  61 ++
->>  5 files changed, 645 insertions(+)
->>  create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
->>
->>diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
->>index 3564307699ea..94520b79e7e7 100644
->>--- a/drivers/gpu/drm/i915/Makefile
->>+++ b/drivers/gpu/drm/i915/Makefile
->>@@ -150,6 +150,7 @@ gem-y += \
->>  	gem/i915_gem_domain.o \
->>  	gem/i915_gem_execbuffer_common.o \
->>  	gem/i915_gem_execbuffer.o \
->>+	gem/i915_gem_execbuffer3.o \
->>  	gem/i915_gem_internal.o \
->>  	gem/i915_gem_object.o \
->>  	gem/i915_gem_lmem.o \
->>diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
->>new file mode 100644
->>index 000000000000..1f38f658066a
->>--- /dev/null
->>+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
->>@@ -0,0 +1,580 @@
->>+// SPDX-License-Identifier: MIT
->>+/*
->>+ * Copyright © 2022 Intel Corporation
->>+ */
->>+
->>+#include <linux/dma-resv.h>
->>+#include <linux/uaccess.h>
->>+
->>+#include <drm/drm_syncobj.h>
->>+
->>+#include "gt/intel_context.h"
->>+#include "gt/intel_gpu_commands.h"
->>+#include "gt/intel_gt.h"
->>+
->>+#include "i915_drv.h"
->>+#include "i915_gem_context.h"
->>+#include "i915_gem_execbuffer_common.h"
->>+#include "i915_gem_ioctls.h"
->>+#include "i915_gem_vm_bind.h"
->>+#include "i915_trace.h"
->>+
->>+#define __EXEC3_ENGINE_PINNED		BIT_ULL(32)
->>+#define __EXEC3_INTERNAL_FLAGS		(~0ull << 32)
->>+
->>+/* Catch emission of unexpected errors for CI! */
->>+#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
->>+#undef EINVAL
->>+#define EINVAL ({ \
->>+	DRM_DEBUG_DRIVER("EINVAL at %s:%d\n", __func__, __LINE__); \
->>+	22; \
->>+})
->>+#endif
->>+
->>+/**
->>+ * DOC: User command execution with execbuf3 ioctl
->>+ *
->>+ * A VM in VM_BIND mode will not support older execbuf mode of binding.
->>+ * The execbuf ioctl handling in VM_BIND mode differs significantly from the
->>+ * older execbuf2 ioctl (See struct drm_i915_gem_execbuffer2).
->>+ * Hence, a new execbuf3 ioctl has been added to support VM_BIND mode. (See
->>+ * struct drm_i915_gem_execbuffer3). The execbuf3 ioctl will not accept any
->>+ * execlist. Hence, no support for implicit sync.
->>+ *
->>+ * The new execbuf3 ioctl only works in VM_BIND mode and the VM_BIND mode only
->>+ * works with execbuf3 ioctl for submission.
->>+ *
->>+ * The execbuf3 ioctl directly specifies the batch addresses instead of as
->>+ * object handles as in execbuf2 ioctl. The execbuf3 ioctl will also not
->>+ * support many of the older features like in/out/submit fences, fence array,
->>+ * default gem context etc. (See struct drm_i915_gem_execbuffer3).
->>+ *
->>+ * In VM_BIND mode, VA allocation is completely managed by the user instead of
->>+ * the i915 driver. Hence all VA assignment, eviction are not applicable in
->>+ * VM_BIND mode. Also, for determining object activeness, VM_BIND mode will not
->>+ * be using the i915_vma active reference tracking. It will instead check the
->>+ * dma-resv object's fence list for that.
->>+ *
->>+ * So, a lot of code supporting execbuf2 ioctl, like relocations, VA evictions,
->>+ * vma lookup table, implicit sync, vma active reference tracking etc., are not
->>+ * applicable for execbuf3 ioctl.
+On Tue, 11 Oct 2022, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 >
->I guess EXEC_CAPTURE is also now gone? Is that expected? We ofc don't 
->have the list of objects so perhaps doesn't make sense any more. Just 
->double checking...
+> Have the state checker validate the ELD. For now we'll
+> just dump it out as a hex buffer on a mismatch, maybe
+> someone will get inspired to decode it properly at some
+> point...
+>
+> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Cc: Takashi Iwai <tiwai@suse.de>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-Yah, instead will have a VM_BIND_CAPTURE flag for user to request for capture
-during vm_bind call. It is not implemented yet.
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-Niranjana
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 43 ++++++++++++++++++++
+>  1 file changed, 43 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index c52da2a21896..ef5087af9405 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -5419,6 +5419,12 @@ intel_compare_dp_vsc_sdp(const struct drm_dp_vsc_s=
+dp *a,
+>  	return memcmp(a, b, sizeof(*a)) =3D=3D 0;
+>  }
+>=20=20
+> +static bool
+> +intel_compare_buffer(const u8 *a, const u8 *b, size_t len)
+> +{
+> +	return memcmp(a, b, len) =3D=3D 0;
+> +}
+> +
+>  static void
+>  pipe_config_infoframe_mismatch(struct drm_i915_private *dev_priv,
+>  			       bool fastset, const char *name,
+> @@ -5469,6 +5475,30 @@ pipe_config_dp_vsc_sdp_mismatch(struct drm_i915_pr=
+ivate *dev_priv,
+>  	}
+>  }
+>=20=20
+> +static void
+> +pipe_config_buffer_mismatch(struct drm_i915_private *dev_priv,
+> +			    bool fastset, const char *name,
+> +			    const u8 *a, const u8 *b, size_t len)
+> +{
+> +	if (fastset) {
+> +		if (!drm_debug_enabled(DRM_UT_KMS))
+> +			return;
+> +
+> +		drm_dbg_kms(&dev_priv->drm,
+> +			    "fastset mismatch in %s buffer\n", name);
+> +		print_hex_dump(KERN_DEBUG, "expected: ", DUMP_PREFIX_NONE,
+> +			       16, 0, a, len, false);
+> +		print_hex_dump(KERN_DEBUG, "found: ", DUMP_PREFIX_NONE,
+> +			       16, 0, b, len, false);
+> +	} else {
+> +		drm_err(&dev_priv->drm, "mismatch in %s buffer\n", name);
+> +		print_hex_dump(KERN_ERR, "expected: ", DUMP_PREFIX_NONE,
+> +			       16, 0, a, len, false);
+> +		print_hex_dump(KERN_ERR, "found: ", DUMP_PREFIX_NONE,
+> +			       16, 0, b, len, false);
+> +	}
+> +}
+> +
+>  static void __printf(4, 5)
+>  pipe_config_mismatch(bool fastset, const struct intel_crtc *crtc,
+>  		     const char *name, const char *format, ...)
+> @@ -5701,6 +5731,18 @@ intel_pipe_config_compare(const struct intel_crtc_=
+state *current_config,
+>  	} \
+>  } while (0)
+>=20=20
+> +#define PIPE_CONF_CHECK_BUFFER(name, len) do { \
+> +	BUILD_BUG_ON(sizeof(current_config->name) !=3D (len)); \
+> +	BUILD_BUG_ON(sizeof(pipe_config->name) !=3D (len)); \
+> +	if (!intel_compare_buffer(current_config->name, pipe_config->name, (len=
+))) { \
+> +		pipe_config_buffer_mismatch(dev_priv, fastset, __stringify(name), \
+> +					    current_config->name, \
+> +					    pipe_config->name, \
+> +					    (len)); \
+> +		ret =3D false; \
+> +	} \
+> +} while (0)
+> +
+>  #define PIPE_CONF_CHECK_COLOR_LUT(name1, name2, bit_precision) do { \
+>  	if (current_config->name1 !=3D pipe_config->name1) { \
+>  		pipe_config_mismatch(fastset, crtc, __stringify(name1), \
+> @@ -5779,6 +5821,7 @@ intel_pipe_config_compare(const struct intel_crtc_s=
+tate *current_config,
+>  	PIPE_CONF_CHECK_BOOL(fec_enable);
+>=20=20
+>  	PIPE_CONF_CHECK_BOOL_INCOMPLETE(has_audio);
+> +	PIPE_CONF_CHECK_BUFFER(eld, MAX_ELD_BYTES);
+>=20=20
+>  	PIPE_CONF_CHECK_X(gmch_pfit.control);
+>  	/* pfit ratios are autocomputed by the hw on gen4+ */
 
+--=20
+Jani Nikula, Intel Open Source Graphics Center
