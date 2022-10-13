@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56413C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Oct 2022 13:19:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E826C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Oct 2022 13:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E80FC10E8AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE9E410E241;
 	Thu, 13 Oct 2022 13:19:18 +0000 (UTC)
 Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
  [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55C5E10E23B;
- Thu, 13 Oct 2022 13:19:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86FA510E23B;
+ Thu, 13 Oct 2022 13:19:09 +0000 (UTC)
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id AAD82580363;
- Thu, 13 Oct 2022 09:19:11 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Thu, 13 Oct 2022 09:19:11 -0400
+ by mailnew.nyi.internal (Postfix) with ESMTP id BC9E5580351;
+ Thu, 13 Oct 2022 09:19:07 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Thu, 13 Oct 2022 09:19:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1665667151; x=
- 1665674351; bh=8pcppjjZBZyOA/XeQog16ftR2BFMNYHHa0k8Fqb6m0M=; b=p
- fuPKKo4aL0La1q+7mBdpLXV+sKRAADgMONdel8NujUwS2wMQmx66bhWZZTv48UcZ
- JppsrH2QI2WcJtaePlcC1i/C/c6OeT6tG8AZtZfWviubtjNeDIASwYKolUeRa7Dw
- N/pSg7vqODRrST8q66Sz/2u59U9QEzvpRllW02RNpNZAOuiRRT8r2RcFmjQZ7kPt
- lmHLaxrtiDbRYBH3Ja3S0un5A9+1xZ1I3M9has83qm0aey8hMCFp+QIjbuQjqrEb
- 4/OcYNlbL+67GVQZo0qCcXSrJYd4e8ZTZMQj5P6aMnB2oWmUreI4uBPqgyIwd0gm
- hqXWFwHb6EQUMJK2/UiMQ==
+ :in-reply-to:message-id:mime-version:reply-to:sender:subject
+ :subject:to:to; s=fm3; t=1665667147; x=1665674347; bh=G6fgTFiIkO
+ NzGD9gpRNcfHn47HEkhVUzgdJVPhYERKg=; b=uRC1JBQqOPGLdv4sPWy6p1yoXX
+ VsMHTmxEb0Hfk8iR7HN/LMEXSGzclQNGqxiMpzHR17NjpwqqO+xyTLtz0wyGm5r2
+ mft3zlSIUObnluziDTkAJXd09Kqyx3AZEqSZKUK2/sm8Fi5Hx6N5IdlV9DhLYISM
+ vVrJccAAyWOqmteC+Dz5J2ei+HQfpmu2xwtWGdEGYVneT2pHjZCIaQiyLWebmov0
+ qQSG/gpGI3HR1QAusu0+ntpRe8k+tJmopXowvWJVA1o7DP6vti6o8e1GZNiQ49Zt
+ kz07rDvitBztrHw83vuWY+o/Tolwf3ix8IDk2OsdKfl5o9/5psv47FLUP4iA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1665667151; x=
- 1665674351; bh=8pcppjjZBZyOA/XeQog16ftR2BFMNYHHa0k8Fqb6m0M=; b=Q
- uwvYbtqD75aiPN3DgeRVGTp55KIyAUbAoICgeLjwE015rM4uwybw7D6/L3+M+Lh9
- ySsh7ce+j5PwofzAw5idiooLupLf23tP+rM2r71pZ8UNU7Mer2IvsqW9hsaozWQa
- usEceekbdW7tlbBFmUiXHw3gQtM/NCoijS+JvuWpnsSjRCGXvzdKjE30hy8rMMEA
- L35bCSpfVLY+ikjwea+c1JoYjpUWU/KH8gC3x3vmDu1pzRpeaLUycxThA/d211wk
- 8OM0mqShWBJT4remUeknIGC/Xj3rdvWHPQzAhOsbqDY/ao+15mgNlS7aTPq80tRq
- CqrKbVSxUl/L+iIhBupfA==
-X-ME-Sender: <xms:TxBIY1EhqMGousiVd4XNSlrb_rBoUt3fM8wMG9o-qM48UVYP_01kaQ>
- <xme:TxBIY6URJ79Z_nB5BDiznZAmqxYhVsYHAwkFxZz6vzwIoHBtocwWit6e8jr74vMBm
- 4wdKA5Kfuhe6QoJPqg>
-X-ME-Received: <xmr:TxBIY3IZ-c6ubATMPyAJGuplh2EKDlRlRC_eAEzmxKvE3sSrlpkYqAex4U_ZVJqu5mXVBLoDhRJDL6ILtmZ06pTk4TKG5tRQ9VZS>
+ :in-reply-to:message-id:mime-version:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; t=1665667147; x=1665674347; bh=G6fgTFiIkONzG
+ D9gpRNcfHn47HEkhVUzgdJVPhYERKg=; b=Z9+diphb086tWqFIovbrlLcj/1uKP
+ 39MARFtdyZjLbGAZXUntB0jZF4VfjnO0rDU0ej0aEqznipQwOXDaZ+Ww5uZxjmhj
+ fk+zHv49rrK0+/rWPBO0eplEFNrTEm87DpDdMHq8BhlRKW8pkoYboSONhCvsisXz
+ SJbUuzrrCu/IC/qL/BKEDmj8gYwA00XqcT8MUrC23BA0S0OMnHLrNvslNMHBpePs
+ KHcm2bY/4H5gOQUDgfUfMtb7HKQzobx8PfjlqfMehhPsU+60kzn80D3JK5etS5Ew
+ 1+nzyt+8jbeZqNnGjwDZwMHEugxLHo++TJ1S+FjWivZhpRvslqP8CR9Gg==
+X-ME-Sender: <xms:ShBIY0f_jRfX827KaJr634lKqFpguR8cHU56VIYXCO3xORqgFs9A5w>
+ <xme:ShBIY2OXOcr76AP6Nl9CJVuzauJckHfk1X0Vv9CZ23LI0uZWGyOy-A2H3wjrKL-ld
+ xaXPNb00011XHAF3zk>
+X-ME-Received: <xmr:ShBIY1i_LDkUTwEsV-225WzBZx5DEDrG1PM_NzYpk81OT2m1ZEHZg7X6hvTRWY0gZCbQOKFo31YYO5Zdcx37aCP39EJjFxYYg7JQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeektddgieehucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephfffufgggfgtkfhfjgfvvefosehtkeertdertdejnecuhfhrohhmpeforgig
- ihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrf
- grthhtvghrnhepveejudekteevveefhffhudefkedtgfettefgieejtdffieffheeuhedt
- heeikeeunecuffhomhgrihhnpehmrghrghhinhhsrdhtohhpnecuvehluhhsthgvrhfuih
- iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordht
- vggthh
-X-ME-Proxy: <xmx:TxBIY7Gt54I6DJpdoKZlcU9i9LbgF0b7a_eKivp_oMZusKP9By9kTA>
- <xmx:TxBIY7W-IbxrkiT4Jhxcqml8a_kaNVP_OB7ezCRtgfb_aHA6zLJROQ>
- <xmx:TxBIY2Ntd7ErXd8a3BdCFgpKI20eBbphJ5nbcNZfQnXBS1pWFmfxfQ>
- <xmx:TxBIY1haCUiIeUG7XI-b3BEtQlEi4gVsbwbkiVkqhUpRqgfetgQD9Q>
+ cujfgurhepufggtgfghfffkffvvefosehtkeertdertdejnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepleeuveetteffvdevlefgffelgeduueefleevfedvudegheekfeekheejieek
+ gedunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpe
+ dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:ShBIY5_0-YWcw1EP6TyRn-18Ur_EEAReIijOGL70v3K73dpFJBZCOw>
+ <xmx:ShBIYwvGCz6O3LhgK6A-25rWSbYVLq-Nhgh7U35gSrwV8oM44fXnyQ>
+ <xmx:ShBIYwHR-5tEXqeVWphtv2gthZBvDQlVdl53Rcq6n3YOtflpdjT9cg>
+ <xmx:SxBIY55T6rJOSvlir9Ns9Uj-DBI2jWUU8ZcdCz1g0No35cTCOsUqCg>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 13 Oct 2022 09:19:11 -0400 (EDT)
-From: Maxime Ripard <maxime@cerno.tech>
-Date: Thu, 13 Oct 2022 15:18:46 +0200
+ 13 Oct 2022 09:19:05 -0400 (EDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20220728-rpi-analog-tv-properties-v5-2-d841cc64fe4b@cerno.tech>
-References: <20220728-rpi-analog-tv-properties-v5-0-d841cc64fe4b@cerno.tech>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v5-0-d841cc64fe4b@cerno.tech>
+Content-Transfer-Encoding: 8bit
+X-b4-tracking: H4sIADQQSGMC/43NQQrDIBAF0KsU151i1ETTVe9RujA6JkLRoCKUkLvXdNddVsNn+O9vJGPymMn9sp
+ GE1WcfQwv99ULMosOM4G3LhFHGqGQK0upBB/2OM5QKa4orptIEoGMnrDOIYqCk1SedEaakg1kOQPIe
+ RWc5H4093ovPJabPb7jydp4nNioDCk5yrina0Y30YTCFeCvYRl5NreKsJJo0UMuVktxJxf6kfd+/I9
+ wJZBoBAAA=
+From: Maxime Ripard <maxime@cerno.tech>
+Date: Thu, 13 Oct 2022 15:18:44 +0200
+Message-Id: <20220728-rpi-analog-tv-properties-v5-0-d841cc64fe4b@cerno.tech>
 To: Karol Herbst <kherbst@redhat.com>,
  Jani Nikula <jani.nikula@linux.intel.com>, 
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
@@ -84,15 +83,14 @@ To: Karol Herbst <kherbst@redhat.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, 
  Jernej Skrabec <jernej.skrabec@gmail.com>
 X-Mailer: b4 0.11.0-dev-7da52
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10911; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=TANVSsrXfPuacBnVrzX9yOhRr4Sw/bXEr8tgHckdMS8=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMkeAm7F2nlfvZoa33xcdcf3oVtv5AdV8R0de4xVv69+PLv/
- WlhkRykLgxgXg6yYIkuMsPmSuFOzXney8c2DmcPKBDKEgYtTACYyz5KRoY094k/Xt+wtG2wPLqlas/
- +g0tY3G7ouTWJwC5kV53jLcwvD/xzlW02hTX8rP7ktuLZWQPeO4TI1idW3D5f2dlffbPWM5wEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9285; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=7GxKft3Lddw6iGnxcQzoeGHxuf2aXt58Gxn3+SVNeTc=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMkeAm4Htri1tsZZVUhOnaX75+UknQcTFG2XnONR7THvSzzG
+ rbywo5SFQYyLQVZMkSVG2HxJ3KlZrzvZ+ObBzGFlAhnCwMUpABNJW8Twv/bD5HMrrM7UxlU8TLLcdU
+ PA4yrz9o0nHB5rVd+4J8btG8Hwz754dYHlovySNqF3i6xOZR15WOU0tVf3yGTbi01H2w+08QEA
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
-Subject: [Intel-gfx] [PATCH v5 02/22] drm/connector: Rename legacy TV
- property
+Subject: [Intel-gfx] [PATCH v5 00/22] drm: Analog TV Improvements
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,248 +107,203 @@ Cc: Dom Cobley <dom@raspberrypi.com>, Dave Stevenson <dave.stevenson@raspberrypi
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The current tv_mode has driver-specific values that don't allow to
-easily share code using it, either at the userspace or kernel level.
+Hi,
 
-Since we're going to introduce a new, generic, property that fit the
-same purpose, let's rename this one to legacy_tv_mode to make it
-obvious we should move away from it.
+Here's a series aiming at improving the command line named modes support,
+and more importantly how we deal with all the analog TV variants.
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Lyude Paul <lyude@redhat.com> # nouveau
-Reviewed-by: Noralf Trønnes <noralf@tronnes.org>
+The named modes support were initially introduced to allow to specify the
+analog TV mode to be used.
+
+However, this was causing multiple issues:
+
+  * The mode name parsed on the command line was passed directly to the
+    driver, which had to figure out which mode it was suppose to match;
+
+  * Figuring that out wasn't really easy, since the video= argument or what
+    the userspace might not even have a name in the first place, but
+    instead could have passed a mode with the same timings;
+
+  * The fallback to matching on the timings was mostly working as long as
+    we were supporting one 525 lines (most likely NSTC) and one 625 lines
+    (PAL), but couldn't differentiate between two modes with the same
+    timings (NTSC vs PAL-M vs NSTC-J for example);
+
+  * There was also some overlap with the tv mode property registered by
+    drm_mode_create_tv_properties(), but named modes weren't interacting
+    with that property at all.
+
+  * Even though that property was generic, its possible values were
+    specific to each drivers, which made some generic support difficult.
+
+Thus, I chose to tackle in multiple steps:
+
+  * A new TV mode property was introduced, with generic values, each driver
+    reporting through a bitmask what standard it supports to the userspace;
+
+  * This option was added to the command line parsing code to be able to
+    specify it on the kernel command line, and new atomic_check and reset
+    helpers were created to integrate properly into atomic KMS;
+
+  * The named mode parsing code is now creating a proper display mode for
+    the given named mode, and the TV standard will thus be part of the
+    connector state;
+
+  * Two drivers were converted and tested for now (vc4 and sun4i), with
+    some backward compatibility code to translate the old TV mode to the
+    new TV mode;
+
+Unit tests were created along the way.
+
+One can switch from NTSC to PAL now using (on vc4)
+
+modetest -M vc4  -s 53:720x480i -w 53:'TV mode':1 # NTSC
+modetest -M vc4  -s 53:720x576i -w 53:'TV mode':4 # PAL
+
+Let me know what you think,
+Maxime
+
+To: David Airlie <airlied@linux.ie>
+To: Daniel Vetter <daniel@ffwll.ch>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: Emma Anholt <emma@anholt.net>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Ben Skeggs <bskeggs@redhat.com>
+To: Karol Herbst <kherbst@redhat.com>
+To: Lyude Paul <lyude@redhat.com>
+To: Chen-Yu Tsai <wens@csie.org>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Samuel Holland <samuel@sholland.org>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Cc: "Noralf Trønnes" <noralf@tronnes.org>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Dom Cobley <dom@raspberrypi.com>
+Cc: Phil Elwell <phil@raspberrypi.com>
+Cc: <dri-devel@lists.freedesktop.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-sunxi@lists.linux.dev
+Cc: Hans de Goede <hdegoede@redhat.com>
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+
 ---
- drivers/gpu/drm/drm_atomic_uapi.c         | 8 ++++----
- drivers/gpu/drm/drm_connector.c           | 6 +++---
- drivers/gpu/drm/gud/gud_connector.c       | 6 +++---
- drivers/gpu/drm/i2c/ch7006_drv.c          | 4 ++--
- drivers/gpu/drm/i915/display/intel_tv.c   | 3 ++-
- drivers/gpu/drm/nouveau/dispnv04/tvnv17.c | 4 ++--
- drivers/gpu/drm/vc4/vc4_vec.c             | 8 ++++----
- include/drm/drm_connector.h               | 4 ++--
- include/drm/drm_mode_config.h             | 6 ++++--
- 9 files changed, 26 insertions(+), 23 deletions(-)
+Changes in v5:
+- Dropped TV Standard documentation removal
+- Switched the TV Mode documentation from CSV to actual documentation
+- Switched to kunit assertions where possible
+- Switched to KUNIT_ASSERT_NOT_NULL instead of KUNIT_ASSERT_PTR_NE(..., NULL)
+- Shuffled a bit the introduction of drm_client_modeset_connector_get_modes between patches
+- Renamed tv_mode_names to legacy_tv_mode_names
+- Removed the count variable in sun4i_tv_comp_get_modes
+- Rebased on top of current drm-misc-next
+- Link to v4: https://lore.kernel.org/r/20220728-rpi-analog-tv-properties-v4-0-60d38873f782@cerno.tech
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index c06d0639d552..7f2b9a07fbdf 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -698,8 +698,8 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
- 		state->tv.margins.top = val;
- 	} else if (property == config->tv_bottom_margin_property) {
- 		state->tv.margins.bottom = val;
--	} else if (property == config->tv_mode_property) {
--		state->tv.mode = val;
-+	} else if (property == config->legacy_tv_mode_property) {
-+		state->tv.legacy_mode = val;
- 	} else if (property == config->tv_brightness_property) {
- 		state->tv.brightness = val;
- 	} else if (property == config->tv_contrast_property) {
-@@ -808,8 +808,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
- 		*val = state->tv.margins.top;
- 	} else if (property == config->tv_bottom_margin_property) {
- 		*val = state->tv.margins.bottom;
--	} else if (property == config->tv_mode_property) {
--		*val = state->tv.mode;
-+	} else if (property == config->legacy_tv_mode_property) {
-+		*val = state->tv.legacy_mode;
- 	} else if (property == config->tv_brightness_property) {
- 		*val = state->tv.brightness;
- 	} else if (property == config->tv_contrast_property) {
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index e3142c8142b3..ede6025638d7 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1686,14 +1686,14 @@ int drm_mode_create_tv_properties(struct drm_device *dev,
- 	if (drm_mode_create_tv_margin_properties(dev))
- 		goto nomem;
- 
--	dev->mode_config.tv_mode_property =
-+	dev->mode_config.legacy_tv_mode_property =
- 		drm_property_create(dev, DRM_MODE_PROP_ENUM,
- 				    "mode", num_modes);
--	if (!dev->mode_config.tv_mode_property)
-+	if (!dev->mode_config.legacy_tv_mode_property)
- 		goto nomem;
- 
- 	for (i = 0; i < num_modes; i++)
--		drm_property_add_enum(dev->mode_config.tv_mode_property,
-+		drm_property_add_enum(dev->mode_config.legacy_tv_mode_property,
- 				      i, modes[i]);
- 
- 	dev->mode_config.tv_brightness_property =
-diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gud_connector.c
-index fa636206f232..86e992b2108b 100644
---- a/drivers/gpu/drm/gud/gud_connector.c
-+++ b/drivers/gpu/drm/gud/gud_connector.c
-@@ -303,7 +303,7 @@ static int gud_connector_atomic_check(struct drm_connector *connector,
- 	    old_state->tv.margins.right != new_state->tv.margins.right ||
- 	    old_state->tv.margins.top != new_state->tv.margins.top ||
- 	    old_state->tv.margins.bottom != new_state->tv.margins.bottom ||
--	    old_state->tv.mode != new_state->tv.mode ||
-+	    old_state->tv.legacy_mode != new_state->tv.legacy_mode ||
- 	    old_state->tv.brightness != new_state->tv.brightness ||
- 	    old_state->tv.contrast != new_state->tv.contrast ||
- 	    old_state->tv.flicker_reduction != new_state->tv.flicker_reduction ||
-@@ -424,7 +424,7 @@ gud_connector_property_lookup(struct drm_connector *connector, u16 prop)
- 	case GUD_PROPERTY_TV_BOTTOM_MARGIN:
- 		return config->tv_bottom_margin_property;
- 	case GUD_PROPERTY_TV_MODE:
--		return config->tv_mode_property;
-+		return config->legacy_tv_mode_property;
- 	case GUD_PROPERTY_TV_BRIGHTNESS:
- 		return config->tv_brightness_property;
- 	case GUD_PROPERTY_TV_CONTRAST:
-@@ -454,7 +454,7 @@ static unsigned int *gud_connector_tv_state_val(u16 prop, struct drm_tv_connecto
- 	case GUD_PROPERTY_TV_BOTTOM_MARGIN:
- 		return &state->margins.bottom;
- 	case GUD_PROPERTY_TV_MODE:
--		return &state->mode;
-+		return &state->legacy_mode;
- 	case GUD_PROPERTY_TV_BRIGHTNESS:
- 		return &state->brightness;
- 	case GUD_PROPERTY_TV_CONTRAST:
-diff --git a/drivers/gpu/drm/i2c/ch7006_drv.c b/drivers/gpu/drm/i2c/ch7006_drv.c
-index b91e48d2190d..d29b63fd6178 100644
---- a/drivers/gpu/drm/i2c/ch7006_drv.c
-+++ b/drivers/gpu/drm/i2c/ch7006_drv.c
-@@ -264,7 +264,7 @@ static int ch7006_encoder_create_resources(struct drm_encoder *encoder,
- 				      priv->hmargin);
- 	drm_object_attach_property(&connector->base, conf->tv_bottom_margin_property,
- 				      priv->vmargin);
--	drm_object_attach_property(&connector->base, conf->tv_mode_property,
-+	drm_object_attach_property(&connector->base, conf->legacy_tv_mode_property,
- 				      priv->norm);
- 	drm_object_attach_property(&connector->base, conf->tv_brightness_property,
- 				      priv->brightness);
-@@ -315,7 +315,7 @@ static int ch7006_encoder_set_property(struct drm_encoder *encoder,
- 		ch7006_load_reg(client, state, CH7006_POV);
- 		ch7006_load_reg(client, state, CH7006_VPOS);
- 
--	} else if (property == conf->tv_mode_property) {
-+	} else if (property == conf->legacy_tv_mode_property) {
- 		if (connector->dpms != DRM_MODE_DPMS_OFF)
- 			return -EINVAL;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_tv.c b/drivers/gpu/drm/i915/display/intel_tv.c
-index 9379f3463344..abaf9ded942d 100644
---- a/drivers/gpu/drm/i915/display/intel_tv.c
-+++ b/drivers/gpu/drm/i915/display/intel_tv.c
-@@ -1986,7 +1986,8 @@ intel_tv_init(struct drm_i915_private *dev_priv)
- 	}
- 	drm_mode_create_tv_properties(dev, i, tv_format_names);
- 
--	drm_object_attach_property(&connector->base, dev->mode_config.tv_mode_property,
-+	drm_object_attach_property(&connector->base,
-+				   dev->mode_config.legacy_tv_mode_property,
- 				   state->tv.mode);
- 	drm_object_attach_property(&connector->base,
- 				   dev->mode_config.tv_left_margin_property,
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c b/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-index be28e7bd7490..1a15534adc60 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-@@ -662,7 +662,7 @@ static int nv17_tv_create_resources(struct drm_encoder *encoder,
- 					conf->tv_subconnector_property,
- 					tv_enc->subconnector);
- 	drm_object_attach_property(&connector->base,
--					conf->tv_mode_property,
-+					conf->legacy_tv_mode_property,
- 					tv_enc->tv_norm);
- 	drm_object_attach_property(&connector->base,
- 					conf->tv_flicker_reduction_property,
-@@ -722,7 +722,7 @@ static int nv17_tv_set_property(struct drm_encoder *encoder,
- 		if (encoder->crtc)
- 			nv17_tv_update_rescaler(encoder);
- 
--	} else if (property == conf->tv_mode_property) {
-+	} else if (property == conf->legacy_tv_mode_property) {
- 		if (connector->dpms != DRM_MODE_DPMS_OFF)
- 			return -EINVAL;
- 
-diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
-index 92c07e31d632..e6043cf5d40e 100644
---- a/drivers/gpu/drm/vc4/vc4_vec.c
-+++ b/drivers/gpu/drm/vc4/vc4_vec.c
-@@ -274,7 +274,7 @@ static int vc4_vec_connector_get_modes(struct drm_connector *connector)
- 	struct drm_display_mode *mode;
- 
- 	mode = drm_mode_duplicate(connector->dev,
--				  vc4_vec_tv_modes[state->tv.mode].mode);
-+				  vc4_vec_tv_modes[state->tv.legacy_mode].mode);
- 	if (!mode) {
- 		DRM_ERROR("Failed to create a new display mode\n");
- 		return -ENOMEM;
-@@ -312,7 +312,7 @@ static int vc4_vec_connector_init(struct drm_device *dev, struct vc4_vec *vec)
- 	drm_connector_helper_add(connector, &vc4_vec_connector_helper_funcs);
- 
- 	drm_object_attach_property(&connector->base,
--				   dev->mode_config.tv_mode_property,
-+				   dev->mode_config.legacy_tv_mode_property,
- 				   VC4_VEC_TV_MODE_NTSC);
- 
- 	drm_connector_attach_encoder(connector, &vec->encoder.base);
-@@ -361,7 +361,7 @@ static void vc4_vec_encoder_enable(struct drm_encoder *encoder,
- 	struct drm_connector_state *conn_state =
- 		drm_atomic_get_new_connector_state(state, connector);
- 	const struct vc4_vec_tv_mode *tv_mode =
--		&vc4_vec_tv_modes[conn_state->tv.mode];
-+		&vc4_vec_tv_modes[conn_state->tv.legacy_mode];
- 	int idx, ret;
- 
- 	if (!drm_dev_enter(drm, &idx))
-@@ -449,7 +449,7 @@ static int vc4_vec_encoder_atomic_check(struct drm_encoder *encoder,
- {
- 	const struct vc4_vec_tv_mode *vec_mode;
- 
--	vec_mode = &vc4_vec_tv_modes[conn_state->tv.mode];
-+	vec_mode = &vc4_vec_tv_modes[conn_state->tv.legacy_mode];
- 
- 	if (conn_state->crtc &&
- 	    !drm_mode_equal(vec_mode->mode, &crtc_state->adjusted_mode))
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 1d5e3cccb9e3..5cfad8b6ad83 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -695,7 +695,7 @@ struct drm_connector_tv_margins {
-  * @select_subconnector: selected subconnector
-  * @subconnector: detected subconnector
-  * @margins: TV margins
-- * @mode: TV mode
-+ * @legacy_mode: Legacy TV mode, driver specific value
-  * @brightness: brightness in percent
-  * @contrast: contrast in percent
-  * @flicker_reduction: flicker reduction in percent
-@@ -707,7 +707,7 @@ struct drm_tv_connector_state {
- 	enum drm_mode_subconnector select_subconnector;
- 	enum drm_mode_subconnector subconnector;
- 	struct drm_connector_tv_margins margins;
--	unsigned int mode;
-+	unsigned int legacy_mode;
- 	unsigned int brightness;
- 	unsigned int contrast;
- 	unsigned int flicker_reduction;
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index 6b5e01295348..35a827175c24 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -714,11 +714,13 @@ struct drm_mode_config {
- 	 * between different TV connector types.
- 	 */
- 	struct drm_property *tv_select_subconnector_property;
-+
- 	/**
--	 * @tv_mode_property: Optional TV property to select
-+	 * @legacy_tv_mode_property: Optional TV property to select
- 	 * the output TV mode.
- 	 */
--	struct drm_property *tv_mode_property;
-+	struct drm_property *legacy_tv_mode_property;
-+
- 	/**
- 	 * @tv_left_margin_property: Optional TV property to set the left
- 	 * margin (expressed in pixels).
+Changes in v4:
+- Removed the unused TV Standard property documentation
+- Added the TV Mode property documentation to kms-properties.csv
+- Fixed the documentation of drm_mode_create_tv_properties()
+- Removed DRM_MODE_TV_MODE_NONE
+- Reworded the line length check comment in drm_mode_analog_tv tests
+- Switched to HZ_PER_KHZ in drm_mode_analog_tv tests
+- Reworked drm_mode_analog_tv to fill our mode using the previously computed
+  timings
+- Added the command-line option documentation to modedb.rst
+- Improved the Kunit helpers cleanup
+- Moved the subconnector documentation renaming to the proper patch
+- Added the various review tags
+- Removed the count variable in vc4_vec_connector_get_modes
+- Rebased on drm-misc-next-2022-09-23 and fixed a merge conflict
+- Folded all the named mode parsing improvements in a single patch
+- Link to v3: https://lore.kernel.org/r/20220728-rpi-analog-tv-properties-v2-0-f733a0ed9f90@cerno.tech
 
+Changes in v3:
+- Applied some of the fixes to vc4 and sun4i
+- Renamed the old TV mode property to legacy_mode
+- Fixed a bunch of bisection errors
+- Removed most of the redundant TV modes
+- Added a new None TV mode to not fall back on NTSC by mistake
+- Fixed the mode generation function to match better what is expected
+- Added some logging to the mode generation function
+- Split the improvements to the named mode parsing logic into separate patches
+- Added more checks to the TV atomic_check helper
+- Link to v2: https://lore.kernel.org/dri-devel/20220728-rpi-analog-tv-properties-v2-0-459522d653a7@cerno.tech/
+
+Changes in v2:
+- Kept the older TV mode property as legacy so we can keep the old drivers functional
+- Renamed the tv_norm property to tv_mode
+- Added a function to create PAL and NTSC compatible display modes
+- Added some helpers to instantiate a mock DRM device in Kunit
+- More Kunit tests
+- Removed the HD analog TV modes
+- Renamed some of the tests
+- Renamed some of the named modes
+- Fixed typos in commit logs
+- Added the various tags
+- Link to v1: https://lore.kernel.org/dri-devel/20220728-rpi-analog-tv-properties-v1-0-3d53ae722097@cerno.tech/
+
+---
+Mateusz Kwiatkowski (2):
+      drm/vc4: vec: Check for VEC output constraints
+      drm/vc4: vec: Add support for more analog TV standards
+
+Maxime Ripard (20):
+      drm/tests: Add Kunit Helpers
+      drm/connector: Rename legacy TV property
+      drm/connector: Only register TV mode property if present
+      drm/connector: Rename drm_mode_create_tv_properties
+      drm/connector: Add TV standard property
+      drm/modes: Add a function to generate analog display modes
+      drm/client: Add some tests for drm_connector_pick_cmdline_mode()
+      drm/modes: Move named modes parsing to a separate function
+      drm/modes: Switch to named mode descriptors
+      drm/modes: Fill drm_cmdline mode from named modes
+      drm/connector: Add pixel clock to cmdline mode
+      drm/connector: Add a function to lookup a TV mode by its name
+      drm/modes: Introduce the tv_mode property as a command-line option
+      drm/modes: Properly generate a drm_display_mode from a named mode
+      drm/modes: Introduce more named modes
+      drm/atomic-helper: Add a TV properties reset helper
+      drm/atomic-helper: Add an analog TV atomic_check implementation
+      drm/vc4: vec: Use TV Reset implementation
+      drm/vc4: vec: Convert to the new TV mode property
+      drm/sun4i: tv: Convert to the new TV mode property
+
+ Documentation/fb/modedb.rst                     |   2 +
+ Documentation/gpu/drm-kms.rst                   |   6 +
+ drivers/gpu/drm/drm_atomic_state_helper.c       | 124 +++++
+ drivers/gpu/drm/drm_atomic_uapi.c               |   4 +
+ drivers/gpu/drm/drm_client_modeset.c            |   4 +
+ drivers/gpu/drm/drm_connector.c                 | 173 ++++++-
+ drivers/gpu/drm/drm_modes.c                     | 640 +++++++++++++++++++++++-
+ drivers/gpu/drm/gud/gud_connector.c             |  10 +-
+ drivers/gpu/drm/i2c/ch7006_drv.c                |   6 +-
+ drivers/gpu/drm/i915/display/intel_tv.c         |   5 +-
+ drivers/gpu/drm/nouveau/dispnv04/tvnv17.c       |   6 +-
+ drivers/gpu/drm/sun4i/sun4i_tv.c                | 145 ++----
+ drivers/gpu/drm/tests/Makefile                  |   2 +
+ drivers/gpu/drm/tests/drm_client_modeset_test.c | 229 +++++++++
+ drivers/gpu/drm/tests/drm_cmdline_parser_test.c |  67 +++
+ drivers/gpu/drm/tests/drm_kunit_helpers.c       |  61 +++
+ drivers/gpu/drm/tests/drm_kunit_helpers.h       |   9 +
+ drivers/gpu/drm/tests/drm_modes_test.c          | 144 ++++++
+ drivers/gpu/drm/vc4/vc4_vec.c                   | 322 ++++++++++--
+ include/drm/drm_atomic_state_helper.h           |   4 +
+ include/drm/drm_connector.h                     |  82 ++-
+ include/drm/drm_mode_config.h                   |  12 +-
+ include/drm/drm_modes.h                         |  17 +
+ 23 files changed, 1889 insertions(+), 185 deletions(-)
+---
+base-commit: 735e41d339cd617ce056dfd630c6de03c56eb6cd
+change-id: 20220728-rpi-analog-tv-properties-0914dfcee460
+
+Best regards,
 -- 
-b4 0.11.0-dev-7da52
+Maxime Ripard <maxime@cerno.tech>
