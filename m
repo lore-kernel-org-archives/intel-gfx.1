@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBFD3C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Oct 2022 00:02:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD65C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Oct 2022 00:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A556310E2EB;
-	Thu, 13 Oct 2022 00:01:59 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 987E110E10C;
- Thu, 13 Oct 2022 00:01:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665619292; x=1697155292;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=GeHgFsygOObwNYeUUVx5RblLGSidVD3kegc/MT18pyo=;
- b=Kqg7k4R/YXxoRT6YWnTYQRET/HGyHjLyXu3tXcHYcjgFDTm6ZV/cbM5l
- Gbb4q1B0tnJMjn7XbOSYyG+rGlLZkGRaNF2tDIuiUADDGxlQZEtwhp8tB
- D9ESJDLsl03zD/HwO8AZ7gDNiM4ppf0BqLRQNOSNF+OXqxH571DkrhT1B
- snsME6PDllI1n4wz8XYpHhJSQXsGhVr0a50c+8mU7X3ciYh8au985EX5x
- mjAho+Sm0dfeMoPje5CM4udRL1pQXWBTxyXKhlFMhEU3kfzA5ZbTb1zGm
- XWgn6KxPCJ0g7vnC5vekRtLUy2FTm2FrCnHBCLh0aukKcn+u5tBUcTwKF g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="292263361"
-X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="292263361"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2022 17:01:32 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10498"; a="802031096"
-X-IronPort-AV: E=Sophos;i="5.95,180,1661842800"; d="scan'208";a="802031096"
-Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2022 17:01:32 -0700
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 12 Oct 2022 17:03:27 -0700
-Message-Id: <20221013000332.1738078-3-daniele.ceraolospurio@intel.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221013000332.1738078-1-daniele.ceraolospurio@intel.com>
-References: <20221013000332.1738078-1-daniele.ceraolospurio@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB65910E11F;
+	Thu, 13 Oct 2022 00:43:35 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AE03C10E11F;
+ Thu, 13 Oct 2022 00:43:30 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 598D4A8830;
+ Thu, 13 Oct 2022 00:43:30 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/7] drm/i915/uc: fetch uc firmwares for each
- GT
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Daniele Ceraolo Spurio" <daniele.ceraolospurio@intel.com>
+Date: Thu, 13 Oct 2022 00:43:30 -0000
+Message-ID: <166562181033.20367.7791183744467757444@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20221013000332.1738078-1-daniele.ceraolospurio@intel.com>
+In-Reply-To: <20221013000332.1738078-1-daniele.ceraolospurio@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915=3A_prepare_for_uC_loading_on_MTL_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,39 +40,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The FW binaries are independently loaded on each GT. On MTL, the memory
-is shared so we could potentially re-use a single allocation, but on
-discrete multi-gt platforms we are going to need independent copies,
-so it is easier to do the same on MTL as well, given that the amount
-of duplicated memory is relatively small (~500K).
+== Series Details ==
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: John Harrison <john.c.harrison@intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/i915_gem.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Series: drm/i915: prepare for uC loading on MTL (rev2)
+URL   : https://patchwork.freedesktop.org/series/108925/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 55d605c0c55d..9093d2be9e1c 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1140,7 +1140,8 @@ int i915_gem_init(struct drm_i915_private *dev_priv)
- 	if (ret)
- 		return ret;
- 
--	intel_uc_fetch_firmwares(&to_gt(dev_priv)->uc);
-+	for_each_gt(gt, dev_priv, i)
-+		intel_uc_fetch_firmwares(&gt->uc);
- 	intel_wopcm_init(&dev_priv->wopcm);
- 
- 	ret = i915_init_ggtt(dev_priv);
--- 
-2.37.3
+== Summary ==
+
+Error: dim checkpatch failed
+927847787d62 drm/i915/huc: only load HuC on GTs that have VCS engines
+b2f08a65b6df drm/i915/uc: fetch uc firmwares for each GT
+fdfff93405bc drm/i915/uc: use different ggtt pin offsets for uc loads
+-:13: WARNING:TYPO_SPELLING: 'happend' may be misspelled - perhaps 'happened'?
+#13: 
+the same GGTT at the same time. On MTL, however, this can happend if both
+                                                          ^^^^^^^
+
+total: 0 errors, 1 warnings, 0 checks, 79 lines checked
+d039e46d8f9a drm/i915/guc: Add GuC deprivilege feature to MTL
+ded43d43f305 drm/i915/mtl: Handle wopcm per-GT and limit calculations.
+-:122: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#122: 
+rename from drivers/gpu/drm/i915/intel_wopcm.c
+
+total: 0 errors, 1 warnings, 0 checks, 253 lines checked
+be260c323dd0 drm/i915/guc: define media GT GuC send regs
+0271d7fa9a62 drm/i915/guc: handle interrupts from media GuC
+
 
