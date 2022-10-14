@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 222A9C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 23:04:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1720C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 23:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6CB910E151;
-	Fri, 14 Oct 2022 23:03:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A840910E155;
+	Fri, 14 Oct 2022 23:03:25 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD78910E130;
- Fri, 14 Oct 2022 23:03:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D1D810E137;
+ Fri, 14 Oct 2022 23:03:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665788583; x=1697324583;
+ t=1665788584; x=1697324584;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=G/o3wp8/GyOVBSbVxexs1JiQl3bxZ/vju/I+1X1zpNM=;
- b=GLu/roHxJ7SSrH3mGzoCTUmbO9jrijTeD2jnshazWKjUXnoBFEACPKtD
- 7Hj9+DWDrUMSldZBO/C9V0hgGGBHDUw8kl2M34Oh1ebDRfphqtpi72WBp
- Mk3YTCtEGrZOhNybfZaB5MqWmyue29aYBGBdmfTId8dB+w2sQQ17dRo+U
- zAkiXaPBKWUdbuUKWa+Eby5KvsNqJhN9IQ0998kDgZ/JjVcNEaZluykGx
- 5BFdDcq6xxqK6VlI9K8aH+KbeAbG/77huVqj4Tv9+A9cS6gbin/uR9ggP
- c/t3eCP+EcZ7gdi7mp3m2ImcWwwWIr0ohjYAu/az8dZTzxOxb6fqmrkr+ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="285216966"
-X-IronPort-AV: E=Sophos;i="5.95,185,1661842800"; d="scan'208";a="285216966"
+ bh=BLGNCU2YhyDAiodKVPKZH0H19KcfV50OrKRtiN5pkgk=;
+ b=VL0LrLpNOObPwBaHvtuFB4/C22ZKh3DCMni9NJOhZ9lRTN7w0u29d6ce
+ NiZc/ICkWgikEu3zG6VNZNzf30rqUMLwH9Wju8a0g87CzE+6tJjA6OVQl
+ WuKLw4SCx0V8kqCJarDoDyhv8iTIc0goNDuWHE4SPKRiY2CDt8fzmp7TQ
+ G3WdPblrR1X54kzYJC7QL10A1rBLrf8bG4VN0zg0sahyui3i7ORsYYzPB
+ 2QGfW8IM1bYAYtOTGz6lSePZAfPxBBWAGnq4kwi3y/EXGflacwUVeHdwt
+ UsOYncquKSPrElL4yvoJX1cCeKOFSuXlKqoV9PS/Ja2Z3CHQS5NfV2Wtq A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="285216968"
+X-IronPort-AV: E=Sophos;i="5.95,185,1661842800"; d="scan'208";a="285216968"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Oct 2022 16:03:02 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="696471696"
-X-IronPort-AV: E=Sophos;i="5.95,185,1661842800"; d="scan'208";a="696471696"
+X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="696471703"
+X-IronPort-AV: E=Sophos;i="5.95,185,1661842800"; d="scan'208";a="696471703"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Oct 2022 16:03:02 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 Oct 2022 16:02:28 -0700
-Message-Id: <20221014230239.1023689-4-matthew.d.roper@intel.com>
+Date: Fri, 14 Oct 2022 16:02:30 -0700
+Message-Id: <20221014230239.1023689-6-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221014230239.1023689-1-matthew.d.roper@intel.com>
 References: <20221014230239.1023689-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 03/14] drm/i915/gt: Drop a few unused
- register definitions
+Subject: [Intel-gfx] [PATCH v3 05/14] drm/i915/gt: Add
+ intel_gt_mcr_multicast_rmw() operation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,65 +61,74 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's drop a few register definitions that are unused anywhere in the
-driver today.  Since the referenced offsets are part of what is now
-considered a multicast register region, the current definitions would
-not be correct for use on any future platform.
+There are cases where we wish to read from any non-terminated MCR
+register instance (or the primary instance in the case of GAM ranges),
+clear/set some bits, and then write the value back out to the register
+in a multicast manner.  Adding a "multicast RMW" will avoid the need to
+open-code this.
+
+v2:
+ - Return a u32 to align with the recent change to intel_uncore_rmw.
 
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_regs.h | 17 -----------------
- 1 file changed, 17 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_mcr.c | 28 ++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_mcr.h |  3 +++
+ 2 files changed, 31 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 0aa16caa33e4..71d8787230c1 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -454,13 +454,6 @@
- #define   GEN11_BLEND_EMB_FIX_DISABLE_IN_RCC	REG_BIT(11)
- #define   GEN12_DISABLE_CPS_AWARE_COLOR_PIPE	REG_BIT(9)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
+index a2047a68ea7a..4dc360f4e344 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
+@@ -302,6 +302,34 @@ void intel_gt_mcr_multicast_write_fw(struct intel_gt *gt, i915_reg_t reg, u32 va
+ 	intel_uncore_write_fw(gt->uncore, reg, value);
+ }
  
--/* GEN9 chicken */
--#define SLICE_ECO_CHICKEN0			_MMIO(0x7308)
--#define   PIXEL_MASK_CAMMING_DISABLE		(1 << 14)
--
--#define GEN9_SLICE_COMMON_ECO_CHICKEN0		_MMIO(0x7308)
--#define   DISABLE_PIXEL_MASK_CAMMING		(1 << 14)
--
- #define GEN9_SLICE_COMMON_ECO_CHICKEN1		_MMIO(0x731c)
- #define XEHP_SLICE_COMMON_ECO_CHICKEN1		_MMIO(0x731c)
- #define   MSC_MSAA_REODER_BUF_BYPASS_DISABLE	REG_BIT(14)
-@@ -967,11 +960,6 @@
- #define GEN7_L3LOG(slice, i)			_MMIO(0xb070 + (slice) * 0x200 + (i) * 4)
- #define   GEN7_L3LOG_SIZE			0x80
++/**
++ * intel_gt_mcr_multicast_rmw - Performs a multicast RMW operations
++ * @gt: GT structure
++ * @reg: the MCR register to read and write
++ * @clear: bits to clear during RMW
++ * @set: bits to set during RMW
++ *
++ * Performs a read-modify-write on an MCR register in a multicast manner.
++ * This operation only makes sense on MCR registers where all instances are
++ * expected to have the same value.  The read will target any non-terminated
++ * instance and the write will be applied to all instances.
++ *
++ * This function assumes the caller is already holding any necessary forcewake
++ * domains; use intel_gt_mcr_multicast_rmw() in cases where forcewake should
++ * be obtained automatically.
++ *
++ * Returns the old (unmodified) value read.
++ */
++u32 intel_gt_mcr_multicast_rmw(struct intel_gt *gt, i915_reg_t reg,
++			       u32 clear, u32 set)
++{
++	u32 val = intel_gt_mcr_read_any(gt, reg);
++
++	intel_gt_mcr_multicast_write(gt, reg, (val & ~clear) | set);
++
++	return val;
++}
++
+ /*
+  * reg_needs_read_steering - determine whether a register read requires
+  *     explicit steering
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.h b/drivers/gpu/drm/i915/gt/intel_gt_mcr.h
+index 77a8b11c287d..781b267478db 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.h
+@@ -24,6 +24,9 @@ void intel_gt_mcr_multicast_write(struct intel_gt *gt,
+ void intel_gt_mcr_multicast_write_fw(struct intel_gt *gt,
+ 				     i915_reg_t reg, u32 value);
  
--#define GEN10_SCRATCH_LNCF2			_MMIO(0xb0a0)
--#define   PMFLUSHDONE_LNICRSDROP		(1 << 20)
--#define   PMFLUSH_GAPL3UNBLOCK			(1 << 21)
--#define   PMFLUSHDONE_LNEBLK			(1 << 22)
--
- #define XEHP_L3NODEARBCFG			_MMIO(0xb0b4)
- #define   XEHP_LNESPARE				REG_BIT(19)
- 
-@@ -986,9 +974,6 @@
- #define   L3_HIGH_PRIO_CREDITS(x)		(((x) >> 1) << 14)
- #define   L3_PRIO_CREDITS_MASK			((0x1f << 19) | (0x1f << 14))
- 
--#define GEN10_L3_CHICKEN_MODE_REGISTER		_MMIO(0xb114)
--#define   GEN11_I2M_WRITE_DISABLE		(1 << 28)
--
- #define GEN8_L3SQCREG4				_MMIO(0xb118)
- #define   GEN11_LQSC_CLEAN_EVICT_DISABLE	(1 << 6)
- #define   GEN8_LQSC_RO_PERF_DIS			(1 << 27)
-@@ -1191,8 +1176,6 @@
- #define SARB_CHICKEN1				_MMIO(0xe90c)
- #define   COMP_CKN_IN				REG_GENMASK(30, 29)
- 
--#define GEN7_HALF_SLICE_CHICKEN1_GT2		_MMIO(0xf100)
--
- #define GEN7_ROW_CHICKEN2_GT2			_MMIO(0xf4f4)
- #define   DOP_CLOCK_GATING_DISABLE		(1 << 0)
- #define   PUSH_CONSTANT_DEREF_DISABLE		(1 << 8)
++u32 intel_gt_mcr_multicast_rmw(struct intel_gt *gt, i915_reg_t reg,
++			       u32 clear, u32 set);
++
+ void intel_gt_mcr_get_nonterminated_steering(struct intel_gt *gt,
+ 					     i915_reg_t reg,
+ 					     u8 *group, u8 *instance);
 -- 
 2.37.3
 
