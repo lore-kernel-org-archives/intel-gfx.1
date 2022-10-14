@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74BB4C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 23:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D3EC433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 23:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5066C10E1EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 748AB10E1EF;
 	Fri, 14 Oct 2022 23:03:34 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E5C110E122;
- Fri, 14 Oct 2022 23:03:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE32C10E136;
+ Fri, 14 Oct 2022 23:03:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665788584; x=1697324584;
+ t=1665788583; x=1697324583;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=z7EleniTuFJ71WdlMSQBDeHBZE0YXti1a06FLp6ShX8=;
- b=aqVcLOWF8VTHvBIYppvJuJkMPxEx4/hW57IOM2P0CypeyrputGV8dfrT
- U+7nHCAc0Zlgac0QLCcaw9eTFFX+pKpVbOy/xUzB/Cbd2gIndpUtptFT4
- ppNoMMbu/idbLAOk+t0S2MXOYudYBL+ItUS70QJHh1gDcoUOVdstv3NVK
- HN54JxIp5f7Fld/OzJy7/6mF86q2DYVQo11UToi/rRGSMKzduNWQKFBhN
- 0BnVLYC88uPVbx3/LaVF24+ZlEc8EqCyj6mj2LVd+8zCVClycJmm6oNwg
- fCUL82Zw0MYHqX4xO7xODHkaDr9hnRsreSouwOU9+lvIDw+DSARx9UArV g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="285216972"
-X-IronPort-AV: E=Sophos;i="5.95,185,1661842800"; d="scan'208";a="285216972"
+ bh=XmbNYnfA3aAzzRQ7bRwMZp7i1FbtZp2mm86a0/zPMjo=;
+ b=F98Hu9zbHFR5yBfHRCYepIpqEt6g3jo8yD80L+mc9jIf/E/fcD2RP6M9
+ Df4x1p+SOt17+DPqLFcasWT3Z80vB4v6LdCm5lG/rzpPGZrgf8OsUr/yE
+ uaN8yP0g5Rt1xxctuq2PKFsmAJxjE60BWxI0fV1hEcnGhCT/p6NHEL3Ow
+ Btu2VZFqRQDW4XpYw4bq6AEPBhKXgMPU+fOj3nSsv0suS3IDBd7JyMphj
+ H9eAwRsyVvHmkdnE9hy5lNSDvdeqWrWS9L7v0s8LFnaqsBT9iEy/dCD5p
+ SJ6+zI99Uty5klzrhzfxMZeKXtdp9tvzHyS/6BS4iNeGJL4GGqjn7x2oN w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="285216967"
+X-IronPort-AV: E=Sophos;i="5.95,185,1661842800"; d="scan'208";a="285216967"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2022 16:03:03 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="696471714"
-X-IronPort-AV: E=Sophos;i="5.95,185,1661842800"; d="scan'208";a="696471714"
+ 14 Oct 2022 16:03:02 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="696471700"
+X-IronPort-AV: E=Sophos;i="5.95,185,1661842800"; d="scan'208";a="696471700"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Oct 2022 16:03:02 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 Oct 2022 16:02:34 -0700
-Message-Id: <20221014230239.1023689-10-matthew.d.roper@intel.com>
+Date: Fri, 14 Oct 2022 16:02:29 -0700
+Message-Id: <20221014230239.1023689-5-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221014230239.1023689-1-matthew.d.roper@intel.com>
 References: <20221014230239.1023689-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 09/14] drm/i915/gt: Always use MCR functions
- on multicast registers
+Subject: [Intel-gfx] [PATCH v3 04/14] drm/i915/gt: Correct prefix on a few
+ registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,268 +61,108 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rather than relying on the implicit behavior of intel_uncore_*()
-functions, let's always use the intel_gt_mcr_*() functions to operate on
-multicast/replicated registers.
+We have a few registers that have existed for several hardware
+generations, but are only used by the driver on Xe_HP and beyond.  In
+cases where the Xe_HP version of the register is now replicated and uses
+multicast behavior, but earlier generations were singleton, let's change
+the register prefix to "XEHP_" to help clarify that we're using the
+newer multicast form of the register.
 
-v2:
- - Add TLB invalidation registers
-
-v3:
- - Switch more uncore operations in mmio_invalidate_full() to MCR
-   operations for Xe_HP.  (Bala)
-
-Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.c        | 58 ++++++++++++++++-------
- drivers/gpu/drm/i915/gt/intel_mocs.c      | 13 ++---
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c | 12 +++--
- drivers/gpu/drm/i915/intel_pm.c           | 19 ++++----
- 4 files changed, 65 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h     |  8 ++++----
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 10 +++++-----
+ 2 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index e14f159ad9fc..3df0d0336dbc 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -1017,6 +1017,32 @@ get_reg_and_bit(const struct intel_engine_cs *engine, const bool gen8,
- 	return rb;
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 71d8787230c1..890960b56b9e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -486,7 +486,7 @@
  
-+/*
-+ * HW architecture suggest typical invalidation time at 40us,
-+ * with pessimistic cases up to 100us and a recommendation to
-+ * cap at 1ms. We go a bit higher just in case.
-+ */
-+#define TLB_INVAL_TIMEOUT_US 100
-+#define TLB_INVAL_TIMEOUT_MS 4
-+
-+/*
-+ * On Xe_HP the TLB invalidation registers are located at the same MMIO offsets
-+ * but are now considered MCR registers.  Since they exist within a GAM range,
-+ * the primary instance of the register rolls up the status from each unit.
-+ */
-+static int wait_for_invalidate(struct intel_gt *gt, struct reg_and_bit rb)
-+{
-+	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 50))
-+		return intel_gt_mcr_wait_for_reg_fw(gt, rb.reg, rb.bit, 0,
-+						    TLB_INVAL_TIMEOUT_US,
-+						    TLB_INVAL_TIMEOUT_MS);
-+	else
-+		return __intel_wait_for_register_fw(gt->uncore, rb.reg, rb.bit, 0,
-+						    TLB_INVAL_TIMEOUT_US,
-+						    TLB_INVAL_TIMEOUT_MS,
-+						    NULL);
-+}
-+
- static void mmio_invalidate_full(struct intel_gt *gt)
+ #define GEN8_RC6_CTX_INFO			_MMIO(0x8504)
+ 
+-#define GEN12_SQCM				_MMIO(0x8724)
++#define XEHP_SQCM				_MMIO(0x8724)
+ #define   EN_32B_ACCESS				REG_BIT(30)
+ 
+ #define HSW_IDICR				_MMIO(0x9008)
+@@ -989,7 +989,7 @@
+ #define GEN11_SCRATCH2				_MMIO(0xb140)
+ #define   GEN11_COHERENT_PARTIAL_WRITE_MERGE_ENABLE	(1 << 19)
+ 
+-#define GEN11_L3SQCREG5				_MMIO(0xb158)
++#define XEHP_L3SQCREG5				_MMIO(0xb158)
+ #define   L3_PWM_TIMER_INIT_VAL_MASK		REG_GENMASK(9, 0)
+ 
+ #define MLTICTXCTL				_MMIO(0xb170)
+@@ -1053,7 +1053,7 @@
+ #define GEN12_COMPCTX_TLB_INV_CR		_MMIO(0xcf04)
+ #define XEHP_COMPCTX_TLB_INV_CR			_MMIO(0xcf04)
+ 
+-#define GEN12_MERT_MOD_CTRL			_MMIO(0xcf28)
++#define XEHP_MERT_MOD_CTRL			_MMIO(0xcf28)
+ #define RENDER_MOD_CTRL				_MMIO(0xcf2c)
+ #define COMP_MOD_CTRL				_MMIO(0xcf30)
+ #define VDBX_MOD_CTRL				_MMIO(0xcf34)
+@@ -1155,7 +1155,7 @@
+ #define EU_PERF_CNTL1				_MMIO(0xe558)
+ #define EU_PERF_CNTL5				_MMIO(0xe55c)
+ 
+-#define GEN12_HDC_CHICKEN0			_MMIO(0xe5f0)
++#define XEHP_HDC_CHICKEN0			_MMIO(0xe5f0)
+ #define   LSC_L1_FLUSH_CTL_3D_DATAPORT_FLUSH_EVENTS_MASK	REG_GENMASK(13, 11)
+ #define ICL_HDC_MODE				_MMIO(0xe5f4)
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 3056b099dd17..96b9f02a2284 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -569,7 +569,7 @@ static void dg2_ctx_gt_tuning_init(struct intel_engine_cs *engine,
+ 				   struct i915_wa_list *wal)
  {
- 	static const i915_reg_t gen8_regs[] = {
-@@ -1048,7 +1074,7 @@ static void mmio_invalidate_full(struct intel_gt *gt)
- 	unsigned int num = 0;
+ 	wa_masked_en(wal, CHICKEN_RASTER_2, TBIMR_FAST_CLIP);
+-	wa_write_clr_set(wal, GEN11_L3SQCREG5, L3_PWM_TIMER_INIT_VAL_MASK,
++	wa_write_clr_set(wal, XEHP_L3SQCREG5, L3_PWM_TIMER_INIT_VAL_MASK,
+ 			 REG_FIELD_PREP(L3_PWM_TIMER_INIT_VAL_MASK, 0x7f));
+ 	wa_add(wal,
+ 	       XEHP_FF_MODE2,
+@@ -1514,7 +1514,7 @@ dg2_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+ 	 * recommended tuning settings documented in the bspec's
+ 	 * performance guide section.
+ 	 */
+-	wa_write_or(wal, GEN12_SQCM, EN_32B_ACCESS);
++	wa_write_or(wal, XEHP_SQCM, EN_32B_ACCESS);
  
- 	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
--		regs = xehp_regs;
-+		regs = NULL;
- 		num = ARRAY_SIZE(xehp_regs);
- 	} else if (GRAPHICS_VER(i915) == 12) {
- 		regs = gen12_regs;
-@@ -1075,11 +1101,17 @@ static void mmio_invalidate_full(struct intel_gt *gt)
- 		if (!intel_engine_pm_is_awake(engine))
- 			continue;
- 
--		rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
--		if (!i915_mmio_reg_offset(rb.reg))
--			continue;
-+		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
-+			intel_gt_mcr_multicast_write_fw(gt,
-+							xehp_regs[engine->class],
-+							BIT(engine->instance));
-+		} else {
-+			rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
-+			if (!i915_mmio_reg_offset(rb.reg))
-+				continue;
- 
--		intel_uncore_write_fw(uncore, rb.reg, rb.bit);
-+			intel_uncore_write_fw(uncore, rb.reg, rb.bit);
-+		}
- 		awake |= engine->mask;
+ 	/* Wa_14015795083 */
+ 	wa_write_clr(wal, GEN8_MISCCPCTL, GEN12_DOP_CLOCK_GATE_RENDER_ENABLE);
+@@ -2170,7 +2170,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 		 * Wa_22010960976:dg2
+ 		 * Wa_14013347512:dg2
+ 		 */
+-		wa_masked_dis(wal, GEN12_HDC_CHICKEN0,
++		wa_masked_dis(wal, XEHP_HDC_CHICKEN0,
+ 			      LSC_L1_FLUSH_CTL_3D_DATAPORT_FLUSH_EVENTS_MASK);
  	}
  
-@@ -1099,22 +1131,12 @@ static void mmio_invalidate_full(struct intel_gt *gt)
- 	for_each_engine_masked(engine, gt, awake, tmp) {
- 		struct reg_and_bit rb;
- 
--		/*
--		 * HW architecture suggest typical invalidation time at 40us,
--		 * with pessimistic cases up to 100us and a recommendation to
--		 * cap at 1ms. We go a bit higher just in case.
--		 */
--		const unsigned int timeout_us = 100;
--		const unsigned int timeout_ms = 4;
--
- 		rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
--		if (__intel_wait_for_register_fw(uncore,
--						 rb.reg, rb.bit, 0,
--						 timeout_us, timeout_ms,
--						 NULL))
-+
-+		if (wait_for_invalidate(gt, rb))
- 			drm_err_ratelimited(&gt->i915->drm,
- 					    "%s TLB invalidation did not complete in %ums!\n",
--					    engine->name, timeout_ms);
-+					    engine->name, TLB_INVAL_TIMEOUT_MS);
+@@ -2223,7 +2223,7 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 	if (IS_DG2_GRAPHICS_STEP(engine->i915, G10, STEP_A0, STEP_B0) ||
+ 	    IS_DG2_GRAPHICS_STEP(engine->i915, G11, STEP_A0, STEP_B0)) {
+ 		/* Wa_14012362059:dg2 */
+-		wa_write_or(wal, GEN12_MERT_MOD_CTRL, FORCE_MISS_FTLB);
++		wa_write_or(wal, XEHP_MERT_MOD_CTRL, FORCE_MISS_FTLB);
  	}
  
- 	/*
-diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index ecfa5baa5e3f..49fdd509527a 100644
---- a/drivers/gpu/drm/i915/gt/intel_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -7,6 +7,7 @@
+ 	if (IS_DG2_GRAPHICS_STEP(i915, G11, STEP_B0, STEP_FOREVER) ||
+@@ -2816,7 +2816,7 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 		}
  
- #include "intel_engine.h"
- #include "intel_gt.h"
-+#include "intel_gt_mcr.h"
- #include "intel_gt_regs.h"
- #include "intel_mocs.h"
- #include "intel_ring.h"
-@@ -609,17 +610,17 @@ static u32 l3cc_combine(u16 low, u16 high)
- 	     0; \
- 	     i++)
+ 		/* Wa_14012362059:xehpsdv */
+-		wa_write_or(wal, GEN12_MERT_MOD_CTRL, FORCE_MISS_FTLB);
++		wa_write_or(wal, XEHP_MERT_MOD_CTRL, FORCE_MISS_FTLB);
  
--static void init_l3cc_table(struct intel_uncore *uncore,
-+static void init_l3cc_table(struct intel_gt *gt,
- 			    const struct drm_i915_mocs_table *table)
- {
- 	unsigned int i;
- 	u32 l3cc;
- 
- 	for_each_l3cc(l3cc, table, i)
--		if (GRAPHICS_VER_FULL(uncore->i915) >= IP_VER(12, 50))
--			intel_uncore_write_fw(uncore, XEHP_LNCFCMOCS(i), l3cc);
-+		if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 50))
-+			intel_gt_mcr_multicast_write_fw(gt, XEHP_LNCFCMOCS(i), l3cc);
- 		else
--			intel_uncore_write_fw(uncore, GEN9_LNCFCMOCS(i), l3cc);
-+			intel_uncore_write_fw(gt->uncore, GEN9_LNCFCMOCS(i), l3cc);
- }
- 
- void intel_mocs_init_engine(struct intel_engine_cs *engine)
-@@ -639,7 +640,7 @@ void intel_mocs_init_engine(struct intel_engine_cs *engine)
- 		init_mocs_table(engine, &table);
- 
- 	if (flags & HAS_RENDER_L3CC && engine->class == RENDER_CLASS)
--		init_l3cc_table(engine->uncore, &table);
-+		init_l3cc_table(engine->gt, &table);
- }
- 
- static u32 global_mocs_offset(void)
-@@ -675,7 +676,7 @@ void intel_mocs_init(struct intel_gt *gt)
- 	 * memory transactions including guc transactions
- 	 */
- 	if (flags & HAS_RENDER_L3CC)
--		init_l3cc_table(gt->uncore, &table);
-+		init_l3cc_table(gt, &table);
- }
- 
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-index 9229243992c2..5b86b2e286e0 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-@@ -10,12 +10,15 @@
-  */
- 
- #include "gt/intel_gt.h"
-+#include "gt/intel_gt_mcr.h"
- #include "gt/intel_gt_regs.h"
- #include "intel_guc_fw.h"
- #include "i915_drv.h"
- 
--static void guc_prepare_xfer(struct intel_uncore *uncore)
-+static void guc_prepare_xfer(struct intel_gt *gt)
- {
-+	struct intel_uncore *uncore = gt->uncore;
-+
- 	u32 shim_flags = GUC_ENABLE_READ_CACHE_LOGIC |
- 			 GUC_ENABLE_READ_CACHE_FOR_SRAM_DATA |
- 			 GUC_ENABLE_READ_CACHE_FOR_WOPCM_DATA |
-@@ -35,8 +38,9 @@ static void guc_prepare_xfer(struct intel_uncore *uncore)
- 
- 	if (GRAPHICS_VER(uncore->i915) == 9) {
- 		/* DOP Clock Gating Enable for GuC clocks */
--		intel_uncore_rmw(uncore, GEN8_MISCCPCTL,
--				 0, GEN8_DOP_CLOCK_GATE_GUC_ENABLE);
-+		intel_gt_mcr_multicast_write(gt, GEN8_MISCCPCTL,
-+					     GEN8_DOP_CLOCK_GATE_GUC_ENABLE |
-+					     intel_gt_mcr_read_any(gt, GEN8_MISCCPCTL));
- 
- 		/* allows for 5us (in 10ns units) before GT can go to RC6 */
- 		intel_uncore_write(uncore, GUC_ARAT_C6DIS, 0x1FF);
-@@ -168,7 +172,7 @@ int intel_guc_fw_upload(struct intel_guc *guc)
- 	struct intel_uncore *uncore = gt->uncore;
- 	int ret;
- 
--	guc_prepare_xfer(uncore);
-+	guc_prepare_xfer(gt);
- 
- 	/*
- 	 * Note that GuC needs the CSS header plus uKernel code to be copied
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 390802245514..cb18e45f6adf 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -30,6 +30,8 @@
- #include "display/skl_watermark.h"
- 
- #include "gt/intel_engine_regs.h"
-+#include "gt/intel_gt.h"
-+#include "gt/intel_gt_mcr.h"
- #include "gt/intel_gt_regs.h"
- 
- #include "i915_drv.h"
-@@ -4321,22 +4323,22 @@ static void gen8_set_l3sqc_credits(struct drm_i915_private *dev_priv,
- 	u32 val;
- 
- 	/* WaTempDisableDOPClkGating:bdw */
--	misccpctl = intel_uncore_rmw(&dev_priv->uncore, GEN8_MISCCPCTL, ~GEN8_DOP_CLOCK_GATE_ENABLE,
--				     0);
-+	misccpctl = intel_gt_mcr_multicast_rmw(to_gt(dev_priv), GEN8_MISCCPCTL,
-+					       ~GEN8_DOP_CLOCK_GATE_ENABLE, 0);
- 
--	val = intel_uncore_read(&dev_priv->uncore, GEN8_L3SQCREG1);
-+	val = intel_gt_mcr_read_any(to_gt(dev_priv), GEN8_L3SQCREG1);
- 	val &= ~L3_PRIO_CREDITS_MASK;
- 	val |= L3_GENERAL_PRIO_CREDITS(general_prio_credits);
- 	val |= L3_HIGH_PRIO_CREDITS(high_prio_credits);
--	intel_uncore_write(&dev_priv->uncore, GEN8_L3SQCREG1, val);
-+	intel_gt_mcr_multicast_write(to_gt(dev_priv), GEN8_L3SQCREG1, val);
- 
- 	/*
- 	 * Wait at least 100 clocks before re-enabling clock gating.
- 	 * See the definition of L3SQCREG1 in BSpec.
- 	 */
--	intel_uncore_posting_read(&dev_priv->uncore, GEN8_L3SQCREG1);
-+	intel_gt_mcr_read_any(to_gt(dev_priv), GEN8_L3SQCREG1);
- 	udelay(1);
--	intel_uncore_write(&dev_priv->uncore, GEN8_MISCCPCTL, misccpctl);
-+	intel_gt_mcr_multicast_write(to_gt(dev_priv), GEN8_MISCCPCTL, misccpctl);
- }
- 
- static void icl_init_clock_gating(struct drm_i915_private *dev_priv)
-@@ -4496,9 +4498,8 @@ static void skl_init_clock_gating(struct drm_i915_private *dev_priv)
- 	gen9_init_clock_gating(dev_priv);
- 
- 	/* WaDisableDopClockGating:skl */
--	intel_uncore_write(&dev_priv->uncore, GEN8_MISCCPCTL,
--			   intel_uncore_read(&dev_priv->uncore, GEN8_MISCCPCTL) &
--			   ~GEN8_DOP_CLOCK_GATE_ENABLE);
-+	intel_gt_mcr_multicast_rmw(to_gt(dev_priv), GEN8_MISCCPCTL,
-+				   GEN8_DOP_CLOCK_GATE_ENABLE, 0);
- 
- 	/* WAC6entrylatency:skl */
- 	intel_uncore_write(&dev_priv->uncore, FBC_LLC_READ_CTRL, intel_uncore_read(&dev_priv->uncore, FBC_LLC_READ_CTRL) |
+ 		/* Wa_14014368820:xehpsdv */
+ 		wa_write_or(wal, GEN12_GAMCNTRL_CTRL, INVALIDATION_BROADCAST_MODE_DIS |
 -- 
 2.37.3
 
