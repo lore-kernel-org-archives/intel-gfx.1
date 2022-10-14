@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6E71C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 15:28:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7165CC433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 15:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3E5E10EB22;
-	Fri, 14 Oct 2022 15:28:03 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CCA810EB21
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Oct 2022 15:27:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1622B10EB26;
+	Fri, 14 Oct 2022 15:38:40 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA8AC10EB26
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Oct 2022 15:38:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665761271; x=1697297271;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=oXPRvQOsHbLrl0K6nOvl+kcNg1Xyij5/Fh6NRdbfRNI=;
- b=azTq2qi2bcL4pp/Pw2WeV4yQP3r2pgkAyub6JwXLmlkm3c0SXAgr5+YB
- LOqooet0VgcTDH1jB+YUHNataxhw2x8vq+gvwy7haHl2DVOO5Zh5SaXUq
- FEFhsmO4OeUAwY0bYOnSgGNdpx9p4SivzgADiueuYY5jWyNr6BWedWmg1
- OypurpB0kMa6JXA2UBpgsA8m2dnN1TB1qa6ak1QhF+a4BmiTWXLYICoGK
- 2Dj+c3TKNDOJNitOSNmiFoie6pd4go4wUc5QDXemq7BnHzMP+oxDMxfqL
- 5iyYjUbGM/fXEwR/IIuIOi31uU9i65+xINM27/uc2deNNCl5y0HN5Whki Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="285128083"
-X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="285128083"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2022 08:27:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="696340278"
-X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="696340278"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmsmga004.fm.intel.com with ESMTP; 14 Oct 2022 08:27:28 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 Oct 2022 20:56:18 +0530
-Message-Id: <20221014152622.233398-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.25.1
+ t=1665761914; x=1697297914;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=c+IiK8NE9sHF5RL8IDUsterA8yvk06vQOXwX9W4GCOg=;
+ b=kcisvjTwmStCRrtUqrWUssLQ5xFI815scTbkCRkn5gUvgY5bWVI9uOKi
+ gA2Cf7iygJXEtFb/hjlDF3uJ7m7xLg/Bp+ZkRA2FAUchSLZ9YDqAiC3rD
+ hfMRSuuYSmFlRbDbFK8DI4Ezqb6nmin1k8BCYkR3pzeCesjnf5k5gixcx
+ hPpNLqqsMbhru2JmGRl1fOcMBjIMEzYawAVtdwiB/Vv7POqZREw5qdVvY
+ cRYXr92qJzY9bgMQcCmpdhUaCIIRWM4hRUuxbvDBPxrnn1vf4aqPximSy
+ 5YH8xxTbn5wcRjSyQ1Q2QP8GUF5eM3lkDbysxmlhUqroNbfkTr4s8lsGh A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="367422819"
+X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="367422819"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2022 08:38:34 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="578665830"
+X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="578665830"
+Received: from lgleeson-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.43.239])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2022 08:38:32 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Nirmoy Das <nirmoy.das@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20221014152525.7683-1-nirmoy.das@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20221014152525.7683-1-nirmoy.das@intel.com>
+Date: Fri, 14 Oct 2022 18:38:49 +0300
+Message-ID: <87fsfqs9di.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 0/4] Enable YCbCr420 for VDSC
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Print return value on error
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,43 +57,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch series aims to enable the YCbCr420 format
-for DSC. Changes are mostly compute params related for
-hdmi,dp and dsi along with the addition of new rc_tables
-for native_420 and corresponding changes to macros used to
-fetch them.
+On Fri, 14 Oct 2022, Nirmoy Das <nirmoy.das@intel.com> wrote:
+> Print returned error code for better debuggability.
+>
+> References: https://gitlab.freedesktop.org/drm/intel/-/issues/7211
+> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_fbdev.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+> index 112aa0447a0d..015a854d9bec 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+> @@ -175,7 +175,7 @@ static int intelfb_alloc(struct drm_fb_helper *helper,
+>  	}
+>  
+>  	if (IS_ERR(obj)) {
+> -		drm_err(&dev_priv->drm, "failed to allocate framebuffer\n");
+> +		drm_err(&dev_priv->drm, "failed to allocate framebuffer(err = %pe)\n", obj);
 
----v2
--adding fields missed for vdsc_cfg [Vandita]
--adding corresponding registers and writing to the [Vandita]
+Nitpick, space before (. With %pe, not sure if the "err =" part is
+necessary either.
 
----v3
--adding 11 bit left shift missed in nsl_bpg_offset calculation
+failed to allocate framebuffer (err = -ENOMEM)
 
----v4
--adding display version check before writing in new pps register
+vs.
 
-Ankit Nautiyal (1):
-  drm/i915/dp: Check if DSC supports the given output_format
+failed to allocate framebuffer (-ENOMEM)
 
-Kandpal, Suraj (2):
-  drm/i915: Adding the new registers for DSC
-  drm/i915: Fill in native_420 field
+Ditto below.
 
-Suraj Kandpal (1):
-  drm/i915: Enable YCbCr420 for VDSC
+BR,
+Jani.
 
- drivers/gpu/drm/i915/display/icl_dsi.c        |   2 -
- drivers/gpu/drm/i915/display/intel_dp.c       |  32 ++-
- .../gpu/drm/i915/display/intel_qp_tables.c    | 187 ++++++++++++++++--
- .../gpu/drm/i915/display/intel_qp_tables.h    |   4 +-
- drivers/gpu/drm/i915/display/intel_vdsc.c     |  78 +++++++-
- drivers/gpu/drm/i915/i915_reg.h               |  28 +++
- 6 files changed, 308 insertions(+), 23 deletions(-)
+>  		return PTR_ERR(obj);
+>  	}
+>  
+> @@ -256,7 +256,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
+>  
+>  	info = drm_fb_helper_alloc_fbi(helper);
+>  	if (IS_ERR(info)) {
+> -		drm_err(&dev_priv->drm, "Failed to allocate fb_info\n");
+> +		drm_err(&dev_priv->drm, "Failed to allocate fb_info(err = %pe)\n", info);
+>  		ret = PTR_ERR(info);
+>  		goto out_unpin;
+>  	}
+> @@ -291,7 +291,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
+>  	vaddr = i915_vma_pin_iomap(vma);
+>  	if (IS_ERR(vaddr)) {
+>  		drm_err(&dev_priv->drm,
+> -			"Failed to remap framebuffer into virtual memory\n");
+> +			"Failed to remap framebuffer into virtual memory (err = %pe)\n", vaddr);
+>  		ret = PTR_ERR(vaddr);
+>  		goto out_unpin;
+>  	}
 
 -- 
-2.25.1
-
+Jani Nikula, Intel Open Source Graphics Center
