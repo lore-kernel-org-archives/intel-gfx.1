@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBCAAC43217
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 23:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7C14C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 23:21:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C58B810E191;
-	Fri, 14 Oct 2022 23:03:35 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CD7C10E13C;
- Fri, 14 Oct 2022 23:03:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665788584; x=1697324584;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Ci8RhjTKG3nJRDRpoGXJalJfRr2zjpDsNci2msxWB5M=;
- b=AUJ6Wo7u9V6tXpnoVn7UJX5gKakMbTXVt0p3xHxH5G+FCE5UP7CCwCtt
- xWrXxplP6U0WZs+8PhCgr61ey+LPpTs9Ypolp5BjY3Qg6nIPgUTL5uJC1
- IvsEUDb7/P+eQ2te1ymGbKLsUVVNO0dGdEHwZKXKsm27psGAUMn5zuNKD
- lW6liB6aT2TRRtmf0pox3fnP9YqWVJ6THMzLVt0XEUnl0+GCIYx1+kzU4
- lLDkZvAMCiae7XaBpTiwNEfTMn7ZjYY02h2PSoDc4MhkFr549UM3HDSc3
- DgrjlZSSECTmTuDCylH8GRNDcDVFmSKuf3ll5Sy0O04iRx0WWncxA0UPS w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="285216970"
-X-IronPort-AV: E=Sophos;i="5.95,185,1661842800"; d="scan'208";a="285216970"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2022 16:03:03 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="696471708"
-X-IronPort-AV: E=Sophos;i="5.95,185,1661842800"; d="scan'208";a="696471708"
-Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2022 16:03:02 -0700
-From: Matt Roper <matthew.d.roper@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 Oct 2022 16:02:32 -0700
-Message-Id: <20221014230239.1023689-8-matthew.d.roper@intel.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221014230239.1023689-1-matthew.d.roper@intel.com>
-References: <20221014230239.1023689-1-matthew.d.roper@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E57D10E1A8;
+	Fri, 14 Oct 2022 23:21:04 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2118710E1A8;
+ Fri, 14 Oct 2022 23:20:58 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0A2D2AADDA;
+ Fri, 14 Oct 2022 23:20:58 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 07/14] drm/i915/gt: Add
- intel_gt_mcr_wait_for_reg_fw()
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matt Roper" <matthew.d.roper@intel.com>
+Date: Fri, 14 Oct 2022 23:20:58 -0000
+Message-ID: <166578965800.26453.14185374269815301979@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20221014230239.1023689-1-matthew.d.roper@intel.com>
+In-Reply-To: <20221014230239.1023689-1-matthew.d.roper@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Explicit_MCR_handling_and_MTL_steering_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,105 +40,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Xe_HP has some MCR registers that need to be polled for completion of
-operations like TLB invalidation.  Those registers are in the GAM range,
-which rolls up the status from each unit into the 'primary' instance's
-value.  This makes it useful to have a dedicated 'wait for register'
-function that handles this on MCR registers, similar to the
-__intel_wait_for_register_fw() function we already have for regular
-registers.
+== Series Details ==
 
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_mcr.c | 55 ++++++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gt_mcr.h |  7 ++++
- 2 files changed, 62 insertions(+)
+Series: Explicit MCR handling and MTL steering (rev4)
+URL   : https://patchwork.freedesktop.org/series/108755/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-index 4dc360f4e344..1ed9bc4dccfd 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-@@ -568,3 +568,58 @@ void intel_gt_mcr_get_ss_steering(struct intel_gt *gt, unsigned int dss,
- 		return;
- 	}
- }
-+
-+/**
-+ * intel_gt_mcr_wait_for_reg_fw - wait until MCR register matches expected state
-+ * @gt: GT structure
-+ * @reg: the register to read
-+ * @mask: mask to apply to register value
-+ * @value: value to wait for
-+ * @fast_timeout_us: fast timeout in microsecond for atomic/tight wait
-+ * @slow_timeout_ms: slow timeout in millisecond
-+ *
-+ * This routine waits until the target register @reg contains the expected
-+ * @value after applying the @mask, i.e. it waits until ::
-+ *
-+ *     (intel_gt_mcr_read_any_fw(gt, reg) & mask) == value
-+ *
-+ * Otherwise, the wait will timeout after @slow_timeout_ms milliseconds.
-+ * For atomic context @slow_timeout_ms must be zero and @fast_timeout_us
-+ * must be not larger than 20,0000 microseconds.
-+ *
-+ * This function is basically an MCR-friendly version of
-+ * __intel_wait_for_register_fw().  Generally this function will only be used
-+ * on GAM registers which are a bit special --- although they're MCR registers,
-+ * reads (e.g., waiting for status updates) are always directed to the primary
-+ * instance.
-+ *
-+ * Note that this routine assumes the caller holds forcewake asserted, it is
-+ * not suitable for very long waits.
-+ *
-+ * Return: 0 if the register matches the desired condition, or -ETIMEDOUT.
-+ */
-+int intel_gt_mcr_wait_for_reg_fw(struct intel_gt *gt,
-+				 i915_reg_t reg,
-+				 u32 mask,
-+				 u32 value,
-+				 unsigned int fast_timeout_us,
-+				 unsigned int slow_timeout_ms)
-+{
-+	u32 reg_value = 0;
-+#define done (((reg_value = intel_gt_mcr_read_any_fw(gt, reg)) & mask) == value)
-+	int ret;
-+
-+	/* Catch any overuse of this function */
-+	might_sleep_if(slow_timeout_ms);
-+	GEM_BUG_ON(fast_timeout_us > 20000);
-+	GEM_BUG_ON(!fast_timeout_us && !slow_timeout_ms);
-+
-+	ret = -ETIMEDOUT;
-+	if (fast_timeout_us && fast_timeout_us <= 20000)
-+		ret = _wait_for_atomic(done, fast_timeout_us, 0);
-+	if (ret && slow_timeout_ms)
-+		ret = wait_for(done, slow_timeout_ms);
-+
-+	return ret;
-+#undef done
-+}
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.h b/drivers/gpu/drm/i915/gt/intel_gt_mcr.h
-index 781b267478db..548f922cd9fa 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.h
-@@ -37,6 +37,13 @@ void intel_gt_mcr_report_steering(struct drm_printer *p, struct intel_gt *gt,
- void intel_gt_mcr_get_ss_steering(struct intel_gt *gt, unsigned int dss,
- 				  unsigned int *group, unsigned int *instance);
- 
-+int intel_gt_mcr_wait_for_reg_fw(struct intel_gt *gt,
-+				 i915_reg_t reg,
-+				 u32 mask,
-+				 u32 value,
-+				 unsigned int fast_timeout_us,
-+				 unsigned int slow_timeout_ms);
-+
- /*
-  * Helper for for_each_ss_steering loop.  On pre-Xe_HP platforms, subslice
-  * presence is determined by using the group/instance as direct lookups in the
--- 
-2.37.3
+== Summary ==
+
+Error: dim checkpatch failed
+830513957fa8 drm/i915/gen8: Create separate reg definitions for new MCR registers
+dbdc6927367f drm/i915/xehp: Create separate reg definitions for new MCR registers
+3dc14e728503 drm/i915/gt: Drop a few unused register definitions
+23576fa94370 drm/i915/gt: Correct prefix on a few registers
+26cd8977db65 drm/i915/gt: Add intel_gt_mcr_multicast_rmw() operation
+750673516e25 drm/i915/xehp: Check for faults on primary GAM
+315399c32fbf drm/i915/gt: Add intel_gt_mcr_wait_for_reg_fw()
+4efa7eccaba8 drm/i915: Define MCR registers explicitly
+bb995162272b drm/i915/gt: Always use MCR functions on multicast registers
+009ddebe2fbc drm/i915/guc: Handle save/restore of MCR registers explicitly
+b1e0f17688ac drm/i915/gt: Add MCR-specific workaround initializers
+32570329efe2 drm/i915: Define multicast registers as a new type
+-:615: WARNING:NEW_TYPEDEFS: do not add new typedefs
+#615: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:107:
++typedef struct {
+
+-:634: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'r' - possible side-effects?
+#634: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:118:
++#define i915_mmio_reg_offset(r) \
++	_Generic((r), i915_reg_t: (r).reg, i915_mcr_reg_t: (r).reg)
+
+-:635: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#635: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:119:
++	_Generic((r), i915_reg_t: (r).reg, i915_mcr_reg_t: (r).reg)
+ 	                        ^
+
+-:635: ERROR:SPACING: spaces required around that ':' (ctx:VxW)
+#635: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:119:
++	_Generic((r), i915_reg_t: (r).reg, i915_mcr_reg_t: (r).reg)
+ 	                                                 ^
+
+-:635: CHECK:CAMELCASE: Avoid CamelCase: <_Generic>
+#635: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:119:
++	_Generic((r), i915_reg_t: (r).reg, i915_mcr_reg_t: (r).reg)
+
+total: 2 errors, 1 warnings, 2 checks, 513 lines checked
+93791388dccc drm/i915/xelpg: Add multicast steering
+290cda2037ae drm/i915/xelpmp: Add multicast steering for media GT
+
 
