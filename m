@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0784C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 12:54:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A7A2C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 13:11:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF59E10E37E;
-	Fri, 14 Oct 2022 12:54:18 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5579410EADB
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Oct 2022 12:52:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665751926; x=1697287926;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=k4pZliQjtLiOgY0lX+6Bcu+48T8WxoyYZ48gBRASkVM=;
- b=Ty1xlqdTFtvAnMMmxgwsXkmGGqipBC5MdyMNF1EIr4cLozTRO1BDEOS9
- O2TJr0J5tOccWBqHhxfQj+o2TsGwy9+8lAlw5A0ao9sgTglE+3dLQYulo
- 1yg711qUe/lIa2fZinAQCAljRFT/6Ccw0okK9dfV2lEO3IdnyD+NklJY2
- bntkvaixkeWpxFANCA0Aa+YgIswuWHkKAmxW0zgNdHgLJd7bfj6oTnhtK
- SSZpEncubXskHWpd16iBHzqgBwxm3PC/7/b30vDAGYp9Zo4a4iPYkNthE
- c2IM3trUhs0mcTMsxCrfRQ+ZDSxRs0JdBKaumKWAYon1ctvy/0cY+3h1V Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="304104646"
-X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="304104646"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2022 05:52:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="716739745"
-X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="716739745"
-Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by FMSMGA003.fm.intel.com with ESMTP; 14 Oct 2022 05:52:04 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 Oct 2022 15:47:28 +0300
-Message-Id: <20221014124740.774835-9-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221014124740.774835-1-mika.kahola@intel.com>
-References: <20221014124740.774835-1-mika.kahola@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 785CE10EADE;
+	Fri, 14 Oct 2022 13:11:47 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 370D310EADB;
+ Fri, 14 Oct 2022 13:11:44 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 14632A9932;
+ Fri, 14 Oct 2022 13:11:44 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/20] drm/i915/mtl: C20 PLL programming
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mika Kahola" <mika.kahola@intel.com>
+Date: Fri, 14 Oct 2022 13:11:44 -0000
+Message-ID: <166575310405.26451.11979790586597712164@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20221014124740.774835-1-mika.kahola@intel.com>
+In-Reply-To: <20221014124740.774835-1-mika.kahola@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/mtl=3A_Add_C10_and_C20_phy_support?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,544 +40,744 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-C20 phy PLL programming sequence for DP, DP2.0, HDMI2.x non-FRL and
-HDMI2.x FRL. This enables C20 MPLLA and MPLLB programming sequence. add
-4 lane support for c20.
+== Series Details ==
 
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Bhanuprakash Modem <bhanuprakash.modem@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 279 +++++++++++++++---
- .../gpu/drm/i915/display/intel_cx0_reg_defs.h |  30 ++
- drivers/gpu/drm/i915/display/intel_ddi.c      |  11 +-
- .../drm/i915/display/intel_display_types.h    |  19 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  12 +-
- 5 files changed, 311 insertions(+), 40 deletions(-)
+Series: drm/i915/mtl: Add C10 and C20 phy support
+URL   : https://patchwork.freedesktop.org/series/109714/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index ef874986940d..02701f9418e6 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -14,6 +14,7 @@
- #include "intel_panel.h"
- #include "intel_psr.h"
- #include "intel_uncore.h"
-+#include "intel_tc.h"
- 
- bool intel_is_c10phy(struct drm_i915_private *dev_priv, enum phy phy)
- {
-@@ -234,6 +235,18 @@ static void intel_cx0_write(struct drm_i915_private *i915, enum port port,
- 	}
- }
- 
-+static void intel_c20_write(struct drm_i915_private *i915, enum port port,
-+			    int lane, u16 addr, u16 data)
-+{
-+	assert_dc_off(i915);
-+
-+	intel_cx0_write(i915, port, lane, PHY_C20_WR_ADDRESS_H, (addr >> 8) & 0xff, 0);
-+	intel_cx0_write(i915, port, lane, PHY_C20_WR_ADDRESS_L, addr & 0xff, 0);
-+
-+	intel_cx0_write(i915, port, lane, PHY_C20_WR_DATA_H, (data >> 8) & 0xff, 0);
-+	intel_cx0_write(i915, port, lane, PHY_C20_WR_DATA_L, data & 0xff, 1);
-+}
-+
- static void __intel_cx0_rmw(struct drm_i915_private *i915, enum port port,
- 			    int lane, u16 addr, u8 clear, u8 set, bool committed)
- {
-@@ -765,7 +778,7 @@ static int intel_c10mpllb_calc_state(struct intel_crtc_state *crtc_state,
- 
- 	for (i = 0; tables[i]; i++) {
- 		if (crtc_state->port_clock <= tables[i]->clock) {
--			crtc_state->c10mpllb_state = *tables[i];
-+			crtc_state->cx0pll_state.c10mpllb_state = *tables[i];
- 			return 0;
- 		}
- 	}
-@@ -825,7 +838,7 @@ static void intel_c10_pll_program(struct drm_i915_private *i915,
- 				  const struct intel_crtc_state *crtc_state,
- 				  struct intel_encoder *encoder)
- {
--	const struct intel_c10mpllb_state *pll_state = &crtc_state->c10mpllb_state;
-+	const struct intel_c10mpllb_state *pll_state = &crtc_state->cx0pll_state.c10mpllb_state;
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 	bool lane_reversal = dig_port->saved_port_bits & DDI_BUF_PORT_REVERSAL;
- 	u8 master_lane = lane_reversal ? INTEL_CX0_LANE1 :
-@@ -907,6 +920,218 @@ void intel_c10mpllb_dump_hw_state(struct drm_i915_private *dev_priv,
- 			    i + 2, hw_state->pll[i + 2], i + 3, hw_state->pll[i + 3]);
- }
- 
-+static bool intel_c20_use_mplla(u32 clock)
-+{
-+	/* 10G and 20G rates use MPLLA */
-+	if (clock == 312500 || clock == 625000)
-+		return true;
-+
-+	return false;
-+}
-+
-+static u8 intel_c20_get_dp_rate(u32 clock)
-+{
-+	switch (clock) {
-+	case 162000: /* 1.62 Gbps DP1.4 */
-+		return 0;
-+	case 270000: /* 2.7 Gbps DP1.4 */
-+		return 1;
-+	case 540000: /* 5.4 Gbps DP 1.4 */
-+		return 2;
-+	case 810000: /* 8.1 Gbps DP1.4 */
-+		return 3;
-+	case 216000: /* 2.16 Gbps eDP */
-+		return 4;
-+	case 243000: /* 2.43 Gbps eDP */
-+		return 5;
-+	case 324000: /* 3.24 Gbps eDP */
-+		return 6;
-+	case 432000: /* 4.32 Gbps eDP */
-+		return 7;
-+	case 312500: /* 10 Gbps DP2.0 */
-+		return 8;
-+	case 421875: /* 13.5 Gbps DP2.0 */
-+		return 9;
-+	case 625000: /* 20 Gbps DP2.0*/
-+		return 10;
-+	default:
-+		MISSING_CASE(clock);
-+		return 0;
-+	}
-+}
-+
-+static u8 intel_c20_get_hdmi_rate(u32 clock)
-+{
-+	switch (clock) {
-+	case 25175:
-+	case 27000:
-+	case 74250:
-+	case 148500:
-+	case 594000:
-+		return 0;
-+	case 166670: /* 3 Gbps */
-+	case 333330: /* 6 Gbps */
-+	case 666670: /* 12 Gbps */
-+		return 1;
-+	case 444440: /* 8 Gbps */
-+		return 2;
-+	case 555560: /* 10 Gbps */
-+		return 3;
-+	default:
-+		MISSING_CASE(clock);
-+		return 0;
-+	}
-+}
-+
-+static bool is_dp2(u32 clock)
-+{
-+	/* DP2.0 clock rates */
-+	if (clock == 312500 || clock == 421875 || clock  == 625000)
-+		return true;
-+
-+	return false;
-+}
-+
-+static bool is_hdmi_frl(u32 clock)
-+{
-+	switch (clock) {
-+	case 166670: /* 3 Gbps */
-+	case 333330: /* 6 Gbps */
-+	case 444440: /* 8 Gbps */
-+	case 555560: /* 10 Gbps */
-+	case 666670: /* 12 Gbps */
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool intel_c20_protocol_switch_valid(struct intel_encoder *encoder)
-+{
-+	struct intel_digital_port *intel_dig_port = enc_to_dig_port(encoder);
-+
-+	/* banks should not be cleared for DPALT/USB4/TBT modes */
-+	/* TODO: optimize re-calibration in legacy mode */
-+	return intel_tc_port_in_legacy_mode(intel_dig_port);
-+}
-+
-+static void intel_c20_pll_program(struct drm_i915_private *i915,
-+				  const struct intel_crtc_state *crtc_state,
-+				  struct intel_encoder *encoder)
-+{
-+	const struct intel_c20pll_state *pll_state = &crtc_state->cx0pll_state.c20pll_state;
-+	bool dp = false;
-+	int lane_count = crtc_state->lane_count;
-+	bool cntx;
-+	int i;
-+
-+	if (intel_crtc_has_dp_encoder(crtc_state))
-+		dp = true;
-+
-+	/* 1. Read current context selection */
-+	cntx = intel_cx0_read(i915, encoder->port, 0, PHY_C20_VDR_CUSTOM_SERDES_RATE) &
-+		PHY_C20_CONTEXT_TOGGLE;
-+
-+	/* 2. If there is a protocol switch from HDMI to DP or vice versa, clear
-+	 * the lane #0 MPLLB CAL_DONE_BANK DP2.0 10G and 20G rates enable MPLLA.
-+	 * Protocol switch is only applicable for MPLLA
-+	 */
-+	if (intel_c20_protocol_switch_valid(encoder)) {
-+		for (i = 0; i < 4; i++)
+== Summary ==
+
+Error: dim checkpatch failed
+17498f64790a drm/i915/mtl: Initial DDI port setup
+c7a2fc56a9d0 drm/i915/mtl: Add DP rates
+919c8b25d4b3 drm/i915/mtl: Create separate reg file for PICA registers
+-:13: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#13: 
+new file mode 100644
+
+-:18: WARNING:SPDX_LICENSE_TAG: Improper SPDX comment style for 'drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h', please use '/*' instead
+#18: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:1:
++// SPDX-License-Identifier: MIT
+
+-:18: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#18: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:1:
++// SPDX-License-Identifier: MIT
+
+-:33: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#33: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:16:
++							 [PORT_A] = _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_A, \
+
+-:34: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#34: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:17:
++							 [PORT_B] = _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_B, \
+
+-:35: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#35: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:18:
++							 [PORT_TC1] = _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC1, \
+
+-:36: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#36: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:19:
++							 [PORT_TC2] = _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC2, \
+
+-:37: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#37: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:20:
++							 [PORT_TC3] = _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC3, \
+
+-:38: WARNING:LONG_LINE: line length of 124 exceeds 100 columns
+#38: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:21:
++							 [PORT_TC4] = _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC4) + ((lane) * 4))
+
+-:40: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#40: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:23:
++#define XELPDP_PORT_M2P_MSGBUS_CTL(port, lane)		_MMIO(_XELPDP_PORT_M2P_MSGBUS_CTL(port, lane))
+
+-:43: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#43: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:26:
++#define  XELPDP_PORT_M2P_COMMAND_WRITE_UNCOMMITTED	REG_FIELD_PREP(XELPDP_PORT_M2P_COMMAND_TYPE_MASK, 0x1)
+
+-:44: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#44: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:27:
++#define  XELPDP_PORT_M2P_COMMAND_WRITE_COMMITTED	REG_FIELD_PREP(XELPDP_PORT_M2P_COMMAND_TYPE_MASK, 0x2)
+
+-:45: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#45: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:28:
++#define  XELPDP_PORT_M2P_COMMAND_READ			REG_FIELD_PREP(XELPDP_PORT_M2P_COMMAND_TYPE_MASK, 0x3)
+
+-:47: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#47: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:30:
++#define  XELPDP_PORT_M2P_DATA(val)			REG_FIELD_PREP(XELPDP_PORT_M2P_DATA_MASK, val)
+
+-:50: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
+#50: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:33:
++#define  XELPDP_PORT_M2P_ADDRESS(val)			REG_FIELD_PREP(XELPDP_PORT_M2P_ADDRESS_MASK, val)
+
+-:52: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#52: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:35:
++#define XELPDP_PORT_P2M_MSGBUS_STATUS(port, lane)	_MMIO(_XELPDP_PORT_M2P_MSGBUS_CTL(port, lane) + 8)
+
+-:58: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#58: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:41:
++#define  XELPDP_PORT_P2M_DATA(val)			REG_FIELD_PREP(XELPDP_PORT_P2M_DATA_MASK, val)
+
+-:80: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#80: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:63:
++							 [PORT_TC1] = _XELPDP_PORT_BUF_CTL1_LN0_USBC1, \
+
+-:81: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#81: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:64:
++							 [PORT_TC2] = _XELPDP_PORT_BUF_CTL1_LN0_USBC2, \
+
+-:82: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#82: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:65:
++							 [PORT_TC3] = _XELPDP_PORT_BUF_CTL1_LN0_USBC3, \
+
+-:83: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
+#83: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:66:
++							 [PORT_TC4] = _XELPDP_PORT_BUF_CTL1_LN0_USBC4))
+
+-:103: WARNING:LONG_LINE: line length of 114 exceeds 100 columns
+#103: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:86:
++#define  XELPDP_LANE0_POWERDOWN_NEW_STATE(val)		REG_FIELD_PREP(XELPDP_LANE0_POWERDOWN_NEW_STATE_MASK, val)
+
+-:105: WARNING:LONG_LINE: line length of 114 exceeds 100 columns
+#105: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:88:
++#define  XELPDP_LANE1_POWERDOWN_NEW_STATE(val)		REG_FIELD_PREP(XELPDP_LANE1_POWERDOWN_NEW_STATE_MASK, val)
+
+-:107: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#107: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:90:
++#define  XELPDP_POWER_STATE_READY(val)			REG_FIELD_PREP(XELPDP_POWER_STATE_READY_MASK, val)
+
+-:111: WARNING:LONG_LINE: line length of 114 exceeds 100 columns
+#111: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:94:
++#define  XELPDP_PLL_LANE_STAGGERING_DELAY(val)		REG_FIELD_PREP(XELPDP_PLL_LANE_STAGGERING_DELAY_MASK, val)
+
+-:113: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#113: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:96:
++#define  XELPDP_POWER_STATE_ACTIVE(val)			REG_FIELD_PREP(XELPDP_POWER_STATE_ACTIVE_MASK, val)
+
+-:140: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
+#140: FILE: drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h:123:
++#define XELPDP_DDI_CLOCK_SELECT(val)			REG_FIELD_PREP(XELPDP_DDI_CLOCK_SELECT_MASK, val)
+
+total: 0 errors, 27 warnings, 0 checks, 136 lines checked
+f1081dbf0bb3 drm/i915/mtl: Add Support for C10 PHY message bus and pll programming
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:24: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#24: 
+    Move register definitions to a new file i.e. intel_cx0_reg_defs.h (Jani)
+
+-:52: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#52: 
+new file mode 100644
+
+-:72: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around 'phy < PHY_C'
+#72: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:16:
++	if (IS_METEORLAKE(dev_priv) && (phy < PHY_C))
+
+-:107: WARNING:LONG_LINE: line length of 119 exceeds 100 columns
+#107: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:51:
++		drm_dbg_kms(&i915->drm, "PHY %c Timeout waiting for message ACK. Status: 0x%x\n", phy_name(phy), *val);
+
+-:115: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#115: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:59:
++static int __intel_cx0_read(struct drm_i915_private *i915, enum port port,
++			   int lane, u16 addr, u32 *val)
+
+-:124: WARNING:LONG_LINE: line length of 146 exceeds 100 columns
+#124: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:68:
++		drm_dbg_kms(&i915->drm, "PHY %c Timeout waiting for previous transaction to complete. Reset the bus and retry.\n", phy_name(phy));
+
+-:144: WARNING:LONG_LINE: line length of 122 exceeds 100 columns
+#144: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:88:
++		drm_dbg_kms(&i915->drm, "PHY %c Error occurred during read command. Status: 0x%x\n", phy_name(phy), *val);
+
+-:152: WARNING:LONG_LINE: line length of 115 exceeds 100 columns
+#152: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:96:
++		drm_dbg_kms(&i915->drm, "PHY %c Not a Read response. MSGBUS Status: 0x%x.\n", phy_name(phy), *val);
+
+-:175: WARNING:LONG_LINE: line length of 112 exceeds 100 columns
+#175: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:119:
++		drm_err_once(&i915->drm, "PHY %c Read %04x failed after %d retries.\n", phy_name(phy), addr, i);
+
+-:186: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#186: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:130:
++static int intel_cx0_wait_cwrite_ack(struct drm_i915_private *i915,
++				      enum port port, int lane)
+
+-:199: WARNING:LONG_LINE: line length of 118 exceeds 100 columns
+#199: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:143:
++		drm_dbg_kms(&i915->drm, "PHY %c Unexpected ACK received. MSGBUS STATUS: 0x%x.\n", phy_name(phy), val);
+
+-:215: WARNING:LONG_LINE: line length of 146 exceeds 100 columns
+#215: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:159:
++		drm_dbg_kms(&i915->drm, "PHY %c Timeout waiting for previous transaction to complete. Reset the bus and retry.\n", phy_name(phy));
+
+-:236: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#236: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:180:
++		drm_dbg_kms(&i915->drm, "PHY %c Error occurred during write command.\n", phy_name(phy));
+
+-:258: WARNING:LONG_LINE: line length of 113 exceeds 100 columns
+#258: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:202:
++		drm_err_once(&i915->drm, "PHY %c Write %04x failed after %d retries.\n", phy_name(phy), addr, i);
+
+-:665: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#665: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:609:
++	intel_cx0_write(i915, encoder->port, master_lane, PHY_C10_VDR_CMN(0), cmn0, MB_WRITE_COMMITTED);
+
+-:666: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#666: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:610:
++	intel_cx0_write(i915, encoder->port, master_lane, PHY_C10_VDR_TX(0), C10_TX0_VAL, MB_WRITE_COMMITTED);
+
+-:780: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#780: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:724:
++		     XELPDP_LANE0_POWERDOWN_NEW_STATE(state) | XELPDP_LANE1_POWERDOWN_NEW_STATE(state));
+
+-:847: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#847: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:791:
++				      XELPDP_LANE0_PHY_CURRENT_STATUS | XELPDP_LANE1_PHY_CURRENT_STATUS,
+
+-:848: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#848: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:792:
++				      XELPDP_LANE0_PHY_CURRENT_STATUS | XELPDP_LANE1_PHY_CURRENT_STATUS,
+
+-:1153: WARNING:SPDX_LICENSE_TAG: Improper SPDX comment style for 'drivers/gpu/drm/i915/display/intel_cx0_phy.h', please use '/*' instead
+#1153: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.h:1:
++// SPDX-License-Identifier: MIT
+
+-:1153: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#1153: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.h:1:
++// SPDX-License-Identifier: MIT
+
+-:1202: WARNING:SPDX_LICENSE_TAG: Improper SPDX comment style for 'drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h', please use '/*' instead
+#1202: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:1:
++// SPDX-License-Identifier: MIT
+
+-:1202: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#1202: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:1:
++// SPDX-License-Identifier: MIT
+
+-:1293: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#1293: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:3501:
++	crtc_state->port_clock = intel_c10mpllb_calc_port_clock(encoder, &crtc_state->c10mpllb_state);
+
+-:1496: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__n' - possible side-effects?
+#1496: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:33:
++#define REG_BIT8(__n)                                                   \
++	((u8)(BIT(__n) +                                                \
++	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&         \
++				 ((__n) < 0 || (__n) > 7))))
+
+-:1517: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__high' - possible side-effects?
+#1517: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:77:
++#define REG_GENMASK8(__high, __low)                                     \
++	((u8)(GENMASK(__high, __low) +                                  \
++	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&      \
++				 __is_constexpr(__low) &&               \
++				 ((__low) < 0 || (__high) > 7 || (__low) > (__high)))))
+
+-:1517: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__low' - possible side-effects?
+#1517: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:77:
++#define REG_GENMASK8(__high, __low)                                     \
++	((u8)(GENMASK(__high, __low) +                                  \
++	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&      \
++				 __is_constexpr(__low) &&               \
++				 ((__low) < 0 || (__high) > 7 || (__low) > (__high)))))
+
+-:1540: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__mask' - possible side-effects?
+#1540: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:115:
++#define REG_FIELD_PREP8(__mask, __val)                                          \
++	((u8)((((typeof(__mask))(__val) << __bf_shf(__mask)) & (__mask)) +      \
++	       BUILD_BUG_ON_ZERO(!__is_constexpr(__mask)) +             \
++	       BUILD_BUG_ON_ZERO((__mask) == 0 || (__mask) > U8_MAX) +          \
++	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
++	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
+
+-:1540: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__val' - possible side-effects?
+#1540: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:115:
++#define REG_FIELD_PREP8(__mask, __val)                                          \
++	((u8)((((typeof(__mask))(__val) << __bf_shf(__mask)) & (__mask)) +      \
++	       BUILD_BUG_ON_ZERO(!__is_constexpr(__mask)) +             \
++	       BUILD_BUG_ON_ZERO((__mask) == 0 || (__mask) > U8_MAX) +          \
++	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
++	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
+
+-:1545: WARNING:LONG_LINE: line length of 128 exceeds 100 columns
+#1545: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:120:
++	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
+
+total: 0 errors, 22 warnings, 8 checks, 1442 lines checked
+0d826c400a1a drm/i915/mtl: Add C10 phy programming for HDMI
+-:207: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#207: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:662:
++			drm_dbg_kms(&i915->drm, "Can't support HDMI link rate %d on phy %c.\n",
++				      crtc_state->port_clock, phy_name(phy));
+
+total: 0 errors, 0 warnings, 1 checks, 272 lines checked
+4d111ad8c2f0 drm/i915/mtl: Add vswing programming for C10 phys
+-:6: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#6: 
+C10 phys uses direct mapping internally for voltage and pre-emphasis levels.
+
+-:139: WARNING:IF_0: Consider removing the code enclosed by this #if 0 and its #endif
+#139: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:325:
++#if 0
+
+-:145: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#145: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:331:
++			C10_VDR_CTRL_MSGBUS_ACCESS | C10_VDR_CTRL_UPDATE_CFG, C10_VDR_CTRL_UPDATE_CFG,
+
+-:145: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#145: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:331:
++	intel_cx0_rmw(i915, encoder->port, !master_lane, PHY_C10_VDR_CONTROL(1),
++			C10_VDR_CTRL_MSGBUS_ACCESS | C10_VDR_CTRL_UPDATE_CFG, C10_VDR_CTRL_UPDATE_CFG,
+
+-:326: WARNING:REPEATED_WORD: Possible repeated word: 'to'
+#326: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1040:
++ * Some platforms don't need a mapping table and only expect us to
++ * to program the vswing + preemphasis levels directly since the
+
+-:330: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#330: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1044:
++    { .direct = { .level = 0, .preemph = 0 } },$
+
+-:331: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#331: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1045:
++    { .direct = { .level = 0, .preemph = 1 } },$
+
+-:332: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#332: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1046:
++    { .direct = { .level = 0, .preemph = 2 } },$
+
+-:333: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#333: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1047:
++    { .direct = { .level = 0, .preemph = 3 } },$
+
+-:334: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#334: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1048:
++    { .direct = { .level = 1, .preemph = 0 } },$
+
+-:335: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#335: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1049:
++    { .direct = { .level = 1, .preemph = 0 } },$
+
+-:336: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#336: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1050:
++    { .direct = { .level = 1, .preemph = 2 } },$
+
+-:337: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#337: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1051:
++    { .direct = { .level = 2, .preemph = 0 } },$
+
+-:338: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#338: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1052:
++    { .direct = { .level = 2, .preemph = 1 } },$
+
+-:339: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#339: FILE: drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c:1053:
++    { .direct = { .level = 3, .preemph = 0 } },$
+
+total: 0 errors, 14 warnings, 1 checks, 345 lines checked
+e9473def4708 drm/i915/mtl: Add support for PM DEMAND
+-:154: ERROR:CODE_INDENT: code indent should use tabs where possible
+#154: FILE: drivers/gpu/drm/i915/i915_drv.h:272:
++        struct {$
+
+-:154: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#154: FILE: drivers/gpu/drm/i915/i915_drv.h:272:
++        struct {$
+
+-:163: CHECK:UNCOMMENTED_DEFINITION: struct mutex definition without comment
+#163: FILE: drivers/gpu/drm/i915/i915_drv.h:281:
++		struct mutex lock;
+
+-:239: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#239: FILE: drivers/gpu/drm/i915/i915_reg.h:5672:
++#define  XELPDP_PMDEMAND_QCLK_GV_BW(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_QCLK_GV_BW_MASK, x)
+
+-:241: WARNING:LONG_LINE: line length of 109 exceeds 100 columns
+#241: FILE: drivers/gpu/drm/i915/i915_reg.h:5674:
++#define  XELPDP_PMDEMAND_VOLTAGE_INDEX(x)		REG_FIELD_PREP(XELPDP_PMDEMAND_VOLTAGE_INDEX_MASK, x)
+
+-:243: WARNING:LONG_LINE: line length of 109 exceeds 100 columns
+#243: FILE: drivers/gpu/drm/i915/i915_reg.h:5676:
++#define  XELPDP_PMDEMAND_QCLK_GV_INDEX(x)		REG_FIELD_PREP(XELPDP_PMDEMAND_QCLK_GV_INDEX_MASK, x)
+
+-:245: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#245: FILE: drivers/gpu/drm/i915/i915_reg.h:5678:
++#define  XELPDP_PMDEMAND_PIPES(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_PIPES_MASK, x)
+
+-:247: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#247: FILE: drivers/gpu/drm/i915/i915_reg.h:5680:
++#define  XELPDP_PMDEMAND_DBUFS(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_DBUFS_MASK, x)
+
+-:249: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#249: FILE: drivers/gpu/drm/i915/i915_reg.h:5682:
++#define  XELPDP_PMDEMAND_PHYS(x)				REG_FIELD_PREP(XELPDP_PMDEMAND_PHYS_MASK, x)
+
+-:253: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#253: FILE: drivers/gpu/drm/i915/i915_reg.h:5686:
++#define  XELPDP_PMDEMAND_CDCLK_FREQ(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_CDCLK_FREQ_MASK, x)
+
+-:255: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#255: FILE: drivers/gpu/drm/i915/i915_reg.h:5688:
++#define  XELPDP_PMDEMAND_DDICLK_FREQ(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_DDICLK_FREQ_MASK, x)
+
+-:257: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
+#257: FILE: drivers/gpu/drm/i915/i915_reg.h:5690:
++#define  XELPDP_PMDEMAND_SCALERS(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_SCALERS_MASK, x)
+
+-:429: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#429: FILE: drivers/gpu/drm/i915/intel_pm.c:4244:
++	return !((intel_de_read(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(1)) & XELPDP_PMDEMAND_REQ_ENABLE) ||
+
+-:435: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#435: FILE: drivers/gpu/drm/i915/intel_pm.c:4250:
++	return !(intel_de_read(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(1)) & XELPDP_PMDEMAND_REQ_ENABLE);
+
+-:484: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'val' - possible side-effects?
+#484: FILE: drivers/gpu/drm/i915/intel_pm.c:4299:
++#define UPDATE_PMDEMAND_VAL(val, F, f) do {            \
++	val &= (~(XELPDP_PMDEMAND_##F##_MASK));         \
++	val |= (XELPDP_PMDEMAND_##F((u32)(old ? max(old->f, new->f) : new->f))); \
++} while (0)
+
+-:484: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'val' may be better as '(val)' to avoid precedence issues
+#484: FILE: drivers/gpu/drm/i915/intel_pm.c:4299:
++#define UPDATE_PMDEMAND_VAL(val, F, f) do {            \
++	val &= (~(XELPDP_PMDEMAND_##F##_MASK));         \
++	val |= (XELPDP_PMDEMAND_##F((u32)(old ? max(old->f, new->f) : new->f))); \
++} while (0)
+
+-:484: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'f' - possible side-effects?
+#484: FILE: drivers/gpu/drm/i915/intel_pm.c:4299:
++#define UPDATE_PMDEMAND_VAL(val, F, f) do {            \
++	val &= (~(XELPDP_PMDEMAND_##F##_MASK));         \
++	val |= (XELPDP_PMDEMAND_##F((u32)(old ? max(old->f, new->f) : new->f))); \
++} while (0)
+
+-:484: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'f' may be better as '(f)' to avoid precedence issues
+#484: FILE: drivers/gpu/drm/i915/intel_pm.c:4299:
++#define UPDATE_PMDEMAND_VAL(val, F, f) do {            \
++	val &= (~(XELPDP_PMDEMAND_##F##_MASK));         \
++	val |= (XELPDP_PMDEMAND_##F((u32)(old ? max(old->f, new->f) : new->f))); \
++} while (0)
+
+-:616: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'state' - possible side-effects?
+#616: FILE: drivers/gpu/drm/i915/intel_pm.h:57:
++#define intel_atomic_get_old_pmdemand_state(state) \
++	to_intel_pmdemand_state(intel_atomic_get_old_global_obj_state(state, &to_i915(state->base.dev)->pmdemand.obj))
+
+-:617: WARNING:LONG_LINE: line length of 118 exceeds 100 columns
+#617: FILE: drivers/gpu/drm/i915/intel_pm.h:58:
++	to_intel_pmdemand_state(intel_atomic_get_old_global_obj_state(state, &to_i915(state->base.dev)->pmdemand.obj))
+
+-:618: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'state' - possible side-effects?
+#618: FILE: drivers/gpu/drm/i915/intel_pm.h:59:
++#define intel_atomic_get_new_pmdemand_state(state) \
++	to_intel_pmdemand_state(intel_atomic_get_new_global_obj_state(state, &to_i915(state->base.dev)->pmdemand.obj))
+
+-:619: WARNING:LONG_LINE: line length of 118 exceeds 100 columns
+#619: FILE: drivers/gpu/drm/i915/intel_pm.h:60:
++	to_intel_pmdemand_state(intel_atomic_get_new_global_obj_state(state, &to_i915(state->base.dev)->pmdemand.obj))
+
+-:628: ERROR:NO_AUTHOR_SIGN_OFF: Missing Signed-off-by: line by nominal patch author 'Mika Kahola <mika.kahola@intel.com>'
+
+total: 2 errors, 14 warnings, 7 checks, 546 lines checked
+5035128585f4 drm/i915/mtl: C20 PLL programming
+-:189: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#189: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1041:
 +			intel_c20_write(i915, encoder->port, 0, RAWLANEAONX_DIG_TX_MPLLB_CAL_DONE_BANK(i), 0);
-+	}
-+
-+	/* 3. Write SRAM configuration context. If A in use, write configuration to B context */
-+	/* 3.1 Tx configuration */
-+	for (i = 0; i < 3; i++) {
-+		if (cntx)
+
+-:196: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#196: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1048:
 +			intel_c20_write(i915, encoder->port, 0, PHY_C20_A_TX_CNTX_CFG(i), pll_state->tx[i]);
-+		else
+
+-:198: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#198: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1050:
 +			intel_c20_write(i915, encoder->port, 0, PHY_C20_B_TX_CNTX_CFG(i), pll_state->tx[i]);
-+	}
-+
-+	/* 3.2 common configuration */
-+	for (i = 0; i < 4; i++) {
-+		if (cntx)
+
+-:204: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#204: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1056:
 +			intel_c20_write(i915, encoder->port, 0, PHY_C20_A_CMN_CNTX_CFG(i), pll_state->cmn[i]);
-+		else
+
+-:206: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#206: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1058:
 +			intel_c20_write(i915, encoder->port, 0, PHY_C20_B_CMN_CNTX_CFG(i), pll_state->cmn[i]);
-+	}
-+
-+	/* 3.3 mpllb or mplla configuration */
-+	if (intel_c20_use_mplla(pll_state->clock)) {
-+		for (i = 0; i < 10; i++) {
-+			if (cntx)
-+				intel_c20_write(i915, encoder->port, 0,
-+						PHY_C20_A_MPLLA_CNTX_CFG(i),
-+						pll_state->mplla[i]);
-+			else
-+				intel_c20_write(i915, encoder->port, 0,
-+						PHY_C20_B_MPLLA_CNTX_CFG(i),
-+						pll_state->mplla[i]);
-+		}
-+	} else {
-+		for (i = 0; i < 11; i++) {
-+			if (cntx)
-+				intel_c20_write(i915, encoder->port, 0,
-+						PHY_C20_A_MPLLB_CNTX_CFG(i),
-+						pll_state->mpllb[i]);
-+			else
-+				intel_c20_write(i915, encoder->port, 0,
-+						PHY_C20_B_MPLLB_CNTX_CFG(i),
-+						pll_state->mpllb[i]);
-+		}
-+	}
-+
-+	/* 4. Program custom width to match the link protocol */
-+	if (dp) {
-+		intel_cx0_write(i915, encoder->port, INTEL_CX0_LANE0, PHY_C20_VDR_CUSTOM_WIDTH,
-+				is_dp2(pll_state->clock) ? 2 : 0,
-+				MB_WRITE_COMMITTED);
-+		if (lane_count == 4)
+
+-:240: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
+#240: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1092:
 +			intel_cx0_write(i915, encoder->port, INTEL_CX0_LANE1, PHY_C20_VDR_CUSTOM_WIDTH,
-+					is_dp2(pll_state->clock) ? 2 : 0,
-+					MB_WRITE_COMMITTED);
-+	} else if (is_hdmi_frl(pll_state->clock)) {
-+		intel_cx0_write(i915, encoder->port, INTEL_CX0_LANE0, PHY_C20_VDR_CUSTOM_WIDTH,
-+				1, MB_WRITE_COMMITTED);
-+		if (lane_count == 4)
-+			intel_cx0_write(i915, encoder->port, INTEL_CX0_LANE1,
-+					PHY_C20_VDR_CUSTOM_WIDTH, 1, MB_WRITE_COMMITTED);
+
+-:249: CHECK:BRACES: Unbalanced braces around else statement
+#249: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1101:
 +	} else
-+		intel_cx0_write(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C20_VDR_CUSTOM_WIDTH,
-+				0, MB_WRITE_COMMITTED);
-+
-+	/* 5. For DP or 6. For HDMI */
-+	if (dp) {
+
+-:255: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#255: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1107:
 +		intel_cx0_write(i915, encoder->port, INTEL_CX0_LANE0, PHY_C20_VDR_CUSTOM_SERDES_RATE,
-+				BIT(6) | (intel_c20_get_dp_rate(pll_state->clock) << 1),
-+				MB_WRITE_COMMITTED);
-+		if (lane_count == 4)
+
+-:259: WARNING:LONG_LINE: line length of 109 exceeds 100 columns
+#259: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1111:
 +			intel_cx0_write(i915, encoder->port, INTEL_CX0_LANE1, PHY_C20_VDR_CUSTOM_SERDES_RATE,
-+					BIT(6) | (intel_c20_get_dp_rate(pll_state->clock) << 1),
-+					MB_WRITE_COMMITTED);
-+	} else {
+
+-:263: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#263: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1115:
 +		intel_cx0_write(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C20_VDR_CUSTOM_SERDES_RATE,
-+				((is_hdmi_frl(pll_state->clock) ? 1 : 0) << 7),
-+				MB_WRITE_COMMITTED);
-+
-+		intel_cx0_write(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C20_VDR_HDMI_RATE,
-+				(intel_c20_get_hdmi_rate(pll_state->clock) << 0),
-+				MB_WRITE_COMMITTED);
-+	}
-+
-+	/*
-+	 * 7. Write Vendor specific registers to toggle context setting to load
-+	 * the updated programming toggle context bit
-+	 */
-+	intel_cx0_write(i915, encoder->port, INTEL_CX0_LANE0, PHY_C20_VDR_CUSTOM_SERDES_RATE,
-+			cntx ? 0 : 1, MB_WRITE_COMMITTED);
-+	if (lane_count == 4)
+
+-:279: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#279: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1131:
 +		intel_cx0_write(i915, encoder->port, INTEL_CX0_LANE1, PHY_C20_VDR_CUSTOM_SERDES_RATE,
-+				cntx ? 0 : 1, MB_WRITE_COMMITTED);
-+}
-+
- int intel_c10mpllb_calc_port_clock(struct intel_encoder *encoder,
- 				   const struct intel_c10mpllb_state *pll_state)
- {
-@@ -945,7 +1170,11 @@ static void intel_program_port_clock_ctl(struct intel_encoder *encoder,
- 		val |= XELPDP_LANE1_PHY_CLOCK_SELECT;
- 
- 	val |= XELPDP_FORWARD_CLOCK_UNGATE;
--	val |= XELPDP_DDI_CLOCK_SELECT(XELPDP_DDI_CLOCK_SELECT_MAXPCLK);
-+
-+	if (is_hdmi_frl(crtc_state->port_clock))
-+		val |= XELPDP_DDI_CLOCK_SELECT(XELPDP_DDI_CLOCK_SELECT_DIV18CLK);
-+	else
-+		val |= XELPDP_DDI_CLOCK_SELECT(XELPDP_DDI_CLOCK_SELECT_MAXPCLK);
- 
- 	if (intel_crtc_has_dp_encoder(crtc_state)) {
- 		intel_dp = enc_to_intel_dp(encoder);
-@@ -1175,8 +1404,8 @@ static u32 intel_cx0_get_pclk_pll_ack(u8 lane)
- 		       XELPDP_LANE1_PCLK_REFCLK_REQUEST;
- }
- 
--static void intel_c10pll_enable(struct intel_encoder *encoder,
--				const struct intel_crtc_state *crtc_state)
-+void intel_cx0pll_enable(struct intel_encoder *encoder,
-+			 const struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	enum phy phy = intel_port_to_phy(i915, encoder->port);
-@@ -1184,6 +1413,7 @@ static void intel_c10pll_enable(struct intel_encoder *encoder,
- 	bool lane_reversal = dig_port->saved_port_bits & DDI_BUF_PORT_REVERSAL;
- 	u8 maxpclk_lane = lane_reversal ? INTEL_CX0_LANE1 :
- 					  INTEL_CX0_LANE0;
-+	intel_wakeref_t wakeref = intel_cx0_phy_transaction_begin(encoder);
- 
- 	/*
- 	 * 1. Program PORT_CLOCK_CTL REGISTER to configure
-@@ -1202,7 +1432,10 @@ static void intel_c10pll_enable(struct intel_encoder *encoder,
- 					    CX0_P2_STATE_READY);
- 
- 	/* 4. Program PHY internal PLL internal registers. */
--	intel_c10_pll_program(i915, crtc_state, encoder);
-+	if (intel_is_c10phy(i915, phy))
-+		intel_c10_pll_program(i915, crtc_state, encoder);
-+	else
-+		intel_c20_pll_program(i915, crtc_state, encoder);
- 
- 	/*
- 	 * 5. Program the enabled and disabled owned PHY lane
-@@ -1241,31 +1474,21 @@ static void intel_c10pll_enable(struct intel_encoder *encoder,
- 	 * 10. Follow the Display Voltage Frequency Switching Sequence After
- 	 * Frequency Change. We handle this step in bxt_set_cdclk().
- 	 */
--}
--
--void intel_cx0pll_enable(struct intel_encoder *encoder,
--			 const struct intel_crtc_state *crtc_state)
--{
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
--	enum phy phy = intel_port_to_phy(i915, encoder->port);
--	intel_wakeref_t wakeref;
--
--	wakeref = intel_cx0_phy_transaction_begin(encoder);
--
--	drm_WARN_ON(&i915->drm, !intel_is_c10phy(i915, phy));
--	intel_c10pll_enable(encoder, crtc_state);
- 
- 	intel_cx0_phy_transaction_end(encoder, wakeref);
- }
- 
--static void intel_c10pll_disable(struct intel_encoder *encoder)
-+void intel_cx0pll_disable(struct intel_encoder *encoder)
- {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	enum phy phy = intel_port_to_phy(i915, encoder->port);
-+	bool is_c10 = intel_is_c10phy(i915, phy);
-+	intel_wakeref_t wakeref = intel_cx0_phy_transaction_begin(encoder);
- 
- 	/* 1. Change owned PHY lane power to Disable state. */
- 	intel_cx0_powerdown_change_sequence(i915, encoder->port, INTEL_CX0_BOTH_LANES,
--					    CX0_P2PG_STATE_DISABLE);
-+					    is_c10 ? CX0_P2PG_STATE_DISABLE :
-+					    CX0_P4PG_STATE_DISABLE);
- 
- 	/*
- 	 * 2. Follow the Display Voltage Frequency Switching Sequence Before
-@@ -1303,18 +1526,6 @@ static void intel_c10pll_disable(struct intel_encoder *encoder)
- 		     XELPDP_DDI_CLOCK_SELECT_MASK, 0);
- 	intel_de_rmw(i915, XELPDP_PORT_CLOCK_CTL(encoder->port),
- 		     XELPDP_FORWARD_CLOCK_UNGATE, 0);
--}
--
--void intel_cx0pll_disable(struct intel_encoder *encoder)
--{
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
--	enum phy phy = intel_port_to_phy(i915, encoder->port);
--	intel_wakeref_t wakeref;
--
--	wakeref = intel_cx0_phy_transaction_begin(encoder);
--
--	drm_WARN_ON(&i915->drm, !intel_is_c10phy(i915, phy));
--	intel_c10pll_disable(encoder);
- 
- 	intel_cx0_phy_transaction_end(encoder, wakeref);
- }
-@@ -1324,7 +1535,7 @@ void intel_c10mpllb_state_verify(struct intel_atomic_state *state,
- {
- 	struct drm_i915_private *i915 = to_i915(state->base.dev);
- 	struct intel_c10mpllb_state mpllb_hw_state = { 0 };
--	struct intel_c10mpllb_state *mpllb_sw_state = &new_crtc_state->c10mpllb_state;
-+	struct intel_c10mpllb_state *mpllb_sw_state = &new_crtc_state->cx0pll_state.c10mpllb_state;
- 	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
- 	struct intel_encoder *encoder;
- 	struct intel_dp *intel_dp;
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h b/drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h
-index fad6308bbf77..b3912d15a823 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_reg_defs.h
-@@ -170,4 +170,34 @@
- #define C10_PHY_VSWING_PREEMPH_MASK             REG_GENMASK8(1, 0)
- #define C10_PHY_VSWING_PREEMPH(val)             REG_FIELD_PREP8(C10_PHY_VSWING_PREEMPH_MASK, val)
- 
-+/* C20 Registers */
-+#define PHY_C20_WR_ADDRESS_L		0xC02
-+#define PHY_C20_WR_ADDRESS_H		0xC03
-+#define PHY_C20_WR_DATA_L		0xC04
-+#define PHY_C20_WR_DATA_H		0xC05
-+#define PHY_C20_RD_ADDRESS_L		0xC06
-+#define PHY_C20_RD_ADDRESS_H		0xC07
-+#define PHY_C20_RD_DATA_L		0xC08
-+#define PHY_C20_RD_DATA_H		0xC09
-+#define PHY_C20_VDR_CUSTOM_SERDES_RATE	0xD00
-+#define PHY_C20_VDR_HDMI_RATE		0xD01
-+#define  PHY_C20_CONTEXT_TOGGLE		REG_BIT8(0)
-+#define PHY_C20_VDR_CUSTOM_WIDTH	0xD02
-+#define PHY_C20_A_TX_CNTX_CFG(idx)	(0xCF2E - (idx))
-+#define PHY_C20_B_TX_CNTX_CFG(idx)	(0xCF2A - (idx))
-+#define PHY_C20_A_CMN_CNTX_CFG(idx)	(0xCDAA - (idx))
-+#define PHY_C20_B_CMN_CNTX_CFG(idx)	(0xCDA5 - (idx))
-+#define PHY_C20_A_MPLLA_CNTX_CFG(idx)	(0xCCF0 - (idx))
-+#define PHY_C20_B_MPLLA_CNTX_CFG(idx)	(0xCCE5 - (idx))
-+#define PHY_C20_A_MPLLB_CNTX_CFG(idx)	(0xCB5A - (idx))
-+#define PHY_C20_B_MPLLB_CNTX_CFG(idx)	(0xCB4E - (idx))
-+
-+#define C20_MPLLB_FRACEN		REG_BIT(13)
-+#define C20_MPLLA_FRACEN		REG_BIT(14)
-+#define C20_MULTIPLIER_MASK		REG_GENMASK(11, 0)
-+#define C20_MPLLB_TX_CLK_DIV_MASK	REG_GENMASK(15, 13)
-+#define C20_MPLLA_TX_CLK_DIV_MASK	REG_GENMASK(10, 8)
-+
-+#define RAWLANEAONX_DIG_TX_MPLLB_CAL_DONE_BANK(idx)	(0x303D + (idx))
-+
- #endif /* __INTEL_CX0_REG_DEFS_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 1380ed2221ad..7d57cbf7e686 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3038,6 +3038,11 @@ intel_ddi_update_prepare(struct intel_atomic_state *state,
- 
- 	intel_tc_port_get_link(enc_to_dig_port(encoder),
- 		               required_lanes);
-+
-+	/* FIXME: Add MTL pll_mgr */
-+	if (DISPLAY_VER(i915) >= 14)
-+		return;
-+
- 	if (crtc_state && crtc_state->hw.active) {
- 		struct intel_crtc *slave_crtc;
- 
-@@ -3496,9 +3501,9 @@ static void mtl_ddi_get_config(struct intel_encoder *encoder,
- 
- 	drm_WARN_ON(&i915->drm, !intel_is_c10phy(i915, phy));
- 
--	intel_c10mpllb_readout_hw_state(encoder, &crtc_state->c10mpllb_state);
--	intel_c10mpllb_dump_hw_state(i915, &crtc_state->c10mpllb_state);
--	crtc_state->port_clock = intel_c10mpllb_calc_port_clock(encoder, &crtc_state->c10mpllb_state);
-+	intel_c10mpllb_readout_hw_state(encoder, &crtc_state->cx0pll_state.c10mpllb_state);
-+	intel_c10mpllb_dump_hw_state(i915, &crtc_state->cx0pll_state.c10mpllb_state);
+
+-:459: WARNING:LONG_LINE: line length of 115 exceeds 100 columns
+#459: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:3506:
 +	crtc_state->port_clock = intel_c10mpllb_calc_port_clock(encoder, &crtc_state->cx0pll_state.c10mpllb_state);
- 
- 	intel_ddi_get_config(encoder, crtc_state);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index be6ff6cdfb0b..641aa546c25f 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -974,6 +974,23 @@ struct intel_c10mpllb_state {
- 	u8 pll[20];
- };
- 
-+struct intel_c20pll_state {
-+	u32 clock; /* in kHz */
-+	u16 tx[3];
-+	u16 cmn[4];
-+	union {
-+		u16 mplla[10];
-+		u16 mpllb[11];
-+	};
-+};
+
+total: 0 errors, 11 warnings, 1 checks, 479 lines checked
+d597de60b7b7 drm/i915/mtl: C20 HW readout
+-:33: ERROR:CODE_INDENT: code indent should use tabs where possible
+#33: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:252:
++                          int lane, u16 addr)$
+
+-:33: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#33: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:252:
++                          int lane, u16 addr)$
+
+-:35: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#35: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:254:
++       u16 val;$
+
+-:37: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#37: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:256:
++       assert_dc_off(i915);$
+
+-:39: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#39: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:258:
++       intel_cx0_write(i915, port, lane, PHY_C20_RD_ADDRESS_L, addr & 0xff, 0);$
+
+-:40: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#40: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:259:
++       intel_cx0_write(i915, port, lane, PHY_C20_RD_ADDRESS_H, (addr >> 8) & 0xff, 1);$
+
+-:42: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#42: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:261:
++       val = intel_cx0_read(i915, port, lane, PHY_C20_RD_DATA_H);$
+
+-:43: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#43: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:262:
++       val <<= 8;$
+
+-:44: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#44: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:263:
++       val |= intel_cx0_read(i915, port, lane, PHY_C20_RD_DATA_L);$
+
+-:46: ERROR:CODE_INDENT: code indent should use tabs where possible
+#46: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:265:
++        return val;$
+
+-:46: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#46: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:265:
++        return val;$
+
+-:232: ERROR:CODE_INDENT: code indent should use tabs where possible
+#232: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:789:
++        &mtl_c20_dp_rbr,$
+
+-:232: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#232: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:789:
++        &mtl_c20_dp_rbr,$
+
+-:233: ERROR:CODE_INDENT: code indent should use tabs where possible
+#233: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:790:
++        &mtl_c20_dp_hbr1,$
+
+-:233: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#233: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:790:
++        &mtl_c20_dp_hbr1,$
+
+-:234: ERROR:CODE_INDENT: code indent should use tabs where possible
+#234: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:791:
++        &mtl_c20_dp_hbr2,$
+
+-:234: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#234: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:791:
++        &mtl_c20_dp_hbr2,$
+
+-:235: ERROR:CODE_INDENT: code indent should use tabs where possible
+#235: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:792:
++        &mtl_c20_dp_hbr3,$
+
+-:235: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#235: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:792:
++        &mtl_c20_dp_hbr3,$
+
+-:239: ERROR:CODE_INDENT: code indent should use tabs where possible
+#239: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:796:
++        NULL,$
+
+-:239: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#239: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:796:
++        NULL,$
+
+-:452: ERROR:CODE_INDENT: code indent should use tabs where possible
+#452: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1314:
++        const struct intel_c20pll_state * const *tables = mtl_c20_hdmi_tables;$
+
+-:452: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#452: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1314:
++        const struct intel_c20pll_state * const *tables = mtl_c20_hdmi_tables;$
+
+-:453: ERROR:CODE_INDENT: code indent should use tabs where possible
+#453: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1315:
++        int i;$
+
+-:453: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#453: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1315:
++        int i;$
+
+-:455: ERROR:CODE_INDENT: code indent should use tabs where possible
+#455: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1317:
++        for (i = 0; tables[i]; i++) {$
+
+-:455: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#455: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1317:
++        for (i = 0; tables[i]; i++) {$
+
+-:456: ERROR:CODE_INDENT: code indent should use tabs where possible
+#456: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1318:
++                if (clock == tables[i]->clock)$
+
+-:456: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#456: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1318:
++                if (clock == tables[i]->clock)$
+
+-:457: ERROR:CODE_INDENT: code indent should use tabs where possible
+#457: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1319:
++                        return MODE_OK;$
+
+-:457: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#457: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1319:
++                        return MODE_OK;$
+
+-:458: ERROR:CODE_INDENT: code indent should use tabs where possible
+#458: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1320:
++        }$
+
+-:458: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#458: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1320:
++        }$
+
+-:460: ERROR:CODE_INDENT: code indent should use tabs where possible
+#460: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1322:
++        return MODE_CLOCK_RANGE;$
+
+-:460: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#460: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1322:
++        return MODE_CLOCK_RANGE;$
+
+-:467: WARNING:BRACES: braces {} are not necessary for any arm of this statement
+#467: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1329:
++	if (intel_crtc_has_dp_encoder(crtc_state)) {
+[...]
++	} else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI)) {
+[...]
+
+-:478: ERROR:CODE_INDENT: code indent should use tabs where possible
+#478: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1340:
++^I                    struct intel_encoder *encoder)$
+
+-:478: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#478: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1340:
++int intel_c20pll_calc_state(struct intel_crtc_state *crtc_state,
++	                    struct intel_encoder *encoder)
+
+-:512: ERROR:CODE_INDENT: code indent should use tabs where possible
+#512: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1376:
++        /* 1. Read current context selection */$
+
+-:513: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#513: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1377:
++        cntx = intel_cx0_read(i915, encoder->port, 0, PHY_C20_VDR_CUSTOM_SERDES_RATE) & PHY_C20_CONTEXT_TOGGLE;
+
+-:513: ERROR:CODE_INDENT: code indent should use tabs where possible
+#513: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1377:
++        cntx = intel_cx0_read(i915, encoder->port, 0, PHY_C20_VDR_CUSTOM_SERDES_RATE) & PHY_C20_CONTEXT_TOGGLE;$
+
+-:513: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#513: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1377:
++        cntx = intel_cx0_read(i915, encoder->port, 0, PHY_C20_VDR_CUSTOM_SERDES_RATE) & PHY_C20_CONTEXT_TOGGLE;$
+
+-:575: ERROR:CODE_INDENT: code indent should use tabs where possible
+#575: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.h:39:
++                                   struct intel_c20pll_state *pll_state);$
+
+-:575: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#575: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.h:39:
++                                   struct intel_c20pll_state *pll_state);$
+
+total: 18 errors, 25 warnings, 1 checks, 600 lines checked
+a3d8325cce42 drm/i915/mtl: C20 port clock calculation
+-:50: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#50: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:1669:
++       }$
+
+-:81: WARNING:LONG_LINE: line length of 123 exceeds 100 columns
+#81: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:3505:
++		crtc_state->port_clock = intel_c10mpllb_calc_port_clock(encoder, &crtc_state->cx0pll_state.c10mpllb_state);
+
+-:84: WARNING:LONG_LINE: line length of 119 exceeds 100 columns
+#84: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:3508:
++		crtc_state->port_clock = intel_c20pll_calc_port_clock(encoder, &crtc_state->cx0pll_state.c20pll_state);
+
+total: 0 errors, 3 warnings, 0 checks, 66 lines checked
+895f024ecb44 drm/i915/mtl: C20 HDMI state calculations
+2be28e185747 drm/i915/mtl: Add voltage swing sequence for C20
+-:40: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#40: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:354:
++				      C20_PHY_VSWING_PREEMPH(trans->entries[level].snps.post_cursor),
+
+total: 0 errors, 1 warnings, 0 checks, 103 lines checked
+57ad27362fd8 drm/i915/mtl: For DP2.0 10G and 20G rates use MPLLA
+4a4dbdf3bd62 drm/i915/mtl: Enabling/disabling sequence Thunderbolt pll
+-:54: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#54: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:2043:
++       }$
+
+total: 0 errors, 1 warnings, 0 checks, 189 lines checked
+d553525ce876 drm/i915/mtl: Readout Thunderbolt HW state
+-:42: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+#42: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:2053:
++       }$
+
+total: 0 errors, 1 warnings, 0 checks, 51 lines checked
+42dc73e57c8e drm/i915/mtl: Enable TC ports
+8cb2db71ab71 drm/i915/mtl: MTL PICA hotplug detection
+-:53: CHECK:LINE_SPACING: Please don't use multiple blank lines
+#53: FILE: drivers/gpu/drm/i915/i915_irq.c:202:
 +
-+struct intel_cx0pll_state {
-+	union {
-+		struct intel_c10mpllb_state c10mpllb_state;
-+		struct intel_c20pll_state c20pll_state;
-+	};
-+};
 +
- struct intel_crtc_state {
- 	/*
- 	 * uapi (drm) state. This is the software state shown to userspace.
-@@ -1113,7 +1130,7 @@ struct intel_crtc_state {
- 	union {
- 		struct intel_dpll_hw_state dpll_hw_state;
- 		struct intel_mpllb_state mpllb_state;
--		struct intel_c10mpllb_state c10mpllb_state;
-+		struct intel_cx0pll_state cx0pll_state;
- 	};
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 0c96444776c4..adaf0ee6cf27 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -52,6 +52,7 @@
- #include "intel_combo_phy_regs.h"
- #include "intel_connector.h"
- #include "intel_crtc.h"
-+#include "intel_cx0_phy.h"
- #include "intel_ddi.h"
- #include "intel_de.h"
- #include "intel_display_types.h"
-@@ -422,7 +423,14 @@ static int ehl_max_source_rate(struct intel_dp *intel_dp)
- 
- static int mtl_max_source_rate(struct intel_dp *intel_dp)
- {
--	return intel_dp_is_edp(intel_dp) ? 675000 : 810000;
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-+	enum phy phy = intel_port_to_phy(i915, dig_port->base.port);
+
+-:235: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
+#235: FILE: drivers/gpu/drm/i915/i915_irq.c:3607:
 +
-+	if (intel_is_c10phy(i915, phy))
-+		return intel_dp_is_edp(intel_dp) ? 675000 : 810000;
-+
-+	return 2000000;
- }
- 
- static int vbt_max_link_rate(struct intel_dp *intel_dp)
-@@ -451,7 +459,7 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
- 	/* The values must be in increasing order */
- 	static const int mtl_rates[] = {
- 		162000, 216000, 243000, 270000, 324000, 432000, 540000, 675000,
--		810000,
-+		810000,	1000000, 1350000, 2000000,
- 	};
- 	static const int icl_rates[] = {
- 		162000, 216000, 270000, 324000, 432000, 540000, 648000, 810000,
--- 
-2.34.1
++}
+
+total: 0 errors, 0 warnings, 2 checks, 353 lines checked
+507382c65d05 drm/i915/mtl: Define mask for DDI AUX interrupts
+24b5d50c8990 drm/i915/mtl: Power up TCSS
+bd30536c462b drm/i915/mtl: Pin assignment for TypeC
+-:47: ERROR:SPACING: space required before the open parenthesis '('
+#47: FILE: drivers/gpu/drm/i915/display/intel_tc.c:167:
++	switch(pin_mask) {
+
+total: 1 errors, 0 warnings, 0 checks, 48 lines checked
+
 
