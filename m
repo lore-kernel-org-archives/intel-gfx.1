@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D8D6C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 15:25:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11CA7C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Oct 2022 15:27:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72C6010EB07;
-	Fri, 14 Oct 2022 15:25:55 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1036B10E2AE
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Oct 2022 15:25:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5178B10EB1D;
+	Fri, 14 Oct 2022 15:27:40 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AABB010EB1D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Oct 2022 15:27:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665761150; x=1697297150;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=6kFDV7Zv22HZf+ut8dKoUnzdRPKi7hSWUQJiX1xRRZs=;
- b=T9ttE4pOrYyw3vWYMFj4f9vrmujhZ0C/88D/Gg15rpIpjRbMbZxHam4f
- 5P95K29JHhync2iUi+ZA7cvg6EaFiUlvDW2YcFynwex/VAczrYblw8cN6
- W9j5wFuVzchlvoePhjJQJF/VBXKg0pusG6Tl3rslR9dL1TFaG0QaXO1jt
- OOYCxnQhYiV+lOExafCfOyJ5krdDoor4LhGicqrWN+ixsjNb1SmCsW4XD
- WTTz4CENJ9tjA6H8pl7y5hDkIp3nX2ZsG9bdiBvVGfKQC0aQRHbWuh6ai
- c2jD1w1RqCqKlS4eEnWLD5FF0xc8k055lw8RBPNFdb9Wvnv8cq7thrL0i Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="391705996"
-X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="391705996"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2022 08:25:33 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="956618200"
-X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="956618200"
-Received: from nirmoyda-desk.igk.intel.com ([10.102.13.19])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2022 08:25:32 -0700
-From: Nirmoy Das <nirmoy.das@intel.com>
+ t=1665761256; x=1697297256;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=CGJlN7W0nAZVJSCPzQBRErQrftj598LXgzYyGOlpzS0=;
+ b=l9b9AXcVm3mff6VPETU1W+AP2UK+MOLAmFDKE92e/O1xSHFzN2rc3rwQ
+ WcxH0hYcGNh1jCqdt0KfViy9KUEpwCWdz/gcK3kSjAYfSzuFcXfJOb9Wn
+ eTFW7vG/JpJouHaohYjLdlFN05Huw8O7Ex1VWN9eg54pJ+qYbJF+iDhJS
+ ftxr6vEx+4TGgOqyPB/UFN8oHlf1diGAbakzzOTD7t+JYfpkfhQjZp/9t
+ 0HhA1VupEcmmW0y8MlznFAjyk3d9rbQ/hBxJ7MooTSZetWfcan4Z5d7kB
+ mD9vbUt0uIsKh43JA1Nn1fmIYO/3obKYSgUb7SnBGwXi9vTGEw5PN9urG A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="285791236"
+X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="285791236"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2022 08:27:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10500"; a="696340303"
+X-IronPort-AV: E=Sophos;i="5.95,184,1661842800"; d="scan'208";a="696340303"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
+ by fmsmga004.fm.intel.com with ESMTP; 14 Oct 2022 08:27:34 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 Oct 2022 17:25:25 +0200
-Message-Id: <20221014152525.7683-1-nirmoy.das@intel.com>
-X-Mailer: git-send-email 2.37.3
+Date: Fri, 14 Oct 2022 20:56:19 +0530
+Message-Id: <20221014152622.233398-2-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221014152622.233398-1-suraj.kandpal@intel.com>
+References: <20221014152622.233398-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-Organization: Intel Deutschland GmbH, Registered Address: Am Campeon 10,
- 85579 Neubiberg, Germany,
- Commercial Register: Amtsgericht Muenchen HRB 186928 
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: Print return value on error
+Subject: [Intel-gfx] [PATCH v4 1/4] drm/i915/dp: Check if DSC supports the
+ given output_format
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,49 +57,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Print returned error code for better debuggability.
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-References: https://gitlab.freedesktop.org/drm/intel/-/issues/7211
-Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+Go with DSC only if the given output_format is supported.
+
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbdev.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 29 +++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 112aa0447a0d..015a854d9bec 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -175,7 +175,7 @@ static int intelfb_alloc(struct drm_fb_helper *helper,
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 70b06806ec0d..c212171cced7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1464,6 +1464,32 @@ static int intel_dp_dsc_compute_params(struct intel_encoder *encoder,
+ 	return drm_dsc_compute_rc_parameters(vdsc_cfg);
+ }
  
- 	if (IS_ERR(obj)) {
--		drm_err(&dev_priv->drm, "failed to allocate framebuffer\n");
-+		drm_err(&dev_priv->drm, "failed to allocate framebuffer(err = %pe)\n", obj);
- 		return PTR_ERR(obj);
- 	}
++static bool intel_dp_dsc_supports_format(struct intel_dp *intel_dp,
++					 enum intel_output_format output_format)
++{
++	u8 sink_dsc_format;
++
++	switch (output_format) {
++	case INTEL_OUTPUT_FORMAT_RGB:
++		sink_dsc_format = DP_DSC_RGB;
++		break;
++	case INTEL_OUTPUT_FORMAT_YCBCR444:
++		sink_dsc_format = DP_DSC_YCbCr444;
++		break;
++	case INTEL_OUTPUT_FORMAT_YCBCR420:
++		if (min(intel_dp_source_dsc_version_minor(intel_dp),
++			intel_dp_sink_dsc_version_minor(intel_dp)) < 2)
++			return false;
++		sink_dsc_format = DP_DSC_YCbCr420_Native;
++		break;
++	default:
++		return false;
++	}
++
++	return intel_dp->dsc_dpcd[DP_DSC_DEC_COLOR_FORMAT_CAP - DP_DSC_SUPPORT] &
++	       sink_dsc_format;
++}
++
+ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				       struct intel_crtc_state *pipe_config,
+ 				       struct drm_connector_state *conn_state,
+@@ -1482,6 +1508,9 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
+ 		return -EINVAL;
  
-@@ -256,7 +256,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
++	if (!intel_dp_dsc_supports_format(intel_dp, pipe_config->output_format))
++		return -EINVAL;
++
+ 	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
  
- 	info = drm_fb_helper_alloc_fbi(helper);
- 	if (IS_ERR(info)) {
--		drm_err(&dev_priv->drm, "Failed to allocate fb_info\n");
-+		drm_err(&dev_priv->drm, "Failed to allocate fb_info(err = %pe)\n", info);
- 		ret = PTR_ERR(info);
- 		goto out_unpin;
- 	}
-@@ -291,7 +291,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
- 	vaddr = i915_vma_pin_iomap(vma);
- 	if (IS_ERR(vaddr)) {
- 		drm_err(&dev_priv->drm,
--			"Failed to remap framebuffer into virtual memory\n");
-+			"Failed to remap framebuffer into virtual memory (err = %pe)\n", vaddr);
- 		ret = PTR_ERR(vaddr);
- 		goto out_unpin;
- 	}
+ 	if (intel_dp->force_dsc_bpc) {
 -- 
-2.37.3
+2.25.1
 
