@@ -4,82 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D07B1C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:57:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71258C43219
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:57:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E6CC10EE19;
-	Mon, 17 Oct 2022 19:56:40 +0000 (UTC)
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4E5F10E0D0;
- Sun, 16 Oct 2022 18:09:49 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- c7-20020a05600c0ac700b003c6cad86f38so10788376wmr.2; 
- Sun, 16 Oct 2022 11:09:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5655D10EE16;
+	Mon, 17 Oct 2022 19:56:39 +0000 (UTC)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E437810E853;
+ Sun, 16 Oct 2022 18:56:26 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id d6so14464259lfs.10;
+ Sun, 16 Oct 2022 11:56:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sy/r1oKj6pjC6tDTxJAus+AvI8wYjcvPrvVlllaZosE=;
- b=jhVs03HebeLgK4gCknqUY7zv32A2/tNizCdKRVC+Q6gLrPJmkHF6T9sARRl7aB23ra
- O2u9fU1whvzvVevdGJpVJTYAtNQOcDGdC3z5DY/K6CYxWWPXGKscf/pjyAAJkRE7b/vv
- GsTtSKxCBPcDfFc+elHGDSGL9vf/LS+MOqJLie2gptXM9g45FnH2PrErpKYdC5tSasI4
- 9QHfevd/9k42Lm8ENnU+sq+wnFs7TlF6Zvp9XjHlRURgVDJDgvGCh9sfStyA/9m8rAI/
- RjO5gmt8MoTRO4c1I5o24kM88Wd8OAyo5WFs8qt4WIVVS4VQyq8Sgn89xzmgJunZgrqd
- sUAw==
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:reply-to:subject:user-agent:mime-version:date:message-id:from
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9R5DRkDar97t7RGa7ZkHbwXUyJ5tEv/b58zZkFRpKIU=;
+ b=UqSCa35znTFAW2XjpbRvdh7DaqZHpIJN6v4AXacEElZvxQlvD6nM1NZ8Ag4JRpl3yk
+ tQA8VjWsFBR1wJX/Ss+CPqCol92EEvV5Raj+pM0cSuC99zTk0doGl7wmBnhKuxgF1Ygk
+ fg/0fyZAwvrTzcQj7VkncMJ+fonMoDA4arz05pgdToty0rBiXkoKPedTqvwmaoXAbTg+
+ v3woOrrTfXBCGMASf2KyRUme4mDbwgrtVNogi54B0uEQTGHlblMTfWTbB8IpJkPkXm6d
+ e3JS1uHEJHUVESdK67TNOFvIWA7dgP90CYwGzpBFC03lpCGGnnp4EI/sbS04iqDtsz+L
+ ezsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=sy/r1oKj6pjC6tDTxJAus+AvI8wYjcvPrvVlllaZosE=;
- b=fcTLcU8+pstxgw7GcWxv0wEHhNkcT0BspkTmxG9GN8ViOjxb441aWz8OXvX+YSlUxR
- zt+M9mpLflDT+ncMlmjONqFmXyu9x6I1+rKVNoQ92EJGgDr6wrgtqGdZnEFOcecFdWP1
- fv8xToNYb7y9wrxEETYjjiq1gXtMxvPYHF2YWxslSa/TmIGIEG/GGGCUD5zIFhymt5Bk
- ls7W+vbI3g4lMsoLOj1j6uDEMmFxiebwfu9Z8R5uHIDXZvB+pDmrZWNWZ62WwWPT92Mx
- AMEbzuidhujQkU9jqGmBrjAE4K1+tLUSUCsuZMmi8VFLtZiDJeDLb/B6lYmge6TVLI/f
- s3bw==
-X-Gm-Message-State: ACrzQf0Chh5c2afciWMKaFY2nxQeGvgSXBeRNFBh+7T6tP3i25GJWIgd
- sfXSILtgP9IR2srGeRNjLDc=
-X-Google-Smtp-Source: AMsMyM429gVcrmq2vVmbF0aisu9csZqLaMboh6B4truVw62DWDKu+Ln262TAG0cL+qGqSPwRs+/Zcg==
-X-Received: by 2002:a05:600c:5490:b0:3c6:d8f2:6e1a with SMTP id
- iv16-20020a05600c549000b003c6d8f26e1amr4989604wmb.90.1665943788240; 
- Sun, 16 Oct 2022 11:09:48 -0700 (PDT)
-Received: from localhost.localdomain
- (host-95-250-231-122.retail.telecomitalia.it. [95.250.231.122])
- by smtp.gmail.com with ESMTPSA id
- v9-20020a05600c444900b003c6f8d30e40sm156225wmn.31.2022.10.16.11.09.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Oct 2022 11:09:47 -0700 (PDT)
-From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Nirmoy Das <nirmoy.das@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- John Harrison <John.C.Harrison@Intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org
-Date: Sun, 16 Oct 2022 20:09:36 +0200
-Message-Id: <20221016180938.17403-2-fmdefrancesco@gmail.com>
-X-Mailer: git-send-email 2.38.0
-In-Reply-To: <20221016180938.17403-1-fmdefrancesco@gmail.com>
-References: <20221016180938.17403-1-fmdefrancesco@gmail.com>
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:reply-to:subject:user-agent:mime-version:date:message-id:from
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=9R5DRkDar97t7RGa7ZkHbwXUyJ5tEv/b58zZkFRpKIU=;
+ b=6E80ZwsjpspaV7aQxvTFnTLQl4BfKQhSxkgdL1aKUhCq3RTkAJC/PY4PLTNSoFX/9F
+ 2ky12Y2fYnpavxxvp/7+bi64ApPv9DCdiSMtVlOtZYAd9e3u81GT7R0oBFVs3qrCX/1A
+ IvVY11FwkDIx5VYOT0ZHT+xBnMeSOIjUpgx/Tk08cZV6A20bvbzudd9MqeC7DCTzeiFk
+ Bk7Gyx9pprivsUBhfJCo81x7GhG+Zsx70FDUrhMOcK5wvhJ7slrUPBFYt2SaWtv4qHBa
+ jDzxPqDiEzRbsW/3P79Cb+7AZB9kvFbs0FKCB8V1f9kRJFNoDk9DJp8C54qjjPLCoblS
+ Ojdg==
+X-Gm-Message-State: ACrzQf1oHbrAR4pAUUr98XDMYEANleVMFuMo+HnqM8CqvW1d+i4ZewM8
+ AqUXbPjDkdVhkhkh3Jv7uU0=
+X-Google-Smtp-Source: AMsMyM5uYxB/6xJ5gGhOv3WAH6+V6GDD4KbrqZFfIThsPvWDKXTV721fShUokapp2H2agrxIAik1vw==
+X-Received: by 2002:ac2:46da:0:b0:4a2:2963:71b0 with SMTP id
+ p26-20020ac246da000000b004a2296371b0mr2564386lfo.600.1665946584951; 
+ Sun, 16 Oct 2022 11:56:24 -0700 (PDT)
+Received: from ?IPV6:2a02:a31a:a240:1700:64bb:87df:aad7:a9f0?
+ ([2a02:a31a:a240:1700:64bb:87df:aad7:a9f0])
+ by smtp.googlemail.com with ESMTPSA id
+ p24-20020a2ea4d8000000b0026de7400f3bsm1237043ljm.5.2022.10.16.11.56.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 16 Oct 2022 11:56:24 -0700 (PDT)
+From: Mateusz Kwiatkowski <kfyatek@gmail.com>
+X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Message-ID: <0f2beec2-ae8e-5579-f0b6-a73d9dae1af4@gmail.com>
+Date: Sun, 16 Oct 2022 20:56:22 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.3
+To: Maxime Ripard <maxime@cerno.tech>, Karol Herbst <kherbst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@linux.ie>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lyude Paul <lyude@redhat.com>, Maxime Ripard <mripard@kernel.org>,
+ Emma Anholt <emma@anholt.net>, Chen-Yu Tsai <wens@csie.org>,
+ Samuel Holland <samuel@sholland.org>, Ben Skeggs <bskeggs@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>
+References: <20220728-rpi-analog-tv-properties-v5-0-d841cc64fe4b@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v5-20-d841cc64fe4b@cerno.tech>
+ <c1949248-fb40-682c-492e-bafbd915cee3@gmail.com>
+Content-Language: pl
+In-Reply-To: <c1949248-fb40-682c-492e-bafbd915cee3@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 17 Oct 2022 19:56:17 +0000
-Subject: [Intel-gfx] [RESEND PATCH 1/3] drm/i915: Replace kmap() with
- kmap_local_page()
+Subject: Re: [Intel-gfx] [PATCH v5 20/22] drm/vc4: vec: Convert to the new
+ TV mode property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,76 +92,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ira Weiny <ira.weiny@intel.com>, "Venkataramanan,
- Anirudh" <anirudh.venkataramanan@intel.com>,
- "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+Reply-To: kfyatek+publicgit@gmail.com
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Phil Elwell <phil@raspberrypi.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-kmap() is being deprecated in favor of kmap_local_page().
+Hi Maxime,
 
-There are two main problems with kmap(): (1) It comes with an overhead as
-mapping space is restricted and protected by a global lock for
-synchronization and (2) it also requires global TLB invalidation when the
-kmap’s pool wraps and it might block when the mapping space is fully
-utilized until a slot becomes available.
+Urgh. I cannot send e-mails apparently today, as I removed the second half of
+the previous message. Here goes:
 
-With kmap_local_page() the mappings are per thread, CPU local, can take
-page faults, and can be called from any context (including interrupts).
-It is faster than kmap() in kernels with HIGHMEM enabled. Furthermore,
-the tasks can be preempted and, when they are scheduled to run again, the
-kernel virtual addresses are restored and are still valid.
+> @@ -454,13 +563,6 @@ static int vc4_vec_encoder_atomic_check(struct drm_encoder *encoder,
+>  					struct drm_connector_state *conn_state)
+>  {
+>  	const struct drm_display_mode *mode = &crtc_state->adjusted_mode;
 
-Since its use in i915_gem.c is safe everywhere, it should be preferred.
+You could add here something like:
 
-Therefore, replace kmap() with kmap_local_page() in i915_gem.c
++	const struct vc4_vec_tv_mode *tv_mode =
++		vc4_vec_tv_mode_lookup(conn_state->tv.mode);
++
++	if (!tv_mode)
++		return -EINVAL;
 
-Cc: "Venkataramanan, Anirudh" <anirudh.venkataramanan@intel.com>
-Suggested-by: Ira Weiny <ira.weiny@intel.com>
-Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
----
- drivers/gpu/drm/i915/i915_gem.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+This should explicitly make it impossible to enter the equivalent condition in
+vc4_vec_encoder_enable() that causes the problem mentioned in the previous
+e-mail.
 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 702e5b89be22..43effce60e1b 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -212,14 +212,14 @@ shmem_pread(struct page *page, int offset, int len, char __user *user_data,
- 	char *vaddr;
- 	int ret;
- 
--	vaddr = kmap(page);
-+	vaddr = kmap_local_page(page);
- 
- 	if (needs_clflush)
- 		drm_clflush_virt_range(vaddr + offset, len);
- 
- 	ret = __copy_to_user(user_data, vaddr + offset, len);
- 
--	kunmap(page);
-+	kunmap_local(vaddr);
- 
- 	return ret ? -EFAULT : 0;
- }
-@@ -634,7 +634,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
- 	char *vaddr;
- 	int ret;
- 
--	vaddr = kmap(page);
-+	vaddr = kmap_local_page(page);
- 
- 	if (needs_clflush_before)
- 		drm_clflush_virt_range(vaddr + offset, len);
-@@ -643,7 +643,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
- 	if (!ret && needs_clflush_after)
- 		drm_clflush_virt_range(vaddr + offset, len);
- 
--	kunmap(page);
-+	kunmap_local(vaddr);
- 
- 	return ret ? -EFAULT : 0;
- }
--- 
-2.37.1
+This is probably basically impossible already, but I triggered that when testing
+a follow-up change I'd like to post shortly.
+
+> -	const struct vc4_vec_tv_mode *vec_mode;
+> -
+> -	vec_mode = &vc4_vec_tv_modes[conn_state->tv.legacy_mode];
+> -
+> -	if (conn_state->crtc &&
+> -	    !drm_mode_equal(vec_mode->mode, &crtc_state->adjusted_mode))
+> -		return -EINVAL;
+
+If you're removing the reference mode, then I think you should at least add
+checks that the crtc_clock is set to 13.5 MHz (it's otherwise ignored) and that
+crtc_htotal is either 858 or 864 (using a switch over reference_mode->htotal as
+I proposed in my comment to patch 19/22 would double as such check), as all
+other values causes VEC to output garbage.
+
+Best regards,
+Mateusz Kwiatkowski
 
