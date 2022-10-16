@@ -4,64 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDC46C43217
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:57:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D07B1C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:57:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E53A10EE17;
-	Mon, 17 Oct 2022 19:56:38 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A67C10E7B6;
- Tue, 11 Oct 2022 06:27:24 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id bp11so7243806wrb.9;
- Mon, 10 Oct 2022 23:27:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E6CC10EE19;
+	Mon, 17 Oct 2022 19:56:40 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4E5F10E0D0;
+ Sun, 16 Oct 2022 18:09:49 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ c7-20020a05600c0ac700b003c6cad86f38so10788376wmr.2; 
+ Sun, 16 Oct 2022 11:09:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:cc:to:subject:from:date:from:to:cc:subject:date
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0w8KGzGuvSzltAZdX8cl8yXaNHAwAsGs64+X1MnyKz4=;
- b=nt2Bk2i0Wvg9Z1K5eWtXLPYJmF2uh8X3u4KhfczGQTpC8cwAJ1t4w+ekvZeahuAKre
- ErRt/lZKKAul+u0js1JZVzcMsLneJuQm+cjqkQ8fM3gbsXxkziRbyIS7cJxFeyHb1fDP
- N/uTIXtU6+t3LA5n7lPKczHtBOzixdZkEIiU2/+dlE/dPKpCkxPE3fbWRtbJauP/twsR
- xMlIbknGTtXp8N3Laj9ZYhGHGqc3MRB9LiASlzkPp8ZqHafIRcEDT7sFdgbBv2n9W/yo
- /kzoN8TTBBX8WqOUp2wWTM056TUP0ngGL/MlGJVKFxg9ssduT88BNGYAygJYEMhxiv0T
- Pseg==
+ bh=sy/r1oKj6pjC6tDTxJAus+AvI8wYjcvPrvVlllaZosE=;
+ b=jhVs03HebeLgK4gCknqUY7zv32A2/tNizCdKRVC+Q6gLrPJmkHF6T9sARRl7aB23ra
+ O2u9fU1whvzvVevdGJpVJTYAtNQOcDGdC3z5DY/K6CYxWWPXGKscf/pjyAAJkRE7b/vv
+ GsTtSKxCBPcDfFc+elHGDSGL9vf/LS+MOqJLie2gptXM9g45FnH2PrErpKYdC5tSasI4
+ 9QHfevd/9k42Lm8ENnU+sq+wnFs7TlF6Zvp9XjHlRURgVDJDgvGCh9sfStyA/9m8rAI/
+ RjO5gmt8MoTRO4c1I5o24kM88Wd8OAyo5WFs8qt4WIVVS4VQyq8Sgn89xzmgJunZgrqd
+ sUAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:cc:to:subject:from:date:x-gm-message-state:from:to:cc
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0w8KGzGuvSzltAZdX8cl8yXaNHAwAsGs64+X1MnyKz4=;
- b=J/XOyWxSCyxLRtr4aAUOk/KRHxgLke1OLWeTUelSBM2sCTQPRskWX8fsFouJEZzs7A
- 7ZSzCuEO4ZFcJrNNsduQ/D73l4g1lEqjEIE5w20Kw2rLp5Kjezx/yXqlhqmei4AqGR2b
- HhgZmKklGLR09RAXo5llJz0+1UPvrCr8Z8L8dxrjaUdSYoNI5aAiKxq0ZWjlCrnHErOI
- /gDX1otQ09q59lhnkZaHYw3frbS7ygr4HGc4+BzZEym+fmutTimzEGGI55Gcsb+11Q4j
- oxmllEIqNPvEzIHdlIMLcIPIi9UN49JFiKfYFEZpw7CHd1nXinG+NQ7PhNvN1L+Y/69p
- ms4w==
-X-Gm-Message-State: ACrzQf0wvyygoqiyGuc4drGK/8pCRWlXFil13tso8kI6bFyZazsK2uQX
- pxD0i+sLmlUFEhQkuFKym18=
-X-Google-Smtp-Source: AMsMyM6aCAPv7AgDk7ukmpHffbaN2G+tUhMBQ0pSjLlhdBalKzMELngowvczKh5sW/+QYTd+LSfdoA==
-X-Received: by 2002:a5d:4a01:0:b0:21d:8ce1:8b6d with SMTP id
- m1-20020a5d4a01000000b0021d8ce18b6dmr13751400wrq.718.1665469642666; 
- Mon, 10 Oct 2022 23:27:22 -0700 (PDT)
-Received: from matebook-d-15 ([2a01:e0a:1d2:1f90:be95:f3a2:4d99:a3b3])
+ bh=sy/r1oKj6pjC6tDTxJAus+AvI8wYjcvPrvVlllaZosE=;
+ b=fcTLcU8+pstxgw7GcWxv0wEHhNkcT0BspkTmxG9GN8ViOjxb441aWz8OXvX+YSlUxR
+ zt+M9mpLflDT+ncMlmjONqFmXyu9x6I1+rKVNoQ92EJGgDr6wrgtqGdZnEFOcecFdWP1
+ fv8xToNYb7y9wrxEETYjjiq1gXtMxvPYHF2YWxslSa/TmIGIEG/GGGCUD5zIFhymt5Bk
+ ls7W+vbI3g4lMsoLOj1j6uDEMmFxiebwfu9Z8R5uHIDXZvB+pDmrZWNWZ62WwWPT92Mx
+ AMEbzuidhujQkU9jqGmBrjAE4K1+tLUSUCsuZMmi8VFLtZiDJeDLb/B6lYmge6TVLI/f
+ s3bw==
+X-Gm-Message-State: ACrzQf0Chh5c2afciWMKaFY2nxQeGvgSXBeRNFBh+7T6tP3i25GJWIgd
+ sfXSILtgP9IR2srGeRNjLDc=
+X-Google-Smtp-Source: AMsMyM429gVcrmq2vVmbF0aisu9csZqLaMboh6B4truVw62DWDKu+Ln262TAG0cL+qGqSPwRs+/Zcg==
+X-Received: by 2002:a05:600c:5490:b0:3c6:d8f2:6e1a with SMTP id
+ iv16-20020a05600c549000b003c6d8f26e1amr4989604wmb.90.1665943788240; 
+ Sun, 16 Oct 2022 11:09:48 -0700 (PDT)
+Received: from localhost.localdomain
+ (host-95-250-231-122.retail.telecomitalia.it. [95.250.231.122])
  by smtp.gmail.com with ESMTPSA id
- r16-20020adff710000000b0022afbd02c69sm10268120wrp.56.2022.10.10.23.27.22
+ v9-20020a05600c444900b003c6f8d30e40sm156225wmn.31.2022.10.16.11.09.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Oct 2022 23:27:22 -0700 (PDT)
-Date: Tue, 11 Oct 2022 08:27:16 +0200
-From: Matthieu CHARETTE <matthieu.charette@gmail.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-Id: <GLSKJR.CU4DWLJQSTHT2@gmail.com>
-In-Reply-To: <20221006222146.2375217-1-jani.nikula@intel.com>
-References: <20221006222146.2375217-1-jani.nikula@intel.com>
-X-Mailer: geary/40.0
+ Sun, 16 Oct 2022 11:09:47 -0700 (PDT)
+From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ John Harrison <John.C.Harrison@Intel.com>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org
+Date: Sun, 16 Oct 2022 20:09:36 +0200
+Message-Id: <20221016180938.17403-2-fmdefrancesco@gmail.com>
+X-Mailer: git-send-email 2.38.0
+In-Reply-To: <20221016180938.17403-1-fmdefrancesco@gmail.com>
+References: <20221016180938.17403-1-fmdefrancesco@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 17 Oct 2022 19:56:17 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/edid/firmware: stop using throwaway
- platform device
+Subject: [Intel-gfx] [RESEND PATCH 1/3] drm/i915: Replace kmap() with
+ kmap_local_page()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,68 +92,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Ira Weiny <ira.weiny@intel.com>, "Venkataramanan,
+ Anirudh" <anirudh.venkataramanan@intel.com>,
+ "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It should fix the issue. Meanwhile, the system will still crash if a=20
-new monitor is plugged while the machine is suspended. We might need to=20
-precache the EDID to prevent that.
+kmap() is being deprecated in favor of kmap_local_page().
 
-Matthieu
+There are two main problems with kmap(): (1) It comes with an overhead as
+mapping space is restricted and protected by a global lock for
+synchronization and (2) it also requires global TLB invalidation when the
+kmap’s pool wraps and it might block when the mapping space is fully
+utilized until a slot becomes available.
 
-On Fri, Oct 7 2022 at 01:21:46 AM +0300, Jani Nikula=20
-<jani.nikula@intel.com> wrote:
-> We've used a temporary platform device for firmware EDID loading since
-> it was introduced in commit da0df92b5731 ("drm: allow loading an EDID=20
-> as
-> firmware to override broken monitor"), but there's no explanation why.
->=20
-> Do we need to?
->=20
-> Maybe this fixes the suspend/resume issue?
->=20
-> (Yes, I'll rewrite the commit message if this is the way to go ;)
->=20
-> References:=20
-> https://lore.kernel.org/r/20220727074152.43059-1-matthieu.charette@gmail.=
-com
-> Cc: Matthieu CHARETTE <matthieu.charette@gmail.com>
-> Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> ---
->  drivers/gpu/drm/drm_edid_load.c | 11 +----------
->  1 file changed, 1 insertion(+), 10 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_edid_load.c=20
-> b/drivers/gpu/drm/drm_edid_load.c
-> index 37d8ba3ddb46..fbae12130234 100644
-> --- a/drivers/gpu/drm/drm_edid_load.c
-> +++ b/drivers/gpu/drm/drm_edid_load.c
-> @@ -182,18 +182,9 @@ static void *edid_load(struct drm_connector=20
-> *connector, const char *name,
->  		fwdata =3D generic_edid[builtin];
->  		fwsize =3D sizeof(generic_edid[builtin]);
->  	} else {
-> -		struct platform_device *pdev;
->  		int err;
->=20
-> -		pdev =3D platform_device_register_simple(connector_name, -1, NULL,=20
-> 0);
-> -		if (IS_ERR(pdev)) {
-> -			DRM_ERROR("Failed to register EDID firmware platform device "
-> -				  "for connector \"%s\"\n", connector_name);
-> -			return ERR_CAST(pdev);
-> -		}
-> -
-> -		err =3D request_firmware(&fw, name, &pdev->dev);
-> -		platform_device_unregister(pdev);
-> +		err =3D request_firmware(&fw, name, connector->dev->dev);
->  		if (err) {
->  			DRM_ERROR("Requesting EDID firmware \"%s\" failed (err=3D%d)\n",
->  				  name, err);
-> --
-> 2.34.1
->=20
+With kmap_local_page() the mappings are per thread, CPU local, can take
+page faults, and can be called from any context (including interrupts).
+It is faster than kmap() in kernels with HIGHMEM enabled. Furthermore,
+the tasks can be preempted and, when they are scheduled to run again, the
+kernel virtual addresses are restored and are still valid.
 
+Since its use in i915_gem.c is safe everywhere, it should be preferred.
+
+Therefore, replace kmap() with kmap_local_page() in i915_gem.c
+
+Cc: "Venkataramanan, Anirudh" <anirudh.venkataramanan@intel.com>
+Suggested-by: Ira Weiny <ira.weiny@intel.com>
+Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+---
+ drivers/gpu/drm/i915/i915_gem.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 702e5b89be22..43effce60e1b 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -212,14 +212,14 @@ shmem_pread(struct page *page, int offset, int len, char __user *user_data,
+ 	char *vaddr;
+ 	int ret;
+ 
+-	vaddr = kmap(page);
++	vaddr = kmap_local_page(page);
+ 
+ 	if (needs_clflush)
+ 		drm_clflush_virt_range(vaddr + offset, len);
+ 
+ 	ret = __copy_to_user(user_data, vaddr + offset, len);
+ 
+-	kunmap(page);
++	kunmap_local(vaddr);
+ 
+ 	return ret ? -EFAULT : 0;
+ }
+@@ -634,7 +634,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
+ 	char *vaddr;
+ 	int ret;
+ 
+-	vaddr = kmap(page);
++	vaddr = kmap_local_page(page);
+ 
+ 	if (needs_clflush_before)
+ 		drm_clflush_virt_range(vaddr + offset, len);
+@@ -643,7 +643,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
+ 	if (!ret && needs_clflush_after)
+ 		drm_clflush_virt_range(vaddr + offset, len);
+ 
+-	kunmap(page);
++	kunmap_local(vaddr);
+ 
+ 	return ret ? -EFAULT : 0;
+ }
+-- 
+2.37.1
 
