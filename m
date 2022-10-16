@@ -4,81 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81FD6C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:57:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12C3EC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:57:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7653910EE10;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2408510EE0F;
 	Mon, 17 Oct 2022 19:56:34 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E64B910E659;
- Sun, 16 Oct 2022 18:09:54 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id a3so15242483wrt.0;
- Sun, 16 Oct 2022 11:09:54 -0700 (PDT)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0768010E2BE;
+ Sun, 16 Oct 2022 17:34:18 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id j23so11485226lji.8;
+ Sun, 16 Oct 2022 10:34:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vKbxvFs7idvHnkpYGCCi9EPfdsQNoN5vylEOpYCziO4=;
- b=HNMiFYEP8MVS/aXSpnXOvDvpVc4U0b1DeNUL4mTpjwjXRlCdqzIVEWJfRjuaPWVmEF
- Ny2iLROeymv7JJNx40kvpa4FBTAG6fvUjggzyZDfjYwVjVNwBX4tTk/vs+1NiQMELEix
- UIydb9a85ZKjmX1QssDmIsXamzsWB6Zy3Ta0EmC6QCjWCZsX6R7Nb+hnSadGyxbdgeO4
- kdW3J++u3bcT4ChnwBYZ5qt/wSejvQXew907KeM4TrNae3qeW4GWFW/7BtkA/ZApC3Dj
- /Lcb2B2XsO43dg7Qlm2KM/9Hii3JBTQymbvH8T848CT+xL0bKCkpB2SnK8AkOb+Mp7/9
- mBdQ==
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:reply-to:user-agent:mime-version:date
+ :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=U4iSKyq/6RLyBw4TdJevIeK6LIwDkSY3maF+UHfhRrc=;
+ b=Kb3uE39EqEeKXPUs/mXs6k65peycq9pdE/WXMK4E2BFk1YiAINvgg+vkC0YAaXyJnp
+ VK5A3ChSRZG1GvlLyiVqIqR5FOG7BypHyXE38dY0/pytGejDjoy1MFeH0Fv01/KdamSk
+ dZEaHlsAJAeQjNRCuzfXMbSHy6BItSb+Zs8ov21H6w0Gj+ByuPNU/m8dOTkEA+lrlBqH
+ rF6WY3dsgRh0pnnkPbOdwVIrSy3hXsXiHkPJQJdUs7ysttYGu0er+okgYgRjQTy+uLr5
+ dPyr+xyJy5N4rXlgSGh7/EXSDczjfBivOJ82p8PRq8ByRq2YVEecIGSpp222OndxdRHd
+ XoHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vKbxvFs7idvHnkpYGCCi9EPfdsQNoN5vylEOpYCziO4=;
- b=FSzkwqnLOtep84pV1qV6AziAH1FzXD0+4VJOuTYiBswllGKSito4lQwa9pEzJonHM9
- J0rORwRepBYZcvSNnGWZLlxKeTxEWZHgbkHs80OV3GdVmenfnJYC528vZ1eSY4hEFjA7
- tvDO1z/z+i8syDTbI5aWp5NNL1zcmE3DTtmPDr2oV9gK33chIbWswcuy0If68WL/ei8w
- 0P8XSXzn4eUwzv8m+MGmW4yQiQ4YZUexIVnab+aU1LLiY2hYChN/KLL1Da5DWSj6Bnsp
- rR9qA9kHL/5OJi6iZqPhH+4+OMhCSWunH+Qo8AtHxVe7baFSyz43bZu9GB85SCSBdnOb
- 5vog==
-X-Gm-Message-State: ACrzQf0rlXZIle4K77AwUUtDLXgnqe04ti43GspWLs1AXPcUPPNC8D+0
- J0+qf7+maBV576x4ojfeKuQ=
-X-Google-Smtp-Source: AMsMyM6C/pQ2WxnAnmHbpPN0fARrxQ6Y51yOCm5J2+/TfyPhm4No1WMJ+9QRzvwOuruJvgrdwH2raw==
-X-Received: by 2002:a05:6000:178a:b0:22e:d215:4099 with SMTP id
- e10-20020a056000178a00b0022ed2154099mr4281979wrg.79.1665943793302; 
- Sun, 16 Oct 2022 11:09:53 -0700 (PDT)
-Received: from localhost.localdomain
- (host-95-250-231-122.retail.telecomitalia.it. [95.250.231.122])
- by smtp.gmail.com with ESMTPSA id
- v9-20020a05600c444900b003c6f8d30e40sm156225wmn.31.2022.10.16.11.09.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Oct 2022 11:09:52 -0700 (PDT)
-From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Nirmoy Das <nirmoy.das@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- John Harrison <John.C.Harrison@Intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gvt-dev@lists.freedesktop.org
-Date: Sun, 16 Oct 2022 20:09:38 +0200
-Message-Id: <20221016180938.17403-4-fmdefrancesco@gmail.com>
-X-Mailer: git-send-email 2.38.0
-In-Reply-To: <20221016180938.17403-1-fmdefrancesco@gmail.com>
-References: <20221016180938.17403-1-fmdefrancesco@gmail.com>
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:reply-to:user-agent:mime-version:date
+ :message-id:from:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=U4iSKyq/6RLyBw4TdJevIeK6LIwDkSY3maF+UHfhRrc=;
+ b=CBib52v5uOUlFwlMWv2ODHTS2e57rhegImUIbieNb22kO87+F0JEtH4ti1DiUAitgn
+ gKYUexglr5Buwx+r0BYdRSuQW4sOhl2N00bXCznmKL2NOpKfqC6jpiYJb05B/bZpGHmv
+ eMpq4GHo+7OzfXiUr2g0uK1ZF7mH5E1TaEbWQohLCqOshSyHJ+mJKle3pvMlJM5E7vpM
+ zEMvenOIGkQXwknRdiPd7bXc0/rlRGwBcNv1pNJhHiI/gS8n4J38rHIHhjyPebxdME5E
+ 5biWl9jDfkRJUoxZ78+w3MWNKFf1bO7ErCR09UnSr6xirEqcQg+v4qlUOh5IAd5feeYx
+ oSog==
+X-Gm-Message-State: ACrzQf0KjKrOvG3yvq2LUzRleWjE9tk69PxuBeaHGhl6s04jgzqPM5tH
+ prh6A+UAR5RCyYMs9Kp+19w=
+X-Google-Smtp-Source: AMsMyM4FwFL8YTyWV0uuDmptwQ58R53jPCOYdbjm/t3gf92/x+NDTiDZK/HMDmSdTIkPCQ0ey+Q6jw==
+X-Received: by 2002:a05:651c:114:b0:26f:a696:5a40 with SMTP id
+ a20-20020a05651c011400b0026fa6965a40mr2909134ljb.350.1665941656107; 
+ Sun, 16 Oct 2022 10:34:16 -0700 (PDT)
+Received: from ?IPV6:2a02:a31a:a240:1700:64bb:87df:aad7:a9f0?
+ ([2a02:a31a:a240:1700:64bb:87df:aad7:a9f0])
+ by smtp.googlemail.com with ESMTPSA id
+ v23-20020ac258f7000000b0048a8586293asm1131359lfo.48.2022.10.16.10.34.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 16 Oct 2022 10:34:15 -0700 (PDT)
+From: Mateusz Kwiatkowski <kfyatek@gmail.com>
+X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Message-ID: <30dbbcc8-1d14-0fc8-ed7c-0c3f7d094ea3@gmail.com>
+Date: Sun, 16 Oct 2022 19:34:12 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.3
+Content-Language: pl
+To: Maxime Ripard <maxime@cerno.tech>, Karol Herbst <kherbst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@linux.ie>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lyude Paul <lyude@redhat.com>, Maxime Ripard <mripard@kernel.org>,
+ Emma Anholt <emma@anholt.net>, Chen-Yu Tsai <wens@csie.org>,
+ Samuel Holland <samuel@sholland.org>, Ben Skeggs <bskeggs@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>
+References: <20220728-rpi-analog-tv-properties-v5-0-d841cc64fe4b@cerno.tech>
+ <20220728-rpi-analog-tv-properties-v5-6-d841cc64fe4b@cerno.tech>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v5-6-d841cc64fe4b@cerno.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 17 Oct 2022 19:56:17 +0000
-Subject: [Intel-gfx] [RESEND PATCH 3/3] drm/i915/gem: Replace kmap() with
- kmap_local_page()
+Subject: Re: [Intel-gfx] [PATCH v5 06/22] drm/modes: Add a function to
+ generate analog display modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,103 +92,129 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ira Weiny <ira.weiny@intel.com>, "Venkataramanan,
- Anirudh" <anirudh.venkataramanan@intel.com>,
- "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
+Reply-To: kfyatek+publicgit@gmail.com
+Cc: Dom Cobley <dom@raspberrypi.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Phil Elwell <phil@raspberrypi.com>,
+ Hans de Goede <hdegoede@redhat.com>,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-kmap() is being deprecated in favor of kmap_local_page().
+Hi Maxime & everyone,
 
-There are two main problems with kmap(): (1) It comes with an overhead as
-mapping space is restricted and protected by a global lock for
-synchronization and (2) it also requires global TLB invalidation when the
-kmap’s pool wraps and it might block when the mapping space is fully
-utilized until a slot becomes available.
+Sorry for being inactive in the discussions about this patchset for the last
+couple of weeks.
 
-With kmap_local_page() the mappings are per thread, CPU local, can take
-page faults, and can be called from any context (including interrupts).
-It is faster than kmap() in kernels with HIGHMEM enabled. Furthermore,
-the tasks can be preempted and, when they are scheduled to run again, the
-kernel virtual addresses are restored and are still valid.
+> +const static struct analog_parameters tv_modes_parameters[] = {
+> +	TV_MODE_PARAMETER(DRM_MODE_ANALOG_NTSC,
+> +			  NTSC_LINES_NUMBER,
+> +			  NTSC_LINE_DURATION_NS,
+> +			  PARAM_RANGE(NTSC_HACT_DURATION_MIN_NS,
+> +				      NTSC_HACT_DURATION_TYP_NS,
+> +				      NTSC_HACT_DURATION_MAX_NS),
+> +			  PARAM_RANGE(NTSC_HFP_DURATION_MIN_NS,
+> +				      NTSC_HFP_DURATION_TYP_NS,
+> +				      NTSC_HFP_DURATION_MAX_NS),
+> +			  PARAM_RANGE(NTSC_HSLEN_DURATION_MIN_NS,
+> +				      NTSC_HSLEN_DURATION_TYP_NS,
+> +				      NTSC_HSLEN_DURATION_MAX_NS),
+> +			  PARAM_RANGE(NTSC_HBP_DURATION_MIN_NS,
+> +				      NTSC_HBP_DURATION_TYP_NS,
+> +				      NTSC_HBP_DURATION_MAX_NS),
+> +			  PARAM_RANGE(NTSC_HBLK_DURATION_MIN_NS,
+> +				      NTSC_HBLK_DURATION_TYP_NS,
+> +				      NTSC_HBLK_DURATION_MAX_NS),
+> +			  16,
+> +			  PARAM_FIELD(3, 3),
+> +			  PARAM_FIELD(3, 3),
+> +			  PARAM_FIELD(16, 17)),
+> +	TV_MODE_PARAMETER(DRM_MODE_ANALOG_PAL,
+> +			  PAL_LINES_NUMBER,
+> +			  PAL_LINE_DURATION_NS,
+> +			  PARAM_RANGE(PAL_HACT_DURATION_MIN_NS,
+> +				      PAL_HACT_DURATION_TYP_NS,
+> +				      PAL_HACT_DURATION_MAX_NS),
+> +			  PARAM_RANGE(PAL_HFP_DURATION_MIN_NS,
+> +				      PAL_HFP_DURATION_TYP_NS,
+> +				      PAL_HFP_DURATION_MAX_NS),
+> +			  PARAM_RANGE(PAL_HSLEN_DURATION_MIN_NS,
+> +				      PAL_HSLEN_DURATION_TYP_NS,
+> +				      PAL_HSLEN_DURATION_MAX_NS),
+> +			  PARAM_RANGE(PAL_HBP_DURATION_MIN_NS,
+> +				      PAL_HBP_DURATION_TYP_NS,
+> +				      PAL_HBP_DURATION_MAX_NS),
+> +			  PARAM_RANGE(PAL_HBLK_DURATION_MIN_NS,
+> +				      PAL_HBLK_DURATION_TYP_NS,
+> +				      PAL_HBLK_DURATION_MAX_NS),
+> +			  12,
+> +
+> +			  /*
+> +			   * The front porch is actually 6 short sync
+> +			   * pulses for the even field, and 5 for the
+> +			   * odd field. Each sync takes half a life so
+> +			   * the odd field front porch is shorter by
+> +			   * half a line.
+> +			   *
+> +			   * In progressive, we're supposed to use 6
+> +			   * pulses, so we're fine there
+> +			   */
+> +			  PARAM_FIELD(3, 2),
+> +
+> +			  /*
+> +			   * The vsync length is 5 long sync pulses,
+> +			   * each field taking half a line. We're
+> +			   * shorter for both fields by half a line.
+> +			   *
+> +			   * In progressive, we're supposed to use 5
+> +			   * pulses, so we're off by half
+> +			   * a line.
+> +			   *
+> +			   * In interlace, we're now off by half a line
+> +			   * for the even field and one line for the odd
+> +			   * field.
+> +			   */
+> +			  PARAM_FIELD(3, 3),
+> +
+> +			  /*
+> +			   * The back porch starts with post-equalizing
+> +			   * pulses, consisting in 5 short sync pulses
+> +			   * for the even field, 4 for the odd field. In
+> +			   * progressive, it's 5 short syncs.
+> +			   *
+> +			   * In progressive, we thus have 2.5 lines,
+> +			   * plus the 0.5 line we were missing
+> +			   * previously, so we should use 3 lines.
+> +			   *
+> +			   * In interlace, the even field is in the
+> +			   * exact same case than progressive. For the
+> +			   * odd field, we should be using 2 lines but
+> +			   * we're one line short, so we'll make up for
+> +			   * it here by using 3.
+> +			   *
+> +			   * The entire blanking area is supposed to
+> +			   * take 25 lines, so we also need to account
+> +			   * for the rest of the blanking area that
+> +			   * can't be in either the front porch or sync
+> +			   * period.
+> +			   */
+> +			  PARAM_FIELD(19, 20)),
+> +};
 
-Since its use in i915/gem is safe everywhere, it should be preferred.
+Nit: setting vbp limits like that makes it impossible to use
+drm_analog_tv_mode() to generate modes that include the VBI for e.g. emitting
+teletext.
 
-Therefore, replace kmap() with kmap_local_page() in i915/gem. Instead of
-open-coding local map + memcpy + local unmap, use memcpy_to_page() in a
-suited call site.
+This probably doesn't matter, as it can still be created as a custom mode from
+userspace, hence I'm mentioning it as a nit.
 
-Cc: "Venkataramanan, Anirudh" <anirudh.venkataramanan@intel.com>
-Suggested-by: Ira Weiny <ira.weiny@intel.com>
-Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c          | 6 ++----
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 8 ++++----
- 2 files changed, 6 insertions(+), 8 deletions(-)
+> +		 * By convention, NSTC (aka 525/60) systems start with
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index 4eed3dd90ba8..2bc6ab9964ff 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -640,16 +640,14 @@ i915_gem_object_create_shmem_from_data(struct drm_i915_private *dev_priv,
- 	do {
- 		unsigned int len = min_t(typeof(size), size, PAGE_SIZE);
- 		struct page *page;
--		void *pgdata, *vaddr;
-+		void *pgdata;
- 
- 		err = aops->write_begin(file, file->f_mapping, offset, len,
- 					&page, &pgdata);
- 		if (err < 0)
- 			goto fail;
- 
--		vaddr = kmap(page);
--		memcpy(vaddr, data, len);
--		kunmap(page);
-+		memcpy_to_page(page, 0, data, len);
- 
- 		err = aops->write_end(file, file->f_mapping, offset, len, len,
- 				      page, pgdata);
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index 3ced9948a331..bb25b50b5688 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -153,7 +153,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
- 	intel_gt_flush_ggtt_writes(to_gt(i915));
- 
- 	p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
--	cpu = kmap(p) + offset_in_page(offset);
-+	cpu = kmap_local_page(p) + offset_in_page(offset);
- 	drm_clflush_virt_range(cpu, sizeof(*cpu));
- 	if (*cpu != (u32)page) {
- 		pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
-@@ -171,7 +171,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
- 	}
- 	*cpu = 0;
- 	drm_clflush_virt_range(cpu, sizeof(*cpu));
--	kunmap(p);
-+	kunmap_local(cpu);
- 
- out:
- 	i915_gem_object_lock(obj, NULL);
-@@ -249,7 +249,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
- 		intel_gt_flush_ggtt_writes(to_gt(i915));
- 
- 		p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
--		cpu = kmap(p) + offset_in_page(offset);
-+		cpu = kmap_local_page(p) + offset_in_page(offset);
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
- 		if (*cpu != (u32)page) {
- 			pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
-@@ -267,7 +267,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
- 		}
- 		*cpu = 0;
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
--		kunmap(p);
-+		kunmap_local(cpu);
- 		if (err)
- 			return err;
- 
--- 
-2.37.1
+Typo: s/NSTC/NTSC/
+
+Best regards,
+Mateusz Kwiatkowski
 
