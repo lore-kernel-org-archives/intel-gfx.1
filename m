@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E52B0C4167B
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:57:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBFFC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 19:57:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64AFA10EE14;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F268F10EE18;
 	Mon, 17 Oct 2022 19:56:42 +0000 (UTC)
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0050D10E324;
- Sun, 16 Oct 2022 18:16:36 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id a6so11574137ljq.5;
- Sun, 16 Oct 2022 11:16:36 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8585010E85E;
+ Sun, 16 Oct 2022 19:02:21 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id d6so14476357lfs.10;
+ Sun, 16 Oct 2022 12:02:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:reply-to:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=viplUm+By6s8XGYflV1jaRl8q/qb4f9y9KZgb4QOLdc=;
- b=mmnJBH4qc8H6AxaIiyfc2vzVCocrgGCP4ib4yJyyUtnrahrAqqBoHWVhpiMA2Z0OW5
- clJw0eZ5ImFHiphKJGDLJTJwrl5F5EZAB8AQSIvGjbloClAAQeXnYoMdHg/NyMaVmrrx
- 45BTHjzh4BuqwfEA8zksbvlOlz7BSnrV4ReNMW3BvXD5/BdkOdy0eitwWx2u8k03lLKz
- u4xD5+hFv5grqx6LtotWs14ANU9Ev5Gf0+ICFYsqAftfjkrns9cCaltmHO+gJOc3vzza
- mTmL+c/PPP4rkIb4BK/mG7N8kfZwWPjUvRAs2jmM/ra5H3udWtZwmKbAMNIDsTFpsFp0
- IGyQ==
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:reply-to:user-agent:mime-version:date
+ :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2tT8kCb/WVUuH+lBmBzSowO1khzyce9k0uFdBJXQAY0=;
+ b=Wn022JhbSiAKl2X8PK/0dLLvnA2KYx59VyBDcpMKkslDxq1gmTavUweTw7TSpfsy29
+ ZQNm5d5Kud9NAMBx2DWE4ATZlqZ+7v4VQY6jnBU0w/Jly+Ji2YJygQ2d2aE5SvnPOuBc
+ LUaIek3ag9tos1DYUCuOXC4mBkjA654+4/vseW2aGFGg4V9Q4tOwIoveXTgC6nBCvoix
+ WqKvIjohOpkxN+5vEWW2J/wJ5Bt6x6aSYTqCGGxEtIxf30EL8n0PHVh8GQ0KmrQyXays
+ jsKB/0dkT524iaTd2N3LvRFONyV2QpPt9l6M6dD70TbInNsqcmnQjjZX7ML1lQcEx5+N
+ Xt9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:references:reply-to:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=viplUm+By6s8XGYflV1jaRl8q/qb4f9y9KZgb4QOLdc=;
- b=b+MutIdhZYWYhXYRmvDVKKoYgmLin6yopNLxnYG8xNdwnSCEZ9Pxq9vt/zF3cqgX0d
- seAiYBr7FThKIYEt6YJrsSUBgf9PmZwiR+oRvaTkVtDY4J+0oVWKbbU9pPPpjxzxOpPd
- 2u4lhrffb/UzUpGNn0hjeYEJC0YixkkhcBq6NZ8dUuo7/890LOTKXjDc/fmTn4JRmz6m
- 6Hh7RchXgMteEI3xfUdMSWOx3+dacADI81PSZMqNtf2PqTlAEMdpXHWcf36tc3HQ396O
- tUqg7Na+OaewXACztL5xBGYNAaLYwjtrazLHCGCnt2TZWKdZosBqX/K+iFGxUspGq/KI
- V2Kw==
-X-Gm-Message-State: ACrzQf3pFG9HgS1MkYmff35nGrGcrIm5NwMkVIgHKbjCXgCO1FZ7R9pU
- vP5Rgs73HUGf2/28NMsOUts=
-X-Google-Smtp-Source: AMsMyM4pArN3BwjOOqgh65fdbAs3K1mXozFp1Q1IXi9e4aIE3VoeXv03ELNht5+KUG+fPNd+NUMejg==
-X-Received: by 2002:a2e:91c8:0:b0:26e:977a:14b1 with SMTP id
- u8-20020a2e91c8000000b0026e977a14b1mr2876789ljg.379.1665944195109; 
- Sun, 16 Oct 2022 11:16:35 -0700 (PDT)
+ h=content-transfer-encoding:in-reply-to:references:cc:to
+ :content-language:subject:reply-to:user-agent:mime-version:date
+ :message-id:from:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2tT8kCb/WVUuH+lBmBzSowO1khzyce9k0uFdBJXQAY0=;
+ b=vuj1Ph3OF1xJz/9Ig5Ri8KbzmjIeIQAFmamhJCzRK8ZBjAuFRLHeYf8tk6IQIPL+fF
+ 0iOMyy4LoMFjMPUn4Kg1U6tN0Q4kgndWIQh0wK0FK8JPvnArqi9MWkFx2Dt/SBI8gZxI
+ f+dQF61/cVtNs2pXqj1Uhg5E65A3VSQgqPfwBSS5kL7OBE+4N3S/kCscrg/2YFzhtTUh
+ SY1ZsR9FKGpFyl701MiqFp+kg9Hc0xBsKPMbA2z/ulXiq/PH9EpEZ89yLIEv3xC+CY1R
+ BIb18NuOmZPqvs4PAA0dNAk7aLq45WdKBo8aMWxy1voMgOvM5YY8Dv1o3/VeilpmIE/w
+ chgQ==
+X-Gm-Message-State: ACrzQf2QsrbLFobLDBCYIqccPavt9EaXsIOvbrko3ychuVZkZhTyO+Qy
+ UxJLC0wW7r2Gnpg+JWYBjks=
+X-Google-Smtp-Source: AMsMyM7y2QYkuboXP2v70rAENTc5DitWTlWhre5mOH5uFbdJJu3TsghZ/Z8+nuj9UYyZBokwz7Tq+Q==
+X-Received: by 2002:a05:6512:32ab:b0:4a2:2e49:94c with SMTP id
+ q11-20020a05651232ab00b004a22e49094cmr2839114lfe.351.1665946939657; 
+ Sun, 16 Oct 2022 12:02:19 -0700 (PDT)
 Received: from ?IPV6:2a02:a31a:a240:1700:64bb:87df:aad7:a9f0?
  ([2a02:a31a:a240:1700:64bb:87df:aad7:a9f0])
  by smtp.googlemail.com with ESMTPSA id
- p22-20020a2eba16000000b0026dffa29989sm1221591lja.23.2022.10.16.11.16.33
+ p10-20020a2eb7ca000000b0026dc57ee439sm1235527ljo.71.2022.10.16.12.02.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 16 Oct 2022 11:16:34 -0700 (PDT)
+ Sun, 16 Oct 2022 12:02:18 -0700 (PDT)
 From: Mateusz Kwiatkowski <kfyatek@gmail.com>
 X-Google-Original-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
-Message-ID: <31759a06-ddd0-6b78-0e10-8e8754f394f9@gmail.com>
-Date: Sun, 16 Oct 2022 20:16:32 +0200
+Message-ID: <e0867d71-37c7-777f-0df2-0cd74909caaf@gmail.com>
+Date: Sun, 16 Oct 2022 21:02:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.3.3
@@ -72,14 +73,13 @@ To: Maxime Ripard <maxime@cerno.tech>, Karol Herbst <kherbst@redhat.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Jernej Skrabec <jernej.skrabec@gmail.com>
 References: <20220728-rpi-analog-tv-properties-v5-0-d841cc64fe4b@cerno.tech>
- <20220728-rpi-analog-tv-properties-v5-19-d841cc64fe4b@cerno.tech>
- <270c4a51-0a03-f048-46da-ab37900f8b91@gmail.com>
-In-Reply-To: <270c4a51-0a03-f048-46da-ab37900f8b91@gmail.com>
+ <20220728-rpi-analog-tv-properties-v5-21-d841cc64fe4b@cerno.tech>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v5-21-d841cc64fe4b@cerno.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 17 Oct 2022 19:56:17 +0000
-Subject: Re: [Intel-gfx] [PATCH v5 19/22] drm/vc4: vec: Check for VEC output
- constraints
+Subject: Re: [Intel-gfx] [PATCH v5 21/22] drm/vc4: vec: Add support for more
+ analog TV standards
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,106 +106,42 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Hi Maxime,
 
-Sorry about the mess that happened to the previous message. I hope this one
-will be delivered more cleanly.
-
 W dniu 13.10.2022 o 15:19, Maxime Ripard pisze:
 > From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
 >
-> The VEC can accept pretty much any relatively reasonable mode, but still
-> has a bunch of constraints to meet.
+> Add support for the following composite output modes (all of them are
+> somewhat more obscure than the previously defined ones):
 >
-> Let's create an atomic_check() implementation that will make sure we
-> don't end up accepting a non-functional mode.
+> - NTSC_443 - NTSC-style signal with the chroma subcarrier shifted to
+>   4.43361875 MHz (the PAL subcarrier frequency). Never used for
+>   broadcasting, but sometimes used as a hack to play NTSC content in PAL
+>   regions (e.g. on VCRs).
+> - PAL_N - PAL with alternative chroma subcarrier frequency,
+>   3.58205625 MHz. Used as a broadcast standard in Argentina, Paraguay
+>   and Uruguay to fit 576i50 with colour in 6 MHz channel raster.
+> - PAL60 - 480i60 signal with PAL-style color at normal European PAL
+>   frequency. Another non-standard, non-broadcast mode, used in similar
+>   contexts as NTSC_443. Some displays support one but not the other.
+
+The current version actually does not support PAL-60. Proper PAL-60 output from
+VEC requires configuring it differently than for regular PAL. We have unified
+the PAL and PAL-60 modes for the "TV mode" property, but the code here has not
+been adjusted appropriately.
+
+I'll try to submit an additional patch that fixes this shortly.
+
+> - SECAM - French frequency-modulated analog color standard; also have
+>   been broadcast in Eastern Europe and various parts of Africa and Asia.
+>   Uses the same 576i50 timings as PAL.
+>
+> Also added some comments explaining color subcarrier frequency
+> registers.
 >
 > Acked-by: Noralf Trønnes <noralf@tronnes.org>
 > Signed-off-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
 > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 > ---
->  drivers/gpu/drm/vc4/vc4_vec.c | 48 +++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 48 insertions(+)
->
-> diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
-> index 90e375a8a8f9..1fcb7baf874e 100644
-> --- a/drivers/gpu/drm/vc4/vc4_vec.c
-> +++ b/drivers/gpu/drm/vc4/vc4_vec.c
-> @@ -453,6 +453,7 @@ static int vc4_vec_encoder_atomic_check(struct drm_encoder *encoder,
->                      struct drm_crtc_state *crtc_state,
->                      struct drm_connector_state *conn_state)
->  {
-> +    const struct drm_display_mode *mode = &crtc_state->adjusted_mode;
->      const struct vc4_vec_tv_mode *vec_mode;
->  
->      vec_mode = &vc4_vec_tv_modes[conn_state->tv.legacy_mode];
-> @@ -461,6 +462,53 @@ static int vc4_vec_encoder_atomic_check(struct drm_encoder *encoder,
->          !drm_mode_equal(vec_mode->mode, &crtc_state->adjusted_mode))
->          return -EINVAL;
->  
-> +    if (mode->crtc_hdisplay % 4)
-> +        return -EINVAL;
-> +
-> +    if (!(mode->crtc_hsync_end - mode->crtc_hsync_start))
-> +        return -EINVAL;
-> +
-> +    switch (mode->vtotal) {
-> +    case 525:
-> +        if (mode->crtc_vtotal > 262)
-> +            return -EINVAL;
-> +
-> +        if (mode->crtc_vdisplay < 1 || mode->crtc_vdisplay > 253)
-> +            return -EINVAL;
-> +
-> +        if (!(mode->crtc_vsync_start - mode->crtc_vdisplay))
-> +            return -EINVAL;
-> +
-> +        if ((mode->crtc_vsync_end - mode->crtc_vsync_start) != 3)
-> +            return -EINVAL;
-> +
-> +        if ((mode->crtc_vtotal - mode->crtc_vsync_end) < 4)
-> +            return -EINVAL;
-> +
-> +        break;
-> +
-> +    case 625:
-> +        if (mode->crtc_vtotal > 312)
-> +            return -EINVAL;
-> +
-> +        if (mode->crtc_vdisplay < 1 || mode->crtc_vdisplay > 305)
-> +            return -EINVAL;
-> +
-> +        if (!(mode->crtc_vsync_start - mode->crtc_vdisplay))
-> +            return -EINVAL;
-> +
-> +        if ((mode->crtc_vsync_end - mode->crtc_vsync_start) != 3)
-> +            return -EINVAL;
-> +
-> +        if ((mode->crtc_vtotal - mode->crtc_vsync_end) < 2)
-> +            return -EINVAL;
-> +
-> +        break;
-> +
-> +    default:
-> +        return -EINVAL;
-> +    }
-> +
->      return 0;
->  }
->  
->
-
-In my original version of this function
-(https://github.com/raspberrypi/linux/pull/4406/files) the switch is over
-reference_mode->vtotal, not mode->vtotal. This was intended to explicitly allow
-a different value of mode->vtotal, to support non-standard modes, such as "fake"
-525 lines with SECAM encoding, or the progressive modes.
-
-You're switching over mode->vtotal, which makes specifying those impossible.
-I don't think we should limit the users like that.
-
-We're removing reference_mode in patch 20/22, so adding a switch over
-reference_mode->vtotal is probably not a good idea -- in that case I'd switch
-over mode->htotal instead: 858 for "NTSC" and 864 for "PAL". This may seem a bit
-weird, but any other value of htotal causes the VEC to output garbage anyway.
+(snip)
 
 Best regards,
 Mateusz Kwiatkowski
