@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEEA8C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 17:26:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 239E3C43217
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 17:26:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37B1910EDE3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B3E910EDE2;
 	Mon, 17 Oct 2022 17:25:24 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0B5D10EDB7;
- Mon, 17 Oct 2022 17:24:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2423C10EDCC;
+ Mon, 17 Oct 2022 17:25:12 +0000 (UTC)
 Received: from dimapc.. (109-252-119-114.nat.spd-mgts.ru [109.252.119.114])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 9C6A76602390;
- Mon, 17 Oct 2022 18:24:43 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id C65856602392;
+ Mon, 17 Oct 2022 18:25:05 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1666027487;
- bh=RCM7cbGa0hbU3izrAQh1wOIWATDaV8057tfGw8XuSMQ=;
+ s=mail; t=1666027509;
+ bh=66yORAV2VtaBLYK6ZDQXn3jm0axpgjq07+Vjv6hDHOM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LUNFmRkGe7D2WCreJBmVIcXQZNXb4QrTtTwUICPZzJvAemeYn6f919VTZmLpcO9zY
- E5mSacGhuqnK6ohEE3yQwUWiT+hfKZJNI1akEicYOEJEP+vL2HVSopJcxmAlq57dLo
- qK3+M10qCnwjb8MKEtEMfED+UYBqQ8cmQOddvTnuM72lWoIBWiAss8p21Py1IvKGa7
- l6URVbXp+u2/Iy7ZfeEmZ51b0xFRfBztb/891Mcnnc9fPNqUxwgsfTHpey7Teb9GnB
- tSJe7jS7xlNOfb7O8diRea1jBbpzEPnMu34NABsCinJjje04EYQ/a5BgUzELToyC/I
- /Db+rQkBDPwPA==
+ b=Yt+6YpjTd2k6o0eDpmcJu0sF+A6aPsemDGwj+QbhYhf58HXdKN7jbBpJiMIOzHAtE
+ iEB4EBKmJo//AkXrY6GUMzqXcMxPNvB/ZJ+Dq54XA4kIQ8IditSVC0L5DysL/LPG2m
+ of9J1K7592sk2i74mum6W68hs2Lvp728HU8ExrePOOX094AYSkzSP84PDtmLJ2PFoR
+ fHBBm1V5ziUb4ZEjvVIXxzdDNU58pBPedjcUi/k5dmVKu8MWK+YN00vP5XYHnTH0Rf
+ oyZv8wJ+7RuGNWJiROMNuoyqnRVml7yEcYRLbu1Cd87UqkijnLpfRhgbLgmFLUzfjB
+ hUqyMWZcNwpUQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -64,16 +64,16 @@ To: David Airlie <airlied@linux.ie>, Gerd Hoffmann <kraxel@redhat.com>,
  Lucas Stach <l.stach@pengutronix.de>,
  Christian Gmeiner <christian.gmeiner@gmail.com>,
  Ruhl Michael J <michael.j.ruhl@intel.com>
-Date: Mon, 17 Oct 2022 20:22:17 +0300
-Message-Id: <20221017172229.42269-10-dmitry.osipenko@collabora.com>
+Date: Mon, 17 Oct 2022 20:22:23 +0300
+Message-Id: <20221017172229.42269-16-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
 References: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 09/21] drm/etnaviv: Prepare to dynamic
- dma-buf locking specification
+Subject: [Intel-gfx] [PATCH v7 15/21] dma-buf: Move dma_buf_vmap() to
+ dynamic locking specification
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,28 +95,38 @@ Cc: linux-rdma@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prepare Etnaviv driver to the common dynamic dma-buf locking convention
-by starting to use the unlocked versions of dma-buf API functions.
+Move dma_buf_vmap/vunmap() functions to the dynamic locking
+specification by asserting that the reservation lock is held.
 
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/dma-buf/dma-buf.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-index 3fa2da149639..7031db145a77 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-@@ -65,7 +65,7 @@ static void etnaviv_gem_prime_release(struct etnaviv_gem_object *etnaviv_obj)
- 	struct iosys_map map = IOSYS_MAP_INIT_VADDR(etnaviv_obj->vaddr);
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 3e4060dadb74..2c4381bb9478 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1450,6 +1450,8 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	if (WARN_ON(!dmabuf))
+ 		return -EINVAL;
  
- 	if (etnaviv_obj->vaddr)
--		dma_buf_vunmap(etnaviv_obj->base.import_attach->dmabuf, &map);
-+		dma_buf_vunmap_unlocked(etnaviv_obj->base.import_attach->dmabuf, &map);
++	dma_resv_assert_held(dmabuf->resv);
++
+ 	if (!dmabuf->ops->vmap)
+ 		return -EINVAL;
  
- 	/* Don't drop the pages for imported dmabuf, as they are not
- 	 * ours, just free the array we allocated:
+@@ -1515,6 +1517,8 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	if (WARN_ON(!dmabuf))
+ 		return;
+ 
++	dma_resv_assert_held(dmabuf->resv);
++
+ 	BUG_ON(iosys_map_is_null(&dmabuf->vmap_ptr));
+ 	BUG_ON(dmabuf->vmapping_counter == 0);
+ 	BUG_ON(!iosys_map_is_equal(&dmabuf->vmap_ptr, map));
 -- 
 2.37.3
 
