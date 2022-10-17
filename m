@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB09C4332F
-	for <intel-gfx@archiver.kernel.org>; Sun, 16 Oct 2022 16:34:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA108C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 04:47:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C9D210E5CB;
-	Sun, 16 Oct 2022 16:34:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2851E10EC57;
+	Mon, 17 Oct 2022 04:47:43 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 52E2310E5CB;
- Sun, 16 Oct 2022 16:34:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id C936E10EC57;
+ Mon, 17 Oct 2022 04:47:35 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E71FCAADDA;
- Sun, 16 Oct 2022 16:34:25 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id C0EE7A7DFF;
+ Mon, 17 Oct 2022 04:47:35 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: gregkh@linuxfoundation.org
-Date: Sun, 16 Oct 2022 16:34:25 -0000
-Message-ID: <166593806594.8043.9355611693330664258@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Date: Mon, 17 Oct 2022 04:47:35 -0000
+Message-ID: <166598205576.13567.6281489259122444082@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <166593804562174@kroah.com>
-In-Reply-To: <166593804562174@kroah.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBQ?=
- =?utf-8?q?atch_=22drm/i915=3A_Fix_display_problems_after_resume=22_has_be?=
- =?utf-8?q?en_added_to_the_6=2E0-stable_tree?=
+References: <20221014152622.233398-1-suraj.kandpal@intel.com>
+In-Reply-To: <20221014152622.233398-1-suraj.kandpal@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Enable_YCbCr420_for_VDSC_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,17 +47,39 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: Patch "drm/i915: Fix display problems after resume" has been added to the 6.0-stable tree
-URL   : https://patchwork.freedesktop.org/series/109741/
-State : failure
+Series: Enable YCbCr420 for VDSC (rev2)
+URL   : https://patchwork.freedesktop.org/series/109723/
+State : warning
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/109741/revisions/1/mbox/ not applied
-Patch is empty.
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To record the empty patch as an empty commit, run "git am --allow-empty".
-To restore the original branch and stop patching, run "git am --abort".
+Error: dim checkpatch failed
+d4a9778e02e4 drm/i915/dp: Check if DSC supports the given output_format
+3e53847fd2c1 drm/i915: Adding the new registers for DSC
+6f3d23b30a32 drm/i915: Enable YCbCr420 for VDSC
+-:189: CHECK:MACRO_ARG_REUSE: Macro argument reuse '_row' - possible side-effects?
+#189: FILE: drivers/gpu/drm/i915/display/intel_qp_tables.c:447:
++#define PARAM_TABLE(_minmax, _bpc, _row, _col, _is_420)  do { \
++	if (bpc == (_bpc)) {	\
++		if (_is_420)	\
++			return rc_range_##_minmax##qp420_##_bpc##bpc[_row][_col]; \
++		else	\
++			return rc_range_##_minmax##qp444_##_bpc##bpc[_row][_col]; \
++	}	\
+ } while (0)
+
+-:189: CHECK:MACRO_ARG_REUSE: Macro argument reuse '_col' - possible side-effects?
+#189: FILE: drivers/gpu/drm/i915/display/intel_qp_tables.c:447:
++#define PARAM_TABLE(_minmax, _bpc, _row, _col, _is_420)  do { \
++	if (bpc == (_bpc)) {	\
++		if (_is_420)	\
++			return rc_range_##_minmax##qp420_##_bpc##bpc[_row][_col]; \
++		else	\
++			return rc_range_##_minmax##qp444_##_bpc##bpc[_row][_col]; \
++	}	\
+ } while (0)
+
+total: 0 errors, 0 warnings, 2 checks, 228 lines checked
+a6c473a5a5c0 drm/i915: Fill in native_420 field
 
 
