@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3351C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 09:32:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F5EFC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 09:32:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F08E610ED0E;
-	Mon, 17 Oct 2022 09:32:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 880E310ED13;
+	Mon, 17 Oct 2022 09:32:50 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC8A10ED0E;
- Mon, 17 Oct 2022 09:32:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E64110ED10;
+ Mon, 17 Oct 2022 09:32:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665999144; x=1697535144;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=6ZU9PDhvVYa7AEOd0lamaGEe6sVuaqOTNJI83nJvfl8=;
- b=mnzk/B0X65EPuTA7735U+Ph3/odnje5sF8SrM/9lu5EZ1B5cIZw8r0n2
- cp2G17v591DcDK8H9zZb/4zymaNtIDsgzUMXJ3h1VOKK8L60t2MhGzsNH
- iqnTpUuZ8YYad/cn7BjxCRjLxDFNLlnK9vLOuTWmiZ7eOAOlfLvOombPP
- 0tWmAzfVLN4H5Uhss4nQ74RyxUB/PiDJHeq5LuyyqzH60CFhdWmAo7czN
- BdoVs8PFpOkdQNoCxzhgkKPiPIWkst3eDwDVDLkIJV9D24ajzsbAuR8XB
- WShLagGUGuTIIJV9djFzCHAQHSXexlm55WLUVuZQHeelBLsI4qrryxyV5 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10502"; a="286142588"
-X-IronPort-AV: E=Sophos;i="5.95,191,1661842800"; d="scan'208";a="286142588"
+ t=1665999155; x=1697535155;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=h0hmpKyvdxb2sKw8lROgYrffCQobTfXddN7YtzQHU7M=;
+ b=Ul4mgQ2PEWvaEHTyCXo+CpuOqncgpmy7bqoqyJLIaDvc0LS0uGxTBa7q
+ xGSfbEPWNDAcbn1EEklVi0+OMzGQrUCwC0UJsMs2Y3UJXHXkmcmWjbf+3
+ q4h6zIyS//A0GM0phFQyG5AK8OTNT+c2epftNrFUT3LZX7miEC78ZOl8P
+ kEIDverLDm6dOPMNvmufC2NmtxTFfT+m8RjLr0K2qUO+960SQ2KpFAfc3
+ KFJMkB8dudpBdwUaa/MAiNouKZvB0bJAT3yCKYL03HjtWraAlISk/hzER
+ tRzANd8yFzjNhkAu2ReA1klGptaBniNjOwGSElWB7WE4V+sg34MFboUHz Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10502"; a="286142624"
+X-IronPort-AV: E=Sophos;i="5.95,191,1661842800"; d="scan'208";a="286142624"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2022 02:32:23 -0700
+ 17 Oct 2022 02:32:35 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10502"; a="717431199"
-X-IronPort-AV: E=Sophos;i="5.95,191,1661842800"; d="scan'208";a="717431199"
+X-IronPort-AV: E=McAfee;i="6500,9779,10502"; a="717431242"
+X-IronPort-AV: E=Sophos;i="5.95,191,1661842800"; d="scan'208";a="717431242"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.132])
- by FMSMGA003.fm.intel.com with ESMTP; 17 Oct 2022 02:32:19 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 17 Oct 2022 02:32:31 -0700
 From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -48,13 +48,15 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Mon, 17 Oct 2022 17:37:16 +0800
-Message-Id: <20221017093726.2070674-1-zhao1.liu@linux.intel.com>
+Date: Mon, 17 Oct 2022 17:37:19 +0800
+Message-Id: <20221017093726.2070674-4-zhao1.liu@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221017093726.2070674-1-zhao1.liu@linux.intel.com>
+References: <20221017093726.2070674-1-zhao1.liu@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/9] drm/i915: Replace kmap_atomic() with
- kmap_local_page()
+Subject: [Intel-gfx] [PATCH 3/9] drm/i915: Use kmap_local_page() in
+ gem/i915_gem_shmem.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,37 +80,49 @@ From: Zhao Liu <zhao1.liu@intel.com>
 The use of kmap_atomic() is being deprecated in favor of
 kmap_local_page()[1].
 
-In the following patches, we can convert the calls of kmap_atomic() /
-kunmap_atomic() to kmap_local_page() / kunmap_local(), which can
-instead do the mapping / unmapping regardless of the context.
+The main difference between atomic and local mappings is that local
+mappings doesn't disable page faults or preemption.
 
-With kmap_local_page(), the mapping is per thread, CPU local and not
-globally visible.
+In drm/i915/gem/i915_gem_shmem.c, the function shmem_pwrite() need to
+disable pagefault to eliminate the potential recursion fault[2]. But
+here __copy_from_user_inatomic() doesn't need to disable preemption and
+local mapping is valid for sched in/out.
+
+So it can use kmap_local_page() / kunmap_local() with
+pagefault_disable() / pagefault_enable() to replace atomic mapping.
 
 [1]: https://lore.kernel.org/all/20220813220034.806698-1-ira.weiny@intel.com
+[2]: https://patchwork.freedesktop.org/patch/295840/
+
+Suggested-by: Ira Weiny <ira.weiny@intel.com>
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
-Zhao Liu (9):
-  drm/i915: Use kmap_local_page() in gem/i915_gem_object.c
-  drm/i915: Use kmap_local_page() in gem/i915_gem_pyhs.c
-  drm/i915: Use kmap_local_page() in gem/i915_gem_shmem.c
-  drm/i915: Use kmap_local_page() in gem/selftests/huge_pages.c
-  drm/i915: Use kmap_local_page() in gem/selftests/i915_gem_coherency.c
-  drm/i915: Use kmap_local_page() in gem/selftests/i915_gem_context.c
-  drm/i915: Use memcpy_from_page() in gt/uc/intel_uc_fw.c
-  drm/i915: Use kmap_local_page() in i915_cmd_parser.c
-  drm/i915: Use kmap_local_page() in gem/i915_gem_execbuffer.c
+Suggested by credits:
+  Ira: Referred to his suggestions about keeping pagefault_disable().
+---
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c       | 10 +++++-----
- drivers/gpu/drm/i915/gem/i915_gem_object.c           |  8 +++-----
- drivers/gpu/drm/i915/gem/i915_gem_phys.c             |  8 ++++----
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c            |  6 ++++--
- drivers/gpu/drm/i915/gem/selftests/huge_pages.c      |  6 +++---
- .../gpu/drm/i915/gem/selftests/i915_gem_coherency.c  | 12 ++++--------
- .../gpu/drm/i915/gem/selftests/i915_gem_context.c    |  8 ++++----
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c             |  5 +----
- drivers/gpu/drm/i915/i915_cmd_parser.c               |  4 ++--
- 9 files changed, 30 insertions(+), 37 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index f42ca1179f37..e279a3e30c02 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -472,11 +472,13 @@ shmem_pwrite(struct drm_i915_gem_object *obj,
+ 		if (err < 0)
+ 			return err;
+ 
+-		vaddr = kmap_atomic(page);
++		vaddr = kmap_local_page(page);
++		pagefault_disable();
+ 		unwritten = __copy_from_user_inatomic(vaddr + pg,
+ 						      user_data,
+ 						      len);
+-		kunmap_atomic(vaddr);
++		pagefault_enable();
++		kunmap_local(vaddr);
+ 
+ 		err = aops->write_end(obj->base.filp, mapping, offset, len,
+ 				      len - unwritten, page, data);
 -- 
 2.34.1
 
