@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE5EBC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 09:33:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD600C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Oct 2022 09:33:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC5BD10E3CB;
-	Mon, 17 Oct 2022 09:33:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3803210ED18;
+	Mon, 17 Oct 2022 09:33:49 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCF3610ED0E;
- Mon, 17 Oct 2022 09:32:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86EDC10ED0F;
+ Mon, 17 Oct 2022 09:32:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665999151; x=1697535151;
+ t=1665999176; x=1697535176;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=L0klkS76Kt8Hk/6E4tsClEGhD8s9Fs2w8vteQwCBE8U=;
- b=F3/6TfLJzL35a+a164pxBFAFgFAIRQKvmyBY5u6X8V5b2WfUFO+IqwNd
- t6nUkcRPMPdqLmUWJcKz3/MGF0yug1+MCybH0YMKFUkDh/riaa6/DY7sd
- FMhf5dj9cYbFIAXe3Ov7aDrlxxcI69egrFhP9Xz2KinFzujraqsf2WyEg
- 2NrnWjnIv3UTIAkc4dyLsGKNGEFTkwWt/DCjgfRVYlibKxH1obKRHBKHz
- YK7B42adFL7E8sP673f3qV4aVqkrO8o4wdu/cCc3CvgMqNjbu1YujM1iP
- WNcNn4Lvbpty/VS2HDOLQi18lxKkZJHXGpdQmjH5uQonTAIHxFDtur3lY w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10502"; a="286142604"
-X-IronPort-AV: E=Sophos;i="5.95,191,1661842800"; d="scan'208";a="286142604"
+ bh=0Ch/gzI1CiEltsWtZiZ1vnI7GDsumr0SEFm747ErScU=;
+ b=jgCItgeC1R/Zp94KyKUhQnOWheZ9NvWIOckwNkWRHkjNznPwLqAZsUb6
+ MEZtEmJhJNDS2ooI4yuMy3552pwR2w0zCOKFAGQF3Tgba+HmIP943UcIp
+ pRsLLJsbPNNuwFAlO4blrePUBbUS4WaVAG4gCs2BiIL3Ks44SMPMXVxoO
+ An5oaMC49vxjX+zh3Kk1BQPdJn+WJvOeoxG/y5elWau+SnSCGBJTy/6vn
+ Dv3jZTT3ENkzf62GaMbrZAC9qbQkD1fla//f6X7HfJ9CRNtilZw/dduyz
+ gAyQSxCLx7Fkf9IxoW7wi2hpRBK8KgYDXKpNdNBQsi/2hjEnQWwpXRS6r w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10502"; a="286142697"
+X-IronPort-AV: E=Sophos;i="5.95,191,1661842800"; d="scan'208";a="286142697"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2022 02:32:31 -0700
+ 17 Oct 2022 02:32:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10502"; a="717431229"
-X-IronPort-AV: E=Sophos;i="5.95,191,1661842800"; d="scan'208";a="717431229"
+X-IronPort-AV: E=McAfee;i="6500,9779,10502"; a="717431333"
+X-IronPort-AV: E=Sophos;i="5.95,191,1661842800"; d="scan'208";a="717431333"
 Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.132])
- by FMSMGA003.fm.intel.com with ESMTP; 17 Oct 2022 02:32:27 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 17 Oct 2022 02:32:52 -0700
 From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -48,15 +48,15 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Mon, 17 Oct 2022 17:37:18 +0800
-Message-Id: <20221017093726.2070674-3-zhao1.liu@linux.intel.com>
+Date: Mon, 17 Oct 2022 17:37:24 +0800
+Message-Id: <20221017093726.2070674-9-zhao1.liu@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221017093726.2070674-1-zhao1.liu@linux.intel.com>
 References: <20221017093726.2070674-1-zhao1.liu@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/9] drm/i915: Use kmap_local_page() in
- gem/i915_gem_pyhs.c
+Subject: [Intel-gfx] [PATCH 8/9] drm/i915: Use kmap_local_page() in
+ i915_cmd_parser.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,24 +83,20 @@ kmap_local_page()[1].
 The main difference between atomic and local mappings is that local
 mappings doesn't disable page faults or preemption.
 
-In drm/i915/gem/i915_gem_phys.c, the functions
-i915_gem_object_get_pages_phys() and i915_gem_object_put_pages_phys()
-don't need to disable pagefaults and preemption for mapping because of
-these 2 reasons:
+There're 2 reasons why function copy_batch() doesn't need to disable
+pagefaults and preemption for mapping:
 
 1. The flush operation is safe for CPU hotplug when preemption is not
-disabled. In drm/i915/gem/i915_gem_object.c, the functions
-i915_gem_object_get_pages_phys() and i915_gem_object_put_pages_phys()
-calls drm_clflush_virt_range() to use CLFLUSHOPT or WBINVD to flush.
-Since CLFLUSHOPT is global on x86 and WBINVD is called on each cpu in
-drm_clflush_virt_range(), the flush operation is global and any issue
-with cpu's being added or removed can be handled safely.
+disabled. In i915_cmd_parser.c, the function copy_batch() calls
+drm_clflush_virt_range() to use CLFLUSHOPT or WBINVD to flush.
+Since CLFLUSHOPT is global on x86 and WBINVD is called on each cpu
+in drm_clflush_virt_range(), the flush operation is global and any
+issue with cpu's being added or removed can be handled safely.
 
 2. Any context switch caused by preemption or sleep (pagefault may
 cause sleep) doesn't affect the validity of local mapping.
 
-Therefore, i915_gem_object_get_pages_phys() and
-i915_gem_object_put_pages_phys() are two functions where the use of
+Therefore, copy_batch() is a function where the use of
 kmap_local_page() in place of kmap_atomic() is correctly suited.
 
 Convert the calls of kmap_atomic() / kunmap_atomic() to
@@ -119,39 +115,27 @@ Suggested by credits:
        cache flush.
   Fabio: Referred to his boiler plate commit message.
 ---
- drivers/gpu/drm/i915/gem/i915_gem_phys.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/i915_cmd_parser.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-index 0d0e46dae559..d602ba19ecb2 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-@@ -66,10 +66,10 @@ static int i915_gem_object_get_pages_phys(struct drm_i915_gem_object *obj)
- 		if (IS_ERR(page))
- 			goto err_st;
+diff --git a/drivers/gpu/drm/i915/i915_cmd_parser.c b/drivers/gpu/drm/i915/i915_cmd_parser.c
+index f93e6122f247..1a56000d7476 100644
+--- a/drivers/gpu/drm/i915/i915_cmd_parser.c
++++ b/drivers/gpu/drm/i915/i915_cmd_parser.c
+@@ -1211,11 +1211,11 @@ static u32 *copy_batch(struct drm_i915_gem_object *dst_obj,
+ 		for (n = offset >> PAGE_SHIFT; remain; n++) {
+ 			int len = min(remain, PAGE_SIZE - x);
  
--		src = kmap_atomic(page);
-+		src = kmap_local_page(page);
- 		memcpy(dst, src, PAGE_SIZE);
- 		drm_clflush_virt_range(dst, PAGE_SIZE);
--		kunmap_atomic(src);
-+		kunmap_local(src);
+-			src = kmap_atomic(i915_gem_object_get_page(src_obj, n));
++			src = kmap_local_page(i915_gem_object_get_page(src_obj, n));
+ 			if (src_needs_clflush)
+ 				drm_clflush_virt_range(src + x, len);
+ 			memcpy(ptr, src + x, len);
+-			kunmap_atomic(src);
++			kunmap_local(src);
  
- 		put_page(page);
- 		dst += PAGE_SIZE;
-@@ -114,10 +114,10 @@ i915_gem_object_put_pages_phys(struct drm_i915_gem_object *obj,
- 			if (IS_ERR(page))
- 				continue;
- 
--			dst = kmap_atomic(page);
-+			dst = kmap_local_page(page);
- 			drm_clflush_virt_range(src, PAGE_SIZE);
- 			memcpy(dst, src, PAGE_SIZE);
--			kunmap_atomic(dst);
-+			kunmap_local(dst);
- 
- 			set_page_dirty(page);
- 			if (obj->mm.madv == I915_MADV_WILLNEED)
+ 			ptr += len;
+ 			remain -= len;
 -- 
 2.34.1
 
