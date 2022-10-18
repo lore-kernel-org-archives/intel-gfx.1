@@ -4,74 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E0DC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 08:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E98CC4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 08:43:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50B9E10EB95;
-	Tue, 18 Oct 2022 08:32:10 +0000 (UTC)
-Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
- [64.147.123.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25C0510E4C8;
- Tue, 18 Oct 2022 08:32:00 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.west.internal (Postfix) with ESMTP id 6B89B2B06866;
- Tue, 18 Oct 2022 04:31:55 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 18 Oct 2022 04:31:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1666081915; x=1666089115; bh=fVI2EJnVlp
- jbITRfhf/MEDKDIYqZ83EHW+uFvYqJ3GE=; b=E/oS9DyWhA8g58HLIuCEAdjp+3
- t+kXUNNmuvVW4gCFTX4uansKgdcI0z1od/7hZp2owj39fURNiT13fB47gkmtn3CJ
- 2H2C4LDxzVpImC14E5MiwhaFrP/wzx0Zu6aWSo8vnz6ZiWDuTzIf7mPSafcjIjL7
- Ktt68vaMOaL1Kas6E5aO6d4LP7+lFw8cRiOqNGQ3Ck9TjNIGleczD4KO4Y16ATdN
- sp/ePs2Cxw97s3Eiok74y0erQQ34oFh1UGuDHwcy17gmgBVPIBuw4DUrHqNzS+ar
- dGgnm7RqzlAZVuXIWgZCjwAOse8HIxhDma/q9bVSzJFrtJEPU0+B2qfcoqfA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1666081915; x=1666089115; bh=fVI2EJnVlpjbITRfhf/MEDKDIYqZ
- 83EHW+uFvYqJ3GE=; b=epm9K8FSvMhkC5qc+KzKqUBNaO6dGHyYD3uVRcM+AfSC
- DQBGTJwzntTrsvr9uPrUGuWUjd0kBwTiB7h73aMrJmvShW1KtQzk3qA5CMlu3UJ6
- re2xV5ugJXQEII1HodNUDxsnFaQk7bAUK7K66sg4a+gjWX9R/ZejWdxCimSSqYqm
- 6QatFQOrHIKqRE7Qm7uB77oKaS+dx/V9Gh5wqIfrIkPBteGluP+B60oBLht7/9rQ
- 7cCBygs54841y6xJ1O8yAye2mw90tr2EOGp6fYbN5VA9ebIJ6C+7vG+1lPuCYK9/
- Ugc+txHMO0LDiAjWoEy7aqQHW0V3BnalWAoLOA/+6A==
-X-ME-Sender: <xms:emROY46iy60goFrr_WU2zHsL9iuc399b7JhJODl0-LgksKAMSNTkcw>
- <xme:emROY57mnTp_3ENJZ8OzX0xtCU67J4FOTM3VAdL5AaO4kupPv__bkOI2R59aE_brX
- hCZtUfG-FNzTAksq_o>
-X-ME-Received: <xmr:emROY3d9dWcAzYHBLjYTAdJNGT4GClAW81v9347IhMA51V5iLYMj3p-idlvT>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeeluddgtdegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeetfefffefgkedtfefgledugfdtjeefjedvtddtkeetieffjedvgfehheff
- hfevudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:emROY9LBVry6aKrA2NlwwP8wDSRg7PDiELeB6DYc4Gds3rw9XRoR1w>
- <xmx:emROY8L27ihIBZ4gnvlia-DXnfdfA_eN5iKOAOL9U6b_pHaaBPg2RQ>
- <xmx:emROY-z4L1c83o5TN_73-0SbD7iixLdy2H6Hz8SbNhRW99CwE2zKgg>
- <xmx:e2ROY2o2vgyykG5PFglEXmdAutCaV1CBZNCRvmLRTqHCgXcMUXkOxWVRiJg>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 18 Oct 2022 04:31:54 -0400 (EDT)
-Date: Tue, 18 Oct 2022 10:31:53 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: kfyatek+publicgit@gmail.com
-Message-ID: <20221018083153.okkqpd5ccfrnwdj3@houat>
-References: <20220728-rpi-analog-tv-properties-v5-0-d841cc64fe4b@cerno.tech>
- <20220728-rpi-analog-tv-properties-v5-21-d841cc64fe4b@cerno.tech>
- <93bf9fcc-c645-b042-011f-8f1fc957af48@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E44410E98D;
+	Tue, 18 Oct 2022 08:43:55 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5749D10EB80
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 08:43:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666082631; x=1697618631;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=WWMAJkLpGy9MUvG++ADNWnJaWxADb/l1Z7QbX6tqHpo=;
+ b=T4xhfxBp9txsUgVbyLMT/O8SGUvIq0LCvnAQ+ZunYnn8zIpFhljxeyL9
+ bySaOhN0fo2Z3uwZD9nbVdETCQEyUzEjEqijd716Oy/kKhYM1bJtn4vyo
+ c9mAYqU8ybKPrHYznSvaMwmG92yIdds+cG94cxsmXB/MVJD1U+ftSXJbK
+ A9ALiz3RwuJZzfhRz99bAH74R/i9wT47vlEzXs9xxHAvD9LKha2nVioqI
+ P+xQlGka5jA1S6fVfTR1FCUkCz/bm8rE+3SgEt16mfOmE1mwM884InpNm
+ iy9H7aT1RVzBu4dHnQ4HUtWOiyHceX6eZbpMaHwzVP9ZEEnZo5dK0wdmc w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="304779386"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; 
+ d="scan'208,223";a="304779386"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 01:43:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="873802462"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; 
+ d="scan'208,223";a="873802462"
+Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
+ by fmsmga006.fm.intel.com with ESMTP; 18 Oct 2022 01:43:47 -0700
+From: Animesh Manna <animesh.manna@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 18 Oct 2022 14:09:21 +0530
+Message-Id: <20221018083921.23239-2-animesh.manna@intel.com>
+X-Mailer: git-send-email 2.29.0
+In-Reply-To: <20221018083921.23239-1-animesh.manna@intel.com>
+References: <20221018083921.23239-1-animesh.manna@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gs7goob5irll63bf"
-Content-Disposition: inline
-In-Reply-To: <93bf9fcc-c645-b042-011f-8f1fc957af48@gmail.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/vc4: vec: Add support for PAL-60
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/pps: Enable 2nd pps for dual EDP
+ scenario
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,63 +60,147 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Phil Elwell <phil@raspberrypi.com>, Karol Herbst <kherbst@redhat.com>,
- Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Ben Skeggs <bskeggs@redhat.com>,
- linux-sunxi@lists.linux.dev, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-arm-kernel@lists.infradead.org,
- Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
- Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From display gen12 onwards to support dual EDP two instances of pps added.
+Currently backlight controller and pps instance can be mapped together
+for a specific panel. Currently dual PPS support is broken. This patch
+fixes it and enables for display 12+.
 
---gs7goob5irll63bf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+v1: Iniital revision.
+v2: Called intel_bios_panel_init w/o PNPID before intel_pps_init. [Jani]
+v3: Set pps_id to -1 for pnpid type of panel which will be used by
+bxt_power_sequencer_idx() to set 2nd pps instance as default for
+2nd EDP panel. [Jani]
+v4: Early return for PANEL_TYPE_FALLBACK. [Jani]
+v5: Removed additional pps_id variable and reused backlight
+controller. [Jani]
 
-Hi,
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_bios.c |  9 ++++++++-
+ drivers/gpu/drm/i915/display/intel_bios.h |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp.c   | 10 +++++++---
+ drivers/gpu/drm/i915/display/intel_pps.c  | 12 +++++++++++-
+ 4 files changed, 27 insertions(+), 6 deletions(-)
 
-On Sun, Oct 16, 2022 at 09:46:49PM +0200, Mateusz Kwiatkowski wrote:
-> @@ -308,14 +324,15 @@ static const struct vc4_vec_tv_mode vc4_vec_tv_mode=
-s[] =3D {
->  };
-> =20
->  static inline const struct vc4_vec_tv_mode *
-> -vc4_vec_tv_mode_lookup(unsigned int mode)
-> +vc4_vec_tv_mode_lookup(unsigned int mode, u16 htotal)
->  {
->  	unsigned int i;
-> =20
->  	for (i =3D 0; i < ARRAY_SIZE(vc4_vec_tv_modes); i++) {
->  		const struct vc4_vec_tv_mode *tv_mode =3D &vc4_vec_tv_modes[i];
-> =20
-> -		if (tv_mode->mode =3D=3D mode)
-> +		if (tv_mode->mode =3D=3D mode &&
-> +		    tv_mode->expected_htotal =3D=3D htotal)
->  			return tv_mode;
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index c2987f2c2b2e..1c1eea061fbb 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -3183,7 +3183,7 @@ void intel_bios_init(struct drm_i915_private *i915)
+ 	kfree(oprom_vbt);
+ }
+ 
+-void intel_bios_init_panel(struct drm_i915_private *i915,
++bool intel_bios_init_panel(struct drm_i915_private *i915,
+ 			   struct intel_panel *panel,
+ 			   const struct intel_bios_encoder_data *devdata,
+ 			   const struct edid *edid)
+@@ -3192,6 +3192,11 @@ void intel_bios_init_panel(struct drm_i915_private *i915,
+ 
+ 	panel->vbt.panel_type = get_panel_type(i915, devdata, edid);
+ 
++	if (panel->vbt.panel_type == PANEL_TYPE_FALLBACK && !edid) {
++		panel->vbt.backlight.controller = -1;
++		return true;
++	}
++
+ 	parse_panel_options(i915, panel);
+ 	parse_generic_dtd(i915, panel);
+ 	parse_lfp_data(i915, panel);
+@@ -3203,6 +3208,8 @@ void intel_bios_init_panel(struct drm_i915_private *i915,
+ 	parse_psr(i915, panel);
+ 	parse_mipi_config(i915, panel);
+ 	parse_mipi_sequence(i915, panel);
++
++	return false;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+index e375405a7828..f8ef0274f3ee 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -232,7 +232,7 @@ struct mipi_pps_data {
+ } __packed;
+ 
+ void intel_bios_init(struct drm_i915_private *dev_priv);
+-void intel_bios_init_panel(struct drm_i915_private *dev_priv,
++bool intel_bios_init_panel(struct drm_i915_private *dev_priv,
+ 			   struct intel_panel *panel,
+ 			   const struct intel_bios_encoder_data *devdata,
+ 			   const struct edid *edid);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index a060903891b2..6d3a0fe06359 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5234,6 +5234,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
+ 	bool has_dpcd;
+ 	struct edid *edid;
++	bool retry;
+ 
+ 	if (!intel_dp_is_edp(intel_dp))
+ 		return true;
+@@ -5253,6 +5254,9 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 		return false;
+ 	}
+ 
++	retry = intel_bios_init_panel(dev_priv, &intel_connector->panel,
++				      encoder->devdata, NULL);
++
+ 	intel_pps_init(intel_dp);
+ 
+ 	/* Cache DPCD and EDID for edp. */
+@@ -5287,9 +5291,9 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 		edid = ERR_PTR(-ENOENT);
+ 	}
+ 	intel_connector->edid = edid;
+-
+-	intel_bios_init_panel(dev_priv, &intel_connector->panel,
+-			      encoder->devdata, IS_ERR(edid) ? NULL : edid);
++	if (retry)
++		intel_bios_init_panel(dev_priv, &intel_connector->panel,
++				      encoder->devdata, IS_ERR(edid) ? NULL : edid);
+ 
+ 	intel_panel_add_edid_fixed_modes(intel_connector, true);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
+index 9ed62c891b8c..f9899305d6e0 100644
+--- a/drivers/gpu/drm/i915/display/intel_pps.c
++++ b/drivers/gpu/drm/i915/display/intel_pps.c
+@@ -218,6 +218,16 @@ bxt_power_sequencer_idx(struct intel_dp *intel_dp)
+ 	/* We should never land here with regular DP ports */
+ 	drm_WARN_ON(&dev_priv->drm, !intel_dp_is_edp(intel_dp));
+ 
++	if (backlight_controller == -1) {
++		/*
++		 * Use 2nd PPS instance as default for 2nd EDP panel.
++		 */
++		if (connector->encoder->port == PORT_A)
++			return 0;
++		else
++			return 1;
++	}
++
+ 	if (!intel_dp->pps.pps_reset)
+ 		return backlight_controller;
+ 
+@@ -1429,7 +1439,7 @@ void intel_pps_init(struct intel_dp *intel_dp)
+ 	intel_dp->pps.initializing = true;
+ 	INIT_DELAYED_WORK(&intel_dp->pps.panel_vdd_work, edp_panel_vdd_work);
+ 
+-	if (IS_GEMINILAKE(i915) || IS_BROXTON(i915))
++	if (IS_GEMINILAKE(i915) || IS_BROXTON(i915) || DISPLAY_VER(i915) >= 12)
+ 		intel_dp->get_pps_idx = bxt_power_sequencer_idx;
+ 	else if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
+ 		intel_dp->get_pps_idx = vlv_power_sequencer_pipe;
+-- 
+2.29.0
 
-Is there any reason we're not using the refresh rate to filter this? It
-seems more natural to me.
-
-Maxime
-
---gs7goob5irll63bf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCY05keQAKCRDj7w1vZxhR
-xaoGAP9HmWvEP2iOcoDGqog26qg7gWYMxwwOjWfwgHtgcV81kQEAx9tCz7NmGbD4
-TRrl+IN8yZd5ByEPUAc0V6js5M4u6w8=
-=0Z/k
------END PGP SIGNATURE-----
-
---gs7goob5irll63bf--
