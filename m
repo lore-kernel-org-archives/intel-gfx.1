@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A81BC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 07:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E73FC43217
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 07:18:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6CDE10EEAA;
-	Tue, 18 Oct 2022 07:17:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA2C510EEAD;
+	Tue, 18 Oct 2022 07:17:07 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6D910E192;
- Tue, 18 Oct 2022 07:16:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 134B010E1E8;
+ Tue, 18 Oct 2022 07:16:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666077397; x=1697613397;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=vBwYhpg01YHykG5Jw2WMckN5KuMXeHY+3GRlClDFXIA=;
- b=i1ioUOVIdQcPOh+GrRLoYI8/TF5Tdtd1qDPaG/NBM68eZKzwrRS6uXVk
- DquA8l/9fe8moT6RVjQ/lKV8DfSiwEPyUQHCPVvV7ntNzDlUN1ZqhvVW4
- pdX1QYQKU8yEIN0jYhkf29yIS29cPWTWPrY/chBZoHus11CisHmudsPKp
- kSJb8Du9JaaOiD0lVCvLA6KRP5SrSST8hbhebp4Ph7sIpWkqCKkrdoNOa
- b+rfJvucVb87B96xHK3rdeBY+dzaK/GfHdb9fQumgCMgbdidQITBvieNn
- MDqtc58z9o4SjeK9sODOldZP0+GWGJt1KItuNopWbE474eSUWsDuSz/sU g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="370221307"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="370221307"
+ t=1666077398; x=1697613398;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=s2SytYlZ4XW8IHH4S3RWx/PSLW3YXP5X/WijwHLKFdA=;
+ b=Q4ofaIvW4rM+0YxsqTkL8y8JOq4S8Hx36FWnQIctzD6pDH/geIXrHAte
+ jfytTbOBn+ns5H9p2CK6kL2xwBPO/+hy0ikmFCknm2VniP3a9nyTanH+T
+ caqBCQVWpkvy53Mc92hRPyN7BO0E78iKiS8xJXY7eJ3N+o0XzLSMInSPY
+ hE3tjakG/r1BlE8N2R5VjUoVQnwfDVwKQjREslZLDd0r6p3eYjFsva3J7
+ 0PejktvZS4PT+e56LCVhhfPx6kbQpsWhdI2d0TUd40jKL06i1PjTqgRyf
+ K8ubEQc4+9QKskORdLx6v27HFOCHOaBzZICu1MqiPAzuKlKJQ2PrtKjsw Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="370221311"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="370221311"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 00:16:36 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="661783445"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="661783445"
+ 18 Oct 2022 00:16:37 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="661783454"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="661783454"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 00:16:36 -0700
+ 18 Oct 2022 00:16:37 -0700
 From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 18 Oct 2022 00:16:13 -0700
-Message-Id: <20221018071630.3831-1-niranjana.vishwanathapura@intel.com>
+Date: Tue, 18 Oct 2022 00:16:15 -0700
+Message-Id: <20221018071630.3831-3-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
+In-Reply-To: <20221018071630.3831-1-niranjana.vishwanathapura@intel.com>
+References: <20221018071630.3831-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 00/17] drm/i915/vm_bind: Add VM_BIND
- functionality
+Subject: [Intel-gfx] [PATCH v4 02/17] drm/i915/vm_bind: Add
+ __i915_sw_fence_await_reservation()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,97 +63,118 @@ Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DRM_I915_GEM_VM_BIND/UNBIND ioctls allows UMD to bind/unbind GEM
-buffer objects (BOs) or sections of a BOs at specified GPU virtual
-addresses on a specified address space (VM). Multiple mappings can map
-to the same physical pages of an object (aliasing). These mappings (also
-referred to as persistent mappings) will be persistent across multiple
-GPU submissions (execbuf calls) issued by the UMD, without user having
-to provide a list of all required mappings during each submission (as
-required by older execbuf mode).
+Add function __i915_sw_fence_await_reservation() for
+asynchronous wait on a dma-resv object with specified
+dma_resv_usage. This is required for async vma unbind
+with vm_bind.
 
-This patch series support VM_BIND version 1, as described by the param
-I915_PARAM_VM_BIND_VERSION.
-
-Add new execbuf3 ioctl (I915_GEM_EXECBUFFER3) which only works in
-vm_bind mode. The vm_bind mode only works with this new execbuf3 ioctl.
-The new execbuf3 ioctl will not have any execlist support and all the
-legacy support like relocations etc., are removed.
-
-TODOs:
-* Support out fence for VM_UNBIND ioctl.
-* Async VM_UNBIND support.
-* Optimizations.
-
-NOTEs:
-* It is based on below VM_BIND design+uapi rfc.
-  Documentation/gpu/rfc/i915_vm_bind.rst
-
-* The IGT RFC series is posted as,
-  [PATCH i-g-t v4 0/11] vm_bind: Add VM_BIND validation support
-
-v2: Address various review comments
-v3: Address review comments and other fixes
-v4: Remove vm_unbind out fence uapi which is not supported yet,
-    replace vm->vm_bind_mode check with i915_gem_vm_is_vm_bind_mode()
-
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+---
+ drivers/gpu/drm/i915/i915_sw_fence.c | 28 +++++++++++++++++++++-------
+ drivers/gpu/drm/i915/i915_sw_fence.h | 23 +++++++++++++++++------
+ 2 files changed, 38 insertions(+), 13 deletions(-)
 
-Niranjana Vishwanathapura (17):
-  drm/i915/vm_bind: Expose vm lookup function
-  drm/i915/vm_bind: Add __i915_sw_fence_await_reservation()
-  drm/i915/vm_bind: Expose i915_gem_object_max_page_size()
-  drm/i915/vm_bind: Add support to create persistent vma
-  drm/i915/vm_bind: Implement bind and unbind of object
-  drm/i915/vm_bind: Support for VM private BOs
-  drm/i915/vm_bind: Add support to handle object evictions
-  drm/i915/vm_bind: Support persistent vma activeness tracking
-  drm/i915/vm_bind: Add out fence support
-  drm/i915/vm_bind: Abstract out common execbuf functions
-  drm/i915/vm_bind: Use common execbuf functions in execbuf path
-  drm/i915/vm_bind: Implement I915_GEM_EXECBUFFER3 ioctl
-  drm/i915/vm_bind: Update i915_vma_verify_bind_complete()
-  drm/i915/vm_bind: Expose i915_request_await_bind()
-  drm/i915/vm_bind: Handle persistent vmas in execbuf3
-  drm/i915/vm_bind: userptr dma-resv changes
-  drm/i915/vm_bind: Add uapi for user to enable vm_bind_mode
-
- drivers/gpu/drm/i915/Makefile                 |   3 +
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |  37 +-
- drivers/gpu/drm/i915/gem/i915_gem_context.h   |  17 +
- drivers/gpu/drm/i915/gem/i915_gem_create.c    |  72 +-
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |   6 +
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 516 +----------
- .../gpu/drm/i915/gem/i915_gem_execbuffer3.c   | 866 ++++++++++++++++++
- .../drm/i915/gem/i915_gem_execbuffer_common.c | 666 ++++++++++++++
- .../drm/i915/gem/i915_gem_execbuffer_common.h |  74 ++
- drivers/gpu/drm/i915/gem/i915_gem_ioctls.h    |   2 +
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |   3 +
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |   2 +
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |   3 +
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c   |  19 +
- drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h   |  30 +
- .../drm/i915/gem/i915_gem_vm_bind_object.c    | 433 +++++++++
- drivers/gpu/drm/i915/gt/intel_gtt.c           |  17 +
- drivers/gpu/drm/i915/gt/intel_gtt.h           |  19 +
- drivers/gpu/drm/i915/i915_driver.c            |   4 +
- drivers/gpu/drm/i915/i915_drv.h               |   2 +
- drivers/gpu/drm/i915/i915_gem_gtt.c           |  39 +
- drivers/gpu/drm/i915/i915_gem_gtt.h           |   3 +
- drivers/gpu/drm/i915/i915_getparam.c          |   3 +
- drivers/gpu/drm/i915/i915_sw_fence.c          |  28 +-
- drivers/gpu/drm/i915/i915_sw_fence.h          |  23 +-
- drivers/gpu/drm/i915/i915_vma.c               | 128 ++-
- drivers/gpu/drm/i915/i915_vma.h               |  57 +-
- drivers/gpu/drm/i915/i915_vma_types.h         |  39 +
- include/uapi/drm/i915_drm.h                   | 271 +++++-
- 29 files changed, 2860 insertions(+), 522 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_execbuffer_common.c
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_execbuffer_common.h
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-
+diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
+index cc2a8821d22a..ae06d35db056 100644
+--- a/drivers/gpu/drm/i915/i915_sw_fence.c
++++ b/drivers/gpu/drm/i915/i915_sw_fence.c
+@@ -7,7 +7,6 @@
+ #include <linux/slab.h>
+ #include <linux/dma-fence.h>
+ #include <linux/irq_work.h>
+-#include <linux/dma-resv.h>
+ 
+ #include "i915_sw_fence.h"
+ #include "i915_selftest.h"
+@@ -569,11 +568,26 @@ int __i915_sw_fence_await_dma_fence(struct i915_sw_fence *fence,
+ 	return ret;
+ }
+ 
+-int i915_sw_fence_await_reservation(struct i915_sw_fence *fence,
+-				    struct dma_resv *resv,
+-				    bool write,
+-				    unsigned long timeout,
+-				    gfp_t gfp)
++/**
++ * __i915_sw_fence_await_reservation() - Setup a fence to wait on a dma-resv
++ * object with specified usage.
++ * @fence: the fence that needs to wait
++ * @resv: dma-resv object
++ * @usage: dma_resv_usage (See enum dma_resv_usage)
++ * @timeout: how long to wait in jiffies
++ * @gfp: allocation mode
++ *
++ * Setup the @fence to asynchronously wait on dma-resv object @resv for
++ * @usage to complete before signaling.
++ *
++ * Returns 0 if there is nothing to wait on, -ve error code upon error
++ * and >0 upon successfully setting up the wait.
++ */
++int __i915_sw_fence_await_reservation(struct i915_sw_fence *fence,
++				      struct dma_resv *resv,
++				      enum dma_resv_usage usage,
++				      unsigned long timeout,
++				      gfp_t gfp)
+ {
+ 	struct dma_resv_iter cursor;
+ 	struct dma_fence *f;
+@@ -582,7 +596,7 @@ int i915_sw_fence_await_reservation(struct i915_sw_fence *fence,
+ 	debug_fence_assert(fence);
+ 	might_sleep_if(gfpflags_allow_blocking(gfp));
+ 
+-	dma_resv_iter_begin(&cursor, resv, dma_resv_usage_rw(write));
++	dma_resv_iter_begin(&cursor, resv, usage);
+ 	dma_resv_for_each_fence_unlocked(&cursor, f) {
+ 		pending = i915_sw_fence_await_dma_fence(fence, f, timeout,
+ 							gfp);
+diff --git a/drivers/gpu/drm/i915/i915_sw_fence.h b/drivers/gpu/drm/i915/i915_sw_fence.h
+index f752bfc7c6e1..9c4859dc4c0d 100644
+--- a/drivers/gpu/drm/i915/i915_sw_fence.h
++++ b/drivers/gpu/drm/i915/i915_sw_fence.h
+@@ -10,13 +10,13 @@
+ #define _I915_SW_FENCE_H_
+ 
+ #include <linux/dma-fence.h>
++#include <linux/dma-resv.h>
+ #include <linux/gfp.h>
+ #include <linux/kref.h>
+ #include <linux/notifier.h> /* for NOTIFY_DONE */
+ #include <linux/wait.h>
+ 
+ struct completion;
+-struct dma_resv;
+ struct i915_sw_fence;
+ 
+ enum i915_sw_fence_notify {
+@@ -89,11 +89,22 @@ int i915_sw_fence_await_dma_fence(struct i915_sw_fence *fence,
+ 				  unsigned long timeout,
+ 				  gfp_t gfp);
+ 
+-int i915_sw_fence_await_reservation(struct i915_sw_fence *fence,
+-				    struct dma_resv *resv,
+-				    bool write,
+-				    unsigned long timeout,
+-				    gfp_t gfp);
++int __i915_sw_fence_await_reservation(struct i915_sw_fence *fence,
++				      struct dma_resv *resv,
++				      enum dma_resv_usage usage,
++				      unsigned long timeout,
++				      gfp_t gfp);
++
++static inline int i915_sw_fence_await_reservation(struct i915_sw_fence *fence,
++						  struct dma_resv *resv,
++						  bool write,
++						  unsigned long timeout,
++						  gfp_t gfp)
++{
++	return __i915_sw_fence_await_reservation(fence, resv,
++						 dma_resv_usage_rw(write),
++						 timeout, gfp);
++}
+ 
+ bool i915_sw_fence_await(struct i915_sw_fence *fence);
+ void i915_sw_fence_complete(struct i915_sw_fence *fence);
 -- 
 2.21.0.rc0.32.g243a4c7e27
 
