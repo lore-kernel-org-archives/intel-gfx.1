@@ -4,47 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE9BDC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 17:21:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60D37C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 17:31:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F8A910EFBA;
-	Tue, 18 Oct 2022 17:21:03 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBD0010EFBB
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 17:20:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8326810EFC0;
+	Tue, 18 Oct 2022 17:31:12 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA2010EFA9;
+ Tue, 18 Oct 2022 17:31:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666113647; x=1697649647;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=w44PZurLqZYxdvVl1Mgwa8wXAiVNw7t7VtyQ/GEVgq8=;
- b=QnZVMh3qPE8sc9+7FgrUfImLrFKb47wT5pJBw0jrFuEdzoZLj8Uqdihx
- mXai6AYpthj/Ri56aHOYfwqzdRz7Fpn2ymkUsOD88Awt70H/9bK7iyxjf
- qYA5HP3cQnyrbF/jgHF/kcLFCordanL18VA/9dV5ox07ZahyuVVB4vjLa
- CYjUhnCW3Drc3sxbxEOCVfP/yvgevXAG6WqB4GY/Oqm35H6LuIvmdf2A1
- YvnOprooM4n69jNPnhXTo6sx1qu3kkVBKoAHbcLpixMUWjwgfRKfJb6yL
- /okee4R5m5aUteDobXHdbXiNij2bUH5/dpgK5ua7xgyoDRWC6+ZtF4Qtr g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="306160512"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="306160512"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 10:20:47 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="628818312"
-X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="628818312"
-Received: from ideak-desk.fi.intel.com ([10.237.72.175])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 10:20:46 -0700
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Oct 2022 20:20:41 +0300
-Message-Id: <20221018172042.1449885-2-imre.deak@intel.com>
-X-Mailer: git-send-email 2.31.1.189.g2e36527f23
-In-Reply-To: <20221018172042.1449885-1-imre.deak@intel.com>
-References: <20221018172042.1449885-1-imre.deak@intel.com>
+ t=1666114265; x=1697650265;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Ln9TmfpDVvTb/eizml59QSiyCqTCb3dr6w2rcStwb+o=;
+ b=XiPbHUQK+/xZCrPb4aUSAlGZZDc/TfRBEfzvPEOMVVXyDXqyFyXgfTjZ
+ K1fuNmrg75HL+Gz45bR0L+VDl0zWWMtZ0bNoIzQ/z+rR9VlX1vMcJHLbY
+ eFtTGR3ssbbKPU8ev5MZbVGIIIpcNHIAR9RVIt1kXOY2rhrJDLTImpyLZ
+ F8GRU0FbBoes8qFGMC6jv5Dsi0UsNSsi8eVTeyJn9lKMbykVJSXUaSbj2
+ SQDbf5KBrDIDI1eoT3W0eUleIJbsdMHqaHt7If64BxjjAvIZ3ghhRgy+E
+ swYl1+Dn077YhLKkEVEApocOE2DmQGo2IeX2vPqEVEMs7Y8w5sjxKsx8W w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="368206585"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="368206585"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 10:31:03 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="803855597"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="803855597"
+Received: from kmaslows-mobl.ger.corp.intel.com (HELO [10.252.26.162])
+ ([10.252.26.162])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 10:31:00 -0700
+Message-ID: <5bc04ae0-7d25-1734-eefc-253be0c8e79c@intel.com>
+Date: Tue, 18 Oct 2022 18:30:58 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.3.1
+Content-Language: en-GB
+To: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20221018071630.3831-1-niranjana.vishwanathapura@intel.com>
+ <20221018071630.3831-13-niranjana.vishwanathapura@intel.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20221018071630.3831-13-niranjana.vishwanathapura@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915/tgl+: Move DKL PHY register
- definitions to intel_tc_phy_regs.h
+Subject: Re: [Intel-gfx] [PATCH v4 12/17] drm/i915/vm_bind: Implement
+ I915_GEM_EXECBUFFER3 ioctl
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,425 +63,768 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
+ daniel.vetter@intel.com, christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the TypeC DKL PHY register definitions to intel_tc_phy_regs.h next
-to the TypeC MG PHY registers.
+On 18/10/2022 08:16, Niranjana Vishwanathapura wrote:
+> Implement new execbuf3 ioctl (I915_GEM_EXECBUFFER3) which only
+> works in vm_bind mode. The vm_bind mode only works with
+> this new execbuf3 ioctl.
+> 
+> The new execbuf3 ioctl will not have any list of objects to validate
+> bind as all required objects binding would have been requested by the
+> userspace before submitting the execbuf3.
+> 
+> Legacy features like relocations etc are not supported by execbuf3.
+> 
+> v2: Add more input validity checks.
+> v3: batch_address is a VA (not an array) if num_batches=1,
+>      minor cleanup
+> v4: replace vm->vm_bind_mode check with i915_gem_vm_is_vm_bind_mode()
+> 
+> Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+> Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+> ---
+>   drivers/gpu/drm/i915/Makefile                 |   1 +
+>   .../gpu/drm/i915/gem/i915_gem_execbuffer3.c   | 580 ++++++++++++++++++
+>   drivers/gpu/drm/i915/gem/i915_gem_ioctls.h    |   2 +
+>   drivers/gpu/drm/i915/i915_driver.c            |   1 +
+>   include/uapi/drm/i915_drm.h                   |  61 ++
+>   5 files changed, 645 insertions(+)
+>   create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
+> 
+> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+> index 8d76bb888dc3..6a801684d569 100644
+> --- a/drivers/gpu/drm/i915/Makefile
+> +++ b/drivers/gpu/drm/i915/Makefile
+> @@ -150,6 +150,7 @@ gem-y += \
+>   	gem/i915_gem_domain.o \
+>   	gem/i915_gem_execbuffer_common.o \
+>   	gem/i915_gem_execbuffer.o \
+> +	gem/i915_gem_execbuffer3.o \
+>   	gem/i915_gem_internal.o \
+>   	gem/i915_gem_object.o \
+>   	gem/i915_gem_lmem.o \
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
+> new file mode 100644
+> index 000000000000..a9b4cc44bf66
+> --- /dev/null
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
+> @@ -0,0 +1,580 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright © 2022 Intel Corporation
+> + */
+> +
+> +#include <linux/dma-resv.h>
+> +#include <linux/uaccess.h>
+> +
+> +#include <drm/drm_syncobj.h>
+> +
+> +#include "gt/intel_context.h"
+> +#include "gt/intel_gpu_commands.h"
+> +#include "gt/intel_gt.h"
+> +
+> +#include "i915_drv.h"
+> +#include "i915_gem_context.h"
+> +#include "i915_gem_execbuffer_common.h"
+> +#include "i915_gem_ioctls.h"
+> +#include "i915_gem_vm_bind.h"
+> +#include "i915_trace.h"
+> +
+> +#define __EXEC3_ENGINE_PINNED		BIT_ULL(32)
+> +#define __EXEC3_INTERNAL_FLAGS		(~0ull << 32)
+> +
+> +/* Catch emission of unexpected errors for CI! */
+> +#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
+> +#undef EINVAL
+> +#define EINVAL ({ \
+> +	DRM_DEBUG_DRIVER("EINVAL at %s:%d\n", __func__, __LINE__); \
+> +	22; \
+> +})
+> +#endif
+> +
+> +/**
+> + * DOC: User command execution with execbuf3 ioctl
+> + *
+> + * A VM in VM_BIND mode will not support older execbuf mode of binding.
+> + * The execbuf ioctl handling in VM_BIND mode differs significantly from the
+> + * older execbuf2 ioctl (See struct drm_i915_gem_execbuffer2).
+> + * Hence, a new execbuf3 ioctl has been added to support VM_BIND mode. (See
+> + * struct drm_i915_gem_execbuffer3). The execbuf3 ioctl will not accept any
+> + * execlist. Hence, no support for implicit sync.
+> + *
+> + * The new execbuf3 ioctl only works in VM_BIND mode and the VM_BIND mode only
+> + * works with execbuf3 ioctl for submission.
+> + *
+> + * The execbuf3 ioctl directly specifies the batch addresses instead of as
+> + * object handles as in execbuf2 ioctl. The execbuf3 ioctl will also not
+> + * support many of the older features like in/out/submit fences, fence array,
+> + * default gem context etc. (See struct drm_i915_gem_execbuffer3).
+> + *
+> + * In VM_BIND mode, VA allocation is completely managed by the user instead of
+> + * the i915 driver. Hence all VA assignment, eviction are not applicable in
+> + * VM_BIND mode. Also, for determining object activeness, VM_BIND mode will not
+> + * be using the i915_vma active reference tracking. It will instead check the
+> + * dma-resv object's fence list for that.
+> + *
+> + * So, a lot of code supporting execbuf2 ioctl, like relocations, VA evictions,
+> + * vma lookup table, implicit sync, vma active reference tracking etc., are not
+> + * applicable for execbuf3 ioctl.
+> + */
+> +
+> +/**
+> + * struct i915_execbuffer - execbuf struct for execbuf3
+> + * @i915: reference to the i915 instance we run on
+> + * @file: drm file reference
+> + * args: execbuf3 ioctl structure
+> + * @gt: reference to the gt instance ioctl submitted for
+> + * @context: logical state for the request
+> + * @gem_context: callers context
+> + * @requests: requests to be build
+> + * @composite_fence: used for excl fence in dma_resv objects when > 1 BB submitted
+> + * @ww: i915_gem_ww_ctx instance
+> + * @num_batches: number of batches submitted
+> + * @batch_addresses: addresses corresponds to the submitted batches
+> + * @batches: references to the i915_vmas corresponding to the batches
+> + */
+> +struct i915_execbuffer {
+> +	struct drm_i915_private *i915;
+> +	struct drm_file *file;
+> +	struct drm_i915_gem_execbuffer3 *args;
+> +
+> +	struct intel_gt *gt;
+> +	struct intel_context *context;
+> +	struct i915_gem_context *gem_context;
+> +
+> +	struct i915_request *requests[MAX_ENGINE_INSTANCE + 1];
+> +	struct dma_fence *composite_fence;
+> +
+> +	struct i915_gem_ww_ctx ww;
+> +
+> +	unsigned int num_batches;
+> +	u64 batch_addresses[MAX_ENGINE_INSTANCE + 1];
+> +	struct i915_vma *batches[MAX_ENGINE_INSTANCE + 1];
+> +
+> +	struct eb_fence *fences;
+> +	u64 num_fences;
+> +};
+> +
+> +static void eb_unpin_engine(struct i915_execbuffer *eb);
+> +
+> +static int eb_select_context(struct i915_execbuffer *eb)
+> +{
+> +	struct i915_gem_context *ctx;
+> +
+> +	ctx = i915_gem_context_lookup(eb->file->driver_priv, eb->args->ctx_id);
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+> +
+> +	if (!i915_gem_vm_is_vm_bind_mode(ctx->vm)) {
+> +		i915_gem_context_put(ctx);
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	eb->gem_context = ctx;
+> +	return 0;
+> +}
+> +
+> +static struct i915_vma *
+> +eb_find_vma(struct i915_address_space *vm, u64 addr)
+> +{
+> +	u64 va;
+> +
+> +	lockdep_assert_held(&vm->vm_bind_lock);
+> +
+> +	va = gen8_noncanonical_addr(addr & PIN_OFFSET_MASK);
+> +	return i915_gem_vm_bind_lookup_vma(vm, va);
+> +}
+> +
+> +static int eb_lookup_vma_all(struct i915_execbuffer *eb)
+> +{
+> +	unsigned int i, current_batch = 0;
+> +	struct i915_vma *vma;
+> +
+> +	for (i = 0; i < eb->num_batches; i++) {
+> +		vma = eb_find_vma(eb->context->vm, eb->batch_addresses[i]);
+> +		if (!vma)
+> +			return -EINVAL;
+> +
+> +		eb->batches[current_batch] = vma;
+> +		++current_batch;
 
-No functional changes.
+current_batch == i ?
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- .../i915/display/intel_display_power_well.c   |   1 +
- .../gpu/drm/i915/display/intel_tc_phy_regs.h  | 186 ++++++++++++++++++
- drivers/gpu/drm/i915/i915_reg.h               | 179 -----------------
- 3 files changed, 187 insertions(+), 179 deletions(-)
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void eb_release_vma_all(struct i915_execbuffer *eb)
+> +{
+> +	eb_unpin_engine(eb);
+> +}
+> +
+> +/*
+> + * Using two helper loops for the order of which requests / batches are created
+> + * and added the to backend. Requests are created in order from the parent to
+> + * the last child. Requests are added in the reverse order, from the last child
+> + * to parent. This is done for locking reasons as the timeline lock is acquired
+> + * during request creation and released when the request is added to the
+> + * backend. To make lockdep happy (see intel_context_timeline_lock) this must be
+> + * the ordering.
+> + */
+> +#define for_each_batch_create_order(_eb) \
+> +	for (unsigned int i = 0; i < (_eb)->num_batches; ++i)
+> +
+> +static int eb_move_to_gpu(struct i915_execbuffer *eb)
+> +{
+> +	/* Unconditionally flush any chipset caches (for streaming writes). */
+> +	intel_gt_chipset_flush(eb->gt);
+> +
+> +	return 0;
+> +}
+> +
+> +static int eb_request_submit(struct i915_execbuffer *eb,
+> +			     struct i915_request *rq,
+> +			     struct i915_vma *batch,
+> +			     u64 batch_len)
+> +{
+> +	struct intel_engine_cs *engine = rq->context->engine;
+> +	int err;
+> +
+> +	if (intel_context_nopreempt(rq->context))
+> +		__set_bit(I915_FENCE_FLAG_NOPREEMPT, &rq->fence.flags);
+> +
+> +	/*
+> +	 * After we completed waiting for other engines (using HW semaphores)
+> +	 * then we can signal that this request/batch is ready to run. This
+> +	 * allows us to determine if the batch is still waiting on the GPU
+> +	 * or actually running by checking the breadcrumb.
+> +	 */
+> +	if (engine->emit_init_breadcrumb) {
+> +		err = engine->emit_init_breadcrumb(rq);
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	return engine->emit_bb_start(rq, batch->node.start, batch_len, 0);
+> +}
+> +
+> +static int eb_submit(struct i915_execbuffer *eb)
+> +{
+> +	int err;
+> +
+> +	err = eb_move_to_gpu(eb);
+> +
+> +	for_each_batch_create_order(eb) {
+> +		if (!eb->requests[i])
+> +			break;
+> +
+> +		trace_i915_request_queue(eb->requests[i], 0);
+> +		if (!err)
+> +			err = eb_request_submit(eb, eb->requests[i],
+> +						eb->batches[i],
+> +						eb->batches[i]->size);
+> +	}
+> +
+> +	return err;
+> +}
+> +
+> +static int eb_pin_engine(struct i915_execbuffer *eb, bool throttle)
+> +{
+> +	int err;
+> +
+> +	GEM_BUG_ON(eb->args->flags & __EXEC3_ENGINE_PINNED);
+> +
+> +	err = i915_eb_pin_engine(eb->context, &eb->ww, throttle,
+> +				 eb->file->filp->f_flags & O_NONBLOCK);
+> +	if (err)
+> +		return err;
+> +
+> +	eb->args->flags |= __EXEC3_ENGINE_PINNED;
+> +	return 0;
+> +}
+> +
+> +static void eb_unpin_engine(struct i915_execbuffer *eb)
+> +{
+> +	if (!(eb->args->flags & __EXEC3_ENGINE_PINNED))
+> +		return;
+> +
+> +	eb->args->flags &= ~__EXEC3_ENGINE_PINNED;
+> +
+> +	i915_eb_unpin_engine(eb->context);
+> +}
+> +
+> +static int eb_select_engine(struct i915_execbuffer *eb)
+> +{
+> +	struct intel_context *ce;
+> +	unsigned int idx;
+> +	int err;
+> +
+> +	if (!i915_gem_context_user_engines(eb->gem_context))
+> +		return -EINVAL;
+> +
+> +	idx = eb->args->engine_idx;
+> +	ce = i915_gem_context_get_engine(eb->gem_context, idx);
+> +	if (IS_ERR(ce))
+> +		return PTR_ERR(ce);
+> +
+> +	eb->num_batches = ce->parallel.number_children + 1;
+> +
+> +	err = i915_eb_select_engine(ce);
+> +	if (err)
+> +		goto err;
+> +
+> +	eb->context = ce;
+> +	eb->gt = ce->engine->gt;
+> +
+> +	/*
+> +	 * Make sure engine pool stays alive even if we call intel_context_put
+> +	 * during ww handling. The pool is destroyed when last pm reference
+> +	 * is dropped, which breaks our -EDEADLK handling.
+> +	 */
+> +	return 0;
+> +
+> +err:
+> +	intel_context_put(ce);
+> +	return err;
+> +}
+> +
+> +static void eb_put_engine(struct i915_execbuffer *eb)
+> +{
+> +	i915_eb_put_engine(eb->context);
+> +}
+> +
+> +static int add_timeline_fence_array(struct i915_execbuffer *eb)
+> +{
+> +	struct drm_i915_gem_timeline_fence __user *user_fences;
+> +	struct eb_fence *f;
+> +	u64 nfences;
+> +
+> +	nfences = eb->args->fence_count;
+> +	if (!nfences)
+> +		return 0;
+> +
+> +	/* Check multiplication overflow for access_ok() and kvmalloc_array() */
+> +	BUILD_BUG_ON(sizeof(size_t) > sizeof(unsigned long));
+> +	if (nfences > min_t(unsigned long,
+> +			    ULONG_MAX / sizeof(*user_fences),
+> +			    SIZE_MAX / sizeof(*f)) - eb->num_fences)
+> +		return -EINVAL;
+> +
+> +	user_fences = u64_to_user_ptr(eb->args->timeline_fences);
+> +	if (!access_ok(user_fences, nfences * sizeof(*user_fences)))
+> +		return -EFAULT;
+> +
+> +	f = krealloc(eb->fences,
+> +		     (eb->num_fences + nfences) * sizeof(*f),
+> +		     __GFP_NOWARN | GFP_KERNEL);
+> +	if (!f)
+> +		return -ENOMEM;
+> +
+> +	eb->fences = f;
+> +	f += eb->num_fences;
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-index c37d2d5bbd983..3cc7c5722cd5b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-@@ -19,6 +19,7 @@
- #include "intel_pcode.h"
- #include "intel_pps.h"
- #include "intel_tc.h"
-+#include "intel_tc_phy_regs.h"
- #include "intel_vga.h"
- #include "skl_watermark.h"
- #include "vlv_sideband.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h b/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h
-index 5a545086f9599..29cc06c31e0cc 100644
---- a/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_tc_phy_regs.h
-@@ -8,6 +8,7 @@
- 
- #include "i915_reg_defs.h"
- 
-+/* MG PHY registers */
- #define MG_PHY_PORT_LN(ln, tc_port, ln0p1, ln0p2, ln1p1) \
- 	_MMIO(_PORT(tc_port, ln0p1, ln0p2) + (ln) * ((ln1p1) - (ln0p1)))
- 
-@@ -277,4 +278,189 @@
- 						   _MG_PLL_TDC_COLDST_BIAS_PORT1, \
- 						   _MG_PLL_TDC_COLDST_BIAS_PORT2)
- 
-+/* DEKEL PHY registers */
-+#define _DKL_PHY1_BASE					0x168000
-+#define _DKL_PHY2_BASE					0x169000
-+#define _DKL_PHY3_BASE					0x16A000
-+#define _DKL_PHY4_BASE					0x16B000
-+#define _DKL_PHY5_BASE					0x16C000
-+#define _DKL_PHY6_BASE					0x16D000
-+
-+#define _DKL_BANK_SHIFT					12
-+#define DKL_REG_TC_PORT(reg)				(((reg).reg - _DKL_PHY1_BASE) >> _DKL_BANK_SHIFT)
-+
-+/* DEKEL PHY MMIO Address = Phy base + (internal address & ~index_mask) */
-+#define _DKL_PCS_DW5					0x14
-+#define DKL_PCS_DW5(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_PCS_DW5)
-+#define   DKL_PCS_DW5_CORE_SOFTRESET			REG_BIT(11)
-+
-+#define _DKL_PLL_DIV0					0x200
-+#define DKL_PLL_DIV0(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_PLL_DIV0)
-+#define   DKL_PLL_DIV0_AFC_STARTUP_MASK			REG_GENMASK(27, 25)
-+#define   DKL_PLL_DIV0_AFC_STARTUP(val)			REG_FIELD_PREP(DKL_PLL_DIV0_AFC_STARTUP_MASK, (val))
-+#define   DKL_PLL_DIV0_INTEG_COEFF(x)			((x) << 16)
-+#define   DKL_PLL_DIV0_INTEG_COEFF_MASK			(0x1F << 16)
-+#define   DKL_PLL_DIV0_PROP_COEFF(x)			((x) << 12)
-+#define   DKL_PLL_DIV0_PROP_COEFF_MASK			(0xF << 12)
-+#define   DKL_PLL_DIV0_FBPREDIV_SHIFT			(8)
-+#define   DKL_PLL_DIV0_FBPREDIV(x)			((x) << DKL_PLL_DIV0_FBPREDIV_SHIFT)
-+#define   DKL_PLL_DIV0_FBPREDIV_MASK			(0xF << DKL_PLL_DIV0_FBPREDIV_SHIFT)
-+#define   DKL_PLL_DIV0_FBDIV_INT(x)			((x) << 0)
-+#define   DKL_PLL_DIV0_FBDIV_INT_MASK			(0xFF << 0)
-+#define   DKL_PLL_DIV0_MASK				(DKL_PLL_DIV0_INTEG_COEFF_MASK | \
-+							 DKL_PLL_DIV0_PROP_COEFF_MASK | \
-+							 DKL_PLL_DIV0_FBPREDIV_MASK | \
-+							 DKL_PLL_DIV0_FBDIV_INT_MASK)
-+
-+#define _DKL_PLL_DIV1					0x204
-+#define DKL_PLL_DIV1(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_PLL_DIV1)
-+#define   DKL_PLL_DIV1_IREF_TRIM(x)			((x) << 16)
-+#define   DKL_PLL_DIV1_IREF_TRIM_MASK			(0x1F << 16)
-+#define   DKL_PLL_DIV1_TDC_TARGET_CNT(x)		((x) << 0)
-+#define   DKL_PLL_DIV1_TDC_TARGET_CNT_MASK		(0xFF << 0)
-+
-+#define _DKL_PLL_SSC					0x210
-+#define DKL_PLL_SSC(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_PLL_SSC)
-+#define   DKL_PLL_SSC_IREF_NDIV_RATIO(x)		((x) << 29)
-+#define   DKL_PLL_SSC_IREF_NDIV_RATIO_MASK		(0x7 << 29)
-+#define   DKL_PLL_SSC_STEP_LEN(x)			((x) << 16)
-+#define   DKL_PLL_SSC_STEP_LEN_MASK			(0xFF << 16)
-+#define   DKL_PLL_SSC_STEP_NUM(x)			((x) << 11)
-+#define   DKL_PLL_SSC_STEP_NUM_MASK			(0x7 << 11)
-+#define   DKL_PLL_SSC_EN				(1 << 9)
-+
-+#define _DKL_PLL_BIAS					0x214
-+#define DKL_PLL_BIAS(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_PLL_BIAS)
-+#define   DKL_PLL_BIAS_FRAC_EN_H			(1 << 30)
-+#define   DKL_PLL_BIAS_FBDIV_SHIFT			(8)
-+#define   DKL_PLL_BIAS_FBDIV_FRAC(x)			((x) << DKL_PLL_BIAS_FBDIV_SHIFT)
-+#define   DKL_PLL_BIAS_FBDIV_FRAC_MASK			(0x3FFFFF << DKL_PLL_BIAS_FBDIV_SHIFT)
-+
-+#define _DKL_PLL_TDC_COLDST_BIAS			0x218
-+#define DKL_PLL_TDC_COLDST_BIAS(tc_port)		_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_PLL_TDC_COLDST_BIAS)
-+#define   DKL_PLL_TDC_SSC_STEP_SIZE(x)			((x) << 8)
-+#define   DKL_PLL_TDC_SSC_STEP_SIZE_MASK		(0xFF << 8)
-+#define   DKL_PLL_TDC_FEED_FWD_GAIN(x)			((x) << 0)
-+#define   DKL_PLL_TDC_FEED_FWD_GAIN_MASK		(0xFF << 0)
-+
-+#define _DKL_REFCLKIN_CTL				0x12C
-+#define DKL_REFCLKIN_CTL(tc_port)			_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_REFCLKIN_CTL)
-+/* Bits are the same as MG_REFCLKIN_CTL */
-+
-+#define _DKL_CLKTOP2_HSCLKCTL				0xD4
-+#define DKL_CLKTOP2_HSCLKCTL(tc_port)			_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_CLKTOP2_HSCLKCTL)
-+/* Bits are the same as MG_CLKTOP2_HSCLKCTL */
-+
-+#define _DKL_CLKTOP2_CORECLKCTL1			0xD8
-+#define DKL_CLKTOP2_CORECLKCTL1(tc_port)		_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_CLKTOP2_CORECLKCTL1)
-+/* Bits are the same as MG_CLKTOP2_CORECLKCTL1 */
-+
-+#define _DKL_TX_DPCNTL0					0x2C0
-+#define DKL_TX_DPCNTL0(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_TX_DPCNTL0)
-+#define  DKL_TX_PRESHOOT_COEFF(x)			((x) << 13)
-+#define  DKL_TX_PRESHOOT_COEFF_MASK			(0x1f << 13)
-+#define  DKL_TX_DE_EMPHASIS_COEFF(x)			((x) << 8)
-+#define  DKL_TX_DE_EMPAHSIS_COEFF_MASK			(0x1f << 8)
-+#define  DKL_TX_VSWING_CONTROL(x)			((x) << 0)
-+#define  DKL_TX_VSWING_CONTROL_MASK			(0x7 << 0)
-+
-+#define _DKL_TX_DPCNTL1					0x2C4
-+#define DKL_TX_DPCNTL1(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_TX_DPCNTL1)
-+/* Bits are the same as DKL_TX_DPCNTRL0 */
-+
-+#define _DKL_TX_DPCNTL2					0x2C8
-+#define DKL_TX_DPCNTL2(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_TX_DPCNTL2)
-+#define  DKL_TX_DP20BITMODE				REG_BIT(2)
-+#define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX1_MASK	REG_GENMASK(4, 3)
-+#define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX1(val)	REG_FIELD_PREP(DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX1_MASK, (val))
-+#define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX2_MASK	REG_GENMASK(6, 5)
-+#define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX2(val)	REG_FIELD_PREP(DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX2_MASK, (val))
-+
-+#define _DKL_TX_FW_CALIB				0x2F8
-+#define DKL_TX_FW_CALIB(tc_port)			_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_TX_FW_CALIB)
-+#define  DKL_TX_CFG_DISABLE_WAIT_INIT			(1 << 7)
-+
-+#define _DKL_TX_PMD_LANE_SUS				0xD00
-+#define DKL_TX_PMD_LANE_SUS(tc_port)			_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_TX_PMD_LANE_SUS)
-+
-+#define _DKL_TX_DW17					0xDC4
-+#define DKL_TX_DW17(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_TX_DW17)
-+
-+#define _DKL_TX_DW18					0xDC8
-+#define DKL_TX_DW18(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_TX_DW18)
-+
-+#define _DKL_DP_MODE					0xA0
-+#define DKL_DP_MODE(tc_port)				_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_DP_MODE)
-+
-+#define _DKL_CMN_UC_DW27				0x36C
-+#define DKL_CMN_UC_DW_27(tc_port)			_MMIO(_PORT(tc_port, \
-+								    _DKL_PHY1_BASE, \
-+								    _DKL_PHY2_BASE) + \
-+							      _DKL_CMN_UC_DW27)
-+#define  DKL_CMN_UC_DW27_UC_HEALTH			(0x1 << 15)
-+
-+/*
-+ * Each Dekel PHY is addressed through a 4KB aperture. Each PHY has more than
-+ * 4KB of register space, so a separate index is programmed in HIP_INDEX_REG0
-+ * or HIP_INDEX_REG1, based on the port number, to set the upper 2 address
-+ * bits that point the 4KB window into the full PHY register space.
-+ */
-+#define _HIP_INDEX_REG0					0x1010A0
-+#define _HIP_INDEX_REG1					0x1010A4
-+#define HIP_INDEX_REG(tc_port)				_MMIO((tc_port) < 4 ? _HIP_INDEX_REG0 \
-+							      : _HIP_INDEX_REG1)
-+#define _HIP_INDEX_SHIFT(tc_port)			(8 * ((tc_port) % 4))
-+#define HIP_INDEX_VAL(tc_port, val)			((val) << _HIP_INDEX_SHIFT(tc_port))
-+
- #endif /* __INTEL_TC_PHY_REGS__ */
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 2b7c019725462..1c0da50c0dc73 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7435,185 +7435,6 @@ enum skl_power_gate {
- 						   _ADLS_DPLL4_CFGCR1, \
- 						   _ADLS_DPLL3_CFGCR1)
- 
--#define _DKL_PHY1_BASE			0x168000
--#define _DKL_PHY2_BASE			0x169000
--#define _DKL_PHY3_BASE			0x16A000
--#define _DKL_PHY4_BASE			0x16B000
--#define _DKL_PHY5_BASE			0x16C000
--#define _DKL_PHY6_BASE			0x16D000
--
--#define _DKL_BANK_SHIFT			12
--#define DKL_REG_TC_PORT(reg)		(((reg).reg - _DKL_PHY1_BASE) >> _DKL_BANK_SHIFT)
--
--/* DEKEL PHY MMIO Address = Phy base + (internal address & ~index_mask) */
--#define _DKL_PCS_DW5			0x14
--#define DKL_PCS_DW5(tc_port)		_MMIO(_PORT(tc_port, _DKL_PHY1_BASE, \
--						    _DKL_PHY2_BASE) + \
--						    _DKL_PCS_DW5)
--#define   DKL_PCS_DW5_CORE_SOFTRESET	REG_BIT(11)
--
--#define _DKL_PLL_DIV0			0x200
--#define   DKL_PLL_DIV0_AFC_STARTUP_MASK	REG_GENMASK(27, 25)
--#define   DKL_PLL_DIV0_AFC_STARTUP(val)	REG_FIELD_PREP(DKL_PLL_DIV0_AFC_STARTUP_MASK, (val))
--#define   DKL_PLL_DIV0_INTEG_COEFF(x)	((x) << 16)
--#define   DKL_PLL_DIV0_INTEG_COEFF_MASK	(0x1F << 16)
--#define   DKL_PLL_DIV0_PROP_COEFF(x)	((x) << 12)
--#define   DKL_PLL_DIV0_PROP_COEFF_MASK	(0xF << 12)
--#define   DKL_PLL_DIV0_FBPREDIV_SHIFT   (8)
--#define   DKL_PLL_DIV0_FBPREDIV(x)	((x) << DKL_PLL_DIV0_FBPREDIV_SHIFT)
--#define   DKL_PLL_DIV0_FBPREDIV_MASK	(0xF << DKL_PLL_DIV0_FBPREDIV_SHIFT)
--#define   DKL_PLL_DIV0_FBDIV_INT(x)	((x) << 0)
--#define   DKL_PLL_DIV0_FBDIV_INT_MASK	(0xFF << 0)
--#define   DKL_PLL_DIV0_MASK		(DKL_PLL_DIV0_INTEG_COEFF_MASK | \
--					 DKL_PLL_DIV0_PROP_COEFF_MASK | \
--					 DKL_PLL_DIV0_FBPREDIV_MASK | \
--					 DKL_PLL_DIV0_FBDIV_INT_MASK)
--#define DKL_PLL_DIV0(tc_port)		_MMIO(_PORT(tc_port, _DKL_PHY1_BASE, \
--						    _DKL_PHY2_BASE) + \
--						    _DKL_PLL_DIV0)
--
--#define _DKL_PLL_DIV1				0x204
--#define   DKL_PLL_DIV1_IREF_TRIM(x)		((x) << 16)
--#define   DKL_PLL_DIV1_IREF_TRIM_MASK		(0x1F << 16)
--#define   DKL_PLL_DIV1_TDC_TARGET_CNT(x)	((x) << 0)
--#define   DKL_PLL_DIV1_TDC_TARGET_CNT_MASK	(0xFF << 0)
--#define DKL_PLL_DIV1(tc_port)		_MMIO(_PORT(tc_port, _DKL_PHY1_BASE, \
--						    _DKL_PHY2_BASE) + \
--						    _DKL_PLL_DIV1)
--
--#define _DKL_PLL_SSC				0x210
--#define   DKL_PLL_SSC_IREF_NDIV_RATIO(x)	((x) << 29)
--#define   DKL_PLL_SSC_IREF_NDIV_RATIO_MASK	(0x7 << 29)
--#define   DKL_PLL_SSC_STEP_LEN(x)		((x) << 16)
--#define   DKL_PLL_SSC_STEP_LEN_MASK		(0xFF << 16)
--#define   DKL_PLL_SSC_STEP_NUM(x)		((x) << 11)
--#define   DKL_PLL_SSC_STEP_NUM_MASK		(0x7 << 11)
--#define   DKL_PLL_SSC_EN			(1 << 9)
--#define DKL_PLL_SSC(tc_port)		_MMIO(_PORT(tc_port, _DKL_PHY1_BASE, \
--						    _DKL_PHY2_BASE) + \
--						    _DKL_PLL_SSC)
--
--#define _DKL_PLL_BIAS			0x214
--#define   DKL_PLL_BIAS_FRAC_EN_H	(1 << 30)
--#define   DKL_PLL_BIAS_FBDIV_SHIFT	(8)
--#define   DKL_PLL_BIAS_FBDIV_FRAC(x)	((x) << DKL_PLL_BIAS_FBDIV_SHIFT)
--#define   DKL_PLL_BIAS_FBDIV_FRAC_MASK	(0x3FFFFF << DKL_PLL_BIAS_FBDIV_SHIFT)
--#define DKL_PLL_BIAS(tc_port)		_MMIO(_PORT(tc_port, _DKL_PHY1_BASE, \
--						    _DKL_PHY2_BASE) + \
--						    _DKL_PLL_BIAS)
--
--#define _DKL_PLL_TDC_COLDST_BIAS		0x218
--#define   DKL_PLL_TDC_SSC_STEP_SIZE(x)		((x) << 8)
--#define   DKL_PLL_TDC_SSC_STEP_SIZE_MASK	(0xFF << 8)
--#define   DKL_PLL_TDC_FEED_FWD_GAIN(x)		((x) << 0)
--#define   DKL_PLL_TDC_FEED_FWD_GAIN_MASK	(0xFF << 0)
--#define DKL_PLL_TDC_COLDST_BIAS(tc_port) _MMIO(_PORT(tc_port, \
--						     _DKL_PHY1_BASE, \
--						     _DKL_PHY2_BASE) + \
--						     _DKL_PLL_TDC_COLDST_BIAS)
--
--#define _DKL_REFCLKIN_CTL		0x12C
--/* Bits are the same as MG_REFCLKIN_CTL */
--#define DKL_REFCLKIN_CTL(tc_port)	_MMIO(_PORT(tc_port, \
--						    _DKL_PHY1_BASE, \
--						    _DKL_PHY2_BASE) + \
--					      _DKL_REFCLKIN_CTL)
--
--#define _DKL_CLKTOP2_HSCLKCTL		0xD4
--/* Bits are the same as MG_CLKTOP2_HSCLKCTL */
--#define DKL_CLKTOP2_HSCLKCTL(tc_port)	_MMIO(_PORT(tc_port, \
--						    _DKL_PHY1_BASE, \
--						    _DKL_PHY2_BASE) + \
--					      _DKL_CLKTOP2_HSCLKCTL)
--
--#define _DKL_CLKTOP2_CORECLKCTL1		0xD8
--/* Bits are the same as MG_CLKTOP2_CORECLKCTL1 */
--#define DKL_CLKTOP2_CORECLKCTL1(tc_port)	_MMIO(_PORT(tc_port, \
--							    _DKL_PHY1_BASE, \
--							    _DKL_PHY2_BASE) + \
--						      _DKL_CLKTOP2_CORECLKCTL1)
--
--#define _DKL_TX_DPCNTL0				0x2C0
--#define  DKL_TX_PRESHOOT_COEFF(x)			((x) << 13)
--#define  DKL_TX_PRESHOOT_COEFF_MASK			(0x1f << 13)
--#define  DKL_TX_DE_EMPHASIS_COEFF(x)		((x) << 8)
--#define  DKL_TX_DE_EMPAHSIS_COEFF_MASK		(0x1f << 8)
--#define  DKL_TX_VSWING_CONTROL(x)			((x) << 0)
--#define  DKL_TX_VSWING_CONTROL_MASK			(0x7 << 0)
--#define DKL_TX_DPCNTL0(tc_port) _MMIO(_PORT(tc_port, \
--						     _DKL_PHY1_BASE, \
--						     _DKL_PHY2_BASE) + \
--						     _DKL_TX_DPCNTL0)
--
--#define _DKL_TX_DPCNTL1				0x2C4
--/* Bits are the same as DKL_TX_DPCNTRL0 */
--#define DKL_TX_DPCNTL1(tc_port) _MMIO(_PORT(tc_port, \
--						     _DKL_PHY1_BASE, \
--						     _DKL_PHY2_BASE) + \
--						     _DKL_TX_DPCNTL1)
--
--#define _DKL_TX_DPCNTL2					0x2C8
--#define  DKL_TX_DP20BITMODE				REG_BIT(2)
--#define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX1_MASK	REG_GENMASK(4, 3)
--#define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX1(val)	REG_FIELD_PREP(DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX1_MASK, (val))
--#define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX2_MASK	REG_GENMASK(6, 5)
--#define  DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX2(val)	REG_FIELD_PREP(DKL_TX_DPCNTL2_CFG_LOADGENSELECT_TX2_MASK, (val))
--#define DKL_TX_DPCNTL2(tc_port) _MMIO(_PORT(tc_port, \
--						     _DKL_PHY1_BASE, \
--						     _DKL_PHY2_BASE) + \
--						     _DKL_TX_DPCNTL2)
--
--#define _DKL_TX_FW_CALIB				0x2F8
--#define  DKL_TX_CFG_DISABLE_WAIT_INIT			(1 << 7)
--#define DKL_TX_FW_CALIB(tc_port) _MMIO(_PORT(tc_port, \
--						     _DKL_PHY1_BASE, \
--						     _DKL_PHY2_BASE) + \
--						     _DKL_TX_FW_CALIB)
--
--#define _DKL_TX_PMD_LANE_SUS				0xD00
--#define DKL_TX_PMD_LANE_SUS(tc_port) _MMIO(_PORT(tc_port, \
--							  _DKL_PHY1_BASE, \
--							  _DKL_PHY2_BASE) + \
--							  _DKL_TX_PMD_LANE_SUS)
--
--#define _DKL_TX_DW17					0xDC4
--#define DKL_TX_DW17(tc_port) _MMIO(_PORT(tc_port, \
--						     _DKL_PHY1_BASE, \
--						     _DKL_PHY2_BASE) + \
--						     _DKL_TX_DW17)
--
--#define _DKL_TX_DW18					0xDC8
--#define DKL_TX_DW18(tc_port) _MMIO(_PORT(tc_port, \
--						     _DKL_PHY1_BASE, \
--						     _DKL_PHY2_BASE) + \
--						     _DKL_TX_DW18)
--
--#define _DKL_DP_MODE					0xA0
--#define DKL_DP_MODE(tc_port) _MMIO(_PORT(tc_port, \
--						     _DKL_PHY1_BASE, \
--						     _DKL_PHY2_BASE) + \
--						     _DKL_DP_MODE)
--
--#define _DKL_CMN_UC_DW27			0x36C
--#define  DKL_CMN_UC_DW27_UC_HEALTH		(0x1 << 15)
--#define DKL_CMN_UC_DW_27(tc_port)		_MMIO(_PORT(tc_port, \
--							    _DKL_PHY1_BASE, \
--							    _DKL_PHY2_BASE) + \
--							    _DKL_CMN_UC_DW27)
--
--/*
-- * Each Dekel PHY is addressed through a 4KB aperture. Each PHY has more than
-- * 4KB of register space, so a separate index is programmed in HIP_INDEX_REG0
-- * or HIP_INDEX_REG1, based on the port number, to set the upper 2 address
-- * bits that point the 4KB window into the full PHY register space.
-- */
--#define _HIP_INDEX_REG0			0x1010A0
--#define _HIP_INDEX_REG1			0x1010A4
--#define HIP_INDEX_REG(tc_port)		_MMIO((tc_port) < 4 ? _HIP_INDEX_REG0 \
--					      : _HIP_INDEX_REG1)
--#define _HIP_INDEX_SHIFT(tc_port)	(8 * ((tc_port) % 4))
--#define HIP_INDEX_VAL(tc_port, val)	((val) << _HIP_INDEX_SHIFT(tc_port))
--
- /* BXT display engine PLL */
- #define BXT_DE_PLL_CTL			_MMIO(0x6d000)
- #define   BXT_DE_PLL_RATIO(x)		(x)	/* {60,65,100} * 19.2MHz */
--- 
-2.37.1
+I guess this was mostly copy-pasta from eb2 which can in thoery run the 
+same TIMELINE_FENCES extension several times, but that looks like it's 
+not needed here, since this is not an actual extension with eb3 (Looking 
+at the krealloc() stuff etc).
 
+> +
+> +	BUILD_BUG_ON(~(ARCH_KMALLOC_MINALIGN - 1) &
+> +		     ~__I915_TIMELINE_FENCE_UNKNOWN_FLAGS);
+> +
+> +	while (nfences--) {
+> +		struct drm_i915_gem_timeline_fence user_fence;
+> +		bool wait, signal;
+> +		int ret;
+> +
+> +		if (__copy_from_user(&user_fence,
+> +				     user_fences++,
+> +				     sizeof(user_fence)))
+> +			return -EFAULT;
+> +
+> +		if (user_fence.flags & __I915_TIMELINE_FENCE_UNKNOWN_FLAGS)
+> +			return -EINVAL;
+> +
+> +		wait = user_fence.flags & I915_EXEC_FENCE_WAIT;
+> +		signal = user_fence.flags & I915_EXEC_FENCE_SIGNAL;
+
+I915_TIMELINE_FENCE_WAIT
+I915_TIMELINE_FENCE_SIGNAL
+
+?
+
+> +		ret = i915_eb_add_timeline_fence(eb->file, user_fence.handle,
+> +						 user_fence.value, f, wait,
+> +						 signal);
+> +		if (ret < 0)
+> +			return ret;
+> +		else if (!ret)
+> +			continue;
+> +
+> +		f++;
+> +		eb->num_fences++;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int parse_timeline_fences(struct i915_execbuffer *eb)
+> +{
+> +	return add_timeline_fence_array(eb);
+> +}
+> +
+> +static int parse_batch_addresses(struct i915_execbuffer *eb)
+> +{
+> +	struct drm_i915_gem_execbuffer3 *args = eb->args;
+> +
+> +	if (eb->num_batches == 1) {
+> +		eb->batch_addresses[0] = args->batch_address;
+> +	} else {
+> +		u64 __user *batch_addr = u64_to_user_ptr(args->batch_address);
+> +
+> +		if (copy_from_user(eb->batch_addresses, batch_addr,
+> +				   sizeof(batch_addr[0]) * eb->num_batches))
+> +			return -EFAULT;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int eb_composite_fence_create(struct i915_execbuffer *eb)
+> +{
+> +	struct dma_fence *fence;
+> +
+> +	fence = i915_eb_composite_fence_create(eb->requests, eb->num_batches,
+> +					       eb->context);
+> +	if (IS_ERR(fence))
+> +		return PTR_ERR(fence);
+> +
+> +	eb->composite_fence = fence;
+> +
+> +	return 0;
+> +}
+> +
+> +static int eb_fences_add(struct i915_execbuffer *eb, struct i915_request *rq)
+> +{
+> +	int err;
+> +
+> +	if (unlikely(eb->gem_context->syncobj)) {
+> +		struct dma_fence *fence;
+> +
+> +		fence = drm_syncobj_fence_get(eb->gem_context->syncobj);
+> +		err = i915_request_await_dma_fence(rq, fence);
+> +		dma_fence_put(fence);
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	if (eb->fences) {
+> +		err = i915_eb_await_fence_array(eb->fences, eb->num_fences, rq);
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	if (intel_context_is_parallel(eb->context)) {
+> +		err = eb_composite_fence_create(eb);
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int eb_requests_create(struct i915_execbuffer *eb)
+> +{
+> +	int err;
+> +
+> +	for_each_batch_create_order(eb) {
+> +		/* Allocate a request for this batch buffer nice and early. */
+> +		eb->requests[i] =
+> +			i915_request_create(i915_eb_find_context(eb->context,
+> +								 i));
+> +		if (IS_ERR(eb->requests[i])) {
+> +			err = PTR_ERR(eb->requests[i]);
+> +			eb->requests[i] = NULL;
+> +			return err;
+> +		}
+> +
+> +		/*
+> +		 * Only the first request added (committed to backend) has to
+> +		 * take the in fences into account as all subsequent requests
+> +		 * will have fences inserted inbetween them.
+> +		 */
+> +		if (i + 1 == eb->num_batches) {
+> +			err = eb_fences_add(eb, eb->requests[i]);
+> +			if (err)
+> +				return err;
+> +		}
+> +
+> +		if (eb->batches[i])
+> +			eb->requests[i]->batch_res =
+> +				i915_vma_resource_get(eb->batches[i]->resource);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int
+> +i915_gem_do_execbuffer(struct drm_device *dev,
+> +		       struct drm_file *file,
+> +		       struct drm_i915_gem_execbuffer3 *args)
+> +{
+> +	struct drm_i915_private *i915 = to_i915(dev);
+> +	struct i915_execbuffer eb;
+> +	bool throttle = true;
+> +	int err;
+> +
+> +	BUILD_BUG_ON(__EXEC3_INTERNAL_FLAGS & ~__I915_EXEC3_UNKNOWN_FLAGS);
+> +
+> +	eb.i915 = i915;
+> +	eb.file = file;
+> +	eb.args = args;
+> +
+> +	eb.fences = NULL;
+> +	eb.num_fences = 0;
+> +
+> +	memset(eb.requests, 0, sizeof(struct i915_request *) *
+> +	       ARRAY_SIZE(eb.requests));
+> +	eb.composite_fence = NULL;
+> +
+> +	err = parse_timeline_fences(&eb);
+> +	if (err)
+> +		return err;
+> +
+> +	err = eb_select_context(&eb);
+> +	if (unlikely(err))
+> +		goto err_fences;
+> +
+> +	err = eb_select_engine(&eb);
+> +	if (unlikely(err))
+> +		goto err_context;
+> +
+> +	err = parse_batch_addresses(&eb);
+> +	if (unlikely(err))
+> +		goto err_engine;
+> +
+> +	mutex_lock(&eb.context->vm->vm_bind_lock);
+> +
+> +	err = eb_lookup_vma_all(&eb);
+> +	if (err) {
+> +		eb_release_vma_all(&eb);
+> +		goto err_vm_bind_lock;
+> +	}
+> +
+> +	i915_gem_ww_ctx_init(&eb.ww, true);
+> +
+> +retry_validate:
+> +	err = eb_pin_engine(&eb, throttle);
+> +	if (err)
+> +		goto err_validate;
+> +
+> +	/* only throttle once, even if we didn't need to throttle */
+> +	throttle = false;
+> +
+> +err_validate:
+> +	if (err == -EDEADLK) {
+> +		eb_release_vma_all(&eb);
+> +		err = i915_gem_ww_ctx_backoff(&eb.ww);
+> +		if (!err)
+> +			goto retry_validate;
+> +	}
+> +	if (err)
+> +		goto err_vma;
+> +
+> +	ww_acquire_done(&eb.ww.ctx);
+> +
+> +	err = eb_requests_create(&eb);
+> +	if (err) {
+> +		if (eb.requests[0])
+> +			goto err_request;
+> +		else
+> +			goto err_vma;
+> +	}
+> +
+> +	err = eb_submit(&eb);
+> +
+> +err_request:
+> +	i915_eb_requests_get(eb.requests, eb.num_batches);
+> +	err = i915_eb_requests_add(eb.requests, eb.num_batches, eb.context,
+> +				   eb.gem_context->sched, err);
+> +
+> +	if (eb.fences)
+> +		i915_eb_signal_fence_array(eb.fences, eb.num_fences,
+> +					   eb.composite_fence ?
+> +					   eb.composite_fence :
+> +					   &eb.requests[0]->fence);
+> +
+> +	if (unlikely(eb.gem_context->syncobj)) {
+> +		drm_syncobj_replace_fence(eb.gem_context->syncobj,
+> +					  eb.composite_fence ?
+> +					  eb.composite_fence :
+> +					  &eb.requests[0]->fence);
+> +	}
+> +
+> +	if (eb.composite_fence)
+> +		dma_fence_put(eb.composite_fence);
+> +
+> +	i915_eb_requests_put(eb.requests, eb.num_batches);
+> +
+> +err_vma:
+> +	eb_release_vma_all(&eb);
+> +	WARN_ON(err == -EDEADLK);
+> +	i915_gem_ww_ctx_fini(&eb.ww);
+> +err_vm_bind_lock:
+> +	mutex_unlock(&eb.context->vm->vm_bind_lock);
+> +err_engine:
+> +	eb_put_engine(&eb);
+> +err_context:
+> +	i915_gem_context_put(eb.gem_context);
+> +err_fences:
+> +	i915_eb_put_fence_array(eb.fences, eb.num_fences);
+> +	return err;
+> +}
+> +
+> +int
+> +i915_gem_execbuffer3_ioctl(struct drm_device *dev, void *data,
+> +			   struct drm_file *file)
+> +{
+> +	struct drm_i915_gem_execbuffer3 *args = data;
+> +	int err;
+> +
+> +	/* Reserved fields must be 0 */
+> +	if (args->rsvd || args->extensions)
+> +		return -EINVAL;
+> +
+> +	if (args->flags & __I915_EXEC3_UNKNOWN_FLAGS)
+> +		return -EINVAL;
+> +
+> +	err = i915_gem_do_execbuffer(dev, file, args);
+> +
+> +	args->flags &= ~__I915_EXEC3_UNKNOWN_FLAGS;
+> +	return err;
+> +}
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ioctls.h b/drivers/gpu/drm/i915/gem/i915_gem_ioctls.h
+> index 28d6526e32ab..b7a1e9725a84 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_ioctls.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ioctls.h
+> @@ -18,6 +18,8 @@ int i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
+>   			      struct drm_file *file);
+>   int i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
+>   			       struct drm_file *file);
+> +int i915_gem_execbuffer3_ioctl(struct drm_device *dev, void *data,
+> +			       struct drm_file *file);
+>   int i915_gem_get_aperture_ioctl(struct drm_device *dev, void *data,
+>   				struct drm_file *file);
+>   int i915_gem_get_caching_ioctl(struct drm_device *dev, void *data,
+> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+> index f44a864e0b53..49ebafb5c6d2 100644
+> --- a/drivers/gpu/drm/i915/i915_driver.c
+> +++ b/drivers/gpu/drm/i915/i915_driver.c
+> @@ -1853,6 +1853,7 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
+>   	DRM_IOCTL_DEF_DRV(I915_GEM_INIT, drm_noop, DRM_AUTH|DRM_MASTER|DRM_ROOT_ONLY),
+>   	DRM_IOCTL_DEF_DRV(I915_GEM_EXECBUFFER, drm_invalid_op, DRM_AUTH),
+>   	DRM_IOCTL_DEF_DRV(I915_GEM_EXECBUFFER2_WR, i915_gem_execbuffer2_ioctl, DRM_RENDER_ALLOW),
+> +	DRM_IOCTL_DEF_DRV(I915_GEM_EXECBUFFER3, i915_gem_execbuffer3_ioctl, DRM_RENDER_ALLOW),
+>   	DRM_IOCTL_DEF_DRV(I915_GEM_PIN, i915_gem_reject_pin_ioctl, DRM_AUTH|DRM_ROOT_ONLY),
+>   	DRM_IOCTL_DEF_DRV(I915_GEM_UNPIN, i915_gem_reject_pin_ioctl, DRM_AUTH|DRM_ROOT_ONLY),
+>   	DRM_IOCTL_DEF_DRV(I915_GEM_BUSY, i915_gem_busy_ioctl, DRM_RENDER_ALLOW),
+> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+> index 87f5c2a470f5..fe7ee8f19c83 100644
+> --- a/include/uapi/drm/i915_drm.h
+> +++ b/include/uapi/drm/i915_drm.h
+> @@ -472,6 +472,7 @@ typedef struct _drm_i915_sarea {
+>   #define DRM_I915_GEM_CREATE_EXT		0x3c
+>   #define DRM_I915_GEM_VM_BIND		0x3d
+>   #define DRM_I915_GEM_VM_UNBIND		0x3e
+> +#define DRM_I915_GEM_EXECBUFFER3	0x3f
+>   /* Must be kept compact -- no holes */
+>   
+>   #define DRM_IOCTL_I915_INIT		DRM_IOW( DRM_COMMAND_BASE + DRM_I915_INIT, drm_i915_init_t)
+> @@ -538,6 +539,7 @@ typedef struct _drm_i915_sarea {
+>   #define DRM_IOCTL_I915_GEM_VM_DESTROY	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_VM_DESTROY, struct drm_i915_gem_vm_control)
+>   #define DRM_IOCTL_I915_GEM_VM_BIND	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_BIND, struct drm_i915_gem_vm_bind)
+>   #define DRM_IOCTL_I915_GEM_VM_UNBIND	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_UNBIND, struct drm_i915_gem_vm_unbind)
+> +#define DRM_IOCTL_I915_GEM_EXECBUFFER3	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_EXECBUFFER3, struct drm_i915_gem_execbuffer3)
+>   
+>   /* Allow drivers to submit batchbuffers directly to hardware, relying
+>    * on the security mechanisms provided by hardware.
+> @@ -1562,6 +1564,65 @@ struct drm_i915_gem_timeline_fence {
+>   	__u64 value;
+>   };
+>   
+> +/**
+> + * struct drm_i915_gem_execbuffer3 - Structure for DRM_I915_GEM_EXECBUFFER3
+> + * ioctl.
+> + *
+> + * DRM_I915_GEM_EXECBUFFER3 ioctl only works in VM_BIND mode and VM_BIND mode
+> + * only works with this ioctl for submission.
+> + * See I915_VM_CREATE_FLAGS_USE_VM_BIND.
+> + */
+> +struct drm_i915_gem_execbuffer3 {
+> +	/**
+> +	 * @ctx_id: Context id
+> +	 *
+> +	 * Only contexts with user engine map are allowed.
+> +	 */
+> +	__u32 ctx_id;
+> +
+> +	/**
+> +	 * @engine_idx: Engine index
+> +	 *
+> +	 * An index in the user engine map of the context specified by @ctx_id.
+> +	 */
+> +	__u32 engine_idx;
+> +
+> +	/**
+> +	 * @batch_address: Batch gpu virtual address/es.
+> +	 *
+> +	 * For normal submission, it is the gpu virtual address of the batch
+> +	 * buffer. For parallel submission, it is a pointer to an array of
+> +	 * batch buffer gpu virtual addresses with array size equal to the
+> +	 * number of (parallel) engines involved in that submission (See
+> +	 * struct i915_context_engines_parallel_submit).
+> +	 */
+> +	__u64 batch_address;
+> +
+> +	/** @flags: Currently reserved, MBZ */
+> +	__u64 flags;
+> +#define __I915_EXEC3_UNKNOWN_FLAGS (~0)
+
+(~0ull)
+
+?
+
+I'll probably circle back around again, but for now all looks pretty 
+reasonable,
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
+> +
+> +	/** @fence_count: Number of fences in @timeline_fences array. */
+> +	__u64 fence_count;
+> +
+> +	/**
+> +	 * @timeline_fences: Pointer to an array of timeline fences.
+> +	 *
+> +	 * Timeline fences are of format struct drm_i915_gem_timeline_fence.
+> +	 */
+> +	__u64 timeline_fences;
+> +
+> +	/** @rsvd: Reserved, MBZ */
+> +	__u64 rsvd;
+> +
+> +	/**
+> +	 * @extensions: Zero-terminated chain of extensions.
+> +	 *
+> +	 * For future extensions. See struct i915_user_extension.
+> +	 */
+> +	__u64 extensions;
+> +};
+> +
+>   struct drm_i915_gem_pin {
+>   	/** Handle of the buffer to be pinned. */
+>   	__u32 handle;
