@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E630C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 22:38:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79D65C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 22:38:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 719B110F045;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD13410E3BE;
 	Tue, 18 Oct 2022 22:38:01 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7DB410EB73
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 22:37:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 703E510EB73
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 22:37:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666132628; x=1697668628;
+ t=1666132630; x=1697668630;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=wyTprWxRDAJtaGf1vt1QfI6lpLCf4CizLzJL1rV+Pa4=;
- b=jQiTyDCYfmcNMTe4JjvaI7I9T4HdBObm2D0awgALAq3FW49yyZeMs89l
- gsTlnsS1Z4V0i2xF+z4Wa6b8TZ3GTaqLirJuEMBLBj9ZU/BlLin3eey/I
- mzGJOlqQ0wHIl6UAVyrDzTfqTOqkR+mcZCDPn4+3EZtRXcqMPP21FjGNQ
- qWV0xX+i5eLzpYXEbKxhZwZ/2dMPbVuTubXMARziM3tLKpib65DPxyDB7
- tBkCpbB3uWLckex/c98b5yHy7+ySctoGOGg9uF1mTAfdipmk3d3pcWn/N
- UTvX2ZN8HZzLRfjdyJm8f9iuOrOjA8fIxcfewhxrT7ZoXh+recxZQcIXH w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="304986531"
-X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="304986531"
+ bh=ZZfFCkoh6MPPUxL/bCeTS2yNAhT4KZgxAlEzIIlXMWQ=;
+ b=K0v4Cai/e8bR1TfOPmWMs3NYdzfqqn4f+kGDl9t7jAmraDf8c9uCM3wA
+ pnDgScHbzzLbS7ztvrQTks3LqnjZgEG/d7WNYObfvSJTelmXkcguxORsr
+ bW8ivBOM4EL79XCE5MjiKCMOgeoqol3N9Yk3fQsfKgiBuvdW3gBf0lhyh
+ E052IrHMWE3wGhzcW+lyK9YaHEAvFKwNqO/I7sH6TP9aiKbUl3NU+5xuc
+ wWglApEouhwB3puI8KN7+XuY9tKxIZWNUeHl8VkSPSFY6j2Qj0tXJ6EjM
+ itGByU/g9hMe0N2194Pu056AhIUP1MEUJt9MU/8hHvFrHN7P9Izfvw0aG w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="304986539"
+X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="304986539"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 15:36:51 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="803986511"
-X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="803986511"
+ 18 Oct 2022 15:36:52 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="803986539"
+X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="803986539"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 15:36:51 -0700
+ 18 Oct 2022 15:36:52 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Tue, 18 Oct 2022 22:36:33 +0000
-Message-Id: <20221018223648.5244-2-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 18 Oct 2022 22:36:41 +0000
+Message-Id: <20221018223648.5244-10-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221018223648.5244-1-umesh.nerlige.ramappa@intel.com>
 References: <20221018223648.5244-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 01/16] drm/i915/perf: Fix OA filtering logic
- for GuC mode
+Subject: [Intel-gfx] [PATCH v5 09/16] drm/i915/perf: Use gt-specific ggtt
+ for OA and noa-wait buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,210 +62,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With GuC mode of submission, GuC is in control of defining the context
-id field that is part of the OA reports. To filter reports, UMD and KMD
-must know what sw context id was chosen by GuC. There is not interface
-between KMD and GuC to determine this, so read the upper-dword of
-EXECLIST_STATUS to filter/squash OA reports for the specific context.
-
-v2: Explain guc id stealing w.r.t OA use case
+User passes uabi engine class and instance to the perf OA interface. Use
+gt corresponding to the engine to pin the buffers to the right ggtt.
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_lrc.h |   2 +
- drivers/gpu/drm/i915/i915_perf.c    | 144 ++++++++++++++++++++++++----
- 2 files changed, 127 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.h b/drivers/gpu/drm/i915/gt/intel_lrc.h
-index a390f0813c8b..7111bae759f3 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.h
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.h
-@@ -110,6 +110,8 @@ enum {
- #define XEHP_SW_CTX_ID_WIDTH			16
- #define XEHP_SW_COUNTER_SHIFT			58
- #define XEHP_SW_COUNTER_WIDTH			6
-+#define GEN12_GUC_SW_CTX_ID_SHIFT		39
-+#define GEN12_GUC_SW_CTX_ID_WIDTH		16
- 
- static inline void lrc_runtime_start(struct intel_context *ce)
- {
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 15816df916c7..255335868b6a 100644
+index 9a00398ae25f..2c8727253f0d 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1231,6 +1231,128 @@ static struct intel_context *oa_pin_context(struct i915_perf_stream *stream)
- 	return stream->pinned_ctx;
- }
- 
-+static int
-+__store_reg_to_mem(struct i915_request *rq, i915_reg_t reg, u32 ggtt_offset)
-+{
-+	u32 *cs, cmd;
-+
-+	cmd = MI_STORE_REGISTER_MEM | MI_SRM_LRM_GLOBAL_GTT;
-+	if (GRAPHICS_VER(rq->engine->i915) >= 8)
-+		cmd++;
-+
-+	cs = intel_ring_begin(rq, 4);
-+	if (IS_ERR(cs))
-+		return PTR_ERR(cs);
-+
-+	*cs++ = cmd;
-+	*cs++ = i915_mmio_reg_offset(reg);
-+	*cs++ = ggtt_offset;
-+	*cs++ = 0;
-+
-+	intel_ring_advance(rq, cs);
-+
-+	return 0;
-+}
-+
-+static int
-+__read_reg(struct intel_context *ce, i915_reg_t reg, u32 ggtt_offset)
-+{
-+	struct i915_request *rq;
-+	int err;
-+
-+	rq = i915_request_create(ce);
-+	if (IS_ERR(rq))
-+		return PTR_ERR(rq);
-+
-+	i915_request_get(rq);
-+
-+	err = __store_reg_to_mem(rq, reg, ggtt_offset);
-+
-+	i915_request_add(rq);
-+	if (!err && i915_request_wait(rq, 0, HZ / 2) < 0)
-+		err = -ETIME;
-+
-+	i915_request_put(rq);
-+
-+	return err;
-+}
-+
-+static int
-+gen12_guc_sw_ctx_id(struct intel_context *ce, u32 *ctx_id)
-+{
-+	struct i915_vma *scratch;
-+	u32 *val;
-+	int err;
-+
-+	scratch = __vm_create_scratch_for_read_pinned(&ce->engine->gt->ggtt->vm, 4);
-+	if (IS_ERR(scratch))
-+		return PTR_ERR(scratch);
-+
-+	err = i915_vma_sync(scratch);
-+	if (err)
-+		goto err_scratch;
-+
-+	err = __read_reg(ce, RING_EXECLIST_STATUS_HI(ce->engine->mmio_base),
-+			 i915_ggtt_offset(scratch));
-+	if (err)
-+		goto err_scratch;
-+
-+	val = i915_gem_object_pin_map_unlocked(scratch->obj, I915_MAP_WB);
-+	if (IS_ERR(val)) {
-+		err = PTR_ERR(val);
-+		goto err_scratch;
-+	}
-+
-+	*ctx_id = *val;
-+	i915_gem_object_unpin_map(scratch->obj);
-+
-+err_scratch:
-+	i915_vma_unpin_and_release(&scratch, 0);
-+	return err;
-+}
-+
-+/*
-+ * For execlist mode of submission, pick an unused context id
-+ * 0 - (NUM_CONTEXT_TAG -1) are used by other contexts
-+ * XXX_MAX_CONTEXT_HW_ID is used by idle context
-+ *
-+ * For GuC mode of submission read context id from the upper dword of the
-+ * EXECLIST_STATUS register. Note that we read this value only once and expect
-+ * that the value stays fixed for the entire OA use case. There are cases where
-+ * GuC KMD implementation may deregister a context to reuse it's context id, but
-+ * we prevent that from happening to the OA context by pinning it.
-+ */
-+static int gen12_get_render_context_id(struct i915_perf_stream *stream)
-+{
-+	u32 ctx_id, mask;
-+	int ret;
-+
-+	if (intel_engine_uses_guc(stream->engine)) {
-+		ret = gen12_guc_sw_ctx_id(stream->pinned_ctx, &ctx_id);
-+		if (ret)
-+			return ret;
-+
-+		mask = ((1U << GEN12_GUC_SW_CTX_ID_WIDTH) - 1) <<
-+			(GEN12_GUC_SW_CTX_ID_SHIFT - 32);
-+	} else if (GRAPHICS_VER_FULL(stream->engine->i915) >= IP_VER(12, 50)) {
-+		ctx_id = (XEHP_MAX_CONTEXT_HW_ID - 1) <<
-+			(XEHP_SW_CTX_ID_SHIFT - 32);
-+
-+		mask = ((1U << XEHP_SW_CTX_ID_WIDTH) - 1) <<
-+			(XEHP_SW_CTX_ID_SHIFT - 32);
-+	} else {
-+		ctx_id = (GEN12_MAX_CONTEXT_HW_ID - 1) <<
-+			 (GEN11_SW_CTX_ID_SHIFT - 32);
-+
-+		mask = ((1U << GEN11_SW_CTX_ID_WIDTH) - 1) <<
-+			(GEN11_SW_CTX_ID_SHIFT - 32);
-+	}
-+	stream->specific_ctx_id = ctx_id & mask;
-+	stream->specific_ctx_id_mask = mask;
-+
-+	return 0;
-+}
-+
- /**
-  * oa_get_render_ctx_id - determine and hold ctx hw id
-  * @stream: An i915-perf stream opened for OA metrics
-@@ -1244,6 +1366,7 @@ static struct intel_context *oa_pin_context(struct i915_perf_stream *stream)
- static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
+@@ -1754,6 +1754,7 @@ static void gen12_init_oa_buffer(struct i915_perf_stream *stream)
+ static int alloc_oa_buffer(struct i915_perf_stream *stream)
  {
- 	struct intel_context *ce;
-+	int ret = 0;
+ 	struct drm_i915_private *i915 = stream->perf->i915;
++	struct intel_gt *gt = stream->engine->gt;
+ 	struct drm_i915_gem_object *bo;
+ 	struct i915_vma *vma;
+ 	int ret;
+@@ -1773,11 +1774,22 @@ static int alloc_oa_buffer(struct i915_perf_stream *stream)
+ 	i915_gem_object_set_cache_coherency(bo, I915_CACHE_LLC);
  
- 	ce = oa_pin_context(stream);
- 	if (IS_ERR(ce))
-@@ -1290,24 +1413,7 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
+ 	/* PreHSW required 512K alignment, HSW requires 16M */
+-	vma = i915_gem_object_ggtt_pin(bo, NULL, 0, SZ_16M, 0);
++	vma = i915_vma_instance(bo, &gt->ggtt->vm, NULL);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
+ 		goto err_unref;
+ 	}
++
++	/*
++	 * PreHSW required 512K alignment.
++	 * HSW and onwards, align to requested size of OA buffer.
++	 */
++	ret = i915_vma_pin(vma, 0, SZ_16M, PIN_GLOBAL | PIN_HIGH);
++	if (ret) {
++		drm_err(&gt->i915->drm, "Failed to pin OA buffer %d\n", ret);
++		goto err_unref;
++	}
++
+ 	stream->oa_buffer.vma = vma;
  
- 	case 11:
- 	case 12:
--		if (GRAPHICS_VER_FULL(ce->engine->i915) >= IP_VER(12, 50)) {
--			stream->specific_ctx_id_mask =
--				((1U << XEHP_SW_CTX_ID_WIDTH) - 1) <<
--				(XEHP_SW_CTX_ID_SHIFT - 32);
--			stream->specific_ctx_id =
--				(XEHP_MAX_CONTEXT_HW_ID - 1) <<
--				(XEHP_SW_CTX_ID_SHIFT - 32);
--		} else {
--			stream->specific_ctx_id_mask =
--				((1U << GEN11_SW_CTX_ID_WIDTH) - 1) << (GEN11_SW_CTX_ID_SHIFT - 32);
--			/*
--			 * Pick an unused context id
--			 * 0 - BITS_PER_LONG are used by other contexts
--			 * GEN12_MAX_CONTEXT_HW_ID (0x7ff) is used by idle context
--			 */
--			stream->specific_ctx_id =
--				(GEN12_MAX_CONTEXT_HW_ID - 1) << (GEN11_SW_CTX_ID_SHIFT - 32);
--		}
-+		ret = gen12_get_render_context_id(stream);
- 		break;
+ 	stream->oa_buffer.vaddr =
+@@ -1827,6 +1839,7 @@ static u32 *save_restore_register(struct i915_perf_stream *stream, u32 *cs,
+ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ {
+ 	struct drm_i915_private *i915 = stream->perf->i915;
++	struct intel_gt *gt = stream->engine->gt;
+ 	struct drm_i915_gem_object *bo;
+ 	struct i915_vma *vma;
+ 	const u64 delay_ticks = 0xffffffffffffffff -
+@@ -1867,12 +1880,16 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	 * multiple OA config BOs will have a jump to this address and it
+ 	 * needs to be fixed during the lifetime of the i915/perf stream.
+ 	 */
+-	vma = i915_gem_object_ggtt_pin_ww(bo, &ww, NULL, 0, 0, PIN_HIGH);
++	vma = i915_vma_instance(bo, &gt->ggtt->vm, NULL);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
+ 		goto out_ww;
+ 	}
  
- 	default:
-@@ -1321,7 +1427,7 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
- 		stream->specific_ctx_id,
- 		stream->specific_ctx_id_mask);
- 
--	return 0;
-+	return ret;
- }
- 
- /**
++	ret = i915_vma_pin_ww(vma, &ww, 0, 0, PIN_GLOBAL | PIN_HIGH);
++	if (ret)
++		goto out_ww;
++
+ 	batch = cs = i915_gem_object_pin_map(bo, I915_MAP_WB);
+ 	if (IS_ERR(batch)) {
+ 		ret = PTR_ERR(batch);
 -- 
 2.25.1
 
