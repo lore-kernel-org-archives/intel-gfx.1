@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC1CC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 22:38:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71332C43217
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 22:39:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A759610E977;
-	Tue, 18 Oct 2022 22:38:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C615310E3BE;
+	Tue, 18 Oct 2022 22:39:36 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B557A10F03D
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 22:37:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF7FF10F046
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 22:37:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666132630; x=1697668630;
+ t=1666132629; x=1697668629;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=FnCQd6/dfYi+SC8Zcyus2h0Pl1aP5tGzcTd0NpaAvgg=;
- b=D3I7uaIcoqtOTOTTo6cPObAvVMZzLC69M5VAIBlDsbllw7H6h4Ia1USw
- SXn0yBdry4GZ4eWD7Aj32BnnbOxT0aJPVKugdMIQfZCYfSBjEWHykTimw
- i5hlYdCnfhesGG83ZpanLvfe/URrPzeSFRJ60jmsjLn4w1yGr3dqrKNOD
- 4ny1ct+iN173mdjUyDFRO7IToa+s4xg2iN/UrmkyzxH1A7En8Lql5OcX9
- kzLd4pD1xNONJLwqBOVXZi6QwQ5BaOT1SXRZMw5O7JdAmUb+NK848Fqgr
- NPLCyJUxhHU4ZogNEk4owlm4bfto1rdm7b/Qg96yaGf/GZNoK5HuOr3Cn Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="304986540"
-X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="304986540"
+ bh=QNa1fAgZRmoghrzYtP3NECj4ODDCLvmpK3e70sTj00M=;
+ b=QD1vTS5a2R8LI/b0SjbpLgGG1GtisWsPdBnuEDD1jCx8fmINx8YyShOd
+ /mtx/6Vr8auRP5ByFJHqByGKHe8OIHOo94dW+lg3+nvq2IaKGOaB7wU36
+ B3NGaZe+Hmit0yTYvt/jTf4wCXo3hF/ma5NZo7jN2rwdTx0ABiPJc+FQ9
+ bCZI6B0m76A5PUA6d0eidGW4l+R5SQHia/ud5OyUd3mkVzWDJktFUhOot
+ Bg5eOhqgQY+84WxRSFaIJdbU/uS3KhfMYQIPmTQq/JdajcBFpXvrII1gU
+ XOdX6oKujltcRTw6URjmRBSAmR52wNrltVbY21vX2losb+LOdyTxGdxjO w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="304986535"
+X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="304986535"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Oct 2022 15:36:52 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="803986542"
-X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="803986542"
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="803986525"
+X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="803986525"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Oct 2022 15:36:52 -0700
@@ -38,15 +38,15 @@ From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Tue, 18 Oct 2022 22:36:42 +0000
-Message-Id: <20221018223648.5244-11-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 18 Oct 2022 22:36:37 +0000
+Message-Id: <20221018223648.5244-6-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221018223648.5244-1-umesh.nerlige.ramappa@intel.com>
 References: <20221018223648.5244-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 10/16] drm/i915/perf: Store a pointer to
- oa_format in oa_buffer
+Subject: [Intel-gfx] [PATCH v5 05/16] drm/i915/perf: Enable bytes per clock
+ reporting in OA
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,147 +62,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DG2 introduces OA reports with 64 bit report header fields. Perf OA
-would need more information about the OA format in order to process such
-reports. Store all OA format info in oa_buffer instead of just the size
-and format-id.
+XEHPSDV and DG2 provide a way to configure bytes per clock vs commands
+per clock reporting. Enable bytes per clock setting on enabling OA.
 
-v2: Drop format_size variable (Ashutosh)
+Bspec: 51762
+Bspec: 52201
+
+v2:
+- Fix commit msg (Ashutosh)
+- Fix checkpatch issues
+
+v3:
+- s/commands/bytes/ in code comment and commmit msg
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c       | 30 +++++++++++---------------
- drivers/gpu/drm/i915/i915_perf_types.h |  3 +--
- 2 files changed, 13 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h          |  3 +++
+ drivers/gpu/drm/i915/i915_pci.c          |  1 +
+ drivers/gpu/drm/i915/i915_perf.c         | 20 ++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_perf_oa_regs.h |  4 ++++
+ drivers/gpu/drm/i915/intel_device_info.h |  1 +
+ 5 files changed, 29 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 7c64f8a17493..438aebeea103 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -898,6 +898,9 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define HAS_RUNTIME_PM(dev_priv) (INTEL_INFO(dev_priv)->has_runtime_pm)
+ #define HAS_64BIT_RELOC(dev_priv) (INTEL_INFO(dev_priv)->has_64bit_reloc)
+ 
++#define HAS_OA_BPC_REPORTING(dev_priv) \
++	(INTEL_INFO(dev_priv)->has_oa_bpc_reporting)
++
+ /*
+  * Set this flag, when platform requires 64K GTT page sizes or larger for
+  * device local memory access.
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 496df0f547f4..cbced3f3db17 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1023,6 +1023,7 @@ static const struct intel_device_info adl_p_info = {
+ 	.has_logical_ring_contexts = 1, \
+ 	.has_logical_ring_elsq = 1, \
+ 	.has_mslice_steering = 1, \
++	.has_oa_bpc_reporting = 1, \
+ 	.has_rc6 = 1, \
+ 	.has_reset_engine = 1, \
+ 	.has_rps = 1, \
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 2c8727253f0d..585079ae5f03 100644
+index b71b5cf21176..d11cc949c9be 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -465,7 +465,7 @@ static u32 gen7_oa_hw_tail_read(struct i915_perf_stream *stream)
- static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
+@@ -2748,10 +2748,12 @@ static int
+ gen12_enable_metric_set(struct i915_perf_stream *stream,
+ 			struct i915_active *active)
  {
- 	u32 gtt_offset = i915_ggtt_offset(stream->oa_buffer.vma);
--	int report_size = stream->oa_buffer.format_size;
-+	int report_size = stream->oa_buffer.format->size;
- 	unsigned long flags;
- 	bool pollin;
- 	u32 hw_tail;
-@@ -602,7 +602,7 @@ static int append_oa_sample(struct i915_perf_stream *stream,
- 			    size_t *offset,
- 			    const u8 *report)
- {
--	int report_size = stream->oa_buffer.format_size;
-+	int report_size = stream->oa_buffer.format->size;
- 	struct drm_i915_perf_record_header header;
- 
- 	header.type = DRM_I915_PERF_RECORD_SAMPLE;
-@@ -652,7 +652,7 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
- 				  size_t *offset)
- {
++	struct drm_i915_private *i915 = stream->perf->i915;
  	struct intel_uncore *uncore = stream->uncore;
--	int report_size = stream->oa_buffer.format_size;
-+	int report_size = stream->oa_buffer.format->size;
- 	u8 *oa_buf_base = stream->oa_buffer.vaddr;
- 	u32 gtt_offset = i915_ggtt_offset(stream->oa_buffer.vma);
- 	u32 mask = (OA_BUFFER_SIZE - 1);
-@@ -945,7 +945,7 @@ static int gen7_append_oa_reports(struct i915_perf_stream *stream,
- 				  size_t *offset)
- {
- 	struct intel_uncore *uncore = stream->uncore;
--	int report_size = stream->oa_buffer.format_size;
-+	int report_size = stream->oa_buffer.format->size;
- 	u8 *oa_buf_base = stream->oa_buffer.vaddr;
- 	u32 gtt_offset = i915_ggtt_offset(stream->oa_buffer.vma);
- 	u32 mask = (OA_BUFFER_SIZE - 1);
-@@ -2506,7 +2506,7 @@ static int gen12_configure_oar_context(struct i915_perf_stream *stream,
- {
- 	int err;
- 	struct intel_context *ce = stream->pinned_ctx;
--	u32 format = stream->oa_buffer.format;
-+	u32 format = stream->oa_buffer.format->format;
- 	u32 offset = stream->perf->ctx_oactxctrl_offset;
- 	struct flex regs_context[] = {
- 		{
-@@ -2877,7 +2877,7 @@ static void gen7_oa_enable(struct i915_perf_stream *stream)
- 	u32 ctx_id = stream->specific_ctx_id;
+ 	struct i915_oa_config *oa_config = stream->oa_config;
  	bool periodic = stream->periodic;
  	u32 period_exponent = stream->period_exponent;
--	u32 report_format = stream->oa_buffer.format;
-+	u32 report_format = stream->oa_buffer.format->format;
- 
- 	/*
- 	 * Reset buf pointers so we don't forward reports from before now.
-@@ -2903,7 +2903,7 @@ static void gen7_oa_enable(struct i915_perf_stream *stream)
- static void gen8_oa_enable(struct i915_perf_stream *stream)
- {
- 	struct intel_uncore *uncore = stream->uncore;
--	u32 report_format = stream->oa_buffer.format;
-+	u32 report_format = stream->oa_buffer.format->format;
- 
- 	/*
- 	 * Reset buf pointers so we don't forward reports from before now.
-@@ -2929,7 +2929,7 @@ static void gen8_oa_enable(struct i915_perf_stream *stream)
- static void gen12_oa_enable(struct i915_perf_stream *stream)
- {
- 	struct intel_uncore *uncore = stream->uncore;
--	u32 report_format = stream->oa_buffer.format;
-+	u32 report_format = stream->oa_buffer.format->format;
- 
- 	/*
- 	 * If we don't want OA reports from the OA buffer, then we don't even
-@@ -3110,7 +3110,6 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
- 	struct drm_i915_private *i915 = stream->perf->i915;
- 	struct i915_perf *perf = stream->perf;
- 	struct intel_gt *gt;
--	int format_size;
++	u32 sqcnt1;
  	int ret;
  
- 	if (!props->engine) {
-@@ -3166,20 +3165,15 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	intel_uncore_write(uncore, GEN12_OAG_OA_DEBUG,
+@@ -2770,6 +2772,16 @@ gen12_enable_metric_set(struct i915_perf_stream *stream,
+ 			    (period_exponent << GEN12_OAG_OAGLBCTXCTRL_TIMER_PERIOD_SHIFT))
+ 			    : 0);
  
- 	stream->sample_size = sizeof(struct drm_i915_perf_record_header);
++	/*
++	 * Initialize Super Queue Internal Cnt Register
++	 * Set PMON Enable in order to collect valid metrics.
++	 * Enable byets per clock reporting in OA for XEHPSDV onward.
++	 */
++	sqcnt1 = GEN12_SQCNT1_PMON_ENABLE |
++		 (HAS_OA_BPC_REPORTING(i915) ? GEN12_SQCNT1_OABPC : 0);
++
++	intel_uncore_rmw(uncore, GEN12_SQCNT1, 0, sqcnt1);
++
+ 	/*
+ 	 * Update all contexts prior writing the mux configurations as we need
+ 	 * to make sure all slices/subslices are ON before writing to NOA
+@@ -2819,6 +2831,8 @@ static void gen11_disable_metric_set(struct i915_perf_stream *stream)
+ static void gen12_disable_metric_set(struct i915_perf_stream *stream)
+ {
+ 	struct intel_uncore *uncore = stream->uncore;
++	struct drm_i915_private *i915 = stream->perf->i915;
++	u32 sqcnt1;
  
--	format_size = perf->oa_formats[props->oa_format].size;
-+	stream->oa_buffer.format = &perf->oa_formats[props->oa_format];
-+	if (drm_WARN_ON(&i915->drm, stream->oa_buffer.format->size == 0))
-+		return -EINVAL;
+ 	/* Reset all contexts' slices/subslices configurations. */
+ 	gen12_configure_all_contexts(stream, NULL, NULL);
+@@ -2829,6 +2843,12 @@ static void gen12_disable_metric_set(struct i915_perf_stream *stream)
  
- 	stream->sample_flags = props->sample_flags;
--	stream->sample_size += format_size;
--
--	stream->oa_buffer.format_size = format_size;
--	if (drm_WARN_ON(&i915->drm, stream->oa_buffer.format_size == 0))
--		return -EINVAL;
-+	stream->sample_size += stream->oa_buffer.format->size;
+ 	/* Make sure we disable noa to save power. */
+ 	intel_uncore_rmw(uncore, RPM_CONFIG1, GEN10_GT_NOA_ENABLE, 0);
++
++	sqcnt1 = GEN12_SQCNT1_PMON_ENABLE |
++		 (HAS_OA_BPC_REPORTING(i915) ? GEN12_SQCNT1_OABPC : 0);
++
++	/* Reset PMON Enable to save power. */
++	intel_uncore_rmw(uncore, GEN12_SQCNT1, sqcnt1, 0);
+ }
  
- 	stream->hold_preemption = props->hold_preemption;
+ static void gen7_oa_enable(struct i915_perf_stream *stream)
+diff --git a/drivers/gpu/drm/i915/i915_perf_oa_regs.h b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
+index 0ef3562ff4aa..381d94101610 100644
+--- a/drivers/gpu/drm/i915/i915_perf_oa_regs.h
++++ b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
+@@ -134,4 +134,8 @@
+ #define GDT_CHICKEN_BITS    _MMIO(0x9840)
+ #define   GT_NOA_ENABLE	    0x00000080
  
--	stream->oa_buffer.format =
--		perf->oa_formats[props->oa_format].format;
--
- 	stream->periodic = props->oa_periodic;
- 	if (stream->periodic)
- 		stream->period_exponent = props->oa_period_exponent;
-diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
-index dc9bfd8086cf..e0c96b44eda8 100644
---- a/drivers/gpu/drm/i915/i915_perf_types.h
-+++ b/drivers/gpu/drm/i915/i915_perf_types.h
-@@ -250,11 +250,10 @@ struct i915_perf_stream {
- 	 * @oa_buffer: State of the OA buffer.
- 	 */
- 	struct {
-+		const struct i915_oa_format *format;
- 		struct i915_vma *vma;
- 		u8 *vaddr;
- 		u32 last_ctx_id;
--		int format;
--		int format_size;
- 		int size_exponent;
- 
- 		/**
++#define GEN12_SQCNT1				_MMIO(0x8718)
++#define   GEN12_SQCNT1_PMON_ENABLE		REG_BIT(30)
++#define   GEN12_SQCNT1_OABPC			REG_BIT(29)
++
+ #endif /* __INTEL_PERF_OA_REGS__ */
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index cdf78728dcad..42218c8d85f2 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -164,6 +164,7 @@ enum intel_ppgtt_type {
+ 	func(has_logical_ring_elsq); \
+ 	func(has_media_ratio_mode); \
+ 	func(has_mslice_steering); \
++	func(has_oa_bpc_reporting); \
+ 	func(has_one_eu_per_fuse_bit); \
+ 	func(has_pxp); \
+ 	func(has_rc6); \
 -- 
 2.25.1
 
