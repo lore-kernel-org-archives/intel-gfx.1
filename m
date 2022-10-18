@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23591C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 22:37:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 216E9C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 22:37:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 902F810F03D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45B6B10EB73;
 	Tue, 18 Oct 2022 22:37:32 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2246810F03D
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 22:37:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DBAE10F04D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 Oct 2022 22:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666132629; x=1697668629;
+ t=1666132631; x=1697668631;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=CZSFrJdR5WQWV4kIfwWVPzi99EJdBto1wxq7x7IOHx8=;
- b=fGPnxM9k1wnMUT6g1r8R9nVbyky5Xjp55bQq6g3n6rwoZBd1NYQquMSr
- S9egbN4prGM/6B7rVEIDJ0V5ZyBAyW1tqw1tdB7tcWkZhiLHGaU7ez/Jg
- W0eHOem1vTNd2PYbX05eQWrxseFyb5wz0tG7bh7nIRNdyA56BlUcbVJtn
- pCgoIESnFnmI9eeG+C81DOuwnztHKeYG64LhN0p6odnLz2UgXK+oGrHC6
- n5xlolBz+5QBRiGJs3Nh2ZtCuCUL/i6Z0m8+w3bv/eqq+PM6eB68ANzwT
- UmPBlJvFoAN3xqA/7PF3jvgrv8nz4UYaZD7hpUKGKYDg/DPufPegvmifA A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="304986532"
-X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="304986532"
+ bh=S6TU5IPCKqugKuXPsfWSoRIT1EXNM/yiDDISPsvQZ4M=;
+ b=ECn4Ixo/d94pRxPxPbitOGPTWWzRqYfCjCrX3DtfrcwsT6z25jZ63QE6
+ AyrxRV4TIFuvohCzAoLGRsz2oyPb/Pr19lLzbZUjmxiQwQ2QTYrQN8Zb4
+ K0OZ3b55LF4h3hVWihT075a05aBuvwfutI7+yuHO8P4xEdmKN/rQUl1P9
+ +7peZAQ3HPjCLyWGknA5iUMb+6BmYBIa04OmCE+zLQlRzfj49dTaDk40b
+ 88BQMrA3YR3gG5fMF+5w4jv6APmZRHas36a6103XMQ5lgfiP3Sn64MMra
+ FG2BWAjcpIQwJgss9z/6m/eftWnx9CcD5wyBuHPCHUXmFEyRIGe/ax4+U A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="304986543"
+X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="304986543"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 15:36:52 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="803986514"
-X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="803986514"
+ 18 Oct 2022 15:36:53 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="803986553"
+X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="803986553"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 15:36:51 -0700
+ 18 Oct 2022 15:36:53 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org,
  Lionel G Landwerlin <lionel.g.landwerlin@intel.com>,
  Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Tue, 18 Oct 2022 22:36:34 +0000
-Message-Id: <20221018223648.5244-3-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 18 Oct 2022 22:36:45 +0000
+Message-Id: <20221018223648.5244-14-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221018223648.5244-1-umesh.nerlige.ramappa@intel.com>
 References: <20221018223648.5244-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 02/16] drm/i915/perf: Add 32-bit OAG and OAR
- formats for DG2
+Subject: [Intel-gfx] [PATCH v5 13/16] drm/i915/perf: Save/restore EU flex
+ counters across reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,65 +62,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add new OA formats for DG2.
-
-MR: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/18893
+If a drm client is killed, then hw contexts used by the client are reset
+immediately. This reset clears the EU flex counter configuration. If an
+OA use case is running in parallel, it would start seeing zeroed eu
+counter values following the reset even if the drm client is restarted.
+Save/restore the EU flex counter config so that the EU counters can be
+monitored continuously across resets.
 
 v2:
-- Update commit title (Ashutosh)
-- Coding style fixes (Lionel)
-- 64 bit OA formats need UMD changes in GPUvis, drop for now and send in a
-  separate series with UMD changes
-
-v3:
-- Update commit message to drop 64 bit related description
+- Save/restore eu flex config only for gen12, as for pre-gen12, these
+  are saved and restored in the context image.
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com> #1
+Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 7 +++++++
- include/uapi/drm/i915_drm.h      | 4 ++++
- 2 files changed, 11 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 255335868b6a..2b772a6b1cd6 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -320,6 +320,8 @@ static const struct i915_oa_format oa_formats[I915_OA_FORMAT_MAX] = {
- 	[I915_OA_FORMAT_A12]		    = { 0, 64 },
- 	[I915_OA_FORMAT_A12_B8_C8]	    = { 2, 128 },
- 	[I915_OA_FORMAT_A32u40_A4u32_B8_C8] = { 5, 256 },
-+	[I915_OAR_FORMAT_A32u40_A4u32_B8_C8]    = { 5, 256 },
-+	[I915_OA_FORMAT_A24u40_A14u32_B8_C8]    = { 5, 256 },
- };
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index 34ef4f36e660..a419d60166c8 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -392,6 +392,16 @@ static int guc_mmio_regset_init(struct temp_regset *regset,
+ 		else
+ 			ret |= GUC_MMIO_REG_ADD(gt, regset, GEN9_LNCFCMOCS(i), false);
  
- #define SAMPLE_OA_REPORT      (1<<0)
-@@ -4515,6 +4517,11 @@ static void oa_init_supported_formats(struct i915_perf *perf)
- 		oa_format_add(perf, I915_OA_FORMAT_C4_B8);
- 		break;
- 
-+	case INTEL_DG2:
-+		oa_format_add(perf, I915_OAR_FORMAT_A32u40_A4u32_B8_C8);
-+		oa_format_add(perf, I915_OA_FORMAT_A24u40_A14u32_B8_C8);
-+		break;
++	if (GRAPHICS_VER(engine->i915) >= 12) {
++		ret |= GUC_MMIO_REG_ADD(gt, regset, EU_PERF_CNTL0, false);
++		ret |= GUC_MMIO_REG_ADD(gt, regset, EU_PERF_CNTL1, false);
++		ret |= GUC_MMIO_REG_ADD(gt, regset, EU_PERF_CNTL2, false);
++		ret |= GUC_MMIO_REG_ADD(gt, regset, EU_PERF_CNTL3, false);
++		ret |= GUC_MMIO_REG_ADD(gt, regset, EU_PERF_CNTL4, false);
++		ret |= GUC_MMIO_REG_ADD(gt, regset, EU_PERF_CNTL5, false);
++		ret |= GUC_MMIO_REG_ADD(gt, regset, EU_PERF_CNTL6, false);
++	}
 +
- 	default:
- 		MISSING_CASE(platform);
- 	}
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 2e613109356b..158b35fb28f3 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -2666,6 +2666,10 @@ enum drm_i915_oa_format {
- 	I915_OA_FORMAT_A12_B8_C8,
- 	I915_OA_FORMAT_A32u40_A4u32_B8_C8,
- 
-+	/* DG2 */
-+	I915_OAR_FORMAT_A32u40_A4u32_B8_C8,
-+	I915_OA_FORMAT_A24u40_A14u32_B8_C8,
-+
- 	I915_OA_FORMAT_MAX	    /* non-ABI */
- };
+ 	return ret ? -1 : 0;
+ }
  
 -- 
 2.25.1
