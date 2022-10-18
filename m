@@ -4,30 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8629BC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 06:16:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A609C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Oct 2022 07:16:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70C2E10EE5B;
-	Tue, 18 Oct 2022 06:16:05 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 53A9910EE5B;
- Tue, 18 Oct 2022 06:16:00 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 22F0FA7DFF;
- Tue, 18 Oct 2022 06:16:00 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3579653800619059955=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0B810E1BE;
+	Tue, 18 Oct 2022 07:16:46 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D218410E1BE;
+ Tue, 18 Oct 2022 07:16:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666077397; x=1697613397;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=pG9MJ7kBbDvy0cbax0TUH8K6jvjWDft6FXVgpHRBmI8=;
+ b=DwPRpgQJSIfvlrvkPTCs/W9vNKGo2MxltOI//XXajqBNJ09dWGZ/O0NA
+ d1b5e2KJfDatfoIWR7sdqWV/GopHLqiUNikW+8L95mkR5rVCQIdJoo6qM
+ Klw1FBc1FqmN47SC4XKEnlKxrOgp6urS15CnpWDslvQWfWQTaa8bGljoP
+ x5GvSYADV4g0klhzg8HYtplq0650UzRu5PGDiiRghgHy4j5HK9Frryl4n
+ y/TFZrouboSvycnwJI3fe9HdBQIBKr9Buqc4wYHmwPNddHRKdKG3MoXub
+ eLoFB+tgkmMlAogDOCNaSOD1u4OO0tzzFdDOnV4hMUQ0Owr8ttDi2MBXN g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="370221308"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="370221308"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 00:16:37 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10503"; a="661783450"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; d="scan'208";a="661783450"
+Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 00:16:36 -0700
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Tue, 18 Oct 2022 00:16:14 -0700
+Message-Id: <20221018071630.3831-2-niranjana.vishwanathapura@intel.com>
+X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
+In-Reply-To: <20221018071630.3831-1-niranjana.vishwanathapura@intel.com>
+References: <20221018071630.3831-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
-Date: Tue, 18 Oct 2022 06:16:00 -0000
-Message-ID: <166607376010.20425.3965513273552169769@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20221018053148.1798008-1-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20221018053148.1798008-1-ankit.k.nautiyal@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/edid=3A_Parse_VRR_cap_fields_from_HFVSDB_block?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v4 01/17] drm/i915/vm_bind: Expose vm lookup
+ function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,201 +58,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
+ matthew.auld@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3579653800619059955==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Make i915_gem_vm_lookup() function non-static as it will be
+used by the vm_bind feature.
 
-== Series Details ==
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 11 ++++++++++-
+ drivers/gpu/drm/i915/gem/i915_gem_context.h |  3 +++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-Series: drm/edid: Parse VRR cap fields from HFVSDB block
-URL   : https://patchwork.freedesktop.org/series/109801/
-State : success
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 1e29b1e6d186..793345cbf99e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -346,7 +346,16 @@ static int proto_context_register(struct drm_i915_file_private *fpriv,
+ 	return ret;
+ }
+ 
+-static struct i915_address_space *
++/**
++ * i915_gem_vm_lookup() - looks up for the VM reference given the vm id
++ * @file_priv: the private data associated with the user's file
++ * @id: the VM id
++ *
++ * Finds the VM reference associated to a specific id.
++ *
++ * Returns the VM pointer on success, NULL in case of failure.
++ */
++struct i915_address_space *
+ i915_gem_vm_lookup(struct drm_i915_file_private *file_priv, u32 id)
+ {
+ 	struct i915_address_space *vm;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+index e5b0f66ea1fe..899fa8f1e0fe 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+@@ -139,6 +139,9 @@ int i915_gem_context_setparam_ioctl(struct drm_device *dev, void *data,
+ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev, void *data,
+ 				       struct drm_file *file);
+ 
++struct i915_address_space *
++i915_gem_vm_lookup(struct drm_i915_file_private *file_priv, u32 id);
++
+ struct i915_gem_context *
+ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id);
+ 
+-- 
+2.21.0.rc0.32.g243a4c7e27
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_12254 -> Patchwork_109801v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/index.html
-
-Participating hosts (45 -> 43)
-------------------------------
-
-  Additional (2): fi-hsw-4770 bat-atsm-1 
-  Missing    (4): fi-bdw-samus fi-bxt-dsi fi-icl-u2 fi-kbl-guc 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_109801v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_pm_backlight@basic-brightness:
-    - fi-hsw-4770:        NOTRUN -> [SKIP][1] ([fdo#109271] / [i915#3012])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@i915_pm_backlight@basic-brightness.html
-
-  * igt@i915_pm_rpm@module-reload:
-    - fi-hsw-4770:        NOTRUN -> [INCOMPLETE][2] ([i915#7221])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@i915_pm_rpm@module-reload.html
-
-  * igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:
-    - fi-hsw-4770:        NOTRUN -> [SKIP][3] ([fdo#109271]) +9 similar issues
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html
-
-  * igt@kms_chamelium@dp-crc-fast:
-    - fi-hsw-4770:        NOTRUN -> [SKIP][4] ([fdo#109271] / [fdo#111827]) +7 similar issues
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@kms_chamelium@dp-crc-fast.html
-
-  * igt@kms_psr@sprite_plane_onoff:
-    - fi-hsw-4770:        NOTRUN -> [SKIP][5] ([fdo#109271] / [i915#1072]) +3 similar issues
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@kms_psr@sprite_plane_onoff.html
-
-  * igt@runner@aborted:
-    - fi-hsw-4770:        NOTRUN -> [FAIL][6] ([fdo#109271] / [i915#4312] / [i915#5594])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@runner@aborted.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#3012]: https://gitlab.freedesktop.org/drm/intel/issues/3012
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#5594]: https://gitlab.freedesktop.org/drm/intel/issues/5594
-  [i915#7220]: https://gitlab.freedesktop.org/drm/intel/issues/7220
-  [i915#7221]: https://gitlab.freedesktop.org/drm/intel/issues/7221
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12254 -> Patchwork_109801v1
-
-  CI-20190529: 20190529
-  CI_DRM_12254: 2e6cdde56f896add665edb8d2f6d3dfce8b1b3b6 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7018: 8312a2fe3f3287ba4ac4bc8d100de0734480f482 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_109801v1: 2e6cdde56f896add665edb8d2f6d3dfce8b1b3b6 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-b9b77a1b6ed3 drm/edid: Parse VRR cap fields from HFVSDB block
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/index.html
-
---===============3579653800619059955==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/edid: Parse VRR cap fields from HFVSDB block</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/109801/">https://patchwork.freedesktop.org/series/109801/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12254 -&gt; Patchwork_109801v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/index.html</p>
-<h2>Participating hosts (45 -&gt; 43)</h2>
-<p>Additional (2): fi-hsw-4770 bat-atsm-1 <br />
-  Missing    (4): fi-bdw-samus fi-bxt-dsi fi-icl-u2 fi-kbl-guc </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_109801v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_pm_backlight@basic-brightness:</p>
-<ul>
-<li>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@i915_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3012">i915#3012</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@i915_pm_rpm@module-reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7221">i915#7221</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_addfb_basic@addfb25-y-tiled-small-legacy:</p>
-<ul>
-<li>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@kms_addfb_basic@addfb25-y-tiled-small-legacy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +9 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@dp-crc-fast:</p>
-<ul>
-<li>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@kms_chamelium@dp-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +7 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@sprite_plane_onoff:</p>
-<ul>
-<li>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@kms_psr@sprite_plane_onoff.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/1072">i915#1072</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109801v1/fi-hsw-4770/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5594">i915#5594</a>)</li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12254 -&gt; Patchwork_109801v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12254: 2e6cdde56f896add665edb8d2f6d3dfce8b1b3b6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7018: 8312a2fe3f3287ba4ac4bc8d100de0734480f482 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_109801v1: 2e6cdde56f896add665edb8d2f6d3dfce8b1b3b6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>b9b77a1b6ed3 drm/edid: Parse VRR cap fields from HFVSDB block</p>
-
-</body>
-</html>
-
---===============3579653800619059955==--
