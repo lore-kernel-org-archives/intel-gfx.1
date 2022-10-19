@@ -4,91 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BFE0C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 16:22:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8AD0C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 16:23:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE9D610F295;
-	Wed, 19 Oct 2022 16:22:10 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71E4410E9DC;
- Wed, 19 Oct 2022 16:21:52 +0000 (UTC)
-Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29JGC6HC014621;
- Wed, 19 Oct 2022 16:21:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=pp1;
- bh=TXLZAQtJsJggPkIDpdYGEE9we8Oz6PH+Z15itzJhP00=;
- b=VlR7JLXAYey+AuQEQso4SYmoKZ+WM8FPU62L3wSyzHy7TdRO5brvwtOv0C14sdvCy/OE
- vlVTXVnFWi/+Ro5aHU6hZaK5Hig1CwzsQixCYItuHEK6gpn4uTHcPCOBdpytJGg9NPnM
- qHbq0HjV3YaRBXkWbXMhg/bHC8JRJWNQS8kt+GdIsQxvhIYhZ7rXY+o54SPYHyUslYjh
- 4W1R8ZMWpcYSjSwMR7bbXTKTkz2r9RHxKvQRTYqEnFQJuYwfFHTiBmJc7qksg9USak26
- rNgi3oKbK7YKYVKV90qpjWoYrliP8/5oFQiqBWh133EJknX9zt4gWemVAKTiw/dd5vhI Fw== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kamhx0bar-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 19 Oct 2022 16:21:49 +0000
-Received: from m0187473.ppops.net (m0187473.ppops.net [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 29JGCDx2016440;
- Wed, 19 Oct 2022 16:21:48 GMT
-Received: from ppma03fra.de.ibm.com (6b.4a.5195.ip4.static.sl-reverse.com
- [149.81.74.107])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kamhx0b6a-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 19 Oct 2022 16:21:48 +0000
-Received: from pps.filterd (ppma03fra.de.ibm.com [127.0.0.1])
- by ppma03fra.de.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 29JGKLQJ016286;
- Wed, 19 Oct 2022 16:21:41 GMT
-Received: from b06cxnps4075.portsmouth.uk.ibm.com
- (d06relay12.portsmouth.uk.ibm.com [9.149.109.197])
- by ppma03fra.de.ibm.com with ESMTP id 3k7mg9dk0f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 19 Oct 2022 16:21:41 +0000
-Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
- [9.149.105.58])
- by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 29JGLc7b918040
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 19 Oct 2022 16:21:38 GMT
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 41E794C058;
- Wed, 19 Oct 2022 16:21:38 +0000 (GMT)
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 199164C04A;
- Wed, 19 Oct 2022 16:21:38 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.152.85.9])
- by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Wed, 19 Oct 2022 16:21:38 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 4958)
- id CE6D5E14BB; Wed, 19 Oct 2022 18:21:37 +0200 (CEST)
-From: Eric Farman <farman@linux.ibm.com>
-To: Matthew Rosato <mjrosato@linux.ibm.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Cornelia Huck <cohuck@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Yi Liu <yi.l.liu@intel.com>
-Date: Wed, 19 Oct 2022 18:21:31 +0200
-Message-Id: <20221019162135.798901-4-farman@linux.ibm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221019162135.798901-1-farman@linux.ibm.com>
-References: <20221019162135.798901-1-farman@linux.ibm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41BF210F294;
+	Wed, 19 Oct 2022 16:23:14 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DAC510EB14
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 16:22:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666196578; x=1697732578;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:mime-version;
+ bh=/tY1ZFxAh1xztOVkWhqkxe4h56F5aqqfvY0d7DSiad0=;
+ b=ijm1nHcv7CmV63LBioT+2+pjJ9qI7Tw0WZt9cNy13Rw/S7QTRN3gtym6
+ 408wt/03xTV9M4G3jE9c/hdqSTXV0m4zvsSTl8xDA35i8W8rIoICeVMAK
+ lWHhsro7lr8p86JZ/aQT0ryWJu0KWkmql0GdRXyKUF9LPoZjTk2x1O9hB
+ E15mlxbU1S02EDfJ7UMYBmJ2fFsJQ/wsreAApgIlmQF1iVQiAnjrsElye
+ mq1UKa9IwfAeJq8gWikyNSyGdAePnKCk3n+4xeOGYTHI6hedTs0GMiywa
+ AZILK1YhSqS5wa1SnZd8+Wpf0eI4EOQkojehOddmo7W3SadmZI10rNRzm g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="307568728"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; 
+ d="scan'208,217";a="307568728"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2022 09:21:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="958418724"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; 
+ d="scan'208,217";a="958418724"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by fmsmga005.fm.intel.com with ESMTP; 19 Oct 2022 09:21:05 -0700
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Wed, 19 Oct 2022 09:21:04 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Wed, 19 Oct 2022 09:21:04 -0700
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Wed, 19 Oct 2022 09:21:04 -0700
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.174)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Wed, 19 Oct 2022 09:21:04 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=k4ZnTBl4ulZnIriRPExjuR72fe7U19c+c3G6lI5Y2Kk9MZb8j+hELVrrWaTXEVgMtytjBPpo4dPWII4VHGCxGDu+OsQeIc/CVY3LNivIZtLswjoi+SCSXcExiUe3NcmCPIOYbPNxSMMlj7C0n0dyWjCpbmT1l0HQvH/xWkGxLF1xahPIO+kaEKpdLhmGuMhsYfNDC2cvdxLCNRx/uNUOEHh6mHk1m8uHFpG6DNmANtArK4+M77xQtMry1bbt0sKQ6V2gPalF2E2TbnXHHf6Ycc+NZ9IXpPIwMCnErkV2GFa9dMO5Wf13K0phCqCiXTT7ttd6wk594Rd9E5C4tDKOXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A9ojhP3TYOoI0mihLbXRxadBrRdWvUQpXGItbsDvTTE=;
+ b=kqm1XSZIt/lMlECRtyEOvqq0BIcxLP4FInN3Cla9/65XXVanqW/5RXGBdnOER5VMCFbryqFjHWizqnPSZXEoefCeqDtwVtCD+tj4yLLdTG42uy8KUwqloqx92tc5Z4hjImO2aWkF6RZDGh5+q2E8I4HS69DE1oYeL8VI9D5nawXZ3pbT9ES05s02oonXgl61U0LZa4SoMuYKmpV4ZH/SRtrpzIF8ZOEjVSRM3FX/IcpKFP8WoajBffDsmbShwiakxwNO6Si4BJ8T3E7sygr6eI/RtskgbLg6Oy2Qk2Ag2fjH1lgc4+qgWEaSTL5s4ZrvohEZH+QzrqVslZWOTts0Rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BY5PR11MB3911.namprd11.prod.outlook.com (2603:10b6:a03:18d::29)
+ by PH7PR11MB6331.namprd11.prod.outlook.com (2603:10b6:510:1fd::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Wed, 19 Oct
+ 2022 16:21:02 +0000
+Received: from BY5PR11MB3911.namprd11.prod.outlook.com
+ ([fe80::87a1:bf2f:7377:3036]) by BY5PR11MB3911.namprd11.prod.outlook.com
+ ([fe80::87a1:bf2f:7377:3036%7]) with mapi id 15.20.5723.033; Wed, 19 Oct 2022
+ 16:21:02 +0000
+Content-Type: multipart/alternative;
+ boundary="------------uuR40RIy7ttzYWyJXkswBQuA"
+Message-ID: <dd25282b-655b-eae9-6e02-ea4b54b167ea@intel.com>
+Date: Wed, 19 Oct 2022 09:21:00 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.3.3
+Content-Language: en-GB
+To: Andrzej Hajda <andrzej.hajda@intel.com>, <intel-gfx@lists.freedesktop.org>
+References: <20221019083325.214960-1-andrzej.hajda@intel.com>
+From: John Harrison <john.c.harrison@intel.com>
+In-Reply-To: <20221019083325.214960-1-andrzej.hajda@intel.com>
+X-ClientProxiedBy: SJ0PR05CA0168.namprd05.prod.outlook.com
+ (2603:10b6:a03:339::23) To BY5PR11MB3911.namprd11.prod.outlook.com
+ (2603:10b6:a03:18d::29)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: OH12thvtw1vhpW2BSLrClRqJ6DsMFAxz
-X-Proofpoint-GUID: diAw04pVHcYXDJoTM_Os6kNe0eVcds5s
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-19_09,2022-10-19_04,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0
- impostorscore=0 mlxscore=0 clxscore=1015 adultscore=0 malwarescore=0
- bulkscore=0 mlxlogscore=999 priorityscore=1501 phishscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2210190091
-Subject: [Intel-gfx] [PATCH v1 3/7] vfio/ccw: move private initialization to
- callback
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY5PR11MB3911:EE_|PH7PR11MB6331:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19d46d02-c5d7-4bb8-8480-08dab1edea15
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hhOtAyNajUHFhwKTL1Q+jg39c2HSIRpEZZLjZErTQqSO5ruiiHl+gOwRgs145uOaGk3RXK5OG3/jXFPWHwO7SgLpkPLDYvdQ0E4YSk31wT3ejWguIPrNIBChjcW6uCuBJFNw+we9zYMHU8cpC/9HE7hzdYMPmyUerUCIaV5Jd1gIWzDR73YqWUTZS7jrFqjpZRimN95XS8OvhLkQBWDZmyP7jGIlkM5lhtCKVyq/7YUH2raa4wf7cYZcnGw4qbbXZC4mAuR8ziZidrelZj1u3dYXNa8VYC0CQ7CFNEV7Slu8oIGRfSVa+rQygVt6NLTQxBmnEdr7jnQekFeQDLLwgEaq9M66yary8X6dQmG+foY50I3uPoPHWHy7k7xXQdT8lQBH6/Lt8WlyHJQ08qrUU955iymbbXolmGXFbTFR3+EaMk+ffm6lKhtxt3Vq0hxCWySnkFcotdgJOFQ+hblj4v4HfjyeBrLG9RULPhEAEVgQhnNYhegymod/uimf+ichy+uJCgyyLT4E0fSLW1gcPu7Sdg0IoqlkPnRGwvCg7SgPJ2LR6EjuYt8NQMhMVE8A4E1RsVzfko15bZx23Yxuehinyi7uHPSSc1QKmIm8EOu6FJrnDTDTdWX/q8vINbjR1si1+oAFJSH+Qv3nenmuN1dvI9yhNz5YhTG1wwf1A6bBeEkupjijg+Jb8aJqe4M6xyoqkR0LHZE19FJT+pqLG8DX9DQ+x9UWnQAs7WqO0mOmMV9zJZwYiesJVbcu/mT5gnOmEs+dHZl+NBV61X0/tTxJ++xivzzvagTERp2CrPY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY5PR11MB3911.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(39860400002)(376002)(136003)(366004)(346002)(396003)(451199015)(5660300002)(38100700002)(478600001)(316002)(54906003)(82960400001)(6486002)(2906002)(8936002)(83380400001)(36756003)(41300700001)(31686004)(86362001)(6512007)(26005)(31696002)(6506007)(33964004)(53546011)(186003)(8676002)(4326008)(66946007)(66556008)(66476007)(2616005)(30864003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTN2R3liU1IyS2c3Q2tRSjU5MjZRWVcvRVJwMUU4WEQ1aGR3VmUwVGJLcXVD?=
+ =?utf-8?B?eVpVUGc3STJ0TVFVVHp4d2N0R2NlNXVrU3lxOEhpNmJlZFl4U3R2OEdKSk0v?=
+ =?utf-8?B?VWtCaEdRL1Fhb3hTRWIzRGxiZ0FOaHZkUGptNnR5NFhkMitkTDNaR2Zicml4?=
+ =?utf-8?B?dk1hWDJ2MXdZMHk4Zm4wYWFsMnU1dm1zc3UzcTNVbWZQbWcxUm51aXlTUkhF?=
+ =?utf-8?B?K0xZMEJxTVpXcFJsWm41NXM2QlpySmpocm9IS3oyUXdPRTNhaHhEdWNmV0JK?=
+ =?utf-8?B?NzduaWo2Qzh2d2RXK09zWHlPSG1xOGs5RnppNWptSkppNllhVHRkWGtLZndj?=
+ =?utf-8?B?OGZFbnluZVVnVm9IWnNmdmM2TWxYVldkZ2pEZkY2RlJOemlQUjNNbSsvckhI?=
+ =?utf-8?B?eDNaajFlTVdkT210eG5GaG1vNHZYRjhyZXdKZ3l3K1l5dEp4L281dkNOKzJ0?=
+ =?utf-8?B?U21XYThMVytHOWZaVHFLazFkUWhkSmd3SjY4S21BdG1lUmd4NFhyUkR6MzhL?=
+ =?utf-8?B?cDNVYWg0aTNQY1Nld3hONjNxLzhRZ0J1V2hzRk9LSzFtalpweThKcVNZN3pi?=
+ =?utf-8?B?TmhvWitsVkNWOVp6OGJnb2tWdjgzSUkxeWZQeEJGRndkK0p5N0dHUE1kNlBp?=
+ =?utf-8?B?NkpGRkxEYjZyem1JbDlGMnRjVmg3ejZKYktaV29rLzkvT1pWaTVIMURVR0hl?=
+ =?utf-8?B?WUxPcDlOOUpycDdDd0VoYkgwNms1ZGpIQnF4SnNUVGFlbDUvRXhPSVc3Tkha?=
+ =?utf-8?B?ZHNiMXNqbzJxdEo4a1IrUW1FVFdrUWJiUWJMdWdGQit5aS96dnBCUXc0Ukpm?=
+ =?utf-8?B?Y2F2WHVzckRVdDkwSnd4V3hwSHFSLzVsRjRCM1M0MlZuUkxmK0hxRlVxamVK?=
+ =?utf-8?B?UHA3ZmxhK1lZbmo5a2RmVW00d3llZkF3Y1lacTR5ZEYxSHk1TEZWckhPMVI5?=
+ =?utf-8?B?K2RvNUg4WURXcGhGQXpOTllUSmhwVitLUUNJbERlOE5sSmVsSU5QVDdvQ0FR?=
+ =?utf-8?B?SG13a21wNnFYSzBYYUdtU0lJNnVQVlN2TEgza1ZyVUtuQTVWZStud1JGb0Fa?=
+ =?utf-8?B?K1RRRThVcHFtWElIV1pEekQ4bmVnQVA4RDJCajdDNVM1NEQzUmJEOThhWUM4?=
+ =?utf-8?B?dG5XODNPLzBYU0RCbXNrdCtnZHJOUGNIUkN4K2IyUWJKd1V6cy8xZnBkY0x2?=
+ =?utf-8?B?eDRRVnlUTG9ZcG1sVHFkZ0VzNFZYb0tvTlJQaFFEQzNrTlo4OE5DMEhTSnNT?=
+ =?utf-8?B?U0NxRm1VbTZ4WFlMUTRNbHo1bEVnZ0RXM3JNUGVVTTFBYmtmTWNuSFYxN0k4?=
+ =?utf-8?B?dzNRSGJPdW5yTW5rZVRuQU1aMFRzWVhkbm9nM1Z4Ry9FbUxvbWNEdDEvKzR6?=
+ =?utf-8?B?U3NsU1FEcmVzdXViNnRSa0d3MVRBK2ZmMXVZV2xpSmxrMXF4eXE0YVBvMVJ0?=
+ =?utf-8?B?a01iRzBkV1VEVHNPSDJtVUdpZi9MdkZyY3k1R3ExL240L2tsYmphZ2h5TGVa?=
+ =?utf-8?B?TktpajhNU3BKNGVFbnVqM1d6T3o4ZEF0dWVubXNMZTNtbE9kdzdCWFk5ZXo5?=
+ =?utf-8?B?c3pzUVMrT1ZzTUM2ZzdRVnRJZE9YU1VidjJaYjF5TzRJbklFdlpGSk9WU2k3?=
+ =?utf-8?B?UjdweTVUQStmcWNoS2tWTUV5MnJMaGdlcE51d3psZ0FBQ2NqOU9aVi9ueER2?=
+ =?utf-8?B?ZDVjZ2c4aG9KUU5pcEtnOTBCVkg0bE01eGdjdTFGaDd2cGd1U215MTNhaG84?=
+ =?utf-8?B?QjBGOXRvM1JENHJQSC94dDRBeHJnRlBnb2lieGVyaUE5dzVydVhpMlpNQ1hq?=
+ =?utf-8?B?T0Jhb24yOEpKa1Y4em94TytIZEd5STZ0UUJpVWJ3OFRWT0F4YkhnT0NSdVAv?=
+ =?utf-8?B?aTg2UXB6dm5HclpqSkRIYVo4VVFrNFM1MWorNWpmYlBWUVhHeHlmOFFRaU9W?=
+ =?utf-8?B?WFRQVFQxem1nMkQza3pEa3ByVVg1d2RGUDVna3UySm1DWnpiYzBQalZzeUhm?=
+ =?utf-8?B?dWxLeTJCbFcyRTNEMlQxbVQ2QjVmVThIS1Z3L011Wmdsc3J1bXJCZ1dHQ2JO?=
+ =?utf-8?B?NGR6Qnh3bDlMejZtL3NGSk5Dc211TFgyWVRrUUZta0RsRHhmRHlmUXVUWlpL?=
+ =?utf-8?B?SUVkaFRlUWg5aThhUi9HNTE0SVU2aHBpT0l6b0xOUEJ0eURkT2s1L2VrRlY4?=
+ =?utf-8?B?aWc9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19d46d02-c5d7-4bb8-8480-08dab1edea15
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR11MB3911.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2022 16:21:02.0240 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TnMcB6P3hmplzVyAZmzxzI3934mc3IbfXa1ZBooBjyy8U8MxiQEZl3RIHjUYMFydAHFNRUdY/LGmszZrGc91sNO0oqUxCi9BQPKCuWvPNV4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6331
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/guc: add CAT error handler
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,209 +160,298 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Kirti Wankhede <kwankhede@nvidia.com>,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Diana Craciun <diana.craciun@oss.nxp.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, David Airlie <airlied@gmail.com>,
- linux-s390@vger.kernel.org, Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- intel-gfx@lists.freedesktop.org, Jason Herne <jjherne@linux.ibm.com>,
- Eric Farman <farman@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Eric Auger <eric.auger@redhat.com>,
- Harald Freudenberger <freude@linux.ibm.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gvt-dev@lists.freedesktop.org,
- Tony Krowiak <akrowiak@linux.ibm.com>, Yishai Hadas <yishaih@nvidia.com>,
- Peter Oberparleiter <oberpar@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Daniel Vetter <daniel@ffwll.ch>,
- Abhishek Sahu <abhsahu@nvidia.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There's already a device initialization callback that is
-used to initialize the release completion workaround.
+--------------uuR40RIy7ttzYWyJXkswBQuA
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Move the other elements of the vfio_ccw_private struct that
-require distinct initialization over to that routine.
+On 10/19/2022 01:33, Andrzej Hajda wrote:
+> In case of catastrophic errors GuC sends notification, which results in
+> cryptic message. Let's add handler which, for starters, dumps state
+> of affected engine.
+See below - the notification is sent by the GPU memory subsystem not the 
+GuC. Also, not sure what you mean by 'cryptic message'. It would be 
+better to say something like:
 
-Signed-off-by: Eric Farman <farman@linux.ibm.com>
+    Bad GPU memory accesses can result in catastrophic error
+    notifications being send from the GPU to the KMD via the GuC. Add a
+    handler to process the notification by printing a kernel message and
+    dumping the related engine state (if appropriate).
+
+
+>
+> Signed-off-by: Andrzej Hajda<andrzej.hajda@intel.com>
+> ---
+>   .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |  1 +
+>   drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  2 ++
+>   drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  3 ++
+>   .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 31 +++++++++++++++++++
+>   4 files changed, 37 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+> index f359bef046e0b2..f9a1c5642855e3 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+> +++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+> @@ -138,6 +138,7 @@ enum intel_guc_action {
+>   	INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC = 0x4601,
+>   	INTEL_GUC_ACTION_CLIENT_SOFT_RESET = 0x5507,
+>   	INTEL_GUC_ACTION_SET_ENG_UTIL_BUFF = 0x550A,
+> +	INTEL_GUC_ACTION_NOTIFY_MEMORY_CAT_ERROR = 0x6000,
+>   	INTEL_GUC_ACTION_STATE_CAPTURE_NOTIFICATION = 0x8002,
+>   	INTEL_GUC_ACTION_NOTIFY_FLUSH_LOG_BUFFER_TO_FILE = 0x8003,
+>   	INTEL_GUC_ACTION_NOTIFY_CRASH_DUMP_POSTED = 0x8004,
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> index 804133df1ac9b4..61b412732d095a 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> @@ -445,6 +445,8 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
+>   					 const u32 *msg, u32 len);
+>   int intel_guc_error_capture_process_msg(struct intel_guc *guc,
+>   					const u32 *msg, u32 len);
+> +int intel_guc_cat_error_process_msg(struct intel_guc *guc,
+> +				    const u32 *msg, u32 len);
+>   
+>   struct intel_engine_cs *
+>   intel_guc_lookup_engine(struct intel_guc *guc, u8 guc_class, u8 instance);
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> index 2b22065e87bf9a..f55f724e264407 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> @@ -1035,6 +1035,9 @@ static int ct_process_request(struct intel_guc_ct *ct, struct ct_incoming_msg *r
+>   		CT_ERROR(ct, "Received GuC exception notification!\n");
+>   		ret = 0;
+>   		break;
+> +	case INTEL_GUC_ACTION_NOTIFY_MEMORY_CAT_ERROR:
+> +		ret = intel_guc_cat_error_process_msg(guc, payload, len);
+> +		break;
+>   	default:
+>   		ret = -EOPNOTSUPP;
+>   		break;
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> index 693b07a977893d..94f91dfa3ec456 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> @@ -4659,6 +4659,37 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
+>   	return 0;
+>   }
+>   
+> +int intel_guc_cat_error_process_msg(struct intel_guc *guc,
+> +				    const u32 *msg, u32 len)
+> +{
+> +	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
+> +	struct intel_engine_cs *engine;
+> +	struct intel_context *ce;
+> +	struct drm_printer p;
+> +	unsigned long flags;
+> +	int ctx_id;
+> +
+> +	if (unlikely(len != 1)) {
+> +		drm_dbg(&i915->drm, "Invalid length %u", len);
+> +		return -EPROTO;
+> +	}
+> +	ctx_id = msg[0];
+> +
+> +	xa_lock_irqsave(&guc->context_lookup, flags);
+> +	ce = g2h_context_lookup(guc, ctx_id);
+> +	if (ce)
+> +		engine = ce->engine;
+> +	xa_unlock_irqrestore(&guc->context_lookup, flags);
+> +	if (unlikely(!ce || !engine))
+> +		return -EPROTO;
+This is not correct. There is no guarantee that a context will be 
+associated with the catastrophic error. Certain categories of error are 
+caused by context activity but other categories are caused by 'global' 
+activity (e.g. CPU hitting a bad address over the PCIe bus, other 
+non-engine hardware in the GPU, etc.). In those cases, the ctx_id field 
+will be set to an invalid context (~0, I believe) and the ce will come 
+back as NULL.
+
+> +
+> +	drm_err(&i915->drm, "%s: CAT error reported by GuC\n", engine->name);
+This is not accurate. The error is reported *via* GuC but it is reported 
+by the hardware. The GuC does not do anything to detect memory errors. 
+GuC receives an interrupt from the hardware to say a catastrophic error 
+has occurred, it then reads some data from a FIFO and basically returns 
+that data back to the KMD.  The sole extent of the GuC processing is to 
+convert the hardware id into a context id.
+
+Saying that GuC is reporting the error implies that GuC knows what went 
+wrong or could maybe even do something about it. Certainly it makes it 
+likely that bugs will be logged against the GuC which is not correct.
+
+Also, you are not reporting the context in the error message. Assuming 
+that a context has been provided then that is important information to 
+debug where the error came from. You should at least include 
+ce->guc_id.id (which should match ctx_id) in the message.
+
+John.
+
+> +	p = drm_info_printer(i915->drm.dev);
+> +	intel_engine_dump(engine, &p, "%s\n", engine->name);
+> +
+> +	return 0;
+> +}
+> +
+>   void intel_guc_find_hung_context(struct intel_engine_cs *engine)
+>   {
+>   	struct intel_guc *guc = &engine->gt->uc.guc;
+
+--------------uuR40RIy7ttzYWyJXkswBQuA
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    On 10/19/2022 01:33, Andrzej Hajda wrote:<br>
+    <blockquote type="cite" cite="mid:20221019083325.214960-1-andrzej.hajda@intel.com">
+      <pre class="moz-quote-pre" wrap="">In case of catastrophic errors GuC sends notification, which results in
+cryptic message. Let's add handler which, for starters, dumps state
+of affected engine.</pre>
+    </blockquote>
+    See below - the notification is sent by the GPU memory subsystem not
+    the GuC. Also, not sure what you mean by 'cryptic message'. It would
+    be better to say something like:<br>
+    <blockquote>Bad GPU memory accesses can result in catastrophic error
+      notifications being send from the GPU to the KMD via the GuC. Add
+      a handler to process the notification by printing a kernel message
+      and dumping the related engine state (if appropriate).<br>
+    </blockquote>
+    <br>
+    <blockquote type="cite" cite="mid:20221019083325.214960-1-andrzej.hajda@intel.com">
+      <pre class="moz-quote-pre" wrap="">
+
+Signed-off-by: Andrzej Hajda <a class="moz-txt-link-rfc2396E" href="mailto:andrzej.hajda@intel.com">&lt;andrzej.hajda@intel.com&gt;</a>
 ---
- drivers/s390/cio/vfio_ccw_drv.c     | 57 +++--------------------------
- drivers/s390/cio/vfio_ccw_ops.c     | 43 ++++++++++++++++++++++
- drivers/s390/cio/vfio_ccw_private.h |  7 +++-
- 3 files changed, 55 insertions(+), 52 deletions(-)
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |  1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  3 ++
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 31 +++++++++++++++++++
+ 4 files changed, 37 insertions(+)
 
-diff --git a/drivers/s390/cio/vfio_ccw_drv.c b/drivers/s390/cio/vfio_ccw_drv.c
-index 4ee953c8ae39..cc9ed2fd970f 100644
---- a/drivers/s390/cio/vfio_ccw_drv.c
-+++ b/drivers/s390/cio/vfio_ccw_drv.c
-@@ -24,10 +24,10 @@
- #include "vfio_ccw_private.h"
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+index f359bef046e0b2..f9a1c5642855e3 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
+@@ -138,6 +138,7 @@ enum intel_guc_action {
+ 	INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC = 0x4601,
+ 	INTEL_GUC_ACTION_CLIENT_SOFT_RESET = 0x5507,
+ 	INTEL_GUC_ACTION_SET_ENG_UTIL_BUFF = 0x550A,
++	INTEL_GUC_ACTION_NOTIFY_MEMORY_CAT_ERROR = 0x6000,
+ 	INTEL_GUC_ACTION_STATE_CAPTURE_NOTIFICATION = 0x8002,
+ 	INTEL_GUC_ACTION_NOTIFY_FLUSH_LOG_BUFFER_TO_FILE = 0x8003,
+ 	INTEL_GUC_ACTION_NOTIFY_CRASH_DUMP_POSTED = 0x8004,
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 804133df1ac9b4..61b412732d095a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -445,6 +445,8 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
+ 					 const u32 *msg, u32 len);
+ int intel_guc_error_capture_process_msg(struct intel_guc *guc,
+ 					const u32 *msg, u32 len);
++int intel_guc_cat_error_process_msg(struct intel_guc *guc,
++				    const u32 *msg, u32 len);
  
- struct workqueue_struct *vfio_ccw_work_q;
--static struct kmem_cache *vfio_ccw_io_region;
--static struct kmem_cache *vfio_ccw_cmd_region;
--static struct kmem_cache *vfio_ccw_schib_region;
--static struct kmem_cache *vfio_ccw_crw_region;
-+struct kmem_cache *vfio_ccw_io_region;
-+struct kmem_cache *vfio_ccw_cmd_region;
-+struct kmem_cache *vfio_ccw_schib_region;
-+struct kmem_cache *vfio_ccw_crw_region;
- 
- debug_info_t *vfio_ccw_debug_msg_id;
- debug_info_t *vfio_ccw_debug_trace_id;
-@@ -74,7 +74,7 @@ int vfio_ccw_sch_quiesce(struct subchannel *sch)
- 	return ret;
- }
- 
--static void vfio_ccw_sch_io_todo(struct work_struct *work)
-+void vfio_ccw_sch_io_todo(struct work_struct *work)
- {
- 	struct vfio_ccw_private *private;
- 	struct irb *irb;
-@@ -110,7 +110,7 @@ static void vfio_ccw_sch_io_todo(struct work_struct *work)
- 		eventfd_signal(private->io_trigger, 1);
- }
- 
--static void vfio_ccw_crw_todo(struct work_struct *work)
-+void vfio_ccw_crw_todo(struct work_struct *work)
- {
- 	struct vfio_ccw_private *private;
- 
-@@ -154,52 +154,7 @@ static struct vfio_ccw_private *vfio_ccw_alloc_private(struct subchannel *sch)
- 	if (!private)
- 		return ERR_PTR(-ENOMEM);
- 
--	mutex_init(&private->io_mutex);
--	private->state = VFIO_CCW_STATE_STANDBY;
--	INIT_LIST_HEAD(&private->crw);
--	INIT_WORK(&private->io_work, vfio_ccw_sch_io_todo);
--	INIT_WORK(&private->crw_work, vfio_ccw_crw_todo);
--
--	private->cp.guest_cp = kcalloc(CCWCHAIN_LEN_MAX, sizeof(struct ccw1),
--				       GFP_KERNEL);
--	if (!private->cp.guest_cp)
--		goto out_free_private;
--
--	private->io_region = kmem_cache_zalloc(vfio_ccw_io_region,
--					       GFP_KERNEL | GFP_DMA);
--	if (!private->io_region)
--		goto out_free_cp;
--
--	private->cmd_region = kmem_cache_zalloc(vfio_ccw_cmd_region,
--						GFP_KERNEL | GFP_DMA);
--	if (!private->cmd_region)
--		goto out_free_io;
--
--	private->schib_region = kmem_cache_zalloc(vfio_ccw_schib_region,
--						  GFP_KERNEL | GFP_DMA);
--
--	if (!private->schib_region)
--		goto out_free_cmd;
--
--	private->crw_region = kmem_cache_zalloc(vfio_ccw_crw_region,
--						GFP_KERNEL | GFP_DMA);
--
--	if (!private->crw_region)
--		goto out_free_schib;
- 	return private;
--
--out_free_schib:
--	kmem_cache_free(vfio_ccw_schib_region, private->schib_region);
--out_free_cmd:
--	kmem_cache_free(vfio_ccw_cmd_region, private->cmd_region);
--out_free_io:
--	kmem_cache_free(vfio_ccw_io_region, private->io_region);
--out_free_cp:
--	kfree(private->cp.guest_cp);
--out_free_private:
--	mutex_destroy(&private->io_mutex);
--	kfree(private);
--	return ERR_PTR(-ENOMEM);
- }
- 
- static void vfio_ccw_free_private(struct vfio_ccw_private *private)
-diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_ops.c
-index cf383c729d53..626b8eb3507b 100644
---- a/drivers/s390/cio/vfio_ccw_ops.c
-+++ b/drivers/s390/cio/vfio_ccw_ops.c
-@@ -50,8 +50,51 @@ static int vfio_ccw_mdev_init_dev(struct vfio_device *vdev)
- 	struct vfio_ccw_private *private =
- 		container_of(vdev, struct vfio_ccw_private, vdev);
- 
-+	mutex_init(&private->io_mutex);
-+	private->state = VFIO_CCW_STATE_STANDBY;
-+	INIT_LIST_HEAD(&private->crw);
-+	INIT_WORK(&private->io_work, vfio_ccw_sch_io_todo);
-+	INIT_WORK(&private->crw_work, vfio_ccw_crw_todo);
- 	init_completion(&private->release_comp);
-+
-+	private->cp.guest_cp = kcalloc(CCWCHAIN_LEN_MAX, sizeof(struct ccw1),
-+				       GFP_KERNEL);
-+	if (!private->cp.guest_cp)
-+		goto out_free_private;
-+
-+	private->io_region = kmem_cache_zalloc(vfio_ccw_io_region,
-+					       GFP_KERNEL | GFP_DMA);
-+	if (!private->io_region)
-+		goto out_free_cp;
-+
-+	private->cmd_region = kmem_cache_zalloc(vfio_ccw_cmd_region,
-+						GFP_KERNEL | GFP_DMA);
-+	if (!private->cmd_region)
-+		goto out_free_io;
-+
-+	private->schib_region = kmem_cache_zalloc(vfio_ccw_schib_region,
-+						  GFP_KERNEL | GFP_DMA);
-+	if (!private->schib_region)
-+		goto out_free_cmd;
-+
-+	private->crw_region = kmem_cache_zalloc(vfio_ccw_crw_region,
-+						GFP_KERNEL | GFP_DMA);
-+	if (!private->crw_region)
-+		goto out_free_schib;
-+
+ struct intel_engine_cs *
+ intel_guc_lookup_engine(struct intel_guc *guc, u8 guc_class, u8 instance);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 2b22065e87bf9a..f55f724e264407 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -1035,6 +1035,9 @@ static int ct_process_request(struct intel_guc_ct *ct, struct ct_incoming_msg *r
+ 		CT_ERROR(ct, &quot;Received GuC exception notification!\n&quot;);
+ 		ret = 0;
+ 		break;
++	case INTEL_GUC_ACTION_NOTIFY_MEMORY_CAT_ERROR:
++		ret = intel_guc_cat_error_process_msg(guc, payload, len);
++		break;
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 693b07a977893d..94f91dfa3ec456 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -4659,6 +4659,37 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
  	return 0;
+ }
+ 
++int intel_guc_cat_error_process_msg(struct intel_guc *guc,
++				    const u32 *msg, u32 len)
++{
++	struct drm_i915_private *i915 = guc_to_gt(guc)-&gt;i915;
++	struct intel_engine_cs *engine;
++	struct intel_context *ce;
++	struct drm_printer p;
++	unsigned long flags;
++	int ctx_id;
 +
-+out_free_schib:
-+	kmem_cache_free(vfio_ccw_schib_region, private->schib_region);
-+out_free_cmd:
-+	kmem_cache_free(vfio_ccw_cmd_region, private->cmd_region);
-+out_free_io:
-+	kmem_cache_free(vfio_ccw_io_region, private->io_region);
-+out_free_cp:
-+	kfree(private->cp.guest_cp);
-+out_free_private:
-+	mutex_destroy(&private->io_mutex);
-+	return -ENOMEM;
- }
- 
- static int vfio_ccw_mdev_probe(struct mdev_device *mdev)
-diff --git a/drivers/s390/cio/vfio_ccw_private.h b/drivers/s390/cio/vfio_ccw_private.h
-index 0fdff1435230..b35940057073 100644
---- a/drivers/s390/cio/vfio_ccw_private.h
-+++ b/drivers/s390/cio/vfio_ccw_private.h
-@@ -116,6 +116,8 @@ struct vfio_ccw_private {
- } __aligned(8);
- 
- int vfio_ccw_sch_quiesce(struct subchannel *sch);
-+void vfio_ccw_sch_io_todo(struct work_struct *work);
-+void vfio_ccw_crw_todo(struct work_struct *work);
- 
- extern struct mdev_driver vfio_ccw_mdev_driver;
- 
-@@ -163,7 +165,10 @@ static inline void vfio_ccw_fsm_event(struct vfio_ccw_private *private,
- }
- 
- extern struct workqueue_struct *vfio_ccw_work_q;
--
-+extern struct kmem_cache *vfio_ccw_io_region;
-+extern struct kmem_cache *vfio_ccw_cmd_region;
-+extern struct kmem_cache *vfio_ccw_schib_region;
-+extern struct kmem_cache *vfio_ccw_crw_region;
- 
- /* s390 debug feature, similar to base cio */
- extern debug_info_t *vfio_ccw_debug_msg_id;
--- 
-2.34.1
++	if (unlikely(len != 1)) {
++		drm_dbg(&amp;i915-&gt;drm, &quot;Invalid length %u&quot;, len);
++		return -EPROTO;
++	}
++	ctx_id = msg[0];
++
++	xa_lock_irqsave(&amp;guc-&gt;context_lookup, flags);
++	ce = g2h_context_lookup(guc, ctx_id);
++	if (ce)
++		engine = ce-&gt;engine;
++	xa_unlock_irqrestore(&amp;guc-&gt;context_lookup, flags);
++	if (unlikely(!ce || !engine))
++		return -EPROTO;</pre>
+    </blockquote>
+    This is not correct. There is no guarantee that a context will be
+    associated with the catastrophic error. Certain categories of error
+    are caused by context activity but other categories are caused by
+    'global' activity (e.g. CPU hitting a bad address over the PCIe bus,
+    other non-engine hardware in the GPU, etc.). In those cases, the
+    ctx_id field will be set to an invalid context (~0, I believe) and
+    the ce will come back as NULL.<br>
+    <br>
+    <blockquote type="cite" cite="mid:20221019083325.214960-1-andrzej.hajda@intel.com">
+      <pre class="moz-quote-pre" wrap="">
++
++	drm_err(&amp;i915-&gt;drm, &quot;%s: CAT error reported by GuC\n&quot;, engine-&gt;name);</pre>
+    </blockquote>
+    This is not accurate. The error is reported *via* GuC but it is
+    reported by the hardware. The GuC does not do anything to detect
+    memory errors. GuC receives an interrupt from the hardware to say a
+    catastrophic error has occurred, it then reads some data from a FIFO
+    and basically returns that data back to the KMD.&nbsp; The sole extent of
+    the GuC processing is to convert the hardware id into a context id.<br>
+    <br>
+    Saying that GuC is reporting the error implies that GuC knows what
+    went wrong or could maybe even do something about it. Certainly it
+    makes it likely that bugs will be logged against the GuC which is
+    not correct.<br>
+    <br>
+    Also, you are not reporting the context in the error message.
+    Assuming that a context has been provided then that is important
+    information to debug where the error came from. You should at least
+    include ce-&gt;guc_id.id (which should match ctx_id) in the message.<br>
+    <br>
+    John.<br>
+    <br>
+    <blockquote type="cite" cite="mid:20221019083325.214960-1-andrzej.hajda@intel.com">
+      <pre class="moz-quote-pre" wrap="">
++	p = drm_info_printer(i915-&gt;drm.dev);
++	intel_engine_dump(engine, &amp;p, &quot;%s\n&quot;, engine-&gt;name);
++
++	return 0;
++}
++
+ void intel_guc_find_hung_context(struct intel_engine_cs *engine)
+ {
+ 	struct intel_guc *guc = &amp;engine-&gt;gt-&gt;uc.guc;
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
+--------------uuR40RIy7ttzYWyJXkswBQuA--
