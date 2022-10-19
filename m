@@ -4,64 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFA77FA373E
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:24:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43404ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:24:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 603D210E6DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC1E810E6E0;
 	Mon, 24 Oct 2022 13:23:42 +0000 (UTC)
-Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
- [IPv6:2607:f8b0:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70ED310E3AE
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:36:40 +0000 (UTC)
-Received: by mail-pg1-x52d.google.com with SMTP id g129so6818992pgc.7
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:36:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=daynix-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=28wDlqMofB1pExK+J7NJqLJ5sSPJ8IDYDWuGoZcg4WU=;
- b=zPrE3Z79yDGzLtfx2QawETgF1lUMugvN0C6qQ0CWIaiD5/kUtQIJww0VDJMrkYc3N9
- elYuVucHc32XKow2YGLm3Vr08Z5vsbFCWlv4vq7Nx1QXhYg0jtjzlw0H9CXWI7Ta2vol
- 6FUMEN9tnwiBaSCwpYfKwo7U/Mq0MJA9eOTbkI8+uvO7eXR9gmEds/Sy3ur7LFminYR1
- NVY1BZW0FhIWVkiQMHh5J542GVxkeRWv1QNvckPM+a6g8eqefXzkOAt0+7UqdUmERKZa
- J+mLK9mmXa4DfceGk2cEkxou1QrTtBSQu+UKjsPm36wMjvQrtPcLMKbyQMEJWea/JWpP
- WvvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=28wDlqMofB1pExK+J7NJqLJ5sSPJ8IDYDWuGoZcg4WU=;
- b=KXE6Qcl/vIsJG78C2D6mYUL4/PioDG6teW/wt/+A9q7IX49z+KoGToPKCuK4eSF0/+
- yhtTyf+vXP60mqgQOLKw9MtCtEUsyUK+DfC8BBtBZZOVGnV5dgimV2Ctz4d2La4WSa5N
- +iPlHTSWvPhENDPY0YXFBdplEjz8aULkwdl2Ij1DnczRrGK9rvMCAAl+N1l6bgTnvDUb
- hDzvhtCAHcf2wHRkYal6RaW602VZWMlmF/e0BWr2I+neeZ3wLEFSuGz0zXxOyF/Pte4y
- obQOfNsQEtYbxCwzDU5ziO8Tvez8mx7eAUVRWGWQ60s+wwJiPi3+CTtTU5Dr235gAbJW
- 0CRA==
-X-Gm-Message-State: ACrzQf22iCiQ6Rrpp7IcNYzUFcIOo0q6gPqyQgvim+bI5EBWnt3reGea
- p3iOhKbfs81Dar+DdySrpSUvxA==
-X-Google-Smtp-Source: AMsMyM6SfjrakTfflVuQ8PwvI36ClP4mxWtm2JBvE32zMW6Lo2xtR9eBT667zzx11rUWR7R7KloyFA==
-X-Received: by 2002:a63:5702:0:b0:44b:290:f24f with SMTP id
- l2-20020a635702000000b0044b0290f24fmr27871108pgb.558.1666611399944; 
- Mon, 24 Oct 2022 04:36:39 -0700 (PDT)
-Received: from fedora.flets-east.jp ([2400:4050:c360:8200:8ae8:3c4:c0da:7419])
- by smtp.gmail.com with ESMTPSA id
- b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.36.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 04:36:39 -0700 (PDT)
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
-To: 
-Date: Mon, 24 Oct 2022 20:34:58 +0900
-Message-Id: <20221024113513.5205-8-akihiko.odaki@daynix.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221024113513.5205-1-akihiko.odaki@daynix.com>
-References: <20221024113513.5205-1-akihiko.odaki@daynix.com>
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DBF110F27F;
+ Wed, 19 Oct 2022 15:31:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dHHPncJWNi0KY8HeCAcQFWXjb5Zo7kDz0OW1rnlK51lhttKMbBWQRuWr/sx+Ar6Xom3EqCdJDXPH41XpnUq3mSrHFHSZSOCaXcSAp1pTuEAlXmwLYwxTYRA5yAbSbQB/ADNlduWr9tTVmA250MQ2X+jaWYKzLOmkfMjKDJqBLCDCH34zdq1vE092wGDY1T2s0ZA+JS7R2Vgk+qHGkoMn46sMJqIqeKLcM4IRmVYYgqeW1U6LWNYdy6kFQ5setMY0hVap3bZCn/2WFTVTB2WiFL10zrjljYKi8kA6FSjxZDzkWDSsmJ9Tt9Mt6MFAbH7wISL+IHbNCQ9+MQFr/qMtVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+4aqs3GxfViI4JVZ/A0ORkYRLDdlt9Zw5Ah2KcJeWdc=;
+ b=j63ZNKIosEs8s/WtBONhVdLMLwj3MbLgkQ71ywyTi8ICeYxSfCjg3PywHf89bfdkXAoaNz+bklNBITTSvoWA0BH0HvEW3DxQPQ9HBvzeCY9UBCnPnHUcFAiuJnWxlx/Prpy3yiRG4iSyEzRKFHHVBj/EBYXUqiztiIrKRn+dXhX7qD7DX+kZt92QFoS+be6RHWQZOPHiM2oY6lOW/HL9W/Pqf4C5oAeO3qkWSo9ZuZ295hayFgCFS6U6mhoXOpD+k13wGQUvHWv80+noViVmcKyQgWnXegZAed3wHtBUgaw5vlt4QZslhzDL0LVqyCTFgkUitpziDlrx8o8byizPag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+4aqs3GxfViI4JVZ/A0ORkYRLDdlt9Zw5Ah2KcJeWdc=;
+ b=ua5vwGOjTIZJM8FNdmK04EfhvZcYlWwsi/F4X97TobzW7gG6K88GdW3HrCxA4g0RTJXsyYMNiOk8ifmEv3sKQ5A+/nF+Qm0RFTiWrurxEYBqTvrc0eVClG8n7nIZdfYaU/rwVWbNW4hYv79SsNB0FSl+UnTAKaXd94blxHI+i+w=
+Received: from BN9PR03CA0592.namprd03.prod.outlook.com (2603:10b6:408:10d::27)
+ by DM8PR12MB5415.namprd12.prod.outlook.com (2603:10b6:8:25::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5723.34; Wed, 19 Oct 2022 15:31:13 +0000
+Received: from BN8NAM11FT111.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10d:cafe::79) by BN9PR03CA0592.outlook.office365.com
+ (2603:10b6:408:10d::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34 via Frontend
+ Transport; Wed, 19 Oct 2022 15:31:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT111.mail.protection.outlook.com (10.13.177.54) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5746.16 via Frontend Transport; Wed, 19 Oct 2022 15:31:13 +0000
+Received: from amar-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Wed, 19 Oct 2022 10:29:41 -0500
+From: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>
+Date: Wed, 19 Oct 2022 20:57:35 +0530
+Message-ID: <20221019152736.654451-5-Amaranath.Somalapuram@amd.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20221019152736.654451-1-Amaranath.Somalapuram@amd.com>
+References: <20221019152736.654451-1-Amaranath.Somalapuram@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT111:EE_|DM8PR12MB5415:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2d0c4aa-7ee4-40c4-c990-08dab1e6f4a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uC2pbB+jftov2FQFr6JQJANwGxtw+acPsWbKNCC/F8buEh11++2B6sbDdaDo1MOtAk1TRopVAKlghUd7/Uo+O73evv3Kb++PEHOj9LTsG148s6xqEJahhOB8cHsJXOcvVx4OlrO4CnFUrfvc+sdTsv1me0NEAeRvp2KiyzI5q5PgyGU18NXjsEO2c7BFBY3k8eUtsOttUG4IigksI4tWQbzv2q9KNEr579XrHyWKe2lctSgb0+MmjWcZpICtcxWMEq6xTMAQmjo1BDliRxGr7G7FY9vBxVGNKpre8CQ0/hPcZi+sOpVKj6Mu9GJMYEyJDXysOTxETShvTTvR79Uo+kLRvX4hw76CdkNlzG7dzgmOfAAEOsb1sOXkL2TTwF2GIQzvkDhArbuJroQ3MlVNEyFaXmPyakJ9J/MMqw1cxpAhT32yc19b6xMYWy8kftjYJm2+oiKEISbKGSUMNBXWG13XuFZLkd2RdHyX2uGSEm3QEe9dT77cpEM7huUCIaRWQWTtUfjfwY2MFAfruRl55EpWsD+JXgZA/3+sFmF9vp+7zjzsIanfJ8arc5PTkkDD8XCWo/bVdFJJgZ2X2qX9hCRO625XwcUXYmCtP2n20oqnVopRNHHmfoT34h7wtn09GXAJtvvm4Zo/gMC56gOnb8Hwrk6EDHOXdAU+XMfvVt4nUOxq15uOimv65HIgGnFBMJr+b7of9jGTtqkZztvCeiSdr5O0vQJHTTXSegMzJR7xpvwir1obCz+xPXX/RgfSXXIu1qiTgFuiUzgSAOLDTzePlj7xibqU0WoZAejGOHQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(136003)(39860400002)(376002)(396003)(451199015)(40470700004)(46966006)(36840700001)(110136005)(4326008)(54906003)(5660300002)(6666004)(7696005)(70586007)(70206006)(450100002)(36756003)(8936002)(316002)(26005)(41300700001)(36860700001)(81166007)(82740400003)(356005)(82310400005)(2616005)(40480700001)(426003)(47076005)(40460700003)(16526019)(336012)(186003)(1076003)(2906002)(86362001)(83380400001)(478600001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2022 15:31:13.1174 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2d0c4aa-7ee4-40c4-c990-08dab1e6f4a8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT111.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5415
 X-Mailman-Approved-At: Mon, 24 Oct 2022 13:23:26 +0000
-Subject: [Intel-gfx] [PATCH 07/22] platform/x86: compal-laptop: Use
- acpi_video_get_backlight_types()
+Subject: [Intel-gfx] =?utf-8?b?W1BBVENIIDUvNl0gZHJtL3JhZGVvbjogZml44oCZ?=
+ =?utf-8?q?s_on_ttm=5Fresource_rework_to_use_size=5Ft_type?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,49 +103,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Ike Panhc <ike.pan@canonical.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, dri-devel@lists.freedesktop.org,
- Azael Avalos <coproscefalo@gmail.com>, Mattia Dongili <malattia@linux.it>,
- Daniel Dadap <ddadap@nvidia.com>, Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
- Akihiko Odaki <akihiko.odaki@daynix.com>, David Airlie <airlied@gmail.com>,
- Daniel Thompson <daniel.thompson@linaro.org>,
- Jonathan Woithe <jwoithe@just42.net>, Jonathan Corbet <corbet@lwn.net>, "Lee,
- Chun-Yi" <jlee@suse.com>, Helge Deller <deller@gmx.de>,
- Lee Jones <lee@kernel.org>, Robert Moore <robert.moore@intel.com>,
- linux-acpi@vger.kernel.org, Cezary Jackiewicz <cezary.jackiewicz@gmail.com>,
- Len Brown <lenb@kernel.org>, Kenneth Chan <kenneth.t.chan@gmail.com>,
- Corentin Chary <corentin.chary@gmail.com>, intel-gfx@lists.freedesktop.org,
- acpi4asus-user@lists.sourceforge.net, Maxime Ripard <mripard@kernel.org>,
- Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- platform-driver-x86@vger.kernel.org, devel@acpica.org,
- ibm-acpi-devel@lists.sourceforge.net, Jingoo Han <jingoohan1@gmail.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
+Cc: alexander.deucher@amd.com, Somalapuram
+ Amaranath <Amaranath.Somalapuram@amd.com>, arunpravin.paneerselvam@amd.com,
+ christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-acpi_video_get_backlight_type() is now deprecated.
+Fix the ttm_resource from num_pages to size_t size.
 
-Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
 ---
- drivers/platform/x86/compal-laptop.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/radeon_cs.c     | 4 ++--
+ drivers/gpu/drm/radeon/radeon_object.c | 4 ++--
+ drivers/gpu/drm/radeon/radeon_trace.h  | 2 +-
+ drivers/gpu/drm/radeon/radeon_ttm.c    | 4 ++--
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/platform/x86/compal-laptop.c b/drivers/platform/x86/compal-laptop.c
-index e10d2f64dfad..16ced03fa1b7 100644
---- a/drivers/platform/x86/compal-laptop.c
-+++ b/drivers/platform/x86/compal-laptop.c
-@@ -1043,7 +1043,7 @@ static int __init compal_init(void)
- 		return -ENODEV;
- 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_cs.c b/drivers/gpu/drm/radeon/radeon_cs.c
+index 446f7bae54c4..4c930f0cf132 100644
+--- a/drivers/gpu/drm/radeon/radeon_cs.c
++++ b/drivers/gpu/drm/radeon/radeon_cs.c
+@@ -400,8 +400,8 @@ static int cmp_size_smaller_first(void *priv, const struct list_head *a,
+ 	struct radeon_bo_list *lb = list_entry(b, struct radeon_bo_list, tv.head);
  
--	if (acpi_video_get_backlight_type() == acpi_backlight_vendor) {
-+	if ((acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR)) {
- 		struct backlight_properties props;
- 		memset(&props, 0, sizeof(struct backlight_properties));
- 		props.type = BACKLIGHT_PLATFORM;
+ 	/* Sort A before B if A is smaller. */
+-	return (int)la->robj->tbo.resource->num_pages -
+-		(int)lb->robj->tbo.resource->num_pages;
++	return (int)PFN_UP(la->robj->tbo.resource->size) -
++		(int)PFN_UP(lb->robj->tbo.resource->size);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
+index 00c33b24d5d3..710d04fcbea6 100644
+--- a/drivers/gpu/drm/radeon/radeon_object.c
++++ b/drivers/gpu/drm/radeon/radeon_object.c
+@@ -232,7 +232,7 @@ int radeon_bo_kmap(struct radeon_bo *bo, void **ptr)
+ 		}
+ 		return 0;
+ 	}
+-	r = ttm_bo_kmap(&bo->tbo, 0, bo->tbo.resource->num_pages, &bo->kmap);
++	r = ttm_bo_kmap(&bo->tbo, 0, PFN_UP(bo->tbo.resource->size), &bo->kmap);
+ 	if (r) {
+ 		return r;
+ 	}
+@@ -737,7 +737,7 @@ vm_fault_t radeon_bo_fault_reserve_notify(struct ttm_buffer_object *bo)
+ 	if (bo->resource->mem_type != TTM_PL_VRAM)
+ 		return 0;
+ 
+-	size = bo->resource->num_pages << PAGE_SHIFT;
++	size = bo->resource->size;
+ 	offset = bo->resource->start << PAGE_SHIFT;
+ 	if ((offset + size) <= rdev->mc.visible_vram_size)
+ 		return 0;
+diff --git a/drivers/gpu/drm/radeon/radeon_trace.h b/drivers/gpu/drm/radeon/radeon_trace.h
+index c9fed5f2b870..22676617e1a5 100644
+--- a/drivers/gpu/drm/radeon/radeon_trace.h
++++ b/drivers/gpu/drm/radeon/radeon_trace.h
+@@ -22,7 +22,7 @@ TRACE_EVENT(radeon_bo_create,
+ 
+ 	    TP_fast_assign(
+ 			   __entry->bo = bo;
+-			   __entry->pages = bo->tbo.resource->num_pages;
++			   __entry->pages = PFN_UP(bo->tbo.resource->size);
+ 			   ),
+ 	    TP_printk("bo=%p, pages=%u", __entry->bo, __entry->pages)
+ );
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index d33fec488713..fff48306c05f 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -181,7 +181,7 @@ static int radeon_move_blit(struct ttm_buffer_object *bo,
+ 
+ 	BUILD_BUG_ON((PAGE_SIZE % RADEON_GPU_PAGE_SIZE) != 0);
+ 
+-	num_pages = new_mem->num_pages * (PAGE_SIZE / RADEON_GPU_PAGE_SIZE);
++	num_pages = PFN_UP(new_mem->size) * (PAGE_SIZE / RADEON_GPU_PAGE_SIZE);
+ 	fence = radeon_copy(rdev, old_start, new_start, num_pages, bo->base.resv);
+ 	if (IS_ERR(fence))
+ 		return PTR_ERR(fence);
+@@ -268,7 +268,7 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
+ static int radeon_ttm_io_mem_reserve(struct ttm_device *bdev, struct ttm_resource *mem)
+ {
+ 	struct radeon_device *rdev = radeon_get_rdev(bdev);
+-	size_t bus_size = (size_t)mem->num_pages << PAGE_SHIFT;
++	size_t bus_size = (size_t)mem->size;
+ 
+ 	switch (mem->mem_type) {
+ 	case TTM_PL_SYSTEM:
 -- 
-2.37.3
+2.32.0
 
