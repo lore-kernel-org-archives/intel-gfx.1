@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95114C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 07:27:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3648C43217
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 07:27:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95F1010EA7F;
-	Wed, 19 Oct 2022 07:27:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21B7910F165;
+	Wed, 19 Oct 2022 07:27:21 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32A9510F169
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 07:27:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F09EA10EA7F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 07:27:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1666164437; x=1697700437;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=8xBgPwqBf7v6hvYQTgHGuTpXW6N8/PWYXBDJNecqX3o=;
- b=IBjBO7KnAKRdGGf/xbr0gY0ME4l3DD37/wFiYnvmqTBIRM8AZQyARqwv
- Kwc/EQ4WRVzPCj9AcZyPGOug1eKQJM4k51bPD5IxuTFBQ6IH77WP4oERq
- dTvdI64qlk/jfDDw43MHMLm5Wo1Rp+pN+Lq8dlG2194KkSA/5kT2OPRTo
- m6XTObnONkVSmecJp/czR2Mu3t4gpOf7DzRv9SUjUwwny4HPZUlKm/7LN
- ktgZC7uajrX/UppJqca4ooe+slMeRezbVCp/jAlDfKe3XIjgBPZ5xnPJW
- CcKLCZxIXInuw3TTEdrp+WgFMPX0fyXPpqekt7UVAClsQw18I8O9/fYKA A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="305065297"
-X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="305065297"
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=KTgIuEHErWGZJwmIpj+JyyYFn6G9lBGMZiYEYj6rPUs=;
+ b=HNN/gCIa2jrpLf1Oj7HNrW3d4+cvZ9wnZ5n2C0ERtLTVCQ06mupbU6Ab
+ YC+cPLs7h+Yqt7eC4fssaVJdZIwLCsICLuSBHjUIRUvyPHQznhsxgDsWE
+ VKkXYkXbTO2XIJhe4ROvmLC8HyLPY2gWtUAy0MKE78PzmK82ONuk7zHqC
+ f9CEnJ84+DQCOeintwZpJstd1qsOEmMIiXymYPbEeZZKclGSM+EKv9Ae+
+ mNIs97nVqs6bkXimrfrj1OsWTM1FsoX+fd4wz8MivE6l+7RS9eIv6jz17
+ QaeA1JGz5J41zqYsH1aZNkgri8I8RiZvjlic1KwP9E3g8z54Am7yr9s8c Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="305065292"
+X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="305065292"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Oct 2022 00:27:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="580204157"
-X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="580204157"
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="580204154"
+X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="580204154"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
  by orsmga003.jf.intel.com with ESMTP; 19 Oct 2022 00:27:16 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Oct 2022 00:29:30 -0700
-Message-Id: <20221019072930.17755-3-alan.previn.teres.alexis@intel.com>
+Date: Wed, 19 Oct 2022 00:29:28 -0700
+Message-Id: <20221019072930.17755-1-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221019072930.17755-1-alan.previn.teres.alexis@intel.com>
-References: <20221019072930.17755-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 2/2] drm/i915/guc: Add compute reglist for
- guc err capture
+Subject: [Intel-gfx] [PATCH v3 0/2] drm/i915/guc: Add GuC-Error-Capture-Init
+ coverage of new engine types
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,37 +58,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We missed this at initial upstream because at that time
-none of the GuC enabled platforms had a compute engine.
-Add this now.
+After initial upstream merge of GuC error-capture feature, we eventually
+decided to remove a lot of unnecessary warning messages when we couldn't
+retrieve register lists for ADS-error-state-capture initialization. It was
+a justified decision because the majority of that noise was being repeated
+three times per GT reset and included list-types that are not supported
+upstream. However after that change, we are not able to catch cases of
+missing register lists for new engines that hadn't been added.
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c | 4 ++++
- 1 file changed, 4 insertions(+)
+This series introduces new selective checks and warnings (such as skipping
+if its a VF or if its an empty register list). This series also adds register
+list for compute engine which is merely a duplicate of render class list.
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index abf6e5eb711e..c4bee3bc15a9 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -169,6 +169,8 @@ static struct __guc_mmio_reg_descr_group default_lists[] = {
- 	MAKE_REGLIST(default_global_regs, PF, GLOBAL, 0),
- 	MAKE_REGLIST(default_rc_class_regs, PF, ENGINE_CLASS, GUC_RENDER_CLASS),
- 	MAKE_REGLIST(xe_lpd_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_RENDER_CLASS),
-+	MAKE_REGLIST(default_rc_class_regs, PF, ENGINE_CLASS, GUC_COMPUTE_CLASS),
-+	MAKE_REGLIST(xe_lpd_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_COMPUTE_CLASS),
- 	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_VIDEO_CLASS),
- 	MAKE_REGLIST(xe_lpd_vd_inst_regs, PF, ENGINE_INSTANCE, GUC_VIDEO_CLASS),
- 	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_VIDEOENHANCE_CLASS),
-@@ -182,6 +184,8 @@ static const struct __guc_mmio_reg_descr_group xe_lpd_lists[] = {
- 	MAKE_REGLIST(xe_lpd_global_regs, PF, GLOBAL, 0),
- 	MAKE_REGLIST(xe_lpd_rc_class_regs, PF, ENGINE_CLASS, GUC_RENDER_CLASS),
- 	MAKE_REGLIST(xe_lpd_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_RENDER_CLASS),
-+	MAKE_REGLIST(xe_lpd_rc_class_regs, PF, ENGINE_CLASS, GUC_COMPUTE_CLASS),
-+	MAKE_REGLIST(xe_lpd_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_COMPUTE_CLASS),
- 	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_VIDEO_CLASS),
- 	MAKE_REGLIST(xe_lpd_vd_inst_regs, PF, ENGINE_INSTANCE, GUC_VIDEO_CLASS),
- 	MAKE_REGLIST(xe_lpd_vec_class_regs, PF, ENGINE_CLASS, GUC_VIDEOENHANCE_CLASS),
+Changes from prior revs:
+
+   v2 : - Fix build error.
+   v1 : - Fix the drm_warn string split (Tvrtko Ursulin / John Harrison)
+        - Minor cosmetics around the drm_warn message checks (Tvrtko Ursulin /
+          John Harrison)
+        - Dont use empy string in stringify functions (Tvrtko Ursulin)
+        - Ensure guc_capture_output_min_size_est doesn't trigger
+          the drm_warn when calculating estimation size for worst case
+          engine counts that may not exist (Alan Previn).
+
+Alan Previn (2):
+  drm/i915/guc: Add error-capture init warnings when needed
+  drm/i915/guc: Add compute reglist for guc err capture
+
+ .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 82 +++++++++++++++++--
+ 1 file changed, 73 insertions(+), 9 deletions(-)
+
+
+base-commit: b249abef9f86f788e6bacc657ae8eb7743948200
 -- 
 2.34.1
 
