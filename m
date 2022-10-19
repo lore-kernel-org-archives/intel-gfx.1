@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9756C43217
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 17:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3F0CC433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 17:33:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 719AD10EB45;
-	Wed, 19 Oct 2022 17:33:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A6610EB4A;
+	Wed, 19 Oct 2022 17:33:46 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1179489B48
- for <Intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 17:33:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07DB810EB4B
+ for <Intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 17:33:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666200803; x=1697736803;
+ t=1666200820; x=1697736820;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QHrhf+AzAmghP60cmLV+8/AQtnNJCeogCK+jfUMlLc8=;
- b=Nfa62ouY6u2xXa2nrXHT5p5uTjcNv9prYRy5TVnMGykGlgNvePoRi3Ls
- /cwMoDbfHElzScVpQVclDkTPgpGhDfoBn9rxXTPsRqcg32uVr5PJfKNCl
- xI2R7GpiX3dqtIHrG/kZetZk53YfT7r/hszNJdSN0vYc7wuCb8mrNE3Wi
- wtj8BRy0B0YQhdR7ENfqfmVBQrhgUYdMeHp1RXrOwGSLDbwlN+ID1c3Tv
- 89QddjMG6dM/f6FXN3tYjdjeW+dKzaU5b7VOgMRk20mGus7wCv04Sow8G
- Px7Zl0Ip5FEmuVuOkC2qvBBstwFudVKKrfNMOVQeWwyZ2rNc4pW0kf/M9 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286201571"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286201571"
+ bh=lqVOHpteUQeCev/lgNedZY6IzAYCvefhlH9jg3GlMDs=;
+ b=HH2z8HyCxlt7wXD+AhG9l/lTPGz59Aafmp+gMFXbmV+tl9K7ed3tivrJ
+ GCwibrt+qK4clG5XGOE4MuwkDoGAl4Cua+JTvzAWPWnxEGQcN3cV82nfF
+ Uf4RulJYZ3/uIrNmWSR6tlojd63ZqjIG3ldmqU8deTD8AV1ejNH2rVlKD
+ Ne7CBnLbYMjBYrBjF+VJNzepgrj1GkaQFUjjszW0yO50hZ2t03w81JoqY
+ KFTws1n3Ev8om6gmhQpaJfdLe9gKDHE5GRI4uLcROb8Iza7m2kgaOFGC/
+ 2w7CiXFV0jBMi3DpgpZAHSrPjIE6vrwkbPB5QGQo0wcIY3tQU48oOgsA1 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286201659"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286201659"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 10:33:22 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="607204686"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="607204686"
+ 19 Oct 2022 10:33:39 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="607204754"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="607204754"
 Received: from mjmcener-mobl1.amr.corp.intel.com (HELO localhost.localdomain)
  ([10.213.233.40])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 10:33:19 -0700
+ 19 Oct 2022 10:33:36 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Oct 2022 18:32:38 +0100
-Message-Id: <20221019173254.3361334-2-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 19 Oct 2022 18:32:43 +0100
+Message-Id: <20221019173254.3361334-7-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221019173254.3361334-1-tvrtko.ursulin@linux.intel.com>
 References: <20221019173254.3361334-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 01/17] cgroup: Add the DRM cgroup controller
+Subject: [Intel-gfx] [RFC 06/17] drm: Only track clients which are providing
+ drm_cgroup_ops
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,137 +71,40 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Skeleton controller without any functionality.
+To reduce the number of tracking going on, especially with drivers which
+will not support any sort of control from the drm cgroup controller side,
+lets express the funcionality as opt-in and use the presence of
+drm_cgroup_ops as activation criteria.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- include/linux/cgroup_drm.h    |  9 ++++++
- include/linux/cgroup_subsys.h |  4 +++
- init/Kconfig                  |  7 +++++
- kernel/cgroup/Makefile        |  1 +
- kernel/cgroup/drm.c           | 54 +++++++++++++++++++++++++++++++++++
- 5 files changed, 75 insertions(+)
- create mode 100644 include/linux/cgroup_drm.h
- create mode 100644 kernel/cgroup/drm.c
+ drivers/gpu/drm/drm_cgroup.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
-new file mode 100644
-index 000000000000..bf8abc6b8ebf
---- /dev/null
-+++ b/include/linux/cgroup_drm.h
-@@ -0,0 +1,9 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#ifndef _CGROUP_DRM_H
-+#define _CGROUP_DRM_H
-+
-+#endif	/* _CGROUP_DRM_H */
-diff --git a/include/linux/cgroup_subsys.h b/include/linux/cgroup_subsys.h
-index 445235487230..49460494a010 100644
---- a/include/linux/cgroup_subsys.h
-+++ b/include/linux/cgroup_subsys.h
-@@ -65,6 +65,10 @@ SUBSYS(rdma)
- SUBSYS(misc)
- #endif
+diff --git a/drivers/gpu/drm/drm_cgroup.c b/drivers/gpu/drm/drm_cgroup.c
+index 0fbb88f08cef..7ed9c7150cae 100644
+--- a/drivers/gpu/drm/drm_cgroup.c
++++ b/drivers/gpu/drm/drm_cgroup.c
+@@ -16,6 +16,9 @@ void drm_clients_close(struct drm_file *file_priv)
  
-+#if IS_ENABLED(CONFIG_CGROUP_DRM)
-+SUBSYS(drm)
-+#endif
-+
- /*
-  * The following subsystems are not supported on the default hierarchy.
-  */
-diff --git a/init/Kconfig b/init/Kconfig
-index 694f7c160c9c..6dd7faca7749 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -1087,6 +1087,13 @@ config CGROUP_RDMA
- 	  Attaching processes with active RDMA resources to the cgroup
- 	  hierarchy is allowed even if can cross the hierarchy's limit.
+ 	lockdep_assert_held(&dev->filelist_mutex);
  
-+config CGROUP_DRM
-+	bool "DRM controller"
-+	help
-+	  Provides the DRM subsystem controller.
++	if (!dev->driver->cg_ops)
++		return;
 +
-+	  ...
+ 	clients = xa_load(&drm_pid_clients, pid);
+ 	list_del_rcu(&file_priv->clink);
+ 	if (atomic_dec_and_test(&clients->num)) {
+@@ -40,6 +43,9 @@ int drm_clients_open(struct drm_file *file_priv)
+ 
+ 	lockdep_assert_held(&dev->filelist_mutex);
+ 
++	if (!dev->driver->cg_ops)
++		return 0;
 +
- config CGROUP_FREEZER
- 	bool "Freezer controller"
- 	help
-diff --git a/kernel/cgroup/Makefile b/kernel/cgroup/Makefile
-index 12f8457ad1f9..849bd2917477 100644
---- a/kernel/cgroup/Makefile
-+++ b/kernel/cgroup/Makefile
-@@ -6,4 +6,5 @@ obj-$(CONFIG_CGROUP_PIDS) += pids.o
- obj-$(CONFIG_CGROUP_RDMA) += rdma.o
- obj-$(CONFIG_CPUSETS) += cpuset.o
- obj-$(CONFIG_CGROUP_MISC) += misc.o
-+obj-$(CONFIG_CGROUP_DRM) += drm.o
- obj-$(CONFIG_CGROUP_DEBUG) += debug.o
-diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
-new file mode 100644
-index 000000000000..b88c93661df3
---- /dev/null
-+++ b/kernel/cgroup/drm.c
-@@ -0,0 +1,54 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#include <linux/slab.h>
-+#include <linux/cgroup.h>
-+#include <linux/cgroup_drm.h>
-+#include <linux/sched.h>
-+
-+struct drm_cgroup_state {
-+	struct cgroup_subsys_state css;
-+};
-+
-+static inline struct drm_cgroup_state *
-+css_to_drmcs(struct cgroup_subsys_state *css)
-+{
-+	return container_of(css, struct drm_cgroup_state, css);
-+}
-+
-+static void drmcs_free(struct cgroup_subsys_state *css)
-+{
-+	kfree(css_to_drmcs(css));
-+}
-+
-+static struct drm_cgroup_state root_drmcs = {
-+};
-+
-+static struct cgroup_subsys_state *
-+drmcs_alloc(struct cgroup_subsys_state *parent_css)
-+{
-+	struct drm_cgroup_state *drmcs;
-+
-+	if (!parent_css)
-+		return &root_drmcs.css;
-+
-+	drmcs = kzalloc(sizeof(*drmcs), GFP_KERNEL);
-+	if (!drmcs)
-+		return ERR_PTR(-ENOMEM);
-+
-+	return &drmcs->css;
-+}
-+
-+struct cftype files[] = {
-+	{ } /* Zero entry terminates. */
-+};
-+
-+struct cgroup_subsys drm_cgrp_subsys = {
-+	.css_alloc	= drmcs_alloc,
-+	.css_free	= drmcs_free,
-+	.early_init	= false,
-+	.legacy_cftypes	= files,
-+	.dfl_cftypes	= files,
-+};
+ 	clients = xa_load(&drm_pid_clients, pid);
+ 	if (!clients) {
+ 		clients = kmalloc(sizeof(*clients), GFP_KERNEL);
 -- 
 2.34.1
 
