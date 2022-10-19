@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3F0CC433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 17:33:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B2F9C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 17:33:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45A6610EB4A;
-	Wed, 19 Oct 2022 17:33:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 123DF10EB50;
+	Wed, 19 Oct 2022 17:33:47 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07DB810EB4B
- for <Intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 17:33:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9167E10EB44
+ for <Intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 17:33:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666200820; x=1697736820;
+ t=1666200806; x=1697736806;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lqVOHpteUQeCev/lgNedZY6IzAYCvefhlH9jg3GlMDs=;
- b=HH2z8HyCxlt7wXD+AhG9l/lTPGz59Aafmp+gMFXbmV+tl9K7ed3tivrJ
- GCwibrt+qK4clG5XGOE4MuwkDoGAl4Cua+JTvzAWPWnxEGQcN3cV82nfF
- Uf4RulJYZ3/uIrNmWSR6tlojd63ZqjIG3ldmqU8deTD8AV1ejNH2rVlKD
- Ne7CBnLbYMjBYrBjF+VJNzepgrj1GkaQFUjjszW0yO50hZ2t03w81JoqY
- KFTws1n3Ev8om6gmhQpaJfdLe9gKDHE5GRI4uLcROb8Iza7m2kgaOFGC/
- 2w7CiXFV0jBMi3DpgpZAHSrPjIE6vrwkbPB5QGQo0wcIY3tQU48oOgsA1 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286201659"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286201659"
+ bh=34jcEyaboM7Cpl5hmtqGUgBiY4OSzKr0bOyVxNTPRuA=;
+ b=SxQl+4FRxYkORNOe0E29yxbuq18rp/vkb10ImMboVEMmhd5MSqrwwD5s
+ pjefJ4UB4COb2dMzKcAwHXB55DqqpjDKwjCrvGaH6wXldzVng4z/4CGGT
+ ZvZYTYbPskHJhLakqLVJsZeqhP5bHNqikUfnr9kHr096R2hDMih5CGQYP
+ NA6eOPh8Xo4JlLDgy7rjqaVisHisBnnlkqg747G7nWK0ujN2xMJ3t2XEM
+ LmuSdb2ubbUC84Stmt5F84WEdJdeBdE870AH6gy10ksRb32HqJZHsSmi3
+ NVbd8eb/U4VhsnC+Un2XLGRShFwcwrfY1reyokCg6YLz2BBAjjNgTRFbu g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286201587"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286201587"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 10:33:39 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="607204754"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="607204754"
+ 19 Oct 2022 10:33:26 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="607204700"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="607204700"
 Received: from mjmcener-mobl1.amr.corp.intel.com (HELO localhost.localdomain)
  ([10.213.233.40])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 10:33:36 -0700
+ 19 Oct 2022 10:33:22 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Oct 2022 18:32:43 +0100
-Message-Id: <20221019173254.3361334-7-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 19 Oct 2022 18:32:39 +0100
+Message-Id: <20221019173254.3361334-3-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221019173254.3361334-1-tvrtko.ursulin@linux.intel.com>
 References: <20221019173254.3361334-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 06/17] drm: Only track clients which are providing
- drm_cgroup_ops
+Subject: [Intel-gfx] [RFC 02/17] drm: Track clients per owning process
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,40 +71,214 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-To reduce the number of tracking going on, especially with drivers which
-will not support any sort of control from the drm cgroup controller side,
-lets express the funcionality as opt-in and use the presence of
-drm_cgroup_ops as activation criteria.
+To enable propagation of settings from the cgroup drm controller to drm we
+need to start tracking which processes own which drm clients.
+
+Implement that by tracking the struct pid pointer of the owning process in
+a new XArray, pointing to a structure containing a list of associated
+struct drm_file pointers.
+
+Clients are added and removed under the filelist mutex and RCU list
+operations are used below it to allow for lockless lookup.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/drm_cgroup.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/Makefile     |  1 +
+ drivers/gpu/drm/drm_cgroup.c | 60 ++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_file.c   | 18 ++++++++---
+ include/drm/drm_clients.h    | 31 +++++++++++++++++++
+ include/drm/drm_file.h       |  4 +++
+ 5 files changed, 110 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_cgroup.c
+ create mode 100644 include/drm/drm_clients.h
 
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 6e55c47288e4..0719970d17ee 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -59,6 +59,7 @@ drm-$(CONFIG_DRM_LEGACY) += \
+ 	drm_scatter.o \
+ 	drm_vm.o
+ drm-$(CONFIG_DRM_LIB_RANDOM) += lib/drm_random.o
++drm-$(CONFIG_CGROUP_DRM) += drm_cgroup.o
+ drm-$(CONFIG_COMPAT) += drm_ioc32.o
+ drm-$(CONFIG_DRM_PANEL) += drm_panel.o
+ drm-$(CONFIG_OF) += drm_of.o
 diff --git a/drivers/gpu/drm/drm_cgroup.c b/drivers/gpu/drm/drm_cgroup.c
-index 0fbb88f08cef..7ed9c7150cae 100644
---- a/drivers/gpu/drm/drm_cgroup.c
+new file mode 100644
+index 000000000000..a31ff1d593ab
+--- /dev/null
 +++ b/drivers/gpu/drm/drm_cgroup.c
-@@ -16,6 +16,9 @@ void drm_clients_close(struct drm_file *file_priv)
- 
- 	lockdep_assert_held(&dev->filelist_mutex);
- 
-+	if (!dev->driver->cg_ops)
-+		return;
+@@ -0,0 +1,60 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2022 Intel Corporation
++ */
 +
- 	clients = xa_load(&drm_pid_clients, pid);
- 	list_del_rcu(&file_priv->clink);
- 	if (atomic_dec_and_test(&clients->num)) {
-@@ -40,6 +43,9 @@ int drm_clients_open(struct drm_file *file_priv)
- 
- 	lockdep_assert_held(&dev->filelist_mutex);
- 
-+	if (!dev->driver->cg_ops)
-+		return 0;
++#include <drm/drm_drv.h>
++#include <drm/drm_clients.h>
 +
- 	clients = xa_load(&drm_pid_clients, pid);
- 	if (!clients) {
- 		clients = kmalloc(sizeof(*clients), GFP_KERNEL);
++static DEFINE_XARRAY(drm_pid_clients);
++
++void drm_clients_close(struct drm_file *file_priv)
++{
++	unsigned long pid = (unsigned long)file_priv->pid;
++	struct drm_device *dev = file_priv->minor->dev;
++	struct drm_pid_clients *clients;
++
++	lockdep_assert_held(&dev->filelist_mutex);
++
++	clients = xa_load(&drm_pid_clients, pid);
++	list_del_rcu(&file_priv->clink);
++	if (atomic_dec_and_test(&clients->num)) {
++		xa_erase(&drm_pid_clients, pid);
++		kfree_rcu(clients, rcu);
++	}
++}
++
++int drm_clients_open(struct drm_file *file_priv)
++{
++	unsigned long pid = (unsigned long)file_priv->pid;
++	struct drm_device *dev = file_priv->minor->dev;
++	struct drm_pid_clients *clients;
++	bool new_client = false;
++
++	lockdep_assert_held(&dev->filelist_mutex);
++
++	clients = xa_load(&drm_pid_clients, pid);
++	if (!clients) {
++		clients = kmalloc(sizeof(*clients), GFP_KERNEL);
++		if (!clients)
++			return -ENOMEM;
++		atomic_set(&clients->num, 0);
++		INIT_LIST_HEAD(&clients->file_list);
++		init_rcu_head(&clients->rcu);
++		new_client = true;
++	}
++	atomic_inc(&clients->num);
++	list_add_tail_rcu(&file_priv->clink, &clients->file_list);
++	if (new_client) {
++		void *xret;
++
++		xret = xa_store(&drm_pid_clients, pid, clients, GFP_KERNEL);
++		if (xa_err(xret)) {
++			list_del_init(&file_priv->clink);
++			kfree(clients);
++			return PTR_ERR(clients);
++		}
++	}
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index a8b4d918e9a3..ce58d5c513db 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -40,6 +40,7 @@
+ #include <linux/slab.h>
+ 
+ #include <drm/drm_client.h>
++#include <drm/drm_clients.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_print.h>
+@@ -298,6 +299,7 @@ static void drm_close_helper(struct file *filp)
+ 
+ 	mutex_lock(&dev->filelist_mutex);
+ 	list_del(&file_priv->lhead);
++	drm_clients_close(file_priv);
+ 	mutex_unlock(&dev->filelist_mutex);
+ 
+ 	drm_file_free(file_priv);
+@@ -349,10 +351,8 @@ static int drm_open_helper(struct file *filp, struct drm_minor *minor)
+ 
+ 	if (drm_is_primary_client(priv)) {
+ 		ret = drm_master_open(priv);
+-		if (ret) {
+-			drm_file_free(priv);
+-			return ret;
+-		}
++		if (ret)
++			goto err_free;
+ 	}
+ 
+ 	filp->private_data = priv;
+@@ -360,6 +360,9 @@ static int drm_open_helper(struct file *filp, struct drm_minor *minor)
+ 	priv->filp = filp;
+ 
+ 	mutex_lock(&dev->filelist_mutex);
++	ret = drm_clients_open(priv);
++	if (ret)
++		goto err_unlock;
+ 	list_add(&priv->lhead, &dev->filelist);
+ 	mutex_unlock(&dev->filelist_mutex);
+ 
+@@ -387,6 +390,13 @@ static int drm_open_helper(struct file *filp, struct drm_minor *minor)
+ #endif
+ 
+ 	return 0;
++
++err_unlock:
++	mutex_unlock(&dev->filelist_mutex);
++err_free:
++	drm_file_free(priv);
++
++	return ret;
+ }
+ 
+ /**
+diff --git a/include/drm/drm_clients.h b/include/drm/drm_clients.h
+new file mode 100644
+index 000000000000..4ae553a03d1e
+--- /dev/null
++++ b/include/drm/drm_clients.h
+@@ -0,0 +1,31 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2022 Intel Corporation
++ */
++
++#ifndef _DRM_CLIENTS_H_
++#define _DRM_CLIENTS_H_
++
++#include <drm/drm_file.h>
++
++struct drm_pid_clients {
++	atomic_t num;
++	struct list_head file_list;
++	struct rcu_head rcu;
++};
++
++#if IS_ENABLED(CONFIG_CGROUP_DRM)
++void drm_clients_close(struct drm_file *file_priv);
++int drm_clients_open(struct drm_file *file_priv);
++#else
++static inline void drm_clients_close(struct drm_file *file_priv)
++{
++}
++
++static inline int drm_clients_open(struct drm_file *file_priv)
++{
++	return 0;
++}
++#endif
++
++#endif
+diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+index d780fd151789..0965eb111f24 100644
+--- a/include/drm/drm_file.h
++++ b/include/drm/drm_file.h
+@@ -268,6 +268,10 @@ struct drm_file {
+ 	/** @minor: &struct drm_minor for this file. */
+ 	struct drm_minor *minor;
+ 
++#if IS_ENABLED(CONFIG_CGROUP_DRM)
++	struct list_head clink;
++#endif
++
+ 	/**
+ 	 * @object_idr:
+ 	 *
 -- 
 2.34.1
 
