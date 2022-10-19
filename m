@@ -4,53 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0395C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 16:16:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70D88C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 16:18:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAC6210E9DC;
-	Wed, 19 Oct 2022 16:16:13 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E86310E9DC;
- Wed, 19 Oct 2022 16:16:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B72AC10E9DC;
+	Wed, 19 Oct 2022 16:18:29 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5FFA10E2B0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 16:18:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666196168; x=1697732168;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=yUF8swZTeykYvYIS0RdvgDV4PFuuqOIV0Wg2Nn65pGU=;
- b=SuSsSZX8hRR1s2ZemCdfME+4vo/6692NEDWJQqVDw14rjMcfs23En79S
- enjPilzHZpsXkBpHm4FG4ZDB0QksjVV69A/tpX1FRZczTBh3T3tC+cdWN
- mkpfDsbsA3yu42mJQL5a0bd9K/NFKrtQcrLF83tLixjWTYjDfaXERstdN
- pFQJVWJ314a84riIQr5+Lmyw9YWlsx4zOrrjaOOfMZQSOwTg0ymC+s5pq
- WlNXl1a1b7CiiCoC0eAtMNuB5IhF99GlmLW4CAS1LC6Zf7nqaijyY2fRQ
- 2CqV1QpHvPTlQ0Yk0Afelln9tfZlsV2NlzbLOXlXw5wIixpTvEuyepyYv A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="306449746"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="306449746"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 09:07:37 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="624199579"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="624199579"
-Received: from abyrne1-mobl1.ger.corp.intel.com (HELO [10.252.27.172])
- ([10.252.27.172])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 09:07:34 -0700
-Message-ID: <33e7d512-c78d-dfff-0bcd-0cdf94af384a@intel.com>
-Date: Wed, 19 Oct 2022 17:07:31 +0100
+ t=1666196301; x=1697732301;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=RHRwqoHx1KzYKq+3ajz6n0XZLZ3ouVE5XJn/eocPrj8=;
+ b=GFAEKfYPSujoYkxDOmy2Y81hIlIuYrpJKCFXCXg413EytwjxlIPbOUVi
+ MdAxxtNh8nqNuuVjtHwB7jClZmRvgvaFSqqzlAsJE63p5oGgT/eoJog9E
+ hybKGwkhNAFAjI0Zn83B6CQtwrHvyDS4pgUaeTea23Pdl/NpF6+k6S8VB
+ vrk/UTEMyOv/uRwL8eO9WXHJE0++BKSP0MYEBfbGkNBBfwa/iwyvFKPh2
+ kwCGWA54OZb1Dii+fmh4kG4f9Yof4cA72QqWBzqzOGHeaTJIqvrpLR9lV
+ 87zUvL8ZgvICuPpC+Ppulz03pAQzzcbjWUnLgRccvD28qDvrZuwGkgzKS g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="368512360"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="368512360"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2022 09:13:00 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="660419358"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="660419358"
+Received: from asakthi-mobl.amr.corp.intel.com (HELO gjsousa-mobl2.intel.com)
+ ([10.212.18.145])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2022 09:12:57 -0700
+From: Gustavo Sousa <gustavo.sousa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 19 Oct 2022 13:13:34 -0300
+Message-Id: <20221019161334.119885-1-gustavo.sousa@intel.com>
+X-Mailer: git-send-email 2.38.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.3.1
-Content-Language: en-GB
-To: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20221018071630.3831-1-niranjana.vishwanathapura@intel.com>
- <20221018071630.3831-14-niranjana.vishwanathapura@intel.com>
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20221018071630.3831-14-niranjana.vishwanathapura@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v4 13/17] drm/i915/vm_bind: Update
- i915_vma_verify_bind_complete()
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2] drm/i915/xelp: Add Wa_1806527549
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,77 +55,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
- daniel.vetter@intel.com, christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 18/10/2022 08:16, Niranjana Vishwanathapura wrote:
-> Ensure i915_vma_verify_bind_complete() handles case where bind
-> is not initiated. Also make it non static, add documentation
-> and move it out of CONFIG_DRM_I915_DEBUG_GEM.
-> 
-> Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-> Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-> ---
->   drivers/gpu/drm/i915/i915_vma.c | 16 +++++++++++-----
->   drivers/gpu/drm/i915/i915_vma.h |  1 +
->   2 files changed, 12 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-> index eaa13e9ba966..4975fc662c86 100644
-> --- a/drivers/gpu/drm/i915/i915_vma.c
-> +++ b/drivers/gpu/drm/i915/i915_vma.c
-> @@ -439,12 +439,21 @@ int i915_vma_sync(struct i915_vma *vma)
->   	return i915_vm_sync(vma->vm);
->   }
->   
-> -#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
-> -static int i915_vma_verify_bind_complete(struct i915_vma *vma)
-> +/**
-> + * i915_vma_verify_bind_complete() - Check for the bind completion of the vma
-> + * @vma: vma to check for bind completion
+Workaround to be applied to platforms using XE_LP graphics.
 
-Maybe mention the locking since this is now more than just DEBUG_GEM 
-stuff. I assume we need the object lock or otherwise some guarantee that 
-the vma is pinned?
+BSpec: 52890
+Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h     | 1 +
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 6 ++++++
+ 2 files changed, 7 insertions(+)
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 36d95b79022c..23844ba7e824 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -443,6 +443,7 @@
+ #define HIZ_CHICKEN				_MMIO(0x7018)
+ #define   CHV_HZ_8X8_MODE_IN_1X			REG_BIT(15)
+ #define   DG1_HZ_READ_SUPPRESSION_OPTIMIZATION_DISABLE	REG_BIT(14)
++#define   HZ_DEPTH_TEST_LE_GE_OPT_DISABLE	REG_BIT(13)
+ #define   BDW_HIZ_POWER_COMPILER_CLOCK_GATING_DISABLE	REG_BIT(3)
+ 
+ #define GEN8_L3CNTLREG				_MMIO(0x7034)
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 63e1e6becf34..2a35e7e66625 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -660,6 +660,8 @@ static void gen12_ctx_gt_tuning_init(struct intel_engine_cs *engine,
+ static void gen12_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 				       struct i915_wa_list *wal)
+ {
++	struct drm_i915_private *i915 = engine->i915;
++
+ 	gen12_ctx_gt_tuning_init(engine, wal);
+ 
+ 	/*
+@@ -693,6 +695,10 @@ static void gen12_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	       FF_MODE2_GS_TIMER_MASK,
+ 	       FF_MODE2_GS_TIMER_224,
+ 	       0, false);
++
++	if (!IS_DG1(i915))
++		/* Wa_1806527549 */
++		wa_masked_en(wal, HIZ_CHICKEN, HZ_DEPTH_TEST_LE_GE_OPT_DISABLE);
+ }
+ 
+ static void dg1_ctx_workarounds_init(struct intel_engine_cs *engine,
+-- 
+2.38.0
 
-> + *
-> + * Returns: 0 if the vma bind is completed. Error code otherwise.
-> + */
-> +int i915_vma_verify_bind_complete(struct i915_vma *vma)
->   {
->   	struct dma_fence *fence = i915_active_fence_get(&vma->active.excl);
->   	int err;
->   
-> +	/* Ensure vma bind is initiated */
-> +	if (!i915_vma_is_bound(vma, I915_VMA_BIND_MASK))
-> +		return -EINVAL;
-> +
->   	if (!fence)
->   		return 0;
->   
-> @@ -457,9 +466,6 @@ static int i915_vma_verify_bind_complete(struct i915_vma *vma)
->   
->   	return err;
->   }
-> -#else
-> -#define i915_vma_verify_bind_complete(_vma) 0
-> -#endif
->   
->   I915_SELFTEST_EXPORT void
->   i915_vma_resource_init_from_vma(struct i915_vma_resource *vma_res,
-> diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-> index 1cadbf8fdedf..04770f8ba815 100644
-> --- a/drivers/gpu/drm/i915/i915_vma.h
-> +++ b/drivers/gpu/drm/i915/i915_vma.h
-> @@ -440,6 +440,7 @@ void i915_vma_make_purgeable(struct i915_vma *vma);
->   
->   int i915_vma_wait_for_bind(struct i915_vma *vma);
->   int i915_vma_sync(struct i915_vma *vma);
-> +int i915_vma_verify_bind_complete(struct i915_vma *vma);
->   
->   /**
->    * i915_vma_get_current_resource - Get the current resource of the vma
