@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CFEDC433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 17:34:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E2C7C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 17:34:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B39310EB4C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92AC310EB50;
 	Wed, 19 Oct 2022 17:34:42 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B2A610F29C
- for <Intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 17:33:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85A1410F2A3
+ for <Intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 17:34:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666200830; x=1697736830;
+ t=1666200850; x=1697736850;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1PhDcr2XGs8uIfUaec8gKHHe5Qyfm3zBRnEHtyvj3RQ=;
- b=gPTX8Fib6dr4sRo0I9aak04vrPrJ0slMrfEcVi62vtsqWBVsgmlzKJIC
- 7ELraeRyKhDovF7CJoffdMV9UorLoI3uMuaN4WBZfwKr9BWCl6dmHQ336
- eWRXwQfAhXkYS0Q8ORcNZYIxKdHtypXP4C9e515wTZpHdv2iSWXTvFuAr
- xLV7tplOI966yCqMBcsBwksIZwRG7wxbEgeDJjl/bxA5mvgCMfb3O4zaA
- /5ncZGhVlsScElumHfdrs+cR7lc2Wl94X8EOxPL9M3S3ealRFzqRKOeFp
- XUdJAsuh5qi7a5NRv4lHTuv4K9ur2AcGx097T61oJ5/cnwjtzC070P3qP w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286201720"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286201720"
+ bh=U7LArZuNthshDvVK5CBxK7+jHExXUGsLdkjMMWrwBEw=;
+ b=gXYdHEub5QAcILq7vdZUkihNC9iLYNUYQwSflxUXzQ83HsNB4zS2rIM8
+ Ydm4JJtiwDCo+s0TFJfBUkZGkftaHaGvg0P4In3i/Hbf8oQjkUvSOmcGM
+ pj4Po5bcJURxQjoel5E7AQcF1qn0Vcb9GJA9l8PDnV9fHrD1OhZp0+eAW
+ 3gftW/wHg9tlnRGI0s4DOgVC8wmxc7FF/mRaDEwEoGXh8lbXxptbKc9fT
+ 9qxwTvpSD/lkSWA+bnQbAikMGBMnT6nJ6/gTzLj67mBRHkBPAeJQoR2BK
+ obW0Suj4z4Ou3IFiUaR1sae7avuT7i23JUk+L7L61H9abdhnRAPcnzZ2c Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286201797"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286201797"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 10:33:50 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="607204795"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="607204795"
+ 19 Oct 2022 10:34:10 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="607204910"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="607204910"
 Received: from mjmcener-mobl1.amr.corp.intel.com (HELO localhost.localdomain)
  ([10.213.233.40])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 10:33:46 -0700
+ 19 Oct 2022 10:34:07 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Oct 2022 18:32:46 +0100
-Message-Id: <20221019173254.3361334-10-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 19 Oct 2022 18:32:52 +0100
+Message-Id: <20221019173254.3361334-16-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221019173254.3361334-1-tvrtko.ursulin@linux.intel.com>
 References: <20221019173254.3361334-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 09/17] cgroup/drm: Introduce weight based drm
- cgroup control
+Subject: [Intel-gfx] [RFC 15/17] drm/i915: Migrate client to new owner on
+ context create
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,99 +71,38 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Similar to CPU scheduling, implement a concept of weight in the drm cgroup
-controller.
+Some usage models pass a drm file descriptor from a creating process to
+the client which will actually use it.
 
-Uses the same range and default as the CPU controller - CGROUP_WEIGHT_MIN,
-CGROUP_WEIGHT_DFL and CGROUP_WEIGHT_MAX.
-
-Later each cgroup is assigned a time budget proportionaly based on the
-relative weights of it's siblings. This time budget is in turn split by
-the group's children and so on.
-
-Children of the root cgroup will be exempt from split budgets and
-therefore compete for the GPU time independently and without weight based
-control.
-
-This will be used to implement a soft, or best effort signal from drm
-cgroup to drm core notifying about groups which are over their allotted
-budget.
-
-No guarantees that the limit can be enforced are provided or implied.
+Use the core drm helper on GEM context create to account for this and
+ensure client's resource usage is tracked in the correct cgroup.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- kernel/cgroup/drm.c | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
-index 01954c3a2087..4b6f88d8236e 100644
---- a/kernel/cgroup/drm.c
-+++ b/kernel/cgroup/drm.c
-@@ -17,6 +17,7 @@ struct drm_cgroup_state {
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 1e29b1e6d186..5f6af306e147 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -69,6 +69,7 @@
+ #include <linux/nospec.h>
  
- 	int priority;
- 	int effective_priority;
-+	unsigned int weight;
- };
+ #include <drm/drm_cache.h>
++#include <drm/drm_clients.h>
+ #include <drm/drm_syncobj.h>
  
- static DEFINE_MUTEX(drmcg_mutex);
-@@ -163,6 +164,33 @@ drmcs_write_priority(struct cgroup_subsys_state *css, struct cftype *cftype,
+ #include "gt/gen6_ppgtt.h"
+@@ -2300,6 +2301,8 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
+ 	args->ctx_id = id;
+ 	drm_dbg(&i915->drm, "HW context %d created\n", args->ctx_id);
+ 
++	drm_clients_migrate(file);
++
  	return 0;
- }
  
-+static u64
-+drmcs_read_weight(struct cgroup_subsys_state *css, struct cftype *cft)
-+{
-+	struct drm_cgroup_state *drmcs = css_to_drmcs(css);
-+
-+	return drmcs->weight;
-+}
-+
-+static int
-+drmcs_write_weight(struct cgroup_subsys_state *css, struct cftype *cftype,
-+		   u64 weight)
-+{
-+	struct drm_cgroup_state *drmcs = css_to_drmcs(css);
-+	int ret;
-+
-+	if (weight < CGROUP_WEIGHT_MIN || weight > CGROUP_WEIGHT_MAX)
-+		return -ERANGE;
-+
-+	ret = mutex_lock_interruptible(&drmcg_mutex);
-+	if (ret)
-+		return ret;
-+	drmcs->weight = weight;
-+	mutex_unlock(&drmcg_mutex);
-+
-+	return 0;
-+}
-+
- static int drmcs_online(struct cgroup_subsys_state *css)
- {
- 	struct drm_cgroup_state *drmcs = css_to_drmcs(css);
-@@ -210,6 +238,8 @@ drmcs_alloc(struct cgroup_subsys_state *parent_css)
- 	if (!drmcs)
- 		return ERR_PTR(-ENOMEM);
- 
-+	drmcs->weight = CGROUP_WEIGHT_DFL;
-+
- 	return &drmcs->css;
- }
- 
-@@ -230,6 +260,12 @@ struct cftype files[] = {
- 		.flags = CFTYPE_NOT_ON_ROOT,
- 		.read_s64 = drmcs_read_effective_priority,
- 	},
-+	{
-+		.name = "weight",
-+		.flags = CFTYPE_NOT_ON_ROOT,
-+		.read_u64 = drmcs_read_weight,
-+		.write_u64 = drmcs_write_weight,
-+	},
- 	{ } /* Zero entry terminates. */
- };
- 
+ err_pc:
 -- 
 2.34.1
 
