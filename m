@@ -4,143 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53FC8C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 05:18:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E249C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 05:21:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 861DE10F128;
-	Wed, 19 Oct 2022 05:18:24 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CED510F127;
- Wed, 19 Oct 2022 05:18:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3917F10F128;
+	Wed, 19 Oct 2022 05:20:53 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE1E910F12B;
+ Wed, 19 Oct 2022 05:20:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666156692; x=1697692692;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=Ob8bRRDpAG8k7xzrIFtCun8kqjGdAn/wNPd8IMwPqWI=;
- b=fl9lbyLdJq5CyPDL7nLmnG/vb9AUFjfD6Qh1r3VWevUXerx3W2x1618f
- SkanLkAMiW33Zv539ZsXXgoi8ibAfr8UbXkQKqDYZPEMH5EmOEkOtu9DE
- lL1UjqxE511drmdYFwSr2U5Gobebg8/6O8NpGVd9z+f76Cifu1cC6GkvZ
- Er+GmLOL0VsvE68CpDzVZ4RabvvNQ2V6Y3rpHhUeXlyqJvzSq43GId250
- fGMjNs6iS4wv36GJhAiAyFZLnmAcfbXY8O78wnBJiM2xRKce42TfrcTlW
- hAFh/2s4f3vaOjtOavIOfUrZd5heieZQHJUleOnNvs3eyH5qz5nygOmbo g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="305043696"
-X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="305043696"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 22:18:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="804112479"
-X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="804112479"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by orsmga005.jf.intel.com with ESMTP; 18 Oct 2022 22:18:11 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Tue, 18 Oct 2022 22:18:10 -0700
-Received: from orsmsx602.amr.corp.intel.com (10.22.229.15) by
- ORSMSX610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Tue, 18 Oct 2022 22:18:09 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31 via Frontend Transport; Tue, 18 Oct 2022 22:18:09 -0700
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com (104.47.56.43) by
- edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2375.31; Tue, 18 Oct 2022 22:18:08 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OPS06TAswpEoaaplUl0jcA7y1x8oN4cpsz3r4tzJeyjjUjsYTfIBVtk3jYMCONnfu2UpvsNPAU4duxOl8hR3ZkOhmtggbyBQHhcq9o08T2KlSBZMTQHnQyOuyfAvQZiv8SpOHCl+4vHyTnncC5rBtpvTAnXSBFQrBgZk4+E0vI1RdGvtV8ey+3YqBp1ewhRp+DwOpSeFP5czKuApGjwYuxuMJQxty6qKNmhvoj0lQp4UDOL4zqBIQySFvsiEyix2IKRxqKM1Cn9yzZgRqlOjQl0GnoyHsqnXhuZVhQok8o3KyNyGUnq3bAZmxm6O5qxO2a/VwvHasCDo0F/VnWFiKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QYdfBS0Mpe41jrb5sggtwzAw6M0ttUWtO6kS3dc9Ov4=;
- b=D4qxHWMDL0oaKN7xOda1COheg8XmwpzMVNuzHUybtL5koD4lZHkxErpB8Ibi7TzKWK5tpAly4NP/qKUyc9t6bC7u9vaafIZOGGsVcME/t+z43Rpqd4sEZrwnfJwfqc+m5ChYF9Mq7zQumIJVEV2MU+7vpMFa1Fa6VD/XwwKBHgD9yNqmhcxOUUHxNouOinvjqtNkKO+8Xs2J5oDNC/XBI+xn/8YeYjps9MAssUr9RbjWmk25H5X4sk2QCjnf00IBJsEF98PXIs0J2BxElpJkLw1sdQHD0UAnksmiFH5afi/EPuRSM4wRWBTV2XCe5zLxNtlM7XHUQZdv0oD71SyFCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH8PR11MB6952.namprd11.prod.outlook.com (2603:10b6:510:224::13)
- by SN7PR11MB7566.namprd11.prod.outlook.com (2603:10b6:806:34d::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.33; Wed, 19 Oct
- 2022 05:18:06 +0000
-Received: from PH8PR11MB6952.namprd11.prod.outlook.com
- ([fe80::91e7:70e7:97c5:a23d]) by PH8PR11MB6952.namprd11.prod.outlook.com
- ([fe80::91e7:70e7:97c5:a23d%3]) with mapi id 15.20.5723.033; Wed, 19 Oct 2022
- 05:18:06 +0000
-Date: Tue, 18 Oct 2022 22:17:56 -0700
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Auld <matthew.auld@intel.com>
-Message-ID: <Y0+IhCIUJYJXVPJc@nvishwa1-DESK>
-References: <20221018071630.3831-1-niranjana.vishwanathapura@intel.com>
- <20221018071630.3831-16-niranjana.vishwanathapura@intel.com>
- <a3e3ddb4-b41d-70f5-cda4-082e9e61b62f@intel.com>
- <Y08KdqpguNKmVNz3@nvishwa1-DESK>
-Content-Type: text/plain; charset="iso-8859-1"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Y08KdqpguNKmVNz3@nvishwa1-DESK>
-X-ClientProxiedBy: BYAPR08CA0018.namprd08.prod.outlook.com
- (2603:10b6:a03:100::31) To PH8PR11MB6952.namprd11.prod.outlook.com
- (2603:10b6:510:224::13)
+ t=1666156848; x=1697692848;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=GRdZuF0V0CacBY0YP+av1JWfhbqPYdP/9thgvMOgcOk=;
+ b=dGx96GA+JLLpPk8RyexADrMTsWoV16maGlXc9Gokf59VhvXEafM7MbM3
+ /Lt7VbPJobROC9JQVN+OC4ILuxdpMN1NyQkKeXym+Rt8uGrRTJ3cgmjBV
+ IKt/0ydDjFJObF5oK5iqMZuP1U1GNPxsOrM+UwVmSqi7RoJflnrIy6DmX
+ yyc17GKhPHQXUpFRe4cjb7ZvnNjWVl9ZEQKYCmuHXCt/Spi5VqwdtzfJq
+ uR7+2R8M8by5Rhggek4YW2OT7DI11XJoy8neGYzTI2Kd4wR7w3Amg+l1X
+ rnpDg5LqxsxikllMY37J5iMg1NDwKgwYfbH5pjFawPVmNLkjpdyV5p6+u Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="392610809"
+X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="392610809"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 22:20:48 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="874254620"
+X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="874254620"
+Received: from orsosgc001.jf.intel.com (HELO unerlige-ril.jf.intel.com)
+ ([10.165.21.138])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2022 22:20:48 -0700
+From: Ashutosh Dixit <ashutosh.dixit@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 18 Oct 2022 22:20:42 -0700
+Message-Id: <20221019052043.3193842-4-ashutosh.dixit@intel.com>
+X-Mailer: git-send-email 2.38.0
+In-Reply-To: <20221019052043.3193842-1-ashutosh.dixit@intel.com>
+References: <20221019052043.3193842-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB6952:EE_|SN7PR11MB7566:EE_
-X-MS-Office365-Filtering-Correlation-Id: a39610b5-d920-42af-f1fd-08dab1914dfc
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1wGEfYdq4TJpCWNqDUwJypJNp7BJJYswlEbRLuwdT9wv0h9l0n/MQBv/PZW2PSeT9hgjYicg2LNvpNre1qp4UnCe8fOuNwJTaZ+yKqutC4azGF/d3vZSo5TEoLz4X8f8pu221lLDPS8r4GZmA0ehDRp42bHkG+S5xnhkjK7RHBbkNUVdQ+3b5ds4je233FOujo+DH02E2VYgbtFaqpK+tFlkTTcBQe8xQrWRmF1AnWsmQcZUpVJD7dmNnin/YMIy4BRgxkhge4les8X8w1keLQxVzSge0LLrrikJzv9YDJur0PCDz9X3DneuqWH2lF84k2zRyuN0ir/jJYLLL4gDCFEluNmc9WL48Nu38CW+Tt9OJs3ZKi2AFVBkL0RGa7xmF5E1Kq7EwrsGpGdNvAAi2iINabOSPCfskn9PZzwstgRpVw9PBPf05DdZ+/kOJCwQ4M2RZDV5XW1EqRbsDCG9X7rO+eCepCOpgmAx9mEvKVlDO7jPsWMJw89FDpW0VnS/Frm0ATC/c/F9hSJNMg2aEmuNbJAZ8ABsF+ngKsImCcdhhxjjkz6UcazPEkz3qam2ISxWhW3vLGNAUQCwD+2q11E1MYz/eBSPY8Q5ZUPOEsCnKTRKqULpYbKHuv/jgoQCrfru0w2nZnjo1PFgojSE5sV2DM8nMi4DxeQD/eVpxwwW0IUJrjuWxg4I1Q/9E2swRrO11SfmXJvVpNOE2d7WWmTSKuGeS3TgzW9JlEpiphT/g+aGbLoI8KxeNd7Cv/Km
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR11MB6952.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(7916004)(346002)(396003)(366004)(376002)(39860400002)(136003)(451199015)(6666004)(33716001)(6862004)(41300700001)(6506007)(8936002)(478600001)(4326008)(8676002)(66946007)(316002)(6486002)(66476007)(38100700002)(186003)(86362001)(82960400001)(9686003)(26005)(83380400001)(6636002)(6512007)(44832011)(2906002)(5660300002)(66556008)(30864003)(67856001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?6VKdlKahH7FhpHHuQy7OEz0fpEzkXzFqeui+V0Si9R6AFvpCnP1C3Om7H9?=
- =?iso-8859-1?Q?jUAs3ffJrfDd2nBMDJ3pAgw0MkSP9Fn10tw2sp6TNlAZrQ+75OeKtm3rA5?=
- =?iso-8859-1?Q?BzzIZsqthT8gz03Xffqfe1vmmE8/KWuuBFdMyIoOJDR4ZX/jjh6cfkFhZy?=
- =?iso-8859-1?Q?yrj4d0lelZYiwre0uiFBnZpb7wdF4BRq7e3TEDzYb90JGIIjbr5YDipgEv?=
- =?iso-8859-1?Q?Rzi/HXU9QvkYFrQjS7kZHlu65uSGBknBACLvOo4430tS0Cg7GwceRAwLG1?=
- =?iso-8859-1?Q?4JRtDiEblGxSEifGF6qUu/MZD/jqdjRFx+qPv2SBFMBk0ZYGKhvi3AbXXl?=
- =?iso-8859-1?Q?XN7GHTEY+tBth+nN4Hnn/lt5eLbrFOexdj4nOGGH0uHVNwW6/W9NMKwcxq?=
- =?iso-8859-1?Q?VpSYA0NyC6WVpFOBmhk2UN6XWaBL8/OFJDMCSAb3m02aAjoCpm6oQ6/Hqd?=
- =?iso-8859-1?Q?bSrIde90FE+E3NaOEwgbNf2kolTQbV+an3RuScZeoMBGVBv2L0N/5WWFpA?=
- =?iso-8859-1?Q?z7RwaxTQw6r2qKI92tKgHbspFTNr0IyHPSqdaD2o/35yw54hTPrWPjWpWL?=
- =?iso-8859-1?Q?i8t8A0vQbE4DlILAO4XQt1jw47P9SRcJ5bg/C9+RVkMhsteqtYOnA0Pc22?=
- =?iso-8859-1?Q?hw8dIngDIp6UtO5ZlDDMfunUKCKJrqiZ2MFjz8OioDttUJmhg1GCejgxqJ?=
- =?iso-8859-1?Q?jlkdCCcylT13fp8Dd2+cjdHKGKejRg33aSM1MQFLDkPI8cTVedWu2amKTt?=
- =?iso-8859-1?Q?p7JKROYUwXLgOxdapt8mGsMY8/2R28hIb/hj+qZCDTxqUDOrEFU/fQcItm?=
- =?iso-8859-1?Q?Jvp8tKjcU7b6lOton9GuTWaMHb5p+c5/5eRz2g3nYbmp+BYUT4EiFzWiTv?=
- =?iso-8859-1?Q?fMozLlg82KlLbZr6i0DcFQNM8RoJMQTgu9FweFFLP9dsgisqxTKFe3RkMv?=
- =?iso-8859-1?Q?nwSq0t9n5JMXg7xcNnEUG9OtoX11OFluk5ROMtTbLwTLX4fsrDvNFkZgcM?=
- =?iso-8859-1?Q?wQ5aNEiluZvowivGEw1b8usLKvjcJf/pzGBERE9YBSHsm2icttIof3HDVk?=
- =?iso-8859-1?Q?sH/LrGparu79d4a8dDQS6gR0BwrIMQ+NV/bmW3VLdPuFgoHlodElYwY7GV?=
- =?iso-8859-1?Q?F93bgcQfxHTy52EiQkB4Xgz8lC7g2KC2Q/Gge6gMfhJGAu0joi36/fOPi8?=
- =?iso-8859-1?Q?jISWH6EevVLjWgeDlAse3kWw/4MHbD1bCsp+kQLPdwDDY+7hF9X5Vz12+z?=
- =?iso-8859-1?Q?vIBNzx4YqzJGfI+OXfCGgJaHP/HLK+9p+Tl/M7Hsh6jFjWk/1yuUdWK3fS?=
- =?iso-8859-1?Q?rdaev/k1hw0/8ltemdwguuMTMdHa1NJQpaMtD3m36Ayz81OPpIva5BXpEj?=
- =?iso-8859-1?Q?649OD/19PAHLGDOPMHpnOEdtjzZwbJ1w84yAy/LL3Lywwh+KyRRr5f0OKw?=
- =?iso-8859-1?Q?B5CMdbiTFK5i5kyWk4HZidvFBKCwkyAmmbh+xwzEDA9Qe7FYIYtLUbAjB2?=
- =?iso-8859-1?Q?BfYmkX0jDJgYRWut8XagghspMm59H6yGz1F1MmunGhXVjmsrg2M0Ft6LrK?=
- =?iso-8859-1?Q?F4dKR+44VaaBttF7jsFOdqhpoQx+Nos8JM+e9oxCoGjWqjuNaknDb0T75U?=
- =?iso-8859-1?Q?JPPsPTX4UvTep3CmHxY08hBDPYGAOwaM+D6RYSiysbJruCv4lj8bzekXb6?=
- =?iso-8859-1?Q?i4nNQpuW3qi371nlWgw=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a39610b5-d920-42af-f1fd-08dab1914dfc
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB6952.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2022 05:18:06.4861 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1IvEO3X1dgBny6nKtz4PgZA5lJ/0cBwtuiVFq/e9euPX6dIbla9sEQgMeuEYSx8qbxQcpShlkNaunmj/XN5ZqhiybGZa7pWLElc+6wwwj41nmElhj/I0IsPqRbNzOFrN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7566
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v4 15/17] drm/i915/vm_bind: Handle
- persistent vmas in execbuf3
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/gt: Use RC6 residency types as
+ arguments to residency functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,321 +58,357 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- thomas.hellstrom@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 18, 2022 at 01:20:06PM -0700, Niranjana Vishwanathapura wrote:
->On Tue, Oct 18, 2022 at 07:01:57PM +0100, Matthew Auld wrote:
->>On 18/10/2022 08:16, Niranjana Vishwanathapura wrote:
->>>Handle persistent (VM_BIND) mappings during the request submission
->>>in the execbuf3 path.
->>>
->>>v2: Ensure requests wait for bindings to complete.
->>>v3: Remove short term pinning with PIN_VALIDATE flag.
->>>    Individualize fences before adding to dma_resv obj.
->>>
->>>Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
->>>Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
->>>---
->>> .../gpu/drm/i915/gem/i915_gem_execbuffer3.c   | 208 +++++++++++++++++-
->>> 1 file changed, 207 insertions(+), 1 deletion(-)
->>>
->>>diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
->>>index a9b4cc44bf66..8120e4c6b7da 100644
->>>--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
->>>+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer3.c
->>>@@ -3,6 +3,7 @@
->>>  * Copyright © 2022 Intel Corporation
->>>  */
->>>+#include <linux/dma-fence-array.h>
->>> #include <linux/dma-resv.h>
->>> #include <linux/uaccess.h>
->>>@@ -19,6 +20,7 @@
->>> #include "i915_gem_vm_bind.h"
->>> #include "i915_trace.h"
->>>+#define __EXEC3_HAS_PIN			BIT_ULL(33)
->>> #define __EXEC3_ENGINE_PINNED		BIT_ULL(32)
->>> #define __EXEC3_INTERNAL_FLAGS		(~0ull << 32)
->>>@@ -42,7 +44,9 @@
->>>  * execlist. Hence, no support for implicit sync.
->>>  *
->>>  * The new execbuf3 ioctl only works in VM_BIND mode and the VM_BIND mode only
->>>- * works with execbuf3 ioctl for submission.
->>>+ * works with execbuf3 ioctl for submission. All BOs mapped on that VM (through
->>>+ * VM_BIND call) at the time of execbuf3 call are deemed required for that
->>>+ * submission.
->>>  *
->>>  * The execbuf3 ioctl directly specifies the batch addresses instead of as
->>>  * object handles as in execbuf2 ioctl. The execbuf3 ioctl will also not
->>>@@ -58,6 +62,13 @@
->>>  * So, a lot of code supporting execbuf2 ioctl, like relocations, VA evictions,
->>>  * vma lookup table, implicit sync, vma active reference tracking etc., are not
->>>  * applicable for execbuf3 ioctl.
->>>+ *
->>>+ * During each execbuf submission, request fence is added to all VM_BIND mapped
->>>+ * objects with DMA_RESV_USAGE_BOOKKEEP. The DMA_RESV_USAGE_BOOKKEEP usage will
->>>+ * prevent over sync (See enum dma_resv_usage). Note that DRM_I915_GEM_WAIT and
->>>+ * DRM_I915_GEM_BUSY ioctls do not check for DMA_RESV_USAGE_BOOKKEEP usage and
->>>+ * hence should not be used for end of batch check. Instead, the execbuf3
->>>+ * timeline out fence should be used for end of batch check.
->>>  */
->>> /**
->>>@@ -127,6 +138,23 @@ eb_find_vma(struct i915_address_space *vm, u64 addr)
->>> 	return i915_gem_vm_bind_lookup_vma(vm, va);
->>> }
->>>+static void eb_scoop_unbound_vma_all(struct i915_address_space *vm)
->>>+{
->>>+	struct i915_vma *vma, *vn;
->>>+
->>>+	/**
->>>+	 * Move all unbound vmas back into vm_bind_list so that they are
->>>+	 * revalidated.
->>>+	 */
->>>+	spin_lock(&vm->vm_rebind_lock);
->>>+	list_for_each_entry_safe(vma, vn, &vm->vm_rebind_list, vm_rebind_link) {
->>>+		list_del_init(&vma->vm_rebind_link);
->>>+		if (!list_empty(&vma->vm_bind_link))
->>>+			list_move_tail(&vma->vm_bind_link, &vm->vm_bind_list);
->>>+	}
->>>+	spin_unlock(&vm->vm_rebind_lock);
->>>+}
->>>+
->>> static int eb_lookup_vma_all(struct i915_execbuffer *eb)
->>> {
->>> 	unsigned int i, current_batch = 0;
->>>@@ -141,14 +169,108 @@ static int eb_lookup_vma_all(struct i915_execbuffer *eb)
->>> 		++current_batch;
->>> 	}
->>>+	eb_scoop_unbound_vma_all(eb->context->vm);
->>>+
->>>+	return 0;
->>>+}
->>>+
->>>+static int eb_lock_vma_all(struct i915_execbuffer *eb)
->>>+{
->>>+	struct i915_address_space *vm = eb->context->vm;
->>>+	struct i915_vma *vma;
->>>+	int err;
->>>+
->>>+	err = i915_gem_object_lock(eb->context->vm->root_obj, &eb->ww);
->>>+	if (err)
->>>+		return err;
->>>+
->>>+	list_for_each_entry(vma, &vm->non_priv_vm_bind_list,
->>>+			    non_priv_vm_bind_link) {
->>>+		err = i915_gem_object_lock(vma->obj, &eb->ww);
->>>+		if (err)
->>>+			return err;
->>>+	}
->>>+
->>> 	return 0;
->>> }
->>>+static void eb_release_persistent_vma_all(struct i915_execbuffer *eb)
->>>+{
->>>+	struct i915_address_space *vm = eb->context->vm;
->>>+	struct i915_vma *vma, *vn;
->>>+
->>>+	lockdep_assert_held(&vm->vm_bind_lock);
->>>+
->>>+	if (!(eb->args->flags & __EXEC3_HAS_PIN))
->>>+		return;
->>>+
->>>+	assert_object_held(vm->root_obj);
->>>+
->>>+	list_for_each_entry_safe(vma, vn, &vm->vm_bind_list, vm_bind_link)
->>>+		if (i915_vma_verify_bind_complete(vma))
->>>+			list_move_tail(&vma->vm_bind_link, &vm->vm_bound_list);
->>>+
->>>+	eb->args->flags &= ~__EXEC3_HAS_PIN;
->>>+}
->>>+
->>> static void eb_release_vma_all(struct i915_execbuffer *eb)
->>> {
->>>+	eb_release_persistent_vma_all(eb);
->>> 	eb_unpin_engine(eb);
->>> }
->>>+static int eb_reserve_fence_for_persistent_vma_all(struct i915_execbuffer *eb)
->>>+{
->>>+	struct i915_address_space *vm = eb->context->vm;
->>>+	u64 num_fences = 1;
->>>+	struct i915_vma *vma;
->>>+	int ret;
->>>+
->>>+	/* Reserve enough slots to accommodate composite fences */
->>>+	if (intel_context_is_parallel(eb->context))
->>>+		num_fences = eb->num_batches;
->>>+
->>>+	ret = dma_resv_reserve_fences(vm->root_obj->base.resv, num_fences);
->>>+	if (ret)
->>>+		return ret;
->>>+
->>>+	list_for_each_entry(vma, &vm->non_priv_vm_bind_list,
->>>+			    non_priv_vm_bind_link) {
->>>+		ret = dma_resv_reserve_fences(vma->obj->base.resv, num_fences);
->>>+		if (ret)
->>>+			return ret;
->>>+	}
->>>+
->>>+	return 0;
->>>+}
->>>+
->>>+static int eb_validate_persistent_vma_all(struct i915_execbuffer *eb)
->>>+{
->>>+	struct i915_address_space *vm = eb->context->vm;
->>>+	struct i915_vma *vma;
->>>+	int ret = 0;
->>>+
->>>+	lockdep_assert_held(&vm->vm_bind_lock);
->>>+	assert_object_held(vm->root_obj);
->>>+
->>>+	ret = eb_reserve_fence_for_persistent_vma_all(eb);
->>>+	if (ret)
->>>+		return ret;
->>>+
->>>+	list_for_each_entry(vma, &vm->vm_bind_list, vm_bind_link) {
->>>+		u64 pin_flags = vma->start | PIN_OFFSET_FIXED |
->>>+				PIN_USER | PIN_VALIDATE;
->>>+
->>>+		ret = i915_vma_pin_ww(vma, &eb->ww, 0, 0, pin_flags);
->>>+		if (ret)
->>>+			break;
->>>+
->>>+		eb->args->flags |= __EXEC3_HAS_PIN;
->>>+	}
->>>+
->>>+	return ret;
->>>+}
->>>+
->>> /*
->>>  * Using two helper loops for the order of which requests / batches are created
->>>  * and added the to backend. Requests are created in order from the parent to
->>>@@ -160,13 +282,80 @@ static void eb_release_vma_all(struct i915_execbuffer *eb)
->>>  */
->>> #define for_each_batch_create_order(_eb) \
->>> 	for (unsigned int i = 0; i < (_eb)->num_batches; ++i)
->>>+#define for_each_batch_add_order(_eb) \
->>>+	for (int i = (_eb)->num_batches - 1; i >= 0; --i)
->>>+
->>>+static void __eb_persistent_add_shared_fence(struct drm_i915_gem_object *obj,
->>>+					     struct dma_fence *fence)
->>>+{
->>>+	struct dma_fence *curr;
->>>+	int idx;
->>>+
->>>+	dma_fence_array_for_each(curr, idx, fence)
->>>+		dma_resv_add_fence(obj->base.resv, curr,
->>>+				   DMA_RESV_USAGE_BOOKKEEP);
->>>+
->>>+	obj->write_domain = 0;
->>>+	obj->read_domains |= I915_GEM_GPU_DOMAINS;
->>>+	obj->mm.dirty = true;
->>>+}
->>>+
->>>+static void eb_persistent_add_shared_fence(struct i915_execbuffer *eb)
->>>+{
->>>+	struct i915_address_space *vm = eb->context->vm;
->>>+	struct dma_fence *fence;
->>>+	struct i915_vma *vma;
->>>+
->>>+	fence = eb->composite_fence ? eb->composite_fence :
->>>+		&eb->requests[0]->fence;
->>>+
->>>+	__eb_persistent_add_shared_fence(vm->root_obj, fence);
->>>+	list_for_each_entry(vma, &vm->non_priv_vm_bind_list,
->>>+			    non_priv_vm_bind_link)
->>>+		__eb_persistent_add_shared_fence(vma->obj, fence);
->>>+}
->>>+
->>>+static void eb_move_all_persistent_vma_to_active(struct i915_execbuffer *eb)
->>>+{
->>>+	/* Add fence to BOs dma-resv fence list */
->>>+	eb_persistent_add_shared_fence(eb);
->>>+}
->>> static int eb_move_to_gpu(struct i915_execbuffer *eb)
->>> {
->>>+	struct i915_address_space *vm = eb->context->vm;
->>>+	struct i915_vma *vma;
->>>+	int err = 0;
->>>+
->>>+	lockdep_assert_held(&vm->vm_bind_lock);
->>>+	assert_object_held(vm->root_obj);
->>>+
->>>+	eb_move_all_persistent_vma_to_active(eb);
->>>+
->>>+	list_for_each_entry(vma, &vm->vm_bind_list, vm_bind_link) {
->>>+		for_each_batch_add_order(eb) {
->>>+			if (!eb->requests[i])
->>>+				continue;
->>>+
->>>+			err = i915_request_await_bind(eb->requests[i], vma);
->>>+			if (err)
->>>+				goto err_skip;
->>>+		}
->>>+	}
->>>+
->>> 	/* Unconditionally flush any chipset caches (for streaming writes). */
->>> 	intel_gt_chipset_flush(eb->gt);
->>> 	return 0;
->>>+
->>>+err_skip:
->>>+	for_each_batch_create_order(eb) {
->>>+		if (!eb->requests[i])
->>>+			break;
->>>+
->>>+		i915_request_set_error_once(eb->requests[i], err);
->>>+	}
->>>+	return err;
->>> }
->>> static int eb_request_submit(struct i915_execbuffer *eb,
->>>@@ -483,6 +672,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
->>> 	mutex_lock(&eb.context->vm->vm_bind_lock);
->>>+lookup_vmas:
->>> 	err = eb_lookup_vma_all(&eb);
->>> 	if (err) {
->>> 		eb_release_vma_all(&eb);
->>>@@ -499,6 +689,22 @@ i915_gem_do_execbuffer(struct drm_device *dev,
->>> 	/* only throttle once, even if we didn't need to throttle */
->>> 	throttle = false;
->>>+	err = eb_lock_vma_all(&eb);
->>>+	if (err)
->>>+		goto err_validate;
->>>+
->>>+	/**
->>>+	 * No object unbinds possible once the objects are locked. So,
->>>+	 * check for any unbinds here, which needs to be scooped up.
->>>+	 */
->>>+	if (!list_empty(&eb.context->vm->vm_rebind_list)) {
->>>+		eb_release_vma_all(&eb);
->>>+		i915_gem_ww_ctx_fini(&eb.ww);
->>>+		goto lookup_vmas;
->>>+	}
->>
->>Is it not possible to grab the object locks first, and then move 
->>stuff off the rebind_list to be re-validated? Or if not maybe a 
->>comment to explain?
->>
->
->We need to do the rebind_list scooping in lookup phase of the execbuf
->path so that userptr_submit_init() can be called on them without
->holding the object lock. Object locks are held during validation phase.
->Ok, will add some documention where we invoke eb_scoop_unbound_vma_all().
->
+Previously RC6 residency functions directly accepted RC6 residency register
+MMIO offsets (there are four RC6 residency registers). This worked but
+required an assumption on the residency register layout so was not future
+proof.
 
-Hmm...seems bit more complicated than that. For userptr, we have separate
-userptr_invalidated_list. So, probably rebind_list can be scooped in the
-validation phase under the object locks, unless there are other ways
-the userptr objects gets unbound other than through mmu invalidation.
+Therefore change RC6 residency functions to accept RC6 residency types
+instead of register MMIO offsets. The knowledge of register offsets as well
+as ID to offset mapping is now maintained solely in intel_rc6 and can be
+tailored for different platforms and different register layouts as need
+arises.
 
-Niranjana
+v2: Address review comments by Jani N
+    - Change residency functions to accept RC6 residency types instead of
+      register ID's
+    - s/intel_rc6_print_rc5_res/intel_rc6_print_residency/
+    - Remove "const enum" in function arguments
+    - Naming: intel_rc6_* for enum
+    - Use INTEL_RC6_RES_MAX and other minor changes
 
->Niranjana
->
->>>+
->>>+	err = eb_validate_persistent_vma_all(&eb);
->>>+
->>> err_validate:
->>> 	if (err == -EDEADLK) {
->>> 		eb_release_vma_all(&eb);
+Suggested-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
+Reported-by: Jani Nikula <jani.nikula@linux.intel.com>
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c | 27 +++------
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c   | 12 ++--
+ drivers/gpu/drm/i915/gt/intel_rc6.c           | 55 +++++++++++--------
+ drivers/gpu/drm/i915/gt/intel_rc6.h           |  8 ++-
+ drivers/gpu/drm/i915/gt/intel_rc6_types.h     | 15 ++++-
+ drivers/gpu/drm/i915/gt/selftest_rc6.c        |  6 +-
+ drivers/gpu/drm/i915/i915_pmu.c               |  6 +-
+ 7 files changed, 70 insertions(+), 59 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+index 40d0a3be42acf..235d593cfaeba 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+@@ -83,19 +83,6 @@ static int fw_domains_show(struct seq_file *m, void *data)
+ }
+ DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE(fw_domains);
+ 
+-static void print_rc6_res(struct seq_file *m,
+-			  const char *title,
+-			  const i915_reg_t reg)
+-{
+-	struct intel_gt *gt = m->private;
+-	intel_wakeref_t wakeref;
+-
+-	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
+-		seq_printf(m, "%s %u (%llu us)\n", title,
+-			   intel_uncore_read(gt->uncore, reg),
+-			   intel_rc6_residency_us(&gt->rc6, reg));
+-}
+-
+ static int vlv_drpc(struct seq_file *m)
+ {
+ 	struct intel_gt *gt = m->private;
+@@ -115,8 +102,8 @@ static int vlv_drpc(struct seq_file *m)
+ 	seq_printf(m, "Media Power Well: %s\n",
+ 		   (pw_status & VLV_GTLC_PW_MEDIA_STATUS_MASK) ? "Up" : "Down");
+ 
+-	print_rc6_res(m, "Render RC6 residency since boot:", GEN6_GT_GFX_RC6);
+-	print_rc6_res(m, "Media RC6 residency since boot:", VLV_GT_MEDIA_RC6);
++	intel_rc6_print_residency(m, "Render RC6 residency since boot:", INTEL_RC6_RES_RC6);
++	intel_rc6_print_residency(m, "Media RC6 residency since boot:", INTEL_RC6_RES_VLV_MEDIA);
+ 
+ 	return fw_domains_show(m, NULL);
+ }
+@@ -192,11 +179,11 @@ static int gen6_drpc(struct seq_file *m)
+ 	}
+ 
+ 	/* Not exactly sure what this is */
+-	print_rc6_res(m, "RC6 \"Locked to RPn\" residency since boot:",
+-		      GEN6_GT_GFX_RC6_LOCKED);
+-	print_rc6_res(m, "RC6 residency since boot:", GEN6_GT_GFX_RC6);
+-	print_rc6_res(m, "RC6+ residency since boot:", GEN6_GT_GFX_RC6p);
+-	print_rc6_res(m, "RC6++ residency since boot:", GEN6_GT_GFX_RC6pp);
++	intel_rc6_print_residency(m, "RC6 \"Locked to RPn\" residency since boot:",
++				  INTEL_RC6_RES_RC6_LOCKED);
++	intel_rc6_print_residency(m, "RC6 residency since boot:", INTEL_RC6_RES_RC6);
++	intel_rc6_print_residency(m, "RC6+ residency since boot:", INTEL_RC6_RES_RC6p);
++	intel_rc6_print_residency(m, "RC6++ residency since boot:", INTEL_RC6_RES_RC6pp);
+ 
+ 	if (GRAPHICS_VER(i915) <= 7) {
+ 		seq_printf(m, "RC6   voltage: %dmV\n",
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
+index 9041609523697..19a60000e052c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
+@@ -93,13 +93,13 @@ sysfs_gt_attribute_r_func(struct device *dev, struct device_attribute *attr,
+ 		sysfs_gt_attribute_r_func(d, a, f, INTEL_GT_SYSFS_MAX)
+ 
+ #ifdef CONFIG_PM
+-static u32 get_residency(struct intel_gt *gt, i915_reg_t reg)
++static u32 get_residency(struct intel_gt *gt, enum intel_rc6_res_type id)
+ {
+ 	intel_wakeref_t wakeref;
+ 	u64 res = 0;
+ 
+ 	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
+-		res = intel_rc6_residency_us(&gt->rc6, reg);
++		res = intel_rc6_residency_us(&gt->rc6, id);
+ 
+ 	return DIV_ROUND_CLOSEST_ULL(res, 1000);
+ }
+@@ -123,7 +123,7 @@ static ssize_t rc6_enable_show(struct device *dev,
+ 
+ static u32 __rc6_residency_ms_show(struct intel_gt *gt)
+ {
+-	return get_residency(gt, GEN6_GT_GFX_RC6);
++	return get_residency(gt, INTEL_RC6_RES_RC6);
+ }
+ 
+ static ssize_t rc6_residency_ms_show(struct device *dev,
+@@ -138,7 +138,7 @@ static ssize_t rc6_residency_ms_show(struct device *dev,
+ 
+ static u32 __rc6p_residency_ms_show(struct intel_gt *gt)
+ {
+-	return get_residency(gt, GEN6_GT_GFX_RC6p);
++	return get_residency(gt, INTEL_RC6_RES_RC6p);
+ }
+ 
+ static ssize_t rc6p_residency_ms_show(struct device *dev,
+@@ -153,7 +153,7 @@ static ssize_t rc6p_residency_ms_show(struct device *dev,
+ 
+ static u32 __rc6pp_residency_ms_show(struct intel_gt *gt)
+ {
+-	return get_residency(gt, GEN6_GT_GFX_RC6pp);
++	return get_residency(gt, INTEL_RC6_RES_RC6pp);
+ }
+ 
+ static ssize_t rc6pp_residency_ms_show(struct device *dev,
+@@ -168,7 +168,7 @@ static ssize_t rc6pp_residency_ms_show(struct device *dev,
+ 
+ static u32 __media_rc6_residency_ms_show(struct intel_gt *gt)
+ {
+-	return get_residency(gt, VLV_GT_MEDIA_RC6);
++	return get_residency(gt, INTEL_RC6_RES_VLV_MEDIA);
+ }
+ 
+ static ssize_t media_rc6_residency_ms_show(struct device *dev,
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
+index f8d0523f4c18e..6db4e60d5fba5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.c
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
+@@ -551,6 +551,14 @@ static void __intel_rc6_disable(struct intel_rc6 *rc6)
+ 	intel_uncore_forcewake_put(uncore, FORCEWAKE_ALL);
+ }
+ 
++static void rc6_res_reg_init(struct intel_rc6 *rc6)
++{
++	rc6->res_reg[INTEL_RC6_RES_RC6_LOCKED] = GEN6_GT_GFX_RC6_LOCKED;
++	rc6->res_reg[INTEL_RC6_RES_RC6] = GEN6_GT_GFX_RC6;
++	rc6->res_reg[INTEL_RC6_RES_RC6p] = GEN6_GT_GFX_RC6p;
++	rc6->res_reg[INTEL_RC6_RES_RC6pp] = GEN6_GT_GFX_RC6pp;
++}
++
+ void intel_rc6_init(struct intel_rc6 *rc6)
+ {
+ 	struct drm_i915_private *i915 = rc6_to_i915(rc6);
+@@ -562,6 +570,8 @@ void intel_rc6_init(struct intel_rc6 *rc6)
+ 	if (!rc6_supported(rc6))
+ 		return;
+ 
++	rc6_res_reg_init(rc6);
++
+ 	if (IS_CHERRYVIEW(i915))
+ 		err = chv_rc6_init(rc6);
+ 	else if (IS_VALLEYVIEW(i915))
+@@ -736,31 +746,19 @@ static u64 vlv_residency_raw(struct intel_uncore *uncore, const i915_reg_t reg)
+ 	return lower | (u64)upper << 8;
+ }
+ 
+-u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, const i915_reg_t reg)
++u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, enum intel_rc6_res_type id)
+ {
+ 	struct drm_i915_private *i915 = rc6_to_i915(rc6);
+ 	struct intel_uncore *uncore = rc6_to_uncore(rc6);
+ 	u64 time_hw, prev_hw, overflow_hw;
++	i915_reg_t reg = rc6->res_reg[id];
+ 	unsigned int fw_domains;
+ 	unsigned long flags;
+-	unsigned int i;
+ 	u32 mul, div;
+ 
+ 	if (!rc6->supported)
+ 		return 0;
+ 
+-	/*
+-	 * Store previous hw counter values for counter wrap-around handling.
+-	 *
+-	 * There are only four interesting registers and they live next to each
+-	 * other so we can use the relative address, compared to the smallest
+-	 * one as the index into driver storage.
+-	 */
+-	i = (i915_mmio_reg_offset(reg) -
+-	     i915_mmio_reg_offset(GEN6_GT_GFX_RC6_LOCKED)) / sizeof(u32);
+-	if (drm_WARN_ON_ONCE(&i915->drm, i >= ARRAY_SIZE(rc6->cur_residency)))
+-		return 0;
+-
+ 	fw_domains = intel_uncore_forcewake_for_reg(uncore, reg, FW_REG_READ);
+ 
+ 	spin_lock_irqsave(&uncore->lock, flags);
+@@ -789,11 +787,11 @@ u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, const i915_reg_t reg)
+ 	/*
+ 	 * Counter wrap handling.
+ 	 *
+-	 * But relying on a sufficient frequency of queries otherwise counters
+-	 * can still wrap.
++	 * Store previous hw counter values for counter wrap-around handling. But
++	 * relying on a sufficient frequency of queries otherwise counters can still wrap.
+ 	 */
+-	prev_hw = rc6->prev_hw_residency[i];
+-	rc6->prev_hw_residency[i] = time_hw;
++	prev_hw = rc6->prev_hw_residency[id];
++	rc6->prev_hw_residency[id] = time_hw;
+ 
+ 	/* RC6 delta from last sample. */
+ 	if (time_hw >= prev_hw)
+@@ -802,8 +800,8 @@ u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, const i915_reg_t reg)
+ 		time_hw += overflow_hw - prev_hw;
+ 
+ 	/* Add delta to RC6 extended raw driver copy. */
+-	time_hw += rc6->cur_residency[i];
+-	rc6->cur_residency[i] = time_hw;
++	time_hw += rc6->cur_residency[id];
++	rc6->cur_residency[id] = time_hw;
+ 
+ 	intel_uncore_forcewake_put__locked(uncore, fw_domains);
+ 	spin_unlock_irqrestore(&uncore->lock, flags);
+@@ -811,9 +809,22 @@ u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, const i915_reg_t reg)
+ 	return mul_u64_u32_div(time_hw, mul, div);
+ }
+ 
+-u64 intel_rc6_residency_us(struct intel_rc6 *rc6, i915_reg_t reg)
++u64 intel_rc6_residency_us(struct intel_rc6 *rc6, enum intel_rc6_res_type id)
++{
++	return DIV_ROUND_UP_ULL(intel_rc6_residency_ns(rc6, id), 1000);
++}
++
++void intel_rc6_print_residency(struct seq_file *m, const char *title,
++			       enum intel_rc6_res_type id)
+ {
+-	return DIV_ROUND_UP_ULL(intel_rc6_residency_ns(rc6, reg), 1000);
++	struct intel_gt *gt = m->private;
++	i915_reg_t reg = gt->rc6.res_reg[id];
++	intel_wakeref_t wakeref;
++
++	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
++		seq_printf(m, "%s %u (%llu us)\n", title,
++			   intel_uncore_read(gt->uncore, reg),
++			   intel_rc6_residency_us(&gt->rc6, id));
+ }
+ 
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.h b/drivers/gpu/drm/i915/gt/intel_rc6.h
+index b6fea71afc223..3105bc72c096b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.h
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.h
+@@ -6,7 +6,7 @@
+ #ifndef INTEL_RC6_H
+ #define INTEL_RC6_H
+ 
+-#include "i915_reg_defs.h"
++#include "intel_rc6_types.h"
+ 
+ struct intel_engine_cs;
+ struct intel_rc6;
+@@ -21,7 +21,9 @@ void intel_rc6_sanitize(struct intel_rc6 *rc6);
+ void intel_rc6_enable(struct intel_rc6 *rc6);
+ void intel_rc6_disable(struct intel_rc6 *rc6);
+ 
+-u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, i915_reg_t reg);
+-u64 intel_rc6_residency_us(struct intel_rc6 *rc6, i915_reg_t reg);
++u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, enum intel_rc6_res_type id);
++u64 intel_rc6_residency_us(struct intel_rc6 *rc6, enum intel_rc6_res_type id);
++void intel_rc6_print_residency(struct seq_file *m, const char *title,
++			       enum intel_rc6_res_type id);
+ 
+ #endif /* INTEL_RC6_H */
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6_types.h b/drivers/gpu/drm/i915/gt/intel_rc6_types.h
+index e747492b2f46e..fa23c4dce00b4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_rc6_types.h
+@@ -13,9 +13,20 @@
+ 
+ struct drm_i915_gem_object;
+ 
++/* RC6 residency types */
++enum intel_rc6_res_type {
++	INTEL_RC6_RES_RC6_LOCKED,
++	INTEL_RC6_RES_RC6,
++	INTEL_RC6_RES_RC6p,
++	INTEL_RC6_RES_RC6pp,
++	INTEL_RC6_RES_MAX,
++	INTEL_RC6_RES_VLV_MEDIA = INTEL_RC6_RES_RC6p,
++};
++
+ struct intel_rc6 {
+-	u64 prev_hw_residency[4];
+-	u64 cur_residency[4];
++	i915_reg_t res_reg[INTEL_RC6_RES_MAX];
++	u64 prev_hw_residency[INTEL_RC6_RES_MAX];
++	u64 cur_residency[INTEL_RC6_RES_MAX];
+ 
+ 	u32 ctl_enable;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
+index 8c70b7e120749..2ceeadecc639c 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
++++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
+@@ -19,11 +19,11 @@ static u64 rc6_residency(struct intel_rc6 *rc6)
+ 
+ 	/* XXX VLV_GT_MEDIA_RC6? */
+ 
+-	result = intel_rc6_residency_ns(rc6, GEN6_GT_GFX_RC6);
++	result = intel_rc6_residency_ns(rc6, INTEL_RC6_RES_RC6);
+ 	if (HAS_RC6p(rc6_to_i915(rc6)))
+-		result += intel_rc6_residency_ns(rc6, GEN6_GT_GFX_RC6p);
++		result += intel_rc6_residency_ns(rc6, INTEL_RC6_RES_RC6p);
+ 	if (HAS_RC6pp(rc6_to_i915(rc6)))
+-		result += intel_rc6_residency_ns(rc6, GEN6_GT_GFX_RC6pp);
++		result += intel_rc6_residency_ns(rc6, INTEL_RC6_RES_RC6pp);
+ 
+ 	return result;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 67140a87182f8..52531ab28c5f5 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -148,13 +148,13 @@ static u64 __get_rc6(struct intel_gt *gt)
+ 	struct drm_i915_private *i915 = gt->i915;
+ 	u64 val;
+ 
+-	val = intel_rc6_residency_ns(&gt->rc6, GEN6_GT_GFX_RC6);
++	val = intel_rc6_residency_ns(&gt->rc6, INTEL_RC6_RES_RC6);
+ 
+ 	if (HAS_RC6p(i915))
+-		val += intel_rc6_residency_ns(&gt->rc6, GEN6_GT_GFX_RC6p);
++		val += intel_rc6_residency_ns(&gt->rc6, INTEL_RC6_RES_RC6p);
+ 
+ 	if (HAS_RC6pp(i915))
+-		val += intel_rc6_residency_ns(&gt->rc6, GEN6_GT_GFX_RC6pp);
++		val += intel_rc6_residency_ns(&gt->rc6, INTEL_RC6_RES_RC6pp);
+ 
+ 	return val;
+ }
+-- 
+2.38.0
+
