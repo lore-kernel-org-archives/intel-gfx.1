@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FBE5C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 23:38:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD409C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 23:38:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD13D10E8F5;
-	Wed, 19 Oct 2022 23:37:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E592D10E6BB;
+	Wed, 19 Oct 2022 23:37:50 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F26810E196;
- Wed, 19 Oct 2022 23:37:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0C6210E162;
+ Wed, 19 Oct 2022 23:37:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666222647; x=1697758647;
+ t=1666222646; x=1697758646;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ScLqvFH8qmZujiDalArQ9o/lf8VDPzSG/1QT5djOn6o=;
- b=ggesifj5lAFFoYqTVYstdy9qli11bg30yvMiAeb5FEreFtAT0ldvWqwd
- UREhvav1tH7rVoS0624qEbIGPP6+QANgGrbZHP5ou6kvAI5HZeiG0+Ef8
- ciwn0QrxMeOoAKABifD0oZ/oShi+ZLR5nePDacMMj/VmMozLeHtMVp9pX
- E2RzFbUgUKtJ6oyK3rCllr+wyuz6gnuwcvpm0cKV0ujNMzC8mwrWxdtKO
- Bst4bUNFdRZxqfOUpNayUSNBcz73gkNdDkYzrOjM42WRROKptqrp9hmLz
- afwq68oBVZ7v2bhbMjcQ8PiOa3WdAFehKYNMpAO8AyzHxOiM/Kbr1QAif Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="392860770"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="392860770"
+ bh=AYeakL9upHvNamrH5JXZSE3iuPu11x12qPcS0Fa8Fww=;
+ b=TQKCAhbZVqMdVm9Ta2zrcWnsVSeI1maJsHl7o9aR65VFRgfRIBfC6kSw
+ q0AtKAubB+YuIpDG9okocb56CgL+VeS8YnNWsmjWbPoXLR7PZQ/VRt+O3
+ kCwCMW6DzyjyOlxCDgXR1XfWLKwT9hOiEhaSOFJURRt6gX/xdBetrTM+j
+ PN4z0qebO4v9x9jVdg3yu2LLMcpJJp49sI3jLrZLrtxPmGWY71E7Fd2Xu
+ H3SNd8Frmdf29uBikHoRrZWSyHZ4JkSKnUCgzCW3j57nmU5d2iO0qwh6f
+ MvoZNevm0CIA6Y8v9+U7qKapoj14eeTssvO9Te+H+cjUHCL1qxVqhd0w7 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="392860767"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="392860767"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 16:37:27 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="718723325"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="718723325"
+ 19 Oct 2022 16:37:26 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="718723316"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="718723316"
 Received: from orsosgc001.jf.intel.com (HELO unerlige-ril.jf.intel.com)
  ([10.165.21.138])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 16:37:26 -0700
+ 19 Oct 2022 16:37:25 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Oct 2022 16:37:20 -0700
-Message-Id: <20221019233721.3270601-5-ashutosh.dixit@intel.com>
+Date: Wed, 19 Oct 2022 16:37:17 -0700
+Message-Id: <20221019233721.3270601-2-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221019233721.3270601-1-ashutosh.dixit@intel.com>
 References: <20221019233721.3270601-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/5] drm/i915/gt: Use RC6 residency types as
- arguments to residency functions
+Subject: [Intel-gfx] [PATCH 1/5] drm/i915/rps: Prefer REG_FIELD_GET in
+ intel_rps_get_cagf
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,358 +62,86 @@ Cc: dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Previously RC6 residency functions directly accepted RC6 residency register
-MMIO offsets (there are four RC6 residency registers). This worked but
-required an assumption on the residency register layout so was not future
-proof.
-
-Therefore change RC6 residency functions to accept RC6 residency types
-instead of register MMIO offsets. The knowledge of register offsets as well
-as ID to offset mapping is now maintained solely in intel_rc6 and can be
-tailored for different platforms and different register layouts as need
-arises.
-
-v2: Address review comments by Jani N
-    - Change residency functions to accept RC6 residency types instead of
-      register ID's
-    - s/intel_rc6_print_rc5_res/intel_rc6_print_residency/
-    - Remove "const enum" in function arguments
-    - Naming: intel_rc6_* for enum
-    - Use INTEL_RC6_RES_MAX and other minor changes
-v3: Don't include intel_rc6_types.h in intel_rc6.h (Jani)
+Instead of masks/shifts settle on REG_FIELD_GET as the standard way to
+extract reg fields. This allows future patches touching this code to also
+consistently use REG_FIELD_GET and friends.
 
 Suggested-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
-Reported-by: Jani Nikula <jani.nikula@linux.intel.com>
 Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c | 27 +++------
- drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c   | 12 ++--
- drivers/gpu/drm/i915/gt/intel_rc6.c           | 55 +++++++++++--------
- drivers/gpu/drm/i915/gt/intel_rc6.h           | 11 ++--
- drivers/gpu/drm/i915/gt/intel_rc6_types.h     | 15 ++++-
- drivers/gpu/drm/i915/gt/selftest_rc6.c        |  6 +-
- drivers/gpu/drm/i915/i915_pmu.c               |  6 +-
- 7 files changed, 72 insertions(+), 60 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c |  2 +-
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h       | 12 ++++--------
+ drivers/gpu/drm/i915/gt/intel_rps.c           | 11 +++++------
+ 3 files changed, 10 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
-index 979e602946549..5d6b346831393 100644
+index 40d0a3be42acf..979e602946549 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
-@@ -83,19 +83,6 @@ static int fw_domains_show(struct seq_file *m, void *data)
- }
- DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE(fw_domains);
+@@ -307,7 +307,7 @@ void intel_gt_pm_frequency_dump(struct intel_gt *gt, struct drm_printer *p)
+ 		drm_printf(p, "Current VID: %d\n", (rgvstat & MEMSTAT_VID_MASK) >>
+ 			   MEMSTAT_VID_SHIFT);
+ 		drm_printf(p, "Current P-state: %d\n",
+-			   (rgvstat & MEMSTAT_PSTATE_MASK) >> MEMSTAT_PSTATE_SHIFT);
++			   REG_FIELD_GET(MEMSTAT_PSTATE_MASK, rgvstat));
+ 	} else if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915)) {
+ 		u32 rpmodectl, freq_sts;
  
--static void print_rc6_res(struct seq_file *m,
--			  const char *title,
--			  const i915_reg_t reg)
--{
--	struct intel_gt *gt = m->private;
--	intel_wakeref_t wakeref;
--
--	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
--		seq_printf(m, "%s %u (%llu us)\n", title,
--			   intel_uncore_read(gt->uncore, reg),
--			   intel_rc6_residency_us(&gt->rc6, reg));
--}
--
- static int vlv_drpc(struct seq_file *m)
- {
- 	struct intel_gt *gt = m->private;
-@@ -115,8 +102,8 @@ static int vlv_drpc(struct seq_file *m)
- 	seq_printf(m, "Media Power Well: %s\n",
- 		   (pw_status & VLV_GTLC_PW_MEDIA_STATUS_MASK) ? "Up" : "Down");
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 36d95b79022c0..35c039573294c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -794,12 +794,9 @@
+ #define GEN6_RP_DOWN_TIMEOUT			_MMIO(0xa010)
+ #define GEN6_RP_INTERRUPT_LIMITS		_MMIO(0xa014)
+ #define GEN6_RPSTAT1				_MMIO(0xa01c)
+-#define   GEN6_CAGF_SHIFT			8
+-#define   HSW_CAGF_SHIFT			7
+-#define   GEN9_CAGF_SHIFT			23
+-#define   GEN6_CAGF_MASK			(0x7f << GEN6_CAGF_SHIFT)
+-#define   HSW_CAGF_MASK				(0x7f << HSW_CAGF_SHIFT)
+-#define   GEN9_CAGF_MASK			(0x1ff << GEN9_CAGF_SHIFT)
++#define   GEN6_CAGF_MASK			REG_GENMASK(14, 8)
++#define   HSW_CAGF_MASK				REG_GENMASK(13, 7)
++#define   GEN9_CAGF_MASK			REG_GENMASK(31, 23)
+ #define GEN6_RP_CONTROL				_MMIO(0xa024)
+ #define   GEN6_RP_MEDIA_TURBO			(1 << 11)
+ #define   GEN6_RP_MEDIA_MODE_MASK		(3 << 9)
+@@ -1370,8 +1367,7 @@
+ #define MEMSTAT_ILK				_MMIO(0x111f8)
+ #define   MEMSTAT_VID_MASK			0x7f00
+ #define   MEMSTAT_VID_SHIFT			8
+-#define   MEMSTAT_PSTATE_MASK			0x00f8
+-#define   MEMSTAT_PSTATE_SHIFT			3
++#define   MEMSTAT_PSTATE_MASK			REG_GENMASK(7, 3)
+ #define   MEMSTAT_MON_ACTV			(1 << 2)
+ #define   MEMSTAT_SRC_CTL_MASK			0x0003
+ #define   MEMSTAT_SRC_CTL_CORE			0
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index fc23c562d9b2a..5bd6671554a6e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -2074,16 +2074,15 @@ u32 intel_rps_get_cagf(struct intel_rps *rps, u32 rpstat)
+ 	u32 cagf;
  
--	print_rc6_res(m, "Render RC6 residency since boot:", GEN6_GT_GFX_RC6);
--	print_rc6_res(m, "Media RC6 residency since boot:", VLV_GT_MEDIA_RC6);
-+	intel_rc6_print_residency(m, "Render RC6 residency since boot:", INTEL_RC6_RES_RC6);
-+	intel_rc6_print_residency(m, "Media RC6 residency since boot:", INTEL_RC6_RES_VLV_MEDIA);
+ 	if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
+-		cagf = (rpstat >> 8) & 0xff;
++		cagf = REG_FIELD_GET(RPE_MASK, rpstat);
+ 	else if (GRAPHICS_VER(i915) >= 9)
+-		cagf = (rpstat & GEN9_CAGF_MASK) >> GEN9_CAGF_SHIFT;
++		cagf = REG_FIELD_GET(GEN9_CAGF_MASK, rpstat);
+ 	else if (IS_HASWELL(i915) || IS_BROADWELL(i915))
+-		cagf = (rpstat & HSW_CAGF_MASK) >> HSW_CAGF_SHIFT;
++		cagf = REG_FIELD_GET(HSW_CAGF_MASK, rpstat);
+ 	else if (GRAPHICS_VER(i915) >= 6)
+-		cagf = (rpstat & GEN6_CAGF_MASK) >> GEN6_CAGF_SHIFT;
++		cagf = REG_FIELD_GET(GEN6_CAGF_MASK, rpstat);
+ 	else
+-		cagf = gen5_invert_freq(rps, (rpstat & MEMSTAT_PSTATE_MASK) >>
+-					MEMSTAT_PSTATE_SHIFT);
++		cagf = gen5_invert_freq(rps, REG_FIELD_GET(MEMSTAT_PSTATE_MASK, rpstat));
  
- 	return fw_domains_show(m, NULL);
- }
-@@ -192,11 +179,11 @@ static int gen6_drpc(struct seq_file *m)
- 	}
- 
- 	/* Not exactly sure what this is */
--	print_rc6_res(m, "RC6 \"Locked to RPn\" residency since boot:",
--		      GEN6_GT_GFX_RC6_LOCKED);
--	print_rc6_res(m, "RC6 residency since boot:", GEN6_GT_GFX_RC6);
--	print_rc6_res(m, "RC6+ residency since boot:", GEN6_GT_GFX_RC6p);
--	print_rc6_res(m, "RC6++ residency since boot:", GEN6_GT_GFX_RC6pp);
-+	intel_rc6_print_residency(m, "RC6 \"Locked to RPn\" residency since boot:",
-+				  INTEL_RC6_RES_RC6_LOCKED);
-+	intel_rc6_print_residency(m, "RC6 residency since boot:", INTEL_RC6_RES_RC6);
-+	intel_rc6_print_residency(m, "RC6+ residency since boot:", INTEL_RC6_RES_RC6p);
-+	intel_rc6_print_residency(m, "RC6++ residency since boot:", INTEL_RC6_RES_RC6pp);
- 
- 	if (GRAPHICS_VER(i915) <= 7) {
- 		seq_printf(m, "RC6   voltage: %dmV\n",
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-index 9041609523697..19a60000e052c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-@@ -93,13 +93,13 @@ sysfs_gt_attribute_r_func(struct device *dev, struct device_attribute *attr,
- 		sysfs_gt_attribute_r_func(d, a, f, INTEL_GT_SYSFS_MAX)
- 
- #ifdef CONFIG_PM
--static u32 get_residency(struct intel_gt *gt, i915_reg_t reg)
-+static u32 get_residency(struct intel_gt *gt, enum intel_rc6_res_type id)
- {
- 	intel_wakeref_t wakeref;
- 	u64 res = 0;
- 
- 	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
--		res = intel_rc6_residency_us(&gt->rc6, reg);
-+		res = intel_rc6_residency_us(&gt->rc6, id);
- 
- 	return DIV_ROUND_CLOSEST_ULL(res, 1000);
- }
-@@ -123,7 +123,7 @@ static ssize_t rc6_enable_show(struct device *dev,
- 
- static u32 __rc6_residency_ms_show(struct intel_gt *gt)
- {
--	return get_residency(gt, GEN6_GT_GFX_RC6);
-+	return get_residency(gt, INTEL_RC6_RES_RC6);
- }
- 
- static ssize_t rc6_residency_ms_show(struct device *dev,
-@@ -138,7 +138,7 @@ static ssize_t rc6_residency_ms_show(struct device *dev,
- 
- static u32 __rc6p_residency_ms_show(struct intel_gt *gt)
- {
--	return get_residency(gt, GEN6_GT_GFX_RC6p);
-+	return get_residency(gt, INTEL_RC6_RES_RC6p);
- }
- 
- static ssize_t rc6p_residency_ms_show(struct device *dev,
-@@ -153,7 +153,7 @@ static ssize_t rc6p_residency_ms_show(struct device *dev,
- 
- static u32 __rc6pp_residency_ms_show(struct intel_gt *gt)
- {
--	return get_residency(gt, GEN6_GT_GFX_RC6pp);
-+	return get_residency(gt, INTEL_RC6_RES_RC6pp);
- }
- 
- static ssize_t rc6pp_residency_ms_show(struct device *dev,
-@@ -168,7 +168,7 @@ static ssize_t rc6pp_residency_ms_show(struct device *dev,
- 
- static u32 __media_rc6_residency_ms_show(struct intel_gt *gt)
- {
--	return get_residency(gt, VLV_GT_MEDIA_RC6);
-+	return get_residency(gt, INTEL_RC6_RES_VLV_MEDIA);
- }
- 
- static ssize_t media_rc6_residency_ms_show(struct device *dev,
-diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
-index f8d0523f4c18e..6db4e60d5fba5 100644
---- a/drivers/gpu/drm/i915/gt/intel_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
-@@ -551,6 +551,14 @@ static void __intel_rc6_disable(struct intel_rc6 *rc6)
- 	intel_uncore_forcewake_put(uncore, FORCEWAKE_ALL);
- }
- 
-+static void rc6_res_reg_init(struct intel_rc6 *rc6)
-+{
-+	rc6->res_reg[INTEL_RC6_RES_RC6_LOCKED] = GEN6_GT_GFX_RC6_LOCKED;
-+	rc6->res_reg[INTEL_RC6_RES_RC6] = GEN6_GT_GFX_RC6;
-+	rc6->res_reg[INTEL_RC6_RES_RC6p] = GEN6_GT_GFX_RC6p;
-+	rc6->res_reg[INTEL_RC6_RES_RC6pp] = GEN6_GT_GFX_RC6pp;
-+}
-+
- void intel_rc6_init(struct intel_rc6 *rc6)
- {
- 	struct drm_i915_private *i915 = rc6_to_i915(rc6);
-@@ -562,6 +570,8 @@ void intel_rc6_init(struct intel_rc6 *rc6)
- 	if (!rc6_supported(rc6))
- 		return;
- 
-+	rc6_res_reg_init(rc6);
-+
- 	if (IS_CHERRYVIEW(i915))
- 		err = chv_rc6_init(rc6);
- 	else if (IS_VALLEYVIEW(i915))
-@@ -736,31 +746,19 @@ static u64 vlv_residency_raw(struct intel_uncore *uncore, const i915_reg_t reg)
- 	return lower | (u64)upper << 8;
- }
- 
--u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, const i915_reg_t reg)
-+u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, enum intel_rc6_res_type id)
- {
- 	struct drm_i915_private *i915 = rc6_to_i915(rc6);
- 	struct intel_uncore *uncore = rc6_to_uncore(rc6);
- 	u64 time_hw, prev_hw, overflow_hw;
-+	i915_reg_t reg = rc6->res_reg[id];
- 	unsigned int fw_domains;
- 	unsigned long flags;
--	unsigned int i;
- 	u32 mul, div;
- 
- 	if (!rc6->supported)
- 		return 0;
- 
--	/*
--	 * Store previous hw counter values for counter wrap-around handling.
--	 *
--	 * There are only four interesting registers and they live next to each
--	 * other so we can use the relative address, compared to the smallest
--	 * one as the index into driver storage.
--	 */
--	i = (i915_mmio_reg_offset(reg) -
--	     i915_mmio_reg_offset(GEN6_GT_GFX_RC6_LOCKED)) / sizeof(u32);
--	if (drm_WARN_ON_ONCE(&i915->drm, i >= ARRAY_SIZE(rc6->cur_residency)))
--		return 0;
--
- 	fw_domains = intel_uncore_forcewake_for_reg(uncore, reg, FW_REG_READ);
- 
- 	spin_lock_irqsave(&uncore->lock, flags);
-@@ -789,11 +787,11 @@ u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, const i915_reg_t reg)
- 	/*
- 	 * Counter wrap handling.
- 	 *
--	 * But relying on a sufficient frequency of queries otherwise counters
--	 * can still wrap.
-+	 * Store previous hw counter values for counter wrap-around handling. But
-+	 * relying on a sufficient frequency of queries otherwise counters can still wrap.
- 	 */
--	prev_hw = rc6->prev_hw_residency[i];
--	rc6->prev_hw_residency[i] = time_hw;
-+	prev_hw = rc6->prev_hw_residency[id];
-+	rc6->prev_hw_residency[id] = time_hw;
- 
- 	/* RC6 delta from last sample. */
- 	if (time_hw >= prev_hw)
-@@ -802,8 +800,8 @@ u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, const i915_reg_t reg)
- 		time_hw += overflow_hw - prev_hw;
- 
- 	/* Add delta to RC6 extended raw driver copy. */
--	time_hw += rc6->cur_residency[i];
--	rc6->cur_residency[i] = time_hw;
-+	time_hw += rc6->cur_residency[id];
-+	rc6->cur_residency[id] = time_hw;
- 
- 	intel_uncore_forcewake_put__locked(uncore, fw_domains);
- 	spin_unlock_irqrestore(&uncore->lock, flags);
-@@ -811,9 +809,22 @@ u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, const i915_reg_t reg)
- 	return mul_u64_u32_div(time_hw, mul, div);
- }
- 
--u64 intel_rc6_residency_us(struct intel_rc6 *rc6, i915_reg_t reg)
-+u64 intel_rc6_residency_us(struct intel_rc6 *rc6, enum intel_rc6_res_type id)
-+{
-+	return DIV_ROUND_UP_ULL(intel_rc6_residency_ns(rc6, id), 1000);
-+}
-+
-+void intel_rc6_print_residency(struct seq_file *m, const char *title,
-+			       enum intel_rc6_res_type id)
- {
--	return DIV_ROUND_UP_ULL(intel_rc6_residency_ns(rc6, reg), 1000);
-+	struct intel_gt *gt = m->private;
-+	i915_reg_t reg = gt->rc6.res_reg[id];
-+	intel_wakeref_t wakeref;
-+
-+	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
-+		seq_printf(m, "%s %u (%llu us)\n", title,
-+			   intel_uncore_read(gt->uncore, reg),
-+			   intel_rc6_residency_us(&gt->rc6, id));
- }
- 
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
-diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.h b/drivers/gpu/drm/i915/gt/intel_rc6.h
-index b6fea71afc223..456fa668a2769 100644
---- a/drivers/gpu/drm/i915/gt/intel_rc6.h
-+++ b/drivers/gpu/drm/i915/gt/intel_rc6.h
-@@ -6,10 +6,11 @@
- #ifndef INTEL_RC6_H
- #define INTEL_RC6_H
- 
--#include "i915_reg_defs.h"
-+#include <linux/types.h>
- 
--struct intel_engine_cs;
-+enum intel_rc6_res_type;
- struct intel_rc6;
-+struct seq_file;
- 
- void intel_rc6_init(struct intel_rc6 *rc6);
- void intel_rc6_fini(struct intel_rc6 *rc6);
-@@ -21,7 +22,9 @@ void intel_rc6_sanitize(struct intel_rc6 *rc6);
- void intel_rc6_enable(struct intel_rc6 *rc6);
- void intel_rc6_disable(struct intel_rc6 *rc6);
- 
--u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, i915_reg_t reg);
--u64 intel_rc6_residency_us(struct intel_rc6 *rc6, i915_reg_t reg);
-+u64 intel_rc6_residency_ns(struct intel_rc6 *rc6, enum intel_rc6_res_type id);
-+u64 intel_rc6_residency_us(struct intel_rc6 *rc6, enum intel_rc6_res_type id);
-+void intel_rc6_print_residency(struct seq_file *m, const char *title,
-+			       enum intel_rc6_res_type id);
- 
- #endif /* INTEL_RC6_H */
-diff --git a/drivers/gpu/drm/i915/gt/intel_rc6_types.h b/drivers/gpu/drm/i915/gt/intel_rc6_types.h
-index e747492b2f46e..fa23c4dce00b4 100644
---- a/drivers/gpu/drm/i915/gt/intel_rc6_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_rc6_types.h
-@@ -13,9 +13,20 @@
- 
- struct drm_i915_gem_object;
- 
-+/* RC6 residency types */
-+enum intel_rc6_res_type {
-+	INTEL_RC6_RES_RC6_LOCKED,
-+	INTEL_RC6_RES_RC6,
-+	INTEL_RC6_RES_RC6p,
-+	INTEL_RC6_RES_RC6pp,
-+	INTEL_RC6_RES_MAX,
-+	INTEL_RC6_RES_VLV_MEDIA = INTEL_RC6_RES_RC6p,
-+};
-+
- struct intel_rc6 {
--	u64 prev_hw_residency[4];
--	u64 cur_residency[4];
-+	i915_reg_t res_reg[INTEL_RC6_RES_MAX];
-+	u64 prev_hw_residency[INTEL_RC6_RES_MAX];
-+	u64 cur_residency[INTEL_RC6_RES_MAX];
- 
- 	u32 ctl_enable;
- 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-index 8c70b7e120749..2ceeadecc639c 100644
---- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-@@ -19,11 +19,11 @@ static u64 rc6_residency(struct intel_rc6 *rc6)
- 
- 	/* XXX VLV_GT_MEDIA_RC6? */
- 
--	result = intel_rc6_residency_ns(rc6, GEN6_GT_GFX_RC6);
-+	result = intel_rc6_residency_ns(rc6, INTEL_RC6_RES_RC6);
- 	if (HAS_RC6p(rc6_to_i915(rc6)))
--		result += intel_rc6_residency_ns(rc6, GEN6_GT_GFX_RC6p);
-+		result += intel_rc6_residency_ns(rc6, INTEL_RC6_RES_RC6p);
- 	if (HAS_RC6pp(rc6_to_i915(rc6)))
--		result += intel_rc6_residency_ns(rc6, GEN6_GT_GFX_RC6pp);
-+		result += intel_rc6_residency_ns(rc6, INTEL_RC6_RES_RC6pp);
- 
- 	return result;
- }
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 67140a87182f8..52531ab28c5f5 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -148,13 +148,13 @@ static u64 __get_rc6(struct intel_gt *gt)
- 	struct drm_i915_private *i915 = gt->i915;
- 	u64 val;
- 
--	val = intel_rc6_residency_ns(&gt->rc6, GEN6_GT_GFX_RC6);
-+	val = intel_rc6_residency_ns(&gt->rc6, INTEL_RC6_RES_RC6);
- 
- 	if (HAS_RC6p(i915))
--		val += intel_rc6_residency_ns(&gt->rc6, GEN6_GT_GFX_RC6p);
-+		val += intel_rc6_residency_ns(&gt->rc6, INTEL_RC6_RES_RC6p);
- 
- 	if (HAS_RC6pp(i915))
--		val += intel_rc6_residency_ns(&gt->rc6, GEN6_GT_GFX_RC6pp);
-+		val += intel_rc6_residency_ns(&gt->rc6, INTEL_RC6_RES_RC6pp);
- 
- 	return val;
+ 	return cagf;
  }
 -- 
 2.38.0
