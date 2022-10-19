@@ -4,47 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C060AC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 07:27:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF6F2C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 07:29:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4D3210F169;
-	Wed, 19 Oct 2022 07:27:21 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 187DE10F168
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 07:27:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 360ED10EA7F;
+	Wed, 19 Oct 2022 07:29:54 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B061A10EA7F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 07:29:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666164437; x=1697700437;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=Bh8a+mo9q39UnfbFlWDmgr6CC5vPLfBBBHurJVMJ+mQ=;
- b=BQhB0h2aPBCEaLVHHIXIvpQ4naM9RgKy+rM7z1LeEVy9p9ZsqwFbSVyg
- ZgSXjuZR2D9hrNb+GY9tXNGP07Td0RGZgUvveQB8TwCDZOcYuCQXS6f7p
- IGmtmXFHQJPxg/2zUbX6Fdt+PpEBSbqXXIwx6NMpWozSjh7LuhE4D4wa3
- 7TDUQcGY814O9XiSO8an2oJvurksp7wjOu6TTReH0V/22QPR37ofLvDmJ
- Dbc4Mr5BSHegRKKbLkngL8xo1YN8FPYPA1zWHCMhr5f5sVNOAMUAkE0fH
- 7tNuirl0GwF7UM5Ss5FKZXuLEEAYx3OTpKb6WAZV+xIjZ5qoe8haRWayC w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="305065295"
-X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="305065295"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 00:27:16 -0700
+ t=1666164590; x=1697700590;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=xf7x2S8yFYeiF2556LF5OxBNzvNjI1nR36DxG8tPAv4=;
+ b=ENk72U5q30EX/AJoc+zrizJXFr8dS5h17VQoSGLbpO8KjkLlX77OxAhG
+ 3u2SlFKt6814AU6PzL83dfzUxyCt6JCPo0GlVhmwlEk0W1EpFiEQELPdz
+ C6r29+bPSFQxnOuL0FEs3LuFNd//Jv1foFgH0Q5QtTIy7OkQCaC1XOEpu
+ c/mYVprQfyNojvtbDs0J8ABBdiuMk0QsVqKEHWeYYzqM0WWCYv1/K48mx
+ RQdHDcsM2MBAz6O8S4EOSl7IL2xr2vIKSEboshOHwJwrko97ENHoUvSXM
+ 4aUQh0tzSrn8BGrCv2x14FvSmTHYxVk9e2S2dXczNMrsnSFkJgIzngBow Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="286722327"
+X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="286722327"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2022 00:29:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="580204156"
-X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="580204156"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga003.jf.intel.com with ESMTP; 19 Oct 2022 00:27:16 -0700
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Oct 2022 00:29:29 -0700
-Message-Id: <20221019072930.17755-2-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20221019072930.17755-1-alan.previn.teres.alexis@intel.com>
-References: <20221019072930.17755-1-alan.previn.teres.alexis@intel.com>
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="958199859"
+X-IronPort-AV: E=Sophos;i="5.95,195,1661842800"; d="scan'208";a="958199859"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
+ by fmsmga005.fm.intel.com with SMTP; 19 Oct 2022 00:29:47 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 19 Oct 2022 10:29:47 +0300
+Date: Wed, 19 Oct 2022 10:29:47 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Shankar, Uma" <uma.shankar@intel.com>
+Message-ID: <Y0+na3ypxfNCjS90@intel.com>
+References: <20220929071521.26612-1-ville.syrjala@linux.intel.com>
+ <20220929071521.26612-10-ville.syrjala@linux.intel.com>
+ <DM4PR11MB6360D74E4C70C8D53892C2EAF42B9@DM4PR11MB6360.namprd11.prod.outlook.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 1/2] drm/i915/guc: Add error-capture init
- warnings when needed
+In-Reply-To: <DM4PR11MB6360D74E4C70C8D53892C2EAF42B9@DM4PR11MB6360.namprd11.prod.outlook.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 09/10] drm/i915: Get rid of
+ glk_load_degamma_lut_linear()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,162 +63,209 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If GuC is being used and we initialized GuC-error-capture,
-we need to be warning if we don't provide an error-capture
-register list in the firmware ADS, for valid GT engines.
-A warning makes sense as this would impact debugability
-without realizing why a reglist wasn't retrieved and reported
-by GuC.
+On Wed, Oct 19, 2022 at 07:20:13AM +0000, Shankar, Uma wrote:
+> 
+> 
+> > -----Original Message-----
+> > From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Ville Syrjala
+> > Sent: Thursday, September 29, 2022 12:45 PM
+> > To: intel-gfx@lists.freedesktop.org
+> > Subject: [Intel-gfx] [PATCH 09/10] drm/i915: Get rid of
+> > glk_load_degamma_lut_linear()
+> > 
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > 
+> > Since we now have a place (pre_csc_lut) to stuff a purely internal LUT we can
+> > replace glk_load_degamma_lut_linear() with such a thing and just rely on the normal
+> > glk_load_degamma_lut() to load it as well.
+> > 
+> > drm_mode_config_cleanup() will clean this up for us.
+> > 
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_color.c    | 110 +++++++++++-------
+> >  drivers/gpu/drm/i915/display/intel_color.h    |   1 +
+> >  drivers/gpu/drm/i915/display/intel_display.c  |   4 +
+> >  .../gpu/drm/i915/display/intel_display_core.h |   5 +
+> >  4 files changed, 79 insertions(+), 41 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_color.c
+> > b/drivers/gpu/drm/i915/display/intel_color.c
+> > index 575d2a23682a..de530bf1aba1 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_color.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_color.c
+> > @@ -557,6 +557,32 @@ static void skl_color_commit_arm(const struct
+> > intel_crtc_state *crtc_state)
+> >  			  crtc_state->csc_mode);
+> >  }
+> > 
+> > +static struct drm_property_blob *
+> > +create_linear_lut(struct drm_i915_private *i915, int lut_size) {
+> > +	struct drm_property_blob *blob;
+> > +	struct drm_color_lut *lut;
+> > +	int i;
+> > +
+> > +	blob = drm_property_create_blob(&i915->drm,
+> > +					sizeof(struct drm_color_lut) * lut_size,
+> > +					NULL);
+> > +	if (IS_ERR(blob))
+> > +		return NULL;
+> > +
+> > +	lut = blob->data;
+> > +
+> > +	for (i = 0; i < lut_size; i++) {
+> > +		u16 val = 0xffff * i / (lut_size - 1);
+> > +
+> > +		lut[i].red = val;
+> > +		lut[i].green = val;
+> > +		lut[i].blue = val;
+> > +	}
+> > +
+> > +	return blob;
+> > +}
+> > +
+> >  static void i9xx_load_lut_8(struct intel_crtc *crtc,
+> >  			    const struct drm_property_blob *blob)  { @@ -871,53
+> > +897,14 @@ static void glk_load_degamma_lut(const struct intel_crtc_state
+> > *crtc_state,
+> >  	intel_de_write_fw(dev_priv, PRE_CSC_GAMC_INDEX(pipe), 0);  }
+> > 
+> > -static void glk_load_degamma_lut_linear(const struct intel_crtc_state *crtc_state) -
+> > {
+> > -	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+> > -	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+> > -	enum pipe pipe = crtc->pipe;
+> > -	int i, lut_size = INTEL_INFO(dev_priv)->display.color.degamma_lut_size;
+> > -
+> > -	/*
+> > -	 * When setting the auto-increment bit, the hardware seems to
+> > -	 * ignore the index bits, so we need to reset it to index 0
+> > -	 * separately.
+> > -	 */
+> > -	intel_de_write_fw(dev_priv, PRE_CSC_GAMC_INDEX(pipe), 0);
+> > -	intel_de_write_fw(dev_priv, PRE_CSC_GAMC_INDEX(pipe),
+> > -			  PRE_CSC_GAMC_AUTO_INCREMENT);
+> > -
+> > -	for (i = 0; i < lut_size; i++) {
+> > -		u32 v = (i << 16) / (lut_size - 1);
+> > -
+> > -		intel_de_write_fw(dev_priv, PRE_CSC_GAMC_DATA(pipe), v);
+> > -	}
+> > -
+> > -	/* Clamp values > 1.0. */
+> > -	while (i++ < 35)
+> > -		intel_de_write_fw(dev_priv, PRE_CSC_GAMC_DATA(pipe), 1 << 16);
+> > -
+> > -	intel_de_write_fw(dev_priv, PRE_CSC_GAMC_INDEX(pipe), 0);
+> > -}
+> > -
+> >  static void glk_load_luts(const struct intel_crtc_state *crtc_state)  {
+> >  	const struct drm_property_blob *pre_csc_lut = crtc_state->pre_csc_lut;
+> >  	const struct drm_property_blob *post_csc_lut = crtc_state->post_csc_lut;
+> >  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+> > 
+> > -	/*
+> > -	 * On GLK+ both pipe CSC and degamma LUT are controlled
+> > -	 * by csc_enable. Hence for the cases where the CSC is
+> > -	 * needed but degamma LUT is not we need to load a
+> > -	 * linear degamma LUT. In fact we'll just always load
+> > -	 * the degama LUT so that we don't have to reload
+> > -	 * it every time the pipe CSC is being enabled.
+> > -	 */
+> >  	if (pre_csc_lut)
+> >  		glk_load_degamma_lut(crtc_state, pre_csc_lut);
+> > -	else
+> > -		glk_load_degamma_lut_linear(crtc_state);
+> > 
+> >  	switch (crtc_state->gamma_mode) {
+> >  	case GAMMA_MODE_MODE_8BIT:
+> > @@ -1360,11 +1347,17 @@ void intel_color_assert_luts(const struct
+> > intel_crtc_state *crtc_state)
+> >  	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
+> > 
+> >  	/* make sure {pre,post}_csc_lut were correctly assigned */
+> > -	if (DISPLAY_VER(i915) >= 10 || HAS_GMCH(i915)) {
+> > +	if (DISPLAY_VER(i915) >= 11 || HAS_GMCH(i915)) {
+> >  		drm_WARN_ON(&i915->drm,
+> >  			    crtc_state->pre_csc_lut != crtc_state->hw.degamma_lut);
+> >  		drm_WARN_ON(&i915->drm,
+> >  			    crtc_state->post_csc_lut != crtc_state->hw.gamma_lut);
+> > +	} else if (DISPLAY_VER(i915) == 10) {
+> > +		drm_WARN_ON(&i915->drm,
+> > +			    crtc_state->pre_csc_lut != crtc_state->hw.degamma_lut
+> > &&
+> > +			    crtc_state->pre_csc_lut != i915-
+> > >display.color.glk_linear_degamma_lut);
+> > +		drm_WARN_ON(&i915->drm,
+> > +			    crtc_state->post_csc_lut != crtc_state->hw.gamma_lut);
+> >  	} else {
+> >  		drm_WARN_ON(&i915->drm,
+> >  			    crtc_state->pre_csc_lut != crtc_state->hw.degamma_lut
+> > && @@ -1619,6 +1612,25 @@ static u32 glk_gamma_mode(const struct
+> > intel_crtc_state *crtc_state)
+> >  		return GAMMA_MODE_MODE_10BIT;
+> >  }
+> > 
+> > +static void glk_assign_luts(struct intel_crtc_state *crtc_state) {
+> > +	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
+> > +
+> > +	intel_assign_luts(crtc_state);
+> > +
+> > +	/*
+> > +	 * On GLK+ both pipe CSC and degamma LUT are controlled
+> > +	 * by csc_enable. Hence for the cases where the CSC is
+> > +	 * needed but degamma LUT is not we need to load a
+> > +	 * linear degamma LUT. In fact we'll just always load
+> > +	 * the degama LUT so that we don't have to reload
+> > +	 * it every time the pipe CSC is being enabled.
+> > +	 */
+> > +	if (!crtc_state->pre_csc_lut)
+> > +		drm_property_replace_blob(&crtc_state->pre_csc_lut,
+> > +					  i915-
+> > >display.color.glk_linear_degamma_lut);
+> > +}
+> > +
+> >  static int glk_color_check(struct intel_crtc_state *crtc_state)  {
+> >  	struct drm_i915_private *dev_priv = to_i915(crtc_state->uapi.crtc->dev);
+> > @@ -1653,7 +1665,7 @@ static int glk_color_check(struct intel_crtc_state
+> > *crtc_state)
+> >  	if (ret)
+> >  		return ret;
+> > 
+> > -	intel_assign_luts(crtc_state);
+> > +	glk_assign_luts(crtc_state);
+> > 
+> >  	crtc_state->preload_luts = glk_can_preload_luts(crtc_state);
+> > 
+> > @@ -2283,6 +2295,22 @@ void intel_crtc_color_init(struct intel_crtc *crtc)
+> >  				   INTEL_INFO(dev_priv)-
+> > >display.color.gamma_lut_size);
+> >  }
+> > 
+> > +int intel_color_init(struct drm_i915_private *i915) {
+> > +	struct drm_property_blob *blob;
+> > +
+> > +	if (DISPLAY_VER(i915) != 10)
+> > +		return 0;
+> 
+> This is very specific to Gen10. Should we rename intel_color_init which sounds more global
+> to a gen10 specific name.
 
-However, depending on the platform, we might have certain
-engines that have a register list for engine instance error state
-but not for engine class. Thus, add a check only to warn if the
-register list was non existent vs an empty list (use the
-empty lists to skip the warning).
+I guess I could have added a glk specific function for this and
+call it from intel_color_init(), but should be easy enough to do
+that refcatoring if/when someone needs to add more stuff to
+intel_color_init().
 
-NOTE: if a future platform were to introduce new registers
-in place of what was an empty list on existing / legacy hardware
-engines no warning is provided as the empty list is meant
-to be used intentionally. As an example, if a future hardware
-were to add blitter engine-class-registers (new) on top
-of the legacy blitter engine-instance-register (HEAD, TAIL, etc.),
-no warning is generated.
+> 
+> Will leave that to your discretion, don't see any issues logically
+> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
----
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 78 ++++++++++++++++---
- 1 file changed, 69 insertions(+), 9 deletions(-)
+Thanks.
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index d5c03e7a7843..abf6e5eb711e 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -419,6 +419,44 @@ guc_capture_get_device_reglist(struct intel_guc *guc)
- 	return default_lists;
- }
- 
-+static const char *
-+__stringify_type(u32 type)
-+{
-+	switch (type) {
-+	case GUC_CAPTURE_LIST_TYPE_GLOBAL:
-+		return "Global";
-+	case GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS:
-+		return "Class";
-+	case GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE:
-+		return "Instance";
-+	default:
-+		break;
-+	}
-+
-+	return "unknown";
-+}
-+
-+static const char *
-+__stringify_engclass(u32 class)
-+{
-+	switch (class) {
-+	case GUC_RENDER_CLASS:
-+		return "Render";
-+	case GUC_VIDEO_CLASS:
-+		return "Video";
-+	case GUC_VIDEOENHANCE_CLASS:
-+		return "VideoEnhance";
-+	case GUC_BLITTER_CLASS:
-+		return "Blitter";
-+	case GUC_COMPUTE_CLASS:
-+		return "Compute";
-+	default:
-+		break;
-+	}
-+
-+	return "unknown";
-+}
-+
- static int
- guc_capture_list_init(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
- 		      struct guc_mmio_reg *ptr, u16 num_entries)
-@@ -482,23 +520,38 @@ guc_cap_list_num_regs(struct intel_guc_state_capture *gc, u32 owner, u32 type, u
- 	return num_regs;
- }
- 
--int
--intel_guc_capture_getlistsize(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
--			      size_t *size)
-+static int
-+guc_capture_getlistsize(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
-+			size_t *size, bool is_purpose_est)
- {
- 	struct intel_guc_state_capture *gc = guc->capture;
-+	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
- 	struct __guc_capture_ads_cache *cache = &gc->ads_cache[owner][type][classid];
- 	int num_regs;
- 
--	if (!gc->reglists)
-+	if (!gc->reglists) {
-+		drm_warn(&i915->drm, "GuC-capture: No reglist on this device\n");
- 		return -ENODEV;
-+	}
- 
- 	if (cache->is_valid) {
- 		*size = cache->size;
- 		return cache->status;
- 	}
- 
-+	if (!is_purpose_est && owner == GUC_CAPTURE_LIST_INDEX_PF &&
-+	    !guc_capture_get_one_list(gc->reglists, owner, type, classid)) {
-+		if (type == GUC_CAPTURE_LIST_TYPE_GLOBAL)
-+			drm_warn(&i915->drm, "Missing GuC-Err-Cap reglist Global!\n");
-+		else
-+			drm_warn(&i915->drm, "Missing GuC-Err-Cap reglist %s(%u):%s(%u)!\n",
-+				 __stringify_type(type), type,
-+				 __stringify_engclass(classid), classid);
-+		return -ENODATA;
-+	}
-+
- 	num_regs = guc_cap_list_num_regs(gc, owner, type, classid);
-+	/* intentional empty lists can exist depending on hw config */
- 	if (!num_regs)
- 		return -ENODATA;
- 
-@@ -508,6 +561,13 @@ intel_guc_capture_getlistsize(struct intel_guc *guc, u32 owner, u32 type, u32 cl
- 	return 0;
- }
- 
-+int
-+intel_guc_capture_getlistsize(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
-+			      size_t *size)
-+{
-+	return guc_capture_getlistsize(guc, owner, type, classid, size, false);
-+}
-+
- static void guc_capture_create_prealloc_nodes(struct intel_guc *guc);
- 
- int
-@@ -627,15 +687,15 @@ guc_capture_output_min_size_est(struct intel_guc *guc)
- 		worst_min_size += sizeof(struct guc_state_capture_group_header_t) +
- 					 (3 * sizeof(struct guc_state_capture_header_t));
- 
--		if (!intel_guc_capture_getlistsize(guc, 0, GUC_CAPTURE_LIST_TYPE_GLOBAL, 0, &tmp))
-+		if (!guc_capture_getlistsize(guc, 0, GUC_CAPTURE_LIST_TYPE_GLOBAL, 0, &tmp, true))
- 			num_regs += tmp;
- 
--		if (!intel_guc_capture_getlistsize(guc, 0, GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS,
--						   engine->class, &tmp)) {
-+		if (!guc_capture_getlistsize(guc, 0, GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS,
-+					     engine->class, &tmp, true)) {
- 			num_regs += tmp;
- 		}
--		if (!intel_guc_capture_getlistsize(guc, 0, GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE,
--						   engine->class, &tmp)) {
-+		if (!guc_capture_getlistsize(guc, 0, GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE,
-+					     engine->class, &tmp, true)) {
- 			num_regs += tmp;
- 		}
- 	}
 -- 
-2.34.1
-
+Ville Syrjälä
+Intel
