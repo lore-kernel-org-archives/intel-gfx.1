@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EEFCC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 17:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C49CC43217
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Oct 2022 17:34:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F7DB10F2A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E76810EB48;
 	Wed, 19 Oct 2022 17:34:43 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C669710EB4D
- for <Intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 17:33:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6063510F29C
+ for <Intel-gfx@lists.freedesktop.org>; Wed, 19 Oct 2022 17:34:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666200826; x=1697736826;
+ t=1666200840; x=1697736840;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iblWtj3oQ+Gzcpob6q0KDZMo8KPs6N0OMQ7W8Hrwr8E=;
- b=X1YVqXRLq+paW39ouNSrCf2GhLYs+8nfnjON1HU7cnHHIkUCA5qlL0AN
- wOvr1Tf4Lb+23UtX286bfLJ0N4C4ZlFhZ8pNvPpKyPorHnUl34/8D+CNP
- Lzm29s7Jo0UnoVXeubL9201FF3Li2fxEyecrxqpTLfXWRlhK+kJDXeSwr
- 4Ao0kuCU1QlmFU+taU6tGjoSJYHchosCEIC7wjUC9NbrUxsQa70LvTpph
- aCeXJ4xU4pLFc51x8hFCistH7R4qwjudUP9Fg1pu8QEgKS7gDxaJEzxmc
- k9jE0Q3oKS0QM79pCZpe3TgJlkQkOF+eB43WYxe+rz5yQZef+83u+WmV5 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286201697"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286201697"
+ bh=2SjnzP/RjutkVE2GWCovZkYcvG7xuDDB28V5+LUt3bM=;
+ b=Y6j0PJW3Xsb8Ie5/O9tUc4zbCfqDTbJZqUbmiIuPlp6DkYb6s1ZKz7LV
+ C34KZHiwzNDgefPxzTW0Q68ME5BPgWAgm4jajlEiAdBDqM21ymBUm/LN3
+ Aah3U1muqKAHIgXqwoCxHFsmha1SFjwiojLqhQaAh+yaSBLgFPq4w77Ij
+ bByBu6ro70AIAjIl+wjbvf6yIQF9yyLfhdgZ7UiEeIkood6k/dXGvajX+
+ iQ6q6kcwlQrJKMzaUlNgAyBH+akV3SzmsDPeJdBR995TUeXtDBS+7klHb
+ jcXQ14ZMOTNhIQ1ejuG53n0+0A4n7RI17MxAzkCDfTJqmeGHzdc78J/xP g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286201768"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="286201768"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 10:33:46 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="607204781"
-X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="607204781"
+ 19 Oct 2022 10:34:00 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="607204833"
+X-IronPort-AV: E=Sophos;i="5.95,196,1661842800"; d="scan'208";a="607204833"
 Received: from mjmcener-mobl1.amr.corp.intel.com (HELO localhost.localdomain)
  ([10.213.233.40])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2022 10:33:43 -0700
+ 19 Oct 2022 10:33:56 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Oct 2022 18:32:45 +0100
-Message-Id: <20221019173254.3361334-9-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 19 Oct 2022 18:32:49 +0100
+Message-Id: <20221019173254.3361334-13-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221019173254.3361334-1-tvrtko.ursulin@linux.intel.com>
 References: <20221019173254.3361334-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 08/17] drm: Allow for migration of clients
+Subject: [Intel-gfx] [RFC 12/17] cgroup/drm: Client exit hook
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,205 +70,81 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Add a helper which allows migrating the tracked client from one process to
-another.
+We need the ability for DRM core to inform the cgroup controller when a
+client has closed a DRM file descriptor. This will allow us not needing
+to keep state relating to GPU time usage by tasks sets in the cgroup
+controller itself.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/drm_cgroup.c | 111 ++++++++++++++++++++++++++++++-----
- include/drm/drm_clients.h    |   7 +++
- include/drm/drm_file.h       |   1 +
- 3 files changed, 103 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/drm_cgroup.c | 8 ++++++++
+ include/linux/cgroup_drm.h   | 1 +
+ kernel/cgroup/drm.c          | 8 ++++++++
+ 3 files changed, 17 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_cgroup.c b/drivers/gpu/drm/drm_cgroup.c
-index 7ed9c7150cae..59b730ed1334 100644
+index e36bc4333924..ff99d1f4f1d4 100644
 --- a/drivers/gpu/drm/drm_cgroup.c
 +++ b/drivers/gpu/drm/drm_cgroup.c
-@@ -8,9 +8,21 @@
+@@ -5,6 +5,7 @@
+ 
+ #include <drm/drm_drv.h>
+ #include <drm/drm_clients.h>
++#include <linux/cgroup_drm.h>
  
  static DEFINE_XARRAY(drm_pid_clients);
  
-+static void
-+__del_clients(struct drm_pid_clients *clients, struct drm_file *file_priv)
-+{
-+	list_del_rcu(&file_priv->clink);
-+	if (atomic_dec_and_test(&clients->num)) {
-+		xa_erase(&drm_pid_clients, (unsigned long)file_priv->cpid);
-+		kfree_rcu(clients, rcu);
-+	}
-+
-+	put_pid(file_priv->cpid);
-+	file_priv->cpid = NULL;
-+}
-+
- void drm_clients_close(struct drm_file *file_priv)
+@@ -25,6 +26,7 @@ void drm_clients_close(struct drm_file *file_priv)
  {
--	unsigned long pid = (unsigned long)file_priv->pid;
  	struct drm_device *dev = file_priv->minor->dev;
  	struct drm_pid_clients *clients;
++	struct task_struct *task;
  
-@@ -19,19 +31,32 @@ void drm_clients_close(struct drm_file *file_priv)
- 	if (!dev->driver->cg_ops)
+ 	lockdep_assert_held(&dev->filelist_mutex);
+ 
+@@ -35,6 +37,12 @@ void drm_clients_close(struct drm_file *file_priv)
+ 	if (WARN_ON_ONCE(!clients))
  		return;
  
--	clients = xa_load(&drm_pid_clients, pid);
--	list_del_rcu(&file_priv->clink);
--	if (atomic_dec_and_test(&clients->num)) {
--		xa_erase(&drm_pid_clients, pid);
--		kfree_rcu(clients, rcu);
-+	clients = xa_load(&drm_pid_clients, (unsigned long)file_priv->cpid);
-+	if (WARN_ON_ONCE(!clients))
-+		return;
- 
--		/*
--		 * FIXME: file_priv is not RCU protected so we add this hack
--		 * to avoid any races with code which walks clients->file_list
--		 * and accesses file_priv.
--		 */
--		synchronize_rcu();
-+	__del_clients(clients, file_priv);
-+
-+	/*
-+	 * FIXME: file_priv is not RCU protected so we add this hack
-+	 * to avoid any races with code which walks clients->file_list
-+	 * and accesses file_priv.
-+	 */
-+	synchronize_rcu();
-+}
-+
-+static struct drm_pid_clients *__alloc_clients(void)
-+{
-+	struct drm_pid_clients *clients;
-+
-+	clients = kmalloc(sizeof(*clients), GFP_KERNEL);
-+	if (clients) {
-+		atomic_set(&clients->num, 0);
-+		INIT_LIST_HEAD(&clients->file_list);
-+		init_rcu_head(&clients->rcu);
- 	}
-+
-+	return clients;
- }
- 
- int drm_clients_open(struct drm_file *file_priv)
-@@ -48,12 +73,9 @@ int drm_clients_open(struct drm_file *file_priv)
- 
- 	clients = xa_load(&drm_pid_clients, pid);
- 	if (!clients) {
--		clients = kmalloc(sizeof(*clients), GFP_KERNEL);
-+		clients = __alloc_clients();
- 		if (!clients)
- 			return -ENOMEM;
--		atomic_set(&clients->num, 0);
--		INIT_LIST_HEAD(&clients->file_list);
--		init_rcu_head(&clients->rcu);
- 		new_client = true;
- 	}
- 	atomic_inc(&clients->num);
-@@ -69,9 +91,66 @@ int drm_clients_open(struct drm_file *file_priv)
- 		}
- 	}
- 
-+	file_priv->cpid = get_pid(file_priv->pid);
-+
- 	return 0;
- }
- 
-+void drm_clients_migrate(struct drm_file *file_priv)
-+{
-+	struct drm_device *dev = file_priv->minor->dev;
-+	struct drm_pid_clients *existing_clients;
-+	struct drm_pid_clients *clients, *spare;
-+	struct pid *pid = task_pid(current);
-+
-+	if (!dev->driver->cg_ops)
-+		return;
-+
-+	// TODO: only do this if drmcs level property allows it?
-+
-+	spare = __alloc_clients();
-+	if (WARN_ON(!spare))
-+		return;
-+
-+	mutex_lock(&dev->filelist_mutex);
-+	rcu_read_lock();
-+
-+	existing_clients = xa_load(&drm_pid_clients, (unsigned long)pid);
-+	clients = xa_load(&drm_pid_clients, (unsigned long)file_priv->cpid);
-+
-+	if (WARN_ON_ONCE(!clients))
-+		goto out_unlock;
-+	else if (clients == existing_clients)
-+		goto out_unlock;
-+
-+	__del_clients(clients, file_priv);
-+	smp_mb(); /* hmmm? del_rcu followed by add_rcu? */
-+
-+	if (!existing_clients) {
-+		void *xret;
-+
-+		xret = xa_store(&drm_pid_clients, (unsigned long)pid, spare,
-+				GFP_KERNEL);
-+		if (WARN_ON(xa_err(xret)))
-+			goto out_unlock;
-+		clients = spare;
-+		spare = NULL;
-+	} else {
-+		clients = existing_clients;
++	task = get_pid_task(file_priv->cpid, PIDTYPE_PID);
++	if (task) {
++		drmcgroup_client_exited(task);
++		put_task_struct(task);
 +	}
 +
-+	atomic_inc(&clients->num);
-+	list_add_tail_rcu(&file_priv->clink, &clients->file_list);
-+	file_priv->cpid = get_pid(pid);
-+
-+out_unlock:
-+	rcu_read_unlock();
-+	mutex_unlock(&dev->filelist_mutex);
-+
-+	kfree(spare);
-+}
-+EXPORT_SYMBOL_GPL(drm_clients_migrate);
-+
- unsigned int drm_pid_priority_levels(struct pid *pid, bool *non_uniform)
- {
- 	unsigned int min_levels = UINT_MAX;
-diff --git a/include/drm/drm_clients.h b/include/drm/drm_clients.h
-index 10d21138f7af..3a0b1cdb338f 100644
---- a/include/drm/drm_clients.h
-+++ b/include/drm/drm_clients.h
-@@ -17,6 +17,8 @@ struct drm_pid_clients {
- #if IS_ENABLED(CONFIG_CGROUP_DRM)
- void drm_clients_close(struct drm_file *file_priv);
- int drm_clients_open(struct drm_file *file_priv);
-+
-+void drm_clients_migrate(struct drm_file *file_priv);
- #else
- static inline void drm_clients_close(struct drm_file *file_priv)
- {
-@@ -26,6 +28,11 @@ static inline int drm_clients_open(struct drm_file *file_priv)
- {
- 	return 0;
+ 	__del_clients(clients, file_priv);
+ 
+ 	/*
+diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
+index 66063b4708e8..c84516d3e50a 100644
+--- a/include/linux/cgroup_drm.h
++++ b/include/linux/cgroup_drm.h
+@@ -13,5 +13,6 @@ struct task_struct;
+ #define DRM_CGROUP_PRIORITY_MAX	(10000)
+ 
+ int drmcgroup_lookup_effective_priority(struct task_struct *task);
++void drmcgroup_client_exited(struct task_struct *task);
+ 
+ #endif	/* _CGROUP_DRM_H */
+diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+index 4b6f88d8236e..48f1eaaa1c07 100644
+--- a/kernel/cgroup/drm.c
++++ b/kernel/cgroup/drm.c
+@@ -221,6 +221,14 @@ static void drmcs_attach(struct cgroup_taskset *tset)
+ 					css_to_drmcs(css)->effective_priority);
  }
-+
-+static inline void drm_clients_migrate(struct drm_file *file_priv)
+ 
++void drmcgroup_client_exited(struct task_struct *task)
 +{
++	struct drm_cgroup_state *drmcs = get_task_drmcs(task);
 +
++	css_put(&drmcs->css);
 +}
- #endif
- 
- unsigned int drm_pid_priority_levels(struct pid *pid, bool *non_uniform);
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index a4360e28e2db..2c1e356d3b73 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -280,6 +280,7 @@ struct drm_file {
- 
- #if IS_ENABLED(CONFIG_CGROUP_DRM)
- 	struct list_head clink;
-+	struct pid *cpid;
- #endif
- 
- 	/**
++EXPORT_SYMBOL_GPL(drmcgroup_client_exited);
++
+ static struct drm_cgroup_state root_drmcs = {
+ 	.priority = DRM_CGROUP_PRIORITY_DEF,
+ 	.effective_priority = DRM_CGROUP_PRIORITY_DEF,
 -- 
 2.34.1
 
