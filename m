@@ -4,64 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76440FA373E
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:23:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 792BAECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55BC910E6C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6501A10E6CC;
 	Mon, 24 Oct 2022 13:23:33 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6448F10E399
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:35:50 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id d10so8720190pfh.6
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:35:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=daynix-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nh284RfbKTKjVZ53xc/BjYmJT2KbUvj6smXua/Y15lg=;
- b=wKxhR+PYREmRgVKkasTw0GfLrz2v/WYReVJQ30eu6x7i4eVQgdnhuAzGFkfXj43osX
- iAXkQ9aOTTvoovjS5IAKs+vGwyfg/3OtbGuKU/dCjSKPeCgfec8HUoDEQ74hMGKLlidw
- xopGpztVbn+H0pgQsRhyf7RQzg47xJ12vGdWkiLpV1wmLs/HSBYTp0CLCI3VpboZfYoK
- OVdGvVz64lio5FjIFDglJN+RSxy4l6GjXQ4rIatNLGAan07rIxYhnoljN8p8kyn4jRRy
- crr47iBoKn1Bk8Y506uKaUb06iRU9mYdDjzttWDNXRDmwZYfgtsJrKYIzOgRriRarrJF
- 6iww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nh284RfbKTKjVZ53xc/BjYmJT2KbUvj6smXua/Y15lg=;
- b=K//zNJ18ju/GtFtGTdxdJHvaBpQZbVdp1awwuD67OSKabFgHA04MD0CQ23gSMWHpaT
- T6slzJleS81EOvSRb9zLLNm6ERXao5bigwZeG7ilWT5/PxumDsT2jS/9VcCwwhf7rpeO
- JKHkiNb7mVrxR2WC9iyX0/zvUBmPI0vG6CcnzJKTVf1DHZCK/R6ITMTilIe6zgrrqdZT
- JqMja2iwE0ieOaTmmMqNXq0hcyjVTYICEzOLQqL6oe4S4JJpll5o5oK4FMFIUNFjDIHb
- hzPfzR9hJKHslC7gKytR+Bb+85F8PjGvDvwU6jfsiMxvktksr9SfGZBQLP5Jt5Q4Jtu/
- fkBg==
-X-Gm-Message-State: ACrzQf06h/faajmtzWP83uIsQ8O5oz/A6CXPX49cMHouRKKVi41i1U76
- I6KC4Kr0V1koD9dx1fZYP7nNAQ==
-X-Google-Smtp-Source: AMsMyM5qFqNKIQCrH6nqN3yVGbGf1IzcRlrs4UvsvzXwRIAC8cYkTRMstnrFzu4g/FRXgW5McIN7zw==
-X-Received: by 2002:a05:6a00:114c:b0:528:2c7a:6302 with SMTP id
- b12-20020a056a00114c00b005282c7a6302mr33351690pfm.37.1666611349588; 
- Mon, 24 Oct 2022 04:35:49 -0700 (PDT)
-Received: from fedora.flets-east.jp ([2400:4050:c360:8200:8ae8:3c4:c0da:7419])
- by smtp.gmail.com with ESMTPSA id
- b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.35.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 04:35:49 -0700 (PDT)
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
-To: 
-Date: Mon, 24 Oct 2022 20:34:52 +0900
-Message-Id: <20221024113513.5205-2-akihiko.odaki@daynix.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221024113513.5205-1-akihiko.odaki@daynix.com>
-References: <20221024113513.5205-1-akihiko.odaki@daynix.com>
+X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
+ Thu, 20 Oct 2022 11:10:57 UTC
+Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 761EC10E1DA;
+ Thu, 20 Oct 2022 11:10:57 +0000 (UTC)
+Received: from [192.168.1.103] (31.173.87.29) by msexch01.omp.ru (10.188.4.12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.986.14; Thu, 20 Oct
+ 2022 13:55:44 +0300
+To: Thomas Zimmermann <tzimmermann@suse.de>, <daniel@ffwll.ch>,
+ <airlied@gmail.com>, <sam@ravnborg.org>, <javierm@redhat.com>,
+ <mripard@kernel.org>, <maarten.lankhorst@linux.intel.com>
+References: <20221020103755.24058-1-tzimmermann@suse.de>
+ <20221020103755.24058-4-tzimmermann@suse.de>
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+Organization: Open Mobile Platform
+Message-ID: <013ea55b-3d51-c89c-eff8-b8d355ded352@omp.ru>
+Date: Thu, 20 Oct 2022 13:55:44 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20221020103755.24058-4-tzimmermann@suse.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [31.173.87.29]
+X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
+ (10.188.4.12)
+X-KSE-ServerInfo: msexch01.omp.ru, 9
+X-KSE-AntiSpam-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 10/20/2022 10:25:24
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 59
+X-KSE-AntiSpam-Info: Lua profiles 173210 [Oct 20 2022]
+X-KSE-AntiSpam-Info: Version: 5.9.20.0
+X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
+X-KSE-AntiSpam-Info: LuaCore: 502 502 69dee8ef46717dd3cb3eeb129cb7cc8dab9e30f6
+X-KSE-AntiSpam-Info: {rep_avail}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {relay has no DNS name}
+X-KSE-AntiSpam-Info: {SMTP from is not routable}
+X-KSE-AntiSpam-Info: {Found in DNSBL: 31.173.87.29 in (user)
+ b.barracudacentral.org}
+X-KSE-AntiSpam-Info: omp.ru:7.1.1; 127.0.0.199:7.1.2;
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
+X-KSE-AntiSpam-Info: ApMailHostAddress: 31.173.87.29
+X-KSE-AntiSpam-Info: {DNS response errors}
+X-KSE-AntiSpam-Info: Rate: 59
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
+ smtp.mailfrom=omp.ru;dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 10/20/2022 10:32:00
+X-KSE-AttachmentFiltering-Interceptor-Info: protection disabled
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean, bases: 10/20/2022 7:12:00 AM
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
 X-Mailman-Approved-At: Mon, 24 Oct 2022 13:23:26 +0000
-Subject: [Intel-gfx] [PATCH 01/22] drm/i915/opregion: Improve backlight
- request condition
+Subject: Re: [Intel-gfx] [PATCH 03/21] drm/ingenic: Don't set struct
+ drm_driver.lastclose
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,118 +85,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Ike Panhc <ike.pan@canonical.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, dri-devel@lists.freedesktop.org,
- Azael Avalos <coproscefalo@gmail.com>, Mattia Dongili <malattia@linux.it>,
- Daniel Dadap <ddadap@nvidia.com>, Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
- Akihiko Odaki <akihiko.odaki@daynix.com>, David Airlie <airlied@gmail.com>,
- Daniel Thompson <daniel.thompson@linaro.org>,
- Jonathan Woithe <jwoithe@just42.net>, Jonathan Corbet <corbet@lwn.net>, "Lee,
- Chun-Yi" <jlee@suse.com>, Helge Deller <deller@gmx.de>,
- Lee Jones <lee@kernel.org>, Robert Moore <robert.moore@intel.com>,
- linux-acpi@vger.kernel.org, Cezary Jackiewicz <cezary.jackiewicz@gmail.com>,
- Len Brown <lenb@kernel.org>, Kenneth Chan <kenneth.t.chan@gmail.com>,
- Corentin Chary <corentin.chary@gmail.com>, intel-gfx@lists.freedesktop.org,
- acpi4asus-user@lists.sourceforge.net, Maxime Ripard <mripard@kernel.org>,
- Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- platform-driver-x86@vger.kernel.org, devel@acpica.org,
- ibm-acpi-devel@lists.sourceforge.net, Jingoo Han <jingoohan1@gmail.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
+Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ freedreno@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-asle_set_backlight() needs to accept backlight request only if the
-firmware controls the backlight. It used the following expression for
-this purpose:
-acpi_video_get_backlight_type() == acpi_backlight_native
+Hello!
 
-This expression works well in practice, but has two semantic problems.
-One is that it actually determines if a backlight device which directly
-modifies hardware registers ("native backlight") exists. It is possible
-that a device which does not have backlight at all incorrectly triggers
-asle_set_backlight(), and the expression does not cover such a case.
+On 10/20/22 1:37 PM, Thomas Zimmermann wrote:
 
-Another problem is that acpi_video_get_backlight_type() always return
-acpi_backlight_vendor in reality if CONFIG_ACPI_VIDEO is unset. It
-means even its ability to determine the existence of native backlight is
-somewhat limited.
+> Don't set struct drm_mode_config.output_poll_changed. It's used to
+> inform the fbdev console about conncetor changes. But as ingenic
 
-This change introduces a new function backlight_device_non_raw_exists(),
-which returns if the firmware is controlling the backlight, and is
-always available if backlight support is enabled.
+   Connector. :-)
 
-Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
----
- drivers/gpu/drm/i915/display/intel_opregion.c |  3 ++-
- drivers/video/backlight/backlight.c           | 18 ++++++++++++++++++
- include/linux/backlight.h                     |  1 +
- 3 files changed, 21 insertions(+), 1 deletion(-)
+> uses generic fbdev emulation, the console is being informed by the
+> DRM client helpers already. See the calls to drm_client_dev_hotplug()
+> in drm_probe_helper.c.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+[...]
 
-diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
-index caa07ef34f21..82ea02ab94c2 100644
---- a/drivers/gpu/drm/i915/display/intel_opregion.c
-+++ b/drivers/gpu/drm/i915/display/intel_opregion.c
-@@ -26,6 +26,7 @@
-  */
- 
- #include <linux/acpi.h>
-+#include <linux/backlight.h>
- #include <linux/dmi.h>
- #include <linux/firmware.h>
- #include <acpi/video.h>
-@@ -467,7 +468,7 @@ static u32 asle_set_backlight(struct drm_i915_private *dev_priv, u32 bclp)
- 
- 	drm_dbg(&dev_priv->drm, "bclp = 0x%08x\n", bclp);
- 
--	if (acpi_video_get_backlight_type() == acpi_backlight_native) {
-+	if (!backlight_device_non_raw_exists()) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "opregion backlight request ignored\n");
- 		return 0;
-diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
-index b788ff3d0f45..4f0ce463e250 100644
---- a/drivers/video/backlight/backlight.c
-+++ b/drivers/video/backlight/backlight.c
-@@ -516,6 +516,24 @@ struct backlight_device *backlight_device_get_by_name(const char *name)
- }
- EXPORT_SYMBOL(backlight_device_get_by_name);
- 
-+bool backlight_device_non_raw_exists(void)
-+{
-+	bool found = false;
-+	struct backlight_device *bd;
-+
-+	mutex_lock(&backlight_dev_list_mutex);
-+	list_for_each_entry(bd, &backlight_dev_list, entry) {
-+		if (bd->props.type != BACKLIGHT_RAW) {
-+			found = true;
-+			break;
-+		}
-+	}
-+	mutex_unlock(&backlight_dev_list_mutex);
-+
-+	return found;
-+}
-+EXPORT_SYMBOL(backlight_device_non_raw_exists);
-+
- /* deprecated - use devm_backlight_device_unregister() */
- void backlight_device_unregister(struct backlight_device *bd)
- {
-diff --git a/include/linux/backlight.h b/include/linux/backlight.h
-index 614653e07e3a..364ef6f99a9e 100644
---- a/include/linux/backlight.h
-+++ b/include/linux/backlight.h
-@@ -444,6 +444,7 @@ int backlight_register_notifier(struct notifier_block *nb);
- int backlight_unregister_notifier(struct notifier_block *nb);
- struct backlight_device *backlight_device_get_by_name(const char *name);
- struct backlight_device *backlight_device_get_by_type(enum backlight_type type);
-+bool backlight_device_non_raw_exists(void);
- int backlight_device_set_brightness(struct backlight_device *bd,
- 				    unsigned long brightness);
- 
--- 
-2.37.3
-
+MBR, Sergey
