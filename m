@@ -4,54 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CFC4C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 09:16:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3A33C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 09:22:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59FD010E6AF;
-	Thu, 20 Oct 2022 09:16:20 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BD8B10E617;
- Thu, 20 Oct 2022 09:16:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38E8110E10D;
+	Thu, 20 Oct 2022 09:22:10 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F37B10E509
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Oct 2022 09:22:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666257372; x=1697793372;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=ifEooFtq9t430GKJrRsIYA+SdZVDk/uO6e2XoYUEky0=;
- b=H671+1dE6p5bZIVB1YVn2YvBh84BKzH5UTccPnlvbr2wyxgFlOOHf7Sz
- jLccJMbjiIUEapXudvWQWR3XORAgkMO1tPprrYwwW/qOqfhQJ13c0Uymc
- 1kXsWS10HvV6xwwdfyZQ6bmHP6uiq9e3c2hdMyYrHstgh1HiC6pKe9NwR
- SvhHV2obhx3i11aqBXIAeYwstmoxYA0rdsbxUaSpV1578z8WI5lWkXpPe
- HPyHCqsZlcT3VkwOQPVjqegqlB/gYWJD5SgMfn1Mm3PINUECkEbNvAwuE
- aI0uhU9wlMZO53uYXRr57avI5crp1Xm7Ae3Xpm9/bh8HGDQkRqvqgFgJo w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="287057678"
-X-IronPort-AV: E=Sophos;i="5.95,198,1661842800"; d="scan'208";a="287057678"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2022 02:16:11 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="698543188"
-X-IronPort-AV: E=Sophos;i="5.95,198,1661842800"; d="scan'208";a="698543188"
-Received: from tcarvalx-mobl.ger.corp.intel.com (HELO [10.252.12.144])
- ([10.252.12.144])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2022 02:16:08 -0700
-Message-ID: <f4c92d7f-8ac8-72df-85bb-a1b00f29cf92@intel.com>
-Date: Thu, 20 Oct 2022 10:16:06 +0100
+ t=1666257726; x=1697793726;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=r7TNet8YCb1O9ojp50CFwt7Jh5gcm33mRzg9paYdyV8=;
+ b=lrgsCbjCv0Y/OFNEUWrTTnDU6u4TdXdiiyq8Sp+6Ij7IvhjnZb+K+ipJ
+ mI36t9fdAwJvkU6GIZpEOP74/y9ge/tLHBIY7E4ydfBztTHasB9+A0qsZ
+ XQ1ppDN5jL68qvkwTchWXOcIn4fF3NQuScwlU8hLvBMjZbBTJXVkdzmfX
+ Yh+8g43KLwOctSEtUvnCn4Q5V+XqGCrEqHwqDRXkLXpT8trqLw4V1EyA3
+ yP85OrENKqRKzzqI9j94KWNdQgKVWUpCpaf4TYbpw/VGwio/V+F9owawJ
+ PzhgLRFAV18DRSFc0bnVidrDreqMQOh0mEiAyNy2r/tATtFEb6R87wH5Y g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="308341965"
+X-IronPort-AV: E=Sophos;i="5.95,198,1661842800"; d="scan'208";a="308341965"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2022 02:22:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="662936156"
+X-IronPort-AV: E=Sophos;i="5.95,198,1661842800"; d="scan'208";a="662936156"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
+ by orsmga001.jf.intel.com with ESMTP; 20 Oct 2022 02:22:03 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 20 Oct 2022 14:50:49 +0530
+Message-Id: <20221020092049.857144-2-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221020092049.857144-1-suraj.kandpal@intel.com>
+References: <20221020092049.857144-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.3.1
-Content-Language: en-GB
-To: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-References: <20221018071630.3831-1-niranjana.vishwanathapura@intel.com>
- <20221018071630.3831-14-niranjana.vishwanathapura@intel.com>
- <33e7d512-c78d-dfff-0bcd-0cdf94af384a@intel.com>
- <Y1BB5vMCMCKgi2Ar@nvishwa1-DESK>
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <Y1BB5vMCMCKgi2Ar@nvishwa1-DESK>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v4 13/17] drm/i915/vm_bind: Update
- i915_vma_verify_bind_complete()
+Subject: [Intel-gfx] [PATCH 1/1] drm/i915: Removing one use macro
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,97 +56,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- thomas.hellstrom@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 19/10/2022 19:28, Niranjana Vishwanathapura wrote:
-> On Wed, Oct 19, 2022 at 05:07:31PM +0100, Matthew Auld wrote:
->> On 18/10/2022 08:16, Niranjana Vishwanathapura wrote:
->>> Ensure i915_vma_verify_bind_complete() handles case where bind
->>> is not initiated. Also make it non static, add documentation
->>> and move it out of CONFIG_DRM_I915_DEBUG_GEM.
->>>
->>> Signed-off-by: Niranjana Vishwanathapura 
->>> <niranjana.vishwanathapura@intel.com>
->>> Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
->>> ---
->>>  drivers/gpu/drm/i915/i915_vma.c | 16 +++++++++++-----
->>>  drivers/gpu/drm/i915/i915_vma.h |  1 +
->>>  2 files changed, 12 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/i915_vma.c 
->>> b/drivers/gpu/drm/i915/i915_vma.c
->>> index eaa13e9ba966..4975fc662c86 100644
->>> --- a/drivers/gpu/drm/i915/i915_vma.c
->>> +++ b/drivers/gpu/drm/i915/i915_vma.c
->>> @@ -439,12 +439,21 @@ int i915_vma_sync(struct i915_vma *vma)
->>>      return i915_vm_sync(vma->vm);
->>>  }
->>> -#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
->>> -static int i915_vma_verify_bind_complete(struct i915_vma *vma)
->>> +/**
->>> + * i915_vma_verify_bind_complete() - Check for the bind completion 
->>> of the vma
->>> + * @vma: vma to check for bind completion
->>
->> Maybe mention the locking since this is now more than just DEBUG_GEM 
->> stuff. I assume we need the object lock or otherwise some guarantee 
->> that the vma is pinned?
->>
->> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->>
-> 
-> I think they are not needed. The fence reference is obtained under rcu
-> lock anyhow (will add this to documentation). Only thing required is
-> that vma is not released, but that caller must ensure for all i915_vma
-> apis anyhow.
+Removing one use macro for_each_connector_on_encoder which
+is only being used at intel_encoder_find_connector.
 
-I was thinking more about how this potentially behaves with concurrent 
-bind/unbind, and what it might return in such cases. I'm assuming most 
-normal users will want to have an active pin and/or be holding the 
-object lock when calling this.
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.h     |  4 ----
+ .../gpu/drm/i915/display/intel_modeset_setup.c   | 16 +++++++++++++---
+ 2 files changed, 13 insertions(+), 7 deletions(-)
 
-> 
-> Thanks,
-> Niranjana
-> 
->>> + *
->>> + * Returns: 0 if the vma bind is completed. Error code otherwise.
->>> + */
->>> +int i915_vma_verify_bind_complete(struct i915_vma *vma)
->>>  {
->>>      struct dma_fence *fence = i915_active_fence_get(&vma->active.excl);
->>>      int err;
->>> +    /* Ensure vma bind is initiated */
->>> +    if (!i915_vma_is_bound(vma, I915_VMA_BIND_MASK))
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index 2af4a1925063..c803330a276d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -469,10 +469,6 @@ enum hpd_pin {
+ 	list_for_each_entry((intel_encoder), &(dev)->mode_config.encoder_list, base.head) \
+ 		for_each_if((intel_encoder)->base.crtc == (__crtc))
+ 
+-#define for_each_connector_on_encoder(dev, __encoder, intel_connector) \
+-	list_for_each_entry((intel_connector), &(dev)->mode_config.connector_list, base.head) \
+-		for_each_if((intel_connector)->base.encoder == (__encoder))
+-
+ #define for_each_old_intel_plane_in_state(__state, plane, old_plane_state, __i) \
+ 	for ((__i) = 0; \
+ 	     (__i) < (__state)->base.dev->mode_config.num_total_plane && \
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+index cbfabd58b75a..31ce4ac4059c 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+@@ -205,12 +205,22 @@ static bool intel_crtc_has_encoders(struct intel_crtc *crtc)
+ 
+ static struct intel_connector *intel_encoder_find_connector(struct intel_encoder *encoder)
+ {
+-	struct drm_device *dev = encoder->base.dev;
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_connector *connector;
++	struct drm_connector_list_iter conn_iter;
++	bool found_connector = false;
+ 
+-	for_each_connector_on_encoder(dev, &encoder->base, connector)
+-		return connector;
++	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
++		for_each_intel_connector_iter(connector, &conn_iter) {
++			if (&encoder->base == connector->base.encoder) {
++				found_connector = true;
++				break;
++			}
++	}
++	drm_connector_list_iter_end(&conn_iter);
+ 
++	if (found_connector)
++		return connector;
+ 	return NULL;
+ }
+ 
+-- 
+2.25.1
 
-Just realised that this leaks the fence. I guess we have yet to hit this 
-in testing.
-
->>> +        return -EINVAL;
->>> +
->>>      if (!fence)
->>>          return 0;
->>> @@ -457,9 +466,6 @@ static int i915_vma_verify_bind_complete(struct 
->>> i915_vma *vma)
->>>      return err;
->>>  }
->>> -#else
->>> -#define i915_vma_verify_bind_complete(_vma) 0
->>> -#endif
->>>  I915_SELFTEST_EXPORT void
->>>  i915_vma_resource_init_from_vma(struct i915_vma_resource *vma_res,
->>> diff --git a/drivers/gpu/drm/i915/i915_vma.h 
->>> b/drivers/gpu/drm/i915/i915_vma.h
->>> index 1cadbf8fdedf..04770f8ba815 100644
->>> --- a/drivers/gpu/drm/i915/i915_vma.h
->>> +++ b/drivers/gpu/drm/i915/i915_vma.h
->>> @@ -440,6 +440,7 @@ void i915_vma_make_purgeable(struct i915_vma *vma);
->>>  int i915_vma_wait_for_bind(struct i915_vma *vma);
->>>  int i915_vma_sync(struct i915_vma *vma);
->>> +int i915_vma_verify_bind_complete(struct i915_vma *vma);
->>>  /**
->>>   * i915_vma_get_current_resource - Get the current resource of the vma
