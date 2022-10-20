@@ -4,44 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AB31C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 09:22:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C9A8C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Oct 2022 09:25:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0042310E509;
-	Thu, 20 Oct 2022 09:22:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 776BB10E10D;
+	Thu, 20 Oct 2022 09:25:28 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E034510E509
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Oct 2022 09:22:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52A4D10E509;
+ Thu, 20 Oct 2022 09:25:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666257739; x=1697793739;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=EOw/5Lv9wz9kBXTn9jgC51phfXPGfoZK/nV4H1cjL4s=;
- b=nMmhidjBlSaf0dAZEEtS0GN3aAKWsAn/I8zklg30LUF3eFB0mCKiXnVR
- 2G6332qkINw++k3jT+r12RCUZZt3nHpdhOA0epJrZ3dSZ3AHyNkZvGAl/
- IzrIaomtJ65fDz76bNY/zjGzyRBUvmbDxdMkZ16keRz/+DN7xOeGq7EQ9
- Rx+F3x5gAipgfbKNDHW7jCGz1gq4eLpJXYsGoR4jA3lcAnoVZ62eusynT
- qi1/rZzSNAhzlKRsvFcNr6NP+wbgV31PDfhRCd21yDxfBNrRleofqo4cc
- JDebaxNo/NqMMk/N63ZVpBFeE/A1DM9Id4C/QyNyc9PCB/23aFvxdn1B5 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286378322"
-X-IronPort-AV: E=Sophos;i="5.95,198,1661842800"; d="scan'208";a="286378322"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ t=1666257916; x=1697793916;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=YtbstwztZn175mOQf8JVm1NZbgkpB72bmnUHfJwpMTs=;
+ b=knHDOXXQCnFn/jh5P/vtoKNyxrQch7nhNNpyAiGxDdvy7OtIKI4/Y51g
+ OuCj13i63fwSyyLND1/p4d/lmWym9z8out7vxWS6v45S9vVVsrhmZaA8F
+ 5VN4RtL1r/0l+wF6Y24kih3fpnZsm5epm3nl16HYB2z26d/huOsvNHDWb
+ goBIKiPFD00FQxe1WZRJ4FaCHaiwBEhuuiFQYq6hbSut8adSeJFHjd0F0
+ xqJF3QZb8hH6xSVU0KBk503qXBiCy0jSkoh92hdof562jI8ahYj1Q335C
+ OjI8nxEv8azZgFFDKHtT75rGliMIIqrAEkhxZ7ip5JcJdUhv0APN+Yylu A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="286379071"
+X-IronPort-AV: E=Sophos;i="5.95,198,1661842800"; d="scan'208";a="286379071"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2022 02:22:00 -0700
+ 20 Oct 2022 02:25:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="662936118"
-X-IronPort-AV: E=Sophos;i="5.95,198,1661842800"; d="scan'208";a="662936118"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga001.jf.intel.com with ESMTP; 20 Oct 2022 02:21:58 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 20 Oct 2022 14:50:48 +0530
-Message-Id: <20221020092049.857144-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.25.1
+X-IronPort-AV: E=McAfee;i="6500,9779,10505"; a="692872651"
+X-IronPort-AV: E=Sophos;i="5.95,198,1661842800"; d="scan'208";a="692872651"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
+ by fmsmga008.fm.intel.com with SMTP; 20 Oct 2022 02:25:06 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 20 Oct 2022 12:25:06 +0300
+Date: Thu, 20 Oct 2022 12:25:06 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <Y1ET8qxKaOYN54LM@intel.com>
+References: <cover.1665496046.git.jani.nikula@intel.com>
+ <20fb913a93c60fd24fc51b441ccea7bc75e82dd1.1665496046.git.jani.nikula@intel.com>
+ <Y0hb0VOaYZk5TptS@intel.com> <Y0hmBn6NrUrBexyY@intel.com>
+ <Y1BOx7oVQHPgoVzE@intel.com> <87edv2hnz1.fsf@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/1] Removing Connector iterator macro
+In-Reply-To: <87edv2hnz1.fsf@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 01/15] drm/i915/hdmi: do dual mode detect
+ only if connected
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,21 +64,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Removing connector iterator macro (for_each_connector_on_encoder)
-as it is only used once and changing the function to use macros
-currently present.
+On Thu, Oct 20, 2022 at 11:57:06AM +0300, Jani Nikula wrote:
+> On Wed, 19 Oct 2022, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> > On Thu, Oct 13, 2022 at 10:24:54PM +0300, Ville Syrjälä wrote:
+> >> On Thu, Oct 13, 2022 at 09:41:21PM +0300, Ville Syrjälä wrote:
+> >> > On Tue, Oct 11, 2022 at 04:49:35PM +0300, Jani Nikula wrote:
+> >> > > -	intel_hdmi_dp_dual_mode_detect(connector, edid != NULL);
+> >> > > -
+> >> > > -	intel_display_power_put(dev_priv, POWER_DOMAIN_GMBUS, wakeref);
+> >> > > -
+> >> > >  	to_intel_connector(connector)->detect_edid = edid;
+> >> > >  	if (edid && edid->input & DRM_EDID_INPUT_DIGITAL) {
+> >> > 
+> >> > We didn't have this digital input thing before. What happens with
+> >> > HDMI->VGA dongles for example?
+> >> > 
+> >> > Hmm. This whole thing might already be broken on those. I suspect
+> >> > I've only used my HDMI->VGA dongle on LSPCON machines, so never
+> >> > noticed this. Need to go plug that thing into a native HDMI port...
+> >> 
+> >> Except I must have left it elsewhere since I can't find it here.
+> >> So can't test right now unfortunately.
+> >> 
+> >> I first thought this digital check thing might be due to
+> >> the DVI-I shenanigans in intel_crt_detect_ddc(), but that
+> >> was added for am unspecified gen2 machine in commit f5afcd3dd0dc
+> >> ("drm/i915/crt: Check for a analog monitor in case of DVI-I")
+> >> so not even relevant here. And I don't think I've ever seen
+> >> a g4x+ machine with an actual DVI-I port.
+> >
+> > Good news everyone, I found such a board: Intel DG43GT.
+> > Well, I didn't physically find one but I found the manual
+> > online. And some coreboot repo even had the vbt handily
+> > available. And yes, it does show the same DDC pins being
+> > used for the DVI-D port and CRT port. So I guess given
+> > that these digital checks do make some sense.
+> 
+> So what's the conclusion wrt the patch at hand?
 
-Suraj Kandpal (1):
-  drm/i915: Removing one use macro
+Seems fine as is for the moment. We'll know more once I locate
+my dongle again.
 
- drivers/gpu/drm/i915/display/intel_display.h     |  4 ----
- .../gpu/drm/i915/display/intel_modeset_setup.c   | 16 +++++++++++++---
- 2 files changed, 13 insertions(+), 7 deletions(-)
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
 -- 
-2.25.1
-
+Ville Syrjälä
+Intel
