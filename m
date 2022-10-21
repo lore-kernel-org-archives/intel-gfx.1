@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A81B3C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 08:43:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9A76C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 08:47:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5833810E649;
-	Fri, 21 Oct 2022 08:43:32 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0498410E648
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 08:42:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 534EC10E648;
+	Fri, 21 Oct 2022 08:47:09 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BABB10E648
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 08:46:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666341778; x=1697877778;
+ t=1666342016; x=1697878016;
  h=from:to:subject:in-reply-to:references:date:message-id:
  mime-version:content-transfer-encoding;
- bh=lAvd2vGyTle2qfA7jVd9sV1E5EW6hhsybsbT5qCBZno=;
- b=R6/wzfBzgMyvE6cf6jf0REuwuRNJn53EEJJVo2VhAToPDGO7gNAoWC6B
- 6Tpvl6/t/Pt9TUiqsJrMG2sIysobs5WMpzDKqwcE4iBhcEH/QS+gcPzxi
- QQuDhBSQNR5fAZwv54/81kTypl0iSDBXDrzetgjCD/Yl0x4O2rKIJ3x5V
- qJHhLBUS9kn7dgSe72VUbpVFjYEM23LBqD5fPV7vmkOp+IvRyxQnigwSM
- 20i4o5t5xlyfvDVNiqHdwqrse6Xw1e3dx4On/dFl5Sg2bzKkugoo90VAo
- LJOio8Z/Gw9U86Ag8X6yqGy5dgl2WQIP06BuTBmR+6+tAG059/9MIEeT1 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="308048996"
-X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="308048996"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2022 01:42:57 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="661485589"
-X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="661485589"
+ bh=Of7XuVxwPTeL+TwEjskhAMOrTXIXzL5h9e3UGTuOYMQ=;
+ b=CUG5oxnlq5d617jACl8PIQbe/VgqfOEB/R9fm7xBIJBL/bRArzqfxFTW
+ l1XqeODPSxkrmxhpe9TF+ikHmAlGdwSjmDm+Pn8zHCd5jQvlwMSVmTnkq
+ sk9duOrE1BMG14Wf6L7aU2gat+Jxbga6A3b72+XrUzkf3te5BaQFspuh9
+ 3xTAz2GihePC0Ubx0O3LA/pcTipAywbdqqpStNRiWpZeIVKQOn/rkej1b
+ 1VJsgHDicUdyGqxN3LLoYuDdV8iE3q5SQwL17DwG1JBmLud5NS1iljkwP
+ 1iOFtaKp5ybBqSwUmg5Ng100m+c6CwoCDUxWmLtsplwpUtfnfroGNrArU g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="333526402"
+X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="333526402"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2022 01:46:55 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="959510957"
+X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="959510957"
 Received: from avilla3-mobl2.amr.corp.intel.com (HELO localhost)
  ([10.252.53.153])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2022 01:42:55 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2022 01:46:53 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
  Anusha Srivatsa <anusha.srivatsa@intel.com>,
  intel-gfx@lists.freedesktop.org
-In-Reply-To: <Y1JE3kDZXBBjKOPz@bala-ubuntu>
+In-Reply-To: <Y1JGHxF2PsEFeCNd@bala-ubuntu>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20221021002024.390052-1-anusha.srivatsa@intel.com>
- <Y1JE3kDZXBBjKOPz@bala-ubuntu>
-Date: Fri, 21 Oct 2022 11:42:53 +0300
-Message-ID: <87pmelftyq.fsf@intel.com>
+ <20221021002024.390052-3-anusha.srivatsa@intel.com>
+ <Y1JGHxF2PsEFeCNd@bala-ubuntu>
+Date: Fri, 21 Oct 2022 11:46:51 +0300
+Message-ID: <87mt9pfts4.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH 0/4] Prep series - CDCLK code churn
+Subject: Re: [Intel-gfx] [PATCH 2/4] drm/i915/display: Introduce
+ HAS_CDCLK_SQUASH macro
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,47 +69,146 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 On Fri, 21 Oct 2022, Balasubramani Vivekanandan <balasubramani.vivekanandan=
 @intel.com> wrote:
 > On 20.10.2022 17:20, Anusha Srivatsa wrote:
->> No functional changes. The series is more of a prep series
->> for the mid_cdclk_config series:
->> https://patchwork.freedesktop.org/series/109694/
+>> Driver had discrepancy in how cdclk squash and crawl support
+>> were checked. Like crawl, add squash as a 1 bit feature flag
+>> to the display section of DG2.
 >>=20
->> Main change:
->>  - Change usage of "crawler" and "squasher". Use crawling and
->> squashing instead.
->>  - Handle bot hsquash and cralw similar in terms of checking
-> Please check the typos here
+>> Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+>> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>> Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_cdclk.c | 15 +++++----------
+>>  drivers/gpu/drm/i915/i915_drv.h            |  1 +
+>>  drivers/gpu/drm/i915/i915_pci.c            |  1 +
+>>  drivers/gpu/drm/i915/intel_device_info.h   |  1 +
+>>  4 files changed, 8 insertions(+), 10 deletions(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/dr=
+m/i915/display/intel_cdclk.c
+>> index 0f5add2fc51b..45babbc6290f 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+>> @@ -1220,11 +1220,6 @@ static void skl_cdclk_uninit_hw(struct drm_i915_p=
+rivate *dev_priv)
+>>  	skl_set_cdclk(dev_priv, &cdclk_config, INVALID_PIPE);
+>>  }
+>>=20=20
+>> -static bool has_cdclk_squash(struct drm_i915_private *i915)
+>> -{
+>> -	return IS_DG2(i915);
+>> -}
+>> -
+>>  struct intel_cdclk_vals {
+>>  	u32 cdclk;
+>>  	u16 refclk;
+>> @@ -1520,7 +1515,7 @@ static void bxt_get_cdclk(struct drm_i915_private =
+*dev_priv,
+>>  		return;
+>>  	}
+>>=20=20
+>> -	if (has_cdclk_squash(dev_priv))
+>> +	if (HAS_CDCLK_SQUASH(dev_priv))
+>>  		squash_ctl =3D intel_de_read(dev_priv, CDCLK_SQUASH_CTL);
+>>=20=20
+>>  	if (squash_ctl & CDCLK_SQUASH_ENABLE) {
+>> @@ -1747,7 +1742,7 @@ static void bxt_set_cdclk(struct drm_i915_private =
+*dev_priv,
+>>  	else
+>>  		clock =3D cdclk;
+>>=20=20
+>> -	if (has_cdclk_squash(dev_priv)) {
+>> +	if (HAS_CDCLK_SQUASH(dev_priv)) {
+>>  		u32 squash_ctl =3D 0;
+>>=20=20
+>>  		if (waveform)
+>> @@ -1845,7 +1840,7 @@ static void bxt_sanitize_cdclk(struct drm_i915_pri=
+vate *dev_priv)
+>>  	expected =3D skl_cdclk_decimal(cdclk);
+>>=20=20
+>>  	/* Figure out what CD2X divider we should be using for this cdclk */
+>> -	if (has_cdclk_squash(dev_priv))
+>> +	if (HAS_CDCLK_SQUASH(dev_priv))
+>>  		clock =3D dev_priv->display.cdclk.hw.vco / 2;
+>>  	else
+>>  		clock =3D dev_priv->display.cdclk.hw.cdclk;
+>> @@ -1976,7 +1971,7 @@ static bool intel_cdclk_can_squash(struct drm_i915=
+_private *dev_priv,
+>>  	 * the moment all platforms with squasher use a fixed cd2x
+>>  	 * divider.
+>>  	 */
+>> -	if (!has_cdclk_squash(dev_priv))
+>> +	if (!HAS_CDCLK_SQUASH(dev_priv))
+>>  		return false;
+>>=20=20
+>>  	return a->cdclk !=3D b->cdclk &&
+>> @@ -2028,7 +2023,7 @@ static bool intel_cdclk_can_cd2x_update(struct drm=
+_i915_private *dev_priv,
+>>  	 * the moment all platforms with squasher use a fixed cd2x
+>>  	 * divider.
+>>  	 */
+>> -	if (has_cdclk_squash(dev_priv))
+>> +	if (HAS_CDCLK_SQUASH(dev_priv))
+>>  		return false;
+>>=20=20
+>>  	return a->cdclk !=3D b->cdclk &&
+>> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915=
+_drv.h
+>> index d7b8eb9d4117..db51050e3ba2 100644
+>> --- a/drivers/gpu/drm/i915/i915_drv.h
+>> +++ b/drivers/gpu/drm/i915/i915_drv.h
+>> @@ -869,6 +869,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+>>  #define HAS_DOUBLE_BUFFERED_M_N(dev_priv)	(DISPLAY_VER(dev_priv) >=3D 9=
+ || IS_BROADWELL(dev_priv))
+>>=20=20
+>>  #define HAS_CDCLK_CRAWL(dev_priv)	 (INTEL_INFO(dev_priv)->display.has_c=
+dclk_crawl)
+>> +#define HAS_CDCLK_SQUASH(dev_priv)	 (INTEL_INFO(dev_priv)->display.has_=
+cdclk_squash)
+>>  #define HAS_DDI(dev_priv)		 (INTEL_INFO(dev_priv)->display.has_ddi)
+>>  #define HAS_FPGA_DBG_UNCLAIMED(dev_priv) (INTEL_INFO(dev_priv)->display=
+.has_fpga_dbg)
+>>  #define HAS_PSR(dev_priv)		 (INTEL_INFO(dev_priv)->display.has_psr)
+>> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915=
+_pci.c
+>> index 19bf5ef6a20d..a88e1439a426 100644
+>> --- a/drivers/gpu/drm/i915/i915_pci.c
+>> +++ b/drivers/gpu/drm/i915/i915_pci.c
+>> @@ -1064,6 +1064,7 @@ static const struct intel_device_info xehpsdv_info=
+ =3D {
+>>  	.has_guc_deprivilege =3D 1, \
+>>  	.has_heci_pxp =3D 1, \
+>>  	.has_media_ratio_mode =3D 1, \
+>> +	.display.has_cdclk_squash =3D 1, \
+>
+> Shouldn't this line be under dg2_info definition and not here?
 
-This is a cover letter. It's not merged anywhere. It's not necessary to
-point out typos here.
+It's in DG2_FEATURES macro, which is where it should be. You're probably
+thrown off by the diff context symbol xehpsdv_info.
 
 BR,
 Jani.
+
 
 >
 > Regards,
 > Bala
 >
->> if the platform supports them or not. With the changes introduced,
->> both are a display feature flag.
->>  - Move code from bxt_set_cdclk() to make it more modularized
->> and easy to read and understand.
->>=20
->> Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
->> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->>=20
->> Anusha Srivatsa (4):
->>   drm/i915/display: Change terminology for cdclk actions
->>   drm/i915/display: Introduce HAS_CDCLK_SQUASH macro
->>   drm/i915/display: Move chunks of code out of bxt_set_cdclk()
->>   drm/i915/display: Move squash_ctl register programming to its own
->>     function
->>=20
->>  drivers/gpu/drm/i915/display/intel_cdclk.c | 80 ++++++++++++----------
->>  drivers/gpu/drm/i915/i915_drv.h            |  1 +
->>  drivers/gpu/drm/i915/i915_pci.c            |  1 +
->>  drivers/gpu/drm/i915/intel_device_info.h   |  1 +
->>  4 files changed, 48 insertions(+), 35 deletions(-)
->>=20
+>>  	.__runtime.platform_engine_mask =3D \
+>>  		BIT(RCS0) | BIT(BCS0) | \
+>>  		BIT(VECS0) | BIT(VECS1) | \
+>> diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/=
+i915/intel_device_info.h
+>> index cdf78728dcad..67d8759c802c 100644
+>> --- a/drivers/gpu/drm/i915/intel_device_info.h
+>> +++ b/drivers/gpu/drm/i915/intel_device_info.h
+>> @@ -180,6 +180,7 @@ enum intel_ppgtt_type {
+>>  	/* Keep in alphabetical order */ \
+>>  	func(cursor_needs_physical); \
+>>  	func(has_cdclk_crawl); \
+>> +	func(has_cdclk_squash); \
+>>  	func(has_ddi); \
+>>  	func(has_dp_mst); \
+>>  	func(has_dsb); \
 >> --=20
 >> 2.25.1
 >>=20
