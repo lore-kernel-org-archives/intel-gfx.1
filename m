@@ -4,41 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2456C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 00:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFD1EC433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 00:20:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D19F10E232;
-	Fri, 21 Oct 2022 00:02:56 +0000 (UTC)
-Received: from gandalf.ozlabs.org (mail.ozlabs.org
- [IPv6:2404:9400:2221:ea00::3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C5BE10E072
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 00:02:45 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4Mtl5m5Rfdz4xGT;
- Fri, 21 Oct 2022 11:02:36 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1666310557;
- bh=MjsN/eyeofQCiAF8hY6LImhgi5IuAOlTJYnxg+e5XII=;
- h=Date:From:To:Cc:Subject:From;
- b=htqxJ/s81/O5Nb0nGxtRIU1sQ+cNz9SmYkXxC6mGGVLs/zMniojTSUPPNkNxMB4lO
- 1EjXixQE29xk2I/sNeJwy2fKYHsUwhaAdlLllUna8QVwPWLrPNyUxLN5tej2SEGxIa
- hD4crHPw0JStuFIf99kN/97nz1jYnJy89FBmrKa8xpognqql1tlZZPzRe7YVGAF9V9
- 6Gbsu3TsBWYT0X2NatHPpusBEATu0IZ2BCrLjUGg/SRm0xa9y9LwDlAKcAUrZ1ubnt
- XgqwVdS4IZeihPIqLwQCYPDeZADGsPx38V8oF0eehUTo7qvlVt4ci5BghWnF/bxLCc
- j7yT5ceHOipUQ==
-Date: Fri, 21 Oct 2022 11:02:34 +1100
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
- <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
-Message-ID: <20221021110234.51f9ab66@canb.auug.org.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF98C10E474;
+	Fri, 21 Oct 2022 00:20:36 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FC3210E52F
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 00:20:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666311623; x=1697847623;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0HFYLUgw63O4HK4XHAgoDAzlmxaShlQtXpazbienfrY=;
+ b=lLxpwx2Lwc2NCUQ7DITmbjaCs/+bbaZbSlXlu1X6CtJ7hClgxOY/EVeO
+ K73emBAoHIO1qbhf0yOyBloOL4udMLWOS9BODE43sap/vG4XPSmWe6SLt
+ 5FrA7dhr1/VQ9wXIxDkQEE/8d3Xto31eOrq/HPQPBljLdY9nyYjTE4Ynz
+ Akmo2M7aQGATUbxCS48BSTzpzsIbgE57LLX6IAnhUMtcR+J/oVpEe03jh
+ RS1VsGHpCd8IueUGnVpMLdv+Rp44eTGzhXZNK+Cdc3dNISA30oSGk+YLM
+ fRHXKR5XodaJwjGUugBuhHMvSBROIr4faJ713elzR0CyWCFUYePRPG1s4 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="307971573"
+X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="307971573"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2022 17:20:22 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10506"; a="805232112"
+X-IronPort-AV: E=Sophos;i="5.95,200,1661842800"; d="scan'208";a="805232112"
+Received: from aclausch-mobl.amr.corp.intel.com (HELO
+ anushasr-mobl7.intel.com) ([10.212.253.196])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2022 17:20:22 -0700
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 20 Oct 2022 17:20:21 -0700
+Message-Id: <20221021002024.390052-2-anusha.srivatsa@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221021002024.390052-1-anusha.srivatsa@intel.com>
+References: <20221021002024.390052-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/lwpP884_0BVkJrtlgfprAkY";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: [Intel-gfx] linux-next: build failure after merge of the drm-misc
- tree
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/4] drm/i915/display: Change terminology for
+ cdclk actions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,54 +59,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Zack Rusin <zackr@vmware.com>
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---Sig_/lwpP884_0BVkJrtlgfprAkY
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+No functional changes. Changing terminolgy in some
+print statements. s/has_cdclk_squasher/has_cdclk_squash,
+s/crawler/crawl and s/squasher/squash.
 
-Hi all,
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-After merging the drm-misc tree, today's linux-next build (x86_64
-allmodconfig) failed like this:
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index ad401357ab66..0f5add2fc51b 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -1220,7 +1220,7 @@ static void skl_cdclk_uninit_hw(struct drm_i915_private *dev_priv)
+ 	skl_set_cdclk(dev_priv, &cdclk_config, INVALID_PIPE);
+ }
+ 
+-static bool has_cdclk_squasher(struct drm_i915_private *i915)
++static bool has_cdclk_squash(struct drm_i915_private *i915)
+ {
+ 	return IS_DG2(i915);
+ }
+@@ -1520,7 +1520,7 @@ static void bxt_get_cdclk(struct drm_i915_private *dev_priv,
+ 		return;
+ 	}
+ 
+-	if (has_cdclk_squasher(dev_priv))
++	if (has_cdclk_squash(dev_priv))
+ 		squash_ctl = intel_de_read(dev_priv, CDCLK_SQUASH_CTL);
+ 
+ 	if (squash_ctl & CDCLK_SQUASH_ENABLE) {
+@@ -1747,7 +1747,7 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 	else
+ 		clock = cdclk;
+ 
+-	if (has_cdclk_squasher(dev_priv)) {
++	if (has_cdclk_squash(dev_priv)) {
+ 		u32 squash_ctl = 0;
+ 
+ 		if (waveform)
+@@ -1845,7 +1845,7 @@ static void bxt_sanitize_cdclk(struct drm_i915_private *dev_priv)
+ 	expected = skl_cdclk_decimal(cdclk);
+ 
+ 	/* Figure out what CD2X divider we should be using for this cdclk */
+-	if (has_cdclk_squasher(dev_priv))
++	if (has_cdclk_squash(dev_priv))
+ 		clock = dev_priv->display.cdclk.hw.vco / 2;
+ 	else
+ 		clock = dev_priv->display.cdclk.hw.cdclk;
+@@ -1976,7 +1976,7 @@ static bool intel_cdclk_can_squash(struct drm_i915_private *dev_priv,
+ 	 * the moment all platforms with squasher use a fixed cd2x
+ 	 * divider.
+ 	 */
+-	if (!has_cdclk_squasher(dev_priv))
++	if (!has_cdclk_squash(dev_priv))
+ 		return false;
+ 
+ 	return a->cdclk != b->cdclk &&
+@@ -2028,7 +2028,7 @@ static bool intel_cdclk_can_cd2x_update(struct drm_i915_private *dev_priv,
+ 	 * the moment all platforms with squasher use a fixed cd2x
+ 	 * divider.
+ 	 */
+-	if (has_cdclk_squasher(dev_priv))
++	if (has_cdclk_squash(dev_priv))
+ 		return false;
+ 
+ 	return a->cdclk != b->cdclk &&
+@@ -2754,12 +2754,12 @@ int intel_modeset_calc_cdclk(struct intel_atomic_state *state)
+ 				   &old_cdclk_state->actual,
+ 				   &new_cdclk_state->actual)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+-			    "Can change cdclk via squasher\n");
++			    "Can change cdclk via squashing\n");
+ 	} else if (intel_cdclk_can_crawl(dev_priv,
+ 					 &old_cdclk_state->actual,
+ 					 &new_cdclk_state->actual)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+-			    "Can change cdclk via crawl\n");
++			    "Can change cdclk via crawling\n");
+ 	} else if (pipe != INVALID_PIPE) {
+ 		new_cdclk_state->pipe = pipe;
+ 
+-- 
+2.25.1
 
-drivers/gpu/drm/nouveau/nouveau_display.c: In function 'nouveau_display_cre=
-ate':
-drivers/gpu/drm/nouveau/nouveau_display.c:662:29: error: unused variable 'd=
-evice' [-Werror=3Dunused-variable]
-  662 |         struct nvkm_device *device =3D nvxx_device(&drm->client.dev=
-ice);
-      |                             ^~~~~~
-cc1: all warnings being treated as errors
-
-Introduced by commit
-
-  7c99616e3fe7 ("drm: Remove drm_mode_config::fb_base")
-
-I have used the drm-misc tree from next-20221020 for today.
-
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/lwpP884_0BVkJrtlgfprAkY
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmNR4ZsACgkQAVBC80lX
-0GxliAf9HxvpCb9hc+2CQgGCkBWspRTmqUs/DDH0l3jQSuG0lNIsBi2n4Do/iU46
-3zkQa/4ujPahMMbxZI1SxYtv/DV7zhduW5vSSBgC3jSe/9+78fpJpQg9Uhqv/0G1
-H58j9c+DbFNv4oReEAKlsBoMpE8VpafFUDqN62UBwAyV5h1Cp6gWl+FM0Nygu0fP
-JgGAdvt8RYfYG6Y2KI+nF976WnxIDF7WinEui91ZJinjsnsSy+ftwF1IA34Q8kXk
-3M3vTFkGRszQh8hDD5rjAcc/7xBjM3XlbDb82Fp1y85hvPMjalggMcS2+7B+NcYe
-GlwRzVWfOlmGUNd1wIyqGGAj3BLPnQ==
-=7Au/
------END PGP SIGNATURE-----
-
---Sig_/lwpP884_0BVkJrtlgfprAkY--
