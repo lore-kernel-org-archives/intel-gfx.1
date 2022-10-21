@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 643DBC3A59D
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 21:39:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BF3BC38A2D
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Oct 2022 21:40:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DE9C10E4DC;
-	Fri, 21 Oct 2022 21:39:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3406710E4F2;
+	Fri, 21 Oct 2022 21:39:57 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7077110E08D
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 21:39:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEEAB10E08D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 Oct 2022 21:39:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666388382; x=1697924382;
+ t=1666388381; x=1697924381;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kd+TSOSEnEEtpjBD87O2G803M8dIxwjCN1IKmC6qLkw=;
- b=XskuEZytfq9TBhihILyruEWJSjcqDbrvMSlYyiuu8YC75NPrb3ersaZb
- qn3nh+JRnzxuZXHcGQOvKvZMZkzmuagWAsLHym08cifj2ki4lwkGjzDrl
- EY5yAyY5inQhpQ7kdofz6X3dY71MYOouwesb8bXoLmFXgQ2mkIW9j7mkN
- iPzs/VWLKwnHt/dUJFr5td1ut+bEoIEXrNISdE3o7EqrEPyRrC53m0W7q
- I/LefBFn3BrWUIzwNExiD9Qx/zpmW7VU4SkwllOXmR7kZfTM3MJhnwu7C
- P17YADpsOxFCsNlOZRPXVQZQYVjvjWtYiasyTCF5x+fNu7x37v/U7c4SA w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10507"; a="308795361"
-X-IronPort-AV: E=Sophos;i="5.95,203,1661842800"; d="scan'208";a="308795361"
+ bh=BIw1/k5+7FCkwt6FTLxMBo0hus/TzoIeY9b/iyLRY1I=;
+ b=a9Dxzr0EGnbH3bJZD9Q1/qjj9DEKwXt6dYGQGcMg45liBQOgwYmESmGP
+ It3O2ECOrXpxtT4nXnjjAPeCPR6BVsQHirJ+eVpUw4XVRzJYL0tCW/osv
+ JGfKt+0YthRLOho/zPajMsT2Yvm5unOQ9LNKp2gXsusTLxKVHK70+nfLs
+ B7EoxTUx9KZMDbq5wo+Cu7bWvu/rw5SoonbAGK7Pt0pRrRlXvk/lQhRw0
+ C1Okd55zsmIDVAuFj7z0UQhIkDWOEwC+fp5aXR+mqdjJuDYZ3TpPpzVBK
+ 4XnO9Wz5QKmCbmOyvWLi+7PtEuROfReYFg9Xnefl2ZePRdMgGk/zACVHX w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10507"; a="308795357"
+X-IronPort-AV: E=Sophos;i="5.95,203,1661842800"; d="scan'208";a="308795357"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2022 14:39:42 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10507"; a="699511270"
-X-IronPort-AV: E=Sophos;i="5.95,203,1661842800"; d="scan'208";a="699511270"
+ 21 Oct 2022 14:39:41 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10507"; a="699511256"
+X-IronPort-AV: E=Sophos;i="5.95,203,1661842800"; d="scan'208";a="699511256"
 Received: from anushasr-mobl7.jf.intel.com ([10.24.14.105])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2022 14:39:41 -0700
+ 21 Oct 2022 14:39:40 -0700
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 21 Oct 2022 14:39:48 -0700
-Message-Id: <20221021213948.516041-5-anusha.srivatsa@intel.com>
+Date: Fri, 21 Oct 2022 14:39:47 -0700
+Message-Id: <20221021213948.516041-4-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221021213948.516041-1-anusha.srivatsa@intel.com>
 References: <20221021213948.516041-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915/display: Move squash_ctl register
- programming to its own function
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/display: Move chunks of code out
+ of bxt_set_cdclk()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,60 +62,77 @@ Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-No functional change. Introduce dg2_cdclk_squash_program and
-move squash_ctl register programming bits to this.
+No functional change. Moving segments out to simplify
+bxt_set_cdlck()
 
-v2: s/dg2_cdclk_squash_programming/dg2_cdclk_squash_program (Jani)
+v2: s/bxt_cdclk_pll/bxt_cdclk_pll_update (Jani)
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 23 +++++++++++++---------
- 1 file changed, 14 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 40 ++++++++++++++--------
+ 1 file changed, 25 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 3893779e0c23..e21cd0fbe29a 100644
+index 45babbc6290f..3893779e0c23 100644
 --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
 +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1705,6 +1705,18 @@ static void bxt_cdclk_pll_update(struct drm_i915_private *i915, int vco)
- 
+@@ -1684,6 +1684,27 @@ static u32 cdclk_squash_waveform(struct drm_i915_private *dev_priv,
+ 	return 0xffff;
  }
  
-+static void dg2_cdclk_squash_program(struct drm_i915_private *i915,
-+					 u16 waveform)
++static void icl_cdclk_pll_update(struct drm_i915_private *i915, int vco)
 +{
-+	u32 squash_ctl = 0;
++	if (i915->display.cdclk.hw.vco != 0 &&
++	    i915->display.cdclk.hw.vco != vco)
++		icl_cdclk_pll_disable(i915);
 +
-+	if (waveform)
-+		squash_ctl = CDCLK_SQUASH_ENABLE |
-+			     CDCLK_SQUASH_WINDOW_SIZE(0xf) | waveform;
++	if (i915->display.cdclk.hw.vco != vco)
++		icl_cdclk_pll_enable(i915, vco);
++}
 +
-+	intel_de_write(i915, CDCLK_SQUASH_CTL, squash_ctl);
++static void bxt_cdclk_pll_update(struct drm_i915_private *i915, int vco)
++{
++	if (i915->display.cdclk.hw.vco != 0 &&
++	    i915->display.cdclk.hw.vco != vco)
++		bxt_de_pll_disable(i915);
++
++	if (i915->display.cdclk.hw.vco != vco)
++		bxt_de_pll_enable(i915, vco);
++
 +}
 +
  static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
  			  const struct intel_cdclk_config *cdclk_config,
  			  enum pipe pipe)
-@@ -1752,15 +1764,8 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 	else
- 		clock = cdclk;
- 
--	if (HAS_CDCLK_SQUASH(dev_priv)) {
--		u32 squash_ctl = 0;
+@@ -1719,21 +1740,10 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 	if (HAS_CDCLK_CRAWL(dev_priv) && dev_priv->display.cdclk.hw.vco > 0 && vco > 0) {
+ 		if (dev_priv->display.cdclk.hw.vco != vco)
+ 			adlp_cdclk_pll_crawl(dev_priv, vco);
+-	} else if (DISPLAY_VER(dev_priv) >= 11) {
+-		if (dev_priv->display.cdclk.hw.vco != 0 &&
+-		    dev_priv->display.cdclk.hw.vco != vco)
+-			icl_cdclk_pll_disable(dev_priv);
 -
--		if (waveform)
--			squash_ctl = CDCLK_SQUASH_ENABLE |
--				CDCLK_SQUASH_WINDOW_SIZE(0xf) | waveform;
+-		if (dev_priv->display.cdclk.hw.vco != vco)
+-			icl_cdclk_pll_enable(dev_priv, vco);
+-	} else {
+-		if (dev_priv->display.cdclk.hw.vco != 0 &&
+-		    dev_priv->display.cdclk.hw.vco != vco)
+-			bxt_de_pll_disable(dev_priv);
 -
--		intel_de_write(dev_priv, CDCLK_SQUASH_CTL, squash_ctl);
+-		if (dev_priv->display.cdclk.hw.vco != vco)
+-			bxt_de_pll_enable(dev_priv, vco);
 -	}
-+	if (HAS_CDCLK_SQUASH(dev_priv))
-+		dg2_cdclk_squash_program(dev_priv, waveform);
++	} else if (DISPLAY_VER(dev_priv) >= 11)
++		icl_cdclk_pll_update(dev_priv, vco);
++	else
++		bxt_cdclk_pll_update(dev_priv, vco);
  
- 	val = bxt_cdclk_cd2x_div_sel(dev_priv, clock, vco) |
- 		bxt_cdclk_cd2x_pipe(dev_priv, pipe) |
+ 	waveform = cdclk_squash_waveform(dev_priv, cdclk);
+ 
 -- 
 2.25.1
 
