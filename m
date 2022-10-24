@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0566BC38A2D
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:34:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9587EECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:34:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18B9310E443;
-	Mon, 24 Oct 2022 12:34:07 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05FEE10E432;
- Mon, 24 Oct 2022 12:33:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1B0710E44F;
+	Mon, 24 Oct 2022 12:34:17 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6216E10E4C5;
+ Mon, 24 Oct 2022 12:34:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666614840; x=1698150840;
+ t=1666614854; x=1698150854;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5FhWzpbCfTqX/0XsegqtptYTrVV0gv79v9w1yd4cKzk=;
- b=jatgj/t5HX1aT0BTZfYxMR7VYeOIPzfpAfbr9PWsozLhkC3+5CVpBHYX
- R62PeYMZRfL0mzAFw+6F6kkakdM7llT50/sBkpctOHw+kiA5v+8l2rHc2
- dh4zYA+bd1m4f1LPHJawJKfGhamLEyC6YjsSx0lfWPCSkzC98lbwYtHD3
- iae7fGwyyQ6tKlsqyhU3ZzsUrp6/VKlDhBz1B/v2pEc2AVTnHb1MWle6v
- qDYtAGy4srV0r42+DZvoDzLIyRrfyhzzsWZRmKHdTJz0WQE9z+ishUO9n
- xXXDkArNqvlJ22Okpqri50dW9gVOnscv6wGZMGMNzpclbsLFGK9HP1s8B w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="309091356"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="309091356"
+ bh=RQkkT1yMahbj0kDW9QjzTq5p45Jp1xhDRb5NCf8BCbw=;
+ b=l9pO0aWkk3O2W0r08+SS9zj3rfuHeq2Z3M/+NdWOfvk8Q5SEJKR2iqb+
+ raQ8tNjRkgw6YkSDXT4qfv6FUf8O2MhSL3Oe8J8ydbEHYAqfr+3/yxJuf
+ R0IOsUa8oYl2d4H1rOCGsHgwXzVFnrAOAvroBQkvir2PpRDjWxyo5xsxJ
+ X/dm6Ell7xzYLNILwJrLCnVnIjLnxBAsZIU95p+6asuiEEKhbapSztsb9
+ iPVTqzrOamIS9LAIJ+H7gpmT76iHpIS9oNU8RM5qfsckf4jd05MgjeCFJ
+ D760ap9nWBsW434J94LOKaqr2SD78+Fi1QTYm5Q8RXJexR0wGy4ZqbIHs Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="369472683"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="369472683"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:33:59 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="626055618"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="626055618"
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 05:34:14 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="626055656"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="626055656"
 Received: from emontau-mobl2.ger.corp.intel.com (HELO localhost)
  ([10.252.52.221])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:33:57 -0700
+ 24 Oct 2022 05:34:12 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon, 24 Oct 2022 15:33:30 +0300
-Message-Id: <c8b45867cf37134ab40be23e22825ca45adc6041.1666614699.git.jani.nikula@intel.com>
+Date: Mon, 24 Oct 2022 15:33:33 +0300
+Message-Id: <74defa7b595f51e6c1f2eacd9c799d567d29f053.1666614699.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1666614699.git.jani.nikula@intel.com>
 References: <cover.1666614699.git.jani.nikula@intel.com>
@@ -46,8 +46,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 02/16] drm/i915/hdmi: stop using
- connector->override_edid
+Subject: [Intel-gfx] [PATCH v2 05/16] drm/edid: abstract debugfs override
+ EDID show better
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,41 +64,81 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The connector->override_edid flag is strictly for EDID override debugfs
-management, and drivers have no business using it.
+Add a function to dump the override EDID in debugfs. This hides the
+override EDID management better in drm_edid.c.
 
-The check for override_edid was added in commit 301906290553 ("drm/i915:
-Ignore TMDS clock limit for DP++ when EDID override is set") to
-facilitate mode list cross-checking against modes in override EDID when
-the connector in question isn't even connected. The dual mode detect
-fallback would do VBT based limiting in this case.
-
-Instead of override EDID, check for connector forcing in the fallback.
-
-v2: Simply use !connector->force (Ville)
-
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/drm/drm_crtc_internal.h |  4 +++-
+ drivers/gpu/drm/drm_debugfs.c       |  8 +-------
+ drivers/gpu/drm/drm_edid.c          | 11 +++++++++++
+ 3 files changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index a332eaac86cd..02f8374ea51f 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2374,10 +2374,7 @@ intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector)
- 	 * if the port is a dual mode capable DP port.
- 	 */
- 	if (type == DRM_DP_DUAL_MODE_UNKNOWN) {
--		/* An overridden EDID imply that we want this port for testing.
--		 * Make sure not to set limits for that port.
--		 */
--		if (!connector->override_edid &&
-+		if (!connector->force &&
- 		    intel_bios_is_port_dp_dual_mode(dev_priv, port)) {
- 			drm_dbg_kms(&dev_priv->drm,
- 				    "Assuming DP dual mode adaptor presence based on VBT\n");
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index 56041b604881..fb8a68d90940 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -56,9 +56,10 @@ struct drm_plane;
+ struct drm_plane_state;
+ struct drm_property;
+ struct edid;
++struct fwnode_handle;
+ struct kref;
++struct seq_file;
+ struct work_struct;
+-struct fwnode_handle;
+ 
+ /* drm_crtc.c */
+ int drm_mode_crtc_set_obj_prop(struct drm_mode_object *obj,
+@@ -286,5 +287,6 @@ int drm_mode_page_flip_ioctl(struct drm_device *dev,
+ 
+ /* drm_edid.c */
+ void drm_mode_fixup_1366x768(struct drm_display_mode *mode);
++int drm_edid_override_show(struct drm_connector *connector, struct seq_file *m);
+ int drm_edid_override_set(struct drm_connector *connector, const void *edid, size_t size);
+ int drm_edid_override_reset(struct drm_connector *connector);
+diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+index 01ee3febb813..ee445f4605ba 100644
+--- a/drivers/gpu/drm/drm_debugfs.c
++++ b/drivers/gpu/drm/drm_debugfs.c
+@@ -328,13 +328,7 @@ static ssize_t connector_write(struct file *file, const char __user *ubuf,
+ 
+ static int edid_show(struct seq_file *m, void *data)
+ {
+-	struct drm_connector *connector = m->private;
+-	struct drm_property_blob *edid = connector->edid_blob_ptr;
+-
+-	if (connector->override_edid && edid)
+-		seq_write(m, edid->data, edid->length);
+-
+-	return 0;
++	return drm_edid_override_show(m->private, m);
+ }
+ 
+ static int edid_open(struct inode *inode, struct file *file)
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index a863cffa2dc5..1ada36e0d826 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -2183,6 +2183,17 @@ static struct edid *drm_get_override_edid(struct drm_connector *connector,
+ 	return IS_ERR(override) ? NULL : override;
+ }
+ 
++/* For debugfs edid_override implementation */
++int drm_edid_override_show(struct drm_connector *connector, struct seq_file *m)
++{
++	struct drm_property_blob *edid = connector->edid_blob_ptr;
++
++	if (connector->override_edid && edid)
++		seq_write(m, edid->data, edid->length);
++
++	return 0;
++}
++
+ /* For debugfs edid_override implementation */
+ int drm_edid_override_set(struct drm_connector *connector, const void *edid,
+ 			  size_t size)
 -- 
 2.34.1
 
