@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD870C38A2D
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:35:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB9DBECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:35:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFA5810E549;
-	Mon, 24 Oct 2022 12:35:17 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A97F210E522;
- Mon, 24 Oct 2022 12:35:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9DF310E55A;
+	Mon, 24 Oct 2022 12:35:19 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60E7310E4A0;
+ Mon, 24 Oct 2022 12:34:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666614902; x=1698150902;
+ t=1666614890; x=1698150890;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1EifGz9CpdzCpU7Xcb+/70ZnIjfWmAky/PmGJX9SHbs=;
- b=MQ1iz+bCooFFLQCEgpzzClGMbDOdI0utofo1zm8OXGMw3kDCvK7K1BRD
- mrtpR1AcmFTwulUQnHcMspLhoG4m+3EcSA2AJ+4WbuL6ZdjYUt4EvT3++
- adcJbX6fCHfjLIviU+fGrKMqSWNVBavTmMgpPIJcjV6lyrxPITnQMoUh0
- 0UblLQDybCkwTnB96ZqFpJS5syczblwZYi9y/G/9oanFhY3SOtuoZbcqp
- akPQZ25gUUps75dD3HFAwavsNXdmhoYcFnkyMVA2Q0QV9ahnvrUYpNQ/3
- zRunL41uVM28B+MLpNKRjp100tjWyahgGw/Nw+21kLaIbFZ6IDtHDcmtj w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="308498285"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="308498285"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:34:58 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="626055777"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="626055777"
+ bh=ofu4oVt0MzbegIxOSJPfMnWJOBl8hO+ucHSLRNvR+q8=;
+ b=n+RCpTR6aYrJWoRRPUFH1yqEKTUZolOh0jBsM92F9FpJUsqXZnsCS58K
+ eTQsOj8ilpC78IvVK3T5zSqvFVzhFifF66LbgNln2dPuiZ5YHJgH+Phar
+ RQiVhS6Bv3LI6d8Omw+n5QGFOy7ORLLaBox3k9LWP6XFk2b2NtEo6Utvi
+ CRJZfeELcZYP7iyJNvFBTonvG/SeXW+bp0OBdakOqVtv7KXVLbgfa8sa3
+ GJogdl8i80XxiTv7PD3tTtD36vMMlcy3Fd61tI6wrCTIw8i/CW39cdm9L
+ lXzN39wa10g1n0Wkg8av8WvryoWLX1VuvH/3zv1yYlMxog2P8Z91twVmk A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="305014161"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="305014161"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 05:34:49 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="633693836"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="633693836"
 Received: from emontau-mobl2.ger.corp.intel.com (HELO localhost)
  ([10.252.52.221])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:34:56 -0700
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 05:34:48 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon, 24 Oct 2022 15:33:43 +0300
-Message-Id: <5884410682bcbc032de4d3af8562c0b271edaa7f.1666614699.git.jani.nikula@intel.com>
+Date: Mon, 24 Oct 2022 15:33:41 +0300
+Message-Id: <d58a59fede286caa8766e0813f4be492a7200287.1666614699.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1666614699.git.jani.nikula@intel.com>
 References: <cover.1666614699.git.jani.nikula@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 15/16] drm/edid: add [CONNECTOR:%d:%s] to
- debug logging
+Subject: [Intel-gfx] [PATCH v2 13/16] drm/edid: move edid load declarations
+ to internal header
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,121 +64,75 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reference the connector using [CONNECTOR:%d:%s] in existing device based
-debug logging.
+The EDID loader is internal to drm, not for drivers.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 38 +++++++++++++++++++++++++-------------
- 1 file changed, 25 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/drm_crtc_internal.h | 11 +++++++++++
+ drivers/gpu/drm/drm_edid_load.c     |  5 +++--
+ include/drm/drm_edid.h              |  7 -------
+ 3 files changed, 14 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 9078d1fb6d00..3be98ac2e711 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -2196,7 +2196,8 @@ static void connector_bad_edid(struct drm_connector *connector,
- 	if (connector->bad_edid_counter++ && !drm_debug_enabled(DRM_UT_KMS))
- 		return;
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index fb8a68d90940..501a10edd0e1 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -290,3 +290,14 @@ void drm_mode_fixup_1366x768(struct drm_display_mode *mode);
+ int drm_edid_override_show(struct drm_connector *connector, struct seq_file *m);
+ int drm_edid_override_set(struct drm_connector *connector, const void *edid, size_t size);
+ int drm_edid_override_reset(struct drm_connector *connector);
++
++/* drm_edid_load.c */
++#ifdef CONFIG_DRM_LOAD_EDID_FIRMWARE
++const struct drm_edid *drm_edid_load_firmware(struct drm_connector *connector);
++#else
++static inline const struct drm_edid *
++drm_edid_load_firmware(struct drm_connector *connector)
++{
++	return ERR_PTR(-ENOENT);
++}
++#endif
+diff --git a/drivers/gpu/drm/drm_edid_load.c b/drivers/gpu/drm/drm_edid_load.c
+index 248f0685c33e..882caaa6e663 100644
+--- a/drivers/gpu/drm/drm_edid_load.c
++++ b/drivers/gpu/drm/drm_edid_load.c
+@@ -11,12 +11,13 @@
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
  
--	drm_dbg_kms(connector->dev, "%s: EDID is invalid:\n", connector->name);
-+	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] EDID is invalid:\n",
-+		    connector->base.id, connector->name);
- 	for (i = 0; i < num_blocks; i++)
- 		edid_block_dump(KERN_DEBUG, edid + i, i);
- }
-@@ -6031,7 +6032,8 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 	}
+-#include <drm/drm_crtc.h>
+-#include <drm/drm_crtc_helper.h>
++#include <drm/drm_connector.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_print.h>
  
- 	drm_dbg_kms(connector->dev,
--		    "HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
-+		    "[CONNECTOR:%d:%s] HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
-+		    connector->base.id, connector->name,
- 		    max_tmds_clock, str_yes_no(max_frl_rate), str_yes_no(dsc_support));
- }
++#include "drm_crtc_internal.h"
++
+ static char edid_firmware[PATH_MAX];
+ module_param_string(edid_firmware, edid_firmware, sizeof(edid_firmware), 0644);
+ MODULE_PARM_DESC(edid_firmware, "Do not probe monitor, use specified EDID blob "
+diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+index 8138613f4e4e..372963600f1d 100644
+--- a/include/drm/drm_edid.h
++++ b/include/drm/drm_edid.h
+@@ -388,15 +388,8 @@ int drm_av_sync_delay(struct drm_connector *connector,
+ 		      const struct drm_display_mode *mode);
  
-@@ -6131,8 +6133,9 @@ static void drm_parse_microsoft_vsdb(struct drm_connector *connector,
- 	if (version == 1 || version == 2 || (version == 3 && !desktop_usage))
- 		info->non_desktop = true;
+ #ifdef CONFIG_DRM_LOAD_EDID_FIRMWARE
+-const struct drm_edid *drm_edid_load_firmware(struct drm_connector *connector);
+ int __drm_set_edid_firmware_path(const char *path);
+ int __drm_get_edid_firmware_path(char *buf, size_t bufsize);
+-#else
+-static inline const struct drm_edid *
+-drm_edid_load_firmware(struct drm_connector *connector)
+-{
+-	return ERR_PTR(-ENOENT);
+-}
+ #endif
  
--	drm_dbg_kms(connector->dev, "HMD or specialized display VSDB version %u: 0x%02x\n",
--		    version, db[5]);
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] HMD or specialized display VSDB version %u: 0x%02x\n",
-+		    connector->base.id, connector->name, version, db[5]);
- }
- 
- static void drm_parse_cea_ext(struct drm_connector *connector,
-@@ -6253,8 +6256,9 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
- 	struct drm_display_info *info = &connector->display_info;
- 
- 	if (block->num_bytes < 3) {
--		drm_dbg_kms(connector->dev, "Unexpected vendor block size %u\n",
--			    block->num_bytes);
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] Unexpected vendor block size %u\n",
-+			    connector->base.id, connector->name, block->num_bytes);
- 		return;
- 	}
- 
-@@ -6262,13 +6266,16 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
- 		return;
- 
- 	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
--		drm_dbg_kms(connector->dev, "Unexpected VESA vendor block size\n");
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] Unexpected VESA vendor block size\n",
-+			    connector->base.id, connector->name);
- 		return;
- 	}
- 
- 	switch (FIELD_GET(DISPLAYID_VESA_MSO_MODE, vesa->mso)) {
- 	default:
--		drm_dbg_kms(connector->dev, "Reserved MSO mode value\n");
-+		drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] Reserved MSO mode value\n",
-+			    connector->base.id, connector->name);
- 		fallthrough;
- 	case 0:
- 		info->mso_stream_count = 0;
-@@ -6288,12 +6295,16 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
- 
- 	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
- 	if (info->mso_pixel_overlap > 8) {
--		drm_dbg_kms(connector->dev, "Reserved MSO pixel overlap value %u\n",
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
-+			    connector->base.id, connector->name,
- 			    info->mso_pixel_overlap);
- 		info->mso_pixel_overlap = 8;
- 	}
- 
--	drm_dbg_kms(connector->dev, "MSO stream count %u, pixel overlap %u\n",
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
-+		    connector->base.id, connector->name,
- 		    info->mso_stream_count, info->mso_pixel_overlap);
- }
- 
-@@ -6421,7 +6432,8 @@ static u32 update_display_info(struct drm_connector *connector,
- 
- out:
- 	if (quirks & EDID_QUIRK_NON_DESKTOP) {
--		drm_dbg_kms(connector->dev, "Non-desktop display%s\n",
-+		drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] Non-desktop display%s\n",
-+			    connector->base.id, connector->name,
- 			    info->non_desktop ? " (redundant quirk)" : "");
- 		info->non_desktop = true;
- 	}
-@@ -6732,8 +6744,8 @@ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
- 	struct drm_edid drm_edid;
- 
- 	if (edid && !drm_edid_is_valid(edid)) {
--		drm_warn(connector->dev, "%s: EDID invalid.\n",
--			 connector->name);
-+		drm_warn(connector->dev, "[CONNECTOR:%d:%s] EDID invalid.\n",
-+			 connector->base.id, connector->name);
- 		edid = NULL;
- 	}
- 
+ bool drm_edid_are_equal(const struct edid *edid1, const struct edid *edid2);
 -- 
 2.34.1
 
