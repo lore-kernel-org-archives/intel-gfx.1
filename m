@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41ACAFA373E
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:34:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF9DC38A2D
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:34:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EFA910E481;
-	Mon, 24 Oct 2022 12:34:18 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D15D10E490;
- Mon, 24 Oct 2022 12:34:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C87910E4B9;
+	Mon, 24 Oct 2022 12:34:20 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4CCD10E443;
+ Mon, 24 Oct 2022 12:34:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666614850; x=1698150850;
+ t=1666614845; x=1698150845;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CDQN/zYX5wiP6gpZ/F6iZF75mf0QzLV8Td5iTzLODSM=;
- b=CmNFE8Yw0Bj6WURlU9RGUJeVH0uvnnL1fbCGoUwDg0N9pGmmcI1xpHig
- hfJh6yIDF6LRWXQnqK5JSAViE07sxCt85RKiivtpQ4JF7uaUvQk8nIrsZ
- CKo1OQoh61lugfCF5kTTyCMTR5r1nmAI2K2/l6ESxMAMSN1F4FEJZUDhW
- W4w7cEc5JEcZq2XDGPpimOxS/zk680JJNMsSSRCrR2oOOc5CLVod95MA8
- TgUEj4GsGlr7QdgZW7dc3Khpz9ELTvDN3EsJ+OQgR1NTNMwRXg3uLa5hz
- 5vZNIqQ4q5UvMj7XlPoZDJi9P4VoN95C+iryycEEdPoszHquS6UAZPWfy Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="369472676"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="369472676"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:34:09 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="626055645"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="626055645"
+ bh=fBzePSudItjjbOwIjzBK3a/c9M5JFhtRr9O6E/OG6I8=;
+ b=kH3uYFpMKlw2N242f35rzUSstjJq7Etm8/OV7Hb9BPqKjsQLhVthv9It
+ j2RwdcYCAIhEy48iI0VGThPSYihG4P2kfk4EXwmvQSb7Pg5Q2XKGOiXEb
+ yt95U0roUC3yp6f3zft1/L1V4htjjWRA/l3rv2ypXnxpzec9kYe7CU5k3
+ CnT//5uZMrO0p6GDgDxUd6guDWfN2ozz7ziQodye3fk+1VxXifbJpgKWM
+ xBeDjymeLigi6V/llw6zEyqVbumeBB0eJvg1Lg8Z4P/+kbhYunnJXaoMo
+ isIcPdE342y+hoRIP3usPxMWzbRgyWj8gnIRvr5S3YtHPR6M1PXUHiDCS Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="333989462"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="333989462"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 05:34:04 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="876418659"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="876418659"
 Received: from emontau-mobl2.ger.corp.intel.com (HELO localhost)
  ([10.252.52.221])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:34:07 -0700
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 05:34:02 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon, 24 Oct 2022 15:33:32 +0300
-Message-Id: <ae352f542b4d69398c0965e33fb2e6e34156cbfb.1666614699.git.jani.nikula@intel.com>
+Date: Mon, 24 Oct 2022 15:33:31 +0300
+Message-Id: <c901869ff8a4e3aebc4abec99c7dd7b4c224f6e6.1666614699.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1666614699.git.jani.nikula@intel.com>
 References: <cover.1666614699.git.jani.nikula@intel.com>
@@ -46,8 +46,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 04/16] drm/edid: debug log EDID override
- set/reset
+Subject: [Intel-gfx] [PATCH v2 03/16] drm/amd/display: stop using
+ connector->override_edid
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,41 +60,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+ Xinhui Pan <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexdeucher@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's useful debugging information to know if and when an override EDID
-was set or reset.
+The connector->override_edid flag is strictly for EDID override debugfs
+management, and drivers have no business using it.
 
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Acked-by: Alex Deucher <alexdeucher@gmail.com>
 ---
- drivers/gpu/drm/drm_edid.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 47465b9765f1..a863cffa2dc5 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -2194,6 +2194,9 @@ int drm_edid_override_set(struct drm_connector *connector, const void *edid,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 0db2a88cd4d7..3c072754738d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6108,7 +6108,6 @@ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
+ 				aconnector->base.name);
  
- 	connector->override_edid = false;
+ 		aconnector->base.force = DRM_FORCE_OFF;
+-		aconnector->base.override_edid = false;
+ 		return;
+ 	}
  
-+	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] EDID override set\n",
-+		    connector->base.id, connector->name);
-+
- 	ret = drm_connector_update_edid_property(connector, edid);
- 	if (!ret)
- 		connector->override_edid = true;
-@@ -2206,6 +2209,9 @@ int drm_edid_override_reset(struct drm_connector *connector)
- {
- 	connector->override_edid = false;
+@@ -6143,8 +6142,6 @@ static void handle_edid_mgmt(struct amdgpu_dm_connector *aconnector)
+ 		link->verified_link_cap.link_rate = LINK_RATE_HIGH2;
+ 	}
  
-+	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] EDID override reset\n",
-+		    connector->base.id, connector->name);
-+
- 	return drm_connector_update_edid_property(connector, NULL);
+-
+-	aconnector->base.override_edid = true;
+ 	create_eml_sink(aconnector);
  }
  
 -- 
