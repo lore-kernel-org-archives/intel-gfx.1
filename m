@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86FD1FA373E
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:24:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A149BC38A2D
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD8F10E6EE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2228210E6EC;
 	Mon, 24 Oct 2022 13:23:44 +0000 (UTC)
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CD9210E3A9
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:38:21 +0000 (UTC)
-Received: by mail-pl1-x62f.google.com with SMTP id jo13so4603824plb.13
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:38:21 -0700 (PDT)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0839910E399
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:39:42 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-132fb4fd495so11443234fac.12
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:39:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=daynix-com.20210112.gappssmtp.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UAzZQL5seIJutOYUjJgcTz5SIcJNiVaULVY/vxMxJ7M=;
- b=bWAkfym/IuAYQQDsk1OCfdE9w9yWPE3crZCufatlU3uyFhSD2FLPPyi4EZX0XKPNNN
- TsT1Mn93d8yM/JN1r6KstPaSr0v2lhHNLAttfYUvsrYDknwH7khxwfUrEhoUBDF6QNvT
- 2AoTMSr1l1S7qOR5wF4oY1dCDKpWYBJ8RPjoWCYtuPhEghyQHHePilHd/NADV54vZIGq
- 6rdvlz9HJM3z9wu+pJUiXEGORc6v7pwvQYHXmPP9HS48eXejuQAX3z/RDPWeO6o44bSX
- c9msf1NsRp6QE7dLwlbW0UvYtPhluL4+JoPCees4u24dLHSpN6Uh4AbxJOiXkAJfcDlq
- GsGQ==
+ bh=aZbgIVSQ8XgPbVH9Q8Dsp65eLaVcafrOLYAAqQNA3Ms=;
+ b=svkp4e3b3SUT9ftxU+ZLPImVGkrLdjZmAyL4NTDy8zBkyhJo1e5stHvrAz9NnYp+CP
+ AJCGi7A9ny35dbEocVhIsAphKsiD9jZ63/JsrAZueG69IuE95V0TJ6aCnZ+DlNNn13Lm
+ 831reFgJM1LtLUpK9rtNkyvUYZDd26w6QRWfhKIvwmBIQcQJmYTS+V4i6U7+Z4Lpc4d3
+ s0vv4ZqyrCx4Ys2lKyq0BeBUhRZCS490rmEtluTEKpS152uos0ylqsE7d3kzUq0kQqND
+ becInYrHn+JiAKLdk4p+qnOcD5r2SuDSv8VLrjEkovHL0yMYiNLipQex+iGsarVfust+
+ Uvsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=UAzZQL5seIJutOYUjJgcTz5SIcJNiVaULVY/vxMxJ7M=;
- b=z3oyUi9eKEM7muI1sUGvKAqMYl/T21bRCtaa1vwOGitaRtwdRIXNHeZ1pO+SulrsTA
- JJ7dEQBHUmIpktfIbybzcWfVbnhltUHTBku+JkiiCYjJUL1XdZSPUGO4Kt8lHzpKylUl
- Rba82ijuj+evauLi2pqXUC0gFbGMVLJwAu+tBVWKFnMkvSH0VZLLIyNq5iTDe1AyFGFC
- BOIB2ZXFVHRJ9sgkz44xuzjK8Trb0/NEHMWIqVCu7shl1vZ6NznX6NuATEpQG/0wHmgw
- rG+GwnTB0zpBYrx/U6lo1NewJgdyay77yc5ClE4MJQ3QolPqxkS+BNi+PlKlE58by4FN
- 04NA==
-X-Gm-Message-State: ACrzQf0O8q8YaHFWJ3Y5Qz8ou22461LngOxWAOdoef+qGmQJVM6CcKyg
- k96KrkfrM436RciE1gBwdrVC/Q==
-X-Google-Smtp-Source: AMsMyM518/+LX9D2Z710rX+ZGWrNfx22tav+R9okHqn5RhyI0izm5Jqv1jyaCGbAfBxBtougO+lAKQ==
-X-Received: by 2002:a17:90b:4b8f:b0:213:95f:9515 with SMTP id
- lr15-20020a17090b4b8f00b00213095f9515mr6350162pjb.82.1666611500759; 
- Mon, 24 Oct 2022 04:38:20 -0700 (PDT)
+ bh=aZbgIVSQ8XgPbVH9Q8Dsp65eLaVcafrOLYAAqQNA3Ms=;
+ b=ACJNy/7s0+p4qYgky4IxKYVa/HRfG6ELH0sbpgNoS2rEKFCUtHAPWS27WKyXsLqN0N
+ R1iFfPqVaUsedYdG44Eknoq0tf8x4CF+AvoZ2QdpTNcE3C0jNNeRdhqjd6HpNJdKcKnQ
+ D+NbYdsyNUlOdgQl/2y5RgReaHijaJari3/oJ7RhQqv0182RoNCHOCVhOgH0rOamZ/KQ
+ kBNjB52OT0EJhe4LwGLxmAqenmBvqJX5bHmM5/FQ9m+jQa3ZwVfdKshotm+VPykS8kNn
+ 1qzqQ7qe1mZ4HIYVFZ25kpP25xAx6uE+fzznd5sgDqKUPRjP4WSUlZ1pXM0k2qvLQovG
+ TpMw==
+X-Gm-Message-State: ACrzQf2jE9+KRz/0xDeY9UzkvbwdjpAkPnCD3oRMk9Uc+vjXaneFUfNN
+ epR53rwAyVhA4sHipxdDVAuUEy8uMlsOo2bY
+X-Google-Smtp-Source: AMsMyM4RUBGzO3rLlIoesY9MV9xSVNvjZ7XRsAYwgRf2MzR+vsTZOlvX93IbLwXDaavbHv/ooxaUtA==
+X-Received: by 2002:a17:90a:6405:b0:203:6eaa:4999 with SMTP id
+ g5-20020a17090a640500b002036eaa4999mr73460182pjj.8.1666611484014; 
+ Mon, 24 Oct 2022 04:38:04 -0700 (PDT)
 Received: from fedora.flets-east.jp ([2400:4050:c360:8200:8ae8:3c4:c0da:7419])
  by smtp.gmail.com with ESMTPSA id
- b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.38.12
+ b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.37.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 04:38:20 -0700 (PDT)
+ Mon, 24 Oct 2022 04:38:03 -0700 (PDT)
 From: Akihiko Odaki <akihiko.odaki@daynix.com>
 To: 
-Date: Mon, 24 Oct 2022 20:35:10 +0900
-Message-Id: <20221024113513.5205-20-akihiko.odaki@daynix.com>
+Date: Mon, 24 Oct 2022 20:35:08 +0900
+Message-Id: <20221024113513.5205-18-akihiko.odaki@daynix.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221024113513.5205-1-akihiko.odaki@daynix.com>
 References: <20221024113513.5205-1-akihiko.odaki@daynix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Oct 2022 13:23:26 +0000
-Subject: [Intel-gfx] [PATCH 19/22] platform/x86: dell-laptop: Use
+Subject: [Intel-gfx] [PATCH 17/22] platform/x86: thinkpad_acpi: Use
  acpi_video_get_backlight_types()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,22 +102,31 @@ acpi_video_get_backlight_type() is now deprecated.
 
 Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
 ---
- drivers/platform/x86/dell/dell-laptop.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/x86/thinkpad_acpi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-index e92c3ad06d69..9cfffbe2bd95 100644
---- a/drivers/platform/x86/dell/dell-laptop.c
-+++ b/drivers/platform/x86/dell/dell-laptop.c
-@@ -2230,7 +2230,7 @@ static int __init dell_init(void)
- 		micmute_led_registered = true;
+diff --git a/drivers/platform/x86/thinkpad_acpi.c b/drivers/platform/x86/thinkpad_acpi.c
+index 6a823b850a77..d756d2ce54d1 100644
+--- a/drivers/platform/x86/thinkpad_acpi.c
++++ b/drivers/platform/x86/thinkpad_acpi.c
+@@ -3547,7 +3547,7 @@ static int __init hotkey_init(struct ibm_init_struct *iibm)
+ 	/* Do not issue duplicate brightness change events to
+ 	 * userspace. tpacpi_detect_brightness_capabilities() must have
+ 	 * been called before this point  */
+-	if (acpi_video_get_backlight_type() != acpi_backlight_vendor) {
++	if (!(acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR)) {
+ 		pr_info("This ThinkPad has standard ACPI backlight brightness control, supported by the ACPI video driver\n");
+ 		pr_notice("Disabling thinkpad-acpi brightness events by default...\n");
+ 
+@@ -6983,7 +6983,7 @@ static int __init brightness_init(struct ibm_init_struct *iibm)
+ 		return -ENODEV;
  	}
  
--	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
-+	if (!(acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR))
- 		return 0;
- 
- 	token = dell_smbios_find_token(BRIGHTNESS_TOKEN);
+-	if (acpi_video_get_backlight_type() != acpi_backlight_vendor) {
++	if (!(acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR)) {
+ 		if (brightness_enable > 1) {
+ 			pr_info("Standard ACPI backlight interface available, not loading native one\n");
+ 			return -ENODEV;
 -- 
 2.37.3
 
