@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56C9DECAAA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89CD5FA373E
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:24:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27D5210E6E9;
-	Mon, 24 Oct 2022 13:23:48 +0000 (UTC)
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [IPv6:2607:f8b0:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B16CE10E3E1
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:38:12 +0000 (UTC)
-Received: by mail-pg1-x534.google.com with SMTP id e129so8441091pgc.9
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:38:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5829110E716;
+	Mon, 24 Oct 2022 13:23:49 +0000 (UTC)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D567D10E399
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:36:48 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id s196so8466641pgs.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:36:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=daynix-com.20210112.gappssmtp.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ghtJtVJhPw81MXq6/J6quq2LuUHiKWw8lzS+pFTBsP0=;
- b=cZrJzXH//QTytM0WW2x60eVTJWmr4XlL39TbHpKK3q3WQCrSwZnjVPRWyiABmgouTe
- tcWaVYaRKc8hu79d1xDnlFcNITHqD8aagxIfdW/j33EuRzv9/LyBezR8gcIDeuDjMBdi
- Ipdx3WUUwYagpuujWId9VshSvfmg5KdxiBBTFEGB4woUWAXr+bNyz5W7lNqKncoZTj5V
- OtqnOJcGCmy/ESZHdgjapJ1vmW0D4ruK7a2seAn0eeRS8/38sQjcPxnlad2eAV61+hmK
- GkeCBWxM+dUrzuzssuopdvmaQwwmpmxNgwGhyMJjD/yNfawG/7R+9RDafwqQFOoJ0z9Q
- ANrw==
+ bh=aTWnIAAWrGsxFWyDKsfKu5xKbLpsLEHl3kQR801HKCo=;
+ b=MRe/lYU3QcRg+eNbrdoMjeONSL07r0OuDkWzCVk6tpzA20LxxB9dtVNP6GAZVtqzIg
+ /Ydi6DIu3Wy5fZXEZmacOcz+NqXiSg1SXC5+xE40BzARxzxxK4lzIbVbKWJmk00nhUWL
+ J95wLECXE4yV76gl9zFLYhn0sUtCfGQd7MZ3fPt+5gVvmN0pleQRDgrqZg3vefZrijSa
+ Yr0OxSWw7RuG0IesV0KfRF12UlNsEctSBC+ObKy3MmlA9Ekq0p3IRfhEG3FwtLPaqAOb
+ tgPmTvcjcO2SHlUmacRidezoVVwplJ41JEut0A62tZuMt+eaVkdbww0tkfz+m4Yo8zhg
+ FlhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ghtJtVJhPw81MXq6/J6quq2LuUHiKWw8lzS+pFTBsP0=;
- b=aBIZQgTMO4YWP96ZbeH2cZbHH4xxbA7Q8A7ZlWrz8cJdYOb21UnbJFB3yR1Nk6F8vR
- ldaQ8d2oWnuBoicZvxZnysuQ9vLeNjEbjEaaIWwFnVNv4a6WONr/OogKgIa1mqZXBITy
- 9rKGiSJNYBQm7TheNs2s384T4qcCaQY7JaPO3ZOiAbP7L6gCJe46xCAitw4ljK/s2pH+
- LCBar+L1rFdnFLYUQxA6TY5c3vdOoam/KKaRf7EuH7adb1M7SRjgh7bXOZV22AH2mjEU
- nHCrYD938KGKqULCcy8mE/F3aWDbohpMJ/GfteNkvWCGbZHdBdLQ0VHH8Qhku4tcXbwW
- 6S+A==
-X-Gm-Message-State: ACrzQf1oGPno9HIsbi4lFlr4VJu+YlRFGaMizUFkZ7lHnD55wIzi2WaF
- 15fju3U/1qsJ3HpSblWy4JIaNw==
-X-Google-Smtp-Source: AMsMyM7jVfOb4cdFC5JDiHJLWBD4KDzAtatMaD5/Pd8TR8fUHas2SHGFltiDcGGdPiW3YBak6k10IA==
-X-Received: by 2002:a63:dc54:0:b0:44c:ce26:fa35 with SMTP id
- f20-20020a63dc54000000b0044cce26fa35mr28698734pgj.374.1666611492363; 
- Mon, 24 Oct 2022 04:38:12 -0700 (PDT)
+ bh=aTWnIAAWrGsxFWyDKsfKu5xKbLpsLEHl3kQR801HKCo=;
+ b=h3X8v2hgy+zg9W3D4Y2MTr4OZcAkPSomRjZzdrGDSOemYfJYfPEOadTT40P75BBDkP
+ VM7fPcr4vK4xlW7EQGOQ0X6+YOhrj++DGrqp1Qqxue8QX5tWYvvbCCuYVsa4XWmUfdBg
+ PWKfx2QiRc843vPLBzIbJDSgZVh1mb7/x1Y6xqjGjic6yHy472kJlSsyQvj+q/Ulvmse
+ GwZg3oKqWLEc1OuDmTeaPKRe5fF/4AO6idkOuqxMN8c5NRlLEmtRLs4TR1GqBSeKZCRM
+ IdYUxZSVP+15ncScNLQOyQQZzMVVtyJr8VdLVyK5M4QLHjKc3sutz2PPlhcj2A2Nxz3z
+ 6jqg==
+X-Gm-Message-State: ACrzQf0rJVVg6oXPDevlliAhDRxqgpqPX84YHNHiFhB5rdgNISYmFKfC
+ lYER+OXw14JnifHBSVAE9Y343A==
+X-Google-Smtp-Source: AMsMyM4YJ5urGf6JLjky27R9T5sFwrnmf9RBCYrtUNpAE3TI6fc6EtzOOV4rZk9R6ICHsHu1MQHt3A==
+X-Received: by 2002:a63:64d:0:b0:46b:158f:102e with SMTP id
+ 74-20020a63064d000000b0046b158f102emr28740541pgg.150.1666611408492; 
+ Mon, 24 Oct 2022 04:36:48 -0700 (PDT)
 Received: from fedora.flets-east.jp ([2400:4050:c360:8200:8ae8:3c4:c0da:7419])
  by smtp.gmail.com with ESMTPSA id
- b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.38.04
+ b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.36.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 04:38:11 -0700 (PDT)
+ Mon, 24 Oct 2022 04:36:47 -0700 (PDT)
 From: Akihiko Odaki <akihiko.odaki@daynix.com>
 To: 
-Date: Mon, 24 Oct 2022 20:35:09 +0900
-Message-Id: <20221024113513.5205-19-akihiko.odaki@daynix.com>
+Date: Mon, 24 Oct 2022 20:34:59 +0900
+Message-Id: <20221024113513.5205-9-akihiko.odaki@daynix.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221024113513.5205-1-akihiko.odaki@daynix.com>
 References: <20221024113513.5205-1-akihiko.odaki@daynix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Oct 2022 13:23:26 +0000
-Subject: [Intel-gfx] [PATCH 18/22] platform/x86: toshiba_acpi: Use
+Subject: [Intel-gfx] [PATCH 08/22] platform/x86: eeepc-laptop: Use
  acpi_video_get_backlight_types()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,22 +101,22 @@ acpi_video_get_backlight_type() is now deprecated.
 
 Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
 ---
- drivers/platform/x86/toshiba_acpi.c | 2 +-
+ drivers/platform/x86/eeepc-laptop.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/toshiba_acpi.c
-index 160abd3b3af8..3d747a901ad8 100644
---- a/drivers/platform/x86/toshiba_acpi.c
-+++ b/drivers/platform/x86/toshiba_acpi.c
-@@ -2978,7 +2978,7 @@ static int toshiba_acpi_setup_backlight(struct toshiba_acpi_dev *dev)
- 		return 0;
- 	}
+diff --git a/drivers/platform/x86/eeepc-laptop.c b/drivers/platform/x86/eeepc-laptop.c
+index a388a28b6f2a..91dea49f7c3d 100644
+--- a/drivers/platform/x86/eeepc-laptop.c
++++ b/drivers/platform/x86/eeepc-laptop.c
+@@ -1400,7 +1400,7 @@ static int eeepc_acpi_add(struct acpi_device *device)
+ 	if (result)
+ 		goto fail_platform;
  
--	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
-+	if (!(acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR))
- 		return 0;
- 
- 	memset(&props, 0, sizeof(props));
+-	if (acpi_video_get_backlight_type() == acpi_backlight_vendor) {
++	if ((acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR)) {
+ 		result = eeepc_backlight_init(eeepc);
+ 		if (result)
+ 			goto fail_backlight;
 -- 
 2.37.3
 
