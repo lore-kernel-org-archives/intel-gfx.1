@@ -4,75 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 792BAECAAA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:23:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A603C38A2D
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:23:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6501A10E6CC;
-	Mon, 24 Oct 2022 13:23:33 +0000 (UTC)
-X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
- Thu, 20 Oct 2022 11:10:57 UTC
-Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 761EC10E1DA;
- Thu, 20 Oct 2022 11:10:57 +0000 (UTC)
-Received: from [192.168.1.103] (31.173.87.29) by msexch01.omp.ru (10.188.4.12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.986.14; Thu, 20 Oct
- 2022 13:55:44 +0300
-To: Thomas Zimmermann <tzimmermann@suse.de>, <daniel@ffwll.ch>,
- <airlied@gmail.com>, <sam@ravnborg.org>, <javierm@redhat.com>,
- <mripard@kernel.org>, <maarten.lankhorst@linux.intel.com>
-References: <20221020103755.24058-1-tzimmermann@suse.de>
- <20221020103755.24058-4-tzimmermann@suse.de>
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-Message-ID: <013ea55b-3d51-c89c-eff8-b8d355ded352@omp.ru>
-Date: Thu, 20 Oct 2022 13:55:44 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63DA410E6CE;
+	Mon, 24 Oct 2022 13:23:34 +0000 (UTC)
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
+ [IPv6:2607:f8b0:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A78610E3A9
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:36:23 +0000 (UTC)
+Received: by mail-pg1-x529.google.com with SMTP id e129so8437896pgc.9
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:36:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=daynix-com.20210112.gappssmtp.com; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FzYckbVTu84cFuvQYLHBAleZORC/YQBRLh0kCNSwM7o=;
+ b=iBmB5k8OKAjf/Xfxgs/hagECXPJWV1vTEOyWaHgXEXGGuvWdPS3TIcFuqN2vljOt/3
+ nNxtvkj18I0SllZUWw1t8qqvPmaaAP/Ih4C/z6eW1oEg/YHBwNE/UBrQc6mXtkTAyvYj
+ FRBgnjpPaQlPvG+Y3I8gbe9DDVTlZH0hAaXfoiGfSlX3bhk3XTqmJy1s3Zn6Jxm7ASHo
+ 5qpBijR2lRjm+mURr8kmnNH7SvMPVVmMWVtI9kd+jgDbk3k+yebqsm9WcqXOGkuW8EHo
+ ONz+AiYuv6fxJZh8VBFUV+IvV75FH4hihqZWU8KhCWTYY3SL2W8//2gxAwO5cZ7vPvF7
+ RcQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=FzYckbVTu84cFuvQYLHBAleZORC/YQBRLh0kCNSwM7o=;
+ b=3GM4b+5eTUlEUQrrXpBarbcrMUDRkhfzfuwiBRJcUmfmKzxEirMMQG9qFMOqoNp43U
+ ILvHt9zlkXiX6xH5aUOMWbb/0QO0ECMpde4XnwhDVOz46vmIl17aBmfwqWQodpz+Mn+6
+ IWSG+pgzYVcOz2GLvSabV/lHBNMXIFdjppKg4atMvJbesqaXSnyJLC41WR8FZpxCijDT
+ YqW8+vVNmZTBcW8/aIdxQrOCijyy1SfsWevfbzEI6sQgjatmO+lay+INAC0/X6bkLMxs
+ UuzlwQVgZaktt9ot6hfg3362eA5epvyrHKWtHPJiiPquLq5hRdEB63yFcp9fG5hFW2Sn
+ AksQ==
+X-Gm-Message-State: ACrzQf0Lu5GzyZyPyRfGCABc34hq3UkUBJy+NMreVK9YJaA3ZACZsTnm
+ Evz2dAASJCDW38PU7bpvIBxgaw==
+X-Google-Smtp-Source: AMsMyM7eq4O5TcwFPN0I0cjYrONCrFe9kecGGggyXcsgPXfbT+UNin9IKo2yeDqy+SAw/EfdKKa+7Q==
+X-Received: by 2002:a63:2a86:0:b0:46a:eaba:f1f3 with SMTP id
+ q128-20020a632a86000000b0046aeabaf1f3mr27591150pgq.79.1666611383075; 
+ Mon, 24 Oct 2022 04:36:23 -0700 (PDT)
+Received: from fedora.flets-east.jp ([2400:4050:c360:8200:8ae8:3c4:c0da:7419])
+ by smtp.gmail.com with ESMTPSA id
+ b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.36.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Oct 2022 04:36:22 -0700 (PDT)
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+To: 
+Date: Mon, 24 Oct 2022 20:34:56 +0900
+Message-Id: <20221024113513.5205-6-akihiko.odaki@daynix.com>
+X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20221024113513.5205-1-akihiko.odaki@daynix.com>
+References: <20221024113513.5205-1-akihiko.odaki@daynix.com>
 MIME-Version: 1.0
-In-Reply-To: <20221020103755.24058-4-tzimmermann@suse.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [31.173.87.29]
-X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
- (10.188.4.12)
-X-KSE-ServerInfo: msexch01.omp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.20, Database issued on: 10/20/2022 10:25:24
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 59
-X-KSE-AntiSpam-Info: Lua profiles 173210 [Oct 20 2022]
-X-KSE-AntiSpam-Info: Version: 5.9.20.0
-X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
-X-KSE-AntiSpam-Info: LuaCore: 502 502 69dee8ef46717dd3cb3eeb129cb7cc8dab9e30f6
-X-KSE-AntiSpam-Info: {rep_avail}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: {relay has no DNS name}
-X-KSE-AntiSpam-Info: {SMTP from is not routable}
-X-KSE-AntiSpam-Info: {Found in DNSBL: 31.173.87.29 in (user)
- b.barracudacentral.org}
-X-KSE-AntiSpam-Info: omp.ru:7.1.1; 127.0.0.199:7.1.2;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
-X-KSE-AntiSpam-Info: ApMailHostAddress: 31.173.87.29
-X-KSE-AntiSpam-Info: {DNS response errors}
-X-KSE-AntiSpam-Info: Rate: 59
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
- smtp.mailfrom=omp.ru;dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 10/20/2022 10:32:00
-X-KSE-AttachmentFiltering-Interceptor-Info: protection disabled
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 10/20/2022 7:12:00 AM
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Oct 2022 13:23:26 +0000
-Subject: Re: [Intel-gfx] [PATCH 03/21] drm/ingenic: Don't set struct
- drm_driver.lastclose
+Subject: [Intel-gfx] [PATCH 05/22] platform/x86: asus-laptop: Use
+ acpi_video_get_backlight_types()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,35 +74,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- xen-devel@lists.xenproject.org, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- freedreno@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org, Ike Panhc <ike.pan@canonical.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, dri-devel@lists.freedesktop.org,
+ Azael Avalos <coproscefalo@gmail.com>, Mattia Dongili <malattia@linux.it>,
+ Daniel Dadap <ddadap@nvidia.com>, Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
+ Akihiko Odaki <akihiko.odaki@daynix.com>, David Airlie <airlied@gmail.com>,
+ Daniel Thompson <daniel.thompson@linaro.org>,
+ Jonathan Woithe <jwoithe@just42.net>, Jonathan Corbet <corbet@lwn.net>, "Lee,
+ Chun-Yi" <jlee@suse.com>, Helge Deller <deller@gmx.de>,
+ Lee Jones <lee@kernel.org>, Robert Moore <robert.moore@intel.com>,
+ linux-acpi@vger.kernel.org, Cezary Jackiewicz <cezary.jackiewicz@gmail.com>,
+ Len Brown <lenb@kernel.org>, Kenneth Chan <kenneth.t.chan@gmail.com>,
+ Corentin Chary <corentin.chary@gmail.com>, intel-gfx@lists.freedesktop.org,
+ acpi4asus-user@lists.sourceforge.net, Maxime Ripard <mripard@kernel.org>,
+ Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ platform-driver-x86@vger.kernel.org, devel@acpica.org,
+ ibm-acpi-devel@lists.sourceforge.net, Jingoo Han <jingoohan1@gmail.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello!
+acpi_video_get_backlight_type() is now deprecated.
 
-On 10/20/22 1:37 PM, Thomas Zimmermann wrote:
+Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+---
+ drivers/platform/x86/asus-laptop.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Don't set struct drm_mode_config.output_poll_changed. It's used to
-> inform the fbdev console about conncetor changes. But as ingenic
+diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/x86/asus-laptop.c
+index 47b2f8bb6fb5..fb7f9e8ca6c4 100644
+--- a/drivers/platform/x86/asus-laptop.c
++++ b/drivers/platform/x86/asus-laptop.c
+@@ -1854,7 +1854,7 @@ static int asus_acpi_add(struct acpi_device *device)
+ 	if (result)
+ 		goto fail_platform;
+ 
+-	if (acpi_video_get_backlight_type() == acpi_backlight_vendor) {
++	if ((acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR)) {
+ 		result = asus_backlight_init(asus);
+ 		if (result)
+ 			goto fail_backlight;
+-- 
+2.37.3
 
-   Connector. :-)
-
-> uses generic fbdev emulation, the console is being informed by the
-> DRM client helpers already. See the calls to drm_client_dev_hotplug()
-> in drm_probe_helper.c.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-[...]
-
-MBR, Sergey
