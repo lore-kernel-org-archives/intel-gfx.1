@@ -4,60 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7FA3C38A2D
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:25:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8402EECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:25:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5211C10E701;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2C1910E703;
 	Mon, 24 Oct 2022 13:25:07 +0000 (UTC)
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [IPv6:2607:f8b0:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3E3610E388
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:35:41 +0000 (UTC)
-Received: by mail-pf1-x42b.google.com with SMTP id 192so1562260pfx.5
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:35:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=daynix-com.20210112.gappssmtp.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=zcdfaNsoIuuSNF9XByhbeUp3KpNdfCPWzGZ8aF5nLxA=;
- b=A/SaFlQiUebp/U4yUjESResGqrVwntBISSfqBzWDzKJibVbtIVr9UUfU6mxLj07U3t
- BF1P1ziYSaSoZu2hLeXkqtIzAlvAh0MFneC+wQBMWmi0FH1LXXFBqHadJUpo8KeJTncO
- UfWe0DIEAPCTW/sCTy15HwE2CBjAb+Rx1eEUSB+NNH260sZc5OtfAVjOXussqn3KA347
- PpO/tyEscshRJ9N6nCBeacKW6fv3Tw1lcWUes4Zil4fK5WzarbbrLQTA4j7+JXjg1OB5
- Nl7VXtFCfuFWoaeikVJ/SxvLnxREoubYa0ceNbAiLW7yzBhF70OMrb+09Y3IJKqA+AuT
- 576g==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF2B610E701
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 13:24:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1666617843;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Pm5HJkjYWeeX/qs3JDehVtgKORU0AuoMo2twQDux5eA=;
+ b=QvuTAiZVFixqbJ9gwNFoP9sAfSIoneqpSNpmGv1Ar7w/4k9V/iG9AhwdmW/veoq8LBlRSJ
+ 9nwhfeKT+/mVnIsNARZvjjIGGizZ0fLDLtiD37Fhg+OYHmubCfHbsw+VxidcbjGnt6ixRz
+ k7bbQmi4o2ZGATU+HqlCO94nHsVmVjI=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-554-eCLbnAFOOtKL_KzTJJR2CA-1; Mon, 24 Oct 2022 09:24:01 -0400
+X-MC-Unique: eCLbnAFOOtKL_KzTJJR2CA-1
+Received: by mail-lf1-f72.google.com with SMTP id
+ 13-20020ac2484d000000b004a22f42201eso2715446lfy.17
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 06:24:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=zcdfaNsoIuuSNF9XByhbeUp3KpNdfCPWzGZ8aF5nLxA=;
- b=YLF4Ea9CIkNdV5T3wzsGTxfOegbeYCkZmbvXc455VQvvGKpzQi8IjU/nlGGsxfVQA5
- eM7i6QcxhLxcegMei4GmTTPt/XfgM0G50nuT6udHgW+T3fpZ+F3pnZv/wybL3j8IZ7iP
- fReyGiN41bO1Jxb/8TFqcwCu7eV/lQPIPkR6xm+ou9GtjdCt9btZwfHML3cquupOtiyc
- R3ROrN5+O+F03+DEHhY+hL0i8n4tozaiBVME1opYQ75AmnzTNrxn325ttwcBUs4i+WnV
- c44m315V54W9EX546jp023MerjgxjVTpmnN7aF8PzUF04scNwYOJ/1bboNemnN7dc6OB
- 4drQ==
-X-Gm-Message-State: ACrzQf0/Lb2/s5q6nD/YNsWDhtcAgbvpMFfzxGf+BSmPfpRGxhl5eula
- buDxbsbOrl5RJfdYb1YxdRXC9Q==
-X-Google-Smtp-Source: AMsMyM5stq/ljVzMueZdUgOUcwUqYp0qFBFo+CXciS0i44pLthcVHJASa5mVlU8sjRqgQycqku2BPA==
-X-Received: by 2002:a63:2345:0:b0:463:7c74:73b with SMTP id
- u5-20020a632345000000b004637c74073bmr28176901pgm.39.1666611341111; 
- Mon, 24 Oct 2022 04:35:41 -0700 (PDT)
-Received: from fedora.flets-east.jp ([2400:4050:c360:8200:8ae8:3c4:c0da:7419])
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Pm5HJkjYWeeX/qs3JDehVtgKORU0AuoMo2twQDux5eA=;
+ b=zHuAZT5DJLEN2tzLy0ynG8tSJcBjAlYnV+Ze98/KSWz3Jpo/MmK5sUABCTpuKQDWV9
+ tWQWNDnRLBC8DyGmhYIZUNemkrIAFx/PxarkN1mvuOedV0M+5inVTxiR7WLTflE6cO9W
+ fH8TBQuS6/KqnbtC7fO5JHKGny9gCNUMfUXvmSWNksAB+x6ghVnsTblDgwZVZ4CzXRAw
+ +ZerRRMAgEKm3R2L2SDRja2aDxlgvA3ugknyZW8SwumPld5Yy1ZJwvGD7BILcE3XiutN
+ 3Csnqwc0PxDs0/jljUz/uXKO6GEM382PfXs39aWp/30ZwL5HScZSA3+0sAOELcv53uxH
+ JV3w==
+X-Gm-Message-State: ACrzQf2cBx4tFJ9DSrfxDFWHp+OwZHRyWYzNtbSjpTKpW5VM1qEEMy31
+ RpSFrdwIqKOLunNEZBmIxX51QGW8bcmG1qYGKHXlGlyQuqr764zst/97Q5kwzLNIMlQLnkD+anQ
+ krPhU6gBhY36031r/nAf81o6wFmDu
+X-Received: by 2002:a2e:7314:0:b0:26e:be8:7f6 with SMTP id
+ o20-20020a2e7314000000b0026e0be807f6mr11643889ljc.176.1666617839177; 
+ Mon, 24 Oct 2022 06:23:59 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM6nRpfOUd7fXfaQxZAoL/YNjVZG4I1hOQtgleKwhNKXvtlVx02RUh+6naoowPVHW1NVhRqxQg==
+X-Received: by 2002:a17:906:8a6a:b0:79e:2efe:e0 with SMTP id
+ hy10-20020a1709068a6a00b0079e2efe00e0mr12680099ejc.401.1666617828842; 
+ Mon, 24 Oct 2022 06:23:48 -0700 (PDT)
+Received: from [10.40.98.142] ([78.108.130.194])
  by smtp.gmail.com with ESMTPSA id
- b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.35.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 04:35:40 -0700 (PDT)
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
-To: 
-Date: Mon, 24 Oct 2022 20:34:51 +0900
-Message-Id: <20221024113513.5205-1-akihiko.odaki@daynix.com>
-X-Mailer: git-send-email 2.37.3
+ b27-20020a17090630db00b0073dbaeb50f6sm15619252ejb.169.2022.10.24.06.23.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Oct 2022 06:23:48 -0700 (PDT)
+Message-ID: <84d86b61-7694-2e22-3593-b11b3ce33cf8@redhat.com>
+Date: Mon, 24 Oct 2022 15:23:46 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+To: =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
+ Akihiko Odaki <akihiko.odaki@daynix.com>
+References: <20221024113513.5205-1-akihiko.odaki@daynix.com>
+ <746e5cc6-516f-8f69-9d4b-8fe237de8fd6@redhat.com>
+ <edec5950-cec8-b647-ccb1-ba48f9b3bbb0@daynix.com>
+ <20221024131451.lvkesdg3kvyvbi7n@pali>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20221024131451.lvkesdg3kvyvbi7n@pali>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 24 Oct 2022 13:23:26 +0000
-Subject: [Intel-gfx] [PATCH 00/22] Fallback to native backlight
+Subject: Re: [Intel-gfx] [PATCH 00/22] Fallback to native backlight
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,8 +93,7 @@ Cc: linux-fbdev@vger.kernel.org, Ike Panhc <ike.pan@canonical.com>,
  "Rafael J. Wysocki" <rafael@kernel.org>, dri-devel@lists.freedesktop.org,
  Azael Avalos <coproscefalo@gmail.com>, Mattia Dongili <malattia@linux.it>,
  Daniel Dadap <ddadap@nvidia.com>, Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
- Akihiko Odaki <akihiko.odaki@daynix.com>, David Airlie <airlied@gmail.com>,
- Daniel Thompson <daniel.thompson@linaro.org>,
+ David Airlie <airlied@gmail.com>, Daniel Thompson <daniel.thompson@linaro.org>,
  Jonathan Woithe <jwoithe@just42.net>, Jonathan Corbet <corbet@lwn.net>, "Lee,
  Chun-Yi" <jlee@suse.com>, Helge Deller <deller@gmx.de>,
  Lee Jones <lee@kernel.org>, Robert Moore <robert.moore@intel.com>,
@@ -83,77 +101,48 @@ Cc: linux-fbdev@vger.kernel.org, Ike Panhc <ike.pan@canonical.com>,
  Len Brown <lenb@kernel.org>, Kenneth Chan <kenneth.t.chan@gmail.com>,
  Corentin Chary <corentin.chary@gmail.com>, intel-gfx@lists.freedesktop.org,
  acpi4asus-user@lists.sourceforge.net, Maxime Ripard <mripard@kernel.org>,
- Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- platform-driver-x86@vger.kernel.org, devel@acpica.org,
- ibm-acpi-devel@lists.sourceforge.net, Jingoo Han <jingoohan1@gmail.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
+ Mark Gross <markgross@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, platform-driver-x86@vger.kernel.org,
+ devel@acpica.org, ibm-acpi-devel@lists.sourceforge.net,
+ Jingoo Han <jingoohan1@gmail.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Commit 2600bfa3df99 ("ACPI: video: Add acpi_video_backlight_use_native()
-helper") and following commits made native backlight unavailable if
-CONFIG_ACPI_VIDEO is set and the backlight feature of ACPI video is
-unavailable, which broke the backlight functionality on Lenovo ThinkPad
-C13 Yoga Chromebook. Allow to fall back to native backlight in such
-cases.
+Hi,
 
-Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+On 10/24/22 15:14, Pali Rohár wrote:
+> On Monday 24 October 2022 21:58:57 Akihiko Odaki wrote:
+>> Regarding the second limitation, I don't even understand the difference
+>> between vendor and native. My guess is that a vendor backlight device uses
+>> vendor-specific ACPI interface, and a native one directly uses hardware
+>> registers. If my guess is correct, the difference between vendor and native
+>> does not imply that both of them are likely to exist at the same time. As
+>> the conclusion, there is no more motivation to try to de-duplicate the
+>> vendor/native combination than to try to de-duplicate combination of devices
+>> with a single type.
+> 
+> Hello! I just want to point one thing. On some Dell laptops there are
+> 3 different ways (= 3 different APIs) how to control display backlight.
+> There is ACPI driver (uses ACPI), GPU/DRM driver (i915.ko; uses directly
+> HW) and platform vendor driver (dell-laptop.ko; uses vendor BIOS or
+> firmware API).
 
-Akihiko Odaki (22):
-  drm/i915/opregion: Improve backlight request condition
-  ACPI: video: Introduce acpi_video_get_backlight_types()
-  LoongArch: Use acpi_video_get_backlight_types()
-  platform/x86: acer-wmi: Use acpi_video_get_backlight_types()
-  platform/x86: asus-laptop: Use acpi_video_get_backlight_types()
-  platform/x86: asus-wmi: Use acpi_video_get_backlight_types()
-  platform/x86: compal-laptop: Use acpi_video_get_backlight_types()
-  platform/x86: eeepc-laptop: Use acpi_video_get_backlight_types()
-  platform/x86: fujitsu-laptop: Use acpi_video_get_backlight_types()
-  platform/x86: ideapad-laptop: Use acpi_video_get_backlight_types()
-  platform/x86: msi-laptop: Use acpi_video_get_backlight_types()
-  platform/x86: msi-wmi: Use acpi_video_get_backlight_types()
-  platform/x86: nvidia-wmi-ec-backlight: Use
-    acpi_video_get_backlight_types()
-  platform/x86: panasonic-laptop: Use acpi_video_get_backlight_types()
-  platform/x86: samsung-laptop: Use acpi_video_get_backlight_types()
-  platform/x86: sony-laptop: Use acpi_video_get_backlight_types()
-  platform/x86: thinkpad_acpi: Use acpi_video_get_backlight_types()
-  platform/x86: toshiba_acpi: Use acpi_video_get_backlight_types()
-  platform/x86: dell-laptop: Use acpi_video_get_backlight_types()
-  platform/x86: intel_oaktrail: Use acpi_video_get_backlight_types()
-  ACPI: video: Remove acpi_video_get_backlight_type()
-  ACPI: video: Fallback to native backlight
+Right and that is just one example of laptops which can register both
+vendor + native backlight devices, which is why this whole series is
+a bad idea.
 
- Documentation/gpu/todo.rst                    |  8 +--
- drivers/acpi/acpi_video.c                     |  2 +-
- drivers/acpi/video_detect.c                   | 54 ++++++++++---------
- drivers/gpu/drm/i915/display/intel_opregion.c |  3 +-
- drivers/platform/loongarch/loongson-laptop.c  |  4 +-
- drivers/platform/x86/acer-wmi.c               |  2 +-
- drivers/platform/x86/asus-laptop.c            |  2 +-
- drivers/platform/x86/asus-wmi.c               |  4 +-
- drivers/platform/x86/compal-laptop.c          |  2 +-
- drivers/platform/x86/dell/dell-laptop.c       |  2 +-
- drivers/platform/x86/eeepc-laptop.c           |  2 +-
- drivers/platform/x86/fujitsu-laptop.c         |  4 +-
- drivers/platform/x86/ideapad-laptop.c         |  2 +-
- drivers/platform/x86/intel/oaktrail.c         |  2 +-
- drivers/platform/x86/msi-laptop.c             |  2 +-
- drivers/platform/x86/msi-wmi.c                |  2 +-
- .../platform/x86/nvidia-wmi-ec-backlight.c    |  2 +-
- drivers/platform/x86/panasonic-laptop.c       |  2 +-
- drivers/platform/x86/samsung-laptop.c         |  2 +-
- drivers/platform/x86/sony-laptop.c            |  2 +-
- drivers/platform/x86/thinkpad_acpi.c          |  4 +-
- drivers/platform/x86/toshiba_acpi.c           |  2 +-
- drivers/video/backlight/backlight.c           | 18 +++++++
- include/acpi/video.h                          | 21 ++++----
- include/linux/backlight.h                     |  1 +
- 25 files changed, 85 insertions(+), 66 deletions(-)
+Regards,
 
--- 
-2.37.3
+Hans
+
+
+
+> Just every driver has different pre-calculated scaling
+> values. So sometimes user wants to choose different driver just because
+> it allows to set backlight level with "better" granularity. Registering
+> all 3 device drivers is bad as user does not want to see 3 display
+> panels and forcing registration of specific one without runtime option
+> is also bad (some of those drivers do not have to be suitable or has
+> worse granularity as other).
 
