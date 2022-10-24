@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03807FA373E
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:23:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98565ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:23:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D93110E6A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7BE510E6AE;
 	Mon, 24 Oct 2022 13:23:30 +0000 (UTC)
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E772710E3A9
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:36:31 +0000 (UTC)
-Received: by mail-pj1-x1030.google.com with SMTP id
- l22-20020a17090a3f1600b00212fbbcfb78so3135043pjc.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:36:31 -0700 (PDT)
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36D7710E399
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:36:57 +0000 (UTC)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ d59-20020a17090a6f4100b00213202d77e1so1137701pjk.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:36:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=daynix-com.20210112.gappssmtp.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=gF1+dr0UmSLKg5C/+t+S2XzPWm1zDrjsbQX8+igR+aM=;
- b=TUaer4HdAj1V1/KvIiqeuDXfW6xDWwEMoGs5n4ogyUIGkys9QMhjDQ+bVY0ELC/Zv7
- bWVD8iLyFzbkfcDLx8DVuEuAt6agWLfXnGroETWUA/WUAxEudlmKwVrZP9YEJ60SqpQO
- uEgVtlcZHMdUxEmxBez2o4LXL4xr7pLMNs2npVpTCCV+56sUo0X53wm7kZWeulN1UxgY
- mJboZRkxMVHWvPMsPje9/uDltkPOywQSfMmTJicM2HoXPo4wyYb1scm4m6G+r2+bzHd8
- Sbxk521dG9VmXqWc9Od5r0OBVoSlAsHO2hUBuwny+NvTx3MjpnZ1sqjNKvam6yq5PSwk
- iKPQ==
+ bh=c3/qt1OzaBc9a5GsaEcxXWSHAm3X31gczykCRrhGnKw=;
+ b=lOEcU4RGCEfGg+wnfVs0l7n30cTg9FbZcgkthaptWevuzG9Ssi+9oWFgfDpyitG3Tk
+ OuLI1JcLxzeALUawRzgQ4OCHUQAGKneDBweTsEC2z2rv/dy7b2CVz85QxzVHNDeK3Mlb
+ xsxvq1aCJ5rCSCJDSgTd1x0eL49i7F01FPf3bevhsJTjMKGOtn1fRwPcWjyhr7lR2spk
+ XeIQqVeTz/3QdhnRwjU1wp6PSyaOIKZ5MzRhwmkzlX7C/eeOdJtAKw9fT8Pc1B5311gv
+ y6ZojtRQW/tr/7t2nMkDZNTzuYYeLPsaTucm9GFd6bYXgmrWG6KMd06zb2097bHNbdj6
+ vLsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gF1+dr0UmSLKg5C/+t+S2XzPWm1zDrjsbQX8+igR+aM=;
- b=SLN8LwSW3ljjZq+TLti7bWMGeYvErHX4kqjYtogSlkSkMmuMGqVC7eE29KSHD0KUqu
- f+R0sB7CxXZvq2yoH10koj9n8t2p8fMce6l1basrsR8tAWFDYVNYHEB0O4C7wg9ViDfw
- R3mMycyedG6a9FGASvfhxUUwka89v4XAhS+wcUmQ5PSM6AFojUqSU2WfiIyYPftttkr/
- QRY1Ab5jIpNyj4Sx6r8EDEztARwpbnqlUNZHnzBt9HbP+Ua04RTZyz4ZiYDQsh6+avzp
- Nf/APpX0remcEAthLz4sYyHTt7GwV1q0Kudox0U/VJXD9orIq1dsQT7pRSSd/tkIZ1qH
- u46w==
-X-Gm-Message-State: ACrzQf2gB6WkOsM+spRzLUD5m3EL2BdEL+sukhXETvEhO/et0WXf1vLc
- +1uKvoA5TbIxpfyhYm263gZxjg==
-X-Google-Smtp-Source: AMsMyM4Z73PEbmFjby7RYhtWBADc72izt8nSu6NGLKgrb37LXlsr13MXJ1blMej/gKuQKEFJb7DSAA==
-X-Received: by 2002:a17:90a:29e4:b0:20a:f9d5:c10e with SMTP id
- h91-20020a17090a29e400b0020af9d5c10emr75009289pjd.132.1666611391524; 
- Mon, 24 Oct 2022 04:36:31 -0700 (PDT)
+ bh=c3/qt1OzaBc9a5GsaEcxXWSHAm3X31gczykCRrhGnKw=;
+ b=aZfDSMh4XugXKHdRpnKsNgDYCnFIW7cIcNPsSZ5bynL3VgB3kOYdID8TCDfpQPHr2b
+ DR1jIfdrR273fSMyNyBpyV/e8+dcqXfqnPZgxW0MWAtNmTk0EFXIUFLBfUQkds0HKeYk
+ /VegihPNAOWNfTUnOwS9DcWZtyd4M5gSiUsokTANdKdRWUsFpwPwvytK6GE2wjsABs3D
+ hmM//dzbA2WogNTjUA5x7OEOTILeXkriy6a2MmNE4zHOeVpx8yly9Tq0YHC+yuCYJwg/
+ h8ke+QblkV1SMoCJuIqTNEZyALPx9zexh+k8lhHqtFHxq6VF8rfK4YzMh+GgP9xaz23U
+ mveg==
+X-Gm-Message-State: ACrzQf1CjXfPJ/8mWRclvkgVET6Q7luT/aKOWsVHwgRzknlGQ7rU8Ub4
+ FZOK7HMvn9cWrGct92MdL3Jpig==
+X-Google-Smtp-Source: AMsMyM4VgcDLQ4Mdfbv6hIeokV3STzkHDHm8r2Jacxl6wRFbQoIXcyKQ22yPaEG8fZMahC4Fy+BnrA==
+X-Received: by 2002:a17:902:7281:b0:178:388d:6f50 with SMTP id
+ d1-20020a170902728100b00178388d6f50mr33837351pll.127.1666611416833; 
+ Mon, 24 Oct 2022 04:36:56 -0700 (PDT)
 Received: from fedora.flets-east.jp ([2400:4050:c360:8200:8ae8:3c4:c0da:7419])
  by smtp.gmail.com with ESMTPSA id
- b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.36.23
+ b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.36.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 04:36:30 -0700 (PDT)
+ Mon, 24 Oct 2022 04:36:56 -0700 (PDT)
 From: Akihiko Odaki <akihiko.odaki@daynix.com>
 To: 
-Date: Mon, 24 Oct 2022 20:34:57 +0900
-Message-Id: <20221024113513.5205-7-akihiko.odaki@daynix.com>
+Date: Mon, 24 Oct 2022 20:35:00 +0900
+Message-Id: <20221024113513.5205-10-akihiko.odaki@daynix.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221024113513.5205-1-akihiko.odaki@daynix.com>
 References: <20221024113513.5205-1-akihiko.odaki@daynix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Oct 2022 13:23:26 +0000
-Subject: [Intel-gfx] [PATCH 06/22] platform/x86: asus-wmi: Use
+Subject: [Intel-gfx] [PATCH 09/22] platform/x86: fujitsu-laptop: Use
  acpi_video_get_backlight_types()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,31 +102,31 @@ acpi_video_get_backlight_type() is now deprecated.
 
 Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
 ---
- drivers/platform/x86/asus-wmi.c | 4 ++--
+ drivers/platform/x86/fujitsu-laptop.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index 6e8e093f96b3..55cca068f783 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -3259,7 +3259,7 @@ static void asus_wmi_handle_event_code(int code, struct asus_wmi *asus)
- 		code = ASUS_WMI_BRN_DOWN;
+diff --git a/drivers/platform/x86/fujitsu-laptop.c b/drivers/platform/x86/fujitsu-laptop.c
+index b543d117b12c..e820de39cb68 100644
+--- a/drivers/platform/x86/fujitsu-laptop.c
++++ b/drivers/platform/x86/fujitsu-laptop.c
+@@ -387,7 +387,7 @@ static int acpi_fujitsu_bl_add(struct acpi_device *device)
+ 	struct fujitsu_bl *priv;
+ 	int ret;
  
- 	if (code == ASUS_WMI_BRN_DOWN || code == ASUS_WMI_BRN_UP) {
--		if (acpi_video_get_backlight_type() == acpi_backlight_vendor) {
-+		if ((acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR)) {
- 			asus_wmi_backlight_notify(asus, orig_code);
- 			return;
- 		}
-@@ -3802,7 +3802,7 @@ static int asus_wmi_add(struct platform_device *pdev)
- 	if (asus->driver->quirks->xusb2pr)
- 		asus_wmi_set_xusb2pr(asus);
+-	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
++	if (!(acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR))
+ 		return -ENODEV;
  
--	if (acpi_video_get_backlight_type() == acpi_backlight_vendor) {
-+	if ((acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR)) {
- 		err = asus_wmi_backlight_init(asus);
- 		if (err && err != -ENODEV)
- 			goto fail_backlight;
+ 	priv = devm_kzalloc(&device->dev, sizeof(*priv), GFP_KERNEL);
+@@ -819,7 +819,7 @@ static int acpi_fujitsu_laptop_add(struct acpi_device *device)
+ 
+ 	/* Sync backlight power status */
+ 	if (fujitsu_bl && fujitsu_bl->bl_device &&
+-	    acpi_video_get_backlight_type() == acpi_backlight_vendor) {
++	    (acpi_video_get_backlight_types() & ACPI_BACKLIGHT_VENDOR)) {
+ 		if (call_fext_func(fext, FUNC_BACKLIGHT, 0x2,
+ 				   BACKLIGHT_PARAM_POWER, 0x0) == BACKLIGHT_OFF)
+ 			fujitsu_bl->bl_device->props.power = FB_BLANK_POWERDOWN;
 -- 
 2.37.3
 
