@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F367AEB6461
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 11:23:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B180BEB6461
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 11:23:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89EC810E3A9;
-	Mon, 24 Oct 2022 11:21:00 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB5DF10E3A9;
- Mon, 24 Oct 2022 11:20:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94E1F10E4B6;
+	Mon, 24 Oct 2022 11:21:09 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1775C10E38E;
+ Mon, 24 Oct 2022 11:20:08 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id ABA7C22165;
- Mon, 24 Oct 2022 11:20:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B4276220DA;
+ Mon, 24 Oct 2022 11:20:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666610408; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1666610406; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RsAQdHzLmddns92tHuvM6Lu3vuWZMSsqH8X6KbiDvyM=;
- b=Kx1ESk/2KWWWJMh3Mri7dZecKO9mDXs/G5Kh0hAdewWvuLJo1pmQHD6rKx9LyO4DYlvE07
- UGREIOW+1c7j8jBFE461HY6tuNFiQnMEGgwugb6mTlj5JySyPdYx6wCGz/kRV3vA9LOEnU
- 7GPrrBN1V+6dySJr6LCuxBMM9CtyYDY=
+ bh=W2hXo1ZXw+fT7jNTQpjjai6MaQuUlFJ3x4yHM5t/NT8=;
+ b=NmK2JPY7erjfISSjJHyuZn3S9M4HE0QY2DX64ewIKQkqdV4YW55dIfYZUFwsucHgK8EJWo
+ 9OqpMMbfSr3Sj4qTG661IHslL7dTlOf47A0qYZ/yUtPD5rYrjiqIr2/K1pI8y8YSUIBX7A
+ u/2NuQed3cKWK0fTF/Zshk2lHorpMOI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666610408;
+ s=susede2_ed25519; t=1666610406;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=RsAQdHzLmddns92tHuvM6Lu3vuWZMSsqH8X6KbiDvyM=;
- b=I2Hs34Ejsna6X414YeSewXudyPLIgsJ7R9rpNpC8j9+h3eJE58RTZnzq5HJHAxqpk4Udik
- FqboT04ghHFQrhAA==
+ bh=W2hXo1ZXw+fT7jNTQpjjai6MaQuUlFJ3x4yHM5t/NT8=;
+ b=2HdzFY+hAc4IQyzPhbPzdnFAvNOMcpZCifG7L10kN4snoDQgnsRKjQRlxM4yHitxgDoIAD
+ 6G6AQD9Zct0kBEBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 034EE13357;
- Mon, 24 Oct 2022 11:20:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 359A713A98;
+ Mon, 24 Oct 2022 11:20:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8O1PO+d0VmOYMgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 24 Oct 2022 11:20:07 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id UFgyDOZ0VmOYMgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 24 Oct 2022 11:20:06 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
  mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Date: Mon, 24 Oct 2022 13:19:51 +0200
-Message-Id: <20221024111953.24307-20-tzimmermann@suse.de>
+Date: Mon, 24 Oct 2022 13:19:48 +0200
+Message-Id: <20221024111953.24307-17-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221024111953.24307-1-tzimmermann@suse.de>
 References: <20221024111953.24307-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 19/21] drm/fb-helper: Always initialize
- generic fbdev emulation
+Subject: [Intel-gfx] [PATCH v2 16/21] drm/fb-helper: Call fb_sync in I/O
+ functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,44 +84,41 @@ Cc: linux-hyperv@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Initialize the generic fbdev emulation even if it has been disabled
-on the kernel command line. The hotplug and mode initialization will
-fail accordingly.
-
-The kernel parameter can still be changed at runtime and the emulation
-will initialize after hotplugging the connector.
+Call struct fb_ops.fb_sync in drm_fbdev_{read,write}() to mimic the
+behavior of fbdev. Fbdev implementations of fb_read and fb_write in
+struct fb_ops invoke fb_sync to synchronize with outstanding operations
+before I/O. Doing the same in DRM implementations will allow us to use
+them throughout DRM drivers.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/gpu/drm/drm_fb_helper.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index fbc5c5445fdb0..d1afb420c6e06 100644
+index f6d22cc4cd876..379e0d2f67198 100644
 --- a/drivers/gpu/drm/drm_fb_helper.c
 +++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -526,11 +526,6 @@ int drm_fb_helper_init(struct drm_device *dev,
- {
- 	int ret;
+@@ -2246,6 +2246,9 @@ static ssize_t drm_fbdev_fb_read(struct fb_info *info, char __user *buf,
+ 	if (total_size - count < pos)
+ 		count = total_size - pos;
  
--	if (!drm_fbdev_emulation) {
--		dev->fb_helper = fb_helper;
--		return 0;
--	}
--
++	if (info->fbops->fb_sync)
++		info->fbops->fb_sync(info);
++
+ 	if (drm_fbdev_use_iomem(info))
+ 		ret = fb_read_screen_base(info, buf, count, pos);
+ 	else
+@@ -2327,6 +2330,9 @@ static ssize_t drm_fbdev_fb_write(struct fb_info *info, const char __user *buf,
+ 		count = total_size - pos;
+ 	}
+ 
++	if (info->fbops->fb_sync)
++		info->fbops->fb_sync(info);
++
  	/*
- 	 * If this is not the generic fbdev client, initialize a drm_client
- 	 * without callbacks so we can use the modesets.
-@@ -2716,9 +2711,6 @@ void drm_fbdev_generic_setup(struct drm_device *dev,
- 	drm_WARN(dev, !dev->registered, "Device has not been registered.\n");
- 	drm_WARN(dev, dev->fb_helper, "fb_helper is already set!\n");
- 
--	if (!drm_fbdev_emulation)
--		return;
--
- 	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
- 	if (!fb_helper) {
- 		drm_err(dev, "Failed to allocate fb_helper\n");
+ 	 * Copy to framebuffer even if we already logged an error. Emulates
+ 	 * the behavior of the original fbdev implementation.
 -- 
 2.38.0
 
