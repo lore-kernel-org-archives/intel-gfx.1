@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85CABEB6468
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 11:21:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5EBDEB6467
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 11:20:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F9A110E388;
-	Mon, 24 Oct 2022 11:20:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A79110E35C;
+	Mon, 24 Oct 2022 11:20:10 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCC010E35C;
- Mon, 24 Oct 2022 11:20:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60AC010E354;
+ Mon, 24 Oct 2022 11:20:00 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 483001FD8A;
- Mon, 24 Oct 2022 11:20:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 144561FD87;
+ Mon, 24 Oct 2022 11:19:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666610400; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1666610399; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4LfKpOswsnembvGTw5A10DEjilDnUQNy6bx3ya4350M=;
- b=m//CahVjAIiwm/8S9Rrkcalu4YtsvYMGGlJ/x4Cns20xgjuFMU4yn3EqTWSWLmkTa9FkiO
- P1egYdKroy9VxXHn0JsFcKjWtsyvCOmSPeGERoEx8TVmcqNzs14xAcL9DZvbr8t/4xCHCg
- /2U9Styzy9LPub+xgp0gbwecRUNssHg=
+ bh=sHEv3PMrKNnInemYrMBOWuesS2nTAxE1RBtBG3/fya4=;
+ b=DU+FrXvCzuxXQKLji2130cdqJNDZWimFa17voIFRqiJi9YV6yEP/tBOuVsk/aXIYcCZ22y
+ dJiA417KPEM2/2KMkoVkU4zzdd8/7BAQ4EpaiKoLTwl80ROKkpi47TqcaKS1RcNYwv6d18
+ wgULj8VNsST/jnqrt41vfMG2qbcKw9k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666610400;
+ s=susede2_ed25519; t=1666610399;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4LfKpOswsnembvGTw5A10DEjilDnUQNy6bx3ya4350M=;
- b=4UdU9G008irTIhYRdGZAhb4TkPgDNu7vcVNG1gFEt2csZ303NBfR+i2HKEQYQeahsz2TFN
- M+Z1LM+GGDDUmeBQ==
+ bh=sHEv3PMrKNnInemYrMBOWuesS2nTAxE1RBtBG3/fya4=;
+ b=DFl0JbhoaL2BQZ30SVNdzW5dYpDazf0fWLsyS8qsMNBMAzt7PPP4vh0I1oF+6Qg/vaPBp/
+ dCQW5hsUlPHLLpBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8E1BC13A98;
- Mon, 24 Oct 2022 11:19:59 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9654513A98;
+ Mon, 24 Oct 2022 11:19:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id WNHmId90VmOYMgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 24 Oct 2022 11:19:59 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id kMjTI950VmOYMgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 24 Oct 2022 11:19:58 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
  mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Date: Mon, 24 Oct 2022 13:19:35 +0200
-Message-Id: <20221024111953.24307-4-tzimmermann@suse.de>
+Date: Mon, 24 Oct 2022 13:19:33 +0200
+Message-Id: <20221024111953.24307-2-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221024111953.24307-1-tzimmermann@suse.de>
 References: <20221024111953.24307-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 03/21] drm/vboxvideo: Don't set struct
+Subject: [Intel-gfx] [PATCH v2 01/21] drm/komeda: Don't set struct
  drm_driver.lastclose
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,28 +85,35 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Don't set struct drm_driver.lastclose. It's used to restore the
-fbdev console. But as vboxvideo uses generic fbdev emulation, the
+fbdev console. But as komeda uses generic fbdev emulation, the
 console is being restored by the DRM client helpers already. See
 the call to drm_client_dev_restore() in drm_lastclose().
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/vboxvideo/vbox_drv.c | 2 --
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.c | 2 --
  1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-index f4f2bd79a7cb6..1cd716eb17a1c 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-@@ -178,8 +178,6 @@ static const struct drm_driver driver = {
- 	.driver_features =
- 	    DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+index 451746ebbe713..62dc64550793e 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_kms.c
+@@ -10,7 +10,6 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_drv.h>
+-#include <drm/drm_fb_helper.h>
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_managed.h>
+@@ -59,7 +58,6 @@ static irqreturn_t komeda_kms_irq_handler(int irq, void *data)
  
--	.lastclose = drm_fb_helper_lastclose,
--
- 	.fops = &vbox_fops,
- 	.name = DRIVER_NAME,
- 	.desc = DRIVER_DESC,
+ static const struct drm_driver komeda_kms_driver = {
+ 	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+-	.lastclose			= drm_fb_helper_lastclose,
+ 	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(komeda_gem_dma_dumb_create),
+ 	.fops = &komeda_cma_fops,
+ 	.name = "komeda",
 -- 
 2.38.0
 
