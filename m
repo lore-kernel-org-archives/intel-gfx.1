@@ -4,77 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5973FECAAA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:00:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AA6EECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:34:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0904A10E3E8;
-	Mon, 24 Oct 2022 12:00:25 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A544B10E3E8
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 12:00:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1666612818;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oBddTd2aL3cpMShQLUMXQ70zqgPBnwYQKQRFaU3QDlI=;
- b=eJr1Snv2+aJ/wul1E8s7+l6A39VGMUiV5KaN/gBOVo+n4K2mTHAHAizV13ZLnx5aTn1V7F
- 1hz4sW6ZYP2Zq2w7CiEs/OPDT+AXB2E2GtLGIoJbxwPm+SsGtKBElZlPCwETGEAR/uFrOK
- oq8eFwvOuY/p2yD8iUtjcWZ09ANd2Eg=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-81-0_WGK7TmMEqQ1tHSTP5MMA-1; Mon, 24 Oct 2022 08:00:18 -0400
-X-MC-Unique: 0_WGK7TmMEqQ1tHSTP5MMA-1
-Received: by mail-ed1-f72.google.com with SMTP id
- c9-20020a05640227c900b0045d4a88c750so9322662ede.12
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 05:00:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oBddTd2aL3cpMShQLUMXQ70zqgPBnwYQKQRFaU3QDlI=;
- b=3jrfk2axTShR8LNFFmuFPCEvmqo2UP6c9lZ/cxMz/7W8jrQFXQRCNNdwGataqYL/lL
- yMgSJ5INA1YpUSJNUu1wTny27ZLpPpepG8ph4BpvRllvyjvBx/nJHblKYh4Mz5/zFLIB
- X4okg0ZRPSg7YEcakYi6NoLt/OS8TsJaHo6XFO46+VhSUNXvNZTxPNkOpqC4w2NEX/52
- JzvDlGRDXduuyRQXLumTsw+fMPUeaav+HMFjZIsAxFJUt5TZoVIaHjc/B4KnNrBnoEpb
- HFSvPS5rd74jIH0+Vf/FwVbozWup/O1gSYQp3X5NNrqfgQbCOyxAAJc54S5ZNBt/nBhv
- fO6Q==
-X-Gm-Message-State: ACrzQf1wtZf8i2zP3kLVewQO2cZZRCWPFwhYsI9cffVm5++cXjwCYlSg
- YAQxjbJUrfJehQ63gPOTkB0DJ8GQEXvsd0YDWUr+Z5bNr8IrZy/MpV2E/eNs+26D4yPuuLH6fU9
- DLtyjucRbqXBsDBtcigRw9sXb+kDW
-X-Received: by 2002:a17:906:3852:b0:78d:b3d2:97a9 with SMTP id
- w18-20020a170906385200b0078db3d297a9mr26035924ejc.565.1666612816668; 
- Mon, 24 Oct 2022 05:00:16 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM4tdZDsl2pNG3Zoy+jU7SoBTHTkz51iCC/iggC9kztg6HWE+mkD8tnuNENa1Jj/GJlMZnu9qg==
-X-Received: by 2002:a17:907:6e24:b0:791:905f:7881 with SMTP id
- sd36-20020a1709076e2400b00791905f7881mr27267484ejc.120.1666612806299; 
- Mon, 24 Oct 2022 05:00:06 -0700 (PDT)
-Received: from [10.40.98.142] ([78.108.130.194])
- by smtp.gmail.com with ESMTPSA id
- u20-20020a17090626d400b0078907275a44sm15446126ejc.42.2022.10.24.05.00.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Oct 2022 05:00:05 -0700 (PDT)
-Message-ID: <bec2bb19-392d-0a69-f8f7-66bb1f8d9495@redhat.com>
-Date: Mon, 24 Oct 2022 14:00:04 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EDDB10E432;
+	Mon, 24 Oct 2022 12:34:03 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33B4B10E438;
+ Mon, 24 Oct 2022 12:33:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1666614839; x=1698150839;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Zng3K7/RxORWnGsDCHbROONaBCCfJud83e+HAojLW9A=;
+ b=Pt8zx6IcHGY0R/5R9JdaBKObfI4JdwPcxWNW4SDDJufcD8vrhlV4urVU
+ fqoS9dccDAM5bsqUzjAwsK/Wa4+09GoSm6FoPDfy3nltRUPd/yGq8YEG5
+ A8Ihro+XQjtSb+PVicP0lJMV+Oxevr+DUcwibXlbUx06cZ81lhP8N6Ayv
+ +cl5GeJ/au/TiaJK1CxvWGTFzP3vHWqC12UCuBIqdWHzZvHZSIVhTSHAw
+ IghToKi13bxvGfW9+76gBsvvqmDPwzr4BcqBLxEG/O0uUUDLhLDiPK3bY
+ efYvRdaWhog/rzJZtoIjUFxTIWPfSWhUn/kGWMiCIOTWaXk6Mz2eiCChA A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="306135923"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="306135923"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 05:33:58 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="876418598"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="876418598"
+Received: from emontau-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.252.52.221])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 05:33:53 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon, 24 Oct 2022 15:33:29 +0300
+Message-Id: <f8f2a4a147e1c87ba93269a607f71fc29c4b59f6.1666614699.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1666614699.git.jani.nikula@intel.com>
+References: <cover.1666614699.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-To: Akihiko Odaki <akihiko.odaki@daynix.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-References: <20221024113513.5205-1-akihiko.odaki@daynix.com>
- <87tu3te92n.fsf@intel.com> <18478739-625b-0c16-cd5a-e05c5372a74a@daynix.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <18478739-625b-0c16-cd5a-e05c5372a74a@daynix.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH 00/22] Fallback to native backlight
+Subject: [Intel-gfx] [PATCH v2 01/16] drm/i915/hdmi: do dual mode detect
+ only if connected
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,120 +60,87 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Ike Panhc <ike.pan@canonical.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, dri-devel@lists.freedesktop.org,
- Azael Avalos <coproscefalo@gmail.com>, Mattia Dongili <malattia@linux.it>,
- Daniel Dadap <ddadap@nvidia.com>, Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
- David Airlie <airlied@gmail.com>, Daniel Thompson <daniel.thompson@linaro.org>,
- Jonathan Woithe <jwoithe@just42.net>, Jonathan Corbet <corbet@lwn.net>, "Lee,
- Chun-Yi" <jlee@suse.com>, Helge Deller <deller@gmx.de>,
- Lee Jones <lee@kernel.org>, Robert Moore <robert.moore@intel.com>,
- linux-acpi@vger.kernel.org, Cezary Jackiewicz <cezary.jackiewicz@gmail.com>,
- Len Brown <lenb@kernel.org>, Kenneth Chan <kenneth.t.chan@gmail.com>,
- Corentin Chary <corentin.chary@gmail.com>, intel-gfx@lists.freedesktop.org,
- acpi4asus-user@lists.sourceforge.net, Maxime Ripard <mripard@kernel.org>,
- Mark Gross <markgross@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, platform-driver-x86@vger.kernel.org,
- devel@acpica.org, ibm-acpi-devel@lists.sourceforge.net,
- Jingoo Han <jingoohan1@gmail.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+For normal connector detect, there's really no point in trying dual mode
+detect if the connector is disconnected. We can simplify the detect
+sequence by skipping it. Since intel_hdmi_dp_dual_mode_detect() is only
+called when EDID is present, we can drop the has_edid parameter.
 
-On 10/24/22 13:56, Akihiko Odaki wrote:
-> On 2022/10/24 20:48, Jani Nikula wrote:
->> On Mon, 24 Oct 2022, Akihiko Odaki <akihiko.odaki@daynix.com> wrote:
->>> Commit 2600bfa3df99 ("ACPI: video: Add acpi_video_backlight_use_native()
->>> helper") and following commits made native backlight unavailable if
->>> CONFIG_ACPI_VIDEO is set and the backlight feature of ACPI video is
->>> unavailable, which broke the backlight functionality on Lenovo ThinkPad
->>> C13 Yoga Chromebook. Allow to fall back to native backlight in such
->>> cases.
->>
->> Where's the bug report with relevant logs, kconfigs, etc?
-> 
-> I haven't filed one. Should I? Please tell me where to report and what information you would need (to bugzilla.kernel.org with things mentioned in Documentation/admin-guide/reporting-issues.rst?)
+The functional effect is speeding up disconnected connector detection
+ever so slightly, and, combined with firmware EDID, also stop logging
+about assuming dual mode adaptor.
 
-As mentioned in my other email this is a known issue, and your effort
-to fix this is appreciated very much, but I don't believe your solution
-to be the right one.
+It's a bit subtle, but this will also skip dual mode detect if the
+connector is force connected and a) there's no EDID of any kind, normal
+or override/firmware or b) there's EDID but it does not indicate
+digital. These are corner cases no matter what, and arguably forcing
+should not be limited by dual mode detect.
 
-See: https://lore.kernel.org/linux-acpi/42a5f2c9-a1dc-8fc0-7334-fe6c390ecfbb@redhat.com/
-for more details and possible solutions. Please try implementing one of
-those solutions for your Chromebook. I unfortunately do not have hw to
-test this myself.
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
 
-Regards,
-
-Hans
-
-
-
-> 
-> Regards,
-> Akihiko Odaki
-> 
->>
->> BR,
->> Jani.
->>
->>>
->>> Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
->>>
->>> Akihiko Odaki (22):
->>>    drm/i915/opregion: Improve backlight request condition
->>>    ACPI: video: Introduce acpi_video_get_backlight_types()
->>>    LoongArch: Use acpi_video_get_backlight_types()
->>>    platform/x86: acer-wmi: Use acpi_video_get_backlight_types()
->>>    platform/x86: asus-laptop: Use acpi_video_get_backlight_types()
->>>    platform/x86: asus-wmi: Use acpi_video_get_backlight_types()
->>>    platform/x86: compal-laptop: Use acpi_video_get_backlight_types()
->>>    platform/x86: eeepc-laptop: Use acpi_video_get_backlight_types()
->>>    platform/x86: fujitsu-laptop: Use acpi_video_get_backlight_types()
->>>    platform/x86: ideapad-laptop: Use acpi_video_get_backlight_types()
->>>    platform/x86: msi-laptop: Use acpi_video_get_backlight_types()
->>>    platform/x86: msi-wmi: Use acpi_video_get_backlight_types()
->>>    platform/x86: nvidia-wmi-ec-backlight: Use
->>>      acpi_video_get_backlight_types()
->>>    platform/x86: panasonic-laptop: Use acpi_video_get_backlight_types()
->>>    platform/x86: samsung-laptop: Use acpi_video_get_backlight_types()
->>>    platform/x86: sony-laptop: Use acpi_video_get_backlight_types()
->>>    platform/x86: thinkpad_acpi: Use acpi_video_get_backlight_types()
->>>    platform/x86: toshiba_acpi: Use acpi_video_get_backlight_types()
->>>    platform/x86: dell-laptop: Use acpi_video_get_backlight_types()
->>>    platform/x86: intel_oaktrail: Use acpi_video_get_backlight_types()
->>>    ACPI: video: Remove acpi_video_get_backlight_type()
->>>    ACPI: video: Fallback to native backlight
->>>
->>>   Documentation/gpu/todo.rst                    |  8 +--
->>>   drivers/acpi/acpi_video.c                     |  2 +-
->>>   drivers/acpi/video_detect.c                   | 54 ++++++++++---------
->>>   drivers/gpu/drm/i915/display/intel_opregion.c |  3 +-
->>>   drivers/platform/loongarch/loongson-laptop.c  |  4 +-
->>>   drivers/platform/x86/acer-wmi.c               |  2 +-
->>>   drivers/platform/x86/asus-laptop.c            |  2 +-
->>>   drivers/platform/x86/asus-wmi.c               |  4 +-
->>>   drivers/platform/x86/compal-laptop.c          |  2 +-
->>>   drivers/platform/x86/dell/dell-laptop.c       |  2 +-
->>>   drivers/platform/x86/eeepc-laptop.c           |  2 +-
->>>   drivers/platform/x86/fujitsu-laptop.c         |  4 +-
->>>   drivers/platform/x86/ideapad-laptop.c         |  2 +-
->>>   drivers/platform/x86/intel/oaktrail.c         |  2 +-
->>>   drivers/platform/x86/msi-laptop.c             |  2 +-
->>>   drivers/platform/x86/msi-wmi.c                |  2 +-
->>>   .../platform/x86/nvidia-wmi-ec-backlight.c    |  2 +-
->>>   drivers/platform/x86/panasonic-laptop.c       |  2 +-
->>>   drivers/platform/x86/samsung-laptop.c         |  2 +-
->>>   drivers/platform/x86/sony-laptop.c            |  2 +-
->>>   drivers/platform/x86/thinkpad_acpi.c          |  4 +-
->>>   drivers/platform/x86/toshiba_acpi.c           |  2 +-
->>>   drivers/video/backlight/backlight.c           | 18 +++++++
->>>   include/acpi/video.h                          | 21 ++++----
->>>   include/linux/backlight.h                     |  1 +
->>>   25 files changed, 85 insertions(+), 66 deletions(-)
->>
-> 
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 93519fb23d9d..a332eaac86cd 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2355,7 +2355,7 @@ intel_hdmi_unset_edid(struct drm_connector *connector)
+ }
+ 
+ static void
+-intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector, bool has_edid)
++intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(connector->dev);
+ 	struct intel_hdmi *hdmi = intel_attached_hdmi(to_intel_connector(connector));
+@@ -2371,16 +2371,13 @@ intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector, bool has_edid)
+ 	 * CONFIG1 pin, but no such luck on our hardware.
+ 	 *
+ 	 * The only method left to us is to check the VBT to see
+-	 * if the port is a dual mode capable DP port. But let's
+-	 * only do that when we sucesfully read the EDID, to avoid
+-	 * confusing log messages about DP dual mode adaptors when
+-	 * there's nothing connected to the port.
++	 * if the port is a dual mode capable DP port.
+ 	 */
+ 	if (type == DRM_DP_DUAL_MODE_UNKNOWN) {
+ 		/* An overridden EDID imply that we want this port for testing.
+ 		 * Make sure not to set limits for that port.
+ 		 */
+-		if (has_edid && !connector->override_edid &&
++		if (!connector->override_edid &&
+ 		    intel_bios_is_port_dp_dual_mode(dev_priv, port)) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Assuming DP dual mode adaptor presence based on VBT\n");
+@@ -2435,18 +2432,18 @@ intel_hdmi_set_edid(struct drm_connector *connector)
+ 		intel_gmbus_force_bit(i2c, false);
+ 	}
+ 
+-	intel_hdmi_dp_dual_mode_detect(connector, edid != NULL);
+-
+-	intel_display_power_put(dev_priv, POWER_DOMAIN_GMBUS, wakeref);
+-
+ 	to_intel_connector(connector)->detect_edid = edid;
+ 	if (edid && edid->input & DRM_EDID_INPUT_DIGITAL) {
+ 		intel_hdmi->has_audio = drm_detect_monitor_audio(edid);
+ 		intel_hdmi->has_hdmi_sink = drm_detect_hdmi_monitor(edid);
+ 
++		intel_hdmi_dp_dual_mode_detect(connector);
++
+ 		connected = true;
+ 	}
+ 
++	intel_display_power_put(dev_priv, POWER_DOMAIN_GMBUS, wakeref);
++
+ 	cec_notifier_set_phys_addr_from_edid(intel_hdmi->cec_notifier, edid);
+ 
+ 	return connected;
+-- 
+2.34.1
 
