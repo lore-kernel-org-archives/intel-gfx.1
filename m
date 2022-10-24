@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3111ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:34:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0566BC38A2D
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:34:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB9210E43A;
-	Mon, 24 Oct 2022 12:34:05 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06A7910E432;
- Mon, 24 Oct 2022 12:33:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18B9310E443;
+	Mon, 24 Oct 2022 12:34:07 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05FEE10E432;
+ Mon, 24 Oct 2022 12:33:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666614839; x=1698150839;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=hOZaeBepnoECI1xDENgudFG1+G8jWsVquCgkyZ7ni7s=;
- b=l5UxqF+01lpnDDpKEXQ+nBaHU5HK06BI3Q5qrqQd0QqskNuuq/dhLW9u
- //lE515GMKwBZFh2QTBFuEnKcqZZXQWZ/3S9Cd4ZU5Sc0bmRu4KNPVH4p
- YmCHrsvALkBWFUE6ROy6Da9eGW5OrhcQsyL/XJLe6COQ+nH5x3QGrLI6O
- VJNlfQSi5cC5LG4pPY4Wbc5aZK9uAC+vvGxZqYpqCbFT4AjPiHIlySYty
- ldO+2Z3pBr0YBViNXC5cF+cOHvYJ5BcdYaPgtVq5QX7lQ8uvRb+TYVJIg
- hCCle+uZR09dUEvipuwx8SOsfbJcYbSyXW91oQVYm/mF/FwYo2GkvEny+ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="306135918"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="306135918"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:33:58 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="876418564"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="876418564"
+ t=1666614840; x=1698150840;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=5FhWzpbCfTqX/0XsegqtptYTrVV0gv79v9w1yd4cKzk=;
+ b=jatgj/t5HX1aT0BTZfYxMR7VYeOIPzfpAfbr9PWsozLhkC3+5CVpBHYX
+ R62PeYMZRfL0mzAFw+6F6kkakdM7llT50/sBkpctOHw+kiA5v+8l2rHc2
+ dh4zYA+bd1m4f1LPHJawJKfGhamLEyC6YjsSx0lfWPCSkzC98lbwYtHD3
+ iae7fGwyyQ6tKlsqyhU3ZzsUrp6/VKlDhBz1B/v2pEc2AVTnHb1MWle6v
+ qDYtAGy4srV0r42+DZvoDzLIyRrfyhzzsWZRmKHdTJz0WQE9z+ishUO9n
+ xXXDkArNqvlJ22Okpqri50dW9gVOnscv6wGZMGMNzpclbsLFGK9HP1s8B w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="309091356"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="309091356"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 05:33:59 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="626055618"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="626055618"
 Received: from emontau-mobl2.ger.corp.intel.com (HELO localhost)
  ([10.252.52.221])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:33:49 -0700
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 05:33:57 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon, 24 Oct 2022 15:33:28 +0300
-Message-Id: <cover.1666614699.git.jani.nikula@intel.com>
+Date: Mon, 24 Oct 2022 15:33:30 +0300
+Message-Id: <c8b45867cf37134ab40be23e22825ca45adc6041.1666614699.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1666614699.git.jani.nikula@intel.com>
+References: <cover.1666614699.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 00/16] drm/edid: EDID override refactoring
- and fixes
+Subject: [Intel-gfx] [PATCH v2 02/16] drm/i915/hdmi: stop using
+ connector->override_edid
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,46 +64,41 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v2 of drm/edid: EDID override refactoring and fixes
+The connector->override_edid flag is strictly for EDID override debugfs
+management, and drivers have no business using it.
 
-Address review comments, add patch 15.
+The check for override_edid was added in commit 301906290553 ("drm/i915:
+Ignore TMDS clock limit for DP++ when EDID override is set") to
+facilitate mode list cross-checking against modes in override EDID when
+the connector in question isn't even connected. The dual mode detect
+fallback would do VBT based limiting in this case.
 
-BR,
-Jani.
+Instead of override EDID, check for connector forcing in the fallback.
 
+v2: Simply use !connector->force (Ville)
 
-Jani Nikula (16):
-  drm/i915/hdmi: do dual mode detect only if connected
-  drm/i915/hdmi: stop using connector->override_edid
-  drm/amd/display: stop using connector->override_edid
-  drm/edid: debug log EDID override set/reset
-  drm/edid: abstract debugfs override EDID show better
-  drm/edid: rename drm_add_override_edid_modes() to
-    drm_edid_override_connector_update()
-  drm/edid: split drm_edid block count helper
-  drm/edid: add function for checking drm_edid validity
-  drm/edid: detach debugfs EDID override from EDID property update
-  drm/edid/firmware: drop redundant connector_name variable/parameter
-  drm/edid/firmware: rename drm_load_edid_firmware() to
-    drm_edid_load_firmware()
-  drm/edid: use struct drm_edid for override/firmware EDID
-  drm/edid: move edid load declarations to internal header
-  drm/edid/firmware: convert to drm device specific logging
-  drm/edid: add [CONNECTOR:%d:%s] to debug logging
-  drm/edid: convert to device specific logging
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   3 -
- drivers/gpu/drm/drm_connector.c               |   1 +
- drivers/gpu/drm/drm_crtc_internal.h           |  15 +-
- drivers/gpu/drm/drm_debugfs.c                 |   8 +-
- drivers/gpu/drm/drm_edid.c                    | 346 +++++++++++-------
- drivers/gpu/drm/drm_edid_load.c               | 109 ++----
- drivers/gpu/drm/drm_probe_helper.c            |   2 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c     |  20 +-
- include/drm/drm_connector.h                   |  16 +-
- include/drm/drm_edid.h                        |  10 +-
- 10 files changed, 283 insertions(+), 247 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index a332eaac86cd..02f8374ea51f 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2374,10 +2374,7 @@ intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector)
+ 	 * if the port is a dual mode capable DP port.
+ 	 */
+ 	if (type == DRM_DP_DUAL_MODE_UNKNOWN) {
+-		/* An overridden EDID imply that we want this port for testing.
+-		 * Make sure not to set limits for that port.
+-		 */
+-		if (!connector->override_edid &&
++		if (!connector->force &&
+ 		    intel_bios_is_port_dp_dual_mode(dev_priv, port)) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Assuming DP dual mode adaptor presence based on VBT\n");
 -- 
 2.34.1
 
