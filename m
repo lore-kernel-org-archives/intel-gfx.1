@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30012FA373E
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:34:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F07FFA3740
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 12:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 816D510E4C5;
-	Mon, 24 Oct 2022 12:34:40 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C175310E4C5;
- Mon, 24 Oct 2022 12:34:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07D2510E4FD;
+	Mon, 24 Oct 2022 12:34:43 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A79A210E4F7;
+ Mon, 24 Oct 2022 12:34:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666614863; x=1698150863;
+ t=1666614876; x=1698150876;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ls/lWODBhwwzZPFbIwJVX5X70cuHXnQOnnSNBD1GVXw=;
- b=U8ysNyMUO7C3VcNjvlG8ST8eLeeFJKcgr7a2spSsIgXKHETmn6H1XTI0
- UBtSjpjI7rfsV9CDZT6E6ZuYWWoUQrnwZXCVpyjDljfbtLn5A1ihMTT+N
- Y6whnowyzE7X/rd8NxFhJdfxO/CSP63qAPKOXAhyfBCnYKl9lIghyy4nt
- Ksm4V08FVBOZ5a3nskBl56pvewcdgHn8ii9YYHolLgRPy0QrZhPjg3xLZ
- w1YlBCP0dxNnEik0Kr2/Oyr2pI/NbhP9E/VqCGwjijWjDk3l1RkURecva
- Qdi4kbmcDvyJq5fudN07eQkgNlsK7ZHFp4Gj/CKyC0AQUqYVyB+HxhHJC Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="287801314"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="287801314"
+ bh=m8a/MccM2MtMIvrcnYCWz6TUS/t0aF3QuHeEHmRZbBk=;
+ b=kXFc8XRDhxFopXuavZS+gr6qzglcCj/aRyjZ6nZZZ+2w9QKnvNAuZLeA
+ Eo+ePIyfd01ULcmGb0vX9bIIfo55ZhqQi2qOKsq7eIPVUiWovEWNd7s/I
+ 6PSUvIS0LjdYxHlEelL3CZUvLpcvJM9XbhLwGwQB4RKMOnTjc6SdKDhk4
+ sClUW0PGndSOpUWL9EifUMWBBFD1EGMcGzlUu2THU+a30BKOOon5/QWU4
+ 3e7/TOxq4b6LOkEovGSBJJ1+hsUD9Hn+QX223VMviYtt6CQ9cf/scWbm0
+ YqaNIA9YasFFLp09+OiTkUcUBXJVSXfTi+mdmI4aHrqH5A6mUze8C20ng Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="309091488"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="309091488"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:34:23 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="626055696"
-X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="626055696"
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2022 05:34:36 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10509"; a="626055725"
+X-IronPort-AV: E=Sophos;i="5.95,209,1661842800"; d="scan'208";a="626055725"
 Received: from emontau-mobl2.ger.corp.intel.com (HELO localhost)
  ([10.252.52.221])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 05:34:21 -0700
+ 24 Oct 2022 05:34:34 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon, 24 Oct 2022 15:33:35 +0300
-Message-Id: <a7d63878c7fb3dd6f3b987f5257897113797b94f.1666614699.git.jani.nikula@intel.com>
+Date: Mon, 24 Oct 2022 15:33:38 +0300
+Message-Id: <befa53a33f2ea83094027a0e88d155779ad096e1.1666614699.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1666614699.git.jani.nikula@intel.com>
 References: <cover.1666614699.git.jani.nikula@intel.com>
@@ -46,8 +46,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 07/16] drm/edid: split drm_edid block count
- helper
+Subject: [Intel-gfx] [PATCH v2 10/16] drm/edid/firmware: drop redundant
+ connector_name variable/parameter
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,52 +64,86 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Split the drm_edid block count helper to a base version that reports the
-block count indicated by EDID contents, and another on top that limits
-the block count based on size allocated for the EDID.
+Stop passing around something that's readily available in
+connector->name.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_edid_load.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 8baa46dc2537..616c1cdc7507 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -1613,7 +1613,8 @@ static const void *edid_extension_block_data(const struct edid *edid, int index)
- 	return edid_block_data(edid, index + 1);
+diff --git a/drivers/gpu/drm/drm_edid_load.c b/drivers/gpu/drm/drm_edid_load.c
+index 37d8ba3ddb46..13cdbfb991eb 100644
+--- a/drivers/gpu/drm/drm_edid_load.c
++++ b/drivers/gpu/drm/drm_edid_load.c
+@@ -167,8 +167,7 @@ static int edid_size(const u8 *edid, int data_size)
+ 	return (edid[0x7e] + 1) * EDID_LENGTH;
  }
  
--static int drm_edid_block_count(const struct drm_edid *drm_edid)
-+/* EDID block count indicated in EDID, may exceed allocated size */
-+static int __drm_edid_block_count(const struct drm_edid *drm_edid)
+-static void *edid_load(struct drm_connector *connector, const char *name,
+-			const char *connector_name)
++static void *edid_load(struct drm_connector *connector, const char *name)
  {
- 	int num_blocks;
+ 	const struct firmware *fw = NULL;
+ 	const u8 *fwdata;
+@@ -185,10 +184,10 @@ static void *edid_load(struct drm_connector *connector, const char *name,
+ 		struct platform_device *pdev;
+ 		int err;
  
-@@ -1633,12 +1634,18 @@ static int drm_edid_block_count(const struct drm_edid *drm_edid)
- 			num_blocks = eeodb;
- 	}
+-		pdev = platform_device_register_simple(connector_name, -1, NULL, 0);
++		pdev = platform_device_register_simple(connector->name, -1, NULL, 0);
+ 		if (IS_ERR(pdev)) {
+ 			DRM_ERROR("Failed to register EDID firmware platform device "
+-				  "for connector \"%s\"\n", connector_name);
++				  "for connector \"%s\"\n", connector->name);
+ 			return ERR_CAST(pdev);
+ 		}
  
--	/* Limit by allocated size */
--	num_blocks = min(num_blocks, (int)drm_edid->size / EDID_LENGTH);
--
- 	return num_blocks;
- }
+@@ -244,7 +243,7 @@ static void *edid_load(struct drm_connector *connector, const char *name,
+ 		edid[EDID_LENGTH-1] += edid[0x7e] - valid_extensions;
+ 		DRM_INFO("Found %d valid extensions instead of %d in EDID data "
+ 		    "\"%s\" for connector \"%s\"\n", valid_extensions,
+-		    edid[0x7e], name, connector_name);
++		    edid[0x7e], name, connector->name);
+ 		edid[0x7e] = valid_extensions;
  
-+/* EDID block count, limited by allocated size */
-+static int drm_edid_block_count(const struct drm_edid *drm_edid)
-+{
-+	/* Limit by allocated size */
-+	return min(__drm_edid_block_count(drm_edid),
-+		   (int)drm_edid->size / EDID_LENGTH);
-+}
-+
-+/* EDID extension block count, limited by allocated size */
- static int drm_edid_extension_block_count(const struct drm_edid *drm_edid)
+ 		new_edid = krealloc(edid, (valid_extensions + 1) * EDID_LENGTH,
+@@ -256,7 +255,7 @@ static void *edid_load(struct drm_connector *connector, const char *name,
+ 	DRM_INFO("Got %s EDID base block and %d extension%s from "
+ 	    "\"%s\" for connector \"%s\"\n", (builtin >= 0) ? "built-in" :
+ 	    "external", valid_extensions, valid_extensions == 1 ? "" : "s",
+-	    name, connector_name);
++	    name, connector->name);
+ 
+ out:
+ 	release_firmware(fw);
+@@ -265,7 +264,6 @@ static void *edid_load(struct drm_connector *connector, const char *name,
+ 
+ struct edid *drm_load_edid_firmware(struct drm_connector *connector)
  {
- 	return drm_edid_block_count(drm_edid) - 1;
+-	const char *connector_name = connector->name;
+ 	char *edidname, *last, *colon, *fwstr, *edidstr, *fallback = NULL;
+ 	struct edid *edid;
+ 
+@@ -288,7 +286,7 @@ struct edid *drm_load_edid_firmware(struct drm_connector *connector)
+ 	while ((edidname = strsep(&edidstr, ","))) {
+ 		colon = strchr(edidname, ':');
+ 		if (colon != NULL) {
+-			if (strncmp(connector_name, edidname, colon - edidname))
++			if (strncmp(connector->name, edidname, colon - edidname))
+ 				continue;
+ 			edidname = colon + 1;
+ 			break;
+@@ -310,7 +308,7 @@ struct edid *drm_load_edid_firmware(struct drm_connector *connector)
+ 	if (*last == '\n')
+ 		*last = '\0';
+ 
+-	edid = edid_load(connector, edidname, connector_name);
++	edid = edid_load(connector, edidname);
+ 	kfree(fwstr);
+ 
+ 	return edid;
 -- 
 2.34.1
 
