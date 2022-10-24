@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 001B9C38A2D
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:23:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD949C38A2D
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Oct 2022 13:23:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1553910E6C6;
-	Mon, 24 Oct 2022 13:23:32 +0000 (UTC)
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D275810E399
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:37:30 +0000 (UTC)
-Received: by mail-pj1-x102b.google.com with SMTP id pb15so7912572pjb.5
- for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:37:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7701410E6CD;
+	Mon, 24 Oct 2022 13:23:33 +0000 (UTC)
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [IPv6:2607:f8b0:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 679FC10E3DD
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 11:38:46 +0000 (UTC)
+Received: by mail-pg1-x52a.google.com with SMTP id 78so8422183pgb.13
+ for <intel-gfx@lists.freedesktop.org>; Mon, 24 Oct 2022 04:38:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=daynix-com.20210112.gappssmtp.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zZ4fJ8ClD76WOV59defp1HNsujn8j/wysmVCUMoMFP0=;
- b=UR+PH3NVHkn0NXOqzrKguYWXOraM6vc+YMLhwexhonJG8F77DnrNQYz/9Oi32n6IZY
- hZlL47vjA7//LH91lqAnjQLn97I5Vo+uQOT2Mmd2Dn63q/EMVrrHlQ7z/zyp6JLWsxqs
- lxvzOwrP2RQb+dCGiNci0WZm/2NZcPqe1IwnSjthC31l/f7IFTIDv5x71IwBvf93+VC0
- KH/KMjo1itzSNE11bqoR8Syfpkg0shlSYQXBydHoh4+awRZYdMObrO029QbuDisy7sll
- ElVT/CB4tnxnE4FbCm2I0ONWyIQVGy4aFDiuXCQlrYYt0qq7o8pOl51CC0lnDxCtkS9Y
- 1uNA==
+ bh=wpAa0dkS8XhA2GQ66lc5m8kkJugJVYjadMORUlQ0wPQ=;
+ b=t0cdU8Gq6mNNYiksD6eEYKO8Asn+CT0EzR/trw2LnPyXm+rD6nqXsCYeQqjtM7gPYM
+ czLtjzn9STZMwbg25oKJ+rchJIE1C3EbruYtUtL1fo+a90zdV4qc0tsyovLT5dJAiUGE
+ qsy+4fAYnPcQVS0njH5jJLQI9FZmFytWkVQGNsnYWmnWaeNhpSPFlsctwJOWhSbiXeZ9
+ h7w4BZ8ZVIJgYAYNUV3nlz9q7wdjdRwS9ZZ0zjcSCMcue0JOz1szUQizwPn6jyvjKFGF
+ cxNAlwAh76EuqilV01f5017ZpYLpbgRwKmZuX/eFx2jyV1b0J3gkxlk7wW3OSfaxul6v
+ yo0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zZ4fJ8ClD76WOV59defp1HNsujn8j/wysmVCUMoMFP0=;
- b=upiwskqoqptgEqc1As0BbiyAq+XmyYCsT3ZHlozyj+O5yugaKb5tWAZkTp9A2z2soP
- 1bZIuxDbNy2K+Foc2/xRfeVjV1trGxLpdIhcQLXIixza6ngAghBGCaWX2GDuo/vkiF9N
- BO2iCBCiGf70KrgKAj7f/NZ5AOS6BNEBziz9LAew5BP7+Cr7zED8Co7TWu0zUQS/M7pq
- /uV5J8cAfmqua6nvmeC5Vb7OkMYH6JM7Qtrh0gMfyoF/336UeLCJkK5d/cUfqa4L1pav
- NupsHTXRjIdK0lK0lInuf5Y7R5FTm8YfiGuzJPXuwSabcbuCqTixtKK4/bkNVWqV5ZVv
- mv1g==
-X-Gm-Message-State: ACrzQf2toZdv1X4AwjLPG8ykHUBkGdvNrGUFTFgGmbDPK/oJp/MALUn0
- pDPaHGK950Bq56V82U3VS6GDnA==
-X-Google-Smtp-Source: AMsMyM4YfAwJenYaMcKn2Z30J0g5OpRvkV9SVYpt/sZWnDEmVOCLuqCwHN7ebOLB73LDTWz/IU7ezA==
-X-Received: by 2002:a17:90b:2317:b0:213:26a3:246f with SMTP id
- mt23-20020a17090b231700b0021326a3246fmr1763172pjb.148.1666611450483; 
- Mon, 24 Oct 2022 04:37:30 -0700 (PDT)
+ bh=wpAa0dkS8XhA2GQ66lc5m8kkJugJVYjadMORUlQ0wPQ=;
+ b=BirH8+IASLPUgCkKNrjItPHfPw0kEqPWX6DoZT4Beow/cgZoTQAb5cASg5wGMOjn+y
+ g4dzNM4Kn5lY4d2HvjXwdVCoXh+YeQR4KMqlNQZXPPUfTfKVNX/gsxhIV0mZrL8PmomO
+ /tiEqf6Bpjzz6FsjT+zrYQC3DqxMQT9JQKsYgUFdnFxLoIrzzhXJtGNIr8XdrAPWRDK8
+ UJyYiIDhHIo0wRh1misxrYL+YC5nci8PWKAK/Jurg0l1PfEscR2Gr3bcnmJtE4fytBob
+ NQG8R0eu/dGGk8/2xb2KsrW2mbE45EeqeYDxkMGT9HkFPxplqZ9dH5wVIAW8Kmflkd3/
+ S1yg==
+X-Gm-Message-State: ACrzQf362m+gyRuir6T1rHUNBHh18GdZFlkF8t4UAolBdkoN+5imtF6u
+ 4vIe2pJhY/iOuXy9w1pdq+AG3g==
+X-Google-Smtp-Source: AMsMyM6nms4lu3tkLOdZ9JNSQbhLjcWcRc9H/ekaTG+Ayy8xJMo8kAow4Lj5Qd758THxno/pN3RsVg==
+X-Received: by 2002:a65:68cb:0:b0:460:b552:fbf4 with SMTP id
+ k11-20020a6568cb000000b00460b552fbf4mr28051732pgt.457.1666611526061; 
+ Mon, 24 Oct 2022 04:38:46 -0700 (PDT)
 Received: from fedora.flets-east.jp ([2400:4050:c360:8200:8ae8:3c4:c0da:7419])
  by smtp.gmail.com with ESMTPSA id
- b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.37.22
+ b8-20020a170903228800b001830ed575c3sm19475075plh.117.2022.10.24.04.38.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 04:37:29 -0700 (PDT)
+ Mon, 24 Oct 2022 04:38:45 -0700 (PDT)
 From: Akihiko Odaki <akihiko.odaki@daynix.com>
 To: 
-Date: Mon, 24 Oct 2022 20:35:04 +0900
-Message-Id: <20221024113513.5205-14-akihiko.odaki@daynix.com>
+Date: Mon, 24 Oct 2022 20:35:13 +0900
+Message-Id: <20221024113513.5205-23-akihiko.odaki@daynix.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221024113513.5205-1-akihiko.odaki@daynix.com>
 References: <20221024113513.5205-1-akihiko.odaki@daynix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Oct 2022 13:23:26 +0000
-Subject: [Intel-gfx] [PATCH 13/22] platform/x86: nvidia-wmi-ec-backlight:
- Use acpi_video_get_backlight_types()
+Subject: [Intel-gfx] [PATCH 22/22] ACPI: video: Fallback to native backlight
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,26 +96,47 @@ Cc: linux-fbdev@vger.kernel.org, Ike Panhc <ike.pan@canonical.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-acpi_video_get_backlight_type() is now deprecated.
+Commit 2600bfa3df99 ("ACPI: video: Add acpi_video_backlight_use_native()
+helper") and following commits made native backlight unavailable if
+CONFIG_ACPI_VIDEO is set and the backlight feature of ACPI video is
+unavailable, which broke the backlight functionality on Lenovo ThinkPad
+C13 Yoga Chromebook. Allow to fall back to native backlight in such
+cases.
 
 Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
 ---
- drivers/platform/x86/nvidia-wmi-ec-backlight.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/acpi/video_detect.c | 4 ++--
+ include/acpi/video.h        | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/platform/x86/nvidia-wmi-ec-backlight.c b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
-index baccdf658538..a42e3914c73d 100644
---- a/drivers/platform/x86/nvidia-wmi-ec-backlight.c
-+++ b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
-@@ -91,7 +91,7 @@ static int nvidia_wmi_ec_backlight_probe(struct wmi_device *wdev, const void *ct
- 	int ret;
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index 88462f2fb8cc..36354241c740 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -732,8 +732,8 @@ static int __acpi_video_get_backlight_types(bool native)
+ 			return ACPI_BACKLIGHT_VIDEO;
+ 	}
  
- 	/* drivers/acpi/video_detect.c also checks that SOURCE == EC */
--	if (acpi_video_get_backlight_type() != acpi_backlight_nvidia_wmi_ec)
-+	if (!(acpi_video_get_backlight_types() & ACPI_BACKLIGHT_NVIDIA_WMI_EC))
- 		return -ENODEV;
+-	/* No ACPI video (old hw), use vendor specific fw methods. */
+-	return ACPI_BACKLIGHT_VENDOR;
++	/* No ACPI video, use native or vendor specific fw methods. */
++	return ACPI_BACKLIGHT_VENDOR | ACPI_BACKLIGHT_NATIVE;
+ }
  
- 	/*
+ int acpi_video_get_backlight_types(void)
+diff --git a/include/acpi/video.h b/include/acpi/video.h
+index 5b748fdb606e..656b59acfd1f 100644
+--- a/include/acpi/video.h
++++ b/include/acpi/video.h
+@@ -76,7 +76,7 @@ static inline int acpi_video_get_edid(struct acpi_device *device, int type,
+ }
+ static inline int acpi_video_get_backlight_types(void)
+ {
+-	return ACPI_BACKLIGHT_VENDOR;
++	return ACPI_BACKLIGHT_VENDOR | ACPI_BACKLIGHT_NATIVE;
+ }
+ static inline bool acpi_video_backlight_use_native(void)
+ {
 -- 
 2.37.3
 
