@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91CFDFA373E
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 20:17:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89DC0FA3740
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 20:18:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 910A310E1EE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A953710E1F8;
 	Tue, 25 Oct 2022 20:17:47 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 546CA10E1E6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF6FC10E195
  for <intel-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 20:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1666729030; x=1698265030;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=cFjxVIr5lKSorgveWNmdJqhprO2Fp73LjgBlMnH2AlE=;
- b=WGjXEKPyzuDZryPIUdVGTWsccdpi/yZdlR+IbGeb2H7R3X3idC08LBLE
- s+8AUppR/5rKOgi1aWtNX5aj9JuXbBtFnvzROg4BfQ0CJQvhFAsvDlktB
- 2Rqry76Nb2+G0eSxNpBLZRKw/3AbYK/9eGHcvDxh08w5Y1+ax/FcM2wkK
- Djg15p7glJ+BzrKCpGbHqBLYWJFrKGGQkC+Li3CXUBdXMJK+vV3Fd4deA
- jhUgf8wR3SMefPNp1F5Al+HdYboFxs/U33X48zmNziyE4xMQYm6Vk0X69
- g8tv6n7K7BTJmR+XSnT9VrMJMDYbzPa4Nn5Cy1OQiGgdPf+xetFjB4J8a g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="287498123"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="287498123"
+ bh=8fhMJUnphS85HIbgGhFVJCpLu1IjGd4WHwEfzhps+eQ=;
+ b=dq3XcL/6uOWBFpGlaT5Z1UkrBIaVq5Zc35a0ZBRKt7xr1yyRDFqo/lxx
+ klwfkGAx50po1CkHyCaWcjV+ToAiINjdypBD+6/b4QJgYDHqiFcyr/D/O
+ mrer3XEh5s/sldkr0uQEFn59pbQoS1AO0UcOuXvSrZVZTlWQ9pwpoc8vG
+ ego/tbO2MGYm8mU+BXoj0sS6UgTTq//aEPANwH/mMjscodQgHXv4dkKRF
+ klX++sVMmKHC1zMDcpPcS/KiBf6HB+ArbXxclAUxqhzv93ZnxacHqcXx8
+ OAItQXoWn+7rdtviVDaCHhwV+wtAIn/QZz+UhYn0QdyXhREOJ/GQjL941 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="369847671"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="369847671"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Oct 2022 13:17:09 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="609699714"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="609699714"
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="609699717"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="609699717"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Oct 2022 13:17:09 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 25 Oct 2022 20:16:56 +0000
-Message-Id: <20221025201708.84018-5-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 25 Oct 2022 20:16:58 +0000
+Message-Id: <20221025201708.84018-7-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221025201708.84018-1-umesh.nerlige.ramappa@intel.com>
 References: <20221025201708.84018-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 04/16] drm/i915/perf: Determine gen12 oa ctx
- offset at runtime
+Subject: [Intel-gfx] [PATCH v5 06/16] drm/i915/perf: Simply use stream->ctx
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,296 +59,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some SKUs of same gen12 platform may have different oactxctrl
-offsets. For gen12, determine oactxctrl offsets at runtime.
-
-v2: (Lionel)
-- Move MI definitions to intel_gpu_commands.h
-- Ensure __find_reg_in_lri does read past context image size
-
-v3: (Ashutosh)
-- Drop unnecessary use of double underscores
-- fix find_reg_in_lri
-- Return error if oa context offset is U32_MAX
-- Error out if oa_ctx_ctrl_offset does not find offset
-
-v4: (Ashutosh)
-- Warn on odd MI LRI_LEN
-- Remove unnecessary check for valid_oactxctrl_offset
-- Drop valid_oactxctrl_offset macro
-
-v5: Drop unrelated comment
+Earlier code used exclusive_stream to check for user passed context.
+Simplify this by accessing stream->ctx.
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h |   4 +
- drivers/gpu/drm/i915/i915_perf.c             | 146 ++++++++++++++++---
- drivers/gpu/drm/i915/i915_perf_oa_regs.h     |   2 +-
- 3 files changed, 127 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-index d4e9702d3c8e..f50ea92910d9 100644
---- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-@@ -187,6 +187,10 @@
- #define   MI_BATCH_RESOURCE_STREAMER REG_BIT(10)
- #define   MI_BATCH_PREDICATE         REG_BIT(15) /* HSW+ on RCS only*/
- 
-+#define MI_OPCODE(x)		(((x) >> 23) & 0x3f)
-+#define IS_MI_LRI_CMD(x)	(MI_OPCODE(x) == MI_OPCODE(MI_INSTR(0x22, 0)))
-+#define MI_LRI_LEN(x)		(((x) & 0xff) + 1)
-+
- /*
-  * 3D instructions used by the kernel
-  */
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index e68666b44a72..b71b5cf21176 100644
+index d11cc949c9be..75d320b2c1f8 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1356,6 +1356,74 @@ static int gen12_get_render_context_id(struct i915_perf_stream *stream)
- 	return 0;
- }
- 
-+static bool oa_find_reg_in_lri(u32 *state, u32 reg, u32 *offset, u32 end)
-+{
-+	u32 idx = *offset;
-+	u32 len = min(MI_LRI_LEN(state[idx]) + idx, end);
-+	bool found = false;
-+
-+	idx++;
-+	for (; idx < len; idx += 2) {
-+		if (state[idx] == reg) {
-+			found = true;
-+			break;
-+		}
-+	}
-+
-+	*offset = idx;
-+	return found;
-+}
-+
-+static u32 oa_context_image_offset(struct intel_context *ce, u32 reg)
-+{
-+	u32 offset, len = (ce->engine->context_size - PAGE_SIZE) / 4;
-+	u32 *state = ce->lrc_reg_state;
-+
-+	for (offset = 0; offset < len; ) {
-+		if (IS_MI_LRI_CMD(state[offset])) {
-+			/*
-+			 * We expect reg-value pairs in MI_LRI command, so
-+			 * MI_LRI_LEN() should be even, if not, issue a warning.
-+			 */
-+			drm_WARN_ON(&ce->engine->i915->drm,
-+				    MI_LRI_LEN(state[offset]) & 0x1);
-+
-+			if (oa_find_reg_in_lri(state, reg, &offset, len))
-+				break;
-+		} else {
-+			offset++;
-+		}
-+	}
-+
-+	return offset < len ? offset : U32_MAX;
-+}
-+
-+static int set_oa_ctx_ctrl_offset(struct intel_context *ce)
-+{
-+	i915_reg_t reg = GEN12_OACTXCONTROL(ce->engine->mmio_base);
-+	struct i915_perf *perf = &ce->engine->i915->perf;
-+	u32 offset = perf->ctx_oactxctrl_offset;
-+
-+	/* Do this only once. Failure is stored as offset of U32_MAX */
-+	if (offset)
-+		goto exit;
-+
-+	offset = oa_context_image_offset(ce, i915_mmio_reg_offset(reg));
-+	perf->ctx_oactxctrl_offset = offset;
-+
-+	drm_dbg(&ce->engine->i915->drm,
-+		"%s oa ctx control at 0x%08x dword offset\n",
-+		ce->engine->name, offset);
-+
-+exit:
-+	return offset && offset != U32_MAX ? 0 : -ENODEV;
-+}
-+
-+static bool engine_supports_mi_query(struct intel_engine_cs *engine)
-+{
-+	return engine->class == RENDER_CLASS;
-+}
-+
- /**
-  * oa_get_render_ctx_id - determine and hold ctx hw id
-  * @stream: An i915-perf stream opened for OA metrics
-@@ -1375,6 +1443,21 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
- 	if (IS_ERR(ce))
- 		return PTR_ERR(ce);
- 
-+	if (engine_supports_mi_query(stream->engine)) {
-+		/*
-+		 * We are enabling perf query here. If we don't find the context
-+		 * offset here, just return an error.
-+		 */
-+		ret = set_oa_ctx_ctrl_offset(ce);
-+		if (ret) {
-+			intel_context_unpin(ce);
-+			drm_err(&stream->perf->i915->drm,
-+				"Enabling perf query failed for %s\n",
-+				stream->engine->name);
-+			return ret;
-+		}
-+	}
-+
- 	switch (GRAPHICS_VER(ce->engine->i915)) {
- 	case 7: {
- 		/*
-@@ -2406,10 +2489,11 @@ static int gen12_configure_oar_context(struct i915_perf_stream *stream,
- 	int err;
- 	struct intel_context *ce = stream->pinned_ctx;
- 	u32 format = stream->oa_buffer.format;
-+	u32 offset = stream->perf->ctx_oactxctrl_offset;
- 	struct flex regs_context[] = {
- 		{
- 			GEN8_OACTXCONTROL,
--			stream->perf->ctx_oactxctrl_offset + 1,
-+			offset + 1,
- 			active ? GEN8_OA_COUNTER_RESUME : 0,
- 		},
- 	};
-@@ -2434,12 +2518,13 @@ static int gen12_configure_oar_context(struct i915_perf_stream *stream,
- 		},
- 	};
- 
--	/* Modify the context image of pinned context with regs_context*/
-+	/* Modify the context image of pinned context with regs_context */
- 	err = intel_context_lock_pinned(ce);
- 	if (err)
- 		return err;
- 
--	err = gen8_modify_context(ce, regs_context, ARRAY_SIZE(regs_context));
-+	err = gen8_modify_context(ce, regs_context,
-+				  ARRAY_SIZE(regs_context));
- 	intel_context_unlock_pinned(ce);
- 	if (err)
- 		return err;
-@@ -2564,6 +2649,7 @@ lrc_configure_all_contexts(struct i915_perf_stream *stream,
- 			   const struct i915_oa_config *oa_config,
- 			   struct i915_active *active)
- {
-+	u32 ctx_oactxctrl = stream->perf->ctx_oactxctrl_offset;
- 	/* The MMIO offsets for Flex EU registers aren't contiguous */
- 	const u32 ctx_flexeu0 = stream->perf->ctx_flexeu0_offset;
- #define ctx_flexeuN(N) (ctx_flexeu0 + 2 * (N) + 1)
-@@ -2574,7 +2660,7 @@ lrc_configure_all_contexts(struct i915_perf_stream *stream,
- 		},
- 		{
- 			GEN8_OACTXCONTROL,
--			stream->perf->ctx_oactxctrl_offset + 1,
-+			ctx_oactxctrl + 1,
- 		},
- 		{ EU_PERF_CNTL0, ctx_flexeuN(0) },
- 		{ EU_PERF_CNTL1, ctx_flexeuN(1) },
-@@ -4543,6 +4629,37 @@ static void oa_init_supported_formats(struct i915_perf *perf)
- 	}
- }
- 
-+static void i915_perf_init_info(struct drm_i915_private *i915)
-+{
-+	struct i915_perf *perf = &i915->perf;
-+
-+	switch (GRAPHICS_VER(i915)) {
-+	case 8:
-+		perf->ctx_oactxctrl_offset = 0x120;
-+		perf->ctx_flexeu0_offset = 0x2ce;
-+		perf->gen8_valid_ctx_bit = BIT(25);
-+		break;
-+	case 9:
-+		perf->ctx_oactxctrl_offset = 0x128;
-+		perf->ctx_flexeu0_offset = 0x3de;
-+		perf->gen8_valid_ctx_bit = BIT(16);
-+		break;
-+	case 11:
-+		perf->ctx_oactxctrl_offset = 0x124;
-+		perf->ctx_flexeu0_offset = 0x78e;
-+		perf->gen8_valid_ctx_bit = BIT(16);
-+		break;
-+	case 12:
-+		/*
-+		 * Calculate offset at runtime in oa_pin_context for gen12 and
-+		 * cache the value in perf->ctx_oactxctrl_offset.
-+		 */
-+		break;
-+	default:
-+		MISSING_CASE(GRAPHICS_VER(i915));
-+	}
-+}
-+
- /**
-  * i915_perf_init - initialize i915-perf state on module bind
-  * @i915: i915 device instance
-@@ -4581,6 +4698,7 @@ void i915_perf_init(struct drm_i915_private *i915)
- 		 * execlist mode by default.
+@@ -776,7 +776,7 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 		 * switches since it's not-uncommon for periodic samples to
+ 		 * identify a switch before any 'context switch' report.
  		 */
- 		perf->ops.read = gen8_oa_read;
-+		i915_perf_init_info(i915);
- 
- 		if (IS_GRAPHICS_VER(i915, 8, 9)) {
- 			perf->ops.is_valid_b_counter_reg =
-@@ -4600,18 +4718,6 @@ void i915_perf_init(struct drm_i915_private *i915)
- 			perf->ops.enable_metric_set = gen8_enable_metric_set;
- 			perf->ops.disable_metric_set = gen8_disable_metric_set;
- 			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
--
--			if (GRAPHICS_VER(i915) == 8) {
--				perf->ctx_oactxctrl_offset = 0x120;
--				perf->ctx_flexeu0_offset = 0x2ce;
--
--				perf->gen8_valid_ctx_bit = BIT(25);
--			} else {
--				perf->ctx_oactxctrl_offset = 0x128;
--				perf->ctx_flexeu0_offset = 0x3de;
--
--				perf->gen8_valid_ctx_bit = BIT(16);
--			}
- 		} else if (GRAPHICS_VER(i915) == 11) {
- 			perf->ops.is_valid_b_counter_reg =
- 				gen7_is_valid_b_counter_addr;
-@@ -4625,11 +4731,6 @@ void i915_perf_init(struct drm_i915_private *i915)
- 			perf->ops.enable_metric_set = gen8_enable_metric_set;
- 			perf->ops.disable_metric_set = gen11_disable_metric_set;
- 			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
--
--			perf->ctx_oactxctrl_offset = 0x124;
--			perf->ctx_flexeu0_offset = 0x78e;
--
--			perf->gen8_valid_ctx_bit = BIT(16);
- 		} else if (GRAPHICS_VER(i915) == 12) {
- 			perf->ops.is_valid_b_counter_reg =
- 				gen12_is_valid_b_counter_addr;
-@@ -4643,9 +4744,6 @@ void i915_perf_init(struct drm_i915_private *i915)
- 			perf->ops.enable_metric_set = gen12_enable_metric_set;
- 			perf->ops.disable_metric_set = gen12_disable_metric_set;
- 			perf->ops.oa_hw_tail_read = gen12_oa_hw_tail_read;
--
--			perf->ctx_flexeu0_offset = 0;
--			perf->ctx_oactxctrl_offset = 0x144;
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/i915_perf_oa_regs.h b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
-index f31c9f13a9fc..0ef3562ff4aa 100644
---- a/drivers/gpu/drm/i915/i915_perf_oa_regs.h
-+++ b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
-@@ -97,7 +97,7 @@
- #define  GEN12_OAR_OACONTROL_COUNTER_FORMAT_SHIFT 1
- #define  GEN12_OAR_OACONTROL_COUNTER_ENABLE       (1 << 0)
- 
--#define GEN12_OACTXCONTROL _MMIO(0x2360)
-+#define GEN12_OACTXCONTROL(base) _MMIO((base) + 0x360)
- #define GEN12_OAR_OASTATUS _MMIO(0x2968)
- 
- /* Gen12 OAG unit */
+-		if (!stream->perf->exclusive_stream->ctx ||
++		if (!stream->ctx ||
+ 		    stream->specific_ctx_id == ctx_id ||
+ 		    stream->oa_buffer.last_ctx_id == stream->specific_ctx_id ||
+ 		    reason & OAREPORT_REASON_CTX_SWITCH) {
+@@ -785,7 +785,7 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 			 * While filtering for a single context we avoid
+ 			 * leaking the IDs of other contexts.
+ 			 */
+-			if (stream->perf->exclusive_stream->ctx &&
++			if (stream->ctx &&
+ 			    stream->specific_ctx_id != ctx_id) {
+ 				report32[2] = INVALID_CTX_ID;
+ 			}
 -- 
 2.25.1
 
