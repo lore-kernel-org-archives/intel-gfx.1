@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5062C38A2D
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 20:19:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BFC3C38A2D
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 20:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A851D10E24B;
-	Tue, 25 Oct 2022 20:19:46 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B158710E1F8
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 20:17:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE99210E265;
+	Tue, 25 Oct 2022 20:19:50 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E09010E1E9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 20:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666729031; x=1698265031;
+ t=1666729030; x=1698265030;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=LFdrl0lGOYrI5u+rfnfxRAGWg4ZEvNiB417xWKBCnoM=;
- b=hyvidkn/1tv3ROWiUkyq1bw+L0eL1HwlVgu6CLD9xHEXelCFOjt5NgQL
- THebs9uYpuZTKde+CtvbeYoknE3m+d6GqwPu/hZsdtJEh6OI5A8DDY1hG
- e/vJUvMRNr3Scb3kW6SPFGMqAJrnQk08RnJ78iFfDRWNTOmvhyghg4sE2
- 3Q6wGBT5tT4PgHdHAdeLTrZZDAevmFihXD7ELfPKRHDjvdJrOhBgeK886
- fQoswaPY2Ij6TknPFfzqShkydc7ScM38S9sduYN1a67trLU9X3dtcWYqt
- TgVqmW1Ye7TFIc/iFojh6wl5Gj+hcwCjeSAc4qTGPnf+iBZMKDO5rhmYM A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="369847677"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="369847677"
+ bh=ZZfFCkoh6MPPUxL/bCeTS2yNAhT4KZgxAlEzIIlXMWQ=;
+ b=fPRju2DSnwSGEzTk6jDKLsgNxMnP3iN10/9Jl3F3MnO+bv8BNee0oAWm
+ lvAw+695K/S2L5mt9sOBiB88PJlbIztthITeDmultSKTFUDHYI9joaRze
+ Dg7DHhCBcIlSJYPTS3JrvBAxaAhtMbx4DEznzo2CKhI9N/1wIP3anYkhn
+ wKNWZDC2s4miffPRbGdJx7HhD0yVvoodWnWTaIyNNowAtcA9hqJ38Gfui
+ 8WaLst8OxhhwBLn4Oj+MnHPpl0e1+4Nm3CYCj+DCkQoNEoXevP1Rr8pPk
+ L51FQfopac0kwl3a6vR/ESjBdRLRtDzJR2g3bbfXnmCFIKRlld31WL85k A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="287498125"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="287498125"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Oct 2022 13:17:09 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="609699729"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="609699729"
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="609699727"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="609699727"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Oct 2022 13:17:09 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 25 Oct 2022 20:17:03 +0000
-Message-Id: <20221025201708.84018-12-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 25 Oct 2022 20:17:01 +0000
+Message-Id: <20221025201708.84018-10-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221025201708.84018-1-umesh.nerlige.ramappa@intel.com>
 References: <20221025201708.84018-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 11/16] drm/i915/perf: Add Wa_1508761755:dg2
+Subject: [Intel-gfx] [PATCH v5 09/16] drm/i915/perf: Use gt-specific ggtt
+ for OA and noa-wait buffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,80 +60,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Disable Clock gating in EU when gathering the events so that EU events
-are not lost.
-
-v2: Fix checkpatch issues
-v3: User MCR helpers to write to MC reg
+User passes uabi engine class and instance to the perf OA interface. Use
+gt corresponding to the engine to pin the buffers to the right ggtt.
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Reviewed-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_regs.h |  1 +
- drivers/gpu/drm/i915/i915_perf.c        | 24 ++++++++++++++++++++++++
- 2 files changed, 25 insertions(+)
+ drivers/gpu/drm/i915/i915_perf.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 36d95b79022c..b101e31df61c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1164,6 +1164,7 @@
- #define   GEN12_DISABLE_EARLY_READ		REG_BIT(14)
- #define   GEN12_ENABLE_LARGE_GRF_MODE		REG_BIT(12)
- #define   GEN12_PUSH_CONST_DEREF_HOLD_DIS	REG_BIT(8)
-+#define   GEN12_DISABLE_DOP_GATING              REG_BIT(0)
- 
- #define RT_CTRL					MCR_REG(0xe530)
- #define   DIS_NULL_QUERY			REG_BIT(10)
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 585079ae5f03..18619eb19769 100644
+index 9a00398ae25f..2c8727253f0d 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -204,6 +204,7 @@
- #include "gt/intel_gpu_commands.h"
- #include "gt/intel_gt.h"
- #include "gt/intel_gt_clock_utils.h"
-+#include "gt/intel_gt_mcr.h"
- #include "gt/intel_gt_regs.h"
- #include "gt/intel_lrc.h"
- #include "gt/intel_lrc_reg.h"
-@@ -2775,6 +2776,18 @@ gen12_enable_metric_set(struct i915_perf_stream *stream,
- 	u32 sqcnt1;
- 	int ret;
- 
-+	/*
-+	 * Wa_1508761755:xehpsdv, dg2
-+	 * EU NOA signals behave incorrectly if EU clock gating is enabled.
-+	 * Disable thread stall DOP gating and EU DOP gating.
-+	 */
-+	if (IS_XEHPSDV(i915) || IS_DG2(i915)) {
-+		intel_gt_mcr_multicast_write(uncore->gt, GEN8_ROW_CHICKEN,
-+				   _MASKED_BIT_ENABLE(STALL_DOP_GATING_DISABLE));
-+		intel_uncore_write(uncore, GEN7_ROW_CHICKEN2,
-+				   _MASKED_BIT_ENABLE(GEN12_DISABLE_DOP_GATING));
-+	}
-+
- 	intel_uncore_write(uncore, GEN12_OAG_OA_DEBUG,
- 			   /* Disable clk ratio reports, like previous Gens. */
- 			   _MASKED_BIT_ENABLE(GEN12_OAG_OA_DEBUG_DISABLE_CLK_RATIO_REPORTS |
-@@ -2853,6 +2866,17 @@ static void gen12_disable_metric_set(struct i915_perf_stream *stream)
+@@ -1754,6 +1754,7 @@ static void gen12_init_oa_buffer(struct i915_perf_stream *stream)
+ static int alloc_oa_buffer(struct i915_perf_stream *stream)
+ {
  	struct drm_i915_private *i915 = stream->perf->i915;
- 	u32 sqcnt1;
++	struct intel_gt *gt = stream->engine->gt;
+ 	struct drm_i915_gem_object *bo;
+ 	struct i915_vma *vma;
+ 	int ret;
+@@ -1773,11 +1774,22 @@ static int alloc_oa_buffer(struct i915_perf_stream *stream)
+ 	i915_gem_object_set_cache_coherency(bo, I915_CACHE_LLC);
  
+ 	/* PreHSW required 512K alignment, HSW requires 16M */
+-	vma = i915_gem_object_ggtt_pin(bo, NULL, 0, SZ_16M, 0);
++	vma = i915_vma_instance(bo, &gt->ggtt->vm, NULL);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
+ 		goto err_unref;
+ 	}
++
 +	/*
-+	 * Wa_1508761755:xehpsdv, dg2
-+	 * Enable thread stall DOP gating and EU DOP gating.
++	 * PreHSW required 512K alignment.
++	 * HSW and onwards, align to requested size of OA buffer.
 +	 */
-+	if (IS_XEHPSDV(i915) || IS_DG2(i915)) {
-+		intel_gt_mcr_multicast_write(uncore->gt, GEN8_ROW_CHICKEN,
-+				   _MASKED_BIT_DISABLE(STALL_DOP_GATING_DISABLE));
-+		intel_uncore_write(uncore, GEN7_ROW_CHICKEN2,
-+				   _MASKED_BIT_DISABLE(GEN12_DISABLE_DOP_GATING));
++	ret = i915_vma_pin(vma, 0, SZ_16M, PIN_GLOBAL | PIN_HIGH);
++	if (ret) {
++		drm_err(&gt->i915->drm, "Failed to pin OA buffer %d\n", ret);
++		goto err_unref;
 +	}
 +
- 	/* Reset all contexts' slices/subslices configurations. */
- 	gen12_configure_all_contexts(stream, NULL, NULL);
+ 	stream->oa_buffer.vma = vma;
  
+ 	stream->oa_buffer.vaddr =
+@@ -1827,6 +1839,7 @@ static u32 *save_restore_register(struct i915_perf_stream *stream, u32 *cs,
+ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ {
+ 	struct drm_i915_private *i915 = stream->perf->i915;
++	struct intel_gt *gt = stream->engine->gt;
+ 	struct drm_i915_gem_object *bo;
+ 	struct i915_vma *vma;
+ 	const u64 delay_ticks = 0xffffffffffffffff -
+@@ -1867,12 +1880,16 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
+ 	 * multiple OA config BOs will have a jump to this address and it
+ 	 * needs to be fixed during the lifetime of the i915/perf stream.
+ 	 */
+-	vma = i915_gem_object_ggtt_pin_ww(bo, &ww, NULL, 0, 0, PIN_HIGH);
++	vma = i915_vma_instance(bo, &gt->ggtt->vm, NULL);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
+ 		goto out_ww;
+ 	}
+ 
++	ret = i915_vma_pin_ww(vma, &ww, 0, 0, PIN_GLOBAL | PIN_HIGH);
++	if (ret)
++		goto out_ww;
++
+ 	batch = cs = i915_gem_object_pin_map(bo, I915_MAP_WB);
+ 	if (IS_ERR(batch)) {
+ 		ret = PTR_ERR(batch);
 -- 
 2.25.1
 
