@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9561FFA373E
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 20:19:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7111AC38A2D
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 20:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 671F1890BB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 915DF10E248;
 	Tue, 25 Oct 2022 20:19:45 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B6B910E1E6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5819310E1E4
  for <intel-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 20:17:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1666729031; x=1698265031;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=DJafpqtsWp+wpO3jNcUzovjADb2i4yEJI1/tstnegV0=;
- b=mbQllwaG5FdRm+s8PnRed98nAiSdGYr8AaoqY2Hi8apqCvDDyhDL7W3m
- spJtWIpMi7tAqo48wwUQz4F1ijy2dnCAlzyJB4uovstyzHiHUYZJlKTvn
- FVIqI2j+EMcEQU5WFA2e03FsjKhEDr/mO8s6+j+Mo+wu63trV6BDv1rUc
- zySLXVW3NSXrvHYGrijhnG/SS5ajQEfkXj4V7JOKLhFR7IauGq1tpgQEr
- 5y0cgHU3J1bc8NIWrU4JNqs+bW+qhhoQxphI6EhCpzaRCZIKm0Z1SXKvp
- X38I4h5c07f8QwOxiclkpr9ozUOSs9ejqW6iYboPnV3yUQSaX61C0bIy2 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="288177917"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="288177917"
+ bh=Iu/sQAT2Cw1JVTbWsP1Bo9Ez2sbIg9ZzGNjLknBxvM4=;
+ b=BZXbE03olq6txuv0P1K9Qgcb49aa/AhKvn+u6/3Gtm+TkSP2E2NlUdEZ
+ H8bMzYpFtG/+64/LV+8jP6cCjL8/ZWdqwaF9K+CnZVBpV4zE92WTYaSNf
+ SiuIQvyWGPkn+erEqubbvTo/PHq9p0kb5u9r56cXMFpdcv0Z8EBwLA0ns
+ abB0AHFfXMtkMeGWzR1dViXizXjx5yj58za/HfwROAGPyyKcxwv9nlTTj
+ W4uve4vNEtRyNeTXO6P9byHgwkkfmlVxkYevrfTRBuMj+eeCTP0FiGeOv
+ bV2x7yFCmvOHykaPCaJL316h60Gc+/uFhax4ko8/f8gGEmpABWeO2SFl8 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="369847674"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="369847674"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2022 13:17:10 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="609699735"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="609699735"
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2022 13:17:09 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="609699724"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="609699724"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2022 13:17:10 -0700
+ 25 Oct 2022 13:17:09 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 25 Oct 2022 20:17:07 +0000
-Message-Id: <20221025201708.84018-16-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 25 Oct 2022 20:17:00 +0000
+Message-Id: <20221025201708.84018-9-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221025201708.84018-1-umesh.nerlige.ramappa@intel.com>
 References: <20221025201708.84018-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 15/16] drm/i915/perf: complete programming
- whitelisting for XEHPSDV
+Subject: [Intel-gfx] [PATCH v5 08/16] drm/i915/perf: Replace gt->perf.lock
+ with stream->lock for file ops
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,96 +60,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+With multi-gt, user can access multiple OA buffers concurrently. Use
+stream->lock instead of gt->perf.lock to serialize file operations.
 
-We have an additional register to select which slices contribute to
-OAG/OAG counter increments.
-
-Signed-off-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h          |  2 ++
- drivers/gpu/drm/i915/i915_pci.c          |  1 +
- drivers/gpu/drm/i915/i915_perf.c         | 13 +++++++++++++
- drivers/gpu/drm/i915/intel_device_info.h |  1 +
- 4 files changed, 17 insertions(+)
+ drivers/gpu/drm/i915/i915_perf.c       | 31 ++++++++++++--------------
+ drivers/gpu/drm/i915/i915_perf_types.h |  5 +++++
+ 2 files changed, 19 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 438aebeea103..3bbcd726c2da 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -900,6 +900,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 
- #define HAS_OA_BPC_REPORTING(dev_priv) \
- 	(INTEL_INFO(dev_priv)->has_oa_bpc_reporting)
-+#define HAS_OA_SLICE_CONTRIB_LIMITS(dev_priv) \
-+	(INTEL_INFO(dev_priv)->has_oa_slice_contrib_limits)
- 
- /*
-  * Set this flag, when platform requires 64K GTT page sizes or larger for
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index cbced3f3db17..3f505ee15d66 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1024,6 +1024,7 @@ static const struct intel_device_info adl_p_info = {
- 	.has_logical_ring_elsq = 1, \
- 	.has_mslice_steering = 1, \
- 	.has_oa_bpc_reporting = 1, \
-+	.has_oa_slice_contrib_limits = 1, \
- 	.has_rc6 = 1, \
- 	.has_reset_engine = 1, \
- 	.has_rps = 1, \
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index bc0c486cf7d4..176442d5e57e 100644
+index 83c5dc043261..9a00398ae25f 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -4261,6 +4261,11 @@ static const struct i915_range gen12_oa_b_counters[] = {
- 	{}
- };
+@@ -3231,6 +3231,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	stream->poll_check_timer.function = oa_poll_check_timer_cb;
+ 	init_waitqueue_head(&stream->poll_wq);
+ 	spin_lock_init(&stream->oa_buffer.ptr_lock);
++	mutex_init(&stream->lock);
  
-+static const struct i915_range xehp_oa_b_counters[] = {
-+	{ .start = 0xdc48, .end = 0xdc48 },	/* OAA_ENABLE_REG */
-+	{ .start = 0xdd00, .end = 0xdd48 },	/* OAG_LCE0_0 - OAA_LENABLE_REG */
-+};
-+
- static const struct i915_range gen7_oa_mux_regs[] = {
- 	{ .start = 0x91b8, .end = 0x91cc },	/* OA_PERFCNT[1-2], OA_PERFMATRIX */
- 	{ .start = 0x9800, .end = 0x9888 },	/* MICRO_BP0_0 - NOA_WRITE */
-@@ -4335,6 +4340,12 @@ static bool gen12_is_valid_b_counter_addr(struct i915_perf *perf, u32 addr)
- 	return reg_in_range_table(addr, gen12_oa_b_counters);
- }
+ 	return 0;
  
-+static bool xehp_is_valid_b_counter_addr(struct i915_perf *perf, u32 addr)
-+{
-+	return reg_in_range_table(addr, xehp_oa_b_counters) ||
-+		reg_in_range_table(addr, gen12_oa_b_counters);
-+}
-+
- static bool gen12_is_valid_mux_addr(struct i915_perf *perf, u32 addr)
+@@ -3294,7 +3295,6 @@ static ssize_t i915_perf_read(struct file *file,
+ 			      loff_t *ppos)
  {
- 	return reg_in_range_table(addr, gen12_oa_mux_regs);
-@@ -4847,6 +4858,8 @@ void i915_perf_init(struct drm_i915_private *i915)
- 			perf->ops.oa_hw_tail_read = gen8_oa_hw_tail_read;
- 		} else if (GRAPHICS_VER(i915) == 12) {
- 			perf->ops.is_valid_b_counter_reg =
-+				HAS_OA_SLICE_CONTRIB_LIMITS(i915) ?
-+				xehp_is_valid_b_counter_addr :
- 				gen12_is_valid_b_counter_addr;
- 			perf->ops.is_valid_mux_reg =
- 				gen12_is_valid_mux_addr;
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 42218c8d85f2..e292c1ee7c93 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -165,6 +165,7 @@ enum intel_ppgtt_type {
- 	func(has_media_ratio_mode); \
- 	func(has_mslice_steering); \
- 	func(has_oa_bpc_reporting); \
-+	func(has_oa_slice_contrib_limits); \
- 	func(has_one_eu_per_fuse_bit); \
- 	func(has_pxp); \
- 	func(has_rc6); \
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct intel_gt *gt = stream->engine->gt;
+ 	size_t offset = 0;
+ 	int ret;
+ 
+@@ -3318,14 +3318,14 @@ static ssize_t i915_perf_read(struct file *file,
+ 			if (ret)
+ 				return ret;
+ 
+-			mutex_lock(&gt->perf.lock);
++			mutex_lock(&stream->lock);
+ 			ret = stream->ops->read(stream, buf, count, &offset);
+-			mutex_unlock(&gt->perf.lock);
++			mutex_unlock(&stream->lock);
+ 		} while (!offset && !ret);
+ 	} else {
+-		mutex_lock(&gt->perf.lock);
++		mutex_lock(&stream->lock);
+ 		ret = stream->ops->read(stream, buf, count, &offset);
+-		mutex_unlock(&gt->perf.lock);
++		mutex_unlock(&stream->lock);
+ 	}
+ 
+ 	/* We allow the poll checking to sometimes report false positive EPOLLIN
+@@ -3372,9 +3372,6 @@ static enum hrtimer_restart oa_poll_check_timer_cb(struct hrtimer *hrtimer)
+  * &i915_perf_stream_ops->poll_wait to call poll_wait() with a wait queue that
+  * will be woken for new stream data.
+  *
+- * Note: The &gt->perf.lock mutex has been taken to serialize
+- * with any non-file-operation driver hooks.
+- *
+  * Returns: any poll events that are ready without sleeping
+  */
+ static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
+@@ -3413,12 +3410,11 @@ static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
+ static __poll_t i915_perf_poll(struct file *file, poll_table *wait)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct intel_gt *gt = stream->engine->gt;
+ 	__poll_t ret;
+ 
+-	mutex_lock(&gt->perf.lock);
++	mutex_lock(&stream->lock);
+ 	ret = i915_perf_poll_locked(stream, file, wait);
+-	mutex_unlock(&gt->perf.lock);
++	mutex_unlock(&stream->lock);
+ 
+ 	return ret;
+ }
+@@ -3517,9 +3513,6 @@ static long i915_perf_config_locked(struct i915_perf_stream *stream,
+  * @cmd: the ioctl request
+  * @arg: the ioctl data
+  *
+- * Note: The &gt->perf.lock mutex has been taken to serialize
+- * with any non-file-operation driver hooks.
+- *
+  * Returns: zero on success or a negative error code. Returns -EINVAL for
+  * an unknown ioctl request.
+  */
+@@ -3557,12 +3550,11 @@ static long i915_perf_ioctl(struct file *file,
+ 			    unsigned long arg)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct intel_gt *gt = stream->engine->gt;
+ 	long ret;
+ 
+-	mutex_lock(&gt->perf.lock);
++	mutex_lock(&stream->lock);
+ 	ret = i915_perf_ioctl_locked(stream, cmd, arg);
+-	mutex_unlock(&gt->perf.lock);
++	mutex_unlock(&stream->lock);
+ 
+ 	return ret;
+ }
+@@ -3608,6 +3600,11 @@ static int i915_perf_release(struct inode *inode, struct file *file)
+ 	struct i915_perf *perf = stream->perf;
+ 	struct intel_gt *gt = stream->engine->gt;
+ 
++	/*
++	 * Within this call, we know that the fd is being closed and we have no
++	 * other user of stream->lock. Use the perf lock to destroy the stream
++	 * here.
++	 */
+ 	mutex_lock(&gt->perf.lock);
+ 	i915_perf_destroy_locked(stream);
+ 	mutex_unlock(&gt->perf.lock);
+diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
+index e888bfab478f..dc9bfd8086cf 100644
+--- a/drivers/gpu/drm/i915/i915_perf_types.h
++++ b/drivers/gpu/drm/i915/i915_perf_types.h
+@@ -146,6 +146,11 @@ struct i915_perf_stream {
+ 	 */
+ 	struct intel_engine_cs *engine;
+ 
++	/*
++	 * Lock associated with operations on stream
++	 */
++	struct mutex lock;
++
+ 	/**
+ 	 * @sample_flags: Flags representing the `DRM_I915_PERF_PROP_SAMPLE_*`
+ 	 * properties given when opening a stream, representing the contents
 -- 
 2.25.1
 
