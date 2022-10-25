@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B84FA373E
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 18:03:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B52BFFA373E
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 18:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFC2A88284;
-	Tue, 25 Oct 2022 18:03:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C499010E03D;
+	Tue, 25 Oct 2022 18:03:46 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA8610E03D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DC1888284
  for <intel-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 18:03:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1666721020; x=1698257020;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=6yGUdxIxny2p0Mni/3FG8D/N/MTMd7EpeETRu9S/IGU=;
- b=GNTwQVaHOuWjIHzlg9w12w97707ELeO+1VWy+qziQwrvcA1ULhQ8oDtn
- 5zlTO2Z/LnNu7EgXHWNMvcNcNOYY5p7AW1SeZFPWkr9TJWMCqWNClfquA
- zq8TE1BB34oeNY2ioHaboupEadgZJTsODFn+C/bj7u2B/Ki6c3P/dctCF
- eMTt95z6s9f7ZxTRALn0bU12Xz42Ax0JgCeCEJRUS4L3an43SBKHfcSJN
- 1UarlDSWVlstfCL2TRRuo0qzztUFMT7mjx94mVhIyrrRDzQJjdvppgTIS
- msLRKkaJqdRwh2w469eFBsrC+VP8VpDMbAtntQKI+G4ET0jzgBku04dFq g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="394065055"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="394065055"
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=8+vhA7ZanMNiIfu1a1WgtPwfIVV6K7KgusEIorkl0Vk=;
+ b=Ip9Lwwbj0DNdHJQrwDo747+3HwJPGGOgp3waK62Jdnc6wxrIVTZcJ8Os
+ ogjmJVX0HXCLXV2XR1rsZJF70HFc8oDZkMIhgAqcoR7h0AdaBbzd85c0p
+ tfIOqeLbNP44Hpa/+voy7AY6XzQlQDgaUZnrasIvSpvTXZHUqpMGE8y43
+ oowDfYH9V+t+HeCvy2+1ue5X/KH1VlgwYqzGSd9lInW6St5JIRnFO1hQg
+ wgVwnupkQWF21X1hv1S9FE/KYY3NO6NILkXkwqqxpXQQcwEarAbbvtZTH
+ Z5A1YKx2eucpPXIEBWitUJ8/LumKPCesPOZ0zU8VrXKhsP04/5tQG7jQb g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="394065054"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="394065054"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Oct 2022 11:03:39 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="720957944"
-X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="720957944"
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="720957940"
+X-IronPort-AV: E=Sophos;i="5.95,212,1661842800"; d="scan'208";a="720957940"
 Received: from kdmorgan-mobl.amr.corp.intel.com (HELO
  msatwood-mobl.hsd1.or.comcast.net) ([10.212.35.13])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Oct 2022 11:03:38 -0700
 From: Matt Atwood <matthew.s.atwood@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 25 Oct 2022 11:03:35 -0700
-Message-Id: <20221025180335.1723742-2-matthew.s.atwood@intel.com>
+Date: Tue, 25 Oct 2022 11:03:34 -0700
+Message-Id: <20221025180335.1723742-1-matthew.s.atwood@intel.com>
 X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221025180335.1723742-1-matthew.s.atwood@intel.com>
-References: <20221025180335.1723742-1-matthew.s.atwood@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915/dg2: Introduce Wa_18019271663
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/dg2: Introduce Wa_18018764978
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,48 +58,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Wa_18019271663 applies to all DG2 steppings and skus.
+Wa_18018764978 applies to specific steppings of DG2 (G11 C0+,
+G11 and G12 A0+).
 
-Bspec:45809
+Bspec: 66622
 
 Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_regs.h     | 7 ++++---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 3 +++
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h     | 3 +++
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 5 +++++
+ 2 files changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index e8372d4cd548..46035503068c 100644
+index 36d95b79022c..e8372d4cd548 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
 +++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -421,9 +421,10 @@
- #define   RC_OP_FLUSH_ENABLE			(1 << 0)
- #define   HIZ_RAW_STALL_OPT_DISABLE		(1 << 2)
- #define CACHE_MODE_1				_MMIO(0x7004) /* IVB+ */
--#define   PIXEL_SUBSPAN_COLLECT_OPT_DISABLE	(1 << 6)
--#define   GEN8_4x4_STC_OPTIMIZATION_DISABLE	(1 << 6)
--#define   GEN9_PARTIAL_RESOLVE_IN_VC_DISABLE	(1 << 1)
-+#define   MSAA_OPTIMIZATION_REDUC_DISABLE	REG_BIT(11)
-+#define   PIXEL_SUBSPAN_COLLECT_OPT_DISABLE	REG_BIT(6)
-+#define   GEN8_4x4_STC_OPTIMIZATION_DISABLE	REG_BIT(6)
-+#define   GEN9_PARTIAL_RESOLVE_IN_VC_DISABLE	REG_BIT(1)
+@@ -448,6 +448,9 @@
+ #define GEN8_L3CNTLREG				_MMIO(0x7034)
+ #define   GEN8_ERRDETBCTRL			(1 << 9)
  
- #define GEN7_GT_MODE				_MMIO(0x7008)
- #define   GEN9_IZ_HASHING_MASK(slice)		(0x3 << ((slice) * 2))
++#define PSS_MODE2				_MMIO(0x703c)
++#define   SCOREBOARD_STALL_FLUSH_CONTROL	REG_BIT(5)
++
+ #define GEN7_SC_INSTDONE			_MMIO(0x7100)
+ #define GEN12_SC_INSTDONE_EXTRA			_MMIO(0x7104)
+ #define GEN12_SC_INSTDONE_EXTRA2		_MMIO(0x7108)
 diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index ced3a26cf7e7..9f39b7758ff3 100644
+index 63e1e6becf34..ced3a26cf7e7 100644
 --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
 +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -750,6 +750,9 @@ static void dg2_ctx_workarounds_init(struct intel_engine_cs *engine,
+@@ -743,6 +743,11 @@ static void dg2_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 		IS_DG2_G11(engine->i915) || IS_DG2_G12(engine->i915))
+ 		wa_masked_field_set(wal, VF_PREEMPTION, PREEMPTION_VERTEX_COUNT, 0x4000);
  
++	/* Wa_18018764978:dg2 */
++	if (IS_DG2_GRAPHICS_STEP(engine->i915, G10, STEP_C0, STEP_FOREVER) ||
++		IS_DG2_G11(engine->i915) || IS_DG2_G12(engine->i915))
++		wa_masked_en(wal, PSS_MODE2, SCOREBOARD_STALL_FLUSH_CONTROL);
++
  	/* Wa_15010599737:dg2 */
  	wa_masked_en(wal, CHICKEN_RASTER_1, DIS_SF_ROUND_NEAREST_EVEN);
-+
-+	/* Wa_18019271663:dg2 */
-+	wa_masked_en(wal, CACHE_MODE_1, MSAA_OPTIMIZATION_REDUC_DISABLE);
  }
- 
- static void fakewa_disable_nestedbb_mode(struct intel_engine_cs *engine,
 -- 
 2.37.3
 
