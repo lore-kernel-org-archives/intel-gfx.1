@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 738DFC38A2D
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 07:00:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88B28C38A2D
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Oct 2022 08:40:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B449A10E2A7;
-	Tue, 25 Oct 2022 07:00:07 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAEFC10E193;
- Tue, 25 Oct 2022 06:59:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4409D10E18A;
+	Tue, 25 Oct 2022 08:40:20 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96AA710E133
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Oct 2022 08:40:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666681155; x=1698217155;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=So/5Sulmzc9H36se1cSsT2qQZxRGz3l6Ri60arDoMHo=;
- b=RHNolNlUNHtY7JXl2FNX9bOQ9eZHhgRnBRIVCFa+0ZKLSHxLUP8uEXVq
- EiacRiY+vyE6Ar2RxH7S/ZMltdmiNTjIXvTjYhrPdd4LAxvXpu2YiXjIv
- J8EX4lMvy4MGx+oVbQoShzqFVQzlD9QZDV6jB2h6RFtHqUKgl1jcT9LEG
- RkuWxw7T/uqqwPuwi7k2PK+idbVnphVc9hQLCAGoBM3j6gLCRoNqbDtc7
- 6v5qEq4AyV6W0Mp5x/98ncbh6NPufavpaonL6YA1cbgGzKGu9GaYp0WbX
- 3B4FSKoeXGs0KdFAcD5ShqmAUZEEeIfVVspwLuav4Xe+J5U48+W1hArGk A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10510"; a="308697610"
-X-IronPort-AV: E=Sophos;i="5.95,211,1661842800"; d="scan'208";a="308697610"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 23:59:15 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10510"; a="806564442"
-X-IronPort-AV: E=Sophos;i="5.95,211,1661842800"; d="scan'208";a="806564442"
-Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2022 23:59:15 -0700
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Mon, 24 Oct 2022 23:59:03 -0700
-Message-Id: <20221025065905.13325-18-niranjana.vishwanathapura@intel.com>
-X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
-In-Reply-To: <20221025065905.13325-1-niranjana.vishwanathapura@intel.com>
-References: <20221025065905.13325-1-niranjana.vishwanathapura@intel.com>
+ t=1666687215; x=1698223215;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=g7MVCF/+VzUuc0ANX5JgmkjUeGq543Z2DXlYDGVoPIs=;
+ b=QHcGMtvYPZHLWnlKKd4G2E893LkPnXBCpHBgvm4cI3eAxTz2a6Kwh5h4
+ Ke/hXiwiYCI3p+HHuDa4cN0RnYJqNEV3kFZULH3Js9dHJ36H4Ti/sjVtx
+ dC6+siy8pXeFZecukCGVpEn2TCyTQ8CkDu+Daj/QQbuQNN53NJfVmfx8t
+ rhPOa3Z9cqKQVVn6esliCJUviVFPN7amqjp1Es1Y8G9z62Zv6KTz8DJhI
+ D84E7RXU+EwSkrioHxyD0ZnvsPCQWpwHRctlTpzgsrQtD9jVQUfgFn+kq
+ RAZF2K1KxoovvBXgo4H97DNHiN3mjT84J4o9dLwkNHa3VbPFKsh+FAkxO A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10510"; a="369691393"
+X-IronPort-AV: E=Sophos;i="5.95,211,1661842800"; d="scan'208";a="369691393"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2022 01:40:14 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10510"; a="756857043"
+X-IronPort-AV: E=Sophos;i="5.95,211,1661842800"; d="scan'208";a="756857043"
+Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.252.45.43])
+ ([10.252.45.43])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2022 01:40:12 -0700
+Message-ID: <48981b93-7373-4e2e-537b-c32e1dc2f98a@linux.intel.com>
+Date: Tue, 25 Oct 2022 10:40:10 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+To: Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20221024101946.28974-1-matthew.auld@intel.com>
+Content-Language: en-US
+From: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
+In-Reply-To: <20221024101946.28974-1-matthew.auld@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 17/19] drm/i915/vm_bind: Limit vm_bind mode
- to non-recoverable contexts
+Subject: Re: [Intel-gfx] [PATCH] Revert "drm/i915/uapi: expose GTT alignment"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,37 +60,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
- matthew.auld@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com
+Cc: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
+ Michal Mrozek <michal.mrozek@intel.com>, Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Only support vm_bind mode with non-recoverable contexts.
-With new vm_bind mode with eb3 submission path, we need not
-support older recoverable contexts.
 
-Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 76c6419b7ae0..9a7eaa574966 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1617,6 +1617,12 @@ i915_gem_create_context(struct drm_i915_private *i915,
- 	INIT_LIST_HEAD(&ctx->stale.engines);
- 
- 	if (pc->vm) {
-+		/* Only non-recoverable contexts are allowed in vm_bind mode */
-+		if (i915_gem_vm_is_vm_bind_mode(pc->vm) &&
-+		    (pc->user_flags & BIT(UCONTEXT_RECOVERABLE))) {
-+			err = -EINVAL;
-+			goto err_ctx;
-+		}
- 		vm = i915_vm_get(pc->vm);
- 	} else if (HAS_FULL_PPGTT(i915)) {
- 		struct i915_ppgtt *ppgtt;
--- 
-2.21.0.rc0.32.g243a4c7e27
-
+On 10/24/2022 12:19 PM, Matthew Auld wrote:
+> The process for merging uAPI is to have UMD side ready and reviewed and
+> merged before merging. Revert for now until that is ready.
+>
+> This reverts commit d54576a074a29d4901d0a693cd84e1a89057f694.
+>
+> Reported-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+> Cc: Michal Mrozek <michal.mrozek@intel.com>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Stuart Summers <stuart.summers@intel.com>
+> Cc: Jordan Justen <jordan.l.justen@intel.com>
+> Cc: Yang A Shi <yang.a.shi@intel.com>
+> Cc: Nirmoy Das <nirmoy.das@intel.com>
+> Cc: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+> ---
+>   drivers/gpu/drm/i915/i915_query.c |  1 -
+>   include/uapi/drm/i915_drm.h       | 29 ++---------------------------
+>   2 files changed, 2 insertions(+), 28 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+> index 111377f210ed..6ec9c9fb7b0d 100644
+> --- a/drivers/gpu/drm/i915/i915_query.c
+> +++ b/drivers/gpu/drm/i915/i915_query.c
+> @@ -498,7 +498,6 @@ static int query_memregion_info(struct drm_i915_private *i915,
+>   		info.region.memory_class = mr->type;
+>   		info.region.memory_instance = mr->instance;
+>   		info.probed_size = mr->total;
+> -		info.gtt_alignment = mr->min_page_size;
+>   
+>   		if (mr->type == INTEL_MEMORY_LOCAL)
+>   			info.probed_cpu_visible_size = mr->io_size;
+> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+> index c2dce8633005..9bf281ec1125 100644
+> --- a/include/uapi/drm/i915_drm.h
+> +++ b/include/uapi/drm/i915_drm.h
+> @@ -3466,33 +3466,8 @@ struct drm_i915_memory_region_info {
+>   	/** @region: The class:instance pair encoding */
+>   	struct drm_i915_gem_memory_class_instance region;
+>   
+> -	union {
+> -		/** @rsvd0: MBZ */
+> -		__u32 rsvd0;
+> -		/**
+> -		 * @gtt_alignment:
+> -		 *
+> -		 * The minimum required GTT alignment for this type of memory.
+> -		 * When allocating a GTT address it must be aligned to this
+> -		 * value or larger. On some platforms the kernel might opt to
+> -		 * using 64K pages for I915_MEMORY_CLASS_DEVICE, where 64K GTT
+> -		 * pages can then be used if we also use 64K GTT alignment.
+> -		 *
+> -		 * NOTE: If this is zero then this must be an older
+> -		 * kernel which lacks support for this field.
+> -		 *
+> -		 * Side note: For larger objects (especially for
+> -		 * I915_MEMORY_CLASS_DEVICE), like 2M+ in size, userspace should
+> -		 * consider potentially bumping the GTT alignment to say 2M,
+> -		 * which could potentially increase the likelihood of the kernel
+> -		 * being able to utilise 2M GTT pages underneath, if the layout
+> -		 * of the physical pages allows it.  On some configurations we
+> -		 * can then also use a more efficient page-table layout, if we
+> -		 * can't use the more desirable 2M GTT page, so long as we know
+> -		 * that the entire page-table will be used by this object.
+> -		 */
+> -		__u32 gtt_alignment;
+> -	};
+> +	/** @rsvd0: MBZ */
+> +	__u32 rsvd0;
+>   
+>   	/**
+>   	 * @probed_size: Memory probed by the driver
