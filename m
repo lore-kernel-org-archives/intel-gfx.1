@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABF8AC38A2D
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 22:21:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3E83C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 22:21:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E1A010E53B;
-	Wed, 26 Oct 2022 22:21:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A350710E55B;
+	Wed, 26 Oct 2022 22:21:19 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8047010E593
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 22:21:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEEC610E586
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 22:21:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666822867; x=1698358867;
+ t=1666822866; x=1698358866;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=s6QvnflrsWiHJPyYA9HXPUsdjxJMwDiGK0C+AqMsLGE=;
- b=d36uln9GosgTEjpCHoUUXTPocNmGy2WBqW4uWee+N1Ug2oOKgCYeNL8Y
- 0JvFV0J0fw6DoX6DvZuy2IxLxKFhlujjUL3piTdqwXsFpkgyx06HnXYOK
- 5qjyOl7etPR+/Z/rk35l6cScH1sWnD/bhCH0KhSzLsN6s5lF4t2SSyyWK
- CSnJkN70QhK00DE6qftRML9Qj9BUzzsReTAVRPOgrofw6utex9E8DbKVJ
- DbxGtaw9Dz+78XYAZzvwC2FuaUChp+XsI/a+wSg2HfUEXv6dOo5+BRVKn
- h7xta7/1kMTnDg0qRFaM/GEdRI4axV32QjCZ0mmlSYyx+vb+1qKO8HJ5+ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="394390437"
-X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="394390437"
+ bh=Iu/sQAT2Cw1JVTbWsP1Bo9Ez2sbIg9ZzGNjLknBxvM4=;
+ b=gOgzScJ+/CC9zl52TQpUuRVaPpUiMpD3wS99dSUZ57K5wYfnD71xQSY4
+ 8vABqQupJS6VcaW2d2TGXj5H4XRIBrI3vNZFjPSU55Ej+SX/PeRTshp/U
+ OqwZBnXxlt/9YwdoWazRgw5IfYZ0CD4/EmF3mDPZExto47Cju5G1Ovrsl
+ w4oF8NGqkPBtdXxFtfJESZAlivOpQk7Yfs2KvDX0VeSYUzszrbnCCZtnc
+ lkH7psCBhskoHxe8y2W73Qrp1mqZHlgyvX1lLNR3Os8TaWOAMTn7vjeq9
+ muW54urpOfTQiD1TYPKrcPPg7jfMdE5CWu57RerRcAbCm8qd3qfoIAKAK Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="394390430"
+X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="394390430"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Oct 2022 15:21:05 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="721431393"
-X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="721431393"
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="721431387"
+X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="721431387"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Oct 2022 15:21:05 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Oct 2022 22:21:00 +0000
-Message-Id: <20221026222102.5526-15-umesh.nerlige.ramappa@intel.com>
+Date: Wed, 26 Oct 2022 22:20:54 +0000
+Message-Id: <20221026222102.5526-9-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221026222102.5526-1-umesh.nerlige.ramappa@intel.com>
 References: <20221026222102.5526-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 14/16] drm/i915/guc: Support OA when
- Wa_16011777198 is enabled
+Subject: [Intel-gfx] [PATCH v6 08/16] drm/i915/perf: Replace gt->perf.lock
+ with stream->lock for file ops
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,205 +60,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+With multi-gt, user can access multiple OA buffers concurrently. Use
+stream->lock instead of gt->perf.lock to serialize file operations.
 
-On DG2, a w/a resets RCS/CCS before it goes into RC6. This breaks OA
-since OA does not expect engine resets during its use. Fix it by
-disabling RC6.
-
-v2: (Ashutosh)
-- Bring back slpc_unset_param helper
-- Update commit msg
-- Use with_intel_runtime_pm helper for set/unset
-
-v3: (Ashutosh)
-- Just use intel_uc_uses_guc_rc
-
-Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- .../drm/i915/gt/uc/abi/guc_actions_slpc_abi.h |  9 +++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   | 66 +++++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h   |  2 +
- drivers/gpu/drm/i915/i915_perf.c              | 27 ++++++++
- 4 files changed, 104 insertions(+)
+ drivers/gpu/drm/i915/i915_perf.c       | 31 ++++++++++++--------------
+ drivers/gpu/drm/i915/i915_perf_types.h |  5 +++++
+ 2 files changed, 19 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
-index 4c840a2639dc..811add10c30d 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_slpc_abi.h
-@@ -128,6 +128,15 @@ enum slpc_media_ratio_mode {
- 	SLPC_MEDIA_RATIO_MODE_FIXED_ONE_TO_TWO = 2,
- };
- 
-+enum slpc_gucrc_mode {
-+	SLPC_GUCRC_MODE_HW = 0,
-+	SLPC_GUCRC_MODE_GUCRC_NO_RC6 = 1,
-+	SLPC_GUCRC_MODE_GUCRC_STATIC_TIMEOUT = 2,
-+	SLPC_GUCRC_MODE_GUCRC_DYNAMIC_HYSTERESIS = 3,
-+
-+	SLPC_GUCRC_MODE_MAX,
-+};
-+
- enum slpc_event_id {
- 	SLPC_EVENT_RESET = 0,
- 	SLPC_EVENT_SHUTDOWN = 1,
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-index fdd895f73f9f..b3a4fb9e021f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
-@@ -137,6 +137,17 @@ static int guc_action_slpc_set_param(struct intel_guc *guc, u8 id, u32 value)
- 	return ret > 0 ? -EPROTO : ret;
- }
- 
-+static int guc_action_slpc_unset_param(struct intel_guc *guc, u8 id)
-+{
-+	u32 request[] = {
-+		GUC_ACTION_HOST2GUC_PC_SLPC_REQUEST,
-+		SLPC_EVENT(SLPC_EVENT_PARAMETER_UNSET, 1),
-+		id,
-+	};
-+
-+	return intel_guc_send(guc, request, ARRAY_SIZE(request));
-+}
-+
- static bool slpc_is_running(struct intel_guc_slpc *slpc)
- {
- 	return slpc_get_state(slpc) == SLPC_GLOBAL_STATE_RUNNING;
-@@ -190,6 +201,15 @@ static int slpc_set_param(struct intel_guc_slpc *slpc, u8 id, u32 value)
- 	return ret;
- }
- 
-+static int slpc_unset_param(struct intel_guc_slpc *slpc, u8 id)
-+{
-+	struct intel_guc *guc = slpc_to_guc(slpc);
-+
-+	GEM_BUG_ON(id >= SLPC_MAX_PARAM);
-+
-+	return guc_action_slpc_unset_param(guc, id);
-+}
-+
- static int slpc_force_min_freq(struct intel_guc_slpc *slpc, u32 freq)
- {
- 	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-@@ -610,6 +630,52 @@ static void slpc_get_rp_values(struct intel_guc_slpc *slpc)
- 		slpc->boost_freq = slpc->rp0_freq;
- }
- 
-+/**
-+ * intel_guc_slpc_override_gucrc_mode() - override GUCRC mode
-+ * @slpc: pointer to intel_guc_slpc.
-+ * @mode: new value of the mode.
-+ *
-+ * This function will override the GUCRC mode.
-+ *
-+ * Return: 0 on success, non-zero error code on failure.
-+ */
-+int intel_guc_slpc_override_gucrc_mode(struct intel_guc_slpc *slpc, u32 mode)
-+{
-+	int ret;
-+	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	intel_wakeref_t wakeref;
-+
-+	if (mode >= SLPC_GUCRC_MODE_MAX)
-+		return -EINVAL;
-+
-+	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-+		ret = slpc_set_param(slpc, SLPC_PARAM_PWRGATE_RC_MODE, mode);
-+		if (ret)
-+			drm_err(&i915->drm,
-+				"Override gucrc mode %d failed %d\n",
-+				mode, ret);
-+	}
-+
-+	return ret;
-+}
-+
-+int intel_guc_slpc_unset_gucrc_mode(struct intel_guc_slpc *slpc)
-+{
-+	struct drm_i915_private *i915 = slpc_to_i915(slpc);
-+	intel_wakeref_t wakeref;
-+	int ret = 0;
-+
-+	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-+		ret = slpc_unset_param(slpc, SLPC_PARAM_PWRGATE_RC_MODE);
-+		if (ret)
-+			drm_err(&i915->drm,
-+				"Unsetting gucrc mode failed %d\n",
-+				ret);
-+	}
-+
-+	return ret;
-+}
-+
- /*
-  * intel_guc_slpc_enable() - Start SLPC
-  * @slpc: pointer to intel_guc_slpc.
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-index 82a98f78f96c..ccf483730d9d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.h
-@@ -42,5 +42,7 @@ int intel_guc_slpc_set_media_ratio_mode(struct intel_guc_slpc *slpc, u32 val);
- void intel_guc_pm_intrmsk_enable(struct intel_gt *gt);
- void intel_guc_slpc_boost(struct intel_guc_slpc *slpc);
- void intel_guc_slpc_dec_waiters(struct intel_guc_slpc *slpc);
-+int intel_guc_slpc_unset_gucrc_mode(struct intel_guc_slpc *slpc);
-+int intel_guc_slpc_override_gucrc_mode(struct intel_guc_slpc *slpc, u32 mode);
- 
- #endif
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index b73d91b792df..b2766485888f 100644
+index 83c5dc043261..9a00398ae25f 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -209,6 +209,7 @@
- #include "gt/intel_lrc.h"
- #include "gt/intel_lrc_reg.h"
- #include "gt/intel_ring.h"
-+#include "gt/uc/intel_guc_slpc.h"
+@@ -3231,6 +3231,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	stream->poll_check_timer.function = oa_poll_check_timer_cb;
+ 	init_waitqueue_head(&stream->poll_wq);
+ 	spin_lock_init(&stream->oa_buffer.ptr_lock);
++	mutex_init(&stream->lock);
  
- #include "i915_drv.h"
- #include "i915_file_private.h"
-@@ -1582,6 +1583,15 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+ 	return 0;
  
- 	free_oa_buffer(stream);
+@@ -3294,7 +3295,6 @@ static ssize_t i915_perf_read(struct file *file,
+ 			      loff_t *ppos)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct intel_gt *gt = stream->engine->gt;
+ 	size_t offset = 0;
+ 	int ret;
+ 
+@@ -3318,14 +3318,14 @@ static ssize_t i915_perf_read(struct file *file,
+ 			if (ret)
+ 				return ret;
+ 
+-			mutex_lock(&gt->perf.lock);
++			mutex_lock(&stream->lock);
+ 			ret = stream->ops->read(stream, buf, count, &offset);
+-			mutex_unlock(&gt->perf.lock);
++			mutex_unlock(&stream->lock);
+ 		} while (!offset && !ret);
+ 	} else {
+-		mutex_lock(&gt->perf.lock);
++		mutex_lock(&stream->lock);
+ 		ret = stream->ops->read(stream, buf, count, &offset);
+-		mutex_unlock(&gt->perf.lock);
++		mutex_unlock(&stream->lock);
+ 	}
+ 
+ 	/* We allow the poll checking to sometimes report false positive EPOLLIN
+@@ -3372,9 +3372,6 @@ static enum hrtimer_restart oa_poll_check_timer_cb(struct hrtimer *hrtimer)
+  * &i915_perf_stream_ops->poll_wait to call poll_wait() with a wait queue that
+  * will be woken for new stream data.
+  *
+- * Note: The &gt->perf.lock mutex has been taken to serialize
+- * with any non-file-operation driver hooks.
+- *
+  * Returns: any poll events that are ready without sleeping
+  */
+ static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
+@@ -3413,12 +3410,11 @@ static __poll_t i915_perf_poll_locked(struct i915_perf_stream *stream,
+ static __poll_t i915_perf_poll(struct file *file, poll_table *wait)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct intel_gt *gt = stream->engine->gt;
+ 	__poll_t ret;
+ 
+-	mutex_lock(&gt->perf.lock);
++	mutex_lock(&stream->lock);
+ 	ret = i915_perf_poll_locked(stream, file, wait);
+-	mutex_unlock(&gt->perf.lock);
++	mutex_unlock(&stream->lock);
+ 
+ 	return ret;
+ }
+@@ -3517,9 +3513,6 @@ static long i915_perf_config_locked(struct i915_perf_stream *stream,
+  * @cmd: the ioctl request
+  * @arg: the ioctl data
+  *
+- * Note: The &gt->perf.lock mutex has been taken to serialize
+- * with any non-file-operation driver hooks.
+- *
+  * Returns: zero on success or a negative error code. Returns -EINVAL for
+  * an unknown ioctl request.
+  */
+@@ -3557,12 +3550,11 @@ static long i915_perf_ioctl(struct file *file,
+ 			    unsigned long arg)
+ {
+ 	struct i915_perf_stream *stream = file->private_data;
+-	struct intel_gt *gt = stream->engine->gt;
+ 	long ret;
+ 
+-	mutex_lock(&gt->perf.lock);
++	mutex_lock(&stream->lock);
+ 	ret = i915_perf_ioctl_locked(stream, cmd, arg);
+-	mutex_unlock(&gt->perf.lock);
++	mutex_unlock(&stream->lock);
+ 
+ 	return ret;
+ }
+@@ -3608,6 +3600,11 @@ static int i915_perf_release(struct inode *inode, struct file *file)
+ 	struct i915_perf *perf = stream->perf;
+ 	struct intel_gt *gt = stream->engine->gt;
  
 +	/*
-+	 * Wa_16011777198:dg2: Unset the override of GUCRC mode to enable rc6.
++	 * Within this call, we know that the fd is being closed and we have no
++	 * other user of stream->lock. Use the perf lock to destroy the stream
++	 * here.
 +	 */
-+	if (intel_uc_uses_guc_rc(&gt->uc) &&
-+	    (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_C0) ||
-+	     IS_DG2_GRAPHICS_STEP(gt->i915, G11, STEP_A0, STEP_B0)))
-+		drm_WARN_ON(&gt->i915->drm,
-+			    intel_guc_slpc_unset_gucrc_mode(&gt->uc.guc.slpc));
-+
- 	intel_uncore_forcewake_put(stream->uncore, FORCEWAKE_ALL);
- 	intel_engine_pm_put(stream->engine);
- 
-@@ -3265,6 +3275,23 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
- 	intel_engine_pm_get(stream->engine);
- 	intel_uncore_forcewake_get(stream->uncore, FORCEWAKE_ALL);
+ 	mutex_lock(&gt->perf.lock);
+ 	i915_perf_destroy_locked(stream);
+ 	mutex_unlock(&gt->perf.lock);
+diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
+index e888bfab478f..dc9bfd8086cf 100644
+--- a/drivers/gpu/drm/i915/i915_perf_types.h
++++ b/drivers/gpu/drm/i915/i915_perf_types.h
+@@ -146,6 +146,11 @@ struct i915_perf_stream {
+ 	 */
+ 	struct intel_engine_cs *engine;
  
 +	/*
-+	 * Wa_16011777198:dg2: GuC resets render as part of the Wa. This causes
-+	 * OA to lose the configuration state. Prevent this by overriding GUCRC
-+	 * mode.
++	 * Lock associated with operations on stream
 +	 */
-+	if (intel_uc_uses_guc_rc(&gt->uc) &&
-+	    (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_C0) ||
-+	     IS_DG2_GRAPHICS_STEP(gt->i915, G11, STEP_A0, STEP_B0))) {
-+		ret = intel_guc_slpc_override_gucrc_mode(&gt->uc.guc.slpc,
-+							 SLPC_GUCRC_MODE_GUCRC_NO_RC6);
-+		if (ret) {
-+			drm_dbg(&stream->perf->i915->drm,
-+				"Unable to override gucrc mode\n");
-+			goto err_config;
-+		}
-+	}
++	struct mutex lock;
 +
- 	ret = alloc_oa_buffer(stream);
- 	if (ret)
- 		goto err_oa_buf_alloc;
+ 	/**
+ 	 * @sample_flags: Flags representing the `DRM_I915_PERF_PROP_SAMPLE_*`
+ 	 * properties given when opening a stream, representing the contents
 -- 
 2.25.1
 
