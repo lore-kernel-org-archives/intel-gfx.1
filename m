@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C63FA373E
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 17:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 814B0C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 17:02:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1D1B10E605;
-	Wed, 26 Oct 2022 17:02:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7692110E60F;
+	Wed, 26 Oct 2022 17:02:56 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB1310E609
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 17:02:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E772210E60A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 17:02:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666803723; x=1698339723;
+ t=1666803756; x=1698339756;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4EzEuXoU2ZIi7qF+uZ+wgrBhmLfLX7eDLNqjGa8SfKk=;
- b=LOzvruOgjM5NZ5TzvwniiG+Gptv/QUehiLUjxtpwCXhdyTBb/YdrHuhg
- knqIj99c0cVy4NIDdlvzVeKuAij9hKxQsxqIP8iz53Ne2YYDXKYd6kAC0
- 4077K/r/uFWuUWgqPHoYGgNaK1sD40mlZIp/2FCBvNgqFN54bOY5XbiUy
- 51eIaWedqyLQw0rV7f81zWJqQfvZ+mAGHayZGHQVcUJC+ip4ezIE1rqTT
- In8feJcn4gqEqporerXsTsccx5ioP3qBrmOPg84L4mNMy9GcwIfjjrfRj
- aDDlrRsFiRh7USQACWLPVinUVo6WzcCVq9L4dOYUotYWWpveIODXfsVrt w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="334624825"
-X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="334624825"
+ bh=HBhyleb8eh41yIN0f1mfEublCkxM9OPxlWj2M6m1HkA=;
+ b=KmpNnRpaf6PSb2H+UcsjOEUxMPRAHPBXqs4HHNI48ctPrXEQrst7aMu5
+ smp+cL5FIEGFCvGM8O0+9KWHd7VTI5qO4tGiOSyfb7/HxQQqZT+COrXNR
+ PIZMxI7ciM1OP1a8+JP5xXDZ6ODZjWZnPp+NmzI8nNyvLKsxlYsLb7G6O
+ nfBVhPUMybC1ZO3KfeSAL7mcb2c+RwbQ/FwbvHOkXe+RR9pkdhdXkZhZB
+ uZ6ixy6eSW5ofV4TSBTTtzs/aMUvsrHWojoktTAd1HBgPLa/qBZPtR+PG
+ fuGWua0aNsR8ZD+1g6OQpuz3v1w+cVdXnJTEPbunXyO2L0i6NEkuAb5ne A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="334625095"
+X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="334625095"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2022 10:02:00 -0700
+ 26 Oct 2022 10:02:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="632090435"
-X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="632090435"
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="632090835"
+X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="632090835"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga002.jf.intel.com with SMTP; 26 Oct 2022 10:01:58 -0700
+ by orsmga002.jf.intel.com with SMTP; 26 Oct 2022 10:02:33 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 26 Oct 2022 20:01:57 +0300
+ Wed, 26 Oct 2022 20:02:32 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Oct 2022 20:01:37 +0300
-Message-Id: <20221026170150.2654-3-ville.syrjala@linux.intel.com>
+Date: Wed, 26 Oct 2022 20:01:46 +0300
+Message-Id: <20221026170150.2654-12-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221026170150.2654-1-ville.syrjala@linux.intel.com>
 References: <20221026170150.2654-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/15] drm/i915/audio: Nuke leftover
- ROUNDING_FACTOR
+Subject: [Intel-gfx] [PATCH 11/15] drm/i915/audio: Use u32* for ELD
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,8 +65,8 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Remove some leftovers I missed in commit
-2dd43144e824 ("drm/i915: Streamline the artihmetic")
+Make the eld pointer u32* so we don't have to do super
+ugly casting in the code itself.
 
 Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
@@ -76,22 +75,84 @@ Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_audio.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_audio.c | 21 +++++++++------------
+ 1 file changed, 9 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index aa70b3f075c3..c6e7cecc6690 100644
+index 56f0d8af313e..f4c319a3003b 100644
 --- a/drivers/gpu/drm/i915/display/intel_audio.c
 +++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -626,8 +626,6 @@ static void enable_audio_dsc_wa(struct intel_encoder *encoder,
- 	intel_de_write(i915, AUD_CONFIG_BE, val);
- }
+@@ -333,7 +333,7 @@ static void g4x_audio_codec_enable(struct intel_encoder *encoder,
+ {
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct drm_connector *connector = conn_state->connector;
+-	const u8 *eld = connector->eld;
++	const u32 *eld = (const u32 *)connector->eld;
+ 	int eld_buffer_size, len, i;
+ 	u32 tmp;
  
--#undef ROUNDING_FACTOR
--
- static void hsw_audio_codec_enable(struct intel_encoder *encoder,
- 				   const struct intel_crtc_state *crtc_state,
- 				   const struct drm_connector_state *conn_state)
+@@ -342,11 +342,10 @@ static void g4x_audio_codec_enable(struct intel_encoder *encoder,
+ 	intel_de_write(i915, G4X_AUD_CNTL_ST, tmp);
+ 
+ 	eld_buffer_size = g4x_eld_buffer_size(i915);
+-	len = min(drm_eld_size(eld) / 4, eld_buffer_size);
++	len = min(drm_eld_size(connector->eld) / 4, eld_buffer_size);
+ 
+ 	for (i = 0; i < len; i++)
+-		intel_de_write(i915, G4X_HDMIW_HDMIEDID,
+-			       *((const u32 *)eld + i));
++		intel_de_write(i915, G4X_HDMIW_HDMIEDID, eld[i]);
+ 	for (; i < eld_buffer_size; i++)
+ 		intel_de_write(i915, G4X_HDMIW_HDMIEDID, 0);
+ 
+@@ -614,7 +613,7 @@ static void hsw_audio_codec_enable(struct intel_encoder *encoder,
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct drm_connector *connector = conn_state->connector;
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+-	const u8 *eld = connector->eld;
++	const u32 *eld = (const u32 *)connector->eld;
+ 	int eld_buffer_size, len, i;
+ 	u32 tmp;
+ 
+@@ -643,11 +642,10 @@ static void hsw_audio_codec_enable(struct intel_encoder *encoder,
+ 	intel_de_write(i915, HSW_AUD_DIP_ELD_CTRL(cpu_transcoder), tmp);
+ 
+ 	eld_buffer_size = hsw_eld_buffer_size(i915, cpu_transcoder);
+-	len = min(drm_eld_size(eld) / 4, eld_buffer_size);
++	len = min(drm_eld_size(connector->eld) / 4, eld_buffer_size);
+ 
+ 	for (i = 0; i < len; i++)
+-		intel_de_write(i915, HSW_AUD_EDID_DATA(cpu_transcoder),
+-			       *((const u32 *)eld + i));
++		intel_de_write(i915, HSW_AUD_EDID_DATA(cpu_transcoder), eld[i]);
+ 	for (; i < eld_buffer_size; i++)
+ 		intel_de_write(i915, HSW_AUD_EDID_DATA(cpu_transcoder), 0);
+ 
+@@ -749,9 +747,9 @@ static void ilk_audio_codec_enable(struct intel_encoder *encoder,
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_connector *connector = conn_state->connector;
++	const u32 *eld = (const u32 *)connector->eld;
+ 	enum pipe pipe = crtc->pipe;
+ 	enum port port = encoder->port;
+-	const u8 *eld = connector->eld;
+ 	int eld_buffer_size, len, i;
+ 	struct ilk_audio_regs regs;
+ 	u32 tmp;
+@@ -781,11 +779,10 @@ static void ilk_audio_codec_enable(struct intel_encoder *encoder,
+ 	intel_de_write(i915, regs.aud_cntl_st, tmp);
+ 
+ 	eld_buffer_size = ilk_eld_buffer_size(i915, pipe);
+-	len = min(drm_eld_size(eld) / 4, eld_buffer_size);
++	len = min(drm_eld_size(connector->eld) / 4, eld_buffer_size);
+ 
+ 	for (i = 0; i < len; i++)
+-		intel_de_write(i915, regs.hdmiw_hdmiedid,
+-			       *((const u32 *)eld + i));
++		intel_de_write(i915, regs.hdmiw_hdmiedid, eld[i]);
+ 	for (; i < eld_buffer_size; i++)
+ 		intel_de_write(i915, regs.hdmiw_hdmiedid, 0);
+ 
 -- 
 2.37.4
 
