@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 633ECC433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 22:21:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FA4BC38A2D
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 22:21:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32C6A10E58F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0AC10E593;
 	Wed, 26 Oct 2022 22:21:22 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E83D10E53B
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 22:21:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B43D10E57D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 22:21:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666822867; x=1698358867;
+ t=1666822866; x=1698358866;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=T4JhE7lqc8D3b8FsAF+XKtJ8bMmYHKetAXSlPHuVd4U=;
- b=lrB2itOMYLdQMaT/rmi9RodLmcGPNL7aLQTNrKX2ub+AtnmEhIvnmQPt
- N/ikeYDXNT+qQinGzmKtCw1Xab3a57xngPEbuI2fP6Vhcnucc62AXOfnU
- GBD9BIqYl1fmavK9Eea/wumKl7pk9kSE6VZDRjofId0+mWodqsLqudIlw
- wOCP/uZyatapWMsudqW5vBipNttFhNYeyez6zgBeBFQKZyVLPW27VQCEn
- WH1YgAiCj22PbkVzH5fhCSYnyj6RimiNQFMFPvkqM1/kBitzQmfGy2SmT
- kh9ZieW2ieelO++aw/Jyf7erKQkWJ9W6kH1uHnFKLHz2A17kj7ghnvEEG g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="394390434"
-X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="394390434"
+ bh=AHk9v88PliYVmR+M52FhZxi0STaaVpHt6Gh1lAST1VU=;
+ b=iG8A62b3q4GNRclw1Va0EC9RQwfKtCcR/m+9ZYE7/+xrKRjP3oottHlM
+ Vs+Qh+FRVBphhQA8Z2rAbg1OBNm6jsPacQoo+/v2OCA7r7/X/6hbgMVVE
+ CDuuLSqy1gK2eV6oonItd3oc1sagugKdhM6Om7wYvwO8B/sEbmA2Kih9B
+ qVPJRbcrTwTSbjFQBKWGIMyShnle0TM4VRVX+pfpgZJdJm7IWMZw6nm3k
+ 3xKtgyj7ZJCSiSXKlHCTvUR5zQVHr68Tt9Mq6NWJiBtmP2RxI8Ate7HsX
+ IL+CKwhcBrUYQNbqijIdcRiCxncB6auhps2aJ/UzZ3HaIdH6hy4jrEVFL w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="394390427"
+X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="394390427"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Oct 2022 15:21:05 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="721431391"
-X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="721431391"
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="721431384"
+X-IronPort-AV: E=Sophos;i="5.95,215,1661842800"; d="scan'208";a="721431384"
 Received: from dut042-dg2frd.fm.intel.com ([10.105.19.4])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Oct 2022 15:21:05 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Oct 2022 22:20:58 +0000
-Message-Id: <20221026222102.5526-13-umesh.nerlige.ramappa@intel.com>
+Date: Wed, 26 Oct 2022 22:20:51 +0000
+Message-Id: <20221026222102.5526-6-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221026222102.5526-1-umesh.nerlige.ramappa@intel.com>
 References: <20221026222102.5526-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 12/16] drm/i915/perf: Apply Wa_18013179988
+Subject: [Intel-gfx] [PATCH v6 05/16] drm/i915/perf: Enable bytes per clock
+ reporting in OA
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,130 +60,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-OA reports in the OA buffer contain an OA timestamp field that helps
-user calculate delta between 2 OA reports. The calculation relies on the
-CS timestamp frequency to convert the timestamp value to nanoseconds.
-The CS timestamp frequency is a function of the CTC_SHIFT value in
-RPM_CONFIG0.
+XEHPSDV and DG2 provide a way to configure bytes per clock vs commands
+per clock reporting. Enable bytes per clock setting on enabling OA.
 
-In DG2, OA unit assumes that the CTC_SHIFT is 3, instead of using the
-actual value from RPM_CONFIG0. At the user level, this results in an
-error in calculating delta between 2 OA reports since the OA timestamp
-is not shifted in the same manner as CS timestamp. Also the periodicity
-of the reports is different from what the user configured because of
-mismatch in the CS and OA frequencies.
-
-The issue also affects MI_REPORT_PERF_COUNT command.
-
-To resolve this, return actual OA timestamp frequency to the user in
-i915_getparam_ioctl, so that user can calculate the right OA exponent as
-well as interpret the reports correctly.
-
-MR: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/18893
+Bspec: 51762
+Bspec: 52201
 
 v2:
-- Use REG_FIELD_GET (Ashutosh)
-- Update commit msg
+- Fix commit msg (Ashutosh)
+- Fix checkpatch issues
+
+v3:
+- s/commands/bytes/ in code comment and commmit msg
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_getparam.c |  3 +++
- drivers/gpu/drm/i915/i915_perf.c     | 30 ++++++++++++++++++++++++++--
- drivers/gpu/drm/i915/i915_perf.h     |  2 ++
- include/uapi/drm/i915_drm.h          |  6 ++++++
- 4 files changed, 39 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_drv.h          |  3 +++
+ drivers/gpu/drm/i915/i915_pci.c          |  1 +
+ drivers/gpu/drm/i915/i915_perf.c         | 20 ++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_perf_oa_regs.h |  4 ++++
+ drivers/gpu/drm/i915/intel_device_info.h |  1 +
+ 5 files changed, 29 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
-index 342c8ca6414e..3047e80e1163 100644
---- a/drivers/gpu/drm/i915/i915_getparam.c
-+++ b/drivers/gpu/drm/i915/i915_getparam.c
-@@ -175,6 +175,9 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
- 	case I915_PARAM_PERF_REVISION:
- 		value = i915_perf_ioctl_version();
- 		break;
-+	case I915_PARAM_OA_TIMESTAMP_FREQUENCY:
-+		value = i915_perf_oa_timestamp_frequency(i915);
-+		break;
- 	default:
- 		DRM_DEBUG("Unknown parameter %d\n", param->param);
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index d7b8eb9d4117..866edee7d5eb 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -898,6 +898,9 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define HAS_RUNTIME_PM(dev_priv) (INTEL_INFO(dev_priv)->has_runtime_pm)
+ #define HAS_64BIT_RELOC(dev_priv) (INTEL_INFO(dev_priv)->has_64bit_reloc)
+ 
++#define HAS_OA_BPC_REPORTING(dev_priv) \
++	(INTEL_INFO(dev_priv)->has_oa_bpc_reporting)
++
+ /*
+  * Set this flag, when platform requires 64K GTT page sizes or larger for
+  * device local memory access.
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 19bf5ef6a20d..449aa2421891 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1023,6 +1023,7 @@ static const struct intel_device_info adl_p_info = {
+ 	.has_logical_ring_contexts = 1, \
+ 	.has_logical_ring_elsq = 1, \
+ 	.has_mslice_steering = 1, \
++	.has_oa_bpc_reporting = 1, \
+ 	.has_rc6 = 1, \
+ 	.has_reset_engine = 1, \
+ 	.has_rps = 1, \
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index e14d16ac47de..b73d91b792df 100644
+index b71b5cf21176..d11cc949c9be 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -3109,6 +3109,30 @@ get_sseu_config(struct intel_sseu *out_sseu,
- 	return i915_gem_user_to_context_sseu(engine->gt, drm_sseu, out_sseu);
- }
- 
-+/*
-+ * OA timestamp frequency = CS timestamp frequency in most platforms. On some
-+ * platforms OA unit ignores the CTC_SHIFT and the 2 timestamps differ. In such
-+ * cases, return the adjusted CS timestamp frequency to the user.
-+ */
-+u32 i915_perf_oa_timestamp_frequency(struct drm_i915_private *i915)
-+{
-+	/* Wa_18013179988:dg2 */
-+	if (IS_DG2(i915)) {
-+		intel_wakeref_t wakeref;
-+		u32 reg, shift;
-+
-+		with_intel_runtime_pm(to_gt(i915)->uncore->rpm, wakeref)
-+			reg = intel_uncore_read(to_gt(i915)->uncore, RPM_CONFIG0);
-+
-+		shift = REG_FIELD_GET(GEN10_RPM_CONFIG0_CTC_SHIFT_PARAMETER_MASK,
-+				      reg);
-+
-+		return to_gt(i915)->clock_frequency << (3 - shift);
-+	}
-+
-+	return to_gt(i915)->clock_frequency;
-+}
-+
- /**
-  * i915_oa_stream_init - validate combined props for OA stream and init
-  * @stream: An i915 perf stream
-@@ -3830,8 +3854,10 @@ i915_perf_open_ioctl_locked(struct i915_perf *perf,
- 
- static u64 oa_exponent_to_ns(struct i915_perf *perf, int exponent)
+@@ -2748,10 +2748,12 @@ static int
+ gen12_enable_metric_set(struct i915_perf_stream *stream,
+ 			struct i915_active *active)
  {
--	return intel_gt_clock_interval_to_ns(to_gt(perf->i915),
--					     2ULL << exponent);
-+	u64 nom = (2ULL << exponent) * NSEC_PER_SEC;
-+	u32 den = i915_perf_oa_timestamp_frequency(perf->i915);
++	struct drm_i915_private *i915 = stream->perf->i915;
+ 	struct intel_uncore *uncore = stream->uncore;
+ 	struct i915_oa_config *oa_config = stream->oa_config;
+ 	bool periodic = stream->periodic;
+ 	u32 period_exponent = stream->period_exponent;
++	u32 sqcnt1;
+ 	int ret;
+ 
+ 	intel_uncore_write(uncore, GEN12_OAG_OA_DEBUG,
+@@ -2770,6 +2772,16 @@ gen12_enable_metric_set(struct i915_perf_stream *stream,
+ 			    (period_exponent << GEN12_OAG_OAGLBCTXCTRL_TIMER_PERIOD_SHIFT))
+ 			    : 0);
+ 
++	/*
++	 * Initialize Super Queue Internal Cnt Register
++	 * Set PMON Enable in order to collect valid metrics.
++	 * Enable byets per clock reporting in OA for XEHPSDV onward.
++	 */
++	sqcnt1 = GEN12_SQCNT1_PMON_ENABLE |
++		 (HAS_OA_BPC_REPORTING(i915) ? GEN12_SQCNT1_OABPC : 0);
 +
-+	return div_u64(nom + den - 1, den);
++	intel_uncore_rmw(uncore, GEN12_SQCNT1, 0, sqcnt1);
++
+ 	/*
+ 	 * Update all contexts prior writing the mux configurations as we need
+ 	 * to make sure all slices/subslices are ON before writing to NOA
+@@ -2819,6 +2831,8 @@ static void gen11_disable_metric_set(struct i915_perf_stream *stream)
+ static void gen12_disable_metric_set(struct i915_perf_stream *stream)
+ {
+ 	struct intel_uncore *uncore = stream->uncore;
++	struct drm_i915_private *i915 = stream->perf->i915;
++	u32 sqcnt1;
+ 
+ 	/* Reset all contexts' slices/subslices configurations. */
+ 	gen12_configure_all_contexts(stream, NULL, NULL);
+@@ -2829,6 +2843,12 @@ static void gen12_disable_metric_set(struct i915_perf_stream *stream)
+ 
+ 	/* Make sure we disable noa to save power. */
+ 	intel_uncore_rmw(uncore, RPM_CONFIG1, GEN10_GT_NOA_ENABLE, 0);
++
++	sqcnt1 = GEN12_SQCNT1_PMON_ENABLE |
++		 (HAS_OA_BPC_REPORTING(i915) ? GEN12_SQCNT1_OABPC : 0);
++
++	/* Reset PMON Enable to save power. */
++	intel_uncore_rmw(uncore, GEN12_SQCNT1, sqcnt1, 0);
  }
  
- static __always_inline bool
-diff --git a/drivers/gpu/drm/i915/i915_perf.h b/drivers/gpu/drm/i915/i915_perf.h
-index 1d1329e5af3a..f96e09a4af04 100644
---- a/drivers/gpu/drm/i915/i915_perf.h
-+++ b/drivers/gpu/drm/i915/i915_perf.h
-@@ -57,4 +57,6 @@ static inline void i915_oa_config_put(struct i915_oa_config *oa_config)
- 	kref_put(&oa_config->ref, i915_oa_config_release);
- }
+ static void gen7_oa_enable(struct i915_perf_stream *stream)
+diff --git a/drivers/gpu/drm/i915/i915_perf_oa_regs.h b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
+index 0ef3562ff4aa..381d94101610 100644
+--- a/drivers/gpu/drm/i915/i915_perf_oa_regs.h
++++ b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
+@@ -134,4 +134,8 @@
+ #define GDT_CHICKEN_BITS    _MMIO(0x9840)
+ #define   GT_NOA_ENABLE	    0x00000080
  
-+u32 i915_perf_oa_timestamp_frequency(struct drm_i915_private *i915);
++#define GEN12_SQCNT1				_MMIO(0x8718)
++#define   GEN12_SQCNT1_PMON_ENABLE		REG_BIT(30)
++#define   GEN12_SQCNT1_OABPC			REG_BIT(29)
 +
- #endif /* __I915_PERF_H__ */
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 158b35fb28f3..c346b1923d11 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -765,6 +765,12 @@ typedef struct drm_i915_irq_wait {
- /* Query if the kernel supports the I915_USERPTR_PROBE flag. */
- #define I915_PARAM_HAS_USERPTR_PROBE 56
- 
-+/*
-+ * Frequency of the timestamps in OA reports. This used to be the same as the CS
-+ * timestamp frequency, but differs on some platforms.
-+ */
-+#define I915_PARAM_OA_TIMESTAMP_FREQUENCY 57
-+
- /* Must be kept compact -- no holes and well documented */
- 
- /**
+ #endif /* __INTEL_PERF_OA_REGS__ */
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index cdf78728dcad..42218c8d85f2 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -164,6 +164,7 @@ enum intel_ppgtt_type {
+ 	func(has_logical_ring_elsq); \
+ 	func(has_media_ratio_mode); \
+ 	func(has_mslice_steering); \
++	func(has_oa_bpc_reporting); \
+ 	func(has_one_eu_per_fuse_bit); \
+ 	func(has_pxp); \
+ 	func(has_rc6); \
 -- 
 2.25.1
 
