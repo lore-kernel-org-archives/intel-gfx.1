@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF81C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 10:12:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E42B7C38A2D
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 10:12:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87F6610E492;
-	Wed, 26 Oct 2022 10:11:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8BAE10E4AC;
+	Wed, 26 Oct 2022 10:12:00 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62FEC10E4A7
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 10:11:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52A8310E26A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 10:11:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666779105; x=1698315105;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=OdxGfXAWeQWB7d4z4d16YQro4plB+ZqSdzTYXSm6u70=;
- b=ioMcD7bilajubhail3vBWb5/MXCYyx2CXrYALqruk3PHGy/c4WBgFWej
- KeAx81yQ3mODlr+iNy9CuV33hkik1Hy5OD/lnp64Mfxjwlqne+rzJwMfv
- 1ctEcTNwwZ8/DXYI3/3BpOAF3sDjbBRPWcblYzTDYFsKgK6DjWDM98VTH
- Kk4u0tOvOPW6VIKI2Xtgmgt88jdTSJrP4nEilf6fXaGPFljbL0Vb++HV/
- JZvauLyspa5z6jgje5mAN8/ZeOK0CiF8WZcPcPUtxkDNmOnp3aXWICX+H
- nm0TwijT7G3HBr35I4WZ445FeT/c7rW3sTdOMCblK0tK13YyhXbxgwia+ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="394222256"
-X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="394222256"
+ t=1666779109; x=1698315109;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=nqoz5xcsHHOIrQ6MOKBN9Bls25Dv+d7ciWN7gchklvU=;
+ b=KheVr9g93RiRPxcO2Sb6kKGOf702j4DFBaNa3+SehKQ3Wx/bgDYbxG+s
+ PiBXK0ygw4gwHo/HcrohOV5ffZGqDASosyH7g1kmtURPQwophseNF0ONX
+ B0K96SnjVaXDrh2nZ417FrgjruGVf+vKgOVIPN/Rml9E2lg+79G2auZwq
+ n3PfEQKvikSnNJt7Q2Os2FlmasnDj/i0lEUHJp3EbLq5BUfW+/hCHCrC5
+ 0ZU1Phu0V4uUuLteqAEiFuN6ji/VTkQWvyKhsG+hV9tN7oHqcJ4f6l6P6
+ Bd4XbFNL4x6MSYBZE2v14At+hdjWie7KUJVKN/9SHIC9MFJSe/aK2y7fP g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="394222266"
+X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="394222266"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2022 03:11:45 -0700
+ 26 Oct 2022 03:11:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="695305849"
-X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="695305849"
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="695305908"
+X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="695305908"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga008.fm.intel.com with SMTP; 26 Oct 2022 03:11:38 -0700
+ by fmsmga008.fm.intel.com with SMTP; 26 Oct 2022 03:11:47 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 26 Oct 2022 13:11:37 +0300
+ Wed, 26 Oct 2022 13:11:46 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Oct 2022 13:11:27 +0300
-Message-Id: <20221026101134.20865-2-ville.syrjala@linux.intel.com>
+Date: Wed, 26 Oct 2022 13:11:30 +0300
+Message-Id: <20221026101134.20865-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221026101134.20865-1-ville.syrjala@linux.intel.com>
 References: <20221026101134.20865-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/8] drm/i915/sdvo: Filter out invalid outputs
- more sensibly
+Subject: [Intel-gfx] [PATCH 4/8] drm/i915/sdvo: Simplify output setup debugs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,86 +59,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We try to filter out the corresponding xxx1 output
-if the xxx0 output is not present. But the way that is
-being done is pretty awkward. Make it less so.
+Get rid of this funny byte based dumping of invalid output
+flags and just dump it as a single hex numbers. Also do that
+early since all the rest is going to get skipped anyway of
+the thing is zero.
 
-Cc: stable@vger.kernel.org
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_sdvo.c | 29 ++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_sdvo.c | 25 ++++++++++-------------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index cf8e80936d8e..c6200a91a777 100644
+index 1eaaa7ec580e..d432f70001b7 100644
 --- a/drivers/gpu/drm/i915/display/intel_sdvo.c
 +++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2925,16 +2925,33 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
- 	return false;
+@@ -199,7 +199,7 @@ to_intel_sdvo_connector(struct drm_connector *connector)
+ 	container_of((conn_state), struct intel_sdvo_connector_state, base.base)
+ 
+ static bool
+-intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo, u16 flags);
++intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo);
+ static bool
+ intel_sdvo_tv_create_property(struct intel_sdvo *intel_sdvo,
+ 			      struct intel_sdvo_connector *intel_sdvo_connector,
+@@ -2937,11 +2937,18 @@ static u16 intel_sdvo_filter_output_flags(u16 flags)
  }
  
--static bool
+ static bool
 -intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo, u16 flags)
-+static u16 intel_sdvo_filter_output_flags(u16 flags)
++intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo)
  {
-+	flags &= SDVO_OUTPUT_MASK;
+ 	struct drm_i915_private *i915 = to_i915(intel_sdvo->base.base.dev);
++	u16 flags;
+ 
+-	flags = intel_sdvo_filter_output_flags(flags);
++	flags = intel_sdvo_filter_output_flags(intel_sdvo->caps.output_flags);
 +
- 	/* SDVO requires XXX1 function may not exist unless it has XXX0 function.*/
-+	if (!(flags & SDVO_OUTPUT_TMDS0))
-+		flags &= ~SDVO_OUTPUT_TMDS1;
-+
-+	if (!(flags & SDVO_OUTPUT_RGB0))
-+		flags &= ~SDVO_OUTPUT_RGB1;
-+
-+	if (!(flags & SDVO_OUTPUT_LVDS0))
-+		flags &= ~SDVO_OUTPUT_LVDS1;
-+
-+	return flags;
-+}
-+
-+static bool
-+intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo, u16 flags)
-+{
-+	flags = intel_sdvo_filter_output_flags(flags);
++	if (flags == 0) {
++		DRM_DEBUG_KMS("%s: Unknown SDVO output type (0x%04x)\n",
++			      SDVO_NAME(intel_sdvo), intel_sdvo->caps.output_flags);
++		return false;
++	}
  
- 	if (flags & SDVO_OUTPUT_TMDS0)
- 		if (!intel_sdvo_dvi_init(intel_sdvo, 0))
- 			return false;
+ 	intel_sdvo->controlled_output = flags;
  
--	if ((flags & SDVO_TMDS_MASK) == SDVO_TMDS_MASK)
-+	if (flags & SDVO_OUTPUT_TMDS1)
- 		if (!intel_sdvo_dvi_init(intel_sdvo, 1))
- 			return false;
- 
-@@ -2955,7 +2972,7 @@ intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo, u16 flags)
- 		if (!intel_sdvo_analog_init(intel_sdvo, 0))
- 			return false;
- 
--	if ((flags & SDVO_RGB_MASK) == SDVO_RGB_MASK)
-+	if (flags & SDVO_OUTPUT_RGB1)
- 		if (!intel_sdvo_analog_init(intel_sdvo, 1))
- 			return false;
- 
-@@ -2963,11 +2980,11 @@ intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo, u16 flags)
- 		if (!intel_sdvo_lvds_init(intel_sdvo, 0))
- 			return false;
- 
--	if ((flags & SDVO_LVDS_MASK) == SDVO_LVDS_MASK)
-+	if (flags & SDVO_OUTPUT_LVDS1)
+@@ -2984,15 +2991,6 @@ intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo, u16 flags)
  		if (!intel_sdvo_lvds_init(intel_sdvo, 1))
  			return false;
  
--	if ((flags & SDVO_OUTPUT_MASK) == 0) {
-+	if (flags == 0) {
- 		unsigned char bytes[2];
+-	if (flags == 0) {
+-		unsigned char bytes[2];
+-
+-		memcpy(bytes, &intel_sdvo->caps.output_flags, 2);
+-		DRM_DEBUG_KMS("%s: Unknown SDVO output type (0x%02x%02x)\n",
+-			      SDVO_NAME(intel_sdvo),
+-			      bytes[0], bytes[1]);
+-		return false;
+-	}
+ 	intel_sdvo->base.pipe_mask = ~0;
  
- 		intel_sdvo->controlled_output = 0;
+ 	return true;
+@@ -3368,8 +3366,7 @@ bool intel_sdvo_init(struct drm_i915_private *dev_priv,
+ 	intel_sdvo->colorimetry_cap =
+ 		intel_sdvo_get_colorimetry_cap(intel_sdvo);
+ 
+-	if (intel_sdvo_output_setup(intel_sdvo,
+-				    intel_sdvo->caps.output_flags) != true) {
++	if (!intel_sdvo_output_setup(intel_sdvo)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "SDVO output failed to setup on %s\n",
+ 			    SDVO_NAME(intel_sdvo));
 -- 
 2.37.4
 
