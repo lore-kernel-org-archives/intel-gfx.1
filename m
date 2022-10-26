@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A543BC38A2D
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 10:12:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8857C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 10:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14C0C10E26A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A684610E4B2;
 	Wed, 26 Oct 2022 10:12:39 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3967110E4AD
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 10:12:01 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9C310E26A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 10:11:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666779121; x=1698315121;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=an2sBvtw+zozosfXwkDG6c7VV5n4z3S6u362HaL7buU=;
- b=iffCwmSZywZfYfNKkYP6Opc5qFRDnGYgv/geB7QNEnNGqOZ0r3C0OTHY
- B4eBo6nMsEhHr6/P/yIsMGhK2Avio0cjga64JxQqlcpUDeLV33zvmUUbP
- 5LupMF5dXfvZ9QXFlcHRsvxIR3ksbbP+vnFlzH8q2Sq4bpSvQszByeifF
- 9R0zT2EEqxqum83YnWaoGhfC4lFxrrap3Wdp1vYd5MHSV/Mt3Pu2WqjUv
- V3wwQn04efeA+mwq+C5poKGSdktVLvZITnqRoIimTr8QijPEq06Q8RJXX
- fOsFFz2a5hdQVe9mqkjdJIZx7D1Kzpa/b/XIlz+zp6GkIn4eTePkjtB9f Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="369976366"
-X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="369976366"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2022 03:12:01 -0700
+ t=1666779106; x=1698315106;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=gm81K3zHMYhRuY91zbvRhsMMAkuy90BAvGBGbHXSJ1w=;
+ b=FBO1jP1IuZv9KEpbFj8yihZ3ceJ+svOTPCZYpvB0Yym5UkqTJQLFryJb
+ DaCg1ZcrVoox+3dh2utFMdTvAdsmqe6iAG9X83cLf2BkDNG0C371niclL
+ 05pvhqQ9nBLkwAHXCNgXtieCyhWeUrNgorQb8x9KKjhxuS1RHtt2wc+uD
+ b9cN7vyyIZzz93dvJehpMjRK+mkQKVqJADtr3dKeeBCXeXlSH82jeVHsL
+ ERYOGGU3RwKJy2/mfAKky4jok3QlmIIwXNRwBvC0s+TMZEfI/JMx9hdCv
+ auMsNImNVwpm6qZ4l1XW2eVX0SxI32Gn3fDb7RWvW77ucoSQ/2QRud2W1 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="394222261"
+X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="394222261"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2022 03:11:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="631950654"
-X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="631950654"
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="695305878"
+X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="695305878"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga002.jf.intel.com with SMTP; 26 Oct 2022 03:11:59 -0700
+ by fmsmga008.fm.intel.com with SMTP; 26 Oct 2022 03:11:44 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 26 Oct 2022 13:11:58 +0300
+ Wed, 26 Oct 2022 13:11:43 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Oct 2022 13:11:34 +0300
-Message-Id: <20221026101134.20865-9-ville.syrjala@linux.intel.com>
+Date: Wed, 26 Oct 2022 13:11:29 +0300
+Message-Id: <20221026101134.20865-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221026101134.20865-1-ville.syrjala@linux.intel.com>
 References: <20221026101134.20865-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 8/8] drm/i915/sdvo: Fix debug print
+Subject: [Intel-gfx] [PATCH 3/8] drm/i915/sdvo: Grab mode_config.mutex
+ during LVDS init to avoid WARNs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,37 +60,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: stable@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Correctly indicate which outputs we support in the debug print.
+drm_mode_probed_add() is unhappy about being called w/o
+mode_config.mutex. Grab it during LVDS fixed mode setup
+to silence the WARNs.
 
+Cc: stable@vger.kernel.org
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/7301
+Fixes: aa2b88074a56 ("drm/i915/sdvo: Fix multi function encoder stuff")
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_sdvo.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_sdvo.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 58d147cc7633..e46b1ee4439d 100644
+index ccf81d616cb4..1eaaa7ec580e 100644
 --- a/drivers/gpu/drm/i915/display/intel_sdvo.c
 +++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -3403,9 +3403,12 @@ bool intel_sdvo_init(struct drm_i915_private *dev_priv,
- 			(intel_sdvo->caps.sdvo_inputs_mask & 0x2) ? 'Y' : 'N',
- 			/* check currently supported outputs */
- 			intel_sdvo->caps.output_flags &
--			(SDVO_OUTPUT_TMDS0 | SDVO_OUTPUT_RGB0) ? 'Y' : 'N',
-+			(SDVO_OUTPUT_TMDS0 | SDVO_OUTPUT_RGB0 |
-+			 SDVO_OUTPUT_LVDS0 | SDVO_OUTPUT_SVID0 |
-+			 SDVO_OUTPUT_CVBS0 | SDVO_OUTPUT_YPRPB0) ? 'Y' : 'N',
- 			intel_sdvo->caps.output_flags &
--			(SDVO_OUTPUT_TMDS1 | SDVO_OUTPUT_RGB1) ? 'Y' : 'N');
-+			(SDVO_OUTPUT_TMDS1 | SDVO_OUTPUT_RGB1 |
-+			 SDVO_OUTPUT_LVDS1) ? 'Y' : 'N');
- 	return true;
+@@ -2899,8 +2899,12 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, int device)
+ 	intel_panel_add_vbt_sdvo_fixed_mode(intel_connector);
  
- err_output:
+ 	if (!intel_panel_preferred_fixed_mode(intel_connector)) {
++		mutex_lock(&i915->drm.mode_config.mutex);
++
+ 		intel_ddc_get_modes(connector, &intel_sdvo->ddc);
+ 		intel_panel_add_edid_fixed_modes(intel_connector, false);
++
++		mutex_unlock(&i915->drm.mode_config.mutex);
+ 	}
+ 
+ 	intel_panel_init(intel_connector);
 -- 
 2.37.4
 
