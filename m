@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53738C38A2D
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 11:39:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 078C4C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Oct 2022 11:39:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B28310E4BD;
-	Wed, 26 Oct 2022 11:39:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E230E10E4B8;
+	Wed, 26 Oct 2022 11:39:29 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E2D710E34E
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 11:39:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1545210E4B8
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Oct 2022 11:39:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666784352; x=1698320352;
+ t=1666784361; x=1698320361;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=7ojgzD6hwVhlgMrcV9Esj0rIqEvhTSEzf0krrNGJ9GA=;
- b=bgyWZDom0dN9Q7xcM8tZbnSQZ3jH7KqvFA67m7AP+EVC58yGrIFInA7C
- jdB5venjOIS2SmaLwbqqwIoVsd1cfvWrGpeAA89ImZ7EMlXgt+5jHTE6S
- byseA7wNihnZvfg/IVpn3S2uDCgQHTxhioG5srLjFfXV8KXwUUG1UgEKv
- tsdh8WuBFNsu/6PN8K9xu1wX6zpSqsGsjfXxL87ePnNlkZInWzgO1+ynu
- /Aa4fr1UK8/rw+saw40Ul62nCHv/y7rPWDybkiFhARI9FbIyk9Q1m4UH+
- 2dOWdfj7DK0pcMPj+fxjwRzFngqYvzS/l8ZMfYwh9lEen0hnWsDM0VssY A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="309614194"
-X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="309614194"
+ bh=ya+qjiRwTDUVlcTkQ7TaGXDPpPoml9QDQklzvAVGzHM=;
+ b=HYjlyNICiYzdAo4o+Q7HUb9qWFBtSH8RxPqCTnKTxlPMLnUjKAY5Lj2b
+ qnaHjHMnV2Bds73buVuZLdtC6jmtEzuQN7OEa+tKvpabMFWKm/KzgfPcI
+ Jub09LGMNMxCZ6JgqiV6CWVxU7iZOAlXw3aemGhrQYlrHpolevnsDlYb6
+ Ii8vJfGPVQdX3HVy6y4Gp1clg9zuDR/Jt3eaRrhh7WDMpbcfRy+71X2Iz
+ x1nYsCAUUFtE+rGxS/CyUgHXMyhV58nN3C25Gr5vGsuIeFVADMhkUEP+a
+ xHmaYOWM0JviFMFgsG4jiRMBUjnvPZwGxUT13lvFkmMAxjkg40GFNXUt9 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="309614240"
+X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="309614240"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2022 04:39:12 -0700
+ 26 Oct 2022 04:39:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="663164334"
-X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="663164334"
+X-IronPort-AV: E=McAfee;i="6500,9779,10511"; a="663164436"
+X-IronPort-AV: E=Sophos;i="5.95,214,1661842800"; d="scan'208";a="663164436"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga008.jf.intel.com with SMTP; 26 Oct 2022 04:39:10 -0700
+ by orsmga008.jf.intel.com with SMTP; 26 Oct 2022 04:39:18 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 26 Oct 2022 14:39:09 +0300
+ Wed, 26 Oct 2022 14:39:18 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Oct 2022 14:38:56 +0300
-Message-Id: <20221026113906.10551-2-ville.syrjala@linux.intel.com>
+Date: Wed, 26 Oct 2022 14:38:59 +0300
+Message-Id: <20221026113906.10551-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221026113906.10551-1-ville.syrjala@linux.intel.com>
 References: <20221026113906.10551-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/11] drm/i915: Use sizeof(variable) instead
- sizeof(type)
+Subject: [Intel-gfx] [PATCH 04/11] drm/i915:
+ s/icl_load_gcmax/ivb_load_lut_max/
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,90 +65,38 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Use sizeof(variable) instead of sizeof(type) in the hopes of
-less chance of screwing things up.
+Unify icl_load_gcmax() with the rest of the function
+naming scheme by calling it ivb_load_lut_max() instead.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 4bb113c39f4b..92cc43d5bad6 100644
+index 415e0a6839a4..e73e6ea6f82f 100644
 --- a/drivers/gpu/drm/i915/display/intel_color.c
 +++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -565,7 +565,7 @@ create_linear_lut(struct drm_i915_private *i915, int lut_size)
- 	int i;
+@@ -935,8 +935,8 @@ static u32 ilk_lut_12p4_ldw(const struct drm_color_lut *color)
+ }
  
- 	blob = drm_property_create_blob(&i915->drm,
--					sizeof(struct drm_color_lut) * lut_size,
-+					sizeof(lut[0]) * lut_size,
- 					NULL);
- 	if (IS_ERR(blob))
- 		return blob;
-@@ -1895,7 +1895,7 @@ static struct drm_property_blob *i9xx_read_lut_8(struct intel_crtc *crtc)
- 	int i;
+ static void
+-icl_load_gcmax(const struct intel_crtc_state *crtc_state,
+-	       const struct drm_color_lut *color)
++ivb_load_lut_max(const struct intel_crtc_state *crtc_state,
++		 const struct drm_color_lut *color)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	enum pipe pipe = crtc->pipe;
+@@ -1028,7 +1028,7 @@ icl_program_gamma_multi_segment(const struct intel_crtc_state *crtc_state)
  
- 	blob = drm_property_create_blob(&dev_priv->drm,
--					sizeof(struct drm_color_lut) * LEGACY_LUT_LENGTH,
-+					sizeof(lut[0]) * LEGACY_LUT_LENGTH,
- 					NULL);
- 	if (IS_ERR(blob))
- 		return NULL;
-@@ -1930,7 +1930,7 @@ static struct drm_property_blob *i965_read_lut_10p6(struct intel_crtc *crtc)
- 	struct drm_color_lut *lut;
+ 	/* The last entry in the LUT is to be programmed in GCMAX */
+ 	entry = &lut[256 * 8 * 128];
+-	icl_load_gcmax(crtc_state, entry);
++	ivb_load_lut_max(crtc_state, entry);
+ 	ivb_load_lut_ext_max(crtc_state);
+ }
  
- 	blob = drm_property_create_blob(&dev_priv->drm,
--					sizeof(struct drm_color_lut) * lut_size,
-+					sizeof(lut[0]) * lut_size,
- 					NULL);
- 	if (IS_ERR(blob))
- 		return NULL;
-@@ -1973,7 +1973,7 @@ static struct drm_property_blob *chv_read_cgm_gamma(struct intel_crtc *crtc)
- 	struct drm_color_lut *lut;
- 
- 	blob = drm_property_create_blob(&dev_priv->drm,
--					sizeof(struct drm_color_lut) * lut_size,
-+					sizeof(lut[0]) * lut_size,
- 					NULL);
- 	if (IS_ERR(blob))
- 		return NULL;
-@@ -2009,7 +2009,7 @@ static struct drm_property_blob *ilk_read_lut_8(struct intel_crtc *crtc)
- 	int i;
- 
- 	blob = drm_property_create_blob(&dev_priv->drm,
--					sizeof(struct drm_color_lut) * LEGACY_LUT_LENGTH,
-+					sizeof(lut[0]) * LEGACY_LUT_LENGTH,
- 					NULL);
- 	if (IS_ERR(blob))
- 		return NULL;
-@@ -2034,7 +2034,7 @@ static struct drm_property_blob *ilk_read_lut_10(struct intel_crtc *crtc)
- 	struct drm_color_lut *lut;
- 
- 	blob = drm_property_create_blob(&dev_priv->drm,
--					sizeof(struct drm_color_lut) * lut_size,
-+					sizeof(lut[0]) * lut_size,
- 					NULL);
- 	if (IS_ERR(blob))
- 		return NULL;
-@@ -2087,7 +2087,7 @@ static struct drm_property_blob *bdw_read_lut_10(struct intel_crtc *crtc,
- 	drm_WARN_ON(&dev_priv->drm, lut_size != hw_lut_size);
- 
- 	blob = drm_property_create_blob(&dev_priv->drm,
--					sizeof(struct drm_color_lut) * lut_size,
-+					sizeof(lut[0]) * lut_size,
- 					NULL);
- 	if (IS_ERR(blob))
- 		return NULL;
-@@ -2138,7 +2138,7 @@ icl_read_lut_multi_segment(struct intel_crtc *crtc)
- 	struct drm_color_lut *lut;
- 
- 	blob = drm_property_create_blob(&dev_priv->drm,
--					sizeof(struct drm_color_lut) * lut_size,
-+					sizeof(lut[0]) * lut_size,
- 					NULL);
- 	if (IS_ERR(blob))
- 		return NULL;
 -- 
 2.37.4
 
