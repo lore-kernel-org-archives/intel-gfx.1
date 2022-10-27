@@ -4,66 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17F9DFA3740
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 09:39:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8045C38A02
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 09:39:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6EF710E16B;
-	Mon, 31 Oct 2022 09:39:43 +0000 (UTC)
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B20D210E078;
- Sun, 30 Oct 2022 03:36:36 +0000 (UTC)
-Received: by mail-pg1-x535.google.com with SMTP id r18so8034976pgr.12;
- Sat, 29 Oct 2022 20:36:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2EewIqadtxsCyBiEyM/6JdLw3ehusmy2aS1aWjmcfQs=;
- b=cggBeky7GhYnq/3rdW4Hn800u3zX6M4KE3uTeEt2FUME2R++pOC9+T1vyjQOZCxYuw
- KeVkjml//POeGcWJmulbtWAkGxArfultufYaElCYfIMJsYqe/sTYXhtzx1uuwgekRnaG
- yR7vg1t31pfVkrwPclCa9g4NaBywZ7BzrnXrjBL8+CwyxUkUbKMPVBC4SgPWSnL/X8wf
- YprjHu8DqzdATZf5haEVQ2cM7C2CNODq80dM7/x1ewvn3NYgdnLZwX9kwcdAx+uWpb9O
- cooWNpplbOWyHMG6eTFfCF1XLNI15mGKUO5L77gOvqUoN9TSFJbtQyd7sRhJ3AKEi4Sq
- 7uHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2EewIqadtxsCyBiEyM/6JdLw3ehusmy2aS1aWjmcfQs=;
- b=Hz8dCUpiac4XbblIBo6F+KUGi1YvASnm0cXkwSwW5jL8yzNhKcKgIF/b1v9w0ZLifD
- VrpUNcizhxATM71fdf2oBOhasx7yvsKu25jFeL+5+7q7LqHb0fwDZ7ugM/ZHUeZv9Yg3
- 6My6DUAnJTSnKP8i5tNPgm2GVG6SWL1fO3WbRyYVfig4VEbnnYRWugnQSgoabQxzQxLj
- EEunQQ5HZlsZxoXmyEYAXUpi+VE429ZXBcf1kvH6t+ZB0eMwhx5WuTSvacApJmFsHY/4
- rwETGx3Y2qEmI2cLphL1NbrL3M/JHE96eM/UUZnckaDbY4M4Y5Vs1O84qp4cLeE3RIfz
- cCAA==
-X-Gm-Message-State: ACrzQf0fFhTdYCNaKE1vkDYkFcFsQPS9PAUJ9bkdD98bWT7zZfUal8Fi
- CV7xmOPt2kOSPIhRC4JzRvI=
-X-Google-Smtp-Source: AMsMyM6cNkA47FxiGKt3aNBxsBNyMkBiMslykI+flo0fmq8e95cHyU0L/ofCAXEcRzPkwasDVdtWOw==
-X-Received: by 2002:a63:2215:0:b0:43b:e00f:7c7b with SMTP id
- i21-20020a632215000000b0043be00f7c7bmr6561352pgi.511.1667100996044; 
- Sat, 29 Oct 2022 20:36:36 -0700 (PDT)
-Received: from mail.google.com (122-58-209-93-fibre.sparkbb.co.nz.
- [122.58.209.93]) by smtp.gmail.com with ESMTPSA id
- 85-20020a621458000000b005613220346asm1841130pfu.205.2022.10.29.20.36.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 29 Oct 2022 20:36:35 -0700 (PDT)
-Date: Sun, 30 Oct 2022 16:36:28 +1300
-From: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
-To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Message-ID: <20221030033628.GA279284@mail.google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D911510E170;
+	Mon, 31 Oct 2022 09:39:42 +0000 (UTC)
+X-Greylist: delayed 1406 seconds by postgrey-1.36 at gabe;
+ Thu, 27 Oct 2022 15:32:42 UTC
+Received: from mx0a-00190b01.pphosted.com (mx0a-00190b01.pphosted.com
+ [IPv6:2620:100:9001:583::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E28810E681;
+ Thu, 27 Oct 2022 15:32:42 +0000 (UTC)
+Received: from pps.filterd (m0050095.ppops.net [127.0.0.1])
+ by m0050095.ppops.net-00190b01. (8.17.1.5/8.17.1.5) with ESMTP id
+ 29REAqMV008104; Thu, 27 Oct 2022 16:08:20 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=jan2016.eng;
+ bh=h4lND8L7nF8jQSiuXHvwarM3PypjNGIv6eeSvOJK9Xc=;
+ b=WI1sr5VyksXvBeCZiuQvHynoUgIvJ8arwsnOScd2R1Cy8hD2FJjGzA2CbJctUmDI1aBt
+ Qk/eTkHTCLRbUgK6KW8gHgXZ2asZKdOCSMNbaIDldll4yl99Nr901x4zbS0hnbSxhoU4
+ 1rl3y+Ye4FoGzQ0CK2mI+Q8gTT3Kz5KW0v4YU7AOlfThbhg0PpPsXVaEiEgTpIlXbIgN
+ PBCyNVmLOiHqt8UCdPuiYECX4fVk0SXxYzmHtLTOrOZzdq1/KzaYrAuhpHTS/sd3vtJb
+ f3aF7AQ36RKi66wgEwZ2K8A+0LUh17YQ1A1kr5XY5HbF069FllZb7CFq4ULBXdIIWDhf pA== 
+Received: from prod-mail-ppoint7
+ (a72-247-45-33.deploy.static.akamaitechnologies.com [72.247.45.33] (may be
+ forged))
+ by m0050095.ppops.net-00190b01. (PPS) with ESMTPS id 3kfb8p84nx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 27 Oct 2022 16:08:19 +0100
+Received: from pps.filterd (prod-mail-ppoint7.akamai.com [127.0.0.1])
+ by prod-mail-ppoint7.akamai.com (8.17.1.5/8.17.1.5) with ESMTP id
+ 29RDDmRu005239; Thu, 27 Oct 2022 11:08:18 -0400
+Received: from prod-mail-relay19.dfw02.corp.akamai.com ([172.27.165.173])
+ by prod-mail-ppoint7.akamai.com (PPS) with ESMTP id 3kfaq1mk0q-1;
+ Thu, 27 Oct 2022 11:08:17 -0400
+Received: from [0.0.0.0] (prod-ssh-gw01.bos01.corp.akamai.com [172.27.119.138])
+ by prod-mail-relay19.dfw02.corp.akamai.com (Postfix) with ESMTP id E582360293; 
+ Thu, 27 Oct 2022 15:08:16 +0000 (GMT)
+Message-ID: <c1807585-f6c8-c05d-bc20-c6a540e59814@akamai.com>
+Date: Thu, 27 Oct 2022 11:08:16 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Greg KH <gregkh@linuxfoundation.org>
+References: <20220912052852.1123868-1-jim.cromie@gmail.com>
+ <Yy7/6oTBW2lqVSK1@kroah.com> <Y1Fyuh12g/gt3Izn@intel.com>
+ <87a65pfsbq.fsf@intel.com>
+From: Jason Baron <jbaron@akamai.com>
+In-Reply-To: <87a65pfsbq.fsf@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-27_07,2022-10-27_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ phishscore=0 mlxscore=0
+ malwarescore=0 bulkscore=0 mlxlogscore=999 adultscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2210170000
+ definitions=main-2210270082
+X-Proofpoint-ORIG-GUID: JKKURTnn4jQ6E0EgMWxXuBHamgEYkVRY
+X-Proofpoint-GUID: JKKURTnn4jQ6E0EgMWxXuBHamgEYkVRY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-27_07,2022-10-27_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 suspectscore=0
+ adultscore=0 bulkscore=0 priorityscore=1501 mlxscore=0 clxscore=1011
+ impostorscore=0 malwarescore=0 spamscore=0 mlxlogscore=999 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2210170000
+ definitions=main-2210270082
 X-Mailman-Approved-At: Mon, 31 Oct 2022 09:39:38 +0000
-Subject: [Intel-gfx] [PATCH] [next] i915/gvt: remove hardcoded value on
- crc32_start calculation
+Subject: Re: [Intel-gfx] [PATCH v7 0/9] dyndbg: drm.debug adaptation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,40 +92,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.miguel.almeida.rodenas@gmail.com, linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ seanpaul@chromium.org, dri-devel@lists.freedesktop.org, joe@perches.com,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-struct gvt_firmware_header has a crc32 member in which all members that
-come after the that field are used to calculate it. The previous
-implementation added the value '4' (crc32's u32 size) to calculate the
-crc32_start offset which came across as a bit cryptic until you take a
-deeper look at the struct.
 
-This patch changes crc32_start offset to the 'version' member which is
-the first member of the struct gvt_firmware_header after crc32.
 
-It's worth mentioning that doing a build before/after this patch results
-in no binary output differences.
+On 10/21/22 05:18, Jani Nikula wrote:
+> On Thu, 20 Oct 2022, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+>> On Sat, Sep 24, 2022 at 03:02:34PM +0200, Greg KH wrote:
+>>> On Sun, Sep 11, 2022 at 11:28:43PM -0600, Jim Cromie wrote:
+>>>> hi Greg, Dan, Jason, DRM-folk,
+>>>>
+>>>> heres follow-up to V6:
+>>>>   rebased on driver-core/driver-core-next for -v6 applied bits (thanks)
+>>>>   rework drm_debug_enabled{_raw,_instrumented,} per Dan.
+>>>>
+>>>> It excludes:
+>>>>   nouveau parts (immature)
+>>>>   tracefs parts (I missed --to=Steve on v6)
+>>>>   split _ddebug_site and de-duplicate experiment (way unready)
+>>>>
+>>>> IOW, its the remaining commits of V6 on which Dan gave his Reviewed-by.
+>>>>
+>>>> If these are good to apply, I'll rebase and repost the rest separately.
+>>>
+>>> All now queued up, thanks.
+>>
+>> This stuff broke i915 debugs. When I first load i915 no debug prints are
+>> produced. If I then go fiddle around in /sys/module/drm/parameters/debug
+>> the debug prints start to suddenly work.
+> 
+> Wait what? I always assumed the default behaviour would stay the same,
+> which is usually how we roll. It's a regression in my books. We've got a
+> CI farm that's not very helpful in terms of dmesg logging right now
+> because of this.
+> 
+> BR,
+> Jani.
+> 
+> 
 
-Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
----
- drivers/gpu/drm/i915/gvt/firmware.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+That doesn't sound good - so you are saying that prior to this change some
+of the drm debugs were default enabled. But now you have to manually enable
+them?
 
-diff --git a/drivers/gpu/drm/i915/gvt/firmware.c b/drivers/gpu/drm/i915/gvt/firmware.c
-index 54fe442238c6..a683c22d5b64 100644
---- a/drivers/gpu/drm/i915/gvt/firmware.c
-+++ b/drivers/gpu/drm/i915/gvt/firmware.c
-@@ -104,7 +104,7 @@ static int expose_firmware_sysfs(struct intel_gvt *gvt)
- 
- 	memcpy(p, gvt->firmware.mmio, info->mmio_size);
- 
--	crc32_start = offsetof(struct gvt_firmware_header, crc32) + 4;
-+	crc32_start = offsetof(struct gvt_firmware_header, version);
- 	h->crc32 = crc32_le(0, firmware + crc32_start, size - crc32_start);
- 
- 	firmware_attr.size = size;
--- 
-2.25.4
+Thanks,
 
+-Jason
