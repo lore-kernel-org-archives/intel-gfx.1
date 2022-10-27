@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EB89FA373D
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 23:11:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59C09ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 23:11:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 210E110E731;
-	Thu, 27 Oct 2022 23:11:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77B8D10E72D;
+	Thu, 27 Oct 2022 23:11:47 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 60BEF10E72D;
- Thu, 27 Oct 2022 23:11:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 50C1F10E731;
+ Thu, 27 Oct 2022 23:11:32 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 59F63AADD8;
- Thu, 27 Oct 2022 23:11:29 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 4DEE4AADD8;
+ Thu, 27 Oct 2022 23:11:32 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Daniele Ceraolo Spurio" <daniele.ceraolospurio@intel.com>
-Date: Thu, 27 Oct 2022 23:11:29 -0000
-Message-ID: <166691228933.4251.4129613723920721943@emeril.freedesktop.org>
+Date: Thu, 27 Oct 2022 23:11:32 -0000
+Message-ID: <166691229231.4253.5883143434922318051@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20221027221554.2638087-1-daniele.ceraolospurio@intel.com>
 In-Reply-To: <20221027221554.2638087-1-daniele.ceraolospurio@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Introduce_the_GSC_CS?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Introduce_the_GSC_CS?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,21 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-9a055873a680 drm/i915/mtl: add initial definitions for GSC CS
-ddb719782376 drm/i915/mtl: pass the GSC CS info to the GuC
--:81: WARNING:AVOID_BUG: Do not crash the kernel unless it is absolutely unavoidable--use WARN_ON_ONCE() plus recovery code (if feasible) instead of BUG() or variants
-#81: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:189:
-+	GEM_BUG_ON(class > MAX_ENGINE_CLASS);
-
-total: 0 errors, 1 warnings, 0 checks, 59 lines checked
-e62d625db085 drm/i915/mtl: add GSC CS interrupt support
--:40: WARNING:AVOID_BUG: Do not crash the kernel unless it is absolutely unavoidable--use WARN_ON_ONCE() plus recovery code (if feasible) instead of BUG() or variants
-#40: FILE: drivers/gpu/drm/i915/gt/intel_gt_irq.c:89:
-+	GEM_BUG_ON(gt == media_gt);
-
-total: 0 errors, 1 warnings, 0 checks, 133 lines checked
-4f9506c1fa4d drm/i915/mtl: add GSC CS reset support
-237e5c9277d0 drm/i915/mtl: don't expose GSC command streamer to the user
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
