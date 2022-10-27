@@ -4,56 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE4AAECAAA1
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 14:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C001CFA3741
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Oct 2022 14:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9989610E65F;
-	Thu, 27 Oct 2022 14:38:42 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02EF910E653
- for <Intel-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 14:38:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE1E310E655;
+	Thu, 27 Oct 2022 14:39:03 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12E9110E653
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Oct 2022 14:39:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666881519; x=1698417519;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=1txbTAtjE56EX9D4ddBx/JjLRLCNwcs8zGSv/ynl+u4=;
- b=dxEj13yZUZsdMOF1mn3n+Nle+zv2Fp6X3GeSI9cLlzrpruPZXWMIOCP4
- GRvYaBI5jAfbob8BWqfOv1m1qjBGfourYzYSZ+hRARLJY7g+SNFpa3fdh
- IpzYLRThelcTNdY0NtwyGjm8wXqwplYSJOgmLm3sZxIN1I9VffAvBOGvY
- xhxxPfGnokOJP++WXCswuoAmudH2A8pRjmHkC5o2DLGomQHeGcc90IFTL
- M5d+ImykdpTVkQPMbCeubTBmZNsG8Di6Rsmj7xi2PSBBpOb/2EU0oQOO8
- 1i4GyDNKp1BO6rI9OyJPUjBNwkhj/dJVbPetVeGEdik9zWcuOdBD+o1YR w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="287955574"
-X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="287955574"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2022 07:35:43 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="665698491"
-X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="665698491"
-Received: from rgrilak-mobl.ger.corp.intel.com (HELO [10.213.238.72])
- ([10.213.238.72])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2022 07:35:39 -0700
-Message-ID: <c88d0c33-8616-faa4-b33e-5de36d7b73fd@linux.intel.com>
-Date: Thu, 27 Oct 2022 15:35:37 +0100
+ t=1666881540; x=1698417540;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version:content-transfer-encoding;
+ bh=AOC0t9hwrLE3isOv2vvF8fEDowjqgycsSWXtks8GyYs=;
+ b=VDqT9X8FZyQTNMMxK/Dy9xbHeiSr7Ahn+1Cg42K4uMwKv4fhGw7YbEH/
+ A1wPb8rL522VlAqtfyZcTFofUdGBX5xQjUPaqCiEPmpg6Ooi/0RqlJLv+
+ ORIFgizPrMwyaulL5Rbyp5Nrn2zwpCeP25F/r/pu5W9bdnEjJuYeec4uN
+ IimVIoFvZA9bVSKZdTMrCz0zYWqtXTgaZhJH3bsyuV/DuEiojdjIOd0Jp
+ qXeJKXronIX4pauUhSOLIUkYntYloCyZttZuXC4wnsp1fBPFkTDb/5A81
+ PfETSmCIracLImW5VQigvCqHWqZtsRH3gh08AcihKnYSAovLWHZ6If9FB A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="291542188"
+X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="291542188"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2022 07:38:59 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10512"; a="701366252"
+X-IronPort-AV: E=Sophos;i="5.95,217,1661842800"; d="scan'208";a="701366252"
+Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.147])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2022 07:38:58 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20221026101134.20865-5-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20221026101134.20865-1-ville.syrjala@linux.intel.com>
+ <20221026101134.20865-5-ville.syrjala@linux.intel.com>
+Date: Thu, 27 Oct 2022 17:38:53 +0300
+Message-ID: <87k04lcow2.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Intel-gfx@lists.freedesktop.org
-References: <20221019173254.3361334-1-tvrtko.ursulin@linux.intel.com>
- <20221019173254.3361334-3-tvrtko.ursulin@linux.intel.com>
- <77499370-bb0e-7f7e-ac1b-ad14f47578d9@amd.com>
- <391a77ea-1120-eb23-31f9-e7a14d84b10e@linux.intel.com>
- <04182f67-2c98-add4-be60-539ffe2e9d6a@amd.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <04182f67-2c98-add4-be60-539ffe2e9d6a@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [RFC 02/17] drm: Track clients per owning process
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 4/8] drm/i915/sdvo: Simplify output setup
+ debugs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,109 +60,90 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Kenny.Ho@amd.com,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Johannes Weiner <hannes@cmpxchg.org>,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?St=c3=a9phane_Marchesin?= <marcheu@chromium.org>,
- Zefan Li <lizefan.x@bytedance.com>, Dave Airlie <airlied@redhat.com>,
- Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
- "T . J . Mercier" <tjmercier@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Wed, 26 Oct 2022, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> Get rid of this funny byte based dumping of invalid output
+> flags and just dump it as a single hex numbers. Also do that
+> early since all the rest is going to get skipped anyway of
+> the thing is zero.
+>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-On 20/10/2022 12:33, Christian König wrote:
-> Am 20.10.22 um 09:34 schrieb Tvrtko Ursulin:
->>
->> On 20/10/2022 07:40, Christian König wrote:
->>> Am 19.10.22 um 19:32 schrieb Tvrtko Ursulin:
->>>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->>>>
->>>> To enable propagation of settings from the cgroup drm controller to 
->>>> drm we
->>>> need to start tracking which processes own which drm clients.
->>>>
->>>> Implement that by tracking the struct pid pointer of the owning 
->>>> process in
->>>> a new XArray, pointing to a structure containing a list of associated
->>>> struct drm_file pointers.
->>>>
->>>> Clients are added and removed under the filelist mutex and RCU list
->>>> operations are used below it to allow for lockless lookup.
->>>
->>> That won't work easily like this. The problem is that file_priv->pid 
->>> is usually not accurate these days:
->>>
->>>  From the debugfs clients file:
->>>
->>>        systemd-logind   773   0   y    y     0          0
->>>                  Xorg  1639 128   n    n  1000          0
->>>                  Xorg  1639 128   n    n  1000          0
->>>                  Xorg  1639 128   n    n  1000          0
->>>               firefox  2945 128   n    n  1000          0
->>>                  Xorg  1639 128   n    n  1000          0
->>>                  Xorg  1639 128   n    n  1000          0
->>>                  Xorg  1639 128   n    n  1000          0
->>>                  Xorg  1639 128   n    n  1000          0
->>>                chrome 35940 128   n    n  1000          0
->>>                chrome 35940   0   n    y  1000          1
->>>                chrome 35940   0   n    y  1000          2
->>>                  Xorg  1639 128   n    n  1000          0
->>>                  Xorg  1639 128   n    n  1000          0
->>>                  Xorg  1639 128   n    n  1000          0
->>>
->>> This is with glxgears and a bunch other OpenGL applications running.
->>>
->>> The problem is that for most applications the X/Wayland server is now 
->>> opening the render node. The only exceptions in this case are apps 
->>> using DRI2 (VA-API?).
->>>
->>> I always wanted to fix this and actually track who is using the file 
->>> descriptor instead of who opened it, but never had the time to do this.
->>
->> There's a patch later in the series which allows client records to be 
->> migrated to a new PID, and then i915 patch to do that when fd is used 
->> for context create. That approach I think worked well enough in the 
->> past. So maybe it could be done in the DRM core at some suitable entry 
->> point.
-> 
-> Yeah, that makes some sense. I think you should wire that inside 
-> drm_ioctl(), as far as I know more or less all uses of a file descriptor 
-> would go through that function.
-> 
-> And maybe make that a stand alone patch, cause that can go upstream as a 
-> bug fix independently if you ask me.
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-I've put it on my todo list to try and come up with something standalone 
-for this problem. Will see if I manage to send it separately or perhaps 
-will start the next cgroup controller RFC with those patches.
+> ---
+>  drivers/gpu/drm/i915/display/intel_sdvo.c | 25 ++++++++++-------------
+>  1 file changed, 11 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/=
+i915/display/intel_sdvo.c
+> index 1eaaa7ec580e..d432f70001b7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_sdvo.c
+> +++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+> @@ -199,7 +199,7 @@ to_intel_sdvo_connector(struct drm_connector *connect=
+or)
+>  	container_of((conn_state), struct intel_sdvo_connector_state, base.base)
+>=20=20
+>  static bool
+> -intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo, u16 flags);
+> +intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo);
+>  static bool
+>  intel_sdvo_tv_create_property(struct intel_sdvo *intel_sdvo,
+>  			      struct intel_sdvo_connector *intel_sdvo_connector,
+> @@ -2937,11 +2937,18 @@ static u16 intel_sdvo_filter_output_flags(u16 fla=
+gs)
+>  }
+>=20=20
+>  static bool
+> -intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo, u16 flags)
+> +intel_sdvo_output_setup(struct intel_sdvo *intel_sdvo)
+>  {
+>  	struct drm_i915_private *i915 =3D to_i915(intel_sdvo->base.base.dev);
+> +	u16 flags;
+>=20=20
+> -	flags =3D intel_sdvo_filter_output_flags(flags);
+> +	flags =3D intel_sdvo_filter_output_flags(intel_sdvo->caps.output_flags);
+> +
+> +	if (flags =3D=3D 0) {
+> +		DRM_DEBUG_KMS("%s: Unknown SDVO output type (0x%04x)\n",
+> +			      SDVO_NAME(intel_sdvo), intel_sdvo->caps.output_flags);
+> +		return false;
+> +	}
+>=20=20
+>  	intel_sdvo->controlled_output =3D flags;
+>=20=20
+> @@ -2984,15 +2991,6 @@ intel_sdvo_output_setup(struct intel_sdvo *intel_s=
+dvo, u16 flags)
+>  		if (!intel_sdvo_lvds_init(intel_sdvo, 1))
+>  			return false;
+>=20=20
+> -	if (flags =3D=3D 0) {
+> -		unsigned char bytes[2];
+> -
+> -		memcpy(bytes, &intel_sdvo->caps.output_flags, 2);
+> -		DRM_DEBUG_KMS("%s: Unknown SDVO output type (0x%02x%02x)\n",
+> -			      SDVO_NAME(intel_sdvo),
+> -			      bytes[0], bytes[1]);
+> -		return false;
+> -	}
+>  	intel_sdvo->base.pipe_mask =3D ~0;
+>=20=20
+>  	return true;
+> @@ -3368,8 +3366,7 @@ bool intel_sdvo_init(struct drm_i915_private *dev_p=
+riv,
+>  	intel_sdvo->colorimetry_cap =3D
+>  		intel_sdvo_get_colorimetry_cap(intel_sdvo);
+>=20=20
+> -	if (intel_sdvo_output_setup(intel_sdvo,
+> -				    intel_sdvo->caps.output_flags) !=3D true) {
+> +	if (!intel_sdvo_output_setup(intel_sdvo)) {
+>  		drm_dbg_kms(&dev_priv->drm,
+>  			    "SDVO output failed to setup on %s\n",
+>  			    SDVO_NAME(intel_sdvo));
 
->>> I think you need to fix this problem first. And BTW: and unsigned 
->>> long doesn't work as PID either with containers.
->>
->> This I am not familiar with so would like to hear more if you could 
->> point me in the right direction at least.
-> 
-> Uff, I'm the wrong person to ask stuff like that. I just can say from 
-> experience because I've ran into that trap as well.
-> 
->>
->> My assumption was that struct pid *, which is what I store in unsigned 
->> long, would be unique in a system where there is a single kernel 
->> running, so as long as lifetimes are correct (released from tracking 
->> here when fd is closed, which is implicit on process exit) would work. 
->> You are suggesting that is not so?
-> 
-> I think you should have the pointer to struct pid directly here since 
-> that is a reference counted structure IIRC. But don't ask me what the 
-> semantics is how to get or put a reference.
-
-Yeah I think I have all that. I track struct pid, with a reference, in 
-drm client, and release it when file descriptor is closed (indirectly 
-via the DRM close hook). All I need, I think, is for that mapping to 
-answer me "which drm_file objects" are in use by this struct pid 
-pointer. I don't see a problem with lifetimes or scope yet.
-
-Regards,
-
-Tvrtko
+--=20
+Jani Nikula, Intel Open Source Graphics Center
