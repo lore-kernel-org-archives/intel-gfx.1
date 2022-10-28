@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E57F1ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 09:44:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4002ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 09:44:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CEF710E7BE;
-	Fri, 28 Oct 2022 09:43:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97C9A10E7BD;
+	Fri, 28 Oct 2022 09:44:24 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0C6910E7B9
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Oct 2022 09:43:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D87F310E7BD
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Oct 2022 09:43:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666950230; x=1698486230;
+ t=1666950239; x=1698486239;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=tO3DoJcQ630r0FslQBe+rxq9KsyQGtisWfUKG9dXZqY=;
- b=MKs9mpHc2e1oLzGLkbJV7R9bJPg5N/jP3iNZ2TMq8ORc98A6acaNNakb
- yuhml/pep1GH1M6xp7b40BbGbpzUPTLr8xbE5sR+BqdekenGM11CY67V5
- L3NIIrE1/JNou5HawjjzYyfjF8AGIYrVuzAJfTMyWgMsPVPFzxTsHLoif
- 55pUNqqWhOnoO10qfolh4QGVhXCC6pSPgcsKzmV+ojyhvyKff3VPnRCkq
- +5539SMvgMmoCSyxNrjXsB1h450uLtT/mJzwh5DqWr3TeNLTEdjAqXNRd
- LVLpe2wqi5MMdtqHlDW2ZFAklKM8PQ9YRfIzWFuk0SfjNLZX4FtDbXTby A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="335094634"
-X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="335094634"
+ bh=SoQ9y0/h0H0sBWyV2oEXqypbKJ/gC2dHUXtRaDBY+mU=;
+ b=izMVy5KRKhenqXaheZ8xufS+m3cuBoNeUssa8lXOuMq3s8hDv1Jo7Gpb
+ Rz6QwS3DLTa5nPSFbNMK2bEmDlhXwK5UKulScQRCKxflrcN0dhQV1miGb
+ yLx2j5hmsf5AEP103k1SRzNsKu8xAcsPree3lGRzNs3EGVhvrroLvTO66
+ LhqS2HWY676AOx3gnq9zpkQqsQ97lwA5b/+apnV0EydfpsHGC3MAHg2Vs
+ jmM8UWouRj8kELxZoeaWW9CvOWftkcQh6jnpyQz4dnFGHJssUBNUD8dBu
+ 1uRha8SSZnwiKoVvuzcVZknZ9S6YXub0p5QQy+SD3G94h9fkncfraE6z6 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="335094678"
+X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="335094678"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2022 02:43:50 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="758026583"
-X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="758026583"
+ 28 Oct 2022 02:43:59 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="758026604"
+X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="758026604"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2022 02:43:48 -0700
+ 28 Oct 2022 02:43:57 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Oct 2022 15:14:04 +0530
-Message-Id: <20221028094411.3673476-3-ankit.k.nautiyal@intel.com>
+Date: Fri, 28 Oct 2022 15:14:08 +0530
+Message-Id: <20221028094411.3673476-7-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221028094411.3673476-1-ankit.k.nautiyal@intel.com>
 References: <20221028094411.3673476-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 2/9] drm/i915/display: Add new member in
- intel_dp to store ycbcr420 passthrough cap
+Subject: [Intel-gfx] [PATCH v5 6/9] drm/i915/dp: Avoid DSC with
+ output_format YCBC420
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,25 +60,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-New member to store the YCBCR20 Pass through capability of the DP sink.
+Currently, DSC with YCBCR420 is not supported.
+Return -EINVAL when trying with DSC with output_format as YCBCR420.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 924b7b656097..ae070420309d 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1714,6 +1714,7 @@ struct intel_dp {
- 		int pcon_max_frl_bw;
- 		u8 max_bpc;
- 		bool ycbcr_444_to_420;
-+		bool ycbcr420_passthrough;
- 		bool rgb_to_ycbcr;
- 	} dfp;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index b9ef59882a90..4ffb470bcadc 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1491,6 +1491,10 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
+ 		return -EINVAL;
  
++	/* Currently DSC with YCBCR420 format is not supported */
++	if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
++		return -EINVAL;
++
+ 	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
+ 
+ 	if (intel_dp->force_dsc_bpc) {
 -- 
 2.25.1
 
