@@ -4,49 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9DCFECAAA1
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 19:45:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1179DECAAA1
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 19:55:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A555910E8D2;
-	Fri, 28 Oct 2022 19:45:32 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E86B810E8CC;
- Fri, 28 Oct 2022 19:45:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666986319; x=1698522319;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=3lYphhyZVi7Wi2cxkFQ8Pw8jc83g2UGQ5dZMJbPn+68=;
- b=SzDevT0Q8bpb8OoBFFo8NgQ1f1f85Y1KTk2X5kxESB2eD3mVCbIy/695
- ZDMcjFbzCRMclqioC8sdvTI/o3jKCPg9GNF+RYgJgBtXWPuE8ZjTI5/J1
- jF4QG0YC1Ftvy/uFOilCefVaKGY1CzDeojKaWVTdD/64pdA/mKZZJYupi
- LpmvFLvcQQu0jdO5pcfnBTccfZIqF5yNSL8QRflS6mhIHtLlFsvMLLpJW
- LOJShLzWarkWMWB4YR5PA7Wnl+Tncp7dSWOgBu2ZYBm7rfY/d1ammAEvi
- lANLQoz2oy9vDa6GNvgfg4keBWYI2mI717gyCOgO9rBqw8z0H7LSxzZ+D w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10514"; a="372787686"
-X-IronPort-AV: E=Sophos;i="5.95,222,1661842800"; d="scan'208";a="372787686"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2022 12:45:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10514"; a="775491785"
-X-IronPort-AV: E=Sophos;i="5.95,222,1661842800"; d="scan'208";a="775491785"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.195])
- by fmsmga001.fm.intel.com with ESMTP; 28 Oct 2022 12:45:10 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Fri, 28 Oct 2022 12:46:48 -0700
-Message-Id: <20221028194649.1130223-2-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221028194649.1130223-1-John.C.Harrison@Intel.com>
-References: <20221028194649.1130223-1-John.C.Harrison@Intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A3DA10E043;
+	Fri, 28 Oct 2022 19:55:24 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7796310E043;
+ Fri, 28 Oct 2022 19:55:20 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 2E739AADD7;
+ Fri, 28 Oct 2022 19:55:20 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915/guc: Properly initialise kernel
- contexts
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Badal Nilawar" <badal.nilawar@intel.com>
+Date: Fri, 28 Oct 2022 19:55:20 -0000
+Message-ID: <166698692018.15991.11295202374017363765@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20221028192935.1458271-1-badal.nilawar@intel.com>
+In-Reply-To: <20221028192935.1458271-1-badal.nilawar@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/mtl=3A_Add_MC6_Wa=5F14017210380_for_SAMedia?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,39 +40,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+== Series Details ==
 
-If a context has already been registered prior to first submission
-then context init code was not being called. The noticeable effect of
-that was the scheduling priority was left at zero (meaning super high
-priority) instead of being set to normal. This would occur with
-kernel contexts at start of day as they are manually pinned up front
-rather than on first submission. So add a call to initialise those
-when they are pinned.
+Series: drm/i915/mtl: Add MC6 Wa_14017210380 for SAMedia
+URL   : https://patchwork.freedesktop.org/series/110268/
+State : warning
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 3 +++
- 1 file changed, 3 insertions(+)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 4ccb29f9ac55c..941613be3b9dd 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4111,6 +4111,9 @@ static inline void guc_kernel_context_pin(struct intel_guc *guc,
- 	if (context_guc_id_invalid(ce))
- 		pin_guc_id(guc, ce);
- 
-+	if (!test_bit(CONTEXT_GUC_INIT, &ce->flags))
-+		guc_context_init(ce);
-+
- 	try_context_registration(ce, true);
- }
- 
--- 
-2.37.3
+Error: dim checkpatch failed
+33ed282c8b12 drm/i915/mtl: Add MC6 Wa_14017210380 for SAMedia
+-:118: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
+#118: FILE: drivers/gpu/drm/i915/i915_drv.h:743:
++#define IS_MTL_GRAPHICS_STEP(__i915, variant, since, until) \
++	(IS_SUBPLATFORM(__i915, INTEL_METEORLAKE, INTEL_SUBPLATFORM_##variant) && \
++	 IS_GRAPHICS_STEP(__i915, since, until))
+
+total: 0 errors, 0 warnings, 1 checks, 101 lines checked
+
 
