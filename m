@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 937EFC38A02
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 11:18:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFD21ECAAA1
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 11:18:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40C2110E7F3;
-	Fri, 28 Oct 2022 11:18:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2974710E7F0;
+	Fri, 28 Oct 2022 11:18:23 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ACD110E7F0
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Oct 2022 11:18:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4EB110E7EB
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Oct 2022 11:18:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666955896; x=1698491896;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=MzkWnHWXk0PhBOrs9wAOBJpQLafQ22GbzBxZUo9DCyY=;
- b=KrpUW/KSzxZyJqXmjLiuKdmDubZ1s0BZPZmxCI2DXU4ZRNOUhrIAvMqn
- 7+Lb/l0cVdq36lYVmrwDJ7OXkqdXcB3fBY84Cgo2NITFPgVELxvTW1ioa
- BbmMS+mtIYesRiaC4ctHqssqeX3CYdmnYV9sFk3aRx1tNu1VgZdBDX+R+
- azt1OTXPCn8Pluz7w1SHsWy8UVbW/kBqlNeMjH7VAHFE3FoupJz98j9QX
- 0A+xrW4yL4WDJK077igmePIgFY/iLPW9LGUVnxYuZDOeCmEelcqlyxqqJ
- n6Ner65uaOifB3GDbXzwx678OMXDOpHzPfJ3o7LTwpPal+LgoNJxODtHu Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="370534659"
-X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="370534659"
+ t=1666955895; x=1698491895;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=obVRbGwmoH7UWQtVlF51I6gDqEUJnAIQP33Nv1bb9U4=;
+ b=kw17bidaqCAT+eWybqRZwk4+qSC/LxmBUSNVZbITmd4Q8LdrQqvgIs1J
+ nbUoQQdOiVSRedfkL7dAmfPWjOIKDCMPtMArCjnG6LHwPgTT+IzMrMqD9
+ pE9pKnxtM3qRP5bKWo/XJFovbVY3VHQoUS/msgDorGRJj92oOsy6vGKGy
+ ZL2Dvo4N7jH4MZ8PAqQfA9XnsiLnOebqWjLPudwtRQYQbQNH5S3ZEeRac
+ +/aow277U3cl5tym3wTdS+FsMGClxcuw8fbp6vokVhe15zzYXVuymEDum
+ xL6VrTpc931SvH1ODBbvo797ZIaF9UbfKMs/dcC3WTNv+nHq8vnPdOkYd w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="370534656"
+X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="370534656"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2022 04:18:16 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="701701496"
-X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="701701496"
+ 28 Oct 2022 04:18:14 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="701701492"
+X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="701701492"
 Received: from srr4-3-linux-118-swatish2.iind.intel.com ([10.223.34.130])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2022 04:18:15 -0700
+ 28 Oct 2022 04:18:13 -0700
 From: Swati Sharma <swati2.sharma@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Oct 2022 16:49:46 +0530
-Message-Id: <20221028111953.12552-2-swati2.sharma@intel.com>
+Date: Fri, 28 Oct 2022 16:49:45 +0530
+Message-Id: <20221028111953.12552-1-swati2.sharma@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221028111953.12552-1-swati2.sharma@intel.com>
-References: <20221028111953.12552-1-swati2.sharma@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/8] drm/dp_helper: Add helper to check if the
- sink supports given format with DSC
+Subject: [Intel-gfx] [PATCH v5 0/8] Enable YCbCr420 for VDSC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,33 +57,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+This patch series aims to enable the YCbCr420 format
+for DSC. Changes are mostly compute params related for
+hdmi,dp and dsi along with the addition of new rc_tables
+for native_420 and corresponding changes to macros used to
+fetch them.
 
-Add helper function to check if the DP sink supports DSC with the given
-output format.
+---v2
+-adding fields missed for vdsc_cfg [Vandita]
+-adding corresponding registers and writing to the [Vandita]
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- include/drm/display/drm_dp_helper.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+---v3
+-adding 11 bit left shift missed in nsl_bpg_offset calculation
 
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index ab55453f2d2c..6c1706280746 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -193,6 +193,12 @@ drm_dp_dsc_sink_max_slice_width(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
- 	return dsc_dpcd[DP_DSC_MAX_SLICE_WIDTH - DP_DSC_SUPPORT] *
- 		DP_DSC_SLICE_WIDTH_MULTIPLIER;
- }
-+/* Check if sink supports DSC with given output format */
-+static inline bool
-+drm_dp_dsc_sink_supports_format(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE], u8 output_format)
-+{
-+	return dsc_dpcd[DP_DSC_DEC_COLOR_FORMAT_CAP - DP_DSC_SUPPORT] & output_format;
-+}
- 
- /* Forward Error Correction Support on DP 1.4 */
- static inline bool
+---v4
+-adding display version check before writing in new pps register
+
+---v5
+-added helper to check if sink supports given format with DSC
+-added debugfs entry to enforce DSC with YCbCr420 format only
+
+Ankit Nautiyal (2):
+  drm/dp_helper: Add helper to check if the sink supports given format
+    with DSC
+  drm/i915/dp: Check if DSC supports the given output_format
+
+Suraj Kandpal (3):
+  drm/i915: Adding the new registers for DSC
+  drm/i915: Enable YCbCr420 for VDSC
+  drm/i915: Fill in native_420 field
+
+Swati Sharma (3):
+  drm/i915/dsc: Add debugfs entry to validate DSC YCbCr420
+  drm/i915/dsc: Allow DSC only with YCbCr420 format when forced from
+    debugfs
+  drm/i915: Code styling fixes
+
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   2 -
+ .../drm/i915/display/intel_display_debugfs.c  |  90 ++++++++-
+ .../drm/i915/display/intel_display_types.h    |   1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |  34 +++-
+ .../gpu/drm/i915/display/intel_qp_tables.c    | 187 ++++++++++++++++--
+ .../gpu/drm/i915/display/intel_qp_tables.h    |   4 +-
+ drivers/gpu/drm/i915/display/intel_vdsc.c     |  78 +++++++-
+ drivers/gpu/drm/i915/i915_reg.h               |  28 +++
+ include/drm/display/drm_dp_helper.h           |   6 +
+ 9 files changed, 404 insertions(+), 26 deletions(-)
+
 -- 
 2.25.1
 
