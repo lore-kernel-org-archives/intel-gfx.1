@@ -4,46 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81032FA3740
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 11:18:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53F92C38A02
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Oct 2022 11:30:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FF2210E807;
-	Fri, 28 Oct 2022 11:18:48 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AABC910E7EB
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Oct 2022 11:18:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666955900; x=1698491900;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Q7+DsiYeCq17ojKXWC72IsB593rfM+JqYRu7lINsAVg=;
- b=h3SlLqKXah7F5kYcDuCld8eUpT/740mw7XERPunqelfTsH51y0D80EyK
- AHVE5r/1lsUkqKcmTBHmMFmA30VPYylN7Rm8WwLu7C2INJU8KkNXLmUcr
- Pf6sZWHkCcnCH+X1jAVRYXiuxRJ2Qu6tgkWLDrqDp7rfk2hwnt6ergv0l
- LLnQ5dhncVwbh0rRZDI29KyHqePZ/7RtK730O2Z9vwzPsx63uOiPX1Dk5
- whnnHQQELE87SIqtnYf1T6h1/HL4ycElcdnQgt8oD4Imki81UQGN69cme
- zCkwBMX5dz6SjoV7mxks8BadUzPOiW9wk8xt5qsk6O3IKfiuMyki7+9w1 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="370534667"
-X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="370534667"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2022 04:18:20 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10513"; a="701701527"
-X-IronPort-AV: E=Sophos;i="5.95,220,1661842800"; d="scan'208";a="701701527"
-Received: from srr4-3-linux-118-swatish2.iind.intel.com ([10.223.34.130])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2022 04:18:19 -0700
-From: Swati Sharma <swati2.sharma@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Oct 2022 16:49:49 +0530
-Message-Id: <20221028111953.12552-5-swati2.sharma@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221028111953.12552-1-swati2.sharma@intel.com>
-References: <20221028111953.12552-1-swati2.sharma@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AED1510E7FF;
+	Fri, 28 Oct 2022 11:30:37 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 70A2210E7FD;
+ Fri, 28 Oct 2022 11:30:31 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 136C4AA01E;
+ Fri, 28 Oct 2022 11:30:31 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5055506415974264437=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 4/8] drm/i915: Enable YCbCr420 for VDSC
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Date: Fri, 28 Oct 2022 11:30:31 -0000
+Message-ID: <166695663107.15988.4324998479212565335@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20221028094411.3673476-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20221028094411.3673476-1-ankit.k.nautiyal@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgSGFu?=
+ =?utf-8?q?dle_BPC_for_HDMI2=2E1_PCON_without_DSC1=2E2_sink_and_other_fixe?=
+ =?utf-8?q?s_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,264 +41,217 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+--===============5055506415974264437==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Implementation of VDSC for YCbCr420.
+== Series Details ==
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- .../gpu/drm/i915/display/intel_qp_tables.c    | 187 ++++++++++++++++--
- .../gpu/drm/i915/display/intel_qp_tables.h    |   4 +-
- drivers/gpu/drm/i915/display/intel_vdsc.c     |   4 +-
- 3 files changed, 180 insertions(+), 15 deletions(-)
+Series: Handle BPC for HDMI2.1 PCON without DSC1.2 sink and other fixes (rev5)
+URL   : https://patchwork.freedesktop.org/series/107550/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_qp_tables.c b/drivers/gpu/drm/i915/display/intel_qp_tables.c
-index 6f8e4ec5c0fb..6e86c0971d24 100644
---- a/drivers/gpu/drm/i915/display/intel_qp_tables.c
-+++ b/drivers/gpu/drm/i915/display/intel_qp_tables.c
-@@ -17,6 +17,15 @@
- /* from BPP 6 to 36 in steps of 0.5 */
- #define RC_RANGE_QP444_12BPC_MAX_NUM_BPP	61
- 
-+/* from BPP 6 to 24 in steps of 0.5 */
-+#define RC_RANGE_QP420_8BPC_MAX_NUM_BPP		17
-+
-+/* from BPP 6 to 30 in steps of 0.5 */
-+#define RC_RANGE_QP420_10BPC_MAX_NUM_BPP	23
-+
-+/* from BPP 6 to 36 in steps of 0.5 */
-+#define RC_RANGE_QP420_12BPC_MAX_NUM_BPP	29
-+
- /*
-  * These qp tables are as per the C model
-  * and it has the rows pointing to bpps which increment
-@@ -283,26 +292,182 @@ static const u8 rc_range_maxqp444_12bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP444_12BPC
- 	  11, 11, 10, 10, 10, 10, 10, 9, 9, 8, 8, 8, 8, 8, 7, 7, 6, 6, 6, 6, 5, 5, 4 }
- };
- 
--#define PARAM_TABLE(_minmax, _bpc, _row, _col)  do { \
--	if (bpc == (_bpc)) \
--		return rc_range_##_minmax##qp444_##_bpc##bpc[_row][_col]; \
-+static const u8 rc_range_minqp420_8bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_8BPC_MAX_NUM_BPP] = {
-+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 3, 3, 3, 3, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0 },
-+	{ 3, 3, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
-+	{ 3, 3, 3, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0 },
-+	{ 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0 },
-+	{ 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 0 },
-+	{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1, 1 },
-+	{ 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 2, 1, 1 },
-+	{ 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 3, 2, 2, 1 },
-+	{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 3, 3, 2, 1 },
-+	{ 9, 8, 8, 7, 7, 7, 7, 7, 7, 6, 5, 5, 4, 3, 3, 3, 2 },
-+	{ 13, 12, 12, 11, 10, 10, 9, 8, 8, 7, 6, 6, 5, 5, 4, 4, 3 }
-+};
-+
-+static const u8 rc_range_maxqp420_8bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_8BPC_MAX_NUM_BPP] = {
-+	{ 4, 4, 3, 3, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 4, 4, 4, 4, 4, 3, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
-+	{ 5, 5, 5, 5, 5, 4, 3, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
-+	{ 6, 6, 6, 6, 6, 5, 4, 3, 2, 2, 2, 1, 1, 1, 1, 0, 0 },
-+	{ 7, 7, 7, 7, 7, 5, 4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 0 },
-+	{ 7, 7, 7, 7, 7, 6, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 0 },
-+	{ 7, 7, 7, 7, 7, 6, 5, 4, 3, 3, 3, 3, 2, 2, 2, 1, 1 },
-+	{ 8, 8, 8, 8, 8, 7, 6, 5, 4, 4, 4, 3, 3, 2, 2, 2, 1 },
-+	{ 9, 9, 9, 8, 8, 7, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2, 1 },
-+	{ 10, 10, 9, 9, 9, 8, 7, 6, 5, 5, 5, 4, 4, 3, 3, 2, 2 },
-+	{ 10, 10, 10, 9, 9, 8, 8, 7, 6, 6, 5, 5, 4, 4, 3, 2, 2 },
-+	{ 11, 11, 10, 10, 9, 9, 8, 7, 7, 6, 6, 5, 5, 4, 3, 3, 2 },
-+	{ 11, 11, 11, 10, 9, 9, 9, 8, 7, 7, 6, 5, 5, 4, 4, 3, 2 },
-+	{ 13, 12, 12, 11, 10, 10, 9, 8, 8, 7, 6, 6, 5, 4, 4, 4, 3 },
-+	{ 14, 13, 13, 12, 11, 11, 10, 9, 9, 8, 7, 7, 6, 6, 5, 5, 4 }
-+};
-+
-+static const u8 rc_range_minqp420_10bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_10BPC_MAX_NUM_BPP] = {
-+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 4, 4, 4, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 4, 4, 4, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 5, 5, 5, 4, 4, 4, 4, 4, 4, 3, 3, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 7, 7, 7, 6, 6, 5, 5, 4, 4, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0 },
-+	{ 7, 7, 7, 7, 7, 6, 5, 5, 5, 5, 5, 4, 3, 3, 2, 2, 1, 1, 1, 1, 1, 0, 0 },
-+	{ 7, 7, 7, 7, 7, 6, 6, 5, 5, 5, 5, 4, 4, 4, 3, 2, 2, 2, 2, 1, 1, 1, 0 },
-+	{ 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 5, 4, 4, 4, 3, 2, 2, 2, 1, 1, 1, 0 },
-+	{ 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2, 2, 1, 1 },
-+	{ 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2, 1, 1 },
-+	{ 9, 9, 9, 9, 9, 8, 8, 8, 8, 8, 7, 7, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2, 1 },
-+	{ 9, 9, 9, 9, 9, 9, 8, 8, 8, 8, 8, 8, 8, 7, 6, 6, 5, 4, 4, 3, 3, 2, 1 },
-+	{ 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 8, 7, 7, 6, 5, 4, 4, 3, 3, 2, 1 },
-+	{ 13, 12, 12, 11, 11, 11, 11, 11, 11, 10, 9, 9, 8, 7, 7, 6, 5, 5, 4, 3, 3,
-+	  2, 2 },
-+	{ 17, 16, 16, 15, 14, 14, 13, 12, 12, 11, 10, 10, 10, 9, 8, 8, 7, 6, 6, 5,
-+	  5, 4, 4 }
-+};
-+
-+static const u8 rc_range_maxqp420_10bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_10BPC_MAX_NUM_BPP] = {
-+	{ 8, 8, 7, 6, 4, 4, 3, 3, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 8, 8, 8, 7, 6, 5, 4, 4, 3, 3, 3, 3, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 9, 9, 9, 8, 8, 7, 6, 5, 4, 3, 3, 3, 3, 3, 2, 1, 1, 1, 0, 0, 0, 0, 0 },
-+	{ 10, 10, 10, 9, 9, 8, 7, 6, 5, 4, 4, 3, 3, 3, 3, 2, 1, 1, 1, 1, 1, 0,
-+	  0 },
-+	{ 11, 11, 11, 10, 10, 8, 7, 6, 5, 4, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1,
-+	  0 },
-+	{ 11, 11, 11, 10, 10, 9, 8, 7, 6, 6, 6, 5, 4, 4, 3, 3, 2, 2, 2, 2, 2, 1,
-+	  1 },
-+	{ 11, 11, 11, 11, 11, 10, 9, 8, 7, 7, 7, 6, 5, 5, 4, 3, 3, 3, 3, 2, 2, 2,
-+	  1 },
-+	{ 12, 12, 12, 12, 12, 11, 10, 9, 8, 8, 8, 7, 6, 5, 5, 4, 3, 3, 3, 2, 2,
-+	  2, 1 },
-+	{ 13, 13, 13, 12, 12, 11, 10, 10, 9, 9, 8, 8, 7, 7, 6, 5, 4, 4, 3, 3, 3,
-+	  2, 2 },
-+	{ 14, 14, 13, 13, 13, 12, 11, 10, 9, 9, 9, 8, 8, 7, 7, 6, 5, 4, 4, 3, 3,
-+	  2, 2 },
-+	{ 14, 14, 14, 13, 13, 12, 12, 11, 10, 10, 9, 9, 8, 8, 7, 6, 5, 5, 4, 4,
-+	  3, 3, 2 },
-+	{ 15, 15, 14, 14, 13, 13, 12, 11, 11, 10, 10, 9, 9, 8, 7, 7, 6, 5, 5, 4,
-+	  4, 3, 2 },
-+	{ 15, 15, 15, 14, 13, 13, 13, 12, 11, 11, 10, 9, 9, 8, 8, 7, 6, 5, 5, 4,
-+	  4, 3, 2 },
-+	{ 17, 16, 16, 15, 14, 14, 13, 12, 12, 11, 10, 10, 9, 8, 8, 7, 6, 6, 5, 4,
-+	  4, 3, 3 },
-+	{ 18, 17, 17, 16, 15, 15, 14, 13, 13, 12, 11, 11, 11, 10, 9, 9, 8, 7, 7,
-+	  6, 6, 5, 5 }
-+};
-+
-+static const u8 rc_range_minqp420_12bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_12BPC_MAX_NUM_BPP] = {
-+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-+	  0, 0, 0, 0, 0 },
-+	{ 4, 4, 4, 4, 4, 4, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0,
-+	  0, 0, 0, 0, 0 },
-+	{ 9, 8, 8, 7, 7, 6, 5, 5, 4, 4, 4, 4, 3, 3, 3, 2, 2, 1, 0, 0, 0, 0, 0, 0,
-+	  0, 0, 0, 0, 0 },
-+	{ 10, 9, 9, 8, 8, 8, 7, 7, 6, 6, 6, 5, 5, 4, 4, 3, 2, 2, 1, 1, 1, 0, 0, 0,
-+	  0, 0, 0, 0, 0 },
-+	{ 11, 10, 10, 10, 10, 9, 9, 8, 7, 6, 6, 6, 6, 5, 5, 4, 3, 3, 3, 2, 2, 1,
-+	  0, 0, 0, 0, 0, 0, 0 },
-+	{ 11, 11, 11, 11, 11, 10, 10, 9, 9, 9, 9, 8, 7, 6, 5, 5, 4, 4, 3, 3, 3, 2,
-+	  1, 1, 0, 0, 0, 0, 0 },
-+	{ 11, 11, 11, 11, 11, 11, 10, 10, 9, 9, 9, 8, 8, 7, 6, 5, 5, 5, 5, 4, 3, 3,
-+	  2, 1, 1, 1, 1, 1, 0 },
-+	{ 11, 11, 11, 11, 11, 11, 11, 10, 10, 10, 10, 9, 8, 8, 8, 7, 6, 6, 5, 4, 4,
-+	  3, 2, 2, 1, 1, 1, 1, 1 },
-+	{ 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 10, 10, 9, 9, 8, 8, 7, 7, 6, 5,
-+	  5, 4, 4, 2, 2, 1, 1, 1, 1 },
-+	{ 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 10, 10, 9, 9, 8, 8, 7, 7, 6,
-+	  5, 4, 4, 3, 2, 2, 1, 1, 1 },
-+	{ 13, 13, 13, 13, 13, 13, 13, 12, 12, 12, 11, 11, 10, 10, 9, 9, 8, 8, 7, 7,
-+	  6, 5, 4, 3, 3, 2, 2, 1, 1 },
-+	{ 13, 13, 13, 13, 13, 13, 13, 13, 13, 12, 12, 12, 12, 11, 10, 10, 9, 8, 8,
-+	  7, 7, 6, 5, 4, 3, 3, 2, 2, 1 },
-+	{ 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 12, 12, 11, 11, 10, 9, 8, 8,
-+	  7, 7, 6, 5, 4, 4, 3, 2, 2, 1 },
-+	{ 15, 15, 15, 15, 15, 15, 15, 15, 15, 14, 13, 13, 12, 11, 11, 10, 9, 9, 8,
-+	  8, 7, 6, 6, 5, 4, 4, 3, 3, 2 },
-+	{ 21, 20, 20, 19, 18, 18, 17, 16, 16, 15, 14, 14, 14, 13, 12, 12, 11, 10,
-+	  10, 10, 9, 8, 8, 7, 6, 6, 5, 5, 4 }
-+};
-+
-+static const u8 rc_range_maxqp420_12bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_12BPC_MAX_NUM_BPP] = {
-+	{ 11, 10, 9, 8, 6, 6, 5, 5, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-+	  0, 0, 0, 0, 0, 0 },
-+	{ 12, 11, 11, 10, 9, 8, 7, 7, 6, 6, 5, 5, 4, 3, 3, 2, 1, 1, 1, 1, 1, 1,
-+	  1, 0, 0, 0, 0, 0, 0 },
-+	{ 13, 12, 12, 11, 11, 10, 9, 8, 7, 6, 6, 6, 5, 5, 4, 3, 3, 2, 1, 1, 1, 1,
-+	  1, 0, 0, 0, 0, 0, 0 },
-+	{ 14, 13, 13, 12, 12, 11, 10, 9, 8, 7, 7, 6, 6, 5, 5, 4, 3, 3, 2, 2, 2, 1,
-+	  1, 1, 0, 0, 0, 0, 0 },
-+	{ 15, 14, 14, 13, 13, 11, 10, 9, 8, 7, 7, 7, 7, 6, 6, 5, 4, 4, 4, 3, 3, 2,
-+	  1, 1, 1, 0, 0, 0, 0 },
-+	{ 15, 15, 15, 14, 14, 13, 12, 11, 10, 10, 10, 9, 8, 7, 6, 6, 5, 5, 4, 4,
-+	  4, 3, 2, 2, 1, 1, 0, 0, 0 },
-+	{ 15, 15, 15, 15, 15, 14, 13, 12, 11, 11, 11, 10, 9, 8, 7, 6, 6, 6, 6, 5,
-+	  4, 4, 3, 2, 2, 2, 1, 1, 0 },
-+	{ 16, 16, 16, 16, 16, 15, 14, 13, 12, 12, 12, 11, 10, 9, 9, 8, 7, 7, 6, 5,
-+	  5, 4, 3, 3, 2, 2, 2, 1, 1 },
-+	{ 17, 17, 17, 16, 16, 15, 14, 14, 13, 13, 12, 12, 11, 11, 10, 9, 8, 8, 7,
-+	  6, 6, 5, 5, 3, 3, 2, 2, 1, 1 },
-+	{ 18, 18, 17, 17, 17, 16, 15, 14, 13, 13, 13, 12, 12, 11, 11, 10, 9, 8, 8,
-+	  7, 6, 5, 5, 4, 3, 3, 2, 2, 1 },
-+	{ 18, 18, 18, 17, 17, 16, 16, 15, 14, 14, 13, 13, 12, 12, 11, 10, 9, 9, 8,
-+	  8, 7, 6, 5, 4, 4, 3, 3, 2, 2 },
-+	{ 19, 19, 18, 18, 17, 17, 16, 15, 15, 14, 14, 13, 13, 12, 11, 11, 10, 9,
-+	  9, 8, 8, 7, 6, 5, 4, 4, 3, 3, 2 },
-+	{ 19, 19, 19, 18, 17, 17, 17, 16, 15, 15, 14, 13, 13, 12, 12, 11, 10, 9,
-+	  9, 8, 8, 7, 6, 5, 5, 4, 3, 3, 2 },
-+	{ 21, 20, 20, 19, 18, 18, 17, 16, 16, 15, 14, 14, 13, 12, 12, 11, 10, 10,
-+	  9, 9, 8, 7, 7, 6, 5, 5, 4, 4, 3 },
-+	{ 22, 21, 21, 20, 19, 19, 18, 17, 17, 16, 15, 15, 15, 14, 13, 13, 12, 11,
-+	  11, 11, 10, 9, 9, 8, 7, 7, 6, 6, 5 }
-+};
-+
-+#define PARAM_TABLE(_minmax, _bpc, _row, _col, _is_420)  do { \
-+	if (bpc == (_bpc)) {	\
-+		if (_is_420)	\
-+			return rc_range_##_minmax##qp420_##_bpc##bpc[_row][_col]; \
-+		else	\
-+			return rc_range_##_minmax##qp444_##_bpc##bpc[_row][_col]; \
-+	}	\
- } while (0)
- 
--u8 intel_lookup_range_min_qp(int bpc, int buf_i, int bpp_i)
-+u8 intel_lookup_range_min_qp(int bpc, int buf_i, int bpp_i, bool is_420)
- {
--	PARAM_TABLE(min, 8, buf_i, bpp_i);
--	PARAM_TABLE(min, 10, buf_i, bpp_i);
--	PARAM_TABLE(min, 12, buf_i, bpp_i);
-+	PARAM_TABLE(min, 8, buf_i, bpp_i, is_420);
-+	PARAM_TABLE(min, 10, buf_i, bpp_i, is_420);
-+	PARAM_TABLE(min, 12, buf_i, bpp_i, is_420);
- 
- 	MISSING_CASE(bpc);
- 	return 0;
- }
- 
--u8 intel_lookup_range_max_qp(int bpc, int buf_i, int bpp_i)
-+u8 intel_lookup_range_max_qp(int bpc, int buf_i, int bpp_i, bool is_420)
- {
--	PARAM_TABLE(max, 8, buf_i, bpp_i);
--	PARAM_TABLE(max, 10, buf_i, bpp_i);
--	PARAM_TABLE(max, 12, buf_i, bpp_i);
-+	PARAM_TABLE(max, 8, buf_i, bpp_i, is_420);
-+	PARAM_TABLE(max, 10, buf_i, bpp_i, is_420);
-+	PARAM_TABLE(max, 12, buf_i, bpp_i, is_420);
- 
- 	MISSING_CASE(bpc);
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_qp_tables.h b/drivers/gpu/drm/i915/display/intel_qp_tables.h
-index 9fb3c36bd7c6..a9ff9ca29938 100644
---- a/drivers/gpu/drm/i915/display/intel_qp_tables.h
-+++ b/drivers/gpu/drm/i915/display/intel_qp_tables.h
-@@ -8,7 +8,7 @@
- 
- #include <linux/types.h>
- 
--u8 intel_lookup_range_min_qp(int bpc, int buf_i, int bpp_i);
--u8 intel_lookup_range_max_qp(int bpc, int buf_i, int bpp_i);
-+u8 intel_lookup_range_min_qp(int bpc, int buf_i, int bpp_i, bool is_420);
-+u8 intel_lookup_range_max_qp(int bpc, int buf_i, int bpp_i, bool is_420);
- 
- #endif
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 269f9792390d..a642975a1b61 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -424,9 +424,9 @@ calculate_rc_params(struct rc_parameters *rc,
- 	for (buf_i = 0; buf_i < DSC_NUM_BUF_RANGES; buf_i++) {
- 		/* Read range_minqp and range_max_qp from qp tables */
- 		rc->rc_range_params[buf_i].range_min_qp =
--			intel_lookup_range_min_qp(bpc, buf_i, bpp_i);
-+			intel_lookup_range_min_qp(bpc, buf_i, bpp_i, vdsc_cfg->native_420);
- 		rc->rc_range_params[buf_i].range_max_qp =
--			intel_lookup_range_max_qp(bpc, buf_i, bpp_i);
-+			intel_lookup_range_max_qp(bpc, buf_i, bpp_i, vdsc_cfg->native_420);
- 
- 		/* Calculate range_bgp_offset */
- 		if (bpp <= 6) {
--- 
-2.25.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_12314 -> Patchwork_107550v5
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/index.html
+
+Participating hosts (41 -> 40)
+------------------------------
+
+  Additional (1): fi-tgl-dsi 
+  Missing    (2): fi-ctg-p8600 fi-rkl-11600 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_107550v5 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@gem_exec_gttfill@basic:
+    - fi-pnv-d510:        [SKIP][1] ([fdo#109271]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12314/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
+
+  * igt@gem_exec_suspend@basic-s0@smem:
+    - {bat-adlm-1}:       [DMESG-WARN][3] ([i915#2867]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12314/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - {fi-jsl-1}:         [DMESG-FAIL][5] ([i915#1886]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12314/fi-jsl-1/igt@i915_selftest@live@gt_pm.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/fi-jsl-1/igt@i915_selftest@live@gt_pm.html
+
+  * igt@i915_selftest@live@requests:
+    - {bat-rpls-1}:       [INCOMPLETE][7] ([i915#4983] / [i915#6257]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12314/bat-rpls-1/igt@i915_selftest@live@requests.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/bat-rpls-1/igt@i915_selftest@live@requests.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109284]: https://bugs.freedesktop.org/show_bug.cgi?id=109284
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109295]: https://bugs.freedesktop.org/show_bug.cgi?id=109295
+  [fdo#110189]: https://bugs.freedesktop.org/show_bug.cgi?id=110189
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2411]: https://gitlab.freedesktop.org/drm/intel/issues/2411
+  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
+  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
+  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
+  [i915#4258]: https://gitlab.freedesktop.org/drm/intel/issues/4258
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
+  [i915#5828]: https://gitlab.freedesktop.org/drm/intel/issues/5828
+  [i915#6257]: https://gitlab.freedesktop.org/drm/intel/issues/6257
+  [i915#6856]: https://gitlab.freedesktop.org/drm/intel/issues/6856
+  [i915#6997]: https://gitlab.freedesktop.org/drm/intel/issues/6997
+  [i915#7125]: https://gitlab.freedesktop.org/drm/intel/issues/7125
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_12314 -> Patchwork_107550v5
+
+  CI-20190529: 20190529
+  CI_DRM_12314: 6923e120f0a68b493aa2b06675a8f262a4007b90 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7028: 9e635a1c502970e7e6d64112d409392a2f01c688 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_107550v5: 6923e120f0a68b493aa2b06675a8f262a4007b90 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+0ddd21d9c81c drm/i915/dp: Add a wrapper to check frl/tmds downstream constraints
+789a4b174f13 drm/i915/dp: Fix FRL BW check for HDMI2.1 DFP
+7c4d61e9a7fb drm/i915/dp: Handle BPP where HDMI2.1 DFP doesn't support DSC
+2383db7973f3 drm/i915/dp: Avoid DSC with output_format YCBC420
+f51d6ee5f65d drm/i915/display: Add helper function to check if sink_format is 420
+59f37231b62a drm/i915/display: Use sink_format instead of ycbcr420_output flag
+108c464ab5de drm/i915/dp: Replace intel_dp.dfp members with the new crtc_state sink_format
+cb822fc478a7 drm/i915/display: Add new member in intel_dp to store ycbcr420 passthrough cap
+85da0791c9c4 drm/i915/display: Add new member to configure PCON color conversion
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/index.html
+
+--===============5055506415974264437==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Handle BPC for HDMI2.1 PCON without DSC1.2 sink and other fixes (rev5)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/107550/">https://patchwork.freedesktop.org/series/107550/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12314 -&gt; Patchwork_107550v5</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/index.html</p>
+<h2>Participating hosts (41 -&gt; 40)</h2>
+<p>Additional (1): fi-tgl-dsi <br />
+  Missing    (2): fi-ctg-p8600 fi-rkl-11600 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_107550v5 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_gttfill@basic:</p>
+<ul>
+<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12314/fi-pnv-d510/igt@gem_exec_gttfill@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/fi-pnv-d510/igt@gem_exec_gttfill@basic.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_suspend@basic-s0@smem:</p>
+<ul>
+<li>{bat-adlm-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12314/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/bat-adlm-1/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>{fi-jsl-1}:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12314/fi-jsl-1/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/fi-jsl-1/igt@i915_selftest@live@gt_pm.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>{bat-rpls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12314/bat-rpls-1/igt@i915_selftest@live@requests.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/6257">i915#6257</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_107550v5/bat-rpls-1/igt@i915_selftest@live@requests.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12314 -&gt; Patchwork_107550v5</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12314: 6923e120f0a68b493aa2b06675a8f262a4007b90 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7028: 9e635a1c502970e7e6d64112d409392a2f01c688 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_107550v5: 6923e120f0a68b493aa2b06675a8f262a4007b90 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>0ddd21d9c81c drm/i915/dp: Add a wrapper to check frl/tmds downstream constraints<br />
+789a4b174f13 drm/i915/dp: Fix FRL BW check for HDMI2.1 DFP<br />
+7c4d61e9a7fb drm/i915/dp: Handle BPP where HDMI2.1 DFP doesn't support DSC<br />
+2383db7973f3 drm/i915/dp: Avoid DSC with output_format YCBC420<br />
+f51d6ee5f65d drm/i915/display: Add helper function to check if sink_format is 420<br />
+59f37231b62a drm/i915/display: Use sink_format instead of ycbcr420_output flag<br />
+108c464ab5de drm/i915/dp: Replace intel_dp.dfp members with the new crtc_state sink_format<br />
+cb822fc478a7 drm/i915/display: Add new member in intel_dp to store ycbcr420 passthrough cap<br />
+85da0791c9c4 drm/i915/display: Add new member to configure PCON color conversion</p>
+
+</body>
+</html>
+
+--===============5055506415974264437==--
