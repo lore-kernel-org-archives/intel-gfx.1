@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4BA4FA3742
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 12:25:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06C51C38A02
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 12:26:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FFA310E25C;
-	Mon, 31 Oct 2022 12:25:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1679210E26D;
+	Mon, 31 Oct 2022 12:26:57 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CA7710E24D
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 12:25:31 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEB7610E259
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 12:26:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1667219129;
+ s=mimecast20190719; t=1667219211;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=G3lFqSUva8cf7eu6ekgojQtwZeR44+C1N0qDI7SjLRc=;
- b=FokqE+OawLhTjp7iVH+q3xV5qU+owxbjGYpygfYYbZilLPOWQS+Uk06vGCqWKa5Zg61x7L
- KCsidB+Mn9zm2uZnf0vRptgX9YPuFnLxLSh6Vf32dmbdyEZCSdg2Dup14duyFQymj0gh5B
- wqZkX+UaWVQlOkjtLaQulkamOJmfsPg=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=/x9mAjb8LNYXXK+HVNHKFir+j3ZwIeSko/dKjp9YLmY=;
+ b=AkQsTEKR1y9Fem7oTJ0E3dmo3tSyUuX34g7YcIEBfU/OXBSKRL/QiVX4biNYbj4VOFhn4W
+ OCYtrt/Yx9m3DzmtnpA8LOacAJbORJ9GshIUa4dxrFXoxCS8kBtwGlqp6K0QEQc7VI3zeI
+ 6gqkmpi5G0SI5+1pENUOav6Ir2O/Na4=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-84-3hZp3-FsOYSP6b8vyRbqaw-1; Mon, 31 Oct 2022 08:25:28 -0400
-X-MC-Unique: 3hZp3-FsOYSP6b8vyRbqaw-1
-Received: by mail-wm1-f71.google.com with SMTP id
- bg21-20020a05600c3c9500b003c2acbff422so5683081wmb.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 05:25:28 -0700 (PDT)
+ us-mta-609-EMbhEeP9NAShpz8c-R1k1w-1; Mon, 31 Oct 2022 08:26:50 -0400
+X-MC-Unique: EMbhEeP9NAShpz8c-R1k1w-1
+Received: by mail-wm1-f69.google.com with SMTP id
+ v188-20020a1cacc5000000b003cf76c4ae66so448007wme.7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 05:26:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=G3lFqSUva8cf7eu6ekgojQtwZeR44+C1N0qDI7SjLRc=;
- b=C5SuLHy3ysxOU6LIaTLXmXvcNGOeI+6E18lD5Qy5BUgZxRkzqEirUcdc2uKXvTKVT1
- uAYwITvr4RK0ya+SKvZ21RMbzP8jv7HGDX1TmTuGNW7ZUruMxcLPEFhSBKiE59FVLd7V
- o06IPd8Sp1Np1eYBQPCS1o9WV/6l1KzQ7c1HY4w8f5C5ydwZUsayqWh8WHJ//57olisj
- 5qa8oRxE3c51x1NeCw/IveI3VLWLflmAL5l/hxGc9bI5rT5jlFjLOSP/sYS+K8AP0sQ9
- MS1MHbRYzKu2sOROw55BBNj52XJ1GxAWqslXKyaZlEKj6k57RapdbeuAZUWVdMcvdv8V
- jEKw==
-X-Gm-Message-State: ACrzQf3VW+NxU7EzJRPv/7MSh3qHPT3oLs7eOTBStqThMXEsymULPzft
- YvbaREKK7R70P9Z3Omb95+gOKYKWsLk+fgTT3+jpWYVSXypLMS8llVjudh0SrzE2wOwXsamO8Fw
- fdU5HbpnoxzpMuQPsHQlFEvaYTbdM
-X-Received: by 2002:a5d:498a:0:b0:236:58ef:6796 with SMTP id
- r10-20020a5d498a000000b0023658ef6796mr8133529wrq.399.1667219127468; 
- Mon, 31 Oct 2022 05:25:27 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM5OaQ4lCdeJx0P85vXeCC9ohI1f8Am/sl3oDUbbTCyW5S09EQhBnmsKMGoGzObNL20EAzLquw==
-X-Received: by 2002:a5d:498a:0:b0:236:58ef:6796 with SMTP id
- r10-20020a5d498a000000b0023658ef6796mr8133518wrq.399.1667219127226; 
- Mon, 31 Oct 2022 05:25:27 -0700 (PDT)
+ bh=/x9mAjb8LNYXXK+HVNHKFir+j3ZwIeSko/dKjp9YLmY=;
+ b=NuUR+8RH3CpsBoOSyPyv+4HVe8wB3Z23COIEjJGfjR6IDGqTuz7yx/tlCI1grfWVhL
+ 1/nZYhOgQTsJpcwBwlnvZRqY6SvbvVQaEVZS3ngZPEL7fVtAcMFPc6+4g/JDQn/KRBWv
+ U7e4iGXXD9CyI6GB+732tKpzbTz+oxMOIOXsdYdD27vlwvbjAZPe+hxXb5xef7Xr7Bkc
+ 2Xm6cyr7K0/vR2pZzF0qLLNcxGW0Oaksjrmtqpvhw9S3He3UvsYSH4xwkSjEwyGNES4T
+ HpC4AmtZ9ixEjWrd+9aUO8SebYilyZvZViOubPafOVDpF9wi/lI4pjRVSpb/CxDIQnuY
+ 5H7g==
+X-Gm-Message-State: ACrzQf2flLZjvDAEGPQAzVb8mTU3JyuEDrNZ2QiCw78K81glpdQ0qmtv
+ EWmHuVByybTsnGZHbeRWaeG1QZI7dVfLEQl4JleodZ8HVq1n72u3vvd7ezqdHk8qkTZN8LycvKM
+ dm9nwdzFCX2qOrc4B6wm65db6NhR3
+X-Received: by 2002:a05:600c:4f10:b0:3c6:dcc6:51d7 with SMTP id
+ l16-20020a05600c4f1000b003c6dcc651d7mr7887411wmq.91.1667219208972; 
+ Mon, 31 Oct 2022 05:26:48 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM4eCY6FaPESRi0FBsuwSJAU0ypknopcItEy1BimghpIISJ8Db9xrgTY3spCPjOXKZ6zCgaGzA==
+X-Received: by 2002:a05:600c:4f10:b0:3c6:dcc6:51d7 with SMTP id
+ l16-20020a05600c4f1000b003c6dcc651d7mr7887399wmq.91.1667219208796; 
+ Mon, 31 Oct 2022 05:26:48 -0700 (PDT)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- m13-20020a05600c3b0d00b003bfaba19a8fsm7382582wms.35.2022.10.31.05.25.25
+ q1-20020a1ce901000000b003b476cabf1csm4889352wmc.26.2022.10.31.05.26.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Oct 2022 05:25:26 -0700 (PDT)
-Message-ID: <53f341ad-4b72-5546-f752-ca705d62d63c@redhat.com>
-Date: Mon, 31 Oct 2022 13:25:25 +0100
+ Mon, 31 Oct 2022 05:26:48 -0700 (PDT)
+Message-ID: <0d2250e4-dc26-2fc9-e429-0d43ef280e5b@redhat.com>
+Date: Mon, 31 Oct 2022 13:26:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.1
@@ -67,16 +67,16 @@ To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
  maarten.lankhorst@linux.intel.com
 References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-13-tzimmermann@suse.de>
+ <20221024111953.24307-14-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221024111953.24307-13-tzimmermann@suse.de>
+In-Reply-To: <20221024111953.24307-14-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2 12/21] drm/fb_helper: Rename field fbdev
- to info in struct drm_fb_helper
+Subject: Re: [Intel-gfx] [PATCH v2 13/21] drm/fb-helper: Rename
+ drm_fb_helper_alloc_fbi() to use _info postfix
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,15 +105,12 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On 10/24/22 13:19, Thomas Zimmermann wrote:
-> Rename struct drm_fb_helper.fbdev to info. The current name is
-> misleading as it overlaps with generic fbdev naming conventions.
-> Adapt to the usual naming in fbdev drivers by calling the field
-> 'info'. No functional changes.
+> Rename drm_fb_helper_alloc_fbi() to drm_fb_helper_alloc_info() as
+> part of unifying the naming within fbdev helpers. Adapt drivers. No
+> functional changes.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
-
-Agreed. I got confused by this naming in the past.
 
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
