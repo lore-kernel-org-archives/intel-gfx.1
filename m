@@ -4,77 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE557FA3740
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 09:41:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A547C38A02
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 09:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FD2310E173;
-	Mon, 31 Oct 2022 09:41:09 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8522D10E1BD;
- Tue, 25 Oct 2022 13:57:12 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29PBG0nK012135;
- Tue, 25 Oct 2022 13:56:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=aHpzy4jYP4QgBrfnEo3hF1WixD4989yYm1SxoPiA0i8=;
- b=K9gBX2dA19Ru8Zl8oGw3bxGbvfcijuymZrL49+ryTdoxnAR/NFK7itRPmawaypAK50Rz
- 9R5wOL/4Gi91LTpiCg8qnb1cbC4CKGbjyKcWhL36OdV/OjNFB20c8aCDC4ldSlrLYQyE
- vtzlReRZbBRI53tbbCiy4MqzBYLDhZNaFzunQFoKgL2tTgHYC231usHccFscMh4PMv8q
- ThXp/sbJQa73a+qIBF/d3MFQHt8nX4Sb40VsxzipINUWUAzX2+Fh2vZsITmOoexugpxv
- m8C1Lm5q3K+I117H9y7MbDyLMsA1fviubTSElhtbZtAHQaXDL5i/dNTFGBapGlPjQnwZ Ig== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ke6qs1rec-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Oct 2022 13:56:57 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 29PDuucL014044
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Oct 2022 13:56:56 GMT
-Received: from [10.226.59.182] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.29; Tue, 25 Oct
- 2022 06:56:55 -0700
-Message-ID: <ae0077cf-2fdc-fd0c-9b51-a8da5d677d52@quicinc.com>
-Date: Tue, 25 Oct 2022 07:56:55 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD90010E17C;
+	Mon, 31 Oct 2022 09:48:13 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6115710E17A
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 09:48:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667209691; x=1698745691;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=yDwmka1ifY194rmu7tvf6gM+JQIQ2dpJKiHQLe8Mq74=;
+ b=SUtS+K4xDe/5o3I/N9I4NDiqRCwmq6WyML59YtIZ08Z8ubKU5lyktaAe
+ Gg2YbtSCJ0T9HlVOTTKhsfA9O+WtO4Q18bManL336jdtCtihBOd4tzsVB
+ JHagnu6K0kvtkYKT6x3o0zWcqyC70dSES5GTh0GmQR60HB7UYTXJ3kaRA
+ xqtrHGnTqv2/hsj+5DkimNYP6mFZwYVMvPkmVOcla/HAP9VKuT2XtcphK
+ bpQy3TY7RWXNBlsHewOxLJ5UCGOFygWP13etc3oLH7Xtgioej8qSfuxm+
+ eUwabsB1RWoMkQpb5xWpbiqdfQcQAJkpi2nQoIs9JBoDzw8PxU3A2Ote0 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10516"; a="310557004"
+X-IronPort-AV: E=Sophos;i="5.95,227,1661842800"; d="scan'208";a="310557004"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2022 02:48:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10516"; a="633471030"
+X-IronPort-AV: E=Sophos;i="5.95,227,1661842800"; d="scan'208";a="633471030"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by orsmga002.jf.intel.com with ESMTP; 31 Oct 2022 02:48:10 -0700
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Mon, 31 Oct 2022 02:48:10 -0700
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Mon, 31 Oct 2022 02:48:10 -0700
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.168)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Mon, 31 Oct 2022 02:48:09 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JSN5qbEHvf9VfyBudHPg//js7J2ObXaRHxlIo+0UregFva49AmO1ygEC572Kj75JZM6EMZl0cIW758Tlu5PjjAgo/y2YrGJwYAYlSHOnBj7oea8pw2Xo0a0+q4ACKmaKcVQd+uouskGqaIMdLJK6ZsHiMkf2cGm/yYe1GJ0zahfmCMrcLM3ceHLhUZ+MDooulDb+tDFQe5yeQ1RZgON+hh8yBAW596hQlPMu3+DAZGYDFRtohD71FxvB/ZxMcvtfLBHA8/PLzq5EeKTJyEmjUWuKDinNubV+F9Vz4MwvN5RrsbtK5gJcyhdYG9YdNemumJrSrhhpmPXlXBh4V5egtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JWqalFJ84VwFMT8QooDV3iEeHEbGE3wDWe7EQ8Yhs0k=;
+ b=DLSp/OvlWJWqZqoA2i7BAe1ED0MiPl4cTYULK7xuvftPdlc8dSrtXPcLnp9thJDa9F7DandpeyJl/cs90taGrcm9OHXOP8cf0Ok97m6ifR28YqsibH4yLr3DXN1jOis4vH44cQJktqvOY9enLiGZzKDi0StJ7Mt3+ctgPGf4k6GcmkLy6hKHtHIjIlWulagdRe/EHBQSKfkvRaLlTgpiqIveVdHo+4b8Ae0sC21wJCHHIF6gMDSxLShPY4WPUOe3gjs0YiAy0iicokOyjyFkeMqjTAjNZcoI4PAGkvGlvRN0VuI6WjIEJ81U/Xibt2xx4QEdNZiVaWAt/UpIMsMBdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from MN2PR11MB4093.namprd11.prod.outlook.com (2603:10b6:208:13f::21)
+ by MN0PR11MB5988.namprd11.prod.outlook.com (2603:10b6:208:373::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.16; Mon, 31 Oct
+ 2022 09:48:07 +0000
+Received: from MN2PR11MB4093.namprd11.prod.outlook.com
+ ([fe80::b596:a74e:66fd:e682]) by MN2PR11MB4093.namprd11.prod.outlook.com
+ ([fe80::b596:a74e:66fd:e682%3]) with mapi id 15.20.5769.019; Mon, 31 Oct 2022
+ 09:48:07 +0000
+From: "Winkler, Tomas" <tomas.winkler@intel.com>
+To: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, "Usyskin, Alexander"
+ <alexander.usyskin@intel.com>
+Thread-Topic: [PATCH] drm/i915/gsc: Only initialize GSC in tile 0
+Thread-Index: AQHY7Ozje4qPPI1lkEeCdquyCv6KRK4oPmYAgAADWqA=
+Date: Mon, 31 Oct 2022 09:48:07 +0000
+Message-ID: <MN2PR11MB4093A0C8F12980AEFAAF02DEE5379@MN2PR11MB4093.namprd11.prod.outlook.com>
+References: <20221031055117.1043830-1-alexander.usyskin@intel.com>
+ <Y1+W5ipudusyL0NB@intel.com>
+In-Reply-To: <Y1+W5ipudusyL0NB@intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: =?UTF-8?Q?Micha=c5=82_Winiarski?= <michal.winiarski@intel.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <intel-gfx@lists.freedesktop.org>
-References: <20220911211443.581481-1-michal.winiarski@intel.com>
- <20220911211443.581481-2-michal.winiarski@intel.com>
-From: Jeffrey Hugo <quic_jhugo@quicinc.com>
-In-Reply-To: <20220911211443.581481-2-michal.winiarski@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: x1TWMRnQd4tBzOiPL8BaRpMObfsy8t0G
-X-Proofpoint-GUID: x1TWMRnQd4tBzOiPL8BaRpMObfsy8t0G
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-25_06,2022-10-25_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- suspectscore=0 adultscore=0 phishscore=0 clxscore=1011 mlxscore=0
- lowpriorityscore=0 malwarescore=0 mlxlogscore=796 priorityscore=1501
- spamscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2210250080
-X-Mailman-Approved-At: Mon, 31 Oct 2022 09:39:38 +0000
-Subject: Re: [Intel-gfx] [PATCH v5 1/3] drm: Use XArray instead of IDR for
- minors
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR11MB4093:EE_|MN0PR11MB5988:EE_
+x-ms-office365-filtering-correlation-id: b7d2ba7e-03c3-4c63-83e8-08dabb2503a5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: aiDckIVnzMc6j0duoPiTfkETIEar7EYSPlqC4yaT29EHA3heKSqcJ9UhycyadZBYzUFNjclRKaNlO3z8o/Jy9lVhY/7o8lyVGaVvEHf21nPO1+ntpwMLSLVn2gVQ5ulJQ9tYzc9z1NAruGE3912DlHrtnWmejta1KP3ru7faj5Yq3AbjoiVmG+B4pphe0bLzVw670R5gFh5B0afmJJK2L6bn0b0+8XqXegCmRTFm5qTxWQoxV0eusYVfHGfdiMd/OH7+m6mQseKWwJI+oTy6JSvA38Az06pELrpCDuL6pFt2/FV55wfZw/VTrDa4jknqEXduNbegNbuMESPqnOspyBRt6gKaARR9S6d5b/8obxRB1zj141RAWoDWX8gTSxYO5Z/Qc1LDf5rdZsMBKa50jJEZuGoOqJecWah7bTZBhPg9iV2cvbHqdUxnWVfn+kXQ+A2en+5gZHnzLWiP+oqwmyQEU3mE48UAcPBzh/ECDxuyw+ta1wJk1PqGT92T+YpcIpjMvy52Db3j+QqTcb15jNCl8AU5vyuk7pFzEv3SDlcARfow/JCE2PPCV9RITcp0oig02t8mXHLOsVhbSEaKM7Wc/iDc7mLtgYVP6mc/v+Wt58+vZE7+I6Bs0U4sLh5MX4m85ZLnSuutz+BQb1qaIsyOYRvCgY1OgIYUp4/Ru8x1j3kuG+tnWlnJskLXqXdjXZH+02FkcmCMN45BuNaUclsABqLKlgTKPqQceVlBqmWkPFZzI04jy3cQZNIDwtdAKvcxmFOWQfJEBz4YLOpRkQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR11MB4093.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(396003)(376002)(136003)(346002)(39860400002)(366004)(451199015)(86362001)(26005)(9686003)(7696005)(6506007)(38100700002)(52536014)(316002)(122000001)(8936002)(41300700001)(71200400001)(82960400001)(5660300002)(478600001)(4326008)(8676002)(83380400001)(38070700005)(33656002)(186003)(110136005)(54906003)(2906002)(66556008)(66446008)(64756008)(66476007)(76116006)(6636002)(66946007)(55016003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?u4nHVke8rOfhLg7Zvpvq9JvUI2ypx/RV0H/T4hMBTn9KjASop7XO2SKMt6?=
+ =?iso-8859-1?Q?22ddBfjiFvCqee2bICm/BZ34WM6BLzaeqUjATvVJk8K1DfZdDQTIOHgGTn?=
+ =?iso-8859-1?Q?kxCtkGCyBWiYCl1WsFFcqT7GayCkQAzgtgOlNFIZHDPuSO6erq7S3iG4Ug?=
+ =?iso-8859-1?Q?HNXGcoKyyNCuLyS41z7qLymC5gy9gIaEmF3nPjcIP5f0AzETxnD2bSwk5p?=
+ =?iso-8859-1?Q?U5vYaaM2LCOnLQjtfeUd2pKwyeNoGxsIiDssdTCXT8s02swjdcutdOPu0C?=
+ =?iso-8859-1?Q?42QzQ5iQowTJl7GGCRG+RNjzDOjWFEZFVoIyYz0xnwk2B0Tf1NHs7rO1yV?=
+ =?iso-8859-1?Q?ximj/knUTgiQN1i3Yp/wMxjrqjRMTlBO4VObAOx0wj/BZvwxGVWUXMjvek?=
+ =?iso-8859-1?Q?y7XPohNIkqmczs2F4Uh9CKnTWo7iknw5UJGDg0KAxoCosua0NoOGMJDe7q?=
+ =?iso-8859-1?Q?3W8IcNzdZCnq+GpJjT1J4ejE6Vu59tbrGKR9/bQ98ZBpGtQu63YV5A0+5Y?=
+ =?iso-8859-1?Q?lelteXZeVpCvSF/3IvsG/4tv/O5oki3S1Ku3LDOP3hc4KV3nlHn8cXymmv?=
+ =?iso-8859-1?Q?/Inl2/yu1gjuwZJ5RzL+aYR911GQ3FMydUItrTzT+yLeCyJXAO9Lh0zoBV?=
+ =?iso-8859-1?Q?EQVHsoL77/Ax98lE0px5PaFUUDXXDU8NFsqdfa5hmJS5OH0xJnYW4cEr19?=
+ =?iso-8859-1?Q?oqpnWO8HfQqP8UflgHdUpu8cSTJiDEP+0ST7yp3d8YCZW3SHi27XolrqCK?=
+ =?iso-8859-1?Q?HdBlkkgbWxV5BdjMzRXNNcUyeF8ogZDBWNvacJNh+PW/jq8K50kGGrC0t6?=
+ =?iso-8859-1?Q?bgzZManvIZKolXfBOV8F0GcWe2FW4ZFiaHlblrFPX21lpeFXrOsWRacfnZ?=
+ =?iso-8859-1?Q?lCV+KKOV3K216qFjynp00NcEIUutCDu6CJICs8M3IBzJqxy41EnQdgRAnQ?=
+ =?iso-8859-1?Q?+BguIVrNfqx6aoyf68B2tXFnEXNMQpWytSjMnBl6YlSczUO1LeoaVx2W26?=
+ =?iso-8859-1?Q?q4s92wBm1jhiK0Uuyjh906SWQds2u+VwovCC5qqpPvlWGUxhR65Q8IdoUe?=
+ =?iso-8859-1?Q?WZTJHiZcbT7wXJG5NhRZZ5ndMyZubpP3uZnu+OXVkOkL9/4/jVc93/Ffxc?=
+ =?iso-8859-1?Q?7MREjyEiEp2s5x0g+cRoDtxzk78ssraQ00NlzyCyT8lznD45Y75QBBVMJX?=
+ =?iso-8859-1?Q?/9l6Hz+JrEFoD4Ok09GdN83AcwqEFVSNfxJD9h98o4igbGEBYOf3kHSR+s?=
+ =?iso-8859-1?Q?VrhAwgO8KcoH4oczmXchqSHLSAIeSkVwbhXMDPclF3wrol/mhID/JDqeeB?=
+ =?iso-8859-1?Q?0OdTPf71jT0th8ChYm3OKolxrj4O0UQV/h9V/YIl2e1/39ATjuDQfajqgC?=
+ =?iso-8859-1?Q?REBE3Ec/Y+PS5vIiegDh7a3FVW6iObnTr79TVgMpbSXc4Wba47UER5gPe4?=
+ =?iso-8859-1?Q?llzrxcAaSq/Y96oJ6TujzFZcbSOuqHlrsyv7EPxBlH+ep2e12te2tXSs7f?=
+ =?iso-8859-1?Q?tjzp5UqBwAg3nk/SDXSplcjvBNBt3mrS9k1srUpihUi1Z72pWLYkDYj9sH?=
+ =?iso-8859-1?Q?yzYBnC2UF3k4Iewz2vAhyG0wqEjNeDhGy+uYI9NtcwNQeTO/aGHhmol2kT?=
+ =?iso-8859-1?Q?TGQQq0xOunYhnub+b+scNsnoTZ5c8EhmzP?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR11MB4093.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7d2ba7e-03c3-4c63-83e8-08dabb2503a5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Oct 2022 09:48:07.5084 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: w/MIeAOVG3wLn1HHWw4h4EqrGepaqgARWByN3gq5oetkr5Uo82e+ngQiEJ8BSrqg1RmbKjbW1+CA4d2rPJAl2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB5988
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gsc: Only initialize GSC in tile 0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,19 +147,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, Thomas Zimmermann <tzimmermann@suse.de>,
- Matthew Wilcox <willy@infradead.org>
+Cc: David Airlie <airlied@linux.ie>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, Daniel
+ Vetter <daniel@ffwll.ch>, "Lubart, Vitaly" <vitaly.lubart@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 9/11/2022 3:14 PM, Michał Winiarski wrote:
-> IDR is deprecated, and since XArray manages its own state with internal
-> locking, it simplifies the locking on DRM side.
-> Additionally, don't use the IRQ-safe variant, since operating on drm
-> minor is not done in IRQ context.
-> 
-> Signed-off-by: Michał Winiarski <michal.winiarski@intel.com>
-> Suggested-by: Matthew Wilcox <willy@infradead.org>
-> ---
 
-Reviewed-by: Jeffrey Hugo <quic_jhugo@quicinc.com>
+>=20
+> On Mon, Oct 31, 2022 at 07:51:17AM +0200, Alexander Usyskin wrote:
+> > From: Jos=E9 Roberto de Souza <jose.souza@intel.com>
+> >
+> > For multi-tile setups the GSC operational only on the tile 0.
+> > Skip GSC auxiliary device creation for all other tiles.
+> >
+> > Cc: Tomas Winkler <tomas.winkler@intel.com>
+> > Cc: Vitaly Lubart <vitaly.lubart@intel.com>
+> > Signed-off-by: Jos=E9 Roberto de Souza <jose.souza@intel.com>
+> > Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/gt/intel_gt.c | 8 ++++++--
+> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c
+> > b/drivers/gpu/drm/i915/gt/intel_gt.c
+> > index 2e796ffad911..92ad8cd45ddb 100644
+> > --- a/drivers/gpu/drm/i915/gt/intel_gt.c
+> > +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+> > @@ -456,7 +456,10 @@ void intel_gt_chipset_flush(struct intel_gt *gt)
+> >
+> >  void intel_gt_driver_register(struct intel_gt *gt)  {
+> > -	intel_gsc_init(&gt->gsc, gt->i915);
+> > +	if (gt->info.id =3D=3D 0)
+> > +		intel_gsc_init(&gt->gsc, gt->i915);
+> > +	else
+> > +		drm_dbg(&gt->i915->drm, "Not initializing gsc for remote
+> tiles\n");
+>=20
+> It looks to me that we need to move the gsc out of the intel_gt instead o=
+f
+> workaround the initialization.
+
+The interrupts are handled by gt, so where this should go ?=20
+
