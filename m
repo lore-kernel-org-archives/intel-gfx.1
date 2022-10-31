@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FEB5ECAAA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 13:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E092DECAAA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Oct 2022 13:57:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71DB810E2B6;
-	Mon, 31 Oct 2022 13:57:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67F2110E2B7;
+	Mon, 31 Oct 2022 13:57:32 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9904B10E2B3
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 13:57:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2701210E2B7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Oct 2022 13:57:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667224629; x=1698760629;
+ t=1667224645; x=1698760645;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=oKQz/fD2ZrZhA3M7EY5l6bqsGMljBUNY/VJcFlSaHvM=;
- b=c1GVCt8ULPK2W9WQ4yFnMdaVW8To2J8DbDTwDcdqG0YBpyMMYyNgyKGI
- 3nYRKQkoJscedrY4z9UBkh65gNxco3PQwqVOMv9nosrFs5aW3Hm7N0hw0
- BEA39Vo/YhQo1nRa/klIHQYoSLlCIhGbDNIwRElt8B61qsEzdD5PawrrH
- 5h0jGjZbb8z8oKCGoZYYThj+HcsVkf/E1Yf2cCZwDfm3gGOTWzBRqgFhY
- O7OcGGF4DXyGnfYtg/cqaHvWGOAmwh4cZbMny8G2/O6KMPryDtCKZUV0y
- Bwx4ZixxU3y/mKCK/p0v5lP8uHrncLktwBq/lG6EcvNFFxT1Hl0PgM0Yz Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="307624805"
-X-IronPort-AV: E=Sophos;i="5.95,228,1661842800"; d="scan'208";a="307624805"
+ bh=hFNQY5RUkkWEpTg1rDC8o3CeFD/veEPj7J6IkuihPHg=;
+ b=U69dr26+koIUC+4f07941dE43Z8osY8Cq08mRnQ4HG3hZG7zO0Lj8CH8
+ qz0TT5pqegTQXnltMeplrpryFRbrVG/yUedp+HiCoDkC4NHfycUJz4t2S
+ PL7DdAhjZV2huFfTG9uzfFe4ZFBfYCUcprfUTQ59SQneQi3ISYVmcfB30
+ U5H6NHZVN0MJqbXJiwVicO96WSr8yHvlnoR2BqSMldkzRQDVUzbqhbXMF
+ ZrWuIFOWeWVCGEfqoyqO3BRPpNpcv6bib1ZAWcqHWe6drrNiic8EFtlWI
+ XN+JQEfMADTjKt6b1WeDclXWJ3NuItXthIxSHiFsJ1WC/vctP6oi6rb7X A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="307624863"
+X-IronPort-AV: E=Sophos;i="5.95,228,1661842800"; d="scan'208";a="307624863"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2022 06:57:09 -0700
+ 31 Oct 2022 06:57:24 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="633532156"
-X-IronPort-AV: E=Sophos;i="5.95,228,1661842800"; d="scan'208";a="633532156"
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="633532204"
+X-IronPort-AV: E=Sophos;i="5.95,228,1661842800"; d="scan'208";a="633532204"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga002.jf.intel.com with SMTP; 31 Oct 2022 06:57:07 -0700
+ by orsmga002.jf.intel.com with SMTP; 31 Oct 2022 06:57:22 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 31 Oct 2022 15:57:06 +0200
+ Mon, 31 Oct 2022 15:57:22 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 31 Oct 2022 15:56:58 +0200
-Message-Id: <20221031135703.14670-2-ville.syrjala@linux.intel.com>
+Date: Mon, 31 Oct 2022 15:57:03 +0200
+Message-Id: <20221031135703.14670-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221031135703.14670-1-ville.syrjala@linux.intel.com>
 References: <20221031135703.14670-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/6] drm/i915: Fix cs timestamp frequency for
- ctg/elk/ilk
+Subject: [Intel-gfx] [PATCH 6/6] drm/i915/selftests: Run the perf MI_BB
+ tests on gen4/5
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,78 +65,68 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-On ilk the UDW of TIMESTAMP increments every 1000 ns,
-LDW is mbz. In order to represent that we'd need 52 bits,
-but we only have 32 bits. Even worse most things want to
-only deal with 32 bits of timestamp. So let's just set
-up the timestamp frequency as if we only had the UDW.
+Now that we know the ring timestamp frequency on gen4/5 we
+can run the perf tests that depend on sampling the timestamp.
 
-On ctg/elk 63:20 of TIMESTAMP increments every 1/4 ns, 19:0
-are mbz. To make life simpler let's ignore the LDW and set up
-timestamp frequency based on the UDW only (increments every
-1024 ns).
+On g4x/ilk we must read the udw of the 64bit timestamp
+register. Details in {g4x,gen5)_read_clock_frequency().
 
-v2: Rebase
+When executing the read via the CS i965 doesn't seem to need
+the double read trick that CPU mmio reads need.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- .../gpu/drm/i915/gt/intel_gt_clock_utils.c    | 28 +++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-index 3f656d3dba9a..ebb7a5b3e87c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c
-@@ -107,7 +107,7 @@ static u32 gen9_read_clock_frequency(struct intel_uncore *uncore)
- 	return freq;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+index b11152f87627..881b64f3e7b9 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+@@ -39,6 +39,16 @@ static int perf_end(struct intel_gt *gt)
+ 	return igt_flush_test(gt->i915);
  }
  
--static u32 gen5_read_clock_frequency(struct intel_uncore *uncore)
-+static u32 gen6_read_clock_frequency(struct intel_uncore *uncore)
++static i915_reg_t timestamp_reg(struct intel_engine_cs *engine)
++{
++	struct drm_i915_private *i915 = engine->i915;
++
++	if (GRAPHICS_VER(i915) == 5 || IS_G4X(i915))
++		return RING_TIMESTAMP_UDW(engine->mmio_base);
++	else
++		return RING_TIMESTAMP(engine->mmio_base);
++}
++
+ static int write_timestamp(struct i915_request *rq, int slot)
  {
- 	/*
- 	 * PRMs say:
-@@ -119,6 +119,26 @@ static u32 gen5_read_clock_frequency(struct intel_uncore *uncore)
- 	return 12500000;
- }
+ 	struct intel_timeline *tl =
+@@ -55,7 +65,7 @@ static int write_timestamp(struct i915_request *rq, int slot)
+ 	if (GRAPHICS_VER(rq->engine->i915) >= 8)
+ 		cmd++;
+ 	*cs++ = cmd;
+-	*cs++ = i915_mmio_reg_offset(RING_TIMESTAMP(rq->engine->mmio_base));
++	*cs++ = i915_mmio_reg_offset(timestamp_reg(rq->engine));
+ 	*cs++ = tl->hwsp_offset + slot * sizeof(u32);
+ 	*cs++ = 0;
  
-+static u32 gen5_read_clock_frequency(struct intel_uncore *uncore)
-+{
-+	/*
-+	 * 63:32 increments every 1000 ns
-+	 * 31:0 mbz
-+	 */
-+	return 1000000000 / 1000;
-+}
-+
-+static u32 g4x_read_clock_frequency(struct intel_uncore *uncore)
-+{
-+	/*
-+	 * 63:20 increments every 1/4 ns
-+	 * 19:0 mbz
-+	 *
-+	 * -> 63:32 increments every 1024 ns
-+	 */
-+	return 1000000000 / 1024;
-+}
-+
- static u32 gen2_read_clock_frequency(struct intel_uncore *uncore)
- {
- 	/*
-@@ -137,8 +157,12 @@ static u32 read_clock_frequency(struct intel_uncore *uncore)
- 		return gen11_read_clock_frequency(uncore);
- 	else if (GRAPHICS_VER(uncore->i915) >= 9)
- 		return gen9_read_clock_frequency(uncore);
--	else if (GRAPHICS_VER(uncore->i915) >= 5)
-+	else if (GRAPHICS_VER(uncore->i915) >= 6)
-+		return gen6_read_clock_frequency(uncore);
-+	else if (GRAPHICS_VER(uncore->i915) == 5)
- 		return gen5_read_clock_frequency(uncore);
-+	else if (IS_G4X(uncore->i915))
-+		return g4x_read_clock_frequency(uncore);
- 	else
- 		return gen2_read_clock_frequency(uncore);
- }
+@@ -125,7 +135,7 @@ static int perf_mi_bb_start(void *arg)
+ 	enum intel_engine_id id;
+ 	int err = 0;
+ 
+-	if (GRAPHICS_VER(gt->i915) < 6) /* for per-engine CS_TIMESTAMP */
++	if (GRAPHICS_VER(gt->i915) < 4) /* Any CS_TIMESTAMP? */
+ 		return 0;
+ 
+ 	perf_begin(gt);
+@@ -252,7 +262,7 @@ static int perf_mi_noop(void *arg)
+ 	enum intel_engine_id id;
+ 	int err = 0;
+ 
+-	if (GRAPHICS_VER(gt->i915) < 6) /* for per-engine CS_TIMESTAMP */
++	if (GRAPHICS_VER(gt->i915) < 4) /* Any CS_TIMESTAMP? */
+ 		return 0;
+ 
+ 	perf_begin(gt);
 -- 
 2.37.4
 
