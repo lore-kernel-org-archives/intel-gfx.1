@@ -4,30 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4572DC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 09:24:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08FAFC433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 09:42:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B91810E346;
-	Tue,  1 Nov 2022 09:24:48 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 631EE10E346;
- Tue,  1 Nov 2022 09:24:43 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 5B28CAADDC;
- Tue,  1 Nov 2022 09:24:43 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3346578551652594135=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14BBF10E352;
+	Tue,  1 Nov 2022 09:42:33 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32CBF10E34E;
+ Tue,  1 Nov 2022 09:42:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667295749; x=1698831749;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=P+PedfF/cM0bUJPTGte6ESITBP2sacIig1WzXijNtds=;
+ b=Reu18wEgKcmC4kZtvDyzpFpofKjSKHltEuN7S9whcKhpDB4+N5xLRYbw
+ vSHrJEK4cJaffZUhjkoWk2J6IFJqMwNyI5NRztecW7nuWtGHz5IjFYDHr
+ +NiH3zUI3ndPjg+19n/uFk22dT/Fgl+f5XX3Y5YR0cKKDXuCaFTeKTpl2
+ 9rcdWLLuwpNEYBn2brgFnQQbbmmBmywOUrFb09yLZc23yT+EM+qH3MVz3
+ ELPXXKUn6f7WiDI57noeX1r5o1HLnG8iT9+bybGa3dwJa5u6AbMDTD8s9
+ SYkr/enQvetLr4T2EBIyKoBKyripFgMYt5H2N/5qBGi/TBNLbhb4UgikX g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="373317423"
+X-IronPort-AV: E=Sophos;i="5.95,230,1661842800"; d="scan'208";a="373317423"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Nov 2022 02:42:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="963076267"
+X-IronPort-AV: E=Sophos;i="5.95,230,1661842800"; d="scan'208";a="963076267"
+Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
+ ([10.237.72.65])
+ by fmsmga005.fm.intel.com with ESMTP; 01 Nov 2022 02:42:25 -0700
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue,  1 Nov 2022 11:42:17 +0200
+Message-Id: <20221101094222.22091-2-stanislav.lisovskiy@intel.com>
+X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20221101094222.22091-1-stanislav.lisovskiy@intel.com>
+References: <20221101094222.22091-1-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Timo_Ter=C3=A4s?= <timo.teras@iki.fi>
-Date: Tue, 01 Nov 2022 09:24:43 -0000
-Message-ID: <166729468333.13549.17150231951054298045@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20220927111408.14243-1-timo.teras@iki.fi>
-In-Reply-To: <20220927111408.14243-1-timo.teras@iki.fi>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgaTkx?=
- =?utf-8?q?5=3A_use_surface_size_for_bios_fb_size_check_=28rev2=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/6] drm: Add missing DP DSC extended capability
+ definitions.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,219 +58,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3346578551652594135==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Adding DP DSC register definitions, we might need for further
+DSC implementation, supporting MST and DP branch pass-through mode.
 
-== Series Details ==
+v2: - Fixed checkpatch comment warning
+v3: - Removed function which is not yet used(Jani Nikula)
 
-Series: i915: use surface size for bios fb size check (rev2)
-URL   : https://patchwork.freedesktop.org/series/109114/
-State : success
+Reviewed-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 
-== Summary ==
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+---
+ include/drm/display/drm_dp.h | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-CI Bug Log - changes from CI_DRM_12325 -> Patchwork_109114v2
-====================================================
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index e934aab357be..9bc22a02874d 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -240,6 +240,8 @@
+ #define DP_DSC_SUPPORT                      0x060   /* DP 1.4 */
+ # define DP_DSC_DECOMPRESSION_IS_SUPPORTED  (1 << 0)
+ # define DP_DSC_PASSTHROUGH_IS_SUPPORTED    (1 << 1)
++# define DP_DSC_DYNAMIC_PPS_UPDATE_SUPPORT_COMP_TO_COMP    (1 << 2)
++# define DP_DSC_DYNAMIC_PPS_UPDATE_SUPPORT_UNCOMP_TO_COMP  (1 << 3)
+ 
+ #define DP_DSC_REV                          0x061
+ # define DP_DSC_MAJOR_MASK                  (0xf << 0)
+@@ -278,12 +280,15 @@
+ 
+ #define DP_DSC_BLK_PREDICTION_SUPPORT       0x066
+ # define DP_DSC_BLK_PREDICTION_IS_SUPPORTED (1 << 0)
++# define DP_DSC_RGB_COLOR_CONV_BYPASS_SUPPORT (1 << 1)
+ 
+ #define DP_DSC_MAX_BITS_PER_PIXEL_LOW       0x067   /* eDP 1.4 */
+ 
+ #define DP_DSC_MAX_BITS_PER_PIXEL_HI        0x068   /* eDP 1.4 */
+ # define DP_DSC_MAX_BITS_PER_PIXEL_HI_MASK  (0x3 << 0)
+ # define DP_DSC_MAX_BITS_PER_PIXEL_HI_SHIFT 8
++# define DP_DSC_MAX_BPP_DELTA_VERSION_MASK  0x06
++# define DP_DSC_MAX_BPP_DELTA_AVAILABILITY  0x08
+ 
+ #define DP_DSC_DEC_COLOR_FORMAT_CAP         0x069
+ # define DP_DSC_RGB                         (1 << 0)
+@@ -345,11 +350,13 @@
+ # define DP_DSC_24_PER_DP_DSC_SINK          (1 << 2)
+ 
+ #define DP_DSC_BITS_PER_PIXEL_INC           0x06F
++# define DP_DSC_RGB_YCbCr444_MAX_BPP_DELTA_MASK 0x1f
++# define DP_DSC_RGB_YCbCr420_MAX_BPP_DELTA_MASK 0xe0
+ # define DP_DSC_BITS_PER_PIXEL_1_16         0x0
+ # define DP_DSC_BITS_PER_PIXEL_1_8          0x1
+ # define DP_DSC_BITS_PER_PIXEL_1_4          0x2
+ # define DP_DSC_BITS_PER_PIXEL_1_2          0x3
+-# define DP_DSC_BITS_PER_PIXEL_1            0x4
++# define DP_DSC_BITS_PER_PIXEL_1_1          0x4
+ 
+ #define DP_PSR_SUPPORT                      0x070   /* XXX 1.2? */
+ # define DP_PSR_IS_SUPPORTED                1
+-- 
+2.37.3
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/index.html
-
-Participating hosts (40 -> 28)
-------------------------------
-
-  Additional (1): fi-tgl-mst 
-  Missing    (13): fi-cml-u2 bat-dg2-8 bat-adlm-1 fi-icl-u2 bat-dg2-9 bat-adlp-6 bat-adlp-4 bat-adln-1 bat-rplp-1 bat-rpls-1 bat-rpls-2 bat-dg2-11 bat-jsl-1 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_109114v2:
-
-### IGT changes ###
-
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@i915_pm_rpm@module-reload:
-    - {fi-tgl-mst}:       NOTRUN -> [WARN][1]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/fi-tgl-mst/igt@i915_pm_rpm@module-reload.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_109114v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-hsw-4770:        [PASS][2] -> [INCOMPLETE][3] ([i915#4785])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12325/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-
-  * igt@runner@aborted:
-    - fi-hsw-4770:        NOTRUN -> [FAIL][4] ([fdo#109271] / [i915#4312] / [i915#5594])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/fi-hsw-4770/igt@runner@aborted.html
-
-  
-#### Possible fixes ####
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:
-    - fi-bsw-kefka:       [FAIL][5] ([i915#6298]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12325/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [fdo#109295]: https://bugs.freedesktop.org/show_bug.cgi?id=109295
-  [fdo#110189]: https://bugs.freedesktop.org/show_bug.cgi?id=110189
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1155]: https://gitlab.freedesktop.org/drm/intel/issues/1155
-  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
-  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
-  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
-  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#4785]: https://gitlab.freedesktop.org/drm/intel/issues/4785
-  [i915#5122]: https://gitlab.freedesktop.org/drm/intel/issues/5122
-  [i915#5594]: https://gitlab.freedesktop.org/drm/intel/issues/5594
-  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
-  [i915#6434]: https://gitlab.freedesktop.org/drm/intel/issues/6434
-  [i915#6596]: https://gitlab.freedesktop.org/drm/intel/issues/6596
-  [i915#6645]: https://gitlab.freedesktop.org/drm/intel/issues/6645
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12325 -> Patchwork_109114v2
-
-  CI-20190529: 20190529
-  CI_DRM_12325: 1a90222aa5e5bb86ffcbde5ba9611659a23f0df6 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7032: 372c56225e12578a7a4a6bcc5b79eb40b643fcde @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_109114v2: 1a90222aa5e5bb86ffcbde5ba9611659a23f0df6 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-d1bf90e8dc69 i915: use surface size for bios fb size check
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/index.html
-
---===============3346578551652594135==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>i915: use surface size for bios fb size check (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/109114/">https://patchwork.freedesktop.org/series/109114/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12325 -&gt; Patchwork_109114v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 28)</h2>
-<p>Additional (1): fi-tgl-mst <br />
-  Missing    (13): fi-cml-u2 bat-dg2-8 bat-adlm-1 fi-icl-u2 bat-dg2-9 bat-adlp-6 bat-adlp-4 bat-adln-1 bat-rplp-1 bat-rpls-1 bat-rpls-2 bat-dg2-11 bat-jsl-1 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_109114v2:</p>
-<h3>IGT changes</h3>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>igt@i915_pm_rpm@module-reload:<ul>
-<li>{fi-tgl-mst}:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/fi-tgl-mst/igt@i915_pm_rpm@module-reload.html">WARN</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_109114v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12325/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4785">i915#4785</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/fi-hsw-4770/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5594">i915#5594</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:<ul>
-<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12325/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_109114v2/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12325 -&gt; Patchwork_109114v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12325: 1a90222aa5e5bb86ffcbde5ba9611659a23f0df6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7032: 372c56225e12578a7a4a6bcc5b79eb40b643fcde @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_109114v2: 1a90222aa5e5bb86ffcbde5ba9611659a23f0df6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>d1bf90e8dc69 i915: use surface size for bios fb size check</p>
-
-</body>
-</html>
-
---===============3346578551652594135==--
