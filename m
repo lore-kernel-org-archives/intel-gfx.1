@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09962FA373D
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 09:42:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5462AFA373D
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Nov 2022 09:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC3AD10E345;
-	Tue,  1 Nov 2022 09:42:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E330C10E35A;
+	Tue,  1 Nov 2022 09:42:37 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C3F910E345;
- Tue,  1 Nov 2022 09:42:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ED2310E345;
+ Tue,  1 Nov 2022 09:42:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667295746; x=1698831746;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=C8Dl5Vupa9emkqQl5IaPeibMPs8pJern5TCmcMw2AAg=;
- b=CiAvCmxoIBP0lNdP57Kqxe3eaX2g0wprniUnhRZxfVJ1jjrBRw5yWLnY
- lzzZkzfb16SgCwVNsV8QfYK7xaMPtQUGmSxOrgfhQtw1D5mRDC9n125st
- 8zGVJm39moYn5Chu+1906moveTiODcEDbRm0tOoHKvB6JK2rbEJBPI1Om
- Fi+izYyevJFgbxyvSGwrDn2sqai4FiD3hpsyfqyBYbnJRyv2GD8J97+bK
- CGHQQF07SvYShv0VeYd6JR+MM4CcUQBynvpBQtZzLaWK+huzIcEYPTr3S
- J5sKKyQQLNUAkL2kTpq3kyZYfR2/Xnn7wwcOXR12GF6uWi/16TpQCVOc9 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="373317402"
-X-IronPort-AV: E=Sophos;i="5.95,230,1661842800"; d="scan'208";a="373317402"
+ t=1667295750; x=1698831750;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=dHZAjZcGRoYqfD9ypYOJISDhovG8El37eOD8WB9ipBc=;
+ b=Kz2oYu3FqbXixZrvdwSUiGn33yhHluF6PCGXRnGZHJKs+aFMOExqOIPi
+ e68dIRVA5x3B0fatSOfNGfoZwxOnYc2lfMndtKbDcil9tv4Ntrn4x5UKu
+ lsO+UB1tSuwByR6bZhVpEkhA+CJsIjX0PhG73/yuEjPrbVVF743JMOYyP
+ H+dr6/4vCcavrH54wv+bF9EC+38oX9aqIEtRVRP/q6Kk3r2xGTUtILSsv
+ b2zZ11kvVuD4Kt9snoiVHG/FPikmNAq4iwhaypd2Y8fEMvLGhpgk8j2mU
+ n5TZNMWOgZKLq+WAOARkgMsb7AQ9QFBYMi8DAyzYfMlXd6yF3Mjq3mbBz Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="373317432"
+X-IronPort-AV: E=Sophos;i="5.95,230,1661842800"; d="scan'208";a="373317432"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Nov 2022 02:42:25 -0700
+ 01 Nov 2022 02:42:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="963076256"
-X-IronPort-AV: E=Sophos;i="5.95,230,1661842800"; d="scan'208";a="963076256"
+X-IronPort-AV: E=McAfee;i="6500,9779,10517"; a="963076276"
+X-IronPort-AV: E=Sophos;i="5.95,230,1661842800"; d="scan'208";a="963076276"
 Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
  ([10.237.72.65])
- by fmsmga005.fm.intel.com with ESMTP; 01 Nov 2022 02:42:23 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 01 Nov 2022 02:42:28 -0700
 From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Nov 2022 11:42:16 +0200
-Message-Id: <20221101094222.22091-1-stanislav.lisovskiy@intel.com>
+Date: Tue,  1 Nov 2022 11:42:18 +0200
+Message-Id: <20221101094222.22091-3-stanislav.lisovskiy@intel.com>
 X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20221101094222.22091-1-stanislav.lisovskiy@intel.com>
+References: <20221101094222.22091-1-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/6] Add DP MST DSC support to i915
+Subject: [Intel-gfx] [PATCH 2/6] drm/i915: Fix
+ intel_dp_mst_compute_link_config
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,23 +62,58 @@ Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently we have only DSC support for DP SST.
+We currently always exit that bpp loop because
+drm_dp_atomic_find_vcpi_slots doesn't care if we actually
+can fit those or not.
+I think that wasn't the initial intention here, especially when
+we keep trying with lower bpps, we are supposed to keep trying
+until we actually find some _working_ configuration, which isn't the
+case here.
+So added that drm_dp_mst_check here, so that we can make sure
+that try all the bpps before we fail.
 
-Stanislav Lisovskiy (6):
-  drm: Add missing DP DSC extended capability definitions.
-  drm/i915: Fix intel_dp_mst_compute_link_config
-  drm/i915: Extract drm_dp_atomic_find_vcpi_slots cycle to separate
-    function
-  drm/i915: Add DSC support to MST path
-  drm/i915: Extract VESA DSC bpp alignment to separate function
-  drm/i915: Bpp/timeslot calculation fixes for DP MST DSC
+Reviewed-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/i915/display/intel_dp.c     | 142 +++++++-----
- drivers/gpu/drm/i915/display/intel_dp.h     |  19 ++
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 236 ++++++++++++++++++--
- include/drm/display/drm_dp.h                |   9 +-
- 4 files changed, 333 insertions(+), 73 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index cd4e61026d98..421bbcaed664 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -59,6 +59,7 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
+ 	int bpp, slots = -EINVAL;
++	int ret = 0;
+ 
+ 	mst_state = drm_atomic_get_mst_topology_state(state, &intel_dp->mst_mgr);
+ 	if (IS_ERR(mst_state))
+@@ -84,10 +85,21 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+ 						      connector->port, crtc_state->pbn);
+ 		if (slots == -EDEADLK)
+ 			return slots;
+-		if (slots >= 0)
+-			break;
++		if (slots >= 0) {
++			ret = drm_dp_mst_atomic_check(state);
++			/*
++			 * If we got slots >= 0 and we can fit those based on check
++			 * then we can exit the loop. Otherwise keep trying.
++			 */
++			if (!ret)
++				break;
++		}
+ 	}
+ 
++	/* Despite slots are non-zero, we still failed the atomic check */
++	if (ret && slots >= 0)
++		slots = ret;
++
+ 	if (slots < 0) {
+ 		drm_dbg_kms(&i915->drm, "failed finding vcpi slots:%d\n",
+ 			    slots);
 -- 
 2.37.3
 
