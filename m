@@ -4,58 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7EF8C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 19:48:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B36EC433FE
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 19:48:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 975FF10E58E;
-	Fri,  4 Nov 2022 19:48:22 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A72D10E0EB
- for <intel-gfx@lists.freedesktop.org>; Fri,  4 Nov 2022 19:20:49 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id n12so15702447eja.11
- for <intel-gfx@lists.freedesktop.org>; Fri, 04 Nov 2022 12:20:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Oh1KWYON5mjuQI+J8O7TTZWfdQmfVuD5Iq8KiixC6i8=;
- b=ltvb1UQyJl6pGWW2XNH5fo2PPAS3YXLxwSj/fm2FswI/J2BfkT/CK8YTBbVJMRj+P9
- TjTzaZKQ4wr6kBfgOtLw/TwlrLy6hnO6ZduizB6fD5LHFVUfbYsQSYn8clXV9LPa1Ehp
- x4VQ3UtkaPfNVqDUEhjmr2jyOZgsj1XdKKS037E2Xi1RSJME6pokkzaj/VM6fjACLOdb
- 63p+BmrgVnj+wTOpkzpyWsr5b2yMCGMg1n4pA2bITYtxV+USzqAA765354oCUJxgVdmr
- O/KJ82QhL/3dlNqT+s+sIUczprHXfR5N3b6mPM/BTtuDYTZhsfn0/mGCBh+mH2d96sZM
- ee+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Oh1KWYON5mjuQI+J8O7TTZWfdQmfVuD5Iq8KiixC6i8=;
- b=NpiqxO+MbRrFCrtw/7TGiExt84gmtvh/zhzSBVgYsdqLlF+acZndxH4lnabaEuAKJd
- ifRgNzSo8AA3XWZW6oOlzGQnffce/Es3+GeRFPtd3xQP3bw3DQ730vSZmUPfqfiQApc8
- 35XxAwdcMArOMmKmrXidjGO4fb9X6ut20LWcE9Xk0JnQV4I0gmrkbX+KwsrXc+MmojtV
- s7fjXKSyV2ndglBxQ/WYxey9UV12+EqCXFqZSVU3urikIJdgDTjwzQEoaLubSQbNqUg2
- QnduKRK2WrBK0TSeZSQrpm/qzWF0j0dfEMW8D5Ukz+NxZSnfOxmfDgOnjwgedW572Eas
- YKPw==
-X-Gm-Message-State: ACrzQf1sOZ5QJBnlDYHtXbQkqCmsOHaGpjB3f9etlNH8RcTmN55KHKTl
- npJcHGA5rGQ18lHH2nhedccIZbCb+d4tmxaiJMeC8A==
-X-Google-Smtp-Source: AMsMyM4DrcCYYQKEDdArtGjulTTfS/ZrzcU7d3blYwfP0xOs9GkV6Pjm6sVQHlKD4m8iOcJgGtw4ixgzyK0xTxJ7Zs8=
-X-Received: by 2002:a17:906:1c52:b0:7ad:c6c5:eae8 with SMTP id
- l18-20020a1709061c5200b007adc6c5eae8mr30084404ejg.439.1667589647564; Fri, 04
- Nov 2022 12:20:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D82410E7F5;
+	Fri,  4 Nov 2022 19:48:23 +0000 (UTC)
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on2105.outbound.protection.outlook.com [40.107.247.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7261610E102;
+ Wed,  2 Nov 2022 11:52:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZBOD6VHWRfO3UkwdsUgvBggYsuICMRPgajfsl5HgQZwW/NaC735TUqFyF9t9Y1Sp14d/yerW4BWMvGGCK+bPDk/j5bT4mhZHLUsXpXjAMXMMokgBpEj3bBpK4M2C3yaYXb+9XunQfk9QjQdnbwV/apxL4NOdxnBvvWyL8UR8h1e4/mkW3XLJbxDDaWRoKKXg5MZG7+05M/9BDm7hnov7N9ugF7654yeINmZGcQrqR0yPPscdnqzYtqYRsWR9I7BZOLoNzQ0gHM6jTIQZ8nhKwDu96ZedikCL8w4yhxOTy8bVJ8CnKQIzlOS5dadxqrfQEaoBBjib5hRBjOifkbwKCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uPlMNuvu4V2MXQvMbxjST7BoY7NL6NYYdHxzgmHtqI8=;
+ b=NgWPay6bOTzxdpgB4O2QEvI89XwlRT/eVlK75+DYnhF0BCkMs+kyjXMPQxx94MUT0GgmTPhDRbj9cIBxAZIgkKg5wC5H+EbObMB2djSM5KkNBnKJmz1rSHY0WFWstuq2Ba4vlH4HY5ZBIdLt4K2shkNQC+cBjId9mIgZQdMW1nnBOdFWxDd/ltV7hquajAlhw0zu7FJ4qLKfTbREReBu+rcOLkwcSdJPEPoChqM/kzTqZBqDk257Z6rZd2SNgQd1mdC+85vOhTpfDymO00BB01UaJWDDIEBgDt145K8JMX8w0RTfC1X0GLYBssCABmt0TcPB0H8h/5Rdw0b7plp+9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=prevas.dk; dmarc=pass action=none header.from=prevas.dk;
+ dkim=pass header.d=prevas.dk; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=prevas.dk; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uPlMNuvu4V2MXQvMbxjST7BoY7NL6NYYdHxzgmHtqI8=;
+ b=A1Q5cOdzcGLlXPN6cbpunJcOc4wTF/4yE2aWfRa0IF16w4K/WGVVh4OjGT9zUpIniphKL10TwmJ6CN7Cw+s1wD1fdGn2BgI6d0u7SRA6QDpJKN1VDtH/bXNdefRPAgeTEWFEjeInjPSHldg5VN5UtItwYGNLfGGnLVbH9D78iKE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=prevas.dk;
+Received: from DU0PR10MB5266.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:34a::22)
+ by PR3PR10MB4062.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:a2::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.21; Wed, 2 Nov
+ 2022 11:52:36 +0000
+Received: from DU0PR10MB5266.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::732f:4316:a0be:bdbc]) by DU0PR10MB5266.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::732f:4316:a0be:bdbc%3]) with mapi id 15.20.5769.016; Wed, 2 Nov 2022
+ 11:52:36 +0000
+Message-ID: <307b90cb-b80d-6ce3-14ae-4a0b2ee5e447@prevas.dk>
+Date: Wed, 2 Nov 2022 12:52:32 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>, keescook@chromium.org
+References: <20220926191109.1803094-1-keescook@chromium.org>
+ <20221024201125.1416422-1-gwan-gyeong.mun@intel.com>
+From: Rasmus Villemoes <rasmus.villemoes@prevas.dk>
+In-Reply-To: <20221024201125.1416422-1-gwan-gyeong.mun@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: GV3P280CA0023.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:b::24) To DU0PR10MB5266.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:10:34a::22)
 MIME-Version: 1.0
-References: <20221103162302.4ba62d72@maurocar-mobl2>
- <CAGS_qxr1=PLFzM8bGjdowZwdOXMEPiJEnffPUGQvwdhYVJJNvA@mail.gmail.com>
- <20221104084955.4e6e1093@maurocar-mobl2>
-In-Reply-To: <20221104084955.4e6e1093@maurocar-mobl2>
-From: Daniel Latypov <dlatypov@google.com>
-Date: Fri, 4 Nov 2022 12:20:36 -0700
-Message-ID: <CAGS_qxp3mmhdxKY1PreGRzVW=+4LVQKBRAAJT3VH8APTFtKJxw@mail.gmail.com>
-To: Mauro Carvalho Chehab <mauro.chehab@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU0PR10MB5266:EE_|PR3PR10MB4062:EE_
+X-MS-Office365-Filtering-Correlation-Id: d98265cb-4295-412d-9afd-08dabcc8bc1f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZtqCAf3UC2Eccoy8hMC4iyObmYrpLDHlUfm9RwU/7f5WbiDltnjF7d71Ve++udH8fYv9PkdcP67kumbVMynZNgYlfrlk5jtQme6oYJnEUsY8MZ0GuMB/dWEoHcUQRu0cbBd6NjwaJJo1wP3ns2z2bWLNazOqJIbw6Xcjplx5yDCrTvbt7kWo8wVAQwV3+C6wrekAcUzkz8Mfir4+qhkuEa9JZ9ExcHB+v/tsufUw8sKM4qzEUBJ1SxIjk2IsMC2WgDgsvqXnIPjy3GEvvPH3p5btAEKtt3WQMUJdZyTUK53b/wkn3/iZ80MNpfH7SNq6ofRFqIoyySzpgj3GAdX9nzbgI+Q+TRI+7yLxFW9+casGZr8JdfGdcSHz/v0qf5WjoHfdcoZYktonJFQAYqkI8tBb3Go6/N0cjKR7LO+XQc83swuLBjyh1KiiSC4QGLxSvx/OCLbNyOTQSkjnVapjtFxjhCxmpEoYjX8ur+k+/cpNC3jDESru76v2UtBUAceltJkS17kP93FEbAZWxEufk/DfdBSEZnTiE3hEJS94OXIYSzz8mD3YJd5FOdNEgRTLa4Og7WxUlSnFWt2o+aRJmb2lRbEiU8FiUVVYawQVeOzrNwXc3wd4JTgfZRJC6sLnD6KLGX9Kn+wLTGB8gGun4vbdnvvEVdlK2Pt7zZ7OJJUScLWg417j2VK5sP677e06QOwu6s8avgvG5A2Pdo0JO2N77N8kEAqRD5Klx28340U7Y95UgfatLny3gxkVfIs4+eaoK+j0G/NReJcKhEHogKt5idQT59v3vnh9HqtjDMfUHqs81/WF93O5fM5yDKuw
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DU0PR10MB5266.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230022)(136003)(346002)(366004)(39850400004)(376002)(396003)(451199015)(66946007)(6512007)(6666004)(26005)(52116002)(7416002)(2906002)(6506007)(36756003)(44832011)(66556008)(4326008)(8676002)(66476007)(38100700002)(316002)(478600001)(8936002)(38350700002)(8976002)(6486002)(31696002)(86362001)(41300700001)(5660300002)(31686004)(2616005)(186003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RjRndGp3M0pQUUl0bWhBZnh1THcySEdSa25ic09IODBoeWs4YlliRDdhVDI5?=
+ =?utf-8?B?NEZGdk85THZNTzJDMlhNUWxEdFUyWXc1bHZIcWxncGNlMnY1SWpySmFYUDVK?=
+ =?utf-8?B?ODI5Rlk1ajRLWlNrVXAraFFXWFVNYUF5Z05VRVphMnZMbnZZeTNENUNpaE5Y?=
+ =?utf-8?B?N1JxSTVHeFFDcnFBYTEwRk1lbEp6QVk2NHEvUkFrMjh4K0cwa0loN2gzdzVK?=
+ =?utf-8?B?eHN3Wkp2SDluc3Y3c0d1OWFoOTJ5anZCeTJ1TmFwZG5QL0o0SEJtWTV3ZklZ?=
+ =?utf-8?B?OGtQbnlYbGorUEsyTUt2QW8rZk0vZFVhUXhXT09DSVdVMkhJRzNrTWVsc1Fv?=
+ =?utf-8?B?Sk1oSnpPNVNmekRZK2VoWmFKakpTZWFzclFLZDV4VnVJTWFXekVsYXFJS1Bn?=
+ =?utf-8?B?WXdWSzJITTRpbGxRQ3ZxZjFvQ2pIS1VObnluSWFIUVc0eDhwaVBDQzJpSlcx?=
+ =?utf-8?B?dll4cHl1V3ZYNXBldjhUb2RZb1p4RFI4Y2xzcTBUMWtHZXU2VnBCRFREMlZ0?=
+ =?utf-8?B?VGM4SThGOFMrS0FPRE1zb1lYQllzck1YdnRhUjFIb2tIakhsRUJvZ2NiM2No?=
+ =?utf-8?B?eTBCUFkrVmpibVVodDFDa2NDRE5lem9aOFI0RmkxTnJnVTZ5ZGJTV1V6MjNi?=
+ =?utf-8?B?VWV2bExLWFQ0eWtXQTNRbmZna2tmM0hsVGtiUGt3b1pwYlVCZ1gzK3dKdmRm?=
+ =?utf-8?B?S25RQUlUVFF1MGd6ZEFKUTJJdEFLOTNYY3NZMFI0cld3cjZzZlJ2bjNXTFBE?=
+ =?utf-8?B?cThHR0NHdUw0MU1KNGxOWURIbnJwdnNwbk9NeDBISEg4QlVQNEFvQWlJMEhn?=
+ =?utf-8?B?anlZZGE4ZjZYRkl1SWxoYUI2RVFjRmpmRDllR3lNbVhWZlpUMzhsSjhmcXJB?=
+ =?utf-8?B?UG9kOXNUL0F5ekJKVkFHc2Q3WW1KRFB5Q0RpRDFRNUN4WDh6RFA4Z0d2YlZi?=
+ =?utf-8?B?UGxXcDhDeWV5NE92U2QzRWlYRGpjMHVwUGxFK1doMzRENUVqNXErdVQyQ1N2?=
+ =?utf-8?B?NWhHVUY5NjNHY3JkRTdpa05MMTZhSDlMS0RVZHFqUm9UWW9ZZVl0WmtvSE5X?=
+ =?utf-8?B?WHpTSFRBbzEyTTZZYWJiWG83L0ZXb1owelRsT2gxREJvaCtzZy9YVFVPRXND?=
+ =?utf-8?B?alk4Q0ZuYXpsaHpjVjlON1ZCYWlEcDd1UDd3dFA5QWVDMUFzUnkzUTk0NVNO?=
+ =?utf-8?B?U3JJdEpoclQ1VWpURTlZRFFBZ3YvTTdpVGlPclRFWjA1TmxKN2Q1TlQvWnlK?=
+ =?utf-8?B?ank1RjZFZUNqak4wdGx6elpEN3JWZGZpUFM2dytscWJXMWhtNlRGUXN3T1N0?=
+ =?utf-8?B?T0cvOEl1bDJBT2RtVlZOdVpEU1c1WWZHbFdGYTdvTzJDVXV4N2NqM3dJd3Ey?=
+ =?utf-8?B?R3NoRjFuV0RWaTBNYUNxU1BsZnV4eEt0M29waHJVdVhobUVSTUVoTXFNbFp2?=
+ =?utf-8?B?cDNqVzFSRFBqaDg5TjJNOC9oUnVySHVGL3ZqVkJuS0pqMC9qZ2hvcis2K09t?=
+ =?utf-8?B?dlB3ZHpqVzBQZUxFeW4xMWpBZkU3WHNKYndBUHZEOGw4Y1JCei9oS1o0a09u?=
+ =?utf-8?B?OWpYeTIxVFVoaXV1UzRMMEV0RUN1ckQ3T1FTOHBxVlNELzZEa1hXYVNqRkZ1?=
+ =?utf-8?B?eTdacFlXU0lxTHZvSlRGekxsSDVGMk84dElERnNZYTB2TkdMeWhKR0ljdDc1?=
+ =?utf-8?B?ZDVJY1RTZUxwckNndHAvK3BRenFNRDU2OThueERibStZb1N6YSsrV3JCMjZF?=
+ =?utf-8?B?azRaazJ1YmVlNUhsa0o1Qk9jOWVETFNJUHZSYnU2QWtNWVZZV3AzaGpMai9w?=
+ =?utf-8?B?Vzg0bTNhZ3pxUVFwa0J3U2hyQkhGNDlyU0loRXYyenFrYk9iSTZiYXpVYXRW?=
+ =?utf-8?B?VGt1SVYyem90cGRtbWMveHBaN1FZNDJ4UFE4dEMwQnl1WE9kN0JXbDR3aXhi?=
+ =?utf-8?B?K2o4NWxac0dBUjEvQ1JqbGFjU0NUWXlWUEE2M3l3OWRrMUN3aFQ4ZzlMQzFP?=
+ =?utf-8?B?YkU0NzhwenFZTHlJTE5DaDFxVFVLSmFKb1dUcmV3QjZpVUxMbTVZY2dBNkFq?=
+ =?utf-8?B?b04zdTRhTVpBeU44QlRod0MxZjFQaTVubC9mNURIemk4NXltdWtpay9tSFlC?=
+ =?utf-8?B?dTBqYlpycHlPV1NxZDRmU0hLcTVBcFVxZWJYNW9taUxmdFZHVDFUenJ4aGdC?=
+ =?utf-8?B?TWc9PQ==?=
+X-OriginatorOrg: prevas.dk
+X-MS-Exchange-CrossTenant-Network-Message-Id: d98265cb-4295-412d-9afd-08dabcc8bc1f
+X-MS-Exchange-CrossTenant-AuthSource: DU0PR10MB5266.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2022 11:52:36.3733 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d350cf71-778d-4780-88f5-071a4cb1ed61
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /IA1FbjiF9JIZRXcEy0dkIlTg0K9M+3CmpD8j9Nkf93w95qMQ4idFktuR0/E3yvfbrvduSjTtLg/sb/yJu29dgcLCoUnUBo0XLuQSnMpxGU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR10MB4062
 X-Mailman-Approved-At: Fri, 04 Nov 2022 19:48:17 +0000
-Subject: Re: [Intel-gfx] KUnit issues - Was: [igt-dev] [PATCH RFC v2 8/8]
- drm/i915: check if current->mm is not NULL
+Subject: Re: [Intel-gfx] [PATCH v5] overflow: Introduce overflows_type() and
+ castable_to_type()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,300 +128,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Gow <davidgow@google.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, igt-dev@lists.freedesktop.org,
- Brendan Higgins <brendan.higgins@linux.dev>, linux-kselftest@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>, kunit-dev@googlegroups.com
+Cc: airlied@linux.ie, trix@redhat.com, dlatypov@google.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-sparse@vger.kernel.org,
+ llvm@lists.linux.dev, arnd@kernel.org, intel-gfx@lists.freedesktop.org,
+ nathan@kernel.org, rodrigo.vivi@intel.com, mchehab@kernel.org,
+ ndesaulniers@google.com, gustavoars@kernel.org, daniel@ffwll.ch,
+ vitor@massaru.org, luc.vanoostenryck@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 4, 2022 at 12:50 AM Mauro Carvalho Chehab
-<mauro.chehab@linux.intel.com> wrote:
->
-> On Thu, 3 Nov 2022 15:43:26 -0700
-> Daniel Latypov <dlatypov@google.com> wrote:
->
-> > On Thu, Nov 3, 2022 at 8:23 AM Mauro Carvalho Chehab
-> > <mauro.chehab@linux.intel.com> wrote:
-> > >
-> > > Hi,
-> > >
-> > > I'm facing a couple of issues when testing KUnit with the i915 driver.
-> > >
-> > > The DRM subsystem and the i915 driver has, for a long time, his own
-> > > way to do unit tests, which seems to be added before KUnit.
-> > >
-> > > I'm now checking if it is worth start using KUnit at i915. So, I wrote
-> > > a RFC with some patches adding support for the tests we have to be
-> > > reported using Kernel TAP and KUnit.
-> > >
-> > > There are basically 3 groups of tests there:
-> > >
-> > > - mock tests - check i915 hardware-independent logic;
-> > > - live tests - run some hardware-specific tests;
-> > > - perf tests - check perf support - also hardware-dependent.
-> > >
-> > > As they depend on i915 driver, they run only on x86, with PCI
-> > > stack enabled, but the mock tests run nicely via qemu.
-> > >
-> > > The live and perf tests require a real hardware. As we run them
-> > > together with our CI, which, among other things, test module
-> > > unload/reload and test loading i915 driver with different
-> > > modprobe parameters, the KUnit tests should be able to run as
-> > > a module.
-> > >
-> > > While testing KUnit, I noticed a couple of issues:
-> > >
-> > > 1. kunit.py parser is currently broken when used with modules
-> > >
-> > > the parser expects "TAP version xx" output, but this won't
-> > > happen when loading the kunit test driver.
-> > >
-> > > Are there any plans or patches fixing this issue?
-> >
-> > Partially.
-> > Note: we need a header to look for so we can strip prefixes (like timestamps).
-> >
-> > But there is a patch in the works to add a TAP header for each
-> > subtest, hopefully in time for 6.2.
->
-> Good to know.
->
-> > This is to match the KTAP spec:
-> > https://kernel.org/doc/html/latest/dev-tools/ktap.html
->
-> I see.
->
-> > That should fix it so you can parse one suite's results at a time.
-> > I'm pretty sure it won't fix the case where there's multiple suites
-> > and/or you're trying to parse all test results at once via
-> >
-> > $ find /sys/kernel/debug/kunit/ -type f | xargs cat |
-> > ./tools/testing/kunit/kunit.py parse
->
-> Could you point me to the changeset? perhaps I can write a followup
-> patch addressing this case.
+On 24/10/2022 22.11, Gwan-gyeong Mun wrote:
+> From: Kees Cook <keescook@chromium.org>
+> 
+> Implement a robust overflows_type() macro to test if a variable or
+> constant value would overflow another variable or type. This can be
+> used as a constant expression for static_assert() (which requires a
+> constant expression[1][2]) when used on constant values. This must be
+> constructed manually, since __builtin_add_overflow() does not produce
+> a constant expression[3].
+> 
+> Additionally adds castable_to_type(), similar to __same_type(), but for
+> checking if a constant value would overflow if cast to a given type.
+> 
 
-rmoar@google.com was working on them and should hopefully be able to
-send them out real soon.
-You should get CC'd on those.
+> +#define __overflows_type_constexpr(x, T) (			\
+> +	is_unsigned_type(typeof(x)) ?				\
+> +		(x) > type_max(typeof(T)) ? 1 : 0		\
+> +	: is_unsigned_type(typeof(T)) ?				\
+> +		(x) < 0 || (x) > type_max(typeof(T)) ? 1 : 0	\
+> +		: (x) < type_min(typeof(T)) ||			\
+> +		  (x) > type_max(typeof(T)) ? 1 : 0)
+> +
 
-I think the follow-up work is just crafting an example parser input
-file and iterating until
-  $ ./tools/testing/kunit/kunit.py parse < /tmp/example_input
-produces our desired results.
+Can't all these instances of "foo ? 1 : 0" be simplified to "foo"? That
+would improve the readability of this thing somewhat IMO.
 
->
-> > I think that in-kernel code change + some more python changes could
-> > make the above command work, but no one has actively started looking
-> > at that just yet.
-> > Hopefully we can pick this up and also get it done for 6.2 (unless I'm
-> > underestimating how complicated this is).
-> >
-> > >
-> > > 2. current->mm is not initialized
-> > >
-> > > Some tests do mmap(). They need the mm user context to be initialized,
-> > > but this is not happening right now.
-> > >
-> > > Are there a way to properly initialize it for KUnit?
-> >
-> > Right, this is a consequence of how early built-in KUnit tests are run
-> > after boot.
-> > I think for now, the answer is to make the test module-only.
-> >
-> > I know David had some ideas here, but I can't speak to them.
->
-> This is happening when test-i915 is built as module as well.
+Rasmus
 
-Oh, I didn't expect that at all.
-
->
-> I suspect that the function which initializes it is mm_alloc() inside
-> kernel/fork.c:
->
->         struct mm_struct *mm_alloc(void)
->         {
->                 struct mm_struct *mm;
->
->                 mm = allocate_mm();
->                 if (!mm)
->                         return NULL;
->
->                 memset(mm, 0, sizeof(*mm));
->                 return mm_init(mm, current, current_user_ns());
->         }
->
-> As modprobing a test won't fork until all tests run, this never runs.
->
-> It seems that the normal usage is at fs/exec.c:
->
->         fs/exec.c:      bprm->mm = mm = mm_alloc();
->
-> but other places also call it:
->
->         arch/arm/mach-rpc/ecard.c:      struct mm_struct * mm = mm_alloc();
->         drivers/dma-buf/dma-resv.c:     struct mm_struct *mm = mm_alloc();
->         include/linux/sched/mm.h:extern struct mm_struct *mm_alloc(void);
->         mm/debug_vm_pgtable.c:  args->mm = mm_alloc();
->
-> Probably the solution would be to call it inside kunit executor code,
-> adding support for modules to use it.
-
-I know basically nothing about the mm code.
-I think I vaguely recall there being issues with this on UML or
-something, but I could be totally wrong.
-
-I'll wait for David to chime in when he can.
-
->
-> > > 3. there's no test filters for modules
-> > >
-> > > In order to be able to do proper CI automation, it is needed to
-> > > be able to control what tests will run or not. That's specially
-> > > interesting at development time where some tests may not apply
-> > > or not run properly on new hardware.
-> > >
-> > > Are there any plans to add support for it at kunit_test_suites()
-> > > when the driver is built as module? Ideally, the best would be to
-> > > export a per-module filter_glob parameter on such cases.
-> >
-> > I think this is a good idea and is doable. (I think I said as much on
-> > the other thread).
-> >
-> > The thinking before was that people would make group tests together in modules.
-> > But if you want to share a single module for many tests, this becomes
-> > more useful.
->
-> At least for this RFC, I opted to place everything we have already on
-> a single module.
->
-> Perhaps I could create, instead, 3 separate modules. This way, I would gain
-> a "third level" and a poor man's way of filtering what test type
-> will run (mock, live or perf).
->
-> Yet, we will still need to be able to filter the unit tests, as this
-> is where all the fun happens.
->
-> > This has some potential merge conflicts w/ other pending work.
-> > I was also prototyping the ability to tell KUnit "run tests #2 - #5",
-> > so that also touches the filtering code very heavily.
->
-> Are you planning to allow this to support such feature also on modules?
-
-I was not expecting to.
-The main benefit would be for automation to try sharding up tests
-across multiple kernel boots. Human users would continue to use
-name-based selection.
-
-So this fits into how kunit.py works w/ UML invocations or QEMU VMs.
-I don't see how this would be useful for module-based testing, where
-it feels like you want to boot once and pick which modules to
-modprobe.
-
-Do you think it would be useful to have this for modules as well?
-
->
-> > (The goal there is to have kunit.py able to shard up tests and boot
-> > multiple kernels concurrently.)
-> >
-> > >
-> > > 4. there are actually 3 levels of tests on i915:
-> > >         - Level 1: mock, live, perf
-> > >         - Level 2: test group (mmap, fences, ...)
-> > >         - Level 3: unit tests
-> > >
-> > > Currently, KUnit seems to have just two levels (test suite and tests).
-> > > Are there a way to add test groups there?
-> >
-> > Parameterized tests are the closest we have to a third-level of tests.
-> > But other than that, the answer is no.
-> >
-> > I'd need to get more familiar with the existing tests, but I'm pretty
-> > sure parameters won't work for you.
->
-> Our current approach with selftests is that each test can be disabled.
-> You can see how it currently works by taking a look at the __run_selftests
-> logic (level 2 on the above hierarchy) inside
-> drivers/gpu/drm/i915/selftests/i915_selftest.c:
->
->
->         static int __run_selftests(const char *name,
->                                    struct selftest *st,
->                                    unsigned int count,
->                                    void *data)
->         {
-> ...
->                 /* Tests are listed in order in i915_*_selftests.h */
->                 for (; count--; st++) {
->                         if (!st->enabled)
->                                 continue;
-> ...
->                 pr_info(DRIVER_NAME ": Running %s\n", st->name);
->                 if (data)
->                         err = st->live(data);
->                 else
->                         err = st->mock();
->
-> The same also happens at subtests (level 3):
->
->         int __i915_subtests(const char *caller,
->                             int (*setup)(void *data),
->                             int (*teardown)(int err, void *data),
->                             const struct i915_subtest *st,
->                             unsigned int count,
->                             void *data)
->         {
-> ...
->                 if (!apply_subtest_filter(caller, st->name))
->                         continue;
-> ...
->                 pr_info(DRIVER_NAME ": Running %s/%s\n", caller, st->name);
->                 GEM_TRACE("Running %s/%s\n", caller, st->name);
->
->                 err = teardown(st->func(data), data);
-
-Had a brief look.
-
-Hmm, the idea of dynamically adding subtests wouldn't work well with
-this more structured approach.
-The filtering right now in KUnit is done directly on the suites/test
-case objects before we run them.
-We'd need to pass in this extra filter while running the tests, which
-would need some thought to do cleanly.
-
-Here's an idea of how you could roughly emulate this in KUnit right now:
-1) could have each KUNIT_CASE map to a test group
-2) could have some shared test code declare a module param 'subtest_filter'
-3) you could check if the subtest name matches 'subtest_filter', and
-use kunit_skip() otherwise
-
-You'd be able to plumb in the subtest filter via:
-$ kunit.py run --kernel_args 'subtest_filter=foo'
-
-This feels a bit gross, but not as gross as I thought it might.
-
-
-Daniel
-
->
-> > And I don't know if this will get done.
-> >
-> > Note: the kunit_parser.py code should be able to handle arbitrary
-> > levels of tests in the output.
-> > This restriction is purely in the in-kernel code.
-> >
-> > I had brought up the idea of more layers of tests before.
-> > It would also be useful for
-> > a) sharing expensive setup between multiple tests
-> > b) allowing more granular scope for cleanups (kunit_kmalloc and others)
-> > c) more flexibility in dynamically generating subtests than
-> > parameterized testing
->
-> Yes, it makes sense to me.
->
-> > There's some precedent in other unit testing frameworks, for example:
-> > https://pkg.go.dev/testing#T.Run
->
-> Regards,
-> Mauro
