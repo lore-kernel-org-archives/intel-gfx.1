@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52764C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 17:09:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38643C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 17:09:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AAFE10E52E;
-	Wed,  2 Nov 2022 17:08:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A129A10E526;
+	Wed,  2 Nov 2022 17:08:42 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8175B10E518;
- Wed,  2 Nov 2022 17:08:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 680B510E526;
+ Wed,  2 Nov 2022 17:08:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667408910; x=1698944910;
+ t=1667408901; x=1698944901;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=6CFSztkRB584Z0WS53OTAd+62vP+Rhr7QzCZ2mrTDxo=;
- b=D5GEWfYboBOvi/kL9ndS6zoHO9nG8piOT6LRNiqztj5ZIISQPL7Sejpi
- AVOP+j4LUrAdHsX8PlsjEgq4LyxhnAf4rtC6IM1TzFCBCrdNQIH2J4W0x
- 8Ow4+8QEqS4t6LHf2we7Hg//s/u+ZFkfTveUZNKcHAKx6En5oNvi0ikQr
- df7bkilROmJWgrIxO+TGVi71XUJ9dSyHe8OBYNX3QZpLVnYWVHiS9fnDl
- oR0uLNFbNH0S6n4HbXx8Y+bCOCitTLUH/mDiFnIDvSCQwMGlS3Tpy9E9m
- X7Itd3eiBbpf7nwcNL93N0l6tQE1ylVXuEkpWbwrg8ZJ8+Pcf3hudFEsc Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="395777190"
-X-IronPort-AV: E=Sophos;i="5.95,234,1661842800"; d="scan'208";a="395777190"
+ bh=FYsnfjlig/yZk4lOQBwFVKVtR+p475Kdti4OrPfc5QU=;
+ b=CIoTdAXvX/72Ot7DnnW4QvmyS6ADLGg4owJbk4PT7Q/R+fDRQRxc7QlP
+ 9rs4+WPwpRIxKz2/CbfvwAwe5OFYRtsIsDqtB16G7/2lk4MyBN1rDMNc4
+ 6R6lgJoow24ioAuxvdZKCH4cJ2LbM3cTNjEQ6oYgX/Mf1ubZ41iNWkRms
+ 7kErrIj3bYbSdJNbbmUjgO7yTl9dTT+/+Y3ExzacdP/fw/EnLpEeqp9gY
+ SO4fP2e68q+NHiwgqVYSIc7JeSwrmmnpg+WLJdVaFbETAAZ2MviRs/gJ9
+ 8FnDo1fmPS69uNFN6Bmc0Pws14V7a2hi56T23QAARsc2Uq3OunwYyu1CU Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="395777119"
+X-IronPort-AV: E=Sophos;i="5.95,234,1661842800"; d="scan'208";a="395777119"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2022 10:08:05 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="739835406"
-X-IronPort-AV: E=Sophos;i="5.95,234,1661842800"; d="scan'208";a="739835406"
+ 02 Nov 2022 10:08:00 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="739835300"
+X-IronPort-AV: E=Sophos;i="5.95,234,1661842800"; d="scan'208";a="739835300"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2022 10:08:05 -0700
+ 02 Nov 2022 10:08:00 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  2 Nov 2022 10:10:47 -0700
-Message-Id: <20221102171047.2787951-6-daniele.ceraolospurio@intel.com>
+Date: Wed,  2 Nov 2022 10:10:44 -0700
+Message-Id: <20221102171047.2787951-3-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221102171047.2787951-1-daniele.ceraolospurio@intel.com>
 References: <20221102171047.2787951-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 5/5] drm/i915/mtl: don't expose GSC command
- streamer to the user
+Subject: [Intel-gfx] [PATCH v2 2/5] drm/i915/mtl: pass the GSC CS info to
+ the GuC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,74 +61,89 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There is no userspace user for this CS yet, we only need it for internal
-kernel ops (e.g. HuC, PXP), so don't expose it.
-
-v2: even if it's not exposed, rename the engine so it is easier to
-identify in the debug logs (Matt)
+We need to tell the GuC that the GSC CS is there.
 
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Cc: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_user.c | 27 ++++++++++++++++-----
- 1 file changed, 21 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c  | 11 +++++------
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h |  7 +++++--
+ 2 files changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-index 79312b734690..cd4f1b126f75 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
-@@ -191,6 +191,15 @@ static void add_legacy_ring(struct legacy_ring *ring,
- 		ring->instance++;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index a419d60166c8..a7f737c4792e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -488,6 +488,11 @@ static void fill_engine_enable_masks(struct intel_gt *gt,
+ 	info_map_write(info_map, engine_enabled_masks[GUC_BLITTER_CLASS], BCS_MASK(gt));
+ 	info_map_write(info_map, engine_enabled_masks[GUC_VIDEO_CLASS], VDBOX_MASK(gt));
+ 	info_map_write(info_map, engine_enabled_masks[GUC_VIDEOENHANCE_CLASS], VEBOX_MASK(gt));
++
++	/* The GSC engine is an instance (6) of OTHER_CLASS */
++	if (gt->engine[GSC0])
++		info_map_write(info_map, engine_enabled_masks[GUC_GSC_OTHER_CLASS],
++			       BIT(gt->engine[GSC0]->instance));
  }
  
-+static void engine_rename(struct intel_engine_cs *engine, const char *name, u16 instance)
-+{
-+	char old[sizeof(engine->name)];
-+
-+	memcpy(old, engine->name, sizeof(engine->name));
-+	scnprintf(engine->name, sizeof(engine->name), "%s%u", name, instance);
-+	drm_dbg(&engine->i915->drm, "renamed %s to %s\n", old, engine->name);
-+}
-+
- void intel_engines_driver_register(struct drm_i915_private *i915)
+ #define LR_HW_CONTEXT_SIZE (80 * sizeof(u32))
+@@ -529,9 +534,6 @@ static int guc_prep_golden_context(struct intel_guc *guc)
+ 	}
+ 
+ 	for (engine_class = 0; engine_class <= MAX_ENGINE_CLASS; ++engine_class) {
+-		if (engine_class == OTHER_CLASS)
+-			continue;
+-
+ 		guc_class = engine_class_to_guc_class(engine_class);
+ 
+ 		if (!info_map_read(&info_map, engine_enabled_masks[guc_class]))
+@@ -609,9 +611,6 @@ static void guc_init_golden_context(struct intel_guc *guc)
+ 	addr_ggtt = intel_guc_ggtt_offset(guc, guc->ads_vma) + offset;
+ 
+ 	for (engine_class = 0; engine_class <= MAX_ENGINE_CLASS; ++engine_class) {
+-		if (engine_class == OTHER_CLASS)
+-			continue;
+-
+ 		guc_class = engine_class_to_guc_class(engine_class);
+ 		if (!ads_blob_read(guc, system_info.engine_enabled_masks[guc_class]))
+ 			continue;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 968ebd79dce7..4ae5fc2f6002 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -47,7 +47,8 @@
+ #define GUC_VIDEOENHANCE_CLASS		2
+ #define GUC_BLITTER_CLASS		3
+ #define GUC_COMPUTE_CLASS		4
+-#define GUC_LAST_ENGINE_CLASS		GUC_COMPUTE_CLASS
++#define GUC_GSC_OTHER_CLASS		5
++#define GUC_LAST_ENGINE_CLASS		GUC_GSC_OTHER_CLASS
+ #define GUC_MAX_ENGINE_CLASSES		16
+ #define GUC_MAX_INSTANCES_PER_CLASS	32
+ 
+@@ -169,6 +170,7 @@ static u8 engine_class_guc_class_map[] = {
+ 	[COPY_ENGINE_CLASS]       = GUC_BLITTER_CLASS,
+ 	[VIDEO_DECODE_CLASS]      = GUC_VIDEO_CLASS,
+ 	[VIDEO_ENHANCEMENT_CLASS] = GUC_VIDEOENHANCE_CLASS,
++	[OTHER_CLASS]             = GUC_GSC_OTHER_CLASS,
+ 	[COMPUTE_CLASS]           = GUC_COMPUTE_CLASS,
+ };
+ 
+@@ -178,12 +180,13 @@ static u8 guc_class_engine_class_map[] = {
+ 	[GUC_VIDEO_CLASS]        = VIDEO_DECODE_CLASS,
+ 	[GUC_VIDEOENHANCE_CLASS] = VIDEO_ENHANCEMENT_CLASS,
+ 	[GUC_COMPUTE_CLASS]      = COMPUTE_CLASS,
++	[GUC_GSC_OTHER_CLASS]    = OTHER_CLASS,
+ };
+ 
+ static inline u8 engine_class_to_guc_class(u8 class)
  {
- 	struct legacy_ring ring = {};
-@@ -206,11 +215,19 @@ void intel_engines_driver_register(struct drm_i915_private *i915)
- 		struct intel_engine_cs *engine =
- 			container_of((struct rb_node *)it, typeof(*engine),
- 				     uabi_node);
--		char old[sizeof(engine->name)];
+ 	BUILD_BUG_ON(ARRAY_SIZE(engine_class_guc_class_map) != MAX_ENGINE_CLASS + 1);
+-	GEM_BUG_ON(class > MAX_ENGINE_CLASS || class == OTHER_CLASS);
++	GEM_BUG_ON(class > MAX_ENGINE_CLASS);
  
- 		if (intel_gt_has_unrecoverable_error(engine->gt))
- 			continue; /* ignore incomplete engines */
- 
-+		/*
-+		 * We don't want to expose the GSC engine to the users, but we
-+		 * still rename it so it is easier to identify in the debug logs
-+		 */
-+		if (engine->id == GSC0) {
-+			engine_rename(engine, "gsc", 0);
-+			continue;
-+		}
-+
- 		GEM_BUG_ON(engine->class >= ARRAY_SIZE(uabi_classes));
- 		engine->uabi_class = uabi_classes[engine->class];
- 
-@@ -220,11 +237,9 @@ void intel_engines_driver_register(struct drm_i915_private *i915)
- 			i915->engine_uabi_class_count[engine->uabi_class]++;
- 
- 		/* Replace the internal name with the final user facing name */
--		memcpy(old, engine->name, sizeof(engine->name));
--		scnprintf(engine->name, sizeof(engine->name), "%s%u",
--			  intel_engine_class_repr(engine->class),
--			  engine->uabi_instance);
--		DRM_DEBUG_DRIVER("renamed %s to %s\n", old, engine->name);
-+		engine_rename(engine,
-+			      intel_engine_class_repr(engine->class),
-+			      engine->uabi_instance);
- 
- 		rb_link_node(&engine->uabi_node, prev, p);
- 		rb_insert_color(&engine->uabi_node, &i915->uabi_engines);
+ 	return engine_class_guc_class_map[class];
+ }
 -- 
 2.37.3
 
