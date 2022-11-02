@@ -4,108 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD20CC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 19:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F790C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 19:48:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8C110E58E;
-	Fri,  4 Nov 2022 19:45:49 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C212B10E10F;
- Fri,  4 Nov 2022 19:45:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wt3FPkGX9Vhc2zfRec9vT1bSaFTLrDKiqgJWjeTymsfKt6DFNPDMwf0NBwQbQt2bhUV7aLF1JsWPn7Yf7iryQsRgq/z5/t/roGb/dH/+mhdv9S5chNoWVkX4ME8YqeZqsn7EOa9wnpqFQE2phv75rynufq7bI2U/0iLJMw/MznZkdVvslg4wu9f7NxTOwsPQdK05G43XrPgH07QJB/xOQtNnuxArxa1U3HCurFPfu9ypsGkVO0N5sxbdnyK9XqkJ4HwKrbesUkTullRKbPhN68XKAHh3GNy3b78PUGQ8GVro+KihOOoyQxL6c4wiDqBcWhzW4Ueb8j6u0+jZD+nvyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nMsgtloaSivQXkQieds3UF2nyUsE+Se6+LRuOwqxZJg=;
- b=BJU55+sw3YSwaNxlr711NHS0c2aOFTx6kpHzUUEK7nu6MowNMTRV6TzQ8BtklVfi+piMUPK2a2qhL7AwqCxgPtF3tNK0xp80SBdf821+W2QlfuwAC84sr1UUuSbr64Rq+K6aqePeN6d1FG6WvFP3inro2CFjyqhSLGnobFAAEkHP2232xm6iNHq/LQbrt68boqJOZkLofQQX5So0H0Kwg1TQYW+nDKHEKytru3NSEE4SXWFtA3tHGEiFqlxpYg8iXNnn8zzLhi3R/KbEGOuJx17dE/kmIx8UK1TErZhJw/1XJkE0/AvC2qDULSLTGVaPkGk9iYlXlgtFNAjkG2vAsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nMsgtloaSivQXkQieds3UF2nyUsE+Se6+LRuOwqxZJg=;
- b=JupPbwpntvpC/P+lIjGXyjukLGKyHZyDDQYotdTqxw/yN3whBOYMzfp8HWZ6TzCY/ojLp3keoZCJekkAsgHuIl+r2CDaK4wSTAD2Pz9IKjkS62bGYlFD7C4FX/GzSUxyO7Gg6n8Pdhl3jSTj3lGUAOXmkeJ5+YJxv5YAZeDyqlVdgx8tMddiitcaQ/NUslx5cM3roDNep8RothKTDCnWjZbpuXqlGx3RzlIQD7421ycEAVVUZlhFbyLSfX+VUgs9oIkESfRBA8RHTQV0Klls89yS1HKBKyxM+/3GNEiP2TITSKAVR3i0maCqV4o4RK115IBhTSQEpSb3TOpn6Oyslg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
- by PH7PR12MB5832.namprd12.prod.outlook.com (2603:10b6:510:1d7::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Fri, 4 Nov
- 2022 19:45:40 +0000
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::7a81:a4e4:bb9c:d1de]) by LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::7a81:a4e4:bb9c:d1de%6]) with mapi id 15.20.5769.015; Fri, 4 Nov 2022
- 19:45:40 +0000
-Date: Fri, 4 Nov 2022 16:45:39 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-Message-ID: <Y2Vr47n3cqEWSxEA@nvidia.com>
-References: <0-v1-4991695894d8+211-vfio_iommufd_jgg@nvidia.com>
- <5-v1-4991695894d8+211-vfio_iommufd_jgg@nvidia.com>
- <BN9PR11MB52766FB4EFCFB2197ACDC1F98C369@BN9PR11MB5276.namprd11.prod.outlook.com>
- <Y2EQb6mSTKOvASlp@nvidia.com>
- <BN9PR11MB5276BC7EA64C4D4441DE9CB08C389@BN9PR11MB5276.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <BN9PR11MB5276BC7EA64C4D4441DE9CB08C389@BN9PR11MB5276.namprd11.prod.outlook.com>
-X-ClientProxiedBy: BL1PR13CA0075.namprd13.prod.outlook.com
- (2603:10b6:208:2b8::20) To LV2PR12MB5869.namprd12.prod.outlook.com
- (2603:10b6:408:176::16)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A086D10E10D;
+	Fri,  4 Nov 2022 19:48:21 +0000 (UTC)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E99D110E52D;
+ Wed,  2 Nov 2022 17:38:15 +0000 (UTC)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2A2GkWwa016761;
+ Wed, 2 Nov 2022 17:37:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=POyXG4IlPm7jFx0Q3uWwEGhl5QQ7jk6OxguwZ8ZA4tY=;
+ b=s8a8jqhsF3HQPAMYsT7L5qFRWtZxgtttvcU6nISmwAZ5ayhpcZo8hVwaOQNTney41B5Y
+ YyCt1Hgm88yPxMt25ksaZHtuD8BMpsS/vvuNGp6644VD2KOjqWwVdMn4zRl0MbUi2ofz
+ fjh5xcvb4jktiesw/kRO1TYiw85+QQs9vLiy3Q0w7jgx4W9cEEY7BlhJ1SZesNkbK3kA
+ beT4JGJr1vpKuJeM+SpEK6LYDor+goWr8CFIelH45vnE+yiLyxt61788GlUcYfnXHFOa
+ SS67aRGGOLZ+vC66Nj1aVbxoaO/0IRIS7pspv7wa3V8RtOk2lTL9ZjrWBC1nRz7NTJqH 4Q== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kktn0dwgv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 02 Nov 2022 17:37:03 +0000
+Received: from m0098417.ppops.net (m0098417.ppops.net [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 2A2FijWj003373;
+ Wed, 2 Nov 2022 17:37:02 GMT
+Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
+ [169.63.121.186])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kktn0dwfx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 02 Nov 2022 17:37:02 +0000
+Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
+ by ppma03wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 2A2HaOsU023671;
+ Wed, 2 Nov 2022 17:37:00 GMT
+Received: from b01cxnp22033.gho.pok.ibm.com (b01cxnp22033.gho.pok.ibm.com
+ [9.57.198.23]) by ppma03wdc.us.ibm.com with ESMTP id 3kgut9v73u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 02 Nov 2022 17:37:00 +0000
+Received: from smtpav06.wdc07v.mail.ibm.com ([9.208.128.115])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 2A2HaxKn63767026
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 2 Nov 2022 17:37:00 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 420F95803F;
+ Wed,  2 Nov 2022 17:36:59 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7CFF858067;
+ Wed,  2 Nov 2022 17:36:55 +0000 (GMT)
+Received: from [9.160.188.120] (unknown [9.160.188.120])
+ by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Wed,  2 Nov 2022 17:36:55 +0000 (GMT)
+Message-ID: <4a39ccf9-4201-47eb-fb4a-94a9b8b29312@linux.ibm.com>
+Date: Wed, 2 Nov 2022 13:36:54 -0400
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|PH7PR12MB5832:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4980ff9f-49b5-496d-e308-08dabe9d272d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: m5csXMhjlxUCn6QO/CfNc84+VP9Uovhv4TuaYz0feTf4NIzccmOA3ETZJkBx40Aazo+0gMaEl5aKDenNA1sy+brwnrIqs5QgKkhpOnONPU+jYon10d9JAwm8HvAIOJhoL5On5PhaY0zWj1koQ6hh2cU2ErhTmOL0pu4ZNXbXY8WGPaFBCxc2FuG/JXiebzloAt1KEotqCoC/08V4l0ptmHY3fIehmK0TKdvZDwbh/El6oMOCkENu9s8tUFqXC+VVF8ipDz+m5/Mx15S78pIA+a/+94F4n68SplVQXBAnSLyyBJvKSZapLAtJehRtnufkUZiTJj3nsAgBTT2Z7cR1xznaEO1g/yd74MxW2Crg5TzjCAKYN2t7K1bBwHoH8wSwEbSDIRjk0mjZNJ6vnhaks13h6GwxfUzspEZZ6d6IXX3li/raD71vlnALTpN7gD1y8aYmLrbEt2EUNeImE1MyFAhCgdC20/o7pG7rrT0GCsU8CrH9QKkHOujpqmPcMiN+69RZIApIvwxSXM1Su3ija4DVmlV7GuoJCkZr3HRjY5IN8GCkoMvjIcpxBGvh77LLtmOAZvKv93TNfG6Y8QhZNlLMxUtBcKCmZf0L5zE7I/ENg8naCdDccSCpILh0x9EvxSOaiJsSixswpllN2WESgpA7EcZgj177o5k4IJOsAjhB9aiqJlMLEmuPDzYjDdjQ9r3bucqxwI5n2XCrZsbnKA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV2PR12MB5869.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(376002)(136003)(396003)(366004)(39860400002)(451199015)(6486002)(54906003)(66476007)(6916009)(26005)(186003)(5660300002)(8676002)(86362001)(316002)(36756003)(7416002)(7406005)(6512007)(66556008)(6506007)(478600001)(2616005)(8936002)(41300700001)(38100700002)(4326008)(4744005)(2906002)(66946007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hirQfcX7RNHv4TVjZHMhh94iGL8keU7Db+2UUPhy5hBSZzJk6dDdWSy+G0Gz?=
- =?us-ascii?Q?4FPiWxDOnGASrzDjPcHYiA4Dn2XsWZYmLc7zm5FQ6OjPJh5JD0TXMqcs9tU7?=
- =?us-ascii?Q?wFbE3HvPlz1rW2ddFt9Fef6aFlT29txAqoLlmxnC9m1gaUlNeDHEreR+BB/Y?=
- =?us-ascii?Q?kBVrvC+2AfnJBMvlg27YoktKPRpRNRpHtFNor2V65RGws1/Y5gmS9nFGMdMf?=
- =?us-ascii?Q?VbJ1HLELzvB3A/T1VL6KrZ270l5CdLfzwlX8eFmZ/bDipBbZMhd0rA9/+W4a?=
- =?us-ascii?Q?oDVV2bx803rVEF7aNQyU661vvsG29SyGzDEFHEhtZ1eHJcaqpFCuW1NmFD/4?=
- =?us-ascii?Q?QYjBCOcWrxcV8Q1boEkTVEN4as8Vx9g7fsO2iOZ9HcW/yDmqHApLByK+NzmL?=
- =?us-ascii?Q?slvNN5KUC6jFha4RLDFmjhlbQdTFf7JxoGhl71S6p0q07z3yWRaS6FzMusap?=
- =?us-ascii?Q?Ru7yGhU3eoyTjNeGh4vaN5PmzdzTHqDJqyZyGzC2m6hmPLSWTgxGuU1phz13?=
- =?us-ascii?Q?jVsLRNJox8A18vTzE+G0kyMkVGp5hKFC3hsGj6avwCc48Zqy4NxwbgoY4v/q?=
- =?us-ascii?Q?Lz+hW/ZIDSOCcscqEpe+EgHPI313pIuV3Hrz8vYg20wONVW3C4OuuhqySYSd?=
- =?us-ascii?Q?62tFY8tmlqTe2CjtjcJ7NWHgVxrdzGFDJzYGFIj/A6doqMI32yfy+TeSohLW?=
- =?us-ascii?Q?dOCv1uRdpVASi3j5+/YW/PTXIzKL4QUafdKqRscFSgs3N9qYstawsgeFohq5?=
- =?us-ascii?Q?7GphEpBieFfYe1hdZ6cjMDWaj8+m0r3DakzKOK8rJ2DPK+eeQ7/JucSlnzZP?=
- =?us-ascii?Q?sdD1N0XJLGISXlyeoP4jENke6vcvp3Os5jaBoZK0yK3KONmhVmXLHeOJi3Re?=
- =?us-ascii?Q?j8Lg77QY9+wvRQFCHXyqnfSqV6B1NenzLJw57QUqLToFwXq/FsgUKnd4MdZb?=
- =?us-ascii?Q?zunG//psprkFn5pXv0RQZE2aVipaXXg/qEo4nHo24Irj3lYqFUT0lBgq8LPM?=
- =?us-ascii?Q?95UyagzYDUJUugAYDG+pV6yf8ox9cdkdh5Oh7Quimucex2Y+YnUI4S4Z20g1?=
- =?us-ascii?Q?YyM6QPE90HDiYI8Ult9ms0BX6lNLsGlQmDQyNUXgTjMP25i0gE11x7Svyi/E?=
- =?us-ascii?Q?t6Zt8qkMFsxFilxkJGNdgGKBBrjdfObOaUN1kY9beTRvaoGa5myNeuJtkDtO?=
- =?us-ascii?Q?bPZInN4XeFo15kwKXdJwj3cK45VoR8VjYqmRjJDLOsJFjfxW3fL0x/jU0aRO?=
- =?us-ascii?Q?Rg7NB101QsaNl6FzgpSrwlxIbp/z1Ntr9Vg7aGQKoQkGrtibtAR/jKS6Hh8e?=
- =?us-ascii?Q?kBpi3Z6dsBJAPfTFX80c4jbjlM+3U0Or1c94uSls6nRi8nf9aKdmScHs5WNZ?=
- =?us-ascii?Q?m0ND1p8wq6/+J9Toe8s6Ez0nOLiCkARDlrpXJzvS/7IHobfICyMgGZT8o/06?=
- =?us-ascii?Q?dH80N0IwhxHJHdARSLNW63K0tAnyI3nV8G+LBN4aTt+FZhoDZxGx6ZnYqtPh?=
- =?us-ascii?Q?J1QmnZcq9iujfef9Ns0OosDIyNoRl6m9b/eEV5rc+0x+1K0K/vWy3+DfmAKy?=
- =?us-ascii?Q?Zpsg6+49Q/iBVJ0xkU0=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4980ff9f-49b5-496d-e308-08dabe9d272d
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5869.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2022 19:45:40.6088 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ACZyvLH0jN5oWLX5EfmH4mPPFqeoyRC0nWF+oxOCFJ9SBdv/K7FFwZ3O4XYzGp1B
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5832
-Subject: Re: [Intel-gfx] [PATCH 05/10] vfio: Use
- IOMMU_CAP_ENFORCE_CACHE_COHERENCY for vfio_file_enforced_coherent()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Eric Farman <farman@linux.ibm.com>,
+ Matthew Rosato <mjrosato@linux.ibm.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Cornelia Huck <cohuck@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Yi Liu <yi.l.liu@intel.com>
+References: <20221102150152.2521475-1-farman@linux.ibm.com>
+ <20221102150152.2521475-8-farman@linux.ibm.com>
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <20221102150152.2521475-8-farman@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: 5KNPJY1ojqecQcp7Ux1-t0mABaq5DMaH
+X-Proofpoint-ORIG-GUID: hHPReoa9HfHIQdJ1gnG2bgJ3zM36pog3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-11-02_13,2022-11-02_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1011
+ mlxscore=0 malwarescore=0 adultscore=0 mlxlogscore=999 phishscore=0
+ suspectscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2211020114
+X-Mailman-Approved-At: Fri, 04 Nov 2022 19:48:17 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 7/7] vfio: Remove vfio_free_device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,50 +102,232 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Kirti Wankhede <kwankhede@nvidia.com>,
  Vineeth Vijayan <vneethv@linux.ibm.com>,
  Diana Craciun <diana.craciun@oss.nxp.com>,
  Alexander Gordeev <agordeev@linux.ibm.com>, David Airlie <airlied@gmail.com>,
- Longfang Liu <liulongfang@huawei.com>,
- "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>, "Liu,
- Yi L" <yi.l.liu@intel.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
- Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Halil Pasic <pasic@linux.ibm.com>,
- "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
- Nicolin Chen <nicolinc@nvidia.com>,
+ linux-s390@vger.kernel.org, Halil Pasic <pasic@linux.ibm.com>,
  Christian Borntraeger <borntraeger@linux.ibm.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Jason Herne <jjherne@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Eric Auger <eric.auger@redhat.com>,
- Harald Freudenberger <freude@linux.ibm.com>, "Vivi,
- Rodrigo" <rodrigo.vivi@intel.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- Tony Krowiak <akrowiak@linux.ibm.com>, Yishai Hadas <yishaih@nvidia.com>,
- Cornelia Huck <cohuck@redhat.com>, Peter Oberparleiter <oberpar@linux.ibm.com>,
- Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+ intel-gfx@lists.freedesktop.org, Vasily Gorbik <gor@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Eric Auger <eric.auger@redhat.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gvt-dev@lists.freedesktop.org,
+ Jason Herne <jjherne@linux.ibm.com>, Yishai Hadas <yishaih@nvidia.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
  Sven Schnelle <svens@linux.ibm.com>, Daniel Vetter <daniel@ffwll.ch>,
- Robin Murphy <robin.murphy@arm.com>, Lu Baolu <baolu.lu@linux.intel.com>
+ Abhishek Sahu <abhsahu@nvidia.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 03, 2022 at 04:38:16AM +0000, Tian, Kevin wrote:
-> > From: Jason Gunthorpe <jgg@nvidia.com>
-> > Sent: Tuesday, November 1, 2022 8:26 PM
-> > And this:
-> > 
-> > 	/*
-> > 	 * If the device does not have
-> > IOMMU_CAP_ENFORCE_CACHE_COHERENCY then
-> > 	 * any domain later attached to it will also not support it. If the cap
-> > 	 * is set then the iommu_domain eventually attached to the
-> > device/group
-> > 	 * must must use a domain with enforce_cache_coherency().
-> > 	 */
-> 
-> duplicated 'must'
+Reviewed-by: Tony Krowiak <akrowiak@linux.ibm.com> : vfio_ap part
 
-Done
-
-Jason
+On 11/2/22 11:01 AM, Eric Farman wrote:
+> With the "mess" sorted out, we should be able to inline the
+> vfio_free_device call introduced by commit cb9ff3f3b84c
+> ("vfio: Add helpers for unifying vfio_device life cycle")
+> and remove them from driver release callbacks.
+>
+> Signed-off-by: Eric Farman <farman@linux.ibm.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> ---
+>   drivers/gpu/drm/i915/gvt/kvmgt.c      |  1 -
+>   drivers/s390/cio/vfio_ccw_ops.c       |  2 --
+>   drivers/s390/crypto/vfio_ap_ops.c     |  6 ------
+>   drivers/vfio/fsl-mc/vfio_fsl_mc.c     |  1 -
+>   drivers/vfio/pci/vfio_pci_core.c      |  1 -
+>   drivers/vfio/platform/vfio_amba.c     |  1 -
+>   drivers/vfio/platform/vfio_platform.c |  1 -
+>   drivers/vfio/vfio_main.c              | 22 ++++------------------
+>   include/linux/vfio.h                  |  1 -
+>   samples/vfio-mdev/mbochs.c            |  1 -
+>   samples/vfio-mdev/mdpy.c              |  1 -
+>   samples/vfio-mdev/mtty.c              |  1 -
+>   12 files changed, 4 insertions(+), 35 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> index 7a45e5360caf..eee6805e67de 100644
+> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
+> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> @@ -1461,7 +1461,6 @@ static void intel_vgpu_release_dev(struct vfio_device *vfio_dev)
+>   	struct intel_vgpu *vgpu = vfio_dev_to_vgpu(vfio_dev);
+>   
+>   	intel_gvt_destroy_vgpu(vgpu);
+> -	vfio_free_device(vfio_dev);
+>   }
+>   
+>   static const struct vfio_device_ops intel_vgpu_dev_ops = {
+> diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_ops.c
+> index 1155f8bcedd9..598a3814d428 100644
+> --- a/drivers/s390/cio/vfio_ccw_ops.c
+> +++ b/drivers/s390/cio/vfio_ccw_ops.c
+> @@ -143,8 +143,6 @@ static void vfio_ccw_mdev_release_dev(struct vfio_device *vdev)
+>   	kmem_cache_free(vfio_ccw_io_region, private->io_region);
+>   	kfree(private->cp.guest_cp);
+>   	mutex_destroy(&private->io_mutex);
+> -
+> -	vfio_free_device(vdev);
+>   }
+>   
+>   static void vfio_ccw_mdev_remove(struct mdev_device *mdev)
+> diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+> index 0b4cc8c597ae..f108c0f14712 100644
+> --- a/drivers/s390/crypto/vfio_ap_ops.c
+> +++ b/drivers/s390/crypto/vfio_ap_ops.c
+> @@ -765,11 +765,6 @@ static void vfio_ap_mdev_unlink_fr_queues(struct ap_matrix_mdev *matrix_mdev)
+>   	}
+>   }
+>   
+> -static void vfio_ap_mdev_release_dev(struct vfio_device *vdev)
+> -{
+> -	vfio_free_device(vdev);
+> -}
+> -
+>   static void vfio_ap_mdev_remove(struct mdev_device *mdev)
+>   {
+>   	struct ap_matrix_mdev *matrix_mdev = dev_get_drvdata(&mdev->dev);
+> @@ -1784,7 +1779,6 @@ static const struct attribute_group vfio_queue_attr_group = {
+>   
+>   static const struct vfio_device_ops vfio_ap_matrix_dev_ops = {
+>   	.init = vfio_ap_mdev_init_dev,
+> -	.release = vfio_ap_mdev_release_dev,
+>   	.open_device = vfio_ap_mdev_open_device,
+>   	.close_device = vfio_ap_mdev_close_device,
+>   	.ioctl = vfio_ap_mdev_ioctl,
+> diff --git a/drivers/vfio/fsl-mc/vfio_fsl_mc.c b/drivers/vfio/fsl-mc/vfio_fsl_mc.c
+> index b16874e913e4..7b8889f55007 100644
+> --- a/drivers/vfio/fsl-mc/vfio_fsl_mc.c
+> +++ b/drivers/vfio/fsl-mc/vfio_fsl_mc.c
+> @@ -568,7 +568,6 @@ static void vfio_fsl_mc_release_dev(struct vfio_device *core_vdev)
+>   
+>   	vfio_fsl_uninit_device(vdev);
+>   	mutex_destroy(&vdev->igate);
+> -	vfio_free_device(core_vdev);
+>   }
+>   
+>   static int vfio_fsl_mc_remove(struct fsl_mc_device *mc_dev)
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index badc9d828cac..9be2d5be5d95 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -2109,7 +2109,6 @@ void vfio_pci_core_release_dev(struct vfio_device *core_vdev)
+>   	mutex_destroy(&vdev->vma_lock);
+>   	kfree(vdev->region);
+>   	kfree(vdev->pm_save);
+> -	vfio_free_device(core_vdev);
+>   }
+>   EXPORT_SYMBOL_GPL(vfio_pci_core_release_dev);
+>   
+> diff --git a/drivers/vfio/platform/vfio_amba.c b/drivers/vfio/platform/vfio_amba.c
+> index eaea63e5294c..18faf2678b99 100644
+> --- a/drivers/vfio/platform/vfio_amba.c
+> +++ b/drivers/vfio/platform/vfio_amba.c
+> @@ -95,7 +95,6 @@ static void vfio_amba_release_dev(struct vfio_device *core_vdev)
+>   
+>   	vfio_platform_release_common(vdev);
+>   	kfree(vdev->name);
+> -	vfio_free_device(core_vdev);
+>   }
+>   
+>   static void vfio_amba_remove(struct amba_device *adev)
+> diff --git a/drivers/vfio/platform/vfio_platform.c b/drivers/vfio/platform/vfio_platform.c
+> index 82cedcebfd90..9910451dc341 100644
+> --- a/drivers/vfio/platform/vfio_platform.c
+> +++ b/drivers/vfio/platform/vfio_platform.c
+> @@ -83,7 +83,6 @@ static void vfio_platform_release_dev(struct vfio_device *core_vdev)
+>   		container_of(core_vdev, struct vfio_platform_device, vdev);
+>   
+>   	vfio_platform_release_common(vdev);
+> -	vfio_free_device(core_vdev);
+>   }
+>   
+>   static int vfio_platform_remove(struct platform_device *pdev)
+> diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+> index 2901b8ad5be9..9835757e2bee 100644
+> --- a/drivers/vfio/vfio_main.c
+> +++ b/drivers/vfio/vfio_main.c
+> @@ -339,13 +339,10 @@ static void vfio_device_release(struct device *dev)
+>   	vfio_release_device_set(device);
+>   	ida_free(&vfio.device_ida, device->index);
+>   
+> -	/*
+> -	 * kvfree() cannot be done here due to a life cycle mess in
+> -	 * vfio-ccw. Before the ccw part is fixed all drivers are
+> -	 * required to support @release and call vfio_free_device()
+> -	 * from there.
+> -	 */
+> -	device->ops->release(device);
+> +	if (device->ops->release)
+> +		device->ops->release(device);
+> +
+> +	kvfree(device);
+>   }
+>   
+>   static int vfio_init_device(struct vfio_device *device, struct device *dev,
+> @@ -424,17 +421,6 @@ static int vfio_init_device(struct vfio_device *device, struct device *dev,
+>   	return ret;
+>   }
+>   
+> -/*
+> - * The helper called by driver @release callback to free the device
+> - * structure. Drivers which don't have private data to clean can
+> - * simply use this helper as its @release.
+> - */
+> -void vfio_free_device(struct vfio_device *device)
+> -{
+> -	kvfree(device);
+> -}
+> -EXPORT_SYMBOL_GPL(vfio_free_device);
+> -
+>   static struct vfio_group *vfio_noiommu_group_alloc(struct device *dev,
+>   		enum vfio_group_type type)
+>   {
+> diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+> index ba809268a48e..e7480154825e 100644
+> --- a/include/linux/vfio.h
+> +++ b/include/linux/vfio.h
+> @@ -176,7 +176,6 @@ struct vfio_device *_vfio_alloc_device(size_t size, struct device *dev,
+>   					dev, ops),				\
+>   		     struct dev_struct, member)
+>   
+> -void vfio_free_device(struct vfio_device *device);
+>   static inline void vfio_put_device(struct vfio_device *device)
+>   {
+>   	put_device(&device->device);
+> diff --git a/samples/vfio-mdev/mbochs.c b/samples/vfio-mdev/mbochs.c
+> index 117a8d799f71..8b5a3a778a25 100644
+> --- a/samples/vfio-mdev/mbochs.c
+> +++ b/samples/vfio-mdev/mbochs.c
+> @@ -594,7 +594,6 @@ static void mbochs_release_dev(struct vfio_device *vdev)
+>   	atomic_add(mdev_state->type->mbytes, &mbochs_avail_mbytes);
+>   	kfree(mdev_state->pages);
+>   	kfree(mdev_state->vconfig);
+> -	vfio_free_device(vdev);
+>   }
+>   
+>   static void mbochs_remove(struct mdev_device *mdev)
+> diff --git a/samples/vfio-mdev/mdpy.c b/samples/vfio-mdev/mdpy.c
+> index 946e8cfde6fd..721fb06c6413 100644
+> --- a/samples/vfio-mdev/mdpy.c
+> +++ b/samples/vfio-mdev/mdpy.c
+> @@ -283,7 +283,6 @@ static void mdpy_release_dev(struct vfio_device *vdev)
+>   
+>   	vfree(mdev_state->memblk);
+>   	kfree(mdev_state->vconfig);
+> -	vfio_free_device(vdev);
+>   }
+>   
+>   static void mdpy_remove(struct mdev_device *mdev)
+> diff --git a/samples/vfio-mdev/mtty.c b/samples/vfio-mdev/mtty.c
+> index e72085fc1376..3c2a421b9b69 100644
+> --- a/samples/vfio-mdev/mtty.c
+> +++ b/samples/vfio-mdev/mtty.c
+> @@ -784,7 +784,6 @@ static void mtty_release_dev(struct vfio_device *vdev)
+>   
+>   	atomic_add(mdev_state->nr_ports, &mdev_avail_ports);
+>   	kfree(mdev_state->vconfig);
+> -	vfio_free_device(vdev);
+>   }
+>   
+>   static void mtty_remove(struct mdev_device *mdev)
