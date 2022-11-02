@@ -4,58 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB08C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 12:19:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF6A5C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Nov 2022 12:20:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B46110E054;
-	Wed,  2 Nov 2022 12:19:12 +0000 (UTC)
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8062210E054
- for <intel-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 12:19:07 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id g7so27948882lfv.5
- for <intel-gfx@lists.freedesktop.org>; Wed, 02 Nov 2022 05:19:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Q9BNoCNZ+IvdOcAvRI7JkF1PpV8GoYAgeN5s35BK3gQ=;
- b=AXSTbwIhjQdtYzT+vrIXS798pVbYT4k+fQpYiUV2+m8IhJPddXaFbi6IXCr15s6t7R
- h1qZSEEdIm591T5a2as57JeVfKyST7MNcB9iS5r5IrutEa7LKyPTTbK6uxJIVRg5skgv
- 0oVyMC01IFagAo7v+MpDu4aYh0I7s1SxKlE/F2ZdJ+gybNzNXLhX4OfQzCAXUcM0B4QV
- rDQQkkI+AtLxXeMSLySUaeMYI+8e+Rddt5V2L/bxH8zQHoWPNwMgrO4UQV3g0ecFPPwq
- N0xmRYYLOgcerWQqlin/DL834BCCSnH+t3EXiJPZyLHqzQRj3qNPKqd+D66CywAsMwyq
- NEXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Q9BNoCNZ+IvdOcAvRI7JkF1PpV8GoYAgeN5s35BK3gQ=;
- b=apAp7GNWUVpC7EDfTq5H38Qc85NPu19+vAKFlEsn8uEw+kMvVOPQPpUxomUSMlOB52
- EBpKQ8IS2WdrSA7UjbFnWZ1oMGXzGip8OODzpHTEtMmGSbK+90Mh2l4RGLj0Sqork4SM
- eM5r61iBaUZdEr10Q3wDDk/SK9Tn1Ir6Ir7dncDL/suH49XL1RQpqWMf73Sn/QrdlIiK
- mEkXB11mMXE73J06VxbpCofs7Pvy77DAxXTN4V48wJVpSbku/1nvDO80tzmTRYEL1e36
- 69rHFDAECfPNLZxoaTFA64W0vJSKiJtXeg/deIndh6uKOUL7EYiEKU5gkQoJcW7uAArO
- yVIw==
-X-Gm-Message-State: ACrzQf3f35FTAGeKNRuW6VzQhzuveLvPKJc+8VdqMeqEsdCQXpDedePQ
- lqHkfWs34S45uYPHI9b645/sD5uAX/iIZQY1FIE=
-X-Google-Smtp-Source: AMsMyM5xXkCe0V9pCGNKI2VB17IhCJVqoJpQ1VuWK8Pg4+DIkyvNsVVV83+UnKybRowHuXP6kNzrqxA759n+4W/DcT0=
-X-Received: by 2002:a05:6512:239c:b0:4a2:7e95:5682 with SMTP id
- c28-20020a056512239c00b004a27e955682mr8677295lfv.185.1667391545508; Wed, 02
- Nov 2022 05:19:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16BBD10E491;
+	Wed,  2 Nov 2022 12:20:50 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED86010E486
+ for <intel-gfx@lists.freedesktop.org>; Wed,  2 Nov 2022 12:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667391646; x=1698927646;
+ h=message-id:date:mime-version:cc:subject:to:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=SLZ2iSsXMcu2nemCpm4wg2YGE2ZvCmm+bfrQdo5YmmI=;
+ b=MoAp8lk1OJojuiXYo9dNeIlnxT6e3YG3crxzziobKSQFfFONZDAwe3/R
+ EkCpjAPLdPchad/hElTrdyI1WjlKYhsF8MsEhJQPv0QZI6H9VafVY6gP+
+ So7R75Msk1uYuQO2lrt9mr+bqcBkKgjr7ZprYPXLsSs3oes4anQI+SIcC
+ 9oKXc7MRiAh66k76ZzG9jg6bTu8HAuKSuz8BV/ySfOH3X2ZngOyVH/lVQ
+ S42F7+jlwiG5POgkjaihE66kX45Ug3FA0V/3c3EbiyevEMZvSPsMDr7/S
+ ZUj2gqPFh2Z4ZG0LZko22eQfkU076PmVKIBEThrdKati9O6asb2l1+278 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10518"; a="289104929"
+X-IronPort-AV: E=Sophos;i="5.95,232,1661842800"; d="scan'208";a="289104929"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2022 05:20:46 -0700
+X-IronPort-AV: E=McAfee;i="6500,9779,10518"; a="585377901"
+X-IronPort-AV: E=Sophos;i="5.95,232,1661842800"; d="scan'208";a="585377901"
+Received: from blu2-mobl3.ccr.corp.intel.com (HELO [10.254.215.165])
+ ([10.254.215.165])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2022 05:20:43 -0700
+Message-ID: <c5dd30ca-f760-aef8-8c29-400f08cf0edd@linux.intel.com>
+Date: Wed, 2 Nov 2022 20:20:41 +0800
 MIME-Version: 1.0
-References: <20221028145319.1.I87b119c576d486ad139faf1b7278d97e158aabe4@changeid>
- <166700305133.24147.5489949087173137559@emeril.freedesktop.org>
- <CA+ASDXO856vFOx7CwQEmgM7pUU_Jdb-wXJPGrkKMPQ3GoNBJeQ@mail.gmail.com>
-In-Reply-To: <CA+ASDXO856vFOx7CwQEmgM7pUU_Jdb-wXJPGrkKMPQ3GoNBJeQ@mail.gmail.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Wed, 2 Nov 2022 12:18:37 +0000
-Message-ID: <CAM0jSHM99OxpmS-pqmEiyoK2pa07fnhekTKLRQTMsWqFkHCgJg@mail.gmail.com>
-To: Brian Norris <briannorris@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Intel-gfx] 
-	=?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
-	=?utf-8?q?/i915=3A_Set_PROBE=5FPREFER=5FASYNCHRONOUS?=
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Content-Language: en-US
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
+References: <20220922101036.87457-1-janusz.krzysztofik@linux.intel.com>
+ <f38685a7-8411-60e2-71e1-277d0dafac22@linux.intel.com>
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <f38685a7-8411-60e2-71e1-277d0dafac22@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Intel-gfx] [core-for-CI][PATCH] iommu: Remove iova cpu
+ hotplugging flushing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,121 +63,152 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Robin Murphy <robin.murphy@arm.com>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ iommu@lists.linux.dev, Will Deacon <will@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, baolu.lu@linux.intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 1 Nov 2022 at 21:58, Brian Norris <briannorris@chromium.org> wrote:
->
-> On Fri, Oct 28, 2022 at 5:24 PM Patchwork
-> <patchwork@emeril.freedesktop.org> wrote:
-> >
-> > Patch Details
-> > Series:drm/i915: Set PROBE_PREFER_ASYNCHRONOUS
-> > URL:https://patchwork.freedesktop.org/series/110277/
-> > State:failure
-> > Details:https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110277v1/index.html
-> >
-> > CI Bug Log - changes from CI_DRM_12317 -> Patchwork_110277v1
-> >
-> > Summary
-> >
-> > FAILURE
-> >
-> > Serious unknown changes coming with Patchwork_110277v1 absolutely need to be
-> > verified manually.
-> >
-> > If you think the reported changes have nothing to do with the changes
-> > introduced in Patchwork_110277v1, please notify your bug team to allow them
-> > to document this new failure mode, which will reduce false positives in CI.
-> >
-> > External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110277v1/index.html
->
-> For the record, I have almost zero idea what to do with this. From
-> what I can tell, most (all?) of these failures are flaky(?) already
-> and are probably not related to my change.
+On 2022/11/2 19:17, Baolu Lu wrote:
+> On 2022/9/22 18:10, Janusz Krzysztofik wrote:
+>> From: Chris Wilson<chris@chris-wilson.co.uk>
+>>
+>> Manual revert of commit f598a497bc7d ("iova: Add CPU hotplug handler to
+>> flush rcaches").  It is trying to instantiate a cpuhp notifier from 
+>> inside
+>> a cpuhp callback.  That code replaced intel_iommu implementation of
+>> flushing per-IOVA domain CPU rcaches which used a single instance of 
+>> cpuhp
+>> held for the module lifetime.
+>>
+>> <4>[    6.928112] ======================================================
+>> <4>[    6.928621] WARNING: possible circular locking dependency detected
+>> <4>[    6.929225] 6.0.0-rc6-CI_DRM_12164-ga1f63e144e54+ #1 Not tainted
+>> <4>[    6.929818] ------------------------------------------------------
+>> <4>[    6.930415] cpuhp/0/15 is trying to acquire lock:
+>> <4>[    6.931011] ffff888100e02a78 
+>> (&(&priv->bus_notifier)->rwsem){++++}-{3:3}, at: 
+>> blocking_notifier_call_chain+0x20/0x50
+>> <4>[    6.931533]
+>>                    but task is already holding lock:
+>> <4>[    6.931534] ffffffff826490c0 (cpuhp_state-up){+.+.}-{0:0}, at: 
+>> cpuhp_thread_fun+0x48/0x1f0
+>> <4>[    6.933069]
+>>                    which lock already depends on the new lock.
+> 
+> Just FYI.
+> 
+> Hot plugging a PCI device will trigger a similar lockdep warning.
+> 
+> #echo 1 > /sys/bus/pci/devices/.../remove
+> 
+> With this patch applied, the warning disappeared.
 
-https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110277v1/index.html
+The following kernel trace is generated by my experimental code. Please
+ignore it. Sorry for the inconvenience.
 
-According to that link, this change appears to break every platform
-when running the live selftests (looking at the purple squares).
-Running the selftests normally involves loading and unloading the
-module. Looking at the logs there is scary stuff like:
+> [ 2599.612285] BUG: kernel NULL pointer dereference, address: 
+> 0000000000000064
+> [ 2599.622454] #PF: supervisor read access in kernel mode
+> [ 2599.630460] #PF: error_code(0x0000) - not-present page
+> [ 2599.638473] PGD 109f7d067 P4D 0
+> [ 2599.644274] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> [ 2599.651385] CPU: 0 PID: 828 Comm: bash Tainted: G          I 
+> 6.1.0-rc2+ #367
+> [ 2599.677439] RIP: 0010:do_raw_spin_lock+0xa/0xc0
+> [ 2599.684796] Code: 8d 88 80 0b 00 00 48 c7 c7 d8 39 cd 91 e8 c7 c2 06 
+> 01 e9 e8 32 0e 01 66 0f 1f 84 00 00 00 00 00 66 0f 1f 00 0f 1f 44 00 00 
+> 53 <8b> 47 04 48 89 fb 3d ad 4e ad de 75 4a 48 8b 53 10 65 48 8b 04 25
+> [ 2599.711073] RSP: 0018:ff5efa9101b27ca8 EFLAGS: 00010092
+> [ 2599.719254] RAX: 0000000000000000 RBX: 0000000000000206 RCX: 
+> 0000000000000000
+> [ 2599.729869] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 
+> 0000000000000060
+> [ 2599.740427] RBP: 0000000000000060 R08: 0000000000000001 R09: 
+> 0000000000000000
+> [ 2599.750985] R10: 0000000000000000 R11: ffffffff95b0be60 R12: 
+> ff24417986fce000
+> [ 2599.761500] R13: ffffffff959f9bf0 R14: ff244179872d5058 R15: 
+> 0000000000000003
+> [ 2599.772114] FS:  00007f04aa2b1740(0000) GS:ff244180dfc00000(0000) 
+> knlGS:0000000000000000
+> [ 2599.783841] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [ 2599.792747] CR2: 0000000000000064 CR3: 000000010a6a2004 CR4: 
+> 0000000000771ef0
+> [ 2599.803372] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 
+> 0000000000000000
+> [ 2599.813976] DR3: 0000000000000000 DR6: 00000000ffff07f0 DR7: 
+> 0000000000000400
+> [ 2599.824572] PKRU: 55555554
+> [ 2599.829655] Call Trace:
+> [ 2599.834444]  <TASK>
+> [ 2599.838833]  _raw_spin_lock_irqsave+0x41/0x60
+> [ 2599.846048]  ? domain_update_iotlb+0x16/0x60
+> [ 2599.853147]  domain_update_iotlb+0x16/0x60
+> [ 2599.859946]  intel_iommu_release_device+0xc5/0xd0
+> [ 2599.867549]  iommu_release_device+0x49/0x80
+> [ 2599.874444]  iommu_bus_notifier+0x24/0x50
+> [ 2599.881139]  notifier_call_chain+0x3a/0xa0
+> [ 2599.887936]  blocking_notifier_call_chain+0x43/0x60
+> [ 2599.895736]  device_del+0x2b4/0x420
+> [ 2599.901829]  pci_remove_bus_device+0x70/0x110
+> [ 2599.909034]  pci_stop_and_remove_bus_device_locked+0x22/0x30
+> [ 2599.917852]  remove_store+0x7d/0x90
+> [ 2599.923949]  kernfs_fop_write_iter+0x12a/0x1d0
+> [ 2599.931253]  vfs_write+0x313/0x4b0
+> [ 2599.937247]  ksys_write+0x60/0xe0
+> [ 2599.943095]  do_syscall_64+0x43/0x90
+> [ 2599.949245]  entry_SYSCALL_64_after_hwframe+0x63/0xcd
+> [ 2599.957135] RIP: 0033:0x7f04a9d18a98
+> [ 2599.963213] Code: 89 02 48 c7 c0 ff ff ff ff eb b3 0f 1f 80 00 00 00 
+> 00 f3 0f 1e fa 48 8d 05 05 26 0f 00 8b 00 85 c0 75 1f b8 01 00 00 00 0f 
+> 05 <0f> 1f 84 00 00 00 00 00 48 3d 00 f0 ff ff 77 58 c3 0f 1f 80 00 00
+> [ 2599.989405] RSP: 002b:00007ffc28cce9e8 EFLAGS: 00000246 ORIG_RAX: 
+> 0000000000000001
+> [ 2600.000537] RAX: ffffffffffffffda RBX: 0000000000000002 RCX: 
+> 00007f04a9d18a98
+> [ 2600.011155] RDX: 0000000000000002 RSI: 000055d272355f60 RDI: 
+> 0000000000000001
+> [ 2600.021748] RBP: 000055d272355f60 R08: 000000000000000a R09: 
+> 0000000000000001
+> [ 2600.032334] R10: 000000000000000a R11: 0000000000000246 R12: 
+> 00007f04a9e06520
+> [ 2600.042923] R13: 0000000000000002 R14: 00007f04a9e07260 R15: 
+> 00007f04a9e06720
+> [ 2600.053527]  </TASK>
+> [ 2600.057993] Modules linked in: fuse x86_pkg_temp_thermal 
+> intel_powerclamp coretemp kvm_intel kvm irqbypass isst_if_mmio 
+> isst_if_common joydev intel_vsec idxd cxl_acpi cxl_core sunrpc 
+> crc32c_intel ixgbe mdio dca bochs drm_vram_helper drm_ttm_helper
+> [ 2600.088403] CR2: 0000000000000064
+> [ 2600.094376] ---[ end trace 0000000000000000 ]---
+> [ 2600.238419] RIP: 0010:do_raw_spin_lock+0xa/0xc0
+> [ 2600.245811] Code: 8d 88 80 0b 00 00 48 c7 c7 d8 39 cd 91 e8 c7 c2 06 
+> 01 e9 e8 32 0e 01 66 0f 1f 84 00 00 00 00 00 66 0f 1f 00 0f 1f 44 00 00 
+> 53 <8b> 47 04 48 89 fb 3d ad 4e ad de 75 4a 48 8b 53 10 65 48 8b 04 25
+> [ 2600.272091] RSP: 0018:ff5efa9101b27ca8 EFLAGS: 00010092
+> [ 2600.280345] RAX: 0000000000000000 RBX: 0000000000000206 RCX: 
+> 0000000000000000
+> [ 2600.290980] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 
+> 0000000000000060
+> [ 2600.301580] RBP: 0000000000000060 R08: 0000000000000001 R09: 
+> 0000000000000000
+> [ 2600.312167] R10: 0000000000000000 R11: ffffffff95b0be60 R12: 
+> ff24417986fce000
+> [ 2600.322762] R13: ffffffff959f9bf0 R14: ff244179872d5058 R15: 
+> 0000000000000003
+> [ 2600.333354] FS:  00007f04aa2b1740(0000) GS:ff244180dfc00000(0000) 
+> knlGS:0000000000000000
+> [ 2600.345062] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [ 2600.353949] CR2: 0000000000000064 CR3: 000000010a6a2004 CR4: 
+> 0000000000771ef0
+> [ 2600.364571] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 
+> 0000000000000000
+> [ 2600.375178] DR3: 0000000000000000 DR6: 00000000ffff07f0 DR7: 
+> 0000000000000400
+> [ 2600.385756] PKRU: 55555554
+> [ 2600.390848] note: bash[828] exited with preempt_count 1
 
-<3> [371.938060] INFO: task kworker/u12:1:46 blocked for more than 61 seconds.
-<3> [371.944992] Tainted: G U W 6.1.0-rc2-Patchwork_110277v1-g0f9cbc285f7d+ #1
-<3> [371.953546] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
-disables this message.
-<6> [371.961428] task:kworker/u12:1 state:D stack:11512 pid:46 ppid:2
-flags:0x00004000
-<6> [371.961433] Workqueue: events_unbound async_run_entry_fn
-<6> [371.961452] Call Trace:
-<6> [371.961454] <TASK>
-<6> [371.961457] __schedule+0x30e/0xa70
-<6> [371.961481] ? usleep_range_state+0xb0/0xb0
-<6> [371.961484] ? __wait_for_common+0xd3/0x1d0
-<6> [371.961487] schedule+0x4e/0xd0
-<6> [371.961489] schedule_timeout+0x237/0x2e0
-<6> [371.961493] ? usleep_range_state+0xb0/0xb0
-<6> [371.961495] ? __wait_for_common+0xd3/0x1d0
-<6> [371.961497] ? mark_held_locks+0x48/0x80
-<6> [371.961500] ? _raw_spin_unlock_irq+0x1f/0x50
-<6> [371.961504] ? usleep_range_state+0xb0/0xb0
-<6> [371.961506] __wait_for_common+0xf5/0x1d0
-<6> [371.961526] __flush_work+0x2c4/0x4e0
-<6> [371.961530] ? flush_workqueue_prep_pwqs+0x120/0x120
-<6> [371.961553] ? get_work_pool+0x90/0x90
-<6> [371.961556] __cancel_work_timer+0x14e/0x1f0
-<6> [371.961559] ? _raw_spin_unlock_irqrestore+0x54/0x70
-<6> [371.961562] ? lockdep_hardirqs_on+0xbf/0x140
-<6> [371.961567] intel_display_driver_unregister+0x27/0x40 [i915]
-<6> [371.961722] i915_driver_remove+0x50/0x100 [i915]
-<6> [371.961862] i915_pci_probe+0x123/0x240 [i915]
-<6> [371.961996] ? _raw_spin_unlock_irqrestore+0x3d/0x70
-<6> [371.962001] pci_device_probe+0x95/0x110
-<6> [371.962005] really_probe+0xd6/0x350
-<6> [371.962008] ? pm_runtime_barrier+0x4b/0xa0
-<6> [371.962013] __driver_probe_device+0x73/0x170
-<6> [371.962016] driver_probe_device+0x1a/0x90
-<6> [371.962019] __driver_attach_async_helper+0x31/0x80
-<6> [371.962023] async_run_entry_fn+0x28/0x130
-<6> [371.962026] process_one_work+0x272/0x5b0
-<6> [371.962032] worker_thread+0x37/0x370
-<6> [371.962036] ? process_one_work+0x5b0/0x5b0
-<6> [371.962038] kthread+0xed/0x120
-<6> [371.962040] ? kthread_complete_and_exit+0x20/0x20
-<6> [371.962044] ret_from_fork+0x1f/0x30
-<6> [371.962053] </TASK>
-<3> [371.962055] INFO: task kworker/3:1:57 blocked for more than 61 seconds.
-<3> [371.968696] Tainted: G U W 6.1.0-rc2-Patchwork_110277v1-g0f9cbc285f7d+ #1
-<3> [371.977219] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
-disables this message.
-<6> [371.985049] task:kworker/3:1 state:D stack:12488 pid:57 ppid:2
-flags:0x00004000
-<6> [371.985053] Workqueue: events output_poll_execute [drm_kms_helper]
-<6> [371.985080] Call Trace:
-<6> [371.985081] <TASK>
-<6> [371.985102] __schedule+0x30e/0xa70
-<6> [371.985108] schedule+0x4e/0xd0
-<6> [371.985110] async_synchronize_cookie_domain+0xe7/0x120
-<6> [371.985113] ? finish_swait+0x90/0x90
-<6> [371.985117] intel_fbdev_output_poll_changed+0x82/0x90 [i915]
-<6> [371.985281] drm_kms_helper_hotplug_event+0x1e/0x30 [drm_kms_helper]
-<6> [371.985291] output_poll_execute+0x1f5/0x200 [drm_kms_helper]
-<6> [371.985303] process_one_work+0x272/0x5b0
-<6> [371.985310] worker_thread+0x37/0x370
-<6> [371.985313] ? process_one_work+0x5b0/0x5b0
-<6> [371.985316] kthread+0xed/0x120
-<6> [371.985317] ? kthread_complete_and_exit+0x20/0x20
-<6> [371.985321] ret_from_fork+0x1f/0x30
-<6> [371.985329] </TASK>
-<3> [371.985348] INFO: task i915_selftest:6017 blocked for more than 61 seconds.
-
-
->
-> But if someone believes to actually be a blocking issue with my patch,
-> let me know, and I can see if I can figure out a better answer than
-> that.
->
-> Thanks,
-> Brian
+Best regards,
+baolu
