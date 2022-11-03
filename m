@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA4DC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 15:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6CA4C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 15:16:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46BB010E659;
-	Thu,  3 Nov 2022 15:15:13 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 817F110E617;
- Thu,  3 Nov 2022 15:14:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBF4210E60C;
+	Thu,  3 Nov 2022 15:15:11 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 586B510E617;
+ Thu,  3 Nov 2022 15:14:55 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 297B121D9F;
- Thu,  3 Nov 2022 15:14:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 181AB21DE2;
+ Thu,  3 Nov 2022 15:14:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667488491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1667488494; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oSkXEP/N0F8bqfQxe+3kiz0JGWByLoSpN5ingU+S7p4=;
- b=dhhbwUeAqHcS82EYirvfoPmjFK5AQ7FFz08RTtBUDGwK9vAKUIkMqfs9n5m9DBMmx5rkC8
- bKGAhGpULqR8cyD64IyT6FyNuPDcnd/vpgjyFHXiWLXuv4oOraQ5Lu/fik3HbZB+hvg1DK
- k6+zno+BEO3aUVpDRd1d0Ii9q2rAF/E=
+ bh=DAeMCwRCJM5hznGIXRhbDEzf9LOpLMgsqs12CnL2W3Y=;
+ b=zCzHweR6BnCedpkcTlfiK+JVAZLFhSUtaTciouOpNU3CvL1HPp1mHw+SNd0AEa0gpfc8Gd
+ dqd9mR7dMx4wPMwRBpSTBK10OvAW4U7cYCgkIYFln0/pKqhd/lWyqNF9/xv44+znJcgDcf
+ 770aUvTU8jbIsmPqWEKZYQzdJNhMfds=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667488491;
+ s=susede2_ed25519; t=1667488494;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=oSkXEP/N0F8bqfQxe+3kiz0JGWByLoSpN5ingU+S7p4=;
- b=Fc/dAj5GdfsctmDYZX2Vgt/xNU4iA3AHbfQzsrOuITdIkHbO4gcW5tuqhnJeiuwGUE0IEH
- FFHqhoQf5IasXdBw==
+ bh=DAeMCwRCJM5hznGIXRhbDEzf9LOpLMgsqs12CnL2W3Y=;
+ b=paKS2cvRRwa0Vi1ztoK9HitUEgaOXprUJdSvgtBEQ8sBWSJSo8uFGwcFxNSL6ZS1xGodf8
+ 3VE/OD++GHQfnYCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9D00913ADB;
- Thu,  3 Nov 2022 15:14:50 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A1AEE13ADB;
+ Thu,  3 Nov 2022 15:14:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2IVoJeraY2PBGgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 03 Nov 2022 15:14:50 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id UCGuJu3aY2PBGgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 03 Nov 2022 15:14:53 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
  mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Date: Thu,  3 Nov 2022 16:14:26 +0100
-Message-Id: <20221103151446.2638-4-tzimmermann@suse.de>
+Date: Thu,  3 Nov 2022 16:14:32 +0100
+Message-Id: <20221103151446.2638-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221103151446.2638-1-tzimmermann@suse.de>
 References: <20221103151446.2638-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 03/23] drm/vboxvideo: Don't set struct
- drm_driver.lastclose
+Subject: [Intel-gfx] [PATCH v3 09/23] drm/panel-ili9341: Include
+ <linux/backlight.h>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,30 +84,26 @@ Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Don't set struct drm_driver.lastclose. It's used to restore the
-fbdev console. But as vboxvideo uses generic fbdev emulation, the
-console is being restored by the DRM client helpers already. See
-the call to drm_client_dev_restore() in drm_lastclose().
+Include <linux/backlight.h> for devm_of_find_backlight().
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/vboxvideo/vbox_drv.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/panel/panel-ilitek-ili9341.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-index f4f2bd79a7cb6..1cd716eb17a1c 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-@@ -178,8 +178,6 @@ static const struct drm_driver driver = {
- 	.driver_features =
- 	    DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9341.c b/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
+index 39dc40cf681f0..b59472c29a40d 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
+@@ -18,6 +18,7 @@
+  * Copyright 2018 David Lechner <david@lechnology.com>
+  */
  
--	.lastclose = drm_fb_helper_lastclose,
--
- 	.fops = &vbox_fops,
- 	.name = DRIVER_NAME,
- 	.desc = DRIVER_DESC,
++#include <linux/backlight.h>
+ #include <linux/bitops.h>
+ #include <linux/delay.h>
+ #include <linux/gpio/consumer.h>
 -- 
 2.38.0
 
