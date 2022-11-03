@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69DCFC43217
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 15:17:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CACDC43217
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 15:17:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84CA510E69D;
-	Thu,  3 Nov 2022 15:15:20 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BEFF10E61E;
- Thu,  3 Nov 2022 15:14:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9150C10E6DC;
+	Thu,  3 Nov 2022 15:15:27 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 139C210E60C;
+ Thu,  3 Nov 2022 15:15:02 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1A2DD1F8D4;
- Thu,  3 Nov 2022 15:14:55 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 65D8E1F8F3;
+ Thu,  3 Nov 2022 15:15:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1667488495; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1667488500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=T97NNzQIXdQboHVakcc3btWsx14G704vol4zvtyaVcE=;
- b=T8XjDQ6xPKBfMRAtCwREAQEqcOHcnSJ8e7yYXElg8636mpxy7T113a3aEVDZJuhWQe8pHh
- bVa8tGF8Z7xVZP/DhEoa2+kLzM1ifm4V07JGMJtmY07uTjp7Blasqo82+FeRsTA1d9rz0b
- 8RSxcJlXOuyVutkVHvTTxeUQO9HslAI=
+ bh=wr52WabQn4KK+bwhCdJXRXC0GHxQRZf3tOH2OwXrlI4=;
+ b=2IHU9odfZVC/BEosd5kYe2nSLZ0DFNgEeVXJI5zLv+JKV2wN30OSjGQ+p+oRUTcnBI+aSY
+ pkhdYXovwCXBs4Bkt8vaHgMYWDzvbQSgHd0WfjuIdzacDrsUKfmLPmD7qtna79oEsJ6XuK
+ jJL/sse9X2zXCpuZbC6pTPqYFUYFoHo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1667488495;
+ s=susede2_ed25519; t=1667488500;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=T97NNzQIXdQboHVakcc3btWsx14G704vol4zvtyaVcE=;
- b=v1n4yUF7hYIpMabvz8Cc8U0ElcngH7QHxWhN64QcYf7H7RteXIxt7UKDjlTP1taWpeMxBn
- Gzp6HrdqWh/c6/Dg==
+ bh=wr52WabQn4KK+bwhCdJXRXC0GHxQRZf3tOH2OwXrlI4=;
+ b=3Zy/+KY1PXJuswjeMIT6ebHMi8zktn+cASefhirMXLxQQC/cH2yhbAYxRTqiOd8n2gteRF
+ me+3Ej2BR8ugj7AQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 919ED13ADB;
- Thu,  3 Nov 2022 15:14:54 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DAEFB13AAF;
+ Thu,  3 Nov 2022 15:14:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4CfBIu7aY2PBGgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 03 Nov 2022 15:14:54 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id kA2nM/PaY2PBGgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 03 Nov 2022 15:14:59 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, sam@ravnborg.org, javierm@redhat.com,
  mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Date: Thu,  3 Nov 2022 16:14:34 +0100
-Message-Id: <20221103151446.2638-12-tzimmermann@suse.de>
+Date: Thu,  3 Nov 2022 16:14:43 +0100
+Message-Id: <20221103151446.2638-21-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221103151446.2638-1-tzimmermann@suse.de>
 References: <20221103151446.2638-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 11/23] drm/fb-helper: Cleanup include
- statements in header file
+Subject: [Intel-gfx] [PATCH v3 20/23] drm/fb-helper: Set flag in struct
+ drm_fb_helper for leaking physical addresses
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,32 +84,72 @@ Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Only include what we have to.
+Uncouple the parameter drm_leak_fbdev_smem from the implementation by
+setting a flag in struct drm_fb_helper. This will help to move the
+generic fbdev emulation into its own source file, while keeping the
+parameter in drm_fb_helper.c. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- include/drm/drm_fb_helper.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_fb_helper.c | 10 +++++++---
+ include/drm/drm_fb_helper.h     |  2 ++
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 95f389433c4a6..105d9c8fe3250 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -74,7 +74,7 @@ MODULE_PARM_DESC(drm_fbdev_overalloc,
+  * considered as a broken and legacy behaviour from a modern fbdev device.
+  */
+ #if IS_ENABLED(CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM)
+-static bool drm_leak_fbdev_smem = false;
++static bool drm_leak_fbdev_smem;
+ module_param_unsafe(drm_leak_fbdev_smem, bool, 0600);
+ MODULE_PARM_DESC(drm_leak_fbdev_smem,
+ 		 "Allow unsafe leaking fbdev physical smem address [default=false]");
+@@ -1968,6 +1968,10 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper,
+ 		sizes.surface_height = config->max_height;
+ 	}
+ 
++#if IS_ENABLED(CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM)
++	fb_helper->hint_leak_smem_start = drm_leak_fbdev_smem;
++#endif
++
+ 	/* push down into drivers */
+ 	ret = (*fb_helper->funcs->fb_probe)(fb_helper, &sizes);
+ 	if (ret < 0)
+@@ -2165,7 +2169,7 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper,
+ 	info->var.pixclock = 0;
+ 	/* Shamelessly allow physical address leaking to userspace */
+ #if IS_ENABLED(CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM)
+-	if (!drm_leak_fbdev_smem)
++	if (!fb_helper->hint_leak_smem_start)
+ #endif
+ 		/* don't leak any physical addresses to userspace */
+ 		info->flags |= FBINFO_HIDE_SMEM_START;
+@@ -2564,7 +2568,7 @@ static int drm_fb_helper_generic_probe(struct drm_fb_helper *fb_helper,
+ 		 * case.
+ 		 */
+ #if IS_ENABLED(CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM)
+-		if (drm_leak_fbdev_smem && fbi->fix.smem_start == 0 &&
++		if (fb_helper->hint_leak_smem_start && fbi->fix.smem_start == 0 &&
+ 		    !drm_WARN_ON_ONCE(dev, map.is_iomem))
+ 			fbi->fix.smem_start =
+ 				page_to_phys(virt_to_page(fbi->screen_buffer));
 diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-index fddd0d1af6891..e923089522896 100644
+index 6581183618b89..3dfb5d1093871 100644
 --- a/include/drm/drm_fb_helper.h
 +++ b/include/drm/drm_fb_helper.h
-@@ -32,11 +32,9 @@
- 
- struct drm_fb_helper;
- 
--#include <drm/drm_client.h>
--#include <drm/drm_crtc.h>
--#include <drm/drm_device.h>
- #include <linux/fb.h>
--#include <linux/kgdb.h>
+@@ -199,6 +199,8 @@ struct drm_fb_helper {
+ 	 * See also: @deferred_setup
+ 	 */
+ 	int preferred_bpp;
 +
-+#include <drm/drm_client.h>
++	bool hint_leak_smem_start;
+ };
  
- enum mode_set_atomic {
- 	LEAVE_ATOMIC_MODE_SET,
+ static inline struct drm_fb_helper *
 -- 
 2.38.0
 
