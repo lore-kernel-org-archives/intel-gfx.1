@@ -4,53 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C78C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 12:28:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32AEEC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 13:21:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E112810E288;
-	Thu,  3 Nov 2022 12:28:51 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EBDA10E288
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Nov 2022 12:28:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F63810E29B;
+	Thu,  3 Nov 2022 13:21:54 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA87810E289;
+ Thu,  3 Nov 2022 13:21:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667478529; x=1699014529;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=fyN+UGP4p4UBiAyiDTifEISWIxY5MH3ukgAU93BcVZc=;
- b=Dn85e89XEPYU7zYGlesB+UTeSNjv0hcgeZgP2NuU12qllVkLRhJ+c7BS
- 6Iu06yESQqCmeiVZUaowaTZwNkrJ17mTK4t7Qhg99dEQjhtfcl+kcoDUC
- DnPYY9cyyepcr3+dDM+K1v7s1dhTykEoP4FHYI/wXFEL9UGVJGMTUQ0Ok
- petIKCKrbsYr3SdaKeAvizOY3zNyG7SH6+a9B+3R1xDaY4l9b38j/Lh8v
- LDAYVWa/PptQawu3DWX3Y2O+Oc1nvF9NrDTS8IR7EwmHfMEp89yTYAoYT
- yf7T52ce3M1q/Acyig01KwYKuYzK6Mxf+701ouBktbA2WLoGSbUTvHBr+ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="309662857"
-X-IronPort-AV: E=Sophos;i="5.95,235,1661842800"; d="scan'208";a="309662857"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2022 05:28:49 -0700
-X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="723928371"
-X-IronPort-AV: E=Sophos;i="5.95,235,1661842800"; d="scan'208";a="723928371"
-Received: from khogan-mobl1.ger.corp.intel.com (HELO [10.213.226.17])
- ([10.213.226.17])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2022 05:28:48 -0700
-Message-ID: <0a0f1b3e-eddf-9b7d-fc09-f6f097592bed@linux.intel.com>
-Date: Thu, 3 Nov 2022 12:28:46 +0000
+ t=1667481710; x=1699017710;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=BeLvh++Al0uxYH6aNnb1lEP9v/jcVWjbaiaogkW0jsM=;
+ b=LtrPrgVfnV/R0aR9HP1WC1982bZqK7xaNmktoRcNbNkA2JT1bvZDXjKs
+ aKnvG2tcCQy8hoH0+6Fs0eXKjzVRePeuGDk5cPMm1B+7u64pNsQvY+SLG
+ 9i5HyuytmGXq2cIbmoffL2M3J7Er81MM5A/u2GSCHN+A2ByS2P+QIO+ow
+ hmhY2ijHCbEXOYxtOwYCJ9YnDtCVA2ZQ59p/XPLLGqsSR7U0JfCAqvIeI
+ GUKY7uOViqQZFulLETQ2/KnrJUikaDImyhgaJSYYj29wMnVKv8VrTFv18
+ lSKkW9SnJRp03Vsfjd6mVFGwqjPR48VjJgFyC6p16TMhiIDffTOPvrisE Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="308396074"
+X-IronPort-AV: E=Sophos;i="5.96,235,1665471600"; d="scan'208";a="308396074"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2022 06:21:50 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10519"; a="665963992"
+X-IronPort-AV: E=Sophos;i="5.96,235,1665471600"; d="scan'208";a="665963992"
+Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
+ ([10.237.72.65])
+ by orsmga008.jf.intel.com with ESMTP; 03 Nov 2022 06:21:47 -0700
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  3 Nov 2022 15:21:46 +0200
+Message-Id: <20221103132146.12759-1-stanislav.lisovskiy@intel.com>
+X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20221101094222.22091-6-stanislav.lisovskiy@intel.com>
+References: <20221101094222.22091-6-stanislav.lisovskiy@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Content-Language: en-US
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
- intel-gfx@lists.freedesktop.org
-References: <20221103001149.1203285-1-umesh.nerlige.ramappa@intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <20221103001149.1203285-1-umesh.nerlige.ramappa@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/selftest: Bump up sample period
- for busy stats selftest
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 5/6] drm/i915: Extract VESA DSC bpp alignment to
+ separate function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,54 +58,124 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+We might to use that function separately from intel_dp_dsc_compute_config
+for DP DSC over MST case, because allocating bandwidth in that
+case can be a bit more tricky. So in order to avoid code copy-pasta
+lets extract this to separate function and reuse it for both SST
+and MST cases.
 
-On 03/11/2022 00:11, Umesh Nerlige Ramappa wrote:
-> Engine busyness samples around a 10ms period is failing with busyness
-> ranging approx. from 87% to 115%. The expected range is +/- 5% of the
-> sample period.
-> 
-> When determining busyness of active engine, the GuC based engine
-> busyness implementation relies on a 64 bit timestamp register read. The
-> latency incurred by this register read causes the failure.
-> 
-> On DG1, when the test fails, the observed latencies range from 900us -
-> 1.5ms.
+v2: Removed multiple blank lines
 
-Do I read this right - that the latency of a 64 bit timestamp register 
-read is 0.9 - 1.5ms? That would be the read in guc_update_pm_timestamp?
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c     | 50 +++++++++++++--------
+ drivers/gpu/drm/i915/display/intel_dp.h     |  1 +
+ drivers/gpu/drm/i915/display/intel_dp_mst.c |  1 -
+ 3 files changed, 32 insertions(+), 20 deletions(-)
 
-Regards,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 70f4d6422795..8288a30dbd51 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -671,6 +671,36 @@ small_joiner_ram_size_bits(struct drm_i915_private *i915)
+ 		return 6144 * 8;
+ }
+ 
++u32 intel_dp_dsc_nearest_vesa_bpp(struct drm_i915_private *i915, u32 bpp, u32 pipe_bpp)
++{
++	u32 bits_per_pixel = bpp;
++	int i;
++
++	/* Error out if the max bpp is less than smallest allowed valid bpp */
++	if (bits_per_pixel < valid_dsc_bpp[0]) {
++		drm_dbg_kms(&i915->drm, "Unsupported BPP %u, min %u\n",
++			    bits_per_pixel, valid_dsc_bpp[0]);
++		return 0;
++	}
++
++	/* From XE_LPD onwards we support from bpc upto uncompressed bpp-1 BPPs */
++	if (DISPLAY_VER(i915) >= 13) {
++		bits_per_pixel = min(bits_per_pixel, pipe_bpp - 1);
++	} else {
++		/* Find the nearest match in the array of known BPPs from VESA */
++		for (i = 0; i < ARRAY_SIZE(valid_dsc_bpp) - 1; i++) {
++			if (bits_per_pixel < valid_dsc_bpp[i + 1])
++				break;
++		}
++		drm_dbg_kms(&i915->drm, "Set dsc bpp from %d to VESA %d\n",
++			    bits_per_pixel, valid_dsc_bpp[i]);
++
++		bits_per_pixel = valid_dsc_bpp[i];
++	}
++
++	return bits_per_pixel;
++}
++
+ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 				u32 link_clock, u32 lane_count,
+ 				u32 mode_clock, u32 mode_hdisplay,
+@@ -679,7 +709,6 @@ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 				u32 timeslots)
+ {
+ 	u32 bits_per_pixel, max_bpp_small_joiner_ram;
+-	int i;
+ 
+ 	/*
+ 	 * Available Link Bandwidth(Kbits/sec) = (NumberOfLanes)*
+@@ -712,24 +741,7 @@ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 		bits_per_pixel = min(bits_per_pixel, max_bpp_bigjoiner);
+ 	}
+ 
+-	/* Error out if the max bpp is less than smallest allowed valid bpp */
+-	if (bits_per_pixel < valid_dsc_bpp[0]) {
+-		drm_dbg_kms(&i915->drm, "Unsupported BPP %u, min %u\n",
+-			    bits_per_pixel, valid_dsc_bpp[0]);
+-		return 0;
+-	}
+-
+-	/* From XE_LPD onwards we support from bpc upto uncompressed bpp-1 BPPs */
+-	if (DISPLAY_VER(i915) >= 13) {
+-		bits_per_pixel = min(bits_per_pixel, pipe_bpp - 1);
+-	} else {
+-		/* Find the nearest match in the array of known BPPs from VESA */
+-		for (i = 0; i < ARRAY_SIZE(valid_dsc_bpp) - 1; i++) {
+-			if (bits_per_pixel < valid_dsc_bpp[i + 1])
+-				break;
+-		}
+-		bits_per_pixel = valid_dsc_bpp[i];
+-	}
++	bits_per_pixel = intel_dp_dsc_nearest_vesa_bpp(i915, bits_per_pixel, pipe_bpp);
+ 
+ 	/*
+ 	 * Compressed BPP in U6.4 format so multiply by 16, for Gen 11,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index c6539a6915e9..0fe10d93b75c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -120,6 +120,7 @@ static inline unsigned int intel_dp_unused_lane_mask(int lane_count)
+ }
+ 
+ u32 intel_dp_mode_to_fec_clock(u32 mode_clock);
++u32 intel_dp_dsc_nearest_vesa_bpp(struct drm_i915_private *i915, u32 bpp, u32 pipe_bpp);
+ 
+ void intel_ddi_update_pipe(struct intel_atomic_state *state,
+ 			   struct intel_encoder *encoder,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 61b2bd504e80..8442eea27a57 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -114,7 +114,6 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
+ 	return slots;
+ }
+ 
+-
+ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+ 					    struct intel_crtc_state *crtc_state,
+ 					    struct drm_connector_state *conn_state,
+-- 
+2.37.3
 
-Tvrtko
-
-> One solution tried was to reduce the latency between reg read and
-> CPU timestamp capture, but such optimization does not add value to user
-> since the CPU timestamp obtained here is only used for (1) selftest and
-> (2) i915 rps implementation specific to execlist scheduler. Also, this
-> solution only reduces the frequency of failure and does not eliminate
-> it.
-> 
-> In order to make the selftest more robust and account for such
-> latencies, increase the sample period to 100 ms.
-> 
-> Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-> ---
->   drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-> index 0dcb3ed44a73..87c94314cf67 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-> @@ -317,7 +317,7 @@ static int live_engine_busy_stats(void *arg)
->   		ENGINE_TRACE(engine, "measuring busy time\n");
->   		preempt_disable();
->   		de = intel_engine_get_busy_time(engine, &t[0]);
-> -		mdelay(10);
-> +		mdelay(100);
->   		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
->   		preempt_enable();
->   		dt = ktime_sub(t[1], t[0]);
