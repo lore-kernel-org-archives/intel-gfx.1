@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED2C2C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 13:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD404C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 13:32:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B848910E287;
-	Thu,  3 Nov 2022 13:23:09 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E58B10E287;
- Thu,  3 Nov 2022 13:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50FE910E297;
+	Thu,  3 Nov 2022 13:32:34 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E26610E297
+ for <intel-gfx@lists.freedesktop.org>; Thu,  3 Nov 2022 13:32:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667481786; x=1699017786;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Xfccgd01KZGpm7YGi4GpCLl5Mfq+gy17FYWb27GXzxk=;
- b=lymDbd5snbyOW4EU0zZDElqpZ+LHeWwL3uNJwhhDhZgwq0ekNz2tARCs
- YvwZ3Dejzpjf2HipRmx+B7Rpa1X6kEoDwhtQJPjfxdnXSDLnVdTzTw19I
- XqgyYjwFsFFFjZmX1ihrgDQmlx53nbViJLRNq/ph6CXXaGLGP0TsThC0O
- HrkOIb+t5JmGX9m9GLQGOA9iW76T7cW6PEJe/mX0SJaceWl1nfh2YoW4Z
- OFwDaxpAOglOkJmAg7OfcjU8AK0EWvz4Cb9fjam7qc46OHJdmkabonS7R
- oAp/QRXL67rrdxUvzDOgxHYPbC3NhbFZP9osxIBRSAh8cSSQ4W5BwsxsG Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10520"; a="336374115"
-X-IronPort-AV: E=Sophos;i="5.96,235,1665471600"; d="scan'208";a="336374115"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2022 06:23:04 -0700
+ t=1667482349; x=1699018349;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Ih9LYoZayMPUrMHhaqekewZBtENE7tkh7XXlMybYHLw=;
+ b=BRHUkQDmDBUa/EL+bazphstHZRv21fCSgb/4RLuYy07VDKWMKFZ14frz
+ 6AkMgbIVtE68Rn3mo4R4lODoohhpmPSKnpmA2eWCESTDTlwMMyFiaPO0y
+ 4Yn/nkqAnr9zBpw5+b5D7TqAhfY7R0etnOUCFQ00KxfMwGw9u2xPVEcGl
+ BP6UNEkDv9hKkK4uAiSNNcwi3LGzo2Rax+jtgNitmTxYZk+FcO5PTqZWK
+ GZBPdgWdor0Xojd6SYra7lruIqCOIswI0TSmGWGpd+JQ183e+KqtzEgPt
+ meTitbaLuVsZpScC829YrawA0tXxiPlIPnPKQSsWnY7ba0UP6uzpxU4BI Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10520"; a="395986412"
+X-IronPort-AV: E=Sophos;i="5.96,235,1665471600"; d="scan'208";a="395986412"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2022 06:32:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10520"; a="629340735"
-X-IronPort-AV: E=Sophos;i="5.96,235,1665471600"; d="scan'208";a="629340735"
-Received: from unknown (HELO slisovsk-Lenovo-ideapad-720S-13IKB.fi.intel.com)
- ([10.237.72.65])
- by orsmga007.jf.intel.com with ESMTP; 03 Nov 2022 06:23:01 -0700
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+X-IronPort-AV: E=McAfee;i="6500,9779,10520"; a="667967839"
+X-IronPort-AV: E=Sophos;i="5.96,235,1665471600"; d="scan'208";a="667967839"
+Received: from sujaritha-z170x-ud5.fm.intel.com ([10.1.27.182])
+ by orsmga001.jf.intel.com with ESMTP; 03 Nov 2022 06:32:28 -0700
+From: Sujaritha Sundaresan <sujaritha.sundaresan@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  3 Nov 2022 15:23:00 +0200
-Message-Id: <20221103132300.12805-1-stanislav.lisovskiy@intel.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221101094222.22091-7-stanislav.lisovskiy@intel.com>
-References: <20221101094222.22091-7-stanislav.lisovskiy@intel.com>
+Date: Thu,  3 Nov 2022 05:37:23 -0700
+Message-Id: <20221103123723.18063-1-sujaritha.sundaresan@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/6] drm/i915: Bpp/timeslot calculation fixes
- for DP MST DSC
+Subject: [Intel-gfx] [PATCH v1] drm/i915/gt: Add sysfs RAPL PL1 interface
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,303 +54,169 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix intel_dp_dsc_compute_config, previously timeslots parameter
-was used in fact not as a timeslots, but more like a ratio
-timeslots/64, which of course didn't have any effect for SST DSC,
-but causes now issues for MST DSC.
-Secondly we need to calculate pipe_bpp using intel_dp_dsc_compute_bpp
-only for SST DSC case, while for MST case it has been calculated
-earlier already with intel_dp_dsc_mst_compute_link_config.
-Third we also were wrongly determining sink min bpp/max bpp, those
-limites should be intersected with our limits to find common
-acceptable bpp's, plus on top of that we should align those with
-VESA bpps and only then calculate required timeslots amount.
-Some MST hubs started to work only after third change was made.
+Adding the rapl_pl1_freq_mhz sysfs attribute.
 
-v2: Make kernel test robot happy(claimed there was unitialzed use,
-    while there is none)
-
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Signed-off-by: Sujaritha Sundaresan <sujaritha.sundaresan@intel.com>
+Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     | 69 ++++++++++++++-------
- drivers/gpu/drm/i915/display/intel_dp.h     |  3 +-
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 69 +++++++++++++++++----
- 3 files changed, 106 insertions(+), 35 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 20 ++++++++++
+ drivers/gpu/drm/i915/gt/intel_rps.c         | 44 +++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_rps.h         |  3 ++
+ drivers/gpu/drm/i915/i915_reg.h             |  4 ++
+ 4 files changed, 71 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 8288a30dbd51..82752b696498 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -716,9 +716,14 @@ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
- 	 * for SST -> TimeSlotsPerMTP is 1,
- 	 * for MST -> TimeSlotsPerMTP has to be calculated
- 	 */
--	bits_per_pixel = (link_clock * lane_count * 8) * timeslots /
--			 intel_dp_mode_to_fec_clock(mode_clock);
--	drm_dbg_kms(&i915->drm, "Max link bpp: %u\n", bits_per_pixel);
-+	bits_per_pixel = DIV_ROUND_UP((link_clock * lane_count) * timeslots,
-+				      intel_dp_mode_to_fec_clock(mode_clock) * 8);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
+index 904160952369..e7f00ec252f8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
+@@ -496,6 +496,17 @@ static DEVICE_ATTR_RO(vlv_rpe_freq_mhz);
+ static const struct attribute * const gen6_rps_attrs[] = GEN6_RPS_ATTR;
+ static const struct attribute * const gen6_gt_attrs[]  = GEN6_GT_ATTR;
+ 
++static ssize_t rapl_pl1_freq_mhz_show(struct device *dev,
++				      struct device_attribute *attr,
++				      char *buff)
++{
++	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(dev, attr->attr.name);
++	u32 rapl_pl1 = intel_rps_read_rapl_pl1_frequency(&gt->rps);
 +
-+	drm_dbg_kms(&i915->drm, "Max link bpp is %u for %u timeslots "
-+				"total bw %u pixel clock %u\n",
-+				bits_per_pixel, timeslots,
-+				(link_clock * lane_count * 8),
-+				intel_dp_mode_to_fec_clock(mode_clock));
- 
- 	/* Small Joiner Check: output bpp <= joiner RAM (bits) / Horiz. width */
- 	max_bpp_small_joiner_ram = small_joiner_ram_size_bits(i915) /
-@@ -1047,7 +1052,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 							    target_clock,
- 							    mode->hdisplay,
- 							    bigjoiner,
--							    pipe_bpp, 1) >> 4;
-+							    pipe_bpp, 64) >> 4;
- 			dsc_slice_count =
- 				intel_dp_dsc_get_slice_count(intel_dp,
- 							     target_clock,
-@@ -1481,7 +1486,8 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 				struct intel_crtc_state *pipe_config,
- 				struct drm_connector_state *conn_state,
- 				struct link_config_limits *limits,
--				int timeslots)
-+				int timeslots,
-+				bool compute_pipe_bpp)
- {
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
- 	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
-@@ -1496,7 +1502,10 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
- 		return -EINVAL;
- 
--	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
-+	if (compute_pipe_bpp)
-+		pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
-+	else
-+		pipe_bpp = pipe_config->pipe_bpp;
- 
- 	if (intel_dp->force_dsc_bpc) {
- 		pipe_bpp = intel_dp->force_dsc_bpc * 3;
-@@ -1527,31 +1536,47 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 			drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd,
- 							true);
- 	} else {
--		u16 dsc_max_output_bpp;
-+		u16 dsc_max_output_bpp = 0;
- 		u8 dsc_dp_slice_count;
- 
--		dsc_max_output_bpp =
--			intel_dp_dsc_get_output_bpp(dev_priv,
--						    pipe_config->port_clock,
--						    pipe_config->lane_count,
--						    adjusted_mode->crtc_clock,
--						    adjusted_mode->crtc_hdisplay,
--						    pipe_config->bigjoiner_pipes,
--						    pipe_bpp,
--						    timeslots);
-+		if (compute_pipe_bpp) {
-+			dsc_max_output_bpp =
-+				intel_dp_dsc_get_output_bpp(dev_priv,
-+							    pipe_config->port_clock,
-+							    pipe_config->lane_count,
-+							    adjusted_mode->crtc_clock,
-+							    adjusted_mode->crtc_hdisplay,
-+							    pipe_config->bigjoiner_pipes,
-+							    pipe_bpp,
-+							    timeslots);
-+			if (!dsc_max_output_bpp) {
-+				drm_dbg_kms(&dev_priv->drm,
-+					    "Compressed BPP not supported\n");
-+				return -EINVAL;
-+			}
-+		}
- 		dsc_dp_slice_count =
- 			intel_dp_dsc_get_slice_count(intel_dp,
- 						     adjusted_mode->crtc_clock,
- 						     adjusted_mode->crtc_hdisplay,
- 						     pipe_config->bigjoiner_pipes);
--		if (!dsc_max_output_bpp || !dsc_dp_slice_count) {
-+		if (!dsc_dp_slice_count) {
- 			drm_dbg_kms(&dev_priv->drm,
--				    "Compressed BPP/Slice Count not supported\n");
-+				    "Compressed Slice Count not supported\n");
- 			return -EINVAL;
- 		}
--		pipe_config->dsc.compressed_bpp = min_t(u16,
--							dsc_max_output_bpp >> 4,
--							pipe_config->pipe_bpp);
++	return sysfs_emit(buff, "%u\n", rapl_pl1);
++}
 +
-+		/*
-+		 * compute pipe bpp is set to false for DP MST DSC case
-+		 * and compressed_bpp is calculated same time once
-+		 * vpci timeslots are allocated, because overall bpp
-+		 * calculation procedure is bit different for MST case.
-+		 */
-+		if (compute_pipe_bpp) {
-+			pipe_config->dsc.compressed_bpp = min_t(u16,
-+								dsc_max_output_bpp >> 4,
-+								pipe_config->pipe_bpp);
-+		}
- 		pipe_config->dsc.slice_count = dsc_dp_slice_count;
- 		drm_dbg_kms(&dev_priv->drm, "DSC: compressed bpp %d slice count %d\n",
- 			    pipe_config->dsc.compressed_bpp,
-@@ -1659,7 +1684,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 			    str_yes_no(ret), str_yes_no(joiner_needs_dsc),
- 			    str_yes_no(intel_dp->force_dsc_en));
- 		ret = intel_dp_dsc_compute_config(intel_dp, pipe_config,
--						  conn_state, &limits, 1);
-+						  conn_state, &limits, 1, true);
- 		if (ret < 0)
- 			return ret;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 0fe10d93b75c..75098001685a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -60,7 +60,8 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 				struct intel_crtc_state *pipe_config,
- 				struct drm_connector_state *conn_state,
- 				struct link_config_limits *limits,
--				int timeslots);
-+				int timeslots,
-+				bool recompute_pipe_bpp);
- bool intel_dp_is_edp(struct intel_dp *intel_dp);
- bool intel_dp_is_uhbr(const struct intel_crtc_state *crtc_state);
- bool intel_dp_is_port_edp(struct drm_i915_private *dev_priv, enum port port);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 8442eea27a57..69e383decb39 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -80,12 +80,12 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
- 	}
- 
- 	for (bpp = max_bpp; bpp >= min_bpp; bpp -= step) {
--		crtc_state->pipe_bpp = bpp;
--
- 		crtc_state->pbn = drm_dp_calc_pbn_mode(adjusted_mode->crtc_clock,
--						       dsc ? bpp << 4 : crtc_state->pipe_bpp,
-+						       dsc ? bpp << 4 : bpp,
- 						       dsc);
- 
-+		drm_dbg_kms(&i915->drm, "Trying bpp %d\n", bpp);
 +
- 		slots = drm_dp_atomic_find_time_slots(state, &intel_dp->mst_mgr,
- 						      connector->port,
- 						      crtc_state->pbn);
-@@ -107,9 +107,16 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
- 	if (ret && slots >= 0)
- 		slots = ret;
- 
--	if (slots < 0)
-+	if (slots < 0) {
- 		drm_dbg_kms(&i915->drm, "failed finding vcpi slots:%d\n",
- 			    slots);
-+	} else {
-+		if (!dsc)
-+			crtc_state->pipe_bpp = bpp;
-+		else
-+			crtc_state->dsc.compressed_bpp = bpp;
-+		drm_dbg_kms(&i915->drm, "Got %d slots for pipe bpp %d dsc %d\n", slots, bpp, dsc);
-+	}
- 
- 	return slots;
+ static ssize_t punit_req_freq_mhz_show(struct device *dev,
+ 				       struct device_attribute *attr,
+ 				       char *buff)
+@@ -534,6 +545,7 @@ struct intel_gt_bool_throttle_attr attr_##sysfs_func__ = { \
+ 	.mask = mask__, \
  }
-@@ -156,8 +163,10 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
- 	int slots = -EINVAL;
- 	int i, num_bpc;
- 	u8 dsc_bpc[3] = {0};
--	int min_bpp, max_bpp;
-+	int min_bpp, max_bpp, sink_min_bpp, sink_max_bpp;
- 	u8 dsc_max_bpc;
-+	bool need_timeslot_recalc = false;
-+	u32 last_compressed_bpp;
  
- 	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
- 	if (DISPLAY_VER(i915) >= 12)
-@@ -170,14 +179,28 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
++static DEVICE_ATTR_RO(rapl_pl1_freq_mhz);
+ static DEVICE_ATTR_RO(punit_req_freq_mhz);
+ static INTEL_GT_RPS_BOOL_ATTR_RO(throttle_reason_status, GT0_PERF_LIMIT_REASONS_MASK);
+ static INTEL_GT_RPS_BOOL_ATTR_RO(throttle_reason_pl1, POWER_LIMIT_1_MASK);
+@@ -790,12 +802,20 @@ void intel_gt_sysfs_pm_init(struct intel_gt *gt, struct kobject *kobj)
+ 	if (!is_object_gt(kobj))
+ 		return;
  
- 	num_bpc = drm_dp_dsc_sink_supported_input_bpcs(intel_dp->dsc_dpcd,
- 						       dsc_bpc);
--	for (i = 0; i < num_bpc; i++) {
--		if (max_bpp >= dsc_bpc[i] * 3)
--			if (min_bpp > dsc_bpc[i] * 3)
--				min_bpp = dsc_bpc[i] * 3;
++	ret = sysfs_create_file(kobj, &dev_attr_rapl_pl1_freq_mhz.attr);
++	if (ret)
++		drm_warn(&gt->i915->drm,
++			"failed to create gt%u rapl_pl1_freq_mhz sysfs(%pe)",
++			gt->info.id, ERR_PTR(ret));
 +
-+	drm_dbg_kms(&i915->drm, "DSC Source supported min bpp %d max bpp %d\n",
-+		    min_bpp, max_bpp);
 +
-+	sink_max_bpp = dsc_bpc[0] * 3;
-+	sink_min_bpp = sink_max_bpp;
-+
-+	for (i = 1; i < num_bpc; i++) {
-+		if (sink_min_bpp > dsc_bpc[i] * 3)
-+			sink_min_bpp = dsc_bpc[i] * 3;
-+		if (sink_max_bpp < dsc_bpc[i] * 3)
-+			sink_max_bpp = dsc_bpc[i] * 3;
- 	}
+ 	ret = sysfs_create_file(kobj, &dev_attr_punit_req_freq_mhz.attr);
+ 	if (ret)
+ 		drm_warn(&gt->i915->drm,
+ 			 "failed to create gt%u punit_req_freq_mhz sysfs (%pe)",
+ 			 gt->info.id, ERR_PTR(ret));
  
- 	drm_dbg_kms(&i915->drm, "DSC Sink supported min bpp %d max bpp %d\n",
--		    min_bpp, max_bpp);
-+		    sink_min_bpp, sink_max_bpp);
 +
-+	if (min_bpp < sink_min_bpp)
-+		min_bpp = sink_min_bpp;
-+
-+	if (max_bpp > sink_max_bpp)
-+		max_bpp = sink_max_bpp;
+ 	if (i915_mmio_reg_valid(intel_gt_perf_limit_reasons_reg(gt))) {
+ 		ret = sysfs_create_files(kobj, throttle_reason_attrs);
+ 		if (ret)
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index 17b40b625e31..0e89b941e3be 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -9,6 +9,7 @@
  
- 	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, max_bpp,
- 						     min_bpp, limits,
-@@ -186,6 +209,28 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
- 	if (slots < 0)
- 		return slots;
+ #include "i915_drv.h"
+ #include "i915_irq.h"
++#include "i915_reg.h"
+ #include "intel_breadcrumbs.h"
+ #include "intel_gt.h"
+ #include "intel_gt_clock_utils.h"
+@@ -2422,6 +2423,49 @@ bool rps_read_mask_mmio(struct intel_rps *rps,
+ 	return rps_read_mmio(rps, reg32) & mask;
+ }
  
-+	last_compressed_bpp = crtc_state->dsc.compressed_bpp;
++u32 intel_rps_read_rapl_pl1(struct intel_rps *rps)
++{
++	struct drm_i915_private *i915 = rps_to_i915(rps);
++	i915_reg_t rgadr;
++	u32 rapl_pl1;
 +
-+	crtc_state->dsc.compressed_bpp = intel_dp_dsc_nearest_vesa_bpp(i915,
-+								       last_compressed_bpp,
-+								       crtc_state->pipe_bpp);
-+
-+	if (crtc_state->dsc.compressed_bpp != last_compressed_bpp)
-+		need_timeslot_recalc = true;
-+
-+	/*
-+	 * Apparently some MST hubs dislike if vcpi slots are not matching precisely
-+	 * the actual compressed bpp we use.
-+	 */
-+	if (need_timeslot_recalc) {
-+		slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state,
-+							     crtc_state->dsc.compressed_bpp,
-+							     crtc_state->dsc.compressed_bpp,
-+							     limits, conn_state, 2 * 3, true);
-+		if (slots < 0)
-+			return slots;
++	if (IS_METEORLAKE(i915)) {
++		rgadr = MTL_RAPL_PL1_FREQ_LIMIT;
++	} else if (IS_XEHPSDV(i915)) {
++		rgadr = XEHPSDV_RAPL_PL1_FREQ_LIMIT;
++	} else {
++		MISSING_CASE(GRAPHICS_VER(i915));
++		rgadr = INVALID_MMIO_REG;
 +	}
 +
- 	intel_link_compute_m_n(crtc_state->pipe_bpp,
- 			       crtc_state->lane_count,
- 			       adjusted_mode->crtc_clock,
-@@ -292,7 +337,7 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
++	if (!i915_mmio_reg_valid(rgadr))
++		rapl_pl1 = 0;
++	else
++		rapl_pl1 = rps_read_mmio(rps, rgadr);
++
++	return rapl_pl1;
++}
++
++u32 intel_rps_get_rapl(struct intel_rps *rps, u32 rapl_pl1)
++{
++	struct drm_i915_private *i915 = rps_to_i915(rps);
++	u32 rapl = 0;
++
++	if (IS_METEORLAKE(i915) || IS_XEHPSDV(i915))
++		rapl = rapl_pl1 & RAPL_PL1_FREQ_LIMIT_MASK;
++	else
++		MISSING_CASE(GRAPHICS_VER(i915));
++
++	return rapl;
++}
++
++u32 intel_rps_read_rapl_pl1_frequency(struct intel_rps *rps)
++{
++	u32 rapl_freq = intel_rps_get_rapl(rps, intel_rps_read_rapl_pl1(rps));
++
++	return (rapl_freq >> 8) * GT_FREQUENCY_MULTIPLIER;
++}
++
+ /* External interface for intel_ips.ko */
  
- 		ret = intel_dp_dsc_compute_config(intel_dp, pipe_config,
- 						  conn_state, &limits,
--						  pipe_config->dp_m_n.tu);
-+						  pipe_config->dp_m_n.tu, false);
- 	}
+ static struct drm_i915_private __rcu *ips_mchdev;
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.h b/drivers/gpu/drm/i915/gt/intel_rps.h
+index 4509dfdc52e0..4adc6aaedba0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.h
++++ b/drivers/gpu/drm/i915/gt/intel_rps.h
+@@ -34,6 +34,7 @@ void intel_rps_mark_interactive(struct intel_rps *rps, bool interactive);
+ int intel_gpu_freq(struct intel_rps *rps, int val);
+ int intel_freq_opcode(struct intel_rps *rps, int val);
+ u32 intel_rps_get_cagf(struct intel_rps *rps, u32 rpstat1);
++u32 intel_rps_get_rapl(struct intel_rps *rps, u32 rapl_pl1);
+ u32 intel_rps_read_actual_frequency(struct intel_rps *rps);
+ u32 intel_rps_get_requested_frequency(struct intel_rps *rps);
+ u32 intel_rps_get_min_frequency(struct intel_rps *rps);
+@@ -47,6 +48,8 @@ u32 intel_rps_get_rp1_frequency(struct intel_rps *rps);
+ u32 intel_rps_get_rpn_frequency(struct intel_rps *rps);
+ u32 intel_rps_read_punit_req(struct intel_rps *rps);
+ u32 intel_rps_read_punit_req_frequency(struct intel_rps *rps);
++u32 intel_rps_read_rapl_pl1(struct intel_rps *rps);
++u32 intel_rps_read_rapl_pl1_frequency(struct intel_rps *rps);
+ void gen6_rps_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *caps);
+ void intel_rps_raise_unslice(struct intel_rps *rps);
+ void intel_rps_lower_unslice(struct intel_rps *rps);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 5003a5ffbc6a..68ff98e27b8d 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -1818,6 +1818,10 @@
+ #define   GT0_PERF_LIMIT_REASONS_LOG_MASK REG_GENMASK(31, 16)
+ #define MTL_MEDIA_PERF_LIMIT_REASONS	_MMIO(0x138030)
  
- 	if (ret)
-@@ -867,7 +912,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- 							    target_clock,
- 							    mode->hdisplay,
- 							    bigjoiner,
--							    pipe_bpp, 1) >> 4;
-+							    pipe_bpp, 64) >> 4;
- 			dsc_slice_count =
- 				intel_dp_dsc_get_slice_count(intel_dp,
- 							     target_clock,
++#define XEHPSDV_RAPL_PL1_FREQ_LIMIT	_MMIO(0x250070)
++#define MTL_RAPL_PL1_FREQ_LIMIT	_MMIO(0x281070)
++#define RAPL_PL1_FREQ_LIMIT_MASK	0xffff
++
+ #define CHV_CLK_CTL1			_MMIO(0x101100)
+ #define VLV_CLK_CTL2			_MMIO(0x101104)
+ #define   CLK_CTL2_CZCOUNT_30NS_SHIFT	28
 -- 
-2.37.3
+2.34.1
 
