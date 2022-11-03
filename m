@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07F7FC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 22:24:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23D59C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Nov 2022 22:24:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FDD510E64E;
-	Thu,  3 Nov 2022 22:24:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9057C10E655;
+	Thu,  3 Nov 2022 22:24:39 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8829B10E64E;
- Thu,  3 Nov 2022 22:24:33 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 22BB210E64E;
+ Thu,  3 Nov 2022 22:24:36 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 30FBFA47EB;
- Thu,  3 Nov 2022 22:24:33 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 20878A47EB;
+ Thu,  3 Nov 2022 22:24:36 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Badal Nilawar" <badal.nilawar@intel.com>
-Date: Thu, 03 Nov 2022 22:24:33 -0000
-Message-ID: <166751427319.9193.16952638516934038455@emeril.freedesktop.org>
+Date: Thu, 03 Nov 2022 22:24:36 -0000
+Message-ID: <166751427613.9194.6515962053315187634@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20221103184559.2306481-1-badal.nilawar@intel.com>
 In-Reply-To: <20221103184559.2306481-1-badal.nilawar@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/mtl=3A_Add_Wa=5F14017073508_for_SAMedia?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/mtl=3A_Add_Wa=5F14017073508_for_SAMedia?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,14 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-0a9efdca81c1 drm/i915/mtl: Add Wa_14017073508 for SAMedia
--:114: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__i915' - possible side-effects?
-#114: FILE: drivers/gpu/drm/i915/i915_drv.h:743:
-+#define IS_MTL_GRAPHICS_STEP(__i915, variant, since, until) \
-+	(IS_SUBPLATFORM(__i915, INTEL_METEORLAKE, INTEL_SUBPLATFORM_##variant) && \
-+	 IS_GRAPHICS_STEP(__i915, since, until))
-
-total: 0 errors, 0 warnings, 1 checks, 95 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
