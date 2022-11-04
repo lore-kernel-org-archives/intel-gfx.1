@@ -4,54 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9171FC433FE
-	for <intel-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 19:48:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DD5CC4332F
+	for <intel-gfx@archiver.kernel.org>; Fri,  4 Nov 2022 19:48:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6D4210E10E;
-	Fri,  4 Nov 2022 19:48:21 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC78010E1D2;
- Wed,  2 Nov 2022 14:24:26 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 53ABE616C6;
- Wed,  2 Nov 2022 14:24:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5EBC433D7;
- Wed,  2 Nov 2022 14:24:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1667399065;
- bh=uO1Wv+ReevzIk1aXtBRREBtT/tgyabwShw4JBUSnx6k=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=UNWJ/4jpUzZFIB7tPJV/eqMaxCh+PYp4P7Aq2szKTVXCULfLz10BbAhBDKtn7qon7
- qCNQVVXYd8Rulhr4Qq76/2tUh+peqQ1Xtjhnk/XkaYwbxs2BkZH/jwIpmG++6e1ptc
- M5Rikc5GMKxE97zUoPxQiafVfiTMYdNSJ1T0XEGhXwkloj+ZKycNRFA5j145qIAGJo
- 66Q7B7Y+0XQE9nhPCcxajawU42eAMsG2/zleyYIRr3HHJ34gDx5ybrdzuvsWp3Cil1
- h2xtFFZ0lpbUQSocP8NEWBNCU1QPkCl8/NhbylGIUZH6XfcpA7F9jL9whYWHFuTQNV
- 83Vz7gBgTpJhw==
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-36a4b86a0abso167768687b3.7; 
- Wed, 02 Nov 2022 07:24:25 -0700 (PDT)
-X-Gm-Message-State: ACrzQf2E7yipCD2pKAK0T3PzO2S/jEzfwHr3+bsO5M2Sg/BLbhEacysA
- GnyGtNahoiAhHnMwesnEwm8ozIry51nBz8TdhNk=
-X-Google-Smtp-Source: AMsMyM4ABQsof+4Xlk8ax7jbRQ+7bPAZ4K1/9vveI4fArkhRYZ2W2wwyMUVBNLw66TPXUcGd25zoAo2WgbXtEQJIcyo=
-X-Received: by 2002:a05:690c:825:b0:36a:b160:21b with SMTP id
- by5-20020a05690c082500b0036ab160021bmr23933191ywb.211.1667399064738; Wed, 02
- Nov 2022 07:24:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66B3510E112;
+	Fri,  4 Nov 2022 19:48:22 +0000 (UTC)
+Received: from out0.migadu.com (out0.migadu.com [IPv6:2001:41d0:2:267::])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5564D10E8B8
+ for <intel-gfx@lists.freedesktop.org>; Fri,  4 Nov 2022 15:59:41 +0000 (UTC)
+Date: Sat, 5 Nov 2022 00:59:30 +0900
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1667577579;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
+ bh=hvKqqCFa2Y3MaM+wraMd6xMk0p5uNFUgrkQpd1dibAI=;
+ b=eHtc8PgjHaKlv1TpPFmVGhbRE0mKoY7czsJGPW6D8CVNyBADa6qytE0Tpjlc/1RTKCkkMD
+ gTttOEsjF0bT9kyK91zYPpI0ucEDg00lRn/hBL11UAEOI1yZ7HSMR9qpwaW8QBnJYFEimB
+ p9ENNaY15+GTp9yyy8GBSvNRsbqy6GI=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Naoya Horiguchi <naoya.horiguchi@linux.dev>
+To: ville.syrjala@linux.intel.com
+Message-ID: <20221104155930.GA527246@ik1-406-35019.vs.sakura.ne.jp>
 MIME-Version: 1.0
-References: <20220911211443.581481-1-michal.winiarski@intel.com>
- <20220911211443.581481-2-michal.winiarski@intel.com>
-In-Reply-To: <20220911211443.581481-2-michal.winiarski@intel.com>
-From: Oded Gabbay <ogabbay@kernel.org>
-Date: Wed, 2 Nov 2022 16:23:57 +0200
-X-Gmail-Original-Message-ID: <CAFCwf11=hKGm93oF1A5PLhdvdo2ujYJWyt4qAqK-KQQqe6ngDA@mail.gmail.com>
-Message-ID: <CAFCwf11=hKGm93oF1A5PLhdvdo2ujYJWyt4qAqK-KQQqe6ngDA@mail.gmail.com>
-To: =?UTF-8?Q?Micha=C5=82_Winiarski?= <michal.winiarski@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Y2LYXItKQyaJTv8j@intel.com>
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Fri, 04 Nov 2022 19:48:17 +0000
-Subject: Re: [Intel-gfx] [PATCH v5 1/3] drm: Use XArray instead of IDR for
- minors
+Subject: Re: [Intel-gfx] [mm-unstable PATCH v7 2/8] mm/hugetlb: make
+ pud_huge() and follow_huge_pud() aware of non-present pud entry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,193 +48,116 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Wilcox <willy@infradead.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Miaohe Lin <linmiaohe@huawei.com>, regressions@lists.linux.dev,
+ David Hildenbrand <david@redhat.com>, Yang Shi <shy828301@gmail.com>,
+ naoya.horiguchi@nec.com, linux-kernel@vger.kernel.org,
+ Liu Shixin <liushixin2@huawei.com>, linux-mm@kvack.org,
+ Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador <osalvador@suse.de>,
+ intel-gfx@lists.freedesktop.org, Mike Kravetz <mike.kravetz@oracle.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 12, 2022 at 12:17 AM Micha=C5=82 Winiarski
-<michal.winiarski@intel.com> wrote:
->
-> IDR is deprecated, and since XArray manages its own state with internal
-> locking, it simplifies the locking on DRM side.
-> Additionally, don't use the IRQ-safe variant, since operating on drm
-> minor is not done in IRQ context.
->
-> Signed-off-by: Micha=C5=82 Winiarski <michal.winiarski@intel.com>
-> Suggested-by: Matthew Wilcox <willy@infradead.org>
-> ---
->  drivers/gpu/drm/drm_drv.c | 51 ++++++++++++++-------------------------
->  1 file changed, 18 insertions(+), 33 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 8214a0b1ab7f..61d24cdcd0f8 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -34,6 +34,7 @@
->  #include <linux/pseudo_fs.h>
->  #include <linux/slab.h>
->  #include <linux/srcu.h>
-> +#include <linux/xarray.h>
->
->  #include <drm/drm_cache.h>
->  #include <drm/drm_client.h>
-> @@ -53,8 +54,7 @@ MODULE_AUTHOR("Gareth Hughes, Leif Delgass, Jos=C3=A9 F=
-onseca, Jon Smirl");
->  MODULE_DESCRIPTION("DRM shared core routines");
->  MODULE_LICENSE("GPL and additional rights");
->
-> -static DEFINE_SPINLOCK(drm_minor_lock);
-> -static struct idr drm_minors_idr;
-> +static DEFINE_XARRAY_ALLOC(drm_minors_xa);
->
->  /*
->   * If the drm core fails to init for whatever reason,
-> @@ -98,21 +98,19 @@ static struct drm_minor **drm_minor_get_slot(struct d=
-rm_device *dev,
->  static void drm_minor_alloc_release(struct drm_device *dev, void *data)
->  {
->         struct drm_minor *minor =3D data;
-> -       unsigned long flags;
->
->         WARN_ON(dev !=3D minor->dev);
->
->         put_device(minor->kdev);
->
-> -       spin_lock_irqsave(&drm_minor_lock, flags);
-> -       idr_remove(&drm_minors_idr, minor->index);
-> -       spin_unlock_irqrestore(&drm_minor_lock, flags);
-> +       xa_erase(&drm_minors_xa, minor->index);
->  }
->
-> +#define DRM_MINOR_LIMIT(t) ({ typeof(t) _t =3D (t); XA_LIMIT(64 * _t, 64=
- * _t + 63); })
-> +
->  static int drm_minor_alloc(struct drm_device *dev, unsigned int type)
->  {
->         struct drm_minor *minor;
-> -       unsigned long flags;
->         int r;
->
->         minor =3D drmm_kzalloc(dev, sizeof(*minor), GFP_KERNEL);
-> @@ -122,21 +120,10 @@ static int drm_minor_alloc(struct drm_device *dev, =
-unsigned int type)
->         minor->type =3D type;
->         minor->dev =3D dev;
->
-> -       idr_preload(GFP_KERNEL);
-> -       spin_lock_irqsave(&drm_minor_lock, flags);
-> -       r =3D idr_alloc(&drm_minors_idr,
-> -                     NULL,
-> -                     64 * type,
-> -                     64 * (type + 1),
-> -                     GFP_NOWAIT);
-> -       spin_unlock_irqrestore(&drm_minor_lock, flags);
-> -       idr_preload_end();
-> -
-> +       r =3D xa_alloc(&drm_minors_xa, &minor->index, NULL, DRM_MINOR_LIM=
-IT(type), GFP_KERNEL);
->         if (r < 0)
->                 return r;
->
-> -       minor->index =3D r;
-> -
->         r =3D drmm_add_action_or_reset(dev, drm_minor_alloc_release, mino=
-r);
->         if (r)
->                 return r;
-> @@ -152,7 +139,7 @@ static int drm_minor_alloc(struct drm_device *dev, un=
-signed int type)
->  static int drm_minor_register(struct drm_device *dev, unsigned int type)
->  {
->         struct drm_minor *minor;
-> -       unsigned long flags;
-> +       void *entry;
->         int ret;
->
->         DRM_DEBUG("\n");
-> @@ -172,9 +159,12 @@ static int drm_minor_register(struct drm_device *dev=
-, unsigned int type)
->                 goto err_debugfs;
->
->         /* replace NULL with @minor so lookups will succeed from now on *=
-/
-> -       spin_lock_irqsave(&drm_minor_lock, flags);
-> -       idr_replace(&drm_minors_idr, minor, minor->index);
-> -       spin_unlock_irqrestore(&drm_minor_lock, flags);
-> +       entry =3D xa_cmpxchg(&drm_minors_xa, minor->index, NULL, &minor, =
-GFP_KERNEL);
-I believe we should pass in "minor", without the &, as &minor will
-give you the address of the local pointer.
+On Wed, Nov 02, 2022 at 10:51:40PM +0200, Ville Syrjälä wrote:
+> On Thu, Jul 14, 2022 at 01:24:14PM +0900, Naoya Horiguchi wrote:
+> > +/*
+> > + * pud_huge() returns 1 if @pud is hugetlb related entry, that is normal
+> > + * hugetlb entry or non-present (migration or hwpoisoned) hugetlb entry.
+> > + * Otherwise, returns 0.
+> > + */
+> >  int pud_huge(pud_t pud)
+> >  {
+> > -	return !!(pud_val(pud) & _PAGE_PSE);
+> > +	return !pud_none(pud) &&
+> > +		(pud_val(pud) & (_PAGE_PRESENT|_PAGE_PSE)) != _PAGE_PRESENT;
+> >  }
+> 
+> Hi,
+> 
+> This causes i915 to trip a BUG_ON() on x86-32 when I start X.
 
-Oded
+Hello,
 
-> +       if (xa_is_err(entry)) {
-> +               ret =3D xa_err(entry);
-> +               goto err_debugfs;
-> +       }
-> +       WARN_ON(entry);
->
->         DRM_DEBUG("new minor registered %d\n", minor->index);
->         return 0;
-> @@ -187,16 +177,13 @@ static int drm_minor_register(struct drm_device *de=
-v, unsigned int type)
->  static void drm_minor_unregister(struct drm_device *dev, unsigned int ty=
-pe)
->  {
->         struct drm_minor *minor;
-> -       unsigned long flags;
->
->         minor =3D *drm_minor_get_slot(dev, type);
->         if (!minor || !device_is_registered(minor->kdev))
->                 return;
->
->         /* replace @minor with NULL so lookups will fail from now on */
-> -       spin_lock_irqsave(&drm_minor_lock, flags);
-> -       idr_replace(&drm_minors_idr, NULL, minor->index);
-> -       spin_unlock_irqrestore(&drm_minor_lock, flags);
-> +       xa_store(&drm_minors_xa, minor->index, NULL, GFP_KERNEL);
->
->         device_del(minor->kdev);
->         dev_set_drvdata(minor->kdev, NULL); /* safety belt */
-> @@ -215,13 +202,12 @@ static void drm_minor_unregister(struct drm_device =
-*dev, unsigned int type)
->  struct drm_minor *drm_minor_acquire(unsigned int minor_id)
->  {
->         struct drm_minor *minor;
-> -       unsigned long flags;
->
-> -       spin_lock_irqsave(&drm_minor_lock, flags);
-> -       minor =3D idr_find(&drm_minors_idr, minor_id);
-> +       xa_lock(&drm_minors_xa);
-> +       minor =3D xa_load(&drm_minors_xa, minor_id);
->         if (minor)
->                 drm_dev_get(minor->dev);
-> -       spin_unlock_irqrestore(&drm_minor_lock, flags);
-> +       xa_unlock(&drm_minors_xa);
->
->         if (!minor) {
->                 return ERR_PTR(-ENODEV);
-> @@ -1037,7 +1023,7 @@ static void drm_core_exit(void)
->         unregister_chrdev(DRM_MAJOR, "drm");
->         debugfs_remove(drm_debugfs_root);
->         drm_sysfs_destroy();
-> -       idr_destroy(&drm_minors_idr);
-> +       WARN_ON(!xa_empty(&drm_minors_xa));
->         drm_connector_ida_destroy();
->  }
->
-> @@ -1046,7 +1032,6 @@ static int __init drm_core_init(void)
->         int ret;
->
->         drm_connector_ida_init();
-> -       idr_init(&drm_minors_idr);
->         drm_memcpy_init_early();
->
->         ret =3D drm_sysfs_init();
-> --
-> 2.37.3
->
+Thank you for finding and reporting the issue.
+
+x86-32 does not enable CONFIG_ARCH_HAS_GIGANTIC_PAGE, so pud_huge() is
+supposed to be false on x86-32.  Doing like below looks to me a fix
+(reverting to the original behavior for x86-32):
+
+
+diff --git a/arch/x86/mm/hugetlbpage.c b/arch/x86/mm/hugetlbpage.c
+index 6b3033845c6d..bf73f25aaa32 100644
+--- a/arch/x86/mm/hugetlbpage.c
++++ b/arch/x86/mm/hugetlbpage.c
+@@ -37,8 +37,12 @@ int pmd_huge(pmd_t pmd)
+  */
+ int pud_huge(pud_t pud)
+ {
++#ifdef CONFIG_ARCH_HAS_GIGANTIC_PAGE
+        return !pud_none(pud) &&
+                (pud_val(pud) & (_PAGE_PRESENT|_PAGE_PSE)) != _PAGE_PRESENT;
++#else
++       return !!(pud_val(pud) & _PAGE_PSE);    // or "return 0;" ?
++#endif
+ }
+
+ #ifdef CONFIG_HUGETLB_PAGE
+
+
+Let me guess what the PUD entry was there when triggering the issue.
+Assuming that the original code (before 3a194f3f8ad0) was correct, the PSE
+bit in pud_val(pud) should be always cleared.  So, when pud_huge() returns
+true since 3a194f3f8ad0, the PRESENT bit should be clear and some other
+bits (rather than PRESENT and PSE) are set so that pud_none() is false.
+I'm not sure what such a non-present PUD entry does mean.
+
+Thanks,
+Naoya Horiguchi
+
+> 
+> [  225.777375] kernel BUG at mm/memory.c:2664!
+> [  225.777391] invalid opcode: 0000 [#1] PREEMPT SMP
+> [  225.777405] CPU: 0 PID: 2402 Comm: Xorg Not tainted 6.1.0-rc3-bdg+ #86
+> [  225.777415] Hardware name:  /8I865G775-G, BIOS F1 08/29/2006
+> [  225.777421] EIP: __apply_to_page_range+0x24d/0x31c
+> [  225.777437] Code: ff ff 8b 55 e8 8b 45 cc e8 0a 11 ec ff 89 d8 83 c4 28 5b 5e 5f 5d c3 81 7d e0 a0 ef 96 c1 74 ad 8b 45 d0 e8 2d 83 49 00 eb a3 <0f> 0b 25 00 f0 ff ff 81 eb 00 00 00 40 01 c3 8b 45 ec 8b 00 e8 76
+> [  225.777446] EAX: 00000001 EBX: c53a3b58 ECX: b5c00000 EDX: c258aa00
+> [  225.777454] ESI: b5c00000 EDI: b5900000 EBP: c4b0fdb4 ESP: c4b0fd80
+> [  225.777462] DS: 007b ES: 007b FS: 00d8 GS: 0033 SS: 0068 EFLAGS: 00010202
+> [  225.777470] CR0: 80050033 CR2: b5900000 CR3: 053a3000 CR4: 000006d0
+> [  225.777479] Call Trace:
+> [  225.777486]  ? i915_memcpy_init_early+0x63/0x63 [i915]
+> [  225.777684]  apply_to_page_range+0x21/0x27
+> [  225.777694]  ? i915_memcpy_init_early+0x63/0x63 [i915]
+> [  225.777870]  remap_io_mapping+0x49/0x75 [i915]
+> [  225.778046]  ? i915_memcpy_init_early+0x63/0x63 [i915]
+> [  225.778220]  ? mutex_unlock+0xb/0xd
+> [  225.778231]  ? i915_vma_pin_fence+0x6d/0xf7 [i915]
+> [  225.778420]  vm_fault_gtt+0x2a9/0x8f1 [i915]
+> [  225.778644]  ? lock_is_held_type+0x56/0xe7
+> [  225.778655]  ? lock_is_held_type+0x7a/0xe7
+> [  225.778663]  ? 0xc1000000
+> [  225.778670]  __do_fault+0x21/0x6a
+> [  225.778679]  handle_mm_fault+0x708/0xb21
+> [  225.778686]  ? mt_find+0x21e/0x5ae
+> [  225.778696]  exc_page_fault+0x185/0x705
+> [  225.778704]  ? doublefault_shim+0x127/0x127
+> [  225.778715]  handle_exception+0x130/0x130
+> [  225.778723] EIP: 0xb700468a
+> [  225.778730] Code: 44 24 40 8b 7c 24 1c 89 47 54 8b 44 24 5c 65 2b 05 14 00 00 00 0f 85 8a 01 00 00 83 c4 6c 5b 5e 5f 5d c3 8b 44 24 1c 8b 40 28 <c7> 00 00 00 00 00 8b 44 24 20 8d 90 20 1b 00 00 8b 02 83 e8 01 89
+> [  225.778738] EAX: b5900000 EBX: b7148000 ECX: 00000000 EDX: 00000000
+> [  225.778745] ESI: 0103eb60 EDI: b7148000 EBP: b6cf7000 ESP: bfd76650
+> [  225.778752] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 007b EFLAGS: 00010246
+> [  225.778761]  ? doublefault_shim+0x127/0x127
+> [  225.778769] Modules linked in: i915 prime_numbers i2c_algo_bit iosf_mbi drm_buddy video wmi drm_display_helper drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops ttm drm drm_panel_orientation_quirks backlight cfg80211 rfkill sch_fq_codel xt_tcpudp xt_multiport xt_state iptable_filter iptable_nat nf_nat nf_conntrack nf_defrag_ipv4 ip_tables x_tables binfmt_misc i2c_dev iTCO_wdt snd_intel8x0 snd_ac97_codec ac97_bus snd_pcm snd_timer psmouse i2c_i801 snd i2c_smbus uhci_hcd i2c_core pcspkr soundcore lpc_ich mfd_core ehci_pci ehci_hcd skge intel_agp intel_gtt usbcore agpgart usb_common rng_core parport_pc parport evdev
+> [  225.778899] ---[ end trace 0000000000000000 ]---
+> [  225.778906] EIP: __apply_to_page_range+0x24d/0x31c
+> [  225.778916] Code: ff ff 8b 55 e8 8b 45 cc e8 0a 11 ec ff 89 d8 83 c4 28 5b 5e 5f 5d c3 81 7d e0 a0 ef 96 c1 74 ad 8b 45 d0 e8 2d 83 49 00 eb a3 <0f> 0b 25 00 f0 ff ff 81 eb 00 00 00 40 01 c3 8b 45 ec 8b 00 e8 76
+> [  225.778924] EAX: 00000001 EBX: c53a3b58 ECX: b5c00000 EDX: c258aa00
+> [  225.778931] ESI: b5c00000 EDI: b5900000 EBP: c4b0fdb4 ESP: c4b0fd80
+> [  225.778938] DS: 007b ES: 007b FS: 00d8 GS: 0033 SS: 0068 EFLAGS: 00010202
+> [  225.778946] CR0: 80050033 CR2: b5900000 CR3: 053a3000 CR4: 000006d0
+> 
+> -- 
+> Ville Syrjälä
+> Intel
