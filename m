@@ -4,34 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 282D0C38A02
-	for <intel-gfx@archiver.kernel.org>; Sat,  5 Nov 2022 06:01:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7171CC3A589
+	for <intel-gfx@archiver.kernel.org>; Sat,  5 Nov 2022 06:01:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F56E10E0B5;
-	Sat,  5 Nov 2022 06:01:35 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CEB110E0B6;
- Sat,  5 Nov 2022 06:01:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF9E10E0B6;
+	Sat,  5 Nov 2022 06:01:36 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A8ED10E0B5;
+ Sat,  5 Nov 2022 06:01:30 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B10F860A55;
- Sat,  5 Nov 2022 06:01:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AF33C43141;
- Sat,  5 Nov 2022 06:01:32 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BC88F60A54;
+ Sat,  5 Nov 2022 06:01:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5CAC43143;
+ Sat,  5 Nov 2022 06:01:28 +0000 (UTC)
 Received: from rostedt by gandalf.local.home with local (Exim 4.96)
- (envelope-from <rostedt@goodmis.org>) id 1orCFk-007OwK-2G;
- Sat, 05 Nov 2022 02:02:00 -0400
-Message-ID: <20221105060200.540142479@goodmis.org>
+ (envelope-from <rostedt@goodmis.org>) id 1orCFh-007Ol1-07;
+ Sat, 05 Nov 2022 02:01:57 -0400
+Message-ID: <20221105060156.866768561@goodmis.org>
 User-Agent: quilt/0.66
-Date: Sat, 05 Nov 2022 02:00:55 -0400
+Date: Sat, 05 Nov 2022 02:00:35 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
 To: linux-kernel@vger.kernel.org
 References: <20221105060024.598488967@goodmis.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Subject: [Intel-gfx] [PATCH v4a 31/38] timers: drm: Use
- timer_shutdown_sync() for on stack timers
+Subject: [Intel-gfx] [PATCH v4a 11/38] timers: drm: Use
+ timer_shutdown_sync() before freeing timer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,7 +58,7 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
 
-Before a timer is released, timer_shutdown_sync() must be called.
+Before a timer is freed, timer_shutdown_sync() must be called.
 
 Link: https://lore.kernel.org/all/20221104054053.431922658@goodmis.org/
 
@@ -72,21 +73,21 @@ Cc: dri-devel@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 ---
- drivers/gpu/drm/gud/gud_pipe.c | 2 +-
+ drivers/gpu/drm/i915/i915_sw_fence.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
-index 7c6dc2bcd14a..08429bdd57cf 100644
---- a/drivers/gpu/drm/gud/gud_pipe.c
-+++ b/drivers/gpu/drm/gud/gud_pipe.c
-@@ -272,7 +272,7 @@ static int gud_usb_bulk(struct gud_device *gdrm, size_t len)
+diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
+index 6fc0d1b89690..bfaa9a67dc35 100644
+--- a/drivers/gpu/drm/i915/i915_sw_fence.c
++++ b/drivers/gpu/drm/i915/i915_sw_fence.c
+@@ -465,7 +465,7 @@ static void irq_i915_sw_fence_work(struct irq_work *wrk)
+ 	struct i915_sw_dma_fence_cb_timer *cb =
+ 		container_of(wrk, typeof(*cb), work);
  
- 	usb_sg_wait(&ctx.sgr);
+-	del_timer_sync(&cb->timer);
++	timer_shutdown_sync(&cb->timer);
+ 	dma_fence_put(cb->dma);
  
--	if (!del_timer_sync(&ctx.timer))
-+	if (!timer_shutdown_sync(&ctx.timer))
- 		ret = -ETIMEDOUT;
- 	else if (ctx.sgr.status < 0)
- 		ret = ctx.sgr.status;
+ 	kfree_rcu(cb, rcu);
 -- 
 2.35.1
