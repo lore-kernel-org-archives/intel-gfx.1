@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23491C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 08:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2543BC43217
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 08:48:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE17510E258;
-	Mon,  7 Nov 2022 08:47:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0296110E259;
+	Mon,  7 Nov 2022 08:47:59 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6002B10E252
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Nov 2022 08:47:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDB910E251
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Nov 2022 08:47:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667810869; x=1699346869;
+ t=1667810875; x=1699346875;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=arqKwnUFkAFi1oAIJzdo+cxuTSGvz+pxWpVnyFwVzE8=;
- b=I/NOkA/WAUQL9mkF0jq8FQhNdLYjkCiRcXZTYldNqixcpGoOEwzZjzUx
- 8XyuDHZTGUxw+Ko3dhgZiFmMFTlsxD+msIloYcDjK0Dq6StkzqAYduwXO
- J5HJcdsrEn7Vbk7XbL3UV2FxeCB8Qk1Rt0a0ViX1+oPLWoREpviUVPYwk
- 5rzAuE47qKyMdsxkKRItwX9HFUD+HCUbGxTmtoImVjRy0caS1h4zC2RLx
- 3HB0fErvBm8xCKLdsLOh3IWFxyOkPcu15hyW+dgkaybXdOGs5hDlACNHc
- fQlfmqlLX6hqt9I8hiSdi7VCm89KrCKz4OpbesV3lgv/WQv78VtVM3TLt A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10523"; a="290085271"
-X-IronPort-AV: E=Sophos;i="5.96,143,1665471600"; d="scan'208";a="290085271"
+ bh=wANV4QkSk1Gz3vjdgvuKdv5NVC6xKRCtxCpiN29Vk9Y=;
+ b=O094xlSDPliWl1g4ls1zfTTZkPDF6n7M5PEVYZCpkI4t8kmaYVWhGEAB
+ zXLW6X9GlLfX+EI5mOWdvzv+D2Jke2qLqaUpUrc4LiDsUBDJA6YgOcfyd
+ hFSGUvEY4/2XS/+nRpGyDytfjecx8dLIbOnwwlsymeVu9uW72QfrBO2zz
+ 2tKdip5gnxtuOl9aPwZ77AO2cij+K9Vm8VtMT9IHtM1XUBHa+sjBL0IN5
+ EPIejriJGcHwx4i0U+41n8LLTcbuz/wsjAuw6xDl0zWdnjiZdRTNDW0oG
+ jYVvpOt2mMrRjpHZw+mEb3MatW+t53YsUHe3jPgXENPv+Bu2k9//0xOPw A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10523"; a="290085290"
+X-IronPort-AV: E=Sophos;i="5.96,143,1665471600"; d="scan'208";a="290085290"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 00:47:49 -0800
+ 07 Nov 2022 00:47:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10523"; a="880983631"
-X-IronPort-AV: E=Sophos;i="5.96,143,1665471600"; d="scan'208";a="880983631"
+X-IronPort-AV: E=McAfee;i="6500,9779,10523"; a="880983663"
+X-IronPort-AV: E=Sophos;i="5.96,143,1665471600"; d="scan'208";a="880983663"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmsmga006.fm.intel.com with ESMTP; 07 Nov 2022 00:47:47 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 07 Nov 2022 00:47:53 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  7 Nov 2022 14:16:31 +0530
-Message-Id: <20221107084634.1353266-6-suraj.kandpal@intel.com>
+Date: Mon,  7 Nov 2022 14:16:34 +0530
+Message-Id: <20221107084634.1353266-9-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221107084634.1353266-1-suraj.kandpal@intel.com>
 References: <20221014152622.233398-1-suraj.kandpal@intel.com>
  <20221107084634.1353266-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/8] drm/i915: Fill in native_420 field
+Subject: [Intel-gfx] [PATCH 8/8] drm/i915: Code styling fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,158 +60,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we have laid the groundwork for YUV420 Enablement
-we fill up native_420 field in vdsc_cfg and add appropriate
-checks wherever required.
+From: Swati Sharma <swati2.sharma@intel.com>
 
----v2
--adding native_422 field as 0 [Vandita]
--filling in second_line_bpg_offset, second_line_offset_adj
-and nsl_bpg_offset in vds_cfg when native_420 is true
+Removed extra newlines and did few styling fixes.
 
----v3
--adding display version check to solve igt issue
-
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Signed-off-by: Swati Sharma <swati2.sharma@intel.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c    |  2 -
- drivers/gpu/drm/i915/display/intel_dp.c   |  3 -
- drivers/gpu/drm/i915/display/intel_vdsc.c | 74 ++++++++++++++++++++++-
- 3 files changed, 71 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_debugfs.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index e05e7cd6c412..f0c79247cc83 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1625,8 +1625,6 @@ static int gen11_dsi_dsc_compute_config(struct intel_encoder *encoder,
- 	if (crtc_state->dsc.slice_count > 1)
- 		crtc_state->dsc.dsc_split = true;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 2ccaf698cbfb..5e0e8d1ffadc 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -1438,7 +1438,6 @@ static ssize_t wm_latency_write(struct file *file, const char __user *ubuf,
+ 	return len;
+ }
  
--	vdsc_cfg->convert_rgb = true;
 -
- 	/* FIXME: initialize from VBT */
- 	vdsc_cfg->rc_model_size = DSC_RC_MODEL_SIZE_CONST;
+ static ssize_t pri_wm_latency_write(struct file *file, const char __user *ubuf,
+ 				    size_t len, loff_t *offp)
+ {
+@@ -1788,13 +1787,13 @@ static ssize_t i915_dsc_fec_support_write(struct file *file,
+ 					  const char __user *ubuf,
+ 					  size_t len, loff_t *offp)
+ {
+-	bool dsc_enable = false;
+-	int ret;
+ 	struct drm_connector *connector =
+ 		((struct seq_file *)file->private_data)->private;
+ 	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
++	bool dsc_enable = false;
++	int ret;
  
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index a5c31ac1ec73..b7b7b40ce7ff 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1440,9 +1440,6 @@ static int intel_dp_dsc_compute_params(struct intel_encoder *encoder,
- 		min(intel_dp_source_dsc_version_minor(intel_dp),
- 		    intel_dp_sink_dsc_version_minor(intel_dp));
+ 	if (len == 0)
+ 		return 0;
+@@ -1811,6 +1810,7 @@ static ssize_t i915_dsc_fec_support_write(struct file *file,
+ 	intel_dp->force_dsc_en = dsc_enable;
  
--	vdsc_cfg->convert_rgb = intel_dp->dsc_dpcd[DP_DSC_DEC_COLOR_FORMAT_CAP - DP_DSC_SUPPORT] &
--		DP_DSC_RGB;
--
- 	line_buf_depth = drm_dp_dsc_sink_line_buf_depth(intel_dp->dsc_dpcd);
- 	if (!line_buf_depth) {
- 		drm_dbg_kms(&i915->drm,
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index a642975a1b61..66a4f55c8955 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -462,14 +462,47 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
- 	vdsc_cfg->pic_width = pipe_config->hw.adjusted_mode.crtc_hdisplay;
- 	vdsc_cfg->slice_width = DIV_ROUND_UP(vdsc_cfg->pic_width,
- 					     pipe_config->dsc.slice_count);
--
--	/* Gen 11 does not support YCbCr */
-+	/*
-+	 * According to DSC 1.2 specs if colorspace is YCbCr then convert_rgb is 0
-+	 * else 1
-+	 */
-+	vdsc_cfg->convert_rgb = !(pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
-+				  pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR444);
+ 	*offp += len;
 +
-+	if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
-+		vdsc_cfg->native_420 = true;
-+	/* We do not support YcBCr422 as of now */
-+	vdsc_cfg->native_422 = false;
-+	/* Gen 11 does not support YCbCr422 */
- 	vdsc_cfg->simple_422 = false;
- 	/* Gen 11 does not support VBR */
- 	vdsc_cfg->vbr_enable = false;
+ 	return len;
+ }
  
- 	/* Gen 11 only supports integral values of bpp */
- 	vdsc_cfg->bits_per_pixel = compressed_bpp << 4;
-+	/*
-+	 * According to DSC 1.2 specs if native_420 is set:
-+	 * -We need to double the current bpp.
-+	 * -second_line_bpg_offset is 12 in general and equal to 2*(slice_height-1) if slice
-+	 * height < 8.
-+	 * -second_line_offset_adj is 512 as shown by emperical values to yeild best chroma
-+	 * preservation in second line.
-+	 * -nsl_bpg_offset is calculated as second_line_offset/slice_height -1 then rounded
-+	 * up to 16 fractional bits, we left shift second line offset by 11 to preserve 11
-+	 * fractional bits.
-+	 */
-+	if (vdsc_cfg->native_420) {
-+		vdsc_cfg->bits_per_pixel <<= 1;
-+		if (vdsc_cfg->slice_height >= 8)
-+			vdsc_cfg->second_line_bpg_offset = 12;
-+		else
-+			vdsc_cfg->second_line_bpg_offset =
-+				2 * (vdsc_cfg->slice_height - 1);
-+		vdsc_cfg->second_line_offset_adj = 512;
-+		vdsc_cfg->nsl_bpg_offset = DIV_ROUND_UP(vdsc_cfg->second_line_bpg_offset << 11,
-+							vdsc_cfg->slice_height - 1);
-+	}
-+
- 	vdsc_cfg->bits_per_component = pipe_config->pipe_bpp / 3;
- 
- 	for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++) {
-@@ -596,8 +629,13 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		DSC_VER_MIN_SHIFT |
- 		vdsc_cfg->bits_per_component << DSC_BPC_SHIFT |
- 		vdsc_cfg->line_buf_depth << DSC_LINE_BUF_DEPTH_SHIFT;
--	if (vdsc_cfg->dsc_version_minor == 2)
-+	if (vdsc_cfg->dsc_version_minor == 2) {
- 		pps_val |= DSC_ALT_ICH_SEL;
-+		if (vdsc_cfg->native_420)
-+			pps_val |= DSC_NATIVE_420_ENABLE;
-+		if (vdsc_cfg->native_422)
-+			pps_val |= DSC_NATIVE_422_ENABLE;
-+	}
- 	if (vdsc_cfg->block_pred_enable)
- 		pps_val |= DSC_BLOCK_PREDICTION;
- 	if (vdsc_cfg->convert_rgb)
-@@ -908,6 +946,36 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 				       pps_val);
- 	}
- 
-+	if (DISPLAY_VER(dev_priv) >= 14) {
-+		/* Populate PICTURE_PARAMETER_SET_17 registers */
-+		pps_val = 0;
-+		pps_val |= DSC_SL_BPG_OFFSET(vdsc_cfg->second_line_bpg_offset);
-+		drm_dbg_kms(&dev_priv->drm, "PPS17 = 0x%08x\n", pps_val);
-+		if (is_pipe_dsc(crtc, cpu_transcoder)) {
-+			intel_de_write(dev_priv,
-+				       MTL_DSC0_PICTURE_PARAMETER_SET_17(pipe),
-+				       pps_val);
-+			if (crtc_state->dsc.dsc_split)
-+				intel_de_write(dev_priv,
-+					       MTL_DSC1_PICTURE_PARAMETER_SET_17(pipe),
-+					       pps_val);
-+		}
-+
-+		/* Populate PICTURE_PARAMETER_SET_18 registers */
-+		pps_val = 0;
-+		pps_val |= DSC_NSL_BPG_OFFSET(vdsc_cfg->nsl_bpg_offset) |
-+			   DSC_SL_OFFSET_ADJ(vdsc_cfg->second_line_offset_adj);
-+		drm_dbg_kms(&dev_priv->drm, "PPS18 = 0x%08x\n", pps_val);
-+		if (is_pipe_dsc(crtc, cpu_transcoder)) {
-+			intel_de_write(dev_priv,
-+				       MTL_DSC0_PICTURE_PARAMETER_SET_18(pipe),
-+				       pps_val);
-+			if (crtc_state->dsc.dsc_split)
-+				intel_de_write(dev_priv,
-+					       MTL_DSC1_PICTURE_PARAMETER_SET_18(pipe),
-+					       pps_val);
-+		}
-+	}
- 	/* Populate the RC_BUF_THRESH registers */
- 	memset(rc_buf_thresh_dword, 0, sizeof(rc_buf_thresh_dword));
- 	for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++) {
 -- 
 2.25.1
 
