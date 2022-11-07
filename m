@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EA9BC4321E
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 17:38:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1294DC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 17:43:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8131610E53C;
-	Mon,  7 Nov 2022 17:38:01 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BE2610E53C;
- Mon,  7 Nov 2022 17:37:58 +0000 (UTC)
-Received: from [192.168.2.123] (109-252-117-140.nat.spd-mgts.ru
- [109.252.117.140])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id AB1B366023A6;
- Mon,  7 Nov 2022 17:37:51 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1667842676;
- bh=UMRS4vM/GE6IwT0ij75XZK2yxYOoTzS0D0RuPVqVLQ0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=miwcwDXpS7Bbvd1kg8ufWW8EYMDu/fgcPle5PVDEc/B45ktlgqIx4KYYA7QJIH0/S
- by6GLLPhco/tY89MPdmT/s8ECZUVpumdsyezUNadhVFrBlk2dKSnpRR4YYHs5ifRqx
- kuVjLNaEObN6eE/lFu1N0kKKLb+Hg6OZXx6pYEFM8ctFWBT+AgibmceYq8kqFMCEG5
- kowqpdeAKxf0CNu91SEfqgK2XcDJWq/xRLM5BkdsTv9wWssGJ9nsGOSCQkZma8qL+/
- vHXhwraRJ7N/LdEZD26enrecVwg8djUWKheSt++aa2448mbVzh/odGXyBvPK2wEDIp
- kG1p1Gc0TCNDw==
-Message-ID: <daebe990-6032-15a1-175a-84e9e1ce2ca0@collabora.com>
-Date: Mon, 7 Nov 2022 20:37:49 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5849F10E835;
+	Mon,  7 Nov 2022 17:43:01 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B52A610E828;
+ Mon,  7 Nov 2022 17:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1667842978; x=1699378978;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=W3zR3ozQVaFaXeQbgRXKBUOwQlqXOEQHKQq2JdzbNp8=;
+ b=QfCCXbV2mz5AsIm0H4yJ46LKXTvjXSirl1mBuAnODr8ZENkv4G1/Heg7
+ 5VhNivldAybqQlv9U81bTlyd1aF7Y3rw82U1UaTM8JKRvnJd7eAZQ097X
+ KakQQfiF33zR7gU1lLnVMEQ4N5qzMU8CAtivTt8953zf/O2BHuzYDFJ3g
+ lvuUqTZAeU2wltikP6I667j5j/birSAIAQ1C99BMMuRHCNUTtx9534iOV
+ AsATA3q02CqdY+OAYKzCmIPw1sPmG9HReZ0uLxoNRqRvmxIPB5aKF+fQa
+ grUXcyarmEB0bSyPsyIPepzZtTHxbiVu2jZnLd/L+vP9tiDDKVubxe+CX Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="374744378"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="374744378"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 09:32:58 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="630568322"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="630568322"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.143])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 09:32:58 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-doc@vger.kernel.org
+Date: Mon,  7 Nov 2022 09:32:08 -0800
+Message-Id: <20221107173209.2219571-3-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221107173209.2219571-1-lucas.demarchi@intel.com>
+References: <20221107173209.2219571-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Content-Language: en-US
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20221017172229.42269-1-dmitry.osipenko@collabora.com>
- <20221017172229.42269-19-dmitry.osipenko@collabora.com>
- <CAKMK7uFFwTfNYT2BrubYvUMrH4fEmtF=yJshUck3-gKYLGqxCg@mail.gmail.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <CAKMK7uFFwTfNYT2BrubYvUMrH4fEmtF=yJshUck3-gKYLGqxCg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v7 18/21] dma-buf: Move dma_buf_mmap() to
- dynamic locking specification
+Subject: [Intel-gfx] [PATCH 2/3] Documentation/gpu: Limit index to maxdepth=2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,55 +57,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Gerd Hoffmann <kraxel@redhat.com>, Dmitry Osipenko <digetx@gmail.com>,
- kernel@collabora.com, Sumit Semwal <sumit.semwal@linaro.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, Daniel Stone <daniel@fooishbar.org>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- virtualization@lists.linux-foundation.org, Chia-I Wu <olvaffe@gmail.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- linaro-mm-sig@lists.linaro.org,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Juergen Gross <jgross@suse.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, amd-gfx@lists.freedesktop.org,
- Tomi Valkeinen <tomba@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Qiang Yu <yuq825@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 11/7/22 20:25, Daniel Vetter wrote:
->> Move dma_buf_mmap() function to the dynamic locking specification by
->> taking the reservation lock. Neither of the today's drivers take the
->> reservation lock within the mmap() callback, hence it's safe to enforce
->> the locking.
->>
->> Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
->> Acked-by: Christian König <christian.koenig@amd.com>
->> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> Just noticed this while reading code ... this patch seems to have
-> missed dma_buf_mmap_internal()?
-> 
-> Might be good if at least some drivers gain a dma_resv_assert_held in
-> that path to make sure we're not quite this bad, together with fixing
-> this issue.
+With a lot of sub-section it's a little bit hard to find the information
+needed in the main GPU index. Limit the maxdepth to 2 so it doesn't get
+poluted with noise from each driver and from other sections.
 
-Good catch! I'll prepare the patches.
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ Documentation/gpu/index.rst | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/Documentation/gpu/index.rst b/Documentation/gpu/index.rst
+index b99dede9a5b1..1d9402d519be 100644
+--- a/Documentation/gpu/index.rst
++++ b/Documentation/gpu/index.rst
+@@ -3,6 +3,7 @@ Linux GPU Driver Developer's Guide
+ ==================================
+ 
+ .. toctree::
++   :maxdepth: 2
+ 
+    introduction
+    drm-internals
 -- 
-Best regards,
-Dmitry
+2.38.1
 
