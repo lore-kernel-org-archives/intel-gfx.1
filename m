@@ -4,50 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8093DC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 19:46:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA91DC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 20:24:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BED9610E3F1;
-	Mon,  7 Nov 2022 19:46:29 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4638910E3E9
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Nov 2022 19:46:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F29910E448;
+	Mon,  7 Nov 2022 20:24:29 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2964B10E448
+ for <intel-gfx@lists.freedesktop.org>; Mon,  7 Nov 2022 20:24:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667850380; x=1699386380;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=pCUuyRgSrtXm372nIHML2EBp/iPiZr+nxBbR5MxviZc=;
- b=RhNyHCbWVbKylRwOGiy5AkVOAXhANvFQ2kiII6btKhdV7P/qtKtEZFMi
- JVW+z1urz82usPBqkpFYE8As+2Kth2SdfGXCKX03u+1XLavgmuMmufyHH
- 28+tKFMWYR0N/KwdtqIgwUfs5KkgOtpLDVpfZgRiAm5a0xheYVsF8j0d3
- 4O8GPhHZ/XXL0OAm7hM7Wog1TQ+9Gn3FLwbmzZpaZZAcV2jMyo09xm4cd
- veGC+0UJR0ZOGPpbpCuiLSamlzd599PAhQl8PXV5BR+3iRsTW3q5b5dhb
- viD5Zy8Nq03/9jZNb3neQYmqPql0DzOtj/vc77c0O2dvL58Z+xzxqpapg Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="337229188"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="337229188"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 11:46:18 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="965296810"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="965296810"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga005.fm.intel.com with SMTP; 07 Nov 2022 11:46:16 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 07 Nov 2022 21:46:16 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
+ t=1667852666; x=1699388666;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=EaA9C2ayT8T1CFQ5a6uFwM1tRn+E0cXWo9WNjSZUI20=;
+ b=Dmwh7tZypCGhjLqtMHFlw8GKwAFMHufDH2TxrdDKJN9izUaYIySXS4bG
+ q4CSkV+ZVaYDQW1/OhYA89FrD5hRifYNeLlmdU5Ew43wHvLLEGQGZdEf1
+ MWdbakfiE1IFOv6JI7BhUy8TsMr1v5DrtD0pMNP1SJ5emBB62x/E1VKM3
+ VOG7uFzP92sKv1xfPsiZq3ahqPbs23WBYrUv+ylGKYed1etUvLkLaPwdL
+ qmFmVBe0nSl6dCeObf7sYgos1IeS5E1ODG94fV5B4hUy8/VvuS5p5794c
+ KNOAX0iOjC/NnnI22tcNyBIeIDC/Y2t0HLtlHRPle5s//i6iRJT/LaEm9 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="312303076"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="312303076"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 12:24:16 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="587113453"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="587113453"
+Received: from orsosgc001.jf.intel.com (HELO unerlige-ril.jf.intel.com)
+ ([10.165.21.138])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 12:24:15 -0800
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  7 Nov 2022 21:46:03 +0200
-Message-Id: <20221107194604.15227-5-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.37.4
-In-Reply-To: <20221107194604.15227-1-ville.syrjala@linux.intel.com>
-References: <20221107194604.15227-1-ville.syrjala@linux.intel.com>
+Date: Mon,  7 Nov 2022 12:24:10 -0800
+Message-Id: <20221107202410.1976895-1-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/5] drm/i915: Move has_hdmi_sink out from
- intel_hdmi_compute_config()
+Subject: [Intel-gfx] [PATCH] drm/i915/perf: Fix kernel-doc warning
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,100 +58,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Fix kernel-doc issue from a previous commit.
 
-We'll be wanting to compute has_hdmi_sink a bit differently
-for some platforms. To that end compute it in the encoder
-.compute_config_hook() before we call intel_hdmi_compute_config().
-intel_hdmi_compute_has_hdmi_sink() will do the basic lifting
-beyond any platform specific stuff.
-
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Fixes: 2db609c01495 ("drm/i915/perf: Replace gt->perf.lock with stream->lock for file ops")
 ---
- drivers/gpu/drm/i915/display/g4x_hdmi.c   |  3 +++
- drivers/gpu/drm/i915/display/intel_ddi.c  |  3 +++
- drivers/gpu/drm/i915/display/intel_hdmi.c | 14 ++++++++++----
- drivers/gpu/drm/i915/display/intel_hdmi.h |  3 +++
- 4 files changed, 19 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/i915_perf_types.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/g4x_hdmi.c b/drivers/gpu/drm/i915/display/g4x_hdmi.c
-index 3d09359d7337..fd23aa03cdc4 100644
---- a/drivers/gpu/drm/i915/display/g4x_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/g4x_hdmi.c
-@@ -87,6 +87,9 @@ static int g4x_hdmi_compute_config(struct intel_encoder *encoder,
- 	if (HAS_PCH_SPLIT(i915))
- 		crtc_state->has_pch_encoder = true;
+diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
+index e0c96b44eda8..ca150b7af3f2 100644
+--- a/drivers/gpu/drm/i915/i915_perf_types.h
++++ b/drivers/gpu/drm/i915/i915_perf_types.h
+@@ -146,8 +146,8 @@ struct i915_perf_stream {
+ 	 */
+ 	struct intel_engine_cs *engine;
  
-+	crtc_state->has_hdmi_sink =
-+		intel_hdmi_compute_has_hdmi_sink(encoder, crtc_state, conn_state);
-+
- 	return intel_hdmi_compute_config(encoder, crtc_state, conn_state);
- }
+-	/*
+-	 * Lock associated with operations on stream
++	/**
++	 * @lock: Lock associated with operations on stream
+ 	 */
+ 	struct mutex lock;
  
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index e95bde5cf060..5ebfbe7b81b4 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3638,6 +3638,9 @@ static int intel_ddi_compute_config(struct intel_encoder *encoder,
- 		pipe_config->cpu_transcoder = TRANSCODER_EDP;
- 
- 	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_HDMI)) {
-+		pipe_config->has_hdmi_sink =
-+			intel_hdmi_compute_has_hdmi_sink(encoder, pipe_config, conn_state);
-+
- 		ret = intel_hdmi_compute_config(encoder, pipe_config, conn_state);
- 	} else {
- 		ret = intel_dp_compute_config(encoder, pipe_config, conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 31927f8238d1..2425a9f59b90 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2237,11 +2237,20 @@ static bool intel_hdmi_is_cloned(const struct intel_crtc_state *crtc_state)
- 		!is_power_of_2(crtc_state->uapi.encoder_mask);
- }
- 
-+bool intel_hdmi_compute_has_hdmi_sink(struct intel_encoder *encoder,
-+				      const struct intel_crtc_state *crtc_state,
-+				      const struct drm_connector_state *conn_state)
-+{
-+	struct intel_hdmi *hdmi = enc_to_intel_hdmi(encoder);
-+
-+	return intel_has_hdmi_sink(hdmi, conn_state) &&
-+		!intel_hdmi_is_cloned(crtc_state);
-+}
-+
- int intel_hdmi_compute_config(struct intel_encoder *encoder,
- 			      struct intel_crtc_state *pipe_config,
- 			      struct drm_connector_state *conn_state)
- {
--	struct intel_hdmi *intel_hdmi = enc_to_intel_hdmi(encoder);
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
- 	struct drm_connector *connector = conn_state->connector;
-@@ -2252,9 +2261,6 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
- 		return -EINVAL;
- 
- 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
--	pipe_config->has_hdmi_sink =
--		intel_has_hdmi_sink(intel_hdmi, conn_state) &&
--		!intel_hdmi_is_cloned(pipe_config);
- 
- 	if (pipe_config->has_hdmi_sink)
- 		pipe_config->has_infoframe = true;
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index 774dda2376ed..dd08b4004c59 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -23,6 +23,9 @@ union hdmi_infoframe;
- 
- void intel_hdmi_init_connector(struct intel_digital_port *dig_port,
- 			       struct intel_connector *intel_connector);
-+bool intel_hdmi_compute_has_hdmi_sink(struct intel_encoder *encoder,
-+				      const struct intel_crtc_state *crtc_state,
-+				      const struct drm_connector_state *conn_state);
- int intel_hdmi_compute_config(struct intel_encoder *encoder,
- 			      struct intel_crtc_state *pipe_config,
- 			      struct drm_connector_state *conn_state);
 -- 
-2.37.4
+2.36.1
 
