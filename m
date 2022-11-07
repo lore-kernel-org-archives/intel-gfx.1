@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E3F3C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 17:43:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13DE5C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 17:43:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADB1910E83E;
-	Mon,  7 Nov 2022 17:43:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 402DD10E831;
+	Mon,  7 Nov 2022 17:43:05 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15F8B10E837;
- Mon,  7 Nov 2022 17:42:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6585610E835;
+ Mon,  7 Nov 2022 17:42:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667842979; x=1699378979;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=XlCKGtfUOOsWZKAmOLbMdf7L0wmWwqYuF9wT5UroNEg=;
- b=JcOlRC0r0lh2EAEpV8f3y9QSTifChTLOjUMSzG7t65CfmPT2H9PFJVu3
- HIM4tD3PQJDNxANuEeRpPucl3kooxUrLausLImfval7FYcd7Nt4ZNPfIt
- VRcm9jn3rOteV9HxTXxm3L+XQVJdazb/4tDunWoMelz84dl4v/BNJ5Vsp
- ya6BX6SUVMRwh4wKMr/FBW0EJmTz6onog7gpe3I5EXvooequoa+IUEEh3
- SjB2IBz6brrSCzN0lCPvtoIomO4E+FnYbMaHM0E4XxLzFWRa2HOsmbnj0
- qguudaVPvuuenylvC/dB5OvgyHlrtw/AcZFDDadhktZ5uxLBJ8Kv/7BzO Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="374744375"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="374744375"
+ t=1667842978; x=1699378978;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=KODMlnwV/QFHCCKxEIsZ/8aNUnTgN8JpQxZph3w8T2E=;
+ b=iyVx7njUeLfM2PRZlaDkewyq6HpTR0eDCwW0F+vnbuT4Ri+U1+0tOeed
+ HC0ebUZ2OS7nB14gmCwf9Ud4n2whikqkP76/ZjY8lK/2I45pByXJZj8yz
+ 1aVZ7QpSACuNuhGQnwztc4u5UjQMvHfkA0RBMK6VCtEkBpcR6eeeMmIuj
+ UORpGP3j73W/PNfK5jS6cIFKwwgRpaIq2hhb++8UnItR4JAsyFXMfM6zN
+ Utjdwhk1DKr9AzVEs9bZjnlWkwunTo9OES7Ex9Y1WEhHKuXV/sCznEvpy
+ c8rEGle4SlL3Z31ABP6tLakCEHj1z/WXdef2sPS6OyvIMa+M7lfVc+LJU A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="374744379"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="374744379"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Nov 2022 09:32:58 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="630568315"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="630568315"
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="630568325"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="630568325"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.143])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Nov 2022 09:32:58 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-doc@vger.kernel.org
-Date: Mon,  7 Nov 2022 09:32:06 -0800
-Message-Id: <20221107173209.2219571-1-lucas.demarchi@intel.com>
+Date: Mon,  7 Nov 2022 09:32:09 -0800
+Message-Id: <20221107173209.2219571-4-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221107173209.2219571-1-lucas.demarchi@intel.com>
+References: <20221107173209.2219571-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/3] Documentation/gpu: reduce verbosity in toc
+Subject: [Intel-gfx] [PATCH 3/3] Documentation/gpu: Limit drivers index to
+ maxdepth=2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,22 +63,26 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Checking some issues I was having i915 doc made me look at the toc for
-Documentation/gpu. I think it's too hard to read when extending the toc
-all levels for each driver. Reduce it to maxdepth=2.
+Just like the main index, the page generated is very verbose if all the
+internal details of each driver is included.
 
-Also fix the usage-stats section appearing in the wrong place.
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ Documentation/gpu/drivers.rst | 1 +
+ 1 file changed, 1 insertion(+)
 
-Lucas De Marchi (3):
-  Documentation/gpu: Fix section in the wrong scope
-  Documentation/gpu: Limit index to maxdepth=2
-  Documentation/gpu: Limit drivers index to maxdepth=2
-
- Documentation/gpu/drivers.rst         | 1 +
- Documentation/gpu/drm-usage-stats.rst | 1 -
- Documentation/gpu/index.rst           | 1 +
- 3 files changed, 2 insertions(+), 1 deletion(-)
-
+diff --git a/Documentation/gpu/drivers.rst b/Documentation/gpu/drivers.rst
+index 3a52f48215a3..a36ec133b123 100644
+--- a/Documentation/gpu/drivers.rst
++++ b/Documentation/gpu/drivers.rst
+@@ -3,6 +3,7 @@ GPU Driver Documentation
+ ========================
+ 
+ .. toctree::
++   :maxdepth: 2
+ 
+    amdgpu/index
+    i915
 -- 
 2.38.1
 
