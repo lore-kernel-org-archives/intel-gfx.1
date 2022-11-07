@@ -4,46 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E667AC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 17:46:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53E61C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Nov 2022 17:49:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F17F410E52E;
-	Mon,  7 Nov 2022 17:46:03 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D6B610E52E
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Nov 2022 17:46:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C2C210E521;
+	Mon,  7 Nov 2022 17:49:08 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1F0A10E0C9;
+ Mon,  7 Nov 2022 17:49:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667843161; x=1699379161;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fbF82NPdarkh2jEA5OIh54FN2+rFNrWzjQ9pe2xgYxA=;
- b=ThEHW84pqgFk4UtGDjtNtP5wDI/IBift9Ovv7KvNd4/W4b54u8fc5chH
- S8rUe0aB5h7CFJNsXtMfsB+/uyUIdxG+C/14z3rYxyOo802TQS6+U+R68
- SzSM1MbJgcnTh14ivZ47BkNd7J2jeWUIObRGhN2ezU6MYx2SEr3jEeChZ
- VUvqcM9j1sEBOER2UktT8VzQcYz/3aYYHtjxEUyQ9G6X7kdx35yu5/7AH
- oosVBRAsCJbiqovt7EcqgGi2C9aNcDqSOjUdqIAvmftnOfQz8S5QQdW96
- PLTOGic1QNaVkUK3xQc6ohMBIp6RQB5LG6j9R5q6vt8M0+KpM8EM/Kcjs g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="311628426"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="311628426"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 09:34:45 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="741586854"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="741586854"
-Received: from pmesquit-mobl.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
- ([10.252.15.49])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 09:34:43 -0800
-From: Matthew Auld <matthew.auld@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  7 Nov 2022 17:34:35 +0000
-Message-Id: <20221107173435.68116-1-matthew.auld@intel.com>
+ t=1667843345; x=1699379345;
+ h=from:to:cc:subject:date:message-id:
+ content-transfer-encoding:mime-version;
+ bh=BnQ3zbxKC/+MtIC9JrIMMe8ZGeXf9qGyio7tUT7b6oI=;
+ b=U8xDuOW0+O5CtOdGlkT5UaMtADErY2sJjre3tEkjAc55lyr8mfyxLRnN
+ ZeEvs8y6+Cnw/FAHskUFxNVZS8IrlzOl8FCipvOGsdr3tsJQkUGPuP2r3
+ t6CypjPLoaqeuFfW/THWdM2ctgkXU4tbgh5B7rQ7wWiCfhm3i3aSvXiCo
+ DXqIpTtMVWfJ97V4nL57rerhYeD4aCflupuZpUeCgKROVoKY372XKjuuq
+ NYDaHg5YdRUh53YE+22vtlDqD7cwyas1dmMY4BMo7q3fJePwGKiXEYiEH
+ 792VKbjNQXZIAMI4TgY4RyR1CRhj34HDcaI3DHIWfojNiyEmaMF+GL850 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="310479792"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="310479792"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2022 09:49:05 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="965251606"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="965251606"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by fmsmga005.fm.intel.com with ESMTP; 07 Nov 2022 09:49:01 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Mon, 7 Nov 2022 09:49:01 -0800
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31 via Frontend Transport; Mon, 7 Nov 2022 09:49:01 -0800
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.105)
+ by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2375.31; Mon, 7 Nov 2022 09:48:27 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iWnBCD9/tS6QRStaQ2HC8igrA9GCnvy1M3YNT0xgnAyRj0Muo658US2JRcJz8XVR0JZp91gd1CBaA8056eMJCG9/UM14QB1qzkCz72pU6JFe9j73ofqjmrOltL2lKGpBt+pmdZyReJbBF6cimuSnMvfcKOtplf9q+UEm+77YSZJknVpzOxkkfJG1JfFMon9h/KZSy+rk5tQU5vpqXY8iUfr/MeTNxFh+ym8HG3ZV+a9VaOMjDQLNrXsNCQmorxoT3tzWSKsdKrU9Y8PZdC+SmwkQc7/sI9oXpEM8Dj5FQ8iWlVIM90C0ZBBl0KPojbMyX2JL3hFi54QExTAyw1tc1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=n0LyEWGXEHJ8Ex3TP0h0K9vC9JHewaltbj1ndwjB5ig=;
+ b=HmoP7RiD8FaVdWplZIzHsgSmDHTIjcnlUJDC6YbPcMKYgtZ8oCy0WCgGoG5L9qmf8bUwTAQgTRRzqlSOb6TZJ6gXFO3KNagJumYMwniXRCtoB0nSc6pD03IaYQdhrxrz4Qc0jDH4YtWS6e2hWKSm6Xj2CY0KMaJwavFFqJGzekhOgS5Vc8nVQDIrbzBnDb28fQZd7x+ZJyX/EePdlB+GUeDd9IZ3gh48BcEbhzBsVLiDZ7cxGPaCD68mJM2JR/lkDVvEYi7JjvNKKJxtFI0jMSj4tePG1B+cLn+EhM9D6BIQNp5nVlS+MShapIdeikMdHmhhwQgq8xzuiZYxWvyRHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB5373.namprd11.prod.outlook.com (2603:10b6:5:394::7) by
+ CO1PR11MB4916.namprd11.prod.outlook.com (2603:10b6:303:9c::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5791.26; Mon, 7 Nov 2022 17:48:25 +0000
+Received: from DM4PR11MB5373.namprd11.prod.outlook.com
+ ([fe80::22c6:b7ab:a8ec:a6d8]) by DM4PR11MB5373.namprd11.prod.outlook.com
+ ([fe80::22c6:b7ab:a8ec:a6d8%5]) with mapi id 15.20.5791.026; Mon, 7 Nov 2022
+ 17:48:25 +0000
+From: =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>
+To: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <intel-gfx@lists.freedesktop.org>
+Date: Mon, 7 Nov 2022 18:48:11 +0100
+Message-ID: <20221107174811.246135-1-michal.winiarski@intel.com>
 X-Mailer: git-send-email 2.38.1
-MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: use i915_sg_dma_sizes() for all
- backends
+X-ClientProxiedBy: LO4P265CA0178.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:311::9) To DM4PR11MB5373.namprd11.prod.outlook.com
+ (2603:10b6:5:394::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB5373:EE_|CO1PR11MB4916:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b7f7f19-6671-4ca5-b53b-08dac0e84572
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 9rnp+cFfvKhOZUTCnFsmpPaTkDbAP/MFaEY3NMLVq7rWDi8THkMd/Ako2daHXuBoL6Iu+HRkPJnwD5CCLPEPvOAMtmtB8WCsHPr2loSKi+TAxCRPQhQUApFGSvd5JTw/cOlJK/3PSX75rwx4R5CN5nl5ReNSZREVL09r6l2GOkwUdaud7HVW+ICrahYYtG6CdYDbI1uEV1FNE1ptwFdhF8w+oZqMl33NR/s/HvcpOwcXVd3z5/AqG+aqnv+HMq/ZjzEXRyH2JYF+Ozh1BVDyZ6dNtKGpSRzthnrxK++PfNIutZcGOdP/BP943oJpJiL4oRHWwhRq0S8le0uG25ecnSW79Qw6R4VH7tQn0aOwit3iw7KhIxWrjpiCO23+oQIDApFhgAciqsMtZa6PISY9B93cmbiSliAearv4HKDnqqXY8j2rMJoLIG12/tCNehxSR0v24YUhVGi17bq29keSeWpTLB7zmbDgIGZYdnTW5pRD4shGuk8mQTUp9IKvYtHaQIRhczMupW3D7oYsFW5lY2/9MBAgOP+sz498RYirJZuHTtdIeoPXLwuHNsELDWNtsApieD3pjY1wk7y4335D9Bj3qAnVOCqmoO1AcCpK1jxCNjsJWjwnQbv1KXF3XVbW1VfZVXQH6nMMcmcHeM7YaM+uN1GRzJtCrtd45C5PK0LhaHo+1w0+FCiRfCx0rEjPaf14Cpkb7h0+8agIwlt3GiGl8RKQB6Fh2ik4KQbR+1w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB5373.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(346002)(396003)(376002)(136003)(366004)(39860400002)(451199015)(36756003)(82960400001)(86362001)(6506007)(66476007)(2906002)(2616005)(186003)(1076003)(26005)(6512007)(6666004)(83380400001)(66556008)(66946007)(8676002)(4326008)(54906003)(316002)(7416002)(478600001)(8936002)(966005)(6486002)(5660300002)(38100700002)(41300700001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TXY4VTkwWVRrTm9LSm50aThxc0pwMzZsb1Q2ZFZhN0kwU1FwVUpleVh1T3ND?=
+ =?utf-8?B?WHREQ0JRWHZnUjBXSGhZK3ZJdlJnQVEwV0twV2oxZFYxZ3Fid1V5YjFCcGEz?=
+ =?utf-8?B?M2hYQmNtelZ0SmhmWjRSc1pZZ1haK3BVZlhjNUhQZWNKNEJWUEY5S3RtVDBo?=
+ =?utf-8?B?d0dJZFBheUZBalZaRkN0ZlRYaVBZa2tlblh6Zk5Ud21DZlVaS25kTGZ1ZWJx?=
+ =?utf-8?B?c1QvdzhiYi9samFnam9VZVR0aWt5czIvcFArMDhTSTRTc0VEaU9HSWN6cmx2?=
+ =?utf-8?B?U3JkRlBpc0ZHSmFHcEs4d3JQOGhMQ3B1VGREUy8wMEpURi9oYit0YldPWkpI?=
+ =?utf-8?B?U0hNL0lhMFRseStDRnFoc1JXdm5WZFdZQURlNVVrVVdDeVJEVWJHY3NkWXpJ?=
+ =?utf-8?B?SHpJUms5MGV6MTZ5Z2p3RHl0T3RRVGlIbFRuQmpPcWlIMCsyam93L3czK2tj?=
+ =?utf-8?B?UlQvZzY1RE5qZFJPaENXb0tDNHJJQ0gzejhIc0JnWllscXdoK1VPdDF5U1ZW?=
+ =?utf-8?B?U3lVeTIwQ1U5cEJwOWF0MlQxbkJoaWZXMlhTWHd3bVFOVCtuaGdCQ1pKb2sz?=
+ =?utf-8?B?bjFESnlnUDFUTVFuSVJqMEM5QjErenNuU2FHQ1ZVQnhYYlNteHB1d1JRbm9H?=
+ =?utf-8?B?R04xSmU2YWd1a0pYc2MxREhGVmhhSm54S1NxWG5ESUt3L1VGTEhlK1N6Szcv?=
+ =?utf-8?B?U3JtV3hHTWhoOWV2T2lHdkY0Yi9mWDFYcUQxVzRsUkVzNis0ait2Q0Y0NnVa?=
+ =?utf-8?B?MW83b2xibUdhUXVmdUF5L0tUYmFPSXNMQ0lPeDdTclN3d2JyS3k4eVFpcVlU?=
+ =?utf-8?B?aEhoUUZiS1BJMDVua01DQW9ndUM3aDR4RUpGOTRqVFpKaDZWMjNUQkN1U1J4?=
+ =?utf-8?B?MVlCOGNuNFR1Z21sT1pqOGtiYUx0eEJoajBUdEUzWUs2UCtuWkd2K0Z0c0hP?=
+ =?utf-8?B?LzNFa3Jodmw0RnRMa0F0Z0k5d3hGa2w4UmwyMDQ1Z3NRamZwMDhTWWpwSENw?=
+ =?utf-8?B?b2huRnhMM1I4L1RpcGlSRGNkcnJNcGJsQXBleG9JM3N5WE1SbjdLcHNZUFl2?=
+ =?utf-8?B?aktWd0NubFRZdVRmNUJlbFNyREsyY1g1UUZ2bWhSUG9jY2t2MjBzQ0Y2UlRI?=
+ =?utf-8?B?SHZtZm85YWIxbHdET05JbFJLQXJlcnRVZWIzTTAzdjFlNGpBOTAvUUo4aVcx?=
+ =?utf-8?B?UVBFV3NPdjI4RWdnYVRRQ2Jxc0ttNUV2VXBsVG91R21OUExHdnRXOCtsaGFj?=
+ =?utf-8?B?Z0hEVHQ0bTdvVTEzOW5abkl6aHZJamF1OTFEcEJkYTh0VldDNUs2empkMGlD?=
+ =?utf-8?B?Y3lBRHVMdU82WWhlUkU3Tm40Q29QZTlBeldTajMrM2VJQnpTaWpZZVcycFBt?=
+ =?utf-8?B?bXA0OE51bWttRFFuRlF2Nm9wV1ZxZ1R2Nk1COUl4UmtKUXNVNjRETkFFVnIw?=
+ =?utf-8?B?NTczdGlKeDRSc3NhOUg2WEVFUXI1VTFUdm9Xa0VZeVhURm55Y0lJZ21qUkUv?=
+ =?utf-8?B?VzdOejNSTVVDM0hDR1R1bVA4WllvWU9IcktpRXFKOVBRNHFvbDlQYjBNbEhW?=
+ =?utf-8?B?RzRSbW5kTnRuckRWb1NNR2xKUWNJdVZ3SW5SRjNrOGgzQnNpdWpDQ3gyY2Fi?=
+ =?utf-8?B?bS9YUnNuRzh4R3hDMTRwUzliK3hHb0d1c2ZGa2VoVGlJUDgvNXpTdHZBY0Q5?=
+ =?utf-8?B?MTlNK25VWWdPbXZyeFJMRVpjMWNmTWI1TGZaaEFLdngxQzBnL2xGRlhLR3c4?=
+ =?utf-8?B?WnFRdWxNbUhSeXR2M2kvMUxCR1lrRkVkeG85TzdkakUzenRCRW1TbEtiajRC?=
+ =?utf-8?B?dzhpV2gzUmM0Z3d6MXB1b1lpd2FHcmVjSTFyMXJIR3hYVE1YWml6KytUTmc2?=
+ =?utf-8?B?MmdFWlA4WUZjVHN2ZVpxa2NEMmpMckp2MTEzaHd2ZE1NZ1RzWnpDSFlkeDBj?=
+ =?utf-8?B?aXl3Q0JBS1hyVnE3SnlDZnJmcFhsL0x3ZkNrSExqL0x0RG9qMzlFNG5FdjVh?=
+ =?utf-8?B?UHZzeEtrK0Exc2RoMHpHYTYzcnJsVXZid1REdCtuK09Wb2xDQTdqQmdOL1lT?=
+ =?utf-8?B?WWlJWWFBTytNSys1RmU1MXQvVVpuTmErOUgwODI2WHFpWGtzS1Q1cmI4Zkpz?=
+ =?utf-8?B?SnZsSnRNYTQvVUJXNFBQNVIrQkNqb01ydzBQWloyc2g3UkRYWkx4WlpkdHF4?=
+ =?utf-8?B?S1E9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b7f7f19-6671-4ca5-b53b-08dac0e84572
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5373.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2022 17:48:25.7687 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QXAGAALCzC4dtuPaMpquC6EV1ffvez+Uk4Sn1HNixhIlIy8CnnzkrXj4OnHNIDmOoVB4fCAQmRVgv5l5RD11p3FEEQcSyxkG9PtjOc0H5T8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB4916
+X-OriginatorOrg: intel.com
+Subject: [Intel-gfx] [PATCH v3] drm: Use XArray instead of IDR for minors
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,347 +151,179 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Simon Ser <contact@emersion.fr>, Oded Gabbay <ogabbay@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We rely on page_sizes.sg in setup_scratch_page() reporting the correct
-value if the underlying sgl is not contiguous, however in
-get_pages_internal() we are only looking at the layout of the created
-pages when calculating the sg_page_sizes, and not the final sgl, which
-could in theory be completely different. In such a situation we might
-incorrectly think we have a 64K scratch page, when it is actually only
-4K or similar split over multiple non-contiguous entries, which could
-lead to broken behaviour when touching the scratch space within the
-padding of a 64K GTT page-table. For most of the other backends we
-already just call i915_sg_dma_sizes() on the final mapping, so rather
-just move that into __i915_gem_object_set_pages() to avoid such issues
-coming back to bite us later.
+IDR is deprecated, and since XArray manages its own state with internal
+locking, it simplifies the locking on DRM side.
+Additionally, don't use the IRQ-safe variant, since operating on drm
+minor is not done in IRQ context.
 
-Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Stuart Summers <stuart.summers@intel.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Signed-off-by: Michał Winiarski <michal.winiarski@intel.com>
+Suggested-by: Matthew Wilcox <willy@infradead.org>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c           |  4 +---
- drivers/gpu/drm/i915/gem/i915_gem_internal.c         |  5 +----
- drivers/gpu/drm/i915/gem/i915_gem_object.h           |  3 +--
- drivers/gpu/drm/i915/gem/i915_gem_pages.c            |  7 +++----
- drivers/gpu/drm/i915/gem/i915_gem_phys.c             |  9 +++------
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c            |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c           |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c              |  3 +--
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c          |  4 +---
- drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c |  2 +-
- drivers/gpu/drm/i915/gem/selftests/huge_pages.c      | 10 +++-------
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c        |  5 +----
- drivers/gpu/drm/i915/selftests/mock_region.c         |  2 +-
- 13 files changed, 19 insertions(+), 39 deletions(-)
+This was originally sent as v4/v5 in larger series:
+https://lore.kernel.org/dri-devel/20220911211443.581481-2-michal.winiarski@intel.com/
+v1 -> v2:
+Fixed locking and corrected some misuse of XArray API (Matthew Wilcox)
+v2 -> v3:
+Store correct pointer, use xa_store rather than xa_cmpxchg (Oded Gabbay)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index ec6f7ae47783..1df74f7aa3dc 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -238,7 +238,6 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
+ drivers/gpu/drm/drm_drv.c | 51 ++++++++++++++-------------------------
+ 1 file changed, 18 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index 8214a0b1ab7f..bdcdfeac76bf 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -34,6 +34,7 @@
+ #include <linux/pseudo_fs.h>
+ #include <linux/slab.h>
+ #include <linux/srcu.h>
++#include <linux/xarray.h>
+ 
+ #include <drm/drm_cache.h>
+ #include <drm/drm_client.h>
+@@ -53,8 +54,7 @@ MODULE_AUTHOR("Gareth Hughes, Leif Delgass, José Fonseca, Jon Smirl");
+ MODULE_DESCRIPTION("DRM shared core routines");
+ MODULE_LICENSE("GPL and additional rights");
+ 
+-static DEFINE_SPINLOCK(drm_minor_lock);
+-static struct idr drm_minors_idr;
++static DEFINE_XARRAY_ALLOC(drm_minors_xa);
+ 
+ /*
+  * If the drm core fails to init for whatever reason,
+@@ -98,21 +98,19 @@ static struct drm_minor **drm_minor_get_slot(struct drm_device *dev,
+ static void drm_minor_alloc_release(struct drm_device *dev, void *data)
  {
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
- 	struct sg_table *sgt;
--	unsigned int sg_page_sizes;
+ 	struct drm_minor *minor = data;
+-	unsigned long flags;
  
- 	assert_object_held(obj);
+ 	WARN_ON(dev != minor->dev);
  
-@@ -262,8 +261,7 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- 	    (!HAS_LLC(i915) && !IS_DG1(i915)))
- 		wbinvd_on_all_cpus();
+ 	put_device(minor->kdev);
  
--	sg_page_sizes = i915_sg_dma_sizes(sgt->sgl);
--	__i915_gem_object_set_pages(obj, sgt, sg_page_sizes);
-+	__i915_gem_object_set_pages(obj, sgt);
- 
- 	return 0;
+-	spin_lock_irqsave(&drm_minor_lock, flags);
+-	idr_remove(&drm_minors_idr, minor->index);
+-	spin_unlock_irqrestore(&drm_minor_lock, flags);
++	xa_erase(&drm_minors_xa, minor->index);
  }
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_internal.c b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-index 629acb403a2c..f66bcefc09ec 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-@@ -35,7 +35,6 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
- 	struct sg_table *st;
- 	struct scatterlist *sg;
--	unsigned int sg_page_sizes;
- 	unsigned int npages;
- 	int max_order = MAX_ORDER;
- 	unsigned int max_segment;
-@@ -64,7 +63,6 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
  
- 	sg = st->sgl;
- 	st->nents = 0;
--	sg_page_sizes = 0;
- 
- 	do {
- 		int order = min(fls(npages) - 1, max_order);
-@@ -83,7 +81,6 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
- 		} while (1);
- 
- 		sg_set_page(sg, page, PAGE_SIZE << order, 0);
--		sg_page_sizes |= PAGE_SIZE << order;
- 		st->nents++;
- 
- 		npages -= 1 << order;
-@@ -105,7 +102,7 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
- 		goto err;
- 	}
- 
--	__i915_gem_object_set_pages(obj, st, sg_page_sizes);
-+	__i915_gem_object_set_pages(obj, st);
- 
- 	return 0;
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 6b9ecff42bb5..3db53769864c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -403,8 +403,7 @@ i915_gem_object_get_dma_address(struct drm_i915_gem_object *obj,
- 				unsigned long n);
- 
- void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
--				 struct sg_table *pages,
--				 unsigned int sg_page_sizes);
-+				 struct sg_table *pages);
- 
- int ____i915_gem_object_get_pages(struct drm_i915_gem_object *obj);
- int __i915_gem_object_get_pages(struct drm_i915_gem_object *obj);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-index 16f845663ff2..05a27723ebb8 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-@@ -16,8 +16,7 @@
- #include "i915_gem_mman.h"
- 
- void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
--				 struct sg_table *pages,
--				 unsigned int sg_page_sizes)
-+				 struct sg_table *pages)
++#define DRM_MINOR_LIMIT(t) ({ typeof(t) _t = (t); XA_LIMIT(64 * _t, 64 * _t + 63); })
++
+ static int drm_minor_alloc(struct drm_device *dev, unsigned int type)
  {
- 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
- 	unsigned long supported = RUNTIME_INFO(i915)->page_sizes;
-@@ -45,8 +44,8 @@ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
+ 	struct drm_minor *minor;
+-	unsigned long flags;
+ 	int r;
  
- 	obj->mm.pages = pages;
+ 	minor = drmm_kzalloc(dev, sizeof(*minor), GFP_KERNEL);
+@@ -122,21 +120,10 @@ static int drm_minor_alloc(struct drm_device *dev, unsigned int type)
+ 	minor->type = type;
+ 	minor->dev = dev;
  
--	GEM_BUG_ON(!sg_page_sizes);
--	obj->mm.page_sizes.phys = sg_page_sizes;
-+	obj->mm.page_sizes.phys = i915_sg_dma_sizes(pages->sgl);
-+	GEM_BUG_ON(!obj->mm.page_sizes.phys);
- 
- 	/*
- 	 * Calculate the supported page-sizes which fit into the given
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-index 0d0e46dae559..68453572275b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_phys.c
-@@ -79,7 +79,7 @@ static int i915_gem_object_get_pages_phys(struct drm_i915_gem_object *obj)
- 
- 	/* We're no longer struct page backed */
- 	obj->mem_flags &= ~I915_BO_FLAG_STRUCT_PAGE;
--	__i915_gem_object_set_pages(obj, st, sg->length);
-+	__i915_gem_object_set_pages(obj, st);
- 
- 	return 0;
- 
-@@ -209,11 +209,8 @@ static int i915_gem_object_shmem_to_phys(struct drm_i915_gem_object *obj)
- 	return 0;
- 
- err_xfer:
--	if (!IS_ERR_OR_NULL(pages)) {
--		unsigned int sg_page_sizes = i915_sg_dma_sizes(pages->sgl);
+-	idr_preload(GFP_KERNEL);
+-	spin_lock_irqsave(&drm_minor_lock, flags);
+-	r = idr_alloc(&drm_minors_idr,
+-		      NULL,
+-		      64 * type,
+-		      64 * (type + 1),
+-		      GFP_NOWAIT);
+-	spin_unlock_irqrestore(&drm_minor_lock, flags);
+-	idr_preload_end();
 -
--		__i915_gem_object_set_pages(obj, pages, sg_page_sizes);
--	}
-+	if (!IS_ERR_OR_NULL(pages))
-+		__i915_gem_object_set_pages(obj, pages);
- 	return err;
- }
++	r = xa_alloc(&drm_minors_xa, &minor->index, NULL, DRM_MINOR_LIMIT(type), GFP_KERNEL);
+ 	if (r < 0)
+ 		return r;
  
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index 2f7804492cd5..9c759df700ca 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -247,7 +247,7 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 	if (i915_gem_object_can_bypass_llc(obj))
- 		obj->cache_dirty = true;
- 
--	__i915_gem_object_set_pages(obj, st, i915_sg_dma_sizes(st->sgl));
-+	__i915_gem_object_set_pages(obj, st);
- 
- 	return 0;
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-index 0c70711818ed..bc9521078807 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
-@@ -628,7 +628,7 @@ static int i915_gem_object_get_pages_stolen(struct drm_i915_gem_object *obj)
- 		   sg_dma_len(pages->sgl),
- 		   POISON_INUSE);
- 
--	__i915_gem_object_set_pages(obj, pages, obj->stolen->size);
-+	__i915_gem_object_set_pages(obj, pages);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 25129af70f70..fb9ba712e63c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -815,8 +815,7 @@ static int __i915_ttm_get_pages(struct drm_i915_gem_object *obj,
- 
- 		GEM_BUG_ON(obj->mm.rsgt);
- 		obj->mm.rsgt = rsgt;
--		__i915_gem_object_set_pages(obj, &rsgt->table,
--					    i915_sg_dma_sizes(rsgt->table.sgl));
-+		__i915_gem_object_set_pages(obj, &rsgt->table);
- 	}
- 
- 	GEM_BUG_ON(bo->ttm && ((obj->base.size >> PAGE_SHIFT) < bo->ttm->num_pages));
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index ca7a388ba2bf..9348b1804d53 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -131,7 +131,6 @@ static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
- 	const unsigned long num_pages = obj->base.size >> PAGE_SHIFT;
- 	unsigned int max_segment = i915_sg_segment_size(obj->base.dev->dev);
- 	struct sg_table *st;
--	unsigned int sg_page_sizes;
- 	struct page **pvec;
+-	minor->index = r;
+-
+ 	r = drmm_add_action_or_reset(dev, drm_minor_alloc_release, minor);
+ 	if (r)
+ 		return r;
+@@ -152,7 +139,7 @@ static int drm_minor_alloc(struct drm_device *dev, unsigned int type)
+ static int drm_minor_register(struct drm_device *dev, unsigned int type)
+ {
+ 	struct drm_minor *minor;
+-	unsigned long flags;
++	void *entry;
  	int ret;
  
-@@ -170,8 +169,7 @@ static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
- 	if (i915_gem_object_can_bypass_llc(obj))
- 		obj->cache_dirty = true;
+ 	DRM_DEBUG("\n");
+@@ -172,9 +159,12 @@ static int drm_minor_register(struct drm_device *dev, unsigned int type)
+ 		goto err_debugfs;
  
--	sg_page_sizes = i915_sg_dma_sizes(st->sgl);
--	__i915_gem_object_set_pages(obj, st, sg_page_sizes);
-+	__i915_gem_object_set_pages(obj, st);
+ 	/* replace NULL with @minor so lookups will succeed from now on */
+-	spin_lock_irqsave(&drm_minor_lock, flags);
+-	idr_replace(&drm_minors_idr, minor, minor->index);
+-	spin_unlock_irqrestore(&drm_minor_lock, flags);
++	entry = xa_store(&drm_minors_xa, minor->index, minor, GFP_KERNEL);
++	if (xa_is_err(entry)) {
++		ret = xa_err(entry);
++		goto err_debugfs;
++	}
++	WARN_ON(entry);
  
+ 	DRM_DEBUG("new minor registered %d\n", minor->index);
  	return 0;
+@@ -187,16 +177,13 @@ static int drm_minor_register(struct drm_device *dev, unsigned int type)
+ static void drm_minor_unregister(struct drm_device *dev, unsigned int type)
+ {
+ 	struct drm_minor *minor;
+-	unsigned long flags;
  
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c b/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c
-index f963b8e1e37b..cbd9b624a788 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_gem_object.c
-@@ -68,7 +68,7 @@ static int huge_get_pages(struct drm_i915_gem_object *obj)
- 	if (i915_gem_gtt_prepare_pages(obj, pages))
- 		goto err;
+ 	minor = *drm_minor_get_slot(dev, type);
+ 	if (!minor || !device_is_registered(minor->kdev))
+ 		return;
  
--	__i915_gem_object_set_pages(obj, pages, PAGE_SIZE);
-+	__i915_gem_object_set_pages(obj, pages);
+ 	/* replace @minor with NULL so lookups will fail from now on */
+-	spin_lock_irqsave(&drm_minor_lock, flags);
+-	idr_replace(&drm_minors_idr, NULL, minor->index);
+-	spin_unlock_irqrestore(&drm_minor_lock, flags);
++	xa_store(&drm_minors_xa, minor->index, NULL, GFP_KERNEL);
  
- 	return 0;
+ 	device_del(minor->kdev);
+ 	dev_set_drvdata(minor->kdev, NULL); /* safety belt */
+@@ -215,13 +202,12 @@ static void drm_minor_unregister(struct drm_device *dev, unsigned int type)
+ struct drm_minor *drm_minor_acquire(unsigned int minor_id)
+ {
+ 	struct drm_minor *minor;
+-	unsigned long flags;
  
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index 0cb99e75b0bc..beaf27e09e8a 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -136,7 +136,7 @@ static int get_huge_pages(struct drm_i915_gem_object *obj)
- 		goto err;
+-	spin_lock_irqsave(&drm_minor_lock, flags);
+-	minor = idr_find(&drm_minors_idr, minor_id);
++	xa_lock(&drm_minors_xa);
++	minor = xa_load(&drm_minors_xa, minor_id);
+ 	if (minor)
+ 		drm_dev_get(minor->dev);
+-	spin_unlock_irqrestore(&drm_minor_lock, flags);
++	xa_unlock(&drm_minors_xa);
  
- 	GEM_BUG_ON(sg_page_sizes != obj->mm.page_mask);
--	__i915_gem_object_set_pages(obj, st, sg_page_sizes);
-+	__i915_gem_object_set_pages(obj, st);
- 
- 	return 0;
- 
-@@ -210,7 +210,6 @@ static int fake_get_huge_pages(struct drm_i915_gem_object *obj)
- 	const u64 max_len = rounddown_pow_of_two(UINT_MAX);
- 	struct sg_table *st;
- 	struct scatterlist *sg;
--	unsigned int sg_page_sizes;
- 	u64 rem;
- 
- 	st = kmalloc(sizeof(*st), GFP);
-@@ -226,7 +225,6 @@ static int fake_get_huge_pages(struct drm_i915_gem_object *obj)
- 	rem = obj->base.size;
- 	sg = st->sgl;
- 	st->nents = 0;
--	sg_page_sizes = 0;
- 	do {
- 		unsigned int page_size = get_largest_page_size(i915, rem);
- 		unsigned int len = min(page_size * div_u64(rem, page_size),
-@@ -239,8 +237,6 @@ static int fake_get_huge_pages(struct drm_i915_gem_object *obj)
- 		sg_dma_len(sg) = len;
- 		sg_dma_address(sg) = page_size;
- 
--		sg_page_sizes |= len;
--
- 		st->nents++;
- 
- 		rem -= len;
-@@ -254,7 +250,7 @@ static int fake_get_huge_pages(struct drm_i915_gem_object *obj)
- 
- 	i915_sg_trim(st);
- 
--	__i915_gem_object_set_pages(obj, st, sg_page_sizes);
-+	__i915_gem_object_set_pages(obj, st);
- 
- 	return 0;
+ 	if (!minor) {
+ 		return ERR_PTR(-ENODEV);
+@@ -1037,7 +1023,7 @@ static void drm_core_exit(void)
+ 	unregister_chrdev(DRM_MAJOR, "drm");
+ 	debugfs_remove(drm_debugfs_root);
+ 	drm_sysfs_destroy();
+-	idr_destroy(&drm_minors_idr);
++	WARN_ON(!xa_empty(&drm_minors_xa));
+ 	drm_connector_ida_destroy();
  }
-@@ -286,7 +282,7 @@ static int fake_get_huge_pages_single(struct drm_i915_gem_object *obj)
- 	sg_dma_len(sg) = obj->base.size;
- 	sg_dma_address(sg) = page_size;
  
--	__i915_gem_object_set_pages(obj, st, sg->length);
-+	__i915_gem_object_set_pages(obj, st);
+@@ -1046,7 +1032,6 @@ static int __init drm_core_init(void)
+ 	int ret;
  
- 	return 0;
- #undef GFP
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index 27c733b00976..eae7d947d7de 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -61,7 +61,6 @@ static int fake_get_pages(struct drm_i915_gem_object *obj)
- #define PFN_BIAS 0x1000
- 	struct sg_table *pages;
- 	struct scatterlist *sg;
--	unsigned int sg_page_sizes;
- 	typeof(obj->base.size) rem;
+ 	drm_connector_ida_init();
+-	idr_init(&drm_minors_idr);
+ 	drm_memcpy_init_early();
  
- 	pages = kmalloc(sizeof(*pages), GFP);
-@@ -74,7 +73,6 @@ static int fake_get_pages(struct drm_i915_gem_object *obj)
- 		return -ENOMEM;
- 	}
- 
--	sg_page_sizes = 0;
- 	rem = obj->base.size;
- 	for (sg = pages->sgl; sg; sg = sg_next(sg)) {
- 		unsigned long len = min_t(typeof(rem), rem, BIT(31));
-@@ -83,13 +81,12 @@ static int fake_get_pages(struct drm_i915_gem_object *obj)
- 		sg_set_page(sg, pfn_to_page(PFN_BIAS), len, 0);
- 		sg_dma_address(sg) = page_to_phys(sg_page(sg));
- 		sg_dma_len(sg) = len;
--		sg_page_sizes |= len;
- 
- 		rem -= len;
- 	}
- 	GEM_BUG_ON(rem);
- 
--	__i915_gem_object_set_pages(obj, pages, sg_page_sizes);
-+	__i915_gem_object_set_pages(obj, pages);
- 
- 	return 0;
- #undef GFP
-diff --git a/drivers/gpu/drm/i915/selftests/mock_region.c b/drivers/gpu/drm/i915/selftests/mock_region.c
-index bac21fe84ca5..6324eb32d4dd 100644
---- a/drivers/gpu/drm/i915/selftests/mock_region.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_region.c
-@@ -41,7 +41,7 @@ static int mock_region_get_pages(struct drm_i915_gem_object *obj)
- 	}
- 
- 	pages = &obj->mm.rsgt->table;
--	__i915_gem_object_set_pages(obj, pages, i915_sg_dma_sizes(pages->sgl));
-+	__i915_gem_object_set_pages(obj, pages);
- 
- 	return 0;
- 
+ 	ret = drm_sysfs_init();
 -- 
 2.38.1
 
