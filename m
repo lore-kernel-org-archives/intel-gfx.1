@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F18F6C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Nov 2022 02:03:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97337C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Nov 2022 02:04:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE6B710E40F;
-	Tue,  8 Nov 2022 02:03:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3749910E410;
+	Tue,  8 Nov 2022 02:03:58 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 031BE10E406
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Nov 2022 02:03:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C76D510E406
+ for <intel-gfx@lists.freedesktop.org>; Tue,  8 Nov 2022 02:03:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1667873027; x=1699409027;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=fdg3eAQa/d63XQqPxcoeXRsDOFilRhnYGkdGacIO8i0=;
- b=Cqi5LBJCK1wPD88PIfCbo66r5pqRiPa9soKwf3WNRJddJ1OsqGZBX3Ia
- b9ow5ztFz7FhS4EODQYWiSp7XMRP10csgxzb71yHl/JVcrLnpNJ6HLO64
- /Dg0BAVGpdQPDC5ktrGm1S37aACtJzSujQweBIUwuxXNBjjAcXzoM2Z+u
- OnVcdaaINDjQ572/puRA0SlE8B7dT+09vJOBquA++985WRqgCqLyBKRqD
- xXBv3LKhqzmnhbzwM8LmZmspoqA/RP4omHY1g/FESLDGezqrWjaaToHjD
- IGfdQ5W0lCabmMNC5KpPtp7HGEQBmaGsR6SDyIGSwk+sV1iwD6Yft84mI Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="374850066"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="374850066"
+ bh=rp82UGbfyVLYXxtEu0mamcr3bKRsxYzVT+Q2UlXX6s0=;
+ b=bj9YkwIjzf9p40zi9yhRUt9C/cDuW/PXvXMDuIBrQyXqq7o+WVWy1FPE
+ ghH19AaNnFIjOVXVl3yv9PdYixywQIV0TwJbNo2GNnY1H7zj1JaH+inSX
+ c4P2iKgY6jvqvMlerJ+txwjAK8neXsm4162KaFdciB4EJ2u6Vi9eiQGvG
+ Lfv6yOdciCdeGmyiUvvXHdzm6Ml/nMn28pgNOp7Ks1XUr46LZj0v9OJR6
+ +lKse9bnJpxU7kNfhSZNHBmbZRHn3OF8EhCKWfU7P9hYzF/yiyiG76sYi
+ FMo8dyLZ3pOFzZbL5oHQD6qh/HIDeKgmQCNeCPogKVFBBsQIrCQzk8pwf A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="374850079"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="374850079"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 18:03:04 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="614097239"
-X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="614097239"
+ 07 Nov 2022 18:03:06 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10524"; a="614097252"
+X-IronPort-AV: E=Sophos;i="5.96,145,1665471600"; d="scan'208";a="614097252"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2022 18:03:03 -0800
+ 07 Nov 2022 18:03:06 -0800
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  7 Nov 2022 18:05:55 -0800
-Message-Id: <20221108020600.3575467-2-daniele.ceraolospurio@intel.com>
+Date: Mon,  7 Nov 2022 18:05:57 -0800
+Message-Id: <20221108020600.3575467-4-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221108020600.3575467-1-daniele.ceraolospurio@intel.com>
 References: <20221108020600.3575467-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 2/7] drm/i915/uc: fetch uc firmwares for each GT
+Subject: [Intel-gfx] [CI 4/7] drm/i915/guc: Add GuC deprivilege feature to
+ MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,34 +60,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The FW binaries are independently loaded on each GT. On MTL, the memory
-is shared so we could potentially re-use a single allocation, but on
-discrete multi-gt platforms we are going to need independent copies,
-so it is easier to do the same on MTL as well, given that the amount
-of duplicated memory is relatively small (~500K).
+From: Stuart Summers <stuart.summers@intel.com>
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+MTL supports GuC deprivilege. Add the feature flag to this platform.
+
+Signed-off-by: Stuart Summers <stuart.summers@intel.com>
+Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 Cc: John Harrison <john.c.harrison@intel.com>
 Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/i915_gem.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_pci.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 299f94a9fb87..5c2bc6bc9b92 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -1140,7 +1140,8 @@ int i915_gem_init(struct drm_i915_private *dev_priv)
- 	if (ret)
- 		return ret;
- 
--	intel_uc_fetch_firmwares(&to_gt(dev_priv)->uc);
-+	for_each_gt(gt, dev_priv, i)
-+		intel_uc_fetch_firmwares(&gt->uc);
- 	intel_wopcm_init(&dev_priv->wopcm);
- 
- 	ret = i915_init_ggtt(dev_priv);
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 211913be40ce..cf3b28d71d2b 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1146,6 +1146,7 @@ static const struct intel_device_info mtl_info = {
+ 	.extra_gt_list = xelpmp_extra_gt,
+ 	.has_flat_ccs = 0,
+ 	.has_gmd_id = 1,
++	.has_guc_deprivilege = 1,
+ 	.has_mslice_steering = 0,
+ 	.has_snoop = 1,
+ 	.__runtime.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
 -- 
 2.37.3
 
