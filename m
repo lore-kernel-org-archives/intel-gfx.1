@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5C43C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 15:43:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 956B0C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 16:12:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0523610E5EF;
-	Wed,  9 Nov 2022 15:43:30 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A069410E5ED
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 15:43:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD1C510E536;
+	Wed,  9 Nov 2022 16:12:02 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B3DF10E536
+ for <Intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 16:12:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668008605; x=1699544605;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=B9OOmTM60N/BFu2zGs0+s97N8dCsTLXzZ2UW59J0GD4=;
- b=RcI1WJlZ9ke97aFhmcvmF7lfQLowyMlGn4zj68T8P8Hu2ie+OkmR7R0N
- oQZml9OrfkKj1fgUjYw+Z39hGQ3CUIzkRG6AaRC7KaelateHLMC4TYUVm
- U8g17LzpAhvK+T5e6SebWiAnEr+mF6+uKAKqaKkNHU/q3iKXzaMao/58w
- So2WdsTarQWUodlx+JeKGsl+KIyZwVOaxLNlvLawfWIVLswfImOp7+FyI
- oTS40ECn8tXgRrkXxdWOyJsGb2VxHrpt3hPuZnT3OHYw69nM2t/V/IVkJ
- U/qXdIsjSl5OgHPAs3BLCqohebMt7BnMjdMmFG2vEd2V5WmNztEwd98Uw A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="309720999"
-X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="309720999"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 07:35:40 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="742438662"
-X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="742438662"
-Received: from skorobko-mobl2.ccr.corp.intel.com (HELO localhost)
- ([10.252.15.56])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 07:35:38 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Nov 2022 17:35:21 +0200
-Message-Id: <3af47193ff5219b6d2cfe353b752ec4bb44de4f1.1668008071.git.jani.nikula@intel.com>
+ t=1668010320; x=1699546320;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=nJI4ro+jAHzR4PBbYjNzbAwO3BQ6On2uoSrJJcY3Zwg=;
+ b=JV56PBKOwye+RFINirmN5UgnL+MQG6LuOgudO9r1Xk0NUHf10S+91Qlq
+ stCsTge7PApUi8QlAwU53chs/+T6Xn5qvvKGlyi9acbcwnb/oELx4oVH7
+ qcQ3ngFNvapYRWCo2pT34upSy5Kp8EDZKb8Qo4GwrSpEZivr/I/sYFN+e
+ aQ95efRd8Fj9yT2LbyExYdmSayhOPGU1KuR4T73mblMfBWNI49Cr2OrIp
+ kLkngSni9fLZoFNKpCHeghpfBjrkNipWyLiERPE/YzoqlfBDUc955fSao
+ w2cT6mqLn61eDIIHhZgM+kwd35r+oThIXvB8IKhO+gRcTyRk40XUty4i6 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="373166114"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="373166114"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 08:11:59 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="811684351"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="811684351"
+Received: from smurnane-mobl.ger.corp.intel.com (HELO localhost.localdomain)
+ ([10.213.196.238])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 08:11:54 -0800
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org
+Date: Wed,  9 Nov 2022 16:11:28 +0000
+Message-Id: <20221109161141.2987173-1-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1668008071.git.jani.nikula@intel.com>
-References: <cover.1668008071.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 3/4] drm/i915: split out
- intel_display_reg_defs.h
+Subject: [Intel-gfx] [RFC v2 00/13] DRM scheduling cgroup controller
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,265 +56,193 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, lucas.demarchi@intel.com
+Cc: Rob Clark <robdclark@chromium.org>, Kenny.Ho@amd.com,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Johannes Weiner <hannes@cmpxchg.org>,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?q?St=C3=A9phane=20Marchesin?= <marcheu@chromium.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Zefan Li <lizefan.x@bytedance.com>, Dave Airlie <airlied@redhat.com>,
+ Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
+ "T . J . Mercier" <tjmercier@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Split out the display register helper macros to a separate file. For
-now, include it from i915_reg.h, but note that there are already files
-that don't need i915_reg.h, such as intel_audio.c.
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/icl_dsi_regs.h   |  2 +-
- .../gpu/drm/i915/display/intel_audio_regs.h   |  2 +-
- .../drm/i915/display/intel_backlight_regs.h   |  2 +-
- .../drm/i915/display/intel_display_reg_defs.h | 53 +++++++++++++++++++
- .../gpu/drm/i915/display/intel_hdcp_regs.h    |  2 +-
- .../gpu/drm/i915/display/intel_mg_phy_regs.h  |  2 +-
- .../drm/i915/display/intel_snps_phy_regs.h    |  2 +-
- drivers/gpu/drm/i915/display/vlv_dsi_regs.h   |  2 +-
- drivers/gpu/drm/i915/gt/intel_gt_regs.h       |  1 +
- drivers/gpu/drm/i915/i915_reg.h               | 42 +--------------
- drivers/gpu/drm/i915/i915_reg_defs.h          |  2 -
- 11 files changed, 62 insertions(+), 50 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_display_reg_defs.h
+This series contains a proposal for a DRM scheduling cgroup controller which
+implements a weight based hierarchical GPU usage budget based controller
+similar in concept to some of the existing controllers.
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi_regs.h b/drivers/gpu/drm/i915/display/icl_dsi_regs.h
-index f78f28b8dd94..d4845ac65acc 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi_regs.h
-+++ b/drivers/gpu/drm/i915/display/icl_dsi_regs.h
-@@ -6,7 +6,7 @@
- #ifndef __ICL_DSI_REGS_H__
- #define __ICL_DSI_REGS_H__
- 
--#include "i915_reg_defs.h"
-+#include "intel_display_reg_defs.h"
- 
- /* Gen11 DSI */
- #define _MMIO_DSI(tc, dsi0, dsi1)	_MMIO_TRANS((tc) - TRANSCODER_DSI_0, \
-diff --git a/drivers/gpu/drm/i915/display/intel_audio_regs.h b/drivers/gpu/drm/i915/display/intel_audio_regs.h
-index 4f432c2eb543..616e7b1275c4 100644
---- a/drivers/gpu/drm/i915/display/intel_audio_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_audio_regs.h
-@@ -6,7 +6,7 @@
- #ifndef __INTEL_AUDIO_REGS_H__
- #define __INTEL_AUDIO_REGS_H__
- 
--#include "i915_reg_defs.h"
-+#include "intel_display_reg_defs.h"
- 
- #define G4X_AUD_CNTL_ST			_MMIO(0x620B4)
- #define   G4X_ELD_VALID			REG_BIT(14)
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight_regs.h b/drivers/gpu/drm/i915/display/intel_backlight_regs.h
-index 50c1210f6d5d..344eb8096bd2 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_backlight_regs.h
-@@ -6,7 +6,7 @@
- #ifndef __INTEL_BACKLIGHT_REGS_H__
- #define __INTEL_BACKLIGHT_REGS_H__
- 
--#include "i915_reg_defs.h"
-+#include "intel_display_reg_defs.h"
- 
- #define _VLV_BLC_PWM_CTL2_A (DISPLAY_MMIO_BASE(dev_priv) + 0x61250)
- #define _VLV_BLC_PWM_CTL2_B (DISPLAY_MMIO_BASE(dev_priv) + 0x61350)
-diff --git a/drivers/gpu/drm/i915/display/intel_display_reg_defs.h b/drivers/gpu/drm/i915/display/intel_display_reg_defs.h
-new file mode 100644
-index 000000000000..02605418ff08
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_display_reg_defs.h
-@@ -0,0 +1,53 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#ifndef __INTEL_DISPLAY_REG_DEFS_H__
-+#define __INTEL_DISPLAY_REG_DEFS_H__
-+
-+#include "i915_reg_defs.h"
-+
-+#define DISPLAY_MMIO_BASE(dev_priv)	(INTEL_INFO(dev_priv)->display.mmio_offset)
-+
-+#define VLV_DISPLAY_BASE		0x180000
-+
-+/*
-+ * Named helper wrappers around _PICK_EVEN() and _PICK().
-+ */
-+#define _PIPE(pipe, a, b)		_PICK_EVEN(pipe, a, b)
-+#define _PLANE(plane, a, b)		_PICK_EVEN(plane, a, b)
-+#define _TRANS(tran, a, b)		_PICK_EVEN(tran, a, b)
-+#define _PORT(port, a, b)		_PICK_EVEN(port, a, b)
-+#define _PLL(pll, a, b)			_PICK_EVEN(pll, a, b)
-+#define _PHY(phy, a, b)			_PICK_EVEN(phy, a, b)
-+
-+#define _MMIO_PIPE(pipe, a, b)		_MMIO(_PIPE(pipe, a, b))
-+#define _MMIO_PLANE(plane, a, b)	_MMIO(_PLANE(plane, a, b))
-+#define _MMIO_TRANS(tran, a, b)		_MMIO(_TRANS(tran, a, b))
-+#define _MMIO_PORT(port, a, b)		_MMIO(_PORT(port, a, b))
-+#define _MMIO_PLL(pll, a, b)		_MMIO(_PLL(pll, a, b))
-+#define _MMIO_PHY(phy, a, b)		_MMIO(_PHY(phy, a, b))
-+
-+#define _PHY3(phy, ...)			_PICK(phy, __VA_ARGS__)
-+
-+#define _MMIO_PIPE3(pipe, a, b, c)	_MMIO(_PICK(pipe, a, b, c))
-+#define _MMIO_PORT3(pipe, a, b, c)	_MMIO(_PICK(pipe, a, b, c))
-+#define _MMIO_PHY3(phy, a, b, c)	_MMIO(_PHY3(phy, a, b, c))
-+#define _MMIO_PLL3(pll, ...)		_MMIO(_PICK(pll, __VA_ARGS__))
-+
-+/*
-+ * Device info offset array based helpers for groups of registers with unevenly
-+ * spaced base offsets.
-+ */
-+#define _MMIO_PIPE2(pipe, reg)		_MMIO(INTEL_INFO(dev_priv)->display.pipe_offsets[(pipe)] - \
-+					      INTEL_INFO(dev_priv)->display.pipe_offsets[PIPE_A] + \
-+					      DISPLAY_MMIO_BASE(dev_priv) + (reg))
-+#define _MMIO_TRANS2(tran, reg)		_MMIO(INTEL_INFO(dev_priv)->display.trans_offsets[(tran)] - \
-+					      INTEL_INFO(dev_priv)->display.trans_offsets[TRANSCODER_A] + \
-+					      DISPLAY_MMIO_BASE(dev_priv) + (reg))
-+#define _MMIO_CURSOR2(pipe, reg)	_MMIO(INTEL_INFO(dev_priv)->display.cursor_offsets[(pipe)] - \
-+					      INTEL_INFO(dev_priv)->display.cursor_offsets[PIPE_A] + \
-+					      DISPLAY_MMIO_BASE(dev_priv) + (reg))
-+
-+#endif /* __INTEL_DISPLAY_REG_DEFS_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp_regs.h b/drivers/gpu/drm/i915/display/intel_hdcp_regs.h
-index 2a3733e8966c..8023c85c7fa0 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp_regs.h
-@@ -6,7 +6,7 @@
- #ifndef __INTEL_HDCP_REGS_H__
- #define __INTEL_HDCP_REGS_H__
- 
--#include "i915_reg_defs.h"
-+#include "intel_display_reg_defs.h"
- 
- /* HDCP Key Registers */
- #define HDCP_KEY_CONF			_MMIO(0x66c00)
-diff --git a/drivers/gpu/drm/i915/display/intel_mg_phy_regs.h b/drivers/gpu/drm/i915/display/intel_mg_phy_regs.h
-index 07978f8d5fb7..0e8248bce52d 100644
---- a/drivers/gpu/drm/i915/display/intel_mg_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_mg_phy_regs.h
-@@ -6,7 +6,7 @@
- #ifndef __INTEL_MG_PHY_REGS__
- #define __INTEL_MG_PHY_REGS__
- 
--#include "i915_reg_defs.h"
-+#include "intel_display_reg_defs.h"
- 
- #define MG_PHY_PORT_LN(ln, tc_port, ln0p1, ln0p2, ln1p1) \
- 	_MMIO(_PORT(tc_port, ln0p1, ln0p2) + (ln) * ((ln1p1) - (ln0p1)))
-diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy_regs.h b/drivers/gpu/drm/i915/display/intel_snps_phy_regs.h
-index 0543465aaf14..a04d692169d4 100644
---- a/drivers/gpu/drm/i915/display/intel_snps_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_snps_phy_regs.h
-@@ -6,7 +6,7 @@
- #ifndef __INTEL_SNPS_PHY_REGS__
- #define __INTEL_SNPS_PHY_REGS__
- 
--#include "i915_reg_defs.h"
-+#include "intel_display_reg_defs.h"
- 
- #define _SNPS_PHY_A_BASE			0x168000
- #define _SNPS_PHY_B_BASE			0x169000
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi_regs.h b/drivers/gpu/drm/i915/display/vlv_dsi_regs.h
-index e065b8f2ee08..abbe427e462e 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi_regs.h
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi_regs.h
-@@ -6,7 +6,7 @@
- #ifndef __VLV_DSI_REGS_H__
- #define __VLV_DSI_REGS_H__
- 
--#include "i915_reg_defs.h"
-+#include "intel_display_reg_defs.h"
- 
- #define VLV_MIPI_BASE			VLV_DISPLAY_BASE
- #define BXT_MIPI_BASE			0x60000
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 8aa06b0327e5..accf22ec57a2 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -7,6 +7,7 @@
- #define __INTEL_GT_REGS__
- 
- #include "i915_reg_defs.h"
-+#include "display/intel_display_reg_defs.h"	/* VLV_DISPLAY_BASE */
- 
- #define MCR_REG(offset)	((const i915_mcr_reg_t){ .reg = (offset) })
- 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 7c478514eaf1..8b08126f8b11 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -26,6 +26,7 @@
- #define _I915_REG_H_
- 
- #include "i915_reg_defs.h"
-+#include "display/intel_display_reg_defs.h"
- 
- /**
-  * DOC: The i915 register macro definition style guide
-@@ -115,47 +116,6 @@
-  *  #define GEN8_BAR                    _MMIO(0xb888)
-  */
- 
--#define DISPLAY_MMIO_BASE(dev_priv)	(INTEL_INFO(dev_priv)->display.mmio_offset)
--
--/*
-- * Named helper wrappers around _PICK_EVEN() and _PICK().
-- */
--#define _PIPE(pipe, a, b)		_PICK_EVEN(pipe, a, b)
--#define _PLANE(plane, a, b)		_PICK_EVEN(plane, a, b)
--#define _TRANS(tran, a, b)		_PICK_EVEN(tran, a, b)
--#define _PORT(port, a, b)		_PICK_EVEN(port, a, b)
--#define _PLL(pll, a, b)			_PICK_EVEN(pll, a, b)
--#define _PHY(phy, a, b)			_PICK_EVEN(phy, a, b)
--
--#define _MMIO_PIPE(pipe, a, b)		_MMIO(_PIPE(pipe, a, b))
--#define _MMIO_PLANE(plane, a, b)	_MMIO(_PLANE(plane, a, b))
--#define _MMIO_TRANS(tran, a, b)		_MMIO(_TRANS(tran, a, b))
--#define _MMIO_PORT(port, a, b)		_MMIO(_PORT(port, a, b))
--#define _MMIO_PLL(pll, a, b)		_MMIO(_PLL(pll, a, b))
--#define _MMIO_PHY(phy, a, b)		_MMIO(_PHY(phy, a, b))
--
--#define _PHY3(phy, ...)			_PICK(phy, __VA_ARGS__)
--
--#define _MMIO_PIPE3(pipe, a, b, c)	_MMIO(_PICK(pipe, a, b, c))
--#define _MMIO_PORT3(pipe, a, b, c)	_MMIO(_PICK(pipe, a, b, c))
--#define _MMIO_PHY3(phy, a, b, c)	_MMIO(_PHY3(phy, a, b, c))
--#define _MMIO_PLL3(pll, ...)		_MMIO(_PICK(pll, __VA_ARGS__))
--
--
--/*
-- * Device info offset array based helpers for groups of registers with unevenly
-- * spaced base offsets.
-- */
--#define _MMIO_PIPE2(pipe, reg)		_MMIO(INTEL_INFO(dev_priv)->display.pipe_offsets[(pipe)] - \
--					      INTEL_INFO(dev_priv)->display.pipe_offsets[PIPE_A] + \
--					      DISPLAY_MMIO_BASE(dev_priv) + (reg))
--#define _MMIO_TRANS2(tran, reg)		_MMIO(INTEL_INFO(dev_priv)->display.trans_offsets[(tran)] - \
--					      INTEL_INFO(dev_priv)->display.trans_offsets[TRANSCODER_A] + \
--					      DISPLAY_MMIO_BASE(dev_priv) + (reg))
--#define _MMIO_CURSOR2(pipe, reg)	_MMIO(INTEL_INFO(dev_priv)->display.cursor_offsets[(pipe)] - \
--					      INTEL_INFO(dev_priv)->display.cursor_offsets[PIPE_A] + \
--					      DISPLAY_MMIO_BASE(dev_priv) + (reg))
--
- #define GU_CNTL				_MMIO(0x101010)
- #define   LMEM_INIT			REG_BIT(7)
- 
-diff --git a/drivers/gpu/drm/i915/i915_reg_defs.h b/drivers/gpu/drm/i915/i915_reg_defs.h
-index aad447ba3e22..be43580a6979 100644
---- a/drivers/gpu/drm/i915/i915_reg_defs.h
-+++ b/drivers/gpu/drm/i915/i915_reg_defs.h
-@@ -148,6 +148,4 @@ typedef struct {
- #define i915_mmio_reg_equal(a, b) (i915_mmio_reg_offset(a) == i915_mmio_reg_offset(b))
- #define i915_mmio_reg_valid(r) (!i915_mmio_reg_equal(r, INVALID_MMIO_REG))
- 
--#define VLV_DISPLAY_BASE		0x180000
--
- #endif /* __I915_REG_DEFS__ */
+Motivation mostly comes from my earlier proposal where I identified that GPU
+scheduling lags significantly behind what is available for CPU and IO. Whereas
+back then I was proposing to somehow tie this with process nice, feedback mostly
+was that people wanted cgroups. So here it is - in the world of heterogenous
+computing pipelines I think it is time to do something about this gap.
+
+Code is not finished but should survive some light experimenting with. I am
+sharing it early since the topic has been controversial in the past. I hope to
+demonstrate there are gains to be had in real world usage(*), today, and that
+the concepts the proposal relies are well enough established and stable.
+
+*) Specifically under ChromeOS which uses cgroups to control CPU bandwith for
+   VMs based on the window focused status. It can be demonstrated how GPU
+   scheduling control can easily be integrated into that setup.
+
+There should be no conflict with this proposal and any efforts to implement
+memory usage based controller. Skeleton DRM cgroup controller is deliberatly
+purely a skeleton patch where any further functionality can be added with no
+real conflicts. [In fact, perhaps scheduling is even easier to deal with than
+memory accounting.]
+
+Structure of the series is as follows:
+
+  1-3) Improve client ownership tracking in DRM core.
+    4) Adds a skeleton DRM cgroup controller with no functionality.
+ 5-10) Laying down some infrastructure to enable the controller.
+   11) The controller itself.
+12-13) i915 support for the controller.
+
+The proposals defines a delegation of duties between the tree parties: cgroup
+controller, DRM core and individual drivers. Two way communication interfaces
+are then defined to enable the delegation to work.
+
+DRM scheduling soft limits
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Because of the heterogenous hardware and driver DRM capabilities, soft limits
+are implemented as a loose co-operative (bi-directional) interface between the
+controller and DRM core.
+
+The controller configures the GPU time allowed per group and periodically scans
+the belonging tasks to detect the over budget condition, at which point it
+invokes a callback notifying the DRM core of the condition.
+
+DRM core provides an API to query per process GPU utilization and 2nd API to
+receive notification from the cgroup controller when the group enters or exits
+the over budget condition.
+
+Individual DRM drivers which implement the interface are expected to act on this
+in the best-effort manner only. There are no guarantees that the soft limits
+will be respected.
+
+DRM scheduling soft limits interface files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  drm.weight
+	Standard cgroup weight based control [1, 10000] used to configure the
+	relative distributing of GPU time between the sibling groups.
+
+  drm.period_us (Most probably only a debugging aid during RFC phase.)
+	An integer representing the period with which the controller should look
+	at the GPU usage by the group and potentially send the over/under budget
+	signal.
+	Value of zero (defaul) disables the soft limit checking.
+
+This builds upon the per client GPU utilisation work which landed recently for a
+few drivers. My thinking is that in principle, an intersect of drivers which
+support both that and some sort of scheduling control, like  priorities, could
+also in theory support this controller.
+
+Another really interesting angle for this controller is that it mimics the same
+control menthod used by the CPU scheduler. That is the proportional/weight based
+GPU time budgeting. Which makes it easy to configure and does not need a new
+mental model.
+
+However, as the introduction mentions, GPUs are much more heterogenous and
+therefore the controller uses very "soft" wording as to what it promises. The
+general statement is that it can define budgets, notify clients when they are
+over them, and let individual drivers implement best effort handling of those
+conditions.
+
+Delegation of duties in the implementation goes likes this:
+
+ * DRM cgroup controller implements the control files and the scanning loop.
+ * DRM core is required to track all DRM clients belonging to processes so it
+   can answer when asked how much GPU time is a process using.
+ * DRM core also provides a call back which the controller will call when a
+   certain process is over budget.
+ * Individual drivers need to implement two similar hooks, but which work for
+   a single DRM client. Over budget callback and GPU utilisation query.
+
+What I have demonstrated in practice is that when wired to i915, in a really
+primitive way where the over-budget condition simply lowers the scheduling
+priority, the concept can be almost equally effective as the static priority
+control. I say almost because the design where budget control depends on the
+periodic usage scanning has a fundamental delay, so responsiveness will depend
+on the scanning period, which may or may not be a problem for a particular use
+case.
+
+There are also interesting conversations to be had around mental models for what
+is GPU usage as a single number when faced with GPUs which have different
+execution engines. To an extent this is similar to the multi-core and cgroup
+CPU controller problems, but definitely goes further than that.
+
+I deliberately did not want to include any such complications in the controller
+itself and left the individual drivers to handle it. For instance in the i915
+over-budget callback it will not do anything unless client's GPU usage is on a
+physical engine which is oversubscribed. This enables multiple clients to be
+harmlessly over budget, as long as they are not competing for the same GPU
+resource.
+
+This much for now, hope some good discussion will follow.
+
+P.S.
+A disclaimer of a kind -  I was not familiar with how to implement a cgroup
+controller at all when I started this prototype therefore it is quite possible
+there are many bugs and misunderstandings on how it should be done.
+
+v2:
+ * Prefaced the series with some core DRM work as suggested by Christian.
+ * Dropped the priority based controller for now.
+ * Dropped the introspection cgroup controller file.
+ * Implemented unused budget sharing/propagation.
+ * Some small fixes/tweak as per review feedback and in general.
+
+Tvrtko Ursulin (13):
+  drm: Replace DRM_DEBUG with drm_dbg_core in file and ioctl handling
+  drm: Track clients by tgid and not tid
+  drm: Update file owner during use
+  cgroup: Add the DRM cgroup controller
+  drm/cgroup: Track clients per owning process
+  drm/cgroup: Allow safe external access to file_priv
+  drm/cgroup: Add ability to query drm cgroup GPU time
+  drm/cgroup: Add over budget signalling callback
+  drm/cgroup: Only track clients which are providing drm_cgroup_ops
+  cgroup/drm: Client exit hook
+  cgroup/drm: Introduce weight based drm cgroup control
+  drm/i915: Wire up with drm controller GPU time query
+  drm/i915: Implement cgroup controller over budget throttling
+
+ Documentation/admin-guide/cgroup-v2.rst       |  37 ++
+ drivers/gpu/drm/Kconfig                       |   1 +
+ drivers/gpu/drm/Makefile                      |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   6 +-
+ drivers/gpu/drm/drm_auth.c                    |   3 +-
+ drivers/gpu/drm/drm_cgroup.c                  | 192 ++++++
+ drivers/gpu/drm/drm_debugfs.c                 |  12 +-
+ drivers/gpu/drm/drm_file.c                    |  74 ++-
+ drivers/gpu/drm/drm_ioc32.c                   |  13 +-
+ drivers/gpu/drm/drm_ioctl.c                   |  28 +-
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  37 +-
+ drivers/gpu/drm/i915/i915_driver.c            |  11 +
+ drivers/gpu/drm/i915/i915_drm_client.c        | 169 +++++-
+ drivers/gpu/drm/i915/i915_drm_client.h        |  13 +
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |   5 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_gem.c           |   6 +-
+ include/drm/drm_clients.h                     |  47 ++
+ include/drm/drm_drv.h                         |  36 ++
+ include/drm/drm_file.h                        |  17 +-
+ include/linux/cgroup_drm.h                    |  13 +
+ include/linux/cgroup_subsys.h                 |   4 +
+ init/Kconfig                                  |   8 +
+ kernel/cgroup/Makefile                        |   1 +
+ kernel/cgroup/drm.c                           | 572 ++++++++++++++++++
+ 24 files changed, 1249 insertions(+), 57 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_cgroup.c
+ create mode 100644 include/drm/drm_clients.h
+ create mode 100644 include/linux/cgroup_drm.h
+ create mode 100644 kernel/cgroup/drm.c
+
 -- 
 2.34.1
 
