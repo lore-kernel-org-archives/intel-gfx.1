@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAA69C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 16:13:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40B8FC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 16:13:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D3CA10E5F6;
-	Wed,  9 Nov 2022 16:13:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41B5B10E5F7;
+	Wed,  9 Nov 2022 16:13:14 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E13F410E5FE
- for <Intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 16:12:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 439AF10E5F8
+ for <Intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 16:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668010361; x=1699546361;
+ t=1668010344; x=1699546344;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=a7D9TOFF4QZXnog+7lQ4amXbM/ZFMku48rQ12ekKnqE=;
- b=mQpGhaqnBhzeasGKV19u45/w6bEWefH/uyuzYWtTC7vlWR9jOOdzahCB
- 0koHFq1TT7KN+12EmKatdxkOp+2HMaMoltT8b40RhBZc/GWjsRnn+QR7W
- k3MOuAn7XH1DWALdT+VTgwDSfddI/KnSSOBujqiKc2J3jE6uyZ84V7OKW
- Cm2XAm+Jrf3ZD/JpKKQT89DoLuX480N+SYyv4L9cxHNk7tQ9FNaXjFsBq
- b3cmYceJBk6GHgpBglmFHI656K+gBfR8fMUj5c0hXWo9Ef06BUhxNl13E
- KXAICIAMhkBQGJTlyGsPahdncRITN3uEpzwDyoBxh71Tovx7899wMTTvF g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="373166320"
-X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="373166320"
+ bh=+tkTnG1kbfQkuQWu7X2WwiAikHzraT6aROxd5PKF3OE=;
+ b=KkXfG5UOC8FnwK3BUSvUAUaauAYhy9JDQd9nHEuvFTisnIwGpW5diy49
+ +s1YSZrd1qsSFXiTzjn3KbD1rEaLolOLaa8FBegD3HslpvvI9Sh6aY8d0
+ VOV9iW7CgBoJXRmJb6DcyOMRNWXrC0zPwm6XfCLbNyEg9yx5Qo8TDVdn/
+ 94WtnDDLyTvrEOwcUXrlfSBLbNY7/p8ArfPwQSM1OlmnrmEfolMovKDrJ
+ kRhiAkpOHGzjteP/oieVOeHSRPqdefHjHSadXw/2sFjhgTx6VGlwwO33u
+ BWWvJUwGcx3w5wiLKg16oW1QT3E5LEp4zkeBODYjAqn6K5J0KmZ+dXN+1 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="373166241"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="373166241"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 08:12:41 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="811684604"
-X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="811684604"
+ 09 Nov 2022 08:12:24 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="811684529"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="811684529"
 Received: from smurnane-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.196.238])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 08:12:38 -0800
+ 09 Nov 2022 08:12:20 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Nov 2022 16:11:40 +0000
-Message-Id: <20221109161141.2987173-13-tvrtko.ursulin@linux.intel.com>
+Date: Wed,  9 Nov 2022 16:11:35 +0000
+Message-Id: <20221109161141.2987173-8-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221109161141.2987173-1-tvrtko.ursulin@linux.intel.com>
 References: <20221109161141.2987173-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 12/13] drm/i915: Wire up with drm controller GPU
- time query
+Subject: [Intel-gfx] [RFC 07/13] drm/cgroup: Add ability to query drm cgroup
+ GPU time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,155 +71,105 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Implement the drm_cgroup_ops->active_time_us callback.
+Add a driver callback and core helper which allow querying the time spent
+on GPUs for processes belonging to a group.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/i915_driver.c     | 10 ++++
- drivers/gpu/drm/i915/i915_drm_client.c | 76 ++++++++++++++++++++++----
- drivers/gpu/drm/i915/i915_drm_client.h |  2 +
- 3 files changed, 78 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/drm_cgroup.c | 24 ++++++++++++++++++++++++
+ include/drm/drm_clients.h    |  2 ++
+ include/drm/drm_drv.h        | 28 ++++++++++++++++++++++++++++
+ 3 files changed, 54 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index c3d43f9b1e45..96a7da5258c4 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1894,6 +1894,12 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(I915_GEM_VM_DESTROY, i915_gem_vm_destroy_ioctl, DRM_RENDER_ALLOW),
- };
- 
-+#ifdef CONFIG_CGROUP_DRM
-+static const struct drm_cgroup_ops i915_drm_cgroup_ops = {
-+	.active_time_us = i915_drm_cgroup_get_active_time_us,
-+};
-+#endif
-+
- /*
-  * Interface history:
-  *
-@@ -1922,6 +1928,10 @@ static const struct drm_driver i915_drm_driver = {
- 	.lastclose = i915_driver_lastclose,
- 	.postclose = i915_driver_postclose,
- 
-+#ifdef CONFIG_CGROUP_DRM
-+	.cg_ops = &i915_drm_cgroup_ops,
-+#endif
-+
- 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
- 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
- 	.gem_prime_import = i915_gem_prime_import,
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-index b09d1d386574..c9754cb0277f 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.c
-+++ b/drivers/gpu/drm/i915/i915_drm_client.c
-@@ -75,7 +75,7 @@ void i915_drm_clients_fini(struct i915_drm_clients *clients)
- 	xa_destroy(&clients->xarray);
+diff --git a/drivers/gpu/drm/drm_cgroup.c b/drivers/gpu/drm/drm_cgroup.c
+index 94e6f39b90c7..06810b4c3ff1 100644
+--- a/drivers/gpu/drm/drm_cgroup.c
++++ b/drivers/gpu/drm/drm_cgroup.c
+@@ -128,3 +128,27 @@ drm_clients_migrate(struct drm_file *file_priv,
+ 	atomic_inc(&clients->num);
+ 	list_add_tail_rcu(&file_priv->clink, &clients->file_list);
  }
- 
--#ifdef CONFIG_PROC_FS
-+#if defined(CONFIG_PROC_FS) || defined(CONFIG_CGROUP_DRM)
- static const char * const uabi_class_names[] = {
- 	[I915_ENGINE_CLASS_RENDER] = "render",
- 	[I915_ENGINE_CLASS_COPY] = "copy",
-@@ -100,22 +100,78 @@ static u64 busy_add(struct i915_gem_context *ctx, unsigned int class)
- 	return total;
- }
- 
--static void
--show_client_class(struct seq_file *m,
--		  struct i915_drm_client *client,
--		  unsigned int class)
-+static u64 get_class_active_ns(struct i915_drm_client *client,
-+			       unsigned int class,
-+			       unsigned int *capacity)
- {
--	const struct list_head *list = &client->ctx_list;
--	u64 total = atomic64_read(&client->past_runtime[class]);
--	const unsigned int capacity =
--		client->clients->i915->engine_uabi_class_count[class];
- 	struct i915_gem_context *ctx;
-+	u64 total;
 +
-+	*capacity =
-+	    client->clients->i915->engine_uabi_class_count[class];
-+	if (!*capacity)
-+		return 0;
-+
-+	total = atomic64_read(&client->past_runtime[class]);
- 
- 	rcu_read_lock();
--	list_for_each_entry_rcu(ctx, list, client_link)
-+	list_for_each_entry_rcu(ctx, &client->ctx_list, client_link)
- 		total += busy_add(ctx, class);
- 	rcu_read_unlock();
- 
-+	return total;
-+}
-+#endif
-+
-+#ifdef CONFIG_CGROUP_DRM
-+static bool supports_stats(struct drm_i915_private *i915)
++u64 drm_pid_get_active_time_us(struct pid *pid)
 +{
-+	if (GRAPHICS_VER(i915) < 8)
-+		return false;
++	struct drm_pid_clients *clients;
++	u64 total = 0;
 +
-+	/* temporary... */
-+	if (intel_uc_uses_guc_submission(&to_gt(i915)->uc))
-+		return false;
++	rcu_read_lock();
++	clients = xa_load(&drm_pid_clients, (unsigned long)pid);
++	if (clients) {
++		struct drm_file *fpriv;
 +
-+	return true;
-+}
++		list_for_each_entry_rcu(fpriv, &clients->file_list, clink) {
++			const struct drm_cgroup_ops *cg_ops =
++				fpriv->minor->dev->driver->cg_ops;
 +
-+u64 i915_drm_cgroup_get_active_time_us(struct drm_file *file)
-+{
-+	struct drm_i915_file_private *fpriv = file->driver_priv;
-+	struct i915_drm_client *client = fpriv->client;
-+	unsigned int i;
-+	u64 busy = 0;
-+
-+	if (!supports_stats(client->clients->i915))
-+		return 0;
-+
-+	for (i = 0; i < ARRAY_SIZE(uabi_class_names); i++) {
-+		unsigned int capacity;
-+		u64 b;
-+
-+		b = get_class_active_ns(client, i, &capacity);
-+		if (capacity) {
-+			b = DIV_ROUND_UP_ULL(b, capacity * 1000);
-+			busy += b;
++			if (cg_ops && cg_ops->active_time_us)
++				total += cg_ops->active_time_us(fpriv);
 +		}
 +	}
++	rcu_read_unlock();
 +
-+	return busy;
++	return total;
 +}
++EXPORT_SYMBOL_GPL(drm_pid_get_active_time_us);
+diff --git a/include/drm/drm_clients.h b/include/drm/drm_clients.h
+index fbb8cffdf7a9..b9b8009c28a6 100644
+--- a/include/drm/drm_clients.h
++++ b/include/drm/drm_clients.h
+@@ -41,4 +41,6 @@ drm_clients_migrate(struct drm_file *file_priv,
+ }
+ #endif
+ 
++u64 drm_pid_get_active_time_us(struct pid *pid);
++
+ #endif
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index f6159acb8856..c09fe9bd517f 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -148,6 +148,24 @@ enum drm_driver_feature {
+ 	DRIVER_KMS_LEGACY_CONTEXT	= BIT(31),
+ };
+ 
++/**
++ * struct drm_cgroup_ops
++ *
++ * This structure contains a number of callbacks that drivers can provide if
++ * they are able to support one or more of the functionalities implemented by
++ * the DRM cgroup controller.
++ */
++struct drm_cgroup_ops {
++	/**
++	 * @active_time_us:
++	 *
++	 * Optional callback for reporting the GPU time consumed by this client.
++	 *
++	 * Used by the DRM core when queried by the DRM cgroup controller.
++	 */
++	u64 (*active_time_us) (struct drm_file *);
++};
++
+ /**
+  * struct drm_driver - DRM driver structure
+  *
+@@ -459,6 +477,16 @@ struct drm_driver {
+ 	 */
+ 	const struct file_operations *fops;
+ 
++#ifdef CONFIG_CGROUP_DRM
++	/**
++	 * @cg_ops:
++	 *
++	 * Optional pointer to driver callbacks facilitating integration with
++	 * the DRM cgroup controller.
++	 */
++	const struct drm_cgroup_ops *cg_ops;
 +#endif
 +
-+#ifdef CONFIG_PROC_FS
-+static void
-+show_client_class(struct seq_file *m,
-+		  struct i915_drm_client *client,
-+		  unsigned int class)
-+{
-+	unsigned int capacity;
-+	u64 total;
-+
-+	total = get_class_active_ns(client, class, &capacity);
-+
- 	if (capacity)
- 		seq_printf(m, "drm-engine-%s:\t%llu ns\n",
- 			   uabi_class_names[class], total);
-diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
-index 69496af996d9..c8439eaa89be 100644
---- a/drivers/gpu/drm/i915/i915_drm_client.h
-+++ b/drivers/gpu/drm/i915/i915_drm_client.h
-@@ -65,4 +65,6 @@ void i915_drm_client_fdinfo(struct seq_file *m, struct file *f);
- 
- void i915_drm_clients_fini(struct i915_drm_clients *clients);
- 
-+u64 i915_drm_cgroup_get_active_time_us(struct drm_file *file);
-+
- #endif /* !__I915_DRM_CLIENT_H__ */
+ #ifdef CONFIG_DRM_LEGACY
+ 	/* Everything below here is for legacy driver, never use! */
+ 	/* private: */
 -- 
 2.34.1
 
