@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 832ADC433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 15:24:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9424C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 15:41:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A78710E5E5;
-	Wed,  9 Nov 2022 15:24:48 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A169F10E5E5
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 15:24:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3E3210E5EF;
+	Wed,  9 Nov 2022 15:41:30 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7A8D10E5EF
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 15:41:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668007485; x=1699543485;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=dm26CK0uFTZHIrzax2/9NsiPo/T2ePbnHApemE9YY7Y=;
- b=HUujROa3PYLZRlJUGAWASD+PZ+YjUvCtIoKcjuJfEubOJIO9WJLAdbtj
- lGnURNtQm0n4SBzimfOPafiaJfBgl4wC7uOQ5p359DSBpmO0mGMffGq7f
- sliKeb8o/7xBAkCI40CJEEXDuKzVKAcMAAj8t5nKLWT21xKuhtvd10+fA
- syjIb40vV7EaIXUQkbkL21iEtjNyrMsTO7iWidU4kcW41RNZ/B2u+DMoi
- 9QD1wXcfjjoH5qM0BCsWV0LIaDgkWXsT2F48Bu8Ysais5y+DgZcrBORwa
- 61Gwiu4Pl8AMlw0q9H2x0qc4dfBJi/1EANEqwuxlGwzDPFCQ4wQ1G0Bfh Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="373149967"
-X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="373149967"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 07:24:34 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="636777295"
-X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="636777295"
+ t=1668008485; x=1699544485;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=pEAOLckm14wgy+koH5RarhjCFrwU1mpGvswy6XDTy60=;
+ b=ZHrxsHqSasc3ukZvy/Y0XSVrKG8xSTnste9XAZ1KZbIO8WskwcWAczBn
+ GwJ9QOVPV5kR65e7lhIP2UDZ+3AMttxiAv1+fOxz4JH2eALqfl5Z77Gac
+ rslTKVmCE7NvbA3Wl/o+CZYv3tqtoljAxVxj/bhdTIxcMDZkCGaym2U5t
+ /vO/LFQETvgIM459zKxK7UYFrrLpCI/xw06P880QREJpo5Nv7AcAeLM7R
+ lssdmfFo9shXKUHfgsazOEMGTR/fMimacp3A2Oe8oZ3W7f3Q0yS6TsWoV
+ JgJV1gdHMyzmHZ445ysZ0Y2NI0KOPIgzsIYnOxshRfPSdZQpYlsSVkRbN g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="375285549"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="375285549"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 07:35:30 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="811668849"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="811668849"
 Received: from skorobko-mobl2.ccr.corp.intel.com (HELO localhost)
  ([10.252.15.56])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 07:24:33 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20221109111649.23062-4-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20221109111649.23062-1-ville.syrjala@linux.intel.com>
- <20221109111649.23062-4-ville.syrjala@linux.intel.com>
-Date: Wed, 09 Nov 2022 17:24:31 +0200
-Message-ID: <87zgd05exc.fsf@intel.com>
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 07:35:29 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed,  9 Nov 2022 17:35:19 +0200
+Message-Id: <5161a0c6d98df206c6c4c1add3fc3f2f408020b1.1668008071.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1668008071.git.jani.nikula@intel.com>
+References: <cover.1668008071.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915: Generalize the PPS
- vlv_pipe_check() stuff
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 1/4] drm/i915/reg: move masked field helpers
+ to i915_reg_defs.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,102 +60,68 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jani Nikula <jani.nikula@intel.com>, lucas.demarchi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 09 Nov 2022, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> Restate the vlv_pipe_check() stuff in terms of PPS index
-> (rather than pipe, which it is on VLV/CHV) so that we can
-> reuse this same mechanim on other platforms as well.
->
-> Cc: Animesh Manna <animesh.manna@intel.com>
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+This is a more logical place for generic helpers.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/i915_reg.h      | 13 -------------
+ drivers/gpu/drm/i915/i915_reg_defs.h | 13 +++++++++++++
+ 2 files changed, 13 insertions(+), 13 deletions(-)
 
-> ---
->  drivers/gpu/drm/i915/display/intel_pps.c | 27 ++++++++++--------------
->  1 file changed, 11 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i=
-915/display/intel_pps.c
-> index 22f5e08d396b..84265096f751 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pps.c
-> +++ b/drivers/gpu/drm/i915/display/intel_pps.c
-> @@ -233,31 +233,26 @@ bxt_power_sequencer_idx(struct intel_dp *intel_dp)
->  	return backlight_controller;
->  }
->=20=20
-> -typedef bool (*vlv_pipe_check)(struct drm_i915_private *dev_priv,
-> -			       enum pipe pipe);
-> +typedef bool (*pps_check)(struct drm_i915_private *dev_priv, int pps_idx=
-);
->=20=20
-> -static bool vlv_pipe_has_pp_on(struct drm_i915_private *dev_priv,
-> -			       enum pipe pipe)
-> +static bool pps_has_pp_on(struct drm_i915_private *dev_priv, int pps_idx)
->  {
-> -	return intel_de_read(dev_priv, PP_STATUS(pipe)) & PP_ON;
-> +	return intel_de_read(dev_priv, PP_STATUS(pps_idx)) & PP_ON;
->  }
->=20=20
-> -static bool vlv_pipe_has_vdd_on(struct drm_i915_private *dev_priv,
-> -				enum pipe pipe)
-> +static bool pps_has_vdd_on(struct drm_i915_private *dev_priv, int pps_id=
-x)
->  {
-> -	return intel_de_read(dev_priv, PP_CONTROL(pipe)) & EDP_FORCE_VDD;
-> +	return intel_de_read(dev_priv, PP_CONTROL(pps_idx)) & EDP_FORCE_VDD;
->  }
->=20=20
-> -static bool vlv_pipe_any(struct drm_i915_private *dev_priv,
-> -			 enum pipe pipe)
-> +static bool pps_any(struct drm_i915_private *dev_priv, int pps_idx)
->  {
->  	return true;
->  }
->=20=20
->  static enum pipe
->  vlv_initial_pps_pipe(struct drm_i915_private *dev_priv,
-> -		     enum port port,
-> -		     vlv_pipe_check pipe_check)
-> +		     enum port port, pps_check check)
->  {
->  	enum pipe pipe;
->=20=20
-> @@ -268,7 +263,7 @@ vlv_initial_pps_pipe(struct drm_i915_private *dev_pri=
-v,
->  		if (port_sel !=3D PANEL_PORT_SELECT_VLV(port))
->  			continue;
->=20=20
-> -		if (!pipe_check(dev_priv, pipe))
-> +		if (!check(dev_priv, pipe))
->  			continue;
->=20=20
->  		return pipe;
-> @@ -289,15 +284,15 @@ vlv_initial_power_sequencer_setup(struct intel_dp *=
-intel_dp)
->  	/* try to find a pipe with this port selected */
->  	/* first pick one where the panel is on */
->  	intel_dp->pps.pps_pipe =3D vlv_initial_pps_pipe(dev_priv, port,
-> -						      vlv_pipe_has_pp_on);
-> +						      pps_has_pp_on);
->  	/* didn't find one? pick one where vdd is on */
->  	if (intel_dp->pps.pps_pipe =3D=3D INVALID_PIPE)
->  		intel_dp->pps.pps_pipe =3D vlv_initial_pps_pipe(dev_priv, port,
-> -							      vlv_pipe_has_vdd_on);
-> +							      pps_has_vdd_on);
->  	/* didn't find one? pick one with just the correct port */
->  	if (intel_dp->pps.pps_pipe =3D=3D INVALID_PIPE)
->  		intel_dp->pps.pps_pipe =3D vlv_initial_pps_pipe(dev_priv, port,
-> -							      vlv_pipe_any);
-> +							      pps_any);
->=20=20
->  	/* didn't find one? just let vlv_power_sequencer_pipe() pick one when n=
-eeded */
->  	if (intel_dp->pps.pps_pipe =3D=3D INVALID_PIPE) {
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index a37ed0c61f20..0d54d69c2eb1 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -171,19 +171,6 @@
+ 					      INTEL_INFO(dev_priv)->display.cursor_offsets[PIPE_A] + \
+ 					      DISPLAY_MMIO_BASE(dev_priv) + (reg))
+ 
+-#define __MASKED_FIELD(mask, value) ((mask) << 16 | (value))
+-#define _MASKED_FIELD(mask, value) ({					   \
+-	if (__builtin_constant_p(mask))					   \
+-		BUILD_BUG_ON_MSG(((mask) & 0xffff0000), "Incorrect mask"); \
+-	if (__builtin_constant_p(value))				   \
+-		BUILD_BUG_ON_MSG((value) & 0xffff0000, "Incorrect value"); \
+-	if (__builtin_constant_p(mask) && __builtin_constant_p(value))	   \
+-		BUILD_BUG_ON_MSG((value) & ~(mask),			   \
+-				 "Incorrect value for mask");		   \
+-	__MASKED_FIELD(mask, value); })
+-#define _MASKED_BIT_ENABLE(a)	({ typeof(a) _a = (a); _MASKED_FIELD(_a, _a); })
+-#define _MASKED_BIT_DISABLE(a)	(_MASKED_FIELD((a), 0))
+-
+ #define GU_CNTL				_MMIO(0x101010)
+ #define   LMEM_INIT			REG_BIT(7)
+ 
+diff --git a/drivers/gpu/drm/i915/i915_reg_defs.h b/drivers/gpu/drm/i915/i915_reg_defs.h
+index f1859046a9c4..e94558a336f1 100644
+--- a/drivers/gpu/drm/i915/i915_reg_defs.h
++++ b/drivers/gpu/drm/i915/i915_reg_defs.h
+@@ -98,6 +98,19 @@
+  */
+ #define REG_FIELD_GET64(__mask, __val)	((u64)FIELD_GET(__mask, __val))
+ 
++#define __MASKED_FIELD(mask, value) ((mask) << 16 | (value))
++#define _MASKED_FIELD(mask, value) ({					   \
++	if (__builtin_constant_p(mask))					   \
++		BUILD_BUG_ON_MSG(((mask) & 0xffff0000), "Incorrect mask"); \
++	if (__builtin_constant_p(value))				   \
++		BUILD_BUG_ON_MSG((value) & 0xffff0000, "Incorrect value"); \
++	if (__builtin_constant_p(mask) && __builtin_constant_p(value))	   \
++		BUILD_BUG_ON_MSG((value) & ~(mask),			   \
++				 "Incorrect value for mask");		   \
++	__MASKED_FIELD(mask, value); })
++#define _MASKED_BIT_ENABLE(a)	({ typeof(a) _a = (a); _MASKED_FIELD(_a, _a); })
++#define _MASKED_BIT_DISABLE(a)	(_MASKED_FIELD((a), 0))
++
+ typedef struct {
+ 	u32 reg;
+ } i915_reg_t;
+-- 
+2.34.1
 
---=20
-Jani Nikula, Intel Open Source Graphics Center
