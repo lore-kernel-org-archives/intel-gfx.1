@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C430C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 11:17:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA4D8C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 11:17:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 393DE10E599;
-	Wed,  9 Nov 2022 11:17:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9B9B10E59C;
+	Wed,  9 Nov 2022 11:17:06 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6F1A10E559
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 11:16:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A9DA10E593
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 11:17:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1667992617; x=1699528617;
+ t=1667992623; x=1699528623;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4ae8psFkpGw21kCg2SOu2o0Gb1JZg//vLpnxPocQ8vw=;
- b=HmHZ739VzCpZfytAfkflb9LRoKNtY3KkIDW3ArtFggPsTbn8H2YwMofe
- w54rAcD1TJYGgxO2dK/byVlDxtafA7ZPlggbLXeCJShrr6olX8ijMAyf/
- ssH8RLxSUygGtmHjqoV95jENSLvuxCSpl0CbEM0g5indAT0aVrL4CJajZ
- yFo+1K7ifwwwP2PVsLKtKvRcYIbXO8ZJQAFfA+rBmCjTz0gKefBobSr+j
- Kc8OeQJN4uXXJNWM5/hiWbXcLSR/qL2GvbpBISqUMIoRjRB1d80nGHLaW
- BswaercYCP8cnS1XBTFbpRhxT+HxjWBMvSDNM/PaSRbc4KJWSwYD9oETY A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="312113385"
-X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="312113385"
+ bh=dO/Pqaw3wBjId7YwIHqb0svR9JtDH52cT19POuEQnKk=;
+ b=STJHg43I1JrWetOV5s+68pnNSEIE7dto9g6GZiZoHhmrC7dK/+X+kBP3
+ YSqOMY/d2UFkWYlANSMqj80W+r70/PxtnqrEJ124EXU4Y335ZkF2+ePuc
+ HZgaoPFSPqn+ot/T1yPRc7BJxFSOYVTz9EkpLV7ejLUocIAZoYxUi/fLO
+ TbNucGRZyaqkVbzJm+2X+i0z9mVyCGR7nBIRXfdRUSJwK4ym/CXtjN8zD
+ t/GmOYuNIVHvN8TMm9hcWxPWIIV/JiaW4mapVxpRPsSZElKDt2FwwkhmT
+ y7hDiQ2MeLeB9KXkkihBEYYep9E+X5n/ZrNwQk8EaqTLKBNZ1RwMEocya g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="312113413"
+X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="312113413"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 03:16:56 -0800
+ 09 Nov 2022 03:17:02 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="636707013"
-X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="636707013"
+X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="636707043"
+X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="636707043"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga002.jf.intel.com with SMTP; 09 Nov 2022 03:16:53 -0800
+ by orsmga002.jf.intel.com with SMTP; 09 Nov 2022 03:17:00 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 09 Nov 2022 13:16:53 +0200
+ Wed, 09 Nov 2022 13:16:59 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Nov 2022 13:16:44 +0200
-Message-Id: <20221109111649.23062-2-ville.syrjala@linux.intel.com>
+Date: Wed,  9 Nov 2022 13:16:46 +0200
+Message-Id: <20221109111649.23062-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221109111649.23062-1-ville.syrjala@linux.intel.com>
 References: <20221109111649.23062-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/6] drm/i915: Introduce intel_panel_init_alloc()
+Subject: [Intel-gfx] [PATCH 3/6] drm/i915: Generalize the PPS
+ vlv_pipe_check() stuff
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,62 +65,87 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Introduce a plaec where we can initialize connector->panel
-after it's been allocated. We already have a intel_panel_init()
-so had to get creative with the name and came up with
-intel_panel_init_alloc().
+Restate the vlv_pipe_check() stuff in terms of PPS index
+(rather than pipe, which it is on VLV/CHV) so that we can
+reuse this same mechanim on other platforms as well.
 
 Cc: Animesh Manna <animesh.manna@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_connector.c | 2 +-
- drivers/gpu/drm/i915/display/intel_panel.c     | 7 +++++++
- drivers/gpu/drm/i915/display/intel_panel.h     | 1 +
- 3 files changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_pps.c | 27 ++++++++++--------------
+ 1 file changed, 11 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-index 6205ddd3ded0..562da3b741e2 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.c
-+++ b/drivers/gpu/drm/i915/display/intel_connector.c
-@@ -54,7 +54,7 @@ int intel_connector_init(struct intel_connector *connector)
- 	__drm_atomic_helper_connector_reset(&connector->base,
- 					    &conn_state->base);
- 
--	INIT_LIST_HEAD(&connector->panel.fixed_modes);
-+	intel_panel_init_alloc(connector);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 69ce77711b7c..8e683ab75594 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -660,6 +660,13 @@ intel_panel_mode_valid(struct intel_connector *connector,
- 	return MODE_OK;
+diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
+index 22f5e08d396b..84265096f751 100644
+--- a/drivers/gpu/drm/i915/display/intel_pps.c
++++ b/drivers/gpu/drm/i915/display/intel_pps.c
+@@ -233,31 +233,26 @@ bxt_power_sequencer_idx(struct intel_dp *intel_dp)
+ 	return backlight_controller;
  }
  
-+void intel_panel_init_alloc(struct intel_connector *connector)
-+{
-+	struct intel_panel *panel = &connector->panel;
-+
-+	INIT_LIST_HEAD(&panel->fixed_modes);
-+}
-+
- int intel_panel_init(struct intel_connector *connector)
+-typedef bool (*vlv_pipe_check)(struct drm_i915_private *dev_priv,
+-			       enum pipe pipe);
++typedef bool (*pps_check)(struct drm_i915_private *dev_priv, int pps_idx);
+ 
+-static bool vlv_pipe_has_pp_on(struct drm_i915_private *dev_priv,
+-			       enum pipe pipe)
++static bool pps_has_pp_on(struct drm_i915_private *dev_priv, int pps_idx)
  {
- 	struct intel_panel *panel = &connector->panel;
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
-index 5c5b5b7f95b6..4b51e1c51da6 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.h
-+++ b/drivers/gpu/drm/i915/display/intel_panel.h
-@@ -18,6 +18,7 @@ struct intel_connector;
- struct intel_crtc_state;
- struct intel_encoder;
+-	return intel_de_read(dev_priv, PP_STATUS(pipe)) & PP_ON;
++	return intel_de_read(dev_priv, PP_STATUS(pps_idx)) & PP_ON;
+ }
  
-+void intel_panel_init_alloc(struct intel_connector *connector);
- int intel_panel_init(struct intel_connector *connector);
- void intel_panel_fini(struct intel_connector *connector);
- enum drm_connector_status
+-static bool vlv_pipe_has_vdd_on(struct drm_i915_private *dev_priv,
+-				enum pipe pipe)
++static bool pps_has_vdd_on(struct drm_i915_private *dev_priv, int pps_idx)
+ {
+-	return intel_de_read(dev_priv, PP_CONTROL(pipe)) & EDP_FORCE_VDD;
++	return intel_de_read(dev_priv, PP_CONTROL(pps_idx)) & EDP_FORCE_VDD;
+ }
+ 
+-static bool vlv_pipe_any(struct drm_i915_private *dev_priv,
+-			 enum pipe pipe)
++static bool pps_any(struct drm_i915_private *dev_priv, int pps_idx)
+ {
+ 	return true;
+ }
+ 
+ static enum pipe
+ vlv_initial_pps_pipe(struct drm_i915_private *dev_priv,
+-		     enum port port,
+-		     vlv_pipe_check pipe_check)
++		     enum port port, pps_check check)
+ {
+ 	enum pipe pipe;
+ 
+@@ -268,7 +263,7 @@ vlv_initial_pps_pipe(struct drm_i915_private *dev_priv,
+ 		if (port_sel != PANEL_PORT_SELECT_VLV(port))
+ 			continue;
+ 
+-		if (!pipe_check(dev_priv, pipe))
++		if (!check(dev_priv, pipe))
+ 			continue;
+ 
+ 		return pipe;
+@@ -289,15 +284,15 @@ vlv_initial_power_sequencer_setup(struct intel_dp *intel_dp)
+ 	/* try to find a pipe with this port selected */
+ 	/* first pick one where the panel is on */
+ 	intel_dp->pps.pps_pipe = vlv_initial_pps_pipe(dev_priv, port,
+-						      vlv_pipe_has_pp_on);
++						      pps_has_pp_on);
+ 	/* didn't find one? pick one where vdd is on */
+ 	if (intel_dp->pps.pps_pipe == INVALID_PIPE)
+ 		intel_dp->pps.pps_pipe = vlv_initial_pps_pipe(dev_priv, port,
+-							      vlv_pipe_has_vdd_on);
++							      pps_has_vdd_on);
+ 	/* didn't find one? pick one with just the correct port */
+ 	if (intel_dp->pps.pps_pipe == INVALID_PIPE)
+ 		intel_dp->pps.pps_pipe = vlv_initial_pps_pipe(dev_priv, port,
+-							      vlv_pipe_any);
++							      pps_any);
+ 
+ 	/* didn't find one? just let vlv_power_sequencer_pipe() pick one when needed */
+ 	if (intel_dp->pps.pps_pipe == INVALID_PIPE) {
 -- 
 2.37.4
 
