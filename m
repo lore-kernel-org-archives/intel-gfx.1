@@ -4,76 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07B47C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 17:18:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E368BC433FE
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 17:41:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 701A110E61B;
-	Wed,  9 Nov 2022 17:18:25 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E60CB10E601
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 17:18:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1668014300;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xnXgn16clICsmrV6UyAUvoxroMB/57yAi6UKnX9zn/8=;
- b=UC3ThxlhT84zBZGMd8IqFE4roIgiJGlc+QEai2D1irH+ZdlLeIjqER6P9AGdtyQcvZhEs3
- WFekuYaliV44sn6zdDeenTkY58UZDn43B2iSieWBL4CDSxvkiD0SKmolVNPO9DI2j2MsC6
- bYxYzT1IQsPJKxBWA7RU1lMmLv4Hrmk=
-Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
- [209.85.166.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-627-IorMdMbsOCO-5Jtv5FA8Og-1; Wed, 09 Nov 2022 12:18:13 -0500
-X-MC-Unique: IorMdMbsOCO-5Jtv5FA8Og-1
-Received: by mail-il1-f199.google.com with SMTP id
- s4-20020a056e02216400b003021b648144so5434403ilv.19
- for <intel-gfx@lists.freedesktop.org>; Wed, 09 Nov 2022 09:18:13 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xnXgn16clICsmrV6UyAUvoxroMB/57yAi6UKnX9zn/8=;
- b=Z76uC5QRPbkvjR+NY64pzfSUM7Jxjp5SL2J9ZOaWi4Jhy6vuxh11zbK0sN1c7xGUKi
- N3gb1KaikWmvhJsDZeZLijDzYkXK8XaFGghHYF65SZzbkQ9jdqVwytOQO5am8kWUROpG
- 90kkl6fgCNlHDwRGc2c7zNJAcYMbdUJbUYRgBqJ6r26A5cACLOBzmBkJRFggmIpSYmdM
- mdx6oQIhT8apQnt3dcLc81Z4fmAqAGE4fLb3FXTTqkbnUp9HURtu5u/t9Y/KgtphFgG8
- gU9WzU8bwx/FKp+J6xe6iJBxg7VhWaRlsYvoPdrsO9vNdmDDjowVAvkrrwfmguC/AGBc
- Q0Pw==
-X-Gm-Message-State: ACrzQf2uXoRbEVNsO4RGQGwtG3jWl3F86RwIpRRTcKS0USYmhPlQ7SBN
- RndkF0v0PE8tc6geulffk0s1GYual9BX0t9UJr0P5Sm+T+AeS+6bq9Vs3YI4Gwz1QvFnSwfq3eR
- DpZVD0qNltvMz9wt+ERlRJDkHoYWa
-X-Received: by 2002:a6b:e208:0:b0:6d7:b1a7:c220 with SMTP id
- z8-20020a6be208000000b006d7b1a7c220mr1771072ioc.7.1668014292564; 
- Wed, 09 Nov 2022 09:18:12 -0800 (PST)
-X-Google-Smtp-Source: AMsMyM6F677E3Z9Fik/IZx4pkrsVOrB6N7Pz805qwA6pjiuY0YCpqNr/AQzfBn6PMq3gQd7YTPJ/wA==
-X-Received: by 2002:a6b:e208:0:b0:6d7:b1a7:c220 with SMTP id
- z8-20020a6be208000000b006d7b1a7c220mr1771033ioc.7.1668014292281; 
- Wed, 09 Nov 2022 09:18:12 -0800 (PST)
-Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
- i12-20020a056e02152c00b00300e6efca96sm5020565ilu.55.2022.11.09.09.18.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Nov 2022 09:18:11 -0800 (PST)
-Date: Wed, 9 Nov 2022 10:18:09 -0700
-From: Alex Williamson <alex.williamson@redhat.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Message-ID: <20221109101809.2ff08303.alex.williamson@redhat.com>
-In-Reply-To: <Y2r6YnhuR3SxslL6@nvidia.com>
-References: <0-v2-65016290f146+33e-vfio_iommufd_jgg@nvidia.com>
- <10-v2-65016290f146+33e-vfio_iommufd_jgg@nvidia.com>
- <20221108152831.1a2ed3df.alex.williamson@redhat.com>
- <Y2r6YnhuR3SxslL6@nvidia.com>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDD3010E037;
+	Wed,  9 Nov 2022 17:41:54 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B78610E037;
+ Wed,  9 Nov 2022 17:41:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1668015710; x=1699551710;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=uAGDH9PuqxF6ycW7WSyrsen5/J8zVaN0bhXpH/QU44g=;
+ b=QK+OwdVe2VQ0d6dfgzlyXdMh9qlxvupR8EMWY+bB0ox2FeNyIVYLzsGF
+ YX8588ojwW+l8TwphfcXkfcWDGjVXlg52CWtXJDHtvBhbWLG+XndeSM1/
+ OgIlxu3dHfoN70uvExHL7iBJ3kjRVhXNqSAoqYMjIVDLud9dFbnol3Aat
+ sMrTrv1XVP0v/nbniNnMHljlriEZ8IV7mUXGSaqGzCoj49JnXh/mgsqF9
+ nQOlsxAvfJOVkapZ6YbhVO+D524gO6049/+AiTOtMS+NQ+bR8WHbt1mPF
+ Mr1PTFbIdXAj2NLzMCqrkgBHpZ0NQciCoon9PlM8sFpLJQemDlldUr0VK Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="373196431"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="373196431"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 09:41:45 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="726061740"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="726061740"
+Received: from dvorobye-mobl.ccr.corp.intel.com (HELO intel.com)
+ ([10.252.32.169])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 09:41:41 -0800
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Wed,  9 Nov 2022 18:40:58 +0100
+Message-Id: <20221109174058.912720-4-andi.shyti@linux.intel.com>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20221109174058.912720-1-andi.shyti@linux.intel.com>
+References: <20221109174058.912720-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2 10/11] vfio: Make vfio_container
- optionally compiled
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Refine VT-d scanout workaround
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,89 +58,152 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Vineeth Vijayan <vneethv@linux.ibm.com>,
- Diana Craciun <diana.craciun@oss.nxp.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, David Airlie <airlied@gmail.com>,
- Longfang Liu <liulongfang@huawei.com>, linux-s390@vger.kernel.org, "Liu,
- Yi L" <yi.l.liu@intel.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
- Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Halil Pasic <pasic@linux.ibm.com>, iommu@lists.linux.dev,
- Nicolin Chen <nicolinc@nvidia.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- intel-gfx@lists.freedesktop.org, Jason Herne <jjherne@linux.ibm.com>,
- Eric Farman <farman@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Eric Auger <eric.auger@redhat.com>,
- Harald Freudenberger <freude@linux.ibm.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gvt-dev@lists.freedesktop.org,
- Tony Krowiak <akrowiak@linux.ibm.com>, Yishai Hadas <yishaih@nvidia.com>,
- Cornelia Huck <cohuck@redhat.com>, Peter Oberparleiter <oberpar@linux.ibm.com>,
- Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
- Sven Schnelle <svens@linux.ibm.com>, Daniel Vetter <daniel@ffwll.ch>,
- Robin Murphy <robin.murphy@arm.com>, Lu Baolu <baolu.lu@linux.intel.com>
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 8 Nov 2022 20:54:58 -0400
-Jason Gunthorpe <jgg@nvidia.com> wrote:
+From: Chris Wilson <chris@chris-wilson.co.uk>
 
-> On Tue, Nov 08, 2022 at 03:28:31PM -0700, Alex Williamson wrote:
-> 
-> > Perhaps this should have been obvious, but I'm realizing that
-> > vfio-noiommu mode is completely missing without VFIO_CONTAINER, which
-> > seems a barrier to deprecating VFIO_CONTAINER and perhaps makes it a  
-> 
-> Yes, it is the same as the allow_unsafe_interrupts - it is something
-> that currently goes missing if you turn off VFIO_CONTAINER.
-> 
-> This seems straightforward enough to resolve in a followup, we mostly
-> just need someone with an existing no-iommu application to test
-> compatability against. Keeping it working with the device cdev will
-> also be a bit interesting. If you have or know about some application
-> I can try to make a patch.
+VT-d may cause overfetch of the scanout PTE, both before and after the
+vma (depending on the scanout orientation). bspec recommends that we
+provide a tile-row in either directions, and suggests using 168 PTE,
+warning that the accesses will wrap around the ends of the GGTT.
+Currently, we fill the entire GGTT with scratch pages when using VT-d to
+always ensure there are valid entries around every vma, including
+scanout. However, writing every PTE is slow as on recent devices we
+perform 8MiB of uncached writes, incurring an extra 100ms during resume.
 
-DPDK supports no-iommu mode.
+If instead we focus on only putting guard pages around scanout, we can
+avoid touching the whole GGTT. To avoid having to introduce extra nodes
+around each scanout vma, we adjust the scanout drm_mm_node to be smaller
+than the allocated space, and fixup the extra PTE during dma binding.
 
-> > question whether IOMMUFD should really be taking over /dev/vfio/vfio.
-> > No-iommu mode has users.    
-> 
-> I view VFIO_CONTAINER=n as a process. An aspiration we can work
-> toward.
-> 
-> At this point there are few places that might want to use it. Android
-> perhaps, for example. It is also useful for testing. One of the main
-> values is you can switch the options and feed the kernel into an
-> existing test environment and see what happens. This is how we are
-> able to quickly get s390 mdev testing, for instance.
-> 
-> We are not going to get to a widely useful VFIO_CONTAINER=n if we
-> don't have a target that people can test against and evaluate what
-> compatability gaps may exist.
-> 
-> So, everytime we find something like this - let's think about how can
-> we make iommufd compatibility handle it and not jump straight to
-> giving up :)
-> 
-> I'm kind of thinking v6.4 might be a reasonable kernel target when we
-> might have closed off enough things.
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c | 13 +++++++++++
+ drivers/gpu/drm/i915/gt/intel_ggtt.c       | 25 +---------------------
+ drivers/gpu/drm/i915/i915_vma.c            |  9 ++++++++
+ 3 files changed, 23 insertions(+), 24 deletions(-)
 
-I agree that it's very useful for testing, I'm certainly not suggesting
-to give up, but I'm not sure where no-iommu lives when iommufd owns
-/dev/vfio/vfio.  Given the unsafe interrupts discussion, it doesn't
-seem like the type of thing that would be a priority for iommufd.
-
-We're on a path where vfio accepts an iommufd as a container, and
-ultimately iommufd becomes the container provider, supplanting the
-IOMMU driver registration aspect of vfio.  I absolutely want type1 and
-spapr backends to get replaced by iommufd, but reluctance to support
-aspects of vfio "legacy" behavior doesn't give me warm fuzzies about a
-wholesale hand-off of the container to a different subsystem, for
-example vs an iommufd shim spoofing type1 support.
-
-Unfortunately we no longer have a CONFIG_EXPERIMENTAL option to hide
-behind for disabling VFIO_CONTAINER, so regardless of our intentions
-that a transition is some time off, it may become an issue sooner than
-we expect.  Thanks,
-
-Alex
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index d44a152ce6800..882b91519f92b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -17,6 +17,8 @@
+ #include "i915_gem_object.h"
+ #include "i915_vma.h"
+ 
++#define VTD_GUARD (168u * I915_GTT_PAGE_SIZE) /* 168 or tile-row PTE padding */
++
+ static bool gpu_write_needs_clflush(struct drm_i915_gem_object *obj)
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+@@ -424,6 +426,17 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
++	/* VT-d may overfetch before/after the vma, so pad with scratch */
++	if (intel_scanout_needs_vtd_wa(i915)) {
++		unsigned int guard = VTD_GUARD;
++
++		if (i915_gem_object_is_tiled(obj))
++			guard = max(guard,
++				    i915_gem_object_get_tile_row_size(obj));
++
++		flags |= PIN_OFFSET_GUARD | guard;
++	}
++
+ 	/*
+ 	 * As the user may map the buffer once pinned in the display plane
+ 	 * (e.g. libkms for the bootup splash), we have to ensure that we
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index 0dd81b18716c3..b0acb645a6de6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -367,27 +367,6 @@ static void nop_clear_range(struct i915_address_space *vm,
+ {
+ }
+ 
+-static void gen8_ggtt_clear_range(struct i915_address_space *vm,
+-				  u64 start, u64 length)
+-{
+-	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
+-	unsigned int first_entry = start / I915_GTT_PAGE_SIZE;
+-	unsigned int num_entries = length / I915_GTT_PAGE_SIZE;
+-	const gen8_pte_t scratch_pte = vm->scratch[0]->encode;
+-	gen8_pte_t __iomem *gtt_base =
+-		(gen8_pte_t __iomem *)ggtt->gsm + first_entry;
+-	const int max_entries = ggtt_total_entries(ggtt) - first_entry;
+-	int i;
+-
+-	if (WARN(num_entries > max_entries,
+-		 "First entry = %d; Num entries = %d (max=%d)\n",
+-		 first_entry, num_entries, max_entries))
+-		num_entries = max_entries;
+-
+-	for (i = 0; i < num_entries; i++)
+-		gen8_set_pte(&gtt_base[i], scratch_pte);
+-}
+-
+ static void bxt_vtd_ggtt_wa(struct i915_address_space *vm)
+ {
+ 	/*
+@@ -959,8 +938,6 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
+ 	ggtt->vm.cleanup = gen6_gmch_remove;
+ 	ggtt->vm.insert_page = gen8_ggtt_insert_page;
+ 	ggtt->vm.clear_range = nop_clear_range;
+-	if (intel_scanout_needs_vtd_wa(i915))
+-		ggtt->vm.clear_range = gen8_ggtt_clear_range;
+ 
+ 	ggtt->vm.insert_entries = gen8_ggtt_insert_entries;
+ 
+@@ -1121,7 +1098,7 @@ static int gen6_gmch_probe(struct i915_ggtt *ggtt)
+ 	ggtt->vm.alloc_scratch_dma = alloc_pt_dma;
+ 
+ 	ggtt->vm.clear_range = nop_clear_range;
+-	if (!HAS_FULL_PPGTT(i915) || intel_scanout_needs_vtd_wa(i915))
++	if (!HAS_FULL_PPGTT(i915))
+ 		ggtt->vm.clear_range = gen6_ggtt_clear_range;
+ 	ggtt->vm.insert_page = gen6_ggtt_insert_page;
+ 	ggtt->vm.insert_entries = gen6_ggtt_insert_entries;
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index ff24a654565f6..973abe56cbaa0 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -675,6 +675,10 @@ bool i915_vma_misplaced(const struct i915_vma *vma,
+ 	    i915_vma_offset(vma) != (flags & PIN_OFFSET_MASK))
+ 		return true;
+ 
++	if (flags & PIN_OFFSET_GUARD &&
++	    vma->guard < (flags & PIN_OFFSET_MASK))
++		return true;
++
+ 	return false;
+ }
+ 
+@@ -753,6 +757,7 @@ i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 
+ 	GEM_BUG_ON(i915_vma_is_bound(vma, I915_VMA_GLOBAL_BIND | I915_VMA_LOCAL_BIND));
+ 	GEM_BUG_ON(drm_mm_node_allocated(&vma->node));
++	GEM_BUG_ON(hweight64(flags & (PIN_OFFSET_GUARD | PIN_OFFSET_FIXED | PIN_OFFSET_BIAS)) > 1);
+ 
+ 	size = max(size, vma->size);
+ 	alignment = max_t(typeof(alignment), alignment, vma->display_alignment);
+@@ -767,6 +772,10 @@ i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 	GEM_BUG_ON(!is_power_of_2(alignment));
+ 
+ 	guard = vma->guard; /* retain guard across rebinds */
++	if (flags & PIN_OFFSET_GUARD) {
++		GEM_BUG_ON(overflows_type(flags & PIN_OFFSET_MASK, u32));
++		guard = max_t(u32, guard, flags & PIN_OFFSET_MASK);
++	}
+ 	guard = ALIGN(guard, alignment);
+ 
+ 	start = flags & PIN_OFFSET_BIAS ? flags & PIN_OFFSET_MASK : 0;
+-- 
+2.37.2
 
