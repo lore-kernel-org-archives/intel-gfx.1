@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 584ACC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 14:42:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03BFCC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 14:42:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDF0E10E5E5;
-	Wed,  9 Nov 2022 14:42:27 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AE3410E5E0
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 14:42:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18EF110E5E3;
+	Wed,  9 Nov 2022 14:42:37 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B641E10E5E3
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 14:42:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668004938; x=1699540938;
+ t=1668004947; x=1699540947;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hMrMMFQgs7E0cD2eBvkiK3xjeuUSu9d9mnQ2bXEM4mM=;
- b=hSzgHqNiyN51Qy1whr5HAa1uMlbGTJoR83pQHOUNTGexP+Zmvza98RlW
- 2kgoI3NFp8QG9aFCJcXzFPo/DWNRhWyiMGOsoPsZZ/ZOm3l7gNW1iv2QK
- XIzEx1AyaGSBTGBOFP1eLlZnnWZaT8P75spMMAjSoR3Zs4ScMQCSJnC0D
- 7719oZCZDXX+cJlVasxx7hq7YH/mLN98kDnIzpbhg7Jx/spZ5Nk76Tp4d
- 1oIWm/BY2iXJUOkNePX2R75YbeOnc/rMtiMV9y+9qDHPpkbvXP00zYcMB
- wLFQdeBQJ63f738APhQpUukO7z8SrchzxD/u+7ULpcxItpk/RNtqAf05c A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="294366005"
-X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="294366005"
+ bh=A/MOzdpw51dC7mJkrAJCieT9+0XL14d8m8xv1ZWuun8=;
+ b=inuGXvV/X7+7BlkWGN3ddoMPZpJpw1hZcygVvKrXR2NU3A35pfFOSxdU
+ hyKVhg86o3ZChQH//eckuCWK8OATKKumjjAeY25y/NftzyLCE40+/BDWl
+ hVoPSuzvvXuTouv6ByY40nUuhqxPHEiChQRH/U2nbRV96XReTMAdvEEwU
+ PQP3TH7Tv7lvVcwb++OeFMkgXdBNsGzrghNYnx0UXH1gGEkBG1lvs7SC5
+ UHTlFFTcKHD0vz8QE2K8PEetUJ2tlhlf9OL2/pZEd/4gh7aOH0+8/4O0r
+ nCL+0LZl6bJ+LiAWh1q7hNFxeLzbiXDG9gJDK7lKgLMlTOiiGaWtod1Gt A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="373138006"
+X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="373138006"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 06:42:18 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="669970293"
-X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="669970293"
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 06:42:27 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="669970328"
+X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="669970328"
 Received: from skorobko-mobl2.ccr.corp.intel.com (HELO localhost)
  ([10.252.15.56])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 06:42:17 -0800
+ 09 Nov 2022 06:42:24 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Nov 2022 16:42:07 +0200
-Message-Id: <20221109144209.3624739-2-jani.nikula@intel.com>
+Date: Wed,  9 Nov 2022 16:42:09 +0200
+Message-Id: <20221109144209.3624739-4-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221109144209.3624739-1-jani.nikula@intel.com>
 References: <20221109144209.3624739-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915/display: move hti under display
- sub-struct
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915/display: move restore state and
+ ctx under display sub-struct
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,93 +63,119 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move display hti/hdport related members under drm_i915_private display
-sub-struct.
-
-Prefer adding anonymous sub-structs even for single members that aren't
-our own structs.
+Move display suspend/resume and display reset modeset state and ctx
+members under drm_i915_private display sub-struct.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_core.h | 10 ++++++++++
- drivers/gpu/drm/i915/display/intel_hti.c          | 10 +++++-----
- drivers/gpu/drm/i915/i915_drv.h                   |  8 --------
- 3 files changed, 15 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c      | 14 +++++++-------
+ drivers/gpu/drm/i915/display/intel_display_core.h |  7 +++++++
+ drivers/gpu/drm/i915/i915_drv.h                   |  3 ---
+ 3 files changed, 14 insertions(+), 10 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 63f25d6bf0bf..c50bdcdc9081 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -890,7 +890,7 @@ static bool gpu_reset_clobbers_display(struct drm_i915_private *dev_priv)
+ 
+ void intel_display_prepare_reset(struct drm_i915_private *dev_priv)
+ {
+-	struct drm_modeset_acquire_ctx *ctx = &dev_priv->reset_ctx;
++	struct drm_modeset_acquire_ctx *ctx = &dev_priv->display.restore.reset_ctx;
+ 	struct drm_atomic_state *state;
+ 	int ret;
+ 
+@@ -946,13 +946,13 @@ void intel_display_prepare_reset(struct drm_i915_private *dev_priv)
+ 		return;
+ 	}
+ 
+-	dev_priv->modeset_restore_state = state;
++	dev_priv->display.restore.modeset_state = state;
+ 	state->acquire_ctx = ctx;
+ }
+ 
+ void intel_display_finish_reset(struct drm_i915_private *i915)
+ {
+-	struct drm_modeset_acquire_ctx *ctx = &i915->reset_ctx;
++	struct drm_modeset_acquire_ctx *ctx = &i915->display.restore.reset_ctx;
+ 	struct drm_atomic_state *state;
+ 	int ret;
+ 
+@@ -963,7 +963,7 @@ void intel_display_finish_reset(struct drm_i915_private *i915)
+ 	if (!test_bit(I915_RESET_MODESET, &to_gt(i915)->reset.flags))
+ 		return;
+ 
+-	state = fetch_and_zero(&i915->modeset_restore_state);
++	state = fetch_and_zero(&i915->display.restore.modeset_state);
+ 	if (!state)
+ 		goto unlock;
+ 
+@@ -2443,7 +2443,7 @@ int intel_display_suspend(struct drm_device *dev)
+ 		drm_err(&dev_priv->drm, "Suspending crtc's failed with %i\n",
+ 			ret);
+ 	else
+-		dev_priv->modeset_restore_state = state;
++		dev_priv->display.restore.modeset_state = state;
+ 	return ret;
+ }
+ 
+@@ -8899,14 +8899,14 @@ void i830_disable_pipe(struct drm_i915_private *dev_priv, enum pipe pipe)
+ void intel_display_resume(struct drm_device *dev)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dev);
+-	struct drm_atomic_state *state = i915->modeset_restore_state;
++	struct drm_atomic_state *state = i915->display.restore.modeset_state;
+ 	struct drm_modeset_acquire_ctx ctx;
+ 	int ret;
+ 
+ 	if (!HAS_DISPLAY(i915))
+ 		return;
+ 
+-	i915->modeset_restore_state = NULL;
++	i915->display.restore.modeset_state = NULL;
+ 	if (state)
+ 		state->acquire_ctx = &ctx;
+ 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index 337d8e08ba43..d851d401211f 100644
+index 7eb705a0fa19..57ddce3ba02b 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_core.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -370,6 +370,16 @@ struct intel_display {
- 		struct mutex comp_mutex;
- 	} hdcp;
+@@ -14,6 +14,7 @@
+ #include <linux/workqueue.h>
+ 
+ #include <drm/drm_connector.h>
++#include <drm/drm_modeset_lock.h>
+ 
+ #include "intel_cdclk.h"
+ #include "intel_display.h"
+@@ -410,6 +411,12 @@ struct intel_display {
+ 		unsigned long mask;
+ 	} quirks;
  
 +	struct {
-+		/*
-+		 * HTI (aka HDPORT) state read during initial hw readout. Most
-+		 * platforms don't have HTI, so this will just stay 0. Those
-+		 * that do will use this later to figure out which PLLs and PHYs
-+		 * are unavailable for driver usage.
-+		 */
-+		u32 state;
-+	} hti;
++		/* restore state for suspend/resume and display reset */
++		struct drm_atomic_state *modeset_state;
++		struct drm_modeset_acquire_ctx reset_ctx;
++	} restore;
 +
  	struct {
- 		struct i915_power_domains domains;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_hti.c b/drivers/gpu/drm/i915/display/intel_hti.c
-index e2b09e96f9a9..7d48f5646274 100644
---- a/drivers/gpu/drm/i915/display/intel_hti.c
-+++ b/drivers/gpu/drm/i915/display/intel_hti.c
-@@ -16,24 +16,24 @@ void intel_hti_init(struct drm_i915_private *i915)
- 	 * any display resources before we create our display outputs.
- 	 */
- 	if (INTEL_INFO(i915)->display.has_hti)
--		i915->hti_state = intel_de_read(i915, HDPORT_STATE);
-+		i915->display.hti.state = intel_de_read(i915, HDPORT_STATE);
- }
- 
- bool intel_hti_uses_phy(struct drm_i915_private *i915, enum phy phy)
- {
--	return i915->hti_state & HDPORT_ENABLED &&
--		i915->hti_state & HDPORT_DDI_USED(phy);
-+	return i915->display.hti.state & HDPORT_ENABLED &&
-+		i915->display.hti.state & HDPORT_DDI_USED(phy);
- }
- 
- u32 intel_hti_dpll_mask(struct drm_i915_private *i915)
- {
--	if (!(i915->hti_state & HDPORT_ENABLED))
-+	if (!(i915->display.hti.state & HDPORT_ENABLED))
- 		return 0;
- 
- 	/*
- 	 * Note: This is subtle. The values must coincide with what's defined
- 	 * for the platform.
- 	 */
--	return REG_FIELD_GET(HDPORT_DPLL_USED_MASK, i915->hti_state);
-+	return REG_FIELD_GET(HDPORT_DPLL_USED_MASK, i915->display.hti.state);
- }
- 
+ 		enum {
+ 			I915_SAGV_UNKNOWN = 0,
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 05b3300cc4ed..bb88aee2af25 100644
+index fdf330a29ec0..2f074d7e0d31 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -300,14 +300,6 @@ struct drm_i915_private {
+@@ -287,9 +287,6 @@ struct drm_i915_private {
  
- 	struct intel_l3_parity l3_parity;
+ 	unsigned long gem_quirks;
  
--	/*
--	 * HTI (aka HDPORT) state read during initial hw readout.  Most
--	 * platforms don't have HTI, so this will just stay 0.  Those that do
--	 * will use this later to figure out which PLLs and PHYs are unavailable
--	 * for driver usage.
--	 */
--	u32 hti_state;
+-	struct drm_atomic_state *modeset_restore_state;
+-	struct drm_modeset_acquire_ctx reset_ctx;
 -
- 	/*
- 	 * edram size in MB.
- 	 * Cannot be determined by PCIID. You must always read a register.
+ 	struct i915_gem_mm mm;
+ 
+ 	bool mchbar_need_disable;
 -- 
 2.34.1
 
