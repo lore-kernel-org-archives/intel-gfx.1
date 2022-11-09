@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E940C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 02:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B75AFC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 02:48:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9AAF10E564;
-	Wed,  9 Nov 2022 02:48:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D36310E563;
+	Wed,  9 Nov 2022 02:48:37 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id DC1BD10E565;
- Wed,  9 Nov 2022 02:48:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id BA9FD10E565;
+ Wed,  9 Nov 2022 02:48:30 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D45DEAA0ED;
- Wed,  9 Nov 2022 02:48:27 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id B8712AA0ED;
+ Wed,  9 Nov 2022 02:48:30 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Matt Roper" <matthew.d.roper@intel.com>
-Date: Wed, 09 Nov 2022 02:48:27 -0000
-Message-ID: <166796210784.3409.5678186326593687160@emeril.freedesktop.org>
+Date: Wed, 09 Nov 2022 02:48:30 -0000
+Message-ID: <166796211075.3406.10043745264999986579@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20221109001328.732000-1-matthew.d.roper@intel.com>
 In-Reply-To: <20221109001328.732000-1-matthew.d.roper@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915/dg2=3A_Drop_force=5Fprobe_requirement?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/dg2=3A_Drop_force=5Fprobe_requirement?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,7 +53,7 @@ State : warning
 
 == Summary ==
 
-Error: dim sparse failed
-Sparse version: v0.6.2
+Error: make htmldocs had i915 warnings
+./drivers/gpu/drm/i915/i915_perf_types.h:319: warning: Function parameter or member 'lock' not described in 'i915_perf_stream'
 
 
