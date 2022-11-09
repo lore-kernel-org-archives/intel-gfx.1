@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC679C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 16:12:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEE71C43217
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 16:12:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0BFA10E5F6;
-	Wed,  9 Nov 2022 16:12:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7835C10E5F7;
+	Wed,  9 Nov 2022 16:12:23 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4944B10E5F6
- for <Intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 16:12:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2143C10E099
+ for <Intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 16:12:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668010337; x=1699546337;
+ t=1668010330; x=1699546330;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=DOi4RMupNEjpYyK4WovQ8kG/iXKjxHECtSroc0kXvAE=;
- b=CtuIL09I139syLEmVYuiqfQuO8R7ReTxij1KU7fqkZ2DseuIKLe+IXHU
- RH44Ltk2t0Y6ZGQS+cxmIXC6pn4DMkoK9QX5YVJlzCvDUs7F19ePIEJGF
- soGT3OyZ4zreF1ODbOEPJ63dsKtYMiwkk7/GCCHUtxkY9hf57JPDOx4K/
- ifbiMGTNI9nOLbP6GfUEHDu87A76he+uL6ZVPEvMsvWX+a34l1wuULZuu
- X/HXlXZwr7E3PEg4hDw8IBVFarQvkIs8uwuKhoxrxe5RLwwOSzGOP4AZr
- rUZdc+6dNOsV1Lz9YBqYkhkUSMyqEN7DCCilJJgZa6MrKYByZ31c4x8w0 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="373166199"
-X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="373166199"
+ bh=408bXFKjUghNe6DBLZiEo8jtNRxH417j6r34+CGHn8g=;
+ b=cRqKOJJZ8TMXswF4ulXuW3iRT192KjlnMKxzqiDYQHdrd439BKztpxdL
+ x6n6KxNezcuPIsIFgw8FYGZn8koLj6ekahk5tL8PiSnpPvezA9del4icT
+ LYCFelEBbXj/RZQ7W728Nbpl91K4mByOUCDZ4aHLkoFxtNVN3iFsITDwV
+ golZfdrFL1uWc5dxMSY231GEElslV5CXxEl2h+f+LLe31t+z/QMCEz8+H
+ xYFmy1byR+NfJ572x2cKKK0x5gHZbtm+HRmvg4gfi5DW81AHFI6J050Eo
+ 2oieO0+eN4XzziTyPPXQpiurIGIwcswH4KOP8b8yfop7cDZx5U+9lpqIQ A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="373166162"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="373166162"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 08:12:17 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="811684480"
-X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="811684480"
+ 09 Nov 2022 08:12:09 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="811684413"
+X-IronPort-AV: E=Sophos;i="5.96,151,1665471600"; d="scan'208";a="811684413"
 Received: from smurnane-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.196.238])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 08:12:13 -0800
+ 09 Nov 2022 08:12:06 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Nov 2022 16:11:33 +0000
-Message-Id: <20221109161141.2987173-6-tvrtko.ursulin@linux.intel.com>
+Date: Wed,  9 Nov 2022 16:11:31 +0000
+Message-Id: <20221109161141.2987173-4-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221109161141.2987173-1-tvrtko.ursulin@linux.intel.com>
 References: <20221109161141.2987173-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 05/13] drm/cgroup: Track clients per owning process
+Subject: [Intel-gfx] [RFC 03/13] drm: Update file owner during use
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,300 +71,219 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-To enable propagation of settings from the cgroup drm controller to drm we
-need to start tracking which processes own which drm clients.
+With the typical model where the display server opends the file descriptor
+and then hands it over to the client we were showing stale data in
+debugfs.
 
-Implement that by tracking the struct pid pointer of the owning process in
-a new XArray, pointing to a structure containing a list of associated
-struct drm_file pointers.
+Fix it by updating the drm_file->pid on ioctl access from a different
+process.
 
-Clients are added and removed under the filelist mutex and RCU list
-operations are used below it to allow for lockless lookup.
+The field is also made RCU protected to allow for lockless readers. Update
+side is protected with dev->filelist_mutex.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: "Christian König" <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/Makefile     |   1 +
- drivers/gpu/drm/drm_cgroup.c | 123 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/drm_file.c   |  21 ++++--
- include/drm/drm_clients.h    |  44 +++++++++++++
- include/drm/drm_file.h       |   4 ++
- 5 files changed, 189 insertions(+), 4 deletions(-)
- create mode 100644 drivers/gpu/drm/drm_cgroup.c
- create mode 100644 include/drm/drm_clients.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  6 +++--
+ drivers/gpu/drm/drm_auth.c              |  3 ++-
+ drivers/gpu/drm/drm_debugfs.c           | 10 +++++----
+ drivers/gpu/drm/drm_file.c              | 30 +++++++++++++++++++++++++
+ drivers/gpu/drm/drm_ioctl.c             |  3 +++
+ drivers/gpu/drm/nouveau/nouveau_drm.c   |  5 ++++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_gem.c     |  6 +++--
+ include/drm/drm_file.h                  | 13 +++++++++--
+ 8 files changed, 64 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index c44a54cadb61..4495dda2a720 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -59,6 +59,7 @@ drm-$(CONFIG_DRM_LEGACY) += \
- 	drm_scatter.o \
- 	drm_vm.o
- drm-$(CONFIG_DRM_LIB_RANDOM) += lib/drm_random.o
-+drm-$(CONFIG_CGROUP_DRM) += drm_cgroup.o
- drm-$(CONFIG_COMPAT) += drm_ioc32.o
- drm-$(CONFIG_DRM_PANEL) += drm_panel.o
- drm-$(CONFIG_OF) += drm_of.o
-diff --git a/drivers/gpu/drm/drm_cgroup.c b/drivers/gpu/drm/drm_cgroup.c
-new file mode 100644
-index 000000000000..56aa8303974a
---- /dev/null
-+++ b/drivers/gpu/drm/drm_cgroup.c
-@@ -0,0 +1,123 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#include <drm/drm_drv.h>
-+#include <drm/drm_clients.h>
-+
-+static DEFINE_XARRAY(drm_pid_clients);
-+
-+static void
-+__del_clients(struct drm_pid_clients *clients,
-+	      struct drm_file *file_priv,
-+	      unsigned long pid)
-+{
-+	list_del_rcu(&file_priv->clink);
-+	if (atomic_dec_and_test(&clients->num)) {
-+		xa_erase(&drm_pid_clients, pid);
-+		kfree_rcu(clients, rcu);
-+	}
-+}
-+
-+void drm_clients_close(struct drm_file *file_priv)
-+{
-+	struct drm_device *dev = file_priv->minor->dev;
-+	struct drm_pid_clients *clients;
-+	struct pid *pid;
-+
-+	lockdep_assert_held(&dev->filelist_mutex);
-+
-+	pid = rcu_access_pointer(file_priv->pid);
-+	clients = xa_load(&drm_pid_clients, (unsigned long)pid);
-+	if (WARN_ON_ONCE(!clients))
-+		return;
-+
-+	__del_clients(clients, file_priv, (unsigned long)pid);
-+}
-+
-+static struct drm_pid_clients *__alloc_clients(void)
-+{
-+	struct drm_pid_clients *clients;
-+
-+	clients = kmalloc(sizeof(*clients), GFP_KERNEL);
-+	if (clients) {
-+		atomic_set(&clients->num, 0);
-+		INIT_LIST_HEAD(&clients->file_list);
-+		init_rcu_head(&clients->rcu);
-+	}
-+
-+	return clients;
-+}
-+
-+int drm_clients_open(struct drm_file *file_priv)
-+{
-+	struct drm_device *dev = file_priv->minor->dev;
-+	struct drm_pid_clients *clients;
-+	bool new_client = false;
-+	unsigned long pid;
-+
-+	lockdep_assert_held(&dev->filelist_mutex);
-+
-+	pid = (unsigned long)rcu_access_pointer(file_priv->pid);
-+	clients = xa_load(&drm_pid_clients, pid);
-+	if (!clients) {
-+		clients = __alloc_clients();
-+		if (!clients)
-+			return -ENOMEM;
-+		new_client = true;
-+	}
-+	atomic_inc(&clients->num);
-+	list_add_tail_rcu(&file_priv->clink, &clients->file_list);
-+	if (new_client) {
-+		void *xret;
-+
-+		xret = xa_store(&drm_pid_clients, pid, clients, GFP_KERNEL);
-+		if (xa_err(xret)) {
-+			list_del_init(&file_priv->clink);
-+			kfree(clients);
-+			return PTR_ERR(clients);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+void
-+drm_clients_migrate(struct drm_file *file_priv,
-+		    unsigned long old,
-+		    unsigned long new)
-+{
-+	struct drm_device *dev = file_priv->minor->dev;
-+	struct drm_pid_clients *existing_clients;
-+	struct drm_pid_clients *clients;
-+
-+	lockdep_assert_held(&dev->filelist_mutex);
-+
-+	existing_clients = xa_load(&drm_pid_clients, new);
-+	clients = xa_load(&drm_pid_clients, old);
-+
-+	if (WARN_ON_ONCE(!clients))
-+		return;
-+	else if (WARN_ON_ONCE(clients == existing_clients))
-+		return;
-+
-+	__del_clients(clients, file_priv, old);
-+
-+	if (!existing_clients) {
-+		void *xret;
-+
-+		clients = __alloc_clients();
-+		if (WARN_ON(!clients))
-+			return;
-+
-+		xret = xa_store(&drm_pid_clients, new, clients, GFP_KERNEL);
-+		if (WARN_ON(xa_err(xret)))
-+			return;
-+	} else {
-+		clients = existing_clients;
-+	}
-+
-+	atomic_inc(&clients->num);
-+	list_add_tail_rcu(&file_priv->clink, &clients->file_list);
-+}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 4b940f8bd72b..d732ffb1c0d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -958,6 +958,7 @@ static int amdgpu_debugfs_gem_info_show(struct seq_file *m, void *unused)
+ 	list_for_each_entry(file, &dev->filelist, lhead) {
+ 		struct task_struct *task;
+ 		struct drm_gem_object *gobj;
++		struct pid *pid;
+ 		int id;
+ 
+ 		/*
+@@ -967,8 +968,9 @@ static int amdgpu_debugfs_gem_info_show(struct seq_file *m, void *unused)
+ 		 * Therefore, we need to protect this ->comm access using RCU.
+ 		 */
+ 		rcu_read_lock();
+-		task = pid_task(file->pid, PIDTYPE_TGID);
+-		seq_printf(m, "pid %8d command %s:\n", pid_nr(file->pid),
++		pid = rcu_dereference(file->pid);
++		task = pid_task(pid, PIDTYPE_TGID);
++		seq_printf(m, "pid %8d command %s:\n", pid_nr(pid),
+ 			   task ? task->comm : "<unknown>");
+ 		rcu_read_unlock();
+ 
+diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
+index cf92a9ae8034..2ed2585ded37 100644
+--- a/drivers/gpu/drm/drm_auth.c
++++ b/drivers/gpu/drm/drm_auth.c
+@@ -235,7 +235,8 @@ static int drm_new_set_master(struct drm_device *dev, struct drm_file *fpriv)
+ static int
+ drm_master_check_perm(struct drm_device *dev, struct drm_file *file_priv)
+ {
+-	if (file_priv->pid == task_pid(current) && file_priv->was_master)
++	if (file_priv->was_master &&
++	    rcu_access_pointer(file_priv->pid) == task_pid(current))
+ 		return 0;
+ 
+ 	if (!capable(CAP_SYS_ADMIN))
+diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+index 42f657772025..cbcd79f01d50 100644
+--- a/drivers/gpu/drm/drm_debugfs.c
++++ b/drivers/gpu/drm/drm_debugfs.c
+@@ -90,15 +90,17 @@ static int drm_clients_info(struct seq_file *m, void *data)
+ 	 */
+ 	mutex_lock(&dev->filelist_mutex);
+ 	list_for_each_entry_reverse(priv, &dev->filelist, lhead) {
+-		struct task_struct *task;
+ 		bool is_current_master = drm_is_current_master(priv);
++		struct task_struct *task;
++		struct pid *pid;
+ 
+-		rcu_read_lock(); /* locks pid_task()->comm */
+-		task = pid_task(priv->pid, PIDTYPE_TGID);
++		rcu_read_lock(); /* Locks priv->pid and pid_task()->comm! */
++		pid = rcu_dereference(priv->pid);
++		task = pid_task(pid, PIDTYPE_PID);
+ 		uid = task ? __task_cred(task)->euid : GLOBAL_ROOT_UID;
+ 		seq_printf(m, "%20s %5d %3d   %c    %c %5d %10u\n",
+ 			   task ? task->comm : "<unknown>",
+-			   pid_vnr(priv->pid),
++			   pid_vnr(pid),
+ 			   priv->minor->index,
+ 			   is_current_master ? 'y' : 'n',
+ 			   priv->authenticated ? 'y' : 'n',
 diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index 4f5cff5c0bea..16ca5b88f414 100644
+index 5cde5014cea1..4f5cff5c0bea 100644
 --- a/drivers/gpu/drm/drm_file.c
 +++ b/drivers/gpu/drm/drm_file.c
-@@ -40,6 +40,7 @@
- #include <linux/slab.h>
+@@ -502,6 +502,36 @@ int drm_release(struct inode *inode, struct file *filp)
+ }
+ EXPORT_SYMBOL(drm_release);
  
- #include <drm/drm_client.h>
-+#include <drm/drm_clients.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_print.h>
-@@ -298,6 +299,7 @@ static void drm_close_helper(struct file *filp)
++void drm_file_update_pid(struct drm_file *filp)
++{
++	struct drm_device *dev;
++	struct pid *pid, *old;
++
++	/* Master nodes are not expected to be passed between processes. */
++	if (filp->was_master)
++		return;
++
++	pid = task_tgid(current);
++
++	/*
++	 * Quick unlocked check since the model is a single handover followed by
++	 * exclusive repeated use.
++	 */
++	if (pid == rcu_access_pointer(filp->pid))
++		return;
++
++	dev = filp->minor->dev;
++	mutex_lock(&dev->filelist_mutex);
++	old = rcu_replace_pointer(filp->pid, pid, 1);
++	mutex_unlock(&dev->filelist_mutex);
++
++	if (pid != old) {
++		get_pid(pid);
++		synchronize_rcu();
++		put_pid(old);
++	}
++}
++
+ /**
+  * drm_release_noglobal - release method for DRM file
+  * @inode: device inode
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index 7c9d66ee917d..305b18d9d7b6 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -775,6 +775,9 @@ long drm_ioctl_kernel(struct file *file, drm_ioctl_t *func, void *kdata,
+ 	struct drm_device *dev = file_priv->minor->dev;
+ 	int retcode;
  
- 	mutex_lock(&dev->filelist_mutex);
- 	list_del(&file_priv->lhead);
-+	drm_clients_close(file_priv);
- 	mutex_unlock(&dev->filelist_mutex);
++	/* Update drm_file owner if fd was passed along. */
++	drm_file_update_pid(file_priv);
++
+ 	if (drm_dev_is_unplugged(dev))
+ 		return -ENODEV;
  
- 	drm_file_free(file_priv);
-@@ -349,10 +351,8 @@ static int drm_open_helper(struct file *filp, struct drm_minor *minor)
- 
- 	if (drm_is_primary_client(priv)) {
- 		ret = drm_master_open(priv);
--		if (ret) {
--			drm_file_free(priv);
--			return ret;
--		}
-+		if (ret)
-+			goto err_free;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index fd99ec0f4257..17cd392acd69 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -1111,7 +1111,10 @@ nouveau_drm_open(struct drm_device *dev, struct drm_file *fpriv)
  	}
  
- 	filp->private_data = priv;
-@@ -360,6 +360,9 @@ static int drm_open_helper(struct file *filp, struct drm_minor *minor)
- 	priv->filp = filp;
+ 	get_task_comm(tmpname, current);
+-	snprintf(name, sizeof(name), "%s[%d]", tmpname, pid_nr(fpriv->pid));
++	rcu_read_lock();
++	snprintf(name, sizeof(name), "%s[%d]",
++		 tmpname, pid_nr(rcu_dereference(fpriv->pid)));
++	rcu_read_unlock();
  
- 	mutex_lock(&dev->filelist_mutex);
-+	ret = drm_clients_open(priv);
-+	if (ret)
-+		goto err_unlock;
- 	list_add(&priv->lhead, &dev->filelist);
- 	mutex_unlock(&dev->filelist_mutex);
+ 	if (!(cli = kzalloc(sizeof(*cli), GFP_KERNEL))) {
+ 		ret = -ENOMEM;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+index f2985337aa53..3853d9bb9ab8 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+@@ -251,6 +251,7 @@ static int vmw_debugfs_gem_info_show(struct seq_file *m, void *unused)
+ 	list_for_each_entry(file, &dev->filelist, lhead) {
+ 		struct task_struct *task;
+ 		struct drm_gem_object *gobj;
++		struct pid *pid;
+ 		int id;
  
-@@ -387,6 +390,13 @@ static int drm_open_helper(struct file *filp, struct drm_minor *minor)
- #endif
+ 		/*
+@@ -260,8 +261,9 @@ static int vmw_debugfs_gem_info_show(struct seq_file *m, void *unused)
+ 		 * Therefore, we need to protect this ->comm access using RCU.
+ 		 */
+ 		rcu_read_lock();
+-		task = pid_task(file->pid, PIDTYPE_TGID);
+-		seq_printf(m, "pid %8d command %s:\n", pid_nr(file->pid),
++		pid = rcu_dereference(file->pid);
++		task = pid_task(pid, PIDTYPE_TGID);
++		seq_printf(m, "pid %8d command %s:\n", pid_nr(pid),
+ 			   task ? task->comm : "<unknown>");
+ 		rcu_read_unlock();
  
- 	return 0;
-+
-+err_unlock:
-+	mutex_unlock(&dev->filelist_mutex);
-+err_free:
-+	drm_file_free(priv);
-+
-+	return ret;
- }
- 
- /**
-@@ -523,6 +533,9 @@ void drm_file_update_pid(struct drm_file *filp)
- 	dev = filp->minor->dev;
- 	mutex_lock(&dev->filelist_mutex);
- 	old = rcu_replace_pointer(filp->pid, pid, 1);
-+	if (pid != old)
-+		drm_clients_migrate(filp,
-+				    (unsigned long)old, (unsigned long)pid);
- 	mutex_unlock(&dev->filelist_mutex);
- 
- 	if (pid != old) {
-diff --git a/include/drm/drm_clients.h b/include/drm/drm_clients.h
-new file mode 100644
-index 000000000000..fbb8cffdf7a9
---- /dev/null
-+++ b/include/drm/drm_clients.h
-@@ -0,0 +1,44 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#ifndef _DRM_CLIENTS_H_
-+#define _DRM_CLIENTS_H_
-+
-+#include <drm/drm_file.h>
-+
-+struct drm_pid_clients {
-+	atomic_t num;
-+	struct list_head file_list;
-+	struct rcu_head rcu;
-+};
-+
-+#if IS_ENABLED(CONFIG_CGROUP_DRM)
-+void drm_clients_close(struct drm_file *file_priv);
-+int drm_clients_open(struct drm_file *file_priv);
-+
-+void
-+drm_clients_migrate(struct drm_file *file_priv,
-+		    unsigned long old,
-+		    unsigned long new);
-+#else
-+static inline void drm_clients_close(struct drm_file *file_priv)
-+{
-+}
-+
-+static inline int drm_clients_open(struct drm_file *file_priv)
-+{
-+	return 0;
-+}
-+
-+static void
-+drm_clients_migrate(struct drm_file *file_priv,
-+		    unsigned long old,
-+		    unsigned long new)
-+{
-+
-+}
-+#endif
-+
-+#endif
 diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index b8be69b551af..ad20aaad40f5 100644
+index d780fd151789..b8be69b551af 100644
 --- a/include/drm/drm_file.h
 +++ b/include/drm/drm_file.h
-@@ -275,6 +275,10 @@ struct drm_file {
- 	/** @minor: &struct drm_minor for this file. */
- 	struct drm_minor *minor;
+@@ -251,8 +251,15 @@ struct drm_file {
+ 	/** @master_lookup_lock: Serializes @master. */
+ 	spinlock_t master_lookup_lock;
  
-+#if IS_ENABLED(CONFIG_CGROUP_DRM)
-+	struct list_head clink;
-+#endif
+-	/** @pid: Process that opened this file. */
+-	struct pid *pid;
++	/**
++	 * @pid: Process that is using this file.
++	 *
++	 * Must only be dereferenced under a rcu_read_lock or equivalent.
++	 *
++	 * Updates are guarded with dev->filelist_mutex and reference must be
++	 * dropped after a RCU grace period to accommodate lockless readers.
++	 */
++	struct pid __rcu *pid;
+ 
+ 	/** @magic: Authentication magic, see @authenticated. */
+ 	drm_magic_t magic;
+@@ -397,6 +404,8 @@ static inline bool drm_is_render_client(const struct drm_file *file_priv)
+ 	return file_priv->minor->type == DRM_MINOR_RENDER;
+ }
+ 
++void drm_file_update_pid(struct drm_file *);
 +
- 	/**
- 	 * @object_idr:
- 	 *
+ int drm_open(struct inode *inode, struct file *filp);
+ ssize_t drm_read(struct file *filp, char __user *buffer,
+ 		 size_t count, loff_t *offset);
 -- 
 2.34.1
 
