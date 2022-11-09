@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E71EEC433FE
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 14:42:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 478D0C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Nov 2022 14:42:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7AE810E5E0;
-	Wed,  9 Nov 2022 14:42:20 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB98C10E5E0
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 14:42:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4901A10E11F;
+	Wed,  9 Nov 2022 14:42:26 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E79B10E11F
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Nov 2022 14:42:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668004936; x=1699540936;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=0bmpz6KZ6lHZpxiS6GELcHtNRtXOFGYyPCe3Bqh6tek=;
- b=gdQ82ma2agnh5p3Tyzn3oZODcdEq4Kx8CfIU+ng4IZ8zfbNLHnQZnOdh
- rINUozT8QBa3Z9fhAZIsYPgkUtbXT5/JSlQYzwrUVvovMlqlm1ZrRBX7D
- OakF4WRJAZKU2AwLs0coZmXiqG2yifQfFuY7yt5PQguvKHnIruqhRwl69
- X5Wwnlp2NNybuiWPCv71Wr8i4jLX+ct2PDFqmswbRdjz2MLCJFZhjrKE/
- Oo/DqHd3KTxUQN4B4LKKdkHU4nb6jbl9AAc8xuCFCM/Cw4qtT1+QuW2Aj
- LE2W4oVNwLm5Xb8VVxWOqPtG6iQNCFTr4csogkSEPJKAwP9e2dEFthPdr g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="294365998"
-X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="294365998"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 06:42:14 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="669970281"
-X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="669970281"
+ t=1668004943; x=1699540943;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=BZo71VZe3cc4LRPy37GrhDOe3NYXIk+pK79KwJOiGSY=;
+ b=oIxv5f4DWH2nettfWIzSmdc5J40uWzcIo/X/qrZhsIFjVBhdgx8UIKT+
+ HZOabLqmnkWwDa2fj6KQE7X2UCcRFamllUbzvp7m28f2W0ii+Zdk+r2yM
+ 4b/0vAa8ehya0sZNcPtoggbG9a9axFZRi1YT9k52s+swVpjay/PciTDdb
+ HArW2eLUTAOpf4vKkqpwsH334AtBosiz4BNHLnOFi+/cfgEFIB9zL564T
+ zXvNy3f7L/TtG2nCsRVJYKXExac/jOACdRYrZKL3ctCJ0wbvS372zEP0o
+ OqoJjud6moqwmJgTcxgdxBziX/YieJ9gepT/ANh8AHVBD2U9kmTXMoyCJ g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="309702767"
+X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="309702767"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 06:42:22 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10525"; a="705729781"
+X-IronPort-AV: E=Sophos;i="5.96,150,1665471600"; d="scan'208";a="705729781"
 Received: from skorobko-mobl2.ccr.corp.intel.com (HELO localhost)
  ([10.252.15.56])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2022 06:42:13 -0800
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2022 06:42:21 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Nov 2022 16:42:06 +0200
-Message-Id: <20221109144209.3624739-1-jani.nikula@intel.com>
+Date: Wed,  9 Nov 2022 16:42:08 +0200
+Message-Id: <20221109144209.3624739-3-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221109144209.3624739-1-jani.nikula@intel.com>
+References: <20221109144209.3624739-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915/hti: abstract hti handling
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/display: move global_obj_list
+ under display sub-struct
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,241 +63,100 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The HTI or HDPORT handling is sprinkled around. Centralize to one place.
+Move display global state member under drm_i915_private display
+sub-struct.
 
-Add a note about how subtle the mapping from HDPORT_STATE register to
-dpll mask actually is.
+Prefer adding anonymous sub-structs even for single members that aren't
+our own structs.
+
+Remove a nearby stale comment while at it.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                 |  1 +
- drivers/gpu/drm/i915/display/intel_ddi.c      |  9 +----
- drivers/gpu/drm/i915/display/intel_display.c  |  8 +---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 11 +-----
- drivers/gpu/drm/i915/display/intel_hti.c      | 39 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_hti.h      | 18 +++++++++
- drivers/gpu/drm/i915/display/intel_hti_regs.h | 16 ++++++++
- drivers/gpu/drm/i915/i915_reg.h               |  5 ---
- 8 files changed, 80 insertions(+), 27 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_hti.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_hti.h
- create mode 100644 drivers/gpu/drm/i915/display/intel_hti_regs.h
+ drivers/gpu/drm/i915/display/intel_display.c      | 2 +-
+ drivers/gpu/drm/i915/display/intel_display_core.h | 4 ++++
+ drivers/gpu/drm/i915/display/intel_global_state.c | 4 ++--
+ drivers/gpu/drm/i915/display/intel_global_state.h | 2 +-
+ drivers/gpu/drm/i915/i915_drv.h                   | 4 ----
+ 5 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 51704b54317c..cb8232bd315b 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -247,6 +247,7 @@ i915-y += \
- 	display/intel_global_state.o \
- 	display/intel_hdcp.o \
- 	display/intel_hotplug.o \
-+	display/intel_hti.o \
- 	display/intel_lpe_audio.o \
- 	display/intel_modeset_verify.o \
- 	display/intel_modeset_setup.o \
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index e95bde5cf060..5be9573bf65c 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -56,6 +56,7 @@
- #include "intel_hdcp.h"
- #include "intel_hdmi.h"
- #include "intel_hotplug.h"
-+#include "intel_hti.h"
- #include "intel_lspcon.h"
- #include "intel_mg_phy_regs.h"
- #include "intel_pps.h"
-@@ -4113,12 +4114,6 @@ intel_ddi_max_lanes(struct intel_digital_port *dig_port)
- 	return max_lanes;
- }
- 
--static bool hti_uses_phy(struct drm_i915_private *i915, enum phy phy)
--{
--	return i915->hti_state & HDPORT_ENABLED &&
--	       i915->hti_state & HDPORT_DDI_USED(phy);
--}
--
- static enum hpd_pin xelpd_hpd_pin(struct drm_i915_private *dev_priv,
- 				  enum port port)
- {
-@@ -4247,7 +4242,7 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
- 	 * driver.  In that case we should skip initializing the corresponding
- 	 * outputs.
- 	 */
--	if (hti_uses_phy(dev_priv, phy)) {
-+	if (intel_hti_uses_phy(dev_priv, phy)) {
- 		drm_dbg_kms(&dev_priv->drm, "PORT %c / PHY %c reserved by HTI\n",
- 			    port_name(port), phy_name(phy));
- 		return;
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 0d3353c403af..90219e7abc7c 100644
+index 90219e7abc7c..63f25d6bf0bf 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -100,6 +100,7 @@
- #include "intel_frontbuffer.h"
- #include "intel_hdcp.h"
- #include "intel_hotplug.h"
-+#include "intel_hti.h"
- #include "intel_modeset_verify.h"
- #include "intel_modeset_setup.h"
- #include "intel_overlay.h"
-@@ -8735,12 +8736,7 @@ int intel_modeset_init_nogem(struct drm_i915_private *i915)
- 	if (i915->display.cdclk.max_cdclk_freq == 0)
- 		intel_update_max_cdclk(i915);
+@@ -8571,7 +8571,7 @@ static void intel_mode_config_init(struct drm_i915_private *i915)
+ 	struct drm_mode_config *mode_config = &i915->drm.mode_config;
  
--	/*
--	 * If the platform has HTI, we need to find out whether it has reserved
--	 * any display resources before we create our display outputs.
--	 */
--	if (INTEL_INFO(i915)->display.has_hti)
--		i915->hti_state = intel_de_read(i915, HDPORT_STATE);
-+	intel_hti_init(i915);
+ 	drm_mode_config_init(&i915->drm);
+-	INIT_LIST_HEAD(&i915->global_obj_list);
++	INIT_LIST_HEAD(&i915->display.global.obj_list);
  
- 	/* Just disable it once at startup */
- 	intel_vga_disable(i915);
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 7c6c094a0a01..28f7dcb170c7 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -30,6 +30,7 @@
- #include "intel_dpio_phy.h"
- #include "intel_dpll.h"
- #include "intel_dpll_mgr.h"
-+#include "intel_hti.h"
- #include "intel_mg_phy_regs.h"
- #include "intel_pch_refclk.h"
- #include "intel_tc.h"
-@@ -3163,14 +3164,6 @@ static void icl_update_active_dpll(struct intel_atomic_state *state,
- 	icl_set_active_port_dpll(crtc_state, port_dpll_id);
+ 	mode_config->min_width = 0;
+ 	mode_config->min_height = 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
+index d851d401211f..7eb705a0fa19 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_core.h
++++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+@@ -344,6 +344,10 @@ struct intel_display {
+ 		u32 rx_config;
+ 	} fdi;
+ 
++	struct {
++		struct list_head obj_list;
++	} global;
++
+ 	struct {
+ 		/*
+ 		 * Base address of where the gmbus and gpio blocks are located
+diff --git a/drivers/gpu/drm/i915/display/intel_global_state.c b/drivers/gpu/drm/i915/display/intel_global_state.c
+index 7a19215ad844..02b593b1e2ea 100644
+--- a/drivers/gpu/drm/i915/display/intel_global_state.c
++++ b/drivers/gpu/drm/i915/display/intel_global_state.c
+@@ -45,14 +45,14 @@ void intel_atomic_global_obj_init(struct drm_i915_private *dev_priv,
+ 
+ 	obj->state = state;
+ 	obj->funcs = funcs;
+-	list_add_tail(&obj->head, &dev_priv->global_obj_list);
++	list_add_tail(&obj->head, &dev_priv->display.global.obj_list);
  }
  
--static u32 intel_get_hti_plls(struct drm_i915_private *i915)
--{
--	if (!(i915->hti_state & HDPORT_ENABLED))
--		return 0;
--
--	return REG_FIELD_GET(HDPORT_DPLL_USED_MASK, i915->hti_state);
--}
--
- static int icl_compute_combo_phy_dpll(struct intel_atomic_state *state,
- 				      struct intel_crtc *crtc)
+ void intel_atomic_global_obj_cleanup(struct drm_i915_private *dev_priv)
  {
-@@ -3245,7 +3238,7 @@ static int icl_get_combo_phy_dpll(struct intel_atomic_state *state,
- 	}
+ 	struct intel_global_obj *obj, *next;
  
- 	/* Eliminate DPLLs from consideration if reserved by HTI */
--	dpll_mask &= ~intel_get_hti_plls(dev_priv);
-+	dpll_mask &= ~intel_hti_dpll_mask(dev_priv);
+-	list_for_each_entry_safe(obj, next, &dev_priv->global_obj_list, head) {
++	list_for_each_entry_safe(obj, next, &dev_priv->display.global.obj_list, head) {
+ 		list_del(&obj->head);
  
- 	port_dpll->pll = intel_find_shared_dpll(state, crtc,
- 						&port_dpll->hw_state,
-diff --git a/drivers/gpu/drm/i915/display/intel_hti.c b/drivers/gpu/drm/i915/display/intel_hti.c
-new file mode 100644
-index 000000000000..e2b09e96f9a9
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_hti.c
-@@ -0,0 +1,39 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#include "i915_drv.h"
-+#include "intel_de.h"
-+#include "intel_display.h"
-+#include "intel_hti.h"
-+#include "intel_hti_regs.h"
-+
-+void intel_hti_init(struct drm_i915_private *i915)
-+{
-+	/*
-+	 * If the platform has HTI, we need to find out whether it has reserved
-+	 * any display resources before we create our display outputs.
-+	 */
-+	if (INTEL_INFO(i915)->display.has_hti)
-+		i915->hti_state = intel_de_read(i915, HDPORT_STATE);
-+}
-+
-+bool intel_hti_uses_phy(struct drm_i915_private *i915, enum phy phy)
-+{
-+	return i915->hti_state & HDPORT_ENABLED &&
-+		i915->hti_state & HDPORT_DDI_USED(phy);
-+}
-+
-+u32 intel_hti_dpll_mask(struct drm_i915_private *i915)
-+{
-+	if (!(i915->hti_state & HDPORT_ENABLED))
-+		return 0;
-+
-+	/*
-+	 * Note: This is subtle. The values must coincide with what's defined
-+	 * for the platform.
-+	 */
-+	return REG_FIELD_GET(HDPORT_DPLL_USED_MASK, i915->hti_state);
-+}
-+
-diff --git a/drivers/gpu/drm/i915/display/intel_hti.h b/drivers/gpu/drm/i915/display/intel_hti.h
-new file mode 100644
-index 000000000000..2893d6668657
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_hti.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#ifndef __INTEL_HTI_H__
-+#define __INTEL_HTI_H__
-+
-+#include <linux/types.h>
-+
-+struct drm_i915_private;
-+enum phy;
-+
-+void intel_hti_init(struct drm_i915_private *i915);
-+bool intel_hti_uses_phy(struct drm_i915_private *i915, enum phy phy);
-+u32 intel_hti_dpll_mask(struct drm_i915_private *i915);
-+
-+#endif /* __INTEL_HTI_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_hti_regs.h b/drivers/gpu/drm/i915/display/intel_hti_regs.h
-new file mode 100644
-index 000000000000..e206f2837fc8
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_hti_regs.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#ifndef __INTEL_HTI_REGS_H__
-+#define __INTEL_HTI_REGS_H__
-+
-+#include "i915_reg_defs.h"
-+
-+#define HDPORT_STATE			_MMIO(0x45050)
-+#define   HDPORT_DPLL_USED_MASK		REG_GENMASK(15, 12)
-+#define   HDPORT_DDI_USED(phy)		REG_BIT(2 * (phy) + 1)
-+#define   HDPORT_ENABLED		REG_BIT(0)
-+
-+#endif /* __INTEL_HTI_REGS_H__ */
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index a37ed0c61f20..fd60d335d9cb 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1148,11 +1148,6 @@
- #define MBUS_JOIN_PIPE_SELECT(pipe)	REG_FIELD_PREP(MBUS_JOIN_PIPE_SELECT_MASK, pipe)
- #define MBUS_JOIN_PIPE_SELECT_NONE	MBUS_JOIN_PIPE_SELECT(7)
+ 		drm_WARN_ON(&dev_priv->drm, kref_read(&obj->state->ref) != 1);
+diff --git a/drivers/gpu/drm/i915/display/intel_global_state.h b/drivers/gpu/drm/i915/display/intel_global_state.h
+index 1f16fa3073c9..f01ee0bb3e5a 100644
+--- a/drivers/gpu/drm/i915/display/intel_global_state.h
++++ b/drivers/gpu/drm/i915/display/intel_global_state.h
+@@ -27,7 +27,7 @@ struct intel_global_obj {
+ };
  
--#define HDPORT_STATE			_MMIO(0x45050)
--#define   HDPORT_DPLL_USED_MASK		REG_GENMASK(15, 12)
--#define   HDPORT_DDI_USED(phy)		REG_BIT(2 * (phy) + 1)
--#define   HDPORT_ENABLED		REG_BIT(0)
+ #define intel_for_each_global_obj(obj, dev_priv) \
+-	list_for_each_entry(obj, &(dev_priv)->global_obj_list, head)
++	list_for_each_entry(obj, &(dev_priv)->display.global.obj_list, head)
+ 
+ #define for_each_new_global_obj_in_state(__state, obj, new_obj_state, __i) \
+ 	for ((__i) = 0; \
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index bb88aee2af25..fdf330a29ec0 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -292,10 +292,6 @@ struct drm_i915_private {
+ 
+ 	struct i915_gem_mm mm;
+ 
+-	/* Kernel Modesetting */
 -
- /* Make render/texture TLB fetches lower priorty than associated data
-  *   fetches. This is not turned on by default
-  */
+-	struct list_head global_obj_list;
+-
+ 	bool mchbar_need_disable;
+ 
+ 	struct intel_l3_parity l3_parity;
 -- 
 2.34.1
 
