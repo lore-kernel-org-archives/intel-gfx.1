@@ -4,75 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68578C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 09:31:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF0F9C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 09:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38DD310E6A7;
-	Thu, 10 Nov 2022 09:31:30 +0000 (UTC)
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4264B10E6A3;
- Thu, 10 Nov 2022 09:31:25 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id 619335808B1;
- Thu, 10 Nov 2022 04:31:24 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Thu, 10 Nov 2022 04:31:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1668072684; x=1668079884; bh=zo574ahzKe
- u9Q28ZxFGvxFgTU3pvWe1Hlis4aMVeXeM=; b=KQ+fTudgcZW84HJJx3pYZjH6tt
- uUQyF2KdNGYGmzcVKLjgNT1FFbuCUeXNgNV7nH4suH3fHjhIiDa8HgZud7+Amwrr
- tPBR8eIF89Nra1y0g8nb6DVDuNr/ymTg1UJPG8rwKa1toduJYYJZy77KwZFcd4AC
- eYH2Plh0zTNErDTBuAZ/oWRi94L9OOh5Wz0iB20ebBlWXXbTAbUw3a85ZQiXPwAp
- 42Ni4ltiv2qrPLlgC52lMFp+NyqJIYpPqPj08dwR3bPQnepWVOV7wNQqdwfJjqdh
- mpCpeC50Mie+sGDRqUH/qHzeF7YBJMk/cZ7uP0gWJ7l8lz3EL7atfB5oE0mg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; t=1668072684; x=1668079884; bh=zo574ahzKeu9Q28ZxFGvxFgTU3pv
- We1Hlis4aMVeXeM=; b=GusWAN9JhPa20ia1ZdZ5HcEY2lXQvjg6xUw3qGQINIZn
- DkE5/aHfXGSNTXKhC8azwQLlMqAjKj1+dkh6OeJq6oT0CoZFp9SVIFqT2yn/SUPj
- O14rzuMqfMYxFm8wYzTDQsmAHI2H7iBJ9Vbh6t3wLFnz95c0dSy6eeRTwj7ab7AN
- mH17j225Q2ynprMxAVxkvwG0WFMWfplx9z2gIbHdThgHKpuvMwA/7JrNa1FkOYxG
- 2YSAgPUuVitdbimMq8B9Eq6MVI2O7quhKnNvk2ulaSZETvOKZNSJheGqErBL0rRF
- /unRGPariOiO/nz540NT07bvtBqHPeTucJ+AfMfdiQ==
-X-ME-Sender: <xms:68RsYyJcgTRmtWb-WtinAgFLtYlPCFF-Reemycwz_8GM48TX8jU7yQ>
- <xme:68RsY6LiKEdqzRptOx6mkQFmHVrypfcPuYhkEKPNKV9PhOmiKxcxZBhKMQOh-Sm9f
- vy9mV4GrbBIiXMAnrg>
-X-ME-Received: <xmr:68RsYytjvmh5AhEk6FzoGAKAvoL4O6D6t_-ij2tliUW06tD0Jlqdzxfcxu4awC0icfOT999HhcprzUYvWZxogWcBWmeam_pUWEevFaGsT88lYg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggddtgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddunecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepjeevfeehfeekieffgeevleevtefgffefkedtfeeuhfettdegjeehgfegudff
- ffdunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:68RsY3ZHsKBDeMnN6Tq2rfIR2Hkt0nOKAGJdXtmX5BJ49oN6fMHhCg>
- <xmx:68RsY5Y1Tjxlu6fJVCQ6Kb8zOIisXGb0g_mJyy2LA4iDg4H6C6cbUQ>
- <xmx:68RsYzAxoOxTLfO4tVvEFis9rgxU91ju_xMaq0fexnQmMMYRZ86tdA>
- <xmx:7MRsY_6jaWOLDIo0li1lpKavJBZVv1VUqIhq_nB-9bfGOsI4OT8icA>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Nov 2022 04:31:22 -0500 (EST)
-Date: Thu, 10 Nov 2022 10:31:20 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>
-Message-ID: <20221110093120.udcpeer5paqbhxzn@houat>
-References: <20220728-rpi-analog-tv-properties-v7-0-7072a478c6b3@cerno.tech>
- <20220728-rpi-analog-tv-properties-v7-14-7072a478c6b3@cerno.tech>
- <9e9a8a48-89f2-35d4-b26f-afa7cc44f2f6@tronnes.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2467410E6AA;
+	Thu, 10 Nov 2022 09:31:50 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB3110E6AA
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 09:31:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1668072705; x=1699608705;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=BqOVQipP8kf2oGFFIgXzgsNRNBPppjq50MCYR8CrtFI=;
+ b=X3guBnR6MnMbkqT2PkYeyvJzxNPKnevstz1wVohYP745Ul85t4vtaS3g
+ khrZqj2PAuHNQuJLZD7VYLPgs+RZHTC+hMyrqgwRVtO3YfOAVCnFA75fS
+ it5W50pz+tNoSwy9ftjJPYKPdQ+rRifOesYFuXty8xUs7KeONyJHHeAPg
+ 7wsumhDOXMJFfqqanSNdvfZlHFxC5fHUjnzq37TbExVZ7r7celUvWUOcI
+ cggSSgBaHNdAmUXMh4XcOdvjXBYfROzn8hwkBbEQhw8TRD1KHdJUIBDT1
+ rOtdMGGUcsrY/cRWhuHaKBjnOrjoXw7nSu9QB+eeJOq+9Ik0vUGO9ThYf A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="294612833"
+X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="294612833"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2022 01:31:28 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="882296206"
+X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="882296206"
+Received: from srr4-3-linux-118-swatish2.iind.intel.com ([10.223.34.130])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2022 01:31:26 -0800
+From: Swati Sharma <swati2.sharma@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 10 Nov 2022 15:03:12 +0530
+Message-Id: <20221110093312.13932-1-swati2.sharma@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="oex33cdauyqtfxdp"
-Content-Disposition: inline
-In-Reply-To: <9e9a8a48-89f2-35d4-b26f-afa7cc44f2f6@tronnes.org>
-Subject: Re: [Intel-gfx] [PATCH v7 14/23] drm/modes: Properly generate a
- drm_display_mode from a named mode
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915/dsc: Refactor dsc gen checks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,109 +54,92 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Phil Elwell <phil@raspberrypi.com>, Emma Anholt <emma@anholt.net>,
- Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Ben Skeggs <bskeggs@redhat.com>,
- linux-sunxi@lists.linux.dev, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-arm-kernel@lists.infradead.org,
- Dom Cobley <dom@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org,
- Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Use HAS_DSC(__i915) wrapper containing runtime info of has_dsc
+member. Platforms supporting dsc has this flag enabled; no need of
+DISPLAY_VER() check.
 
---oex33cdauyqtfxdp
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Also, simplified intel_dsc_source_support() based on above changes.
 
-Hi,
+Suggested-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Swati Sharma <swati2.sharma@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c   |  6 +++---
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 11 ++++-------
+ drivers/gpu/drm/i915/i915_drv.h           |  1 +
+ 3 files changed, 8 insertions(+), 10 deletions(-)
 
-On Mon, Nov 07, 2022 at 06:49:57PM +0100, Noralf Tr=F8nnes wrote:
-> Den 07.11.2022 15.16, skrev Maxime Ripard:
-> > The framework will get the drm_display_mode from the drm_cmdline_mode it
-> > got by parsing the video command line argument by calling
-> > drm_connector_pick_cmdline_mode().
-> >=20
-> > The heavy lifting will then be done by the drm_mode_create_from_cmdline=
-_mode()
-> > function.
-> >=20
-> > In the case of the named modes though, there's no real code to make that
-> > translation and we rely on the drivers to guess which actual display mo=
-de
-> > we meant.
-> >=20
-> > Let's modify drm_mode_create_from_cmdline_mode() to properly generate t=
-he
-> > drm_display_mode we mean when passing a named mode.
-> >=20
-> > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> >=20
-> > ---
-> > Changes in v7:
-> > - Use tv_mode_specified in drm_mode_parse_command_line_for_connector
-> >=20
-> > Changes in v6:
-> > - Fix get_modes to return 0 instead of an error code
-> > - Rename the tests to follow the DRM test naming convention
-> >=20
-> > Changes in v5:
-> > - Switched to KUNIT_ASSERT_NOT_NULL
-> > ---
-> >  drivers/gpu/drm/drm_modes.c                     | 34 ++++++++++-
-> >  drivers/gpu/drm/tests/drm_client_modeset_test.c | 77 +++++++++++++++++=
-+++++++-
-> >  2 files changed, 109 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-> > index dc037f7ceb37..49441cabdd9d 100644
-> > --- a/drivers/gpu/drm/drm_modes.c
-> > +++ b/drivers/gpu/drm/drm_modes.c
-> > @@ -2497,6 +2497,36 @@ bool drm_mode_parse_command_line_for_connector(c=
-onst char *mode_option,
-> >  }
-> >  EXPORT_SYMBOL(drm_mode_parse_command_line_for_connector);
-> > =20
-> > +static struct drm_display_mode *drm_named_mode(struct drm_device *dev,
-> > +					       struct drm_cmdline_mode *cmd)
-> > +{
-> > +	struct drm_display_mode *mode;
-> > +	unsigned int i;
-> > +
-> > +	for (i =3D 0; i < ARRAY_SIZE(drm_named_modes); i++) {
-> > +		const struct drm_named_mode *named_mode =3D &drm_named_modes[i];
-> > +
-> > +		if (strcmp(cmd->name, named_mode->name))
-> > +			continue;
-> > +
-> > +		if (!cmd->tv_mode_specified)
-> > +			continue;
->=20
-> Only a named mode will set cmd->name, so is this check necessary?
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 7400d6b4c587..f6f9257bd202 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1012,7 +1012,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 	 * Output bpp is stored in 6.4 format so right shift by 4 to get the
+ 	 * integer value since we support only integer values of bpp.
+ 	 */
+-	if (DISPLAY_VER(dev_priv) >= 10 &&
++	if (HAS_DSC(dev_priv) &&
+ 	    drm_dp_sink_supports_dsc(intel_dp->dsc_dpcd)) {
+ 		/*
+ 		 * TBD pass the connector BPC,
+@@ -2906,7 +2906,7 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp)
+ 	intel_dp_set_max_sink_lane_count(intel_dp);
+ 
+ 	/* Read the eDP DSC DPCD registers */
+-	if (DISPLAY_VER(dev_priv) >= 10)
++	if (HAS_DSC(dev_priv))
+ 		intel_dp_get_dsc_sink_cap(intel_dp);
+ 
+ 	/*
+@@ -4691,7 +4691,7 @@ intel_dp_detect(struct drm_connector *connector,
+ 	}
+ 
+ 	/* Read DP Sink DSC Cap DPCD regs for DP v1.4 */
+-	if (DISPLAY_VER(dev_priv) >= 11)
++	if (HAS_DSC(dev_priv))
+ 		intel_dp_get_dsc_sink_cap(intel_dp);
+ 
+ 	intel_dp_configure_mst(intel_dp);
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index 269f9792390d..7b4d300a4dd8 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -344,16 +344,13 @@ bool intel_dsc_source_support(const struct intel_crtc_state *crtc_state)
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 
+-	if (!RUNTIME_INFO(i915)->has_dsc)
++	if (!HAS_DSC(i915))
+ 		return false;
+ 
+-	if (DISPLAY_VER(i915) >= 12)
+-		return true;
+-
+-	if (DISPLAY_VER(i915) >= 11 && cpu_transcoder != TRANSCODER_A)
+-		return true;
++	if (DISPLAY_VER(i915) == 11 && cpu_transcoder == TRANSCODER_A)
++		return false;
+ 
+-	return false;
++	return true;
+ }
+ 
+ static bool is_pipe_dsc(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 05b3300cc4ed..9d1fe5d6a104 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -484,6 +484,7 @@ static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
+ #define INTEL_REVID(dev_priv)	(to_pci_dev((dev_priv)->drm.dev)->revision)
+ 
+ #define HAS_DSB(dev_priv)	(INTEL_INFO(dev_priv)->display.has_dsb)
++#define HAS_DSC(__i915)		(RUNTIME_INFO(__i915)->has_dsc)
+ 
+ #define INTEL_DISPLAY_STEP(__i915) (RUNTIME_INFO(__i915)->step.display_step)
+ #define INTEL_GRAPHICS_STEP(__i915) (RUNTIME_INFO(__i915)->step.graphics_step)
+-- 
+2.25.1
 
-Yeah, but (and even though it's not the case at the moment) there's no
-implication that a named mode will be about TV. We could use it for
-VGA/XGA/etc just as well, in which case we wouldn't have
-tv_mode_specified.
-
-Maxime
-
---oex33cdauyqtfxdp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCY2zE6AAKCRDj7w1vZxhR
-xa+3AQD3Cls+D1gczkUFXyeSrQvhKBS9sNlty/tRYGKYZr7sZwEAoGi/xB5TzWa4
-ZI9NnObyBqJX+FGvepRGg1OcTXOypw0=
-=6eNg
------END PGP SIGNATURE-----
-
---oex33cdauyqtfxdp--
