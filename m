@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA4F9C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 11:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6248BC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 11:09:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFD9410E6FD;
-	Thu, 10 Nov 2022 11:07:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 610C910E705;
+	Thu, 10 Nov 2022 11:08:00 +0000 (UTC)
 Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
  [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA5910E6D5;
- Thu, 10 Nov 2022 11:07:34 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 6F6FF580304;
- Thu, 10 Nov 2022 06:07:33 -0500 (EST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F00CB10E6E2;
+ Thu, 10 Nov 2022 11:07:48 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 588425802EC;
+ Thu, 10 Nov 2022 06:07:48 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 10 Nov 2022 06:07:33 -0500
+ by compute1.internal (MEProxy); Thu, 10 Nov 2022 06:07:48 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; t=1668078453; x=
- 1668085653; bh=JFH60TjLhF4X2cG8BsEbpMtUQgyvSuOsjoB880SrFRc=; b=V
- Bf1fhEeXj7Ne9d7eugUCqsa+xVCB2taWzEo+9I9PuCWAYMIhXzWULg43XPgCtEi7
- ZNX2BC36IkrlLryqBYzl66joDuXwtyMcMsI/sYw7am1VOh4tZUHa4SGsqSSEAxt5
- CfCVBAepIpXSFE1rQWyEuIblrPZSIMBnujckJi5OoUfeCSi2Ipb+rqf9yHYaiAoU
- D1PQ1f7xQsTtlm4JIT27btufwgV3IPECftcLm4D3Uf1ntYoJLylseSrl5wopi4wy
- f88J37+EZGEFeWMYZ2DYh2YFmoNegogwDteEOefkBHlLHSdibpAtmO4R67f0daa6
- 870mLf7nhgUxOYqsMt9+Q==
+ :reply-to:sender:subject:subject:to:to; s=fm2; t=1668078468; x=
+ 1668085668; bh=2hsixTqx80DvaeO/LF2g1u82V3cMDJ81NIDmTmWKEBs=; b=H
+ mzRyJ0EPvH4uTP2NhUDEynO4dh3pIf0JtvgjRIBnfMMDGmevVrHeSwXx9HhXaPWb
+ 7/tagpHC5QZ9g9KTFS3NnY1Y7UKETOaQa2OnlCZ9DQOW4T57OnH1BxQCnycxSvG+
+ tBn8krC7Csx18ZR/DdwJYUtLKdOmjdgxZXfHQ/mnENuckP2wzhSsl3pWCadaAAzt
+ vEUJ2AZGNtoEGCIdt/VNaP+ET3BnytSVgRkn2ykTHnlQ48I5OzfVlT4r9Dq2DSEO
+ gk9oGNVTVgxjBE1Q2IlxdYbB5CmjqcldYuEXi15+pw2WnW6pBD/9b+/w/BjGhjY9
+ zv1bkswU9WpIByIVJY7IA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668078453; x=
- 1668085653; bh=JFH60TjLhF4X2cG8BsEbpMtUQgyvSuOsjoB880SrFRc=; b=E
- heqtUJybT8TCMa1+6gx+ca1LjdFlO5Je1rNxok5Eue6PuAHHCtVI4gpm4gvZzBVg
- /R8FxYj5LzZ03871fXy2A8dZvQGcECLlIjDSsfGym3ivJHDsShxKhdr6JBxucmgS
- R6omtFj2+GNZIBb5zqeOGWsKF/ZrkESKP9KKMVSu518eifh4gdM9kLwtQynj2azL
- cAfmoTN5MiYLY+WasVBMVrxMF7ny6oKcgTIu+KycqKAiavVPddPjcrXq3u0S8t67
- qxN4JRRQB3766/aVyx1nejCGTe858WhKS1QCtgfdwirzbkMzWLdiWTinxVQB9Bkp
- mdL4qhezRajvqv85GFAqA==
-X-ME-Sender: <xms:ddtsY9UbWRael7ma7r37HHtIp-o1Zb84jJPN5PVcL0Yg2ROBa5jDUA>
- <xme:ddtsY9lTRDlexq7VOiB9hzTxDjhSNOYaP-K0tla--JpFdJurCNaWmsXtfP9_YykEn
- sj0gTUWXvrzEqFq4PQ>
-X-ME-Received: <xmr:ddtsY5YB2TZfZZiglUzjrz-1b2sJ4NhmEABXe-5M1w0VhVRLvV4adpGyK62kyLzyAT8Oo5kIf8ekB015KqYgrA6GZx0btky34sG1H4KR6gz0hw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggddvgecutefuodetggdotefrodftvf
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668078468; x=
+ 1668085668; bh=2hsixTqx80DvaeO/LF2g1u82V3cMDJ81NIDmTmWKEBs=; b=T
+ AVHQlfASsYiD3JGAYsPkZZSPkxUaMuk8WbO+RwHJe1RJSTgFZBbLr/SkogIfwREH
+ GXt2S4FM94g+Y1PkWpM2Llp7936BUahDzjywqcP1UjOyz6EUuFWybZoQDExD55cM
+ TnI14LjDfLlb/8EHS8aoVwfsnzyr48Yqt0Heq9Y+UtgM8rPw8JHXNRUyEHhUJhzf
+ T/B5fPMjj4vsV36rWP2LLGPdgjxLcQ0mny7gf4O075fnpTPd9vb0TqQWGY39y7lq
+ XF+HZd+7uF15ZOK28Lyjr6nFjzh7Uz81wNpN2ME3zE17NejZrOjV9OgDwuZkmd9q
+ hYNPB98quCz8COKofGDHA==
+X-ME-Sender: <xms:hNtsYzYB9TSo_eoKJ6NmwG-QFeucjiFxK6rsqW0jj3FWji0veCdYOw>
+ <xme:hNtsYyYkJuWwBjgEGwCYNLe2tBm4SSzX9whsoA7I0NciqJdHEIGEnybzgwt8nPbpd
+ M5mCyCr6wwl0nMJ2CY>
+X-ME-Received: <xmr:hNtsY1_gHxSI4p5ndSOEzW2otm7hcC_IXmnwwW0clCvODFFj-4x5wPlfyFGm3yNkFY9UyeIra1zj6U3Vr0p644y7QriUmxZWgbPjOWMrnqgttA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggddvhecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpefhfffuggfgtgfkfhgjvfevofesthekredtredtjeenucfhrhhomhepofgrgihi
@@ -54,19 +54,19 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggddvgecutefuodetggdote
  htthgvrhhnpedvgfevjefhtdetveevhfelieeuueetgfdvgeevkeegudejffegfffgtedt
  leelhfenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpe
  hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:ddtsYwXd_SAAeOLOB7TSClZavRFiigTojor583khaUgAYlz8fbzQHg>
- <xmx:ddtsY3ldiXNrHd8ro0_B57MMaOsKSJCHJZFFbfDEP_d2ItZXur0NFA>
- <xmx:ddtsY9ce6jW2gp3uPPsmk7z76iBlDoL--EJV76vDke3rdlwrVRAwAA>
- <xmx:ddtsY7wiNB-WdzN9gCTHVGk1EAGSO14CujdRnGqIRUCq0vyWS_2iKg>
+X-ME-Proxy: <xmx:hNtsY5pOn7PaYbhsIFcfZs_8O3iQYDE_gW5EMd7NrNQ2WheMZwZ11w>
+ <xmx:hNtsY-qXrtn4HiwvMZKe3hQLvz0bLENkq9qZO6F4sZvsvBdQypqHnw>
+ <xmx:hNtsY_SGcQS4J6BVFscSSzgIUUnRdj7WrYRzzAty4TqNw8bNIxSAww>
+ <xmx:hNtsY5Wl5p93u3N2qYaGzLRxcmRdMADAGJi4pucabo9BMukF-vhw6g>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Nov 2022 06:07:32 -0500 (EST)
+ 10 Nov 2022 06:07:47 -0500 (EST)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Thu, 10 Nov 2022 12:07:19 +0100
+Date: Thu, 10 Nov 2022 12:07:27 +0100
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20220728-rpi-analog-tv-properties-v8-7-09ce1466967c@cerno.tech>
+Message-Id: <20220728-rpi-analog-tv-properties-v8-15-09ce1466967c@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v8-0-09ce1466967c@cerno.tech>
 In-Reply-To: <20220728-rpi-analog-tv-properties-v8-0-09ce1466967c@cerno.tech>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -81,15 +81,14 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>
 X-Mailer: b4 0.11.0-dev-99e3a
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4676; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=yVx2uVA5vIWOQWcegjDOinr/nkkAcg+x4eleT1mV5LI=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk5t1M0zsQXHfgR8+aS2nvvtVntvoectvtNueKytqIv9NXp
- A4EiHaUsDGJcDLJiiiwxwuZL4k7Net3JxjcPZg4rE8gQBi5OAZjIs10M/52D9llny30p7Ky+tO3gUf
- l91lM4G9atZX/J+c/n0haOwmSG/66f2KQTV+1m7Am1Uk59tmxpe8gMy98Lu/9XyM443s5ZzggA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1534; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=rsG6uUL6JkaDcz2xmtlhcxfIn9ltco9C8smN0JEg9lE=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk5t1PvvItmkuLVF1ojNvPDXFfhzq95jvrGb2eUCV6/3LDw
+ zLPLHaUsDGJcDLJiiiwxwuZL4k7Net3JxjcPZg4rE8gQBi5OAZiIAAMjw4P4RwvDzM2M9Oz0YiU/SW
+ wSP8Ul9+LlvIYLsrZnJ3qsmcHw39mr5qPvdj7bj61fTutcdrW22mSxfuYdBtH7e6ZVfw335gQA
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
-Subject: [Intel-gfx] [PATCH v8 07/24] drm/client: Add some tests for
- drm_connector_pick_cmdline_mode()
+Subject: [Intel-gfx] [PATCH v8 15/24] drm/client: Remove match on mode name
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,152 +105,45 @@ Cc: Dom Cobley <dom@raspberrypi.com>, Dave Stevenson <dave.stevenson@raspberrypi
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm_connector_pick_cmdline_mode() is in charge of finding a proper
-drm_display_mode from the definition we got in the video= command line
-argument.
+Commit 3aeeb13d8996 ("drm/modes: Support modes names on the command
+line") initially introduced the named modes support by essentially
+matching the name passed on the command-line to the mode names defined
+by the drivers.
 
-Let's add some unit tests to make sure we're not getting any regressions
-there.
+This proved to be difficult to work with, since all drivers had to
+provide properly named modes. This was also needed because we weren't
+passing a full blown-mode to the drivers, but were only filling its
+name.
 
-Acked-by: Noralf Trønnes <noralf@tronnes.org>
-Tested-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Thanks to the previous patches, we now generate a proper mode, and we
+thus can use the usual matching algo on timings, and can simply drop the
+name match.
+
+Suggested-by: Noralf Trønnes <noralf@tronnes.org>
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
 ---
-Changes in v6:
-- Rename tests to be consistent with DRM tests naming convention
-
-Changes in v5:
-- Removed useless (for now) count and modes intermediate variables in
-  get_modes
-- Switched to kunit assertions in test init, and to KUNIT_ASSERT_NOT_NULL
-  instead of KUNIT_ASSERT_PTR_NE(..., NULL)
-
-Changes in v4:
-- Removed MODULE macros
+Changes in v8:
+- New patch
 ---
- drivers/gpu/drm/drm_client_modeset.c            |   4 +
- drivers/gpu/drm/tests/drm_client_modeset_test.c | 100 ++++++++++++++++++++++++
- 2 files changed, 104 insertions(+)
+ drivers/gpu/drm/drm_client_modeset.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index bbc535cc50dd..d553e793e673 100644
+index d553e793e673..1b12a3c201a3 100644
 --- a/drivers/gpu/drm/drm_client_modeset.c
 +++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -1237,3 +1237,7 @@ int drm_client_modeset_dpms(struct drm_client_dev *client, int mode)
- 	return ret;
- }
- EXPORT_SYMBOL(drm_client_modeset_dpms);
-+
-+#ifdef CONFIG_DRM_KUNIT_TEST
-+#include "tests/drm_client_modeset_test.c"
-+#endif
-diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gpu/drm/tests/drm_client_modeset_test.c
-new file mode 100644
-index 000000000000..558c098b0384
---- /dev/null
-+++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c
-@@ -0,0 +1,100 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2022 Maxime Ripard <mripard@kernel.org>
-+ */
-+
-+#include <kunit/test.h>
-+
-+#include <drm/drm_connector.h>
-+#include <drm/drm_edid.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_modeset_helper_vtables.h>
-+#include <drm/drm_probe_helper.h>
-+
-+#include "drm_kunit_helpers.h"
-+
-+struct drm_client_modeset_test_priv {
-+	struct drm_device *drm;
-+	struct drm_connector connector;
-+};
-+
-+static int drm_client_modeset_connector_get_modes(struct drm_connector *connector)
-+{
-+	return drm_add_modes_noedid(connector, 1920, 1200);
-+}
-+
-+static const struct drm_connector_helper_funcs drm_client_modeset_connector_helper_funcs = {
-+	.get_modes = drm_client_modeset_connector_get_modes,
-+};
-+
-+static const struct drm_connector_funcs drm_client_modeset_connector_funcs = {
-+};
-+
-+static int drm_client_modeset_test_init(struct kunit *test)
-+{
-+	struct drm_client_modeset_test_priv *priv;
-+	int ret;
-+
-+	priv = kunit_kzalloc(test, sizeof(*priv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	test->priv = priv;
-+
-+	priv->drm = drm_kunit_device_init(test, DRIVER_MODESET, "drm-client-modeset-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv->drm);
-+
-+	ret = drmm_connector_init(priv->drm, &priv->connector,
-+				  &drm_client_modeset_connector_funcs,
-+				  DRM_MODE_CONNECTOR_Unknown,
-+				  NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	drm_connector_helper_add(&priv->connector, &drm_client_modeset_connector_helper_funcs);
-+
-+	return 0;
-+
-+}
-+
-+static void drm_test_pick_cmdline_res_1920_1080_60(struct kunit *test)
-+{
-+	struct drm_client_modeset_test_priv *priv = test->priv;
-+	struct drm_device *drm = priv->drm;
-+	struct drm_connector *connector = &priv->connector;
-+	struct drm_cmdline_mode *cmdline_mode = &connector->cmdline_mode;
-+	struct drm_display_mode *expected_mode, *mode;
-+	const char *cmdline = "1920x1080@60";
-+	int ret;
-+
-+	expected_mode = drm_mode_find_dmt(priv->drm, 1920, 1080, 60, false);
-+	KUNIT_ASSERT_NOT_NULL(test, expected_mode);
-+
-+	KUNIT_ASSERT_TRUE(test,
-+			  drm_mode_parse_command_line_for_connector(cmdline,
-+								    connector,
-+								    cmdline_mode));
-+
-+	mutex_lock(&drm->mode_config.mutex);
-+	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
-+	mutex_unlock(&drm->mode_config.mutex);
-+	KUNIT_ASSERT_GT(test, ret, 0);
-+
-+	mode = drm_connector_pick_cmdline_mode(connector);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+
-+	KUNIT_EXPECT_TRUE(test, drm_mode_equal(expected_mode, mode));
-+}
-+
-+
-+static struct kunit_case drm_test_pick_cmdline_tests[] = {
-+	KUNIT_CASE(drm_test_pick_cmdline_res_1920_1080_60),
-+	{}
-+};
-+
-+static struct kunit_suite drm_test_pick_cmdline_test_suite = {
-+	.name = "drm_test_pick_cmdline",
-+	.init = drm_client_modeset_test_init,
-+	.test_cases = drm_test_pick_cmdline_tests
-+};
-+
-+kunit_test_suite(drm_test_pick_cmdline_test_suite);
+@@ -188,10 +188,6 @@ static struct drm_display_mode *drm_connector_pick_cmdline_mode(struct drm_conne
+ 	prefer_non_interlace = !cmdline_mode->interlace;
+ again:
+ 	list_for_each_entry(mode, &connector->modes, head) {
+-		/* Check (optional) mode name first */
+-		if (!strcmp(mode->name, cmdline_mode->name))
+-			return mode;
+-
+ 		/* check width/height */
+ 		if (mode->hdisplay != cmdline_mode->xres ||
+ 		    mode->vdisplay != cmdline_mode->yres)
 
 -- 
 b4 0.11.0-dev-99e3a
