@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89C1FC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 20:15:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B1DCC4321E
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 20:15:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4708410E832;
-	Thu, 10 Nov 2022 20:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D4F710E839;
+	Thu, 10 Nov 2022 20:15:01 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9233F10E832;
- Thu, 10 Nov 2022 20:14:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77FAF10E847;
+ Thu, 10 Nov 2022 20:14:56 +0000 (UTC)
 Received: from dimapc.. (unknown [109.252.117.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 32EF16602A35;
- Thu, 10 Nov 2022 20:14:49 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 69D8C6602A41;
+ Thu, 10 Nov 2022 20:14:53 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1668111291;
- bh=8lPPkB/X/nAF7UCnlj4YAfVJ4CiTG60x/dmXzJUkhFQ=;
+ s=mail; t=1668111295;
+ bh=Y9B9YrrEmHlNO1aEObVWaFh4UvP89E0LA68VwtlK5tI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Vs2DxqerXBoYuKVokuo4qllebuVOqRgJgOpEfACXfRig5MufY62WKEHWvF/TUVx5J
- cLnzg7+wdeX5IipFW0IcfkQN1byMmwbt/0wlM/oGvFJEMvmAHO0WeOnQJltTIjkON9
- OT56X85voHyfhssNDFiy7CAvhnjlcF+LZ0YBuOQedrYMIix/hsfgyRYJ2FaHYo2NhF
- eD9Qz6L32qGZXVhlY3HuwfdxozObHRKC0FCIAbvyLZVmNXmqBJ5svUDWy5tgC8fHq8
- OY6cY1et+6vAWLYfCRoEJ0vs5iiKlfkc9eCn+24UrhclhzmzECbfJJlC/lvPZkrEvd
- GOgUuvv+yCMjg==
+ b=YvJFNfG0veek5/GRaGa5nRrI/zKHIbyJmgP5Wf0I7nWHz14yHRQEDHx4U91zB4+XD
+ DSZNDsmp1HtnE+QNOMSbxp9pUzx2JkuOF6lmfXmztWoOfbHEwP6SzHu/oMI5WkiuD4
+ oX6vaEzRzRW/siHAWBjRVqW6yjWzyJfTbPzG3MvfNQs8R1zP6AMq/0gU0aPQp1L80R
+ yXf2zI9i9HIIVNTDlvjA7BXetRNrmgqF/RdqwW+1JMdVFVILpoEaFunwkrayKHghVS
+ 4ZSMpbMXyeTxhUhFrD0LReNJC90DC/wylSo3H1ulvMs/kenG8FCVxr2YPwqlzXVQM0
+ QMcmyw/jqO+gQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -46,15 +46,15 @@ To: Sumit Semwal <sumit.semwal@linaro.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Amol Maheshwari <amahesh@qti.qualcomm.com>
-Date: Thu, 10 Nov 2022 23:13:44 +0300
-Message-Id: <20221110201349.351294-2-dmitry.osipenko@collabora.com>
+Date: Thu, 10 Nov 2022 23:13:46 +0300
+Message-Id: <20221110201349.351294-4-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221110201349.351294-1-dmitry.osipenko@collabora.com>
 References: <20221110201349.351294-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v1 1/6] dma-buf: Move dma_buf_mmap_internal() to
- dynamic locking specification
+Subject: [Intel-gfx] [PATCH v1 3/6] udmabuf: Assert held reservation lock
+ for dma-buf mmapping
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,41 +73,37 @@ Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-All dma-buf functions has been moved to dynamic locking specification
-The dma_buf_mmap_internal() was missed out by accident. Take reservation
-lock around file mapping operation to adhere the common locking convention.
+When userspace mmaps dma-buf's fd, the dma-buf reservation lock must be
+held. Add locking sanity check to the dma-buf mmaping callback to ensure
+that the locking assumption won't regress in the future.
 
-Reported-by: Daniel Vetter <daniel@ffwll.ch>
+Suggested-by: Daniel Vetter <daniel@ffwll.ch>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/dma-buf.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/dma-buf/udmabuf.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 13bfd2d09c56..b809513b03fe 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -129,6 +129,7 @@ static struct file_system_type dma_buf_fs_type = {
- static int dma_buf_mmap_internal(struct file *file, struct vm_area_struct *vma)
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 2bcdb935a3ac..283816fbd72f 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -2,6 +2,7 @@
+ #include <linux/cred.h>
+ #include <linux/device.h>
+ #include <linux/dma-buf.h>
++#include <linux/dma-resv.h>
+ #include <linux/highmem.h>
+ #include <linux/init.h>
+ #include <linux/kernel.h>
+@@ -49,6 +50,8 @@ static int mmap_udmabuf(struct dma_buf *buf, struct vm_area_struct *vma)
  {
- 	struct dma_buf *dmabuf;
-+	int ret;
+ 	struct udmabuf *ubuf = buf->priv;
  
- 	if (!is_dma_buf_file(file))
- 		return -EINVAL;
-@@ -144,7 +145,11 @@ static int dma_buf_mmap_internal(struct file *file, struct vm_area_struct *vma)
- 	    dmabuf->size >> PAGE_SHIFT)
- 		return -EINVAL;
- 
--	return dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	ret = dmabuf->ops->mmap(dmabuf, vma);
-+	dma_resv_unlock(dmabuf->resv);
++	dma_resv_assert_held(buf->resv);
 +
-+	return ret;
- }
+ 	if ((vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) == 0)
+ 		return -EINVAL;
  
- static loff_t dma_buf_llseek(struct file *file, loff_t offset, int whence)
 -- 
 2.37.3
 
