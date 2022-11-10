@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D46CC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 08:22:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2FE0C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 08:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A066C10E67C;
-	Thu, 10 Nov 2022 08:22:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F38EA10E67F;
+	Thu, 10 Nov 2022 08:22:12 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADC2910E67A
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 08:21:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5F2B10E67D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 08:22:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668068519; x=1699604519;
+ t=1668068525; x=1699604525;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=gqsuahEienLDHgFdZ56/ljLL8YrBOpBQ5lS/Kguv8po=;
- b=HxBD6hTxTURghLamaKGfy0ZMSou8ix1J56IqJbOCZe8VKNoR2jhkuvDJ
- 1v04zrBO+1QI9lNhtM9jeZozb53GkKRWVtXvCdlD/kucw+FS/LmlTzuAW
- Qm2qAjwLHYELbkXSGrEI7Y2RSnSsBkj8IMvYmbtn48+nQzqUG5+KHLrTp
- DWmUCiFsxmxYeXAEfwKNqtdjXftBplSTCIU1Cp04ZXeBUs6p6Yi0S2/o/
- ErVVq8TxaMUlo4i1Wzf2F9UGIOThbsrWia0wKShqWO0f8IUHylWwhGPMM
- AqktG1HowmAmGVNbhmbbKb3lGYmnZfyrNVycu5lbNaWFIeDo91CFVzkqo A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="291647253"
-X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="291647253"
+ bh=LPfeD6CMbiQSGts/grswEn6eIGwOcbBGfB2f+//QqzU=;
+ b=BYo2X4+cPLohnpJedQDVmezdCROuYMn3+NiatWkUz1szReOSe3wWbWxQ
+ jIARzUx6oaPcEzrARmhVmnh0DgMguMHkbiLHBLa1P3KDaEiRq7eOsohfH
+ bs1fzFR26RJA2myEx3RLL+LmbkHExy8fH5NhaNpKn7q1YZrb2ebKhbyTl
+ xL3V5zUFByLXNYdZhyet5dXR9oM4WkFDsJ7RjWTGI6orBK3TnIw09HUJJ
+ wOhNIO6u222NL0zuANyC+2yabLRZnsaIOramaoems0+I5R3FhJAQJbkrY
+ mWgtYvLJ+Okqj1YslkOPF6gCdXhupN1x2d3QOUeniaXKyghpuC/MRhzhJ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="291647267"
+X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="291647267"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 00:21:59 -0800
+ 10 Nov 2022 00:22:05 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="637085726"
-X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="637085726"
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="637085743"
+X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="637085743"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga002.jf.intel.com with SMTP; 10 Nov 2022 00:21:57 -0800
+ by orsmga002.jf.intel.com with SMTP; 10 Nov 2022 00:22:03 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 10 Nov 2022 10:21:56 +0200
+ Thu, 10 Nov 2022 10:22:02 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Nov 2022 10:21:30 +0200
-Message-Id: <20221110082144.19666-5-ville.syrjala@linux.intel.com>
+Date: Thu, 10 Nov 2022 10:21:32 +0200
+Message-Id: <20221110082144.19666-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221110082144.19666-1-ville.syrjala@linux.intel.com>
 References: <20221110082144.19666-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 04/18] drm/i915: Clean up chv CGM (de)gamma
- defines
+Subject: [Intel-gfx] [PATCH v2 06/18] drm/i915: Fix adl+ degamma LUT size
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,95 +64,29 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Add the missing ldw vs. udw information to the CGM (de)gamma
-bit definitions to make it a bit easier to see which should
-be used where.
-
-Also use the these appropriately in the LUT entry pack/unpack
-functions.
+The degamma LUT is interpolated so we need the 128th (==1.0)
+entry to represent the full < 1.0 input range. Only the 129th
+and 130th entries are strictly for the >=1.0 extended range
+inputs.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 18 +++++++++---------
- drivers/gpu/drm/i915/i915_reg.h            | 16 ++++++++++------
- 2 files changed, 19 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/i915_pci.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 758869971e45..8e92eb61abac 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -1077,13 +1077,13 @@ static void icl_load_luts(const struct intel_crtc_state *crtc_state)
- 
- static u32 chv_cgm_degamma_ldw(const struct drm_color_lut *color)
- {
--	return drm_color_lut_extract(color->green, 14) << 16 |
--		drm_color_lut_extract(color->blue, 14);
-+	return REG_FIELD_PREP(CGM_PIPE_DEGAMMA_GREEN_LDW_MASK, drm_color_lut_extract(color->green, 14)) |
-+		REG_FIELD_PREP(CGM_PIPE_DEGAMMA_BLUE_LDW_MASK, drm_color_lut_extract(color->blue, 14));
- }
- 
- static u32 chv_cgm_degamma_udw(const struct drm_color_lut *color)
- {
--	return drm_color_lut_extract(color->red, 14);
-+	return REG_FIELD_PREP(CGM_PIPE_DEGAMMA_RED_UDW_MASK, drm_color_lut_extract(color->red, 14));
- }
- 
- static void chv_load_cgm_degamma(struct intel_crtc *crtc,
-@@ -1104,20 +1104,20 @@ static void chv_load_cgm_degamma(struct intel_crtc *crtc,
- 
- static u32 chv_cgm_gamma_ldw(const struct drm_color_lut *color)
- {
--	return drm_color_lut_extract(color->green, 10) << 16 |
--		drm_color_lut_extract(color->blue, 10);
-+	return REG_FIELD_PREP(CGM_PIPE_GAMMA_GREEN_LDW_MASK, drm_color_lut_extract(color->green, 10)) |
-+		REG_FIELD_PREP(CGM_PIPE_GAMMA_BLUE_LDW_MASK, drm_color_lut_extract(color->blue, 10));
- }
- 
- static u32 chv_cgm_gamma_udw(const struct drm_color_lut *color)
- {
--	return drm_color_lut_extract(color->red, 10);
-+	return REG_FIELD_PREP(CGM_PIPE_GAMMA_RED_UDW_MASK, drm_color_lut_extract(color->red, 10));
- }
- 
- static void chv_cgm_gamma_pack(struct drm_color_lut *entry, u32 ldw, u32 udw)
- {
--	entry->green = intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_GREEN_MASK, ldw), 10);
--	entry->blue = intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_BLUE_MASK, ldw), 10);
--	entry->red = intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_RED_MASK, udw), 10);
-+	entry->green = intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_GREEN_LDW_MASK, ldw), 10);
-+	entry->blue = intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_BLUE_LDW_MASK, ldw), 10);
-+	entry->red = intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_RED_UDW_MASK, udw), 10);
- }
- 
- static void chv_load_cgm_gamma(struct intel_crtc *crtc,
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index ecb34f133980..f4c08509e629 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7725,13 +7725,17 @@ enum skl_power_gate {
- #define _CGM_PIPE_A_CSC_COEFF67	(VLV_DISPLAY_BASE + 0x6790C)
- #define _CGM_PIPE_A_CSC_COEFF8	(VLV_DISPLAY_BASE + 0x67910)
- #define _CGM_PIPE_A_DEGAMMA	(VLV_DISPLAY_BASE + 0x66000)
--#define   CGM_PIPE_DEGAMMA_RED_MASK	REG_GENMASK(13, 0)
--#define   CGM_PIPE_DEGAMMA_GREEN_MASK	REG_GENMASK(29, 16)
--#define   CGM_PIPE_DEGAMMA_BLUE_MASK	REG_GENMASK(13, 0)
-+/* cgm degamma ldw */
-+#define   CGM_PIPE_DEGAMMA_GREEN_LDW_MASK	REG_GENMASK(29, 16)
-+#define   CGM_PIPE_DEGAMMA_BLUE_LDW_MASK	REG_GENMASK(13, 0)
-+/* cgm degamma udw */
-+#define   CGM_PIPE_DEGAMMA_RED_UDW_MASK		REG_GENMASK(13, 0)
- #define _CGM_PIPE_A_GAMMA	(VLV_DISPLAY_BASE + 0x67000)
--#define   CGM_PIPE_GAMMA_RED_MASK	REG_GENMASK(9, 0)
--#define   CGM_PIPE_GAMMA_GREEN_MASK	REG_GENMASK(25, 16)
--#define   CGM_PIPE_GAMMA_BLUE_MASK	REG_GENMASK(9, 0)
-+/* cgm gamma ldw */
-+#define   CGM_PIPE_GAMMA_GREEN_LDW_MASK		REG_GENMASK(25, 16)
-+#define   CGM_PIPE_GAMMA_BLUE_LDW_MASK		REG_GENMASK(9, 0)
-+/* cgm gamma udw */
-+#define   CGM_PIPE_GAMMA_RED_UDW_MASK		REG_GENMASK(9, 0)
- #define _CGM_PIPE_A_MODE	(VLV_DISPLAY_BASE + 0x67A00)
- #define   CGM_PIPE_MODE_GAMMA	(1 << 2)
- #define   CGM_PIPE_MODE_CSC	(1 << 1)
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 211913be40ce..c50841e36c61 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -948,7 +948,7 @@ static const struct intel_device_info adl_s_info = {
+ #define XE_LPD_FEATURES \
+ 	.display.abox_mask = GENMASK(1, 0),					\
+ 	.display.color = {							\
+-		.degamma_lut_size = 128, .gamma_lut_size = 1024,		\
++		.degamma_lut_size = 129, .gamma_lut_size = 1024,		\
+ 		.degamma_lut_tests = DRM_COLOR_LUT_NON_DECREASING |		\
+ 				     DRM_COLOR_LUT_EQUAL_CHANNELS,		\
+ 	},									\
 -- 
 2.37.4
 
