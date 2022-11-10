@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8191EC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 11:08:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82728C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 11:09:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 083A110E6DB;
-	Thu, 10 Nov 2022 11:07:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B025E10E6EA;
+	Thu, 10 Nov 2022 11:07:48 +0000 (UTC)
 Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
  [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE8210E6CE;
- Thu, 10 Nov 2022 11:07:28 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id ADBE05802EE;
- Thu, 10 Nov 2022 06:07:27 -0500 (EST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE8EB10E6E0;
+ Thu, 10 Nov 2022 11:07:37 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 2B777580305;
+ Thu, 10 Nov 2022 06:07:37 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Thu, 10 Nov 2022 06:07:27 -0500
+ by compute1.internal (MEProxy); Thu, 10 Nov 2022 06:07:37 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; t=1668078447; x=
- 1668085647; bh=iQmqrLOmKwWmEVSmcqvhhVIkcN6O1VXNzVSjdauH6nI=; b=O
- Yi7MezSNAfnfjfdGHH6mVcPiaie5dSg3u+PIYmnyKlavDXum0OhMJ2a8M6UpS3UU
- yjxJ2mAoyOggmpKxj1HyV4enQAvoCcyTj2gBZXrI5sBg/TkEjgOk0VpdBEbslMxF
- SiPxHG/Xt1McN25oKvXByPYnMOjBXmF2NQzgMp05RaNJRv3XHpOmEBITTek3ajz6
- VabVQNP3QaOTS3tYZzOjxxTjzpfniVHE+bP9+ZcbWDFMOSepD03QQRdQmGWX/v6b
- gF9IhUZDyV+K0eY4lKX4UUL8CmhO9e6NdIYca74Kn4IcmgSyijKhRQnYlCbDHyE4
- L214DDhJR/qDpzlYrbErw==
+ :reply-to:sender:subject:subject:to:to; s=fm2; t=1668078457; x=
+ 1668085657; bh=I9h0WGDEgvQvPKNY7aY+X/bcnurAusGAi85fmyhOKCA=; b=R
+ m1BAUzuxYK1HngO/fCvD6H8kWzcN7MLdN1TKcNFqSiR6xQpT450k3cUlA/T6FEWO
+ RzYeKn2TTZl+HxozhkdpNJga/vUYfrQeF628jpVfhuAiPYYq4J0bQi+hj3X+a3bQ
+ L9STcI6EQu0sP3qyGBcBBWlk4u5F7RCAUJzS2VZhMw6XJuSRNryzctdTH3ki6T0m
+ WVILPx6S8qbvuxdURuOSx7C1eRtN52JxXx0sLAmlYayow+p2t1cbVUX8UFI4s6M/
+ 0SEX4ejNo+TJl4IMu40mWD9mJu8AB7YTL/r2VMX2Yq6ERDeQjdSGApq//iz24hVd
+ siCWjhSbe9ohZWM1uqeow==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668078447; x=
- 1668085647; bh=iQmqrLOmKwWmEVSmcqvhhVIkcN6O1VXNzVSjdauH6nI=; b=b
- sjwpmaQwOuqhgVszCnVn4YHDX5I2Riv2SKohNLApCErRmo6T6Y+g1T/SFL/R6RUr
- v/FkfeSIj1pcU8W3lrMYq0d0u6kyF1jg2bU96PvqcHW0gAEGCnV18RDsuRXlALH3
- S4BJR7br6bwVPCrBSG6PKQ7E+nNacwkzTDEqWXkUs3dRHEGummAHbjxF9j4lka6e
- 2WWv29dUvlt1hJZLzt9BWlPBCTHHv11LXS7qF3VW2d2gsg5N+oc2ZHZpxD+rUjFl
- AEc8dtNFxH3gR1XvYCbh2+hCiZE5tiEWIpwlrLdc1qm/osDDt1GzYAwgkAkZLrDi
- yFkn92aluEAcc9kFm0B+w==
-X-ME-Sender: <xms:b9tsY8FZo1nGa1YUUvFm7GG59y3s0OKI15YdSqWT7PHgGyH_-RHa5w>
- <xme:b9tsY1W5ElGbTwWtjyh0RcD7RnqfdYrGIEFNPvL7dZkjpqwxgzOHOSyUw9oGS4SUz
- 82PqKJywcpRfA7H6fY>
-X-ME-Received: <xmr:b9tsY2KfN9_CBdbnZ9-bCVG3A00Vav9xBwuWbTCK1d0PM253mcnK7nClaUXBPLTN_a365OCg1Tb1Ho8T-jTsmRNqCWV88hAALGmN5NGvc5ydQQ>
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668078457; x=
+ 1668085657; bh=I9h0WGDEgvQvPKNY7aY+X/bcnurAusGAi85fmyhOKCA=; b=S
+ sUxXhwAVLdAFYxp3MXpSdLdle8/RWpNP2MblFmiQX9nF9Ec3hc2UjouRcH40vIP+
+ PuKLyOjkzXrQ+mdgPKYiBNPdV5NdCOIulcubxKphggLfhaWCOw0DFcQ01vDA45LJ
+ 68okWzwOjFd0rVt8YtuKsgS3PrAxUHkfeNIefcncfrg0DEUEpL4Uwkp+A+MN9oYn
+ y4ZJkUmUOzspl2GkIMep21Pvqe2aVXBomR8B31k1CKlM+QXIVPJvmveiaZKLegKt
+ gXJPcwdSw1vF0Cl9s0q6oMRlwkWc/vXXFQcqnzM4L0gqfGTwtYoT+sJyXBnOatCY
+ boqjXHmowm5ajilrkFODg==
+X-ME-Sender: <xms:edtsYxJOMJmYdJKrb5pXiYjqJw0fjHWgtCfhzacR0InbvQ1InbXKNg>
+ <xme:edtsY9KFQ3z9_QRkphR0-r5dBr3heK4imivT_BIUzCNRFiR_tO2104B1QHulw41PC
+ RZSFBXarPIV_rpPKmw>
+X-ME-Received: <xmr:edtsY5v-8gNtILfjujy_h6KHxHfXYd71FZeYxRBW8jGkCoaJdW3N2jsQsDM6jMWwJJOgm3-vJWbDPSqYtWwdY4eSNeJOjRKUTZN8BwUYZ4A5Pw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggddvhecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
@@ -54,19 +54,19 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggddvhecutefuodetggdote
  htthgvrhhnpedvgfevjefhtdetveevhfelieeuueetgfdvgeevkeegudejffegfffgtedt
  leelhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
  hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:b9tsY-FUHDOuV7jEAtssa1LzbCx-ZAkIycMm-F9R7E4JP4BygOGNYw>
- <xmx:b9tsYyUOAtFdD4Y6JKiaoUTmyhN-n3yGfUspJORQZf2mAWo7fqRBaw>
- <xmx:b9tsYxPgl3fcqN1WE1U5mQcGtj3hgQbh-PZjKM_lsGIsR60InfIDfA>
- <xmx:b9tsY0iH8e9NAulZM-ArMaUN-_ValTuD83G1ew9VzFt2iG4QsRItrA>
+X-ME-Proxy: <xmx:edtsYyYW_WSvx-K0jrPwOCIUdTsNWm2JbHxBPAZ9mqvyI7fDcWiK4A>
+ <xmx:edtsY4ZW9PxL8ell23d3MsWJmWzMIGGLHeq1s4zXnIOri5E5N0jFLw>
+ <xmx:edtsY2DXM7IZs0h5OB3BtVa5pWJHLXcRChAc_43YIu_ateWO44iJNA>
+ <xmx:edtsY5GZ2m0sHbv6VXNxUQIMw5jzwsCTqvzJT549BMY-x2j6vMBcAw>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Nov 2022 06:07:26 -0500 (EST)
+ 10 Nov 2022 06:07:36 -0500 (EST)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Thu, 10 Nov 2022 12:07:16 +0100
+Date: Thu, 10 Nov 2022 12:07:21 +0100
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20220728-rpi-analog-tv-properties-v8-4-09ce1466967c@cerno.tech>
+Message-Id: <20220728-rpi-analog-tv-properties-v8-9-09ce1466967c@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v8-0-09ce1466967c@cerno.tech>
 In-Reply-To: <20220728-rpi-analog-tv-properties-v8-0-09ce1466967c@cerno.tech>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -81,15 +81,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>
 X-Mailer: b4 0.11.0-dev-99e3a
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7326; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=0qb2fv3Z6An+9q+7ApB0CGaBB/c0O4A8I0iLwHOK03Q=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk5t1Os59crrbFtmRXbJ+DRVPtzlt91xnRDRe6u82JMsb5b
- v4p1lLIwiHExyIopssQImy+JOzXrdScb3zyYOaxMIEMYuDgFYCKS6Qz/DL6ul9hoY2GTtvzEJZbkWp
- Ebiw1c/91yZIvp8lT0+r3pByPDVpFrjRt3KTExqn1V4pEWPsvianhU97is09u4L1f/uEtwAwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1924; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=w9lKNNto+j9b2STH/OZ0qo6XjNHI6R3fCJ+Pp5+TrKM=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk5t1OyZxXL/Lrlq/+vpdXks+uq07urNmTc+PBKuCs/V0G7
+ naeyo4SFQYyLQVZMkSVG2HxJ3KlZrzvZ+ObBzGFlAhnCwMUpABPhuMTI8PF4L9Pui892lx/arClrmy
+ Clxb/hFEuT2AK2FPNZqR7Byxl+rDJaPd9ussQW37S0FV4n274df8Cr9HBW5fav5cITnfJZAA==
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
-Subject: [Intel-gfx] [PATCH v8 04/24] drm/connector: Rename
- drm_mode_create_tv_properties
+Subject: [Intel-gfx] [PATCH v8 09/24] drm/modes: Switch to named mode
+ descriptors
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,166 +106,64 @@ Cc: Dom Cobley <dom@raspberrypi.com>, Dave Stevenson <dave.stevenson@raspberrypi
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm_mode_create_tv_properties(), among other things, will create the
-"mode" property that stores the analog TV mode that connector is
-supposed to output.
+The current named mode parsing relies only on the mode name, and doesn't
+allow to specify any other parameter.
 
-However, that property is getting deprecated, so let's rename that
-function to mention it's deprecated. We'll introduce a new variant of
-that function creating the property superseeding it in a later patch.
+Let's convert that string list to an array of a custom structure that will
+hold the name and some additional parameters in the future.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com> # nouveau
 Reviewed-by: Noralf Trønnes <noralf@tronnes.org>
 Tested-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
----
- drivers/gpu/drm/drm_connector.c           | 12 ++++++------
- drivers/gpu/drm/gud/gud_connector.c       |  4 ++--
- drivers/gpu/drm/i2c/ch7006_drv.c          |  2 +-
- drivers/gpu/drm/i915/display/intel_tv.c   |  2 +-
- drivers/gpu/drm/nouveau/dispnv04/tvnv17.c |  2 +-
- drivers/gpu/drm/vc4/vc4_vec.c             |  5 +++--
- include/drm/drm_connector.h               |  6 +++---
- 7 files changed, 17 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 78fcffae100b..06e737ed15f5 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1604,7 +1604,7 @@ EXPORT_SYMBOL(drm_connector_attach_tv_margin_properties);
-  * Called by a driver's HDMI connector initialization routine, this function
-  * creates the TV margin properties for a given device. No need to call this
-  * function for an SDTV connector, it's already called from
-- * drm_mode_create_tv_properties().
-+ * drm_mode_create_tv_properties_legacy().
-  *
-  * Returns:
-  * 0 on success or a negative error code on failure.
-@@ -1639,7 +1639,7 @@ int drm_mode_create_tv_margin_properties(struct drm_device *dev)
- EXPORT_SYMBOL(drm_mode_create_tv_margin_properties);
- 
- /**
-- * drm_mode_create_tv_properties - create TV specific connector properties
-+ * drm_mode_create_tv_properties_legacy - create TV specific connector properties
-  * @dev: DRM device
-  * @num_modes: number of different TV formats (modes) supported
-  * @modes: array of pointers to strings containing name of each format
-@@ -1652,9 +1652,9 @@ EXPORT_SYMBOL(drm_mode_create_tv_margin_properties);
-  * Returns:
-  * 0 on success or a negative error code on failure.
-  */
--int drm_mode_create_tv_properties(struct drm_device *dev,
--				  unsigned int num_modes,
--				  const char * const modes[])
-+int drm_mode_create_tv_properties_legacy(struct drm_device *dev,
-+					 unsigned int num_modes,
-+					 const char * const modes[])
- {
- 	struct drm_property *tv_selector;
- 	struct drm_property *tv_subconnector;
-@@ -1737,7 +1737,7 @@ int drm_mode_create_tv_properties(struct drm_device *dev,
- nomem:
- 	return -ENOMEM;
+---
+Changes in v7:
+- Fix typo in the commit log
+- Add Noralf Reviewed-by
+---
+ drivers/gpu/drm/drm_modes.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+index 37542612912b..7594b657f86a 100644
+--- a/drivers/gpu/drm/drm_modes.c
++++ b/drivers/gpu/drm/drm_modes.c
+@@ -2224,9 +2224,13 @@ static int drm_mode_parse_cmdline_options(const char *str,
+ 	return 0;
  }
--EXPORT_SYMBOL(drm_mode_create_tv_properties);
-+EXPORT_SYMBOL(drm_mode_create_tv_properties_legacy);
  
- /**
-  * drm_mode_create_scaling_mode_property - create scaling mode property
-diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gud_connector.c
-index 86e992b2108b..034e78360d4f 100644
---- a/drivers/gpu/drm/gud/gud_connector.c
-+++ b/drivers/gpu/drm/gud/gud_connector.c
-@@ -400,7 +400,7 @@ static int gud_connector_add_tv_mode(struct gud_device *gdrm, struct drm_connect
- 	for (i = 0; i < num_modes; i++)
- 		modes[i] = &buf[i * GUD_CONNECTOR_TV_MODE_NAME_LEN];
+-static const char * const drm_named_modes_whitelist[] = {
+-	"NTSC",
+-	"PAL",
++struct drm_named_mode {
++	const char *name;
++};
++
++static const struct drm_named_mode drm_named_modes[] = {
++	{ "NTSC", },
++	{ "PAL", },
+ };
  
--	ret = drm_mode_create_tv_properties(connector->dev, num_modes, modes);
-+	ret = drm_mode_create_tv_properties_legacy(connector->dev, num_modes, modes);
- free:
- 	kfree(buf);
- 	if (ret < 0)
-@@ -539,7 +539,7 @@ static int gud_connector_add_properties(struct gud_device *gdrm, struct gud_conn
- 			fallthrough;
- 		case GUD_PROPERTY_TV_HUE:
- 			/* This is a no-op if already added. */
--			ret = drm_mode_create_tv_properties(drm, 0, NULL);
-+			ret = drm_mode_create_tv_properties_legacy(drm, 0, NULL);
- 			if (ret)
- 				goto out;
- 			break;
-diff --git a/drivers/gpu/drm/i2c/ch7006_drv.c b/drivers/gpu/drm/i2c/ch7006_drv.c
-index ef69f9bdeace..b63bad04b09d 100644
---- a/drivers/gpu/drm/i2c/ch7006_drv.c
-+++ b/drivers/gpu/drm/i2c/ch7006_drv.c
-@@ -250,7 +250,7 @@ static int ch7006_encoder_create_resources(struct drm_encoder *encoder,
- 	struct drm_device *dev = encoder->dev;
- 	struct drm_mode_config *conf = &dev->mode_config;
+ static int drm_mode_parse_cmdline_named_mode(const char *name,
+@@ -2258,14 +2262,15 @@ static int drm_mode_parse_cmdline_named_mode(const char *name,
+ 	 * We're sure we're a named mode at this point, iterate over the
+ 	 * list of modes we're aware of.
+ 	 */
+-	for (i = 0; i < ARRAY_SIZE(drm_named_modes_whitelist); i++) {
++	for (i = 0; i < ARRAY_SIZE(drm_named_modes); i++) {
++		const struct drm_named_mode *mode = &drm_named_modes[i];
+ 		int ret;
  
--	drm_mode_create_tv_properties(dev, NUM_TV_NORMS, ch7006_tv_norm_names);
-+	drm_mode_create_tv_properties_legacy(dev, NUM_TV_NORMS, ch7006_tv_norm_names);
+-		ret = str_has_prefix(name, drm_named_modes_whitelist[i]);
++		ret = str_has_prefix(name, mode->name);
+ 		if (ret != name_end)
+ 			continue;
  
- 	priv->scale_property = drm_property_create_range(dev, 0, "scale", 0, 2);
- 	if (!priv->scale_property)
-diff --git a/drivers/gpu/drm/i915/display/intel_tv.c b/drivers/gpu/drm/i915/display/intel_tv.c
-index 95b021da5a11..0affbc80ba89 100644
---- a/drivers/gpu/drm/i915/display/intel_tv.c
-+++ b/drivers/gpu/drm/i915/display/intel_tv.c
-@@ -1903,7 +1903,7 @@ static void intel_tv_add_properties(struct drm_connector *connector)
+-		strcpy(cmdline_mode->name, drm_named_modes_whitelist[i]);
++		strcpy(cmdline_mode->name, mode->name);
+ 		cmdline_mode->specified = true;
  
- 		tv_format_names[i] = tv_modes[i].name;
- 	}
--	drm_mode_create_tv_properties(&i915->drm, i, tv_format_names);
-+	drm_mode_create_tv_properties_legacy(&i915->drm, i, tv_format_names);
- 
- 	drm_object_attach_property(&connector->base,
- 				   i915->drm.mode_config.legacy_tv_mode_property,
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c b/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-index 1a15534adc60..e5480dab55e3 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-@@ -653,7 +653,7 @@ static int nv17_tv_create_resources(struct drm_encoder *encoder,
- 			tv_enc->tv_norm = i;
- 	}
- 
--	drm_mode_create_tv_properties(dev, num_tv_norms, nv17_tv_norm_names);
-+	drm_mode_create_tv_properties_legacy(dev, num_tv_norms, nv17_tv_norm_names);
- 
- 	drm_object_attach_property(&connector->base,
- 					conf->tv_select_subconnector_property,
-diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
-index e6043cf5d40e..adc9bf99e3fd 100644
---- a/drivers/gpu/drm/vc4/vc4_vec.c
-+++ b/drivers/gpu/drm/vc4/vc4_vec.c
-@@ -514,8 +514,9 @@ static int vc4_vec_bind(struct device *dev, struct device *master, void *data)
- 	struct vc4_vec *vec;
- 	int ret;
- 
--	ret = drm_mode_create_tv_properties(drm, ARRAY_SIZE(tv_mode_names),
--					    tv_mode_names);
-+	ret = drm_mode_create_tv_properties_legacy(drm,
-+						   ARRAY_SIZE(tv_mode_names),
-+						   tv_mode_names);
- 	if (ret)
- 		return ret;
- 
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index f18c2ba113d7..5913b8415137 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1807,9 +1807,9 @@ int drm_mode_create_dvi_i_properties(struct drm_device *dev);
- void drm_connector_attach_dp_subconnector_property(struct drm_connector *connector);
- 
- int drm_mode_create_tv_margin_properties(struct drm_device *dev);
--int drm_mode_create_tv_properties(struct drm_device *dev,
--				  unsigned int num_modes,
--				  const char * const modes[]);
-+int drm_mode_create_tv_properties_legacy(struct drm_device *dev,
-+					 unsigned int num_modes,
-+					 const char * const modes[]);
- void drm_connector_attach_tv_margin_properties(struct drm_connector *conn);
- int drm_mode_create_scaling_mode_property(struct drm_device *dev);
- int drm_connector_attach_content_type_property(struct drm_connector *dev);
+ 		return 1;
 
 -- 
 b4 0.11.0-dev-99e3a
