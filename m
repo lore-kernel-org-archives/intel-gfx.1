@@ -4,91 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 871F5C433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 11:09:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3D0BC4167B
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 11:09:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BE7A10E6EB;
-	Thu, 10 Nov 2022 11:07:52 +0000 (UTC)
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 426A510E6D4;
- Thu, 10 Nov 2022 11:07:30 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id A4DDB5802F7;
- Thu, 10 Nov 2022 06:07:29 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Thu, 10 Nov 2022 06:07:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; t=1668078449; x=
- 1668085649; bh=ZzAaVyh2qK5iSPdGWwZjBe4HDRq1HsOA7KYHrOCWeqw=; b=W
- r0GIGW2IFG1s+oofew1o9KK0ub2Kx71DrTXKAtvqvVJUVtQNIFN4TIQkqOU5aocS
- t2gHyapz0Dyo1+3YmKXU2fZzHl/nXed/oGiQVG1KwWfC83vY1QRfBMBCchd0kNKI
- pEV/hcaF6WHMB00daWAlhtrQmWOmh8uJ5DH0VC1dh5fWyx9vCXKiVdK0EYRcd/wm
- x+WRG3JvCv10AaLIXZysUOqwWhS3XhZieT4jHwKcbyFDkx4O4sTqUpVSovbUPmfE
- F5rMAUTT6W33YprW/Un9bt5e1fQPaxYFsWOxlGfjf3/2Fg/+5iL8hT+Yde6lTlXj
- tqNZnx4ZGNYwaimgxTnKg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668078449; x=
- 1668085649; bh=ZzAaVyh2qK5iSPdGWwZjBe4HDRq1HsOA7KYHrOCWeqw=; b=N
- GGMf8XA8BDLXnkp+LVY+P0cNNmyeeecclXRIosvow4OVQTipXveTV3gsWZVla+Z0
- FpZ1NZcgWCNUZKyVmqZjMyii8SNH2ZPcCffZ7TPzZ04kg4kKVYYe0wpT8bZ9mqve
- QcqDlCXIl9hXBMyQe0vtMGBAup2pjwtewR3NaY3h+1kRLz4ISDolACi8gdaisegX
- rddntzb+HurWAkuvIEoAbXrPkFs/0Ls24zRneqH/Z6gMrY2It700YcQmYRkzJKLk
- le5OD6HWXXS3ItkdBX7y/JCJ2Cd5YB8BOb+gp09QynJCmJBT53AcJjzp8V2DZ5I8
- 2Ts3KOYwjY67MTEUbDjsQ==
-X-ME-Sender: <xms:cdtsY_eUj8N3uhCNQVTgtQYyBvXHBzDiUDSFitScj04OlGffTTxIOQ>
- <xme:cdtsY1NzohHWdo4pRbaGNaIu0Iyj5ErTmGO7Ec5dkkyyKI3sbWdzrdwHCHNzDDb_x
- SgUBaXAFRIrP3aRsM0>
-X-ME-Received: <xmr:cdtsY4gErLf4KgPZhk2d89fK4F2Xlm2UFzb_5KShyURrdH7yCs7GQ8qmPJkDH9xwVwIsxDQNAlStA3wPFIhX54JshiGvHbVK4PQbi8aPxj0Weg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggddvhecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefhfffugggtgffkfhgjvfevofesthekredtredtjeenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeduudduhfevjeetfeegvdffvdevvdejudegudekjeehtdelhfffveethfej
- ledtveenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:cdtsYw-KkyKu_LiykSnFdHg5nsAG-eyZkE7l6SMiv55K5e4OedrOEA>
- <xmx:cdtsY7sG88ruL3eUnu_mRhbrBmlN-JDMnDvX2SwLyZpbKLMj86Pujw>
- <xmx:cdtsY_F70KC4112YdOm-twJNYReyjYtrVxGFuUhu1AWed4UrPoU5lw>
- <xmx:cdtsY86TEhXqBZpsQBF59RHFZJusJfRz6NrAc_uPWw3HzrCPNMS1oA>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Nov 2022 06:07:28 -0500 (EST)
-From: Maxime Ripard <maxime@cerno.tech>
-Date: Thu, 10 Nov 2022 12:07:17 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8B710E6ED;
+	Thu, 10 Nov 2022 11:07:53 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 864A010E6DA;
+ Thu, 10 Nov 2022 11:07:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1668078458; x=1699614458;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=IsNq6/Ft1iTpHnw5oawzIriKRv5do41LbNMZ4pqWXqo=;
+ b=TTvJQeuH8vyswGjWuKRqrSYXIf3zm/hyzorBVe0GUvQq8YTeeyLYPxux
+ td1Fj1ZUycKI6QQIoA9to4sw1v4PkrE47DC4m7ntJB1ONfQk4GrWROrYT
+ XVM5rSa/HBqAjJ6HcxLanHzdwHskHZ9h3IYv5nq3gVdLpc1TSaXuQi6Jv
+ 97A8qx0gokhAxV4ZdxtSsj5wvYcSw4v2pNlRNxFz4No6ZfcrnFQ4sG5LU
+ CIvAipgrAHuA5UmyeISniKr68piENLDvPGXEC5ythq5dNfOUBRFsoeb5J
+ pVvtlNbEV0dQMsBaOH3iFi9zEXuyd1+/i4Lm/dL3Vnh/waZxKqAJnlM9l A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="308905806"
+X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="308905806"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2022 03:07:18 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="615060557"
+X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="615060557"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.23.198])
+ ([10.213.23.198])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2022 03:07:16 -0800
+Message-ID: <6ebca1da-47c4-9ced-c77c-1083ba2e02ed@intel.com>
+Date: Thu, 10 Nov 2022 12:07:14 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Content-Language: en-US
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Intel-gfx@lists.freedesktop.org
+References: <20221108114950.2017869-1-tvrtko.ursulin@linux.intel.com>
+ <20221109104633.2579245-1-tvrtko.ursulin@linux.intel.com>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20221109104633.2579245-1-tvrtko.ursulin@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20220728-rpi-analog-tv-properties-v8-5-09ce1466967c@cerno.tech>
-References: <20220728-rpi-analog-tv-properties-v8-0-09ce1466967c@cerno.tech>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v8-0-09ce1466967c@cerno.tech>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Chen-Yu Tsai <wens@csie.org>, 
- Maxime Ripard <mripard@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Karol Herbst <kherbst@redhat.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- Lyude Paul <lyude@redhat.com>, Samuel Holland <samuel@sholland.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Emma Anholt <emma@anholt.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>
-X-Mailer: b4 0.11.0-dev-99e3a
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12385; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=uC4tAb/Xlexp/tthBP0X/Q7njyvCoqBbwBZ2YycGSt4=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk5t1M23mrscVLISk7j7MzeZNv75L7L45l6l7Q/VL5/yWtW
- cVKno5SFQYyLQVZMkSVG2HxJ3KlZrzvZ+ObBzGFlAhnCwMUpABO5EcXIMJXvyl7BmXkPb8n3XtY7pr
- d1/gLRe7MP+GybeyRC0d4pJI3hf/nGLScjD++siQiMigjtSnH5dGdiwtnL5W8T2Tfbf7wynQsA
-X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
-Subject: [Intel-gfx] [PATCH v8 05/24] drm/connector: Add TV standard property
+Subject: Re: [Intel-gfx] [PATCH v3] drm/i915: Partial abandonment of legacy
+ DRM logging macros
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,368 +65,422 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Phil Elwell <phil@raspberrypi.com>, Hans de Goede <hdegoede@redhat.com>, Noralf Trønnes <noralf@tronnes.org>, Geert Uytterhoeven <geert@linux-m68k.org>, Maxime Ripard <maxime@cerno.tech>, Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>, linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The TV mode property has been around for a while now to select and get the
-current TV mode output on an analog TV connector.
+On 09.11.2022 11:46, Tvrtko Ursulin wrote:
+> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> 
+> Convert some usages of legacy DRM logging macros into versions which tell
+> us on which device have the events occurred.
+> 
+> v2:
+>   * Don't have struct drm_device as local. (Jani, Ville)
+> 
+> v3:
+>   * Store gt, not i915, in workaround list. (John)
 
-Despite that property name being generic, its content isn't and has been
-driver-specific which makes it hard to build any generic behaviour on top
-of it, both in kernel and user-space.
 
-Let's create a new enum tv norm property, that can contain any of the
-analog TV standards currently supported by kernel drivers. Each driver can
-then pass in a bitmask of the modes it supports, and the property
-creation function will filter out the modes not supported.
+Neither gt neither i915 does fit into wa list IMHO.
+The best solution would be provide context (i915/gt/whatever)
+as a function parameter, every time it is necessary.
+On the other side it should not block the patch.
+More below.
 
-We'll then be able to phase out the older tv mode property.
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com> # v2
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Cc: John Harrison <John.C.Harrison@Intel.com>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> ---
+>   drivers/gpu/drm/i915/gem/i915_gem_context.c   |  2 +-
+>   .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 26 ++++++++----
+>   .../drm/i915/gt/intel_execlists_submission.c  | 13 +++---
+>   drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c  |  4 +-
+>   drivers/gpu/drm/i915/gt/intel_gt.c            |  4 +-
+>   drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  8 ++--
+>   drivers/gpu/drm/i915/gt/intel_rps.c           |  6 ++-
+>   drivers/gpu/drm/i915/gt/intel_workarounds.c   | 42 +++++++++++--------
+>   .../gpu/drm/i915/gt/intel_workarounds_types.h |  3 ++
+>   .../gpu/drm/i915/gt/selftest_workarounds.c    |  4 +-
+>   drivers/gpu/drm/i915/i915_debugfs.c           |  4 +-
+>   drivers/gpu/drm/i915/i915_gem.c               |  2 +-
+>   drivers/gpu/drm/i915/i915_getparam.c          |  2 +-
+>   drivers/gpu/drm/i915/i915_irq.c               | 12 +++---
+>   drivers/gpu/drm/i915/i915_perf.c              | 14 ++++---
+>   drivers/gpu/drm/i915/i915_query.c             | 12 +++---
+>   drivers/gpu/drm/i915/i915_sysfs.c             |  3 +-
+>   drivers/gpu/drm/i915/i915_vma.c               | 16 +++----
+>   drivers/gpu/drm/i915/intel_uncore.c           | 21 ++++++----
+>   19 files changed, 117 insertions(+), 81 deletions(-)
+> 
 
-Tested-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
-Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+(...)
 
----
-Changes in v5:
-- Create an analog TV properties documentation section, and document TV
-  Mode there instead of the csv file
+> @@ -1749,7 +1755,7 @@ wa_list_apply(struct intel_gt *gt, const struct i915_wa_list *wal)
+>   				intel_gt_mcr_read_any_fw(gt, wa->mcr_reg) :
+>   				intel_uncore_read_fw(uncore, wa->reg);
+>   
+> -			wa_verify(wa, val, wal->name, "application");
+> +			wa_verify(wal->gt, wa, val, wal->name, "application");
 
-Changes in v4:
-- Add property documentation to kms-properties.csv
-- Fix documentation
----
- Documentation/gpu/drm-kms.rst     |   6 ++
- drivers/gpu/drm/drm_atomic_uapi.c |   4 ++
- drivers/gpu/drm/drm_connector.c   | 122 +++++++++++++++++++++++++++++++++++++-
- include/drm/drm_connector.h       |  64 ++++++++++++++++++++
- include/drm/drm_mode_config.h     |   8 +++
- 5 files changed, 203 insertions(+), 1 deletion(-)
+This looks confusing at 1st sight, why wa_verify(wal->gt,...) and not 
+wa_verify(gt,...). Can they differ? and similar questions as in case of 
+redundant vars.
+The same apply to wal->engine_name, which is almost unused anyway?
+Also AFAIK there is always sequence:
+1. wa_init_start
+2. *init_workarounds*
+3. wa_init_finish - btw funny name.
+Why not 1 and 3 embed in 2? Do we need this sequence.
 
-diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
-index b4377a545425..321f2f582c64 100644
---- a/Documentation/gpu/drm-kms.rst
-+++ b/Documentation/gpu/drm-kms.rst
-@@ -520,6 +520,12 @@ HDMI Specific Connector Properties
- .. kernel-doc:: drivers/gpu/drm/drm_connector.c
-    :doc: HDMI connector properties
- 
-+Analog TV Specific Connector Properties
-+----------------------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/drm_connector.c
-+   :doc: Analog TV Connector Properties
-+
- Standard CRTC Properties
- ------------------------
- 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 7f2b9a07fbdf..d867e7f9f2cd 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -700,6 +700,8 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
- 		state->tv.margins.bottom = val;
- 	} else if (property == config->legacy_tv_mode_property) {
- 		state->tv.legacy_mode = val;
-+	} else if (property == config->tv_mode_property) {
-+		state->tv.mode = val;
- 	} else if (property == config->tv_brightness_property) {
- 		state->tv.brightness = val;
- 	} else if (property == config->tv_contrast_property) {
-@@ -810,6 +812,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
- 		*val = state->tv.margins.bottom;
- 	} else if (property == config->legacy_tv_mode_property) {
- 		*val = state->tv.legacy_mode;
-+	} else if (property == config->tv_mode_property) {
-+		*val = state->tv.mode;
- 	} else if (property == config->tv_brightness_property) {
- 		*val = state->tv.brightness;
- 	} else if (property == config->tv_contrast_property) {
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 06e737ed15f5..07d449736956 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -984,6 +984,17 @@ static const struct drm_prop_enum_list drm_dvi_i_subconnector_enum_list[] = {
- DRM_ENUM_NAME_FN(drm_get_dvi_i_subconnector_name,
- 		 drm_dvi_i_subconnector_enum_list)
- 
-+static const struct drm_prop_enum_list drm_tv_mode_enum_list[] = {
-+	{ DRM_MODE_TV_MODE_NTSC, "NTSC" },
-+	{ DRM_MODE_TV_MODE_NTSC_443, "NTSC-443" },
-+	{ DRM_MODE_TV_MODE_NTSC_J, "NTSC-J" },
-+	{ DRM_MODE_TV_MODE_PAL, "PAL" },
-+	{ DRM_MODE_TV_MODE_PAL_M, "PAL-M" },
-+	{ DRM_MODE_TV_MODE_PAL_N, "PAL-N" },
-+	{ DRM_MODE_TV_MODE_SECAM, "SECAM" },
-+};
-+DRM_ENUM_NAME_FN(drm_get_tv_mode_name, drm_tv_mode_enum_list)
-+
- static const struct drm_prop_enum_list drm_tv_select_enum_list[] = {
- 	{ DRM_MODE_SUBCONNECTOR_Automatic, "Automatic" }, /* DVI-I and TV-out */
- 	{ DRM_MODE_SUBCONNECTOR_Composite, "Composite" }, /* TV-out */
-@@ -1552,6 +1563,71 @@ EXPORT_SYMBOL(drm_connector_attach_dp_subconnector_property);
-  *	infoframe values is done through drm_hdmi_avi_infoframe_content_type().
-  */
- 
-+/*
-+ * TODO: Document the properties:
-+ *   - left margin
-+ *   - right margin
-+ *   - top margin
-+ *   - bottom margin
-+ *   - brightness
-+ *   - contrast
-+ *   - flicker reduction
-+ *   - hue
-+ *   - mode
-+ *   - overscan
-+ *   - saturation
-+ *   - select subconnector
-+ *   - subconnector
-+ */
-+/**
-+ * DOC: Analog TV Connector Properties
-+ *
-+ * TV Mode:
-+ *	Indicates the TV Mode used on an analog TV connector. The value
-+ *	of this property can be one of the following:
-+ *
-+ *	NTSC:
-+ *		TV Mode is CCIR System M (aka 525-lines) together with
-+ *		the NTSC Color Encoding.
-+ *
-+ *	NTSC-443:
-+ *
-+ *		TV Mode is CCIR System M (aka 525-lines) together with
-+ *		the NTSC Color Encoding, but with a color subcarrier
-+ *		frequency of 4.43MHz
-+ *
-+ *	NTSC-J:
-+ *
-+ *		TV Mode is CCIR System M (aka 525-lines) together with
-+ *		the NTSC Color Encoding, but with a black level equal to
-+ *		the blanking level.
-+ *
-+ *	PAL:
-+ *
-+ *		TV Mode is CCIR System B (aka 625-lines) together with
-+ *		the PAL Color Encoding.
-+ *
-+ *	PAL-M:
-+ *
-+ *		TV Mode is CCIR System M (aka 525-lines) together with
-+ *		the PAL Color Encoding.
-+ *
-+ *	PAL-N:
-+ *
-+ *		TV Mode is CCIR System N together with the PAL Color
-+ *		Encoding, a color subcarrier frequency of 3.58MHz, the
-+ *		SECAM color space, and narrower channels than other PAL
-+ *		variants.
-+ *
-+ *	SECAM:
-+ *
-+ *		TV Mode is CCIR System B (aka 625-lines) together with
-+ *		the SECAM Color Encoding.
-+ *
-+ *	Drivers can set up this property by calling
-+ *	drm_mode_create_tv_properties().
-+ */
-+
- /**
-  * drm_connector_attach_content_type_property - attach content-type property
-  * @connector: connector to attach content type property on.
-@@ -1649,6 +1725,10 @@ EXPORT_SYMBOL(drm_mode_create_tv_margin_properties);
-  * responsible for allocating a list of format names and passing them to
-  * this routine.
-  *
-+ * NOTE: This functions registers the deprecated "mode" connector
-+ * property to select the analog TV mode (ie, NTSC, PAL, etc.). New
-+ * drivers must use drm_mode_create_tv_properties() instead.
-+ *
-  * Returns:
-  * 0 on success or a negative error code on failure.
-  */
-@@ -1690,7 +1770,6 @@ int drm_mode_create_tv_properties_legacy(struct drm_device *dev,
- 	if (drm_mode_create_tv_margin_properties(dev))
- 		goto nomem;
- 
--
- 	if (num_modes) {
- 		dev->mode_config.legacy_tv_mode_property =
- 			drm_property_create(dev, DRM_MODE_PROP_ENUM,
-@@ -1739,6 +1818,47 @@ int drm_mode_create_tv_properties_legacy(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drm_mode_create_tv_properties_legacy);
- 
-+/**
-+ * drm_mode_create_tv_properties - create TV specific connector properties
-+ * @dev: DRM device
-+ * @supported_tv_modes: Bitmask of TV modes supported (See DRM_MODE_TV_MODE_*)
-+
-+ * Called by a driver's TV initialization routine, this function creates
-+ * the TV specific connector properties for a given device.
-+ *
-+ * Returns:
-+ * 0 on success or a negative error code on failure.
-+ */
-+int drm_mode_create_tv_properties(struct drm_device *dev,
-+				  unsigned int supported_tv_modes)
-+{
-+	struct drm_prop_enum_list tv_mode_list[DRM_MODE_TV_MODE_MAX];
-+	struct drm_property *tv_mode;
-+	unsigned int i, len = 0;
-+
-+	if (dev->mode_config.tv_mode_property)
-+		return 0;
-+
-+	for (i = 0; i < DRM_MODE_TV_MODE_MAX; i++) {
-+		if (!(supported_tv_modes & BIT(i)))
-+			continue;
-+
-+		tv_mode_list[len].type = i;
-+		tv_mode_list[len].name = drm_get_tv_mode_name(i);
-+		len++;
-+	}
-+
-+	tv_mode = drm_property_create_enum(dev, 0, "TV mode",
-+					   tv_mode_list, len);
-+	if (!tv_mode)
-+		return -ENOMEM;
-+
-+	dev->mode_config.tv_mode_property = tv_mode;
-+
-+	return drm_mode_create_tv_properties_legacy(dev, 0, NULL);
-+}
-+EXPORT_SYMBOL(drm_mode_create_tv_properties);
-+
- /**
-  * drm_mode_create_scaling_mode_property - create scaling mode property
-  * @dev: DRM device
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 5913b8415137..9afc7956fdc6 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -143,6 +143,65 @@ enum subpixel_order {
- 
- };
- 
-+/**
-+ * enum drm_connector_tv_mode - Analog TV output mode
-+ *
-+ * This enum is used to indicate the TV output mode used on an analog TV
-+ * connector.
-+ *
-+ * WARNING: The values of this enum is uABI since they're exposed in the
-+ * "TV mode" connector property.
-+ */
-+enum drm_connector_tv_mode {
-+	/**
-+	 * @DRM_MODE_TV_MODE_NTSC: CCIR System M (aka 525-lines)
-+	 * together with the NTSC Color Encoding.
-+	 */
-+	DRM_MODE_TV_MODE_NTSC,
-+
-+	/**
-+	 * @DRM_MODE_TV_MODE_NTSC_443: Variant of
-+	 * @DRM_MODE_TV_MODE_NTSC. Uses a color subcarrier frequency
-+	 * of 4.43 MHz.
-+	 */
-+	DRM_MODE_TV_MODE_NTSC_443,
-+
-+	/**
-+	 * @DRM_MODE_TV_MODE_NTSC_J: Variant of @DRM_MODE_TV_MODE_NTSC
-+	 * used in Japan. Uses a black level equals to the blanking
-+	 * level.
-+	 */
-+	DRM_MODE_TV_MODE_NTSC_J,
-+
-+	/**
-+	 * @DRM_MODE_TV_MODE_PAL: CCIR System B together with the PAL
-+	 * color system.
-+	 */
-+	DRM_MODE_TV_MODE_PAL,
-+
-+	/**
-+	 * @DRM_MODE_TV_MODE_PAL_M: CCIR System M (aka 525-lines)
-+	 * together with the PAL color encoding
-+	 */
-+	DRM_MODE_TV_MODE_PAL_M,
-+
-+	/**
-+	 * @DRM_MODE_TV_MODE_PAL_N: CCIR System N together with the PAL
-+	 * color encoding. It uses 625 lines, but has a color subcarrier
-+	 * frequency of 3.58MHz, the SECAM color space, and narrower
-+	 * channels compared to most of the other PAL variants.
-+	 */
-+	DRM_MODE_TV_MODE_PAL_N,
-+
-+	/**
-+	 * @DRM_MODE_TV_MODE_SECAM: CCIR System B together with the
-+	 * SECAM color system.
-+	 */
-+	DRM_MODE_TV_MODE_SECAM,
-+
-+	DRM_MODE_TV_MODE_MAX,
-+};
-+
- /**
-  * struct drm_scrambling: sink's scrambling support.
-  */
-@@ -696,6 +755,7 @@ struct drm_connector_tv_margins {
-  * @subconnector: detected subconnector
-  * @margins: TV margins
-  * @legacy_mode: Legacy TV mode, driver specific value
-+ * @mode: TV mode
-  * @brightness: brightness in percent
-  * @contrast: contrast in percent
-  * @flicker_reduction: flicker reduction in percent
-@@ -708,6 +768,7 @@ struct drm_tv_connector_state {
- 	enum drm_mode_subconnector subconnector;
- 	struct drm_connector_tv_margins margins;
- 	unsigned int legacy_mode;
-+	unsigned int mode;
- 	unsigned int brightness;
- 	unsigned int contrast;
- 	unsigned int flicker_reduction;
-@@ -1797,6 +1858,7 @@ const char *drm_get_subpixel_order_name(enum subpixel_order order);
- const char *drm_get_dpms_name(int val);
- const char *drm_get_dvi_i_subconnector_name(int val);
- const char *drm_get_dvi_i_select_name(int val);
-+const char *drm_get_tv_mode_name(int val);
- const char *drm_get_tv_subconnector_name(int val);
- const char *drm_get_tv_select_name(int val);
- const char *drm_get_dp_subconnector_name(int val);
-@@ -1810,6 +1872,8 @@ int drm_mode_create_tv_margin_properties(struct drm_device *dev);
- int drm_mode_create_tv_properties_legacy(struct drm_device *dev,
- 					 unsigned int num_modes,
- 					 const char * const modes[]);
-+int drm_mode_create_tv_properties(struct drm_device *dev,
-+				  unsigned int supported_tv_modes);
- void drm_connector_attach_tv_margin_properties(struct drm_connector *conn);
- int drm_mode_create_scaling_mode_property(struct drm_device *dev);
- int drm_connector_attach_content_type_property(struct drm_connector *dev);
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index c47b29e80108..1a8bcc3fd14e 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -716,9 +716,17 @@ struct drm_mode_config {
- 	/**
- 	 * @legacy_tv_mode_property: Optional TV property to select
- 	 * the output TV mode.
-+	 *
-+	 * Superseeded by @tv_mode_property
- 	 */
- 	struct drm_property *legacy_tv_mode_property;
- 
-+	/**
-+	 * @tv_mode_property: Optional TV property to select the TV
-+	 * standard output on the connector.
-+	 */
-+	struct drm_property *tv_mode_property;
-+
- 	/**
- 	 * @tv_left_margin_property: Optional TV property to set the left
- 	 * margin (expressed in pixels).
+Anyway all these comments are for wa handling, which should be addressed 
+in other patch. So my r-b still holds, either with wal->i915, either 
+with wal->gt.
 
--- 
-b4 0.11.0-dev-99e3a
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+
+Regards
+Andrzej
+
+
+
+
+
+>   		}
+>   	}
+>   
+> @@ -1779,7 +1785,7 @@ static bool wa_list_verify(struct intel_gt *gt,
+>   	intel_uncore_forcewake_get__locked(uncore, fw);
+>   
+>   	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
+> -		ok &= wa_verify(wa, wa->is_mcr ?
+> +		ok &= wa_verify(wal->gt, wa, wa->is_mcr ?
+>   				intel_gt_mcr_read_any_fw(gt, wa->mcr_reg) :
+>   				intel_uncore_read_fw(uncore, wa->reg),
+>   				wal->name, from);
+> @@ -2127,7 +2133,7 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
+>   	struct drm_i915_private *i915 = engine->i915;
+>   	struct i915_wa_list *w = &engine->whitelist;
+>   
+> -	wa_init_start(w, "whitelist", engine->name);
+> +	wa_init_start(w, engine->gt, "whitelist", engine->name);
+>   
+>   	if (IS_PONTEVECCHIO(i915))
+>   		pvc_whitelist_build(engine);
+> @@ -3012,7 +3018,7 @@ void intel_engine_init_workarounds(struct intel_engine_cs *engine)
+>   	if (GRAPHICS_VER(engine->i915) < 4)
+>   		return;
+>   
+> -	wa_init_start(wal, "engine", engine->name);
+> +	wa_init_start(wal, engine->gt, "engine", engine->name);
+>   	engine_init_workarounds(engine, wal);
+>   	wa_init_finish(wal);
+>   }
+> @@ -3193,7 +3199,7 @@ static int engine_wa_list_verify(struct intel_context *ce,
+>   		if (mcr_range(rq->engine->i915, i915_mmio_reg_offset(wa->reg)))
+>   			continue;
+>   
+> -		if (!wa_verify(wa, results[i], wal->name, from))
+> +		if (!wa_verify(wal->gt, wa, results[i], wal->name, from))
+>   			err = -ENXIO;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds_types.h b/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
+> index 7c8b01d00043..e14188120e66 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
+> @@ -10,6 +10,8 @@
+>   
+>   #include "i915_reg_defs.h"
+>   
+> +struct intel_gt;
+> +
+>   struct i915_wa {
+>   	union {
+>   		i915_reg_t	reg;
+> @@ -24,6 +26,7 @@ struct i915_wa {
+>   };
+>   
+>   struct i915_wa_list {
+> +	struct intel_gt	*gt;
+>   	const char	*name;
+>   	const char	*engine_name;
+>   	struct i915_wa	*list;
+> diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+> index 21b1edc052f8..711014bb53d9 100644
+> --- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+> +++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
+> @@ -66,14 +66,14 @@ reference_lists_init(struct intel_gt *gt, struct wa_lists *lists)
+>   
+>   	memset(lists, 0, sizeof(*lists));
+>   
+> -	wa_init_start(&lists->gt_wa_list, "GT_REF", "global");
+> +	wa_init_start(&lists->gt_wa_list, gt, "GT_REF", "global");
+>   	gt_init_workarounds(gt, &lists->gt_wa_list);
+>   	wa_init_finish(&lists->gt_wa_list);
+>   
+>   	for_each_engine(engine, gt, id) {
+>   		struct i915_wa_list *wal = &lists->engine[id].wa_list;
+>   
+> -		wa_init_start(wal, "REF", engine->name);
+> +		wa_init_start(wal, gt, "REF", engine->name);
+>   		engine_init_workarounds(engine, wal);
+>   		wa_init_finish(wal);
+>   
+> diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+> index ae987e92251d..6c7ac73b69a5 100644
+> --- a/drivers/gpu/drm/i915/i915_debugfs.c
+> +++ b/drivers/gpu/drm/i915/i915_debugfs.c
+> @@ -688,8 +688,8 @@ i915_drop_caches_set(void *data, u64 val)
+>   	unsigned int flags;
+>   	int ret;
+>   
+> -	DRM_DEBUG("Dropping caches: 0x%08llx [0x%08llx]\n",
+> -		  val, val & DROP_ALL);
+> +	drm_dbg(&i915->drm, "Dropping caches: 0x%08llx [0x%08llx]\n",
+> +		val, val & DROP_ALL);
+>   
+>   	ret = gt_drop_caches(to_gt(i915), val);
+>   	if (ret)
+> diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+> index 299f94a9fb87..8132743ca87e 100644
+> --- a/drivers/gpu/drm/i915/i915_gem.c
+> +++ b/drivers/gpu/drm/i915/i915_gem.c
+> @@ -1286,7 +1286,7 @@ int i915_gem_open(struct drm_i915_private *i915, struct drm_file *file)
+>   	struct i915_drm_client *client;
+>   	int ret = -ENOMEM;
+>   
+> -	DRM_DEBUG("\n");
+> +	drm_dbg(&i915->drm, "\n");
+>   
+>   	file_priv = kzalloc(sizeof(*file_priv), GFP_KERNEL);
+>   	if (!file_priv)
+> diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
+> index 3047e80e1163..61ef2d9cfa62 100644
+> --- a/drivers/gpu/drm/i915/i915_getparam.c
+> +++ b/drivers/gpu/drm/i915/i915_getparam.c
+> @@ -179,7 +179,7 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
+>   		value = i915_perf_oa_timestamp_frequency(i915);
+>   		break;
+>   	default:
+> -		DRM_DEBUG("Unknown parameter %d\n", param->param);
+> +		drm_dbg(&i915->drm, "Unknown parameter %d\n", param->param);
+>   		return -EINVAL;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+> index b0180ea38de0..6c20817f8967 100644
+> --- a/drivers/gpu/drm/i915/i915_irq.c
+> +++ b/drivers/gpu/drm/i915/i915_irq.c
+> @@ -1086,8 +1086,9 @@ static void ivb_parity_work(struct work_struct *work)
+>   		kobject_uevent_env(&dev_priv->drm.primary->kdev->kobj,
+>   				   KOBJ_CHANGE, parity_event);
+>   
+> -		DRM_DEBUG("Parity error: Slice = %d, Row = %d, Bank = %d, Sub bank = %d.\n",
+> -			  slice, row, bank, subbank);
+> +		drm_dbg(&dev_priv->drm,
+> +			"Parity error: Slice = %d, Row = %d, Bank = %d, Sub bank = %d.\n",
+> +			slice, row, bank, subbank);
+>   
+>   		kfree(parity_event[4]);
+>   		kfree(parity_event[3]);
+> @@ -2774,7 +2775,8 @@ static irqreturn_t dg1_irq_handler(int irq, void *arg)
+>   		master_ctl = raw_reg_read(regs, GEN11_GFX_MSTR_IRQ);
+>   		raw_reg_write(regs, GEN11_GFX_MSTR_IRQ, master_ctl);
+>   	} else {
+> -		DRM_ERROR("Tile not supported: 0x%08x\n", master_tile_ctl);
+> +		drm_err(&i915->drm, "Tile not supported: 0x%08x\n",
+> +			master_tile_ctl);
+>   		dg1_master_intr_enable(regs);
+>   		return IRQ_NONE;
+>   	}
+> @@ -3940,7 +3942,7 @@ static void i8xx_error_irq_ack(struct drm_i915_private *i915,
+>   static void i8xx_error_irq_handler(struct drm_i915_private *dev_priv,
+>   				   u16 eir, u16 eir_stuck)
+>   {
+> -	DRM_DEBUG("Master Error: EIR 0x%04x\n", eir);
+> +	drm_dbg(&dev_priv->drm, "Master Error: EIR 0x%04x\n", eir);
+>   
+>   	if (eir_stuck)
+>   		drm_dbg(&dev_priv->drm, "EIR stuck: 0x%04x, masked\n",
+> @@ -3975,7 +3977,7 @@ static void i9xx_error_irq_ack(struct drm_i915_private *dev_priv,
+>   static void i9xx_error_irq_handler(struct drm_i915_private *dev_priv,
+>   				   u32 eir, u32 eir_stuck)
+>   {
+> -	DRM_DEBUG("Master Error, EIR 0x%08x\n", eir);
+> +	drm_dbg(&dev_priv->drm, "Master Error, EIR 0x%08x\n", eir);
+>   
+>   	if (eir_stuck)
+>   		drm_dbg(&dev_priv->drm, "EIR stuck: 0x%08x, masked\n",
+> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+> index 0dd597a7a11f..9e6f060592d8 100644
+> --- a/drivers/gpu/drm/i915/i915_perf.c
+> +++ b/drivers/gpu/drm/i915/i915_perf.c
+> @@ -530,9 +530,9 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
+>   
+>   		if (OA_TAKEN(hw_tail, tail) > report_size &&
+>   		    __ratelimit(&stream->perf->tail_pointer_race))
+> -			DRM_NOTE("unlanded report(s) head=0x%x "
+> -				 "tail=0x%x hw_tail=0x%x\n",
+> -				 head, tail, hw_tail);
+> +			drm_notice(&stream->uncore->i915->drm,
+> +				   "unlanded report(s) head=0x%x tail=0x%x hw_tail=0x%x\n",
+> +				   head, tail, hw_tail);
+>   
+>   		stream->oa_buffer.tail = gtt_offset + tail;
+>   		stream->oa_buffer.aging_tail = gtt_offset + hw_tail;
+> @@ -1015,7 +1015,8 @@ static int gen7_append_oa_reports(struct i915_perf_stream *stream,
+>   		 */
+>   		if (report32[0] == 0) {
+>   			if (__ratelimit(&stream->perf->spurious_report_rs))
+> -				DRM_NOTE("Skipping spurious, invalid OA report\n");
+> +				drm_notice(&uncore->i915->drm,
+> +					   "Skipping spurious, invalid OA report\n");
+>   			continue;
+>   		}
+>   
+> @@ -1602,8 +1603,9 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+>   	free_noa_wait(stream);
+>   
+>   	if (perf->spurious_report_rs.missed) {
+> -		DRM_NOTE("%d spurious OA report notices suppressed due to ratelimiting\n",
+> -			 perf->spurious_report_rs.missed);
+> +		drm_notice(&gt->i915->drm,
+> +			   "%d spurious OA report notices suppressed due to ratelimiting\n",
+> +			   perf->spurious_report_rs.missed);
+>   	}
+>   }
+>   
+> diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+> index 6ec9c9fb7b0d..00871ef99792 100644
+> --- a/drivers/gpu/drm/i915/i915_query.c
+> +++ b/drivers/gpu/drm/i915/i915_query.c
+> @@ -250,8 +250,9 @@ static int query_perf_config_data(struct drm_i915_private *i915,
+>   		return total_size;
+>   
+>   	if (query_item->length < total_size) {
+> -		DRM_DEBUG("Invalid query config data item size=%u expected=%u\n",
+> -			  query_item->length, total_size);
+> +		drm_dbg(&i915->drm,
+> +			"Invalid query config data item size=%u expected=%u\n",
+> +			query_item->length, total_size);
+>   		return -EINVAL;
+>   	}
+>   
+> @@ -418,9 +419,10 @@ static int query_perf_config_list(struct drm_i915_private *i915,
+>   	} while (n_configs > alloc);
+>   
+>   	if (query_item->length < sizeof_perf_config_list(n_configs)) {
+> -		DRM_DEBUG("Invalid query config list item size=%u expected=%zu\n",
+> -			  query_item->length,
+> -			  sizeof_perf_config_list(n_configs));
+> +		drm_dbg(&i915->drm,
+> +			"Invalid query config list item size=%u expected=%zu\n",
+> +			query_item->length,
+> +			sizeof_perf_config_list(n_configs));
+>   		kfree(oa_config_ids);
+>   		return -EINVAL;
+>   	}
+> diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
+> index 1e2750210831..595e8b574990 100644
+> --- a/drivers/gpu/drm/i915/i915_sysfs.c
+> +++ b/drivers/gpu/drm/i915/i915_sysfs.c
+> @@ -218,7 +218,8 @@ static const struct bin_attribute error_state_attr = {
+>   static void i915_setup_error_capture(struct device *kdev)
+>   {
+>   	if (sysfs_create_bin_file(&kdev->kobj, &error_state_attr))
+> -		DRM_ERROR("error_state sysfs setup failed\n");
+> +		drm_err(&kdev_minor_to_i915(kdev)->drm,
+> +			"error_state sysfs setup failed\n");
+>   }
+>   
+>   static void i915_teardown_error_capture(struct device *kdev)
+> diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+> index c39488eb9eeb..3b969d679c1e 100644
+> --- a/drivers/gpu/drm/i915/i915_vma.c
+> +++ b/drivers/gpu/drm/i915/i915_vma.c
+> @@ -73,14 +73,16 @@ static void vma_print_allocator(struct i915_vma *vma, const char *reason)
+>   	char buf[512];
+>   
+>   	if (!vma->node.stack) {
+> -		DRM_DEBUG_DRIVER("vma.node [%08llx + %08llx] %s: unknown owner\n",
+> -				 vma->node.start, vma->node.size, reason);
+> +		drm_dbg(&to_i915(vma->obj->base.dev)->drm
+> +			"vma.node [%08llx + %08llx] %s: unknown owner\n",
+> +			vma->node.start, vma->node.size, reason);
+>   		return;
+>   	}
+>   
+>   	stack_depot_snprint(vma->node.stack, buf, sizeof(buf), 0);
+> -	DRM_DEBUG_DRIVER("vma.node [%08llx + %08llx] %s: inserted at %s\n",
+> -			 vma->node.start, vma->node.size, reason, buf);
+> +	drm_dbg(&to_i915(vma->obj->base.dev)->drm,
+> +		"vma.node [%08llx + %08llx] %s: inserted at %s\n",
+> +		vma->node.start, vma->node.size, reason, buf);
+>   }
+>   
+>   #else
+> @@ -782,9 +784,9 @@ i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+>   	 * attempt to find space.
+>   	 */
+>   	if (size > end) {
+> -		DRM_DEBUG("Attempting to bind an object larger than the aperture: request=%llu > %s aperture=%llu\n",
+> -			  size, flags & PIN_MAPPABLE ? "mappable" : "total",
+> -			  end);
+> +		drm_dbg(&to_i915(vma->obj->base.dev)->drm,
+> +			"Attempting to bind an object larger than the aperture: request=%llu > %s aperture=%llu\n",
+> +			size, flags & PIN_MAPPABLE ? "mappable" : "total", end);
+>   		return -ENOSPC;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+> index 2a3e2869fe71..6c25c9e7090a 100644
+> --- a/drivers/gpu/drm/i915/intel_uncore.c
+> +++ b/drivers/gpu/drm/i915/intel_uncore.c
+> @@ -178,8 +178,9 @@ static inline void
+>   fw_domain_wait_ack_clear(const struct intel_uncore_forcewake_domain *d)
+>   {
+>   	if (wait_ack_clear(d, FORCEWAKE_KERNEL)) {
+> -		DRM_ERROR("%s: timed out waiting for forcewake ack to clear.\n",
+> -			  intel_uncore_forcewake_domain_to_str(d->id));
+> +		drm_err(&d->uncore->i915->drm,
+> +			"%s: timed out waiting for forcewake ack to clear.\n",
+> +			intel_uncore_forcewake_domain_to_str(d->id));
+>   		add_taint_for_CI(d->uncore->i915, TAINT_WARN); /* CI now unreliable */
+>   	}
+>   }
+> @@ -226,11 +227,12 @@ fw_domain_wait_ack_with_fallback(const struct intel_uncore_forcewake_domain *d,
+>   		fw_clear(d, FORCEWAKE_KERNEL_FALLBACK);
+>   	} while (!ack_detected && pass++ < 10);
+>   
+> -	DRM_DEBUG_DRIVER("%s had to use fallback to %s ack, 0x%x (passes %u)\n",
+> -			 intel_uncore_forcewake_domain_to_str(d->id),
+> -			 type == ACK_SET ? "set" : "clear",
+> -			 fw_ack(d),
+> -			 pass);
+> +	drm_dbg(&d->uncore->i915->drm,
+> +		"%s had to use fallback to %s ack, 0x%x (passes %u)\n",
+> +		intel_uncore_forcewake_domain_to_str(d->id),
+> +		type == ACK_SET ? "set" : "clear",
+> +		fw_ack(d),
+> +		pass);
+>   
+>   	return ack_detected ? 0 : -ETIMEDOUT;
+>   }
+> @@ -255,8 +257,9 @@ static inline void
+>   fw_domain_wait_ack_set(const struct intel_uncore_forcewake_domain *d)
+>   {
+>   	if (wait_ack_set(d, FORCEWAKE_KERNEL)) {
+> -		DRM_ERROR("%s: timed out waiting for forcewake ack request.\n",
+> -			  intel_uncore_forcewake_domain_to_str(d->id));
+> +		drm_err(&d->uncore->i915->drm,
+> +			"%s: timed out waiting for forcewake ack request.\n",
+> +			intel_uncore_forcewake_domain_to_str(d->id));
+>   		add_taint_for_CI(d->uncore->i915, TAINT_WARN); /* CI now unreliable */
+>   	}
+>   }
+
