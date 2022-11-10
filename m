@@ -4,50 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FB18C43219
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 19:19:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6646C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 19:19:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B91D810E118;
-	Thu, 10 Nov 2022 19:19:17 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 578BF8933E
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 19:19:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668107952; x=1699643952;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=vPB763eogu5ck62s4m7olxlJAHtMt87/mMhAckhqk0w=;
- b=BmTFGIgUQoOerL8qwW/G3Ldx4mZ8L9+0QhlRzZfUNClxorlHH+xUs2xE
- iOY87GLwh/MxZsMoPqthS51jLJsYnbm1q6ZKJjVU5c1VdIrcvdkoIFMH7
- lxbh/4yqVdrMD3cVMAa/s1R2ICWP5uX4/dA/TTRteZptCoRhJkn0I1W4h
- 8O2/5M1j878SoBDewug0CietriKaxF0bKy2s09rsV9kU2LBl0uZ5LjcTA
- mofNlhd0KxQ1aKgN5k9vpRgZdU8Q3S94sC1FB9vDtbhuW3NjvSGKzI0Ub
- PZpZKbb2NKZgfnWFrM2hBY6MoODLYiz9+GIhf2KmVxGT3xo68Zj48mBKw w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="373540966"
-X-IronPort-AV: E=Sophos;i="5.96,154,1665471600"; d="scan'208";a="373540966"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 11:10:32 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="966535422"
-X-IronPort-AV: E=Sophos;i="5.96,154,1665471600"; d="scan'208";a="966535422"
-Received: from ideak-desk.fi.intel.com ([10.237.68.144])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 11:10:29 -0800
-Date: Thu, 10 Nov 2022 21:10:23 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Message-ID: <Y21MnxxZccjk9FP3@ideak-desk.fi.intel.com>
-References: <20221107170917.3566758-5-imre.deak@intel.com>
- <20221108151828.3761358-3-imre.deak@intel.com>
- <Y21IUHqtwgaVx2VX@intel.com> <Y21Jp9QAlgicm7OB@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE8B110E7E0;
+	Thu, 10 Nov 2022 19:19:31 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2048.outbound.protection.outlook.com [40.107.95.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B43B10E118;
+ Thu, 10 Nov 2022 19:19:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cWzUGtpJgTF7wR04g9NYSt56Ylw3f6BP+g4rZK4p0xVtUJKsEgW/zNj+pyHKLXvuaRHuH4rDwQfa6qYhYM9uH3F2ND7mscZ6CLCzesnKRmwfVN3MDJHyoLLvvoLJosDNQ1KNzbfiyzIvxMjFVTjGtKOhIebUd2Gxc86eOa+oEuKSoM/bA3XFRAO3rQPcIpQfrNeZYkyl+CWFksWVF/FMvYGTQoPky1zW9QsRyAO70fBvVjvusEmfHoGu9/YNxXrRyVUgNZnyMR6NyoZKFe0YjC8WesO7t+lTIKhXzhETa9sioZQWeDxAiWgoKNy7J3WxRtcN5LqC8xE4/gMN7ftdjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aTBjqopfkP2iYv3rIuTb2Aw1BThon7runQkBpsK9mA0=;
+ b=SvvWF+zG/a3NVSPw39ImlhRK0lsEGN6XlUr11GZnjF3098lMIq5Bzx+Vmnljob7z+6QLygkF0SouilnNqD+20VEGyjsVGcxGtmP/qR0wDr/QYJPLf0eLEotPQos7iMGh9tRzdRFITrGM7fnpn+TkC25fG+KFsiOW2VrtowJ/7WIWRlW7denjrleGG957lgoYbDBposhjHWzITj50pAvNwHdILfaO03q/8QwtgDFwdfitVLFj15pegxmjhNty333q5K2r/oqHHyXC/zjJiA5xnjg7wSRkRuKSFi1kazxJXNux6iZMKX6xoE20xkxAl087aB7s1wHaIDBtNBAT5kk3XQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aTBjqopfkP2iYv3rIuTb2Aw1BThon7runQkBpsK9mA0=;
+ b=Wh+FFSZh4gg1/VsEhaf+4fPwGA9POxfU4Yh9aPyu/FA+Nd1N76qk1Zn7epLyNK9GVaZhQhT8tSqTrlWl7S9mfR+eHwoj8xclm9ZqjtJ2gahIWJpPfevA0RTk1al4WtzcshduMmpKGlZzkwwJeMEOUibEltjNoqZYdlNDW+MqXeaHk4rS5Tqaa4Af8iJel35sRw+LHR5pn+/V8qZ2sU0QQ1uki270CbybUo/jD9hExHTxF1yI1uoGg4/4hA0oEQwxxVtW9DSjQ109YQ5snV2LZOtv5YhpZxmaMs8d6qVEuQF9fKmYCzkr6UNvnvLoZNTdtG7kz4EamrjmA7X7JMqOQA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
+ by SJ1PR12MB6052.namprd12.prod.outlook.com (2603:10b6:a03:489::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.26; Thu, 10 Nov
+ 2022 19:19:09 +0000
+Received: from LV2PR12MB5869.namprd12.prod.outlook.com
+ ([fe80::7a81:a4e4:bb9c:d1de]) by LV2PR12MB5869.namprd12.prod.outlook.com
+ ([fe80::7a81:a4e4:bb9c:d1de%7]) with mapi id 15.20.5791.027; Thu, 10 Nov 2022
+ 19:19:09 +0000
+Date: Thu, 10 Nov 2022 15:19:08 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Alex Williamson <alex.williamson@redhat.com>
+Message-ID: <Y21OrMoVW/x84qkX@nvidia.com>
+References: <Y1wiCc33Jh5QY+1f@nvidia.com>
+ <20221031164526.0712e456.alex.williamson@redhat.com>
+ <Y2kF75zVD581UeR2@nvidia.com>
+ <20221107081853.18727337.alex.williamson@redhat.com>
+ <Y2klGAUEUwpjWHw6@nvidia.com>
+ <20221107110508.7f02abf4.alex.williamson@redhat.com>
+ <Y2lSZwNT8f/RMoZf@nvidia.com>
+ <20221108155520.4429c2e5.alex.williamson@redhat.com>
+ <Y2r80RgytKpPtK58@nvidia.com>
+ <20221109112822.7a8c5f7a.alex.williamson@redhat.com>
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Y21Jp9QAlgicm7OB@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v3 4/9] drm/i915/tgl+: Enable display DC
- power states on all eDP ports
+In-Reply-To: <20221109112822.7a8c5f7a.alex.williamson@redhat.com>
+X-ClientProxiedBy: BLAPR03CA0168.namprd03.prod.outlook.com
+ (2603:10b6:208:32f::6) To LV2PR12MB5869.namprd12.prod.outlook.com
+ (2603:10b6:408:176::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|SJ1PR12MB6052:EE_
+X-MS-Office365-Filtering-Correlation-Id: 12268162-4f3d-416d-90f8-08dac3507141
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RQQRDG37XMLx2c3C9YMUdn5HG0jmhWQgodFg+Sc7JCdMfJc8VT1yusnkYHjyrcOIdF9PzlgIZpZojC1KJiCzYTt8xroWx0XF8RST1O73gI//QwC0bRt/L3H3uHQXVaSh1DLaLp8/QQd+QXd43dGmyZjSUkwfLTqPwtnWXV0htdQpu85Qj6QALUcQee5jHgr9flr3Zc6+FSbqHtIf6CI2CbzsS4R+6oEHaLiFa15Ig5G1cFCtiBcJwBS1A8qSE79FuN7ZKkEKdsnnuio5C+UojqxsjTTV2SKb2ASsXDNo7K57RSi//uEA48zEoOAvMQICu59EVESgCtjl+2ctBm8zETyEDgiz58ySPgeJqWb4xjP+MrtGQgPp8Uv7hAeCzuQdAWunat/RGc7QKt2qhg2o7Kao67ekI2VnxkbgQv1NuZMVJHasVTfMStwEnG3P7+TzJJfLZy6CkR3RinWmk6v6NIMjAUxa7QmTqAfZIr3GDZvArzo7ag+7MfyWxXKlgW5MRDK++upxSDKiwsREG5Jqxn25htDK1/p3mkhLxPFjQXxO8XniTyqjGZRf6wm7pJJ9ipMurjPd8ou419yji9UhwR8daR2VKBtl/6/AjOZkneeurwSij1NTh5MqKQTMKplNw55m75kT18J3vBRfe1kHGq2A0jvoN0pixKq68SZM2YAUhpQZ373iT8FGl/oDYEFa4KUruU1O9TggtrovWS7UnQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV2PR12MB5869.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(396003)(39860400002)(376002)(366004)(346002)(451199015)(41300700001)(2906002)(54906003)(66946007)(4326008)(6916009)(8676002)(316002)(66476007)(66556008)(6486002)(36756003)(38100700002)(7416002)(8936002)(186003)(478600001)(83380400001)(6512007)(7406005)(26005)(5660300002)(6506007)(86362001)(2616005);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?EPc3QBCu5Z3+C63oUEZZ+2TSUPcspMygtP/4Y3AiHrovjwc5hL7bd2YMYAbc?=
+ =?us-ascii?Q?h7er+Ewfk/gme0fr0KhVsb55T+SxlAyPyH/zGMT1nlM1fYDJ9mM8TFlgsTIb?=
+ =?us-ascii?Q?ceVVLCBtlEp/XCwSgmt8DRuQlFqPHXiNTIAnWOp7DIuAqpqOeUMWIQbz6Kdl?=
+ =?us-ascii?Q?DXOsN4Dos05rCux/feY4MKT9U7aykNlM7T3UETQw2Z+t4GRvNmdF2/2ONz7v?=
+ =?us-ascii?Q?Y2OfI/oCEh5h7EH+FWGkZtivx6jdchVMJfGhAf02ytWnC+LzPyOertlqZxQz?=
+ =?us-ascii?Q?UQpL+75GRkdTBGuFwo3NpFL4+X7A7zyk7X07qVZdtJpqlPM4T9ZVzJLoObKf?=
+ =?us-ascii?Q?uTlhGcHI3vn28DtcLCvnQSrWa3ZujPzjwc93uuUtCiOg15sCmQV6OjsS6fOF?=
+ =?us-ascii?Q?CiKDQGwG2F4BYfQi7wtFMNZJ9Ylvo4rNU0RFqM5f1QwdJE2jt9bw1vrOXtyA?=
+ =?us-ascii?Q?fxcJPmLabw511lXwCJ7I/UahJOHSkH5L289AxmnVyl1gxVhxV8o2yqAxF6EA?=
+ =?us-ascii?Q?q6KZM+KHXGk4yMaB3f17Lxa+AFKrtPd0yYYtL2UCqE6BcH+9ytMBec+nTqtZ?=
+ =?us-ascii?Q?gLFSmjWE9FXNWsQd2XMFAw/y/Fe+o0rnmOotMfzPE+mBAgyLh+8N6rtt0h8x?=
+ =?us-ascii?Q?+PIvtMNyg8o0EsoO/QT5hHCF9B8raFXC/p6mh9z3Rh1NAEELHysDjR2+YdtR?=
+ =?us-ascii?Q?c+lDUSmGWrJ/Onz5jqG6b6KRbMU2COHYYc5j1HbCaicb3jBZcxX7jfDZYsO1?=
+ =?us-ascii?Q?5YRyEfWPFf+diqLYYMdL6dR7cKdPykgRenCSPq/rHQ6e0MxqZEYyMMt5dfBg?=
+ =?us-ascii?Q?uRdXAP41avbEkG/nKzBPkBUpn0NVXO72P2CKP5gWuxCNypDg8+Kf5RZ5r+KK?=
+ =?us-ascii?Q?Ol0iMb7ZhtqKW9fBnihxQlyKnRNwfjALjOWIAhDv+7TfqoEJGl2fjxFytrfC?=
+ =?us-ascii?Q?jtRseIkH1S9HPBGGuhmWtqGUKX2WhfXHgBsL0OFBTO2Ye0IKYSSiI3wrlhLJ?=
+ =?us-ascii?Q?wxu/jyEpviEADe8O6wGVWwYqfg/X/MsMkIlmHtAGdwgTxKm5eneb7+eN9Kxz?=
+ =?us-ascii?Q?Vy/2+FnTHqEuksddwbe7qv8GDcf9sihddYiVmXrO3WALfs8QXAo4jPJIj6O2?=
+ =?us-ascii?Q?l6DCz/UGZ4TEIzICngGvgLIZY1fJRpLouZD3F06oB/YOyt8fWyvJ5hnxG3xL?=
+ =?us-ascii?Q?fuh54yJAtPASxOjQrdE7IGwu/4pLE+W6U8Dc8CFMkRZL7SjGLeRhigLMu/9g?=
+ =?us-ascii?Q?JPHO1//tK9bu/+rr/2W+IXNMLD2V9Pp1d8PqMwb73FHmMyl2iIHF7bsAxkfy?=
+ =?us-ascii?Q?oKzQC/GUTfBgH5KKjUOOXAPHwMevDLS9EzQZgH4HaTVdv6GCYVkQKEzkPwgh?=
+ =?us-ascii?Q?5gK4mliuXfzRgP7Uph8RXZsJaWrI3imUJ/SBD2M02p5QUQWVhjHug35osPpW?=
+ =?us-ascii?Q?lhg/caMsseTwAxe2x4DDKRU6ASBL2WJfnk704xXKNDfqaDXCa3H7s3ElN+9R?=
+ =?us-ascii?Q?3Sp7nsnNdVCJUyY6BUsyIcU7wnNJPKRn53C4jzzOyQ1R6abvN2CfwRRDeIax?=
+ =?us-ascii?Q?olO3N1a5VEkwcGJ2LuY=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12268162-4f3d-416d-90f8-08dac3507141
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5869.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2022 19:19:09.5031 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KhIS4XsQ1mYSxKJe1cs0owUJGnvDFtl0EEw55K40eHW8SZ/qUDrZA8OeY+ktEGdR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6052
+Subject: Re: [Intel-gfx] [PATCH 04/10] vfio: Move storage of
+ allow_unsafe_interrupts to vfio_main.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,388 +123,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Matthew Rosato <mjrosato@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>,
+ dri-devel@lists.freedesktop.org, Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Diana Craciun <diana.craciun@oss.nxp.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Will Deacon <will@kernel.org>,
+ Longfang Liu <liulongfang@huawei.com>, linux-s390@vger.kernel.org,
+ Yi Liu <yi.l.liu@intel.com>, kvm@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>, Halil Pasic <pasic@linux.ibm.com>,
+ iommu@lists.linux.dev, Nicolin Chen <nicolinc@nvidia.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, intel-gfx@lists.freedesktop.org,
+ Eric Auger <eric.auger@redhat.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gvt-dev@lists.freedesktop.org,
+ Jason Herne <jjherne@linux.ibm.com>, Yishai Hadas <yishaih@nvidia.com>,
+ Cornelia Huck <cohuck@redhat.com>, Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Robin Murphy <robin.murphy@arm.com>,
+ Lu Baolu <baolu.lu@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 10, 2022 at 08:57:43PM +0200, Ville Syrjälä wrote:
-> On Thu, Nov 10, 2022 at 08:52:00PM +0200, Ville Syrjälä wrote:
-> > On Tue, Nov 08, 2022 at 05:18:25PM +0200, Imre Deak wrote:
-> > > Starting with TGL eDP is supported on ports B+ (besides port A), so make
-> > > sure DC states are not blocked on any such ports. For this add an
-> > > AUX_IO_<port> power domain for each port with eDP support. These domains
-> > > similarly to AUX_IO_A enable only the AUX_IO_<port> power well for an
-> > > enabled port, whereas the existing AUX_<port> domains enable both the
-> > > AUX_IO_<port> and the DC_OFF power wells as required by DP AUX transfers.
+On Wed, Nov 09, 2022 at 11:28:22AM -0700, Alex Williamson wrote:
+> > > > I'd be much more comfortable with this as a system wide iommufd flag
+> > > > if we also tied it to do some demonstration of privilege - eg a
+> > > > requirement to open iommufd with CAP_SYS_RAWIO for instance.  
 > > > 
-> > > v2: (Ville)
-> > > - Split the change using AUX vs. AUX_IO on port A to a separate patch.
-> > > - Select AUX_IO vs. AUX based on crtc_state->has_psr instead of
-> > >   is_edp().
-> > > v3:
-> > > - Rebased on checking intel_encoder_can_psr() instead of crtc->has_psr.
-> > > 
-> > > Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > > Signed-off-by: Imre Deak <imre.deak@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/i915/display/intel_ddi.c      |  6 ++-
-> > >  .../drm/i915/display/intel_display_power.c    | 30 +++++++++++
-> > >  .../drm/i915/display/intel_display_power.h    |  7 +++
-> > >  .../i915/display/intel_display_power_map.c    | 53 +++++++++++++++++--
-> > >  4 files changed, 89 insertions(+), 7 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> > > index ca236cd7f9b76..a087609223c60 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> > > @@ -848,6 +848,8 @@ bool intel_ddi_get_hw_state(struct intel_encoder *encoder,
-> > >  static enum intel_display_power_domain
-> > >  intel_ddi_main_link_aux_domain(struct intel_digital_port *dig_port)
-> > >  {
-> > > +	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-> > > +
-> > >  	/* ICL+ HW requires corresponding AUX IOs to be powered up for PSR with
-> > >  	 * DC states enabled at the same time, while for driver initiated AUX
-> > >  	 * transfers we need the same AUX IOs to be powered but with DC states
-> > > @@ -860,8 +862,8 @@ intel_ddi_main_link_aux_domain(struct intel_digital_port *dig_port)
-> > >  	 * Note that PSR is enabled only on Port A even though this function
-> > >  	 * returns the correct domain for other ports too.
-> > >  	 */
-> > > -	if (dig_port->aux_ch == AUX_CH_A && intel_encoder_can_psr(&dig_port->base))
-> > > -		return POWER_DOMAIN_AUX_IO_A;
-> > > +	if (intel_encoder_can_psr(&dig_port->base))
-> > > +		return intel_display_power_aux_io_domain(i915, dig_port->aux_ch);
-> > >  	else
-> > >  		return intel_aux_power_domain(dig_port);
-> > >  }
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-> > > index 78f1749397e1d..61c6a3616db08 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> > > @@ -131,6 +131,16 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
-> > >  		return "AUDIO_PLAYBACK";
-> > >  	case POWER_DOMAIN_AUX_IO_A:
-> > >  		return "AUX_IO_A";
-> > > +	case POWER_DOMAIN_AUX_IO_B:
-> > > +		return "AUX_IO_B";
-> > > +	case POWER_DOMAIN_AUX_IO_C:
-> > > +		return "AUX_IO_C";
-> > > +	case POWER_DOMAIN_AUX_IO_D:
-> > > +		return "AUX_IO_D";
-> > > +	case POWER_DOMAIN_AUX_IO_E:
-> > > +		return "AUX_IO_E";
-> > > +	case POWER_DOMAIN_AUX_IO_F:
-> > > +		return "AUX_IO_F";
-> > >  	case POWER_DOMAIN_AUX_A:
-> > >  		return "AUX_A";
-> > >  	case POWER_DOMAIN_AUX_B:
-> > > @@ -2356,6 +2366,7 @@ struct intel_ddi_port_domains {
-> > >  
-> > >  	enum intel_display_power_domain ddi_lanes;
-> > >  	enum intel_display_power_domain ddi_io;
-> > > +	enum intel_display_power_domain aux_io;
-> > >  	enum intel_display_power_domain aux_legacy_usbc;
-> > >  	enum intel_display_power_domain aux_tbt;
-> > >  };
-> > > @@ -2370,6 +2381,7 @@ i9xx_port_domains[] = {
-> > >  
-> > >  		.ddi_lanes = POWER_DOMAIN_PORT_DDI_LANES_A,
-> > >  		.ddi_io = POWER_DOMAIN_PORT_DDI_IO_A,
-> > > +		.aux_io = POWER_DOMAIN_AUX_IO_A,
-> > >  		.aux_legacy_usbc = POWER_DOMAIN_AUX_A,
-> > >  		.aux_tbt = POWER_DOMAIN_INVALID,
-> > >  	},
-> > > @@ -2385,6 +2397,7 @@ d11_port_domains[] = {
-> > >  
-> > >  		.ddi_lanes = POWER_DOMAIN_PORT_DDI_LANES_A,
-> > >  		.ddi_io = POWER_DOMAIN_PORT_DDI_IO_A,
-> > > +		.aux_io = POWER_DOMAIN_AUX_IO_A,
-> > >  		.aux_legacy_usbc = POWER_DOMAIN_AUX_A,
-> > >  		.aux_tbt = POWER_DOMAIN_INVALID,
-> > >  	}, {
-> > > @@ -2395,6 +2408,7 @@ d11_port_domains[] = {
-> > >  
-> > >  		.ddi_lanes = POWER_DOMAIN_PORT_DDI_LANES_C,
-> > >  		.ddi_io = POWER_DOMAIN_PORT_DDI_IO_C,
-> > > +		.aux_io = POWER_DOMAIN_AUX_IO_C,
-> > >  		.aux_legacy_usbc = POWER_DOMAIN_AUX_C,
-> > >  		.aux_tbt = POWER_DOMAIN_AUX_TBT1,
-> > >  	},
-> > > @@ -2410,6 +2424,7 @@ d12_port_domains[] = {
-> > >  
-> > >  		.ddi_lanes = POWER_DOMAIN_PORT_DDI_LANES_A,
-> > >  		.ddi_io = POWER_DOMAIN_PORT_DDI_IO_A,
-> > > +		.aux_io = POWER_DOMAIN_AUX_IO_A,
-> > >  		.aux_legacy_usbc = POWER_DOMAIN_AUX_A,
-> > >  		.aux_tbt = POWER_DOMAIN_INVALID,
-> > >  	}, {
-> > > @@ -2420,6 +2435,7 @@ d12_port_domains[] = {
-> > >  
-> > >  		.ddi_lanes = POWER_DOMAIN_PORT_DDI_LANES_TC1,
-> > >  		.ddi_io = POWER_DOMAIN_PORT_DDI_IO_TC1,
-> > > +		.aux_io = POWER_DOMAIN_INVALID,
-> > >  		.aux_legacy_usbc = POWER_DOMAIN_AUX_USBC1,
-> > >  		.aux_tbt = POWER_DOMAIN_AUX_TBT1,
-> > >  	},
-> > > @@ -2435,6 +2451,7 @@ d13_port_domains[] = {
-> > >  
-> > >  		.ddi_lanes = POWER_DOMAIN_PORT_DDI_LANES_A,
-> > >  		.ddi_io = POWER_DOMAIN_PORT_DDI_IO_A,
-> > > +		.aux_io = POWER_DOMAIN_AUX_IO_A,
-> > >  		.aux_legacy_usbc = POWER_DOMAIN_AUX_A,
-> > >  		.aux_tbt = POWER_DOMAIN_INVALID,
-> > >  	}, {
-> > > @@ -2445,6 +2462,7 @@ d13_port_domains[] = {
-> > >  
-> > >  		.ddi_lanes = POWER_DOMAIN_PORT_DDI_LANES_TC1,
-> > >  		.ddi_io = POWER_DOMAIN_PORT_DDI_IO_TC1,
-> > > +		.aux_io = POWER_DOMAIN_INVALID,
-> > >  		.aux_legacy_usbc = POWER_DOMAIN_AUX_USBC1,
-> > >  		.aux_tbt = POWER_DOMAIN_AUX_TBT1,
-> > >  	}, {
-> > > @@ -2455,6 +2473,7 @@ d13_port_domains[] = {
-> > >  
-> > >  		.ddi_lanes = POWER_DOMAIN_PORT_DDI_LANES_D,
-> > >  		.ddi_io = POWER_DOMAIN_PORT_DDI_IO_D,
-> > > +		.aux_io = POWER_DOMAIN_AUX_IO_D,
-> > >  		.aux_legacy_usbc = POWER_DOMAIN_AUX_D,
-> > >  		.aux_tbt = POWER_DOMAIN_INVALID,
-> > >  	},
-> > > @@ -2532,6 +2551,17 @@ intel_port_domains_for_aux_ch(struct drm_i915_private *i915, enum aux_ch aux_ch)
-> > >  	return NULL;
-> > >  }
-> > >  
-> > > +enum intel_display_power_domain
-> > > +intel_display_power_aux_io_domain(struct drm_i915_private *i915, enum aux_ch aux_ch)
-> > > +{
-> > > +	const struct intel_ddi_port_domains *domains = intel_port_domains_for_aux_ch(i915, aux_ch);
-> > > +
-> > > +	if (drm_WARN_ON(&i915->drm, !domains) || domains->aux_io == POWER_DOMAIN_INVALID)
+> > > Which is not compatible to existing use cases, which is also why we
+> > > can't invent some way to allow some applications to run without CPU
+> > > mitigations, while requiring it for others as a baseline.  
 > > 
-> > Was there some valid use case for the INVALID? If not I'd include
-> > it in the warn as well.
-> > 
-> > > +		return POWER_DOMAIN_AUX_IO_A;
+> > Isn't it? Didn't we learn that libvirt runs as root and will open and
+> > pass the iommufd as root?
 > 
-> Hmm. And should we just return INVALID here? I think you added a check
-> for that in the caller.
+> We're jumping ahead to native iommufd support here, what happens when
+> VFIO_CONTAINER=n and it's QEMU opening the fds, with only file access
+> privileges?
 
-These functions should always return a valid domain, so yes, the warn
-condition should be fixed above, will do that.
+Yes, but I am thinking aloud about how to best to do this in native
+iommufd modes.
 
-For TypeC ports a full TBT or USBC AUX domain is used instead, so the
-caller should always get a valid domain.
-
-> > > +
-> > > +	return domains->aux_io + (int)(aux_ch - domains->aux_ch_start);
-> > > +}
-> > > +
-> > >  enum intel_display_power_domain
-> > >  intel_display_power_legacy_aux_domain(struct drm_i915_private *i915, enum aux_ch aux_ch)
-> > >  {
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-> > > index dd0ad99f17056..73c7db969dde6 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_display_power.h
-> > > +++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-> > > @@ -79,6 +79,11 @@ enum intel_display_power_domain {
-> > >  	POWER_DOMAIN_AUDIO_PLAYBACK,
-> > >  
-> > >  	POWER_DOMAIN_AUX_IO_A,
-> > > +	POWER_DOMAIN_AUX_IO_B,
-> > > +	POWER_DOMAIN_AUX_IO_C,
-> > > +	POWER_DOMAIN_AUX_IO_D,
-> > > +	POWER_DOMAIN_AUX_IO_E,
-> > > +	POWER_DOMAIN_AUX_IO_F,
-> > >  
-> > >  	POWER_DOMAIN_AUX_A,
-> > >  	POWER_DOMAIN_AUX_B,
-> > > @@ -255,6 +260,8 @@ intel_display_power_ddi_lanes_domain(struct drm_i915_private *i915, enum port po
-> > >  enum intel_display_power_domain
-> > >  intel_display_power_ddi_io_domain(struct drm_i915_private *i915, enum port port);
-> > >  enum intel_display_power_domain
-> > > +intel_display_power_aux_io_domain(struct drm_i915_private *i915, enum aux_ch aux_ch);
-> > > +enum intel_display_power_domain
-> > >  intel_display_power_legacy_aux_domain(struct drm_i915_private *i915, enum aux_ch aux_ch);
-> > >  enum intel_display_power_domain
-> > >  intel_display_power_tbt_aux_domain(struct drm_i915_private *i915, enum aux_ch aux_ch);
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-> > > index 43454022e6a66..b82c0d0a80c5f 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-> > > @@ -170,6 +170,8 @@ I915_DECL_PW_DOMAINS(vlv_pwdoms_display,
-> > >  	POWER_DOMAIN_VGA,
-> > >  	POWER_DOMAIN_AUDIO_MMIO,
-> > >  	POWER_DOMAIN_AUDIO_PLAYBACK,
-> > > +	POWER_DOMAIN_AUX_IO_B,
-> > > +	POWER_DOMAIN_AUX_IO_C,
-> > >  	POWER_DOMAIN_AUX_B,
-> > >  	POWER_DOMAIN_AUX_C,
-> > >  	POWER_DOMAIN_GMBUS,
-> > > @@ -179,6 +181,8 @@ I915_DECL_PW_DOMAINS(vlv_pwdoms_dpio_cmn_bc,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_B,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_C,
-> > >  	POWER_DOMAIN_PORT_CRT,
-> > > +	POWER_DOMAIN_AUX_IO_B,
-> > > +	POWER_DOMAIN_AUX_IO_C,
-> > >  	POWER_DOMAIN_AUX_B,
-> > >  	POWER_DOMAIN_AUX_C,
-> > >  	POWER_DOMAIN_INIT);
-> > > @@ -186,6 +190,8 @@ I915_DECL_PW_DOMAINS(vlv_pwdoms_dpio_cmn_bc,
-> > >  I915_DECL_PW_DOMAINS(vlv_pwdoms_dpio_tx_bc_lanes,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_B,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_C,
-> > > +	POWER_DOMAIN_AUX_IO_B,
-> > > +	POWER_DOMAIN_AUX_IO_C,
-> > >  	POWER_DOMAIN_AUX_B,
-> > >  	POWER_DOMAIN_AUX_C,
-> > >  	POWER_DOMAIN_INIT);
-> > > @@ -243,6 +249,9 @@ I915_DECL_PW_DOMAINS(chv_pwdoms_display,
-> > >  	POWER_DOMAIN_VGA,
-> > >  	POWER_DOMAIN_AUDIO_MMIO,
-> > >  	POWER_DOMAIN_AUDIO_PLAYBACK,
-> > > +	POWER_DOMAIN_AUX_IO_B,
-> > > +	POWER_DOMAIN_AUX_IO_C,
-> > > +	POWER_DOMAIN_AUX_IO_D,
-> > >  	POWER_DOMAIN_AUX_B,
-> > >  	POWER_DOMAIN_AUX_C,
-> > >  	POWER_DOMAIN_AUX_D,
-> > > @@ -252,12 +261,15 @@ I915_DECL_PW_DOMAINS(chv_pwdoms_display,
-> > >  I915_DECL_PW_DOMAINS(chv_pwdoms_dpio_cmn_bc,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_B,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_C,
-> > > +	POWER_DOMAIN_AUX_IO_B,
-> > > +	POWER_DOMAIN_AUX_IO_C,
-> > >  	POWER_DOMAIN_AUX_B,
-> > >  	POWER_DOMAIN_AUX_C,
-> > >  	POWER_DOMAIN_INIT);
-> > >  
-> > >  I915_DECL_PW_DOMAINS(chv_pwdoms_dpio_cmn_d,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_D,
-> > > +	POWER_DOMAIN_AUX_IO_D,
-> > >  	POWER_DOMAIN_AUX_D,
-> > >  	POWER_DOMAIN_INIT);
-> > >  
-> > > @@ -305,6 +317,9 @@ static const struct i915_power_well_desc_list chv_power_wells[] = {
-> > >  	POWER_DOMAIN_VGA, \
-> > >  	POWER_DOMAIN_AUDIO_MMIO, \
-> > >  	POWER_DOMAIN_AUDIO_PLAYBACK, \
-> > > +	POWER_DOMAIN_AUX_IO_B, \
-> > > +	POWER_DOMAIN_AUX_IO_C, \
-> > > +	POWER_DOMAIN_AUX_IO_D, \
-> > >  	POWER_DOMAIN_AUX_B, \
-> > >  	POWER_DOMAIN_AUX_C, \
-> > >  	POWER_DOMAIN_AUX_D
-> > > @@ -407,6 +422,8 @@ static const struct i915_power_well_desc_list skl_power_wells[] = {
-> > >  	POWER_DOMAIN_VGA, \
-> > >  	POWER_DOMAIN_AUDIO_MMIO, \
-> > >  	POWER_DOMAIN_AUDIO_PLAYBACK, \
-> > > +	POWER_DOMAIN_AUX_IO_B, \
-> > > +	POWER_DOMAIN_AUX_IO_C, \
-> > >  	POWER_DOMAIN_AUX_B, \
-> > >  	POWER_DOMAIN_AUX_C
-> > >  
-> > > @@ -430,6 +447,8 @@ I915_DECL_PW_DOMAINS(bxt_pwdoms_dpio_cmn_a,
-> > >  I915_DECL_PW_DOMAINS(bxt_pwdoms_dpio_cmn_bc,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_B,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_C,
-> > > +	POWER_DOMAIN_AUX_IO_B,
-> > > +	POWER_DOMAIN_AUX_IO_C,
-> > >  	POWER_DOMAIN_AUX_B,
-> > >  	POWER_DOMAIN_AUX_C,
-> > >  	POWER_DOMAIN_INIT);
-> > > @@ -483,6 +502,8 @@ static const struct i915_power_well_desc_list bxt_power_wells[] = {
-> > >  	POWER_DOMAIN_VGA, \
-> > >  	POWER_DOMAIN_AUDIO_MMIO, \
-> > >  	POWER_DOMAIN_AUDIO_PLAYBACK, \
-> > > +	POWER_DOMAIN_AUX_IO_B, \
-> > > +	POWER_DOMAIN_AUX_IO_C, \
-> > >  	POWER_DOMAIN_AUX_B, \
-> > >  	POWER_DOMAIN_AUX_C
-> > >  
-> > > @@ -509,11 +530,13 @@ I915_DECL_PW_DOMAINS(glk_pwdoms_dpio_cmn_a,
-> > >  
-> > >  I915_DECL_PW_DOMAINS(glk_pwdoms_dpio_cmn_b,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_B,
-> > > +	POWER_DOMAIN_AUX_IO_B,
-> > >  	POWER_DOMAIN_AUX_B,
-> > >  	POWER_DOMAIN_INIT);
-> > >  
-> > >  I915_DECL_PW_DOMAINS(glk_pwdoms_dpio_cmn_c,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_C,
-> > > +	POWER_DOMAIN_AUX_IO_C,
-> > >  	POWER_DOMAIN_AUX_C,
-> > >  	POWER_DOMAIN_INIT);
-> > >  
-> > > @@ -523,10 +546,12 @@ I915_DECL_PW_DOMAINS(glk_pwdoms_aux_a,
-> > >  	POWER_DOMAIN_INIT);
-> > >  
-> > >  I915_DECL_PW_DOMAINS(glk_pwdoms_aux_b,
-> > > +	POWER_DOMAIN_AUX_IO_B,
-> > >  	POWER_DOMAIN_AUX_B,
-> > >  	POWER_DOMAIN_INIT);
-> > >  
-> > >  I915_DECL_PW_DOMAINS(glk_pwdoms_aux_c,
-> > > +	POWER_DOMAIN_AUX_IO_C,
-> > >  	POWER_DOMAIN_AUX_C,
-> > >  	POWER_DOMAIN_INIT);
-> > >  
-> > > @@ -617,6 +642,11 @@ I915_DECL_PW_DOMAINS(icl_pwdoms_pw_4,
-> > >  	POWER_DOMAIN_VGA, \
-> > >  	POWER_DOMAIN_AUDIO_MMIO, \
-> > >  	POWER_DOMAIN_AUDIO_PLAYBACK, \
-> > > +	POWER_DOMAIN_AUX_IO_B, \
-> > > +	POWER_DOMAIN_AUX_IO_C, \
-> > > +	POWER_DOMAIN_AUX_IO_D, \
-> > > +	POWER_DOMAIN_AUX_IO_E, \
-> > > +	POWER_DOMAIN_AUX_IO_F, \
-> > >  	POWER_DOMAIN_AUX_B, \
-> > >  	POWER_DOMAIN_AUX_C, \
-> > >  	POWER_DOMAIN_AUX_D, \
-> > > @@ -660,11 +690,21 @@ I915_DECL_PW_DOMAINS(icl_pwdoms_ddi_io_f,	POWER_DOMAIN_PORT_DDI_IO_F);
-> > >  I915_DECL_PW_DOMAINS(icl_pwdoms_aux_a,
-> > >  	POWER_DOMAIN_AUX_IO_A,
-> > >  	POWER_DOMAIN_AUX_A);
-> > > -I915_DECL_PW_DOMAINS(icl_pwdoms_aux_b,		POWER_DOMAIN_AUX_B);
-> > > -I915_DECL_PW_DOMAINS(icl_pwdoms_aux_c,		POWER_DOMAIN_AUX_C);
-> > > -I915_DECL_PW_DOMAINS(icl_pwdoms_aux_d,		POWER_DOMAIN_AUX_D);
-> > > -I915_DECL_PW_DOMAINS(icl_pwdoms_aux_e,		POWER_DOMAIN_AUX_E);
-> > > -I915_DECL_PW_DOMAINS(icl_pwdoms_aux_f,		POWER_DOMAIN_AUX_F);
-> > > +I915_DECL_PW_DOMAINS(icl_pwdoms_aux_b,
-> > > +	POWER_DOMAIN_AUX_IO_B,
-> > > +	POWER_DOMAIN_AUX_B);
-> > > +I915_DECL_PW_DOMAINS(icl_pwdoms_aux_c,
-> > > +	POWER_DOMAIN_AUX_IO_C,
-> > > +	POWER_DOMAIN_AUX_C);
-> > > +I915_DECL_PW_DOMAINS(icl_pwdoms_aux_d,
-> > > +	POWER_DOMAIN_AUX_IO_D,
-> > > +	POWER_DOMAIN_AUX_D);
-> > > +I915_DECL_PW_DOMAINS(icl_pwdoms_aux_e,
-> > > +	POWER_DOMAIN_AUX_IO_E,
-> > > +	POWER_DOMAIN_AUX_E);
-> > > +I915_DECL_PW_DOMAINS(icl_pwdoms_aux_f,
-> > > +	POWER_DOMAIN_AUX_IO_F,
-> > > +	POWER_DOMAIN_AUX_F);
-> > >  I915_DECL_PW_DOMAINS(icl_pwdoms_aux_tbt1,	POWER_DOMAIN_AUX_TBT1);
-> > >  I915_DECL_PW_DOMAINS(icl_pwdoms_aux_tbt2,	POWER_DOMAIN_AUX_TBT2);
-> > >  I915_DECL_PW_DOMAINS(icl_pwdoms_aux_tbt3,	POWER_DOMAIN_AUX_TBT3);
-> > > @@ -1215,6 +1255,9 @@ I915_DECL_PW_DOMAINS(xelpd_pwdoms_pw_a,
-> > >  	POWER_DOMAIN_PORT_DDI_LANES_TC4, \
-> > >  	POWER_DOMAIN_VGA, \
-> > >  	POWER_DOMAIN_AUDIO_PLAYBACK, \
-> > > +	POWER_DOMAIN_AUX_IO_C, \
-> > > +	POWER_DOMAIN_AUX_IO_D, \
-> > > +	POWER_DOMAIN_AUX_IO_E, \
-> > >  	POWER_DOMAIN_AUX_C, \
-> > >  	POWER_DOMAIN_AUX_D, \
-> > >  	POWER_DOMAIN_AUX_E, \
-> > > -- 
-> > > 2.37.1
-> > 
-> > -- 
-> > Ville Syrjälä
-> > Intel
+> > I think so. At least you should have something to shut down an
+> > insecure feature in kernel lockdown modes. CAP_SYS_RAWIO is a simple
+> > way to do it.
 > 
-> -- 
-> Ville Syrjälä
-> Intel
+> How are CPU vulnerabilities handled in lockdown mode, do apps require
+> certain capabilities to run fast vs safe, or do we simply disallow
+> unsafe globally in lockdown?  I think we have a lot more leniency to
+> ignore/disallow flags that enable global insecurities when any sort of
+> lockdown is imposed.
+
+The CPU things are all information leaks from the kernel to
+userspace. lockdown is about preserving kernel operating integrity -
+eg preventing modification of hijacking of the running kernel.
+
+So, like you say below, this is kind of in between, it is not
+information leakage, and it is is hopefully not an integrity issue.
+
+Being more of a DOS maybe it is fine under the lockdown scenarios. At
+least I am happier to hear that.
+
+> > vfio-iommufd seems like overkill, I think your first suggestion to put
+> > in vfio.ko was more practical.
+> 
+> Convenient perhaps, but architecturally the wrong place for it.
+
+Ah, that is pretty subjective. If the architecture is that the iommufd
+user subsystem opts-in to this insecurity then it is an OK place
+
+If it is that iommufd sets it globaly for the whole system it is the
+wrong place.
+
+We could also talk about a per-vfio_device sysfs to control this? Then
+we can make the sysfs only appear for vfio_devices using the
+iommu_domain part of iommufd/vfio. That has a nice sort of compat
+shape as we can make the existing module option default the sysfs to
+insecure
+
+Jason
