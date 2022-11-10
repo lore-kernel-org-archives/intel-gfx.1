@@ -4,55 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3D0BC4167B
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 11:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DC2AC433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 11:09:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8B710E6ED;
-	Thu, 10 Nov 2022 11:07:53 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 864A010E6DA;
- Thu, 10 Nov 2022 11:07:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668078458; x=1699614458;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=IsNq6/Ft1iTpHnw5oawzIriKRv5do41LbNMZ4pqWXqo=;
- b=TTvJQeuH8vyswGjWuKRqrSYXIf3zm/hyzorBVe0GUvQq8YTeeyLYPxux
- td1Fj1ZUycKI6QQIoA9to4sw1v4PkrE47DC4m7ntJB1ONfQk4GrWROrYT
- XVM5rSa/HBqAjJ6HcxLanHzdwHskHZ9h3IYv5nq3gVdLpc1TSaXuQi6Jv
- 97A8qx0gokhAxV4ZdxtSsj5wvYcSw4v2pNlRNxFz4No6ZfcrnFQ4sG5LU
- CIvAipgrAHuA5UmyeISniKr68piENLDvPGXEC5ythq5dNfOUBRFsoeb5J
- pVvtlNbEV0dQMsBaOH3iFi9zEXuyd1+/i4Lm/dL3Vnh/waZxKqAJnlM9l A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="308905806"
-X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="308905806"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 03:07:18 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="615060557"
-X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="615060557"
-Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.23.198])
- ([10.213.23.198])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 03:07:16 -0800
-Message-ID: <6ebca1da-47c4-9ced-c77c-1083ba2e02ed@intel.com>
-Date: Thu, 10 Nov 2022 12:07:14 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE18810E6E2;
+	Thu, 10 Nov 2022 11:07:52 +0000 (UTC)
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 282E010E6D4;
+ Thu, 10 Nov 2022 11:07:32 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 8B74B5802FE;
+ Thu, 10 Nov 2022 06:07:31 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Thu, 10 Nov 2022 06:07:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm2; t=1668078451; x=
+ 1668085651; bh=atBlaDq9xlgBvw4PIVXF3mIQitqNnx0ouEvdterX9TA=; b=Z
+ NN4J4JSnJHbiJNw3D/w1PF/KzNpYCy0sHY0RWbW6p7wu/AonDs3u66Q58CmDQaSR
+ LZAwJeCT89FW97P03HRRocDjrkfuPg564Y+it08t5DOl7zD3OavAm+1erPd6BVpl
+ KVZctp54jf6AUdALjFEL63OhXV/b9FQ347pgeePGmDfXpos0wh4NP2RGdZ3mPyFA
+ fvia6b6YbMxUKf4pQWD3UYfNCKJfM+O7l141PHTZSDZTeojCEVvDDct9Gy8uRYwi
+ eDDd1rxZFQLN+9oER38nILEiV4OXGC6J1QJpT2KO1raD01s7V7X+YRXnXAmqrvU2
+ /nwH7wkWrNFlIf7tvElBQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668078451; x=
+ 1668085651; bh=atBlaDq9xlgBvw4PIVXF3mIQitqNnx0ouEvdterX9TA=; b=i
+ 8s5DzHtz7ysfwJTl+8Y9upEeG4G1p9IKn6SbfQKvaYFNqjOVnd+2FFOYo+Tj96Q8
+ DK6stZbZwnLeoyGBvtOk5FlRyyrJqtHHyzMixiWN+z3o+efYvPcZgwsbMhz21Vzq
+ 1D334XnuMGQGsDnLc8FYycWZg2jzHUpUUOB6fvEY+0qj29tyztkFCB/VqnSWLpdv
+ S9/n9wyYN4+p0vNGcuLvFWR9vh5GMWhUfuJvnufsnEZXb+xL4PRu2AS4+Hczyqwh
+ 2h4Sa+RNzpQ9jNoDT/Y5RLbP2Ljo6BUbVb96s0OxkAUco0ecKAxrPBge6MAvrFPt
+ j3d13WmLrlzj8DXg+6rKQ==
+X-ME-Sender: <xms:c9tsY-Q9Hj-W9nTI7Tix4I7FNTxtaZ6NwlL5QFr2c60xWUxEj5KydA>
+ <xme:c9tsYzxOoRlpKYI-lJojumZI-3gY5fnA9JmrdbSW4Dsdz4XHE2WUdlZjS_xkbEYgR
+ 89xRD-PJn_G04mQiVY>
+X-ME-Received: <xmr:c9tsY72PqPQH8FoILSrEZNKQUyrNyzy0YCDFfBZZfasF2bH1BaSIGo35jrpoRI1k65gm7oY-pPq7XAbT-eEhtDRJhpcdQhf_6C3ei3w-jrScIg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggddvhecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefhfffugggtgffkfhgjvfevofesthekredtredtjeenucfhrhhomhepofgrgihi
+ mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
+ htthgvrhhnpeehteehteeuveeujeefkeejjeekfeefkedvgfduleffudehffevgfegkeef
+ udeludenucffohhmrghinheprghrtghhihhvvgdrohhrghdpkhholhhumhgsuhhsrdhfih
+ dphhhinhhnvghrrdhinhhfohdpsggrthhsohgtkhhsrdgtohdruhhknecuvehluhhsthgv
+ rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnh
+ hordhtvggthh
+X-ME-Proxy: <xmx:c9tsY6BtCEomWHcSOomm2B1ioivlzRkDTIZf7O_BTScltU4w5gX3tg>
+ <xmx:c9tsY3gx2CODlCnx8G4_D877Y-3ALNEO-3lGRnX7PpwttNKbyM54RQ>
+ <xmx:c9tsY2p8BauAw9BvYiN4HBe_aWTyL2ccaMAFBjV9xRvW5II3zMipyw>
+ <xmx:c9tsY9Oj8JbGfQGvFkffX6mZ8kBQ6wvjoakmch3OdEWUKdVeOc2NEA>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 10 Nov 2022 06:07:30 -0500 (EST)
+From: Maxime Ripard <maxime@cerno.tech>
+Date: Thu, 10 Nov 2022 12:07:18 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.4.2
-Content-Language: en-US
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Intel-gfx@lists.freedesktop.org
-References: <20221108114950.2017869-1-tvrtko.ursulin@linux.intel.com>
- <20221109104633.2579245-1-tvrtko.ursulin@linux.intel.com>
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <20221109104633.2579245-1-tvrtko.ursulin@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v3] drm/i915: Partial abandonment of legacy
- DRM logging macros
+Message-Id: <20220728-rpi-analog-tv-properties-v8-6-09ce1466967c@cerno.tech>
+References: <20220728-rpi-analog-tv-properties-v8-0-09ce1466967c@cerno.tech>
+In-Reply-To: <20220728-rpi-analog-tv-properties-v8-0-09ce1466967c@cerno.tech>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Chen-Yu Tsai <wens@csie.org>, 
+ Maxime Ripard <mripard@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Karol Herbst <kherbst@redhat.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Lyude Paul <lyude@redhat.com>, Samuel Holland <samuel@sholland.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Emma Anholt <emma@anholt.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>
+X-Mailer: b4 0.11.0-dev-99e3a
+X-Developer-Signature: v=1; a=openpgp-sha256; l=23302; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=SBnOsu6b81PSvto7AhS77L/UwGtFt80jHwUCxS5n5kw=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk5t1P+zuT4+nzj7AzfGc/43S8++j/9/SLf1XmerUpc3yT/
+ r5//vaOUhUGMi0FWTJElRth8SdypWa872fjmwcxhZQIZwsDFKQATqalkZNi5+IyEvbp07edyjaX3y2
+ fclSs+u6CQgXXZws7COe7lrSEM/4x7UvfJPHeUN5/hUvrOwH35+3tPsstfT5m5ouT5KuH12jwA
+X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Subject: [Intel-gfx] [PATCH v8 06/24] drm/modes: Add a function to generate
+ analog display modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,422 +104,716 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
+Cc: Dom Cobley <dom@raspberrypi.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Phil Elwell <phil@raspberrypi.com>, Hans de Goede <hdegoede@redhat.com>, Noralf Trønnes <noralf@tronnes.org>, Geert Uytterhoeven <geert@linux-m68k.org>, Maxime Ripard <maxime@cerno.tech>, Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>, linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 09.11.2022 11:46, Tvrtko Ursulin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> 
-> Convert some usages of legacy DRM logging macros into versions which tell
-> us on which device have the events occurred.
-> 
-> v2:
->   * Don't have struct drm_device as local. (Jani, Ville)
-> 
-> v3:
->   * Store gt, not i915, in workaround list. (John)
+Multiple drivers (meson, vc4, sun4i) define analog TV 525-lines and
+625-lines modes in their drivers.
 
+Since those modes are fairly standard, and that we'll need to use them
+in more places in the future, it makes sense to move their definition
+into the core framework.
 
-Neither gt neither i915 does fit into wa list IMHO.
-The best solution would be provide context (i915/gt/whatever)
-as a function parameter, every time it is necessary.
-On the other side it should not block the patch.
-More below.
+However, analog display usually have fairly loose timings requirements,
+the only discrete parameters being the total number of lines and pixel
+clock frequency. Thus, we created a function that will create a display
+mode from the standard, the pixel frequency and the active area.
 
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com> # v2
-> Acked-by: Jani Nikula <jani.nikula@intel.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: John Harrison <John.C.Harrison@Intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> ---
->   drivers/gpu/drm/i915/gem/i915_gem_context.c   |  2 +-
->   .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 26 ++++++++----
->   .../drm/i915/gt/intel_execlists_submission.c  | 13 +++---
->   drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c  |  4 +-
->   drivers/gpu/drm/i915/gt/intel_gt.c            |  4 +-
->   drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  8 ++--
->   drivers/gpu/drm/i915/gt/intel_rps.c           |  6 ++-
->   drivers/gpu/drm/i915/gt/intel_workarounds.c   | 42 +++++++++++--------
->   .../gpu/drm/i915/gt/intel_workarounds_types.h |  3 ++
->   .../gpu/drm/i915/gt/selftest_workarounds.c    |  4 +-
->   drivers/gpu/drm/i915/i915_debugfs.c           |  4 +-
->   drivers/gpu/drm/i915/i915_gem.c               |  2 +-
->   drivers/gpu/drm/i915/i915_getparam.c          |  2 +-
->   drivers/gpu/drm/i915/i915_irq.c               | 12 +++---
->   drivers/gpu/drm/i915/i915_perf.c              | 14 ++++---
->   drivers/gpu/drm/i915/i915_query.c             | 12 +++---
->   drivers/gpu/drm/i915/i915_sysfs.c             |  3 +-
->   drivers/gpu/drm/i915/i915_vma.c               | 16 +++----
->   drivers/gpu/drm/i915/intel_uncore.c           | 21 ++++++----
->   19 files changed, 117 insertions(+), 81 deletions(-)
-> 
+Tested-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
-(...)
+---
+Changes in v6:
+- Fix typo
 
-> @@ -1749,7 +1755,7 @@ wa_list_apply(struct intel_gt *gt, const struct i915_wa_list *wal)
->   				intel_gt_mcr_read_any_fw(gt, wa->mcr_reg) :
->   				intel_uncore_read_fw(uncore, wa->reg);
->   
-> -			wa_verify(wa, val, wal->name, "application");
-> +			wa_verify(wal->gt, wa, val, wal->name, "application");
+Changes in v4:
+- Reworded the line length check comment
+- Switch to HZ_PER_KHZ in tests
+- Use previous timing to fill our mode
+- Move the number of lines check earlier
+---
+ drivers/gpu/drm/drm_modes.c            | 474 +++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tests/Makefile         |   1 +
+ drivers/gpu/drm/tests/drm_modes_test.c | 145 ++++++++++
+ include/drm/drm_modes.h                |  17 ++
+ 4 files changed, 637 insertions(+)
 
-This looks confusing at 1st sight, why wa_verify(wal->gt,...) and not 
-wa_verify(gt,...). Can they differ? and similar questions as in case of 
-redundant vars.
-The same apply to wal->engine_name, which is almost unused anyway?
-Also AFAIK there is always sequence:
-1. wa_init_start
-2. *init_workarounds*
-3. wa_init_finish - btw funny name.
-Why not 1 and 3 embed in 2? Do we need this sequence.
+diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+index 5d4ac79381c4..71c050c3ee6b 100644
+--- a/drivers/gpu/drm/drm_modes.c
++++ b/drivers/gpu/drm/drm_modes.c
+@@ -116,6 +116,480 @@ void drm_mode_probed_add(struct drm_connector *connector,
+ }
+ EXPORT_SYMBOL(drm_mode_probed_add);
+ 
++enum drm_mode_analog {
++	DRM_MODE_ANALOG_NTSC, /* 525 lines, 60Hz */
++	DRM_MODE_ANALOG_PAL, /* 625 lines, 50Hz */
++};
++
++/*
++ * The timings come from:
++ * - https://web.archive.org/web/20220406232708/http://www.kolumbus.fi/pami1/video/pal_ntsc.html
++ * - https://web.archive.org/web/20220406124914/http://martin.hinner.info/vga/pal.html
++ * - https://web.archive.org/web/20220609202433/http://www.batsocks.co.uk/readme/video_timing.htm
++ */
++#define NTSC_LINE_DURATION_NS		63556U
++#define NTSC_LINES_NUMBER		525
++
++#define NTSC_HBLK_DURATION_TYP_NS	10900U
++#define NTSC_HBLK_DURATION_MIN_NS	(NTSC_HBLK_DURATION_TYP_NS - 200)
++#define NTSC_HBLK_DURATION_MAX_NS	(NTSC_HBLK_DURATION_TYP_NS + 200)
++
++#define NTSC_HACT_DURATION_TYP_NS	(NTSC_LINE_DURATION_NS - NTSC_HBLK_DURATION_TYP_NS)
++#define NTSC_HACT_DURATION_MIN_NS	(NTSC_LINE_DURATION_NS - NTSC_HBLK_DURATION_MAX_NS)
++#define NTSC_HACT_DURATION_MAX_NS	(NTSC_LINE_DURATION_NS - NTSC_HBLK_DURATION_MIN_NS)
++
++#define NTSC_HFP_DURATION_TYP_NS	1500
++#define NTSC_HFP_DURATION_MIN_NS	1270
++#define NTSC_HFP_DURATION_MAX_NS	2220
++
++#define NTSC_HSLEN_DURATION_TYP_NS	4700
++#define NTSC_HSLEN_DURATION_MIN_NS	(NTSC_HSLEN_DURATION_TYP_NS - 100)
++#define NTSC_HSLEN_DURATION_MAX_NS	(NTSC_HSLEN_DURATION_TYP_NS + 100)
++
++#define NTSC_HBP_DURATION_TYP_NS	4700
++
++/*
++ * I couldn't find the actual tolerance for the back porch, so let's
++ * just reuse the sync length ones.
++ */
++#define NTSC_HBP_DURATION_MIN_NS	(NTSC_HBP_DURATION_TYP_NS - 100)
++#define NTSC_HBP_DURATION_MAX_NS	(NTSC_HBP_DURATION_TYP_NS + 100)
++
++#define PAL_LINE_DURATION_NS		64000U
++#define PAL_LINES_NUMBER		625
++
++#define PAL_HACT_DURATION_TYP_NS	51950U
++#define PAL_HACT_DURATION_MIN_NS	(PAL_HACT_DURATION_TYP_NS - 100)
++#define PAL_HACT_DURATION_MAX_NS	(PAL_HACT_DURATION_TYP_NS + 400)
++
++#define PAL_HBLK_DURATION_TYP_NS	(PAL_LINE_DURATION_NS - PAL_HACT_DURATION_TYP_NS)
++#define PAL_HBLK_DURATION_MIN_NS	(PAL_LINE_DURATION_NS - PAL_HACT_DURATION_MAX_NS)
++#define PAL_HBLK_DURATION_MAX_NS	(PAL_LINE_DURATION_NS - PAL_HACT_DURATION_MIN_NS)
++
++#define PAL_HFP_DURATION_TYP_NS		1650
++#define PAL_HFP_DURATION_MIN_NS		(PAL_HFP_DURATION_TYP_NS - 100)
++#define PAL_HFP_DURATION_MAX_NS		(PAL_HFP_DURATION_TYP_NS + 400)
++
++#define PAL_HSLEN_DURATION_TYP_NS	4700
++#define PAL_HSLEN_DURATION_MIN_NS	(PAL_HSLEN_DURATION_TYP_NS - 200)
++#define PAL_HSLEN_DURATION_MAX_NS	(PAL_HSLEN_DURATION_TYP_NS + 200)
++
++#define PAL_HBP_DURATION_TYP_NS		5700
++#define PAL_HBP_DURATION_MIN_NS		(PAL_HBP_DURATION_TYP_NS - 200)
++#define PAL_HBP_DURATION_MAX_NS		(PAL_HBP_DURATION_TYP_NS + 200)
++
++struct analog_param_field {
++	unsigned int even, odd;
++};
++
++#define PARAM_FIELD(_odd, _even)		\
++	{ .even = _even, .odd = _odd }
++
++struct analog_param_range {
++	unsigned int	min, typ, max;
++};
++
++#define PARAM_RANGE(_min, _typ, _max)		\
++	{ .min = _min, .typ = _typ, .max = _max }
++
++struct analog_parameters {
++	unsigned int			num_lines;
++	unsigned int			line_duration_ns;
++
++	struct analog_param_range	hact_ns;
++	struct analog_param_range	hfp_ns;
++	struct analog_param_range	hslen_ns;
++	struct analog_param_range	hbp_ns;
++	struct analog_param_range	hblk_ns;
++
++	unsigned int			bt601_hfp;
++
++	struct analog_param_field	vfp_lines;
++	struct analog_param_field	vslen_lines;
++	struct analog_param_field	vbp_lines;
++};
++
++#define TV_MODE_PARAMETER(_mode, _lines, _line_dur, _hact, _hfp, _hslen, _hbp, _hblk, _bt601_hfp, _vfp, _vslen, _vbp) \
++	[_mode] = {							\
++		.num_lines = _lines,					\
++		.line_duration_ns = _line_dur,				\
++		.hact_ns = _hact,					\
++		.hfp_ns = _hfp,						\
++		.hslen_ns = _hslen,					\
++		.hbp_ns = _hbp,						\
++		.hblk_ns = _hblk,					\
++		.bt601_hfp = _bt601_hfp,				\
++		.vfp_lines = _vfp,					\
++		.vslen_lines = _vslen,					\
++		.vbp_lines = _vbp,					\
++	}
++
++const static struct analog_parameters tv_modes_parameters[] = {
++	TV_MODE_PARAMETER(DRM_MODE_ANALOG_NTSC,
++			  NTSC_LINES_NUMBER,
++			  NTSC_LINE_DURATION_NS,
++			  PARAM_RANGE(NTSC_HACT_DURATION_MIN_NS,
++				      NTSC_HACT_DURATION_TYP_NS,
++				      NTSC_HACT_DURATION_MAX_NS),
++			  PARAM_RANGE(NTSC_HFP_DURATION_MIN_NS,
++				      NTSC_HFP_DURATION_TYP_NS,
++				      NTSC_HFP_DURATION_MAX_NS),
++			  PARAM_RANGE(NTSC_HSLEN_DURATION_MIN_NS,
++				      NTSC_HSLEN_DURATION_TYP_NS,
++				      NTSC_HSLEN_DURATION_MAX_NS),
++			  PARAM_RANGE(NTSC_HBP_DURATION_MIN_NS,
++				      NTSC_HBP_DURATION_TYP_NS,
++				      NTSC_HBP_DURATION_MAX_NS),
++			  PARAM_RANGE(NTSC_HBLK_DURATION_MIN_NS,
++				      NTSC_HBLK_DURATION_TYP_NS,
++				      NTSC_HBLK_DURATION_MAX_NS),
++			  16,
++			  PARAM_FIELD(3, 3),
++			  PARAM_FIELD(3, 3),
++			  PARAM_FIELD(16, 17)),
++	TV_MODE_PARAMETER(DRM_MODE_ANALOG_PAL,
++			  PAL_LINES_NUMBER,
++			  PAL_LINE_DURATION_NS,
++			  PARAM_RANGE(PAL_HACT_DURATION_MIN_NS,
++				      PAL_HACT_DURATION_TYP_NS,
++				      PAL_HACT_DURATION_MAX_NS),
++			  PARAM_RANGE(PAL_HFP_DURATION_MIN_NS,
++				      PAL_HFP_DURATION_TYP_NS,
++				      PAL_HFP_DURATION_MAX_NS),
++			  PARAM_RANGE(PAL_HSLEN_DURATION_MIN_NS,
++				      PAL_HSLEN_DURATION_TYP_NS,
++				      PAL_HSLEN_DURATION_MAX_NS),
++			  PARAM_RANGE(PAL_HBP_DURATION_MIN_NS,
++				      PAL_HBP_DURATION_TYP_NS,
++				      PAL_HBP_DURATION_MAX_NS),
++			  PARAM_RANGE(PAL_HBLK_DURATION_MIN_NS,
++				      PAL_HBLK_DURATION_TYP_NS,
++				      PAL_HBLK_DURATION_MAX_NS),
++			  12,
++
++			  /*
++			   * The front porch is actually 6 short sync
++			   * pulses for the even field, and 5 for the
++			   * odd field. Each sync takes half a life so
++			   * the odd field front porch is shorter by
++			   * half a line.
++			   *
++			   * In progressive, we're supposed to use 6
++			   * pulses, so we're fine there
++			   */
++			  PARAM_FIELD(3, 2),
++
++			  /*
++			   * The vsync length is 5 long sync pulses,
++			   * each field taking half a line. We're
++			   * shorter for both fields by half a line.
++			   *
++			   * In progressive, we're supposed to use 5
++			   * pulses, so we're off by half
++			   * a line.
++			   *
++			   * In interlace, we're now off by half a line
++			   * for the even field and one line for the odd
++			   * field.
++			   */
++			  PARAM_FIELD(3, 3),
++
++			  /*
++			   * The back porch starts with post-equalizing
++			   * pulses, consisting in 5 short sync pulses
++			   * for the even field, 4 for the odd field. In
++			   * progressive, it's 5 short syncs.
++			   *
++			   * In progressive, we thus have 2.5 lines,
++			   * plus the 0.5 line we were missing
++			   * previously, so we should use 3 lines.
++			   *
++			   * In interlace, the even field is in the
++			   * exact same case than progressive. For the
++			   * odd field, we should be using 2 lines but
++			   * we're one line short, so we'll make up for
++			   * it here by using 3.
++			   *
++			   * The entire blanking area is supposed to
++			   * take 25 lines, so we also need to account
++			   * for the rest of the blanking area that
++			   * can't be in either the front porch or sync
++			   * period.
++			   */
++			  PARAM_FIELD(19, 20)),
++};
++
++static int fill_analog_mode(struct drm_device *dev,
++			    struct drm_display_mode *mode,
++			    const struct analog_parameters *params,
++			    unsigned long pixel_clock_hz,
++			    unsigned int hactive,
++			    unsigned int vactive,
++			    bool interlace)
++{
++	unsigned long pixel_duration_ns = NSEC_PER_SEC / pixel_clock_hz;
++	unsigned int htotal, vtotal;
++	unsigned int max_hact, hact_duration_ns;
++	unsigned int hblk, hblk_duration_ns;
++	unsigned int hfp, hfp_duration_ns;
++	unsigned int hslen, hslen_duration_ns;
++	unsigned int hbp, hbp_duration_ns;
++	unsigned int porches, porches_duration_ns;
++	unsigned int vfp, vfp_min;
++	unsigned int vbp, vbp_min;
++	unsigned int vslen;
++	bool bt601 = false;
++	int porches_rem;
++	u64 result;
++
++	drm_dbg_kms(dev,
++		    "Generating a %ux%u%c, %u-line mode with a %lu kHz clock\n",
++		    hactive, vactive,
++		    interlace ? 'i' : 'p',
++		    params->num_lines,
++		    pixel_clock_hz / 1000);
++
++	max_hact = params->hact_ns.max / pixel_duration_ns;
++	if (pixel_clock_hz == 13500000 && hactive > max_hact && hactive <= 720) {
++		drm_dbg_kms(dev, "Trying to generate a BT.601 mode. Disabling checks.\n");
++		bt601 = true;
++	}
++
++	/*
++	 * Our pixel duration is going to be round down by the division,
++	 * so rounding up is probably going to introduce even more
++	 * deviation.
++	 */
++	result = (u64)params->line_duration_ns * pixel_clock_hz;
++	do_div(result, NSEC_PER_SEC);
++	htotal = result;
++
++	drm_dbg_kms(dev, "Total Horizontal Number of Pixels: %u\n", htotal);
++
++	hact_duration_ns = hactive * pixel_duration_ns;
++	if (!bt601 &&
++	    (hact_duration_ns < params->hact_ns.min ||
++	     hact_duration_ns > params->hact_ns.max)) {
++		DRM_ERROR("Invalid horizontal active area duration: %uns (min: %u, max %u)\n",
++			  hact_duration_ns, params->hact_ns.min, params->hact_ns.max);
++		return -EINVAL;
++	}
++
++	hblk = htotal - hactive;
++	drm_dbg_kms(dev, "Horizontal Blanking Period: %u\n", hblk);
++
++	hblk_duration_ns = hblk * pixel_duration_ns;
++	if (!bt601 &&
++	    (hblk_duration_ns < params->hblk_ns.min ||
++	     hblk_duration_ns > params->hblk_ns.max)) {
++		DRM_ERROR("Invalid horizontal blanking duration: %uns (min: %u, max %u)\n",
++			  hblk_duration_ns, params->hblk_ns.min, params->hblk_ns.max);
++		return -EINVAL;
++	}
++
++	hslen = DIV_ROUND_UP(params->hslen_ns.typ, pixel_duration_ns);
++	drm_dbg_kms(dev, "Horizontal Sync Period: %u\n", hslen);
++
++	hslen_duration_ns = hslen * pixel_duration_ns;
++	if (!bt601 &&
++	    (hslen_duration_ns < params->hslen_ns.min ||
++	     hslen_duration_ns > params->hslen_ns.max)) {
++		DRM_ERROR("Invalid horizontal sync duration: %uns (min: %u, max %u)\n",
++			  hslen_duration_ns, params->hslen_ns.min, params->hslen_ns.max);
++		return -EINVAL;
++	}
++
++	porches = hblk - hslen;
++	drm_dbg_kms(dev, "Remaining horizontal pixels for both porches: %u\n", porches);
++
++	porches_duration_ns = porches * pixel_duration_ns;
++	if (!bt601 &&
++	    (porches_duration_ns > (params->hfp_ns.max + params->hbp_ns.max) ||
++	     porches_duration_ns < (params->hfp_ns.min + params->hbp_ns.min))) {
++		DRM_ERROR("Invalid horizontal porches duration: %uns\n", porches_duration_ns);
++		return -EINVAL;
++	}
++
++	if (bt601) {
++		hfp = params->bt601_hfp;
++	} else {
++		unsigned int hfp_min = DIV_ROUND_UP(params->hfp_ns.min,
++						    pixel_duration_ns);
++		unsigned int hbp_min = DIV_ROUND_UP(params->hbp_ns.min,
++						    pixel_duration_ns);
++		 int porches_rem = porches - hfp_min - hbp_min;
++
++		hfp = hfp_min + DIV_ROUND_UP(porches_rem, 2);
++	}
++
++	drm_dbg_kms(dev, "Horizontal Front Porch: %u\n", hfp);
++
++	hfp_duration_ns = hfp * pixel_duration_ns;
++	if (!bt601 &&
++	    (hfp_duration_ns < params->hfp_ns.min ||
++	     hfp_duration_ns > params->hfp_ns.max)) {
++		DRM_ERROR("Invalid horizontal front porch duration: %uns (min: %u, max %u)\n",
++			  hfp_duration_ns, params->hfp_ns.min, params->hfp_ns.max);
++		return -EINVAL;
++	}
++
++	hbp = porches - hfp;
++	drm_dbg_kms(dev, "Horizontal Back Porch: %u\n", hbp);
++
++	hbp_duration_ns = hbp * pixel_duration_ns;
++	if (!bt601 &&
++	    (hbp_duration_ns < params->hbp_ns.min ||
++	     hbp_duration_ns > params->hbp_ns.max)) {
++		DRM_ERROR("Invalid horizontal back porch duration: %uns (min: %u, max %u)\n",
++			  hbp_duration_ns, params->hbp_ns.min, params->hbp_ns.max);
++		return -EINVAL;
++	}
++
++	if (htotal != (hactive + hfp + hslen + hbp))
++		return -EINVAL;
++
++	mode->clock = pixel_clock_hz / 1000;
++	mode->hdisplay = hactive;
++	mode->hsync_start = mode->hdisplay + hfp;
++	mode->hsync_end = mode->hsync_start + hslen;
++	mode->htotal = mode->hsync_end + hbp;
++
++	if (interlace) {
++		vfp_min = params->vfp_lines.even + params->vfp_lines.odd;
++		vbp_min = params->vbp_lines.even + params->vbp_lines.odd;
++		vslen = params->vslen_lines.even + params->vslen_lines.odd;
++	} else {
++		/*
++		 * By convention, NTSC (aka 525/60) systems start with
++		 * the even field, but PAL (aka 625/50) systems start
++		 * with the odd one.
++		 *
++		 * PAL systems also have asymetric timings between the
++		 * even and odd field, while NTSC is symetric.
++		 *
++		 * Moreover, if we want to create a progressive mode for
++		 * PAL, we need to use the odd field timings.
++		 *
++		 * Since odd == even for NTSC, we can just use the odd
++		 * one all the time to simplify the code a bit.
++		 */
++		vfp_min = params->vfp_lines.odd;
++		vbp_min = params->vbp_lines.odd;
++		vslen = params->vslen_lines.odd;
++	}
++
++	drm_dbg_kms(dev, "Vertical Sync Period: %u\n", vslen);
++
++	porches = params->num_lines - vactive - vslen;
++	drm_dbg_kms(dev, "Remaining vertical pixels for both porches: %u\n", porches);
++
++	porches_rem = porches - vfp_min - vbp_min;
++	vfp = vfp_min + (porches_rem / 2);
++	drm_dbg_kms(dev, "Vertical Front Porch: %u\n", vfp);
++
++	vbp = porches - vfp;
++	drm_dbg_kms(dev, "Vertical Back Porch: %u\n", vbp);
++
++	vtotal = vactive + vfp + vslen + vbp;
++	if (params->num_lines != vtotal) {
++		DRM_ERROR("Invalid vertical total: %upx (expected %upx)\n",
++			  vtotal, params->num_lines);
++		return -EINVAL;
++	}
++
++	mode->vdisplay = vactive;
++	mode->vsync_start = mode->vdisplay + vfp;
++	mode->vsync_end = mode->vsync_start + vslen;
++	mode->vtotal = mode->vsync_end + vbp;
++
++	if (mode->vtotal != params->num_lines)
++		return -EINVAL;
++
++	mode->type = DRM_MODE_TYPE_DRIVER;
++	mode->flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC;
++	if (interlace)
++		mode->flags |= DRM_MODE_FLAG_INTERLACE;
++
++	drm_mode_set_name(mode);
++
++	drm_dbg_kms(dev, "Generated mode " DRM_MODE_FMT "\n", DRM_MODE_ARG(mode));
++
++	return 0;
++}
++
++/**
++ * drm_analog_tv_mode - create a display mode for an analog TV
++ * @dev: drm device
++ * @tv_mode: TV Mode standard to create a mode for. See DRM_MODE_TV_MODE_*.
++ * @pixel_clock_hz: Pixel Clock Frequency, in Hertz
++ * @hdisplay: hdisplay size
++ * @vdisplay: vdisplay size
++ * @interlace: whether to compute an interlaced mode
++ *
++ * This function creates a struct drm_display_mode instance suited for
++ * an analog TV output, for one of the usual analog TV mode.
++ *
++ * Note that @hdisplay is larger than the usual constraints for the PAL
++ * and NTSC timings, and we'll choose to ignore most timings constraints
++ * to reach those resolutions.
++ *
++ * Returns:
++ *
++ * A pointer to the mode, allocated with drm_mode_create(). Returns NULL
++ * on error.
++ */
++struct drm_display_mode *drm_analog_tv_mode(struct drm_device *dev,
++					    enum drm_connector_tv_mode tv_mode,
++					    unsigned long pixel_clock_hz,
++					    unsigned int hdisplay,
++					    unsigned int vdisplay,
++					    bool interlace)
++{
++	struct drm_display_mode *mode;
++	enum drm_mode_analog analog;
++	int ret;
++
++	switch (tv_mode) {
++	case DRM_MODE_TV_MODE_NTSC:
++		fallthrough;
++	case DRM_MODE_TV_MODE_NTSC_443:
++		fallthrough;
++	case DRM_MODE_TV_MODE_NTSC_J:
++		fallthrough;
++	case DRM_MODE_TV_MODE_PAL_M:
++		analog = DRM_MODE_ANALOG_NTSC;
++		break;
++
++	case DRM_MODE_TV_MODE_PAL:
++		fallthrough;
++	case DRM_MODE_TV_MODE_PAL_N:
++		fallthrough;
++	case DRM_MODE_TV_MODE_SECAM:
++		analog = DRM_MODE_ANALOG_PAL;
++		break;
++
++	default:
++		return NULL;
++	}
++
++	mode = drm_mode_create(dev);
++	if (!mode)
++		return NULL;
++
++	ret = fill_analog_mode(dev, mode,
++			       &tv_modes_parameters[analog],
++			       pixel_clock_hz, hdisplay, vdisplay, interlace);
++	if (ret)
++		goto err_free_mode;
++
++	return mode;
++
++err_free_mode:
++	drm_mode_destroy(dev, mode);
++	return NULL;
++}
++EXPORT_SYMBOL(drm_analog_tv_mode);
++
+ /**
+  * drm_cvt_mode -create a modeline based on the CVT algorithm
+  * @dev: drm device
+diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makefile
+index b29ef1085cad..b22ac96fdd65 100644
+--- a/drivers/gpu/drm/tests/Makefile
++++ b/drivers/gpu/drm/tests/Makefile
+@@ -10,5 +10,6 @@ obj-$(CONFIG_DRM_KUNIT_TEST) += \
+ 	drm_framebuffer_test.o \
+ 	drm_kunit_helpers.o \
+ 	drm_mm_test.o \
++	drm_modes_test.o \
+ 	drm_plane_helper_test.o \
+ 	drm_rect_test.o
+diff --git a/drivers/gpu/drm/tests/drm_modes_test.c b/drivers/gpu/drm/tests/drm_modes_test.c
+new file mode 100644
+index 000000000000..afeda9f07859
+--- /dev/null
++++ b/drivers/gpu/drm/tests/drm_modes_test.c
+@@ -0,0 +1,145 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Kunit test for drm_modes functions
++ */
++
++#include <drm/drm_drv.h>
++#include <drm/drm_modes.h>
++
++#include <kunit/test.h>
++
++#include <linux/units.h>
++
++#include "drm_kunit_helpers.h"
++
++struct drm_modes_test_priv {
++	struct drm_device *drm;
++};
++
++static int drm_modes_test_init(struct kunit *test)
++{
++	struct drm_modes_test_priv *priv;
++
++	priv = kunit_kzalloc(test, sizeof(*priv), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, priv);
++
++	priv->drm = drm_kunit_device_init(test, DRIVER_MODESET, "drm-modes-test");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv->drm);
++
++	test->priv = priv;
++
++	return 0;
++}
++
++static void drm_modes_analog_tv_ntsc_480i(struct kunit *test)
++{
++	struct drm_modes_test_priv *priv = test->priv;
++	struct drm_display_mode *mode;
++
++	mode = drm_analog_tv_mode(priv->drm,
++				  DRM_MODE_TV_MODE_NTSC,
++				  13500 * HZ_PER_KHZ, 720, 480,
++				  true);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++
++	KUNIT_EXPECT_EQ(test, drm_mode_vrefresh(mode), 60);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 720);
++
++	/* BT.601 defines hsync_start at 736 for 480i */
++	KUNIT_EXPECT_EQ(test, mode->hsync_start, 736);
++
++	/*
++	 * The NTSC standard expects a line to take 63.556us. With a
++	 * pixel clock of 13.5 MHz, a pixel takes around 74ns, so we
++	 * need to have 63556ns / 74ns = 858.
++	 *
++	 * This is also mandated by BT.601.
++	 */
++	KUNIT_EXPECT_EQ(test, mode->htotal, 858);
++
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 480);
++	KUNIT_EXPECT_EQ(test, mode->vtotal, 525);
++}
++
++static void drm_modes_analog_tv_ntsc_480i_inlined(struct kunit *test)
++{
++	struct drm_modes_test_priv *priv = test->priv;
++	struct drm_display_mode *expected, *mode;
++
++	expected = drm_analog_tv_mode(priv->drm,
++				      DRM_MODE_TV_MODE_NTSC,
++				      13500 * HZ_PER_KHZ, 720, 480,
++				      true);
++	KUNIT_ASSERT_NOT_NULL(test, expected);
++
++	mode = drm_mode_analog_ntsc_480i(priv->drm);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++
++	KUNIT_EXPECT_TRUE(test, drm_mode_equal(expected, mode));
++}
++
++static void drm_modes_analog_tv_pal_576i(struct kunit *test)
++{
++	struct drm_modes_test_priv *priv = test->priv;
++	struct drm_display_mode *mode;
++
++	mode = drm_analog_tv_mode(priv->drm,
++				  DRM_MODE_TV_MODE_PAL,
++				  13500 * HZ_PER_KHZ, 720, 576,
++				  true);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++
++	KUNIT_EXPECT_EQ(test, drm_mode_vrefresh(mode), 50);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 720);
++
++	/* BT.601 defines hsync_start at 732 for 576i */
++	KUNIT_EXPECT_EQ(test, mode->hsync_start, 732);
++
++	/*
++	 * The PAL standard expects a line to take 64us. With a pixel
++	 * clock of 13.5 MHz, a pixel takes around 74ns, so we need to
++	 * have 64000ns / 74ns = 864.
++	 *
++	 * This is also mandated by BT.601.
++	 */
++	KUNIT_EXPECT_EQ(test, mode->htotal, 864);
++
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 576);
++	KUNIT_EXPECT_EQ(test, mode->vtotal, 625);
++}
++
++static void drm_modes_analog_tv_pal_576i_inlined(struct kunit *test)
++{
++	struct drm_modes_test_priv *priv = test->priv;
++	struct drm_display_mode *expected, *mode;
++
++	expected = drm_analog_tv_mode(priv->drm,
++				      DRM_MODE_TV_MODE_PAL,
++				      13500 * HZ_PER_KHZ, 720, 576,
++				      true);
++	KUNIT_ASSERT_NOT_NULL(test, expected);
++
++	mode = drm_mode_analog_pal_576i(priv->drm);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++
++	KUNIT_EXPECT_TRUE(test, drm_mode_equal(expected, mode));
++}
++
++static struct kunit_case drm_modes_analog_tv_tests[] = {
++	KUNIT_CASE(drm_modes_analog_tv_ntsc_480i),
++	KUNIT_CASE(drm_modes_analog_tv_ntsc_480i_inlined),
++	KUNIT_CASE(drm_modes_analog_tv_pal_576i),
++	KUNIT_CASE(drm_modes_analog_tv_pal_576i_inlined),
++	{ }
++};
++
++static struct kunit_suite drm_modes_analog_tv_test_suite = {
++	.name = "drm_modes_analog_tv",
++	.init = drm_modes_test_init,
++	.test_cases = drm_modes_analog_tv_tests,
++};
++
++kunit_test_suites(
++	&drm_modes_analog_tv_test_suite
++);
++MODULE_LICENSE("GPL v2");
+diff --git a/include/drm/drm_modes.h b/include/drm/drm_modes.h
+index b0c680e6f670..c613f0abe9dc 100644
+--- a/include/drm/drm_modes.h
++++ b/include/drm/drm_modes.h
+@@ -468,6 +468,23 @@ bool drm_mode_is_420_also(const struct drm_display_info *display,
+ bool drm_mode_is_420(const struct drm_display_info *display,
+ 		     const struct drm_display_mode *mode);
+ 
++struct drm_display_mode *drm_analog_tv_mode(struct drm_device *dev,
++					    enum drm_connector_tv_mode mode,
++					    unsigned long pixel_clock_hz,
++					    unsigned int hdisplay,
++					    unsigned int vdisplay,
++					    bool interlace);
++
++static inline struct drm_display_mode *drm_mode_analog_ntsc_480i(struct drm_device *dev)
++{
++	return drm_analog_tv_mode(dev, DRM_MODE_TV_MODE_NTSC, 13500000, 720, 480, true);
++}
++
++static inline struct drm_display_mode *drm_mode_analog_pal_576i(struct drm_device *dev)
++{
++	return drm_analog_tv_mode(dev, DRM_MODE_TV_MODE_PAL, 13500000, 720, 576, true);
++}
++
+ struct drm_display_mode *drm_cvt_mode(struct drm_device *dev,
+ 				      int hdisplay, int vdisplay, int vrefresh,
+ 				      bool reduced, bool interlaced,
 
-Anyway all these comments are for wa handling, which should be addressed 
-in other patch. So my r-b still holds, either with wal->i915, either 
-with wal->gt.
-
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
-
-Regards
-Andrzej
-
-
-
-
-
->   		}
->   	}
->   
-> @@ -1779,7 +1785,7 @@ static bool wa_list_verify(struct intel_gt *gt,
->   	intel_uncore_forcewake_get__locked(uncore, fw);
->   
->   	for (i = 0, wa = wal->list; i < wal->count; i++, wa++)
-> -		ok &= wa_verify(wa, wa->is_mcr ?
-> +		ok &= wa_verify(wal->gt, wa, wa->is_mcr ?
->   				intel_gt_mcr_read_any_fw(gt, wa->mcr_reg) :
->   				intel_uncore_read_fw(uncore, wa->reg),
->   				wal->name, from);
-> @@ -2127,7 +2133,7 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
->   	struct drm_i915_private *i915 = engine->i915;
->   	struct i915_wa_list *w = &engine->whitelist;
->   
-> -	wa_init_start(w, "whitelist", engine->name);
-> +	wa_init_start(w, engine->gt, "whitelist", engine->name);
->   
->   	if (IS_PONTEVECCHIO(i915))
->   		pvc_whitelist_build(engine);
-> @@ -3012,7 +3018,7 @@ void intel_engine_init_workarounds(struct intel_engine_cs *engine)
->   	if (GRAPHICS_VER(engine->i915) < 4)
->   		return;
->   
-> -	wa_init_start(wal, "engine", engine->name);
-> +	wa_init_start(wal, engine->gt, "engine", engine->name);
->   	engine_init_workarounds(engine, wal);
->   	wa_init_finish(wal);
->   }
-> @@ -3193,7 +3199,7 @@ static int engine_wa_list_verify(struct intel_context *ce,
->   		if (mcr_range(rq->engine->i915, i915_mmio_reg_offset(wa->reg)))
->   			continue;
->   
-> -		if (!wa_verify(wa, results[i], wal->name, from))
-> +		if (!wa_verify(wal->gt, wa, results[i], wal->name, from))
->   			err = -ENXIO;
->   	}
->   
-> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds_types.h b/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
-> index 7c8b01d00043..e14188120e66 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds_types.h
-> @@ -10,6 +10,8 @@
->   
->   #include "i915_reg_defs.h"
->   
-> +struct intel_gt;
-> +
->   struct i915_wa {
->   	union {
->   		i915_reg_t	reg;
-> @@ -24,6 +26,7 @@ struct i915_wa {
->   };
->   
->   struct i915_wa_list {
-> +	struct intel_gt	*gt;
->   	const char	*name;
->   	const char	*engine_name;
->   	struct i915_wa	*list;
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_workarounds.c b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> index 21b1edc052f8..711014bb53d9 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_workarounds.c
-> @@ -66,14 +66,14 @@ reference_lists_init(struct intel_gt *gt, struct wa_lists *lists)
->   
->   	memset(lists, 0, sizeof(*lists));
->   
-> -	wa_init_start(&lists->gt_wa_list, "GT_REF", "global");
-> +	wa_init_start(&lists->gt_wa_list, gt, "GT_REF", "global");
->   	gt_init_workarounds(gt, &lists->gt_wa_list);
->   	wa_init_finish(&lists->gt_wa_list);
->   
->   	for_each_engine(engine, gt, id) {
->   		struct i915_wa_list *wal = &lists->engine[id].wa_list;
->   
-> -		wa_init_start(wal, "REF", engine->name);
-> +		wa_init_start(wal, gt, "REF", engine->name);
->   		engine_init_workarounds(engine, wal);
->   		wa_init_finish(wal);
->   
-> diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-> index ae987e92251d..6c7ac73b69a5 100644
-> --- a/drivers/gpu/drm/i915/i915_debugfs.c
-> +++ b/drivers/gpu/drm/i915/i915_debugfs.c
-> @@ -688,8 +688,8 @@ i915_drop_caches_set(void *data, u64 val)
->   	unsigned int flags;
->   	int ret;
->   
-> -	DRM_DEBUG("Dropping caches: 0x%08llx [0x%08llx]\n",
-> -		  val, val & DROP_ALL);
-> +	drm_dbg(&i915->drm, "Dropping caches: 0x%08llx [0x%08llx]\n",
-> +		val, val & DROP_ALL);
->   
->   	ret = gt_drop_caches(to_gt(i915), val);
->   	if (ret)
-> diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-> index 299f94a9fb87..8132743ca87e 100644
-> --- a/drivers/gpu/drm/i915/i915_gem.c
-> +++ b/drivers/gpu/drm/i915/i915_gem.c
-> @@ -1286,7 +1286,7 @@ int i915_gem_open(struct drm_i915_private *i915, struct drm_file *file)
->   	struct i915_drm_client *client;
->   	int ret = -ENOMEM;
->   
-> -	DRM_DEBUG("\n");
-> +	drm_dbg(&i915->drm, "\n");
->   
->   	file_priv = kzalloc(sizeof(*file_priv), GFP_KERNEL);
->   	if (!file_priv)
-> diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
-> index 3047e80e1163..61ef2d9cfa62 100644
-> --- a/drivers/gpu/drm/i915/i915_getparam.c
-> +++ b/drivers/gpu/drm/i915/i915_getparam.c
-> @@ -179,7 +179,7 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
->   		value = i915_perf_oa_timestamp_frequency(i915);
->   		break;
->   	default:
-> -		DRM_DEBUG("Unknown parameter %d\n", param->param);
-> +		drm_dbg(&i915->drm, "Unknown parameter %d\n", param->param);
->   		return -EINVAL;
->   	}
->   
-> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-> index b0180ea38de0..6c20817f8967 100644
-> --- a/drivers/gpu/drm/i915/i915_irq.c
-> +++ b/drivers/gpu/drm/i915/i915_irq.c
-> @@ -1086,8 +1086,9 @@ static void ivb_parity_work(struct work_struct *work)
->   		kobject_uevent_env(&dev_priv->drm.primary->kdev->kobj,
->   				   KOBJ_CHANGE, parity_event);
->   
-> -		DRM_DEBUG("Parity error: Slice = %d, Row = %d, Bank = %d, Sub bank = %d.\n",
-> -			  slice, row, bank, subbank);
-> +		drm_dbg(&dev_priv->drm,
-> +			"Parity error: Slice = %d, Row = %d, Bank = %d, Sub bank = %d.\n",
-> +			slice, row, bank, subbank);
->   
->   		kfree(parity_event[4]);
->   		kfree(parity_event[3]);
-> @@ -2774,7 +2775,8 @@ static irqreturn_t dg1_irq_handler(int irq, void *arg)
->   		master_ctl = raw_reg_read(regs, GEN11_GFX_MSTR_IRQ);
->   		raw_reg_write(regs, GEN11_GFX_MSTR_IRQ, master_ctl);
->   	} else {
-> -		DRM_ERROR("Tile not supported: 0x%08x\n", master_tile_ctl);
-> +		drm_err(&i915->drm, "Tile not supported: 0x%08x\n",
-> +			master_tile_ctl);
->   		dg1_master_intr_enable(regs);
->   		return IRQ_NONE;
->   	}
-> @@ -3940,7 +3942,7 @@ static void i8xx_error_irq_ack(struct drm_i915_private *i915,
->   static void i8xx_error_irq_handler(struct drm_i915_private *dev_priv,
->   				   u16 eir, u16 eir_stuck)
->   {
-> -	DRM_DEBUG("Master Error: EIR 0x%04x\n", eir);
-> +	drm_dbg(&dev_priv->drm, "Master Error: EIR 0x%04x\n", eir);
->   
->   	if (eir_stuck)
->   		drm_dbg(&dev_priv->drm, "EIR stuck: 0x%04x, masked\n",
-> @@ -3975,7 +3977,7 @@ static void i9xx_error_irq_ack(struct drm_i915_private *dev_priv,
->   static void i9xx_error_irq_handler(struct drm_i915_private *dev_priv,
->   				   u32 eir, u32 eir_stuck)
->   {
-> -	DRM_DEBUG("Master Error, EIR 0x%08x\n", eir);
-> +	drm_dbg(&dev_priv->drm, "Master Error, EIR 0x%08x\n", eir);
->   
->   	if (eir_stuck)
->   		drm_dbg(&dev_priv->drm, "EIR stuck: 0x%08x, masked\n",
-> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-> index 0dd597a7a11f..9e6f060592d8 100644
-> --- a/drivers/gpu/drm/i915/i915_perf.c
-> +++ b/drivers/gpu/drm/i915/i915_perf.c
-> @@ -530,9 +530,9 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
->   
->   		if (OA_TAKEN(hw_tail, tail) > report_size &&
->   		    __ratelimit(&stream->perf->tail_pointer_race))
-> -			DRM_NOTE("unlanded report(s) head=0x%x "
-> -				 "tail=0x%x hw_tail=0x%x\n",
-> -				 head, tail, hw_tail);
-> +			drm_notice(&stream->uncore->i915->drm,
-> +				   "unlanded report(s) head=0x%x tail=0x%x hw_tail=0x%x\n",
-> +				   head, tail, hw_tail);
->   
->   		stream->oa_buffer.tail = gtt_offset + tail;
->   		stream->oa_buffer.aging_tail = gtt_offset + hw_tail;
-> @@ -1015,7 +1015,8 @@ static int gen7_append_oa_reports(struct i915_perf_stream *stream,
->   		 */
->   		if (report32[0] == 0) {
->   			if (__ratelimit(&stream->perf->spurious_report_rs))
-> -				DRM_NOTE("Skipping spurious, invalid OA report\n");
-> +				drm_notice(&uncore->i915->drm,
-> +					   "Skipping spurious, invalid OA report\n");
->   			continue;
->   		}
->   
-> @@ -1602,8 +1603,9 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
->   	free_noa_wait(stream);
->   
->   	if (perf->spurious_report_rs.missed) {
-> -		DRM_NOTE("%d spurious OA report notices suppressed due to ratelimiting\n",
-> -			 perf->spurious_report_rs.missed);
-> +		drm_notice(&gt->i915->drm,
-> +			   "%d spurious OA report notices suppressed due to ratelimiting\n",
-> +			   perf->spurious_report_rs.missed);
->   	}
->   }
->   
-> diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
-> index 6ec9c9fb7b0d..00871ef99792 100644
-> --- a/drivers/gpu/drm/i915/i915_query.c
-> +++ b/drivers/gpu/drm/i915/i915_query.c
-> @@ -250,8 +250,9 @@ static int query_perf_config_data(struct drm_i915_private *i915,
->   		return total_size;
->   
->   	if (query_item->length < total_size) {
-> -		DRM_DEBUG("Invalid query config data item size=%u expected=%u\n",
-> -			  query_item->length, total_size);
-> +		drm_dbg(&i915->drm,
-> +			"Invalid query config data item size=%u expected=%u\n",
-> +			query_item->length, total_size);
->   		return -EINVAL;
->   	}
->   
-> @@ -418,9 +419,10 @@ static int query_perf_config_list(struct drm_i915_private *i915,
->   	} while (n_configs > alloc);
->   
->   	if (query_item->length < sizeof_perf_config_list(n_configs)) {
-> -		DRM_DEBUG("Invalid query config list item size=%u expected=%zu\n",
-> -			  query_item->length,
-> -			  sizeof_perf_config_list(n_configs));
-> +		drm_dbg(&i915->drm,
-> +			"Invalid query config list item size=%u expected=%zu\n",
-> +			query_item->length,
-> +			sizeof_perf_config_list(n_configs));
->   		kfree(oa_config_ids);
->   		return -EINVAL;
->   	}
-> diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
-> index 1e2750210831..595e8b574990 100644
-> --- a/drivers/gpu/drm/i915/i915_sysfs.c
-> +++ b/drivers/gpu/drm/i915/i915_sysfs.c
-> @@ -218,7 +218,8 @@ static const struct bin_attribute error_state_attr = {
->   static void i915_setup_error_capture(struct device *kdev)
->   {
->   	if (sysfs_create_bin_file(&kdev->kobj, &error_state_attr))
-> -		DRM_ERROR("error_state sysfs setup failed\n");
-> +		drm_err(&kdev_minor_to_i915(kdev)->drm,
-> +			"error_state sysfs setup failed\n");
->   }
->   
->   static void i915_teardown_error_capture(struct device *kdev)
-> diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-> index c39488eb9eeb..3b969d679c1e 100644
-> --- a/drivers/gpu/drm/i915/i915_vma.c
-> +++ b/drivers/gpu/drm/i915/i915_vma.c
-> @@ -73,14 +73,16 @@ static void vma_print_allocator(struct i915_vma *vma, const char *reason)
->   	char buf[512];
->   
->   	if (!vma->node.stack) {
-> -		DRM_DEBUG_DRIVER("vma.node [%08llx + %08llx] %s: unknown owner\n",
-> -				 vma->node.start, vma->node.size, reason);
-> +		drm_dbg(&to_i915(vma->obj->base.dev)->drm
-> +			"vma.node [%08llx + %08llx] %s: unknown owner\n",
-> +			vma->node.start, vma->node.size, reason);
->   		return;
->   	}
->   
->   	stack_depot_snprint(vma->node.stack, buf, sizeof(buf), 0);
-> -	DRM_DEBUG_DRIVER("vma.node [%08llx + %08llx] %s: inserted at %s\n",
-> -			 vma->node.start, vma->node.size, reason, buf);
-> +	drm_dbg(&to_i915(vma->obj->base.dev)->drm,
-> +		"vma.node [%08llx + %08llx] %s: inserted at %s\n",
-> +		vma->node.start, vma->node.size, reason, buf);
->   }
->   
->   #else
-> @@ -782,9 +784,9 @@ i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
->   	 * attempt to find space.
->   	 */
->   	if (size > end) {
-> -		DRM_DEBUG("Attempting to bind an object larger than the aperture: request=%llu > %s aperture=%llu\n",
-> -			  size, flags & PIN_MAPPABLE ? "mappable" : "total",
-> -			  end);
-> +		drm_dbg(&to_i915(vma->obj->base.dev)->drm,
-> +			"Attempting to bind an object larger than the aperture: request=%llu > %s aperture=%llu\n",
-> +			size, flags & PIN_MAPPABLE ? "mappable" : "total", end);
->   		return -ENOSPC;
->   	}
->   
-> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
-> index 2a3e2869fe71..6c25c9e7090a 100644
-> --- a/drivers/gpu/drm/i915/intel_uncore.c
-> +++ b/drivers/gpu/drm/i915/intel_uncore.c
-> @@ -178,8 +178,9 @@ static inline void
->   fw_domain_wait_ack_clear(const struct intel_uncore_forcewake_domain *d)
->   {
->   	if (wait_ack_clear(d, FORCEWAKE_KERNEL)) {
-> -		DRM_ERROR("%s: timed out waiting for forcewake ack to clear.\n",
-> -			  intel_uncore_forcewake_domain_to_str(d->id));
-> +		drm_err(&d->uncore->i915->drm,
-> +			"%s: timed out waiting for forcewake ack to clear.\n",
-> +			intel_uncore_forcewake_domain_to_str(d->id));
->   		add_taint_for_CI(d->uncore->i915, TAINT_WARN); /* CI now unreliable */
->   	}
->   }
-> @@ -226,11 +227,12 @@ fw_domain_wait_ack_with_fallback(const struct intel_uncore_forcewake_domain *d,
->   		fw_clear(d, FORCEWAKE_KERNEL_FALLBACK);
->   	} while (!ack_detected && pass++ < 10);
->   
-> -	DRM_DEBUG_DRIVER("%s had to use fallback to %s ack, 0x%x (passes %u)\n",
-> -			 intel_uncore_forcewake_domain_to_str(d->id),
-> -			 type == ACK_SET ? "set" : "clear",
-> -			 fw_ack(d),
-> -			 pass);
-> +	drm_dbg(&d->uncore->i915->drm,
-> +		"%s had to use fallback to %s ack, 0x%x (passes %u)\n",
-> +		intel_uncore_forcewake_domain_to_str(d->id),
-> +		type == ACK_SET ? "set" : "clear",
-> +		fw_ack(d),
-> +		pass);
->   
->   	return ack_detected ? 0 : -ETIMEDOUT;
->   }
-> @@ -255,8 +257,9 @@ static inline void
->   fw_domain_wait_ack_set(const struct intel_uncore_forcewake_domain *d)
->   {
->   	if (wait_ack_set(d, FORCEWAKE_KERNEL)) {
-> -		DRM_ERROR("%s: timed out waiting for forcewake ack request.\n",
-> -			  intel_uncore_forcewake_domain_to_str(d->id));
-> +		drm_err(&d->uncore->i915->drm,
-> +			"%s: timed out waiting for forcewake ack request.\n",
-> +			intel_uncore_forcewake_domain_to_str(d->id));
->   		add_taint_for_CI(d->uncore->i915, TAINT_WARN); /* CI now unreliable */
->   	}
->   }
-
+-- 
+b4 0.11.0-dev-99e3a
