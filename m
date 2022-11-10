@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B41BFC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 08:22:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 678E7C433FE
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 08:22:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AB1010E68D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0D1F10E683;
 	Thu, 10 Nov 2022 08:22:43 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E82710E680
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 08:22:15 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD2F010E683
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 08:22:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668068535; x=1699604535;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0ohbTigKroVv+I0L0mrB1Te5/eflZNZCJPbGyWmxm+c=;
- b=PwipzQZl11XWZ/pyb0KS1DbW1QUnrLRJjOEjCcafOlqGtlpWq8fJ6bzT
- XpqKgmuvcuHlwDGDShTQhmKZCbPj/lqWhkjsFhPgJCrSi+aOzB+18zIR8
- VyBT5ph1UNZbRlV26T4XmVOQhwfUAV7UYLL6O/1yNn+On+dyuiUY9Q6sg
- rnLtP4JwtozFrUQV8SiK8QBiCebP6uhI7AWQxaqAtrgw+jgg+nmMG66Vr
- SracZuL32qHkbw5fDqupUUSGXSb5CCHuD5+7wJZXtRLW400KBfJIjGqvW
- HtQSYkBTOjIXIPohoBnXABekgsGcu48QpeIQLBbxp+CFAgnUp55+ivEup g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="291647321"
-X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="291647321"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2022 00:22:15 -0800
+ t=1668068555; x=1699604555;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=cCTwxqANLzxPgKmPfTpwpcb5kH5NZwl+xJuaeeS7OoA=;
+ b=AoRjFKmlIvHcWsBVaeTWUuRDJk0kHmYTGpCGqyxacjxc6hlBePBJPenp
+ HCQjtsoxy+UFN/Y03mrJ9ndbMXv5yYusqw2bpOFDFPUMsVPf++kVhNqci
+ b86fgcZ0DHf5uTRgrv/rL7gHHQ+OdSzcQjVOAfctMqGe0gog5ntBXAngA
+ hhe+sbRXCYgy9j5c1a61ruSZnqJk4y5SuyrTe/ZZyt9DC0lt3K45KERel
+ x7Tps7zlbhBXEzg14NyWrZOfJ3vO+84aWxcAX1cFfw0sdWd5o0PQcoCxu
+ MMUheXoIm48E7/BFvimzFwSO96xum4bb8Ic17a3e+R+oZJC9WkYJgZKcC g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="309965454"
+X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="309965454"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2022 00:22:35 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="637085790"
-X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="637085790"
+X-IronPort-AV: E=McAfee;i="6500,9779,10526"; a="639531091"
+X-IronPort-AV: E=Sophos;i="5.96,153,1665471600"; d="scan'208";a="639531091"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga002.jf.intel.com with SMTP; 10 Nov 2022 00:22:13 -0800
+ by fmsmga007.fm.intel.com with SMTP; 10 Nov 2022 00:22:33 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 10 Nov 2022 10:22:12 +0200
+ Thu, 10 Nov 2022 10:22:33 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Nov 2022 10:21:35 +0200
-Message-Id: <20221110082144.19666-10-ville.syrjala@linux.intel.com>
+Date: Thu, 10 Nov 2022 10:21:42 +0200
+Message-Id: <20221110082144.19666-17-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221110082144.19666-1-ville.syrjala@linux.intel.com>
 References: <20221110082144.19666-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 09/18] drm/i915: Add gamma/degamma readout
- for bdw+
+Subject: [Intel-gfx] [PATCH v2 16/18] drm/i915: Use gamma LUT for RGB
+ limited range compression
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,95 +65,265 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Read out the gamma/degamma LUT on bdw+. Now that the
-{pre,post}_csc_lut match the hardware LUT size even
-in split gamma mode this is trivial.
+On ilk+ and glk class hardware we current make a mess of
+things when we have to both generate limited range output
+and use the hw gamma LUT. Since we do the range compression
+using the pipe CSC unit (which is situated before the gamma
+LUT in the pipe) we are in fact applying the gamma to the
+limited range data instead of the full range data as the
+user intended.
 
-v2: deal with {pre,post}_csc_lut
-    split gamma is no longer a problem
+We can work around this by applying the range compression
+via the gamma LUT instead of using the pipe CSC for it.
+Fairly easy to do now that we have the internal post_csc_lut
+attachment point where we can stick our new cooked LUT.
 
-Reviewed-by: Uma Shankar <uma.shankar@intel.com> #v1
+On ilk+ this only needs to be dome when using the split
+gamma mode or when the ctm is enabled since otherwise we can
+simply reorder the LUT vs. CSC. On glk we need to do this any
+time a gamma LUT is used since no reordering is possible.
+We do lose a bit of coverage in intel_color_assert_luts(),
+but so be it.
+
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 40 ++++++++++++++++++----
- 1 file changed, 34 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 133 +++++++++++++++++----
+ 1 file changed, 111 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index e0a0b82ae52a..63e6665b0ec5 100644
+index 9a82b9ce703c..d00790d54498 100644
 --- a/drivers/gpu/drm/i915/display/intel_color.c
 +++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -2187,14 +2187,11 @@ static struct drm_property_blob *bdw_read_lut_10(struct intel_crtc *crtc,
- 						 u32 prec_index)
- {
- 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
--	int i, hw_lut_size = ivb_lut_10_size(prec_index);
--	int lut_size = INTEL_INFO(i915)->display.color.gamma_lut_size;
-+	int i, lut_size = ivb_lut_10_size(prec_index);
- 	enum pipe pipe = crtc->pipe;
- 	struct drm_property_blob *blob;
- 	struct drm_color_lut *lut;
+@@ -248,17 +248,44 @@ static void icl_update_output_csc(struct intel_crtc *crtc,
+ 	intel_de_write_fw(i915, PIPE_CSC_OUTPUT_POSTOFF_LO(pipe), postoff[2]);
+ }
  
--	drm_WARN_ON(&i915->drm, lut_size != hw_lut_size);
--
- 	blob = drm_property_create_blob(&i915->drm,
- 					sizeof(lut[0]) * lut_size,
- 					NULL);
-@@ -2217,6 +2214,37 @@ static struct drm_property_blob *bdw_read_lut_10(struct intel_crtc *crtc,
++static bool ilk_limited_range(const struct intel_crtc_state *crtc_state)
++{
++	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
++
++	/* icl+ have dedicated output CSC */
++	if (DISPLAY_VER(i915) >= 11)
++		return false;
++
++	/* pre-hsw have PIPECONF_COLOR_RANGE_SELECT */
++	if (DISPLAY_VER(i915) < 7 || IS_IVYBRIDGE(i915))
++		return false;
++
++	return crtc_state->limited_color_range;
++}
++
++static bool ilk_lut_limited_range(const struct intel_crtc_state *crtc_state)
++{
++	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
++
++	if (!ilk_limited_range(crtc_state))
++		return false;
++
++	if (crtc_state->c8_planes)
++		return false;
++
++	if (DISPLAY_VER(i915) == 10)
++		return crtc_state->hw.gamma_lut;
++	else
++		return crtc_state->hw.gamma_lut &&
++			(crtc_state->hw.degamma_lut || crtc_state->hw.ctm);
++}
++
+ static bool ilk_csc_limited_range(const struct intel_crtc_state *crtc_state)
+ {
+-	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
++	if (!ilk_limited_range(crtc_state))
++		return false;
+ 
+-	/*
+-	 * FIXME if there's a gamma LUT after the CSC, we should
+-	 * do the range compression using the gamma LUT instead.
+-	 */
+-	return crtc_state->limited_color_range &&
+-		(IS_HASWELL(i915) || IS_BROADWELL(i915) ||
+-		 IS_DISPLAY_VER(i915, 9, 10));
++	return !ilk_lut_limited_range(crtc_state);
+ }
+ 
+ static void ilk_csc_convert_ctm(const struct intel_crtc_state *crtc_state,
+@@ -602,9 +629,18 @@ create_linear_lut(struct drm_i915_private *i915, int lut_size)
  	return blob;
  }
  
-+static void bdw_read_luts(struct intel_crtc_state *crtc_state)
++static u16 lut_limited_range(unsigned int value)
 +{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_property_blob **blob =
-+		crtc_state->csc_mode & CSC_POSITION_BEFORE_GAMMA ?
-+		&crtc_state->post_csc_lut : &crtc_state->pre_csc_lut;
++	unsigned int min = 16 << 8;
++	unsigned int max = 235 << 8;
 +
-+	if (!crtc_state->gamma_enable)
-+		return;
-+
-+	switch (crtc_state->gamma_mode) {
-+	case GAMMA_MODE_MODE_8BIT:
-+		*blob = ilk_read_lut_8(crtc);
-+		break;
-+	case GAMMA_MODE_MODE_SPLIT:
-+		crtc_state->pre_csc_lut =
-+			bdw_read_lut_10(crtc, PAL_PREC_SPLIT_MODE |
-+					PAL_PREC_INDEX_VALUE(0));
-+		crtc_state->post_csc_lut =
-+			bdw_read_lut_10(crtc, PAL_PREC_SPLIT_MODE |
-+					PAL_PREC_INDEX_VALUE(512));
-+		break;
-+	case GAMMA_MODE_MODE_10BIT:
-+		*blob = bdw_read_lut_10(crtc, PAL_PREC_INDEX_VALUE(0));
-+		break;
-+	default:
-+		MISSING_CASE(crtc_state->gamma_mode);
-+		break;
-+	}
++	return value * (max - min) / 0xffff + min;
 +}
 +
- static struct drm_property_blob *glk_read_degamma_lut(struct intel_crtc *crtc)
+ static struct drm_property_blob *
+ create_resized_lut(struct drm_i915_private *i915,
+-		   const struct drm_property_blob *blob_in, int lut_out_size)
++		   const struct drm_property_blob *blob_in, int lut_out_size,
++		   bool limited_color_range)
  {
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-@@ -2384,7 +2412,7 @@ static const struct intel_color_funcs skl_color_funcs = {
- 	.color_commit_noarm = ilk_color_commit_noarm,
- 	.color_commit_arm = skl_color_commit_arm,
- 	.load_luts = bdw_load_luts,
--	.read_luts = NULL,
-+	.read_luts = bdw_read_luts,
- };
+ 	int i, lut_in_size = drm_color_lut_size(blob_in);
+ 	struct drm_property_blob *blob_out;
+@@ -620,8 +656,18 @@ create_resized_lut(struct drm_i915_private *i915,
+ 	lut_in = blob_in->data;
+ 	lut_out = blob_out->data;
  
- static const struct intel_color_funcs bdw_color_funcs = {
-@@ -2392,7 +2420,7 @@ static const struct intel_color_funcs bdw_color_funcs = {
- 	.color_commit_noarm = ilk_color_commit_noarm,
- 	.color_commit_arm = hsw_color_commit_arm,
- 	.load_luts = bdw_load_luts,
--	.read_luts = NULL,
-+	.read_luts = bdw_read_luts,
- };
+-	for (i = 0; i < lut_out_size; i++)
+-		lut_out[i] = lut_in[i * (lut_in_size - 1) / (lut_out_size - 1)];
++	for (i = 0; i < lut_out_size; i++) {
++		const struct drm_color_lut *entry =
++			&lut_in[i * (lut_in_size - 1) / (lut_out_size - 1)];
++
++		if (limited_color_range) {
++			lut_out[i].red = lut_limited_range(entry->red);
++			lut_out[i].green = lut_limited_range(entry->green);
++			lut_out[i].blue = lut_limited_range(entry->blue);
++		} else {
++			lut_out[i] = *entry;
++		}
++	}
  
- static const struct intel_color_funcs hsw_color_funcs = {
+ 	return blob_out;
+ }
+@@ -1415,6 +1461,7 @@ void intel_color_assert_luts(const struct intel_crtc_state *crtc_state)
+ 			    crtc_state->pre_csc_lut != crtc_state->hw.degamma_lut &&
+ 			    crtc_state->pre_csc_lut != i915->display.color.glk_linear_degamma_lut);
+ 		drm_WARN_ON(&i915->drm,
++			    !ilk_lut_limited_range(crtc_state) &&
+ 			    crtc_state->post_csc_lut != NULL &&
+ 			    crtc_state->post_csc_lut != crtc_state->hw.gamma_lut);
+ 	} else if (crtc_state->gamma_mode != GAMMA_MODE_MODE_SPLIT) {
+@@ -1422,6 +1469,7 @@ void intel_color_assert_luts(const struct intel_crtc_state *crtc_state)
+ 			    crtc_state->pre_csc_lut != crtc_state->hw.degamma_lut &&
+ 			    crtc_state->pre_csc_lut != crtc_state->hw.gamma_lut);
+ 		drm_WARN_ON(&i915->drm,
++			    !ilk_lut_limited_range(crtc_state) &&
+ 			    crtc_state->post_csc_lut != crtc_state->hw.degamma_lut &&
+ 			    crtc_state->post_csc_lut != crtc_state->hw.gamma_lut);
+ 	}
+@@ -1555,8 +1603,28 @@ static u32 ilk_csc_mode(const struct intel_crtc_state *crtc_state)
+ 		CSC_POSITION_BEFORE_GAMMA;
+ }
+ 
+-static void ilk_assign_luts(struct intel_crtc_state *crtc_state)
++static int ilk_assign_luts(struct intel_crtc_state *crtc_state)
+ {
++	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
++
++	if (ilk_lut_limited_range(crtc_state)) {
++		struct drm_property_blob *gamma_lut;
++
++		gamma_lut = create_resized_lut(i915, crtc_state->hw.gamma_lut,
++					       drm_color_lut_size(crtc_state->hw.gamma_lut),
++					       true);
++		if (IS_ERR(gamma_lut))
++			return PTR_ERR(gamma_lut);
++
++		drm_property_replace_blob(&crtc_state->post_csc_lut, gamma_lut);
++
++		drm_property_blob_put(gamma_lut);
++
++		drm_property_replace_blob(&crtc_state->pre_csc_lut, crtc_state->hw.degamma_lut);
++
++		return 0;
++	}
++
+ 	if (crtc_state->hw.degamma_lut ||
+ 	    crtc_state->csc_mode & CSC_POSITION_BEFORE_GAMMA) {
+ 		drm_property_replace_blob(&crtc_state->pre_csc_lut,
+@@ -1569,6 +1637,8 @@ static void ilk_assign_luts(struct intel_crtc_state *crtc_state)
+ 		drm_property_replace_blob(&crtc_state->post_csc_lut,
+ 					  NULL);
+ 	}
++
++	return 0;
+ }
+ 
+ static int ilk_color_check(struct intel_crtc_state *crtc_state)
+@@ -1605,7 +1675,9 @@ static int ilk_color_check(struct intel_crtc_state *crtc_state)
+ 	if (ret)
+ 		return ret;
+ 
+-	ilk_assign_luts(crtc_state);
++	ret = ilk_assign_luts(crtc_state);
++	if (ret)
++		return ret;
+ 
+ 	crtc_state->preload_luts = intel_can_preload_luts(crtc_state);
+ 
+@@ -1641,19 +1713,19 @@ static int ivb_assign_luts(struct intel_crtc_state *crtc_state)
+ 	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
+ 	struct drm_property_blob *degamma_lut, *gamma_lut;
+ 
+-	if (crtc_state->gamma_mode != GAMMA_MODE_MODE_SPLIT) {
+-		ilk_assign_luts(crtc_state);
+-		return 0;
+-	}
++	if (crtc_state->gamma_mode != GAMMA_MODE_MODE_SPLIT)
++		return ilk_assign_luts(crtc_state);
+ 
+ 	drm_WARN_ON(&i915->drm, drm_color_lut_size(crtc_state->hw.degamma_lut) != 1024);
+ 	drm_WARN_ON(&i915->drm, drm_color_lut_size(crtc_state->hw.gamma_lut) != 1024);
+ 
+-	degamma_lut = create_resized_lut(i915, crtc_state->hw.degamma_lut, 512);
++	degamma_lut = create_resized_lut(i915, crtc_state->hw.degamma_lut, 512,
++					 false);
+ 	if (IS_ERR(degamma_lut))
+ 		return PTR_ERR(degamma_lut);
+ 
+-	gamma_lut = create_resized_lut(i915, crtc_state->hw.gamma_lut, 512);
++	gamma_lut = create_resized_lut(i915, crtc_state->hw.gamma_lut, 512,
++				       ilk_lut_limited_range(crtc_state));
+ 	if (IS_ERR(gamma_lut)) {
+ 		drm_property_blob_put(degamma_lut);
+ 		return PTR_ERR(gamma_lut);
+@@ -1742,7 +1814,8 @@ static int glk_assign_luts(struct intel_crtc_state *crtc_state)
+ 		struct drm_property_blob *gamma_lut;
+ 
+ 		gamma_lut = create_resized_lut(i915, crtc_state->hw.gamma_lut,
+-					       INTEL_INFO(i915)->display.color.degamma_lut_size);
++					       INTEL_INFO(i915)->display.color.degamma_lut_size,
++					       false);
+ 		if (IS_ERR(gamma_lut))
+ 			return PTR_ERR(gamma_lut);
+ 
+@@ -1754,7 +1827,23 @@ static int glk_assign_luts(struct intel_crtc_state *crtc_state)
+ 		return 0;
+ 	}
+ 
+-	intel_assign_luts(crtc_state);
++	if (ilk_lut_limited_range(crtc_state)) {
++		struct drm_property_blob *gamma_lut;
++
++		gamma_lut = create_resized_lut(i915, crtc_state->hw.gamma_lut,
++					       drm_color_lut_size(crtc_state->hw.gamma_lut),
++					       true);
++		if (IS_ERR(gamma_lut))
++			return PTR_ERR(gamma_lut);
++
++		drm_property_replace_blob(&crtc_state->post_csc_lut, gamma_lut);
++
++		drm_property_blob_put(gamma_lut);
++	} else {
++		drm_property_replace_blob(&crtc_state->post_csc_lut, crtc_state->hw.gamma_lut);
++	}
++
++	drm_property_replace_blob(&crtc_state->pre_csc_lut, crtc_state->hw.degamma_lut);
+ 
+ 	/*
+ 	 * On GLK+ both pipe CSC and degamma LUT are controlled
+@@ -1813,7 +1902,7 @@ static int glk_color_check(struct intel_crtc_state *crtc_state)
+ 		glk_use_pre_csc_lut_for_gamma(crtc_state) ||
+ 		crtc_state->hw.degamma_lut ||
+ 		crtc_state->output_format != INTEL_OUTPUT_FORMAT_RGB ||
+-		crtc_state->hw.ctm || crtc_state->limited_color_range;
++		crtc_state->hw.ctm || ilk_csc_limited_range(crtc_state);
+ 
+ 	crtc_state->gamma_mode = glk_gamma_mode(crtc_state);
+ 
 -- 
 2.37.4
 
