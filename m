@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B8E3C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 20:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 042F5C43217
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 20:15:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D94C10E859;
-	Thu, 10 Nov 2022 20:15:54 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6320F10E832;
- Thu, 10 Nov 2022 20:14:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 624C910E85C;
+	Thu, 10 Nov 2022 20:15:55 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BA3F10E86B;
+ Thu, 10 Nov 2022 20:15:03 +0000 (UTC)
 Received: from dimapc.. (unknown [109.252.117.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 76FB16602A52;
- Thu, 10 Nov 2022 20:14:55 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id EC6C06602A5B;
+ Thu, 10 Nov 2022 20:14:59 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1668111297;
- bh=tFGVSeUWIaYJ9Ib1/vtuoKFGinbIYhiNCk2JIU4TCAA=;
+ s=mail; t=1668111302;
+ bh=ZEwQU+trheBVdqE6TGpypedbCXakkhcZVsK8qA6j2yo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WiW5lCgRnkdkfo5vaoZTlj8VvywC0gJ5C4YLWKTp1ofjQ0BBj8f7uw5QjMBvlfkHw
- U6uiK9b4Eb3XC+zN7suX+FGdXFSRwZSf8FgLNCyB/F4QyMkABTGlj+mA975iKDaHfO
- 7QamiY70dGTRMjl2ygQNU3faI4aoycDXfRrLeyuRtV6KdJddWr17/u6yA3PQIE0r3w
- BixEZwWJq95W2JJM7jSHqPgCZc4dw6s1eFBd3ltOhk53gqgRa2fBwVWDy/XhH/Yuvl
- Xu/PbO9SEaWlFQa8cDg2uwSa2nXQzk1T8MYDscwlF4w/kGa25X3PWjFooAZUrY7lIj
- 7VRaF9B1tqf4A==
+ b=d9Oc6F3WYzPj3dGZ0Z8FGnzGG0wYRJFtxJc2Jwu4zZba66Ce7DO9bJCmxxGzdK8sH
+ LmuUGE7hjzRo4MHk9K8Ca3m1dnE+hj+YOFgH2baYj2PR3Ag3vwtX5a8EIuEXFgHw3c
+ oAkeKolGfN/290pp9LzmFPeXSNSgafD6LKaN53mBX2j/WwLTMaoUTPmVjTk0ngxWE4
+ feWYL0fGcO/o+ri5L/quUnrCH9zfVWruOb279HQQgKSZ4/U4HpDQD+ZeICx5+y1xhs
+ D/06ybLcxJH7/2ILy8VMC5ue8ubgIaXjNOX3iZyDtlyWQmSlm/VL3AaQQBbLYZ821i
+ Mh2baW/JznNPQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -47,15 +46,15 @@ To: Sumit Semwal <sumit.semwal@linaro.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Amol Maheshwari <amahesh@qti.qualcomm.com>
-Date: Thu, 10 Nov 2022 23:13:47 +0300
-Message-Id: <20221110201349.351294-5-dmitry.osipenko@collabora.com>
+Date: Thu, 10 Nov 2022 23:13:49 +0300
+Message-Id: <20221110201349.351294-7-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221110201349.351294-1-dmitry.osipenko@collabora.com>
 References: <20221110201349.351294-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v1 4/6] dma-buf/heaps: Assert held reservation
- lock for dma-buf mmapping
+Subject: [Intel-gfx] [PATCH v1 6/6] fastrpc: Assert held reservation lock
+ for dma-buf mmapping
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,58 +74,36 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 When userspace mmaps dma-buf's fd, the dma-buf reservation lock must be
-held. Add locking sanity checks to the dma-buf mmaping callbacks to ensure
-that the locking assumptions won't regress in the future.
+held. Add locking sanity check to the dma-buf mmaping callback to ensure
+that the locking assumption won't regress in the future.
 
 Suggested-by: Daniel Vetter <daniel@ffwll.ch>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/dma-buf/heaps/cma_heap.c    | 3 +++
- drivers/dma-buf/heaps/system_heap.c | 3 +++
- 2 files changed, 6 insertions(+)
+ drivers/misc/fastrpc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
-index 28fb04eccdd0..1131fb943992 100644
---- a/drivers/dma-buf/heaps/cma_heap.c
-+++ b/drivers/dma-buf/heaps/cma_heap.c
-@@ -13,6 +13,7 @@
- #include <linux/dma-buf.h>
- #include <linux/dma-heap.h>
- #include <linux/dma-map-ops.h>
-+#include <linux/dma-resv.h>
- #include <linux/err.h>
- #include <linux/highmem.h>
- #include <linux/io.h>
-@@ -182,6 +183,8 @@ static int cma_heap_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
- {
- 	struct cma_heap_buffer *buffer = dmabuf->priv;
- 
-+	dma_resv_assert_held(dmabuf->resv);
-+
- 	if ((vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) == 0)
- 		return -EINVAL;
- 
-diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-index fcf836ba9c1f..e8bd10e60998 100644
---- a/drivers/dma-buf/heaps/system_heap.c
-+++ b/drivers/dma-buf/heaps/system_heap.c
-@@ -13,6 +13,7 @@
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 1ad580865525..0f467a71b069 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -6,6 +6,7 @@
+ #include <linux/device.h>
  #include <linux/dma-buf.h>
  #include <linux/dma-mapping.h>
- #include <linux/dma-heap.h>
 +#include <linux/dma-resv.h>
- #include <linux/err.h>
- #include <linux/highmem.h>
- #include <linux/mm.h>
-@@ -201,6 +202,8 @@ static int system_heap_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
- 	struct sg_page_iter piter;
- 	int ret;
+ #include <linux/idr.h>
+ #include <linux/list.h>
+ #include <linux/miscdevice.h>
+@@ -682,6 +683,8 @@ static int fastrpc_mmap(struct dma_buf *dmabuf,
+ 	struct fastrpc_buf *buf = dmabuf->priv;
+ 	size_t size = vma->vm_end - vma->vm_start;
  
 +	dma_resv_assert_held(dmabuf->resv);
 +
- 	for_each_sgtable_page(table, &piter, vma->vm_pgoff) {
- 		struct page *page = sg_page_iter_page(&piter);
- 
+ 	return dma_mmap_coherent(buf->dev, vma, buf->virt,
+ 				 FASTRPC_PHYS(buf->phys), size);
+ }
 -- 
 2.37.3
 
