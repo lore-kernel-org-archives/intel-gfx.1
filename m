@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03F0FC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 11:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C040C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Nov 2022 11:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CD3110E6F2;
-	Thu, 10 Nov 2022 11:07:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFA8810E6F3;
+	Thu, 10 Nov 2022 11:07:53 +0000 (UTC)
 Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
  [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74C2710E6E6;
- Thu, 10 Nov 2022 11:07:41 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id D542E580309;
- Thu, 10 Nov 2022 06:07:40 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Thu, 10 Nov 2022 06:07:40 -0500
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E389410E6DA;
+ Thu, 10 Nov 2022 11:07:35 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 4E8735802EE;
+ Thu, 10 Nov 2022 06:07:35 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Thu, 10 Nov 2022 06:07:35 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; t=1668078460; x=
- 1668085660; bh=61rty2/E8oljmyBXznF/xHiRnimp90eqyhoo5j5+1vg=; b=k
- D60GsoKWOMuzQzmEh/IY+5qhvgwUfUhkcmvPvgFAwFtuum9E+b1IFGUbXuVI0h8R
- lQNirgb+bb0HIXp60a2g6NAqBTuoRrhbZOyAWxjaiG9bs6KrDV3nWjTT1wlzAlWH
- RqnJK9KLi/5+Oa1NVu++XcdA3KSZ0DKyMHCpZhzuylQAZhCPlIe915aJexhLsheH
- GGEW8Ronk+dCK+UWfkpG8NiEano2Px/uXXdopx3t1J0/e6Oczm5d6WmCOJeMHtf/
- Pph1TbkNJTDRUNoMEDrs7ff7EIWKHFtyUbi2NcVoRUIMeoLMB+NsHZ890HUxQv3M
- YEX4AWeSDs9V1kNT64kXQ==
+ :reply-to:sender:subject:subject:to:to; s=fm2; t=1668078455; x=
+ 1668085655; bh=c5RJi0M8Q1SE//r8kHa3xrGioqqVyBLDq6u+CcpOVQk=; b=F
+ TvSPiX6dCF3LmEFNZzJc7tZn1bz4yBZUkmvP5o5RYVAOr7AaK9EzpaFqImx4yEev
+ s6gdJJCvWqW8a5yNIwlshR2U1ACs2WMCMOCz1jIJqedgz5DS4IKl8C3a75aHveuP
+ cNfzc5/vqvN0xDm69yjEUhLNupQNPU8yO1Aycroa7fn3Bzm3ulsQQIUAde3Ok66J
+ aIu6qR2LI857myXVRKtxj4Y24f3OG5G/J2MG6Qf7n9z37YwsJ5RChQ8Xgljxpsm7
+ dUbcTcbkYcDm/mG0Pd3zFcOsIKZ1hLz7+zS1WVX+QoPsgvixvP6EN3FRZRPzdsVI
+ XVUPDwhnyc1eBfRJYY6sg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668078460; x=
- 1668085660; bh=61rty2/E8oljmyBXznF/xHiRnimp90eqyhoo5j5+1vg=; b=G
- vAE8zeKvOJf3a/WIqOEo1FQHsVHQ+uYrXBGUtP82GBYGDfPELfflLNeA/1Q+CqJD
- hxUFMebzkTk36Rba9fl6dSEvLR3BZITqx5OxHrOT5aMmU3MtxdO1mW7766JaHGtd
- pJBcQwb3dx9yp1UXMfHHzyMln3rKxZrSuyqWNH7ICE26U7npQxmy1PFvB2MppRXy
- dNQ2ASer7X2zzD9w9Ax6psg0vou4abWmw52ec2B17U1doIuIL7reIvHmUY7ki0Zx
- QkhC/GkuIRh8ka/jT0j96kYFJ32wqTnnSOAH+cI3CQMaO1wJ9wiNl1RYmUujrMaE
- C2zAnVBmOQrF++e/otFJg==
-X-ME-Sender: <xms:fNtsYzirGW9fCSLC_LOtwOxjEUtHnvmkVdDBV_pP2uScxh8natndhA>
- <xme:fNtsYwBTWA0h4199MzvXLv_XEq3zDoZSmR9ZhtWCJTB_VCtHx3NTlbWtGpPtEuJbv
- o-fyLTR5LvIq1rg28s>
-X-ME-Received: <xmr:fNtsYzGvjYQMUwhVxBZ-QouhirAlkmmj2gFm9s0L-fJewCRWKckDeFCyiYcLPqe-QOidNy64AAvPWAzBm7y3DJDszNmYGKAmC3RtE8nV9piM4g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggddvhecutefuodetggdotefrodftvf
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668078455; x=
+ 1668085655; bh=c5RJi0M8Q1SE//r8kHa3xrGioqqVyBLDq6u+CcpOVQk=; b=T
+ z5kKc0b370fxiMU0xfojBHN519s3f0GmCVPvT36welIMAcX9We8Fhn8uMxwJhB12
+ il/jyAIVEyLtAUee34OWY8UHCV+l2mJBjoEZ7KeE5yY+oWj6d/46S6nadZppZgms
+ neTO8WqkIByqoGmauOgDv5QPVVBD0NNjJDKi9iEWy6U9yfjpzeqRsUy/UqS0PRWS
+ Qljo1avxZwZlJF860osc/EOBSWAyvhOBLPgkOJY3fE6jSiPV5B6YVh5JYTZ1epxP
+ wrK2gl0mdmBUXtW72YRo2K6c78TIknRUcukXjD0gF5iEiseLFZqDvIBuUGlDbOhz
+ dc7CiAz/434o7ElfYTxMw==
+X-ME-Sender: <xms:d9tsY1jRP_w5RT3GcZWuY7hpp5nr0UsR_3djHm2_98UbvwfaqGKPlg>
+ <xme:d9tsY6BOV1Ky8ADXawpMsv1saZKyOHBsquxUC51l8TxcdVONBGZy5XUBYNRg3snK1
+ Tvyt9t4j0G_IQ-1VHo>
+X-ME-Received: <xmr:d9tsY1GSsLLqVskfpQHoQUKEy6WKg8wmVhTKAQPW6WEc3TZozX17hK9ld7YNdonIXdznRbjcjFrWVJJ-uhMpoa1wc2FrxKfyUCC1fulo4F5vDw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeeggddvgecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpefhfffuggfgtgfkfhgjvfevofesthekredtredtjeenucfhrhhomhepofgrgihi
  mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
  htthgvrhhnpedvgfevjefhtdetveevhfelieeuueetgfdvgeevkeegudejffegfffgtedt
- leelhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ leelhfenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpe
  hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:fNtsYwQKyf9u8nPQ96fxrcVSO6_0d6mbIQIDpQ3Few1c2cs2nS2zdw>
- <xmx:fNtsYwygjHcYQNSlllCDYJXK79D68iALL8B3l2DijeuVR0bQNDDILQ>
- <xmx:fNtsY26JobJqb9IC3_ZCDHJu3kEyEB0rYou7y1Gz9Evm6zdlCL__aA>
- <xmx:fNtsY4cwr5CLcC2AqiKcKpoudI0IcQn8dymj4AyAiT2baonRIgw8rg>
+X-ME-Proxy: <xmx:d9tsY6R-Mh4CQUZS0Roi9AexQVR2qIql5dCFsr1HAprjqleNSrIBHQ>
+ <xmx:d9tsYywIu2zX_JRhiPjMKIYbdI-yk2TxNDMw1DeckpUwBo6cZ3CHPA>
+ <xmx:d9tsYw6fcIYZuM7rR7e5SFIZLuFOcm6Fv_cg0aTy92qv2pP28sokVQ>
+ <xmx:d9tsY6c1ir8SM7GnWnTNuuST4SPVbHSAWOZ8CyC4BWT7Ed4NvjDsIA>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Nov 2022 06:07:40 -0500 (EST)
+ 10 Nov 2022 06:07:34 -0500 (EST)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Thu, 10 Nov 2022 12:07:23 +0100
+Date: Thu, 10 Nov 2022 12:07:20 +0100
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20220728-rpi-analog-tv-properties-v8-11-09ce1466967c@cerno.tech>
+Message-Id: <20220728-rpi-analog-tv-properties-v8-8-09ce1466967c@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v8-0-09ce1466967c@cerno.tech>
 In-Reply-To: <20220728-rpi-analog-tv-properties-v8-0-09ce1466967c@cerno.tech>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -81,15 +81,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>
 X-Mailer: b4 0.11.0-dev-99e3a
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2368; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=tc8kW46OoOxieuA+Cy7NUL9yuFca/SG7rd9wEiGcUPg=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk5t1PLDj/Pfig9rcaK+1t4fZ+8oVm1yJzHonFJcXu/7jvV
- mruso5SFQYyLQVZMkSVG2HxJ3KlZrzvZ+ObBzGFlAhnCwMUpABNZy8PI8CdmjrqvoCfjxLss352id3
- vvY4/7I6VZbeazmn3t6XiGpQz/K103FW/vPJBUfDNxRY5cw8rv1obvn5yUFmXmq6t/LMHIAgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3806; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=gJftk6Nvc/pYwNn1PcqGXwDIYm8zDBtvZRiBH7cMPJw=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMk5t1PevnfXTZi5WaW4gffC6/a3qb2cZ9pn/WBRFSzyyvZ8
+ +OxGRykLgxgXg6yYIkuMsPmSuFOzXney8c2DmcPKBDKEgYtTACayYykjw52mya+P2P8yuNltuOKV5f
+ GquMMWV9l3PBB7OqOB27Dc4Rkjw4HobJes23UlBca3LVfPnSNSV7u7zvo+Q8CpzWZHN7bEcgEA
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
-Subject: [Intel-gfx] [PATCH v8 11/24] drm/connector: Add pixel clock to
- cmdline mode
+Subject: [Intel-gfx] [PATCH v8 08/24] drm/modes: Move named modes parsing to
+ a separate function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,9 +106,12 @@ Cc: Dom Cobley <dom@raspberrypi.com>, Dave Stevenson <dave.stevenson@raspberrypi
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We'll need to get the pixel clock to generate proper display modes for
-all the current named modes. Let's add it to struct drm_cmdline_mode and
-fill it when parsing the named mode.
+The current construction of the named mode parsing doesn't allow to extend
+it easily. Let's move it to a separate function so we can add more
+parameters and modes.
+
+In order for the tests to still pass, some extra checks are needed, so
+it's not a 1:1 move.
 
 Reviewed-by: Noralf Trønnes <noralf@tronnes.org>
 Tested-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
@@ -116,70 +119,115 @@ Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
 ---
 Changes in v7:
-- Add Noralf Reviewed-by:w
+- Add Noralf Reviewed-by
+
+Changes in v6:
+- Simplify the test for connection status extras
+- Simplify the code path to call drm_mode_parse_cmdline_named_mode
+
+Changes in v4:
+- Fold down all the named mode patches that were split into a single
+  patch again to maintain bisectability
 ---
- drivers/gpu/drm/drm_modes.c | 9 ++++++---
- include/drm/drm_connector.h | 7 +++++++
- 2 files changed, 13 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_modes.c | 70 +++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 58 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-index acee23e1a8b7..c826f9583a1d 100644
+index 71c050c3ee6b..37542612912b 100644
 --- a/drivers/gpu/drm/drm_modes.c
 +++ b/drivers/gpu/drm/drm_modes.c
-@@ -2226,22 +2226,24 @@ static int drm_mode_parse_cmdline_options(const char *str,
- 
- struct drm_named_mode {
- 	const char *name;
-+	unsigned int pixel_clock_khz;
- 	unsigned int xres;
- 	unsigned int yres;
- 	unsigned int flags;
+@@ -2229,6 +2229,51 @@ static const char * const drm_named_modes_whitelist[] = {
+ 	"PAL",
  };
  
--#define NAMED_MODE(_name, _x, _y, _flags)		\
-+#define NAMED_MODE(_name, _pclk, _x, _y, _flags)	\
- 	{						\
- 		.name = _name,				\
-+		.pixel_clock_khz = _pclk,		\
- 		.xres = _x,				\
- 		.yres = _y,				\
- 		.flags = _flags,			\
++static int drm_mode_parse_cmdline_named_mode(const char *name,
++					     unsigned int name_end,
++					     struct drm_cmdline_mode *cmdline_mode)
++{
++	unsigned int i;
++
++	if (!name_end)
++		return 0;
++
++	/* If the name starts with a digit, it's not a named mode */
++	if (isdigit(name[0]))
++		return 0;
++
++	/*
++	 * If there's an equal sign in the name, the command-line
++	 * contains only an option and no mode.
++	 */
++	if (strnchr(name, name_end, '='))
++		return 0;
++
++	/* The connection status extras can be set without a mode. */
++	if (name_end == 1 &&
++	    (name[0] == 'd' || name[0] == 'D' || name[0] == 'e'))
++		return 0;
++
++	/*
++	 * We're sure we're a named mode at this point, iterate over the
++	 * list of modes we're aware of.
++	 */
++	for (i = 0; i < ARRAY_SIZE(drm_named_modes_whitelist); i++) {
++		int ret;
++
++		ret = str_has_prefix(name, drm_named_modes_whitelist[i]);
++		if (ret != name_end)
++			continue;
++
++		strcpy(cmdline_mode->name, drm_named_modes_whitelist[i]);
++		cmdline_mode->specified = true;
++
++		return 1;
++	}
++
++	return -EINVAL;
++}
++
+ /**
+  * drm_mode_parse_command_line_for_connector - parse command line modeline for connector
+  * @mode_option: optional per connector mode option
+@@ -2265,7 +2310,7 @@ bool drm_mode_parse_command_line_for_connector(const char *mode_option,
+ 	const char *bpp_ptr = NULL, *refresh_ptr = NULL, *extra_ptr = NULL;
+ 	const char *options_ptr = NULL;
+ 	char *bpp_end_ptr = NULL, *refresh_end_ptr = NULL;
+-	int i, len, ret;
++	int len, ret;
+ 
+ 	memset(mode, 0, sizeof(*mode));
+ 	mode->panel_orientation = DRM_MODE_PANEL_ORIENTATION_UNKNOWN;
+@@ -2306,18 +2351,19 @@ bool drm_mode_parse_command_line_for_connector(const char *mode_option,
+ 		parse_extras = true;
  	}
  
- static const struct drm_named_mode drm_named_modes[] = {
--	NAMED_MODE("NTSC", 720, 480, DRM_MODE_FLAG_INTERLACE),
--	NAMED_MODE("PAL", 720, 576, DRM_MODE_FLAG_INTERLACE),
-+	NAMED_MODE("NTSC", 13500, 720, 480, DRM_MODE_FLAG_INTERLACE),
-+	NAMED_MODE("PAL", 13500, 720, 576, DRM_MODE_FLAG_INTERLACE),
- };
+-	/* First check for a named mode */
+-	for (i = 0; i < ARRAY_SIZE(drm_named_modes_whitelist); i++) {
+-		ret = str_has_prefix(name, drm_named_modes_whitelist[i]);
+-		if (ret == mode_end) {
+-			if (refresh_ptr)
+-				return false; /* named + refresh is invalid */
++	if (!mode_end)
++		return false;
  
- static int drm_mode_parse_cmdline_named_mode(const char *name,
-@@ -2282,6 +2284,7 @@ static int drm_mode_parse_cmdline_named_mode(const char *name,
- 			continue;
- 
- 		strcpy(cmdline_mode->name, mode->name);
-+		cmdline_mode->pixel_clock = mode->pixel_clock_khz;
- 		cmdline_mode->xres = mode->xres;
- 		cmdline_mode->yres = mode->yres;
- 		cmdline_mode->interlace = !!(mode->flags & DRM_MODE_FLAG_INTERLACE);
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 9afc7956fdc6..4927dcb2573f 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1273,6 +1273,13 @@ struct drm_cmdline_mode {
- 	 */
- 	bool bpp_specified;
- 
-+	/**
-+	 * @pixel_clock:
-+	 *
-+	 * Pixel Clock in kHz. Optional.
-+	 */
-+	unsigned int pixel_clock;
+-			strcpy(mode->name, drm_named_modes_whitelist[i]);
+-			mode->specified = true;
+-			break;
+-		}
+-	}
++	ret = drm_mode_parse_cmdline_named_mode(name, mode_end, mode);
++	if (ret < 0)
++		return false;
 +
- 	/**
- 	 * @xres:
- 	 *
++	/*
++	 * Having a mode that starts by a letter (and thus is named) and
++	 * an at-sign (used to specify a refresh rate) is disallowed.
++	 */
++	if (ret && refresh_ptr)
++		return false;
+ 
+ 	/* No named mode? Check for a normal mode argument, e.g. 1024x768 */
+ 	if (!mode->specified && isdigit(name[0])) {
 
 -- 
 b4 0.11.0-dev-99e3a
