@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F85C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 12:31:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE27DC4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 12:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 372B410E170;
-	Fri, 11 Nov 2022 12:31:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21D0110E17C;
+	Fri, 11 Nov 2022 12:31:37 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8137210E167
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Nov 2022 12:31:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A1D910E17C
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Nov 2022 12:31:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668169886; x=1699705886;
+ t=1668169892; x=1699705892;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=PJ3QkKoVtC+alfvBwop7Aucl4YB4uyO9mL/h2P67TUc=;
- b=SCnAo5kpQjz/bcFvXE8sNp35m5EVKfNHE0wBhh8glEwxrtJRIabl9AKJ
- e7X3exJ3f0eOVdldEbiwb/z+dXpPItTKjzRzZCnW7vIaZ/BD08dMwqzkb
- gt8poYS23lewZz11crw/4a3p18Hgf4HVspx4zKSQBmHZVoR33pqo98Sjc
- wwNdocyZu6dfbkQpMfVzZi8SSBSzCM2NDgXYVW3N1U6ettkQ+MnpWrRr7
- /FRmCEM++zUar8n7kwIfkxzkWWMWYjKC+Ognvq/Y8MhnO22ylcoLpUhpK
- n2XcBurFzd1BnzbxiFIMf7EaqKFbck7cI2yFlAb0AzPAjwrNd7ay11Wc7 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="397883334"
-X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="397883334"
+ bh=Lc7AxmCx4LhFTt9Mxg0RRDW0Y35ul2wDSX79tGbW3gQ=;
+ b=FZ3xqtJGvuXdp5nCFXJWS/+qT3H15Go9q3ewrPUGd5ujOA+QFLpYdnGh
+ a5YQGcTHgjo5SnNOhFaptDGGHGRXCXy1GfVGaOVToJJ6K+pnkoKMbUyBb
+ ueZkWN/2rrXzqtzz9A0Ba6w7BoT8/a/ZeDxnn5R2gP65eQvpMg3ENDmVn
+ KPJRnKUfpJD09EyACBDakQjpj/EgqXtr7bnboIWNlxL/I4726FHPwyC6d
+ jIw/2rGFOed26fh0295ePLWTqt2bMeH2W+SbDzH82sQDMzqVFvUNlIHTA
+ MDvLnmQ4oP4LJBewXETJgFfxPTMgSqA1JliOw3EKTMaJ3Q8MPIt8oKVUh w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="397883356"
+X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="397883356"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2022 04:31:26 -0800
+ 11 Nov 2022 04:31:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="632023095"
-X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="632023095"
+X-IronPort-AV: E=McAfee;i="6500,9779,10527"; a="632023109"
+X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="632023109"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga007.jf.intel.com with SMTP; 11 Nov 2022 04:31:24 -0800
+ by orsmga007.jf.intel.com with SMTP; 11 Nov 2022 04:31:30 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 11 Nov 2022 14:31:23 +0200
+ Fri, 11 Nov 2022 14:31:29 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 11 Nov 2022 14:31:17 +0200
-Message-Id: <20221111123120.7759-2-ville.syrjala@linux.intel.com>
+Date: Fri, 11 Nov 2022 14:31:19 +0200
+Message-Id: <20221111123120.7759-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221111123120.7759-1-ville.syrjala@linux.intel.com>
 References: <20221111123120.7759-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915: Pass intel_plane to plane
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915: Pass i915 to frontbuffer
  tracepoints
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,134 +65,65 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Pass intel_plane rather than drm_plane to the plane tracepoints.
-Matches what we do eg. with the fbc tracepoints. Using the same
-type for everything will help with digging out the device name
-from the plane in the future.
+Pass the device to the frontbuffer tracpoints. Will be used
+later to include the device name in the tracpoints.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- .../gpu/drm/i915/display/intel_atomic_plane.c |  6 ++---
- .../drm/i915/display/intel_display_trace.h    | 26 +++++++++----------
- 2 files changed, 16 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_trace.h | 10 ++++++----
+ drivers/gpu/drm/i915/display/intel_frontbuffer.c   |  4 ++--
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index bcf0239b9533..10e1fc9d0698 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -757,7 +757,7 @@ void intel_plane_update_noarm(struct intel_plane *plane,
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 
--	trace_intel_plane_update_noarm(&plane->base, crtc);
-+	trace_intel_plane_update_noarm(plane, crtc);
- 
- 	if (plane->update_noarm)
- 		plane->update_noarm(plane, crtc_state, plane_state);
-@@ -769,7 +769,7 @@ void intel_plane_update_arm(struct intel_plane *plane,
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 
--	trace_intel_plane_update_arm(&plane->base, crtc);
-+	trace_intel_plane_update_arm(plane, crtc);
- 
- 	if (crtc_state->do_async_flip && plane->async_flip)
- 		plane->async_flip(plane, crtc_state, plane_state, true);
-@@ -782,7 +782,7 @@ void intel_plane_disable_arm(struct intel_plane *plane,
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 
--	trace_intel_plane_disable_arm(&plane->base, crtc);
-+	trace_intel_plane_disable_arm(plane, crtc);
- 	plane->disable_arm(plane, crtc_state);
- }
- 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_trace.h b/drivers/gpu/drm/i915/display/intel_display_trace.h
-index 2dd5a4b7f5d8..1a3955bcb77f 100644
+index 096168ae8e2a..7ba1c0c22a4b 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_trace.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_trace.h
-@@ -284,7 +284,7 @@ TRACE_EVENT(vlv_fifo_size,
+@@ -553,8 +553,9 @@ TRACE_EVENT(intel_pipe_update_end,
  );
  
- TRACE_EVENT(intel_plane_update_noarm,
--	    TP_PROTO(struct drm_plane *plane, struct intel_crtc *crtc),
-+	    TP_PROTO(struct intel_plane *plane, struct intel_crtc *crtc),
- 	    TP_ARGS(plane, crtc),
+ TRACE_EVENT(intel_frontbuffer_invalidate,
+-	    TP_PROTO(unsigned int frontbuffer_bits, unsigned int origin),
+-	    TP_ARGS(frontbuffer_bits, origin),
++	    TP_PROTO(struct drm_i915_private *i915,
++		     unsigned int frontbuffer_bits, unsigned int origin),
++	    TP_ARGS(i915, frontbuffer_bits, origin),
  
  	    TP_STRUCT__entry(
-@@ -293,16 +293,16 @@ TRACE_EVENT(intel_plane_update_noarm,
- 			     __field(u32, scanline)
- 			     __array(int, src, 4)
- 			     __array(int, dst, 4)
--			     __string(name, plane->name)
-+			     __string(name, plane->base.name)
- 			     ),
- 
- 	    TP_fast_assign(
--			   __assign_str(name, plane->name);
-+			   __assign_str(name, plane->base.name);
- 			   __entry->pipe = crtc->pipe;
- 			   __entry->frame = intel_crtc_get_vblank_counter(crtc);
- 			   __entry->scanline = intel_get_crtc_scanline(crtc);
--			   memcpy(__entry->src, &plane->state->src, sizeof(__entry->src));
--			   memcpy(__entry->dst, &plane->state->dst, sizeof(__entry->dst));
-+			   memcpy(__entry->src, &plane->base.state->src, sizeof(__entry->src));
-+			   memcpy(__entry->dst, &plane->base.state->dst, sizeof(__entry->dst));
- 			   ),
- 
- 	    TP_printk("pipe %c, plane %s, frame=%u, scanline=%u, " DRM_RECT_FP_FMT " -> " DRM_RECT_FMT,
-@@ -313,7 +313,7 @@ TRACE_EVENT(intel_plane_update_noarm,
+ 			     __field(unsigned int, frontbuffer_bits)
+@@ -571,8 +572,9 @@ TRACE_EVENT(intel_frontbuffer_invalidate,
  );
  
- TRACE_EVENT(intel_plane_update_arm,
--	    TP_PROTO(struct drm_plane *plane, struct intel_crtc *crtc),
-+	    TP_PROTO(struct intel_plane *plane, struct intel_crtc *crtc),
- 	    TP_ARGS(plane, crtc),
+ TRACE_EVENT(intel_frontbuffer_flush,
+-	    TP_PROTO(unsigned int frontbuffer_bits, unsigned int origin),
+-	    TP_ARGS(frontbuffer_bits, origin),
++	    TP_PROTO(struct drm_i915_private *i915,
++		     unsigned int frontbuffer_bits, unsigned int origin),
++	    TP_ARGS(i915, frontbuffer_bits, origin),
  
  	    TP_STRUCT__entry(
-@@ -322,16 +322,16 @@ TRACE_EVENT(intel_plane_update_arm,
- 			     __field(u32, scanline)
- 			     __array(int, src, 4)
- 			     __array(int, dst, 4)
--			     __string(name, plane->name)
-+			     __string(name, plane->base.name)
- 			     ),
+ 			     __field(unsigned int, frontbuffer_bits)
+diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.c b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+index d80e3e8a9b01..17a7aa8b28c2 100644
+--- a/drivers/gpu/drm/i915/display/intel_frontbuffer.c
++++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+@@ -88,7 +88,7 @@ static void frontbuffer_flush(struct drm_i915_private *i915,
+ 	if (!frontbuffer_bits)
+ 		return;
  
- 	    TP_fast_assign(
--			   __assign_str(name, plane->name);
-+			   __assign_str(name, plane->base.name);
- 			   __entry->pipe = crtc->pipe;
- 			   __entry->frame = intel_crtc_get_vblank_counter(crtc);
- 			   __entry->scanline = intel_get_crtc_scanline(crtc);
--			   memcpy(__entry->src, &plane->state->src, sizeof(__entry->src));
--			   memcpy(__entry->dst, &plane->state->dst, sizeof(__entry->dst));
-+			   memcpy(__entry->src, &plane->base.state->src, sizeof(__entry->src));
-+			   memcpy(__entry->dst, &plane->base.state->dst, sizeof(__entry->dst));
- 			   ),
+-	trace_intel_frontbuffer_flush(frontbuffer_bits, origin);
++	trace_intel_frontbuffer_flush(i915, frontbuffer_bits, origin);
  
- 	    TP_printk("pipe %c, plane %s, frame=%u, scanline=%u, " DRM_RECT_FP_FMT " -> " DRM_RECT_FMT,
-@@ -342,18 +342,18 @@ TRACE_EVENT(intel_plane_update_arm,
- );
+ 	might_sleep();
+ 	intel_drrs_flush(i915, frontbuffer_bits);
+@@ -176,7 +176,7 @@ void __intel_fb_invalidate(struct intel_frontbuffer *front,
+ 		spin_unlock(&i915->display.fb_tracking.lock);
+ 	}
  
- TRACE_EVENT(intel_plane_disable_arm,
--	    TP_PROTO(struct drm_plane *plane, struct intel_crtc *crtc),
-+	    TP_PROTO(struct intel_plane *plane, struct intel_crtc *crtc),
- 	    TP_ARGS(plane, crtc),
+-	trace_intel_frontbuffer_invalidate(frontbuffer_bits, origin);
++	trace_intel_frontbuffer_invalidate(i915, frontbuffer_bits, origin);
  
- 	    TP_STRUCT__entry(
- 			     __field(enum pipe, pipe)
- 			     __field(u32, frame)
- 			     __field(u32, scanline)
--			     __string(name, plane->name)
-+			     __string(name, plane->base.name)
- 			     ),
- 
- 	    TP_fast_assign(
--			   __assign_str(name, plane->name);
-+			   __assign_str(name, plane->base.name);
- 			   __entry->pipe = crtc->pipe;
- 			   __entry->frame = intel_crtc_get_vblank_counter(crtc);
- 			   __entry->scanline = intel_get_crtc_scanline(crtc);
+ 	might_sleep();
+ 	intel_psr_invalidate(i915, frontbuffer_bits, origin);
 -- 
 2.37.4
 
