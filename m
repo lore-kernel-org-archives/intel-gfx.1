@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 164E2C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 15:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 291EAC4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 15:22:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0726410E849;
-	Fri, 11 Nov 2022 15:16:17 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3955E10E83E
- for <intel-gfx@lists.freedesktop.org>; Fri, 11 Nov 2022 15:16:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 248BB10E864;
+	Fri, 11 Nov 2022 15:22:18 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FFED10E849;
+ Fri, 11 Nov 2022 15:22:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668179765; x=1699715765;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=pRM2jRQ81HU7dM9xJYUhOwot8WBB1xJtr1FV/Kc0MpQ=;
- b=heMZ++4lDAC3ZuEiObla0WydMWL71GVu2e40vkTSdjTx6qU/wBQ1zLa2
- n5GvtfqsouG39zv4ZZ0e//PormNRxQLsNck0HKNRxKlYtR8MWYk19dAVU
- 8mhe+NiX/Wsv//ZCLh8oIx7O8Z5EL9weKu9TP48DuMk6vKOzik2hia/Sc
- 27YmgkOpUALzqWfAFpHcY36fMbQG7nK8y1j7Ubecpt1QSTyGmRBEoPCri
- bl43b2Cx1g7jr46TYiee1d2RB/Wtvk/cgiQLFl8fp+M7M6f9E3YiIgHhQ
- p/jfOFdzRiSmxjtj4o/Xs0lWM2g4ODx1pzU6U+oLMSHg42PrT0oWF3a6w w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10528"; a="373743407"
-X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="373743407"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2022 07:15:39 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10528"; a="632054140"
-X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="632054140"
+ t=1668180133; x=1699716133;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Koslal6pIHu5Q7zsw3W/jyP83uKb4HltVt+LTnJ3rPM=;
+ b=hdNoZuY/lK1eubDWQaJQ8JhAp/CElSCTPgv1Yszt3CsNxsijuaewrlN7
+ eaol17Zh96pq5zX8D6SNdK/9Q9byaaePFlWnxzE/QLHo59eLb1ECR/g1M
+ ckhGro8QpRj01djrnzdOtNf5Si6XL86GOj94jVPwIto3NdG2gstIgmbda
+ P7q7UZQy0ZizILyOQcpPBOyuJL1vlmTf2+5uhfuIdmhz99u55OGy97wk6
+ MzVG7SPRl2vLQc5Oxfei4uwIm0zTEznuDcUWTrQBbqwIyaYCVtOwlIfZC
+ QT68zMsq1BRpP1DbL6eoWlg8hFrZ4/S+qqZkuoE/BJ07R6P0UldCWViN4 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10528"; a="291332969"
+X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="291332969"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2022 07:22:12 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10528"; a="615513461"
+X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="615513461"
 Received: from ldunne-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.15.227])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2022 07:15:38 -0800
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2022 07:22:10 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20221110082144.19666-5-ville.syrjala@linux.intel.com>
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+In-Reply-To: <20221022064550.llyv4kj4grsxfncw@ldmartin-desk2.lan>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20221110082144.19666-1-ville.syrjala@linux.intel.com>
- <20221110082144.19666-5-ville.syrjala@linux.intel.com>
-Date: Fri, 11 Nov 2022 17:15:35 +0200
-Message-ID: <87wn814j54.fsf@intel.com>
+References: <20221011-pick-even-ranges-v1-0-1aaea52752ed@intel.com>
+ <87mta1whjv.fsf@intel.com>
+ <20221012190531.ecmurislebsivjhf@ldmartin-desk2.lan>
+ <20221022064550.llyv4kj4grsxfncw@ldmartin-desk2.lan>
+Date: Fri, 11 Nov 2022 17:22:08 +0200
+Message-ID: <87r0y94iu7.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH v2 04/18] drm/i915: Clean up chv CGM
- (de)gamma defines
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 0/3] Add _PICK_EVEN_RANGES
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,121 +60,158 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 10 Nov 2022, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+On Fri, 21 Oct 2022, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+> On Wed, Oct 12, 2022 at 12:05:31PM -0700, Lucas De Marchi wrote:
+>>On Wed, Oct 12, 2022 at 11:51:48AM +0300, Jani Nikula wrote:
+>>>On Tue, 11 Oct 2022, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
+>>>>Add a new macro, _PICK_EVEN_RANGES, that supports using 2 address
+>>>>ranges. This should cover most of our needs for _MMIO_PLL3 and such.
+>>>>To show what is achieved with the new macro, convert some PLL-related
+>>>>macros to use it instead of _MMIO_PLL3.
+>>>
+>>>While there's nothing particularly wrong about the solution when looked
+>>>at in isolation, I do have pretty strong reservations on the whole.
+>>>
+>>>We have:
+>>>
+>>>1) _PICK_EVEN() used in _PIPE() and friends
+>>>
+>>>2) _PICK() used in _MMIO_PIPE3() and friends
+>>>
+>>>3) ->pipe_offsets[] etc. adjustment used in _MMIO_PIPE2() and friends
+>>>
+>>>4) ->ddi_index[] mapping proposed in [1]
+>>>
+>>>5) _PICK_EVEN_RANGES() proposed here
+>>>
+>>>Originally we only had the first one, when the hardware was
+>>>simpler. Every single addition since then made sense at the time, but if
+>>>we add 4 & 5 to the mix, I think it's just too many options.
+>>>
+>>>I think it's time to take a step back and figure out if there's a more
+>>>generic approach that could be used.
+>>
+>>true... I actually see this as replacing most of the uses of _PICK()
+>>and giving and extra benefit of removing the worry we are doing
+>>out-of-bounds array access. It also allows to more easily move ranges
+>>for new platforms, which is my intention here.
 >
-> Add the missing ldw vs. udw information to the CGM (de)gamma
-> bit definitions to make it a bit easier to see which should
-> be used where.
->
-> Also use the these appropriately in the LUT entry pack/unpack
-> functions.
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Jani, any feedback here or in the possible things to do below? I'd like
+> to get a sketch of whatever solution we think could be the right
+> direction during next week.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Considering that I basically stalled this but couldn't provide a
+decision on a concrete better path forward either,
 
-> ---
->  drivers/gpu/drm/i915/display/intel_color.c | 18 +++++++++---------
->  drivers/gpu/drm/i915/i915_reg.h            | 16 ++++++++++------
->  2 files changed, 19 insertions(+), 15 deletions(-)
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+on the original approach here. Needs a rebase, but it doesn't block us
+from the other ideas later either.
+
+Thanks, and sorry,
+
+Jani.
+
+
+
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm=
-/i915/display/intel_color.c
-> index 758869971e45..8e92eb61abac 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color.c
-> @@ -1077,13 +1077,13 @@ static void icl_load_luts(const struct intel_crtc=
-_state *crtc_state)
->=20=20
->  static u32 chv_cgm_degamma_ldw(const struct drm_color_lut *color)
->  {
-> -	return drm_color_lut_extract(color->green, 14) << 16 |
-> -		drm_color_lut_extract(color->blue, 14);
-> +	return REG_FIELD_PREP(CGM_PIPE_DEGAMMA_GREEN_LDW_MASK, drm_color_lut_ex=
-tract(color->green, 14)) |
-> +		REG_FIELD_PREP(CGM_PIPE_DEGAMMA_BLUE_LDW_MASK, drm_color_lut_extract(c=
-olor->blue, 14));
->  }
->=20=20
->  static u32 chv_cgm_degamma_udw(const struct drm_color_lut *color)
->  {
-> -	return drm_color_lut_extract(color->red, 14);
-> +	return REG_FIELD_PREP(CGM_PIPE_DEGAMMA_RED_UDW_MASK, drm_color_lut_extr=
-act(color->red, 14));
->  }
->=20=20
->  static void chv_load_cgm_degamma(struct intel_crtc *crtc,
-> @@ -1104,20 +1104,20 @@ static void chv_load_cgm_degamma(struct intel_crt=
-c *crtc,
->=20=20
->  static u32 chv_cgm_gamma_ldw(const struct drm_color_lut *color)
->  {
-> -	return drm_color_lut_extract(color->green, 10) << 16 |
-> -		drm_color_lut_extract(color->blue, 10);
-> +	return REG_FIELD_PREP(CGM_PIPE_GAMMA_GREEN_LDW_MASK, drm_color_lut_extr=
-act(color->green, 10)) |
-> +		REG_FIELD_PREP(CGM_PIPE_GAMMA_BLUE_LDW_MASK, drm_color_lut_extract(col=
-or->blue, 10));
->  }
->=20=20
->  static u32 chv_cgm_gamma_udw(const struct drm_color_lut *color)
->  {
-> -	return drm_color_lut_extract(color->red, 10);
-> +	return REG_FIELD_PREP(CGM_PIPE_GAMMA_RED_UDW_MASK, drm_color_lut_extrac=
-t(color->red, 10));
->  }
->=20=20
->  static void chv_cgm_gamma_pack(struct drm_color_lut *entry, u32 ldw, u32=
- udw)
->  {
-> -	entry->green =3D intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_GREE=
-N_MASK, ldw), 10);
-> -	entry->blue =3D intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_BLUE_=
-MASK, ldw), 10);
-> -	entry->red =3D intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_RED_MA=
-SK, udw), 10);
-> +	entry->green =3D intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_GREE=
-N_LDW_MASK, ldw), 10);
-> +	entry->blue =3D intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_BLUE_=
-LDW_MASK, ldw), 10);
-> +	entry->red =3D intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_GAMMA_RED_UD=
-W_MASK, udw), 10);
->  }
->=20=20
->  static void chv_load_cgm_gamma(struct intel_crtc *crtc,
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_=
-reg.h
-> index ecb34f133980..f4c08509e629 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -7725,13 +7725,17 @@ enum skl_power_gate {
->  #define _CGM_PIPE_A_CSC_COEFF67	(VLV_DISPLAY_BASE + 0x6790C)
->  #define _CGM_PIPE_A_CSC_COEFF8	(VLV_DISPLAY_BASE + 0x67910)
->  #define _CGM_PIPE_A_DEGAMMA	(VLV_DISPLAY_BASE + 0x66000)
-> -#define   CGM_PIPE_DEGAMMA_RED_MASK	REG_GENMASK(13, 0)
-> -#define   CGM_PIPE_DEGAMMA_GREEN_MASK	REG_GENMASK(29, 16)
-> -#define   CGM_PIPE_DEGAMMA_BLUE_MASK	REG_GENMASK(13, 0)
-> +/* cgm degamma ldw */
-> +#define   CGM_PIPE_DEGAMMA_GREEN_LDW_MASK	REG_GENMASK(29, 16)
-> +#define   CGM_PIPE_DEGAMMA_BLUE_LDW_MASK	REG_GENMASK(13, 0)
-> +/* cgm degamma udw */
-> +#define   CGM_PIPE_DEGAMMA_RED_UDW_MASK		REG_GENMASK(13, 0)
->  #define _CGM_PIPE_A_GAMMA	(VLV_DISPLAY_BASE + 0x67000)
-> -#define   CGM_PIPE_GAMMA_RED_MASK	REG_GENMASK(9, 0)
-> -#define   CGM_PIPE_GAMMA_GREEN_MASK	REG_GENMASK(25, 16)
-> -#define   CGM_PIPE_GAMMA_BLUE_MASK	REG_GENMASK(9, 0)
-> +/* cgm gamma ldw */
-> +#define   CGM_PIPE_GAMMA_GREEN_LDW_MASK		REG_GENMASK(25, 16)
-> +#define   CGM_PIPE_GAMMA_BLUE_LDW_MASK		REG_GENMASK(9, 0)
-> +/* cgm gamma udw */
-> +#define   CGM_PIPE_GAMMA_RED_UDW_MASK		REG_GENMASK(9, 0)
->  #define _CGM_PIPE_A_MODE	(VLV_DISPLAY_BASE + 0x67A00)
->  #define   CGM_PIPE_MODE_GAMMA	(1 << 2)
->  #define   CGM_PIPE_MODE_CSC	(1 << 1)
+> thanks
+> Lucas De Marchi
+>
+>>
+>>So I think that we could have something like this if changing it to
+>>something else means a bigger refactor. Talking about a big refactor, I
+>>still think my series from a few years back would make sense:
+>>
+>>drm/i915/display: start description-based ddi initialization
+>>(https://lore.kernel.org/all/20191223195850.25997-1-lucas.demarchi@intel.com/)
+>>
+>>I think that got stalled due to initialization in the intel_ddi.c trying
+>>too much to group together the if/else ladder. But the overall intention
+>>of the patch series I believe is still valid today:
+>>
+>>	(...) create a table-based initialization approach in
+>>	which I keep the useful indexes for each platform: these indexes work
+>>	similarly to what we have on the pll part. "enum port" is mostly a
+>>	"driver thing" and when all the conversions take place, it would allow
+>>	us to stop using the port as indexes to register or register bits. "enum
+>>	tc_port", "enum phy", etc are not meaningful numbers from the spec POV
+>>	and change with every other platform.
+>>
+>>+Bala who apparently is going to a similar approach in the ddi_index
+>>approach.
+>>
+>>Other possible approaches hat come to mind (just dumping some thoughts,
+>>with no actual code/poc):
+>>
+>>1) Inside display strut we have:
+>>
+>>	struct {
+>>		u8 version;
+>>		union {
+>>			struct {
+>>				i915_reg_t foo;
+>>				i915_reg_t bar;
+>>				i915_reg_t bla;
+>>			} v1;
+>>			struct {
+>>				i915_reg_t xyz;
+>>				i915_reg_t ijk;
+>>			} v2;
+>>		}
+>>	} regs;
+>>
+>>instead of vesion it could be the "first platform to use it" like we
+>>currently have. Those registers would then be initialized during module
+>>bind and then we stop doing these conversions to map a platform to a
+>>register offset.  It still needs some per-platform change for the
+>>bitfields though.
+>>
+>>idea would be then to enforce using the right struct inside the union by
+>>splitting the code in differen compilation units. One platform can
+>>evolve from the other with the same compilation unit as long as it is
+>>backward-compatible, i.e. we can add more registers, change offsets,
+>>etc. But if the HW interface completely changes, it would need to use a
+>>different version.
+>>
+>>2) Looking around what other teams do. In mesa the registers are actually
+>>maintained in a xml. Example: gen12.xml
+>>
+>><register name="HIZ_CHICKEN" length="1" num="0x7018">
+>>  <field name="HZ Depth Test LE/GE Optimization Disable" start="13" end="13" type="bool"/>
+>>  <field name="HZ Depth Test LE/GE Optimization Disable Mask" start="29" end="29" type="bool"/>
+>></register>
+>>
+>>In code it's used like this:
+>>
+>>reg.HZDepthTestLEGEOptimizationDisable = true;
+>>
+>>3) Kind of going in the same direction, but more in the kernel side. Maybe
+>>switching to regmap?
+>>
+>>
+>>I think one of the things that block this kind of refactors is having to
+>>bring them back to all the previous platforms. Maybe going back only
+>>until HAS_DDI() would be a good approach. Or maybe even spliting it on
+>>DISPLAY_VER == 12?  That might help more radical changes.
+>>
+>>
+>>Lucas De Marchi
+>>
+>>>
+>>>
+>>>BR,
+>>>Jani.
+>>>
+>>>
+>>>[1] https://patchwork.freedesktop.org/series/108833/
+>>>
+>>>-- 
+>>>Jani Nikula, Intel Open Source Graphics Center
 
---=20
+-- 
 Jani Nikula, Intel Open Source Graphics Center
