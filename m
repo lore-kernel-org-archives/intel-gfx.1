@@ -4,36 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7879C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 15:27:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC1ECC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 15:29:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ECD810E304;
-	Mon, 21 Nov 2022 15:26:33 +0000 (UTC)
-X-Greylist: delayed 331 seconds by postgrey-1.36 at gabe;
- Mon, 21 Nov 2022 09:13:12 UTC
-Received: from mail.nfschina.com (unknown [124.16.136.209])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8274E10E180;
- Mon, 21 Nov 2022 09:13:12 +0000 (UTC)
-Received: from localhost (unknown [127.0.0.1])
- by mail.nfschina.com (Postfix) with ESMTP id 9C11D1E80DA8;
- Mon, 21 Nov 2022 17:04:02 +0800 (CST)
-X-Virus-Scanned: amavisd-new at test.com
-Received: from mail.nfschina.com ([127.0.0.1])
- by localhost (mail.nfschina.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 41bB4o8SJ2qE; Mon, 21 Nov 2022 17:03:59 +0800 (CST)
-Received: from localhost.localdomain (unknown [219.141.250.2])
- (Authenticated sender: kunyu@nfschina.com)
- by mail.nfschina.com (Postfix) with ESMTPA id B7B7F1E80DA4;
- Mon, 21 Nov 2022 17:03:58 +0800 (CST)
-From: Li kunyu <kunyu@nfschina.com>
-To: zhenyuw@linux.intel.com, zhi.a.wang@intel.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tvrtko.ursulin@linux.intel.com, airlied@gmail.com, daniel@ffwll.ch
-Date: Mon, 21 Nov 2022 17:07:16 +0800
-Message-Id: <20221121090716.35899-1-kunyu@nfschina.com>
-X-Mailer: git-send-email 2.18.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id C987110E300;
+	Mon, 21 Nov 2022 15:29:19 +0000 (UTC)
+Received: from mail-pf1-x44a.google.com (mail-pf1-x44a.google.com
+ [IPv6:2607:f8b0:4864:20::44a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 574B410E16B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Nov 2022 00:22:30 +0000 (UTC)
+Received: by mail-pf1-x44a.google.com with SMTP id
+ m6-20020aa79006000000b0056bc283f477so1808261pfo.19
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Nov 2022 16:22:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
+ bh=/Qtct265AUs3mCRq4YXmCFT3mbV9fW5IFtDc5J2z2zs=;
+ b=FBR88osY8fIlZLbRznAOCa2Xf7BHDJaHVBD3PLmB9KlLJqRyRDDLI3zyzsZcD0Rn5m
+ 5oCwjogt2zecTA7RiD9yeOlvc55mEqbD8BgDuCuDPhgkuTUGCTX+PZfFw8d63rpWQhSP
+ 4YkKHAyfDPUatmW5/skfXM0hFEJa+6kp7KfEuEWXg7E4DNB1ZzIThCPt1PM0BzD8Xdhq
+ A/EPbIV3ybXi65UzJTKQ8T8FJMvIkmMoPVo3GTuq4UapPDYeRJRzaqoquBxRN2AYC9KA
+ A/DU8ldikEieGp5BDIr3DGthufNFJEG9FQ/iYXTHPCiQh1sE8mL3YkDDK1B4aUDeO2MN
+ Z8Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/Qtct265AUs3mCRq4YXmCFT3mbV9fW5IFtDc5J2z2zs=;
+ b=ZQlQTCuGVYxeSEyxO6Gar9fUl2Cd61mpG9f4SOhNd7Eh6skGDpsXzzqRm5RJIJHoCA
+ DDBwZWBi7LVDtaBtjA9xygCyWpMcTDjkMCE3XSCGCh8Ivmi4sBaGRgfmIfVi9cHYLGfo
+ wYc/1JVKObZ19eAgFuJsQp88twwIJK93O6yvUG3YV1aRhdfFz8pcLzl4blil1s6R/KaH
+ FsGD4lB78ALdkvpceeM1nw5iLuoEhPqtaQv0QhvyLwMEKDkdDgcPuyKN60q+yJ1xd3ya
+ LDJbrqQz/lr3CvzZnlazYBSN6ETGb5zLAvx4W0fmTeHsfA4dt0Viz3OZ6duzh2xOyrA1
+ 8c3w==
+X-Gm-Message-State: ACrzQf0/RBiwml1rHBYsk9K0QUE0xwIDh9vHKIiI3noe5+8fSI3TdWH4
+ bJzWWhsP/Gee/QB1PBpfBOVCLlCBFT4=
+X-Google-Smtp-Source: AMsMyM7iJ8xUv6oGaaWJB9TjFOHAMhWthcMv2slpXsAbeSOdSGcqg31xUyPwviIZlQaEysgjStUI+jeH2IM=
+X-Received: from zagreus.c.googlers.com
+ ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
+ (user=seanjc job=sendgmr) by 2002:a05:6a00:703:b0:56c:e37d:ec12 with SMTP id
+ 3-20020a056a00070300b0056ce37dec12mr4208245pfl.80.1668126149761; Thu, 10 Nov
+ 2022 16:22:29 -0800 (PST)
+Date: Fri, 11 Nov 2022 00:22:24 +0000
+In-Reply-To: <20221111002225.2418386-1-seanjc@google.com>
+Mime-Version: 1.0
+References: <20221111002225.2418386-1-seanjc@google.com>
+X-Mailer: git-send-email 2.38.1.431.g37b22c650d-goog
+Message-ID: <20221111002225.2418386-2-seanjc@google.com>
+From: Sean Christopherson <seanjc@google.com>
+To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 21 Nov 2022 15:26:23 +0000
-Subject: [Intel-gfx] [PATCH] gpu: vgpu: delete a semicolon
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/gvt: Get reference to KVM iff
+ attachment to VM is successful
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,33 +70,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Li kunyu <kunyu@nfschina.com>,
- intel-gvt-dev@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Reply-To: Sean Christopherson <seanjc@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, intel-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove extra semicolons at the end of statements to make them look
-cleaner.
+Get a reference to KVM if and only if a vGPU is successfully attached to
+the VM to avoid leaking a reference if there's no available vGPU.  On
+open_device() failure, vfio_device_open() doesn't invoke close_device().
 
-Signed-off-by: Li kunyu <kunyu@nfschina.com>
+Fixes: 421cfe6596f6 ("vfio: remove VFIO_GROUP_NOTIFY_SET_KVM")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- drivers/gpu/drm/i915/gvt/vgpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gvt/kvmgt.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/vgpu.c b/drivers/gpu/drm/i915/gvt/vgpu.c
-index 56c71474008a..5ccb04e26e6d 100644
---- a/drivers/gpu/drm/i915/gvt/vgpu.c
-+++ b/drivers/gpu/drm/i915/gvt/vgpu.c
-@@ -325,7 +325,7 @@ int intel_gvt_create_vgpu(struct intel_vgpu *vgpu,
- 	ret = idr_alloc(&gvt->vgpu_idr, vgpu, IDLE_VGPU_IDR + 1, GVT_MAX_VGPU,
- 		GFP_KERNEL);
- 	if (ret < 0)
--		goto out_unlock;;
-+		goto out_unlock;
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+index 7a45e5360caf..e67d5267fde0 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -664,8 +664,6 @@ static int intel_vgpu_open_device(struct vfio_device *vfio_dev)
+ 		return -ESRCH;
+ 	}
  
- 	vgpu->id = ret;
- 	vgpu->sched_ctl.weight = conf->weight;
+-	kvm_get_kvm(vgpu->vfio_device.kvm);
+-
+ 	if (__kvmgt_vgpu_exist(vgpu))
+ 		return -EEXIST;
+ 
+@@ -676,6 +674,7 @@ static int intel_vgpu_open_device(struct vfio_device *vfio_dev)
+ 
+ 	vgpu->track_node.track_write = kvmgt_page_track_write;
+ 	vgpu->track_node.track_flush_slot = kvmgt_page_track_flush_slot;
++	kvm_get_kvm(vgpu->vfio_device.kvm);
+ 	kvm_page_track_register_notifier(vgpu->vfio_device.kvm,
+ 					 &vgpu->track_node);
+ 
 -- 
-2.18.2
+2.38.1.431.g37b22c650d-goog
 
