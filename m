@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5972C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 15:59:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDAB1C433FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Nov 2022 15:59:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0453910E89F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E26E610E8A4;
 	Fri, 11 Nov 2022 15:59:24 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D06B510E871;
- Fri, 11 Nov 2022 15:59:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25F0410E888;
+ Fri, 11 Nov 2022 15:59:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668182350; x=1699718350;
+ t=1668182356; x=1699718356;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=SFGLmHc7XVOfYnYhdlVGwKT2+NH6RYdNaTqCCMoIymk=;
- b=YVDFTaIc2Uyngqz8m+9sIUMgz/cgMPmqcEH8QyKEizrPGgeEkhMQYX4Y
- yebcqDXIKBCpABBN+s22khskYlEMdqzCd3MECzwlup7yDUnj0uy14Igmx
- nusxOW2iFMYjPSbtHzvgQ0qL2MsRnE9bqOJ1QB6w7A9hGqAuPRU8NYEnI
- s19Sx3ESTzVIs2LI4GnVHKWobsmuN48tA8VoawuHIJUFv21d7dSTVTvYg
- e3+6/l25UTSGdmXfcP+YHkXOm94ahqX+Ib6enuJcBYx1ZLxfDrnJ/dn6S
- aLsaUI5aDUbCM0vU/GeOzq007T2V9wJl0/37nGlu/Xv7efy66lO9ZwRCr A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10528"; a="375883653"
-X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="375883653"
+ bh=k3D3Fh+uwzPBbKtyZ2edYmy1+tCgi2O/Xk7EWYQIHKM=;
+ b=J8mOhfxGpb/hyEscLFQ2DnKZsEUeuRS9NhwFs3ki5A3cQhqnS9j6b+U2
+ iCz4rx4Z0+mSq7x9ozbyYhhwljzPkdE0CfQY2pEuBgyvIPk7yww2ROnip
+ iI3ahrUZSYMyffYe8aF/pXR6zpcmGklKFjdQqMgoNw+MOuMMotH4LdGRh
+ BD7nHPoSyoTgpQnSi3CHftILZZ2zEVBfubbL+DFQQRIXGTF/wo7nY1iZM
+ KOgsTvruwzeDaW6QL4JfkfmvjGUbblD3rhN/pBJdntkDP8jmvhG28ENNM
+ DG06oD6q3j+JlT6fY6UHo+GgTsnJDO88xcSHigA6bL0WHRzwK/dk09W3+ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10528"; a="375883667"
+X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="375883667"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2022 07:59:10 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10528"; a="706577572"
-X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="706577572"
+ 11 Nov 2022 07:59:15 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10528"; a="706577602"
+X-IronPort-AV: E=Sophos;i="5.96,156,1665471600"; d="scan'208";a="706577602"
 Received: from eharkin-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.208.27])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2022 07:59:08 -0800
+ 11 Nov 2022 07:59:13 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org, Intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Date: Fri, 11 Nov 2022 15:58:40 +0000
-Message-Id: <20221111155844.3290531-5-tvrtko.ursulin@linux.intel.com>
+Date: Fri, 11 Nov 2022 15:58:43 +0000
+Message-Id: <20221111155844.3290531-8-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221111155844.3290531-1-tvrtko.ursulin@linux.intel.com>
 References: <20221111155844.3290531-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 4/8] libdrmclient: Support multiple DRM
- cards
+Subject: [Intel-gfx] [PATCH i-g-t 7/8] libdrmclient: Enforce client status
+ sort order in the library
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,63 +64,229 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Require DRM minor match during client lookup.
+Some libdrmclient operations require that inactive clients are last in the
+list. Rather than relying on callers of the library sort routine to
+implement their comparison callbacks correctly, enforce this order
+directly in the library and let callers comparison callbacks concern
+themselves only with ordering they are interested in.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- lib/igt_drm_clients.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ lib/igt_drm_clients.c | 37 +++++++++++++++-----
+ lib/igt_drm_clients.h |  2 +-
+ tools/intel_gpu_top.c | 81 +++++++++++++++++++------------------------
+ 3 files changed, 65 insertions(+), 55 deletions(-)
 
 diff --git a/lib/igt_drm_clients.c b/lib/igt_drm_clients.c
-index c23a3fae9793..e11c8b18188f 100644
+index d507c07fec87..b3eda39cd226 100644
 --- a/lib/igt_drm_clients.c
 +++ b/lib/igt_drm_clients.c
-@@ -49,7 +49,7 @@ struct igt_drm_clients *igt_drm_clients_init(void *private_data)
- static struct igt_drm_client *
- igt_drm_clients_find(struct igt_drm_clients *clients,
- 		     enum igt_drm_client_status status,
--		     unsigned int id)
-+		     unsigned int drm_minor, unsigned int id)
- {
- 	unsigned int start, num;
- 	struct igt_drm_client *c;
-@@ -61,7 +61,8 @@ igt_drm_clients_find(struct igt_drm_clients *clients,
- 		if (status != c->status)
- 			continue;
+@@ -191,22 +191,38 @@ void igt_drm_client_free(struct igt_drm_client *c, bool clear)
+ 		memset(c, 0, sizeof(*c));
+ }
  
--		if (status == IGT_DRM_CLIENT_FREE || c->id == id)
-+		if (status == IGT_DRM_CLIENT_FREE ||
-+		    (drm_minor == c->drm_minor && c->id == id))
- 			return c;
++struct sort_context
++{
++	int (*user_cmp)(const void *, const void *, void *);
++};
++
++static int sort_cmp(const void *_a, const void *_b, void *_ctx)
++{
++	const struct sort_context *ctx = _ctx;
++	const struct igt_drm_client *a = _a;
++	const struct igt_drm_client *b = _b;
++	int cmp = b->status - a->status;
++
++	if (cmp == 0)
++		return ctx->user_cmp(_a, _b, _ctx);
++	else
++		return cmp;
++}
++
+ /**
+  * igt_drm_clients_sort:
+  * @clients: Previously initialised clients object
+  * @cmp: Client comparison callback
+  *
+  * Sort the clients array according to the passed in comparison callback which
+- * is compatible with the qsort(3) semantics.
+- *
+- * Caller has to ensure the callback is putting all active
+- * (IGT_DRM_CLIENT_ALIVE) clients in a single group at the head of the array
+- * before any other sorting criteria.
++ * is compatible with the qsort(3) semantics, with the third void * argument
++ * being unused.
+  */
+ struct igt_drm_clients *
+ igt_drm_clients_sort(struct igt_drm_clients *clients,
+-		     int (*cmp)(const void *, const void *))
++		     int (*cmp)(const void *, const void *, void *))
+ {
++	struct sort_context ctx = { .user_cmp = cmp };
+ 	unsigned int active, free;
+ 	struct igt_drm_client *c;
+ 	int tmp;
+@@ -214,8 +230,13 @@ igt_drm_clients_sort(struct igt_drm_clients *clients,
+ 	if (!clients)
+ 		return clients;
+ 
+-	qsort(clients->client, clients->num_clients, sizeof(*clients->client),
+-	      cmp);
++	/*
++	 * Enforce client->status ordering (active followed by free) by running
++	 * the user provided comparison callback wrapped in the one internal
++	 * to the library.
++	 */
++	qsort_r(clients->client, clients->num_clients, sizeof(*clients->client),
++	      sort_cmp, &ctx);
+ 
+ 	/* Trim excessive array space. */
+ 	active = 0;
+diff --git a/lib/igt_drm_clients.h b/lib/igt_drm_clients.h
+index 0a903b431eaa..df8022d42098 100644
+--- a/lib/igt_drm_clients.h
++++ b/lib/igt_drm_clients.h
+@@ -82,6 +82,6 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 
+ struct igt_drm_clients *
+ igt_drm_clients_sort(struct igt_drm_clients *clients,
+-		     int (*cmp)(const void *, const void *));
++		     int (*cmp)(const void *, const void *, void *));
+ 
+ #endif /* IGT_DRM_CLIENTS_H */
+diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
+index e92a7fb69b48..d931e96e8ee2 100644
+--- a/tools/intel_gpu_top.c
++++ b/tools/intel_gpu_top.c
+@@ -674,85 +674,74 @@ static void pmu_sample(struct engines *engines)
  	}
+ }
  
-@@ -119,9 +120,10 @@ igt_drm_client_add(struct igt_drm_clients *clients,
+-static int client_last_cmp(const void *_a, const void *_b)
++static int
++__client_id_cmp(const struct igt_drm_client *a,
++		const struct igt_drm_client *b)
++{
++	if (a->id > b->id)
++		return 1;
++	else if (a->id < b->id)
++		return -1;
++	else
++		return 0;
++}
++
++static int client_last_cmp(const void *_a, const void *_b, void *unused)
  {
- 	struct igt_drm_client *c;
+ 	const struct igt_drm_client *a = _a;
+ 	const struct igt_drm_client *b = _b;
+-	long tot_a, tot_b;
++	long val_a = a->last_runtime, val_b = b->last_runtime;
  
--	assert(!igt_drm_clients_find(clients, IGT_DRM_CLIENT_ALIVE, info->id));
-+	assert(!igt_drm_clients_find(clients, IGT_DRM_CLIENT_ALIVE,
-+				     drm_minor, info->id));
+ 	/*
+ 	 * Sort clients in descending order of runtime in the previous sampling
+-	 * period for active ones, followed by inactive. Tie-breaker is client
+-	 * id.
++	 * period. Tie-breaker is client id.
+ 	 */
  
--	c = igt_drm_clients_find(clients, IGT_DRM_CLIENT_FREE, 0);
-+	c = igt_drm_clients_find(clients, IGT_DRM_CLIENT_FREE, 0, 0);
- 	if (!c) {
- 		unsigned int idx = clients->num_clients;
+-	tot_a = a->status == IGT_DRM_CLIENT_ALIVE ? a->last_runtime : -1;
+-	tot_b = b->status == IGT_DRM_CLIENT_ALIVE ? b->last_runtime : -1;
+-
+-	tot_b -= tot_a;
+-	if (tot_b > 0)
++	if (val_a == val_b)
++		return __client_id_cmp(a, b);
++	else if (val_b > val_a)
+ 		return 1;
+-	if (tot_b < 0)
++	else
+ 		return -1;
+-
+-	return (int)b->id - a->id;
+ }
  
-@@ -411,11 +413,11 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
- 				continue;
+-static int client_total_cmp(const void *_a, const void *_b)
++static int client_total_cmp(const void *_a, const void *_b, void *unused)
+ {
+ 	const struct igt_drm_client *a = _a;
+ 	const struct igt_drm_client *b = _b;
+-	long tot_a, tot_b;
++	long val_a = a->total_runtime, val_b = b->total_runtime;
  
- 			if (igt_drm_clients_find(clients, IGT_DRM_CLIENT_ALIVE,
--						info.id))
-+						 minor, info.id))
- 				continue; /* Skip duplicate fds. */
+-	tot_a = a->status == IGT_DRM_CLIENT_ALIVE ? a->total_runtime : -1;
+-	tot_b = b->status == IGT_DRM_CLIENT_ALIVE ? b->total_runtime : -1;
+-
+-	tot_b -= tot_a;
+-	if (tot_b > 0)
++	if (val_a == val_b)
++		return __client_id_cmp(a, b);
++	else if (val_b > val_a)
+ 		return 1;
+-	if (tot_b < 0)
++	else
+ 		return -1;
+-
+-	return (int)b->id - a->id;
+ }
  
- 			c = igt_drm_clients_find(clients, IGT_DRM_CLIENT_PROBE,
--						info.id);
-+						 minor, info.id);
- 			if (!c)
- 				igt_drm_client_add(clients, &info, client_pid,
- 						   client_name, minor);
+-static int client_id_cmp(const void *_a, const void *_b)
++static int client_id_cmp(const void *_a, const void *_b, void *unused)
+ {
+ 	const struct igt_drm_client *a = _a;
+ 	const struct igt_drm_client *b = _b;
+-	int id_a, id_b;
+-
+-	id_a = a->status == IGT_DRM_CLIENT_ALIVE ? a->id : -1;
+-	id_b = b->status == IGT_DRM_CLIENT_ALIVE ? b->id : -1;
+-
+-	id_b -= id_a;
+-	if (id_b > 0)
+-		return 1;
+-	if (id_b < 0)
+-		return -1;
+ 
+-	return (int)b->id - a->id;
++	return __client_id_cmp(a, b);
+ }
+ 
+-static int client_pid_cmp(const void *_a, const void *_b)
++static int client_pid_cmp(const void *_a, const void *_b, void *unused)
+ {
+ 	const struct igt_drm_client *a = _a;
+ 	const struct igt_drm_client *b = _b;
+-	int pid_a, pid_b;
+-
+-	pid_a = a->status == IGT_DRM_CLIENT_ALIVE ? a->pid : INT_MAX;
+-	pid_b = b->status == IGT_DRM_CLIENT_ALIVE ? b->pid : INT_MAX;
++	int val_a = a->pid, val_b = b->pid;
+ 
+-	pid_b -= pid_a;
+-	if (pid_b > 0)
++	if (val_a == val_b)
++		return __client_id_cmp(a, b);
++	else if (val_b > val_a)
+ 		return -1;
+-	if (pid_b < 0)
++	else
+ 		return 1;
+-
+-	return (int)a->id - b->id;
+ }
+ 
+-static int (*client_cmp)(const void *, const void *) = client_last_cmp;
++static int (*client_cmp)(const void *, const void *, void *) = client_last_cmp;
+ 
+ static bool aggregate_pids = true;
+ 
+@@ -1945,7 +1934,7 @@ static void interactive_stdin(void)
+ static void select_client_sort(void)
+ {
+ 	struct {
+-		int (*cmp)(const void *, const void *);
++		int (*cmp)(const void *, const void *, void *);
+ 		const char *msg;
+ 	} cmp[] = {
+ 		{ client_last_cmp, "Sorting clients by current GPU usage." },
 -- 
 2.34.1
 
