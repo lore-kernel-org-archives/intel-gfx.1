@@ -4,38 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8204BC43219
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 15:26:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2720EC3A5A1
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 15:26:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0D9310E2F9;
-	Mon, 21 Nov 2022 15:26:27 +0000 (UTC)
-Received: from aposti.net (aposti.net [89.234.176.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9FAA10E4A6;
- Mon,  7 Nov 2022 21:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1667854806; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AInEwYmBubDQ6V6OhoS8/DlKJ2T55utDNAWwTZfVpEs=;
- b=jBWCwoeyZYRizpyaR+kfAx7UlmgKvWtEqzqgW0CK2RuM7UTF6Uv3LcDseUJt+2VtHoYFpv
- Kcue/ozBs2v7BF75dXwjLfqT/omGKYDVxxYTKd0MOaF3HDVxK2b1r5njQM+sLu5SPcsVYg
- AGbmaf1bxY/RQg6jP0MxmEoWmo+ZZvo=
-Date: Mon, 07 Nov 2022 20:59:55 +0000
-From: Paul Cercueil <paul@crapouillou.net>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Message-Id: <VZWZKR.3K3MGKLWDLB12@crapouillou.net>
-In-Reply-To: <Y2lrNbA4t8RHOwPB@intel.com>
-References: <20221107175106.360578-1-paul@crapouillou.net>
- <20221107175510.361051-1-paul@crapouillou.net>
- <20221107175510.361051-3-paul@crapouillou.net> <Y2lrNbA4t8RHOwPB@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96AD610E2FA;
+	Mon, 21 Nov 2022 15:26:28 +0000 (UTC)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B3FA10E1AF
+ for <intel-gfx@lists.freedesktop.org>; Sat, 12 Nov 2022 00:43:12 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id q1so5597619pgl.11
+ for <intel-gfx@lists.freedesktop.org>; Fri, 11 Nov 2022 16:43:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=W/69SGTblteqzTGqi+tKsPG0LW4tOtiDqnrFyQWptaQ=;
+ b=nkkHJRYG9RSNUubkLNubrJI/d3KOEidZrgmUPThr3GFsr7fra6VsI+pb1qqQQ02WKX
+ zF1WmMPVXJP4zWYv5H2yrK2XmJWXLyIYGleBrctfrNS+0hqbbCZ/iqh9/fdMvnZajEwa
+ S7yTODLsbBcMwXwbemvi9xcCSHrHJ12nb+aTQowsorgnzkj19FB9Krp7KBYJxZyP21EO
+ 7pIoX7pjC6wc+oSETXDUqR/kq2X+LicMr3aKFzkyce/50iVQxoQgCThUjuJ/3KLMl8+B
+ z6LnADkM+0e/zYQoLtoBvelqEGFYq3NJyiIEmKpY5AR6UOQqXPItQJPmeuPg0YF/+hoh
+ Qb/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=W/69SGTblteqzTGqi+tKsPG0LW4tOtiDqnrFyQWptaQ=;
+ b=Z/rtFTRe0HoJ+Kri2OUNvw2jhQArx+oWny1WWGZTTzVd7M8Sdv5tJPF/BcDg/qff2g
+ B/5HRwPMDqAEbtBW6V065vLn6+H9v/2SJX3wkoCQaeoePpjOPKEmp0wi4g5WlJy4End7
+ nIX5IRWSLcH2NnsUtW8NXlLF18HX8dCRVKdGo3BIy5bGiGzmsxRCw3dwwvBSd2J5Cm7o
+ mMgH4EEkAtTWGcpQsjOYdZYU7OauySNT92ew0Yn0YpOdr6ERPCW1g8w50qZA7yD/cnGp
+ FZk9xzdcDMEaaZJOTsjvZ5QwSedzoXOZ9yxBkiTMxrc3msoVHKF7bcCZCysDplB8hUMb
+ AhLQ==
+X-Gm-Message-State: ANoB5pkGiROoxAxaz4xTiw+/ImQcija96/oO06/oqQxJgbeqNqPjEepB
+ bQOPdnGQs/3PQDtlBdNX6pWoIA==
+X-Google-Smtp-Source: AA0mqf4WsOfrQhaQruL4asl5Iu86noh/aH6GkJDdmp/AzA4oKTD7iRzggslPFH8j54SEF3nTst7kQA==
+X-Received: by 2002:a62:838f:0:b0:56c:8b7:f2dc with SMTP id
+ h137-20020a62838f000000b0056c08b7f2dcmr5095877pfe.16.1668213791697; 
+ Fri, 11 Nov 2022 16:43:11 -0800 (PST)
+Received: from google.com (7.104.168.34.bc.googleusercontent.com.
+ [34.168.104.7]) by smtp.gmail.com with ESMTPSA id
+ o127-20020a625a85000000b0056bc9294e1asm2154927pfb.24.2022.11.11.16.43.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Nov 2022 16:43:11 -0800 (PST)
+Date: Sat, 12 Nov 2022 00:43:07 +0000
+From: Sean Christopherson <seanjc@google.com>
+To: Yan Zhao <yan.y.zhao@intel.com>
+Message-ID: <Y27sG3AqVX8yLUgR@google.com>
+References: <20221111103247.22275-1-yan.y.zhao@intel.com>
+ <20221111103350.22326-1-yan.y.zhao@intel.com>
+ <Y26SI3uh8JV0vvO6@google.com>
+ <Y27ivXea5SjR5lat@yzhao56-desk.sh.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 21 Nov 2022 15:26:23 +0000
-Subject: Re: [Intel-gfx] [PATCH 26/26] drm/i915/gt: Remove #ifdef guards for
- PM related functions
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y27ivXea5SjR5lat@yzhao56-desk.sh.intel.com>
+X-Mailman-Approved-At: Mon, 21 Nov 2022 15:26:24 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 1/3] KVM: x86: add a new page track hook
+ track_remove_slot
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,96 +75,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@gmail.com>
+Cc: kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, pbonzini@redhat.com,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Rodrigo,
+On Sat, Nov 12, 2022, Yan Zhao wrote:
+> And I'm also not sure if a slots_arch_lock is required for
+> kvm_slot_page_track_add_page() and kvm_slot_page_track_remove_page().
 
-Le lun. 7 nov. 2022 =E0 15:31:49 -0500, Rodrigo Vivi=20
-<rodrigo.vivi@intel.com> a =E9crit :
-> On Mon, Nov 07, 2022 at 05:55:10PM +0000, Paul Cercueil wrote:
->>  Instead of defining two versions of intel_sysfs_rc6_init(), one for=20
->> each
->>  value of CONFIG_PM, add a check on !IS_ENABLED(CONFIG_PM) early in=20
->> the
->>  function. This will allow the compiler to automatically drop the=20
->> dead
->>  code when CONFIG_PM is disabled, without having to use #ifdef=20
->> guards.
->=20
-> Making the RC6 to depend on the CONFIG_PM is probably an historical
-> mistake and probably the right solution is simply to remove that
-> dependency.
+It's not required.  slots_arch_lock protects interaction between memslot updates
+mmu_first_shadow_root_alloc().  When CONFIG_KVM_EXTERNAL_WRITE_TRACKING=y, then
+the mmu_first_shadow_root_alloc() doesn't touch the memslots because everything
+is pre-allocated:
 
-I don't know anything about i915, so the best I can do is update the=20
-code without changing the functionality.
+bool kvm_page_track_write_tracking_enabled(struct kvm *kvm)
+{
+	return IS_ENABLED(CONFIG_KVM_EXTERNAL_WRITE_TRACKING) ||
+	       !tdp_enabled || kvm_shadow_root_allocated(kvm);
+}
 
-Then someone with a better understanding can send a patch to remove the=20
-check on CONFIG_PM.
+int kvm_page_track_create_memslot(struct kvm *kvm,
+				  struct kvm_memory_slot *slot,
+				  unsigned long npages)
+{
+	if (!kvm_page_track_write_tracking_enabled(kvm)) <== always true
+		return 0;
 
-Cheers,
--Paul
+	return __kvm_page_track_write_tracking_alloc(slot, npages);
+}
 
->>=20
->>  This has the advantage of always compiling these functions in,
->>  independently of any Kconfig option. Thanks to that, bugs and other
->>  regressions are subsequently easier to catch.
->>=20
->>  Signed-off-by: Paul Cercueil <paul@crapouillou.net>
->>  ---
->>  Cc: Jani Nikula <jani.nikula@linux.intel.com>
->>  Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
->>  Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->>  Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
->>  Cc: intel-gfx@lists.freedesktop.org
->>  ---
->>   drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 8 +-------
->>   1 file changed, 1 insertion(+), 7 deletions(-)
->>=20
->>  diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c=20
->> b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
->>  index 2b5f05b31187..decf892a4508 100644
->>  --- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
->>  +++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
->>  @@ -164,7 +164,6 @@ sysfs_gt_attribute_r_func(struct kobject *kobj,=20
->> struct attribute *attr,
->>   								 NULL);			\
->>   	INTEL_GT_ATTR_RO(_name)
->>=20
->>  -#ifdef CONFIG_PM
->>   static u32 get_residency(struct intel_gt *gt, i915_reg_t reg)
->>   {
->>   	intel_wakeref_t wakeref;
->>  @@ -300,7 +299,7 @@ static void intel_sysfs_rc6_init(struct=20
->> intel_gt *gt, struct kobject *kobj)
->>   {
->>   	int ret;
->>=20
->>  -	if (!HAS_RC6(gt->i915))
->>  +	if (!IS_ENABLED(CONFIG_PM) || !HAS_RC6(gt->i915))
->>   		return;
->>=20
->>   	ret =3D __intel_gt_sysfs_create_group(kobj, rc6_attr_group);
->>  @@ -329,11 +328,6 @@ static void intel_sysfs_rc6_init(struct=20
->> intel_gt *gt, struct kobject *kobj)
->>   				 gt->info.id, ERR_PTR(ret));
->>   	}
->>   }
->>  -#else
->>  -static void intel_sysfs_rc6_init(struct intel_gt *gt, struct=20
->> kobject *kobj)
->>  -{
->>  -}
->>  -#endif /* CONFIG_PM */
->>=20
->>   static u32 __act_freq_mhz_show(struct intel_gt *gt)
->>   {
->>  --
->>  2.35.1
->>=20
+Though now that you point it out, it's tempting to #ifdef out some of those hooks
+so that's basically impossible for mmu_first_shadow_root_alloc() to cause problems.
+Not sure the extra #ideffery would be worth while though.
 
-
+slots_arch_lock also protects shadow_root_allocated, but that's a KVM-internal
+detail that isn't relevant to the page-tracking machinery when
+CONFIG_KVM_EXTERNAL_WRITE_TRACKING=y.
