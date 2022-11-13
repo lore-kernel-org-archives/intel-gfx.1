@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44911C43217
-	for <intel-gfx@archiver.kernel.org>; Sun, 13 Nov 2022 07:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19AEDC433FE
+	for <intel-gfx@archiver.kernel.org>; Sun, 13 Nov 2022 07:58:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7727F10E1F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F07510E1F3;
 	Sun, 13 Nov 2022 07:57:48 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F83310E1EF;
- Sun, 13 Nov 2022 07:57:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4827610E1EF;
+ Sun, 13 Nov 2022 07:57:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668326264; x=1699862264;
+ t=1668326261; x=1699862261;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=51Yd5hVBRiTQIw8OOQbFcJaWBK76hjm9BSYZEvl2/hw=;
- b=DwH8xmkXCkexly+zrpt/9yakyvwvhIl8w/Dl+sWveqYJuLx3kJx6SKJi
- yBo62tXN+4kgw9qoPL460h0Rp2p7FGyPrY43/voTpPsFrGvlGUy1qsMtG
- v6cMJIDkWMV49zldsd7cP0kSS4/s8/Q5iaspZcl4ejB5TKj4qlP7nxkci
- GSeVoTCMmBmYy+oysrEESHaTRA3fki3xb3rxK3nQsFef6uNkafAk195mF
- luc0oRLnqFHGYp5fwgoP32/t+Lx/9zKnjFP89q48EHjaq5pdUQYC9tr31
- S6zKU1yS6oau3S1a3XlENAvnvHf2pv9zOrrFE+6YFY9Sm2yJOeDax1q6+ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10529"; a="312936340"
-X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="312936340"
+ bh=zPFHGDMduXkAIKQq9zi8SHiKI0l4Jb5L129oQIoD5oo=;
+ b=JWvz58zXbFbIvXEQwh72bLGdQ9gcjI3waRR681v2N7YSpDY19vzcbOvz
+ 6IT5e5L9aG9CMEXc6Wbux+e2uZsiwXlo2Yj+Yl/0U9BMcb2ZPsJJpBLBV
+ PhFJkZ8tFJ6a7LTRM3E7cWWAZI623Ob7Y6Aq2gIxz1+wJKvyfBhmLM0jU
+ rwteYOiazZdvpxpWp0mdIyYuKoy3+JYRxvChpvWzF8otF3Nhb670FYIo+
+ sVpnY8dxetIaWDTiBp043fpKQKdBhl44Bsh8VeYe/31K3fMlo+K48ejE5
+ 6HAqXwKHeY9HW+fADfN+VkajCv3wLRf39TcLkUxl5UBSWSwdnOaB4SG46 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10529"; a="312936329"
+X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="312936329"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2022 23:57:43 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10529"; a="669235727"
-X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="669235727"
+ 12 Nov 2022 23:57:40 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10529"; a="669235697"
+X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="669235697"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2022 23:57:43 -0800
+ 12 Nov 2022 23:57:40 -0800
 From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Sat, 12 Nov 2022 23:57:25 -0800
-Message-Id: <20221113075732.32100-14-niranjana.vishwanathapura@intel.com>
+Date: Sat, 12 Nov 2022 23:57:16 -0800
+Message-Id: <20221113075732.32100-5-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
 In-Reply-To: <20221113075732.32100-1-niranjana.vishwanathapura@intel.com>
 References: <20221113075732.32100-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 13/20] drm/i915/vm_bind: Update
- i915_vma_verify_bind_complete()
+Subject: [Intel-gfx] [PATCH v7 04/20] drm/i915/vm_bind: Add support to
+ create persistent vma
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,75 +63,154 @@ Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ensure i915_vma_verify_bind_complete() handles case where bind
-is not initiated. Also make it non static, add documentation
-and move it out of CONFIG_DRM_I915_DEBUG_GEM.
+Add i915_vma_instance_persistent() to create persistent vmas.
+Persistent vmas will use i915_gtt_view to support partial binding.
 
-v2: Fix fence leak
+vma_lookup is tied to segment of the object instead of section
+of VA space. Hence, it do not support aliasing. ie., multiple
+mappings (at different VA) point to the same gtt_view of object.
+Skip vma_lookup for persistent vmas to support aliasing.
+
+v2: Remove unused I915_VMA_PERSISTENT definition,
+    update validity check in i915_vma_compare(),
+    remove unwanted is_persistent check in release_references().
 
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_vma.c | 22 ++++++++++++++++------
- drivers/gpu/drm/i915/i915_vma.h |  1 +
- 2 files changed, 17 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/i915_vma.c       | 36 +++++++++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_vma.h       | 17 ++++++++++++-
+ drivers/gpu/drm/i915/i915_vma_types.h |  6 +++++
+ 3 files changed, 56 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 6d929791d33d..2ab50d29c9f1 100644
+index 3b969d679c1e..ca899466658b 100644
 --- a/drivers/gpu/drm/i915/i915_vma.c
 +++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -441,12 +441,25 @@ int i915_vma_sync(struct i915_vma *vma)
- 	return i915_vm_sync(vma->vm);
- }
- 
--#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
--static int i915_vma_verify_bind_complete(struct i915_vma *vma)
-+/**
-+ * i915_vma_verify_bind_complete() - Check for the bind completion of the vma
-+ * @vma: vma to check for bind completion
-+ *
-+ * As the fence reference is obtained under RCU, no locking is required by
-+ * the caller.
-+ *
-+ * Returns: 0 if the vma bind is completed. Error code otherwise.
-+ */
-+int i915_vma_verify_bind_complete(struct i915_vma *vma)
+@@ -111,7 +111,8 @@ static void __i915_vma_retire(struct i915_active *ref)
+ static struct i915_vma *
+ vma_create(struct drm_i915_gem_object *obj,
+ 	   struct i915_address_space *vm,
+-	   const struct i915_gtt_view *view)
++	   const struct i915_gtt_view *view,
++	   bool skip_lookup_cache)
  {
--	struct dma_fence *fence = i915_active_fence_get(&vma->active.excl);
-+	struct dma_fence *fence;
- 	int err;
+ 	struct i915_vma *pos = ERR_PTR(-E2BIG);
+ 	struct i915_vma *vma;
+@@ -198,6 +199,9 @@ vma_create(struct drm_i915_gem_object *obj,
+ 		__set_bit(I915_VMA_GGTT_BIT, __i915_vma_flags(vma));
+ 	}
  
-+	/* Ensure vma bind is initiated */
-+	if (!i915_vma_is_bound(vma, I915_VMA_BIND_MASK))
-+		return -EINVAL;
++	if (skip_lookup_cache)
++		goto skip_rb_insert;
 +
-+	fence = i915_active_fence_get(&vma->active.excl);
- 	if (!fence)
- 		return 0;
+ 	rb = NULL;
+ 	p = &obj->vma.tree.rb_node;
+ 	while (*p) {
+@@ -222,6 +226,7 @@ vma_create(struct drm_i915_gem_object *obj,
+ 	rb_link_node(&vma->obj_node, rb, p);
+ 	rb_insert_color(&vma->obj_node, &obj->vma.tree);
  
-@@ -459,9 +472,6 @@ static int i915_vma_verify_bind_complete(struct i915_vma *vma)
++skip_rb_insert:
+ 	if (i915_vma_is_ggtt(vma))
+ 		/*
+ 		 * We put the GGTT vma at the start of the vma-list, followed
+@@ -301,7 +306,34 @@ i915_vma_instance(struct drm_i915_gem_object *obj,
  
- 	return err;
- }
--#else
--#define i915_vma_verify_bind_complete(_vma) 0
--#endif
+ 	/* vma_create() will resolve the race if another creates the vma */
+ 	if (unlikely(!vma))
+-		vma = vma_create(obj, vm, view);
++		vma = vma_create(obj, vm, view, false);
++
++	GEM_BUG_ON(!IS_ERR(vma) && i915_vma_compare(vma, vm, view));
++	return vma;
++}
++
++/**
++ * i915_vma_create_persistent - create a persistent VMA
++ * @obj: parent &struct drm_i915_gem_object to be mapped
++ * @vm: address space in which the mapping is located
++ * @view: additional mapping requirements
++ *
++ * Creates a persistent vma.
++ *
++ * Returns the vma, or an error pointer.
++ */
++struct i915_vma *
++i915_vma_create_persistent(struct drm_i915_gem_object *obj,
++			   struct i915_address_space *vm,
++			   const struct i915_gtt_view *view)
++{
++	struct i915_vma *vma;
++
++	GEM_BUG_ON(!kref_read(&vm->ref));
++
++	vma = vma_create(obj, vm, view, true);
++	if (!IS_ERR(vma))
++		i915_vma_set_persistent(vma);
  
- I915_SELFTEST_EXPORT void
- i915_vma_resource_init_from_vma(struct i915_vma_resource *vma_res,
+ 	GEM_BUG_ON(!IS_ERR(vma) && i915_vma_compare(vma, vm, view));
+ 	return vma;
 diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index 1cadbf8fdedf..04770f8ba815 100644
+index aecd9c64486b..c5378ec2f70a 100644
 --- a/drivers/gpu/drm/i915/i915_vma.h
 +++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -440,6 +440,7 @@ void i915_vma_make_purgeable(struct i915_vma *vma);
+@@ -44,6 +44,10 @@ struct i915_vma *
+ i915_vma_instance(struct drm_i915_gem_object *obj,
+ 		  struct i915_address_space *vm,
+ 		  const struct i915_gtt_view *view);
++struct i915_vma *
++i915_vma_create_persistent(struct drm_i915_gem_object *obj,
++			   struct i915_address_space *vm,
++			   const struct i915_gtt_view *view);
  
- int i915_vma_wait_for_bind(struct i915_vma *vma);
- int i915_vma_sync(struct i915_vma *vma);
-+int i915_vma_verify_bind_complete(struct i915_vma *vma);
+ void i915_vma_unpin_and_release(struct i915_vma **p_vma, unsigned int flags);
+ #define I915_VMA_RELEASE_MAP BIT(0)
+@@ -138,6 +142,16 @@ static inline u32 i915_ggtt_pin_bias(struct i915_vma *vma)
+ 	return i915_vm_to_ggtt(vma->vm)->pin_bias;
+ }
  
- /**
-  * i915_vma_get_current_resource - Get the current resource of the vma
++static inline bool i915_vma_is_persistent(const struct i915_vma *vma)
++{
++	return test_bit(I915_VMA_PERSISTENT_BIT, __i915_vma_flags(vma));
++}
++
++static inline void i915_vma_set_persistent(struct i915_vma *vma)
++{
++	set_bit(I915_VMA_PERSISTENT_BIT, __i915_vma_flags(vma));
++}
++
+ static inline struct i915_vma *i915_vma_get(struct i915_vma *vma)
+ {
+ 	i915_gem_object_get(vma->obj);
+@@ -164,7 +178,8 @@ i915_vma_compare(struct i915_vma *vma,
+ {
+ 	ptrdiff_t cmp;
+ 
+-	GEM_BUG_ON(view && !i915_is_ggtt_or_dpt(vm));
++	GEM_BUG_ON(view && !(i915_is_ggtt_or_dpt(vm) ||
++			     i915_vma_is_persistent(vma)));
+ 
+ 	cmp = ptrdiff(vma->vm, vm);
+ 	if (cmp)
+diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
+index ec0f6c9f57d0..3144d71a0c3e 100644
+--- a/drivers/gpu/drm/i915/i915_vma_types.h
++++ b/drivers/gpu/drm/i915/i915_vma_types.h
+@@ -264,6 +264,12 @@ struct i915_vma {
+ #define I915_VMA_SCANOUT_BIT	17
+ #define I915_VMA_SCANOUT	((int)BIT(I915_VMA_SCANOUT_BIT))
+ 
++/**
++ * I915_VMA_PERSISTENT_BIT:
++ * The vma is persistent (created with VM_BIND call).
++ */
++#define I915_VMA_PERSISTENT_BIT	19
++
+ 	struct i915_active active;
+ 
+ #define I915_VMA_PAGES_BIAS 24
 -- 
 2.21.0.rc0.32.g243a4c7e27
 
