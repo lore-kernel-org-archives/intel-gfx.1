@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84491C43217
-	for <intel-gfx@archiver.kernel.org>; Sun, 13 Nov 2022 07:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4F81C4332F
+	for <intel-gfx@archiver.kernel.org>; Sun, 13 Nov 2022 07:58:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 785C610E20E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DBC210E20B;
 	Sun, 13 Nov 2022 07:57:54 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5179810E1F4;
- Sun, 13 Nov 2022 07:57:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47FAC10E1FB;
+ Sun, 13 Nov 2022 07:57:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668326264; x=1699862264;
+ t=1668326266; x=1699862266;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FU4yp6pQjm4qLG1VQYow31dI6m9KDe9jcmOOiEe3FQw=;
- b=Q2/EOgijVC8ABRcioKaSHHNVwyVIbBBaQAbox+oBizNv9JNE7tPLqw6L
- Lja7JvkoeBDhrcf63JlZ19guEtsQP3/tu1JRPSqP/53QYcnfQ6EKkptCB
- vl8pa8hLk1Ix801EWkmXK7Skt+sasaivqN89IvHm2wnI/UWYPqV7MvXOO
- nzVQJ87WbIIuNHW1Ne3oOxgWH1GTviFjXeXk/W3CeptCvVFYXfny6PZ4f
- 1tFhC062z5E4Wtb2E+tT2vTY0bGUrz901OtRHEa4fcYnXovj/JRaVXhBA
- n0iN64hp/gQ1FIExJKjeoKzfvsD61qcjSDJVMtocUJLOE65Wf4LPUKf8Z A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10529"; a="312936341"
-X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="312936341"
+ bh=KPwL+Vo3RrRKJgLq8dboiBs5iFBHrcuz0CEqAAUL4SI=;
+ b=DLlH5ynQEOUHP6oGIBjQkrUU6vMIeCQhmX97biypfKyjkl0EfhV0nJHS
+ gb/6fPRU/Oj9YfcPZuCrZGKd3gKcNnIGBGYygqCWKRLoldMsOEHKf02Vr
+ 0NDm0y5vznfwTaHZsg0MjqRZfuitEc5/fTK8yNjzCBzOYdLuCEksWrr3h
+ ZlInrGCOYTCzRwf3hWsa8lQoBZoMTIh/dE+CyHR/dgQGLTvIjvkgFBemJ
+ a2QhlYZAte5l+cqXYlh+YA9q4leLRFAoubKNWonejoXCFmLq5D7sVXm16
+ h0pOi0fkQiVhcizKJ/t4Hci9ZePGS9a8RnRXyLN0eXcwYchMZlgzUP4S0 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10529"; a="312936350"
+X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="312936350"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2022 23:57:43 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10529"; a="669235730"
-X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="669235730"
+ 12 Nov 2022 23:57:45 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10529"; a="669235752"
+X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="669235752"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2022 23:57:43 -0800
+ 12 Nov 2022 23:57:45 -0800
 From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Sat, 12 Nov 2022 23:57:26 -0800
-Message-Id: <20221113075732.32100-15-niranjana.vishwanathapura@intel.com>
+Date: Sat, 12 Nov 2022 23:57:32 -0800
+Message-Id: <20221113075732.32100-21-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
 In-Reply-To: <20221113075732.32100-1-niranjana.vishwanathapura@intel.com>
 References: <20221113075732.32100-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 14/20] drm/i915/vm_bind: Expose
- i915_request_await_bind()
+Subject: [Intel-gfx] [PATCH v7 20/20] drm/i915/vm_bind: Async vm_unbind
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,70 +63,153 @@ Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rename __i915_request_await_bind() as i915_request_await_bind()
-and make it non-static as it will be used in execbuf3 ioctl path.
+Asynchronously unbind the vma upon vm_unbind call.
+Fall back to synchronous unbind if backend doesn't support
+async unbind or if async unbind fails.
 
-v2: add documentation
+No need for vm_unbind out fence support as i915 will internally
+handle all sequencing and user need not try to sequence any
+operation with the unbind completion.
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+v2: use i915_vma_destroy_async in vm_unbind ioctl
+
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 ---
- drivers/gpu/drm/i915/i915_vma.c |  8 +-------
- drivers/gpu/drm/i915/i915_vma.h | 16 ++++++++++++++++
- 2 files changed, 17 insertions(+), 7 deletions(-)
+ .../drm/i915/gem/i915_gem_vm_bind_object.c    |  2 +-
+ drivers/gpu/drm/i915/i915_vma.c               | 51 +++++++++++++++++--
+ drivers/gpu/drm/i915/i915_vma.h               |  1 +
+ include/uapi/drm/i915_drm.h                   |  3 +-
+ 4 files changed, 51 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
+index d87d1210365b..36651b447966 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
+@@ -210,7 +210,7 @@ static int i915_gem_vm_unbind_vma(struct i915_address_space *vm,
+ 	 */
+ 	obj = vma->obj;
+ 	i915_gem_object_lock(obj, NULL);
+-	i915_vma_destroy(vma);
++	i915_vma_destroy_async(vma);
+ 	i915_gem_object_unlock(obj);
+ 
+ 	i915_gem_object_put(obj);
 diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 2ab50d29c9f1..e059f8eb5d4a 100644
+index 7cf77c67d755..483d25f2425c 100644
 --- a/drivers/gpu/drm/i915/i915_vma.c
 +++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -1890,18 +1890,12 @@ void i915_vma_revoke_mmap(struct i915_vma *vma)
- 		list_del(&vma->obj->userfault_link);
+@@ -42,6 +42,8 @@
+ #include "i915_vma.h"
+ #include "i915_vma_resource.h"
+ 
++static struct dma_fence *__i915_vma_unbind_async(struct i915_vma *vma);
++
+ static inline void assert_vma_held_evict(const struct i915_vma *vma)
+ {
+ 	/*
+@@ -1713,7 +1715,7 @@ void i915_vma_reopen(struct i915_vma *vma)
+ 	spin_unlock_irq(&gt->closed_lock);
  }
  
--static int
--__i915_request_await_bind(struct i915_request *rq, struct i915_vma *vma)
--{
--	return __i915_request_await_exclusive(rq, &vma->active);
--}
--
- static int __i915_vma_move_to_active(struct i915_vma *vma, struct i915_request *rq)
+-static void force_unbind(struct i915_vma *vma)
++static void force_unbind(struct i915_vma *vma, bool async)
  {
- 	int err;
+ 	if (!drm_mm_node_allocated(&vma->node))
+ 		return;
+@@ -1727,7 +1729,21 @@ static void force_unbind(struct i915_vma *vma)
+ 		i915_vma_set_purged(vma);
  
- 	/* Wait for the vma to be bound before we start! */
--	err = __i915_request_await_bind(rq, vma);
-+	err = i915_request_await_bind(rq, vma);
- 	if (err)
- 		return err;
+ 	atomic_and(~I915_VMA_PIN_MASK, &vma->flags);
+-	WARN_ON(__i915_vma_unbind(vma));
++	if (async) {
++		struct dma_fence *fence;
++
++		fence = __i915_vma_unbind_async(vma);
++		if (IS_ERR_OR_NULL(fence)) {
++			async = false;
++		} else {
++			dma_resv_add_fence(vma->obj->base.resv, fence,
++					   DMA_RESV_USAGE_READ);
++			dma_fence_put(fence);
++		}
++	}
++
++	if (!async)
++		WARN_ON(__i915_vma_unbind(vma));
+ 	GEM_BUG_ON(drm_mm_node_allocated(&vma->node));
+ }
  
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index 04770f8ba815..737ef310d046 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -54,6 +54,22 @@ void i915_vma_unpin_and_release(struct i915_vma **p_vma, unsigned int flags);
- /* do not reserve memory to prevent deadlocks */
- #define __EXEC_OBJECT_NO_RESERVE BIT(31)
+@@ -1787,7 +1803,7 @@ void i915_vma_destroy_locked(struct i915_vma *vma)
+ {
+ 	lockdep_assert_held(&vma->vm->mutex);
  
-+/**
-+ * i915_request_await_bind() - Setup request to wait for a vma bind completion
-+ * @rq: the request which should wait
-+ * @vma: vma whose binding @rq should wait to complete
-+ *
-+ * Setup the request @rq to asynchronously wait for @vma bind to complete
-+ * before starting execution.
-+ *
-+ * Returns 0 on success, error code on failure.
-+ */
-+static inline int
-+i915_request_await_bind(struct i915_request *rq, struct i915_vma *vma)
-+{
-+	return __i915_request_await_exclusive(rq, &vma->active);
+-	force_unbind(vma);
++	force_unbind(vma, false);
+ 	list_del_init(&vma->vm_link);
+ 	release_references(vma, vma->vm->gt, false);
+ }
+@@ -1798,7 +1814,34 @@ void i915_vma_destroy(struct i915_vma *vma)
+ 	bool vm_ddestroy;
+ 
+ 	mutex_lock(&vma->vm->mutex);
+-	force_unbind(vma);
++	force_unbind(vma, false);
++	list_del_init(&vma->vm_link);
++	vm_ddestroy = vma->vm_ddestroy;
++	vma->vm_ddestroy = false;
++
++	/* vma->vm may be freed when releasing vma->vm->mutex. */
++	gt = vma->vm->gt;
++	mutex_unlock(&vma->vm->mutex);
++	release_references(vma, gt, vm_ddestroy);
 +}
 +
- int __must_check _i915_vma_move_to_active(struct i915_vma *vma,
- 					  struct i915_request *rq,
- 					  struct dma_fence *fence,
++void i915_vma_destroy_async(struct i915_vma *vma)
++{
++	bool vm_ddestroy, async = vma->obj->mm.rsgt;
++	struct intel_gt *gt;
++
++	if (dma_resv_reserve_fences(vma->obj->base.resv, 1))
++		async = false;
++
++	mutex_lock(&vma->vm->mutex);
++	/*
++	 * Ensure any asynchronous binding is complete while using
++	 * async unbind as we will be releasing the vma here.
++	 */
++	if (async && i915_active_wait(&vma->active))
++		async = false;
++
++	force_unbind(vma, async);
+ 	list_del_init(&vma->vm_link);
+ 	vm_ddestroy = vma->vm_ddestroy;
+ 	vma->vm_ddestroy = false;
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 737ef310d046..25f15965dab8 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -272,6 +272,7 @@ void i915_vma_reopen(struct i915_vma *vma);
+ 
+ void i915_vma_destroy_locked(struct i915_vma *vma);
+ void i915_vma_destroy(struct i915_vma *vma);
++void i915_vma_destroy_async(struct i915_vma *vma);
+ 
+ #define assert_vma_held(vma) dma_resv_assert_held((vma)->obj->base.resv)
+ 
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index e5600f358a15..431d40bb1dee 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -3969,7 +3969,8 @@ struct drm_i915_gem_vm_bind {
+  * any error.
+  *
+  * VM_BIND/UNBIND ioctl calls executed on different CPU threads concurrently
+- * are not ordered.
++ * are not ordered. Furthermore, parts of the VM_UNBIND operation can be done
++ * asynchronously.
+  */
+ struct drm_i915_gem_vm_unbind {
+ 	/** @vm_id: VM (address space) id to bind */
 -- 
 2.21.0.rc0.32.g243a4c7e27
 
