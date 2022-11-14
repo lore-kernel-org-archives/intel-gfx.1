@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1502EC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 13:03:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3D40C43219
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 13:03:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F183210E2D4;
-	Mon, 14 Nov 2022 13:01:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD91510E2DC;
+	Mon, 14 Nov 2022 13:02:24 +0000 (UTC)
 Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
  [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3295D10E2BA;
- Mon, 14 Nov 2022 13:01:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ADE410E2D4;
+ Mon, 14 Nov 2022 13:01:35 +0000 (UTC)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 8F7BC580257;
- Mon, 14 Nov 2022 08:01:14 -0500 (EST)
+ by mailnew.nyi.internal (Postfix) with ESMTP id 9DA57580242;
+ Mon, 14 Nov 2022 08:01:34 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 14 Nov 2022 08:01:14 -0500
+ by compute4.internal (MEProxy); Mon, 14 Nov 2022 08:01:34 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; t=1668430874; x=
- 1668438074; bh=HSsLw1xyOJQczdua7qvS/z2Fis6foaGGQ/TuvobGK4s=; b=d
- Efg6DU4x3R5ymA5HxhQZUWvEBSdiRFMUH65qWnbH7NWyOKtU9dtlM0hyCX89dnxq
- Iaohv/KkY6+0qA6fBqjB9uCFiLKTZHPAuM+VgcpDwuCx/PogYwoK+OrKhv6xHaNP
- Jqi2hMvv0OodckGXY3T+2v9ZTkszeoghbFRu3Tilco1K7meiwKhLHSTeR4+WZXi7
- t/jv+LgK+2knHrE65EmbCH2ouD01yl2V+Sk/ShPDJRvY4M3pmo5hNxVMw/G2lTiZ
- SdpxrX541LpNcSfnRxJLga8q9FfoFcmPICQluzJRRjqc7PCM7lzOJ553jG+WnoHk
- gg4WC8apKhk6016SaEvvA==
+ :reply-to:sender:subject:subject:to:to; s=fm2; t=1668430894; x=
+ 1668438094; bh=s0oohZSryHTvS6AqnbyD508bkpJln3+0v4TZJ9DnLl4=; b=c
+ 01bTGY3EghO7bJpxKshS4/qnZuEKFZfwE6QalJGI3OwxaK3n7egD+bL4AffAFe0J
+ QWsnAHWuGmZyKcuAaMYccFgi8lRwlqtcXutAurvAvkuFezsyV3ajMrbt18D53w2s
+ v4/hzoqMmE4Od1YT/kc1BydzBL6qkLkZ9jT+9g+oeV62XcD+gnQPknR5T5WEgrLb
+ lmQnqgBdOyNBzXxQKYxQu91I2xgr+HQTN1jiroSz00slWZrxTDNtStJWyvaUuH48
+ +gWnbNYe23taYTJdNKznrvrAaw3a0RXD2mLNMK+HrvBRRonhu/ZpEFjjikBOI6Z3
+ StD7HxCEKiL3QIwWu36eQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668430874; x=
- 1668438074; bh=HSsLw1xyOJQczdua7qvS/z2Fis6foaGGQ/TuvobGK4s=; b=l
- IdK8fObAUQTUJZXAd+7yb12ACJXiIPmHyMqDZ31IQwxkaL5gPg92uRABIGBpoMra
- R+otF1A2s2Sco1WaZQndP1Xid7gi4v/gOqMgS2gHaa7aev2xxL6/ojL2T2Viq4r2
- 1hwcXzyeb71f3qEFxQq6UBrl9fAn1N5JPIgf3FfhgsefI9Eyyr3WDE6Pc9T9d+ye
- ejw5MwI/OF4TwGZoJ4JR+d7oizHsguilHOHAhkt9ILi8xJGsGmH08bmu3iMmt82q
- X3zfxJzTUF0tigPUj/4tpaL8hq6CtpcANdPktBxyhji5t8eBWTccSGYURGuKDmKK
- qg4Cw8AndYBhYpfDbg6yw==
-X-ME-Sender: <xms:GjxyY1lqSJmu-TcA1PwSn-KyxhV6XaWwkadGMrgt7oZF00js2Bbyfg>
- <xme:GjxyYw1aY9O6wYeRSfyKUops6HYDMi9HJSAFKAsajSfrC_mDV9pMqpjLQ9N0UKrtw
- g6MtATydrn97MmvvDw>
-X-ME-Received: <xmr:GjxyY7pdkYUL8Ih8K4ACjiYyqCFsh1nApQlOWX2FeuHZcuQYMXIO3KBrg_ahHejoll_dUMUKskUmWL_xqSrkLo0qRGyU-kmW0D0XsQx6LpsNSg>
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668430894; x=
+ 1668438094; bh=s0oohZSryHTvS6AqnbyD508bkpJln3+0v4TZJ9DnLl4=; b=G
+ p3rpr40StgYdWF6bJw3GAmV0ny7dwa61xkkCA9xq08oRaStdxtQmG7XvisPmL6BH
+ ilIzFcQnhU45c8kg12zpOX3ElNA20z9pIh8rK+bORWttIGhf8wK7BR2QCE8mRQiz
+ d7Tl6MkmhGAkw9uFPKXDy38mASKM2hpL6N2eJHK+kdTClqdAauqx4tTRtkNNVQNF
+ O9bUs29nXPnfbuGSOoVsHeaCZx2AX88SZUTD+eUgWzyRgQIr+QAkvfvy2Vnz7XID
+ VNkRrKuTGlwdzTxLV0bI/CftLz/L3POEdqGRPzBlb+S9pkOJUKLAtuSSWQDQ6SlS
+ WfXgkYsE252Taazb/qNfw==
+X-ME-Sender: <xms:LjxyY7qJWcxU6CgveYR0QzeJx3gFDbn8mtdJHquyEq7FA24yPYIrlA>
+ <xme:LjxyY1rcSv9fvopkLiuCGEbE8wL_gusUPEL-wKS7GlNzY3TsB7wZmJB-1VHgbtHKa
+ YJsJoYPTmZc_ZdZZeA>
+X-ME-Received: <xmr:LjxyY4MGMRtAoKf81pkKxLu8rcEJdzlGaFcIfjrqBWQJOQkOkJ1dTBt1r7-beR_LdGu_9vszjyzdJJWnfISyWLWwjygKLtptU5p8NLSJuD9FyA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrgedvgddvtdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpefhfffuggfgtgfkfhgjvfevofesthekredtredtjeenucfhrhhomhepofgrgihi
  mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
  htthgvrhhnpedvgfevjefhtdetveevhfelieeuueetgfdvgeevkeegudejffegfffgtedt
- leelhfenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ leelhfenucevlhhushhtvghrufhiiigvpedvnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
  hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:GjxyY1lwdXH21GMi66SLa6pJw0RWlWE2nWdWngbHV-jvoJK2Ld5ozg>
- <xmx:GjxyYz2QQM6pBMaNwb8qJ1dbnEeod-tziFSfL8y49hw3UWMqnaEWEA>
- <xmx:GjxyY0vUNjLmuxRKiaFYYRrYVDXJFiWvqE63MNdF3x6_m89JosIfag>
- <xmx:GjxyYyCftFHqaKks735DNTpjykIYpyj5-An5JpGW7zrkrSzA-gW5wg>
+X-ME-Proxy: <xmx:LjxyY-7jYH-jTxZvrBDp8VwN1jD6c1Lt1Ihawz2uRvLWVaeiNXPJYQ>
+ <xmx:LjxyY66ktAjV5qCAFjL4sw3t2AhhaAnL6kZ-KHgUavVo7Z8lyIWavA>
+ <xmx:LjxyY2gOLTYkXMVdkaoUPvU7XfqpjHMh6XWlCxPzhjzMmxLk4OBHAQ>
+ <xmx:LjxyY_mLP28U7TVK-kuTcoeEvvXga4nalyvhFTKIAUHno2vFEdqV8A>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Nov 2022 08:01:13 -0500 (EST)
+ 14 Nov 2022 08:01:33 -0500 (EST)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Mon, 14 Nov 2022 14:00:37 +0100
+Date: Mon, 14 Nov 2022 14:00:44 +0100
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20220728-rpi-analog-tv-properties-v9-18-24b168e5bcd5@cerno.tech>
+Message-Id: <20220728-rpi-analog-tv-properties-v9-25-24b168e5bcd5@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v9-0-24b168e5bcd5@cerno.tech>
 In-Reply-To: <20220728-rpi-analog-tv-properties-v9-0-24b168e5bcd5@cerno.tech>
 To: Maxime Ripard <mripard@kernel.org>, Karol Herbst <kherbst@redhat.com>,
@@ -81,15 +81,15 @@ To: Maxime Ripard <mripard@kernel.org>, Karol Herbst <kherbst@redhat.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
  David Airlie <airlied@linux.ie>, Jernej Skrabec <jernej.skrabec@gmail.com>
 X-Mailer: b4 0.11.0-dev-99e3a
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12345; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=wvWfzHH+1F5/8JueohQvHCLdBTQtVXwE4HvJEvp0KF4=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMlF1m9WLHV5NO9jzr7bGpt+ZUis6+zeZnqanUOyYafF7red
- Bp9CO0pZGMS4GGTFFFlihM2XxJ2a9bqTjW8ezBxWJpAhDFycAjCRSwcZ/vty7vruxThry2I2pw3dYl
- ODTh+1T9cQOn7o74Xnsf5r/p9m+J8myad99NpZj1O76gKFV5aU2u/hOBq84M6thZW/ny7+I8QCAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7620; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=hsNs2n7C7f9hehl8S1tfoiQIMRx0LRBYDZVow6+rmgA=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMlF1m8C1T79mBJoJ1QqsPKwWJN0mtfdOVEXtY0bxJ7WBCkw
+ bdvXUcrCIMbFICumyBIjbL4k7tSs151sfPNg5rAygQxh4OIUgIlsT2X4n1O/Vom7pC79Lw9fVCrrk+
+ k8/PPe+kv7SF2etj/XxrLwESPDniM3ilNeczpt/FOhemLSrvUnwjkPRCVGf+Xbr/Jn4pxz7AA=
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
-Subject: [Intel-gfx] [PATCH v9 18/25] drm/probe-helper: Provide a TV
- get_modes helper
+Subject: [Intel-gfx] [PATCH v9 25/25] drm/sun4i: tv: Convert to the new TV
+ mode property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,363 +106,263 @@ Cc: Dom Cobley <dom@raspberrypi.com>, Dave Stevenson <dave.stevenson@raspberrypi
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Noralf Trønnes <noralf@tronnes.org>
+Now that the core can deal fine with analog TV modes, let's convert the
+sun4i TV driver to leverage those new features.
 
-Most of the TV connectors will need a similar get_modes implementation
-that will, depending on the drivers' capabilities, register the 480i and
-576i modes.
-
-That implementation will also need to set the preferred flag and order
-the modes based on the driver and users preferrence.
-
-This is especially important to guarantee that a userspace stack such as
-Xorg can start and pick up the preferred mode while maintaining a
-working output.
-
-Signed-off-by: Noralf Trønnes <noralf@tronnes.org>
-Tested-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Acked-by: Noralf Trønnes <noralf@tronnes.org>
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
 ---
-Changes in v9:
-- Store a function pointer instead of duplicating the expected mode
-- Switch to kunit_test_suite
-
-Changes in v8:
-- Remove unused tv_mode_support function
-- Add unit tests
-
-Changes in v7:
-- Used Noralf's implementation
-
 Changes in v6:
-- New patch
----
- drivers/gpu/drm/drm_probe_helper.c            |  82 +++++++++++
- drivers/gpu/drm/tests/Makefile                |   1 +
- drivers/gpu/drm/tests/drm_probe_helper_test.c | 202 ++++++++++++++++++++++++++
- include/drm/drm_probe_helper.h                |   1 +
- 4 files changed, 286 insertions(+)
+- Convert to new get_modes helper
 
-diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-index bcd9611dabfd..1ea053cef557 100644
---- a/drivers/gpu/drm/drm_probe_helper.c
-+++ b/drivers/gpu/drm/drm_probe_helper.c
-@@ -1146,3 +1146,85 @@ int drm_connector_helper_get_modes(struct drm_connector *connector)
- 	return count;
- }
- EXPORT_SYMBOL(drm_connector_helper_get_modes);
-+
-+/**
-+ * drm_connector_helper_tv_get_modes - Fills the modes availables to a TV connector
-+ * @connector: The connector
-+ *
-+ * Fills the available modes for a TV connector based on the supported
-+ * TV modes, and the default mode expressed by the kernel command line.
-+ *
-+ * This can be used as the default TV connector helper .get_modes() hook
-+ * if the driver does not need any special processing.
-+ *
-+ * Returns:
-+ * The number of modes added to the connector.
-+ */
-+int drm_connector_helper_tv_get_modes(struct drm_connector *connector)
-+{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_property *tv_mode_property =
-+		dev->mode_config.tv_mode_property;
-+	struct drm_cmdline_mode *cmdline = &connector->cmdline_mode;
-+	unsigned int ntsc_modes = BIT(DRM_MODE_TV_MODE_NTSC) |
-+		BIT(DRM_MODE_TV_MODE_NTSC_443) |
-+		BIT(DRM_MODE_TV_MODE_NTSC_J) |
-+		BIT(DRM_MODE_TV_MODE_PAL_M);
-+	unsigned int pal_modes = BIT(DRM_MODE_TV_MODE_PAL) |
-+		BIT(DRM_MODE_TV_MODE_PAL_N) |
-+		BIT(DRM_MODE_TV_MODE_SECAM);
-+	unsigned int tv_modes[2] = { UINT_MAX, UINT_MAX };
-+	unsigned int i, supported_tv_modes = 0;
-+
-+	if (!tv_mode_property)
-+		return 0;
-+
-+	for (i = 0; i < tv_mode_property->num_values; i++)
-+		supported_tv_modes |= BIT(tv_mode_property->values[i]);
-+
-+	if ((supported_tv_modes & ntsc_modes) &&
-+	    (supported_tv_modes & pal_modes)) {
-+		uint64_t default_mode;
-+
-+		if (drm_object_property_get_default_value(&connector->base,
-+							  tv_mode_property,
-+							  &default_mode))
-+			return 0;
-+
-+		if (cmdline->tv_mode_specified)
-+			default_mode = cmdline->tv_mode;
-+
-+		if (BIT(default_mode) & ntsc_modes) {
-+			tv_modes[0] = DRM_MODE_TV_MODE_NTSC;
-+			tv_modes[1] = DRM_MODE_TV_MODE_PAL;
-+		} else {
-+			tv_modes[0] = DRM_MODE_TV_MODE_PAL;
-+			tv_modes[1] = DRM_MODE_TV_MODE_NTSC;
-+		}
-+	} else if (supported_tv_modes & ntsc_modes) {
-+		tv_modes[0] = DRM_MODE_TV_MODE_NTSC;
-+	} else if (supported_tv_modes & pal_modes) {
-+		tv_modes[0] = DRM_MODE_TV_MODE_PAL;
-+	} else {
-+		return 0;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(tv_modes); i++) {
-+		struct drm_display_mode *mode;
-+
-+		if (tv_modes[i] == DRM_MODE_TV_MODE_NTSC)
-+			mode = drm_mode_analog_ntsc_480i(dev);
-+		else if (tv_modes[i] == DRM_MODE_TV_MODE_PAL)
-+			mode = drm_mode_analog_pal_576i(dev);
-+		else
-+			break;
-+		if (!mode)
-+			return i;
-+		if (!i)
-+			mode->type |= DRM_MODE_TYPE_PREFERRED;
-+		drm_mode_probed_add(connector, mode);
-+	}
-+
-+	return i;
-+}
-+EXPORT_SYMBOL(drm_connector_helper_tv_get_modes);
-diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makefile
-index c7903c112c65..94fe546d937d 100644
---- a/drivers/gpu/drm/tests/Makefile
-+++ b/drivers/gpu/drm/tests/Makefile
-@@ -13,4 +13,5 @@ obj-$(CONFIG_DRM_KUNIT_TEST) += \
- 	drm_mm_test.o \
- 	drm_modes_test.o \
- 	drm_plane_helper_test.o \
-+	drm_probe_helper_test.o \
- 	drm_rect_test.o
-diff --git a/drivers/gpu/drm/tests/drm_probe_helper_test.c b/drivers/gpu/drm/tests/drm_probe_helper_test.c
-new file mode 100644
-index 000000000000..a875ca0a76da
---- /dev/null
-+++ b/drivers/gpu/drm/tests/drm_probe_helper_test.c
-@@ -0,0 +1,202 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Kunit test for drm_probe_helper functions
-+ */
-+
-+#include <drm/drm_atomic_state_helper.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_device.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_mode.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_modeset_helper_vtables.h>
-+#include <drm/drm_probe_helper.h>
-+
-+#include <kunit/test.h>
-+
-+#include "drm_kunit_helpers.h"
-+
-+struct drm_probe_helper_test_priv {
-+	struct drm_device *drm;
-+	struct drm_connector connector;
-+};
-+
-+static const struct drm_connector_helper_funcs drm_probe_helper_connector_helper_funcs = {
-+};
-+
-+static const struct drm_connector_funcs drm_probe_helper_connector_funcs = {
-+	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
-+	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
-+	.reset			= drm_atomic_helper_connector_reset,
-+};
-+
-+static int drm_probe_helper_test_init(struct kunit *test)
-+{
-+	struct drm_probe_helper_test_priv *priv;
-+	struct drm_connector *connector;
-+	int ret;
-+
-+	priv = kunit_kzalloc(test, sizeof(*priv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+	test->priv = priv;
-+
-+	priv->drm = drm_kunit_device_init(test, DRIVER_MODESET | DRIVER_ATOMIC,
-+					  "drm-probe-helper-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv->drm);
-+
-+	connector = &priv->connector;
-+	ret = drmm_connector_init(priv->drm, connector,
-+				  &drm_probe_helper_connector_funcs,
-+				  DRM_MODE_CONNECTOR_Unknown,
-+				  NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	drm_connector_helper_add(connector, &drm_probe_helper_connector_helper_funcs);
-+
-+	return 0;
-+}
-+
-+typedef struct drm_display_mode *(*expected_mode_func_t)(struct drm_device *);
-+
-+struct drm_connector_helper_tv_get_modes_test {
-+	const char *name;
-+	unsigned int supported_tv_modes;
-+	enum drm_connector_tv_mode default_mode;
-+	bool cmdline;
-+	enum drm_connector_tv_mode cmdline_mode;
-+	expected_mode_func_t *expected_modes;
-+	unsigned int num_expected_modes;
-+};
-+
-+#define _TV_MODE_TEST(_name, _supported, _default, _cmdline, _cmdline_mode, ...) 		\
-+	{											\
-+		.name = _name,									\
-+		.supported_tv_modes = _supported,						\
-+		.default_mode = _default,							\
-+		.cmdline = _cmdline,								\
-+		.cmdline_mode = _cmdline_mode,							\
-+		.expected_modes = (expected_mode_func_t[]) { __VA_ARGS__ }, 			\
-+		.num_expected_modes = sizeof((expected_mode_func_t[]) { __VA_ARGS__ }) /	\
-+				      (sizeof(expected_mode_func_t)),				\
-+	}
-+
-+#define TV_MODE_TEST(_name, _supported, _default, ...)			\
-+	_TV_MODE_TEST(_name, _supported, _default, false, 0, __VA_ARGS__)
-+
-+#define TV_MODE_TEST_CMDLINE(_name, _supported, _default, _cmdline, ...) \
-+	_TV_MODE_TEST(_name, _supported, _default, true, _cmdline, __VA_ARGS__)
-+
-+static void
-+drm_test_connector_helper_tv_get_modes_check(struct kunit *test)
-+{
-+	const struct drm_connector_helper_tv_get_modes_test *params = test->param_value;
-+	struct drm_probe_helper_test_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	struct drm_cmdline_mode *cmdline = &connector->cmdline_mode;
-+	struct drm_display_mode *mode;
-+	const struct drm_display_mode *expected;
-+	size_t len;
-+	int ret;
-+
-+	if (params->cmdline) {
-+		cmdline->tv_mode_specified = true;
-+		cmdline->tv_mode = params->cmdline_mode;
-+	}
-+
-+	ret = drm_mode_create_tv_properties(priv->drm, params->supported_tv_modes);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	drm_object_attach_property(&connector->base,
-+				   priv->drm->mode_config.tv_mode_property,
-+		 		   params->default_mode);
-+
-+	mutex_lock(&priv->drm->mode_config.mutex);
-+
-+	ret = drm_connector_helper_tv_get_modes(connector);
-+	KUNIT_EXPECT_EQ(test, ret, params->num_expected_modes);
-+
-+	list_for_each_entry(mode, &connector->probed_modes, head)
-+		len++;
-+	KUNIT_EXPECT_EQ(test, len, params->num_expected_modes);
-+
-+	if (params->num_expected_modes >= 1) {
-+		mode = list_first_entry_or_null(&connector->probed_modes,
-+						struct drm_display_mode, head);
-+		KUNIT_ASSERT_NOT_NULL(test, mode);
-+
-+		expected = params->expected_modes[0](priv->drm);
-+		KUNIT_ASSERT_NOT_NULL(test, expected);
-+
-+		KUNIT_EXPECT_TRUE(test, drm_mode_equal(mode, expected));
-+		KUNIT_EXPECT_TRUE(test, mode->type & DRM_MODE_TYPE_PREFERRED);
-+	}
-+
-+	if (params->num_expected_modes >= 2) {
-+		mode = list_next_entry(mode, head);
-+		KUNIT_ASSERT_NOT_NULL(test, mode);
-+
-+		expected = params->expected_modes[1](priv->drm);
-+		KUNIT_ASSERT_NOT_NULL(test, expected);
-+
-+		KUNIT_EXPECT_TRUE(test, drm_mode_equal(mode, expected));
-+		KUNIT_EXPECT_FALSE(test, mode->type & DRM_MODE_TYPE_PREFERRED);
-+	}
-+
-+	mutex_unlock(&priv->drm->mode_config.mutex);
-+}
-+
-+static const
-+struct drm_connector_helper_tv_get_modes_test drm_connector_helper_tv_get_modes_tests[] = {
-+	{ .name = "None" },
-+	TV_MODE_TEST("PAL",
-+		     BIT(DRM_MODE_TV_MODE_PAL),
-+		     DRM_MODE_TV_MODE_PAL,
-+		     drm_mode_analog_pal_576i),
-+	TV_MODE_TEST("NTSC",
-+		     BIT(DRM_MODE_TV_MODE_NTSC),
-+		     DRM_MODE_TV_MODE_NTSC,
-+		     drm_mode_analog_ntsc_480i),
-+	TV_MODE_TEST("Both, NTSC Default",
-+		     BIT(DRM_MODE_TV_MODE_NTSC) | BIT(DRM_MODE_TV_MODE_PAL),
-+		     DRM_MODE_TV_MODE_NTSC,
-+		     drm_mode_analog_ntsc_480i, drm_mode_analog_pal_576i),
-+	TV_MODE_TEST("Both, PAL Default",
-+		     BIT(DRM_MODE_TV_MODE_NTSC) | BIT(DRM_MODE_TV_MODE_PAL),
-+		     DRM_MODE_TV_MODE_PAL,
-+		     drm_mode_analog_pal_576i, drm_mode_analog_ntsc_480i),
-+	TV_MODE_TEST_CMDLINE("Both, NTSC Default, with PAL on command-line",
-+			     BIT(DRM_MODE_TV_MODE_NTSC) | BIT(DRM_MODE_TV_MODE_PAL),
-+			     DRM_MODE_TV_MODE_NTSC,
-+			     DRM_MODE_TV_MODE_PAL,
-+			     drm_mode_analog_pal_576i, drm_mode_analog_ntsc_480i),
-+	TV_MODE_TEST_CMDLINE("Both, PAL Default, with NTSC on command-line",
-+			     BIT(DRM_MODE_TV_MODE_NTSC) | BIT(DRM_MODE_TV_MODE_PAL),
-+			     DRM_MODE_TV_MODE_PAL,
-+			     DRM_MODE_TV_MODE_NTSC,
-+			     drm_mode_analog_ntsc_480i, drm_mode_analog_pal_576i),
-+};
-+
-+static void
-+drm_connector_helper_tv_get_modes_desc(const struct drm_connector_helper_tv_get_modes_test *t,
-+				       char *desc)
-+{
-+	sprintf(desc, "%s", t->name);
-+}
-+
-+KUNIT_ARRAY_PARAM(drm_connector_helper_tv_get_modes,
-+		  drm_connector_helper_tv_get_modes_tests,
-+		  drm_connector_helper_tv_get_modes_desc);
-+
-+static struct kunit_case drm_test_connector_helper_tv_get_modes_tests[] = {
-+	KUNIT_CASE_PARAM(drm_test_connector_helper_tv_get_modes_check,
-+			 drm_connector_helper_tv_get_modes_gen_params),
-+	{ }
-+};
-+
-+static struct kunit_suite drm_test_connector_helper_tv_get_modes_suite = {
-+	.name = "drm_connector_helper_tv_get_modes",
-+	.init = drm_probe_helper_test_init,
-+	.test_cases = drm_test_connector_helper_tv_get_modes_tests,
-+};
-+
-+kunit_test_suite(drm_test_connector_helper_tv_get_modes_suite);
-diff --git a/include/drm/drm_probe_helper.h b/include/drm/drm_probe_helper.h
-index 5880daa14624..4977e0ab72db 100644
---- a/include/drm/drm_probe_helper.h
-+++ b/include/drm/drm_probe_helper.h
-@@ -35,5 +35,6 @@ int drm_connector_helper_get_modes_from_ddc(struct drm_connector *connector);
- int drm_connector_helper_get_modes_fixed(struct drm_connector *connector,
- 					 const struct drm_display_mode *fixed_mode);
- int drm_connector_helper_get_modes(struct drm_connector *connector);
-+int drm_connector_helper_tv_get_modes(struct drm_connector *connector);
+Changes in v5:
+- Removed the count variable in get_modes
+- Removed spurious vc4 change
+---
+ drivers/gpu/drm/sun4i/sun4i_tv.c | 141 ++++++++++-----------------------------
+ 1 file changed, 34 insertions(+), 107 deletions(-)
+
+diff --git a/drivers/gpu/drm/sun4i/sun4i_tv.c b/drivers/gpu/drm/sun4i/sun4i_tv.c
+index c65f0a89b6b0..9625a00a48ba 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_tv.c
++++ b/drivers/gpu/drm/sun4i/sun4i_tv.c
+@@ -141,23 +141,14 @@ struct resync_parameters {
+ struct tv_mode {
+ 	char		*name;
  
- #endif
++	unsigned int	tv_mode;
++
+ 	u32		mode;
+ 	u32		chroma_freq;
+ 	u16		back_porch;
+ 	u16		front_porch;
+-	u16		line_number;
+ 	u16		vblank_level;
+ 
+-	u32		hdisplay;
+-	u16		hfront_porch;
+-	u16		hsync_len;
+-	u16		hback_porch;
+-
+-	u32		vdisplay;
+-	u16		vfront_porch;
+-	u16		vsync_len;
+-	u16		vback_porch;
+-
+ 	bool		yc_en;
+ 	bool		dac3_en;
+ 	bool		dac_bit25_en;
+@@ -213,7 +204,7 @@ static const struct resync_parameters pal_resync_parameters = {
+ 
+ static const struct tv_mode tv_modes[] = {
+ 	{
+-		.name		= "NTSC",
++		.tv_mode	= DRM_MODE_TV_MODE_NTSC,
+ 		.mode		= SUN4I_TVE_CFG0_RES_480i,
+ 		.chroma_freq	= 0x21f07c1f,
+ 		.yc_en		= true,
+@@ -222,17 +213,6 @@ static const struct tv_mode tv_modes[] = {
+ 
+ 		.back_porch	= 118,
+ 		.front_porch	= 32,
+-		.line_number	= 525,
+-
+-		.hdisplay	= 720,
+-		.hfront_porch	= 18,
+-		.hsync_len	= 2,
+-		.hback_porch	= 118,
+-
+-		.vdisplay	= 480,
+-		.vfront_porch	= 26,
+-		.vsync_len	= 2,
+-		.vback_porch	= 17,
+ 
+ 		.vblank_level	= 240,
+ 
+@@ -242,23 +222,12 @@ static const struct tv_mode tv_modes[] = {
+ 		.resync_params	= &ntsc_resync_parameters,
+ 	},
+ 	{
+-		.name		= "PAL",
++		.tv_mode	= DRM_MODE_TV_MODE_PAL,
+ 		.mode		= SUN4I_TVE_CFG0_RES_576i,
+ 		.chroma_freq	= 0x2a098acb,
+ 
+ 		.back_porch	= 138,
+ 		.front_porch	= 24,
+-		.line_number	= 625,
+-
+-		.hdisplay	= 720,
+-		.hfront_porch	= 3,
+-		.hsync_len	= 2,
+-		.hback_porch	= 139,
+-
+-		.vdisplay	= 576,
+-		.vfront_porch	= 28,
+-		.vsync_len	= 2,
+-		.vback_porch	= 19,
+ 
+ 		.vblank_level	= 252,
+ 
+@@ -276,63 +245,21 @@ drm_encoder_to_sun4i_tv(struct drm_encoder *encoder)
+ 			    encoder);
+ }
+ 
+-/*
+- * FIXME: If only the drm_display_mode private field was usable, this
+- * could go away...
+- *
+- * So far, it doesn't seem to be preserved when the mode is passed by
+- * to mode_set for some reason.
+- */
+-static const struct tv_mode *sun4i_tv_find_tv_by_mode(const struct drm_display_mode *mode)
++static const struct tv_mode *
++sun4i_tv_find_tv_by_mode(unsigned int mode)
+ {
+ 	int i;
+ 
+-	/* First try to identify the mode by name */
+ 	for (i = 0; i < ARRAY_SIZE(tv_modes); i++) {
+ 		const struct tv_mode *tv_mode = &tv_modes[i];
+ 
+-		DRM_DEBUG_DRIVER("Comparing mode %s vs %s",
+-				 mode->name, tv_mode->name);
+-
+-		if (!strcmp(mode->name, tv_mode->name))
+-			return tv_mode;
+-	}
+-
+-	/* Then by number of lines */
+-	for (i = 0; i < ARRAY_SIZE(tv_modes); i++) {
+-		const struct tv_mode *tv_mode = &tv_modes[i];
+-
+-		DRM_DEBUG_DRIVER("Comparing mode %s vs %s (X: %d vs %d)",
+-				 mode->name, tv_mode->name,
+-				 mode->vdisplay, tv_mode->vdisplay);
+-
+-		if (mode->vdisplay == tv_mode->vdisplay)
++		if (tv_mode->tv_mode == mode)
+ 			return tv_mode;
+ 	}
+ 
+ 	return NULL;
+ }
+ 
+-static void sun4i_tv_mode_to_drm_mode(const struct tv_mode *tv_mode,
+-				      struct drm_display_mode *mode)
+-{
+-	DRM_DEBUG_DRIVER("Creating mode %s\n", mode->name);
+-
+-	mode->type = DRM_MODE_TYPE_DRIVER;
+-	mode->clock = 13500;
+-	mode->flags = DRM_MODE_FLAG_INTERLACE;
+-
+-	mode->hdisplay = tv_mode->hdisplay;
+-	mode->hsync_start = mode->hdisplay + tv_mode->hfront_porch;
+-	mode->hsync_end = mode->hsync_start + tv_mode->hsync_len;
+-	mode->htotal = mode->hsync_end  + tv_mode->hback_porch;
+-
+-	mode->vdisplay = tv_mode->vdisplay;
+-	mode->vsync_start = mode->vdisplay + tv_mode->vfront_porch;
+-	mode->vsync_end = mode->vsync_start + tv_mode->vsync_len;
+-	mode->vtotal = mode->vsync_end  + tv_mode->vback_porch;
+-}
+-
+ static void sun4i_tv_disable(struct drm_encoder *encoder,
+ 			    struct drm_atomic_state *state)
+ {
+@@ -356,7 +283,11 @@ static void sun4i_tv_enable(struct drm_encoder *encoder,
+ 	struct drm_crtc_state *crtc_state =
+ 		drm_atomic_get_new_crtc_state(state, encoder->crtc);
+ 	struct drm_display_mode *mode = &crtc_state->mode;
+-	const struct tv_mode *tv_mode = sun4i_tv_find_tv_by_mode(mode);
++	struct drm_connector *connector = &tv->connector;
++	struct drm_connector_state *conn_state =
++		drm_atomic_get_new_connector_state(state, connector);
++	const struct tv_mode *tv_mode =
++		sun4i_tv_find_tv_by_mode(conn_state->tv.mode);
+ 
+ 	DRM_DEBUG_DRIVER("Enabling the TV Output\n");
+ 
+@@ -404,7 +335,7 @@ static void sun4i_tv_enable(struct drm_encoder *encoder,
+ 	/* Set the lines setup */
+ 	regmap_write(tv->regs, SUN4I_TVE_LINE_REG,
+ 		     SUN4I_TVE_LINE_FIRST(22) |
+-		     SUN4I_TVE_LINE_NUMBER(tv_mode->line_number));
++		     SUN4I_TVE_LINE_NUMBER(mode->vtotal));
+ 
+ 	regmap_write(tv->regs, SUN4I_TVE_LEVEL_REG,
+ 		     SUN4I_TVE_LEVEL_BLANK(tv_mode->video_levels->blank) |
+@@ -465,37 +396,21 @@ static const struct drm_encoder_helper_funcs sun4i_tv_helper_funcs = {
+ 	.atomic_enable	= sun4i_tv_enable,
+ };
+ 
+-static int sun4i_tv_comp_get_modes(struct drm_connector *connector)
+-{
+-	int i;
+-
+-	for (i = 0; i < ARRAY_SIZE(tv_modes); i++) {
+-		struct drm_display_mode *mode;
+-		const struct tv_mode *tv_mode = &tv_modes[i];
+-
+-		mode = drm_mode_create(connector->dev);
+-		if (!mode) {
+-			DRM_ERROR("Failed to create a new display mode\n");
+-			return 0;
+-		}
+-
+-		strcpy(mode->name, tv_mode->name);
+-
+-		sun4i_tv_mode_to_drm_mode(tv_mode, mode);
+-		drm_mode_probed_add(connector, mode);
+-	}
+-
+-	return i;
+-}
+-
+ static const struct drm_connector_helper_funcs sun4i_tv_comp_connector_helper_funcs = {
+-	.get_modes	= sun4i_tv_comp_get_modes,
++	.atomic_check	= drm_atomic_helper_connector_tv_check,
++	.get_modes	= drm_connector_helper_tv_get_modes,
+ };
+ 
++static void sun4i_tv_connector_reset(struct drm_connector *connector)
++{
++	drm_atomic_helper_connector_reset(connector);
++	drm_atomic_helper_connector_tv_reset(connector);
++}
++
+ static const struct drm_connector_funcs sun4i_tv_comp_connector_funcs = {
+ 	.fill_modes		= drm_helper_probe_single_connector_modes,
+ 	.destroy		= drm_connector_cleanup,
+-	.reset			= drm_atomic_helper_connector_reset,
++	.reset			= sun4i_tv_connector_reset,
+ 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+ };
+@@ -587,8 +502,20 @@ static int sun4i_tv_bind(struct device *dev, struct device *master,
+ 
+ 	drm_connector_attach_encoder(&tv->connector, &tv->encoder);
+ 
++	ret = drm_mode_create_tv_properties(drm,
++					    BIT(DRM_MODE_TV_MODE_NTSC) |
++					    BIT(DRM_MODE_TV_MODE_PAL));
++	if (ret)
++		goto err_cleanup_connector;
++
++	drm_object_attach_property(&tv->connector.base,
++				   drm->mode_config.tv_mode_property,
++				   DRM_MODE_TV_MODE_NTSC);
++
+ 	return 0;
+ 
++err_cleanup_connector:
++	drm_connector_cleanup(&tv->connector);
+ err_cleanup_encoder:
+ 	drm_encoder_cleanup(&tv->encoder);
+ err_disable_clk:
 
 -- 
 b4 0.11.0-dev-99e3a
