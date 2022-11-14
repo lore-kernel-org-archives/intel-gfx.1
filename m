@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E392CC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 15:38:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6811BC43219
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 15:38:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE3318995F;
-	Mon, 14 Nov 2022 15:38:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3FD410E0C1;
+	Mon, 14 Nov 2022 15:38:50 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28E1C10E2F2
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 15:38:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2974810E2EC
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 15:38:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668440314; x=1699976314;
+ t=1668440301; x=1699976301;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=c5KhZ5uiso7HS/2dtH+eFpVCzTqeaoY4C/k0cofJ28A=;
- b=TLevmj4LXdqy7gFutfoFKtHmkxPD4tB683RCvdEFBuYvlqB5Rkq9ECoN
- MlV/R0hUB/At1YfbUdJU81tFUL0i8p46/Hk5qmZ3+MfCzi6JpymDNEGHA
- tYkJGEH6+NNTCKNLWBT5PgwnVM5UsbIcCNbbdj7na7BmNhNvnkOQlfRsQ
- 6kokOFC2zWAOjgFpa6zZh/pTgUAhVVxxKkb2Ax9WSoVkl4PfyUe+f0Zk4
- 54Mjf1BO3+ZSYnj/o/rOfFlBg/jhIxQcYCRQaVbt7ikJjeJd+tI+/LBkx
- vKxfSlvPwQABnHNhuuK/4qNkgrjOALiH8lZf9xzJIyeDCCbIWeQ2HI8kS w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="398290911"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="398290911"
+ bh=AYd37l1RBnUAsG+cKXUE3eZJrsOfOd3eK+3R6yesRhA=;
+ b=SykowNAW16krY5v4M2h9OfapT57/A38eJrsZm+fq7Hg77qDx/Yp8Uq7h
+ Mfsp0Kqd/0JrW0AwrmBCmJaQiFu37uLgo8U2sfNwa2H3oryNnD/oSKLfr
+ 4y6bv06t14TA7Hai+t4BJms1AUPUYq01UTdsnLTSwJrq1j8uSyY4f5EF1
+ 4N9NlAElK8T2EcAkIDrkHg8Ly7Kl20xbWGAkVS0KyH44ynl8cnzGNtWpH
+ /MhpsSoEdB7TxebCyTMRpEoZMu2soajoZ44vOMBSIff/ecVYkbscOQsi3
+ jRzU3AV3y4Y5wHTTw5L8yvHnvGlN7SjodpYaNCgUq9JjOMFEnSNdPJLQf Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="398290874"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="398290874"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2022 07:38:33 -0800
+ 14 Nov 2022 07:38:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="780968851"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="780968851"
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="780968695"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="780968695"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga001.fm.intel.com with SMTP; 14 Nov 2022 07:38:32 -0800
+ by fmsmga001.fm.intel.com with SMTP; 14 Nov 2022 07:38:15 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 14 Nov 2022 17:38:31 +0200
+ Mon, 14 Nov 2022 17:38:14 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Nov 2022 17:37:32 +0200
-Message-Id: <20221114153732.11773-21-ville.syrjala@linux.intel.com>
+Date: Mon, 14 Nov 2022 17:37:26 +0200
+Message-Id: <20221114153732.11773-15-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221114153732.11773-1-ville.syrjala@linux.intel.com>
 References: <20221114153732.11773-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 20/20] drm/i915: Do state check for color
- management changes
+Subject: [Intel-gfx] [PATCH v3 14/20] drm/i915: Make .read_luts() mandatory
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,35 +64,27 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-In order to validate LUT programming more thoroughly let's
-do a state check for all color management updates as well.
-
-Not sure we really want this outside CI. It is rather heavy
-and color management updates could become rather common
-with all the HDR/etc. stuff happening. Maybe we should have
-an extra knob for this that we could enable in CI?
-
-v2: Skip for initial_commit to avoid FDI dotclock
-    sanity checks/etc. tripping up
+Every platform now implemnts .read_luts(). Make it mandatory.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_modeset_verify.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/display/intel_color.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_verify.c b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
-index 842d70f0dfd2..9e4767e1b900 100644
---- a/drivers/gpu/drm/i915/display/intel_modeset_verify.c
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
-@@ -228,6 +228,8 @@ void intel_modeset_verify_crtc(struct intel_crtc *crtc,
- 			       struct intel_crtc_state *new_crtc_state)
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index ca01b3e6b585..f0bb4227338c 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -1231,8 +1231,7 @@ void intel_color_get_config(struct intel_crtc_state *crtc_state)
  {
- 	if (!intel_crtc_needs_modeset(new_crtc_state) &&
-+	    (!intel_crtc_needs_color_update(new_crtc_state) ||
-+	     new_crtc_state->inherited) &&
- 	    !intel_crtc_needs_fastset(new_crtc_state))
- 		return;
+ 	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
  
+-	if (i915->display.funcs.color->read_luts)
+-		i915->display.funcs.color->read_luts(crtc_state);
++	i915->display.funcs.color->read_luts(crtc_state);
+ }
+ 
+ static bool need_plane_update(struct intel_plane *plane,
 -- 
 2.37.4
 
