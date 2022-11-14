@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6FE5C43219
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 15:38:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D767C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 15:38:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57E3210E2EC;
-	Mon, 14 Nov 2022 15:38:31 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C826D10E0FB
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 15:38:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C17D310E2F1;
+	Mon, 14 Nov 2022 15:38:32 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2544510E0C1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 15:37:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668440282; x=1699976282;
+ t=1668440273; x=1699976273;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FiI+gimIj7yiD2s5NGrXnHKQE4q6u97y+EzErDnktPo=;
- b=GDziKva1713GtQtPp9Jam9VJf9s9ayJD75m1wAeRGD51532e4+UQeoiO
- u7EEYcq8NoTxLHCFOAtm1nw96N7mX8BZ8qmIwVuofRn0zHVv0Ts/PXFjR
- 0lijHnh6bAlPNA0Idb771r/qaNlbfibX/ys09ezSWrypf0wjJ0c291ADi
- qVD9Nij2B1/7KP7y4LbXGJYBkwznEYcm1BYe0MczWaIhxnq4pO2QPD8W7
- W+yazaZEH8oNwx08lk0t3ONp5+PzRUpkqt79DFs/oG7LJ3wamsYKxDJQK
- WVUzNVtdcM1CU4Jwqnk2PYDuDdBk3uNNiXgmcKnQdBIIzJ1z/xWjx0o03 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="398290799"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="398290799"
+ bh=0Wo4yynn9JWf++5l8iK3hefhwjl74L2zIX5l8jSbSSo=;
+ b=SwqHIUDZUF2t7ec1zkXb0OITFOKTUzgZx+p1b5uI+seg2XmyDNfcRGMf
+ e3Cs8JHLWl/WCN91PkCeWBGFPUHVAPPiRY2IB9v7XXWBfbz7Hf0Rv5864
+ PGZeBE+3QR2RlmRd06Vaq/qYqX54iosr84CrCEgN17qWUQNvArNmNBgDQ
+ BK/0GI4u9e7otug5jtpa8lH4K+gw9X4O3+UNFl5ruqWBexppMEiDEPU2C
+ 3viqRqvQ6iKooRJ/OlvYeCv7P/Tokj1mG4A58SFgWqe2yo53yMLiLIo3L
+ LNDrENovJ1bwJJeYQbhJ7mWq7rPhyq1H76avIRJtvfYVCyr7EkBKHB4LW Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="374128716"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="374128716"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2022 07:38:02 -0800
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Nov 2022 07:37:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="780968471"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="780968471"
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="780968396"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="780968396"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga001.fm.intel.com with SMTP; 14 Nov 2022 07:38:00 -0800
+ by fmsmga001.fm.intel.com with SMTP; 14 Nov 2022 07:37:48 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 14 Nov 2022 17:37:59 +0200
+ Mon, 14 Nov 2022 17:37:47 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Nov 2022 17:37:21 +0200
-Message-Id: <20221114153732.11773-10-ville.syrjala@linux.intel.com>
+Date: Mon, 14 Nov 2022 17:37:17 +0200
+Message-Id: <20221114153732.11773-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221114153732.11773-1-ville.syrjala@linux.intel.com>
 References: <20221114153732.11773-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 09/20] drm/i915: Read out CHV CGM degamma
+Subject: [Intel-gfx] [PATCH v3 05/20] drm/i915: Reorder 12.4 lut udw vs. ldw
+ functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,83 +60,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Since CHV has the dedicate CGM degamma unit readout is trivial.
-Just do it.
+Satisfy my ocd and define ilk_lut_12p4_ldw() before ilk_lut_12p4_udw().
+That is the order all the other similar functions use.
 
-v2: deal with post_csc_lut
-
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 36 ++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ drivers/gpu/drm/i915/display/intel_color.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 3dd8a4ff0eca..430fa23c102f 100644
+index a71e4a40ccf7..250e83f1f5ac 100644
 --- a/drivers/gpu/drm/i915/display/intel_color.c
 +++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -1087,6 +1087,13 @@ static u32 chv_cgm_degamma_udw(const struct drm_color_lut *color)
- 	return REG_FIELD_PREP(CGM_PIPE_DEGAMMA_RED_UDW_MASK, drm_color_lut_extract(color->red, 14));
+@@ -483,14 +483,6 @@ static void ilk_lut_10_pack(struct drm_color_lut *entry, u32 val)
+ 	entry->blue = intel_color_lut_pack(REG_FIELD_GET(PREC_PALETTE_10_BLUE_MASK, val), 10);
  }
  
-+static void chv_cgm_degamma_pack(struct drm_color_lut *entry, u32 ldw, u32 udw)
-+{
-+	entry->green = intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_DEGAMMA_GREEN_LDW_MASK, ldw), 14);
-+	entry->blue = intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_DEGAMMA_BLUE_LDW_MASK, ldw), 14);
-+	entry->red = intel_color_lut_pack(REG_FIELD_GET(CGM_PIPE_DEGAMMA_RED_UDW_MASK, udw), 14);
-+}
-+
- static void chv_load_cgm_degamma(struct intel_crtc *crtc,
- 				 const struct drm_property_blob *blob)
+-/* ilk+ "12.4" interpolated format (high 10 bits) */
+-static u32 ilk_lut_12p4_udw(const struct drm_color_lut *color)
+-{
+-	return REG_FIELD_PREP(PREC_PALETTE_12P4_RED_UDW_MASK, color->red >> 6) |
+-		REG_FIELD_PREP(PREC_PALETTE_12P4_GREEN_UDW_MASK, color->green >> 6) |
+-		REG_FIELD_PREP(PREC_PALETTE_12P4_BLUE_UDW_MASK, color->blue >> 6);
+-}
+-
+ /* ilk+ "12.4" interpolated format (low 6 bits) */
+ static u32 ilk_lut_12p4_ldw(const struct drm_color_lut *color)
  {
-@@ -2048,6 +2055,32 @@ static void i965_read_luts(struct intel_crtc_state *crtc_state)
- 		crtc_state->post_csc_lut = i965_read_lut_10p6(crtc);
+@@ -499,6 +491,14 @@ static u32 ilk_lut_12p4_ldw(const struct drm_color_lut *color)
+ 		REG_FIELD_PREP(PREC_PALETTE_12P4_BLUE_LDW_MASK, color->blue & 0x3f);
  }
  
-+static struct drm_property_blob *chv_read_cgm_degamma(struct intel_crtc *crtc)
++/* ilk+ "12.4" interpolated format (high 10 bits) */
++static u32 ilk_lut_12p4_udw(const struct drm_color_lut *color)
 +{
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+	int i, lut_size = INTEL_INFO(dev_priv)->display.color.degamma_lut_size;
-+	enum pipe pipe = crtc->pipe;
-+	struct drm_property_blob *blob;
-+	struct drm_color_lut *lut;
-+
-+	blob = drm_property_create_blob(&dev_priv->drm,
-+					sizeof(lut[0]) * lut_size,
-+					NULL);
-+	if (IS_ERR(blob))
-+		return NULL;
-+
-+	lut = blob->data;
-+
-+	for (i = 0; i < lut_size; i++) {
-+		u32 ldw = intel_de_read_fw(dev_priv, CGM_PIPE_DEGAMMA(pipe, i, 0));
-+		u32 udw = intel_de_read_fw(dev_priv, CGM_PIPE_DEGAMMA(pipe, i, 1));
-+
-+		chv_cgm_degamma_pack(&lut[i], ldw, udw);
-+	}
-+
-+	return blob;
++	return REG_FIELD_PREP(PREC_PALETTE_12P4_RED_UDW_MASK, color->red >> 6) |
++		REG_FIELD_PREP(PREC_PALETTE_12P4_GREEN_UDW_MASK, color->green >> 6) |
++		REG_FIELD_PREP(PREC_PALETTE_12P4_BLUE_UDW_MASK, color->blue >> 6);
 +}
 +
- static struct drm_property_blob *chv_read_cgm_gamma(struct intel_crtc *crtc)
+ static void ilk_lut_12p4_pack(struct drm_color_lut *entry, u32 ldw, u32 udw)
  {
- 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-@@ -2078,6 +2111,9 @@ static void chv_read_luts(struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 
-+	if (crtc_state->cgm_mode & CGM_PIPE_MODE_DEGAMMA)
-+		crtc_state->pre_csc_lut = chv_read_cgm_degamma(crtc);
-+
- 	if (crtc_state->cgm_mode & CGM_PIPE_MODE_GAMMA)
- 		crtc_state->post_csc_lut = chv_read_cgm_gamma(crtc);
- 	else
+ 	entry->red = REG_FIELD_GET(PREC_PALETTE_12P4_RED_UDW_MASK, udw) << 6 |
 -- 
 2.37.4
 
