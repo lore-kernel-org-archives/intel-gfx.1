@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E139C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 12:23:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AD04C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 12:23:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19E9C10E122;
-	Mon, 14 Nov 2022 12:23:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14EB610E0EA;
+	Mon, 14 Nov 2022 12:23:25 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D73E10E0A0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F4B710E095
  for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 12:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1668428594; x=1699964594;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Jddc8+bDwB7XmeZv552NbUbu8dYGvaiAnDDHBlicZO4=;
- b=SFJ6XDglEDPvj42uHw1sJqPgJ19fACwrCsaDzGBR3PeUNY4RltkoQm+Q
- CHXrhCixcw2xb3GXOZfVOrNUH7pKmTvlDoCm9mBmxvfGdYFAv1CXvku6X
- 1cVEd7869gG5p9McAK0ScvZUuHZ+7Q8b6Z955QQd1h9CNXBn3Jd02qVW8
- 2K9FaYmKwxu1zTC3s5IazHMB6mi4+iQRHM+ot6TQ0Z3SjzD6M40sE6doi
- vp/biCThyVOfZC7Hkv0HBIWvaFOYLqYt9SNeXko6KaqxTAxbrf4QtP76m
- F3hrgaqzI2/7fmZD4vMboINMemrFhsHf9ECRzy7NYjPHWT81ahL/ZNqX7 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10530"; a="310664122"
-X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="310664122"
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=PvGyy6xMAqsgNojR72wZTkXUBqZ82XXKN8jaMzN5C3Q=;
+ b=Tpiln4dq6VAS7HSf7HarO4SpIRYCYE4hjslccYVuZwlpqCkQCTXQKkw8
+ mON9PT7jtgWnhcPPtrEvcU2xNlXWYxGzqkPqHg+7jrHnO3oH2WPU1s+uj
+ Mhaxi2UcrOjG8kKoHvebrqISRONpIuAqBYj3sA33XdlzjsRfwKmcK5tFq
+ YbMfqc2lt+Fpx1p4q6nrSLFTJcU9ffKU2Jy/zrw350kJCHYv3IlKF3Kih
+ E+74Y3VvvfHtuz1dvJPMqrmguealira/nDkosfYeYU5sVV5AogvOUSCVn
+ ZEIZvJSaMCSTWRI7g6jgIdsm6BlMpuaekQCoQHG7tOZkLn/vDFy7E/fBw A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10530"; a="310664136"
+X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="310664136"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2022 04:23:00 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10530"; a="671539848"
-X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="671539848"
+ 14 Nov 2022 04:23:04 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10530"; a="671539869"
+X-IronPort-AV: E=Sophos;i="5.96,161,1665471600"; d="scan'208";a="671539869"
 Received: from ideak-desk.fi.intel.com ([10.237.68.144])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2022 04:22:59 -0800
+ 14 Nov 2022 04:23:03 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Nov 2022 14:22:46 +0200
-Message-Id: <20221114122251.21327-5-imre.deak@intel.com>
+Date: Mon, 14 Nov 2022 14:22:49 +0200
+Message-Id: <20221114122251.21327-8-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
 In-Reply-To: <20221114122251.21327-1-imre.deak@intel.com>
 References: <20221114122251.21327-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 4/9] drm/i915: Use the AUX_IO power domain
- only for eDP/PSR port
+Subject: [Intel-gfx] [PATCH v4 7/9] drm/i915: Add missing DC_OFF power
+ domain->well mappings
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,43 +60,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the AUX_IO_A display power domain only for eDP on port A where PSR
-is also supported. This is the case where DC states need to be enabled
-while the output is enabled - ensured by AUX_IO_A domain not enabling
-the DC_OFF power well. Otherwise port A can be treated the same way as
-other ports with an external DP output: using the AUX_<port> domain
-which disables the unrequired DC states.
+Add the missing DC_OFF power domain -> DC_OFF power well mappings on all
+platforms. This didn't cause a problem as the DC_OFF power domain is
+only used on JSL, where the mapping was already correct.
 
-This change prepares for the next patch enabling DC states on all ports
-supporting eDP/PSR besides port A.
-
-v2:
-- Check the encoder PSR capability instead of PSR being enabled in the
-  crtc_state, as the latter can be changed with a fastset.
-
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_power_map.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 477dd9b72ea3e..d849798c5986a 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -861,8 +861,10 @@ intel_ddi_main_link_aux_domain(struct intel_digital_port *dig_port)
- 	 * Note that PSR is enabled only on Port A even though this function
- 	 * returns the correct domain for other ports too.
- 	 */
--	return dig_port->aux_ch == AUX_CH_A ? POWER_DOMAIN_AUX_IO_A :
--					      intel_aux_power_domain(dig_port);
-+	if (dig_port->aux_ch == AUX_CH_A && intel_encoder_can_psr(&dig_port->base))
-+		return POWER_DOMAIN_AUX_IO_A;
-+	else
-+		return intel_aux_power_domain(dig_port);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+index aa9d1ae9e8a26..f5d66ca85b19b 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+@@ -333,6 +333,7 @@ I915_DECL_PW_DOMAINS(skl_pwdoms_dc_off,
+ 	POWER_DOMAIN_AUX_A,
+ 	POWER_DOMAIN_MODESET,
+ 	POWER_DOMAIN_GT_IRQ,
++	POWER_DOMAIN_DC_OFF,
+ 	POWER_DOMAIN_INIT);
  
- static void intel_ddi_get_power_domains(struct intel_encoder *encoder,
+ I915_DECL_PW_DOMAINS(skl_pwdoms_ddi_io_a_e,
+@@ -437,6 +438,7 @@ I915_DECL_PW_DOMAINS(bxt_pwdoms_dc_off,
+ 	POWER_DOMAIN_GMBUS,
+ 	POWER_DOMAIN_MODESET,
+ 	POWER_DOMAIN_GT_IRQ,
++	POWER_DOMAIN_DC_OFF,
+ 	POWER_DOMAIN_INIT);
+ 
+ I915_DECL_PW_DOMAINS(bxt_pwdoms_dpio_cmn_a,
+@@ -518,6 +520,7 @@ I915_DECL_PW_DOMAINS(glk_pwdoms_dc_off,
+ 	POWER_DOMAIN_GMBUS,
+ 	POWER_DOMAIN_MODESET,
+ 	POWER_DOMAIN_GT_IRQ,
++	POWER_DOMAIN_DC_OFF,
+ 	POWER_DOMAIN_INIT);
+ 
+ I915_DECL_PW_DOMAINS(glk_pwdoms_ddi_io_a,	POWER_DOMAIN_PORT_DDI_IO_A);
+@@ -858,6 +861,7 @@ I915_DECL_PW_DOMAINS(tgl_pwdoms_dc_off,
+ 	POWER_DOMAIN_AUX_B,
+ 	POWER_DOMAIN_AUX_C,
+ 	POWER_DOMAIN_MODESET,
++	POWER_DOMAIN_DC_OFF,
+ 	POWER_DOMAIN_INIT);
+ 
+ I915_DECL_PW_DOMAINS(tgl_pwdoms_ddi_io_tc1,	POWER_DOMAIN_PORT_DDI_IO_TC1);
+@@ -1054,6 +1058,7 @@ I915_DECL_PW_DOMAINS(rkl_pwdoms_dc_off,
+ 	POWER_DOMAIN_AUX_A,
+ 	POWER_DOMAIN_AUX_B,
+ 	POWER_DOMAIN_MODESET,
++	POWER_DOMAIN_DC_OFF,
+ 	POWER_DOMAIN_INIT);
+ 
+ static const struct i915_power_well_desc rkl_power_wells_main[] = {
+@@ -1136,6 +1141,7 @@ I915_DECL_PW_DOMAINS(dg1_pwdoms_dc_off,
+ 	POWER_DOMAIN_AUX_A,
+ 	POWER_DOMAIN_AUX_B,
+ 	POWER_DOMAIN_MODESET,
++	POWER_DOMAIN_DC_OFF,
+ 	POWER_DOMAIN_INIT);
+ 
+ I915_DECL_PW_DOMAINS(dg1_pwdoms_pw_2,
+@@ -1300,6 +1306,7 @@ I915_DECL_PW_DOMAINS(xelpd_pwdoms_dc_off,
+ 	POWER_DOMAIN_AUX_A,
+ 	POWER_DOMAIN_AUX_B,
+ 	POWER_DOMAIN_MODESET,
++	POWER_DOMAIN_DC_OFF,
+ 	POWER_DOMAIN_INIT);
+ 
+ static const struct i915_power_well_desc xelpd_power_wells_main[] = {
+@@ -1421,6 +1428,7 @@ I915_DECL_PW_DOMAINS(xelpdp_pwdoms_dc_off,
+ 	POWER_DOMAIN_MODESET,
+ 	POWER_DOMAIN_AUX_A,
+ 	POWER_DOMAIN_AUX_B,
++	POWER_DOMAIN_DC_OFF,
+ 	POWER_DOMAIN_INIT);
+ 
+ I915_DECL_PW_DOMAINS(xelpdp_pwdoms_aux_tc1,
 -- 
 2.37.1
 
