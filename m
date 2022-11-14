@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1933C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 15:38:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2EDC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 15:38:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B729B10E06B;
-	Mon, 14 Nov 2022 15:38:30 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AC8D10E2EB
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 15:38:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4151310E2EB;
+	Mon, 14 Nov 2022 15:38:31 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DB5D10E2DA
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 15:37:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668440299; x=1699976299;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=pp9eZH1C0Th4wAFH0fBgUT0UCwAJXjZE3yZ/0RnY6Z0=;
- b=oGtcZvEJ29vWqeNRPrNEzZqoxf6cJVoephC//LdN/hFgGFVXZBPMxFsb
- iG+JgnsWe/QBDWEqWZGoZ8ohFfL6XKMWNO8XxcRlzSKiOsDJZDxUQaEf2
- TY+O9SgIfNECyjMuJ0BNXoW6MOpAGF7IGfHV3u6ctSCoDOZfJP4Bkui8G
- w7i2QG29Qz47ObY5rLvlKf9dWu85fRpGzl7b4h004GttmjLxe+tIk5emu
- pp2Vh/BlHqjYf5LAkEC9Ba8UhmDfpVfJ1PXbgvTqwVwLBqMjJrNwZj7u7
- stnbT6JdRsHeQIAde81pV8OAeaGHrlQvWHXUphD9ghIOgtOyxnjA5gH5M g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="398290850"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="398290850"
+ t=1668440273; x=1699976273;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=LPfeD6CMbiQSGts/grswEn6eIGwOcbBGfB2f+//QqzU=;
+ b=O8NtyTgGg9xTtKZO8wLDNu/sLg8RqNN/f4YxYqghsRALyoz+QX+HIEWn
+ 1arN7FPGDBQEvBg4hzuWtUbSURwxV9VdFHXvvNpmiFrL8fdoUI9s65t9h
+ z9h5LAOsc/eZy9XcGDtxV1BmJznv+iAxdlT7keGTAzEvPz6xt7AAdcWIz
+ hcIV4Gx8uYvIMAcIYA75NejxGyzfHVM6vIKKLJu1+wb1d0658uQcFqDnC
+ qO7iu6f+rMmFbJZvDFPBuENUkgMF8y9lD577GiahzJJJVRZ/jVlbuUFwm
+ WzG+T4gmPrEGwjEDCQC+Horpa3HMbapkFYIgUOWALCHV9VPdpFzhMLJZP g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="374128720"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="374128720"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2022 07:38:11 -0800
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Nov 2022 07:37:53 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="780968666"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="780968666"
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="780968384"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="780968384"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga001.fm.intel.com with SMTP; 14 Nov 2022 07:38:09 -0800
+ by fmsmga001.fm.intel.com with SMTP; 14 Nov 2022 07:37:51 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 14 Nov 2022 17:38:08 +0200
+ Mon, 14 Nov 2022 17:37:50 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Nov 2022 17:37:24 +0200
-Message-Id: <20221114153732.11773-13-ville.syrjala@linux.intel.com>
+Date: Mon, 14 Nov 2022 17:37:18 +0200
+Message-Id: <20221114153732.11773-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221114153732.11773-1-ville.syrjala@linux.intel.com>
 References: <20221114153732.11773-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 12/20] drm/i915: Make ilk_read_luts() capable
- of degamma readout
+Subject: [Intel-gfx] [PATCH v3 06/20] drm/i915: Fix adl+ degamma LUT size
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,47 +64,29 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Just like ivb+, ilk/snb can select whether the hw lut acts as
-gamma or degamma. Make the readout cognizant of that fact.
+The degamma LUT is interpolated so we need the 128th (==1.0)
+entry to represent the full < 1.0 input range. Only the 129th
+and 130th entries are strictly for the >=1.0 extended range
+inputs.
 
-v2: deal with pre_csc_lut
-v3: use ilk_has_post_csc_lut() helper
-
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_pci.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 583a93351c97..ef171837ef45 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -2176,19 +2176,19 @@ static struct drm_property_blob *ilk_read_lut_10(struct intel_crtc *crtc)
- static void ilk_read_luts(struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_property_blob **blob =
-+		ilk_has_post_csc_lut(crtc_state) ?
-+		&crtc_state->post_csc_lut : &crtc_state->pre_csc_lut;
- 
- 	if (!crtc_state->gamma_enable)
- 		return;
- 
--	if ((crtc_state->csc_mode & CSC_POSITION_BEFORE_GAMMA) == 0)
--		return;
--
- 	switch (crtc_state->gamma_mode) {
- 	case GAMMA_MODE_MODE_8BIT:
--		crtc_state->post_csc_lut = ilk_read_lut_8(crtc);
-+		*blob = ilk_read_lut_8(crtc);
- 		break;
- 	case GAMMA_MODE_MODE_10BIT:
--		crtc_state->post_csc_lut = ilk_read_lut_10(crtc);
-+		*blob = ilk_read_lut_10(crtc);
- 		break;
- 	default:
- 		MISSING_CASE(crtc_state->gamma_mode);
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 211913be40ce..c50841e36c61 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -948,7 +948,7 @@ static const struct intel_device_info adl_s_info = {
+ #define XE_LPD_FEATURES \
+ 	.display.abox_mask = GENMASK(1, 0),					\
+ 	.display.color = {							\
+-		.degamma_lut_size = 128, .gamma_lut_size = 1024,		\
++		.degamma_lut_size = 129, .gamma_lut_size = 1024,		\
+ 		.degamma_lut_tests = DRM_COLOR_LUT_NON_DECREASING |		\
+ 				     DRM_COLOR_LUT_EQUAL_CHANNELS,		\
+ 	},									\
 -- 
 2.37.4
 
