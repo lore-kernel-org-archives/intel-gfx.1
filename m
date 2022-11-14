@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E63C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 15:37:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9B40C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 15:38:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C16F10E0C1;
-	Mon, 14 Nov 2022 15:37:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDD7710E0FB;
+	Mon, 14 Nov 2022 15:38:03 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAD2910E0FB
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DCF910E0C1
  for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 15:37:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1668440272; x=1699976272;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Wz5Iuj7yrMRJ8pHfExMfbpe6KRXbAASPuuZ0WZZZTfU=;
- b=PMsFYwVPGQpT0+DXhHJ8Q4MiluJ5UV1Sicjvud96DgAA+nBT3lQUdHzS
- WZfH2I7pOfGwBmVEvCRdYffA36g0OE6umQDbaQHTWBtYZCs3xaJRd2IWJ
- n9IJFsnzLapMfrFIwCrevYpOt1ogDK3/SJCoWlSS65+r9gBNH3qINXVsQ
- gEE7pSxI7VpKTHwI+SGAyO8/tOQeIQXvRH/NcFmTzwn2ZkSt8NuFtFwin
- RZKj+qnytr+jP/sZMEnevbITl8A71QkMhxzzQYmJfhUSgXfU+u1D6Rg70
- /H/SYrsytSzTETsmM+JorgnrjpQ0AT/2RwN71qtS92jeg5McYtAA1ZQPF A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="374128713"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="374128713"
+ bh=5euEFNsiMBP/7PpEhJ1mT9hHz8Xg5oOXfI8znaEVAss=;
+ b=DZAjeM5HhfavoaAprD9BRbzjsqZV43ztLcplRRhNx25aHTqXwvOhKMRS
+ B0UdSy58lMUvDPgX/zYqGXn9PXV6EgcUs6FRPF8gQmL2GpPbeLZsbyp59
+ muvP1mrwhCChjIU4fUFvXYwCxaGQBaj049Ie1tS0khNWvX0U3GgGoTSXA
+ gQWjF+L1P4orGNLY1T2Gn8ZaU/6k3GHt3H26G5Kn/KPKuQa0n0AXJDIZl
+ 7yGi6VIHEhzDhbSURW/EAor+gkRmLwpQfaUdwuSVa0MNmh7nCQZQ3fnWS
+ 05GYs+/0JST3Shkuucz9gltxc6K1u4z3UIg6FvM0xrAB3eAUubjs1KqoI g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="374128711"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="374128711"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2022 07:37:52 -0800
+ 14 Nov 2022 07:37:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="780968350"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="780968350"
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="780968328"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="780968328"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga001.fm.intel.com with SMTP; 14 Nov 2022 07:37:42 -0800
+ by fmsmga001.fm.intel.com with SMTP; 14 Nov 2022 07:37:36 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 14 Nov 2022 17:37:41 +0200
+ Mon, 14 Nov 2022 17:37:35 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Nov 2022 17:37:15 +0200
-Message-Id: <20221114153732.11773-4-ville.syrjala@linux.intel.com>
+Date: Mon, 14 Nov 2022 17:37:13 +0200
+Message-Id: <20221114153732.11773-2-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221114153732.11773-1-ville.syrjala@linux.intel.com>
 References: <20221114153732.11773-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 03/20] drm/i915: Clean up 12.4bit precision
- palette defines
+Subject: [Intel-gfx] [PATCH v3 01/20] drm/i915: Clean up legacy palette
+ defines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,10 +66,9 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Use consistent bit definitions for the 12.4bit precision palette bits.
-We just define these alongside the ilk/snb register definitions and
-point to those from the icl+ superfine segment defines (and we also
-already pointed to them from the ivb+ precision palette defines).
+Use consistent bit definitions for the legacy gamma LUT. We just
+define these alongside the pre-ilk register definitions and point
+to those from the ilk+ defines.
 
 Also use the these appropriately in the LUT entry pack/unpack
 functions.
@@ -77,85 +76,88 @@ functions.
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 22 ++++++++++++----------
- drivers/gpu/drm/i915/i915_reg.h            | 15 +++++++++------
- 2 files changed, 21 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 24 +++++++++++-----------
+ drivers/gpu/drm/i915/i915_reg.h            | 11 +++++-----
+ 2 files changed, 17 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 05257d92408b..8dfccf50dc7d 100644
+index 12f5b976c795..2cf92bc55e8d 100644
 --- a/drivers/gpu/drm/i915/display/intel_color.c
 +++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -486,25 +486,27 @@ static void ilk_lut_10_pack(struct drm_color_lut *entry, u32 val)
- /* ilk+ "12.4" interpolated format (high 10 bits) */
- static u32 ilk_lut_12p4_udw(const struct drm_color_lut *color)
+@@ -425,32 +425,32 @@ static u32 intel_color_lut_pack(u32 val, int bit_precision)
+ 
+ static u32 i9xx_lut_8(const struct drm_color_lut *color)
  {
--	return (color->red >> 6) << 20 | (color->green >> 6) << 10 |
--		(color->blue >> 6);
-+	return REG_FIELD_PREP(PREC_PALETTE_12P4_RED_UDW_MASK, color->red >> 6) |
-+		REG_FIELD_PREP(PREC_PALETTE_12P4_GREEN_UDW_MASK, color->green >> 6) |
-+		REG_FIELD_PREP(PREC_PALETTE_12P4_BLUE_UDW_MASK, color->blue >> 6);
+-	return drm_color_lut_extract(color->red, 8) << 16 |
+-		drm_color_lut_extract(color->green, 8) << 8 |
+-		drm_color_lut_extract(color->blue, 8);
++	return REG_FIELD_PREP(PALETTE_RED_MASK, drm_color_lut_extract(color->red, 8)) |
++		REG_FIELD_PREP(PALETTE_GREEN_MASK, drm_color_lut_extract(color->green, 8)) |
++		REG_FIELD_PREP(PALETTE_BLUE_MASK, drm_color_lut_extract(color->blue, 8));
  }
  
- /* ilk+ "12.4" interpolated format (low 6 bits) */
- static u32 ilk_lut_12p4_ldw(const struct drm_color_lut *color)
+ static void i9xx_lut_8_pack(struct drm_color_lut *entry, u32 val)
  {
--	return (color->red & 0x3f) << 24 | (color->green & 0x3f) << 14 |
--		(color->blue & 0x3f) << 4;
-+	return REG_FIELD_PREP(PREC_PALETTE_12P4_RED_LDW_MASK, color->red & 0x3f) |
-+		REG_FIELD_PREP(PREC_PALETTE_12P4_GREEN_LDW_MASK, color->green & 0x3f) |
-+		REG_FIELD_PREP(PREC_PALETTE_12P4_BLUE_LDW_MASK, color->blue & 0x3f);
+-	entry->red = intel_color_lut_pack(REG_FIELD_GET(LGC_PALETTE_RED_MASK, val), 8);
+-	entry->green = intel_color_lut_pack(REG_FIELD_GET(LGC_PALETTE_GREEN_MASK, val), 8);
+-	entry->blue = intel_color_lut_pack(REG_FIELD_GET(LGC_PALETTE_BLUE_MASK, val), 8);
++	entry->red = intel_color_lut_pack(REG_FIELD_GET(PALETTE_RED_MASK, val), 8);
++	entry->green = intel_color_lut_pack(REG_FIELD_GET(PALETTE_GREEN_MASK, val), 8);
++	entry->blue = intel_color_lut_pack(REG_FIELD_GET(PALETTE_BLUE_MASK, val), 8);
  }
  
- static void ilk_lut_12p4_pack(struct drm_color_lut *entry, u32 ldw, u32 udw)
+ /* i965+ "10.6" bit interpolated format "even DW" (low 8 bits) */
+ static u32 i965_lut_10p6_ldw(const struct drm_color_lut *color)
  {
--	entry->red = REG_FIELD_GET(PAL_PREC_MULTI_SEG_RED_UDW_MASK, udw) << 6 |
--		REG_FIELD_GET(PAL_PREC_MULTI_SEG_RED_LDW_MASK, ldw);
--	entry->green = REG_FIELD_GET(PAL_PREC_MULTI_SEG_GREEN_UDW_MASK, udw) << 6 |
--		REG_FIELD_GET(PAL_PREC_MULTI_SEG_GREEN_LDW_MASK, ldw);
--	entry->blue = REG_FIELD_GET(PAL_PREC_MULTI_SEG_BLUE_UDW_MASK, udw) << 6 |
--		REG_FIELD_GET(PAL_PREC_MULTI_SEG_BLUE_LDW_MASK, ldw);
-+	entry->red = REG_FIELD_GET(PREC_PALETTE_12P4_RED_UDW_MASK, udw) << 6 |
-+		REG_FIELD_GET(PREC_PALETTE_12P4_RED_LDW_MASK, ldw);
-+	entry->green = REG_FIELD_GET(PREC_PALETTE_12P4_GREEN_UDW_MASK, udw) << 6 |
-+		REG_FIELD_GET(PREC_PALETTE_12P4_GREEN_LDW_MASK, ldw);
-+	entry->blue = REG_FIELD_GET(PREC_PALETTE_12P4_BLUE_UDW_MASK, udw) << 6 |
-+		REG_FIELD_GET(PREC_PALETTE_12P4_BLUE_LDW_MASK, ldw);
+-	return (color->red & 0xff) << 16 |
+-		(color->green & 0xff) << 8 |
+-		(color->blue & 0xff);
++	return REG_FIELD_PREP(PALETTE_RED_MASK, color->red & 0xff) |
++		REG_FIELD_PREP(PALETTE_GREEN_MASK, color->green & 0xff) |
++		REG_FIELD_PREP(PALETTE_BLUE_MASK, color->blue & 0xff);
  }
  
- static void icl_color_commit_noarm(const struct intel_crtc_state *crtc_state)
+ /* i965+ "10.6" interpolated format "odd DW" (high 8 bits) */
+ static u32 i965_lut_10p6_udw(const struct drm_color_lut *color)
+ {
+-	return (color->red >> 8) << 16 |
+-		(color->green >> 8) << 8 |
+-		(color->blue >> 8);
++	return REG_FIELD_PREP(PALETTE_RED_MASK, color->red >> 8) |
++		REG_FIELD_PREP(PALETTE_GREEN_MASK, color->green >> 8) |
++		REG_FIELD_PREP(PALETTE_BLUE_MASK, color->blue >> 8);
+ }
+ 
+ static void i965_lut_10p6_pack(struct drm_color_lut *entry, u32 ldw, u32 udw)
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index a4c0912a2f4f..4341f69c7c9c 100644
+index c4921c9a6077..1a210a4cbd0f 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5323,6 +5323,14 @@
- #define   PREC_PALETTE_10_RED_MASK		REG_GENMASK(29, 20)
- #define   PREC_PALETTE_10_GREEN_MASK		REG_GENMASK(19, 10)
- #define   PREC_PALETTE_10_BLUE_MASK		REG_GENMASK(9, 0)
-+/* 12.4 interpolated mode ldw */
-+#define   PREC_PALETTE_12P4_RED_LDW_MASK	REG_GENMASK(29, 24)
-+#define   PREC_PALETTE_12P4_GREEN_LDW_MASK	REG_GENMASK(19, 14)
-+#define   PREC_PALETTE_12P4_BLUE_LDW_MASK	REG_GENMASK(9, 4)
-+/* 12.4 interpolated mode udw */
-+#define   PREC_PALETTE_12P4_RED_UDW_MASK	REG_GENMASK(29, 20)
-+#define   PREC_PALETTE_12P4_GREEN_UDW_MASK	REG_GENMASK(19, 10)
-+#define   PREC_PALETTE_12P4_BLUE_UDW_MASK	REG_GENMASK(9, 0)
- #define PREC_PALETTE(pipe, i) _MMIO(_PIPE(pipe, _PREC_PALETTE_A, _PREC_PALETTE_B) + (i) * 4)
+@@ -1714,9 +1714,10 @@
+ #define _PALETTE_A		0xa000
+ #define _PALETTE_B		0xa800
+ #define _CHV_PALETTE_C		0xc000
+-#define PALETTE_RED_MASK        REG_GENMASK(23, 16)
+-#define PALETTE_GREEN_MASK      REG_GENMASK(15, 8)
+-#define PALETTE_BLUE_MASK       REG_GENMASK(7, 0)
++/* 8bit mode / i965+ 10.6 interpolated mode ldw/udw */
++#define   PALETTE_RED_MASK		REG_GENMASK(23, 16)
++#define   PALETTE_GREEN_MASK		REG_GENMASK(15, 8)
++#define   PALETTE_BLUE_MASK		REG_GENMASK(7, 0)
+ #define PALETTE(pipe, i)	_MMIO(DISPLAY_MMIO_BASE(dev_priv) + \
+ 				      _PICK((pipe), _PALETTE_A,		\
+ 					    _PALETTE_B, _CHV_PALETTE_C) + \
+@@ -5312,9 +5313,7 @@
+ /* legacy palette */
+ #define _LGC_PALETTE_A           0x4a000
+ #define _LGC_PALETTE_B           0x4a800
+-#define LGC_PALETTE_RED_MASK     REG_GENMASK(23, 16)
+-#define LGC_PALETTE_GREEN_MASK   REG_GENMASK(15, 8)
+-#define LGC_PALETTE_BLUE_MASK    REG_GENMASK(7, 0)
++/* see PALETTE_* for the bits */
+ #define LGC_PALETTE(pipe, i) _MMIO(_PIPE(pipe, _LGC_PALETTE_A, _LGC_PALETTE_B) + (i) * 4)
  
- #define  _PREC_PIPEAGCMAX              0x4d000
-@@ -7597,12 +7605,7 @@ enum skl_power_gate {
- 
- #define _PAL_PREC_MULTI_SEG_DATA_A	0x4A40C
- #define _PAL_PREC_MULTI_SEG_DATA_B	0x4AC0C
--#define  PAL_PREC_MULTI_SEG_RED_LDW_MASK   REG_GENMASK(29, 24)
--#define  PAL_PREC_MULTI_SEG_RED_UDW_MASK   REG_GENMASK(29, 20)
--#define  PAL_PREC_MULTI_SEG_GREEN_LDW_MASK REG_GENMASK(19, 14)
--#define  PAL_PREC_MULTI_SEG_GREEN_UDW_MASK REG_GENMASK(19, 10)
--#define  PAL_PREC_MULTI_SEG_BLUE_LDW_MASK  REG_GENMASK(9, 4)
--#define  PAL_PREC_MULTI_SEG_BLUE_UDW_MASK  REG_GENMASK(9, 0)
-+/* see PREC_PALETTE_12P4_* for the bits */
- 
- #define PREC_PAL_MULTI_SEG_INDEX(pipe)	_MMIO_PIPE(pipe, \
- 					_PAL_PREC_MULTI_SEG_INDEX_A, \
+ /* ilk/snb precision palette */
 -- 
 2.37.4
 
