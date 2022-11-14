@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63AFBC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 15:38:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0828C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 15:39:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A55110E2F2;
-	Mon, 14 Nov 2022 15:38:54 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 617E810E2EB
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 15:38:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D91D10E2E7;
+	Mon, 14 Nov 2022 15:38:58 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F14AF10E2DA
+ for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 15:37:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668440300; x=1699976300;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=fyQZT6oiBjaOE5NBuFpF2JCDj8ZMgqSSWqgziDfpTpE=;
- b=gBXyiFHqf3t8AbAmpj7ImnWH1IW3NTnAie7LnaTvMSJklokzTW+K31vl
- 7F9O99BrHOwndJBHZHpqGnJ63MOw/ciDptfn40smL997KkpqGX3ZP3i/M
- gD5BVMwLSI4LbJc8gjM5mEgOh1kvGSPYMA6Cu2S+YsdzUIUB/lYsrFyLF
- yl+fJ9/64W3zBqufo7+GV8jiUQ6Hdxda+jSGF8xspL8ZGWVZD7syXs9JL
- sD8K6tAMX1hPLPTGl+tN6j33pmea8CNLjc/Vrdt8E90Gse0CZd0dkp83E
- gd7ip1y+mj/rIQwe7FlolPsnW1haN5cylnzkHnTooJoB6SDRTKBYabWDr g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="398290864"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="398290864"
+ t=1668440272; x=1699976272;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ppc2TnnwENyAcflL0Xxm6Mn+tyVrSeB2ASzGYKXQJ4k=;
+ b=Rn/LCyK8Fm0rWsQ+epfpyQYMIf0aqWCyb1FdGIbepP1GNWVDTjvVs2QV
+ LqrpI0aH71Bnqb3TjUe2BjcZziqIZReEVrLM+cYsdgHrFEKUM3j0yd6MD
+ IID0osaMSOQpq4K7oR5gBN0yUEdQJG4Nky5O7DRVqHRkkEOJmlrXTG/Fq
+ pc55/cwFlIkwraVZSaEAnA0t+Zef8JaeiCUJIIgCgIqcwUQbpXZDK0xdx
+ rdgsF+peb/bp3p94dyE9rstpkjkKHt7m6CAD1kpTQXBNhrVaXkByK5LbZ
+ lT+bXwJPn4G3wtKMB59CTyzXaNWWTq+2ViWGjOicuSVqxnPEKG08ydatg w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="374128715"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="374128715"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2022 07:38:15 -0800
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Nov 2022 07:37:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="780968676"
-X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="780968676"
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="780968334"
+X-IronPort-AV: E=Sophos;i="5.96,164,1665471600"; d="scan'208";a="780968334"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga001.fm.intel.com with SMTP; 14 Nov 2022 07:38:12 -0800
+ by fmsmga001.fm.intel.com with SMTP; 14 Nov 2022 07:37:39 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 14 Nov 2022 17:38:11 +0200
+ Mon, 14 Nov 2022 17:37:38 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 14 Nov 2022 17:37:25 +0200
-Message-Id: <20221114153732.11773-14-ville.syrjala@linux.intel.com>
+Date: Mon, 14 Nov 2022 17:37:14 +0200
+Message-Id: <20221114153732.11773-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221114153732.11773-1-ville.syrjala@linux.intel.com>
 References: <20221114153732.11773-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 13/20] drm/i915: Prep for C8 palette readout
+Subject: [Intel-gfx] [PATCH v3 02/20] drm/i915: Clean up 10bit precision
+ palette defines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,118 +60,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Add the approproate c8_planes checks to make the LUT
-code ready for C8 palette readout. Note we currently
-lack the actual c8_planes readout, so this won't work
-yet. But no harm in making the code somewhat more ready
-for the day when we do get c8_planes readout.
+Use consistent bit definitions for the 10bit precision palette bits.
+We just define these alongside the ilk/snb register definitions and
+point to those from the ivb+ defines.
 
+Also use the these appropriately in the LUT entry pack/unpack
+functions.
+
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 12 ++++++------
+ drivers/gpu/drm/i915/i915_reg.h            | 11 +++++------
+ 2 files changed, 11 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index ef171837ef45..ca01b3e6b585 100644
+index 2cf92bc55e8d..05257d92408b 100644
 --- a/drivers/gpu/drm/i915/display/intel_color.c
 +++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -1801,7 +1801,7 @@ static int icl_color_check(struct intel_crtc_state *crtc_state)
+@@ -471,16 +471,16 @@ static u16 i965_lut_11p6_max_pack(u32 val)
  
- static int i9xx_post_csc_lut_precision(const struct intel_crtc_state *crtc_state)
+ static u32 ilk_lut_10(const struct drm_color_lut *color)
  {
--	if (!crtc_state->gamma_enable)
-+	if (!crtc_state->gamma_enable && !crtc_state->c8_planes)
- 		return 0;
- 
- 	switch (crtc_state->gamma_mode) {
-@@ -1817,6 +1817,9 @@ static int i9xx_post_csc_lut_precision(const struct intel_crtc_state *crtc_state
- 
- static bool ilk_has_post_csc_lut(const struct intel_crtc_state *crtc_state)
- {
-+	if (crtc_state->c8_planes)
-+		return true;
-+
- 	return crtc_state->gamma_enable &&
- 		(crtc_state->csc_mode & CSC_POSITION_BEFORE_GAMMA) != 0;
- }
-@@ -1847,7 +1850,7 @@ static int chv_post_csc_lut_precision(const struct intel_crtc_state *crtc_state)
- 
- static int glk_post_csc_lut_precision(const struct intel_crtc_state *crtc_state)
- {
--	if (!crtc_state->gamma_enable)
-+	if (!crtc_state->gamma_enable && !crtc_state->c8_planes)
- 		return 0;
- 
- 	switch (crtc_state->gamma_mode) {
-@@ -1863,6 +1866,9 @@ static int glk_post_csc_lut_precision(const struct intel_crtc_state *crtc_state)
- 
- static bool icl_has_post_csc_lut(const struct intel_crtc_state *crtc_state)
- {
-+	if (crtc_state->c8_planes)
-+		return true;
-+
- 	return crtc_state->gamma_mode & POST_CSC_GAMMA_ENABLE;
+-	return drm_color_lut_extract(color->red, 10) << 20 |
+-		drm_color_lut_extract(color->green, 10) << 10 |
+-		drm_color_lut_extract(color->blue, 10);
++	return REG_FIELD_PREP(PREC_PALETTE_10_RED_MASK, drm_color_lut_extract(color->red, 10)) |
++		REG_FIELD_PREP(PREC_PALETTE_10_GREEN_MASK, drm_color_lut_extract(color->green, 10)) |
++		REG_FIELD_PREP(PREC_PALETTE_10_BLUE_MASK, drm_color_lut_extract(color->blue, 10));
  }
  
-@@ -2009,7 +2015,7 @@ static void i9xx_read_luts(struct intel_crtc_state *crtc_state)
+ static void ilk_lut_10_pack(struct drm_color_lut *entry, u32 val)
  {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+-	entry->red = intel_color_lut_pack(REG_FIELD_GET(PREC_PALETTE_RED_MASK, val), 10);
+-	entry->green = intel_color_lut_pack(REG_FIELD_GET(PREC_PALETTE_GREEN_MASK, val), 10);
+-	entry->blue = intel_color_lut_pack(REG_FIELD_GET(PREC_PALETTE_BLUE_MASK, val), 10);
++	entry->red = intel_color_lut_pack(REG_FIELD_GET(PREC_PALETTE_10_RED_MASK, val), 10);
++	entry->green = intel_color_lut_pack(REG_FIELD_GET(PREC_PALETTE_10_GREEN_MASK, val), 10);
++	entry->blue = intel_color_lut_pack(REG_FIELD_GET(PREC_PALETTE_10_BLUE_MASK, val), 10);
+ }
  
--	if (!crtc_state->gamma_enable)
-+	if (!crtc_state->gamma_enable && !crtc_state->c8_planes)
- 		return;
+ /* ilk+ "12.4" interpolated format (high 10 bits) */
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 1a210a4cbd0f..a4c0912a2f4f 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -5319,9 +5319,10 @@
+ /* ilk/snb precision palette */
+ #define _PREC_PALETTE_A           0x4b000
+ #define _PREC_PALETTE_B           0x4c000
+-#define   PREC_PALETTE_RED_MASK   REG_GENMASK(29, 20)
+-#define   PREC_PALETTE_GREEN_MASK REG_GENMASK(19, 10)
+-#define   PREC_PALETTE_BLUE_MASK  REG_GENMASK(9, 0)
++/* 10bit mode */
++#define   PREC_PALETTE_10_RED_MASK		REG_GENMASK(29, 20)
++#define   PREC_PALETTE_10_GREEN_MASK		REG_GENMASK(19, 10)
++#define   PREC_PALETTE_10_BLUE_MASK		REG_GENMASK(9, 0)
+ #define PREC_PALETTE(pipe, i) _MMIO(_PIPE(pipe, _PREC_PALETTE_A, _PREC_PALETTE_B) + (i) * 4)
  
- 	crtc_state->post_csc_lut = i9xx_read_lut_8(crtc);
-@@ -2049,7 +2055,7 @@ static void i965_read_luts(struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 
--	if (!crtc_state->gamma_enable)
-+	if (!crtc_state->gamma_enable && !crtc_state->c8_planes)
- 		return;
- 
- 	if (crtc_state->gamma_mode == GAMMA_MODE_MODE_8BIT)
-@@ -2180,7 +2186,7 @@ static void ilk_read_luts(struct intel_crtc_state *crtc_state)
- 		ilk_has_post_csc_lut(crtc_state) ?
- 		&crtc_state->post_csc_lut : &crtc_state->pre_csc_lut;
- 
--	if (!crtc_state->gamma_enable)
-+	if (!crtc_state->gamma_enable && !crtc_state->c8_planes)
- 		return;
- 
- 	switch (crtc_state->gamma_mode) {
-@@ -2240,7 +2246,7 @@ static void ivb_read_luts(struct intel_crtc_state *crtc_state)
- 		ilk_has_post_csc_lut(crtc_state) ?
- 		&crtc_state->post_csc_lut : &crtc_state->pre_csc_lut;
- 
--	if (!crtc_state->gamma_enable)
-+	if (!crtc_state->gamma_enable && !crtc_state->c8_planes)
- 		return;
- 
- 	switch (crtc_state->gamma_mode) {
-@@ -2303,7 +2309,7 @@ static void bdw_read_luts(struct intel_crtc_state *crtc_state)
- 		ilk_has_post_csc_lut(crtc_state) ?
- 		&crtc_state->post_csc_lut : &crtc_state->pre_csc_lut;
- 
--	if (!crtc_state->gamma_enable)
-+	if (!crtc_state->gamma_enable && !crtc_state->c8_planes)
- 		return;
- 
- 	switch (crtc_state->gamma_mode) {
-@@ -2372,7 +2378,7 @@ static void glk_read_luts(struct intel_crtc_state *crtc_state)
- 	if (crtc_state->csc_enable)
- 		crtc_state->pre_csc_lut = glk_read_degamma_lut(crtc);
- 
--	if (!crtc_state->gamma_enable)
-+	if (!crtc_state->gamma_enable && !crtc_state->c8_planes)
- 		return;
- 
- 	switch (crtc_state->gamma_mode) {
+ #define  _PREC_PIPEAGCMAX              0x4d000
+@@ -7560,12 +7561,10 @@ enum skl_power_gate {
+ #define _PAL_PREC_DATA_A	0x4A404
+ #define _PAL_PREC_DATA_B	0x4AC04
+ #define _PAL_PREC_DATA_C	0x4B404
++/* see PREC_PALETTE_* for the bits */
+ #define _PAL_PREC_GC_MAX_A	0x4A410
+ #define _PAL_PREC_GC_MAX_B	0x4AC10
+ #define _PAL_PREC_GC_MAX_C	0x4B410
+-#define   PREC_PAL_DATA_RED_MASK	REG_GENMASK(29, 20)
+-#define   PREC_PAL_DATA_GREEN_MASK	REG_GENMASK(19, 10)
+-#define   PREC_PAL_DATA_BLUE_MASK	REG_GENMASK(9, 0)
+ #define _PAL_PREC_EXT_GC_MAX_A	0x4A420
+ #define _PAL_PREC_EXT_GC_MAX_B	0x4AC20
+ #define _PAL_PREC_EXT_GC_MAX_C	0x4B420
 -- 
 2.37.4
 
