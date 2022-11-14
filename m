@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80CD5C4167B
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 13:03:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B943CC43217
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Nov 2022 13:03:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 777C710E2D6;
-	Mon, 14 Nov 2022 13:01:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D990210E2C8;
+	Mon, 14 Nov 2022 13:01:54 +0000 (UTC)
 Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
  [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9919A10E2B6;
- Mon, 14 Nov 2022 13:01:22 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.nyi.internal (Postfix) with ESMTP id 07FF858023E;
- Mon, 14 Nov 2022 08:01:22 -0500 (EST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 463A410E2B6;
+ Mon, 14 Nov 2022 13:01:13 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id A4C56580258;
+ Mon, 14 Nov 2022 08:01:12 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Mon, 14 Nov 2022 08:01:22 -0500
+ by compute4.internal (MEProxy); Mon, 14 Nov 2022 08:01:12 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
  :cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; t=1668430882; x=
- 1668438082; bh=akQtkJAgROEQw2R9Du4Mq0QjletHuqb+Y4hQq6KktVI=; b=l
- 7SQFV1MijY6k6o/rYg7z2F6BACB7nelmkvCAqh9lYb76hsiDxSgonzyWrgrYNygW
- NNTTZsHRMQ369h6nsbKUpDaA2qPvAN11r3nUn0Csf20WBG9WsPeZ6RNKexUoBNF8
- S9HQ22cQZ6RWA0K9y0Spb/9RkJ/SMUKSLpH7EQCzOFH8m0/RevUpBevrdtqEqleX
- zVYtPVUYlpYI/9PFqwBIQ3mMmbmoFwRBSAbrHN+j/2/o2q7WVhy9MKhD5tIfXjm7
- hbOddjKxMwEFW2pUTlu+4ZutSINgGPUktLT0nOET6U59Ut2xyctWSrF6RgY8i2VZ
- jgUqVubcqBvWD2eIqX+Fw==
+ :reply-to:sender:subject:subject:to:to; s=fm2; t=1668430872; x=
+ 1668438072; bh=GR8yd3xkp3m5q5171NoosfT+Q8zFyHZNiQ3LsD+pUAI=; b=e
+ vfeTfdx3VbsWridfxOAut2CxYhXTDDqAz+SBNWqLWoIFByDRjcDsw6pP2gVYkVBX
+ 1ba8VrkByVCW04MUlMngyZYwNEoKKuwvcVS9/cPpyT5aIxNbz7chD71JJTac/2kb
+ fQAe8GNdFX/PJAuB9B/Y7VIB2sxiZwALkWIBisYYoCoP9jx9RhQX5yZfnxJAapEb
+ e1h6oNvqSzdDHWGOfTxXeK7u/Dv86u8bj8FH2GgMvnHeCngRtUSqtBF/vs0rG92k
+ 4vnhkXuwmmEqW8PMw/nuzTvWViwvvIIEmAbfACSq+CkF11wM6x/3TIAM/HiUK11m
+ JQakidVSz7aBE+6687ODQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668430882; x=
- 1668438082; bh=akQtkJAgROEQw2R9Du4Mq0QjletHuqb+Y4hQq6KktVI=; b=d
- vYuVEACGuM9D3l0iB+wA1LrXjQPEXgCHktBi2cGFJdh/T7TDogjm7n8jaOyh1nCP
- J9ue8XwodFuO5yxq8X7KsaxU9w0a6Kkm28TG6NhYBxuql2uuTvozq2/7FmhGWJEQ
- x+5g9tbt6jY6wl9kPxa7CdlGfKJnXrAOYZ2wNZbv+lbMswRzrcyNDGHDUm0a936E
- Ie9l4ZTMWhNijVFhiFi4xDO4x6CIRzQI1jeH2QWBb49Dk9eQcqMRiE4A6mUlzoPc
- dUZzNz2Qf76zHPVe0KEDpJ82OOq1OcSBDk1TUUgV1DnndUQApFt4VbvaFiQKrR7W
- UsFKtlhVB1ReGyDR8ZaUQ==
-X-ME-Sender: <xms:ITxyYwjcF8uZiBbkCOmE6dqDO73PLPMN6tyzxp0r_eUCji8HSWhn4A>
- <xme:ITxyY5D7Lfg6VSSqai3cEfxcC30f7S2IN49Ibn9ivI5eZkSangv2XzadiwZHHsg2S
- pSMiIRTMllLCItPUwQ>
-X-ME-Received: <xmr:ITxyY4HUt7vE3ApsAJ8YH9M6dKvWd6lb0DlQh1XrvRK24vRlRFBkiOhF3bbNGB8FS8MZV96y__qb-pPdA1kqrAF-eOjZVexwm3h4iebS2ABcOw>
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668430872; x=
+ 1668438072; bh=GR8yd3xkp3m5q5171NoosfT+Q8zFyHZNiQ3LsD+pUAI=; b=L
+ GltnB2tHtM5E1HOCi6AuEVFF+VXwQN3h3gWi3ZoJd+r6IptZzG9ocUYl9icQOH8I
+ JMDuEoCHqfZcOgFQG7ilqG/Io+ocfQCGVznTVeBMxS/ZTxRiP5csSHwEtfh7YlEC
+ 2WTwzl0u6hRgfDHo7hS60gT+90vS+oOQTgvXHFlxTcCFyI4/yxE13EPGo8hQEDSv
+ X4VPF8/raIdjFMP7nev8RpzDBb5YtGDhpJJnlKvEeFq62H+s8ehmb3lDOW95wqI6
+ wy0e+x+HvHUqBXV/PK8QFrtibAYqN1sQ+GzAB99lsnPT0y0OQ+d6F+op2vSTRMzM
+ +yuhrSpL0MZe84eSSNfCg==
+X-ME-Sender: <xms:GDxyYwvqn0Am5HVQX-RflIYaFYW6JmEVxX2ltz1tbXeDJgIphb_lfQ>
+ <xme:GDxyY9ekdsS3GGhXjTFpyt7San4KkU615xlhJe9ycq2-wpo4MD_Yucq8KkOmGcQzv
+ t-_yhldDXNHy6q4yv4>
+X-ME-Received: <xmr:GDxyY7yxMZ5ow8sNJgf_3aPEnEuW80Mt2pVDQYkj296tXf9i3oXR2JTVcjVvIPfVHGqBz4FEIHqndZwLhKfTn25e3CQW80zzLAZQWxzDepWC4w>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrgedvgddvtdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpefhfffuggfgtgfkfhgjvfevofesthekredtredtjeenucfhrhhomhepofgrgihi
  mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
  htthgvrhhnpedvgfevjefhtdetveevhfelieeuueetgfdvgeevkeegudejffegfffgtedt
- leelhfenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ leelhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
  hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:ITxyYxTNACB69q-SkGfGzxNWOPRx7jcLgMpowzNiZV7Exq8pxj6Dtw>
- <xmx:ITxyY9wNS_ssL5gBEpcJx8IMeMpcG2AwhvZvSspxyu7_PA0EOsS3wQ>
- <xmx:ITxyY_4qH31DR-jTUYtBKGZjslrZ8rnlZRg45zO8xG0qrXVupG3hRw>
- <xmx:IjxyY9fCB14l4glql5RELDM_wClADms2Mr8b6XObtYXv5LvloJXGxw>
+X-ME-Proxy: <xmx:GDxyYzMBCydT2_BwtwtCR_9j3DqEdYqtt6hNnx6XpyE6insKC7GSnw>
+ <xmx:GDxyYw8ZCxS4wINI2KmMqhMdTMDpkPJQEbwfPOtNACBLassp3aXm-Q>
+ <xmx:GDxyY7XB9x3L_Do-gLgtprJCUuHFVGsVSP5S8J63ToJvg71cn5ABmA>
+ <xmx:GDxyY0Kq7BICzU0f7TvlTHvU5QxhT_6HyHw5_opySSh9hhdXR58hKg>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Nov 2022 08:01:21 -0500 (EST)
+ 14 Nov 2022 08:01:11 -0500 (EST)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Mon, 14 Nov 2022 14:00:41 +0100
+Date: Mon, 14 Nov 2022 14:00:36 +0100
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20220728-rpi-analog-tv-properties-v9-22-24b168e5bcd5@cerno.tech>
+Message-Id: <20220728-rpi-analog-tv-properties-v9-17-24b168e5bcd5@cerno.tech>
 References: <20220728-rpi-analog-tv-properties-v9-0-24b168e5bcd5@cerno.tech>
 In-Reply-To: <20220728-rpi-analog-tv-properties-v9-0-24b168e5bcd5@cerno.tech>
 To: Maxime Ripard <mripard@kernel.org>, Karol Herbst <kherbst@redhat.com>,
@@ -81,15 +81,14 @@ To: Maxime Ripard <mripard@kernel.org>, Karol Herbst <kherbst@redhat.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
  David Airlie <airlied@linux.ie>, Jernej Skrabec <jernej.skrabec@gmail.com>
 X-Mailer: b4 0.11.0-dev-99e3a
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2521; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=xGuY59ue5mTuW32jOv4byPdvEF6n1fh55OhQYU6xR1w=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMlF1m8OSR35sKTRv/738T0S7nMOWuz8XXpUUeMEnwKv8rJf
- FxODO0pZGMS4GGTFFFlihM2XxJ2a9bqTjW8ezBxWJpAhDFycAjARZzZGhm11Djm7crJE2bY9ey50kT
- Hyy6wrobtWHdn508zT7rC14X1GhiuXdqe9tXtZ4Jm5qq29cb7nithf2q2zDpa33wi9ePPsG3YA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2971; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=OCASaZ5ypeWqDlW0Op+nk7Cu54z43oCV4OVNt9wlZv4=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDMlF1m9OHF1gFKNTG7/map5uYenzWd8ktCfOfPXw5mLZxdMd
+ 1h791lHKwiDGxSArpsgSI2y+JO7UrNedbHzzYOawMoEMYeDiFICJFP9mZJiys7P3WGk6d+KXXIYjDz
+ c818lrNTtZ4iW/UiLuu56Wwg1Ghit/alOrvDncsyyV/3zWbRV77rj04KeuIxIV91sZlCaf5AUA
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
-Subject: [Intel-gfx] [PATCH v9 22/25] drm/vc4: vec: Check for VEC output
- constraints
+Subject: [Intel-gfx] [PATCH v9 17/25] drm/modes: Introduce more named modes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,95 +105,72 @@ Cc: Dom Cobley <dom@raspberrypi.com>, Dave Stevenson <dave.stevenson@raspberrypi
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Now that we can easily extend the named modes list, let's add a few more
+analog TV modes that were used in the wild, and some unit tests to make
+sure it works as intended.
 
-The VEC can accept pretty much any relatively reasonable mode, but still
-has a bunch of constraints to meet.
-
-Let's create an atomic_check() implementation that will make sure we
-don't end up accepting a non-functional mode.
-
-Acked-by: Noralf Trønnes <noralf@tronnes.org>
-Signed-off-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
+Reviewed-by: Noralf Trønnes <noralf@tronnes.org>
 Tested-by: Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 
 ---
+Changes in v9:
+- Document the new supported names
 
 Changes in v6:
-- Used htotal instead of vtotal to discriminate PAL against NTSC
----
- drivers/gpu/drm/vc4/vc4_vec.c | 50 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+- Renamed the tests to follow DRM test naming convention
 
-diff --git a/drivers/gpu/drm/vc4/vc4_vec.c b/drivers/gpu/drm/vc4/vc4_vec.c
-index 90e375a8a8f9..bfa8a58dba30 100644
---- a/drivers/gpu/drm/vc4/vc4_vec.c
-+++ b/drivers/gpu/drm/vc4/vc4_vec.c
-@@ -453,6 +453,7 @@ static int vc4_vec_encoder_atomic_check(struct drm_encoder *encoder,
- 					struct drm_crtc_state *crtc_state,
- 					struct drm_connector_state *conn_state)
- {
-+	const struct drm_display_mode *mode = &crtc_state->adjusted_mode;
- 	const struct vc4_vec_tv_mode *vec_mode;
+Changes in v5:
+- Switched to KUNIT_ASSERT_NOT_NULL
+---
+ Documentation/fb/modedb.rst                     | 3 +++
+ drivers/gpu/drm/drm_modes.c                     | 2 ++
+ drivers/gpu/drm/tests/drm_client_modeset_test.c | 2 ++
+ 3 files changed, 7 insertions(+)
+
+diff --git a/Documentation/fb/modedb.rst b/Documentation/fb/modedb.rst
+index bebfe61caa77..bb2889c6ea27 100644
+--- a/Documentation/fb/modedb.rst
++++ b/Documentation/fb/modedb.rst
+@@ -29,7 +29,10 @@ Things between square brackets are optional.
+ Valid names are::
  
- 	vec_mode = &vc4_vec_tv_modes[conn_state->tv.legacy_mode];
-@@ -461,6 +462,55 @@ static int vc4_vec_encoder_atomic_check(struct drm_encoder *encoder,
- 	    !drm_mode_equal(vec_mode->mode, &crtc_state->adjusted_mode))
- 		return -EINVAL;
+   - NSTC: 480i output, with the CCIR System-M TV mode and NTSC color encoding
++  - NTSC-J: 480i output, with the CCIR System-M TV mode, the NTSC color
++    encoding, and a black level equal to the blanking level.
+   - PAL: 576i output, with the CCIR System-B TV mode and PAL color encoding
++  - PAL-M: 480i output, with the CCIR System-M TV mode and PAL color encoding
  
-+	if (mode->crtc_hdisplay % 4)
-+		return -EINVAL;
-+
-+	if (!(mode->crtc_hsync_end - mode->crtc_hsync_start))
-+		return -EINVAL;
-+
-+	switch (mode->htotal) {
-+	/* NTSC */
-+	case 858:
-+		if (mode->crtc_vtotal > 262)
-+			return -EINVAL;
-+
-+		if (mode->crtc_vdisplay < 1 || mode->crtc_vdisplay > 253)
-+			return -EINVAL;
-+
-+		if (!(mode->crtc_vsync_start - mode->crtc_vdisplay))
-+			return -EINVAL;
-+
-+		if ((mode->crtc_vsync_end - mode->crtc_vsync_start) != 3)
-+			return -EINVAL;
-+
-+		if ((mode->crtc_vtotal - mode->crtc_vsync_end) < 4)
-+			return -EINVAL;
-+
-+		break;
-+
-+	/* PAL/SECAM */
-+	case 864:
-+		if (mode->crtc_vtotal > 312)
-+			return -EINVAL;
-+
-+		if (mode->crtc_vdisplay < 1 || mode->crtc_vdisplay > 305)
-+			return -EINVAL;
-+
-+		if (!(mode->crtc_vsync_start - mode->crtc_vdisplay))
-+			return -EINVAL;
-+
-+		if ((mode->crtc_vsync_end - mode->crtc_vsync_start) != 3)
-+			return -EINVAL;
-+
-+		if ((mode->crtc_vtotal - mode->crtc_vsync_end) < 2)
-+			return -EINVAL;
-+
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+
- 	return 0;
- }
+ If 'M' is specified in the mode_option argument (after <yres> and before
+ <bpp> and <refresh>, if specified) the timings will be calculated using
+diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+index d3f0a3559812..855569a269b8 100644
+--- a/drivers/gpu/drm/drm_modes.c
++++ b/drivers/gpu/drm/drm_modes.c
+@@ -2272,7 +2272,9 @@ struct drm_named_mode {
  
+ static const struct drm_named_mode drm_named_modes[] = {
+ 	NAMED_MODE("NTSC", 13500, 720, 480, DRM_MODE_FLAG_INTERLACE, DRM_MODE_TV_MODE_NTSC),
++	NAMED_MODE("NTSC-J", 13500, 720, 480, DRM_MODE_FLAG_INTERLACE, DRM_MODE_TV_MODE_NTSC_J),
+ 	NAMED_MODE("PAL", 13500, 720, 576, DRM_MODE_FLAG_INTERLACE, DRM_MODE_TV_MODE_PAL),
++	NAMED_MODE("PAL-M", 13500, 720, 480, DRM_MODE_FLAG_INTERLACE, DRM_MODE_TV_MODE_PAL_M),
+ };
+ 
+ static int drm_mode_parse_cmdline_named_mode(const char *name,
+diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gpu/drm/tests/drm_client_modeset_test.c
+index 497434cc56cd..f2e18392a953 100644
+--- a/drivers/gpu/drm/tests/drm_client_modeset_test.c
++++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c
+@@ -151,7 +151,9 @@ static void drm_test_pick_cmdline_named(struct kunit *test)
+ static const
+ struct drm_connector_pick_cmdline_mode_test drm_connector_pick_cmdline_mode_tests[] = {
+ 	TEST_CMDLINE("NTSC", drm_mode_analog_ntsc_480i),
++	TEST_CMDLINE("NTSC-J", drm_mode_analog_ntsc_480i),
+ 	TEST_CMDLINE("PAL", drm_mode_analog_pal_576i),
++	TEST_CMDLINE("PAL-M", drm_mode_analog_ntsc_480i),
+ };
+ 
+ static void
 
 -- 
 b4 0.11.0-dev-99e3a
