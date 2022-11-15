@@ -4,87 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB5A4C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 09:15:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F358C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 15 Nov 2022 09:30:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A78CC10E39E;
-	Tue, 15 Nov 2022 09:15:26 +0000 (UTC)
-Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
- [64.147.123.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FAA710E394;
- Tue, 15 Nov 2022 09:14:49 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.west.internal (Postfix) with ESMTP id A6BA22B067C0;
- Tue, 15 Nov 2022 04:14:44 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 15 Nov 2022 04:14:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm2; t=1668503684; x=
- 1668510884; bh=rX6lrK/x7gDl8linFFM/07jMaoEnPN855bl+cIeyljk=; b=T
- Xj2jzI7QnI0osu1B+sWSrMGwTpF47O+nhxAQcg7NhyKs3uhIjc5cryNlZPCfRSij
- m9d6kRJgfYqIA2lGec8DhGVzfmtBiGwcvQzAQgCO5kphVceAB7MtlRjlnmfxRRbJ
- uTDlyc66ll8y9dwJHUJQISKY+BryhVW8TmyRGJTtlTwabRCuCTVG0GJnTzHOK3P1
- A3adjc0GJCmCjGEBMoIyxtl+68seN++MYp+Si8NIPBd/jS205tuWe+PydYZnvV9Z
- pEM9iNyBY/zKBsjCwA7EL9ExXrMKHeWNl9MjWaDpiltDB9Z0OvUNUQyKqUlzTmuQ
- jfdNebdMyuo4WMAD2cWSg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668503684; x=
- 1668510884; bh=rX6lrK/x7gDl8linFFM/07jMaoEnPN855bl+cIeyljk=; b=l
- DqFYH+3EyRt1M4W7g8IBE0Dm4Kh62WjM2Ml93S/48umyWWbCpDcv6YFD1MxhPPCa
- nOJ4KK5uSGcFKqs8GIkBwkToph/hb+aNYn7eiXNI+GqC5N40h8/Ng6i/zirOtTGe
- vxnxXvpHFb8ZiSto0Bz8UDc+Ry3kBGiYhP2C21gIixLrbVph2z/3IXl7iTmjPiAa
- BcPXoKvGI/trsu8B2oGECNNjDAkCTo302ilm2R2B+Oc4bELbki8BcRI7/K8/L145
- qERuGGumfhHZs580vi9EH1Q/Rxgxf4tusM3A4gx0DsdJQzhSam/GIA1+SQ+H2F3C
- zftrusCwuRMM3FdmV/wrQ==
-X-ME-Sender: <xms:hFhzY_B47SVCE9gqxoksbZDaxVUbybACP4ODcspiMKANX22GEz4IGQ>
- <xme:hFhzY1g6-mX1ck9fVP66fj7NO07laOX8r21kgHiHmeuEMdVeg2mn7IyxhxiKWi8A_
- syAUraRRVzlO4rTtAc>
-X-ME-Received: <xmr:hFhzY6k_dkzdAugRxpjJtizDsOZ4Tvem2OPHmLMruWa5IamwO99RyAxxcfH_0ALuRr-DwJtAV3egHuFGAYz0MbwYL9xbxGDZc-dzGM2KW3_OZw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrgeeggddtvdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefhvfevjghfuffkffggtgfgofesthekredtredtjeenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeeifeeigeelhfehkeeltdetjeetueelteeuveekueevffduhefffefhhfeh
- gfehieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:hFhzYxxdOk4NL8lEutlwKveBMJpXb70JqqlRMTR0FI4gb6sgbaSDBQ>
- <xmx:hFhzY0SRlBhw-d67HNybjafm-8FlBFtC-B-1QPaHk1vP5uWnd67y4A>
- <xmx:hFhzY0aOW1VNaOpd0mdnaIj3M7rGT5LS7du-LOgi0snX_DuEsx246w>
- <xmx:hFhzY7td-SSRFOZderR4oS-sQsmlkUpsPdp057MwbopzQb8C1ai87N_MD3k>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Nov 2022 04:14:43 -0500 (EST)
-From: Maxime Ripard <maxime@cerno.tech>
-To: Maxime Ripard <maxime@cerno.tech>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter <daniel@ffwll.ch>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, Samuel Holland <samuel@sholland.org>,
- Chen-Yu Tsai <wens@csie.org>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>, 
- Karol Herbst <kherbst@redhat.com>, Maxime Ripard <mripard@kernel.org>,
- Emma Anholt <emma@anholt.net>, Lyude Paul <lyude@redhat.com>
-In-Reply-To: <20220728-rpi-analog-tv-properties-v9-11-24b168e5bcd5@cerno.tech>
-References: <20220728-rpi-analog-tv-properties-v9-0-24b168e5bcd5@cerno.tech>
- <20220728-rpi-analog-tv-properties-v9-11-24b168e5bcd5@cerno.tech>
-Message-Id: <166850359897.1237314.11879970127406356499.b4-ty@cerno.tech>
-Date: Tue, 15 Nov 2022 10:13:18 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8059F10E38A;
+	Tue, 15 Nov 2022 09:30:12 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8523310E38A;
+ Tue, 15 Nov 2022 09:30:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1668504607; x=1700040607;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=QLoXPsN6jGdeW7RcfVk92vFA77fuSIu7j6t5T7QL2HI=;
+ b=ZUf2FshTjp1ygnMJIDhewf37+e5/uIVryQMpL1gYw2GBEGcx3CA4linc
+ 08K/u1hqZJFyoTmrUpXeBfNkfDNiTcFZYGQVRQybrEqAjZoWKi25sugpc
+ Hi+R+EFaQzNA4J/iZCz10wDvAt3IEB3HPWeCsOanUgbfUXP6qq9EDSuJG
+ Xc8+c5JHe5yOIfx5I6E88QU++RFJhv5JEhJpKNZnMBH/Jy1NTIi3ZUMF/
+ PjkUMCSVYSC652NYXaUyNv0j1xb9Yx6WFv4zz2uJD84w0++Bsy90VLZRC
+ DvjKvSkTa+FWLi6c7rHyFPDITDZ09GpsS8DPKS2BJV8/HnPgafg/nHfLe w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="312212471"
+X-IronPort-AV: E=Sophos;i="5.96,165,1665471600"; d="scan'208";a="312212471"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2022 01:30:06 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10531"; a="633174472"
+X-IronPort-AV: E=Sophos;i="5.96,165,1665471600"; d="scan'208";a="633174472"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.26.97])
+ ([10.213.26.97])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2022 01:30:03 -0800
+Message-ID: <60b5de09-7a3c-3a61-a7a2-a856c8be108e@intel.com>
+Date: Tue, 15 Nov 2022 10:30:01 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.4.2
+Content-Language: en-US
+To: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ DRI Development <dri-devel@lists.freedesktop.org>
+References: <20210713135922.1384264-1-daniel.vetter@ffwll.ch>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20210713135922.1384264-1-daniel.vetter@ffwll.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.10.1
-Subject: Re: [Intel-gfx] (subset) [PATCH v9 11/25] drm/modes: Fill
- drm_cmdline mode from named modes
+Subject: Re: [Intel-gfx] [PATCH] drm/fb-helper: Try to protect cleanup
+ against delayed setup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,22 +64,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dom Cobley <dom@raspberrypi.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev, Hans de Goede <hdegoede@redhat.com>, Noralf Tr��nnes <noralf@tronnes.org>, Geert Uytterhoeven <geert@linux-m68k.org>, Mateusz Kwiatkowski <kfyatek+publicgit@gmail.com>, Phil Elwell <phil@raspberrypi.com>, linux-arm-kernel@lists.infradead.org
+Cc: David Airlie <airlied@linux.ie>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maxime Ripard <mripard@kernel.org>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 14 Nov 2022 14:00:30 +0100, Maxime Ripard wrote:
-> The current code to deal with named modes will only set the mode name, and
-> then it's up to drivers to try to match that name to whatever mode or
-> configuration they see fit.
+On 13.07.2021 15:59, Daniel Vetter wrote:
+> Some vague evidences suggests this can go wrong. Try to prevent it by
+> holding the right mutex and clearing ->deferred_setup to make sure we
+> later on don't accidentally try to re-register the fbdev when the
+> driver thought it had it all cleaned up already.
 > 
-> The plan is to remove that need and move the named mode handling out of
-> drivers and into the core, and only rely on modes and properties. Let's
-> start by properly filling drm_cmdline_mode from a named mode.
+> v2: I realized that this is fundamentally butchered, and CI complained
+> about lockdep splats. So limit the critical section again and just add
+> a few notes what the proper fix is.
 > 
-> [...]
+> References: https://intel-gfx-ci.01.org/tree/linux-next/next-20201215/fi-byt-j1900/igt@i915_pm_rpm@module-reload.html
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
 
-Applied to drm/drm-misc (drm-misc-next).
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 
-Thanks!
-Maxime
+Regards
+Andrzej
+
+> ---
+>   drivers/gpu/drm/drm_fb_helper.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index 9d82fda274eb..8f11e5abb222 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -598,6 +598,9 @@ EXPORT_SYMBOL(drm_fb_helper_alloc_fbi);
+>    * A wrapper around unregister_framebuffer, to release the fb_info
+>    * framebuffer device. This must be called before releasing all resources for
+>    * @fb_helper by calling drm_fb_helper_fini().
+> + *
+> + * Note that this is fundamentally racy on hotunload because it doen't handle
+> + * open fbdev file descriptors at all. Use drm_fbdev_generic_setup() instead.
+>    */
+>   void drm_fb_helper_unregister_fbi(struct drm_fb_helper *fb_helper)
+>   {
+> @@ -611,6 +614,9 @@ EXPORT_SYMBOL(drm_fb_helper_unregister_fbi);
+>    * @fb_helper: driver-allocated fbdev helper, can be NULL
+>    *
+>    * This cleans up all remaining resources associated with @fb_helper.
+> + *
+> + * Note that this is fundamentally racy on hotunload because it doen't handle
+> + * open fbdev file descriptors at all. Use drm_fbdev_generic_setup() instead.
+>    */
+>   void drm_fb_helper_fini(struct drm_fb_helper *fb_helper)
+>   {
+> @@ -2382,6 +2388,10 @@ static void drm_fbdev_client_unregister(struct drm_client_dev *client)
+>   {
+>   	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+>   
+> +	mutex_lock(&fb_helper->lock);
+> +	fb_helper->deferred_setup = false;
+> +	mutex_unlock(&fb_helper->lock);
+> +
+>   	if (fb_helper->fbdev)
+>   		/* drm_fbdev_fb_destroy() takes care of cleanup */
+>   		drm_fb_helper_unregister_fbi(fb_helper);
+
