@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5845C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 14:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 796BEC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 14:49:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F9F910E364;
-	Wed, 16 Nov 2022 14:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D13310E4BE;
+	Wed, 16 Nov 2022 14:49:57 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3835710E4BE
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 14:49:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CAEC10E4BC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 14:49:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668610184; x=1700146184;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=6XDzJoefW5QQXpXxIBGugVQ+EpZ9SkVsEKyqurMEvCk=;
- b=O5wZp1VO+hxbPc7t8Hr4srHyXhWolUyMcD/hlAK9KK9Xtb3JVNs5nQe+
- Qk0eeDi3k9pkgxkSrtmQT8jpohSR97KPTBTKHT/Axk5jjg2RHhBj4oW94
- 7YkaE26lZsCA8uGqiE36Eeegab2sM3OjKVRvx9oexNCsqRIoJ0Y5/uPzm
- MajBXc/D6zk4eC0fQq6SwFnKgp4HSWlDxBZDZfBMMojmBWJ4i4OvLrCjT
- USYNAhRFJm9GinrjN6S26hSQY9hRDMwQ8gpxQ90PiOZPW6O1d0y60VoXh
- TV6Gz0gRmfAs8TE6yb99dq4KG0+rRgFTLXAdijZXu18nS13MGz6Z5w9PX A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10532"; a="374693506"
-X-IronPort-AV: E=Sophos;i="5.96,167,1665471600"; d="scan'208";a="374693506"
+ t=1668610186; x=1700146186;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=RDYtGO1k2oaAKF2nDVVHNqs69ZY1Jk2dWznNAxVj/wI=;
+ b=dcPTNfM8jDJ7L+tU/TirryKGbnAbu8O507en5eM95pKqNkNnD2AtlZ6e
+ 0RrMVKve0JNiF9bbfEDmb5YLLDCHnJpSo26j2fx6hWZwp5k3rK0mh4SdF
+ Jao+8/qy/HqHxyEnjUySmjLUhyvgJLSNvSwNvn2YL6rSZATJEfyf+bhaF
+ fLVD0HGpw3krQfDuj9fEFhgALO9oLS97nnLQTtXay5y+k7LHnJnmdpj/L
+ g5zpvRWb4GIAvbaw5L8DR8j+gs4X4VXJkQIu565s0t6aJyRb14RA1AAUq
+ U+BdyBRi4Usae9wlX81kMmPfY7bSYJT9/Gbf59/4Xcb80kCzx4IPbfxxA g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10532"; a="374693515"
+X-IronPort-AV: E=Sophos;i="5.96,167,1665471600"; d="scan'208";a="374693515"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2022 06:49:43 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10532"; a="814107945"
-X-IronPort-AV: E=Sophos;i="5.96,167,1665471600"; d="scan'208";a="814107945"
+ 16 Nov 2022 06:49:45 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10532"; a="814107960"
+X-IronPort-AV: E=Sophos;i="5.96,167,1665471600"; d="scan'208";a="814107960"
 Received: from kpalaniv-mobl2.amr.corp.intel.com (HELO
  anushasr-mobl7.intel.com) ([10.209.77.201])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2022 06:49:43 -0800
+ 16 Nov 2022 06:49:45 -0800
 From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Nov 2022 06:50:06 -0800
-Message-Id: <20221116145008.556381-1-anusha.srivatsa@intel.com>
+Date: Wed, 16 Nov 2022 06:50:08 -0800
+Message-Id: <20221116145008.556381-3-anusha.srivatsa@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221116145008.556381-1-anusha.srivatsa@intel.com>
+References: <20221116145008.556381-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915/display: Add missing checks for
- cdclk crawling
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/display: Add CDCLK Support for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,62 +60,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-cdclk_sanitize() function was written assuming vco was a signed integer.
-vco gets assigned to -1 (essentially ~0) for the case where PLL
-might be enabled and vco is not a frequency that will ever
-get used. In such a scenario the right thing to do is disable the
-PLL and re-enable it again with a valid frequency.
-However the vco is declared as a unsigned variable.
-With the above assumption, driver takes crawl path when not needed.
-Add explicit check to not crawl in the case of an invalid PLL.
+As per bSpec MTL has 38.4 MHz Reference clock.
+Adding the cdclk tables and cdclk_funcs that MTL
+will use.
 
-v2: Move the check from .h to .c (MattR)
-- Move check to bxt_set_cdclk() instead of
-intel_modeset_calc_cdclk() which is directly in
-the path of the sanitize() function (Ville)
+v2: Revert to using bxt_get_cdclk()
 
-v3: remove unwanted parenthesis(Ville)
+BSpec: 65243
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Clint Taylor <Clinton.A.Taylor@intel.com>
 Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Clint Taylor <Clinton.A.Taylor@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index b74e36d76013..25d01271dc09 100644
+index 6e122d56428c..6694e83287d9 100644
 --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
 +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1717,6 +1717,16 @@ static void dg2_cdclk_squash_program(struct drm_i915_private *i915,
- 	intel_de_write(i915, CDCLK_SQUASH_CTL, squash_ctl);
+@@ -1346,6 +1346,16 @@ static const struct intel_cdclk_vals dg2_cdclk_table[] = {
+ 	{}
+ };
+ 
++static const struct intel_cdclk_vals mtl_cdclk_table[] = {
++	{ .refclk = 38400, .cdclk = 172800, .divider = 2, .ratio = 16, .waveform = 0xad5a },
++	{ .refclk = 38400, .cdclk = 192000, .divider = 2, .ratio = 16, .waveform = 0xb6b6 },
++	{ .refclk = 38400, .cdclk = 307200, .divider = 2, .ratio = 16, .waveform = 0x0000 },
++	{ .refclk = 38400, .cdclk = 480000, .divider = 2, .ratio = 25, .waveform = 0x0000 },
++	{ .refclk = 38400, .cdclk = 556800, .divider = 2, .ratio = 29, .waveform = 0x0000 },
++	{ .refclk = 38400, .cdclk = 652800, .divider = 2, .ratio = 34, .waveform = 0x0000 },
++	{}
++};
++
+ static int bxt_calc_cdclk(struct drm_i915_private *dev_priv, int min_cdclk)
+ {
+ 	const struct intel_cdclk_vals *table = dev_priv->display.cdclk.table;
+@@ -3184,6 +3194,13 @@ u32 intel_read_rawclk(struct drm_i915_private *dev_priv)
+ 	return freq;
  }
  
-+static bool cdclk_pll_is_unknown(unsigned int vco)
-+{
-+	/*
-+	 * Ensure driver does not take the crawl path for the
-+	 * case when the vco is set to ~0 in the
-+	 * sanitize path.
-+	 */
-+	return vco == ~0;
-+}
++static const struct intel_cdclk_funcs mtl_cdclk_funcs = {
++	.get_cdclk = bxt_get_cdclk,
++	.set_cdclk = bxt_set_cdclk,
++	.modeset_calc_cdclk = bxt_modeset_calc_cdclk,
++	.calc_voltage_level = tgl_calc_voltage_level,
++};
 +
- static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 			  const struct intel_cdclk_config *cdclk_config,
- 			  enum pipe pipe)
-@@ -1749,7 +1759,8 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 		return;
- 	}
- 
--	if (HAS_CDCLK_CRAWL(dev_priv) && dev_priv->display.cdclk.hw.vco > 0 && vco > 0) {
-+	if (HAS_CDCLK_CRAWL(dev_priv) && dev_priv->display.cdclk.hw.vco > 0 && vco > 0 &&
-+	    !cdclk_pll_is_unknown(dev_priv->display.cdclk.hw.vco)) {
- 		if (dev_priv->display.cdclk.hw.vco != vco)
- 			adlp_cdclk_pll_crawl(dev_priv, vco);
- 	} else if (DISPLAY_VER(dev_priv) >= 11)
+ static const struct intel_cdclk_funcs tgl_cdclk_funcs = {
+ 	.get_cdclk = bxt_get_cdclk,
+ 	.set_cdclk = bxt_set_cdclk,
+@@ -3319,7 +3336,10 @@ static const struct intel_cdclk_funcs i830_cdclk_funcs = {
+  */
+ void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
+ {
+-	if (IS_DG2(dev_priv)) {
++	if (IS_METEORLAKE(dev_priv)) {
++		dev_priv->display.funcs.cdclk = &mtl_cdclk_funcs;
++		dev_priv->display.cdclk.table = mtl_cdclk_table;
++	} else if (IS_DG2(dev_priv)) {
+ 		dev_priv->display.funcs.cdclk = &tgl_cdclk_funcs;
+ 		dev_priv->display.cdclk.table = dg2_cdclk_table;
+ 	} else if (IS_ALDERLAKE_P(dev_priv)) {
 -- 
 2.25.1
 
