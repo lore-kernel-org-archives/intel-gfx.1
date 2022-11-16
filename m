@@ -4,30 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DCCAC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 21:49:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C432C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 21:50:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FEED10E4ED;
-	Wed, 16 Nov 2022 21:49:24 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id EF3F110E4EB;
- Wed, 16 Nov 2022 21:49:20 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 739A7AA0ED;
- Wed, 16 Nov 2022 21:49:20 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1849775543338505485=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0973510E4ED;
+	Wed, 16 Nov 2022 21:50:20 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A025810E4FC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 21:50:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1668635417; x=1700171417;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=K24dmOqAnloHBf6Tk9sLo8ocKAF3DGTBzevxdEWqryE=;
+ b=CywRxVy/blVplD/1vOeFao1lsTnG7WuNmiHFkR0kAEgATdWOgxbnuFae
+ MB5sZ3jPwzRV3QrSU7fTXccgXgt1q5YCPlcrekkj6jrdaSmD0G/ruu2VU
+ YUApRzgteCJ4NtXTm4Sb43RULl0avRUABrz4wtByKJaYWaIlgAihBBMHA
+ PuH88jhmzfCUbGX5JD53Yw+vYQPqjrTN7SplDWRfa06bJ2bCvuUV9u6FE
+ GXiLF9magxGvfotK84LqqX0ym3gQ/VGULWC+8wAhFYJ0O2suoLoxi5frj
+ /Y0ct9mJ0sblq75GKzRrAkZux+R5HE8on5yTAh8hVvePgGJRjVY1DjscP g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10533"; a="339497816"
+X-IronPort-AV: E=Sophos;i="5.96,169,1665471600"; d="scan'208";a="339497816"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2022 13:50:14 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10533"; a="745235709"
+X-IronPort-AV: E=Sophos;i="5.96,169,1665471600"; d="scan'208";a="745235709"
+Received: from anushasr-mobl7.jf.intel.com ([10.24.14.52])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2022 13:50:13 -0800
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 16 Nov 2022 13:50:39 -0800
+Message-Id: <20221116215040.713104-2-anusha.srivatsa@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221116215040.713104-1-anusha.srivatsa@intel.com>
+References: <20221116215040.713104-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Alexander Usyskin" <alexander.usyskin@intel.com>
-Date: Wed, 16 Nov 2022 21:49:20 -0000
-Message-ID: <166863536043.29190.1643552093790149246@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20221116124735.2493847-1-alexander.usyskin@intel.com>
-In-Reply-To: <20221116124735.2493847-1-alexander.usyskin@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgbWVp?=
- =?utf-8?q?=3A_add_timeout_to_send_=28rev3=29?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915/display: Do both crawl and squash
+ when changing cdclk
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,302 +58,274 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1849775543338505485==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-== Series Details ==
+For MTL, changing cdclk from between certain frequencies has
+both squash and crawl. Use the current cdclk config and
+the new(desired) cdclk config to construct a mid cdclk config.
+Set the cdclk twice:
+- Current cdclk -> mid cdclk
+- mid cdclk -> desired cdclk
 
-Series: mei: add timeout to send (rev3)
-URL   : https://patchwork.freedesktop.org/series/110495/
-State : success
+Driver should not take some Pcode mailbox communication
+in the cdclk path for platforms that are Display version 14 and later.
 
-== Summary ==
+v2: Add check in intel_modeset_calc_cdclk() to avoid cdclk
+change via modeset for platforms that support squash_crawl sequences(Ville)
 
-CI Bug Log - changes from CI_DRM_12390 -> Patchwork_110495v3
-====================================================
+v3: Add checks for:
+- scenario where only slow clock is used and
+cdclk is actually 0 (bringing up display).
+- PLLs are on before looking up the waveform.
+- Squash and crawl capability checks.(Ville)
 
-Summary
--------
+v4: Rebase
+- Move checks to be more consistent (Ville)
+- Add comments (Bala)
+v5:
+- Further small changes. Move checks around.
+- Make if-else better looking (Ville)
 
-  **SUCCESS**
+v6: MTl should not follow PUnit mailbox communication as the rest of
+gen11+ platforms.(Anusha)
 
-  No regressions found.
+Cc: Clint Taylor <Clinton.A.Taylor@intel.com>
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 177 +++++++++++++++++----
+ 1 file changed, 146 insertions(+), 31 deletions(-)
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/index.html
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 25d01271dc09..ddbe94aac293 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -1727,37 +1727,77 @@ static bool cdclk_pll_is_unknown(unsigned int vco)
+ 	return vco == ~0;
+ }
+ 
+-static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+-			  const struct intel_cdclk_config *cdclk_config,
+-			  enum pipe pipe)
++static int cdclk_squash_divider(u16 waveform)
++{
++	return hweight16(waveform ?: 0xffff);
++}
++
++static bool cdclk_compute_crawl_and_squash_midpoint(struct drm_i915_private *i915,
++						    const struct intel_cdclk_config *old_cdclk_config,
++						    const struct intel_cdclk_config *new_cdclk_config,
++						    struct intel_cdclk_config *mid_cdclk_config)
++{
++	u16 old_waveform, new_waveform, mid_waveform;
++	int size = 16;
++	int div = 2;
++
++	drm_WARN_ON(&i915->drm, cdclk_pll_is_unknown(old_cdclk_config->vco));
++
++	/* Return if both Squash and Crawl are not present */
++	if (!HAS_CDCLK_CRAWL(i915) || !HAS_CDCLK_SQUASH(i915))
++		return false;
++
++	old_waveform = cdclk_squash_waveform(i915, old_cdclk_config->cdclk);
++	new_waveform = cdclk_squash_waveform(i915, new_cdclk_config->cdclk);
++
++	/* Return if Squash only or Crawl only is the desired action */
++	if (old_cdclk_config->vco == 0 || new_cdclk_config->vco == 0 ||
++	    old_cdclk_config->vco == new_cdclk_config->vco ||
++	    old_waveform == new_waveform)
++		return false;
++
++	*mid_cdclk_config = *new_cdclk_config;
++
++	/*
++	 * Populate the mid_cdclk_config accordingly.
++	 * - If moving to a higher cdclk, the desired action is squashing.
++	 * The mid cdclk config should have the new (squash) waveform.
++	 * - If moving to a lower cdclk, the desired action is crawling.
++	 * The mid cdclk config should have the new vco.
++	 */
++
++	if (cdclk_squash_divider(new_waveform) > cdclk_squash_divider(old_waveform)) {
++		mid_cdclk_config->vco = old_cdclk_config->vco;
++		mid_waveform = new_waveform;
++	} else {
++		mid_cdclk_config->vco = new_cdclk_config->vco;
++		mid_waveform = old_waveform;
++	}
++
++	mid_cdclk_config->cdclk = DIV_ROUND_CLOSEST(cdclk_squash_divider(mid_waveform) *
++						    mid_cdclk_config->vco, size * div);
++
++	/* make sure the mid clock came out sane */
++
++	drm_WARN_ON(&i915->drm, mid_cdclk_config->cdclk <
++		    min(old_cdclk_config->cdclk, new_cdclk_config->cdclk));
++	drm_WARN_ON(&i915->drm, mid_cdclk_config->cdclk >
++		    i915->display.cdclk.max_cdclk_freq);
++	drm_WARN_ON(&i915->drm, cdclk_squash_waveform(i915, mid_cdclk_config->cdclk) !=
++		    mid_waveform);
++
++	return true;
++}
++
++static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
++			   const struct intel_cdclk_config *cdclk_config,
++			   enum pipe pipe)
+ {
+ 	int cdclk = cdclk_config->cdclk;
+ 	int vco = cdclk_config->vco;
+ 	u32 val;
+ 	u16 waveform;
+ 	int clock;
+-	int ret;
+-
+-	/* Inform power controller of upcoming frequency change. */
+-	if (DISPLAY_VER(dev_priv) >= 11)
+-		ret = skl_pcode_request(&dev_priv->uncore, SKL_PCODE_CDCLK_CONTROL,
+-					SKL_CDCLK_PREPARE_FOR_CHANGE,
+-					SKL_CDCLK_READY_FOR_CHANGE,
+-					SKL_CDCLK_READY_FOR_CHANGE, 3);
+-	else
+-		/*
+-		 * BSpec requires us to wait up to 150usec, but that leads to
+-		 * timeouts; the 2ms used here is based on experiment.
+-		 */
+-		ret = snb_pcode_write_timeout(&dev_priv->uncore,
+-					      HSW_PCODE_DE_WRITE_FREQ_REQ,
+-					      0x80000000, 150, 2);
+-	if (ret) {
+-		drm_err(&dev_priv->drm,
+-			"Failed to inform PCU about cdclk change (err %d, freq %d)\n",
+-			ret, cdclk);
+-		return;
+-	}
+ 
+ 	if (HAS_CDCLK_CRAWL(dev_priv) && dev_priv->display.cdclk.hw.vco > 0 && vco > 0 &&
+ 	    !cdclk_pll_is_unknown(dev_priv->display.cdclk.hw.vco)) {
+@@ -1793,11 +1833,62 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 
+ 	if (pipe != INVALID_PIPE)
+ 		intel_crtc_wait_for_next_vblank(intel_crtc_for_pipe(dev_priv, pipe));
++}
++
++static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
++			  const struct intel_cdclk_config *cdclk_config,
++			  enum pipe pipe)
++{
++	struct intel_cdclk_config mid_cdclk_config;
++	int cdclk = cdclk_config->cdclk;
++	int ret = 0;
+ 
+-	if (DISPLAY_VER(dev_priv) >= 11) {
++	/*
++	 * Inform power controller of upcoming frequency change.
++	 * Display versions 14 and beyond do not follow the PUnit
++	 * mailbox communication, skip
++	 * this step.
++	 */
++	if (DISPLAY_VER(dev_priv) >= 14)
++		/* NOOP */;
++	else if (DISPLAY_VER(dev_priv) >= 11)
++		ret = skl_pcode_request(&dev_priv->uncore, SKL_PCODE_CDCLK_CONTROL,
++					SKL_CDCLK_PREPARE_FOR_CHANGE,
++					SKL_CDCLK_READY_FOR_CHANGE,
++					SKL_CDCLK_READY_FOR_CHANGE, 3);
++	else
++		/*
++		 * BSpec requires us to wait up to 150usec, but that leads to
++		 * timeouts; the 2ms used here is based on experiment.
++		 */
++		ret = snb_pcode_write_timeout(&dev_priv->uncore,
++					      HSW_PCODE_DE_WRITE_FREQ_REQ,
++					      0x80000000, 150, 2);
++
++	if (ret) {
++		drm_err(&dev_priv->drm,
++			"Failed to inform PCU about cdclk change (err %d, freq %d)\n",
++			ret, cdclk);
++		return;
++	}
++
++	if (cdclk_compute_crawl_and_squash_midpoint(dev_priv, &dev_priv->display.cdclk.hw,
++						    cdclk_config, &mid_cdclk_config)) {
++		_bxt_set_cdclk(dev_priv, &mid_cdclk_config, pipe);
++		_bxt_set_cdclk(dev_priv, cdclk_config, pipe);
++	} else {
++		_bxt_set_cdclk(dev_priv, cdclk_config, pipe);
++	}
++
++	if (DISPLAY_VER(dev_priv) >= 14)
++		/*
++		 * NOOP - No Pcode communication needed for
++		 * Display versions 14 and beyond
++		 */;
++	else if (DISPLAY_VER(dev_priv) >= 11)
+ 		ret = snb_pcode_write(&dev_priv->uncore, SKL_PCODE_CDCLK_CONTROL,
+ 				      cdclk_config->voltage_level);
+-	} else {
++	else
+ 		/*
+ 		 * The timeout isn't specified, the 2ms used here is based on
+ 		 * experiment.
+@@ -1808,7 +1899,6 @@ static void bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 					      HSW_PCODE_DE_WRITE_FREQ_REQ,
+ 					      cdclk_config->voltage_level,
+ 					      150, 2);
+-	}
+ 
+ 	if (ret) {
+ 		drm_err(&dev_priv->drm,
+@@ -1965,6 +2055,26 @@ void intel_cdclk_uninit_hw(struct drm_i915_private *i915)
+ 		skl_cdclk_uninit_hw(i915);
+ }
+ 
++static bool intel_cdclk_can_crawl_and_squash(struct drm_i915_private *i915,
++					     const struct intel_cdclk_config *a,
++					     const struct intel_cdclk_config *b)
++{
++	u16 old_waveform;
++	u16 new_waveform;
++
++	if (a->vco == 0 || b->vco == 0)
++		return false;
++
++	if (!HAS_CDCLK_CRAWL(i915) || !HAS_CDCLK_SQUASH(i915))
++		return false;
++
++	old_waveform = cdclk_squash_waveform(i915, a->cdclk);
++	new_waveform = cdclk_squash_waveform(i915, b->cdclk);
++
++	return a->vco != b->vco &&
++	       old_waveform != new_waveform;
++}
++
+ static bool intel_cdclk_can_crawl(struct drm_i915_private *dev_priv,
+ 				  const struct intel_cdclk_config *a,
+ 				  const struct intel_cdclk_config *b)
+@@ -2771,9 +2881,14 @@ int intel_modeset_calc_cdclk(struct intel_atomic_state *state)
+ 			pipe = INVALID_PIPE;
+ 	}
+ 
+-	if (intel_cdclk_can_squash(dev_priv,
+-				   &old_cdclk_state->actual,
+-				   &new_cdclk_state->actual)) {
++	if (intel_cdclk_can_crawl_and_squash(dev_priv,
++					     &old_cdclk_state->actual,
++					     &new_cdclk_state->actual)) {
++		drm_dbg_kms(&dev_priv->drm,
++			    "Can change cdclk via crawling and squashing\n");
++	} else if (intel_cdclk_can_squash(dev_priv,
++					&old_cdclk_state->actual,
++					&new_cdclk_state->actual)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "Can change cdclk via squashing\n");
+ 	} else if (intel_cdclk_can_crawl(dev_priv,
+-- 
+2.25.1
 
-Participating hosts (41 -> 38)
-------------------------------
-
-  Additional (1): bat-atsm-1 
-  Missing    (4): bat-kbl-2 bat-jsl-3 bat-dg1-6 bat-dg1-5 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_110495v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - bat-adlp-4:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 similar issues
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@gem_render_tiled_blits@basic:
-    - fi-apl-guc:         [PASS][2] -> [INCOMPLETE][3] ([i915#7056])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12390/fi-apl-guc/igt@gem_render_tiled_blits@basic.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/fi-apl-guc/igt@gem_render_tiled_blits@basic.html
-
-  * igt@i915_pm_rps@basic-api:
-    - bat-adlp-4:         NOTRUN -> [SKIP][4] ([i915#6621])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@i915_pm_rps@basic-api.html
-
-  * igt@kms_chamelium@common-hpd-after-suspend:
-    - fi-hsw-4770:        NOTRUN -> [SKIP][5] ([fdo#109271] / [fdo#111827])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/fi-hsw-4770/igt@kms_chamelium@common-hpd-after-suspend.html
-    - bat-adlp-4:         NOTRUN -> [SKIP][6] ([fdo#111827])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@kms_chamelium@common-hpd-after-suspend.html
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc:
-    - bat-adlp-4:         NOTRUN -> [SKIP][7] ([i915#3546])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@kms_pipe_crc_basic@suspend-read-crc.html
-
-  * igt@prime_vgem@basic-userptr:
-    - bat-adlp-4:         NOTRUN -> [SKIP][8] ([fdo#109295] / [i915#3301] / [i915#3708])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@prime_vgem@basic-userptr.html
-
-  * igt@prime_vgem@basic-write:
-    - bat-adlp-4:         NOTRUN -> [SKIP][9] ([fdo#109295] / [i915#3291] / [i915#3708]) +2 similar issues
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@prime_vgem@basic-write.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_module_load@reload:
-    - {bat-rpls-2}:       [INCOMPLETE][10] ([i915#6434]) -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12390/bat-rpls-2/igt@i915_module_load@reload.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-rpls-2/igt@i915_module_load@reload.html
-
-  * igt@i915_pm_rpm@basic-pci-d3-state:
-    - bat-adlp-4:         [DMESG-WARN][12] ([i915#7077]) -> [PASS][13]
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12390/bat-adlp-4/igt@i915_pm_rpm@basic-pci-d3-state.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@i915_pm_rpm@basic-pci-d3-state.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-hsw-4770:        [INCOMPLETE][14] ([i915#4785]) -> [PASS][15]
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12390/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-
-  * igt@kms_pipe_crc_basic@nonblocking-crc@pipe-d-dp-2:
-    - {bat-dg2-11}:       [FAIL][16] -> [PASS][17]
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12390/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc@pipe-d-dp-2.html
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc@pipe-d-dp-2.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [fdo#109295]: https://bugs.freedesktop.org/show_bug.cgi?id=109295
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#1836]: https://gitlab.freedesktop.org/drm/intel/issues/1836
-  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
-  [i915#3282]: https://gitlab.freedesktop.org/drm/intel/issues/3282
-  [i915#3291]: https://gitlab.freedesktop.org/drm/intel/issues/3291
-  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
-  [i915#3546]: https://gitlab.freedesktop.org/drm/intel/issues/3546
-  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
-  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
-  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
-  [i915#4079]: https://gitlab.freedesktop.org/drm/intel/issues/4079
-  [i915#4083]: https://gitlab.freedesktop.org/drm/intel/issues/4083
-  [i915#4213]: https://gitlab.freedesktop.org/drm/intel/issues/4213
-  [i915#4258]: https://gitlab.freedesktop.org/drm/intel/issues/4258
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#4785]: https://gitlab.freedesktop.org/drm/intel/issues/4785
-  [i915#6077]: https://gitlab.freedesktop.org/drm/intel/issues/6077
-  [i915#6078]: https://gitlab.freedesktop.org/drm/intel/issues/6078
-  [i915#6093]: https://gitlab.freedesktop.org/drm/intel/issues/6093
-  [i915#6094]: https://gitlab.freedesktop.org/drm/intel/issues/6094
-  [i915#6106]: https://gitlab.freedesktop.org/drm/intel/issues/6106
-  [i915#6166]: https://gitlab.freedesktop.org/drm/intel/issues/6166
-  [i915#6434]: https://gitlab.freedesktop.org/drm/intel/issues/6434
-  [i915#6559]: https://gitlab.freedesktop.org/drm/intel/issues/6559
-  [i915#6621]: https://gitlab.freedesktop.org/drm/intel/issues/6621
-  [i915#6997]: https://gitlab.freedesktop.org/drm/intel/issues/6997
-  [i915#7056]: https://gitlab.freedesktop.org/drm/intel/issues/7056
-  [i915#7077]: https://gitlab.freedesktop.org/drm/intel/issues/7077
-  [i915#7355]: https://gitlab.freedesktop.org/drm/intel/issues/7355
-  [i915#7357]: https://gitlab.freedesktop.org/drm/intel/issues/7357
-  [i915#7358]: https://gitlab.freedesktop.org/drm/intel/issues/7358
-  [i915#7456]: https://gitlab.freedesktop.org/drm/intel/issues/7456
-  [i915#7535]: https://gitlab.freedesktop.org/drm/intel/issues/7535
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12390 -> Patchwork_110495v3
-
-  CI-20190529: 20190529
-  CI_DRM_12390: b7288a4715c68710aadbd63112b699356e8a2b65 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7062: 6539ea5fe17fce683133c45f07fac316593ee1f7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_110495v3: b7288a4715c68710aadbd63112b699356e8a2b65 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-f870a1aab343 mei: bus-fixup: change pxp mode only if message was sent
-5bb5237469d7 mei: add timeout to send
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/index.html
-
---===============1849775543338505485==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>mei: add timeout to send (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/110495/">https://patchwork.freedesktop.org/series/110495/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12390 -&gt; Patchwork_110495v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/index.html</p>
-<h2>Participating hosts (41 -&gt; 38)</h2>
-<p>Additional (1): bat-atsm-1 <br />
-  Missing    (4): bat-kbl-2 bat-jsl-3 bat-dg1-6 bat-dg1-5 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_110495v3 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_render_tiled_blits@basic:</p>
-<ul>
-<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12390/fi-apl-guc/igt@gem_render_tiled_blits@basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/fi-apl-guc/igt@gem_render_tiled_blits@basic.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7056">i915#7056</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rps@basic-api:</p>
-<ul>
-<li>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@i915_pm_rps@basic-api.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6621">i915#6621</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
-<ul>
-<li>
-<p>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/fi-hsw-4770/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>)</p>
-</li>
-<li>
-<p>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@suspend-read-crc:</p>
-<ul>
-<li>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@kms_pipe_crc_basic@suspend-read-crc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3546">i915#3546</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-userptr:</p>
-<ul>
-<li>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109295">fdo#109295</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3301">i915#3301</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-write:</p>
-<ul>
-<li>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@prime_vgem@basic-write.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109295">fdo#109295</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3291">i915#3291</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a>) +2 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_module_load@reload:</p>
-<ul>
-<li>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12390/bat-rpls-2/igt@i915_module_load@reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6434">i915#6434</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-rpls-2/igt@i915_module_load@reload.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rpm@basic-pci-d3-state:</p>
-<ul>
-<li>bat-adlp-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12390/bat-adlp-4/igt@i915_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7077">i915#7077</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-adlp-4/igt@i915_pm_rpm@basic-pci-d3-state.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12390/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4785">i915#4785</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@nonblocking-crc@pipe-d-dp-2:</p>
-<ul>
-<li>{bat-dg2-11}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12390/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc@pipe-d-dp-2.html">FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_110495v3/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc@pipe-d-dp-2.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12390 -&gt; Patchwork_110495v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12390: b7288a4715c68710aadbd63112b699356e8a2b65 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7062: 6539ea5fe17fce683133c45f07fac316593ee1f7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_110495v3: b7288a4715c68710aadbd63112b699356e8a2b65 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>f870a1aab343 mei: bus-fixup: change pxp mode only if message was sent<br />
-5bb5237469d7 mei: add timeout to send</p>
-
-</body>
-</html>
-
---===============1849775543338505485==--
