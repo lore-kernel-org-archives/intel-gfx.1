@@ -4,117 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEE21C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 12:25:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A885C433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Nov 2022 12:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A21A810E499;
-	Wed, 16 Nov 2022 12:25:49 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2068.outbound.protection.outlook.com [40.107.93.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6839310E499;
- Wed, 16 Nov 2022 12:25:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EmYG8tc7xCwL3OBYBIiDkl5WkcytDwM3PZcrUid6ICBkUSf6T4veKDbGOm0t9YWJuwen8Zt9k0r1g3MxUwPVnz7TBka9/dLJm0kUeU12ZFTEXp1I4NDYgicU7WEXtUa38TAGEqFodN8zhYe9K9gCUJYeI4LO9AHsP1WNAKO8ZgdyKjzaAqIShd0onAhy2l5Aj2mzO2JLgDayfy6frSjE/nIlXCEArWOj3O8XkY/T/s8beb9U/s2YeIF3Phapq/R6vtfjpleBLI9xKVfJ1Ww98tNtQYCzdelRZXUqyGSGpqwLXsseJcO6fCy8NKW8gvXTWhknEGgA7N/D7OWfwIBp8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nTwQQCLd7psUGdavOXZ29rL2B9wL0IjRuAFjeQWbn9E=;
- b=UHskdAeSN8pTnNR1GrtLVI3lRO/z806It44xUXyVlZmaV8yWsegPzry4CCiTzK5cS8ohqk6h3QWPuK2tkpIgwb/LzZ04tDV+UifN674AKcNqU4bPSeFaUuSB2FZxiHj6xT4fMU2wJ+uJEg5URhQt7gk5ClFP8YhmQbombBC6Bca9Xv0Aej70OvFw9dCBIRGp/28bWCUgHg5FG6Orm2CDPVm+OGYVUkxB4ahNhkYM+H2KFjX9lvU0a08wJSt9F0YokgmM2pqABN6FFuj7v/lCdwbeDME8w+GpWxxZFxW8wIsL5/NfzymzQ5K7T8rMb7yDlw2Y5yV4LGslwDT6s/QB4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nTwQQCLd7psUGdavOXZ29rL2B9wL0IjRuAFjeQWbn9E=;
- b=iNVSTSWByTPXhjEnOwrLtkVuf/K7LDE5yGKQ/qh4RNH8Nub+Ic2jPZpIiJVlieYbP/3Zb8aApNgvBogrSYLOfHPgDws/b9zY6A60uDPKKd01vTrUk9m7FxNHaVMCNGCyJFtozmPs/+5TE9j+QPRRq2zrqwIxoxgCJFlCyEH5Nac=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DS7PR12MB6240.namprd12.prod.outlook.com (2603:10b6:8:94::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17; Wed, 16 Nov
- 2022 12:25:44 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7d43:3f30:4caf:7421]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::7d43:3f30:4caf:7421%7]) with mapi id 15.20.5813.017; Wed, 16 Nov 2022
- 12:25:44 +0000
-Message-ID: <0fca1cf1-5373-53a1-25cd-7c700c90add1@amd.com>
-Date: Wed, 16 Nov 2022 13:25:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-References: <20221116085012.187756-1-Amaranath.Somalapuram@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20221116085012.187756-1-Amaranath.Somalapuram@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0114.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::16) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B1FB10E4A2;
+	Wed, 16 Nov 2022 12:48:12 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E18710E4A5
+ for <intel-gfx@lists.freedesktop.org>; Wed, 16 Nov 2022 12:48:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1668602887; x=1700138887;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=vtjJY8WUHA0UfMfzWojcbNghwS6nz/adrzvmlpTi4tI=;
+ b=a9aosJ69Z4eX5sXO2PKrP/S97W2/C/np1pcXCw/ODq0l2mBXmS2pGoko
+ IXPu4BZin1HaYchrpYZmvCwS0IzIq/AtsECwzJmstvtGNkv8m/o/Yc7rw
+ EglAbOFwk4GtsdfrREnFoxi5OQm2VavGjEqVwTtuBpy3tOB1y6iR8Ve0X
+ SseVTIKo1n3UxZESrmk0qsInJoNKqJ5ak0Y2fxGp5+0y7Z1i6FcQc7ek5
+ WHDO2IQU/Y8P6Sj8ifVEnK7sshdgas6uHiHB+ArPreXPkCtHUH7GwiAwT
+ qqqWCQzpDNLK2n+GAZ59YgB03KxQcWLBDIzoWA+SXjLCOcVJBxj462UGp g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10532"; a="311241000"
+X-IronPort-AV: E=Sophos;i="5.96,167,1665471600"; d="scan'208";a="311241000"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2022 04:48:06 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10532"; a="633618116"
+X-IronPort-AV: E=Sophos;i="5.96,167,1665471600"; d="scan'208";a="633618116"
+Received: from sannilnx.jer.intel.com ([10.12.26.175])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2022 04:47:49 -0800
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@redhat.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Date: Wed, 16 Nov 2022 14:47:34 +0200
+Message-Id: <20221116124735.2493847-2-alexander.usyskin@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221116124735.2493847-1-alexander.usyskin@intel.com>
+References: <20221116124735.2493847-1-alexander.usyskin@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DS7PR12MB6240:EE_
-X-MS-Office365-Filtering-Correlation-Id: c90e24ec-5626-4a60-6069-08dac7cdaedc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: h4U9FzldnmSi7eUO42F05ynxJELy3HKCTF6Q0rwRLM8QlGF99Dhl5lM1SVmGQ8k8QklFbabS7uHLVbeB05QAsGMPwssaYzvuGuhfc0uwSmN2SIbMW1k15ju/Z+Vtp8PYtrfhmiOmc9uEH7oHeLwsDR/7TzkhvyDN2cWK5qFKpP31c/sejX/qDCAxsC3ptABvQrSg83xAYtwSdaG5mZWzPHFLl3iOxoA67cTmeE/Yyyy4Ck0uypEacLoBynp4AZpsw4sn1OMt4VSAaSxXTgOm/m7LMSD35T+AjEgAoaD2x7Mg+MhDrdWdxqmfD8Z7yi+AP7NQyTaZa6vRrTujwmymEx8c3YEbrbc8h77dN3uEc0qSNWMrVVWXL2/H6hK8UsCjVRfPVrlcPZPe/h/tukcU3yZxfd0v5ncIvWBznuY01qHeIXyVeuytoPEnLHbveFHBJmGN0dJOV5MFNO3VkUV5PAgQL4w3mu3bGX7AEQxUrkKBbAaji9H9SAK0ewfHte99UL3tVMQIzRLIVNaSWrdObeiPQevY6HR/g8H+Qa5QXdfvblGbnSpkAMAh3oYIO0zDaXsMeYBfWFJmGVRZ7Fe9Yuf0polDDrVw1YXy5vmW3i2potouUewSwSGBtJ+JPgV3Vfdc4oLLnMKyhaE86/J7SUwuvpxpEA0si3e+uqEUgueSTph4yxnXlH8EbsEVw9CgiFgkwJIn7hPlOlt8H+tLeE42B7wIsVDLgUBsjWXsJ7osf0kGndWFFUTy/MSkPUoi5ukBK416fY+BZBooznE70KGt9vxgZG8gi0NBdrO8BgY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(376002)(39860400002)(346002)(366004)(136003)(451199015)(186003)(6506007)(2906002)(83380400001)(316002)(41300700001)(36756003)(450100002)(5660300002)(2616005)(6512007)(66556008)(4326008)(31686004)(8676002)(8936002)(66476007)(66946007)(478600001)(6486002)(6666004)(86362001)(38100700002)(31696002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WmhTanBUbjZmcFBhVG8yMEUvdnV0VlhVblBEVWVFbWZYZkhIeHY2RzhpLzI5?=
- =?utf-8?B?WEV0VFpncEQyUmFBd1ZKWm5NUFhZRE0yREJ0RjIxN3NvVm1vZEVNL01DYVMz?=
- =?utf-8?B?QWJkOG1ZejBoS3BHMytkQ0NwZWFkbUpiRTlOUFFOZHlzemVXbi9UeXF2YlhE?=
- =?utf-8?B?eG1odWFMUFVzaTR5T0NGR0hCWUgrNG10VTE2UGs1b2NQb3VTYTJhU3ZJdnRn?=
- =?utf-8?B?UllQZHRWU2RDNXpueWV0cHdraXhnVTl1SGhjN1VrVEdMaXBQQ2JnWGRHa240?=
- =?utf-8?B?c2g3NU10VFo2WXVOOVBnS2JkQncwL3RETXNPVFpoTis4OHgvREEyWlhxYzVn?=
- =?utf-8?B?SU54SmJDVXNxekFMeXY2U3IvMGxtb1pzVHcyaXJWOTNEc2pEa2ppZ2FhTUp6?=
- =?utf-8?B?aDFJdkpjdXlvUmpvejRKcVBlcVAvSVJMS2ZyY0xuOXBFUnlaWWF3UzZ0RElX?=
- =?utf-8?B?UWpyaUtoZjNIUmpEeWxZSWk5L25ienBIVXFmVEo3ZFpkN0c1aDh3WE1rR2tT?=
- =?utf-8?B?ZEZOQ1IvN2p1bHMwNnpMYktCbFhLUThyT2J4SjdDelBRVkc4QnhwTDhrQ1N1?=
- =?utf-8?B?WnBPUGlWdzhENEM1THBTeUNZR3NyK0tGSzR4alhwQ2lnSk43azY4cjF6OXI5?=
- =?utf-8?B?NnhOME1ucWxJNHBUa0drbmxUUS9CSi8zb0YwdWlZZThJRTVyUTFhTWx4T1FF?=
- =?utf-8?B?RHphd2ZFQ2ptT0JjSDlBU0VlZUhvVUNvWGNFRHFGTGtwOGx2TE5uZkhnWjdk?=
- =?utf-8?B?TzNTQmlwcS83NXR5M3BvZTNDcjY3dVp6ZnNwUEkzNjZZcXlSbkw1S0Q1MWg3?=
- =?utf-8?B?azN5NDU4ek1QOUVJaU83NTdGNVpsUlRWbTg4ZHlvQW1pVk4wZnV5UDdRaU5X?=
- =?utf-8?B?RHErR21xSGxiVFB4UFdSOFI2eHdBZWtwaE1jcTRtQzRUMXFmUjgyS3J5aUVq?=
- =?utf-8?B?WWNCd29NVjlWS1ArYm0zZ1hEcUxnK0MyQzNyYkJUUjhkNWZkV09wZlFJa2Mr?=
- =?utf-8?B?Q1BCV2tUYmc5citUZjMyRU9LSjlqSjBPT0lWL09FSHArN3dMVy9YM0dpaDlM?=
- =?utf-8?B?bnRzV3pYcVBidkhVdXZRZU5pU0JmTktHbzBlalJBOTRGUjU3T1NvL3RwTHA0?=
- =?utf-8?B?aURoeU1NbWwveWcxeXF1YmFHRkIrOEd1Z0lnSE9XQ1hsdlA0RVpBQ2hDZExN?=
- =?utf-8?B?WXlwU29WVEdvZzdFR2NMb3ZUSHZ2RzBkQUFLeDFvSTNhOE1EWlJVclVYYklY?=
- =?utf-8?B?YWV6SUVkVEhZTWtqZnNNS091aVJjUVZyK3k1T3NhaHg5NlZZZ3QzOHQwUW54?=
- =?utf-8?B?aDliRm5Zak1XTE5kL1pxcEVJZ2pSNHRiTHN5bEVsN1RKK0NLQ251K29ONWtZ?=
- =?utf-8?B?andHbEhydHUzeTJ4eGRwWTlBeWxvQUFvdTdjdUtwNzd5QmNDYjM1cSttNmlG?=
- =?utf-8?B?am9RRWoyWXBwN2FJODZUYit4L24xeFVORmhXZ2w5SmY4RDByNHYyV1ZKbTNH?=
- =?utf-8?B?YlhLNUhPZ0RhTkFyV0lLSmF1T1NKdGhkM3dmYUdlWmRJcVZxWG1QcGxoRVZh?=
- =?utf-8?B?OWdyRm5TdHp4bTFwRUMwdjZLd3pCK1Q4TUJiQzdpaVIxWTUrMXZEa0NDL2tF?=
- =?utf-8?B?TWYyb25lNm9IY0diNUR0ZDV2aHZ6b0VGOTE4TFJYRzJPMERSLzRuV2YrNkpn?=
- =?utf-8?B?M0pJYU5mZXdGN2kvWmRkVUFUM2RNTThOTmdpNTVVT29yak9rOEVaQSt5T1Ux?=
- =?utf-8?B?cmZ4dUhKUDlLaUl1UnNzWkJRcE1VMk1KM1A1bFljZm0yak1idXIyYUxuamlD?=
- =?utf-8?B?ZUwzbWQ2YmN6alM5cGdEL21XRFRrN010bzVqcmhlQytoYXR6WkZYQVdheTIw?=
- =?utf-8?B?dXJuOUsvU0FGU3VESG04SjZTMDIwdEJlS2hkd2VrZENmQTBSM1JKblRLakdn?=
- =?utf-8?B?M2pRdS9UQ2J5SUsvTXY3MHhDdEJBTUlrNHBBbVJpUFBNdWtRN0NkZkxvRzd0?=
- =?utf-8?B?U1ROQU50bzVEUEF6b0ZBalQ5ak5GRndicjRXUnl3U0hDV1g0dldFZnBIbjlI?=
- =?utf-8?B?c2NtS20ydGNZVDM2OGtMQURIcng5bmJtbTBzNFMxamhuY2dwR0FvMlIxc2tj?=
- =?utf-8?B?NVFKaVVyTXBaOStVYkJVRUxnM1ZFWHl3VzVpUjRwRTBEdWdYem9MYitxOWIz?=
- =?utf-8?Q?NiJwycpqvWxY8SBbeUvolIpa8ZT//mFg6m/r0fDtdE47?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c90e24ec-5626-4a60-6069-08dac7cdaedc
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2022 12:25:44.3653 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HiKZ8yB8OKnVPsZ7XtRYU0aN+HXEfBNXRRYn2nkdLb7TGAkvMKs0+cRp2Bin74jU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6240
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/ttm: Clean up page shift operation
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v3 1/2] mei: add timeout to send
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,59 +61,184 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, arunpravin.paneerselvam@amd.com
+Cc: linux-kernel@vger.kernel.org, Tomas Winkler <tomas.winkler@intel.com>,
+ Alexander Usyskin <alexander.usyskin@intel.com>,
+ Vitaly Lubart <vitaly.lubart@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+When driver wakes up the firmware from the low power state,
+it is sending a memory ready message.
+The send is done via synchronous/blocking function to ensure
+that firmware is in ready state. However, in case of firmware
+undergoing reset send might be block forever.
+To address this issue a timeout is added to blocking
+write command on the internal bus.
 
+Introduce the __mei_cl_send_timeout function to use instead of
+__mei_cl_send in cases where timeout is required.
+The mei_cl_write has only two callers and there is no need to split
+it into two functions.
 
-Am 16.11.22 um 09:50 schrieb Somalapuram Amaranath:
-> remove page shift operations as ttm_resource moved
-> from num_pages to size_t size in bytes.
->
-> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 +---
->   drivers/gpu/drm/ttm/ttm_range_manager.c    | 2 +-
->   2 files changed, 2 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 974e85d8b6cc..19ad365dc159 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -541,12 +541,10 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->   	if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {
->   		/* GWS and OA don't need any alignment. */
->   		page_align = bp->byte_align;
-> -		size <<= PAGE_SHIFT;
-> -
->   	} else if (bp->domain & AMDGPU_GEM_DOMAIN_GDS) {
->   		/* Both size and alignment must be a multiple of 4. */
->   		page_align = ALIGN(bp->byte_align, 4);
-> -		size = ALIGN(size, 4) << PAGE_SHIFT;
-> +		size = ALIGN(size, 4);
->   	} else {
->   		/* Memory should be aligned at least to a page size. */
->   		page_align = ALIGN(bp->byte_align, PAGE_SIZE) >> PAGE_SHIFT;
-> diff --git a/drivers/gpu/drm/ttm/ttm_range_manager.c b/drivers/gpu/drm/ttm/ttm_range_manager.c
-> index 0a8bc0b7f380..4c7cba4ffdbf 100644
-> --- a/drivers/gpu/drm/ttm/ttm_range_manager.c
-> +++ b/drivers/gpu/drm/ttm/ttm_range_manager.c
-> @@ -83,7 +83,7 @@ static int ttm_range_man_alloc(struct ttm_resource_manager *man,
->   
->   	spin_lock(&rman->lock);
->   	ret = drm_mm_insert_node_in_range(mm, &node->mm_nodes[0],
-> -					  PFN_UP(node->base.size),
-> +					  node->base.size,
->   					  bo->page_alignment, 0,
->   					  place->fpfn, lpfn, mode);
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+---
+ drivers/misc/mei/bus-fixup.c |  7 +++++--
+ drivers/misc/mei/bus.c       | 22 +++++++++++++++++++++-
+ drivers/misc/mei/client.c    | 20 ++++++++++++++++----
+ drivers/misc/mei/client.h    |  2 +-
+ drivers/misc/mei/main.c      |  2 +-
+ drivers/misc/mei/mei_dev.h   |  2 ++
+ 6 files changed, 46 insertions(+), 9 deletions(-)
 
-You need to make sure that fpfn and lpfn are now page shifted instead.
-
-Same for the overlap and compatible functions.
-
-Regards,
-Christian.
-
->   	spin_unlock(&rman->lock);
+diff --git a/drivers/misc/mei/bus-fixup.c b/drivers/misc/mei/bus-fixup.c
+index 71fbf0bc8453..90023c34666e 100644
+--- a/drivers/misc/mei/bus-fixup.c
++++ b/drivers/misc/mei/bus-fixup.c
+@@ -188,17 +188,20 @@ static int mei_fwver(struct mei_cl_device *cldev)
+ 	return ret;
+ }
+ 
++#define GFX_MEMORY_READY_TIMEOUT 200 /* timeout in milliseconds */
++
+ static int mei_gfx_memory_ready(struct mei_cl_device *cldev)
+ {
+ 	struct mkhi_gfx_mem_ready req = {0};
+-	unsigned int mode = MEI_CL_IO_TX_INTERNAL;
++	unsigned int mode = MEI_CL_IO_TX_INTERNAL | MEI_CL_IO_TX_BLOCKING;
+ 
+ 	req.hdr.group_id = MKHI_GROUP_ID_GFX;
+ 	req.hdr.command = MKHI_GFX_MEMORY_READY_CMD_REQ;
+ 	req.flags = MKHI_GFX_MEM_READY_PXP_ALLOWED;
+ 
+ 	dev_dbg(&cldev->dev, "Sending memory ready command\n");
+-	return __mei_cl_send(cldev->cl, (u8 *)&req, sizeof(req), 0, mode);
++	return __mei_cl_send_timeout(cldev->cl, (u8 *)&req, sizeof(req), 0,
++				     mode, GFX_MEMORY_READY_TIMEOUT);
+ }
+ 
+ static void mei_mkhi_fix(struct mei_cl_device *cldev)
+diff --git a/drivers/misc/mei/bus.c b/drivers/misc/mei/bus.c
+index 1fbe127ff633..4a08b624910a 100644
+--- a/drivers/misc/mei/bus.c
++++ b/drivers/misc/mei/bus.c
+@@ -34,6 +34,26 @@
+  */
+ ssize_t __mei_cl_send(struct mei_cl *cl, const u8 *buf, size_t length, u8 vtag,
+ 		      unsigned int mode)
++{
++	return __mei_cl_send_timeout(cl, buf, length, vtag, mode, MAX_SCHEDULE_TIMEOUT);
++}
++
++/**
++ * __mei_cl_send_timeout - internal client send (write)
++ *
++ * @cl: host client
++ * @buf: buffer to send
++ * @length: buffer length
++ * @vtag: virtual tag
++ * @mode: sending mode
++ * @timeout: send timeout in milliseconds.
++ *           effective only for blocking writes: the MEI_CL_IO_TX_BLOCKING mode bit is set.
++ *           set timeout to the MAX_SCHEDULE_TIMEOUT to maixum allowed wait.
++ *
++ * Return: written size bytes or < 0 on error
++ */
++ssize_t __mei_cl_send_timeout(struct mei_cl *cl, const u8 *buf, size_t length, u8 vtag,
++			      unsigned int mode, unsigned long timeout)
+ {
+ 	struct mei_device *bus;
+ 	struct mei_cl_cb *cb;
+@@ -108,7 +128,7 @@ ssize_t __mei_cl_send(struct mei_cl *cl, const u8 *buf, size_t length, u8 vtag,
+ 		cb->buf.size = 0;
+ 	}
+ 
+-	rets = mei_cl_write(cl, cb);
++	rets = mei_cl_write(cl, cb, timeout);
+ 
+ 	if (mode & MEI_CL_IO_SGL && rets == 0)
+ 		rets = length;
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index 6c8b71ae32c8..9ddb854b8155 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -1954,10 +1954,13 @@ int mei_cl_irq_write(struct mei_cl *cl, struct mei_cl_cb *cb,
+  *
+  * @cl: host client
+  * @cb: write callback with filled data
++ * @timeout: send timeout in milliseconds.
++ *           effective only for blocking writes: the cb->blocking is set.
++ *           set timeout to the MAX_SCHEDULE_TIMEOUT to maixum allowed wait.
+  *
+  * Return: number of bytes sent on success, <0 on failure.
+  */
+-ssize_t mei_cl_write(struct mei_cl *cl, struct mei_cl_cb *cb)
++ssize_t mei_cl_write(struct mei_cl *cl, struct mei_cl_cb *cb, unsigned long timeout)
+ {
+ 	struct mei_device *dev;
+ 	struct mei_msg_data *buf;
+@@ -2081,11 +2084,20 @@ ssize_t mei_cl_write(struct mei_cl *cl, struct mei_cl_cb *cb)
+ 	if (blocking && cl->writing_state != MEI_WRITE_COMPLETE) {
+ 
+ 		mutex_unlock(&dev->device_lock);
+-		rets = wait_event_interruptible(cl->tx_wait,
+-				cl->writing_state == MEI_WRITE_COMPLETE ||
+-				(!mei_cl_is_connected(cl)));
++		rets = wait_event_interruptible_timeout(cl->tx_wait,
++							cl->writing_state == MEI_WRITE_COMPLETE ||
++							(!mei_cl_is_connected(cl)),
++							msecs_to_jiffies(timeout));
+ 		mutex_lock(&dev->device_lock);
++		/* clean all queue on timeout as something fatal happened */
++		if (rets == 0) {
++			rets = -ETIME;
++			mei_io_tx_list_free_cl(&dev->write_list, cl, NULL);
++			mei_io_tx_list_free_cl(&dev->write_waiting_list, cl, NULL);
++		}
+ 		/* wait_event_interruptible returns -ERESTARTSYS */
++		if (rets > 0)
++			rets = 0;
+ 		if (rets) {
+ 			if (signal_pending(current))
+ 				rets = -EINTR;
+diff --git a/drivers/misc/mei/client.h b/drivers/misc/mei/client.h
+index 418056fb1489..9052860bcfe0 100644
+--- a/drivers/misc/mei/client.h
++++ b/drivers/misc/mei/client.h
+@@ -246,7 +246,7 @@ int mei_cl_connect(struct mei_cl *cl, struct mei_me_client *me_cl,
+ int mei_cl_irq_connect(struct mei_cl *cl, struct mei_cl_cb *cb,
+ 		       struct list_head *cmpl_list);
+ int mei_cl_read_start(struct mei_cl *cl, size_t length, const struct file *fp);
+-ssize_t mei_cl_write(struct mei_cl *cl, struct mei_cl_cb *cb);
++ssize_t mei_cl_write(struct mei_cl *cl, struct mei_cl_cb *cb, unsigned long timeout);
+ int mei_cl_irq_write(struct mei_cl *cl, struct mei_cl_cb *cb,
+ 		     struct list_head *cmpl_list);
+ 
+diff --git a/drivers/misc/mei/main.c b/drivers/misc/mei/main.c
+index 930887e7e38d..632d4ae21e46 100644
+--- a/drivers/misc/mei/main.c
++++ b/drivers/misc/mei/main.c
+@@ -383,7 +383,7 @@ static ssize_t mei_write(struct file *file, const char __user *ubuf,
+ 		goto out;
+ 	}
+ 
+-	rets = mei_cl_write(cl, cb);
++	rets = mei_cl_write(cl, cb, MAX_SCHEDULE_TIMEOUT);
+ out:
+ 	mutex_unlock(&dev->device_lock);
+ 	return rets;
+diff --git a/drivers/misc/mei/mei_dev.h b/drivers/misc/mei/mei_dev.h
+index 8d8018428d9d..996b70a988be 100644
+--- a/drivers/misc/mei/mei_dev.h
++++ b/drivers/misc/mei/mei_dev.h
+@@ -379,6 +379,8 @@ void mei_cl_bus_rescan_work(struct work_struct *work);
+ void mei_cl_bus_dev_fixup(struct mei_cl_device *dev);
+ ssize_t __mei_cl_send(struct mei_cl *cl, const u8 *buf, size_t length, u8 vtag,
+ 		      unsigned int mode);
++ssize_t __mei_cl_send_timeout(struct mei_cl *cl, const u8 *buf, size_t length, u8 vtag,
++			      unsigned int mode, unsigned long timeout);
+ ssize_t __mei_cl_recv(struct mei_cl *cl, u8 *buf, size_t length, u8 *vtag,
+ 		      unsigned int mode, unsigned long timeout);
+ bool mei_cl_bus_rx_event(struct mei_cl *cl);
+-- 
+2.34.1
 
