@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 452B0C433FE
-	for <intel-gfx@archiver.kernel.org>; Fri, 18 Nov 2022 10:56:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B855CC43217
+	for <intel-gfx@archiver.kernel.org>; Fri, 18 Nov 2022 10:56:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 817D410E6FB;
-	Fri, 18 Nov 2022 10:56:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F2D410E6FE;
+	Fri, 18 Nov 2022 10:56:10 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79FA410E6D1
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8F0D10E6FE
  for <intel-gfx@lists.freedesktop.org>; Fri, 18 Nov 2022 10:55:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1668768958; x=1700304958;
+ t=1668768959; x=1700304959;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=1Z3gMtSA2OfFNWIsiXMPPY6OrMuTNHNRugUCpkMVH5M=;
- b=iA1XXOE82gg5gRqCLKTUm+d809cYJGTvDTjNfH8ZGU67rjYXz4P9QGQb
- jELPx8oQe/8yjQJgyCF89h/RNRAuGdtb/qVKI25QSzWfxq6EAxGj1b4UU
- ouG9hkY0h6y/kqutxHVbKqjhyExxswVJ1dJ6vwXOCUQYVhLANWA+8ozXb
- Zob+RPSN34HNc4fJiblKKbZN64RvlJuCh+sKXsYvQz0WwplLlWbkK5gZU
- 10OsbzP8lkvi9PRPMFmm67jDjKweGYlzK/JwTeyb+yZxjdq9YFzGEvIqO
- 87ac/UDZH9OUsv8o2qYez5eKizFUOPLqNYM2e/lfm2ZOcMwtXlVwifSth A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10534"; a="310741727"
-X-IronPort-AV: E=Sophos;i="5.96,174,1665471600"; d="scan'208";a="310741727"
+ bh=vWEDA58neJKH7wcNheO7bcFjNKiKReo/gOzRQIkIVOk=;
+ b=kSd0IQcWOZoaJgRBd3x7PRI9PATL/7UFn6VyVZ4bNbTAT+JwinVLzV5t
+ eltaZxFcOyb1myNu7Z0309RUYFR/PPle0JK/S02UNruqgXSy4FLZ9fR4z
+ a6NaUv1Pu8ip6Rst8M/p9CSZ6goXz7wMt7dio7S7PMBQxZuM8ZnPOmKnJ
+ q4RYM7yBVXM+7MVeyMLZqHSecDUehPcFkztV1PxErC/AMfeZpKzAJwZwg
+ l7Jz4r+XiXWmal76t7z3cA0e5CxOzLSH1L3Ccf4moGaTBewc4SNhlweTs
+ zAX/2ojYO6TH8z7nxZved0e7jdXZnHOlY4suURn7pJcfH3sZDLIdo/GuK A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10534"; a="310741737"
+X-IronPort-AV: E=Sophos;i="5.96,174,1665471600"; d="scan'208";a="310741737"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2022 02:55:36 -0800
+ 18 Nov 2022 02:55:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10534"; a="708994389"
-X-IronPort-AV: E=Sophos;i="5.96,174,1665471600"; d="scan'208";a="708994389"
+X-IronPort-AV: E=McAfee;i="6500,9779,10534"; a="708994397"
+X-IronPort-AV: E=Sophos;i="5.96,174,1665471600"; d="scan'208";a="708994397"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga004.fm.intel.com with SMTP; 18 Nov 2022 02:55:34 -0800
+ by fmsmga004.fm.intel.com with SMTP; 18 Nov 2022 02:55:40 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 18 Nov 2022 12:55:34 +0200
+ Fri, 18 Nov 2022 12:55:39 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 18 Nov 2022 12:55:19 +0200
-Message-Id: <20221118105525.27254-4-ville.syrjala@linux.intel.com>
+Date: Fri, 18 Nov 2022 12:55:21 +0200
+Message-Id: <20221118105525.27254-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221118105525.27254-1-ville.syrjala@linux.intel.com>
 References: <20221118105525.27254-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/9] drm/i915/dvo: Actually initialize the DVO
- encoder type
+Subject: [Intel-gfx] [PATCH 5/9] drm/i915/dvo: Eliminate useless 'port'
+ variable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,72 +65,55 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We call drm_encoder_init() before determining the correct
-encoder type, thus we always end up with DRM_MODE_ENCODER_NONE.
-Determine the correct encoder type earlier.
+Reorder the drm_encoder_init() vs. encoder->port
+assignment so that we don't need the extra 'port'
+variable.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dvo.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dvo.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
-index 8859e400b860..fe61cb41d83b 100644
+index 9ce3b4ec6a4d..87ee913cf89b 100644
 --- a/drivers/gpu/drm/i915/display/intel_dvo.c
 +++ b/drivers/gpu/drm/i915/display/intel_dvo.c
-@@ -387,13 +387,26 @@ static enum port intel_dvo_port(i915_reg_t dvo_reg)
- 		return PORT_C;
- }
+@@ -453,7 +453,6 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
+ 		bool dvoinit;
+ 		enum pipe pipe;
+ 		u32 dpll[I915_MAX_PIPES];
+-		enum port port;
  
-+static int intel_dvo_encoder_type(const struct intel_dvo_device *dvo)
-+{
-+	switch (dvo->type) {
-+	case INTEL_DVO_CHIP_TMDS:
-+		return DRM_MODE_ENCODER_TMDS;
-+	case INTEL_DVO_CHIP_LVDS_NO_FIXED:
-+	case INTEL_DVO_CHIP_LVDS:
-+		return DRM_MODE_ENCODER_LVDS;
-+	default:
-+		MISSING_CASE(dvo->type);
-+		return DRM_MODE_ENCODER_NONE;
-+	}
-+}
-+
- void intel_dvo_init(struct drm_i915_private *dev_priv)
- {
- 	struct intel_encoder *intel_encoder;
- 	struct intel_dvo *intel_dvo;
- 	struct intel_connector *intel_connector;
- 	int i;
--	int encoder_type = DRM_MODE_ENCODER_NONE;
+ 		/*
+ 		 * Allow the I2C driver info to specify the GPIO to be used in
+@@ -506,21 +505,20 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
+ 		if (!dvoinit)
+ 			continue;
  
- 	intel_dvo = kzalloc(sizeof(*intel_dvo), GFP_KERNEL);
- 	if (!intel_dvo)
-@@ -481,7 +494,8 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
+-		port = intel_dvo_port(dvo->dvo_reg);
+-		drm_encoder_init(&dev_priv->drm, &intel_encoder->base,
+-				 &intel_dvo_enc_funcs,
+-				 intel_dvo_encoder_type(dvo),
+-				 "DVO %c", port_name(port));
+-
+ 		intel_encoder->type = INTEL_OUTPUT_DVO;
+ 		intel_encoder->power_domain = POWER_DOMAIN_PORT_OTHER;
+-		intel_encoder->port = port;
++		intel_encoder->port = intel_dvo_port(dvo->dvo_reg);
+ 		intel_encoder->pipe_mask = ~0;
  
- 		port = intel_dvo_port(dvo->dvo_reg);
- 		drm_encoder_init(&dev_priv->drm, &intel_encoder->base,
--				 &intel_dvo_enc_funcs, encoder_type,
+ 		if (dvo->type != INTEL_DVO_CHIP_LVDS)
+ 			intel_encoder->cloneable = BIT(INTEL_OUTPUT_ANALOG) |
+ 				BIT(INTEL_OUTPUT_DVO);
+ 
++		drm_encoder_init(&dev_priv->drm, &intel_encoder->base,
 +				 &intel_dvo_enc_funcs,
 +				 intel_dvo_encoder_type(dvo),
- 				 "DVO %c", port_name(port));
- 
- 		intel_encoder->type = INTEL_OUTPUT_DVO;
-@@ -500,14 +514,12 @@ void intel_dvo_init(struct drm_i915_private *dev_priv)
- 			drm_connector_init(&dev_priv->drm, connector,
- 					   &intel_dvo_connector_funcs,
- 					   DRM_MODE_CONNECTOR_DVII);
--			encoder_type = DRM_MODE_ENCODER_TMDS;
- 			break;
- 		case INTEL_DVO_CHIP_LVDS_NO_FIXED:
- 		case INTEL_DVO_CHIP_LVDS:
- 			drm_connector_init(&dev_priv->drm, connector,
- 					   &intel_dvo_connector_funcs,
- 					   DRM_MODE_CONNECTOR_LVDS);
--			encoder_type = DRM_MODE_ENCODER_LVDS;
- 			break;
- 		}
- 
++				 "DVO %c", port_name(intel_encoder->port));
++
+ 		if (dvo->type == INTEL_DVO_CHIP_TMDS)
+ 			intel_connector->polled = DRM_CONNECTOR_POLL_CONNECT |
+ 				DRM_CONNECTOR_POLL_DISCONNECT;
 -- 
 2.37.4
 
