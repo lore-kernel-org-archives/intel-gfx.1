@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92474C43219
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 07:28:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8102AC43219
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 07:28:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A943910E159;
-	Mon, 21 Nov 2022 07:28:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D27310E15A;
+	Mon, 21 Nov 2022 07:28:57 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4A0E10E157
- for <intel-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 07:28:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F156710E159
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 07:28:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669015722; x=1700551722;
+ t=1669015728; x=1700551728;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1LV6iMgHAkb8mW7gtOpVicyxmdQBxZY1o5J/MIahREA=;
- b=ePsM1wWkk/LOn7Y9DWwVqf9YkiPVdUSDWN2ExXBM5SdZCihkacFcO7ak
- fAUxIYM4ySU1iHyiorW3AHBzRs0HS4ipCeOCTZc1iT2aejnDBC3vk/Y0m
- q52KY2yMZZ1xOnwQEsQ8gAcVELUF2+bw92PNkg7VqzUG/LUhnErW8m8z2
- fwdpeD9ZzWrWUjt9Sg7njfqOSgwd5R07SSM1r4w1j8U4k3K9Kszr30E/g
- 7zhmpeOcHhlLqTGbnuKh9SIeJd3ICPITm1+60GRcZQE5l/s2HQvma9Xme
- h1UAAwVpsOF9pWXg9uQqf0bDXz8aVK2HUWy8/fzQKZg63brAyripU5Ed2 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10537"; a="301035832"
-X-IronPort-AV: E=Sophos;i="5.96,180,1665471600"; d="scan'208";a="301035832"
+ bh=mR8RlOYCyM4Lp4RultI+TQYQlAHf1gJTCJdKQXqAowI=;
+ b=JRi5BnhdRH9dxJcoRbyPLeGMD0BbrNSwTv3x5QLIwMdPoYvtYneTndrb
+ 6cMgjsJlaiESw929J71sqNlOJifSrTCfhq4xmIhJX8HK9J2wsJGUicyAq
+ 9jDSR5x/0YrYRmP0/+H8PctvIu3DicKrV/q3qM+VeOg1zRzvVYGzmgLf8
+ q0OnYZPBwDOAtZQ9OO+O3w8m1LM5/phjjvF5Vo1iTUkBWYssEtkivlPC4
+ JZphBtcjQqgOdGc6tR/GYWJ3gOrAkZzHCyCgFyDji2CKBF0P5lEAsIgI1
+ 5I+YfdKRmqrexzVRg6A8yrHxczeBYXlIe7ZACQ1Sd3Ne1hQ9NCp4kIVru A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10537"; a="301035854"
+X-IronPort-AV: E=Sophos;i="5.96,180,1665471600"; d="scan'208";a="301035854"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2022 23:28:42 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10537"; a="618727875"
-X-IronPort-AV: E=Sophos;i="5.96,180,1665471600"; d="scan'208";a="618727875"
+ 20 Nov 2022 23:28:47 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10537"; a="618727890"
+X-IronPort-AV: E=Sophos;i="5.96,180,1665471600"; d="scan'208";a="618727890"
 Received: from rtauro-desk.iind.intel.com ([10.190.239.41])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2022 23:28:40 -0800
+ 20 Nov 2022 23:28:45 -0800
 From: Riana Tauro <riana.tauro@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 21 Nov 2022 12:59:44 +0530
-Message-Id: <20221121072946.1013463-2-riana.tauro@intel.com>
+Date: Mon, 21 Nov 2022 12:59:46 +0530
+Message-Id: <20221121072946.1013463-4-riana.tauro@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221121072946.1013463-1-riana.tauro@intel.com>
 References: <20221121072946.1013463-1-riana.tauro@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 1/3] drm/i915/selftests: Rename librapl
- library to libpower
+Subject: [Intel-gfx] [PATCH v3 3/3] drm/i915/selftests: Add hwmon support in
+ libpower for dgfx
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,70 +60,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rename librapl files to libpower and replace librapl
-with libpower prefix. No functional changes
+From: Tilak Tangudu <tilak.tangudu@intel.com>
 
-v2: update commit message (Anshuman)
+hwmon provides an interface to read energy values for discrete graphics.
+add hwmon support to the existing libpower library so that it can verify
+power consumption values in different selftests.
 
+Changed prototype of libpower_get_energy_uJ
+
+Signed-off-by: Tilak Tangudu <tilak.tangudu@intel.com>
 Signed-off-by: Riana Tauro <riana.tauro@intel.com>
-Reviewed-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                   |  2 +-
- drivers/gpu/drm/i915/gt/selftest_rc6.c          | 12 ++++++------
- drivers/gpu/drm/i915/gt/selftest_rps.c          |  8 ++++----
- drivers/gpu/drm/i915/gt/selftest_slpc.c         |  2 +-
- .../i915/selftests/{librapl.c => libpower.c}    | 10 +++++-----
- drivers/gpu/drm/i915/selftests/libpower.h       | 17 +++++++++++++++++
- drivers/gpu/drm/i915/selftests/librapl.h        | 17 -----------------
- 7 files changed, 34 insertions(+), 34 deletions(-)
- rename drivers/gpu/drm/i915/selftests/{librapl.c => libpower.c} (69%)
- create mode 100644 drivers/gpu/drm/i915/selftests/libpower.h
- delete mode 100644 drivers/gpu/drm/i915/selftests/librapl.h
+ drivers/gpu/drm/i915/gt/selftest_rc6.c    |  8 +++---
+ drivers/gpu/drm/i915/gt/selftest_rps.c    | 22 +++++++--------
+ drivers/gpu/drm/i915/gt/selftest_slpc.c   |  2 +-
+ drivers/gpu/drm/i915/selftests/libpower.c | 33 ++++++++++++-----------
+ drivers/gpu/drm/i915/selftests/libpower.h |  8 +++---
+ 5 files changed, 38 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 01974b82d205..ddece53f7c9f 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -342,7 +342,7 @@ i915-$(CONFIG_DRM_I915_SELFTEST) += \
- 	selftests/igt_mmap.o \
- 	selftests/igt_reset.o \
- 	selftests/igt_spinner.o \
--	selftests/librapl.o
-+	selftests/libpower.o
- 
- # virtual gpu code
- i915-y += i915_vgpu.o
 diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-index 2ceeadecc639..15b84c428f66 100644
+index 15b84c428f66..845058ed83ed 100644
 --- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
 +++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-@@ -11,7 +11,7 @@
- #include "selftest_rc6.h"
- 
- #include "selftests/i915_random.h"
--#include "selftests/librapl.h"
-+#include "selftests/libpower.h"
- 
- static u64 rc6_residency(struct intel_rc6 *rc6)
- {
-@@ -51,7 +51,7 @@ int live_rc6_manual(void *arg)
- 	if (IS_VALLEYVIEW(gt->i915) || IS_CHERRYVIEW(gt->i915))
- 		return 0;
- 
--	has_power = librapl_supported(gt->i915);
-+	has_power = libpower_supported(gt->i915);
- 	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
- 
- 	/* Force RC6 off for starters */
 @@ -61,9 +61,9 @@ int live_rc6_manual(void *arg)
  	res[0] = rc6_residency(rc6);
  
  	dt = ktime_get();
--	rc0_power = librapl_energy_uJ();
-+	rc0_power = libpower_get_energy_uJ();
+-	rc0_power = libpower_get_energy_uJ();
++	rc0_power = libpower_get_energy_uJ(gt->i915);
  	msleep(250);
--	rc0_power = librapl_energy_uJ() - rc0_power;
-+	rc0_power = libpower_get_energy_uJ() - rc0_power;
+-	rc0_power = libpower_get_energy_uJ() - rc0_power;
++	rc0_power = libpower_get_energy_uJ(gt->i915) - rc0_power;
  	dt = ktime_sub(ktime_get(), dt);
  	res[1] = rc6_residency(rc6);
  	if ((res[1] - res[0]) >> 10) {
@@ -132,143 +98,161 @@ index 2ceeadecc639..15b84c428f66 100644
  	res[0] = rc6_residency(rc6);
  	intel_uncore_forcewake_flush(rc6_to_uncore(rc6), FORCEWAKE_ALL);
  	dt = ktime_get();
--	rc6_power = librapl_energy_uJ();
-+	rc6_power = libpower_get_energy_uJ();
+-	rc6_power = libpower_get_energy_uJ();
++	rc6_power = libpower_get_energy_uJ(gt->i915);
  	msleep(100);
--	rc6_power = librapl_energy_uJ() - rc6_power;
-+	rc6_power = libpower_get_energy_uJ() - rc6_power;
+-	rc6_power = libpower_get_energy_uJ() - rc6_power;
++	rc6_power = libpower_get_energy_uJ(gt->i915) - rc6_power;
  	dt = ktime_sub(ktime_get(), dt);
  	res[1] = rc6_residency(rc6);
  	if (res[1] == res[0]) {
 diff --git a/drivers/gpu/drm/i915/gt/selftest_rps.c b/drivers/gpu/drm/i915/gt/selftest_rps.c
-index 39f1b7564170..b8b0b0c7617e 100644
+index b8b0b0c7617e..6732aa7d4792 100644
 --- a/drivers/gpu/drm/i915/gt/selftest_rps.c
 +++ b/drivers/gpu/drm/i915/gt/selftest_rps.c
-@@ -19,7 +19,7 @@
- #include "selftest_rps.h"
- #include "selftests/igt_flush_test.h"
- #include "selftests/igt_spinner.h"
--#include "selftests/librapl.h"
-+#include "selftests/libpower.h"
+@@ -1090,38 +1090,38 @@ int live_rps_interrupt(void *arg)
+ 	return err;
+ }
  
- /* Try to isolate the impact of cstates from determing frequency response */
- #define CPU_LATENCY 0 /* -1 to disable pm_qos, 0 to disable cstates */
-@@ -1095,9 +1095,9 @@ static u64 __measure_power(int duration_ms)
+-static u64 __measure_power(int duration_ms)
++static u64 __measure_power(struct intel_gt *gt, int duration_ms)
+ {
  	u64 dE, dt;
  
  	dt = ktime_get();
--	dE = librapl_energy_uJ();
-+	dE = libpower_get_energy_uJ();
+-	dE = libpower_get_energy_uJ();
++	dE = libpower_get_energy_uJ(gt->i915);
  	usleep_range(1000 * duration_ms, 2000 * duration_ms);
--	dE = librapl_energy_uJ() - dE;
-+	dE = libpower_get_energy_uJ() - dE;
+-	dE = libpower_get_energy_uJ() - dE;
++	dE = libpower_get_energy_uJ(gt->i915) - dE;
  	dt = ktime_get() - dt;
  
  	return div64_u64(1000 * 1000 * dE, dt);
-@@ -1143,7 +1143,7 @@ int live_rps_power(void *arg)
- 	if (!intel_rps_is_enabled(rps) || GRAPHICS_VER(gt->i915) < 6)
- 		return 0;
+ }
  
--	if (!librapl_supported(gt->i915))
-+	if (!libpower_supported(gt->i915))
- 		return 0;
+-static u64 measure_power(struct intel_rps *rps, int *freq)
++static u64 measure_power(struct intel_gt *gt, int *freq)
+ {
+ 	u64 x[5];
+ 	int i;
  
- 	if (igt_spinner_init(&spin, gt))
+ 	for (i = 0; i < 5; i++)
+-		x[i] = __measure_power(5);
++		x[i] = __measure_power(gt, 5);
+ 
+-	*freq = (*freq + intel_rps_read_actual_frequency(rps)) / 2;
++	*freq = (*freq + intel_rps_read_actual_frequency(&gt->rps)) / 2;
+ 
+ 	/* A simple triangle filter for better result stability */
+ 	sort(x, 5, sizeof(*x), cmp_u64, NULL);
+ 	return div_u64(x[1] + 2 * x[2] + x[3], 4);
+ }
+ 
+-static u64 measure_power_at(struct intel_rps *rps, int *freq)
++static u64 measure_power_at(struct intel_gt *gt, int *freq)
+ {
+-	*freq = rps_set_check(rps, *freq);
+-	return measure_power(rps, freq);
++	*freq = rps_set_check(&gt->rps, *freq);
++	return measure_power(gt, freq);
+ }
+ 
+ int live_rps_power(void *arg)
+@@ -1187,10 +1187,10 @@ int live_rps_power(void *arg)
+ 		}
+ 
+ 		max.freq = rps->max_freq;
+-		max.power = measure_power_at(rps, &max.freq);
++		max.power = measure_power_at(gt, &max.freq);
+ 
+ 		min.freq = rps->min_freq;
+-		min.power = measure_power_at(rps, &min.freq);
++		min.power = measure_power_at(gt, &min.freq);
+ 
+ 		igt_spinner_end(&spin);
+ 		st_engine_heartbeat_enable(engine);
 diff --git a/drivers/gpu/drm/i915/gt/selftest_slpc.c b/drivers/gpu/drm/i915/gt/selftest_slpc.c
-index bd44ce73a504..fc1cdda82ec6 100644
+index fc1cdda82ec6..c4b14f2b268c 100644
 --- a/drivers/gpu/drm/i915/gt/selftest_slpc.c
 +++ b/drivers/gpu/drm/i915/gt/selftest_slpc.c
-@@ -169,7 +169,7 @@ static int slpc_power(struct intel_gt *gt, struct intel_engine_cs *engine)
- 	 * actually saves power. Let's see if our RAPL measurement supports
- 	 * that theory.
- 	 */
--	if (!librapl_supported(gt->i915))
-+	if (!libpower_supported(gt->i915))
- 		return 0;
+@@ -78,7 +78,7 @@ static u64 measure_power_at_freq(struct intel_gt *gt, int *freq, u64 *power)
+ 	if (err)
+ 		return err;
+ 	*freq = intel_rps_read_actual_frequency(&gt->rps);
+-	*power = measure_power(&gt->rps, freq);
++	*power = measure_power(gt, freq);
  
- 	min.freq = slpc->min_freq;
-diff --git a/drivers/gpu/drm/i915/selftests/librapl.c b/drivers/gpu/drm/i915/selftests/libpower.c
-similarity index 69%
-rename from drivers/gpu/drm/i915/selftests/librapl.c
-rename to drivers/gpu/drm/i915/selftests/libpower.c
-index eb03b5b28bad..c66e993c5f85 100644
---- a/drivers/gpu/drm/i915/selftests/librapl.c
+ 	return err;
+ }
+diff --git a/drivers/gpu/drm/i915/selftests/libpower.c b/drivers/gpu/drm/i915/selftests/libpower.c
+index c66e993c5f85..df37cba30353 100644
+--- a/drivers/gpu/drm/i915/selftests/libpower.c
 +++ b/drivers/gpu/drm/i915/selftests/libpower.c
-@@ -1,23 +1,23 @@
- // SPDX-License-Identifier: MIT
- /*
-- * Copyright © 2020 Intel Corporation
-+ * Copyright © 2022 Intel Corporation
-  */
- 
+@@ -6,29 +6,30 @@
  #include <asm/msr.h>
  
  #include "i915_drv.h"
--#include "librapl.h"
-+#include "libpower.h"
++#include "i915_hwmon.h"
+ #include "libpower.h"
  
--bool librapl_supported(const struct drm_i915_private *i915)
-+bool libpower_supported(const struct drm_i915_private *i915)
- {
- 	/* Discrete cards require hwmon integration */
- 	if (IS_DGFX(i915))
- 		return false;
- 
--	return librapl_energy_uJ();
-+	return libpower_get_energy_uJ();
- }
- 
--u64 librapl_energy_uJ(void)
-+u64 libpower_get_energy_uJ(void)
+-bool libpower_supported(const struct drm_i915_private *i915)
+-{
+-	/* Discrete cards require hwmon integration */
+-	if (IS_DGFX(i915))
+-		return false;
+-
+-	return libpower_get_energy_uJ();
+-}
+-
+-u64 libpower_get_energy_uJ(void)
++u64 libpower_get_energy_uJ(struct drm_i915_private *i915)
  {
  	unsigned long long power;
  	u32 units;
++	long energy_uJ = 0;
+ 
+-	if (rdmsrl_safe(MSR_RAPL_POWER_UNIT, &power))
+-		return 0;
++	if (IS_DGFX(i915)) {
++#if IS_REACHABLE(CONFIG_HWMON)
++		if (i915_hwmon_get_energy(i915, &energy_uJ))
++#endif
++			return 0;
++	} else {
++		if (rdmsrl_safe(MSR_RAPL_POWER_UNIT, &power))
++			return 0;
+ 
+-	units = (power & 0x1f00) >> 8;
++		units = (power & 0x1f00) >> 8;
+ 
+-	if (rdmsrl_safe(MSR_PP1_ENERGY_STATUS, &power))
+-		return 0;
++		if (rdmsrl_safe(MSR_PP1_ENERGY_STATUS, &power))
++			return 0;
+ 
+-	return (1000000 * power) >> units; /* convert to uJ */
++		energy_uJ = (1000000 * power) >> units; /* convert to uJ */
++	}
++	return energy_uJ;
+ }
 diff --git a/drivers/gpu/drm/i915/selftests/libpower.h b/drivers/gpu/drm/i915/selftests/libpower.h
-new file mode 100644
-index 000000000000..5352981eb946
---- /dev/null
+index 5352981eb946..03a44611f9e9 100644
+--- a/drivers/gpu/drm/i915/selftests/libpower.h
 +++ b/drivers/gpu/drm/i915/selftests/libpower.h
-@@ -0,0 +1,17 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#ifndef SELFTEST_LIBPOWER_H
-+#define SELFTEST_LIBPOWER_H
-+
-+#include <linux/types.h>
-+
-+struct drm_i915_private;
-+
-+bool libpower_supported(const struct drm_i915_private *i915);
-+
-+u64 libpower_get_energy_uJ(void);
-+
-+#endif /* SELFTEST_LIBPOWER_H */
-diff --git a/drivers/gpu/drm/i915/selftests/librapl.h b/drivers/gpu/drm/i915/selftests/librapl.h
-deleted file mode 100644
-index e3b24fad0a7a..000000000000
---- a/drivers/gpu/drm/i915/selftests/librapl.h
-+++ /dev/null
-@@ -1,17 +0,0 @@
--/* SPDX-License-Identifier: MIT */
--/*
-- * Copyright © 2020 Intel Corporation
-- */
+@@ -10,8 +10,10 @@
+ 
+ struct drm_i915_private;
+ 
+-bool libpower_supported(const struct drm_i915_private *i915);
 -
--#ifndef SELFTEST_LIBRAPL_H
--#define SELFTEST_LIBRAPL_H
--
--#include <linux/types.h>
--
--struct drm_i915_private;
--
--bool librapl_supported(const struct drm_i915_private *i915);
--
--u64 librapl_energy_uJ(void);
--
--#endif /* SELFTEST_LIBRAPL_H */
+-u64 libpower_get_energy_uJ(void);
++u64 libpower_get_energy_uJ(struct drm_i915_private *i915);
+ 
++static inline bool libpower_supported(struct drm_i915_private *i915)
++{
++	return libpower_get_energy_uJ(i915);
++}
+ #endif /* SELFTEST_LIBPOWER_H */
 -- 
 2.25.1
 
