@@ -4,30 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E43BEC433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 22:26:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEFF6C43217
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 23:13:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C6BF10E33D;
-	Mon, 21 Nov 2022 22:26:42 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6204810E33D;
- Mon, 21 Nov 2022 22:26:39 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 5C5C2A00E6;
- Mon, 21 Nov 2022 22:26:39 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF2E10E344;
+	Mon, 21 Nov 2022 23:13:06 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 938B410E342;
+ Mon, 21 Nov 2022 23:13:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669072382; x=1700608382;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=qW1DA/Siq32AI9LV60F7pQiEJQWc4Kxi8ciTegXP1xU=;
+ b=MBR6Evhafiy6Cn8gqirY5w2bXqwGcxx5+Fi576LHo4u40CZ/5YfUKswv
+ UFo85uZtmTq4FHdPmVVBWqTI9pG/gRKm4Ls9zBkd2O1PKinkEihpBvFIO
+ cm20RJ8JedTAZ9XT4R90k/8mtPIo8pFGolFOz6ymidnpFl2DrgYGGoZ+t
+ AzNfPiYTPw7WGq45cq8juINIdBQ0pTDscQfd0twB3eU+YaJZQSDFUSMM/
+ a+WqmsgwvBJqSzDZZNnDM7bAjSLqrXgbKPmt6pYu+LQzTgoH6VSVLMyjR
+ CtV/2sNnJbjAbWxn947jsRGAJhFyLaiDfyHgwlrFOvBaD7/+7saQznDNM g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="315503465"
+X-IronPort-AV: E=Sophos;i="5.96,182,1665471600"; d="scan'208";a="315503465"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2022 15:12:46 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="618993330"
+X-IronPort-AV: E=Sophos;i="5.96,182,1665471600"; d="scan'208";a="618993330"
+Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2022 15:12:45 -0800
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 21 Nov 2022 15:16:11 -0800
+Message-Id: <20221121231617.1110329-1-daniele.ceraolospurio@intel.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Gustavo Sousa" <gustavo.sousa@intel.com>
-Date: Mon, 21 Nov 2022 22:26:39 -0000
-Message-ID: <166906959937.22097.11429544831716653825@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20221121211815.30950-1-gustavo.sousa@intel.com>
-In-Reply-To: <20221121211815.30950-1-gustavo.sousa@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
- =?utf-8?q?rm/i915/dmc=3A_Update_DG2_DMC_version_to_v2=2E08?=
+Subject: [Intel-gfx] [PATCH 0/6] drm/i915: Add support for GSC FW loading
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,44 +54,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Starting from MTL, the GSC FW is runtime loaded by the driver, instead
+of being stored in flash memory. Loading the GSC FW is required to allow
+the media GT to go into its C6 state and for content protection features
+(PXP, HDCP).
 
-Series: drm/i915/dmc: Update DG2 DMC version to v2.08
-URL   : https://patchwork.freedesktop.org/series/111164/
-State : failure
+The loading happens via a submission to the GSC engine. All subsequent
+communication with the FW will also happen via the engine, although no
+further messages are implemented as part of this series. The loading is
+currently done serially as part of driver init/resume, but the plan is
+to move it to a worker thread in the future to allow non-CP submission
+to go through while we wait for GSC FW load to complete. This will be
+done once all the pieces required for GSC to fully function are in place
+(see further below).
 
-== Summary ==
+This series also adds the GSC engine flag to the MTL platform, with the
+engine being runtime disabled if the FW is not selected, which makes the
+FW definition (not included in the series) the ultimate enabler for the
+whole GSC block.
 
-Error: make failed
-  CALL    scripts/checksyscalls.sh
-  DESCEND objtool
-  CC [M]  drivers/gpu/drm/i915/display/intel_dmc.o
-drivers/gpu/drm/i915/display/intel_dmc.c: In function ‘intel_dmc_ucode_init’:
-drivers/gpu/drm/i915/display/intel_dmc.c:56:49: error: invalid digit "8" in octal constant
- #define DG2_DMC_VERSION_REQUIRED DMC_VERSION(2, 08)
-                                                 ^~
-drivers/gpu/drm/i915/display/intel_dmc.c:41:53: note: in definition of macro ‘DMC_VERSION’
- #define DMC_VERSION(major, minor) ((major) << 16 | (minor))
-                                                     ^~~~~
-drivers/gpu/drm/i915/display/intel_dmc.c:906:27: note: in expansion of macro ‘DG2_DMC_VERSION_REQUIRED’
-   dmc->required_version = DG2_DMC_VERSION_REQUIRED;
-                           ^~~~~~~~~~~~~~~~~~~~~~~~
-scripts/Makefile.build:250: recipe for target 'drivers/gpu/drm/i915/display/intel_dmc.o' failed
-make[5]: *** [drivers/gpu/drm/i915/display/intel_dmc.o] Error 1
-scripts/Makefile.build:500: recipe for target 'drivers/gpu/drm/i915' failed
-make[4]: *** [drivers/gpu/drm/i915] Error 2
-scripts/Makefile.build:500: recipe for target 'drivers/gpu/drm' failed
-make[3]: *** [drivers/gpu/drm] Error 2
-scripts/Makefile.build:500: recipe for target 'drivers/gpu' failed
-make[2]: *** [drivers/gpu] Error 2
-scripts/Makefile.build:500: recipe for target 'drivers' failed
-make[1]: *** [drivers] Error 2
-Makefile:1992: recipe for target '.' failed
-make: *** [.] Error 2
+Note that just loading the FW is not enough for it to be fully
+functional. We'll also need to establish and handle a communication
+channel between GSC and CSME (a.k.a. SW proxy). This will require a new
+mei component to handle the CSME side of things, so it will be pushed as
+a separate series.
 
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Cc: John Harrison <John.C.Harrison@Intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+
+Daniele Ceraolo Spurio (5):
+  drm/i915/uc: Introduce GSC FW
+  drm/i915/gsc: Skip the version check when fetching the GSC FW
+  drm/i915/gsc: GSC firmware loading
+  drm/i915/gsc: Do a driver-FLR on unload if GSC was loaded
+  drm/i915/mtl: MTL has one GSC CS on the media GT
+
+Jonathan Cavitt (1):
+  drm/i915/gsc: Disable GSC engine and power well if FW is not selected
+
+ drivers/gpu/drm/i915/Makefile                |   4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_pm.c       |  14 +-
+ drivers/gpu/drm/i915/gt/intel_engine.h       |   2 +
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  18 ++
+ drivers/gpu/drm/i915/gt/intel_gpu_commands.h |   7 +
+ drivers/gpu/drm/i915/gt/intel_gt.c           |  11 ++
+ drivers/gpu/drm/i915/gt/intel_gt.h           |   5 +
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c    | 195 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h    |  13 ++
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c    | 103 ++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h    |  43 ++++
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c        |  32 +++
+ drivers/gpu/drm/i915/gt/uc/intel_uc.h        |   5 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c     |  74 +++++--
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h     |   8 +-
+ drivers/gpu/drm/i915/i915_params.c           |   3 +
+ drivers/gpu/drm/i915/i915_params.h           |   1 +
+ drivers/gpu/drm/i915/i915_pci.c              |   2 +-
+ drivers/gpu/drm/i915/i915_reg.h              |   3 +
+ drivers/gpu/drm/i915/intel_uncore.c          |  48 +++++
+ drivers/gpu/drm/i915/intel_uncore.h          |  13 ++
+ 21 files changed, 585 insertions(+), 19 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
+
+-- 
+2.37.3
 
