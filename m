@@ -4,69 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76B5EC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 15:26:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4484FC43217
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 15:26:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B99910E2FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 872C510E301;
 	Mon, 21 Nov 2022 15:26:30 +0000 (UTC)
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 677AE10E346
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 23:24:21 +0000 (UTC)
-Received: by mail-pg1-x52c.google.com with SMTP id v3so11630466pgh.4
- for <intel-gfx@lists.freedesktop.org>; Mon, 14 Nov 2022 15:24:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=isFHkEsP4U7bls6+qnM9Ylr3wjVvZ13ykkMwbt8BoQw=;
- b=LWOYZLNMNZwSReaa3uSIz6jrXnI/Rr2JJojN/mxQAoov+trhlXXYow2KlUgLSLOQNt
- ZW2OzsnCNJyIe0jqPWkR9ZzyTPJEWIuEna29fGERlsILjuqFaWuvNMHAjBfyj/8J2iTM
- av9glh1vpo4WQkSfE8gZuaPFZM3yC2lp28zgCrtZ9GLYBz/baZLGQ+SDS0GELJmvch6x
- WUA4myeaVI/WzyMRmE3H5TzBhk+lbhbRX2wdPrutAyFLrnIQfpM4spqXksL3d5D3RkA8
- ycNQkoQXFwg5TBGtWGPeaFxxPJnx1ytnsmzeovhKe8r1LjJuWhWeI0/MgHAJeRpY+EsW
- 4pYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=isFHkEsP4U7bls6+qnM9Ylr3wjVvZ13ykkMwbt8BoQw=;
- b=I24OhMNu+ZK2W1au0CvvNF+AuswkeCHfpbfU5tck8w18kZaQxa15uc8xrUyrrVfW4B
- G55lYwOOTQH9vymDQCwAe0PL2Jz8ShF33Sj8B2G2AQgp7SaVr2kMLshkztbRMshmnvM1
- urnzOgVbcB8sK6AtG5rYkSz39udnuecd4o2jUxa5q5iz7Kjw2JNYYVnst+MIIJiDB8oL
- Ox/PJv/+eDbkj2BaRVBzXVRHEdbSAZAzM7NfH82DvxqxPmR11JhY+iO7hU52OdUX1NaF
- c4orxMWaWoPSJxilHxZbqjejXqvVczYn30KGhXYrwrlY+EONH3+qZyOWaTNhlyk32bXz
- k25Q==
-X-Gm-Message-State: ANoB5pmpnOTiS7pZuPTBM87EuTMxsf34X5TMoJBMYvMpGcmFe5aia15A
- h7W6mP2m1lY5scFAbDT9LcYSzUzWzJswLQ==
-X-Google-Smtp-Source: AA0mqf4XwefhBFMM95veTWx+1D5wJMGN873P83ISTzdr6a1eJB1Sel9VSsLR59mWLNxeNAm/G0SBYg==
-X-Received: by 2002:a63:1801:0:b0:470:7886:e200 with SMTP id
- y1-20020a631801000000b004707886e200mr13714841pgl.111.1668468260709; 
- Mon, 14 Nov 2022 15:24:20 -0800 (PST)
-Received: from google.com (7.104.168.34.bc.googleusercontent.com.
- [34.168.104.7]) by smtp.gmail.com with ESMTPSA id
- v5-20020a622f05000000b00571f66721aesm4132497pfv.42.2022.11.14.15.24.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Nov 2022 15:24:20 -0800 (PST)
-Date: Mon, 14 Nov 2022 23:24:16 +0000
-From: Sean Christopherson <seanjc@google.com>
-To: Yan Zhao <yan.y.zhao@intel.com>
-Message-ID: <Y3LOIKueyTUoJ00B@google.com>
-References: <20221111103247.22275-1-yan.y.zhao@intel.com>
- <20221111103350.22326-1-yan.y.zhao@intel.com>
- <Y26SI3uh8JV0vvO6@google.com>
- <Y27ivXea5SjR5lat@yzhao56-desk.sh.intel.com>
- <Y27sG3AqVX8yLUgR@google.com>
- <Y3GUdqxnPJvc6SPI@yzhao56-desk.sh.intel.com>
- <Y3JtonYdDYOhbmfG@google.com>
- <Y3LEZXWqk6ztuf7x@yzhao56-desk.sh.intel.com>
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8D3A8903B;
+ Mon, 21 Nov 2022 11:32:09 +0000 (UTC)
+Received: from canpemm500006.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4NG4rY4Z4nzqSb0;
+ Mon, 21 Nov 2022 19:28:13 +0800 (CST)
+Received: from localhost.localdomain (10.175.104.82) by
+ canpemm500006.china.huawei.com (7.192.105.130) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Mon, 21 Nov 2022 19:32:06 +0800
+From: Ziyang Xuan <william.xuanziyang@huawei.com>
+To: <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
+ <rodrigo.vivi@intel.com>, <tvrtko.ursulin@linux.intel.com>,
+ <airlied@gmail.com>, <daniel@ffwll.ch>, <matthew.d.roper@intel.com>,
+ <matthew.auld@intel.com>, <lucas.demarchi@intel.com>,
+ <michal.winiarski@intel.com>, <maarten.lankhorst@linux.intel.com>,
+ <akeem.g.abodunrin@intel.com>, <intel-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+Date: Mon, 21 Nov 2022 19:32:02 +0800
+Message-ID: <20221121113202.3122299-1-william.xuanziyang@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y3LEZXWqk6ztuf7x@yzhao56-desk.sh.intel.com>
-X-Mailman-Approved-At: Mon, 21 Nov 2022 15:26:24 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 1/3] KVM: x86: add a new page track hook
- track_remove_slot
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.104.82]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ canpemm500006.china.huawei.com (7.192.105.130)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Mon, 21 Nov 2022 15:26:23 +0000
+Subject: [Intel-gfx] [PATCH] drm/i915/selftests: Fix error return code in
+ live_parallel_switch()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,53 +52,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, pbonzini@redhat.com,
- intel-gvt-dev@lists.freedesktop.org
+Cc: wiliam.xuanziyang@huawei.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 15, 2022, Yan Zhao wrote:
-> On Mon, Nov 14, 2022 at 04:32:34PM +0000, Sean Christopherson wrote:
-> > On Mon, Nov 14, 2022, Yan Zhao wrote:
-> > > On Sat, Nov 12, 2022 at 12:43:07AM +0000, Sean Christopherson wrote:
-> > > > On Sat, Nov 12, 2022, Yan Zhao wrote:
-> > > > > And I'm also not sure if a slots_arch_lock is required for
-> > > > > kvm_slot_page_track_add_page() and kvm_slot_page_track_remove_page().
-> > > > 
-> > > > It's not required.  slots_arch_lock protects interaction between memslot updates
-> > > In kvm_slot_page_track_add_page() and kvm_slot_page_track_remove_page(),
-> > > slot->arch.gfn_track[mode][index] is updated in update_gfn_track(),
-> > > do you know which lock is used to protect it?
-> > 
-> > mmu_lock protects the count, kvm->srcu protects the slot, and shadow_root_allocated
-> > protects that validity of gfn_track, i.e. shadow_root_allocated ensures that KVM
-> > allocates gfn_track for all memslots when shadow paging is activated.
-> Hmm, thanks for the reply.
-> but in direct_page_fault(),
-> if (page_fault_handle_page_track(vcpu, fault))
-> 	return RET_PF_EMULATE;
-> 
-> slot->arch.gfn_track is read without any mmu_lock is held.
+In live_parallel_switch(), excute intel_context_create() failed,
+the error code should be set before return from error handling path.
 
-That's a fast path that deliberately reads out of mmu_lock.  A false positive
-only results in unnecessary emulation, and any false positive is inherently prone
-to races anyways, e.g. fault racing with zap.
+Fixes: 50d16d44cce4 ("drm/i915/selftests: Exercise context switching in parallel")
+Signed-off-by: Ziyang Xuan <william.xuanziyang@huawei.com>
+---
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-> > arch/x86/kvm/mmu/page_track.c-void __kvm_write_track_remove_gfn(struct kvm *kvm,
-> > arch/x86/kvm/mmu/page_track.c-                            struct kvm_memory_slot *slot, gfn_t gfn)
-> > arch/x86/kvm/mmu/page_track.c-{
-> > arch/x86/kvm/mmu/page_track.c-  lockdep_assert_held_write(&kvm->mmu_lock);
-> > arch/x86/kvm/mmu/page_track.c-
-> > arch/x86/kvm/mmu/page_track.c-  if (KVM_BUG_ON(!kvm_page_track_write_tracking_enabled(kvm), kvm))
-> > arch/x86/kvm/mmu/page_track.c-          return;
-> > arch/x86/kvm/mmu/page_track.c-
-> > arch/x86/kvm/mmu/page_track.c:  update_gfn_write_track(slot, gfn, -1);
-> yes, it will be helpful.
-> 
-> Besides, will WRITE_ONCE or atomic_add in update_gfn_write_track() to
-> update slot->arch.gfn_track be better?
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index c6ad67b90e8a..960ad65e5300 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -335,8 +335,10 @@ static int live_parallel_switch(void *arg)
+ 				continue;
+ 
+ 			ce = intel_context_create(data[m].ce[0]->engine);
+-			if (IS_ERR(ce))
++			if (IS_ERR(ce)) {
++				err = PTR_ERR(ce);
+ 				goto out;
++			}
+ 
+ 			err = intel_context_pin(ce);
+ 			if (err) {
+-- 
+2.25.1
 
-WRITE_ONCE() won't suffice, it needs to be atomic.  Switching to atomic_inc/dec
-isn't worth it so long as KVM's shadow MMU takes mmu_lock for write, i.e. while
-the accounting is mutually exclusive for other reasons in both KVM and KVMGT.
