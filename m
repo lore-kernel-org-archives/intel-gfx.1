@@ -4,53 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66836C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 11:47:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB6AEC433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Nov 2022 11:50:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEAAB10E036;
-	Mon, 21 Nov 2022 11:47:30 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFA3D10E036
- for <intel-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 11:47:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2188610E2B0;
+	Mon, 21 Nov 2022 11:50:59 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26B5F10E2B0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Nov 2022 11:50:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669031246; x=1700567246;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=1wLby4xJ6UpboYKfcTCRrCSwwJfi//NDyqcSy4o73s4=;
- b=QZRx1719hXHo1CgPg+7z3KEyG7ye8zE3d9UDs8mZHgDYqfHCecsSwWNl
- 8CDMHzewk3nm3PrT8CnUy2abBXtIgF1ynR9qhL7mCE4DMxKIMYFMMtMyl
- +1pv8hA2bcb0O0qCAqTf3Yzt9yZ37YC3lZZHExh09Nhh2on9J7jDHESZQ
- HYZKkOebKHwiBiJTVdqUIryg1K8JPzTfD03Yp7k54bnvlHPGP+vhFFCOS
- 1y01mdACflyB8F8TIRpARcm1u6A3KL4yU2PSGYwew80vBLPIgVuy93vlZ
- KbTf0wWXFOTgwI2KdpgWjXB6rugmAMjfFE0sjJLU5MXLorkKjgLOKPtC4 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10537"; a="375683952"
-X-IronPort-AV: E=Sophos;i="5.96,181,1665471600"; d="scan'208";a="375683952"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2022 03:47:26 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10537"; a="591739091"
-X-IronPort-AV: E=Sophos;i="5.96,181,1665471600"; d="scan'208";a="591739091"
-Received: from slarkin-mobl.ger.corp.intel.com (HELO [10.213.201.194])
- ([10.213.201.194])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2022 03:47:25 -0800
-Message-ID: <87c63fc5-1553-1794-1f48-73a47de273bb@linux.intel.com>
-Date: Mon, 21 Nov 2022 11:47:23 +0000
+ t=1669031457; x=1700567457;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=qmZ+++1KritZhheeU5ngstYkxUnJ1tl+52PQhaiZHMo=;
+ b=Xtyvd4ATAzxmEvH1pAj/O0KkyKGDiitCtXppTazUCjCDOOVnhndGUTaK
+ GcaBUV5Wpe8GLVgMx/pUjMeT1QC/uoBwfE4PGFZqUDDgw4VAFAesz0tz4
+ Kt89+uerH8chGoEKikrbFiWoC04VEFr8/ss9rt/N46+RC9wMyvZTB8rvA
+ Z04IYuw4cfyzpiPg1IjHIYfI7nctv2DOakyS812gZXOO7A8oZCg+etw7r
+ AOmPhmfrcwuKI55v3jiH30T0YKKd63ON+xDTiWMjgIJ/HTMfsQlrg2kp1
+ T116DmB+BC7BG1aRXC65bYVUCh3y/2C3v+Cbh+dG5olOhBofMVPfjg0Xe A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10537"; a="312241098"
+X-IronPort-AV: E=Sophos;i="5.96,181,1665471600"; d="scan'208";a="312241098"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2022 03:50:56 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10537"; a="704535523"
+X-IronPort-AV: E=Sophos;i="5.96,181,1665471600"; d="scan'208";a="704535523"
+Received: from nsnead-mobl1.amr.corp.intel.com (HELO kveik.ger.corp.intel.com)
+ ([10.251.208.113])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2022 03:50:55 -0800
+From: Luca Coelho <luciano.coelho@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 21 Nov 2022 13:50:43 +0200
+Message-Id: <20221121115043.763658-2-luciano.coelho@intel.com>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20221121115043.763658-1-luciano.coelho@intel.com>
+References: <20221121115043.763658-1-luciano.coelho@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
- intel-gfx@lists.freedesktop.org
-References: <20221121100134.2523381-1-himal.prasad.ghimiray@intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <20221121100134.2523381-1-himal.prasad.ghimiray@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH 1/1] drm/i915: Export LMEM max memory
- bandwidth via sysfs
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 2/2] drm/i915/mtl: Limit scaler input to 4k
+ in plane scaling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,103 +59,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: ville.syrjala@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Animesh Manna <animesh.manna@intel.com>
 
-On 21/11/2022 10:01, Himal Prasad Ghimiray wrote:
-> Export lmem maximum memory bandwidth to the userspace via sysfs
-> 
-> (v2)
-> Add TODO comment to have client parts specific condition (Anshuman)
-> Remove prelim prefix from the sysfs node name (Aravind)
+As part of die area reduction max input source modified to 4096
+for MTL so modified range check logic of scaler.
 
-Link to userspace consumer?
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Reviewed-by: Manasi Navare <manasi.d.navare@intel.com>
+---
 
-> Signed-off-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-> ---
->   drivers/gpu/drm/i915/i915_reg.h   |  2 ++
->   drivers/gpu/drm/i915/i915_sysfs.c | 28 ++++++++++++++++++++++++++++
->   2 files changed, 30 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index 8e1892d147741..1d59b84b86ad2 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -6606,6 +6606,8 @@
->   #define	    POWER_SETUP_I1_WATTS		REG_BIT(31)
->   #define	    POWER_SETUP_I1_SHIFT		6	/* 10.6 fixed point format */
->   #define	    POWER_SETUP_I1_DATA_MASK		REG_GENMASK(15, 0)
-> +#define	  PCODE_MEMORY_CONFIG			0x70
-> +#define	    MEMORY_CONFIG_SUBCOMMAND_READ_MAX_BANDWIDTH 0x0
->   #define GEN12_PCODE_READ_SAGV_BLOCK_TIME_US	0x23
->   #define   XEHP_PCODE_FREQUENCY_CONFIG		0x6e	/* xehpsdv, pvc */
->   /* XEHP_PCODE_FREQUENCY_CONFIG sub-commands (param1) */
-> diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
-> index 595e8b5749907..69df2012bd10e 100644
-> --- a/drivers/gpu/drm/i915/i915_sysfs.c
-> +++ b/drivers/gpu/drm/i915/i915_sysfs.c
-> @@ -37,7 +37,10 @@
->   
->   #include "i915_drv.h"
->   #include "i915_sysfs.h"
-> +#include "i915_reg.h"
->   #include "intel_pm.h"
-> +#include "intel_pcode.h"
-> +
+No changes in v2.
 
-Please don't do whitespace changes if there isn't a good reason.
+drivers/gpu/drm/i915/display/skl_scaler.c | 31 +++++++++++++++++------
+ 1 file changed, 23 insertions(+), 8 deletions(-)
 
->   
->   struct drm_i915_private *kdev_minor_to_i915(struct device *kdev)
->   {
-> @@ -231,11 +234,36 @@ static void i915_setup_error_capture(struct device *kdev) {}
->   static void i915_teardown_error_capture(struct device *kdev) {}
->   #endif
->   
-> +static ssize_t
-> +lmem_max_bw_Mbps_show(struct device *dev, struct device_attribute *attr, char *buff)
-> +{
-> +	struct drm_i915_private *i915 = kdev_minor_to_i915(dev);
-> +	u32 val;
-> +	int err;
-> +
-> +	err = snb_pcode_read_p(&i915->uncore, PCODE_MEMORY_CONFIG,
-> +			       MEMORY_CONFIG_SUBCOMMAND_READ_MAX_BANDWIDTH,
-> +			       0x0, &val);
-> +	if (err)
-> +		return err;
-> +
-> +	return sysfs_emit(buff, "%u\n", val);
-> +}
-> +
-> +static DEVICE_ATTR_RO(lmem_max_bw_Mbps);
-> +
->   void i915_setup_sysfs(struct drm_i915_private *dev_priv)
->   {
->   	struct device *kdev = dev_priv->drm.primary->kdev;
->   	int ret;
->   
-> +	/*TODO: Need to add client Parts condition check. */
+diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
+index d7390067b7d4..6baa07142b03 100644
+--- a/drivers/gpu/drm/i915/display/skl_scaler.c
++++ b/drivers/gpu/drm/i915/display/skl_scaler.c
+@@ -103,6 +103,8 @@ skl_update_scaler(struct intel_crtc_state *crtc_state, bool force_detach,
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
++	int min_src_w, min_src_h, min_dst_w, min_dst_h;
++	int max_src_w, max_src_h, max_dst_w, max_dst_h;
+ 
+ 	/*
+ 	 * Src coordinates are already rotated by 270 degrees for
+@@ -157,15 +159,28 @@ skl_update_scaler(struct intel_crtc_state *crtc_state, bool force_detach,
+ 		return -EINVAL;
+ 	}
+ 
++	min_src_w = SKL_MIN_SRC_W;
++	min_src_h = SKL_MIN_SRC_H;
++	min_dst_w = SKL_MIN_DST_W;
++	min_dst_h = SKL_MIN_DST_H;
++
++	if (DISPLAY_VER(dev_priv) >= 11 && DISPLAY_VER(dev_priv) < 14) {
++		max_src_w = ICL_MAX_SRC_W;
++		max_src_h = ICL_MAX_SRC_H;
++		max_dst_w = ICL_MAX_DST_W;
++		max_dst_h = ICL_MAX_DST_H;
++	} else {
++		max_src_w = SKL_MAX_SRC_W;
++		max_src_h = SKL_MAX_SRC_H;
++		max_dst_w = SKL_MAX_DST_W;
++		max_dst_h = SKL_MAX_DST_H;
++	}
++
+ 	/* range checks */
+-	if (src_w < SKL_MIN_SRC_W || src_h < SKL_MIN_SRC_H ||
+-	    dst_w < SKL_MIN_DST_W || dst_h < SKL_MIN_DST_H ||
+-	    (DISPLAY_VER(dev_priv) >= 11 &&
+-	     (src_w > ICL_MAX_SRC_W || src_h > ICL_MAX_SRC_H ||
+-	      dst_w > ICL_MAX_DST_W || dst_h > ICL_MAX_DST_H)) ||
+-	    (DISPLAY_VER(dev_priv) < 11 &&
+-	     (src_w > SKL_MAX_SRC_W || src_h > SKL_MAX_SRC_H ||
+-	      dst_w > SKL_MAX_DST_W || dst_h > SKL_MAX_DST_H)))	{
++	if (src_w < min_src_w || src_h < min_src_h ||
++	    dst_w < min_dst_w || dst_h < min_dst_h ||
++	    src_w > max_src_w || src_h > max_src_h ||
++	    dst_w > max_dst_w || dst_h > max_dst_h) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "scaler_user index %u.%u: src %ux%u dst %ux%u "
+ 			    "size is out of scaler range\n",
+-- 
+2.37.2
 
-What does this mean? Are DG1 and DG2 not client parts?
-
-> +	if (IS_DG1(dev_priv) || IS_DG2(dev_priv)) {
-> +		ret = sysfs_create_file(&kdev->kobj, &dev_attr_lmem_max_bw_Mbps.attr);
-> +		if (ret)
-> +			drm_err(&dev_priv->drm, "Setting up sysfs to read max B/W failed\n");
-
-I suggest at most drm_warn since error is ignored.
-
-I also suggest expanding B/W to memory bandwidth. Maybe "Failed to 
-create maximum memory bandwidth sysfs file"?
-
-Regards,
-
-Tvrtko
-
-> +	}
-> +
->   	if (HAS_L3_DPF(dev_priv)) {
->   		ret = device_create_bin_file(kdev, &dpf_attrs);
->   		if (ret)
