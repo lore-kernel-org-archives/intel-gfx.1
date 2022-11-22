@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87BA2C43219
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 15:35:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F5E1C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 15:35:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F02210E409;
-	Tue, 22 Nov 2022 15:35:12 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 348DF10E404;
- Tue, 22 Nov 2022 15:35:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA2C10E40C;
+	Tue, 22 Nov 2022 15:35:20 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 147F310E40C;
+ Tue, 22 Nov 2022 15:35:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669131306; x=1700667306;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Lk7Aa8ZXFKY55rSbLTJ7BLbpsyJEXtHLhmH5NxdPyRU=;
- b=RwXPn4zJ/31wY7HVij9mAK0VJj5b8MqU7RclIZcXrrG8S8jIl7HDg5k7
- OEXjgKobrnUdvKiRsqERY/quh7Othf9Ovz/CNLDrOOGZ1ZAZbxcukxpm8
- kYiEV02T1TLSad9eDmmzP+4Xad8gbUQBipA/r0lQogov8v7wPuZAxyHh8
- kXWKGAA+JtuCduaBK587Bov3JiJbDgDB/1LNv0dcM/Eb1//CyeaJYzax5
- gmX9Rk8gRwH2sBQzTi9q0coSdtouFUOUouvo3stC5I32Tu3aFBLe/UbA4
- 34ttLSmEB6agmwt8pldX3bd0HcIf7PEQrPZ1E5VPhzNYflChKILSDntet w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="400132173"
-X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="400132173"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2022 07:35:05 -0800
+ t=1669131314; x=1700667314;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=zu4U5AcdMvxjBbkfIRJ4d3Ua9ejTwnth+3FLNezefWw=;
+ b=md3N+GrGvwUf6QOWLknExsDuy5ZH8A0ClL+DOWmPyuIORQhgSwNgmrDr
+ +7ClffdZ2he0tn/dqWNPpHmtoy/FFMNNzoU2Xc6e8glQkNZfrg/D9/Pv5
+ 13yCZkIWN2ZgcFxxF6TtDwjBkfEv2vk+hfFFVS6+aDrlQOYupJN8RTDAn
+ r6FrM4iDo77PI792VkmP/tHELLe3o/hsh5oZ6COTIZcAUm/azEAXocdz7
+ fOKKYhzLQL6hDCyrAOOmUoN3/r+7RWurukdwl6909/nWev+R0adD1OekO
+ /KU3kAhQUJJI2f4ZQobJFMWOVcXZDbW+eMSKF5NL0DEEyZwpWUi8X+L+9 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="315662395"
+X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="315662395"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2022 07:35:04 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="730435563"
-X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="730435563"
+X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="747395671"
+X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="747395671"
 Received: from black.fi.intel.com ([10.237.72.28])
- by FMSMGA003.fm.intel.com with ESMTP; 22 Nov 2022 07:35:00 -0800
+ by fmsmga002.fm.intel.com with ESMTP; 22 Nov 2022 07:35:00 -0800
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 4560E128; Tue, 22 Nov 2022 17:35:26 +0200 (EET)
+ id 5B37D184; Tue, 22 Nov 2022 17:35:26 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jakob Koschel <jakobkoschel@gmail.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -43,13 +43,15 @@ To: Jakob Koschel <jakobkoschel@gmail.com>,
  Mathias Nyman <mathias.nyman@linux.intel.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Date: Tue, 22 Nov 2022 17:35:13 +0200
-Message-Id: <20221122153516.52577-1-andriy.shevchenko@linux.intel.com>
+Date: Tue, 22 Nov 2022 17:35:15 +0200
+Message-Id: <20221122153516.52577-3-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20221122153516.52577-1-andriy.shevchenko@linux.intel.com>
+References: <20221122153516.52577-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 1/4] i915: Move list_count() to list.h for
- broader use
+Subject: [Intel-gfx] [PATCH v3 3/4] usb: gadget: udc: bcm63xx: Convert to
+ use list_count()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,82 +65,52 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Kevin Cernekee <cernekee@gmail.com>,
- Mathias Nyman <mathias.nyman@intel.com>, Jani Nikula <jani.nikula@intel.com>,
- Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
+ Mathias Nyman <mathias.nyman@intel.com>, Hans de Goede <hdegoede@redhat.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some of the existing users, and definitely will be new ones, want to
-count existing nodes in the list. Provide a generic API for that by
-moving code from i915 to list.h.
+The list API now provides the list_count() to help with counting
+existing nodes in the list. Utilise it.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
-v3: added tag (Jani), changed to be static inline (Mike)
-v2: dropped the duplicate code in i915 (LKP)
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 13 +------------
- include/linux/list.h                      | 15 +++++++++++++++
- 2 files changed, 16 insertions(+), 12 deletions(-)
+v3: no change
+v2: no change
+ drivers/usb/gadget/udc/bcm63xx_udc.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 6ae8b07cfaa1..b5d474be564d 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -2085,17 +2085,6 @@ static void print_request_ring(struct drm_printer *m, struct i915_request *rq)
- 	}
- }
+diff --git a/drivers/usb/gadget/udc/bcm63xx_udc.c b/drivers/usb/gadget/udc/bcm63xx_udc.c
+index 2cdb07905bde..0762e49e85f8 100644
+--- a/drivers/usb/gadget/udc/bcm63xx_udc.c
++++ b/drivers/usb/gadget/udc/bcm63xx_udc.c
+@@ -2172,7 +2172,6 @@ static int bcm63xx_iudma_dbg_show(struct seq_file *s, void *p)
  
--static unsigned long list_count(struct list_head *list)
--{
--	struct list_head *pos;
--	unsigned long count = 0;
--
--	list_for_each(pos, list)
--		count++;
--
--	return count;
--}
--
- static unsigned long read_ul(void *p, size_t x)
- {
- 	return *(unsigned long *)(p + x);
-@@ -2270,7 +2259,7 @@ void intel_engine_dump(struct intel_engine_cs *engine,
- 	spin_lock_irqsave(&engine->sched_engine->lock, flags);
- 	engine_dump_active_requests(engine, m);
+ 	for (ch_idx = 0; ch_idx < BCM63XX_NUM_IUDMA; ch_idx++) {
+ 		struct iudma_ch *iudma = &udc->iudma[ch_idx];
+-		struct list_head *pos;
  
--	drm_printf(m, "\tOn hold?: %lu\n",
-+	drm_printf(m, "\tOn hold?: %zu\n",
- 		   list_count(&engine->sched_engine->hold));
- 	spin_unlock_irqrestore(&engine->sched_engine->lock, flags);
+ 		seq_printf(s, "IUDMA channel %d -- ", ch_idx);
+ 		switch (iudma_defaults[ch_idx].ep_type) {
+@@ -2205,14 +2204,10 @@ static int bcm63xx_iudma_dbg_show(struct seq_file *s, void *p)
+ 		seq_printf(s, "  desc: %d/%d used", iudma->n_bds_used,
+ 			   iudma->n_bds);
  
-diff --git a/include/linux/list.h b/include/linux/list.h
-index 61762054b4be..65aab596ae33 100644
---- a/include/linux/list.h
-+++ b/include/linux/list.h
-@@ -655,6 +655,21 @@ static inline void list_splice_tail_init(struct list_head *list,
- 	     !list_is_head(pos, (head)); \
- 	     pos = n, n = pos->prev)
+-		if (iudma->bep) {
+-			i = 0;
+-			list_for_each(pos, &iudma->bep->queue)
+-				i++;
+-			seq_printf(s, "; %d queued\n", i);
+-		} else {
++		if (iudma->bep)
++			seq_printf(s, "; %zu queued\n", list_count(&iudma->bep->queue));
++		else
+ 			seq_printf(s, "\n");
+-		}
  
-+/**
-+ * list_count - count nodes in the list
-+ * @head:	the head for your list.
-+ */
-+size_t list_count(struct list_head *head)
-+{
-+	struct list_head *pos;
-+	size_t count = 0;
-+
-+	list_for_each(pos, head)
-+		count++;
-+
-+	return count;
-+}
-+
- /**
-  * list_entry_is_head - test if the entry points to the head of the list
-  * @pos:	the type * to cursor
+ 		for (i = 0; i < iudma->n_bds; i++) {
+ 			struct bcm_enet_desc *d = &iudma->bd_ring[i];
 -- 
 2.35.1
 
