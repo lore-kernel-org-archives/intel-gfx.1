@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE2F5C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 12:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 311DBC4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 12:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE4FF10E3E3;
-	Tue, 22 Nov 2022 12:08:40 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7860810E3DA
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 12:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD5E310E3DD;
+	Tue, 22 Nov 2022 12:09:13 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7D0D10E3DD
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 12:08:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669118917; x=1700654917;
+ t=1669118932; x=1700654932;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=bt7SkouqrNUWTnVSn24AYxzMzCbnuUNThEKomIa2Kbs=;
- b=gAeZVnOuLmpwd8SvMn93qfdfWYwqO9JfshdKdU8YmDjlUKShNePE9wZS
- 6DGXzl+L9vISw2I4zBL46aVkTMVaWf/AFjN+rYJO9d4a84BwM7jZcuA64
- Vo1ZB2HcHQZts9l8Fq8P9F4Ol2qT0G30M/GtPJ/P25C8h/txPHQE9GKGe
- H4J98VRK+cmE5Af/rW0hyvdz6FTxHX1KgtTtWGhu9DJI8/HJg6q7gGhF5
- y/6VkaFoqGlyleRrg9HL9vhWtDTEFyQwhhQITmomY7zi36PPIv1/LCTWc
- NoSuZCUZOUuu3T1w3dDryi8Iqo+zPtQ568oH5zFMIEKsHT/NH0ixt97c1 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="313829537"
-X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="313829537"
+ bh=TSssrm+H7hZe4zRxV9JpaONO2NrPES3wyjfL656rTmw=;
+ b=J4SqeWrTVrXOQDEqR9IrnSfn1KDLYU+k9kwVY8AxErks8KEaz8kvEGiW
+ KHXwBC85rG/4ayZL5RJCYRHKJRiOqiy/JD4SKCIT7wSbkrGRvAMkaPRXy
+ G5Dw8QVAZ32aVl63PqDkG7N3nRzPWIaCXrcP+TUi65IYhwCxiMrfg07cg
+ HYiAV9+A9SumkTDiHd0nhF3jymLUScP8jl+zqauCGl7x+yOO3RawvWJ0G
+ XDbXDQ/tWaJmXUFrL3V+gOAVSiIuyn6B9ww+0dl/Ckq/tpa7f5LHeCPg7
+ olVfAhka/y0+WIXSEN+1PPTdpnfbS2DUIQipa5waGR0QOVBnHnsSwsXge Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="378057237"
+X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="378057237"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2022 04:08:37 -0800
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2022 04:08:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="641395807"
-X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="641395807"
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="641395884"
+X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="641395884"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga002.jf.intel.com with SMTP; 22 Nov 2022 04:08:34 -0800
+ by orsmga002.jf.intel.com with SMTP; 22 Nov 2022 04:08:49 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 22 Nov 2022 14:08:34 +0200
+ Tue, 22 Nov 2022 14:08:49 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Nov 2022 14:08:18 +0200
-Message-Id: <20221122120825.26338-4-ville.syrjala@linux.intel.com>
+Date: Tue, 22 Nov 2022 14:08:23 +0200
+Message-Id: <20221122120825.26338-9-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221122120825.26338-1-ville.syrjala@linux.intel.com>
 References: <20221122120825.26338-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/10] drm/i915/dvo/sil164: Fix suspend/resume
+Subject: [Intel-gfx] [PATCH 08/10] drm/i915/dvo: Use intel_de_rmw() for DVO
+ enable/disable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,49 +65,51 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Poke a few more bits into the SiI164 to make it
-recover after S3. HEN/VEN are the important bits,
-the rest PLL filter/HPD detection I just did
-for good measure to match the BIOS programming.
-
-Note that the spec recommended SCNT bit in REGC
-isn't set by the BIOS at least for me, so I left
-it out.
+Replace the hand rolled RMW with intel_de_rmw() in the DVO
+port enable/disable functions. Also switch to intel_de_posting_read()
+for the posting read (though maybe it should be just be nuked...).
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/dvo_sil164.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dvo.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/dvo_sil164.c b/drivers/gpu/drm/i915/display/dvo_sil164.c
-index 32dd3b969946..4acc8ce29c0b 100644
---- a/drivers/gpu/drm/i915/display/dvo_sil164.c
-+++ b/drivers/gpu/drm/i915/display/dvo_sil164.c
-@@ -58,6 +58,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- #define SIL164_9_MDI (1<<0)
+diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
+index a5c464c82e5c..c590a92205f0 100644
+--- a/drivers/gpu/drm/i915/display/intel_dvo.c
++++ b/drivers/gpu/drm/i915/display/intel_dvo.c
+@@ -185,11 +185,11 @@ static void intel_disable_dvo(struct intel_atomic_state *state,
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_dvo *intel_dvo = enc_to_dvo(encoder);
+ 	enum port port = encoder->port;
+-	u32 temp = intel_de_read(i915, DVO(port));
  
- #define SIL164_REGC 0x0c
-+#define SIL164_C_SCNT (1<<7)
-+#define SIL164_C_PLLF_MASK (0xf<<1)
-+#define SIL164_C_PLLF_REC (4<<1)
-+#define SIL164_C_PFEN (1<<0)
- 
- struct sil164_priv {
- 	//I2CDevRec d;
-@@ -205,6 +209,13 @@ static void sil164_mode_set(struct intel_dvo_device *dvo,
- 	  sil164_writeb(sil, 0x0c, 0x89);
- 	  sil164_writeb(sil, 0x08, 0x31);*/
- 	/* don't do much */
+ 	intel_dvo->dev.dev_ops->dpms(&intel_dvo->dev, false);
+-	intel_de_write(i915, DVO(port), temp & ~DVO_ENABLE);
+-	intel_de_read(i915, DVO(port));
 +
-+	sil164_writeb(dvo, SIL164_REG8,
-+		      SIL164_8_VEN | SIL164_8_HEN);
-+	sil164_writeb(dvo, SIL164_REG9,
-+		      SIL164_9_TSEL);
-+	sil164_writeb(dvo, SIL164_REGC,
-+		      SIL164_C_PLLF_REC | SIL164_C_PFEN);
++	intel_de_rmw(i915, DVO(port), DVO_ENABLE, 0);
++	intel_de_posting_read(i915, DVO(port));
  }
  
- /* set the SIL164 power state */
+ static void intel_enable_dvo(struct intel_atomic_state *state,
+@@ -200,14 +200,13 @@ static void intel_enable_dvo(struct intel_atomic_state *state,
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_dvo *intel_dvo = enc_to_dvo(encoder);
+ 	enum port port = encoder->port;
+-	u32 temp = intel_de_read(i915, DVO(port));
+ 
+ 	intel_dvo->dev.dev_ops->mode_set(&intel_dvo->dev,
+ 					 &pipe_config->hw.mode,
+ 					 &pipe_config->hw.adjusted_mode);
+ 
+-	intel_de_write(i915, DVO(port), temp | DVO_ENABLE);
+-	intel_de_read(i915, DVO(port));
++	intel_de_rmw(i915, DVO(port), 0, DVO_ENABLE);
++	intel_de_posting_read(i915, DVO(port));
+ 
+ 	intel_dvo->dev.dev_ops->dpms(&intel_dvo->dev, true);
+ }
 -- 
 2.37.4
 
