@@ -4,50 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F784C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 18:21:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88F5EC433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 18:23:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB09910E19F;
-	Tue, 22 Nov 2022 18:21:57 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7EA110E19F;
- Tue, 22 Nov 2022 18:21:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669141312; x=1700677312;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=g+bxEE+yBg48pjoV3+DTGzyrgo9HmOayfng5ERUgGb8=;
- b=K1QhWw5JAdj0W9gw4pae4S0aUtQg1hEmZ+bsgo+R3caiVCvS8hm/aObf
- VkIXMITpRCJNccsZvyPVTQWZMGgI6aivDF49V7G3a7er9ud93OYKJpkf1
- K++OHXYrNk5YPLE27pGjlTeJeRSxMpxPhs+wkMfW69UYYg0/vOnYFxd07
- kSgPqbqtYG+nfbX1B9S1+YyZkVNVsO2YWOIpihI+k/iRTIY27az88Cbux
- Lx0v+qS7hDPTizJTTaLdK7WUvTIrlK0aJk7VG+p0I27kvfA3Ve6sPkwGk
- N3X5osk09tJPpzmjQ9hkPHJ17aqa6cI3ROveuV1yvEA03V8vPfvx60Yi3 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="400173982"
-X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="400173982"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2022 10:21:52 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="643813704"
-X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="643813704"
-Received: from sfflynn-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.18.151])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2022 10:21:50 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Michal Wajdeczko <michal.wajdeczko@intel.com>,
- John.C.Harrison@Intel.com, Intel-GFX@Lists.FreeDesktop.Org
-In-Reply-To: <3b7ef198-7aba-8948-6332-9a57d8ee0fb6@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20221118015858.2548106-1-John.C.Harrison@Intel.com>
- <87a64o1qn5.fsf@intel.com>
- <3b7ef198-7aba-8948-6332-9a57d8ee0fb6@intel.com>
-Date: Tue, 22 Nov 2022 20:21:45 +0200
-Message-ID: <87y1s2x32e.fsf@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v2 0/5] Add module oriented dmesg output
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4A6310E192;
+	Tue, 22 Nov 2022 18:23:23 +0000 (UTC)
+X-Greylist: delayed 418 seconds by postgrey-1.36 at gabe;
+ Tue, 22 Nov 2022 12:15:26 UTC
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [58.251.27.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D72210E3D0;
+ Tue, 22 Nov 2022 12:15:26 +0000 (UTC)
+Received: from mxde.zte.com.cn (unknown [10.35.20.121])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mxct.zte.com.cn (FangMail) with ESMTPS id 4NGjhT6Pr7zK8S;
+ Tue, 22 Nov 2022 20:08:25 +0800 (CST)
+Received: from mxus.zte.com.cn (unknown [10.207.168.8])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mxde.zte.com.cn (FangMail) with ESMTPS id 4NGjhB49MfzBf6Lr;
+ Tue, 22 Nov 2022 20:08:10 +0800 (CST)
+Received: from mxhk.zte.com.cn (unknown [192.168.250.138])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mxus.zte.com.cn (FangMail) with ESMTPS id 4NGjh66CBPzdmJQW;
+ Tue, 22 Nov 2022 20:08:06 +0800 (CST)
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mxhk.zte.com.cn (FangMail) with ESMTPS id 4NGjh12Qybz5PkGj;
+ Tue, 22 Nov 2022 20:08:01 +0800 (CST)
+Received: from szxlzmapp04.zte.com.cn ([10.5.231.166])
+ by mse-fl2.zte.com.cn with SMTP id 2AMC7uCC005801;
+ Tue, 22 Nov 2022 20:07:56 +0800 (+08)
+ (envelope-from yang.yang29@zte.com.cn)
+Received: from mapi (szxlzmapp02[null]) by mapi (Zmail) with MAPI id mid14;
+ Tue, 22 Nov 2022 20:07:59 +0800 (CST)
+Date: Tue, 22 Nov 2022 20:07:59 +0800 (CST)
+X-Zmail-TransId: 2b04637cbb9ffffffffffa0dfedf
+X-Mailer: Zmail v1.0
+Message-ID: <202211222007593082125@zte.com.cn>
+Mime-Version: 1.0
+From: <yang.yang29@zte.com.cn>
+To: <zhenyuw@linux.intel.com>
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL: mse-fl2.zte.com.cn 2AMC7uCC005801
+X-Fangmail-Gw-Spam-Type: 0
+X-FangMail-Miltered: at cgslv5.04-192.168.251.14.novalocal with ID
+ 637CBBB8.002 by FangMail milter!
+X-FangMail-Envelope: 1669118906/4NGjhT6Pr7zK8S/637CBBB8.002/10.35.20.121/[10.35.20.121]/mxde.zte.com.cn/<yang.yang29@zte.com.cn>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 637CBBB8.002/4NGjhT6Pr7zK8S
+X-Mailman-Approved-At: Tue, 22 Nov 2022 18:23:19 +0000
+Subject: [Intel-gfx] =?utf-8?q?=5BPATCH_linux-next=5D_drm/i915/gvt=3A_use?=
+ =?utf-8?q?_sysfs=5Fstreq=28=29_instead_of_strncmp=28=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,150 +71,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Cc: xu.panda@zte.com.cn, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ yang.yang29@zte.com.cn, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ rodrigo.vivi@intel.com, airlied@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 22 Nov 2022, Michal Wajdeczko <michal.wajdeczko@intel.com> wrote:
-> On 18.11.2022 11:52, Jani Nikula wrote:
->> On Thu, 17 Nov 2022, John.C.Harrison@Intel.com wrote:
->>> From: John Harrison <John.C.Harrison@Intel.com>
->>>
->>> When trying to analyse bug reports from CI, customers, etc. it can be
->>> difficult to work out exactly what is happening on which GT in a
->>> multi-GT system. So add GT oriented debug/error message wrappers. If
->>> used instead of the drm_ equivalents, you get the same output but with
->>> a GT# prefix on it.
->>>
->>> It was also requested to extend this further to submodules in order to
->>> factor out the repeated structure accessing constructs and common
->>> string prefixes. So, add versions for GuC, HuC and GuC CTB as well.
->>>
->>> This patch set updates all the gt/uc files to use the new helpers as a
->>> first step. The intention would be to convert all output messages that
->>> have access to a GT structure.
->>>
->>> v2: Go back to using lower case names, add more wrapper sets (combined
->>> review feedback). Also, wrap up probe injection and WARN entries.
->>>
->>> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
->> 
->> For adding the wrappers in general, I'm going to disagree and
->> commit. I'll leave it up to Tvrtko and Joonas.
->> 
->> Regarding the placement of the macros, I insist you add individual
->> header files for the wrappers and include them only where needed.
->
-> do you mean:
->
-> 	intel_gt_print.h
-> 	intel_guc_print.h
-> 	intel_huc_print.h
->
-> with just macros or also with all functions that work with drm_printer?
+From: Xu Panda <xu.panda@zte.com.cn>
 
-At least for the macros being added now. If adding others does not
-require you to pull in a bunch of additional header dependencies, you
-can add more. And that can be separate patches.
+Replace the open-code with sysfs_streq().
 
->
->> 
->> We have a fairly serious problem with everything including everything in
->> i915 that I've been slowly trying to tackle. Touch one thing, rebuild
->> everything. About a third of our headers cause the rebuild of the entire
->> driver when modified. We need to reduce the surface of things that cause
->> rebuilds.
->> 
->> For example, intel_gt.h is included by 97 files, intel_guc.h by 332
->> files, and intel_huc.h by 329 files (counting recursively).
->> 
->> There's absolutely no reason any of the display code, for example, needs
->> to have these logging macros in their build. Long term, the headers
->> should be reorganized to reduce the interdependencies, and this is what
->> I've been doing in i915_drv.h and display/ in general. But the least we
->> can do is not make the problem worse.
->
-> to solve this we should really consider splitting out GuC and HuC
-> definitions to dedicated _types.h files and only include them in
-> i915_drv.h (and print macros are orthogonal for this problem)
-
-It's an orthogonal problem, but IMO with the current headers there's no
-reason to make the problem worse by adding somewhat independent new
-stuff to the headers.
-
+Signed-off-by: Xu Panda <xu.panda@zte.com.cn>
+Signed-off-by: Yang Yang <yang.yang29@zte.com>
 ---
+ drivers/gpu/drm/i915/gvt/cmd_parser.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-I've looked at untangling this a bunch of times, but I've always felt
-that it's really not my area of expertise, and it would inevitably
-conflict with someone else's work in progress and someone else's idea of
-how the headers should be refactored.
+diff --git a/drivers/gpu/drm/i915/gvt/cmd_parser.c b/drivers/gpu/drm/i915/gvt/cmd_parser.c
+index 0ebf5fbf0e39..7b9a5f7f5363 100644
+--- a/drivers/gpu/drm/i915/gvt/cmd_parser.c
++++ b/drivers/gpu/drm/i915/gvt/cmd_parser.c
+@@ -917,8 +917,8 @@ static int cmd_reg_handler(struct parser_exec_state *s,
+ 		return -EBADRQC;
+ 	}
 
-There are chains like this:
+-	if (!strncmp(cmd, "srm", 3) ||
+-			!strncmp(cmd, "lrm", 3)) {
++	if (sysfs_streq(cmd, "srm") ||
++			sysfs_streq(cmd, "lrm")) {
+ 		if (offset == i915_mmio_reg_offset(GEN8_L3SQCREG4) ||
+ 		    offset == 0x21f0 ||
+ 		    (IS_BROADWELL(gvt->gt->i915) &&
+@@ -931,8 +931,8 @@ static int cmd_reg_handler(struct parser_exec_state *s,
+ 		}
+ 	}
 
-i915_drv.h:47:#include "gt/intel_gt_types.h"
-gt/intel_gt_types.h:19:#include "uc/intel_uc.h"
-gt/uc/intel_uc.h:9:#include "intel_guc.h"
-gt/uc/intel_guc.h:15:#include "intel_guc_fwif.h"
-gt/uc/intel_guc_fwif.h:14:#include "abi/guc_actions_abi.h"
-gt/uc/intel_guc_fwif.h:15:#include "abi/guc_actions_slpc_abi.h"
-gt/uc/intel_guc_fwif.h:16:#include "abi/guc_errors_abi.h"
-gt/uc/intel_guc_fwif.h:17:#include "abi/guc_communication_mmio_abi.h"
-gt/uc/intel_guc_fwif.h:18:#include "abi/guc_communication_ctb_abi.h"
-gt/uc/intel_guc_fwif.h:19:#include "abi/guc_klvs_abi.h"
-gt/uc/intel_guc_fwif.h:20:#include "abi/guc_messages_abi.h"
+-	if (!strncmp(cmd, "lrr-src", 7) ||
+-			!strncmp(cmd, "lrr-dst", 7)) {
++	if (sysfs_streq(cmd, "lrr-src") ||
++			sysfs_streq(cmd, "lrr-dst")) {
+ 		if (IS_BROADWELL(gvt->gt->i915) && offset == 0x215c)
+ 			return 0;
+ 		else {
+@@ -941,12 +941,12 @@ static int cmd_reg_handler(struct parser_exec_state *s,
+ 		}
+ 	}
 
-They need to be broken up at some point. There are a bunch of headers
-where only minimal amount of info is actually needed in other headers,
-and the rest is used in a limited number of .c files only.
+-	if (!strncmp(cmd, "pipe_ctrl", 9)) {
++	if (sysfs_streq(cmd, "pipe_ctrl")) {
+ 		/* TODO: add LRI POST logic here */
+ 		return 0;
+ 	}
 
-It's a lot of tedious work to refactor and nobody's going to notice the
-impact directly, they'll just be less grumpy about the build being slow
-and the organization of the headers being messy. And if they don't build
-the driver a lot (like me) or don't refactor the driver a lot (like me)
-maybe they'll never notice.
+-	if (strncmp(cmd, "lri", 3))
++	if (!sysfs_streq(cmd, "lri"))
+ 		return -EPERM;
 
-
-BR,
-Jani.
-
-
->
-> Michal
->
->> 
->> BR,
->> Jani.
->> 
->>>
->>>
->>> John Harrison (5):
->>>   drm/i915/gt: Start adding module oriented dmesg output
->>>   drm/i915/huc: Add HuC specific debug print wrappers
->>>   drm/i915/guc: Add GuC specific debug print wrappers
->>>   drm/i915/guc: Add GuC CT specific debug print wrappers
->>>   drm/i915/uc: Update the gt/uc code to use gt_err and friends
->>>
->>>  drivers/gpu/drm/i915/gt/intel_gt.c            |  96 ++++----
->>>  drivers/gpu/drm/i915/gt/intel_gt.h            |  35 +++
->>>  drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  32 +--
->>>  drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  35 +++
->>>  drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |   8 +-
->>>  .../gpu/drm/i915/gt/uc/intel_guc_capture.c    |  48 ++--
->>>  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 222 +++++++++---------
->>>  drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c     |  19 +-
->>>  drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    |  37 ++-
->>>  drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c     |   7 +-
->>>  drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   |  55 ++---
->>>  .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  62 +++--
->>>  drivers/gpu/drm/i915/gt/uc/intel_huc.c        |  31 +--
->>>  drivers/gpu/drm/i915/gt/uc/intel_huc.h        |  23 ++
->>>  drivers/gpu/drm/i915/gt/uc/intel_uc.c         | 108 ++++-----
->>>  drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      |  98 ++++----
->>>  drivers/gpu/drm/i915/gt/uc/selftest_guc.c     |  34 +--
->>>  .../drm/i915/gt/uc/selftest_guc_hangcheck.c   |  22 +-
->>>  .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   |  10 +-
->>>  19 files changed, 507 insertions(+), 475 deletions(-)
->> 
-
+ 	/* below are all lri handlers */
+@@ -1011,7 +1011,7 @@ static int cmd_reg_handler(struct parser_exec_state *s,
+ 	 */
+ 	if (GRAPHICS_VER(s->engine->i915) == 9 &&
+ 	    intel_gvt_mmio_is_sr_in_ctx(gvt, offset) &&
+-	    !strncmp(cmd, "lri", 3)) {
++	    sysfs_streq(cmd, "lri")) {
+ 		intel_gvt_read_gpa(s->vgpu,
+ 			s->workload->ring_context_gpa + 12, &ctx_sr_ctl, 4);
+ 		/* check inhibit context */
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.15.2
