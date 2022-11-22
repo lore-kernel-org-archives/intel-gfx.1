@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 311DBC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 12:09:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84DD0C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 12:09:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD5E310E3DD;
-	Tue, 22 Nov 2022 12:09:13 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7D0D10E3DD
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 12:08:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21A9010E3E4;
+	Tue, 22 Nov 2022 12:09:14 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 667CB10E3DD
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 12:08:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669118932; x=1700654932;
+ t=1669118926; x=1700654926;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=TSssrm+H7hZe4zRxV9JpaONO2NrPES3wyjfL656rTmw=;
- b=J4SqeWrTVrXOQDEqR9IrnSfn1KDLYU+k9kwVY8AxErks8KEaz8kvEGiW
- KHXwBC85rG/4ayZL5RJCYRHKJRiOqiy/JD4SKCIT7wSbkrGRvAMkaPRXy
- G5Dw8QVAZ32aVl63PqDkG7N3nRzPWIaCXrcP+TUi65IYhwCxiMrfg07cg
- HYiAV9+A9SumkTDiHd0nhF3jymLUScP8jl+zqauCGl7x+yOO3RawvWJ0G
- XDbXDQ/tWaJmXUFrL3V+gOAVSiIuyn6B9ww+0dl/Ckq/tpa7f5LHeCPg7
- olVfAhka/y0+WIXSEN+1PPTdpnfbS2DUIQipa5waGR0QOVBnHnsSwsXge Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="378057237"
-X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="378057237"
+ bh=5TixD2bCARdkB4010ghE+yTZDZZdzis8i6uFGG18QRE=;
+ b=HcKU1MfzZP3A8VD/NGv5BUoz1NOWeIUYnYOuOzSxyTAdmIsO70fXYSSw
+ qx+zq71zBGj7MeXo4Upun56JI1XGp8Kz6BcnTUnZ7dY1/oJ9ozcae3fed
+ 2dQ7SULSDdQDY2mgYQ0Zlg8+5SG/MQAtabcOE4JlUpGwB98PaI0IuGZ3o
+ DbmQBvJKg5jqMgizHWpYPJTzU20CaJI6uXqIql5mpLZg9SK2/gOiDCrUW
+ F3/soiytaU0pN8ORYI9xLP7DIbxbXBeHyTi+WcOaeQfw3LurXlinuqz0K
+ l3NQmHndLI7jxwe73Ak39+FFK4NhmaeMfhcH4pIU0qjExxusFYrm9fJz8 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="313829554"
+X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="313829554"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2022 04:08:52 -0800
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2022 04:08:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="641395884"
-X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="641395884"
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="641395847"
+X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="641395847"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga002.jf.intel.com with SMTP; 22 Nov 2022 04:08:49 -0800
+ by orsmga002.jf.intel.com with SMTP; 22 Nov 2022 04:08:43 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 22 Nov 2022 14:08:49 +0200
+ Tue, 22 Nov 2022 14:08:43 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Nov 2022 14:08:23 +0200
-Message-Id: <20221122120825.26338-9-ville.syrjala@linux.intel.com>
+Date: Tue, 22 Nov 2022 14:08:21 +0200
+Message-Id: <20221122120825.26338-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221122120825.26338-1-ville.syrjala@linux.intel.com>
 References: <20221122120825.26338-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/10] drm/i915/dvo: Use intel_de_rmw() for DVO
- enable/disable
+Subject: [Intel-gfx] [PATCH 06/10] drm/i915/dvo: Rename the "active data
+ order" bits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,51 +65,52 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Replace the hand rolled RMW with intel_de_rmw() in the DVO
-port enable/disable functions. Also switch to intel_de_posting_read()
-for the posting read (though maybe it should be just be nuked...).
+We have two sets of bits for DVO "data order" stuff. Rename
+one set to ACT_DATA_ORDER to make it clear they are separate
+bitfields.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dvo.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dvo.c | 4 ++--
+ drivers/gpu/drm/i915/i915_reg.h          | 8 ++++----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
-index a5c464c82e5c..c590a92205f0 100644
+index 255deb55b932..b36c3a620250 100644
 --- a/drivers/gpu/drm/i915/display/intel_dvo.c
 +++ b/drivers/gpu/drm/i915/display/intel_dvo.c
-@@ -185,11 +185,11 @@ static void intel_disable_dvo(struct intel_atomic_state *state,
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	struct intel_dvo *intel_dvo = enc_to_dvo(encoder);
- 	enum port port = encoder->port;
--	u32 temp = intel_de_read(i915, DVO(port));
+@@ -288,10 +288,10 @@ static void intel_dvo_pre_enable(struct intel_atomic_state *state,
+ 	enum pipe pipe = crtc->pipe;
+ 	u32 dvo_val;
  
- 	intel_dvo->dev.dev_ops->dpms(&intel_dvo->dev, false);
--	intel_de_write(i915, DVO(port), temp & ~DVO_ENABLE);
--	intel_de_read(i915, DVO(port));
-+
-+	intel_de_rmw(i915, DVO(port), DVO_ENABLE, 0);
-+	intel_de_posting_read(i915, DVO(port));
- }
+-	/* Save the data order, since I don't know what it should be set to. */
++	/* Save the active data order, since I don't know what it should be set to. */
+ 	dvo_val = intel_de_read(i915, DVO(port)) &
+ 		  (DVO_DEDICATED_INT_ENABLE |
+-		   DVO_PRESERVE_MASK | DVO_DATA_ORDER_GBRG);
++		   DVO_PRESERVE_MASK | DVO_ACT_DATA_ORDER_GBRG);
+ 	dvo_val |= DVO_DATA_ORDER_FP | DVO_BORDER_ENABLE |
+ 		   DVO_BLANK_ACTIVE_HIGH;
  
- static void intel_enable_dvo(struct intel_atomic_state *state,
-@@ -200,14 +200,13 @@ static void intel_enable_dvo(struct intel_atomic_state *state,
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	struct intel_dvo *intel_dvo = enc_to_dvo(encoder);
- 	enum port port = encoder->port;
--	u32 temp = intel_de_read(i915, DVO(port));
- 
- 	intel_dvo->dev.dev_ops->mode_set(&intel_dvo->dev,
- 					 &pipe_config->hw.mode,
- 					 &pipe_config->hw.adjusted_mode);
- 
--	intel_de_write(i915, DVO(port), temp | DVO_ENABLE);
--	intel_de_read(i915, DVO(port));
-+	intel_de_rmw(i915, DVO(port), 0, DVO_ENABLE);
-+	intel_de_posting_read(i915, DVO(port));
- 
- 	intel_dvo->dev.dev_ops->dpms(&intel_dvo->dev, true);
- }
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 89c834d8fff8..464be86d6125 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -2600,10 +2600,10 @@
+ #define   DVO_VSYNC_TRISTATE		(1 << 9)
+ #define   DVO_HSYNC_TRISTATE		(1 << 8)
+ #define   DVO_BORDER_ENABLE		(1 << 7)
+-#define   DVO_DATA_ORDER_GBRG		(1 << 6)
+-#define   DVO_DATA_ORDER_RGGB		(0 << 6)
+-#define   DVO_DATA_ORDER_GBRG_ERRATA	(0 << 6)
+-#define   DVO_DATA_ORDER_RGGB_ERRATA	(1 << 6)
++#define   DVO_ACT_DATA_ORDER_GBRG		(1 << 6)
++#define   DVO_ACT_DATA_ORDER_RGGB		(0 << 6)
++#define   DVO_ACT_DATA_ORDER_GBRG_ERRATA	(0 << 6)
++#define   DVO_ACT_DATA_ORDER_RGGB_ERRATA	(1 << 6)
+ #define   DVO_VSYNC_ACTIVE_HIGH		(1 << 4)
+ #define   DVO_HSYNC_ACTIVE_HIGH		(1 << 3)
+ #define   DVO_BLANK_ACTIVE_HIGH		(1 << 2)
 -- 
 2.37.4
 
