@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0049C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 15:35:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A647C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 15:43:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B25C710E414;
-	Tue, 22 Nov 2022 15:35:48 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6110110E40E;
- Tue, 22 Nov 2022 15:35:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B556610E416;
+	Tue, 22 Nov 2022 15:43:34 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E094E10E416;
+ Tue, 22 Nov 2022 15:43:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669131314; x=1700667314;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=S4XpqXdqGWk1whCKjTw1Tbea2OWWldUyTEhirb3Ex2I=;
- b=hdBl0KQ4mTAxxerylUlNQeKjhUwcHWzUw4BK4eNCnFOBHoCQmHS6N2BA
- KF56gyPkOEVJ0TA3KmEar06KRG8zJ7r/zsCGRnPGcpAUyLVxOqTtMPQgY
- vXRP9PhtodF1uDWIpz8keGoysVZ3c2xQglQjrUtRI/rTptMb3uVh41XY3
- vMoEk2o1uII+1l0R43Do9GT68n25y3sClGK9sHkW37axpOJ/b7iCrg9XT
- 6YXSPqAVebhq8DqcWqnodfoRD1lubLObfYsj506OI6tRaNJZkaSGHoTpF
- FMdQwHaLRfsYBY/IEDurV09+ecDzeHe9sVcET81Dig9M9vGgCufc80Jmu g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="315662397"
-X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="315662397"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2022 07:35:05 -0800
+ t=1669131810; x=1700667810;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=upTqDhnYPbQQtcnEG3sH1opy5XLziUPK5oFbYqhMYmU=;
+ b=Mav6QeQaKqHkh1lCBDOuK0zyZjWNtCd+fa3uSgC0yXzQUNIZ/5U+RR4C
+ 55ciOYWa+4xnONlOg7EtpSdOCJ1yq/9vBOet2lCvAWKf42nJwlMtreP3p
+ GIQZeHU+1RYbjVygMY4l8OQTabjqGeXZuBSaI2jygGoAI+sbWSW7JCdMD
+ Ezf+hEYKbyESSmIVEFyg+LXIbcyo417PPWZY5rBVMSa3bVlPJxqRxZSlF
+ QIUPabBpdMqGaIyxS1qxOhaznl4kW+9UsfOtK1cpLrREa1oFWOgKGO/dP
+ kOeMzpVz9VhQ/GGSltMgSWJdp5Why8tLEptXtA9buPFaTj8NYkZZ+goy1 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="294235544"
+X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="294235544"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2022 07:43:30 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="747395673"
-X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="747395673"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga002.fm.intel.com with ESMTP; 22 Nov 2022 07:35:00 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 4E543F7; Tue, 22 Nov 2022 17:35:26 +0200 (EET)
+X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="643762489"
+X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="643762489"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by fmsmga007.fm.intel.com with ESMTP; 22 Nov 2022 07:43:25 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1oxVQh-00FtHg-2h; Tue, 22 Nov 2022 17:43:23 +0200
+Date: Tue, 22 Nov 2022 17:43:23 +0200
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jakob Koschel <jakobkoschel@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Mathias Nyman <mathias.nyman@linux.intel.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Date: Tue, 22 Nov 2022 17:35:14 +0200
-Message-Id: <20221122153516.52577-2-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221122153516.52577-1-andriy.shevchenko@linux.intel.com>
+Message-ID: <Y3zuG9bRePqCzbxz@smile.fi.intel.com>
 References: <20221122153516.52577-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 2/4] usb: gadget: hid: Convert to use
- list_count()
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221122153516.52577-1-andriy.shevchenko@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Subject: Re: [Intel-gfx] [PATCH v3 1/4] i915: Move list_count() to list.h
+ for broader use
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,43 +66,21 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Kevin Cernekee <cernekee@gmail.com>,
- Mathias Nyman <mathias.nyman@intel.com>, Hans de Goede <hdegoede@redhat.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>
+ Mathias Nyman <mathias.nyman@intel.com>, Jani Nikula <jani.nikula@intel.com>,
+ Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The list API now provides the list_count() to help with counting
-existing nodes in the list. Utilise it.
+On Tue, Nov 22, 2022 at 05:35:13PM +0200, Andy Shevchenko wrote:
+> Some of the existing users, and definitely will be new ones, want to
+> count existing nodes in the list. Provide a generic API for that by
+> moving code from i915 to list.h.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
-v3: fixed typo in the commit message (Fabio)
-v2: no change
- drivers/usb/gadget/legacy/hid.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+Sorry for the noise, forgot to squash one part, so it get's not compilable.
 
-diff --git a/drivers/usb/gadget/legacy/hid.c b/drivers/usb/gadget/legacy/hid.c
-index 1187ee4f316a..6196c3456e0b 100644
---- a/drivers/usb/gadget/legacy/hid.c
-+++ b/drivers/usb/gadget/legacy/hid.c
-@@ -133,14 +133,11 @@ static struct usb_configuration config_driver = {
- static int hid_bind(struct usb_composite_dev *cdev)
- {
- 	struct usb_gadget *gadget = cdev->gadget;
--	struct list_head *tmp;
- 	struct hidg_func_node *n = NULL, *m, *iter_n;
- 	struct f_hid_opts *hid_opts;
--	int status, funcs = 0;
--
--	list_for_each(tmp, &hidg_func_list)
--		funcs++;
-+	int status, funcs;
- 
-+	funcs = list_count(&hidg_func_list);
- 	if (!funcs)
- 		return -ENODEV;
- 
 -- 
-2.35.1
+With Best Regards,
+Andy Shevchenko
+
 
