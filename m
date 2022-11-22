@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 201F7C433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 07:45:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80F97C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 07:46:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A124710E008;
-	Tue, 22 Nov 2022 07:45:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F8D410E38C;
+	Tue, 22 Nov 2022 07:46:06 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7872610E008
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 07:45:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A32810E38C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 07:46:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669103154; x=1700639154;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=f85TWGN9HQ10prmE8FRPg7D3M/ApngJmwMbRseKa658=;
- b=fzLwmV0UNHyk7QYDfv2NvVhKBwrzkJET8eTJBr51Mi4LqG8XzVBXgS9+
- Mlx+93Shuircem0e/YzhVUYQ0xAztxQG79CCasj1jLedyX+LYxKn0n1LE
- meD9SFYOAOW9pnPDnDc01yc2zE/jv3M8/YlBipUTDV5sz5k9T3+FV33ED
- Y2nkU0RTZrdgLPk6wDU1h5lq45JvykC3y/3WatsnAyz16EtFpsDWk/6R8
- HEoS+nrQtRP2Pk/wENikLLgv/cPa0PDIbC8osDooLz62ze8SfI9FWxDvQ
- XqaqpMcDrkw97uqmKOVHPHNPYliTwDRKxqu/Fg3P9Dn5rjwXXMr44bCrZ A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="378015337"
-X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="378015337"
+ t=1669103162; x=1700639162;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=UbgtsgL9qKKWC/gGatIbgPt1SNTipPvlCRRhKIgkcAA=;
+ b=djVsfX93lEJ5FI+YP/fz7BZxJlPdpUp9vmMC3b9DLuqaS1G41JxyfDWq
+ sSYHRuB3tS6bOhMnW48tUPXOcAHEIbzLKiaaoNokrm5eIiSHprb+5TswA
+ VfgH14hu71oIPqAmjJS5wCWCVUShb7yEEx/nEtL1GoxrM9dGsoiTBMqfV
+ fsRxgAGsf4ylAmwLJ2bC3gWjkOelqQgTTBd6cAbAk69asguklHHByfIzs
+ CRiNmTnDkPk20PyPs03/oLoCnffujrxw7D3DcpiDJ6F2zRgvh5SMyMCk9
+ 3Gcv4nmVRNVFcgLG2vsB2JrgQvQ5QkcakrKqX2k3TEK6/B0seNp0rScZV g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="378015366"
+X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="378015366"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2022 23:45:53 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="783756268"
-X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="783756268"
+ 21 Nov 2022 23:46:02 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10538"; a="783756305"
+X-IronPort-AV: E=Sophos;i="5.96,183,1665471600"; d="scan'208";a="783756305"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2022 23:45:51 -0800
+ 21 Nov 2022 23:46:00 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Nov 2022 13:16:34 +0530
-Message-Id: <20221122074644.2969553-1-ankit.k.nautiyal@intel.com>
+Date: Tue, 22 Nov 2022 13:16:38 +0530
+Message-Id: <20221122074644.2969553-5-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221122074644.2969553-1-ankit.k.nautiyal@intel.com>
+References: <20221122074644.2969553-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 00/10] Handle BPC for HDMI2.1 PCON without
- DSC1.2 sink and other fixes
+Subject: [Intel-gfx] [PATCH v1 04/10] drm/i915/dp: Compute output format
+ with/without DSC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,65 +60,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series fixes issues faced when an HDMI2.1 sink that does not
-support DSC is connected via HDMI2.1PCON. It also includes other minor
-HDMI2.1 PCON fixes/refactoring.
+Currently we compute the output format first and later try DSC if the
+bandwidth without compression is not sufficient for that output format.
+Since we do not support DSC with YCbCr420 format, this creates problem
+for YCbCr420 only modes, that can be still be set if DFP has color
+conversion and DSC capabilities.
 
-Patch 1-2 Have minor fixes/cleanups.
-Patch 3-6 Pull the decision making to use DFP conversion capabilities
-for every mode during compute config, instead of having that decision
-during DP initializing phase.
-Patch 7-8 Calculate the max BPC that can be sufficient with either
-RGB or YCbcr420 format for the maximum FRL rate supported.
+So compute output format, first without DSC and inturn compute the link
+config without DSC. If cannot be supported without DSC, compute the
+output format with DSC and continue.
 
-Rev2: Split the refactoring of DFP RG->YCBCR conversion into smaller
-patches, as suggested by Jani N.
-Also dropped the unnecessary helper for DSC1.2 support for HDMI2.1 DFP.
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 81 +++++++++++++++++--------
+ 1 file changed, 56 insertions(+), 25 deletions(-)
 
-Rev3: As suggested by Ville, added new member sink_format to store the
-final format that the sink will be using, which might be different
-than the output format, and thus might need color/format conversion
-performed by the PCON.
-
-Rev4: Fix typo in switch case as, reported by kernel test bot.
-
-Rev5: Corrected order of setting sink_format and output_format. (Ville)
-Avoided the flag ycbcr420_output and used the sink_format to facilitate
-4:2:2 support at a later stage. (Ville)
-
-Rev6: Added missing changes for sdvo. (Ville)
-Added check for scaler and DSC constraints with YCbCr420.
-
-Ankit Nautiyal (10):
-  drm/i915/display: Add new member to configure PCON color conversion
-  drm/i915/display: Add new member in intel_dp to store ycbcr420
-    passthrough cap
-  drm/i915/dp: Replace intel_dp.dfp members with the new crtc_state
-    sink_format
-  drm/i915/dp: Compute output format with/without DSC
-  drm/i915/display: Use sink_format instead of ycbcr420_output flag
-  drm/i915/display: Add helper function to check if sink_format is 420
-  drm/i915/dp: Avoid DSC with output_format YCBC420
-  drm/i915/dp: Handle BPP where HDMI2.1 DFP doesn't support DSC
-  drm/i915/dp: Fix FRL BW check for HDMI2.1 DFP
-  drm/i915/dp: Add a wrapper to check frl/tmds downstream constraints
-
- drivers/gpu/drm/i915/display/icl_dsi.c        |   1 +
- drivers/gpu/drm/i915/display/intel_crt.c      |   1 +
- .../drm/i915/display/intel_crtc_state_dump.c  |   5 +-
- drivers/gpu/drm/i915/display/intel_display.c  |   5 +
- .../drm/i915/display/intel_display_types.h    |  18 +-
- drivers/gpu/drm/i915/display/intel_dp.c       | 456 +++++++++++++-----
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |   1 +
- drivers/gpu/drm/i915/display/intel_dvo.c      |   1 +
- drivers/gpu/drm/i915/display/intel_hdmi.c     |  74 +--
- drivers/gpu/drm/i915/display/intel_hdmi.h     |   5 +-
- drivers/gpu/drm/i915/display/intel_lvds.c     |   1 +
- drivers/gpu/drm/i915/display/intel_sdvo.c     |   1 +
- drivers/gpu/drm/i915/display/intel_tv.c       |   1 +
- drivers/gpu/drm/i915/display/vlv_dsi.c        |   1 +
- 14 files changed, 409 insertions(+), 162 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 86feafa2b95c..44227a1a4676 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -848,24 +848,34 @@ dfp_can_convert_from_ycbcr444(struct intel_dp *intel_dp,
+ }
+ 
+ static bool
+-ycbcr420_scaler_constraints(const struct drm_display_mode *mode)
++ycbcr420_constraints(const struct drm_display_mode *mode, bool with_dsc)
+ {
++	/*
++	 * DSC with YCbCr420 is a constraint as currently we do not support compression
++	 * with 420 format.
++	 */
++	if (with_dsc)
++		return true;
++
+ 	return mode->hdisplay > 4096 || mode->vdisplay > 5120;
+ }
+ 
+ static enum intel_output_format
+ intel_dp_output_format(struct intel_connector *connector,
+ 		       const struct drm_display_mode *mode,
+-		       enum intel_output_format sink_format)
++		       enum intel_output_format sink_format,
++		       bool with_dsc)
+ {
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+ 
+ 	/*
+ 	 * For YCbCr420 output, scaler is required for downsamling.
+-	 * So go for native YCbCr420 only if there are no scaler constraints.
++	 * DSC1.1 supports compression only with 444 formats.
++	 * So go for native YCbCr420 only if there are no scaler and dsc constraints.
+ 	 */
+-	if ((sink_format != INTEL_OUTPUT_FORMAT_YCBCR420 || !ycbcr420_scaler_constraints(mode)) &&
+-	    source_can_output(intel_dp, sink_format))
++	if (source_can_output(intel_dp, sink_format) &&
++	    (sink_format != INTEL_OUTPUT_FORMAT_YCBCR420 ||
++	     !ycbcr420_constraints(mode, with_dsc)))
+ 		return sink_format;
+ 
+ 	if (source_can_output(intel_dp, INTEL_OUTPUT_FORMAT_RGB) &&
+@@ -912,7 +922,7 @@ intel_dp_mode_min_output_bpp(struct intel_connector *connector,
+ 	else
+ 		sink_format = INTEL_OUTPUT_FORMAT_RGB;
+ 
+-	output_format = intel_dp_output_format(connector, mode, sink_format);
++	output_format = intel_dp_output_format(connector, mode, sink_format, false);
+ 
+ 	return intel_dp_output_bpp(output_format, intel_dp_min_bpp(output_format));
+ }
+@@ -1661,7 +1671,8 @@ static int
+ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 			     struct intel_crtc_state *pipe_config,
+ 			     struct drm_connector_state *conn_state,
+-			     bool respect_downstream_limits)
++			     bool respect_downstream_limits,
++			     bool with_dsc)
+ {
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
+@@ -1672,6 +1683,20 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 	bool joiner_needs_dsc = false;
+ 	int ret;
+ 
++	if (intel_dp_need_bigjoiner(intel_dp, adjusted_mode->crtc_hdisplay,
++				    adjusted_mode->crtc_clock))
++		pipe_config->bigjoiner_pipes = GENMASK(crtc->pipe + 1, crtc->pipe);
++
++	/*
++	 * Pipe joiner needs compression up to display 12 due to bandwidth
++	 * limitation. DG2 onwards pipe joiner can be enabled without
++	 * compression.
++	 */
++	joiner_needs_dsc = DISPLAY_VER(i915) < 13 && pipe_config->bigjoiner_pipes;
++
++	if (joiner_needs_dsc && !with_dsc)
++		return -EINVAL;
++
+ 	limits.min_rate = intel_dp_common_rate(intel_dp, 0);
+ 	limits.max_rate = intel_dp_max_link_rate(intel_dp);
+ 
+@@ -1701,23 +1726,15 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 		    limits.max_lane_count, limits.max_rate,
+ 		    limits.max_bpp, adjusted_mode->crtc_clock);
+ 
+-	if (intel_dp_need_bigjoiner(intel_dp, adjusted_mode->crtc_hdisplay,
+-				    adjusted_mode->crtc_clock))
+-		pipe_config->bigjoiner_pipes = GENMASK(crtc->pipe + 1, crtc->pipe);
+-
+-	/*
+-	 * Pipe joiner needs compression up to display 12 due to bandwidth
+-	 * limitation. DG2 onwards pipe joiner can be enabled without
+-	 * compression.
+-	 */
+-	joiner_needs_dsc = DISPLAY_VER(i915) < 13 && pipe_config->bigjoiner_pipes;
+-
+ 	/*
+ 	 * Optimize for slow and wide for everything, because there are some
+ 	 * eDP 1.3 and 1.4 panels don't work well with fast and narrow.
+ 	 */
+ 	ret = intel_dp_compute_link_config_wide(intel_dp, pipe_config, conn_state, &limits);
+ 
++	if (ret && !with_dsc)
++		return -EINVAL;
++
+ 	if (ret || joiner_needs_dsc || intel_dp->force_dsc_en) {
+ 		drm_dbg_kms(&i915->drm, "Try DSC (fallback=%s, joiner=%s, force=%s)\n",
+ 			    str_yes_no(ret), str_yes_no(joiner_needs_dsc),
+@@ -2053,7 +2070,8 @@ static int
+ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ 			       struct intel_crtc_state *crtc_state,
+ 			       struct drm_connector_state *conn_state,
+-			       bool respect_downstream_limits)
++			       bool respect_downstream_limits,
++			       bool with_dsc)
+ {
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+@@ -2076,10 +2094,10 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ 	}
+ 
+ 	crtc_state->output_format = intel_dp_output_format(connector, adjusted_mode,
+-							   crtc_state->sink_format);
++							   crtc_state->sink_format, with_dsc);
+ 
+ 	ret = intel_dp_compute_link_config(encoder, crtc_state, conn_state,
+-					   respect_downstream_limits);
++					   respect_downstream_limits, with_dsc);
+ 	if (ret) {
+ 		if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
+ 		    !drm_mode_is_420_also(info, adjusted_mode))
+@@ -2087,9 +2105,10 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ 
+ 		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
+ 		crtc_state->output_format = intel_dp_output_format(connector, adjusted_mode,
+-								   crtc_state->sink_format);
++								   crtc_state->sink_format,
++								   with_dsc);
+ 		ret = intel_dp_compute_link_config(encoder, crtc_state, conn_state,
+-						   respect_downstream_limits);
++						   respect_downstream_limits, with_dsc);
+ 	}
+ 
+ 	return ret;
+@@ -2136,9 +2155,21 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 	 * Try to respect downstream TMDS clock limits first, if
+ 	 * that fails assume the user might know something we don't.
+ 	 */
+-	ret = intel_dp_compute_output_format(encoder, pipe_config, conn_state, true);
++	ret = intel_dp_compute_output_format(encoder, pipe_config,
++					     conn_state, true, false);
+ 	if (ret)
+-		ret = intel_dp_compute_output_format(encoder, pipe_config, conn_state, false);
++		ret = intel_dp_compute_output_format(encoder, pipe_config,
++						     conn_state, false, false);
++
++	/* Try with DSC */
++	if (ret) {
++		ret = intel_dp_compute_output_format(encoder, pipe_config,
++						     conn_state, true, true);
++		if (ret)
++			ret = intel_dp_compute_output_format(encoder, pipe_config,
++							     conn_state, false, true);
++	}
++
+ 	if (ret)
+ 		return ret;
+ 
 -- 
 2.25.1
 
