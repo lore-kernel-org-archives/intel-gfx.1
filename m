@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25784C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 16:47:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F437C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 17:08:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43E7710E41F;
-	Tue, 22 Nov 2022 16:47:10 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8431310E41F;
- Tue, 22 Nov 2022 16:47:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669135627; x=1700671627;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=XxIDPj06HiLIyPsDjsbVtLxOjDl0Zf7g3cq3UjTB0m8=;
- b=grKKZt6C96bUgTaqcb5q0C7vLb2gopAH1R/5ruzClJu5alQdygwQTntB
- Xsu4Rism6VDhu5O6u49n8+5N5CtC3+EI67SP4jL9tmmX47E/CSFbXeu6F
- fYKs2d5wTZ3APriyBOtRcSgM5ASeVotb1rmi2B9M7KbPwFHdrj+fLAhDi
- J8sq25DvB9LV/CR/qQQRndtL5cwXIBerT8mboicS3uFE/WZS8XUgvbrkN
- jV+DfvM/W94KUMgt0KnnN1YzZnaytwz8XuxPnXZjkOxKVE7AoTm9szn9C
- 8fhRazRJsniw1OTfAyWwhADl+XMM7ZPQWqIf1DjxccVm3Y5HwolVT0vLc A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="378118030"
-X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="378118030"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2022 08:47:06 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="643780402"
-X-IronPort-AV: E=Sophos;i="5.96,184,1665471600"; d="scan'208";a="643780402"
-Received: from irvmail001.ir.intel.com ([10.43.11.63])
- by fmsmga007.fm.intel.com with ESMTP; 22 Nov 2022 08:47:05 -0800
-Received: from [10.249.128.71] (mwajdecz-MOBL.ger.corp.intel.com
- [10.249.128.71])
- by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
- 2AMGl4qw030277; Tue, 22 Nov 2022 16:47:04 GMT
-Message-ID: <ba438ba2-4adf-45e0-b79b-6aba3641d09f@intel.com>
-Date: Tue, 22 Nov 2022 17:47:03 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34A7F10E422;
+	Tue, 22 Nov 2022 17:08:10 +0000 (UTC)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA09B10E422
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 17:08:05 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id s5so8502387wru.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Nov 2022 09:08:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ve9qToTAjko4Xn5/rlkROCfUSo37Rgk78oiOnmwUwAU=;
+ b=UTgjIRpLOL/7otFlPM7wX91GWVEbyelUoIOfxeC6ZhL8WuxwL4Nb7rXb4HD1EytWRF
+ fM6S4/NXWz/8WrAreoT9cPW/bjXslVl/BKUmEg5pyx6M4Uaclx3FjX7vn4vXq8ig0wzL
+ rCBB7/W7XRNLC+tcLw3TAl4no/GdXkQLmuKTA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Ve9qToTAjko4Xn5/rlkROCfUSo37Rgk78oiOnmwUwAU=;
+ b=3odI8OzsksXwXQIoEfx6i0MsLCKOcNEK+evBMyNv9FuKWEbcQVm6jgu5KxuLK91LHF
+ VQNStgcGHXa7KiEm8iXUNgG3/6V/0K7YRc5WtIEfVfMXfuF+KCeXX17FCVnpou/14pHo
+ wQOqbtxlNcYt0oFFMhS2R+UCYXocyJReBmGGwt0kxLJfHto8Gp+L6wNI+r6ZGynftUyq
+ LDaLaVKQYmuZfrkQm000nkFryFyowtDGm3N1ZqW1K3B3bIRss9i96iXsA12ibyi1Q183
+ qeV14Rc5wzFO5NjsJvZz7guLGK6ccF/w7MCuTpuKlmIG3N4vDl5+4HVPbrmpgEv0r5zE
+ ToYQ==
+X-Gm-Message-State: ANoB5pnLbAMbyhFjVFTUVJJgTeqlTHMHRfir2Z0hCVewm1TTpe3g1JOd
+ O45Tt5DbqRdJwLSqqrgUfqUjGQ==
+X-Google-Smtp-Source: AA0mqf74IZLJygrpyRzf5qHhhvP3A1tbMBtTE6ln+kXNQdMnkp0LHZho99MMNt+23oEZ2UGDXNYLyA==
+X-Received: by 2002:a5d:6547:0:b0:241:e4cc:f044 with SMTP id
+ z7-20020a5d6547000000b00241e4ccf044mr2164424wrv.457.1669136884287; 
+ Tue, 22 Nov 2022 09:08:04 -0800 (PST)
+Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
+ [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
+ m42-20020a05600c3b2a00b003cf47556f21sm24861760wms.2.2022.11.22.09.08.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Nov 2022 09:08:03 -0800 (PST)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Date: Tue, 22 Nov 2022 18:08:00 +0100
+Message-Id: <20221122170801.842766-1-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.5.0
-Content-Language: en-US
-To: John.C.Harrison@Intel.com, Intel-GFX@Lists.FreeDesktop.Org
-References: <20221118015858.2548106-1-John.C.Harrison@Intel.com>
- <20221118015858.2548106-2-John.C.Harrison@Intel.com>
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
-In-Reply-To: <20221118015858.2548106-2-John.C.Harrison@Intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2 1/5] drm/i915/gt: Start adding module
- oriented dmesg output
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] dma-buf: Require VM_PFNMAP vma for mmap
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,289 +66,98 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Matthew Wilcox <willy@infradead.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ linaro-mm-sig@lists.linaro.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ John Stultz <john.stultz@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+tldr; DMA buffers aren't normal memory, expecting that you can use
+them like that (like calling get_user_pages works, or that they're
+accounting like any other normal memory) cannot be guaranteed.
 
+Since some userspace only runs on integrated devices, where all
+buffers are actually all resident system memory, there's a huge
+temptation to assume that a struct page is always present and useable
+like for any more pagecache backed mmap. This has the potential to
+result in a uapi nightmare.
 
-On 18.11.2022 02:58, John.C.Harrison@Intel.com wrote:
-> From: John Harrison <John.C.Harrison@Intel.com>
-> 
-> When trying to analyse bug reports from CI, customers, etc. it can be
-> difficult to work out exactly what is happening on which GT in a
-> multi-GT system. So add GT oriented debug/error message wrappers. If
-> used instead of the drm_ equivalents, you get the same output but with
-> a GT# prefix on it.
-> 
-> v2: Go back to using lower case names (combined review feedback).
-> Convert intel_gt.c as a first step.
-> 
-> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/intel_gt.c | 96 ++++++++++++++----------------
->  drivers/gpu/drm/i915/gt/intel_gt.h | 35 +++++++++++
->  2 files changed, 81 insertions(+), 50 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-> index 0325f071046ca..349fcfdd14a6d 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-> @@ -90,9 +90,8 @@ static int intel_gt_probe_lmem(struct intel_gt *gt)
->  		if (err == -ENODEV)
->  			return 0;
->  
-> -		drm_err(&i915->drm,
-> -			"Failed to setup region(%d) type=%d\n",
-> -			err, INTEL_MEMORY_LOCAL);
-> +		gt_err(gt, "Failed to setup region(%d) type=%d\n",
-> +		       err, INTEL_MEMORY_LOCAL);
->  		return err;
->  	}
->  
-> @@ -192,14 +191,14 @@ int intel_gt_init_hw(struct intel_gt *gt)
->  
->  	ret = i915_ppgtt_init_hw(gt);
->  	if (ret) {
-> -		drm_err(&i915->drm, "Enabling PPGTT failed (%d)\n", ret);
-> +		gt_err(gt, "Enabling PPGTT failed (%d)\n", ret);
->  		goto out;
->  	}
->  
->  	/* We can't enable contexts until all firmware is loaded */
->  	ret = intel_uc_init_hw(&gt->uc);
->  	if (ret) {
-> -		i915_probe_error(i915, "Enabling uc failed (%d)\n", ret);
-> +		gt_probe_error(gt, "Enabling uc failed (%d)\n", ret);
->  		goto out;
->  	}
->  
-> @@ -264,7 +263,7 @@ intel_gt_clear_error_registers(struct intel_gt *gt,
->  		 * some errors might have become stuck,
->  		 * mask them.
->  		 */
-> -		drm_dbg(&gt->i915->drm, "EIR stuck: 0x%08x, masking\n", eir);
-> +		gt_dbg(gt, "EIR stuck: 0x%08x, masking\n", eir);
->  		rmw_set(uncore, EMR, eir);
->  		intel_uncore_write(uncore, GEN2_IIR,
->  				   I915_MASTER_ERROR_INTERRUPT);
-> @@ -298,16 +297,16 @@ static void gen6_check_faults(struct intel_gt *gt)
->  	for_each_engine(engine, gt, id) {
->  		fault = GEN6_RING_FAULT_REG_READ(engine);
->  		if (fault & RING_FAULT_VALID) {
-> -			drm_dbg(&engine->i915->drm, "Unexpected fault\n"
-> -				"\tAddr: 0x%08lx\n"
-> -				"\tAddress space: %s\n"
-> -				"\tSource ID: %d\n"
-> -				"\tType: %d\n",
-> -				fault & PAGE_MASK,
-> -				fault & RING_FAULT_GTTSEL_MASK ?
-> -				"GGTT" : "PPGTT",
-> -				RING_FAULT_SRCID(fault),
-> -				RING_FAULT_FAULT_TYPE(fault));
-> +			gt_dbg(gt, "Unexpected fault\n"
-> +			       "\tAddr: 0x%08lx\n"
-> +			       "\tAddress space: %s\n"
-> +			       "\tSource ID: %d\n"
-> +			       "\tType: %d\n",
-> +			       fault & PAGE_MASK,
-> +			       fault & RING_FAULT_GTTSEL_MASK ?
-> +			       "GGTT" : "PPGTT",
-> +			       RING_FAULT_SRCID(fault),
-> +			       RING_FAULT_FAULT_TYPE(fault));
->  		}
->  	}
->  }
-> @@ -334,17 +333,17 @@ static void xehp_check_faults(struct intel_gt *gt)
->  		fault_addr = ((u64)(fault_data1 & FAULT_VA_HIGH_BITS) << 44) |
->  			     ((u64)fault_data0 << 12);
->  
-> -		drm_dbg(&gt->i915->drm, "Unexpected fault\n"
-> -			"\tAddr: 0x%08x_%08x\n"
-> -			"\tAddress space: %s\n"
-> -			"\tEngine ID: %d\n"
-> -			"\tSource ID: %d\n"
-> -			"\tType: %d\n",
-> -			upper_32_bits(fault_addr), lower_32_bits(fault_addr),
-> -			fault_data1 & FAULT_GTT_SEL ? "GGTT" : "PPGTT",
-> -			GEN8_RING_FAULT_ENGINE_ID(fault),
-> -			RING_FAULT_SRCID(fault),
-> -			RING_FAULT_FAULT_TYPE(fault));
-> +		gt_dbg(gt, "Unexpected fault\n"
-> +		       "\tAddr: 0x%08x_%08x\n"
-> +		       "\tAddress space: %s\n"
-> +		       "\tEngine ID: %d\n"
-> +		       "\tSource ID: %d\n"
-> +		       "\tType: %d\n",
-> +		       upper_32_bits(fault_addr), lower_32_bits(fault_addr),
-> +		       fault_data1 & FAULT_GTT_SEL ? "GGTT" : "PPGTT",
-> +		       GEN8_RING_FAULT_ENGINE_ID(fault),
-> +		       RING_FAULT_SRCID(fault),
-> +		       RING_FAULT_FAULT_TYPE(fault));
->  	}
->  }
->  
-> @@ -375,17 +374,17 @@ static void gen8_check_faults(struct intel_gt *gt)
->  		fault_addr = ((u64)(fault_data1 & FAULT_VA_HIGH_BITS) << 44) |
->  			     ((u64)fault_data0 << 12);
->  
-> -		drm_dbg(&uncore->i915->drm, "Unexpected fault\n"
-> -			"\tAddr: 0x%08x_%08x\n"
-> -			"\tAddress space: %s\n"
-> -			"\tEngine ID: %d\n"
-> -			"\tSource ID: %d\n"
-> -			"\tType: %d\n",
-> -			upper_32_bits(fault_addr), lower_32_bits(fault_addr),
-> -			fault_data1 & FAULT_GTT_SEL ? "GGTT" : "PPGTT",
-> -			GEN8_RING_FAULT_ENGINE_ID(fault),
-> -			RING_FAULT_SRCID(fault),
-> -			RING_FAULT_FAULT_TYPE(fault));
-> +		gt_dbg(gt, "Unexpected fault\n"
-> +		       "\tAddr: 0x%08x_%08x\n"
-> +		       "\tAddress space: %s\n"
-> +		       "\tEngine ID: %d\n"
-> +		       "\tSource ID: %d\n"
-> +		       "\tType: %d\n",
-> +		       upper_32_bits(fault_addr), lower_32_bits(fault_addr),
-> +		       fault_data1 & FAULT_GTT_SEL ? "GGTT" : "PPGTT",
-> +		       GEN8_RING_FAULT_ENGINE_ID(fault),
-> +		       RING_FAULT_SRCID(fault),
-> +		       RING_FAULT_FAULT_TYPE(fault));
->  	}
->  }
->  
-> @@ -479,7 +478,7 @@ static int intel_gt_init_scratch(struct intel_gt *gt, unsigned int size)
->  	if (IS_ERR(obj))
->  		obj = i915_gem_object_create_internal(i915, size);
->  	if (IS_ERR(obj)) {
-> -		drm_err(&i915->drm, "Failed to allocate scratch page\n");
-> +		gt_err(gt, "Failed to allocate scratch page\n");
->  		return PTR_ERR(obj);
->  	}
->  
-> @@ -729,8 +728,7 @@ int intel_gt_init(struct intel_gt *gt)
->  
->  	err = intel_gt_init_hwconfig(gt);
->  	if (err)
-> -		drm_err(&gt->i915->drm, "Failed to retrieve hwconfig table: %pe\n",
-> -			ERR_PTR(err));
-> +		gt_err(gt, "Failed to retrieve hwconfig table: %pe\n", ERR_PTR(err));
->  
->  	err = __engines_record_defaults(gt);
->  	if (err)
-> @@ -891,7 +889,7 @@ int intel_gt_probe_all(struct drm_i915_private *i915)
->  	gt->name = "Primary GT";
->  	gt->info.engine_mask = RUNTIME_INFO(i915)->platform_engine_mask;
->  
-> -	drm_dbg(&i915->drm, "Setting up %s\n", gt->name);
-> +	gt_dbg(gt, "Setting up %s\n", gt->name);
->  	ret = intel_gt_tile_setup(gt, phys_addr);
->  	if (ret)
->  		return ret;
-> @@ -916,7 +914,7 @@ int intel_gt_probe_all(struct drm_i915_private *i915)
->  		gt->info.engine_mask = gtdef->engine_mask;
->  		gt->info.id = i;
->  
-> -		drm_dbg(&i915->drm, "Setting up %s\n", gt->name);
-> +		gt_dbg(gt, "Setting up %s\n", gt->name);
->  		if (GEM_WARN_ON(range_overflows_t(resource_size_t,
->  						  gtdef->mapping_base,
->  						  SZ_16M,
-> @@ -951,7 +949,7 @@ int intel_gt_probe_all(struct drm_i915_private *i915)
->  	return 0;
->  
->  err:
-> -	i915_probe_error(i915, "Failed to initialize %s! (%d)\n", gtdef->name, ret);
-> +	gt_probe_error(gt, "Failed to initialize %s! (%d)\n", gtdef->name, ret);
+To stop this gap require that DMA buffer mmaps are VM_PFNMAP, which
+blocks get_user_pages and all the other struct page based
+infrastructure for everyone. In spirit this is the uapi counterpart to
+the kernel-internal CONFIG_DMABUF_DEBUG.
 
-on -ENOMEM error, this gt will be NULL
-so likely we should stay with i915 variant
+Motivated by a recent patch which wanted to swich the system dma-buf
+heap to vm_insert_page instead of vm_insert_pfn.
 
->  	intel_gt_release_all(i915);
->  
->  	return ret;
-> @@ -1004,8 +1002,7 @@ get_reg_and_bit(const struct intel_engine_cs *engine, const bool gen8,
->  	const unsigned int class = engine->class;
->  	struct reg_and_bit rb = { };
->  
-> -	if (drm_WARN_ON_ONCE(&engine->i915->drm,
-> -			     class >= num || !regs[class].reg))
-> +	if (gt_WARN_ON_ONCE(engine->gt, class >= num || !regs[class].reg))
->  		return rb;
->  
->  	rb.reg = regs[class];
-> @@ -1088,8 +1085,7 @@ static void mmio_invalidate_full(struct intel_gt *gt)
->  		return;
->  	}
->  
-> -	if (drm_WARN_ONCE(&i915->drm, !num,
-> -			  "Platform does not implement TLB invalidation!"))
-> +	if (gt_WARN_ONCE(gt, !num, "Platform does not implement TLB invalidation!"))
->  		return;
->  
->  	intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
-> @@ -1142,8 +1138,8 @@ static void mmio_invalidate_full(struct intel_gt *gt)
->  
->  		if (wait_for_invalidate(gt, rb))
->  			drm_err_ratelimited(&gt->i915->drm,
-> -					    "%s TLB invalidation did not complete in %ums!\n",
-> -					    engine->name, TLB_INVAL_TIMEOUT_MS);
-> +					    "GT%d: %s TLB invalidation did not complete in %ums!\n",
-> +					    gt->info.id, engine->name, TLB_INVAL_TIMEOUT_MS);
+v2:
 
-that's inconsistent, we should use gt_err_ratelimited()
+Jason brought up that we also want to guarantee that all ptes have the
+pte_special flag set, to catch fast get_user_pages (on architectures
+that support this). Allowing VM_MIXEDMAP (like VM_SPECIAL does) would
+still allow vm_insert_page, but limiting to VM_PFNMAP will catch that.
 
->  	}
->  
->  	/*
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
-> index e0365d5562484..5bf2d53f4b4d0 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt.h
-> @@ -13,6 +13,41 @@
->  struct drm_i915_private;
->  struct drm_printer;
->  
-> +#define gt_err(_gt, _fmt, ...) \
-> +	drm_err(&(_gt)->i915->drm, "GT%u: " _fmt, (_gt)->info.id, ##__VA_ARGS__)
-> +
-> +#define gt_warn(_gt, _fmt, ...) \
-> +	drm_warn(&(_gt)->i915->drm, "GT%u: " _fmt, (_gt)->info.id, ##__VA_ARGS__)
-> +
-> +#define gt_notice(_gt, _fmt, ...) \
-> +	drm_notice(&(_gt)->i915->drm, "GT%u: " _fmt, (_gt)->info.id, ##__VA_ARGS__)
-> +
-> +#define gt_info(_gt, _fmt, ...) \
-> +	drm_info(&(_gt)->i915->drm, "GT%u: " _fmt, (_gt)->info.id, ##__VA_ARGS__)
-> +
-> +#define gt_dbg(_gt, _fmt, ...) \
-> +	drm_dbg(&(_gt)->i915->drm, "GT%u: " _fmt, (_gt)->info.id, ##__VA_ARGS__)
-> +
-> +#define gt_probe_error(_gt, _fmt, ...) \
-> +	do { \
-> +		if (i915_error_injected()) \
-> +			gt_dbg(_gt, _fmt, ##__VA_ARGS__); \
-> +		else \
-> +			gt_err(_gt, _fmt, ##__VA_ARGS__); \
-> +	} while (0)
-> +
-> +#define gt_WARN_ON(_gt, _condition) \
-> +	gt_WARN(_gt, _condition, "%s", "gt_WARN_ON(" __stringify(_condition) ")")
-> +
-> +#define gt_WARN_ON_ONCE(_gt, _condition) \
-> +	gt_WARN_ONCE(_gt, _condition, "%s", "gt_WARN_ONCE(" __stringify(_condition) ")")
-> +
-> +#define gt_WARN(_gt, _condition, _fmt, ...) \
-> +	drm_WARN(&(_gt)->i915->drm, _condition, "GT%u: " _fmt, (_gt)->info.id, ##__VA_ARGS__)
-> +
-> +#define gt_WARN_ONCE(_gt, _condition, _fmt, ...) \
-> +	drm_WARN_ONCE(&(_gt)->i915->drm, _condition, "GT%u: " _fmt, (_gt)->info.id, ##__VA_ARGS__)
-> +
->  #define GT_TRACE(gt, fmt, ...) do {					\
->  	const struct intel_gt *gt__ __maybe_unused = (gt);		\
->  	GEM_TRACE("%s " fmt, dev_name(gt__->i915->drm.dev),		\
+From auditing the various functions to insert pfn pte entires
+(vm_insert_pfn_prot, remap_pfn_range and all it's callers like
+dma_mmap_wc) it looks like VM_PFNMAP is already required anyway, so
+this should be the correct flag to check for.
 
-btw, shouldn't we also update GT_TRACE macros to include GT.id ?
-(naturally not in this series)
+v3: Change to WARN_ON_ONCE (Thomas Zimmermann)
 
-Michal
+References: https://lore.kernel.org/lkml/CAKMK7uHi+mG0z0HUmNt13QCCvutuRVjpcR0NjRL12k-WbWzkRg@mail.gmail.com/
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: John Stultz <john.stultz@linaro.org>
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
+--
+Ok I entirely forgot about this patch but stumbled over it and checked
+what's up with it no. I think it's ready now for merging:
+- shmem helper patches to fix up vgem landed
+- ttm has been fixed since a while
+- I don't think we've had any other open issues
+
+Time to lock down this uapi contract for real?
+-Daniel
+---
+ drivers/dma-buf/dma-buf.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index b6c36914e7c6..88718665c3c3 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -150,6 +150,8 @@ static int dma_buf_mmap_internal(struct file *file, struct vm_area_struct *vma)
+ 	ret = dmabuf->ops->mmap(dmabuf, vma);
+ 	dma_resv_unlock(dmabuf->resv);
+ 
++	WARN_ON_ONCE(!(vma->vm_flags & VM_PFNMAP));
++
+ 	return ret;
+ }
+ 
+@@ -1495,6 +1497,8 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma,
+ 	ret = dmabuf->ops->mmap(dmabuf, vma);
+ 	dma_resv_unlock(dmabuf->resv);
+ 
++	WARN_ON_ONCE(!(vma->vm_flags & VM_PFNMAP));
++
+ 	return ret;
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_mmap, DMA_BUF);
+-- 
+2.37.2
+
