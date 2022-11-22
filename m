@@ -4,31 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ED7FC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 20:16:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C862C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Nov 2022 20:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E90D410E462;
-	Tue, 22 Nov 2022 20:16:04 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id CD41310E1D9;
- Tue, 22 Nov 2022 20:16:01 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id C81A2A47DF;
- Tue, 22 Nov 2022 20:16:01 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49E0410E0D1;
+	Tue, 22 Nov 2022 20:36:52 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D744B10E45F;
+ Tue, 22 Nov 2022 20:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669149408; x=1700685408;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=tJLrhBNDTemD6s+CNa2Np4kWl++A0kGZ0zLE1jEAMXw=;
+ b=OQNf2mOpL3dVWA1faaiK7HyNxi3aqFc2VL4338aBmWmpWS2tiAXBRXtP
+ +sU4Gt7m5Dt7CK89FwukGVRnnUepoVKzti13dqxS+/MrpkQAp5Qw7ws/j
+ zSg90KpLwJM+9ldFb6w9YjT1iLDSXd17xcCMF8DbHYIUDcsKL4Jga+Sqj
+ kmSHsnq9CS2ffpuSJSnwAZFp4Vq1ZEnQAYjHyuAKa4XF/lwCblZ6/xUCE
+ 4/iN6Q/etdLzerKyUosOZbC+T9nWQoYiomtMSl1ogrGTdtsUE/i1NblJr
+ y+n3T4i1RR7WwVpdvz5vOVBA3vM8i2asJl8UO4u1d96roOS5At3iOgqOk Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="294298888"
+X-IronPort-AV: E=Sophos;i="5.96,185,1665471600"; d="scan'208";a="294298888"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2022 12:34:13 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10539"; a="730535768"
+X-IronPort-AV: E=Sophos;i="5.96,185,1665471600"; d="scan'208";a="730535768"
+Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2022 12:34:12 -0800
+From: Matt Roper <matthew.d.roper@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 22 Nov 2022 12:34:01 -0800
+Message-Id: <20221122203401.3172897-5-matthew.d.roper@intel.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221122203401.3172897-1-matthew.d.roper@intel.com>
+References: <20221122203401.3172897-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: yang.yang29@zte.com.cn
-Date: Tue, 22 Nov 2022 20:16:01 -0000
-Message-ID: <166914816179.2185.5109822078913484222@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <202211222007593082125@zte.com.cn>
-In-Reply-To: <202211222007593082125@zte.com.cn>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/gvt=3A_use_sysfs=5Fstreq=28=29_instead_of_strncmp?=
- =?utf-8?b?KCk=?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915/mtl: Add hardware-level lock for
+ steering
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,31 +57,98 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Starting with MTL, the driver needs to not only protect the steering
+control register from simultaneous software accesses, but also protect
+against races with hardware/firmware agents.  The hardware provides a
+dedicated locking mechanism to support this via the STEER_SEMAPHORE
+register.  Reading the register acts as a 'trylock' operation; the read
+will return 0x1 if the lock is acquired or 0x0 if something else is
+already holding the lock; once acquired, writing 0x1 to the register
+will release the lock.
 
-Series: drm/i915/gvt: use sysfs_streq() instead of strncmp()
-URL   : https://patchwork.freedesktop.org/series/111212/
-State : warning
+We'll continue to grab the software lock as well, just so lockdep can
+track our locking; assuming the hardware lock is behaving properly,
+there should never be any contention on the software lock in this case.
 
-== Summary ==
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_mcr.c  | 29 +++++++++++++++++++++----
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h |  1 +
+ 2 files changed, 26 insertions(+), 4 deletions(-)
 
-Error: dim checkpatch failed
-78ecf723a966 drm/i915/gvt: use sysfs_streq() instead of strncmp()
--:22: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#22: FILE: drivers/gpu/drm/i915/gvt/cmd_parser.c:921:
-+	if (sysfs_streq(cmd, "srm") ||
-+			sysfs_streq(cmd, "lrm")) {
-
--:33: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#33: FILE: drivers/gpu/drm/i915/gvt/cmd_parser.c:935:
-+	if (sysfs_streq(cmd, "lrr-src") ||
-+			sysfs_streq(cmd, "lrr-dst")) {
-
-total: 0 errors, 0 warnings, 2 checks, 42 lines checked
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
+index f9e722d91904..fe5f5e0affdf 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
+@@ -345,10 +345,9 @@ static u32 rw_with_mcr_steering(struct intel_gt *gt,
+  * @gt: GT structure
+  *
+  * Performs locking to protect the steering for the duration of an MCR
+- * operation.  Depending on the platform, this may be a software lock
+- * (gt->mcr_lock) or a hardware lock (i.e., a register that synchronizes
+- * access not only for the driver, but also for external hardware and
+- * firmware agents).
++ * operation.  On MTL and beyond, a hardware lock will also be taken to
++ * serialize access not only for the driver, but also for external hardware and
++ * firmware agents.
+  *
+  * Context: Takes gt->mcr_lock.  uncore->lock should *not* be held when this
+  *          function is called, although it may be acquired after this
+@@ -356,9 +355,28 @@ static u32 rw_with_mcr_steering(struct intel_gt *gt,
+  */
+ void intel_gt_mcr_lock(struct intel_gt *gt)
+ {
++	int err = 0;
++
+ 	lockdep_assert_not_held(&gt->uncore->lock);
+ 
++	/*
++	 * Starting with MTL, we need to coordinate not only with other
++	 * driver threads, but also with hardware/firmware agents.  A dedicated
++	 * locking register is used.
++	 */
++	if (GRAPHICS_VER(gt->i915) >= IP_VER(12, 70))
++		err = wait_for(intel_uncore_read_fw(gt->uncore,
++						    STEER_SEMAPHORE) == 0x1, 1);
++
++	/*
++	 * Even on platforms with a hardware lock, we'll continue to grab
++	 * a software spinlock too for lockdep purposes.  If the hardware lock
++	 * was already acquired, there should never be contention on the
++	 * software lock.
++	 */
+ 	spin_lock(&gt->mcr_lock);
++
++	drm_WARN_ON_ONCE(&gt->i915->drm, err == -ETIMEDOUT);
+ }
+ 
+ /**
+@@ -372,6 +390,9 @@ void intel_gt_mcr_lock(struct intel_gt *gt)
+ void intel_gt_mcr_unlock(struct intel_gt *gt)
+ {
+ 	spin_unlock(&gt->mcr_lock);
++
++	if (GRAPHICS_VER(gt->i915) >= IP_VER(12, 70))
++		intel_uncore_write_fw(gt->uncore, STEER_SEMAPHORE, 0x1);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 80a979e6f6be..412c0b399ebd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -67,6 +67,7 @@
+ #define GMD_ID_MEDIA				_MMIO(MTL_MEDIA_GSI_BASE + 0xd8c)
+ 
+ #define MCFG_MCR_SELECTOR			_MMIO(0xfd0)
++#define STEER_SEMAPHORE				_MMIO(0xfd0)
+ #define MTL_MCR_SELECTOR			_MMIO(0xfd4)
+ #define SF_MCR_SELECTOR				_MMIO(0xfd8)
+ #define GEN8_MCR_SELECTOR			_MMIO(0xfdc)
+-- 
+2.38.1
 
