@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFA19C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 23:50:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94877C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 23:53:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 541C110E660;
-	Wed, 23 Nov 2022 23:50:47 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EB2510E662;
- Wed, 23 Nov 2022 23:50:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D03B10E653;
+	Wed, 23 Nov 2022 23:53:52 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DBCA10E653
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 23:53:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669247445; x=1700783445;
- h=from:to:cc:subject:date:message-id:mime-version:
+ t=1669247628; x=1700783628;
+ h=from:to:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=5xiPkw+AYhKa2rb7cC2V04WFTfHaqhevSp5LDdmSnRE=;
- b=b3k2QqyeZ4mFnoV/r8UYQNySmej0TQpfS0FERjo8NQiJJGy9HeW43SjX
- M8HtEv+tANWSzXzst6s0Y9OPVmXv0f8lt3XhT/M/5HmfnKdNeij+FuoNt
- dyLZgl6nWkh4q1ra0eWGrGHGtZJ4ldlsQ5JQMnn9/uEf0qPhI42qqwHzt
- 5yg779TVGB7aC4VETFQieeSrRIZYVJ7lbu7ggic5xMwv8ttQSRuuAa14+
- uVobRmUg5/b97iuY68CbwB2ZEAAcpOUnIWWgrgqndbRY5LwgphqQDNpcg
- K6T9eBCMRm/2KnTD3GuFgPwoDXx2hHupygssH2SH1raKzYfZCuuVE34uS Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="315331472"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="315331472"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 15:50:44 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="971040480"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="971040480"
-Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 15:50:44 -0800
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+ bh=cmZJY5vVrFs0DUy3IBv+fpKRvUKzMDkSogdrg1I/R54=;
+ b=jkt0eiT54xjyrEsXiZbbDq3Vzc1VnX9v03cgVaTu8AR/WhCFZlMVSCle
+ iT3pD+4kb4QnYp5IOS/ffglIn1WC+QLMIfmM0QrYfCHOIDYeuaBT0jLac
+ uW1A1mpiDdE3rBU4U7OOw9wXAPGgf2IF1Oo4oaoVUKkSYixKWR40shQjc
+ GUkYWgcCv0k0I/E+Q9i7ydu3WNrNf9NbXwGi5jCbGB0bwVAsKgr1Sues/
+ hxgsFAOpMGlV2oz3pytrEFVCHdpsbHRCK9uIAk8v0NI8fk0LRxh04wo2I
+ iQ+iKNOPzp2aj332PUvK0tYfmIV/urB6AZKSrWq3ubCgs/VQLkkEKKkTF g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="378439308"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="378439308"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 15:53:47 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="642042036"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="642042036"
+Received: from unerlige-ril.jf.intel.com ([10.165.21.138])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 15:53:47 -0800
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Nov 2022 15:54:17 -0800
-Message-Id: <20221123235417.1475709-1-daniele.ceraolospurio@intel.com>
-X-Mailer: git-send-email 2.37.3
+Date: Wed, 23 Nov 2022 15:53:42 -0800
+Message-Id: <20221123235342.713068-1-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/huc: always init the delayed load fence
+Subject: [Intel-gfx] [PATCH v3] drm/i915/perf: Do not parse context image
+ for HSW
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,107 +55,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The fence is only tracking if the HuC load is in progress or not and
-doesn't distinguish between already loaded, not supported or disabled,
-so we can always initialize it to completed, no matter the actual
-support. We already do that for most platforms, but we skip it on
-GTs that lack VCS engines (i.e. MTL root GT), so fix that. Note that the
-cleanup is already unconditional.
+An earlier commit introduced a mechanism to parse the context image to
+find the OA context control offset. This resulted in an NPD on haswell
+when gem_context was passed into i915_perf_open_ioctl params. Haswell
+does not support logical ring contexts, so ensure that the context image
+is parsed only for platforms with logical ring contexts and also
+validate lrc_reg_state.
 
-While at it, move the init/fini to helper functions.
+v2: Fix build failure
+v3: Fix checkpatch error
 
-Fixes: 02224691cb0f ("drm/i915/huc: fix leak of debug object in huc load fence on driver unload")
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/7432
+Fixes: a5c3a3cbf029 ("drm/i915/perf: Determine gen12 oa ctx offset at runtime")
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_huc.c | 47 +++++++++++++++++++-------
- 1 file changed, 34 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-index 0976e9101346..5f393f8e8b2e 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-@@ -211,6 +211,30 @@ void intel_huc_unregister_gsc_notifier(struct intel_huc *huc, struct bus_type *b
- 	huc->delayed_load.nb.notifier_call = NULL;
- }
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 00e09bb18b13..125b6ca25a75 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -1383,6 +1383,9 @@ static u32 oa_context_image_offset(struct intel_context *ce, u32 reg)
+ 	u32 offset, len = (ce->engine->context_size - PAGE_SIZE) / 4;
+ 	u32 *state = ce->lrc_reg_state;
  
-+static void delayed_huc_load_init(struct intel_huc *huc)
-+{
-+	/*
-+	 * Initialize fence to be complete as this is expected to be complete
-+	 * unless there is a delayed HuC reload in progress.
-+	 */
-+	i915_sw_fence_init(&huc->delayed_load.fence,
-+			   sw_fence_dummy_notify);
-+	i915_sw_fence_commit(&huc->delayed_load.fence);
++	if (drm_WARN_ON(&ce->engine->i915->drm, !state))
++		return U32_MAX;
 +
-+	hrtimer_init(&huc->delayed_load.timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-+	huc->delayed_load.timer.function = huc_delayed_load_timer_callback;
-+}
-+
-+static void delayed_huc_load_fini(struct intel_huc *huc)
-+{
-+	/*
-+	 * the fence is initialized in init_early, so we need to clean it up
-+	 * even if HuC loading is off.
-+	 */
-+	delayed_huc_load_complete(huc);
-+	i915_sw_fence_fini(&huc->delayed_load.fence);
-+}
-+
- static bool vcs_supported(struct intel_gt *gt)
- {
- 	intel_engine_mask_t mask = gt->info.engine_mask;
-@@ -241,6 +265,15 @@ void intel_huc_init_early(struct intel_huc *huc)
+ 	for (offset = 0; offset < len; ) {
+ 		if (IS_MI_LRI_CMD(state[offset])) {
+ 			/*
+@@ -1447,7 +1450,8 @@ static int oa_get_render_ctx_id(struct i915_perf_stream *stream)
+ 	if (IS_ERR(ce))
+ 		return PTR_ERR(ce);
  
- 	intel_uc_fw_init_early(&huc->fw, INTEL_UC_FW_TYPE_HUC);
- 
-+	/*
-+	 * we always init the fence as already completed, even if HuC is not
-+	 * supported. This way we don't have to distinguish between HuC not
-+	 * supported/disabled or already loaded, band can focus on if the load
-+	 * is currently in progress (fence not complete) or not, which is what
-+	 * we care about for stalling userspace submissions.
-+	 */
-+	delayed_huc_load_init(huc);
-+
- 	if (!vcs_supported(gt)) {
- 		intel_uc_fw_change_status(&huc->fw, INTEL_UC_FIRMWARE_NOT_SUPPORTED);
- 		return;
-@@ -255,17 +288,6 @@ void intel_huc_init_early(struct intel_huc *huc)
- 		huc->status.mask = HUC_FW_VERIFIED;
- 		huc->status.value = HUC_FW_VERIFIED;
- 	}
--
--	/*
--	 * Initialize fence to be complete as this is expected to be complete
--	 * unless there is a delayed HuC reload in progress.
--	 */
--	i915_sw_fence_init(&huc->delayed_load.fence,
--			   sw_fence_dummy_notify);
--	i915_sw_fence_commit(&huc->delayed_load.fence);
--
--	hrtimer_init(&huc->delayed_load.timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
--	huc->delayed_load.timer.function = huc_delayed_load_timer_callback;
- }
- 
- #define HUC_LOAD_MODE_STRING(x) (x ? "GSC" : "legacy")
-@@ -333,8 +355,7 @@ void intel_huc_fini(struct intel_huc *huc)
- 	 * the fence is initialized in init_early, so we need to clean it up
- 	 * even if HuC loading is off.
- 	 */
--	delayed_huc_load_complete(huc);
--	i915_sw_fence_fini(&huc->delayed_load.fence);
-+	delayed_huc_load_fini(huc);
- 
- 	if (intel_uc_fw_is_loadable(&huc->fw))
- 		intel_uc_fw_fini(&huc->fw);
+-	if (engine_supports_mi_query(stream->engine)) {
++	if (engine_supports_mi_query(stream->engine) &&
++	    HAS_LOGICAL_RING_CONTEXTS(stream->perf->i915)) {
+ 		/*
+ 		 * We are enabling perf query here. If we don't find the context
+ 		 * offset here, just return an error.
 -- 
-2.37.3
+2.36.1
 
