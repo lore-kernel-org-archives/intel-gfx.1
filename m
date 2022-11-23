@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16953C433FE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B7B0C4332F
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 21:20:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 313E810E640;
-	Wed, 23 Nov 2022 21:20:02 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B60B10E63C
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 21:19:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE3CB10E642;
+	Wed, 23 Nov 2022 21:20:01 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 592A110E24E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 21:19:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669238344; x=1700774344;
+ t=1669238361; x=1700774361;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hfY72uXrE45V34tEWsnyqFYih5IbhTA5//xWMzTegn0=;
- b=PNrJouTJYWUR893m0VgtFB0QLOo8VXK0NTNWVNpu/X7sLYSP706dOwmt
- gXGgbiiJ1LTsaNmEdlJDAVca8J8XIlb7kFLxJlmQdFQxJg5198+A/fi3p
- xLJc5nIa/FDaVDWOvqqx8TPsriGgv68mpajhUjl++IgkWwGxXaXeA/cSj
- 7U+cFGe9FnieZi8tKHB+kKtuVVWZwdiXZBip6CU2S8mIa1q1WFoL3IXvk
- 3ZEEZK6ufJmBZTOZqM2fchC/oPdatzP41/H1ji7Kh5LDyfolUzJ7muK84
- 1JRuQHnR6UaPA3+QyGqVEyrcXaYlN5jZVYDfVWvPNE4oXBogw55ZfNEBM Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="378419008"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="378419008"
+ bh=SZvfjG7EyniAU1Wxkml/xIybtajDFmcZAmjmDNgiWK4=;
+ b=DJeWR6mSCvH7lD2ym59JmjP0RZMb/kjLiNXWXMY1DBrsWVIR8paJmt8S
+ lLoYcEGAa870rvGGgbaXzLsL1O5+Q11fG0Dy2yPFbeY2koHgNOH9emTAx
+ /QUS5lpWqBK0aUgA/NK/PCdmGIaGT7cPaky185Viu3gTWc+2/jQ3wE+rf
+ oqMfjkUbfJwl4Sr0Qx+zoDzLluizUepoKpqqMY7nxKf05N5ZBehuBzkXo
+ QYprymdrBa854yS14M7cQli/aCDJ4T/asSCgLFDb+1IRKcvo7iiChE3nX
+ /ggZ0vDk3de5Q1p73wlGGj5Dre/8RADjxXyHwSgx6sEHTsYydXLPROq6W w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="312859721"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="312859721"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 13:19:03 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="636053071"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="636053071"
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 13:19:20 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="636053097"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="636053097"
 Received: from jgronski-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.16.163])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 13:19:02 -0800
+ 23 Nov 2022 13:19:19 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Nov 2022 23:18:21 +0200
-Message-Id: <c1e12ffe47916204dfad866d4dedb83bebb75e78.1669238194.git.jani.nikula@intel.com>
+Date: Wed, 23 Nov 2022 23:18:25 +0200
+Message-Id: <6d9653c249d4a863b4bec71b66ddb5718dd3c8c3.1669238194.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1669238194.git.jani.nikula@intel.com>
 References: <cover.1669238194.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/12] drm/i915/gmbus: switch to intel_de_*
+Subject: [Intel-gfx] [PATCH 12/12] drm/i915/fbc: switch to intel_de_*
  register accessors in display code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,124 +63,43 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Avoid direct uncore use in display code.
+Avoid direct uncore use in display code. Use the new
+intel_de_rewrite_fw().
 
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_gmbus.c | 46 ++++++++--------------
- 1 file changed, 17 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fbc.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
-index a5840a28a69d..0bc4f6b48e80 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-@@ -255,14 +255,12 @@ static void bxt_gmbus_clock_gating(struct drm_i915_private *i915,
- static u32 get_reserved(struct intel_gmbus *bus)
- {
- 	struct drm_i915_private *i915 = bus->i915;
--	struct intel_uncore *uncore = &i915->uncore;
- 	u32 reserved = 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+index b5ee5ea0d010..6066ac412e6f 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.c
++++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+@@ -323,10 +323,7 @@ static void i8xx_fbc_nuke(struct intel_fbc *fbc)
+ 	enum i9xx_plane_id i9xx_plane = fbc_state->plane->i9xx_plane;
+ 	struct drm_i915_private *dev_priv = fbc->i915;
  
- 	/* On most chips, these bits must be preserved in software. */
- 	if (!IS_I830(i915) && !IS_I845G(i915))
--		reserved = intel_uncore_read_notrace(uncore, bus->gpio_reg) &
--			   (GPIO_DATA_PULLUP_DISABLE |
--			    GPIO_CLOCK_PULLUP_DISABLE);
-+		reserved = intel_de_read_notrace(i915, bus->gpio_reg) &
-+			(GPIO_DATA_PULLUP_DISABLE | GPIO_CLOCK_PULLUP_DISABLE);
- 
- 	return reserved;
- }
-@@ -270,37 +268,31 @@ static u32 get_reserved(struct intel_gmbus *bus)
- static int get_clock(void *data)
- {
- 	struct intel_gmbus *bus = data;
--	struct intel_uncore *uncore = &bus->i915->uncore;
-+	struct drm_i915_private *i915 = bus->i915;
- 	u32 reserved = get_reserved(bus);
- 
--	intel_uncore_write_notrace(uncore,
--				   bus->gpio_reg,
--				   reserved | GPIO_CLOCK_DIR_MASK);
--	intel_uncore_write_notrace(uncore, bus->gpio_reg, reserved);
-+	intel_de_write_notrace(i915, bus->gpio_reg, reserved | GPIO_CLOCK_DIR_MASK);
-+	intel_de_write_notrace(i915, bus->gpio_reg, reserved);
- 
--	return (intel_uncore_read_notrace(uncore, bus->gpio_reg) &
--		GPIO_CLOCK_VAL_IN) != 0;
-+	return (intel_de_read_notrace(i915, bus->gpio_reg) & GPIO_CLOCK_VAL_IN) != 0;
+-	spin_lock_irq(&dev_priv->uncore.lock);
+-	intel_de_write_fw(dev_priv, DSPADDR(i9xx_plane),
+-			  intel_de_read_fw(dev_priv, DSPADDR(i9xx_plane)));
+-	spin_unlock_irq(&dev_priv->uncore.lock);
++	intel_de_rewrite_fw(dev_priv, DSPADDR(i9xx_plane));
  }
  
- static int get_data(void *data)
- {
- 	struct intel_gmbus *bus = data;
--	struct intel_uncore *uncore = &bus->i915->uncore;
-+	struct drm_i915_private *i915 = bus->i915;
- 	u32 reserved = get_reserved(bus);
+ static void i8xx_fbc_program_cfb(struct intel_fbc *fbc)
+@@ -359,10 +356,7 @@ static void i965_fbc_nuke(struct intel_fbc *fbc)
+ 	enum i9xx_plane_id i9xx_plane = fbc_state->plane->i9xx_plane;
+ 	struct drm_i915_private *dev_priv = fbc->i915;
  
--	intel_uncore_write_notrace(uncore,
--				   bus->gpio_reg,
--				   reserved | GPIO_DATA_DIR_MASK);
--	intel_uncore_write_notrace(uncore, bus->gpio_reg, reserved);
-+	intel_de_write_notrace(i915, bus->gpio_reg, reserved | GPIO_DATA_DIR_MASK);
-+	intel_de_write_notrace(i915, bus->gpio_reg, reserved);
- 
--	return (intel_uncore_read_notrace(uncore, bus->gpio_reg) &
--		GPIO_DATA_VAL_IN) != 0;
-+	return (intel_de_read_notrace(i915, bus->gpio_reg) & GPIO_DATA_VAL_IN) != 0;
+-	spin_lock_irq(&dev_priv->uncore.lock);
+-	intel_de_write_fw(dev_priv, DSPSURF(i9xx_plane),
+-			  intel_de_read_fw(dev_priv, DSPSURF(i9xx_plane)));
+-	spin_unlock_irq(&dev_priv->uncore.lock);
++	intel_de_rewrite_fw(dev_priv, DSPSURF(i9xx_plane));
  }
  
- static void set_clock(void *data, int state_high)
- {
- 	struct intel_gmbus *bus = data;
--	struct intel_uncore *uncore = &bus->i915->uncore;
-+	struct drm_i915_private *i915 = bus->i915;
- 	u32 reserved = get_reserved(bus);
- 	u32 clock_bits;
- 
-@@ -310,16 +302,14 @@ static void set_clock(void *data, int state_high)
- 		clock_bits = GPIO_CLOCK_DIR_OUT | GPIO_CLOCK_DIR_MASK |
- 			     GPIO_CLOCK_VAL_MASK;
- 
--	intel_uncore_write_notrace(uncore,
--				   bus->gpio_reg,
--				   reserved | clock_bits);
--	intel_uncore_posting_read(uncore, bus->gpio_reg);
-+	intel_de_write_notrace(i915, bus->gpio_reg, reserved | clock_bits);
-+	intel_de_posting_read(i915, bus->gpio_reg);
- }
- 
- static void set_data(void *data, int state_high)
- {
- 	struct intel_gmbus *bus = data;
--	struct intel_uncore *uncore = &bus->i915->uncore;
-+	struct drm_i915_private *i915 = bus->i915;
- 	u32 reserved = get_reserved(bus);
- 	u32 data_bits;
- 
-@@ -329,8 +319,8 @@ static void set_data(void *data, int state_high)
- 		data_bits = GPIO_DATA_DIR_OUT | GPIO_DATA_DIR_MASK |
- 			GPIO_DATA_VAL_MASK;
- 
--	intel_uncore_write_notrace(uncore, bus->gpio_reg, reserved | data_bits);
--	intel_uncore_posting_read(uncore, bus->gpio_reg);
-+	intel_de_write_notrace(i915, bus->gpio_reg, reserved | data_bits);
-+	intel_de_posting_read(i915, bus->gpio_reg);
- }
- 
- static int
-@@ -439,9 +429,7 @@ gmbus_wait_idle(struct drm_i915_private *i915)
- 	add_wait_queue(&i915->display.gmbus.wait_queue, &wait);
- 	intel_de_write_fw(i915, GMBUS4(i915), irq_enable);
- 
--	ret = intel_wait_for_register_fw(&i915->uncore,
--					 GMBUS2(i915), GMBUS_ACTIVE, 0,
--					 10);
-+	ret = intel_de_wait_for_register_fw(i915, GMBUS2(i915), GMBUS_ACTIVE, 0, 10);
- 
- 	intel_de_write_fw(i915, GMBUS4(i915), 0);
- 	remove_wait_queue(&i915->display.gmbus.wait_queue, &wait);
+ static const struct intel_fbc_funcs i965_fbc_funcs = {
 -- 
 2.34.1
 
