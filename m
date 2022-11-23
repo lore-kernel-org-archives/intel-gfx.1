@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F0AC433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 16:26:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA36DC433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 16:26:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C79C610E5B2;
-	Wed, 23 Nov 2022 16:26:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4948410E5AF;
+	Wed, 23 Nov 2022 16:26:50 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id C793010E5BB;
- Wed, 23 Nov 2022 16:26:42 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E774D10E5AF;
+ Wed, 23 Nov 2022 16:26:39 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id C6316A00E8;
- Wed, 23 Nov 2022 16:26:42 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id E2120AADF3;
+ Wed, 23 Nov 2022 16:26:39 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
-Date: Wed, 23 Nov 2022 16:26:42 -0000
-Message-ID: <166922080280.15572.7688811415726239038@emeril.freedesktop.org>
+Date: Wed, 23 Nov 2022 16:26:39 -0000
+Message-ID: <166922079992.15573.5487896847365632499@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20221123144901.40493-1-andriy.shevchenko@linux.intel.com>
 In-Reply-To: <20221123144901.40493-1-andriy.shevchenko@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIHNl?=
- =?utf-8?q?ries_starting_with_=5Bv4=2C1/4=5D_i915=3A_Move_list=5Fcount=28?=
- =?utf-8?q?=29_to_list=2Eh_for_broader_use?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5Bv4=2C1/4=5D_i915=3A_Move_list=5Fcount?=
+ =?utf-8?q?=28=29_to_list=2Eh_for_broader_use?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,8 +54,8 @@ State : warning
 
 == Summary ==
 
-Error: make htmldocs had i915 warnings
-./drivers/gpu/drm/i915/gt/intel_gt_mcr.c:739: warning: expecting prototype for intel_gt_mcr_wait_for_reg_fw(). Prototype was for intel_gt_mcr_wait_for_reg() instead
-./drivers/gpu/drm/i915/gt/intel_gt_mcr.c:739: warning: expecting prototype for intel_gt_mcr_wait_for_reg_fw(). Prototype was for intel_gt_mcr_wait_for_reg() instead
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
