@@ -4,50 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CED8C4167D
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 15:27:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79028C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 15:42:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FB5110E585;
-	Wed, 23 Nov 2022 15:27:40 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3AFB10E576
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 15:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C61B10E59B;
+	Wed, 23 Nov 2022 15:42:13 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0381210E59B;
+ Wed, 23 Nov 2022 15:42:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669217216; x=1700753216;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=jKmygraJn1dJOqJJb1xJpBh7a7TY2lkGo3b0/g62HN8=;
- b=mPXv7Rdz7B1oXAEkjS/s8dF1xFUElaLS9yc/5+VS/sDXVGtLDIV6tZax
- K8X2cR8ivb0Zo0xrpKOZxCH2zMub+Obj3kEWGoKQynsmAGb42v8nrkX9q
- 7s/naTPx2+nq0JrygbJZbgEAv8GBuD4Xpd9B8eS0gYGu4DRl76TN/Ydab
- 71i/0X/VguEM1HcO6fBcRjr9o0QikesvVPFj3Ft7VqnGnmnB6+7GdSecS
- qtdIUTKi6j/Zml/no6oVC1+ykRVsGm9DjfzITtUYM6GZ72n/RINTmD89i
- MrQhcvDXBj6UlreRpC06jbQyWSZWOsaTQGNVAkZ+5xDiSSVVsaSslnWcy w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="312789859"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="312789859"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 07:26:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="619650921"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="619650921"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga006.jf.intel.com with SMTP; 23 Nov 2022 07:26:41 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 23 Nov 2022 17:26:41 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Nov 2022 17:26:26 +0200
-Message-Id: <20221123152638.20622-2-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.37.4
-In-Reply-To: <20221123152638.20622-1-ville.syrjala@linux.intel.com>
-References: <20221123152638.20622-1-ville.syrjala@linux.intel.com>
+ t=1669218129; x=1700754129;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=kpvMgL7bhIO/OBnu6i47motW/ruLXZLpRUpjkbUCzL0=;
+ b=j8dUyrXoKfc/gqI1+pepqc0XP/+B0xjhud3AiujsiBN+Y3se/cpAKBXl
+ FTOord9VhOijY5n5xW/zgCL8RMxaOlJOBXTgWVNmVibYo/WXOETiUY6jI
+ c9vg8UjTAZWdXCo2mky4P6tqAMU8bURCrjfbCu33DmxpgXTD2pSo/0yey
+ 28xenPnQPLfItAbd6wO60HDKo/pUZcl1VxGHqiuCnXbqHxF3fTnUpV7j6
+ r60Ao/8j8TWDVEaJNZnWfywyf7ZAJ8m5a+Wktym/c2ARFsT4W6CNrFjSi
+ lR5HturcDWQCtllwJnuT+xsri1Zru0YV1RsPEhAjWPAc8qRRPfbWHKywU w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="378350939"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="378350939"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 07:42:08 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="766760438"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="766760438"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.16.106])
+ ([10.213.16.106])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 07:42:05 -0800
+Message-ID: <713228b8-16ec-c791-7f1c-abae0316831a@intel.com>
+Date: Wed, 23 Nov 2022 16:42:03 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/13] drm/i915: Shorten
- GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED a bit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.5.0
+Content-Language: en-US
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+References: <20221121145655.75141-1-janusz.krzysztofik@linux.intel.com>
+ <20221121145655.75141-3-janusz.krzysztofik@linux.intel.com>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20221121145655.75141-3-janusz.krzysztofik@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v3 2/2] drm/i915: Never return 0 if not all
+ requests retired
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,84 +66,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris.p.wilson@intel.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-s/GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED/GAMMA_MODE_MODE_12BIT_MULTI_SEG/
-to make this thing slightly shorter.
 
-Also fix up the platform comment while at it.
+On 21.11.2022 15:56, Janusz Krzysztofik wrote:
+> Users of intel_gt_retire_requests_timeout() expect 0 return value on
+> success.  However, we have no protection from passing back 0 potentially
+> returned by a call to dma_fence_wait_timeout() when it succedes right
+> after its timeout has expired.
+>
+> Replace 0 with -ETIME before potentially using the timeout value as return
+> code, so -ETIME is returned if there are still some requests not retired
+> after timeout, 0 otherwise.
+>
+> v3: Use conditional expression, more compact but also better reflecting
+>      intention standing behind the change.
+>
+> v2: Move the added lines down so flush_submission() is not affected.
+>
+> Fixes: f33a8a51602c ("drm/i915: Merge wait_for_timelines with retire_request")
+> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_color.c | 10 +++++-----
- drivers/gpu/drm/i915/i915_reg.h            |  2 +-
- 2 files changed, 6 insertions(+), 6 deletions(-)
+I confirm my r-b.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 842d58da3128..956b221860e6 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -1212,7 +1212,7 @@ static void icl_load_luts(const struct intel_crtc_state *crtc_state)
- 	case GAMMA_MODE_MODE_8BIT:
- 		ilk_load_lut_8(crtc, post_csc_lut);
- 		break;
--	case GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED:
-+	case GAMMA_MODE_MODE_12BIT_MULTI_SEG:
- 		icl_program_gamma_superfine_segment(crtc_state);
- 		icl_program_gamma_multi_segment(crtc_state);
- 		ivb_load_lut_ext_max(crtc_state);
-@@ -2091,7 +2091,7 @@ static u32 icl_gamma_mode(const struct intel_crtc_state *crtc_state)
- 	else if (DISPLAY_VER(i915) >= 13)
- 		gamma_mode |= GAMMA_MODE_MODE_10BIT;
- 	else
--		gamma_mode |= GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED;
-+		gamma_mode |= GAMMA_MODE_MODE_12BIT_MULTI_SEG;
- 
- 	return gamma_mode;
- }
-@@ -2283,7 +2283,7 @@ static int icl_post_csc_lut_precision(const struct intel_crtc_state *crtc_state)
- 		return 8;
- 	case GAMMA_MODE_MODE_10BIT:
- 		return 10;
--	case GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED:
-+	case GAMMA_MODE_MODE_12BIT_MULTI_SEG:
- 		return 16;
- 	default:
- 		MISSING_CASE(crtc_state->gamma_mode);
-@@ -2455,7 +2455,7 @@ static bool icl_lut_equal(const struct intel_crtc_state *crtc_state,
- 
- 	/* hw readout broken except for the super fine segment :( */
- 	if ((crtc_state->gamma_mode & GAMMA_MODE_MODE_MASK) ==
--	    GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED)
-+	    GAMMA_MODE_MODE_12BIT_MULTI_SEG)
- 		check_size = 9;
- 
- 	return intel_lut_equal(blob1, blob2, check_size,
-@@ -2971,7 +2971,7 @@ static void icl_read_luts(struct intel_crtc_state *crtc_state)
- 	case GAMMA_MODE_MODE_10BIT:
- 		crtc_state->post_csc_lut = bdw_read_lut_10(crtc, PAL_PREC_INDEX_VALUE(0));
- 		break;
--	case GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED:
-+	case GAMMA_MODE_MODE_12BIT_MULTI_SEG:
- 		crtc_state->post_csc_lut = icl_read_lut_multi_segment(crtc);
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 0b90fe6a28f7..b1c314093737 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5316,7 +5316,7 @@
- #define  GAMMA_MODE_MODE_10BIT	(1 << 0)
- #define  GAMMA_MODE_MODE_12BIT	(2 << 0)
- #define  GAMMA_MODE_MODE_SPLIT	(3 << 0) /* ivb-bdw */
--#define  GAMMA_MODE_MODE_12BIT_MULTI_SEGMENTED	(3 << 0) /* icl + */
-+#define  GAMMA_MODE_MODE_12BIT_MULTI_SEG	(3 << 0) /* icl-tgl */
- 
- /* Display Internal Timeout Register */
- #define RM_TIMEOUT		_MMIO(0x42060)
--- 
-2.37.4
+Regards
+Andrzej
+
+> Cc: stable@vger.kernel.org # v5.5+
+> ---
+>   drivers/gpu/drm/i915/gt/intel_gt_requests.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+> index edb881d756309..1dfd01668c79c 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+> @@ -199,7 +199,7 @@ out_active:	spin_lock(&timelines->lock);
+>   	if (remaining_timeout)
+>   		*remaining_timeout = timeout;
+>   
+> -	return active_count ? timeout : 0;
+> +	return active_count ? timeout ?: -ETIME : 0;
+>   }
+>   
+>   static void retire_work_handler(struct work_struct *work)
 
