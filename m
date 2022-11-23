@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F452C433FE
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 21:18:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8541FC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 21:18:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B621110E24E;
-	Wed, 23 Nov 2022 21:18:32 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EEB910E24E
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 21:18:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95CF210E63E;
+	Wed, 23 Nov 2022 21:18:47 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC1B310E63E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 21:18:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669238311; x=1700774311;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=QKzwZgiuYiIt+nB4c03Q7jM24lPppN9NlvXChma+esU=;
- b=EXowlbYzS/6NIVPiIMdQPKQ6P4DPZV2/nlEcE6vkzT7YQYYfsUNRYE6W
- +Ws/B0HlhyFzcVs66z0ag7nYqmbdBBREZMKCVDyfBMJ/GdyU0J528hZlv
- JQZpHkU3UeZcyqAXlM22T2d8NT0Mb06q2gQU5PHgNA0XXHscjI8MdbZqp
- VEyhdkBPsWE3NxvOr0ERcPCYYbUGheusIUEYiDWjnZaIsvuLw1UCSV+/x
- jzsXJbfZqPGtPrq8Wbzm8w/FG9nVzgbYpuqJ/IgBv2jIgqjZIkcR5Gk7c
- OwGoQjXThBsM85e5aqAKHpUG8HH9Kzfp9agkYINTUcSiDDntMMHVUmk7S Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="301722679"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="301722679"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 13:18:30 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="710731400"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="710731400"
+ t=1669238319; x=1700774319;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=haEKHzsHodMBSolM+HlXiUo1DM112ZMi91GcbljVM+4=;
+ b=SsfYcPiSgn16ll0bHFpaFfyBzS7cKipRR52J1VyP3RjhmtlI6fY7BiiF
+ qfBvmhVQp/3TkAniSkryBy+gd/WtENb91hEZgZZpKpuKIO2Wg3lWw0kfo
+ TwcXcbJ79POhCu5/oL8kADPLm5eN6JmvjvrhdXvwaUFE8XPAXHPfbZp0Q
+ N8+Cu6UuBsecjvLb2sMK6UnS8RbWjuReEHP10Yta5fvEVddjRTEM7Z8KZ
+ +jQnGuIMn272WaHhWm9IWs5zJtXcNncIczoqLvRop3x0eCl3wz5UToYy6
+ SNqT6PKVrutWRUkOvS8jKsncbsUMLrvS3731+Sa3C6YgZ4ZSiannqjEIq w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="315312662"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="315312662"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 13:18:39 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="636053027"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="636053027"
 Received: from jgronski-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.16.163])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 13:18:29 -0800
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 13:18:37 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Nov 2022 23:18:13 +0200
-Message-Id: <cover.1669238194.git.jani.nikula@intel.com>
+Date: Wed, 23 Nov 2022 23:18:15 +0200
+Message-Id: <6282acc3fda79af41f6cec405b0dadcba2732839.1669238194.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1669238194.git.jani.nikula@intel.com>
+References: <cover.1669238194.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/12] drm/i915/display: switch to intel_de_*
- register accessors
+Subject: [Intel-gfx] [PATCH 02/12] drm/i915/de: return the old register
+ value from intel_de_rmw()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,43 +63,32 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Based on earlier work by Maarten, switch to intel_de_* register
-accessors in display for display registers, and avoid direct
-i915->uncore access in general.
+A similar thing was added in intel_uncore_rmw(). Make it available for
+display too.
 
-For now, leave the non-display registers be, as well as pcode.
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_de.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Jani Nikula (11):
-  drm/i915/de: return the old register value from intel_de_rmw()
-  drm/i915/crt: drop a bunch of unnecessary register variables
-  drm/i915/crt: switch to intel_de_* register accessors in display code
-  drm/i915/power: switch to intel_de_* register accessors in display
-    code
-  drm/i915/dmc: switch to intel_de_* register accessors in display code
-  drm/i915/dp-aux: switch to intel_de_* register accessors in display
-    code
-  drm/i915/gmbus: switch to intel_de_* register accessors in display
-    code
-  drm/i915/wm: switch to intel_de_* register accessors in display code
-  drm/i915/snps: switch to intel_de_* register accessors in display code
-  drm/i915/tc: switch to intel_de_* register accessors in display code
-  drm/i915/fbc: switch to intel_de_* register accessors in display code
-
-Maarten Lankhorst (1):
-  drm/i915/de: Add more macros to remove all direct calls to uncore
-
- drivers/gpu/drm/i915/display/intel_crt.c      | 53 +++++++-----------
- drivers/gpu/drm/i915/display/intel_de.h       | 47 +++++++++++++++-
- .../drm/i915/display/intel_display_power.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_dmc.c      |  6 +-
- drivers/gpu/drm/i915/display/intel_dp_aux.c   | 29 +++++-----
- drivers/gpu/drm/i915/display/intel_fbc.c      | 10 +---
- drivers/gpu/drm/i915/display/intel_gmbus.c    | 46 ++++++----------
- drivers/gpu/drm/i915/display/intel_snps_phy.c | 15 +++--
- drivers/gpu/drm/i915/display/intel_tc.c       | 55 ++++++-------------
- drivers/gpu/drm/i915/display/skl_watermark.c  | 42 ++++++--------
- 10 files changed, 144 insertions(+), 161 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
+index 7fd74eda89fc..d8f046af5bdf 100644
+--- a/drivers/gpu/drm/i915/display/intel_de.h
++++ b/drivers/gpu/drm/i915/display/intel_de.h
+@@ -34,10 +34,10 @@ intel_de_write(struct drm_i915_private *i915, i915_reg_t reg, u32 val)
+ 	intel_uncore_write(&i915->uncore, reg, val);
+ }
+ 
+-static inline void
++static inline u32
+ intel_de_rmw(struct drm_i915_private *i915, i915_reg_t reg, u32 clear, u32 set)
+ {
+-	intel_uncore_rmw(&i915->uncore, reg, clear, set);
++	return intel_uncore_rmw(&i915->uncore, reg, clear, set);
+ }
+ 
+ static inline int
 -- 
 2.34.1
 
