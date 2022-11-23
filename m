@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB8D3C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 15:27:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B7FAC4167D
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 15:27:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B43F10E575;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 458D210E576;
 	Wed, 23 Nov 2022 15:27:10 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C127A10E575
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 15:26:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46EC910E575
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 15:27:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669217217; x=1700753217;
+ t=1669217220; x=1700753220;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=QOg5fUPBz7exMl7hXv7Iv7Y6dRS1FxMJihw14aGXFEI=;
- b=T4PmbueT7YBUSoQT+XF/eFv8c4GC4U/4raksLRh0PcuniEHL0xQcS899
- jjiDJp3dJsXc0FO2Hvq8UQ8rw9nwp3CmDm0e09TJJFc+mxSwaZZQqa5g2
- VEwEYu4hk6HBrYwMuaifOK2aGRNBah6Ir90ZULZnTCkw28Mg5oTGtwb/j
- ycdK4wvxekpRIG3M8+9C3Dk+q8jbFjNUKPa5e4lUj0y8cRhRc0v977ARk
- SwLJFob7+9v8xQe9DzDJ4m4TFAmnbGEDWNHQx0v4REoixwd44b+CgwgiP
- X/WYAMQsKtHkLAp243e+iNvV6FfhEBVLFRZgOiLtENYr2lBU3WhsveVRT g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="312789879"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="312789879"
+ bh=NTWNfSwrHdr4o3hFH9IhYAhA8ylxhkWaDsOH6fhVnTk=;
+ b=nI1BKYm2tWuruG89JOTIT+kp9UJgcPccEw/tTQjZ04iix2f4fLidxM/1
+ Rm2hOhO6cs6moXw8SKjtOYfqThd+JfZ/uD5EJeWmuUyZQPE9gR7p3lGfi
+ GhkL7HdSinIr/X1GcftqI2wbsO6b7g3mIafKT/aRwHGam3tEF2tqB3xCz
+ E31TDooC5QsdRRmcxPy6T1CqTLBaX5MFqZRxYq6LbqVK4Y+/L4bZzdcws
+ Jpe+cP1CRtXCmUOo0YPKi11IiteES9P4GDBGqSNuJDyNoWgUi4jIei/JS
+ 5UuxaYC78OUe+sKU+IaAZcOsBc7Gst9ICbWe/p/OoZWn1qCmLu/6zewpn w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="312789921"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="312789921"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 07:26:46 -0800
+ 23 Nov 2022 07:26:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="619650941"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="619650941"
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="619650979"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="619650979"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga006.jf.intel.com with SMTP; 23 Nov 2022 07:26:44 -0800
+ by orsmga006.jf.intel.com with SMTP; 23 Nov 2022 07:26:53 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 23 Nov 2022 17:26:43 +0200
+ Wed, 23 Nov 2022 17:26:52 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Nov 2022 17:26:27 +0200
-Message-Id: <20221123152638.20622-3-ville.syrjala@linux.intel.com>
+Date: Wed, 23 Nov 2022 17:26:30 +0200
+Message-Id: <20221123152638.20622-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221123152638.20622-1-ville.syrjala@linux.intel.com>
 References: <20221123152638.20622-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/13] drm/i915: Clean up GAMMA_MODE defines
+Subject: [Intel-gfx] [PATCH 05/13] drm/i915: Standardize auto-increment LUT
+ load procedure
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,40 +65,94 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Use REG_BIT() & co. for GAMMA_MODE bits.
+Various gamma units on various platforms have some problems loading
+the LUT index and auto-increment bit at the same time. We have to
+do this in two steps. The first known case was the glk degamma LUT,
+but at least ADL has another known case.
+
+We're not going to suffer too badly from a couple of extra register
+writes here, so let's just standardize on this practice for all
+auto-increment LUT loads/reads. This way we never have to worry about
+this specific issue again. And for good measure always reset the
+index back to zero at the end (we already did this in a few places).
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index b1c314093737..52d289f55ce1 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5309,14 +5309,14 @@
- #define _GAMMA_MODE_A		0x4a480
- #define _GAMMA_MODE_B		0x4ac80
- #define GAMMA_MODE(pipe) _MMIO_PIPE(pipe, _GAMMA_MODE_A, _GAMMA_MODE_B)
--#define  PRE_CSC_GAMMA_ENABLE	(1 << 31)
--#define  POST_CSC_GAMMA_ENABLE	(1 << 30)
--#define  GAMMA_MODE_MODE_MASK	(3 << 0)
--#define  GAMMA_MODE_MODE_8BIT	(0 << 0)
--#define  GAMMA_MODE_MODE_10BIT	(1 << 0)
--#define  GAMMA_MODE_MODE_12BIT	(2 << 0)
--#define  GAMMA_MODE_MODE_SPLIT	(3 << 0) /* ivb-bdw */
--#define  GAMMA_MODE_MODE_12BIT_MULTI_SEG	(3 << 0) /* icl-tgl */
-+#define  PRE_CSC_GAMMA_ENABLE			REG_BIT(31) /* icl+ */
-+#define  POST_CSC_GAMMA_ENABLE			REG_BIT(30) /* icl+ */
-+#define  GAMMA_MODE_MODE_MASK			REG_GENMASK(1, 0)
-+#define  GAMMA_MODE_MODE_8BIT			REG_FIELD_PREP(GAMMA_MODE_MODE_MASK, 0)
-+#define  GAMMA_MODE_MODE_10BIT			REG_FIELD_PREP(GAMMA_MODE_MODE_MASK, 1)
-+#define  GAMMA_MODE_MODE_12BIT			REG_FIELD_PREP(GAMMA_MODE_MODE_MASK, 2)
-+#define  GAMMA_MODE_MODE_SPLIT			REG_FIELD_PREP(GAMMA_MODE_MODE_MASK, 3) /* ivb-bdw */
-+#define  GAMMA_MODE_MODE_12BIT_MULTI_SEG	REG_FIELD_PREP(GAMMA_MODE_MODE_MASK, 3) /* icl-tgl */
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index c960c2aaf328..bd7e781d9d07 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -934,6 +934,8 @@ static void bdw_load_lut_10(struct intel_crtc *crtc,
+ 	int i, lut_size = drm_color_lut_size(blob);
+ 	enum pipe pipe = crtc->pipe;
  
- /* Display Internal Timeout Register */
- #define RM_TIMEOUT		_MMIO(0x42060)
++	intel_de_write_fw(i915, PREC_PAL_INDEX(pipe),
++			  prec_index);
+ 	intel_de_write_fw(i915, PREC_PAL_INDEX(pipe),
+ 			  PAL_PREC_AUTO_INCREMENT |
+ 			  prec_index);
+@@ -1138,7 +1140,10 @@ icl_program_gamma_superfine_segment(const struct intel_crtc_state *crtc_state)
+ 	 * 2/(8 * 128 * 256) ... 8/(8 * 128 * 256).
+ 	 */
+ 	intel_dsb_reg_write(crtc_state, PREC_PAL_MULTI_SEG_INDEX(pipe),
+-			    PAL_PREC_AUTO_INCREMENT);
++			    PAL_PREC_MULTI_SEG_INDEX_VALUE(0));
++	intel_dsb_reg_write(crtc_state, PREC_PAL_MULTI_SEG_INDEX(pipe),
++			    PAL_PREC_AUTO_INCREMENT |
++			    PAL_PREC_MULTI_SEG_INDEX_VALUE(0));
+ 
+ 	for (i = 0; i < 9; i++) {
+ 		const struct drm_color_lut *entry = &lut[i];
+@@ -1148,6 +1153,9 @@ icl_program_gamma_superfine_segment(const struct intel_crtc_state *crtc_state)
+ 		intel_dsb_indexed_reg_write(crtc_state, PREC_PAL_MULTI_SEG_DATA(pipe),
+ 					    ilk_lut_12p4_udw(entry));
+ 	}
++
++	intel_dsb_reg_write(crtc_state, PREC_PAL_MULTI_SEG_INDEX(pipe),
++			    PAL_PREC_MULTI_SEG_INDEX_VALUE(0));
+ }
+ 
+ static void
+@@ -1170,6 +1178,8 @@ icl_program_gamma_multi_segment(const struct intel_crtc_state *crtc_state)
+ 	 * PAL_PREC_INDEX[0] and PAL_PREC_INDEX[1] map to seg2[1],
+ 	 * seg2[0] being unused by the hardware.
+ 	 */
++	intel_dsb_reg_write(crtc_state, PREC_PAL_INDEX(pipe),
++			    PAL_PREC_INDEX_VALUE(0));
+ 	intel_dsb_reg_write(crtc_state, PREC_PAL_INDEX(pipe),
+ 			    PAL_PREC_AUTO_INCREMENT |
+ 			    PAL_PREC_INDEX_VALUE(0));
+@@ -1202,6 +1212,9 @@ icl_program_gamma_multi_segment(const struct intel_crtc_state *crtc_state)
+ 					    ilk_lut_12p4_udw(entry));
+ 	}
+ 
++	intel_dsb_reg_write(crtc_state, PREC_PAL_INDEX(pipe),
++			    PAL_PREC_INDEX_VALUE(0));
++
+ 	/* The last entry in the LUT is to be programmed in GCMAX */
+ 	entry = &lut[256 * 8 * 128];
+ 	ivb_load_lut_max(crtc_state, entry);
+@@ -2819,6 +2832,8 @@ static struct drm_property_blob *bdw_read_lut_10(struct intel_crtc *crtc,
+ 
+ 	lut = blob->data;
+ 
++	intel_de_write_fw(i915, PREC_PAL_INDEX(pipe),
++			  prec_index);
+ 	intel_de_write_fw(i915, PREC_PAL_INDEX(pipe),
+ 			  PAL_PREC_AUTO_INCREMENT |
+ 			  prec_index);
+@@ -2947,6 +2962,8 @@ icl_read_lut_multi_segment(struct intel_crtc *crtc)
+ 
+ 	lut = blob->data;
+ 
++	intel_de_write_fw(i915, PREC_PAL_MULTI_SEG_INDEX(pipe),
++			  PAL_PREC_MULTI_SEG_INDEX_VALUE(0));
+ 	intel_de_write_fw(i915, PREC_PAL_MULTI_SEG_INDEX(pipe),
+ 			  PAL_PREC_MULTI_SEG_AUTO_INCREMENT |
+ 			  PAL_PREC_MULTI_SEG_INDEX_VALUE(0));
 -- 
 2.37.4
 
