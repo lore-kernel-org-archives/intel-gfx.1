@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AF6CC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 21:18:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 886ECC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 21:19:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D46B110E640;
-	Wed, 23 Nov 2022 21:18:55 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91B3C88C4C
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84E1710E644;
+	Wed, 23 Nov 2022 21:18:56 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23F1B10E640
  for <intel-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 21:18:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1669238328; x=1700774328;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OLiYFQJmWYffIfJ2qigwsTAzemsBZWL7QeJKohUawkM=;
- b=aQ7r0jrxs8/onOJR7nkVgEwlArh8f0VKXP2eAmLItnWg1xfVnGipgr/m
- 9NNzbFmXCfu0u/+vsHTeDYskxzEeZi3+wvMoiqu7TH3eu3ujtdIBJxvz+
- WODtPqzHuI7wIamiIT7wEbrvUFvLsv9BGnEXaFgDMZtK8OUHIiVWRJ0XC
- qusHoA+K3ejm39NLRmZ6sVq3TxOk4OnIAuKamyQXIJJeX0Q5DrNQxZ3Jw
- dLdZYCovDBVeHEq+UBquE97LB40aC3ENTmmBJQigbV+GFVXmjberUSgem
- 92jtjdQG3OE9PPuASzEXPoGPCi1AJYPm4oqmlNS3nT17BO9uIQ7tcUHLt g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="315982107"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="315982107"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 13:18:35 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="766865345"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="766865345"
+ bh=y37lOV9HnZBHDTxMgADS57ifTmN1sgIDOvaAxwsULmQ=;
+ b=S/eopkdndQm2FIro02MmBLvFAn0G6RINBgkUkvKFnKHOumb5dQ8bg6SB
+ kg+W1zTm9cLnuShS5S+w2sFZH6DQy6znXeSXTI/AC9K2PwwGJODu0iDNO
+ Mr1lsx8BRpUSb4knPpMoA2t9DZEaavUir0EQFR+nqAAY9n43Dgc73zbih
+ 8ob/VDc52bJmDXJeLpf46yXEunopqsjbHsUluJPUnaH4nsbjWVJI42059
+ joAPxml3Z0KfPhaFnEWJ6DZf70KwhD8/17b/3tY1RN38yO2YhSTo1UJCk
+ Qozn+5RaMpc1601DMyYlZ+v4Emhf18LSmMVdkWjoKAPly8icpmC+f+Gbf g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="400453643"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="400453643"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 13:18:47 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="641985197"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="641985197"
 Received: from jgronski-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.16.163])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 13:18:33 -0800
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 13:18:46 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Nov 2022 23:18:14 +0200
-Message-Id: <c2bc064e233a7b4eebad34f56dea8eeb3022a061.1669238194.git.jani.nikula@intel.com>
+Date: Wed, 23 Nov 2022 23:18:17 +0200
+Message-Id: <a829bf4e35494bf4f53e697ee80d691b5b0db8a9.1669238194.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1669238194.git.jani.nikula@intel.com>
 References: <cover.1669238194.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/12] drm/i915/de: Add more macros to remove
- all direct calls to uncore
+Subject: [Intel-gfx] [PATCH 04/12] drm/i915/crt: switch to intel_de_*
+ register accessors in display code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,86 +63,124 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Avoid direct uncore use in display code.
 
-Add more de helpers to be able to avoid direct calls to uncore.
-
-v2 by Jani:
-- drop pcode stuff for now
-- rename intel_de_write_samevalue -> intel_de_rewrite_fw
-
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_de.h | 43 +++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
+ drivers/gpu/drm/i915/display/intel_crt.c | 42 +++++++++++-------------
+ 1 file changed, 19 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
-index 9c104f65e4c8..7fd74eda89fc 100644
---- a/drivers/gpu/drm/i915/display/intel_de.h
-+++ b/drivers/gpu/drm/i915/display/intel_de.h
-@@ -16,6 +16,12 @@ intel_de_read(struct drm_i915_private *i915, i915_reg_t reg)
- 	return intel_uncore_read(&i915->uncore, reg);
- }
- 
-+static inline u8
-+intel_de_read8(struct drm_i915_private *i915, i915_reg_t reg)
-+{
-+	return intel_uncore_read8(&i915->uncore, reg);
-+}
-+
- static inline void
- intel_de_posting_read(struct drm_i915_private *i915, i915_reg_t reg)
+diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
+index ed94ba5c0302..7267ffc7f539 100644
+--- a/drivers/gpu/drm/i915/display/intel_crt.c
++++ b/drivers/gpu/drm/i915/display/intel_crt.c
+@@ -682,7 +682,6 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
  {
-@@ -41,6 +47,23 @@ intel_de_wait_for_register(struct drm_i915_private *i915, i915_reg_t reg,
- 	return intel_wait_for_register(&i915->uncore, reg, mask, value, timeout);
- }
+ 	struct drm_device *dev = crt->base.base.dev;
+ 	struct drm_i915_private *dev_priv = to_i915(dev);
+-	struct intel_uncore *uncore = &dev_priv->uncore;
+ 	u32 save_bclrpat;
+ 	u32 save_vtotal;
+ 	u32 vtotal, vactive;
+@@ -694,9 +693,9 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
  
-+static inline int
-+intel_de_wait_for_register_fw(struct drm_i915_private *i915, i915_reg_t reg,
-+			      u32 mask, u32 value, unsigned int timeout)
-+{
-+	return intel_wait_for_register_fw(&i915->uncore, reg, mask, value, timeout);
-+}
-+
-+static inline int
-+__intel_de_wait_for_register(struct drm_i915_private *i915, i915_reg_t reg,
-+			     u32 mask, u32 value,
-+			     unsigned int fast_timeout_us,
-+			     unsigned int slow_timeout_ms, u32 *out_value)
-+{
-+	return __intel_wait_for_register(&i915->uncore, reg, mask, value,
-+					 fast_timeout_us, slow_timeout_ms, out_value);
-+}
-+
- static inline int
- intel_de_wait_for_set(struct drm_i915_private *i915, i915_reg_t reg,
- 		      u32 mask, unsigned int timeout)
-@@ -81,4 +104,24 @@ intel_de_write_fw(struct drm_i915_private *i915, i915_reg_t reg, u32 val)
- 	intel_uncore_write_fw(&i915->uncore, reg, val);
- }
+ 	drm_dbg_kms(&dev_priv->drm, "starting load-detect on CRT\n");
  
-+static inline void
-+intel_de_rewrite_fw(struct drm_i915_private *i915, i915_reg_t reg)
-+{
-+	spin_lock_irq(&i915->uncore.lock);
-+	intel_de_write_fw(i915, reg, intel_de_read_fw(i915, reg));
-+	spin_unlock_irq(&i915->uncore.lock);
-+}
+-	save_bclrpat = intel_uncore_read(uncore, BCLRPAT(pipe));
+-	save_vtotal = intel_uncore_read(uncore, VTOTAL(pipe));
+-	vblank = intel_uncore_read(uncore, VBLANK(pipe));
++	save_bclrpat = intel_de_read(dev_priv, BCLRPAT(pipe));
++	save_vtotal = intel_de_read(dev_priv, VTOTAL(pipe));
++	vblank = intel_de_read(dev_priv, VBLANK(pipe));
+ 
+ 	vtotal = ((save_vtotal >> 16) & 0xfff) + 1;
+ 	vactive = (save_vtotal & 0x7ff) + 1;
+@@ -705,23 +704,23 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
+ 	vblank_end = ((vblank >> 16) & 0xfff) + 1;
+ 
+ 	/* Set the border color to purple. */
+-	intel_uncore_write(uncore, BCLRPAT(pipe), 0x500050);
++	intel_de_write(dev_priv, BCLRPAT(pipe), 0x500050);
+ 
+ 	if (DISPLAY_VER(dev_priv) != 2) {
+-		u32 pipeconf = intel_uncore_read(uncore, PIPECONF(pipe));
+-		intel_uncore_write(uncore,
+-				   PIPECONF(pipe),
+-				   pipeconf | PIPECONF_FORCE_BORDER);
+-		intel_uncore_posting_read(uncore, PIPECONF(pipe));
++		u32 pipeconf = intel_de_read(dev_priv, PIPECONF(pipe));
 +
-+static inline u32
-+intel_de_read_notrace(struct drm_i915_private *i915, i915_reg_t reg)
-+{
-+	return intel_uncore_read_notrace(&i915->uncore, reg);
-+}
-+
-+static inline void
-+intel_de_write_notrace(struct drm_i915_private *i915, i915_reg_t reg, u32 val)
-+{
-+	intel_uncore_write_notrace(&i915->uncore, reg, val);
-+}
-+
- #endif /* __INTEL_DE_H__ */
++		intel_de_write(dev_priv, PIPECONF(pipe),
++			       pipeconf | PIPECONF_FORCE_BORDER);
++		intel_de_posting_read(dev_priv, PIPECONF(pipe));
+ 		/* Wait for next Vblank to substitue
+ 		 * border color for Color info */
+ 		intel_crtc_wait_for_next_vblank(intel_crtc_for_pipe(dev_priv, pipe));
+-		st00 = intel_uncore_read8(uncore, _VGA_MSR_WRITE);
++		st00 = intel_de_read8(dev_priv, _VGA_MSR_WRITE);
+ 		status = ((st00 & (1 << 4)) != 0) ?
+ 			connector_status_connected :
+ 			connector_status_disconnected;
+ 
+-		intel_uncore_write(uncore, PIPECONF(pipe), pipeconf);
++		intel_de_write(dev_priv, PIPECONF(pipe), pipeconf);
+ 	} else {
+ 		bool restore_vblank = false;
+ 		int count, detect;
+@@ -735,10 +734,8 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
+ 			u32 vsync_start = (vsync & 0xffff) + 1;
+ 
+ 			vblank_start = vsync_start;
+-			intel_uncore_write(uncore,
+-					   VBLANK(pipe),
+-					   (vblank_start - 1) |
+-					   ((vblank_end - 1) << 16));
++			intel_de_write(dev_priv, VBLANK(pipe),
++				       (vblank_start - 1) | ((vblank_end - 1) << 16));
+ 			restore_vblank = true;
+ 		}
+ 		/* sample in the vertical border, selecting the larger one */
+@@ -750,10 +747,9 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
+ 		/*
+ 		 * Wait for the border to be displayed
+ 		 */
+-		while (intel_uncore_read(uncore, PIPEDSL(pipe)) >= vactive)
++		while (intel_de_read(dev_priv, PIPEDSL(pipe)) >= vactive)
+ 			;
+-		while ((dsl = intel_uncore_read(uncore, PIPEDSL(pipe))) <=
+-		       vsample)
++		while ((dsl = intel_de_read(dev_priv, PIPEDSL(pipe))) <= vsample)
+ 			;
+ 		/*
+ 		 * Watch ST00 for an entire scanline
+@@ -763,14 +759,14 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
+ 		do {
+ 			count++;
+ 			/* Read the ST00 VGA status register */
+-			st00 = intel_uncore_read8(uncore, _VGA_MSR_WRITE);
++			st00 = intel_de_read8(dev_priv, _VGA_MSR_WRITE);
+ 			if (st00 & (1 << 4))
+ 				detect++;
+-		} while ((intel_uncore_read(uncore, PIPEDSL(pipe)) == dsl));
++		} while ((intel_de_read(dev_priv, PIPEDSL(pipe)) == dsl));
+ 
+ 		/* restore vblank if necessary */
+ 		if (restore_vblank)
+-			intel_uncore_write(uncore, VBLANK(pipe), vblank);
++			intel_de_write(dev_priv, VBLANK(pipe), vblank);
+ 		/*
+ 		 * If more than 3/4 of the scanline detected a monitor,
+ 		 * then it is assumed to be present. This works even on i830,
+@@ -783,7 +779,7 @@ intel_crt_load_detect(struct intel_crt *crt, u32 pipe)
+ 	}
+ 
+ 	/* Restore previous settings */
+-	intel_uncore_write(uncore, BCLRPAT(pipe), save_bclrpat);
++	intel_de_write(dev_priv, BCLRPAT(pipe), save_bclrpat);
+ 
+ 	return status;
+ }
 -- 
 2.34.1
 
