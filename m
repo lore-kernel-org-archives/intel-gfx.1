@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE9DEC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 22:32:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E96F0C46467
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Nov 2022 22:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F55B10E64F;
-	Wed, 23 Nov 2022 22:31:41 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68E1610E646;
- Wed, 23 Nov 2022 22:31:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FE5710E64E;
+	Wed, 23 Nov 2022 22:31:46 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AB7F10E650
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Nov 2022 22:31:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669242686; x=1700778686;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=bbZuQGkbUvrn/OyrfwurrCtXWZ7Ha93CGfd9DvU172A=;
- b=mbl+VFUAovrAFB9WvDmP0wNLVcltTNInmOb+Pshx/I+mwIk9krb1ZhEC
- 0K1gL/6cuidWg7GzrmCLihfrQ19RSBmM7P5mQbjeAZiPnbY9jMxQ8zLOv
- 1trCejDYBazfnRsZ+EuPqqh/JSl8n96aQT8Z9ehMyb9yFwj7S/8zuMxM4
- JvkhXLVPiQ3So5ffiuVxcAARlKCNI/QAvQzPE61ZcUUgDCd/X4oJyrv6j
- xCKiKJOpoEXS4Z3SKRvmKFs3zB6vyuPFuuqle/LQBaOAkpdiMHqURS0n5
- J2c/i94J1r1+hkaksZ8FtJrhH/lNnkljZ7DTc7WtS+ZxcTBRVMt3t+scC Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="314204547"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="314204547"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2022 14:31:16 -0800
+ t=1669242701; x=1700778701;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=vWK2JgHEt3U6r/YQD33iBXdvfVjAGp9r9LBw9Tv6srk=;
+ b=PiNR/CDsadTP5zRNxtQyLgBDmjEK0l1CYFZhlkFPe1miDqSOT8ftlsV/
+ x2Brs5tRWZF3vXNDzTbYATvMtdDsqdUYz+ABMCVWO0URfDG5Qm9ue4YH8
+ kEceywzhzeU1q2yLGqmERm4c4VPx9C89Y6R82N+D0RnNV17+99OZKyc67
+ UcYKFsVNPtIAmtAKpaz35ls8CJdk34DlgFeYxAfoobTDjdq4h/shX+SYu
+ 1zmz81H4jiDoH6FD2bV887PW4SfwTSYN99+HRl3uiy0TiHACU/v4wfkeE
+ og6VULMQLtrCY3iXZrYDdrLvYIdZf1YGCaz3K1HJZoNero8yv9TBR2v40 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="293875377"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="293875377"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2022 14:31:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="642012963"
-X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="642012963"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.144])
- by orsmga002.jf.intel.com with ESMTP; 23 Nov 2022 14:31:14 -0800
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 23 Nov 2022 14:31:07 -0800
-Message-Id: <20221123223108.1696415-3-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221123223108.1696415-1-John.C.Harrison@Intel.com>
-References: <20221123223108.1696415-1-John.C.Harrison@Intel.com>
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="784404449"
+X-IronPort-AV: E=Sophos;i="5.96,187,1665471600"; d="scan'208";a="784404449"
+Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
+ by fmsmga001.fm.intel.com with ESMTP; 23 Nov 2022 14:31:40 -0800
+From: Alan Previn <alan.previn.teres.alexis@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 23 Nov 2022 14:34:04 -0800
+Message-Id: <20221123223410.2846296-2-alan.previn.teres.alexis@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221123223410.2846296-1-alan.previn.teres.alexis@intel.com>
+References: <20221123223410.2846296-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/3] drm/i915/uc: More refactoring of UC
- version numbers
+Subject: [Intel-gfx] [RFC 1/7] HAX: drm/i915/pxp: Prepare intel_pxp entry
+ points for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,237 +57,457 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+Squash of all the patches from the series:
+https://patchwork.freedesktop.org/series/109429/
 
-As a precursor to a coming change (for adding a GuC submission API
-version), abstract the UC version number into its own private
-structure separate to the firmware filename.
+Above series is not a prerequisite to showcase the design changes
+being proposed in the next set of patches but will be in the same
+order dependency as here. NOTE: that series will be going through a
+major redesign based on the latest review comments.
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_uc.c    |  6 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 76 +++++++++++-------------
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h | 15 +++--
- 3 files changed, 48 insertions(+), 49 deletions(-)
+ .../drm/i915/display/skl_universal_plane.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |  6 +-
+ drivers/gpu/drm/i915/gem/i915_gem_create.c    |  2 +-
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +-
+ drivers/gpu/drm/i915/i915_drv.h               |  4 -
+ drivers/gpu/drm/i915/pxp/intel_pxp.c          | 83 ++++++++++++++++---
+ drivers/gpu/drm/i915/pxp/intel_pxp.h          | 16 +++-
+ drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c      |  2 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c  |  8 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_irq.c      |  4 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.c       |  8 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      | 18 +++-
+ 12 files changed, 114 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 1d28286e6f066..e6edad6f8f9dd 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -437,9 +437,9 @@ static void print_fw_ver(struct intel_uc *uc, struct intel_uc_fw *fw)
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 76490cc59d8f..3436bf433c10 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -1848,7 +1848,7 @@ static bool bo_has_valid_encryption(struct drm_i915_gem_object *obj)
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
  
- 	drm_info(&i915->drm, "%s firmware %s version %u.%u.%u\n",
- 		 intel_uc_fw_type_repr(fw->type), fw->file_selected.path,
--		 fw->file_selected.major_ver,
--		 fw->file_selected.minor_ver,
--		 fw->file_selected.patch_ver);
-+		 fw->file_selected.ver.major,
-+		 fw->file_selected.ver.minor,
-+		 fw->file_selected.ver.patch);
+-	return intel_pxp_key_check(&to_gt(i915)->pxp, obj, false) == 0;
++	return intel_pxp_key_check(i915, obj, false) == 0;
  }
  
- static int __uc_init_hw(struct intel_uc *uc)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index 774c3d84a4243..5e2ee1ac89514 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -278,8 +278,8 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
+ static bool pxp_is_borked(struct drm_i915_gem_object *obj)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 7f2831efc798..15c3d435093a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -257,7 +257,7 @@ static int proto_context_set_protected(struct drm_i915_private *i915,
  
- 		uc_fw->file_selected.path = blob->path;
- 		uc_fw->file_wanted.path = blob->path;
--		uc_fw->file_wanted.major_ver = blob->major;
--		uc_fw->file_wanted.minor_ver = blob->minor;
-+		uc_fw->file_wanted.ver.major = blob->major;
-+		uc_fw->file_wanted.ver.minor = blob->minor;
- 		uc_fw->loaded_via_gsc = blob->loaded_via_gsc;
- 		found = true;
- 		break;
-@@ -438,28 +438,28 @@ static void __force_fw_fetch_failures(struct intel_uc_fw *uc_fw, int e)
- 		uc_fw->user_overridden = user;
- 	} else if (i915_inject_probe_error(i915, e)) {
- 		/* require next major version */
--		uc_fw->file_wanted.major_ver += 1;
--		uc_fw->file_wanted.minor_ver = 0;
-+		uc_fw->file_wanted.ver.major += 1;
-+		uc_fw->file_wanted.ver.minor = 0;
- 		uc_fw->user_overridden = user;
- 	} else if (i915_inject_probe_error(i915, e)) {
- 		/* require next minor version */
--		uc_fw->file_wanted.minor_ver += 1;
-+		uc_fw->file_wanted.ver.minor += 1;
- 		uc_fw->user_overridden = user;
--	} else if (uc_fw->file_wanted.major_ver &&
-+	} else if (uc_fw->file_wanted.ver.major &&
- 		   i915_inject_probe_error(i915, e)) {
- 		/* require prev major version */
--		uc_fw->file_wanted.major_ver -= 1;
--		uc_fw->file_wanted.minor_ver = 0;
-+		uc_fw->file_wanted.ver.major -= 1;
-+		uc_fw->file_wanted.ver.minor = 0;
- 		uc_fw->user_overridden = user;
--	} else if (uc_fw->file_wanted.minor_ver &&
-+	} else if (uc_fw->file_wanted.ver.minor &&
- 		   i915_inject_probe_error(i915, e)) {
- 		/* require prev minor version - hey, this should work! */
--		uc_fw->file_wanted.minor_ver -= 1;
-+		uc_fw->file_wanted.ver.minor -= 1;
- 		uc_fw->user_overridden = user;
- 	} else if (user && i915_inject_probe_error(i915, e)) {
- 		/* officially unsupported platform */
--		uc_fw->file_wanted.major_ver = 0;
--		uc_fw->file_wanted.minor_ver = 0;
-+		uc_fw->file_wanted.ver.major = 0;
-+		uc_fw->file_wanted.ver.minor = 0;
- 		uc_fw->user_overridden = true;
+ 	if (!protected) {
+ 		pc->uses_protected_content = false;
+-	} else if (!intel_pxp_is_enabled(&to_gt(i915)->pxp)) {
++	} else if (!intel_pxp_is_enabled(i915)) {
+ 		ret = -ENODEV;
+ 	} else if ((pc->user_flags & BIT(UCONTEXT_RECOVERABLE)) ||
+ 		   !(pc->user_flags & BIT(UCONTEXT_BANNABLE))) {
+@@ -271,8 +271,8 @@ static int proto_context_set_protected(struct drm_i915_private *i915,
+ 		 */
+ 		pc->pxp_wakeref = intel_runtime_pm_get(&i915->runtime_pm);
+ 
+-		if (!intel_pxp_is_active(&to_gt(i915)->pxp))
+-			ret = intel_pxp_start(&to_gt(i915)->pxp);
++		if (!intel_pxp_is_active(i915))
++			ret = intel_pxp_start(i915);
  	}
- }
-@@ -471,9 +471,9 @@ static int check_gsc_manifest(const struct firmware *fw,
- 	u32 version_hi = dw[HUC_GSC_VERSION_HI_DW];
- 	u32 version_lo = dw[HUC_GSC_VERSION_LO_DW];
  
--	uc_fw->file_selected.major_ver = FIELD_GET(HUC_GSC_MAJOR_VER_HI_MASK, version_hi);
--	uc_fw->file_selected.minor_ver = FIELD_GET(HUC_GSC_MINOR_VER_HI_MASK, version_hi);
--	uc_fw->file_selected.patch_ver = FIELD_GET(HUC_GSC_PATCH_VER_LO_MASK, version_lo);
-+	uc_fw->file_selected.ver.major = FIELD_GET(HUC_GSC_MAJOR_VER_HI_MASK, version_hi);
-+	uc_fw->file_selected.ver.minor = FIELD_GET(HUC_GSC_MINOR_VER_HI_MASK, version_hi);
-+	uc_fw->file_selected.ver.patch = FIELD_GET(HUC_GSC_PATCH_VER_LO_MASK, version_lo);
+ 	return ret;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+index 33673fe7ee0a..e44803f9bec4 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+@@ -384,7 +384,7 @@ static int ext_set_protected(struct i915_user_extension __user *base, void *data
+ 	if (ext.flags)
+ 		return -EINVAL;
+ 
+-	if (!intel_pxp_is_enabled(&to_gt(ext_data->i915)->pxp))
++	if (!intel_pxp_is_enabled(ext_data->i915))
+ 		return -ENODEV;
+ 
+ 	ext_data->flags |= I915_BO_PROTECTED;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 29e9e8d5b6fe..9943d5827300 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -869,7 +869,7 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
+ 		 */
+ 		if (i915_gem_context_uses_protected_content(eb->gem_context) &&
+ 		    i915_gem_object_is_protected(obj)) {
+-			err = intel_pxp_key_check(&vm->gt->pxp, obj, true);
++			err = intel_pxp_key_check(vm->gt->i915, obj, true);
+ 			if (err) {
+ 				i915_gem_object_put(obj);
+ 				return ERR_PTR(err);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index a380db36d52c..a171ad57fe73 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -918,10 +918,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 
+ #define HAS_GLOBAL_MOCS_REGISTERS(dev_priv)	(INTEL_INFO(dev_priv)->has_global_mocs)
+ 
+-#define HAS_PXP(dev_priv)  ((IS_ENABLED(CONFIG_DRM_I915_PXP) && \
+-			    INTEL_INFO(dev_priv)->has_pxp) && \
+-			    VDBOX_MASK(to_gt(dev_priv)))
+-
+ #define HAS_GMCH(dev_priv) (INTEL_INFO(dev_priv)->display.has_gmch)
+ 
+ #define HAS_GMD_ID(i915)	(INTEL_INFO(i915)->has_gmd_id)
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index 5efe61f67546..58219beecfa4 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -9,6 +9,7 @@
+ #include "intel_pxp_tee.h"
+ #include "gem/i915_gem_context.h"
+ #include "gt/intel_context.h"
++#include "gt/intel_gt.h"
+ #include "i915_drv.h"
+ 
+ /**
+@@ -44,16 +45,63 @@ struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp)
+ 	return container_of(pxp, struct intel_gt, pxp);
+ }
+ 
+-bool intel_pxp_is_enabled(const struct intel_pxp *pxp)
++static bool _gt_needs_teelink(struct intel_gt *gt)
++{
++	/* TODO: MTL won't rely on CONFIG_INTEL_MEI_PXP but on GSC engine */
++	return (IS_ENABLED(CONFIG_INTEL_MEI_PXP) && intel_huc_is_loaded_by_gsc(&gt->uc.huc) &&
++		intel_uc_uses_huc(&gt->uc));
++}
++
++bool intel_pxp_supported_on_gt(const struct intel_pxp *pxp)
++{
++	/* TODO: MTL won't rely on CONFIG_INTEL_MEI_PXP but on GSC engine */
++	return (IS_ENABLED(CONFIG_INTEL_MEI_PXP) && IS_ENABLED(CONFIG_DRM_I915_PXP) &&
++		INTEL_INFO((pxp_to_gt(pxp))->i915)->has_pxp && VDBOX_MASK(pxp_to_gt(pxp)));
++}
++
++bool intel_pxp_is_enabled_on_gt(const struct intel_pxp *pxp)
+ {
+ 	return pxp->ce;
+ }
+ 
+-bool intel_pxp_is_active(const struct intel_pxp *pxp)
++struct intel_gt *intel_pxp_get_owning_gt(struct drm_i915_private *i915)
++{
++	struct intel_gt *gt = NULL;
++	int i = 0;
++
++	for_each_gt(gt, i915, i) {
++		/* There can be only one GT that supports PXP */
++		if (intel_pxp_supported_on_gt(&gt->pxp))
++			return gt;
++	}
++	return NULL;
++}
++
++bool intel_pxp_is_enabled(struct drm_i915_private *i915)
++{
++	struct intel_gt *gt = intel_pxp_get_owning_gt(i915);
++
++	if (!gt)
++		return false;
++
++	return intel_pxp_is_enabled_on_gt(&gt->pxp);
++}
++
++bool intel_pxp_is_active_on_gt(const struct intel_pxp *pxp)
+ {
+ 	return pxp->arb_is_valid;
+ }
+ 
++bool intel_pxp_is_active(struct drm_i915_private *i915)
++{
++	struct intel_gt *gt = intel_pxp_get_owning_gt(i915);
++
++	if (!gt)
++		return false;
++
++	return intel_pxp_is_active_on_gt(&gt->pxp);
++}
++
+ /* KCR register definitions */
+ #define KCR_INIT _MMIO(0x320f0)
+ /* Setting KCR Init bit is required after system boot */
+@@ -142,17 +190,13 @@ void intel_pxp_init(struct intel_pxp *pxp)
+ {
+ 	struct intel_gt *gt = pxp_to_gt(pxp);
+ 
+-	/* we rely on the mei PXP module */
+-	if (!IS_ENABLED(CONFIG_INTEL_MEI_PXP))
+-		return;
+-
+ 	/*
+ 	 * If HuC is loaded by GSC but PXP is disabled, we can skip the init of
+ 	 * the full PXP session/object management and just init the tee channel.
+ 	 */
+-	if (HAS_PXP(gt->i915))
++	if (intel_pxp_supported_on_gt(pxp))
+ 		pxp_init_full(pxp);
+-	else if (intel_huc_is_loaded_by_gsc(&gt->uc.huc) && intel_uc_uses_huc(&gt->uc))
++	else if (_gt_needs_teelink(gt))
+ 		intel_pxp_tee_component_init(pxp);
+ }
+ 
+@@ -202,11 +246,18 @@ static bool pxp_component_bound(struct intel_pxp *pxp)
+  * the arb session is restarted from the irq work when we receive the
+  * termination completion interrupt
+  */
+-int intel_pxp_start(struct intel_pxp *pxp)
++int intel_pxp_start(struct drm_i915_private *i915)
+ {
++	struct intel_gt *gt = intel_pxp_get_owning_gt(i915);
++	struct intel_pxp *pxp;
+ 	int ret = 0;
+ 
+-	if (!intel_pxp_is_enabled(pxp))
++	if (!gt)
++		return -ENODEV;
++
++	pxp = &gt->pxp;
++
++	if (!intel_pxp_is_enabled_on_gt(pxp))
+ 		return -ENODEV;
+ 
+ 	if (wait_for(pxp_component_bound(pxp), 250))
+@@ -249,11 +300,19 @@ void intel_pxp_fini_hw(struct intel_pxp *pxp)
+ 	intel_pxp_irq_disable(pxp);
+ }
+ 
+-int intel_pxp_key_check(struct intel_pxp *pxp,
++int intel_pxp_key_check(struct drm_i915_private *i915,
+ 			struct drm_i915_gem_object *obj,
+ 			bool assign)
+ {
+-	if (!intel_pxp_is_active(pxp))
++	struct intel_gt *gt = intel_pxp_get_owning_gt(i915);
++	struct intel_pxp *pxp;
++
++	if (!gt)
++		return -ENODEV;
++
++	pxp = &gt->pxp;
++
++	if (!intel_pxp_is_active_on_gt(pxp))
+ 		return -ENODEV;
+ 
+ 	if (!i915_gem_object_is_protected(obj))
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index 2da309088c6d..6fe1595a84d6 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -11,10 +11,18 @@
+ 
+ struct intel_pxp;
+ struct drm_i915_gem_object;
++struct drm_i915_private;
++
++struct intel_gt *intel_pxp_get_owning_gt(struct drm_i915_private *i915);
+ 
+ struct intel_gt *pxp_to_gt(const struct intel_pxp *pxp);
+-bool intel_pxp_is_enabled(const struct intel_pxp *pxp);
+-bool intel_pxp_is_active(const struct intel_pxp *pxp);
++
++bool intel_pxp_supported_on_gt(const struct intel_pxp *pxp);
++
++bool intel_pxp_is_enabled_on_gt(const struct intel_pxp *pxp);
++bool intel_pxp_is_enabled(struct drm_i915_private *i915);
++bool intel_pxp_is_active_on_gt(const struct intel_pxp *pxp);
++bool intel_pxp_is_active(struct drm_i915_private *i915);
+ 
+ void intel_pxp_init(struct intel_pxp *pxp);
+ void intel_pxp_fini(struct intel_pxp *pxp);
+@@ -24,9 +32,9 @@ void intel_pxp_fini_hw(struct intel_pxp *pxp);
+ 
+ void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
+ 
+-int intel_pxp_start(struct intel_pxp *pxp);
++int intel_pxp_start(struct drm_i915_private *i915);
+ 
+-int intel_pxp_key_check(struct intel_pxp *pxp,
++int intel_pxp_key_check(struct drm_i915_private *i915,
+ 			struct drm_i915_gem_object *obj,
+ 			bool assign);
+ 
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
+index f41e45763d0d..f322a49ebadc 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c
+@@ -99,7 +99,7 @@ int intel_pxp_terminate_session(struct intel_pxp *pxp, u32 id)
+ 	u32 *cs;
+ 	int err = 0;
+ 
+-	if (!intel_pxp_is_enabled(pxp))
++	if (!intel_pxp_is_enabled_on_gt(pxp))
+ 		return 0;
+ 
+ 	rq = i915_request_create(ce);
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c b/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
+index 4359e8be4101..52a808fd4704 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
+@@ -18,14 +18,14 @@ static int pxp_info_show(struct seq_file *m, void *data)
+ {
+ 	struct intel_pxp *pxp = m->private;
+ 	struct drm_printer p = drm_seq_file_printer(m);
+-	bool enabled = intel_pxp_is_enabled(pxp);
++	bool enabled = intel_pxp_is_enabled_on_gt(pxp);
+ 
+ 	if (!enabled) {
+ 		drm_printf(&p, "pxp disabled\n");
+ 		return 0;
+ 	}
+ 
+-	drm_printf(&p, "active: %s\n", str_yes_no(intel_pxp_is_active(pxp)));
++	drm_printf(&p, "active: %s\n", str_yes_no(intel_pxp_is_active_on_gt(pxp)));
+ 	drm_printf(&p, "instance counter: %u\n", pxp->key_instance);
  
  	return 0;
- }
-@@ -532,11 +532,11 @@ static int check_ccs_header(struct intel_gt *gt,
- 	}
+@@ -43,7 +43,7 @@ static int pxp_terminate_set(void *data, u64 val)
+ 	struct intel_pxp *pxp = data;
+ 	struct intel_gt *gt = pxp_to_gt(pxp);
  
- 	/* Get version numbers from the CSS header */
--	uc_fw->file_selected.major_ver = FIELD_GET(CSS_SW_VERSION_UC_MAJOR,
-+	uc_fw->file_selected.ver.major = FIELD_GET(CSS_SW_VERSION_UC_MAJOR,
- 						   css->sw_version);
--	uc_fw->file_selected.minor_ver = FIELD_GET(CSS_SW_VERSION_UC_MINOR,
-+	uc_fw->file_selected.ver.minor = FIELD_GET(CSS_SW_VERSION_UC_MINOR,
- 						   css->sw_version);
--	uc_fw->file_selected.patch_ver = FIELD_GET(CSS_SW_VERSION_UC_PATCH,
-+	uc_fw->file_selected.ver.patch = FIELD_GET(CSS_SW_VERSION_UC_PATCH,
- 						   css->sw_version);
+-	if (!intel_pxp_is_active(pxp))
++	if (!intel_pxp_is_active_on_gt(pxp))
+ 		return -ENODEV;
  
- 	if (uc_fw->type == INTEL_UC_FW_TYPE_GUC)
-@@ -621,19 +621,19 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
- 	if (err)
- 		goto fail;
+ 	/* simulate a termination interrupt */
+@@ -70,7 +70,7 @@ void intel_pxp_debugfs_register(struct intel_pxp *pxp, struct dentry *gt_root)
+ 	if (!gt_root)
+ 		return;
  
--	if (uc_fw->file_wanted.major_ver) {
-+	if (uc_fw->file_wanted.ver.major) {
- 		/* Check the file's major version was as it claimed */
--		if (uc_fw->file_selected.major_ver != uc_fw->file_wanted.major_ver) {
-+		if (uc_fw->file_selected.ver.major != uc_fw->file_wanted.ver.major) {
- 			drm_notice(&i915->drm, "%s firmware %s: unexpected version: %u.%u != %u.%u\n",
- 				   intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
--				   uc_fw->file_selected.major_ver, uc_fw->file_selected.minor_ver,
--				   uc_fw->file_wanted.major_ver, uc_fw->file_wanted.minor_ver);
-+				   uc_fw->file_selected.ver.major, uc_fw->file_selected.ver.minor,
-+				   uc_fw->file_wanted.ver.major, uc_fw->file_wanted.ver.minor);
- 			if (!intel_uc_fw_is_overridden(uc_fw)) {
- 				err = -ENOEXEC;
- 				goto fail;
- 			}
- 		} else {
--			if (uc_fw->file_selected.minor_ver < uc_fw->file_wanted.minor_ver)
-+			if (uc_fw->file_selected.ver.minor < uc_fw->file_wanted.ver.minor)
- 				old_ver = true;
- 		}
- 	}
-@@ -646,9 +646,9 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
- 			   "%s firmware %s (%d.%d) is recommended, but only %s (%d.%d) was found\n",
- 			   intel_uc_fw_type_repr(uc_fw->type),
- 			   uc_fw->file_wanted.path,
--			   uc_fw->file_wanted.major_ver, uc_fw->file_wanted.minor_ver,
-+			   uc_fw->file_wanted.ver.major, uc_fw->file_wanted.ver.minor,
- 			   uc_fw->file_selected.path,
--			   uc_fw->file_selected.major_ver, uc_fw->file_selected.minor_ver);
-+			   uc_fw->file_selected.ver.major, uc_fw->file_selected.ver.minor);
- 		drm_info(&i915->drm,
- 			 "Consider updating your linux-firmware pkg or downloading from %s\n",
- 			 INTEL_UC_FIRMWARE_URL);
-@@ -1063,25 +1063,21 @@ void intel_uc_fw_dump(const struct intel_uc_fw *uc_fw, struct drm_printer *p)
- 			   intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_wanted.path);
- 	drm_printf(p, "\tstatus: %s\n",
- 		   intel_uc_fw_status_repr(uc_fw->status));
--	ver_sel = MAKE_UC_VER(uc_fw->file_selected.major_ver,
--			      uc_fw->file_selected.minor_ver,
--			      uc_fw->file_selected.patch_ver);
--	ver_want = MAKE_UC_VER(uc_fw->file_wanted.major_ver,
--			       uc_fw->file_wanted.minor_ver,
--			       uc_fw->file_wanted.patch_ver);
-+	ver_sel = MAKE_UC_VER_STRUCT(uc_fw->file_selected.ver);
-+	ver_want = MAKE_UC_VER_STRUCT(uc_fw->file_wanted.ver);
- 	if (ver_sel < ver_want)
- 		drm_printf(p, "\tversion: wanted %u.%u.%u, found %u.%u.%u\n",
--			   uc_fw->file_wanted.major_ver,
--			   uc_fw->file_wanted.minor_ver,
--			   uc_fw->file_wanted.patch_ver,
--			   uc_fw->file_selected.major_ver,
--			   uc_fw->file_selected.minor_ver,
--			   uc_fw->file_selected.patch_ver);
-+			   uc_fw->file_wanted.ver.major,
-+			   uc_fw->file_wanted.ver.minor,
-+			   uc_fw->file_wanted.ver.patch,
-+			   uc_fw->file_selected.ver.major,
-+			   uc_fw->file_selected.ver.minor,
-+			   uc_fw->file_selected.ver.patch);
- 	else
- 		drm_printf(p, "\tversion: found %u.%u.%u\n",
--			   uc_fw->file_selected.major_ver,
--			   uc_fw->file_selected.minor_ver,
--			   uc_fw->file_selected.patch_ver);
-+			   uc_fw->file_selected.ver.major,
-+			   uc_fw->file_selected.ver.minor,
-+			   uc_fw->file_selected.ver.patch);
- 	drm_printf(p, "\tuCode: %u bytes\n", uc_fw->ucode_size);
- 	drm_printf(p, "\tRSA: %u bytes\n", uc_fw->rsa_size);
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-index bc898ba5355dc..6501d6f1fbdff 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-@@ -65,6 +65,12 @@ enum intel_uc_fw_type {
- };
- #define INTEL_UC_FW_NUM_TYPES 2
+-	if (!HAS_PXP((pxp_to_gt(pxp)->i915)))
++	if (!intel_pxp_supported_on_gt(pxp))
+ 		return;
  
-+struct intel_uc_fw_ver {
-+	u16 major;
-+	u16 minor;
-+	u16 patch;
-+};
+ 	root = debugfs_create_dir("pxp", gt_root);
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
+index c28be430718a..c25c1979cccc 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
+@@ -22,7 +22,7 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
+ {
+ 	struct intel_gt *gt = pxp_to_gt(pxp);
+ 
+-	if (GEM_WARN_ON(!intel_pxp_is_enabled(pxp)))
++	if (GEM_WARN_ON(!intel_pxp_is_enabled_on_gt(pxp)))
+ 		return;
+ 
+ 	lockdep_assert_held(gt->irq_lock);
+@@ -86,7 +86,7 @@ void intel_pxp_irq_disable(struct intel_pxp *pxp)
+ 	 * called in a path were the driver consider the session as valid and
+ 	 * doesn't call a termination on restart.
+ 	 */
+-	GEM_WARN_ON(intel_pxp_is_active(pxp));
++	GEM_WARN_ON(intel_pxp_is_active_on_gt(pxp));
+ 
+ 	spin_lock_irq(gt->irq_lock);
+ 
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+index 6a7d4e2ee138..19ac8828cbde 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+@@ -11,7 +11,7 @@
+ 
+ void intel_pxp_suspend_prepare(struct intel_pxp *pxp)
+ {
+-	if (!intel_pxp_is_enabled(pxp))
++	if (!intel_pxp_is_enabled_on_gt(pxp))
+ 		return;
+ 
+ 	pxp->arb_is_valid = false;
+@@ -23,7 +23,7 @@ void intel_pxp_suspend(struct intel_pxp *pxp)
+ {
+ 	intel_wakeref_t wakeref;
+ 
+-	if (!intel_pxp_is_enabled(pxp))
++	if (!intel_pxp_is_enabled_on_gt(pxp))
+ 		return;
+ 
+ 	with_intel_runtime_pm(&pxp_to_gt(pxp)->i915->runtime_pm, wakeref) {
+@@ -34,7 +34,7 @@ void intel_pxp_suspend(struct intel_pxp *pxp)
+ 
+ void intel_pxp_resume(struct intel_pxp *pxp)
+ {
+-	if (!intel_pxp_is_enabled(pxp))
++	if (!intel_pxp_is_enabled_on_gt(pxp))
+ 		return;
+ 
+ 	/*
+@@ -50,7 +50,7 @@ void intel_pxp_resume(struct intel_pxp *pxp)
+ 
+ void intel_pxp_runtime_suspend(struct intel_pxp *pxp)
+ {
+-	if (!intel_pxp_is_enabled(pxp))
++	if (!intel_pxp_is_enabled_on_gt(pxp))
+ 		return;
+ 
+ 	pxp->arb_is_valid = false;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index b0c9170b1395..b9198e961cb6 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -20,8 +20,12 @@
+ static inline struct intel_pxp *i915_dev_to_pxp(struct device *i915_kdev)
+ {
+ 	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
++	struct intel_gt *gt = intel_pxp_get_owning_gt(i915);
+ 
+-	return &to_gt(i915)->pxp;
++	if (!gt)
++		return NULL;
 +
- /*
-  * The firmware build process will generate a version header file with major and
-  * minor version defined. The versions are built into CSS header of firmware.
-@@ -72,9 +78,7 @@ enum intel_uc_fw_type {
-  */
- struct intel_uc_fw_file {
- 	const char *path;
--	u16 major_ver;
--	u16 minor_ver;
--	u16 patch_ver;
-+	struct intel_uc_fw_ver ver;
- };
++	return &gt->pxp;
+ }
  
- /*
-@@ -111,9 +115,8 @@ struct intel_uc_fw {
- };
+ static int intel_pxp_tee_io_message(struct intel_pxp *pxp,
+@@ -128,10 +132,16 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+ {
+ 	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
+ 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
+-	struct intel_uc *uc = &pxp_to_gt(pxp)->uc;
++	struct intel_uc *uc;
+ 	intel_wakeref_t wakeref;
+ 	int ret = 0;
  
- #define MAKE_UC_VER(maj, min, pat)	((pat) | ((min) << 8) | ((maj) << 16))
--#define GET_UC_VER(uc)			(MAKE_UC_VER((uc)->fw.file_selected.major_ver, \
--						     (uc)->fw.file_selected.minor_ver, \
--						     (uc)->fw.file_selected.patch_ver))
-+#define MAKE_UC_VER_STRUCT(ver)		MAKE_UC_VER((ver).major, (ver).minor, (ver).patch)
-+#define GET_UC_VER(uc)			(MAKE_UC_VER_STRUCT((uc)->fw.file_selected.ver))
++	if (!pxp) {
++		drm_warn(&i915->drm, "tee comp binding without a PXP-owner GT\n");
++		return -ENODEV;
++	}
++	uc = &pxp_to_gt(pxp)->uc;
++
+ 	mutex_lock(&pxp->tee_mutex);
+ 	pxp->pxp_component = data;
+ 	pxp->pxp_component->tee_dev = tee_kdev;
+@@ -152,7 +162,7 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
+ 		return 0;
  
- /*
-  * When we load the uC binaries, we pin them in a reserved section at the top of
+ 	/* the component is required to fully start the PXP HW */
+-	if (intel_pxp_is_enabled(pxp))
++	if (intel_pxp_is_enabled_on_gt(pxp))
+ 		intel_pxp_init_hw(pxp);
+ 
+ 	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
+@@ -167,7 +177,7 @@ static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
+ 	struct intel_pxp *pxp = i915_dev_to_pxp(i915_kdev);
+ 	intel_wakeref_t wakeref;
+ 
+-	if (intel_pxp_is_enabled(pxp))
++	if (intel_pxp_is_enabled_on_gt(pxp))
+ 		with_intel_runtime_pm_if_in_use(&i915->runtime_pm, wakeref)
+ 			intel_pxp_fini_hw(pxp);
+ 
 -- 
-2.37.3
+2.34.1
 
