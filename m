@@ -4,31 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1776EC433FE
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Nov 2022 09:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DD74C352A1
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Nov 2022 09:20:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 306F410E6B5;
-	Thu, 24 Nov 2022 09:00:42 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9611E10E6B5;
- Thu, 24 Nov 2022 09:00:37 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 8F26AAADE7;
- Thu, 24 Nov 2022 09:00:37 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0723110E6B8;
+	Thu, 24 Nov 2022 09:20:39 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF60A10E6D7;
+ Thu, 24 Nov 2022 09:20:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1669281632; x=1700817632;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=j2nWagqxkQh8mJJLXXa1TjyjbspCWouq0kbFW7L0tN4=;
+ b=JP4Oz+5FS+dZ1Y9yZUAEJ7qLBO+oRvagVOAD8n15km5TWIjymB/atS4i
+ OUp6tVRxDiuEDgEZMaFzZ0CeWBJ/Vfiu0KYtX1ArzU7A9UWXMPxPOHBqJ
+ cq7qM2gPFxqxjTcOqw+7N65yCZ9Q/63E5f0lDQD8uzRsXNcmtT8yo46S3
+ EW9cg72mZBo2eE8qXIVCZhs0bTwUO5HBU6xmFT+OOlcGE1mlO+UNYIJGw
+ 46ujWkwqK0LIRTqfMW6GE0vn4RskC1LJax8EyJKAUDi+4EocNZCUT3sRz
+ 6YAAMCWoAojPm3l56NV9o3Hd/enzTmtK5B4e4gGAqAsYBMDy+rkDMwxzZ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="294646181"
+X-IronPort-AV: E=Sophos;i="5.96,190,1665471600"; d="scan'208";a="294646181"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2022 01:20:32 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10540"; a="592847100"
+X-IronPort-AV: E=Sophos;i="5.96,190,1665471600"; d="scan'208";a="592847100"
+Received: from schardon-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.252.35.143])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2022 01:20:28 -0800
+Date: Thu, 24 Nov 2022 10:20:26 +0100
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Andi Shyti <andi.shyti@linux.intel.com>
+Message-ID: <Y383WsBu5csVpi+w@ashyti-mobl2.lan>
+References: <20221122185737.96459-1-andi.shyti@linux.intel.com>
+ <20221122185737.96459-3-andi.shyti@linux.intel.com>
+ <a579e9a5-0bd4-d439-3193-64dc52e05997@linux.intel.com>
+ <Y35sXXLiAmwulDRU@ashyti-mobl2.lan>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Taylor, Clinton A" <clinton.a.taylor@intel.com>
-Date: Thu, 24 Nov 2022 09:00:37 -0000
-Message-ID: <166928043755.28650.17460969656801539093@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20221123220926.170034-1-khaled.almahallawy@intel.com>
-In-Reply-To: <20221123220926.170034-1-khaled.almahallawy@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/display=3A_Don=27t_disable_DDI/Transcoder_when_set?=
- =?utf-8?q?ting_phy_test_pattern_=28rev6=29?=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y35sXXLiAmwulDRU@ashyti-mobl2.lan>
+Subject: Re: [Intel-gfx] [PATCH v2 2/4] drm/i915: Introduce guard pages to
+ i915_vma
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,25 +61,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Thomas =?iso-8859-15?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+> > > @@ -768,6 +768,9 @@ i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+> > >   	GEM_BUG_ON(!IS_ALIGNED(alignment, I915_GTT_MIN_ALIGNMENT));
+> > >   	GEM_BUG_ON(!is_power_of_2(alignment));
+> > > +	guard = vma->guard; /* retain guard across rebinds */
+> > > +	guard = ALIGN(guard, alignment);
+> > 
+> > Why does guard area needs the same alignment as the requested mapping? What about the fact on 32-bit builds guard is 32-bit and alignment u64?
+> 
+> I guess this just to round up/down guard to something, not
+> necessarily to that alignment.
+> 
+> Shall I remove it?
 
-Series: drm/i915/display: Don't disable DDI/Transcoder when setting phy test pattern (rev6)
-URL   : https://patchwork.freedesktop.org/series/108636/
-State : warning
+or we could just add a comment to explain that this is just to do
+some rounding in order to avoid weird values of guard.
 
-== Summary ==
-
-Error: dim checkpatch failed
-f4d1bf1f641a drm/i915/display: Don't disable DDI/Transcoder when setting phy test pattern
--:25: WARNING:BAD_SIGN_OFF: Duplicate signature
-#25: 
-Signed-off-by: Khaled Almahallawy <khaled.almahallawy@intel.com>
-
-total: 0 errors, 1 warnings, 0 checks, 75 lines checked
-
-
+Andi
