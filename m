@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8667DC4167B
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 17:32:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56D61C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 17:32:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FE3F10E77A;
-	Fri, 25 Nov 2022 17:32:27 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EDBD10E77A
- for <intel-gfx@lists.freedesktop.org>; Fri, 25 Nov 2022 17:32:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B7C510E77C;
+	Fri, 25 Nov 2022 17:32:45 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 076A610E77D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 25 Nov 2022 17:32:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669397535; x=1700933535;
+ t=1669397548; x=1700933548;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EwdKA7+07WIUuLx/02/obidDtcwdBXeWQGpCtZUV3W8=;
- b=anRJwtB9cVAOlGsVkFqq1wPoHurY/Y0TBl3304yL/NTkWeVzyT0aoUFV
- 4vE3bTsjty9Q9CU+GlJNx+RTXKC4UsZQDMcv6w0bpVsCnxbqB4ZjiIaNA
- nGDNMwimytnGy+VykCDgWD38/T2+wVbojhURRPoIFSeo0//PoKhUne+vf
- tqly9H5E1c7n9TQzY1WW7gSfffzBDv+Il/geTc5/dI89KIFRrCW92m3uM
- nbHX4atTD0iT1564yjTX0UVXcaWwvpf/XsPSKBDP69+h9YOIUjaiqUUoY
- PaiuVvC15ZrwLGV5EIb+wbJNdRrrtudMISLmLtDhbemZBFCKE3XTfyXrg w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10542"; a="315674646"
-X-IronPort-AV: E=Sophos;i="5.96,194,1665471600"; d="scan'208";a="315674646"
+ bh=L5OmW9mZ4DP92O5TsIDjmII5Y+yYYJSg5CudzcbuJkw=;
+ b=DOKHJmcOS6xYPTm+ISvu0j0KvPAIdgt6GDM1hQfS7ZIQSuKx77eU72NZ
+ p91mxaPxb7jRQs9TY0wiafajb91IjOTPTyAC0F1+4g4vJZu5nLDYVZL7m
+ UhwOENb5nhSECfCmoiFu3hOpTJzwP1QDTduL0PCqcKQ8tT4fovF0nu1Bc
+ 4zkkSTDPB3UAljnQ0y8SnajvjXtom/t5gOrNka/rV+3S/+oRiLfJ9KJOx
+ mveBz4GgT6VaKrgKv/zzOTgwZ7Cuvrj8od8BFnV1cYew6/mXacAjSXwoz
+ fWpyEshtH1lCqIhZ8LuUvLxMDrINdJ84Ga7qSqwW5jvWhe93PkTEsCovD w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10542"; a="376660678"
+X-IronPort-AV: E=Sophos;i="5.96,194,1665471600"; d="scan'208";a="376660678"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2022 09:32:15 -0800
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2022 09:32:26 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10542"; a="706124332"
-X-IronPort-AV: E=Sophos;i="5.96,194,1665471600"; d="scan'208";a="706124332"
+X-IronPort-AV: E=McAfee;i="6500,9779,10542"; a="706124378"
+X-IronPort-AV: E=Sophos;i="5.96,194,1665471600"; d="scan'208";a="706124378"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga008.fm.intel.com with SMTP; 25 Nov 2022 09:32:12 -0800
+ by fmsmga008.fm.intel.com with SMTP; 25 Nov 2022 09:32:22 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 25 Nov 2022 19:32:12 +0200
+ Fri, 25 Nov 2022 19:32:21 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 25 Nov 2022 19:31:52 +0200
-Message-Id: <20221125173156.31689-6-ville.syrjala@linux.intel.com>
+Date: Fri, 25 Nov 2022 19:31:55 +0200
+Message-Id: <20221125173156.31689-9-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221125173156.31689-1-ville.syrjala@linux.intel.com>
 References: <20221125173156.31689-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 5/9] drm/i915: Extend dual PPS handlind for
- ICP+
+Subject: [Intel-gfx] [PATCH v2 8/9] drm/i915: Fix whitespace
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,112 +64,27 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-On the PCH side the second PPS was introduced in ICP. Let's
-make sure we examine both power sequencer on ICP+ as well.
-
-Note that DG1/2 south block only has the single PPS, so need
-to exclude the fake DG1/2 PCHs.
+Stray spaces have snuck in where everything else uses tabs.
 
 Cc: Animesh Manna <animesh.manna@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_pps.c | 44 +++++++++++++++++-------
- 1 file changed, 32 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_pps.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-index d8d2f22f3e0c..77b0a4f27abc 100644
+index f6bc896338de..880c530d5832 100644
 --- a/drivers/gpu/drm/i915/display/intel_pps.c
 +++ b/drivers/gpu/drm/i915/display/intel_pps.c
-@@ -310,10 +310,27 @@ vlv_initial_power_sequencer_setup(struct intel_dp *intel_dp)
- 		    pipe_name(intel_dp->pps.pps_pipe));
+@@ -535,7 +535,7 @@ void intel_pps_check_power_unlocked(struct intel_dp *intel_dp)
  }
  
-+static int intel_num_pps(struct drm_i915_private *i915)
-+{
-+	if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
-+		return 2;
-+
-+	if (IS_GEMINILAKE(i915) || IS_BROXTON(i915))
-+		return 2;
-+
-+	if (INTEL_PCH_TYPE(i915) >= PCH_DG1)
-+		return 1;
-+
-+	if (INTEL_PCH_TYPE(i915) >= PCH_ICP)
-+		return 2;
-+
-+	return 1;
-+}
-+
- static int
- bxt_initial_pps_idx(struct drm_i915_private *i915, pps_check check)
- {
--	int pps_idx, pps_num = 2;
-+	int pps_idx, pps_num = intel_num_pps(i915);
+ #define IDLE_ON_MASK		(PP_ON | PP_SEQUENCE_MASK | 0                     | PP_SEQUENCE_STATE_MASK)
+-#define IDLE_ON_VALUE   	(PP_ON | PP_SEQUENCE_NONE | 0                     | PP_SEQUENCE_STATE_ON_IDLE)
++#define IDLE_ON_VALUE		(PP_ON | PP_SEQUENCE_NONE | 0                     | PP_SEQUENCE_STATE_ON_IDLE)
  
- 	for (pps_idx = 0; pps_idx < pps_num; pps_idx++) {
- 		if (check(i915, pps_idx))
-@@ -337,12 +354,13 @@ pps_initial_setup(struct intel_dp *intel_dp)
- 		return;
- 	}
- 
--	if (!IS_GEMINILAKE(i915) && !IS_BROXTON(i915))
--		return;
--
- 	/* first ask the VBT */
--	intel_dp->pps.pps_idx = connector->panel.vbt.backlight.controller;
--	if (drm_WARN_ON(&i915->drm, intel_dp->pps.pps_idx >= 2))
-+	if (intel_num_pps(i915) > 1)
-+		intel_dp->pps.pps_idx = connector->panel.vbt.backlight.controller;
-+	else
-+		intel_dp->pps.pps_idx = 0;
-+
-+	if (drm_WARN_ON(&i915->drm, intel_dp->pps.pps_idx >= intel_num_pps(i915)))
- 		intel_dp->pps.pps_idx = -1;
- 
- 	/* VBT wasn't parsed yet? pick one where the panel is on */
-@@ -416,7 +434,7 @@ static void intel_pps_get_registers(struct intel_dp *intel_dp,
- 				    struct pps_registers *regs)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
--	int pps_idx = 0;
-+	int pps_idx;
- 
- 	memset(regs, 0, sizeof(*regs));
- 
-@@ -424,6 +442,8 @@ static void intel_pps_get_registers(struct intel_dp *intel_dp,
- 		pps_idx = vlv_power_sequencer_pipe(intel_dp);
- 	else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
- 		pps_idx = bxt_power_sequencer_idx(intel_dp);
-+	else
-+		pps_idx = intel_dp->pps.pps_idx;
- 
- 	regs->pp_ctrl = PP_CONTROL(pps_idx);
- 	regs->pp_stat = PP_STATUS(pps_idx);
-@@ -1508,7 +1528,10 @@ static void pps_init_late(struct intel_dp *intel_dp)
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	struct intel_connector *connector = intel_dp->attached_connector;
- 
--	if (!IS_GEMINILAKE(i915) && !IS_BROXTON(i915))
-+	if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
-+		return;
-+
-+	if (intel_num_pps(i915) < 2)
- 		return;
- 
- 	drm_WARN(&i915->drm, connector->panel.vbt.backlight.controller >= 0 &&
-@@ -1551,10 +1574,7 @@ void intel_pps_unlock_regs_wa(struct drm_i915_private *dev_priv)
- 	 * This w/a is needed at least on CPT/PPT, but to be sure apply it
- 	 * everywhere where registers can be write protected.
- 	 */
--	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
--		pps_num = 2;
--	else
--		pps_num = 1;
-+	pps_num = intel_num_pps(dev_priv);
- 
- 	for (pps_idx = 0; pps_idx < pps_num; pps_idx++) {
- 		u32 val = intel_de_read(dev_priv, PP_CONTROL(pps_idx));
+ #define IDLE_OFF_MASK		(PP_ON | PP_SEQUENCE_MASK | 0                     | 0)
+ #define IDLE_OFF_VALUE		(0     | PP_SEQUENCE_NONE | 0                     | 0)
 -- 
 2.37.4
 
