@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4790CC4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 10:45:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBC0AC4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 10:45:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF31710E002;
-	Fri, 25 Nov 2022 10:45:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40FA110E713;
+	Fri, 25 Nov 2022 10:45:35 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id C042F10E721;
- Fri, 25 Nov 2022 10:45:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 49DB410E726;
+ Fri, 25 Nov 2022 10:45:11 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 40AF8A010C;
- Fri, 25 Nov 2022 10:45:08 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 4856CA010C;
+ Fri, 25 Nov 2022 10:45:11 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jani Nikula" <jani.nikula@intel.com>
-Date: Fri, 25 Nov 2022 10:45:08 -0000
-Message-ID: <166937310826.7726.5302703083713192116@emeril.freedesktop.org>
+Date: Fri, 25 Nov 2022 10:45:11 -0000
+Message-ID: <166937311129.7728.6406091941337518598@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20221125095902.120882-1-jani.nikula@intel.com>
 In-Reply-To: <20221125095902.120882-1-jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/display=3A_add_intel=5Fdisplay=5Flimits=2Eh_for_ke?=
- =?utf-8?q?y_enums?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/display=3A_add_intel=5Fdisplay=5Flimits=2Eh_for_key_en?=
+ =?utf-8?q?ums?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,16 +54,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-721cfeb5e38c drm/i915/display: add intel_display_limits.h for key enums
-Traceback (most recent call last):
-  File "scripts/spdxcheck.py", line 11, in <module>
-    import git
-ModuleNotFoundError: No module named 'git'
--:222: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#222: 
-new file mode 100644
-
-total: 0 errors, 1 warnings, 0 checks, 442 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
