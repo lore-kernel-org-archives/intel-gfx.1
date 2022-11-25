@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9AF7C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 10:22:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCE5CC4321E
+	for <intel-gfx@archiver.kernel.org>; Fri, 25 Nov 2022 10:22:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1FED10E721;
-	Fri, 25 Nov 2022 10:22:05 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B173810E60A;
- Fri, 25 Nov 2022 10:21:41 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id d1so6041538wrs.12;
- Fri, 25 Nov 2022 02:21:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA7110E71F;
+	Fri, 25 Nov 2022 10:22:07 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF0610E66E;
+ Fri, 25 Nov 2022 10:21:49 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id g12so6042043wrs.10;
+ Fri, 25 Nov 2022 02:21:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Y9Lgo8n5sdKm8tWhlkpLlkTZnjMu0xGNkJqCOeSsc58=;
- b=ISXOjzd3FKQ2PWEb2IJBc/2zp1K923cZNhHoR/1SD/z/3+PCX1w7uTRohN0BNBXsHP
- w7ABuAHY4C1LTmGuLQ5W8CBMeU8506Xw/OU76nyn3OG5LJPqEyEbWmk1Lr8njrQyMsCK
- C/0AaOAFAW523mFR/d2F/hQPsV8ZxxjiTYZ+zzJsJtJa/jj0YIgL+Qyje3c5A408fC7S
- E+v9FjOK4F48yk6P9fcSO+WaSbMbW+NgevjEBqP30thO0FMrX0KyHCPBDdyJ2ei0wNaw
- p/BGJSlVs8NU5GkLxlNJFdJFBuDtMdXaHP0YFP+EDrWFm+VFMeNdq7ygrzGJk/4efT1E
- WP5A==
+ :reply-to; bh=o0YPpxQ/Ip2/zYWzBSiDluBmslbFNM8kf+Iwh6rl5dU=;
+ b=qvPwPI3TQq+pXriukE3ongoP8ru+5u2PtE8ILSCPLM9KaxdiMIsqGryaAx21TuSZmi
+ YI/Q0mA63SIIGWF1VTQQwzs39cFpohVwJbQ6pf/kyNRM+WHK4MVAzbUAAWRbNUYgioKP
+ fxVtXF1o/0E36ArfWP+muTkCL07Vo4EK888ckxt+aPprjSo0zlGwCR7URjQKuFRVZNk9
+ 9YD76q4z5Xkv2VZlB9q+7j1e7F57IxcdTxtLzUleiqA8QwDARM0dpdm98cDCeM1KfN8w
+ r19dGN9kWL+RoqSj/+DTzDobtiGoy2Tz1/20uGKQVGVjPoGpMr6eo4iw5zp8CcoOue0t
+ 2Dbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Y9Lgo8n5sdKm8tWhlkpLlkTZnjMu0xGNkJqCOeSsc58=;
- b=ieQecuXUZMBaRfI3E0STtT56fhLfvTLatze6UB6xS2TzmZ0FfrfDEIJF3kEb7T1Lp3
- FYodu1Sap7xEwUHgxAVaPyVUNzsfo/lTQu2/L7jD2Q6yy66A8WwgFUB0w+hXhVSWSREa
- lb8PZ7S1Q1Fc6QOCL9tjcYfaG9+9wi+VF3ypZ4hcrk8LT8r4+9hLMWpQkAR++IN5qH1G
- okzDpmCmnKbF8apDASPIFsE+Y07M0FO0wIUd7XBRX7yYH+JlP8yE2WBW/fCkfKi6dB5u
- CdZOWApRhZ2BtAAk+ti62WAzp8fuHJRCgI8ozBUrvKnj6zCFUg1UqLpsEvnJFxrZ2stG
- 3EMQ==
-X-Gm-Message-State: ANoB5pmyANOQxAXMP6RHuBnKQ5IAOJKaUfYRdzM3AaH0zkgPO6V2QjxP
- yB1WHEUy6wS2wbsVCRX/WsqYiJjWrvk=
-X-Google-Smtp-Source: AA0mqf4e4M8SzO4WD5xmTrfJ5Pu3IX9cRC6GcbAwnhWuya7MV+uZp2L6Y8rUwHJKin/0GOh71WYuHQ==
-X-Received: by 2002:adf:fb12:0:b0:236:60e8:3cca with SMTP id
- c18-20020adffb12000000b0023660e83ccamr16436896wrr.471.1669371700201; 
- Fri, 25 Nov 2022 02:21:40 -0800 (PST)
+ bh=o0YPpxQ/Ip2/zYWzBSiDluBmslbFNM8kf+Iwh6rl5dU=;
+ b=eHxD7Ji77RvLXznMPN5YKQUxcMaLay5BOFxIBfm5lAcqJf0h7NK05pTaxAOADrllAg
+ mmM3ZQhMNCkItDFtBI9Lvwf5aQ4ZGTKjWVqhUjgFwk9yoI+EDGkTKYwCXafiFsxEp1VC
+ tdVnv/7HHO2VR7UcqUy9vPGP0608qDwVCHZuw+3K2ZSbbUbJymX8HAIwOvjXUBjCGJZB
+ EvzI8gjF/m2DQxGj8rvFAT/0T7ibChfFnOpzGG5x6vCN17r44qR7FHU/nU9u++khcwrq
+ zSMRCOGM/iRcjXWFyFK8bkGcV/094I2RaPu1jfwGbVxXVk9h4W68r3QHJNNDbbCt1ajY
+ 6lKg==
+X-Gm-Message-State: ANoB5pm5o+OZNdcaZAAqlAvEHPwaYMblRL38FxmdFuv5HSKFM/WGMbLs
+ Du0/s4YZEiAARzxKtrMyzIkaCvTErZk=
+X-Google-Smtp-Source: AA0mqf7FdnazNRzg6PH5Y4TfoO5Yag7tByPKY+W5qQcW7+MSFmegEOJpBQx/VaayGvfB9r9Yie1RUA==
+X-Received: by 2002:a5d:604b:0:b0:236:6442:3a48 with SMTP id
+ j11-20020a5d604b000000b0023664423a48mr12982207wrt.41.1669371707310; 
+ Fri, 25 Nov 2022 02:21:47 -0800 (PST)
 Received: from able.fritz.box (p5b0ea229.dip0.t-ipconnect.de. [91.14.162.41])
  by smtp.gmail.com with ESMTPSA id
- u2-20020a056000038200b00241cfe6e286sm3351193wrf.98.2022.11.25.02.21.39
+ u2-20020a056000038200b00241cfe6e286sm3351193wrf.98.2022.11.25.02.21.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Nov 2022 02:21:39 -0800 (PST)
+ Fri, 25 Nov 2022 02:21:46 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Date: Fri, 25 Nov 2022 11:21:30 +0100
-Message-Id: <20221125102137.1801-2-christian.koenig@amd.com>
+Date: Fri, 25 Nov 2022 11:21:37 +0100
+Message-Id: <20221125102137.1801-9-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221125102137.1801-1-christian.koenig@amd.com>
 References: <20221125102137.1801-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/9] drm/ttm: remove
- ttm_bo_(un)lock_delayed_workqueue
+Subject: [Intel-gfx] [PATCH 9/9] drm/ttm: move ttm_bo_wait into VMWGFX
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,174 +77,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Those functions never worked correctly since it is still perfectly
-possible that a buffer object is released and the background worker
-restarted even after calling them.
+Not used anymore by other drivers or TTM itself.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  6 +-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  4 +---
- drivers/gpu/drm/radeon/radeon_device.c      |  5 -----
- drivers/gpu/drm/radeon/radeon_pm.c          |  4 +---
- drivers/gpu/drm/ttm/ttm_bo.c                | 14 --------------
- include/drm/ttm/ttm_bo_api.h                | 16 ----------------
- 6 files changed, 3 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c        | 44 +++++++++++------------------
+ drivers/gpu/drm/ttm/ttm_bo_util.c   | 19 ++++++++-----
+ drivers/gpu/drm/vmwgfx/ttm_object.h | 11 ++++++++
+ include/drm/ttm/ttm_bo.h            |  1 -
+ 4 files changed, 39 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 0f16d3c09309..f60753f97ac5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1717,7 +1717,7 @@ static void amdgpu_ib_preempt_mark_partial_job(struct amdgpu_ring *ring)
- 
- static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- {
--	int r, resched, length;
-+	int r, length;
- 	struct amdgpu_ring *ring;
- 	struct dma_fence **fences = NULL;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)data;
-@@ -1747,8 +1747,6 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 	/* stop the scheduler */
- 	kthread_park(ring->sched.thread);
- 
--	resched = ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
--
- 	/* preempt the IB */
- 	r = amdgpu_ring_preempt_ib(ring);
- 	if (r) {
-@@ -1785,8 +1783,6 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 
- 	up_read(&adev->reset_domain->sem);
- 
--	ttm_bo_unlock_delayed_workqueue(&adev->mman.bdev, resched);
--
- pro_end:
- 	kfree(fences);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index b2b1c66bfe39..2b1db37e25c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3983,10 +3983,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 	}
- 	amdgpu_fence_driver_hw_fini(adev);
- 
--	if (adev->mman.initialized) {
-+	if (adev->mman.initialized)
- 		flush_delayed_work(&adev->mman.bdev.wq);
--		ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
--	}
- 
- 	if (adev->pm_sysfs_en)
- 		amdgpu_pm_sysfs_fini(adev);
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 6344454a7721..9a556f505685 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1772,7 +1772,6 @@ int radeon_gpu_reset(struct radeon_device *rdev)
- 	bool saved = false;
- 
- 	int i, r;
--	int resched;
- 
- 	down_write(&rdev->exclusive_lock);
- 
-@@ -1784,8 +1783,6 @@ int radeon_gpu_reset(struct radeon_device *rdev)
- 	atomic_inc(&rdev->gpu_reset_counter);
- 
- 	radeon_save_bios_scratch_regs(rdev);
--	/* block TTM */
--	resched = ttm_bo_lock_delayed_workqueue(&rdev->mman.bdev);
- 	radeon_suspend(rdev);
- 	radeon_hpd_fini(rdev);
- 
-@@ -1844,8 +1841,6 @@ int radeon_gpu_reset(struct radeon_device *rdev)
- 	/* reset hpd state */
- 	radeon_hpd_init(rdev);
- 
--	ttm_bo_unlock_delayed_workqueue(&rdev->mman.bdev, resched);
--
- 	rdev->in_reset = true;
- 	rdev->needs_reset = false;
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeon/radeon_pm.c
-index 04c693ca419a..cbc554928bcc 100644
---- a/drivers/gpu/drm/radeon/radeon_pm.c
-+++ b/drivers/gpu/drm/radeon/radeon_pm.c
-@@ -1853,11 +1853,10 @@ static bool radeon_pm_debug_check_in_vbl(struct radeon_device *rdev, bool finish
- static void radeon_dynpm_idle_work_handler(struct work_struct *work)
- {
- 	struct radeon_device *rdev;
--	int resched;
-+
- 	rdev = container_of(work, struct radeon_device,
- 				pm.dynpm_idle_work.work);
- 
--	resched = ttm_bo_lock_delayed_workqueue(&rdev->mman.bdev);
- 	mutex_lock(&rdev->pm.mutex);
- 	if (rdev->pm.dynpm_state == DYNPM_STATE_ACTIVE) {
- 		int not_processed = 0;
-@@ -1908,7 +1907,6 @@ static void radeon_dynpm_idle_work_handler(struct work_struct *work)
- 				      msecs_to_jiffies(RADEON_IDLE_LOOP_MS));
- 	}
- 	mutex_unlock(&rdev->pm.mutex);
--	ttm_bo_unlock_delayed_workqueue(&rdev->mman.bdev, resched);
- }
- 
- /*
 diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index c3f4b33136e5..b77262a623e0 100644
+index cd266a067773..326a3d13a829 100644
 --- a/drivers/gpu/drm/ttm/ttm_bo.c
 +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -418,20 +418,6 @@ void ttm_bo_put(struct ttm_buffer_object *bo)
- }
- EXPORT_SYMBOL(ttm_bo_put);
+@@ -1087,47 +1087,35 @@ void ttm_bo_unmap_virtual(struct ttm_buffer_object *bo)
+ EXPORT_SYMBOL(ttm_bo_unmap_virtual);
  
--int ttm_bo_lock_delayed_workqueue(struct ttm_device *bdev)
--{
--	return cancel_delayed_work_sync(&bdev->wq);
--}
--EXPORT_SYMBOL(ttm_bo_lock_delayed_workqueue);
--
--void ttm_bo_unlock_delayed_workqueue(struct ttm_device *bdev, int resched)
--{
--	if (resched)
--		schedule_delayed_work(&bdev->wq,
--				      ((HZ / 100) < 1) ? 1 : HZ / 100);
--}
--EXPORT_SYMBOL(ttm_bo_unlock_delayed_workqueue);
--
- static int ttm_bo_bounce_temp_buffer(struct ttm_buffer_object *bo,
- 				     struct ttm_resource **mem,
- 				     struct ttm_operation_ctx *ctx,
-diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
-index 44a538ee5e2a..7758347c461c 100644
---- a/include/drm/ttm/ttm_bo_api.h
-+++ b/include/drm/ttm/ttm_bo_api.h
-@@ -290,22 +290,6 @@ void ttm_bo_move_to_lru_tail(struct ttm_buffer_object *bo);
- void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
- 			  struct ttm_lru_bulk_move *bulk);
- 
--/**
-- * ttm_bo_lock_delayed_workqueue
-- *
-- * Prevent the delayed workqueue from running.
-- * Returns
-- * True if the workqueue was queued at the time
-- */
--int ttm_bo_lock_delayed_workqueue(struct ttm_device *bdev);
--
--/**
-- * ttm_bo_unlock_delayed_workqueue
-- *
-- * Allows the delayed workqueue to run.
-- */
--void ttm_bo_unlock_delayed_workqueue(struct ttm_device *bdev, int resched);
--
  /**
-  * ttm_bo_eviction_valuable
+- * ttm_bo_wait - wait for buffer idle.
++ * ttm_bo_wait_ctx - wait for buffer idle.
   *
+  * @bo:  The buffer object.
+- * @interruptible:  Use interruptible wait.
+- * @no_wait:  Return immediately if buffer is busy.
++ * @ctx: defines how to wait
+  *
+- * This function must be called with the bo::mutex held, and makes
+- * sure any previous rendering to the buffer is completed.
+- * Note: It might be necessary to block validations before the
+- * wait by reserving the buffer.
+- * Returns -EBUSY if no_wait is true and the buffer is busy.
+- * Returns -ERESTARTSYS if interrupted by a signal.
++ * Waits for the buffer to be idle. Used timeout depends on the context.
++ * Returns -EBUSY if wait timed outt, -ERESTARTSYS if interrupted by a signal or
++ * zero on success.
+  */
+-int ttm_bo_wait(struct ttm_buffer_object *bo,
+-		bool interruptible, bool no_wait)
++int ttm_bo_wait_ctx(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx)
+ {
+-	long timeout = 15 * HZ;
++	long ret;
+ 
+-	if (no_wait) {
+-		if (dma_resv_test_signaled(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP))
++	if (ctx->no_wait_gpu) {
++		if (dma_resv_test_signaled(bo->base.resv,
++					   DMA_RESV_USAGE_BOOKKEEP))
+ 			return 0;
+ 		else
+ 			return -EBUSY;
+ 	}
+ 
+-	timeout = dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP,
+-					interruptible, timeout);
+-	if (timeout < 0)
+-		return timeout;
+-
+-	if (timeout == 0)
++	ret = dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP,
++				    ctx->interruptible, 15 * HZ);
++	if (unlikely(ret < 0))
++		return ret;
++	if (unlikely(ret == 0))
+ 		return -EBUSY;
+-
+ 	return 0;
+ }
+-EXPORT_SYMBOL(ttm_bo_wait);
+-
+-int ttm_bo_wait_ctx(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx)
+-{
+-	return ttm_bo_wait(bo, ctx->interruptible, ctx->no_wait_gpu);
+-}
+ EXPORT_SYMBOL(ttm_bo_wait_ctx);
+ 
+ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
+@@ -1135,7 +1123,7 @@ int ttm_bo_swapout(struct ttm_buffer_object *bo, struct ttm_operation_ctx *ctx,
+ {
+ 	struct ttm_place place;
+ 	bool locked;
+-	int ret;
++	long ret;
+ 
+ 	/*
+ 	 * While the bo may already reside in SYSTEM placement, set
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+index fee7c20775c0..ed2b28734541 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -547,9 +547,13 @@ EXPORT_SYMBOL(ttm_bo_vunmap);
+ static int ttm_bo_wait_free_node(struct ttm_buffer_object *bo,
+ 				 bool dst_use_tt)
+ {
+-	int ret;
+-	ret = ttm_bo_wait(bo, false, false);
+-	if (ret)
++	long ret;
++
++	ret = dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP,
++				    false, 15 * HZ);
++	if (ret == 0)
++		return -EBUSY;
++	if (ret < 0)
+ 		return ret;
+ 
+ 	if (!dst_use_tt)
+@@ -710,8 +714,7 @@ int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
+ 		return ret;
+ 
+ 	/* If already idle, no need for ghost object dance. */
+-	ret = ttm_bo_wait(bo, false, true);
+-	if (ret != -EBUSY) {
++	if (dma_resv_test_signaled(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP)) {
+ 		if (!bo->ttm) {
+ 			/* See comment below about clearing. */
+ 			ret = ttm_tt_create(bo, true);
+@@ -748,8 +751,10 @@ int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
+ 
+ 	ret = dma_resv_copy_fences(&ghost->base._resv, bo->base.resv);
+ 	/* Last resort, wait for the BO to be idle when we are OOM */
+-	if (ret)
+-		ttm_bo_wait(bo, false, false);
++	if (ret) {
++		dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP,
++				      false, MAX_SCHEDULE_TIMEOUT);
++	}
+ 
+ 	dma_resv_unlock(&ghost->base._resv);
+ 	ttm_bo_put(ghost);
+diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.h b/drivers/gpu/drm/vmwgfx/ttm_object.h
+index f0ebbe340ad6..95a9679f9d39 100644
+--- a/drivers/gpu/drm/vmwgfx/ttm_object.h
++++ b/drivers/gpu/drm/vmwgfx/ttm_object.h
+@@ -42,6 +42,8 @@
+ #include <linux/list.h>
+ #include <linux/rcupdate.h>
+ 
++#include <drm/ttm/ttm_bo.h>
++
+ /**
+  * enum ttm_object_type
+  *
+@@ -321,4 +323,13 @@ static inline void ttm_base_object_noref_release(void)
+ 	__acquire(RCU);
+ 	rcu_read_unlock();
+ }
++
++static inline int ttm_bo_wait(struct ttm_buffer_object *bo, bool intr,
++			      bool no_wait)
++{
++	struct ttm_operation_ctx ctx = { intr, no_wait };
++
++	return ttm_bo_wait_ctx(bo, &ctx);
++}
++
+ #endif
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index cfaf88e2d678..6dd8f63a5715 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -346,7 +346,6 @@ static inline void *ttm_kmap_obj_virtual(struct ttm_bo_kmap_obj *map,
+ 	return map->virtual;
+ }
+ 
+-int ttm_bo_wait(struct ttm_buffer_object *bo, bool interruptible, bool no_wait);
+ int ttm_bo_wait_ctx(struct ttm_buffer_object *bo,
+ 		    struct ttm_operation_ctx *ctx);
+ int ttm_bo_validate(struct ttm_buffer_object *bo,
 -- 
 2.34.1
 
