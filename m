@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DF68C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 10:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ECA5C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 10:19:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69C6910E2D5;
-	Mon, 28 Nov 2022 10:19:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E776710E2D2;
+	Mon, 28 Nov 2022 10:19:34 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E76210E2CC
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Nov 2022 10:18:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C7C610E2CE
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Nov 2022 10:18:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669630724; x=1701166724;
+ t=1669630730; x=1701166730;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5+qqqm/IXAeyxi/uaKE+FexHYQCr9aKUZDgfC8kmGqk=;
- b=XNYnNq9uu7jh0nrx4t0gv4B73UaEtIhCrO8rr6wrR0nWDeEi7z9LVwLw
- 4dPCsAV7hS0R3zNtwSUk80ai4PB5f3EBvZ3z89DY+LHOei50KwnWV/uJ9
- bKBAkYa0ctoDW1G9tqLfoYDhnoWFUzCSmjqmFc/2h0Fd9Ytpyg9V8754s
- vy8ExcaLA3ZO69YHA47vgEzUg2gFBCNJ6WTuEMsRfaCy2s2EyIOOFHdZt
- bdOQ+DVaWVlLnxqby8yq892AoKBKsjDPPs6dn9Z0zLR4gLMPsSOFEnSha
- 5Pl46DiHGoL7axdWPYwZbudR7S/u+ibfi6arjnQKeLNLKBERLl6U/gW8l A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="294500148"
-X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="294500148"
+ bh=ATB3sXDAvFvjMspDfZZVrb3VahmXc2KfOjTS+rPisO0=;
+ b=ky5eBbleXWfyU++208NAtTOaCqf9PkNIgV0dpyRDBcYEwYoZbx/ehKkg
+ UN103+LeB7+nyPFw4ZgYnGpnMHuMdJXhyshFjSvuH3xLp7xiBnote36O/
+ 4RKUKPQ3BEKr0X91bM+KgWtTVD05SMA2u4CphYQCV/nbwLWVK3tjLEcSr
+ dhIpvDle3LBZtYuMW/BSTTuN1Qa3uwpu6KAHjjambfpZvoDyTS3Jfg3WM
+ 21+sn7Wh7D6JYAMDUmMdx3jwgJx0YTGPuoxl82gf5WdNACQi9+P0zi+nQ
+ LA7264S+d30UAY+6SIu0BVooH+SvV+93fRO+zZ3B5LSPph/upbeTAV7/s g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="294500158"
+X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="294500158"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 02:18:44 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="749319809"
-X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="749319809"
+ 28 Nov 2022 02:18:50 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="749319828"
+X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="749319828"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 02:18:41 -0800
+ 28 Nov 2022 02:18:48 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Nov 2022 15:49:19 +0530
-Message-Id: <20221128101922.217217-9-ankit.k.nautiyal@intel.com>
+Date: Mon, 28 Nov 2022 15:49:22 +0530
+Message-Id: <20221128101922.217217-12-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221128101922.217217-1-ankit.k.nautiyal@intel.com>
 References: <20221128101922.217217-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/11] drm/i915/dsc/mtl: Add support for
- fractional bpp
+Subject: [Intel-gfx] [PATCH 11/11] drm/i915/dsc: Allow DSC only with
+ fractional bpp when forced from debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,68 +60,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+From: Swati Sharma <swati2.sharma@intel.com>
 
-Consider the fractional bpp while reading the qp values.
+If force_dsc_fractional_bpp_en is set through debugfs allow DSC iff
+compressed bpp is fractional. Continue if we computed compressed bpp is
+computed as integer.
 
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Swati Sharma <swati2.sharma@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_qp_tables.c |  3 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c      | 12 +++++++++---
- 2 files changed, 9 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_qp_tables.c b/drivers/gpu/drm/i915/display/intel_qp_tables.c
-index 6f8e4ec5c0fb..a0094287dc81 100644
---- a/drivers/gpu/drm/i915/display/intel_qp_tables.c
-+++ b/drivers/gpu/drm/i915/display/intel_qp_tables.c
-@@ -21,9 +21,6 @@
-  * These qp tables are as per the C model
-  * and it has the rows pointing to bpps which increment
-  * in steps of 0.5
-- * We do not support fractional bpps as of today,
-- * hence we would skip the fractional bpps during
-- * our references for qp calclulations.
-  */
- static const u8 rc_range_minqp444_8bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP444_8BPC_MAX_NUM_BPP] = {
- 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 73f9ea266533..d24ca8828a1d 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -381,6 +381,7 @@ calculate_rc_params(struct rc_parameters *rc,
- {
- 	int bpc = vdsc_cfg->bits_per_component;
- 	int bpp = vdsc_cfg->bits_per_pixel >> 4;
-+	int fractional_bits = vdsc_cfg->bits_per_pixel & 0xf;
- 	static const s8 ofs_und6[] = {
- 		0, -2, -2, -4, -6, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12
- 	};
-@@ -421,7 +422,13 @@ calculate_rc_params(struct rc_parameters *rc,
- 	rc->rc_quant_incr_limit0 = 11 + qp_bpc_modifier;
- 	rc->rc_quant_incr_limit1 = 11 + qp_bpc_modifier;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 379dd683be0a..5ed7471247ad 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1591,6 +1591,9 @@ static int dsc_compute_compressed_bpp(struct intel_dp *intel_dp,
+ 	for (compressed_bppx16 = dsc_max_bppx16;
+ 	     compressed_bppx16 >= dsc_min_bppx16;
+ 	     compressed_bppx16 -= bppx16_step) {
++		if (intel_dp->force_dsc_fractional_bpp_en &&
++		    (compressed_bppx16 % 16 == 0))
++			continue;
+ 		ret = dsc_compute_link_config(intel_dp,
+ 					      pipe_config,
+ 					      limits,
+@@ -1709,6 +1712,9 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	} else {
+ 		u8 dsc_dp_slice_count;
  
--	bpp_i  = (2 * (bpp - 6));
-+	/*
-+	 * QP table rows have values in increment of 0.5.
-+	 * So 6.0 bpp to 6.4375 will have index 0, 6.5 to 6.9375 will have index 1,
-+	 * and so on.
-+	 * 0.5 represented as 0x8 in U6.4 format.
-+	 */
-+	bpp_i  = ((bpp - 6) + (fractional_bits < 0x8 ? 0 : 1));
- 	for (buf_i = 0; buf_i < DSC_NUM_BUF_RANGES; buf_i++) {
- 		/* Read range_minqp and range_max_qp from qp tables */
- 		rc->rc_range_params[buf_i].range_min_qp =
-@@ -469,8 +476,7 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
- 	/* Gen 11 does not support VBR */
- 	vdsc_cfg->vbr_enable = false;
- 
--	/* Gen 11 only supports integral values of bpp */
--	vdsc_cfg->bits_per_pixel = compressed_bpp << 4;
-+	vdsc_cfg->bits_per_pixel = pipe_config->dsc.compressed_bpp;
- 	vdsc_cfg->bits_per_component = pipe_config->pipe_bpp / 3;
- 
- 	for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++) {
++		if (intel_dp->force_dsc_fractional_bpp_en)
++			drm_dbg_kms(&dev_priv->drm,
++				    "Forcing DSC fractional bpp\n");
+ 		if (intel_dp->force_dsc_bpc &&
+ 		    intel_dp->force_dsc_bpc <= conn_state->max_requested_bpc)
+ 			ret = dsc_compute_compressed_bpp(intel_dp, pipe_config,
 -- 
 2.25.1
 
