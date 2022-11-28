@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B91C43217
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 10:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2CE4C43217
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 10:18:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 549AB10E2CD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05FAB10E2CB;
 	Mon, 28 Nov 2022 10:18:44 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC1F10E2C6
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Nov 2022 10:18:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B45B810E2C6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Nov 2022 10:18:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669630720; x=1701166720;
+ t=1669630719; x=1701166719;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kZqSdehwnx1Rf5rGJ5m95gb1gUhdUMm3s5rCQa/3COA=;
- b=f+DLDZZhNbQpbN7wOPvAZE+bDchUqrI082A/D80qzyHeINjTUeCslwlp
- 0m4wxsFOjdFmvOQY+T6g66mPYkktOmEOISmfAMZJK2QX0dBTF3CS9dnBM
- Ni42gWKCaJ6ZvRMuwFbtRB7rycVFyb+ZeM8zR7R0s6JTcX6B5PxjY8b6l
- wYHQg8XdghnQ2s6eG/hYQNsd8kR48LsQQFzkrmizUI8/+OaXZlGQiIFZo
- b/aCz8+SAMbfOhBJOXvNi3d//oSmUM90cdSENOtG/M/Zf2GjRNpM7C0r8
- s8H29NLaMFLX7E6CXznmpy1e50uBowuzJm8nsVNQAa9wbD16ykfD8MRlE g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="294500136"
-X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="294500136"
+ bh=v7NKBj3CYOhWNCuZF56FeIFK8f7VjtPnyjEPvoaFgCg=;
+ b=oHZte/Nh/mo2oCrmA7GdwEMlC128DuW/a/rkbF8p178bI7ySnKHXs7d7
+ MGw4foENmtG6FoYP1WIxz9MmLW4hzEEgfEcf/agdIjtwiyGK6B6HGF8VQ
+ aINWubLWlHWd5R/cDEdwvIBFeUkseYonRH2Q6wIJiRMfw0LJw/Hu//jwp
+ hKVMS83ff8OM4Y637RSQD+JJyzSsrXPb2jQcoYsNR4zMYKhesQWhowxuf
+ fhjhcVYJnAdrbxhpYksohqykn/wa/dupP8RQ+bIe9+sy7olr/VjiIWgR9
+ Acwo5FqMxAe+lOTLITvxuejOA1S4WwKcRXeY821oORi9xzf5SoGrVXzA2 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="294500121"
+X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="294500121"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 02:18:37 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="749319780"
-X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="749319780"
+ 28 Nov 2022 02:18:33 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="749319764"
+X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="749319764"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 02:18:35 -0800
+ 28 Nov 2022 02:18:31 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Nov 2022 15:49:16 +0530
-Message-Id: <20221128101922.217217-6-ankit.k.nautiyal@intel.com>
+Date: Mon, 28 Nov 2022 15:49:14 +0530
+Message-Id: <20221128101922.217217-4-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221128101922.217217-1-ankit.k.nautiyal@intel.com>
 References: <20221128101922.217217-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/11] drm/i915/display: Store compressed bpp in
- U6.4 format
+Subject: [Intel-gfx] [PATCH 03/11] drm/i915/dp: Rename helpers to get DSC
+ max pipe bpp and max output bpp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,223 +60,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DSC parameter bits_per_pixel is stored in U6.4 format.
-The 4 bits represent the fractional part of the bpp.
-Currently we use compressed_bpp member of dsc structure to store
-only the integral part of the bits_per_pixel.
-To store the full bits_per_pixel along with the fractional part,
-compressed_bpp is changed to store bpp in U6.4 formats. Intergral
-part is retrieved by simply right shifting the member compressed_bpp by 4.
+Currently we the required dsc output bpp is set to be the largest
+compressed bpp supported for max, lane, rate, and bpp.
+The helper intel_dp_dsc_get_output_bpp gets the maximum supported
+compressed bpp taking into account link configuration, input bpp,
+bigjoiner considerations etc.
+
+Append 'max' suffix to the function, and also avoid unnecessary
+left shifting by 4, which we are anyway shifting back later.
+
+Similarly, the helper intel_dp_dsc_compute_bpp gives the maximum
+pipe bpp that is allowed with DSC. Rename the function to reflect
+the same.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c        | 10 ++++----
- drivers/gpu/drm/i915/display/intel_audio.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_bios.c     |  2 +-
- .../drm/i915/display/intel_display_types.h    | 16 +++++++++++-
- drivers/gpu/drm/i915/display/intel_dp.c       | 25 +++++++++++--------
- drivers/gpu/drm/i915/display/intel_vdsc.c     |  4 +--
- 6 files changed, 38 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 57 +++++++++++--------------
+ 1 file changed, 26 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index d16b30a2dded..f2f094330697 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -343,7 +343,7 @@ static int afe_clk(struct intel_encoder *encoder,
- 	int bpp;
- 
- 	if (crtc_state->dsc.compression_enable)
--		bpp = crtc_state->dsc.compressed_bpp;
-+		bpp = dsc_integral_compressed_bpp(crtc_state->dsc.compressed_bpp);
- 	else
- 		bpp = mipi_dsi_pixel_format_to_bpp(intel_dsi->pixel_format);
- 
-@@ -903,7 +903,7 @@ gen11_dsi_set_transcoder_timings(struct intel_encoder *encoder,
- 	 * compressed and non-compressed bpp.
- 	 */
- 	if (crtc_state->dsc.compression_enable) {
--		mul = crtc_state->dsc.compressed_bpp;
-+		mul = dsc_integral_compressed_bpp(crtc_state->dsc.compressed_bpp);
- 		div = mipi_dsi_pixel_format_to_bpp(intel_dsi->pixel_format);
- 	}
- 
-@@ -927,7 +927,7 @@ gen11_dsi_set_transcoder_timings(struct intel_encoder *encoder,
- 		int bpp, line_time_us, byte_clk_period_ns;
- 
- 		if (crtc_state->dsc.compression_enable)
--			bpp = crtc_state->dsc.compressed_bpp;
-+			bpp = dsc_integral_compressed_bpp(crtc_state->dsc.compressed_bpp);
- 		else
- 			bpp = mipi_dsi_pixel_format_to_bpp(intel_dsi->pixel_format);
- 
-@@ -1500,8 +1500,8 @@ static void gen11_dsi_get_timings(struct intel_encoder *encoder,
- 	struct drm_display_mode *adjusted_mode =
- 					&pipe_config->hw.adjusted_mode;
- 
--	if (pipe_config->dsc.compressed_bpp) {
--		int div = pipe_config->dsc.compressed_bpp;
-+	if (dsc_integral_compressed_bpp(pipe_config->dsc.compressed_bpp)) {
-+		int div = dsc_integral_compressed_bpp(pipe_config->dsc.compressed_bpp);
- 		int mul = mipi_dsi_pixel_format_to_bpp(intel_dsi->pixel_format);
- 
- 		adjusted_mode->crtc_htotal =
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index 98c3322b4549..f63d5824aca2 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -517,7 +517,7 @@ static unsigned int calc_hblank_early_prog(struct intel_encoder *encoder,
- 	h_active = crtc_state->hw.adjusted_mode.crtc_hdisplay;
- 	h_total = crtc_state->hw.adjusted_mode.crtc_htotal;
- 	pixel_clk = crtc_state->hw.adjusted_mode.crtc_clock;
--	vdsc_bpp = crtc_state->dsc.compressed_bpp;
-+	vdsc_bpp = dsc_integral_compressed_bpp(crtc_state->dsc.compressed_bpp);
- 	cdclk = i915->display.cdclk.hw.cdclk;
- 	/* fec= 0.972261, using rounding multiplier of 1000000 */
- 	fec_coeff = 972261;
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index c2987f2c2b2e..74fbc1265450 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -3455,7 +3455,7 @@ static void fill_dsc(struct intel_crtc_state *crtc_state,
- 	crtc_state->pipe_bpp = bpc * 3;
- 
- 	crtc_state->dsc.compressed_bpp = min(crtc_state->pipe_bpp,
--					     VBT_DSC_MAX_BPP(dsc->max_bpp));
-+					     VBT_DSC_MAX_BPP(dsc->max_bpp)) << 4;
- 
- 	/*
- 	 * FIXME: This is ugly, and slice count should take DSC engine
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index f07395065a69..d6b071e79075 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1283,7 +1283,7 @@ struct intel_crtc_state {
- 	struct {
- 		bool compression_enable;
- 		bool dsc_split;
--		u16 compressed_bpp;
-+		u16 compressed_bpp; /* U6.4 format (first 4 bits for fractional part) */
- 		u8 slice_count;
- 		struct drm_dsc_config config;
- 	} dsc;
-@@ -2052,4 +2052,18 @@ to_intel_frontbuffer(struct drm_framebuffer *fb)
- 	return fb ? to_intel_framebuffer(fb)->frontbuffer : NULL;
- }
- 
-+/* Returns integral part of the compressed bpp given in U6.4 format */
-+static inline int
-+dsc_integral_compressed_bpp(u16 compressed_bpp)
-+{
-+	return compressed_bpp >> 4;
-+}
-+
-+/* Returns fractional part of the compressed bpp given in U6.4 format */
-+static inline int
-+dsc_fractional_compressed_bpp(u16 compressed_bpp)
-+{
-+	return ((compressed_bpp & 0xF) * 10000 / 16);
-+}
-+
- #endif /*  __INTEL_DISPLAY_TYPES_H__ */
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 10f9292e1e0d..5f61abb8a0e2 100644
+index 30e8a4bd43ac..8ddbbada22ab 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1588,7 +1588,7 @@ static int dsc_compute_compressed_bpp(struct intel_dp *intel_dp,
- 					      pipe_bpp,
- 					      compressed_bpp);
- 		if (ret == 0) {
--			pipe_config->dsc.compressed_bpp = compressed_bpp;
-+			pipe_config->dsc.compressed_bpp = compressed_bpp << 4;
- 			return 0;
- 		}
- 	}
-@@ -1692,8 +1692,8 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 		pipe_config->lane_count = limits->max_lane_count;
- 
- 		pipe_config->dsc.compressed_bpp =
--			min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
--			      pipe_config->pipe_bpp);
-+			min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd),
-+			      pipe_config->pipe_bpp << 4);
- 		pipe_config->dsc.slice_count =
- 			drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd,
- 							true);
-@@ -1746,17 +1746,19 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	if (ret < 0) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "Cannot compute valid DSC parameters for Input Bpp = %d "
--			    "Compressed BPP = %d\n",
-+			    "Compressed BPP = %d.%d\n",
- 			    pipe_config->pipe_bpp,
--			    pipe_config->dsc.compressed_bpp);
-+			    dsc_integral_compressed_bpp(pipe_config->dsc.compressed_bpp),
-+			    dsc_fractional_compressed_bpp(pipe_config->dsc.compressed_bpp));
- 		return ret;
- 	}
- 
- 	pipe_config->dsc.compression_enable = true;
- 	drm_dbg_kms(&dev_priv->drm, "DP DSC computed with Input Bpp = %d "
--		    "Compressed Bpp = %d Slice Count = %d\n",
-+		    "Compressed Bpp = %d.%d Slice Count = %d\n",
- 		    pipe_config->pipe_bpp,
--		    pipe_config->dsc.compressed_bpp,
-+		    dsc_integral_compressed_bpp(pipe_config->dsc.compressed_bpp),
-+		    dsc_fractional_compressed_bpp(pipe_config->dsc.compressed_bpp),
- 		    pipe_config->dsc.slice_count);
- 
- 	return 0;
-@@ -1835,15 +1837,16 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 
- 	if (pipe_config->dsc.compression_enable) {
- 		drm_dbg_kms(&i915->drm,
--			    "DP lane count %d clock %d Input bpp %d Compressed bpp %d\n",
-+			    "DP lane count %d clock %d Input bpp %d Compressed bpp %d.%d\n",
- 			    pipe_config->lane_count, pipe_config->port_clock,
- 			    pipe_config->pipe_bpp,
--			    pipe_config->dsc.compressed_bpp);
-+			    dsc_integral_compressed_bpp(pipe_config->dsc.compressed_bpp),
-+			    dsc_fractional_compressed_bpp(pipe_config->dsc.compressed_bpp));
- 
- 		drm_dbg_kms(&i915->drm,
- 			    "DP link rate required %i available %i\n",
- 			    intel_dp_link_required(adjusted_mode->crtc_clock,
--						   pipe_config->dsc.compressed_bpp),
-+						   dsc_integral_compressed_bpp(pipe_config->dsc.compressed_bpp)),
- 			    intel_dp_max_data_rate(pipe_config->port_clock,
- 						   pipe_config->lane_count));
- 	} else {
-@@ -2252,7 +2255,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
- 		intel_dp_limited_color_range(pipe_config, conn_state);
- 
- 	if (pipe_config->dsc.compression_enable)
--		output_bpp = pipe_config->dsc.compressed_bpp;
-+		output_bpp = dsc_integral_compressed_bpp(pipe_config->dsc.compressed_bpp);
- 	else
- 		output_bpp = intel_dp_output_bpp(pipe_config->output_format,
- 						 pipe_config->pipe_bpp);
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 9d3b77b41b5c..73f9ea266533 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -455,7 +455,7 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
- 	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	struct drm_dsc_config *vdsc_cfg = &pipe_config->dsc.config;
--	u16 compressed_bpp = pipe_config->dsc.compressed_bpp;
-+	u16 compressed_bpp = dsc_integral_compressed_bpp(pipe_config->dsc.compressed_bpp);
- 	const struct rc_parameters *rc_params;
- 	struct rc_parameters *rc = NULL;
- 	u8 i = 0;
-@@ -1213,7 +1213,7 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
- 		val = intel_de_read(dev_priv,
- 				    ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe));
- 	vdsc_cfg->bits_per_pixel = val;
--	crtc_state->dsc.compressed_bpp = vdsc_cfg->bits_per_pixel >> 4;
-+	crtc_state->dsc.compressed_bpp = vdsc_cfg->bits_per_pixel;
- out:
- 	intel_display_power_put(dev_priv, power_domain, wakeref);
+@@ -117,7 +117,7 @@ bool intel_dp_is_edp(struct intel_dp *intel_dp)
  }
+ 
+ static void intel_dp_unset_edid(struct intel_dp *intel_dp);
+-static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 dsc_max_bpc);
++static int intel_dp_dsc_get_bpp_max(struct intel_dp *intel_dp, u8 dsc_max_bpc);
+ 
+ /* Is link rate UHBR and thus 128b/132b? */
+ bool intel_dp_is_uhbr(const struct intel_crtc_state *crtc_state)
+@@ -673,11 +673,11 @@ small_joiner_ram_size_bits(struct drm_i915_private *i915)
+ 		return 6144 * 8;
+ }
+ 
+-static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+-				       u32 link_clock, u32 lane_count,
+-				       u32 mode_clock, u32 mode_hdisplay,
+-				       bool bigjoiner,
+-				       u32 pipe_bpp)
++static u16 intel_dp_dsc_get_output_bpp_max(struct drm_i915_private *i915,
++					   u32 link_clock, u32 lane_count,
++					   u32 mode_clock, u32 mode_hdisplay,
++					   bool bigjoiner,
++					   u32 pipe_bpp)
+ {
+ 	u32 bits_per_pixel, max_bpp_small_joiner_ram;
+ 	int i;
+@@ -731,11 +731,7 @@ static u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 		bits_per_pixel = valid_dsc_bpp[i];
+ 	}
+ 
+-	/*
+-	 * Compressed BPP in U6.4 format so multiply by 16, for Gen 11,
+-	 * fractional part is 0
+-	 */
+-	return bits_per_pixel << 4;
++	return bits_per_pixel;
+ }
+ 
+ static u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
+@@ -1019,7 +1015,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 		 * TBD pass the connector BPC,
+ 		 * for now U8_MAX so that max BPC on that platform would be picked
+ 		 */
+-		int pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, U8_MAX);
++		int pipe_bpp_max = intel_dp_dsc_get_bpp_max(intel_dp, U8_MAX);
+ 
+ 		if (intel_dp_is_edp(intel_dp)) {
+ 			dsc_max_output_bpp =
+@@ -1029,13 +1025,13 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 								true);
+ 		} else if (drm_dp_sink_supports_fec(intel_dp->fec_capable)) {
+ 			dsc_max_output_bpp =
+-				intel_dp_dsc_get_output_bpp(dev_priv,
+-							    max_link_clock,
+-							    max_lanes,
+-							    target_clock,
+-							    mode->hdisplay,
+-							    bigjoiner,
+-							    pipe_bpp) >> 4;
++				intel_dp_dsc_get_output_bpp_max(dev_priv,
++								max_link_clock,
++								max_lanes,
++								target_clock,
++								mode->hdisplay,
++								bigjoiner,
++								pipe_bpp_max);
+ 			dsc_slice_count =
+ 				intel_dp_dsc_get_slice_count(intel_dp,
+ 							     target_clock,
+@@ -1364,7 +1360,7 @@ intel_dp_compute_link_config_wide(struct intel_dp *intel_dp,
+ 	return -EINVAL;
+ }
+ 
+-static int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 max_req_bpc)
++static int intel_dp_dsc_get_bpp_max(struct intel_dp *intel_dp, u8 max_req_bpc)
+ {
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	int i, num_bpc;
+@@ -1487,7 +1483,7 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	 * If Force DSC BPC is set, try to use that to compute the pipe bpp,
+ 	 * otherwise set pipe_bpp to the max bpp.
+ 	 */
+-	pipe_bpp_max = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
++	pipe_bpp_max = intel_dp_dsc_get_bpp_max(intel_dp, conn_state->max_requested_bpc);
+ 
+ 	if (!intel_dp->force_dsc_bpc) {
+ 		pipe_bpp = pipe_bpp_max;
+@@ -1531,13 +1527,13 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 		u8 dsc_dp_slice_count;
+ 
+ 		dsc_max_output_bpp =
+-			intel_dp_dsc_get_output_bpp(dev_priv,
+-						    pipe_config->port_clock,
+-						    pipe_config->lane_count,
+-						    adjusted_mode->crtc_clock,
+-						    adjusted_mode->crtc_hdisplay,
+-						    pipe_config->bigjoiner_pipes,
+-						    pipe_bpp);
++			intel_dp_dsc_get_output_bpp_max(dev_priv,
++							pipe_config->port_clock,
++							pipe_config->lane_count,
++							adjusted_mode->crtc_clock,
++							adjusted_mode->crtc_hdisplay,
++							pipe_config->bigjoiner_pipes,
++							pipe_bpp);
+ 		dsc_dp_slice_count =
+ 			intel_dp_dsc_get_slice_count(intel_dp,
+ 						     adjusted_mode->crtc_clock,
+@@ -1548,9 +1544,8 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				    "Compressed BPP/Slice Count not supported\n");
+ 			return -EINVAL;
+ 		}
+-		pipe_config->dsc.compressed_bpp = min_t(u16,
+-							       dsc_max_output_bpp >> 4,
+-							       pipe_config->pipe_bpp);
++		pipe_config->dsc.compressed_bpp = min_t(u16, dsc_max_output_bpp,
++							pipe_config->pipe_bpp);
+ 		pipe_config->dsc.slice_count = dsc_dp_slice_count;
+ 	}
+ 
 -- 
 2.25.1
 
