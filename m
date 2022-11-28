@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37B63C4321E
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 23:30:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9A3BC43217
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 23:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6035510E350;
-	Mon, 28 Nov 2022 23:30:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8657B10E34F;
+	Mon, 28 Nov 2022 23:30:39 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3AF010E347;
- Mon, 28 Nov 2022 23:30:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 398CD10E34A;
+ Mon, 28 Nov 2022 23:30:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669678223; x=1701214223;
+ t=1669678224; x=1701214224;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=js97vPbBoXXCuuCGr6Xo/pd7MAmLN5nApHwHRn7a+V4=;
- b=kwTA8/tE8Gs1upJ3eylNr3LJCmxF2AGRxZec1Z02fFcPqqeN2ZJqMN4E
- aSlPREU7p7fu1HbL8h88lZmwdZbapgO+6ep4xyWWenPA5vidGlZLM1oPv
- fcg3DgNpFNtTeo2Gccy8xUyXId7+QIyzF6/uF1c6Jl4kwCt7EBW4nqokd
- UhvZrjCEztfEPDR4kpixkxPe1Dhsl8xKnvC/tS1ExnFaWMd93tOPMEhG6
- NF2dHPFLH8m1euz64GHUFuwOm95bvPRO2LD6wEA+S4ERhFRWNiCRBm/Cc
- I1gcF7zpfpBpDRCn5+MkncYYKHnZW8nPPDl0W1+bVvUOEzPMiZ4AS9WhY A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="302556671"
-X-IronPort-AV: E=Sophos;i="5.96,201,1665471600"; d="scan'208";a="302556671"
+ bh=td16JQiPsJ8OBHO9W5dFJlaHCubMvr8VCLxiucPhkm8=;
+ b=HnsDLsONCXGO1aXZjTsjhj5I8GFUgPM/jvSMCHMvcjn+Wj5G59Snp4cz
+ IeURULHsmHNKCd2PbUMOb1Y/3meuLqQ2Bwocbu/QFb82ym79im2c1qnP2
+ 6S+2EEf89rqUvHFaHQm67xj9YEf0iXQaAqI6UwmKVAQK54r3xjGYtXAGB
+ rfPBW83FOH4iPECYlV3o6pi3sM+krVSqx2DsZIEwdm/vuRoYLKGDoJHN6
+ +KPo8UO/JoEUQ4JUBC08yDj3R3AmE0x8cmXHzPzPzLymTM30qpUskx+7r
+ L2vBMtvvN28Y7MTmLHtUJadFycjpk9ggR/Pk2U/u5N5euaLgXNq1Mi9V3 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="302556673"
+X-IronPort-AV: E=Sophos;i="5.96,201,1665471600"; d="scan'208";a="302556673"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Nov 2022 15:30:23 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="706982248"
-X-IronPort-AV: E=Sophos;i="5.96,201,1665471600"; d="scan'208";a="706982248"
+X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="706982255"
+X-IronPort-AV: E=Sophos;i="5.96,201,1665471600"; d="scan'208";a="706982255"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Nov 2022 15:30:23 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Nov 2022 15:30:11 -0800
-Message-Id: <20221128233014.4000136-3-matthew.d.roper@intel.com>
+Date: Mon, 28 Nov 2022 15:30:13 -0800
+Message-Id: <20221128233014.4000136-5-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221128233014.4000136-1-matthew.d.roper@intel.com>
 References: <20221128233014.4000136-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/5] drm/i915/gt: Pass gt rather than uncore
- to lowest-level reads/writes
+Subject: [Intel-gfx] [PATCH v2 4/5] drm/i915/mtl: Add hardware-level lock
+ for steering
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,100 +61,112 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Passing the GT rather than uncore to the lowest level MCR read and write
-functions will make it easier to introduce dedicated MCR locking in a
-following patch.
+Starting with MTL, the driver needs to not only protect the steering
+control register from simultaneous software accesses, but also protect
+against races with hardware/firmware agents.  The hardware provides a
+dedicated locking mechanism to support this via the MTL_STEER_SEMAPHORE
+register.  Reading the register acts as a 'trylock' operation; the read
+will return 0x1 if the lock is acquired or 0x0 if something else is
+already holding the lock; once acquired, writing 0x1 to the register
+will release the lock.
 
+We'll continue to grab the software lock as well, just so lockdep can
+track our locking; assuming the hardware lock is behaving properly,
+there should never be any contention on the software lock in this case.
+
+v2:
+ - Extend hardware semaphore timeout and add a taint for CI if it ever
+   happens (this would imply misbehaving hardware/firmware).  (Mika)
+ - Add "MTL_" prefix to new steering semaphore register.  (Mika)
+
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_mcr.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_mcr.c  | 38 ++++++++++++++++++++++---
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h |  1 +
+ 2 files changed, 35 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-index ea86c1ab5dc5..f4484bb18ec9 100644
+index aa070ae57f11..087e4ac5b68d 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
 +++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-@@ -221,7 +221,7 @@ static i915_reg_t mcr_reg_cast(const i915_mcr_reg_t mcr)
- 
- /*
-  * rw_with_mcr_steering_fw - Access a register with specific MCR steering
-- * @uncore: pointer to struct intel_uncore
-+ * @gt: GT to read register from
-  * @reg: register being accessed
-  * @rw_flag: FW_REG_READ for read access or FW_REG_WRITE for write access
-  * @group: group number (documented as "sliceid" on older platforms)
-@@ -232,10 +232,11 @@ static i915_reg_t mcr_reg_cast(const i915_mcr_reg_t mcr)
+@@ -347,10 +347,9 @@ static u32 rw_with_mcr_steering(struct intel_gt *gt,
+  * @flags: storage to save IRQ flags to
   *
-  * Caller needs to make sure the relevant forcewake wells are up.
-  */
--static u32 rw_with_mcr_steering_fw(struct intel_uncore *uncore,
-+static u32 rw_with_mcr_steering_fw(struct intel_gt *gt,
- 				   i915_mcr_reg_t reg, u8 rw_flag,
- 				   int group, int instance, u32 value)
+  * Performs locking to protect the steering for the duration of an MCR
+- * operation.  Depending on the platform, this may be a software lock
+- * (gt->mcr_lock) or a hardware lock (i.e., a register that synchronizes
+- * access not only for the driver, but also for external hardware and
+- * firmware agents).
++ * operation.  On MTL and beyond, a hardware lock will also be taken to
++ * serialize access not only for the driver, but also for external hardware and
++ * firmware agents.
+  *
+  * Context: Takes gt->mcr_lock.  uncore->lock should *not* be held when this
+  *          function is called, although it may be acquired after this
+@@ -359,12 +358,40 @@ static u32 rw_with_mcr_steering(struct intel_gt *gt,
+ void intel_gt_mcr_lock(struct intel_gt *gt, unsigned long *flags)
  {
-+	struct intel_uncore *uncore = gt->uncore;
- 	u32 mcr_mask, mcr_ss, mcr, old_mcr, val = 0;
+ 	unsigned long __flags;
++	int err = 0;
  
- 	lockdep_assert_held(&uncore->lock);
-@@ -308,11 +309,12 @@ static u32 rw_with_mcr_steering_fw(struct intel_uncore *uncore,
- 	return val;
- }
+ 	lockdep_assert_not_held(&gt->uncore->lock);
  
--static u32 rw_with_mcr_steering(struct intel_uncore *uncore,
-+static u32 rw_with_mcr_steering(struct intel_gt *gt,
- 				i915_mcr_reg_t reg, u8 rw_flag,
- 				int group, int instance,
- 				u32 value)
- {
-+	struct intel_uncore *uncore = gt->uncore;
- 	enum forcewake_domains fw_domains;
- 	u32 val;
++	/*
++	 * Starting with MTL, we need to coordinate not only with other
++	 * driver threads, but also with hardware/firmware agents.  A dedicated
++	 * locking register is used.
++	 */
++	if (GRAPHICS_VER(gt->i915) >= IP_VER(12, 70))
++		err = wait_for(intel_uncore_read_fw(gt->uncore,
++						    MTL_STEER_SEMAPHORE) == 0x1, 100);
++
++	/*
++	 * Even on platforms with a hardware lock, we'll continue to grab
++	 * a software spinlock too for lockdep purposes.  If the hardware lock
++	 * was already acquired, there should never be contention on the
++	 * software lock.
++	 */
+ 	spin_lock_irqsave(&gt->mcr_lock, __flags);
  
-@@ -325,7 +327,7 @@ static u32 rw_with_mcr_steering(struct intel_uncore *uncore,
- 	spin_lock_irq(&uncore->lock);
- 	intel_uncore_forcewake_get__locked(uncore, fw_domains);
- 
--	val = rw_with_mcr_steering_fw(uncore, reg, rw_flag, group, instance, value);
-+	val = rw_with_mcr_steering_fw(gt, reg, rw_flag, group, instance, value);
- 
- 	intel_uncore_forcewake_put__locked(uncore, fw_domains);
- 	spin_unlock_irq(&uncore->lock);
-@@ -347,7 +349,7 @@ u32 intel_gt_mcr_read(struct intel_gt *gt,
- 		      i915_mcr_reg_t reg,
- 		      int group, int instance)
- {
--	return rw_with_mcr_steering(gt->uncore, reg, FW_REG_READ, group, instance, 0);
-+	return rw_with_mcr_steering(gt, reg, FW_REG_READ, group, instance, 0);
+ 	*flags = __flags;
++
++	/*
++	 * In theory we should never fail to acquire the HW semaphore; this
++	 * would indicate some hardware/firmware is misbehaving and not
++	 * releasing it properly.
++	 */
++	if (err == -ETIMEDOUT) {
++		drm_err_ratelimited(&gt->i915->drm,
++				    "GT%u hardware MCR steering semaphore timed out",
++				    gt->info.id);
++		add_taint_for_CI(gt->i915, TAINT_WARN);  /* CI is now unreliable */
++	}
  }
  
  /**
-@@ -364,7 +366,7 @@ u32 intel_gt_mcr_read(struct intel_gt *gt,
- void intel_gt_mcr_unicast_write(struct intel_gt *gt, i915_mcr_reg_t reg, u32 value,
- 				int group, int instance)
+@@ -379,6 +406,9 @@ void intel_gt_mcr_lock(struct intel_gt *gt, unsigned long *flags)
+ void intel_gt_mcr_unlock(struct intel_gt *gt, unsigned long flags)
  {
--	rw_with_mcr_steering(gt->uncore, reg, FW_REG_WRITE, group, instance, value);
-+	rw_with_mcr_steering(gt, reg, FW_REG_WRITE, group, instance, value);
+ 	spin_unlock_irqrestore(&gt->mcr_lock, flags);
++
++	if (GRAPHICS_VER(gt->i915) >= IP_VER(12, 70))
++		intel_uncore_write_fw(gt->uncore, MTL_STEER_SEMAPHORE, 0x1);
  }
  
  /**
-@@ -588,7 +590,7 @@ u32 intel_gt_mcr_read_any_fw(struct intel_gt *gt, i915_mcr_reg_t reg)
- 	for (type = 0; type < NUM_STEERING_TYPES; type++) {
- 		if (reg_needs_read_steering(gt, reg, type)) {
- 			get_nonterminated_steering(gt, type, &group, &instance);
--			return rw_with_mcr_steering_fw(gt->uncore, reg,
-+			return rw_with_mcr_steering_fw(gt, reg,
- 						       FW_REG_READ,
- 						       group, instance, 0);
- 		}
-@@ -615,7 +617,7 @@ u32 intel_gt_mcr_read_any(struct intel_gt *gt, i915_mcr_reg_t reg)
- 	for (type = 0; type < NUM_STEERING_TYPES; type++) {
- 		if (reg_needs_read_steering(gt, reg, type)) {
- 			get_nonterminated_steering(gt, type, &group, &instance);
--			return rw_with_mcr_steering(gt->uncore, reg,
-+			return rw_with_mcr_steering(gt, reg,
- 						    FW_REG_READ,
- 						    group, instance, 0);
- 		}
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 784152548472..1618d46cb8c7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -67,6 +67,7 @@
+ #define GMD_ID_MEDIA				_MMIO(MTL_MEDIA_GSI_BASE + 0xd8c)
+ 
+ #define MCFG_MCR_SELECTOR			_MMIO(0xfd0)
++#define MTL_STEER_SEMAPHORE			_MMIO(0xfd0)
+ #define MTL_MCR_SELECTOR			_MMIO(0xfd4)
+ #define SF_MCR_SELECTOR				_MMIO(0xfd8)
+ #define GEN8_MCR_SELECTOR			_MMIO(0xfdc)
 -- 
 2.38.1
 
