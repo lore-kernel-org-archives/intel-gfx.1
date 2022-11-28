@@ -4,54 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3CFCC46467
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 10:13:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C254C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 10:18:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6425E10E2CA;
-	Mon, 28 Nov 2022 10:13:37 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACD4610E2C6;
- Mon, 28 Nov 2022 10:13:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6037610E2C6;
+	Mon, 28 Nov 2022 10:18:41 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 180DA10E2C6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Nov 2022 10:18:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669630412; x=1701166412;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=SvPoIBVWdWQ2eE/7MsLOzn6hNBRaoyhHOgTUk7Rq1Bw=;
- b=VdKLpesR3wCfXFfVq2B3h8RAFpY9dMiUvhmkbqxXaMj2vMr3sLp+2SeB
- GI6gi23MGSvnLKJo9T3g7Gdsf4uNRNcTkvGNJZvngx6d/vG78ExY8sqaG
- IstSsneMNEuqxDShWP5LRf5gzFSOQatOv4YVd8g7IvBRXoPMAoVI0RIYu
- V3ql+N3RnqHazoaHLHq9Qy3gAt/2qbxqGvW1rmJBsdaWDbcfeqFYdW1jZ
- wd97fUuQNQkW34CIkq/OcouGpioddUtM1Z1IT6x925oBNdFnvtWc+HNZT
- JvafQN+KP00jRnulqZlatBSttr/TjLjcPup+9EWuTR5qP6fm6JbZgt/Mn w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="312432615"
-X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="312432615"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 02:13:26 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="675996293"
-X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="675996293"
-Received: from meduffy-mobl.ger.corp.intel.com (HELO [10.213.211.186])
- ([10.213.211.186])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 02:13:24 -0800
-Message-ID: <9810f4b0-6a28-3a3d-026b-08cce4622516@linux.intel.com>
-Date: Mon, 28 Nov 2022 10:13:22 +0000
+ t=1669630719; x=1701166719;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ALHPmXrhT+evDh7SgxGzvPJWw0DLCmixcMPFx5uC5tU=;
+ b=DEtasUrSUT+UkyguJ/PeHb1sLd2sbn7W6BvpiBffXUqviLTJCCnDU5G8
+ l4rsrWhwK9oof01H3N0KPxM8PWxmlfki4fwm4IphOrPj4+rjEQCFIvH9d
+ UbY7sw1xkeG/BZmzLPylVdUTT0SxDxO7252ENCtrYkMEZHnisf8Tpybz1
+ RDMIK2T5vLyizhvTXt5+UJd1BdMedzDGXlet9kTTb5JDAWcQBsiHYKaxl
+ 0h7zgxp7aRzvecrciBiXYvtvv0JdF3UJVw9LNpkiuduGxSzDU5IExWErY
+ bM0enIviHSHF8B8k7nS/vRmdIxQjQVA68w+C1+fzg/dChrfCHAGSNPrl1 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="294500116"
+X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="294500116"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2022 02:18:32 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="749319749"
+X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="749319749"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2022 02:18:29 -0800
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 28 Nov 2022 15:49:13 +0530
+Message-Id: <20221128101922.217217-3-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221128101922.217217-1-ankit.k.nautiyal@intel.com>
+References: <20221128101922.217217-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Andi Shyti <andi.shyti@linux.intel.com>, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-References: <20221125223029.323339-1-andi.shyti@linux.intel.com>
- <20221125223029.323339-6-andi.shyti@linux.intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <20221125223029.323339-6-andi.shyti@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v3 5/5] drm/i915: Limit the display memory
- alignment to 32 bit instead of 64
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 02/11] drm/display/dp: Add helper function to
+ get DSC bpp prescision
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,82 +57,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Chris Wilson <chris@chris-wilson.co.uk>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Add helper to get the DSC bits_per_pixel precision for the DP sink.
 
-On 25/11/2022 22:30, Andi Shyti wrote:
-> Chris commit "drm/i915: Introduce guard pages to i915_vma" was
-> "cunningly" changing display_alignment to u32 from u64. The
-> reason is that the display GGTT is and will be limited o 4GB.
-> 
-> Put it in a separate patch and use "max(...)" instead of
-> "max_t(64, ...)" when asigning the value. We can safely use max
-> as we know beforehand that the comparison is between two u32
-> variables.
-> 
-> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-> Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-> ---
->   drivers/gpu/drm/i915/display/intel_fb_pin.c | 2 +-
->   drivers/gpu/drm/i915/gem/i915_gem_domain.c  | 2 +-
->   drivers/gpu/drm/i915/i915_vma_types.h       | 2 +-
->   3 files changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-> index 6900acbb1381c..1aca7552a85d0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fb_pin.c
-> @@ -91,7 +91,7 @@ intel_pin_fb_obj_dpt(struct drm_framebuffer *fb,
->   		goto err;
->   	}
->   
-> -	vma->display_alignment = max_t(u64, vma->display_alignment, alignment);
-> +	vma->display_alignment = max(vma->display_alignment, alignment);
->   
->   	i915_gem_object_flush_if_display(obj);
->   
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-> index 882b91519f92b..9969e687ad857 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-> @@ -457,7 +457,7 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
->   	if (IS_ERR(vma))
->   		return vma;
->   
-> -	vma->display_alignment = max_t(u64, vma->display_alignment, alignment);
-> +	vma->display_alignment = max(vma->display_alignment, alignment);
->   	i915_vma_mark_scanout(vma);
->   
->   	i915_gem_object_flush_if_display_locked(obj);
-> diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
-> index 46f5ce19d4a0a..77fda2244d161 100644
-> --- a/drivers/gpu/drm/i915/i915_vma_types.h
-> +++ b/drivers/gpu/drm/i915/i915_vma_types.h
-> @@ -197,7 +197,6 @@ struct i915_vma {
->   	struct i915_fence_reg *fence;
->   
->   	u64 size;
-> -	u64 display_alignment;
->   	struct i915_page_sizes page_sizes;
->   
->   	/* mmap-offset associated with fencing for this vma */
-> @@ -206,6 +205,7 @@ struct i915_vma {
->   	u32 guard; /* padding allocated around vma->pages within the node */
->   	u32 fence_size;
->   	u32 fence_alignment;
-> +	u32 display_alignment;
->   
->   	/**
->   	 * Count of the number of times this vma has been opened by different
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/display/drm_dp_helper.c | 27 +++++++++++++++++++++++++
+ include/drm/display/drm_dp_helper.h     |  1 +
+ 2 files changed, 28 insertions(+)
 
-I would have put this patch first in the series, because patch 2 now 
-does not need to do max -> max_t on the respective line, but okay.
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 16565a0a5da6..3b3e89e46f1c 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -2323,6 +2323,33 @@ int drm_dp_read_desc(struct drm_dp_aux *aux, struct drm_dp_desc *desc,
+ }
+ EXPORT_SYMBOL(drm_dp_read_desc);
+ 
++/**
++ * drm_dp_dsc_sink_bpp_incr() - Get bits per pixel increment
++ * @dsc_dpcd: DSC capabilities from DPCD
++ *
++ * Returns the bpp precision supported by the DP sink.
++ */
++u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
++{
++	u8 bpp_increment_dpcd = dsc_dpcd[DP_DSC_BITS_PER_PIXEL_INC - DP_DSC_SUPPORT];
++
++	switch (bpp_increment_dpcd) {
++	case DP_DSC_BITS_PER_PIXEL_1_16:
++		return 16;
++	case DP_DSC_BITS_PER_PIXEL_1_8:
++		return 8;
++	case DP_DSC_BITS_PER_PIXEL_1_4:
++		return 4;
++	case DP_DSC_BITS_PER_PIXEL_1_2:
++		return 2;
++	case DP_DSC_BITS_PER_PIXEL_1:
++		return 1;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_dp_dsc_sink_bpp_incr);
++
+ /**
+  * drm_dp_dsc_sink_max_slice_count() - Get the max slice count
+  * supported by the DSC sink.
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index ab55453f2d2c..0a0306b2e829 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -164,6 +164,7 @@ drm_dp_is_branch(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ }
+ 
+ /* DP/eDP DSC support */
++u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
+ u8 drm_dp_dsc_sink_max_slice_count(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE],
+ 				   bool is_edp);
+ u8 drm_dp_dsc_sink_line_buf_depth(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
+-- 
+2.25.1
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-Regards,
-
-Tvrtko
