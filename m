@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BACC0C433FE
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 09:26:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6298C433FE
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Nov 2022 09:59:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E628310E2BA;
-	Mon, 28 Nov 2022 09:26:18 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAC3910E2BA
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Nov 2022 09:26:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA01510E1F1;
+	Mon, 28 Nov 2022 09:59:29 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 195C410E205
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Nov 2022 09:59:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669627574; x=1701163574;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=U5Ysjx8A19whpuTTUsBp4DIhGn9XepnlvS0GDIMuMPo=;
- b=LBegclGekhYK1nJpIUdfyWFjuci7kYUXZne1vrri8uXxRiy5peNIlry6
- CuL6/euxihfOCKK1bO7yUrL1rB9FFRmn7/4s2x6aXew8VviRIj3ySeYzw
- WII/UlMJshsteZY9WOULNqcXhJG7zn3VdHqCyQN4UqznzB9ztjykvrUKs
- gswRA0oMoouyElXIuO6kUaArTO7B29nJ6xDYgirnaseEtfpcYeULyRgEO
- U+uqe0ahzPzQXLK4FnNDFQOGH7giFfIGJQgKv4NKjUGflbezQahSnIdgV
- /vI6igIsvMuXko8LxRfqV0UxyV3eM5VgHU+HByevLhXWEOOzThSAkoDyx Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="302366918"
-X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="302366918"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 01:26:12 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="785559429"
-X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="785559429"
-Received: from mmustafa-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.51.239])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 01:26:10 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mikko Kovanen <mikko.kovanen@aavamobile.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-In-Reply-To: <DBBPR09MB466592B16885D99ABBF2393A91119@DBBPR09MB4665.eurprd09.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <DBBPR09MB466592B16885D99ABBF2393A91119@DBBPR09MB4665.eurprd09.prod.outlook.com>
-Date: Mon, 28 Nov 2022 11:26:08 +0200
-Message-ID: <87tu2j4ehb.fsf@intel.com>
+ t=1669629569; x=1701165569;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=75ciCwVVtzhiqGkCkxccH7v/77yPau4MCAiJccRRc4g=;
+ b=Jq+N8BYnalK3iwvTcpwqM+HSagxPX7vDZnX0yaFxFR6wI4BedesBGRuI
+ s7lam5wKweODjcBlkF4ezZd1lpU7W+tbBX2idIN2q4aBIfwLSKHDUwUt2
+ OI+X95d/tMSfWqUg4c2AlFbpw3StHNVpA3m9C6UPLG9Y5ncKOAVVmxupK
+ Z6/oNs+J50+Vinl+7jCVKVXPaqVlIAh7UPpj9DwSLcyYtUuUQAAhSGiVG
+ ErIOQL2cyYlYgYxtpvvXq4SPZ4TeYmAY1Cp5EJ/TuX/05rBZlfvEd6pGY
+ uWSBTipG/ys1pb8qtwDg+9pwy26+fsVaErA2oOK/JCa/tK0pkNFu0sVFg A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="315950451"
+X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="315950451"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2022 01:59:18 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10544"; a="674169454"
+X-IronPort-AV: E=Sophos;i="5.96,200,1665471600"; d="scan'208";a="674169454"
+Received: from aravind-dev.iind.intel.com ([10.145.162.80])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2022 01:59:16 -0800
+From: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 28 Nov 2022 15:43:52 +0530
+Message-Id: <6cb639bfc8e0eddb3fece1b058e8ab6444f98fb2.1669629369.git.aravind.iddamsetty@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <3a47d428e1929942374b9eaead5372bfaaefdeed.1669629369.git.aravind.iddamsetty@intel.com>
+References: <3a47d428e1929942374b9eaead5372bfaaefdeed.1669629369.git.aravind.iddamsetty@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/dsi: fix VBT send packet port
- selection for dual link DSI
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/mtl/UAPI: Disable SET_CACHING
+ IOCTL for MTL+
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,46 +57,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 26 Nov 2022, Mikko Kovanen <mikko.kovanen@aavamobile.com> wrote:
-> intel_dsi->ports contains bitmask of enabled ports and correspondingly
-> logic for selecting port for VBT packet sending must use port specific
-> bitmask when deciding appropriate port.
->
-> Fixes: 08c59dde71b7 ("drm/i915/dsi: fix VBT send packet port selection for ICL+")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mikko Kovanen <mikko.kovanen@aavamobile.com>
+From: Pallavi Mishra <pallavi.mishra@intel.com>
 
-Holy crap, that's embarrassing! Thanks!
+Caching mode for an object shall be selected via upcoming VM_BIND
+interface.
 
-Despite the mistake, it always works for single-link DSI as well as port
-A on dual-link DSI, which probably covers most use cases. It's the
-commands targeted at port B (VLV+ DSI) or port C (ICL+ DSI) that go
-haywire.
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Pallavi Mishra <pallavi.mishra@intel.com>
+Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> ---
->  drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-> index 75e8cc4337c9..fce69fa446d5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-> @@ -137,9 +137,9 @@ static enum port intel_dsi_seq_port_to_port(struct intel_dsi *intel_dsi,
->  		return ffs(intel_dsi->ports) - 1;
->  
->  	if (seq_port) {
-> -		if (intel_dsi->ports & PORT_B)
-> +		if (intel_dsi->ports & BIT(PORT_B))
->  			return PORT_B;
-> -		else if (intel_dsi->ports & PORT_C)
-> +		else if (intel_dsi->ports & BIT(PORT_C))
->  			return PORT_C;
->  	}
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index d44a152ce680..aebbfe186143 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -332,6 +332,9 @@ int i915_gem_set_caching_ioctl(struct drm_device *dev, void *data,
+ 	if (IS_DGFX(i915))
+ 		return -ENODEV;
+ 
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
++		return -EOPNOTSUPP;
++
+ 	switch (args->caching) {
+ 	case I915_CACHING_NONE:
+ 		level = I915_CACHE_NONE;
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.25.1
+
