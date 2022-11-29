@@ -4,136 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B83FC43217
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 15:27:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06E4C43217
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 15:58:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF19410E602;
-	Thu,  1 Dec 2022 15:27:49 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BAC210E602;
- Thu,  1 Dec 2022 15:27:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669908468; x=1701444468;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=W8Oo7WumUghW0EqVBunWKEqLR1cy3eVTcYqKdQfxQoI=;
- b=gFKZHhiUzvbIbjGeUZkyoqQeaoANFHMbahWwQ8VZZksd7Jj3yK4bWYnS
- JyJpIV5/iRDuPOPYog867c8O7DqHhY+Rn6qJyC2byhMthuMWpn+Cq60Zk
- aCzUfNPvTafIQGeDWVfoPzy/G7IN0RCRqn3ONGUfj2vfUs2XMKRdAuCAu
- Rga5oIUgkZlWOtjbGVoJpUd5mTseNEkWCuOBkEqIHWrlsKftlkDopq4Co
- 9u3JvGu1iQSbTI8q6QkrXD7jfhJPvf+c/1G74JDoGk6a72CCreOoVm9Mn
- cz5S9IHB8PX5hyQQYnfpjQpu+wlYSRxCwAowbxNZi0EbiGIwFRLMIzUHK A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="295405150"
-X-IronPort-AV: E=Sophos;i="5.96,209,1665471600"; d="scan'208";a="295405150"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2022 07:27:47 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="638422488"
-X-IronPort-AV: E=Sophos;i="5.96,209,1665471600"; d="scan'208";a="638422488"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by orsmga007.jf.intel.com with ESMTP; 01 Dec 2022 07:27:46 -0800
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 1 Dec 2022 07:27:46 -0800
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16 via Frontend Transport; Thu, 1 Dec 2022 07:27:46 -0800
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.169)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.16; Thu, 1 Dec 2022 07:27:45 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA32F10E62C;
+	Thu,  1 Dec 2022 15:58:19 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2056.outbound.protection.outlook.com [40.107.212.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9B5410E082;
+ Tue, 29 Nov 2022 10:57:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ADw4zwsTES+wOMpvs0UfzN9rejrkpA9Ky4EGEoljPoStYmAM2Hs9SD3BJFYK+kvB3ppj5vuEzenT48cLbPBNoHZqq+AMNwSwTg1qd80M2Ck9m6+d1gHhnU5lFUklTnx3/avu1WsXhocQRjPgHZzSm0j0+pWJ7ScXfuoqh0vQn5siO+2rG2uvwe0w8ZoSGAQF0CBEP2XtGf8ozx6zjk987O4Rhgn/z+ZHIkXfFpofSHQnfhNVlveaUUyMLJl48T3TOtnzo53Ad0l1hjHTobFI8SLc7yn8/ARP93JkbYAITk5jcv5yN40QFi7GrfXIucmenSqc9BAV16sx6MZmPzAzvQ==
+ b=QKOaZOUJDnXeFE2DRXeSyeIgVhFGC6PpSQ0z1giLLtSlJC/NaVS4dMx/uZqrh//SwCxvj1Ulm+9/b3Gg4eA3E/V4QJWO5It/udB93kBL8nsaQg/+cPFsjIz9U4NXezyqQG74GwbPOTLDu6O7Gg/wKstvEEocDZd+64jDltV3WVcaZ4x2khXLheVAaurHIPU4ovG6cwsw0uX+T4jmhkndXepSgpqoSvXkpqPga+QM8CfB0krwhoynsT+J7M5zB5sG+TRuGAIM3DLMDvBAqtplcWVmwpd+u5ANCS5HoE25QLZ/H5T8AymFVptkyYY+pPK4uyKCX+ZL6NVaKAR2AQYz4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Oq0DfdcJnEfz5aVgYZ9HvcCYlK9+0Ut+6edG9Bh8+Ko=;
- b=P6zs9rAAHFkeSFUP6pag0I1FYkBEj3GNFXl1xj9x9bJJdFjkY6628O4qE78Cc7nXEuA7qILxtYbf9VNsQ6cMX3kJyC3J2uDxVSrEtvsHSogv3XQbgXkB5O3BtKDUir/eBId5KXxlR/Xbc/ki2Vs6nbBdWBeVLBepJ0lAX3xJBM0e3GP0LgUY2pWgNNtg3s8jDdkWNkTtrUBEiincysXWlfg3Y0yvX9WhA1zA2giSaFeZN50YlOZB0+bYWfXEsI0UWwnCDcBTNHTVWV0XZoscok4sspa59Mm56NZtEZ0tara+Y2NESkaBdB8C2a90l91G0pz8sUsktFzFDXtpepXJPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH8PR11MB6952.namprd11.prod.outlook.com (2603:10b6:510:224::13)
- by SA2PR11MB4892.namprd11.prod.outlook.com (2603:10b6:806:f9::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Thu, 1 Dec
- 2022 15:27:42 +0000
-Received: from PH8PR11MB6952.namprd11.prod.outlook.com
- ([fe80::d060:bf4d:10ad:3713]) by PH8PR11MB6952.namprd11.prod.outlook.com
- ([fe80::d060:bf4d:10ad:3713%3]) with mapi id 15.20.5857.023; Thu, 1 Dec 2022
- 15:27:42 +0000
-Date: Thu, 1 Dec 2022 07:27:31 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Auld <matthew.auld@intel.com>
-Message-ID: <Y4jH4297KUGrYTr6@nvishwa1-DESK>
-References: <20221129072635.847-1-niranjana.vishwanathapura@intel.com>
- <20221129072635.847-23-niranjana.vishwanathapura@intel.com>
- <dbbd19e4-4354-bd11-a68d-435f59150fc8@intel.com>
-Content-Type: text/plain; charset="us-ascii"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <dbbd19e4-4354-bd11-a68d-435f59150fc8@intel.com>
-X-ClientProxiedBy: BY5PR17CA0010.namprd17.prod.outlook.com
- (2603:10b6:a03:1b8::23) To PH8PR11MB6952.namprd11.prod.outlook.com
- (2603:10b6:510:224::13)
+ bh=7XtRd8JrTsbaoCmuxFe3286dfOo1NMfjWxA+WMCp0s0=;
+ b=lDqlku5XlAlU8nD7LZ9MuHX1YYNIfZ6L6AS8OK7CBx0mWiGVSAdQ1c6cjJ8ZvjUlPA/bp68qKsh7PKCpIIQ4vpvICxTM1Jt7btEffYmLgdinkS55Reckc2t/wkt5uUrWAhV0VMiouFTyKwyqxgJe+5S5nId91GTKv9zFsByReciRnsGKQTbQJGNqxgKHAWXz2wWQFNtnuwKsM3L5G4mJY9uVQul9Met2slLzPG/mmM9cgeEfbmBnDqdByghc8tj8BotNj3mOmUMP7YaQ1tp5rEie5i1iwQBHPFG17YMw3OqzUtSf582UBUV+TnnHKc6MyyobkDpLNGDBu7ARJhjMeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7XtRd8JrTsbaoCmuxFe3286dfOo1NMfjWxA+WMCp0s0=;
+ b=mpiT5VrswrfY8dV8mn57g2VUtBXWFg5Vy+rweM84VuMM7jhSArcxhHhZfsNYNYFs4nSKZD6GCjXKW1FwgbHLs/2MTYPRVuxeUj3dzv0HldeUSuuwWCP+sulWSs2a+kVL0AqCw7BdONhDYegdN4bh5l54r6dlKde5hdABYKn7L90=
+Received: from BL1PR13CA0356.namprd13.prod.outlook.com (2603:10b6:208:2c6::31)
+ by IA1PR12MB6329.namprd12.prod.outlook.com (2603:10b6:208:3e5::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.21; Tue, 29 Nov
+ 2022 10:57:13 +0000
+Received: from BL02EPF0000EE3F.namprd05.prod.outlook.com
+ (2603:10b6:208:2c6:cafe::10) by BL1PR13CA0356.outlook.office365.com
+ (2603:10b6:208:2c6::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23 via Frontend
+ Transport; Tue, 29 Nov 2022 10:57:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000EE3F.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5857.17 via Frontend Transport; Tue, 29 Nov 2022 10:57:13 +0000
+Received: from pp-server-two.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 29 Nov
+ 2022 04:57:10 -0600
+From: xinhui pan <xinhui.pan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Date: Tue, 29 Nov 2022 18:56:55 +0800
+Message-ID: <20221129105655.125571-1-xinhui.pan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB6952:EE_|SA2PR11MB4892:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bd05bae-d97e-4e97-482c-08dad3b096ec
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3F:EE_|IA1PR12MB6329:EE_
+X-MS-Office365-Filtering-Correlation-Id: 219552b0-a752-491b-6ce5-08dad1f878c0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JZI85tsuKtag9WwGafA+dU2DdO7Jjit/vaE7dTnIXYi+xNlIwoxXdnG0baySDFPUgTSmrRXEqmapKjgA4Hn37+QvKFHMT11C4/7SBIPX2kSBdNyNNdpE+MDN2sBUleDg8TrBjG0keS+XhKFu93lWhYCefr8V43Gput3X+BXpOALQugqrYVo9A1Ad5naanhr8+MKD7qfJsAKhtldFctBCwyvs+5YTrzYPmQniintU4wTs9mkY4KUNz79k62Jq1mBXfiY9apcEcTptC4z4sr8clZ5hpYZ9zQd3MiUfGkzHuRZF8Ciw4CrLT9gY405R+YKkqlju9AmZHMtt3CLvkzqyGGshsvRsHLgi+9xNIRNdrH2gwohdVqCZKqK7OPfYYcIo6TRRT0ZZLDoa4WXuoGLdFaTX3ky7kUqPYWBniRlHVntRTfsUQPACnEcDnjQFxyowcxwm7CS0wPMC1CtwFuYwcpvSDQ3IKOU/QDhNAIjSrOpo83b2G3cEPlDyVPNRF2CLavIS8yk74+j8RnREgPqdRhicnL2dSpDFjMpO7enOBbhYc3lKvabsOxbsoLpqJ2YwOmIM4YACf3+i5g8Z5wdb8YwrmIuOVRHw24pUInex/vv0rLVLBlleRy9IYUnFpFpAUGS8Kh9xreKCtzMm1OL+NA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR11MB6952.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(7916004)(346002)(366004)(136003)(396003)(39860400002)(376002)(451199015)(83380400001)(4326008)(8676002)(66476007)(6636002)(316002)(66556008)(86362001)(66946007)(6486002)(33716001)(6862004)(38100700002)(5660300002)(82960400001)(44832011)(8936002)(41300700001)(2906002)(186003)(6506007)(6512007)(9686003)(26005)(6666004)(478600001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ctrCmbU0fTixw39EPBe5DZwNZlOvj7lfss9vmCI/nXePaeFKQiJK4o3qk8fC?=
- =?us-ascii?Q?bHwR0VswUlXK3F6KNguwmdVJT1lNNnI+9jj2CxekfbpIL2LA2tBlDsJJJswM?=
- =?us-ascii?Q?YTPeskfRT0ELXPR8crJgI0wT1+yi2Z7oMPAMN+ER99C/1OohS0Ox2W1Qaejx?=
- =?us-ascii?Q?a/av2Www+xKhYrwDQAuu66Z3cQ3u0onUrE7NTqzIM3d0ppngtE/ltFruR7kw?=
- =?us-ascii?Q?xwh+jgP7D86xVXKzaITQs6z35hf4q/L+Kyx41lkhRyeZ1Z//GjBjYeTOKfIS?=
- =?us-ascii?Q?VFgjeFcxVTJYNaVBFBCcr9O0CtIJp4+ZxHKKg/lBKgP4zCJWfOJqSwiUWdSq?=
- =?us-ascii?Q?KHT6xq99isWf7nxbnSlEQpYhdxnrfgCUmqOgHTbkKb0krp4k51lNUR22/0QM?=
- =?us-ascii?Q?Zc9R7GmzcFiM1jrfNSPWyUfVBBHnqDrqbb5f5Tn1WrNfRsb9ubJGh6nL9gsO?=
- =?us-ascii?Q?ssUA3rjRRygqqU53bJXr5aUzCNtzi7SI7ngeAfhm/9NTyHKuRjWNePpE8AMF?=
- =?us-ascii?Q?mSgr0t7Hb0ghRIC1jf3MVh+QYs652Ar4Jq2l/5jcIrlfvGV1q0GK1M3sEMHU?=
- =?us-ascii?Q?31SIyNSKhsnBouikucrFiZVBuQWx+qGzBXhn5JVMlAZx8GwFO73uWWeTeS6r?=
- =?us-ascii?Q?dHXOYboTrxEwdEsrJfECLEjn/Dd7Dt4D6nompb+nWy4zR9pCuPz0Iy+/6wnn?=
- =?us-ascii?Q?C83jitZ2yKfxjZIzLKKuQgQi1Ivhx3NeGTAswCyjHGu0UpSzIqR4fwQs4Oz+?=
- =?us-ascii?Q?HQQNsy+CNk62l09b+QUBtoJwDKs5+6rj8R66+YUC168wy+tQYCkONL0BhLrB?=
- =?us-ascii?Q?hPijW01Og1qoLvWYWbHd9X7irzsY0pz7Hqga80feQXUi9fz9e1J2tfJPNdOP?=
- =?us-ascii?Q?GxvvC8qoFvkQLRUbqN75e4BKv1Gluxm7J5QyCE9WFLbK+LaPuZ7ApbmVNR0p?=
- =?us-ascii?Q?ZuwfKCMhcS45B0pIZRduw+kIIVcy88CWWNBNDe1A0OHLZ74NcDjEb2TjNPjw?=
- =?us-ascii?Q?faWdMPhYd10N7mgwTIIxQVPDyZzna4n3KGoK5efplEuXP2cMx3hG6S6369ZR?=
- =?us-ascii?Q?z31YCXqGLqTP0v31ewusSm71JebcPT4RunpjCxuPgup3LoWVmX2Tn3xOCQXF?=
- =?us-ascii?Q?7CeZimYdKtHez33r9xSRezGyvkAhhIKymh1lU6RfSbHh53SqSl6VnHRP4OHa?=
- =?us-ascii?Q?TdzzCc0zSl1uvkANdax9HPjbEF/WswwuopeVIjZhq7sLHh2uWMkEo6Lghx0r?=
- =?us-ascii?Q?G1QXGT4nWM3UiHgqPrB3B8R36LHKCZA+hvT7Eg+/9IWuUxJq1lmv4c2nWqL7?=
- =?us-ascii?Q?7uz1ybhd3CF+IjuQfy3SuhdiLEeo7SEjVmWJ+uAQdagczDzj3b7Hb07O5a+l?=
- =?us-ascii?Q?5xYcqx0lalobHlU4qBA6AiXNZg0PWZ1WLm1SGvO3Iv7CsPJMk9DNEPYkJ0Ba?=
- =?us-ascii?Q?eDMVNizI7vdGnJGAfv2ZE/Jdqw6eruQfFXb2fxA79JvFznWk6SVxiVNnvBaj?=
- =?us-ascii?Q?YmgCkh0D8cuUo76+DkZxPh6BgMuAr3X37HCeJl8LAS7SxlZUBCEbVcVzsTxS?=
- =?us-ascii?Q?EI3SSWENtEv/amHyTHS7HR65TUB6GzEfF4wHUVUyjqWnRMguy9MIvc442YQU?=
- =?us-ascii?Q?tkkjR66PbS2+M+wotq9DWOg=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bd05bae-d97e-4e97-482c-08dad3b096ec
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB6952.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2022 15:27:42.7067 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V5D+8ClwIOV4xe9QFJQO+8QeNvVVhTjXhcViXQ/NGigo61uPUBsLenxELQg0F02Q1a3nFywory7vgMXCheqel9wSjV/F1w7QNj5UTdYUTR32uCMbi00cZu6tRptjgS+B
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB4892
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v8 22/22] drm/i915/vm_bind: Support capture
- of persistent mappings
+X-Microsoft-Antispam-Message-Info: zM0XEtkIjUk2Ja42WyfvxeUuTHSutCiwKWGcOuIPFqLGFB9ApOm1Vli8HaCHJSvJyI99oomYzKzJUiZl6yO+aB280iCpyGaKh5v5sYsf/A/vbQ1YxBZn+2HNYFN8WN6j4j8hOVEPflw+IOMKjo21e2iv/nDVr4jPZyFjhgZGYvQeB4va9Jz08Kl891uPyL8QU7WuPO64TvvgRW8/4+n89m9GHD6kVekOUlmMS6y2Ol8ew8j5igOD0i22hCVpjmfW7hNEHvOZDvCDhe/XPL6L0IWzlis9KSL2ukQp/ftyRIgVmGgdscqzC5/nHID22Jsfpjj+kJP51WSK7WLnpWolnx2rJP0ghtHyfER/miMZFXTNPBlwEJ9Ub5PF5Y0caKsmUsZfvlxHjDNcLQXirpKaxeo1EXtl6EI5wlCYcY+CBOdzJLMfRhYXWEfrVzo/v0sWVGNrqYIQEntmj1nB/i6Q2++4xv/JnMr1cj8Vgh0+1JlP+UrRlwHyvsegqgXZYAke+LHLBR4NNaVIS+YFXn5btSOOFKLRypenK4iof9+tjCrLQE0QdKCVcFTrYeFpJezffZ/eVWaZ8G5t+V13wlzpFSdvxr9tzQOA9jRMX6D+pu8uf+10vpPf93glfaN3xtAGs4nG6R1sc0czdlGn3EZsDQD2pOYMB97DI80KzfhZBLvxgku4SG9R2oip1EtHoTyhm5ff5fDXq5hZxAT1ZaIytsIwHMDeok5u5saFICSH8J8=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(376002)(346002)(39860400002)(396003)(451199015)(40470700004)(36840700001)(46966006)(66899015)(36756003)(82310400005)(40480700001)(36860700001)(6666004)(7696005)(16526019)(426003)(47076005)(26005)(1076003)(2616005)(83380400001)(41300700001)(86362001)(8936002)(2906002)(5660300002)(356005)(81166007)(336012)(54906003)(316002)(6916009)(186003)(478600001)(70586007)(70206006)(40460700003)(82740400003)(8676002)(4326008)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2022 10:57:13.3848 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 219552b0-a752-491b-6ce5-08dad1f878c0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000EE3F.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6329
+X-Mailman-Approved-At: Thu, 01 Dec 2022 15:58:17 +0000
+Subject: [Intel-gfx] [PATCH v4] drm: Optimise for continuous memory
+ allocation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,187 +100,228 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- thomas.hellstrom@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com
+Cc: arunpravin.paneerselvam@amd.com, intel-gfx@lists.freedesktop.org, xinhui
+ pan <xinhui.pan@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, matthew.auld@intel.com, daniel@ffwll.ch,
+ christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 01, 2022 at 10:49:15AM +0000, Matthew Auld wrote:
->On 29/11/2022 07:26, Niranjana Vishwanathapura wrote:
->>Support dump capture of persistent mappings upon user request.
->>
->>Signed-off-by: Brian Welty <brian.welty@intel.com>
->>Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
->>---
->>  .../drm/i915/gem/i915_gem_vm_bind_object.c    | 11 +++++++++++
->>  drivers/gpu/drm/i915/gt/intel_gtt.c           |  3 +++
->>  drivers/gpu/drm/i915/gt/intel_gtt.h           |  5 +++++
->>  drivers/gpu/drm/i915/i915_gpu_error.c         | 19 +++++++++++++++++++
->>  drivers/gpu/drm/i915/i915_vma.c               |  1 +
->>  drivers/gpu/drm/i915/i915_vma_types.h         |  2 ++
->>  include/uapi/drm/i915_drm.h                   |  3 ++-
->>  7 files changed, 43 insertions(+), 1 deletion(-)
->>
->>diff --git a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
->>index 78e7c0642c5f..50969613daf6 100644
->>--- a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
->>+++ b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
->>@@ -88,6 +88,11 @@ static void i915_gem_vm_bind_remove(struct i915_vma *vma, bool release_obj)
->>  {
->>  	lockdep_assert_held(&vma->vm->vm_bind_lock);
->>+	spin_lock(&vma->vm->vm_capture_lock);
->>+	if (!list_empty(&vma->vm_capture_link))
->>+		list_del_init(&vma->vm_capture_link);
->>+	spin_unlock(&vma->vm->vm_capture_lock);
->>+
->>  	spin_lock(&vma->vm->vm_rebind_lock);
->>  	if (!list_empty(&vma->vm_rebind_link))
->>  		list_del_init(&vma->vm_rebind_link);
->>@@ -357,6 +362,12 @@ static int i915_gem_vm_bind_obj(struct i915_address_space *vm,
->>  				continue;
->>  		}
->>+		if (va->flags & I915_GEM_VM_BIND_CAPTURE) {
->>+			spin_lock(&vm->vm_capture_lock);
->>+			list_add_tail(&vma->vm_capture_link, &vm->vm_capture_list);
->>+			spin_unlock(&vm->vm_capture_lock);
->>+		}
->>+
->>  		list_add_tail(&vma->vm_bind_link, &vm->vm_bound_list);
->>  		i915_vm_bind_it_insert(vma, &vm->va);
->>  		if (!obj->priv_root)
->>diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
->>index ebf6830574a0..bdabe13fc30e 100644
->>--- a/drivers/gpu/drm/i915/gt/intel_gtt.c
->>+++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
->>@@ -297,6 +297,9 @@ void i915_address_space_init(struct i915_address_space *vm, int subclass)
->>  	spin_lock_init(&vm->vm_rebind_lock);
->>  	spin_lock_init(&vm->userptr_invalidated_lock);
->>  	INIT_LIST_HEAD(&vm->userptr_invalidated_list);
->>+
->>+	INIT_LIST_HEAD(&vm->vm_capture_list);
->>+	spin_lock_init(&vm->vm_capture_lock);
->>  }
->>  void *__px_vaddr(struct drm_i915_gem_object *p)
->>diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
->>index 87e5b6568a00..8e4ddd073348 100644
->>--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
->>+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
->>@@ -281,6 +281,11 @@ struct i915_address_space {
->>  	/** @root_obj: root object for dma-resv sharing by private objects */
->>  	struct drm_i915_gem_object *root_obj;
->>+	/* @vm_capture_list: list of vm captures */
->>+	struct list_head vm_capture_list;
->>+	/* @vm_capture_lock: protects vm_capture_list */
->>+	spinlock_t vm_capture_lock;
->>+
->>  	/* Global GTT */
->>  	bool is_ggtt:1;
->>diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
->>index 9d5d5a397b64..3b2b12a739f7 100644
->>--- a/drivers/gpu/drm/i915/i915_gpu_error.c
->>+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
->>@@ -1460,6 +1460,22 @@ capture_vma(struct intel_engine_capture_vma *next,
->>  	return next;
->>  }
->>+static struct intel_engine_capture_vma *
->>+capture_user_vm(struct intel_engine_capture_vma *capture,
->>+		struct i915_address_space *vm, gfp_t gfp)
->>+{
->>+	struct i915_vma *vma;
->>+
->>+	spin_lock(&vm->vm_capture_lock);
->
->Does it make sense to move this into the eb3 submission stage, like we 
->do for eb2? IIRC the gfp flags here are quite limiting due to 
->potentially being in a fence critical section. If we can use 
->rq->capture_list for eb3, we shouldn't need to change much here?
->
+Currently drm-buddy does not have full knowledge of continuous memory.
 
-But that will add latency on submission path as we will have to iterate
-over capture_list in each submission. Besides, unlike eb2 case, we can't
-just transfer the list to rq->capture_list as we will have to do this
-for each submission. It was discussed long time back and decided not to
-bother the fast path (submision) scenario with this error capture which
-is only required upon gpu hang (slow path).
+Lets consider scenario below.
+order 1:    L		    R
+order 0: LL	LR	RL	RR
+for order 1 allocation, it can offer L or R or LR+RL.
 
->Also there is the existing CONFIG_DRM_I915_CAPTURE_ERROR. Should we 
->take that into account?
->
+For now, we only implement L or R case for continuous memory allocation.
+So this patch aims to implement the rest cases.
 
-Ok, will fix.
+Adding a new member leaf_link which links all leaf blocks in asceding
+order. Now we can find more than 2 sub-order blocks easier.
+Say, order 4 can be combined with corresponding order 4, 2+2, 1+2+1,
+0+1+2+0, 0+2+1+0.
 
->>+	/* vma->resource must be valid here as persistent vmas are bound */
->>+	list_for_each_entry(vma, &vm->vm_capture_list, vm_capture_link)
->>+		capture = capture_vma_snapshot(capture, vma->resource,
->>+					       gfp, "user");
->>+	spin_unlock(&vm->vm_capture_lock);
->>+
->>+	return capture;
->>+}
->>+
->>  static struct intel_engine_capture_vma *
->>  capture_user(struct intel_engine_capture_vma *capture,
->>  	     const struct i915_request *rq,
->>@@ -1471,6 +1487,9 @@ capture_user(struct intel_engine_capture_vma *capture,
->>  		capture = capture_vma_snapshot(capture, c->vma_res, gfp,
->>  					       "user");
->>+	capture = capture_user_vm(capture, rq->context->vm,
->>+				  GFP_NOWAIT | __GFP_NOWARN);
->
->And this should maybe use the passed in gfp?
->
+Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+---
+change from v3:
+reworked totally. adding leaf_link.
 
-Ok, will fix
+change from v2:
+search continuous block in nearby root if needed
 
->>+
->>  	return capture;
->>  }
->>diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
->>index 68a9ac77b4f2..0244864e94f7 100644
->>--- a/drivers/gpu/drm/i915/i915_vma.c
->>+++ b/drivers/gpu/drm/i915/i915_vma.c
->>@@ -248,6 +248,7 @@ vma_create(struct drm_i915_gem_object *obj,
->>  	INIT_LIST_HEAD(&vma->non_priv_vm_bind_link);
->>  	INIT_LIST_HEAD(&vma->vm_rebind_link);
->>  	INIT_LIST_HEAD(&vma->userptr_invalidated_link);
->>+	INIT_LIST_HEAD(&vma->vm_capture_link);
->>  	return vma;
->>  err_unlock:
->>diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
->>index 90471dc0b235..10ae9f739d57 100644
->>--- a/drivers/gpu/drm/i915/i915_vma_types.h
->>+++ b/drivers/gpu/drm/i915/i915_vma_types.h
->>@@ -309,6 +309,8 @@ struct i915_vma {
->>  	struct list_head vm_rebind_link; /* Link in vm_rebind_list */
->>  	/** @userptr_invalidated_link: link to the vm->userptr_invalidated_list */
->>  	struct list_head userptr_invalidated_link;
->>+	/* @vm_capture_link: link to the captureable VMA list */
->>+	struct list_head vm_capture_link;
->>  	/** Timeline fence for vm_bind completion notification */
->>  	struct {
->>diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
->>index b9167f950327..0744651ad5b0 100644
->>--- a/include/uapi/drm/i915_drm.h
->>+++ b/include/uapi/drm/i915_drm.h
->>@@ -3930,7 +3930,8 @@ struct drm_i915_gem_vm_bind {
->>  	 * Note that @fence carries its own flags.
->>  	 */
->>  	__u64 flags;
->>-#define __I915_GEM_VM_BIND_UNKNOWN_FLAGS (~0ull)
->>+#define I915_GEM_VM_BIND_CAPTURE           (1 << 0)
->
->1ull << 0
->
->Worried about what the value of UNKNOWN_FLAGS might be otherwise? Also 
->needs some kernel-doc.
->
+change from v1:
+implement top-down continuous allocation
+---
+ drivers/gpu/drm/drm_buddy.c | 108 +++++++++++++++++++++++++++++++++---
+ include/drm/drm_buddy.h     |   1 +
+ 2 files changed, 102 insertions(+), 7 deletions(-)
 
-Ok, will fix and add kernel-doc.
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index 11bb59399471..8edafb99b02c 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -80,6 +80,7 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+ {
+ 	unsigned int i;
+ 	u64 offset;
++	LIST_HEAD(leaf);
+ 
+ 	if (size < chunk_size)
+ 		return -EINVAL;
+@@ -136,6 +137,7 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+ 			goto out_free_roots;
+ 
+ 		mark_free(mm, root);
++		list_add_tail(&root->leaf_link, &leaf);
+ 
+ 		BUG_ON(i > mm->max_order);
+ 		BUG_ON(drm_buddy_block_size(mm, root) < chunk_size);
+@@ -147,6 +149,7 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+ 		i++;
+ 	} while (size);
+ 
++	list_del(&leaf);
+ 	return 0;
+ 
+ out_free_roots:
+@@ -205,6 +208,9 @@ static int split_block(struct drm_buddy *mm,
+ 	mark_free(mm, block->left);
+ 	mark_free(mm, block->right);
+ 
++	list_add(&block->right->leaf_link, &block->leaf_link);
++	list_add(&block->left->leaf_link, &block->leaf_link);
++	list_del(&block->leaf_link);
+ 	mark_split(block);
+ 
+ 	return 0;
+@@ -256,6 +262,9 @@ static void __drm_buddy_free(struct drm_buddy *mm,
+ 			break;
+ 
+ 		list_del(&buddy->link);
++		list_add(&parent->leaf_link, &block->leaf_link);
++		list_del(&buddy->leaf_link);
++		list_del(&block->leaf_link);
+ 
+ 		drm_block_free(mm, block);
+ 		drm_block_free(mm, buddy);
+@@ -386,6 +395,78 @@ alloc_range_bias(struct drm_buddy *mm,
+ 	return ERR_PTR(err);
+ }
+ 
++static struct drm_buddy_block *
++find_continuous_blocks(struct drm_buddy *mm,
++		       int order,
++		       unsigned long flags,
++		       struct drm_buddy_block **rblock)
++{
++	struct list_head *head = &mm->free_list[order];
++	struct drm_buddy_block *free_block, *max_block = NULL, *end, *begin;
++	u64 pages = BIT(order + 1);
++	u64 cur_pages;
++
++	list_for_each_entry(free_block, head, link) {
++		if (max_block) {
++			if (!(flags & DRM_BUDDY_TOPDOWN_ALLOCATION))
++				break;
++
++			if (drm_buddy_block_offset(free_block) <
++			    drm_buddy_block_offset(max_block))
++				continue;
++		}
++
++		cur_pages = BIT(order);
++		begin = end = free_block;
++		while (true) {
++			struct drm_buddy_block *prev, *next;
++			int prev_order, next_order;
++
++			prev = list_prev_entry(begin, leaf_link);
++			if (!drm_buddy_block_is_free(prev) ||
++			    drm_buddy_block_offset(prev) >
++			    drm_buddy_block_offset(begin)) {
++				prev = NULL;
++			}
++			next = list_next_entry(end, leaf_link);
++			if (!drm_buddy_block_is_free(next) ||
++			    drm_buddy_block_offset(next) <
++			    drm_buddy_block_offset(end)) {
++				next = NULL;
++			}
++			if (!prev && !next)
++				break;
++
++			prev_order = prev ? drm_buddy_block_order(prev) : -1;
++			next_order = next ? drm_buddy_block_order(next) : -1;
++			if (next_order >= prev_order) {
++				BUG_ON(drm_buddy_block_offset(end) +
++				       drm_buddy_block_size(mm, end) !=
++				       drm_buddy_block_offset(next));
++				end = next;
++				cur_pages += BIT(drm_buddy_block_order(next));
++			}
++			if (prev_order >= next_order) {
++				BUG_ON(drm_buddy_block_offset(prev) +
++				       drm_buddy_block_size(mm, prev) !=
++				       drm_buddy_block_offset(begin));
++				begin = prev;
++				cur_pages += BIT(drm_buddy_block_order(prev));
++			}
++			if (pages == cur_pages)
++				break;
++			BUG_ON(pages < cur_pages);
++		}
++
++		if (pages > cur_pages)
++			continue;
++
++		*rblock = end;
++		max_block = begin;
++	}
++	return max_block;
++}
++
+ static struct drm_buddy_block *
+ get_maxblock(struct list_head *head)
+ {
+@@ -637,7 +718,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 			   struct list_head *blocks,
+ 			   unsigned long flags)
+ {
+-	struct drm_buddy_block *block = NULL;
++	struct drm_buddy_block *block = NULL, *rblock = NULL;
+ 	unsigned int min_order, order;
+ 	unsigned long pages;
+ 	LIST_HEAD(allocated);
+@@ -689,17 +770,30 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 				break;
+ 
+ 			if (order-- == min_order) {
++				if (!(flags & DRM_BUDDY_RANGE_ALLOCATION) &&
++				    min_order != 0 && pages == BIT(order + 1)) {
++					block = find_continuous_blocks(mm,
++								       order,
++								       flags,
++								       &rblock);
++					if (block)
++						break;
++				}
+ 				err = -ENOSPC;
+ 				goto err_free;
+ 			}
+ 		} while (1);
+ 
+-		mark_allocated(block);
+-		mm->avail -= drm_buddy_block_size(mm, block);
+-		kmemleak_update_trace(block);
+-		list_add_tail(&block->link, &allocated);
+-
+-		pages -= BIT(order);
++		do {
++			mark_allocated(block);
++			mm->avail -= drm_buddy_block_size(mm, block);
++			kmemleak_update_trace(block);
++			list_add_tail(&block->link, &allocated);
++			pages -= BIT(drm_buddy_block_order(block));
++			if (block == rblock || !rblock)
++				break;
++			block = list_next_entry(block, leaf_link);
++		} while (true);
+ 
+ 		if (!pages)
+ 			break;
+diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+index 572077ff8ae7..c5437bd4f4f3 100644
+--- a/include/drm/drm_buddy.h
++++ b/include/drm/drm_buddy.h
+@@ -50,6 +50,7 @@ struct drm_buddy_block {
+ 	 */
+ 	struct list_head link;
+ 	struct list_head tmp_link;
++	struct list_head leaf_link;
+ };
+ 
+ /* Order-zero must be at least PAGE_SIZE */
+-- 
+2.34.1
 
-Thanks,
-Niranjana
-
->>+#define __I915_GEM_VM_BIND_UNKNOWN_FLAGS   (-(I915_GEM_VM_BIND_CAPTURE << 1))
->>  	/** @rsvd: Reserved, MBZ */
->>  	__u64 rsvd[2];
