@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E1CC433FE
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 07:28:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF777C433FE
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Nov 2022 07:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47EC610E397;
-	Tue, 29 Nov 2022 07:27:41 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03D0110E36F;
- Tue, 29 Nov 2022 07:26:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AD5210E394;
+	Tue, 29 Nov 2022 07:51:25 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 245A710E394
+ for <intel-gfx@lists.freedesktop.org>; Tue, 29 Nov 2022 07:51:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669706809; x=1701242809;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=WkKxo1kxHijGvj6/RQEYU1WvMNRrkhFeNoQtaINPDb0=;
- b=Pj+IH/Y0KS5m+zg4wg1X2Lfi3TkKtN9xmzX73e2NhV+a7F+UxJ5dxTjr
- AT9ykyk4yLVbItsGTqncSfTMWMbjHz1zwQ1PHhsNu6XA9vfaCCNzyv+MV
- VPaUQKpEVpDdjm/XScMhi+g+Hx7TRLv0kSlmE9nTw43kDMe3HH+3t6lWB
- zUCkJdVExPRIFtF4Vs5m5bsOVtl+61kIaFuBfSsacUPZ+nNnL4OjEmVeT
- WBoPiB6yWB9wk6r/LACGw8h/ETy51mKjhZHLW6T6xVLiN3nVwVtUFNRJf
- YyO8mSAjDlgNbBr+J2rUcgmu5/UJ5KC9WLrW8Kwee7zmuHfvJodXfZLNh A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="295418365"
-X-IronPort-AV: E=Sophos;i="5.96,202,1665471600"; d="scan'208";a="295418365"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 23:26:45 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="674525593"
-X-IronPort-AV: E=Sophos;i="5.96,202,1665471600"; d="scan'208";a="674525593"
-Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2022 23:26:45 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Mon, 28 Nov 2022 23:26:26 -0800
-Message-Id: <20221129072635.847-14-niranjana.vishwanathapura@intel.com>
-X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
-In-Reply-To: <20221129072635.847-1-niranjana.vishwanathapura@intel.com>
-References: <20221129072635.847-1-niranjana.vishwanathapura@intel.com>
+ t=1669708281; x=1701244281;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=fpu4pg6c1lSvNsm3+1b5dTqAR0Le/RMcCuWLIj930OI=;
+ b=m5/qbk4t/ayK+Syc/5J8acI3pjIWPzwjm2j7QGljiaiXrnsUpicdAjRc
+ xmSojROmdkVzti1odtZIgILcxspFzBUoDadRPUG68UAhwdZfGwp3ZDiok
+ EMT52kPfuRdlxSvUB8qRglQfm0d5CJxS6FvtMSrsKhRS6aJIiVtyom9jZ
+ UCz0jv5cnlNVos6LVsdfKKW7UHkuK2tB55rbitiGSW6MrPGrwHlq+jL9p
+ 144saNdT3f4qCCScdBDNFIJvIknp18bvIzXOJM/X60TJhdFGNdkAb+dHl
+ 5qMrSF8jyOr+VOdzE21O8ERsyY5Yx4DdIoH1lf6yH7JGssDTj26J7qbZx Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="377191864"
+X-IronPort-AV: E=Sophos;i="5.96,202,1665471600"; d="scan'208";a="377191864"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2022 23:51:20 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10545"; a="818128783"
+X-IronPort-AV: E=Sophos;i="5.96,202,1665471600"; d="scan'208";a="818128783"
+Received: from schoenfm-mobl1.ger.corp.intel.com (HELO
+ jhogande-mobl1.ger.corp.intel.com) ([10.249.35.11])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2022 23:51:18 -0800
+From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 29 Nov 2022 09:51:00 +0200
+Message-Id: <20221129075100.56655-1-jouni.hogander@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 13/22] drm/i915/vm_bind: Update
- i915_vma_verify_bind_complete()
+Subject: [Intel-gfx] [PATCH] drm/i915/psr: Add continuous full frame bit
+ together with single
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,80 +58,92 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
- matthew.auld@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ensure i915_vma_verify_bind_complete() handles case where bind
-is not initiated. Also make it non static, add documentation
-and move it out of CONFIG_DRM_I915_DEBUG_GEM.
+Currently we are observing occasionally display flickering or complete
+freeze. This is narrowed down to be caused by single full frame update
+(SFF).
 
-v2: Fix fence leak
+SFF bit after it's written gets cleared by HW in subsequent vblank
+i.e. when the update is sent to the panel. SFF bit is required to be
+written together with partial frame update (PFU) bit. After the SFF
+bit gets cleared by the HW psr2 man trk ctl register still contains
+PFU bit. If there is subsequent update for any reason we will end up
+having selective update/fetch configuration where start line is 0 and
+end line is 0. Also selective fetch configuration for the planes is
+not properly performed. This seems to be causing problems with some
+panels.
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Using CFF without SFF doesn't work either because it may happen that
+psr2 man track ctl register is overwritten by next update before
+vblank triggers sending the update. This is causing problems to
+psr_invalidate/flush. Using CFF and SFF together solves the problems
+as SFF is cleared only by HW in subsequent vblank.
+
+Fix the flickering/freeze issue by adding continuous full frame with
+single full frame update and switch to partial frame update only when
+selective update area is properly calculated and configured.
+
+This is also workaround for HSD 14014971508
+
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: José Roberto de Souza <jose.souza@intel.com>
+Cc: Mika Kahola <mika.kahola@intel.com>
+
+Reported-by: Lee Shawn C <shawn.c.lee@intel.com>
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/i915_vma.c | 22 ++++++++++++++++------
- drivers/gpu/drm/i915/i915_vma.h |  1 +
- 2 files changed, 17 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index c29e22b1cfea..e382c8a6cac4 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -441,12 +441,25 @@ int i915_vma_sync(struct i915_vma *vma)
- 	return i915_vm_sync(vma->vm);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 5b678916e6db..88388201684e 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1510,7 +1510,8 @@ static void psr_force_hw_tracking_exit(struct intel_dp *intel_dp)
+ 			       PSR2_MAN_TRK_CTL(intel_dp->psr.transcoder),
+ 			       man_trk_ctl_enable_bit_get(dev_priv) |
+ 			       man_trk_ctl_partial_frame_bit_get(dev_priv) |
+-			       man_trk_ctl_single_full_frame_bit_get(dev_priv));
++			       man_trk_ctl_single_full_frame_bit_get(dev_priv) |
++			       man_trk_ctl_continuos_full_frame(dev_priv));
  
--#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
--static int i915_vma_verify_bind_complete(struct i915_vma *vma)
-+/**
-+ * i915_vma_verify_bind_complete() - Check for the bind completion of the vma
-+ * @vma: vma to check for bind completion
-+ *
-+ * As the fence reference is obtained under RCU, no locking is required by
-+ * the caller.
-+ *
-+ * Returns: 0 if the vma bind is completed. Error code otherwise.
-+ */
-+int i915_vma_verify_bind_complete(struct i915_vma *vma)
- {
--	struct dma_fence *fence = i915_active_fence_get(&vma->active.excl);
-+	struct dma_fence *fence;
- 	int err;
+ 	/*
+ 	 * Display WA #0884: skl+
+@@ -1624,11 +1625,8 @@ static void psr2_man_trk_ctl_calc(struct intel_crtc_state *crtc_state,
+ 	val |= man_trk_ctl_partial_frame_bit_get(dev_priv);
  
-+	/* Ensure vma bind is initiated */
-+	if (!i915_vma_is_bound(vma, I915_VMA_BIND_MASK))
-+		return -EINVAL;
-+
-+	fence = i915_active_fence_get(&vma->active.excl);
- 	if (!fence)
- 		return 0;
+ 	if (full_update) {
+-		/*
+-		 * Not applying Wa_14014971508:adlp as we do not support the
+-		 * feature that requires this workaround.
+-		 */
+ 		val |= man_trk_ctl_single_full_frame_bit_get(dev_priv);
++		val |= man_trk_ctl_continuos_full_frame(dev_priv);
+ 		goto exit;
+ 	}
  
-@@ -459,9 +472,6 @@ static int i915_vma_verify_bind_complete(struct i915_vma *vma)
+@@ -2307,12 +2305,15 @@ static void _psr_flush_handle(struct intel_dp *intel_dp)
+ 			/* can we turn CFF off? */
+ 			if (intel_dp->psr.busy_frontbuffer_bits == 0) {
+ 				u32 val = man_trk_ctl_enable_bit_get(dev_priv) |
+-					  man_trk_ctl_partial_frame_bit_get(dev_priv) |
+-					  man_trk_ctl_single_full_frame_bit_get(dev_priv);
++					man_trk_ctl_partial_frame_bit_get(dev_priv) |
++					man_trk_ctl_single_full_frame_bit_get(dev_priv) |
++					man_trk_ctl_continuos_full_frame(dev_priv);
  
- 	return err;
- }
--#else
--#define i915_vma_verify_bind_complete(_vma) 0
--#endif
- 
- I915_SELFTEST_EXPORT void
- i915_vma_resource_init_from_vma(struct i915_vma_resource *vma_res,
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index 25e4aa69cd89..9a411a79badd 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -441,6 +441,7 @@ void i915_vma_make_purgeable(struct i915_vma *vma);
- 
- int i915_vma_wait_for_bind(struct i915_vma *vma);
- int i915_vma_sync(struct i915_vma *vma);
-+int i915_vma_verify_bind_complete(struct i915_vma *vma);
- 
- /**
-  * i915_vma_get_current_resource - Get the current resource of the vma
+ 				/*
+-				 * turn continuous full frame off and do a single
+-				 * full frame
++				 * turn continuous full frame off and do a single full frame. Still
++				 * keep cff bit enabled as we don't have proper SU configuration in
++				 * case update is sent for any reason after sff bit gets cleared by
++				 * the HW on next vblank.
+ 				 */
+ 				intel_de_write(dev_priv, PSR2_MAN_TRK_CTL(intel_dp->psr.transcoder),
+ 					       val);
 -- 
-2.21.0.rc0.32.g243a4c7e27
+2.34.1
 
