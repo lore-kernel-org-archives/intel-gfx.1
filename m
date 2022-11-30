@@ -4,51 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB2E9C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 13:49:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08A3BC433FE
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 14:06:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 085D310E45F;
-	Wed, 30 Nov 2022 13:49:18 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 152D610E459;
- Wed, 30 Nov 2022 13:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669816150; x=1701352150;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=EyJFPG6PhV/AwdfzlcYIAHQ0QmtsikwhVNregiJywak=;
- b=W6k2S1Pgs1JtmKpFI2qJvzwzACxulY1RmXNqcm0O432WGIjGJiTwpTCm
- 3qoKfHEdNRtiMMRQGecDTwMUvH5V5W5iamVmmwMwr5G2QW2J5g/hTe+0N
- My3LmaUn2/a0sLhNO0/KiyjXGYcshaYI4HMjDXdpvvXkl8sSMo2Ko9nAX
- q5v8u4IOJti8jGo8qwRy+7l9HT/P721xThXq5cVJVoA/9pAIetyt80oz3
- 1GK+tcFM/n+QzSsKWh5he2UFdDVsnF2Veob2/hksuqbUpAX5yoHpozUrg
- lk806IluZOfM2L4iUMP/H9+h//MOf/EAr/B6YXLDCC0yfvFQ3WQUyl1sQ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10547"; a="298769785"
-X-IronPort-AV: E=Sophos;i="5.96,206,1665471600"; d="scan'208";a="298769785"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2022 05:48:17 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10546"; a="676825898"
-X-IronPort-AV: E=Sophos;i="5.96,206,1665471600"; d="scan'208";a="676825898"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga001.jf.intel.com with ESMTP; 30 Nov 2022 05:48:12 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 89D29179; Wed, 30 Nov 2022 15:48:39 +0200 (EET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mathias Nyman <mathias.nyman@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Date: Wed, 30 Nov 2022 15:48:35 +0200
-Message-Id: <20221130134838.23805-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DE5410E46A;
+	Wed, 30 Nov 2022 14:06:18 +0000 (UTC)
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C79410E46B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Nov 2022 14:06:15 +0000 (UTC)
+Received: by mail-pj1-x1035.google.com with SMTP id
+ q17-20020a17090aa01100b002194cba32e9so2063842pjp.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Nov 2022 06:06:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=c+w1CB5xGwRz+sGqhDvoeBpotJLJv3AvOhdkFgNyxWw=;
+ b=MD5v08Ibj5XNOKlKXscF8lS0TL4Amkkm0ESrPONzMB7T7EefzMF8nPzvfw10V8JfHL
+ 0CtMsriBCkR4v6Qult+ueTCvoBGhmw+xEBqjOqTaPht1S9JrQ8XYAWWMIlqe8UooRrYJ
+ Z1nwazl7vUaqagUTf2w90722cXkh3p83UyiZs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=c+w1CB5xGwRz+sGqhDvoeBpotJLJv3AvOhdkFgNyxWw=;
+ b=QYN9lRKO1T6Uk4d0IMU/woNLCY18YOpEzvHnKwqu9CCf9RaY+UvV+yOxexUEHaSRtU
+ oy374MnCqWOp68nXqYZbLi/X0oXuQSPBRfWMWctSyRUK+YHsLaz8tDy997GW0A10Trs+
+ gJm/1iiQVCbkzpqOwyXNrB9q7+Kjvz56RR8t3shRUdYmW0rC3FI6r3vYYUtNo8nRCKF4
+ JuBhwgzzTe8lhN6PHA0Taw77ayegr2vzQfbP2ME2cLP6wVxcaZ131sL7lTrltgdSNJNN
+ oFjqok5bcsKC2i+m4DJnRdGBltuQEQnKYLgUtQZwmuDhDmow39zdyNFDH55F1hlIRbap
+ LsQg==
+X-Gm-Message-State: ANoB5plgYCJCNYC8R4zHZTdxq3dnsDU5bWfThi6ivc++tHh9qkRQnTqv
+ SUB32QBguzncvo9Q6qRSHUJ5/lLD4zLGBRHLfCRBCBH71l4=
+X-Google-Smtp-Source: AA0mqf6Cge/4u+9gze2KtWfVZZyLFzbW2NVD+mbREm2cL/+UzrqplcEE41lrFeXbYJn9cZjDjnXT/j+9vxjPiXW1DwQ=
+X-Received: by 2002:a17:902:820c:b0:189:505b:73dd with SMTP id
+ x12-20020a170902820c00b00189505b73ddmr35150355pln.143.1669817175110; Wed, 30
+ Nov 2022 06:06:15 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 1/4] i915: Move list_count() to list.h as
- list_count_nodes() for broader use
+References: <20221125102137.1801-1-christian.koenig@amd.com>
+ <20221125102137.1801-7-christian.koenig@amd.com>
+ <d92312af-3c84-8bd9-108b-719fb1ec3a6b@linux.intel.com>
+ <CAM0jSHMKBb3orp8Ez4sC8TNcjPZF9y-4e12Jy6SPqbJonhYVhw@mail.gmail.com>
+ <d03545c9-d0cb-5bdb-24e8-9eadcda51b83@linux.intel.com>
+In-Reply-To: <d03545c9-d0cb-5bdb-24e8-9eadcda51b83@linux.intel.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 30 Nov 2022 15:06:03 +0100
+Message-ID: <CAKMK7uHf1yvpS5JWzF2JASkXuZwyvpzWw66w9sYe19_+VqMHeA@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 7/9] drm/i915: stop using ttm_bo_wait
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,88 +68,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kevin Cernekee <cernekee@gmail.com>,
- Mathias Nyman <mathias.nyman@intel.com>, Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some of the existing users, and definitely will be new ones, want to
-count existing nodes in the list. Provide a generic API for that by
-moving code from i915 to list.h.
+On Wed, 30 Nov 2022 at 14:03, Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
+> On 29/11/2022 18:05, Matthew Auld wrote:
+> > On Fri, 25 Nov 2022 at 11:14, Tvrtko Ursulin
+> > <tvrtko.ursulin@linux.intel.com> wrote:
+> >>
+> >>
+> >> + Matt
+> >>
+> >> On 25/11/2022 10:21, Christian K=C3=B6nig wrote:
+> >>> TTM is just wrapping core DMA functionality here, remove the mid-laye=
+r.
+> >>> No functional change.
+> >>>
+> >>> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >>> ---
+> >>>    drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 9 ++++++---
+> >>>    1 file changed, 6 insertions(+), 3 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/dr=
+m/i915/gem/i915_gem_ttm.c
+> >>> index 5247d88b3c13..d409a77449a3 100644
+> >>> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> >>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> >>> @@ -599,13 +599,16 @@ i915_ttm_resource_get_st(struct drm_i915_gem_ob=
+ject *obj,
+> >>>    static int i915_ttm_truncate(struct drm_i915_gem_object *obj)
+> >>>    {
+> >>>        struct ttm_buffer_object *bo =3D i915_gem_to_ttm(obj);
+> >>> -     int err;
+> >>> +     long err;
+> >>>
+> >>>        WARN_ON_ONCE(obj->mm.madv =3D=3D I915_MADV_WILLNEED);
+> >>>
+> >>> -     err =3D ttm_bo_wait(bo, true, false);
+> >>> -     if (err)
+> >>> +     err =3D dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOO=
+KKEEP,
+> >>> +                                 true, 15 * HZ);
+> >>
+> >> This 15 second stuck out a bit for me and then on a slightly deeper lo=
+ok
+> >> it seems this timeout will "leak" into a few of i915 code paths. If we
+> >> look at the difference between the legacy shmem and ttm backend I am n=
+ot
+> >> sure if the legacy one is blocking or not - but if it can block I don'=
+t
+> >> think it would have an arbitrary timeout like this. Matt your thoughts=
+?
+> >
+> > Not sure what is meant by leak here, but the legacy shmem must also
+> > wait/block when unbinding each VMA, before calling truncate. It's the
+>
+> By "leak" I meant if 15s timeout propagates into some code paths visible
+> from userspace which with a legacy backend instead have an indefinite
+> wait. If we have that it's probably not very good to have this
+> inconsistency, or to apply an arbitrary timeout to those path to start wi=
+th.
+>
+> > same story for the ttm backend, except slightly more complicated in
+> > that there might be no currently bound VMA, and yet the GPU could
+> > still be accessing the pages due to async unbinds, kernel moves etc,
+> > which the wait here (and in i915_ttm_shrink) is meant to protect
+> > against. If the wait times out it should just fail gracefully. I guess
+> > we could just use MAX_SCHEDULE_TIMEOUT here? Not sure if it really
+> > matters though.
+>
+> Right, depends if it can leak or not to userspace and diverge between
+> backends.
 
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
-v5: added tag (Lucas), renamed API to list_count_nodes() (LKP)
-v4: fixed prototype when converting to static inline
-v3: added tag (Jani), changed to be static inline (Mike)
-v2: dropped the duplicate code in i915 (LKP)
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 15 ++-------------
- include/linux/list.h                      | 15 +++++++++++++++
- 2 files changed, 17 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 1f7188129cd1..370164363b0d 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -2004,17 +2004,6 @@ static void print_request_ring(struct drm_printer *m, struct i915_request *rq)
- 	}
- }
- 
--static unsigned long list_count(struct list_head *list)
--{
--	struct list_head *pos;
--	unsigned long count = 0;
--
--	list_for_each(pos, list)
--		count++;
--
--	return count;
--}
--
- static unsigned long read_ul(void *p, size_t x)
- {
- 	return *(unsigned long *)(p + x);
-@@ -2189,8 +2178,8 @@ void intel_engine_dump(struct intel_engine_cs *engine,
- 	spin_lock_irqsave(&engine->sched_engine->lock, flags);
- 	engine_dump_active_requests(engine, m);
- 
--	drm_printf(m, "\tOn hold?: %lu\n",
--		   list_count(&engine->sched_engine->hold));
-+	drm_printf(m, "\tOn hold?: %zu\n",
-+		   list_count_nodes(&engine->sched_engine->hold));
- 	spin_unlock_irqrestore(&engine->sched_engine->lock, flags);
- 
- 	drm_printf(m, "\tMMIO base:  0x%08x\n", engine->mmio_base);
-diff --git a/include/linux/list.h b/include/linux/list.h
-index 61762054b4be..f10344dbad4d 100644
---- a/include/linux/list.h
-+++ b/include/linux/list.h
-@@ -655,6 +655,21 @@ static inline void list_splice_tail_init(struct list_head *list,
- 	     !list_is_head(pos, (head)); \
- 	     pos = n, n = pos->prev)
- 
-+/**
-+ * list_count_nodes - count nodes in the list
-+ * @head:	the head for your list.
-+ */
-+static inline size_t list_count_nodes(struct list_head *head)
-+{
-+	struct list_head *pos;
-+	size_t count = 0;
-+
-+	list_for_each(pos, head)
-+		count++;
-+
-+	return count;
-+}
-+
- /**
-  * list_entry_is_head - test if the entry points to the head of the list
-  * @pos:	the type * to cursor
--- 
-2.35.1
-
+Generally lock_timeout() is a design bug. It's either
+lock_interruptible (or maybe lock_killable) or try_lock, but
+lock_timeout is just duct-tape. I haven't dug in to figure out what
+should be here, but it smells fishy.
+-Daniel
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
