@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78005C4321E
-	for <intel-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 23:58:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12EACC47088
+	for <intel-gfx@archiver.kernel.org>; Wed, 30 Nov 2022 23:58:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2292A10E50E;
-	Wed, 30 Nov 2022 23:58:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7261510E502;
+	Wed, 30 Nov 2022 23:58:51 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C342A10E4F1;
- Wed, 30 Nov 2022 23:58:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4FD10E50D;
+ Wed, 30 Nov 2022 23:58:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669852715; x=1701388715;
+ t=1669852726; x=1701388726;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=BY5YE/pR9E9mYdt2sW3GuW89/srz4KdATtkQFwl+OCg=;
- b=KJybehK0qgGA+XpVJxeq8xJU2kXc4kOe5KQA3MCPksSqkLo7UL50flmL
- 3oIKCn8gGf0DqDZEZ+svg50n0j7g/9/irJQwDxvEqtICStJvTpajDKtCa
- 9Y4wDnn7Oh0IfSOxJ3pqiQ5mINcwJ1Km0l4+L/hIHmM3De9g29N2oqfJx
- JCSRz1KdSSQ6iS77CAZj0ZcxJGVRwzRTAJPz3S/zcchopfMu0s6iGAihu
- AaZ/7/UU3qMK0jqGX0dcgc3HIAloaEekawgqn8zbl6l133YKT8lv8u1mh
- xfqaSev1zh967Y6CFv+vh7F3sy7iX49XZv2K9I+EfwNqYA29yxbHktvEg Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10547"; a="313168851"
-X-IronPort-AV: E=Sophos;i="5.96,207,1665471600"; d="scan'208";a="313168851"
+ bh=G8ajfFrGRUg7/kyhwJcZqymGTynl00itO8S4we69CT0=;
+ b=LV3qoc7LI3b1entYZKQYCKTeTEcEYKwhQg3obETFbAoRw0J1XtnRq21l
+ 9h1PFk4xLX6GdhQV7qXCKFovzHAlQSLA1Fx6pRgaS5WLgQtdA8Bbrs0gw
+ 5v2aHFtxpDT8YAJGVomF69D9S8a4Nb2H5iSCEINoSgZF4sLeIi8+f36T8
+ ngfXwAPAbon34ySgaPI8P9tZMLSOhIBbzYkVdOshNipCvCtCWY6qTlJAz
+ vdpBa4rHPJ+hR/z17XdhdBSNY+8ynONEXEfL6tFTW+UpTfEB5KmhacZCO
+ MV8/B6jBlRWhr/xsP7v2uR/AGs77w/3NaQjWty21RvhNXh6eB2mTqcBr/ g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10547"; a="313168897"
+X-IronPort-AV: E=Sophos;i="5.96,207,1665471600"; d="scan'208";a="313168897"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2022 15:58:34 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10547"; a="750560909"
-X-IronPort-AV: E=Sophos;i="5.96,207,1665471600"; d="scan'208";a="750560909"
+ 30 Nov 2022 15:58:45 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10547"; a="750560955"
+X-IronPort-AV: E=Sophos;i="5.96,207,1665471600"; d="scan'208";a="750560955"
 Received: from freibold-ivm1.ger.corp.intel.com (HELO intel.com)
  ([10.252.52.161])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2022 15:58:32 -0800
+ 30 Nov 2022 15:58:43 -0800
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu,  1 Dec 2022 00:58:03 +0100
-Message-Id: <20221130235805.221010-4-andi.shyti@linux.intel.com>
+Date: Thu,  1 Dec 2022 00:58:05 +0100
+Message-Id: <20221130235805.221010-6-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221130235805.221010-1-andi.shyti@linux.intel.com>
 References: <20221130235805.221010-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 3/5] drm/i915: Introduce guard pages to
- i915_vma
+Subject: [Intel-gfx] [PATCH v4 5/5] Revert "drm/i915: Improve on suspend /
+ resume time with VT-d enabled"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,300 +65,238 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris@chris-wilson.co.uk>
+This reverts commit 2ef6efa79fecd5e3457b324155d35524d95f2b6b.
 
-Introduce the concept of padding the i915_vma with guard pages before
-and after. The major consequence is that all ordinary uses of i915_vma
-must use i915_vma_offset/i915_vma_size and not i915_vma.node.start/size
-directly, as the drm_mm_node will include the guard pages that surround
-our object.
+Checking the presence if the IRST (Intel Rapid Start Technology)
+through the ACPI to decide whether to rebuild or not the GGTT
+puts us at the mercy of the boot firmware and we need to
+unnecessarily rely on third parties.
 
-The biggest connundrum is how exactly to mix requesting a fixed address
-with guard pages, particularly through the existing uABI. The user does
-not know about guard pages, so such must be transparent to the user, and
-so the execobj.offset must be that of the object itself excluding the
-guard. So a PIN_OFFSET_FIXED must then be exclusive of the guard pages.
-The caveat is that some placements will be impossible with guard pages,
-as wrap arounds need to be avoided, and the vma itself will require a
-larger node. We must not report EINVAL but ENOSPC as these are unavailable
-locations within the GTT rather than conflicting user requirements.
+Because now we avoid adding scratch pages to the entire GGTT we
+don't need this hack anymore.
 
-In the next patch, we start using guard pages for scanout objects. While
-these are limited to GGTT vma, on a few platforms these vma (or at least
-an alias of the vma) is shared with userspace, so we may leak the
-existence of such guards if we are not careful to ensure that the
-execobj.offset is transparent and excludes the guards. (On such platforms
-like ivb, without full-ppgtt, userspace has to use relocations so the
-presence of more untouchable regions within its GTT such be of no further
-issue.)
-
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-Signed-off-by: Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_ggtt.c     | 14 ++++++---
- drivers/gpu/drm/i915/i915_gem_gtt.h      |  3 +-
- drivers/gpu/drm/i915/i915_vma.c          | 40 +++++++++++++++++++-----
- drivers/gpu/drm/i915/i915_vma.h          |  5 +--
- drivers/gpu/drm/i915/i915_vma_resource.c |  4 +--
- drivers/gpu/drm/i915/i915_vma_resource.h |  7 ++++-
- drivers/gpu/drm/i915/i915_vma_types.h    |  1 +
- 7 files changed, 57 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_ggtt.c | 69 ++++++----------------------
+ drivers/gpu/drm/i915/gt/intel_gtt.h  | 24 ----------
+ drivers/gpu/drm/i915/i915_driver.c   | 16 -------
+ 3 files changed, 13 insertions(+), 96 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index 7644738b9cdbe..784d4a8c43ba9 100644
+index fa96d925c2596..5896ac44010b0 100644
 --- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
 +++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -296,8 +296,11 @@ static void gen8_ggtt_insert_entries(struct i915_address_space *vm,
- 	 */
+@@ -27,13 +27,6 @@
+ #include "intel_gtt.h"
+ #include "gen8_ppgtt.h"
  
- 	gte = (gen8_pte_t __iomem *)ggtt->gsm;
--	gte += vma_res->start / I915_GTT_PAGE_SIZE;
--	end = gte + vma_res->node_size / I915_GTT_PAGE_SIZE;
-+	gte += (vma_res->start - vma_res->guard) / I915_GTT_PAGE_SIZE;
-+	end = gte + vma_res->guard / I915_GTT_PAGE_SIZE;
-+	while (gte < end)
-+		gen8_set_pte(gte++, vm->scratch[0]->encode);
-+	end += (vma_res->node_size + vma_res->guard) / I915_GTT_PAGE_SIZE;
- 
- 	for_each_sgt_daddr(addr, iter, vma_res->bi.pages)
- 		gen8_set_pte(gte++, pte_encode | addr);
-@@ -347,9 +350,12 @@ static void gen6_ggtt_insert_entries(struct i915_address_space *vm,
- 	dma_addr_t addr;
- 
- 	gte = (gen6_pte_t __iomem *)ggtt->gsm;
--	gte += vma_res->start / I915_GTT_PAGE_SIZE;
--	end = gte + vma_res->node_size / I915_GTT_PAGE_SIZE;
-+	gte += (vma_res->start - vma_res->guard) / I915_GTT_PAGE_SIZE;
- 
-+	end = gte + vma_res->guard / I915_GTT_PAGE_SIZE;
-+	while (gte < end)
-+		iowrite32(vm->scratch[0]->encode, gte++);
-+	end += (vma_res->node_size + vma_res->guard) / I915_GTT_PAGE_SIZE;
- 	for_each_sgt_daddr(addr, iter, vma_res->bi.pages)
- 		iowrite32(vm->pte_encode(addr, level, flags), gte++);
- 	GEM_BUG_ON(gte > end);
-diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.h b/drivers/gpu/drm/i915/i915_gem_gtt.h
-index 8c2f57eb5ddaa..2434197830523 100644
---- a/drivers/gpu/drm/i915/i915_gem_gtt.h
-+++ b/drivers/gpu/drm/i915/i915_gem_gtt.h
-@@ -44,7 +44,8 @@ int i915_gem_gtt_insert(struct i915_address_space *vm,
- #define PIN_HIGH		BIT_ULL(5)
- #define PIN_OFFSET_BIAS		BIT_ULL(6)
- #define PIN_OFFSET_FIXED	BIT_ULL(7)
--#define PIN_VALIDATE		BIT_ULL(8) /* validate placement only, no need to call unpin() */
-+#define PIN_OFFSET_GUARD	BIT_ULL(8)
-+#define PIN_VALIDATE		BIT_ULL(9) /* validate placement only, no need to call unpin() */
- 
- #define PIN_GLOBAL		BIT_ULL(10) /* I915_VMA_GLOBAL_BIND */
- #define PIN_USER		BIT_ULL(11) /* I915_VMA_LOCAL_BIND */
-diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index fefee5fef38d3..3877847179710 100644
---- a/drivers/gpu/drm/i915/i915_vma.c
-+++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -419,7 +419,7 @@ i915_vma_resource_init_from_vma(struct i915_vma_resource *vma_res,
- 			       obj->mm.rsgt, i915_gem_object_is_readonly(obj),
- 			       i915_gem_object_is_lmem(obj), obj->mm.region,
- 			       vma->ops, vma->private, __i915_vma_offset(vma),
--			       __i915_vma_size(vma), vma->size);
-+			       __i915_vma_size(vma), vma->size, vma->guard);
- }
- 
- /**
-@@ -677,6 +677,10 @@ bool i915_vma_misplaced(const struct i915_vma *vma,
- 	    i915_vma_offset(vma) != (flags & PIN_OFFSET_MASK))
- 		return true;
- 
-+	if (flags & PIN_OFFSET_GUARD &&
-+	    vma->guard < (flags & PIN_OFFSET_MASK))
-+		return true;
-+
- 	return false;
- }
- 
-@@ -749,15 +753,16 @@ static int
- i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 		u64 size, u64 alignment, u64 flags)
- {
--	unsigned long color;
-+	unsigned long color, guard;
- 	u64 start, end;
- 	int ret;
- 
- 	GEM_BUG_ON(i915_vma_is_bound(vma, I915_VMA_GLOBAL_BIND | I915_VMA_LOCAL_BIND));
- 	GEM_BUG_ON(drm_mm_node_allocated(&vma->node));
-+	GEM_BUG_ON(hweight64(flags & (PIN_OFFSET_GUARD | PIN_OFFSET_FIXED | PIN_OFFSET_BIAS)) > 1);
- 
- 	size = max(size, vma->size);
--	alignment = max(alignment, vma->display_alignment);
-+	alignment = max_t(typeof(alignment), alignment, vma->display_alignment);
- 	if (flags & PIN_MAPPABLE) {
- 		size = max_t(typeof(size), size, vma->fence_size);
- 		alignment = max_t(typeof(alignment),
-@@ -768,8 +773,17 @@ i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	GEM_BUG_ON(!IS_ALIGNED(alignment, I915_GTT_MIN_ALIGNMENT));
- 	GEM_BUG_ON(!is_power_of_2(alignment));
- 
-+	guard = vma->guard; /* retain guard across rebinds */
-+	if (flags & PIN_OFFSET_GUARD) {
-+		GEM_BUG_ON(overflows_type(flags & PIN_OFFSET_MASK, u32));
-+		guard = max_t(u32, guard, flags & PIN_OFFSET_MASK);
-+	}
-+	roundup(guard, BIT(vma->vm->scratch_order + PAGE_SHIFT));
-+
- 	start = flags & PIN_OFFSET_BIAS ? flags & PIN_OFFSET_MASK : 0;
- 	GEM_BUG_ON(!IS_ALIGNED(start, I915_GTT_PAGE_SIZE));
-+	/* We need to be sure we do not ecceed the va area */
-+	GEM_BUG_ON(2 * guard > end);
- 
- 	end = vma->vm->total;
- 	if (flags & PIN_MAPPABLE)
-@@ -780,11 +794,12 @@ i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 
- 	alignment = max(alignment, i915_vm_obj_min_alignment(vma->vm, vma->obj));
- 
--	/* If binding the object/GGTT view requires more space than the entire
-+	/*
-+	 * If binding the object/GGTT view requires more space than the entire
- 	 * aperture has, reject it early before evicting everything in a vain
- 	 * attempt to find space.
- 	 */
--	if (size > end) {
-+	if (size > end - 2 * guard) {
- 		drm_dbg(&to_i915(vma->obj->base.dev)->drm,
- 			"Attempting to bind an object larger than the aperture: request=%llu > %s aperture=%llu\n",
- 			size, flags & PIN_MAPPABLE ? "mappable" : "total", end);
-@@ -801,13 +816,23 @@ i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 		if (!IS_ALIGNED(offset, alignment) ||
- 		    range_overflows(offset, size, end))
- 			return -EINVAL;
-+		/*
-+		 * The caller knows not of the guard added by others and
-+		 * requests for the offset of the start of its buffer
-+		 * to be fixed, which may not be the same as the position
-+		 * of the vma->node due to the guard pages.
-+		 */
-+		if (offset < guard || offset + size > end - guard)
-+			return -ENOSPC;
- 
- 		ret = i915_gem_gtt_reserve(vma->vm, ww, &vma->node,
--					   size, offset, color,
--					   flags);
-+					   size + 2 * guard,
-+					   offset - guard,
-+					   color, flags);
- 		if (ret)
- 			return ret;
- 	} else {
-+		size += 2 * guard;
- 		/*
- 		 * We only support huge gtt pages through the 48b PPGTT,
- 		 * however we also don't want to force any alignment for
-@@ -855,6 +880,7 @@ i915_vma_insert(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
- 	GEM_BUG_ON(!i915_gem_valid_gtt_space(vma, color));
- 
- 	list_move_tail(&vma->vm_link, &vma->vm->bound_list);
-+	vma->guard = guard;
- 
+-static inline bool suspend_retains_ptes(struct i915_address_space *vm)
+-{
+-	return GRAPHICS_VER(vm->i915) >= 8 &&
+-		!HAS_LMEM(vm->i915) &&
+-		vm->is_ggtt;
+-}
+-
+ static void i915_ggtt_color_adjust(const struct drm_mm_node *node,
+ 				   unsigned long color,
+ 				   u64 *start,
+@@ -105,23 +98,6 @@ int i915_ggtt_init_hw(struct drm_i915_private *i915)
  	return 0;
  }
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index 3fd4512b1f65f..ed5c9d682a1b2 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -128,7 +128,7 @@ static inline bool i915_vma_is_closed(const struct i915_vma *vma)
- /* Internal use only. */
- static inline u64 __i915_vma_size(const struct i915_vma *vma)
- {
--	return vma->node.size;
-+	return vma->node.size - 2 * vma->guard;
- }
  
+-/*
+- * Return the value of the last GGTT pte cast to an u64, if
+- * the system is supposed to retain ptes across resume. 0 otherwise.
+- */
+-static u64 read_last_pte(struct i915_address_space *vm)
+-{
+-	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
+-	gen8_pte_t __iomem *ptep;
+-
+-	if (!suspend_retains_ptes(vm))
+-		return 0;
+-
+-	GEM_BUG_ON(GRAPHICS_VER(vm->i915) < 8);
+-	ptep = (typeof(ptep))ggtt->gsm + (ggtt_total_entries(ggtt) - 1);
+-	return readq(ptep);
+-}
+-
  /**
-@@ -150,7 +150,8 @@ static inline u64 i915_vma_size(const struct i915_vma *vma)
- /* Internal use only. */
- static inline u64 __i915_vma_offset(const struct i915_vma *vma)
+  * i915_ggtt_suspend_vm - Suspend the memory mappings for a GGTT or DPT VM
+  * @vm: The VM to suspend the mappings for
+@@ -185,10 +161,7 @@ void i915_ggtt_suspend_vm(struct i915_address_space *vm)
+ 		i915_gem_object_unlock(obj);
+ 	}
+ 
+-	if (!suspend_retains_ptes(vm))
+-		vm->clear_range(vm, 0, vm->total);
+-	else
+-		i915_vm_to_ggtt(vm)->probed_pte = read_last_pte(vm);
++	vm->clear_range(vm, 0, vm->total);
+ 
+ 	vm->skip_pte_rewrite = save_skip_rewrite;
+ 
+@@ -545,8 +518,6 @@ static int init_ggtt(struct i915_ggtt *ggtt)
+ 	struct drm_mm_node *entry;
+ 	int ret;
+ 
+-	ggtt->pte_lost = true;
+-
+ 	/*
+ 	 * GuC requires all resources that we're sharing with it to be placed in
+ 	 * non-WOPCM memory. If GuC is not present or not in use we still need a
+@@ -1263,20 +1234,11 @@ bool i915_ggtt_resume_vm(struct i915_address_space *vm)
  {
--	return vma->node.start;
-+	/* The actual start of the vma->pages is after the guard pages. */
-+	return vma->node.start + vma->guard;
+ 	struct i915_vma *vma;
+ 	bool write_domain_objs = false;
+-	bool retained_ptes;
+ 
+ 	drm_WARN_ON(&vm->i915->drm, !vm->is_ggtt && !vm->is_dpt);
+ 
+-	/*
+-	 * First fill our portion of the GTT with scratch pages if
+-	 * they were not retained across suspend.
+-	 */
+-	retained_ptes = suspend_retains_ptes(vm) &&
+-		!i915_vm_to_ggtt(vm)->pte_lost &&
+-		!GEM_WARN_ON(i915_vm_to_ggtt(vm)->probed_pte != read_last_pte(vm));
+-
+-	if (!retained_ptes)
+-		vm->clear_range(vm, 0, vm->total);
++	/* First fill our portion of the GTT with scratch pages */
++	vm->clear_range(vm, 0, vm->total);
+ 
+ 	/* clflush objects bound into the GGTT and rebind them. */
+ 	list_for_each_entry(vma, &vm->bound_list, vm_link) {
+@@ -1285,16 +1247,16 @@ bool i915_ggtt_resume_vm(struct i915_address_space *vm)
+ 			atomic_read(&vma->flags) & I915_VMA_BIND_MASK;
+ 
+ 		GEM_BUG_ON(!was_bound);
+-		if (!retained_ptes) {
+-			/*
+-			 * Clear the bound flags of the vma resource to allow
+-			 * ptes to be repopulated.
+-			 */
+-			vma->resource->bound_flags = 0;
+-			vma->ops->bind_vma(vm, NULL, vma->resource,
+-					   obj ? obj->cache_level : 0,
+-					   was_bound);
+-		}
++
++		/*
++		 * Clear the bound flags of the vma resource to allow
++		 * ptes to be repopulated.
++		 */
++		vma->resource->bound_flags = 0;
++		vma->ops->bind_vma(vm, NULL, vma->resource,
++				   obj ? obj->cache_level : 0,
++				   was_bound);
++
+ 		if (obj) { /* only used during resume => exclusive access */
+ 			write_domain_objs |= fetch_and_zero(&obj->write_domain);
+ 			obj->read_domains |= I915_GEM_DOMAIN_GTT;
+@@ -1321,8 +1283,3 @@ void i915_ggtt_resume(struct i915_ggtt *ggtt)
+ 
+ 	intel_ggtt_restore_fences(ggtt);
+ }
+-
+-void i915_ggtt_mark_pte_lost(struct drm_i915_private *i915, bool val)
+-{
+-	to_gt(i915)->ggtt->pte_lost = val;
+-}
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index d1900fec6cd1f..a5a9f7640bd15 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -355,19 +355,6 @@ struct i915_ggtt {
+ 
+ 	bool do_idle_maps;
+ 
+-	/**
+-	 * @pte_lost: Are ptes lost on resume?
+-	 *
+-	 * Whether the system was recently restored from hibernate and
+-	 * thus may have lost pte content.
+-	 */
+-	bool pte_lost;
+-
+-	/**
+-	 * @probed_pte: Probed pte value on suspend. Re-checked on resume.
+-	 */
+-	u64 probed_pte;
+-
+ 	int mtrr;
+ 
+ 	/** Bit 6 swizzling required for X tiling */
+@@ -604,17 +591,6 @@ bool i915_ggtt_resume_vm(struct i915_address_space *vm);
+ void i915_ggtt_suspend(struct i915_ggtt *gtt);
+ void i915_ggtt_resume(struct i915_ggtt *ggtt);
+ 
+-/**
+- * i915_ggtt_mark_pte_lost - Mark ggtt ptes as lost or clear such a marking
+- * @i915 The device private.
+- * @val whether the ptes should be marked as lost.
+- *
+- * In some cases pte content is retained across suspend, but typically lost
+- * across hibernate. Typically they should be marked as lost on
+- * hibernation restore and such marking cleared on suspend.
+- */
+-void i915_ggtt_mark_pte_lost(struct drm_i915_private *i915, bool val);
+-
+ void
+ fill_page_dma(struct drm_i915_gem_object *p, const u64 val, unsigned int count);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 4e1bb3c23c638..4cc3ced839595 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -102,9 +102,6 @@
+ #include "intel_region_ttm.h"
+ #include "vlv_suspend.h"
+ 
+-/* Intel Rapid Start Technology ACPI device name */
+-static const char irst_name[] = "INT3392";
+-
+ static const struct drm_driver i915_drm_driver;
+ 
+ static void i915_release_bridge_dev(struct drm_device *dev,
+@@ -1496,8 +1493,6 @@ static int i915_pm_suspend(struct device *kdev)
+ 		return -ENODEV;
+ 	}
+ 
+-	i915_ggtt_mark_pte_lost(i915, false);
+-
+ 	if (i915->drm.switch_power_state == DRM_SWITCH_POWER_OFF)
+ 		return 0;
+ 
+@@ -1550,14 +1545,6 @@ static int i915_pm_resume(struct device *kdev)
+ 	if (i915->drm.switch_power_state == DRM_SWITCH_POWER_OFF)
+ 		return 0;
+ 
+-	/*
+-	 * If IRST is enabled, or if we can't detect whether it's enabled,
+-	 * then we must assume we lost the GGTT page table entries, since
+-	 * they are not retained if IRST decided to enter S4.
+-	 */
+-	if (!IS_ENABLED(CONFIG_ACPI) || acpi_dev_present(irst_name, NULL, -1))
+-		i915_ggtt_mark_pte_lost(i915, true);
+-
+ 	return i915_drm_resume(&i915->drm);
  }
  
- /**
-diff --git a/drivers/gpu/drm/i915/i915_vma_resource.c b/drivers/gpu/drm/i915/i915_vma_resource.c
-index de1342dbfa128..6ba7a7feceba1 100644
---- a/drivers/gpu/drm/i915/i915_vma_resource.c
-+++ b/drivers/gpu/drm/i915/i915_vma_resource.c
-@@ -34,8 +34,8 @@ static struct kmem_cache *slab_vma_resources;
-  * and removal of fences increases as O(ln(pending_unbinds)) instead of
-  * O(1) for a single fence without interval tree.
-  */
--#define VMA_RES_START(_node) ((_node)->start)
--#define VMA_RES_LAST(_node) ((_node)->start + (_node)->node_size - 1)
-+#define VMA_RES_START(_node) ((_node)->start - (_node)->guard)
-+#define VMA_RES_LAST(_node) ((_node)->start + (_node)->node_size + (_node)->guard - 1)
- INTERVAL_TREE_DEFINE(struct i915_vma_resource, rb,
- 		     u64, __subtree_last,
- 		     VMA_RES_START, VMA_RES_LAST, static, vma_res_itree);
-diff --git a/drivers/gpu/drm/i915/i915_vma_resource.h b/drivers/gpu/drm/i915/i915_vma_resource.h
-index 54edf3739ca0b..c1864e3d0b43e 100644
---- a/drivers/gpu/drm/i915/i915_vma_resource.h
-+++ b/drivers/gpu/drm/i915/i915_vma_resource.h
-@@ -57,6 +57,7 @@ struct i915_page_sizes {
-  * @node_size: Size of the allocated range manager node with padding
-  * subtracted.
-  * @vma_size: Bind size.
-+ * @guard: The size of guard area preceding and trailing the bind.
-  * @page_sizes_gtt: Resulting page sizes from the bind operation.
-  * @bound_flags: Flags indicating binding status.
-  * @allocated: Backend private data. TODO: Should move into @private.
-@@ -115,6 +116,7 @@ struct i915_vma_resource {
- 	u64 start;
- 	u64 node_size;
- 	u64 vma_size;
-+	u32 guard;
- 	u32 page_sizes_gtt;
+@@ -1617,9 +1604,6 @@ static int i915_pm_restore_early(struct device *kdev)
  
- 	u32 bound_flags;
-@@ -179,6 +181,7 @@ static inline void i915_vma_resource_put(struct i915_vma_resource *vma_res)
-  * @start: Offset into the address space of bind range start after padding.
-  * @node_size: Size of the allocated range manager node minus padding.
-  * @size: Bind size.
-+ * @guard: The size of the guard area preceding and trailing the bind.
-  *
-  * Initializes a vma resource allocated using i915_vma_resource_alloc().
-  * The reason for having separate allocate and initialize function is that
-@@ -197,7 +200,8 @@ static inline void i915_vma_resource_init(struct i915_vma_resource *vma_res,
- 					  void *private,
- 					  u64 start,
- 					  u64 node_size,
--					  u64 size)
-+					  u64 size,
-+					  u32 guard)
+ static int i915_pm_restore(struct device *kdev)
  {
- 	__i915_vma_resource_init(vma_res);
- 	vma_res->vm = vm;
-@@ -215,6 +219,7 @@ static inline void i915_vma_resource_init(struct i915_vma_resource *vma_res,
- 	vma_res->start = start;
- 	vma_res->node_size = node_size;
- 	vma_res->vma_size = size;
-+	vma_res->guard = guard;
+-	struct drm_i915_private *i915 = kdev_to_i915(kdev);
+-
+-	i915_ggtt_mark_pte_lost(i915, true);
+ 	return i915_pm_resume(kdev);
  }
  
- static inline void i915_vma_resource_fini(struct i915_vma_resource *vma_res)
-diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
-index 0375812792b9c..77fda2244d161 100644
---- a/drivers/gpu/drm/i915/i915_vma_types.h
-+++ b/drivers/gpu/drm/i915/i915_vma_types.h
-@@ -202,6 +202,7 @@ struct i915_vma {
- 	/* mmap-offset associated with fencing for this vma */
- 	struct i915_mmap_offset	*mmo;
- 
-+	u32 guard; /* padding allocated around vma->pages within the node */
- 	u32 fence_size;
- 	u32 fence_alignment;
- 	u32 display_alignment;
 -- 
 2.38.1
 
