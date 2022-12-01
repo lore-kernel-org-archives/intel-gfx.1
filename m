@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10431C47088
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 12:32:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93DE1C636F8
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Dec 2022 12:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33FAB10E5D4;
-	Thu,  1 Dec 2022 12:32:19 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00F3A10E5CE;
- Thu,  1 Dec 2022 12:32:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D348C10E5D6;
+	Thu,  1 Dec 2022 12:32:21 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B46A210E5CF;
+ Thu,  1 Dec 2022 12:32:14 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6B4AC61FD6;
- Thu,  1 Dec 2022 12:32:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F6EC433B5;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1C379B81EF0;
+ Thu,  1 Dec 2022 12:32:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B773CC433D7;
  Thu,  1 Dec 2022 12:32:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1669897931;
- bh=cyq5kIRv82DEDlrrKEjscpNYjNg7wkLn5qZtpqQLPDU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hwMCScF9Rw+XyaDy5ow4vQgD3EQfqQYLkKlojLHUk2T7qmDxfQR3etHzaUPbIP6mT
- /e/uFkoFEsT+9mxLYMApnoDEq01ctopUcmYzxXdSQkAqZ5lI8tPM2sPYjJ/kd8Jw9v
- SV7ra4o0yDVSuj+Zsl2Azo9mmPYmDWwYH/e2V5DvzFXCPwP7fBPaWQofIVxy8K5w5l
- 4yWCyT/nLSdhZ/0lCyF98b1EzQ6nE/IAZpl8H0cSYWGLCNy5qvoJidzB28UOLCuHtF
- uiYVy7IHer5V7oNErrv2SXSWin+V2LQ8XHhyElyUV8C8pabSbGgrf7EpwNoHIT8zWY
- rF1hoglFLqt8g==
+ bh=MXm6wVDy/1Dk2GqWOrBo8woDf8D58qZtiQYEYC8VNEo=;
+ h=From:To:Cc:Subject:Date:From;
+ b=IxFqPM5Sf3/GilRQHZpk9Ea0GbwtgNyX7mkwuJdpOoAAF3goS0uqTXhrPMwGtJM3E
+ 0GfYUV69dNLm7EWsUJpKZQ/KC6Bh3ItN4/6VB6oiBxXX7Skofrv6vsOfJiV3+cP2hn
+ o7tEqNP9Y43+ZmDixl/gpwqpX2Omc6PsAY+JrxVMsXIEGH2TJRbAxo6DdU9ep1kkkE
+ eZNfR4UUDJp1EEfvWgdfmr+Z+ztZ4YCS1BqzpkFssPi8shckFIYSTF6Ok/37ckoRTb
+ LfQ+xu+ETq5F1JIbRw/5I080MlGzfvjrlfTGRcBapBlBeuZ7jTERyPMZ5r+NCfGlc1
+ +XX0lB3wXsTjQ==
 Received: from mchehab by mail.kernel.org with local (Exim 4.96)
- (envelope-from <mchehab@kernel.org>) id 1p0ijZ-00FYFM-0H;
- Thu, 01 Dec 2022 12:32:09 +0000
+ (envelope-from <mchehab@kernel.org>) id 1p0ijY-00FYFG-2p;
+ Thu, 01 Dec 2022 12:32:08 +0000
 From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: 
-Date: Thu,  1 Dec 2022 12:32:06 +0000
-Message-Id: <f5ded98084d4806a8932123eebe6b3383d830804.1669897668.git.mchehab@kernel.org>
+Date: Thu,  1 Dec 2022 12:32:04 +0000
+Message-Id: <cover.1669897668.git.mchehab@kernel.org>
 X-Mailer: git-send-email 2.38.1
-In-Reply-To: <cover.1669897668.git.mchehab@kernel.org>
-References: <cover.1669897668.git.mchehab@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915: export all mock selftest functions
+Subject: [Intel-gfx] [PATCH 0/3] Add KUnit support for i915 mock selftests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,252 +53,90 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
- =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
- Jan Kara <jack@suse.cz>, Andrzej Hajda <andrzej.hajda@intel.com>,
- David Airlie <airlied@gmail.com>, Kees Cook <keescook@chromium.org>,
- Matthew Auld <matthew.auld@intel.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- Arunpravin <Arunpravin.PaneerSelvam@amd.com>, intel-gfx@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Nirmoy Das <nirmoy.das@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In order to prepare for a new KUnit module that will run
-selftests, export all mock selftest functions to I915_SELFTEST
-namespace.
+That's an updated version of my previous KUnit RFC series:
+	https://patchwork.freedesktop.org/series/110481/
 
-No functional changes.
+While the RFC series added support for live and perf, let's start with
+mock, as running tests in bare metal is not the current focus of KUnit.
+So, basically patch 1 was changed to export just mock functions,
+and the bare metal patches got removed from this version.
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
----
+As before, running KUnit on i915 driver requires the --arch parameter:
 
-To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
-See [PATCH 0/3] at: https://lore.kernel.org/all/cover.1669897668.git.mchehab@kernel.org/
+./tools/testing/kunit/kunit.py run --arch=x86_64 --kunitconfig=drivers/gpu/drm/i915/selftests/  --jobs=`nproc --all`
+[13:18:40] Configuring KUnit Kernel ...
+[13:18:40] Building KUnit Kernel ...
+Populating config with:
+$ make ARCH=x86_64 O=.kunit olddefconfig
+Building with:
+$ make ARCH=x86_64 O=.kunit --jobs=8
+[13:23:20] Starting KUnit Kernel (1/1)...
+[13:23:20] ============================================================
+Running tests with:
+$ qemu-system-x86_64 -nodefaults -m 1024 -kernel .kunit/arch/x86/boot/bzImage -append 'kunit.enable=1 console=ttyS0 kunit_shutdown=reboot' -no-reboot -nographic -serial stdio
+[13:23:21] ============ i915 mock selftests (18 subtests) =============
+[13:23:21] [PASSED] mock_sanitycheck
+[13:23:21] [PASSED] mock_shmem
+[13:23:24] [PASSED] mock_fence
+[13:23:25] [PASSED] mock_scatterlist
+[13:23:27] [PASSED] mock_syncmap
+[13:23:27] [PASSED] mock_uncore
+[13:23:27] [PASSED] mock_ring
+[13:23:27] [PASSED] mock_engine
+[13:23:31] [PASSED] mock_timelines
+[13:23:32] [PASSED] mock_requests
+[13:23:32] [PASSED] mock_objects
+[13:23:32] [PASSED] mock_phys
+[13:23:32] [PASSED] mock_dmabuf
+[13:23:38] [PASSED] mock_vma
+[13:23:38] [PASSED] mock_evict
+[13:23:41] [PASSED] mock_gtt
+[13:23:42] [PASSED] mock_hugepages
+[13:23:42] [PASSED] mock_memory_region
+[13:23:42] =============== [PASSED] i915 mock selftests ===============
+[13:23:42] ============================================================
+[13:23:42] Testing complete. Ran 18 tests: passed: 18
+[13:23:42] Elapsed time: 302.766s total, 0.003s configuring, 280.393s building, 22.341s running
 
- drivers/gpu/drm/i915/gem/selftests/huge_pages.c      | 1 +
- drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c | 1 +
- drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c | 1 +
- drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c   | 1 +
- drivers/gpu/drm/i915/gt/selftest_engine_cs.c         | 1 +
- drivers/gpu/drm/i915/gt/selftest_ring.c              | 1 +
- drivers/gpu/drm/i915/gt/selftest_timeline.c          | 1 +
- drivers/gpu/drm/i915/gt/st_shmem_utils.c             | 1 +
- drivers/gpu/drm/i915/selftests/i915_gem_evict.c      | 1 +
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c        | 1 +
- drivers/gpu/drm/i915/selftests/i915_request.c        | 1 +
- drivers/gpu/drm/i915/selftests/i915_selftest.c       | 1 +
- drivers/gpu/drm/i915/selftests/i915_sw_fence.c       | 1 +
- drivers/gpu/drm/i915/selftests/i915_syncmap.c        | 1 +
- drivers/gpu/drm/i915/selftests/i915_vma.c            | 1 +
- drivers/gpu/drm/i915/selftests/intel_memory_region.c | 1 +
- drivers/gpu/drm/i915/selftests/intel_uncore.c        | 1 +
- drivers/gpu/drm/i915/selftests/scatterlist.c         | 1 +
- 18 files changed, 18 insertions(+)
+Mauro Carvalho Chehab (3):
+  drm/i915: place selftest preparation on a separate function
+  drm/i915: export all mock selftest functions
+  drm/i915: allow running mock selftests via Kunit
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index beaf27e09e8a..954d37552681 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -1944,6 +1944,7 @@ int i915_gem_huge_page_mock_selftests(void)
- 	mock_destroy_device(dev_priv);
- 	return err;
- }
-+EXPORT_SYMBOL_NS_GPL(i915_gem_huge_page_mock_selftests, I915_SELFTEST);
- 
- int i915_gem_huge_page_live_selftests(struct drm_i915_private *i915)
- {
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-index e57f9390076c..2f6422eb9801 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c
-@@ -543,6 +543,7 @@ int i915_gem_dmabuf_mock_selftests(void)
- 	mock_destroy_device(i915);
- 	return err;
- }
-+EXPORT_SYMBOL_NS_GPL(i915_gem_dmabuf_mock_selftests, I915_SELFTEST);
- 
- int i915_gem_dmabuf_live_selftests(struct drm_i915_private *i915)
- {
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-index bdf5bb40ccf1..4c50be935462 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
-@@ -88,6 +88,7 @@ int i915_gem_object_mock_selftests(void)
- 	mock_destroy_device(i915);
- 	return err;
- }
-+EXPORT_SYMBOL_NS_GPL(i915_gem_object_mock_selftests, I915_SELFTEST);
- 
- int i915_gem_object_live_selftests(struct drm_i915_private *i915)
- {
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c
-index d43d8dae0f69..03cd27066153 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_phys.c
-@@ -85,3 +85,4 @@ int i915_gem_phys_mock_selftests(void)
- 	mock_destroy_device(i915);
- 	return err;
- }
-+EXPORT_SYMBOL_NS_GPL(i915_gem_phys_mock_selftests, I915_SELFTEST);
-diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-index 881b64f3e7b9..e3e4918b3f9e 100644
---- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
-@@ -437,3 +437,4 @@ int intel_engine_cs_mock_selftests(void)
- 
- 	return i915_subtests(tests, NULL);
- }
-+EXPORT_SYMBOL_NS_GPL(intel_engine_cs_mock_selftests, I915_SELFTEST);
-diff --git a/drivers/gpu/drm/i915/gt/selftest_ring.c b/drivers/gpu/drm/i915/gt/selftest_ring.c
-index 2a8c534dc125..6590c9c504b9 100644
---- a/drivers/gpu/drm/i915/gt/selftest_ring.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_ring.c
-@@ -108,3 +108,4 @@ int intel_ring_mock_selftests(void)
- 
- 	return i915_subtests(tests, NULL);
- }
-+EXPORT_SYMBOL_NS_GPL(intel_ring_mock_selftests, I915_SELFTEST);
-diff --git a/drivers/gpu/drm/i915/gt/selftest_timeline.c b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-index 522d0190509c..fcf044c9feea 100644
---- a/drivers/gpu/drm/i915/gt/selftest_timeline.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_timeline.c
-@@ -450,6 +450,7 @@ int intel_timeline_mock_selftests(void)
- 
- 	return i915_subtests(tests, NULL);
- }
-+EXPORT_SYMBOL_NS_GPL(intel_timeline_mock_selftests, I915_SELFTEST);
- 
- static int emit_ggtt_store_dw(struct i915_request *rq, u32 addr, u32 value)
- {
-diff --git a/drivers/gpu/drm/i915/gt/st_shmem_utils.c b/drivers/gpu/drm/i915/gt/st_shmem_utils.c
-index b279fe88b70e..46c9d4fca1f8 100644
---- a/drivers/gpu/drm/i915/gt/st_shmem_utils.c
-+++ b/drivers/gpu/drm/i915/gt/st_shmem_utils.c
-@@ -61,3 +61,4 @@ int shmem_utils_mock_selftests(void)
- 
- 	return i915_subtests(tests, NULL);
- }
-+EXPORT_SYMBOL_NS_GPL(shmem_utils_mock_selftests, I915_SELFTEST);
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-index 8c6517d29b8e..5461ecc9b6a2 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_evict.c
-@@ -555,6 +555,7 @@ int i915_gem_evict_mock_selftests(void)
- 	mock_destroy_device(i915);
- 	return err;
- }
-+EXPORT_SYMBOL_NS_GPL(i915_gem_evict_mock_selftests, I915_SELFTEST);
- 
- int i915_gem_evict_live_selftests(struct drm_i915_private *i915)
- {
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index eae7d947d7de..0a4c1a061a0c 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -1935,6 +1935,7 @@ int i915_gem_gtt_mock_selftests(void)
- 	mock_destroy_device(i915);
- 	return err;
- }
-+EXPORT_SYMBOL_NS_GPL(i915_gem_gtt_mock_selftests, I915_SELFTEST);
- 
- static int context_sync(struct intel_context *ce)
- {
-diff --git a/drivers/gpu/drm/i915/selftests/i915_request.c b/drivers/gpu/drm/i915/selftests/i915_request.c
-index 0daa8669181d..fda88361619e 100644
---- a/drivers/gpu/drm/i915/selftests/i915_request.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_request.c
-@@ -563,6 +563,7 @@ int i915_request_mock_selftests(void)
- 
- 	return err;
- }
-+EXPORT_SYMBOL_NS_GPL(i915_request_mock_selftests, I915_SELFTEST);
- 
- static int live_nop_request(void *arg)
- {
-diff --git a/drivers/gpu/drm/i915/selftests/i915_selftest.c b/drivers/gpu/drm/i915/selftests/i915_selftest.c
-index bc85dac4eb15..69941d5a6a31 100644
---- a/drivers/gpu/drm/i915/selftests/i915_selftest.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_selftest.c
-@@ -39,6 +39,7 @@ int i915_mock_sanitycheck(void)
- 	pr_info(DRIVER_NAME ": %s() - ok!\n", __func__);
- 	return 0;
- }
-+EXPORT_SYMBOL_NS_GPL(i915_mock_sanitycheck, I915_SELFTEST);
- 
- int i915_live_sanitycheck(struct drm_i915_private *i915)
- {
-diff --git a/drivers/gpu/drm/i915/selftests/i915_sw_fence.c b/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
-index daa985e5a19b..deccd30fed12 100644
---- a/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
-@@ -755,3 +755,4 @@ int i915_sw_fence_mock_selftests(void)
- 
- 	return i915_subtests(tests, NULL);
- }
-+EXPORT_SYMBOL_NS_GPL(i915_sw_fence_mock_selftests, I915_SELFTEST);
-diff --git a/drivers/gpu/drm/i915/selftests/i915_syncmap.c b/drivers/gpu/drm/i915/selftests/i915_syncmap.c
-index 47f4ae18a1ef..09b04f280e73 100644
---- a/drivers/gpu/drm/i915/selftests/i915_syncmap.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_syncmap.c
-@@ -614,3 +614,4 @@ int i915_syncmap_mock_selftests(void)
- 
- 	return i915_subtests(tests, NULL);
- }
-+EXPORT_SYMBOL_NS_GPL(i915_syncmap_mock_selftests, I915_SELFTEST);
-diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/i915/selftests/i915_vma.c
-index 71b52d5efef4..ae25bd6c58cd 100644
---- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-@@ -949,6 +949,7 @@ int i915_vma_mock_selftests(void)
- 	mock_destroy_device(i915);
- 	return err;
- }
-+EXPORT_SYMBOL_NS_GPL(i915_vma_mock_selftests, I915_SELFTEST);
- 
- static int igt_vma_remapped_gtt(void *arg)
- {
-diff --git a/drivers/gpu/drm/i915/selftests/intel_memory_region.c b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-index 3b18e5905c86..91cfd5d5cad2 100644
---- a/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-+++ b/drivers/gpu/drm/i915/selftests/intel_memory_region.c
-@@ -1376,6 +1376,7 @@ int intel_memory_region_mock_selftests(void)
- 	mock_destroy_device(i915);
- 	return err;
- }
-+EXPORT_SYMBOL_NS_GPL(intel_memory_region_mock_selftests, I915_SELFTEST);
- 
- int intel_memory_region_live_selftests(struct drm_i915_private *i915)
- {
-diff --git a/drivers/gpu/drm/i915/selftests/intel_uncore.c b/drivers/gpu/drm/i915/selftests/intel_uncore.c
-index e4281508d580..2b61377d4b60 100644
---- a/drivers/gpu/drm/i915/selftests/intel_uncore.c
-+++ b/drivers/gpu/drm/i915/selftests/intel_uncore.c
-@@ -138,6 +138,7 @@ int intel_uncore_mock_selftests(void)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS_GPL(intel_uncore_mock_selftests, I915_SELFTEST);
- 
- static int live_forcewake_ops(void *arg)
- {
-diff --git a/drivers/gpu/drm/i915/selftests/scatterlist.c b/drivers/gpu/drm/i915/selftests/scatterlist.c
-index d599186d5b71..d29aa7303b16 100644
---- a/drivers/gpu/drm/i915/selftests/scatterlist.c
-+++ b/drivers/gpu/drm/i915/selftests/scatterlist.c
-@@ -378,3 +378,4 @@ int scatterlist_mock_selftests(void)
- 
- 	return i915_subtests(tests, NULL);
- }
-+EXPORT_SYMBOL_NS_GPL(scatterlist_mock_selftests, I915_SELFTEST);
+ drivers/gpu/drm/i915/Kconfig                  | 15 +++
+ drivers/gpu/drm/i915/Makefile                 |  5 +
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |  1 +
+ .../drm/i915/gem/selftests/i915_gem_dmabuf.c  |  1 +
+ .../drm/i915/gem/selftests/i915_gem_object.c  |  1 +
+ .../drm/i915/gem/selftests/i915_gem_phys.c    |  1 +
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c  |  1 +
+ drivers/gpu/drm/i915/gt/selftest_ring.c       |  1 +
+ drivers/gpu/drm/i915/gt/selftest_timeline.c   |  1 +
+ drivers/gpu/drm/i915/gt/st_shmem_utils.c      |  1 +
+ drivers/gpu/drm/i915/i915_selftest.h          |  2 +
+ drivers/gpu/drm/i915/selftests/.kunitconfig   | 12 +++
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   |  1 +
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  1 +
+ drivers/gpu/drm/i915/selftests/i915_kunit.c   | 95 +++++++++++++++++++
+ drivers/gpu/drm/i915/selftests/i915_request.c |  1 +
+ .../gpu/drm/i915/selftests/i915_selftest.c    | 23 +++--
+ .../gpu/drm/i915/selftests/i915_sw_fence.c    |  1 +
+ drivers/gpu/drm/i915/selftests/i915_syncmap.c |  1 +
+ drivers/gpu/drm/i915/selftests/i915_vma.c     |  1 +
+ .../drm/i915/selftests/intel_memory_region.c  |  1 +
+ drivers/gpu/drm/i915/selftests/intel_uncore.c |  1 +
+ drivers/gpu/drm/i915/selftests/scatterlist.c  |  1 +
+ 23 files changed, 161 insertions(+), 8 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/selftests/.kunitconfig
+ create mode 100644 drivers/gpu/drm/i915/selftests/i915_kunit.c
+
 -- 
 2.38.1
+
 
