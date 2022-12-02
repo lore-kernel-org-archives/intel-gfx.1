@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 582B8C4708D
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Dec 2022 10:09:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 457A0C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Dec 2022 10:09:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 259F210E6C5;
-	Fri,  2 Dec 2022 10:09:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D954510E6C6;
+	Fri,  2 Dec 2022 10:09:52 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F081810E6C0
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Dec 2022 10:09:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E2F510E6C2
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Dec 2022 10:09:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669975781; x=1701511781;
+ t=1669975786; x=1701511786;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ddKXU84qgv8p02WGDOrHRkjBIBb4T/y0DHqYfeCiK8I=;
- b=L44FYbjlzmUrn5b4VKNmabwOckfdKjTTOHjeaf+pMEASoFVUNQNTp1PL
- e0cC94DiK1x7Fuwqrh1EzfMba2CkD/fdNd96GHQvOxgDrA5pc+eChR3Ge
- 35ME1bnKGpZrVjWIWbtBUaVpHbHXeZX0WpxAyqFHK4V4FjXjRItXbMEnl
- rUKUUFYQXK9idyou8nnWZ1GrJB3Jd66DitPpRNQIWA5p83OkUFGAwXGKA
- 5uuoBZiNz6IKeoKZCDg+Yz9KjIJqabgAoESWoLaeWBxCW7IJt/vVnwF1k
- L5CZyeqCwhqwV4+oxGHtHkZ08HR/fkBKlx5FxwQHy4XARV40quR4SdYce A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="313564574"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="313564574"
+ bh=+R3DdE87QuOz48R652Qv3aT2DIS0EzFs8d00OoJ76p0=;
+ b=Fp18MSLHa3LoBid+H/zXFbDU/mKjwVYO+97zzxS5XmhWTI/5HMvV94a4
+ 4f6eNFxDnCroJIh3GAiBGjVaHANEkw3wSyAelQ3ZiGLNTM12EvNFUCkRi
+ NArEAIP65FJGbi0u0ukX1Id+tWjURYJ3cyuT+abbtJu/Px1dHLJhQUDx4
+ 9VTew2tzeGlpIr8kyVHTI+4knqrmuQYD1YFjfknn3bSuVlV31ff8go+RG
+ D6OCTII2o8XBfP4PG68KhF5wJLFor+OmVqaTNHhYrxmqfhofOF9QtldJb
+ KKEKM/bnEysPlkCqOx6991EZ6FJcTSAlkZxckQ2PKCPdjx6yV7ppSaf2e w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="313564583"
+X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="313564583"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2022 02:09:41 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="647115758"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="647115758"
+ 02 Dec 2022 02:09:46 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="647115772"
+X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="647115772"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2022 02:09:39 -0800
+ 02 Dec 2022 02:09:44 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Dec 2022 15:40:19 +0530
-Message-Id: <20221202101028.803630-6-ankit.k.nautiyal@intel.com>
+Date: Fri,  2 Dec 2022 15:40:21 +0530
+Message-Id: <20221202101028.803630-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221202101028.803630-1-ankit.k.nautiyal@intel.com>
 References: <20221202101028.803630-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 05/14] drm/i915/dp: Compute output format
- with/without DSC
+Subject: [Intel-gfx] [PATCH v1 07/14] drm/i915/dp: Rearrange check for
+ illegal mode and comments in mode_valid
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,197 +60,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently we compute the output format first and later try DSC if the
-bandwidth without compression is not sufficient for that output format.
-Since we do not support DSC with YCbCr420 format, this creates problem
-for YCbCr420 only modes, that can be still be set if DFP has color
-conversion and DSC capabilities.
-
-So compute output format, first without DSC and inturn compute the link
-config without DSC. If cannot be supported without DSC, compute the
-output format with DSC and continue.
-With this apporach, check can be added for YCbCr420 output, which cannot
-be supported with DSC.
-
-v2: Rebased
+Check for MODE_H_ILLEGAL before calculating max rates, lanes etc.
+Move comments about compressed bpp U6.4 format closer to where it is used.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 84 ++++++++++++++++++-------
- 1 file changed, 61 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index e3ba84e7fda6..4789d3c3cb2e 100644
+index 67132ed4ed29..2d7135cfb225 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -861,20 +861,37 @@ ycbcr420_scaler_constraints(struct drm_i915_private *i915,
- 	return mode->hdisplay > max_w || mode->vdisplay > max_h;
- }
+@@ -1112,6 +1112,9 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 	if (target_clock > max_dotclk)
+ 		return MODE_CLOCK_HIGH;
  
-+static bool
-+ycbcr420_constraints(struct drm_i915_private *i915,
-+		     const struct drm_display_mode *mode,
-+		     bool with_dsc)
-+{
-+	/*
-+	 * DSC with YCbCr420 is a constraint as currently we do not support compression
-+	 * with 420 format.
-+	 */
-+	if (with_dsc)
-+		return true;
++	if (intel_dp_hdisplay_bad(dev_priv, mode->hdisplay))
++		return MODE_H_ILLEGAL;
 +
-+	return ycbcr420_scaler_constraints(i915, mode);
-+}
-+
- static enum intel_output_format
- intel_dp_output_format(struct intel_connector *connector,
- 		       const struct drm_display_mode *mode,
--		       enum intel_output_format sink_format)
-+		       enum intel_output_format sink_format,
-+		       bool with_dsc)
- {
- 	struct intel_dp *intel_dp = intel_attached_dp(connector);
- 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	max_link_clock = intel_dp_max_link_rate(intel_dp);
+ 	max_lanes = intel_dp_max_lane_count(intel_dp);
  
- 	/*
- 	 * For YCbCr420 output, scaler is required for downsampling.
--	 * So go for native YCbCr420 only if there are no scaler constraints.
-+	 * DSC1.1 supports compression only with 444 formats.
-+	 * So go for native YCbCr420 only if there are no scaler and dsc constraints.
- 	 */
- 	if ((sink_format != INTEL_OUTPUT_FORMAT_YCBCR420 ||
--	     !ycbcr420_scaler_constraints(i915, mode)) &&
-+	     !ycbcr420_constraints(i915, mode, with_dsc)) &&
- 	    source_can_output(intel_dp, sink_format))
- 		return sink_format;
+@@ -1119,13 +1122,6 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 	mode_rate = intel_dp_link_required(target_clock,
+ 					   intel_dp_mode_min_output_bpp(connector, mode));
  
-@@ -922,7 +939,7 @@ intel_dp_mode_min_output_bpp(struct intel_connector *connector,
- 	else
- 		sink_format = INTEL_OUTPUT_FORMAT_RGB;
- 
--	output_format = intel_dp_output_format(connector, mode, sink_format);
-+	output_format = intel_dp_output_format(connector, mode, sink_format, false);
- 
- 	return intel_dp_output_bpp(output_format, intel_dp_min_bpp(output_format));
- }
-@@ -1671,7 +1688,8 @@ static int
- intel_dp_compute_link_config(struct intel_encoder *encoder,
- 			     struct intel_crtc_state *pipe_config,
- 			     struct drm_connector_state *conn_state,
--			     bool respect_downstream_limits)
-+			     bool respect_downstream_limits,
-+			     bool with_dsc)
- {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
-@@ -1682,6 +1700,20 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 	bool joiner_needs_dsc = false;
- 	int ret;
- 
-+	if (intel_dp_need_bigjoiner(intel_dp, adjusted_mode->crtc_hdisplay,
-+				    adjusted_mode->crtc_clock))
-+		pipe_config->bigjoiner_pipes = GENMASK(crtc->pipe + 1, crtc->pipe);
-+
-+	/*
-+	 * Pipe joiner needs compression up to display 12 due to bandwidth
-+	 * limitation. DG2 onwards pipe joiner can be enabled without
-+	 * compression.
-+	 */
-+	joiner_needs_dsc = DISPLAY_VER(i915) < 13 && pipe_config->bigjoiner_pipes;
-+
-+	if (joiner_needs_dsc && !with_dsc)
-+		return -EINVAL;
-+
- 	limits.min_rate = intel_dp_common_rate(intel_dp, 0);
- 	limits.max_rate = intel_dp_max_link_rate(intel_dp);
- 
-@@ -1711,23 +1743,15 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 		    limits.max_lane_count, limits.max_rate,
- 		    limits.max_bpp, adjusted_mode->crtc_clock);
- 
--	if (intel_dp_need_bigjoiner(intel_dp, adjusted_mode->crtc_hdisplay,
--				    adjusted_mode->crtc_clock))
--		pipe_config->bigjoiner_pipes = GENMASK(crtc->pipe + 1, crtc->pipe);
+-	if (intel_dp_hdisplay_bad(dev_priv, mode->hdisplay))
+-		return MODE_H_ILLEGAL;
 -
 -	/*
--	 * Pipe joiner needs compression up to display 12 due to bandwidth
--	 * limitation. DG2 onwards pipe joiner can be enabled without
--	 * compression.
+-	 * Output bpp is stored in 6.4 format so right shift by 4 to get the
+-	 * integer value since we support only integer values of bpp.
 -	 */
--	joiner_needs_dsc = DISPLAY_VER(i915) < 13 && pipe_config->bigjoiner_pipes;
--
- 	/*
- 	 * Optimize for slow and wide for everything, because there are some
- 	 * eDP 1.3 and 1.4 panels don't work well with fast and narrow.
- 	 */
- 	ret = intel_dp_compute_link_config_wide(intel_dp, pipe_config, conn_state, &limits);
+ 	if (HAS_DSC(dev_priv) &&
+ 	    drm_dp_sink_supports_dsc(intel_dp->dsc_dpcd)) {
+ 		/*
+@@ -1134,6 +1130,10 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 		 */
+ 		int pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, U8_MAX);
  
-+	if (ret && !with_dsc)
-+		return -EINVAL;
-+
- 	if (ret || joiner_needs_dsc || intel_dp->force_dsc_en) {
- 		drm_dbg_kms(&i915->drm, "Try DSC (fallback=%s, joiner=%s, force=%s)\n",
- 			    str_yes_no(ret), str_yes_no(joiner_needs_dsc),
-@@ -2063,7 +2087,8 @@ static int
- intel_dp_compute_output_format(struct intel_encoder *encoder,
- 			       struct intel_crtc_state *crtc_state,
- 			       struct drm_connector_state *conn_state,
--			       bool respect_downstream_limits)
-+			       bool respect_downstream_limits,
-+			       bool with_dsc)
- {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-@@ -2086,10 +2111,10 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
- 	}
- 
- 	crtc_state->output_format = intel_dp_output_format(connector, adjusted_mode,
--							   crtc_state->sink_format);
-+							   crtc_state->sink_format, with_dsc);
- 
- 	ret = intel_dp_compute_link_config(encoder, crtc_state, conn_state,
--					   respect_downstream_limits);
-+					   respect_downstream_limits, with_dsc);
- 	if (ret) {
- 		if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
- 		    !drm_mode_is_420_also(info, adjusted_mode))
-@@ -2097,9 +2122,10 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
- 
- 		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
- 		crtc_state->output_format = intel_dp_output_format(connector, adjusted_mode,
--								   crtc_state->sink_format);
-+								   crtc_state->sink_format,
-+								   with_dsc);
- 		ret = intel_dp_compute_link_config(encoder, crtc_state, conn_state,
--						   respect_downstream_limits);
-+						   respect_downstream_limits, with_dsc);
- 	}
- 
- 	return ret;
-@@ -2163,9 +2189,21 @@ intel_dp_compute_config(struct intel_encoder *encoder,
- 	 * Try to respect downstream TMDS clock limits first, if
- 	 * that fails assume the user might know something we don't.
- 	 */
--	ret = intel_dp_compute_output_format(encoder, pipe_config, conn_state, true);
-+	ret = intel_dp_compute_output_format(encoder, pipe_config,
-+					     conn_state, true, false);
- 	if (ret)
--		ret = intel_dp_compute_output_format(encoder, pipe_config, conn_state, false);
-+		ret = intel_dp_compute_output_format(encoder, pipe_config,
-+						     conn_state, false, false);
-+
-+	/* Try with DSC */
-+	if (ret) {
-+		ret = intel_dp_compute_output_format(encoder, pipe_config,
-+						     conn_state, true, true);
-+		if (ret)
-+			ret = intel_dp_compute_output_format(encoder, pipe_config,
-+							     conn_state, false, true);
-+	}
-+
- 	if (ret)
- 		return ret;
- 
++		/*
++		 * Output bpp is stored in 6.4 format so right shift by 4 to get the
++		 * integer value since we support only integer values of bpp.
++		 */
+ 		if (intel_dp_is_edp(intel_dp)) {
+ 			dsc_max_output_bpp =
+ 				drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4;
 -- 
 2.25.1
 
