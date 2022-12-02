@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB7DC4332F
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Dec 2022 10:10:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6F87C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Dec 2022 10:10:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C99E310E6C8;
-	Fri,  2 Dec 2022 10:09:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30B9610E6C9;
+	Fri,  2 Dec 2022 10:10:02 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 316A910E6C6
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Dec 2022 10:09:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB5C10E6C9
+ for <intel-gfx@lists.freedesktop.org>; Fri,  2 Dec 2022 10:09:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1669975790; x=1701511790;
+ t=1669975795; x=1701511795;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=mYjE7VFHHe2i6H5j9dGYIWPxxaFc9+REn02LDM134n0=;
- b=FDAs7tRerJe3VV7HHDD5YKLas9cVvCj9rN9zkKBBj2+QDt4wZgLfOHc4
- L519PmL5lnUSqLLUZaN3v7LIsTHdXk8CuZ5K3qbRAdCTlIJFaYLeZ5Cja
- iEa7bB5SGyXDDQkPmUmlIfP+flgbbNMPa/OoSQupvEusFFnc5e4g2M2i2
- KQaBH3oIx/7bKK1wuANNTLeLK116z5WMqZwKUDkCvWjEOiMs9goPZCWcp
- eaipuXDyVtf0W5B9b8xx90gWorejwYNqXoRxK8mKN4peZiPpATt2lAe7+
- 0UWQR461hxP4VUEDTHWGlRV9+U664JUx9ugIUl45nNfw9J17RS/DEANh7 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="313564596"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="313564596"
+ bh=uVweuQcxMo9rpf4xK5CHQVHteLjwK2q3xCyrBCSc+aI=;
+ b=KUvEfHfa/6Znlg2W8ZFNWZlkphqCpiLxpGYaTD0bpsluZOdmzv6QmNDg
+ jJzemqrZ9nFpEBRFV7TK/inOxAsnoJPKSn+bIix3kTViLlWMATF6tNQq0
+ kDEXizvxNV8BF9uHJlfqADBeok+ugGl9CJOxKvFpnKhw47yVMGrQ+hoNY
+ BS6wL8YpkMC8k0T/2YYtkSH0YS5PdjgretfBEBZMV+bH+7rZIXF15+cxj
+ Cpng17PA1TIfT8qxzvGMhrekvW1jmzFx3TYIKPzEmY3lRlmnce2lF/MYq
+ vQvM/TR1m7FHzAFxLeulWX7YoQ9IHOzgQ1qZyKGdiOAqlkdCwM+RxqlIS g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="313564607"
+X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="313564607"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2022 02:09:50 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="647115797"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="647115797"
+ 02 Dec 2022 02:09:54 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="647115815"
+X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; d="scan'208";a="647115815"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2022 02:09:48 -0800
+ 02 Dec 2022 02:09:52 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Dec 2022 15:40:23 +0530
-Message-Id: <20221202101028.803630-10-ankit.k.nautiyal@intel.com>
+Date: Fri,  2 Dec 2022 15:40:25 +0530
+Message-Id: <20221202101028.803630-12-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221202101028.803630-1-ankit.k.nautiyal@intel.com>
 References: <20221202101028.803630-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v1 09/14] drm/i915/dp: Check if mode can be
- supported with dsc compressed bpp
+Subject: [Intel-gfx] [PATCH v5 11/14] drm/i915/dp: Avoid DSC with
+ output_format YCBCR420
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,42 +60,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use compressed bpp to calculate mode_rate during dp_mode_valid.
-Check if this can be supported with max lane count and link rate
-combination.
+Currently, DSC with YCBCR420 is not supported.
+Return -EINVAL when trying with DSC with output_format as YCBCR420.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index d333583e3894..920be0fd39c1 100644
+index 8c5480cd2f65..7cb77f399c64 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1121,8 +1121,6 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 	max_lanes = intel_dp_max_lane_count(intel_dp);
+@@ -1607,6 +1607,10 @@ static int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
+ 		return -EINVAL;
  
- 	max_rate = intel_dp_max_data_rate(max_link_clock, max_lanes);
--	mode_rate = intel_dp_link_required(target_clock,
--					   intel_dp_mode_min_output_bpp(connector, mode));
++	/* Currently DSC with YCBCR420 format is not supported */
++	if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
++		return -EINVAL;
++
+ 	pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, pipe_config->output_format,
+ 					    conn_state->max_requested_bpc);
  
- 	if (HAS_DSC(dev_priv) &&
- 	    drm_dp_sink_supports_dsc(intel_dp->dsc_dpcd)) {
-@@ -1178,7 +1176,12 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 	if (DISPLAY_VER(dev_priv) < 13 && bigjoiner && !dsc)
- 		return MODE_CLOCK_HIGH;
- 
--	if (mode_rate > max_rate && !dsc)
-+	if (dsc)
-+		mode_rate = intel_dp_link_required(target_clock, dsc_max_output_bpp);
-+	else
-+		mode_rate = intel_dp_link_required(target_clock,
-+						   intel_dp_mode_min_output_bpp(connector, mode));
-+	if (mode_rate > max_rate)
- 		return MODE_CLOCK_HIGH;
- 
- 	status = intel_dp_mode_valid_downstream(connector, mode, target_clock);
 -- 
 2.25.1
 
