@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1FBFC352A1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 09:18:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAB18C352A1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 09:18:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 058FC10E304;
-	Tue,  6 Dec 2022 09:18:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18E3F10E02A;
+	Tue,  6 Dec 2022 09:18:18 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6D3B10E302
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0C0810E304
  for <intel-gfx@lists.freedesktop.org>; Tue,  6 Dec 2022 09:18:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1670318290; x=1701854290;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fCSMZFXQvOEyzp9XmSauRLj7ajYfxbGTrQ2w/aLOUeY=;
- b=ROpaj+0+rU/dRu1AM9+77QpbEIZhBIc5xh1mT80TZdMqLEkipTZRAsS5
- 0sUqYKDlASjAi2U4GQt+z8tEnHZ6B9nZ/r4o/RfCXtUamRBIyPJmcsHNj
- D7ZTuQG3PJnlAXhirF099lVf4DbJEF793TezOY/SNpWH8ypCFmefOVi0X
- j3ey6mI9HTiBbWtdBc6YvROknPr2YL90GGYk7YxVlsFzbDupa2rzAto2F
- ZcuS5ZKwl4aPhfZiuUE0fzXcaGJ7gmdLeUdjFrNwlsocEJTsa8gHpBXnt
- yceh7bznKEZj2D0yn2TPIknmTa0xeVkbEp7xEAp/DT7BX5wwvf8Ny2r6m w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="318438110"
-X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="318438110"
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=yfPAqrDWZZCgB1eizROIWW/nWhXr/GEaimFx/LJsQ+I=;
+ b=MdvKuhKUcAf31eSXrEMPwMXE+dIUyBSyUb11TmROyiSvXTJ8izWLywge
+ 6fg7jbwM0tl7qRZiqmi924XUz+Bl2UBVmv10JpWtVcRxcvcme0GnwfrL5
+ W4QMjGCJswEWJuA5ZT+knWpG9qQEy2aV6f6e5+L2bg6xoL/8S32sjwO1G
+ l7+r1hWmDKbCZMFWlgR4VgXMZBCWjiw+iqKgEtPLhoZQH8LJ1uzlv7RXS
+ 2LPyOrnGthcI7hsKxR8zBy0IXjQqN59l9/LJuANeEhf2ctFwaLo6tb5Qu
+ 7yg6lcOl73L3U7H89Fj6CNrOmNyOnYJ/gHwWeSgyZp36PoiVvd6JDGvA+ A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="318438112"
+X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="318438112"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Dec 2022 01:18:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="623833211"
-X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="623833211"
+X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="623833214"
+X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="623833214"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga006.jf.intel.com with ESMTP; 06 Dec 2022 01:18:09 -0800
+ by orsmga006.jf.intel.com with ESMTP; 06 Dec 2022 01:18:10 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  6 Dec 2022 01:20:55 -0800
-Message-Id: <20221206092100.274195-1-alan.previn.teres.alexis@intel.com>
+Date: Tue,  6 Dec 2022 01:20:57 -0800
+Message-Id: <20221206092100.274195-3-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221206092100.274195-1-alan.previn.teres.alexis@intel.com>
+References: <20221206092100.274195-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/5] drm/i915/guc: Update GuC relay logging
- debugfs
+Subject: [Intel-gfx] [PATCH v2 2/5] drm/i915/guc: Add unaligned wc memcpy
+ for copying GuC Log
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,45 +60,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series
-  1. Fixes a bug introduced in GuC Error Capture that
-     was sharing the memmap of the multi-region GuC
-     logging buffer.
-  1. Adds support for unaligned wc memcpy during the
-     copying of logs to relay channel.
-  2. Renames the debugfs file for controlling GuC relay
-     logging to something more discernible.
-  3. Introduces two debugfs files to allow intel_guc_logger
-     to read the subbufer-count and subbuffer-size from the
-     kernel so future changes to buffer sizing in kernel
-     wont require updating intel_guc_logger codes.
-  4. Moves the location of the relay-channel debugfs file
-     to be under the "gt/uc/" path alongside other guc-
-     id debugfs files.
+Add usage of unaligned wc mempy in read_update_log_buffer
+as newer formats of GuC debug-log-events are no longer
+guaranteed to be exactly 4-dwords long per event.
 
-Changes from prior revs:
-   v1: - Removed a patch that isn't required anymore (the same
-         functionality was merged as part of an unrelated series.
-       - Removed some unneeded checks in debugfs codes (Ashutosh).
-       - Changed one of the function names and debugsfs file names
-         for more consistency (Ashutosh).
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Alan Previn (5):
-  drm/i915/guc: Fix GuC relay log debugfs failing open
-  drm/i915/guc: Add unaligned wc memcpy for copying GuC Log
-  drm/i915/guc: Provide debugfs for log relay sub-buf info
-  drm/i915/guc: Rename GuC log relay debugfs descriptively
-  drm/i915/guc: Move guc_log_relay_chan debugfs path to uc
-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  2 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    | 25 ++++++---
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |  2 +
- .../drm/i915/gt/uc/intel_guc_log_debugfs.c    | 56 +++++++++++++++----
- drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c |  2 +
- 5 files changed, 68 insertions(+), 19 deletions(-)
-
-
-base-commit: 886c7f9510ce20f099d27d9e7d9de32402c9e5e6
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+index c5a7aecd08ac..2fa952916120 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+@@ -459,13 +459,16 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
+ 
+ 		/* Just copy the newly written data */
+ 		if (read_offset > write_offset) {
+-			i915_memcpy_from_wc(dst_data, src_data, write_offset);
++			if (!i915_memcpy_from_wc(dst_data, src_data, write_offset))
++				i915_unaligned_memcpy_from_wc(dst_data, src_data, write_offset);
+ 			bytes_to_copy = buffer_size - read_offset;
+ 		} else {
+ 			bytes_to_copy = write_offset - read_offset;
+ 		}
+-		i915_memcpy_from_wc(dst_data + read_offset,
+-				    src_data + read_offset, bytes_to_copy);
++		if (!i915_memcpy_from_wc(dst_data + read_offset,
++					 src_data + read_offset, bytes_to_copy))
++			i915_unaligned_memcpy_from_wc(dst_data + read_offset,
++						      src_data + read_offset, bytes_to_copy);
+ 
+ 		src_data += buffer_size;
+ 		dst_data += buffer_size;
 -- 
 2.34.1
 
