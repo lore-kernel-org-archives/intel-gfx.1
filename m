@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ADB4C636F9
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 01:15:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 853EAC47089
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 01:15:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F08F10E0E1;
-	Tue,  6 Dec 2022 01:15:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F86810E2E4;
+	Tue,  6 Dec 2022 01:15:26 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B45710E0E1;
- Tue,  6 Dec 2022 01:15:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DA5C10E0E1;
+ Tue,  6 Dec 2022 01:15:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670289319; x=1701825319;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=hbQShNZX/rk3VUPVGk4QNY5SHehQVeHOKYMcpafhxA0=;
- b=b5siLjzFZGc6fUgvQOnXrGDmzs1mFEcPzwVmZl44KUDhX3asXeWU2mgG
- 1huOs11ITPv7ter2odj/GFxQWZ2sg2MHxVlxJEIdneMzgzJIUSG/mlIM7
- f7rO2t6lu3B6ysBPbi/LXIYtHUJjZXOkhgowe61d5bPJ4Uiatb8ik0Dbc
- 090YUJgkODT/fSrzWaBjWxN4WTMAuZEA3RyPtldKoy5SIUi45GkWs/bNN
- DVWSB40Lgs7sV8s52c1bZX4gGe4a3tFws8wydaiwhvBnTnb82eJt6w0Q0
- kXQF5OIEukCsfsFu5dEs6TuUs4oU/HTIkkShi0Y2te9uofIK5TDAtn9dQ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="317650456"
-X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="317650456"
+ t=1670289322; x=1701825322;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=+I4cPEzjB6CCLdYA8r8MSYneRzVYVvZv8u6k3MH025g=;
+ b=bv1AZdfg/x5YFXMHakj7RtVwJuk5FNczRQveHZbp8y1Vu+wJltcFMCtr
+ ueYPU5BeOtsTw6wbgUnkaZyJpG/9q+bDli9FhA13tHEGQKvUofZ46Ffst
+ YO1byXnitRRI5vxgIrz31UxW5YErIW5i+MF6mmBdlilfYs83NlX0MUr/f
+ MI7ywJ/btSXOOlUXEFVpN4v+BdLA1rMPrWNGB51LNBqO/2DO9heGZua01
+ oFcvo0iDctbXbcAHki7T8ixqCIRl3bBB6M7uOcUmQWcsrYgyhVfoL72cA
+ ZDycASKjiiavrL7bp0cSvQOUAQqVPI+PkAI5k1QFitS8XDvbsMnFNI+/7 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="317650465"
+X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="317650465"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2022 17:15:18 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="974890685"
-X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="974890685"
+ 05 Dec 2022 17:15:22 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="974890706"
+X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="974890706"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2022 17:15:18 -0800
+ 05 Dec 2022 17:15:21 -0800
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  5 Dec 2022 17:19:02 -0800
-Message-Id: <20221206011908.2745508-1-daniele.ceraolospurio@intel.com>
+Date: Mon,  5 Dec 2022 17:19:04 -0800
+Message-Id: <20221206011908.2745508-3-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20221206011908.2745508-1-daniele.ceraolospurio@intel.com>
+References: <20221206011908.2745508-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/6] drm/i915: Add support for GSC FW loading
+Subject: [Intel-gfx] [PATCH v2 2/6] drm/i915/gsc: Skip the version check
+ when fetching the GSC FW
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,67 +62,86 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Starting from MTL, the GSC FW is runtime loaded by the driver, instead
-of being stored in flash memory. Loading the GSC FW is required to allow
-the media GT to go into its C6 state and for content protection features
-(PXP, HDCP).
+The current exectation from the FW side is that the driver will query
+the GSC FW version after the FW is loaded, similarly to what the mei
+driver does on DG2. However, we're discussing with the FW team if there
+is a way to extract the version from the bin file before loading, so we
+can keep the code the same as for older FWs.
 
-The loading happens via a submission to the GSC engine. All subsequent
-communication with the FW will also happen via the engine, although no
-further messages are implemented as part of this series.
+Since the GSC FW version is not currently required for functionality and
+is only needed for debug purposes, we can skip the FW version for now at
+fetch time and add it later on when we've agreed on the approach.
 
-This series also adds the GSC engine flag to the MTL platform, with the
-engine being runtime disabled if the FW is not selected, which makes the
-FW definition (not included in the series) the ultimate enabler for the
-whole GSC block.
+v2: rebased on uc_fw version struct changes.
 
-Note that just loading the FW is not enough for it to be fully
-functional. We'll also need to establish and handle a communication
-channel between GSC and CSME (a.k.a. SW proxy). This will require a new
-mei component to handle the CSME side of things, so it will be pushed as
-a separate series.
-
-v2: Use wq to load the GSC, address minor review comments.
-
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com> #v1
+---
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 29 +++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
-Daniele Ceraolo Spurio (5):
-  drm/i915/uc: Introduce GSC FW
-  drm/i915/gsc: Skip the version check when fetching the GSC FW
-  drm/i915/gsc: GSC firmware loading
-  drm/i915/gsc: Do a driver-FLR on unload if GSC was loaded
-  drm/i915/mtl: MTL has one GSC CS on the media GT
-
-Jonathan Cavitt (1):
-  drm/i915/gsc: Disable GSC engine and power well if FW is not selected
-
- drivers/gpu/drm/i915/Makefile                |  11 +-
- drivers/gpu/drm/i915/gt/intel_engine.h       |   2 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  18 ++
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h |   7 +
- drivers/gpu/drm/i915/gt/intel_gt.h           |   5 +
- drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c    | 210 +++++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h    |  15 ++
- drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c    | 137 ++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h    |  47 +++++
- drivers/gpu/drm/i915/gt/uc/intel_uc.c        |  23 ++
- drivers/gpu/drm/i915/gt/uc/intel_uc.h        |   3 +
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c     |  78 +++++--
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h     |   8 +-
- drivers/gpu/drm/i915/i915_params.c           |   3 +
- drivers/gpu/drm/i915/i915_params.h           |   1 +
- drivers/gpu/drm/i915/i915_pci.c              |   2 +-
- drivers/gpu/drm/i915/i915_reg.h              |   3 +
- drivers/gpu/drm/i915/intel_uncore.c          |  61 ++++++
- drivers/gpu/drm/i915/intel_uncore.h          |  13 ++
- 19 files changed, 626 insertions(+), 21 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 1d6249d4b8ef..78ab60c07a2b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -655,6 +655,26 @@ static bool guc_check_version_range(struct intel_uc_fw *uc_fw)
+ 	return true;
+ }
+ 
++static int check_fw_header(struct intel_gt *gt,
++			   const struct firmware *fw,
++			   struct intel_uc_fw *uc_fw)
++{
++	int err = 0;
++
++	/* GSC FW version is queried after the FW is loaded */
++	if (uc_fw->type == INTEL_UC_FW_TYPE_GSC)
++		return 0;
++
++	if (uc_fw->loaded_via_gsc)
++		err = check_gsc_manifest(fw, uc_fw);
++	else
++		err = check_ccs_header(gt, fw, uc_fw);
++	if (err)
++		return err;
++
++	return 0;
++}
++
+ /**
+  * intel_uc_fw_fetch - fetch uC firmware
+  * @uc_fw: uC firmware
+@@ -724,17 +744,14 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
+ 	if (err)
+ 		goto fail;
+ 
+-	if (uc_fw->loaded_via_gsc)
+-		err = check_gsc_manifest(fw, uc_fw);
+-	else
+-		err = check_ccs_header(gt, fw, uc_fw);
++	err = check_fw_header(gt, fw, uc_fw);
+ 	if (err)
+ 		goto fail;
+ 
+ 	if (uc_fw->type == INTEL_UC_FW_TYPE_GUC && !guc_check_version_range(uc_fw))
+ 		goto fail;
+ 
+-	if (uc_fw->file_wanted.ver.major) {
++	if (uc_fw->file_wanted.ver.major && uc_fw->file_selected.ver.major) {
+ 		/* Check the file's major version was as it claimed */
+ 		if (uc_fw->file_selected.ver.major != uc_fw->file_wanted.ver.major) {
+ 			drm_notice(&i915->drm, "%s firmware %s: unexpected version: %u.%u != %u.%u\n",
+@@ -751,7 +768,7 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
+ 		}
+ 	}
+ 
+-	if (old_ver) {
++	if (old_ver && uc_fw->file_selected.ver.major) {
+ 		/* Preserve the version that was really wanted */
+ 		memcpy(&uc_fw->file_wanted, &file_ideal, sizeof(uc_fw->file_wanted));
+ 
 -- 
 2.37.3
 
