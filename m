@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A58D0C4708E
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 00:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D19FC4708C
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 00:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53A4910E315;
-	Tue,  6 Dec 2022 00:35:39 +0000 (UTC)
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
- [IPv6:2607:f8b0:4864:20::d2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E28A010E2D4;
- Tue,  6 Dec 2022 00:35:12 +0000 (UTC)
-Received: by mail-io1-xd2e.google.com with SMTP id h6so2988361iof.9;
- Mon, 05 Dec 2022 16:35:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37F3310E32C;
+	Tue,  6 Dec 2022 00:35:44 +0000 (UTC)
+Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
+ [IPv6:2607:f8b0:4864:20::d35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28A4710E2EA;
+ Tue,  6 Dec 2022 00:35:18 +0000 (UTC)
+Received: by mail-io1-xd35.google.com with SMTP id e189so8776167iof.1;
+ Mon, 05 Dec 2022 16:35:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FoWT3whneSiQzTAYd5Vl5dubMxD0/e5Afaj7/WmcC8o=;
- b=hI/CwpgBrv4FuN2UQf8ufrGEGWB3NLRMuEPL1gFEIujpHxwkfRV1QX1TD7RlOKnUjN
- wotsSjDJJYp77gKIDb6M6VvDv3dkVrpTi/b+lqk41/l+j3m1ZtggdhCEHN+9rnG09LXY
- EKqhFJSGtMtM4JE0WaHl49/OpjtHwTxZzFc1lkjFgGxgrx6ZkZR100GXh1qM/Gl4ZEe9
- j9xnM8mlK8JDE6gz+sVwd5f0SqLBK5v1oPwOTS6WkFSbE+XLSydLHJQXjEZWc+MJ3mQz
- 42AuQhhU01H99SK0cwAuLJwvkCNpmI291UFZcFB++2WNpXQDgZVa6ehyw+7GUgdgLa/A
- knEg==
+ bh=6+UDrWNXMMGhk9HzOMZBwbh5zjmulDfm2DaVnY/OUhI=;
+ b=eLeE2dj14exQeQIr1ko9hCDJKvzZBxL31dknUIIIFaYlxA20UJuCHiOsbgVMQoo33m
+ 2qhDf9Fm5NpvMorwLHW2iBCbaXEhs0Ck79a3jMQjJmVaDNi4k9/rhuIC3/1Gyvv0GbR+
+ yKtYcRWC+dnl+PUbTvH1i7/GSpRDrUAGqM4zlpfzTJeAvZ4iqQmZ+sVffIQCD0emjCs5
+ 5jm7Evqqm3oba1alb0augbhYBWWBxnrTQhdwTAknsh9m5ifR2ccK3kKdNe2ZYDfzsEMf
+ OIoI0aUK+FFtI09eRSWSEtHRzDt3Cgyic2eQc+OWFGf93/+6XibjSm98FxmBkViMUuO4
+ H9AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FoWT3whneSiQzTAYd5Vl5dubMxD0/e5Afaj7/WmcC8o=;
- b=a/8Wuj4mHT1o6T2LYDL7YGXq+u2ZR0v6D4G2NYF+gWlHdyVkX2LAkwTr6r00UjT0z8
- s9fgm/coI5oF/jVmEhXMviEcImufXtgZRJ9NJaqOd2tbXJNfnIse+CltVx4VCMaxUw0B
- /P2YdtgulfQeNsf9YXO51mRASknKXGbcoExpSQH/dLXuQ01JsqJT8VfR+FDTv/DVHzUV
- xU5DrzslFn7MqxEgLktWWHjx2DEXOBnX0o/LJ7pNszAWeNpVy1jD55mwol5Rn3Qdm6wU
- UJH/DB6CX1V8/QgDzuqqcTsCoo5KdNKIGIhuUDlOjp4nabIuHLj65XB4Ovyw6LRMHVbV
- DuxA==
-X-Gm-Message-State: ANoB5pkKEpWVtLyLRdHaeK06JD5bVVZpsJ7b6jTdvsKP9fll7Sc6plyN
- fXQsZHWOb/CtN5TkiOQ0pvw=
-X-Google-Smtp-Source: AA0mqf6ZFOuU7OcSMzy2rMDNBXi5b1ArqAGWmJJqL2EE6cRi4TBp7GPbwMCqNP+DcXnAP9J5+j8DaQ==
-X-Received: by 2002:a02:6a43:0:b0:375:4725:4b4f with SMTP id
- m3-20020a026a43000000b0037547254b4fmr39159172jaf.52.1670286912140; 
- Mon, 05 Dec 2022 16:35:12 -0800 (PST)
+ bh=6+UDrWNXMMGhk9HzOMZBwbh5zjmulDfm2DaVnY/OUhI=;
+ b=aPS0vWDH/JxY97kEFmbOayI/qjkUPpq/1CN6abz07vLLczC5A9e9hpFLRn7X3KW7K+
+ M+Bhshu+nCKUXNDnkfAEK1XSVFWpkHbR8PSR+ZZu+MzoEjurSEvO4lkWiDZGyns/+t2y
+ nQ69uwC08Zh9EIFz0pzIcXLPqmJ5Pb7p31SBZzk9i8tKu0MdZQfOvWKKTk94htRn0smt
+ jF3gzOA+mpZYweWDUpxzMIvram0ZkYuKxk+6Z9tBv0maFBsHUvXxZlfECHWMf6hS8CX/
+ kVwpAKJplyCo0NVhMi3kuBcqF5ZgllnY2NaL1tGGj9rNDLmIVgX3e8ttonnfEHALMgWl
+ nOTA==
+X-Gm-Message-State: ANoB5pkR/kBbhNRNu9MN7/hZKfmmb7oab7f/9zSKQP/sOIzZ8P3QL7H+
+ cVsV0H/lqKKZuPNeMEejnbo=
+X-Google-Smtp-Source: AA0mqf7S5bHLlbhVAzPpHg9sCL9n3qLeloz+E671RFH4nKtb1ybTIO5QlE+Jm2CCx5RS1oF/exUDcw==
+X-Received: by 2002:a02:23ca:0:b0:372:59cb:f242 with SMTP id
+ u193-20020a0223ca000000b0037259cbf242mr39977560jau.135.1670286917295; 
+ Mon, 05 Dec 2022 16:35:17 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- x3-20020a056602160300b006bba42f7822sm6408213iow.52.2022.12.05.16.35.11
+ x3-20020a056602160300b006bba42f7822sm6408213iow.52.2022.12.05.16.35.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Dec 2022 16:35:11 -0800 (PST)
+ Mon, 05 Dec 2022 16:35:16 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Mon,  5 Dec 2022 17:34:20 -0700
-Message-Id: <20221206003424.592078-14-jim.cromie@gmail.com>
+Date: Mon,  5 Dec 2022 17:34:24 -0700
+Message-Id: <20221206003424.592078-18-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221206003424.592078-1-jim.cromie@gmail.com>
 References: <20221206003424.592078-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC PATCH 13/17] drm_print: fix stale macro-name in
- comment
+Subject: [Intel-gfx] [RFC PATCH 17/17] dyndbg: miss-on HACK
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,39 +79,35 @@ Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch, jbaron@akamai.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Cited commit uses stale macro name, fix this, and explain better.
-
-When DRM_USE_DYNAMIC_DEBUG=y, DYNDBG_CLASSMAP_DEFINE() maps DRM_UT_*
-onto BITs in drm.debug.  This still uses enum drm_debug_category, but
-it is somewhat indirect, with the ordered set of DRM_UT_* enum-vals.
-This requires that the macro args: DRM_UT_* list must be kept in sync
-and in order.
-
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+dont break the loop, to see multiple clients.  the 3 client records
+are differently wrong.
 ---
-. emphasize ABI non-change despite enum val change - Jani Nikula
-. reorder to back of patchset to follow API name changes.
----
- include/drm/drm_print.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ lib/dynamic_debug.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 6a27e8f26770..7695ba31b3a4 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -276,7 +276,10 @@ static inline struct drm_printer drm_err_printer(const char *prefix)
-  *
-  */
- enum drm_debug_category {
--	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
-+	/*
-+	 * Keep DYNDBG_CLASSMAP_DEFINE args in sync with changes here,
-+	 * the enum-values define BIT()s in drm.debug, so are ABI.
-+	 */
- 	/**
- 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
- 	 * drm_memory.c, ...
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 3ef1c0a1f0cd..a26eaa348731 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -629,6 +629,7 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
++	v2pr_info("applied bitmap: 0x%lx to: 0x%lx\n", *new_bits, *old_bits);
+ 	return matches;
+ }
+ 
+@@ -1321,8 +1322,8 @@ static void ddebug_attach_client_module_classes(struct ddebug_table *dt, struct
+ 			 */
+ 			v2pr_info("break on %d/%d\n", i, di->num_class_refs);
+ 			dt->num_class_refs = 1;
+-			break;
+-		}
++		} else
++			v2pr_info("miss on %d/%d\n", i, di->num_class_refs);
+ 	}
+ }
+ 
 -- 
 2.38.1
 
