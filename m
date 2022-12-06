@@ -4,47 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04FFCC352A1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 08:13:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9A6DC3A5A7
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 08:28:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A64110E303;
-	Tue,  6 Dec 2022 08:13:11 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A656610E302
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Dec 2022 08:13:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670314384; x=1701850384;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=2fsOoet2VVCdXT41Z9eBERxIE6ibcNPTUEsPP/LPv5Q=;
- b=KtFs1aSDp++5762o2v8/VKz/TvVC3gKflOUQVWlgzpNsVdc6zuou7izs
- vR86Fgr+MFQZHkhCtk5Afy7DhXoDYb4wgHKfvdrhqWOsAkaSAptRR7AiS
- w93j/LnKytS+1bxWVvhUtWaFqokB43T6+wEwfGOFIL2YtyBpzGxdsP+xa
- lpYn//4Zzvl40BhJAMXzzKO6sJ6Vb6gn/5iSHkpTQqFXTdnBaOP4kECRF
- yl8+KfPTDIStJ2LoeZx1sdIRl0xS/k8wVlkzFvEljiIz3JTUrPdT0TDmJ
- a16um/roOK2wCxRKso3MwuJisLvAKbiood2n9xDvSL289HPl1GTQZr1kj Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="296257755"
-X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="296257755"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2022 00:13:02 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="891290038"
-X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="891290038"
-Received: from aravind-dev.iind.intel.com ([10.145.162.80])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2022 00:12:57 -0800
-From: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  6 Dec 2022 13:57:39 +0530
-Message-ID: <f8cfaaab25f700b1826eedeba55d68334396e92a.1670311877.git.aravind.iddamsetty@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <97b42ba0ae91b1ed6feb6e5c090bff2445719bf7.1670311877.git.aravind.iddamsetty@intel.com>
-References: <97b42ba0ae91b1ed6feb6e5c090bff2445719bf7.1670311877.git.aravind.iddamsetty@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67C4210E302;
+	Tue,  6 Dec 2022 08:28:10 +0000 (UTC)
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [IPv6:2607:f8b0:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3E7A10E09A;
+ Tue,  6 Dec 2022 04:26:34 +0000 (UTC)
+Received: by mail-pg1-x52a.google.com with SMTP id s196so12348347pgs.3;
+ Mon, 05 Dec 2022 20:26:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=JFzSwj2UsOfE/ApheojhszW7qAncTn0zPiyeo2+89Kk=;
+ b=XICQdXQkpUQT1aoGftgoROTd8PONW3R4QpgVai+2MlM4c9XQJ/upAeyi5101p5dgdZ
+ S3jo1DDu2qVWJK2zglerOVEqdt5xkZqh8zWsXM9TTab2ohNMyXB1weI9UjRdQIMAWNyN
+ 78ExsxMF4fro2PuD3o0168ZRjOzJDzhACZfkHvFB294AqYwliFtm9hxV/mrUQvTe6jlx
+ jjpabSy3+DBlklbPX7E/ODzego8ng7fpNA2BaOBPpPFotiQ31nDMVsTAvAp+fx2ZDnQJ
+ KPS4x3lCvjv2UbD2sG9fX7UqaZVff0ew5Zu+va0mNkGjccRoVtk/8Ilw1YZRdidnw2EV
+ /3YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JFzSwj2UsOfE/ApheojhszW7qAncTn0zPiyeo2+89Kk=;
+ b=lZlEIxkP5/hCI2yBO3/MYeY0bn1XmhCf5kFicVuhoDPwOZPeRTmckUai8I1nzgh6UN
+ /RET3uKSOVL1JwtGBIOI6HKScpaaC00sj1Qx28n4U8PS59IsfSwrlcj9uuwm8LNKxl8i
+ gdcAzYRz1TfJJV2BMcfOuLnXrJmbCgak3yx1raZT07VkUMO3m+3vawjk30Tzv1QDpzB6
+ 8zCj0mU1aadr/gsTOmaKaKYmLH2Hsv8KJaBR+rShabvWl0wY3K+B71uT4EPguSuGLK4q
+ lCqVTxQpAvo0bCjwGivQzunKOqC8NvuSklUqmdX4WIEQU0RYmkRxQcNSMtO1H8b3pId0
+ MA5A==
+X-Gm-Message-State: ANoB5pkP6OZipFyx2CRB75HF5PSNjyKklByFULkbOexvvxnLQSbs6z+2
+ w0s1rjLWj+JPDu5bVbjIoXQ=
+X-Google-Smtp-Source: AA0mqf7reR0SU5yUtiMz2X1QKMVhlZRiIcEgIP368SeRykiQ3SYIx0fzWgW/LhkTGahui+owekhlEA==
+X-Received: by 2002:a63:4910:0:b0:478:27a1:8602 with SMTP id
+ w16-20020a634910000000b0047827a18602mr35307639pga.9.1670300794206; 
+ Mon, 05 Dec 2022 20:26:34 -0800 (PST)
+Received: from debian.me (subs02-180-214-232-2.three.co.id. [180.214.232.2])
+ by smtp.gmail.com with ESMTPSA id
+ q5-20020aa79825000000b0057458d1f939sm10626301pfl.152.2022.12.05.20.26.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Dec 2022 20:26:33 -0800 (PST)
+Received: by debian.me (Postfix, from userid 1000)
+ id 9D29A100AD9; Tue,  6 Dec 2022 11:26:30 +0700 (WIB)
+Date: Tue, 6 Dec 2022 11:26:30 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <Y47Edh3g+Ld9gFnt@debian.me>
+References: <202212011053265568903@zte.com.cn>
+ <878rjm2kfm.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/4] drm/i915/mtl/UAPI: Disable
- GET/SET_CACHING IOCTL for MTL+
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="GjOSs0npbigzXBmw"
+Content-Disposition: inline
+In-Reply-To: <878rjm2kfm.fsf@intel.com>
+X-Mailman-Approved-At: Tue, 06 Dec 2022 08:28:05 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: use sysfs_emit() to instead of
+ scnprintf()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,69 +76,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pallavi Mishra <pallavi.mishra@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: ye.xingchen@zte.com.cn, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ rodrigo.vivi@intel.com, airlied@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20221206082739.ubFaZofq3Eh6w3wBnKmQkvyZp4AOWxMt6bVJJCoV4wY@z>
 
-From: Pallavi Mishra <pallavi.mishra@intel.com>
 
-It's a noop on all new platforms starting from MTL.
-Refer: (e7737b67ab46) drm/i915/uapi: reject caching ioctls for discrete
+--GjOSs0npbigzXBmw
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-v2:
-1. block get caching ioctl
-2. return ENODEV similar to DGFX
-3. update the doc in i915_drm.h
+On Mon, Dec 05, 2022 at 12:50:53PM +0200, Jani Nikula wrote:
+> On Thu, 01 Dec 2022, <ye.xingchen@zte.com.cn> wrote:
+> > From: ye xingchen <ye.xingchen@zte.com.cn>
+> >
+> > Replace the open-code with sysfs_emit() to simplify the code.
+>=20
+> I was going to push this, but noticed the function has a third
+> scnprintf(), and the last two play together with count. It would be
+> confusing to have a mix of sysfs_emit() and scnprintf(). The third one
+> can't be blindly converted to sysfs_emit() because it writes at an
+> offset not aligned by PAGE_SIZE.
+>=20
+> So I'm not taking this.
+>=20
 
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Hi Jani,
 
-Signed-off-by: Pallavi Mishra <pallavi.mishra@intel.com>
-Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_domain.c | 4 ++--
- include/uapi/drm/i915_drm.h                | 3 +++
- 2 files changed, 5 insertions(+), 2 deletions(-)
+Fortunately you'd NAKed this patch from ZTE people, which are known for
+ignoring your (and others) patch review. Remember that they were used to
+send from cgel.zte gmail account [1], which after the address was banned
+=66rom LKML, they tried to send from their own corporate account but Greg
+suspected that emails sent from them are spoofed [2].
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-index d44a152ce680..cf817ee0aa01 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-@@ -291,7 +291,7 @@ int i915_gem_get_caching_ioctl(struct drm_device *dev, void *data,
- 	struct drm_i915_gem_object *obj;
- 	int err = 0;
- 
--	if (IS_DGFX(to_i915(dev)))
-+	if (IS_DGFX(to_i915(dev)) || GRAPHICS_VER_FULL(to_i915(dev)) >= IP_VER(12, 70))
- 		return -ENODEV;
- 
- 	rcu_read_lock();
-@@ -329,7 +329,7 @@ int i915_gem_set_caching_ioctl(struct drm_device *dev, void *data,
- 	enum i915_cache_level level;
- 	int ret = 0;
- 
--	if (IS_DGFX(i915))
-+	if (IS_DGFX(i915) || GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
- 		return -ENODEV;
- 
- 	switch (args->caching) {
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 8df261c5ab9b..3467fd879427 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -1626,6 +1626,9 @@ struct drm_i915_gem_busy {
-  *     - Everything else is always allocated and mapped as write-back, with the
-  *       guarantee that everything is also coherent with the GPU.
-  *
-+ * Starting from MTL even on integrated platforms set/get caching is no longer
-+ * supported and object will be mapped as write-combined only.
-+ *
-  * Note that this is likely to change in the future again, where we might need
-  * more flexibility on future devices, so making this all explicit as part of a
-  * new &drm_i915_gem_create_ext extension is probable.
--- 
-2.25.1
+Thanks.
 
+[1]: https://lore.kernel.org/lkml/878rn1dd8l.fsf@intel.com/
+[2]: https://lore.kernel.org/lkml/Y3NqyDDGz%2FUKPgxM@kroah.com/
+
+--=20
+An old man doll... just what I always wanted! - Clara
+
+--GjOSs0npbigzXBmw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCY47EcQAKCRD2uYlJVVFO
+oxNvAQDaz4sHLhHTfDnNNN7CRci/KWUK4z2C2t7Vn5cKoqxhmgEA+C9pOLMOG6ta
+PuwUxC+yGaNiCvAepAumTZ4XSesIDw0=
+=i0Fp
+-----END PGP SIGNATURE-----
+
+--GjOSs0npbigzXBmw--
