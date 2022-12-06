@@ -4,134 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFE3DC3A5A7
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 23:39:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FA0C352A1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 23:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E196B10E008;
-	Tue,  6 Dec 2022 23:39:55 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 058A310E008
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Dec 2022 23:39:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1D9F10E038;
+	Tue,  6 Dec 2022 23:49:22 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5207910E038
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Dec 2022 23:49:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670369991; x=1701905991;
+ t=1670370559; x=1701906559;
  h=date:from:to:cc:subject:message-id:references:
  in-reply-to:mime-version;
- bh=YimorqlBReSPvdaDanDD7iCx72RF9WguegceUNdFl3E=;
- b=GQJE6W7yuyMLqeLmJWUfKBHNQP2kKb7smEQCJOXu9b9mzgm1E/Hiekhe
- ugWA7WMbLtMcMRuL16E6QoMjotc8z9VSwUwiJLuO7nTjiRHYBg1V0RQkO
- qOuP+tNFUYFAqC5XT0bRmFmRBczPfICaR5n78mxGYrBHXdHNOLzgQ8FpY
- MVGwSNJeb0Ti2LAPTwp/56Sc3qUTRpafrdfB6y2ASoUhj0yRKnVhu8OrY
- rZlzq1f15/MHNshjeJ+VDpCMlD/cnSKn9CoKEF28r8vPi692WaGKDU5P9
- bpsjaKy+DJefRUwgzbo7YQPxLK2P0tzfgU5dP/VkS4dFIvdMeRUkabg2M A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10553"; a="300176670"
-X-IronPort-AV: E=Sophos;i="5.96,223,1665471600"; d="scan'208";a="300176670"
+ bh=LVBGvEq9dIBf8thdjp4zOClNKDVTJplP+xKfuxfUhj8=;
+ b=ifEk0NYfruTyoH6ubx9V7wOdCxxyAnyjFOo9E05XZTIL/DOF+dJc1QF6
+ zaFKogavQGD/NXGJ8WMydfiFAR/sL01B3xN2FHnifg2R16hMR9whw3MyY
+ l060Qj8vbCgji/2l9t0FVgBbgK2iPQf1LVWTTRrqZ5slRFI3mtzZm+uxs
+ ojFmPSizXwSkPdbVt/V0UhHed/FUoNwf2bKK5xhQUHASZ8yR6OkywNvJT
+ zr3DUvDbc5RkGj+85hiUYIjeIDINZAM1TdCDaYE16zgQoBOcahmXX+hiW
+ R8Z6JYWtzRfwZnlihTSP59vJE8uNjJODgYZQ2v0gcqtKrBKEi1r7s//Hx w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10553"; a="314401949"
+X-IronPort-AV: E=Sophos;i="5.96,223,1665471600"; d="scan'208";a="314401949"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2022 15:39:51 -0800
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Dec 2022 15:49:18 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10553"; a="678927122"
-X-IronPort-AV: E=Sophos;i="5.96,223,1665471600"; d="scan'208";a="678927122"
+X-IronPort-AV: E=McAfee;i="6500,9779,10553"; a="678930711"
+X-IronPort-AV: E=Sophos;i="5.96,223,1665471600"; d="scan'208";a="678930711"
 Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by orsmga001.jf.intel.com with ESMTP; 06 Dec 2022 15:39:51 -0800
-Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
+ by orsmga001.jf.intel.com with ESMTP; 06 Dec 2022 15:49:17 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
  fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Tue, 6 Dec 2022 15:39:50 -0800
+ 15.1.2507.16; Tue, 6 Dec 2022 15:49:17 -0800
 Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16 via Frontend Transport; Tue, 6 Dec 2022 15:39:50 -0800
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (104.47.73.40) by
- edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ 15.1.2507.16 via Frontend Transport; Tue, 6 Dec 2022 15:49:17 -0800
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.107)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.16; Tue, 6 Dec 2022 15:39:50 -0800
+ 15.1.2507.16; Tue, 6 Dec 2022 15:49:17 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Mt3HNa9l+LPqSlbco2MQZhSAS0Zysek+yuj8e6XbA1O5hLZocgdVZl247wFO1cgd0l+JOnYLaVkjzOnlsN18U4WUjlO5F+afzK6NSTstwuayOQChLsDfTVKAGWIEoYD1R4NumvuFJi6uRrOERcfonzMdVCX9hXGoHkaN/Y6Dpbucl94RC8xW72c+oPK6Cs5+i5+k3wNk8su8HrrC/N/HF9EX4lRlferE8ueQaCyx7kqOr18GevdlFPpTim/+ZYg22ovc+IUGhcfV8IMjnES/RTsCBFZYKTNeaKB7RVDHnxgQnuwy/CdpE0yEoOaJAbPk1GiAg4j6VxdToH5tuRDF7g==
+ b=nQHa/6ltIXXF6n/A9Eie1GurevbLBt0GZo7U9cVp8A1KU/ee5IGLoUKACBqGczVlAxS/yHaCd7B/3+yK6PwEJQqy/1GOW2Npjll/GAhDxd44F+XDQX6fp3eh81J581VPF/gftA+h91U0/Tiyu8N6iDOp2AAJ0iwM6at1Tk/PXepzwILCri/JaQCDVCcM4wJdO3RWeoSberWAYziB99xL2YixmihB9/VY5OJo65RXoLU823gNtOKQH68mHFzc4D98YUfFfom/znuEUAQuDPDh2vKJAqLQ2DEG4o8Ds7vvfod9aZG2iWCCAyvl0c4QHQ95y60DQ/Ef/M8/IEm+DZUK2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xQbrmy3nlcpyS5aMnp13Zk2YiMt1ZC/Uy1dkY9O5gdU=;
- b=eQlbVHJQ/kS92JMv42JCn3CKSEQ138NdkNbikAQ2cXgZBfUztdgQDxqQyc1DASUVoE71azQEIfkMKXg6Ttl4eT5EgUMZnK5XjRUVDJ7AWv02cnzUyTP21M+Y/dC2579bxN4sWDVm+KT+eYL5o/zLcJciGLWzP257QcQr4e6T4Pni9WGR+zEv1wxsgVw+EYTZu1p8o2T1uqnM8ncxV7qvfVKhmmrJnJT58Z+UBTmC+YR25jL0UOMKKB+tQyrgobbLwj9+jFGryW67aqUwyChA7VcZ3kFCzi4faMtto5ONQ8Pf+xti1/rHo1UHs3xgDMQeidigP+1TTE3DMwY79/w2pQ==
+ bh=WHNv7Rl2ZGIUgckKMf2eJDt6+xmSTRtZKupbVyMW+gc=;
+ b=Ru3z9C4Disbxr5u6N3WydoJFRwzjY8GYgmW5Vvw8LMa10jVWiKLif1z+prEzDpx2qBDCBrqI9B+XiXOWcJPBcU40xjWlXMMr3POGt9+1CgpvZpZOunVX8xpN+D2xd1OAb9Fqrph2ZlUfx81rxoCDj8Kx2CCDOvo+Pt5C8pXy9S4tT+xyemEas/LXG5LTqgUyexyFFBA5JW6q+uddIIUCizPKLXH7QEi1gOD9DSo0z7IbaDsa0N7iwXlsoO/VdluM0rFTPnZp5luJnRFENjFcGbkPH6ojuv8BCuDqytmYwaLdoPRkjEDVyyW5SrzkaYpPijXPOZUK9o1b1qMC8wgc3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from MWHPR11MB1632.namprd11.prod.outlook.com (2603:10b6:301:11::11)
- by IA1PR11MB6289.namprd11.prod.outlook.com (2603:10b6:208:3e7::9)
+ by PH7PR11MB6452.namprd11.prod.outlook.com (2603:10b6:510:1f3::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Tue, 6 Dec
- 2022 23:39:48 +0000
+ 2022 23:49:14 +0000
 Received: from MWHPR11MB1632.namprd11.prod.outlook.com
  ([fe80::48b8:5304:2638:3475]) by MWHPR11MB1632.namprd11.prod.outlook.com
  ([fe80::48b8:5304:2638:3475%7]) with mapi id 15.20.5880.014; Tue, 6 Dec 2022
- 23:39:48 +0000
-Date: Tue, 6 Dec 2022 15:39:45 -0800
+ 23:49:14 +0000
+Date: Tue, 6 Dec 2022 15:49:12 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Message-ID: <Y4/SwfKbvCT/ANdp@mdroper-desk1.amr.corp.intel.com>
+Message-ID: <Y4/U+F4pu5L9L3bP@mdroper-desk1.amr.corp.intel.com>
 References: <97b42ba0ae91b1ed6feb6e5c090bff2445719bf7.1670311877.git.aravind.iddamsetty@intel.com>
- <6f0bec943061dfa4604e3c479f44e98169ebd082.1670311877.git.aravind.iddamsetty@intel.com>
+ <f8cfaaab25f700b1826eedeba55d68334396e92a.1670311877.git.aravind.iddamsetty@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <6f0bec943061dfa4604e3c479f44e98169ebd082.1670311877.git.aravind.iddamsetty@intel.com>
-X-ClientProxiedBy: BY3PR03CA0006.namprd03.prod.outlook.com
- (2603:10b6:a03:39a::11) To MWHPR11MB1632.namprd11.prod.outlook.com
+In-Reply-To: <f8cfaaab25f700b1826eedeba55d68334396e92a.1670311877.git.aravind.iddamsetty@intel.com>
+X-ClientProxiedBy: BY5PR17CA0008.namprd17.prod.outlook.com
+ (2603:10b6:a03:1b8::21) To MWHPR11MB1632.namprd11.prod.outlook.com
  (2603:10b6:301:11::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWHPR11MB1632:EE_|IA1PR11MB6289:EE_
-X-MS-Office365-Filtering-Correlation-Id: de819274-06eb-4d54-f4fe-08dad7e32986
+X-MS-TrafficTypeDiagnostic: MWHPR11MB1632:EE_|PH7PR11MB6452:EE_
+X-MS-Office365-Filtering-Correlation-Id: 894dd319-b80d-4b7a-e6d4-08dad7e47b34
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jdzD9OkaTUPlx9G+H/JQtidQumxTKavq5kDaweGy5+C4JLpYD9azzmmyT/5slzKIoopbGHgE2yPf800lqG4nnfimaEg9u9UL8Bz65XNfof9/jxmTTNWC8PpaECSzU0+AvjGEtnAFflkD6B2xWh4fZVhusLCOmgimm+DtnqnDXxiqTtfKcQhstUOOECbCQxXRGg0NbbpXb8Nyq9dcWu4DtI+KmkOGJf5vH7V4m+gC6ySW26R+Oq6xzb1yv8iA1L4JKGwosvYS7WKhLb8Ae56sa3VmtCo0dD6ukP9xyJcPhrfd4k4EsFw83ZQDI4PPj8nQyiElBFCyloAEFaeOzLbBzJ37gSt3CgmhuS+upRwGfPS063tOeSmywpf5azDxnQv9VL474gqiNPn3BFD/raMdml3LAC4uD5RgEQBQqXx1tGJ1ABOVEG1uoQE6NHFq+1llmo036C3HWCqE9X5cRSfeQzg8WCIv6RMljIg3GDvkmF3aUi5d87H2xyKfnDkj4AQDxyxGs8c06eYckUYleB5v9h0/I6PKj/bpXYiB230dXHgnwtafesp3FIvEln0yxCUk3LDpNL7oD9yV8G04sge03gbD3jHT+Nt3IiBDYOwrqh0JNGtPYeukbvva6xae+LRH2qKLxZfoeAqDIm3FFczEzw==
+X-Microsoft-Antispam-Message-Info: Fq3SZ67SSM/wuTAGX4WeVNWQO0PJjaXzDY4FVcXJ7ED5R+lceXD5oZrig7rYbedtXUBhMEbwMuZTxstLFZdHqIcWg5xD8txPNeRq97JZmoBjFzHs//XefBrgu2XP9QzKnTNr7REwRyjKkQNqtCbiPpfDHlXUrvA02466+24c1DmnM9rZL5kEFmhTN+JYR6pKTcI7ygA4Yo65JcspwPtrq+0U/bHTuqbtkxu0rI8idfXC+prz1bW3peBxYANJkywUfxP+pnIeQofU3C6BnVJjU/ZY8vEAx9sKWhtrxEVtPJWSuMa03jpG0XXLFuXQmwSkZMoVuJL9fOH/BqgNo5ejREGfdDkTh48k1qU7Httm/pEP5qHdIl9wxa64KqubLUltfi3qI/tU3MpeefUn4QB5L0GUeugI8/brlVDzho0fT28D/0fW00tRNB11li4GyaWj36kJCoLktyVaM1k2cq4DrSfE+mSXiVYPQtchMCDn9pmV/vUepdFC/eqXczfWY5beXJQyFmIu64Sm6qtdQXILwhLEthokaFQCmrurKzYuRq/6rl9gyh9Sb8G1euA1mBZHzA1mPrvVGDEI4tMxKyPP1flzKV69/wJlZNrRI1t9+qBWL5OTNro0Ce+eDimFC7XZELN8bLIFtF6MwMpVsHIf9w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MWHPR11MB1632.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(396003)(39860400002)(346002)(366004)(376002)(136003)(451199015)(86362001)(66946007)(2906002)(4326008)(8936002)(6862004)(83380400001)(82960400001)(66556008)(186003)(6486002)(6636002)(54906003)(66476007)(478600001)(38100700002)(8676002)(6506007)(5660300002)(316002)(107886003)(6666004)(26005)(41300700001)(6512007);
+ SFS:(13230022)(366004)(39860400002)(396003)(346002)(136003)(376002)(451199015)(186003)(6506007)(26005)(54906003)(6636002)(6512007)(66476007)(316002)(478600001)(6486002)(8676002)(66946007)(66556008)(4326008)(83380400001)(41300700001)(6862004)(8936002)(5660300002)(2906002)(38100700002)(82960400001)(86362001);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Xt5qjAUaqFje7dEKWpLxPP2qkLB8TstEgKgfGZKn3Q6+w/JGTifCaI++mgkl?=
- =?us-ascii?Q?PeEOcEehyuSZX3HCU1Komh540wT5UHjVM/S20sZ46lMU3/8G+6N410F+M7Uy?=
- =?us-ascii?Q?cBPPwUeB+A3kKYwr3Yl2A8tT9zfDJzhdQiW5kk5Ww5CZ9eXKWGB/jAOBOvuu?=
- =?us-ascii?Q?gXMCsfKbT2SPpJjypzy/M+p3fDxmNrOMTHI7X/YiPyCaXWoR1d7mP4dUQgMz?=
- =?us-ascii?Q?VsOyJjU8yC5pcHKKHTM1k72CvWun6YUIKA1QoG+CjxnSnlMefXCOok6ahD1j?=
- =?us-ascii?Q?Hkc2Re1w1A4gVNHMc9aqNhStXITf6lj9QhGPbQJda/bRGonaFxObhsYPw5dP?=
- =?us-ascii?Q?QBHnFgriiQJFZxmHHY2nWcX4aW6/hXYvTGa6WasP5YkdERJ/ibTwv2CwMd5/?=
- =?us-ascii?Q?aiYJM/G4L5scIL4RJ2WtVBe9gbJ8o9OQifqT6H9hv+1kVrPIOceLkQ3MGUH3?=
- =?us-ascii?Q?LvVp5HNgRtDTRKnC6sB6nfyP1jFJtWu3G6EUqhiuB75YPmbKOMAcWNdUsZrS?=
- =?us-ascii?Q?oSz41smu6Hst0aenehM0LS2KIT63hIsPeBl1bYd2rnku2xs/UCaovVuBaI6l?=
- =?us-ascii?Q?nNLSLkQQ8lAQFoOx6GyeiyDSa2T+ZuSO9r+vq3v3Mmdnx0ADopsbF6QQngSu?=
- =?us-ascii?Q?0XK4d3RmBT0L7GG4amBT/Hl61aRPuWotBhf32tzCx4DBK0n8Uxpb0Rwcu+Ys?=
- =?us-ascii?Q?/wJtwA2H/n36mqRw4gMLISNi4l0ckyN0b6bdneAB3+1elSytTRvo2zXoIMUp?=
- =?us-ascii?Q?5/nW0/OTCg1BaAOsUfP72XAOAx1E2RGSzuRkE1IFDOvJoMhPfdi64535QW15?=
- =?us-ascii?Q?HcI9Y4/MLDC03F7KfCcOxSm1SW02iUgBuUgLJXO6WnWLZsBQCsVtt12fC9g7?=
- =?us-ascii?Q?GaPokzsnAKvPG97zGhUDYnvf6hsC8UlxGQwwdTcmk50JK2x7wzow+n2UN50j?=
- =?us-ascii?Q?jwFKDUUDOK4lsmaH4rCne6PLHFLgoWbBGRKNDnTxyK+0DTBpC0au1Hpf/Yco?=
- =?us-ascii?Q?CJA0IuBPhRwyOeeHJQZdX3FyIy0anrN1sgD6/tbU+LAhkswJpVzbyY5Rt5qX?=
- =?us-ascii?Q?SBkXx8TrmpfBfor/K9Es1EBz4zlnr0UL1hTXhUea9fVnwpG7jULrorGBQbqe?=
- =?us-ascii?Q?iY7XrDx2rRLAtTfvI8E/KJvF54gYBsc7Gsa54M9jOX+R8s1b8H6wkvI4AStK?=
- =?us-ascii?Q?irzi07oqyRnJU4NGk6rD3T5b4BQqB/beVqlIZb6stW1K56eY0s87t33Mnvl0?=
- =?us-ascii?Q?MUmVKK99NrxYIxZsmT27VFGX9QWUPEpD+5TJSIhaKXSrHxoNroCc8zV1/3QX?=
- =?us-ascii?Q?86kG0K4sTKMUfTMyqvbtGNumpaYD9MdrQkpghZ4UNAY5bfSL7uRvxY+xe2US?=
- =?us-ascii?Q?zdf0p41i7rziTgWPzmpj8rmEGyA6cMjbioEB3drpBVgxXD3kB8pouguX7IXs?=
- =?us-ascii?Q?P7rQnrWZNSuRRnRRVuOZjUu48LHpPB4UmWEQlWldKTXHsvYpz0MIsMDz+8q+?=
- =?us-ascii?Q?AxOE//xY1e937dFZOOJXpsE/ROWHpBjmrLMB0tX9CjpvVLd0bFrXAn1weu74?=
- =?us-ascii?Q?vJhO4fDjQjjhs+DUkNz9KJPDkaOQvZ9QgtwFutMYTBOhaKuiJ5q9ywVZXag4?=
- =?us-ascii?Q?WA=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: de819274-06eb-4d54-f4fe-08dad7e32986
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7c6QqeSAj9fddm8unz2ZQWLZWRGuosO1p5k3isr2YRLkqYuaywS3zPwJh5Ht?=
+ =?us-ascii?Q?zGXoTLzTbqLssox67miF2vzkNLmuSygz0x0+/eC7mPlj5SRu3koTk1onZw13?=
+ =?us-ascii?Q?DtxDY+GZvM+22seAWdDsDHpgL5IrRh6P7nylL7ist7sikAuo0ZhPYRWRlhWY?=
+ =?us-ascii?Q?lIEw8YqnPlKmmMzO96ntyKzZvzgKT9IH27UF2lTJwGW5T/Jm8hu1ofaiPpfX?=
+ =?us-ascii?Q?Fl/ZkNFJGWOxkZuizQSEbXjdJ5kVMieHNAXSvIUC7DGNAPyqS5AiFX8Syywp?=
+ =?us-ascii?Q?y4ykAyE1je6/Y/PXGtulMJx3UYBhvTKlmHOiwVv8ForQ5f0TqWufgFxBLtLy?=
+ =?us-ascii?Q?EEtX0Sr4/XwjMCd2tA9fguC56BQ0XWCd9phSXWQU+lsai1iswbggQ1/3ySED?=
+ =?us-ascii?Q?4z2jEZ0hfrWteyfdqxZrhBD5/FjUl8uOVUK8AuG4QDoBqUMYwVkF7V750SuH?=
+ =?us-ascii?Q?yr+wwxOpkzb4GSrLFyIeqiEyHuQi/a8bGB8I+UDgkp1u6MPnS4dLgFRYX3Mz?=
+ =?us-ascii?Q?NX0ghw2G2J3pLQtdELtMeCxiDybBgvsKQvPAixc8lqaKmGQGXR+xFtqmmyxO?=
+ =?us-ascii?Q?oJs4Wxu+gnBIgVlSCxTXwu9xfgVkT/xeGV5hzufcpqgGDPpB2ixSbOKlZH06?=
+ =?us-ascii?Q?DUIauoktl9QcuPqfKpZHmQklqT17WViyy6lnKXxuht36t/6DxbxmE12mN+Kg?=
+ =?us-ascii?Q?0AcTWHMUULPsBN+83kA8yN5WHrUC01fUAIyaw5DS2BJcSsJ9MXrPXM9TgEOK?=
+ =?us-ascii?Q?5pbyBIKSZ2zcRjPdUb7CZ1bFpRVku6L141HQ55GC4RnfX7FBTCEOhZnD+LWF?=
+ =?us-ascii?Q?0nv2/jxqyACRKw3Efanw/NHXUYWfdbagfAswdDPeodVaUP8DKsVXPtDZtWWJ?=
+ =?us-ascii?Q?LKzzKBzA15izPCIN8R+n0qvLHANw84s2P9UzzQPGHvuwH+SEtWzidVP8RAoR?=
+ =?us-ascii?Q?dCDk3Ehr6mF60cwf/3mDqb503t+PyEMHfsEzrxooHLMvJkLPD+vj151nfnTH?=
+ =?us-ascii?Q?TyXH4aie/kRu6gG9Ub9uR7rjqD0rvYS4uIcNZJjdfvJ37rqoby2Lo+aHaX4E?=
+ =?us-ascii?Q?iim+trAOM2VYvUeySPRdypN/bi3dU+J6o7FCX2h/9TyiJS0ItFbmZjpX9oJV?=
+ =?us-ascii?Q?fu7R2pIIFVY07r2Xs0264S4SnvMgEJ5TV7dKhG18USxS7vKL/kzaip0iqJ/k?=
+ =?us-ascii?Q?1bsjMJXeM4UnOGTneVQjC0uBOaC0KUCjgW1UmRSv+gxN2n1mic+jJj9Bk0D/?=
+ =?us-ascii?Q?wBOvAp3eqmqvU0TzUCokTRuR0pvilED6nEtN592R21dhzEKR5OrV/n3MCkbm?=
+ =?us-ascii?Q?yNyjTPk380hFQvziXGHb9Jef3bNNjTfSEe3JGLb8ZkzNDQXLuO7StPWF0frN?=
+ =?us-ascii?Q?OMhO1Z9PMQAXSzfWxLkC08RBoLkFqcxBML6pRUuv071/n8CM4DYZfLjY/MJN?=
+ =?us-ascii?Q?5oRS7yE+2aWW4P+zH4ZUlgl9hHyj6ItXhk7Qma8/w7dYac8X+DzFAK9EOGPO?=
+ =?us-ascii?Q?YaBbzTYsk9Y9m0WwnwwH4gk40GAqgnpr4rzQBHxb0QJadphehHu+6DD4FzcT?=
+ =?us-ascii?Q?JtA2WJA5ERDZ41L7NA9336mAKPSRdU3UDZOmRJRsRbSHRopaYbaCpVAYd9BT?=
+ =?us-ascii?Q?CQ=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 894dd319-b80d-4b7a-e6d4-08dad7e47b34
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1632.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2022 23:39:48.2323 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2022 23:49:14.8269 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VLx5bZ3xchf1zZcBOjV4s8TNJ1OtWbUs3QcO29TSSuNk9BrjCSg0JyaVcQGSoZWu0Sp3621Duiw5WJGIkR8vF9Od5ElV06PjTQ9wtZlh/AM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6289
+X-MS-Exchange-CrossTenant-UserPrincipalName: k7vDd0dTYtMXV9QnM2UJ9vEFL8pHZvPU6zS4pNQGkgJ+ZJcd+Hu9JeGi1nwAfnx9khGjBP/WFQwlDDWA+cnQt766TK/UkP51Y8wIXTrDo80=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6452
 X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH 3/4] drm/i915/mtl: Define new PTE encode for
- MTL
+Subject: Re: [Intel-gfx] [PATCH v2 4/4] drm/i915/mtl/UAPI: Disable
+ GET/SET_CACHING IOCTL for MTL+
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,229 +144,92 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Pallavi Mishra <pallavi.mishra@intel.com>, intel-gfx@lists.freedesktop.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 06, 2022 at 01:07:28PM +0530, Aravind Iddamsetty wrote:
-> Add a separate PTE encode function for MTL. The number of PAT registers
-> have increased to 16 on MTL. All 16 PAT registers are available for
-> PPGTT mapped pages, but only the lower 4 are available for GGTT mapped
-> pages.
+On Tue, Dec 06, 2022 at 01:57:39PM +0530, Aravind Iddamsetty wrote:
+> From: Pallavi Mishra <pallavi.mishra@intel.com>
 > 
-> BSPEC: 63884
+> It's a noop on all new platforms starting from MTL.
 
-I think you'll also want to include pages like 45015 (ggtt) and its
-various equivalents for ppgtt since that's where the important layout
-information is given.  And likely 63019 as well.
+To me, saying "it's a noop" implies that the ioctl will succeed and
+silently do nothing, which isn't the case in this patch.  We're
+explicitly rejecting attempts by userspace to use these ioctls.
 
-> 
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> Cc: Matt Roper <matthew.d.roper@intel.com>
-> Co-developed-by: Fei Yang <fei.yang@intel.com>
-> Signed-off-by: Fei Yang <fei.yang@intel.com>
-> Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 33 +++++++++++++++++++++++++++-
->  drivers/gpu/drm/i915/gt/gen8_ppgtt.h |  4 ++++
->  drivers/gpu/drm/i915/gt/intel_ggtt.c | 32 ++++++++++++++++++++++++++-
->  drivers/gpu/drm/i915/gt/intel_gtt.h  | 13 +++++++++--
->  4 files changed, 78 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-> index 31e838eee2ef..4197b43150cc 100644
-> --- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-> +++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-> @@ -55,6 +55,34 @@ static u64 gen8_pte_encode(dma_addr_t addr,
->  	return pte;
->  }
->  
-> +static u64 mtl_pte_encode(dma_addr_t addr,
-> +			  enum i915_cache_level level,
-> +			  u32 flags)
-> +{
-> +	gen8_pte_t pte = addr | GEN8_PAGE_PRESENT | GEN8_PAGE_RW;
-> +
-> +	if (unlikely(flags & PTE_READ_ONLY))
-> +		pte &= ~GEN8_PAGE_RW;
-> +
-> +	if (flags & PTE_LM)
-> +		pte |= GEN12_PPGTT_PTE_LM | GEN12_PPGTT_PTE_NC;
+> Refer: (e7737b67ab46) drm/i915/uapi: reject caching ioctls for discrete
 
-What is the GEN12_PPGTT_PTE_NC?  The bspec is a bit confusing since
-there are several different PTE layouts for different ppgtt modes, but
-the ones I checked had bit 5 listed as 'ignored' so I probably wasn't
-looking in the right place (it's also listed as reserved on bspec
-63019).
+While killing set_caching/get_caching is the way we want to go, I think
+we need a lot more explanation of how cache behavior in general is
+supposed to work now.  I believe the plan is that userspace will supply
+the specific PAT index that corresponds to the behavior they want via a
+vm_bind extension?  I'm not familiar with the details of how that will
+work...does that mean that the caching behavior will also be tied to the
+specific mapping of an object in the GTT rather than being tied to the
+object itself?  I.e., you can map the same object twice with two
+different caching behaviors?
 
-> +
-> +	switch (level) {
-> +	case I915_CACHE_NONE:
-> +		pte |= GEN12_PPGTT_PTE_PAT1;
-> +		break;
-> +	case I915_CACHE_LLC:
-> +	case I915_CACHE_L3_LLC:
-> +		pte |= GEN12_PPGTT_PTE_PAT0 | GEN12_PPGTT_PTE_PAT1;
-> +		break;
-> +	case I915_CACHE_WT:
-> +		pte |= GEN12_PPGTT_PTE_PAT0;
-> +		break;
-> +	}
-
-I forget what the plan was...are we going to move away from 'enum
-i915_cache_level' and start working with PAT indices directly soon
-(especially since the set_caching/get_caching ioctls are getting axed
-and vm_bind is supposed to start taking platform-specific indicies
-directly)?  If we're still using cache_level, then it's not clear to me
-how the current platform-agnostic enum values (which talk about L3 and
-LLC) are supposed to encode the L4 behavior we want on MTL.  It seems
-like we'd need to extend the enum to also somehow reflect L4 behavior if
-we were going to keep using it?  But given the continuing expansion of
-caching functionality and complexity, I thought that was one of the
-reasons why we wanted to get away from these platform-agnostic enums;
-the userspace that actually cares about this stuff has the same PAT/MOCS
-tables we do and knows the exact index it wants to use for an object
-mapping, so eliminating the PAT idx -> cache_level -> PAT idx dance
-would cut out a bunch of confusion.
-
-It's also hard to follow these functions right now because it looks like
-you're doing an implicit cache_level -> PAT index conversion, but also
-mapping the PAT index bits into their placement in the PTE as part of
-the same operation.  The behavior might turn out to be correct, but it's
-really hard to follow the process, even with all the bspec docs at hand.
-So if we do keep using cache_level for now, I think it would be better
-to split out a MTL function to translate cache level into PAT index
-(which we can review independently) and then let these pte_encode
-functions handle the next step of figuring out where those index bits
-should land in the PTE.  If the bits are contiguous, you can also just
-define a mask and use REG_FIELD_PREP too.
-
-> +
-> +	return pte;
-> +}
-> +
->  static void gen8_ppgtt_notify_vgt(struct i915_ppgtt *ppgtt, bool create)
->  {
->  	struct drm_i915_private *i915 = ppgtt->vm.i915;
-> @@ -963,7 +991,10 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
->  	 */
->  	ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
->  
-> -	ppgtt->vm.pte_encode = gen8_pte_encode;
-> +	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 70))
-> +		ppgtt->vm.pte_encode = mtl_pte_encode;
-> +	else
-> +		ppgtt->vm.pte_encode = gen8_pte_encode;
->  
->  	ppgtt->vm.bind_async_flags = I915_VMA_LOCAL_BIND;
->  	ppgtt->vm.insert_entries = gen8_ppgtt_insert;
-> diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.h b/drivers/gpu/drm/i915/gt/gen8_ppgtt.h
-> index f541d19264b4..c48f1fc32909 100644
-> --- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.h
-> +++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.h
-> @@ -19,4 +19,8 @@ u64 gen8_ggtt_pte_encode(dma_addr_t addr,
->  			 enum i915_cache_level level,
->  			 u32 flags);
->  
-> +u64 mtl_ggtt_pte_encode(dma_addr_t addr,
-> +			enum i915_cache_level level,
-> +			u32 flags);
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> index 82203ad85b0e..3b6f1f6f780a 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> @@ -246,6 +246,33 @@ static void guc_ggtt_invalidate(struct i915_ggtt *ggtt)
->  	}
->  }
->  
-> +u64 mtl_ggtt_pte_encode(dma_addr_t addr,
-> +			enum i915_cache_level level,
-> +			u32 flags)
-> +{
-> +	gen8_pte_t pte = addr | GEN8_PAGE_PRESENT;
-> +
-> +	GEM_BUG_ON(addr & ~GEN12_GGTT_PTE_ADDR_MASK);
-> +
-> +	if (flags & PTE_LM)
-> +		pte |= GEN12_GGTT_PTE_LM;
-> +
-> +	switch (level) {
-> +	case I915_CACHE_NONE:
-> +		pte |= MTL_GGTT_PTE_PAT1;
-> +		break;
-> +	case I915_CACHE_LLC:
-> +	case I915_CACHE_L3_LLC:
-> +		pte |= MTL_GGTT_PTE_PAT0 | MTL_GGTT_PTE_PAT1;
-> +		break;
-> +	case I915_CACHE_WT:
-> +		pte |= MTL_GGTT_PTE_PAT0;
-> +		break;
-> +	}
-> +
-> +	return pte;
-> +}
-> +
->  u64 gen8_ggtt_pte_encode(dma_addr_t addr,
->  			 enum i915_cache_level level,
->  			 u32 flags)
-> @@ -993,7 +1020,10 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
->  	ggtt->vm.vma_ops.bind_vma    = intel_ggtt_bind_vma;
->  	ggtt->vm.vma_ops.unbind_vma  = intel_ggtt_unbind_vma;
->  
-> -	ggtt->vm.pte_encode = gen8_ggtt_pte_encode;
-> +	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
-> +		ggtt->vm.pte_encode = mtl_ggtt_pte_encode;
-> +	else
-> +		ggtt->vm.pte_encode = gen8_ggtt_pte_encode;
->  
->  	return ggtt_probe_common(ggtt, size);
->  }
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-> index 8a3e0a6793dd..4bb7a4005452 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-> +++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-> @@ -88,9 +88,18 @@ typedef u64 gen8_pte_t;
->  #define BYT_PTE_SNOOPED_BY_CPU_CACHES	REG_BIT(2)
->  #define BYT_PTE_WRITEABLE		REG_BIT(1)
->  
-> +#define GEN12_PPGTT_PTE_PAT3    BIT_ULL(62)
->  #define GEN12_PPGTT_PTE_LM	BIT_ULL(11)
-> -
-> -#define GEN12_GGTT_PTE_LM	BIT_ULL(1)
-> +#define GEN12_PPGTT_PTE_PAT2    BIT_ULL(7)
-
-This bit is never used anywhere in the patch.
-
-> +#define GEN12_PPGTT_PTE_NC      BIT_ULL(5)
-
-As noted above, 
-
-> +#define GEN12_PPGTT_PTE_PAT1    BIT_ULL(4)
-> +#define GEN12_PPGTT_PTE_PAT0    BIT_ULL(3)
-
-It sounds like these bits have been around since gen12; why didn't we
-ever have to program them in the past?  Is there something that causes
-the PAT index to never get used on the pre-MTL platforms?
-
-> +
-> +#define GEN12_GGTT_PTE_LM		BIT_ULL(1)
-> +#define MTL_GGTT_PTE_PAT0		BIT_ULL(52)
-> +#define MTL_GGTT_PTE_PAT1		BIT_ULL(53)
-
-If we do an explicit cache_level -> PAT index conversion as mentioned
-above, we can drop these two bits and just do a REG_FIELD_PREP() with
-the MTL_GGTT_PTE_PAT_MASK defined below instead.
+Is there a uapi RFC document available yet that describes the high-level
+view of how all this stuff fits together now?  If so, a reference to
+that would be good to include.
 
 
 Matt
 
-> +#define GEN12_GGTT_PTE_ADDR_MASK	GENMASK_ULL(45, 12)
-> +#define MTL_GGTT_PTE_PAT_MASK		GENMASK_ULL(53, 52)
+> 
+> v2:
+> 1. block get caching ioctl
+> 2. return ENODEV similar to DGFX
+> 3. update the doc in i915_drm.h
+> 
+> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+> Cc: Matt Roper <matthew.d.roper@intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> 
+> Signed-off-by: Pallavi Mishra <pallavi.mishra@intel.com>
+> Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_domain.c | 4 ++--
+>  include/uapi/drm/i915_drm.h                | 3 +++
+>  2 files changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+> index d44a152ce680..cf817ee0aa01 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+> @@ -291,7 +291,7 @@ int i915_gem_get_caching_ioctl(struct drm_device *dev, void *data,
+>  	struct drm_i915_gem_object *obj;
+>  	int err = 0;
 >  
->  #define GEN12_PDE_64K BIT(6)
->  #define GEN12_PTE_PS64 BIT(8)
+> -	if (IS_DGFX(to_i915(dev)))
+> +	if (IS_DGFX(to_i915(dev)) || GRAPHICS_VER_FULL(to_i915(dev)) >= IP_VER(12, 70))
+>  		return -ENODEV;
+>  
+>  	rcu_read_lock();
+> @@ -329,7 +329,7 @@ int i915_gem_set_caching_ioctl(struct drm_device *dev, void *data,
+>  	enum i915_cache_level level;
+>  	int ret = 0;
+>  
+> -	if (IS_DGFX(i915))
+> +	if (IS_DGFX(i915) || GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
+>  		return -ENODEV;
+>  
+>  	switch (args->caching) {
+> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+> index 8df261c5ab9b..3467fd879427 100644
+> --- a/include/uapi/drm/i915_drm.h
+> +++ b/include/uapi/drm/i915_drm.h
+> @@ -1626,6 +1626,9 @@ struct drm_i915_gem_busy {
+>   *     - Everything else is always allocated and mapped as write-back, with the
+>   *       guarantee that everything is also coherent with the GPU.
+>   *
+> + * Starting from MTL even on integrated platforms set/get caching is no longer
+> + * supported and object will be mapped as write-combined only.
+> + *
+>   * Note that this is likely to change in the future again, where we might need
+>   * more flexibility on future devices, so making this all explicit as part of a
+>   * new &drm_i915_gem_create_ext extension is probable.
 > -- 
 > 2.25.1
 > 
