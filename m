@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54199C352A1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 08:13:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04FFCC352A1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 08:13:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B810810E302;
-	Tue,  6 Dec 2022 08:13:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A64110E303;
+	Tue,  6 Dec 2022 08:13:11 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D2AD10E2FD
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Dec 2022 08:13:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A656610E302
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Dec 2022 08:13:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1670314384; x=1701850384;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ElBQm7zziDnEiuD0XpkAkUOtn4yzo6JBnKDQULMEbnY=;
- b=E15ogsdeWr9dUyhG4UsbcErrHgBwBB0cJIUmRAv/bkIquIqW0trLJWE9
- xF8KlEKC+FN/ogSJ1zEYhZHo84A/aJjfEdRxh0ivELNJSEOVHJZeq4KOY
- jjcinLb+qUsHfLIxvaefNSvaP8tVAxk6cvM8/pfjLMuIaI6sNaytsqOXF
- UdrCs/YxdFzJDVeroMGfYPsGD1c1E1Dpc6afOJRK45nUEJNf7qeNDrker
- 2h8Px0vjRr37m9BgDk9nYu0aPpMeYL8mJ5uvJ6kUyDIa1v4FGJPkvdrBL
- IEvRyfozBMevX69O0chfBr4FpinVOOountg5+pu6CtltR0O2XOywMsAFa Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="296257750"
-X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="296257750"
+ bh=2fsOoet2VVCdXT41Z9eBERxIE6ibcNPTUEsPP/LPv5Q=;
+ b=KtFs1aSDp++5762o2v8/VKz/TvVC3gKflOUQVWlgzpNsVdc6zuou7izs
+ vR86Fgr+MFQZHkhCtk5Afy7DhXoDYb4wgHKfvdrhqWOsAkaSAptRR7AiS
+ w93j/LnKytS+1bxWVvhUtWaFqokB43T6+wEwfGOFIL2YtyBpzGxdsP+xa
+ lpYn//4Zzvl40BhJAMXzzKO6sJ6Vb6gn/5iSHkpTQqFXTdnBaOP4kECRF
+ yl8+KfPTDIStJ2LoeZx1sdIRl0xS/k8wVlkzFvEljiIz3JTUrPdT0TDmJ
+ a16um/roOK2wCxRKso3MwuJisLvAKbiood2n9xDvSL289HPl1GTQZr1kj Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="296257755"
+X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="296257755"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  06 Dec 2022 00:13:02 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="891290005"
-X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="891290005"
+X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="891290038"
+X-IronPort-AV: E=Sophos;i="5.96,220,1665471600"; d="scan'208";a="891290038"
 Received: from aravind-dev.iind.intel.com ([10.145.162.80])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2022 00:12:53 -0800
+ 06 Dec 2022 00:12:57 -0800
 From: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  6 Dec 2022 13:57:37 +0530
-Message-ID: <5abb076e8a8f78bf1e13a08d8300d2f7cc043cac.1670311877.git.aravind.iddamsetty@intel.com>
+Date: Tue,  6 Dec 2022 13:57:39 +0530
+Message-ID: <f8cfaaab25f700b1826eedeba55d68334396e92a.1670311877.git.aravind.iddamsetty@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <97b42ba0ae91b1ed6feb6e5c090bff2445719bf7.1670311877.git.aravind.iddamsetty@intel.com>
 References: <97b42ba0ae91b1ed6feb6e5c090bff2445719bf7.1670311877.git.aravind.iddamsetty@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915: Reference pte_encode through vm
- pointer
+Subject: [Intel-gfx] [PATCH v2 4/4] drm/i915/mtl/UAPI: Disable
+ GET/SET_CACHING IOCTL for MTL+
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,107 +57,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Pallavi Mishra <pallavi.mishra@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20221206082737.Zxnquf1vXSu5ckMLzoRlX6iJ8ZmUBNb4TWxAuVRFKMs@z>
+Message-ID: <20221206082739.ubFaZofq3Eh6w3wBnKmQkvyZp4AOWxMt6bVJJCoV4wY@z>
 
-New platforms will use different encode functions.
+From: Pallavi Mishra <pallavi.mishra@intel.com>
+
+It's a noop on all new platforms starting from MTL.
+Refer: (e7737b67ab46) drm/i915/uapi: reject caching ioctls for discrete
+
+v2:
+1. block get caching ioctl
+2. return ENODEV similar to DGFX
+3. update the doc in i915_drm.h
 
 Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+
+Signed-off-by: Pallavi Mishra <pallavi.mishra@intel.com>
 Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpt.c |  2 +-
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c     | 10 +++++-----
- drivers/gpu/drm/i915/gt/intel_ggtt.c     |  4 ++--
- 3 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c | 4 ++--
+ include/uapi/drm/i915_drm.h                | 3 +++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpt.c b/drivers/gpu/drm/i915/display/intel_dpt.c
-index ad1a37b515fb..cb8ed9bfb240 100644
---- a/drivers/gpu/drm/i915/display/intel_dpt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpt.c
-@@ -298,7 +298,7 @@ intel_dpt_create(struct intel_framebuffer *fb)
- 	vm->vma_ops.bind_vma    = dpt_bind_vma;
- 	vm->vma_ops.unbind_vma  = dpt_unbind_vma;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index d44a152ce680..cf817ee0aa01 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -291,7 +291,7 @@ int i915_gem_get_caching_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_i915_gem_object *obj;
+ 	int err = 0;
  
--	vm->pte_encode = gen8_ggtt_pte_encode;
-+	vm->pte_encode = vm->gt->ggtt->vm.pte_encode;
+-	if (IS_DGFX(to_i915(dev)))
++	if (IS_DGFX(to_i915(dev)) || GRAPHICS_VER_FULL(to_i915(dev)) >= IP_VER(12, 70))
+ 		return -ENODEV;
  
- 	dpt->obj = dpt_obj;
+ 	rcu_read_lock();
+@@ -329,7 +329,7 @@ int i915_gem_set_caching_ioctl(struct drm_device *dev, void *data,
+ 	enum i915_cache_level level;
+ 	int ret = 0;
  
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index 4daaa6f55668..31e838eee2ef 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -427,7 +427,7 @@ gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
- 		      u32 flags)
- {
- 	struct i915_page_directory *pd;
--	const gen8_pte_t pte_encode = gen8_pte_encode(0, cache_level, flags);
-+	const gen8_pte_t pte_encode = ppgtt->vm.pte_encode(0, cache_level, flags);
- 	gen8_pte_t *vaddr;
+-	if (IS_DGFX(i915))
++	if (IS_DGFX(i915) || GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
+ 		return -ENODEV;
  
- 	pd = i915_pd_entry(pdp, gen8_pd_index(idx, 2));
-@@ -580,7 +580,7 @@ static void gen8_ppgtt_insert_huge(struct i915_address_space *vm,
- 				   enum i915_cache_level cache_level,
- 				   u32 flags)
- {
--	const gen8_pte_t pte_encode = gen8_pte_encode(0, cache_level, flags);
-+	const gen8_pte_t pte_encode = vm->pte_encode(0, cache_level, flags);
- 	unsigned int rem = sg_dma_len(iter->sg);
- 	u64 start = vma_res->start;
- 
-@@ -743,7 +743,7 @@ static void gen8_ppgtt_insert_entry(struct i915_address_space *vm,
- 	GEM_BUG_ON(pt->is_compact);
- 
- 	vaddr = px_vaddr(pt);
--	vaddr[gen8_pd_index(idx, 0)] = gen8_pte_encode(addr, level, flags);
-+	vaddr[gen8_pd_index(idx, 0)] = vm->pte_encode(addr, level, flags);
- 	drm_clflush_virt_range(&vaddr[gen8_pd_index(idx, 0)], sizeof(*vaddr));
- }
- 
-@@ -773,7 +773,7 @@ static void __xehpsdv_ppgtt_insert_entry_lm(struct i915_address_space *vm,
- 	}
- 
- 	vaddr = px_vaddr(pt);
--	vaddr[gen8_pd_index(idx, 0) / 16] = gen8_pte_encode(addr, level, flags);
-+	vaddr[gen8_pd_index(idx, 0) / 16] = vm->pte_encode(addr, level, flags);
- }
- 
- static void xehpsdv_ppgtt_insert_entry(struct i915_address_space *vm,
-@@ -820,7 +820,7 @@ static int gen8_init_scratch(struct i915_address_space *vm)
- 		pte_flags |= PTE_LM;
- 
- 	vm->scratch[0]->encode =
--		gen8_pte_encode(px_dma(vm->scratch[0]),
-+		vm->pte_encode(px_dma(vm->scratch[0]),
- 				I915_CACHE_NONE, pte_flags);
- 
- 	for (i = 1; i <= vm->top; i++) {
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index 7644738b9cdb..82203ad85b0e 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -273,7 +273,7 @@ static void gen8_ggtt_insert_page(struct i915_address_space *vm,
- 	gen8_pte_t __iomem *pte =
- 		(gen8_pte_t __iomem *)ggtt->gsm + offset / I915_GTT_PAGE_SIZE;
- 
--	gen8_set_pte(pte, gen8_ggtt_pte_encode(addr, level, flags));
-+	gen8_set_pte(pte, ggtt->vm.pte_encode(addr, level, flags));
- 
- 	ggtt->invalidate(ggtt);
- }
-@@ -283,8 +283,8 @@ static void gen8_ggtt_insert_entries(struct i915_address_space *vm,
- 				     enum i915_cache_level level,
- 				     u32 flags)
- {
--	const gen8_pte_t pte_encode = gen8_ggtt_pte_encode(0, level, flags);
- 	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
-+	const gen8_pte_t pte_encode = ggtt->vm.pte_encode(0, level, flags);
- 	gen8_pte_t __iomem *gte;
- 	gen8_pte_t __iomem *end;
- 	struct sgt_iter iter;
+ 	switch (args->caching) {
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 8df261c5ab9b..3467fd879427 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -1626,6 +1626,9 @@ struct drm_i915_gem_busy {
+  *     - Everything else is always allocated and mapped as write-back, with the
+  *       guarantee that everything is also coherent with the GPU.
+  *
++ * Starting from MTL even on integrated platforms set/get caching is no longer
++ * supported and object will be mapped as write-combined only.
++ *
+  * Note that this is likely to change in the future again, where we might need
+  * more flexibility on future devices, so making this all explicit as part of a
+  * new &drm_i915_gem_create_ext extension is probable.
 -- 
 2.25.1
 
