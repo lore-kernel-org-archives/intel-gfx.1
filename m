@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35E9C352A1
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 10:45:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF7D4C352A1
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Dec 2022 10:45:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C92E810E120;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8675A10E316;
 	Tue,  6 Dec 2022 10:45:40 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27CEB10E318
- for <intel-gfx@lists.freedesktop.org>; Tue,  6 Dec 2022 10:45:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 558BD10E120
+ for <intel-gfx@lists.freedesktop.org>; Tue,  6 Dec 2022 10:45:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670323537; x=1701859537;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=orMS1utQaUTAHcdk62EWFF9oI+Rg4O1YUWfGgjSQX2I=;
- b=Ei6ka67vCIw2u4VFoz9dc9WtXH2WryelYP4mDHcx03r9WGT4XpkJF+Wj
- FedhpSF3e9noQbd/MRdgRMDmZvz6cZEk43N8sRn915aKmiPZYMQAOwJmR
- go0Zmj/yVLgokKOVOXfZiw++wN3DUT7gLuj2IzeMT1Ot2O6XI/b5jXTCk
- 0SbkTkhkZP9WNZeqbj6y2nbPuie414QRBoULAZjj1+CQHxxqIPARK8E32
- tVuCBcVaoeOvcJ/6zy9/EOQ7bw9psAxF33HtxVk6Lwjp/+s3b8risVYOq
- IMwW5i0qbAVXjXw7ns3ftz2hhIN3DE3tT/SIAId+WZ5kicbUs54QRTN2G g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="317735338"
-X-IronPort-AV: E=Sophos;i="5.96,222,1665471600"; d="scan'208";a="317735338"
+ t=1670323533; x=1701859533;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=jiTzygfupp80ic8DqHtqAy0uPNbBwBFXR5zQo0xVRBY=;
+ b=BQJip4X6vsyhqlCNdfXfU7iPrrwvsiWDB5SDTP9EoPK7QiLCfSPs6b+O
+ nnSfHpQslrOhcbL1t7bnE7Lk3+hjzYgiVnGR6T5rw9EkDty6zWlG2p21I
+ 8C7HU8+nahckaHKs1KByu8s9AoJ03IYHsOVz4yS6/n+nsOWAoOttvniZs
+ sy3/XOuQCyZOZY3yuNNBJqgwosF0PKgkfQEpwUPJIOe03uAIqXSI6csrN
+ KTQBJdOap/E4IOCwMnrd1BiY59pTnH7MDLnANdxk4CHbDhXYUemn9mIr7
+ HWGcIWp2yg5bqcjKYOb6zgQNV7spL/vcGrJH7gJwDTOxRpVPBEI0tee2N g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="317735326"
+X-IronPort-AV: E=Sophos;i="5.96,222,1665471600"; d="scan'208";a="317735326"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2022 02:45:36 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="714757925"
-X-IronPort-AV: E=Sophos;i="5.96,222,1665471600"; d="scan'208";a="714757925"
+ 06 Dec 2022 02:45:32 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10552"; a="714757908"
+X-IronPort-AV: E=Sophos;i="5.96,222,1665471600"; d="scan'208";a="714757908"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2022 02:45:34 -0800
+ 06 Dec 2022 02:45:30 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  6 Dec 2022 16:16:20 +0530
-Message-Id: <20221206104630.1263525-3-ankit.k.nautiyal@intel.com>
+Date: Tue,  6 Dec 2022 16:16:18 +0530
+Message-Id: <20221206104630.1263525-1-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221206104630.1263525-1-ankit.k.nautiyal@intel.com>
-References: <20221206104630.1263525-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v1 02/12] drm/display/dp: Fix the DP DSC
- Receiver cap size
+Subject: [Intel-gfx] [PATCH v2 00/12] Add DSC fractional bpp support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,33 +57,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DP DSC Receiver Capabilities are exposed via DPCD 60h-6Fh.
-Fix the DSC RECEIVER CAP SIZE accordingly.
+This patch series adds support for having fractional compressed bpp
+for MTL+. The initial patches that lay groundwork to iterate over valid
+compressed bpps to select the 'best' compressed bpp with optimal link
+configuration are taken from upstream pending series:
+https://patchwork.freedesktop.org/series/105200/
 
-Fixes: ffddc4363c28 ("drm/dp: Add DP DSC DPCD receiver capability size define and missing SHIFT")
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Cc: <stable@vger.kernel.org> # v5.0+
+The later patches, add changes to accommodate compressed bpp with
+fractional part, including changes to QP calculations.
+To get the 'best' compressed bpp, we iterate over the valid compressed
+bpp values, but with fractional step size 1/16, 1/8, 1/4 or 1/2 as per
+sink support.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- include/drm/display/drm_dp.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The last 2 patches add support to depict DSC sink's fractional support,
+and debugfs to enforce use of fractional bpp, while choosing an
+appropriate compressed bpp.
 
-diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-index e934aab357be..44091aeb915f 100644
---- a/include/drm/display/drm_dp.h
-+++ b/include/drm/display/drm_dp.h
-@@ -1519,7 +1519,7 @@ enum drm_dp_phy {
- 
- #define DP_BRANCH_OUI_HEADER_SIZE	0xc
- #define DP_RECEIVER_CAP_SIZE		0xf
--#define DP_DSC_RECEIVER_CAP_SIZE        0xf
-+#define DP_DSC_RECEIVER_CAP_SIZE        0x10 /* DSC Capabilities 0x60 through 0x6F */
- #define EDP_PSR_RECEIVER_CAP_SIZE	2
- #define EDP_DISPLAY_CTL_CAP_SIZE	3
- #define DP_LTTPR_COMMON_CAP_SIZE	8
+Rev2:
+-Added patch to fix DSC Receiver Cap size macro. (kernel test robot)
+-Addressed review comments from Stan.
+
+Ankit Nautiyal (9):
+  drm/i915/dp: Check if force dsc bpc <= max requested bpc
+  drm/display/dp: Fix the DP DSC Receiver cap size
+  drm/display/dp: Add helper function to get DSC bpp prescision
+  drm/i915/dp: Rename helpers to get DSC max pipe bpp and max output bpp
+  drm/i915/dp: Get optimal link config to have best compressed bpp
+  drm/i915/display: Store compressed bpp in U6.4 format
+  drm/i915/display: Consider fractional vdsc bpp while computing m_n
+    values
+  drm/i915/audio : Consider fractional vdsc bpp while computing tu_data
+  drm/i915/dp: Iterate over output bpp with fractional step size
+
+Swati Sharma (2):
+  drm/i915/dsc: Add debugfs entry to validate DSC fractional bpp
+  drm/i915/dsc: Allow DSC only with fractional bpp when forced from
+    debugfs
+
+Vandita Kulkarni (1):
+  drm/i915/dsc/mtl: Add support for fractional bpp
+
+ drivers/gpu/drm/display/drm_dp_helper.c       |  27 ++
+ drivers/gpu/drm/i915/display/icl_dsi.c        |  10 +-
+ drivers/gpu/drm/i915/display/intel_audio.c    |  14 +-
+ drivers/gpu/drm/i915/display/intel_bios.c     |   2 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |   6 +-
+ drivers/gpu/drm/i915/display/intel_display.h  |   2 +-
+ .../drm/i915/display/intel_display_debugfs.c  |  84 +++++
+ .../drm/i915/display/intel_display_types.h    |  17 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       | 321 ++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   3 +-
+ drivers/gpu/drm/i915/display/intel_fdi.c      |   2 +-
+ .../gpu/drm/i915/display/intel_qp_tables.c    |   3 -
+ drivers/gpu/drm/i915/display/intel_vdsc.c     |  16 +-
+ include/drm/display/drm_dp.h                  |   2 +-
+ include/drm/display/drm_dp_helper.h           |   1 +
+ 15 files changed, 426 insertions(+), 84 deletions(-)
+
 -- 
 2.25.1
 
