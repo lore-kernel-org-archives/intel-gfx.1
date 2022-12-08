@@ -4,54 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76BFAC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 10:44:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0251DC3A5A7
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 11:12:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD7010E1BE;
-	Thu,  8 Dec 2022 10:44:56 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6D410E1BE
- for <intel-gfx@lists.freedesktop.org>; Thu,  8 Dec 2022 10:44:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72F6C10E1C1;
+	Thu,  8 Dec 2022 11:12:45 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 722FA10E495
+ for <intel-gfx@lists.freedesktop.org>; Thu,  8 Dec 2022 11:12:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670496293; x=1702032293;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=DLW8IXAG6RbvUVWIlYqGfA6hEuOKprTQjtvaR+zuOP4=;
- b=RI6mk7/+0VWVuKLDi5qX31izNBWxfQ55Kn1vcZO8f/UMo1DL/Mfb5oKu
- OveCRyTWpbg9/OnBb+D/1lqwU08tehnmL7p3Ve/v72fY4Q7DArNZtacq+
- LOIuhJZvpOBHZr4IMf9Mcrq15RkCnGiw/XogJig/5kuBgfbE778uA3FFR
- bQqbcp26mlU54ND/nTDXGyvv8FSg/4YVMLg0f0v6IE7bw2xzixR9Y/Fly
- 63YYcO2jcFA5Z4R76CgVr1wwzxMglpV+3PY0kFYMdNCfJeDcD/7JNK7QZ
- d6GYLnOCFIWUSKbQifAgbxsRQoB6HiYNezKm8/CRGc77YBBSQelPqFOVT w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10554"; a="318279105"
-X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="318279105"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2022 02:44:32 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10554"; a="715552106"
-X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="715552106"
-Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.6.160])
- ([10.213.6.160])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2022 02:44:31 -0800
-Message-ID: <851eb9cc-305c-aa6c-e5a4-9e1283dd8984@intel.com>
-Date: Thu, 8 Dec 2022 11:44:29 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.5.1
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
-References: <cover.1670433372.git.jani.nikula@intel.com>
- <8c29f4f76c2163da309ead0bf48652024f134f11.1670433372.git.jani.nikula@intel.com>
+ t=1670497961; x=1702033961;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=z+uwpfMo8WsJSUSAV8lJG3HDMcDkZ2uyLsOZNmCREB4=;
+ b=lWOvtt8qfI4WiSIU3KZXgtRI27hoUu8Kuymn5OpeMeNOJyBHea958FJM
+ Kzg7hGJt3BBtnCFHZ5eXvRa94Y9gO90viTynTt01qBfBlz8QRQTlHD75N
+ hD9iKk4+9Pzt8zIURmbX6YW10k9IDMMTT64gQJ0s3LTFG6VzJJPHDA1S1
+ IU3o0CMo+SNmOdXjFDDiCpA5tGFflqQzq3mU1TJSNxvpttTbVuuENdPpO
+ rwwBu1mSeG39dVh/SK5mjquvkTIOxhTlDIaGzctlBy5gNYYMQ5NlvzHdd
+ LtH1Dklzg2Yn9buSBqrIcOl5RVPvV6e5exo7vP5sB4rrSMA56R+tnwZo0 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10554"; a="318995980"
+X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="318995980"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2022 03:12:41 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10554"; a="710426090"
+X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="710426090"
+Received: from lab-ah.igk.intel.com ([10.91.215.196])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2022 03:12:39 -0800
 From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <8c29f4f76c2163da309ead0bf48652024f134f11.1670433372.git.jani.nikula@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2 11/11] drm/i915/tc: switch to intel_de_*
- register accessors in display code
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  8 Dec 2022 12:12:17 +0100
+Message-Id: <20221208111217.3734461-2-andrzej.hajda@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20221208111217.3734461-1-andrzej.hajda@intel.com>
+References: <20221208111217.3734461-1-andrzej.hajda@intel.com>
+MIME-Version: 1.0
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/gt: use fetch_and_zero if
+ applicable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,232 +59,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 07.12.2022 18:17, Jani Nikula wrote:
-> Avoid direct uncore use in display code.
-> 
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Simplify the code.
 
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+---
+ drivers/gpu/drm/i915/gt/selftest_context.c        | 6 ++----
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 3 +--
+ 2 files changed, 3 insertions(+), 6 deletions(-)
 
-Regards
-Andrzej
-> ---
->   drivers/gpu/drm/i915/display/intel_tc.c | 55 ++++++++-----------------
->   1 file changed, 18 insertions(+), 37 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-> index 70624b4b2d38..f45328712bff 100644
-> --- a/drivers/gpu/drm/i915/display/intel_tc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_tc.c
-> @@ -5,6 +5,7 @@
->   
->   #include "i915_drv.h"
->   #include "i915_reg.h"
-> +#include "intel_de.h"
->   #include "intel_display.h"
->   #include "intel_display_power_map.h"
->   #include "intel_display_types.h"
-> @@ -120,11 +121,9 @@ assert_tc_cold_blocked(struct intel_digital_port *dig_port)
->   u32 intel_tc_port_get_lane_mask(struct intel_digital_port *dig_port)
->   {
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	u32 lane_mask;
->   
-> -	lane_mask = intel_uncore_read(uncore,
-> -				      PORT_TX_DFLEXDPSP(dig_port->tc_phy_fia));
-> +	lane_mask = intel_de_read(i915, PORT_TX_DFLEXDPSP(dig_port->tc_phy_fia));
->   
->   	drm_WARN_ON(&i915->drm, lane_mask == 0xffffffff);
->   	assert_tc_cold_blocked(dig_port);
-> @@ -136,11 +135,9 @@ u32 intel_tc_port_get_lane_mask(struct intel_digital_port *dig_port)
->   u32 intel_tc_port_get_pin_assignment_mask(struct intel_digital_port *dig_port)
->   {
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	u32 pin_mask;
->   
-> -	pin_mask = intel_uncore_read(uncore,
-> -				     PORT_TX_DFLEXPA1(dig_port->tc_phy_fia));
-> +	pin_mask = intel_de_read(i915, PORT_TX_DFLEXPA1(dig_port->tc_phy_fia));
->   
->   	drm_WARN_ON(&i915->drm, pin_mask == 0xffffffff);
->   	assert_tc_cold_blocked(dig_port);
-> @@ -186,7 +183,6 @@ void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
->   {
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
->   	bool lane_reversal = dig_port->saved_port_bits & DDI_BUF_PORT_REVERSAL;
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	u32 val;
->   
->   	drm_WARN_ON(&i915->drm,
-> @@ -194,8 +190,7 @@ void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
->   
->   	assert_tc_cold_blocked(dig_port);
->   
-> -	val = intel_uncore_read(uncore,
-> -				PORT_TX_DFLEXDPMLE1(dig_port->tc_phy_fia));
-> +	val = intel_de_read(i915, PORT_TX_DFLEXDPMLE1(dig_port->tc_phy_fia));
->   	val &= ~DFLEXDPMLE1_DPMLETC_MASK(dig_port->tc_phy_fia_idx);
->   
->   	switch (required_lanes) {
-> @@ -216,8 +211,7 @@ void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
->   		MISSING_CASE(required_lanes);
->   	}
->   
-> -	intel_uncore_write(uncore,
-> -			   PORT_TX_DFLEXDPMLE1(dig_port->tc_phy_fia), val);
-> +	intel_de_write(i915, PORT_TX_DFLEXDPMLE1(dig_port->tc_phy_fia), val);
->   }
->   
->   static void tc_port_fixup_legacy_flag(struct intel_digital_port *dig_port,
-> @@ -246,13 +240,11 @@ static void tc_port_fixup_legacy_flag(struct intel_digital_port *dig_port,
->   static u32 icl_tc_port_live_status_mask(struct intel_digital_port *dig_port)
->   {
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	u32 isr_bit = i915->display.hotplug.pch_hpd[dig_port->base.hpd_pin];
->   	u32 mask = 0;
->   	u32 val;
->   
-> -	val = intel_uncore_read(uncore,
-> -				PORT_TX_DFLEXDPSP(dig_port->tc_phy_fia));
-> +	val = intel_de_read(i915, PORT_TX_DFLEXDPSP(dig_port->tc_phy_fia));
->   
->   	if (val == 0xffffffff) {
->   		drm_dbg_kms(&i915->drm,
-> @@ -266,7 +258,7 @@ static u32 icl_tc_port_live_status_mask(struct intel_digital_port *dig_port)
->   	if (val & TC_LIVE_STATE_TC(dig_port->tc_phy_fia_idx))
->   		mask |= BIT(TC_PORT_DP_ALT);
->   
-> -	if (intel_uncore_read(uncore, SDEISR) & isr_bit)
-> +	if (intel_de_read(i915, SDEISR) & isr_bit)
->   		mask |= BIT(TC_PORT_LEGACY);
->   
->   	/* The sink can be connected only in a single mode. */
-> @@ -281,7 +273,6 @@ static u32 adl_tc_port_live_status_mask(struct intel_digital_port *dig_port)
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
->   	enum tc_port tc_port = intel_port_to_tc(i915, dig_port->base.port);
->   	u32 isr_bit = i915->display.hotplug.pch_hpd[dig_port->base.hpd_pin];
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	u32 val, mask = 0;
->   
->   	/*
-> @@ -289,13 +280,13 @@ static u32 adl_tc_port_live_status_mask(struct intel_digital_port *dig_port)
->   	 * registers in IOM. Note that this doesn't apply to PHY and FIA
->   	 * registers.
->   	 */
-> -	val = intel_uncore_read(uncore, TCSS_DDI_STATUS(tc_port));
-> +	val = intel_de_read(i915, TCSS_DDI_STATUS(tc_port));
->   	if (val & TCSS_DDI_STATUS_HPD_LIVE_STATUS_ALT)
->   		mask |= BIT(TC_PORT_DP_ALT);
->   	if (val & TCSS_DDI_STATUS_HPD_LIVE_STATUS_TBT)
->   		mask |= BIT(TC_PORT_TBT_ALT);
->   
-> -	if (intel_uncore_read(uncore, SDEISR) & isr_bit)
-> +	if (intel_de_read(i915, SDEISR) & isr_bit)
->   		mask |= BIT(TC_PORT_LEGACY);
->   
->   	/* The sink can be connected only in a single mode. */
-> @@ -326,11 +317,9 @@ static u32 tc_port_live_status_mask(struct intel_digital_port *dig_port)
->   static bool icl_tc_phy_status_complete(struct intel_digital_port *dig_port)
->   {
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	u32 val;
->   
-> -	val = intel_uncore_read(uncore,
-> -				PORT_TX_DFLEXDPPMS(dig_port->tc_phy_fia));
-> +	val = intel_de_read(i915, PORT_TX_DFLEXDPPMS(dig_port->tc_phy_fia));
->   	if (val == 0xffffffff) {
->   		drm_dbg_kms(&i915->drm,
->   			    "Port %s: PHY in TCCOLD, assuming not complete\n",
-> @@ -352,10 +341,9 @@ static bool adl_tc_phy_status_complete(struct intel_digital_port *dig_port)
->   {
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
->   	enum tc_port tc_port = intel_port_to_tc(i915, dig_port->base.port);
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	u32 val;
->   
-> -	val = intel_uncore_read(uncore, TCSS_DDI_STATUS(tc_port));
-> +	val = intel_de_read(i915, TCSS_DDI_STATUS(tc_port));
->   	if (val == 0xffffffff) {
->   		drm_dbg_kms(&i915->drm,
->   			    "Port %s: PHY in TCCOLD, assuming not complete\n",
-> @@ -380,11 +368,9 @@ static bool icl_tc_phy_take_ownership(struct intel_digital_port *dig_port,
->   				      bool take)
->   {
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	u32 val;
->   
-> -	val = intel_uncore_read(uncore,
-> -				PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia));
-> +	val = intel_de_read(i915, PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia));
->   	if (val == 0xffffffff) {
->   		drm_dbg_kms(&i915->drm,
->   			    "Port %s: PHY in TCCOLD, can't %s ownership\n",
-> @@ -397,8 +383,7 @@ static bool icl_tc_phy_take_ownership(struct intel_digital_port *dig_port,
->   	if (take)
->   		val |= DP_PHY_MODE_STATUS_NOT_SAFE(dig_port->tc_phy_fia_idx);
->   
-> -	intel_uncore_write(uncore,
-> -			   PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia), val);
-> +	intel_de_write(i915, PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia), val);
->   
->   	return true;
->   }
-> @@ -407,11 +392,10 @@ static bool adl_tc_phy_take_ownership(struct intel_digital_port *dig_port,
->   				      bool take)
->   {
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	enum port port = dig_port->base.port;
->   
-> -	intel_uncore_rmw(uncore, DDI_BUF_CTL(port), DDI_BUF_CTL_TC_PHY_OWNERSHIP,
-> -			 take ? DDI_BUF_CTL_TC_PHY_OWNERSHIP : 0);
-> +	intel_de_rmw(i915, DDI_BUF_CTL(port), DDI_BUF_CTL_TC_PHY_OWNERSHIP,
-> +		     take ? DDI_BUF_CTL_TC_PHY_OWNERSHIP : 0);
->   
->   	return true;
->   }
-> @@ -429,11 +413,9 @@ static bool tc_phy_take_ownership(struct intel_digital_port *dig_port, bool take
->   static bool icl_tc_phy_is_owned(struct intel_digital_port *dig_port)
->   {
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	u32 val;
->   
-> -	val = intel_uncore_read(uncore,
-> -				PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia));
-> +	val = intel_de_read(i915, PORT_TX_DFLEXDPCSSS(dig_port->tc_phy_fia));
->   	if (val == 0xffffffff) {
->   		drm_dbg_kms(&i915->drm,
->   			    "Port %s: PHY in TCCOLD, assume safe mode\n",
-> @@ -447,11 +429,10 @@ static bool icl_tc_phy_is_owned(struct intel_digital_port *dig_port)
->   static bool adl_tc_phy_is_owned(struct intel_digital_port *dig_port)
->   {
->   	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-> -	struct intel_uncore *uncore = &i915->uncore;
->   	enum port port = dig_port->base.port;
->   	u32 val;
->   
-> -	val = intel_uncore_read(uncore, DDI_BUF_CTL(port));
-> +	val = intel_de_read(i915, DDI_BUF_CTL(port));
->   	return val & DDI_BUF_CTL_TC_PHY_OWNERSHIP;
->   }
->   
-> @@ -907,7 +888,7 @@ tc_has_modular_fia(struct drm_i915_private *i915, struct intel_digital_port *dig
->   
->   	mutex_lock(&dig_port->tc_lock);
->   	wakeref = tc_cold_block(dig_port, &domain);
-> -	val = intel_uncore_read(&i915->uncore, PORT_TX_DFLEXDPSP(FIA1));
-> +	val = intel_de_read(i915, PORT_TX_DFLEXDPSP(FIA1));
->   	tc_cold_unblock(dig_port, domain, wakeref);
->   	mutex_unlock(&dig_port->tc_lock);
->   
+diff --git a/drivers/gpu/drm/i915/gt/selftest_context.c b/drivers/gpu/drm/i915/gt/selftest_context.c
+index 76fbae358072df..307dbbe853a3e9 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_context.c
++++ b/drivers/gpu/drm/i915/gt/selftest_context.c
+@@ -227,8 +227,7 @@ static int __live_active_context(struct intel_engine_cs *engine)
+ 	if (IS_ERR(ce))
+ 		return PTR_ERR(ce);
+ 
+-	saved_heartbeat = engine->props.heartbeat_interval_ms;
+-	engine->props.heartbeat_interval_ms = 0;
++	saved_heartbeat = fetch_and_zero(&engine->props.heartbeat_interval_ms);
+ 
+ 	for (pass = 0; pass <= 2; pass++) {
+ 		struct i915_request *rq;
+@@ -385,8 +384,7 @@ static int __live_remote_context(struct intel_engine_cs *engine)
+ 		goto err_remote;
+ 	}
+ 
+-	saved_heartbeat = engine->props.heartbeat_interval_ms;
+-	engine->props.heartbeat_interval_ms = 0;
++	saved_heartbeat = fetch_and_zero(&engine->props.heartbeat_interval_ms);
+ 	intel_engine_pm_get(engine);
+ 
+ 	for (pass = 0; pass <= 2; pass++) {
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 53f7f599cde3a2..f9dd77838917f6 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -4747,8 +4747,7 @@ static void reset_fail_worker_func(struct work_struct *w)
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&guc->submission_state.lock, flags);
+-	reset_fail_mask = guc->submission_state.reset_fail_mask;
+-	guc->submission_state.reset_fail_mask = 0;
++	reset_fail_mask = fetch_and_zero(&guc->submission_state.reset_fail_mask);
+ 	spin_unlock_irqrestore(&guc->submission_state.lock, flags);
+ 
+ 	if (likely(reset_fail_mask))
+-- 
+2.34.1
 
