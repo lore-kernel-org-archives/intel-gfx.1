@@ -4,48 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9374BC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 15:51:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAC94C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Dec 2022 15:53:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9AD610E4BF;
-	Thu,  8 Dec 2022 15:51:32 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE40010E4B8
- for <intel-gfx@lists.freedesktop.org>; Thu,  8 Dec 2022 15:51:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67EF310E4B8;
+	Thu,  8 Dec 2022 15:53:31 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD60D10E0EF;
+ Thu,  8 Dec 2022 15:53:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670514676; x=1702050676;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=oMk+BMYL1mwY3ubzcp9/orDKGI0N1dRNC1MgAh2MVBE=;
- b=EhQvqib/5KJJTiW4i0jkRYARrwiDx8NBl6x0X4Wlsd06b/OnKh5Njuz8
- ChmgS/riq85Hh5JfZ2Rc0ZQidVUs0NKBUdnVu73p0j+LlQnla7jkWBg4p
- vb4xqJjwXnlv+9Y6orRPedkxP0Jp4PKDeBXIK3soO5DvW4BjI0PR7n+pM
- mObtQs6+Hx1/zDHTdIEsERtpHoUx9emW7TrDqeV/9uFJpVLZ1iUt2J7tF
- +WJuTu/5LRWQts51UhJrs6awKNRNChui5dW+GMF3PgrOSyQJMo0h7h9qV
- CF/1bj3/FdzD0+6gCb3cXrdkzerRLhbkzfkGwQYmgS5FEoTygyqyiOQrn Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="304856987"
-X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="304856987"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2022 07:44:32 -0800
+ t=1670514805; x=1702050805;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Oetrozn7hREZ1+E90eIuWjD6cJMvrafRb9KTJQ6cvAQ=;
+ b=izHi7omGR7sl6P2DFIQcvDv4dNUSBrp8NPXl1hw2KhIAEQ9P3DrI3vDG
+ lDJrbkX3xfYCKfpxhPzVo0a+jrF4IuFeohvyAodqr1vGZpogZLUupglnh
+ uvmSRxqEzzRFM6GKlMxGnjTVni2VORk0xDbtey0GtGDZvNrhv+NsbsY/w
+ lz7Uh4pcnYjO3fnaVYkeuOjTFU0qG5S6RXWrAfJVK26ezXi7zpl466kMi
+ 2TrkDBelijSTWJPtiDSy4QCvhLG5lJriQwjMKIvz1oW4BgoEVClBQSBvu
+ 41Y8HG6WK8Hkv9mfbXWhhVtZfoeT5Q3gZFBld3hxrQka2DfJrhVE+Yj8b Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="314850719"
+X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="314850719"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2022 07:53:25 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="710514728"
-X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="710514728"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga008.fm.intel.com with ESMTP; 08 Dec 2022 07:44:30 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Date: Thu,  8 Dec 2022 17:43:58 +0200
-Message-Id: <20221208154358.3848764-4-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221208154358.3848764-1-kai.vehmanen@linux.intel.com>
-References: <20221208154358.3848764-1-kai.vehmanen@linux.intel.com>
+X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="735852344"
+X-IronPort-AV: E=Sophos;i="5.96,227,1665471600"; d="scan'208";a="735852344"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by FMSMGA003.fm.intel.com with ESMTP; 08 Dec 2022 07:53:19 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1p3JD3-006QZD-2Z; Thu, 08 Dec 2022 17:53:17 +0200
+Date: Thu, 8 Dec 2022 17:53:17 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <Y5IIbTtF4dHxRn/W@smile.fi.intel.com>
+References: <20221130134838.23805-1-andriy.shevchenko@linux.intel.com>
+ <Y5HelZhkxnPf6hIs@smile.fi.intel.com> <Y5HjTpzmgZWft+nF@kroah.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] ALSA: hda/hdmi: fix stream-id config
- keep-alive for rt suspend
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y5HjTpzmgZWft+nF@kroah.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Subject: Re: [Intel-gfx] [PATCH v5 1/4] i915: Move list_count() to list.h as
+ list_count_nodes() for broader use
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,173 +62,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Mathias Nyman <mathias.nyman@linux.intel.com>,
+ Mathias Nyman <mathias.nyman@intel.com>, Jani Nikula <jani.nikula@intel.com>,
+ Kevin Cernekee <cernekee@gmail.com>, intel-gfx@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When the new style KAE keep-alive implementation is used on compatible
-Intel hardware, the clocks are maintained when codec is in D3. The
-generic code in hda_cleanup_all_streams() can however interfere with
-generation of audio samples in this mode, by setting the stream and
-channel ids to zero.
+On Thu, Dec 08, 2022 at 02:14:54PM +0100, Greg Kroah-Hartman wrote:
+> On Thu, Dec 08, 2022 at 02:54:45PM +0200, Andy Shevchenko wrote:
+> > On Wed, Nov 30, 2022 at 03:48:35PM +0200, Andy Shevchenko wrote:
+> > > Some of the existing users, and definitely will be new ones, want to
+> > > count existing nodes in the list. Provide a generic API for that by
+> > > moving code from i915 to list.h.
+> > 
+> > Greg, I believe this one is ready to be taken. Or please tell me what I need
+> > to do.
+> 
+> Wait for me to get through the current backlog of patches that I have in
+> my review queue.  Odds are, it will have to wait until after 6.2-rc1 is
+> out based on when 6.1 is going to be released.
 
-To get full benefit of the keepalive, set the new
-no_stream_clean_at_suspend quirk bit on affected Intel hardware. When
-this bit is set, stream cleanup is skipped in hda_call_codec_suspend().
+It's fine, no hurry and take your time!
 
-Special handling is needed for the case when system goes to suspend. The
-stream id programming can be lost in this case. This will also cause
-codec->cvt_setups to be out of sync. Handle this by implementing custom
-suspend/resume handlers. If keep-alive is active for any converter, set
-the quirk flags no_stream_clean_at_suspend and forced_resume. Upon
-resume, keepalive programming is restored if needed.
+> Don't worry, it's not lost.
 
-Fixes: 15175a4f2bbb ("ALSA: hda/hdmi: add keep-alive support for ADL-P and DG2")
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- include/sound/hda_codec.h  |  1 +
- sound/pci/hda/hda_codec.c  |  3 +-
- sound/pci/hda/patch_hdmi.c | 90 +++++++++++++++++++++++++++++++++++++-
- 3 files changed, 92 insertions(+), 2 deletions(-)
+Thank you, got it!
 
-diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
-index 25ec8c181688..eba23daf2c29 100644
---- a/include/sound/hda_codec.h
-+++ b/include/sound/hda_codec.h
-@@ -258,6 +258,7 @@ struct hda_codec {
- 	unsigned int link_down_at_suspend:1; /* link down at runtime suspend */
- 	unsigned int relaxed_resume:1;	/* don't resume forcibly for jack */
- 	unsigned int forced_resume:1; /* forced resume for jack */
-+	unsigned int no_stream_clean_at_suspend:1; /* do not clean streams at suspend */
- 
- #ifdef CONFIG_PM
- 	unsigned long power_on_acct;
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index b4d1e658c556..edd653ece70d 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -2886,7 +2886,8 @@ static unsigned int hda_call_codec_suspend(struct hda_codec *codec)
- 	snd_hdac_enter_pm(&codec->core);
- 	if (codec->patch_ops.suspend)
- 		codec->patch_ops.suspend(codec);
--	hda_cleanup_all_streams(codec);
-+	if (!codec->no_stream_clean_at_suspend)
-+		hda_cleanup_all_streams(codec);
- 	state = hda_set_power_state(codec, AC_PWRST_D3);
- 	update_power_acct(codec, true);
- 	snd_hdac_leave_pm(&codec->core);
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 1618419647aa..dfae3443f6bd 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -2921,6 +2921,88 @@ static void i915_pin_cvt_fixup(struct hda_codec *codec,
- 	}
- }
- 
-+#ifdef CONFIG_PM
-+static int i915_adlp_hdmi_suspend(struct hda_codec *codec)
-+{
-+	struct hdmi_spec *spec = codec->spec;
-+	bool silent_streams = false;
-+	int pin_idx, res;
-+
-+	res = generic_hdmi_suspend(codec);
-+
-+	for (pin_idx = 0; pin_idx < spec->num_pins; pin_idx++) {
-+		struct hdmi_spec_per_pin *per_pin = get_pin(spec, pin_idx);
-+
-+		if (per_pin->silent_stream) {
-+			silent_streams = true;
-+			break;
-+		}
-+	}
-+
-+	if (silent_streams && spec->silent_stream_type == SILENT_STREAM_KAE) {
-+		/*
-+		 * stream-id should remain programmed when codec goes
-+		 * to runtime suspend
-+		 */
-+		codec->no_stream_clean_at_suspend = 1;
-+
-+		/*
-+		 * the system might go to S3, in which case keep-alive
-+		 * must be reprogrammed upon resume
-+		 */
-+		codec->forced_resume = 1;
-+
-+		codec_dbg(codec, "HDMI: KAE active at suspend\n");
-+	} else {
-+		codec->no_stream_clean_at_suspend = 0;
-+		codec->forced_resume = 0;
-+	}
-+
-+	return res;
-+}
-+
-+static int i915_adlp_hdmi_resume(struct hda_codec *codec)
-+{
-+	struct hdmi_spec *spec = codec->spec;
-+	int pin_idx, res;
-+
-+	res = generic_hdmi_resume(codec);
-+
-+	/* KAE not programmed at suspend, nothing to do here */
-+	if (!codec->no_stream_clean_at_suspend)
-+		return res;
-+
-+	for (pin_idx = 0; pin_idx < spec->num_pins; pin_idx++) {
-+		struct hdmi_spec_per_pin *per_pin = get_pin(spec, pin_idx);
-+
-+		/*
-+		 * If system was in suspend with monitor connected,
-+		 * the codec setting may have been lost. Re-enable
-+		 * keep-alive.
-+		 */
-+		if (per_pin->silent_stream) {
-+			unsigned int param;
-+
-+			param = snd_hda_codec_read(codec, per_pin->cvt_nid, 0,
-+						   AC_VERB_GET_CONV, 0);
-+			if (!param) {
-+				codec_dbg(codec, "HDMI: KAE: restore stream id\n");
-+				silent_stream_enable_i915(codec, per_pin);
-+			}
-+
-+			param = snd_hda_codec_read(codec, per_pin->cvt_nid, 0,
-+						   AC_VERB_GET_DIGI_CONVERT_1, 0);
-+			if (!(param & (AC_DIG3_KAE << 16))) {
-+				codec_dbg(codec, "HDMI: KAE: restore DIG3_KAE\n");
-+				silent_stream_set_kae(codec, per_pin, true);
-+			}
-+		}
-+	}
-+
-+	return res;
-+}
-+#endif
-+
- /* precondition and allocation for Intel codecs */
- static int alloc_intel_hdmi(struct hda_codec *codec)
- {
-@@ -3051,8 +3133,14 @@ static int patch_i915_adlp_hdmi(struct hda_codec *codec)
- 	if (!res) {
- 		spec = codec->spec;
- 
--		if (spec->silent_stream_type)
-+		if (spec->silent_stream_type) {
- 			spec->silent_stream_type = SILENT_STREAM_KAE;
-+
-+#ifdef CONFIG_PM
-+			codec->patch_ops.resume = i915_adlp_hdmi_resume;
-+			codec->patch_ops.suspend = i915_adlp_hdmi_suspend;
-+#endif
-+		}
- 	}
- 
- 	return res;
 -- 
-2.38.1
+With Best Regards,
+Andy Shevchenko
+
 
