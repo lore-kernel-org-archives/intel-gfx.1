@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E782C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 14:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 285EAC4167B
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 14:35:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C21810E1E6;
-	Mon, 12 Dec 2022 14:30:06 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFC9210E1D4
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Dec 2022 14:29:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670855390; x=1702391390;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=gw6XmT7v29XCTm11VUXJ/+AMcPXKbyZgtPDXzEgu674=;
- b=OrKuo17QUtpstnFOB1o2qQ2ou6OTbDi9c3Pg+qr7Oj2rvgeEVi90/XYe
- uw2f20s1YJ2BFp/1S/CaqF9tT6adZD0gIJCJYD9tZnrEKzeMshNzIBAEQ
- yhMqvy0C1PG1g7sziDnaYNeMDEwdG5rjzqNwhZWQwLBja+ANCCFl1ilFY
- yjkTL/oATXkMdJtUzWjgbtbdMxmFiiZttZLR16S6xQrv1Hf+ouNXmjcIr
- 89c67GV8J7usw7WYJlpKnX0xvxryhN5yVlXyzmqGnNCrwuNrk5NO35VEh
- TTxP6t9npRybNHpTTLo0oYty7ndu1Gl2DNlZ6X39sC6J/oLSdg2oJZv7s w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10558"; a="316558462"
-X-IronPort-AV: E=Sophos;i="5.96,238,1665471600"; d="scan'208";a="316558462"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 06:29:50 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10558"; a="790511214"
-X-IronPort-AV: E=Sophos;i="5.96,238,1665471600"; d="scan'208";a="790511214"
-Received: from sshumihi-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.5.95])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 06:29:49 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Dec 2022 16:29:23 +0200
-Message-Id: <8bfde2e1fce2e78d5b868290bc6ee62d4ff516fa.1670855299.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1670855299.git.jani.nikula@intel.com>
-References: <cover.1670855299.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D7F5891CC;
+	Mon, 12 Dec 2022 14:35:35 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 313A3891CC;
+ Mon, 12 Dec 2022 14:35:32 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9C246B80D8A;
+ Mon, 12 Dec 2022 14:35:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B7EEC433EF;
+ Mon, 12 Dec 2022 14:35:23 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+ dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
+ header.b="Wl6pADoH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
+ t=1670855721;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=1KyY32z5nf0Lu8vM4J/2IpAlTcstrOO9+asdsS0mdQs=;
+ b=Wl6pADoHCtIIbQYtGWyzoK0/ft/6K3+8UZfyGZQbHCn0OgumkLD978IERouS9rLh91V7py
+ ofol1dOocMk4p1DFNAhuJ2rC6+TlFlqFiUo0IADIb6l2vBWdPsmninRN5yWI9N/OpXZpdd
+ 5BCaUAKkpp98C6Hq6gwjcSOdDz781ww=
+Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id db04abc2
+ (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
+ Mon, 12 Dec 2022 14:35:21 +0000 (UTC)
+Date: Mon, 12 Dec 2022 15:35:20 +0100
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: david.keisarschm@mail.huji.ac.il
+Message-ID: <Y5c8KLzJFz/XZMiM@zx2c4.com>
+References: <cover.1670778651.git.david.keisarschm@mail.huji.ac.il>
+ <b3caaa5ac5fca4b729bf1ecd0d01968c09e6d083.1670778652.git.david.keisarschm@mail.huji.ac.il>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/7] drm/i915/vblank: use intel_de_read()
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b3caaa5ac5fca4b729bf1ecd0d01968c09e6d083.1670778652.git.david.keisarschm@mail.huji.ac.il>
+Subject: Re: [Intel-gfx] [PATCH 1/5] Renaming weak prng invocations -
+ prandom_bytes_state, prandom_u32_state
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,31 +58,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: Vignesh Raghavendra <vigneshr@ti.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Alexei Starovoitov <ast@kernel.org>, dri-devel@lists.freedesktop.org,
+ Song Liu <song@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ linux-mtd@lists.infradead.org, Stanislav Fomichev <sdf@google.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Christoph Lameter <cl@linux.com>,
+ David Airlie <airlied@gmail.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Richard Weinberger <richard@nod.at>,
+ x86@kernel.org, John Fastabend <john.fastabend@gmail.com>,
+ Andrii Nakryiko <andrii@kernel.org>, ilay.bahat1@gmail.com,
+ Ingo Molnar <mingo@redhat.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Jiri Pirko <jiri@nvidia.com>, David Rientjes <rientjes@google.com>,
+ Yonghong Song <yhs@fb.com>, Paolo Abeni <pabeni@redhat.com>,
+ intel-gfx@lists.freedesktop.org, Petr Mladek <pmladek@suse.com>,
+ Jiri Olsa <jolsa@kernel.org>, Hao Luo <haoluo@google.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, KP Singh <kpsingh@kernel.org>,
+ Hyeonggon Yoo <42.hyeyoo@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Hannes Reinecke <hare@suse.de>,
+ Andy Lutomirski <luto@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@suse.cz>,
+ linux-scsi@vger.kernel.org, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-mm@kvack.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Pekka Enberg <penberg@kernel.org>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, aksecurity@gmail.com,
+ Daniel Vetter <daniel@ffwll.ch>, Joonsoo Kim <iamjoonsoo.kim@lge.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the intel_de_* functions for display registers.
+Please CC me on future revisions.
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_vblank.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+As of 6.2, the prandom namespace is *only* for predictable randomness.
+There's no need to rename anything. So nack on this patch 1/5.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index aec7758ef917..cf1215631b27 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -137,7 +137,7 @@ u32 g4x_get_vblank_counter(struct drm_crtc *crtc)
- 	if (!vblank->max_vblank_count)
- 		return 0;
- 
--	return intel_uncore_read(&dev_priv->uncore, PIPE_FRMCOUNT_G4X(pipe));
-+	return intel_de_read(dev_priv, PIPE_FRMCOUNT_G4X(pipe));
- }
- 
- static u32 intel_crtc_scanlines_since_frame_timestamp(struct intel_crtc *crtc)
--- 
-2.34.1
+With regards to the remaining patches in this series, if you want to
+move prandom_u32_state callers over to get_random_bytes() and
+get_random_u32(), that's fine from my perspective, but last I looked,
+there was much usage in places where being repeatable was actually the
+goal - test suites and such, where you want to be able to redo your
+tests with the same seed. So you'll have to look at each instance case
+by case and convince whoever maintains that code that they don't need
+predictability. However, if you do that, the right functions to use are
+get_random_bytes() and get_random_u32().
 
+Jason
