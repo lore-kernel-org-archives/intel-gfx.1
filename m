@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99596C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 23:18:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D653EC00145
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 23:18:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70A7210E2E5;
-	Mon, 12 Dec 2022 23:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9667510E2E7;
+	Mon, 12 Dec 2022 23:16:18 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C593210E2BB;
- Mon, 12 Dec 2022 23:15:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9364610E2AE;
+ Mon, 12 Dec 2022 23:15:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670886939; x=1702422939;
+ t=1670886937; x=1702422937;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UBS1pSFrUvWSQGeSGImJsb42i6XwSG2Dy0x6b5AZQy0=;
- b=HgmFPrTWspgJGIbY1FgwVIiBl1RpLwUW0fo1I1TYtfa68hK0KX4Bbg9q
- Fy/IxmcVGbhXSBe7bCLDb3Nn8xvA8y5vLVQv5vW+guyFGidUQpPTlb86Y
- bGubZJpXhGID12aIZ8JoPlfB6EgpKeyeYRCUZRjo8wPC/O2UYksitYorH
- BHK825QmixxlASeAN7ciR5XBlCVBEuptNVAKJWu4zZLXebkckJsgSE3b+
- 27wTbgWP7fsYUyCEjnSE+aK4AF8E6iWq4ZmaesGqeUCCYAxZNhN5TLBDN
- MfqNaTa7ljTnexHuU+b0Y9jsWCNrsEmIgpIV21PcXoPRyULT10zb47bUh Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="380196415"
-X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="380196415"
+ bh=EAK+5hwzY0wvRP38xByRdKBSasfEWDRGmSbRSdfZRQM=;
+ b=bxobFOcOT53GjxcX0jqi7jmc/LYNBvX87YbGn4RFlC/AL+Vdwc0oZ2md
+ l9y+HgWL3F8ew+kE3UsMnuklyfgKvlOK0z/GfmFn4bhLVqJn1iBQUkse/
+ vuzilL4TJNqxyOlrXHlo0soGUKmBQiKtdqx85xwppH1mQcdUW5mf8bvp8
+ vz0TwwnEhpNcOCmqRf5qY2Ff02hrUICgbNkbBZPfTA1b9HnnAzd80ERy3
+ XRXz/EqU/wButwAOQCsLNm6HR1ylaitOwMQiL6foRtByK1+xvDa9V091Y
+ SvYcjEbOyB1sXiH2HTrpryk9Img+6K/J3i5Qs87kyiiw0NRofonz1aamC A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="380196393"
+X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="380196393"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 15:15:39 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="679090374"
-X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="679090374"
+ 12 Dec 2022 15:15:37 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="679090353"
+X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="679090353"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 15:15:39 -0800
+ 12 Dec 2022 15:15:36 -0800
 From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Mon, 12 Dec 2022 15:15:26 -0800
-Message-Id: <20221212231527.2384-23-niranjana.vishwanathapura@intel.com>
+Date: Mon, 12 Dec 2022 15:15:19 -0800
+Message-Id: <20221212231527.2384-16-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
 In-Reply-To: <20221212231527.2384-1-niranjana.vishwanathapura@intel.com>
 References: <20221212231527.2384-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 22/23] drm/i915/vm_bind: Properly build
- persistent map sg table
+Subject: [Intel-gfx] [PATCH v9 15/23] drm/i915/vm_bind: Expose
+ i915_request_await_bind()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,154 +63,70 @@ Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Properly build the sg table for persistent mapping which can
-be partial map of the underlying object. Ensure the sg pages
-are properly set for page backed regions. The dump capture
-support requires this for page backed regions.
+Rename __i915_request_await_bind() as i915_request_await_bind()
+and make it non-static as it will be used in execbuf3 ioctl path.
 
+v2: add documentation
+
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 ---
- drivers/gpu/drm/i915/i915_vma.c | 120 +++++++++++++++++++++++++++++++-
- 1 file changed, 119 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_vma.c |  8 +-------
+ drivers/gpu/drm/i915/i915_vma.h | 16 ++++++++++++++++
+ 2 files changed, 17 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index 7f23adcfb253..d092a86123ae 100644
+index 7013b2936565..af3eb6ce68b0 100644
 --- a/drivers/gpu/drm/i915/i915_vma.c
 +++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -1328,6 +1328,120 @@ intel_partial_pages(const struct i915_gtt_view *view,
- 	return ERR_PTR(ret);
+@@ -1923,18 +1923,12 @@ void i915_vma_revoke_mmap(struct i915_vma *vma)
+ 		list_del(&vma->obj->userfault_link);
  }
  
-+static unsigned int
-+intel_copy_dma_sg(struct sg_table *src_st, struct sg_table *dst_st,
-+		  u64 offset, u64 length, bool dry_run)
-+{
-+	struct scatterlist *dst_sg, *src_sg;
-+	unsigned int i, len, nents = 0;
-+
-+	dst_sg = dst_st->sgl;
-+	for_each_sgtable_dma_sg(src_st, src_sg, i) {
-+		if (sg_dma_len(src_sg) <= offset) {
-+			offset -= sg_dma_len(src_sg);
-+			continue;
-+		}
-+
-+		nents++;
-+		len = min(sg_dma_len(src_sg) - offset, length);
-+		if (!dry_run) {
-+			sg_dma_address(dst_sg) = sg_dma_address(src_sg) + offset;
-+			sg_dma_len(dst_sg) = len;
-+			dst_sg = sg_next(dst_sg);
-+		}
-+
-+		length -= len;
-+		offset = 0;
-+		if (!length)
-+			break;
-+	}
-+	WARN_ON_ONCE(length);
-+
-+	return nents;
-+}
-+
-+static unsigned int
-+intel_copy_sg(struct sg_table *src_st, struct sg_table *dst_st,
-+	      u64 offset, u64 length, bool dry_run)
-+{
-+	struct scatterlist *dst_sg, *src_sg;
-+	unsigned int i, len, nents = 0;
-+
-+	dst_sg = dst_st->sgl;
-+	for_each_sgtable_sg(src_st, src_sg, i) {
-+		if (src_sg->length <= offset) {
-+			offset -= src_sg->length;
-+			continue;
-+		}
-+
-+		nents++;
-+		len = min(src_sg->length - offset, length);
-+		if (!dry_run) {
-+			unsigned long pfn;
-+
-+			pfn = page_to_pfn(sg_page(src_sg)) + offset / PAGE_SIZE;
-+			sg_set_page(dst_sg, pfn_to_page(pfn), len, 0);
-+			dst_sg = sg_next(dst_sg);
-+		}
-+
-+		length -= len;
-+		offset = 0;
-+		if (!length)
-+			break;
-+	}
-+	WARN_ON_ONCE(length);
-+
-+	return nents;
-+}
-+
-+static noinline struct sg_table *
-+intel_persistent_partial_pages(const struct i915_gtt_view *view,
-+			       struct drm_i915_gem_object *obj)
-+{
-+	u64 offset = view->partial.offset << PAGE_SHIFT;
-+	struct sg_table *st, *obj_st = obj->mm.pages;
-+	u64 length = view->partial.size << PAGE_SHIFT;
-+	struct scatterlist *sg;
-+	unsigned int nents;
-+	int ret = -ENOMEM;
-+
-+	st = kmalloc(sizeof(*st), GFP_KERNEL);
-+	if (!st)
-+		goto err_st_alloc;
-+
-+	/* Get required sg_table size */
-+	nents = intel_copy_dma_sg(obj_st, st, offset, length, true);
-+	if (i915_gem_object_has_struct_page(obj)) {
-+		unsigned int pg_nents;
-+
-+		pg_nents = intel_copy_sg(obj_st, st, offset, length, true);
-+		if (nents < pg_nents)
-+			nents = pg_nents;
-+	}
-+
-+	ret = sg_alloc_table(st, nents, GFP_KERNEL);
-+	if (ret)
-+		goto err_sg_alloc;
-+
-+	/* Build sg_table for specified <offset, length> section */
-+	intel_copy_dma_sg(obj_st, st, offset, length, false);
-+	if (i915_gem_object_has_struct_page(obj))
-+		intel_copy_sg(obj_st, st, offset, length, false);
-+
-+	/* Mark last sg */
-+	sg = st->sgl;
-+	while (sg_next(sg))
-+		sg = sg_next(sg);
-+	sg_mark_end(sg);
-+
-+	return st;
-+
-+err_sg_alloc:
-+	kfree(st);
-+err_st_alloc:
-+	return ERR_PTR(ret);
-+}
-+
- static int
- __i915_vma_get_pages(struct i915_vma *vma)
+-static int
+-__i915_request_await_bind(struct i915_request *rq, struct i915_vma *vma)
+-{
+-	return __i915_request_await_exclusive(rq, &vma->active);
+-}
+-
+ static int __i915_vma_move_to_active(struct i915_vma *vma, struct i915_request *rq)
  {
-@@ -1360,7 +1474,11 @@ __i915_vma_get_pages(struct i915_vma *vma)
- 		break;
+ 	int err;
  
- 	case I915_GTT_VIEW_PARTIAL:
--		pages = intel_partial_pages(&vma->gtt_view, vma->obj);
-+		if (i915_vma_is_persistent(vma))
-+			pages = intel_persistent_partial_pages(&vma->gtt_view,
-+							       vma->obj);
-+		else
-+			pages = intel_partial_pages(&vma->gtt_view, vma->obj);
- 		break;
- 	}
+ 	/* Wait for the vma to be bound before we start! */
+-	err = __i915_request_await_bind(rq, vma);
++	err = i915_request_await_bind(rq, vma);
+ 	if (err)
+ 		return err;
  
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 1f25e45a6325..d6c05227fb04 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -55,6 +55,22 @@ void i915_vma_unpin_and_release(struct i915_vma **p_vma, unsigned int flags);
+ #define __EXEC_OBJECT_NO_RESERVE BIT(31)
+ #define __EXEC_OBJECT_NO_REQUEST_AWAIT BIT(30)
+ 
++/**
++ * i915_request_await_bind() - Setup request to wait for a vma bind completion
++ * @rq: the request which should wait
++ * @vma: vma whose binding @rq should wait to complete
++ *
++ * Setup the request @rq to asynchronously wait for @vma bind to complete
++ * before starting execution.
++ *
++ * Returns 0 on success, error code on failure.
++ */
++static inline int
++i915_request_await_bind(struct i915_request *rq, struct i915_vma *vma)
++{
++	return __i915_request_await_exclusive(rq, &vma->active);
++}
++
+ int __must_check _i915_vma_move_to_active(struct i915_vma *vma,
+ 					  struct i915_request *rq,
+ 					  struct dma_fence *fence,
 -- 
 2.21.0.rc0.32.g243a4c7e27
 
