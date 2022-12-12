@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EE32C00145
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 23:16:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A407DC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 23:16:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15BD110E2B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D49EA10E2BC;
 	Mon, 12 Dec 2022 23:15:41 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3F7B10E2AF;
- Mon, 12 Dec 2022 23:15:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87D1810E2AE;
+ Mon, 12 Dec 2022 23:15:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670886933; x=1702422933;
+ t=1670886935; x=1702422935;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=AF4DYUOyi5ODFOvZGVIS/rDN+jHdZGyUwuQ1rBSoTnc=;
- b=MSzqiz4T8nZWS03qtBxgeJdb/xEHIozOQVYeC5J2DeoHnZkrjtyNT2Hu
- 2vo7SeOaD7P8lLdXxvteljQVeX/aukKXcw9NmMD9nEkadh+Kc3UMe/jyO
- vPuyePiywaZyRvIXDDVnxzKVlBuweA+fyyiHlHqSY8rUP5txO0uNwUYJw
- 7cI99NNoZFALDQEg0s37AVxE+p6dXUsV90Rf3JUJfoe0b7PGw34Qq/UVo
- 3wpRVrHJQoifL0/ReyQ8YJpu8M1uyKdFwxcsVMZUPrJ16b+1Eqcjnr6un
- jSeF4wTPiOqjSsmce25ZCSc/2yQangFcPRVUUlgFG3atWg9D/+OavzR0h g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="380196347"
-X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="380196347"
+ bh=NMv8w7zmkShmhQhh+T7LXE+t5tHu350GVIZ/ZhhU01o=;
+ b=hTcXFz9kzPK+auvw2/VK1wG8yJSg1Eb3DZgz0iXZVPU8QkSDWfQNwXAb
+ qYkwm+fz10c9L4oNVOqZhuh5D7+W9NIL8EYIMnCzaMr+VCaIql0TxX3EG
+ 8iO5Pyi/YkJAUBXRqLn8dGGgoaPvJMBZIJpA26grtM6HKvxM2iqkb9Cqw
+ GOMdgAJPxNRztxblHeC2PvVrU26A7uejY3E0DD9LmSyn2Ty7kyFqCwk3E
+ EUDff3or/lXXMiCWhJfgxAOToKd1936VUCfUlVDn8vUcPbKHl62B40Ur1
+ 32FbyBCcsF8OC6ArRKI+UHgoq68Kj2cEkdD6GSxjiw0o72ypHOkFbvsn3 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="380196371"
+X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="380196371"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 15:15:33 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="679090309"
-X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="679090309"
+ 12 Dec 2022 15:15:35 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="679090328"
+X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="679090328"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 15:15:33 -0800
+ 12 Dec 2022 15:15:34 -0800
 From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Mon, 12 Dec 2022 15:15:07 -0800
-Message-Id: <20221212231527.2384-4-niranjana.vishwanathapura@intel.com>
+Date: Mon, 12 Dec 2022 15:15:13 -0800
+Message-Id: <20221212231527.2384-10-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
 In-Reply-To: <20221212231527.2384-1-niranjana.vishwanathapura@intel.com>
 References: <20221212231527.2384-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 03/23] drm/i915/vm_bind: Expose
- i915_gem_object_max_page_size()
+Subject: [Intel-gfx] [PATCH v9 09/23] drm/i915/vm_bind: Support persistent
+ vma activeness tracking
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,74 +63,200 @@ Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Expose i915_gem_object_max_page_size() function non-static
-which will be used by the vm_bind feature.
+Do not use i915_vma activeness tracking for persistent vmas.
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+As persistent vmas are part of working set for each execbuf
+submission on that address space (VM), a persistent vma is
+active if the VM active. As vm->root_obj->base.resv will be
+updated for each submission on that VM, it correctly
+represent whether the VM is active or not.
+
+Add i915_vm_is_active() and i915_vm_sync() functions based
+on vm->root_obj->base.resv with DMA_RESV_USAGE_BOOKKEEP
+usage. dma-resv fence list will be updated with this usage
+during each submission with this VM in the new execbuf3
+ioctl path.
+
+Update i915_vma_is_active(), i915_vma_sync() and the
+__i915_vma_unbind_async() functions to properly handle
+persistent vmas.
+
+v2: Ensure lvalue of dma_resv_wait_timeout() call is long.
+
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_create.c | 18 +++++++++++++-----
- drivers/gpu/drm/i915/gem/i915_gem_object.h |  2 ++
- 2 files changed, 15 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_gem_gtt.c | 39 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_gem_gtt.h |  3 +++
+ drivers/gpu/drm/i915/i915_vma.c     | 28 +++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_vma.h     | 25 +++++++++---------
+ 4 files changed, 83 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-index 005a7f842784..86469710bd59 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
-@@ -15,10 +15,18 @@
+diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.c b/drivers/gpu/drm/i915/i915_gem_gtt.c
+index 7bd1861ddbdf..1d8506548d4a 100644
+--- a/drivers/gpu/drm/i915/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/i915_gem_gtt.c
+@@ -25,6 +25,45 @@
  #include "i915_trace.h"
- #include "i915_user_extensions.h"
+ #include "i915_vgpu.h"
  
--static u32 object_max_page_size(struct intel_memory_region **placements,
--				unsigned int n_placements)
 +/**
-+ * i915_gem_object_max_page_size() - max of min_page_size of the regions
-+ * @placements:  list of regions
-+ * @n_placements: number of the placements
++ * i915_vm_sync() - Wait until address space is not in use
++ * @vm: address space
 + *
-+ * Returns the largest of min_page_size of the @placements,
-+ * or I915_GTT_PAGE_SIZE_4K if @n_placements is 0.
++ * Waits until all requests using the address space are complete.
++ *
++ * Returns: 0 if success, -ve err code upon failure
 + */
-+u32 i915_gem_object_max_page_size(struct intel_memory_region **placements,
-+				  unsigned int n_placements)
++int i915_vm_sync(struct i915_address_space *vm)
++{
++	long ret;
++
++	/* Wait for all requests under this vm to finish */
++	ret = dma_resv_wait_timeout(vm->root_obj->base.resv,
++				    DMA_RESV_USAGE_BOOKKEEP, false,
++				    MAX_SCHEDULE_TIMEOUT);
++	if (ret < 0)
++		return ret;
++	else if (ret > 0)
++		return 0;
++	else
++		return -ETIMEDOUT;
++}
++
++/**
++ * i915_vm_is_active() - Check if address space is being used
++ * @vm: address space
++ *
++ * Check if any request using the specified address space is
++ * active.
++ *
++ * Returns: true if address space is active, false otherwise.
++ */
++bool i915_vm_is_active(const struct i915_address_space *vm)
++{
++	return !dma_resv_test_signaled(vm->root_obj->base.resv,
++				       DMA_RESV_USAGE_BOOKKEEP);
++}
++
+ int i915_gem_gtt_prepare_pages(struct drm_i915_gem_object *obj,
+ 			       struct sg_table *pages)
  {
--	u32 max_page_size = 0;
-+	u32 max_page_size = I915_GTT_PAGE_SIZE_4K;
- 	int i;
+diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.h b/drivers/gpu/drm/i915/i915_gem_gtt.h
+index 243419783052..e62b52c74586 100644
+--- a/drivers/gpu/drm/i915/i915_gem_gtt.h
++++ b/drivers/gpu/drm/i915/i915_gem_gtt.h
+@@ -52,4 +52,7 @@ int i915_gem_gtt_insert(struct i915_address_space *vm,
  
- 	for (i = 0; i < n_placements; i++) {
-@@ -28,7 +36,6 @@ static u32 object_max_page_size(struct intel_memory_region **placements,
- 		max_page_size = max_t(u32, max_page_size, mr->min_page_size);
+ #define PIN_OFFSET_MASK		I915_GTT_PAGE_MASK
+ 
++int i915_vm_sync(struct i915_address_space *vm);
++bool i915_vm_is_active(const struct i915_address_space *vm);
++
+ #endif
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 353203bd5685..c9527f1fdab9 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -422,6 +422,24 @@ int i915_vma_wait_for_bind(struct i915_vma *vma)
+ 	return err;
+ }
+ 
++/**
++ * i915_vma_sync() - Wait for the vma to be idle
++ * @vma: vma to be tested
++ *
++ * Returns 0 on success and error code on failure
++ */
++int i915_vma_sync(struct i915_vma *vma)
++{
++	int ret;
++
++	/* Wait for the asynchronous bindings and pending GPU reads */
++	ret = i915_active_wait(&vma->active);
++	if (ret || !i915_vma_is_persistent(vma) || i915_vma_is_purged(vma))
++		return ret;
++
++	return i915_vm_sync(vma->vm);
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
+ static int i915_vma_verify_bind_complete(struct i915_vma *vma)
+ {
+@@ -1917,6 +1935,8 @@ int _i915_vma_move_to_active(struct i915_vma *vma,
+ 	int err;
+ 
+ 	assert_object_held(obj);
++	if (i915_vma_is_persistent(vma))
++		return -EINVAL;
+ 
+ 	GEM_BUG_ON(!vma->pages);
+ 
+@@ -2131,6 +2151,14 @@ static struct dma_fence *__i915_vma_unbind_async(struct i915_vma *vma)
+ 		return ERR_PTR(-EBUSY);
  	}
  
--	GEM_BUG_ON(!max_page_size);
- 	return max_page_size;
++	if (i915_vma_is_persistent(vma) &&
++	    __i915_sw_fence_await_reservation(&vma->resource->chain,
++					      vma->vm->root_obj->base.resv,
++					      DMA_RESV_USAGE_BOOKKEEP,
++					      i915_fence_timeout(vma->vm->i915),
++					      GFP_NOWAIT | __GFP_NOWARN) < 0)
++		return ERR_PTR(-EBUSY);
++
+ 	fence = __i915_vma_evict(vma, true);
+ 
+ 	drm_mm_remove_node(&vma->node); /* pairs with i915_vma_release() */
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 7b1bf5ba4f12..de1756e4f638 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -51,12 +51,6 @@ i915_vma_create_persistent(struct drm_i915_gem_object *obj,
+ 
+ void i915_vma_unpin_and_release(struct i915_vma **p_vma, unsigned int flags);
+ #define I915_VMA_RELEASE_MAP BIT(0)
+-
+-static inline bool i915_vma_is_active(const struct i915_vma *vma)
+-{
+-	return !i915_active_is_idle(&vma->active);
+-}
+-
+ /* do not reserve memory to prevent deadlocks */
+ #define __EXEC_OBJECT_NO_RESERVE BIT(31)
+ #define __EXEC_OBJECT_NO_REQUEST_AWAIT BIT(30)
+@@ -209,6 +203,18 @@ static inline void i915_vma_set_purged(struct i915_vma *vma)
+ 	set_bit(I915_VMA_PURGED_BIT, __i915_vma_flags(vma));
  }
  
-@@ -99,7 +106,8 @@ __i915_gem_object_create_user_ext(struct drm_i915_private *i915, u64 size,
++static inline bool i915_vma_is_active(const struct i915_vma *vma)
++{
++	if (i915_vma_is_persistent(vma)) {
++		if (i915_vma_is_purged(vma))
++			return false;
++
++		return i915_vm_is_active(vma->vm);
++	}
++
++	return !i915_active_is_idle(&vma->active);
++}
++
+ static inline struct i915_vma *i915_vma_get(struct i915_vma *vma)
+ {
+ 	i915_gem_object_get(vma->obj);
+@@ -480,12 +486,7 @@ void i915_vma_make_shrinkable(struct i915_vma *vma);
+ void i915_vma_make_purgeable(struct i915_vma *vma);
  
- 	i915_gem_flush_free_objects(i915);
+ int i915_vma_wait_for_bind(struct i915_vma *vma);
+-
+-static inline int i915_vma_sync(struct i915_vma *vma)
+-{
+-	/* Wait for the asynchronous bindings and pending GPU reads */
+-	return i915_active_wait(&vma->active);
+-}
++int i915_vma_sync(struct i915_vma *vma);
  
--	size = round_up(size, object_max_page_size(placements, n_placements));
-+	size = round_up(size, i915_gem_object_max_page_size(placements,
-+							    n_placements));
- 	if (size == 0)
- 		return ERR_PTR(-EINVAL);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index 3db53769864c..5455ca0eabe9 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -47,6 +47,8 @@ static inline bool i915_gem_object_size_2big(u64 size)
- }
- 
- void i915_gem_init__objects(struct drm_i915_private *i915);
-+u32 i915_gem_object_max_page_size(struct intel_memory_region **placements,
-+				  unsigned int n_placements);
- 
- void i915_objects_module_exit(void);
- int i915_objects_module_init(void);
+ /**
+  * i915_vma_get_current_resource - Get the current resource of the vma
 -- 
 2.21.0.rc0.32.g243a4c7e27
 
